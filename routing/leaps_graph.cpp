@@ -119,4 +119,28 @@ RouteWeight LeapsGraph::GetAStarWeightEpsilon()
 {
   return m_starter.GetAStarWeightEpsilon();
 }
+
+RouteWeight LeapsGraph::CalcMiddleCrossMwmWeight(std::vector<Segment> const & path)
+{
+  ASSERT_GREATER(path.size(), 1, ());
+  auto & crossMwmGraph = m_starter.GetGraph().GetCrossMwmGraph();
+
+  RouteWeight res;
+  for (size_t i = 1; i < path.size() - 2; ++i)
+  {
+    auto const & from = path[i];
+    auto const & to = path[i + 1];
+    NumMwmId const fromMwm = from.GetMwmId();
+    NumMwmId const toMwm = to.GetMwmId();
+    ASSERT(fromMwm != kFakeNumMwmId && toMwm != kFakeNumMwmId, ());
+
+    if (fromMwm != toMwm)
+      res += m_hierarchyHandler.GetCrossBorderPenalty(fromMwm, toMwm);
+    else
+      res += crossMwmGraph.GetWeightSure(from, to);
+  }
+
+  return res;
+}
+
 }  // namespace routing

@@ -1,12 +1,13 @@
 #include "routing/index_router.hpp"
 
 #include "routing/base/astar_progress.hpp"
-#include "routing/base/bfs.hpp"
+
 #include "routing/car_directions.hpp"
 #include "routing/fake_ending.hpp"
 #include "routing/index_graph.hpp"
 #include "routing/index_graph_loader.hpp"
 #include "routing/index_graph_starter.hpp"
+#include "routing/index_graph_starter_joints.hpp"
 #include "routing/index_road_graph.hpp"
 #include "routing/junction_visitor.hpp"
 #include "routing/leaps_graph.hpp"
@@ -14,7 +15,6 @@
 #include "routing/mwm_hierarchy_handler.hpp"
 #include "routing/pedestrian_directions.hpp"
 #include "routing/route.hpp"
-#include "routing/routing_exceptions.hpp"
 #include "routing/routing_helpers.hpp"
 #include "routing/routing_options.hpp"
 #include "routing/single_vehicle_world_graph.hpp"
@@ -30,9 +30,7 @@
 #include "routing_common/pedestrian_model.hpp"
 
 #include "indexer/data_source.hpp"
-#include "indexer/scales.hpp"
 
-#include "platform/mwm_traits.hpp"
 #include "platform/settings.hpp"
 
 #include "geometry/distance_on_sphere.hpp"
@@ -51,12 +49,9 @@
 #include "defines.hpp"
 
 #include <algorithm>
-#include <cstdlib>
 #include <deque>
 #include <iterator>
-#include <limits>
 #include <map>
-#include <optional>
 
 namespace routing
 {
@@ -70,6 +65,7 @@ uint32_t constexpr kVisitPeriodForLeaps = 10;
 uint32_t constexpr kVisitPeriod = 40;
 
 double constexpr kLeapsStageContribution = 0.15;
+double constexpr kCandidatesStageContribution = 0.5;
 double constexpr kAlmostZeroContribution = 1e-7;
 
 // If user left the route within this range(meters), adjust the route. Else full rebuild.
@@ -796,6 +792,8 @@ RouterResultCode IndexRouter::CalculateSubrouteLeapsOnlyMode(
 
   // Get cross-mwm routes-candidates.
   std::vector<RoutingResultT> candidates;
+  std::vector<RouteWeight> candidateMidWeights;
+
   {
     LeapsGraph leapsGraph(starter, MwmHierarchyHandler(m_numMwmIds, m_countryParentNameGetterFn));
 
@@ -867,6 +865,10 @@ RouterResultCode IndexRouter::CalculateSubrouteLeapsOnlyMode(
     {
       return l.m_distance < r.m_distance;
     });
+
+    candidateMidWeights.reserve(candidates.size());
+    for (auto const & c : candidates)
+      candidateMidWeights.push_back(leapsGraph.CalcMiddleCrossMwmWeight(c.m_path));
   }
 
   // Purge cross-mwm-graph cache memory before calculating subroutes for each MWM.
@@ -874,18 +876,44 @@ RouterResultCode IndexRouter::CalculateSubrouteLeapsOnlyMode(
   starter.GetGraph().GetCrossMwmGraph().Purge();
 
   ASSERT_EQUAL(starter.GetGraph().GetMode(), WorldGraphMode::LeapsOnly, ());
+  starter.GetGraph().SetMode(WorldGraphMode::JointSingleMwm);
 
-  RoutingResultT result;
-  RoutesCacheT cache;
-  for (auto const & e : candidates)
+  RoutesCalculator calculator(starter, delegate);
+
+  double const candidateContribution = kCandidatesStageContribution / (2 * candidates.size());
+
+  // Select best candidate by calculating start/end sub-routes and using candidateMidWeights.
+  RoutingResultT const * bestC = nullptr;
+  RouteWeight bestW = GetAStarWeightMax<RouteWeight>();
+  for (size_t i = 0; i < candidates.size(); ++i)
   {
-    LOG(LDEBUG, ("Process leaps:", e.m_distance, e.m_path));
+    auto const & c = candidates[i];
+    LOG(LDEBUG, ("Process leaps:", c.m_distance, c.m_path));
 
-    SCOPE_GUARD(progressGuard, [&progress]() { progress->PushAndDropLastSubProgress(); });
-    progress->AppendSubProgress(AStarSubProgress((1.0 - kLeapsStageContribution) / candidates.size()));
+    size_t const sz = c.m_path.size();
+    auto const * r1 = calculator.Calc(c.m_path[0], c.m_path[1], progress, candidateContribution);
+    auto const * r2 = calculator.Calc(c.m_path[sz-2], c.m_path[sz-1], progress, candidateContribution);
 
-    ProcessLeapsJoints(e.m_path, delegate, starter, progress, cache, result);
+    if (r1 && r2)
+    {
+      RouteWeight const w = r1->m_distance + candidateMidWeights[i] + r2->m_distance;
+      if (w < bestW)
+      {
+        bestW = w;
+        bestC = &c;
+      }
+    }
   }
+
+  SCOPE_GUARD(progressGuard, [&progress]() { progress->PushAndDropLastSubProgress(); });
+  progress->AppendSubProgress(AStarSubProgress(1 - kLeapsStageContribution - kCandidatesStageContribution));
+
+  if (bestC == nullptr)
+    return RouterResultCode::RouteNotFound;
+
+  // Calculate route for the best candidate.
+  RoutingResultT result;
+  ProcessLeapsJoints(bestC->m_path, starter, progress, calculator, result);
 
   if (result.Empty())
     return RouterResultCode::RouteNotFound;
@@ -1288,11 +1316,55 @@ bool IndexRouter::PointsOnEdgesSnapping::FindBestEdges(
   return true;
 }
 
+IndexRouter::RoutingResultT const * IndexRouter::RoutesCalculator::Calc(
+    Segment const & beg, Segment const & end,
+    shared_ptr<AStarProgress> const & progress, double progressCoef)
+{
+  auto itCache = m_cache.insert({{beg, end}, {}});
+  auto * res = &itCache.first->second;
+
+  // Actually, we can (should?) append/push-drop progress even if the route is already in cache,
+  // but I'd like to avoid this unnecessary actions here.
+  if (itCache.second)
+  {
+    LOG(LDEBUG, ("Calculating sub-route:", beg, end));
+    progress->AppendSubProgress({m_starter.GetPoint(beg, true), m_starter.GetPoint(end, true), progressCoef});
+
+    using JointsStarter = IndexGraphStarterJoints<IndexGraphStarter>;
+    JointsStarter jointStarter(m_starter);
+    jointStarter.Init(beg, end);
+
+    using Vertex = JointsStarter::Vertex;
+    using Edge = JointsStarter::Edge;
+    using Weight = JointsStarter::Weight;
+
+    using Visitor = JunctionVisitor<JointsStarter>;
+    AStarAlgorithm<Vertex, Edge, Weight>::Params<Visitor, AStarLengthChecker> params(
+        jointStarter, jointStarter.GetStartJoint(), jointStarter.GetFinishJoint(),
+        m_delegate.GetCancellable(), Visitor(jointStarter, m_delegate, kVisitPeriod, progress),
+        AStarLengthChecker(m_starter));
+
+    RoutingResult<JointSegment, RouteWeight> route;
+    using AlgoT = AStarAlgorithm<Vertex, Edge, Weight>;
+
+    if (AlgoT().FindPathBidirectional(params, route) == AlgoT::Result::OK)
+    {
+      res->m_path = ProcessJoints(route.m_path, jointStarter);
+      res->m_distance = route.m_distance;
+
+      progress->PushAndDropLastSubProgress();
+    }
+    else
+      progress->DropLastSubProgress();
+  }
+
+  return res->Empty() ? nullptr : res;
+}
+
 RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
-                                                 RouterDelegate const & delegate,
                                                  IndexGraphStarter & starter,
                                                  shared_ptr<AStarProgress> const & progress,
-                                                 RoutesCacheT & cache,
+                                                 RoutesCalculator & calculator,
                                                  RoutingResultT & result)
 {
   CHECK_GREATER_OR_EQUAL(input.size(), 4, ());
@@ -1352,31 +1424,8 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
       ASSERT_LESS(start, input.size(), ());
       ASSERT_LESS(end, input.size(), ());
 
-      // Prepare sub-progress.
       maxStart = max(maxStart, start);
       auto const contribCoef = static_cast<double>(end - maxStart + 1) / input.size() / arrBegEnd.size();
-      auto const startPoint = starter.GetPoint(input[start], true /* front */);
-      auto const endPoint = starter.GetPoint(input[end], true /* front */);
-      progress->AppendSubProgress({startPoint, endPoint, contribCoef});
-
-      RoutingResultT * resPtr = nullptr;
-      SCOPE_GUARD(progressGuard, [&]()
-      {
-        if (resPtr)
-          progress->PushAndDropLastSubProgress();
-        else
-          progress->DropLastSubProgress();
-      });
-
-      // Check if segment was already calculated.
-      auto itCache = cache.insert({{input[start], input[end]}, {}});
-      resPtr = &itCache.first->second;
-      if (!itCache.second)
-      {
-        LOG(LDEBUG, ("Returned from cache:", input[start], input[end]));
-        return resPtr;
-      }
-      LOG(LDEBUG, ("Calculating sub-route:", input[start], input[end]));
 
       // VNG: I don't like this strategy with clearing previous caches, taking into account
       // that all MWMs were quite likely already loaded before in calculating Leaps path.
@@ -1384,47 +1433,7 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
       //worldGraph.ClearCachedGraphs();
       worldGraph.SetMode(mode);
 
-      // Fill needed MWMs.
-      set<NumMwmId> mwmIds;
-      if (start == startLeapEnd)
-        mwmIds = starter.GetStartMwms();
-
-      if (end == finishLeapStart)
-        mwmIds = starter.GetFinishMwms();
-
-      for (size_t i = start; i <= end; ++i)
-      {
-        if (input[i].GetMwmId() != kFakeNumMwmId)
-          mwmIds.insert(input[i].GetMwmId());
-      }
-
-      using JointsStarter = IndexGraphStarterJoints<IndexGraphStarter>;
-      JointsStarter jointStarter(starter);
-      jointStarter.Init(input[start], input[end]);
-
-      using Vertex = JointsStarter::Vertex;
-      using Edge = JointsStarter::Edge;
-      using Weight = JointsStarter::Weight;
-
-      using Visitor = JunctionVisitor<JointsStarter>;
-      AStarAlgorithm<Vertex, Edge, Weight>::Params<Visitor, AStarLengthChecker> params(
-          jointStarter, jointStarter.GetStartJoint(), jointStarter.GetFinishJoint(),
-          delegate.GetCancellable(), Visitor(jointStarter, delegate, kVisitPeriod, progress),
-          AStarLengthChecker(starter));
-
-      RoutingResult<JointSegment, RouteWeight> route;
-      if (FindPath<Vertex, Edge, Weight>(params, mwmIds, route) == RouterResultCode::NoError)
-      {
-        resPtr->m_path = ProcessJoints(route.m_path, jointStarter);
-        resPtr->m_distance = route.m_distance;
-      }
-      else
-      {
-        cache.erase(itCache.first);
-        resPtr = nullptr;
-      }
-
-      return resPtr;
+      return calculator.Calc(input[start], input[end], progress, contribCoef);
     };
 
     vector<vector<Segment>> paths;
@@ -1579,6 +1588,15 @@ RouterResultCode IndexRouter::RedressRoute(vector<Segment> const & segments,
   m_directionsEngine->SetVehicleType(m_vehicleType);
   ReconstructRoute(*m_directionsEngine, roadGraph, cancellable, junctions, times, route);
 
+  if (cancellable.IsCancelled())
+    return RouterResultCode::Cancelled;
+
+  if (!route.IsValid())
+  {
+    LOG(LERROR, ("RedressRoute failed, segmenst count =", segments.size()));
+    return RouterResultCode::RouteNotFoundRedressRouteError;
+  }
+
   /// @todo I suspect that we can avoid calculating segments inside ReconstructRoute
   /// and use original |segments| (IndexRoadGraph::GetRouteSegments).
 #ifdef DEBUG
@@ -1625,15 +1643,6 @@ RouterResultCode IndexRouter::RedressRoute(vector<Segment> const & segments,
   vector<platform::CountryFile> speedCamProhibited;
   FillSpeedCamProhibitedMwms(segments, speedCamProhibited);
   route.SetMwmsPartlyProhibitedForSpeedCams(move(speedCamProhibited));
-
-  if (cancellable.IsCancelled())
-    return RouterResultCode::Cancelled;
-
-  if (!route.IsValid())
-  {
-    LOG(LERROR, ("RedressRoute failed. Segments:", segments.size()));
-    return RouterResultCode::RouteNotFoundRedressRouteError;
-  }
 
   return RouterResultCode::NoError;
 }

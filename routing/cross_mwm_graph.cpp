@@ -4,15 +4,10 @@
 #include "routing/routing_exceptions.hpp"
 #include "routing/transit_graph.hpp"
 
-#include "indexer/scales.hpp"
-
 #include "base/assert.hpp"
 #include "base/stl_helpers.hpp"
 
 #include "defines.hpp"
-
-#include <numeric>
-#include <utility>
 
 namespace routing
 {
@@ -171,6 +166,13 @@ void CrossMwmGraph::GetIngoingEdgeList(Segment const & exit, EdgeListT & edges)
 
   if (CrossMwmSectionExists(exit.GetMwmId()))
     m_crossMwmIndexGraph.GetIngoingEdgeList(exit, edges);
+}
+
+RouteWeight CrossMwmGraph::GetWeightSure(Segment const & from, Segment const & to)
+{
+  ASSERT_EQUAL(from.GetMwmId(), to.GetMwmId(), ());
+  ASSERT(CrossMwmSectionExists(from.GetMwmId()), ());
+  return m_crossMwmIndexGraph.GetWeightSure(from, to);
 }
 
 //void CrossMwmGraph::Clear()
