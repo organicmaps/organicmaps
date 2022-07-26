@@ -5,9 +5,6 @@
 
 #include "routing/base/small_list.hpp"
 
-#include "geometry/mercator.hpp"
-#include "geometry/point2d.hpp"
-
 #include "coding/map_uint32_to_val.hpp"
 #include "coding/sparse_vector.hpp"
 
@@ -158,6 +155,13 @@ public:
     {
       AddEdge(s, enterIdx, exitIdx, edges);
     });
+  }
+
+  RouteWeight GetWeightSure(Segment const & from, Segment const & to) const
+  {
+    auto const weight = GetWeight(GetTransition(from).m_enterIdx, GetTransition(to).m_exitIdx);
+    ASSERT(weight != connector::kNoRouteStored, ());
+    return RouteWeight::FromCrossMwmWeight(weight);
   }
 
   uint32_t GetNumEnters() const { return m_entersCount; }

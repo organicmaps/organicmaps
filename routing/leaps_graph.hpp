@@ -33,6 +33,8 @@ public:
   Segment const & GetFinishSegment() const { return m_finishSegment; }
   ms::LatLon const & GetPoint(Segment const & segment, bool front) const;
 
+  RouteWeight CalcMiddleCrossMwmWeight(std::vector<Segment> const & path);
+
 private:
   void GetEdgesList(Segment const & segment, bool isOutgoing, EdgeListT & edges);
 

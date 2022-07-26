@@ -3,8 +3,6 @@
 #include "routing/cross_mwm_connector.hpp"
 #include "routing/cross_mwm_connector_serialization.hpp"
 #include "routing/data_source.hpp"
-#include "routing/fake_feature_ids.hpp"
-#include "routing/routing_exceptions.hpp"
 #include "routing/segment.hpp"
 #include "routing/vehicle_mask.hpp"
 
@@ -78,8 +76,7 @@ public:
 
   /// \brief Fills |twins| based on transitions defined in cross_mwm section.
   /// \note In cross_mwm section transitions are defined by osm ids of theirs features.
-  /// \note This method fills |twins| with all available twins iff all neighboring of mwm of |s|
-  //        have cross_mwm section.
+  /// This method fills |twins| with all available twins iff all neighbor MWMs of |s| have cross_mwm section.
   void GetTwinsByCrossMwmId(Segment const & s, bool isOutgoing, std::vector<NumMwmId> const & neighbors,
                             std::vector<Segment> & twins)
   {
@@ -150,6 +147,13 @@ public:
   {
     CrossMwmConnector<CrossMwmId> const & c = GetCrossMwmConnectorWithWeights(s.GetMwmId());
     c.GetIngoingEdgeList(s, edges);
+  }
+
+  RouteWeight GetWeightSure(Segment const & from, Segment const & to)
+  {
+    ASSERT_EQUAL(from.GetMwmId(), to.GetMwmId(), ());
+    CrossMwmConnector<CrossMwmId> const & c = GetCrossMwmConnectorWithWeights(from.GetMwmId());
+    return c.GetWeightSure(from, to);
   }
 
 //  void Clear()
