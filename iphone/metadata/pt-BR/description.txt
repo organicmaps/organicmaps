@@ -16,8 +16,8 @@ O Organic Maps está livre de rastreadores e outras coisas ruins:
 • Sem anúncios
 • Sem rastreamento
 • Sem coleta de dados
-• Sem contato com nossos servidores
-• Sem registro irritante
+• Sem conexões para servidores externos
+• Sem registros desnecessários
 • Sem tutoriais obrigatórios
 • Sem lixo eletrônico por e-mail
 • Sem notificações push
@@ -29,8 +29,8 @@ No Organic Maps, acreditamos que a privacidade é um direito humano fundamental:
 • O Organic Maps é um projeto independente voltado para a comunidade
 • É código aberto
 • Os dados dos mapas são retirados do OpenStreetMap, um projeto também voltado para a comunidade
-• Protegemos sua privacidade dos olhares indiscretos das grandes empresas
-• Fique seguro, não importa onde você esteja
+• Protegemos a sua privacidade dos olhos curiosos das grandes empresas
+• Fique protegido, não importa onde você esteja
 
 Rejeite a vigilância, abrace sua liberdade e apoie a comunidade.
 
