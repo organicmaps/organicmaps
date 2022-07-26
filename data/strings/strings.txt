@@ -11212,6 +11212,44 @@
     tr = Telefon Ekle
     zh-Hant = 新增電話
 
+  [level]
+    tags = android,ios
+    en = Floor
+    ar = طابق
+    be = Паверх
+    bg = Етаж
+    cs = Podlaží
+    da = Etage
+    de = Stockwerk
+    el = Όροφος
+    es = Piso
+    eu = Solairua
+    fa = طبقه
+    fi = Kerros
+    fr = Étage
+    he = קוֹמָה
+    hu = Szint
+    id = Tingkat
+    it = Piano
+    ja = 階
+    ko = 층
+    mr = मजला
+    nb = Gulv
+    nl = Etage
+    pl = Kondygnacja
+    pt = Andar
+    ro = Etaj
+    ru = Этаж
+    sk = Podlaha
+    sv = Våningsplan
+    sw = Ghorofa
+    th = ชั้น
+    tr = Zemin
+    uk = Поверх
+    vi = Tầng
+    zh-Hans = 楼层
+    zh-Hant = 樓層
+
   [please_note]
     tags = ios
     en = Please note
