@@ -400,6 +400,7 @@
 	<string name="select_cuisine">Pilih Masakan</string>
 	<!-- login text field -->
 	<string name="email_or_username">Surel atau nama pengguna</string>
+	<string name="level">Tingkat</string>
 	<string name="downloader_delete_map_dialog">Semua perubahan peta akan dihapus bersama dengan peta.</string>
 	<string name="downloader_update_maps">Perbarui peta</string>
 	<string name="downloader_mwm_migration_dialog">Untuk membuat rute, Anda perlu memperbarui semua peta dan kemudian merencanakan rute tersebut lagi.</string>

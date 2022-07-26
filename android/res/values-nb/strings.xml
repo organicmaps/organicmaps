@@ -402,6 +402,7 @@
 	<string name="select_cuisine">Velg matrett</string>
 	<!-- login text field -->
 	<string name="email_or_username">E-postadresse eller brukernavn</string>
+	<string name="level">Gulv</string>
 	<string name="downloader_delete_map_dialog">Alle endringer i kartet vil slettes sammen med kartet.</string>
 	<string name="downloader_update_maps">Oppdater kart</string>
 	<string name="downloader_mwm_migration_dialog">For å opprette en reiserute må du oppdatere alle kartene og deretter planlegge reiseruten på nytt.</string>

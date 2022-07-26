@@ -56,6 +56,7 @@
 	<string name="dialog_routing_intermediate_not_determined">Tafadhali badilisha eneo lako la kati.</string>
 
 	<!-- SECTION: Strings for downloading map from search -->
+	<string name="level">Ghorofa</string>
 	<string name="editor_other_info">Tuma ujumbe kwenye vihariri vya OSM</string>
 	<string name="placepage_more_reviews_button">Maoni Zaidi</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->

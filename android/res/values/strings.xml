@@ -447,6 +447,7 @@
 	<!-- login text field -->
 	<string name="email_or_username">Email or username</string>
 	<string name="editor_add_phone">Add Phone</string>
+	<string name="level">Floor</string>
 	<string name="downloader_delete_map_dialog">All of your map edits will be deleted together with the map.</string>
 	<string name="downloader_update_maps">Update Maps</string>
 	<string name="downloader_mwm_migration_dialog">To create a route, you need to update all maps and then plan the route again.</string>

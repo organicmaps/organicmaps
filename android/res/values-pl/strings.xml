@@ -406,6 +406,7 @@
 	<!-- login text field -->
 	<string name="email_or_username">Email lub nazwa użytkownika</string>
 	<string name="editor_add_phone">Dodaj numer telefonu</string>
+	<string name="level">Kondygnacja</string>
 	<string name="downloader_delete_map_dialog">Wszystkie zmiany dotyczące mapy zostaną usunięte wraz z nią.</string>
 	<string name="downloader_update_maps">Aktualizuj mapy</string>
 	<string name="downloader_mwm_migration_dialog">Aby utworzyć trasę, należy zaktualizować wszystkie mapy, a następnie ponownie zaplanować trasę.</string>

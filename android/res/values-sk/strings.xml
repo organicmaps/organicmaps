@@ -398,6 +398,7 @@
 	<string name="select_cuisine">Vyberte si kuchyňu</string>
 	<!-- login text field -->
 	<string name="email_or_username">Email alebo používateľské meno</string>
+	<string name="level">Podlaha</string>
 	<string name="downloader_delete_map_dialog">Všetky zmeny týkajúce sa mapy budú vymazané spolu s mapou.</string>
 	<string name="downloader_update_maps">Aktualizovať mapy</string>
 	<string name="downloader_mwm_migration_dialog">Ak chcete vytvoriť cestu, musíte najskôr aktualizovať všetky mapy a potom odznova naplánovať trasu.</string>

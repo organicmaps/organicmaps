@@ -630,6 +630,8 @@
 
 "phone" = "電話";
 
+"level" = "樓層";
+
 "please_note" = "請註意";
 
 "downloader_delete_map_dialog" = "所有對地圖的修改都將與地圖一起被刪除。";

@@ -630,6 +630,8 @@
 
 "phone" = "電話";
 
+"level" = "階";
+
 "please_note" = "ご注意ください";
 
 "downloader_delete_map_dialog" = "この地図を削除すると、今まで行った変更の全ても一緒に削除されます。";

@@ -402,6 +402,7 @@
 	<string name="select_cuisine">Selecteer Keuken</string>
 	<!-- login text field -->
 	<string name="email_or_username">Emailadres of gebruikersnaam</string>
+	<string name="level">Etage</string>
 	<string name="downloader_delete_map_dialog">Alle wijzigingen aan de kaart zullen samen met de kaart worden verwijderd.</string>
 	<string name="downloader_update_maps">Kaarten updaten</string>
 	<string name="downloader_mwm_migration_dialog">Om een route te creëren, moet je alle kaarten updaten en dan de route opnieuw plannen.</string>

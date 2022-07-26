@@ -397,6 +397,7 @@
 	<string name="select_cuisine">انتخاب غذاخوری</string>
 	<!-- login text field -->
 	<string name="email_or_username">ایمیل یا نام کاربری</string>
+	<string name="level">طبقه</string>
 	<string name="downloader_delete_map_dialog">تمام ویرایش های که بر روی نقشه انجام داده اید به همراه نقشه حذف شد.</string>
 	<string name="downloader_update_maps">بروزرسانی نقشه ها</string>
 	<string name="downloader_mwm_migration_dialog">برای ایجاد مسیر شما نیازمند بروزرسانی تمامی  نقشه ها هستید سپس می توانید دوباره مسیرتان را برنامه ریزی کنید</string>

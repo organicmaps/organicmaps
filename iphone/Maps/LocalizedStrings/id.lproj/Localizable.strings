@@ -630,6 +630,8 @@
 
 "phone" = "Telepon";
 
+"level" = "Tingkat";
+
 "please_note" = "Harap diperhatikan";
 
 "downloader_delete_map_dialog" = "Semua perubahan peta akan dihapus bersama dengan peta.";

@@ -407,6 +407,7 @@
 	<string name="select_cuisine">Selecione a culinária</string>
 	<!-- login text field -->
 	<string name="email_or_username">Email ou nome de utilizador</string>
+	<string name="level">Andar</string>
 	<string name="downloader_delete_map_dialog">Todas as alterações ao mapa serão eliminadas juntamente com o mapa.</string>
 	<string name="downloader_update_maps">Atualizar mapas</string>
 	<string name="downloader_mwm_migration_dialog">Para criar um itinerário é necessário atualizar todos os mapas e, em seguida, planeá-lo novamente.</string>

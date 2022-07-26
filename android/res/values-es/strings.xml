@@ -411,6 +411,7 @@
 	<string name="select_cuisine">Seleccionar cocina</string>
 	<!-- login text field -->
 	<string name="email_or_username">Email ó usuario</string>
+	<string name="level">Piso</string>
 	<string name="downloader_delete_map_dialog">Todos los cambios en los mapas se borrarán junto con el mapa.</string>
 	<string name="downloader_update_maps">Autodescarga de mapas</string>
 	<string name="downloader_mwm_migration_dialog">Para crear una ruta, es necesario actualizar todos los mapas y volver a planificar la ruta.</string>

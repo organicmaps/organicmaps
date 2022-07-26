@@ -412,6 +412,7 @@
 	<!-- login text field -->
 	<string name="email_or_username">E-mail sau nume de utilizator</string>
 	<string name="editor_add_phone">Adaugă un număr</string>
+	<string name="level">Etaj</string>
 	<string name="downloader_delete_map_dialog">Toate modificările aduse hărții vor fi șterse împreună cu harta.</string>
 	<string name="downloader_update_maps">Actualizează hărțile</string>
 	<string name="downloader_mwm_migration_dialog">Pentru a crea un traseu, trebuie să actualizezi toate hărțile, iar apoi să planifici traseul încă o dată.</string>

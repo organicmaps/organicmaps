@@ -404,6 +404,7 @@
 	<string name="select_cuisine">Επιλέξτε κουζίνα</string>
 	<!-- login text field -->
 	<string name="email_or_username">Email ή όνομα χρήστη</string>
+	<string name="level">Όροφος</string>
 	<string name="downloader_delete_map_dialog">Όλες οι αλλαγές που έχετε κάνει στο χάρτη θα διαγραφούν μαζί με το χάρτη.</string>
 	<string name="downloader_update_maps">Ενημέρωση χαρτών</string>
 	<string name="downloader_mwm_migration_dialog">Για να δημιουργήσετε μια διαδρομή, πρέπει να ενημερώσετε όλους τους χάρτες και στη συνέχεια να σχεδιάσετε τη διαδρομή ξανά.</string>

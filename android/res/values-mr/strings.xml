@@ -408,6 +408,7 @@
 	<!-- login text field -->
 	<string name="email_or_username">ईमेल किंवा वापरकर्तानाव</string>
 	<string name="editor_add_phone">फोन जोडा</string>
+	<string name="level">मजला</string>
 	<string name="downloader_delete_map_dialog">तुमचे सर्व नकाशा संपादने नकाशासह पुसले जातील.</string>
 	<string name="downloader_update_maps">नकाशे अद्ययावत करा</string>
 	<string name="downloader_mwm_migration_dialog">मार्ग तयार करण्यासाठी तुम्हाला सर्व नकाशे अद्ययावत करावे लागतील आणि मग मार्ग नियोजन करता येईल.</string>

@@ -410,6 +410,7 @@
 	<!-- login text field -->
 	<string name="email_or_username">E-mail o nome utente</string>
 	<string name="editor_add_phone">Aggiungi numero</string>
+	<string name="level">Piano</string>
 	<string name="downloader_delete_map_dialog">Tutte le tue modifiche alla mappa saranno cancellate insieme alla mappa.</string>
 	<string name="downloader_update_maps">Aggiorna mappe</string>
 	<string name="downloader_mwm_migration_dialog">Per creare un percorso, devi aggiornare tutte le mappe e pianificare nuovamente il percorso.</string>

@@ -630,6 +630,8 @@
 
 "phone" = "Telefon";
 
+"level" = "Gulv";
+
 "please_note" = "Vær oppmerksom på at";
 
 "downloader_delete_map_dialog" = "Alle endringer i kartet vil slettes sammen med kartet.";

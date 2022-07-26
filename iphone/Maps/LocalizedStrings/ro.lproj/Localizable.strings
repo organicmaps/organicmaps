@@ -630,6 +630,8 @@
 
 "phone" = "Telefon";
 
+"level" = "Etaj";
+
 "please_note" = "Reține";
 
 "downloader_delete_map_dialog" = "Toate modificările aduse hărții vor fi șterse împreună cu harta.";

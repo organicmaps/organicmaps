@@ -398,6 +398,7 @@
 	<string name="select_cuisine">料理を選択</string>
 	<!-- login text field -->
 	<string name="email_or_username">メールアドレスまたはユーザー名</string>
+	<string name="level">階</string>
 	<string name="downloader_delete_map_dialog">この地図を削除すると、今まで行った変更の全ても一緒に削除されます。</string>
 	<string name="downloader_update_maps">地図をアップデート</string>
 	<string name="downloader_mwm_migration_dialog">ルートを作成するには、全ての地図をアップデートした後で再びルート計画を行う必要があります。</string>

@@ -400,6 +400,7 @@
 	<string name="select_cuisine">Chọn Ẩm thực</string>
 	<!-- login text field -->
 	<string name="email_or_username">Email hoặc tên người dùng</string>
+	<string name="level">Tầng</string>
 	<string name="downloader_delete_map_dialog">Tất cả những thay đổi của bản đồ sẽ bị xóa cùng với bản đồ đó.</string>
 	<string name="downloader_update_maps">Cập nhật các bản đồ</string>
 	<string name="downloader_mwm_migration_dialog">Để tạo một tuyến đường, bạn cần cập nhật tất cả các bản đồ và sau đó lập lại tuyến đường.</string>
