@@ -60,6 +60,7 @@ def get_feeds_links(data):
     gtfs_feeds_urls = []
 
     for feed in data:
+        # Possible values: MDS, GBFS, GTFS_RT, GRFS
         if feed["spec"].lower() != "gtfs":
             continue
 
