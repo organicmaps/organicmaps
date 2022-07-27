@@ -1,10 +1,12 @@
-• Desen çizgileri güzelleştirildi (bazı eski cihazlarda çökmeyi de düzeltir)
-• Mekan Sayfası stili güncellendi
-• Harita/bilgi panoları için simgeler
-• Kategori aramasındaki gereksiz kelimeler düzeltildi
-• Arama sonuçlarında "süre sonra açılıyor/kapanıyor” gösteriliyor
-• Mevcut tüm sporlar aranabilir hale getirildi
-• amenity=parking, düzenleyici aracılığıyla haritaya eklenebilir
-• 16+ zum seviyesinde place=square görünürlüğü düzeltildi
+• Yeni OSM harita verileri (18 Temmuz)
+• Düzeltilmiş/güncellenmiş API (bkz. omaps.app/api)
+• Yol ve parkurlar Mali–G72 Huawei'de artık düzgün
+• Popüler OSM etiketlerinden bazı eksik mağaza türleri eklendi
+• Ufak rota iyileştirmeleri
+• 3D yapılar için min_level kullanılıyor
+• Düzenleyicide mutfaklar seçimden kaldırılabiliyor
+• FB URL doğrulamasında düzeltmeler
+• Alt menü başlığı 3 satıra sınırlandı
+• Yer imleri aramasında artık bir geri oku gösteriliyor
 
-Daha fazla ayrıntı için organicmaps.app/news
+tüm güncelleme notu: organicmaps.app/news
