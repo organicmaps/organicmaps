@@ -11,15 +11,11 @@
 #include <algorithm>
 #include <sstream>
 
-#include <boost/iterator/transform_iterator.hpp>
-
+namespace search
+{
 using namespace std;
 using namespace strings;
 
-using boost::make_transform_iterator;
-
-namespace search
-{
 namespace
 {
 struct TokenInfo
@@ -105,15 +101,24 @@ ErrorsMade GetPrefixErrorsMade(QueryParams::Token const & token, strings::UniStr
 
 bool IsStopWord(UniString const & s)
 {
-  /// @todo Get all common used stop words and factor out this array into
+  /// @todo Get all common used stop words and take out this array into
   /// search_string_utils.cpp module for example.
-  static char const * arr[] = {"a", "de", "di", "da", "la", "le", "де", "ди", "да", "ла", "ля", "ле"};
+  class StopWordsChecker
+  {
+    set<UniString> m_set;
+  public:
+    StopWordsChecker()
+    {
+      /// @todo I understand latin words logic, but where did "де", "ди", "да" ... come from ???
+      /// "и" (й), "я" is more relevant here.
+      for (char const * s : {"a", "de", "di", "da", "la", "le", "де", "ди", "да", "ла", "ля", "ле"})
+        m_set.insert(MakeUniString(s));
+    }
+    bool Has(UniString const & s) const { return m_set.count(s) > 0; }
+  };
 
-  static set<UniString> const kStopWords(
-      make_transform_iterator(arr, &MakeUniString),
-      make_transform_iterator(arr + ARRAY_SIZE(arr), &MakeUniString));
-
-  return kStopWords.count(s) > 0;
+  static StopWordsChecker const swChecker;
+  return swChecker.Has(s);
 }
 
 void PrepareStringForMatching(string_view name, vector<strings::UniString> & tokens)
