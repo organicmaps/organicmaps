@@ -657,6 +657,8 @@
 	<string name="enable_screen_sleep">画面をスリープ状態にする</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">有効にすると、画面は一定時間非アクティブになった後もスリープ状態になります。</string>
+	<!-- OpenStreetMap text on splash screen -->
+	<string name="splash_subtitle">OpenStreetMapからの地図データ</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway">索道</string>

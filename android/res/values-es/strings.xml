@@ -685,6 +685,8 @@
 	<string name="enable_screen_sleep">Permitir que la pantalla duerma</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Cuando está habilitado, la pantalla podrá dormir después de un período de inactividad.</string>
+	<!-- OpenStreetMap text on splash screen -->
+	<string name="splash_subtitle">Datos de mapas de OpenStreetMap</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway">Transporte aéreo</string>

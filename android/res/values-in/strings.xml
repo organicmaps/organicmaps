@@ -660,6 +660,8 @@
 	<string name="enable_screen_sleep">Izinkan layar untuk tidur</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Jika diaktifkan, layar akan diizinkan untuk tidur setelah beberapa saat tidak aktif.</string>
+	<!-- OpenStreetMap text on splash screen -->
+	<string name="splash_subtitle">Data peta dari OpenStreetMap</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stasiun kereta gantung</string>

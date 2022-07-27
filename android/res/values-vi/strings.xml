@@ -660,6 +660,8 @@
 	<string name="enable_screen_sleep">Cho phép màn hình ở chế độ ngủ</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Khi được bật, màn hình sẽ được phép ở chế độ ngủ sau một thời gian không hoạt động.</string>
+	<!-- OpenStreetMap text on splash screen -->
+	<string name="splash_subtitle">Dữ liệu bản đồ từ OpenStreetMap</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Trạm Cáp Treo</string>

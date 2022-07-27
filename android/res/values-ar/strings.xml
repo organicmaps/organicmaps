@@ -663,6 +663,8 @@
 	<string name="enable_screen_sleep">اسمح للشاشة بالنوم</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">عند التمكين ، سيتم السماح للشاشة بالنوم بعد فترة من عدم النشاط.</string>
+	<!-- OpenStreetMap text on splash screen -->
+	<string name="splash_subtitle">OpenStreetMap ﻦﻣ ﺔﻄﻳﺮﺨﻟﺍ ﺕﺎﻧﺎﻴﺑ</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">محطة تلفريك</string>

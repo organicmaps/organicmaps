@@ -661,6 +661,8 @@
 	<string name="enable_screen_sleep">อนุญาตให้หน้าจอเข้าสู่โหมดสลีป</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">เมื่อเปิดใช้งานหน้าจอจะได้รับอนุญาตให้เข้าสู่โหมดสลีปหลังจากไม่มีการใช้งานเป็นระยะเวลาหนึ่ง</string>
+	<!-- OpenStreetMap text on splash screen -->
+	<string name="splash_subtitle">ข้อมูลแผนที่จาก OpenStreetMap</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">สถานีกระเช้าลอยฟ้า</string>

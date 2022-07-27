@@ -660,6 +660,8 @@
 	<string name="enable_screen_sleep">اجازه دهید صفحه نمایش بخوابد</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">درصورت فعال بودن ، بعد از یک دوره عدم فعالیت به صفحه اجازه خواب داده می شود.</string>
+	<!-- OpenStreetMap text on splash screen -->
+	<string name="splash_subtitle">OpenStreetMap ﺯﺍ ﻪﺸﻘﻧ ﯼﺎﻫ ﻩﺩﺍﺩ</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aeroway.aerodrome">فرودگاه</string>

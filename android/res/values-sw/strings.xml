@@ -219,6 +219,8 @@
 	<string name="elevation_profile_distance">Umbali:</string>
 	<string name="elevation_profile_time">Muda:</string>
 	<string name="isolines_toast_zooms_1_10">Vuta karibu kutalii mistari ya kontua</string>
+	<!-- OpenStreetMap text on splash screen -->
+	<string name="splash_subtitle">Data ya ramani kutoka OpenStreetMap</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.amenity">Kistawishi</string>

@@ -673,6 +673,8 @@
 	<string name="enable_screen_sleep">Salli näytön lepotila</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Kun tämä asetus on käytössä, näyttö menee lepotilaan käyttämättömyyden jälkeen.</string>
+	<!-- OpenStreetMap text on splash screen -->
+	<string name="splash_subtitle">OpenStreetMapin karttatiedot</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Köysirata-asema</string>
