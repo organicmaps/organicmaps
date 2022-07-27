@@ -36,7 +36,7 @@
   func getBackUrl() -> String {
     guard let urlString = url?.absoluteString else { return "" }
     guard let url = URLComponents(string: urlString) else { return "" }
-    return (url.queryItems?.first(where: { $0.name == "backurl" })?.value ?? "")
+    return (url.queryItems?.first(where: { $0.name == "back_url" })?.value ?? "")
   }
 
   func handleDeepLink() -> Bool {
