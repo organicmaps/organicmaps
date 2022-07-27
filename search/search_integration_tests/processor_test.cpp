@@ -18,7 +18,6 @@
 #include "editor/editable_data_source.hpp"
 
 #include "indexer/feature.hpp"
-#include "indexer/ftypes_matcher.hpp"
 
 #include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
@@ -493,10 +492,11 @@ UNIT_CLASS_TEST(ProcessorTest, TestRankingInfo_ErrorsMade)
   // Prefix match "лермо" -> "Лермонтовъ" without errors.
   checkErrors("трактиръ лермо", ErrorsMade(0));
   checkErrors("трактир лермо", ErrorsMade(1));
-  checkErrors("кафе лермонтов", ErrorsMade(1));
+  // Prefix match "лермонтов" -> "Лермонтовъ" without errors.
+  checkErrors("кафе лермонтов", ErrorsMade(0));
   checkErrors("кафе лермнтовъ", ErrorsMade(1));
   // Full match.
-  checkErrors("трактир лермонтов", ErrorsMade(2));
+  checkErrors("трактир лермонтов", ErrorsMade(1));
   checkErrors("кафе", ErrorsMade());
 
   checkErrors("Cafe Yesenina", ErrorsMade(0));
@@ -507,27 +507,27 @@ UNIT_CLASS_TEST(ProcessorTest, TestRankingInfo_ErrorsMade)
   checkErrors("Островского кафе", ErrorsMade(0));
   checkErrors("Астровского кафе", ErrorsMade(1));
 
-  checkErrors("пушкенская трактир лермонтов", ErrorsMade(3));
+  // Prefix match "лермонтов" -> "Лермонтовъ" without errors.
+  checkErrors("пушкенская трактир лермонтов", ErrorsMade(2));
   checkErrors("пушкенская кафе", ErrorsMade(1));
   checkErrors("пушкинская трактиръ лермонтовъ", ErrorsMade(0));
 
-  checkErrors("лермонтовъ чехов", ErrorsMade(1));
+  // Prefix match "чехов" -> "Чеховъ" without errors.
+  checkErrors("лермонтовъ чехов", ErrorsMade(0));
   checkErrors("лермонтовъ чехов ", ErrorsMade(1));
   checkErrors("лермонтовъ чеховъ", ErrorsMade(0));
-
-  checkErrors("лермонтов чехов", ErrorsMade(2));
+  checkErrors("лермонтов чехов", ErrorsMade(1));
   checkErrors("лермонтов чехов ", ErrorsMade(2));
   checkErrors("лермонтов чеховъ", ErrorsMade(1));
 
   checkErrors("трактиръ лермонтовъ", ErrorsMade(0));
-  // This is a full match with one error
-  checkErrors("трактиръ лермонтов", ErrorsMade(1));
   // These are all prefix matches with 0 errors.
+  checkErrors("трактиръ лермонтов", ErrorsMade(0));
   checkErrors("трактиръ лермонт", ErrorsMade(0));
   checkErrors("трактиръ лермо", ErrorsMade(0));
   checkErrors("трактиръ лер", ErrorsMade(0));
 
-  checkErrors("лермонтов чеховъ антон павлович", ErrorsMade(3));
+  checkErrors("лермонтов чеховъ антон павлович", ErrorsMade(2));
 }
 
 UNIT_CLASS_TEST(ProcessorTest, TestHouseNumbers)
