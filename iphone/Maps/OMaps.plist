@@ -81,6 +81,7 @@
 	<array>
 		<string>ms-outlook</string>
 		<string>googlegmail</string>
+		<string>wunderlinq</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
