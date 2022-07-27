@@ -662,6 +662,8 @@
 	<string name="enable_screen_sleep">Lad skærmen sove</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Når den er aktiveret, får skærmen lov til at sove efter en periode med inaktivitet.</string>
+	<!-- OpenStreetMap text on splash screen -->
+	<string name="splash_subtitle">Kortdata fra OpenStreetMap</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelbanestation</string>

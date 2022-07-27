@@ -223,6 +223,8 @@
 	<string name="enable_screen_sleep">אפשר למסך לישון</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">כאשר מופעל המסך יורשה לישון לאחר תקופה של חוסר פעילות.</string>
+	<!-- OpenStreetMap text on splash screen -->
+	<string name="splash_subtitle">OpenStreetMap-מ הפמ ינותנ</string>
 
 	<!-- SECTION: Types: Recycling -->
 	<string name="type.recycling.batteries">תוללוס</string>

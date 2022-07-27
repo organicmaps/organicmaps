@@ -665,6 +665,8 @@
 	<string name="enable_screen_sleep">Utzi pantailari lo egiten</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Gaituta dagoenean, pantailak lo egin ahal izango du jarduerarik gabe egon ondoren.</string>
+	<!-- OpenStreetMap text on splash screen -->
+	<string name="splash_subtitle">Maparen datuak OpenStreetMap-en</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway">Aire Garraioa</string>

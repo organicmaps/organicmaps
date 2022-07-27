@@ -660,6 +660,8 @@
 	<string name="enable_screen_sleep">Hagyja aludni a képernyőt</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Ha engedélyezve van, akkor a képernyő inaktivitás után alszik.</string>
+	<!-- OpenStreetMap text on splash screen -->
+	<string name="splash_subtitle">Térképadatok az OpenStreetMapből</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Felvonóállomás</string>

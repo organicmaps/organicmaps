@@ -659,6 +659,8 @@
 	<string name="enable_screen_sleep">Nechajte obrazovku spať</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Ak je táto možnosť povolená, obrazovka bude môcť po určitej dobe nečinnosti spať.</string>
+	<!-- OpenStreetMap text on splash screen -->
+	<string name="splash_subtitle">Mapové údaje z OpenStreetMap</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Lanovka</string>

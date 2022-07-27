@@ -636,6 +636,8 @@
 	<string name="enable_screen_sleep">Позволяване на екрана да заспи</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Когато е разрешено, екранът ще бъде оставен да заспи след определен период на неактивност.</string>
+	<!-- OpenStreetMap text on splash screen -->
+	<string name="splash_subtitle">Картографски данни от OpenStreetMap</string>
 
 	<!-- SECTION: Types: Recycling -->
 	<string name="type.recycling.batteries">Батерии</string>

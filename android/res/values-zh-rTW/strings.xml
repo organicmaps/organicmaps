@@ -681,6 +681,8 @@
 	<string name="enable_screen_sleep">允许螢幕進入休眠狀態</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">啟用後，螢幕將在一段時間不活動後進入休眠狀態。</string>
+	<!-- OpenStreetMap text on splash screen -->
+	<string name="splash_subtitle">來自 OpenStreetMap 的地圖數據</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway">纜車要素</string>

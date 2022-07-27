@@ -659,6 +659,8 @@
 	<string name="enable_screen_sleep">화면 절전 모드 허용</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">활성화되면 일정 시간 동안 활동이 없으면 화면이 절전 모드로 전환됩니다.</string>
+	<!-- OpenStreetMap text on splash screen -->
+	<string name="splash_subtitle">OpenStreetMap의 지도 데이터</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">케이블카 역</string>
