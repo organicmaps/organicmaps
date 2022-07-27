@@ -3,19 +3,16 @@
 #include "search/dummy_rank_table.hpp"
 #include "search/lazy_centers_table.hpp"
 #include "search/pre_ranking_info.hpp"
-#include "search/tracer.hpp"
 
 #include "editor/osm_editor.hpp"
 
 #include "indexer/data_source.hpp"
 #include "indexer/mwm_set.hpp"
 #include "indexer/rank_table.hpp"
-#include "indexer/scales.hpp"
 
 #include "geometry/mercator.hpp"
 #include "geometry/nearby_points_sweeper.hpp"
 
-#include "base/random.hpp"
 #include "base/stl_helpers.hpp"
 
 #include <algorithm>
@@ -83,7 +80,6 @@ void PreRanker::FillMissingFieldsInPreResults()
   MwmSet::MwmHandle mwmHandle;
   unique_ptr<RankTable> ranks = make_unique<DummyRankTable>();
   unique_ptr<RankTable> popularityRanks = make_unique<DummyRankTable>();
-  unique_ptr<RankTable> ratings = make_unique<DummyRankTable>();
   unique_ptr<LazyCentersTable> centers;
   bool pivotFeaturesInitialized = false;
 
@@ -103,15 +99,12 @@ void PreRanker::FillMissingFieldsInPreResults()
 
         ranks = RankTable::Load(value->m_cont, SEARCH_RANKS_FILE_TAG);
         popularityRanks = RankTable::Load(value->m_cont, POPULARITY_RANKS_FILE_TAG);
-        ratings = RankTable::Load(value->m_cont, RATINGS_FILE_TAG);
         centers = make_unique<LazyCentersTable>(*value);
       }
       if (!ranks)
         ranks = make_unique<DummyRankTable>();
       if (!popularityRanks)
         popularityRanks = make_unique<DummyRankTable>();
-      if (!ratings)
-        ratings = make_unique<DummyRankTable>();
     }
 
     r.SetRank(ranks->Get(id.m_index));
