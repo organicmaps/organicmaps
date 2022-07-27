@@ -212,9 +212,7 @@ public class Factory
       {
         Intent intent = target.getIntent();
         if (intent != null)
-        {
           intent.putExtra(MwmActivity.EXTRA_BACK_URL, backUrl);
-        }
       }
 
       switch (result.getUrlType())
