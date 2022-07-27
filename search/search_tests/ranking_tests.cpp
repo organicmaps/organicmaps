@@ -1,6 +1,5 @@
 #include "testing/testing.hpp"
 
-#include "search/intermediate_result.hpp"
 #include "search/pre_ranker.hpp"
 #include "search/query_params.hpp"
 #include "search/ranking_utils.hpp"
@@ -24,6 +23,8 @@ using namespace search;
 using namespace std;
 using namespace strings;
 
+namespace
+{
 NameScores GetScore(string const & name, string const & query, TokenRange const & tokenRange)
 {
   search::Delimiters delims;
@@ -45,15 +46,23 @@ NameScores GetScore(string const & name, string const & query, TokenRange const 
   return GetNameScores(name, StringUtf8Multilang::kDefaultCode, TokenSlice(params, tokenRange));
 }
 
-UNIT_TEST(NameTest_Smoke)
+void AssignRankingInfo(NameScores const & scores, RankingInfo & info, size_t totalLength)
+{
+  info.m_nameScore = scores.m_nameScore;
+  info.m_errorsMade = scores.m_errorsMade;
+  info.m_isAltOrOldName = scores.m_isAltOrOldName;
+  info.m_matchedFraction = scores.m_matchedLength / static_cast<double>(totalLength);
+}
+} // namespace
+
+UNIT_TEST(NameScore_Smoke)
 {
   auto const test = [](string const & name, string const & query, TokenRange const & tokenRange,
-                       NameScore nameScore, size_t errorsMade, size_t matchedLength) {
-    TEST_EQUAL(
-        GetScore(name, query, tokenRange),
-        NameScores(nameScore, nameScore == NAME_SCORE_ZERO ? ErrorsMade() : ErrorsMade(errorsMade),
-                   false /* isAltOrOldNAme */, matchedLength),
-        (name, query, tokenRange));
+                       NameScore nameScore, size_t errorsMade, size_t matchedLength)
+  {
+    NameScores const expected(nameScore, nameScore == NAME_SCORE_ZERO ? ErrorsMade() : ErrorsMade(errorsMade),
+                              false /* isAltOrOldNAme */, matchedLength);
+    TEST_EQUAL(GetScore(name, query, tokenRange), expected, (name, query, tokenRange));
   };
 
   base::ScopedLogLevelChanger const enableDebug(LDEBUG);
@@ -74,14 +83,41 @@ UNIT_TEST(NameTest_Smoke)
   test("North Scott Boulevard", "N Scott Blvd", TokenRange(0, 3), NAME_SCORE_FULL_MATCH, 0, 10);
   test("North Scott Boulevard", "N Scott", TokenRange(0, 2), NAME_SCORE_PREFIX, 0, 6);
   test("Лермонтовъ", "Лермон", TokenRange(0, 1), NAME_SCORE_PREFIX, 0, 6);
-  test("Лермонтовъ", "Лермонтов", TokenRange(0, 1), NAME_SCORE_FULL_MATCH, 1, 9);
+  test("Лермонтовъ", "Лермонтов", TokenRange(0, 1), NAME_SCORE_PREFIX, 0, 9);
   test("Лермонтовъ", "Лермонтово", TokenRange(0, 1), NAME_SCORE_FULL_MATCH, 1, 10);
   test("Лермонтовъ", "Лермнтовъ", TokenRange(0, 1), NAME_SCORE_FULL_MATCH, 1, 9);
   test("фото на документы", "фото", TokenRange(0, 1), NAME_SCORE_PREFIX, 0, 4);
   test("фотоателье", "фото", TokenRange(0, 1), NAME_SCORE_PREFIX, 0, 4);
 }
 
-UNIT_TEST(PreferCountry)
+UNIT_TEST(NameScore_SubstringVsErrors)
+{
+  {
+    string const query = "Simon";
+    TokenRange const range(0, 1);
+
+    RankingInfo info;
+    info.m_tokenRanges[Model::TYPE_SUBPOI] = range;
+    info.m_numTokens = 1;
+    info.m_allTokensUsed = true;
+    info.m_exactMatch = false;
+    info.m_exactCountryOrCapital = false;
+
+    RankingInfo poi1 = info;
+    AssignRankingInfo(GetScore("Symon Budny and Vasil Tsiapinski", query, range), poi1, query.size());
+    TEST_EQUAL(poi1.m_nameScore, NAME_SCORE_PREFIX, ());
+    TEST_EQUAL(poi1.m_errorsMade, ErrorsMade(1), ());
+
+    RankingInfo poi2 = info;
+    AssignRankingInfo(GetScore("Church of Saints Simon and Helen", query, range), poi2, query.size());
+    TEST_EQUAL(poi2.m_nameScore, NAME_SCORE_SUBSTRING, ());
+    TEST_EQUAL(poi2.m_errorsMade, ErrorsMade(0), ());
+
+    TEST_LESS(poi1.GetLinearModelRank(), poi2.GetLinearModelRank(), ());
+  }
+}
+
+UNIT_TEST(RankingInfo_PreferCountry)
 {
   RankingInfo info;
   info.m_nameScore = NAME_SCORE_FULL_MATCH;
@@ -89,7 +125,7 @@ UNIT_TEST(PreferCountry)
   info.m_numTokens = 1;
   info.m_matchedFraction = 1.0;
   info.m_allTokensUsed = true;
-  info.m_exactMatch = true;
+  info.m_exactMatch = false;
 
   auto cafe = info;
   cafe.m_distanceToPivot = 1e3;
@@ -105,7 +141,33 @@ UNIT_TEST(PreferCountry)
   country.m_type = Model::TYPE_COUNTRY;
 
   // Country should be preferred even if cafe is much closer to viewport center.
-  TEST_LESS(cafe.GetLinearModelRank(), country.GetLinearModelRank(),());
+  TEST_LESS(cafe.GetLinearModelRank(), country.GetLinearModelRank(), ());
+}
+
+UNIT_TEST(RankingInfo_PrefixVsFull)
+{
+  RankingInfo info;
+  info.m_numTokens = 3;
+  info.m_matchedFraction = 1.0;
+  info.m_allTokensUsed = true;
+  info.m_exactMatch = false;
+  info.m_exactCountryOrCapital = false;
+  info.m_distanceToPivot = 1000;
+  info.m_tokenRanges[Model::TYPE_SUBPOI] = TokenRange(0, 2);
+
+  {
+    // Ensure that NAME_SCORE_PREFIX with 0 errors is better than NAME_SCORE_FULL_MATCH with 1 error.
+
+    auto full = info;
+    full.m_nameScore = NAME_SCORE_FULL_MATCH;
+    full.m_errorsMade = ErrorsMade(1);
+
+    auto prefix = info;
+    prefix.m_nameScore = NAME_SCORE_PREFIX;
+    prefix.m_errorsMade = ErrorsMade(0);
+
+    TEST_LESS(full.GetLinearModelRank(), prefix.GetLinearModelRank(), ());
+  }
 }
 
 namespace

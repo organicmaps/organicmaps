@@ -1,13 +1,11 @@
 #pragma once
 
 #include "search/common.hpp"
-#include "search/model.hpp"
 #include "search/query_params.hpp"
 
 #include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
 
-#include "base/levenshtein_dfa.hpp"
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
@@ -56,6 +54,8 @@ struct ErrorsMade
   explicit ErrorsMade(size_t errorsMade) : m_errorsMade(errorsMade) {}
 
   bool IsValid() const { return m_errorsMade != kInfiniteErrors; }
+  bool IsZero() const { return m_errorsMade == 0; }
+  bool IsBetterThan(ErrorsMade rhs) const { return m_errorsMade < rhs.m_errorsMade; }
 
   template <typename Fn>
   static ErrorsMade Combine(ErrorsMade const & lhs, ErrorsMade const & rhs, Fn && fn)
@@ -206,9 +206,9 @@ NameScores GetNameScores(std::vector<strings::UniString> const & tokens, uint8_t
     if (offset + 1 == tokenCount)
     {
       if (sliceCount == tokenCount)
-          nameScore = NAME_SCORE_FULL_MATCH;
+        nameScore = NAME_SCORE_FULL_MATCH;
       else
-          nameScore = NAME_SCORE_PREFIX;
+        nameScore = NAME_SCORE_PREFIX;
     }
     bool isAltOrOldName = false;
     // Iterate through the entire slice. Incomplete matches can still be good.
@@ -238,15 +238,20 @@ NameScores GetNameScores(std::vector<strings::UniString> const & tokens, uint8_t
       // the matched length and check against the prior best.
       auto errorsMade = impl::GetErrorsMade(slice.Get(i), tokens[tokenIndex]);
 
-      // See if prefix token rules apply. The prefix token is the last one in the
-      // search, so it may only be partially typed.
-      // GetPrefixErrorsMade only expects the start of a token to match.
-      if (!errorsMade.IsValid() && slice.IsPrefix(i))
+      // Also, check like prefix, if we've got token-like matching errors.
+      if (!errorsMade.IsZero() && slice.IsPrefix(i))
       {
-        errorsMade = impl::GetPrefixErrorsMade(slice.Get(i), tokens[tokenIndex]);
-        if (nameScore == NAME_SCORE_FULL_MATCH)
-          nameScore = NAME_SCORE_PREFIX;
+        auto const prefixErrors = impl::GetPrefixErrorsMade(slice.Get(i), tokens[tokenIndex]);
+        if (prefixErrors.IsBetterThan(errorsMade))
+        {
+          // NAME_SCORE_PREFIX with less errors is better than NAME_SCORE_FULL_MATCH.
+          /// @see RankingInfo_PrefixVsFull test.
+          errorsMade = prefixErrors;
+          if (nameScore == NAME_SCORE_FULL_MATCH)
+            nameScore = NAME_SCORE_PREFIX;
+        }
       }
+
       // If this was a full match and prior tokens matched, downgrade from full to prefix.
       if (!errorsMade.IsValid() && nameScore == NAME_SCORE_FULL_MATCH && matchedLength)
       {
@@ -255,6 +260,7 @@ NameScores GetNameScores(std::vector<strings::UniString> const & tokens, uint8_t
         // Don't count this token towards match length.
         matchedLength -= slice.Get(i).GetOriginal().size();
       }
+
       if (errorsMade.IsValid())
       {
         // Update the match quality
