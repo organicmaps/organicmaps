@@ -51,7 +51,7 @@ public class Factory
       SearchEngine.INSTANCE.cancelInteractiveSearch();
       final ParsedMwmRequest request = ParsedMwmRequest.extractFromIntent(intent);
       ParsedMwmRequest.setCurrentRequest(request);
-      return new OpenUrlTask(uri.toString());
+      return BackUrlMapTaskWrapper.wrap(new OpenUrlTask(uri.toString()), uri.toString());
     }
   }
 
@@ -77,7 +77,7 @@ public class Factory
       SearchEngine.INSTANCE.cancelInteractiveSearch();
       final ParsedMwmRequest request = ParsedMwmRequest.extractFromIntent(intent);
       ParsedMwmRequest.setCurrentRequest(request);
-      return new OpenUrlTask(ge0Url);
+      return BackUrlMapTaskWrapper.wrap(new OpenUrlTask(ge0Url), ge0Url);
     }
   }
 
