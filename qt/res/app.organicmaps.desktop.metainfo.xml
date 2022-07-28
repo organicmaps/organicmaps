@@ -107,6 +107,23 @@
   </screenshots>
 
   <releases>
+   <release version="2022.07.27-3" date="2022-07-27">
+     <description>
+       <ul>
+         <li>New OSM data as of July 18, 2022</li>
+         <li>Added missing shop types from OpenStreetMap tags: antiques, art, baby_goods, bag, boutique, charity, cheese, craft, dairy, deli, electrical, farm, fishing, grocery, health_food, houseware, interior_decoration, kitchen, lottery, medical_supply, nutrition_supplements, paint, pastry, perfumery, second_hand, sewing, storage_rental, tobacco, trade, watches, wholesale</li>
+         <li>Properly select max speed in some routing cases</li>
+         <li>sport=* tags have higher priority than leisure=pitch</li>
+         <li>Fill transit mark place page with feature info</li>
+         <li>Show text info about the next turn's street longer</li>
+         <li>Use building:min_level for 3D buildings</li>
+         <li>Allow removing cuisines from selection in the Editor</li>
+         <li>Fix Belarusian, German, Russian, and Ukrainian translations</li>
+         <li>Add missing translations for OSM natural=* and amenity=events_venue types</li>
+         <li>Fix assertion failure in ES3 scenario on Linux, now OM should work on mobile Linux too</li>
+       </ul>
+     </description>
+   </release>
    <release version="2022.07.01-6" date="2022-07-01">
      <description>
        <ul>
