@@ -32,39 +32,41 @@ double constexpr kDistanceToPivot = -0.2123693;
 double constexpr kRank = 0.1065355;
 double constexpr kPopularity = 1.0000000;
 double constexpr kFalseCats = -0.4172461;
-double constexpr kErrorsMade = -0.0391331;
+double constexpr kErrorsMade = -0.05;
 double constexpr kMatchedFraction = 0.1876736;
 double constexpr kAllTokensUsed = 0.0478513;
 double constexpr kExactCountryOrCapital = 0.1247733;
 double constexpr kRefusedByFilter = -1.0000000;
+
 double constexpr kNameScore[NameScore::NAME_SCORE_COUNT] = {
  -0.05  /* Zero */,
-  0.008 /* Substring */,
-  0.013 /* Prefix */,
-  0.017 /* Full Match */
+  0     /* Substring */,
+  0.01  /* Prefix */,
+  0.02  /* Full Match */
 };
-// @todo These are worth reevaluating. A few issues (i.e. 1376) say
-// that distant cities outrank nearby buildings & SUBPOIs when searching.
-// Adjusting kDistanceToPivot or the values below would help with that.
+
+// 0-based factors from POIs, Streets, Buildings, since we don't have ratings or popularities now.
 double constexpr kType[Model::TYPE_COUNT] = {
-  -0.0467816 /* SUBPOI */,
-  -0.0467816 /* COMPLEX_POI */,
-  -0.0467816 /* Building */,
-  -0.0444630 /* Street */,
-  -0.0348396 /* Unclassified */,
-  -0.0725383 /* Village */,
+  0 /* SUBPOI */,
+  0 /* COMPLEX_POI */,
+  0 /* Building */,
+  0.005 /* Street */,
+  0 /* Unclassified */,
+ -0.0725383 /* Village */,
   0.0073583 /* City */,
   0.0233254 /* State */,
   0.1679389 /* Country */
 };
+
+// 0-based factors from General.
 double constexpr kResultType[base::Underlying(ResultType::Count)] = {
   0.0338794 /* TransportMajor */,
-  0.0216298 /* TransportLocal */,
-  0.0064977 /* Eat */,
-  -0.0275763 /* Hotel */,
-  0.0358858 /* Attraction */,
-  -0.0195234 /* Service */,
-  -0.0128952 /* General */
+  0.01 /* TransportLocal */,
+  0.01 /* Eat */,
+  0.01 /* Hotel */,
+  0.01 /* Attraction */,
+ -0.01 /* Service */,
+  0 /* General */
 };
 
 // Coeffs sanity checks.
@@ -279,7 +281,8 @@ ResultType GetResultType(feature::TypesHolder const & th)
   if (ftypes::IsHotelChecker::Instance()(th))
     return ResultType::Hotel;
   if (ftypes::IsRailwayStationChecker::Instance()(th) ||
-      ftypes::IsSubwayStationChecker::Instance()(th) || ftypes::IsAirportChecker::Instance()(th))
+      ftypes::IsSubwayStationChecker::Instance()(th) ||
+      ftypes::IsAirportChecker::Instance()(th))
   {
     return ResultType::TransportMajor;
   }
