@@ -132,6 +132,8 @@ EdgeEstimator::EdgeEstimator(double maxWeightSpeedKMpH, SpeedKMpH const & offroa
 
   if (m_offroadSpeedKMpH.m_eta != kNotUsed)
     CHECK_GREATER_OR_EQUAL(m_maxWeightSpeedMpS, KmphToMps(m_offroadSpeedKMpH.m_eta), ());
+
+  m_avoidRoutingOptions = RoutingOptions();
 }
 
 double EdgeEstimator::CalcHeuristic(ms::LatLon const & from, ms::LatLon const & to) const
@@ -212,12 +214,12 @@ double EdgeEstimator::CalcOffroad(ms::LatLon const & from, ms::LatLon const & to
 
 RoutingOptions EdgeEstimator::GetAvoidRoutingOptions() const
 {
-    return m_avoidRoutingOptions;
+  return m_avoidRoutingOptions;
 }
 
-void EdgeEstimator::SetAvoidRoutingOptions(RoutingOptions avoidRoutingOptions)
+void EdgeEstimator::SetAvoidRoutingOptions(RoutingOptions::RoadType options)
 {
-    m_avoidRoutingOptions = avoidRoutingOptions;
+  m_avoidRoutingOptions.SetOptions(options);
 }
 
 // PedestrianEstimator -----------------------------------------------------------------------------
@@ -245,7 +247,14 @@ public:
   double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road,
                            Purpose purpose) const override
   {
-    return CalcClimbSegment(purpose, segment, road, GetPedestrianClimbPenalty);
+    double result = CalcClimbSegment(purpose, segment, road, GetPedestrianClimbPenalty);
+
+    if (!road.SuitableForOptions(EdgeEstimator::GetAvoidRoutingOptions()))
+    {
+      result += (24 * 60 * 60);
+    }
+
+    return result;
   }
 };
 
@@ -274,7 +283,14 @@ public:
   double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road,
                            Purpose purpose) const override
   {
-    return CalcClimbSegment(purpose, segment, road, GetBicycleClimbPenalty);
+    double result = CalcClimbSegment(purpose, segment, road, GetBicycleClimbPenalty);
+
+    if (!road.SuitableForOptions(EdgeEstimator::GetAvoidRoutingOptions()))
+    {
+      result += (24 * 60 * 60);
+    }
+
+    return result;
   }
 };
 

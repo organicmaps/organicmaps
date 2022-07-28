@@ -48,7 +48,7 @@ public:
   double CalcOffroad(ms::LatLon const & from, ms::LatLon const & to, Purpose purpose) const;
 
   RoutingOptions GetAvoidRoutingOptions() const;
-  void SetAvoidRoutingOptions(RoutingOptions avoidRoutingOptions);
+  void SetAvoidRoutingOptions(RoutingOptions::RoadType options);
 
   virtual double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road,
                                    Purpose purpose) const = 0;

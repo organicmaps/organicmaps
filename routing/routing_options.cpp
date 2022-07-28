@@ -28,7 +28,7 @@ RoutingOptions RoutingOptions::LoadCarOptionsFromSettings()
 {
   uint32_t mode = 0;
   if (!settings::Get(kAvoidRoutingOptionSettingsForCar, mode))
-    mode = 2;
+    mode = 4;
 
   return RoutingOptions(base::checked_cast<RoadType>(mode));
 }
@@ -53,6 +53,11 @@ void RoutingOptions::Remove(RoutingOptions::Road type)
 bool RoutingOptions::Has(RoutingOptions::Road type) const
 {
   return (m_options & static_cast<RoadType>(type)) != 0;
+}
+
+void RoutingOptions::SetOptions(RoadType options)
+{
+  m_options = options;
 }
 
 // RoutingOptionsClassifier ---------------------------------------------------------------------------
