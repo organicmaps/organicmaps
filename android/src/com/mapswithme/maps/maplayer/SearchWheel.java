@@ -3,9 +3,13 @@ package com.mapswithme.maps.maplayer;
 import android.animation.Animator;
 import android.animation.AnimatorInflater;
 import android.content.Context;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.WindowMetrics;
 import android.widget.ImageView;
 
 import androidx.annotation.DrawableRes;
@@ -20,7 +24,7 @@ import com.mapswithme.maps.search.SearchEngine;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.concurrency.UiThread;
-
+import com.mapswithme.util.log.Logger;
 
 public class SearchWheel implements View.OnClickListener
 {
@@ -125,11 +129,18 @@ public class SearchWheel implements View.OnClickListener
       mSearchLayout = mFrame.findViewById(R.id.search_frame);
       if (mSearchLayout != null)
       {
-        if (UiUtils.isLandscape(mFrame.getContext()))
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        WindowManager windowmanager = (WindowManager) mFrame.getContext().getSystemService(Context.WINDOW_SERVICE);
+        windowmanager.getDefaultDisplay().getMetrics(displayMetrics);
+        // Get available screen height in DP
+        int height =  Math.round(displayMetrics.heightPixels / displayMetrics.density);
+        // If height is less than 400dp, the search wheel in a straight line
+        // In this case, move the pivot for the animation
+        if (height < 400)
         {
           UiUtils.waitLayout(mSearchLayout, () -> {
             mSearchLayout.setPivotX(0);
-            mSearchLayout.setPivotY(mSearchLayout.getMeasuredHeight() / 2);
+            mSearchLayout.setPivotY(mSearchLayout.getMeasuredHeight() / 2f);
           });
         }
         for (SearchOption searchOption : SearchOption.values())

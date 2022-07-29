@@ -160,12 +160,20 @@
     <item name="status_folder_done">@drawable/ic_downloader_folder_done_night</item>
   </style>
 
-  <style name="MwmTheme.NavButtons">
-    <item name="searchLayoutBackground">@drawable/bg_circle_panel</item>
+  <style name="MwmTheme.NavButtonsRound">
+    <item name="searchLayoutBackground">@drawable/bg_search_wheel_background_round</item>
   </style>
 
-  <style name="MwmTheme.NavButtons.Night" parent="MwmTheme.Night">
-    <item name="searchLayoutBackground">@drawable/bg_circle_panel_night</item>
+  <style name="MwmTheme.NavButtonsRound.Night" parent="MwmTheme.Night">
+    <item name="searchLayoutBackground">@drawable/bg_search_wheel_background_round_night</item>
+  </style>
+
+  <style name="MwmTheme.NavButtonsRect">
+    <item name="searchLayoutBackground">@drawable/bg_search_wheel_background_rect</item>
+  </style>
+
+  <style name="MwmTheme.NavButtonsRect.Night" parent="MwmTheme.Night">
+    <item name="searchLayoutBackground">@drawable/bg_search_wheel_background_rect_night</item>
   </style>
 
   <style name="MwmTheme.Navigation">
