@@ -33,15 +33,7 @@ NameScores GetScore(string const & name, string const & query, TokenRange const 
   vector<UniString> tokens;
   SplitUniString(NormalizeAndSimplifyString(query), base::MakeBackInsertFunctor(tokens), delims);
 
-  if (!query.empty() && !delims(strings::LastUniChar(query)))
-  {
-    CHECK(!tokens.empty(), ());
-    params.InitWithPrefix(tokens.begin(), tokens.end() - 1, tokens.back());
-  }
-  else
-  {
-    params.InitNoPrefix(tokens.begin(), tokens.end());
-  }
+  params.Init(query, tokens, !query.empty() && !delims(strings::LastUniChar(query)));
 
   return GetNameScores(name, StringUtf8Multilang::kDefaultCode, TokenSlice(params, tokenRange));
 }

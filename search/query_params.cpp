@@ -8,11 +8,11 @@
 #include <map>
 #include <sstream>
 
+namespace search
+{
 using namespace std;
 using namespace strings;
 
-namespace search
-{
 namespace
 {
 // All synonyms should be lowercase.

@@ -18,6 +18,7 @@
 #include "editor/editable_data_source.hpp"
 
 #include "indexer/feature.hpp"
+#include "indexer/feature_impl.hpp"
 
 #include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
@@ -150,13 +151,15 @@ UNIT_CLASS_TEST(ProcessorTest, Smoke)
   TestStreet stradaDrive({{-10.001, -10.001}, {-10, -10}, {-9.999, -9.999}}, "Strada drive", "en");
   TestBuilding terranceHouse({-10, -10}, "", "155", stradaDrive.GetName("en"), "en");
 
-  auto const worldId = BuildWorld([&](TestMwmBuilder & builder) {
+  auto const worldId = BuildWorld([&](TestMwmBuilder & builder)
+  {
     builder.Add(wonderlandCountry);
     builder.Add(losAlamosCity);
     builder.Add(mskCity);
     builder.Add(torontoCity);
   });
-  auto const wonderlandId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+  auto const wonderlandId = BuildCountry(countryName, [&](TestMwmBuilder & builder)
+  {
     builder.Add(losAlamosCity);
     builder.Add(mskCity);
     builder.Add(torontoCity);
@@ -276,10 +279,10 @@ UNIT_CLASS_TEST(ProcessorTest, SearchInWorld)
   TestCity losAlamos({0, 0}, "Los Alamos", "en", 100 /* rank */);
 
   auto testWorldId = BuildWorld([&](TestMwmBuilder & builder)
-                                {
-                                  builder.Add(wonderland);
-                                  builder.Add(losAlamos);
-                                });
+  {
+    builder.Add(wonderland);
+    builder.Add(losAlamos);
+  });
   RegisterCountry(countryName, m2::RectD(-1.0, -1.0, 1.0, 1.0));
 
   SetViewport(m2::RectD(-1.0, -1.0, -0.5, -0.5));
@@ -299,20 +302,19 @@ UNIT_CLASS_TEST(ProcessorTest, SearchInWorld)
 
 UNIT_CLASS_TEST(ProcessorTest, SearchByName)
 {
-  string const countryName = "Wonderland";
   TestCity london({1, 1}, "London", "en", 100 /* rank */);
   TestPark hydePark({{0.5, 0.5}, {1.5, 0.5}, {1.5, 1.5}, {0.5, 1.5}}, "Hyde Park", "en");
   TestPOI cafe({1.0, 1.0}, "London Cafe", "en");
 
   auto worldId = BuildWorld([&](TestMwmBuilder & builder)
-                            {
-                              builder.Add(london);
-                            });
-  auto wonderlandId = BuildCountry(countryName, [&](TestMwmBuilder & builder)
-                                   {
-                                     builder.Add(hydePark);
-                                     builder.Add(cafe);
-                                   });
+  {
+    builder.Add(london);
+  });
+  auto wonderlandId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
+    builder.Add(hydePark);
+    builder.Add(cafe);
+  });
 
   SetViewport(m2::RectD(-1.0, -1.0, -0.9, -0.9));
   {
@@ -342,10 +344,10 @@ UNIT_CLASS_TEST(ProcessorTest, DisableSuggests)
   TestCity london2({-1, -1}, "London", "en", 100 /* rank */);
 
   auto worldId = BuildWorld([&](TestMwmBuilder & builder)
-                            {
-                              builder.Add(london1);
-                              builder.Add(london2);
-                            });
+  {
+    builder.Add(london1);
+    builder.Add(london2);
+  });
 
   {
     SearchParams params;
@@ -365,8 +367,6 @@ UNIT_CLASS_TEST(ProcessorTest, DisableSuggests)
 
 UNIT_CLASS_TEST(ProcessorTest, TestRankingInfo)
 {
-  string const countryName = "Wonderland";
-
   TestCity sanFrancisco({1, 1}, "San Francisco", "en", 100 /* rank */);
   // Golden Gate Bridge-bridge is located in this test on the Golden
   // Gate Bridge-street. Therefore, there are several valid parses of
@@ -396,21 +396,21 @@ UNIT_CLASS_TEST(ProcessorTest, TestRankingInfo)
   cafe3.SetTypes({{"amenity", "cafe"}});
 
   auto worldId = BuildWorld([&](TestMwmBuilder & builder)
-                            {
-                              builder.Add(sanFrancisco);
-                              builder.Add(lermontovo);
-                            });
-  auto wonderlandId = BuildCountry(countryName, [&](TestMwmBuilder & builder)
-                                   {
-                                     builder.Add(cafe1);
-                                     builder.Add(cafe2);
-                                     builder.Add(cafe3);
-                                     builder.Add(goldenGateBridge);
-                                     builder.Add(goldenGateStreet);
-                                     builder.Add(lermontov);
-                                     builder.Add(pushkino);
-                                     builder.Add(waterfall);
-                                   });
+  {
+    builder.Add(sanFrancisco);
+    builder.Add(lermontovo);
+  });
+  auto wonderlandId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
+    builder.Add(cafe1);
+    builder.Add(cafe2);
+    builder.Add(cafe3);
+    builder.Add(goldenGateBridge);
+    builder.Add(goldenGateStreet);
+    builder.Add(lermontov);
+    builder.Add(pushkino);
+    builder.Add(waterfall);
+  });
 
   SetViewport(m2::RectD(-0.5, -0.5, 0.5, 0.5));
   {
@@ -457,8 +457,6 @@ UNIT_CLASS_TEST(ProcessorTest, TestRankingInfo)
 
 UNIT_CLASS_TEST(ProcessorTest, TestRankingInfo_ErrorsMade)
 {
-  string const countryName = "Wonderland";
-
   TestCity chekhov({0, 0}, "Чеховъ Антонъ Павловичъ", "ru", 100 /* rank */);
 
   TestStreet yesenina({{0.5, -0.5}, {0, 0}, {-0.5, 0.5}}, "Yesenina street", "en");
@@ -470,7 +468,8 @@ UNIT_CLASS_TEST(ProcessorTest, TestRankingInfo_ErrorsMade)
 
   auto worldId = BuildWorld([&](TestMwmBuilder & builder) { builder.Add(chekhov); });
 
-  auto wonderlandId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+  auto wonderlandId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
     builder.Add(yesenina);
     builder.Add(pushkinskaya);
     builder.Add(ostrovskogo);
@@ -479,7 +478,8 @@ UNIT_CLASS_TEST(ProcessorTest, TestRankingInfo_ErrorsMade)
 
   SetViewport(m2::RectD(-1, -1, 1, 1));
 
-  auto checkErrors = [&](string const & query, ErrorsMade const & errorsMade) {
+  auto checkErrors = [&](string const & query, ErrorsMade const & errorsMade)
+  {
     auto request = MakeRequest(query, "ru");
     auto const & results = request->Results();
 
@@ -532,8 +532,6 @@ UNIT_CLASS_TEST(ProcessorTest, TestRankingInfo_ErrorsMade)
 
 UNIT_CLASS_TEST(ProcessorTest, TestHouseNumbers)
 {
-  string const countryName = "HouseNumberLand";
-
   TestCity greenCity({0, 0}, "Зеленоград", "ru", 100 /* rank */);
 
   TestStreet street({{-5.0, -5.0}, {0, 0}, {5.0, 5.0}}, "Генерала Генералова", "ru");
@@ -545,7 +543,8 @@ UNIT_CLASS_TEST(ProcessorTest, TestHouseNumbers)
   TestBuilding building115k1({-1.0, -1.0}, "", "115к1", "en");
 
   BuildWorld([&](TestMwmBuilder & builder) { builder.Add(greenCity); });
-  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+  auto countryId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
     builder.Add(street);
     builder.Add(building100);
     builder.Add(building200);
@@ -612,8 +611,6 @@ UNIT_CLASS_TEST(ProcessorTest, TestHouseNumbers)
 
 UNIT_CLASS_TEST(ProcessorTest, TestPostcodes)
 {
-  string const countryName = "Russia";
-
   TestCity dolgoprudny({0, 0}, "Долгопрудный", "ru", 100 /* rank */);
   TestCity london({10, 10}, "London", "en", 100 /* rank */);
 
@@ -638,20 +635,20 @@ UNIT_CLASS_TEST(ProcessorTest, TestPostcodes)
   building1.SetPostcode("WC2H 7BX");
 
   BuildWorld([&](TestMwmBuilder & builder)
-             {
-               builder.Add(dolgoprudny);
-               builder.Add(london);
-             });
-  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder)
-                                {
-                                  builder.Add(street);
-                                  builder.Add(building28);
-                                  builder.Add(building29);
-                                  builder.Add(building30);
-                                  builder.Add(building31);
+  {
+    builder.Add(dolgoprudny);
+    builder.Add(london);
+  });
+  auto countryId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
+    builder.Add(street);
+    builder.Add(building28);
+    builder.Add(building29);
+    builder.Add(building30);
+    builder.Add(building31);
 
-                                  builder.Add(building1);
-                                });
+    builder.Add(building1);
+  });
 
   // Tests that postcode is added to the search index.
   {
@@ -660,8 +657,9 @@ UNIT_CLASS_TEST(ProcessorTest, TestPostcodes)
 
     QueryParams params;
     {
-      strings::UniString const tokens[] = {strings::MakeUniString("141702")};
-      params.InitNoPrefix(tokens, tokens + ARRAY_SIZE(tokens));
+      string const query = "141702";
+      vector<strings::UniString> const tokens = { strings::MakeUniString(query) };
+      params.Init(query, tokens, false);
     }
 
     Retrieval retrieval(context, cancellable);
@@ -718,8 +716,6 @@ UNIT_CLASS_TEST(ProcessorTest, TestPostcodes)
 
 UNIT_CLASS_TEST(ProcessorTest, TestCategories)
 {
-  string const countryName = "Wonderland";
-
   TestCity sanFrancisco({0, 0}, "San Francisco", "en", 100 /* rank */);
 
   TestPOI nonameBeach({0, 0}, "", "ru");
@@ -747,20 +743,20 @@ UNIT_CLASS_TEST(ProcessorTest, TestCategories)
   namedResidential.SetTypes({{"landuse", "residential"}});
 
   BuildWorld([&](TestMwmBuilder & builder)
-             {
-               builder.Add(sanFrancisco);
-             });
-  auto wonderlandId = BuildCountry(countryName, [&](TestMwmBuilder & builder)
-                                   {
-                                     builder.Add(busStop);
-                                     builder.Add(cafe);
-                                     builder.Add(namedAtm);
-                                     builder.Add(namedBeach);
-                                     builder.Add(nonameAtm);
-                                     builder.Add(nonameBeach);
-                                     builder.Add(toi);
-                                     builder.Add(namedResidential);
-                                   });
+  {
+    builder.Add(sanFrancisco);
+  });
+  auto wonderlandId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
+    builder.Add(busStop);
+    builder.Add(cafe);
+    builder.Add(namedAtm);
+    builder.Add(namedBeach);
+    builder.Add(nonameAtm);
+    builder.Add(nonameBeach);
+    builder.Add(toi);
+    builder.Add(namedResidential);
+  });
 
   SetViewport(m2::RectD(-0.5, -0.5, 0.5, 0.5));
 
@@ -805,8 +801,6 @@ UNIT_CLASS_TEST(ProcessorTest, TestCategories)
 // A separate test for the categorial search branch in the geocoder.
 UNIT_CLASS_TEST(ProcessorTest, TestCategorialSearch)
 {
-  string const countryName = "Wonderland";
-
   TestCity sanDiego({0, 0}, "San Diego", "en", 100 /* rank */);
   TestCity homel({10, 10}, "Homel", "en", 100 /* rank */);
 
@@ -830,11 +824,13 @@ UNIT_CLASS_TEST(ProcessorTest, TestCategorialSearch)
   TestPOI laundry({0, 0.06}, "Entertainment 720", "en");
   laundry.SetTypes({{"shop", "laundry"}});
 
-  auto const testWorldId = BuildWorld([&](TestMwmBuilder & builder) {
+  auto const testWorldId = BuildWorld([&](TestMwmBuilder & builder)
+  {
     builder.Add(sanDiego);
     builder.Add(homel);
   });
-  auto wonderlandId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+  auto wonderlandId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
     builder.Add(hotel1);
     builder.Add(hotel2);
     builder.Add(hotelCafe);
@@ -929,10 +925,12 @@ UNIT_CLASS_TEST(ProcessorTest, SearchDebug)
   TestPOI hotel({0, 0.01}, "", "ru");
   hotel.SetTypes({{"tourism", "hotel"}});
 
-  auto const testWorldId = BuildWorld([&](TestMwmBuilder & builder) {
+  auto const testWorldId = BuildWorld([&](TestMwmBuilder & builder)
+  {
     builder.Add(debugville);
   });
-  auto wonderlandId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+  auto wonderlandId = BuildCountry(countryName, [&](TestMwmBuilder & builder)
+  {
     builder.Add(hotel);
     builder.Add(cafe);
   });
@@ -1020,12 +1018,14 @@ UNIT_CLASS_TEST(ProcessorTest, FuzzyMatch)
   TestPOI metro({5.0, 5.0}, "Liceu", "es");
   metro.SetTypes({{"railway", "subway_entrance"}});
 
-  BuildWorld([&](TestMwmBuilder & builder) {
+  BuildWorld([&](TestMwmBuilder & builder)
+  {
     builder.Add(country);
     builder.Add(city);
   });
 
-  auto id = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+  auto id = BuildCountry(countryName, [&](TestMwmBuilder & builder)
+  {
     builder.Add(street);
     builder.Add(bar);
     builder.Add(metro);
@@ -1074,7 +1074,10 @@ UNIT_CLASS_TEST(ProcessorTest, SpacesInCategories)
     builder.Add(city);
   });
 
-  auto id = BuildCountry(countryName, [&](TestMwmBuilder & builder) { builder.Add(nightclub); });
+  auto id = BuildCountry(countryName, [&](TestMwmBuilder & builder)
+  {
+    builder.Add(nightclub);
+  });
 
   {
     Rules rules = {ExactMatch(id, nightclub)};
@@ -1094,12 +1097,14 @@ UNIT_CLASS_TEST(ProcessorTest, StopWords)
   TestPOI bakery({0.0, 0.0}, "" /* name */, "en");
   bakery.SetTypes({{"shop", "bakery"}});
 
-  BuildWorld([&](TestMwmBuilder & builder) {
+  BuildWorld([&](TestMwmBuilder & builder)
+  {
     builder.Add(country);
     builder.Add(city);
   });
 
-  auto id = BuildCountry(country.GetName("en"), [&](TestMwmBuilder & builder) {
+  auto id = BuildCountry(country.GetName("en"), [&](TestMwmBuilder & builder)
+  {
     builder.Add(street);
     builder.Add(bakery);
   });
@@ -1135,7 +1140,10 @@ UNIT_CLASS_TEST(ProcessorTest, Numerals)
   TestPOI school({0, 0}, "СШ №61", "ru");
   school.SetTypes({{"amenity", "school"}});
 
-  auto id = BuildCountry(country.GetName("ru"), [&](TestMwmBuilder & builder) { builder.Add(school); });
+  auto id = BuildCountry(country.GetName("ru"), [&](TestMwmBuilder & builder)
+  {
+    builder.Add(school);
+});
 
   SetViewport(m2::RectD(-1.0, -1.0, 1.0, 1.0));
   {
@@ -1150,8 +1158,6 @@ UNIT_CLASS_TEST(ProcessorTest, Numerals)
 
 UNIT_CLASS_TEST(ProcessorTest, TestWeirdTypes)
 {
-  string const countryName = "Area51";
-
   TestCity tokyo({0, 0}, "東京", "ja", 100 /* rank */);
 
   TestStreet street({{-8.0, 0.0}, {8.0, 0.0}}, "竹下通り", "ja");
@@ -1165,7 +1171,8 @@ UNIT_CLASS_TEST(ProcessorTest, TestWeirdTypes)
 
   BuildWorld([&](TestMwmBuilder & builder) { builder.Add(tokyo); });
 
-  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+  auto countryId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
     builder.Add(street);
     builder.Add(defibrillator1);
     builder.Add(defibrillator2);
@@ -1236,12 +1243,14 @@ UNIT_CLASS_TEST(ProcessorTest, CityBoundarySmoke)
   TestPOI cafeKhimki({0.49, 0.51}, "Химичка", "ru");
   cafeKhimki.SetTypes({{"amenity", "cafe"}, {"internet_access", "wlan"}});
 
-  BuildWorld([&](TestMwmBuilder & builder) {
+  BuildWorld([&](TestMwmBuilder & builder)
+  {
     builder.Add(moscow);
     builder.Add(khimki);
   });
 
-  auto countryId = BuildCountry("Россия" /* countryName */, [&](TestMwmBuilder & builder) {
+  auto countryId = BuildCountry("Россия", [&](TestMwmBuilder & builder)
+  {
     builder.Add(cafeMoscow);
     builder.Add(cafeKhimki);
   });
@@ -1295,7 +1304,8 @@ UNIT_CLASS_TEST(ProcessorTest, RelaxedRetrieval)
   TestPOI poi2({2.0, 0.0}, "Post box", "en");
   poi2.SetTypes({{"amenity", "post_box"}});
 
-  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder)
+  {
     builder.Add(street);
     builder.Add(building0);
     builder.Add(building1);
@@ -1303,7 +1313,8 @@ UNIT_CLASS_TEST(ProcessorTest, RelaxedRetrieval)
   });
   RegisterCountry(countryName, m2::RectD(-10.0, -10.0, 10.0, 10.0));
 
-  auto worldId = BuildWorld([&](TestMwmBuilder & builder) {
+  auto worldId = BuildWorld([&](TestMwmBuilder & builder)
+  {
     builder.Add(country);
     builder.Add(city);
   });
@@ -1379,13 +1390,15 @@ UNIT_CLASS_TEST(ProcessorTest, PathsThroughLayers)
   TestPOI svmCafe({8.0, 8.0}, "Trattoria SVM", "en");
   svmCafe.SetTypes({{"amenity", "cafe"}});
 
-  BuildWorld([&](TestMwmBuilder & builder) {
+  BuildWorld([&](TestMwmBuilder & builder)
+  {
     builder.Add(scienceCountry);
     builder.Add(mathTown);
   });
   RegisterCountry(countryName, m2::RectD(-100.0, -100.0, 100.0, 100.0));
 
-  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder)
+  {
     builder.Add(computingStreet);
     builder.Add(statisticalLearningBuilding);
     builder.Add(supervisedOffice);
@@ -1451,9 +1464,8 @@ UNIT_CLASS_TEST(ProcessorTest, PathsThroughLayers)
 
 UNIT_CLASS_TEST(ProcessorTest, SelectProperName)
 {
-  string const countryName = "Wonderland";
-
-  auto testLanguage = [&](string language, string expectedRes) {
+  auto testLanguage = [&](string language, string expectedRes)
+  {
     auto request = MakeRequest("cafe", language);
     auto const & results = request->Results();
     TEST_EQUAL(results.size(), 1, (results));
@@ -1465,7 +1477,8 @@ UNIT_CLASS_TEST(ProcessorTest, SelectProperName)
       {{"es", "Spanish"}, {"int_name", "International"}, {"fr", "French"}, {"ru", "Russian"}});
   cafe.SetTypes({{"amenity", "cafe"}});
 
-  auto wonderlandId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+  BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
     builder.Add(cafe);
     builder.SetMwmLanguages({"it", "fr"});
   });
@@ -1507,15 +1520,14 @@ UNIT_CLASS_TEST(ProcessorTest, SelectProperName)
 
 UNIT_CLASS_TEST(ProcessorTest, CuisineTest)
 {
-  string const countryName = "Wonderland";
-
   TestPOI vegan({1.0, 1.0}, "Useless name", "en");
   vegan.SetTypes({{"amenity", "cafe"}, {"cuisine", "vegan"}});
 
   TestPOI pizza({1.0, 1.0}, "Useless name", "en");
   pizza.SetTypes({{"amenity", "bar"}, {"cuisine", "pizza"}});
 
-  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+  auto countryId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
     builder.Add(vegan);
     builder.Add(pizza);
   });
@@ -1536,15 +1548,14 @@ UNIT_CLASS_TEST(ProcessorTest, CuisineTest)
 
 UNIT_CLASS_TEST(ProcessorTest, OrganicTest)
 {
-  string const countryName = "Wonderland";
-
   TestPOI cafe(m2::PointD(1.0, 1.0), "Мечта ботаника", "ru");
   cafe.SetTypes({{"amenity", "cafe"}, {"organic", "only"}});
 
   TestPOI shop(m2::PointD(1.0, 1.0), "Whole foods", "en");
   shop.SetTypes({{"shop", "supermarket"}, {"organic", "yes"}});
 
-  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+  auto countryId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
     builder.Add(cafe);
     builder.Add(shop);
   });
@@ -1568,15 +1579,14 @@ UNIT_CLASS_TEST(ProcessorTest, OrganicTest)
 
 UNIT_CLASS_TEST(ProcessorTest, RecyclingTest)
 {
-  string const countryName = "Wonderland";
-
   TestPOI paper(m2::PointD(1.0, 1.0), "Макулатура", "ru");
   paper.SetTypes({{"amenity", "recycling", "container"}, {"recycling", "paper"}});
 
   TestPOI metal(m2::PointD(1.0, 1.0), "Armatura", "en");
   metal.SetTypes({{"amenity", "recycling", "centre"}, {"recycling", "scrap_metal"}});
 
-  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+  auto countryId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
     builder.Add(paper);
     builder.Add(metal);
   });
@@ -1596,12 +1606,11 @@ UNIT_CLASS_TEST(ProcessorTest, RecyclingTest)
 
 UNIT_CLASS_TEST(ProcessorTest, AirportTest)
 {
-  string const countryName = "Wonderland";
-
   TestAirport vko({1.0, 1.0}, "Useless name", "en", "VKO");
   TestAirport svo({1.0, 1.0}, "Useless name", "en", "SVO");
 
-  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+  auto countryId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
     builder.Add(vko);
     builder.Add(svo);
   });
@@ -1621,12 +1630,11 @@ UNIT_CLASS_TEST(ProcessorTest, AirportTest)
 
 UNIT_CLASS_TEST(ProcessorTest, OperatorTest)
 {
-  string const countryName = "Wonderland";
-
   TestATM sber({1.0, 1.0}, "Sberbank", "en");
   TestATM alfa({1.0, 1.0}, "Alfa bank", "en");
 
-  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+  auto countryId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
     builder.Add(sber);
     builder.Add(alfa);
   });
@@ -1652,12 +1660,11 @@ UNIT_CLASS_TEST(ProcessorTest, OperatorTest)
 
 UNIT_CLASS_TEST(ProcessorTest, BrandTest)
 {
-  string const countryName = "Wonderland";
-
   TestBrandFeature mac({1.0, 1.0}, "mcdonalds", "en");
   TestBrandFeature sw({1.0, 1.0}, "subway", "en");
 
-  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+  auto countryId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
     builder.Add(mac);
     builder.Add(sw);
   });
@@ -1683,19 +1690,17 @@ UNIT_CLASS_TEST(ProcessorTest, BrandTest)
 
 UNIT_CLASS_TEST(ProcessorTest, SquareAsStreetTest)
 {
-  string const countryName = "Wonderland";
-
   TestSquare square(m2::RectD(0.0, 0.0, 1.0, 1.0), "revolution square", "en");
 
   TestPOI nonameHouse({1.0, 1.0}, "", "en");
   nonameHouse.SetHouseNumber("3");
   nonameHouse.SetStreetName(square.GetName("en"));
 
-  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder)
-                                   {
-                                     builder.Add(square);
-                                     builder.Add(nonameHouse);
-                                   });
+  auto countryId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
+    builder.Add(square);
+    builder.Add(nonameHouse);
+  });
 
   SetViewport(m2::RectD(0.0, 0.0, 1.0, 2.0));
   {
@@ -1711,10 +1716,10 @@ UNIT_CLASS_TEST(ProcessorTest, CountrySynonymsTest)
   alabama.SetTypes({{"place", "state"}});
 
   auto worldId = BuildWorld([&](TestMwmBuilder & builder)
-                            {
-                              builder.Add(usa);
-                              builder.Add(alabama);
-                            });
+  {
+    builder.Add(usa);
+    builder.Add(alabama);
+  });
 
   SetViewport(m2::RectD(0.0, 0.0, 1.0, 1.0));
   {
@@ -1733,15 +1738,14 @@ UNIT_CLASS_TEST(ProcessorTest, CountrySynonymsTest)
 
 UNIT_CLASS_TEST(ProcessorTest, SynonymsTest)
 {
-  string const countryName = "Wonderland";
-
   TestStreet streetEn({{0.5, -0.5}, {0.0, 0.0}, {-0.5, 0.5}}, "Southwest street", "en");
   TestStreet streetRu({{-0.5, -0.5}, {0.0, 0.0}, {0.5, 0.5}}, "большая свято-покровская улица", "ru");
 
   TestPOI stPeterEn({2.0, 2.0}, "saint peter basilica", "en");
   TestPOI stPeterRu({-2.0, -2.0}, "собор святого петра", "ru");
 
-  auto wonderlandId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+  auto wonderlandId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
     builder.Add(streetEn);
     builder.Add(streetRu);
     builder.Add(stPeterEn);
@@ -1788,13 +1792,12 @@ UNIT_CLASS_TEST(ProcessorTest, SynonymsTest)
 
 UNIT_CLASS_TEST(ProcessorTest, PreprocessBeforeTokenizationTest)
 {
-  string const countryName = "Wonderland";
-
   TestStreet prt({{0.5, -0.5}, {0.0, 0.0}, {-0.5, 0.5}}, "Октябрьский проспект", "ru");
   TestStreet prd({{-0.5, -0.5}, {0.0, 0.0}, {0.5, 0.5}}, "Жуков проезд", "ru");
   TestStreet nabya({{0.0, -0.5}, {0.0, 0.0}, {0.0, 0.5}}, "Москворецкая набережная", "ru");
 
-  auto wonderlandId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+  auto wonderlandId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
     builder.Add(prt);
     builder.Add(prd);
     builder.Add(nabya);
@@ -1823,8 +1826,6 @@ UNIT_CLASS_TEST(ProcessorTest, PreprocessBeforeTokenizationTest)
 
 UNIT_CLASS_TEST(ProcessorTest, StreetNameLocaleTest)
 {
-  string const countryName = "Wonderland";
-
   StringUtf8Multilang streetName;
   streetName.AddString("default", "default");
   streetName.AddString("en", "english");
@@ -1835,7 +1836,8 @@ UNIT_CLASS_TEST(ProcessorTest, StreetNameLocaleTest)
   nonameHouse.SetHouseNumber("3");
   nonameHouse.SetStreetName(street.GetName("ja"));
 
-  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+  auto countryId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
     builder.Add(street);
     builder.Add(nonameHouse);
   });
@@ -1849,7 +1851,6 @@ UNIT_CLASS_TEST(ProcessorTest, StreetNameLocaleTest)
 
 UNIT_CLASS_TEST(ProcessorTest, RemoveDuplicatingStreets)
 {
-  string const countryName = "Wonderland";
   string const streetName = "Октябрьский проспект";
 
   // Distance between centers should be less than 5km.
@@ -1858,7 +1859,7 @@ UNIT_CLASS_TEST(ProcessorTest, RemoveDuplicatingStreets)
   TestStreet street2({{0.0, 0.01}, {0.0, 0.02}}, streetName, "ru");
   street1.SetHighwayType("secondary");
 
-  auto wonderlandId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+  auto wonderlandId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder) {
     builder.Add(street1);
     builder.Add(street2);
   });
@@ -1871,14 +1872,13 @@ UNIT_CLASS_TEST(ProcessorTest, RemoveDuplicatingStreets)
 
 UNIT_CLASS_TEST(ProcessorTest, ExactMatchTest)
 {
-  string const countryName = "Wonderland";
-
   TestCafe lermontov({1, 1}, "Лермонтовъ", "ru");
   TestCity lermontovo({-1, -1}, "Лермонтово", "ru", 0 /* rank */);
   TestCafe cafe({-1.01, -1.01}, "", "ru");
 
   auto worldId = BuildWorld([&](TestMwmBuilder & builder) { builder.Add(lermontovo); });
-  auto wonderlandId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+  auto wonderlandId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
     builder.Add(cafe);
     builder.Add(lermontov);
   });
@@ -1952,8 +1952,6 @@ UNIT_CLASS_TEST(ProcessorTest, ExactMatchTest)
 
 UNIT_CLASS_TEST(ProcessorTest, StreetSynonymPrefix)
 {
-  string const countryName = "Wonderland";
-
   // Est is a prefix of "estrada".
   TestStreet street({{-1.0, -1.0}, {1.0, 1.0}}, "Boulevard Maloney Est", "en");
 
@@ -1961,7 +1959,8 @@ UNIT_CLASS_TEST(ProcessorTest, StreetSynonymPrefix)
   house.SetHouseNumber("3");
   house.SetStreetName(street.GetName("en"));
 
-  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+  auto countryId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
     builder.Add(street);
     builder.Add(house);
   });
@@ -1975,12 +1974,10 @@ UNIT_CLASS_TEST(ProcessorTest, StreetSynonymPrefix)
 
 UNIT_CLASS_TEST(ProcessorTest, Strasse)
 {
-  string const countryName = "Wonderland";
-
   TestStreet s1({{-1.0, -1.0},{1.0, 1.0}}, "abcdstraße", "en");
   TestStreet s2({{1.0, -1.0}, {-1.0, 1.0}}, "xyz strasse", "en");
 
-  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+  auto countryId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder) {
     builder.Add(s1);
     builder.Add(s2);
   });
@@ -2031,13 +2028,12 @@ UNIT_CLASS_TEST(ProcessorTest, Strasse)
 
 UNIT_CLASS_TEST(ProcessorTest, StreetSynonymsWithMisprints)
 {
-  string const countryName = "Wonderland";
-
   TestStreet leninsky({{0.0, -1.0}, {0.0, 1.0}}, "Ленинский проспект", "ru");
   TestStreet nabrezhnaya({{1.0, -1.0}, {1.0, 1.0}}, "улица набрежная", "ru");
   TestStreet naberezhnaya({{2.0, -1.0}, {2.0, 1.0}}, "улица набережная", "ru");
 
-  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+  auto countryId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
     builder.Add(leninsky);
     builder.Add(nabrezhnaya);
     builder.Add(naberezhnaya);
@@ -2063,8 +2059,6 @@ UNIT_CLASS_TEST(ProcessorTest, StreetSynonymsWithMisprints)
 
 UNIT_CLASS_TEST(ProcessorTest, HouseOnStreetSynonymsWithMisprints)
 {
-  string const countryName = "Wonderland";
-
   TestStreet tverskoi({{1.0, -1.0}, {1.0, 1.0}}, "Tverskoi Boulevard", "en");
   TestStreet leninsky({{0.0, -1.0}, {0.0, 1.0}}, "Leninsky Avenue", "en");
   TestStreet mira({{-1.0, -1.0}, {-1.0, 1.0}}, "Проспект Мира", "ru");
@@ -2081,7 +2075,8 @@ UNIT_CLASS_TEST(ProcessorTest, HouseOnStreetSynonymsWithMisprints)
   houseMira.SetHouseNumber("7");
   houseMira.SetStreetName(mira.GetName("ru"));
 
-  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+  auto countryId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
     builder.Add(tverskoi);
     builder.Add(leninsky);
     builder.Add(mira);
@@ -2124,14 +2119,13 @@ UNIT_CLASS_TEST(ProcessorTest, HouseOnStreetSynonymsWithMisprints)
 
 UNIT_CLASS_TEST(ProcessorTest, StreetSynonymPrefixMatch)
 {
-  string const countryName = "Wonderland";
-
   TestStreet yesenina({{0.5, -0.5}, {0, 0}, {-0.5, 0.5}}, "Yesenina street", "en");
 
   TestPOI cafe({0, 0}, "", "en");
   cafe.SetTypes({{"amenity", "cafe"}});
 
-  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+  auto countryId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
     builder.Add(yesenina);
     builder.Add(cafe);
   });
@@ -2153,14 +2147,13 @@ UNIT_CLASS_TEST(ProcessorTest, StreetSynonymPrefixMatch)
 
 UNIT_CLASS_TEST(ProcessorTest, SynonymMisprintsTest)
 {
-  string const countryName = "Wonderland";
-
   TestStreet bolshaya({{0.5, -0.5}, {-0.5, 0.5}}, "большая дмитровка", "ru");
   TestCafe bolnaya({0.0, 0.0}, "больная дмитровка", "ru");
   TestStreet sw({{0.5, -0.5}, {0.5, 0.5}}, "southwest street", "en");
   TestStreet se({{-0.5, -0.5}, {-0.5, 0.5}}, "southeast street", "en");
 
-  auto wonderlandId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+  auto wonderlandId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
     builder.Add(bolshaya);
     builder.Add(bolnaya);
     builder.Add(sw);
@@ -2197,8 +2190,6 @@ UNIT_CLASS_TEST(ProcessorTest, SynonymMisprintsTest)
 
 UNIT_CLASS_TEST(ProcessorTest, VillagePostcodes)
 {
-  string const countryName = "France";
-
   TestVillage marckolsheim({0, 0}, "Marckolsheim", "en", 10 /* rank */);
   marckolsheim.SetPostcode("67390");
 
@@ -2207,7 +2198,8 @@ UNIT_CLASS_TEST(ProcessorTest, VillagePostcodes)
   TestBuilding building4({0.0, 0.00001}, "", "4", street.GetName("en"), "en");
   TestPOI poi({0.0, -0.00001}, "Carrefour", "en");
 
-  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+  auto countryId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
     builder.Add(marckolsheim);
     builder.Add(street);
     builder.Add(building4);
@@ -2241,14 +2233,13 @@ UNIT_CLASS_TEST(ProcessorTest, VillagePostcodes)
 
 UNIT_CLASS_TEST(ProcessorTest, StreetPostcodes)
 {
-  string const countryName = "France";
-
   TestStreet street({{-0.5, 0.0}, {0, 0}, {0.5, 0.0}}, "Rue des Serpents", "en");
   street.SetPostcode("67390");
 
   TestBuilding building4({0.0, 0.00001}, "", "4", street.GetName("en"), "en");
 
-  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+  auto countryId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
     builder.Add(street);
     builder.Add(building4);
   });
@@ -2268,8 +2259,6 @@ UNIT_CLASS_TEST(ProcessorTest, StreetPostcodes)
 
 UNIT_CLASS_TEST(ProcessorTest, CityPostcodes)
 {
-  string const countryName = "Russia";
-
   TestCity moscow({0, 0}, "Moscow", "en", 100 /* rank */);
   moscow.SetPostcode("123456");
 
@@ -2281,7 +2270,7 @@ UNIT_CLASS_TEST(ProcessorTest, CityPostcodes)
     builder.Add(moscow);
   });
 
-  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+  auto countryId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder) {
     builder.Add(moscow);
     builder.Add(street);
     builder.Add(building);
@@ -2297,12 +2286,11 @@ UNIT_CLASS_TEST(ProcessorTest, CityPostcodes)
 
 UNIT_CLASS_TEST(ProcessorTest, StreetNumber)
 {
-  string const countryName = "Wonderland";
-
   TestStreet street({{-1.0, -1.0}, {1.0, 1.0}}, "Симферопольское шоссе", "ru");
   street.SetRoadNumber("M2");
 
-  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+  auto countryId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
     builder.Add(street);
   });
 
@@ -2315,13 +2303,13 @@ UNIT_CLASS_TEST(ProcessorTest, StreetNumber)
 
 UNIT_CLASS_TEST(ProcessorTest, StreetNumberEnriched)
 {
-  string const countryName = "Wonderland";
-
   TestStreet street({{-1.0, -1.0}, {1.0, 1.0}}, "Нева", "ru");
   street.SetRoadNumber("M-11;ru:national/M-11");
 
-  auto countryId =
-      BuildCountry(countryName, [&](TestMwmBuilder & builder) { builder.Add(street); });
+  auto countryId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
+    builder.Add(street);
+  });
 
   SetViewport(m2::RectD(0.0, 0.0, 1.0, 2.0));
   {
@@ -2339,12 +2327,11 @@ UNIT_CLASS_TEST(ProcessorTest, StreetNumberEnriched)
 
 UNIT_CLASS_TEST(ProcessorTest, PostcodesErrorTest)
 {
-  string const countryName = "Wonderland";
-
   TestPOI postbox({0.0, 0.0}, "127001", "default");
   postbox.SetTypes({{"amenity", "post_box"}});
 
-  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+  auto countryId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
     builder.Add(postbox);
   });
 
@@ -2400,7 +2387,7 @@ UNIT_CLASS_TEST(ProcessorTest, OrderCountries)
     auto request = MakeRequest("London Piccadilly");
     auto const & results = request->Results();
 
-    TEST_EQUAL(results.size(), 2, ("Unexpected number of results."));
+    TEST_EQUAL(results.size(), 2, ());
     // (UkId, piccadilly) should be ranked first, it means it was in the first batch.
     TEST(ResultsMatch({results[0]}, {ExactMatch(UkId, piccadilly)}), ());
     TEST(ResultsMatch({results[1]}, {ExactMatch(cafeLandId, londonCafe)}), ());
@@ -2409,7 +2396,7 @@ UNIT_CLASS_TEST(ProcessorTest, OrderCountries)
     auto request = MakeRequest("Cambridge Wheeling");
     auto const & results = request->Results();
 
-    TEST_EQUAL(results.size(), 2, ("Unexpected number of results."));
+    TEST_EQUAL(results.size(), 2, ());
     TEST(ResultsMatch({results[0]}, {ExactMatch(cafeLandId, cambridgeCafe)}), ());
     TEST(ResultsMatch({results[1]}, {ExactMatch(UkId, wheeling)}), ());
     // (UkId, wheeling) has higher rank but it's second in results because it was not in the first
@@ -2421,8 +2408,6 @@ UNIT_CLASS_TEST(ProcessorTest, OrderCountries)
 
 UNIT_CLASS_TEST(ProcessorTest, Suburbs)
 {
-  string const countryName = "Wonderland";
-
   TestPOI suburb({0, 0}, "Bloomsbury", "en");
   suburb.SetTypes({{"place", "suburb"}});
 
@@ -2434,7 +2419,8 @@ UNIT_CLASS_TEST(ProcessorTest, Suburbs)
 
   TestCafe cafe({0.01, 0.01}, "", "en");
 
-  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+  auto countryId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
     builder.Add(suburb);
     builder.Add(street);
     builder.Add(house);
@@ -2712,13 +2698,13 @@ UNIT_CLASS_TEST(ProcessorTest, FilterVillages)
 
 UNIT_CLASS_TEST(ProcessorTest, MatchedFraction)
 {
-  string const countryName = "Wonderland";
   string const streetName = "Октябрьский проспaект";
 
   TestStreet street1({{-1.0, -1.0}, {1.0, 1.0}}, "Первомайская", "ru");
   TestStreet street2({{-1.0, 1.0}, {1.0, -1.0}}, "8 марта", "ru");
 
-  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+  auto countryId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
     builder.Add(street1);
     builder.Add(street2);
   });
@@ -2737,8 +2723,6 @@ UNIT_CLASS_TEST(ProcessorTest, MatchedFraction)
 
 UNIT_CLASS_TEST(ProcessorTest, AvoidMatchAroundPivotInMwmWithCity)
 {
-  string const minskCountryName = "Minsk";
-
   TestCity minsk({-10.0, -10.0}, "Minsk", "en", 10 /* rank */);
   // World.mwm should intersect viewport.
   TestCity dummy({10.0, 10.0}, "Dummy", "en", 1 /* rank */);
@@ -2749,7 +2733,8 @@ UNIT_CLASS_TEST(ProcessorTest, AvoidMatchAroundPivotInMwmWithCity)
   });
 
   TestCafe minskCafe({-9.99, -9.99}, "Minsk cafe", "en");
-  auto minskId = BuildCountry(minskCountryName, [&](TestMwmBuilder & builder) {
+  auto minskId = BuildCountry("Minsk", [&](TestMwmBuilder & builder)
+  {
     builder.Add(minsk);
     builder.Add(minskCafe);
   });
@@ -2805,8 +2790,6 @@ UNIT_CLASS_TEST(ProcessorTest, LocalityScorer)
 
 UNIT_CLASS_TEST(ProcessorTest, StreetWithNumber)
 {
-  string const countryName = "Wonderland";
-
   TestStreet street1({{-0.5, 1.0}, {0.0, 1.0}, {0.5, 1.0}}, "1-я Тверская-Ямская", "ru");
   TestStreet street8({{-0.5, 1.0}, {0.0, 0.0}, {0.5, 0.0}}, "8 Марта", "ru");
   TestStreet street11({{-0.5, -1.0}, {0.0, -1.0}, {0.5, -1.0}}, "11-я Магистральная", "ru");
@@ -2815,7 +2798,8 @@ UNIT_CLASS_TEST(ProcessorTest, StreetWithNumber)
   TestBuilding building8({0.0, 0.00001}, "", "8", street8.GetName("ru"), "en");
   TestBuilding building11({0.0, -1.00001}, "", "11", street11.GetName("ru"), "en");
 
-  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+  auto countryId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
     builder.Add(street1);
     builder.Add(street8);
     builder.Add(street11);
@@ -2841,8 +2825,6 @@ UNIT_CLASS_TEST(ProcessorTest, StreetWithNumber)
 
 UNIT_CLASS_TEST(ProcessorTest, SimilarLanguage)
 {
-  string const countryName = "Wonderland";
-
   auto testLanguage = [&](string language, string searchString, bool expectedRes) {
     auto request = MakeRequest(searchString, language);
     auto const & results = request->Results();
@@ -2856,8 +2838,10 @@ UNIT_CLASS_TEST(ProcessorTest, SimilarLanguage)
                            {"ja_kana", "じゆうがおか"},
                            {"ko", "지유가오카"}});
 
-  auto wonderlandId =
-      BuildCountry(countryName, [&](TestMwmBuilder & builder) { builder.Add(poi); });
+  auto wonderlandId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
+    builder.Add(poi);
+  });
 
   SetViewport(m2::RectD(-1, -1, 1, 1));
 
@@ -2882,13 +2866,13 @@ UNIT_CLASS_TEST(ProcessorTest, SimilarLanguage)
 
 UNIT_CLASS_TEST(ProcessorTest, AltAndOldName)
 {
-  string const countryName = "Wonderland";
-
   TestMultilingualPOI poi({0.0, 0.0}, "default",
                           {{"en", "english"}, {"alt_name", "alternative"}, {"old_name", "old"}});
 
-  auto wonderlandId =
-      BuildCountry(countryName, [&](TestMwmBuilder & builder) { builder.Add(poi); });
+  auto wonderlandId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
+    builder.Add(poi);
+  });
 
   SetViewport(m2::RectD(-1, -1, 1, 1));
   {
@@ -2902,8 +2886,6 @@ UNIT_CLASS_TEST(ProcessorTest, AltAndOldName)
 
 UNIT_CLASS_TEST(ProcessorTest, TestRankingInfo_IsAltOrOldName)
 {
-  string const countryName = "Wonderland";
-
   StringUtf8Multilang cityName;
   cityName.AddString("default", "Санкт-Петербург");
   cityName.AddString("alt_name", "Питер");
@@ -2921,7 +2903,8 @@ UNIT_CLASS_TEST(ProcessorTest, TestRankingInfo_IsAltOrOldName)
 
   auto worldId = BuildWorld([&](TestMwmBuilder & builder) { builder.Add(city); });
 
-  auto wonderlandId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+  auto wonderlandId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
     builder.Add(city);
     builder.Add(street);
     builder.Add(poi);
@@ -2980,12 +2963,10 @@ UNIT_CLASS_TEST(ProcessorTest, TestRankingInfo_IsAltOrOldName)
 
 UNIT_CLASS_TEST(ProcessorTest, JaKanaNormalizationTest)
 {
-  string const countryName = "Wonderland";
-
   TestPOI poiHiragana({0.0, 0.0}, "とうきょうと", "default");
   TestPOI poiKatakana({1.0, 1.0}, "トウキョウト", "default");
 
-  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+  auto countryId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder) {
     builder.Add(poiHiragana);
     builder.Add(poiKatakana);
   });
@@ -3000,8 +2981,6 @@ UNIT_CLASS_TEST(ProcessorTest, JaKanaNormalizationTest)
 
 UNIT_CLASS_TEST(ProcessorTest, TestRankingInfo_MultipleOldNames)
 {
-  string const countryName = "Wonderland";
-
   StringUtf8Multilang cityName;
   cityName.AddString("default", "Санкт-Петербург");
   cityName.AddString("old_name", "Ленинград;Петроград");
@@ -3031,15 +3010,13 @@ UNIT_CLASS_TEST(ProcessorTest, TestRankingInfo_MultipleOldNames)
 /*
 UNIT_CLASS_TEST(ProcessorTest, BurgerStreet)
 {
-  string const countryName = "Wonderland";
-
   TestPOI burger({1.0, 1.0}, "Dummy", "en");
   burger.SetTypes({{"amenity", "fast_food"}, {"cuisine", "burger"}});
 
   TestStreet street({{2.0, 2.0}, {3.0, 3.0}}, "Burger street", "en");
   street.SetHighwayType("residential");
 
-  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder)
+  auto countryId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
   {
     builder.Add(burger);
     builder.Add(street);
@@ -3056,8 +3033,6 @@ UNIT_CLASS_TEST(ProcessorTest, BurgerStreet)
 
 UNIT_CLASS_TEST(ProcessorTest, PostCategoryTest)
 {
-  string const countryName = "Wonderland";
-
   TestPOI office({0, 0}, "PO", "default");
   office.SetTypes({{"amenity", "post_office"}});
 
@@ -3067,7 +3042,7 @@ UNIT_CLASS_TEST(ProcessorTest, PostCategoryTest)
   TestPOI locker({2, 2}, "PL", "default");
   locker.SetTypes({{"amenity", "parcel_locker"}});
 
-  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder)
+  auto countryId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
   {
     builder.Add(office);
     builder.Add(box);
@@ -3089,15 +3064,13 @@ UNIT_CLASS_TEST(ProcessorTest, PostCategoryTest)
 
 UNIT_CLASS_TEST(ProcessorTest, SportTest)
 {
-  string const countryName = "Wonderland";
-
   TestPOI tennis({0, 0}, "xxx", "uk");
   tennis.SetTypes({{"leisure", "pitch"}, {"sport", "tennis"}});
 
   TestPOI soccer({1, 1}, "yyy", "be");
   soccer.SetTypes({{"leisure", "pitch"}, {"sport", "soccer"}});
 
-  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder)
+  auto countryId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
   {
     builder.Add(tennis);
     builder.Add(soccer);

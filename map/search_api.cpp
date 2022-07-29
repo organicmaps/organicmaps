@@ -3,21 +3,16 @@
 #include "map/bookmarks_search_params.hpp"
 #include "map/everywhere_search_params.hpp"
 
-
-#include "search/bookmarks/processor.hpp"
 #include "search/geometry_utils.hpp"
-#include "search/tracer.hpp"
 #include "search/utils.hpp"
 
 #include "storage/downloader_search_params.hpp"
 
 #include "platform/preferred_languages.hpp"
-#include "platform/safe_callback.hpp"
 
 #include "geometry/mercator.hpp"
 
 #include "base/checked_cast.hpp"
-#include "base/string_utils.hpp"
 
 #include <algorithm>
 #include <cmath>
@@ -433,9 +428,7 @@ bool SearchAPI::Search(SearchParams const & params, bool forceSearch)
   // search request.
   CancelQuery(intent.m_handle);
 
-  auto const minDistanceBetweenResults = m_delegate.GetMinDistanceBetweenResults();
-  intent.m_params.m_minDistanceOnMapBetweenResultsX = minDistanceBetweenResults.x;
-  intent.m_params.m_minDistanceOnMapBetweenResultsY = minDistanceBetweenResults.y;
+  intent.m_params.m_minDistanceOnMapBetweenResults = m_delegate.GetMinDistanceBetweenResults();
 
   Search(intent);
 

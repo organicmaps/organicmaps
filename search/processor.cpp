@@ -4,15 +4,12 @@
 
 #include "search/common.hpp"
 #include "search/cuisine_filter.hpp"
-#include "search/dummy_rank_table.hpp"
 #include "search/geometry_utils.hpp"
 #include "search/intermediate_result.hpp"
 #include "search/latlon_match.hpp"
 #include "search/mode.hpp"
 #include "search/postcode_points.hpp"
-#include "search/pre_ranking_info.hpp"
 #include "search/query_params.hpp"
-#include "search/ranking_info.hpp"
 #include "search/ranking_utils.hpp"
 #include "search/search_index_values.hpp"
 #include "search/search_params.hpp"
@@ -26,27 +23,19 @@
 #include "indexer/data_source.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
-#include "indexer/feature_covering.hpp"
-#include "indexer/feature_data.hpp"
-#include "indexer/feature_impl.hpp"
 #include "indexer/feature_utils.hpp"
 #include "indexer/features_vector.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/mwm_set.hpp"
 #include "indexer/postcodes_matcher.hpp"
-#include "indexer/scales.hpp"
 #include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
 #include "indexer/trie_reader.hpp"
 
-#include "platform/mwm_traits.hpp"
-#include "platform/mwm_version.hpp"
 #include "platform/preferred_languages.hpp"
 
 #include "coding/compressed_bit_vector.hpp"
-#include "coding/reader_wrapper.hpp"
 #include "coding/string_utf8_multilang.hpp"
-#include "coding/url.hpp"
 
 #include "geometry/latlon.hpp"
 #include "geometry/mercator.hpp"
@@ -54,25 +43,19 @@
 #include "base/assert.hpp"
 #include "base/buffer_vector.hpp"
 #include "base/logging.hpp"
-#include "base/macros.hpp"
-#include "base/scope_guard.hpp"
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
 #include <algorithm>
-#include <cctype>
-#include <memory>
-#include <optional>
 #include <set>
 #include <sstream>
-#include <utility>
 
 #include "3party/open-location-code/openlocationcode.h"
 
-using namespace std;
-
 namespace search
 {
+using namespace std;
+
 namespace
 {
 enum LanguageTier
@@ -492,6 +475,7 @@ void Processor::SearchByFeatureId()
     if (EatFid(s, fid))
       EmitFeaturesByIndexFromAllMwms(infos, fid);
   }
+
   // Case 1.
   if (hasFidPrefix)
   {
@@ -499,23 +483,15 @@ void Processor::SearchByFeatureId()
     storage::CountryId mwmName;
     uint32_t fid;
 
-    bool ok = true;
     bool const parenPref = strings::EatPrefix(s, "(");
     bool const parenSuff = strings::EatSuffix(s, ")");
-    ok = ok && parenPref == parenSuff;
-    ok = ok && EatMwmName(m_countriesTrie, s, mwmName);
-    ok = ok && strings::EatPrefix(s, ",");
-    ok = ok && EatFid(s, fid);
-    // fid variable can not be uninitialized below, but by some reason compilers do not understand it.
-#ifdef __clang__
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wconditional-uninitialized"
-#endif
-    if (ok)
+    if (parenPref == parenSuff &&
+        EatMwmName(m_countriesTrie, s, mwmName) &&
+        strings::EatPrefix(s, ",") &&
+        EatFid(s, fid))
+    {
       EmitFeatureIfExists(infos, mwmName, {} /* version */, fid);
-#ifdef __clang__
-#pragma clang diagnostic pop
-#endif
+    }
   }
 
   // Case 2.
@@ -525,24 +501,16 @@ void Processor::SearchByFeatureId()
     uint32_t version;
     uint32_t fid;
 
-    bool ok = true;
-    ok = ok && strings::EatPrefix(s, "{ MwmId [");
-    ok = ok && EatMwmName(m_countriesTrie, s, mwmName);
-    ok = ok && strings::EatPrefix(s, ", ");
-    ok = ok && EatVersion(s, version);
-    ok = ok && strings::EatPrefix(s, "], ");
-    ok = ok && EatFid(s, fid);
-    ok = ok && strings::EatPrefix(s, " }");
-    // fid variable can not be uninitialized below, but by some reason compilers do not understand it.
-#ifdef __clang__
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wconditional-uninitialized"
-#endif
-    if (ok)
+    if (strings::EatPrefix(s, "{ MwmId [") &&
+        EatMwmName(m_countriesTrie, s, mwmName) &&
+        strings::EatPrefix(s, ", ") &&
+        EatVersion(s, version) &&
+        strings::EatPrefix(s, "], ") &&
+        EatFid(s, fid) &&
+        strings::EatPrefix(s, " }"))
+    {
       EmitFeatureIfExists(infos, mwmName, version, fid);
-#ifdef __clang__
-#pragma clang diagnostic pop
-#endif
+    }
   }
 }
 
@@ -799,17 +767,12 @@ void Processor::SearchBookmarks(bookmarks::GroupId const & groupId)
 
 void Processor::InitParams(QueryParams & params) const
 {
-  params.SetQuery(m_query);
-
-  if (m_prefix.empty())
-    params.InitNoPrefix(m_tokens.begin(), m_tokens.end());
-  else
-    params.InitWithPrefix(m_tokens.begin(), m_tokens.end(), m_prefix);
+  params.Init(m_query, m_tokens.begin(), m_tokens.end(), m_prefix);
 
   Classificator const & c = classif();
 
   // Add names of categories (and synonyms).
-  auto const tokenSlice = QuerySliceOnRawStrings<decltype(m_tokens)>(m_tokens, m_prefix);
+  QuerySliceOnRawStrings const tokenSlice(m_tokens, m_prefix);
   params.SetCategorialRequest(m_isCategorialRequest);
   if (m_isCategorialRequest)
   {
@@ -874,10 +837,7 @@ void Processor::InitPreRanker(Geocoder::Params const & geocoderParams,
   PreRanker::Params params;
 
   if (viewportSearch)
-  {
-    params.m_minDistanceOnMapBetweenResultsX = searchParams.m_minDistanceOnMapBetweenResultsX;
-    params.m_minDistanceOnMapBetweenResultsY = searchParams.m_minDistanceOnMapBetweenResultsY;
-  }
+    params.m_minDistanceOnMapBetweenResults = searchParams.m_minDistanceOnMapBetweenResults;
 
   params.m_viewport = GetViewport();
   params.m_accuratePivotCenter = GetPivotPoint(viewportSearch);
