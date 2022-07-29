@@ -11,13 +11,11 @@
 
 #include "base/control_flow.hpp"
 
-#include <cstdint>
 #include <functional>
 #include <map>
 #include <optional>
 #include <set>
 #include <string>
-#include <utility>
 #include <vector>
 #include <mutex>
 
@@ -26,7 +24,7 @@ class BookmarkManager;
 class SearchMarkPoint : public UserMark
 {
 public:
-  enum class SearchMarkType : uint32_t;
+  enum SearchMarkType : uint8_t;
 
   explicit SearchMarkPoint(m2::PointD const & ptOrg);
 
@@ -79,18 +77,20 @@ protected:
 
   bool HasReason() const;
 
-  std::string GetSymbolName() const;
+  std::string const * GetSymbolName() const;
 
-  SearchMarkType m_type{};
-  FeatureID m_featureID;
   // Used to pass exact search result matched string into a place page.
   std::string m_matchedName;
-  bool m_isPreparing = false;
-  bool m_hasSale = false;
-  bool m_isSelected = false;
-  bool m_isVisited = false;
-  bool m_isAvailable = true;
   std::string m_reason;
+
+  FeatureID m_featureID;
+  SearchMarkType m_type;
+
+  bool m_isPreparing : 1;
+  bool m_hasSale : 1;
+  bool m_isSelected : 1;
+  bool m_isVisited : 1;
+  bool m_isAvailable : 1;
 };
 
 class SearchMarks
@@ -125,7 +125,7 @@ public:
 
   void ClearTrackedProperties();
 
-  static bool HaveSizes() { return !m_searchMarkSizes.empty(); };
+  static bool HaveSizes() { return !s_markSizes.empty(); };
   static std::optional<m2::PointD> GetSize(std::string const & symbolName);
 
 private:
@@ -135,13 +135,13 @@ private:
   BookmarkManager * m_bmManager;
   df::DrapeEngineSafePtr m_drapeEngine;
 
-  static std::map<std::string, m2::PointF> m_searchMarkSizes;
+  static std::map<std::string, m2::PointF> s_markSizes;
 
-  m2::PointD m_maxDimension;
+  m2::PointD m_maxDimension{0, 0};
 
   std::set<FeatureID> m_visitedSearchMarks;
   FeatureID m_selectedFeature;
 
-  mutable std::mutex m_lock;
-  std::map<FeatureID, std::string /* SearchMarkPoint::m_reason */> m_unavailable;
+//  mutable std::mutex m_lock;
+//  std::map<FeatureID, std::string /* SearchMarkPoint::m_reason */> m_unavailable;
 };
