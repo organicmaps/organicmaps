@@ -57,15 +57,7 @@ public:
     // We remove stop words from query in processor.
     base::EraseIf(tokens, &IsStopWord);
 
-    if (lastTokenIsPrefix)
-    {
-      CHECK(!tokens.empty(), ());
-      m_params.InitWithPrefix(tokens.begin(), tokens.end() - 1, tokens.back());
-    }
-    else
-    {
-      m_params.InitNoPrefix(tokens.begin(), tokens.end());
-    }
+    m_params.Init(query, tokens, lastTokenIsPrefix);
   }
 
   void AddLocality(string const & name, uint32_t featureId, uint8_t rank = 0,

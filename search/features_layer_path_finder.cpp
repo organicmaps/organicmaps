@@ -5,17 +5,15 @@
 
 #include "indexer/features_vector.hpp"
 
-#include "base/cancellable.hpp"
 #include "base/stl_helpers.hpp"
 
-#include <cstdint>
 #include <deque>
 #include <unordered_map>
 
-using namespace std;
-
 namespace search
 {
+using namespace std;
+
 // static
 FeaturesLayerPathFinder::Mode FeaturesLayerPathFinder::m_mode = MODE_AUTO;
 
@@ -81,18 +79,11 @@ bool MayHaveDelayedFeatures(FeaturesLayer const & layer)
 }
 }  // namespace
 
-FeaturesLayerPathFinder::FeaturesLayerPathFinder(base::Cancellable const & cancellable)
-  : m_cancellable(cancellable)
-{
-}
-
+template <class FnT>
 void FeaturesLayerPathFinder::FindReachableVertices(FeaturesLayerMatcher & matcher,
                                                     vector<FeaturesLayer const *> const & layers,
-                                                    vector<IntersectionResult> & results)
+                                                    FnT && fn)
 {
-  if (layers.empty())
-    return;
-
   switch (m_mode)
   {
   case MODE_AUTO:
@@ -101,19 +92,20 @@ void FeaturesLayerPathFinder::FindReachableVertices(FeaturesLayerMatcher & match
     uint64_t const bottomUpCost = CalcBottomUpPassCost(layers);
 
     if (bottomUpCost < topDownCost)
-      FindReachableVerticesBottomUp(matcher, layers, results);
+      FindReachableVerticesBottomUp(matcher, layers, fn);
     else
-      FindReachableVerticesTopDown(matcher, layers, results);
+      FindReachableVerticesTopDown(matcher, layers, fn);
   }
   break;
-  case MODE_BOTTOM_UP: FindReachableVerticesBottomUp(matcher, layers, results); break;
-  case MODE_TOP_DOWN: FindReachableVerticesTopDown(matcher, layers, results); break;
+  case MODE_BOTTOM_UP: FindReachableVerticesBottomUp(matcher, layers, fn); break;
+  case MODE_TOP_DOWN: FindReachableVerticesTopDown(matcher, layers, fn); break;
   }
 }
 
+template <class FnT>
 void FeaturesLayerPathFinder::FindReachableVerticesTopDown(
     FeaturesLayerMatcher & matcher, vector<FeaturesLayer const *> const & layers,
-    vector<IntersectionResult> & results)
+    FnT && fn)
 {
   ASSERT(!layers.empty(), ());
 
@@ -158,13 +150,14 @@ void FeaturesLayerPathFinder::FindReachableVerticesTopDown(
   for (auto const & id : lowestLevel)
   {
     if (GetPath(id, layers, parentGraph, result))
-      results.push_back(result);
+      fn(result);
   }
 }
 
+template <class FnT>
 void FeaturesLayerPathFinder::FindReachableVerticesBottomUp(
     FeaturesLayerMatcher & matcher, vector<FeaturesLayer const *> const & layers,
-    vector<IntersectionResult> & results)
+    FnT && fn)
 {
   ASSERT(!layers.empty(), ());
 
@@ -221,7 +214,7 @@ void FeaturesLayerPathFinder::FindReachableVerticesBottomUp(
   for (auto const & id : lowestLevel)
   {
     if (GetPath(id, layers, parentGraph, result))
-      results.push_back(result);
+      fn(result);
   }
 }
 }  // namespace search

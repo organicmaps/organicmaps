@@ -71,10 +71,8 @@ struct SearchParams
   size_t m_batchSize = kDefaultBatchSizeEverywhere;
   size_t m_maxNumResults = kDefaultNumResultsEverywhere;
 
-  // Minimal distance between search results in mercators, needed for
-  // pre-ranking of viewport search results.
-  double m_minDistanceOnMapBetweenResultsX = 0.0;
-  double m_minDistanceOnMapBetweenResultsY = 0.0;
+  // Minimal distance between search results (by x,y axes in mercator), needed for filtering of viewport search results.
+  m2::PointD m_minDistanceOnMapBetweenResults{0, 0};
 
   // Street search radius from pivot or matched city center for everywhere search mode.
   double m_streetSearchRadiusM = kDefaultStreetSearchRadiusM;

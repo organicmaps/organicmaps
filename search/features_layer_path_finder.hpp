@@ -4,13 +4,13 @@
 #include "search/features_layer.hpp"
 #include "search/intersection_result.hpp"
 
-#include <utility>
-#include <vector>
-
-#if defined(DEBUG)
+#ifdef DEBUG
 #include "base/logging.hpp"
 #include "base/timer.hpp"
-#endif  // defined(DEBUG)
+#endif  // DEBUG
+
+#include <utility>
+#include <vector>
 
 class FeaturesVector;
 class MwmValue;
@@ -47,7 +47,7 @@ public:
     MODE_BOTTOM_UP
   };
 
-  FeaturesLayerPathFinder(base::Cancellable const & cancellable);
+  FeaturesLayerPathFinder(base::Cancellable const & cancellable) : m_cancellable(cancellable) {}
 
   template <typename TFn>
   void ForEachReachableVertex(FeaturesLayerMatcher & matcher,
@@ -59,20 +59,25 @@ public:
 // TODO (@y): remove following code as soon as
 // FindReachableVertices() will work fast for most cases
 // (significantly less than 1 second).
-#if defined(DEBUG)
+#ifdef DEBUG
     for (auto const * layer : layers)
-      LOG(LINFO, (DebugPrint(*layer)));
+      LOG(LDEBUG, (DebugPrint(*layer)));
+
+    size_t count = 0;
     base::Timer timer;
-#endif  // defined(DEBUG)
+#endif  // DEBUG
 
-    std::vector<IntersectionResult> results;
-    FindReachableVertices(matcher, layers, results);
+    FindReachableVertices(matcher, layers, [&](IntersectionResult const & r)
+    {
+      fn(r);
+#ifdef DEBUG
+      ++count;
+#endif  // DEBUG
+    });
 
-#if defined(DEBUG)
-    LOG(LINFO, ("Found:", results.size(), "elapsed:", timer.ElapsedSeconds(), "seconds"));
-#endif  // defined(DEBUG)
-
-    for_each(results.begin(), results.end(), std::forward<TFn>(fn));
+#ifdef DEBUG
+    LOG(LDEBUG, ("Found:", count, "elapsed:", timer.ElapsedSeconds(), "seconds"));
+#endif  // DEBUG
   }
 
   static void SetModeForTesting(Mode mode) { m_mode = mode; }
@@ -80,21 +85,24 @@ public:
 private:
   void BailIfCancelled() { ::search::BailIfCancelled(m_cancellable); }
 
+  template <class FnT>
   void FindReachableVertices(FeaturesLayerMatcher & matcher,
                              std::vector<FeaturesLayer const *> const & layers,
-                             std::vector<IntersectionResult> & results);
+                             FnT && fn);
 
   // Tries to find all |reachable| features from the lowest layer in a
   // high level -> low level pass.
+  template <class FnT>
   void FindReachableVerticesTopDown(FeaturesLayerMatcher & matcher,
                                     std::vector<FeaturesLayer const *> const & layers,
-                                    std::vector<IntersectionResult> & results);
+                                    FnT && fn);
 
   // Tries to find all |reachable| features from the lowest layer in a
   // low level -> high level pass.
+  template <class FnT>
   void FindReachableVerticesBottomUp(FeaturesLayerMatcher & matcher,
                                      std::vector<FeaturesLayer const *> const & layers,
-                                     std::vector<IntersectionResult> & results);
+                                     FnT && fn);
 
   base::Cancellable const & m_cancellable;
 

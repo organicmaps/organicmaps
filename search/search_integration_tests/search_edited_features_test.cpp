@@ -166,10 +166,9 @@ UNIT_CLASS_TEST(SearchEditedFeaturesTest, ViewportFilter)
     SearchParams params;
     params.m_query = "pushkin";
     params.m_inputLocale = "en";
-    params.m_viewport = m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(1.0, 1.0));
+    params.m_viewport = { -1.0, -1.0, 1.0, 1.0 };
     params.m_mode = Mode::Viewport;
-    params.m_minDistanceOnMapBetweenResultsX = 0.02;
-    params.m_minDistanceOnMapBetweenResultsY = 0.02;
+    params.m_minDistanceOnMapBetweenResults = { 0.02, 0.02 };
 
     // Min distance on map between results is 0.02, distance between results is 0.01.
     // The second result must be filtered out.
@@ -184,10 +183,9 @@ UNIT_CLASS_TEST(SearchEditedFeaturesTest, ViewportFilter)
     SearchParams params;
     params.m_query = "pushkin";
     params.m_inputLocale = "en";
-    params.m_viewport = m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(1.0, 1.0));
+    params.m_viewport = { -1.0, -1.0, 1.0, 1.0 };
     params.m_mode = Mode::Viewport;
-    params.m_minDistanceOnMapBetweenResultsX = 0.005;
-    params.m_minDistanceOnMapBetweenResultsY = 0.005;
+    params.m_minDistanceOnMapBetweenResults = { 0.005, 0.005 };
 
     // Min distance on map between results is 0.005, distance between results is 0.01.
     // Filter should keep both results.
@@ -203,10 +201,9 @@ UNIT_CLASS_TEST(SearchEditedFeaturesTest, ViewportFilter)
     SearchParams params;
     params.m_query = "pushkin";
     params.m_inputLocale = "en";
-    params.m_viewport = m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(1.0, 1.0));
+    params.m_viewport = { -1.0, -1.0, 1.0, 1.0 };
     params.m_mode = Mode::Everywhere;
-    params.m_minDistanceOnMapBetweenResultsX = 0.02;
-    params.m_minDistanceOnMapBetweenResultsY = 0.02;
+    params.m_minDistanceOnMapBetweenResults = { 0.02, 0.02 };
 
     // No viewport filter for everywhere search mode.
     Rules const rulesEverywhere = {ExactMatch(countryId, restaurant), ExactMatch(countryId, cafe)};
