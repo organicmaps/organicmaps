@@ -76,7 +76,8 @@
     <item name="wheelPendingAnimation">@drawable/anim_spinner_pending</item>
     <item name="trafficLoadingAnimation">@drawable/anim_traffic_loading</item>
 
-    <item name="navButtonsTheme">@style/MwmTheme.NavButtons</item>
+    <item name="navButtonsThemeRect">@style/MwmTheme.NavButtonsRect</item>
+    <item name="navButtonsThemeRound">@style/MwmTheme.NavButtonsRound</item>
     <item name="downloaderTheme">@style/MwmTheme.Downloader</item>
     <item name="navigationTheme">@style/MwmTheme.Navigation</item>
 
@@ -252,7 +253,8 @@
     <item name="wheelPendingAnimation">@drawable/anim_spinner_pending</item>
     <item name="trafficLoadingAnimation">@drawable/anim_traffic_loading_night</item>
 
-    <item name="navButtonsTheme">@style/MwmTheme.NavButtons.Night</item>
+    <item name="navButtonsThemeRect">@style/MwmTheme.NavButtonsRect.Night</item>
+    <item name="navButtonsThemeRound">@style/MwmTheme.NavButtonsRound.Night</item>
     <item name="downloaderTheme">@style/MwmTheme.Downloader.Night</item>
     <item name="navigationTheme">@style/MwmTheme.Navigation.Night</item>
 

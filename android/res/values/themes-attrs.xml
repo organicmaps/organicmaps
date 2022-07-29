@@ -46,7 +46,8 @@
     <attr name="myPositionButtonAnimation" format="reference" />
     <attr name="wheelPendingAnimation" format="reference" />
     <attr name="trafficLoadingAnimation" format="reference" />
-    <attr name="navButtonsTheme" format="reference" />
+    <attr name="navButtonsThemeRect" format="reference" />
+    <attr name="navButtonsThemeRound" format="reference" />
     <attr name="downloaderTheme" format="reference" />
     <attr name="navigationTheme" format="reference" />
     <attr name="fabAdd" format="reference" />

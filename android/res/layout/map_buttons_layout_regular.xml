@@ -5,6 +5,8 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
+  android:clipChildren="false"
+  android:clipToPadding="false"
   tools:background="@color/bg_primary">
   <androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/map_buttons_top"
@@ -39,16 +41,16 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_alignParentBottom="true"
-      android:layout_marginBottom="@dimen/margin_half"
-      app:layout_constraintBottom_toTopOf="@+id/my_position"
+      app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent" />
     <include
       layout="@layout/map_buttons_myposition"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_alignParentBottom="true"
+      android:layout_marginEnd="@dimen/margin_half"
       app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent" />
+      app:layout_constraintEnd_toStartOf="@+id/zoom_buttons_container" />
   </androidx.constraintlayout.widget.ConstraintLayout>
   <androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/map_buttons_bottom"
