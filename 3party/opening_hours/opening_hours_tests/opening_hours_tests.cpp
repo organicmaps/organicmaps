@@ -1698,47 +1698,47 @@ BOOST_AUTO_TEST_CASE(OpeningHours_GetNextTimeOpen)
 
   BOOST_CHECK(Parse("Mo-Tu 15:00-18:00; We off; Th on; Fr 15:00-18:00; Sa 10:00-12:00", rules));
   BOOST_CHECK(GetNextTimeOpen(rules, fmt, "2022-01-03 09:00") == "2022-01-03 15:00");    // Mo
-  BOOST_CHECK(GetNextTimeClosed(rules, fmt, "2022-01-03 16:00") == "2022-01-03 18:01");  // Mo
+  BOOST_CHECK(GetNextTimeClosed(rules, fmt, "2022-01-03 16:00") == "2022-01-03 18:00");  // Mo
   BOOST_CHECK(GetNextTimeOpen(rules, fmt, "2022-01-04 09:00") == "2022-01-04 15:00");    // Tu
-  BOOST_CHECK(GetNextTimeClosed(rules, fmt, "2022-01-04 16:00") == "2022-01-04 18:01");  // Tu
+  BOOST_CHECK(GetNextTimeClosed(rules, fmt, "2022-01-04 16:00") == "2022-01-04 18:00");  // Tu
   BOOST_CHECK(GetNextTimeOpen(rules, fmt, "2022-01-05 09:00") == "2022-01-06 00:00");    // We
   BOOST_CHECK(GetNextTimeClosed(rules, fmt, "2022-01-06 16:00") == "2022-01-07 00:00");  // Th
   BOOST_CHECK(GetNextTimeOpen(rules, fmt, "2022-01-07 09:00") == "2022-01-07 15:00");    // Fr
-  BOOST_CHECK(GetNextTimeClosed(rules, fmt, "2022-01-07 16:00") == "2022-01-07 18:01");  // Fr
+  BOOST_CHECK(GetNextTimeClosed(rules, fmt, "2022-01-07 16:00") == "2022-01-07 18:00");  // Fr
   BOOST_CHECK(GetNextTimeOpen(rules, fmt, "2022-01-08 09:00") == "2022-01-08 10:00");    // Sa
-  BOOST_CHECK(GetNextTimeClosed(rules, fmt, "2022-01-08 11:00") == "2022-01-08 12:01");  // Sa
+  BOOST_CHECK(GetNextTimeClosed(rules, fmt, "2022-01-08 11:00") == "2022-01-08 12:00");  // Sa
   BOOST_CHECK(GetNextTimeOpen(rules, fmt, "2022-01-09 09:00") == "2022-01-10 15:00");    // Su
 
   BOOST_CHECK(Parse("Mo-Fr 09:00-12:00, 13:00-20:00; We 10:00-11:00 off; Fr off", rules));
   BOOST_CHECK(GetNextTimeOpen(rules, fmt, "2022-01-03 07:00") == "2022-01-03 09:00");    // Mo morning
-  BOOST_CHECK(GetNextTimeClosed(rules, fmt, "2022-01-03 10:00") == "2022-01-03 12:01");  // Mo morning
+  BOOST_CHECK(GetNextTimeClosed(rules, fmt, "2022-01-03 10:00") == "2022-01-03 12:00");  // Mo morning
   BOOST_CHECK(GetNextTimeOpen(rules, fmt, "2022-01-03 12:30") == "2022-01-03 13:00");    // Mo afternoon
-  BOOST_CHECK(GetNextTimeClosed(rules, fmt, "2022-01-03 13:30") == "2022-01-03 20:01");  // Mo afternoon
+  BOOST_CHECK(GetNextTimeClosed(rules, fmt, "2022-01-03 13:30") == "2022-01-03 20:00");  // Mo afternoon
   BOOST_CHECK(GetNextTimeOpen(rules, fmt, "2022-01-03 21:00") == "2022-01-04 09:00");    // Mo night
   BOOST_CHECK(GetNextTimeClosed(rules, fmt, "2022-01-05 09:30") == "2022-01-05 10:00");  // We off
-  BOOST_CHECK(GetNextTimeOpen(rules, fmt, "2022-01-05 10:30") == "2022-01-05 11:01");    // We off
+  BOOST_CHECK(GetNextTimeOpen(rules, fmt, "2022-01-05 10:30") == "2022-01-05 11:00");    // We off
   BOOST_CHECK(GetNextTimeOpen(rules, fmt, "2022-01-07 07:30") == "2022-01-10 09:00");    // Fr off
 
   BOOST_CHECK(Parse("Mo-Sa 08:00-20:00; Feb Mo-Sa 09:00-14:00; Jan 06 off", rules));
   BOOST_CHECK(GetNextTimeOpen(rules, fmt, "2022-01-04 07:00") == "2022-01-04 08:00");    // Tu Jan
-  BOOST_CHECK(GetNextTimeClosed(rules, fmt, "2022-01-04 09:00") == "2022-01-04 20:01");  // Tu Jan
+  BOOST_CHECK(GetNextTimeClosed(rules, fmt, "2022-01-04 09:00") == "2022-01-04 20:00");  // Tu Jan
   BOOST_CHECK(GetNextTimeOpen(rules, fmt, "2022-02-08 07:00") == "2022-02-08 09:00");    // Tu Feb
-  BOOST_CHECK(GetNextTimeClosed(rules, fmt, "2022-02-08 09:00") == "2022-02-08 14:01");  // Tu Feb
+  BOOST_CHECK(GetNextTimeClosed(rules, fmt, "2022-02-08 09:00") == "2022-02-08 14:00");  // Tu Feb
   BOOST_CHECK(GetNextTimeOpen(rules, fmt, "2020-01-06 07:00") == "2020-01-07 08:00");    // Jan 06
 
   BOOST_CHECK(Parse("24/7; Mo 15:00-16:00 off", rules));
-  BOOST_CHECK(GetNextTimeOpen(rules, fmt, "2022-01-03 15:30") == "2022-01-03 16:01");    // Mo
+  BOOST_CHECK(GetNextTimeOpen(rules, fmt, "2022-01-03 15:30") == "2022-01-03 16:00");    // Mo
   BOOST_CHECK(GetNextTimeClosed(rules, fmt, "2022-01-01 15:30") == "2022-01-03 15:00");  // Sa
 
   BOOST_CHECK(Parse("Mo-Th 15:00+; Fr-Su 13:00+", rules));
   BOOST_CHECK(GetNextTimeOpen(rules, fmt, "2022-01-03 07:30") == "2022-01-03 15:00");    // Mo
-  BOOST_CHECK(GetNextTimeClosed(rules, fmt, "2022-01-03 15:30") == "2022-01-04 00:01");  // Mo
+  BOOST_CHECK(GetNextTimeClosed(rules, fmt, "2022-01-03 15:30") == "2022-01-04 00:00");  // Mo
   BOOST_CHECK(GetNextTimeOpen(rules, fmt, "2022-01-08 07:30") == "2022-01-08 13:00");    // Sa
-  BOOST_CHECK(GetNextTimeClosed(rules, fmt, "2022-01-08 15:30") == "2022-01-09 00:01");  // Sa
+  BOOST_CHECK(GetNextTimeClosed(rules, fmt, "2022-01-08 15:30") == "2022-01-09 00:00");  // Sa
 
   BOOST_CHECK(Parse("Mo-Su 00:00-24:00; Mo-We 00:00-24:00 off", rules));
-  BOOST_CHECK(GetNextTimeOpen(rules, fmt, "2022-01-03 15:30") == "2022-01-06 00:01");    // Mo
-  BOOST_CHECK(GetNextTimeClosed(rules, fmt, "2022-01-01 15:30") == "2022-01-03 00:01");  // Sa
+  BOOST_CHECK(GetNextTimeOpen(rules, fmt, "2022-01-03 15:30") == "2022-01-06 00:00");    // Mo
+  BOOST_CHECK(GetNextTimeClosed(rules, fmt, "2022-01-01 15:30") == "2022-01-03 00:00");  // Sa
 }
 
 
