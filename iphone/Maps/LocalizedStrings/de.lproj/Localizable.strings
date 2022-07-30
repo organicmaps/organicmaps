@@ -2296,13 +2296,9 @@
 
 "type.leisure.sports_centre" = "Sportzentrum";
 
-"type.leisure.sports_centre.climbing" = "Kletterhalle";
+"type.sport.climbing" = "Kletterhalle";
 
-"type.leisure.sports_centre.shooting" = "Schießanlage";
-
-"type.leisure.sports_centre.swimming" = "Schwimmhalle";
-
-"type.leisure.sports_centre.yoga" = "Yoga Studio";
+"type.sport.yoga" = "Yoga Studio";
 
 "type.leisure.stadium" = "Stadion";
 
@@ -2932,7 +2928,11 @@
 
 "type.sport.basketball" = "Basketball";
 
+"type.sport.beachvolleyball" = "Beachvolleyball";
+
 "type.sport.bowls" = "Bowls";
+
+"type.sport.chess" = "Schach";
 
 "type.sport.cricket" = "Cricket";
 
@@ -2953,17 +2953,27 @@
 
 "type.sport.shooting" = "Schießen";
 
+"type.sport.skateboard" = "Skateboarding";
+
 "type.sport.skiing" = "Skifahren";
 
 "type.sport.soccer" = "Fußball";
 
 "type.sport.swimming" = "Schwimmen";
 
+"type.sport.table_tennis" = "Tischtennis";
+
 "type.sport.tennis" = "Tennisspielfeld";
+
+"type.sport.volleyball" = "Volleyball";
+
+"type.sport.9pin" = "Bowling";
+
+"type.sport.10pin" = "Bowling";
 
 "type.tourism" = "Tourismus";
 
-"type.tourism.alpine_hut" = "bewirtschaftete Schutzhütte";
+"type.tourism.alpine_hut" = "Berghütte";
 
 "type.tourism.apartment" = "Ferienwohnung";
 
@@ -3019,7 +3029,7 @@
 
 "type.tourism.viewpoint" = "Aussichtspunkt";
 
-"type.tourism.wilderness_hut" = "unbewirtschaftete Schutzhütte";
+"type.tourism.wilderness_hut" = "Waldhütte";
 
 "type.tourism.zoo" = "Zoo";
 

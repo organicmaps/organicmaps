@@ -2296,13 +2296,9 @@
 
 "type.leisure.sports_centre" = "क्रीडासंकुल";
 
-"type.leisure.sports_centre.climbing" = "चढण केंद्र";
+"type.sport.climbing" = "चढण केंद्र";
 
-"type.leisure.sports_centre.shooting" = "चांदमारी(बंदूक पल्ला)";
-
-"type.leisure.sports_centre.swimming" = "जलतरण केंद्र";
-
-"type.leisure.sports_centre.yoga" = "योगासन केंद्र";
+"type.sport.yoga" = "योगासन केंद्र";
 
 "type.leisure.stadium" = "क्रीडागार(स्टेडियम)";
 
@@ -2932,7 +2928,11 @@
 
 "type.sport.basketball" = "बास्केटबॉल";
 
+"type.sport.beachvolleyball" = "बीच व्हॉलीबॉल";
+
 "type.sport.bowls" = "लॉन बोलिंग";
+
+"type.sport.chess" = "बुद्धिबळ";
 
 "type.sport.cricket" = "क्रिकेट";
 
@@ -2953,13 +2953,23 @@
 
 "type.sport.shooting" = "शूटिंग";
 
+"type.sport.skateboard" = "स्केट बोर्डिंग";
+
 "type.sport.skiing" = "स्कीइंग";
 
 "type.sport.soccer" = "सॉकर";
 
 "type.sport.swimming" = "जलतरण";
 
+"type.sport.table_tennis" = "टेबल टेनिस";
+
 "type.sport.tennis" = "टेनिस प्रांगण";
+
+"type.sport.volleyball" = "व्हॉलीबॉल";
+
+"type.sport.9pin" = "गोलंदाजी";
+
+"type.sport.10pin" = "गोलंदाजी";
 
 "type.tourism" = "पर्यटन";
 

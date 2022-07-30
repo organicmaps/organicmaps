@@ -1104,10 +1104,8 @@
 	<string name="type.leisure.playground">ملعب</string>
 	<string name="type.leisure.sauna">ساونا</string>
 	<string name="type.leisure.sports_centre">رياضة</string>
-	<string name="type.leisure.sports_centre.climbing">مركز تسلق</string>
-	<string name="type.leisure.sports_centre.shooting">ملعب رماية</string>
-	<string name="type.leisure.sports_centre.swimming">مركز سباحة</string>
-	<string name="type.leisure.sports_centre.yoga">نادي يوغا</string>
+	<string name="type.sport.climbing">مركز تسلق</string>
+	<string name="type.sport.yoga">نادي يوغا</string>
 	<string name="type.leisure.stadium">استاد</string>
 	<string name="type.leisure.swimming_pool">حوض سباحة</string>
 	<string name="type.leisure.swimming_pool.private">حوض سباحة</string>
@@ -1337,7 +1335,9 @@
 	<string name="type.sport.australian_football">كرة القدم الأسترالية</string>
 	<string name="type.sport.baseball">البيسبول</string>
 	<string name="type.sport.basketball">كرة السلة</string>
+	<string name="type.sport.beachvolleyball">كرة طائرة شاطئية</string>
 	<string name="type.sport.bowls">لعبة البولينج</string>
+	<string name="type.sport.chess">شطرنج</string>
 	<string name="type.sport.cricket">كريكت</string>
 	<string name="type.sport.curling">كيرلنغ</string>
 	<string name="type.sport.equestrian">رياضة الفروسية</string>
@@ -1348,10 +1348,15 @@
 	<!-- Used to tag a scuba diving site. -->
 	<string name="type.sport.scuba_diving">الغوص</string>
 	<string name="type.sport.shooting">رماية</string>
+	<string name="type.sport.skateboard">تزلج على اللوح</string>
 	<string name="type.sport.skiing">التزحلق</string>
 	<string name="type.sport.soccer">كرة القدم</string>
 	<string name="type.sport.swimming">سباحة</string>
+	<string name="type.sport.table_tennis">كرة الطاولة</string>
 	<string name="type.sport.tennis">ملعب تنس</string>
+	<string name="type.sport.volleyball">كرة الطائرة</string>
+	<string name="type.sport.9pin">بولينج بعشرة دبابيس</string>
+	<string name="type.sport.10pin">بولينج بعشرة دبابيس</string>
 	<string name="type.tourism.alpine_hut">مساكن جبلية</string>
 	<string name="type.tourism.apartment">شُقَق</string>
 	<string name="type.tourism.artwork">عمل فني</string>

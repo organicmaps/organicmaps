@@ -1304,10 +1304,8 @@
 	<string name="type.leisure.sauna">Sauna</string>
 	<string name="type.leisure.slipway">Slipway</string>
 	<string name="type.leisure.sports_centre">Sports Center</string>
-	<string name="type.leisure.sports_centre.climbing">Climbing Centre</string>
-	<string name="type.leisure.sports_centre.shooting">Shooting Range</string>
-	<string name="type.leisure.sports_centre.swimming">Swimming Centre</string>
-	<string name="type.leisure.sports_centre.yoga">Yoga Studio</string>
+	<string name="type.sport.climbing">Climbing Centre</string>
+	<string name="type.sport.yoga">Yoga Studio</string>
 	<string name="type.leisure.stadium">Stadium</string>
 	<string name="type.leisure.swimming_pool">Swimming Pool</string>
 	<string name="type.leisure.swimming_pool.private">Swimming Pool</string>
@@ -1622,7 +1620,9 @@
 	<string name="type.sport.australian_football">Australian Football</string>
 	<string name="type.sport.baseball">Baseball</string>
 	<string name="type.sport.basketball">Basketball</string>
+	<string name="type.sport.beachvolleyball">Beachvolleyball</string>
 	<string name="type.sport.bowls">Bowls</string>
+	<string name="type.sport.chess">Chess</string>
 	<string name="type.sport.cricket">Cricket</string>
 	<string name="type.sport.curling">Curling</string>
 	<string name="type.sport.equestrian">Equestrian Sports</string>
@@ -1633,10 +1633,15 @@
 	<!-- Used to tag a scuba diving site. -->
 	<string name="type.sport.scuba_diving">Scuba diving site</string>
 	<string name="type.sport.shooting">Shooting</string>
+	<string name="type.sport.skateboard">Skateboarding</string>
 	<string name="type.sport.skiing">Skiing</string>
 	<string name="type.sport.soccer">Soccer</string>
 	<string name="type.sport.swimming">Swimming</string>
+	<string name="type.sport.table_tennis">Table tennis</string>
 	<string name="type.sport.tennis">Tennis Court</string>
+	<string name="type.sport.volleyball">Volleyball</string>
+	<string name="type.sport.9pin">Bowling</string>
+	<string name="type.sport.10pin">Bowling</string>
 	<string name="type.tourism">Tourism</string>
 	<string name="type.tourism.alpine_hut">Mountains Lodging</string>
 	<string name="type.tourism.apartment">Apartments</string>

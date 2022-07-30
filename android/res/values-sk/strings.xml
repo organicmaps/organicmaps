@@ -1095,10 +1095,8 @@
 	<string name="type.leisure.playground">Ihrisko</string>
 	<string name="type.leisure.sauna">Sauna</string>
 	<string name="type.leisure.sports_centre">Športové centrum</string>
-	<string name="type.leisure.sports_centre.climbing">Lezecké centrum</string>
-	<string name="type.leisure.sports_centre.shooting">Strelnica</string>
-	<string name="type.leisure.sports_centre.swimming">Plavecký areál</string>
-	<string name="type.leisure.sports_centre.yoga">Štúdio jogy</string>
+	<string name="type.sport.climbing">Lezecké centrum</string>
+	<string name="type.sport.yoga">Štúdio jogy</string>
 	<string name="type.leisure.stadium">Štadión</string>
 	<string name="type.leisure.swimming_pool">Kúpalisko</string>
 	<string name="type.leisure.swimming_pool.private">Kúpalisko</string>
@@ -1324,6 +1322,8 @@
 	<string name="type.sport.athletics">Atletika</string>
 	<string name="type.sport.baseball">Baseball</string>
 	<string name="type.sport.basketball">Basketbal</string>
+	<string name="type.sport.beachvolleyball">Plážový volejbal</string>
+	<string name="type.sport.chess">Šach</string>
 	<string name="type.sport.curling">Curling</string>
 	<string name="type.sport.equestrian">Jazdecké športy</string>
 	<string name="type.sport.golf">Golf</string>
@@ -1333,10 +1333,15 @@
 	<!-- Used to tag a scuba diving site. -->
 	<string name="type.sport.scuba_diving">Potápanie</string>
 	<string name="type.sport.shooting">Streľba</string>
+	<string name="type.sport.skateboard">Skejtbording</string>
 	<string name="type.sport.skiing">Lyžovanie</string>
 	<string name="type.sport.soccer">Futbal</string>
 	<string name="type.sport.swimming">Plávanie</string>
+	<string name="type.sport.table_tennis">Stolný tenis</string>
 	<string name="type.sport.tennis">Tenisový kurt</string>
+	<string name="type.sport.volleyball">Volejbal</string>
+	<string name="type.sport.9pin">Bowling</string>
+	<string name="type.sport.10pin">Bowling</string>
 	<string name="type.tourism.alpine_hut">Horská chata</string>
 	<string name="type.tourism.apartment">Apartmány</string>
 	<string name="type.tourism.artwork">Umelecké diela</string>

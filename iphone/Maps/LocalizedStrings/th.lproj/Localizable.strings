@@ -2296,13 +2296,9 @@
 
 "type.leisure.sports_centre" = "กีฬา";
 
-"type.leisure.sports_centre.climbing" = "ศูนย์ปีนเขา";
+"type.sport.climbing" = "ศูนย์ปีนเขา";
 
-"type.leisure.sports_centre.shooting" = "สนามยิงปืน";
-
-"type.leisure.sports_centre.swimming" = "ศูนย์ว่ายน้ำ";
-
-"type.leisure.sports_centre.yoga" = "โยคะสตูดิโอ";
+"type.sport.yoga" = "โยคะสตูดิโอ";
 
 "type.leisure.stadium" = "สนามกีฬา";
 
@@ -2932,7 +2928,11 @@
 
 "type.sport.basketball" = "บาสเก็ตบอล";
 
+"type.sport.beachvolleyball" = "วอลเลย์บอลชายหาด";
+
 "type.sport.bowls" = "Bowls";
+
+"type.sport.chess" = "หมากรุกสากล";
 
 "type.sport.cricket" = "Cricket";
 
@@ -2953,13 +2953,23 @@
 
 "type.sport.shooting" = "ยิงปืน";
 
+"type.sport.skateboard" = "สเกตบอร์ด";
+
 "type.sport.skiing" = "เล่นสกี";
 
 "type.sport.soccer" = "ฟุตบอล";
 
 "type.sport.swimming" = "การว่ายน้ำ";
 
+"type.sport.table_tennis" = "เทเบิลเทนนิส";
+
 "type.sport.tennis" = "คอร์ทเทนนิส";
+
+"type.sport.volleyball" = "วอลเลย์บอล";
+
+"type.sport.9pin" = "โบว์ลิ่ง";
+
+"type.sport.10pin" = "โบว์ลิ่ง";
 
 "type.tourism" = "Tourism";
 

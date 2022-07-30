@@ -1194,10 +1194,8 @@
 	<string name="type.leisure.playground">Patio de recreo</string>
 	<string name="type.leisure.sauna">Sauna</string>
 	<string name="type.leisure.sports_centre">Polideportivo</string>
-	<string name="type.leisure.sports_centre.climbing">Centro de escalada</string>
-	<string name="type.leisure.sports_centre.shooting">Campo de tiro</string>
-	<string name="type.leisure.sports_centre.swimming">Centro de natación</string>
-	<string name="type.leisure.sports_centre.yoga">Centro de yoga</string>
+	<string name="type.sport.climbing">Centro de escalada</string>
+	<string name="type.sport.yoga">Centro de yoga</string>
 	<string name="type.leisure.stadium">Estadio</string>
 	<string name="type.leisure.swimming_pool">Piscina</string>
 	<string name="type.leisure.swimming_pool.private">Piscina</string>
@@ -1428,7 +1426,9 @@
 	<string name="type.sport.australian_football">Fútbol australiano</string>
 	<string name="type.sport.baseball">Béisbol</string>
 	<string name="type.sport.basketball">Baloncesto</string>
+	<string name="type.sport.beachvolleyball">Voleibol de playa</string>
 	<string name="type.sport.bowls">Bolos sobre hierba</string>
+	<string name="type.sport.chess">Ajedrez</string>
 	<string name="type.sport.cricket">Críquet</string>
 	<string name="type.sport.curling">Curling</string>
 	<string name="type.sport.equestrian">Equitación</string>
@@ -1439,10 +1439,15 @@
 	<!-- Used to tag a scuba diving site. -->
 	<string name="type.sport.scuba_diving">Submarinismo</string>
 	<string name="type.sport.shooting">Tiroteo</string>
+	<string name="type.sport.skateboard">Monopatinaje</string>
 	<string name="type.sport.skiing">Esquí</string>
 	<string name="type.sport.soccer">Fútbol</string>
 	<string name="type.sport.swimming">Natación</string>
+	<string name="type.sport.table_tennis">Tenis de mesa</string>
 	<string name="type.sport.tennis">Cancha de tenis</string>
+	<string name="type.sport.volleyball">Voleibol</string>
+	<string name="type.sport.9pin">Bowling</string>
+	<string name="type.sport.10pin">Bowling</string>
 	<string name="type.tourism">Turismo</string>
 	<string name="type.tourism.alpine_hut">Cabaña</string>
 	<string name="type.tourism.apartment">Apartamentos</string>

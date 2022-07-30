@@ -1099,10 +1099,8 @@
 	<string name="type.leisure.playground">Παιδική χαρά</string>
 	<string name="type.leisure.sauna">Σάουνα</string>
 	<string name="type.leisure.sports_centre">Αθλητικό κέντρο</string>
-	<string name="type.leisure.sports_centre.climbing">Κέντρο αναρρίχησης</string>
-	<string name="type.leisure.sports_centre.shooting">Σκοπευτήριο</string>
-	<string name="type.leisure.sports_centre.swimming">Κολυμβητήριο</string>
-	<string name="type.leisure.sports_centre.yoga">Στούντιο γιόγκα</string>
+	<string name="type.sport.climbing">Κέντρο αναρρίχησης</string>
+	<string name="type.sport.yoga">Στούντιο γιόγκα</string>
 	<string name="type.leisure.stadium">Γήπεδο</string>
 	<string name="type.leisure.swimming_pool">Πισίνα</string>
 	<string name="type.leisure.swimming_pool.private">Πισίνα</string>
@@ -1333,6 +1331,8 @@
 	<string name="type.sport.australian_football">Αυστραλιανό ποδόσφαιρο</string>
 	<string name="type.sport.baseball">Μπέιζμπολ</string>
 	<string name="type.sport.basketball">Μπάσκετ</string>
+	<string name="type.sport.beachvolleyball">Μπιτς βόλεϊ</string>
+	<string name="type.sport.chess">Σκάκι</string>
 	<string name="type.sport.curling">Κέρλινγκ</string>
 	<string name="type.sport.equestrian">Ιππασία</string>
 	<string name="type.sport.golf">Γκολφ</string>
@@ -1342,10 +1342,15 @@
 	<!-- Used to tag a scuba diving site. -->
 	<string name="type.sport.scuba_diving">Κατάδυση</string>
 	<string name="type.sport.shooting">Κυνήγι</string>
+	<string name="type.sport.skateboard">Σκέιτμπορντινγκ</string>
 	<string name="type.sport.skiing">Χιονοδρόμια</string>
 	<string name="type.sport.soccer">Ποδόσφαιρο</string>
 	<string name="type.sport.swimming">Κολύμβηση</string>
+	<string name="type.sport.table_tennis">Επιτραπέζια αντισφαίριση</string>
 	<string name="type.sport.tennis">Γήπεδο τένις</string>
+	<string name="type.sport.volleyball">Πετοσφαίριση</string>
+	<string name="type.sport.9pin">Μπόουλινγκ</string>
+	<string name="type.sport.10pin">Μπόουλινγκ</string>
 	<string name="type.tourism.alpine_hut">Ορεινό καταφύγιο</string>
 	<string name="type.tourism.apartment">Διαμερίσματα</string>
 	<string name="type.tourism.artwork">Έργα τέχνης</string>

@@ -1091,10 +1091,8 @@
 	<string name="type.leisure.playground">Legeplads</string>
 	<string name="type.leisure.sauna">Sauna</string>
 	<string name="type.leisure.sports_centre">Idrætscenter</string>
-	<string name="type.leisure.sports_centre.climbing">Klatrecenter</string>
-	<string name="type.leisure.sports_centre.shooting">Skydebane</string>
-	<string name="type.leisure.sports_centre.swimming">Svømmecenter</string>
-	<string name="type.leisure.sports_centre.yoga">Yoga center</string>
+	<string name="type.sport.climbing">Klatrecenter</string>
+	<string name="type.sport.yoga">Yoga center</string>
 	<string name="type.leisure.swimming_pool">Svømmebassin</string>
 	<string name="type.leisure.swimming_pool.private">Svømmebassin</string>
 	<string name="type.leisure.water_park">Vandpark</string>
@@ -1318,6 +1316,8 @@
 	<string name="type.sport.australian_football">Australsk fodbold</string>
 	<string name="type.sport.baseball">Baseball</string>
 	<string name="type.sport.basketball">Basketball</string>
+	<string name="type.sport.beachvolleyball">Beachvolley</string>
+	<string name="type.sport.chess">Skak</string>
 	<string name="type.sport.curling">Curling</string>
 	<string name="type.sport.equestrian">Ridesport</string>
 	<string name="type.sport.golf">Golf</string>
@@ -1327,10 +1327,15 @@
 	<!-- Used to tag a scuba diving site. -->
 	<string name="type.sport.scuba_diving">Scuba dykning</string>
 	<string name="type.sport.shooting">Skydning</string>
+	<string name="type.sport.skateboard">Skateboarding</string>
 	<string name="type.sport.skiing">Stå på ski</string>
 	<string name="type.sport.soccer">Fodbold</string>
 	<string name="type.sport.swimming">Svømning</string>
+	<string name="type.sport.table_tennis">Bordtennis</string>
 	<string name="type.sport.tennis">Tennisbane</string>
+	<string name="type.sport.volleyball">Volleyball</string>
+	<string name="type.sport.9pin">Bowling</string>
+	<string name="type.sport.10pin">Bowling</string>
 	<string name="type.tourism.alpine_hut">Bjerg logi</string>
 	<string name="type.tourism.apartment">Lejligheder</string>
 	<string name="type.tourism.artwork">Kunstværk</string>

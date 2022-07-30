@@ -1098,10 +1098,8 @@
 	<string name="type.leisure.playground">Hřiště</string>
 	<string name="type.leisure.sauna">Sauna</string>
 	<string name="type.leisure.sports_centre">Sportovní centrum</string>
-	<string name="type.leisure.sports_centre.climbing">Horolezecké centrum</string>
-	<string name="type.leisure.sports_centre.shooting">Střelnice</string>
-	<string name="type.leisure.sports_centre.swimming">Plavecký bazén</string>
-	<string name="type.leisure.sports_centre.yoga">Studio jógy</string>
+	<string name="type.sport.climbing">Horolezecké centrum</string>
+	<string name="type.sport.yoga">Studio jógy</string>
 	<string name="type.leisure.stadium">Stadion</string>
 	<string name="type.leisure.swimming_pool">Koupaliště</string>
 	<string name="type.leisure.swimming_pool.private">Koupaliště</string>
@@ -1328,6 +1326,8 @@
 	<string name="type.sport.australian_football">Australský fotbal</string>
 	<string name="type.sport.baseball">Baseball</string>
 	<string name="type.sport.basketball">Basketbal</string>
+	<string name="type.sport.beachvolleyball">Plážový volejbal</string>
+	<string name="type.sport.chess">Šachy</string>
 	<string name="type.sport.cricket">Kriket</string>
 	<string name="type.sport.curling">Curling</string>
 	<string name="type.sport.equestrian">Koňské sporty</string>
@@ -1338,10 +1338,15 @@
 	<!-- Used to tag a scuba diving site. -->
 	<string name="type.sport.scuba_diving">Potápění</string>
 	<string name="type.sport.shooting">Střílení</string>
+	<string name="type.sport.skateboard">Skateboarding</string>
 	<string name="type.sport.skiing">Lyžování</string>
 	<string name="type.sport.soccer">Fotbal</string>
 	<string name="type.sport.swimming">Plavání</string>
+	<string name="type.sport.table_tennis">Stolní tenis</string>
 	<string name="type.sport.tennis">Tenisový kurt</string>
+	<string name="type.sport.volleyball">Volejbal</string>
+	<string name="type.sport.9pin">Bowling</string>
+	<string name="type.sport.10pin">Bowling</string>
 	<string name="type.tourism.alpine_hut">Ubytování v horách</string>
 	<string name="type.tourism.apartment">Byty</string>
 	<string name="type.tourism.artwork">Umělecké dílo</string>

@@ -2296,13 +2296,9 @@
 
 "type.leisure.sports_centre" = "Sportovní centrum";
 
-"type.leisure.sports_centre.climbing" = "Horolezecké centrum";
+"type.sport.climbing" = "Horolezecké centrum";
 
-"type.leisure.sports_centre.shooting" = "Střelnice";
-
-"type.leisure.sports_centre.swimming" = "Plavecký bazén";
-
-"type.leisure.sports_centre.yoga" = "Studio jógy";
+"type.sport.yoga" = "Studio jógy";
 
 "type.leisure.stadium" = "Stadion";
 
@@ -2932,7 +2928,11 @@
 
 "type.sport.basketball" = "Basketbal";
 
+"type.sport.beachvolleyball" = "Plážový volejbal";
+
 "type.sport.bowls" = "Bowls";
+
+"type.sport.chess" = "Šachy";
 
 "type.sport.cricket" = "Kriket";
 
@@ -2953,13 +2953,23 @@
 
 "type.sport.shooting" = "Střílení";
 
+"type.sport.skateboard" = "Skateboarding";
+
 "type.sport.skiing" = "Lyžování";
 
 "type.sport.soccer" = "Fotbal";
 
 "type.sport.swimming" = "Plavání";
 
+"type.sport.table_tennis" = "Stolní tenis";
+
 "type.sport.tennis" = "Tenisový kurt";
+
+"type.sport.volleyball" = "Volejbal";
+
+"type.sport.9pin" = "Bowling";
+
+"type.sport.10pin" = "Bowling";
 
 "type.tourism" = "Tourism";
 

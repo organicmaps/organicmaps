@@ -1102,10 +1102,8 @@
 	<string name="type.leisure.playground">สนามเด็กเล่น</string>
 	<string name="type.leisure.sauna">เซาน่า</string>
 	<string name="type.leisure.sports_centre">กีฬา</string>
-	<string name="type.leisure.sports_centre.climbing">ศูนย์ปีนเขา</string>
-	<string name="type.leisure.sports_centre.shooting">สนามยิงปืน</string>
-	<string name="type.leisure.sports_centre.swimming">ศูนย์ว่ายน้ำ</string>
-	<string name="type.leisure.sports_centre.yoga">โยคะสตูดิโอ</string>
+	<string name="type.sport.climbing">ศูนย์ปีนเขา</string>
+	<string name="type.sport.yoga">โยคะสตูดิโอ</string>
 	<string name="type.leisure.stadium">สนามกีฬา</string>
 	<string name="type.leisure.swimming_pool">สระว่ายน้ำ</string>
 	<string name="type.leisure.swimming_pool.private">สระว่ายน้ำ</string>
@@ -1334,6 +1332,8 @@
 	<string name="type.sport.athletics">กรีฑา</string>
 	<string name="type.sport.baseball">เบสบอล</string>
 	<string name="type.sport.basketball">บาสเก็ตบอล</string>
+	<string name="type.sport.beachvolleyball">วอลเลย์บอลชายหาด</string>
+	<string name="type.sport.chess">หมากรุกสากล</string>
 	<string name="type.sport.curling">เคอร์ลิง</string>
 	<string name="type.sport.equestrian">กีฬาแข่งม้า</string>
 	<string name="type.sport.golf">กอล์ฟ</string>
@@ -1343,10 +1343,15 @@
 	<!-- Used to tag a scuba diving site. -->
 	<string name="type.sport.scuba_diving">ดำน้ำลึก</string>
 	<string name="type.sport.shooting">ยิงปืน</string>
+	<string name="type.sport.skateboard">สเกตบอร์ด</string>
 	<string name="type.sport.skiing">เล่นสกี</string>
 	<string name="type.sport.soccer">ฟุตบอล</string>
 	<string name="type.sport.swimming">การว่ายน้ำ</string>
+	<string name="type.sport.table_tennis">เทเบิลเทนนิส</string>
 	<string name="type.sport.tennis">คอร์ทเทนนิส</string>
+	<string name="type.sport.volleyball">วอลเลย์บอล</string>
+	<string name="type.sport.9pin">โบว์ลิ่ง</string>
+	<string name="type.sport.10pin">โบว์ลิ่ง</string>
 	<string name="type.tourism.alpine_hut">ที่พักบนภูเขาโรงแรม</string>
 	<string name="type.tourism.apartment">อพาร์ตเมนต์</string>
 	<string name="type.tourism.artwork">งานศิลปะ</string>

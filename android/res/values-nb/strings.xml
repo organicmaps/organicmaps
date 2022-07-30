@@ -1093,10 +1093,8 @@
 	<string name="type.leisure.playground">Lekeplass</string>
 	<string name="type.leisure.sauna">Badstue</string>
 	<string name="type.leisure.sports_centre">Sportssenter</string>
-	<string name="type.leisure.sports_centre.climbing">Klatresenter</string>
-	<string name="type.leisure.sports_centre.shooting">Skytebane</string>
-	<string name="type.leisure.sports_centre.swimming">Svømmehall</string>
-	<string name="type.leisure.sports_centre.yoga">Yogastudio</string>
+	<string name="type.sport.climbing">Klatresenter</string>
+	<string name="type.sport.yoga">Yogastudio</string>
 	<string name="type.leisure.stadium">Stadion</string>
 	<string name="type.leisure.swimming_pool">Svømmebasseng</string>
 	<string name="type.leisure.swimming_pool.private">Svømmebasseng</string>
@@ -1323,7 +1321,9 @@
 	<string name="type.sport.australian_football">Australsk fotball</string>
 	<string name="type.sport.baseball">Baseball</string>
 	<string name="type.sport.basketball">Basketball</string>
+	<string name="type.sport.beachvolleyball">Sandvolleyball</string>
 	<string name="type.sport.bowls">Bowls</string>
+	<string name="type.sport.chess">Sjakk</string>
 	<string name="type.sport.cricket">Cricket</string>
 	<string name="type.sport.curling">Curling</string>
 	<string name="type.sport.equestrian">Hestesport</string>
@@ -1334,10 +1334,15 @@
 	<!-- Used to tag a scuba diving site. -->
 	<string name="type.sport.scuba_diving">Dykking</string>
 	<string name="type.sport.shooting">Skyting</string>
+	<string name="type.sport.skateboard">Rullebrettkjøring</string>
 	<string name="type.sport.skiing">Stå på ski</string>
 	<string name="type.sport.soccer">Fotball</string>
 	<string name="type.sport.swimming">Svømming</string>
+	<string name="type.sport.table_tennis">Bordtennis</string>
 	<string name="type.sport.tennis">Tennisbane</string>
+	<string name="type.sport.volleyball">Volleyball</string>
+	<string name="type.sport.9pin">Bowling</string>
+	<string name="type.sport.10pin">Bowling</string>
 	<string name="type.tourism.alpine_hut">Fjellstue</string>
 	<string name="type.tourism.apartment">Leiligheter</string>
 	<string name="type.tourism.artwork">Kunstverk</string>

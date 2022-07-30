@@ -2296,13 +2296,9 @@
 
 "type.leisure.sports_centre" = "Sports Center";
 
-"type.leisure.sports_centre.climbing" = "Climbing Centre";
+"type.sport.climbing" = "Climbing Centre";
 
-"type.leisure.sports_centre.shooting" = "Shooting Range";
-
-"type.leisure.sports_centre.swimming" = "Swimming Centre";
-
-"type.leisure.sports_centre.yoga" = "Yoga Studio";
+"type.sport.yoga" = "Yoga Studio";
 
 "type.leisure.stadium" = "Stadium";
 
@@ -2932,7 +2928,11 @@
 
 "type.sport.basketball" = "Basketball";
 
+"type.sport.beachvolleyball" = "Пляжны валейбол";
+
 "type.sport.bowls" = "Боўлз";
+
+"type.sport.chess" = "Шахматы";
 
 "type.sport.cricket" = "Крикет";
 
@@ -2953,13 +2953,23 @@
 
 "type.sport.shooting" = "Стральба";
 
+"type.sport.skateboard" = "Скейтбордынг";
+
 "type.sport.skiing" = "Катанне на лыжах";
 
 "type.sport.soccer" = "Футбол";
 
 "type.sport.swimming" = "Плаванне";
 
+"type.sport.table_tennis" = "Настольны тэніс";
+
 "type.sport.tennis" = "Тэнісны корт";
+
+"type.sport.volleyball" = "Валейбол";
+
+"type.sport.9pin" = "Боўлінг";
+
+"type.sport.10pin" = "Боўлінг";
 
 "type.tourism" = "Tourism";
 

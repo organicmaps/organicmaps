@@ -2296,13 +2296,9 @@
 
 "type.leisure.sports_centre" = "Polideportivo";
 
-"type.leisure.sports_centre.climbing" = "Centro de escalada";
+"type.sport.climbing" = "Centro de escalada";
 
-"type.leisure.sports_centre.shooting" = "Campo de tiro";
-
-"type.leisure.sports_centre.swimming" = "Centro de natación";
-
-"type.leisure.sports_centre.yoga" = "Centro de yoga";
+"type.sport.yoga" = "Centro de yoga";
 
 "type.leisure.stadium" = "Estadio";
 
@@ -2932,7 +2928,11 @@
 
 "type.sport.basketball" = "Baloncesto";
 
+"type.sport.beachvolleyball" = "Voleibol de playa";
+
 "type.sport.bowls" = "Bolos sobre hierba";
+
+"type.sport.chess" = "Ajedrez";
 
 "type.sport.cricket" = "Críquet";
 
@@ -2953,13 +2953,23 @@
 
 "type.sport.shooting" = "Tiroteo";
 
+"type.sport.skateboard" = "Monopatinaje";
+
 "type.sport.skiing" = "Esquí";
 
 "type.sport.soccer" = "Fútbol";
 
 "type.sport.swimming" = "Natación";
 
+"type.sport.table_tennis" = "Tenis de mesa";
+
 "type.sport.tennis" = "Cancha de tenis";
+
+"type.sport.volleyball" = "Voleibol";
+
+"type.sport.9pin" = "Bowling";
+
+"type.sport.10pin" = "Bowling";
 
 "type.tourism" = "Turismo";
 

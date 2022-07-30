@@ -1147,10 +1147,8 @@
 	<string name="type.leisure.playground">खेळाचे मैदान</string>
 	<string name="type.leisure.recreation_ground">मनोरंजन मैदान</string>
 	<string name="type.leisure.sports_centre">क्रीडासंकुल</string>
-	<string name="type.leisure.sports_centre.climbing">चढण केंद्र</string>
-	<string name="type.leisure.sports_centre.shooting">चांदमारी(बंदूक पल्ला)</string>
-	<string name="type.leisure.sports_centre.swimming">जलतरण केंद्र</string>
-	<string name="type.leisure.sports_centre.yoga">योगासन केंद्र</string>
+	<string name="type.sport.climbing">चढण केंद्र</string>
+	<string name="type.sport.yoga">योगासन केंद्र</string>
 	<string name="type.leisure.stadium">क्रीडागार(स्टेडियम)</string>
 	<string name="type.leisure.swimming_pool">जलतरण तलाव</string>
 	<string name="type.leisure.swimming_pool.private">जलतरण तलाव</string>
@@ -1403,7 +1401,9 @@
 	<string name="type.sport.australian_football">रग्बी</string>
 	<string name="type.sport.baseball">बेसबॉल</string>
 	<string name="type.sport.basketball">बास्केटबॉल</string>
+	<string name="type.sport.beachvolleyball">बीच व्हॉलीबॉल</string>
 	<string name="type.sport.bowls">लॉन बोलिंग</string>
+	<string name="type.sport.chess">बुद्धिबळ</string>
 	<string name="type.sport.cricket">क्रिकेट</string>
 	<string name="type.sport.curling">कर्लिंग</string>
 	<string name="type.sport.equestrian">घोडेस्वार खेळ</string>
@@ -1414,10 +1414,15 @@
 	<!-- Used to tag a scuba diving site. -->
 	<string name="type.sport.scuba_diving">स्कूबा डायव्हिंग</string>
 	<string name="type.sport.shooting">शूटिंग</string>
+	<string name="type.sport.skateboard">स्केट बोर्डिंग</string>
 	<string name="type.sport.skiing">स्कीइंग</string>
 	<string name="type.sport.soccer">सॉकर</string>
 	<string name="type.sport.swimming">जलतरण</string>
+	<string name="type.sport.table_tennis">टेबल टेनिस</string>
 	<string name="type.sport.tennis">टेनिस प्रांगण</string>
+	<string name="type.sport.volleyball">व्हॉलीबॉल</string>
+	<string name="type.sport.9pin">गोलंदाजी</string>
+	<string name="type.sport.10pin">गोलंदाजी</string>
 	<string name="type.tourism">पर्यटन</string>
 	<string name="type.tourism.apartment">सदनिका</string>
 	<string name="type.tourism.artwork">कलाकृती</string>

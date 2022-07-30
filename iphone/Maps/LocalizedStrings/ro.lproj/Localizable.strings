@@ -2296,13 +2296,9 @@
 
 "type.leisure.sports_centre" = "Sport";
 
-"type.leisure.sports_centre.climbing" = "Centru cățărare";
+"type.sport.climbing" = "Centru cățărare";
 
-"type.leisure.sports_centre.shooting" = "Tir";
-
-"type.leisure.sports_centre.swimming" = "Piscină";
-
-"type.leisure.sports_centre.yoga" = "Studio yoga";
+"type.sport.yoga" = "Studio yoga";
 
 "type.leisure.stadium" = "Stadion";
 
@@ -2932,7 +2928,11 @@
 
 "type.sport.basketball" = "Baschetbal";
 
+"type.sport.beachvolleyball" = "Volei de plajă";
+
 "type.sport.bowls" = "Bowls";
+
+"type.sport.chess" = "Șah";
 
 "type.sport.cricket" = "Cricket";
 
@@ -2953,13 +2953,23 @@
 
 "type.sport.shooting" = "Filmare";
 
+"type.sport.skateboard" = "Skateboarding";
+
 "type.sport.skiing" = "Schi";
 
 "type.sport.soccer" = "Fotbal";
 
 "type.sport.swimming" = "Natație";
 
+"type.sport.table_tennis" = "Tenis de masă";
+
 "type.sport.tennis" = "Teren de tenis";
+
+"type.sport.volleyball" = "Volei";
+
+"type.sport.9pin" = "Bowling";
+
+"type.sport.10pin" = "Bowling";
 
 "type.tourism" = "Tourism";
 

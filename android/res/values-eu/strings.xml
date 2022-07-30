@@ -1160,10 +1160,8 @@
 	<string name="type.leisure.playground">Jolastokia</string>
 	<string name="type.leisure.sauna">Sauna</string>
 	<string name="type.leisure.sports_centre">Kiroldegia</string>
-	<string name="type.leisure.sports_centre.climbing">Eskalada zentroa</string>
-	<string name="type.leisure.sports_centre.shooting">Tiro eremua</string>
-	<string name="type.leisure.sports_centre.swimming">Igeriketa zentroa</string>
-	<string name="type.leisure.sports_centre.yoga">Yoga zentroa</string>
+	<string name="type.sport.climbing">Eskalada zentroa</string>
+	<string name="type.sport.yoga">Yoga zentroa</string>
 	<string name="type.leisure.stadium">Estadioa</string>
 	<string name="type.leisure.swimming_pool">Igerilekua</string>
 	<string name="type.leisure.swimming_pool.private">Igerilekua</string>
@@ -1394,6 +1392,8 @@
 	<string name="type.sport.australian_football">Australiako futbol araua</string>
 	<string name="type.sport.baseball">Beisbol</string>
 	<string name="type.sport.basketball">Saskibaloia</string>
+	<string name="type.sport.beachvolleyball">Hondartza-bolei</string>
+	<string name="type.sport.chess">Xake</string>
 	<string name="type.sport.cricket">Kilkerra</string>
 	<string name="type.sport.curling">Curling</string>
 	<string name="type.sport.equestrian">Zaldi-lasterketa</string>
@@ -1404,10 +1404,15 @@
 	<!-- Used to tag a scuba diving site. -->
 	<string name="type.sport.scuba_diving">Urpekaritza</string>
 	<string name="type.sport.shooting">Tiroketa</string>
+	<string name="type.sport.skateboard">Skateboarding</string>
 	<string name="type.sport.skiing">Eskia</string>
 	<string name="type.sport.soccer">Futbola</string>
 	<string name="type.sport.swimming">Igeriketa</string>
+	<string name="type.sport.table_tennis">Mahai-tenis</string>
 	<string name="type.sport.tennis">Tenis kantxa</string>
+	<string name="type.sport.volleyball">Boleibol</string>
+	<string name="type.sport.9pin">Bowling</string>
+	<string name="type.sport.10pin">Bowling</string>
 	<string name="type.tourism">Turismoa</string>
 	<string name="type.tourism.alpine_hut">Kabina</string>
 	<string name="type.tourism.apartment">Apartamentuak</string>

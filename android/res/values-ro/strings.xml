@@ -1115,10 +1115,8 @@
 	<string name="type.leisure.playground">Loc de joacă</string>
 	<string name="type.leisure.sauna">Saună</string>
 	<string name="type.leisure.sports_centre">Sport</string>
-	<string name="type.leisure.sports_centre.climbing">Centru cățărare</string>
-	<string name="type.leisure.sports_centre.shooting">Tir</string>
-	<string name="type.leisure.sports_centre.swimming">Piscină</string>
-	<string name="type.leisure.sports_centre.yoga">Studio yoga</string>
+	<string name="type.sport.climbing">Centru cățărare</string>
+	<string name="type.sport.yoga">Studio yoga</string>
 	<string name="type.leisure.stadium">Stadion</string>
 	<string name="type.leisure.swimming_pool">Piscină</string>
 	<string name="type.leisure.swimming_pool.private">Piscină</string>
@@ -1345,6 +1343,8 @@
 	<string name="type.sport.australian_football">Fotbal australian</string>
 	<string name="type.sport.baseball">Baseball</string>
 	<string name="type.sport.basketball">Baschetbal</string>
+	<string name="type.sport.beachvolleyball">Volei de plajă</string>
+	<string name="type.sport.chess">Șah</string>
 	<string name="type.sport.curling">Curling</string>
 	<string name="type.sport.equestrian">Sport ecvestru</string>
 	<string name="type.sport.golf">Golf</string>
@@ -1354,10 +1354,15 @@
 	<!-- Used to tag a scuba diving site. -->
 	<string name="type.sport.scuba_diving">Scufundări</string>
 	<string name="type.sport.shooting">Filmare</string>
+	<string name="type.sport.skateboard">Skateboarding</string>
 	<string name="type.sport.skiing">Schi</string>
 	<string name="type.sport.soccer">Fotbal</string>
 	<string name="type.sport.swimming">Natație</string>
+	<string name="type.sport.table_tennis">Tenis de masă</string>
 	<string name="type.sport.tennis">Teren de tenis</string>
+	<string name="type.sport.volleyball">Volei</string>
+	<string name="type.sport.9pin">Bowling</string>
+	<string name="type.sport.10pin">Bowling</string>
 	<string name="type.tourism.alpine_hut">Cabană de munte</string>
 	<string name="type.tourism.apartment">Apartamente</string>
 	<string name="type.tourism.artwork">Turism</string>

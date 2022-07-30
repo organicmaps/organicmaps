@@ -2296,13 +2296,9 @@
 
 "type.leisure.sports_centre" = "Αθλητικό κέντρο";
 
-"type.leisure.sports_centre.climbing" = "Κέντρο αναρρίχησης";
+"type.sport.climbing" = "Κέντρο αναρρίχησης";
 
-"type.leisure.sports_centre.shooting" = "Σκοπευτήριο";
-
-"type.leisure.sports_centre.swimming" = "Κολυμβητήριο";
-
-"type.leisure.sports_centre.yoga" = "Στούντιο γιόγκα";
+"type.sport.yoga" = "Στούντιο γιόγκα";
 
 "type.leisure.stadium" = "Γήπεδο";
 
@@ -2932,7 +2928,11 @@
 
 "type.sport.basketball" = "Μπάσκετ";
 
+"type.sport.beachvolleyball" = "Μπιτς βόλεϊ";
+
 "type.sport.bowls" = "Bowls";
+
+"type.sport.chess" = "Σκάκι";
 
 "type.sport.cricket" = "Cricket";
 
@@ -2953,13 +2953,23 @@
 
 "type.sport.shooting" = "Κυνήγι";
 
+"type.sport.skateboard" = "Σκέιτμπορντινγκ";
+
 "type.sport.skiing" = "Χιονοδρόμια";
 
 "type.sport.soccer" = "Ποδόσφαιρο";
 
 "type.sport.swimming" = "Κολύμβηση";
 
+"type.sport.table_tennis" = "Επιτραπέζια αντισφαίριση";
+
 "type.sport.tennis" = "Γήπεδο τένις";
+
+"type.sport.volleyball" = "Πετοσφαίριση";
+
+"type.sport.9pin" = "Μπόουλινγκ";
+
+"type.sport.10pin" = "Μπόουλινγκ";
 
 "type.tourism" = "Tourism";
 

@@ -2296,13 +2296,9 @@
 
 "type.leisure.sports_centre" = "Sportssenter";
 
-"type.leisure.sports_centre.climbing" = "Klatresenter";
+"type.sport.climbing" = "Klatresenter";
 
-"type.leisure.sports_centre.shooting" = "Skytebane";
-
-"type.leisure.sports_centre.swimming" = "Svømmehall";
-
-"type.leisure.sports_centre.yoga" = "Yogastudio";
+"type.sport.yoga" = "Yogastudio";
 
 "type.leisure.stadium" = "Stadion";
 
@@ -2932,7 +2928,11 @@
 
 "type.sport.basketball" = "Basketball";
 
+"type.sport.beachvolleyball" = "Sandvolleyball";
+
 "type.sport.bowls" = "Bowls";
+
+"type.sport.chess" = "Sjakk";
 
 "type.sport.cricket" = "Cricket";
 
@@ -2953,13 +2953,23 @@
 
 "type.sport.shooting" = "Skyting";
 
+"type.sport.skateboard" = "Rullebrettkjøring";
+
 "type.sport.skiing" = "Stå på ski";
 
 "type.sport.soccer" = "Fotball";
 
 "type.sport.swimming" = "Svømming";
 
+"type.sport.table_tennis" = "Bordtennis";
+
 "type.sport.tennis" = "Tennisbane";
+
+"type.sport.volleyball" = "Volleyball";
+
+"type.sport.9pin" = "Bowling";
+
+"type.sport.10pin" = "Bowling";
 
 "type.tourism" = "Tourism";
 
