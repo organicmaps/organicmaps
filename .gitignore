@@ -156,6 +156,9 @@ designer_version.h
 # Build version
 build_version.hpp
 
+# Source code directory
+source_dir.hpp
+
 #python modules building
 tools/python/*/build
 tools/python/*/dist

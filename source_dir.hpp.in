@@ -1,0 +1,13 @@
+#pragma once
+
+#include <string>
+#include <QDir>
+
+namespace project_info {
+inline std::string AbsSourcePath() {
+  return "@CMAKE_SOURCE_DIR@";
+}
+inline std::string SourceDirName() {
+  return QDir(AbsSourcePath().c_str()).dirName().toStdString();
+}
+}

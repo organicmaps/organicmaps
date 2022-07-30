@@ -297,6 +297,7 @@ execute_process(COMMAND tools/unix/version.sh git_hash
 # TODO: Does it run on every build or only on configure step?
 # TODO: Run only when dependent targets are built.
 configure_file(build_version.hpp.in ${CMAKE_SOURCE_DIR}/build_version.hpp @ONLY)
+configure_file(source_dir.hpp.in ${CMAKE_SOURCE_DIR}/source_dir.hpp @ONLY)
 
 # Include 3party dependencies.
 
