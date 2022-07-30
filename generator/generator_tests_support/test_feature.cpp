@@ -244,20 +244,27 @@ string TestVillage::ToDebugString() const
 
 // TestStreet --------------------------------------------------------------------------------------
 TestStreet::TestStreet(vector<m2::PointD> const & points, string const & name, string const & lang)
-  : TestFeature(name, lang), m_points(points), m_highwayType("living_street")
+  : TestFeature(name, lang), m_points(points)
 {
+  SetType({ "highway", "living_street" });
 }
 
 TestStreet::TestStreet(vector<m2::PointD> const & points, StringUtf8Multilang const & name)
-  : TestFeature(name), m_points(points), m_highwayType("living_street")
+  : TestFeature(name), m_points(points)
 {
+  SetType({ "highway", "living_street" });
+}
+
+void TestStreet::SetType(base::StringIL const & e)
+{
+  m_highwayType = classif().GetTypeByPath(e);
 }
 
 void TestStreet::Serialize(FeatureBuilder & fb) const
 {
   TestFeature::Serialize(fb);
 
-  fb.SetType(classif().GetTypeByPath({string_view("highway"), m_highwayType}));
+  fb.SetType(m_highwayType);
 
   fb.GetParams().ref = m_roadNumber;
 

@@ -43,7 +43,7 @@ void AssignRankingInfo(NameScores const & scores, RankingInfo & info, size_t tot
   info.m_nameScore = scores.m_nameScore;
   info.m_errorsMade = scores.m_errorsMade;
   info.m_isAltOrOldName = scores.m_isAltOrOldName;
-  info.m_matchedFraction = scores.m_matchedLength / static_cast<double>(totalLength);
+  info.m_matchedFraction = scores.m_matchedLength / static_cast<float>(totalLength);
 }
 } // namespace
 
@@ -115,7 +115,7 @@ UNIT_TEST(RankingInfo_PreferCountry)
   info.m_nameScore = NAME_SCORE_FULL_MATCH;
   info.m_errorsMade = ErrorsMade(0);
   info.m_numTokens = 1;
-  info.m_matchedFraction = 1.0;
+  info.m_matchedFraction = 1;
   info.m_allTokensUsed = true;
   info.m_exactMatch = false;
 
@@ -124,7 +124,7 @@ UNIT_TEST(RankingInfo_PreferCountry)
   cafe.m_tokenRanges[Model::TYPE_SUBPOI] = TokenRange(0, 1);
   cafe.m_exactCountryOrCapital = false;
   cafe.m_type = Model::TYPE_SUBPOI;
-  cafe.m_resultType = ResultType::Eat;
+  cafe.m_classifType.poi = PoiType::Eat;
 
   auto country = info;
   country.m_distanceToPivot = 1e6;
@@ -140,7 +140,7 @@ UNIT_TEST(RankingInfo_PrefixVsFull)
 {
   RankingInfo info;
   info.m_numTokens = 3;
-  info.m_matchedFraction = 1.0;
+  info.m_matchedFraction = 1;
   info.m_allTokensUsed = true;
   info.m_exactMatch = false;
   info.m_exactCountryOrCapital = false;
