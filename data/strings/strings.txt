@@ -198,7 +198,7 @@
     comment = Settings/Downloader - info for country when download fails
     tags = android
     en = Download has failed. Touch to try again.
-    ar = فشلت عملية التنزيل، انقر مرة أخرى لإعداة المحاولة
+    ar = فشلت عملية التنزيل، انقر لإعادة المحاولة
     be = Не атрымалася спампаваць. Націсніце, каб паспрабаваць зноў.
     bg = Изтеглянето се провали. Натиснете, за да опитате отново.
     cs = Stahování selhalo, zkuste to znovu.
@@ -237,7 +237,7 @@
     comment = Settings/Downloader - info for country which started downloading
     tags = android,ios
     en = Downloading…
-    ar = جاري التنزيل…
+    ar = جاري التنزيل...
     be = Спампоўваецца…
     bg = Теглене…
     cs = Stahování…
@@ -277,7 +277,7 @@
     tags = android,ios
     en = Kilometers
     en-GB = Kilometres
-    ar = كيلومتر
+    ar = الكيلومترات
     be = Кіламетры
     bg = Километри
     cs = Kilometry
@@ -316,7 +316,7 @@
     comment = Leave Review dialog - Review button
     tags = ios
     en = Leave a Review
-    ar = اترك تعليق
+    ar = اترك تعليقاً
     be = Напісаць водгук
     bg = Напишете отзив
     cs = Zpětná vazba
@@ -355,7 +355,7 @@
     comment = Settings/Downloader - size string, only strings different from English should be translated
     tags = android
     en = MB
-    ar = م.ب.
+    ar = ميغابايت
     be = МБ
     bg = МБ
     fa = مگابایت
@@ -371,6 +371,7 @@
   [gb]
     tags = android
     en = GB
+    ar = غيغابايت
     be = ГБ
     bg = ГБ
     el = GB
@@ -382,7 +383,7 @@
     comment = Choose measurement on first launch alert - choose imperial system button
     tags = android,ios
     en = Miles
-    ar = ميل
+    ar = الأميال
     be = Мілі
     bg = Мили
     cs = Míle
@@ -460,7 +461,7 @@
     comment = Update maps later/Buy pro version later button text
     tags = android,ios
     en = Later
-    ar = لاحقا
+    ar = ًلاحقا
     be = Потым
     bg = По-късно
     cs = Později
@@ -691,7 +692,7 @@
     comment = Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown
     tags = ios
     en = Download Map
-    ar = تحميل الخريطة
+    ar = تنزيل الخريطة
     be = Спампаваць мапу
     bg = Изтегляне на карта
     cs = Stáhnout mapu
@@ -845,7 +846,7 @@
   [connection_settings]
     tags = android
     en = Connection Settings
-    ar = اعدادات الاتصال
+    ar = إعدادات الاتصال
     be = Налады злучэння
     bg = Настройки за свързване
     cs = Nastavení připojení
@@ -883,7 +884,7 @@
   [close]
     tags = android,ios
     en = Close
-    ar = اغلاق
+    ar = إغلاق
     be = Зачыніць
     bg = Затваряне
     cs = Zavřít
@@ -1073,7 +1074,7 @@
   [download_resources]
     tags = android
     en = Before you start using the app, allow us to download the general world map to your device.\nIt will use %@ of storage.
-    ar = قبل أن تبدأ، دعنا نقوم بتنزيل خريطة العالم العامة على جهازك.\nانها بحاجة الى %@ من البيانات.
+    ar = قبل أن تبدأ باستخدام التطبيق، سنقوم بتنزيل خريطة العالم العامة على جهازك.\nستحتاج إلى %@ من البيانات.
     be = Перад пачаткам працы дазвольце нам спампаваць агульную мапу свету на вашу прыладу.\nГэта патрабуе %@ дадзеных.
     bg = Преди да започнете да използвате приложението, позволете ни да изтеглим общата карта на света на вашето устройство.\nТова ще използва %@ от паметта.
     cs = Ještě než začnete, bude třeba stáhnout obecnou mapu světa.\nZabere to %@.
@@ -1264,7 +1265,7 @@
     comment = REMOVE THIS STRING AFTER REFACTORING
     tags = android
     en = Pause
-    ar = توقف مؤقت
+    ar = توقيف مؤقت
     be = Прыпыніць
     bg = Пауза
     cs = Pauza
@@ -1381,7 +1382,7 @@
     comment = "Add new bookmark list" dialog title
     tags = android,ios
     en = Add New List
-    ar = إضافة مجموعة جديدة
+    ar = إضافة قائمة جديدة
     be = Дадаць новы спіс
     bg = Добавяне на нова група
     cs = Přidat novou skupinu záložek
@@ -1460,7 +1461,7 @@
     comment = Add Bookmark list dialog - hint when the list name is empty
     tags = android,ios
     en = Bookmark List Name
-    ar = اسم مجموعة الإشارات المرجعية
+    ar = اسم قائمة الإشارات المرجعية
     be = Назва спісу закладак
     bg = Име на група
     cs = Název záložky
@@ -1498,7 +1499,7 @@
     comment = "Bookmark Lists" dialog title
     tags = ios
     en = Bookmark Lists
-    ar = مجموعات الإشارات المرجعية
+    ar = قائمة الإشارات المرجعية
     be = Спісы закладак
     cs = Skupiny záložek
     da = Bogmærk sæt
@@ -1769,7 +1770,7 @@
     comment = Header of settings activity where user defines storage path
     tags = android
     en = Save maps to
-    ar = تخزين الخرائط
+    ar = مكان تخزين الخرائط
     be = Захаваць мапы ў
     bg = Запаметяване на карти в
     cs = Uložit mapy na
@@ -1808,7 +1809,7 @@
     comment = Detailed description of Maps Storage settings button
     tags = android
     en = Select the place where maps should be downloaded to
-    ar = اختر المكان الذي ينبغي تنزيل الخرائط  فيه.
+    ar = اختر المكان الذي ينبغي تنزيل الخرائط إليه.
     be = Выберыце месца, дзе захоўваць запампаваныя мапы
     bg = Изберете мястото, където картите трябва да се изтеглят
     cs = Vyberte místo, kam by měly být mapy stahovány
@@ -1847,7 +1848,7 @@
     comment = E.g. "Downloaded maps: 500Mb" in Maps Storage settings
     tags = android
     en = Downloaded maps
-    ar = الخرائط
+    ar = الخرائط المنزلة
     be = Мапы
     bg = Карти
     cs = Mapy
@@ -1979,6 +1980,7 @@
     comment = Error moving map files from one storage to another
     tags = android
     en = Error moving map files
+    ar = فشلت عملية نقل ملفات الخرائط
     de = Fehler beim Verschieben der Karten
     fr = Erreur lors du déplacement des cartes
     pt-BR = Erro ao mover arquivos de mapas
@@ -2027,7 +2029,7 @@
     comment = Measurement units title in settings activity
     tags = android,ios
     en = Measurement units
-    ar = وحدات القياس.
+    ar = وحدات القياس
     be = Адзінкі вымярэння
     bg = Мерни единици
     cs = Měřicí jednotky
@@ -2067,7 +2069,7 @@
     tags = android
     en = Choose between miles and kilometers
     en-GB = Choose between miles and kilometres
-    ar = اختر من بين الأميال و الكيلو مترات.
+    ar = اختر من بين الأميال و الكيلومترات.
     be = Ужываць кіламетры альбо мілі
     bg = Изберете между километри или мили
     cs = Vyberte si míle nebo kilometry
@@ -2108,7 +2110,7 @@
     comment = Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat!
     tags = android,ios
     en = Where to eat
-    ar = مكان لتناول الطعام
+    ar = أمكان لتناول الطعام
     be = Дзе паесці
     bg = Места за хапване
     cs = Kde se najíst
@@ -2147,7 +2149,7 @@
     comment = Search category for grocery stores; any changes should be duplicated in categories.txt @food!
     tags = android,ios
     en = Groceries
-    ar = المشتريات
+    ar = بقالية
     be = Прадукты
     bg = Продукти
     cs = Potraviny
@@ -2186,7 +2188,7 @@
     comment = Search category for public transport; any changes should be duplicated in categories.txt @transport!
     tags = android,ios
     en = Transport
-    ar = نقل
+    ar = مواصلات
     be = Транспарт
     bg = Транспорт
     cs = Doprava
@@ -2226,7 +2228,7 @@
     tags = android,ios
     en = Gas
     en-GB = Petrol
-    ar = غاز
+    ar = وقود الحافلات
     be = Запраўка
     bg = Гориво
     cs = Čerpací stanice
@@ -2265,7 +2267,7 @@
     comment = Search category for parking lots; any changes should be duplicated in categories.txt @parking!
     tags = android,ios
     en = Parking
-    ar = الاصطفاف
+    ar = مرافق ركن السيارات
     be = Паркоўка
     bg = Паркинг
     cs = Parkoviště
@@ -2304,7 +2306,7 @@
     comment = Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping!
     tags = android,ios
     en = Shopping
-    ar = التسوق
+    ar = تسوق
     be = Закупы
     bg = Шопинг
     cs = Nákupy
@@ -2421,7 +2423,7 @@
     comment = Search category for entertainment; any changes should be duplicated in categories.txt @entertainment!
     tags = android,ios
     en = Entertainment
-    ar = التسلية
+    ar = تسلية
     be = Забавы
     bg = Развлечения
     cs = Zábava
@@ -2460,7 +2462,7 @@
     comment = Search category for ATMs; any changes should be duplicated in categories.txt @atm!
     tags = android,ios
     en = ATM
-    ar = ماكينة الصراف الآلي
+    ar = صراف آلي
     be = Банкамат
     bg = Банкомат
     cs = Bankomat
@@ -2695,7 +2697,7 @@
     comment = Search category for toilets; any changes should be duplicated in categories.txt @toilet!
     tags = android,ios
     en = Toilet
-    ar = حمام
+    ar = مرحاض
     be = Прыбіральня
     bg = Тоалетна
     cs = Záchody
@@ -2812,7 +2814,7 @@
     comment = Search category for WiFi access; any changes should be duplicated in categories.txt @wifi!
     tags = android,ios
     en = WiFi
-    ar = واي-فاي
+    ar = إنترنت لا سلكي
     be = WiFi
     bg = WiFi
     cs = WiFi
@@ -2929,6 +2931,7 @@
     comment = Search category for RV facilities; any changes should be duplicated in categories.txt @rv!
     tags = android,ios
     en = RV Facilities
+    ar = منشآت للمنازل المتنقلة
     be = Для аўтадамоў
     de = Einrichtungen für Wohnmobile
     es = Caravanas
@@ -2982,7 +2985,7 @@
     comment = Email Subject when sharing bookmark list
     tags = android
     en = Organic Maps bookmarks were shared with you
-    ar = تم مشاركة اشارات Organic Maps المرجعية معك
+    ar = تم مشاركة إشارات Organic Maps المرجعية معك
     be = З вамі падзяліліся закладкамі Ogranic Maps
     bg = Споделени са с вас отметки за Organic Maps
     cs = Sdílené záložky Organic Maps
@@ -3019,6 +3022,7 @@
   [share_bookmarks_email_body]
     tags = android,ios
     en = Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!
+    ar = مرحباً! ْ\n\n تم إرفاق إشاراتي المرجعية من تطبيق Organic Maps. الرجاء فتحهم إذا لديك تطبيق Organic Maps مثبتاً. أو، إذا لم يكن مثبتاً، قم بتنزيل التطبيق لنظام iOS أو أندرويد من خلال الضغط على هذا الرابط: https://omaps.app/get?kmz \n\nاستمتع بالسفر مع Organic Maps! 
     be = Вітаю!\n\nУ далучаным файле мае закладкі з дататка Organic Maps. Калі ласка, адчыніце іх калі ў вас усталяваны Organic Maps. Калі не, спампуйце дадатак для вашай прылады iOS альбо Andriod па спасылцы: https://omaps.app/get?kmz\n\nПрыемных падарожжаў з Organic Maps!
     de = Hallo!\n\nIm Anhang sind meine Lesezeichen der Organic Maps App. Sie können sie mit Organic Maps öffnen. Wenn Sie die App nicht installiert haben, können Sie sie von https://omaps.app/get?kmz für iOS oder Android herunterladen.\n\nViel Spaß beim Reisen mit Organic Maps!
     es = Hola!\n\Adjunto mis marcadores de la aplicación Organic Maps. Por favor, ábrelos si tienes instalado Organic Maps. O, si no lo tienes, descarga la aplicación para tu dispositivo iOS o Android siguiendo este link: https://omaps.app/get?kmz\n¡Disfruta viajando con Organic Maps!
@@ -3039,7 +3043,7 @@
     comment = message title of loading file
     tags = android,ios
     en = Loading Bookmarks
-    ar = تحميل الإشارات المرجعية
+    ar = يتم تحميل الإشارات المرجعية
     be = Загрузка закладак
     bg = Зареждане на отметки
     cs = Nahrávání záložek
@@ -3117,7 +3121,7 @@
     comment = Kml file loading failed
     tags = android,ios
     en = Failed to load bookmarks. The file may be corrupted or defective.
-    ar = فشلت عملية تحميل الإشارات المرجعية. قد يكون الملف تالف.
+    ar = فشلت عملية تحميل الإشارات المرجعية. قد يكون الملف تالف أو غير صالح.
     be = Не атрамалася запампаваць закладкі. Файл можа быць пашкоджаны альбо дэфектыўны.
     bg = Качването на отметките се провали. Файлът може да бъде повреден или дефектен.
     cs = Nahrávání záložek se nezdařilo. Soubor může být poškozený nebo vadný.
