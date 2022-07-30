@@ -255,5 +255,34 @@ UNIT_TEST(Classificator_PoiPriority)
       {"railway", "station"}, {"railway", "halt"}, {"railway", "tram_stop"},
     }, {2, 5}, drule::symbol);
   }
+
+  /// @todo Check that all of sport=* icons priority is bigger than all of pitch, sport_center, playground.
+
+  {
+    CheckPriority({
+      // 1
+      {"leisure", "pitch"},
+      // 2
+      {"sport", "yoga"}
+    }, {1, 1}, drule::symbol);
+  }
+
+  {
+    CheckPriority({
+      // 1
+      {"leisure", "sports_centre"},
+      // 2
+      {"sport", "shooting"}
+    }, {1, 1}, drule::symbol);
+  }
+
+  {
+    CheckPriority({
+      // 1
+      {"leisure", "playground"},
+      // 2
+      {"sport", "cricket"}
+    }, {1, 1}, drule::symbol);
+  }
 }
 }  // namespace classificator_tests

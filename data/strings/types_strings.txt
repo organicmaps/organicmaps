@@ -11667,7 +11667,7 @@
     zh-Hans = 体育中心
     zh-Hant = 體育中心
 
-  [type.leisure.sports_centre.climbing]
+  [type.sport.climbing]
     en = Climbing Centre
     ar = مركز تسلق
     cs = Horolezecké centrum
@@ -11701,75 +11701,7 @@
     zh-Hans = 攀登中心
     zh-Hant = 攀登中心
 
-  [type.leisure.sports_centre.shooting]
-    en = Shooting Range
-    ar = ملعب رماية
-    cs = Střelnice
-    da = Skydebane
-    de = Schießanlage
-    el = Σκοπευτήριο
-    es = Campo de tiro
-    eu = Tiro eremua
-    fa = محل تیراندازی
-    fi = Ampumarata
-    fr = Centre de tir
-    hu = Lőtér
-    id = Lapangan tembak
-    it = Poligono di tiro
-    ja = 射撃場
-    ko = 발사 범위
-    mr = चांदमारी(बंदूक पल्ला)
-    nb = Skytebane
-    nl = Schietbaan
-    pl = Strzelnica
-    pt = Campo de tiro
-    pt-BR = Clube de tiro
-    ro = Tir
-    ru = Тир
-    sk = Strelnica
-    sv = Skjutbana
-    th = สนามยิงปืน
-    tr = Poligon
-    uk = Тир
-    vi = Nơi bắn súng
-    zh-Hans = 射击场
-    zh-Hant = 射擊場
-
-  [type.leisure.sports_centre.swimming]
-    en = Swimming Centre
-    ar = مركز سباحة
-    cs = Plavecký bazén
-    da = Svømmecenter
-    de = Schwimmhalle
-    el = Κολυμβητήριο
-    es = Centro de natación
-    eu = Igeriketa zentroa
-    fa = استخرشنا
-    fi = Uimahalli
-    fr = Piscine
-    hu = Uszoda
-    id = Kolam Renang
-    it = Centro natatorio
-    ja = スイミングセンター
-    ko = 수영 센터
-    mr = जलतरण केंद्र
-    nb = Svømmehall
-    nl = Zwembad
-    pl = Pływalnia
-    pt = Centro de natação
-    pt-BR = Centro de natação
-    ro = Piscină
-    ru = Плавательный бассейн
-    sk = Plavecký areál
-    sv = Simhall
-    th = ศูนย์ว่ายน้ำ
-    tr = Yüzme Merkezi
-    uk = Басейн для плавання
-    vi = Trung tâm Bơi lội
-    zh-Hans = 游泳中心
-    zh-Hant = 遊泳中心
-
-  [type.leisure.sports_centre.yoga]
+  [type.sport.yoga]
     en = Yoga Studio
     ar = نادي يوغا
     cs = Studio jógy
