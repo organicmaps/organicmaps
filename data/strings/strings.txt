@@ -1886,6 +1886,7 @@
     comment = Internal storage type in Maps Storage settings (not accessible by the user)
     tags = android
     en = Internal private storage
+    ar = وحدة التخزين الداخلية الخاصة
     be = Унутранае прыватнае сховішча
     de = Interner persönlicher Speicher
     fr = Stockage interne privé
@@ -1897,6 +1898,7 @@
     comment = Shared storage type in Maps Storage settings (a primary storage usually)
     tags = android
     en = Internal shared storage
+    ar = وحدة التخزين الداخلية المشتركة
     be = Унутранае абагуленае сховішча
     de = Interner gemeinsamer Speicher
     fr = Stockage interne partagé
@@ -1908,6 +1910,7 @@
     comment = Removable external storage type in Maps Storage settings, e.g. an SD card
     tags = android
     en = SD card
+    ar = بطاقة الذاكرة
     be = SD-карта
     de = SD-Karte
     fr = Carte SD
@@ -1919,6 +1922,7 @@
     comment = Generic external storage type in Maps Storage settings
     tags = android
     en = External shared storage
+    ar = وحدة تخزين خارجية مشتركة
     be = Знешняе абагульнае сховішча
     de = Externer gemeinsamer Speicher
     fr = Stockage externe partagé
@@ -1930,6 +1934,7 @@
     comment = Free space out of total storage size in Maps Storage settings, e.g. "300 MB free of 2 GB"
     tags = android
     en = %1$@ free of %2$@
+    ar = %1$@ فارغ من %2$@
     be = %1$@ вольна з %2$@
     de = %1$@ frei von %2$@
     fr = %1$@ libres sur %2$@
@@ -3896,6 +3901,7 @@
     comment = Settings general group in settings screen
     tags = android
     en = General settings
+    ar = الإعدادات العامة
     be = Агульныя налады
     bg = Общи настройки
     de = Allgemeine Einstellungen
@@ -3920,6 +3926,7 @@
     comment = Settings information group in settings screen
     tags = android
     en = Information
+    ar = معلومات
     be = Інфармацыя
     bg = Информация
     de = Information
@@ -3980,7 +3987,7 @@
   [pref_zoom_title]
     tags = android,ios
     en = Zoom buttons
-    ar = أزرار التكبير
+    ar = أزرار التكبير والتصغير
     be = Кнопкі маштаба
     bg = Мащабни бутони
     cs = Tlačítka přiblížení/oddálení
@@ -4095,7 +4102,7 @@
     comment = «Map style» entry value
     tags = android,ios
     en = Off
-    ar = إغلاق
+    ar = تعطيل
     be = Выключаны
     bg = Изключен
     cs = Vypnuto
@@ -4733,7 +4740,7 @@
   [recent_track_help_text]
     tags = ios
     en = This option allows you to record traveled path for a certain period and see it on the map. Please note: activation of this function causes increased battery usage. The track will be removed automatically from the map after the time interval will expire.
-    ar = يتيح لك تسجيل مسار السفر لفترة معينة وعرضه على الخريطة. الرجاء ملاحظة: يؤدي تنشيط هذه الوظيفة إلى زيادة استهلاك البطارية. سوف تتم إزالة المسار تلقائيًا من الخريطة بعد انتهاء الفاصل الزمني.
+    ar = يتيح لك هذا الخيار تسجيل مسار السفر لفترة معينة وعرضه على الخريطة. الرجاء ملاحظة: يؤدي تنشيط هذه الوظيفة إلى زيادة استهلاك البطارية. سوف تتم إزالة المسار تلقائيًا من الخريطة بعد انتهاء الفاصل الزمني.
     be = Гэтая функцыя дазваляе запісваць сцежку за некаторы прамежак часу і бачыць яе на мапе. Увага: уключэнне гэтай функцыі павялічвае выкарыстанне батарэі. Сцежка будзе аўтаматычка выдалена з мапы калі прамежак часу скончыцца.
     bg = Тази опция ви позволява да запишете изминатия път за определен период и да го видите на картата. Моля, обърнете внимание: активирането на тази функция води до повишено използване на батерията.
     cs = To vám umožňuje zaznamenávat ujetou cestu po určitou dobu a vidět ji na mapě. Poznámka: aktivace této funkce způsobuje zvýšenou spotřebu baterie. Trať bude automaticky odebrána z mapy poté, co vyprší časový interval.
@@ -4884,7 +4891,7 @@
     comment = Text in About menu, opens Organic Maps news website
     tags = android,ios
     en = News
-    ar = ﺭﺎﺒﺧﺃ
+    ar = أخبار
     be = Навіны
     bg = Новини
     cs = Zprávy
@@ -4966,13 +4973,14 @@
     comment = Text in menu
     tags = android,ios
     en = OpenStreetMap
+    ar = خريطة الشارع المفتوحة
     zh-Hant = 開放街圖
 
   [feedback]
     comment = Settings: Send feedback button and dialog title
     tags = android,ios
     en = Feedback
-    ar = تعقيب
+    ar = إرسال التعليقات
     be = Водгук
     bg = Обратна връзка
     cs = Zpětná vazba
@@ -5010,7 +5018,7 @@
     comment = Text in menu
     tags = android,ios
     en = Rate the app
-    ar = تقييم التطبيق
+    ar = قيّم التطبيق
     be = Ацаніць дадатак
     bg = Оцени приложение
     cs = Ohodnotit aplikaci
@@ -5088,7 +5096,7 @@
     comment = Button in the main Help dialog
     tags = android,ios
     en = Frequently Asked Questions
-    ar = اسئلة واجوبة
+    ar = اسئلة مكررة
     be = Пытанні і адказы
     bg = Въпроси и отговори
     cs = Otázky a odpovědi
@@ -5128,7 +5136,7 @@
     comment = Button in the main Help dialog
     tags = android,ios
     en = How to support us?
-    ar = كيف تدعم لنا؟
+    ar = كيف يمكنك دعمنا؟
     be = Як нас падтрымаць?
     bg = Как да ни подкрепите?
     cs = Jak nás podpořit?
@@ -5167,7 +5175,7 @@
     comment = Button in the main Help dialog
     tags = android,ios
     en = Copyright
-    ar = حقوق الطبع والنشر
+    ar = حقوق النشر
     be = Капірайт
     bg = Авторски права
     cs = Autorská práva
@@ -5245,7 +5253,7 @@
     comment = Alert text
     tags = ios
     en = The email client has not been set up. Please configure it or use any other way to contact us at %@
-    ar = لم يتم تعيين البريد الإلكتروني للعميل. يرجى تكوينه أو استخدام أي وسيلة أخرى للاتصال بنا على %@
+    ar = لم يتم تنصيب البريد الإلكتروني. يرجى تفعيله أو استخدام أي وسيلة أخرى للاتصال بنا على %@
     be = Паштовы кліент не наладжаны. Наладзьце яго альбо звяжыцеся з намі па адрасе %@ іншым чынам.
     bg = Имейл клиентът не е настроен. Моля, конфигурирайте го или използвайте друг начин, за да се свържете с нас на %@
     cs = Emailový klient nebyl ještě nakonfigurován. Nastavte ho, prosím, nebo použijte jiný způsob k našemu kontaktování na %@
@@ -5284,7 +5292,7 @@
     comment = Alert title
     tags = ios
     en = Mail sending error
-    ar = هناك خطأ في إرسال البريد الإلكتروني
+    ar = حذث خطأ في إرسال البريد الإلكتروني
     be = Памылка адпраўкі пошты
     bg = Грешка при изпращане на поща
     cs = Chyba při odesílání emailu
@@ -5439,7 +5447,7 @@
     comment = Downloaded maps list header
     tags = android,ios
     en = Downloaded
-    ar = تم تنزيلها
+    ar = التي تم تنزيلها
     be = Спампаваныя
     bg = Изтеглено
     cs = Staženo
@@ -5477,7 +5485,7 @@
     comment = Downloaded maps category
     tags = ios
     en = Available
-    ar = متاح
+    ar = متوفر
     be = Дасягальныя
     cs = Dostupné
     da = Tilgængelige
@@ -5552,7 +5560,7 @@
   [downloader_near_me_subtitle]
     tags = android,ios
     en = Near me
-    ar = بالقرب مني
+    ar = قريب مني
     be = Каля мяне
     bg = Близо до мен
     cs = Poblíž mě
@@ -5664,7 +5672,7 @@
   [downloader_downloading]
     tags = android,ios
     en = Downloading:
-    ar = يتم تنزيل:
+    ar = يتم التنزيل:
     be = Спампоўваецца:
     bg = Теглене:
     cs = Probíhá stahování:
@@ -5854,7 +5862,7 @@
     comment = PointsInDifferentMWM
     tags = android,ios
     en = Routes can only be created that are fully contained within a map of a single region.
-    ar = يمكن فقط إنشاء المسارات التي توجد بشكل كامل ضمن خريطة واحدة.
+    ar = يمكن فقط إنشاء المسارات التي توجد بشكل كامل ضمن خريطة دولة واحدة.
     be = Маршруты могуць быць пракладзены толькі ў межах карты аднаго рэгіёна.
     bg = Могат да се създават само маршрути, които са изцяло в рамките на картата на един регион.
     cs = Lze vytvářet jen takové trasy, které se nachází na území jediné mapy.
@@ -5932,7 +5940,7 @@
     comment = Item status in downloader.
     tags = android,ios
     en = Retry
-    ar = تكرار
+    ar = المحاولة مجدداً
     be = Паспрабаваць зноў
     bg = Повторно
     cs = Opakovat
@@ -6124,7 +6132,7 @@
     comment = Preference text
     tags = android
     en = Use Google Play Services to determine your current location
-    ar = استخدم خدمات جوجل بلاي لتتعرف على موقعك الحالي
+    ar = استخدام خدمات Google Play لتحديد موقعك الحالي
     be = Ужываць службы Google Play для вызначэння месцазнаходжання
     bg = Използвайте услугите на Google Play, за да определите текущото си местоположение
     cs = Používat Služby Google Play pro získání aktuální polohy
@@ -6162,7 +6170,7 @@
     comment = Text for routing error dialog
     tags = android,ios
     en = Download all of the maps along your route
-    ar = تنزيل الخرائط على طول الطريق
+    ar = تنزيل الخرائط على طول طريقك
     be = Спампаваць усе мапы на вашым шляху
     bg = Изтегляне на всички карти по вашия маршрут
     cs = Stahovat mapy podél cesty
@@ -6200,7 +6208,7 @@
     comment = Text for routing error dialog
     tags = android,ios
     en = In order to create a route, we need to download and update all the maps from your location to your destination.
-    ar = Creare un percorso necessita la presenza di tutte le mappe scaricate e aggiornate dalla tua posizione alla destinazione.
+    ar = من أجل تعيين الطريق، نحتاج إلى تنزيل أو تحديث جميع الخرائط التي تغطي المنطقة من موقعك إلى وجهتك
     be = Каб пракласці маршрут, трэба спампаваць і абнавіць усе мапы на на вашым шляху.
     bg = За да създадем маршрут, трябва да изтеглим и актуализираме всички карти от местоположението ви до вашата дестинация.
     cs = Naplánování trasy vyžaduje stažení a aktualizaci všech map z vašeho umístění do cílového umístění.
@@ -6237,7 +6245,7 @@
     comment = Text for routing error dialog
     tags = android
     en = Not enough space
-    ar = Spazio non sufficiente
+    ar = لا يوجد مساحة كافية
     be = Не хапае месца
     bg = Недостатъчно място
     cs = Nedostatek místa
@@ -6314,7 +6322,7 @@
     comment = location service disabled
     tags = android
     en = Please enable Location Services
-    ar = الرجاء تفعيل خدمة تحديد المواقع
+    ar = الرجاء تفعيل خدمة تحديد الموقع الجغرافي
     be = Калі ласка, ўключыце геалакацыю
     bg = Моля, разрешете услугите за местоположение
     cs = Prosím, povolte Služby určování polohy
@@ -6388,7 +6396,7 @@
   [edit_description_hint]
     tags = android
     en = Your descriptions (text or html)
-    ar = أوصافك (نصّ أو html)
+    ar = الوصف (استعمل نص أو html(
     be = Ваша апісанне (тэкст альбо html)
     bg = Ваши описания (текст или html)
     cs = Popis (HTML nebo text)
@@ -6736,7 +6744,7 @@
     comment = pink color
     tags = android,ios
     en = Pink
-    ar = وردي
+    ar = زهري
     be = Ружовы
     bg = Розово
     cs = Růžová
@@ -7088,7 +7096,7 @@
   [dialog_routing_disclaimer_title]
     tags = android,ios
     en = When following the route, please keep in mind:
-    ar = عند اتباع المسار، يُرجى وضع ما يلي في الاعتبار:
+    ar =  عند اتباع المسار، يُرجى الانتباه إلى ما يلي:
     be = Рухаючыся па маршруце, майце на ўвазе:
     bg = Когато следвате маршрута, моля, имайте предвид:
     cs = Při navigaci podle trasy mějte na paměti následující:
@@ -7126,7 +7134,7 @@
   [dialog_routing_disclaimer_priority]
     tags = android,ios
     en = — Road conditions, traffic laws, and road signs always take priority over the navigation hints;
-    ar = — دائمًا ما يكون لظروف الطريق وقوانين وإشارات المرور الأولوية على المشورة الملاحية;
+    ar = — إن ظروف الطريق وقوانين وإشارات المرور لها الأولوية على المشورة الملاحية دائماً;
     be = — Дарожныя абставіны, правілы дарожнага руху і дарожныя знакі заўсёды маюць прыярытэт над падказкамі навігацыі;
     bg = - Пътната обстановка, законите за движение по пътищата и че пътните знаци винаги имат приоритет пред навигационните подсказки;
     cs = • Situace na silnici, dopravní předpisy a dopravní značení mají vždy prioritu před pokyny navigace.
@@ -7164,7 +7172,7 @@
   [dialog_routing_disclaimer_precision]
     tags = android,ios
     en = — The map might be inaccurate, and the suggested route might not always be the most optimal way to reach the destination;
-    ar = — قد تكون الخريطة غير دقيقة وقد لا يكون المسار المقترح هو المسار الأمثل دائمًا للوصول إلى الوجهة.;
+    ar = —  قد تكون الخريطة غير دقيقة وقد لا يكون المسار المقترح هو المسار الأمثل دائمًا للوصول إلى الوجهة.;
     be = — Мапа можа быць недакладнай, а прапанаваны маршрут не заўжды найлепшым;
     bg = - Картата може да е неточна, а предложеният маршрут невинаги е най-оптималният начин за достигане до дестинацията;
     cs = — Mapa může být nepřesná a navrhovaná trasa nemusí být vždy optimální cestou, jak dojet do cíle;
@@ -7202,7 +7210,7 @@
   [dialog_routing_disclaimer_recommendations]
     tags = android,ios
     en = — Suggested routes should only be understood as recommendations;
-    ar = — يتم التعامل مع المسارات المقترحة كتوصيات فقط;
+    ar = — يجب التعامل مع المسارات المقترحة كتوصيات فقط;
     be = — Прапанаваныя маршруты трэба ўспрымаць толькі як рэкамендацыі;
     bg = - Предложените маршрути са само препоръки;
     cs = — Navrhované trasy je třeba brát pouze jako doporučení;
@@ -7240,7 +7248,7 @@
   [dialog_routing_disclaimer_borders]
     tags = android,ios
     en = — Exercise caution with routes in border zones: the routes created by our app may sometimes cross country borders in unauthorized places.
-    ar = — تحذير بشأن مسارات في منطقة حدودية: المسارات التي تم إنشاؤها بواسطة تطبيقنا قد تعبر حدود الدولة في أماكن غير مصرح بها في بعض الأحيان;
+    ar = — تحذير بشأن المسارات في المناطق الحدودية: المسارات التي تم إنشاؤها بواسطة تطبيقنا قد تعبر  أحياناً حدود الدول في أماكن غير مصرح بها;
     be = — Будзьце ўважлівы з маршрутамі ў памежных зонах: маршруты пракладзеныя нашым дадаткам часамі могуць перасякаць мяжу ў недазволеных месцах.
     bg = - Бъдете внимателни с маршрутите в гранични зони: маршрутите, създадени от нашето приложение, понякога могат да пресичат границите на страната на неразрешени места.
     cs = — U tratí v hraničních zónách buďte opatrní: trasy vytvořené naší aplikací občas překračují hranice zemí na nepovolených místech;
@@ -7315,7 +7323,7 @@
   [dialog_routing_check_gps]
     tags = android,ios
     en = Check GPS signal
-    ar = تحقق من إشارة نظام تحديد المواقع العالمي "GPS"
+    ar = تحقق من إشارة نظام تحديد الموقع الجغرافي
     be = Праверце сігнал GPS
     bg = Приверете GPS сигнала
     cs = Zkontrolovat signál GPS
@@ -7353,7 +7361,7 @@
   [dialog_routing_error_location_not_found]
     tags = android,ios
     en = Unable to create route. Current GPS coordinates could not be identified.
-    ar = تعذر إنشاء مسار. لا يمكن تحديد إحداثيات GPS الحالية.
+    ar = تعذر إنشاء مسار. لم نستطع تحديد الإحداثيات الجغرافية الحالية.
     be = Не атрымалася пракласци маршрут. Каардынаты GPS не вызначаны.
     bg = Не е възможно да се създаде маршрут. Текущите GPS координати не могат да бъдат идентифицирани.
     cs = Trasu se nepodařilo vytvořit. Nelze zjistit aktuální souřadnice GPS.
@@ -7391,7 +7399,7 @@
   [dialog_routing_location_turn_wifi]
     tags = android,ios
     en = Please check your GPS signal. Enabling Wi-Fi will improve your location accuracy.
-    ar = يُرجى التحقق من إشارة GPS لديك. ويساعد تمكين خدمة Wi-Fi في تحسين دقة تحديد موقعك.
+    ar = الرجاء التحقق من إشارة نظام تحديد الموقع. إن تفعيل الWi-Fi سيحسب دقة الموقع.
     be = Калі ласка, праверце сігнал GPS. Для больш дакладнага вызначэння месцазнаходжання уключыце Wi-Fi.
     bg = Моля, проверете GPS сигнала. Включването на Wi-Fi ще подобри точността на местоположението ви.
     cs = Zkontrolujte signál GPS. Povolením připojení WiFi zpřesníte určení vaší polohy.
@@ -7429,7 +7437,7 @@
   [dialog_routing_location_turn_on]
     tags = android,ios
     en = Enable location services
-    ar = تمكين خدمات المواقع
+    ar = تفعيل خدمات الموقع الجغرافي
     be = Уключыць геалагацыю
     bg = Активиране на услугите за местоположение
     cs = Povolit služby určování polohy
@@ -7467,7 +7475,7 @@
   [dialog_routing_location_unknown_turn_on]
     tags = android,ios
     en = Unable to locate current GPS coordinates. Enable location services to calculate route.
-    ar = تعذر تحديد إحداثيات نظام تحديد المواقع العالمي GPS الحالية. قم بتمكين خدمات المواقع لحساب المسار.
+    ar = لم نستطع تحديد الإحداثيات الجغرافية الحالي. قم بتفعيل خدمات الموقع الجغرافي لحساب الطريق المناسب
     be = Не атрымалася вызначыць каардынаты GPS. Уключыце геалакацыю каб пракласці маршрут.
     bg = Не е възможно да се определят GPS координатите. Активирайте услугите за местоположение, за да изчислите маршрута.
     cs = Aktuální souřadnice GPS se nepodařilo zjistit. Pro výpočet trasy povolte služby určování polohy.
@@ -7580,7 +7588,7 @@
   [dialog_routing_unable_locate_route]
     tags = android,ios
     en = Unable to locate route
-    ar = تعذر تحديد موقع المسار
+    ar = تعذر إيجاد المسار
     be = Не атрымалася знайсці маршрут
     bg = Не е намерен маршрут
     cs = Trasu se nepodařilo zjistit
@@ -7656,7 +7664,7 @@
   [dialog_routing_change_start_or_end]
     tags = android,ios
     en = Please adjust your starting point or your destination.
-    ar = برجاء تعديل نقطة بدء وجهتك.
+    ar = الرجاء تعديل نقطة بدء أو تعديل وجهتك.
     be = Калі ласка, змяніце пункт адпраўлення альбо прызначэння.
     bg = Моля, коригирайте началната точка или дестинацията си.
     cs = Upravte výchozí nebo cílový bod.
@@ -8073,7 +8081,7 @@
   [dialog_routing_try_again]
     tags = android,ios
     en = Please try again
-    ar = برجاء إعادة المحاولة
+    ar = الرجاء إعادة المحاولة
     be = Паспрабуйце зноў
     bg = Моля, опитайте отново
     cs = Prosím, zkuste to znovu
@@ -8187,7 +8195,7 @@
   [dialog_routing_download_cross_route]
     tags = android,ios
     en = Download additional maps to create a better route that crosses the boundaries of this map.
-    ar = تنزيل الخريطة لإنشاء مسار أفضل يعبر حافة هذه الخريطة.
+    ar = تنزيل خرائط إضافية لإنشاء مسار أفضل يعبر حافة هذه الخريطة.
     be = Спампаваць дадатковыя мапы, каб пракласці лепшы маршрут, каторы перасякае межы гэтай мапы.
     bg = За да създадете по-добър маршрут с граничен преход, трябва да изтеглите картата.
     cs = Stáhnout mapu a vytvořit optimálnější trasu, která překračuje hranice této mapy.
@@ -8227,7 +8235,7 @@
   [search_without_internet_advertisement]
     tags = android
     en = To start searching and creating routes, please download the map. After that you will no longer need an Internet connection.
-    ar = لبدء البحث وإنشاء الطرق، يرجى تنزيل الخريطة، وسوف لن تحتاج إلى اتصال بالإنترنت بعد الآن.
+    ar = لبدء البحث وإنشاء الطرق، يرجى تنزيل الخريطة،  ولن تحتاج إلى اتصال بالإنترنت بعد ذلك.
     be = Каб шукаць месцы і пракладваць маршруты, спампуйце карту. Пасля гэтага падключэнне да Інтэрнэту вам больш не спатрэбіцца.
     bg = За да започнете да търсите и създавате маршрути, изтеглете картата. Това ще ви позволи да пътувате без интернет връзка.
     cs = Chcete-li začít hledat a vytvářet trasy, pak si prosím stáhněte mapu a nebudete již potřebovat připojení.
@@ -8418,7 +8426,7 @@
     comment = Arrive routing message in navigation view
     tags = android,ios
     en = Arrival at %s
-    ar = الوصول: %s
+    ar = وقت الوصول: %s
     be = Прыбыццё а %s
     bg = Пристигане в %s
     cs = Příjezd: %s
@@ -8527,7 +8535,7 @@
   [history]
     tags = android,ios
     en = History
-    ar = السجل
+    ar = سجل البحث
     be = Гісторыя
     bg = История
     cs = Historie
@@ -8563,6 +8571,7 @@
 
   [opens_in]
     en = Opens in %@
+    ar = يفتح بعد %@
     be = Адчыняецца праз %@
     de = Öffnet in %@
     es = Abre en %@
@@ -8575,6 +8584,7 @@
 
   [closes_in]
     en = Closes in %@
+    ar = يغلق في غضون %@
     be = Зачыняецца праз %@
     de = Schließt in %@
     es = Cierra en %@
@@ -8625,7 +8635,7 @@
   [search_not_found]
     tags = android,ios
     en = Oops, no results found.
-    ar = المعذرة، لم أعثر على أي شيء.
+    ar = المعذرة، لم أعثر على أية نتائج.
     be = Нічога не знойдзена.
     bg = За съжаление не са намерени резултати.
     cs = Omlouvám se, nic nenalezeno.
@@ -8662,7 +8672,7 @@
   [search_not_found_query]
     tags = android,ios
     en = Try changing your search criteria.
-    ar = يرجى تجربة استعلام آخر.
+    ar = يرجى تجربة معاير بحث أخرى.
     be = Паспрабуйце змяніць умовы пошуку.
     bg = Опитайте да промените критериите за търсене.
     cs = Zkuste zadat jiný hledaný výraz.
@@ -8736,7 +8746,7 @@
   [search_history_text]
     tags = android,ios
     en = View recent searches.
-    ar = الوصول إلى استعلامات البحث الحديثة بسرعة.
+    ar = عرض عمليات البحث الأخيرة.
     be = Праглядзець нядаўныя пошукі.
     bg = Преглед на последните търсения.
     cs = Získejte rychlý přístup k hledaným výrazům.
@@ -8773,7 +8783,7 @@
   [clear_search]
     tags = android,ios
     en = Clear Search History
-    ar = مسح تاريخ البحث
+    ar = مسح سجل البحث
     be = Ачысціць гісторыю пошуку
     bg = Изчистване на историята на търсенията
     cs = Vymazat historii vyhledávání
@@ -8811,6 +8821,7 @@
     comment = Place Page link to Wikipedia article (if map object has it).
     tags = android
     en = Wikipedia
+    ar = ويكيبيديا
     be = Вікіпедыя
     el = Wikipedia
     fa = ویکی پدیا
@@ -8866,7 +8877,7 @@
   [p2p_start]
     tags = android,ios
     en = Start
-    ar = البداية
+    ar = ابدأ
     be = Пачаць
     bg = Начало
     cs = Start
@@ -8903,7 +8914,7 @@
   [p2p_from_here]
     tags = android,ios
     en = Route from
-    ar = من
+    ar = الطريق من هنا
     be = Адсюль
     bg = Маршрут от
     cs = Trasa z
@@ -8977,7 +8988,7 @@
   [p2p_only_from_current]
     tags = android,ios
     en = Navigation is available only from your current location.
-    ar = تتوافر إمكانية التنقل فقط من خلال موقعك الحالي. هل تريد أن نخطط لك طريقاً بديلاً؟
+    ar = تتوفر الملاحة من خلال موقعك الحالي فقط.
     be = Навігацыя магчыма толькі ад цяперашняга месцазнаходжання.
     bg = Навигацията е възможна само от текущото ви местоположение.
     cs = Navigovat lze pouze z současného umístění.
@@ -9164,7 +9175,7 @@
     comment = Text for allday switch.
     tags = android,ios
     en = All Day (24 hours)
-    ar = طوال اليوم (24 ساعة)
+    ar = طوال اليوم (٢٤ ساعة)
     be = Цэлы дзень (24 гадзіны)
     bg = Цял ден (24 часа)
     cs = Celý den (24 hodin)
@@ -9201,7 +9212,7 @@
   [editor_time_open]
     tags = android,ios
     en = Open
-    ar = مفتوح
+    ar = يفتح
     be = Адчынена
     bg = Отворено
     cs = Otevřeno
@@ -9238,7 +9249,7 @@
   [editor_time_close]
     tags = android,ios
     en = Closed
-    ar = مغلق
+    ar = يغلق
     be = Зачынена
     bg = Затворено
     cs = Zavřeno
@@ -9571,7 +9582,7 @@
   [editor_done_dialog_1]
     tags = ios
     en = You’ve changed the world map. Do not keep it to yourself! Tell your friends, and edit it together.
-    ar = لقد غيرت خريطة العالم. لا تخفي ذلك! اخبر أصدقاءك، وغيروها معا.
+    ar = لقد ساهمت بتحسين خريطة العالم. لا تخفي ذلك! أخبر أصدقائك، وحسنوها معاً.
     be = Вы змянілі мапу свету. Не прыхоўвайце гэта! Расскажыце сябрам і праўце разам.
     bg = Променили сте картата на света. Не го крийте, кажете на приятелите си и редактирайте заедно.
     cs = Změnili jste světovou mapu. Neskrývejte to! Řekněte o tom svým kamarádům a upravujte ji společně.
@@ -9645,7 +9656,7 @@
   [editor_report_problem_desription_1]
     tags = android
     en = Please describe the problem in detail so that the OpenStreetMap community can fix the error.
-    ar = يرجى وصف المشكلة بالتفاصيل حتى يتسنى لفريق OpenStreetMap إصلاح الخطأ.
+    ar = يرجى وصف المشكلة بالتفاصيل حتى يتسنى لفريق خريطة الشارع المفتوح إصلاح الخطأ.
     be = Калі ласка, падрабязна апішыце праблему, каб супольнасць OpenStreetMap магла выправіць памылку.
     bg = Моля, опишете подробно проблема, за да може общността на OpenStreetMap да отстрани грешката.
     cs = Popište prosím detailně problém, aby vám komunita OpenStreetMap mohla pomoct opravit chybu.
@@ -9793,7 +9804,7 @@
   [editor_report_problem_no_place_title]
     tags = android
     en = The place does not exist
-    ar = المكان غير موجودٍ
+    ar = المكان غير موجود
     be = Месца не існуе
     bg = Мястото не съществува
     cs = Místo neexistuje
@@ -9867,7 +9878,7 @@
   [editor_report_problem_duplicate_place_title]
     tags = android
     en = Duplicated place
-    ar = مكان متكرر
+    ar = مكان مكرر
     be = Паўтараючаеся месца
     bg = Дубликат
     cs = Duplicitní místo
@@ -9980,7 +9991,7 @@
     comment = Place Page opening hours text
     tags = android,ios
     en = Daily
-    ar = يوميا
+    ar = يومياً
     be = Штодзённа
     bg = Ежедневно
     cs = Denně
@@ -10017,7 +10028,7 @@
   [twentyfour_seven]
     tags = android,ios
     en = 24/7
-    ar = ليلا ونهارا
+    ar = ٢٤/٧(ليلاً ونهاراً)
     be = 24/7
     bg = 24 часа
     cs = Nonstop
@@ -10166,7 +10177,7 @@
   [add_opening_hours]
     tags = ios
     en = Add opening hours
-    ar = اضف ساعات عمل
+    ar = أضف ساعات العمل
     be = Дадаць часы працы
     bg = Добавяне на работно време
     cs = Přidat otevírací dobu
@@ -10203,7 +10214,7 @@
   [edit_opening_hours]
     tags = android
     en = Edit business hours
-    ar = حرر ساعات عمل
+    ar = حرر ساعات العمل
     be = Правіць часы працы
     bg = Редакция на работното време
     cs = Upravit otevírací dobu
@@ -10240,7 +10251,7 @@
   [no_osm_account]
     tags = android,ios
     en = Don't have an OpenStreetMap account?
-    ar = ليس لديك حساب في OpenStreetMap؟
+    ar = ليس لديك حساب في خريطة الشارع المفتوحة؟
     be = Не зарэгістраваныя на OpenStreetMap?
     bg = Нямате акаунт в OpenStreetMap?
     cs = Nemáte účet u OpenStreetMap?
@@ -10277,7 +10288,7 @@
   [register_at_openstreetmap]
     tags = android,ios
     en = Register at OSM
-    ar = التسجيل
+    ar = التسجيل في حريطة الشارع المفتوحة
     be = Зарэгістравацца на OpenStreetMap
     bg = Регистриране в OSM
     cs = Registrace
@@ -10314,7 +10325,7 @@
   [password_8_chars_min]
     tags = ios
     en = Password (8 characters minimum)
-    ar = كلمة المرور (8 أحرف بحد أدنى)
+    ar = كلمة المرور (٨ أحرف بحد أدنى)
     be = Пароль (мінімум 8 сімвалаў)
     bg = Парола (поне 8 символа)
     cs = Heslo (minimálně 8 znaků)
@@ -10499,7 +10510,7 @@
   [osm_account]
     tags = ios
     en = OSM Account
-    ar = حساب OSM
+    ar = حساب على خريطة الشارع المفتوحة
     be = Акаунт OSM
     bg = OSM Акаунт
     cs = Účet OSM
@@ -10574,7 +10585,7 @@
     comment = Information text: "Last upload 11.01.2016"
     tags = ios
     en = Last upload
-    ar = آخر تحميل
+    ar = آخر تعديل
     be = Апошняя запампоўка
     bg = Последно качване
     cs = Poslední nahrání
@@ -10611,7 +10622,7 @@
   [thank_you]
     tags = android,ios
     en = Thank You
-    ar = شكرا لك
+    ar = شكراً لك
     be = Дзякуй
     bg = Благодаря
     cs = Děkujeme Vám
@@ -10910,7 +10921,7 @@
     comment = Error to display when a new street name is not entered in the New street dialog
     tags = android
     en = Please enter a street name
-    ar = ﻉﺭﺎﺷ ﻢﺳﺍ ﻞﺧﺩﺃ
+    ar = الرجاء إدخال اسم الشارع
     be = Увядзіце назву вуліцы
     bg = Въведете име на улица
     cs = Zadejte název ulice
@@ -11153,7 +11164,7 @@
   [phone]
     tags = ios
     en = Phone
-    ar = الهاتف
+    ar =  رقم الهاتف
     be = Тэлефон
     bg = Телефон
     cs = Telefon
@@ -11190,6 +11201,7 @@
   [editor_add_phone]
     tags = android
     en = Add Phone
+    ar = إضافة رقم هاتف
     de = Telefon hinzufügen
     fr = Ajouter un numéro de téléphone
     it = Aggiungi numero
