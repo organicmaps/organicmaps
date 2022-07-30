@@ -3198,7 +3198,7 @@
     comment = Warning message when doing search around current position
     tags = android,ios
     en = Your location hasn't been determined yet
-    ar = لم يتم التعرف على موقعك بعد.
+    ar = لم يتم تحديد موقعك بعد.
     be = Ваша месцазнаходжанне пакуль не вызначана
     bg = Местоположението ви още не е определено
     cs = Vaše poloha zatím nebyla určena
@@ -3276,7 +3276,7 @@
     comment = Alert message that downloading is in progress.
     tags = android
     en = Map download is in progress now.
-    ar = جاري الآن تنزيل الدولة
+    ar = جاري الآن تنزيل الخريطة
     be = Мапы спампоўваюцца.
     bg = Изтеглянето на картата вече е в ход.
     cs = Právě probíhá stahování země.
@@ -3315,7 +3315,7 @@
     comment = Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140.
     tags = android
     en = Hey, check out my current location in Organic Maps! %1$@ or %2$@ Don't have offline maps? Download here: https://omaps.app/get
-    ar = هاي، تفقد الموقع الخاص بي على Organic Maps! %1$@ أو %2$@. ليس لديك أي خرائط تعمل بدون الاتصال مع الانترنت مثبتة على جهازك؟ قم بتحميلها من هنا: https://omaps.app/get
+    ar = مرحباً، تفقد الموقع الخاص بي على Organic Maps! %1$@ أو %2$@. ليس لديك أي خرائط تعمل بدون الاتصال مع الانترنت مثبتة على جهازك؟ قم بتحميلها من هنا: https://omaps.app/get
     be = Гэй, глядзі дзе я зараз на мапе! %1$@ альбо %2$@ Няма офлайн-мапаў? Спампуй тут: https://omaps.app/get
     bg = Хей, виж текущото ми местоположение в Organic Maps! %1$@ или %2$@
     cs = Koukni kde jsem. Otevři odkaz: %1$@ nebo %2$@
@@ -3353,7 +3353,7 @@
     comment = Subject for emailed bookmark
     tags = android,ios
     en = Hey, check out my pin in Organic Maps!
-    ar = هاي، تفقد الدبوس الخاص بي على خريطة Organic Maps!
+    ar = مرحباً، تفقد الدبوس الخاص بي على خريطة Organic Maps!
     be = Гэй, глядзі маю метку на Organic Maps!
     bg = Хей, виж какво съм отбелязал в Organic Maps!
     cs = Koukni na moji značku na mapě v Organic Maps
@@ -3391,7 +3391,7 @@
     comment = Subject for emailed position
     tags = android,ios
     en = Hey, check out my current location on the Organic Maps map!
-    ar = يا هلا، تحقق من موقعي الحالي على خريطة Organic Maps!
+    ar = مرحباً، تحقق من موقعي الحالي على خريطة Organic Maps!
     be = Гэй, глядзі дзе я зараз на мапе Organic Maps!
     bg = Хей, виж текущото ми местоположение на картата в Organic Maps!
     cs = Podívej se na mou aktuální polohu na mapě na Organic Maps
@@ -3429,7 +3429,7 @@
     comment = Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME
     tags = android
     en = Hi,\n\nI'm here now: %1$@. Click this link %2$@ or this one %3$@ to see the place on the map.\n\nThanks.
-    ar = مرحبا،\n\nأنا هنا الآن: %1$@. انقر على هذا الرابط %2$@ أو ذلك الرابط %3$@ لمشاهدة المكان على الخريطة.\n\nشكرا لك.
+    ar = ًمرحبا،\n\nأنا هنا الآن: %1$@. انقر على هذا الرابط %2$@ أو ذلك الرابط %3$@ لمشاهدة المكان على الخريطة.\n\nشكراً.
     be = Прывітанне,\n\nЯ зараз тут: %1$@. Перайдзі па гэтай %2$@ альбо гэтай %3$@ спасылцы каб убачыць месца на мапе.\n\nДзякуй.
     bg = Здравей,\n\nСега съм тук: %1$@. Натисни върху тази връзка %2$@ или тази %3$@, за да видиш мястото на картата.\n\nБлагодаря.
     cs = Ahoj,\n\nPrávě jsem tady: %1$@. Klepni na jeden z těchto odkazů %2$@, %3$@ a uvidíš toto místo na mapě.\n\nDíky.
@@ -3701,7 +3701,7 @@
     comment = Data version in «About» screen, %@ is replaced by a local, human readable date.
     tags = android,ios
     en = OpenStreetMap data: %@
-    ar = OpenStreetMap بيانات %@
+    ar = بيانات خريطة الشارع المفتوحة: %@ 
     be = Дадзеныя OpenStreetMap: %@
     bg = Данни на OpenStreetMap: %@
     cs = Data OpenStreetMap: %@
