@@ -2151,8 +2151,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_ComplexTypesSmoke)
     // two types (+hwtag yesfoot) {{"highway", "footway", "permissive"}, {{"highway", "footway"}, {"access", "permissive"}}},
     // two types (+hwtag-private) {{"highway", "track", "no-access"}, {{"highway", "track"}, {"access", "no"}}},
     // two types (+office) {{"tourism", "information", "office"}, {{"tourism", "information"}, {"office", "any_value"}}},
-    // two types (+sport-shooting) {{"leisure", "sports_centre", "shooting"}, {{"leisure", "sports_centre"}, {"sport", "shooting"}}},
-    // two types (+sport-swimming) {{"leisure", "sports_centre", "swimming"}, {{"leisure", "sports_centre"}, {"sport", "swimming"}}},
+    // two types (+sport-*) {{"leisure", "sports_centre"}, {{"leisure", "sports_centre"}, {"sport", "any_value"}}},
     //
     // Manually constructed type, not parsed from osm.
     // {{"building", "address"}, {{"addr:housenumber", "any_value"}, {"addr:street", "any_value"}}},
@@ -2305,8 +2304,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_ComplexTypesSmoke)
     {{"leisure", "park", "no-access"}, {{"leisure", "park"}, {"access", "no"}}},
     {{"leisure", "park", "private"}, {{"leisure", "park"}, {"access", "private"}}},
     {{"leisure", "park", "private"}, {{"leisure", "park"}, {"access", "private"}}},
-    {{"leisure", "sports_centre", "climbing"}, {{"leisure", "sports_centre"}, {"sport", "climbing"}}},
-    {{"leisure", "sports_centre", "yoga"}, {{"leisure", "sports_centre"}, {"sport", "yoga"}}},
+    {{"leisure", "sports_centre"}, {{"leisure", "sports_centre"}}},
     {{"mountain_pass"}, {{"mountain_pass", "any_value"}}},
     {{"natural", "water", "pond"}, {{"natural", "water"}, {"water", "pond"}}},
     {{"natural", "water", "lake"}, {{"natural", "water"}, {"water", "lake"}}},

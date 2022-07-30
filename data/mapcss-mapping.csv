@@ -740,7 +740,7 @@ amenity|parking|no-access;[amenity=parking][access=no];;name;int_name;739;
 barrier|swing_gate;740;
 barrier|chain;741;
 sport|climbing;742;
-deprecated|deprecated;743;x
+sport|yoga;743;
 deprecated|deprecated;744;x
 deprecated|deprecated;745;x
 deprecated|deprecated;746;x
@@ -1100,10 +1100,10 @@ shop|paint;1101;
 traffic_calming|bump;1102;
 traffic_calming|hump;1103;
 shop|car_parts;1104;
-leisure|sports_centre|climbing;[leisure=sports_centre][sport=climbing];;name;int_name;1105;
-leisure|sports_centre|shooting;[leisure=sports_centre][sport=shooting];;name;int_name;1106;
-leisure|sports_centre|swimming;[leisure=sports_centre][sport=swimming];;name;int_name;1107;
-leisure|sports_centre|yoga;[leisure=sports_centre][sport=yoga];;name;int_name;1108;
+leisure|sports_centre|climbing;[leisure=sports_centre][sport=climbing];x;name;int_name;1105;leisure|sports_centre
+leisure|sports_centre|shooting;[leisure=sports_centre][sport=shooting];x;name;int_name;1106;leisure|sports_centre
+leisure|sports_centre|swimming;[leisure=sports_centre][sport=swimming];x;name;int_name;1107;leisure|sports_centre
+leisure|sports_centre|yoga;[leisure=sports_centre][sport=yoga];x;name;int_name;1108;leisure|sports_centre
 amenity|public_bookcase;1109;
 tourism|apartment;1110;
 tourism|resort;[tourism=resort],[leisure=resort],[leisure=summer_camp];;name;int_name;1111;
