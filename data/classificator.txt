@@ -571,12 +571,7 @@ world  +
         recreation_ground  -
         sauna  -
         slipway  -
-        sports_centre  +
-            climbing  -
-            shooting  -
-            swimming  -
-            yoga  -
-            {}
+        sports_centre  -
         stadium  -
         swimming_pool  +
             private  -
@@ -953,13 +948,18 @@ world  +
         wine  -
         {}
     sport  +
+        10pin  -
+        9pin  -
         american_football  -
         archery  -
         athletics  -
         australian_football  -
         baseball  -
         basketball  -
+        beachvolleyball  -
         bowls  -
+        chess  -
+        climbing  -
         cricket  -
         curling  -
         diving  -
@@ -970,10 +970,14 @@ world  +
         multi  -
         scuba_diving  -
         shooting  -
+        skateboard  -
         skiing  -
         soccer  -
         swimming  -
+        table_tennis  -
         tennis  -
+        volleyball  -
+        yoga  -
         {}
     tourism  +
         alpine_hut  -
