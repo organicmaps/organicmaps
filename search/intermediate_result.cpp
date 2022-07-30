@@ -1,29 +1,21 @@
 #include "search/intermediate_result.hpp"
 
-#include "search/geometry_utils.hpp"
 #include "search/reverse_geocoder.hpp"
 
 #include "storage/country_info_getter.hpp"
 
 #include "indexer/categories_holder.hpp"
 #include "indexer/classificator.hpp"
-#include "indexer/cuisines.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_utils.hpp"
 #include "indexer/ftypes_matcher.hpp"
-#include "indexer/scales.hpp"
 
 #include "platform/measurement_utils.hpp"
 
-#include "geometry/angles.hpp"
-
-#include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
 #include <algorithm>
-#include <cstddef>
-#include <cstdint>
 
 #include "3party/opening_hours/opening_hours.hpp"
 
@@ -136,9 +128,9 @@ bool PreRankerResult::CategoriesComparator::operator()(PreRankerResult const & l
 // RankerResult ------------------------------------------------------------------------------------
 RankerResult::RankerResult(FeatureType & f, m2::PointD const & center, m2::PointD const & pivot,
                            string displayName, string const & fileName)
-  : m_id(f.GetID())
-  , m_types(f)
+  : m_types(f)
   , m_str(std::move(displayName))
+  , m_id(f.GetID())
   , m_resultType(ftypes::IsBuildingChecker::Instance()(m_types) ? Type::Building : Type::Feature)
   , m_geomType(f.GetGeomType())
 {
@@ -148,7 +140,6 @@ RankerResult::RankerResult(FeatureType & f, m2::PointD const & center, m2::Point
   m_types.SortBySpec();
 
   m_region.SetParams(fileName, center);
-  m_distance = PointDistance(center, pivot);
 
   FillDetails(f, m_details);
 }
@@ -180,30 +171,28 @@ bool RankerResult::GetCountryId(storage::CountryInfoGetter const & infoGetter, u
   return m_region.GetCountryId(infoGetter, countryId);
 }
 
+bool RankerResult::IsEqualBasic(RankerResult const & r) const
+{
+  return (m_geomType == r.m_geomType &&
+          GetRankingInfo().m_type == r.GetRankingInfo().m_type &&
+          m_str == r.m_str);
+}
+
 bool RankerResult::IsEqualCommon(RankerResult const & r) const
 {
-  if ((m_geomType != r.m_geomType) || (m_str != r.m_str))
-    return false;
-
-  auto const bestType = GetBestType();
-  auto const rBestType = r.GetBestType();
-  if (bestType == rBestType)
-    return true;
-
-  auto const & checker = ftypes::IsWayChecker::Instance();
-  return checker(bestType) && checker(rBestType);
+  return (IsEqualBasic(r) && GetBestType() == r.GetBestType());
 }
 
 bool RankerResult::IsStreet() const { return ftypes::IsStreetOrSquareChecker::Instance()(m_types); }
 
-uint32_t RankerResult::GetBestType(vector<uint32_t> const & preferredTypes) const
+uint32_t RankerResult::GetBestType(vector<uint32_t> const * preferredTypes /* = nullptr */) const
 {
-  ASSERT(is_sorted(preferredTypes.begin(), preferredTypes.end()), ());
-  if (!preferredTypes.empty())
+  if (preferredTypes)
   {
+    ASSERT(is_sorted(preferredTypes->begin(), preferredTypes->end()), ());
     for (uint32_t type : m_types)
     {
-      if (binary_search(preferredTypes.begin(), preferredTypes.end(), type))
+      if (binary_search(preferredTypes->begin(), preferredTypes->end(), type))
         return type;
     }
   }

@@ -48,10 +48,10 @@ private:
 
 struct ErrorsMade
 {
-  static size_t constexpr kInfiniteErrors = std::numeric_limits<size_t>::max();
+  static uint16_t constexpr kInfiniteErrors = std::numeric_limits<uint16_t>::max();
 
   ErrorsMade() = default;
-  explicit ErrorsMade(size_t errorsMade) : m_errorsMade(errorsMade) {}
+  explicit ErrorsMade(uint16_t errorsMade) : m_errorsMade(errorsMade) {}
 
   bool IsValid() const { return m_errorsMade != kInfiniteErrors; }
   bool IsZero() const { return m_errorsMade == 0; }
@@ -69,17 +69,17 @@ struct ErrorsMade
 
   static ErrorsMade Min(ErrorsMade const & lhs, ErrorsMade const & rhs)
   {
-    return Combine(lhs, rhs, [](size_t u, size_t v) { return std::min(u, v); });
+    return Combine(lhs, rhs, [](uint16_t u, uint16_t v) { return std::min(u, v); });
   }
 
   static ErrorsMade Max(ErrorsMade const & lhs, ErrorsMade const & rhs)
   {
-    return Combine(lhs, rhs, [](size_t u, size_t v) { return std::max(u, v); });
+    return Combine(lhs, rhs, [](uint16_t u, uint16_t v) { return std::max(u, v); });
   }
 
   friend ErrorsMade operator+(ErrorsMade const & lhs, ErrorsMade const & rhs)
   {
-    return Combine(lhs, rhs, [](size_t u, size_t v) { return u + v; });
+    return Combine(lhs, rhs, [](uint16_t u, uint16_t v) { return u + v; });
   }
 
   ErrorsMade & operator+=(ErrorsMade const & rhs)
@@ -90,7 +90,7 @@ struct ErrorsMade
 
   bool operator==(ErrorsMade const & rhs) const { return m_errorsMade == rhs.m_errorsMade; }
 
-  size_t m_errorsMade = kInfiniteErrors;
+  uint16_t m_errorsMade = kInfiniteErrors;
 };
 
 std::string DebugPrint(ErrorsMade const & errorsMade);
@@ -105,7 +105,7 @@ ErrorsMade GetPrefixErrorsMade(QueryParams::Token const & token, strings::UniStr
 
 // The order and numeric values are important here.  Please, check all
 // use-cases before changing this enum.
-enum NameScore
+enum NameScore : uint8_t
 {
   NAME_SCORE_ZERO = 0,
   NAME_SCORE_SUBSTRING = 1,

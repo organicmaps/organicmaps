@@ -1855,18 +1855,30 @@ UNIT_CLASS_TEST(ProcessorTest, RemoveDuplicatingStreets)
 
   // Distance between centers should be less than 5km.
   TestStreet street1({{0.0, 0.0}, {0.0, 0.01}}, streetName, "ru");
-  street1.SetHighwayType("primary");
+  street1.SetType({ "highway", "primary" });
   TestStreet street2({{0.0, 0.01}, {0.0, 0.02}}, streetName, "ru");
-  street1.SetHighwayType("secondary");
+  street2.SetType({ "highway", "secondary" });
+  TestStreet street3({{0.0, 0.02}, {0.0, 0.03}}, streetName, "ru");
+  street3.SetType({ "highway", "footway" });
+  TestStreet street4({{0.0, 0.03}, {0.0, 0.04}}, streetName, "ru");
+  street4.SetType({ "highway", "tertiary_link", "tunnel" });
 
-  auto wonderlandId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder) {
+  auto wonderlandId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
     builder.Add(street1);
     builder.Add(street2);
+    builder.Add(street3);
+    builder.Add(street4);
   });
 
   SetViewport(m2::RectD(-1, -1, 1, 1));
   {
-    TEST_EQUAL(GetResultsNumber(streetName, "ru"), 1, ());
+    auto request = MakeRequest(streetName);
+    auto const & results = request->Results();
+    TEST_EQUAL(results.size(), 2, ());
+
+    TEST(ResultsMatch({results[0]}, {ExactMatch(wonderlandId, street1)}), ());
+    TEST(ResultsMatch({results[1]}, {ExactMatch(wonderlandId, street3)}), ());
   }
 }
 
@@ -2427,7 +2439,8 @@ UNIT_CLASS_TEST(ProcessorTest, Suburbs)
     builder.Add(cafe);
   });
 
-  auto const testFullMatch = [&](auto const & query, auto const & expected) {
+  auto const testFullMatch = [&](auto const & query, auto const & expected)
+  {
     auto request = MakeRequest(query);
     auto const & results = request->Results();
     TEST_GREATER(results.size(), 0, (results));
@@ -2436,7 +2449,7 @@ UNIT_CLASS_TEST(ProcessorTest, Suburbs)
     auto const & info = results[0].GetRankingInfo();
     TEST(info.m_exactMatch, ());
     TEST(info.m_allTokensUsed, ());
-    TEST_ALMOST_EQUAL_ABS(info.m_matchedFraction, 1.0, 1e-12, ());
+    TEST(fabs(info.m_matchedFraction - 1) < 1.0E-12, (info.m_matchedFraction));
   };
 
   SetViewport(m2::RectD(-1.0, -1.0, 1.0, 1.0));
@@ -3014,7 +3027,6 @@ UNIT_CLASS_TEST(ProcessorTest, BurgerStreet)
   burger.SetTypes({{"amenity", "fast_food"}, {"cuisine", "burger"}});
 
   TestStreet street({{2.0, 2.0}, {3.0, 3.0}}, "Burger street", "en");
-  street.SetHighwayType("residential");
 
   auto countryId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
   {

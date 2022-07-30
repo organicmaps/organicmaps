@@ -13,10 +13,10 @@
 #include <limits>
 #include <sstream>
 
-using namespace std;
-
 namespace search
 {
+using namespace std;
+
 namespace
 {
 // See search/search_quality/scoring_model.py for details.  In short,
@@ -50,7 +50,7 @@ double constexpr kType[Model::TYPE_COUNT] = {
   0 /* SUBPOI */,
   0 /* COMPLEX_POI */,
   0 /* Building */,
-  0.005 /* Street */,
+  0 /* Street */,
   0 /* Unclassified */,
  -0.0725383 /* Village */,
   0.0073583 /* City */,
@@ -59,7 +59,7 @@ double constexpr kType[Model::TYPE_COUNT] = {
 };
 
 // 0-based factors from General.
-double constexpr kResultType[base::Underlying(ResultType::Count)] = {
+double constexpr kPoiType[base::Underlying(PoiType::Count)] = {
   0.0338794 /* TransportMajor */,
   0.01 /* TransportLocal */,
   0.01 /* Eat */,
@@ -67,6 +67,16 @@ double constexpr kResultType[base::Underlying(ResultType::Count)] = {
   0.01 /* Attraction */,
  -0.01 /* Service */,
   0 /* General */
+};
+
+double constexpr kStreetType[base::Underlying(StreetType::Count)] = {
+  0 /* Default */,
+  0 /* Pedestrian */,
+  0 /* Cycleway */,
+  0 /* Outdoor */,
+  0.004 /* Residential */,
+  0.005 /* Regular */,
+  0.006 /* Motorway */,
 };
 
 // Coeffs sanity checks.
@@ -139,9 +149,6 @@ private:
 }  // namespace
 
 // static
-double const RankingInfo::kMaxDistMeters = 2e6;
-
-// static
 void RankingInfo::PrintCSVHeader(ostream & os)
 {
   os << "DistanceToPivot"
@@ -164,26 +171,33 @@ void RankingInfo::PrintCSVHeader(ostream & os)
 string DebugPrint(RankingInfo const & info)
 {
   ostringstream os;
-  os << boolalpha;
+  os << boolalpha << "RankingInfo { ";
   PrintParse(os, info.m_tokenRanges, info.m_numTokens);
-  os << ", RankingInfo [";
-  os << "m_distanceToPivot:" << info.m_distanceToPivot;
-  os << ", m_rank:" << static_cast<int>(info.m_rank);
-  os << ", m_popularity:" << static_cast<int>(info.m_popularity);
-  os << ", m_nameScore:" << DebugPrint(info.m_nameScore);
-  os << ", m_errorsMade:" << DebugPrint(info.m_errorsMade);
-  os << ", m_isAltOrOldName: " << info.m_isAltOrOldName;
-  os << ", m_numTokens:" << info.m_numTokens;
-  os << ", m_matchedFraction:" << info.m_matchedFraction;
-  os << ", m_type:" << DebugPrint(info.m_type);
-  os << ", m_resultType:" << DebugPrint(info.m_resultType);
-  os << ", m_pureCats:" << info.m_pureCats;
-  os << ", m_falseCats:" << info.m_falseCats;
-  os << ", m_allTokensUsed:" << info.m_allTokensUsed;
-  os << ", m_exactCountryOrCapital:" << info.m_exactCountryOrCapital;
-  os << ", m_categorialRequest:" << info.m_categorialRequest;
-  os << ", m_hasName:" << info.m_hasName;
-  os << "]";
+
+  os << ", m_distanceToPivot: " << info.m_distanceToPivot
+     << ", m_rank: " << static_cast<int>(info.m_rank)
+     << ", m_popularity: " << static_cast<int>(info.m_popularity)
+     << ", m_nameScore: " << DebugPrint(info.m_nameScore)
+     << ", m_errorsMade: " << DebugPrint(info.m_errorsMade)
+     << ", m_isAltOrOldName: " << info.m_isAltOrOldName
+     << ", m_numTokens: " << info.m_numTokens
+     << ", m_matchedFraction: " << info.m_matchedFraction
+     << ", m_type: " << DebugPrint(info.m_type)
+     << ", m_resultType: ";
+
+  if (Model::IsPoi(info.m_type))
+    os << DebugPrint(info.m_classifType.poi);
+  else if (info.m_type == Model::TYPE_STREET)
+    os << DebugPrint(info.m_classifType.street);
+
+  os << ", m_pureCats: " << info.m_pureCats
+     << ", m_falseCats: " << info.m_falseCats
+     << ", m_allTokensUsed: " << info.m_allTokensUsed
+     << ", m_exactCountryOrCapital: " << info.m_exactCountryOrCapital
+     << ", m_categorialRequest: " << info.m_categorialRequest
+     << ", m_hasName: " << info.m_hasName
+     << " }";
+
   return os.str();
 }
 
@@ -197,7 +211,12 @@ void RankingInfo::ToCSV(ostream & os) const
   os << GetErrorsMadePerToken() << ",";
   os << m_matchedFraction << ",";
   os << DebugPrint(m_type) << ",";
-  os << DebugPrint(m_resultType) << ",";
+
+  if (Model::IsPoi(m_type))
+    os << DebugPrint(m_classifType.poi) << ",";
+  else if (m_type == Model::TYPE_STREET)
+    os << DebugPrint(m_classifType.street) << ",";
+
   os << m_pureCats << ",";
   os << m_falseCats << ",";
   os << (m_allTokensUsed ? 1 : 0) << ",";
@@ -236,11 +255,18 @@ double RankingInfo::GetLinearModelRank() const
     result += kPopularity * popularity;
     result += m_falseCats * kFalseCats;
     result += kType[m_type];
+
     if (Model::IsPoi(m_type))
     {
-      CHECK_NOT_EQUAL(m_resultType, ResultType::Count, ());
-      result += kResultType[base::Underlying(m_resultType)];
+      CHECK_LESS(m_classifType.poi, PoiType::Count, ());
+      result += kPoiType[base::Underlying(m_classifType.poi)];
     }
+    else if (m_type == Model::TYPE_STREET)
+    {
+      CHECK_LESS(m_classifType.street, StreetType::Count, ());
+      result += kStreetType[base::Underlying(m_classifType.street)];
+    }
+
     result += (m_allTokensUsed ? 1 : 0) * kAllTokensUsed;
     result += (m_exactCountryOrCapital ? 1 : 0) * kExactCountryOrCapital;
     auto const nameRank = kNameScore[nameScore] + kErrorsMade * GetErrorsMadePerToken() +
@@ -274,20 +300,22 @@ double RankingInfo::GetErrorsMadePerToken() const
   return static_cast<double>(m_errorsMade.m_errorsMade) / static_cast<double>(m_numTokens);
 }
 
-ResultType GetResultType(feature::TypesHolder const & th)
+PoiType GetPoiType(feature::TypesHolder const & th)
 {
-  if (ftypes::IsEatChecker::Instance()(th))
-    return ResultType::Eat;
-  if (ftypes::IsHotelChecker::Instance()(th))
-    return ResultType::Hotel;
-  if (ftypes::IsRailwayStationChecker::Instance()(th) ||
-      ftypes::IsSubwayStationChecker::Instance()(th) ||
-      ftypes::IsAirportChecker::Instance()(th))
+  using namespace ftypes;
+
+  if (IsEatChecker::Instance()(th))
+    return PoiType::Eat;
+  if (IsHotelChecker::Instance()(th))
+    return PoiType::Hotel;
+  if (IsRailwayStationChecker::Instance()(th) ||
+      IsSubwayStationChecker::Instance()(th) ||
+      IsAirportChecker::Instance()(th))
   {
-    return ResultType::TransportMajor;
+    return PoiType::TransportMajor;
   }
-  if (ftypes::IsPublicTransportStopChecker::Instance()(th))
-    return ResultType::TransportLocal;
+  if (IsPublicTransportStopChecker::Instance()(th))
+    return PoiType::TransportLocal;
 
   // We have several lists for attractions: short list in search categories for @tourism and long
   // list in ftypes::AttractionsChecker. We have highway-pedestrian, place-square, historic-tomb,
@@ -297,27 +325,44 @@ ResultType GetResultType(feature::TypesHolder const & th)
   auto static const attractionTypes =
       search::GetCategoryTypes("sights", "en", GetDefaultCategories());
   if (base::AnyOf(attractionTypes, [&th](auto t) { return th.Has(t); }))
-    return ResultType::Attraction;
+    return PoiType::Attraction;
 
   if (IsServiceTypeChecker::Instance()(th))
-    return ResultType::Service;
+    return PoiType::Service;
 
-  return ResultType::General;
+  return PoiType::General;
 }
 
-string DebugPrint(ResultType type)
+string DebugPrint(PoiType type)
 {
   switch (type)
   {
-  case ResultType::TransportMajor: return "TransportMajor";
-  case ResultType::TransportLocal: return "TransportLocal";
-  case ResultType::Eat: return "Eat";
-  case ResultType::Hotel: return "Hotel";
-  case ResultType::Attraction: return "Attraction";
-  case ResultType::Service: return "Service";
-  case ResultType::General: return "General";
-  case ResultType::Count: return "Count";
+  case PoiType::TransportMajor: return "TransportMajor";
+  case PoiType::TransportLocal: return "TransportLocal";
+  case PoiType::Eat: return "Eat";
+  case PoiType::Hotel: return "Hotel";
+  case PoiType::Attraction: return "Attraction";
+  case PoiType::Service: return "Service";
+  case PoiType::General: return "General";
+  case PoiType::Count: return "Count";
   }
   UNREACHABLE();
 }
+
+std::string DebugPrint(StreetType type)
+{
+  switch (type)
+  {
+  case StreetType::Default: return "Default";
+  case StreetType::Pedestrian: return "Pedestrian";
+  case StreetType::Cycleway: return "Cycleway";
+  case StreetType::Outdoor: return "Outdoor";
+  case StreetType::Residential: return "Residential";
+  case StreetType::Regular: return "Regular";
+  case StreetType::Motorway: return "Motorway";
+  case StreetType::Count: return "Count";
+  }
+  UNREACHABLE();
+}
+
 }  // namespace search

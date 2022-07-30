@@ -58,14 +58,10 @@ CategoriesInfo::CategoriesInfo(feature::TypesHolder const & holder, TokenSlice c
 // ErrorsMade --------------------------------------------------------------------------------------
 string DebugPrint(ErrorsMade const & errorsMade)
 {
-  ostringstream os;
-  os << "ErrorsMade [ ";
   if (errorsMade.IsValid())
-    os << errorsMade.m_errorsMade;
+    return std::to_string(errorsMade.m_errorsMade);
   else
-    os << "invalid";
-  os << " ]";
-  return os.str();
+    return "Invalid";
 }
 
 namespace impl
