@@ -1090,10 +1090,8 @@
 	<string name="type.leisure.playground">Taman bermain</string>
 	<string name="type.leisure.sauna">Sauna</string>
 	<string name="type.leisure.sports_centre">Olahraga</string>
-	<string name="type.leisure.sports_centre.climbing">Pusat Peralatan Mendaki</string>
-	<string name="type.leisure.sports_centre.shooting">Lapangan tembak</string>
-	<string name="type.leisure.sports_centre.swimming">Kolam Renang</string>
-	<string name="type.leisure.sports_centre.yoga">Studio Yoga</string>
+	<string name="type.sport.climbing">Pusat Peralatan Mendaki</string>
+	<string name="type.sport.yoga">Studio Yoga</string>
 	<string name="type.leisure.stadium">Stadion</string>
 	<string name="type.leisure.swimming_pool">Kolam renang</string>
 	<string name="type.leisure.swimming_pool.private">Kolam renang</string>
@@ -1320,7 +1318,9 @@
 	<string name="type.sport.australian_football">Sepak bola Australia</string>
 	<string name="type.sport.baseball">Baseball</string>
 	<string name="type.sport.basketball">Bola basket</string>
+	<string name="type.sport.beachvolleyball">Voli pantai</string>
 	<string name="type.sport.bowls">Boling lapangan</string>
+	<string name="type.sport.chess">Catur</string>
 	<string name="type.sport.cricket">Kriket</string>
 	<string name="type.sport.curling">Curling</string>
 	<string name="type.sport.equestrian">Olahraga Berkuda</string>
@@ -1331,10 +1331,15 @@
 	<!-- Used to tag a scuba diving site. -->
 	<string name="type.sport.scuba_diving">Selam scuba</string>
 	<string name="type.sport.shooting">Penembakan</string>
+	<string name="type.sport.skateboard">Seluncur papan</string>
 	<string name="type.sport.skiing">Bermain ski</string>
 	<string name="type.sport.soccer">Sepak bola</string>
 	<string name="type.sport.swimming">Berenang</string>
+	<string name="type.sport.table_tennis">Tenis meja</string>
 	<string name="type.sport.tennis">Lapangan tenis</string>
+	<string name="type.sport.volleyball">Bola voli</string>
+	<string name="type.sport.9pin">Boling</string>
+	<string name="type.sport.10pin">Boling</string>
 	<string name="type.tourism.alpine_hut">Penginapan di pegunungan</string>
 	<string name="type.tourism.apartment">Apartemen</string>
 	<string name="type.tourism.artwork">Pariwisata</string>

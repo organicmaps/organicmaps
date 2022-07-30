@@ -2296,13 +2296,9 @@
 
 "type.leisure.sports_centre" = "體育中心";
 
-"type.leisure.sports_centre.climbing" = "攀登中心";
+"type.sport.climbing" = "攀登中心";
 
-"type.leisure.sports_centre.shooting" = "射擊場";
-
-"type.leisure.sports_centre.swimming" = "遊泳中心";
-
-"type.leisure.sports_centre.yoga" = "瑜伽工作室";
+"type.sport.yoga" = "瑜伽工作室";
 
 "type.leisure.stadium" = "體育場";
 
@@ -2932,7 +2928,11 @@
 
 "type.sport.basketball" = "籃球";
 
+"type.sport.beachvolleyball" = "沙灘排球";
+
 "type.sport.bowls" = "草地滾球";
+
+"type.sport.chess" = "國際象棋";
 
 "type.sport.cricket" = "板球";
 
@@ -2953,13 +2953,23 @@
 
 "type.sport.shooting" = "射擊";
 
+"type.sport.skateboard" = "滑板活動";
+
 "type.sport.skiing" = "滑雪";
 
 "type.sport.soccer" = "足球";
 
 "type.sport.swimming" = "游泳";
 
+"type.sport.table_tennis" = "乒乓球";
+
 "type.sport.tennis" = "網球場";
+
+"type.sport.volleyball" = "排球";
+
+"type.sport.9pin" = "保齡球";
+
+"type.sport.10pin" = "保齡球";
 
 "type.tourism" = "Tourism";
 

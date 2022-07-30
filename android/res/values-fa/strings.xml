@@ -1009,10 +1009,8 @@
 	<string name="type.leisure.playground">زمین بازی</string>
 	<string name="type.leisure.sauna">سونا</string>
 	<string name="type.leisure.sports_centre">مرکزورزشی</string>
-	<string name="type.leisure.sports_centre.climbing">مرکز صعود</string>
-	<string name="type.leisure.sports_centre.shooting">محل تیراندازی</string>
-	<string name="type.leisure.sports_centre.swimming">استخرشنا</string>
-	<string name="type.leisure.sports_centre.yoga">سالن یوگا</string>
+	<string name="type.sport.climbing">مرکز صعود</string>
+	<string name="type.sport.yoga">سالن یوگا</string>
 	<string name="type.leisure.stadium">استادیوم</string>
 	<string name="type.leisure.swimming_pool">استخرشنا</string>
 	<string name="type.leisure.swimming_pool.private">استخرشنا</string>
@@ -1240,7 +1238,9 @@
 	<string name="type.sport.australian_football">فوتبال استرالیایی</string>
 	<string name="type.sport.baseball">بیسبال</string>
 	<string name="type.sport.basketball">بسکتبال</string>
+	<string name="type.sport.beachvolleyball">والیبال ساحلی</string>
 	<string name="type.sport.bowls">لعبة البولينج</string>
+	<string name="type.sport.chess">شطرنج</string>
 	<string name="type.sport.cricket">کریکت</string>
 	<string name="type.sport.curling">کرلینگ</string>
 	<string name="type.sport.equestrian">ورزش های سوارکاری</string>
@@ -1251,10 +1251,15 @@
 	<!-- Used to tag a scuba diving site. -->
 	<string name="type.sport.scuba_diving">غواصی</string>
 	<string name="type.sport.shooting">ورزش تیراندازی</string>
+	<string name="type.sport.skateboard">اسکیت‌بردینگ</string>
 	<string name="type.sport.skiing">اسکی</string>
 	<string name="type.sport.soccer">فوتبال</string>
 	<string name="type.sport.swimming">شنا</string>
+	<string name="type.sport.table_tennis">تنیس روی میز</string>
 	<string name="type.sport.tennis">زمین تنیس</string>
+	<string name="type.sport.volleyball">والیبال</string>
+	<string name="type.sport.9pin">بولینگ</string>
+	<string name="type.sport.10pin">بولینگ</string>
 	<string name="type.tourism.apartment">اپارتمان</string>
 	<string name="type.tourism.artwork">گردشگری</string>
 	<string name="type.tourism.artwork.architecture">گردشگری</string>

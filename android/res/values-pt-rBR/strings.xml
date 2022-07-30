@@ -1228,10 +1228,8 @@
 	<string name="type.leisure.sauna">Sauna</string>
 	<string name="type.leisure.slipway">Rampa de barcos</string>
 	<string name="type.leisure.sports_centre">Centro esportivo</string>
-	<string name="type.leisure.sports_centre.climbing">Ginásio de escalada</string>
-	<string name="type.leisure.sports_centre.shooting">Clube de tiro</string>
-	<string name="type.leisure.sports_centre.swimming">Centro de natação</string>
-	<string name="type.leisure.sports_centre.yoga">Estúdio de ioga</string>
+	<string name="type.sport.climbing">Ginásio de escalada</string>
+	<string name="type.sport.yoga">Estúdio de ioga</string>
 	<string name="type.leisure.stadium">Estádio</string>
 	<string name="type.leisure.swimming_pool">Piscina</string>
 	<string name="type.leisure.swimming_pool.private">Piscina</string>
@@ -1501,6 +1499,7 @@
 	<!-- Used to tag a scuba diving site. -->
 	<string name="type.sport.scuba_diving">Mergulho autônomo</string>
 	<string name="type.sport.swimming">Natação esportiva</string>
+	<string name="type.sport.table_tennis">Tênis de mesa</string>
 	<string name="type.sport.tennis">Quadra de tênis</string>
 	<string name="type.tourism">Turismo</string>
 	<string name="type.tourism.alpine_hut">Abrigo de montanha</string>

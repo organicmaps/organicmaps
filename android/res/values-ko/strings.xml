@@ -1098,10 +1098,8 @@
 	<string name="type.leisure.playground">놀이터</string>
 	<string name="type.leisure.sauna">사우나</string>
 	<string name="type.leisure.sports_centre">스포츠 센터</string>
-	<string name="type.leisure.sports_centre.climbing">등반 센터</string>
-	<string name="type.leisure.sports_centre.shooting">발사 범위</string>
-	<string name="type.leisure.sports_centre.swimming">수영 센터</string>
-	<string name="type.leisure.sports_centre.yoga">요가 스튜디오</string>
+	<string name="type.sport.climbing">등반 센터</string>
+	<string name="type.sport.yoga">요가 스튜디오</string>
 	<string name="type.leisure.stadium">경기장</string>
 	<string name="type.leisure.swimming_pool">수영장</string>
 	<string name="type.leisure.swimming_pool.private">수영장</string>
@@ -1331,7 +1329,9 @@
 	<string name="type.sport.australian_football">오스트레일리안 풋볼</string>
 	<string name="type.sport.baseball">야구</string>
 	<string name="type.sport.basketball">야구</string>
+	<string name="type.sport.beachvolleyball">비치발리볼</string>
 	<string name="type.sport.bowls">론볼</string>
+	<string name="type.sport.chess">체스</string>
 	<string name="type.sport.cricket">크리켓</string>
 	<string name="type.sport.curling">컬링</string>
 	<string name="type.sport.equestrian">승마 경기장</string>
@@ -1342,10 +1342,15 @@
 	<!-- Used to tag a scuba diving site. -->
 	<string name="type.sport.scuba_diving">스쿠버 다이빙</string>
 	<string name="type.sport.shooting">사격 경기</string>
+	<string name="type.sport.skateboard">스케이트보딩</string>
 	<string name="type.sport.skiing">스키 타기</string>
 	<string name="type.sport.soccer">축구</string>
 	<string name="type.sport.swimming">수영</string>
+	<string name="type.sport.table_tennis">탁구</string>
 	<string name="type.sport.tennis">테니스 코트</string>
+	<string name="type.sport.volleyball">배구</string>
+	<string name="type.sport.9pin">볼링</string>
+	<string name="type.sport.10pin">볼링</string>
 	<string name="type.tourism.alpine_hut">고산 오두막</string>
 	<string name="type.tourism.apartment">아파트</string>
 	<string name="type.tourism.artwork">작품</string>

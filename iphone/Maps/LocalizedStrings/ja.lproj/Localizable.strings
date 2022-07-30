@@ -2296,13 +2296,9 @@
 
 "type.leisure.sports_centre" = "スポーツセンター";
 
-"type.leisure.sports_centre.climbing" = "クライミングセンター";
+"type.sport.climbing" = "クライミングセンター";
 
-"type.leisure.sports_centre.shooting" = "射撃場";
-
-"type.leisure.sports_centre.swimming" = "スイミングセンター";
-
-"type.leisure.sports_centre.yoga" = "ヨガスタジオ";
+"type.sport.yoga" = "ヨガスタジオ";
 
 "type.leisure.stadium" = "スタジアム";
 
@@ -2932,7 +2928,11 @@
 
 "type.sport.basketball" = "バスケットボール";
 
+"type.sport.beachvolleyball" = "ビーチバレー";
+
 "type.sport.bowls" = "ローンボウルズ";
+
+"type.sport.chess" = "チェス";
 
 "type.sport.cricket" = "クリケット";
 
@@ -2953,13 +2953,23 @@
 
 "type.sport.shooting" = "射撃競技";
 
+"type.sport.skateboard" = "スケートボード";
+
 "type.sport.skiing" = "スキー";
 
 "type.sport.soccer" = "サッカー";
 
 "type.sport.swimming" = "水泳";
 
+"type.sport.table_tennis" = "卓球";
+
 "type.sport.tennis" = "テニスコート";
+
+"type.sport.volleyball" = "バレーボール";
+
+"type.sport.9pin" = "ボウリング";
+
+"type.sport.10pin" = "ボウリング";
 
 "type.tourism" = "観光";
 

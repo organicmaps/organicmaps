@@ -2296,13 +2296,9 @@
 
 "type.leisure.sports_centre" = "Thể thao";
 
-"type.leisure.sports_centre.climbing" = "Trung tâm leo núi";
+"type.sport.climbing" = "Trung tâm leo núi";
 
-"type.leisure.sports_centre.shooting" = "Nơi bắn súng";
-
-"type.leisure.sports_centre.swimming" = "Trung tâm Bơi lội";
-
-"type.leisure.sports_centre.yoga" = "Phòng tập yoga";
+"type.sport.yoga" = "Phòng tập yoga";
 
 "type.leisure.stadium" = "Sân vận động";
 
@@ -2932,7 +2928,11 @@
 
 "type.sport.basketball" = "Bóng rổ";
 
+"type.sport.beachvolleyball" = "Bóng chuyền bãi biển";
+
 "type.sport.bowls" = "Bowls";
+
+"type.sport.chess" = "Cờ vua";
 
 "type.sport.cricket" = "Cricket";
 
@@ -2953,13 +2953,23 @@
 
 "type.sport.shooting" = "Chụp";
 
+"type.sport.skateboard" = "Trượt ván";
+
 "type.sport.skiing" = "Trượt tuyết";
 
 "type.sport.soccer" = "Bóng đá";
 
 "type.sport.swimming" = "Bơi";
 
+"type.sport.table_tennis" = "Bóng bàn";
+
 "type.sport.tennis" = "Sân tenis";
+
+"type.sport.volleyball" = "Bóng chuyền";
+
+"type.sport.9pin" = "Bowling";
+
+"type.sport.10pin" = "Bowling";
 
 "type.tourism" = "Tourism";
 

@@ -1130,10 +1130,8 @@
 	<string name="type.leisure.playground">Campo giochi</string>
 	<string name="type.leisure.sauna">Sauna</string>
 	<string name="type.leisure.sports_centre">Centro sportivo</string>
-	<string name="type.leisure.sports_centre.climbing">Centro di arrampicata</string>
-	<string name="type.leisure.sports_centre.shooting">Poligono di tiro</string>
-	<string name="type.leisure.sports_centre.swimming">Centro natatorio</string>
-	<string name="type.leisure.sports_centre.yoga">Centro Yoga</string>
+	<string name="type.sport.climbing">Centro di arrampicata</string>
+	<string name="type.sport.yoga">Centro Yoga</string>
 	<string name="type.leisure.stadium">Stadio</string>
 	<string name="type.leisure.swimming_pool">Piscina</string>
 	<string name="type.leisure.swimming_pool.private">Piscina</string>
@@ -1365,7 +1363,9 @@
 	<string name="type.sport.australian_football">Football australiano</string>
 	<string name="type.sport.baseball">Baseball</string>
 	<string name="type.sport.basketball">Pallacanestro</string>
+	<string name="type.sport.beachvolleyball">Beach volley</string>
 	<string name="type.sport.bowls">Bowls</string>
+	<string name="type.sport.chess">Scacchi</string>
 	<string name="type.sport.cricket">Cricket</string>
 	<string name="type.sport.curling">Curling</string>
 	<string name="type.sport.equestrian">Equitazione</string>
@@ -1376,10 +1376,15 @@
 	<!-- Used to tag a scuba diving site. -->
 	<string name="type.sport.scuba_diving">Immersioni in subacquea</string>
 	<string name="type.sport.shooting">Tiro</string>
+	<string name="type.sport.skateboard">Skateboard</string>
 	<string name="type.sport.skiing">Sciare</string>
 	<string name="type.sport.soccer">Calcio</string>
 	<string name="type.sport.swimming">Nuoto</string>
+	<string name="type.sport.table_tennis">Tennistavolo</string>
 	<string name="type.sport.tennis">Campo da tennis</string>
+	<string name="type.sport.volleyball">Pallavolo</string>
+	<string name="type.sport.9pin">Bowling</string>
+	<string name="type.sport.10pin">Bowling</string>
 	<string name="type.tourism.alpine_hut">Hotel di montagna</string>
 	<string name="type.tourism.apartment">Residence</string>
 	<string name="type.tourism.artwork">Opere d\'arte</string>

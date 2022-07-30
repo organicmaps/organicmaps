@@ -1240,10 +1240,8 @@
 	<string name="type.leisure.sauna">Сауна</string>
 	<string name="type.leisure.slipway">Шлюпковий спуск</string>
 	<string name="type.leisure.sports_centre">Спорткомплекс</string>
-	<string name="type.leisure.sports_centre.climbing">Скеледром</string>
-	<string name="type.leisure.sports_centre.shooting">Тир</string>
-	<string name="type.leisure.sports_centre.swimming">Басейн для плавання</string>
-	<string name="type.leisure.sports_centre.yoga">Студія йоги</string>
+	<string name="type.sport.climbing">Скеледром</string>
+	<string name="type.sport.yoga">Студія йоги</string>
 	<string name="type.leisure.stadium">Стадіон</string>
 	<string name="type.leisure.swimming_pool">Басейн для плавання</string>
 	<string name="type.leisure.swimming_pool.private">Басейн для плавання</string>
@@ -1547,7 +1545,9 @@
 	<string name="type.sport.australian_football">Австралійський футбол</string>
 	<string name="type.sport.baseball">Бейсбол</string>
 	<string name="type.sport.basketball">Баскетбол</string>
+	<string name="type.sport.beachvolleyball">Пляжний волейбол</string>
 	<string name="type.sport.bowls">Боулз</string>
+	<string name="type.sport.chess">Шахи</string>
 	<string name="type.sport.cricket">Крикет</string>
 	<string name="type.sport.curling">Керлінг</string>
 	<string name="type.sport.equestrian">Кінний спорт</string>
@@ -1558,10 +1558,15 @@
 	<!-- Used to tag a scuba diving site. -->
 	<string name="type.sport.scuba_diving">Місце для дайвінгу</string>
 	<string name="type.sport.shooting">Стрільба</string>
+	<string name="type.sport.skateboard">Скейтбординг</string>
 	<string name="type.sport.skiing">Лижi</string>
 	<string name="type.sport.soccer">Футбол</string>
 	<string name="type.sport.swimming">Плавання</string>
+	<string name="type.sport.table_tennis">Настільний теніс</string>
 	<string name="type.sport.tennis">Тенісний корт</string>
+	<string name="type.sport.volleyball">Волейбол</string>
+	<string name="type.sport.9pin">Боулінг</string>
+	<string name="type.sport.10pin">Боулінг</string>
 	<string name="type.tourism">Туризм</string>
 	<string name="type.tourism.alpine_hut">Гірський готель</string>
 	<string name="type.tourism.apartment">Апартаменти</string>

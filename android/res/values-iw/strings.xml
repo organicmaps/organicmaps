@@ -484,7 +484,9 @@
 	<string name="type.sport.archery">קַשׁתוּת</string>
 	<string name="type.sport.australian_football">פוטבול אוסטרלי</string>
 	<string name="type.sport.baseball">בייסבול</string>
+	<string name="type.sport.beachvolleyball">כדורעף חופים</string>
 	<string name="type.sport.bowls">כדורת דשא</string>
+	<string name="type.sport.chess">שחמט</string>
 	<string name="type.sport.cricket">קריקט</string>
 	<string name="type.sport.curling">קרלינג</string>
 	<string name="type.sport.equestrian">רכיבה</string>
@@ -493,10 +495,15 @@
 	<string name="type.sport.handball">כדוריד</string>
 	<string name="type.sport.multi">ענפי ספורט שונים</string>
 	<string name="type.sport.shooting">ירי ספורטיבי</string>
+	<string name="type.sport.skateboard">סקייטבורדינג</string>
 	<string name="type.sport.skiing">סקי</string>
 	<string name="type.sport.soccer">כדורגל</string>
 	<string name="type.sport.swimming">שחייה</string>
+	<string name="type.sport.table_tennis">טניס שולחן</string>
 	<string name="type.sport.tennis">טֶנִיס</string>
+	<string name="type.sport.volleyball">כדורעף</string>
+	<string name="type.sport.9pin">בָּאוּלִינְג</string>
+	<string name="type.sport.10pin">בָּאוּלִינְג</string>
 	<string name="type.tourism.information">מידע לתייר</string>
 	<string name="type.tourism.information.board">לוח מידע</string>
 	<string name="type.tourism.information.guidepost">מנחה</string>

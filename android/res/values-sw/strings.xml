@@ -428,6 +428,8 @@
 	<string name="type.sport.athletics">Riadha</string>
 	<string name="type.sport.baseball">Baseball</string>
 	<string name="type.sport.basketball">Mpira wa kikapu</string>
+	<string name="type.sport.beachvolleyball">Mpira wa wavu wa pwani</string>
+	<string name="type.sport.chess">Sataranji</string>
 	<string name="type.sport.curling">Kukunja</string>
 	<string name="type.sport.equestrian">Michezo ya Farasi</string>
 	<string name="type.sport.golf">Gofu</string>
@@ -437,10 +439,15 @@
 	<!-- Used to tag a scuba diving site. -->
 	<string name="type.sport.scuba_diving">Upigaji mbizi wa Scuba</string>
 	<string name="type.sport.shooting">Kupiga risasi</string>
+	<string name="type.sport.skateboard">Skateboarding</string>
 	<string name="type.sport.skiing">Skii</string>
 	<string name="type.sport.soccer">Soka</string>
 	<string name="type.sport.swimming">Kuogelea</string>
+	<string name="type.sport.table_tennis">Tenisi ya meza</string>
 	<string name="type.sport.tennis">Wanja wa tenisi</string>
+	<string name="type.sport.volleyball">Voliboli</string>
+	<string name="type.sport.9pin">Bowling</string>
+	<string name="type.sport.10pin">Bowling</string>
 	<string name="type.tourism.information">Taarifa za Watalii</string>
 	<string name="type.tourism.information.board">Bodi ya habari</string>
 	<string name="type.tourism.information.guidepost">Chapisho la mwongozo</string>

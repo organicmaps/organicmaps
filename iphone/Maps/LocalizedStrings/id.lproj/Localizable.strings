@@ -2296,13 +2296,9 @@
 
 "type.leisure.sports_centre" = "Olahraga";
 
-"type.leisure.sports_centre.climbing" = "Pusat Peralatan Mendaki";
+"type.sport.climbing" = "Pusat Peralatan Mendaki";
 
-"type.leisure.sports_centre.shooting" = "Lapangan tembak";
-
-"type.leisure.sports_centre.swimming" = "Kolam Renang";
-
-"type.leisure.sports_centre.yoga" = "Studio Yoga";
+"type.sport.yoga" = "Studio Yoga";
 
 "type.leisure.stadium" = "Stadion";
 
@@ -2932,7 +2928,11 @@
 
 "type.sport.basketball" = "Bola basket";
 
+"type.sport.beachvolleyball" = "Voli pantai";
+
 "type.sport.bowls" = "Boling lapangan";
+
+"type.sport.chess" = "Catur";
 
 "type.sport.cricket" = "Kriket";
 
@@ -2953,13 +2953,23 @@
 
 "type.sport.shooting" = "Penembakan";
 
+"type.sport.skateboard" = "Seluncur papan";
+
 "type.sport.skiing" = "Bermain ski";
 
 "type.sport.soccer" = "Sepak bola";
 
 "type.sport.swimming" = "Berenang";
 
+"type.sport.table_tennis" = "Tenis meja";
+
 "type.sport.tennis" = "Lapangan tenis";
+
+"type.sport.volleyball" = "Bola voli";
+
+"type.sport.9pin" = "Boling";
+
+"type.sport.10pin" = "Boling";
 
 "type.tourism" = "Tourism";
 

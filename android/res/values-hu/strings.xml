@@ -1097,10 +1097,8 @@
 	<string name="type.leisure.playground">Játszótér</string>
 	<string name="type.leisure.sauna">Szauna</string>
 	<string name="type.leisure.sports_centre">Sportközpont</string>
-	<string name="type.leisure.sports_centre.climbing">Hegymászó központ</string>
-	<string name="type.leisure.sports_centre.shooting">Lőtér</string>
-	<string name="type.leisure.sports_centre.swimming">Uszoda</string>
-	<string name="type.leisure.sports_centre.yoga">Jógastúdió</string>
+	<string name="type.sport.climbing">Hegymászó központ</string>
+	<string name="type.sport.yoga">Jógastúdió</string>
 	<string name="type.leisure.stadium">Stadion</string>
 	<string name="type.leisure.swimming_pool">Úszómedence</string>
 	<string name="type.leisure.swimming_pool.private">Úszómedence</string>
@@ -1329,6 +1327,8 @@
 	<string name="type.sport.australian_football">Ausztrál futball</string>
 	<string name="type.sport.baseball">Baseball</string>
 	<string name="type.sport.basketball">Kosárlabda</string>
+	<string name="type.sport.beachvolleyball">Strandröplabda</string>
+	<string name="type.sport.chess">Sakk</string>
 	<string name="type.sport.cricket">Krikett</string>
 	<string name="type.sport.curling">Curling</string>
 	<string name="type.sport.equestrian">Lovas sportok</string>
@@ -1339,10 +1339,15 @@
 	<!-- Used to tag a scuba diving site. -->
 	<string name="type.sport.scuba_diving">Búvárkodás</string>
 	<string name="type.sport.shooting">Lövés</string>
+	<string name="type.sport.skateboard">Gördeszkázás</string>
 	<string name="type.sport.skiing">Síelés</string>
 	<string name="type.sport.soccer">Futball</string>
 	<string name="type.sport.swimming">Úszás</string>
+	<string name="type.sport.table_tennis">Asztalitenisz</string>
 	<string name="type.sport.tennis">Teniszpálya</string>
+	<string name="type.sport.volleyball">Röplabda</string>
+	<string name="type.sport.9pin">Bowling</string>
+	<string name="type.sport.10pin">Bowling</string>
 	<string name="type.tourism.alpine_hut">Hegyi menedék</string>
 	<string name="type.tourism.apartment">Apartmanok</string>
 	<string name="type.tourism.artwork">Szobor</string>

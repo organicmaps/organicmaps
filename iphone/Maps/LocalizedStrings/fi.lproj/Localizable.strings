@@ -2296,13 +2296,9 @@
 
 "type.leisure.sports_centre" = "Urheilukeskus";
 
-"type.leisure.sports_centre.climbing" = "Kiipeilykeskus";
+"type.sport.climbing" = "Kiipeilykeskus";
 
-"type.leisure.sports_centre.shooting" = "Ampumarata";
-
-"type.leisure.sports_centre.swimming" = "Uimahalli";
-
-"type.leisure.sports_centre.yoga" = "Joogastudio";
+"type.sport.yoga" = "Joogastudio";
 
 "type.leisure.stadium" = "Stadion";
 
@@ -2932,7 +2928,11 @@
 
 "type.sport.basketball" = "Koripallo";
 
+"type.sport.beachvolleyball" = "Rantalentopallo";
+
 "type.sport.bowls" = "Nurmikeilailu";
+
+"type.sport.chess" = "Shakki";
 
 "type.sport.cricket" = "Kriketti";
 
@@ -2953,13 +2953,23 @@
 
 "type.sport.shooting" = "Ammunta";
 
+"type.sport.skateboard" = "Rullalautailu";
+
 "type.sport.skiing" = "Hiihto";
 
 "type.sport.soccer" = "Jalkapallo";
 
 "type.sport.swimming" = "Uinti";
 
+"type.sport.table_tennis" = "Pöytätennis";
+
 "type.sport.tennis" = "Tenniskenttä";
+
+"type.sport.volleyball" = "Lentopallo";
+
+"type.sport.9pin" = "Keilailu";
+
+"type.sport.10pin" = "Keilailu";
 
 "type.tourism" = "Turismi";
 

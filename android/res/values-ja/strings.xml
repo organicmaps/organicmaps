@@ -1174,10 +1174,8 @@
 	<string name="type.leisure.sauna">サウナ</string>
 	<string name="type.leisure.slipway">スリップウェイ</string>
 	<string name="type.leisure.sports_centre">スポーツセンター</string>
-	<string name="type.leisure.sports_centre.climbing">クライミングセンター</string>
-	<string name="type.leisure.sports_centre.shooting">射撃場</string>
-	<string name="type.leisure.sports_centre.swimming">スイミングセンター</string>
-	<string name="type.leisure.sports_centre.yoga">ヨガスタジオ</string>
+	<string name="type.sport.climbing">クライミングセンター</string>
+	<string name="type.sport.yoga">ヨガスタジオ</string>
 	<string name="type.leisure.stadium">スタジアム</string>
 	<string name="type.leisure.swimming_pool">プール</string>
 	<string name="type.leisure.swimming_pool.private">プール</string>
@@ -1472,7 +1470,9 @@
 	<string name="type.sport.australian_football">オーストラリアンフットボール</string>
 	<string name="type.sport.baseball">野球</string>
 	<string name="type.sport.basketball">バスケットボール</string>
+	<string name="type.sport.beachvolleyball">ビーチバレー</string>
 	<string name="type.sport.bowls">ローンボウルズ</string>
+	<string name="type.sport.chess">チェス</string>
 	<string name="type.sport.cricket">クリケット</string>
 	<string name="type.sport.curling">カーリング</string>
 	<string name="type.sport.equestrian">馬術</string>
@@ -1483,10 +1483,15 @@
 	<!-- Used to tag a scuba diving site. -->
 	<string name="type.sport.scuba_diving">スキューバダイビング</string>
 	<string name="type.sport.shooting">射撃競技</string>
+	<string name="type.sport.skateboard">スケートボード</string>
 	<string name="type.sport.skiing">スキー</string>
 	<string name="type.sport.soccer">サッカー</string>
 	<string name="type.sport.swimming">水泳</string>
+	<string name="type.sport.table_tennis">卓球</string>
 	<string name="type.sport.tennis">テニスコート</string>
+	<string name="type.sport.volleyball">バレーボール</string>
+	<string name="type.sport.9pin">ボウリング</string>
+	<string name="type.sport.10pin">ボウリング</string>
 	<string name="type.tourism">観光</string>
 	<string name="type.tourism.alpine_hut">山小屋</string>
 	<string name="type.tourism.apartment">アパート</string>

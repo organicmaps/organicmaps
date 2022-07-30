@@ -2296,13 +2296,9 @@
 
 "type.leisure.sports_centre" = "Spor Merkezi";
 
-"type.leisure.sports_centre.climbing" = "Tırmanma Merkezi";
+"type.sport.climbing" = "Tırmanma Merkezi";
 
-"type.leisure.sports_centre.shooting" = "Poligon";
-
-"type.leisure.sports_centre.swimming" = "Yüzme Merkezi";
-
-"type.leisure.sports_centre.yoga" = "Yoga Stüdyosu";
+"type.sport.yoga" = "Yoga Stüdyosu";
 
 "type.leisure.stadium" = "Stadyum";
 
@@ -2932,7 +2928,11 @@
 
 "type.sport.basketball" = "Basketbol";
 
+"type.sport.beachvolleyball" = "Plaj voleybolu";
+
 "type.sport.bowls" = "Kuka Oynu";
+
+"type.sport.chess" = "Satranç";
 
 "type.sport.cricket" = "Kriket";
 
@@ -2953,13 +2953,23 @@
 
 "type.sport.shooting" = "Çekim";
 
+"type.sport.skateboard" = "Kaykay";
+
 "type.sport.skiing" = "Kayak yapmak";
 
 "type.sport.soccer" = "Futbol";
 
 "type.sport.swimming" = "Yüzme";
 
+"type.sport.table_tennis" = "Masa tenisi";
+
 "type.sport.tennis" = "Tenis Kortu";
+
+"type.sport.volleyball" = "Voleybol";
+
+"type.sport.9pin" = "Bowling";
+
+"type.sport.10pin" = "Bowling";
 
 "type.tourism" = "Turizm";
 

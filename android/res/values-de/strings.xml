@@ -1232,9 +1232,7 @@
 	<string name="type.leisure.sauna">Sauna</string>
 	<string name="type.leisure.slipway">Bootsrampe</string>
 	<string name="type.leisure.sports_centre">Sportzentrum</string>
-	<string name="type.leisure.sports_centre.climbing">Kletterhalle</string>
-	<string name="type.leisure.sports_centre.shooting">Schießanlage</string>
-	<string name="type.leisure.sports_centre.swimming">Schwimmhalle</string>
+	<string name="type.sport.climbing">Kletterhalle</string>
 	<string name="type.leisure.stadium">Stadion</string>
 	<string name="type.leisure.swimming_pool">Schwimmbecken</string>
 	<string name="type.leisure.swimming_pool.private">Schwimmbecken</string>
@@ -1533,7 +1531,9 @@
 	<string name="type.sport.australian_football">Australian Football</string>
 	<string name="type.sport.baseball">Baseball</string>
 	<string name="type.sport.basketball">Basketball</string>
+	<string name="type.sport.beachvolleyball">Beachvolleyball</string>
 	<string name="type.sport.bowls">Bowls</string>
+	<string name="type.sport.chess">Schach</string>
 	<string name="type.sport.cricket">Cricket</string>
 	<string name="type.sport.curling">Curling</string>
 	<string name="type.sport.equestrian">Reitsport</string>
@@ -1544,12 +1544,17 @@
 	<!-- Used to tag a scuba diving site. -->
 	<string name="type.sport.scuba_diving">Gerätetauchen</string>
 	<string name="type.sport.shooting">Schießen</string>
+	<string name="type.sport.skateboard">Skateboarding</string>
 	<string name="type.sport.skiing">Skifahren</string>
 	<string name="type.sport.soccer">Fußball</string>
 	<string name="type.sport.swimming">Schwimmen</string>
+	<string name="type.sport.table_tennis">Tischtennis</string>
 	<string name="type.sport.tennis">Tennisspielfeld</string>
+	<string name="type.sport.volleyball">Volleyball</string>
+	<string name="type.sport.9pin">Bowling</string>
+	<string name="type.sport.10pin">Bowling</string>
 	<string name="type.tourism">Tourismus</string>
-	<string name="type.tourism.alpine_hut">bewirtschaftete Schutzhütte</string>
+	<string name="type.tourism.alpine_hut">Berghütte</string>
 	<string name="type.tourism.apartment">Ferienwohnung</string>
 	<string name="type.tourism.artwork">Kunstwerk</string>
 	<string name="type.tourism.artwork.architecture">Kunstwerk</string>
@@ -1577,7 +1582,7 @@
 	<string name="type.tourism.resort">Resort</string>
 	<string name="type.tourism.theme_park">Freizeitpark</string>
 	<string name="type.tourism.viewpoint">Aussichtspunkt</string>
-	<string name="type.tourism.wilderness_hut">unbewirtschaftete Schutzhütte</string>
+	<string name="type.tourism.wilderness_hut">Waldhütte</string>
 	<string name="type.tourism.zoo">Zoo</string>
 	<string name="type.traffic_calming">Verkehrsberuhigung</string>
 	<string name="type.traffic_calming.bump">kurze Bodenwelle</string>

@@ -816,10 +816,17 @@
 	<string name="type.sport.american_football">Американски футбол</string>
 	<string name="type.sport.archery">Стрелба с лък</string>
 	<string name="type.sport.australian_football">Австралийски футбол</string>
+	<string name="type.sport.beachvolleyball">Плажен волейбол</string>
+	<string name="type.sport.chess">Шахмат</string>
 	<string name="type.sport.equestrian">Конен спорт</string>
 	<string name="type.sport.multi">Различни спортове</string>
+	<string name="type.sport.skateboard">Скейтбординг</string>
 	<string name="type.sport.swimming">Плуване</string>
+	<string name="type.sport.table_tennis">Тенис на маса</string>
 	<string name="type.sport.tennis">Тенис корт</string>
+	<string name="type.sport.volleyball">Волейбол</string>
+	<string name="type.sport.9pin">Боулинг</string>
+	<string name="type.sport.10pin">Боулинг</string>
 	<string name="type.tourism.information">Туринформация</string>
 	<string name="type.tourism.information.board">Информационен щит</string>
 	<string name="type.tourism.information.guidepost">Пътеводител</string>

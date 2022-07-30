@@ -1244,10 +1244,8 @@
 	<string name="type.leisure.sauna">Sauna</string>
 	<string name="type.leisure.slipway">Kızak</string>
 	<string name="type.leisure.sports_centre">Spor Merkezi</string>
-	<string name="type.leisure.sports_centre.climbing">Tırmanma Merkezi</string>
-	<string name="type.leisure.sports_centre.shooting">Poligon</string>
-	<string name="type.leisure.sports_centre.swimming">Yüzme Merkezi</string>
-	<string name="type.leisure.sports_centre.yoga">Yoga Stüdyosu</string>
+	<string name="type.sport.climbing">Tırmanma Merkezi</string>
+	<string name="type.sport.yoga">Yoga Stüdyosu</string>
 	<string name="type.leisure.stadium">Stadyum</string>
 	<string name="type.leisure.swimming_pool">Yüzme Havuzu</string>
 	<string name="type.leisure.swimming_pool.private">Yüzme Havuzu</string>
@@ -1552,7 +1550,9 @@
 	<string name="type.sport.australian_football">Avustralya futbolu</string>
 	<string name="type.sport.baseball">Beyzbol</string>
 	<string name="type.sport.basketball">Basketbol</string>
+	<string name="type.sport.beachvolleyball">Plaj voleybolu</string>
 	<string name="type.sport.bowls">Kuka Oynu</string>
+	<string name="type.sport.chess">Satranç</string>
 	<string name="type.sport.cricket">Kriket</string>
 	<string name="type.sport.curling">Körling</string>
 	<string name="type.sport.equestrian">Binicilik Sporları</string>
@@ -1563,10 +1563,15 @@
 	<!-- Used to tag a scuba diving site. -->
 	<string name="type.sport.scuba_diving">Tüplü Dalış</string>
 	<string name="type.sport.shooting">Çekim</string>
+	<string name="type.sport.skateboard">Kaykay</string>
 	<string name="type.sport.skiing">Kayak yapmak</string>
 	<string name="type.sport.soccer">Futbol</string>
 	<string name="type.sport.swimming">Yüzme</string>
+	<string name="type.sport.table_tennis">Masa tenisi</string>
 	<string name="type.sport.tennis">Tenis Kortu</string>
+	<string name="type.sport.volleyball">Voleybol</string>
+	<string name="type.sport.9pin">Bowling</string>
+	<string name="type.sport.10pin">Bowling</string>
 	<string name="type.tourism">Turizm</string>
 	<string name="type.tourism.alpine_hut">Dağda Konaklama</string>
 	<string name="type.tourism.apartment">Apart Otel</string>

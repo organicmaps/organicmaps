@@ -1097,10 +1097,8 @@
 	<string name="type.leisure.playground">Sân chơi</string>
 	<string name="type.leisure.sauna">Sauna</string>
 	<string name="type.leisure.sports_centre">Thể thao</string>
-	<string name="type.leisure.sports_centre.climbing">Trung tâm leo núi</string>
-	<string name="type.leisure.sports_centre.shooting">Nơi bắn súng</string>
-	<string name="type.leisure.sports_centre.swimming">Trung tâm Bơi lội</string>
-	<string name="type.leisure.sports_centre.yoga">Phòng tập yoga</string>
+	<string name="type.sport.climbing">Trung tâm leo núi</string>
+	<string name="type.sport.yoga">Phòng tập yoga</string>
 	<string name="type.leisure.stadium">Sân vận động</string>
 	<string name="type.leisure.swimming_pool">Bể bơi</string>
 	<string name="type.leisure.swimming_pool.private">Bể bơi</string>
@@ -1330,6 +1328,8 @@
 	<string name="type.sport.australian_football">Bóng bầu dục Úc</string>
 	<string name="type.sport.baseball">Bóng chày</string>
 	<string name="type.sport.basketball">Bóng rổ</string>
+	<string name="type.sport.beachvolleyball">Bóng chuyền bãi biển</string>
+	<string name="type.sport.chess">Cờ vua</string>
 	<string name="type.sport.cricket">Cricket</string>
 	<string name="type.sport.curling">Bi đá trên băng</string>
 	<string name="type.sport.equestrian">Thể thao cưỡi ngựa</string>
@@ -1340,10 +1340,15 @@
 	<!-- Used to tag a scuba diving site. -->
 	<string name="type.sport.scuba_diving">Môn lặn</string>
 	<string name="type.sport.shooting">Chụp</string>
+	<string name="type.sport.skateboard">Trượt ván</string>
 	<string name="type.sport.skiing">Trượt tuyết</string>
 	<string name="type.sport.soccer">Bóng đá</string>
 	<string name="type.sport.swimming">Bơi</string>
+	<string name="type.sport.table_tennis">Bóng bàn</string>
 	<string name="type.sport.tennis">Sân tenis</string>
+	<string name="type.sport.volleyball">Bóng chuyền</string>
+	<string name="type.sport.9pin">Bowling</string>
+	<string name="type.sport.10pin">Bowling</string>
 	<string name="type.tourism.alpine_hut">Nhà ở trên núi</string>
 	<string name="type.tourism.apartment">Căn hộ</string>
 	<string name="type.tourism.artwork">Du lịch</string>

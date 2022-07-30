@@ -1111,10 +1111,8 @@
 	<string name="type.leisure.playground">Leikkikenttä</string>
 	<string name="type.leisure.sauna">Sauna</string>
 	<string name="type.leisure.sports_centre">Urheilukeskus</string>
-	<string name="type.leisure.sports_centre.climbing">Kiipeilykeskus</string>
-	<string name="type.leisure.sports_centre.shooting">Ampumarata</string>
-	<string name="type.leisure.sports_centre.swimming">Uimahalli</string>
-	<string name="type.leisure.sports_centre.yoga">Joogastudio</string>
+	<string name="type.sport.climbing">Kiipeilykeskus</string>
+	<string name="type.sport.yoga">Joogastudio</string>
 	<string name="type.leisure.stadium">Stadion</string>
 	<string name="type.leisure.swimming_pool">Uima-allas</string>
 	<string name="type.leisure.swimming_pool.private">Uima-allas</string>
@@ -1344,7 +1342,9 @@
 	<string name="type.sport.australian_football">Australialainen jalkapallo</string>
 	<string name="type.sport.baseball">Baseball</string>
 	<string name="type.sport.basketball">Koripallo</string>
+	<string name="type.sport.beachvolleyball">Rantalentopallo</string>
 	<string name="type.sport.bowls">Nurmikeilailu</string>
+	<string name="type.sport.chess">Shakki</string>
 	<string name="type.sport.cricket">Kriketti</string>
 	<string name="type.sport.curling">Curling</string>
 	<string name="type.sport.equestrian">Hevosurheilu</string>
@@ -1355,10 +1355,15 @@
 	<!-- Used to tag a scuba diving site. -->
 	<string name="type.sport.scuba_diving">Sukellus</string>
 	<string name="type.sport.shooting">Ammunta</string>
+	<string name="type.sport.skateboard">Rullalautailu</string>
 	<string name="type.sport.skiing">Hiihto</string>
 	<string name="type.sport.soccer">Jalkapallo</string>
 	<string name="type.sport.swimming">Uinti</string>
+	<string name="type.sport.table_tennis">Pöytätennis</string>
 	<string name="type.sport.tennis">Tenniskenttä</string>
+	<string name="type.sport.volleyball">Lentopallo</string>
+	<string name="type.sport.9pin">Keilailu</string>
+	<string name="type.sport.10pin">Keilailu</string>
 	<string name="type.tourism">Turismi</string>
 	<string name="type.tourism.alpine_hut">Vuorimajoitus</string>
 	<string name="type.tourism.apartment">Loma-asunnot</string>

@@ -953,7 +953,9 @@
 	<string name="type.sport.archery">Стральба з лука</string>
 	<string name="type.sport.australian_football">Аўстралійскі футбол</string>
 	<string name="type.sport.baseball">Бейсбол</string>
+	<string name="type.sport.beachvolleyball">Пляжны валейбол</string>
 	<string name="type.sport.bowls">Боўлз</string>
+	<string name="type.sport.chess">Шахматы</string>
 	<string name="type.sport.cricket">Крикет</string>
 	<string name="type.sport.curling">Кёрлінг</string>
 	<string name="type.sport.equestrian">Конны спорт</string>
@@ -964,10 +966,15 @@
 	<!-- Used to tag a scuba diving site. -->
 	<string name="type.sport.scuba_diving">Месца для дайвінга</string>
 	<string name="type.sport.shooting">Стральба</string>
+	<string name="type.sport.skateboard">Скейтбордынг</string>
 	<string name="type.sport.skiing">Катанне на лыжах</string>
 	<string name="type.sport.soccer">Футбол</string>
 	<string name="type.sport.swimming">Плаванне</string>
+	<string name="type.sport.table_tennis">Настольны тэніс</string>
 	<string name="type.sport.tennis">Тэнісны корт</string>
+	<string name="type.sport.volleyball">Валейбол</string>
+	<string name="type.sport.9pin">Боўлінг</string>
+	<string name="type.sport.10pin">Боўлінг</string>
 	<string name="type.tourism.caravan_site">Кемпінг для аўтадамоў</string>
 	<string name="type.tourism.information">Турыстычная інфармацыя</string>
 	<string name="type.tourism.information.board">Інфармацыйны шчыт</string>

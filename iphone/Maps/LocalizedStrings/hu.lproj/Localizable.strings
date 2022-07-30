@@ -2296,13 +2296,9 @@
 
 "type.leisure.sports_centre" = "Sportközpont";
 
-"type.leisure.sports_centre.climbing" = "Hegymászó központ";
+"type.sport.climbing" = "Hegymászó központ";
 
-"type.leisure.sports_centre.shooting" = "Lőtér";
-
-"type.leisure.sports_centre.swimming" = "Uszoda";
-
-"type.leisure.sports_centre.yoga" = "Jógastúdió";
+"type.sport.yoga" = "Jógastúdió";
 
 "type.leisure.stadium" = "Stadion";
 
@@ -2932,7 +2928,11 @@
 
 "type.sport.basketball" = "Kosárlabda";
 
+"type.sport.beachvolleyball" = "Strandröplabda";
+
 "type.sport.bowls" = "Bowls";
+
+"type.sport.chess" = "Sakk";
 
 "type.sport.cricket" = "Krikett";
 
@@ -2953,13 +2953,23 @@
 
 "type.sport.shooting" = "Lövés";
 
+"type.sport.skateboard" = "Gördeszkázás";
+
 "type.sport.skiing" = "Síelés";
 
 "type.sport.soccer" = "Futball";
 
 "type.sport.swimming" = "Úszás";
 
+"type.sport.table_tennis" = "Asztalitenisz";
+
 "type.sport.tennis" = "Teniszpálya";
+
+"type.sport.volleyball" = "Röplabda";
+
+"type.sport.9pin" = "Bowling";
+
+"type.sport.10pin" = "Bowling";
 
 "type.tourism" = "Tourism";
 
