@@ -440,7 +440,7 @@ time_t GetNextTimeState(TRuleSequences const & rules, time_t const dateTime, Rul
             continue;
 
           if (GetState(rules, dateTimeToCheck) == state)
-            dateTimeResult = dateTimeToCheck;
+            dateTimeResult = dateTimeToCheck - 60;   // remove 1 minute offset
         }
       }
       else
