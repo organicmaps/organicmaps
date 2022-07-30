@@ -328,8 +328,16 @@ private:
       // Bulgarian - Български
       "булевард", "бул", "площад", "пл", "улица", "ул", "квартал", "кв",
 
+      /// @todo Do not use popular POI (carrefour) or Street name (rambla) tokens as generic street synonyms.
+      /// This POIs (Carrefour supermarket) and Streets (La Rambla - most popular street in Barcelona)
+      /// will be lost in search results, otherwise.
+      /// Should reconsider candidates fetching and sorting logic from scratch to make correct processing.
+
       // Canada
-      "allee", "alley", "autoroute", "aut", "bypass", "byway", "carrefour", "carref", "chemin", "cercle", "circle", "côte", "crossing", "cross", "expressway", "freeway", "fwy", "line", "link", "loop", "parkway", "pky", "pkwy", "path", "pathway", "ptway", "route", "rue", "rte", "trail", "walk",
+      "allee", "alley", "autoroute", "aut", "bypass", "byway", /*"carrefour", "carref",*/ "chemin", "cercle", "circle", "côte", "crossing", "cross", "expressway", "freeway", "fwy", "line", "link", "loop", "parkway", "pky", "pkwy", "path", "pathway", "ptway", "route", "rue", "rte", "trail", "walk",
+
+      // Catalan language (Barcelona, Valencia, ...)
+      "avinguda", "carrer", /*"rambla", "ronda",*/ "passeig", "passatge", "travessera",
 
       // Croatian - Hrvatski
       "šetalište", "trg", "ulica", "ul", "poljana",
