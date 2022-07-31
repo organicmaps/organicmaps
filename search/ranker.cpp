@@ -350,11 +350,18 @@ private:
 
 class RankerResultMaker
 {
+  ftypes::IsWayChecker const & m_wayChecker;
+  ftypes::IsCapitalChecker const & m_capitalChecker;
+  ftypes::IsCountryChecker const & m_countryChecker;
+
 public:
   RankerResultMaker(Ranker & ranker, DataSource const & dataSource,
                     storage::CountryInfoGetter const & infoGetter,
                     ReverseGeocoder const & reverseGeocoder, Geocoder::Params const & params)
-    : m_ranker(ranker)
+    : m_wayChecker(ftypes::IsWayChecker::Instance())
+    , m_capitalChecker(ftypes::IsCapitalChecker::Instance())
+    , m_countryChecker(ftypes::IsCountryChecker::Instance())
+    , m_ranker(ranker)
     , m_dataSource(dataSource)
     , m_infoGetter(infoGetter)
     , m_reverseGeocoder(reverseGeocoder)
@@ -377,9 +384,9 @@ public:
     search::RankingInfo info;
     InitRankingInfo(*ft, center, preRankerResult, info);
     if (info.m_type == Model::TYPE_STREET)
-      info.m_classifType.street = ftypes::IsWayChecker::Instance().GetSearchRank(r.GetBestType());
+      info.m_classifType.street = m_wayChecker.GetSearchRank(r.GetBestType());
     info.m_rank = NormalizeRank(info.m_rank, info.m_type, center, country,
-                                ftypes::IsCapitalChecker::Instance()(*ft), !info.m_allTokensUsed);
+                                m_capitalChecker(*ft), !info.m_allTokensUsed);
     r.SetRankingInfo(info);
 
 #ifdef SEARCH_USE_PROVENANCE
@@ -463,15 +470,16 @@ private:
                        search::RankingInfo & info)
   {
     auto const & preInfo = res.GetInfo();
-
     auto const & pivot = m_ranker.m_params.m_accuratePivotCenter;
+
+    feature::TypesHolder featureTypes(ft);
 
     info.m_distanceToPivot = mercator::DistanceOnEarth(center, pivot);
     info.m_rank = preInfo.m_rank;
     info.m_popularity = preInfo.m_popularity;
     info.m_type = preInfo.m_type;
     if (Model::IsPoi(info.m_type))
-      info.m_classifType.poi = GetPoiType(feature::TypesHolder(ft));
+      info.m_classifType.poi = GetPoiType(featureTypes);
     info.m_allTokensUsed = preInfo.m_allTokensUsed;
     info.m_numTokens = m_params.GetNumTokens();
     info.m_exactMatch = preInfo.m_exactMatch;
@@ -566,25 +574,14 @@ private:
       info.m_isAltOrOldName = isAltOrOldName;
       info.m_matchedFraction = (totalLength == 0) ? 1 : matchedLength / static_cast<float>(totalLength);
 
-      auto const isCountryOrCapital = [](FeatureType & ft) {
-        auto static const countryType = classif().GetTypeByPath({"place", "country"});
-        auto static const capitalType = classif().GetTypeByPath({"place", "city", "capital", "2"});
-
-        bool hasType = false;
-        ft.ForEachType([&hasType](uint32_t type) {
-          if (hasType)
-            return;
-          if (type == countryType || type == capitalType)
-            hasType = true;
-        });
-
-        return hasType;
-      };
       info.m_exactCountryOrCapital = info.m_errorsMade == ErrorsMade(0) && info.m_allTokensUsed &&
                                      info.m_nameScore == NAME_SCORE_FULL_MATCH &&
-                                     isCountryOrCapital(ft);
+          // Upgrade _any_ capital rank, not only _true_ capital (=2).
+          // For example, search Barcelona from Istanbul or vice-versa.
+                                     (m_countryChecker(featureTypes) || m_capitalChecker(featureTypes));
     }
-    CategoriesInfo const categoriesInfo(feature::TypesHolder(ft),
+
+    CategoriesInfo const categoriesInfo(featureTypes,
                                         TokenSlice(m_params, preInfo.InnermostTokenRange()),
                                         m_ranker.m_params.m_categoryLocales, m_ranker.m_categories);
 
