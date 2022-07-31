@@ -50,3 +50,12 @@ struct FeatureID
 };
 
 std::string DebugPrint(FeatureID const & id);
+
+namespace std
+{
+template <>
+struct hash<FeatureID>
+{
+  size_t operator()(FeatureID const & fID) const;
+};
+}  // namespace std

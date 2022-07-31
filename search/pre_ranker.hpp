@@ -12,10 +12,9 @@
 #include <algorithm>
 #include <limits>
 #include <optional>
-#include <random>
 #include <set>
 #include <string>
-#include <utility>
+#include <unordered_set>
 #include <vector>
 
 class DataSource;
@@ -144,8 +143,10 @@ private:
 
   DataSource const & m_dataSource;
   Ranker & m_ranker;
-  std::vector<PreRankerResult> m_results;
-  std::vector<PreRankerResult> m_relaxedResults;
+
+  using PreResultsContainerT = std::vector<PreRankerResult>;
+  PreResultsContainerT m_results, m_relaxedResults;
+
   Params m_params;
 
   // Amount of results sent up the pipeline.
@@ -161,11 +162,9 @@ private:
   /// search session. They're used for filtering of current search, because we need to give more priority
   /// to results that were on map previously, to avoid result's annoying blinking/flickering on map.
   /// @{
-  std::set<FeatureID> m_currEmit;
-  std::set<FeatureID> m_prevEmit;
+  std::unordered_set<FeatureID> m_currEmit;
+  std::unordered_set<FeatureID> m_prevEmit;
   /// @}
-
-  std::minstd_rand m_rng;
 
   DISALLOW_COPY_AND_MOVE(PreRanker);
 };

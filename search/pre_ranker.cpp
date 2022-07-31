@@ -24,7 +24,7 @@ using namespace std;
 
 namespace
 {
-void SweepNearbyResults(m2::PointD const & eps, set<FeatureID> const & prevEmit,
+void SweepNearbyResults(m2::PointD const & eps, unordered_set<FeatureID> const & prevEmit,
                         vector<PreRankerResult> & results)
 {
   m2::NearbyPointsSweeper sweeper(eps.x, eps.y);
@@ -143,6 +143,22 @@ void PreRanker::FillMissingFieldsInPreResults()
   });
 }
 
+namespace
+{
+template <class CompT, class ContT> class CompareIndices
+{
+  CompT m_cmp;
+  ContT const & m_cont;
+
+public:
+  CompareIndices(CompT const & cmp, ContT const & cont) : m_cmp(cmp), m_cont(cont) {}
+  bool operator()(size_t l, size_t r) const
+  {
+    return m_cmp(m_cont[l], m_cont[r]);
+  }
+};
+} // namespace
+
 void PreRanker::Filter(bool viewportSearch)
 {
   auto const lessForUnique = [](PreRankerResult const & lhs, PreRankerResult const & rhs)
@@ -167,64 +183,22 @@ void PreRanker::Filter(bool viewportSearch)
   if (m_results.size() <= BatchSize())
     return;
 
-  sort(m_results.begin(), m_results.end(), &PreRankerResult::LessDistance);
+  vector<size_t> indices(m_results.size());
+  generate(indices.begin(), indices.end(), [n = 0] () mutable { return n++; });
+  unordered_set<size_t> filtered;
 
-  /// @todo To have any benefit from the next sort-shuffle code block, we should have at least 2 *strictly* equal
-  /// (distance in meters) results in the middle of m_results vector. The probability of that is -> 0.
-  /// This code had sence, when we had some approximated viewport distance before centers table.
-  /*{
-    // Priority is some kind of distance from the viewport or
-    // position, therefore if we have a bunch of results with the same
-    // priority, we have no idea here which results are relevant.  To
-    // prevent bias from previous search routines (like sorting by
-    // feature id) this code randomly selects tail of the
-    // sorted-by-priority list of pre-results.
+  auto const iBeg = indices.begin();
+  auto const iMiddle = iBeg + BatchSize();
+  auto const iEnd = indices.end();
 
-    double const last = m_results[BatchSize()].GetDistance();
-
-    auto b = m_results.begin() + BatchSize();
-    for (; b != m_results.begin() && b->GetDistance() == last; --b)
-      ;
-    if (b->GetDistance() != last)
-      ++b;
-
-    auto e = m_results.begin() + BatchSize();
-    for (; e != m_results.end() && e->GetDistance() == last; ++e)
-      ;
-
-    // The main reason of shuffling here is to select a random subset
-    // from the low-priority results. We're using a linear
-    // congruential method with default seed because it is fast,
-    // simple and doesn't need an external entropy source.
-    //
-    // TODO (@y, @m, @vng): consider to take some kind of hash from
-    // features and then select a subset with smallest values of this
-    // hash.  In this case this subset of results will be persistent
-    // to small changes in the original set.
-    shuffle(b, e, m_rng);
-  }*/
-
-  struct LessFeatureID
-  {
-    inline bool operator()(PreRankerResult const & lhs, PreRankerResult const & rhs) const
-    {
-      return lhs.GetId() < rhs.GetId();
-    }
-  };
-  set<PreRankerResult, LessFeatureID> filtered;
-
-  auto const numResults = min(m_results.size(), BatchSize());
-  auto const iBeg = m_results.begin();
-  auto const iMiddle = iBeg + numResults;
-  auto const iEnd = m_results.end();
-
+  nth_element(iBeg, iMiddle, iEnd, CompareIndices(&PreRankerResult::LessDistance, m_results));
   filtered.insert(iBeg, iMiddle);
 
   if (!m_params.m_categorialRequest)
   {
-    nth_element(iBeg, iMiddle, iEnd, &PreRankerResult::LessRankAndPopularity);
+    nth_element(iBeg, iMiddle, iEnd, CompareIndices(&PreRankerResult::LessRankAndPopularity, m_results));
     filtered.insert(iBeg, iMiddle);
-    nth_element(iBeg, iMiddle, iEnd, &PreRankerResult::LessByExactMatch);
+    nth_element(iBeg, iMiddle, iEnd, CompareIndices(&PreRankerResult::LessByExactMatch, m_results));
     filtered.insert(iBeg, iMiddle);
   }
   else
@@ -238,11 +212,15 @@ void PreRanker::Filter(bool viewportSearch)
                                  2 * kPedestrianRadiusMeters;
     comparator.m_viewport = m_params.m_viewport;
 
-    nth_element(iBeg, iMiddle, iEnd, comparator);
+    nth_element(iBeg, iMiddle, iEnd, CompareIndices(comparator, m_results));
     filtered.insert(iBeg, iMiddle);
   }
 
-  m_results.assign(make_move_iterator(filtered.begin()), make_move_iterator(filtered.end()));
+  PreResultsContainerT newResults;
+  newResults.reserve(filtered.size());
+  for (size_t idx : filtered)
+    newResults.push_back(m_results[idx]);
+  m_results.swap(newResults);
 }
 
 void PreRanker::UpdateResults(bool lastUpdate)
