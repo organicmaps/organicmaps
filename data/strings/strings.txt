@@ -1934,7 +1934,6 @@
     comment = Free space out of total storage size in Maps Storage settings, e.g. "300 MB free of 2 GB"
     tags = android
     en = %1$@ free of %2$@
-    ar = %1$@ فارغ من %2$@
     be = %1$@ вольна з %2$@
     de = %1$@ frei von %2$@
     fr = %1$@ libres sur %2$@
