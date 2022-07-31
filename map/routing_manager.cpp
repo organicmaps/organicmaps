@@ -1176,11 +1176,10 @@ bool RoutingManager::GenerateRouteAltitudeChart(uint32_t width, uint32_t height,
 
   for (size_t i = 1; i < altitudes.size(); i++) {
     delta = altitudes[i] - altitudes[i - 1];
-    if (delta > 0) {
+    if (delta > 0)
       totalAscentM += delta;
-    } else {
-      totalDescentM += -delta;
-    }    
+    else
+      totalDescentM += -delta;   
   }
 
   if (!settings::Get(settings::kMeasurementUnits, altitudeUnits))
