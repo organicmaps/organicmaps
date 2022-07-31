@@ -23,7 +23,8 @@ using namespace routing;
 @interface MWMRouter () <MWMLocationObserver, MWMFrameworkRouteBuilderObserver>
 
 @property(nonatomic) NSMutableDictionary<NSValue *, NSData *> *altitudeImagesData;
-@property(nonatomic) NSString *altitudeElevation;
+@property(nonatomic) NSString *totalAscent;
+@property(nonatomic) NSString *totalDescent;
 @property(nonatomic) dispatch_queue_t renderAltitudeImagesQueue;
 @property(nonatomic) uint32_t routeManagerTransactionId;
 @property(nonatomic) BOOL canAutoAddLastLocation;
@@ -370,13 +371,13 @@ char const *kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeIm
     NSData *imageData = router.altitudeImagesData[sizeValue];
     if (!imageData) {
       std::vector<uint8_t> imageRGBAData;
-      int32_t minRouteAltitude = 0;
-      int32_t maxRouteAltitude = 0;
+      int32_t totalAscent = 0;
+      int32_t totalDescent = 0;
       measurement_utils::Units units = measurement_utils::Units::Metric;
 
       if (!GetFramework().GetRoutingManager().GenerateRouteAltitudeChart(width, height, *altitudes,
                                                                          *routePointDistanceM, imageRGBAData,
-                                                                         minRouteAltitude, maxRouteAltitude, units)) {
+                                                                         totalAscent, totalDescent, units)) {
         return;
       }
 
@@ -386,15 +387,16 @@ char const *kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeIm
       router.altitudeImagesData[sizeValue] = imageData;
 
       auto const localizedUnits = platform::GetLocalizedAltitudeUnits();
-      auto const height = maxRouteAltitude - minRouteAltitude;
-      router.altitudeElevation =
-        @(measurement_utils::FormatAltitudeWithLocalization(height, localizedUnits.m_low).c_str());
+      router.totalAscent = 
+        @(measurement_utils::FormatAltitudeWithLocalization(totalAscent, localizedUnits.m_low).c_str());
+      router.totalDescent = 
+        @(measurement_utils::FormatAltitudeWithLocalization(totalDescent, localizedUnits.m_low).c_str());
     }
 
     dispatch_async(dispatch_get_main_queue(), ^{
       UIImage *altitudeImage = [UIImage imageWithRGBAData:imageData width:width height:height];
       if (altitudeImage)
-        block(altitudeImage, router.altitudeElevation);
+        block(altitudeImage, router.totalAscent, router.totalDescent);
     });
   });
 }
@@ -403,7 +405,8 @@ char const *kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeIm
   auto router = self.router;
   dispatch_async(router.renderAltitudeImagesQueue, ^{
     [router.altitudeImagesData removeAllObjects];
-    router.altitudeElevation = nil;
+    router.totalAscent = nil;
+	router.totalDescent = nil;
   });
 }
 

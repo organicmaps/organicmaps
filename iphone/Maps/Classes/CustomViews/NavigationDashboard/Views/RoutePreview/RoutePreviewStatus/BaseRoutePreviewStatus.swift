@@ -118,15 +118,16 @@ final class BaseRoutePreviewStatus: SolidTouchView {
     if MWMRouter.hasRouteAltitude() {
       heightBox.isHidden = false
       MWMRouter.routeAltitudeImage(for: heightProfileImage.frame.size,
-                                   completion: { image, elevation in
+                                   completion: { image, totalAscent, totalDescent in
                                      self.heightProfileImage.image = image
-                                     guard let elevation = elevation else { return }
+                                     guard let totalAscent = totalAscent else { return }
+									 guard let totalDescent = totalDescent else { return }
                                      let attributes: [NSAttributedString.Key: Any] =
                                        [
                                          .foregroundColor: UIColor.linkBlue(),
                                          .font: UIFont.medium14()
                                        ]
-                                     self.elevation = NSAttributedString(string: "▲▼ \(elevation)", attributes: attributes)
+                                     self.elevation = NSAttributedString(string: "▲ \(totalAscent) ▼ \(totalDescent)", attributes: attributes)
       })
     } else {
       heightBox.isHidden = true
