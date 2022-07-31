@@ -67218,7 +67218,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "pitch-m"
+      name: "america-football-m"
       priority: 16609
       min_distance: 10
     }
@@ -67234,7 +67234,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "pitch-m"
+      name: "america-football-m"
       priority: 16628
       min_distance: 10
     }
@@ -67251,7 +67251,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "pitch-m"
+      name: "america-football-m"
       priority: 16628
       min_distance: 10
     }
@@ -67430,7 +67430,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "pitch-m"
+      name: "baseball-m"
       priority: 16609
       min_distance: 10
     }
@@ -67446,7 +67446,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "pitch-m"
+      name: "baseball-m"
       priority: 16628
       min_distance: 10
     }
@@ -67463,7 +67463,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "pitch-m"
+      name: "baseball-m"
       priority: 16628
       min_distance: 10
     }
@@ -67483,7 +67483,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "pitch-m"
+      name: "basketball-m"
       priority: 16609
       min_distance: 10
     }
@@ -67499,7 +67499,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "pitch-m"
+      name: "basketball-m"
       priority: 16628
       min_distance: 10
     }
@@ -67516,7 +67516,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "pitch-m"
+      name: "basketball-m"
       priority: 16628
       min_distance: 10
     }
