@@ -105,9 +105,15 @@ bool IsStopWord(UniString const & s)
   public:
     StopWordsChecker()
     {
-      /// @todo I understand latin words logic, but where did "де", "ди", "да" ... come from ???
-      /// "и" (й), "я" is more relevant here.
-      for (char const * s : {"a", "de", "di", "da", "la", "le", "де", "ди", "да", "ла", "ля", "ле"})
+      // Don't want to put _full_ stopwords list, not to break current ranking.
+      // Only 2-letters and the most common.
+      char const * arr[] = {
+        "a",              // English
+        "am", "im", "an", // German
+        "de", "di", "da", "la", "le", // French, Spanish, Italian
+        "и", "я"          // Cyrillic
+      };
+      for (char const * s : arr)
         m_set.insert(MakeUniString(s));
     }
     bool Has(UniString const & s) const { return m_set.count(s) > 0; }

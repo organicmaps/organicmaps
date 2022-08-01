@@ -1680,6 +1680,16 @@ void Geocoder::EmitResult(BaseContext & ctx, MwmSet::MwmId const & mwmId, uint32
   // pivot.
   PreRankingInfo info(type, tokenRange);
 
+  info.m_isCommonMatchOnly = true;
+  for (size_t i : tokenRange)
+  {
+    if (!m_params.IsCommonToken(i))
+    {
+      info.m_isCommonMatchOnly = false;
+      break;
+    }
+  }
+
   for (auto const & layer : ctx.m_layers)
     info.m_tokenRanges[layer.m_type] = layer.m_tokenRange;
 

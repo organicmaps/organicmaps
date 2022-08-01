@@ -90,6 +90,9 @@ struct RankingInfo : public StoredRankingInfo
   // Query tokens number.
   uint16_t m_numTokens = 0;
 
+  // > 0 if matched only common tokens. Bigger is worse, depending on Feature's name tokens count.
+  int16_t m_commonTokensFactor = 0;
+
   // Number of misprints.
   ErrorsMade m_errorsMade;
 

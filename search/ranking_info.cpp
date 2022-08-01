@@ -37,6 +37,7 @@ double constexpr kMatchedFraction = 0.1876736;
 double constexpr kAllTokensUsed = 0.0478513;
 double constexpr kExactCountryOrCapital = 0.1247733;
 double constexpr kRefusedByFilter = -1.0000000;
+double constexpr kCommonTokens = -0.05;
 
 double constexpr kNameScore[NameScore::NAME_SCORE_COUNT] = {
  -0.05  /* Zero */,
@@ -201,6 +202,7 @@ string DebugPrint(RankingInfo const & info)
      << ", m_errorsMade: " << DebugPrint(info.m_errorsMade)
      << ", m_isAltOrOldName: " << info.m_isAltOrOldName
      << ", m_numTokens: " << info.m_numTokens
+     << ", m_commonTokensFactor: " << info.m_commonTokensFactor
      << ", m_matchedFraction: " << info.m_matchedFraction
      << ", m_pureCats: " << info.m_pureCats
      << ", m_falseCats: " << info.m_falseCats
@@ -284,6 +286,8 @@ double RankingInfo::GetLinearModelRank() const
     auto const nameRank = kNameScore[nameScore] + kErrorsMade * GetErrorsMadePerToken() +
                           kMatchedFraction * m_matchedFraction;
     result += (m_isAltOrOldName ? 0.7 : 1.0) * nameRank;
+
+    result += kCommonTokens * m_commonTokensFactor;
   }
   else
   {

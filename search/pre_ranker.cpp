@@ -166,13 +166,9 @@ void PreRanker::Filter(bool viewportSearch)
     if (lhs.GetId() != rhs.GetId())
       return lhs.GetId() < rhs.GetId();
 
-    if (lhs.GetInnermostTokensNumber() != rhs.GetInnermostTokensNumber())
-      return lhs.GetInnermostTokensNumber() > rhs.GetInnermostTokensNumber();
-
-    if (lhs.GetMatchedTokensNumber() != rhs.GetMatchedTokensNumber())
-      return lhs.GetMatchedTokensNumber() > rhs.GetMatchedTokensNumber();
-
-    return lhs.GetInfo().InnermostTokenRange().Begin() < rhs.GetInfo().InnermostTokenRange().Begin();
+    // It's enough to compare by tokens match and select a better one,
+    // because same result can be matched by different set of tokens.
+    return PreRankerResult::CompareByTokensMatch(lhs, rhs) == -1;
   };
 
   base::SortUnique(m_results, lessForUnique, base::EqualsBy(&PreRankerResult::GetId));

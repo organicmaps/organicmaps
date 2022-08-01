@@ -26,8 +26,6 @@
 
 #include "base/assert.hpp"
 #include "base/checked_cast.hpp"
-#include "base/macros.hpp"
-#include "base/math.hpp"
 #include "base/scope_guard.hpp"
 #include "base/string_utils.hpp"
 
@@ -3107,6 +3105,51 @@ UNIT_CLASS_TEST(ProcessorTest, SportTest)
     Rules rules{ExactMatch(countryId, soccer)};
     TEST(CategoryMatch("Piłka nożna", rules, "pl"), ());
   }
+}
+
+UNIT_CLASS_TEST(ProcessorTest, PoiStreetCity_FancyMatch)
+{
+  using namespace mercator;
+  TestCity moloCity(FromLatLon(54.3073327, 26.8389111), "Молодечно", "ru", feature::PopulationToRank(100000));
+  TestCity minskCity(FromLatLon(53.9024716, 27.5618225), "Минск", "ru", feature::PopulationToRank(2000000));
+
+  TestStreet moloStreet({FromLatLon(54.3082251, 26.8319660), FromLatLon(54.3071611, 26.8379171)},
+                        "улица Льва Толстого", "ru");
+  TestStreet minskStreet({FromLatLon(53.8861373, 27.5492881), FromLatLon(53.8908963, 27.5422647)},
+                         "улица Толстого", "ru");
+
+  TestPOI moloBusStop(FromLatLon(54.3082210, 26.8349911), "улица Буховщина", "en");
+  moloBusStop.SetTypes({{"highway", "bus_stop"}});
+
+  BuildWorld([&](TestMwmBuilder & builder)
+  {
+    builder.Add(moloCity);
+    builder.Add(minskCity);
+  });
+
+  auto countryId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
+    builder.Add(moloCity);
+    builder.Add(minskCity);
+    builder.Add(moloStreet);
+    builder.Add(minskStreet);
+    builder.Add(moloBusStop);
+  });
+
+  SetViewport(RectByCenterLatLonAndSizeInMeters(53.8861373, 27.5492881, 100));  // Minsk
+
+  base::ScopedLogLevelChanger const enableDebug(LDEBUG);
+
+  auto request = MakeRequest("улица Толстого Молодечно");
+  auto const & results = request->Results();
+
+  TEST_EQUAL(results.size(), 3, ());
+
+  // moloBusStop (on second place) was matched like:
+  // prefix name match = "улица", near street = "Толстого", in city = "Молодечно".
+  TEST(ResultsMatch({results[0]}, {ExactMatch(countryId, moloStreet)}), ());
+  TEST(ResultsMatch({results[1]}, {ExactMatch(countryId, moloBusStop)}), ());
+  TEST(ResultsMatch({results[2]}, {ExactMatch(countryId, minskStreet)}), ());
 }
 
 } // namespace processor_test

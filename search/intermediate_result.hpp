@@ -34,9 +34,14 @@ public:
   PreRankerResult(FeatureID const & id, PreRankingInfo const & info,
                   std::vector<ResultTracer::Branch> const & provenance);
 
+  /// @name Compare functions.
+  /// @return true (-1) if lhs is better (less in sort) than rhs.
+  /// @{
   static bool LessRankAndPopularity(PreRankerResult const & lhs, PreRankerResult const & rhs);
   static bool LessDistance(PreRankerResult const & lhs, PreRankerResult const & rhs);
+  static int CompareByTokensMatch(PreRankerResult const & lhs, PreRankerResult const & rhs);
   static bool LessByExactMatch(PreRankerResult const & lhs, PreRankerResult const & rhs);
+  /// @}
 
   struct CategoriesComparator
   {
@@ -57,7 +62,7 @@ public:
   std::vector<ResultTracer::Branch> const & GetProvenance() const { return m_provenance; }
 #endif
 
-  size_t GetInnermostTokensNumber() const { return m_info.InnermostTokenRange().Size(); }
+//  size_t GetInnermostTokensNumber() const { return m_info.InnermostTokenRange().Size(); }
   size_t GetMatchedTokensNumber() const { return m_matchedTokensNumber; }
   bool IsNotRelaxed() const { return !m_isRelaxed; }
 
@@ -69,6 +74,8 @@ public:
     m_info.m_center = center;
     m_info.m_centerLoaded = true;
   }
+
+  friend std::string DebugPrint(PreRankerResult const & r);
 
 private:
   FeatureID m_id;
