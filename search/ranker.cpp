@@ -381,13 +381,15 @@ public:
 
     RankerResult r(*ft, center, m_ranker.m_params.m_pivot, std::move(name), country);
 
-    search::RankingInfo info;
+    RankingInfo info;
     InitRankingInfo(*ft, center, preRankerResult, info);
     if (info.m_type == Model::TYPE_STREET)
       info.m_classifType.street = m_wayChecker.GetSearchRank(r.GetBestType());
     info.m_rank = NormalizeRank(info.m_rank, info.m_type, center, country,
                                 m_capitalChecker(*ft), !info.m_allTokensUsed);
     r.SetRankingInfo(info);
+    if (m_params.m_useDebugInfo)
+      r.m_dbgInfo = std::make_shared<RankingInfo>(std::move(info));
 
 #ifdef SEARCH_USE_PROVENANCE
     r.m_provenance = preRankerResult.GetProvenance();
@@ -466,8 +468,7 @@ private:
     return ft;
   }
 
-  void InitRankingInfo(FeatureType & ft, m2::PointD const & center, PreRankerResult const & res,
-                       search::RankingInfo & info)
+  void InitRankingInfo(FeatureType & ft, m2::PointD const & center, PreRankerResult const & res, RankingInfo & info)
   {
     auto const & preInfo = res.GetInfo();
     auto const & pivot = m_ranker.m_params.m_accuratePivotCenter;
@@ -711,7 +712,7 @@ Result Ranker::MakeResult(RankerResult rankerResult, bool needAddress, bool need
   if (needHighlighting)
     HighlightResult(m_params.m_tokens, m_params.m_prefix, res);
 
-  res.SetRankingInfo(rankerResult.m_info);
+  res.SetRankingInfo(rankerResult.m_dbgInfo);
 
 #ifdef SEARCH_USE_PROVENANCE
   res.SetProvenance(move(rankerResult.m_provenance));
@@ -749,9 +750,7 @@ void Ranker::UpdateResults(bool lastUpdate)
   }
   else
   {
-    // *NOTE* GetLinearModelRank is calculated on the fly
-    // but the model is lightweight enough and the slowdown
-    // is negligible.
+    /// @note Here is _reverse_ order sorting, because bigger is better.
     sort(m_tentativeResults.rbegin(), m_tentativeResults.rend(),
          base::LessBy(&RankerResult::GetLinearModelRank));
 

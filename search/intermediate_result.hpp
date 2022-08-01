@@ -3,6 +3,7 @@
 #include "search/pre_ranking_info.hpp"
 #include "search/ranking_info.hpp"
 #include "search/result.hpp"
+#include "search/tracer.hpp"
 
 #include "storage/storage_defines.hpp"
 
@@ -108,10 +109,10 @@ public:
 
   bool IsStreet() const;
 
-  RankingInfo const & GetRankingInfo() const { return m_info; }
-  void SetRankingInfo(RankingInfo & info)
+  StoredRankingInfo const & GetRankingInfo() const { return m_info; }
+  void SetRankingInfo(RankingInfo const & info)
   {
-    // No sense to make move for RankingInfo.
+    m_finalRank = info.GetLinearModelRank();
     m_info = info;
   }
 
@@ -124,7 +125,7 @@ public:
   Result::Details GetDetails() const { return m_details; }
 
   double GetDistanceToPivot() const { return m_info.m_distanceToPivot; }
-  double GetLinearModelRank() const { return m_info.GetLinearModelRank(); }
+  double GetLinearModelRank() const { return m_finalRank; }
 
   bool GetCountryId(storage::CountryInfoGetter const & infoGetter, uint32_t ftype,
                     storage::CountryId & countryId) const;
@@ -162,10 +163,14 @@ private:
   RegionInfo m_region;
   feature::TypesHolder m_types;
   std::string m_str;
-  RankingInfo m_info = {};
   Result::Details m_details;
 
+  StoredRankingInfo m_info;
+  std::shared_ptr<RankingInfo> m_dbgInfo;   // used in debug logs and tests, nullptr in production
+
   FeatureID m_id;
+  double m_finalRank;
+
   Type m_resultType;
   feature::GeomType m_geomType = feature::GeomType::Undefined;
 

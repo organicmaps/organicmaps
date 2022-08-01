@@ -92,6 +92,8 @@ public:
     double m_streetSearchRadiusM = 0.0;
     double m_villageSearchRadiusM = 0.0;
     int m_scale = scales::GetUpperScale();
+
+    bool m_useDebugInfo = false;  // Set to true for debug logs and tests.
   };
 
   struct LocalitiesCaches

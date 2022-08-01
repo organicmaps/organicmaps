@@ -124,8 +124,9 @@ class IsServiceTypeChecker
 private:
   IsServiceTypeChecker()
   {
-    for (string_view const t : {"barrier", "power", "traffic_calming"})
-      m_oneLevelTypes.push_back(classif().GetTypeByPath({t}));
+    Classificator const & c = classif();
+    for (char const * e : {"barrier", "power", "traffic_calming"})
+      m_oneLevelTypes.push_back(c.GetTypeByPath({e}));
   }
 
 public:
@@ -137,9 +138,10 @@ public:
 
   bool operator()(feature::TypesHolder const & th) const
   {
-    return base::AnyOf(th, [&](auto t) {
+    return base::AnyOf(th, [&](auto t)
+    {
       ftype::TruncValue(t, 1);
-      return find(m_oneLevelTypes.begin(), m_oneLevelTypes.end(), t) != m_oneLevelTypes.end();
+      return base::IsExist(m_oneLevelTypes, t);
     });
   }
 
@@ -168,20 +170,11 @@ void RankingInfo::PrintCSVHeader(ostream & os)
      << ",HasName";
 }
 
-string DebugPrint(RankingInfo const & info)
+std::string DebugPrint(StoredRankingInfo const & info)
 {
   ostringstream os;
-  os << boolalpha << "RankingInfo { ";
-  PrintParse(os, info.m_tokenRanges, info.m_numTokens);
-
-  os << ", m_distanceToPivot: " << info.m_distanceToPivot
-     << ", m_rank: " << static_cast<int>(info.m_rank)
-     << ", m_popularity: " << static_cast<int>(info.m_popularity)
-     << ", m_nameScore: " << DebugPrint(info.m_nameScore)
-     << ", m_errorsMade: " << DebugPrint(info.m_errorsMade)
-     << ", m_isAltOrOldName: " << info.m_isAltOrOldName
-     << ", m_numTokens: " << info.m_numTokens
-     << ", m_matchedFraction: " << info.m_matchedFraction
+  os << "StoredRankingInfo "
+     << "{ m_distanceToPivot: " << info.m_distanceToPivot
      << ", m_type: " << DebugPrint(info.m_type)
      << ", m_resultType: ";
 
@@ -190,7 +183,26 @@ string DebugPrint(RankingInfo const & info)
   else if (info.m_type == Model::TYPE_STREET)
     os << DebugPrint(info.m_classifType.street);
 
-  os << ", m_pureCats: " << info.m_pureCats
+  os << " }";
+  return os.str();
+}
+
+string DebugPrint(RankingInfo const & info)
+{
+  ostringstream os;
+  os << boolalpha << "RankingInfo { "
+     << DebugPrint(static_cast<StoredRankingInfo const &>(info)) << ", ";
+
+  PrintParse(os, info.m_tokenRanges, info.m_numTokens);
+
+  os << ", m_rank: " << static_cast<int>(info.m_rank)
+     << ", m_popularity: " << static_cast<int>(info.m_popularity)
+     << ", m_nameScore: " << DebugPrint(info.m_nameScore)
+     << ", m_errorsMade: " << DebugPrint(info.m_errorsMade)
+     << ", m_isAltOrOldName: " << info.m_isAltOrOldName
+     << ", m_numTokens: " << info.m_numTokens
+     << ", m_matchedFraction: " << info.m_matchedFraction
+     << ", m_pureCats: " << info.m_pureCats
      << ", m_falseCats: " << info.m_falseCats
      << ", m_allTokensUsed: " << info.m_allTokensUsed
      << ", m_exactCountryOrCapital: " << info.m_exactCountryOrCapital
