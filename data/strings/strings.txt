@@ -237,7 +237,7 @@
     comment = Settings/Downloader - info for country which started downloading
     tags = android,ios
     en = Downloading…
-    ar = جاري التنزيل...
+    ar = جاري التنزيل…
     be = Спампоўваецца…
     bg = Теглене…
     cs = Stahování…
@@ -3027,7 +3027,7 @@
   [share_bookmarks_email_body]
     tags = android,ios
     en = Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!
-    ar = مرحباً! ْ\n\n تم إرفاق إشاراتي المرجعية من تطبيق Organic Maps. الرجاء فتحهم إذا لديك تطبيق Organic Maps مثبتاً. أو، إذا لم يكن مثبتاً، قم بتنزيل التطبيق لنظام iOS أو أندرويد من خلال الضغط على هذا الرابط: https://omaps.app/get?kmz \n\nاستمتع بالسفر مع Organic Maps! 
+    ar = مرحباً! ْ\n\n تم إرفاق إشاراتي المرجعية من تطبيق Organic Maps. الرجاء فتحهم إذا لديك تطبيق Organic Maps مثبتاً. أو، إذا لم يكن مثبتاً، قم بتنزيل التطبيق لنظام iOS أو أندرويد من خلال الضغط على هذا الرابط: https://omaps.app/get?kmz \n\nاستمتع بالسفر مع Organic Maps!
     be = Вітаю!\n\nУ далучаным файле мае закладкі з дататка Organic Maps. Калі ласка, адчыніце іх калі ў вас усталяваны Organic Maps. Калі не, спампуйце дадатак для вашай прылады iOS альбо Andriod па спасылцы: https://omaps.app/get?kmz\n\nПрыемных падарожжаў з Organic Maps!
     de = Hallo!\n\nIm Anhang sind meine Lesezeichen der Organic Maps App. Sie können sie mit Organic Maps öffnen. Wenn Sie die App nicht installiert haben, können Sie sie von https://omaps.app/get?kmz für iOS oder Android herunterladen.\n\nViel Spaß beim Reisen mit Organic Maps!
     es = Hola!\n\Adjunto mis marcadores de la aplicación Organic Maps. Por favor, ábrelos si tienes instalado Organic Maps. O, si no lo tienes, descarga la aplicación para tu dispositivo iOS o Android siguiendo este link: https://omaps.app/get?kmz\n¡Disfruta viajando con Organic Maps!
@@ -3706,7 +3706,7 @@
     comment = Data version in «About» screen, %@ is replaced by a local, human readable date.
     tags = android,ios
     en = OpenStreetMap data: %@
-    ar = بيانات خريطة الشارع المفتوحة: %@ 
+    ar = بيانات خريطة الشارع المفتوحة: %@
     be = Дадзеныя OpenStreetMap: %@
     bg = Данни на OpenStreetMap: %@
     cs = Data OpenStreetMap: %@
@@ -7096,7 +7096,7 @@
   [dialog_routing_disclaimer_title]
     tags = android,ios
     en = When following the route, please keep in mind:
-    ar =  عند اتباع المسار، يُرجى الانتباه إلى ما يلي:
+    ar = عند اتباع المسار، يُرجى الانتباه إلى ما يلي:
     be = Рухаючыся па маршруце, майце на ўвазе:
     bg = Когато следвате маршрута, моля, имайте предвид:
     cs = Při navigaci podle trasy mějte na paměti následující:
@@ -11164,7 +11164,7 @@
   [phone]
     tags = ios
     en = Phone
-    ar =  رقم الهاتف
+    ar = رقم الهاتف
     be = Тэлефон
     bg = Телефон
     cs = Telefon
