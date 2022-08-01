@@ -371,8 +371,8 @@ char const *kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeIm
     NSData *imageData = router.altitudeImagesData[sizeValue];
     if (!imageData) {
       std::vector<uint8_t> imageRGBAData;
-      int32_t totalAscent = 0;
-      int32_t totalDescent = 0;
+      uint32_t totalAscent = 0;
+      uint32_t totalDescent = 0;
       measurement_utils::Units units = measurement_utils::Units::Metric;
 
       if (!GetFramework().GetRoutingManager().GenerateRouteAltitudeChart(width, height, *altitudes,
@@ -406,7 +406,7 @@ char const *kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeIm
   dispatch_async(router.renderAltitudeImagesQueue, ^{
     [router.altitudeImagesData removeAllObjects];
     router.totalAscent = nil;
-	router.totalDescent = nil;
+    router.totalDescent = nil;
   });
 }
 

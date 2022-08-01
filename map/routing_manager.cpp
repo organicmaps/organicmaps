@@ -1158,8 +1158,8 @@ bool RoutingManager::GenerateRouteAltitudeChart(uint32_t width, uint32_t height,
                                                 geometry::Altitudes const & altitudes,
                                                 vector<double> const & routePointDistanceM,
                                                 vector<uint8_t> & imageRGBAData,
-                                                int32_t & totalAscent,
-                                                int32_t & totalDescent,
+                                                uint32_t & totalAscent,
+                                                uint32_t & totalDescent,
                                                 measurement_utils::Units & altitudeUnits) const
 {
   CHECK_EQUAL(altitudes.size(), routePointDistanceM.size(), ());
@@ -1170,8 +1170,8 @@ bool RoutingManager::GenerateRouteAltitudeChart(uint32_t width, uint32_t height,
                            GetStyleReader().GetCurrentStyle(), imageRGBAData))
     return false;
 
-  int32_t totalAscentM = 0;
-  int32_t totalDescentM = 0;
+  uint32_t totalAscentM = 0;
+  uint32_t totalDescentM = 0;
   int16_t delta;
 
   for (size_t i = 1; i < altitudes.size(); i++) {

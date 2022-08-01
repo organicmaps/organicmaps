@@ -115,7 +115,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
     mError = error;
     mStart = start;
     mAltitudeChart = altitudeChart;
-	mAltitudeDifference = altitudeDifference;
+    mAltitudeDifference = altitudeDifference;
     mNumbersFrame = numbersFrame;
     mActionFrame = actionFrame;
     mActionMessage = actionFrame.findViewById(R.id.tv__message);
@@ -264,11 +264,9 @@ final class RoutingBottomMenuController implements View.OnClickListener
     {
       mAltitudeChart.setImageBitmap(bm);
       UiUtils.show(mAltitudeChart);
-      String meter = mAltitudeDifference.getResources().getString(R.string.meter);
-      String foot = mAltitudeDifference.getResources().getString(R.string.foot);
-	  String unit = limits.isMetricUnits ? meter : foot;
+      String unit = limits.isMetricUnits ? mAltitudeDifference.getResources().getString(R.string.meter) : mAltitudeDifference.getResources().getString(R.string.foot);
       mAltitudeDifference.setText(String.format(Locale.getDefault(), "▲ %d %s ▼ %d %s",
-	                                            limits.totalAscent, unit,
+                                                limits.totalAscent, unit,
                                                 limits.totalDescent, unit));
       UiUtils.show(mAltitudeDifference);
     }

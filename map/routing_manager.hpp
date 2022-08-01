@@ -277,8 +277,8 @@ public:
   /// \param altitudes route points altitude.
   /// \param routePointDistanceM distance in meters from route beginning to route points.
   /// \param imageRGBAData is bits of result image in RGBA.
-  /// \param minRouteAltitude is min altitude along the route in altitudeUnits.
-  /// \param maxRouteAltitude is max altitude along the route in altitudeUnits.
+  /// \param totalAscent is total ascent of the route in altitudeUnits.
+  /// \param totalDescent is total descent of the in altitudeUnits.
   /// \param altitudeUnits is units (meters or feet) which is used to pass min and max altitudes.
   /// \returns If there is valid route info and the chart was generated returns true
   /// and false otherwise. If the method returns true it is guaranteed that the size of
@@ -288,8 +288,9 @@ public:
   bool GenerateRouteAltitudeChart(uint32_t width, uint32_t height,
                                   geometry::Altitudes const & altitudes,
                                   std::vector<double> const & routePointDistanceM,
-                                  std::vector<uint8_t> & imageRGBAData, int32_t & minRouteAltitude,
-                                  int32_t & maxRouteAltitude,
+                                  std::vector<uint8_t> & imageRGBAData, 
+                                  uint32_t & totalAscent,
+                                  uint32_t & totalDescent,
                                   measurement_utils::Units & altitudeUnits) const;
 
   uint32_t OpenRoutePointsTransaction();

@@ -1230,8 +1230,8 @@ Java_com_mapswithme_maps_Framework_nativeGenerateRouteAltitudeChartBits(JNIEnv *
   }
 
   vector<uint8_t> imageRGBAData;
-  int32_t totalAscent = 0;
-  int32_t totalDescent = 0;
+  uint32_t totalAscent = 0;
+  uint32_t totalDescent = 0;
   measurement_utils::Units units = measurement_utils::Units::Metric;
   if (!fr->GetRoutingManager().GenerateRouteAltitudeChart(
         width, height, altitudes, routePointDistanceM, imageRGBAData,
