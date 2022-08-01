@@ -794,12 +794,7 @@ void Processor::InitParams(QueryParams & params) const
   }
 
   // Remove all type indices for streets, as they're considired individually.
-  for (size_t i = 0; i < params.GetNumTokens(); ++i)
-  {
-    auto & token = params.GetToken(i);
-    if (IsStreetSynonym(token.GetOriginal()))
-      params.GetTypeIndices(i).clear();
-  }
+  params.ClearStreetIndices();
 
   for (size_t i = 0; i < params.GetNumTokens(); ++i)
     base::SortUnique(params.GetTypeIndices(i));

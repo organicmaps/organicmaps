@@ -369,33 +369,52 @@ public:
   {
   }
 
-  optional<RankerResult> operator()(PreRankerResult const & preRankerResult)
+  optional<RankerResult> operator()(PreRankerResult const & preResult)
   {
     m2::PointD center;
     string name;
     string country;
 
-    auto ft = LoadFeature(preRankerResult.GetId(), center, name, country);
+    auto ft = LoadFeature(preResult.GetId(), center, name, country);
     if (!ft)
       return {};
 
-    RankerResult r(*ft, center, m_ranker.m_params.m_pivot, std::move(name), country);
+    RankerResult res(*ft, center, m_ranker.m_params.m_pivot, std::move(name), country);
 
     RankingInfo info;
-    InitRankingInfo(*ft, center, preRankerResult, info);
+    InitRankingInfo(*ft, center, preResult, info);
+
     if (info.m_type == Model::TYPE_STREET)
-      info.m_classifType.street = m_wayChecker.GetSearchRank(r.GetBestType());
+      info.m_classifType.street = m_wayChecker.GetSearchRank(res.GetBestType());
+
     info.m_rank = NormalizeRank(info.m_rank, info.m_type, center, country,
                                 m_capitalChecker(*ft), !info.m_allTokensUsed);
-    r.SetRankingInfo(info);
+
+    if (preResult.GetInfo().m_isCommonMatchOnly)
+    {
+      // Count tokens in Feature's name.
+      auto normalized = NormalizeAndSimplifyString(res.GetName());
+      PreprocessBeforeTokenization(normalized);
+      int count = 0;
+      SplitUniString(normalized, [&count](strings::UniString const &)
+      {
+        ++count;
+      }, Delimiters());
+
+      // Factor is a number of the rest, not common matched tokens in Feature' name. Bigger is worse.
+      info.m_commonTokensFactor = min(3, count - int(info.m_tokenRanges[info.m_type].Size()));
+      ASSERT_GREATER_OR_EQUAL(info.m_commonTokensFactor, 0, ());
+    }
+
+    res.SetRankingInfo(info);
     if (m_params.m_useDebugInfo)
-      r.m_dbgInfo = std::make_shared<RankingInfo>(std::move(info));
+      res.m_dbgInfo = std::make_shared<RankingInfo>(std::move(info));
 
 #ifdef SEARCH_USE_PROVENANCE
-    r.m_provenance = preRankerResult.GetProvenance();
+    res.m_provenance = preResult.GetProvenance();
 #endif
 
-    return r;
+    return res;
   }
 
 private:

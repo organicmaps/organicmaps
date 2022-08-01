@@ -106,6 +106,8 @@ public:
          isLastPrefix ? tokens.back() : String{});
   }
 
+  void ClearStreetIndices();
+
   size_t GetNumTokens() const { return m_hasPrefix ? m_tokens.size() + 1 : m_tokens.size(); }
 
   bool LastTokenIsPrefix() const { return m_hasPrefix; }
@@ -120,6 +122,8 @@ public:
   bool IsPrefixToken(size_t i) const;
   Token const & GetToken(size_t i) const;
   Token & GetToken(size_t i);
+
+  bool IsCommonToken(size_t i) const;
 
   // Returns true if all tokens in |range| have integral synonyms.
   bool IsNumberTokens(TokenRange const & range) const;
@@ -145,6 +149,8 @@ private:
   Token m_prefixToken;
   bool m_hasPrefix = false;
   bool m_isCategorialRequest = false;
+
+  std::vector<bool> m_isCommonToken;
 
   std::vector<TypeIndices> m_typeIndices;
 

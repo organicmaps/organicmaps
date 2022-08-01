@@ -33,7 +33,7 @@ class SkipRegionInfo
 public:
   SkipRegionInfo()
   {
-    char const * arr[][2] = {
+    base::StringIL arr[] = {
       {"place", "continent"},
       {"place", "country"}
     };
@@ -41,7 +41,7 @@ public:
 
     Classificator const & c = classif();
     for (size_t i = 0; i < kCount; ++i)
-      m_types[i] = c.GetTypeByPath(vector<string>(arr[i], arr[i] + 2));
+      m_types[i] = c.GetTypeByPath(arr[i]);
   }
 
   bool IsSkip(uint32_t type) const
@@ -91,18 +91,37 @@ bool PreRankerResult::LessDistance(PreRankerResult const & lhs, PreRankerResult 
 }
 
 // static
+int PreRankerResult::CompareByTokensMatch(PreRankerResult const & lhs, PreRankerResult const & rhs)
+{
+  if (lhs.m_info.m_isCommonMatchOnly != rhs.m_info.m_isCommonMatchOnly)
+    return rhs.m_info.m_isCommonMatchOnly ? -1 : 1;
+
+  auto const & lRange = lhs.m_info.InnermostTokenRange();
+  auto const & rRange = rhs.m_info.InnermostTokenRange();
+
+  if (lRange.Size() != rRange.Size())
+    return lRange.Size() > rRange.Size() ? -1 : 1;
+
+  if (lhs.m_matchedTokensNumber != rhs.m_matchedTokensNumber)
+     return lhs.m_matchedTokensNumber > rhs.m_matchedTokensNumber ? -1 : 1;
+
+  if (lRange.Begin() != rRange.Begin())
+    return lRange.Begin() < rRange.Begin() ? -1 : 1;
+
+  return 0;
+}
+
+// static
 bool PreRankerResult::LessByExactMatch(PreRankerResult const & lhs, PreRankerResult const & rhs)
 {
-  auto const lhsScore = lhs.m_info.m_exactMatch && lhs.m_info.m_allTokensUsed;
-  auto const rhsScore = rhs.m_info.m_exactMatch && rhs.m_info.m_allTokensUsed;
-  if (lhsScore != rhsScore)
-    return lhsScore;
+  bool const lScore = lhs.m_info.m_exactMatch && lhs.m_info.m_allTokensUsed;
+  bool const rScore = rhs.m_info.m_exactMatch && rhs.m_info.m_allTokensUsed;
+  if (lScore != rScore)
+    return lScore;
 
-  if (lhs.GetInnermostTokensNumber() != rhs.GetInnermostTokensNumber())
-    return lhs.GetInnermostTokensNumber() > rhs.GetInnermostTokensNumber();
-
-  if (lhs.GetMatchedTokensNumber() != rhs.GetMatchedTokensNumber())
-    return lhs.GetMatchedTokensNumber() > rhs.GetMatchedTokensNumber();
+  auto const byTokens = CompareByTokensMatch(lhs, rhs);
+  if (byTokens != 0)
+    return byTokens == -1;
 
   return LessDistance(lhs, rhs);
 }
@@ -123,6 +142,16 @@ bool PreRankerResult::CategoriesComparator::operator()(PreRankerResult const & l
       return false;
   }
   return lhs.GetPopularity() > rhs.GetPopularity();
+}
+
+std::string DebugPrint(PreRankerResult const & r)
+{
+  ostringstream os;
+  os << "PreRankerResult "
+     << "{ FID: " << r.GetId().m_index    // index is enough here for debug purpose
+     << "; " << DebugPrint(r.m_info)
+     << " }";
+  return os.str();
 }
 
 // RankerResult ------------------------------------------------------------------------------------
@@ -270,7 +299,8 @@ string DebugPrint(RankerResult const & r)
 {
   stringstream ss;
   ss << "RankerResult "
-     << "{ Name: " << r.GetName()
+     << "{ FID: " << r.GetID().m_index    // index is enough here for debug purpose
+     << "; Name: " << r.GetName()
      << "; Type: " << classif().GetReadableObjectName(r.GetBestType())
      << "; Linear model rank: " << r.GetLinearModelRank();
 
