@@ -278,7 +278,7 @@ public:
   /// \param routePointDistanceM distance in meters from route beginning to route points.
   /// \param imageRGBAData is bits of result image in RGBA.
   /// \param totalAscent is total ascent of the route in altitudeUnits.
-  /// \param totalDescent is total descent of the in altitudeUnits.
+  /// \param totalDescent is total descent of the route in altitudeUnits.
   /// \param altitudeUnits is units (meters or feet) which is used to pass min and max altitudes.
   /// \returns If there is valid route info and the chart was generated returns true
   /// and false otherwise. If the method returns true it is guaranteed that the size of
