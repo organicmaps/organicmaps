@@ -39,6 +39,12 @@ final class BaseRoutePreviewStatus: SolidTouchView {
 
   weak var navigationInfo: MWMNavigationDashboardEntity?
 
+  static let elevationAttributes: [NSAttributedString.Key: Any] =
+                                        [
+                                          .foregroundColor: UIColor.linkBlue(),
+                                          .font: UIFont.medium14()
+                                        ]
+
   var elevation: NSAttributedString? {
     didSet {
       updateResultsLabel()
@@ -120,13 +126,8 @@ final class BaseRoutePreviewStatus: SolidTouchView {
       MWMRouter.routeAltitudeImage(for: heightProfileImage.frame.size,
                                     completion: { image, totalAscent, totalDescent in
                                     self.heightProfileImage.image = image
-                                    if let totalAscent = totalAscent, let totalDescent = totalDescent {
-                                      let attributes: [NSAttributedString.Key: Any] =
-                                        [
-                                          .foregroundColor: UIColor.linkBlue(),
-                                          .font: UIFont.medium14()
-                                        ]
-                                      self.elevation = NSAttributedString(string: "▲ \(totalAscent) ▼ \(totalDescent)", attributes: attributes)
+                                    if let totalAscent = totalAscent, let totalDescent = totalDescent {                                      
+                                      self.elevation = NSAttributedString(string: "▲ \(totalAscent) ▼ \(totalDescent)", attributes: BaseRoutePreviewStatus.elevationAttributes)
                                     }
       })
     } else {
