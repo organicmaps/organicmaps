@@ -1156,6 +1156,26 @@ UNIT_TEST(Cyprus_A1AlphaMega_TurnTest)
   // No extra GoStraight caused by possible turn to parking.
 }
 
+UNIT_TEST(Crimea_Roundabout_test)
+{
+  TRouteResult const routeResult =
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
+                                  mercator::FromLatLon(45.20895, 33.32677), {0., 0.},
+                                  mercator::FromLatLon(45.20899, 33.32840));
+
+  Route const & route = *routeResult.first;
+  RouterResultCode const result = routeResult.second;
+
+  // Issue #2536.
+  TEST_EQUAL(result, RouterResultCode::NoError, ());
+  integration::TestTurnCount(route, 2 /* expectedTurnCount */);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::EnterRoundAbout);
+  integration::GetNthTurn(route, 0).TestValid().TestRoundAboutExitNum(3);
+  integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::LeaveRoundAbout);
+  integration::GetNthTurn(route, 1).TestValid().TestRoundAboutExitNum(3);
+}
+
+
 UNIT_TEST(Russia_Moscow_OnlyUTurnTest1_TurnTest)
 {
   TRouteResult const routeResult =
