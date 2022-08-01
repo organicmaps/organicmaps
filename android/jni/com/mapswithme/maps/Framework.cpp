@@ -1247,11 +1247,11 @@ Java_com_mapswithme_maps_Framework_nativeGenerateRouteAltitudeChartBits(JNIEnv *
 
   static jfieldID const totalAscentField = env->GetFieldID(routeAltitudeLimitsClass, "totalAscent", "I");
   ASSERT(totalAscentField, ());
-  env->SetIntField(routeAltitudeLimits, totalAscentField, totalAscent);
+  env->SetIntField(routeAltitudeLimits, totalAscentField, static_cast<jint>(totalAscent));
 
   static jfieldID const totalDescentField = env->GetFieldID(routeAltitudeLimitsClass, "totalDescent", "I");
   ASSERT(totalDescentField, ());
-  env->SetIntField(routeAltitudeLimits, totalDescentField, totalDescent);
+  env->SetIntField(routeAltitudeLimits, totalDescentField, static_cast<jint>(totalDescent));
 
   static jfieldID const isMetricUnitsField = env->GetFieldID(routeAltitudeLimitsClass, "isMetricUnits", "Z");
   ASSERT(isMetricUnitsField, ());
