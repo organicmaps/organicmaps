@@ -21,19 +21,19 @@
 "downloading" = "جاري التنزيل…";
 
 /* Choose measurement on first launch alert - choose metric system button */
-"kilometres" = "كيلومتر";
+"kilometres" = "الكيلومترات";
 
 /* Leave Review dialog - Review button */
-"leave_a_review" = "اترك تعليق";
+"leave_a_review" = "اترك تعليقاً";
 
 /* Choose measurement on first launch alert - choose imperial system button */
-"miles" = "ميل";
+"miles" = "الأميال";
 
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "موقعي";
 
 /* Update maps later/Buy pro version later button text */
-"later" = "لاحقا";
+"later" = "ًلاحقا";
 
 /* View and button titles for accessibility */
 "search" = "البحث";
@@ -45,14 +45,14 @@
 "zoom_to_country" = "عرض على الخريطة";
 
 /* Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown */
-"country_status_download_without_size" = "تحميل الخريطة";
+"country_status_download_without_size" = "تنزيل الخريطة";
 
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "فشلت عملية تنزيل";
 
 "about_menu_title" = "حول Organic Maps";
 
-"close" = "اغلاق";
+"close" = "إغلاق";
 
 "download" = "تنزيل";
 
@@ -60,16 +60,16 @@
 "continue_download" = "استمرار";
 
 /* "Add new bookmark list" dialog title */
-"add_new_set" = "إضافة مجموعة جديدة";
+"add_new_set" = "إضافة قائمة جديدة";
 
 /* Bookmark Color dialog title */
 "bookmark_color" = "لون الإشارة المرجعية";
 
 /* Add Bookmark list dialog - hint when the list name is empty */
-"bookmark_set_name" = "اسم مجموعة الإشارات المرجعية";
+"bookmark_set_name" = "اسم قائمة الإشارات المرجعية";
 
 /* "Bookmark Lists" dialog title */
-"bookmark_sets" = "مجموعات الإشارات المرجعية";
+"bookmark_sets" = "قائمة الإشارات المرجعية";
 
 /* "Bookmarks" dialog title */
 "bookmarks" = "الإشارات المرجعية";
@@ -84,28 +84,28 @@
 "settings" = "الإعدادات";
 
 /* Measurement units title in settings activity */
-"measurement_units" = "وحدات القياس.";
+"measurement_units" = "وحدات القياس";
 
 
 /********** Search categories **********/
 
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! */
-"eat" = "مكان لتناول الطعام";
+"eat" = "أمكان لتناول الطعام";
 
 /* Search category for grocery stores; any changes should be duplicated in categories.txt @food! */
-"food" = "المشتريات";
+"food" = "بقالية";
 
 /* Search category for public transport; any changes should be duplicated in categories.txt @transport! */
-"transport" = "نقل";
+"transport" = "مواصلات";
 
 /* Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! */
-"fuel" = "غاز";
+"fuel" = "وقود الحافلات";
 
 /* Search category for parking lots; any changes should be duplicated in categories.txt @parking! */
-"parking" = "الاصطفاف";
+"parking" = "مرافق ركن السيارات";
 
 /* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
-"shopping" = "التسوق";
+"shopping" = "تسوق";
 
 /* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
 "hotel" = "فندق";
@@ -114,10 +114,10 @@
 "tourism" = "سياحة";
 
 /* Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! */
-"entertainment" = "التسلية";
+"entertainment" = "تسلية";
 
 /* Search category for ATMs; any changes should be duplicated in categories.txt @atm! */
-"atm" = "ماكينة الصراف الآلي";
+"atm" = "صراف آلي";
 
 /* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! */
 "nightlife" = "أنشطة ترفيه ليلية";
@@ -135,7 +135,7 @@
 "hospital" = "مستشفى";
 
 /* Search category for toilets; any changes should be duplicated in categories.txt @toilet! */
-"toilet" = "حمام";
+"toilet" = "مرحاض";
 
 /* Search category for post offices; any changes should be duplicated in categories.txt @post! */
 "post" = "بريد";
@@ -144,7 +144,7 @@
 "police" = "شرطة";
 
 /* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
-"wifi" = "واي-فاي";
+"wifi" = "إنترنت لا سلكي";
 
 /* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
 "recycling" = "إعادة تدوير";
@@ -153,30 +153,30 @@
 "water" = "ماء";
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
-"rv" = "RV Facilities";
+"rv" = "منشآت للمنازل المتنقلة";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
+"share_bookmarks_email_body" = "مرحباً! ْ\n\n تم إرفاق إشاراتي المرجعية من تطبيق Organic Maps. الرجاء فتحهم إذا لديك تطبيق Organic Maps مثبتاً. أو، إذا لم يكن مثبتاً، قم بتنزيل التطبيق لنظام iOS أو أندرويد من خلال الضغط على هذا الرابط: https://omaps.app/get?kmz \n\nاستمتع بالسفر مع Organic Maps!";
 
 /* message title of loading file */
-"load_kmz_title" = "تحميل الإشارات المرجعية";
+"load_kmz_title" = "يتم تحميل الإشارات المرجعية";
 
 /* Kmz file successful loading */
 "load_kmz_successful" = "تم تحميل الإشارات المرجعية بنجاح! يمكنك العثور عليها على الخريطة أو على شاشة إدارة الإشارات المرجعية.";
 
 /* Kml file loading failed */
-"load_kmz_failed" = "فشلت عملية تحميل الإشارات المرجعية. قد يكون الملف تالف.";
+"load_kmz_failed" = "فشلت عملية تحميل الإشارات المرجعية. قد يكون الملف تالف أو غير صالح.";
 
 /* resource for context menu */
 "edit" = "تعديل";
 
 /* Warning message when doing search around current position */
-"unknown_current_position" = "لم يتم التعرف على موقعك بعد.";
+"unknown_current_position" = "لم يتم تحديد موقعك بعد.";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "هاي، تفقد الدبوس الخاص بي على خريطة Organic Maps!";
+"bookmark_share_email_subject" = "مرحباً، تفقد الدبوس الخاص بي على خريطة Organic Maps!";
 
 /* Subject for emailed position */
-"my_position_share_email_subject" = "يا هلا، تحقق من موقعي الحالي على خريطة Organic Maps!";
+"my_position_share_email_subject" = "مرحباً، تحقق من موقعي الحالي على خريطة Organic Maps!";
 
 /* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
 "share" = "مشاركة";
@@ -194,7 +194,7 @@
 "version" = "الاصدار: %@";
 
 /* Data version in «About» screen, %@ is replaced by a local, human readable date. */
-"data_version" = "OpenStreetMap بيانات %@";
+"data_version" = "بيانات خريطة الشارع المفتوحة: %@";
 
 /* Title for tracks category in bookmarks manager */
 "tracks_title" = "المسارات";
@@ -206,13 +206,13 @@
 
 "prefs_group_route" = "الملاحة";
 
-"pref_zoom_title" = "أزرار التكبير";
+"pref_zoom_title" = "أزرار التكبير والتصغير";
 
 /* Settings «Map» category: «Night style» title */
 "pref_map_style_title" = "الوضع الليلي";
 
 /* «Map style» entry value */
-"pref_map_style_default" = "إغلاق";
+"pref_map_style_default" = "تعطيل";
 
 /* «Map style» entry value */
 "pref_map_style_night" = "تشغيل";
@@ -252,7 +252,7 @@
 
 "duration_1_day" = "1 يوم";
 
-"recent_track_help_text" = "يتيح لك تسجيل مسار السفر لفترة معينة وعرضه على الخريطة. الرجاء ملاحظة: يؤدي تنشيط هذه الوظيفة إلى زيادة استهلاك البطارية. سوف تتم إزالة المسار تلقائيًا من الخريطة بعد انتهاء الفاصل الزمني.";
+"recent_track_help_text" = "يتيح لك هذا الخيار تسجيل مسار السفر لفترة معينة وعرضه على الخريطة. الرجاء ملاحظة: يؤدي تنشيط هذه الوظيفة إلى زيادة استهلاك البطارية. سوف تتم إزالة المسار تلقائيًا من الخريطة بعد انتهاء الفاصل الزمني.";
 
 "placepage_distance" = "المسافة";
 
@@ -262,7 +262,7 @@
 "website" = "الموقع الإلكتروني";
 
 /* Text in About menu, opens Organic Maps news website */
-"news" = "ﺭﺎﺒﺧﺃ";
+"news" = "أخبار";
 
 /* Text in menu */
 "github" = "GitHub";
@@ -283,34 +283,34 @@
 "instagram" = "Instagram";
 
 /* Text in menu */
-"openstreetmap" = "OpenStreetMap";
+"openstreetmap" = "خريطة الشارع المفتوحة";
 
 /* Settings: Send feedback button and dialog title */
-"feedback" = "تعقيب";
+"feedback" = "إرسال التعليقات";
 
 /* Text in menu */
-"rate_the_app" = "تقييم التطبيق";
+"rate_the_app" = "قيّم التطبيق";
 
 /* Text in menu */
 "help" = "مساعدة";
 
 /* Button in the main Help dialog */
-"faq" = "اسئلة واجوبة";
+"faq" = "اسئلة مكررة";
 
 /* Button in the main Help dialog */
-"how_to_support_us" = "كيف تدعم لنا؟";
+"how_to_support_us" = "كيف يمكنك دعمنا؟";
 
 /* Button in the main Help dialog */
-"copyright" = "حقوق الطبع والنشر";
+"copyright" = "حقوق النشر";
 
 /* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "الإبلاغ عن خطأ";
 
 /* Alert text */
-"email_error_body" = "لم يتم تعيين البريد الإلكتروني للعميل. يرجى تكوينه أو استخدام أي وسيلة أخرى للاتصال بنا على %@";
+"email_error_body" = "لم يتم تنصيب البريد الإلكتروني. يرجى تفعيله أو استخدام أي وسيلة أخرى للاتصال بنا على %@";
 
 /* Alert title */
-"email_error_title" = "هناك خطأ في إرسال البريد الإلكتروني";
+"email_error_title" = "حذث خطأ في إرسال البريد الإلكتروني";
 
 /* Settings item title */
 "pref_calibration_title" = "معايرة البوصلة";
@@ -319,22 +319,22 @@
 "downloader_update_all_button" = "تحديث الكل";
 
 /* Downloaded maps list header */
-"downloader_downloaded_subtitle" = "تم تنزيلها";
+"downloader_downloaded_subtitle" = "التي تم تنزيلها";
 
 /* Downloaded maps category */
-"downloader_available_maps" = "متاح";
+"downloader_available_maps" = "متوفر";
 
 /* Country queued for download */
 "downloader_queued" = "مَصْفوف";
 
-"downloader_near_me_subtitle" = "بالقرب مني";
+"downloader_near_me_subtitle" = "قريب مني";
 
 /* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
 "downloader_status_maps" = "الخرائط";
 
 "downloader_download_all_button" = "تنزيل الكل";
 
-"downloader_downloading" = "يتم تنزيل:";
+"downloader_downloading" = "يتم التنزيل:";
 
 "downloader_search_results" = "تم العثور على";
 
@@ -348,22 +348,22 @@
 "downloader_delete_map_while_routing_dialog" = "لحذف الخريطة يرجى إيقاف الملاحة.";
 
 /* PointsInDifferentMWM */
-"routing_failed_cross_mwm_building" = "يمكن فقط إنشاء المسارات التي توجد بشكل كامل ضمن خريطة واحدة.";
+"routing_failed_cross_mwm_building" = "يمكن فقط إنشاء المسارات التي توجد بشكل كامل ضمن خريطة دولة واحدة.";
 
 /* Context menu item for downloader. */
 "downloader_download_map" = "تنزيل الخريطة";
 
 /* Item status in downloader. */
-"downloader_retry" = "تكرار";
+"downloader_retry" = "المحاولة مجدداً";
 
 /* Item in context menu. */
 "downloader_delete_map" = "حذف الخريطة";
 
 /* Text for routing error dialog */
-"routing_download_maps_along" = "تنزيل الخرائط على طول الطريق";
+"routing_download_maps_along" = "تنزيل الخرائط على طول طريقك";
 
 /* Text for routing error dialog */
-"routing_requires_all_map" = "Creare un percorso necessita la presenza di tutte le mappe scaricate e aggiornate dalla tua posizione alla destinazione.";
+"routing_requires_all_map" = "من أجل تعيين الطريق، نحتاج إلى تنزيل أو تحديث جميع الخرائط التي تغطي المنطقة من موقعك إلى وجهتك";
 
 /* bookmark button text */
 "bookmark" = "إشارة مرجعية";
@@ -394,7 +394,7 @@
 "brown" = "بني";
 
 /* pink color */
-"pink" = "وردي";
+"pink" = "زهري";
 
 /* deep purple color */
 "deep_purple" = "أرجواني داكن";
@@ -423,35 +423,35 @@
 
 /********** Routing dialogs strings **********/
 
-"dialog_routing_disclaimer_title" = "عند اتباع المسار، يُرجى وضع ما يلي في الاعتبار:";
+"dialog_routing_disclaimer_title" = "عند اتباع المسار، يُرجى الانتباه إلى ما يلي:";
 
-"dialog_routing_disclaimer_priority" = "— دائمًا ما يكون لظروف الطريق وقوانين وإشارات المرور الأولوية على المشورة الملاحية;";
+"dialog_routing_disclaimer_priority" = "— إن ظروف الطريق وقوانين وإشارات المرور لها الأولوية على المشورة الملاحية دائماً;";
 
-"dialog_routing_disclaimer_precision" = "— قد تكون الخريطة غير دقيقة وقد لا يكون المسار المقترح هو المسار الأمثل دائمًا للوصول إلى الوجهة.;";
+"dialog_routing_disclaimer_precision" = "—  قد تكون الخريطة غير دقيقة وقد لا يكون المسار المقترح هو المسار الأمثل دائمًا للوصول إلى الوجهة.;";
 
-"dialog_routing_disclaimer_recommendations" = "— يتم التعامل مع المسارات المقترحة كتوصيات فقط;";
+"dialog_routing_disclaimer_recommendations" = "— يجب التعامل مع المسارات المقترحة كتوصيات فقط;";
 
-"dialog_routing_disclaimer_borders" = "— تحذير بشأن مسارات في منطقة حدودية: المسارات التي تم إنشاؤها بواسطة تطبيقنا قد تعبر حدود الدولة في أماكن غير مصرح بها في بعض الأحيان;";
+"dialog_routing_disclaimer_borders" = "— تحذير بشأن المسارات في المناطق الحدودية: المسارات التي تم إنشاؤها بواسطة تطبيقنا قد تعبر  أحياناً حدود الدول في أماكن غير مصرح بها;";
 
 "dialog_routing_disclaimer_beware" = "يجب أن تظل يقظًا وآمنًا على الطريق!";
 
-"dialog_routing_check_gps" = "تحقق من إشارة نظام تحديد المواقع العالمي \"GPS\"";
+"dialog_routing_check_gps" = "تحقق من إشارة نظام تحديد الموقع الجغرافي";
 
-"dialog_routing_error_location_not_found" = "تعذر إنشاء مسار. لا يمكن تحديد إحداثيات GPS الحالية.";
+"dialog_routing_error_location_not_found" = "تعذر إنشاء مسار. لم نستطع تحديد الإحداثيات الجغرافية الحالية.";
 
-"dialog_routing_location_turn_wifi" = "يُرجى التحقق من إشارة GPS لديك. ويساعد تمكين خدمة Wi-Fi في تحسين دقة تحديد موقعك.";
+"dialog_routing_location_turn_wifi" = "الرجاء التحقق من إشارة نظام تحديد الموقع. إن تفعيل الWi-Fi سيحسب دقة الموقع.";
 
-"dialog_routing_location_turn_on" = "تمكين خدمات المواقع";
+"dialog_routing_location_turn_on" = "تفعيل خدمات الموقع الجغرافي";
 
-"dialog_routing_location_unknown_turn_on" = "تعذر تحديد إحداثيات نظام تحديد المواقع العالمي GPS الحالية. قم بتمكين خدمات المواقع لحساب المسار.";
+"dialog_routing_location_unknown_turn_on" = "لم نستطع تحديد الإحداثيات الجغرافية الحالي. قم بتفعيل خدمات الموقع الجغرافي لحساب الطريق المناسب";
 
 "dialog_routing_download_files" = "تنزيل الملفات المطلوبة";
 
 "dialog_routing_download_and_update_all" = "قم بتنزيل وتحديث كافة الخرائط ومعلومات التوجيه على طول الطريق المتوقع لحساب المسار.";
 
-"dialog_routing_unable_locate_route" = "تعذر تحديد موقع المسار";
+"dialog_routing_unable_locate_route" = "تعذر إيجاد المسار";
 
-"dialog_routing_change_start_or_end" = "برجاء تعديل نقطة بدء وجهتك.";
+"dialog_routing_change_start_or_end" = "الرجاء تعديل نقطة بدء أو تعديل وجهتك.";
 
 "dialog_routing_change_start" = "تعديل نقطة البدء";
 
@@ -473,13 +473,13 @@
 
 "dialog_routing_application_error" = "تعذر إنشاء مسار نتيجة وجود خطأ في التطبيق.";
 
-"dialog_routing_try_again" = "برجاء إعادة المحاولة";
+"dialog_routing_try_again" = "الرجاء إعادة المحاولة";
 
 "not_now" = "ليس الآن";
 
 "dialog_routing_download_and_build_cross_route" = "هل ترغب في تنزيل الخريطة وإنشاء مسار أفضل يمتد عبر أكثر من خريطة؟";
 
-"dialog_routing_download_cross_route" = "تنزيل الخريطة لإنشاء مسار أفضل يعبر حافة هذه الخريطة.";
+"dialog_routing_download_cross_route" = "تنزيل خرائط إضافية لإنشاء مسار أفضل يعبر حافة هذه الخريطة.";
 
 
 /********** Strings for downloading map from search **********/
@@ -494,40 +494,40 @@
 "routing_planning_error" = "فشل في تخطيط المسار";
 
 /* Arrive routing message in navigation view */
-"routing_arrive" = "الوصول: %s";
+"routing_arrive" = "وقت الوصول: %s";
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "لإنشاء مسار، يرجى تنزيل وتحديث جميع الخرائط على امتداد الطريق.";
 
 "categories" = "التصنيفات";
 
-"history" = "السجل";
+"history" = "سجل البحث";
 
-"opens_in" = "Opens in %@";
+"opens_in" = "يفتح بعد %@";
 
-"closes_in" = "Closes in %@";
+"closes_in" = "يغلق في غضون %@";
 
 "closed" = "مغلق";
 
-"search_not_found" = "المعذرة، لم أعثر على أي شيء.";
+"search_not_found" = "المعذرة، لم أعثر على أية نتائج.";
 
-"search_not_found_query" = "يرجى تجربة استعلام آخر.";
+"search_not_found_query" = "يرجى تجربة معاير بحث أخرى.";
 
 "search_history_title" = "سجل البحث";
 
-"search_history_text" = "الوصول إلى استعلامات البحث الحديثة بسرعة.";
+"search_history_text" = "عرض عمليات البحث الأخيرة.";
 
-"clear_search" = "مسح تاريخ البحث";
+"clear_search" = "مسح سجل البحث";
 
 "p2p_your_location" = "موقعك";
 
-"p2p_start" = "البداية";
+"p2p_start" = "ابدأ";
 
-"p2p_from_here" = "من";
+"p2p_from_here" = "الطريق من هنا";
 
 "p2p_to_here" = "الطريق إلى";
 
-"p2p_only_from_current" = "تتوافر إمكانية التنقل فقط من خلال موقعك الحالي. هل تريد أن نخطط لك طريقاً بديلاً؟";
+"p2p_only_from_current" = "تتوفر الملاحة من خلال موقعك الحالي فقط.";
 
 "p2p_reroute_from_current" = "هل ترغب في أن نرسم مسار لك من موقعك الحالي؟";
 
@@ -536,11 +536,11 @@
 "editor_time_delete" = "حذف جدول";
 
 /* Text for allday switch. */
-"editor_time_allday" = "طوال اليوم (24 ساعة)";
+"editor_time_allday" = "طوال اليوم (٢٤ ساعة)";
 
-"editor_time_open" = "مفتوح";
+"editor_time_open" = "يفتح";
 
-"editor_time_close" = "مغلق";
+"editor_time_close" = "يغلق";
 
 "editor_time_add_closed" = "إضافة ساعات راحة";
 
@@ -556,7 +556,7 @@
 
 "editor_add_select_location" = "الموقع";
 
-"editor_done_dialog_1" = "لقد غيرت خريطة العالم. لا تخفي ذلك! اخبر أصدقاءك، وغيروها معا.";
+"editor_done_dialog_1" = "لقد ساهمت بتحسين خريطة العالم. لا تخفي ذلك! أخبر أصدقائك، وحسنوها معاً.";
 
 "share_with_friends" = "شارك مع الأصدقاء";
 
@@ -568,9 +568,9 @@
 "closed_now" = "مغلق الآن";
 
 /* Place Page opening hours text */
-"daily" = "يوميا";
+"daily" = "يومياً";
 
-"twentyfour_seven" = "ليلا ونهارا";
+"twentyfour_seven" = "٢٤/٧(ليلاً ونهاراً)";
 
 "day_off_today" = "مغلق اليوم";
 
@@ -578,13 +578,13 @@
 
 "today" = "اليوم";
 
-"add_opening_hours" = "اضف ساعات عمل";
+"add_opening_hours" = "أضف ساعات العمل";
 
-"no_osm_account" = "ليس لديك حساب في OpenStreetMap؟";
+"no_osm_account" = "ليس لديك حساب في خريطة الشارع المفتوحة؟";
 
-"register_at_openstreetmap" = "التسجيل";
+"register_at_openstreetmap" = "التسجيل في حريطة الشارع المفتوحة";
 
-"password_8_chars_min" = "كلمة المرور (8 أحرف بحد أدنى)";
+"password_8_chars_min" = "كلمة المرور (٨ أحرف بحد أدنى)";
 
 "invalid_username_or_password" = "اسم المستخدم أو كلمة المرور غير صالحة.";
 
@@ -592,14 +592,14 @@
 
 "forgot_password" = "هل نسيت كلمة المرور؟";
 
-"osm_account" = "حساب OSM";
+"osm_account" = "حساب على خريطة الشارع المفتوحة";
 
 "logout" = "تسجيل الخروج";
 
 /* Information text: "Last upload 11.01.2016" */
-"last_upload" = "آخر تحميل";
+"last_upload" = "آخر تعديل";
 
-"thank_you" = "شكرا لك";
+"thank_you" = "شكراً لك";
 
 "edit_place" = "تعديل المكان";
 
@@ -628,7 +628,7 @@
 /* login text field */
 "email_or_username" = "البريد الإلكتروني أو اسم المستخدم";
 
-"phone" = "الهاتف";
+"phone" = "رقم الهاتف";
 
 "please_note" = "يرجى العلم أنه،";
 
