@@ -705,7 +705,7 @@ en:2Bar|2pub|beer|drink|U+1F37A|U+1F37B|U+1F376|tavern|bars and pubs|brew pub|co
 ru:2Бар|2паб|пиво|выпить|пивной ресторан|пивбар|крафт|коктейль бар|пивная|коктейли|алкоголь|алкогольные напитки
 bg:2Бар|кръчма|бира|питие|напитка|таверна|коктейл|пиво|алкохол
 ar:بار|حانة|خمارة|بيرة|شراب
-cs:2Bar|hospoda|pivo|pití|voda|pitná voda|tekutiny
+cs:2Bar|hospoda|pivo|pití|tekutiny
 da:2Bar|værtshus|kro|øl|pub|drink
 nl:2Bar|2pub|kroeg|bier|drinken
 fi:2Baari|pubi
@@ -732,7 +732,7 @@ vi:2Quán bar|quán rượu|đồ uống
 zh-Hans:1酒吧|酒馆์|啤酒|饮料|食物
 zh-Hant:1酒吧|酒館|飲酒|PUB|吧台|飲食|啤酒吧
 el:Μπαρ|Παμπ|μπύρα|ποτό|φαγητό
-sk:2Bar|pohostinstvo|pivo|pitie|voda|pitná voda|tekutiny
+sk:2Bar|pohostinstvo|pivo|pitie|tekutiny
 sw:Baa|vinywaji
 fa:میکده|کاباره
 
