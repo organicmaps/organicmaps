@@ -8,7 +8,7 @@ typedef NS_ENUM(NSInteger, MWMRoadType) {
   MWMRoadTypeMotorway
 };
 
-typedef void (^MWMImageHeightBlock)(UIImage *, NSString *);
+typedef void (^MWMImageHeightBlock)(UIImage *, NSString *, NSString *);
 
 @interface MWMRouter : NSObject
 

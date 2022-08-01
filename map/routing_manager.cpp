@@ -1158,8 +1158,8 @@ bool RoutingManager::GenerateRouteAltitudeChart(uint32_t width, uint32_t height,
                                                 geometry::Altitudes const & altitudes,
                                                 vector<double> const & routePointDistanceM,
                                                 vector<uint8_t> & imageRGBAData,
-                                                int32_t & minRouteAltitude,
-                                                int32_t & maxRouteAltitude,
+                                                uint32_t & totalAscent,
+                                                uint32_t & totalDescent,
                                                 measurement_utils::Units & altitudeUnits) const
 {
   CHECK_EQUAL(altitudes.size(), routePointDistanceM.size(), ());
@@ -1170,9 +1170,17 @@ bool RoutingManager::GenerateRouteAltitudeChart(uint32_t width, uint32_t height,
                            GetStyleReader().GetCurrentStyle(), imageRGBAData))
     return false;
 
-  auto const minMaxIt = minmax_element(altitudes.cbegin(), altitudes.cend());
-  geometry::Altitude const minRouteAltitudeM = *minMaxIt.first;
-  geometry::Altitude const maxRouteAltitudeM = *minMaxIt.second;
+  uint32_t totalAscentM = 0;
+  uint32_t totalDescentM = 0;
+  int16_t delta;
+
+  for (size_t i = 1; i < altitudes.size(); i++) {
+    delta = altitudes[i] - altitudes[i - 1];
+    if (delta > 0)
+      totalAscentM += delta;
+    else
+      totalDescentM += -delta;   
+  }
 
   if (!settings::Get(settings::kMeasurementUnits, altitudeUnits))
     altitudeUnits = measurement_utils::Units::Metric;
@@ -1180,12 +1188,12 @@ bool RoutingManager::GenerateRouteAltitudeChart(uint32_t width, uint32_t height,
   switch (altitudeUnits)
   {
   case measurement_utils::Units::Imperial:
-    minRouteAltitude = measurement_utils::MetersToFeet(minRouteAltitudeM);
-    maxRouteAltitude = measurement_utils::MetersToFeet(maxRouteAltitudeM);
+    totalAscent = measurement_utils::MetersToFeet(totalAscentM);
+    totalDescent = measurement_utils::MetersToFeet(totalDescentM);
     break;
   case measurement_utils::Units::Metric:
-    minRouteAltitude = minRouteAltitudeM;
-    maxRouteAltitude = maxRouteAltitudeM;
+    totalAscent = totalAscentM;
+    totalDescent = totalDescentM;
     break;
   }
   return true;

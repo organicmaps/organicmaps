@@ -264,17 +264,10 @@ final class RoutingBottomMenuController implements View.OnClickListener
     {
       mAltitudeChart.setImageBitmap(bm);
       UiUtils.show(mAltitudeChart);
-      String meter = mAltitudeDifference.getResources().getString(R.string.meter);
-      String foot = mAltitudeDifference.getResources().getString(R.string.foot);
-      mAltitudeDifference.setText(String.format(Locale.getDefault(), "%d %s",
-                                                limits.maxRouteAltitude - limits.minRouteAltitude,
-                                                limits.isMetricUnits ? meter : foot));
-      Drawable icon = ContextCompat.getDrawable(mContext,
-                                                R.drawable.ic_altitude_difference);
-      int colorAccent = ContextCompat.getColor(mContext,
-          UiUtils.getStyledResourceId(mContext, R.attr.colorAccent));
-      mAltitudeDifference.setCompoundDrawablesRelativeWithIntrinsicBounds(Graphics.tint(icon, colorAccent),
-                                                                  null, null, null);
+      final String unit = limits.isMetricUnits ? mAltitudeDifference.getResources().getString(R.string.meter) : mAltitudeDifference.getResources().getString(R.string.foot);
+      mAltitudeDifference.setText(String.format(Locale.getDefault(), "▲ %d %s ▼ %d %s",
+                                                limits.totalAscent, unit,
+                                                limits.totalDescent, unit));
       UiUtils.show(mAltitudeDifference);
     }
   }
