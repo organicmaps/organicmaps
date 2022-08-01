@@ -5,9 +5,10 @@
 #include "routing/segment.hpp"
 #include "routing/transit_info.hpp"
 #include "routing/turns.hpp"
-#include "routing/maxspeeds.hpp"
 
 #include "routing/base/followed_polyline.hpp"
+
+#include "routing_common/maxspeed_conversion.hpp"
 
 #include "traffic/speed_groups.hpp"
 

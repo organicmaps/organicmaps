@@ -55,7 +55,6 @@
 
 namespace routing
 {
-using namespace routing;
 using namespace std;
 
 namespace
@@ -688,9 +687,10 @@ vector<Segment> ProcessJoints(vector<JointSegment> const & jointsPath,
       continue;
     }
 
-    path.insert(path.end(),
-                path.back() == jointPath.front() ? jointPath.begin() + 1 : jointPath.begin(),
-                jointPath.end());
+    auto begIter = jointPath.begin();
+    if (path.back() == jointPath.front())
+      ++begIter;
+    path.insert(path.end(), begIter, jointPath.end());
   }
 
   return path;
@@ -777,8 +777,9 @@ RouterResultCode IndexRouter::CalculateSubrouteNoLeapsMode(
   if (result != RouterResultCode::NoError)
     return result;
 
+  LOG(LDEBUG, ("Result route weight:", routingResult.m_distance));
   subroute = move(routingResult.m_path);
-  return RouterResultCode::NoError;
+  return result;
 }
 
 RouterResultCode IndexRouter::CalculateSubrouteLeapsOnlyMode(
@@ -1349,6 +1350,8 @@ IndexRouter::RoutingResultT const * IndexRouter::RoutesCalculator::Calc(
 
     if (AlgoT().FindPathBidirectional(params, route) == AlgoT::Result::OK)
     {
+      LOG(LDEBUG, ("Sub-route weight:", route.m_distance));
+
       res->m_path = ProcessJoints(route.m_path, jointStarter);
       res->m_distance = route.m_distance;
 
@@ -1446,7 +1449,7 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
         auto const & subroute = res->m_path;
         CHECK(!subroute.empty(), ());
 
-        /// @todo Strange logic IMHO, when we remove previous (useless?) calculated path.
+        /// @todo How it's possible when prevStart == start ?
         if (start == prevStart && !paths.empty())
           paths.pop_back();
 
@@ -1539,10 +1542,10 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
     // Update final result if new route is better.
     if (result.Empty() || currentWeight < result.m_distance)
     {
-      if (!result.m_path.empty())
+      if (!result.Empty())
       {
         LOG(LDEBUG, ("Found better route, old weight =", result.m_distance, "new weight =", currentWeight));
-        result.m_path.clear();
+        result.Clear();
       }
 
       for (auto const & e : paths)
@@ -1597,21 +1600,35 @@ RouterResultCode IndexRouter::RedressRoute(vector<Segment> const & segments,
     return RouterResultCode::RouteNotFoundRedressRouteError;
   }
 
+  auto & worldGraph = starter.GetGraph();
+
   /// @todo I suspect that we can avoid calculating segments inside ReconstructRoute
   /// and use original |segments| (IndexRoadGraph::GetRouteSegments).
 #ifdef DEBUG
   {
+    auto const isPassThroughAllowed = [&worldGraph](Segment const & s)
+    {
+      return worldGraph.IsPassThroughAllowed(s.GetMwmId(), s.GetFeatureId());
+    };
+
     auto const & rSegments = route.GetRouteSegments();
     ASSERT_EQUAL(segsCount, rSegments.size(), ());
     for (size_t i = 0; i < segsCount; ++i)
     {
       if (segments[i].IsRealSegment())
+      {
         ASSERT_EQUAL(segments[i], rSegments[i].GetSegment(), ());
+
+        if (i > 0 && segments[i - 1].IsRealSegment() &&
+            isPassThroughAllowed(segments[i - 1]) != isPassThroughAllowed(segments[i]))
+        {
+          LOG(LDEBUG, ("Change pass-through point:", mercator::ToLatLon(rSegments[i - 1].GetJunction().GetPoint())));
+        }
+      }
     }
   }
 #endif
 
-  auto & worldGraph = starter.GetGraph();
   for (auto & routeSegment : route.GetRouteSegments())
   {
     auto & segment = routeSegment.GetSegment();
