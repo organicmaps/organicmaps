@@ -134,13 +134,22 @@ bool Edge::operator<(Edge const & r) const
 string DebugPrint(Edge const & r)
 {
   ostringstream ss;
-  ss << "Edge{featureId: " << DebugPrint(r.GetFeatureId()) << ", isForward:" << r.IsForward()
-     << ", partOfReal:" << r.HasRealPart() << ", segId:" << r.m_segId
-     << ", startJunction:" << DebugPrint(r.m_startJunction)
-     << ", endJunction:" << DebugPrint(r.m_endJunction) << "}";
+  ss << boolalpha << "Edge "
+     << "{ featureId: " << DebugPrint(r.GetFeatureId())
+     << ", isForward: " << r.IsForward()
+     << ", partOfReal: " << r.HasRealPart()
+     << ", segId: " << r.m_segId
+     << ", startJunction: " << DebugPrint(r.m_startJunction)
+     << ", endJunction: " << DebugPrint(r.m_endJunction)
+     << " }";
   return ss.str();
 }
 
+std::string Edge::PrintLatLon() const
+{
+  return "{ " + DebugPrint(mercator::ToLatLon(GetStartPoint())) + ", "
+              + DebugPrint(mercator::ToLatLon(GetEndPoint())) + " }";
+}
 // IRoadGraph::RoadInfo --------------------------------------------------------
 
 IRoadGraph::RoadInfo::RoadInfo()
