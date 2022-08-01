@@ -1597,21 +1597,35 @@ RouterResultCode IndexRouter::RedressRoute(vector<Segment> const & segments,
     return RouterResultCode::RouteNotFoundRedressRouteError;
   }
 
+  auto & worldGraph = starter.GetGraph();
+
   /// @todo I suspect that we can avoid calculating segments inside ReconstructRoute
   /// and use original |segments| (IndexRoadGraph::GetRouteSegments).
 #ifdef DEBUG
   {
+    auto const isPassThroughAllowed = [&worldGraph](Segment const & s)
+    {
+      return worldGraph.IsPassThroughAllowed(s.GetMwmId(), s.GetFeatureId());
+    };
+
     auto const & rSegments = route.GetRouteSegments();
     ASSERT_EQUAL(segsCount, rSegments.size(), ());
     for (size_t i = 0; i < segsCount; ++i)
     {
       if (segments[i].IsRealSegment())
+      {
         ASSERT_EQUAL(segments[i], rSegments[i].GetSegment(), ());
+
+        if (i > 0 && segments[i - 1].IsRealSegment() &&
+            isPassThroughAllowed(segments[i - 1]) != isPassThroughAllowed(segments[i]))
+        {
+          LOG(LDEBUG, ("Change pass-through point:", mercator::ToLatLon(rSegments[i - 1].GetJunction().GetPoint())));
+        }
+      }
     }
   }
 #endif
 
-  auto & worldGraph = starter.GetGraph();
   for (auto & routeSegment : route.GetRouteSegments())
   {
     auto & segment = routeSegment.GetSegment();
