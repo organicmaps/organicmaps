@@ -269,18 +269,22 @@ void FillDetails(FeatureType & ft, Result::Details & details)
 string DebugPrint(RankerResult const & r)
 {
   stringstream ss;
-  ss << "RankerResult ["
-     << "Name: " << r.GetName()
-     << "; Type: " << classif().GetReadableObjectName(r.GetBestType());
+  ss << "RankerResult "
+     << "{ Name: " << r.GetName()
+     << "; Type: " << classif().GetReadableObjectName(r.GetBestType())
+     << "; Linear model rank: " << r.GetLinearModelRank();
 
 #ifdef SEARCH_USE_PROVENANCE
     if (!r.m_provenance.empty())
       ss << "; Provenance: " << ::DebugPrint(r.m_provenance);
 #endif
 
-     ss << "; " << DebugPrint(r.GetRankingInfo())
-     << "; Linear model rank: " << r.GetLinearModelRank()
-     << "]";
+  if (r.m_dbgInfo)
+    ss << "; " << DebugPrint(*r.m_dbgInfo);
+  else
+    ss << "; " << DebugPrint(r.GetRankingInfo());
+
+  ss << " }";
   return ss.str();
 }
 }  // namespace search

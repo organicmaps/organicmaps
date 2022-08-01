@@ -35,7 +35,26 @@ enum class PoiType : uint8_t
 
 using StreetType = ftypes::IsWayChecker::SearchRank;
 
-struct RankingInfo
+struct StoredRankingInfo
+{
+  // Do not change this constant, it is used to normalize distance and takes part in distance rank, accordingly.
+  static double constexpr kMaxDistMeters = 2.0E6;
+
+  // Distance from the feature to the pivot point.
+  double m_distanceToPivot = kMaxDistMeters;
+
+  // Search type for the feature.
+  Model::Type m_type = Model::TYPE_COUNT;
+
+  // Used for non-categorial requests.
+  union
+  {
+    PoiType poi;        // type (food/transport/attraction/etc) for POI results
+    StreetType street;  // type (peddestrian/residential/regular/etc) for Street results
+  } m_classifType;
+};
+
+struct RankingInfo : public StoredRankingInfo
 {
   RankingInfo()
     : m_isAltOrOldName(false)
@@ -50,8 +69,6 @@ struct RankingInfo
     m_classifType.street = StreetType::Default;
   }
 
-  static double constexpr kMaxDistMeters = 2.0E6;
-
   static void PrintCSVHeader(std::ostream & os);
 
   void ToCSV(std::ostream & os) const;
@@ -61,9 +78,6 @@ struct RankingInfo
   double GetLinearModelRank() const;
 
   double GetErrorsMadePerToken() const;
-
-  // Distance from the feature to the pivot point.
-  double m_distanceToPivot = kMaxDistMeters;
 
   // Matched parts of the query.
   // todo(@m) Using TokenType instead of ModelType here would
@@ -87,16 +101,6 @@ struct RankingInfo
 
   // Score for the feature's name.
   NameScore m_nameScore = NAME_SCORE_ZERO;
-
-  // Search type for the feature.
-  Model::Type m_type = Model::TYPE_COUNT;
-
-  // Used for non-categorial requests.
-  union
-  {
-    PoiType poi;        // type (food/transport/attraction/etc) for POI results
-    StreetType street;  // type (peddestrian/residential/regular/etc) for Street results
-  } m_classifType;
 
   // alt_name or old_name is used.
   bool m_isAltOrOldName : 1;
@@ -130,7 +134,9 @@ struct RankingInfo
 
 PoiType GetPoiType(feature::TypesHolder const & th);
 
+std::string DebugPrint(StoredRankingInfo const & info);
 std::string DebugPrint(RankingInfo const & info);
+
 std::string DebugPrint(PoiType type);
 std::string DebugPrint(StreetType type);
 }  // namespace search

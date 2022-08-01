@@ -2,11 +2,7 @@
 
 #include "search/search_tests_support/test_search_engine.hpp"
 
-#include "geometry/latlon.hpp"
-#include "geometry/mercator.hpp"
-
 #include "base/assert.hpp"
-#include "base/logging.hpp"
 
 #include <functional>
 
@@ -27,6 +23,8 @@ TestSearchRequest::TestSearchRequest(TestSearchEngine & engine, string const & q
   m_params.m_mode = mode;
   m_params.m_streetSearchRadiusM = kDefaultTestStreetSearchRadiusM;
   m_params.m_villageSearchRadiusM = kDefaultTestVillageSearchRadiusM;
+  m_params.m_useDebugInfo = true;
+
   SetUpCallbacks();
   SetUpResultParams();
 }
@@ -34,6 +32,8 @@ TestSearchRequest::TestSearchRequest(TestSearchEngine & engine, string const & q
 TestSearchRequest::TestSearchRequest(TestSearchEngine & engine, SearchParams const & params)
   : m_engine(engine), m_params(params)
 {
+  m_params.m_useDebugInfo = true;
+
   SetUpCallbacks();
 }
 
@@ -51,6 +51,8 @@ TestSearchRequest::TestSearchRequest(TestSearchEngine & engine, string const & q
   m_params.m_onResults = onResults;
   m_params.m_streetSearchRadiusM = kDefaultTestStreetSearchRadiusM;
   m_params.m_villageSearchRadiusM = kDefaultTestVillageSearchRadiusM;
+  m_params.m_useDebugInfo = true;
+
   SetUpResultParams();
 }
 
