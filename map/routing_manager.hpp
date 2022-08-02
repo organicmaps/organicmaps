@@ -255,7 +255,7 @@ public:
   void OnLocationUpdate(location::GpsInfo const & info);
 
   routing::SpeedCameraManager & GetSpeedCamManager() { return m_routingSession.GetSpeedCamManager(); }
-  bool IsSpeedLimitExceeded() const;
+  bool IsSpeedCamLimitExceeded() const;
 
   void SetTurnNotificationsUnits(measurement_utils::Units const units)
   {

@@ -55,11 +55,16 @@ LocalizedUnits GetLocalizedAltitudeUnits()
   return GetLocalizedUnits(units, MeasurementType::Altitude);
 }
 
+std::string GetLocalizedSpeedUnits(measurement_utils::Units units)
+{
+  return GetLocalizedUnits(units, MeasurementType::Speed).m_high;
+}
+
 std::string GetLocalizedSpeedUnits()
 {
   auto units = measurement_utils::Units::Metric;
   settings::TryGet(settings::kMeasurementUnits, units);
 
-  return GetLocalizedUnits(units, MeasurementType::Speed).m_high;
+  return GetLocalizedSpeedUnits(units);
 }
 }  // namespace platform

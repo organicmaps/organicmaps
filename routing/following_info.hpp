@@ -84,9 +84,8 @@ public:
   turns::PedestrianDirection m_pedestrianTurn;
   //@}
 
-  // Current speed limit.
-  // If no info about speed limit then m_speedLimit == "" and m_speedLimitUnitsSuffix == "".
-  std::string m_speedLimit;
-  std::string m_speedLimitUnitsSuffix;
+  // Current speed limit in meters per second.
+  // If no info about speed limit then m_speedLimitMps < 0.
+  double m_speedLimitMps = -1.0;
 };
 }  // namespace routing

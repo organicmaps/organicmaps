@@ -1202,7 +1202,7 @@ Java_com_mapswithme_maps_Framework_nativeGetRouteFollowingInfo(JNIEnv * env, jcl
   }
 
   auto const & rm = frm()->GetRoutingManager();
-  auto const isSpeedLimitExceeded = rm.IsRoutingActive() ? rm.IsSpeedLimitExceeded() : false;
+  auto const isSpeedLimitExceeded = rm.IsRoutingActive() ? rm.IsSpeedCamLimitExceeded() : false;
   auto const shouldPlaySignal = frm()->GetRoutingManager().GetSpeedCamManager().ShouldPlayBeepSignal();
   jobject const result = env->NewObject(
       klass, ctorRouteInfoID, jni::ToJavaString(env, info.m_distToTarget),

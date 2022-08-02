@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (UIColor *)opentableBackground;
 + (UIColor *)transparentGreen;
 + (UIColor *)speedLimitRed;
-+ (UIColor *)speedLimitGeen;
++ (UIColor *)speedLimitGreen;
 + (UIColor *)speedLimitWhite;
 + (UIColor *)speedLimitLightGray;
 + (UIColor *)speedLimitDarkGray;

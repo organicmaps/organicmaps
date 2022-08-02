@@ -155,23 +155,34 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MapO
       }
     }
 
-    var speed = info.speed ?? "0"
-    if (info.speedLimit != "") {
-      speed += " / " + info.speedLimit;
+    var speedMps = 0.0
+    if let s = LocationManager.lastLocation()?.speed, s > 0 {
+      speedMps = s
     }
-    
+    let speedMeasure = Measure(asSpeed: speedMps)
+    var speed = speedMeasure.valueAsString;
+    if (info.speedLimitMps > 0) {
+      let speedLimitMeasure = Measure(asSpeed: info.speedLimitMps)
+      speed += " / " + speedLimitMeasure.valueAsString;
+    }
+
     speedLabel.text = speed
-    speedLegendLabel.text = info.speedUnits
+    speedLegendLabel.text = speedMeasure.unit
     let speedWithLegend = NSMutableAttributedString(string: speed, attributes: routingNumberAttributes)
-    speedWithLegend.append(NSAttributedString(string: info.speedUnits, attributes: routingLegendAttributes))
+    speedWithLegend.append(NSAttributedString(string: speedMeasure.unit, attributes: routingLegendAttributes))
     speedWithLegendLabel.attributedText = speedWithLegend
 
-    let speedLimitExceeded = info.isSpeedLimitExceeded
-    let textColor = speedLimitExceeded ? UIColor.white() : UIColor.blackPrimaryText()
-    speedBackground.backgroundColor = speedLimitExceeded ? UIColor.buttonRed() : UIColor.clear
-    speedLabel.textColor = textColor
-    speedLegendLabel.textColor = textColor
-    speedWithLegendLabel.textColor = textColor
+    if info.isSpeedCamLimitExceeded {
+      speedLabel.textColor = UIColor.white()
+      speedBackground.backgroundColor = UIColor.buttonRed()
+    }
+    else {
+      let isSpeedLimitExceeded = info.speedLimitMps > 0 && speedMps > info.speedLimitMps
+      speedLabel.textColor = isSpeedLimitExceeded ? UIColor.buttonRed() : UIColor.blackPrimaryText()
+      speedBackground.backgroundColor = UIColor.clear
+    }
+    speedLegendLabel.textColor = speedLabel.textColor
+    speedWithLegendLabel.textColor = speedLabel.textColor
 
     routingProgress.constant = progressView.width * info.progress / 100
   }

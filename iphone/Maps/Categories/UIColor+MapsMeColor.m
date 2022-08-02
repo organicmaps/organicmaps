@@ -259,7 +259,7 @@ static NSDictionary<NSString *, UIColor *> *night;
   return [UIColor colorWithRed:scaled(224) green:scaled(31) blue:scaled(31) alpha:alpha100];
 }
 
-+ (UIColor *)speedLimitGeen {
++ (UIColor *)speedLimitGreen {
   return [UIColor colorWithRed:scaled(1) green:scaled(104) blue:scaled(44) alpha:alpha100];
 }
 

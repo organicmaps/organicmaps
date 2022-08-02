@@ -48,16 +48,6 @@ void FormatDistance(double dist, string & value, string & suffix)
   value.erase(delim);
 };
 
-void FormatSpeed(double speedKmPH, string & value, string & suffix)
-{
-  value = measurement_utils::FormatSpeed(measurement_utils::KmphToMps(speedKmPH));
-
-  size_t const delim = value.find(' ');
-  ASSERT(delim != string::npos, ());
-  suffix = value.substr(delim + 1);
-  value.erase(delim);
-};
-
 RoutingSession::RoutingSession()
   : m_router(nullptr)
   , m_route(make_shared<Route>(string() /* router */, 0 /* route id */))
@@ -417,7 +407,9 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
   SpeedInUnits speedLimit;
   m_route->GetCurrentSpeedLimit(speedLimit);
   if (speedLimit.IsValid())
-    FormatSpeed(speedLimit.GetSpeedKmPH(), info.m_speedLimit, info.m_speedLimitUnitsSuffix);
+    info.m_speedLimitMps = measurement_utils::KmphToMps(speedLimit.GetSpeedKmPH());
+  else
+    info.m_speedLimitMps = -1.0;
 
   // The turn after the next one.
   if (m_routingSettings.m_showTurnAfterNext)

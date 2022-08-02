@@ -3,6 +3,17 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@interface Measure : NSObject
+
+@property(nonatomic, readonly) double value;
+@property(nonatomic, readonly) NSString* valueAsString;
+
+@property(nonatomic, readonly) NSString* unit;
+
+- (instancetype) initAsSpeed:(double) mps;
+
+@end
+
 NS_SWIFT_NAME(GeoUtil)
 @interface MWMGeoUtil : NSObject
 

@@ -97,25 +97,6 @@ NSAttributedString *estimate(NSTimeInterval time, NSAttributedString *dot, NSStr
 }
 }  // namespace
 
-@interface MWMNavigationDashboardEntity ()
-
-@property(copy, nonatomic, readwrite) NSArray<MWMRouterTransitStepInfo *> *transitSteps;
-@property(copy, nonatomic, readwrite) NSAttributedString *estimate;
-@property(copy, nonatomic, readwrite) NSString *distanceToTurn;
-@property(copy, nonatomic, readwrite) NSString *streetName;
-@property(copy, nonatomic, readwrite) NSString *targetDistance;
-@property(copy, nonatomic, readwrite) NSString *targetUnits;
-@property(copy, nonatomic, readwrite) NSString *turnUnits;
-@property(copy, nonatomic, readwrite) NSString *speedLimit;
-@property(nonatomic, readwrite) BOOL isValid;
-@property(nonatomic, readwrite) CGFloat progress;
-@property(nonatomic, readwrite) NSUInteger roundExitNumber;
-@property(nonatomic, readwrite) NSUInteger timeToTarget;
-@property(nonatomic, readwrite) UIImage *nextTurnImage;
-@property(nonatomic, readwrite) UIImage *turnImage;
-
-@end
-
 @interface MWMRouterTransitStepInfo ()
 
 - (instancetype)initWithStepInfo:(TransitStepInfo const &)info;
@@ -150,7 +131,7 @@ NSAttributedString *estimate(NSTimeInterval time, NSAttributedString *dot, NSStr
     entity.distanceToTurn = @(info.m_distToTurn.c_str());
     entity.turnUnits = [self localizedUnitLength:@(info.m_turnUnitsSuffix.c_str())];
     entity.streetName = @(info.m_displayedStreetName.c_str());
-    entity.speedLimit = @(info.m_speedLimit.c_str());
+    entity.speedLimitMps = info.m_speedLimitMps;
 
     entity.estimate = estimate(entity.timeToTarget, entity.estimateDot, entity.targetDistance, entity.targetUnits,
                                self.etaAttributes, self.etaSecondaryAttributes, NO);

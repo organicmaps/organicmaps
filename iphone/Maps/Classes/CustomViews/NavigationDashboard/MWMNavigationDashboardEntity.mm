@@ -12,44 +12,11 @@
 #include "platform/localization.hpp"
 #include "platform/measurement_utils.hpp"
 
-@interface MWMNavigationDashboardEntity ()
-
-@property(copy, nonatomic, readwrite) NSArray<MWMRouterTransitStepInfo *> * transitSteps;
-@property(copy, nonatomic, readwrite) NSAttributedString * estimate;
-@property(copy, nonatomic, readwrite) NSString * distanceToTurn;
-@property(copy, nonatomic, readwrite) NSString * streetName;
-@property(copy, nonatomic, readwrite) NSString * targetDistance;
-@property(copy, nonatomic, readwrite) NSString * targetUnits;
-@property(copy, nonatomic, readwrite) NSString * turnUnits;
-@property(copy, nonatomic, readwrite) NSString * speedLimit;
-@property(nonatomic, readwrite) BOOL isValid;
-@property(nonatomic, readwrite) CGFloat progress;
-@property(nonatomic, readwrite) NSUInteger roundExitNumber;
-@property(nonatomic, readwrite) NSUInteger timeToTarget;
-@property(nonatomic, readwrite) UIImage * nextTurnImage;
-@property(nonatomic, readwrite) UIImage * turnImage;
-
-@end
-
 @implementation MWMNavigationDashboardEntity
 
-- (NSString *)speed
+- (BOOL)isSpeedCamLimitExceeded
 {
-  CLLocation * lastLocation = [MWMLocationManager lastLocation];
-  if (!lastLocation || lastLocation.speed < 0)
-    return nil;
-  auto const units = coreUnits([MWMSettings measurementUnits]);
-  return @(measurement_utils::FormatSpeedNumeric(lastLocation.speed, units).c_str());
-}
-
-- (BOOL)isSpeedLimitExceeded
-{
-  return GetFramework().GetRoutingManager().IsSpeedLimitExceeded();
-}
-
-- (NSString *)speedUnits
-{
-  return @(platform::GetLocalizedSpeedUnits().c_str());
+  return GetFramework().GetRoutingManager().IsSpeedCamLimitExceeded();
 }
 
 - (NSString *)eta { return [NSDateComponentsFormatter etaStringFrom:self.timeToTarget]; }
