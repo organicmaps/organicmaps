@@ -3,7 +3,6 @@
 #include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_impl.hpp"
-#include "indexer/feature_visibility.hpp"
 #include "indexer/ftypes_matcher.hpp"
 
 #include "base/assert.hpp"
@@ -17,8 +16,6 @@
 #include <vector>
 
 using namespace feature;
-using namespace std;
-using namespace std::placeholders;
 
 ////////////////////////////////////////////////////////////////////////////////////
 // TypesHolder implementation
@@ -26,6 +23,8 @@ using namespace std::placeholders;
 
 namespace feature
 {
+using namespace std;
+
 template <class ContT> string TypesToString(ContT const & holder)
 {
   Classificator const & c = classif();
@@ -71,7 +70,6 @@ bool TypesHolder::Equals(TypesHolder const & other) const
   }
   return true;
 }
-}  // namespace feature
 
 namespace
 {
@@ -114,7 +112,7 @@ private:
   {
     // Fill types that will be taken into account last,
     // when we have many types for POI.
-    vector<vector<string>> const types = {
+    base::StringIL const types1[] = {
         // 1-arity
         {"building"},
         {"building:part"},
@@ -128,6 +126,10 @@ private:
         {"recycling"},
         {"area:highway"},
         {"earthquake:damage"},
+        {"emergency"},  // used in subway facilities (Barcelona)
+    };
+
+    base::StringIL const types2[] = {
         // 2-arity
         {"amenity", "atm"},
         {"amenity", "bench"},
@@ -141,15 +143,14 @@ private:
     };
 
     Classificator const & c = classif();
-    for (auto const & type : types)
-    {
-      if (type.size() == 1)
-        m_types1.push_back(c.GetTypeByPath(type));
-      else if (type.size() == 2)
+
+    m_types1.reserve(std::size(types1));
+    for (auto const & type : types1)
+      m_types1.push_back(c.GetTypeByPath(type));
+
+    m_types2.reserve(std::size(types2));
+    for (auto const & type : types2)
         m_types2.push_back(c.GetTypeByPath(type));
-      else
-        ASSERT(false, (type));
-    }
 
     std::sort(m_types1.begin(), m_types1.end());
     std::sort(m_types2.begin(), m_types2.end());
@@ -161,11 +162,8 @@ private:
   vector<uint32_t> m_types1;
   vector<uint32_t> m_types2;
 };
+} // namespace
 
-}  // namespace
-
-namespace feature
-{
 uint8_t CalculateHeader(size_t const typesCount, HeaderGeomType const headerGeomType,
                         FeatureParamsBase const & params)
 {
@@ -208,9 +206,10 @@ void TypesHolder::SortBySpec()
 
 vector<string> TypesHolder::ToObjectNames() const
 {
+  Classificator const & c = classif();
   vector<string> result;
-  for (auto const type : *this)
-    result.push_back(classif().GetReadableObjectName(type));
+  for (uint32_t const type : *this)
+    result.push_back(c.GetReadableObjectName(type));
   return result;
 }
 }  // namespace feature
