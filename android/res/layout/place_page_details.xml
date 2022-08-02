@@ -70,6 +70,8 @@
 
     <include layout="@layout/place_page_cuisine"/>
 
+    <include layout="@layout/place_page_level" />
+
     <include layout="@layout/place_page_latlon"/>
   </LinearLayout>
 

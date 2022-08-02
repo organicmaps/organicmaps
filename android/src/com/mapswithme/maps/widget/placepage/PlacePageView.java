@@ -134,6 +134,8 @@ public class PlacePageView extends NestedScrollViewClickFixed
   private TextView mTvEmail;
   private View mOperator;
   private TextView mTvOperator;
+  private View mLevel;
+  private TextView mTvLevel;
   private View mCuisine;
   private TextView mTvCuisine;
   private View mWiki;
@@ -380,6 +382,8 @@ public class PlacePageView extends NestedScrollViewClickFixed
     mOperator = findViewById(R.id.ll__place_operator);
     mOperator.setOnClickListener(this);
     mTvOperator = findViewById(R.id.tv__place_operator);
+    mLevel = findViewById(R.id.ll__place_level);
+    mTvLevel = findViewById(R.id.tv__place_level);
     mCuisine = findViewById(R.id.ll__place_cuisine);
     mTvCuisine = findViewById(R.id.tv__place_cuisine);
     mWiki = findViewById(R.id.ll__place_wiki);
@@ -399,6 +403,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
     mOpeningHours.setOnLongClickListener(this);
     mEmail.setOnLongClickListener(this);
     mOperator.setOnLongClickListener(this);
+    mLevel.setOnLongClickListener(this);
     mWiki.setOnLongClickListener(this);
 
     mBookmarkFrame = findViewById(R.id.bookmark_frame);
@@ -858,6 +863,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
     refreshMetadataOrHide(mapObject.getMetadata(Metadata.MetadataType.FMD_FLATS), mEntrance, mTvEntrance);
     refreshOpeningHours(mapObject);
     refreshSocialLinks(mapObject);
+    refreshMetadataOrHide(mapObject.getMetadata(Metadata.MetadataType.FMD_LEVEL), mLevel, mTvLevel);
 
 //    showTaxiOffer(mapObject);
 
@@ -1466,6 +1472,9 @@ public class PlacePageView extends NestedScrollViewClickFixed
         break;
       case R.id.ll__place_wiki:
         items.add(mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIPEDIA));
+        break;
+      case R.id.ll__place_level:
+        items.add(mTvLevel.getText().toString());
         break;
     }
 
