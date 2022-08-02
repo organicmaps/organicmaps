@@ -68,11 +68,11 @@ UIImage *image(routing::turns::PedestrianDirection t) {
   return [UIImage imageNamed:imageName];
 }
 
-NSAttributedString *estimate(NSTimeInterval time, NSAttributedString *dot, NSString *distance, NSString *distanceUnits,
+NSAttributedString *estimate(NSTimeInterval time, NSString *distance, NSString *distanceUnits,
                              NSDictionary *primaryAttributes, NSDictionary *secondaryAttributes, BOOL isWalk) {
   NSString *eta = [NSDateComponentsFormatter etaStringFrom:time];
   auto result = [[NSMutableAttributedString alloc] initWithString:eta attributes:primaryAttributes];
-  [result appendAttributedString:dot];
+  [result appendAttributedString:MWMNavigationDashboardEntity.estimateDot];
 
   if (isWalk) {
     UIFont *font = primaryAttributes[NSFontAttributeName];
@@ -96,6 +96,46 @@ NSAttributedString *estimate(NSTimeInterval time, NSAttributedString *dot, NSStr
   return result;
 }
 }  // namespace
+
+@interface MWMNavigationDashboardEntity ()
+
+@property(copy, nonatomic, readwrite) NSArray<MWMRouterTransitStepInfo *> *transitSteps;
+@property(copy, nonatomic, readwrite) NSAttributedString *estimate;
+@property(copy, nonatomic, readwrite) NSString *distanceToTurn;
+@property(copy, nonatomic, readwrite) NSString *streetName;
+@property(copy, nonatomic, readwrite) NSString *targetDistance;
+@property(copy, nonatomic, readwrite) NSString *targetUnits;
+@property(copy, nonatomic, readwrite) NSString *turnUnits;
+@property(nonatomic, readwrite) double speedLimitMps;
+@property(nonatomic, readwrite) BOOL isValid;
+@property(nonatomic, readwrite) CGFloat progress;
+@property(nonatomic, readwrite) NSUInteger roundExitNumber;
+@property(nonatomic, readwrite) NSUInteger timeToTarget;
+@property(nonatomic, readwrite) UIImage *nextTurnImage;
+@property(nonatomic, readwrite) UIImage *turnImage;
+
+@end
+
+@implementation MWMNavigationDashboardEntity
+
+- (NSString *)arrival
+{
+  auto arrivalDate = [[NSDate date] dateByAddingTimeInterval:self.timeToTarget];
+  return [NSDateFormatter localizedStringFromDate:arrivalDate
+                                        dateStyle:NSDateFormatterNoStyle
+                                        timeStyle:NSDateFormatterShortStyle];
+}
+
++ (NSAttributedString *)estimateDot
+{
+  auto attributes = @{
+    NSForegroundColorAttributeName: [UIColor blackSecondaryText],
+    NSFontAttributeName: [UIFont medium17]
+  };
+  return [[NSAttributedString alloc] initWithString:@" • " attributes:attributes];
+}
+
+@end
 
 @interface MWMRouterTransitStepInfo ()
 
@@ -133,7 +173,7 @@ NSAttributedString *estimate(NSTimeInterval time, NSAttributedString *dot, NSStr
     entity.streetName = @(info.m_displayedStreetName.c_str());
     entity.speedLimitMps = info.m_speedLimitMps;
 
-    entity.estimate = estimate(entity.timeToTarget, entity.estimateDot, entity.targetDistance, entity.targetUnits,
+    entity.estimate = estimate(entity.timeToTarget, entity.targetDistance, entity.targetUnits,
                                self.etaAttributes, self.etaSecondaryAttributes, NO);
 
     if (type == MWMRouterTypePedestrian) {
@@ -159,7 +199,7 @@ NSAttributedString *estimate(NSTimeInterval time, NSAttributedString *dot, NSStr
   if (auto entity = self.entity) {
     entity.isValid = YES;
     entity.estimate =
-      estimate(info.m_totalTimeInSec, entity.estimateDot, @(info.m_totalPedestrianDistanceStr.c_str()),
+      estimate(info.m_totalTimeInSec, @(info.m_totalPedestrianDistanceStr.c_str()),
                @(info.m_totalPedestrianUnitsSuffix.c_str()), self.etaAttributes, self.etaSecondaryAttributes, YES);
     NSMutableArray<MWMRouterTransitStepInfo *> *transitSteps = [@[] mutableCopy];
     for (auto const &stepInfo : info.m_steps)

@@ -406,8 +406,10 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
 
   SpeedInUnits speedLimit;
   m_route->GetCurrentSpeedLimit(speedLimit);
-  if (speedLimit.IsValid())
+  if (speedLimit.IsNumeric())
     info.m_speedLimitMps = measurement_utils::KmphToMps(speedLimit.GetSpeedKmPH());
+  else if (speedLimit.GetSpeed() == kNoneMaxSpeed)
+    info.m_speedLimitMps = 0;
   else
     info.m_speedLimitMps = -1.0;
 

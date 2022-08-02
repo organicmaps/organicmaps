@@ -140,7 +140,7 @@ final class BaseRoutePreviewStatus: SolidTouchView {
 
     if let result = info.estimate.mutableCopy() as? NSMutableAttributedString {
       if let elevation = self.elevation {
-        result.append(info.estimateDot)
+        result.append(MWMNavigationDashboardEntity.estimateDot())
         result.append(elevation)
       }
       resultLabel.attributedText = result

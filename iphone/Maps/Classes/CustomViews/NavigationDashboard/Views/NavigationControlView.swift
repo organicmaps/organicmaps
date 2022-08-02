@@ -136,7 +136,7 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MapO
       ]
 
     if timePageControl.currentPage == 0 {
-      timeLabel.text = info.eta
+      timeLabel.text = DateComponentsFormatter.etaString(from: TimeInterval(info.timeToTarget))
     } else {
       timeLabel.text = info.arrival
     }
@@ -161,9 +161,11 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MapO
     }
     let speedMeasure = Measure(asSpeed: speedMps)
     var speed = speedMeasure.valueAsString;
-    if (info.speedLimitMps > 0) {
+    // speedLimitMps >= 0 means known limited speed.
+    if (info.speedLimitMps >= 0) {
       let speedLimitMeasure = Measure(asSpeed: info.speedLimitMps)
-      speed += " / " + speedLimitMeasure.valueAsString;
+      // speedLimitMps == 0 means unlimited speed.
+      speed += " / " + (info.speedLimitMps == 0 ? "∞" : speedLimitMeasure.valueAsString);
     }
 
     speedLabel.text = speed
@@ -172,11 +174,10 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MapO
     speedWithLegend.append(NSAttributedString(string: speedMeasure.unit, attributes: routingLegendAttributes))
     speedWithLegendLabel.attributedText = speedWithLegend
 
-    if info.isSpeedCamLimitExceeded {
+    if MWMRouter.isSpeedCamLimitExceeded() {
       speedLabel.textColor = UIColor.white()
       speedBackground.backgroundColor = UIColor.buttonRed()
-    }
-    else {
+    } else {
       let isSpeedLimitExceeded = info.speedLimitMps > 0 && speedMps > info.speedLimitMps
       speedLabel.textColor = isSpeedLimitExceeded ? UIColor.buttonRed() : UIColor.blackPrimaryText()
       speedBackground.backgroundColor = UIColor.clear

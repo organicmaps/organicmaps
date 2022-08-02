@@ -45,7 +45,7 @@ final class CarPlayMapViewController: MWMViewController {
   }
 
   func removeMapView() {
-    if let mapView = mapView {
+    if let mapView = self.mapView {
       mapView.removeFromSuperview()
       self.mapView = nil
     }
@@ -88,8 +88,7 @@ final class CarPlayMapViewController: MWMViewController {
                        animations: { self.speedCamImageView.alpha = 0; self.speedCamLimitLabel.alpha = 1 })
         isSpeedCamBlinking = true
       }
-    }
-    else {
+    } else {
       if (isSpeedCamBlinking) {
         speedCamLimitLabel.layer.removeAllAnimations()
         speedCamImageView.layer.removeAllAnimations()
@@ -106,7 +105,10 @@ final class CarPlayMapViewController: MWMViewController {
       speedCamLimitContainer.layer.borderColor = UIColor.speedLimitRed().cgColor
       speedCamImageView.tintColor = UIColor.speedLimitRed()
 
-      if let speedCamLimitMps = (speedCamLimitMps ?? speedLimitMps) {
+      // self.speedCamLimitMps comes from SpeedCamManager and is based on
+      // the nearest speed camera info when it is close enough.
+      // If it's unknown self.speedLimitMps is used, which is based on current road speed limit.
+      if let speedCamLimitMps = (self.speedCamLimitMps ?? self.speedLimitMps) {
         BlinkSpeedCamLimit(blink: true)
         let speedCamLimitMeasure = Measure.init(asSpeed: speedCamLimitMps)
         speedCamLimitLabel.text = speedCamLimitMeasure.valueAsString
@@ -130,18 +132,23 @@ final class CarPlayMapViewController: MWMViewController {
     } else { // !isCameraOnRoute
       BlinkSpeedCamLimit(blink: false)
       currentSpeedLabel.textColor = UIColor.speedLimitDarkGray()
-      if let speedLimitMps = speedLimitMps {
+      if let speedLimitMps = self.speedLimitMps {
         speedCamImageView.alpha = 0.0
         let speedLimitMeasure = Measure.init(asSpeed: speedLimitMps)
         speedCamLimitLabel.textColor = UIColor.speedLimitDarkGray()
-        speedCamLimitLabel.text = speedLimitMeasure.valueAsString;
+        // speedLimitMps == 0 means unlimited speed.
+        if speedLimitMeasure.value == 0 {
+          speedCamLimitLabel.text = "🚀" //"∞"
+        }
+        else {
+          speedCamLimitLabel.text = speedLimitMeasure.valueAsString;
+        }
         speedCamLimitLabel.alpha = 1.0
         speedCamLimitContainer.layer.borderColor = UIColor.speedLimitRed().cgColor
         if currentSpeedMps > speedLimitMps {
           currentSpeedLabel.textColor = UIColor.speedLimitRed()
         }
-      }
-      else {
+      } else {
         speedCamImageView.tintColor = UIColor.speedLimitLightGray()
         speedCamImageView.alpha = 1.0
         speedCamLimitLabel.alpha = 0.0

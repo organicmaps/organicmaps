@@ -32,6 +32,7 @@ class RouteInfo: NSObject {
     self.turnImageName = turnImageName
     self.nextTurnImageName = nextTurnImageName
     self.speedMps = speedMps
+    // speedLimitMps >= 0 means known limited speed.
     self.speedLimitMps = speedLimitMps < 0 ? nil : speedLimitMps
     self.roundExitNumber = roundExitNumber
   }

@@ -4,7 +4,7 @@
 
 namespace measurement_utils
 {
-  enum class Units;
+enum class Units;
 }
 
 namespace platform
@@ -24,6 +24,6 @@ extern std::string GetLocalizedMyPositionBookmarkName();
 extern LocalizedUnits GetLocalizedDistanceUnits();
 extern LocalizedUnits GetLocalizedAltitudeUnits();
 
-extern std::string GetLocalizedSpeedUnits(measurement_utils::Units units);
+extern const std::string & GetLocalizedSpeedUnits(measurement_utils::Units units);
 extern std::string GetLocalizedSpeedUnits();
 }  // namespace platform

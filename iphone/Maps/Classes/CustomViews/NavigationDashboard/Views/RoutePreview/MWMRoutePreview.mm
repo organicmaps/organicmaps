@@ -1,8 +1,6 @@
 #import "MWMRoutePreview.h"
 #import "MWMCircularProgress.h"
 #import "MWMLocationManager.h"
-#import "MWMNavigationDashboardEntity.h"
-#import "MWMNavigationDashboardManager.h"
 #import "MWMRouter.h"
 #import "UIButton+Orientation.h"
 #import "UIImageView+Coloring.h"

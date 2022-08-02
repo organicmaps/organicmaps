@@ -42,11 +42,9 @@
     if (self) {
       auto units = measurement_utils::Units::Metric;
       settings::TryGet(settings::kMeasurementUnits, units);
-      //auto const units = coreUnits([MWMSettings measurementUnits]);
-
       _value = measurement_utils::MpsToUnits(mps, units);
 
-      _unit =  @(platform::GetLocalizedSpeedUnits(units).c_str());
+      _unit = @(platform::GetLocalizedSpeedUnits(units).c_str());
     }
     return self;
 }
