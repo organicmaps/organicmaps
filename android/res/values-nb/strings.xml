@@ -337,7 +337,6 @@
 	<string name="routing_arrive">Ankomme: %s</string>
 	<string name="categories">Kategorier</string>
 	<string name="history">Historikk</string>
-	<string name="closed">Stengt</string>
 	<string name="search_not_found">Beklager, jeg fant ingenting.</string>
 	<string name="search_not_found_query">Vennligst prøv et annet søk.</string>
 	<string name="search_history_title">Søkehistorikk</string>
@@ -379,6 +378,7 @@
 	<string name="day_off_today">Fridag i dag</string>
 	<string name="day_off">Fridag</string>
 	<string name="today">I dag</string>
+	<string name="closed">Stengt</string>
 	<string name="edit_opening_hours">Rediger åpningstider</string>
 	<string name="no_osm_account">Har du ingen konto hos OpenStreetMap?</string>
 	<string name="register_at_openstreetmap">Registrer deg</string>

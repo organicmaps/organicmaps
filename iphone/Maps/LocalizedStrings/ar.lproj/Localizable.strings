@@ -503,12 +503,6 @@
 
 "history" = "سجل البحث";
 
-"opens_in" = "يفتح بعد %@";
-
-"closes_in" = "يغلق في غضون %@";
-
-"closed" = "مغلق";
-
 "search_not_found" = "المعذرة، لم أعثر على أية نتائج.";
 
 "search_not_found_query" = "يرجى تجربة معاير بحث أخرى.";
@@ -577,6 +571,20 @@
 "day_off" = "مغلق";
 
 "today" = "اليوم";
+
+"opens_tomorrow_at" = "Opens tomorrow at %@";
+
+"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
+
+"opens_at" = "Opens at %@";
+
+"opens_in" = "يفتح بعد %@";
+
+"closes_at" = "Closes at %@";
+
+"closes_in" = "يغلق في غضون %@";
+
+"closed" = "مغلق";
 
 "add_opening_hours" = "أضف ساعات العمل";
 
@@ -749,6 +757,8 @@
 "foot" = "قدم";
 
 "miles_per_hour" = "ميل/ساعة";
+
+"hour" = "س";
 
 "minute" = "د";
 

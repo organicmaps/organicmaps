@@ -503,12 +503,6 @@
 
 "history" = "Historie";
 
-"opens_in" = "Opens in %@";
-
-"closes_in" = "Closes in %@";
-
-"closed" = "Zavřeno";
-
 "search_not_found" = "Omlouvám se, nic nenalezeno.";
 
 "search_not_found_query" = "Zkuste zadat jiný hledaný výraz.";
@@ -577,6 +571,20 @@
 "day_off" = "Zavřeno";
 
 "today" = "Dnes";
+
+"opens_tomorrow_at" = "Opens tomorrow at %@";
+
+"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
+
+"opens_at" = "Opens at %@";
+
+"opens_in" = "Opens in %@";
+
+"closes_at" = "Closes at %@";
+
+"closes_in" = "Closes in %@";
+
+"closed" = "Zavřeno";
 
 "add_opening_hours" = "Přidat otevírací dobu";
 
@@ -749,6 +757,8 @@
 "foot" = "stopa";
 
 "miles_per_hour" = "mil/h";
+
+"hour" = "hod";
 
 "minute" = "min";
 

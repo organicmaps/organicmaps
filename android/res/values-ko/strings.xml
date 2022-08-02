@@ -335,7 +335,6 @@
 	<string name="routing_arrive">도착: %s</string>
 	<string name="categories">범주</string>
 	<string name="history">내역</string>
-	<string name="closed">닫음</string>
 	<string name="search_not_found">죄송합니다. 아무것도 찾지 못했습니다.</string>
 	<string name="search_not_found_query">다른 쿼리를 시도하십시오.</string>
 	<string name="search_history_title">검색 기록</string>
@@ -377,6 +376,7 @@
 	<string name="day_off_today">오늘 영업 종료됨</string>
 	<string name="day_off">종료됨</string>
 	<string name="today">오늘</string>
+	<string name="closed">닫음</string>
 	<string name="edit_opening_hours">영업일 편집</string>
 	<string name="no_osm_account">OpenStreetMap에서 계정이 없습니까?</string>
 	<string name="register_at_openstreetmap">등록</string>

@@ -503,12 +503,6 @@
 
 "history" = "历史";
 
-"opens_in" = "Opens in %@";
-
-"closes_in" = "Closes in %@";
-
-"closed" = "已关闭";
-
 "search_not_found" = "抱歉，没有找到任何东西。";
 
 "search_not_found_query" = "请尝试其它查询。";
@@ -577,6 +571,20 @@
 "day_off" = "没有营业";
 
 "today" = "今天";
+
+"opens_tomorrow_at" = "Opens tomorrow at %@";
+
+"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
+
+"opens_at" = "Opens at %@";
+
+"opens_in" = "Opens in %@";
+
+"closes_at" = "Closes at %@";
+
+"closes_in" = "Closes in %@";
+
+"closed" = "已关闭";
 
 "add_opening_hours" = "添加工作时间";
 
@@ -749,6 +757,8 @@
 "foot" = "英尺";
 
 "miles_per_hour" = "英里每小时";
+
+"hour" = "小時";
 
 "minute" = "分鐘";
 

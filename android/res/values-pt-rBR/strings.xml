@@ -345,9 +345,6 @@
 	<string name="routing_arrive">Chegada: %s</string>
 	<string name="categories">Categorias</string>
 	<string name="history">Histórico</string>
-	<string name="opens_in">Abre em %s</string>
-	<string name="closes_in">Fecha em %s</string>
-	<string name="closed">Fechado</string>
 	<string name="search_not_found">Sinto muito, nenhum resultado foi encontrado.</string>
 	<string name="search_not_found_query">Por favor, tente outro termo de busca.</string>
 	<string name="search_history_title">Histórico de busca</string>
@@ -391,6 +388,9 @@
 	<string name="day_off_today">Fechado hoje</string>
 	<string name="day_off">Fechado</string>
 	<string name="today">Hoje</string>
+	<string name="opens_in">Abre em %s</string>
+	<string name="closes_in">Fecha em %s</string>
+	<string name="closed">Fechado</string>
 	<string name="edit_opening_hours">Editar horário de funcionamento</string>
 	<string name="no_osm_account">Sem conta no OpenStreetMap?</string>
 	<string name="register_at_openstreetmap">Abra uma conta no OSM</string>

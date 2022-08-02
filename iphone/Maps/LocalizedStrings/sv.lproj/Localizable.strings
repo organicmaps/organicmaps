@@ -503,12 +503,6 @@
 
 "history" = "Historik";
 
-"opens_in" = "Opens in %@";
-
-"closes_in" = "Closes in %@";
-
-"closed" = "Stängt";
-
 "search_not_found" = "Ledsen, jag hittade ingenting.";
 
 "search_not_found_query" = "Försök med en annan sökförfrågan.";
@@ -577,6 +571,20 @@
 "day_off" = "Stängt";
 
 "today" = "Idag";
+
+"opens_tomorrow_at" = "Opens tomorrow at %@";
+
+"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
+
+"opens_at" = "Opens at %@";
+
+"opens_in" = "Opens in %@";
+
+"closes_at" = "Closes at %@";
+
+"closes_in" = "Closes in %@";
+
+"closed" = "Stängt";
 
 "add_opening_hours" = "Lägg till öppettider";
 
@@ -749,6 +757,8 @@
 "foot" = "fot";
 
 "miles_per_hour" = "mph";
+
+"hour" = "h";
 
 "minute" = "min";
 

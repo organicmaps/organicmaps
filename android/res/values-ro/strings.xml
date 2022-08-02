@@ -342,7 +342,6 @@
 	<string name="routing_arrive">Sosire la %s</string>
 	<string name="categories">Categorii</string>
 	<string name="history">Cronologia</string>
-	<string name="closed">Închis</string>
 	<string name="search_not_found">Nu s-a găsit nimic.</string>
 	<string name="search_not_found_query">Încearcă să modifici condițiile căutării.</string>
 	<string name="search_history_title">Istoricul căutărilor</string>
@@ -386,6 +385,7 @@
 	<string name="day_off_today">Închis astăzi</string>
 	<string name="day_off">Închis</string>
 	<string name="today">Azi</string>
+	<string name="closed">Închis</string>
 	<string name="edit_opening_hours">Modifică orele de funcționare</string>
 	<string name="no_osm_account">Nu ai un cont OpenStreetMap?</string>
 	<string name="register_at_openstreetmap">Înscrie-te</string>

@@ -503,12 +503,6 @@
 
 "history" = "Előzmények";
 
-"opens_in" = "Opens in %@";
-
-"closes_in" = "Closes in %@";
-
-"closed" = "Zárva";
-
 "search_not_found" = "Sajnos, semmit nem találtam.";
 
 "search_not_found_query" = "Próbáljon másik lekérdezést.";
@@ -577,6 +571,20 @@
 "day_off" = "Zárva";
 
 "today" = "Ma";
+
+"opens_tomorrow_at" = "Opens tomorrow at %@";
+
+"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
+
+"opens_at" = "Opens at %@";
+
+"opens_in" = "Opens in %@";
+
+"closes_at" = "Closes at %@";
+
+"closes_in" = "Closes in %@";
+
+"closed" = "Zárva";
 
 "add_opening_hours" = "Nyitvatartás hozzáadása";
 
@@ -749,6 +757,8 @@
 "foot" = "ft";
 
 "miles_per_hour" = "mph";
+
+"hour" = "ó";
 
 "minute" = "p";
 

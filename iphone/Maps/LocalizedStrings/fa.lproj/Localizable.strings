@@ -503,12 +503,6 @@
 
 "history" = "تاریخچه";
 
-"opens_in" = "Opens in %@";
-
-"closes_in" = "Closes in %@";
-
-"closed" = "تعطیل";
-
 "search_not_found" = "متاسفانه چیزی پیدا نشد";
 
 "search_not_found_query" = "با تغییر در معیار های جست و جو دوباره امتحان کنید";
@@ -577,6 +571,20 @@
 "day_off" = "تعطیل است";
 
 "today" = "امروز";
+
+"opens_tomorrow_at" = "Opens tomorrow at %@";
+
+"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
+
+"opens_at" = "Opens at %@";
+
+"opens_in" = "Opens in %@";
+
+"closes_at" = "Closes at %@";
+
+"closes_in" = "Closes in %@";
+
+"closed" = "تعطیل";
 
 "add_opening_hours" = "اضافه کردن ساعت بازگشایی";
 
@@ -749,6 +757,8 @@
 "foot" = "فوت";
 
 "miles_per_hour" = "مایل بر ساعت (mph)";
+
+"hour" = "ساعت";
 
 "minute" = "دقیقه";
 

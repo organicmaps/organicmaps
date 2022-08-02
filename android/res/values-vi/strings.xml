@@ -335,7 +335,6 @@
 	<string name="routing_arrive">Đến: %s</string>
 	<string name="categories">Thể loại</string>
 	<string name="history">Lịch sử</string>
-	<string name="closed">Đã đóng</string>
 	<string name="search_not_found">Xin lỗi, tôi không tìm thấy kết quả nào.</string>
 	<string name="search_not_found_query">Vui lòng thử câu hỏi khác.</string>
 	<string name="search_history_title">Lịch sử tìm kiếm</string>
@@ -377,6 +376,7 @@
 	<string name="day_off_today">Nghỉ hôm nay</string>
 	<string name="day_off">Ngày nghỉ</string>
 	<string name="today">Hôm nay</string>
+	<string name="closed">Đã đóng</string>
 	<string name="edit_opening_hours">Sửa giờ làm việc</string>
 	<string name="no_osm_account">Bạn chưa có tài khoản tại OpenStreetMap ư?</string>
 	<string name="register_at_openstreetmap">Đăng ký</string>

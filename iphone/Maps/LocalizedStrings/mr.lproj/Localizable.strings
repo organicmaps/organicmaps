@@ -503,12 +503,6 @@
 
 "history" = "इतिहास";
 
-"opens_in" = "Opens in %@";
-
-"closes_in" = "Closes in %@";
-
-"closed" = "बंद";
-
 "search_not_found" = "अरेच्चा, काहीच सापडले नाही.";
 
 "search_not_found_query" = "तुमचे शोध निकष बदलण्याचा प्रयत्न करा.";
@@ -577,6 +571,20 @@
 "day_off" = "बंद";
 
 "today" = "आज";
+
+"opens_tomorrow_at" = "Opens tomorrow at %@";
+
+"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
+
+"opens_at" = "Opens at %@";
+
+"opens_in" = "Opens in %@";
+
+"closes_at" = "Closes at %@";
+
+"closes_in" = "Closes in %@";
+
+"closed" = "बंद";
 
 "add_opening_hours" = "उघडण्याची वेळ जोड";
 
@@ -749,6 +757,8 @@
 "foot" = "फूट";
 
 "miles_per_hour" = "mph";
+
+"hour" = "तास";
 
 "minute" = "मिनिट";
 

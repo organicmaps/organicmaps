@@ -356,9 +356,6 @@
 	<string name="routing_arrive">Varış: %s</string>
 	<string name="categories">Kategoriler</string>
 	<string name="history">Geçmiş</string>
-	<string name="opens_in">%s sonra açılıyor</string>
-	<string name="closes_in">%s sonra kapanıyor</string>
-	<string name="closed">Kapalı</string>
 	<string name="search_not_found">Üzgünüz, hiç bir şey bulamadık.</string>
 	<string name="search_not_found_query">Lütfen başka bir sorgu girin.</string>
 	<string name="search_history_title">Arama Geçmişi</string>
@@ -402,6 +399,9 @@
 	<string name="day_off_today">Bugün kapalı</string>
 	<string name="day_off">Kapalı</string>
 	<string name="today">Bugün</string>
+	<string name="opens_in">%s sonra açılıyor</string>
+	<string name="closes_in">%s sonra kapanıyor</string>
+	<string name="closed">Kapalı</string>
 	<string name="edit_opening_hours">İş saatlerini düzenle</string>
 	<string name="no_osm_account">OpenStreetMap hesabın yok mu?</string>
 	<string name="register_at_openstreetmap">Kaydol</string>

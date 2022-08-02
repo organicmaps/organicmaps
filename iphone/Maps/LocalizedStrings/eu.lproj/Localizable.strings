@@ -503,12 +503,6 @@
 
 "history" = "Grabatu";
 
-"opens_in" = "Opens in %@";
-
-"closes_in" = "Closes in %@";
-
-"closed" = "Itxita";
-
 "search_not_found" = "Barkatu, ez dut ezer aurkitu.";
 
 "search_not_found_query" = "Mesedez, saiatu beste kontsulta bat.";
@@ -577,6 +571,20 @@
 "day_off" = "Egun librea";
 
 "today" = "Gaur";
+
+"opens_tomorrow_at" = "Bihar %@ean irekiko da";
+
+"opens_dayoftheweek_at" = "%1$@ean %2$@ean irekiko da";
+
+"opens_at" = "%@ean irekiko da";
+
+"opens_in" = "%@ barru irekitzen da";
+
+"closes_at" = "%@ean itxiko da";
+
+"closes_in" = "%@ barru ixten da";
+
+"closed" = "Itxita";
 
 "add_opening_hours" = "Gehitu ordutegia";
 
@@ -749,6 +757,8 @@
 "foot" = "oina";
 
 "miles_per_hour" = "mph";
+
+"hour" = "h";
 
 "minute" = "min";
 

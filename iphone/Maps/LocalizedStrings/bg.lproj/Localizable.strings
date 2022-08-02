@@ -503,12 +503,6 @@
 
 "history" = "История";
 
-"opens_in" = "Opens in %@";
-
-"closes_in" = "Closes in %@";
-
-"closed" = "Затворено";
-
 "search_not_found" = "За съжаление не са намерени резултати.";
 
 "search_not_found_query" = "Опитайте да промените критериите за търсене.";
@@ -577,6 +571,20 @@
 "day_off" = "Затворено";
 
 "today" = "Днес";
+
+"opens_tomorrow_at" = "Opens tomorrow at %@";
+
+"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
+
+"opens_at" = "Opens at %@";
+
+"opens_in" = "Opens in %@";
+
+"closes_at" = "Closes at %@";
+
+"closes_in" = "Closes in %@";
+
+"closed" = "Затворено";
 
 "add_opening_hours" = "Добавяне на работно време";
 
@@ -749,6 +757,8 @@
 "foot" = "фут";
 
 "miles_per_hour" = "mph";
+
+"hour" = "ч";
 
 "minute" = "мин";
 
