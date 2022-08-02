@@ -8575,69 +8575,6 @@
     zh-Hans = 历史
     zh-Hant = 記錄
 
-  [opens_in]
-    en = Opens in %@
-    ar = يفتح بعد %@
-    be = Адчыняецца праз %@
-    de = Öffnet in %@
-    es = Abre en %@
-    fr = Ouvert dans %@
-    it = Apre tra %@
-    pt-BR = Abre em %@
-    ru = Открывается через %@
-    tr = %@ sonra açılıyor
-    uk = Відкривається через %@
-
-  [closes_in]
-    en = Closes in %@
-    ar = يغلق في غضون %@
-    be = Зачыняецца праз %@
-    de = Schließt in %@
-    es = Cierra en %@
-    fr = Fermé dans %@
-    it = Chiude tra %@
-    pt-BR = Fecha em %@
-    ru = Закроется через %@
-    tr = %@ sonra kapanıyor
-    uk = Зачиняється через %@
-
-  [closed]
-    tags = android,ios
-    en = Closed
-    ar = مغلق
-    be = Зачынена
-    bg = Затворено
-    cs = Zavřeno
-    da = Lukket
-    de = Geschlossen
-    el = Κλειστό
-    es = Cerrado
-    eu = Itxita
-    fa = تعطیل
-    fi = Suljettu
-    fr = Fermé
-    hu = Zárva
-    id = Tutup
-    it = Chiuso
-    ja = 閉鎖
-    ko = 닫음
-    mr = बंद
-    nb = Stengt
-    nl = Gesloten
-    pl = Zamknięte
-    pt = Fechado
-    pt-BR = Fechado
-    ro = Închis
-    ru = Закрыто
-    sk = Zatvorené
-    sv = Stängt
-    th = ปิด
-    tr = Kapalı
-    uk = Зачинено
-    vi = Đã đóng
-    zh-Hans = 已关闭
-    zh-Hant = 已關閉
-
   [search_not_found]
     tags = android,ios
     en = Oops, no results found.
@@ -10179,6 +10116,119 @@
     vi = Hôm nay
     zh-Hans = 今天
     zh-Hant = 今天
+
+  [opens_tomorrow_at]
+    en = Opens tomorrow at %@
+    be = Адкрыццё заўтра ў %@
+    de = Öffnet morgen um %@
+    es = Abre mañana a las %@
+    eu = Bihar %@ean irekiko da
+    fr = Ouvre demain à %@
+    it = Apre domani alle %@
+    pt = Abre amanhã às %@
+    ru = Откроется завтра в %@
+    uk = Відкриття завтра о %@
+
+  [opens_dayoftheweek_at]
+    en = Opens %1$@ at %2$@
+    be = Адкрыццё ў %1$@ у %2$@
+    de = Öffnet %1$@ um %2$@
+    es = Abre el %1$@ a las %2$@
+    eu = %1$@ean %2$@ean irekiko da
+    fr = Ouvre le %1$@ à %2$@
+    it = Apre %1$@ alle %2$@
+    pt = Abre %1$@ às %2$@
+    ru = Открывается в %1$@ в %2$@
+    uk = Відчиняється в %1$@ о %2$@
+
+  [opens_at]
+    en = Opens at %@
+    be = Адкрыццё ў %@
+    de = Öffnet um %@
+    es = Abre a las %@
+    eu = %@ean irekiko da
+    fr = Ouvre à %@
+    it = Apre alle %@
+    pt = Abre às %@
+    ru = Открывается в %@
+    uk = Відкриття о %@
+
+  [opens_in]
+    en = Opens in %@
+    ar = يفتح بعد %@
+    be = Адчыняецца праз %@
+    de = Öffnet in %@
+    es = Abre en %@
+    eu = %@ barru irekitzen da
+    fr = Ouvert dans %@
+    it = Apre tra %@
+    pt-BR = Abre em %@
+    ru = Открывается через %@
+    tr = %@ sonra açılıyor
+    uk = Відкривається через %@
+
+  [closes_at]
+    en = Closes at %@
+    be = Зачыняецца ў %@
+    de = Schließt um %@
+    es = Cierra a las %@
+    eu = %@ean itxiko da
+    fr = Ferme à %@
+    it = Chiude alle %@
+    pt = Encerra às %@
+    ru = Закрывается в %@
+    uk = Закривається о %@
+
+  [closes_in]
+    en = Closes in %@
+    ar = يغلق في غضون %@
+    be = Зачыняецца праз %@
+    de = Schließt in %@
+    es = Cierra en %@
+    eu = %@ barru ixten da
+    fr = Fermé dans %@
+    it = Chiude tra %@
+    pt-BR = Fecha em %@
+    ru = Закроется через %@
+    tr = %@ sonra kapanıyor
+    uk = Зачиняється через %@
+
+  [closed]
+    tags = android,ios
+    en = Closed
+    ar = مغلق
+    be = Зачынена
+    bg = Затворено
+    cs = Zavřeno
+    da = Lukket
+    de = Geschlossen
+    el = Κλειστό
+    es = Cerrado
+    eu = Itxita
+    fa = تعطیل
+    fi = Suljettu
+    fr = Fermé
+    hu = Zárva
+    id = Tutup
+    it = Chiuso
+    ja = 閉鎖
+    ko = 닫음
+    mr = बंद
+    nb = Stengt
+    nl = Gesloten
+    pl = Zamknięte
+    pt = Fechado
+    pt-BR = Fechado
+    ro = Închis
+    ru = Закрыто
+    sk = Zatvorené
+    sv = Stängt
+    th = ปิด
+    tr = Kapalı
+    uk = Зачинено
+    vi = Đã đóng
+    zh-Hans = 已关闭
+    zh-Hant = 已關閉
 
   [add_opening_hours]
     tags = ios
@@ -13474,7 +13524,7 @@
     zh-Hant = 英哩每小時
 
   [hour]
-    tags = android
+    tags = android,ios
     en = h
     ar = س
     be = г
