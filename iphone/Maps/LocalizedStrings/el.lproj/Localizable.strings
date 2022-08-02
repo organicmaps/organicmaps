@@ -503,12 +503,6 @@
 
 "history" = "Ιστορικό";
 
-"opens_in" = "Opens in %@";
-
-"closes_in" = "Closes in %@";
-
-"closed" = "Κλειστό";
-
 "search_not_found" = "Ωχ, δεν βρέθηκαν αποτελέσματα.";
 
 "search_not_found_query" = "Δοκιμάστε να αλλάξετε τα κριτήρια αναζήτησής σας.";
@@ -577,6 +571,20 @@
 "day_off" = "Κλειστό";
 
 "today" = "Σήμερα";
+
+"opens_tomorrow_at" = "Opens tomorrow at %@";
+
+"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
+
+"opens_at" = "Opens at %@";
+
+"opens_in" = "Opens in %@";
+
+"closes_at" = "Closes at %@";
+
+"closes_in" = "Closes in %@";
+
+"closed" = "Κλειστό";
 
 "add_opening_hours" = "Προσθέστε ώρες λειτουργίας";
 
@@ -751,6 +759,8 @@
 "foot" = "ft";
 
 "miles_per_hour" = "mph";
+
+"hour" = "h";
 
 "minute" = "min";
 

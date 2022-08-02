@@ -333,7 +333,6 @@
 	<string name="routing_arrive">到着予定: %s</string>
 	<string name="categories">カテゴリー</string>
 	<string name="history">履歴</string>
-	<string name="closed">閉鎖</string>
 	<string name="search_not_found">申し訳ありませんが該当するものは見つかりませんでした。</string>
 	<string name="search_not_found_query">別のクエリをお試しください。</string>
 	<string name="search_history_title">検索履歴</string>
@@ -375,6 +374,7 @@
 	<string name="day_off_today">本日終業</string>
 	<string name="day_off">終業</string>
 	<string name="today">今日は</string>
+	<string name="closed">閉鎖</string>
 	<string name="edit_opening_hours">営業時間を編集</string>
 	<string name="no_osm_account">OpenStreetMapのアカウントがありませんか？</string>
 	<string name="register_at_openstreetmap">登録</string>

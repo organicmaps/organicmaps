@@ -346,7 +346,6 @@
 	<string name="routing_arrive">抵達:%s</string>
 	<string name="categories">類別</string>
 	<string name="history">記錄</string>
-	<string name="closed">已關閉</string>
 	<string name="search_not_found">很抱歉，找不到任何東西。</string>
 	<string name="search_not_found_query">請嘗試其他搜尋字詞。</string>
 	<string name="search_history_title">搜尋歷史紀錄</string>
@@ -390,6 +389,7 @@
 	<string name="day_off_today">今天沒有營業</string>
 	<string name="day_off">沒有營業</string>
 	<string name="today">今天</string>
+	<string name="closed">已關閉</string>
 	<string name="edit_opening_hours">編輯營業時間</string>
 	<string name="no_osm_account">沒有 OpenStreetMap 帳號嗎？</string>
 	<string name="register_at_openstreetmap">註冊</string>

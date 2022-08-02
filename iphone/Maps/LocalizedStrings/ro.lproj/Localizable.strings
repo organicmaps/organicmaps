@@ -503,12 +503,6 @@
 
 "history" = "Cronologia";
 
-"opens_in" = "Opens in %@";
-
-"closes_in" = "Closes in %@";
-
-"closed" = "Închis";
-
 "search_not_found" = "Nu s-a găsit nimic.";
 
 "search_not_found_query" = "Încearcă să modifici condițiile căutării.";
@@ -577,6 +571,20 @@
 "day_off" = "Închis";
 
 "today" = "Azi";
+
+"opens_tomorrow_at" = "Opens tomorrow at %@";
+
+"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
+
+"opens_at" = "Opens at %@";
+
+"opens_in" = "Opens in %@";
+
+"closes_at" = "Closes at %@";
+
+"closes_in" = "Closes in %@";
+
+"closed" = "Închis";
 
 "add_opening_hours" = "Adaugă orele de funcționare";
 
@@ -751,6 +759,8 @@
 "foot" = "ft";
 
 "miles_per_hour" = "mph";
+
+"hour" = "h";
 
 "minute" = "min";
 

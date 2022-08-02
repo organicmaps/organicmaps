@@ -503,12 +503,6 @@
 
 "history" = "Verlauf";
 
-"opens_in" = "Öffnet in %@";
-
-"closes_in" = "Schließt in %@";
-
-"closed" = "Geschlossen";
-
 "search_not_found" = "Leider wurde nichts gefunden.";
 
 "search_not_found_query" = "Versuchen Sie bitte eine andere Suchanfrage.";
@@ -577,6 +571,20 @@
 "day_off" = "Geschlossen";
 
 "today" = "Heute";
+
+"opens_tomorrow_at" = "Öffnet morgen um %@";
+
+"opens_dayoftheweek_at" = "Öffnet %1$@ um %2$@";
+
+"opens_at" = "Öffnet um %@";
+
+"opens_in" = "Öffnet in %@";
+
+"closes_at" = "Schließt um %@";
+
+"closes_in" = "Schließt in %@";
+
+"closed" = "Geschlossen";
 
 "add_opening_hours" = "Geschäftszeiten hinzufügen";
 
@@ -751,6 +759,8 @@
 "foot" = "ft";
 
 "miles_per_hour" = "mph";
+
+"hour" = "h";
 
 "minute" = "min";
 

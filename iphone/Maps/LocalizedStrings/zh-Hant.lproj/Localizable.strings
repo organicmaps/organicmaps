@@ -503,12 +503,6 @@
 
 "history" = "記錄";
 
-"opens_in" = "Opens in %@";
-
-"closes_in" = "Closes in %@";
-
-"closed" = "已關閉";
-
 "search_not_found" = "很抱歉，找不到任何東西。";
 
 "search_not_found_query" = "請嘗試其他搜尋字詞。";
@@ -577,6 +571,20 @@
 "day_off" = "沒有營業";
 
 "today" = "今天";
+
+"opens_tomorrow_at" = "Opens tomorrow at %@";
+
+"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
+
+"opens_at" = "Opens at %@";
+
+"opens_in" = "Opens in %@";
+
+"closes_at" = "Closes at %@";
+
+"closes_in" = "Closes in %@";
+
+"closed" = "已關閉";
 
 "add_opening_hours" = "新增營業時間";
 
@@ -751,6 +759,8 @@
 "foot" = "英尺";
 
 "miles_per_hour" = "英哩每小時";
+
+"hour" = "小時";
 
 "minute" = "分鐘";
 

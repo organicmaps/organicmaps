@@ -338,7 +338,6 @@
 	<string name="routing_arrive">%s वाजता आगमन</string>
 	<string name="categories">प्रवर्ग</string>
 	<string name="history">इतिहास</string>
-	<string name="closed">बंद</string>
 	<string name="search_not_found">अरेच्चा, काहीच सापडले नाही.</string>
 	<string name="search_not_found_query">तुमचे शोध निकष बदलण्याचा प्रयत्न करा.</string>
 	<string name="search_history_title">शोध इतिहास</string>
@@ -382,6 +381,7 @@
 	<string name="day_off_today">आज बंद</string>
 	<string name="day_off">बंद</string>
 	<string name="today">आज</string>
+	<string name="closed">बंद</string>
 	<string name="edit_opening_hours">व्यवसायाची वेळ संपादित करा</string>
 	<string name="no_osm_account">OpenStreetMap खाते नाही?</string>
 	<string name="register_at_openstreetmap">OpenStreetMap वर नोंदणी करा</string>

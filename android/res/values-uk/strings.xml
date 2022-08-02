@@ -350,9 +350,6 @@
 	<string name="routing_arrive">Прибуття в %s</string>
 	<string name="categories">Категорії</string>
 	<string name="history">Історія</string>
-	<string name="opens_in">Відкривається через %s</string>
-	<string name="closes_in">Зачиняється через %s</string>
-	<string name="closed">Зачинено</string>
 	<string name="search_not_found">На жаль, нічого не знайдено.</string>
 	<string name="search_not_found_query">Спробуйте змінити запит.</string>
 	<string name="search_history_title">Історія пошуку</string>
@@ -396,6 +393,13 @@
 	<string name="day_off_today">Сьогодні зачинено</string>
 	<string name="day_off">Зачинено</string>
 	<string name="today">Сьогодні</string>
+	<string name="opens_tomorrow_at">Відкриття завтра о %s</string>
+	<string name="opens_dayoftheweek_at">Відчиняється в %1$s о %2$s</string>
+	<string name="opens_at">Відкриття о %s</string>
+	<string name="opens_in">Відкривається через %s</string>
+	<string name="closes_at">Закривається о %s</string>
+	<string name="closes_in">Зачиняється через %s</string>
+	<string name="closed">Зачинено</string>
 	<string name="edit_opening_hours">Редагувати години роботи</string>
 	<string name="no_osm_account">Не зареєстровані в OpenStreetMap?</string>
 	<string name="register_at_openstreetmap">Зареєструватися</string>

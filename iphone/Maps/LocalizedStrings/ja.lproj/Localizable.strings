@@ -503,12 +503,6 @@
 
 "history" = "履歴";
 
-"opens_in" = "Opens in %@";
-
-"closes_in" = "Closes in %@";
-
-"closed" = "閉鎖";
-
 "search_not_found" = "申し訳ありませんが該当するものは見つかりませんでした。";
 
 "search_not_found_query" = "別のクエリをお試しください。";
@@ -577,6 +571,20 @@
 "day_off" = "終業";
 
 "today" = "今日は";
+
+"opens_tomorrow_at" = "Opens tomorrow at %@";
+
+"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
+
+"opens_at" = "Opens at %@";
+
+"opens_in" = "Opens in %@";
+
+"closes_at" = "Closes at %@";
+
+"closes_in" = "Closes in %@";
+
+"closed" = "閉鎖";
 
 "add_opening_hours" = "営業時間を追加";
 
@@ -751,6 +759,8 @@
 "foot" = "フィート";
 
 "miles_per_hour" = "マイル毎時";
+
+"hour" = "時間";
 
 "minute" = "分";
 

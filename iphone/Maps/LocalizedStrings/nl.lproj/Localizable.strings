@@ -503,12 +503,6 @@
 
 "history" = "Geschiedenis";
 
-"opens_in" = "Opens in %@";
-
-"closes_in" = "Closes in %@";
-
-"closed" = "Gesloten";
-
 "search_not_found" = "Sorry, ik heb niets gevonden.";
 
 "search_not_found_query" = "Probeer een andere zoekopdracht.";
@@ -577,6 +571,20 @@
 "day_off" = "Vrije dag";
 
 "today" = "Vandaag";
+
+"opens_tomorrow_at" = "Opens tomorrow at %@";
+
+"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
+
+"opens_at" = "Opens at %@";
+
+"opens_in" = "Opens in %@";
+
+"closes_at" = "Closes at %@";
+
+"closes_in" = "Closes in %@";
+
+"closed" = "Gesloten";
 
 "add_opening_hours" = "Openingsuren toevoegen";
 
@@ -751,6 +759,8 @@
 "foot" = "voet";
 
 "miles_per_hour" = "mph";
+
+"hour" = "u";
 
 "minute" = "min";
 

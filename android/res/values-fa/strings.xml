@@ -328,7 +328,6 @@
 	<string name="routing_arrive">ورود به: %s</string>
 	<string name="categories">دسته بندی ها</string>
 	<string name="history">تاریخچه</string>
-	<string name="closed">تعطیل</string>
 	<string name="search_not_found">متاسفانه چیزی پیدا نشد</string>
 	<string name="search_not_found_query">با تغییر در معیار های جست و جو دوباره امتحان کنید</string>
 	<string name="search_history_title">سوابق جست وجو</string>
@@ -372,6 +371,7 @@
 	<string name="day_off_today">امروز تعطیل است</string>
 	<string name="day_off">تعطیل است</string>
 	<string name="today">امروز</string>
+	<string name="closed">تعطیل</string>
 	<string name="edit_opening_hours">ویرایش ساعت کاری</string>
 	<string name="no_osm_account">ایا حساب OpenStreetMap ندارید؟</string>
 	<string name="register_at_openstreetmap">ثبت نام در OSM</string>

@@ -503,12 +503,6 @@
 
 "history" = "Historik";
 
-"opens_in" = "Opens in %@";
-
-"closes_in" = "Closes in %@";
-
-"closed" = "Lukket";
-
 "search_not_found" = "Desværre, jeg fandt ikke noget.";
 
 "search_not_found_query" = "Prøv en anden forespørgsel.";
@@ -577,6 +571,20 @@
 "day_off" = "Fridag";
 
 "today" = "I dag";
+
+"opens_tomorrow_at" = "Opens tomorrow at %@";
+
+"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
+
+"opens_at" = "Opens at %@";
+
+"opens_in" = "Opens in %@";
+
+"closes_at" = "Closes at %@";
+
+"closes_in" = "Closes in %@";
+
+"closed" = "Lukket";
 
 "add_opening_hours" = "Tilføj arbejdstid";
 
@@ -751,6 +759,8 @@
 "foot" = "fod";
 
 "miles_per_hour" = "mph";
+
+"hour" = "time";
 
 "minute" = "min";
 

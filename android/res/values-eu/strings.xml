@@ -340,7 +340,6 @@
 	<string name="routing_arrive">Iritsiera: %s</string>
 	<string name="categories">Kategoriak</string>
 	<string name="history">Grabatu</string>
-	<string name="closed">Itxita</string>
 	<string name="search_not_found">Barkatu, ez dut ezer aurkitu.</string>
 	<string name="search_not_found_query">Mesedez, saiatu beste kontsulta bat.</string>
 	<string name="search_history_title">Bilaketa-historia</string>
@@ -382,6 +381,13 @@
 	<string name="day_off_today">Gaur atseden eguna</string>
 	<string name="day_off">Egun librea</string>
 	<string name="today">Gaur</string>
+	<string name="opens_tomorrow_at">Bihar %sean irekiko da</string>
+	<string name="opens_dayoftheweek_at">%1$sean %2$sean irekiko da</string>
+	<string name="opens_at">%sean irekiko da</string>
+	<string name="opens_in">%s barru irekitzen da</string>
+	<string name="closes_at">%sean itxiko da</string>
+	<string name="closes_in">%s barru ixten da</string>
+	<string name="closed">Itxita</string>
 	<string name="edit_opening_hours">Editatu ordutegia</string>
 	<string name="no_osm_account">Ez al duzu OpenStreetMap konturik?</string>
 	<string name="register_at_openstreetmap">Eman izena OSM</string>

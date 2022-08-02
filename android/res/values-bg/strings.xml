@@ -326,7 +326,6 @@
 	<string name="routing_arrive">Пристигане в %s</string>
 	<string name="categories">Категории</string>
 	<string name="history">История</string>
-	<string name="closed">Затворено</string>
 	<string name="search_not_found">За съжаление не са намерени резултати.</string>
 	<string name="search_not_found_query">Опитайте да промените критериите за търсене.</string>
 	<string name="search_history_title">История на търсенията</string>
@@ -368,6 +367,7 @@
 	<string name="day_off_today">Затворено днес</string>
 	<string name="day_off">Затворено</string>
 	<string name="today">Днес</string>
+	<string name="closed">Затворено</string>
 	<string name="edit_opening_hours">Редакция на работното време</string>
 	<string name="no_osm_account">Нямате акаунт в OpenStreetMap?</string>
 	<string name="register_at_openstreetmap">Регистриране в OSM</string>

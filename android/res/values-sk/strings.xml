@@ -333,7 +333,6 @@
 	<string name="routing_arrive">Pricestovať: %s</string>
 	<string name="categories">Kategórie</string>
 	<string name="history">Archív</string>
-	<string name="closed">Zatvorené</string>
 	<string name="search_not_found">Ľutujeme, ale nič sme nenašli.</string>
 	<string name="search_not_found_query">Vyskúšajte, prosím, iný hľadaný výraz.</string>
 	<string name="search_history_title">História vyhľadávania</string>
@@ -375,6 +374,7 @@
 	<string name="day_off_today">Dnes deň voľna</string>
 	<string name="day_off">Deň voľna</string>
 	<string name="today">Dnes</string>
+	<string name="closed">Zatvorené</string>
 	<string name="edit_opening_hours">Upraviť otváracie hodiny</string>
 	<string name="no_osm_account">Nemáte účet v OpenStreetMap?</string>
 	<string name="register_at_openstreetmap">Zaregistrovať sa</string>

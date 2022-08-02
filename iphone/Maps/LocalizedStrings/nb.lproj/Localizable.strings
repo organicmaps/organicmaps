@@ -503,12 +503,6 @@
 
 "history" = "Historikk";
 
-"opens_in" = "Opens in %@";
-
-"closes_in" = "Closes in %@";
-
-"closed" = "Stengt";
-
 "search_not_found" = "Beklager, jeg fant ingenting.";
 
 "search_not_found_query" = "Vennligst prøv et annet søk.";
@@ -577,6 +571,20 @@
 "day_off" = "Fridag";
 
 "today" = "I dag";
+
+"opens_tomorrow_at" = "Opens tomorrow at %@";
+
+"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
+
+"opens_at" = "Opens at %@";
+
+"opens_in" = "Opens in %@";
+
+"closes_at" = "Closes at %@";
+
+"closes_in" = "Closes in %@";
+
+"closed" = "Stengt";
 
 "add_opening_hours" = "Legg til åpningstider";
 
@@ -751,6 +759,8 @@
 "foot" = "fot";
 
 "miles_per_hour" = "mph";
+
+"hour" = "t";
 
 "minute" = "min";
 

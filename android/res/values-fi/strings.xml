@@ -341,7 +341,6 @@
 	<string name="routing_arrive">Saavut: %s</string>
 	<string name="categories">Luokat</string>
 	<string name="history">Historia</string>
-	<string name="closed">Suljettu</string>
 	<string name="search_not_found">Pahoittelut, hakutuloksia ei ole.</string>
 	<string name="search_not_found_query">Yritä jotain toista hakusanaa.</string>
 	<string name="search_history_title">Hakuhistoria</string>
@@ -383,6 +382,7 @@
 	<string name="day_off_today">Suljettu tänään</string>
 	<string name="day_off">Suljettu</string>
 	<string name="today">Tänään</string>
+	<string name="closed">Suljettu</string>
 	<string name="edit_opening_hours">Muokkaa aukioloaikoja</string>
 	<string name="no_osm_account">Eikö sinulla ole OpenStreetMap tiliä?</string>
 	<string name="register_at_openstreetmap">Rekisteröidy</string>

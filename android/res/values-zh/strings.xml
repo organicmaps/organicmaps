@@ -343,7 +343,6 @@
 	<string name="routing_arrive">抵達:%s</string>
 	<string name="categories">类别</string>
 	<string name="history">历史</string>
-	<string name="closed">已关闭</string>
 	<string name="search_not_found">抱歉，没有找到任何东西。</string>
 	<string name="search_not_found_query">请尝试其它查询。</string>
 	<string name="search_history_title">搜索历史</string>
@@ -387,6 +386,7 @@
 	<string name="day_off_today">今天没有营业</string>
 	<string name="day_off">没有营业</string>
 	<string name="today">今天</string>
+	<string name="closed">已关闭</string>
 	<string name="edit_opening_hours">编辑工作时间</string>
 	<string name="no_osm_account">在OpenStreetMap上没有账户吗？</string>
 	<string name="register_at_openstreetmap">注册</string>

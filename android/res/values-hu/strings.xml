@@ -335,7 +335,6 @@
 	<string name="routing_arrive">Megérkezik: %s</string>
 	<string name="categories">Kategóriák</string>
 	<string name="history">Előzmények</string>
-	<string name="closed">Zárva</string>
 	<string name="search_not_found">Sajnos, semmit nem találtam.</string>
 	<string name="search_not_found_query">Próbáljon másik lekérdezést.</string>
 	<string name="search_history_title">Előző keresések</string>
@@ -377,6 +376,7 @@
 	<string name="day_off_today">Ma zárva</string>
 	<string name="day_off">Zárva</string>
 	<string name="today">Ma</string>
+	<string name="closed">Zárva</string>
 	<string name="edit_opening_hours">Nyitvatartás szerkesztése</string>
 	<string name="no_osm_account">Nem rendelkezel még OpenStreetMap-felhasználói fiókkal?</string>
 	<string name="register_at_openstreetmap">Regisztráció</string>
