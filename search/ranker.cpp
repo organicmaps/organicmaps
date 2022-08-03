@@ -595,7 +595,7 @@ private:
       info.m_matchedFraction = (totalLength == 0) ? 1 : matchedLength / static_cast<float>(totalLength);
 
       info.m_exactCountryOrCapital = info.m_errorsMade == ErrorsMade(0) && info.m_allTokensUsed &&
-                                     info.m_nameScore == NAME_SCORE_FULL_MATCH &&
+                                     info.m_nameScore == NameScore::FULL_MATCH &&
           // Upgrade _any_ capital rank, not only _true_ capital (=2).
           // For example, search Barcelona from Istanbul or vice-versa.
                                      (m_countryChecker(featureTypes) || m_capitalChecker(featureTypes));

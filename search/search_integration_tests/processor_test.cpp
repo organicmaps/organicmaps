@@ -421,7 +421,7 @@ UNIT_CLASS_TEST(ProcessorTest, TestRankingInfo)
     for (auto const & result : request->Results())
     {
       auto const & info = result.GetRankingInfo();
-      TEST_EQUAL(NAME_SCORE_FULL_MATCH, info.m_nameScore, (result));
+      TEST_EQUAL(NameScore::FULL_MATCH, info.m_nameScore, (result));
       TEST(!info.m_pureCats, (result));
       TEST(!info.m_falseCats, (result));
     }
@@ -1116,7 +1116,7 @@ UNIT_CLASS_TEST(ProcessorTest, StopWords)
     TEST(ResultsMatch(results, rules), ());
 
     auto const & info = results[0].GetRankingInfo();
-    TEST_EQUAL(info.m_nameScore, NAME_SCORE_FULL_MATCH, ());
+    TEST_EQUAL(info.m_nameScore, NameScore::FULL_MATCH, ());
   }
 
   {
@@ -2000,7 +2000,7 @@ UNIT_CLASS_TEST(ProcessorTest, Strasse)
     TEST_EQUAL(results.size(), 1, (query));
     TEST_EQUAL(results[0].GetRankingInfo().m_errorsMade, ErrorsMade(0), (query));
     auto const nameScore = results[0].GetRankingInfo().m_nameScore;
-    TEST(nameScore == NAME_SCORE_FULL_MATCH || nameScore == NAME_SCORE_PREFIX, (query));
+    TEST(nameScore == NameScore::FULL_MATCH || nameScore == NameScore::FULL_PREFIX, (query));
   };
 
   SetViewport(m2::RectD(0.0, 0.0, 1.0, 2.0));
@@ -2934,7 +2934,7 @@ UNIT_CLASS_TEST(ProcessorTest, TestRankingInfo_IsAltOrOldName)
       if (ResultsMatch({result}, rules))
       {
         found = true;
-        TEST_EQUAL(result.GetRankingInfo().m_nameScore, NAME_SCORE_FULL_MATCH, (query, result));
+        TEST_EQUAL(result.GetRankingInfo().m_nameScore, NameScore::FULL_MATCH, (query, result));
         TEST_EQUAL(result.GetRankingInfo().m_isAltOrOldName, isAltOrOldName, (query, result));
       }
     }
@@ -3008,7 +3008,7 @@ UNIT_CLASS_TEST(ProcessorTest, TestRankingInfo_MultipleOldNames)
     Rules rules{ExactMatch(worldId, city)};
     TEST_EQUAL(results.size(), 1, ());
     TEST(ResultsMatch(results, rules), ());
-    TEST_EQUAL(results[0].GetRankingInfo().m_nameScore, NAME_SCORE_FULL_MATCH, (query, results));
+    TEST_EQUAL(results[0].GetRankingInfo().m_nameScore, NameScore::FULL_MATCH, (query, results));
     TEST_EQUAL(results[0].GetString(), expectedName, (query, results));
   };
 

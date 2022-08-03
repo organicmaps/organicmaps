@@ -73,11 +73,12 @@ struct RankingInfo : public StoredRankingInfo
 
   void ToCSV(std::ostream & os) const;
 
-  // Returns rank calculated by a linear model. Large values
-  // correspond to important features.
+  // Returns rank calculated by a linear model, bigger is better.
   double GetLinearModelRank() const;
 
   double GetErrorsMadePerToken() const;
+
+  NameScore GetNameScore() const;
 
   // Matched parts of the query.
   // todo(@m) Using TokenType instead of ModelType here would
@@ -103,7 +104,7 @@ struct RankingInfo : public StoredRankingInfo
   uint8_t m_popularity = 0;
 
   // Score for the feature's name.
-  NameScore m_nameScore = NAME_SCORE_ZERO;
+  NameScore m_nameScore = NameScore::ZERO;
 
   // alt_name or old_name is used.
   bool m_isAltOrOldName : 1;

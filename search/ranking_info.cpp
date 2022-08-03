@@ -39,11 +39,12 @@ double constexpr kExactCountryOrCapital = 0.1247733;
 double constexpr kRefusedByFilter = -1.0000000;
 double constexpr kCommonTokens = -0.05;
 
-double constexpr kNameScore[NameScore::NAME_SCORE_COUNT] = {
- -0.05  /* Zero */,
-  0     /* Substring */,
-  0.01  /* Prefix */,
-  0.02  /* Full Match */
+double constexpr kNameScore[static_cast<size_t>(NameScore::COUNT)] = {
+ -0.05,   // Zero
+  0,      // Substring
+  0.01,   // Prefix
+  0.018,  // Full Prefix
+  0.02,   // Full Match
 };
 
 // 0-based factors from POIs, Streets, Buildings, since we don't have ratings or popularities now.
@@ -249,18 +250,6 @@ double RankingInfo::GetLinearModelRank() const
   double const rank = static_cast<double>(m_rank) / numeric_limits<uint8_t>::max();
   double const popularity = static_cast<double>(m_popularity) / numeric_limits<uint8_t>::max();
 
-  auto nameScore = m_nameScore;
-  if (m_pureCats || m_falseCats)
-  {
-    // If the feature was matched only by categorial tokens, it's
-    // better for ranking to set name score to zero.  For example,
-    // when we're looking for a "cafe", cafes "Cafe Pushkin" and
-    // "Lermontov" both match to the request, but must be ranked in
-    // accordance to their distances to the user position or viewport,
-    // in spite of "Cafe Pushkin" has a non-zero name rank.
-    nameScore = NAME_SCORE_ZERO;
-  }
-
   double result = 0.0;
   if (!m_categorialRequest)
   {
@@ -283,7 +272,8 @@ double RankingInfo::GetLinearModelRank() const
 
     result += (m_allTokensUsed ? 1 : 0) * kAllTokensUsed;
     result += (m_exactCountryOrCapital ? 1 : 0) * kExactCountryOrCapital;
-    auto const nameRank = kNameScore[nameScore] + kErrorsMade * GetErrorsMadePerToken() +
+    auto const nameRank = kNameScore[static_cast<size_t>(GetNameScore())] +
+                          kErrorsMade * GetErrorsMadePerToken() +
                           kMatchedFraction * m_matchedFraction;
     result += (m_isAltOrOldName ? 0.7 : 1.0) * nameRank;
 
@@ -314,6 +304,33 @@ double RankingInfo::GetErrorsMadePerToken() const
 
   CHECK_GREATER(m_numTokens, 0, ());
   return static_cast<double>(m_errorsMade.m_errorsMade) / static_cast<double>(m_numTokens);
+}
+
+NameScore RankingInfo::GetNameScore() const
+{
+  if (m_pureCats || m_falseCats)
+  {
+    // If the feature was matched only by categorial tokens, it's
+    // better for ranking to set name score to zero.  For example,
+    // when we're looking for a "cafe", cafes "Cafe Pushkin" and
+    // "Lermontov" both match to the request, but must be ranked in
+    // accordance to their distances to the user position or viewport,
+    // in spite of "Cafe Pushkin" has a non-zero name rank.
+    return NameScore::ZERO;
+  }
+
+  if (m_type == Model::TYPE_SUBPOI && m_nameScore == NameScore::FULL_PREFIX)
+  {
+    // It's better for ranking when POIs would be equal by name score. Some examples:
+    // query="rewe", pois=["REWE", "REWE City", "REWE to Go"]
+    // query="carrefour", pois=["Carrefour", "Carrefour Mini", "Carrefour Gurme"]
+
+    // The reason behind that is that user usually does search for _any_ shop within some commercial network.
+    // But cities or streets geocoding should distinguish this cases.
+    return NameScore::FULL_MATCH;
+  }
+
+  return m_nameScore;
 }
 
 PoiType GetPoiType(feature::TypesHolder const & th)
