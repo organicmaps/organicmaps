@@ -37231,7 +37231,7 @@ cont {
       priority: -15400
     }
     symbol {
-      name: "pitch-m"
+      name: "playground-m"
       apply_for_type: 1
       priority: 16600
       min_distance: 10
@@ -37252,7 +37252,7 @@ cont {
       priority: -15400
     }
     symbol {
-      name: "pitch-m"
+      name: "playground-m"
       apply_for_type: 1
       priority: 16600
       min_distance: 10
@@ -37273,7 +37273,7 @@ cont {
       priority: -15400
     }
     symbol {
-      name: "pitch-m"
+      name: "playground-m"
       apply_for_type: 1
       priority: 16600
       min_distance: 10
