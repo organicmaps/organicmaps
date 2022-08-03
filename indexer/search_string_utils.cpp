@@ -334,7 +334,10 @@ private:
       /// Should reconsider candidates fetching and sorting logic from scratch to make correct processing.
 
       // Canada
-      "allee", "alley", "autoroute", "aut", "bypass", "byway", /*"carrefour", "carref",*/ "chemin", "cercle", "circle", "côte", "crossing", "cross", "expressway", "freeway", "fwy", "line", "link", "loop", "parkway", "pky", "pkwy", "path", "pathway", "ptway", "route", "rue", "rte", "trail", "walk",
+      "allee", "alley", "autoroute", "aut", "bypass", "byway", /*"carrefour", "carref",*/ "côte", "expressway", "freeway", "fwy", "pky", "pkwy",
+      /// @todo Do not use next _common search_ (e.g. 'park' is a prefix of 'parkway') tokens as generic street synonyms.
+      /// Should reconsider streets matching logic to get this synonyms back.
+      //"line", "link", "loop", "parkway", "path", "pathway", "route", "trail", "walk",
 
       // Catalan language (Barcelona, Valencia, ...)
       "avinguda", "carrer", /*"rambla", "ronda",*/ "passeig", "passatge", "travessera",
@@ -346,7 +349,7 @@ private:
       "ulice", "ul", "náměstí", "nám", "nábřeží", "nábr",
 
       // Danish - Dansk
-      "plads",
+      "plads", "alle", "gade",
 
       // Dutch - Nederlands
       "laan", "ln.", "straat", "steenweg", "stwg", "st",
