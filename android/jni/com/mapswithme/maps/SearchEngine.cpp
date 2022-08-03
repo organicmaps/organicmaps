@@ -136,7 +136,8 @@ jobject ToJavaResult(Result & result, search::ProductInfo const & productInfo, b
   jni::TScopedLocalRef name(env, jni::ToJavaString(env, result.GetString()));
   jni::TScopedLocalRef popularity(env, env->NewObject(g_popularityClass,
                                                       g_popularityConstructor,
-                                                      static_cast<jint>(result.GetRankingInfo().m_popularity)));
+                                                      /// @todo Restore when popularity will be available
+                                                      0/*static_cast<jint>(result.GetRankingInfo().m_popularity)*/));
   jobject ret =
       env->NewObject(g_resultClass, g_resultConstructor, name.get(), desc.get(), ll.m_lat, ll.m_lon,
                      ranges.get(), result.IsHotel(), popularity.get());
