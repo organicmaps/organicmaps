@@ -79,7 +79,7 @@ private:
   bool m_finished = false;
 };
 
-class PreRankerTest : public SearchTest
+class PreRankerTest : public search::tests_support::SearchTest
 {
 public:
   vector<Suggest> m_suggests;

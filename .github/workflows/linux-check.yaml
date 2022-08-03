@@ -143,6 +143,7 @@ jobs:
             -e generator_integration_tests \
             -e routing_integration_tests \
             -e routing_quality_tests \
+            -e search_quality_tests \
             -e world_feed_integration_tests \
             -e drape_tests \
             -e shaders_tests \

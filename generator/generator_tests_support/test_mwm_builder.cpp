@@ -104,6 +104,9 @@ bool TestMwmBuilder::Add(FeatureBuilder & fb)
     if (!feature::PreprocessForWorldMap(fb))
       return false;
     break;
+  case DataHeader::MapType::WorldCoasts:
+    CHECK(false, ("Coasts are not supported in test builder"));
+    break;
   }
 
   auto const & isCityTownOrVillage = ftypes::IsCityTownOrVillageChecker::Instance();

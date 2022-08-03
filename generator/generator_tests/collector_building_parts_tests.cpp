@@ -8,11 +8,8 @@
 #include "generator/osm_element.hpp"
 
 #include "indexer/classificator.hpp"
-#include "indexer/classificator_loader.hpp"
 
 #include "platform/platform_tests_support/scoped_file.hpp"
-
-#include "geometry/point2d.hpp"
 
 #include <memory>
 #include <unordered_map>
@@ -30,8 +27,9 @@ public:
   }
 
   // OSMElementCacheReaderInterface overrides:
-  [[noreturn]] bool Read(generator::cache::Key /* id */, WayElement & /* value */) override {
-    CHECK(false, ("Should not be called"));
+  bool Read(generator::cache::Key /* id */, WayElement & /* value */) override
+  {
+    UNREACHABLE();
   }
 
   bool Read(generator::cache::Key id, RelationElement & value) override
