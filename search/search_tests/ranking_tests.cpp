@@ -52,34 +52,37 @@ UNIT_TEST(NameScore_Smoke)
   auto const test = [](string const & name, string const & query, TokenRange const & tokenRange,
                        NameScore nameScore, size_t errorsMade, size_t matchedLength)
   {
-    NameScores const expected(nameScore, nameScore == NAME_SCORE_ZERO ? ErrorsMade() : ErrorsMade(errorsMade),
+    NameScores const expected(nameScore, nameScore == NameScore::ZERO ? ErrorsMade() : ErrorsMade(errorsMade),
                               false /* isAltOrOldNAme */, matchedLength);
     TEST_EQUAL(GetScore(name, query, tokenRange), expected, (name, query, tokenRange));
   };
 
   base::ScopedLogLevelChanger const enableDebug(LDEBUG);
   //    name,      query,                        range,            expected score,   errors, match length
-  test("New York", "Central Park, New York, US", TokenRange(2, 4), NAME_SCORE_FULL_MATCH, 0, 7);
-  test("New York", "York", TokenRange(0, 1), NAME_SCORE_SUBSTRING, 0, 4);
-  test("New York", "Chicago", TokenRange(0, 1), NAME_SCORE_ZERO, 0, 0);
-  test("Moscow", "Red Square Mosc", TokenRange(2, 3), NAME_SCORE_PREFIX, 0, 4);
-  test("Moscow", "Red Square Moscow", TokenRange(2, 3), NAME_SCORE_FULL_MATCH, 0, 6);
-  test("Moscow", "Red Square Moscw", TokenRange(2, 3), NAME_SCORE_FULL_MATCH, 1, 5);
-  test("San Francisco", "Fran", TokenRange(0, 1), NAME_SCORE_SUBSTRING, 0, 4);
-  test("San Francisco", "Fran ", TokenRange(0, 1), NAME_SCORE_ZERO, 0, 0);
-  test("San Francisco", "Sa", TokenRange(0, 1), NAME_SCORE_PREFIX, 0, 2);
-  test("San Francisco", "San ", TokenRange(0, 1), NAME_SCORE_PREFIX, 0, 3);
-  test("South Fredrick Street", "S Fredrick St", TokenRange(0, 3), NAME_SCORE_FULL_MATCH, 0, 11);
-  test("South Fredrick Street", "S Fredrick", TokenRange(0, 2), NAME_SCORE_PREFIX, 0, 9);
-  test("South Fredrick Street", "Fredrick St", TokenRange(0, 2), NAME_SCORE_SUBSTRING, 0, 10);
-  test("North Scott Boulevard", "N Scott Blvd", TokenRange(0, 3), NAME_SCORE_FULL_MATCH, 0, 10);
-  test("North Scott Boulevard", "N Scott", TokenRange(0, 2), NAME_SCORE_PREFIX, 0, 6);
-  test("Лермонтовъ", "Лермон", TokenRange(0, 1), NAME_SCORE_PREFIX, 0, 6);
-  test("Лермонтовъ", "Лермонтов", TokenRange(0, 1), NAME_SCORE_PREFIX, 0, 9);
-  test("Лермонтовъ", "Лермонтово", TokenRange(0, 1), NAME_SCORE_FULL_MATCH, 1, 10);
-  test("Лермонтовъ", "Лермнтовъ", TokenRange(0, 1), NAME_SCORE_FULL_MATCH, 1, 9);
-  test("фото на документы", "фото", TokenRange(0, 1), NAME_SCORE_PREFIX, 0, 4);
-  test("фотоателье", "фото", TokenRange(0, 1), NAME_SCORE_PREFIX, 0, 4);
+  test("New York", "Central Park, New York, US", TokenRange(2, 4), NameScore::FULL_MATCH, 0, 7);
+  test("New York", "York", TokenRange(0, 1), NameScore::SUBSTRING, 0, 4);
+  test("New York", "Chicago", TokenRange(0, 1), NameScore::ZERO, 0, 0);
+  test("Moscow", "Red Square Mosc", TokenRange(2, 3), NameScore::PREFIX, 0, 4);
+  test("Moscow", "Red Square Moscow", TokenRange(2, 3), NameScore::FULL_MATCH, 0, 6);
+  test("Moscow", "Red Square Moscw", TokenRange(2, 3), NameScore::FULL_MATCH, 1, 5);
+  test("San Francisco", "Fran", TokenRange(0, 1), NameScore::SUBSTRING, 0, 4);
+  test("San Francisco", "Fran ", TokenRange(0, 1), NameScore::ZERO, 0, 0);
+  test("San Francisco", "Sa", TokenRange(0, 1), NameScore::PREFIX, 0, 2);
+  test("San Francisco", "San ", TokenRange(0, 1), NameScore::FULL_PREFIX, 0, 3);
+  test("San Francisco", "san fr", TokenRange(0, 2), NameScore::PREFIX, 0, 5);
+  test("San Francisco", "san fracis", TokenRange(0, 2), NameScore::PREFIX, 1, 9);
+  test("South Fredrick Street", "S Fredrick St", TokenRange(0, 3), NameScore::FULL_MATCH, 0, 11);
+  test("South Fredrick Street", "S Fredrick", TokenRange(0, 2), NameScore::FULL_PREFIX, 0, 9);
+  test("South Fredrick Street", "Fredrick St", TokenRange(0, 2), NameScore::SUBSTRING, 0, 10);
+  test("North Scott Boulevard", "N Scott Blvd", TokenRange(0, 3), NameScore::FULL_MATCH, 0, 10);
+  test("North Scott Boulevard", "N Scott", TokenRange(0, 2), NameScore::FULL_PREFIX, 0, 6);
+  test("North Scott Boulevard", "N Sco", TokenRange(0, 2), NameScore::PREFIX, 0, 4);
+  test("Лермонтовъ", "Лермон", TokenRange(0, 1), NameScore::PREFIX, 0, 6);
+  test("Лермонтовъ", "Лермонтов", TokenRange(0, 1), NameScore::PREFIX, 0, 9);
+  test("Лермонтовъ", "Лермонтово", TokenRange(0, 1), NameScore::FULL_MATCH, 1, 10);
+  test("Лермонтовъ", "Лермнтовъ", TokenRange(0, 1), NameScore::FULL_MATCH, 1, 9);
+  test("фото на документы", "фото", TokenRange(0, 1), NameScore::FULL_PREFIX, 0, 4);
+  test("фотоателье", "фото", TokenRange(0, 1), NameScore::PREFIX, 0, 4);
 }
 
 UNIT_TEST(NameScore_SubstringVsErrors)
@@ -97,12 +100,12 @@ UNIT_TEST(NameScore_SubstringVsErrors)
 
     RankingInfo poi1 = info;
     AssignRankingInfo(GetScore("Symon Budny and Vasil Tsiapinski", query, range), poi1, query.size());
-    TEST_EQUAL(poi1.m_nameScore, NAME_SCORE_PREFIX, ());
+    TEST_EQUAL(poi1.m_nameScore, NameScore::FULL_PREFIX, ());
     TEST_EQUAL(poi1.m_errorsMade, ErrorsMade(1), ());
 
     RankingInfo poi2 = info;
     AssignRankingInfo(GetScore("Church of Saints Simon and Helen", query, range), poi2, query.size());
-    TEST_EQUAL(poi2.m_nameScore, NAME_SCORE_SUBSTRING, ());
+    TEST_EQUAL(poi2.m_nameScore, NameScore::SUBSTRING, ());
     TEST_EQUAL(poi2.m_errorsMade, ErrorsMade(0), ());
 
     TEST_LESS(poi1.GetLinearModelRank(), poi2.GetLinearModelRank(), ());
@@ -112,7 +115,7 @@ UNIT_TEST(NameScore_SubstringVsErrors)
 UNIT_TEST(RankingInfo_PreferCountry)
 {
   RankingInfo info;
-  info.m_nameScore = NAME_SCORE_FULL_MATCH;
+  info.m_nameScore = NameScore::FULL_MATCH;
   info.m_errorsMade = ErrorsMade(0);
   info.m_numTokens = 1;
   info.m_matchedFraction = 1;
@@ -148,14 +151,14 @@ UNIT_TEST(RankingInfo_PrefixVsFull)
   info.m_tokenRanges[Model::TYPE_SUBPOI] = TokenRange(0, 2);
 
   {
-    // Ensure that NAME_SCORE_PREFIX with 0 errors is better than NAME_SCORE_FULL_MATCH with 1 error.
+    // Ensure that NameScore::PREFIX with 0 errors is better than NameScore::FULL_MATCH with 1 error.
 
     auto full = info;
-    full.m_nameScore = NAME_SCORE_FULL_MATCH;
+    full.m_nameScore = NameScore::FULL_MATCH;
     full.m_errorsMade = ErrorsMade(1);
 
     auto prefix = info;
-    prefix.m_nameScore = NAME_SCORE_PREFIX;
+    prefix.m_nameScore = NameScore::PREFIX;
     prefix.m_errorsMade = ErrorsMade(0);
 
     TEST_LESS(full.GetLinearModelRank(), prefix.GetLinearModelRank(), ());

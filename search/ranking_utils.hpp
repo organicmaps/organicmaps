@@ -103,16 +103,18 @@ ErrorsMade GetErrorsMade(QueryParams::Token const & token, strings::UniString co
 ErrorsMade GetPrefixErrorsMade(QueryParams::Token const & token, strings::UniString const & text);
 }  // namespace impl
 
-// The order and numeric values are important here.  Please, check all
-// use-cases before changing this enum.
-enum NameScore : uint8_t
+// The order and numeric values are important here. Please, check all use-cases before changing this enum.
+enum class NameScore : uint8_t
 {
-  NAME_SCORE_ZERO = 0,
-  NAME_SCORE_SUBSTRING = 1,
-  NAME_SCORE_PREFIX = 2,
-  NAME_SCORE_FULL_MATCH = 3,
+  // example name = "Carrefour Mini"
+                    // example query:
+  ZERO = 0,         // Rewe
+  SUBSTRING = 1,    // Mini
+  PREFIX = 2,       // Carref
+  FULL_PREFIX = 3,  // Carrefour
+  FULL_MATCH = 4,   // Carrefour Mini
 
-  NAME_SCORE_COUNT
+  COUNT
 };
 
 struct NameScores
@@ -153,7 +155,7 @@ struct NameScores
            m_isAltOrOldName == rhs.m_isAltOrOldName && m_matchedLength == rhs.m_matchedLength;
   }
 
-  NameScore m_nameScore = NAME_SCORE_ZERO;
+  NameScore m_nameScore = NameScore::ZERO;
   ErrorsMade m_errorsMade;
   bool m_isAltOrOldName = false;
   size_t m_matchedLength = 0;
@@ -201,14 +203,14 @@ NameScores GetNameScores(std::vector<strings::UniString> const & tokens, uint8_t
     ErrorsMade totalErrorsMade(0);
     size_t matchedLength = 0;
     // Highest quality namescore possible for this offset
-    NameScore nameScore = NAME_SCORE_SUBSTRING;
+    NameScore nameScore = NameScore::SUBSTRING;
     // Prefix & full matches must test starting at the same index. (tokenIndex == i)
     if (offset + 1 == tokenCount)
     {
       if (sliceCount == tokenCount)
-        nameScore = NAME_SCORE_FULL_MATCH;
+        nameScore = NameScore::FULL_MATCH;
       else
-        nameScore = NAME_SCORE_PREFIX;
+        nameScore = NameScore::FULL_PREFIX;
     }
     bool isAltOrOldName = false;
     // Iterate through the entire slice. Incomplete matches can still be good.
@@ -247,15 +249,15 @@ NameScores GetNameScores(std::vector<strings::UniString> const & tokens, uint8_t
           // NAME_SCORE_PREFIX with less errors is better than NAME_SCORE_FULL_MATCH.
           /// @see RankingInfo_PrefixVsFull test.
           errorsMade = prefixErrors;
-          if (nameScore == NAME_SCORE_FULL_MATCH)
-            nameScore = NAME_SCORE_PREFIX;
+          if (nameScore == NameScore::FULL_MATCH || nameScore == NameScore::FULL_PREFIX)
+            nameScore = NameScore::PREFIX;
         }
       }
 
       // If this was a full match and prior tokens matched, downgrade from full to prefix.
-      if (!errorsMade.IsValid() && nameScore == NAME_SCORE_FULL_MATCH && matchedLength)
+      if (!errorsMade.IsValid() && nameScore == NameScore::FULL_MATCH && matchedLength)
       {
-        nameScore = NAME_SCORE_PREFIX;
+        nameScore = NameScore::FULL_PREFIX;
         errorsMade = ErrorsMade(0);
         // Don't count this token towards match length.
         matchedLength -= slice.Get(i).GetOriginal().size();
@@ -272,17 +274,18 @@ NameScores GetNameScores(std::vector<strings::UniString> const & tokens, uint8_t
       else
       {
         // If any token mismatches, this is at best a substring match.
-        nameScore = NAME_SCORE_SUBSTRING;
+        nameScore = NameScore::SUBSTRING;
       }
     }
 
     if (matchedLength == 0)
     {
-      nameScore = NAME_SCORE_ZERO;
+      nameScore = NameScore::ZERO;
       totalErrorsMade = ErrorsMade();
     }
     scores.UpdateIfBetter(NameScores(nameScore, totalErrorsMade, isAltOrOldName, matchedLength));
   }
+
   // Uncomment for verbose search logging
   // LOG(LDEBUG, ("Match quality", search::DebugPrint(scores), "from", tokens, "into", slice));
   return scores;
