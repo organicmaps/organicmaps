@@ -9,14 +9,20 @@
 
 namespace search
 {
+namespace tests_support
+{
 using namespace std;
-using namespace tests_support;
 
-SearchTest::SearchTest()
-  : m_scopedLog(LDEBUG)
-  , m_engine(m_dataSource, make_unique<storage::CountryInfoGetterForTesting>(), Engine::Params{})
+SearchTest::SearchTest(base::LogLevel logLevel /* = base::LDEBUG */)
+  : m_scopedLog(logLevel)
+  , m_engine(m_dataSource, make_unique<storage::CountryInfoGetterForTesting>(), {})
 {
   SetViewport(mercator::Bounds::FullRect());
+}
+
+void SearchTest::SetViewport(ms::LatLon const & ll, double radiusM)
+{
+  SetViewport(mercator::MetersToXY(ll.m_lon, ll.m_lat, radiusM));
 }
 
 void SearchTest::RegisterCountry(string const & name, m2::RectD const & rect)
@@ -24,11 +30,6 @@ void SearchTest::RegisterCountry(string const & name, m2::RectD const & rect)
   auto & infoGetter =
       static_cast<storage::CountryInfoGetterForTesting &>(m_engine.GetCountryInfoGetter());
   infoGetter.AddCountry(storage::CountryDef(name, rect));
-}
-
-bool SearchTest::ResultsMatch(string const & query, Rules const & rules)
-{
-  return ResultsMatch(query, "en" /* locale */, rules);
 }
 
 bool SearchTest::CategoryMatch(std::string const & query, Rules const & rules, string const & locale)
@@ -40,16 +41,11 @@ bool SearchTest::CategoryMatch(std::string const & query, Rules const & rules, s
   return MatchResults(m_dataSource, rules, request.Results());
 }
 
-bool SearchTest::ResultsMatch(string const & query, string const & locale, Rules const & rules)
+bool SearchTest::ResultsMatch(std::string const & query, Rules const & rules,
+                              std::string const & locale /* = "en" */,
+                              Mode mode /* = Mode::Everywhere */)
 {
-  TestSearchRequest request(m_engine, query, locale, Mode::Everywhere, m_viewport);
-  request.Run();
-  return MatchResults(m_dataSource, rules, request.Results());
-}
-
-bool SearchTest::ResultsMatch(string const & query, Mode mode, Rules const & rules)
-{
-  TestSearchRequest request(m_engine, query, "en", mode, m_viewport);
+  TestSearchRequest request(m_engine, query, locale, mode, m_viewport);
   request.Run();
   return MatchResults(m_dataSource, rules, request.Results());
 }
@@ -66,7 +62,7 @@ bool SearchTest::ResultsMatch(SearchParams const & params, Rules const & rules)
   return ResultsMatch(request.Results(), rules);
 }
 
-bool SearchTest::ResultMatches(search::Result const & result, Rule const & rule)
+bool SearchTest::IsResultMatches(search::Result const & result, Rule const & rule)
 {
   return tests_support::ResultMatches(m_dataSource, rule, result);
 }
@@ -85,7 +81,7 @@ size_t SearchTest::GetResultsNumber(string const & query, string const & locale)
   return request.Results().size();
 }
 
-unique_ptr<TestSearchRequest> SearchTest::MakeRequest(SearchParams params)
+unique_ptr<TestSearchRequest> SearchTest::MakeRequest(SearchParams const & params)
 {
   auto request = make_unique<TestSearchRequest>(m_engine, params);
   request->Run();
@@ -128,4 +124,6 @@ void SearchTest::OnMwmBuilt(MwmInfo const & info)
   case MwmInfo::COASTS: break;
   }
 }
-}  // namespace search
+
+} // namespace tests_supoort
+} // namespace search

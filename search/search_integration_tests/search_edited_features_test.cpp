@@ -11,16 +11,14 @@
 
 #include "coding/string_utf8_multilang.hpp"
 
+namespace search_edited_features_test
+{
 using namespace generator::tests_support;
 using namespace search::tests_support;
 using namespace search;
 using namespace std;
 
-namespace
-{
-class SearchEditedFeaturesTest : public SearchTest
-{
-};
+using SearchEditedFeaturesTest = SearchTest;
 
 UNIT_CLASS_TEST(SearchEditedFeaturesTest, Smoke)
 {
@@ -90,7 +88,8 @@ UNIT_CLASS_TEST(SearchEditedFeaturesTest, SearchInViewport)
 
   BuildWorld([&](TestMwmBuilder & builder) { builder.Add(city); });
 
-  auto const countryId = BuildCountry("Equestria", [&](TestMwmBuilder & builder) {
+  auto const countryId = BuildCountry("Equestria", [&](TestMwmBuilder & builder)
+  {
     builder.Add(bakery0);
     builder.Add(cornerPost);
   });
@@ -106,43 +105,38 @@ UNIT_CLASS_TEST(SearchEditedFeaturesTest, SearchInViewport)
   FeatureID const & id3 = tmp3.second;
   UNUSED_VALUE(id2);
 
-  SetViewport(m2::RectD(-1.0, -1.0, 4.0, 4.0));
+  SetViewport({-1.0, -1.0, 4.0, 4.0});
   {
     Rules const rules = {ExactMatch(countryId, bakery0), ExactMatch(countryId, bakery1),
                          ExactMatch(countryId, bakery2), ExactMatch(countryId, bakery3)};
 
-    TEST(ResultsMatch("french bakery", Mode::Viewport, rules), ());
+    TEST(ResultsMatch("french bakery", rules, "en", Mode::Viewport), ());
   }
 
-  SetViewport(m2::RectD(-2.0, -2.0, -1.0, -1.0));
+  SetViewport({-2.0, -2.0, -1.0, -1.0});
   {
-    Rules const rules = {};
-
-    TEST(ResultsMatch("french bakery", Mode::Viewport, rules), ());
+    TEST(ResultsMatch("french bakery", {}, "en", Mode::Viewport), ());
   }
 
-  SetViewport(m2::RectD(-1.0, -1.0, 1.5, 1.5));
+  SetViewport({-1.0, -1.0, 1.5, 1.5});
   {
     Rules const rules = {ExactMatch(countryId, bakery0), ExactMatch(countryId, bakery1)};
-
-    TEST(ResultsMatch("french bakery", Mode::Viewport, rules), ());
+    TEST(ResultsMatch("french bakery", rules, "en", Mode::Viewport), ());
   }
 
-  SetViewport(m2::RectD(1.5, 1.5, 4.0, 4.0));
+  SetViewport({1.5, 1.5, 4.0, 4.0});
   {
     Rules const rules = {ExactMatch(countryId, bakery2), ExactMatch(countryId, bakery3)};
-
-    TEST(ResultsMatch("french bakery", Mode::Viewport, rules), ());
+    TEST(ResultsMatch("french bakery", rules, "en", Mode::Viewport), ());
   }
 
   editor.DeleteFeature(id1);
   editor.DeleteFeature(id3);
 
-  SetViewport(m2::RectD(-1.0, -1.0, 4.0, 4.0));
+  SetViewport({-1.0, -1.0, 4.0, 4.0});
   {
     Rules const rules = {ExactMatch(countryId, bakery0), ExactMatch(countryId, bakery2)};
-
-    TEST(ResultsMatch("french bakery", Mode::Viewport, rules), ());
+    TEST(ResultsMatch("french bakery", rules, "en", Mode::Viewport), ());
   }
 }
 
@@ -153,7 +147,8 @@ UNIT_CLASS_TEST(SearchEditedFeaturesTest, ViewportFilter)
   TestPOI dummy(m2::PointD(1.0, 1.0), "dummy", "default");
   auto & editor = osm::Editor::Instance();
 
-  auto const countryId = BuildCountry("Wounderland", [&](TestMwmBuilder & builder) {
+  auto const countryId = BuildCountry("Wounderland", [&](TestMwmBuilder & builder)
+  {
     builder.Add(restaurant);
     builder.Add(dummy);
   });
@@ -161,13 +156,14 @@ UNIT_CLASS_TEST(SearchEditedFeaturesTest, ViewportFilter)
   auto const tmp = TestPOI::AddWithEditor(editor, countryId, "Pushkin cafe", {0.01, 0.01});
   TestPOI const & cafe = tmp.first;
 
+  SearchParams params;
+  params.m_query = "pushkin";
+  params.m_inputLocale = "en";
+  params.m_viewport = { -1.0, -1.0, 1.0, 1.0 };
+  params.m_mode = Mode::Viewport;
+
   // Test center for created feature loaded and filter for viewport works.
   {
-    SearchParams params;
-    params.m_query = "pushkin";
-    params.m_inputLocale = "en";
-    params.m_viewport = { -1.0, -1.0, 1.0, 1.0 };
-    params.m_mode = Mode::Viewport;
     params.m_minDistanceOnMapBetweenResults = { 0.02, 0.02 };
 
     // Min distance on map between results is 0.02, distance between results is 0.01.
@@ -180,11 +176,6 @@ UNIT_CLASS_TEST(SearchEditedFeaturesTest, ViewportFilter)
   }
 
   {
-    SearchParams params;
-    params.m_query = "pushkin";
-    params.m_inputLocale = "en";
-    params.m_viewport = { -1.0, -1.0, 1.0, 1.0 };
-    params.m_mode = Mode::Viewport;
     params.m_minDistanceOnMapBetweenResults = { 0.005, 0.005 };
 
     // Min distance on map between results is 0.005, distance between results is 0.01.
@@ -196,12 +187,8 @@ UNIT_CLASS_TEST(SearchEditedFeaturesTest, ViewportFilter)
     TEST(ResultsMatch(request.Results(), rulesViewport), ());
   }
 
-  SetViewport(m2::RectD(-1.0, -1.0, 1.0, 1.0));
+  SetViewport({-1.0, -1.0, 1.0, 1.0});
   {
-    SearchParams params;
-    params.m_query = "pushkin";
-    params.m_inputLocale = "en";
-    params.m_viewport = { -1.0, -1.0, 1.0, 1.0 };
     params.m_mode = Mode::Everywhere;
     params.m_minDistanceOnMapBetweenResults = { 0.02, 0.02 };
 
@@ -213,4 +200,4 @@ UNIT_CLASS_TEST(SearchEditedFeaturesTest, ViewportFilter)
     TEST(ResultsMatch(request.Results(), rulesEverywhere), ());
   }
 }
-}  // namespace
+} // namespace search_edited_features_test

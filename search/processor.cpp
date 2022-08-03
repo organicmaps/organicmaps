@@ -632,10 +632,8 @@ void Processor::Search(SearchParams const & params)
   case Mode::Count: ASSERT(false, ("Invalid mode")); break;
   }
 
-  if (!viewportSearch && cancellationStatus != Cancellable::Status::CancelCalled)
-  {
-    LOG(LWARNING, ("Search cancelled by timeout"));
-  }
+  if (!viewportSearch && cancellationStatus == Cancellable::Status::DeadlineExceeded)
+    LOG(LWARNING, ("Search stopped by timeout"));
 }
 
 void Processor::SearchDebug()

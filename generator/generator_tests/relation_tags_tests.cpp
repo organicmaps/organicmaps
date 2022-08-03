@@ -22,8 +22,9 @@ public:
   }
 
   // OSMElementCacheReaderInterface overrides:
-  [[noreturn]] bool Read(Key /* id */, WayElement & /* value */) override {
-    CHECK(false, ("Should not be called"));
+  bool Read(Key /* id */, WayElement & /* value */) override
+  {
+    UNREACHABLE();
   }
 
   bool Read(Key id, RelationElement & value) override
@@ -242,4 +243,4 @@ UNIT_TEST(Process_boundary)
   TEST_EQUAL(outerWay6.GetTag("wikidata"), "Q145694", ());
 }
 
-}
+} // namespace relation_tags_tests

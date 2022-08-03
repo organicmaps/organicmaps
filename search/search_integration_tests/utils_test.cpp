@@ -2,7 +2,6 @@
 
 #include "search/search_tests_support/helpers.hpp"
 
-#include "generator/feature_builder.hpp"
 #include "generator/generator_tests_support/test_feature.hpp"
 #include "generator/generator_tests_support/test_mwm_builder.hpp"
 
@@ -23,7 +22,7 @@ using namespace generator::tests_support;
 using namespace search;
 using namespace std;
 
-class SearchUtilsTest : public SearchTest
+class SearchUtilsTest : public search::tests_support::SearchTest
 {
 public:
   DataSource const & GetDataSource() const { return m_dataSource; }
