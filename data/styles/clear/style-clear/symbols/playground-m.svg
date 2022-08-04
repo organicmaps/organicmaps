@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="24"
+   height="24"
+   viewBox="0 0 24 24"
+   version="1.1"
+   id="SVGRoot"
+   sodipodi:docname="/tmp/ink_ext_XXXXXX.svgMNK1P1"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview4172"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="px"
+     showgrid="true"
+     inkscape:zoom="0.25"
+     inkscape:cx="45.0"
+     inkscape:cy="45.0"
+     inkscape:window-width="1556"
+     inkscape:window-height="991"
+     inkscape:window-x="26"
+     inkscape:window-y="23"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid4295" />
+  </sodipodi:namedview>
+  <defs
+     id="defs4167" />
+  <g
+     inkscape:label="Ebene 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       id="path3694"
+       style="fill:#717065;fill-opacity:1;stroke-width:0.375344"
+       d="m 17.246541,3 -1.876729,0.9509617 -1.876728,0.9509616 v 7.8758777 c 0,1.084929 0.0035,1.978566 0.009,2.791577 v 5.084861 h 1.113608 v -1.633181 c 0.0011,-0.08129 0.0034,-0.155435 0.0034,-0.244108 v -1.876729 h 2.627532 2.627251 v 1.876729 c 0,0.170127 0.0025,0.324967 0.0067,0.468343 v 1.401387 h 0.510893 c 0.01571,0.0014 0.02906,0.007 0.04563,0.007 0.01478,0 0.02795,-0.0048 0.04199,-0.007 h 0.495497 V 17.094781 C 20.992839,16.001077 21,14.611268 21,12.777801 V 4.9019233 L 19.123269,3.9509617 Z m -2.627532,3.3906529 h 2.627532 2.627251 V 8.2673815 10.14411 H 17.246541 14.619009 V 8.2673815 Z m -2.244012,4.9622451 c 0,0 -1.681587,1.094813 -2.580222,1.786588 -1.0961408,0.843816 -2.2695529,1.357389 -3.5656164,1.560114 -1.2562698,0.196501 -2.1617599,0.58286 -2.5889001,1.10521 -1.1727032,1.434103 -0.6661962,3.795682 0.9629992,4.490264 1.5343687,0.654151 3.4672535,0.134382 5.6615393,-1.522324 l 2.102362,-1.587269 v -3.003493 c 0,-2.718908 0.0078,-2.82909 0.0078,-2.82909 z" />
+  </g>
+</svg>

@@ -1674,7 +1674,7 @@ node|z17-[leisure=fitness_centre]
 node|z17-[leisure=sauna]
 {icon-image: sauna-m.svg;-x-me-text-priority: 15500;icon-min-distance: 10;}
 node|z17-[leisure=playground]
-{icon-image: pitch-m.svg;font-size: 11;icon-min-distance: 10;}
+{icon-image: playground-m.svg;font-size: 11;icon-min-distance: 10;}
 node|z17-[leisure=swimming_pool],
 area|z17-[leisure=swimming_pool]
 {icon-image: swimming-m.svg;icon-min-distance: 10;}
