@@ -864,6 +864,10 @@
 	<string name="type.landuse.education">Адукацыйныя ўстановы</string>
 	<string name="type.leisure.marina">Прычал</string>
 	<string name="type.leisure.picnic_table">Стол для пікніка</string>
+	<string name="type.sport.climbing">Скаладром</string>
+	<string name="type.sport.yoga">Ёга</string>
+	<string name="type.leisure.swimming_pool">Басейн</string>
+	<string name="type.leisure.swimming_pool.private">Басейн</string>
 	<string name="type.man_made.survey_point">Геадэзічны пункт</string>
 	<string name="type.man_made.flagpole">Флагшток</string>
 	<string name="type.man_made.mast">Мачта/вышка</string>
