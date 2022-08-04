@@ -46,7 +46,7 @@ namespace feature
 
     serial::GeometryCodingParams GetGeometryCodingParams(int scaleIndex) const;
 
-    m2::RectD const GetBounds() const;
+    m2::RectD GetBounds() const;
     void SetBounds(m2::RectD const & r);
 
     template <size_t N>

@@ -17,30 +17,30 @@ using namespace std;
 
 namespace
 {
-  template <class Sink, class Cont>
-  void SaveBytes(Sink & sink, Cont const & cont)
+template <class Sink, class Cont>
+void SaveBytes(Sink & sink, Cont const & cont)
+{
+  static_assert(sizeof(typename Cont::value_type) == 1);
+
+  uint32_t const count = static_cast<uint32_t>(cont.size());
+  WriteVarUint(sink, count);
+  if (count > 0)
+    sink.Write(&cont[0], count);
+}
+
+template <class Source, class Cont>
+void LoadBytes(Source & src, Cont & cont)
+{
+  static_assert(sizeof(typename Cont::value_type) == 1);
+  ASSERT(cont.empty(), ());
+
+  uint32_t const count = ReadVarUint<uint32_t>(src);
+  if (count > 0)
   {
-    static_assert(sizeof(typename Cont::value_type) == 1, "");
-
-    uint32_t const count = static_cast<uint32_t>(cont.size());
-    WriteVarUint(sink, count);
-    if (count > 0)
-      sink.Write(&cont[0], count);
+    cont.resize(count);
+    src.Read(&cont[0], count);
   }
-
-  template <class Source, class Cont>
-  void LoadBytes(Source & src, Cont & cont)
-  {
-    static_assert(sizeof(typename Cont::value_type) == 1, "");
-    ASSERT(cont.empty(), ());
-
-    uint32_t const count = ReadVarUint<uint32_t>(src);
-    if (count > 0)
-    {
-      cont.resize(count);
-      src.Read(&cont[0], count);
-    }
-  }
+}
 }  // namespace
 
   DataHeader::DataHeader(string const & fileName)
@@ -60,7 +60,7 @@ namespace
         m_codingParams.GetBasePointUint64());
   }
 
-  m2::RectD const DataHeader::GetBounds() const
+  m2::RectD DataHeader::GetBounds() const
   {
     return Int64ToRectObsolete(m_bounds, m_codingParams.GetCoordBits());
   }
