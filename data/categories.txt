@@ -10441,11 +10441,12 @@ zh-Hant:書架|書本交換
 el:Ανταλλαγή βιβλίων|Βιβλιοθήκη|Εναλλαγή βιβλίων
 sk:Knižnica|možnosť výmeny kníh
 
-leisure-sports_centre-climbing
+sport-climbing
 en:4Climbing Centre
 ru:4Скалодром
-bg:Стена|катерене|спорт|център
 ar:مركز تسلق
+be:Скаладром
+bg:Стена|катерене
 cs:Horolezecké centrum
 da:Klatrecenter
 nl:Klimhal
@@ -10459,7 +10460,7 @@ ja:クライミングセンター
 ko:등반 센터|클라이밍 센터
 nb:Klatresenter
 pl:Centrum wspinaczkowe
-pt:Ginásio de escalada|Centro de escalada|escalada
+pt:Escalada
 pt-BR:Ginásio de escalada
 ro:Centru cățărare
 es:Centro de escalada
@@ -10467,7 +10468,7 @@ eu:Eskalada zentroa
 sv:Klättercentrum
 th:ศูนย์ปีนเขา
 tr:Tırmanma Merkezi
-uk:Спортивний скеледром|4скеледром
+uk:4Скеледром
 vi:Trung tâm leo núi
 zh-Hans:攀登中心
 zh-Hant:攀登中心
@@ -10476,9 +10477,10 @@ sk:Lezecké centrum
 fa:مرکز صعود
 mr:क्लाइंबिंग सेंटर|चढण केंद्र
 
-leisure-sports_centre-shooting
-en:4Shooting Range|rifle range
-ru:Тир|стрельбище
+sport-shooting
+en:4Shooting Range
+ru:Стрельбище
+be:Стральба
 bg:4Стрелбище
 ar:ملعب رماية
 cs:4Střelnice
@@ -10511,11 +10513,12 @@ sk:4Strelnica
 fa:محل تیراندازی
 mr:चांदमारी|बंदूक पल्ला|शूटिंग रेंज
 
-leisure-sports_centre-swimming
-en:Swimming Centre|swimming pool
-ru:Плавательный бассейн
-bg:Басейн|плуване|Плувен басейн
+sport-swimming
+en:Swimming
+ru:Плавание|бассейн
 ar:مركز سباحة
+be:Басейн|плаванне
+bg:Басейн|плуване
 cs:Plavecký bazén
 da:Svømmecenter
 nl:Zwembad
@@ -10537,7 +10540,7 @@ eu:Igeriketa zentroa
 sv:Simhall
 th:ศูนย์ว่ายน้ำ
 tr:Yüzme Merkezi
-uk:Басейн
+uk:Плавання|басейн
 vi:Trung tâm Bơi lội
 zh-Hans:游泳中心
 zh-Hant:遊泳中心
@@ -10546,11 +10549,12 @@ sk:Plavecký areál
 fa:استخرشنا
 mr:जलतरण केंद्र
 
-leisure-sports_centre-yoga
-en:Yoga Studio
-ru:Йога-центр|Студия йоги
-bg:Йога|център|студио|спорт
+sport-yoga
+en:Yoga
+ru:Йога
 ar:نادي يوغا
+be:Ёга
+bg:Йога
 cs:Studio jógy
 da:Yoga center
 nl:Yogastudio
@@ -10568,11 +10572,11 @@ pt:Estúdio de ioga
 pt-BR:Estúdio de ioga
 ro:Studio yoga
 es:Centro de yoga
-eu:Yoga zentroa
+eu:Yoga
 sv:Yogastudio
 th:โยคะสตูดิโอ
-tr:Yoga Stüdyosu
-uk:Студія йоги
+tr:Yoga
+uk:Йога
 vi:Phòng tập yoga
 zh-Hans:瑜伽工作室
 zh-Hant:瑜伽工作室
