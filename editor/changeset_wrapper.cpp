@@ -1,21 +1,16 @@
 #include "editor/changeset_wrapper.hpp"
 #include "editor/feature_matcher.hpp"
 
-#include "indexer/feature.hpp"
-
 #include "geometry/mercator.hpp"
 
 #include "base/logging.hpp"
 #include "base/macros.hpp"
 
 #include <algorithm>
-#include <cstdint>
 #include <exception>
 #include <random>
 #include <sstream>
 #include <utility>
-
-#include "private.h"
 
 using editor::XMLFeature;
 
@@ -37,11 +32,11 @@ bool OsmFeatureHasTags(pugi::xml_node const & osmFt)
   return osmFt.child("tag");
 }
 
-std::string_view constexpr static kVowels = "aeiouy";
+std::string_view constexpr kVowels = "aeiouy";
 
-auto constexpr static kMainTags = {"amenity",   "shop",    "tourism", "historic", "craft",
-                                   "emergency", "barrier", "highway", "office",   "leisure",
-                                   "waterway",  "natural", "place",   "entrance", "building"};
+std::string const kMainTags[] = {"amenity",   "shop",    "tourism", "historic", "craft",
+                                 "emergency", "barrier", "highway", "office",   "leisure",
+                                "waterway",  "natural", "place",   "entrance", "building"};
 
 std::string GetTypeForFeature(XMLFeature const & node)
 {
@@ -49,14 +44,15 @@ std::string GetTypeForFeature(XMLFeature const & node)
   {
     if (node.HasTag(key))
     {
-      std::string const value = node.GetTagValue(key);
+      // Non-const for RVO.
+      std::string value = node.GetTagValue(key);
       if (value == "yes")
         return key;
       else if (key == "shop" || key == "office" || key == "building" || key == "entrance")
         return value + " " + key;  // "convenience shop"
       else if (!value.empty() && value.back() == 's')
         // Remove 's' from the tail: "toilets" -> "toilet".
-        return value.substr(0, value.size() - 1);
+        return value.erase(value.size() - 1);
       else
         return value;
     }
@@ -74,7 +70,8 @@ std::vector<m2::PointD> NaiveSample(std::vector<m2::PointD> const & source, size
   std::vector<size_t> indexes;
   indexes.reserve(count);
 
-  std::minstd_rand engine;
+  std::random_device r;
+  std::minstd_rand engine(r());
   std::uniform_int_distribution<size_t> distrib(0, source.size());
 
   while (count--)
@@ -258,9 +255,7 @@ std::string ChangesetWrapper::TypeCountToString(TypeCount const & typeCount)
     return {};
 
   // Convert map to vector and sort pairs by count, descending.
-  std::vector<std::pair<std::string, size_t>> items;
-  for (auto const & tc : typeCount)
-    items.push_back(tc);
+  std::vector<std::pair<std::string, size_t>> items{typeCount.begin(), typeCount.end()};
 
   sort(items.begin(), items.end(),
        [](auto const & a, auto const & b)
@@ -287,7 +282,7 @@ std::string ChangesetWrapper::TypeCountToString(TypeCount const & typeCount)
     // If we have more objects left, make the last one a list of these.
     if (i == limit - 1 && limit < items.size())
     {
-      int count = 0;
+      size_t count = 0;
       for (auto j = i; j < items.size(); ++j)
         count += items[j].second;
       currentPair = {"other object", count};

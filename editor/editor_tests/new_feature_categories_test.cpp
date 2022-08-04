@@ -3,7 +3,6 @@
 #include "editor/editor_config.hpp"
 #include "editor/new_feature_categories.hpp"
 
-#include "indexer/classificator.hpp"
 #include "indexer/classificator_loader.hpp"
 
 #include <algorithm>
@@ -16,12 +15,10 @@ UNIT_TEST(NewFeatureCategories_UniqueNames)
   editor::EditorConfig config;
   osm::NewFeatureCategories categories(config);
 
-  auto const & disabled = CategoriesHolder::kDisabledLanguages;
-
   for (auto const & locale : CategoriesHolder::kLocaleMapping)
   {
     std::string const lang(locale.m_name);
-    if (std::find(disabled.begin(), disabled.end(), lang) != disabled.end())
+    if (base::IsExist(CategoriesHolder::kDisabledLanguages, lang))
       continue;
     categories.AddLanguage(lang);
     auto names = categories.GetAllCreatableTypeNames();
@@ -38,5 +35,5 @@ UNIT_TEST(NewFeatureCategories_UniqueNames)
 
       TEST(false, ("Please look at output above"));
     }
-  };
+  }
 }

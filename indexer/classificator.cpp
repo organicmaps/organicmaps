@@ -30,7 +30,7 @@ ClassifObject * ClassifObject::AddImpl(string const & s)
 {
   if (m_objs.empty()) m_objs.reserve(30);
 
-  m_objs.push_back(ClassifObject(s));
+  m_objs.emplace_back(s);
   return &(m_objs.back());
 }
 
@@ -46,7 +46,7 @@ ClassifObject * ClassifObject::Find(string const & s)
     if (obj.m_name == s)
       return &obj;
 
-  return 0;
+  return nullptr;
 }
 
 void ClassifObject::AddDrawRule(drule::Key const & k)
@@ -62,15 +62,15 @@ ClassifObjectPtr ClassifObject::BinaryFind(std::string_view const s) const
 {
   auto const i = lower_bound(m_objs.begin(), m_objs.end(), s, LessName());
   if ((i == m_objs.end()) || ((*i).m_name != s))
-    return ClassifObjectPtr(0, 0);
+    return {nullptr, 0};
   else
-    return ClassifObjectPtr(&(*i), distance(m_objs.begin(), i));
+    return {&(*i), static_cast<size_t>(distance(m_objs.begin(), i))};
 }
 
 void ClassifObject::LoadPolicy::Start(size_t i)
 {
   ClassifObject * p = Current();
-  p->m_objs.push_back(ClassifObject());
+  p->m_objs.emplace_back();
 
   base_type::Start(i);
 }
@@ -86,7 +86,8 @@ void ClassifObject::Sort()
 {
   sort(m_drawRule.begin(), m_drawRule.end(), less_scales());
   sort(m_objs.begin(), m_objs.end(), LessName());
-  for_each(m_objs.begin(), m_objs.end(), std::bind(&ClassifObject::Sort, std::placeholders::_1));
+  for (auto & obj : m_objs)
+    obj.Sort();
 }
 
 void ClassifObject::Swap(ClassifObject & r)
@@ -104,18 +105,7 @@ ClassifObject const * ClassifObject::GetObject(size_t i) const
   else
   {
     LOG(LINFO, ("Map contains object that has no classificator entry", i, m_name));
-    return 0;
-  }
-}
-
-void ClassifObject::ConcatChildNames(string & s) const
-{
-  s.clear();
-  size_t const count = m_objs.size();
-  for (size_t i = 0; i < count; ++i)
-  {
-    s += m_objs[i].GetName();
-    if (i != count-1) s += '|';
+    return nullptr;
   }
 }
 
@@ -244,8 +234,6 @@ namespace
     vec_t const & m_rules;
     drule::KeysT & m_keys;
 
-    bool m_added = false;
-
     void add_rule(int ft, iter_t i)
     {
       static const int visible[3][drule::count_of_rules] = {
@@ -255,10 +243,7 @@ namespace
       };
 
       if (visible[ft][i->m_type] == 1)
-      {
         m_keys.push_back(*i);
-        m_added = true;
-      }
     }
 
   public:
@@ -269,7 +254,7 @@ namespace
 
     void find(int ft, int scale)
     {
-      iter_t i = lower_bound(m_rules.begin(), m_rules.end(), scale, less_scales());
+      auto i = lower_bound(m_rules.begin(), m_rules.end(), scale, less_scales());
       while (i != m_rules.end() && i->m_scale == scale)
         add_rule(ft, i++);
     }
@@ -331,7 +316,7 @@ bool ClassifObject::IsDrawableLike(feature::GeomType gt, bool emptyName) const
 std::pair<int, int> ClassifObject::GetDrawScaleRange() const
 {
   if (!IsDrawableAny())
-    return std::make_pair(-1, -1);
+    return {-1, -1};
 
   int const count = static_cast<int>(m_visibility.size());
 
@@ -353,7 +338,7 @@ std::pair<int, int> ClassifObject::GetDrawScaleRange() const
       break;
     }
 
-  return std::make_pair(left, right);
+  return {left, right};
 }
 
 void Classificator::ReadClassificator(std::istream & s)
