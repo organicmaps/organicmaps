@@ -249,7 +249,7 @@ void EditorDialog::OnSave()
     case osm::Props::ContactTwitter: m_feature.SetTwitterPage(v); break;
     case osm::Props::ContactVk: m_feature.SetVkPage(v); break;
     case osm::Props::ContactLine: m_feature.SetLinePage(v); break;
-    case osm::Props::Internet: ASSERT(false, ("Is handled separately above."));
+    case osm::Props::Internet: CHECK(false, ("Is handled separately above."));
     case osm::Props::Cuisine:
       m_feature.SetCuisines(strings::Tokenize(v, ";"));
       break;

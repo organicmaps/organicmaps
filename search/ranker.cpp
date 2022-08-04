@@ -631,8 +631,8 @@ private:
       if (info.IsNotEmpty() && info.m_name == m_ranker.m_params.m_pivotRegion)
         return base::Clamp(static_cast<int>(rank * 1.7), 0, 0xFF);
 
-      // Fall through like "STATE" for cities without info.
-    }
+      // Fallthrough like "STATE" for cities without info.
+    } [[fallthrough]];
     case Model::TYPE_STATE: return rank / 1.5;
     case Model::TYPE_COUNTRY: return rank;
 
