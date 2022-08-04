@@ -11670,6 +11670,8 @@
   [type.sport.climbing]
     en = Climbing Centre
     ar = مركز تسلق
+    be = Скаладром
+    bg = Катерене
     cs = Horolezecké centrum
     da = Klatrecenter
     de = Kletterhalle
@@ -11704,6 +11706,8 @@
   [type.sport.yoga]
     en = Yoga Studio
     ar = نادي يوغا
+    be = Ёга
+    bg = Йога
     cs = Studio jógy
     da = Yoga center
     el = Στούντιο γιόγκα
@@ -11769,6 +11773,8 @@
   [type.leisure.swimming_pool]
     en = Swimming Pool
     ar = حوض سباحة
+    be = Басейн
+    bg = Басейн
     cs = Koupaliště
     da = Svømmebassin
     de = Schwimmbecken
