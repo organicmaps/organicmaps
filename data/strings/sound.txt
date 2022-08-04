@@ -335,7 +335,7 @@
 
   [go_straight]
     en = Go straight.
-    ar = انطلق مباشرة.
+    ar = انطلق بشكل مستقيم.
     be = Рухайцеся прама.
     cs = Jeďte rovně.
     da = Fortsæt lige ud.
@@ -372,7 +372,7 @@
 
   [exit]
     en = Exit.
-    ar = مخرج, خروج.
+    ar = خروج.
     be = З'езд.
     cs = výstup.
     da = Afkørsel.
@@ -927,7 +927,7 @@
 
   [in_1_kilometer]
     en = In one kilometer
-    ar = بعد كيلو متر واحدٍ
+    ar = بعد كيلومتر واحد
     be = Праз кіламетр
     cs = Za jeden kilometr
     da = Om en kilometer
@@ -964,7 +964,7 @@
 
   [in_1_5_kilometers]
     en = In one and a half kilometers
-    ar = بعد كيلو متر ونصف
+    ar = بعد كيلومتر ونصف
     be = Праз паўтара кіламетра
     cs = Za jeden a půl kilometru
     da = Om halvanden kilometer
@@ -1001,7 +1001,7 @@
 
   [in_2_kilometers]
     en = In two kilometers
-    ar = بعد كيلو مترين
+    ar = بعد كيلومترين
     be = Праз два кіламетры
     cs = Za dva kilometry
     da = Om to kilometer
@@ -1038,7 +1038,7 @@
 
   [in_2_5_kilometers]
     en = In two and a half kilometers
-    ar = بعد كيلو مترين ونصف
+    ar = بعد كيلومترين ونصف
     be = Праз два з паловай кіламетры
     cs = Za dva a půl kilometru
     da = Om en kilometer
@@ -1075,7 +1075,7 @@
 
   [in_3_kilometers]
     en = In three kilometers
-    ar = بعد ثلاثة كيلو مترات
+    ar = بعد ثلاثة كيلومترات
     be = Праз тры кіламетры
     cs = Za tři kilometry
     da = Om tre kilometer
@@ -2000,7 +2000,7 @@
 
   [in_2000_feet]
     en = In two thousand feet
-    ar = بعد ألفين قدم
+    ar = بعد ألفي قدم
     be = Праз дзве тысячы футаў
     cs = Za dva tisíce stop
     da = Om to tusind fod
