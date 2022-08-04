@@ -741,6 +741,10 @@
 	<string name="type.historic.archaeological_site">Археологически сайт</string>
 	<string name="type.landuse.basin">Резервоар</string>
 	<string name="type.leisure.picnic_table">Маса за пикник</string>
+	<string name="type.sport.climbing">Катерене</string>
+	<string name="type.sport.yoga">Йога</string>
+	<string name="type.leisure.swimming_pool">Басейн</string>
+	<string name="type.leisure.swimming_pool.private">Басейн</string>
 	<string name="type.natural">Природа</string>
 	<string name="type.natural.bare_rock">Гола скала</string>
 	<string name="type.natural.bay">Залив</string>
