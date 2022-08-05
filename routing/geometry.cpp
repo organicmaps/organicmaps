@@ -1,12 +1,11 @@
 #include "routing/geometry.hpp"
 
 #include "routing/city_roads.hpp"
-#include "routing/data_source.hpp"
 #include "routing/maxspeeds.hpp"
-#include "routing/routing_exceptions.hpp"
 
 #include "indexer/altitude_loader.hpp"
-#include "indexer/ftypes_matcher.hpp"
+#include "indexer/feature.hpp"
+#include "indexer/feature_source.hpp"
 
 #include "geometry/distance_on_sphere.hpp"
 #include "geometry/mercator.hpp"
