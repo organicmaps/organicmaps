@@ -72,6 +72,8 @@ double constexpr kAlmostZeroContribution = 1e-7;
 double constexpr kAdjustRangeM = 5000.0;
 // Full rebuild if distance(meters) is less.
 double constexpr kMinDistanceToFinishM = 10000;
+// Near MWMs criteria when choosing routing mode.
+double constexpr kCloseMwmPointsDistanceM = 300000;
 
 double CalcMaxSpeed(NumMwmIds const & numMwmIds,
                     VehicleModelFactoryInterface const & vehicleModelFactory,
@@ -1691,7 +1693,8 @@ bool IndexRouter::AreMwmsNear(IndexGraphStarter const & starter) const
       return true;
   }
 
-  return false;
+  return ms::DistanceOnEarth(starter.GetStartJunction().GetLatLon(),
+                             starter.GetFinishJunction().GetLatLon()) < kCloseMwmPointsDistanceM;
 }
 
 bool IndexRouter::DoesTransitSectionExist(NumMwmId numMwmId)
