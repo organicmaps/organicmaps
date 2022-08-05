@@ -10,10 +10,8 @@
 
 #include "geometry/latlon.hpp"
 
-#include "base/buffer_vector.hpp"
 #include "base/fifo_cache.hpp"
 
-#include <cstdint>
 #include <memory>
 #include <optional>
 #include <string>
@@ -26,7 +24,7 @@ namespace routing
 {
 // @TODO(bykoianko) Consider setting cache size based on available memory.
 // Maximum road geometry cache size in items.
-size_t constexpr kRoadsCacheSize = 5000;
+size_t constexpr kRoadsCacheSize = 10000;
 
 class RoadAttrsGetter;
 
