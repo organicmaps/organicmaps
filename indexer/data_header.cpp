@@ -1,16 +1,18 @@
 #include "indexer/data_header.hpp"
 #include "indexer/scales.hpp"
 
+#include "platform/mwm_version.hpp"
 #include "platform/platform.hpp"
 
 #include "coding/files_container.hpp"
 #include "coding/file_writer.hpp"
 #include "coding/point_coding.hpp"
 #include "coding/varint.hpp"
-#include "coding/write_to_sink.hpp"
 
 #include "defines.hpp"
 
+namespace feature
+{
 using namespace std;
 
 namespace
@@ -41,8 +43,6 @@ namespace
   }
 }  // namespace
 
-namespace feature
-{
   DataHeader::DataHeader(string const & fileName)
     : DataHeader((FilesContainerR(GetPlatform().GetReader(fileName))))
   {
@@ -107,14 +107,10 @@ namespace feature
 
   void DataHeader::Load(FilesContainerR const & cont)
   {
-    ModelReaderPtr headerReader = cont.GetReader(HEADER_FILE_TAG);
-    version::MwmVersion version;
-
-    CHECK(version::ReadVersion(cont, version), ());
-    Load(headerReader, version.GetFormat());
+    Load(cont.GetReader(HEADER_FILE_TAG));
   }
 
-  void DataHeader::Load(ModelReaderPtr const & r, version::Format format)
+  void DataHeader::Load(ModelReaderPtr const & r)
   {
     ReaderSource<ModelReaderPtr> src(r);
     m_codingParams.Load(src);
@@ -126,16 +122,9 @@ namespace feature
     LoadBytes(src, m_langs);
 
     m_type = static_cast<MapType>(ReadVarInt<int32_t>(src));
-    m_format = format;
 
-    if (!IsMWMSuitable())
-    {
-      // Actually, old versions of the app should read mwm header correct!
-      // This condition is also checked in adding mwm to the model.
-      return;
-    }
-
-    // Place all new serializable staff here.
+    if (m_type < MapType::World || m_type > MapType::Country || m_scales.size() != kMaxScalesCount)
+      MYTHROW(CorruptedMwmFile, (r.GetName()));
   }
 
   string DebugPrint(DataHeader::MapType type)

@@ -28,8 +28,6 @@ public:
   Reader GetTrianglesReader(int ind) const;
   std::optional<Reader> GetPostcodesReader() const;
 
-  version::Format GetMWMFormat() const { return m_header.GetFormat(); }
-
   serial::GeometryCodingParams const & GetDefGeometryCodingParams() const
   {
     return m_header.GetDefGeometryCodingParams();
