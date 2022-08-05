@@ -4,8 +4,6 @@
 
 #include "platform/mwm_version.hpp"
 
-#include "base/logging.hpp"
-
 #include <algorithm>
 #include <limits>
 
@@ -158,12 +156,7 @@ unique_ptr<MwmInfo> DataSource::CreateInfo(platform::LocalCountryFile const & lo
 {
   MwmValue value(localFile);
 
-  if (version::GetMwmType(value.GetMwmVersion()) != version::MwmType::SingleMwm)
-    return nullptr;
-
   feature::DataHeader const & h = value.GetHeader();
-  if (!h.IsMWMSuitable())
-    return nullptr;
 
   auto info = make_unique<MwmInfoEx>();
   info->m_bordersRect = h.GetBounds();
@@ -182,11 +175,7 @@ unique_ptr<MwmValue> DataSource::CreateValue(MwmInfo & info) const
   // Create a section with rank table if it does not exist.
   platform::LocalCountryFile const & localFile = info.GetLocalFile();
   auto p = make_unique<MwmValue>(localFile);
-  if (!p || version::GetMwmType(p->GetMwmVersion()) != version::MwmType::SingleMwm)
-    return nullptr;
-
   p->SetTable(dynamic_cast<MwmInfoEx &>(info));
-  ASSERT(p->GetHeader().IsMWMSuitable(), ());
   return p;
 }
 

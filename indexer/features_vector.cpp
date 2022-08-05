@@ -18,7 +18,6 @@ FeaturesVector::FeaturesVector(FilesContainerR const & cont, feature::DataHeader
 
 void FeaturesVector::InitRecordsReader()
 {
-  CHECK(m_loadInfo.GetMWMFormat() >= version::Format::v11, ("Old mwm format is not supported"));
   FilesContainerR::TReader reader = m_loadInfo.GetDataReader();
 
   feature::DatSectionHeader header;
