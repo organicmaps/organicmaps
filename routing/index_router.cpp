@@ -64,7 +64,7 @@ uint32_t constexpr kVisitPeriodForLeaps = 10;
 uint32_t constexpr kVisitPeriod = 40;
 
 double constexpr kLeapsStageContribution = 0.15;
-double constexpr kCandidatesStageContribution = 0.5;
+double constexpr kCandidatesStageContribution = 0.55;
 double constexpr kAlmostZeroContribution = 1e-7;
 
 // If user left the route within this range(meters), adjust the route. Else full rebuild.
@@ -880,28 +880,32 @@ RouterResultCode IndexRouter::CalculateSubrouteLeapsOnlyMode(
   starter.GetGraph().SetMode(WorldGraphMode::JointSingleMwm);
 
   RoutesCalculator calculator(starter, delegate);
-
-  double const candidateContribution = kCandidatesStageContribution / (2 * candidates.size());
-
-  // Select best candidate by calculating start/end sub-routes and using candidateMidWeights.
   RoutingResultT const * bestC = nullptr;
-  RouteWeight bestW = GetAStarWeightMax<RouteWeight>();
-  for (size_t i = 0; i < candidates.size(); ++i)
+
   {
-    auto const & c = candidates[i];
-    LOG(LDEBUG, ("Process leaps:", c.m_distance, c.m_path));
+    SCOPE_GUARD(progressGuard, [&progress]() { progress->PushAndDropLastSubProgress(); });
+    progress->AppendSubProgress(AStarSubProgress(kCandidatesStageContribution));
+    double const candidateContribution = kCandidatesStageContribution / (2 * candidates.size());
 
-    size_t const sz = c.m_path.size();
-    auto const * r1 = calculator.Calc(c.m_path[0], c.m_path[1], progress, candidateContribution);
-    auto const * r2 = calculator.Calc(c.m_path[sz-2], c.m_path[sz-1], progress, candidateContribution);
-
-    if (r1 && r2)
+    // Select best candidate by calculating start/end sub-routes and using candidateMidWeights.
+    RouteWeight bestW = GetAStarWeightMax<RouteWeight>();
+    for (size_t i = 0; i < candidates.size(); ++i)
     {
-      RouteWeight const w = r1->m_distance + candidateMidWeights[i] + r2->m_distance;
-      if (w < bestW)
+      auto const & c = candidates[i];
+      LOG(LDEBUG, ("Process leaps:", c.m_distance, c.m_path));
+
+      size_t const sz = c.m_path.size();
+      auto const * r1 = calculator.Calc(c.m_path[0], c.m_path[1], progress, candidateContribution);
+      auto const * r2 = calculator.Calc(c.m_path[sz-2], c.m_path[sz-1], progress, candidateContribution);
+
+      if (r1 && r2)
       {
-        bestW = w;
-        bestC = &c;
+        RouteWeight const w = r1->m_distance + candidateMidWeights[i] + r2->m_distance;
+        if (w < bestW)
+        {
+          bestW = w;
+          bestC = &c;
+        }
       }
     }
   }

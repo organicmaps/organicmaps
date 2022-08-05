@@ -24,6 +24,8 @@ public:
   double GetMaxContribution() const;
 
 private:
+  static double CalcDistance(ms::LatLon const & from, ms::LatLon const & to);
+
   double m_currentProgress = 0.0;
   double m_contributionCoef = 0.0;
   double m_fullDistance = 0.0;
