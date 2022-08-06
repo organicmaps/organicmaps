@@ -749,7 +749,7 @@ UNIT_TEST(Netherlands_Barneveld_TurnTest)
 
   TEST_EQUAL(result, RouterResultCode::NoError, ());
   /// @todo Reasonable solution from GraphHopper:
-  // https://www.openstreetmap.org/directions?engine=graphhopper_car&route=52.16783%2C5.56589%3B52.16940%2C5.56270#map=19/52.16916/5.56537
+  // https://www.openstreetmap.org/directions?engine=graphhopper_car&route=52.15866%2C5.56538%3B52.17042%2C5.55834
   integration::TestTurnCount(route, 1);
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnSlightLeft);
 }
