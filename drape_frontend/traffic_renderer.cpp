@@ -125,7 +125,7 @@ void TrafficRenderer::OnUpdateViewport(CoverageResult const & coverage, int curr
     return rd.m_tileKey.m_zoomLevel == currentZoomLevel &&
            (rd.m_tileKey.m_x < coverage.m_minTileX || rd.m_tileKey.m_x >= coverage.m_maxTileX ||
            rd.m_tileKey.m_y < coverage.m_minTileY || rd.m_tileKey.m_y >= coverage.m_maxTileY ||
-           std::find(tilesToDelete.begin(), tilesToDelete.end(), rd.m_tileKey) != tilesToDelete.end());
+           base::IsExist(tilesToDelete, rd.m_tileKey));
   }), m_renderData.end());
 }
 

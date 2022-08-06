@@ -68,7 +68,7 @@ int KeywordLangMatcher::CalcLangScore(int8_t lang) const
   return -numTiers;
 }
 
-KeywordLangMatcher::Score KeywordLangMatcher::CalcScore(int8_t lang, string const & name) const
+KeywordLangMatcher::Score KeywordLangMatcher::CalcScore(int8_t lang, string_view name) const
 {
   return Score(m_keywordMatcher.CalcScore(name), CalcLangScore(lang));
 }

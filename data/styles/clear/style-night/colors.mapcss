@@ -79,11 +79,13 @@
 
 /* 4.3 Barriers */
 @fence: #444444;
+@hedge: #183218;
+@cliff: #7D4F23;
 
 /* 4.4 Buildings */
 
-@building: #222222;
-@building_dark: #333333;
+@building: #2A2A2A;
+@building_dark: #3B3B3B;
 @building_border: #303030;
 @building_dark_border: #474747;
 
@@ -91,27 +93,27 @@
 /* 5.1 All roads */
 
 @trunk: #372400;
-@trunk_orange: #381F14;
-@trunk_orange_medium: #381F14;
-@trunk_orange_light: #381F11;
-@primary_orange:  #422518;
-@primary_orange_medium: #422518;
-@primary_orange_light: #422518;
-@secondary: #2B2827;
-@residential: #2B2827;
-@unclassified: #2B2827;
+@trunk_orange: #49291B;
+@trunk_orange_medium: #49291B;
+@trunk_orange_light: #49291B;
+@primary_orange: #593323;
+@primary_orange_medium: #593323;
+@primary_orange_light: #593323;
+@secondary: #4B4643;
+@residential: #4B4643;
+@unclassified: #4B4643;
 @pedestrian: #4D4744;
-@footway: #2B2827;
+@footway: #4B4643;
 @cycleway: #6E3D47;
 @construction: #332F2D;
-@track: #2B2827;
-@path: #A05012;
+@track: #5F532D;
+@path: #944A12;
 @bridleway: #2B2827;
 
 /* 5.2 Bridges */
 
-@bridge_background: #222211;
-@bridge_casing: #444444;
+@bridge_background: #2C2C1A;
+@bridge_casing: #505050;
 
 /* 5.3 Tunnels */
 
@@ -142,6 +144,7 @@
 @railway_tunnel: #222222;
 @railway_dash: #111111;
 @aerialway: #4E4E3D;
+@powerline: #333333;
 @tram: #5C5C51;
 @ferry: #2A4541;
 

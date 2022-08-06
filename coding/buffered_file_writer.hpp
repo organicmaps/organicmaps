@@ -12,8 +12,9 @@ public:
   explicit BufferedFileWriter(std::string const & fileName, Op operation = OP_WRITE_TRUNCATE,
                               size_t bufferSize = 4096);
 
+  ~BufferedFileWriter() noexcept(false) override;
+
   // Writer overrides:
-  ~BufferedFileWriter() override;
   void Seek(uint64_t pos) override;
   uint64_t Pos() const override;
   void Write(void const * p, size_t size) override;

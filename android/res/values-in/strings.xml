@@ -17,19 +17,17 @@
 	<string name="downloading">Sedang mengunduh…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Kilometer</string>
-	<!-- View and button titles for accessibility -->
-	<string name="maps">Peta</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="mb">MB</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Mil</string>
-	<!-- View and button titles for accessibility -->
+	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">Posisi Saya</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">Nanti</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Cari</string>
-	<!-- Search box placeholder text -->
+	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">Cari Peta</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">Saat ini semua Layanan Lokasi untuk perangkat atau aplikasi ini non-aktif. Mohon aktifkan lewat Setelan.</string>
@@ -43,9 +41,10 @@
 	<string name="close">Tutup</string>
 	<string name="unsupported_phone">OpenGL yang dipercepat oleh OpenGL diperlukan. Sayangnya, perangkat Anda tidak mendukung.</string>
 	<string name="download">Unduh</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable">Mohon lepas kabel USB atau masukkan kartu memori untuk menggunakan Organic Maps</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="not_enough_free_space_on_sdcard">Mohon bebaskan sejumlah ruang pada kartu SD/penyimpanan USB terlebih dahulu untuk menggunakan aplikasi</string>
-	<string name="not_enough_memory">Memori tidak cukup untuk meluncurkan aplikasi</string>
 	<string name="download_resources">Sebelum Anda mulai izinkan kami mengunduh peta dunia secara umum ke perangkat Anda.\nHal ini memerlukan data %s.</string>
 	<string name="download_resources_continue">Pergi ke Peta</string>
 	<string name="downloading_country_can_proceed">Sedang mengunduh %s. Sekarang Anda dapat melanjutkan ke peta.</string>
@@ -79,6 +78,8 @@
 	<string name="maps_storage">Simpan peta di</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Pilih tempat untuk menyimpan unduhan peta</string>
+	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+	<string name="maps_storage_downloaded">Peta</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Pindahkan peta?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
@@ -125,6 +126,8 @@
 	<string name="post">Pos</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
 	<string name="police">Polisi</string>
+	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! -->
+	<string name="wifi">WiFi</string>
 	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
 	<string name="recycling">Mendaur ulang</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
@@ -205,6 +208,8 @@
 	<string name="search_show_on_map">Tampilkan pada peta</string>
 	<!-- Text in menu -->
 	<string name="website">Situs Web</string>
+	<!-- Text in About menu, opens Organic Maps news website -->
+	<string name="news">Berita</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">Umpan balik</string>
 	<!-- Text in menu -->
@@ -219,17 +224,16 @@
 	<string name="copyright">Hak cipta</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Laporkan gangguan</string>
-	<!-- Search category -->
-	<string name="wifi">WiFi</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Perbarui semua</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">Batalkan Semuanya</string>
-	<!-- Downloaded maps category -->
+	<!-- Downloaded maps list header -->
 	<string name="downloader_downloaded_subtitle">Diunduh</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">Telah diantrekan</string>
 	<string name="downloader_near_me_subtitle">Dekat saya</string>
+	<!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
 	<string name="downloader_status_maps">Peta</string>
 	<string name="downloader_download_all_button">Unduh semua</string>
 	<string name="downloader_downloading">Mengunduh:</string>
@@ -290,8 +294,6 @@
 	<string name="gray">Abu-abu</string>
 	<!-- blue gray color -->
 	<string name="blue_gray">Biru Keabu-abuan</string>
-	<!-- Wi-Fi available -->
-	<string name="WiFi_available">Ya</string>
 
 	<!-- SECTION: Routing dialogs strings -->
 	<string name="dialog_routing_disclaimer_title">Saat mengikuti rute, harap diingat:</string>
@@ -361,7 +363,7 @@
 	<string name="editor_example_values">Contoh Nilai</string>
 	<string name="editor_correct_mistake">Koreksi kesalahan</string>
 	<string name="editor_add_select_location">Lokasi</string>
-	<string name="editor_report_problem_desription_1">Harap menggambarkan masalah secara rinci sehingga komunitas OpenStreeMap dapat memperbaiki kesalahan.</string>
+	<string name="editor_report_problem_desription_1">Harap menggambarkan masalah secara rinci sehingga komunitas OpenStreetMap dapat memperbaiki kesalahan.</string>
 	<string name="editor_report_problem_desription_2">Atau Anda bisa melakukan sendiri di https://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">Kirim</string>
 	<string name="editor_report_problem_title">Masalah</string>
@@ -446,6 +448,7 @@
 	<string name="kilometer">km</string>
 	<string name="kilometers_per_hour">km/j</string>
 	<string name="mile">mil</string>
+	<!-- A unit of measure -->
 	<string name="foot">kaki</string>
 	<string name="miles_per_hour">mpj</string>
 	<string name="hour">j</string>
@@ -544,6 +547,7 @@
 	<plurals name="tracks">
 	  <item quantity="other">trek %d</item>
 	</plurals>
+	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Pengaturan treking</string>
 	<string name="crash_reports">Laporan tabrakan</string>
 	<string name="crash_reports_description">Kami dapat menggunakan data Anda untuk meningkatkan pengalaman Organic Maps. Perubahan akan berlaku setelah Anda memulai ulang aplikasi.</string>
@@ -593,6 +597,14 @@
 	<string name="avoid_toll_roads_placepage">Hindari jalan tol</string>
 	<string name="avoid_unpaved_roads_placepage">Hindari jalan tanah</string>
 	<string name="avoid_ferry_crossing_placepage">Hindari penyeberangan kapal feri</string>
+	<!-- A generic "Yes" button in dialogs -->
+	<string name="yes">Ya</string>
+	<!-- A generic "No" button in dialogs -->
+	<string name="no">Tidak</string>
+	<!-- E.g. "WiFi:Yes" -->
+	<string name="yes_available">Ya</string>
+	<!-- E.g. "WiFi:No" -->
+	<string name="no_available">Tidak</string>
 	<string name="ok">Oke</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Urutkan…</string>
@@ -648,6 +660,8 @@
 	<string name="enable_screen_sleep">Izinkan layar untuk tidur</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Jika diaktifkan, layar akan diizinkan untuk tidur setelah beberapa saat tidak aktif.</string>
+	<!-- OpenStreetMap text on splash screen -->
+	<string name="splash_subtitle">Data peta dari OpenStreetMap</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stasiun kereta gantung</string>
@@ -770,6 +784,7 @@
 	<string name="type.building.garage">Garasi</string>
 	<string name="type.building.has_parts">Gedung</string>
 	<string name="type.building.train_station">Rel kereta api</string>
+	<string name="type.cemetery.grave">Kuburan</string>
 	<string name="type.craft.brewery">Toko minuman</string>
 	<string name="type.craft.carpenter">Tukang kayu</string>
 	<string name="type.craft.electrician">Tukang listrik</string>
@@ -872,34 +887,51 @@
 	<string name="type.healthcare.laboratory">Laboratorium medis</string>
 
 	<!-- SECTION: Types: Roads -->
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.bridleway.bridge">Menjembatani</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.bridleway.tunnel">Terowongan</string>
 	<string name="type.highway.bus_stop">Halte bus</string>
 	<string name="type.highway.construction">Jalan sedang dibangun</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.cycleway.bridge">Menjembatani</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.cycleway.tunnel">Terowongan</string>
 	<string name="type.highway.footway">Jalur</string>
 	<string name="type.highway.footway.alpine_hiking">Jalur</string>
 	<string name="type.highway.footway.area">Jalur</string>
-	<string name="type.highway.footway.bridge">Jalur</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.footway.bridge">Menjembatani</string>
 	<string name="type.highway.footway.demanding_alpine_hiking">Jalur</string>
 	<string name="type.highway.footway.demanding_mountain_hiking">Jalur</string>
 	<string name="type.highway.footway.difficult_alpine_hiking">Jalur</string>
 	<string name="type.highway.footway.hiking">Jalur</string>
 	<string name="type.highway.footway.mountain_hiking">Jalur</string>
 	<string name="type.highway.footway.permissive">Jalur</string>
-	<string name="type.highway.footway.tunnel">Jalur</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.footway.tunnel">Terowongan</string>
 	<string name="type.highway.ford">Menyeberang</string>
 	<string name="type.highway.living_street">Jalan</string>
-	<string name="type.highway.living_street.bridge">Jalan</string>
-	<string name="type.highway.living_street.tunnel">Jalan</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.living_street.bridge">Menjembatani</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.living_street.tunnel">Terowongan</string>
 	<string name="type.highway.motorway">Jalan</string>
-	<string name="type.highway.motorway.bridge">Jalan</string>
-	<string name="type.highway.motorway.tunnel">Jalan</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway.bridge">Menjembatani</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway.tunnel">Terowongan</string>
 	<string name="type.highway.motorway_junction">Keluar</string>
 	<string name="type.highway.motorway_link">Jalan</string>
-	<string name="type.highway.motorway_link.bridge">Jalan</string>
-	<string name="type.highway.motorway_link.tunnel">Jalan</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway_link.bridge">Menjembatani</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway_link.tunnel">Terowongan</string>
 	<string name="type.highway.path">Jalur</string>
 	<string name="type.highway.path.alpine_hiking">Jalur</string>
 	<string name="type.highway.path.bicycle">Jalur</string>
-	<string name="type.highway.path.bridge">Jalur</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.path.bridge">Menjembatani</string>
 	<string name="type.highway.path.demanding_alpine_hiking">Jalur</string>
 	<string name="type.highway.path.demanding_mountain_hiking">Jalur</string>
 	<string name="type.highway.path.difficult_alpine_hiking">Jalur</string>
@@ -907,51 +939,75 @@
 	<string name="type.highway.path.horse">Jalur</string>
 	<string name="type.highway.path.mountain_hiking">Jalur</string>
 	<string name="type.highway.path.permissive">Jalur</string>
-	<string name="type.highway.path.tunnel">Jalur</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.path.tunnel">Terowongan</string>
 	<string name="type.highway.pedestrian">Jalan</string>
 	<string name="type.highway.pedestrian.area">Jalan</string>
-	<string name="type.highway.pedestrian.bridge">Jalan</string>
-	<string name="type.highway.pedestrian.tunnel">Jalan</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.pedestrian.bridge">Menjembatani</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.pedestrian.tunnel">Terowongan</string>
 	<string name="type.highway.primary">Jalan</string>
-	<string name="type.highway.primary.bridge">Jalan</string>
-	<string name="type.highway.primary.tunnel">Jalan</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary.bridge">Menjembatani</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary.tunnel">Terowongan</string>
 	<string name="type.highway.primary_link">Jalan</string>
-	<string name="type.highway.primary_link.bridge">Jalan</string>
-	<string name="type.highway.primary_link.tunnel">Jalan</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary_link.bridge">Menjembatani</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary_link.tunnel">Terowongan</string>
 	<string name="type.highway.raceway">Lintasan balap</string>
 	<string name="type.highway.residential">Jalan</string>
 	<string name="type.highway.residential.area">Jalan</string>
-	<string name="type.highway.residential.bridge">Jalan</string>
-	<string name="type.highway.residential.tunnel">Jalan</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.residential.bridge">Menjembatani</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.residential.tunnel">Terowongan</string>
 	<string name="type.highway.rest_area">Tempat istirahat</string>
 	<string name="type.highway.road">Jalan</string>
-	<string name="type.highway.road.bridge">Jalan</string>
-	<string name="type.highway.road.tunnel">Jalan</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.road.bridge">Menjembatani</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.road.tunnel">Terowongan</string>
 	<string name="type.highway.secondary">Jalan</string>
-	<string name="type.highway.secondary.bridge">Jalan</string>
-	<string name="type.highway.secondary.tunnel">Jalan</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary.bridge">Menjembatani</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary.tunnel">Terowongan</string>
 	<string name="type.highway.secondary_link">Jalan</string>
-	<string name="type.highway.secondary_link.bridge">Jalan</string>
-	<string name="type.highway.secondary_link.tunnel">Jalan</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary_link.bridge">Menjembatani</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary_link.tunnel">Terowongan</string>
 	<string name="type.highway.service">Jalan</string>
 	<string name="type.highway.service.area">Jalan</string>
-	<string name="type.highway.service.bridge">Jalan</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.service.bridge">Menjembatani</string>
 	<string name="type.highway.service.driveway">Jalan</string>
 	<string name="type.highway.service.parking_aisle">Jalan</string>
-	<string name="type.highway.service.tunnel">Jalan</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.service.tunnel">Terowongan</string>
 	<string name="type.highway.speed_camera">Kamera Kecepatan</string>
 	<string name="type.highway.steps">Jalur</string>
-	<string name="type.highway.steps.bridge">Jalur</string>
-	<string name="type.highway.steps.tunnel">Jalur</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.steps.bridge">Menjembatani</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.steps.tunnel">Terowongan</string>
 	<string name="type.highway.tertiary">Jalan</string>
-	<string name="type.highway.tertiary.bridge">Jalan</string>
-	<string name="type.highway.tertiary.tunnel">Jalan</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary.bridge">Menjembatani</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary.tunnel">Terowongan</string>
 	<string name="type.highway.tertiary_link">Jalan</string>
-	<string name="type.highway.tertiary_link.bridge">Jalan</string>
-	<string name="type.highway.tertiary_link.tunnel">Jalan</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary_link.bridge">Menjembatani</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary_link.tunnel">Terowongan</string>
 	<string name="type.highway.track">Jalan</string>
 	<string name="type.highway.track.area">Jalan</string>
-	<string name="type.highway.track.bridge">Jalan</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.track.bridge">Menjembatani</string>
 	<string name="type.highway.track.grade1">Jalan</string>
 	<string name="type.highway.track.grade2">Jalan</string>
 	<string name="type.highway.track.grade3">Jalan</string>
@@ -959,18 +1015,25 @@
 	<string name="type.highway.track.grade5">Jalan</string>
 	<string name="type.highway.track.no.access">Jalan</string>
 	<string name="type.highway.track.permissive">Jalan</string>
-	<string name="type.highway.track.tunnel">Jalan</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.track.tunnel">Terowongan</string>
 	<string name="type.highway.traffic_signals">Lampu lalu lintas</string>
 	<string name="type.highway.trunk">Jalan</string>
-	<string name="type.highway.trunk.bridge">Jalan</string>
-	<string name="type.highway.trunk.tunnel">Jalan</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk.bridge">Menjembatani</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk.tunnel">Terowongan</string>
 	<string name="type.highway.trunk_link">Jalan</string>
-	<string name="type.highway.trunk_link.bridge">Jalan</string>
-	<string name="type.highway.trunk_link.tunnel">Jalan</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk_link.bridge">Menjembatani</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk_link.tunnel">Terowongan</string>
 	<string name="type.highway.unclassified">Jalan</string>
 	<string name="type.highway.unclassified.area">Jalan</string>
-	<string name="type.highway.unclassified.bridge">Jalan</string>
-	<string name="type.highway.unclassified.tunnel">Jalan</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.unclassified.bridge">Menjembatani</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.unclassified.tunnel">Terowongan</string>
 	<string name="type.area_highway.footway">Jalur</string>
 	<string name="type.area_highway.living_street">Jalan</string>
 	<string name="type.area_highway.motorway">Jalan</string>
@@ -1029,10 +1092,8 @@
 	<string name="type.leisure.playground">Taman bermain</string>
 	<string name="type.leisure.sauna">Sauna</string>
 	<string name="type.leisure.sports_centre">Olahraga</string>
-	<string name="type.leisure.sports_centre.climbing">Pusat Peralatan Mendaki</string>
-	<string name="type.leisure.sports_centre.shooting">Lapangan tembak</string>
-	<string name="type.leisure.sports_centre.swimming">Kolam Renang</string>
-	<string name="type.leisure.sports_centre.yoga">Studio Yoga</string>
+	<string name="type.sport.climbing">Pusat Peralatan Mendaki</string>
+	<string name="type.sport.yoga">Studio Yoga</string>
 	<string name="type.leisure.stadium">Stadion</string>
 	<string name="type.leisure.swimming_pool">Kolam renang</string>
 	<string name="type.leisure.swimming_pool.private">Kolam renang</string>
@@ -1045,26 +1106,46 @@
 	<string name="type.man_made.water_tower">Menara air</string>
 	<string name="type.man_made.water_well">Sumur air</string>
 	<string name="type.man_made.windmill">Kincir angin</string>
+	<string name="type.natural">Alam</string>
+	<string name="type.natural.bare_rock">Batuan telanjang</string>
 	<string name="type.natural.bay">Teluk</string>
 	<string name="type.natural.beach">Pantai</string>
+	<string name="type.natural.beach.sand">Pantai berpasir</string>
+	<string name="type.natural.beach.gravel">Pantai Kerikil</string>
 	<string name="type.natural.cape">Tanjung</string>
 	<string name="type.natural.cave_entrance">Gua</string>
+	<string name="type.natural.cliff">Tebing</string>
+	<string name="type.natural.earth_bank">Jurang</string>
+	<string name="type.man_made.embankment">Tanggul</string>
+	<string name="type.natural.coastline">Pesisir</string>
 	<string name="type.natural.geyser">Geiser</string>
 	<string name="type.natural.glacier">Gletser</string>
-	<string name="type.natural.grassland">Ladang</string>
+	<string name="type.natural.grassland">Padang rumput</string>
+	<string name="type.natural.heath">Lahan kosong</string>
+	<string name="type.natural.hot_spring">Mata air panas</string>
 	<string name="type.natural.water.lake">Danau</string>
+	<string name="type.natural.water.lock">Ruang Kunci</string>
 	<string name="type.natural.water.pond">Kolam</string>
 	<string name="type.natural.water.reservoir">Waduk</string>
 	<string name="type.natural.water.basin">Sebuah baskom air</string>
 	<string name="type.natural.water.river">Sungai</string>
+	<string name="type.natural.land">Daratan</string>
+	<string name="type.natural.meadow">Padang rumput</string>
+	<string name="type.natural.orchard">Kebun</string>
 	<string name="type.natural.peak">Puncak</string>
+	<string name="type.natural.saddle">Pelana Gunung</string>
+	<string name="type.natural.rock">Batu</string>
 	<string name="type.natural.scrub">Semak</string>
 	<string name="type.natural.spring">Mata air</string>
 	<string name="type.natural.strait">Selat</string>
 	<string name="type.natural.tree">Pohon</string>
+	<string name="type.natural.tree_row">Baris pohon</string>
+	<string name="type.natural.vineyard">Kebun anggur</string>
 	<string name="type.natural.volcano">Gunung berapi</string>
 	<string name="type.natural.water">Perairan</string>
 	<string name="type.natural.wetland">Area lahan basah</string>
+	<string name="type.natural.wetland.bog">Rawa gambut</string>
+	<string name="type.natural.wetland.marsh">Paya</string>
 	<string name="type.office">Kantor</string>
 	<string name="type.office.company">Kantor perusahaan</string>
 	<string name="type.office.estate_agent">Agen ril estat</string>
@@ -1158,22 +1239,28 @@
 	<string name="type.shop.convenience">Mini market</string>
 	<string name="type.shop.copyshop">Fotokopi</string>
 	<string name="type.shop.cosmetics">Kosmetik</string>
+	<string name="type.shop.deli">Toko Kue</string>
 	<string name="type.shop.department_store">Toko serba ada</string>
 	<string name="type.shop.doityourself">Toko perangkat keras</string>
 	<string name="type.shop.dry_cleaning">Cuci Kering</string>
 	<string name="type.shop.electronics">Elektronik</string>
 	<string name="type.shop.erotic">Toko Erotik</string>
 	<string name="type.shop.fabric">Toko</string>
+	<string name="type.shop.farm">Toko Makanan Pertanian</string>
 	<string name="type.shop.florist">Tukang bunga</string>
 	<string name="type.shop.funeral_directors">Direktur Pemakaman</string>
 	<string name="type.shop.furniture">Toko mebel</string>
 	<string name="type.shop.garden_centre">Penitipan anak</string>
 	<string name="type.shop.gift">Toko hadiah</string>
 	<string name="type.shop.greengrocer">Penjual sayuran</string>
+	<string name="type.shop.grocery">Kebutuhan sehari-hari</string>
 	<string name="type.shop.hairdresser">Penata rambut</string>
 	<string name="type.shop.hardware">Toko perangkat keras</string>
+	<string name="type.shop.health_food">Toko Makanan Kesehatan</string>
+	<string name="type.shop.houseware">Toko Peralatan Rumah Tangga</string>
 	<string name="type.shop.jewelry">Perhiasan</string>
 	<string name="type.shop.kiosk">Toko</string>
+	<string name="type.shop.kitchen">Toko Dapur</string>
 	<string name="type.shop.laundry">Londri</string>
 	<string name="type.shop.massage">Tempat Pijat</string>
 	<string name="type.shop.mobile_phone">Toko telepon</string>
@@ -1184,10 +1271,12 @@
 	<string name="type.shop.newsagent">Kios Surat Kabar</string>
 	<string name="type.shop.optician">Toko kacamata</string>
 	<string name="type.shop.outdoor">Peralatan Outdoor</string>
+	<string name="type.shop.pastry">Kue-kue</string>
 	<string name="type.shop.pawnbroker">Rumah Gadai</string>
 	<string name="type.shop.pet">Toko hewan</string>
 	<string name="type.shop.photo">Studio Foto</string>
 	<string name="type.shop.seafood">Penjual Ikan</string>
+	<string name="type.shop.second_hand">Toko Barang bekas</string>
 	<string name="type.shop.shoes">Toko sepatu</string>
 	<string name="type.shop.sports">Barang olahraga</string>
 	<string name="type.shop.stationery">Toko Alat Tulis</string>
@@ -1201,10 +1290,58 @@
 	<string name="type.shop.video">Toko video</string>
 	<string name="type.shop.video_games">Toko permainan video</string>
 	<string name="type.shop.wine">Toko anggur</string>
+	<string name="type.shop.antiques">Barang antik</string>
+	<string name="type.shop.art">Toko Seni</string>
+	<string name="type.shop.baby_goods">Toko anak-anak</string>
+	<string name="type.shop.bag">Toko Tas</string>
+	<string name="type.shop.boutique">Butik</string>
+	<string name="type.shop.charity">Toko Amal</string>
+	<string name="type.shop.cheese">Toko Keju</string>
+	<string name="type.shop.craft">Seni dan kerajinan</string>
+	<string name="type.shop.dairy">Produk susu</string>
+	<string name="type.shop.electrical">Toko elektronik</string>
+	<string name="type.shop.fishing">Toko Memancing</string>
+	<string name="type.shop.interior_decoration">Dekorasi Interior</string>
+	<string name="type.shop.lottery">Tiket Lotere</string>
+	<string name="type.shop.medical_supply">Suplai medis</string>
+	<string name="type.shop.nutrition_supplements">Suplemen Nutrisi</string>
+	<string name="type.shop.paint">Cat</string>
+	<string name="type.shop.perfumery">Wewangian</string>
+	<string name="type.shop.sewing">Perlengkapan Jahit</string>
+	<string name="type.shop.storage_rental">Sewa Penyimpanan</string>
+	<string name="type.shop.tobacco">Tembakau</string>
+	<string name="type.shop.trade">Perlengkapan Perdagangan</string>
+	<string name="type.shop.watches">Jam tangan</string>
+	<string name="type.shop.wholesale">Toko Grosir</string>
+	<string name="type.sport">Olahraga</string>
+	<string name="type.sport.american_football">Sepak Bola Amerika</string>
+	<string name="type.sport.archery">Panahan</string>
 	<string name="type.sport.athletics">Atletik</string>
+	<string name="type.sport.australian_football">Sepak bola Australia</string>
+	<string name="type.sport.baseball">Baseball</string>
 	<string name="type.sport.basketball">Bola basket</string>
+	<string name="type.sport.beachvolleyball">Voli pantai</string>
+	<string name="type.sport.bowls">Boling lapangan</string>
+	<string name="type.sport.chess">Catur</string>
+	<string name="type.sport.cricket">Kriket</string>
+	<string name="type.sport.curling">Curling</string>
 	<string name="type.sport.equestrian">Olahraga Berkuda</string>
+	<string name="type.sport.golf">Golf</string>
+	<string name="type.sport.gymnastics">Olahraga senam</string>
+	<string name="type.sport.handball">Bola tangan</string>
+	<string name="type.sport.multi">Berbagai Olahraga</string>
+	<!-- Used to tag a scuba diving site. -->
+	<string name="type.sport.scuba_diving">Selam scuba</string>
+	<string name="type.sport.shooting">Penembakan</string>
+	<string name="type.sport.skateboard">Seluncur papan</string>
+	<string name="type.sport.skiing">Bermain ski</string>
+	<string name="type.sport.soccer">Sepak bola</string>
+	<string name="type.sport.swimming">Berenang</string>
+	<string name="type.sport.table_tennis">Tenis meja</string>
 	<string name="type.sport.tennis">Lapangan tenis</string>
+	<string name="type.sport.volleyball">Bola voli</string>
+	<string name="type.sport.9pin">Boling</string>
+	<string name="type.sport.10pin">Boling</string>
 	<string name="type.tourism.alpine_hut">Penginapan di pegunungan</string>
 	<string name="type.tourism.apartment">Apartemen</string>
 	<string name="type.tourism.artwork">Pariwisata</string>
@@ -1221,7 +1358,7 @@
 	<string name="type.tourism.guest_house">Wisma tamu</string>
 	<string name="type.tourism.information">Informasi turis</string>
 	<string name="type.tourism.information.board">Papan informasi</string>
-	<string name="type.tourism.information.guidepost">Informasi turis</string>
+	<string name="type.tourism.information.guidepost">Tongkat petunjuk jalan</string>
 	<string name="type.tourism.information.map">Peta wisata</string>
 	<string name="type.tourism.information.office">Kantor wisata</string>
 	<string name="type.tourism.picnic_site">Lokasi piknik</string>
@@ -1245,4 +1382,5 @@
 	<string name="type.wheelchair.no">Tidak ada akses kursi roda</string>
 	<string name="type.wheelchair.yes">Akses penuh kursi roda</string>
 	<string name="type.building_part">Gedung</string>
+	<string name="type.amenity.events_venue">Tempat acara</string>
 </resources>

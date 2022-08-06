@@ -12,7 +12,8 @@
 #include <algorithm>
 #include <sstream>
 
-using namespace routing;
+namespace routing
+{
 using namespace std;
 
 namespace
@@ -28,6 +29,8 @@ InOutCitySpeedKMpH Max(InOutCitySpeedKMpH const & lhs, InOutCitySpeedKMpH const 
   return {Pick<max>(lhs.m_inCity, rhs.m_inCity), Pick<max>(lhs.m_outCity, rhs.m_outCity)};
 }
 
+/// @todo This function is used to to get key to fetch speed factor from model,
+/// but we assign factors for links too. @see kHighwayBasedFactors.
 HighwayType GetHighwayTypeKey(HighwayType type)
 {
   switch (type)
@@ -42,12 +45,11 @@ HighwayType GetHighwayTypeKey(HighwayType type)
 }
 }  // namespace
 
-namespace routing
-{
-
 VehicleModel::VehicleModel(Classificator const & classif, LimitsInitList const & featureTypeLimits,
                            SurfaceInitList const & featureTypeSurface, HighwayBasedInfo const & info)
-: m_highwayBasedInfo(info), m_onewayType(classif.GetTypeByPath({"hwtag", "oneway"}))
+: m_highwayBasedInfo(info)
+, m_onewayType(ftypes::IsOneWayChecker::Instance().GetType())
+, m_railwayVehicleType(ftypes::IsWayWithDurationChecker::Instance().GetMotorVehicleRailway())
 {
   m_roadTypes.Reserve(featureTypeLimits.size());
   for (auto const & v : featureTypeLimits)
@@ -71,7 +73,7 @@ VehicleModel::VehicleModel(Classificator const & classif, LimitsInitList const &
     ASSERT_LESS_OR_EQUAL(speedFactor.m_eta, 1.0, ());
     ASSERT_GREATER(speedFactor.m_weight, 0.0, ());
     ASSERT_GREATER(speedFactor.m_eta, 0.0, ());
-    m_surfaceFactors.Insert(classif.GetTypeByPath(v.m_type), v.m_factor);
+    m_surfaceFactors.Insert(classif.GetTypeByPath(v.m_type), speedFactor);
   }
 }
 
@@ -88,9 +90,12 @@ void VehicleModel::AddAdditionalRoadTypes(Classificator const & classif, Additio
   }
 }
 
-uint32_t VehicleModel::PrepareToMatchType(uint32_t type)
+uint32_t VehicleModel::PrepareToMatchType(uint32_t type) const
 {
-  return ftypes::BaseChecker::PrepareToMatch(type, 2);
+  // The only exception, 3-arity type now.
+  if (type != m_railwayVehicleType)
+    ftype::TruncValue(type, 2);
+  return type;
 }
 
 SpeedKMpH VehicleModel::GetSpeed(FeatureType & f, SpeedParams const & speedParams) const
@@ -104,11 +109,13 @@ SpeedKMpH VehicleModel::GetSpeed(FeatureType & f, SpeedParams const & speedParam
   return GetTypeSpeed(types, speedParams);
 }
 
-HighwayType VehicleModel::GetHighwayType(FeatureType & f) const
+std::optional<HighwayType> VehicleModel::GetHighwayType(FeatureType & f) const
 {
   feature::TypesHolder const types(f);
-  for (auto const t : types)
+  for (uint32_t t : types)
   {
+    t = PrepareToMatchType(t);
+
     auto const ret = GetHighwayType(t);
     if (ret)
       return *ret;
@@ -117,8 +124,8 @@ HighwayType VehicleModel::GetHighwayType(FeatureType & f) const
       return static_cast<HighwayType>(classif().GetIndexForType(t));
   }
 
-  UNREACHABLE();
-  return HighwayType::HighwayResidential;
+  // For example Denmark has "No track" profile (see kCarOptionsDenmark), but tracks exist in MWM.
+  return {};
 }
 
 double VehicleModel::GetMaxWeightSpeed() const
@@ -128,7 +135,6 @@ double VehicleModel::GetMaxWeightSpeed() const
 
 optional<HighwayType> VehicleModel::GetHighwayType(uint32_t type) const
 {
-  type = PrepareToMatchType(type);
   auto const * value = m_roadTypes.Find(type);
   if (value)
     return static_cast<HighwayType>(classif().GetIndexForType(type));
@@ -154,60 +160,22 @@ void VehicleModel::GetAdditionalRoadSpeed(uint32_t type, bool isCityRoad,
   if (s)
   {
     auto const & res = isCityRoad ? s->m_inCity : s->m_outCity;
-    speed = speed ? Pick<min>(*speed, res) : res;
+    // Take max, because combination of highway=footway + bicycle=yes should emit best bicycle speed
+    // even if highway=footway is prohibited for cycling and has small dismount speed.
+    speed = speed ? Pick<max>(*speed, res) : res;
   }
 }
 
-SpeedKMpH VehicleModel::GetSpeedOnFeatureWithMaxspeed(HighwayType const & type,
-                                                      SpeedParams const & speedParams) const
+SpeedKMpH VehicleModel::GetTypeSpeed(feature::TypesHolder const & types, SpeedParams const & params) const
 {
-  ASSERT(speedParams.m_maxspeed.IsValid(), ());
-  bool const isCityRoad = speedParams.m_inCity;
-  auto const featureMaxSpeedKmPH = speedParams.m_maxspeed.GetSpeedKmPH(speedParams.m_forward);
-  ASSERT(featureMaxSpeedKmPH != kInvalidSpeed, (type, speedParams.m_forward, speedParams.m_maxspeed));
-
-  // We assume that all link roads are equal to its parents and drop "_link" suffix
-  // while searching for the particular factor.
-  auto const hwType = GetHighwayTypeKey(type);
-  auto const * factor = m_highwayBasedInfo.m_factors.Find(hwType);
-  ASSERT(factor, ("Key:", hwType, "is not found."));
-  SpeedKMpH const & maxModelSpeed = m_maxModelSpeed.GetSpeed(isCityRoad);
-  return Pick<min>(SpeedKMpH(static_cast<double>(featureMaxSpeedKmPH)) * factor->GetFactor(isCityRoad),
-                   maxModelSpeed);
-}
-
-SpeedKMpH VehicleModel::GetSpeedOnFeatureWithoutMaxspeed(HighwayType const & type,
-                                                         SpeedParams const & speedParams) const
-{
-  ASSERT(!speedParams.m_maxspeed.IsValid(), ());
-  auto const isCityRoad = speedParams.m_inCity;
-  SpeedKMpH const & maxModelSpeed = m_maxModelSpeed.GetSpeed(isCityRoad);
-
-  auto const * s = m_highwayBasedInfo.m_speeds.Find(type);
-  ASSERT(s, ("Key:", type, "is not found."));
-
-  auto const typeKey = GetHighwayTypeKey(type);
-  auto const * factor = m_highwayBasedInfo.m_factors.Find(typeKey);
-  ASSERT(factor, ("Key:", typeKey, "is not found."));
-
-  SpeedKMpH const speed = s->GetSpeed(isCityRoad);
-  ASSERT(speed.IsValid(), (speed));
-  // Note. Weight speeds put to |m_highwayBasedInfo| are taken from the former code and should not
-  // be multiplied to the factor. On the contrary eta speed should be multiplied.
-  return SpeedKMpH(
-      min(speed.m_weight, maxModelSpeed.m_weight),
-      min(factor->GetFactor(isCityRoad).m_eta * speed.m_eta, maxModelSpeed.m_eta));
-}
-
-SpeedKMpH VehicleModel::GetTypeSpeed(feature::TypesHolder const & types,
-                                     SpeedParams const & speedParams) const
-{
-  bool const isCityRoad = speedParams.m_inCity;
+  bool const isCityRoad = params.m_inCity;
   optional<HighwayType> hwType;
   SpeedFactor surfaceFactor;
   optional<SpeedKMpH> additionalRoadSpeed;
   for (uint32_t t : types)
   {
+    t = PrepareToMatchType(t);
+
     if (!hwType)
       hwType = GetHighwayType(t);
 
@@ -215,21 +183,58 @@ SpeedKMpH VehicleModel::GetTypeSpeed(feature::TypesHolder const & types,
     GetAdditionalRoadSpeed(t, isCityRoad, additionalRoadSpeed);
   }
 
-  if (additionalRoadSpeed)
-    return *additionalRoadSpeed * surfaceFactor;
+  SpeedKMpH speed;
+  if (hwType)
+  {
+    if (params.m_maxspeed.IsValid())
+    {
+      MaxspeedType const s = params.m_maxspeed.GetSpeedKmPH(params.m_forward);
+      ASSERT(s != kInvalidSpeed, (*hwType, params.m_forward, params.m_maxspeed));
+      speed = {static_cast<double>(s)};
+    }
+    else if (additionalRoadSpeed)
+    {
+      speed = *additionalRoadSpeed;
+    }
+    else
+    {
+      auto const * s = m_highwayBasedInfo.m_speeds.Find(*hwType);
+      ASSERT(s, ("Key:", *hwType, "is not found."));
+      speed = s->GetSpeed(isCityRoad);
 
-  ASSERT(hwType, ());
-  auto const resultHwType = *hwType;
-  if (speedParams.m_maxspeed.IsValid())
-    return GetSpeedOnFeatureWithMaxspeed(resultHwType, speedParams) * surfaceFactor;
+      // Override the global default speed with the MWM's saved default speed if they are not significantly differ (2x),
+      // to avoid anomaly peaks (especially for tracks).
+      if (params.m_defSpeedKmPH != kInvalidSpeed && fabs(speed.m_weight - params.m_defSpeedKmPH) / speed.m_weight < 1.0)
+      {
+        double const factor = speed.m_eta / speed.m_weight;
+        speed.m_weight = params.m_defSpeedKmPH;
+        speed.m_eta = speed.m_weight * factor;
+      }
+    }
 
-  return GetSpeedOnFeatureWithoutMaxspeed(resultHwType, speedParams) * surfaceFactor;
+    auto const typeKey = GetHighwayTypeKey(*hwType);
+    auto const * factor = m_highwayBasedInfo.m_factors.Find(typeKey);
+    ASSERT(factor, ("Key:", typeKey, "is not found."));
+    auto const & f = factor->GetFactor(isCityRoad);
+    speed.m_weight *= f.m_weight;
+    speed.m_eta *= f.m_eta;
+  }
+  else
+  {
+    ASSERT(additionalRoadSpeed, ());
+    speed = *additionalRoadSpeed;
+  }
+
+  return Pick<min>(speed, m_maxModelSpeed.GetSpeed(isCityRoad)) * surfaceFactor;
 }
 
-SpeedKMpH VehicleModel::GetSpeedWihtoutMaxspeed(FeatureType & f,
-                                                SpeedParams const & speedParams) const
+SpeedKMpH VehicleModel::GetSpeedWihtoutMaxspeed(FeatureType & f, SpeedParams params) const
 {
-  return VehicleModel::GetSpeed(f, {speedParams.m_forward, speedParams.m_inCity, Maxspeed()});
+  // This function used for bicyle and pedestring GetSpeed implementation, so saved speeds are not applyable here.
+  params.m_maxspeed = {};
+  params.m_defSpeedKmPH = kInvalidSpeed;
+
+  return VehicleModel::GetSpeed(f, params);
 }
 
 bool VehicleModel::IsOneWay(FeatureType & f) const
@@ -256,21 +261,20 @@ bool VehicleModel::IsRoad(FeatureType & f) const
 
 bool VehicleModel::IsPassThroughAllowed(FeatureType & f) const
 {
-  feature::TypesHolder const types(f);
-  // Allow pass through additional road types e.g. peer, ferry.
-  for (uint32_t t : types)
-  {
-    if (m_addRoadTypes.Find(t))
-      return true;
-  }
-  return HasPassThroughType(types);
+  return HasPassThroughType(feature::TypesHolder(f));
 }
 
 bool VehicleModel::HasPassThroughType(feature::TypesHolder const & types) const
 {
-  for (uint32_t const t : types)
+  for (uint32_t t : types)
   {
-    bool const * allow = m_roadTypes.Find(PrepareToMatchType(t));
+    t = PrepareToMatchType(t);
+
+    // Additional types (like ferry) are always pass-through now.
+    if (m_addRoadTypes.Find(t))
+      return true;
+
+    bool const * allow = m_roadTypes.Find(t);
     if (allow && *allow)
       return true;
   }
@@ -280,7 +284,8 @@ bool VehicleModel::HasPassThroughType(feature::TypesHolder const & types) const
 
 bool VehicleModel::IsRoadType(uint32_t type) const
 {
-  return m_addRoadTypes.Find(type) || m_roadTypes.Find(PrepareToMatchType(type));
+  type = PrepareToMatchType(type);
+  return m_addRoadTypes.Find(type) || m_roadTypes.Find(type);
 }
 
 VehicleModelInterface::RoadAvailability VehicleModel::GetRoadAvailability(feature::TypesHolder const &) const
@@ -297,8 +302,7 @@ VehicleModelFactory::VehicleModelFactory(
 shared_ptr<VehicleModelInterface> VehicleModelFactory::GetVehicleModel() const
 {
   auto const itr = m_models.find("");
-  ASSERT(itr != m_models.end(), ("No default vehicle model. VehicleModelFactory was not "
-                                 "properly constructed"));
+  ASSERT(itr != m_models.end(), ());
   return itr->second;
 }
 

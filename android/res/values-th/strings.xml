@@ -17,19 +17,17 @@
 	<string name="downloading">กำลังดาวน์โหลด…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">กิโลเมตร</string>
-	<!-- View and button titles for accessibility -->
-	<string name="maps">แผนที่</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="mb">MB</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">ไมล์</string>
-	<!-- View and button titles for accessibility -->
+	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">ตำแหน่งของฉัน</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">ภายหลัง</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">ค้นหา</string>
-	<!-- Search box placeholder text -->
+	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">ค้นหาแผนที่</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">ในปัจจุบันนี้มีการปิดการใช้งานการบริการตำแหน่งที่ตั้งสำหรับอุปกรณ์หรือแอปพลิเคชันนี้ โปรดเปิดใช้งานในการตั้งค่า</string>
@@ -43,9 +41,10 @@
 	<string name="close">ปิด</string>
 	<string name="unsupported_phone">จำเป็นต้องใช้ฮาร์ดแวร์ที่เพิ่มความเร็ว OpenGL โชคไม่ดีที่อุปกรณ์ของคุณไม่รองรับ</string>
 	<string name="download">ดาวน์โหลด</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable">โปรดยกเลิกการเชื่อมต่อสาย USB หรือใส่การ์ดหน่วยความจำเพื่อใช้ Organic Maps</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="not_enough_free_space_on_sdcard">โปรดเพิ่มพื้นที่บางส่วนบนการ์ด SD /พื้นที่จัดเก็บ USB ก่อนเพื่อใช้แอป</string>
-	<string name="not_enough_memory">มีหน่วยความจำไม่เพียงพอสำหรับการเปิดแอป</string>
 	<string name="download_resources">ก่อนที่คุณจะเริ่มต้น โปรดให้เราดาวน์โหลดแผนที่โลกลงในอุปกรณ์ของคุณ\nจำเป็นต้องใช้ %s ของข้อมูล</string>
 	<string name="download_resources_continue">ไปยังแผนที่</string>
 	<string name="downloading_country_can_proceed">กำลังดาวน์โหลด %s ตอนนี้คุณสามารถ\nดำเนินการต่อไปยังแผนที่</string>
@@ -79,6 +78,8 @@
 	<string name="maps_storage">บันทึกแผนที่ไปยัง</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">เลือกสถานที่ที่ต้องการดาวน์โหลดใช้แผนที่</string>
+	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+	<string name="maps_storage_downloaded">แผนที่</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">ลบแผนที่?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
@@ -125,6 +126,8 @@
 	<string name="post">ไปรษณีย์</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
 	<string name="police">ตำรวจ</string>
+	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! -->
+	<string name="wifi">WiFi</string>
 	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
 	<string name="recycling">การรีไซเคิล</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
@@ -205,6 +208,8 @@
 	<string name="search_show_on_map">ดูบนแผนที่</string>
 	<!-- Text in menu -->
 	<string name="website">เว็บไซต์</string>
+	<!-- Text in About menu, opens Organic Maps news website -->
+	<string name="news">ข่าว</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">ข้อเสนอแนะ</string>
 	<!-- Text in menu -->
@@ -219,17 +224,16 @@
 	<string name="copyright">ลิขสิทธิ์</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">แจ้งข้อผิดพลาด</string>
-	<!-- Search category -->
-	<string name="wifi">WiFi</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">อัปเดตทั้งหมด</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">ยกเลิกทั้งหมด</string>
-	<!-- Downloaded maps category -->
+	<!-- Downloaded maps list header -->
 	<string name="downloader_downloaded_subtitle">ดาวน์โหลดแล้ว</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">ต่อแถว</string>
 	<string name="downloader_near_me_subtitle">ใกล้ฉัน</string>
+	<!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
 	<string name="downloader_status_maps">แผนที่</string>
 	<string name="downloader_download_all_button">ดาวน์โหลดทั้งหมด</string>
 	<string name="downloader_downloading">กำลังดาวน์โหลด:</string>
@@ -245,6 +249,8 @@
 	<string name="downloader_delete_map">ลบแผนที่</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">อัปเดตแผนที่</string>
+	<!-- Preference title -->
+	<string name="google_play_services">บริการของ Google Play</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">ใช้บริการ Google Play เพื่อรับตำแหน่งปัจจุบันของคุณ</string>
 	<!-- Text for routing error dialog -->
@@ -290,8 +296,6 @@
 	<string name="gray">สีเทา</string>
 	<!-- blue gray color -->
 	<string name="blue_gray">สีฟ้าอมเทา</string>
-	<!-- Wi-Fi available -->
-	<string name="WiFi_available">ใช่</string>
 
 	<!-- SECTION: Routing dialogs strings -->
 	<string name="dialog_routing_disclaimer_title">ขณะกำลังเดินทางตามเส้นทาง โปรดจำไว้ว่า:</string>
@@ -361,7 +365,7 @@
 	<string name="editor_example_values">ตัวอย่างของค่าที่ตั้งไว้</string>
 	<string name="editor_correct_mistake">แก้ไขข้อผิดพลาด</string>
 	<string name="editor_add_select_location">ตำแหน่ง</string>
-	<string name="editor_report_problem_desription_1">กรุณาอธิบายปัญหาโดยละเอียดเพื่อที่ชุมชน OpenStreeMap จะสามารถแก้ไขข้อผิดพลาดได้</string>
+	<string name="editor_report_problem_desription_1">กรุณาอธิบายปัญหาโดยละเอียดเพื่อที่ชุมชน OpenStreetMap จะสามารถแก้ไขข้อผิดพลาดได้</string>
 	<string name="editor_report_problem_desription_2">หรือทำด้วยตัวคุณเองที่ https://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">ส่ง</string>
 	<string name="editor_report_problem_title">ปัญหา</string>
@@ -446,6 +450,7 @@
 	<string name="kilometer">กม.</string>
 	<string name="kilometers_per_hour">กม./ชม.</string>
 	<string name="mile">ไมล์</string>
+	<!-- A unit of measure -->
 	<string name="foot">ฟุต</string>
 	<string name="miles_per_hour">ไมล์/ชม.</string>
 	<string name="hour">ชม.</string>
@@ -543,6 +548,7 @@
 	<plurals name="tracks">
 	  <item quantity="other">%d ติดตามต่าง ๆ</item>
 	</plurals>
+	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">การตั้งค่าการติดตาม</string>
 	<string name="crash_reports">รายงานข้อขัดข้อง</string>
 	<string name="crash_reports_description">เราอาจใช้ข้อมูลของคุณเพื่อพัฒนาประสบการณ์ของ Organic Maps การเปลี่ยนแปลงจะมีผลหลังจากที่คุณเปิดแอพฯ ขึ้นใหม่</string>
@@ -592,6 +598,14 @@
 	<string name="avoid_toll_roads_placepage">เลี่ยงทางที่ต้องเสียเงินทั้งหมด</string>
 	<string name="avoid_unpaved_roads_placepage">เลี่ยงถนนดินทั้งหมด</string>
 	<string name="avoid_ferry_crossing_placepage">เลี่ยงการข้ามฟากด้วยเรือ</string>
+	<!-- A generic "Yes" button in dialogs -->
+	<string name="yes">ใช่</string>
+	<!-- A generic "No" button in dialogs -->
+	<string name="no">ไม่ใช่</string>
+	<!-- E.g. "WiFi:Yes" -->
+	<string name="yes_available">ใช่</string>
+	<!-- E.g. "WiFi:No" -->
+	<string name="no_available">ไม่ใช่</string>
 	<string name="ok">โอเค</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">เรียง…</string>
@@ -647,6 +661,8 @@
 	<string name="enable_screen_sleep">อนุญาตให้หน้าจอเข้าสู่โหมดสลีป</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">เมื่อเปิดใช้งานหน้าจอจะได้รับอนุญาตให้เข้าสู่โหมดสลีปหลังจากไม่มีการใช้งานเป็นระยะเวลาหนึ่ง</string>
+	<!-- OpenStreetMap text on splash screen -->
+	<string name="splash_subtitle">ข้อมูลแผนที่จาก OpenStreetMap</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">สถานีกระเช้าลอยฟ้า</string>
@@ -662,6 +678,7 @@
 	<string name="type.amenity.bench">ม้านั่ง</string>
 	<string name="type.amenity.bicycle_parking">ที่จอดจักรยาน</string>
 	<string name="type.amenity.bicycle_rental">จักรยานให้เช่า</string>
+	<string name="type.amenity.bicycle_repair_station">สถานีซ่อมจักรยาน</string>
 	<string name="type.amenity.biergarten">ลานเบียร์</string>
 	<string name="type.amenity.brothel">ซ่อง</string>
 	<string name="type.amenity.bureau_de_change">แลกเปลี่ยนเงินตรา</string>
@@ -775,10 +792,12 @@
 	<string name="type.building.garage">อาคารจอดรถ</string>
 	<string name="type.building.has_parts">อาคาร</string>
 	<string name="type.building.train_station">สถานีรถไฟ</string>
+	<string name="type.cemetery.grave">หลุมฝังศพ</string>
 	<string name="type.craft.brewery">โรงเบียร์</string>
 	<string name="type.craft.carpenter">ช่างไม้</string>
 	<string name="type.craft.electrician">ช่างไฟฟ้า</string>
 	<string name="type.craft.gardener">คนจัดสวน</string>
+	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">ระบบปรับอากาศ</string>
 	<string name="type.craft.metal_construction">ช่างเหล็ก</string>
 	<string name="type.craft.painter">ช่างทาสี</string>
@@ -878,34 +897,51 @@
 	<string name="type.healthcare.laboratory">ห้องปฏิบัติการทางการแพทย์</string>
 
 	<!-- SECTION: Types: Roads -->
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.bridleway.bridge">สะพาน</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.bridleway.tunnel">อุโมงค์</string>
 	<string name="type.highway.bus_stop">ป้ายรถเมล์</string>
 	<string name="type.highway.construction">ทางกำลังอยู่ในการก่อสร้าง</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.cycleway.bridge">สะพาน</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.cycleway.tunnel">อุโมงค์</string>
 	<string name="type.highway.footway">เส้นทาง</string>
 	<string name="type.highway.footway.alpine_hiking">เส้นทาง</string>
 	<string name="type.highway.footway.area">เส้นทาง</string>
-	<string name="type.highway.footway.bridge">เส้นทาง</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.footway.bridge">สะพาน</string>
 	<string name="type.highway.footway.demanding_alpine_hiking">เส้นทาง</string>
 	<string name="type.highway.footway.demanding_mountain_hiking">เส้นทาง</string>
 	<string name="type.highway.footway.difficult_alpine_hiking">เส้นทาง</string>
 	<string name="type.highway.footway.hiking">เส้นทาง</string>
 	<string name="type.highway.footway.mountain_hiking">เส้นทาง</string>
 	<string name="type.highway.footway.permissive">เส้นทาง</string>
-	<string name="type.highway.footway.tunnel">เส้นทาง</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.footway.tunnel">อุโมงค์</string>
 	<string name="type.highway.ford">ที่ตื้นของทางน้ำ</string>
 	<string name="type.highway.living_street">ถนน</string>
-	<string name="type.highway.living_street.bridge">ถนน</string>
-	<string name="type.highway.living_street.tunnel">ถนน</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.living_street.bridge">สะพาน</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.living_street.tunnel">อุโมงค์</string>
 	<string name="type.highway.motorway">ถนน</string>
-	<string name="type.highway.motorway.bridge">ถนน</string>
-	<string name="type.highway.motorway.tunnel">ถนน</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway.bridge">สะพาน</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway.tunnel">อุโมงค์</string>
 	<string name="type.highway.motorway_junction">ทางออก</string>
 	<string name="type.highway.motorway_link">ถนน</string>
-	<string name="type.highway.motorway_link.bridge">ถนน</string>
-	<string name="type.highway.motorway_link.tunnel">ถนน</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway_link.bridge">สะพาน</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway_link.tunnel">อุโมงค์</string>
 	<string name="type.highway.path">เส้นทาง</string>
 	<string name="type.highway.path.alpine_hiking">เส้นทาง</string>
 	<string name="type.highway.path.bicycle">เส้นทาง</string>
-	<string name="type.highway.path.bridge">เส้นทาง</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.path.bridge">สะพาน</string>
 	<string name="type.highway.path.demanding_alpine_hiking">เส้นทาง</string>
 	<string name="type.highway.path.demanding_mountain_hiking">เส้นทาง</string>
 	<string name="type.highway.path.difficult_alpine_hiking">เส้นทาง</string>
@@ -913,51 +949,75 @@
 	<string name="type.highway.path.horse">เส้นทาง</string>
 	<string name="type.highway.path.mountain_hiking">เส้นทาง</string>
 	<string name="type.highway.path.permissive">เส้นทาง</string>
-	<string name="type.highway.path.tunnel">เส้นทาง</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.path.tunnel">อุโมงค์</string>
 	<string name="type.highway.pedestrian">ถนน</string>
 	<string name="type.highway.pedestrian.area">ถนน</string>
-	<string name="type.highway.pedestrian.bridge">ถนน</string>
-	<string name="type.highway.pedestrian.tunnel">ถนน</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.pedestrian.bridge">สะพาน</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.pedestrian.tunnel">อุโมงค์</string>
 	<string name="type.highway.primary">ถนน</string>
-	<string name="type.highway.primary.bridge">ถนน</string>
-	<string name="type.highway.primary.tunnel">ถนน</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary.bridge">สะพาน</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary.tunnel">อุโมงค์</string>
 	<string name="type.highway.primary_link">ถนน</string>
-	<string name="type.highway.primary_link.bridge">ถนน</string>
-	<string name="type.highway.primary_link.tunnel">ถนน</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary_link.bridge">สะพาน</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary_link.tunnel">อุโมงค์</string>
 	<string name="type.highway.raceway">สนามแข่ง</string>
 	<string name="type.highway.residential">ถนน</string>
 	<string name="type.highway.residential.area">ถนน</string>
-	<string name="type.highway.residential.bridge">ถนน</string>
-	<string name="type.highway.residential.tunnel">ถนน</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.residential.bridge">สะพาน</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.residential.tunnel">อุโมงค์</string>
 	<string name="type.highway.rest_area">บริเวณพักผ่อน</string>
 	<string name="type.highway.road">ถนน</string>
-	<string name="type.highway.road.bridge">ถนน</string>
-	<string name="type.highway.road.tunnel">ถนน</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.road.bridge">สะพาน</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.road.tunnel">อุโมงค์</string>
 	<string name="type.highway.secondary">ถนน</string>
-	<string name="type.highway.secondary.bridge">ถนน</string>
-	<string name="type.highway.secondary.tunnel">ถนน</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary.bridge">สะพาน</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary.tunnel">อุโมงค์</string>
 	<string name="type.highway.secondary_link">ถนน</string>
-	<string name="type.highway.secondary_link.bridge">ถนน</string>
-	<string name="type.highway.secondary_link.tunnel">ถนน</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary_link.bridge">สะพาน</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary_link.tunnel">อุโมงค์</string>
 	<string name="type.highway.service">ถนน</string>
 	<string name="type.highway.service.area">ถนน</string>
-	<string name="type.highway.service.bridge">ถนน</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.service.bridge">สะพาน</string>
 	<string name="type.highway.service.driveway">ถนน</string>
 	<string name="type.highway.service.parking_aisle">ถนน</string>
-	<string name="type.highway.service.tunnel">ถนน</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.service.tunnel">อุโมงค์</string>
 	<string name="type.highway.speed_camera">กล้องตรวจจับความเร็ว</string>
 	<string name="type.highway.steps">เส้นทาง</string>
-	<string name="type.highway.steps.bridge">เส้นทาง</string>
-	<string name="type.highway.steps.tunnel">เส้นทาง</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.steps.bridge">สะพาน</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.steps.tunnel">อุโมงค์</string>
 	<string name="type.highway.tertiary">ถนน</string>
-	<string name="type.highway.tertiary.bridge">ถนน</string>
-	<string name="type.highway.tertiary.tunnel">ถนน</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary.bridge">สะพาน</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary.tunnel">อุโมงค์</string>
 	<string name="type.highway.tertiary_link">ถนน</string>
-	<string name="type.highway.tertiary_link.bridge">ถนน</string>
-	<string name="type.highway.tertiary_link.tunnel">ถนน</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary_link.bridge">สะพาน</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary_link.tunnel">อุโมงค์</string>
 	<string name="type.highway.track">ถนน</string>
 	<string name="type.highway.track.area">ถนน</string>
-	<string name="type.highway.track.bridge">ถนน</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.track.bridge">สะพาน</string>
 	<string name="type.highway.track.grade1">ถนน</string>
 	<string name="type.highway.track.grade2">ถนน</string>
 	<string name="type.highway.track.grade3">ถนน</string>
@@ -965,18 +1025,25 @@
 	<string name="type.highway.track.grade5">ถนน</string>
 	<string name="type.highway.track.no.access">ถนน</string>
 	<string name="type.highway.track.permissive">ถนน</string>
-	<string name="type.highway.track.tunnel">ถนน</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.track.tunnel">อุโมงค์</string>
 	<string name="type.highway.traffic_signals">สัญญาณไฟจราจร</string>
 	<string name="type.highway.trunk">ถนน</string>
-	<string name="type.highway.trunk.bridge">ถนน</string>
-	<string name="type.highway.trunk.tunnel">ถนน</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk.bridge">สะพาน</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk.tunnel">อุโมงค์</string>
 	<string name="type.highway.trunk_link">ถนน</string>
-	<string name="type.highway.trunk_link.bridge">ถนน</string>
-	<string name="type.highway.trunk_link.tunnel">ถนน</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk_link.bridge">สะพาน</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk_link.tunnel">อุโมงค์</string>
 	<string name="type.highway.unclassified">ถนน</string>
 	<string name="type.highway.unclassified.area">ถนน</string>
-	<string name="type.highway.unclassified.bridge">ถนน</string>
-	<string name="type.highway.unclassified.tunnel">ถนน</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.unclassified.bridge">สะพาน</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.unclassified.tunnel">อุโมงค์</string>
 	<string name="type.area_highway.footway">เส้นทาง</string>
 	<string name="type.area_highway.living_street">ถนน</string>
 	<string name="type.area_highway.motorway">ถนน</string>
@@ -1037,10 +1104,8 @@
 	<string name="type.leisure.playground">สนามเด็กเล่น</string>
 	<string name="type.leisure.sauna">เซาน่า</string>
 	<string name="type.leisure.sports_centre">กีฬา</string>
-	<string name="type.leisure.sports_centre.climbing">ศูนย์ปีนเขา</string>
-	<string name="type.leisure.sports_centre.shooting">สนามยิงปืน</string>
-	<string name="type.leisure.sports_centre.swimming">ศูนย์ว่ายน้ำ</string>
-	<string name="type.leisure.sports_centre.yoga">โยคะสตูดิโอ</string>
+	<string name="type.sport.climbing">ศูนย์ปีนเขา</string>
+	<string name="type.sport.yoga">โยคะสตูดิโอ</string>
 	<string name="type.leisure.stadium">สนามกีฬา</string>
 	<string name="type.leisure.swimming_pool">สระว่ายน้ำ</string>
 	<string name="type.leisure.swimming_pool.private">สระว่ายน้ำ</string>
@@ -1054,26 +1119,46 @@
 	<string name="type.man_made.water_well">บ่อน้ำ</string>
 	<string name="type.man_made.windmill">กังหันลม</string>
 	<string name="type.military.bunker">บังเกอร์</string>
+	<string name="type.natural">ธรรมชาติ</string>
+	<string name="type.natural.bare_rock">เปลือยร็อค</string>
 	<string name="type.natural.bay">อ่าว</string>
 	<string name="type.natural.beach">ชายหาด</string>
+	<string name="type.natural.beach.sand">หาดทราย</string>
+	<string name="type.natural.beach.gravel">หาดกรวด</string>
 	<string name="type.natural.cape">พื้นที่ยื่นเข้าไปในน้ำ</string>
 	<string name="type.natural.cave_entrance">ถ้ำ</string>
+	<string name="type.natural.cliff">หน้าผา</string>
+	<string name="type.natural.earth_bank">หน้าผา</string>
+	<string name="type.man_made.embankment">เขื่อน</string>
+	<string name="type.natural.coastline">ชายฝั่ง</string>
 	<string name="type.natural.geyser">นำ้พุร้อน</string>
 	<string name="type.natural.glacier">ธารน้ำแข็ง</string>
 	<string name="type.natural.grassland">ทุ่งหญ้า</string>
+	<string name="type.natural.heath">เฮลธ์</string>
+	<string name="type.natural.hot_spring">บ่อน้ำร้อน</string>
 	<string name="type.natural.water.lake">ทะเลสาบ</string>
+	<string name="type.natural.water.lock">ห้องล็อค</string>
 	<string name="type.natural.water.pond">บ่อ</string>
 	<string name="type.natural.water.reservoir">อ่างเก็บน้ำ</string>
 	<string name="type.natural.water.basin">อ่างน้ำ</string>
 	<string name="type.natural.water.river">แม่น้ำ</string>
+	<string name="type.natural.land">พื้นดิน</string>
+	<string name="type.natural.meadow">ทุ่งหญ้า</string>
+	<string name="type.natural.orchard">สวนผลไม้</string>
 	<string name="type.natural.peak">จุดสูงสุด</string>
+	<string name="type.natural.saddle">อานภูเขา</string>
+	<string name="type.natural.rock">หิน</string>
 	<string name="type.natural.scrub">ป่าละเมาะ</string>
 	<string name="type.natural.spring">ฤดูใบไม้ผลิ</string>
 	<string name="type.natural.strait">ช่องแคบ</string>
 	<string name="type.natural.tree">ต้นไม้</string>
+	<string name="type.natural.tree_row">แถวต้นไม้</string>
+	<string name="type.natural.vineyard">ไร่องุ่น</string>
 	<string name="type.natural.volcano">ภูเขาไฟ</string>
 	<string name="type.natural.water">แหล่งน้ำ</string>
 	<string name="type.natural.wetland">พื้นที่น้ำท่วมขัง</string>
+	<string name="type.natural.wetland.bog">พรุ</string>
+	<string name="type.natural.wetland.marsh">ที่ลุ่มชื้นแฉะ</string>
 	<string name="type.office">สำนักงาน</string>
 	<string name="type.office.company">สำนักงานบริษัท</string>
 	<string name="type.office.estate_agent">นายหน้าอสังหาริมทรัพย์</string>
@@ -1167,22 +1252,28 @@
 	<string name="type.shop.convenience">ร้านสะดวกซื้อ</string>
 	<string name="type.shop.copyshop">ร้านถ่ายเอกสาร</string>
 	<string name="type.shop.cosmetics">เครื่องสำอาง</string>
+	<string name="type.shop.deli">ร้านขายอาหารสำเร็จรูป</string>
 	<string name="type.shop.department_store">ห้างสรรพสินค้า</string>
 	<string name="type.shop.doityourself">ร้านขายฮาร์ดแวร์</string>
 	<string name="type.shop.dry_cleaning">ซักแห้ง</string>
 	<string name="type.shop.electronics">ร้านขายอุปกรณ์อิเล็กทรอนิกส์</string>
 	<string name="type.shop.erotic">ร้านเฉพาะผู้ใหญ่</string>
 	<string name="type.shop.fabric">ร้านค้า</string>
+	<string name="type.shop.farm">ฟาร์มฟู้ดช็อป</string>
 	<string name="type.shop.florist">ร้านดอกไม้</string>
 	<string name="type.shop.funeral_directors">สัปเหร่อ</string>
 	<string name="type.shop.furniture">ร้านเฟอร์นิเจอร์</string>
 	<string name="type.shop.garden_centre">สถานรับเลี้ยงเด็ก</string>
 	<string name="type.shop.gift">ร้านของขวัญ</string>
 	<string name="type.shop.greengrocer">ร้านขายผัด</string>
+	<string name="type.shop.grocery">ร้านขายของชำ</string>
 	<string name="type.shop.hairdresser">ช่างทำผม</string>
-	<string name="type.shop.hardware">ร้านขายฮาร์ดแวร์</string>
+	<string name="type.shop.hardware">ร้านฮาร์ดแวร์</string>
+	<string name="type.shop.health_food">ร้านอาหารเพื่อสุขภาพ</string>
+	<string name="type.shop.houseware">ร้านของใช้ในบ้าน</string>
 	<string name="type.shop.jewelry">ร้านขายเครื่องประดับ</string>
 	<string name="type.shop.kiosk">ร้าน</string>
+	<string name="type.shop.kitchen">ร้านครัว</string>
 	<string name="type.shop.laundry">ร้านซักรีด</string>
 	<string name="type.shop.mall">เดอะมอลล์</string>
 	<string name="type.shop.massage">สถานอาบอบนวด</string>
@@ -1194,10 +1285,12 @@
 	<string name="type.shop.newsagent">แผงขายหนังสือพิมพ์</string>
 	<string name="type.shop.optician">ร้านแว่น</string>
 	<string name="type.shop.outdoor">อุปกรณ์กลางแจ้ง</string>
+	<string name="type.shop.pastry">ขนมอบ</string>
 	<string name="type.shop.pawnbroker">ผู้รับจำนำ</string>
 	<string name="type.shop.pet">เพ็ทชอป</string>
 	<string name="type.shop.photo">ร้านถ่ายภาพ</string>
 	<string name="type.shop.seafood">ร้านขายปลา</string>
+	<string name="type.shop.second_hand">ร้านขายของมือสอง</string>
 	<string name="type.shop.shoes">ร้านขายรองเท้า</string>
 	<string name="type.shop.sports">สินค้ากีฬา</string>
 	<string name="type.shop.stationery">ร้านขายเครื่องเขียน</string>
@@ -1212,10 +1305,55 @@
 	<string name="type.shop.video">ร้านขายดีวีดี</string>
 	<string name="type.shop.video_games">ร้านขายวิดีโอเกม</string>
 	<string name="type.shop.wine">ร้านขายไวน์</string>
+	<string name="type.shop.antiques">ของเก่า</string>
+	<string name="type.shop.art">ร้านศิลปะ</string>
+	<string name="type.shop.baby_goods">ร้านขายของสำหรับเด็ก</string>
+	<string name="type.shop.bag">ร้านกระเป๋า</string>
+	<string name="type.shop.boutique">บูติก</string>
+	<string name="type.shop.charity">ร้านการกุศล</string>
+	<string name="type.shop.cheese">ร้านชีส</string>
+	<string name="type.shop.craft">ศิลปะและงานฝีมือ</string>
+	<string name="type.shop.dairy">ผลิตภัณฑ์นม</string>
+	<string name="type.shop.electrical">ร้านขายเครื่องใช้ไฟฟ้า</string>
+	<string name="type.shop.fishing">ร้านตกปลา</string>
+	<string name="type.shop.interior_decoration">ตกแต่งภายใน</string>
+	<string name="type.shop.lottery">สลากกินแบ่ง</string>
+	<string name="type.shop.medical_supply">เวชภัณฑ์</string>
+	<string name="type.shop.nutrition_supplements">อาหารเสริม</string>
+	<string name="type.shop.paint">สี</string>
+	<string name="type.shop.perfumery">น้ำหอม</string>
+	<string name="type.shop.sewing">อุปกรณ์เย็บผ้า</string>
+	<string name="type.shop.storage_rental">ค่าเช่าห้องเก็บของ</string>
+	<string name="type.shop.tobacco">ยาสูบ</string>
+	<string name="type.shop.trade">อุปกรณ์การค้า</string>
+	<string name="type.shop.watches">นาฬิกา</string>
+	<string name="type.shop.wholesale">ร้านขายส่ง</string>
+	<string name="type.sport">กีฬา</string>
+	<string name="type.sport.american_football">อเมริกันฟุตบอล</string>
+	<string name="type.sport.archery">ยิงธนู</string>
 	<string name="type.sport.athletics">กรีฑา</string>
+	<string name="type.sport.baseball">เบสบอล</string>
 	<string name="type.sport.basketball">บาสเก็ตบอล</string>
+	<string name="type.sport.beachvolleyball">วอลเลย์บอลชายหาด</string>
+	<string name="type.sport.chess">หมากรุกสากล</string>
+	<string name="type.sport.curling">เคอร์ลิง</string>
 	<string name="type.sport.equestrian">กีฬาแข่งม้า</string>
+	<string name="type.sport.golf">กอล์ฟ</string>
+	<string name="type.sport.gymnastics">ยิมนาสติก</string>
+	<string name="type.sport.handball">แฮนด์บอล</string>
+	<string name="type.sport.multi">กีฬาต่างๆ</string>
+	<!-- Used to tag a scuba diving site. -->
+	<string name="type.sport.scuba_diving">ดำน้ำลึก</string>
+	<string name="type.sport.shooting">ยิงปืน</string>
+	<string name="type.sport.skateboard">สเกตบอร์ด</string>
+	<string name="type.sport.skiing">เล่นสกี</string>
+	<string name="type.sport.soccer">ฟุตบอล</string>
+	<string name="type.sport.swimming">การว่ายน้ำ</string>
+	<string name="type.sport.table_tennis">เทเบิลเทนนิส</string>
 	<string name="type.sport.tennis">คอร์ทเทนนิส</string>
+	<string name="type.sport.volleyball">วอลเลย์บอล</string>
+	<string name="type.sport.9pin">โบว์ลิ่ง</string>
+	<string name="type.sport.10pin">โบว์ลิ่ง</string>
 	<string name="type.tourism.alpine_hut">ที่พักบนภูเขาโรงแรม</string>
 	<string name="type.tourism.apartment">อพาร์ตเมนต์</string>
 	<string name="type.tourism.artwork">งานศิลปะ</string>
@@ -1235,7 +1373,7 @@
 	<string name="type.tourism.hotel">โรงแรม</string>
 	<string name="type.tourism.information">ข้อมูลการท่องเที่ยว</string>
 	<string name="type.tourism.information.board">บอร์ดประชาสัมพันธ์</string>
-	<string name="type.tourism.information.guidepost">ข้อมูลการท่องเที่ยว</string>
+	<string name="type.tourism.information.guidepost">ไกด์โพส</string>
 	<string name="type.tourism.information.map">แผนที่ท่องเที่ยว</string>
 	<string name="type.tourism.information.office">ศูนย์บริการนักท่องเที่ยว</string>
 	<string name="type.tourism.motel">โมเทล</string>
@@ -1261,4 +1399,5 @@
 	<string name="type.wheelchair.no">พื้นที่ไม่สามารถใช้รถเข็นสำหรับผู้ป่วย/ผู้สูงอายุ</string>
 	<string name="type.wheelchair.yes">พื้นใช้รถเข็นสำหรับผู้ป่วย/ผู้สูงอายุได้</string>
 	<string name="type.building_part">อาคาร</string>
+	<string name="type.amenity.events_venue">สถานที่จัดงาน</string>
 </resources>

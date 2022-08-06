@@ -1,13 +1,7 @@
 package com.mapswithme.util.log;
 
-import android.app.Application;
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
-import com.mapswithme.util.StorageUtils;
-import com.mapswithme.util.Utils;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -20,72 +14,48 @@ import java.io.InputStreamReader;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-
 class ZipLogsTask implements Runnable
 {
-  private final static String TAG = ZipLogsTask.class.getSimpleName();
-  private final static int BUFFER_SIZE = 2048;
-  @NonNull
-  private final String mSourcePath;
-  @NonNull
-  private final String mDestPath;
-  @Nullable
-  private final LoggerFactory.OnZipCompletedListener mOnCompletedListener;
-  @NonNull
-  private final Application mApplication;
+  private static final String TAG = ZipLogsTask.class.getSimpleName();
 
-  ZipLogsTask(@NonNull Application application, @NonNull String sourcePath,
-              @NonNull String destPath,
-              @Nullable LoggerFactory.OnZipCompletedListener onCompletedListener)
+  @NonNull
+  private final String mLogsPath;
+  @NonNull
+  private final String mZipPath;
+  @Nullable
+  private final LogsManager.OnZipCompletedListener mOnCompletedListener;
+
+  ZipLogsTask(@NonNull String logsPath, @NonNull String zipPath,
+              @NonNull LogsManager.OnZipCompletedListener onCompletedListener)
   {
-    mApplication = application;
-    mSourcePath = sourcePath;
-    mDestPath = destPath;
+    mLogsPath = logsPath;
+    mZipPath = zipPath;
     mOnCompletedListener = onCompletedListener;
   }
 
   @Override
   public void run()
   {
-    saveSystemLogcat();
-    boolean success = zipFileAtPath(mSourcePath, mDestPath);
+    saveSystemLogcat(mLogsPath);
+    final boolean success = zipFileAtPath(mLogsPath, mZipPath);
     if (mOnCompletedListener != null)
-      mOnCompletedListener.onCompleted(success);
+      mOnCompletedListener.onCompleted(success, mZipPath);
   }
 
   private boolean zipFileAtPath(@NonNull String sourcePath, @NonNull String toLocation)
   {
     File sourceFile = new File(sourcePath);
-    try(FileOutputStream dest = new FileOutputStream(toLocation, false);
+    if (!sourceFile.isDirectory())
+      return false;
+    try (
+        FileOutputStream dest = new FileOutputStream(toLocation, false);
         ZipOutputStream out = new ZipOutputStream(new BufferedOutputStream(dest)))
     {
-      if (sourceFile.isDirectory())
-      {
-        zipSubFolder(out, sourceFile, sourceFile.getParent().length());
-      }
-      else
-      {
-        try(FileInputStream fi = new FileInputStream(sourcePath);
-            BufferedInputStream origin = new BufferedInputStream(fi, BUFFER_SIZE))
-        {
-          ZipEntry entry = new ZipEntry(getLastPathComponent(sourcePath));
-          out.putNextEntry(entry);
-          byte[] data = new byte[BUFFER_SIZE];
-          int count;
-          while ((count = origin.read(data, 0, BUFFER_SIZE)) != -1) {
-            out.write(data, 0, count);
-          }
-        } catch (Exception e)
-        {
-          Log.e(TAG, "Failed to read zip file entry '" + sourcePath +"' to location '"
-                  + toLocation + "'", e);
-          return false;
-        }
-      }
+      zipSubFolder(out, sourceFile, sourceFile.getParent().length());
     }
     catch (Exception e)
     {
-      Log.e(TAG, "Failed to zip file '" + sourcePath +"' to location '" + toLocation + "'", e);
+      Logger.e(TAG, "Failed to zip file '" + sourcePath + "' to location '" + toLocation + "'", e);
       return false;
     }
     return true;
@@ -95,7 +65,9 @@ class ZipLogsTask implements Runnable
                             int basePathLength) throws IOException
   {
     File[] fileList = folder.listFiles();
-    BufferedInputStream origin;
+    if (fileList == null)
+      throw new IOException("Can't get files list of " + folder.getPath());
+
     for (File file : fileList)
     {
       if (file.isDirectory())
@@ -104,45 +76,47 @@ class ZipLogsTask implements Runnable
       }
       else
       {
-        byte[] data = new byte[BUFFER_SIZE];
+        final int bufSize = 8 * 1024;
+        byte[] data = new byte[bufSize];
         String unmodifiedFilePath = file.getPath();
-        String relativePath = unmodifiedFilePath
-            .substring(basePathLength);
-        FileInputStream fi = new FileInputStream(unmodifiedFilePath);
-        origin = new BufferedInputStream(fi, BUFFER_SIZE);
-        ZipEntry entry = new ZipEntry(relativePath);
-        out.putNextEntry(entry);
-        int count;
-        while ((count = origin.read(data, 0, BUFFER_SIZE)) != -1)
+        String relativePath = unmodifiedFilePath.substring(basePathLength);
+        try (
+            FileInputStream fi = new FileInputStream(unmodifiedFilePath);
+            BufferedInputStream origin = new BufferedInputStream(fi, bufSize))
         {
-          out.write(data, 0, count);
+          ZipEntry entry = new ZipEntry(relativePath);
+          out.putNextEntry(entry);
+          int count;
+          while ((count = origin.read(data, 0, bufSize)) != -1)
+          {
+            out.write(data, 0, count);
+          }
         }
-        origin.close();
       }
     }
   }
 
-  private static String getLastPathComponent(String filePath)
+  private void saveSystemLogcat(String path)
   {
-    String[] segments = filePath.split(File.separator);
-    if (segments.length == 0)
-      return "";
-    return segments[segments.length - 1];
-  }
-
-  private void saveSystemLogcat()
-  {
-    String fullName = StorageUtils.getLogsFolder(mApplication) + File.separator + "logcat.log";
-    final File file = new File(fullName);
-    InputStreamReader reader = null;
-    FileWriter writer = null;
+    final String cmd = "logcat -d -v time";
+    Process process;
     try
     {
-      writer = new FileWriter(file);
-      FileLoggerStrategy.WriteTask.writeSystemInformation(mApplication, writer);
-      String cmd = "logcat -d -v time";
-      Process process = Runtime.getRuntime().exec(cmd);
-      reader = new InputStreamReader(process.getInputStream());
+      process = Runtime.getRuntime().exec(cmd);
+    }
+    catch (IOException e)
+    {
+      Logger.e(TAG, "Failed to get system logcat", e);
+      return;
+    }
+
+    path += File.separator + "logcat.log";
+    final File file = new File(path);
+    try (
+        InputStreamReader reader = new InputStreamReader(process.getInputStream());
+        FileWriter writer = new FileWriter(file))
+    {
+      writer.write(LogsManager.INSTANCE.getSystemInformation());
       char[] buffer = new char[10000];
       do
       {
@@ -154,12 +128,7 @@ class ZipLogsTask implements Runnable
     }
     catch (Throwable e)
     {
-      Log.e(TAG, "Failed to save system logcat to file: " + file, e);
-    }
-    finally
-    {
-      Utils.closeSafely(writer);
-      Utils.closeSafely(reader);
+      Logger.e(TAG, "Failed to save system logcat to " + path, e);
     }
   }
 }

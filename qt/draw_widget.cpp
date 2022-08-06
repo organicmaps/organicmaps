@@ -46,6 +46,8 @@
 #include <string>
 #include <vector>
 
+namespace qt
+{
 using namespace qt::common;
 
 namespace
@@ -80,8 +82,6 @@ void DrawMwmBorder(df::DrapeApi & drapeApi, std::string const & mwmName,
 }
 }  // namespace
 
-namespace qt
-{
 DrawWidget::DrawWidget(Framework & framework, bool apiOpenGLES3, std::unique_ptr<ScreenshotParams> && screenshotParams,
                        QWidget * parent)
   : TBase(framework, apiOpenGLES3, screenshotParams != nullptr, parent)
@@ -204,7 +204,7 @@ void DrawWidget::mousePressEvent(QMouseEvent * e)
     {
       SubmitBookmark(pt);
     }
-    else if (!m_currentSelectionMode || IsCommandModifier(e))
+    else if (!m_selectionMode || IsCommandModifier(e))
     {
       ShowInfoPopup(e, pt);
     }
@@ -225,13 +225,12 @@ void DrawWidget::mouseMoveEvent(QMouseEvent * e)
     return;
 
   QOpenGLWidget::mouseMoveEvent(e);
+
   if (IsLeftButton(e) && !IsAltModifier(e))
     m_framework.TouchEvent(GetTouchEvent(e, df::TouchEvent::TOUCH_MOVE));
 
-  if (m_currentSelectionMode && m_rubberBand != nullptr && m_rubberBand->isVisible())
-  {
+  if (m_selectionMode && m_rubberBand != nullptr && m_rubberBand->isVisible())
     m_rubberBand->setGeometry(QRect(m_rubberBandOrigin, e->pos()).normalized());
-  }
 }
 
 void DrawWidget::VisualizeMwmsBordersInRect(m2::RectD const & rect, bool withVertices,
@@ -259,13 +258,11 @@ void DrawWidget::VisualizeMwmsBordersInRect(m2::RectD const & rect, bool withVer
     }
     else
     {
-      std::string const bordersDir =
-          base::JoinPath(GetPlatform().ResourcesDir(), BORDERS_DIR);
-
+      std::string const bordersDir = base::JoinPath(GetPlatform().WritableDir(), BORDERS_DIR);
       std::string const path = base::JoinPath(bordersDir, mwmName + BORDERS_EXTENSION);
+
       std::vector<m2::RegionD> polygons;
       borders::LoadBorders(path, polygons);
-
       return polygons;
     }
   };
@@ -303,7 +300,7 @@ void DrawWidget::mouseReleaseEvent(QMouseEvent * e)
   {
     m_framework.TouchEvent(GetTouchEvent(e, df::TouchEvent::TOUCH_UP));
   }
-  else if (m_currentSelectionMode && IsRightButton(e) &&
+  else if (m_selectionMode && IsRightButton(e) &&
            m_rubberBand != nullptr && m_rubberBand->isVisible())
   {
     ProcessSelectionMode();
@@ -318,59 +315,54 @@ void DrawWidget::ProcessSelectionMode()
   rect.Add(m_framework.PtoG(m2::PointD(L2D(lt.x()), L2D(lt.y()))));
   rect.Add(m_framework.PtoG(m2::PointD(L2D(rb.x()), L2D(rb.y()))));
 
-  switch (*m_currentSelectionMode)
+  switch (*m_selectionMode)
   {
   case SelectionMode::Features:
-  {
     m_framework.VisualizeRoadsInRect(rect);
     break;
-  }
+
   case SelectionMode::CityBoundaries:
-  {
     m_framework.VisualizeCityBoundariesInRect(rect);
     break;
-  }
+
   case SelectionMode::CityRoads:
-  {
     m_framework.VisualizeCityRoadsInRect(rect);
     break;
-  }
+
+  case SelectionMode::CrossMwmSegments:
+    m_framework.VisualizeCrossMwmTransitionsInRect(rect);
+    break;
+
   case SelectionMode::MwmsBordersByPolyFiles:
-  {
     VisualizeMwmsBordersInRect(rect, false /* withVertices */, false /* fromPackedPolygon */,
                                false /* boundingBox */);
     break;
-  }
+
   case SelectionMode::MwmsBordersWithVerticesByPolyFiles:
-  {
     VisualizeMwmsBordersInRect(rect, true /* withVertices */, false /* fromPackedPolygon */,
                                false /* boundingBox */);
     break;
-  }
+
   case SelectionMode::MwmsBordersByPackedPolygon:
-  {
     VisualizeMwmsBordersInRect(rect, false /* withVertices */, true /* fromPackedPolygon */,
                                false /* boundingBox */);
     break;
-  }
+
   case SelectionMode::MwmsBordersWithVerticesByPackedPolygon:
-  {
     VisualizeMwmsBordersInRect(rect, true /* withVertices */, true /* fromPackedPolygon */,
                                false /* boundingBox */);
     break;
-  }
+
   case SelectionMode::BoundingBoxByPolyFiles:
-  {
     VisualizeMwmsBordersInRect(rect, true /* withVertices */, false /* fromPackedPolygon */,
                                true /* boundingBox */);
     break;
-  }
+
   case SelectionMode::BoundingBoxByPackedPolygon:
-  {
     VisualizeMwmsBordersInRect(rect, true /* withVertices */, true /* fromPackedPolygon */,
                                true /* boundingBox */);
     break;
-  }
+
   default:
     UNREACHABLE();
   }
@@ -475,19 +467,29 @@ void DrawWidget::SubmitFakeLocationPoint(m2::PointD const & pt)
 
   if (m_framework.GetRoutingManager().IsRoutingActive())
   {
+    /// Immediate update of the position in Route to get updated FollowingInfo state for visual debugging.
+    /// m_framework.OnLocationUpdate calls RoutingSession::OnLocationPositionChanged
+    /// with delay several times according to interpolation.
+    /// @todo Write log when the final point will be reached and
+    /// RoutingSession::OnLocationPositionChanged will be called the last time.
+    m_framework.GetRoutingManager().RoutingSession().OnLocationPositionChanged(qt::common::MakeGpsInfo(point));
+
     routing::FollowingInfo loc;
     m_framework.GetRoutingManager().GetRouteFollowingInfo(loc);
     if (m_framework.GetRoutingManager().GetCurrentRouterType() == routing::RouterType::Pedestrian)
     {
-      LOG(LDEBUG, ("Distance:", loc.m_distToTarget, loc.m_targetUnitsSuffix, "Time:", loc.m_time,
-                   "Pedestrian turn:", DebugPrint(loc.m_pedestrianTurn),
-                   "Distance to turn:", loc.m_distToTurn, loc.m_turnUnitsSuffix));
+      LOG(LDEBUG, ("Distance:", loc.m_distToTarget + loc.m_targetUnitsSuffix, "Time:", loc.m_time,
+                   DebugPrint(loc.m_pedestrianTurn),
+                   "in", loc.m_distToTurn + loc.m_turnUnitsSuffix,
+                   loc.m_targetName.empty() ? "" : "to " + loc.m_targetName ));
     }
     else
     {
-      LOG(LDEBUG, ("Distance:", loc.m_distToTarget, loc.m_targetUnitsSuffix, "Time:", loc.m_time,
-                   "Turn:", routing::turns::GetTurnString(loc.m_turn), "(", loc.m_distToTurn,
-                   loc.m_turnUnitsSuffix, ") Roundabout exit number:", loc.m_exitNum));
+      LOG(LDEBUG, ("Distance:", loc.m_distToTarget + loc.m_targetUnitsSuffix, "Time:", loc.m_time,
+                   loc.m_speedLimitUnitsSuffix.empty() ? "" : "SpeedLimit: " + loc.m_speedLimit + loc.m_speedLimitUnitsSuffix,
+                   GetTurnString(loc.m_turn), (loc.m_exitNum != 0 ? ":" + std::to_string(loc.m_exitNum) : ""),
+                   "in", loc.m_distToTurn + loc.m_turnUnitsSuffix,
+                   loc.m_targetName.empty() ? "" : "to " + loc.m_targetName ));
     }
   }
 }
@@ -527,6 +529,18 @@ void DrawWidget::SubmitRoutingPoint(m2::PointD const & pt)
 
   if (routingManager.GetRoutePoints().size() >= 2)
   {
+    if (RoutingSettings::UseDebugGuideTrack())
+    {
+      // Like in guides_tests.cpp, GetTestGuides().
+      routing::GuidesTracks guides;
+      guides[10] = {{{mercator::FromLatLon(48.13999, 11.56873), 10},
+                     {mercator::FromLatLon(48.14096, 11.57246), 10},
+                     {mercator::FromLatLon(48.14487, 11.57259), 10}}};
+      routingManager.RoutingSession().SetGuidesForTests(std::move(guides));
+    }
+    else
+      routingManager.RoutingSession().SetGuidesForTests({});
+
     routingManager.BuildRoute();
   }
 }
@@ -645,7 +659,7 @@ void DrawWidget::SetRouter(routing::RouterType routerType)
 
 void DrawWidget::SetRuler(bool enabled)
 {
-  if(!enabled)
+  if (!enabled)
     m_ruler.EraseLine(m_framework.GetDrapeApi());
   m_ruler.SetActive(enabled);
 }

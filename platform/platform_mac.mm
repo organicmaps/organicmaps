@@ -23,11 +23,24 @@
 #import <SystemConfiguration/SystemConfiguration.h>
 #import <netinet/in.h>
 
+
+namespace
+{
+// Checks if copyright.html file is present in the directory.
+bool IsResourcesDir(std::string const & dir)
+{
+  return Platform::IsFileExistsByFullPath(base::JoinPath(dir, "copyright.html"));
+}
+}  // namespace
+
 Platform::Platform()
 {
-  // get resources directory path
+  // OMaps.app/Content/Resources or omim-build-debug for tests.
   std::string const resourcesPath = NSBundle.mainBundle.resourcePath.UTF8String;
+  // Omaps.app or omim-build-debug for tests.
   std::string const bundlePath = NSBundle.mainBundle.bundlePath.UTF8String;
+  // Current working directory, can be overrided for Xcode projects in the scheme's settings.
+  std::string const currentDir = [NSFileManager.defaultManager currentDirectoryPath].UTF8String;
 
   char const * envResourcesDir = ::getenv("MWM_RESOURCES_DIR");
   char const * envWritableDir = ::getenv("MWM_WRITABLE_DIR");
@@ -39,9 +52,6 @@ Platform::Platform()
   }
   else if (resourcesPath == bundlePath)
   {
-#ifdef STANDALONE_APP
-    m_resourcesDir = resourcesPath + "/";
-#else // STANDALONE_APP
     // we're the console app, probably unit test, and path is our directory
     m_resourcesDir = bundlePath + "/../../data/";
     if (!IsFileExistsByFullPath(m_resourcesDir))
@@ -53,13 +63,11 @@ Platform::Platform()
       else
         m_resourcesDir = "./data/";
     }
-#endif // STANDALONE_APP
     m_writableDir = m_resourcesDir;
   }
   else
   {
     m_resourcesDir = resourcesPath + "/";
-    std::string const currentDir = [NSFileManager.defaultManager currentDirectoryPath].UTF8String;
     std::string const paths[] =
     {
       // Developers can set a symlink to the data folder.
@@ -85,11 +93,23 @@ Platform::Platform()
       }
     }
 
+    // Xcode-launched Mac projects are built into a non-standard folder and may need
+    // a customized working directory.
     if (m_writableDir.empty())
     {
-      auto const p = m_resourcesDir.find("/omim/");
-      if (p != std::string::npos)
-        m_writableDir = m_resourcesDir.substr(0, p) + "/omim/data/";
+      for (char const * keyword : {"/omim/", "/organicmaps/"})
+      {
+        if (auto const p = currentDir.rfind(keyword); p != std::string::npos)
+        {
+          m_writableDir = m_resourcesDir = currentDir.substr(0, p) + keyword + "data/";
+          break;
+        }
+        if (auto const p = m_resourcesDir.rfind(keyword); p != std::string::npos)
+        {
+          m_writableDir = m_resourcesDir.substr(0, p) + keyword + "data/";
+          break;
+        }
+      }
     }
 
     if (m_writableDir.empty())
@@ -112,13 +132,12 @@ Platform::Platform()
   m_writableDir = base::AddSlashIfNeeded(m_writableDir);
 
   m_settingsDir = m_writableDir;
-  m_privateDir = m_writableDir;
 
   NSString * tempDir = NSTemporaryDirectory();
   if (tempDir == nil)
       tempDir = @"/tmp";
   m_tmpDir = tempDir.UTF8String;
-  m_tmpDir += '/';
+  base::AddSlashIfNeeded(m_tmpDir);
 
   m_guiThread = std::make_unique<platform::GuiThread>();
 

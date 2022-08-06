@@ -100,11 +100,8 @@ private:
 
     for (auto const & misprints : m_prefixMisprints)
     {
-      if (std::find(misprints.begin(), misprints.end(), c) != misprints.end() &&
-          std::find(misprints.begin(), misprints.end(), m_s[position]) != misprints.end())
-      {
+      if (base::IsExist(misprints, c) && base::IsExist(misprints, m_s[position]))
         return true;
-      }
     }
     return false;
   }
@@ -206,7 +203,7 @@ LevenshteinDFA::LevenshteinDFA(UniString const & s, size_t prefixSize,
   {
     for (auto const & misprints : prefixMisprints)
     {
-      if (std::find(misprints.begin(), misprints.end(), *it) != misprints.end())
+      if (base::IsExist(misprints, *it))
         m_alphabet.insert(m_alphabet.end(), misprints.begin(), misprints.end());
     }
   }

@@ -2,8 +2,10 @@
 #include "rules_evaluation_private.hpp"
 
 #include <algorithm>
+#include <cstdlib>
 #include <ctime>
 #include <iomanip>
+#include <iostream>
 #include <sstream>
 #include <tuple>
 
@@ -110,6 +112,9 @@ osmoh::RuleState ModifierToRuleState(osmoh::RuleSequence::Modifier const modifie
     case Modifier::Comment:
       return osmoh::RuleState::Unknown;
   }
+  std::cerr << "Unreachable\n";
+  std::abort();
+  return osmoh::RuleState::Unknown;
 }
 
 // Transform timspan with extended end of the form of
@@ -383,6 +388,88 @@ bool IsActive(RuleSequence const & rule, time_t const timestamp)
 {
   auto const res = IsActiveImpl(rule, timestamp);
   return res.first && res.second;
+}
+
+time_t GetNextTimeState(TRuleSequences const & rules, time_t const dateTime, RuleState state)
+{
+  time_t constexpr kTimeTMax = std::numeric_limits<time_t>::max();
+  time_t dateTimeResult = kTimeTMax;
+  time_t dateTimeToCheck;
+
+  // Check in the next 7 days
+  for (int i = 0; i < 7; i++)
+  {
+    for (auto it = rules.rbegin(); it != rules.rend(); ++it)
+    {
+      auto const & times = it->GetTimes();
+
+      // If the rule has no times specified, check at 00:00
+      if (times.size() == 0)
+      {
+        tm tm = MakeTimetuple(dateTime);
+        tm.tm_hour = 0;
+        tm.tm_min = 0;
+        dateTimeToCheck = mktime(&tm);
+        if (dateTimeToCheck == -1)
+          continue;
+        dateTimeToCheck += i * (24 * 60 * 60);
+
+        if (dateTimeToCheck < dateTime || dateTimeToCheck > dateTimeResult)
+          continue;
+
+        if (GetState(rules, dateTimeToCheck) == state)
+          dateTimeResult = dateTimeToCheck;
+      }
+
+      if ((state == RuleState::Open && it->GetModifier() == RuleSequence::Modifier::Closed) ||
+          (state == RuleState::Closed &&
+          (it->GetModifier() == RuleSequence::Modifier::Open || it->GetModifier() == RuleSequence::Modifier::DefaultOpen)))
+      {
+        // Check the ending time of each rule
+        for (auto const & time : times)
+        {
+          tm tm = MakeTimetuple(dateTime);
+          tm.tm_hour = time.GetEnd().GetHourMinutes().GetHoursCount();
+          tm.tm_min = time.GetEnd().GetHourMinutes().GetMinutesCount();
+          dateTimeToCheck = mktime(&tm);
+          if (dateTimeToCheck == -1)
+            continue;
+          dateTimeToCheck += i * (24 * 60 * 60) + 60;  // 1 minute offset
+
+          if (dateTimeToCheck < dateTime || dateTimeToCheck > dateTimeResult)
+            continue;
+
+          if (GetState(rules, dateTimeToCheck) == state)
+            dateTimeResult = dateTimeToCheck;
+        }
+      }
+      else
+      {
+        // Check the starting time of each rule
+        for (auto const & time : times)
+        {
+          tm tm = MakeTimetuple(dateTime);
+          tm.tm_hour = time.GetStart().GetHourMinutes().GetHoursCount();
+          tm.tm_min = time.GetStart().GetHourMinutes().GetMinutesCount();
+          dateTimeToCheck = mktime(&tm);
+          if (dateTimeToCheck == -1)
+            continue;
+          dateTimeToCheck += i * (24 * 60 * 60);
+
+          if (dateTimeToCheck < dateTime || dateTimeToCheck > dateTimeResult)
+            continue;
+
+          if (GetState(rules, dateTimeToCheck) == state)
+            dateTimeResult = dateTimeToCheck;
+        }
+      }
+    }
+
+    if (dateTimeResult < kTimeTMax)
+      return dateTimeResult;
+  }
+
+  return kTimeTMax;
 }
 
 RuleState GetState(TRuleSequences const & rules, time_t const timestamp)

@@ -20,17 +20,10 @@ namespace
 {
 constexpr char const * kWlan = "wlan";
 constexpr char const * kWired = "wired";
+constexpr char const * kTerminal = "terminal";
 constexpr char const * kYes = "yes";
 constexpr char const * kNo = "no";
 constexpr char const * kFieldsSeparator = " • ";
-
-void SetInetIfNeeded(FeatureType & ft, feature::Metadata & metadata)
-{
-  if (!ftypes::IsWifiChecker::Instance()(ft) || metadata.Has(feature::Metadata::FMD_INTERNET))
-    return;
-
-  metadata.Set(feature::Metadata::FMD_INTERNET, kWlan);
-}
 }  // namespace
 
 string DebugPrint(osm::Internet internet)
@@ -41,6 +34,7 @@ string DebugPrint(osm::Internet internet)
   case Internet::Yes: return kYes;
   case Internet::Wlan: return kWlan;
   case Internet::Wired: return kWired;
+  case Internet::Terminal: return kTerminal;
   case Internet::Unknown: break;
   }
   return {};
@@ -105,7 +99,10 @@ void MapObject::SetFromFeatureType(FeatureType & ft)
                     FeatureType::BEST_GEOMETRY);
   }
 
-  SetInetIfNeeded(ft, m_metadata);
+#ifdef DEBUG
+  if (ftypes::IsWifiChecker::Instance()(ft))
+    ASSERT(m_metadata.Has(feature::Metadata::FMD_INTERNET), ());
+#endif
 }
 
 FeatureID const & MapObject::GetID() const { return m_featureID; }
@@ -117,9 +114,11 @@ feature::TypesHolder const & MapObject::GetTypes() const { return m_types; }
 
 string MapObject::GetDefaultName() const
 {
-  string name;
+  string_view name;
   UNUSED_VALUE(m_name.GetString(StringUtf8Multilang::kDefaultCode, name));
-  return name;
+
+  /// @todo Can return string_view?
+  return std::string(name);
 }
 
 StringUtf8Multilang const & MapObject::GetNameMultilang() const
@@ -152,54 +151,58 @@ vector<osm::Props> MapObject::AvailableProperties() const
   return props;
 }
 
-string MapObject::GetPhone() const { return m_metadata.Get(feature::Metadata::FMD_PHONE_NUMBER); }
-string MapObject::GetFax() const { return m_metadata.Get(feature::Metadata::FMD_FAX_NUMBER); }
-string MapObject::GetEmail() const { return m_metadata.Get(feature::Metadata::FMD_EMAIL); }
+string_view MapObject::GetPhone() const { return m_metadata.Get(feature::Metadata::FMD_PHONE_NUMBER); }
+string_view MapObject::GetFax() const { return m_metadata.Get(feature::Metadata::FMD_FAX_NUMBER); }
+string_view MapObject::GetEmail() const { return m_metadata.Get(feature::Metadata::FMD_EMAIL); }
 
-string MapObject::GetWebsite() const
+string_view MapObject::GetWebsite() const
 {
-  string website = m_metadata.Get(feature::Metadata::FMD_WEBSITE);
+  auto website = m_metadata.Get(feature::Metadata::FMD_WEBSITE);
   if (website.empty())
     website = m_metadata.Get(feature::Metadata::FMD_URL);
   return website;
 }
 
-string MapObject::GetFacebookPage() const
+string_view MapObject::GetFacebookPage() const
 {
   return m_metadata.Get(feature::Metadata::FMD_CONTACT_FACEBOOK);
 }
 
-string MapObject::GetInstagramPage() const
+string_view MapObject::GetInstagramPage() const
 {
   return m_metadata.Get(feature::Metadata::FMD_CONTACT_INSTAGRAM);
 }
 
-string MapObject::GetTwitterPage() const
+string_view MapObject::GetTwitterPage() const
 {
   return m_metadata.Get(feature::Metadata::FMD_CONTACT_TWITTER);
 }
 
-string MapObject::GetVkPage() const
+string_view MapObject::GetVkPage() const
 {
   return m_metadata.Get(feature::Metadata::FMD_CONTACT_VK);
 }
 
-string MapObject::GetLinePage() const
+string_view MapObject::GetLinePage() const
 {
   return m_metadata.Get(feature::Metadata::FMD_CONTACT_LINE);
 }
 
 Internet MapObject::GetInternet() const
 {
-  string inet = m_metadata.Get(feature::Metadata::FMD_INTERNET);
-  strings::AsciiToLower(inet);
-  // Most popular case.
+  return InternetFromString(m_metadata.Get(feature::Metadata::FMD_INTERNET));
+}
+
+Internet InternetFromString(std::string_view inet)
+{
   if (inet.empty())
     return Internet::Unknown;
   if (inet.find(kWlan) != string::npos)
     return Internet::Wlan;
   if (inet.find(kWired) != string::npos)
     return Internet::Wired;
+  if (inet.find(kTerminal) != string::npos)
+    return Internet::Terminal;
   if (inet == kYes)
     return Internet::Yes;
   if (inet == kNo)
@@ -236,23 +239,25 @@ string MapObject::FormatRoadShields() const
   return strings::JoinStrings(GetRoadShields(), kFieldsSeparator);
 }
 
-string MapObject::GetOpeningHours() const
+string_view MapObject::GetOpeningHours() const
 {
   return m_metadata.Get(feature::Metadata::FMD_OPEN_HOURS);
 }
 
-string MapObject::GetOperator() const { return m_metadata.Get(feature::Metadata::FMD_OPERATOR); }
+string_view MapObject::GetOperator() const { return m_metadata.Get(feature::Metadata::FMD_OPERATOR); }
 
 int MapObject::GetStars() const
 {
-  // Most popular case.
-  if (m_metadata.Has(feature::Metadata::FMD_STARS))
+  uint8_t count = 0;
+
+  auto const sv = m_metadata.Get(feature::Metadata::FMD_STARS);
+  if (!sv.empty())
   {
-    int count;
-    if (strings::to_int(m_metadata.Get(feature::Metadata::FMD_STARS), count))
-      return count;
+    if (!strings::to_uint(sv, count))
+      count = 0;
   }
-  return 0;
+
+  return count;
 }
 
 string MapObject::GetElevationFormatted() const
@@ -276,11 +281,11 @@ bool MapObject::GetElevation(double & outElevationInMeters) const
 
 string MapObject::GetWikipediaLink() const { return m_metadata.GetWikiURL(); }
 
-string MapObject::GetFlats() const { return m_metadata.Get(feature::Metadata::FMD_FLATS); }
+string_view MapObject::GetFlats() const { return m_metadata.Get(feature::Metadata::FMD_FLATS); }
 
-string MapObject::GetLevel() const { return m_metadata.Get(feature::Metadata::FMD_LEVEL); }
+string_view MapObject::GetLevel() const { return m_metadata.Get(feature::Metadata::FMD_LEVEL); }
 
-string MapObject::GetBuildingLevels() const
+string_view MapObject::GetBuildingLevels() const
 {
   return m_metadata.Get(feature::Metadata::FMD_BUILDING_LEVELS);
 }
@@ -291,11 +296,9 @@ ftraits::WheelchairAvailability MapObject::GetWheelchairType() const
   return opt ? *opt : ftraits::WheelchairAvailability::No;
 }
 
-string MapObject::GetAirportIata() const
+string_view MapObject::GetAirportIata() const
 {
-  if (m_metadata.Has(feature::Metadata::FMD_AIRPORT_IATA))
-    return m_metadata.Get(feature::Metadata::FMD_AIRPORT_IATA);
-  return {};
+  return m_metadata.Get(feature::Metadata::FMD_AIRPORT_IATA);
 }
 
 feature::Metadata const & MapObject::GetMetadata() const { return m_metadata; }

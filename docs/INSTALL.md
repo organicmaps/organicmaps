@@ -10,6 +10,8 @@
 
 To build and run Organic Maps you'll need a machine with at least 4Gb of RAM and 20-30Gb of disk space depending on your target platform. Expect to download 5-10Gb of files.
 
+For _Windows_ you need to have [Git for Windows](https://git-scm.com/download/win) installed and Git bash available in the PATH.
+
 ## Getting sources
 
 First of all get the source code. The full Organic Maps sources repository is ~8.5Gb in size, there are various [clone options](#special-cases-options) to reduce download size to suit your needs.
@@ -20,7 +22,7 @@ For _Windows 10_ enable [symlinks](https://git-scm.com/docs/git-config#Documenta
 git config --global core.symlinks true
 ```
 
-Clone the repository including all submodules:
+Clone the repository including all submodules (see [Special cases options](#special-cases-options) below):
 
 (if you plan to contribute and propose pull requests then use a web interface at https://github.com/organicmaps/organicmaps to fork the repo first and use your fork's url in the command below)
 
@@ -38,10 +40,12 @@ Configure the repository for an opensource build:
 (if you plan to publish the app privately in stores check [special options](#special-cases-options))
 
 ```bash
-./configure.sh
+bash ./configure.sh
 ```
 
-For _Windows 10_: Use WSL to run `./configure.sh`:
+For _Windows 10_: Use WSL to run `./configure.sh`, or, alternatively, run the following command from the
+[Visual Studio Developer Command Prompt](https://docs.microsoft.com/en-us/visualstudio/ide/reference/command-prompt-powershell?view=vs-2022)
+and follow instructions:
 
 ```bash
 bash ./configure.sh # execute the script by using Ubuntu WSL VM
@@ -69,44 +73,63 @@ You need a Linux or a Mac machine to build a desktop version of Organic Maps.
 - We haven't compiled Organic Maps on Windows in a long time, though it is possible.
   It is likely some make files should be updated.
   If you succeed, please submit a tutorial.
+  You'll need to have python3, cmake, ninja in the PATH and also to have Qt5 installed.
 
 Ensure that you have at least 20GB of free space.
 
 Install Cmake (**3.18.1** minimum), Boost, Qt 5 and other dependencies.
 
-_Ubuntu 20.04:_
+Installing *ccache* can speed up active development.
+
+_Ubuntu 20.04, 22.04:_
 
 ```bash
-sudo apt-get update && sudo apt-get install -y \
+sudo apt update && sudo apt install -y \
     build-essential \
-    cmake \
     clang \
-    python \
+    ninja-build \
+    python3 \
     qtbase5-dev \
-    libqt5svg5-dev \
     libc++-dev \
-    libboost-iostreams-dev \
+    libfreetype-dev \
     libglu1-mesa-dev \
+    libicu-dev \
+    libqt5svg5-dev \
     libsqlite3-dev \
     zlib1g-dev
 ```
 
-_Fedora 33:_
+For Ubuntu 20.04 the version of `cmake` that ships with Ubuntu is too old; a more recent version can be installed using `snap`:
+
+```bash
+sudo snap install --classic cmake
+```
+
+For Ubuntu 22.04 `cmake` may be installed using `snap` as well, or alternatively by using `apt`:
+
+```bash
+sudo apt install -y cmake
+```
+
+_Fedora:_
 
 ```bash
 sudo dnf install -y \
     clang \
+    cmake \
+    ninja-build \
+    freetype-devel \
+    libicu-devel \
+    libstdc++-devel \
     qt5-qtbase-devel \
     qt5-qtsvg-devel \
-    boost-devel \
-    libstdc++-devel \
     sqlite-devel
 ```
 
 _macOS:_
 
 ```bash
-brew install cmake qt@5
+brew install cmake ninja qt@5
 ```
 
 ### Building
@@ -221,12 +244,14 @@ Install Android SDK and NDK:
 
 - Run the Android Studio.
 - Open "SDK Manager" (under "More Actions" in a welcome screen or a three-dot menu in a list of recent projects screen or "Tools" top menu item in an open project).
-- Select "Android 11.0 (R) / API Level 30" SDK.
-- Switch to "SDK Tools" tab
+- Select "Android 12.0 (S) / API Level 31" SDK.
+- Switch to "SDK Tools" tab.
 - Check "Show Package Details" checkbox.
-- Select "NDK (Side by side)" version **23.1.7779620**.
+- Select "NDK (Side by side)" version **24.0.8215888**.
 - Select "CMake" version **3.18.1**.
-- Click "OK" and wait for downloads and installation to finish.
+- Click "Apply" and wait for downloads and installation to finish.
+- In the left pane menu select "Appearance & Behavior > System Settings > Memory Settings".
+- Set "IDE max heap size" to 2048Mb or more (otherwise the Studio might get stuck on "Updating indexes" when opening the project).
 
 Configure the repo with Android SDK and NDK paths:
 
@@ -243,9 +268,8 @@ _macOS:_
 _Windows 10:_ no action needed, should work out of the box.
 
 In Android Studio open the project in `android/` directory.
-Make sure the Studio has at least 1920Mb max heap size in "File > Settings... > Appearance & Behavior > System Settings > Memory Settings", otherwise it might get stuck on "Updating indexes".
 
-Setup a virtual device to use [emulator]((https://developer.android.com/studio/run/emulator)) ("Tools > AVD Manager") or [use a hardware device for debugging](https://developer.android.com/studio/run/device).
+Setup a virtual device to use [emulator](https://developer.android.com/studio/run/emulator) ("Tools > Device Manager") or [use a hardware device for debugging](https://developer.android.com/studio/run/device). If using an emulator, make sure to choose a system image with API Level 31 and ABI _x86_64_.
 
 ### Building
 
@@ -364,8 +388,8 @@ To add any of those options to in-studio builds list them in "Command-line Optio
 You can install
 [Android SDK](https://developer.android.com/sdk/index.html) and
 [NDK](https://developer.android.com/tools/sdk/ndk/index.html) without
-Android Studio. Please make sure that SDK for API Level 30,
-NDK version **23.1.7779620** and CMake version **3.18.1** are installed.
+Android Studio. Please make sure that SDK for API Level 31,
+NDK version **24.0.8215888** and CMake version **3.18.1** are installed.
 
 If you are low on RAM, disk space or traffic there are ways to reduce system requirements:
 - in Android Studio enable "File > Power Save Mode";

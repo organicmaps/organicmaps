@@ -25,7 +25,6 @@
 		3917FA53211E008C00937DF4 /* clustering_map.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3917FA52211E008C00937DF4 /* clustering_map.hpp */; };
 		3917FA57211E009700937DF4 /* geo_object_id.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3917FA54211E009700937DF4 /* geo_object_id.cpp */; };
 		3917FA58211E009700937DF4 /* geo_object_id.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3917FA55211E009700937DF4 /* geo_object_id.hpp */; };
-		3917FA59211E009700937DF4 /* get_time.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3917FA56211E009700937DF4 /* get_time.hpp */; };
 		3917FA5C211E00BB00937DF4 /* pprof.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3917FA5A211E00BA00937DF4 /* pprof.cpp */; };
 		3917FA5D211E00BB00937DF4 /* pprof.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3917FA5B211E00BB00937DF4 /* pprof.hpp */; };
 		3917FA5F211E00C400937DF4 /* suffix_array.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3917FA5E211E00C300937DF4 /* suffix_array.hpp */; };
@@ -175,7 +174,6 @@
 		3917FA52211E008C00937DF4 /* clustering_map.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = clustering_map.hpp; sourceTree = "<group>"; };
 		3917FA54211E009700937DF4 /* geo_object_id.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = geo_object_id.cpp; sourceTree = "<group>"; };
 		3917FA55211E009700937DF4 /* geo_object_id.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = geo_object_id.hpp; sourceTree = "<group>"; };
-		3917FA56211E009700937DF4 /* get_time.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = get_time.hpp; sourceTree = "<group>"; };
 		3917FA5A211E00BA00937DF4 /* pprof.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pprof.cpp; sourceTree = "<group>"; };
 		3917FA5B211E00BB00937DF4 /* pprof.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = pprof.hpp; sourceTree = "<group>"; };
 		3917FA5E211E00C300937DF4 /* suffix_array.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = suffix_array.hpp; sourceTree = "<group>"; };
@@ -433,7 +431,6 @@
 				390F1C0B2294298E00EA58E3 /* file_name_utils.hpp */,
 				3917FA54211E009700937DF4 /* geo_object_id.cpp */,
 				3917FA55211E009700937DF4 /* geo_object_id.hpp */,
-				3917FA56211E009700937DF4 /* get_time.hpp */,
 				671182EE1C807C0A00CB8177 /* gmtime.cpp */,
 				671182EF1C807C0A00CB8177 /* gmtime.hpp */,
 				675345381A3F6F5E00A0A8C3 /* internal */,
@@ -560,7 +557,6 @@
 				3446C6711DDCA96300146687 /* dfa_helpers.hpp in Headers */,
 				6753420C1A3F57E400A0A8C3 /* threaded_list.hpp in Headers */,
 				564C197B254AF896007471CE /* optional_lock_guard.hpp in Headers */,
-				3917FA59211E009700937DF4 /* get_time.hpp in Headers */,
 				675341DB1A3F57E400A0A8C3 /* exception.hpp in Headers */,
 				6753453E1A3F6F6A00A0A8C3 /* message.hpp in Headers */,
 				39BC0FD01FD057FA00B6C276 /* control_flow.hpp in Headers */,
@@ -640,7 +636,7 @@
 		6753416F1A3F57BF00A0A8C3 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1310;
+				LastUpgradeCheck = 1400;
 				TargetAttributes = {
 					39FD27061CC65A7100AFF551 = {
 						CreatedOnToolsVersion = 7.2.1;

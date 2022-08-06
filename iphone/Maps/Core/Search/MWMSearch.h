@@ -14,7 +14,7 @@ struct ProductInfo;
 + (void)removeObserver:(id<MWMSearchObserver>)observer;
 
 + (void)saveQuery:(NSString *)query forInputLocale:(NSString *)inputLocale;
-+ (void)searchQuery:(NSString *)query forInputLocale:(NSString *)inputLocale;
++ (void)searchQuery:(NSString *)query forInputLocale:(NSString *)inputLocale withCategory:(BOOL)isCategory;
 
 + (void)showResult:(search::Result const &)result;
 

@@ -17,17 +17,15 @@
 	<string name="downloading">Downloader…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Kilometre</string>
-	<!-- View and button titles for accessibility -->
-	<string name="maps">Kort</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Mil</string>
-	<!-- View and button titles for accessibility -->
+	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">Min position</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">Senere</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Søg</string>
-	<!-- Search box placeholder text -->
+	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">Søg kort</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">Du har alle lokationstjenester for denne enhed eller applikation slukket. Slå dem venligst til i Indstillinger.</string>
@@ -41,9 +39,10 @@
 	<string name="close">Luk</string>
 	<string name="unsupported_phone">En hardware accelereret OpenGL er påkrævet. Din enhed er desværre ikke understøttet.</string>
 	<string name="download">Download</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable">Frakobl venligst USB-kabel eller indsæt et memory kort for at bruge Organic Maps</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="not_enough_free_space_on_sdcard">Frigør venligst plads på dit SD-kort/USB lager først for at bruge denne app</string>
-	<string name="not_enough_memory">Ikke nok hukommelse til at åbne app</string>
 	<string name="download_resources">Før du starter, så lad os downloade det generelle verdenskort til din enhed.\nIt behøver %s af data.</string>
 	<string name="download_resources_continue">Gå til kort</string>
 	<string name="downloading_country_can_proceed">Downloader %s. Du kan nu\nfortsætte til kortet.</string>
@@ -77,6 +76,8 @@
 	<string name="maps_storage">Gem kort på</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Vælg destination hvor dine kort skal downloades til</string>
+	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+	<string name="maps_storage_downloaded">Kort</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Flyt kort?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
@@ -123,6 +124,8 @@
 	<string name="post">Post</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
 	<string name="police">Politi</string>
+	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! -->
+	<string name="wifi">WiFi</string>
 	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
 	<string name="recycling">Genbrug</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
@@ -203,6 +206,8 @@
 	<string name="search_show_on_map">Vis på kortet</string>
 	<!-- Text in menu -->
 	<string name="website">Hjemmeside</string>
+	<!-- Text in About menu, opens Organic Maps news website -->
+	<string name="news">Nyheder</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">Feedback</string>
 	<!-- Text in menu -->
@@ -217,17 +222,16 @@
 	<string name="copyright">Copyright</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Rapportér fejl</string>
-	<!-- Search category -->
-	<string name="wifi">WiFi</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Opdatér alle</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">Aflys Alt</string>
-	<!-- Downloaded maps category -->
+	<!-- Downloaded maps list header -->
 	<string name="downloader_downloaded_subtitle">Downloadet</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">I kø</string>
 	<string name="downloader_near_me_subtitle">I nærheden</string>
+	<!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
 	<string name="downloader_status_maps">Kort</string>
 	<string name="downloader_download_all_button">Download alle</string>
 	<string name="downloader_downloading">Downloader:</string>
@@ -243,6 +247,8 @@
 	<string name="downloader_delete_map">Slet kort</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">Opdater kort</string>
+	<!-- Preference title -->
+	<string name="google_play_services">Google Play-tjenester</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">Anvend Google Play Services til at få din aktuelle placering</string>
 	<!-- Text for routing error dialog -->
@@ -288,8 +294,6 @@
 	<string name="gray">Grå</string>
 	<!-- blue gray color -->
 	<string name="blue_gray">Blågrå</string>
-	<!-- Wi-Fi available -->
-	<string name="WiFi_available">Ja</string>
 
 	<!-- SECTION: Routing dialogs strings -->
 	<string name="dialog_routing_disclaimer_title">Når du følger en rute, skal du være opmærksom på følgende:</string>
@@ -446,6 +450,7 @@
 	<string name="kilometer">km</string>
 	<string name="kilometers_per_hour">km/t</string>
 	<string name="mile">mil</string>
+	<!-- A unit of measure -->
 	<string name="foot">fod</string>
 	<string name="miles_per_hour">mph</string>
 	<string name="hour">time</string>
@@ -544,6 +549,7 @@
 	<plurals name="tracks">
 	  <item quantity="other">%d ruter</item>
 	</plurals>
+	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Tracking-indstillinger</string>
 	<string name="crash_reports">Nedbrudsrapport</string>
 	<string name="crash_reports_description">Vi kan anvende dine data til at forbedre brugeroplevelsen på Organic Maps. Ændringerne træder i kraft, når du har genstartet appen.</string>
@@ -593,6 +599,14 @@
 	<string name="avoid_toll_roads_placepage">Undgå betalingsveje</string>
 	<string name="avoid_unpaved_roads_placepage">Undgå grusveje</string>
 	<string name="avoid_ferry_crossing_placepage">Undgå færgeoverfarter</string>
+	<!-- A generic "Yes" button in dialogs -->
+	<string name="yes">Ja</string>
+	<!-- A generic "No" button in dialogs -->
+	<string name="no">Nej</string>
+	<!-- E.g. "WiFi:Yes" -->
+	<string name="yes_available">Ja</string>
+	<!-- E.g. "WiFi:No" -->
+	<string name="no_available">Nej</string>
 	<string name="ok">Ok</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Sort…</string>
@@ -648,6 +662,8 @@
 	<string name="enable_screen_sleep">Lad skærmen sove</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Når den er aktiveret, får skærmen lov til at sove efter en periode med inaktivitet.</string>
+	<!-- OpenStreetMap text on splash screen -->
+	<string name="splash_subtitle">Kortdata fra OpenStreetMap</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelbanestation</string>
@@ -661,6 +677,7 @@
 	<string name="type.amenity.bench">Bænk</string>
 	<string name="type.amenity.bicycle_parking">Cykelparkering</string>
 	<string name="type.amenity.bicycle_rental">Cykeludlejning</string>
+	<string name="type.amenity.bicycle_repair_station">Cykelreparationsstation</string>
 	<string name="type.amenity.brothel">Bordel</string>
 	<string name="type.amenity.bureau_de_change">Vekselbureau</string>
 	<string name="type.amenity.bus_station">Busstation</string>
@@ -767,10 +784,12 @@
 	<string name="type.building.address">Bygning</string>
 	<string name="type.building.has_parts">Bygning</string>
 	<string name="type.building.train_station">Togstation</string>
+	<string name="type.cemetery.grave">Grav</string>
 	<string name="type.craft.brewery">Bryggeri</string>
 	<string name="type.craft.carpenter">Tømrer</string>
 	<string name="type.craft.electrician">Elektriker</string>
 	<string name="type.craft.gardener">Gartner</string>
+	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Blikkenslager</string>
 	<string name="type.craft.metal_construction">Metalarbejder</string>
 	<string name="type.craft.painter">Maler</string>
@@ -870,34 +889,51 @@
 	<string name="type.healthcare.laboratory">Medicinsk laboratorium</string>
 
 	<!-- SECTION: Types: Roads -->
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.bridleway.bridge">Bro</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.bridleway.tunnel">Tunnel</string>
 	<string name="type.highway.bus_stop">Busstoppested</string>
 	<string name="type.highway.construction">Vej under opbygning</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.cycleway.bridge">Bro</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.cycleway.tunnel">Tunnel</string>
 	<string name="type.highway.footway">Sti</string>
 	<string name="type.highway.footway.alpine_hiking">Sti</string>
 	<string name="type.highway.footway.area">Sti</string>
-	<string name="type.highway.footway.bridge">Sti</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.footway.bridge">Bro</string>
 	<string name="type.highway.footway.demanding_alpine_hiking">Sti</string>
 	<string name="type.highway.footway.demanding_mountain_hiking">Sti</string>
 	<string name="type.highway.footway.difficult_alpine_hiking">Sti</string>
 	<string name="type.highway.footway.hiking">Sti</string>
 	<string name="type.highway.footway.mountain_hiking">Sti</string>
 	<string name="type.highway.footway.permissive">Sti</string>
-	<string name="type.highway.footway.tunnel">Sti</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.footway.tunnel">Tunnel</string>
 	<string name="type.highway.ford">Vadested</string>
 	<string name="type.highway.living_street">Gade</string>
-	<string name="type.highway.living_street.bridge">Gade</string>
-	<string name="type.highway.living_street.tunnel">Gade</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.living_street.bridge">Bro</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.living_street.tunnel">Tunnel</string>
 	<string name="type.highway.motorway">Gade</string>
-	<string name="type.highway.motorway.bridge">Gade</string>
-	<string name="type.highway.motorway.tunnel">Gade</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway.bridge">Bro</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway.tunnel">Tunnel</string>
 	<string name="type.highway.motorway_junction">Motorvejsafkørsel</string>
 	<string name="type.highway.motorway_link">Gade</string>
-	<string name="type.highway.motorway_link.bridge">Gade</string>
-	<string name="type.highway.motorway_link.tunnel">Gade</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway_link.bridge">Bro</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway_link.tunnel">Tunnel</string>
 	<string name="type.highway.path">Sti</string>
 	<string name="type.highway.path.alpine_hiking">Sti</string>
 	<string name="type.highway.path.bicycle">Sti</string>
-	<string name="type.highway.path.bridge">Sti</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.path.bridge">Bro</string>
 	<string name="type.highway.path.demanding_alpine_hiking">Sti</string>
 	<string name="type.highway.path.demanding_mountain_hiking">Sti</string>
 	<string name="type.highway.path.difficult_alpine_hiking">Sti</string>
@@ -905,51 +941,75 @@
 	<string name="type.highway.path.horse">Sti</string>
 	<string name="type.highway.path.mountain_hiking">Sti</string>
 	<string name="type.highway.path.permissive">Sti</string>
-	<string name="type.highway.path.tunnel">Sti</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.path.tunnel">Tunnel</string>
 	<string name="type.highway.pedestrian">Gade</string>
 	<string name="type.highway.pedestrian.area">Gade</string>
-	<string name="type.highway.pedestrian.bridge">Gade</string>
-	<string name="type.highway.pedestrian.tunnel">Gade</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.pedestrian.bridge">Bro</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.pedestrian.tunnel">Tunnel</string>
 	<string name="type.highway.primary">Gade</string>
-	<string name="type.highway.primary.bridge">Gade</string>
-	<string name="type.highway.primary.tunnel">Gade</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary.bridge">Bro</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary.tunnel">Tunnel</string>
 	<string name="type.highway.primary_link">Gade</string>
-	<string name="type.highway.primary_link.bridge">Gade</string>
-	<string name="type.highway.primary_link.tunnel">Gade</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary_link.bridge">Bro</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary_link.tunnel">Tunnel</string>
 	<string name="type.highway.raceway">Væddeløbsbane</string>
 	<string name="type.highway.residential">Gade</string>
 	<string name="type.highway.residential.area">Gade</string>
-	<string name="type.highway.residential.bridge">Gade</string>
-	<string name="type.highway.residential.tunnel">Gade</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.residential.bridge">Bro</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.residential.tunnel">Tunnel</string>
 	<string name="type.highway.rest_area">Rasteplads</string>
 	<string name="type.highway.road">Gade</string>
-	<string name="type.highway.road.bridge">Gade</string>
-	<string name="type.highway.road.tunnel">Gade</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.road.bridge">Bro</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.road.tunnel">Tunnel</string>
 	<string name="type.highway.secondary">Gade</string>
-	<string name="type.highway.secondary.bridge">Gade</string>
-	<string name="type.highway.secondary.tunnel">Gade</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary.bridge">Bro</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary.tunnel">Tunnel</string>
 	<string name="type.highway.secondary_link">Gade</string>
-	<string name="type.highway.secondary_link.bridge">Gade</string>
-	<string name="type.highway.secondary_link.tunnel">Gade</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary_link.bridge">Bro</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary_link.tunnel">Tunnel</string>
 	<string name="type.highway.service">Gade</string>
 	<string name="type.highway.service.area">Gade</string>
-	<string name="type.highway.service.bridge">Gade</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.service.bridge">Bro</string>
 	<string name="type.highway.service.driveway">Gade</string>
 	<string name="type.highway.service.parking_aisle">Gade</string>
-	<string name="type.highway.service.tunnel">Gade</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.service.tunnel">Tunnel</string>
 	<string name="type.highway.speed_camera">Automatisk Trafikkontrol</string>
 	<string name="type.highway.steps">Sti</string>
-	<string name="type.highway.steps.bridge">Sti</string>
-	<string name="type.highway.steps.tunnel">Sti</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.steps.bridge">Bro</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.steps.tunnel">Tunnel</string>
 	<string name="type.highway.tertiary">Gade</string>
-	<string name="type.highway.tertiary.bridge">Gade</string>
-	<string name="type.highway.tertiary.tunnel">Gade</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary.bridge">Bro</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary.tunnel">Tunnel</string>
 	<string name="type.highway.tertiary_link">Gade</string>
-	<string name="type.highway.tertiary_link.bridge">Gade</string>
-	<string name="type.highway.tertiary_link.tunnel">Gade</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary_link.bridge">Bro</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary_link.tunnel">Tunnel</string>
 	<string name="type.highway.track">Gade</string>
 	<string name="type.highway.track.area">Gade</string>
-	<string name="type.highway.track.bridge">Gade</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.track.bridge">Bro</string>
 	<string name="type.highway.track.grade1">Gade</string>
 	<string name="type.highway.track.grade2">Gade</string>
 	<string name="type.highway.track.grade3">Gade</string>
@@ -957,18 +1017,25 @@
 	<string name="type.highway.track.grade5">Gade</string>
 	<string name="type.highway.track.no.access">Gade</string>
 	<string name="type.highway.track.permissive">Gade</string>
-	<string name="type.highway.track.tunnel">Gade</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.track.tunnel">Tunnel</string>
 	<string name="type.highway.traffic_signals">Trafiklys</string>
 	<string name="type.highway.trunk">Gade</string>
-	<string name="type.highway.trunk.bridge">Gade</string>
-	<string name="type.highway.trunk.tunnel">Gade</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk.bridge">Bro</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk.tunnel">Tunnel</string>
 	<string name="type.highway.trunk_link">Gade</string>
-	<string name="type.highway.trunk_link.bridge">Gade</string>
-	<string name="type.highway.trunk_link.tunnel">Gade</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk_link.bridge">Bro</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk_link.tunnel">Tunnel</string>
 	<string name="type.highway.unclassified">Gade</string>
 	<string name="type.highway.unclassified.area">Gade</string>
-	<string name="type.highway.unclassified.bridge">Gade</string>
-	<string name="type.highway.unclassified.tunnel">Gade</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.unclassified.bridge">Bro</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.unclassified.tunnel">Tunnel</string>
 	<string name="type.area_highway.footway">Sti</string>
 	<string name="type.area_highway.living_street">Gade</string>
 	<string name="type.area_highway.motorway">Gade</string>
@@ -1026,10 +1093,8 @@
 	<string name="type.leisure.playground">Legeplads</string>
 	<string name="type.leisure.sauna">Sauna</string>
 	<string name="type.leisure.sports_centre">Idrætscenter</string>
-	<string name="type.leisure.sports_centre.climbing">Klatrecenter</string>
-	<string name="type.leisure.sports_centre.shooting">Skydebane</string>
-	<string name="type.leisure.sports_centre.swimming">Svømmecenter</string>
-	<string name="type.leisure.sports_centre.yoga">Yoga center</string>
+	<string name="type.sport.climbing">Klatrecenter</string>
+	<string name="type.sport.yoga">Yoga center</string>
 	<string name="type.leisure.swimming_pool">Svømmebassin</string>
 	<string name="type.leisure.swimming_pool.private">Svømmebassin</string>
 	<string name="type.leisure.water_park">Vandpark</string>
@@ -1041,26 +1106,46 @@
 	<string name="type.man_made.water_tower">Vandtårn</string>
 	<string name="type.man_made.water_well">Brønd</string>
 	<string name="type.man_made.windmill">Vindmølle</string>
+	<string name="type.natural">Natur</string>
+	<string name="type.natural.bare_rock">Blottet klippe</string>
 	<string name="type.natural.bay">Bugt</string>
 	<string name="type.natural.beach">Strand</string>
+	<string name="type.natural.beach.sand">Sandet strand</string>
+	<string name="type.natural.beach.gravel">Grus Strand</string>
 	<string name="type.natural.cape">Tange</string>
 	<string name="type.natural.cave_entrance">Hule</string>
+	<string name="type.natural.cliff">Klippe</string>
+	<string name="type.natural.earth_bank">Jordbanken</string>
+	<string name="type.man_made.embankment">Dæmning</string>
+	<string name="type.natural.coastline">Kyst</string>
 	<string name="type.natural.geyser">Gejser</string>
 	<string name="type.natural.glacier">Gletsjer</string>
-	<string name="type.natural.grassland">Mark</string>
+	<string name="type.natural.grassland">Græsslette</string>
+	<string name="type.natural.heath">Hede</string>
+	<string name="type.natural.hot_spring">Varm kilde</string>
 	<string name="type.natural.water.lake">Sø</string>
+	<string name="type.natural.water.lock">Låsekammer</string>
 	<string name="type.natural.water.pond">Dam</string>
 	<string name="type.natural.water.reservoir">Reservoir</string>
 	<string name="type.natural.water.basin">Vandbassin</string>
 	<string name="type.natural.water.river">Flod</string>
+	<string name="type.natural.land">Land</string>
+	<string name="type.natural.meadow">Eng</string>
+	<string name="type.natural.orchard">Frugthave</string>
 	<string name="type.natural.peak">Bjerg</string>
+	<string name="type.natural.saddle">Bjergsadel</string>
+	<string name="type.natural.rock">Bjergart</string>
 	<string name="type.natural.scrub">Kratbevokset område</string>
 	<string name="type.natural.spring">Kilde</string>
 	<string name="type.natural.strait">Stræde</string>
 	<string name="type.natural.tree">Træ</string>
+	<string name="type.natural.tree_row">Trærækker</string>
+	<string name="type.natural.vineyard">Vingård</string>
 	<string name="type.natural.volcano">Vulkan</string>
 	<string name="type.natural.water">Vandmasse</string>
 	<string name="type.natural.wetland">Vådområde</string>
+	<string name="type.natural.wetland.bog">Mose</string>
+	<string name="type.natural.wetland.marsh">Marsk</string>
 	<string name="type.office">Kontor</string>
 	<string name="type.office.company">Selskabskontor</string>
 	<string name="type.office.estate_agent">Ejendomsmægler</string>
@@ -1151,21 +1236,27 @@
 	<string name="type.shop.convenience">Døgnbutik</string>
 	<string name="type.shop.copyshop">Kopieringsbutik</string>
 	<string name="type.shop.cosmetics">Kosmetik</string>
+	<string name="type.shop.deli">Delikatessebutik</string>
 	<string name="type.shop.department_store">Stormagasin</string>
 	<string name="type.shop.doityourself">Isenkræmmer</string>
 	<string name="type.shop.dry_cleaning">Renseri</string>
 	<string name="type.shop.electronics">Elektronikbutik</string>
 	<string name="type.shop.erotic">Erotisk butik</string>
 	<string name="type.shop.fabric">Butik</string>
+	<string name="type.shop.farm">Farm Food Shop</string>
 	<string name="type.shop.florist">Blomsterbutik</string>
 	<string name="type.shop.funeral_directors">Bedemand</string>
 	<string name="type.shop.furniture">Møbelbutik</string>
 	<string name="type.shop.garden_centre">Planteskole</string>
 	<string name="type.shop.gift">Gavebutik</string>
 	<string name="type.shop.greengrocer">Grønthandler</string>
+	<string name="type.shop.grocery">Købmand</string>
 	<string name="type.shop.hairdresser">Frisør</string>
 	<string name="type.shop.hardware">Isenkræmmer</string>
+	<string name="type.shop.health_food">Helsekostbutik</string>
+	<string name="type.shop.houseware">Husholdningsartikler butik</string>
 	<string name="type.shop.jewelry">Smykkebutik</string>
+	<string name="type.shop.kitchen">Køkkenforretning</string>
 	<string name="type.shop.laundry">Vaskeri</string>
 	<string name="type.shop.mall">Indkøbscenter</string>
 	<string name="type.shop.massage">Massageklinik</string>
@@ -1177,10 +1268,12 @@
 	<string name="type.shop.newsagent">Avis-kiosk</string>
 	<string name="type.shop.optician">Optiker</string>
 	<string name="type.shop.outdoor">Fritidsudstyr</string>
+	<string name="type.shop.pastry">Bagværk</string>
 	<string name="type.shop.pawnbroker">Pantelåner</string>
 	<string name="type.shop.pet">Dyrehandel</string>
 	<string name="type.shop.photo">Fotobutik</string>
 	<string name="type.shop.seafood">Fiskehandler</string>
+	<string name="type.shop.second_hand">Genbrugsbutik</string>
 	<string name="type.shop.shoes">Skobutik</string>
 	<string name="type.shop.sports">Sportsudstyr</string>
 	<string name="type.shop.stationery">Kontorartikler</string>
@@ -1195,10 +1288,56 @@
 	<string name="type.shop.video">Videobutik</string>
 	<string name="type.shop.video_games">Computerspilbutik</string>
 	<string name="type.shop.wine">Vinhandel</string>
+	<string name="type.shop.antiques">Antikviteter</string>
+	<string name="type.shop.art">Kunstbutik</string>
+	<string name="type.shop.baby_goods">Børnebutik</string>
+	<string name="type.shop.bag">Tasker butik</string>
+	<string name="type.shop.boutique">Boutique</string>
+	<string name="type.shop.charity">Velgørenhedsbutik</string>
+	<string name="type.shop.cheese">Ostebutik</string>
+	<string name="type.shop.craft">Kunst og kunsthåndværk</string>
+	<string name="type.shop.dairy">Mejeriprodukter</string>
+	<string name="type.shop.electrical">El-butik</string>
+	<string name="type.shop.fishing">Fiskeri butik</string>
+	<string name="type.shop.interior_decoration">Indvendige dekorationer</string>
+	<string name="type.shop.lottery">Lotterikuponer</string>
+	<string name="type.shop.medical_supply">Medicinske forsyninger</string>
+	<string name="type.shop.nutrition_supplements">Kosttilskud</string>
+	<string name="type.shop.paint">Maling</string>
+	<string name="type.shop.perfumery">Parfumeri</string>
+	<string name="type.shop.sewing">Syudstyr</string>
+	<string name="type.shop.storage_rental">Lagerudlejning</string>
+	<string name="type.shop.tobacco">Tobak</string>
+	<string name="type.shop.trade">Handler forsyninger</string>
+	<string name="type.shop.watches">Ure</string>
+	<string name="type.shop.wholesale">Engros butik</string>
+	<string name="type.sport">Sport</string>
+	<string name="type.sport.american_football">Amerikansk fodbold</string>
+	<string name="type.sport.archery">Bueskydning</string>
 	<string name="type.sport.athletics">Atletik</string>
+	<string name="type.sport.australian_football">Australsk fodbold</string>
+	<string name="type.sport.baseball">Baseball</string>
 	<string name="type.sport.basketball">Basketball</string>
+	<string name="type.sport.beachvolleyball">Beachvolley</string>
+	<string name="type.sport.chess">Skak</string>
+	<string name="type.sport.curling">Curling</string>
 	<string name="type.sport.equestrian">Ridesport</string>
+	<string name="type.sport.golf">Golf</string>
+	<string name="type.sport.gymnastics">Gymnastik</string>
+	<string name="type.sport.handball">Håndbold</string>
+	<string name="type.sport.multi">Forskellige sportsgrene</string>
+	<!-- Used to tag a scuba diving site. -->
+	<string name="type.sport.scuba_diving">Scuba dykning</string>
+	<string name="type.sport.shooting">Skydning</string>
+	<string name="type.sport.skateboard">Skateboarding</string>
+	<string name="type.sport.skiing">Stå på ski</string>
+	<string name="type.sport.soccer">Fodbold</string>
+	<string name="type.sport.swimming">Svømning</string>
+	<string name="type.sport.table_tennis">Bordtennis</string>
 	<string name="type.sport.tennis">Tennisbane</string>
+	<string name="type.sport.volleyball">Volleyball</string>
+	<string name="type.sport.9pin">Bowling</string>
+	<string name="type.sport.10pin">Bowling</string>
 	<string name="type.tourism.alpine_hut">Bjerg logi</string>
 	<string name="type.tourism.apartment">Lejligheder</string>
 	<string name="type.tourism.artwork">Kunstværk</string>
@@ -1215,7 +1354,7 @@
 	<string name="type.tourism.guest_house">Gæstehus</string>
 	<string name="type.tourism.information">Turistinformation</string>
 	<string name="type.tourism.information.board">Informationstavle</string>
-	<string name="type.tourism.information.guidepost">Turistinformation</string>
+	<string name="type.tourism.information.guidepost">Vejviser</string>
 	<string name="type.tourism.information.map">Turistkort</string>
 	<string name="type.tourism.information.office">Turistkontor</string>
 	<string name="type.tourism.picnic_site">Picnic</string>
@@ -1237,4 +1376,5 @@
 	<string name="type.wheelchair.no">Ingen tilgængelighed for kørestol</string>
 	<string name="type.wheelchair.yes">Fuld tilgængelighed for kørestol</string>
 	<string name="type.building_part">Bygning</string>
+	<string name="type.amenity.events_venue">Sted for arrangementer</string>
 </resources>

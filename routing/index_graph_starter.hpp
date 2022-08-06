@@ -46,7 +46,6 @@ public:
   friend class FakeEdgesContainer;
 
   static void CheckValidRoute(std::vector<Segment> const & segments);
-  static size_t GetRouteNumPoints(std::vector<Segment> const & route);
 
   static bool IsFakeSegment(Segment const & segment)
   {
@@ -143,7 +142,7 @@ public:
   bool AreWavesConnectible(Parents<Segment> & forwardParents, Vertex const & commonVertex,
                            Parents<Segment> & backwardParents) override
   {
-    return m_graph.AreWavesConnectible(forwardParents, commonVertex, backwardParents, nullptr);
+    return m_graph.AreWavesConnectible(forwardParents, commonVertex, backwardParents);
   }
 
   RouteWeight GetAStarWeightEpsilon() override;
@@ -174,10 +173,9 @@ public:
 
   bool AreWavesConnectible(Parents<JointSegment> & forwardParents, JointSegment const & commonVertex,
                            Parents<JointSegment> & backwardParents,
-                           std::function<uint32_t(JointSegment const &)> && fakeFeatureConverter)
+                           WorldGraph::FakeConverterT const & fakeFeatureConverter)
   {
-    return m_graph.AreWavesConnectible(forwardParents, commonVertex, backwardParents,
-                                       std::move(fakeFeatureConverter));
+    return m_graph.AreWavesConnectible(forwardParents, commonVertex, backwardParents, fakeFeatureConverter);
   }
 
   bool IsJoint(Segment const & segment, bool fromStart)

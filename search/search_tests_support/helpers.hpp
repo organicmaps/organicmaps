@@ -32,6 +32,7 @@ public:
   inline void SetViewport(m2::RectD const & viewport) { m_viewport = viewport; }
 
   bool ResultsMatch(std::string const & query, Rules const & rules);
+  bool CategoryMatch(std::string const & query, Rules const & rules, std::string const & locale = "en");
 
   bool ResultsMatch(std::string const & query, std::string const & locale, Rules const & rules);
 

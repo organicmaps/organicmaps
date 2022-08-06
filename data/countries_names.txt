@@ -18,6 +18,7 @@
   pt = Abecásia
   ro = Abhazia
   es = Abjasia
+  eu = Abkhazia
   sv = Abchazien
   th = อับฮาเซีย
   tr = Abhazya
@@ -49,6 +50,7 @@
   pt = Afeganistão
   ro = Afganistan
   es = Afganistán
+  eu = Afganistan
   sv = Afghanistan
   th = ประเทศอัฟกานิสถาน
   tr = Afganistan
@@ -59,6 +61,7 @@
   el = Αφγανιστάν
   he = אפגניסטן
   sk = Afganistan
+  mr = अफगाणिस्तान
 
 [Alabama]
   en = Alabama
@@ -80,6 +83,7 @@
   pt = Alabama
   ro = Alabama
   es = Alabama
+  eu = Alabama
   sv = Alabama
   th = รัฐแอละแบมา
   tr = Alabama
@@ -111,6 +115,7 @@
   pt = Albânia
   ro = Albania
   es = Albania
+  eu = Albaniarra
   sv = Albanien
   th = ประเทศแอลเบเนีย
   tr = Arnavutluk
@@ -121,6 +126,7 @@
   el = Αλβανία
   he = אלבניה
   sk = Albánsko
+  mr = अल्बेनिया
 
 [Algeria]
   en = Algeria
@@ -142,6 +148,7 @@
   pt = Argélia
   ro = Algeria
   es = Argelia
+  eu = Aljeria
   sv = Algeriet
   th = ประเทศแอลจีเรีย
   tr = Cezayir
@@ -152,6 +159,7 @@
   el = Αλγερία
   he = אלג'יריה
   sk = Alžírsko
+  mr = अल्जेरिया
 
 [Algeria_Central]
   en = Algeria — Centre
@@ -235,6 +243,7 @@
   pt = Andorra
   ro = Andorra
   es = Andorra
+  eu = Andorra
   sv = Andorra
   th = ประเทศอันดอร์รา
   tr = Andorra
@@ -266,6 +275,7 @@
   pt = Angola
   ro = Angola
   es = Angola
+  eu = Angola
   sv = Angola
   th = ประเทศแองโกลา
   tr = Angola
@@ -276,6 +286,7 @@
   el = Αγκόλα
   he = אנגולה
   sk = Angola
+  mr = अंगोला
 
 [Anguilla]
   en = Anguilla
@@ -297,6 +308,7 @@
   pt = Anguilla
   ro = Anguilla
   es = Anguila
+  eu = Aingira
   sv = Anguilla
   th = แองกวิลลา
   tr = Anguilla
@@ -328,6 +340,7 @@
   pt = Antártica
   ro = Antarctida
   es = Antártida
+  eu = Antartika
   sv = Antarktis
   th = ทวีปแอนตาร์กติกา
   tr = Antarktika
@@ -338,6 +351,7 @@
   el = Ανταρκτική
   he = אנטארקטיקה
   sk = Antarktída
+  mr = अंटार्क्टिका
 
 [Antigua and Barbuda]
   en = Antigua and Barbuda
@@ -359,6 +373,7 @@
   pt = Antígua e Barbuda
   ro = Antigua și Barbuda
   es = Antigua y Barbuda
+  eu = Zaharrak eta bizardunak
   sv = Antigua och Barbuda
   th = ประเทศแอนติกาและบาร์บูดา
   tr = Antigua ve Barbuda
@@ -390,6 +405,7 @@
   pt = Argentina
   ro = Argentina
   es = Argentina
+  eu = Argentina
   sv = Argentina
   th = อาร์เจนตินา
   tr = Arjantin
@@ -400,6 +416,7 @@
   el = Αργεντινή
   he = ארגנטינה
   sk = Argentína
+  mr = अर्जेंटिना
 
 [Argentina_Buenos Aires_North]
   en = Buenos Aires Province — North
@@ -638,6 +655,7 @@
   pt = Arizona
   ro = Arizona
   es = Arizona
+  eu = Arizona
   sv = Arizona
   th = รัฐแอริโซนา
   tr = Arizona
@@ -669,6 +687,7 @@
   pt = Arménia
   ro = Armenia
   es = Armenia
+  eu = Armenia
   sv = Armenien
   th = ประเทศอาร์มีเนีย
   tr = Ermenistan
@@ -679,6 +698,7 @@
   el = Αρμενία
   he = ארמניה
   sk = Arménsko
+  mr = आर्मेनिया
 
 [Australia]
   en = Australia
@@ -700,6 +720,7 @@
   pt = Austrália
   ro = Australia
   es = Australia
+  eu = Australia
   sv = Australien
   th = ประเทศออสเตรเลีย
   tr = Avustralya
@@ -710,6 +731,7 @@
   el = Αυστραλία
   he = אוסטרליה
   sk = Austrália
+  mr = ऑस्ट्रेलिया
 
 [Australia_Melbourne]
   en = Melbourne
@@ -979,6 +1001,7 @@
   pt = Áustria
   ro = Austria
   es = Austria
+  eu = Austria
   sv = Österrike
   th = ประเทศออสเตรีย
   tr = Avusturya
@@ -989,6 +1012,7 @@
   el = Αυστρία
   he = אוסטריה
   sk = Rakúsko
+  mr = ऑस्ट्रिया
 
 [Austria_Burgenland]
   en = Burgenland
@@ -1289,6 +1313,7 @@
   pt = Azerbaijão
   ro = Azerbaidjan
   es = Azerbaiyán
+  eu = Azerbaijango
   sv = Azerbajdzjan
   th = ประเทศอาเซอร์ไบจาน
   tr = Azerbaycan
@@ -1299,6 +1324,7 @@
   el = Αζερμπαϊτζάν
   he = אזרבייג'ן
   sk = Azerbajdžan
+  mr = अझरबैजान
 
 [Azerbaijan Region]
   en = Azerbaijan
@@ -1320,6 +1346,7 @@
   pt = Azerbaijão
   ro = Azerbaidjan
   es = Azerbaiyán
+  eu = Azerbaijango
   sv = Azerbajdzjan
   th = ประเทศอาเซอร์ไบจาน
   tr = Azerbaycan
@@ -1351,6 +1378,7 @@
   pt = Bahrein
   ro = Bahrain
   es = Baréin
+  eu = Bahrain
   sv = Bahrain
   th = ประเทศบาห์เรน
   tr = Bahreyn
@@ -1361,6 +1389,7 @@
   el = Μπαχρέιν
   he = בחריין
   sk = Bahrajn
+  mr = बहारीन
 
 [Bangladesh]
   en = Bangladesh
@@ -1382,6 +1411,7 @@
   pt = Bangladesh
   ro = Bangladesh
   es = Bangladés
+  eu = Bangladesh
   sv = Bangladesh
   th = ประเทศบังกลาเทศ
   tr = Bangladeş
@@ -1392,6 +1422,7 @@
   el = Μπαγκλαντές
   he = בנגלדש
   sk = Bangladéš
+  mr = बांगलादेश
 
 [Barbados]
   en = Barbados
@@ -1413,6 +1444,7 @@
   pt = Barbados
   ro = Barbados
   es = Barbados
+  eu = Barbados
   sv = Barbados
   th = ประเทศบาร์เบโดส
   tr = Barbados
@@ -1423,6 +1455,7 @@
   el = Μπαρμπάντος
   he = ברבדוס
   sk = Barbados
+  mr = बार्बाडोस
 
 [Belarus]
   en = Belarus
@@ -1444,6 +1477,7 @@
   pt = Bielorrússia
   ro = Belarus
   es = Bielorrusia
+  eu = Bielorrusia
   sv = Vitryssland
   th = ประเทศเบลารุส
   tr = Beyaz Rusya
@@ -1454,6 +1488,7 @@
   el = Λευκορωσία
   he = בלארוס
   sk = Bielorusko
+  mr = बेलारूस
 
 [Belarus_Brest Region]
   en = Brest Region
@@ -1661,6 +1696,7 @@
   pt = Bélgica
   ro = Belgia
   es = Bélgica
+  eu = Belgika
   sv = Belgien
   th = ประเทศเบลเยียม
   tr = Belçika
@@ -1671,6 +1707,7 @@
   el = Βέλγιο
   he = בלגיה
   sk = Belgicko
+  mr = बेल्जियम
 
 [Belgium_Antwerp]
   en = Antwerp Province
@@ -2002,6 +2039,7 @@
   pt = Belize
   ro = Belize
   es = Belice
+  eu = Belize
   sv = Belize
   th = ประเทศเบลีซ
   tr = Belize
@@ -2033,6 +2071,7 @@
   pt = Benim
   ro = Benin
   es = Benín
+  eu = Benin
   sv = Benin
   th = ประเทศเบนิน
   tr = Benin
@@ -2064,6 +2103,7 @@
   pt = Bermudas
   ro = Insulele Bermude
   es = Bermudas
+  eu = Bermudak
   sv = Bermuda
   th = เบอร์มิวดา
   tr = Bermuda
@@ -2074,6 +2114,7 @@
   el = Βερμούδες
   he = ברמודה
   sk = Bermudy
+  mr = बर्म्युडा
 
 [Bhutan]
   en = Bhutan
@@ -2095,6 +2136,7 @@
   pt = Butão
   ro = Bhutan
   es = Bután
+  eu = Bhutan
   sv = Bhutan
   th = ประเทศภูฏาน
   tr = Bhutan
@@ -2105,6 +2147,7 @@
   el = Μπουτάν
   he = בהוטן
   sk = Bhután
+  mr = भूतान
 
 [Bolivia]
   en = Bolivia
@@ -2126,6 +2169,7 @@
   pt = Bolívia
   ro = Bolivia
   es = Bolivia
+  eu = Bolivia
   sv = Bolivia
   th = ประเทศโบลิเวีย
   tr = Bolivya
@@ -2136,6 +2180,7 @@
   el = Βολιβία
   he = בוליביה
   sk = Bolívia
+  mr = बोलिव्हिया
 
 [Bolivia_North]
   en = Bolivia – North
@@ -2225,6 +2270,7 @@
   pt = Bósnia e Herzegovina
   ro = Bosnia și Herțegovina
   es = Bosnia y Herzegovina
+  eu = Bosnia eta Herzegovina
   sv = Bosnien och Hercegovina
   th = ประเทศบอสเนียและเฮอร์เซโกวีนา
   tr = Bosna-Hersek
@@ -2235,6 +2281,7 @@
   el = Βοσνία Ερζεγοβίνη
   he = בוסניה והרצגובינה
   sk = Bosna a Hercegovina
+  mr = बोस्निया आणि हर्जेगोविना
 
 [Bosnia and Herzegovina_Brcko district of Bosnia and Herzegowina]
   en = Brčko District
@@ -2349,6 +2396,7 @@
   pt = Botsuana
   ro = Botswana
   es = Botsuana
+  eu = Botswana
   sv = Botswana
   th = ประเทศบอตสวานา
   tr = Botsvana
@@ -2359,6 +2407,7 @@
   el = Μποτσουάνα
   he = בוטסואנה
   sk = Botswana
+  mr = बोत्सवाना
 
 [Brazil]
   en = Brazil
@@ -2380,6 +2429,7 @@
   pt = Brasil
   ro = Brazilia
   es = Brasil
+  eu = Brasil
   sv = Brasilien
   th = ประเทศบราซิล
   tr = Brezilya
@@ -2390,6 +2440,7 @@
   el = Βραζιλία
   he = ברזיל
   sk = Brazília
+  mr = ब्राझील
 
 [Brazil_Bahia]
   en = Bahia
@@ -2969,6 +3020,7 @@
   pt = Território Britânico do Oceano Índico
   ro = Teritoriul Britanic din Oceanul Indian
   es = Territorio Británico del Océano Índico
+  eu = Britainia Handiko Indiako Ozeanoko Lurraldea
   sv = Brittiska territoriet i Indiska oceanen
   th = บริติชอินเดียนโอเชียนเทร์ริทอรี
   tr = Britanya Hint Okyanusu Toprakları
@@ -3000,6 +3052,7 @@
   pt = Ilhas Virgens Britânicas
   ro = Insulele Virgine Britanice
   es = Islas Vírgenes Británicas
+  eu = Britainiar Birjina Uharteak
   sv = Brittiska Jungfruöarna
   th = หมู่เกาะบริติชเวอร์จิน
   tr = Britanya Virjin Adaları
@@ -3031,6 +3084,7 @@
   pt = Brunei
   ro = Brunei
   es = Brunéi
+  eu = Brunei
   sv = Brunei
   th = ประเทศบรูไน
   tr = Brunei
@@ -3041,6 +3095,7 @@
   el = Μπρουνέι
   he = ברוניי
   sk = Brunej
+  mr = ब्रुनेई
 
 [Bulgaria]
   en = Bulgaria
@@ -3062,6 +3117,7 @@
   pt = Bulgária
   ro = Bulgaria
   es = Bulgaria
+  eu = Bulgaria
   sv = Bulgarien
   th = ประเทศบัลแกเรีย
   tr = Bulgaristan
@@ -3072,6 +3128,7 @@
   el = Βουλγαρία
   he = בולגריה
   sk = Bulharsko
+  mr = बल्गेरिया
 
 [Burkina Faso]
   en = Burkina Faso
@@ -3093,6 +3150,7 @@
   pt = Burkina Faso
   ro = Burkina Faso
   es = Burkina Faso
+  eu = Burkina Faso
   sv = Burkina Faso
   th = ประเทศบูร์กินาฟาโซ
   tr = Burkina Faso
@@ -3124,6 +3182,7 @@
   pt = Burundi
   ro = Burundi
   es = Burundi
+  eu = Burundi
   sv = Burundi
   th = ประเทศบุรุนดี
   tr = Burundi
@@ -3134,6 +3193,7 @@
   el = Μπουρούντι
   he = בורונדי
   sk = Burundi
+  mr = बुरुंडी
 
 [California]
   en = California
@@ -3155,6 +3215,7 @@
   pt = Califórnia
   ro = California
   es = California
+  eu = Kalifornia
   sv = Kalifornien
   th = รัฐแคลิฟอร์เนีย
   tr = Kaliforniya
@@ -3186,6 +3247,7 @@
   pt = Camboja
   ro = Cambodgia
   es = Camboya
+  eu = Kanbodia
   sv = Kambodja
   th = ประเทศกัมพูชา
   tr = Kamboçya
@@ -3196,6 +3258,7 @@
   el = Καμπότζη
   he = קמבודיה
   sk = Kambodža
+  mr = कंबोडिया
 
 [Cameroon]
   en = Cameroon
@@ -3217,6 +3280,7 @@
   pt = Camarões
   ro = Camerun
   es = Camerún
+  eu = Kamerun
   sv = Kamerun
   th = ประเทศแคเมอรูน
   tr = Kamerun
@@ -3227,6 +3291,7 @@
   el = Καμερούν
   he = קמרון
   sk = Kamerun
+  mr = कॅमेरून
 
 [Cameroon_Central]
   en = Cameroon — Centre
@@ -3310,6 +3375,7 @@
   pt = Campo de gelo do sul da Patagónia
   ro = Campo de Hielo Sur
   es = Campo de hielo Patagónico Sur
+  eu = Hego Patagoniako Izotz Eremua
   sv = Södra patagoniska isfältet
   th = ลานน้ำแข็งพาตาโกเนียนใต้
   tr = Campo de Hielo Sur
@@ -3341,6 +3407,7 @@
   pt = Canadá
   ro = Canada
   es = Canadá
+  eu = Kanada
   sv = Kanada
   th = ประเทศแคนาดา
   tr = Kanada
@@ -3351,6 +3418,7 @@
   el = Καναδάς
   he = קנדה
   sk = Kanada
+  mr = कॅनडा
 
 [Canada_Alberta]
   en = Alberta
@@ -5418,6 +5486,7 @@
   pt = Cabo Verde
   ro = Republica Capului Verde
   es = Cabo Verde
+  eu = Cabo Verde
   sv = Kap Verde
   th = ประเทศกาบูเวร์ดี
   tr = Yeşil Burun Adaları
@@ -5449,6 +5518,7 @@
   pt = Pequenas Antilhas
   ro = Antilele Mici
   es = Antillas Menores
+  eu = Antilla Txikiak
   sv = Små Antillerna
   th = เลสเซอร์แอนทิลลีส
   tr = Küçük Antiller
@@ -5481,6 +5551,7 @@
   pt-BR = Aruba, Curação and Países Baixos Caribenhos
   ro = Aruba, Curacao și Caraibe Olanda
   es = Aruba, Curazao y las Antillas Neerlandesas
+  eu = Aruba, Curacao eta Herbehereetako Antillak
   es-MX = Aruba, Curazao y las Antillas Holandesas
   sv = Aruba, Curaçao och Karibiska Nederländerna
   th = อารูบา คูราเซา และหมู่เกาะแคริบเบียนเนเธอร์แลนด์
@@ -5514,6 +5585,7 @@
   pt = Ilhas Cayman
   ro = Insulele Cayman
   es = Islas Caimán
+  eu = Kaiman Uharteak
   sv = Caymanöarna
   th = หมู่เกาะเคย์แมน
   tr = Cayman Adaları
@@ -5545,6 +5617,7 @@
   pt = República Centro-Africana
   ro = Republica Centrafricană
   es = República Centroafricana
+  eu = Afrika Erdiko Errepublika
   sv = Centralafrikanska republiken
   th = สาธารณรัฐแอฟริกากลาง
   tr = Orta Afrika Cumhuriyeti
@@ -5576,6 +5649,7 @@
   pt = Região da Anatólia Central
   ro = Regiunea Anatolia Centrală
   es = Región de Anatolia Central
+  eu = Erdialdeko Anatolia eskualdea
   sv = Centrala Anatolien
   th = ภูมิภาคแอนาโตเลียกลาง
   tr = İç Anadolu Bölgesi
@@ -5607,6 +5681,7 @@
   pt = Chade
   ro = Ciad
   es = Chad
+  eu = Txad
   sv = Tchad
   th = ประเทศชาด
   tr = Çad
@@ -5617,6 +5692,7 @@
   el = Τσαντ
   he = צ'אד
   sk = Čad
+  mr = चाड
 
 [Chile]
   en = Chile
@@ -5638,6 +5714,7 @@
   pt = Chile
   ro = Chile
   es = Chile
+  eu = Txile
   sv = Chile
   th = ประเทศชิลี
   tr = Şili
@@ -5648,6 +5725,7 @@
   el = Χιλή
   he = צ'ילה
   sk = Čile
+  mr = चिली
 
 [Chile_North]
   en = Chile — North
@@ -6599,6 +6677,7 @@
   pt = Colômbia
   ro = Columbia
   es = Colombia
+  eu = Kolonbia
   sv = Colombia
   th = ประเทศโคลอมเบีย
   tr = Kolombiya
@@ -6609,6 +6688,7 @@
   el = Κολομβία
   he = קולומביה
   sk = Kolumbia
+  mr = कोलंबिया
 
 [Colombia_East]
   en = Colombia — East
@@ -6723,6 +6803,7 @@
   pt = Colorado
   ro = Colorado
   es = Colorado
+  eu = Colorado
   sv = Colorado
   th = รัฐโคโลราโด
   tr = Colorado
@@ -6754,6 +6835,7 @@
   pt = Comores
   ro = Comore
   es = Comoras
+  eu = Komoreak
   sv = Komorerna
   th = ประเทศคอโมโรส
   tr = Komorlar
@@ -6785,6 +6867,7 @@
   pt = Congo
   ro = Republica Congo
   es = República del Congo
+  eu = Kongoko Errepublika
   sv = Kongo-Brazzaville
   th = สาธารณรัฐคองโก
   tr = Kongo Cumhuriyeti
@@ -6816,6 +6899,7 @@
   pt = República Democrática do Congo
   ro = Republica Democrată Congo
   es = República Democrática del Congo
+  eu = Kongoko Errepublika Demokratikoa
   sv = Kongo-Kinshasa
   th = สาธารณรัฐประชาธิปไตยคองโก
   tr = Demokratik Kongo Cumhuriyeti
@@ -6847,6 +6931,7 @@
   pt = Ilhas Cook
   ro = Insulele Cook
   es = Islas Cook
+  eu = Cook uharteak
   sv = Cooköarna
   th = หมู่เกาะคุก
   tr = Cook Adaları
@@ -6878,6 +6963,7 @@
   pt = Costa Rica
   ro = Costa Rica
   es = Costa Rica
+  eu = Costa Rica
   sv = Costa Rica
   th = ประเทศคอสตาริกา
   tr = Kosta Rika
@@ -6888,6 +6974,7 @@
   el = Κόστα Ρίκα
   he = קוסטה ריקה
   sk = Kostarika
+  mr = कॉस्टा रिका
 
 [Cote dIvoire]
   en = Ivory Coast
@@ -6909,6 +6996,7 @@
   pt = Costa do Marfim
   ro = Coasta de Fildeș
   es = Costa de Marfil
+  eu = Boli Kosta
   sv = Elfenbenskusten
   th = ประเทศโกตดิวัวร์
   tr = Fildişi Sahili
@@ -6940,6 +7028,7 @@
   pt = Crimeia
   ro = Crimeea
   es = península de Crimea
+  eu = Krimen penintsula
   sv = Krim
   th = คาบสมุทรไครเมีย
   tr = Kırım Yarımadası
@@ -6950,6 +7039,7 @@
   el = Κριμαϊκή Χερσόνησος
   he = חצי האי קרים
   sk = Krym
+  mr = क्रिमियन द्वीपकल्प
 
 [Croatia]
   en = Croatia
@@ -6971,6 +7061,7 @@
   pt = Croácia
   ro = Croația
   es = Croacia
+  eu = Kroazia
   sv = Kroatien
   th = ประเทศโครเอเชีย
   tr = Hırvatistan
@@ -6981,6 +7072,7 @@
   el = Κροατία
   he = קרואטיה
   sk = Chorvátsko
+  mr = क्रोएशिया
 
 [Cuba]
   en = Cuba
@@ -7002,6 +7094,7 @@
   pt = Cuba
   ro = Cuba
   es = Cuba
+  eu = Kuba
   sv = Kuba
   th = ประเทศคิวบา
   tr = Küba
@@ -7012,6 +7105,7 @@
   el = Κούβα
   he = קובה
   sk = Kuba
+  mr = क्युबा
 
 [Cyprus]
   en = Cyprus
@@ -7033,6 +7127,7 @@
   pt = Chipre
   ro = Cipru
   es = Chipre
+  eu = Zipre
   sv = Cypern
   th = ประเทศไซปรัส
   tr = Kıbrıs Cumhuriyeti
@@ -7043,6 +7138,7 @@
   el = Κύπρος
   he = קפריסין
   sk = Cyprus
+  mr = सायप्रस
 
 [Czech Republic]
   en = Czech Republic
@@ -7064,6 +7160,7 @@
   pt = República Checa
   ro = Cehia
   es = República Checa
+  eu = Txekiar Errepublika
   sv = Tjeckien
   th = สาธารณรัฐเช็ก
   tr = Çek Cumhuriyeti
@@ -7074,6 +7171,7 @@
   el = Δημοκρατία της Τσεχίας
   he = צ'כיה
   sk = Česko
+  mr = झेक प्रजासत्ताक
 
 [Czech_Jihovychod_Jihomoravsky kraj]
   en = South Moravian Region
@@ -7560,6 +7658,7 @@
   pt = Dinamarca
   ro = Danemarca
   es = Dinamarca
+  eu = Danimarka
   sv = Danmark
   th = ประเทศเดนมาร์ก
   tr = Danimarka
@@ -7570,6 +7669,7 @@
   el = Δανία
   he = דנמרק
   sk = Dánsko
+  mr = डेन्मार्क
 
 [Denmark_Capital Region of Denmark]
   en = Capital Region of Denmark
@@ -7746,6 +7846,7 @@
   pt = Djibouti
   ro = Djibouti
   es = Yibuti
+  eu = Djibouti
   sv = Djibouti
   th = ประเทศจิบูตี
   tr = Cibuti
@@ -7756,6 +7857,7 @@
   el = Τζιμπουτί
   he = ג'יבוטי
   sk = Džibutsko
+  mr = जिबूती
 
 [Dominica]
   en = Dominica
@@ -7777,6 +7879,7 @@
   pt = Dominica
   ro = Dominica
   es = Dominica
+  eu = Dominika
   sv = Dominica
   th = ประเทศดอมินีกา
   tr = Dominika
@@ -7787,6 +7890,7 @@
   el = Ντομίνικα
   he = דומיניקה
   sk = Dominika
+  mr = डोमिनिका
 
 [Dominican Republic]
   en = Dominican Republic
@@ -7808,6 +7912,7 @@
   pt = República Dominicana
   ro = Republica Dominicană
   es = República Dominicana
+  eu = Dominikar Errepublika
   sv = Dominikanska republiken
   th = สาธารณรัฐโดมินิกัน
   tr = Dominik Cumhuriyeti
@@ -7839,6 +7944,7 @@
   pt = Timor-Leste
   ro = Timorul de Est
   es = Timor Oriental
+  eu = Ekialdeko Timor
   sv = Östtimor
   th = ประเทศติมอร์-เลสเต
   tr = Doğu Timor
@@ -7870,6 +7976,7 @@
   pt = Equador
   ro = Ecuador
   es = Ecuador
+  eu = Ekuador
   sv = Ecuador
   th = ประเทศเอกวาดอร์
   tr = Ekvador
@@ -7880,6 +7987,7 @@
   el = Ισημερινός
   he = אקוודור
   sk = Ekvádor
+  mr = इक्वेडोर
 
 [Egypt]
   en = Egypt
@@ -7901,6 +8009,7 @@
   pt = Egito
   ro = Egipt
   es = Egipto
+  eu = Egipto
   sv = Egypten
   th = ประเทศอียิปต์
   tr = Mısır
@@ -7911,6 +8020,7 @@
   el = Αίγυπτος
   he = מצרים
   sk = Egypt
+  mr = इजिप्त
 
 [El Salvador]
   en = El Salvador
@@ -7932,6 +8042,7 @@
   pt = El Salvador
   ro = El Salvador
   es = El Salvador
+  eu = Salbatzailea
   sv = El Salvador
   th = ประเทศเอลซัลวาดอร์
   tr = El Salvador
@@ -7963,6 +8074,7 @@
   pt = Guiné Equatorial
   ro = Guineea Ecuatorială
   es = Guinea Ecuatorial
+  eu = Ekuatore Ginea
   sv = Ekvatorialguinea
   th = ประเทศอิเควทอเรียลกินี
   tr = Ekvator Ginesi
@@ -7994,6 +8106,7 @@
   pt = Eritreia
   ro = Eritreea
   es = Eritrea
+  eu = Eritrea
   sv = Eritrea
   th = ประเทศเอริเทรีย
   tr = Eritre
@@ -8025,6 +8138,7 @@
   pt = Estónia
   ro = Estonia
   es = Estonia
+  eu = Estonia
   sv = Estland
   th = ประเทศเอสโตเนีย
   tr = Estonya
@@ -8035,6 +8149,7 @@
   el = Εσθονία
   he = אסטוניה
   sk = Estónsko
+  mr = एस्टोनिया
 
 [Estonia_East]
   en = Estonia — East
@@ -8118,6 +8233,7 @@
   pt = Etiópia
   ro = Etiopia
   es = Etiopía
+  eu = Etiopia
   sv = Etiopien
   th = ประเทศเอธิโอเปีย
   tr = Etiyopya
@@ -8128,6 +8244,7 @@
   el = Αιθιοπία
   he = אתיופיה
   sk = Etiópia
+  mr = इथिओपिया
 
 [Falkland Islands]
   en = Falkland Islands
@@ -8149,6 +8266,7 @@
   pt = Ilhas Malvinas
   ro = Insulele Falkland
   es = Islas Malvinas
+  eu = Falkland uharteak
   sv = Falklandsöarna
   th = หมู่เกาะฟอล์กแลนด์
   tr = Falkland Adaları
@@ -8180,6 +8298,7 @@
   pt = Ilhas Feroe
   ro = Insulele Feroe
   es = Islas Feroe
+  eu = Faroe uharteak
   sv = Färöarna
   th = หมู่เกาะแฟโร
   tr = Faroe Adaları
@@ -8211,6 +8330,7 @@
   pt = Micronésia
   ro = Micronezia
   es = Micronesia
+  eu = Mikronesia
   sv = Mikronesien
   th = ประเทศไมโครนีเซีย
   tr = Mikronezya
@@ -8242,6 +8362,7 @@
   pt = Fiji
   ro = Fiji
   es = Fiyi
+  eu = Fiji
   sv = Fiji
   th = ประเทศฟิจิ
   tr = Fiji
@@ -8273,6 +8394,7 @@
   pt = Finlândia
   ro = Finlanda
   es = Finlandia
+  eu = Finlandia
   sv = Finland
   th = ประเทศฟินแลนด์
   tr = Finlandiya
@@ -8283,6 +8405,7 @@
   el = Φινλανδία
   he = פינלנד
   sk = Fínsko
+  mr = फिनलंड
 
 [Finland_Eastern Finland]
   en = Eastern Finland
@@ -8490,6 +8613,7 @@
   pt = Flórida
   ro = Florida
   es = Florida
+  eu = Florida
   sv = Florida
   th = รัฐฟลอริดา
   tr = Florida
@@ -8521,6 +8645,7 @@
   pt = França
   ro = Franța
   es = Francia
+  eu = Frantzia
   sv = Frankrike
   th = ประเทศฝรั่งเศส
   tr = Fransa
@@ -8531,6 +8656,7 @@
   el = Γαλλία
   he = צרפת
   sk = Francúzsko
+  mr = फ्रान्स
 
 [France_Alsace]
   en = Alsace
@@ -11869,6 +11995,7 @@
   pt = Polinésia Francesa
   ro = Polinezia Franceză
   es = Polinesia Francesa
+  eu = Polinesia frantsesa
   sv = Franska Polynesien
   th = เฟรนช์โปลินีเซีย
   tr = Fransız Polinezyası
@@ -11900,6 +12027,7 @@
   pt = Gabão
   ro = Gabon
   es = Gabón
+  eu = Gabon
   sv = Gabon
   th = ประเทศกาบอง
   tr = Gabon
@@ -11931,6 +12059,7 @@
   pt = Geórgia
   ro = Georgia
   es = Georgia
+  eu = Georgia
   sv = Georgien
   th = ประเทศจอร์เจีย
   tr = Gürcistan
@@ -11962,6 +12091,7 @@
   pt = Geórgia
   ro = Georgia
   es = Georgia
+  eu = Georgia
   sv = Georgien
   th = ประเทศจอร์เจีย
   tr = Gürcistan
@@ -11993,6 +12123,7 @@
   pt = Alemanha
   ro = Germania
   es = Alemania
+  eu = Alemania
   sv = Tyskland
   th = ประเทศเยอรมนี
   tr = Almanya
@@ -12003,6 +12134,7 @@
   el = Γερμανία
   he = גרמניה
   sk = Nemecko
+  mr = जर्मनी
 
 [Germany_Baden-Wurttemberg]
   en = Baden-Württemberg
@@ -13543,6 +13675,7 @@
   pt = Gana
   ro = Ghana
   es = Ghana
+  eu = Ghana
   sv = Ghana
   th = ประเทศกานา
   tr = Gana
@@ -13553,6 +13686,7 @@
   el = Γκάνα
   he = גאנה
   sk = Ghana
+  mr = घाना
 
 [Gibraltar]
   en = Gibraltar
@@ -13574,6 +13708,7 @@
   pt = Gibraltar
   ro = Gibraltar
   es = Gibraltar
+  eu = Gibraltar
   sv = Gibraltar
   th = ยิบรอลตาร์
   tr = Cebelitarık
@@ -13584,6 +13719,7 @@
   el = Γιβραλτάρ
   he = גיברלטר
   sk = Gibraltár
+  mr = जिब्राल्टर
 
 [Greece]
   en = Greece
@@ -13605,6 +13741,7 @@
   pt = Grécia
   ro = Grecia
   es = Grecia
+  eu = Grezia
   sv = Grekland
   th = ประเทศกรีซ
   tr = Yunanistan
@@ -13615,6 +13752,7 @@
   el = Ελλάδα
   he = יוון
   sk = Grécko
+  mr = ग्रीस
 
 [Greece_Decentralized Administration of Aegean]
   en = Aegean
@@ -13853,6 +13991,7 @@
   pt = Gronelândia
   ro = Groenlanda
   es = Groenlandia
+  eu = Groenlandia
   sv = Grönland
   th = กรีนแลนด์
   tr = Grönland
@@ -13863,6 +14002,7 @@
   el = Γροιλανδία
   he = גרינלנד
   sk = Grónsko
+  mr = ग्रीनलँड
 
 [Grenada]
   en = Grenada
@@ -13884,6 +14024,7 @@
   pt = Granada
   ro = Grenada
   es = Granada
+  eu = Granada
   sv = Grenada
   th = ประเทศเกรเนดา
   tr = Grenada
@@ -13915,6 +14056,7 @@
   pt = Guadalupe
   ro = Guadelupa
   es = Guadalupe
+  eu = Guadalupe
   sv = Guadeloupe
   th = กัวเดอลุป
   tr = Guadeloupe
@@ -13946,6 +14088,7 @@
   pt = Guatemala
   ro = Guatemala
   es = Guatemala
+  eu = Guatemala
   sv = Guatemala
   th = ประเทศกัวเตมาลา
   tr = Guatemala
@@ -13977,6 +14120,7 @@
   pt = Guernsey
   ro = Guernsey
   es = Guernsey
+  eu = Guernsey
   sv = Guernsey
   th = เกิร์นซีย์
   tr = Guernsey
@@ -14008,6 +14152,7 @@
   pt = Guiné
   ro = Guineea
   es = Guinea
+  eu = Ginea
   sv = Guinea
   th = ประเทศกินี
   tr = Gine
@@ -14039,6 +14184,7 @@
   pt = Guiné-Bissau
   ro = Guineea-Bissau
   es = Guinea-Bisáu
+  eu = Ginea-Bissau
   sv = Guinea-Bissau
   th = ประเทศกินี-บิสเซา
   tr = Gine-Bissau
@@ -14070,6 +14216,7 @@
   pt = Guiana
   ro = Guyana
   es = Guyana
+  eu = Guyana
   sv = Guyana
   th = ประเทศกายอานา
   tr = Guyana
@@ -14080,6 +14227,7 @@
   el = Γουιάνα
   he = גיאנה
   sk = Guyana
+  mr = गयाना
 
 [Haiti]
   en = Haiti
@@ -14101,6 +14249,7 @@
   pt = Haiti
   ro = Haiti
   es = Haití
+  eu = Haiti
   sv = Haiti
   th = ประเทศเฮติ
   tr = Haiti
@@ -14111,6 +14260,7 @@
   el = Αϊτή
   he = האיטי
   sk = Haiti
+  mr = हैती
 
 [Honduras]
   en = Honduras
@@ -14132,6 +14282,7 @@
   pt = Honduras
   ro = Honduras
   es = Honduras
+  eu = Honduras
   sv = Honduras
   th = ประเทศฮอนดูรัส
   tr = Honduras
@@ -14142,6 +14293,7 @@
   el = Ονδούρα
   he = הונדורס
   sk = Honduras
+  mr = होंडुरास
 
 [Hungary]
   en = Hungary
@@ -14163,6 +14315,7 @@
   pt = Hungria
   ro = Ungaria
   es = Hungría
+  eu = Hungaria
   sv = Ungern
   th = ประเทศฮังการี
   tr = Macaristan
@@ -14173,6 +14326,7 @@
   el = Ουγγαρία
   he = הונגריה
   sk = Maďarsko
+  mr = हंगेरी
 
 [Hungary_Kozep-Magyarorszag]
   en = Central Hungary
@@ -14287,6 +14441,7 @@
   pt = Islândia
   ro = Islanda
   es = Islandia
+  eu = Islandia
   sv = Island
   th = ประเทศไอซ์แลนด์
   tr = İzlanda
@@ -14297,6 +14452,7 @@
   el = Ισλανδία
   he = איסלנד
   sk = Island
+  mr = आइसलँड
 
 [Illinois]
   en = Illinois
@@ -14318,6 +14474,7 @@
   pt = Illinois
   ro = Illinois
   es = Illinois
+  eu = Illinois
   sv = Illinois
   th = รัฐอิลลินอยส์
   tr = Illinois
@@ -14349,6 +14506,7 @@
   pt = Índia
   ro = India
   es = India
+  eu = India
   sv = Indien
   th = ประเทศอินเดีย
   tr = Hindistan
@@ -14359,6 +14517,7 @@
   el = Ινδία
   he = הודו
   sk = India
+  mr = भारत
 
 [India_Andaman and Nicobar Islands]
   en = Andaman and Nicobar Islands
@@ -14390,6 +14549,7 @@
   el = Νησιά Άνταμαν και Νικομπάρ
   he = איי אנדמן וניקובר
   sk = Andamany a Nikobary
+  mr = अंदमान आणि निकोबार बेट
 
 [India_Andhra Pradesh]
   en = Andhra Pradesh
@@ -14421,6 +14581,7 @@
   el = Άντρα Πραντές
   he = אנדרה פראדש
   sk = Ándhrapradéš
+  mr = आंध्र प्रदेश
 
 [India_Arunachal Pradesh]
   en = Arunachal Pradesh
@@ -14452,6 +14613,7 @@
   el = Αρουνάτσαλ Πραντές
   he = ארונאצ'ל פרדש
   sk = Arunáčalpradéš
+  mr = अरुणाचल प्रदेश
 
 [India_Assam]
   en = Assam
@@ -14483,6 +14645,7 @@
   el = Ασσάμ
   he = אסאם
   sk = Ásam
+  mr = आसाम
 
 [India_Bihar]
   en = Bihar
@@ -14514,6 +14677,7 @@
   el = Μπιχάρ
   he = ביהר
   sk = Bihár
+  mr = बिहार
 
 [India_Chandigarh]
   en = Chandigarh
@@ -14545,6 +14709,7 @@
   el = Τσάντιγκαρ
   he = צ'אנדיגאר
   sk = Čandígarh
+  mr = चंदीगड
 
 [India_Chhattisgarh]
   en = Chhattisgarh
@@ -14576,6 +14741,7 @@
   el = Τσατίσγκαρ
   he = צ'האטיסגאר
   sk = Čhattísgarh
+  mr = छत्तीसगड
 
 [India_Delhi]
   en = Delhi
@@ -14607,6 +14773,7 @@
   el = Δελχί
   he = דלהי
   sk = Dillí
+  mr = दिल्ली
 
 [India_Goa]
   en = Goa
@@ -14638,6 +14805,7 @@
   el = Γκόα
   he = גואה
   sk = Goa
+  mr = गोवा
 
 [India_Gujarat]
   en = Gujarat
@@ -14669,6 +14837,7 @@
   el = Γκουτζαράτ
   he = גוג'אראט
   sk = Gudžarát
+  mr = गुजरात
 
 [India_Haryana]
   en = Haryana
@@ -14700,6 +14869,7 @@
   el = Χαριάνα
   he = הריאנה
   sk = Harijána
+  mr = हरियाणा
 
 [India_Himachal Pradesh]
   en = Himachal Pradesh
@@ -14731,6 +14901,7 @@
   el = Χιματσάλ Πραντές
   he = הימאצ'אל פראדש
   sk = Himáčalpradéš
+  mr = हिमाचल प्रदेश
 
 [India_Jammu and Kashmir]
   en = Jammu and Kashmir
@@ -14762,6 +14933,7 @@
   el = Τζαμού και Κασμίρ
   he = ג'אמו וקשמיר
   sk = Džammú a Kašmír
+  mr = जम्मू आणि काश्मीर
 
 [India_Jharkhand]
   en = Jharkhand
@@ -14793,6 +14965,7 @@
   el = Τζαρκάντ
   he = ג'הרקאנד
   sk = Džhárkhand
+  mr = झारखंड
 
 [India_Karnataka]
   en = Karnataka
@@ -14824,6 +14997,7 @@
   el = Καρνάτακα
   he = קארנאטקה
   sk = Karnátaka
+  mr = कर्नाटक
 
 [India_Kerala]
   en = Kerala
@@ -14855,6 +15029,7 @@
   el = Κεράλα
   he = קרלה
   sk = Kérala
+  mr = केरळ
 
 [India_Lakshadweep]
   en = Lakshadweep
@@ -14886,6 +15061,7 @@
   el = Λακσαντγουίπ
   he = לקשאדוויפ
   sk = Lakadivy
+  mr = लक्षद्वीप
 
 [India_Madhya Pradesh]
   en = Madhya Pradesh
@@ -14917,6 +15093,7 @@
   el = Μάντια Πραντές
   he = מאדהיה פראדש
   sk = Madhjapradéš
+  mr = मध्य प्रदेश
 
 [India_Maharashtra]
   en = Maharashtra
@@ -14948,6 +15125,7 @@
   el = Μαχαράστρα
   he = מהאראשטרה
   sk = Maháraštra
+  mr = महाराष्ट्र
 
 [India_Manipur]
   en = Manipur
@@ -14979,6 +15157,7 @@
   el = Μανιπούρ
   he = מאניפור
   sk = Manípur
+  mr = मणिपूर
 
 [India_Meghalaya]
   en = Meghalaya
@@ -15010,6 +15189,7 @@
   el = Μεγκαλάια
   he = מגהלאיה
   sk = Meghálaj
+  mr = मेघालय
 
 [India_Mizoram]
   en = Mizoram
@@ -15041,6 +15221,7 @@
   el = Μιζοράμ
   he = מיזוראם
   sk = Mizorám
+  mr = मिझोराम
 
 [India_Nagaland]
   en = Nagaland
@@ -15072,6 +15253,7 @@
   el = Ναγκάλαντ
   he = נאגאלנד
   sk = Nágsko
+  mr = नागालँड
 
 [India_Odisha]
   en = Odisha
@@ -15103,6 +15285,7 @@
   el = Οντισά
   he = אוריסה
   sk = Urísa
+  mr = ओडिशा
 
 [India_Punjab]
   en = Punjab
@@ -15134,6 +15317,7 @@
   el = Πουνζαμπ
   he = פנג'אב
   sk = Pandžáb
+  mr = पंजाब
 
 [India_Rajasthan]
   en = Rajasthan
@@ -15165,6 +15349,7 @@
   el = Ρατζαστάν
   he = ראג'סטאן
   sk = Radžastan
+  mr = राजस्थान
 
 [India_Sikkim]
   en = Sikkim
@@ -15196,6 +15381,7 @@
   el = Σικκίμ
   he = סיקים
   sk = Sikkim
+  mr = सिक्कीम
 
 [India_Tamil Nadu]
   en = Tamil Nadu
@@ -15227,6 +15413,7 @@
   el = Ταμίλ Ναντού
   he = טאמיל נאדו
   sk = Tamilnádu
+  mr = तामिळनाडू
 
 [India_Telangana]
   en = Telangana
@@ -15258,6 +15445,7 @@
   el = Τελανγκάνα
   he = טלנגנה
   sk = Telangana
+  mr = तेलंगणा
 
 [India_Tripura]
   en = Tripura
@@ -15289,6 +15477,7 @@
   el = Τριπούρα
   he = טריפורה
   sk = Tripura
+  mr = त्रिपुरा
 
 [India_Uttar Pradesh]
   en = Uttar Pradesh
@@ -15320,6 +15509,7 @@
   el = Ουτάρ Πραντές
   he = אוטר פראדש
   sk = Uttarpradéš
+  mr = उत्तर प्रदेश
 
 [India_Uttarakhand]
   en = Uttarakhand
@@ -15351,6 +15541,7 @@
   el = Ουταρακάντ
   he = אוטראקהאנד
   sk = Uttarákhand
+  mr = उत्तराखंड
 
 [India_West Bengal]
   en = West Bengal
@@ -15382,6 +15573,7 @@
   el = Δυτική Βεγγάλη
   he = מערב בנגל
   sk = Západné Bengálsko
+  mr = पश्चिम बंगाल
 
 [Indiana]
   en = Indiana
@@ -15403,6 +15595,7 @@
   pt = Indiana
   ro = Indiana
   es = Indiana
+  eu = Indiana
   sv = Indiana
   th = รัฐอินดีแอนา
   tr = Indiana
@@ -15434,6 +15627,7 @@
   pt = Indonésia
   ro = Indonezia
   es = Indonesia
+  eu = Indonesia
   sv = Indonesien
   th = ประเทศอินโดนีเซีย
   tr = Endonezya
@@ -15444,6 +15638,7 @@
   el = Ινδονησία
   he = אינדונזיה
   sk = Indonézia
+  mr = इंडोनेशिया
 
 [Indonesia_Central]
   en = Sulawesi, Kalimantan
@@ -15682,6 +15877,7 @@
   pt = Iowa
   ro = Iowa
   es = Iowa
+  eu = Iowa
   sv = Iowa
   th = รัฐไอโอวา
   tr = Iowa
@@ -15713,6 +15909,7 @@
   pt = Irão
   ro = Iran
   es = Irán
+  eu = Iran
   sv = Iran
   th = ประเทศอิหร่าน
   tr = İran
@@ -15723,6 +15920,7 @@
   el = Ιράν
   he = איראן
   sk = Irán
+  mr = इराण
 
 [Iran_North]
   en = Iran — North
@@ -15806,6 +16004,7 @@
   pt = Iraque
   ro = Irak
   es = Irak
+  eu = Irak
   sv = Irak
   th = ประเทศอิรัก
   tr = Irak
@@ -15816,6 +16015,7 @@
   el = Ιράκ
   he = עיראק
   sk = Irak
+  mr = इराक
 
 [Ireland]
   en = Ireland
@@ -15837,6 +16037,7 @@
   pt = República da Irlanda
   ro = Irlanda
   es = Irlanda
+  eu = Irlanda
   sv = Irland
   th = ประเทศไอร์แลนด์
   tr = İrlanda
@@ -15847,6 +16048,7 @@
   el = Ιρλανδία
   he = אירלנד
   sk = Írsko
+  mr = आयर्लंड
 
 [Ireland_Connacht]
   en = Connacht
@@ -15992,6 +16194,7 @@
   pt = Ilha de Man
   ro = Insula Man
   es = Isla de Man
+  eu = Man uhartea
   sv = Isle of Man
   th = เกาะแมน
   tr = Man Adası
@@ -16023,6 +16226,7 @@
   pt = Israel
   ro = Israel
   es = Israel
+  eu = Israel
   sv = Israel
   th = ประเทศอิสราเอล
   tr = İsrail
@@ -16033,6 +16237,7 @@
   el = Ισραήλ
   he = ישראל
   sk = Izrael
+  mr = इस्रायल
 
 [Israel Region]
   en = Israel
@@ -16054,6 +16259,7 @@
   pt = Israel
   ro = Israel
   es = Israel
+  eu = Israel
   sv = Israel
   th = ประเทศอิสราเอล
   tr = İsrail
@@ -16085,6 +16291,7 @@
   pt = Itália
   ro = Italia
   es = Italia
+  eu = Italia
   sv = Italien
   th = ประเทศอิตาลี
   tr = İtalya
@@ -16095,6 +16302,7 @@
   el = Ιταλία
   he = איטליה
   sk = Taliansko
+  mr = इटली
 
 [Italy_Abruzzo]
   en = Abruzzo
@@ -18007,6 +18215,7 @@
   pt = Jamaica
   ro = Jamaica
   es = Jamaica
+  eu = Jamaika
   sv = Jamaica
   th = ประเทศจาเมกา
   tr = Jamaika
@@ -18017,6 +18226,7 @@
   el = Τζαμάικα
   he = ג'מייקה
   sk = Jamajka
+  mr = जमैका
 
 [Japan]
   en = Japan
@@ -18038,6 +18248,7 @@
   pt = Japão
   ro = Japonia
   es = Japón
+  eu = Japonia
   sv = Japan
   th = ประเทศญี่ปุ่น
   tr = Japonya
@@ -18048,6 +18259,7 @@
   el = Ιαπωνία
   he = יפן
   sk = Japonsko
+  mr = जपान
 
 [Japan_Chubu Region]
   en = Chūbu Region
@@ -18079,6 +18291,7 @@
   el = Περιοχή Τσούμπου
   he = צ'ובו
   sk = Čúbu
+  mr = चुबू प्रदेश
 
 [Japan_Chubu Region_Aichi]
   en = Aichi Prefecture
@@ -18110,6 +18323,7 @@
   el = Περιφέρεια Αίτσι
   he = אאיצ'י
   sk = Aiči
+  mr = आयची
 
 [Japan_Chubu Region_Fukui]
   en = Fukui Prefecture
@@ -18141,6 +18355,7 @@
   el = Περιφέρεια Φουκούι
   he = פוקואי
   sk = Fukui
+  mr = फुकुई
 
 [Japan_Chubu Region_Gifu]
   en = Gifu Prefecture
@@ -18234,6 +18449,7 @@
   el = Περιφέρεια Ναγκάνο
   he = נאגנו
   sk = Nagano
+  mr = नागानो
 
 [Japan_Chubu Region_Niigata]
   en = Niigata Prefecture
@@ -18265,6 +18481,7 @@
   el = Περιφέρεια Νιιγκάτα
   he = ניאיגטה
   sk = Niigata
+  mr = निगाता
 
 [Japan_Chubu Region_Shizuoka]
   en = Shizuoka Prefecture
@@ -18296,6 +18513,7 @@
   el = Περιφέρεια Σιζουόκα
   he = שיזואוקה
   sk = Šizuoka
+  mr = शिझुओका
 
 [Japan_Chubu Region_Toyama]
   en = Toyama Prefecture
@@ -18358,6 +18576,7 @@
   el = Περιφέρεια Γιαμανάσι
   he = יאמאנאשי
   sk = Jamanaši
+  mr = यामानाशी
 
 [Japan_Chugoku Region]
   en = Chūgoku Region
@@ -18389,6 +18608,7 @@
   el = Περιφέρεια Τσουγκόκου
   he = צ'וגוקו
   sk = Čúgoku
+  mr = चुगोकू
 
 [Japan_Chugoku Region_Hiroshima]
   en = Hiroshima Prefecture
@@ -18420,6 +18640,7 @@
   el = Περιφέρεια Χιροσίμα
   he = הירושימה
   sk = Hirošima
+  mr = हिरोशिमा
 
 [Japan_Chugoku Region_Okayama]
   en = Okayama Prefecture
@@ -18451,6 +18672,7 @@
   el = Περιφέρεια Οκαγιάμα
   he = אוקיאמה
   sk = Okajama
+  mr = ओकायामा
 
 [Japan_Chugoku Region_Shimane]
   en = Shimane Prefecture
@@ -18482,6 +18704,7 @@
   el = Περιφέρεια Σιμάνε
   he = שימאנה
   sk = Šimane
+  mr = शिमाने
 
 [Japan_Chugoku Region_Tottori]
   en = Tottori Prefecture
@@ -18513,6 +18736,7 @@
   el = Περιφέρεια Τοτόρι
   he = טוטורי
   sk = Tottori
+  mr = तोतोरी
 
 [Japan_Chugoku Region_Yamaguchi]
   en = Yamaguchi Prefecture
@@ -18544,6 +18768,7 @@
   el = Περιφέρεια Γιαμαγκούτσι
   he = יאמגוצ'י
   sk = Jamaguči
+  mr = यामागुची
 
 [Japan_Hokkaido Region]
   en = Hokkaidō
@@ -18575,6 +18800,7 @@
   el = Χοκάιντο
   he = הוקאידו
   sk = Hokkaido
+  mr = होक्काइदो
 
 [Japan_Hokkaido Region_East]
   en = Hokkaidō — East
@@ -18699,6 +18925,7 @@
   el = Επαρχία Κάντο
   he = קאנטו
   sk = Kantó
+  mr = कांतो
 
 [Japan_Kanto_Chiba]
   en = Chiba Prefecture
@@ -18730,6 +18957,7 @@
   el = Νομός Τσίμπα
   he = צ'יבה
   sk = Čiba
+  mr = चिबा
 
 [Japan_Kanto_Gunma]
   en = Gunma Prefecture
@@ -18823,6 +19051,7 @@
   el = Νομός Καναγκάβα
   he = קנאגווה
   sk = Kanagawa
+  mr = कानागावा
 
 [Japan_Kanto_Saitama]
   en = Saitama Prefecture
@@ -18854,6 +19083,7 @@
   el = Νομός Σαϊτάμα
   he = סאיטאמה
   sk = Saitama
+  mr = साइतामा
 
 [Japan_Kanto_Tochigi]
   en = Tochigi Prefecture
@@ -18885,6 +19115,7 @@
   el = Νομός Τοχίγκι
   he = טוצ'יגי
   sk = Točigi
+  mr = तोचिगी
 
 [Japan_Kanto_Tokyo]
   en = Tokyo Prefecture
@@ -18916,6 +19147,7 @@
   el = Νομός Τόκιο
   he = טוקיו
   sk = Tokio
+  mr = तोक्यो
 
 [Japan_Kinki Region]
   en = Kansai Region
@@ -19009,6 +19241,7 @@
   el = Νομός Νάρα
   he = נארה
   sk = Nara
+  mr = नारा
 
 [Japan_Kinki Region_Osaka]
   en = Ōsaka Prefecture
@@ -19040,6 +19273,7 @@
   el = Νομός Οζάκα
   he = אוסקה
   sk = Osaka
+  mr = ओसाका
 
 [Japan_Kinki Region_Wakayama]
   en = Wakayama Prefecture
@@ -19071,6 +19305,7 @@
   el = Νομός Γουακαγιάμα
   he = וקאיאמה
   sk = Wakajama
+  mr = वाकायामा
 
 [Japan_Kyushu Region]
   en = Kyushu
@@ -19102,6 +19337,7 @@
   el = Κιούσου
   he = קיושו
   sk = Kjúšu
+  mr = क्युशू
 
 [Japan_Kyushu Region_Fukuoka]
   en = Fukuoka Prefecture
@@ -19133,6 +19369,7 @@
   el = Νομός Φουκουόκα
   he = פוקואוקה
   sk = Fukuoka
+  mr = फुकुओका
 
 [Japan_Kyushu Region_Kagoshima]
   en = Kagoshima Prefecture
@@ -19164,6 +19401,7 @@
   el = Νομός Καγκοσίμα
   he = קגושימה
   sk = Kagošima
+  mr = कागोशिमा
 
 [Japan_Kyushu Region_Kumamoto]
   en = Kumamoto Prefecture
@@ -19195,6 +19433,7 @@
   el = Νομός Κουμαμότο
   he = קוממוטו
   sk = Kumamoto
+  mr = कुमामोतो
 
 [Japan_Kyushu Region_Miyazaki]
   en = Miyazaki Prefecture
@@ -19226,6 +19465,7 @@
   el = Νομός Μιγιαζάκι
   he = מיאזקי
   sk = Mijazaki
+  mr = मियाझाकी
 
 [Japan_Kyushu Region_Nagasaki]
   en = Nagasaki Prefecture
@@ -19257,6 +19497,7 @@
   el = Νομός Ναγκασάκι
   he = נגסאקי
   sk = Nagasaki
+  mr = नागासाकी
 
 [Japan_Kyushu Region_Oita]
   en = Ōita Prefecture
@@ -19319,6 +19560,7 @@
   el = Νομός Οκινάουα
   he = אוקינאווה
   sk = Okinawa
+  mr = ओकिनावा
 
 [Japan_Kyushu Region_Saga]
   en = Saga Prefecture
@@ -19505,6 +19747,7 @@
   el = Νομός Κιότο
   he = קיוטו
   sk = Kjóto
+  mr = क्योतो
 
 [Japan_Shikoku Region_Tokushima]
   en = Tokushima Prefecture
@@ -19567,6 +19810,7 @@
   el = Περιοχή Τοχόκου
   he = טוהוקו
   sk = Tóhoku
+  mr = तोहोकू
 
 [Japan_Tohoku_Akita]
   en = Akita Prefecture
@@ -19598,6 +19842,7 @@
   el = Νομός Ακίτα
   he = אקיטה
   sk = Akita
+  mr = आकिता
 
 [Japan_Tohoku_Aomori]
   en = Aomori Prefecture
@@ -19660,6 +19905,7 @@
   el = Νομός Φουκουσίμα
   he = פוקושימה
   sk = Fukušima
+  mr = फुकुशिमा
 
 [Japan_Tohoku_Iwate]
   en = Iwate Prefecture
@@ -19774,6 +20020,7 @@
   pt = Jersey
   ro = Insula Jersey
   es = Jersey
+  eu = Jertsea
   sv = Jersey
   th = เจอร์ซีย์
   tr = Jersey
@@ -19805,6 +20052,7 @@
   pt = Jerusalém
   ro = Ierusalim
   es = Jerusalén
+  eu = Jerusalem
   sv = Jerusalem
   th = เยรูซาเลม
   tr = Kudüs
@@ -19836,6 +20084,7 @@
   pt = Jordânia
   ro = Iordania
   es = Jordania
+  eu = Jordania
   sv = Jordanien
   th = ประเทศจอร์แดน
   tr = Ürdün
@@ -19846,6 +20095,7 @@
   el = Ιορδανία
   he = ירדן
   sk = Jordánsko
+  mr = जॉर्डन
 
 [Kansas]
   en = Kansas
@@ -19867,6 +20117,7 @@
   pt = Kansas
   ro = Kansas
   es = Kansas
+  eu = Kansas
   sv = Kansas
   th = รัฐแคนซัส
   tr = Kansas
@@ -19898,6 +20149,7 @@
   pt = Cazaquistão
   ro = Kazahstan
   es = Kazajistán
+  eu = Kazakhstan
   sv = Kazakstan
   th = ประเทศคาซัคสถาน
   tr = Kazakistan
@@ -19908,6 +20160,7 @@
   el = Καζακστάν
   he = קזחסטן
   sk = Kazachstan
+  mr = कझाकस्तान
 
 [Kentucky]
   en = Kentucky
@@ -19929,6 +20182,7 @@
   pt = Kentucky
   ro = Kentucky
   es = Kentucky
+  eu = Kentucky
   sv = Kentucky
   th = รัฐเคนทักกี
   tr = Kentucky
@@ -19960,6 +20214,7 @@
   pt = Quénia
   ro = Kenya
   es = Kenia
+  eu = Kenya
   sv = Kenya
   th = ประเทศเคนยา
   tr = Kenya
@@ -19970,6 +20225,7 @@
   el = Κένυα
   he = קניה
   sk = Keňa
+  mr = केनिया
 
 [Kingdom of Lesotho]
   en = Lesotho
@@ -19991,6 +20247,7 @@
   pt = Lesoto
   ro = Lesotho
   es = Lesoto
+  eu = Lesotho
   sv = Lesotho
   th = ประเทศเลโซโท
   tr = Lesotho
@@ -20022,6 +20279,7 @@
   pt = Kiribati
   ro = Kiribati
   es = Kiribati
+  eu = Kiribati
   sv = Kiribati
   th = ประเทศคิริบาส
   tr = Kiribati
@@ -20053,6 +20311,7 @@
   pt = Kuwait
   ro = Kuweit
   es = Kuwait
+  eu = Kuwait
   sv = Kuwait
   th = ประเทศคูเวต
   tr = Kuveyt
@@ -20063,6 +20322,7 @@
   el = Κουβέιτ
   he = כווית
   sk = Kuvajt
+  mr = कुवेत
 
 [Kyrgyzstan]
   en = Kyrgyzstan
@@ -20084,6 +20344,7 @@
   pt = Quirguistão
   ro = Kirghiztan
   es = Kirguistán
+  eu = Kirgizistan
   sv = Kirgizistan
   th = ประเทศคีร์กีซสถาน
   tr = Kırgızistan
@@ -20115,6 +20376,7 @@
   pt = Laos
   ro = Laos
   es = Laos
+  eu = Laos
   sv = Laos
   th = ประเทศลาว
   tr = Laos
@@ -20146,6 +20408,7 @@
   pt = Letónia
   ro = Letonia
   es = Letonia
+  eu = Letonian
   sv = Lettland
   th = ประเทศลัตเวีย
   tr = Letonya
@@ -20177,6 +20440,7 @@
   pt = Líbano
   ro = Liban
   es = Líbano
+  eu = Libano
   sv = Libanon
   th = ประเทศเลบานอน
   tr = Lübnan
@@ -20187,6 +20451,7 @@
   el = Λίβανος
   he = לבנון
   sk = Libanon
+  mr = लेबनॉन
 
 [Liberia]
   en = Liberia
@@ -20208,6 +20473,7 @@
   pt = Libéria
   ro = Liberia
   es = Liberia
+  eu = Liberia
   sv = Liberia
   th = ประเทศไลบีเรีย
   tr = Liberya
@@ -20218,6 +20484,7 @@
   el = Λιβερία
   he = ליבריה
   sk = Libéria
+  mr = लायबेरिया
 
 [Libya]
   en = Libya
@@ -20239,6 +20506,7 @@
   pt = Líbia
   ro = Libia
   es = Libia
+  eu = Libia
   sv = Libyen
   th = ประเทศลิเบีย
   tr = Libya
@@ -20249,6 +20517,7 @@
   el = Λιβύη
   he = לוב
   sk = Líbya
+  mr = लिबिया
 
 [Liechtenstein]
   en = Liechtenstein
@@ -20270,6 +20539,7 @@
   pt = Liechtenstein
   ro = Liechtenstein
   es = Liechtenstein
+  eu = Liechtenstein
   sv = Liechtenstein
   th = ประเทศลิกเตนสไตน์
   tr = Lihtenştayn
@@ -20280,6 +20550,7 @@
   el = Λίχτενσταϊν
   he = ליכטנשטיין
   sk = Lichtenštajnsko
+  mr = लिकटेंस्टाईन
 
 [Lithuania]
   en = Lithuania
@@ -20301,6 +20572,7 @@
   pt = Lituânia
   ro = Lituania
   es = Lituania
+  eu = Lituania
   sv = Litauen
   th = ประเทศลิทัวเนีย
   tr = Litvanya
@@ -20311,6 +20583,7 @@
   el = Λιθουανία
   he = ליטא
   sk = Litva
+  mr = लिथुआनिया
 
 [Louisiana]
   en = Louisiana
@@ -20332,6 +20605,7 @@
   pt = Luisiana
   ro = Louisiana
   es = Luisiana
+  eu = Louisiana
   sv = Louisiana
   th = รัฐลุยเซียนา
   tr = Louisiana
@@ -20363,6 +20637,7 @@
   pt = Luxemburgo
   ro = Luxemburg
   es = Luxemburgo
+  eu = Luxenburgo
   sv = Luxemburg
   th = ประเทศลักเซมเบิร์ก
   tr = Lüksemburg
@@ -20373,6 +20648,7 @@
   el = Λουξεμβούργο
   he = לוקסמבורג
   sk = Luxembursko
+  mr = लक्झेंबर्ग
 
 [Macedonia]
   en = Macedonia
@@ -20394,6 +20670,7 @@
   pt = República da Macedónia
   ro = Republica Macedonia
   es = República de Macedonia
+  eu = Mazedoniako Errepublika
   sv = Makedonien
   th = ประเทศมาซิโดเนีย
   tr = Makedonya Cumhuriyeti
@@ -20404,6 +20681,7 @@
   el = ΠΓΔ Μακεδονίας
   he = מקדוניה
   sk = Macedónsko
+  mr = मॅसेडोनिया
 
 [Madagascar]
   en = Madagascar
@@ -20425,6 +20703,7 @@
   pt = Madagáscar
   ro = Madagascar
   es = Madagascar
+  eu = Madagaskar
   sv = Madagaskar
   th = ประเทศมาดากัสการ์
   tr = Madagaskar
@@ -20435,6 +20714,7 @@
   el = Μαδαγασκάρη
   he = מדגסקר
   sk = Madagaskar
+  mr = मादागास्कर
 
 [Malawi]
   en = Malawi
@@ -20456,6 +20736,7 @@
   pt = Malawi
   ro = Malawi
   es = Malaui
+  eu = Malawi
   sv = Malawi
   th = ประเทศมาลาวี
   tr = Malavi
@@ -20487,6 +20768,7 @@
   pt = Malásia
   ro = Malaezia
   es = Malasia
+  eu = Malaysia
   sv = Malaysia
   th = ประเทศมาเลเซีย
   tr = Malezya
@@ -20497,6 +20779,7 @@
   el = Μαλαισία
   he = מלזיה
   sk = Malajzia
+  mr = मलेशिया
 
 [Maldives]
   en = Maldives
@@ -20518,6 +20801,7 @@
   pt = Maldivas
   ro = Maldive
   es = Maldivas
+  eu = Maldibak
   sv = Maldiverna
   th = ประเทศมัลดีฟส์
   tr = Maldivler
@@ -20528,6 +20812,7 @@
   el = Μαλδίβες
   he = האיים המלדיביים
   sk = Maldivy
+  mr = मालदीव
 
 [Mali]
   en = Mali
@@ -20549,6 +20834,7 @@
   pt = Mali
   ro = Mali
   es = Malí
+  eu = Mali
   sv = Mali
   th = ประเทศมาลี
   tr = Mali
@@ -20559,6 +20845,7 @@
   el = Μάλι
   he = מאלי
   sk = Mali
+  mr = माली
 
 [Malta]
   en = Malta
@@ -20580,6 +20867,7 @@
   pt = Malta
   ro = Malta
   es = Malta
+  eu = Malta
   sv = Malta
   th = ประเทศมอลตา
   tr = Malta
@@ -20590,6 +20878,7 @@
   el = Μάλτα
   he = מלטה
   sk = Malta
+  mr = माल्टा
 
 [Marshall Islands]
   en = Marshall Islands
@@ -20611,6 +20900,7 @@
   pt = Ilhas Marshall
   ro = Insulele Marshall
   es = Islas Marshall
+  eu = Marshall Uharteak
   sv = Marshallöarna
   th = สาธารณรัฐหมู่เกาะมาร์แชลล์
   tr = Marshall Adaları
@@ -20642,6 +20932,7 @@
   pt = Martinica
   ro = Martinica
   es = Martinica
+  eu = Martinika
   sv = Martinique
   th = มาร์ตีนิก
   tr = Martinique
@@ -20673,6 +20964,7 @@
   pt = Maryland
   ro = Maryland
   es = Maryland
+  eu = Maryland
   sv = Maryland
   th = รัฐแมริแลนด์
   tr = Maryland
@@ -20704,6 +20996,7 @@
   pt = Massachusetts
   ro = Massachusetts
   es = Massachusetts
+  eu = Massachusetts
   sv = Massachusetts
   th = รัฐแมสซาชูเซตส์
   tr = Massachusetts
@@ -20735,6 +21028,7 @@
   pt = Mauritânia
   ro = Mauritania
   es = Mauritania
+  eu = Mauritania
   sv = Mauretanien
   th = ประเทศมอริเตเนีย
   tr = Moritanya
@@ -20766,6 +21060,7 @@
   pt = Maurícia
   ro = Mauritius
   es = Mauricio
+  eu = Mauricio
   sv = Mauritius
   th = ประเทศมอริเชียส
   tr = Mauritius
@@ -20776,6 +21071,7 @@
   el = Μαυρίκιος
   he = מאוריציוס
   sk = Maurícius
+  mr = मॉरिशस
 
 [Mexico]
   en = Mexico
@@ -20797,6 +21093,7 @@
   pt = México
   ro = Mexic
   es = México
+  eu = Mexiko
   sv = Mexiko
   th = ประเทศเม็กซิโก
   tr = Meksika
@@ -20807,6 +21104,7 @@
   el = Μεξικό
   he = מקסיקו
   sk = Mexiko
+  mr = मेक्सिको
 
 [Mexico_California]
   en = Baja California
@@ -21045,6 +21343,7 @@
   pt = Michigan
   ro = Michigan
   es = Míchigan
+  eu = Michigan
   sv = Michigan
   th = รัฐมิชิแกน
   tr = Michigan
@@ -21076,6 +21375,7 @@
   pt = Minnesota
   ro = Minnesota
   es = Minnesota
+  eu = Minnesota
   sv = Minnesota
   th = รัฐมินนิโซตา
   tr = Minnesota
@@ -21107,6 +21407,7 @@
   pt = Missouri
   ro = Missouri
   es = Misuri
+  eu = Missouri
   sv = Missouri
   th = รัฐมิสซูรี
   tr = Missouri
@@ -21138,6 +21439,7 @@
   pt = Moldávia
   ro = Republica Moldova
   es = Moldavia
+  eu = Moldova
   sv = Moldavien
   th = ประเทศมอลโดวา
   tr = Moldova
@@ -21148,6 +21450,7 @@
   el = Μολδαβία
   he = מולדובה
   sk = Moldavsko
+  mr = मोल्दोव्हा
 
 [Monaco]
   en = Monaco
@@ -21169,6 +21472,7 @@
   pt = Mónaco
   ro = Monaco
   es = Mónaco
+  eu = Monako
   sv = Monaco
   th = ประเทศโมนาโก
   tr = Monako
@@ -21179,6 +21483,7 @@
   el = Μονακό
   he = מונאקו
   sk = Monako
+  mr = मोनॅको
 
 [Mongolia]
   en = Mongolia
@@ -21200,6 +21505,7 @@
   pt = Mongólia
   ro = Mongolia
   es = Mongolia
+  eu = Mongolia
   sv = Mongoliet
   th = ประเทศมองโกเลีย
   tr = Moğolistan
@@ -21210,6 +21516,7 @@
   el = Μογγολία
   he = מונגוליה
   sk = Mongolsko
+  mr = मंगोलिया
 
 [Montenegro]
   en = Montenegro
@@ -21231,6 +21538,7 @@
   pt = Montenegro
   ro = Muntenegru
   es = Montenegro
+  eu = Montenegro
   sv = Montenegro
   th = ประเทศมอนเตเนโกร
   tr = Karadağ
@@ -21262,6 +21570,7 @@
   pt = Montserrat
   ro = Montserrat
   es = Montserrat
+  eu = Montserrat
   sv = Montserrat
   th = มอนต์เซอร์รัต
   tr = Montserrat
@@ -21293,6 +21602,7 @@
   pt = Marrocos
   ro = Maroc
   es = Marruecos
+  eu = Maroko
   sv = Marocko
   th = ประเทศโมร็อกโก
   tr = Fas
@@ -21303,6 +21613,7 @@
   el = Μαρόκο
   he = מרוקו
   sk = Maroko
+  mr = मोरोक्को
 
 [Morocco_Doukkala-Abda]
   en = Doukkala-Abda
@@ -21448,6 +21759,7 @@
   pt = Moçambique
   ro = Mozambic
   es = Mozambique
+  eu = Mozambike
   sv = Moçambique
   th = ประเทศโมซัมบิก
   tr = Mozambik
@@ -21479,6 +21791,7 @@
   pt = Myanmar
   ro = Birmania
   es = Birmania
+  eu = Birmania
   sv = Burma
   th = ประเทศพม่า
   tr = Myanmar
@@ -21489,6 +21802,7 @@
   el = Μιανμάρ
   he = מיאנמר
   sk = Mjanmarsko
+  mr = म्यानमार
 
 [Nagorno-Karabakh]
   en = Nagorno-Karabakh
@@ -21510,6 +21824,7 @@
   pt = Nagorno-Karabakh
   ro = Nagorno-Karabah
   es = Nagorno Karabaj
+  eu = Nagorno-Karabakh
   sv = Nagorno-Karabach
   th = นากอร์โน-คาราบัค
   tr = Dağlık Karabağ
@@ -21541,6 +21856,7 @@
   pt = Namíbia
   ro = Namibia
   es = Namibia
+  eu = Namibia
   sv = Namibia
   th = ประเทศนามิเบีย
   tr = Namibya
@@ -21551,6 +21867,7 @@
   el = Ναμίμπια
   he = נמיביה
   sk = Namíbia
+  mr = नामिबिया
 
 [Nauru]
   en = Nauru
@@ -21572,6 +21889,7 @@
   pt = Nauru
   ro = Nauru
   es = Nauru
+  eu = Nauru
   sv = Nauru
   th = ประเทศนาอูรู
   tr = Nauru
@@ -21603,6 +21921,7 @@
   pt = Nepal
   ro = Nepal
   es = Nepal
+  eu = Nepal
   sv = Nepal
   th = ประเทศเนปาล
   tr = Nepal
@@ -21613,6 +21932,7 @@
   el = Νεπάλ
   he = נפאל
   sk = Nepál
+  mr = नेपाळ
 
 [Nepal_East]
   en = Nepal — East
@@ -21696,6 +22016,7 @@
   pt = Países Baixos
   ro = Olanda
   es = Países Bajos
+  eu = Herbehereak
   sv = Nederländerna
   th = ประเทศเนเธอร์แลนด์
   tr = Hollanda
@@ -22471,6 +22792,7 @@
   pt = Nova Jérsei
   ro = New Jersey
   es = Nueva Jersey
+  eu = New Jersey
   sv = New Jersey
   th = รัฐนิวเจอร์ซีย์
   tr = New Jersey
@@ -22502,6 +22824,7 @@
   pt = Nova Iorque
   ro = New York
   es = Nueva York
+  eu = New York
   sv = New York
   th = รัฐนิวยอร์ก
   tr = New York
@@ -22533,6 +22856,7 @@
   pt = Nova Zelândia
   ro = Noua Zeelandă
   es = Nueva Zelanda
+  eu = Zelanda Berria
   sv = Nya Zeeland
   th = ประเทศนิวซีแลนด์
   tr = Yeni Zelanda
@@ -22543,6 +22867,7 @@
   el = Νέα Ζηλανδία
   he = ניו זילנד
   sk = Nový Zéland
+  mr = न्युझीलँड
 
 [New Zealand North_Auckland]
   en = North — Auckland
@@ -22688,6 +23013,7 @@
   pt = Nicarágua
   ro = Nicaragua
   es = Nicaragua
+  eu = Nikaragua
   sv = Nicaragua
   th = ประเทศนิการากัว
   tr = Nikaragua
@@ -22719,6 +23045,7 @@
   pt = Níger
   ro = Niger
   es = Níger
+  eu = Niger
   sv = Niger
   th = ประเทศไนเจอร์
   tr = Nijer
@@ -22750,6 +23077,7 @@
   pt = Nigéria
   ro = Nigeria
   es = Nigeria
+  eu = Nigeria
   sv = Nigeria
   th = ประเทศไนจีเรีย
   tr = Nijerya
@@ -22760,6 +23088,7 @@
   el = Νιγηρία
   he = ניגריה
   sk = Nigéria
+  mr = नायजेरिया
 
 [Niue]
   en = Niue
@@ -22781,6 +23110,7 @@
   pt = Niue
   ro = Niue
   es = Niue
+  eu = Niue
   sv = Niue
   th = นีอูเอ
   tr = Niue
@@ -22812,6 +23142,7 @@
   pt = Carolina do Norte
   ro = Carolina de Nord
   es = Carolina del Norte
+  eu = Ipar Carolina
   sv = North Carolina
   th = รัฐนอร์ทแคโรไลนา
   tr = Kuzey Karolina
@@ -22843,6 +23174,7 @@
   pt = Dakota do Norte
   ro = Dakota de Nord
   es = Dakota del Norte
+  eu = Ipar Dakota
   sv = North Dakota
   th = รัฐนอร์ทดาโคตา
   tr = Kuzey Dakota
@@ -22874,6 +23206,7 @@
   pt = Coreia do Norte
   ro = Coreea de Nord
   es = Corea del Norte
+  eu = Iparraldeko Korea
   sv = Nordkorea
   th = ประเทศเกาหลีเหนือ
   tr = Kuzey Kore
@@ -22884,6 +23217,7 @@
   el = Βόρεια Κορέα
   he = קוריאה הצפונית
   sk = Kórejská ľudovodemokratická republika
+  mr = उत्तर कोरिया
 
 [Norway]
   en = Norway
@@ -22905,6 +23239,7 @@
   pt = Noruega
   ro = Norvegia
   es = Noruega
+  eu = Norvegia
   sv = Norge
   th = ประเทศนอร์เวย์
   tr = Norveç
@@ -22915,6 +23250,7 @@
   el = Νορβηγία
   he = נורבגיה
   sk = Nórsko
+  mr = नॉर्वे
 
 [Norway_Bouvet Island]
   en = Bouvet Island
@@ -23246,6 +23582,7 @@
   pt = Ohio
   ro = Ohio
   es = Ohio
+  eu = Ohio
   sv = Ohio
   th = รัฐโอไฮโอ
   tr = Ohio
@@ -23277,6 +23614,7 @@
   pt = Oklahoma
   ro = Oklahoma
   es = Oklahoma
+  eu = Oklahoma
   sv = Oklahoma
   th = รัฐโอคลาโฮมา
   tr = Oklahoma
@@ -23308,6 +23646,7 @@
   pt = Omã
   ro = Oman
   es = Omán
+  eu = Oman
   sv = Oman
   th = ประเทศโอมาน
   tr = Umman
@@ -23318,6 +23657,7 @@
   el = Ομάν
   he = עומאן
   sk = Omán
+  mr = ओमान
 
 [Oregon]
   en = Oregon
@@ -23339,6 +23679,7 @@
   pt = Oregon
   ro = Oregon
   es = Oregón
+  eu = Oregon
   sv = Oregon
   th = รัฐออริกอน
   tr = Oregon
@@ -23370,6 +23711,7 @@
   pt = Paquistão
   ro = Pakistan
   es = Pakistán
+  eu = Pakistan
   sv = Pakistan
   th = ประเทศปากีสถาน
   tr = Pakistan
@@ -23380,6 +23722,7 @@
   el = Πακιστάν
   he = פקיסטן
   sk = Pakistan
+  mr = पाकिस्तान
 
 [Palau]
   en = Palau
@@ -23401,6 +23744,7 @@
   pt = Palau
   ro = Palau
   es = Palaos
+  eu = Palau
   sv = Palau
   th = ประเทศปาเลา
   tr = Palau
@@ -23432,6 +23776,7 @@
   pt = Territórios Palestinianos
   ro = Teritoriile Palestiniene
   es = Territorios Palestinos
+  eu = Palestinako lurraldeak
   sv = Palestinska territorier
   th = รัฐปาเลสไตน์
   tr = Filistin Bölgesi
@@ -23463,6 +23808,7 @@
   pt = Territórios Palestinianos
   ro = Teritoriile Palestiniene
   es = Territorios Palestinos
+  eu = Palestinako lurraldeak
   sv = Palestinska territorier
   th = รัฐปาเลสไตน์
   tr = Filistin Bölgesi
@@ -23494,6 +23840,7 @@
   pt = Panamá
   ro = Panama
   es = Panamá
+  eu = Panama
   sv = Panama
   th = ประเทศปานามา
   tr = Panama
@@ -23525,6 +23872,7 @@
   pt = Papua-Nova Guiné
   ro = Papua Noua Guinee
   es = Papúa Nueva Guinea
+  eu = Papua Ginea Berria
   sv = Papua Nya Guinea
   th = ประเทศปาปัวนิวกินี
   tr = Papua Yeni Gine
@@ -23535,6 +23883,7 @@
   el = Παπουασία-Νέα Γουινέα
   he = פפואה גינאה החדשה
   sk = Papua-Nová Guinea
+  mr = पापुआ न्यू गिनी
 
 [Paraguay]
   en = Paraguay
@@ -23556,6 +23905,7 @@
   pt = Paraguai
   ro = Paraguay
   es = Paraguay
+  eu = Paraguai
   sv = Paraguay
   th = ประเทศปารากวัย
   tr = Paraguay
@@ -23566,6 +23916,7 @@
   el = Παραγουάη
   he = פרגוואי
   sk = Paraguaj
+  mr = पॅराग्वे
 
 [Pennsylvania]
   en = Pennsylvania
@@ -23587,6 +23938,7 @@
   pt = Pensilvânia
   ro = Pennsylvania
   es = Pensilvania
+  eu = Pennsylvania
   sv = Pennsylvania
   th = รัฐเพนซิลเวเนีย
   tr = Pensilvanya
@@ -23618,6 +23970,7 @@
   pt = China
   ro = China
   es = China
+  eu = Txina
   sv = Kina
   th = ประเทศจีน
   tr = Çin
@@ -23628,6 +23981,7 @@
   el = Κίνα
   he = הרפובליקה העממית של סין
   sk = Čína
+  mr = चीन
 
 [Peru]
   en = Peru
@@ -23649,6 +24003,7 @@
   pt = Peru
   ro = Peru
   es = Perú
+  eu = Peru
   sv = Peru
   th = ประเทศเปรู
   tr = Peru
@@ -23659,6 +24014,7 @@
   el = Περού
   he = פרו
   sk = Peru
+  mr = पेरू
 
 [Peru_North]
   en = Peru — North
@@ -23742,6 +24098,7 @@
   pt = Filipinas
   ro = Filipine
   es = Filipinas
+  eu = Filipinak
   sv = Filippinerna
   th = ประเทศฟิลิปปินส์
   tr = Filipinler
@@ -23752,6 +24109,7 @@
   el = Φιλιππίνες
   he = הפיליפינים
   sk = Filipíny
+  mr = फिलीपिन्स
 
 [Philippines_Luzon_Manila]
   en = Metro Manila
@@ -23928,6 +24286,7 @@
   pt = Ilhas Pitcairn
   ro = Insulele Pitcairn
   es = Islas Pitcairn
+  eu = Pitcairn uharteak
   sv = Pitcairnöarna
   th = หมู่เกาะพิตแคร์น
   tr = Pitcairn Adaları
@@ -23959,6 +24318,7 @@
   pt = Polónia
   ro = Polonia
   es = Polonia
+  eu = Polonia
   sv = Polen
   th = ประเทศโปแลนด์
   tr = Polonya
@@ -23969,6 +24329,7 @@
   el = Πολωνία
   he = פולין
   sk = Poľsko
+  mr = पोलंड
 
 [Poland_Greater Poland Voivodeship]
   en = Greater Poland Voivodeship
@@ -24486,6 +24847,7 @@
   pt = Portugal
   ro = Portugalia
   es = Portugal
+  eu = Portugal
   sv = Portugal
   th = ประเทศโปรตุเกส
   tr = Portekiz
@@ -24496,6 +24858,7 @@
   el = Πορτογαλία
   he = פורטוגל
   sk = Portugalsko
+  mr = पोर्तुगाल
 
 [Portugal_North]
   en = Portugal — North
@@ -24579,6 +24942,7 @@
   pt = Catar
   ro = Qatar
   es = Catar
+  eu = Dastamena
   sv = Qatar
   th = ประเทศกาตาร์
   tr = Katar
@@ -24589,6 +24953,7 @@
   el = Κατάρ
   he = קטאר
   sk = Katar
+  mr = कतार
 
 [Republic of Kosovo]
   en = Kosovo
@@ -24610,6 +24975,7 @@
   pt = Kosovo
   ro = Kosovo
   es = Kosovo
+  eu = Kosovo
   sv = Kosovo
   th = ประเทศคอซอวอ
   tr = Kosova
@@ -24641,6 +25007,7 @@
   pt = Roménia
   ro = România
   es = Rumania
+  eu = Errumania
   sv = Rumänien
   th = ประเทศโรมาเนีย
   tr = Romanya
@@ -27524,6 +27891,7 @@
   pt = Rússia
   ro = Rusia
   es = Rusia
+  eu = Errusia
   sv = Ryssland
   th = ประเทศรัสเซีย
   tr = Rusya
@@ -27534,6 +27902,7 @@
   el = Ρωσία
   he = רוסיה
   sk = Rusko
+  mr = रशिया
 
 [Rwanda]
   en = Rwanda
@@ -27555,6 +27924,7 @@
   pt = Ruanda
   ro = Rwanda
   es = Ruanda
+  eu = Ruanda
   sv = Rwanda
   th = ประเทศรวันดา
   tr = Ruanda
@@ -27565,6 +27935,7 @@
   el = Ρουάντα
   he = רואנדה
   sk = Rwanda
+  mr = रवांडा
 
 [Sahrawi Arab Democratic Republic]
   en = Sahrawi Arab Democratic Republic
@@ -27586,6 +27957,7 @@
   pt = República Árabe Saaraui Democrática
   ro = Republica Arabă Democrată Saharawi
   es = República Árabe Saharaui Democrática
+  eu = Saharako Errepublika Arabiar Demokratikoa
   sv = Sahariska arabiska demokratiska republiken
   th = สาธารณรัฐประชาธิปไตยอาหรับซาห์ราวี
   tr = Sahra Demokratik Arap Cumhuriyeti
@@ -27617,6 +27989,7 @@
   pt = Coletividade de São Bartolomeu
   ro = Saint Barthélemy
   es = San Bartolomé
+  eu = San Bartolome
   sv = Saint-Barthélemy
   th = แซ็ง-บาร์เตเลมี
   tr = Saint Barthélemy
@@ -27648,6 +28021,7 @@
   pt = Santa Helena, Ascensão e Tristão da Cunha
   ro = Sfânta Elena, Ascension și Tristan da Cunha
   es = Santa Elena, Ascensión y Tristán de Acuña
+  eu = Santa Helena, Ascension eta Tristan da Cunha
   sv = Sankta Helena, Ascension och Tristan da Cunha
   th = เซนต์เฮเลนา อัสเซนชัน และตริสตันดากูนยา
   tr = Saint Helena, Ascension ve Tristan da Cunha
@@ -27679,6 +28053,7 @@
   pt = São Cristóvão e Nevis
   ro = Sfântul Cristofor și Nevis
   es = San Cristóbal y Nieves
+  eu = Saint Kitts eta Nevis
   sv = Saint Kitts och Nevis
   th = ประเทศเซนต์คิตส์และเนวิส
   tr = Saint Kitts ve Nevis
@@ -27710,6 +28085,7 @@
   pt = Santa Lúcia
   ro = Sfânta Lucia
   es = Santa Lucía
+  eu = Santa Luzia
   sv = Saint Lucia
   th = ประเทศเซนต์ลูเซีย
   tr = Saint Lucia
@@ -27741,6 +28117,7 @@
   pt = São Martinho
   ro = Saint Martin
   es = San Martín
+  eu = San Martin
   sv = Saint Martin
   th = เซนต์มาร์ติน
   tr = Saint Martin
@@ -27772,6 +28149,7 @@
   pt = São Vicente e Granadinas
   ro = Sfântul Vicențiu și Grenadine
   es = San Vicente y las Granadinas
+  eu = San Bizente eta Grenadinak
   sv = Saint Vincent och Grenadinerna
   th = ประเทศเซนต์วินเซนต์และเกรนาดีนส์
   tr = Saint Vincent ve Grenadinler
@@ -27803,6 +28181,7 @@
   pt = Samoa
   ro = Samoa
   es = Samoa
+  eu = Samoa
   sv = Samoa
   th = ประเทศซามัว
   tr = Samoa
@@ -27834,6 +28213,7 @@
   pt = San Marino
   ro = San Marino
   es = San Marino
+  eu = San Marino
   sv = San Marino
   th = ประเทศซานมารีโน
   tr = San Marino
@@ -27865,6 +28245,7 @@
   pt = São Tomé e Príncipe
   ro = São Tomé și Príncipe
   es = Santo Tomé y Príncipe
+  eu = Sao Tome eta Principe
   sv = São Tomé och Príncipe
   th = ประเทศเซาตูเมและปรินซิปี
   tr = São Tomé ve Príncipe
@@ -27896,6 +28277,7 @@
   pt = Arábia Saudita
   ro = Arabia Saudită
   es = Arabia Saudita
+  eu = Saudi Arabia
   sv = Saudiarabien
   th = ประเทศซาอุดีอาระเบีย
   tr = Suudi Arabistan
@@ -27906,6 +28288,7 @@
   el = Σαουδική Αραβία
   he = ערב הסעודית
   sk = Saudská Arábia
+  mr = सौदी अरेबिया
 
 [Senegal]
   en = Senegal
@@ -27927,6 +28310,7 @@
   pt = Senegal
   ro = Senegal
   es = Senegal
+  eu = Senegal
   sv = Senegal
   th = ประเทศเซเนกัล
   tr = Senegal
@@ -27937,6 +28321,7 @@
   el = Σενεγάλη
   he = סנגל
   sk = Senegal
+  mr = सेनेगल
 
 [Serbia]
   en = Serbia
@@ -27958,6 +28343,7 @@
   pt = Sérvia
   ro = Serbia
   es = Serbia
+  eu = Serbiarra
   sv = Serbien
   th = ประเทศเซอร์เบีย
   tr = Sırbistan
@@ -27968,6 +28354,7 @@
   el = Σερβία
   he = סרביה
   sk = Srbsko
+  mr = सर्बिया
 
 [Seychelles]
   en = Seychelles
@@ -27989,6 +28376,7 @@
   pt = Seychelles
   ro = Seychelles
   es = Seychelles
+  eu = Seychelles
   sv = Seychellerna
   th = ประเทศเซเชลส์
   tr = Seyşeller
@@ -27999,6 +28387,7 @@
   el = Σεϋχέλλες
   he = סיישל
   sk = Seychely
+  mr = सेशेल्स
 
 [Sierra Leone]
   en = Sierra Leone
@@ -28020,6 +28409,7 @@
   pt = Serra Leoa
   ro = Sierra Leone
   es = Sierra Leona
+  eu = Sierra Leona
   sv = Sierra Leone
   th = ประเทศเซียร์ราลีโอน
   tr = Sierra Leone
@@ -28030,6 +28420,7 @@
   el = Σιέρα Λεόνε
   he = סיירה לאון
   sk = Sierra Leone
+  mr = सिएरा लिओन
 
 [Singapore]
   en = Singapore
@@ -28051,6 +28442,7 @@
   pt = Singapura
   ro = Singapore
   es = Singapur
+  eu = Singapur
   sv = Singapore
   th = ประเทศสิงคโปร์
   tr = Singapur
@@ -28061,6 +28453,7 @@
   el = Σιγκαπούρη
   he = סינגפור
   sk = Singapur
+  mr = सिंगापूर
 
 [Slovakia]
   en = Slovakia
@@ -28082,6 +28475,7 @@
   pt = Eslováquia
   ro = Slovacia
   es = Eslovaquia
+  eu = Eslovakia
   sv = Slovakien
   th = ประเทศสโลวาเกีย
   tr = Slovakya
@@ -28092,6 +28486,7 @@
   el = Σλοβακία
   he = סלובקיה
   sk = Slovensko
+  mr = स्लोव्हाकिया
 
 [Slovakia_Region of Banska Bystrica]
   en = Banská Bystrica Region
@@ -28361,6 +28756,7 @@
   pt = Eslovénia
   ro = Slovenia
   es = Eslovenia
+  eu = Eslovenia
   sv = Slovenien
   th = ประเทศสโลวีเนีย
   tr = Slovenya
@@ -28371,6 +28767,7 @@
   el = Σλοβενία
   he = סלובניה
   sk = Slovinsko
+  mr = स्लोव्हेनिया
 
 [Solomon Islands]
   en = Solomon Islands
@@ -28392,6 +28789,7 @@
   pt = Ilhas Salomão
   ro = Insulele Solomon
   es = Islas Salomón
+  eu = Salomon Uharteak
   sv = Salomonöarna
   th = หมู่เกาะโซโลมอน
   tr = Solomon Adaları
@@ -28402,6 +28800,7 @@
   el = Νησιά Σολομώντα
   he = איי שלמה
   sk = Šalamúnove ostrovy
+  mr = सॉलोमन बेटे
 
 [Somalia]
   en = Somalia
@@ -28423,6 +28822,7 @@
   pt = Somália
   ro = Somalia
   es = Somalia
+  eu = Somalia
   sv = Somalia
   th = ประเทศโซมาเลีย
   tr = Somali
@@ -28433,6 +28833,7 @@
   el = Σομαλία
   he = סומליה
   sk = Somálsko
+  mr = सोमालिया
 
 [South Africa]
   en = South Africa
@@ -28454,6 +28855,7 @@
   pt = África do Sul
   ro = Africa de Sud
   es = Sudáfrica
+  eu = Hegoafrika
   sv = Sydafrika
   th = ประเทศแอฟริกาใต้
   tr = Güney Afrika Cumhuriyeti
@@ -28464,6 +28866,7 @@
   el = Νότια Αφρική
   he = דרום אפריקה
   sk = Južná Afrika
+  mr = दक्षिण आफ्रिका
 
 [South Africa_Eastern Cape]
   en = Eastern Cape
@@ -28764,6 +29167,7 @@
   pt = Carolina do Sul
   ro = Carolina de Sud
   es = Carolina del Sur
+  eu = Hego Carolina
   sv = South Carolina
   th = รัฐเซาท์แคโรไลนา
   tr = Güney Karolina
@@ -28795,6 +29199,7 @@
   pt = Ilhas Geórgia do Sul e Sandwich do Sul
   ro = Georgia de Sud și Insulele Sandwich de Sud
   es = Islas Georgias del Sur y Sándwich del Sur
+  eu = Hego Georgia eta Hego Sandwich uharteak
   sv = Sydgeorgien och Sydsandwichöarna
   th = เกาะเซาท์จอร์เจียและหมู่เกาะเซาท์แซนด์วิช
   tr = Güney Georgia ve Güney Sandwich Adaları
@@ -28826,6 +29231,7 @@
   pt = Coreia do Sul
   ro = Coreea de Sud
   es = Corea del Sur
+  eu = Hego Korea
   sv = Sydkorea
   th = ประเทศเกาหลีใต้
   tr = Güney Kore
@@ -28836,6 +29242,7 @@
   el = Νότια Κορέα
   he = קוריאה הדרומית
   sk = Kórejská republika
+  mr = दक्षिण कोरिया
 
 [South Korea_North]
   en = South Korea — North
@@ -28919,6 +29326,7 @@
   pt = Ossétia do Sul
   ro = Osetia de Sud
   es = Osetia del Sur
+  eu = Hego Osetia
   sv = Sydossetien
   th = เซาท์ออสซีเชีย
   tr = Güney Osetya
@@ -28950,6 +29358,7 @@
   pt = Sudão do Sul
   ro = Sudanul de Sud
   es = Sudán del Sur
+  eu = Hego Sudan
   sv = Sydsudan
   th = ประเทศเซาท์ซูดาน
   tr = Güney Sudan
@@ -28981,6 +29390,7 @@
   pt = Espanha
   ro = Spania
   es = España
+  eu = Espainia
   sv = Spanien
   th = ประเทศสเปน
   tr = İspanya
@@ -28991,6 +29401,7 @@
   el = Ισπανία
   he = ספרד
   sk = Španielsko
+  mr = स्पेन
 
 [Spain_Andalusia]
   en = Andalusia
@@ -29012,6 +29423,7 @@
   pt = Andaluzia
   ro = Andaluzia
   es = Andalucía
+  eu = Andaluzia
   sv = Andalusien
   th = แคว้นอันดาลูซีอา
   tr = Endülüs
@@ -29043,6 +29455,7 @@
   pt = Aragão
   ro = Aragon
   es = Aragón
+  eu = Aragoi
   sv = Aragonien
   th = แคว้นอารากอง
   tr = Aragon
@@ -29074,6 +29487,7 @@
   pt = Baleares
   ro = Insulele Baleare
   es = Islas Baleares
+  eu = Balear Uharteak
   sv = Balearerna
   th = หมู่เกาะแบลีแอริก
   tr = Balear Adaları
@@ -29105,6 +29519,7 @@
   pt = Comunidade autónoma do País Basco
   ro = Țara Bascilor
   es = País Vasco
+  eu = Euskadi
   sv = Regionen Baskien
   th = แคว้นบาสก์
   tr = Bask Bölgesi
@@ -29136,6 +29551,7 @@
   pt = Canárias
   ro = Insulele Canare
   es = Canarias
+  eu = Kanariar Uharteak
   sv = Kanarieöarna
   th = หมู่เกาะคะเนรี
   tr = Kanarya Adaları
@@ -29167,6 +29583,7 @@
   pt = Cantábria
   ro = Cantabria
   es = Cantabria
+  eu = Kantabria
   sv = Kantabrien
   th = แคว้นกันตาเบรีย
   tr = Kantabria
@@ -29198,6 +29615,7 @@
   pt = Castela e Leão
   ro = Castilia și León
   es = Castilla y León
+  eu = Gaztela eta Leon
   sv = Kastilien och León
   th = แคว้นคาสตีลและเลออน
   tr = Kastilya ve Leon
@@ -29229,6 +29647,7 @@
   pt = Castela-Mancha
   ro = Castilia-La Mancha
   es = Castilla-La Mancha
+  eu = Gaztela-Mantxa
   sv = Kastilien-La Mancha
   th = แคว้นคาสตีล-ลามันชา
   tr = Kastilya-La Mancha
@@ -29260,6 +29679,7 @@
   pt = Barcelona
   ro = Provincia Barcelona
   es = Provincia de Barcelona
+  eu = Bartzelonako probintzia
   sv = Barcelona
   th = จังหวัดบาร์เซโลนา
   tr = Barselona ili
@@ -29291,6 +29711,7 @@
   pt = Girona
   ro = Provincia Girona
   es = Provincia de Gerona
+  eu = Gironako probintzia
   sv = Girona
   th = จังหวัดกิโรนา
   tr = Gerona ili
@@ -29322,6 +29743,7 @@
   pt = Província de Lérida
   ro = Provincia Lleida
   es = Provincia de Lérida
+  eu = Lleidako probintzia
   sv = Lleida
   th = จังหวัดเลดา
   tr = Lérida ili
@@ -29353,6 +29775,7 @@
   pt = Tarragona
   ro = Provincia Tarragona
   es = Provincia de Tarragona
+  eu = Tarragonako probintzia
   sv = Tarragona
   th = จังหวัดทาร์ราโกนา
   tr = Tarragona İli
@@ -29384,6 +29807,7 @@
   pt = Ceuta
   ro = Ceuta
   es = Ceuta
+  eu = Ceuta
   sv = Ceuta
   th = เซวตา
   tr = Ceuta
@@ -29415,6 +29839,7 @@
   pt = Comunidade autónoma de Madrid
   ro = Madrid
   es = Comunidad de Madrid
+  eu = Madrilgo Erkidegoa
   sv = Madrid
   th = แคว้นมาดริด
   tr = Madrid
@@ -29446,6 +29871,7 @@
   pt = Navarra
   ro = Navarra
   es = Navarra
+  eu = Nafarroa
   sv = Navarra
   th = แคว้นนาวาร์
   tr = Navarra
@@ -29477,6 +29903,7 @@
   pt = Estremadura (Espanha)
   ro = Extremadura
   es = Extremadura
+  eu = Estremadura
   sv = Extremadura
   th = แคว้นเอกซ์เตรมาดูรา
   tr = Ekstremadura
@@ -29508,6 +29935,7 @@
   pt = Galiza
   ro = Galicia
   es = Galicia
+  eu = Galizia
   sv = Galicien
   th = แคว้นกาลิเซีย
   tr = Galiçya
@@ -29539,6 +29967,7 @@
   pt = La Rioja
   ro = La Rioja
   es = La Rioja
+  eu = Errioxa
   sv = La Rioja
   th = แคว้นลารีโอคา
   tr = La Rioja
@@ -29570,6 +29999,7 @@
   pt = Melilla
   ro = Melilla
   es = Melilla
+  eu = Melilla
   sv = Melilla
   th = เมลียา
   tr = Melilla
@@ -29601,6 +30031,7 @@
   pt = Astúrias
   ro = Asturia
   es = Principado de Asturias
+  eu = Asturiasko Printzerria
   sv = Asturien
   th = แคว้นอัสตูเรียส
   tr = Asturias
@@ -29632,6 +30063,7 @@
   pt = Região de Múrcia
   ro = Murcia
   es = Región de Murcia
+  eu = Murtziako Eskualdea
   sv = Murcia
   th = แคว้นมูร์เซีย
   tr = Murcia
@@ -29663,6 +30095,7 @@
   pt = Comunidade Valenciana
   ro = Comunitatea Valenciană
   es = Comunidad Valenciana
+  eu = Valentziako Erkidegoa
   sv = Valencia
   th = แคว้นบาเลนเซีย
   tr = Valensiya
@@ -29694,6 +30127,7 @@
   pt = Sri Lanka
   ro = Sri Lanka
   es = Sri Lanka
+  eu = Sri Lanka
   sv = Sri Lanka
   th = ประเทศศรีลังกา
   tr = Sri Lanka
@@ -29704,6 +30138,7 @@
   el = Σρι Λάνκα
   he = סרי לנקה
   sk = Srí Lanka
+  mr = श्रीलंका
 
 [Sudan]
   en = Sudan
@@ -29725,6 +30160,7 @@
   pt = Sudão
   ro = Sudan
   es = Sudán
+  eu = Sudan
   sv = Sudan
   th = ประเทศซูดาน
   tr = Sudan
@@ -29735,6 +30171,7 @@
   el = Σουδάν
   he = סודאן
   sk = Sudán
+  mr = सुदान
 
 [Suriname]
   en = Suriname
@@ -29756,6 +30193,7 @@
   pt = Suriname
   ro = Surinam
   es = Surinam
+  eu = Surinam
   sv = Surinam
   th = ประเทศซูรินาม
   tr = Surinam
@@ -29788,6 +30226,7 @@
   pt-BR = Essuatíni
   ro = Eswatini
   es = Esuatini
+  eu = Eswatini
   es-MX = Esuatini
   sv = Eswatini
   th = เอสวาตีนี
@@ -29821,6 +30260,7 @@
   pt = Suécia
   ro = Suedia
   es = Suecia
+  eu = Suedia
   sv = Sverige
   th = ประเทศสวีเดน
   tr = İsveç
@@ -29831,6 +30271,7 @@
   el = Σουηδία
   he = שבדיה
   sk = Švédsko
+  mr = स्वीडन
 
 [Sweden_Bergslagen]
   en = Bergslagen
@@ -30026,7 +30467,7 @@
   da = Västra Götaland
   nl = West Gotland
   fi = Länsi-Götanmaa
-  fr = Östra Götaland
+  fr = Västra Götaland
   de = Västra Götaland
   hu = Västra Götaland
   id = Västra Götaland
@@ -30034,7 +30475,7 @@
   ja = スイス中部
   ko = 바스트라 가타랜드
   nb = Västra Götaland
-  pl = Ostra Götaland
+  pl = Västra Götaland
   pt = Västra Götaland
   ro = Västra Götaland
   es = Västra Götaland
@@ -30069,6 +30510,7 @@
   pt = Suíça
   ro = Elveția
   es = Suiza
+  eu = Suitza
   sv = Schweiz
   th = ประเทศสวิตเซอร์แลนด์
   tr = İsviçre
@@ -30079,6 +30521,7 @@
   el = Ελβετία
   he = שווייץ
   sk = Švajčiarsko
+  mr = स्वित्झर्लंड
 
 [Switzerland_Central]
   en = Central Switzerland
@@ -30317,6 +30760,7 @@
   pt = Síria
   ro = Siria
   es = Siria
+  eu = Siria
   sv = Syrien
   th = ประเทศซีเรีย
   tr = Suriye
@@ -30327,6 +30771,7 @@
   el = Συρία
   he = סוריה
   sk = Sýria
+  mr = सीरिया
 
 [Taiwan]
   en = Taiwan
@@ -30348,6 +30793,7 @@
   pt = República da China
   ro = Taiwan
   es = República de China
+  eu = Txinako Errepublika
   sv = Taiwan
   th = ประเทศไต้หวัน
   tr = Çin Cumhuriyeti
@@ -30358,6 +30804,7 @@
   el = Ταϊβάν
   he = הרפובליקה הסינית
   sk = Taiwan
+  mr = तैवान
 
 [Tajikistan]
   en = Tajikistan
@@ -30379,6 +30826,7 @@
   pt = Tajiquistão
   ro = Tadjikistan
   es = Tayikistán
+  eu = Tadjikistan
   sv = Tadzjikistan
   th = ประเทศทาจิกิสถาน
   tr = Tacikistan
@@ -30389,6 +30837,7 @@
   el = Τατζικιστάν
   he = טג'יקיסטן
   sk = Tadžikistan
+  mr = ताजिकिस्तान
 
 [Tanzania]
   en = Tanzania
@@ -30410,6 +30859,7 @@
   pt = Tanzânia
   ro = Tanzania
   es = Tanzania
+  eu = Tanzania
   sv = Tanzania
   th = ประเทศแทนซาเนีย
   tr = Tanzanya
@@ -30420,6 +30870,7 @@
   el = Τανζανία
   he = טנזניה
   sk = Tanzánia
+  mr = टांझानिया
 
 [Tennessee]
   en = Tennessee
@@ -30441,6 +30892,7 @@
   pt = Tennessee
   ro = Tennessee
   es = Tennessee
+  eu = Tennessee
   sv = Tennessee
   th = รัฐเทนเนสซี
   tr = Tennessee
@@ -30472,6 +30924,7 @@
   pt = Texas
   ro = Texas
   es = Texas
+  eu = Texas
   sv = Texas
   th = รัฐเทกซัส
   tr = Teksas
@@ -30503,6 +30956,7 @@
   pt = Tailândia
   ro = Thailanda
   es = Tailandia
+  eu = Thailandia
   sv = Thailand
   th = ประเทศไทย
   tr = Tayland
@@ -30513,6 +30967,7 @@
   el = Ταϊλάνδη
   he = תאילנד
   sk = Thajsko
+  mr = थायलंड
 
 [Thailand_North]
   en = Thailand — North
@@ -30596,6 +31051,7 @@
   pt = Bahamas
   ro = Bahamas
   es = Bahamas
+  eu = Bahamak
   sv = Bahamas
   th = ประเทศบาฮามาส
   tr = Bahamalar
@@ -30627,6 +31083,7 @@
   pt = Gâmbia
   ro = Gambia
   es = Gambia
+  eu = Gambia
   sv = Gambia
   th = ประเทศแกมเบีย
   tr = Gambiya
@@ -30658,6 +31115,7 @@
   pt = Togo
   ro = Togo
   es = Togo
+  eu = Joan
   sv = Togo
   th = ประเทศโตโก
   tr = Togo
@@ -30689,6 +31147,7 @@
   pt = Tokelau
   ro = Tokelau
   es = Tokelau
+  eu = Tokelau
   sv = Tokelau
   th = โตเกเลา
   tr = Tokelau
@@ -30720,6 +31179,7 @@
   pt = Tonga
   ro = Tonga
   es = Tonga
+  eu = Tonga
   sv = Tonga
   th = ประเทศตองกา
   tr = Tonga
@@ -30751,6 +31211,7 @@
   pt = Trinidad e Tobago
   ro = Trinidad și Tobago
   es = Trinidad y Tobago
+  eu = Trinidad eta Tobago
   sv = Trinidad och Tobago
   th = ประเทศตรินิแดดและโตเบโก
   tr = Trinidad ve Tobago
@@ -30761,6 +31222,7 @@
   el = Τρινιντάντ και Τομπάγκο
   he = טרינידד וטובגו
   sk = Trinidad a Tobago
+  mr = त्रिनिदाद आणि टोबॅगो
 
 [Tunisia]
   en = Tunisia
@@ -30782,6 +31244,7 @@
   pt = Tunísia
   ro = Tunisia
   es = Túnez
+  eu = Tunisia
   sv = Tunisien
   th = ประเทศตูนิเซีย
   tr = Tunus
@@ -30813,6 +31276,7 @@
   pt = Turquia
   ro = Turcia
   es = Turquía
+  eu = Turkia
   sv = Turkiet
   th = ประเทศตุรกี
   tr = Türkiye
@@ -30823,6 +31287,7 @@
   el = Τουρκία
   he = טורקיה
   sk = Turecko
+  mr = तुर्की
 
 [Turkey_Aegean Region]
   en = Aegean Region
@@ -31030,6 +31495,7 @@
   pt = Turquemenistão
   ro = Turkmenistan
   es = Turkmenistán
+  eu = Turkmenistan
   sv = Turkmenistan
   th = ประเทศเติร์กเมนิสถาน
   tr = Türkmenistan
@@ -31040,6 +31506,7 @@
   el = Τουρκμενιστάν
   he = טורקמניסטן
   sk = Turkménsko
+  mr = तुर्कमेनिस्तान
 
 [Turks and Caicos Islands]
   en = Turks and Caicos Islands
@@ -31061,6 +31528,7 @@
   pt = Turks e Caicos
   ro = Insulele Turks și Caicos
   es = Islas Turcas y Caicos
+  eu = Turks eta Caicos uharteak
   sv = Turks- och Caicosöarna
   th = หมู่เกาะเติกส์และหมู่เกาะเคคอส
   tr = Turks ve Caicos Adaları
@@ -31092,6 +31560,7 @@
   pt = Tuvalu
   ro = Tuvalu
   es = Tuvalu
+  eu = Tuvaluarra
   sv = Tuvalu
   th = ประเทศตูวาลู
   tr = Tuvalu
@@ -31691,6 +32160,7 @@
   el = Αλάσκα
   he = אלסקה
   sk = Aljaška
+  mr = अलास्का
 
 [US_Arizona_Flagstaff]
   en = Flagstaff
@@ -35684,6 +36154,7 @@
   pt = Uganda
   ro = Uganda
   es = Uganda
+  eu = Uganda
   sv = Uganda
   th = ประเทศยูกันดา
   tr = Uganda
@@ -35694,6 +36165,7 @@
   el = Ουγκάντα
   he = אוגנדה
   sk = Uganda
+  mr = युगांडा
 
 [Ukraine]
   en = Ukraine
@@ -35715,6 +36187,7 @@
   pt = Ucrânia
   ro = Ucraina
   es = Ucrania
+  eu = Ukraina
   sv = Ukraina
   th = ประเทศยูเครน
   tr = Ukrayna
@@ -35725,6 +36198,7 @@
   el = Ουκρανία
   he = אוקראינה
   sk = Ukrajina
+  mr = युक्रेन
 
 [Ukraine_Cherkasy Oblast]
   en = Cherkasy Oblast
@@ -36490,6 +36964,7 @@
   pt = Emirados Árabes Unidos
   ro = Emiratele Arabe Unite
   es = Emiratos Árabes Unidos
+  eu = Arabiar Emirerri Batuak
   sv = Förenade Arabemiraten
   th = สหรัฐอาหรับเอมิเรตส์
   tr = Birleşik Arap Emirlikleri
@@ -36500,6 +36975,7 @@
   el = Ηνωμένα Αραβικά Εμιράτα
   he = איחוד האמירויות הערביות
   sk = Spojené arabské emiráty
+  mr = संयुक्त अरब अमिराती
 
 [United Kingdom]
   en = United Kingdom
@@ -36521,6 +36997,7 @@
   pt = Reino Unido
   ro = Regatul Unit al Marii Britanii și al Irlandei de Nord
   es = Reino Unido
+  eu = Erresuma Batua
   sv = Storbritannien
   th = สหราชอาณาจักร
   tr = Birleşik Krallık
@@ -36531,6 +37008,7 @@
   el = Ηνωμένο Βασίλειο
   he = הממלכה המאוחדת
   sk = Spojené kráľovstvo
+  mr = युनायटेड किंगडम
 
 [United States Virgin Islands]
   en = United States Virgin Islands
@@ -36552,6 +37030,7 @@
   pt = Ilhas Virgens Americanas
   ro = Insulele Virgine Americane
   es = Islas Vírgenes de los Estados Unidos
+  eu = Estatu Batuetako Birjina Uharteak
   sv = Amerikanska Jungfruöarna
   th = หมู่เกาะเวอร์จินของสหรัฐอเมริกา
   tr = ABD Virjin Adaları
@@ -36583,6 +37062,7 @@
   pt = Estados Unidos
   ro = Statele Unite ale Americii
   es = Estados Unidos
+  eu = Ameriketako Estatu Batuak
   sv = USA
   th = สหรัฐอเมริกา
   tr = Amerika Birleşik Devletleri
@@ -36593,6 +37073,7 @@
   el = Ηνωμένες Πολιτείες της Αμερικής
   he = ארצות הברית
   sk = Spojené štáty
+  mr = युनायटेड स्टेट्स ऑफ अमेरिका
 
 [Uruguay]
   en = Uruguay
@@ -36614,6 +37095,7 @@
   pt = Uruguai
   ro = Uruguay
   es = Uruguay
+  eu = Uruguai
   sv = Uruguay
   th = ประเทศอุรุกวัย
   tr = Uruguay
@@ -36624,6 +37106,7 @@
   el = Ουρουγουάη
   he = אורוגוואי
   sk = Uruguaj
+  mr = उरुग्वे
 
 [Uzbekistan]
   en = Uzbekistan
@@ -36645,6 +37128,7 @@
   pt = Uzbequistão
   ro = Uzbekistan
   es = Uzbekistán
+  eu = Uzbekistan
   sv = Uzbekistan
   th = ประเทศอุซเบกิสถาน
   tr = Özbekistan
@@ -36655,6 +37139,7 @@
   el = Ουζμπεκιστάν
   he = אוזבקיסטן
   sk = Uzbekistan
+  mr = उझबेकिस्तान
 
 [Vanuatu]
   en = Vanuatu
@@ -36676,6 +37161,7 @@
   pt = Vanuatu
   ro = Vanuatu
   es = Vanuatu
+  eu = Vanuatu
   sv = Vanuatu
   th = ประเทศวานูอาตู
   tr = Vanuatu
@@ -36707,6 +37193,7 @@
   pt = Venezuela
   ro = Venezuela
   es = Venezuela
+  eu = Venezuela
   sv = Venezuela
   th = ประเทศเวเนซุเอลา
   tr = Venezuela
@@ -36717,6 +37204,7 @@
   el = Βενεζουέλα
   he = ונצואלה
   sk = Venezuela
+  mr = व्हेनेझुएला
 
 [Vietnam]
   en = Vietnam
@@ -36738,6 +37226,7 @@
   pt = Vietname
   ro = Vietnam
   es = Vietnam
+  eu = Vietnam
   sv = Vietnam
   th = ประเทศเวียดนาม
   tr = Vietnam
@@ -36748,6 +37237,7 @@
   el = Βιετνάμ
   he = וייטנאם
   sk = Vietnam
+  mr = व्हिएतनाम
 
 [Virginia]
   en = Virginia
@@ -36769,6 +37259,7 @@
   pt = Virgínia
   ro = Virginia
   es = Virginia
+  eu = Virginia
   sv = Virginia
   th = รัฐเวอร์จิเนีย
   tr = Virjinya
@@ -36800,6 +37291,7 @@
   pt = Wallis e Futuna
   ro = Wallis și Futuna
   es = Wallis y Futuna
+  eu = Wallis eta Futuna
   sv = Wallis- och Futunaöarna
   th = วาลลิสและฟุตูนา
   tr = Wallis ve Futuna Adaları
@@ -36831,6 +37323,7 @@
   pt = Washington
   ro = Washington
   es = Washington
+  eu = Washington
   sv = Washington
   th = รัฐวอชิงตัน
   tr = Vaşington
@@ -36862,6 +37355,7 @@
   pt = Ilha Willis
   ro = Insula Willis
   es = Isla Willis
+  eu = Willis uhartea
   sv = Willis
   th = เกาะวิลลิส
   tr = Willis Adası
@@ -36893,6 +37387,7 @@
   pt = Wisconsin
   ro = Wisconsin
   es = Wisconsin
+  eu = Wisconsin
   sv = Wisconsin
   th = รัฐวิสคอนซิน
   tr = Wisconsin
@@ -36924,6 +37419,7 @@
   pt = Iémen
   ro = Yemen
   es = Yemen
+  eu = Yemen
   sv = Jemen
   th = ประเทศเยเมน
   tr = Yemen
@@ -36934,6 +37430,7 @@
   el = Υεμένη
   he = תימן
   sk = Jemen
+  mr = येमेन
 
 [Zambia]
   en = Zambia
@@ -36955,6 +37452,7 @@
   pt = Zâmbia
   ro = Zambia
   es = Zambia
+  eu = Zambia
   sv = Zambia
   th = ประเทศแซมเบีย
   tr = Zambiya
@@ -36965,6 +37463,7 @@
   el = Ζάμπια
   he = זמביה
   sk = Zambia
+  mr = झांबिया
 
 [Zimbabwe]
   en = Zimbabwe
@@ -36986,6 +37485,7 @@
   pt = Zimbábue
   ro = Zimbabwe
   es = Zimbabue
+  eu = Zimbabwe
   sv = Zimbabwe
   th = ประเทศซิมบับเว
   tr = Zimbabve
@@ -36996,6 +37496,7 @@
   el = Ζιμπάμπουε
   he = זימבבואה
   sk = Zimbabwe
+  mr = झिंबाब्वे
 
 [Argentina_Santa Fe]
   en = Santa Fe Province
@@ -38143,6 +38644,7 @@
   el = Καρνατάκα — Βόρεια
   he = קארנאטקה — צָפוֹן
   sk = Karnátaka — Sever
+  mr = कर्नाटक - उत्तर
 
 [India_Karnataka_South]
   en = Karnataka — South
@@ -38174,6 +38676,7 @@
   el = Καρνατάκα — Νότια
   he = קארנאטקה — דָרוֹם
   sk = Karnátaka — Juh
+  mr = कर्नाटक - दक्षिण
 
 [Iran_East]
   en = Iran — East
@@ -39528,6 +40031,7 @@
   pt = Andaluzia — Granada
   ro = Andaluzia — Granada
   es = Andalucía — Granada
+  eu = Andaluzia — Granada
   sv = Andalusien — Granada
   th = แคว้นอันดาลูซีอา — กรานาดา
   tr = Endülüs — Granada
@@ -39559,6 +40063,7 @@
   pt = Andaluzia — Sevilha
   ro = Andaluzia — Sevilla
   es = Andalucía — Sevilla
+  eu = Andaluzia — Sevilla
   sv = Andalusien — Sevilla
   th = แคว้นอันดาลูซีอา — เซบียา
   tr = Endülüs — Sevilla
@@ -39590,6 +40095,7 @@
   pt = Castela e Leão — Leste
   ro = Castilia și León — Est
   es = Castilla y León — Este
+  eu = Gaztela eta Leon — Ekialdea
   sv = Kastilien och León — Öst
   th = แคว้นคาสตีลและเลออน — ตะวันออก
   tr = Kastilya ve Leon — Doğu
@@ -39621,6 +40127,7 @@
   pt = Castela e Leão — Oeste
   ro = Castilia și León — Vest
   es = Castilla y León — Oeste
+  eu = Gaztela eta Leon — Mendebaldea
   sv = Kastilien och León — Väst
   th = แคว้นคาสตีลและเลออน — ตะวันตก
   tr = Kastilya ve Leon — Batı
@@ -39652,6 +40159,7 @@
   pt = Galiza — Norte
   ro = Galicia — Nord
   es = Galicia — Norte
+  eu = Galizia — Iparra
   sv = Galicien — Nord
   th = แคว้นกาลิเซีย — เหนือ
   tr = Galiçya — Kuzey
@@ -39683,6 +40191,7 @@
   pt = Galiza — Sul
   ro = Galicia — Sud
   es = Galicia — Sur
+  eu = Galizia — Hegoa
   sv = Galicien — Syd
   th = แคว้นกาลิเซีย — ใต้
   tr = Galiçya — Güney
@@ -46624,6 +47133,7 @@
   ja = ポートブレア
   uk = Порт-Блер
   el = Πορτ Μπλερ, Γουαντόρ, Φεραγκάντζ
+  mr = पोर्ट ब्लेअर, वंदूर, फेरारगंज
 
 [India_Andhra Pradesh Description]
   en = Vijayawada, Visakhapatnam, Guntur
@@ -46631,10 +47141,12 @@
   ja = ヴィジャヤワーダ, ヴィシャーカパトナム, グントゥール
   uk = Віджаявада, Вішакхапатнам
   el = Βιτζαγιαουάντα, Βισακαπατνάμ, Γκουντούρ
+  mr = विजयवाडा, विशाखापट्टणम, गुंटूर
 
 [India_Arunachal Pradesh Description]
   en = Koloriang, Along
   el = Κολοριάν, Αλόνγκ
+  mr = कोलोरियांग, सोबत
 
 [India_Assam Description]
   en = Guwahati, Silchar, Jorhat
@@ -46642,6 +47154,7 @@
   ja = グワーハーティー, スィルチャル, ジョールハート
   uk = Ґувахаті
   el = Γκαουχάτι, Σιλχάρ, Γιορχάτ
+  mr = गुवाहाटी, सिलचर, जोरहाट
 
 [India_Bihar Description]
   en = Buxar, Patna, Gaya
@@ -46649,6 +47162,7 @@
   ja = パトナ, ガヤー
   uk = Патна, Гая
   el = Μπουξάρ, Πάτνα, Γκάγια
+  mr = बक्सर, पाटणा, गया
 
 [India_Chandigarh Description]
   en = Chandigarh, Palsora, Kaheri
@@ -46656,6 +47170,7 @@
   ja = チャンディーガル
   uk = Чандігарх
   el = Τσάντιγκαρ, Παλσόρα, Καχέρι
+  mr = चंदीगड, पलसोरा, कहेरी
 
 [India_Chhattisgarh Description]
   en = Bilaspur, Ambikapur, Bhilai
@@ -46663,6 +47178,7 @@
   ja = ビラースプル, ビラーイー
   uk = Бхілаі
   el = Μπιλασπάρ, Αμπικαπούρ, Μπλιχάι
+  mr = बिलासपूर, अंबिकापूर, भिलाई
 
 [India_Delhi Description]
   en = Delhi, New Delhi, Nankheri
@@ -46691,6 +47207,7 @@
   el = Δελχί, Νέο Δελχί, Νανκχερί
   he = ניו דלהי
   sk = Naí Dillí
+  mr = दिल्ली, नवी दिल्ली, नानखेरी
 
 [India_Goa Description]
   en = Panaji, Margao, Bicholim
@@ -46699,6 +47216,7 @@
   pt = Pangim, Margão
   uk = Панаджи
   el = Πανατζί, Μαργκάο, Μπιτσολίμ
+  mr = पणजी, मडगाव, बिचोलीम
 
 [India_Gujarat Description]
   en = Ahmedabad, Jamnagar, Surat
@@ -46708,15 +47226,18 @@
   pl = Ahmadabad
   uk = Ахмедабад
   el = Αχμενταμπάντ, Τζαμναγκάρ, Σουράτ
+  mr = अहमदाबाद, जामनगर, सुरत
 
 [India_Haryana Description]
   en = Panchkula, Rewari, Rohtak
   ja = パンチクラー, レーワーリー, ロータク
   el = Παμτσκούλα, Ρεβάρι, Ροχτάκ
+  mr = पंचकुला, रेवाडी, रोहतक
 
 [India_Himachal Pradesh Description]
   en = Nurpur, Mandi, Bharmour
   el = Νουρπούρ, Μάντι, Μπαρμούρ
+  mr = नूरपूर, मंडी, भरमौर
 
 [India_Jammu and Kashmir Description]
   en = Srinagar, Jammu, Udhampur
@@ -46725,6 +47246,7 @@
   pl = Śrinagar, Dżammu
   uk = Срінаґар
   el = Σριναγκάρ, Τζαμού, Ουντχαμπούρ
+  mr = श्रीनगर, जम्मू, उधमपूर
 
 [India_Jharkhand Description]
   en = Ranchi, Dhanbad, Jamshedpur
@@ -46732,12 +47254,14 @@
   ja = ラーンチー, ダンバード, ジャムシェードプル
   uk = Ранчі, Дханбад, Джамшедпур
   el = Ράντσι, Νανμπάντ, Τζάμσεντπουρ
+  mr = रांची, धनबाद, जमशेदपूर
 
 [India_Karnataka_North Description]
   en = Belagavi, Hubballi, Mangaluru
   ru = Хубли-Дхарва, Мангалор
   ja = フッバッリ, マンガロール
   el = Μπελαγκάβι, Χουμπλί, Μανγκαλόρ
+  mr = बेलगावी, हुब्बल्ली, मंगळुरु
 
 [India_Karnataka_South Description]
   en = Bengaluru, Mysuru, Kolar Gold Fields
@@ -46745,6 +47269,7 @@
   de = Bangalore
   ja = バンガロール, マイソール
   el = Μπανγκαλόρ, Μυσουρού, Κόλαρ Γκολντ Φιλντς
+  mr = बेंगळुरू, म्हैसूर, कोलार गोल्ड फील्ड्स
 
 [India_Kerala Description]
   en = Thiruvananthapuram, Ernakulam, Thrissur
@@ -46752,10 +47277,12 @@
   ja = ティルヴァナンタプラム, エルナクラム, トリシュール
   uk = Тируванантапурам
   el = Τιρουβανανταπουράν, ΕρνΑκουλάμ, Θρισούρ
+  mr = तिरुवनंतपुरम, एर्नाकुलम, त्रिशूर
 
 [India_Lakshadweep Description]
   en = Kavaratti, Minicoy, agatti village center
   el = Καβαράτι, Μίνικόι, Αγκάτι Βίλατζ Σεντρ
+  mr = कावरत्ती, मिनिकॉय, अगट्टी गाव केंद्र
 
 [India_Madhya Pradesh Description]
   en = Indore, Bhopal, Gwalior
@@ -46763,6 +47290,7 @@
   ja = インドール, ボーパール, グワーリヤル
   uk = Індаур, Бхопал, Гваліор
   el = Ιντόρε, Μποπάλ, Γκβαλιόρ
+  mr = इंदूर, भोपाळ, ग्वाल्हेर
 
 [India_Maharashtra Description]
   en = Mumbai, Pune, Nagpur
@@ -46775,25 +47303,30 @@
   uk = Мумбаї, Наґпур
   el = Βομβάη, Πούνα, Ναγκπούρ
   sk = Bombaj
+  mr = मुंबई, पुणे, नागपूर
 
 [India_Manipur Description]
   en = Imphal, Imphal, Jiribam
   ja = インパール, インパール
   el = Ιμπχάλ, Ιμπχάλ, Τζιριμπάμ
+  mr = इंफाळ, इंफाळ, जिरीबम
 
 [India_Meghalaya Description]
   en = Shillong, Garobandha, Betasing
   ja = シロン
   el = Σιλόνγκ, Γκαρομπάντα, Μπετασίνγκ
+  mr = शिलाँग, गरोबंध, बेतासिंग
 
 [India_Mizoram Description]
   en = Aizawl, Lunglei, Mamit
   ja = アイザウル
   el = Αίτσαβλ, Λούνγκλάι, Μαμίτ
+  mr = आयझॉल, लुंगलेई, ममित
 
 [India_Nagaland Description]
   en = Kohima, Peren
   el = Κοχίμα, Περέν
+  mr = कोहिमा, पेरेन
 
 [India_Odisha Description]
   en = Cuttack, Rourkela, Brahmapur
@@ -46801,12 +47334,14 @@
   ja = カタク, ラーウルケーラー, ベーランプル
   uk = Каттак, Берхампур
   el = Κουτάκα, Ρούρκελ, Μπέρχαμπουρ
+  mr = कटक, राउरकेला, ब्रह्मपूर
 
 [India_Punjab Description]
   en = Jalandhar, Amritsar, Bathinda
   ru = Джаландхар, Амритсар
   ja = ジャランダル, アムリトサル, バシンダ
   el = Τζαλαντάρ, Αμριτσάρ, Μπατίντα
+  mr = जालंधर, अमृतसर, भटिंडा
 
 [India_Rajasthan Description]
   en = Jaipur, Jodhpur, Kota
@@ -46814,12 +47349,14 @@
   ja = ジャイプル, ジョードプル, コーター
   uk = Джайпур, Джодхпур, Кота
   el = Τζαϊπούρ, Τζοντπούρ, Κότα
+  mr = जयपूर, जोधपूर, कोटा
 
 [India_Sikkim Description]
   en = Gangtok, Gayzing, Jorethang
   nl = Gangtok
   ja = ガントク
   el = Γκανγκτόκ, Γκαιζίνγκ, Γιορεθάνγκ
+  mr = गंगटोक, गेझिंग, जोरथांग
 
 [India_Tamil Nadu Description]
   en = Chennai, Kanyakumari, Namakkal
@@ -46830,6 +47367,7 @@
   pl = Ćennaj
   uk = Ченнаї
   el = Τσενάι Κανιακουμάρι, Ναμακάλ
+  mr = चेन्नई, कन्याकुमारी, नमक्कल
 
 [India_Telangana Description]
   en = Hyderabad, Warangal, Khammam
@@ -46837,11 +47375,13 @@
   ja = ハイデラバード, ワランガル
   uk = Варангал
   el = Χαϊντεραμπάντ, Βαρανγκάλ, Καμάν
+  mr = हैदराबाद, वारंगल, खम्मम
 
 [India_Tripura Description]
   en = Agartala, Bisramganj, Belonia
   ja = アガルタラ
   el = Αγκαρτάλα, Μπισράμ Γκάνζ, Μπελόνια
+  mr = आगरतळा, बिस्रामगंज, बेलोनिया
 
 [India_Uttar Pradesh Description]
   en = Allahabad, Lucknow, Varanasi
@@ -46849,12 +47389,14 @@
   ja = イラーハーバード, ラクナウ, ワーラーナシー
   uk = Аллахабад, Лакнау
   el = Αλαχαμπάντ, Λάκναου, Βαρανάσι
+  mr = अलाहाबाद, लखनौ, वाराणसी
 
 [India_Uttarakhand Description]
   en = Dehradun, Roorkee, Haridwār
   ru = Дехрадун
   ja = デヘラードゥーン, ルールキー, ハリドワール
   el = Ντεχραντούν, Ρόρκε, Χαριντβάρ
+  mr = डेहराडून, रुरकी, हरिद्वार
 
 [India_West Bengal Description]
   en = Kolkata, Siliguri, Asansol
@@ -46866,6 +47408,7 @@
   es = Calcuta
   uk = Колката, Асансол
   el = Καλκούτα, Σιλιγκούρι, Ασανσόλ
+  mr = कोलकाता, सिलीगुडी, आसनसोल
 
 [Indonesia_Central Description]
   en = Makassar, Samarinda, Pontianak
@@ -52239,6 +52782,7 @@
   pl = Grenada
   pt = Almeria
   es = Jaén
+  eu = Jaen
   uk = Гранада
   el = Γρανάδα, Αλμερία, Χαέν
   he = גרנדה
@@ -52256,6 +52800,7 @@
   ja = セビリア, コルドバ
   pl = Sewilla, Kordoba
   es = Málaga, Sevilla
+  eu = Malaga, Sevilla
   uk = Севілья, Кордова
   el = Μάλαγα, Σεβίλλη, Κόρδοβα
   he = קורדובה
@@ -52273,6 +52818,7 @@
   pl = Saragossa
   pt = Saragoça
   es = Zaragoza, Teruel, Huesca
+  eu = Zaragoza, Teruel, Huesca
   th = ซาราโกซา
   uk = Сарагоса
   el = Σαραγόσα, Τερουέλ, Ουέσκα
@@ -52289,6 +52835,7 @@
   ko = 팔마데
   pt = Palma
   es = Ibiza, Santa Eulalia del Río
+  eu = Ibiza, Santa Eulalia del Rio
   th = ปัลมา
   uk = Пальма
   el = Πάλμα ντε Μαγιόρκα, Ίμπιζα πόλη, Σάντα Εουλαρία ντε Ριού
@@ -52304,6 +52851,7 @@
   ko = 빌바오
   pt = Bilbau
   es = Bilbao, Vitoria, San Sebastián
+  eu = Bilbo, Gasteiz, Donostia
   th = บิลบาโอ
   uk = Більбао
   el = Μπιλμπάο, Βιτόρια-Γκαστάιτζ, Ντονόστια-Σαν Σεμπαστιάν
@@ -52316,6 +52864,7 @@
   ja = サンタ・クルス・デ・テネリフェ
   pl = Las Palmas de Gran Canaria
   es = Santa Cruz de Tenerife
+  eu = Santa Kruz Tenerifekoa
   el = Λας Πάλμας ντε Γκραν Κανάρια, Σάντα Κρουζ Ντε Τενερίφε, Αρεσίφε
 
 [Spain_Cantabria Description]
@@ -52334,6 +52883,7 @@
   ja = ブルゴス, パレンシア
   pt = Palência
   es = Valladolid, Palencia
+  eu = Valladolid, Palentzia
   el = Μπούργκος, Βαγιαδολίδ, Παλένσια
 
 [Spain_Castile and Leon_West Description]
@@ -52343,6 +52893,7 @@
   fr = Salamanque
   ja = サラマンカ, レオン, サモラ
   es = Salamanca, Zamora
+  eu = Salamanca, Zamora
   uk = Саламанка
   el = Σαλαμάνκα, Λεόν, Ζαμόρα
 
@@ -52352,6 +52903,7 @@
   hu = Albacete
   ja = グアダラハラ
   es = Guadalajara, Cuenca
+  eu = Guadalajara, Cuenca
   el = Αλμπαθέτε, Γκουανταλαχάρα, Κουένκα
 
 [Spain_Catalonia_Provincia de Barcelona Description]
@@ -52364,6 +52916,7 @@
   ja = バルセロナ, バダロナ
   ko = 바달로나
   es = Barcelona, Hospitalet de Llobregat
+  eu = Bartzelona, L'Hospitalet de Llobregat
   th = บาดาโลนา
   uk = Барселона, Бадалона
   zh-Hant = 巴达洛纳
@@ -52379,6 +52932,7 @@
   ko = 지로나
   pt = Gerunda
   es = Gerona, Figueras
+  eu = Girona, Figueres
   uk = Жірона
   el = Σαντ Αντόνιο, Γκιρόνα, Φιγκέρες
   he = ז'ירונה
@@ -52388,6 +52942,7 @@
   ru = Ллейда
   fr = Lérida
   es = Lérida
+  eu = Lerida
   el = Λέιντα, Μολερούσα, Μπαλαγκέρ
 
 [Spain_Catalonia_Provincia de Tarragona Description]
@@ -52419,6 +52974,7 @@
   ko = 마드리드
   pl = Madryt
   es = Alcalá de Henares
+  eu = Alcala de Henares
   sv = Madrid
   th = มาดริด
   uk = Мадрид, Алькала-де-Енарес
@@ -52435,6 +52991,7 @@
   ja = パンプローナ
   pl = Pampeluna
   es = Pamplona, Tudela
+  eu = Iruñea, Tutera
   el = Παμπλόνα, Τουδέλα, Μπαρανάν
   he = פמפלונה
 
@@ -52444,6 +53001,7 @@
   hu = Badajoz
   ja = カセレス
   es = Cáceres
+  eu = Caceres
   zh-Hant = 卡塞雷斯
   el = Μπανταχόθ, Μέριδα, Κασέρες
 
@@ -52457,6 +53015,7 @@
   ja = サンティアゴ・デ・コンポステーラ
   pt = Corunha
   es = La Coruña, Santiago de Compostela
+  eu = A Coruña, Santiago de Compostela
   th = ซานเตียโกเดกอมโปสเตลา
   uk = Ла-Корунья, Сантьяґо-де-Компостела
   zh-Hant = 孔波斯特拉的聖地牙哥
@@ -52471,6 +53030,7 @@
   ja = オウレンセ, ポンテベドラ
   pt = Ourense, Ponte Vedra
   es = Orense
+  eu = Ourense
   zh-Hant = 蓬特韋德拉
   el = Βίγκο, Ουρένσε, Ποντεβέδρα
 
@@ -52493,6 +53053,7 @@
   fr = Gijon
   ja = アビレス
   es = Oviedo, Gijón
+  eu = Oviedo, Gijon
   el = Οβιέδο / Ουβιέ, Xixón, Αβιλές
 
 [Spain_Region de Murcia Description]
@@ -52501,6 +53062,7 @@
   fr = Murcie, Carthagène
   pl = Kartagina
   es = Cartagena
+  eu = Cartagena
   uk = Мурсія, Картахена
   el = Μούρθια, Καρταχένα, Λόρκα
 
@@ -52516,6 +53078,7 @@
   ja = カステリョン・デ・ラ・プラナ
   pl = Walencja
   es = Valencia, Alicante, Castellón de la Plana
+  eu = Valentzia, Alacant, Castellon de la Plana
   uk = Валенсія
   el = Βαλένθια, Αλακάντ / Αλικάντε, Καστελόν ντε λα Πλάνα
 
@@ -56308,6 +56871,7 @@ zh-Hant = 卡納塔克邦
 el = Καρνατάκα
 he = קארנאטקה
 sk = Karnátaka
+mr = कर्नाटक
 
 [India_Karnataka_South Short]
 en = Karnataka
@@ -56339,6 +56903,7 @@ zh-Hant = 卡納塔克邦
 el = Καρνατάκα
 he = קארנאטקה
 sk = Karnátaka
+mr = कर्नाटक
 
 [Russia_Krasnoyarsk Krai_North Short]
 en = Krasnoyarsk Krai

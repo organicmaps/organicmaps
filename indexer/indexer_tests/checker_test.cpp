@@ -29,7 +29,7 @@ vector<uint32_t> GetTypes(char const * arr[][roadArrColumnCount], size_t const r
   return types;
 }
 
-vector<uint32_t> GetTypes(std::vector<std::string> const & t)
+vector<uint32_t> GetTypes(vector<string_view> const & t)
 {
   Classificator const & c = classif();
   vector<uint32_t> types;
@@ -38,7 +38,6 @@ vector<uint32_t> GetTypes(std::vector<std::string> const & t)
     types.push_back(c.GetTypeByPath({k}));
   return types;
 }
-
 
 vector<uint32_t> GetStreetTypes()
 {
@@ -108,7 +107,7 @@ uint32_t GetMotorwayJunctionType()
 
 vector<uint32_t> GetPoiTypes()
 {
-  std::vector<std::string> const types = {
+  std::vector<std::string_view> const types = {
     "amenity",
     "shop",
     "tourism",

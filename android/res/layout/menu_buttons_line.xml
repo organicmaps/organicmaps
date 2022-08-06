@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="@dimen/menu_line_height"
+  android:paddingStart="@dimen/margin_half"
+  android:paddingEnd="@dimen/margin_half"
   tools:background="#40FF0000">
   <LinearLayout
     android:layout_width="match_parent"
@@ -43,17 +44,21 @@
       android:layout_height="match_parent"
       android:layout_weight="1"/>
 
-    <!-- Gap for menu open/close button -->
-    <View
-      android:id="@+id/menu"
-      android:layout_width="@dimen/menu_line_button_width_edge"
-      android:layout_height="match_parent"/>
+    <ImageView
+      android:id="@+id/toggle"
+      style="@style/MwmTheme.Menu.Line.Button"
+      android:src="@drawable/ic_menu_open"
+      android:tag="@string/tag_menu_collapse"/>
   </LinearLayout>
 
-  <FrameLayout
-    android:layout_width="@dimen/menu_line_button_width_edge"
-    android:layout_height="match_parent"
-    android:layout_gravity="end">
-    <include layout="@layout/menu_news_marker"/>
-  </FrameLayout>
+  <View
+    android:id="@+id/marker"
+    android:layout_width="10dp"
+    android:layout_height="10dp"
+    android:layout_gravity="end"
+    android:layout_marginTop="@dimen/margin_half"
+    android:layout_marginEnd="@dimen/margin_half"
+    android:background="@drawable/counter"
+    android:visibility="gone"
+    tools:visibility="visible"/>
 </FrameLayout>

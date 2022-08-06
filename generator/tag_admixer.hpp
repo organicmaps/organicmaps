@@ -119,9 +119,10 @@ public:
         return;
 
       // Exclude ferry routes.
+      /// @todo This routine is not used but anyway: what about railway-rail-motor_vehicle or route-shuttle_train?
       static OsmElement::Tag const kFerryTag = {"route", "ferry"};
       auto const & tags = element.Tags();
-      if (std::find(tags.cbegin(), tags.cend(), kFerryTag) == tags.cend())
+      if (!base::IsExist(tags, kFerryTag))
         element.AddTag("highway", it->second);
     }
     else if (element.m_type == OsmElement::EntityType::Node &&
@@ -198,9 +199,9 @@ public:
       auto res = m_replacements.emplace(Tag{key, value}, ReplaceValue{{}, isUpdate});
       CHECK(res.second, ());
 
-      strings::Tokenize(line.substr(valuePos, endPos - valuePos), ",", [&](std::string const & token)
+      strings::Tokenize(line.substr(valuePos, endPos - valuePos), ",", [&](std::string_view token)
       {
-        auto kv = strings::Tokenize(token, "=");
+        auto kv = strings::Tokenize<std::string>(token, "=");
         CHECK_EQUAL(kv.size(), 2, ("Cannot parse replacement tag:", token, "in line", lineNumber));
         strings::Trim(kv[0]);
         strings::Trim(kv[1]);

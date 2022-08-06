@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 
 """
 This script is mainly for running autotests on the build server, however, it
@@ -26,7 +26,8 @@ import socket
 import subprocess
 import testserver
 import time
-import urllib2
+from urllib.error import URLError
+from urllib.request import urlopen
 
 import logging
 
@@ -47,10 +48,10 @@ class TestRunner:
         if not tests:
             return
 
-        logging.info("\n{result}".format(result=result.upper()))
+        logging.info(f"\n{result.upper()}")
 
         for test in tests:
-            logging.info("- {test}".format(test=test))
+            logging.info(f"- {test}")
 
 
     def set_global_vars(self):
@@ -67,7 +68,7 @@ class TestRunner:
         (options, args) = parser.parse_args()
 
         self.skiplist = set()
-        self.runlist = list()
+        self.runlist = []
 
         for tests in options.skiplist:
             for test in tests.split(","):
@@ -82,8 +83,8 @@ class TestRunner:
             logging.warn("-i or -b option found, the -e option will be ignored")
 
         self.workspace_path = options.folder
-        self.data_path = (" --data_path={0}".format(options.data_path) if options.data_path else "")
-        self.user_resource_path = (" --user_resource_path={0}".format(options.resource_path) if options.resource_path else "")
+        self.data_path = (f" --data_path={options.data_path}" if options.data_path else "")
+        self.user_resource_path = (f" --user_resource_path={options.resource_path}" if options.resource_path else "")
 
         self.keep_alive = options.keep_alive
 
@@ -98,33 +99,33 @@ class TestRunner:
         if self.keep_alive:
             return
         try:
-            urllib2.urlopen('http://localhost:{port}/kill'.format(port=PORT), timeout=5)
-        except (urllib2.URLError, socket.timeout):
+            urlopen(f"http://localhost:{PORT}/kill", timeout=5)
+        except (URLError, socket.timeout):
             logging.info("Failed to stop the server...")
 
     def categorize_tests(self):
 
-        tests_to_run = list()
-        local_skiplist = list()
-        not_found = list()
+        tests_to_run = []
+        local_skiplist = []
+        not_found = []
 
-        test_files_in_dir = filter(lambda x: x.endswith("_tests"), listdir(self.workspace_path))
+        test_files_in_dir = list(filter(lambda x: x.endswith("_tests"), listdir(self.workspace_path)))
 
         on_disk = lambda x: x in test_files_in_dir
         not_on_disk = lambda x : not on_disk(x)
 
         if not self.runlist:
-            local_skiplist = filter(on_disk, self.skiplist)
-            not_found = filter(not_on_disk, self.skiplist)
-            tests_to_run = filter(lambda x: x not in local_skiplist, test_files_in_dir)
+            local_skiplist = list(filter(on_disk, self.skiplist))
+            not_found = list(filter(not_on_disk, self.skiplist))
+            tests_to_run = list(filter(lambda x: x not in local_skiplist, test_files_in_dir))
         else:
-            tests_to_run = filter(on_disk, self.runlist)
+            tests_to_run = list(filter(on_disk, self.runlist))
             shuffle(tests_to_run)
 
-            not_found = filter(not_on_disk, self.runlist)
+            not_found = list(filter(not_on_disk, self.runlist))
 
         # now let's move the tests that need a server either to the beginning or the end of the tests_to_run list
-        tests_with_server = list(TESTS_REQUIRING_SERVER)
+        tests_with_server = TESTS_REQUIRING_SERVER[:]
         for test in TESTS_REQUIRING_SERVER:
             if test in tests_to_run:
                 tests_to_run.remove(test)
@@ -136,12 +137,12 @@ class TestRunner:
 
     def test_file_with_keys(self, test_file):
         boost_keys = " --report_format=xml --report_level=detailed --log_level=test_suite --log_format=xml " if self.boost_tests else ""
-        return "{test_file}{boost_keys}{data}{resources}".format(test_file=test_file, boost_keys=boost_keys, data=self.data_path, resources=self.user_resource_path)
+        return f"{test_file}{boost_keys}{self.data_path}{self.user_resource_path}"
 
 
     def run_tests(self, tests_to_run):
-        failed = list()
-        passed = list()
+        failed = []
+        passed = []
 
         for test_file in tests_to_run:
 
@@ -155,12 +156,11 @@ class TestRunner:
             current_env = environ
             current_env['LC_NUMERIC'] = 'C'
             #
-            process = subprocess.Popen("{tests_path}/{test_file}".
-                                   format(tests_path=self.workspace_path, test_file=test_file_with_keys),
+            process = subprocess.Popen(f"{self.workspace_path}/{test_file_with_keys}",
                                    env=current_env,
                                    shell=True,
                                    stdout=subprocess.PIPE)
-            logging.info("Pid: {0}".format(process.pid))
+            logging.info(f"Pid: {process.pid}")
 
             process.wait()
 
@@ -200,7 +200,7 @@ class TestRunner:
         return len(results[FAILED]) > 0 and 1 or 0
 
 def tests_on_disk(path):
-    return filter(lambda x: x.endswith("_tests"), listdir(path))
+    return list(filter(lambda x: x.endswith("_tests"), listdir(path)))
 
 
 if __name__ == "__main__":

@@ -36,8 +36,6 @@ public:
   void TestTwoPointsOnFeature(m2::PointD const & startPos, m2::PointD const & finalPos);
 
 protected:
-  virtual std::unique_ptr<routing::DirectionsEngine> CreateDirectionsEngine(
-      std::shared_ptr<routing::NumMwmIds> numMwmIds) = 0;
   virtual std::unique_ptr<routing::VehicleModelFactoryInterface> CreateModelFactory() = 0;
 
   std::unique_ptr<routing::IRouter> CreateRouter(std::string const & name);

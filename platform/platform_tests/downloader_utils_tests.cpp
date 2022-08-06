@@ -3,8 +3,11 @@
 #include "platform/downloader_utils.hpp"
 #include "platform/local_country_file_utils.hpp"
 #include "platform/mwm_version.hpp"
+#include "platform/platform.hpp"
 
-UNIT_TEST(UrlConversionTest)
+#include "base/file_name_utils.hpp"
+
+UNIT_TEST(Downloader_GetFilePathByUrl)
 {
   {
     std::string const mwmName = "Luna";
@@ -13,8 +16,7 @@ UNIT_TEST(UrlConversionTest)
     int64_t const diffVersion = 0;
     MapFileType const fileType = MapFileType::Map;
 
-    auto const path =
-        platform::GetFileDownloadPath(dataVersion, platform::CountryFile(mwmName), fileType);
+    auto const path = platform::GetFileDownloadPath(dataVersion, mwmName, fileType);
 
     auto const url = downloader::GetFileDownloadUrl(fileName, dataVersion, diffVersion);
     auto const resultPath = downloader::GetFilePathByUrl(url);
@@ -28,17 +30,19 @@ UNIT_TEST(UrlConversionTest)
     int64_t const diffVersion = version::FOR_TESTING_MWM1;
     MapFileType const fileType = MapFileType::Diff;
 
-    auto const path =
-        platform::GetFileDownloadPath(dataVersion, platform::CountryFile(mwmName), fileType);
+    auto const path = platform::GetFileDownloadPath(dataVersion, mwmName, fileType);
 
     auto const url = downloader::GetFileDownloadUrl(fileName, dataVersion, diffVersion);
     auto const resultPath = downloader::GetFilePathByUrl(url);
 
     TEST_EQUAL(path, resultPath, ());
   }
+
+  TEST_EQUAL(downloader::GetFilePathByUrl("/maps/220314/Belarus_Brest Region.mwm"),
+             base::JoinPath(GetPlatform().WritableDir(), "220314/Belarus_Brest Region.mwm.ready"), ());
 }
 
-UNIT_TEST(IsUrlSupportedTest)
+UNIT_TEST(Downloader_IsUrlSupported)
 {
   std::string const mwmName = "Luna";
 

@@ -7,8 +7,8 @@
 
 #include "coding/reader.hpp"
 
+#include "base/assert.hpp"
 #include "base/exception.hpp"
-#include "base/macros.hpp"
 #include "base/task_loop.hpp"
 #include "base/thread_pool_delayed.hpp"
 
@@ -96,8 +96,6 @@ protected:
   /// Writable directory to store downloaded map data
   /// @note on some systems it can point to external ejectable storage
   std::string m_writableDir;
-  /// Application private directory.
-  std::string m_privateDir;
   /// Temporary directory, can be cleaned up by the system
   std::string m_tmpDir;
   /// Writable directory to store persistent application data
@@ -132,27 +130,35 @@ public:
   /// @note In case of an error returns an empty std::string.
   static std::string GetCurrentWorkingDirectory() noexcept;
   /// @return always the same writable dir for current user with slash at the end
-  std::string const & WritableDir() const { return m_writableDir; }
+  std::string const & WritableDir() const
+  {
+    ASSERT(!m_writableDir.empty(), ());
+    return m_writableDir;
+  }
   /// Set writable dir — use for testing and linux stuff only
   void SetWritableDirForTests(std::string const & path);
   /// @return full path to file in user's writable directory
-  std::string WritablePathForFile(std::string const & file) const { return WritableDir() + file; }
+  std::string WritablePathForFile(std::string const & file) const;
   /// Uses m_writeableDir [w], m_resourcesDir [r], m_settingsDir [s].
   std::string ReadPathForFile(std::string const & file,
                               std::string searchScope = std::string()) const;
 
   /// @return resource dir (on some platforms it's differ from Writable dir)
-  std::string const & ResourcesDir() const { return m_resourcesDir; }
+  std::string const & ResourcesDir() const
+  {
+    ASSERT(!m_resourcesDir.empty(), ());
+    return m_resourcesDir;
+  }
   /// @note! This function is used in generator_tool and unit tests.
   /// Client app should not replace default resource dir.
   void SetResourceDir(std::string const & path);
 
   /// Creates the directory in the filesystem.
-  WARN_UNUSED_RESULT static EError MkDir(std::string const & dirName);
+  [[nodiscard]] static EError MkDir(std::string const & dirName);
 
   /// Creates the directory. Returns true on success.
   /// Returns false and logs the reason on failure.
-  WARN_UNUSED_RESULT static bool MkDirChecked(std::string const & dirName);
+  [[nodiscard]] static bool MkDirChecked(std::string const & dirName);
 
   // Creates the directory path dirName.
   // The function will create all parent directories necessary to create the directory.
@@ -160,7 +166,7 @@ public:
   // If the path already exists when this function is called, it will return true.
   // If it was possible to create only a part of the directories, the function will returns false
   // and will not restore the previous state of the file system.
-  WARN_UNUSED_RESULT static bool MkDirRecursively(std::string const & dirName);
+  [[nodiscard]] static bool MkDirRecursively(std::string const & dirName);
 
   /// Removes empty directory from the filesystem.
   static EError RmDir(std::string const & dirName);
@@ -187,10 +193,7 @@ public:
   std::string const & SettingsDir() const { return m_settingsDir; }
   void SetSettingsDir(std::string const & path);
   /// @return full path to file in the settings directory
-  std::string SettingsPathForFile(std::string const & file) const { return SettingsDir() + file; }
-
-  /// Returns application private directory.
-  std::string const & PrivateDir() const { return m_privateDir; }
+  std::string SettingsPathForFile(std::string const & file) const;
 
   /// @return reader for file decriptor.
   /// @throws FileAbsentException
@@ -240,7 +243,6 @@ public:
     NOT_ENOUGH_SPACE
   };
   TStorageStatus GetWritableStorageStatus(uint64_t neededSize) const;
-  uint64_t GetWritableStorageSpace() const;
 
   // Please note, that number of active cores can vary at runtime.
   // DO NOT assume for the same return value between calls.
@@ -268,7 +270,7 @@ public:
 
   /// @return information about kinds of memory which are relevant for a platform.
   /// This method is implemented for iOS and Android only.
-  /// @TODO Add implementation
+  /// @TODO remove as its not used anywhere?
   std::string GetMemoryInfo() const;
 
   static EConnectionType ConnectionStatus();

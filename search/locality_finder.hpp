@@ -35,26 +35,26 @@ struct LocalityItem
   using Boundaries = CitiesBoundariesTable::Boundaries;
 
   LocalityItem(StringUtf8Multilang const & names, m2::PointD const & center,
-               Boundaries const & boundaries, uint64_t population, FeatureID const & id);
+               Boundaries && boundaries, uint64_t population, FeatureID const & id);
 
-  bool GetName(int8_t lang, std::string & name) const { return m_names.GetString(lang, name); }
+  bool GetName(int8_t lang, std::string_view & name) const { return m_names.GetString(lang, name); }
 
-  bool GetSpecifiedOrDefaultName(int8_t lang, std::string & name) const
+  bool GetSpecifiedOrDefaultName(int8_t lang, std::string_view & name) const
   {
     return GetName(lang, name) || GetName(StringUtf8Multilang::kDefaultCode, name);
   }
 
-  bool GetReadableName(std::string & name) const
+  bool GetReadableName(std::string_view & name) const
   {
     auto const mwmInfo = m_id.m_mwmId.GetInfo();
-
     if (!mwmInfo)
       return false;
 
-    auto const deviceLang = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
-    feature::GetReadableName(mwmInfo->GetRegionData(), m_names, deviceLang,
-                             false /* allowTranslit */, name);
+    feature::NameParamsOut out;
+    feature::GetReadableName({ m_names, mwmInfo->GetRegionData(), languages::GetCurrentNorm(),
+                               false /* allowTranslit */ }, out);
 
+    name = out.primary;
     return !name.empty();
   }
 

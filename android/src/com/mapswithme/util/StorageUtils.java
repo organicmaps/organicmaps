@@ -6,18 +6,13 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Environment;
 import android.provider.DocumentsContract;
-import android.text.TextUtils;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
-
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.LoggerFactory;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -34,77 +29,67 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 public class StorageUtils
 {
-  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.STORAGE);
-  private final static String TAG = StorageUtils.class.getSimpleName();
-  private final static String LOGS_FOLDER = "logs";
+  private static final String TAG = StorageUtils.class.getSimpleName();
 
-  /**
-   * Checks if external storage is available for read and write
-   *
-   * @return true if external storage is mounted and ready for reading/writing
-   */
-  private static boolean isExternalStorageWritable()
+  public static boolean isDirWritable(File dir)
   {
-    String state = Environment.getExternalStorageState();
-    return Environment.MEDIA_MOUNTED.equals(state);
-  }
+    final String path = dir.getPath();
+    Logger.d(TAG, "Checking for writability " + path);
 
-  /**
-   * Safely returns the external files directory path with the preliminary
-   * checking the availability of the mentioned directory
-   *
-   * @return the absolute path of external files directory or null if directory can not be obtained
-   * @see Context#getExternalFilesDir(String)
-   */
-  @Nullable
-  private static String getExternalFilesDir(@NonNull Application application)
-  {
-    if (!isExternalStorageWritable())
-      return null;
-
-    File dir = application.getExternalFilesDir(null);
-    if (dir != null)
-      return dir.getAbsolutePath();
-
-    Log.e(StorageUtils.class.getSimpleName(),
-          "Cannot get the external files directory for some reasons", new Throwable());
-    return null;
-  }
-
-  /**
-   * Check existence of the folder for writing the logs. If that folder is absent this method will
-   * try to create it and all missed parent folders.
-   * @return true - if folder exists, otherwise - false
-   */
-  public static boolean ensureLogsFolderExistence(@NonNull Application application)
-  {
-    String externalDir = StorageUtils.getExternalFilesDir(application);
-    if (TextUtils.isEmpty(externalDir))
-      return false;
-
-    File folder = new File(externalDir + File.separator + LOGS_FOLDER);
+    // Its better to be conservative here and don't allow to use the storage
+    // if any of the system calls behave unexpectedly,
+    // still we want extra logging to facilitate debugging possible fringe cases,
+    // e.g. https://github.com/organicmaps/organicmaps/issues/2684
     boolean success = true;
-    if (!folder.exists())
-      success = folder.mkdirs();
+    if (!dir.isDirectory())
+    {
+      Logger.w(TAG, "Not a directory: " + path);
+      success = false;
+    }
+    if (!dir.exists())
+    {
+      Logger.w(TAG, "Not exists: " + path);
+      success = false;
+    }
+    if (!dir.canWrite())
+    {
+      Logger.w(TAG, "Not writable: " + path);
+      success = false;
+    }
+    if (!dir.canRead())
+    {
+      Logger.w(TAG, "Not readable: " + path);
+      success = false;
+    }
+    if (dir.list() == null)
+    {
+      Logger.w(TAG, "Not listable: " + path);
+      success = false;
+    }
+
+    final File newDir = new File(dir, "om_test_dir");
+    final String newPath = newDir.getPath();
+    if (newDir.delete())
+      Logger.i(TAG, "Deleting existing test file/dir: " + newPath);
+    if (newDir.exists())
+      Logger.w(TAG, "Existing test file/dir is not deleted (not empty?): " + newPath);
+    if (!newDir.mkdir())
+    {
+      Logger.w(TAG, "Failed to create the test dir: " + newPath);
+      success = false;
+    }
+    if (!newDir.exists())
+    {
+      Logger.w(TAG, "The test dir doesn't exist: " + newPath);
+      success = false;
+    }
+    if (!newDir.delete())
+    {
+      Logger.w(TAG, "Failed to delete the test dir: " + newPath);
+      success = false;
+    }
+
     return success;
-  }
-
-  @Nullable
-  public static String getLogsFolder(@NonNull Application application)
-  {
-    if (!ensureLogsFolderExistence(application))
-      return null;
-
-    String externalDir = StorageUtils.getExternalFilesDir(application);
-    return externalDir + File.separator + LOGS_FOLDER;
-  }
-
-  @Nullable
-  static String getLogsZipPath(@NonNull Application application)
-  {
-    String zipFile = getExternalFilesDir(application) + File.separator + LOGS_FOLDER + ".zip";
-    File file = new File(zipFile);
-    return file.isFile() && file.exists() ? zipFile : null;
   }
 
   @NonNull
@@ -117,15 +102,15 @@ public class StorageUtils
     }
     catch (final PackageManager.NameNotFoundException e)
     {
-      LOGGER.e(TAG, "Can't get apk path from PackageManager", e);
+      Logger.e(TAG, "Can't get apk path from PackageManager", e);
       return "";
     }
   }
 
   @NonNull
-  private static String addTrailingSeparator(@NonNull String dir)
+  public static String addTrailingSeparator(@NonNull String dir)
   {
-    if (!dir.endsWith("/"))
+    if (!dir.endsWith(File.separator))
       return dir + File.separator;
     return dir;
   }
@@ -148,16 +133,23 @@ public class StorageUtils
     return addTrailingSeparator(application.getCacheDir().getAbsolutePath());
   }
 
-  public static void createDirectory(@NonNull String path) throws IOException
+  public static boolean createDirectory(@NonNull final String path)
   {
-    File directory = new File(path);
+    final File directory = new File(path);
     if (!directory.exists() && !directory.mkdirs())
     {
-      IOException error = new IOException("Can't create directories for: " + path);
-      LOGGER.e(TAG, "Can't create directories for: " + path);
-      CrashlyticsUtils.INSTANCE.logException(error);
-      throw error;
+      final String errMsg = "Can't create directory " + path;
+      Logger.e(TAG, errMsg);
+      CrashlyticsUtils.INSTANCE.logException(new IOException(errMsg));
+      return false;
     }
+    return true;
+  }
+
+  public static void requireDirectory(@Nullable final String path) throws IOException
+  {
+    if (!createDirectory(path))
+      throw new IOException("Can't create directory " + path);
   }
 
   static long getFileSize(@NonNull String path)
@@ -175,7 +167,7 @@ public class StorageUtils
 
   /**
    * Copy data from a URI into a local file.
-   * @param resolve content resolver
+   * @param resolver content resolver
    * @param from a source URI.
    * @param to a destination file
    * @return true on success and false if the provider recently crashed.
@@ -235,7 +227,10 @@ public class StorageUtils
   {
     File[] list = dir.listFiles();
     if (list == null)
+    {
+      Logger.w(TAG, "listFilesRecursively listFiles() returned null for " + dir.getPath());
       return;
+    }
 
     for (File file : list)
     {
@@ -251,60 +246,35 @@ public class StorageUtils
   }
 
   /**
-   * Check if directory is writable. On some devices with KitKat (eg, Samsung S4) simple File.canWrite() returns
-   * true for some actually read only directories on sdcard.
-   * see https://code.google.com/p/android/issues/detail?id=66369 for details
-   *
-   * @param path path to ckeck
-   * @return result
+   * Returns 0 in case of the error or if no files have passed the filter.
    */
-  @SuppressWarnings("ResultOfMethodCallIgnored")
-  public static boolean isDirWritable(String path)
+  public static long getDirSizeRecursively(File dir, FilenameFilter fileFilter)
   {
-    File f = new File(path, "mapsme_test_dir");
-    f.mkdir();
-    if (!f.exists())
-      return false;
-
-    f.delete();
-    return true;
-  }
-
-  public static long getFreeBytesAtPath(String path)
-  {
-    long size = 0;
-    try
+    final File[] list = dir.listFiles();
+    if (list == null)
     {
-      size = new File(path).getFreeSpace();
-    } catch (RuntimeException e)
-    {
-      e.printStackTrace();
+      Logger.w(TAG, "getDirSizeRecursively listFiles() returned null for " + dir.getPath());
+      return 0;
     }
 
-    return size;
-  }
-
-  public static long getDirSizeRecursively(File file, FilenameFilter fileFilter)
-  {
-    if (file.isDirectory())
+    long dirSize = 0;
+    for (File child : list)
     {
-      long dirSize = 0;
-      for (File child : file.listFiles())
+      if (child.isDirectory())
         dirSize += getDirSizeRecursively(child, fileFilter);
-
-      return dirSize;
+      else if (fileFilter.accept(dir, child.getName()))
+        dirSize += child.length();
     }
-
-    if (fileFilter.accept(file.getParentFile(), file.getName()))
-      return file.length();
-
-    return 0;
+    return dirSize;
   }
 
   @SuppressWarnings("ResultOfMethodCallIgnored")
   public static void removeEmptyDirectories(File dir)
   {
-    for (File file : dir.listFiles())
+    final File[] list = dir.listFiles();
+    if (list == null)
+      return;
+    for (File file : list)
     {
       if (!file.isDirectory())
         continue;
@@ -345,8 +315,6 @@ public class StorageUtils
    */
   public static void listContentProviderFilesRecursively(ContentResolver contentResolver, Uri rootUri, UriVisitor filter)
   {
-    ArrayList<Uri> result = new ArrayList<>();
-
     Uri rootDir = DocumentsContract.buildChildDocumentsUriUsingTree(rootUri, DocumentsContract.getTreeDocumentId(rootUri));
     Queue<Uri> directories = new LinkedBlockingQueue<>();
     directories.add(rootDir);
@@ -365,7 +333,7 @@ public class StorageUtils
           final String docId = cur.getString(0);
           final String name = cur.getString(1);
           final String mime = cur.getString(2);
-          LOGGER.d(TAG, "docId: " + docId + ", name: " + name + ", mime: " + mime);
+          Logger.d(TAG, "docId: " + docId + ", name: " + name + ", mime: " + mime);
 
           if (mime.equals(DocumentsContract.Document.MIME_TYPE_DIR))
           {

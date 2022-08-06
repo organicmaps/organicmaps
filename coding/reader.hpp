@@ -165,11 +165,19 @@ public:
   std::string const & GetName() const { return m_p->GetName(); }
 };
 
-// Source that reads from a reader.
+/// Source that reads from a reader and holds Reader by non-owning reference.
+/// No templates here allows to hide Deserialization functions in cpp.
 class NonOwningReaderSource
 {
 public:
-  NonOwningReaderSource(Reader const & reader) : m_reader(reader), m_pos(0) {}
+  /// @note Reader shouldn't change it's size during the source's lifetime.
+  explicit NonOwningReaderSource(Reader const & reader)
+  : m_reader(reader), m_pos(0), m_end(reader.Size())
+  {}
+
+  NonOwningReaderSource(Reader const & reader, uint64_t pos, uint64_t end)
+  : m_reader(reader), m_pos(pos), m_end(end)
+  {}
 
   void Read(void * p, size_t size)
   {
@@ -189,25 +197,26 @@ public:
   uint64_t Size() const
   {
     CheckPosition();
-    return (m_reader.Size() - m_pos);
+    return m_end - m_pos;
   }
 
   void SetPosition(uint64_t pos)
   {
     m_pos = pos;
+    CheckPosition();
   }
 
 private:
   void CheckPosition() const
   {
-    ASSERT_LESS_OR_EQUAL(m_pos, m_reader.Size(), (m_pos, m_reader.Size()));
+    ASSERT_LESS_OR_EQUAL(m_pos, m_end, ());
   }
 
   Reader const & m_reader;
-  uint64_t m_pos;
+  uint64_t m_pos, m_end;
 };
 
-// Source that reads from a reader.
+/// Source that reads from a reader and holds Reader by value.
 template <typename TReader>
 class ReaderSource
 {
@@ -239,6 +248,10 @@ public:
     return (m_reader.Size() - m_pos);
   }
 
+  /// @todo We can avoid calling virtual Reader::SubReader and creating unique_ptr here
+  /// by simply making "ReaderSource ReaderSource::SubSource(pos, end)" and storing "ReaderSource::m_end"
+  /// like I did in NonOwningReaderSource. Unfortunatelly, it needs a lot of efforts in refactoring.
+  /// @{
   TReader SubReader(uint64_t size)
   {
     uint64_t const pos = m_pos;
@@ -256,6 +269,7 @@ public:
   }
 
   std::unique_ptr<Reader> CreateSubReader() { return CreateSubReader(Size()); }
+  /// @}
 
 private:
   bool AssertPosition() const

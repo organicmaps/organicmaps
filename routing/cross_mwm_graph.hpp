@@ -2,7 +2,7 @@
 
 #include "routing/cross_mwm_ids.hpp"
 #include "routing/cross_mwm_index_graph.hpp"
-#include "routing/router.hpp"
+#include "routing/regions_decl.hpp"
 #include "routing/segment.hpp"
 #include "routing/vehicle_mask.hpp"
 
@@ -12,18 +12,15 @@
 #include "geometry/tree4d.hpp"
 
 #include "base/geo_object_id.hpp"
-#include "base/math.hpp"
 
-#include <map>
 #include <memory>
 #include <string>
-#include <utility>
 #include <vector>
-
-class DataSource;
 
 namespace routing
 {
+class MwmDataSource;
+
 /// \brief Getting information for cross mwm routing.
 class CrossMwmGraph final
 {
@@ -37,9 +34,8 @@ public:
 
   CrossMwmGraph(std::shared_ptr<NumMwmIds> numMwmIds,
                 std::shared_ptr<m4::Tree<NumMwmId>> numMwmTree,
-                std::shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory,
-                VehicleType vehicleType, CourntryRectFn const & countryRectFn,
-                DataSource & dataSource);
+                VehicleType vehicleType, CountryRectFn const & countryRectFn,
+                MwmDataSource & dataSource);
 
   /// \brief Transition segment is a segment which is crossed by mwm border. That means
   /// start and finish of such segment have to lie in different mwms. If a segment is
@@ -90,19 +86,19 @@ public:
   /// Getting ingoing edges is not supported because we do not have enough information
   /// to calculate |segment| weight.
   void GetOutgoingEdgeList(Segment const & s, EdgeListT & edges);
-
   void GetIngoingEdgeList(Segment const & s, EdgeListT & edges);
 
-  void Clear();
+  RouteWeight GetWeightSure(Segment const & from, Segment const & to);
 
-  // \returns transitions for mwm with id |numMwmId| for CrossMwmIndexGraph.
-  std::vector<Segment> const & GetTransitions(NumMwmId numMwmId, bool isEnter)
+  //void Clear();
+  void Purge();
+
+  template <class FnT> void ForEachTransition(NumMwmId numMwmId, bool isEnter, FnT && fn)
   {
-    CHECK(CrossMwmSectionExists(numMwmId), ("Should be used in LeapsOnly mode only. LeapsOnly mode requires CrossMwmIndexGraph."));
-    return m_crossMwmIndexGraph.GetTransitions(numMwmId, isEnter);
+    CHECK(CrossMwmSectionExists(numMwmId), ("Should be used in LeapsOnly mode only"));
+    return m_crossMwmIndexGraph.ForEachTransition(numMwmId, isEnter, fn);
   }
 
-  bool IsFeatureTransit(NumMwmId numMwmId, uint32_t featureId);
   /// \brief Checks whether feature where |segment| is placed is a cross mwm connector.
   ///        If yes twin-segments are saved to |twins|.
   void GetTwinFeature(Segment const & segment, bool isOutgoing, std::vector<Segment> & twins);
@@ -117,18 +113,15 @@ private:
   /// \brief Fills |neighbors| with number mwm id of all loaded neighbors of |numMwmId| and
   /// sets |allNeighborsHaveCrossMwmSection| to true if all loaded neighbors have cross mwm section
   /// and to false otherwise.
-  void GetAllLoadedNeighbors(NumMwmId numMwmId,
-                             std::vector<NumMwmId> & neighbors,
-                             bool & allNeighborsHaveCrossMwmSection);
+  bool GetAllLoadedNeighbors(NumMwmId numMwmId, std::vector<NumMwmId> & neighbors);
   /// \brief Deserizlize transitions for mwm with |ids|.
   void DeserializeTransitions(std::vector<NumMwmId> const & mwmIds);
   void DeserializeTransitTransitions(std::vector<NumMwmId> const & mwmIds);
 
-  DataSource & m_dataSource;
+  MwmDataSource & m_dataSource;
   std::shared_ptr<NumMwmIds> m_numMwmIds;
   std::shared_ptr<m4::Tree<NumMwmId>> m_numMwmTree;
-  std::shared_ptr<VehicleModelFactoryInterface> m_vehicleModelFactory;
-  CourntryRectFn const & m_countryRectFn;
+  CountryRectFn const & m_countryRectFn;
   CrossMwmIndexGraph<base::GeoObjectId> m_crossMwmIndexGraph;
   CrossMwmIndexGraph<connector::TransitId> m_crossMwmTransitGraph;
 };

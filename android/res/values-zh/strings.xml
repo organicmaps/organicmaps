@@ -17,17 +17,15 @@
 	<string name="downloading">下载…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">千米</string>
-	<!-- View and button titles for accessibility -->
-	<string name="maps">地图</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">英里</string>
-	<!-- View and button titles for accessibility -->
+	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">我的位置</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">稍后</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">搜索</string>
-	<!-- Search box placeholder text -->
+	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">搜索地图</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">您目前有此设备的所有位置服务或应用已禁用。请在设置中启用它们。</string>
@@ -41,9 +39,10 @@
 	<string name="close">关闭</string>
 	<string name="unsupported_phone">硬件加速的 OpenGL 是必需的。遗憾的是您的设备不支持此功能。</string>
 	<string name="download">下载</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable">请断开 USB 线或插入存储卡以使用 Organic Maps</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="not_enough_free_space_on_sdcard">请在存储卡/ USB 储存设备上释放一些空间以 使用此应用</string>
-	<string name="not_enough_memory">没有足够的内存来启动应用程序</string>
 	<string name="download_resources">在您开始前请让我们下载通用世界地图至您的设备中。\n它需要%s的 数据。</string>
 	<string name="download_resources_continue">前往地图</string>
 	<string name="downloading_country_can_proceed">下载 %s。您现在可\n前往地图。</string>
@@ -77,6 +76,8 @@
 	<string name="maps_storage">将地图保存到</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">选取地图应该下载的位置</string>
+	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+	<string name="maps_storage_downloaded">地图</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">移动地图？</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
@@ -123,6 +124,8 @@
 	<string name="post">邮政</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
 	<string name="police">警察</string>
+	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! -->
+	<string name="wifi">无线网络</string>
 	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
 	<string name="recycling">回收</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
@@ -207,6 +210,8 @@
 	<string name="search_show_on_map">在地图上查看</string>
 	<!-- Text in menu -->
 	<string name="website">网站</string>
+	<!-- Text in About menu, opens Organic Maps news website -->
+	<string name="news">新闻</string>
 	<!-- Text in menu -->
 	<string name="facebook">脸书</string>
 	<!-- Text in menu -->
@@ -225,17 +230,16 @@
 	<string name="copyright">版权</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">报告漏洞</string>
-	<!-- Search category -->
-	<string name="wifi">无线网络</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">更新全部</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">全部取消</string>
-	<!-- Downloaded maps category -->
+	<!-- Downloaded maps list header -->
 	<string name="downloader_downloaded_subtitle">已下载</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">已排队</string>
 	<string name="downloader_near_me_subtitle">在我附近</string>
+	<!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
 	<string name="downloader_status_maps">地图</string>
 	<string name="downloader_download_all_button">下载全部</string>
 	<string name="downloader_downloading">正在下载：</string>
@@ -251,6 +255,8 @@
 	<string name="downloader_delete_map">删除地图</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">更新地图</string>
+	<!-- Preference title -->
+	<string name="google_play_services">Google Play 服务</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">使用Google Play服务以获取您的当前位置。</string>
 	<!-- Text for routing error dialog -->
@@ -296,8 +302,6 @@
 	<string name="gray">灰色</string>
 	<!-- blue gray color -->
 	<string name="blue_gray">蓝灰色</string>
-	<!-- Wi-Fi available -->
-	<string name="WiFi_available">是</string>
 
 	<!-- SECTION: Routing dialogs strings -->
 	<string name="dialog_routing_disclaimer_title">按照路线行进时，请谨记：</string>
@@ -369,7 +373,7 @@
 	<string name="editor_example_values">示例值</string>
 	<string name="editor_correct_mistake">纠正错误</string>
 	<string name="editor_add_select_location">位置</string>
-	<string name="editor_report_problem_desription_1">请详细描述此问题以便OpenStreeMap社区能够修复此错误。</string>
+	<string name="editor_report_problem_desription_1">请详细描述此问题以便OpenStreetMap社区能够修复此错误。</string>
 	<string name="editor_report_problem_desription_2">或者在https://www.openstreetmap.org/上亲自修复此错误。</string>
 	<string name="editor_report_problem_send_button">发送</string>
 	<string name="editor_report_problem_title">问题</string>
@@ -454,6 +458,7 @@
 	<string name="kilometer">公里</string>
 	<string name="kilometers_per_hour">公里每小时</string>
 	<string name="mile">英里</string>
+	<!-- A unit of measure -->
 	<string name="foot">英尺</string>
 	<string name="miles_per_hour">英里每小时</string>
 	<string name="hour">小時</string>
@@ -551,6 +556,7 @@
 	<plurals name="tracks">
 	  <item quantity="other">%d 跟踪</item>
 	</plurals>
+	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">支持设置</string>
 	<string name="crash_reports">错误报告</string>
 	<string name="crash_reports_description">我们可以使用您的数据来开发和改进Organic Maps。更改将在重新启动应用程序后生效。</string>
@@ -600,6 +606,14 @@
 	<string name="avoid_toll_roads_placepage">规避收费公路</string>
 	<string name="avoid_unpaved_roads_placepage">规避土路</string>
 	<string name="avoid_ferry_crossing_placepage">规避渡輪渡口</string>
+	<!-- A generic "Yes" button in dialogs -->
+	<string name="yes">是</string>
+	<!-- A generic "No" button in dialogs -->
+	<string name="no">否</string>
+	<!-- E.g. "WiFi:Yes" -->
+	<string name="yes_available">是</string>
+	<!-- E.g. "WiFi:No" -->
+	<string name="no_available">否</string>
 	<string name="ok">好的</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">分类……</string>
@@ -655,6 +669,8 @@
 	<string name="enable_screen_sleep">允许屏幕进入休眠状态</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">启用后，屏幕将在一段时间不活动后进入休眠状态。</string>
+	<!-- OpenStreetMap text on splash screen -->
+	<string name="splash_subtitle">地图数据来自OpenStreetMap</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway">缆车要素</string>
@@ -682,6 +698,7 @@
 	<string name="type.amenity.bench">长凳</string>
 	<string name="type.amenity.bicycle_parking">自行车停车处</string>
 	<string name="type.amenity.bicycle_rental">自行车出租点</string>
+	<string name="type.amenity.bicycle_repair_station">自行车维修站</string>
 	<string name="type.amenity.biergarten">啤酒花园</string>
 	<string name="type.amenity.brothel">妓院</string>
 	<string name="type.amenity.bureau_de_change">货币兑换</string>
@@ -825,11 +842,13 @@
 	<string name="type.building.has_parts">建筑物</string>
 	<string name="type.building.train_station">火车站建筑</string>
 	<string name="type.building.warehouse">仓库</string>
+	<string name="type.cemetery.grave">墓穴</string>
 	<string name="type.craft">工艺作坊</string>
 	<string name="type.craft.brewery">酿酒厂</string>
 	<string name="type.craft.carpenter">木匠</string>
 	<string name="type.craft.electrician">电工</string>
 	<string name="type.craft.gardener">园艺工</string>
+	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">暖通工程师</string>
 	<string name="type.craft.metal_construction">金属制造工</string>
 	<string name="type.craft.painter">油漆匠</string>
@@ -932,41 +951,54 @@
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway">公路要素</string>
 	<string name="type.highway.bridleway">马道</string>
-	<string name="type.highway.bridleway.bridge">马道</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.bridleway.bridge">桥</string>
 	<string name="type.highway.bridleway.permissive">马道</string>
-	<string name="type.highway.bridleway.tunnel">马道</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.bridleway.tunnel">隧道</string>
 	<string name="type.highway.bus_stop">公交站</string>
 	<string name="type.highway.construction">在建道路</string>
 	<string name="type.highway.cycleway">自行车道</string>
-	<string name="type.highway.cycleway.bridge">自行车道</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.cycleway.bridge">桥</string>
 	<string name="type.highway.cycleway.permissive">自行车道</string>
-	<string name="type.highway.cycleway.tunnel">自行车道</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.cycleway.tunnel">隧道</string>
 	<string name="type.highway.footway">步行道路</string>
 	<string name="type.highway.footway.alpine_hiking">步行道路</string>
 	<string name="type.highway.footway.area">步行道路</string>
-	<string name="type.highway.footway.bridge">步行道路</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.footway.bridge">桥</string>
 	<string name="type.highway.footway.demanding_alpine_hiking">步行道路</string>
 	<string name="type.highway.footway.demanding_mountain_hiking">步行道路</string>
 	<string name="type.highway.footway.difficult_alpine_hiking">步行道路</string>
 	<string name="type.highway.footway.hiking">步行道路</string>
 	<string name="type.highway.footway.mountain_hiking">步行道路</string>
 	<string name="type.highway.footway.permissive">步行道路</string>
-	<string name="type.highway.footway.tunnel">步行道路</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.footway.tunnel">隧道</string>
 	<string name="type.highway.ford">浅滩</string>
 	<string name="type.highway.living_street">生活性街道</string>
-	<string name="type.highway.living_street.bridge">生活性街道</string>
-	<string name="type.highway.living_street.tunnel">生活性街道</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.living_street.bridge">桥</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.living_street.tunnel">隧道</string>
 	<string name="type.highway.motorway">高速公路</string>
-	<string name="type.highway.motorway.bridge">高速公路</string>
-	<string name="type.highway.motorway.tunnel">高速公路</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway.bridge">桥</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway.tunnel">隧道</string>
 	<string name="type.highway.motorway_junction">出口</string>
 	<string name="type.highway.motorway_link">高速公路连接路</string>
-	<string name="type.highway.motorway_link.bridge">高速公路连接路</string>
-	<string name="type.highway.motorway_link.tunnel">高速公路连接路</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway_link.bridge">桥</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway_link.tunnel">隧道</string>
 	<string name="type.highway.path">小道</string>
 	<string name="type.highway.path.alpine_hiking">小道</string>
 	<string name="type.highway.path.bicycle">小道</string>
-	<string name="type.highway.path.bridge">小道</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.path.bridge">桥</string>
 	<string name="type.highway.path.demanding_alpine_hiking">小道</string>
 	<string name="type.highway.path.demanding_mountain_hiking">小道</string>
 	<string name="type.highway.path.difficult_alpine_hiking">小道</string>
@@ -974,52 +1006,76 @@
 	<string name="type.highway.path.horse">小道</string>
 	<string name="type.highway.path.mountain_hiking">小道</string>
 	<string name="type.highway.path.permissive">小道</string>
-	<string name="type.highway.path.tunnel">小道</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.path.tunnel">隧道</string>
 	<string name="type.highway.pedestrian">步行街</string>
 	<string name="type.highway.pedestrian.area">步行区域</string>
-	<string name="type.highway.pedestrian.bridge">步行街</string>
-	<string name="type.highway.pedestrian.tunnel">步行街</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.pedestrian.bridge">桥</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.pedestrian.tunnel">隧道</string>
 	<string name="type.highway.primary">主要道路</string>
-	<string name="type.highway.primary.bridge">主要道路</string>
-	<string name="type.highway.primary.tunnel">主要道路</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary.bridge">桥</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary.tunnel">隧道</string>
 	<string name="type.highway.primary_link">主要道路连接路</string>
-	<string name="type.highway.primary_link.bridge">主要道路连接路</string>
-	<string name="type.highway.primary_link.tunnel">主要道路连接路</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary_link.bridge">桥</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary_link.tunnel">隧道</string>
 	<string name="type.highway.raceway">赛车场</string>
 	<string name="type.highway.residential">住宅区道路</string>
 	<string name="type.highway.residential.area">住宅区道路</string>
-	<string name="type.highway.residential.bridge">住宅区道路</string>
-	<string name="type.highway.residential.tunnel">住宅区道路</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.residential.bridge">桥</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.residential.tunnel">隧道</string>
 	<string name="type.highway.rest_area">休息区</string>
 	<string name="type.highway.road">道路</string>
-	<string name="type.highway.road.bridge">道路</string>
-	<string name="type.highway.road.tunnel">道路</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.road.bridge">桥</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.road.tunnel">隧道</string>
 	<string name="type.highway.secondary">次要道路</string>
-	<string name="type.highway.secondary.bridge">次要道路</string>
-	<string name="type.highway.secondary.tunnel">次要道路</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary.bridge">桥</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary.tunnel">隧道</string>
 	<string name="type.highway.secondary_link">次要道路连接路</string>
-	<string name="type.highway.secondary_link.bridge">次要道路连接路</string>
-	<string name="type.highway.secondary_link.tunnel">次要道路连接路</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary_link.bridge">桥</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary_link.tunnel">隧道</string>
 	<string name="type.highway.service">辅助道路</string>
 	<string name="type.highway.service.area">辅助道路</string>
-	<string name="type.highway.service.bridge">辅助道路</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.service.bridge">桥</string>
 	<string name="type.highway.service.driveway">车道</string>
 	<string name="type.highway.service.parking_aisle">停车场通道</string>
-	<string name="type.highway.service.tunnel">辅助道路</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.service.tunnel">隧道</string>
 	<string name="type.highway.services">服务区</string>
 	<string name="type.highway.speed_camera">超速摄像头</string>
 	<string name="type.highway.steps">阶梯</string>
-	<string name="type.highway.steps.bridge">阶梯</string>
-	<string name="type.highway.steps.tunnel">阶梯</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.steps.bridge">桥</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.steps.tunnel">隧道</string>
 	<string name="type.highway.tertiary">三级道路</string>
-	<string name="type.highway.tertiary.bridge">三级道路</string>
-	<string name="type.highway.tertiary.tunnel">三级道路</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary.bridge">桥</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary.tunnel">隧道</string>
 	<string name="type.highway.tertiary_link">三级道路连接路</string>
-	<string name="type.highway.tertiary_link.bridge">三级道路连接路</string>
-	<string name="type.highway.tertiary_link.tunnel">三级道路连接路</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary_link.bridge">桥</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary_link.tunnel">隧道</string>
 	<string name="type.highway.track">土路</string>
 	<string name="type.highway.track.area">土路</string>
-	<string name="type.highway.track.bridge">土路</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.track.bridge">桥</string>
 	<string name="type.highway.track.grade1">土路</string>
 	<string name="type.highway.track.grade2">土路</string>
 	<string name="type.highway.track.grade3">土路</string>
@@ -1027,18 +1083,25 @@
 	<string name="type.highway.track.grade5">土路</string>
 	<string name="type.highway.track.no.access">土路</string>
 	<string name="type.highway.track.permissive">土路</string>
-	<string name="type.highway.track.tunnel">土路</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.track.tunnel">隧道</string>
 	<string name="type.highway.traffic_signals">交通信号灯</string>
 	<string name="type.highway.trunk">干线道路</string>
-	<string name="type.highway.trunk.bridge">干线道路</string>
-	<string name="type.highway.trunk.tunnel">干线道路</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk.bridge">桥</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk.tunnel">隧道</string>
 	<string name="type.highway.trunk_link">干线道路连接路</string>
-	<string name="type.highway.trunk_link.bridge">干线道路连接路</string>
-	<string name="type.highway.trunk_link.tunnel">干线道路连接路</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk_link.bridge">桥</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk_link.tunnel">隧道</string>
 	<string name="type.highway.unclassified">道路</string>
 	<string name="type.highway.unclassified.area">道路</string>
-	<string name="type.highway.unclassified.bridge">道路</string>
-	<string name="type.highway.unclassified.tunnel">道路</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.unclassified.bridge">桥</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.unclassified.tunnel">隧道</string>
 	<string name="type.area_highway.cycleway">自行车道</string>
 	<string name="type.area_highway.footway">步行道路</string>
 	<string name="type.area_highway.living_street">生活性街道</string>
@@ -1133,10 +1196,8 @@
 	<string name="type.leisure.sauna">桑拿</string>
 	<string name="type.leisure.slipway">船台</string>
 	<string name="type.leisure.sports_centre">体育中心</string>
-	<string name="type.leisure.sports_centre.climbing">攀登中心</string>
-	<string name="type.leisure.sports_centre.shooting">射击场</string>
-	<string name="type.leisure.sports_centre.swimming">游泳中心</string>
-	<string name="type.leisure.sports_centre.yoga">瑜伽工作室</string>
+	<string name="type.sport.climbing">攀登中心</string>
+	<string name="type.sport.yoga">瑜伽工作室</string>
 	<string name="type.leisure.stadium">体育场</string>
 	<string name="type.leisure.swimming_pool">游泳池</string>
 	<string name="type.leisure.swimming_pool.private">游泳池</string>
@@ -1164,32 +1225,42 @@
 	<string name="type.natural.bare_rock">岩石</string>
 	<string name="type.natural.bay">海湾</string>
 	<string name="type.natural.beach">海滩</string>
+	<string name="type.natural.beach.sand">沙滩</string>
+	<string name="type.natural.beach.gravel">砾石海滩</string>
 	<string name="type.natural.cape">海角</string>
 	<string name="type.natural.cave_entrance">洞口</string>
-	<string name="type.natural.cliff">峭壁</string>
+	<string name="type.natural.cliff">悬崖</string>
+	<string name="type.natural.earth_bank">悬崖</string>
+	<string name="type.man_made.embankment">路堤</string>
 	<string name="type.natural.coastline">海岸线</string>
 	<string name="type.natural.geyser">间歇泉</string>
 	<string name="type.natural.glacier">冰川</string>
 	<string name="type.natural.grassland">草原</string>
-	<string name="type.natural.heath">荒野</string>
+	<string name="type.natural.heath">石楠荒原</string>
 	<string name="type.natural.hot_spring">温泉</string>
 	<string name="type.natural.water.lake">湖</string>
+	<string name="type.natural.water.lock">船闸</string>
 	<string name="type.natural.water.pond">池塘</string>
 	<string name="type.natural.water.reservoir">水库</string>
 	<string name="type.natural.water.basin">水盆地</string>
 	<string name="type.natural.water.river">河流</string>
+	<string name="type.natural.land">陆地</string>
+	<string name="type.natural.meadow">草甸</string>
+	<string name="type.natural.orchard">果园</string>
 	<string name="type.natural.peak">峰</string>
+	<string name="type.natural.saddle">山坳</string>
 	<string name="type.natural.rock">岩石</string>
 	<string name="type.natural.scrub">灌木丛</string>
 	<string name="type.natural.spring">泉水</string>
 	<string name="type.natural.strait">海峡</string>
 	<string name="type.natural.tree">树</string>
 	<string name="type.natural.tree_row">树列</string>
+	<string name="type.natural.vineyard">葡萄园</string>
 	<string name="type.natural.volcano">火山</string>
 	<string name="type.natural.water">水體</string>
 	<string name="type.natural.wetland">湿地</string>
 	<string name="type.natural.wetland.bog">泥炭地</string>
-	<string name="type.natural.wetland.marsh">沼泽地</string>
+	<string name="type.natural.wetland.marsh">草沼</string>
 	<string name="type.office">办公地点</string>
 	<string name="type.office.company">企业公司</string>
 	<string name="type.office.estate_agent">地产中介</string>
@@ -1323,22 +1394,28 @@
 	<string name="type.shop.convenience">便利店</string>
 	<string name="type.shop.copyshop">复印店</string>
 	<string name="type.shop.cosmetics">化妝品店</string>
+	<string name="type.shop.deli">熟食店</string>
 	<string name="type.shop.department_store">百货商场</string>
 	<string name="type.shop.doityourself">家居用品店</string>
 	<string name="type.shop.dry_cleaning">干洗店</string>
 	<string name="type.shop.electronics">电子产品商店</string>
 	<string name="type.shop.erotic">成人用品店</string>
 	<string name="type.shop.fabric">商店</string>
+	<string name="type.shop.farm">农场食品店</string>
 	<string name="type.shop.florist">花店</string>
 	<string name="type.shop.funeral_directors">殡仪馆</string>
 	<string name="type.shop.furniture">家具店</string>
 	<string name="type.shop.garden_centre">幼儿园</string>
 	<string name="type.shop.gift">礼品店</string>
 	<string name="type.shop.greengrocer">蔬果零售店</string>
+	<string name="type.shop.grocery">杂货店</string>
 	<string name="type.shop.hairdresser">理发师</string>
-	<string name="type.shop.hardware">硬件店</string>
+	<string name="type.shop.hardware">五金店</string>
+	<string name="type.shop.health_food">保健食品店</string>
+	<string name="type.shop.houseware">家居用品店</string>
 	<string name="type.shop.jewelry">珠宝店</string>
 	<string name="type.shop.kiosk">商店</string>
+	<string name="type.shop.kitchen">厨房用品店</string>
 	<string name="type.shop.laundry">洗衣店</string>
 	<string name="type.shop.mall">商场</string>
 	<string name="type.shop.massage">按摩院</string>
@@ -1350,10 +1427,12 @@
 	<string name="type.shop.newsagent">报刊亭</string>
 	<string name="type.shop.optician">眼镜店</string>
 	<string name="type.shop.outdoor">室外设备</string>
+	<string name="type.shop.pastry">糕点</string>
 	<string name="type.shop.pawnbroker">典当商铺</string>
 	<string name="type.shop.pet">宠物店</string>
 	<string name="type.shop.photo">照片店</string>
 	<string name="type.shop.seafood">鱼商</string>
+	<string name="type.shop.second_hand">二手店</string>
 	<string name="type.shop.shoes">鞋店</string>
 	<string name="type.shop.sports">体育用品店</string>
 	<string name="type.shop.stationery">文具店</string>
@@ -1368,21 +1447,58 @@
 	<string name="type.shop.video">影像店</string>
 	<string name="type.shop.video_games">电子游戏店</string>
 	<string name="type.shop.wine">酒品商店</string>
-	<string name="type.sport.athletics">田径</string>
+	<string name="type.shop.antiques">古董</string>
+	<string name="type.shop.art">艺术商店</string>
+	<string name="type.shop.baby_goods">儿童商店</string>
+	<string name="type.shop.bag">箱包店</string>
+	<string name="type.shop.boutique">精品店</string>
+	<string name="type.shop.charity">慈善商店</string>
+	<string name="type.shop.cheese">奶酪店</string>
+	<string name="type.shop.craft">美术和工艺</string>
+	<string name="type.shop.dairy">乳制品</string>
+	<string name="type.shop.electrical">电器商城</string>
+	<string name="type.shop.fishing">钓鱼店</string>
+	<string name="type.shop.interior_decoration">室内装饰</string>
+	<string name="type.shop.lottery">彩票</string>
+	<string name="type.shop.medical_supply">医疗用品</string>
+	<string name="type.shop.nutrition_supplements">营养补充剂</string>
+	<string name="type.shop.paint">油漆</string>
+	<string name="type.shop.perfumery">香水</string>
+	<string name="type.shop.sewing">缝纫用品</string>
+	<string name="type.shop.storage_rental">存储租赁</string>
+	<string name="type.shop.tobacco">烟草</string>
+	<string name="type.shop.trade">贸易用品</string>
+	<string name="type.shop.watches">手表</string>
+	<string name="type.shop.wholesale">批发店</string>
+	<string name="type.sport">体育运动</string>
+	<string name="type.sport.american_football">美式足球</string>
+	<string name="type.sport.archery">射箭</string>
+	<string name="type.sport.athletics">竞技</string>
+	<string name="type.sport.australian_football">澳式足球</string>
 	<string name="type.sport.baseball">棒球</string>
 	<string name="type.sport.basketball">篮球</string>
-	<string name="type.sport.bowls">保龄球</string>
+	<string name="type.sport.beachvolleyball">沙滩排球</string>
+	<string name="type.sport.bowls">草地滾球</string>
+	<string name="type.sport.chess">国际象棋</string>
 	<string name="type.sport.cricket">板球</string>
-	<string name="type.sport.diving">跳水</string>
+	<string name="type.sport.curling">冰壶</string>
 	<string name="type.sport.equestrian">马术运动</string>
 	<string name="type.sport.golf">高尔夫球</string>
 	<string name="type.sport.gymnastics">体操</string>
 	<string name="type.sport.handball">手球</string>
-	<string name="type.sport.multi">多元</string>
+	<string name="type.sport.multi">各种运动</string>
+	<!-- Used to tag a scuba diving site. -->
+	<string name="type.sport.scuba_diving">水肺潜水</string>
 	<string name="type.sport.shooting">射击</string>
+	<string name="type.sport.skateboard">滑板活动</string>
+	<string name="type.sport.skiing">滑雪</string>
 	<string name="type.sport.soccer">足球</string>
 	<string name="type.sport.swimming">游泳</string>
+	<string name="type.sport.table_tennis">乒乓球</string>
 	<string name="type.sport.tennis">网球场</string>
+	<string name="type.sport.volleyball">排球</string>
+	<string name="type.sport.9pin">保龄球</string>
+	<string name="type.sport.10pin">保龄球</string>
 	<string name="type.tourism">旅游要素</string>
 	<string name="type.tourism.alpine_hut">山上住宿</string>
 	<string name="type.tourism.apartment">公寓</string>
@@ -1402,8 +1518,8 @@
 	<string name="type.tourism.hostel">旅舍</string>
 	<string name="type.tourism.hotel">旅店</string>
 	<string name="type.tourism.information">旅游问询处</string>
-	<string name="type.tourism.information.board">公告板</string>
-	<string name="type.tourism.information.guidepost">旅游信息</string>
+	<string name="type.tourism.information.board">标示</string>
+	<string name="type.tourism.information.guidepost">指路牌</string>
 	<string name="type.tourism.information.map">旅游地图</string>
 	<string name="type.tourism.information.office">旅游咨询中心</string>
 	<string name="type.tourism.motel">汽车旅馆</string>
@@ -1438,4 +1554,5 @@
 	<string name="type.wheelchair.no">未配备残疾人专用</string>
 	<string name="type.wheelchair.yes">配备残疾人专用</string>
 	<string name="type.building_part">建筑部分</string>
+	<string name="type.amenity.events_venue">活动场所</string>
 </resources>

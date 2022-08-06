@@ -413,7 +413,7 @@ struct CitiesBoundariesSerDes
 
     auto const wx = mercator::Bounds::kRangeX;
     auto const wy = mercator::Bounds::kRangeY;
-    precision = std::max(wx, wy) / pow(2, header.m_coordBits);
+    precision = std::max(wx, wy) / double(1 << header.m_coordBits);
 
     serial::GeometryCodingParams const params(
         header.m_coordBits, m2::PointD(mercator::Bounds::kMinX, mercator::Bounds::kMinY));

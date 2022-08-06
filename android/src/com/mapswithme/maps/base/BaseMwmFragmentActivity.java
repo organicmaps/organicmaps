@@ -16,7 +16,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.SplashActivity;
@@ -26,11 +25,12 @@ import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.LoggerFactory;
 
 public abstract class BaseMwmFragmentActivity extends AppCompatActivity
                                   implements BaseActivity
 {
+  private static final String TAG = BaseMwmFragmentActivity.class.getSimpleName();
+
   private final BaseActivityDelegate mBaseDelegate = new BaseActivityDelegate(this);
   private boolean mSafeCreated;
 
@@ -280,9 +280,7 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
     }
     catch (ClassCastException e)
     {
-      Logger logger = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
-      String tag = this.getClass().getSimpleName();
-      logger.i(tag, "Fragment '" + currentFragment + "' doesn't handle back press by itself.");
+      Logger.i(TAG, "Fragment '" + currentFragment + "' doesn't handle back press by itself.");
       return false;
     }
   }

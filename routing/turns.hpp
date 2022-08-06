@@ -63,9 +63,6 @@ private:
 
 namespace turns
 {
-/// @todo(vbykoianko) It's a good idea to gather all the turns information into one entity.
-/// For the time being several separate entities reflect the turn information. Like Route::TTurns
-
 double constexpr kFeaturesNearTurnMeters = 3.0;
 
 /*!
@@ -162,19 +159,18 @@ struct TurnItem
       : m_index(std::numeric_limits<uint32_t>::max()),
         m_turn(CarDirection::None),
         m_exitNum(0),
-        m_keepAnyway(false),
         m_pedestrianTurn(PedestrianDirection::None)
   {
   }
 
   TurnItem(uint32_t idx, CarDirection t, uint32_t exitNum = 0)
-      : m_index(idx), m_turn(t), m_exitNum(exitNum), m_keepAnyway(false)
+      : m_index(idx), m_turn(t), m_exitNum(exitNum)
       , m_pedestrianTurn(PedestrianDirection::None)
   {
   }
 
   TurnItem(uint32_t idx, PedestrianDirection p)
-      : m_index(idx), m_turn(CarDirection::None), m_exitNum(0), m_keepAnyway(false)
+      : m_index(idx), m_turn(CarDirection::None), m_exitNum(0)
       , m_pedestrianTurn(p)
   {
   }
@@ -182,9 +178,7 @@ struct TurnItem
   bool operator==(TurnItem const & rhs) const
   {
     return m_index == rhs.m_index && m_turn == rhs.m_turn && m_lanes == rhs.m_lanes &&
-           m_exitNum == rhs.m_exitNum && m_sourceName == rhs.m_sourceName &&
-           m_targetName == rhs.m_targetName && m_keepAnyway == rhs.m_keepAnyway &&
-           m_pedestrianTurn == rhs.m_pedestrianTurn;
+           m_exitNum == rhs.m_exitNum && m_pedestrianTurn == rhs.m_pedestrianTurn;
   }
 
   bool IsTurnReachedYourDestination() const
@@ -198,17 +192,10 @@ struct TurnItem
     return m_turn == CarDirection::None && m_pedestrianTurn == PedestrianDirection::None;
   }
 
-  uint32_t m_index;                    /*!< Index of point on route polyline (number of segment + 1). */
+  uint32_t m_index;                    /*!< Index of point on route polyline (Index of segment + 1). */
   CarDirection m_turn = CarDirection::None; /*!< The turn instruction of the TurnItem */
   std::vector<SingleLaneInfo> m_lanes; /*!< Lane information on the edge before the turn. */
   uint32_t m_exitNum;                  /*!< Number of exit on roundabout. */
-  std::string m_sourceName;            /*!< Name of the street which the ingoing edge belongs to */
-  std::string m_targetName;            /*!< Name of the street which the outgoing edge belongs to */
-  /*!
-   * \brief m_keepAnyway is true if the turn shall not be deleted
-   * and shall be demonstrated to an end user.
-   */
-  bool m_keepAnyway;
   /*!
    * \brief m_pedestrianTurn is type of corresponding direction for a pedestrian, or None
    * if there is no pedestrian specific direction
@@ -232,7 +219,7 @@ struct TurnItemDist
 
 std::string DebugPrint(TurnItemDist const & turnItemDist);
 
-std::string const GetTurnString(CarDirection turn);
+std::string GetTurnString(CarDirection turn);
 
 bool IsLeftTurn(CarDirection t);
 bool IsRightTurn(CarDirection t);

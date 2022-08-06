@@ -26,13 +26,10 @@
 /* Leave Review dialog - Review button */
 "leave_a_review" = "Laat een review achter";
 
-/* View and button titles for accessibility */
-"maps" = "Kaarten";
-
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "Mijlen";
 
-/* View and button titles for accessibility */
+/* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Mijn locatie";
 
 /* Update maps later/Buy pro version later button text */
@@ -145,6 +142,9 @@
 
 /* Search category for police; any changes should be duplicated in categories.txt @police! */
 "police" = "Politie";
+
+/* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
+"wifi" = "WiFi";
 
 /* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
 "recycling" = "Recycling";
@@ -261,6 +261,9 @@
 /* Text in menu */
 "website" = "Website";
 
+/* Text in About menu, opens Organic Maps news website */
+"news" = "Nieuws";
+
 /* Text in menu */
 "github" = "GitHub";
 
@@ -312,13 +315,10 @@
 /* Settings item title */
 "pref_calibration_title" = "Kompascalibratie";
 
-/* Search category */
-"wifi" = "WiFi";
-
 /* Update all button text */
 "downloader_update_all_button" = "Update alles";
 
-/* Downloaded maps category */
+/* Downloaded maps list header */
 "downloader_downloaded_subtitle" = "Gedownload";
 
 /* Downloaded maps category */
@@ -329,6 +329,7 @@
 
 "downloader_near_me_subtitle" = "Bij mij in de buurt";
 
+/* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
 "downloader_status_maps" = "Kaarten";
 
 "downloader_download_all_button" = "Alles downloaden";
@@ -419,9 +420,6 @@
 /* blue gray color */
 "blue_gray" = "Grijsblauw";
 
-/* Wi-Fi available */
-"WiFi_available" = "Ja";
-
 
 /********** Routing dialogs strings **********/
 
@@ -504,6 +502,10 @@
 "categories" = "Categorieën";
 
 "history" = "Geschiedenis";
+
+"opens_in" = "Opens in %@";
+
+"closes_in" = "Closes in %@";
 
 "closed" = "Gesloten";
 
@@ -743,9 +745,12 @@
 
 "mile" = "mijl";
 
+/* A unit of measure */
 "foot" = "voet";
 
 "miles_per_hour" = "mph";
+
+"minute" = "min";
 
 "placepage_place_description" = "Beschrijving";
 
@@ -884,7 +889,7 @@
 
 "error_enter_correct_name" = "Voer een juiste naam in";
 
-"bookmark_lists" = "lijsten";
+"bookmark_lists" = "Lijsten";
 
 /* Do not display all bookmark lists on the map */
 "bookmark_lists_hide_all" = "Alles verbergen";
@@ -937,7 +942,7 @@
 
 "button_layer_subway" = "Metro";
 
-"layers_title" = "Map layers";
+"layers_title" = "Kaartweergave";
 
 "subway_data_unavailable" = "Metrokaart is niet beschikbaar";
 
@@ -981,17 +986,17 @@
 
 "power_managment_setting_manual_max" = "Maximale energiebesparing";
 
-"driving_options_title" = "Omweginstellingen";
+"driving_options_title" = "Route instellingen";
 
 "driving_options_subheader" = "Vermijden op elke route";
 
 "avoid_tolls" = "Tolwegen";
 
-"avoid_unpaved" = "Aardewegen";
+"avoid_unpaved" = "Onverharde wegen";
 
-"avoid_ferry" = "Ferries";
+"avoid_ferry" = "Veerdiensten";
 
-"avoid_motorways" = "Hoofdverkeerswegen";
+"avoid_motorways" = "Autosnelwegen";
 
 "unable_to_calc_alert_title" = "Kan route niet opbouwen";
 
@@ -1025,9 +1030,17 @@
 
 "redirect_route_alert" = "Wilt u de route wijzigen?";
 
-"redirect_route_yes" = "Ja";
+/* A generic "Yes" button in dialogs */
+"yes" = "Ja";
 
-"redirect_route_no" = "Nee";
+/* A generic "No" button in dialogs */
+"no" = "Nee";
+
+/* E.g. "WiFi:Yes" */
+"yes_available" = "Ja";
+
+/* E.g. "WiFi:No" */
+"no_available" = "Nee";
 
 "trip_finished" = "U bent aangekomen!";
 
@@ -1245,6 +1258,8 @@
 
 "type.amenity.bicycle_rental" = "Fietsverhuur";
 
+"type.amenity.bicycle_repair_station" = "Fiets reparatie station";
+
 "type.amenity.biergarten" = "Biergarten";
 
 "type.amenity.brothel" = "Bordeel";
@@ -1442,11 +1457,21 @@
 
 "type.amenity.vending_machine.cigarettes" = "Sigarettenautomaat";
 
+"type.amenity.vending_machine.coffee" = "Coffee Dispenser";
+
+"type.amenity.vending_machine.condoms" = "Condoms Dispenser";
+
 "type.amenity.vending_machine.drinks" = "Drankautomaat";
+
+"type.amenity.vending_machine.food" = "Food Dispenser";
+
+"type.amenity.vending_machine.newspapers" = "Newspapers Dispenser";
 
 "type.amenity.vending_machine.parking_tickets" = "Betaalautomaat parkeergarage";
 
 "type.amenity.vending_machine.public_transport_tickets" = "Kaartjesautomaat voor openbaar vervoer";
+
+"type.amenity.vending_machine.sweets" = "Sweets Dispenser";
 
 "type.amenity.vending_machine.excrement_bags" = "Excrement Bags Dispenser";
 
@@ -1552,16 +1577,29 @@
 
 "type.building.warehouse" = "Warehouse";
 
+"type.cemetery.grave" = "Graf";
+
 "type.craft" = "Craft";
+
+"type.craft.beekeeper" = "Beekeeper";
+
+"type.craft.blacksmith" = "Blacksmith";
 
 "type.craft.brewery" = "Brouwerij";
 
 "type.craft.carpenter" = "Timmerman";
 
+"type.craft.confectionery" = "Confectionery";
+
 "type.craft.electrician" = "Elektricien";
+
+"type.craft.electronics_repair" = "Electronics Repair";
 
 "type.craft.gardener" = "Tuinarchitect";
 
+"type.craft.handicraft" = "Handicraft";
+
+/* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Airconditioning";
 
 "type.craft.metal_construction" = "Metaalarbeider";
@@ -1572,7 +1610,11 @@
 
 "type.craft.plumber" = "Loodgieter";
 
+"type.craft.sawmill" = "Sawmill";
+
 "type.craft.shoemaker" = "Schoenmaker";
+
+"type.craft.winery" = "Winery";
 
 "type.craft.tailor" = "Kleermaker";
 
@@ -1601,6 +1643,8 @@
 "type.cuisine.brazilian" = "Braziliaans";
 
 "type.cuisine.breakfast" = "Ontbijt";
+
+"type.cuisine.bubble_tea" = "Bubble Tea";
 
 "type.cuisine.burger" = "Hamburgers";
 
@@ -1765,11 +1809,13 @@
 
 "type.highway.bridleway" = "Bridle Path";
 
-"type.highway.bridleway.bridge" = "Bridle Path";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.bridleway.bridge" = "Brug";
 
 "type.highway.bridleway.permissive" = "Bridle Path";
 
-"type.highway.bridleway.tunnel" = "Bridle Path";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.bridleway.tunnel" = "Tunnel";
 
 "type.highway.bus_stop" = "Bushalte";
 
@@ -1777,11 +1823,13 @@
 
 "type.highway.cycleway" = "Cycle Path";
 
-"type.highway.cycleway.bridge" = "Cycle Path";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.cycleway.bridge" = "Brug";
 
 "type.highway.cycleway.permissive" = "Cycle Path";
 
-"type.highway.cycleway.tunnel" = "Cycle Path";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.cycleway.tunnel" = "Tunnel";
 
 "type.highway.elevator" = "Elevator";
 
@@ -1791,7 +1839,8 @@
 
 "type.highway.footway.area" = "Pad";
 
-"type.highway.footway.bridge" = "Pad";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.footway.bridge" = "Brug";
 
 "type.highway.footway.demanding_alpine_hiking" = "Pad";
 
@@ -1805,29 +1854,36 @@
 
 "type.highway.footway.permissive" = "Pad";
 
-"type.highway.footway.tunnel" = "Pad";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.footway.tunnel" = "Tunnel";
 
 "type.highway.ford" = "Voorde";
 
 "type.highway.living_street" = "Straat";
 
-"type.highway.living_street.bridge" = "Straat";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.living_street.bridge" = "Brug";
 
-"type.highway.living_street.tunnel" = "Straat";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.living_street.tunnel" = "Tunnel";
 
 "type.highway.motorway" = "Straat";
 
-"type.highway.motorway.bridge" = "Straat";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway.bridge" = "Brug";
 
-"type.highway.motorway.tunnel" = "Straat";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway.tunnel" = "Tunnel";
 
 "type.highway.motorway_junction" = "Afrit";
 
 "type.highway.motorway_link" = "Straat";
 
-"type.highway.motorway_link.bridge" = "Straat";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway_link.bridge" = "Brug";
 
-"type.highway.motorway_link.tunnel" = "Straat";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway_link.tunnel" = "Tunnel";
 
 "type.highway.path" = "Pad";
 
@@ -1835,7 +1891,8 @@
 
 "type.highway.path.bicycle" = "Pad";
 
-"type.highway.path.bridge" = "Pad";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.path.bridge" = "Brug";
 
 "type.highway.path.demanding_alpine_hiking" = "Pad";
 
@@ -1851,27 +1908,34 @@
 
 "type.highway.path.permissive" = "Pad";
 
-"type.highway.path.tunnel" = "Pad";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.path.tunnel" = "Tunnel";
 
 "type.highway.pedestrian" = "Straat";
 
 "type.highway.pedestrian.area" = "Straat";
 
-"type.highway.pedestrian.bridge" = "Straat";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.pedestrian.bridge" = "Brug";
 
-"type.highway.pedestrian.tunnel" = "Straat";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.pedestrian.tunnel" = "Tunnel";
 
 "type.highway.primary" = "Straat";
 
-"type.highway.primary.bridge" = "Straat";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary.bridge" = "Brug";
 
-"type.highway.primary.tunnel" = "Straat";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary.tunnel" = "Tunnel";
 
 "type.highway.primary_link" = "Straat";
 
-"type.highway.primary_link.bridge" = "Straat";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary_link.bridge" = "Brug";
 
-"type.highway.primary_link.tunnel" = "Straat";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary_link.tunnel" = "Tunnel";
 
 "type.highway.raceway" = "Racebaan";
 
@@ -1879,41 +1943,51 @@
 
 "type.highway.residential.area" = "Straat";
 
-"type.highway.residential.bridge" = "Straat";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.residential.bridge" = "Brug";
 
-"type.highway.residential.tunnel" = "Straat";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.residential.tunnel" = "Tunnel";
 
 "type.highway.rest_area" = "Parkeerplaats";
 
 "type.highway.road" = "Straat";
 
-"type.highway.road.bridge" = "Straat";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.road.bridge" = "Brug";
 
-"type.highway.road.tunnel" = "Straat";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.road.tunnel" = "Tunnel";
 
 "type.highway.secondary" = "Straat";
 
-"type.highway.secondary.bridge" = "Straat";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary.bridge" = "Brug";
 
-"type.highway.secondary.tunnel" = "Straat";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary.tunnel" = "Tunnel";
 
 "type.highway.secondary_link" = "Straat";
 
-"type.highway.secondary_link.bridge" = "Straat";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary_link.bridge" = "Brug";
 
-"type.highway.secondary_link.tunnel" = "Straat";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary_link.tunnel" = "Tunnel";
 
 "type.highway.service" = "Straat";
 
 "type.highway.service.area" = "Straat";
 
-"type.highway.service.bridge" = "Straat";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.service.bridge" = "Brug";
 
 "type.highway.service.driveway" = "Straat";
 
 "type.highway.service.parking_aisle" = "Straat";
 
-"type.highway.service.tunnel" = "Straat";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.service.tunnel" = "Tunnel";
 
 "type.highway.services" = "Service Area";
 
@@ -1921,27 +1995,34 @@
 
 "type.highway.steps" = "Pad";
 
-"type.highway.steps.bridge" = "Pad";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.steps.bridge" = "Brug";
 
-"type.highway.steps.tunnel" = "Pad";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.steps.tunnel" = "Tunnel";
 
 "type.highway.tertiary" = "Straat";
 
-"type.highway.tertiary.bridge" = "Straat";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary.bridge" = "Brug";
 
-"type.highway.tertiary.tunnel" = "Straat";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary.tunnel" = "Tunnel";
 
 "type.highway.tertiary_link" = "Straat";
 
-"type.highway.tertiary_link.bridge" = "Straat";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary_link.bridge" = "Brug";
 
-"type.highway.tertiary_link.tunnel" = "Straat";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary_link.tunnel" = "Tunnel";
 
 "type.highway.track" = "Straat";
 
 "type.highway.track.area" = "Straat";
 
-"type.highway.track.bridge" = "Straat";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.track.bridge" = "Brug";
 
 "type.highway.track.grade1" = "Straat";
 
@@ -1957,29 +2038,36 @@
 
 "type.highway.track.permissive" = "Straat";
 
-"type.highway.track.tunnel" = "Straat";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.track.tunnel" = "Tunnel";
 
 "type.highway.traffic_signals" = "Verkeerslichten";
 
 "type.highway.trunk" = "Straat";
 
-"type.highway.trunk.bridge" = "Straat";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk.bridge" = "Brug";
 
-"type.highway.trunk.tunnel" = "Straat";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk.tunnel" = "Tunnel";
 
 "type.highway.trunk_link" = "Straat";
 
-"type.highway.trunk_link.bridge" = "Straat";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk_link.bridge" = "Brug";
 
-"type.highway.trunk_link.tunnel" = "Straat";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk_link.tunnel" = "Tunnel";
 
 "type.highway.unclassified" = "Straat";
 
 "type.highway.unclassified.area" = "Straat";
 
-"type.highway.unclassified.bridge" = "Straat";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.unclassified.bridge" = "Brug";
 
-"type.highway.unclassified.tunnel" = "Straat";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.unclassified.tunnel" = "Tunnel";
 
 "type.area_highway.cycleway" = "Cycle Path";
 
@@ -2110,6 +2198,8 @@
 
 "type.landuse.construction" = "Construction";
 
+"type.landuse.education" = "Educational Facilities";
+
 "type.landuse.farm" = "Farm";
 
 "type.landuse.farmland" = "Landbouwgrond";
@@ -2206,13 +2296,9 @@
 
 "type.leisure.sports_centre" = "Sportcentrum";
 
-"type.leisure.sports_centre.climbing" = "Klimhal";
+"type.sport.climbing" = "Klimhal";
 
-"type.leisure.sports_centre.shooting" = "Schietbaan";
-
-"type.leisure.sports_centre.swimming" = "Zwembad";
-
-"type.leisure.sports_centre.yoga" = "Yogastudio";
+"type.sport.yoga" = "Yogastudio";
 
 "type.leisure.stadium" = "Stadium";
 
@@ -2235,6 +2321,8 @@
 "type.man_made.chimney" = "Fabrieksschoorsteen";
 
 "type.man_made.cutline" = "Cutline";
+
+"type.man_made.survey_point" = "Survey Point";
 
 "type.man_made.flagpole" = "Flagpole";
 
@@ -2286,9 +2374,9 @@
 
 "type.natural.beach" = "Strand";
 
-"type.natural.beach.sand" = "Sandy Beach";
+"type.natural.beach.sand" = "Zandstrand";
 
-"type.natural.beach.gravel" = "Gravel Beach";
+"type.natural.beach.gravel" = "Kiezelstrand";
 
 "type.natural.cape" = "Kaap";
 
@@ -2296,19 +2384,25 @@
 
 "type.natural.cliff" = "Klif";
 
+"type.natural.earth_bank" = "Klif";
+
+"type.man_made.embankment" = "Baanlichaam";
+
 "type.natural.coastline" = "Kustlijn";
 
 "type.natural.geyser" = "Geiser";
 
 "type.natural.glacier" = "Gletsjer";
 
-"type.natural.grassland" = "Veld";
+"type.natural.grassland" = "Grasland";
 
 "type.natural.heath" = "Heide";
 
 "type.natural.hot_spring" = "Heetwaterbron";
 
 "type.natural.water.lake" = "Meer";
+
+"type.natural.water.lock" = "Slotkamer";
 
 "type.natural.water.pond" = "Plas";
 
@@ -2326,7 +2420,7 @@
 
 "type.natural.peak" = "Top";
 
-"type.natural.saddle" = "Mountain Saddle";
+"type.natural.saddle" = "Bergzadel";
 
 "type.natural.rock" = "Steen";
 
@@ -2369,6 +2463,10 @@
 "type.office.ngo" = "NGO-kantoor";
 
 "type.office.telecommunication" = "Mobiele provider";
+
+"type.organic.only" = "Biologisch";
+
+"type.organic.yes" = "Biologisch";
 
 "type.place" = "place";
 
@@ -2664,6 +2762,8 @@
 
 "type.shop.cosmetics" = "Schoonheidsmiddelen";
 
+"type.shop.deli" = "Delicatessenwinkel";
+
 "type.shop.department_store" = "Warenhuis";
 
 "type.shop.doityourself" = "Ijzerhandel";
@@ -2675,6 +2775,8 @@
 "type.shop.erotic" = "Erotiekwinkel";
 
 "type.shop.fabric" = "Winkel";
+
+"type.shop.farm" = "Boerderijwinkel";
 
 "type.shop.florist" = "Bloemist";
 
@@ -2688,13 +2790,21 @@
 
 "type.shop.greengrocer" = "Groentenwinkel";
 
+"type.shop.grocery" = "Boodschap";
+
 "type.shop.hairdresser" = "Kapper";
 
-"type.shop.hardware" = "Ijzerhandel";
+"type.shop.hardware" = "Ijzerwaren";
+
+"type.shop.health_food" = "Natuurvoedingswinkel";
+
+"type.shop.houseware" = "Huishoudelijke winkel";
 
 "type.shop.jewelry" = "Juwelier";
 
 "type.shop.kiosk" = "Kiosk";
+
+"type.shop.kitchen" = "Keukenwinkel";
 
 "type.shop.laundry" = "Wasserette";
 
@@ -2718,6 +2828,8 @@
 
 "type.shop.outdoor" = "Outdooruitrusting";
 
+"type.shop.pastry" = "Gebakje";
+
 "type.shop.pawnbroker" = "Pandjesbaas";
 
 "type.shop.pet" = "Dierenwinkel";
@@ -2725,6 +2837,8 @@
 "type.shop.photo" = "Fotowinkel";
 
 "type.shop.seafood" = "Visboer";
+
+"type.shop.second_hand" = "Tweedehandswinkel";
 
 "type.shop.shoes" = "Schoenenwinkel";
 
@@ -2754,49 +2868,108 @@
 
 "type.shop.wine" = "Wijn";
 
-"type.sport" = "sport";
+"type.shop.antiques" = "Antiek";
 
-"type.sport.american_football" = "American Football";
+"type.shop.art" = "Kunstwinkel";
 
-"type.sport.archery" = "Archery";
+"type.shop.baby_goods" = "Kinderwinkel";
+
+"type.shop.bag" = "Tassenwinkel";
+
+"type.shop.boutique" = "Boetiek";
+
+"type.shop.charity" = "Kringloopwinkel";
+
+"type.shop.cheese" = "Kaaswinkel";
+
+"type.shop.craft" = "Kunst en ambacht";
+
+"type.shop.dairy" = "Zuivelproducten";
+
+"type.shop.electrical" = "Witgoed winkel";
+
+"type.shop.fishing" = "Viswinkel";
+
+"type.shop.interior_decoration" = "Interieurdecoraties";
+
+"type.shop.lottery" = "Loten";
+
+"type.shop.medical_supply" = "Medische benodigdheden";
+
+"type.shop.nutrition_supplements" = "Voedingssupplementen";
+
+"type.shop.paint" = "Verven";
+
+"type.shop.perfumery" = "Parfumerie";
+
+"type.shop.sewing" = "Naaibenodigdheden";
+
+"type.shop.storage_rental" = "Opslag verhuur";
+
+"type.shop.tobacco" = "Tabak";
+
+"type.shop.trade" = "Handelsbenodigdheden";
+
+"type.shop.watches" = "Horloges";
+
+"type.shop.wholesale" = "Groothandel winkel";
+
+"type.sport" = "Sport";
+
+"type.sport.american_football" = "Amerikaans voetbal";
+
+"type.sport.archery" = "Boogschieten";
 
 "type.sport.athletics" = "Atletiek";
 
-"type.sport.australian_football" = "Rugby";
+"type.sport.australian_football" = "Australian football";
 
-"type.sport.baseball" = "Baseball";
+"type.sport.baseball" = "Basketbal";
 
 "type.sport.basketball" = "Basketbal";
 
+"type.sport.beachvolleyball" = "Beachvolleybal";
+
 "type.sport.bowls" = "Bowls";
+
+"type.sport.chess" = "Schaken";
 
 "type.sport.cricket" = "Cricket";
 
-"type.sport.curling" = "Сurling";
-
-"type.sport.diving" = "Diving";
+"type.sport.curling" = "Curling";
 
 "type.sport.equestrian" = "Paardesport";
 
 "type.sport.golf" = "Golf";
 
-"type.sport.gymnastics" = "Gymnastics";
+"type.sport.gymnastics" = "Gymnastiek";
 
-"type.sport.handball" = "Handball";
+"type.sport.handball" = "Handbal";
 
-"type.sport.multi" = "Various Sport";
+"type.sport.multi" = "Diverse sporten";
 
-"type.sport.scuba_diving" = "Scuba Diving";
+/* Used to tag a scuba diving site. */
+"type.sport.scuba_diving" = "Duiken";
 
-"type.sport.shooting" = "Shooting";
+"type.sport.shooting" = "schieten";
 
-"type.sport.skiing" = "Skiing";
+"type.sport.skateboard" = "Skateboarden";
 
-"type.sport.soccer" = "Soccer (Football)";
+"type.sport.skiing" = "Skiën";
 
-"type.sport.swimming" = "Swimming";
+"type.sport.soccer" = "Voetbal";
+
+"type.sport.swimming" = "Zwemmen";
+
+"type.sport.table_tennis" = "Tafeltennis";
 
 "type.sport.tennis" = "Tennisveld";
+
+"type.sport.volleyball" = "Volleyball";
+
+"type.sport.9pin" = "Bowlen";
+
+"type.sport.10pin" = "Bowlen";
 
 "type.tourism" = "Tourism";
 
@@ -2838,7 +3011,7 @@
 
 "type.tourism.information.board" = "Informatiebord";
 
-"type.tourism.information.guidepost" = "Toeristische informatie";
+"type.tourism.information.guidepost" = "Wegwijzer";
 
 "type.tourism.information.map" = "Toeristische kaart";
 
@@ -2883,8 +3056,6 @@
 "type.waterway.drain" = "Drain";
 
 "type.waterway.drain.tunnel" = "Drain";
-
-"type.waterway.lock" = "Waterway Lock";
 
 "type.waterway.lock_gate" = "Gesloten poort";
 
@@ -2948,3 +3119,5 @@
 "type.piste_type.sled" = "Sledding Piste";
 
 "type.building_part" = "Gebouw";
+
+"type.amenity.events_venue" = "Evenementenlocatie";

@@ -25,12 +25,14 @@ class TestSearchEngine;
 class TestSearchRequest
 {
 public:
-  inline static double const kDefaultTestStreetSearchRadiusM = 2e7;
-  inline static double const kDefaultTestVillageSearchRadiusM = 2e7;
+  static double constexpr kDefaultTestStreetSearchRadiusM = 2e7;
+  static double constexpr kDefaultTestVillageSearchRadiusM = 2e7;
 
   TestSearchRequest(TestSearchEngine & engine, std::string const & query,
                     std::string const & locale, Mode mode, m2::RectD const & viewport);
   TestSearchRequest(TestSearchEngine & engine, SearchParams const & params);
+
+  void SetCategorial() { m_params.m_categorialRequest = true; }
 
   // Initiates the search and waits for it to finish.
   void Run();
@@ -42,7 +44,8 @@ public:
   void Wait();
 
   // Call these functions only after call to Wait().
-  std::chrono::steady_clock::duration ResponseTime() const;
+  using TimeDurationT = base::Timer::DurationT;
+  TimeDurationT ResponseTime() const;
   std::vector<search::Result> const & Results() const;
 
 protected:
@@ -67,8 +70,7 @@ protected:
   bool m_done = false;
 
   base::Timer m_timer;
-  std::chrono::steady_clock::duration m_startTime;
-  std::chrono::steady_clock::duration m_endTime;
+  TimeDurationT m_startTime, m_endTime;
 
   TestSearchEngine & m_engine;
   SearchParams m_params;

@@ -158,7 +158,6 @@ int main(int argc, char * argv[])
   }
 
   int returnCode = -1;
-  QString mapcssFilePath;
   if (eulaAccepted)   // User has accepted EULA
   {
     bool apiOpenGLES3 = false;
@@ -166,6 +165,12 @@ int main(int argc, char * argv[])
 
 #if defined(OMIM_OS_MAC)
     apiOpenGLES3 = app.arguments().contains("es3", Qt::CaseInsensitive);
+#elif defined(OMIM_OS_LINUX)
+    // TODO: Implement proper runtime version detection in a separate commit
+    // Currently on Linux in a maximum ES2 scenario,
+    // the GL function pointers wouldn't be properly resolved anyway,
+    // so here at least a possibly successful path is chosen.
+    apiOpenGLES3 = true;
 #endif
 
     if (!FLAGS_lang.empty())
@@ -204,6 +209,7 @@ int main(int argc, char * argv[])
     FrameworkParams frameworkParams;
 
 #ifdef BUILD_DESIGNER
+    QString mapcssFilePath;
     if (argc >= 2 && platform.IsFileExistsByFullPath(argv[1]))
         mapcssFilePath = argv[1];
     if (0 == mapcssFilePath.length())
@@ -233,7 +239,11 @@ int main(int argc, char * argv[])
 
     Framework framework(frameworkParams);
     qt::MainWindow w(framework, apiOpenGLES3, std::move(screenshotParams),
-                     app.primaryScreen()->geometry(), mapcssFilePath);
+                     app.primaryScreen()->geometry()
+#ifdef BUILD_DESIGNER
+                     , mapcssFilePath
+#endif // BUILD_DESIGNER
+                     );
     w.show();
     returnCode = app.exec();
   }

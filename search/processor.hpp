@@ -70,7 +70,7 @@ public:
   void SetViewport(m2::RectD const & viewport);
   void SetPreferredLocale(std::string const & locale);
   void SetInputLocale(std::string const & locale);
-  void SetQuery(std::string const & query);
+  void SetQuery(std::string const & query, bool categorialRequest = false);
   inline std::string const & GetPivotRegion() const { return m_region; }
 
   inline bool IsEmptyQuery() const { return m_prefix.empty() && m_tokens.empty(); }

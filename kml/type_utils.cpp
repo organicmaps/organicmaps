@@ -45,15 +45,16 @@ std::string GetPreferredBookmarkStr(LocalizableString const & name, std::string 
   if (name.size() == 1)
     return name.begin()->second;
 
+  /// @todo Complicated logic here when transforming LocalizableString -> StringUtf8Multilang to call GetPreferredName.
   StringUtf8Multilang nameMultilang;
   for (auto const & pair : name)
     nameMultilang.AddString(pair.first, pair.second);
 
   auto const deviceLang = StringUtf8Multilang::GetLangIndex(languageNorm);
 
-  std::string preferredName;
+  std::string_view preferredName;
   if (feature::GetPreferredName(nameMultilang, deviceLang, preferredName))
-    return preferredName;
+    return std::string(preferredName);
 
   return {};
 }
@@ -64,15 +65,14 @@ std::string GetPreferredBookmarkStr(LocalizableString const & name, feature::Reg
   if (name.size() == 1)
     return name.begin()->second;
 
+  /// @todo Complicated logic here when transforming LocalizableString -> StringUtf8Multilang to call GetPreferredName.
   StringUtf8Multilang nameMultilang;
   for (auto const & pair : name)
     nameMultilang.AddString(pair.first, pair.second);
 
-  auto const deviceLang = StringUtf8Multilang::GetLangIndex(languageNorm);
-
-  std::string preferredName;
-  feature::GetReadableName(regionData, nameMultilang, deviceLang, false /* allowTranslit */, preferredName);
-  return preferredName;
+  feature::NameParamsOut out;
+  feature::GetReadableName({ nameMultilang, regionData, languageNorm, false /* allowTranslit */ }, out);
+  return std::string(out.primary);
 }
 
 std::string GetLocalizedFeatureType(std::vector<uint32_t> const & types)

@@ -26,13 +26,10 @@
 /* Leave Review dialog - Review button */
 "leave_a_review" = "Napisz recenzję";
 
-/* View and button titles for accessibility */
-"maps" = "Mapy";
-
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "Mile";
 
-/* View and button titles for accessibility */
+/* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Moje położenie";
 
 /* Update maps later/Buy pro version later button text */
@@ -145,6 +142,9 @@
 
 /* Search category for police; any changes should be duplicated in categories.txt @police! */
 "police" = "Policja";
+
+/* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
+"wifi" = "WiFi";
 
 /* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
 "recycling" = "Recykling";
@@ -261,6 +261,9 @@
 /* Text in menu */
 "website" = "Strona internetowa";
 
+/* Text in About menu, opens Organic Maps news website */
+"news" = "Wiadomości";
+
 /* Text in menu */
 "github" = "GitHub";
 
@@ -312,13 +315,10 @@
 /* Settings item title */
 "pref_calibration_title" = "Kalibracja kompasu";
 
-/* Search category */
-"wifi" = "WiFi";
-
 /* Update all button text */
 "downloader_update_all_button" = "Aktualizuj wszystkie";
 
-/* Downloaded maps category */
+/* Downloaded maps list header */
 "downloader_downloaded_subtitle" = "Pobrane";
 
 /* Downloaded maps category */
@@ -329,6 +329,7 @@
 
 "downloader_near_me_subtitle" = "Blisko mnie";
 
+/* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
 "downloader_status_maps" = "Mapy";
 
 "downloader_download_all_button" = "Pobierz wszystkie";
@@ -419,9 +420,6 @@
 /* blue gray color */
 "blue_gray" = "Szaroniebieski";
 
-/* Wi-Fi available */
-"WiFi_available" = "Tak";
-
 
 /********** Routing dialogs strings **********/
 
@@ -504,6 +502,10 @@
 "categories" = "Kategorie";
 
 "history" = "Historia";
+
+"opens_in" = "Opens in %@";
+
+"closes_in" = "Closes in %@";
 
 "closed" = "Zamknięte";
 
@@ -743,9 +745,12 @@
 
 "mile" = "mi";
 
+/* A unit of measure */
 "foot" = "ft";
 
 "miles_per_hour" = "mph";
+
+"minute" = "min";
 
 "placepage_place_description" = "Opis";
 
@@ -1025,9 +1030,17 @@
 
 "redirect_route_alert" = "Czy chcesz przebudować trasę?";
 
-"redirect_route_yes" = "Tak";
+/* A generic "Yes" button in dialogs */
+"yes" = "Tak";
 
-"redirect_route_no" = "Nie";
+/* A generic "No" button in dialogs */
+"no" = "Nie";
+
+/* E.g. "WiFi:Yes" */
+"yes_available" = "Tak";
+
+/* E.g. "WiFi:No" */
+"no_available" = "Nie";
 
 "trip_finished" = "Jesteś na miejscu!";
 
@@ -1245,6 +1258,8 @@
 
 "type.amenity.bicycle_rental" = "Wynajem rowerów";
 
+"type.amenity.bicycle_repair_station" = "Stacja naprawy rowerów";
+
 "type.amenity.biergarten" = "Ogródek piwny";
 
 "type.amenity.brothel" = "Burdel";
@@ -1442,11 +1457,21 @@
 
 "type.amenity.vending_machine.cigarettes" = "Automat z papierosami";
 
+"type.amenity.vending_machine.coffee" = "Coffee Dispenser";
+
+"type.amenity.vending_machine.condoms" = "Condoms Dispenser";
+
 "type.amenity.vending_machine.drinks" = "Automat z napojami";
+
+"type.amenity.vending_machine.food" = "Food Dispenser";
+
+"type.amenity.vending_machine.newspapers" = "Newspapers Dispenser";
 
 "type.amenity.vending_machine.parking_tickets" = "Parkometr";
 
 "type.amenity.vending_machine.public_transport_tickets" = "Automat biletowy do transportu publicznego";
+
+"type.amenity.vending_machine.sweets" = "Sweets Dispenser";
 
 "type.amenity.vending_machine.excrement_bags" = "Excrement Bags Dispenser";
 
@@ -1552,16 +1577,29 @@
 
 "type.building.warehouse" = "Warehouse";
 
+"type.cemetery.grave" = "Mogiła";
+
 "type.craft" = "Rzemiosło";
+
+"type.craft.beekeeper" = "Beekeeper";
+
+"type.craft.blacksmith" = "Blacksmith";
 
 "type.craft.brewery" = "Browar";
 
 "type.craft.carpenter" = "Stolarz";
 
+"type.craft.confectionery" = "Confectionery";
+
 "type.craft.electrician" = "Elektryk";
+
+"type.craft.electronics_repair" = "Electronics Repair";
 
 "type.craft.gardener" = "Ogrodnik";
 
+"type.craft.handicraft" = "Handicraft";
+
+/* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Klimatyzacja";
 
 "type.craft.metal_construction" = "Ślusarz, obrabiacz metalu";
@@ -1572,7 +1610,11 @@
 
 "type.craft.plumber" = "Hydraulik";
 
+"type.craft.sawmill" = "Sawmill";
+
 "type.craft.shoemaker" = "Szewc";
+
+"type.craft.winery" = "Winery";
 
 "type.craft.tailor" = "Krawiec";
 
@@ -1601,6 +1643,8 @@
 "type.cuisine.brazilian" = "Kuchnia brazylijska";
 
 "type.cuisine.breakfast" = "Śniadaniarnia";
+
+"type.cuisine.bubble_tea" = "Bubble Tea";
 
 "type.cuisine.burger" = "Burgery";
 
@@ -1765,10 +1809,12 @@
 
 "type.highway.bridleway" = "Droga dla koni";
 
+/* These translations are used for all type.highway.*.bridge. */
 "type.highway.bridleway.bridge" = "Most drogowy dla koni";
 
 "type.highway.bridleway.permissive" = "Droga dla koni ograniczona";
 
+/* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "Tunel drogowy dla koni";
 
 "type.highway.bus_stop" = "Przystanek autobusowy";
@@ -1777,10 +1823,12 @@
 
 "type.highway.cycleway" = "Droga rowerowa";
 
+/* These translations are used for all type.highway.*.bridge. */
 "type.highway.cycleway.bridge" = "Most drogowy dla rowerów";
 
 "type.highway.cycleway.permissive" = "Droga rowerowa ograniczona";
 
+/* These translations are used for all type.highway.*.tunnel. */
 "type.highway.cycleway.tunnel" = "Tunel drogowy dla rowerów";
 
 "type.highway.elevator" = "Elevator";
@@ -1791,6 +1839,7 @@
 
 "type.highway.footway.area" = "Obszar chodnika";
 
+/* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "Most dla pieszych";
 
 "type.highway.footway.demanding_alpine_hiking" = "Ścieżka";
@@ -1805,29 +1854,36 @@
 
 "type.highway.footway.permissive" = "Chodnik";
 
+/* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Tunel dla pieszych";
 
 "type.highway.ford" = "Bród";
 
 "type.highway.living_street" = "Ulica w strefie zamieszkania";
 
-"type.highway.living_street.bridge" = "Ulica w strefie zamieszkania";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.living_street.bridge" = "Most";
 
+/* These translations are used for all type.highway.*.tunnel. */
 "type.highway.living_street.tunnel" = "Tunel ulicy";
 
 "type.highway.motorway" = "Ulica";
 
+/* These translations are used for all type.highway.*.bridge. */
 "type.highway.motorway.bridge" = "Most drogowy";
 
+/* These translations are used for all type.highway.*.tunnel. */
 "type.highway.motorway.tunnel" = "Tunel drogowy";
 
 "type.highway.motorway_junction" = "Wyjazd";
 
 "type.highway.motorway_link" = "Ulica";
 
-"type.highway.motorway_link.bridge" = "Ulica";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway_link.bridge" = "Most";
 
-"type.highway.motorway_link.tunnel" = "Ulica";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway_link.tunnel" = "Tunel";
 
 "type.highway.path" = "Ścieżka";
 
@@ -1835,7 +1891,8 @@
 
 "type.highway.path.bicycle" = "Ścieżka dla rowerów";
 
-"type.highway.path.bridge" = "Ścieżka";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.path.bridge" = "Most";
 
 "type.highway.path.demanding_alpine_hiking" = "Ścieżka";
 
@@ -1851,27 +1908,34 @@
 
 "type.highway.path.permissive" = "Ścieżka";
 
-"type.highway.path.tunnel" = "Ścieżka";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.path.tunnel" = "Tunel";
 
 "type.highway.pedestrian" = "Pasaż pieszy";
 
 "type.highway.pedestrian.area" = "Pasaż pieszy";
 
+/* These translations are used for all type.highway.*.bridge. */
 "type.highway.pedestrian.bridge" = "Most pasażu pieszego";
 
+/* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Tunel pasażu pieszego";
 
 "type.highway.primary" = "Ulica";
 
-"type.highway.primary.bridge" = "Ulica";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary.bridge" = "Most";
 
+/* These translations are used for all type.highway.*.tunnel. */
 "type.highway.primary.tunnel" = "Tunel drogowy";
 
 "type.highway.primary_link" = "Ulica";
 
-"type.highway.primary_link.bridge" = "Ulica";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary_link.bridge" = "Most";
 
-"type.highway.primary_link.tunnel" = "Ulica";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary_link.tunnel" = "Tunel";
 
 "type.highway.raceway" = "Tor wyścigowy";
 
@@ -1879,40 +1943,50 @@
 
 "type.highway.residential.area" = "Ulica";
 
-"type.highway.residential.bridge" = "Ulica";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.residential.bridge" = "Most";
 
-"type.highway.residential.tunnel" = "Ulica";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.residential.tunnel" = "Tunel";
 
 "type.highway.rest_area" = "Miejsce wypoczynku";
 
 "type.highway.road" = "Ulica";
 
-"type.highway.road.bridge" = "Ulica";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.road.bridge" = "Most";
 
-"type.highway.road.tunnel" = "Tunel drogowy";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.road.tunnel" = "Tunel";
 
 "type.highway.secondary" = "Ulica";
 
-"type.highway.secondary.bridge" = "Ulica";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary.bridge" = "Most";
 
+/* These translations are used for all type.highway.*.tunnel. */
 "type.highway.secondary.tunnel" = "Tunel drogowy";
 
 "type.highway.secondary_link" = "Ulica";
 
-"type.highway.secondary_link.bridge" = "Ulica";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary_link.bridge" = "Most";
 
+/* These translations are used for all type.highway.*.tunnel. */
 "type.highway.secondary_link.tunnel" = "Tunel drogowy";
 
 "type.highway.service" = "Ulica";
 
 "type.highway.service.area" = "Ulica";
 
+/* These translations are used for all type.highway.*.bridge. */
 "type.highway.service.bridge" = "Most drogowy";
 
 "type.highway.service.driveway" = "Ulica";
 
 "type.highway.service.parking_aisle" = "Miejsca parkingowe";
 
+/* These translations are used for all type.highway.*.tunnel. */
 "type.highway.service.tunnel" = "Tunel drogowy";
 
 "type.highway.services" = "Miejsce obsługi podróżnych";
@@ -1921,27 +1995,34 @@
 
 "type.highway.steps" = "Schody";
 
-"type.highway.steps.bridge" = "Schody";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.steps.bridge" = "Most";
 
-"type.highway.steps.tunnel" = "Schody";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.steps.tunnel" = "Tunel";
 
 "type.highway.tertiary" = "Ulica";
 
-"type.highway.tertiary.bridge" = "Ulica";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary.bridge" = "Most";
 
+/* These translations are used for all type.highway.*.tunnel. */
 "type.highway.tertiary.tunnel" = "Tunel drogowy";
 
 "type.highway.tertiary_link" = "Ulica";
 
-"type.highway.tertiary_link.bridge" = "Ulica";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary_link.bridge" = "Most";
 
+/* These translations are used for all type.highway.*.tunnel. */
 "type.highway.tertiary_link.tunnel" = "Tunel drogowy";
 
 "type.highway.track" = "Ulica";
 
 "type.highway.track.area" = "Ulica";
 
-"type.highway.track.bridge" = "Ulica";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.track.bridge" = "Most";
 
 "type.highway.track.grade1" = "Ulica";
 
@@ -1957,28 +2038,35 @@
 
 "type.highway.track.permissive" = "Ulica";
 
+/* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "Tunel drogowy";
 
 "type.highway.traffic_signals" = "Sygnalizacja świetlna";
 
 "type.highway.trunk" = "Ulica";
 
-"type.highway.trunk.bridge" = "Ulica";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk.bridge" = "Most";
 
-"type.highway.trunk.tunnel" = "Ulica";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk.tunnel" = "Tunel";
 
 "type.highway.trunk_link" = "Ulica";
 
-"type.highway.trunk_link.bridge" = "Ulica";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk_link.bridge" = "Most";
 
-"type.highway.trunk_link.tunnel" = "Ulica";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk_link.tunnel" = "Tunel";
 
 "type.highway.unclassified" = "Ulica";
 
 "type.highway.unclassified.area" = "Ulica";
 
-"type.highway.unclassified.bridge" = "Ulica";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.unclassified.bridge" = "Most";
 
+/* These translations are used for all type.highway.*.tunnel. */
 "type.highway.unclassified.tunnel" = "Tunel drogowy";
 
 "type.area_highway.cycleway" = "Droga rowerowa";
@@ -2110,6 +2198,8 @@
 
 "type.landuse.construction" = "Teren budowy";
 
+"type.landuse.education" = "Educational Facilities";
+
 "type.landuse.farm" = "Gospodarstwo rolne";
 
 "type.landuse.farmland" = "Grunt rolny";
@@ -2206,13 +2296,9 @@
 
 "type.leisure.sports_centre" = "Centrum sportowe";
 
-"type.leisure.sports_centre.climbing" = "Centrum wspinaczkowe";
+"type.sport.climbing" = "Centrum wspinaczkowe";
 
-"type.leisure.sports_centre.shooting" = "Strzelnica";
-
-"type.leisure.sports_centre.swimming" = "Pływalnia";
-
-"type.leisure.sports_centre.yoga" = "Studio jogi";
+"type.sport.yoga" = "Studio jogi";
 
 "type.leisure.stadium" = "Stadion";
 
@@ -2235,6 +2321,8 @@
 "type.man_made.chimney" = "Komin fabryki";
 
 "type.man_made.cutline" = "Przecinka leśna";
+
+"type.man_made.survey_point" = "Znak geodezyjny";
 
 "type.man_made.flagpole" = "Flagpole";
 
@@ -2286,9 +2374,9 @@
 
 "type.natural.beach" = "Plaża";
 
-"type.natural.beach.sand" = "Sandy Beach";
+"type.natural.beach.sand" = "Piaszczysta plaża";
 
-"type.natural.beach.gravel" = "Gravel Beach";
+"type.natural.beach.gravel" = "Żwirowa plaża";
 
 "type.natural.cape" = "Przylądek";
 
@@ -2296,19 +2384,25 @@
 
 "type.natural.cliff" = "Klif";
 
+"type.natural.earth_bank" = "Żleb";
+
+"type.man_made.embankment" = "Nasyp";
+
 "type.natural.coastline" = "Linia brzegowa";
 
 "type.natural.geyser" = "Gejzer";
 
 "type.natural.glacier" = "Lodowiec";
 
-"type.natural.grassland" = "Pastwisko";
+"type.natural.grassland" = "Formacje trawiaste";
 
 "type.natural.heath" = "Wrzosowisko";
 
 "type.natural.hot_spring" = "Gorące źródło";
 
 "type.natural.water.lake" = "Jezioro";
+
+"type.natural.water.lock" = "Komora zamka";
 
 "type.natural.water.pond" = "Staw";
 
@@ -2318,7 +2412,7 @@
 
 "type.natural.water.river" = "Rzeka";
 
-"type.natural.land" = "Land";
+"type.natural.land" = "Grunt";
 
 "type.natural.meadow" = "Łąka";
 
@@ -2326,7 +2420,7 @@
 
 "type.natural.peak" = "Szczyt";
 
-"type.natural.saddle" = "Mountain Saddle";
+"type.natural.saddle" = "Siodło";
 
 "type.natural.rock" = "Skała";
 
@@ -2369,6 +2463,10 @@
 "type.office.ngo" = "Biuro organizacji pozarządowej";
 
 "type.office.telecommunication" = "Biuro operatora telefonii komórkowej";
+
+"type.organic.only" = "Organic";
+
+"type.organic.yes" = "Organic";
 
 "type.place" = "Miejsce";
 
@@ -2664,6 +2762,8 @@
 
 "type.shop.cosmetics" = "Kosmetyki";
 
+"type.shop.deli" = "Sklep delikatesowy";
+
 "type.shop.department_store" = "Dom towarowy";
 
 "type.shop.doityourself" = "Sklep narzędziowy";
@@ -2675,6 +2775,8 @@
 "type.shop.erotic" = "Sex shop";
 
 "type.shop.fabric" = "Sklep";
+
+"type.shop.farm" = "Sklep spożywczy dla gospodarstw rolnych";
 
 "type.shop.florist" = "Kwiaciarnia";
 
@@ -2688,13 +2790,21 @@
 
 "type.shop.greengrocer" = "Warzywniak";
 
+"type.shop.grocery" = "Sklep spożywczy";
+
 "type.shop.hairdresser" = "Fryzjer";
 
-"type.shop.hardware" = "Sklep narzędziowy";
+"type.shop.hardware" = "Sklep z narzędziami";
+
+"type.shop.health_food" = "Sklep ze zdrową żywnością";
+
+"type.shop.houseware" = "Sklep AGD";
 
 "type.shop.jewelry" = "Jubiler";
 
 "type.shop.kiosk" = "Kiosk";
+
+"type.shop.kitchen" = "Sklep kuchenny";
 
 "type.shop.laundry" = "Pralnia samoobsługowa";
 
@@ -2718,6 +2828,8 @@
 
 "type.shop.outdoor" = "Sprzęt turystyczny";
 
+"type.shop.pastry" = "Ciasto";
+
 "type.shop.pawnbroker" = "Lombard";
 
 "type.shop.pet" = "Sklep zoologiczny";
@@ -2725,6 +2837,8 @@
 "type.shop.photo" = "Fotograf";
 
 "type.shop.seafood" = "Sklep rybny";
+
+"type.shop.second_hand" = "Sklep z używaną ręką";
 
 "type.shop.shoes" = "Sklep obuwniczy";
 
@@ -2754,27 +2868,75 @@
 
 "type.shop.wine" = "Sklep monopolowy";
 
-"type.sport" = "sport";
+"type.shop.antiques" = "Antyki";
+
+"type.shop.art" = "Sklep artystyczny";
+
+"type.shop.baby_goods" = "Sklep dla dzieci";
+
+"type.shop.bag" = "Sklep z torbami";
+
+"type.shop.boutique" = "Butik";
+
+"type.shop.charity" = "Sklep charytatywny";
+
+"type.shop.cheese" = "Sklep z serami";
+
+"type.shop.craft" = "Sztuka i rzemiosło";
+
+"type.shop.dairy" = "Nabiał";
+
+"type.shop.electrical" = "Sklep elektryczny";
+
+"type.shop.fishing" = "Sklep wędkarski";
+
+"type.shop.interior_decoration" = "Dekoracje wnętrz";
+
+"type.shop.lottery" = "Bilety na loterię";
+
+"type.shop.medical_supply" = "Produkty medyczne";
+
+"type.shop.nutrition_supplements" = "Suplementy diety";
+
+"type.shop.paint" = "Malatura";
+
+"type.shop.perfumery" = "Perfumeria";
+
+"type.shop.sewing" = "Przybory do szycia";
+
+"type.shop.storage_rental" = "Wynajem magazynu";
+
+"type.shop.tobacco" = "Tytoń";
+
+"type.shop.trade" = "Zaopatrzenie handlowe";
+
+"type.shop.watches" = "Zegarki";
+
+"type.shop.wholesale" = "Hurtownia";
+
+"type.sport" = "Sport";
 
 "type.sport.american_football" = "Futbol amerykański";
 
-"type.sport.archery" = "Łucznictwo sportowe";
+"type.sport.archery" = "Łucznictwo";
 
 "type.sport.athletics" = "Lekka atletyka";
 
-"type.sport.australian_football" = "Rugby";
+"type.sport.australian_football" = "Futbol australijski";
 
 "type.sport.baseball" = "Baseball";
 
 "type.sport.basketball" = "Koszykówka";
 
+"type.sport.beachvolleyball" = "Siatkówka plażowa";
+
 "type.sport.bowls" = "Kręgle";
+
+"type.sport.chess" = "Szachy";
 
 "type.sport.cricket" = "Krykiet";
 
-"type.sport.curling" = "Сurling";
-
-"type.sport.diving" = "Diving";
+"type.sport.curling" = "Curling";
 
 "type.sport.equestrian" = "Jeździectwo";
 
@@ -2782,21 +2944,32 @@
 
 "type.sport.gymnastics" = "Gimnastyka";
 
-"type.sport.handball" = "Piłka ręczna";
+"type.sport.handball" = "Gra w piłkę ręczną";
 
-"type.sport.multi" = "Various Sport";
+"type.sport.multi" = "Różne sporty";
 
+/* Used to tag a scuba diving site. */
 "type.sport.scuba_diving" = "Nurkowanie";
 
 "type.sport.shooting" = "Strzelectwo sportowe";
 
-"type.sport.skiing" = "Skiing";
+"type.sport.skateboard" = "Skateboarding";
 
-"type.sport.soccer" = "Soccer (Football)";
+"type.sport.skiing" = "Jazda na nartach";
+
+"type.sport.soccer" = "Piłka nożna";
 
 "type.sport.swimming" = "Pływanie";
 
+"type.sport.table_tennis" = "Tenis stołowy";
+
 "type.sport.tennis" = "Kort tenisowy";
+
+"type.sport.volleyball" = "Piłka siatkowa";
+
+"type.sport.9pin" = "Bowling";
+
+"type.sport.10pin" = "Bowling";
 
 "type.tourism" = "Turystyka";
 
@@ -2818,7 +2991,7 @@
 
 "type.tourism.attraction.animal" = "Atrakcje zwierzęce";
 
-"type.tourism.attraction.specified" = "Atrakcje";
+"type.tourism.attraction.specified" = "Atrakcja turystyczna";
 
 "type.tourism.camp_site" = "Kamping";
 
@@ -2838,7 +3011,7 @@
 
 "type.tourism.information.board" = "Tablica informacyjna";
 
-"type.tourism.information.guidepost" = "Informacja turystyczna";
+"type.tourism.information.guidepost" = "Drogowskaz";
 
 "type.tourism.information.map" = "Mapa turystyczna";
 
@@ -2883,8 +3056,6 @@
 "type.waterway.drain" = "Drain";
 
 "type.waterway.drain.tunnel" = "Drain";
-
-"type.waterway.lock" = "Waterway Lock";
 
 "type.waterway.lock_gate" = "Wrota śluzy";
 
@@ -2948,3 +3119,5 @@
 "type.piste_type.sled" = "Sledding Piste";
 
 "type.building_part" = "Część budynku";
+
+"type.amenity.events_venue" = "Miejsce wydarzeń";

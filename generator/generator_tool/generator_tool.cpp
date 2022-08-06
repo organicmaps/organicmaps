@@ -180,8 +180,11 @@ DEFINE_string(uk_postcodes_dataset, "", "Path to dataset with UK postcodes.");
 DEFINE_string(us_postcodes_dataset, "", "Path to dataset with US postcodes.");
 
 // Printing stuff.
-DEFINE_bool(calc_statistics, false, "Calculate feature statistics for specified mwm bucket files.");
-DEFINE_bool(type_statistics, false, "Calculate statistics by type for specified mwm bucket files.");
+DEFINE_bool(stats_general, false, "Print file and feature stats.");
+DEFINE_bool(stats_geometry, false, "Print outer geometry stats.");
+DEFINE_double(stats_geometry_dup_factor, 1.5, "Consider feature's geometry scale "
+              "duplicating a more detailed one if it has <dup_factor less elements.");
+DEFINE_bool(stats_types, false, "Print feature stats by type.");
 DEFINE_bool(dump_types, false, "Prints all types combinations and their total count.");
 DEFINE_bool(dump_prefixes, false, "Prints statistics on feature's' name prefixes.");
 DEFINE_bool(dump_search_tokens, false, "Print statistics on search tokens.");
@@ -487,6 +490,8 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
       }
     }
 
+    using namespace routing_builder;
+
     if (FLAGS_make_routing_index)
     {
       if (!countryParentGetter)
@@ -501,13 +506,13 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
       string const restrictionsFilename = genInfo.GetIntermediateFileName(RESTRICTIONS_FILENAME);
       string const roadAccessFilename = genInfo.GetIntermediateFileName(ROAD_ACCESS_FILENAME);
 
-      routing::BuildRoutingIndex(dataFile, country, *countryParentGetter);
-      auto routingGraph = routing::CreateIndexGraph(path, dataFile, country, *countryParentGetter);
+      BuildRoutingIndex(dataFile, country, *countryParentGetter);
+      auto routingGraph = CreateIndexGraph(dataFile, country, *countryParentGetter);
       CHECK(routingGraph, ());
 
       /// @todo CHECK return result doesn't work now for some small countries like Somalie.
-      if (!routing::BuildRoadRestrictions(*routingGraph, dataFile, restrictionsFilename, osmToFeatureFilename) ||
-          !routing::BuildRoadAccessInfo(dataFile, roadAccessFilename, osmToFeatureFilename))
+      if (!BuildRoadRestrictions(*routingGraph, dataFile, restrictionsFilename, osmToFeatureFilename) ||
+          !BuildRoadAccessInfo(dataFile, roadAccessFilename, osmToFeatureFilename))
       {
         LOG(LERROR, ("Routing build failed for", dataFile));
       }
@@ -516,7 +521,7 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
       {
         string const maxspeedsFilename = genInfo.GetIntermediateFileName(MAXSPEEDS_FILENAME);
         LOG(LINFO, ("Generating maxspeeds section for", dataFile, "using", maxspeedsFilename));
-        routing::BuildMaxspeedsSection(routingGraph.get(), dataFile, osmToFeatureFilename, maxspeedsFilename);
+        BuildMaxspeedsSection(routingGraph.get(), dataFile, osmToFeatureFilename, maxspeedsFilename);
       }
     }
 
@@ -526,7 +531,7 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
       LOG(LINFO, ("Generating cities boundaries roads for", dataFile));
       auto const boundariesPath =
           genInfo.GetIntermediateFileName(ROUTING_CITY_BOUNDARIES_DUMP_FILENAME);
-      if (!routing::BuildCityRoads(dataFile, boundariesPath))
+      if (!BuildCityRoads(dataFile, boundariesPath))
         LOG(LCRITICAL, ("Generating city roads error."));
     }
 
@@ -544,25 +549,25 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
 
       if (FLAGS_make_cross_mwm)
       {
-        routing::BuildRoutingCrossMwmSection(path, dataFile, country, genInfo.m_intermediateDir,
-                                             *countryParentGetter, osmToFeatureFilename,
-                                             FLAGS_disable_cross_mwm_progress);
+        BuildRoutingCrossMwmSection(path, dataFile, country, genInfo.m_intermediateDir,
+                                    *countryParentGetter, osmToFeatureFilename,
+                                    FLAGS_disable_cross_mwm_progress);
       }
 
       if (FLAGS_make_transit_cross_mwm_experimental)
       {
         if (!transitEdgeFeatureIds.empty())
         {
-          routing::BuildTransitCrossMwmSection(path, dataFile, country, *countryParentGetter,
-                                               transitEdgeFeatureIds,
-                                               true /* experimentalTransit */);
+          BuildTransitCrossMwmSection(path, dataFile, country, *countryParentGetter,
+                                      transitEdgeFeatureIds,
+                                      true /* experimentalTransit */);
         }
       }
       else if (FLAGS_make_transit_cross_mwm)
       {
-        routing::BuildTransitCrossMwmSection(path, dataFile, country, *countryParentGetter,
-                                             transitEdgeFeatureIds,
-                                             false /* experimentalTransit */);
+        BuildTransitCrossMwmSection(path, dataFile, country, *countryParentGetter,
+                                    transitEdgeFeatureIds,
+                                    false /* experimentalTransit */);
       }
     }
 
@@ -596,26 +601,30 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
 
   string const dataFile = base::JoinPath(path, FLAGS_output + DATA_FILE_EXTENSION);
 
-  if (FLAGS_calc_statistics)
+  if (FLAGS_stats_general || FLAGS_stats_geometry || FLAGS_stats_types)
   {
     LOG(LINFO, ("Calculating statistics for", dataFile));
-
     auto file = OfstreamWithExceptions(genInfo.GetIntermediateFileName(FLAGS_output, STATS_EXTENSION));
-    stats::FileContainerStatistic(file, dataFile);
-
-    stats::MapInfo info;
-    stats::CalcStatistic(dataFile, info);
-    stats::PrintStatistic(file, info);
-  }
-
-  if (FLAGS_type_statistics)
-  {
-    LOG(LINFO, ("Calculating type statistics for", dataFile));
-
-    stats::MapInfo info;
-    stats::CalcStatistic(dataFile, info);
-    auto file = OfstreamWithExceptions(genInfo.GetIntermediateFileName(FLAGS_output, STATS_EXTENSION));
-    stats::PrintTypeStatistic(file, info);
+    stats::MapInfo info(FLAGS_stats_geometry_dup_factor);
+    stats::CalcStats(dataFile, info);
+    
+    if (FLAGS_stats_general)
+    {
+      LOG(LINFO, ("Writing general statistics"));
+      stats::PrintFileContainerStats(file, dataFile);
+      stats::PrintStats(file, info);
+    }
+    if (FLAGS_stats_geometry)
+    {
+      LOG(LINFO, ("Writing geometry statistics"));
+      stats::PrintOuterGeometryStats(file, info);
+    }
+    if (FLAGS_stats_types)
+    {
+      LOG(LINFO, ("Writing types statistics"));
+      stats::PrintTypeStats(file, info);
+    }
+    LOG(LINFO, ("Stats written to file", FLAGS_output + STATS_EXTENSION));
   }
 
   if (FLAGS_dump_types)

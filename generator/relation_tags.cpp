@@ -14,7 +14,7 @@ void RelationTagsBase::Reset(uint64_t fID, OsmElement * p)
   m_current = p;
 }
 
-bool RelationTagsBase::IsSkipRelation(std::string const & type)
+bool RelationTagsBase::IsSkipRelation(std::string_view type)
 {
   /// @todo Skip special relation types.
   return type == "multipolygon" || type == "bridge";
@@ -33,7 +33,7 @@ void RelationTagsBase::AddCustomTag(std::pair<std::string, std::string> const & 
 
 void RelationTagsNode::Process(RelationElement const & e)
 {
-  std::string const & type = e.GetType();
+  auto const type = e.GetType();
   if (Base::IsSkipRelation(type))
     return;
 
@@ -60,19 +60,16 @@ void RelationTagsNode::Process(RelationElement const & e)
 
 bool RelationTagsWay::IsAcceptBoundary(RelationElement const & e) const
 {
-  std::string role;
-  CHECK(e.FindWay(Base::m_featureID, role), (Base::m_featureID));
-
   // Do not accumulate boundary types (boundary=administrative) for inner polygons.
   // Example: Minsk city border (admin_level=8) is inner for Minsk area border (admin_level=4).
-  return role != "inner";
+  return e.GetWayRole(Base::m_featureID) != "inner";
 }
 
 void RelationTagsWay::Process(RelationElement const & e)
 {
   /// @todo Review route relations in future.
   /// Actually, now they give a lot of dummy tags.
-  std::string const & type = e.GetType();
+  auto const type = e.GetType();
   if (Base::IsSkipRelation(type))
     return;
 
@@ -81,16 +78,18 @@ void RelationTagsWay::Process(RelationElement const & e)
     if (e.GetTagValue("route") == "road")
     {
       // Append "network/ref" to the feature ref tag.
-      std::string ref = e.GetTagValue("ref");
+      std::string ref(e.GetTagValue("ref"));
       if (!ref.empty())
       {
-        std::string const & network = e.GetTagValue("network");
+        auto const network = e.GetTagValue("network");
         // Not processing networks with more than 15 chars (see road_shields_parser.cpp).
         if (!network.empty() && network.find('/') == std::string::npos && network.size() < 15)
-          ref = network + '/' + ref;
-        std::string const & refBase = m_current->GetTag("ref");
+          ref = std::string(network).append(1, '/').append(ref);
+
+        auto const refBase = m_current->GetTag("ref");
         if (!refBase.empty())
-          ref = refBase + ';' + ref;
+          ref = std::string(refBase).append(1, ';').append(ref);
+
         Base::AddCustomTag({"ref", std::move(ref)});
       }
     }
@@ -101,7 +100,8 @@ void RelationTagsWay::Process(RelationElement const & e)
     return;
 
   bool const isBoundary = (type == "boundary") && IsAcceptBoundary(e);
-  bool const processAssociatedStreet = type == "associatedStreet" &&
+  bool const isAssociatedStreet = type == "associatedStreet";
+  bool const processAssociatedStreet = isAssociatedStreet &&
                                        Base::IsKeyTagExists("addr:housenumber") &&
                                        !Base::IsKeyTagExists("addr:street");
   bool const isHighway = Base::IsKeyTagExists("highway");
@@ -122,6 +122,9 @@ void RelationTagsWay::Process(RelationElement const & e)
     {
       continue;
     }
+
+    if (isAssociatedStreet && p.first == "wikipedia")
+      continue;
 
     if (!isBoundary && p.first == "boundary")
       continue;

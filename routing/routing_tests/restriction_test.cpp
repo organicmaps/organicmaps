@@ -812,6 +812,8 @@ UNIT_CLASS_TEST(RestrictionTest, FGraph_RestrictionF0F2Only)
       MakeFakeEnding(1, 0, m2::PointD(1, 1), *m_graph), std::move(restrictionsNo), *this);
 }
 
+/// @todo By VNG: no-pass-through behaviour was changed.
+/// @see IndexGraphStarter::CheckLength
 //                  *---F4---*
 //                  |        |
 //                 F3        F5
@@ -857,10 +859,11 @@ UNIT_CLASS_TEST(RestrictionTest, NonPassThroughStart)
 {
   Init(BuildNonPassThroughGraph(false /* passThroughStart */, true /* passThroughShortWay */,
                                 true /* passThroughLongWay */));
-  vector<m2::PointD> const expectedGeom = {{0 /* x */, 0 /* y */}, {1, 0}, {2, 0}, {3, 0}};
 
   SetStarter(MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, m2::PointD(0, 0), *m_graph),
              MakeFakeEnding(2, 0, m2::PointD(3, 0), *m_graph));
+
+  vector<m2::PointD> const expectedGeom = {{0 /* x */, 0 /* y */}, {1, 0}, {2, 0}, {3, 0}};
   TestRouteGeometry(*m_starter, Algorithm::Result::OK, expectedGeom);
 }
 
@@ -868,11 +871,12 @@ UNIT_CLASS_TEST(RestrictionTest, NonPassThroughShortWay)
 {
   Init(BuildNonPassThroughGraph(true /* passThroughStart */, false /* passThroughShortWay */,
                                 true /* passThroughLongWay */));
-  vector<m2::PointD> const expectedGeom = {
-      {0 /* x */, 0 /* y */}, {1, 0}, {1, 1}, {2, 1}, {2, 0}, {3, 0}};
 
   SetStarter(MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, m2::PointD(0, 0), *m_graph),
              MakeFakeEnding(2, 0, m2::PointD(3, 0), *m_graph));
+
+  //vector<m2::PointD> const expectedGeom = {{0 /* x */, 0 /* y */}, {1, 0}, {1, 1}, {2, 1}, {2, 0}, {3, 0}};
+  vector<m2::PointD> const expectedGeom = {{0 /* x */, 0 /* y */}, {1, 0}, {2, 0}, {3, 0}};
   TestRouteGeometry(*m_starter, Algorithm::Result::OK, expectedGeom);
 }
 
@@ -883,7 +887,9 @@ UNIT_CLASS_TEST(RestrictionTest, NonPassThroughWay)
 
   SetStarter(MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, m2::PointD(0, 0), *m_graph),
              MakeFakeEnding(2, 0, m2::PointD(3, 0), *m_graph));
-  TestRouteGeometry(*m_starter, Algorithm::Result::NoPath, {});
+
+  vector<m2::PointD> const expectedGeom = {{0 /* x */, 0 /* y */}, {1, 0}, {2, 0}, {3, 0}};
+  TestRouteGeometry(*m_starter, Algorithm::Result::OK, expectedGeom);
 }
 
 UNIT_CLASS_TEST(RestrictionTest, NontransiStartAndShortWay)

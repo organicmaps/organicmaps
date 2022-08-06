@@ -40,7 +40,7 @@
 // Format:
 // File offset (bytes)  Field name          Field size (bytes)
 // 0                    version             2
-// 2                    endianness          2
+// 2                    block size          2
 // 4                    positions offset    4
 // 8                    variables offset    4
 // 12                   end of section      4
@@ -48,158 +48,106 @@
 // positions offset     positions table     variables offset - positions offset
 // variables offset     variables blocks    end of section - variables offset
 //
-// Version and endianness are always stored in the little-endian format.
-// 0 value of endianness means little-endian, whereas 1 means big-endian.
-//
-// All offsets are in the little-endian format.
-//
 // Identifiers table is a bit-vector with rank-select table, where set
 // bits denote that values for the corresponding features are in the
 // table.  Identifiers table is stored in the native endianness.
 //
 // Positions table is an Elias-Fano table where each entry corresponds
-// to the start position of the variables block. Positions table is
-// stored in the native endianness.
+// to the start position of the variables block.
 //
 // Variables is a sequence of blocks, where each block (with the
 // exception of the last one) is a sequence of kBlockSize variables
 // encoded by block encoding callback.
 //
-// On Get call kBlockSize consecutive variables are decoded and cached in RAM. Get is not
-// threadsafe.
-//
-// GetThreadsafe does not use cache.
+// On Get call m_blockSize consecutive variables are decoded and cached in RAM.
 
 template <typename Value>
 class MapUint32ToValue
 {
-public:
-  using ReadBlockCallback =
-      std::function<void(NonOwningReaderSource &, uint32_t, std::vector<Value> &)>;
+  // 0 - initial version.
+  // 1 - added m_blockSize instead of m_endianess.
+  static uint16_t constexpr kLastVersion = 1;
 
-  static uint32_t constexpr kBlockSize = 64;
+public:
+  using ReadBlockCallback = std::function<void(NonOwningReaderSource &, uint32_t, std::vector<Value> &)>;
 
   struct Header
   {
-    void Read(Reader & reader)
+    uint16_t Read(Reader & reader)
     {
       NonOwningReaderSource source(reader);
-      m_version = ReadPrimitiveFromSource<uint16_t>(source);
-      m_endianness = ReadPrimitiveFromSource<uint16_t>(source);
+      auto const version = ReadPrimitiveFromSource<uint16_t>(source);
+      m_blockSize = ReadPrimitiveFromSource<uint16_t>(source);
+      if (version == 0)
+        m_blockSize = 64;
 
       m_positionsOffset = ReadPrimitiveFromSource<uint32_t>(source);
       m_variablesOffset = ReadPrimitiveFromSource<uint32_t>(source);
       m_endOffset = ReadPrimitiveFromSource<uint32_t>(source);
+      return version;
     }
 
     void Write(Writer & writer)
     {
-      WriteToSink(writer, m_version);
-      WriteToSink(writer, m_endianness);
+      WriteToSink(writer, kLastVersion);
+      WriteToSink(writer, m_blockSize);
       WriteToSink(writer, m_positionsOffset);
       WriteToSink(writer, m_variablesOffset);
       WriteToSink(writer, m_endOffset);
     }
 
-    bool IsValid() const
-    {
-      if (m_version != 0)
-      {
-        LOG(LERROR, ("Unknown version."));
-        return false;
-      }
-
-      if (m_endianness > 1)
-      {
-        LOG(LERROR, ("Wrong endianness value."));
-        return false;
-      }
-
-      if (m_positionsOffset < sizeof(m_header))
-      {
-        LOG(LERROR, ("Positions before header:", m_positionsOffset, sizeof(m_header)));
-        return false;
-      }
-
-      if (m_variablesOffset < m_positionsOffset)
-      {
-        LOG(LERROR, ("Deltas before positions:", m_variablesOffset, m_positionsOffset));
-        return false;
-      }
-
-      if (m_endOffset < m_variablesOffset)
-      {
-        LOG(LERROR, ("End of section before variables:", m_endOffset, m_variablesOffset));
-        return false;
-      }
-
-      return true;
-    }
-
-    uint16_t m_version = 0;
-    uint16_t m_endianness = 0;
+    uint16_t m_blockSize = 0;
     uint32_t m_positionsOffset = 0;
     uint32_t m_variablesOffset = 0;
     uint32_t m_endOffset = 0;
   };
-
-  static_assert(sizeof(Header) == 16, "Wrong header size");
 
   MapUint32ToValue(Reader & reader, ReadBlockCallback const & readBlockCallback)
     : m_reader(reader), m_readBlockCallback(readBlockCallback)
   {
   }
 
-  ~MapUint32ToValue() = default;
-
-  // Tries to get |value| for key identified by |id|.  Returns
-  // false if table does not have entry for this id.
-  WARN_UNUSED_RESULT bool Get(uint32_t id, Value & value)
+  /// @name Tries to get |value| for key identified by |id|.
+  /// @returns false if table does not have entry for this id.
+  /// @{
+  [[nodiscard]] bool Get(uint32_t id, Value & value)
   {
     if (id >= m_ids.size() || !m_ids[id])
       return false;
 
     uint32_t const rank = static_cast<uint32_t>(m_ids.rank(id));
-    uint32_t const base = rank / kBlockSize;
-    uint32_t const offset = rank % kBlockSize;
+    uint32_t const base = rank / m_header.m_blockSize;
+    uint32_t const offset = rank % m_header.m_blockSize;
 
     auto & entry = m_cache[base];
     if (entry.empty())
-      entry = GetImpl(id);
+      entry = GetImpl(rank, m_header.m_blockSize);
 
     value = entry[offset];
     return true;
   }
 
-  // Tries to get |value| for key identified by |id|.  Returns
-  // false if table does not have entry for this id.
-  WARN_UNUSED_RESULT bool GetThreadsafe(uint32_t id, Value & value) const
+  [[nodiscard]] bool GetThreadsafe(uint32_t id, Value & value) const
   {
     if (id >= m_ids.size() || !m_ids[id])
       return false;
 
     uint32_t const rank = static_cast<uint32_t>(m_ids.rank(id));
-    uint32_t const offset = rank % kBlockSize;
+    uint32_t const offset = rank % m_header.m_blockSize;
 
-    auto const entry = GetImpl(id);
+    auto const entry = GetImpl(rank, offset + 1);
 
     value = entry[offset];
     return true;
   }
+  /// @}
 
   // Loads MapUint32ToValue instance. Note that |reader| must be alive
   // until the destruction of loaded table. Returns nullptr if
   // MapUint32ToValue can't be loaded.
   // It's guaranteed that |readBlockCallback| will not be called for empty block.
-  static std::unique_ptr<MapUint32ToValue> Load(Reader & reader,
-                                                ReadBlockCallback const & readBlockCallback)
+  static std::unique_ptr<MapUint32ToValue> Load(Reader & reader, ReadBlockCallback const & readBlockCallback)
   {
-    uint16_t const version = ReadPrimitiveFromPos<uint16_t>(reader, 0 /* pos */);
-    if (version != 0)
-      return {};
-
-    // Only single version of centers table is supported now.  If you need to implement new
-    // versions, implement dispatching based on first-four-bytes version.
     auto table = std::make_unique<MapUint32ToValue>(reader, readBlockCallback);
     if (!table->Init())
       return {};
@@ -221,49 +169,40 @@ public:
   uint64_t Count() const { return m_ids.num_ones(); }
 
 private:
-  std::vector<Value> GetImpl(uint32_t id) const
+  /// @param[in] upperSize Read until this size. Can be one of: \n
+  /// - m_header.m_blockSize for the regular Get version with cache \n
+  /// - index + 1 for the GetThreadsafe version without cache, to break when needed element is readed \n
+  std::vector<Value> GetImpl(uint32_t rank, uint32_t upperSize) const
   {
-    ASSERT_LESS(id, m_ids.size(), ());
-    ASSERT(m_ids[id], ());
-
-    uint32_t const rank = static_cast<uint32_t>(m_ids.rank(id));
-    uint32_t const base = rank / kBlockSize;
-
-    std::vector<Value> values(kBlockSize);
-
+    uint32_t const base = rank / m_header.m_blockSize;
     auto const start = m_offsets.select(base);
-    auto const end = base + 1 < m_offsets.num_ones()
-                         ? m_offsets.select(base + 1)
-                         : m_header.m_endOffset - m_header.m_variablesOffset;
+    auto const end = base + 1 < m_offsets.num_ones() ? m_offsets.select(base + 1) + m_header.m_variablesOffset
+                                                     : m_header.m_endOffset;
+    NonOwningReaderSource src(m_reader, m_header.m_variablesOffset + start, end);
 
-    std::vector<uint8_t> data(static_cast<size_t>(end - start));
-
-    m_reader.Read(m_header.m_variablesOffset + start, data.data(), data.size());
-
-    MemReader mreader(data.data(), data.size());
-    NonOwningReaderSource msource(mreader);
-
-    m_readBlockCallback(msource, kBlockSize, values);
+    // Important! Client should read while src.Size() > 0 and max |upperSize| number of elements.
+    std::vector<Value> values;
+    m_readBlockCallback(src, upperSize, values);
     return values;
   }
 
   bool Init()
   {
-    m_header.Read(m_reader);
-
-    if (!m_header.IsValid())
+    auto const version = m_header.Read(m_reader);
+    if (version > kLastVersion)
+    {
+      LOG(LERROR, ("Unsupported version =", version, "Last known version =", kLastVersion));
       return false;
-
-    bool const isHostBigEndian = IsBigEndianMacroBased();
-    bool const isDataBigEndian = m_header.m_endianness == 1;
-    bool const endiannesMismatch = isHostBigEndian != isDataBigEndian;
+    }
 
     {
       uint32_t const idsSize = m_header.m_positionsOffset - sizeof(m_header);
       std::vector<uint8_t> data(idsSize);
       m_reader.Read(sizeof(m_header), data.data(), data.size());
       m_idsRegion = std::make_unique<CopiedMemoryRegion>(move(data));
-      EndiannessAwareMap(endiannesMismatch, *m_idsRegion, m_ids);
+
+      coding::MapVisitor visitor(m_idsRegion->ImmutableData());
+      m_ids.map(visitor);
     }
 
     {
@@ -271,28 +210,12 @@ private:
       std::vector<uint8_t> data(offsetsSize);
       m_reader.Read(m_header.m_positionsOffset, data.data(), data.size());
       m_offsetsRegion = std::make_unique<CopiedMemoryRegion>(move(data));
-      EndiannessAwareMap(endiannesMismatch, *m_offsetsRegion, m_offsets);
+
+      coding::MapVisitor visitor(m_offsetsRegion->ImmutableData());
+      m_offsets.map(visitor);
     }
 
     return true;
-  }
-
-  template <typename Cont>
-  void EndiannessAwareMap(bool endiannesMismatch, CopiedMemoryRegion & region, Cont & cont)
-  {
-    Cont c;
-    if (endiannesMismatch)
-    {
-      coding::ReverseMapVisitor visitor(region.MutableData());
-      c.map(visitor);
-    }
-    else
-    {
-      coding::MapVisitor visitor(region.ImmutableData());
-      c.map(visitor);
-    }
-
-    c.swap(cont);
   }
 
   Header m_header;
@@ -327,9 +250,11 @@ public:
   }
 
   // It's guaranteed that |writeBlockCallback| will not be called for empty block.
-  void Freeze(Writer & writer, WriteBlockCallback const & writeBlockCallback) const
+  template <class WriterT>
+  void Freeze(WriterT & writer, WriteBlockCallback const & writeBlockCallback, uint16_t blockSize = 64) const
   {
     typename Map::Header header;
+    header.m_blockSize = blockSize;
 
     auto const startOffset = writer.Pos();
     header.Write(writer);
@@ -341,7 +266,7 @@ public:
       for (auto const & id : m_ids)
         builder.set(id, true);
 
-      coding::FreezeVisitor<Writer> visitor(writer);
+      coding::FreezeVisitor<WriterT> visitor(writer);
       succinct::rs_bit_vector(&builder).map(visitor);
     }
 
@@ -350,11 +275,11 @@ public:
 
     {
       MemWriter<std::vector<uint8_t>> writer(variables);
-      for (size_t i = 0; i < m_values.size(); i += Map::kBlockSize)
+      for (size_t i = 0; i < m_values.size(); i += blockSize)
       {
         offsets.push_back(static_cast<uint32_t>(variables.size()));
 
-        auto const endOffset = std::min(i + Map::kBlockSize, m_values.size());
+        auto const endOffset = std::min(i + blockSize, m_values.size());
         CHECK_GREATER(endOffset, i, ());
         writeBlockCallback(writer, m_values.cbegin() + i, m_values.cbegin() + endOffset);
       }
@@ -367,7 +292,7 @@ public:
         builder.push_back(offset);
 
       header.m_positionsOffset = base::checked_cast<uint32_t>(writer.Pos() - startOffset);
-      coding::FreezeVisitor<Writer> visitor(writer);
+      coding::FreezeVisitor<WriterT> visitor(writer);
       succinct::elias_fano(&builder).map(visitor);
     }
 
@@ -380,7 +305,6 @@ public:
     auto const endOffset = writer.Pos();
 
     writer.Seek(startOffset);
-    CHECK_EQUAL(header.m_endianness, 0, ("|m_endianness| should be set to little-endian."));
     header.Write(writer);
     writer.Seek(endOffset);
   }

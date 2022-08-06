@@ -138,21 +138,21 @@ bool Transliteration::TransliterateForce(std::string const & str, std::string co
   return res;
 }
 
-bool Transliteration::Transliterate(std::string const & str, int8_t langCode,
+bool Transliteration::Transliterate(std::string_view sv, int8_t langCode,
                                     std::string & out) const
 {
   CHECK(m_inited, ());
   if (m_mode != Mode::Enabled)
     return false;
 
-  if (str.empty() || strings::IsASCIIString(str))
+  if (sv.empty() || strings::IsASCIIString(sv))
     return false;
 
   auto const & transliteratorsIds = StringUtf8Multilang::GetTransliteratorsIdsByCode(langCode);
   if (transliteratorsIds.empty())
     return false;
 
-  icu::UnicodeString ustr(str.c_str());
+  icu::UnicodeString ustr(sv.data(), static_cast<int32_t>(sv.size()));
   for (auto const & id : transliteratorsIds)
     Transliterate(id, ustr);
 

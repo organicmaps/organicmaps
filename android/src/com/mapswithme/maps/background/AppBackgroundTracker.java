@@ -7,12 +7,10 @@ import android.os.Bundle;
 import android.util.SparseArray;
 
 import androidx.annotation.NonNull;
-
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.util.Listeners;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.LoggerFactory;
 
 import java.lang.ref.WeakReference;
 
@@ -22,7 +20,6 @@ import java.lang.ref.WeakReference;
  */
 public final class AppBackgroundTracker
 {
-  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = AppBackgroundTracker.class.getSimpleName();
   private static final int TRANSITION_DELAY_MS = 1000;
 
@@ -67,7 +64,7 @@ public final class AppBackgroundTracker
     @Override
     public void onActivityStarted(Activity activity)
     {
-      LOGGER.d(TAG, "onActivityStarted activity = " + activity);
+      Logger.d(TAG, "onActivityStarted activity = " + activity);
       if (mActivities.size() == 0)
         notifyVisibleAppLaunchListeners();
       mActivities.put(activity.hashCode(), new WeakReference<>(activity));
@@ -77,7 +74,7 @@ public final class AppBackgroundTracker
     @Override
     public void onActivityStopped(Activity activity)
     {
-      LOGGER.d(TAG, "onActivityStopped activity = " + activity);
+      Logger.d(TAG, "onActivityStopped activity = " + activity);
       mActivities.remove(activity.hashCode());
       onActivityChanged();
     }
@@ -85,31 +82,31 @@ public final class AppBackgroundTracker
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState)
     {
-      LOGGER.d(TAG, "onActivityCreated activity = " + activity);
+      Logger.d(TAG, "onActivityCreated activity = " + activity);
     }
 
     @Override
     public void onActivityDestroyed(Activity activity)
     {
-      LOGGER.d(TAG, "onActivityDestroyed activity = " + activity);
+      Logger.d(TAG, "onActivityDestroyed activity = " + activity);
     }
 
     @Override
     public void onActivityResumed(Activity activity)
     {
-      LOGGER.d(TAG, "onActivityResumed activity = " + activity);
+      Logger.d(TAG, "onActivityResumed activity = " + activity);
     }
 
     @Override
     public void onActivityPaused(Activity activity)
     {
-      LOGGER.d(TAG, "onActivityPaused activity = " + activity);
+      Logger.d(TAG, "onActivityPaused activity = " + activity);
     }
 
     @Override
     public void onActivitySaveInstanceState(Activity activity, Bundle outState)
     {
-      LOGGER.d(TAG, "onActivitySaveInstanceState activity = " + activity);
+      Logger.d(TAG, "onActivitySaveInstanceState activity = " + activity);
     }
   };
 

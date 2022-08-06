@@ -25,6 +25,8 @@ void ReEncodeOsmIdsToFeatureIdsMapping(std::string const & mappingContent,
                                        std::string const & outputFilePath);
 }  // namespace generator
 
+namespace traffic { class TrafficCache; }
+
 namespace routing
 {
 class TestGeometryLoader : public GeometryLoader
@@ -42,9 +44,8 @@ private:
   std::unordered_map<uint32_t, RoadGeometry> m_roads;
 };
 
-std::shared_ptr<routing::EdgeEstimator> CreateEstimatorForCar(
-    traffic::TrafficCache const & trafficCache);
-std::shared_ptr<routing::EdgeEstimator> CreateEstimatorForCar(std::shared_ptr<TrafficStash> trafficStash);
+std::shared_ptr<EdgeEstimator> CreateEstimatorForCar(traffic::TrafficCache const & trafficCache);
+std::shared_ptr<EdgeEstimator> CreateEstimatorForCar(std::shared_ptr<TrafficStash> trafficStash);
 
 Joint MakeJoint(std::vector<routing::RoadPoint> const & points);
 

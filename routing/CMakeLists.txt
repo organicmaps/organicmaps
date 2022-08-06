@@ -30,12 +30,12 @@ set(SRC
   cross_border_graph.hpp
   cross_mwm_connector.cpp
   cross_mwm_connector.hpp
-  cross_mwm_connector_serialization.cpp
   cross_mwm_connector_serialization.hpp
   cross_mwm_graph.cpp
   cross_mwm_graph.hpp
   cross_mwm_ids.hpp
   cross_mwm_index_graph.hpp
+  data_source.hpp
   directions_engine.cpp
   directions_engine.hpp
   directions_engine_helpers.cpp
@@ -165,6 +165,8 @@ set(SRC
   turn_candidate.hpp
   turns.cpp
   turns.hpp
+  turns_generator_utils.cpp
+  turns_generator_utils.hpp
   turns_generator.cpp
   turns_generator.hpp
   turns_notification_manager.cpp

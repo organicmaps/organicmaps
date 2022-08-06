@@ -1,6 +1,8 @@
 package com.mapswithme.maps.widget.placepage;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.location.Location;
@@ -11,6 +13,7 @@ import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.text.util.Linkify;
 import android.util.AttributeSet;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MotionEvent;
@@ -31,11 +34,11 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.widget.NestedScrollViewClickFixed;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.api.Const;
 import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
@@ -64,7 +67,6 @@ import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -79,8 +81,8 @@ public class PlacePageView extends NestedScrollViewClickFixed
                EditBookmarkFragment.EditBookmarkListener
 
 {
-  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = PlacePageView.class.getSimpleName();
+
   private static final String PREF_COORDINATES_FORMAT = "coordinates_format";
   private static final List<CoordinatesFormat> visibleCoordsFormat =
       Arrays.asList(CoordinatesFormat.LatLonDMS,
@@ -127,6 +129,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
   private RecyclerView mFullWeekOpeningHours;
   private PlaceOpeningHoursAdapter mOpeningHoursAdapter;
   private View mWifi;
+  private TextView mTvWiFi;
   private View mEmail;
   private TextView mTvEmail;
   private View mOperator;
@@ -370,6 +373,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
     mOpeningHoursAdapter = new PlaceOpeningHoursAdapter();
     mFullWeekOpeningHours.setAdapter(mOpeningHoursAdapter);
     mWifi = findViewById(R.id.ll__place_wifi);
+    mTvWiFi = findViewById(R.id.tv__place_wifi);
     mEmail = findViewById(R.id.ll__place_email);
     mEmail.setOnClickListener(this);
     mTvEmail = findViewById(R.id.tv__place_email);
@@ -401,7 +405,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
     mWvBookmarkNote = mBookmarkFrame.findViewById(R.id.wv__bookmark_notes);
     final WebSettings settings = mWvBookmarkNote.getSettings();
     settings.setJavaScriptEnabled(false);
-    settings.setDefaultTextEncodingName("utf-8");
+    settings.setDefaultTextEncodingName("UTF-8");
     mTvBookmarkNote = mBookmarkFrame.findViewById(R.id.tv__bookmark_notes);
     mTvBookmarkNote.setOnLongClickListener(this);
     initEditMapObjectBtn();
@@ -503,7 +507,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
   {
     if (mMapObject == null)
     {
-      LOGGER.e(TAG, "Bookmark cannot be managed, mMapObject is null!");
+      Logger.e(TAG, "Bookmark cannot be managed, mMapObject is null!");
       return;
     }
     toggleIsBookmark(mMapObject);
@@ -513,7 +517,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
   {
     if (mMapObject == null)
     {
-      LOGGER.e(TAG, "A map object cannot be shared, it's null!");
+      Logger.e(TAG, "A map object cannot be shared, it's null!");
       return;
     }
     SharingUtils.shareMapObject(getContext(), mMapObject);
@@ -523,21 +527,24 @@ public class PlacePageView extends NestedScrollViewClickFixed
   {
     if (mMapObject == null)
     {
-      LOGGER.e(TAG, "A mwm request cannot be handled, mMapObject is null!");
+      Logger.e(TAG, "A mwm request cannot be handled, mMapObject is null!");
       getActivity().finish();
       return;
     }
 
-    if (ParsedMwmRequest.hasRequest())
+    final ParsedMwmRequest request = ParsedMwmRequest.getCurrentRequest();
+    if (request != null && request.isPickPointMode())
     {
-      ParsedMwmRequest request = ParsedMwmRequest.getCurrentRequest();
-      if (ParsedMwmRequest.isPickPointMode())
-        request.setPointData(mMapObject.getLat(), mMapObject.getLon(), mMapObject.getTitle(), "");
-
-      request.sendResponseAndFinish(getActivity(), true);
+      final Intent result = new Intent();
+      result.putExtra(Const.EXTRA_POINT_LAT, mMapObject.getLat())
+          .putExtra(Const.EXTRA_POINT_LON, mMapObject.getLon())
+          .putExtra(Const.EXTRA_POINT_NAME, mMapObject.getTitle())
+          .putExtra(Const.EXTRA_POINT_ID, mMapObject.getApiId())
+          .putExtra(Const.EXTRA_ZOOM_LEVEL, Framework.nativeGetDrawScale());
+      getActivity().setResult(Activity.RESULT_OK, result);
+      ParsedMwmRequest.setCurrentRequest(null);
     }
-    else
-      getActivity().finish();
+    getActivity().finish();
   }
 
   private void onRouteFromBtnClicked()
@@ -743,7 +750,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
   {
     if (mMapObject == null)
     {
-      LOGGER.e(TAG, "A place page views cannot be refreshed, mMapObject is null");
+      Logger.e(TAG, "A place page views cannot be refreshed, mMapObject is null");
       return;
     }
     refreshPreview(mMapObject);
@@ -847,7 +854,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
     refreshMetadataOrHide(mapObject.getMetadata(Metadata.MetadataType.FMD_OPERATOR), mOperator, mTvOperator);
     refreshMetadataOrHide(Framework.nativeGetActiveObjectFormattedCuisine(), mCuisine, mTvCuisine);
     refreshMetadataOrHide(mapObject.getMetadata(Metadata.MetadataType.FMD_WIKIPEDIA), mWiki, null);
-    refreshMetadataOrHide(mapObject.getMetadata(Metadata.MetadataType.FMD_INTERNET), mWifi, null);
+    refreshWiFi(mapObject);
     refreshMetadataOrHide(mapObject.getMetadata(Metadata.MetadataType.FMD_FLATS), mEntrance, mTvEntrance);
     refreshOpeningHours(mapObject);
     refreshSocialLinks(mapObject);
@@ -918,7 +925,9 @@ public class PlacePageView extends NestedScrollViewClickFixed
     }
 
     // Show whole week time table.
-    mOpeningHoursAdapter.setTimetables(timetables);
+    Locale locale = getResources().getConfiguration().locale;
+    int firstDayOfWeek = Calendar.getInstance(locale).getFirstDayOfWeek();
+    mOpeningHoursAdapter.setTimetables(timetables, firstDayOfWeek);
     UiUtils.show(mFullWeekOpeningHours);
 
     // Show today's open time + non-business time.
@@ -963,6 +972,19 @@ public class PlacePageView extends NestedScrollViewClickFixed
       UiUtils.clearTextAndHide(mTodayNonBusinessTime);
     else
       UiUtils.setTextAndShow(mTodayNonBusinessTime, TimeFormatUtils.formatNonBusinessTime(closedTimespans, hoursClosedLabel));
+  }
+
+  private void refreshWiFi(@NonNull MapObject mapObject)
+  {
+    final String inet = mapObject.getMetadata(Metadata.MetadataType.FMD_INTERNET);
+    if (!TextUtils.isEmpty(inet))
+    {
+      mWifi.setVisibility(View.VISIBLE);
+      /// @todo Better (but harder) to wrap C++ osm::Internet into Java, instead of comparing with "no".
+      mTvWiFi.setText(TextUtils.equals(inet, "no") ? R.string.no_available : R.string.yes_available);
+    }
+    else
+      mWifi.setVisibility(View.GONE);
   }
 
   private void refreshSocialLinks(@NonNull MapObject mapObject)
@@ -1071,7 +1093,10 @@ public class PlacePageView extends NestedScrollViewClickFixed
 
     if (StringUtils.nativeIsHtml(notes))
     {
-      mWvBookmarkNote.loadData(notes, Utils.TEXT_HTML, Utils.UTF_8);
+      // According to loadData documentation, HTML should be either base64 or percent encoded.
+      // Default UTF-8 encoding for all content is set above in WebSettings.
+      final String b64encoded = Base64.encodeToString(notes.getBytes(), Base64.DEFAULT);
+      mWvBookmarkNote.loadData(b64encoded, Utils.TEXT_HTML, "base64");
       UiUtils.show(mWvBookmarkNote);
       UiUtils.hide(mTvBookmarkNote);
     }
@@ -1120,7 +1145,8 @@ public class PlacePageView extends NestedScrollViewClickFixed
       return;
     }
 
-    if (showBackButton || ParsedMwmRequest.isPickPointMode())
+    final ParsedMwmRequest request = ParsedMwmRequest.getCurrentRequest();
+    if (showBackButton || (request != null && request.isPickPointMode()))
       buttons.add(PlacePageButtons.Item.BACK);
 
     final boolean hasNumber = mapObject.hasPhoneNumber();
@@ -1160,7 +1186,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
     if (mMapObject == null)
     {
       // TODO: This method is constantly called even when nothing is selected on the map.
-      //LOGGER.e(TAG, "A location cannot be refreshed, mMapObject is null!");
+      //Logger.e(TAG, "A location cannot be refreshed, mMapObject is null!");
       return;
     }
 
@@ -1251,12 +1277,12 @@ public class PlacePageView extends NestedScrollViewClickFixed
 
   private void addOrganisation()
   {
-    getActivity().showPositionChooser(true, false);
+    getActivity().showPositionChooserForEditor(true, false);
   }
 
   private void addPlace()
   {
-    getActivity().showPositionChooser(false, true);
+    getActivity().showPositionChooserForEditor(false, true);
   }
 
   @Override
@@ -1276,7 +1302,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
       case R.id.ll__place_editor:
         if (mMapObject == null)
         {
-          LOGGER.e(TAG, "Cannot start editor, map object is null!");
+          Logger.e(TAG, "Cannot start editor, map object is null!");
           break;
         }
         getActivity().showEditor();
@@ -1293,7 +1319,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
         MwmApplication.prefs(getContext()).edit().putInt(PREF_COORDINATES_FORMAT, mCoordsFormat.getId()).apply();
         if (mMapObject == null)
         {
-          LOGGER.e(TAG, "A LatLon cannot be refreshed, mMapObject is null");
+          Logger.e(TAG, "A LatLon cannot be refreshed, mMapObject is null");
           break;
         }
         refreshLatLon(mMapObject);
@@ -1328,7 +1354,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
         // TODO: Refactor and use separate getters for Wiki and all other PP meta info too.
         if (mMapObject == null)
         {
-          LOGGER.e(TAG, "Cannot follow url, mMapObject is null!");
+          Logger.e(TAG, "Cannot follow url, mMapObject is null!");
           break;
         }
         Utils.openUrl(getContext(), mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIPEDIA));
@@ -1361,8 +1387,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
   @Override
   public boolean onLongClick(View v)
   {
-    final Object tag = v.getTag();
-
     final List<String> items = new ArrayList<>();
     switch (v.getId())
     {
@@ -1384,7 +1408,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
       case R.id.ll__place_latlon:
         if (mMapObject == null)
         {
-          LOGGER.e(TAG, "A long click tap on LatLon cannot be handled, mMapObject is null!");
+          Logger.e(TAG, "A long click tap on LatLon cannot be handled, mMapObject is null!");
           break;
         }
         final double lat = mMapObject.getLat();
@@ -1589,7 +1613,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
     {
       if (mMapObject == null)
       {
-        LOGGER.e(TAG, "A bookmark cannot be edited, mMapObject is null!");
+        Logger.e(TAG, "A bookmark cannot be edited, mMapObject is null!");
         return;
       }
       Bookmark bookmark = (Bookmark) mMapObject;

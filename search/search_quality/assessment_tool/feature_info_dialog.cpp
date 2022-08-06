@@ -68,14 +68,14 @@ FeatureInfoDialog::FeatureInfoDialog(QWidget * parent, osm::MapObject const & ma
 
     for (auto const & code : codes)
     {
-      string name;
+      string_view name;
       if (!mapObject.GetNameMultilang().GetString(code, name))
         continue;
 
       auto const * lang = StringUtf8Multilang::GetLangByCode(code);
       CHECK(lang, ("Can't find lang by code:", code));
       auto * label = new QLabel(QString::fromStdString(string(lang) + ":"));
-      auto * content = MakeSelectableLabel(name);
+      auto * content = MakeSelectableLabel(std::string(name));
 
       AddRow(*layout, label, content);
     }

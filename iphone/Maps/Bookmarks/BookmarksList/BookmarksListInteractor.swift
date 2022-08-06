@@ -36,8 +36,6 @@ extension BookmarksManagerListener: BookmarksObserver {
       callback(.empty)
     case .archiveError, .fileError:
       callback(.error)
-    @unknown default:
-      fatalError()
     }
   }
 }

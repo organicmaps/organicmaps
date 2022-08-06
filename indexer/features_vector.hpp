@@ -86,6 +86,7 @@ public:
   explicit FeaturesVectorTest(FilesContainerR const & cont);
   ~FeaturesVectorTest();
 
+  FilesContainerR const & GetContainer() const { return m_cont; }
   feature::DataHeader const & GetHeader() const { return m_header; }
   FeaturesVector const & GetVector() const { return m_vector; }
 };

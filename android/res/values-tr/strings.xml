@@ -17,19 +17,17 @@
 	<string name="downloading">İndiriliyor…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Kilometre</string>
-	<!-- View and button titles for accessibility -->
-	<string name="maps">Haritalar</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="mb">MB</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Mil</string>
-	<!-- View and button titles for accessibility -->
+	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">Konumum</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">Daha sonra</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Ara</string>
-	<!-- Search box placeholder text -->
+	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">Haritada Ara</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">Şu anda bu cihaz veya uygulama için tüm Konum Hizmetleri devre dışı bırakılmış. Lütfen bunu ayarlardan etkinleştirin.</string>
@@ -43,9 +41,10 @@
 	<string name="close">Kapat</string>
 	<string name="unsupported_phone">Hızlı donanıma sahip bir OpenGL gerekli. Ne yazık ki cihazınız desteklenmiyor.</string>
 	<string name="download">İndir</string>
-	<string name="disconnect_usb_cable">Organic Maps’i kullanabilmeniz için lütfen USB kablosunun bağlantısını kesin veya hafıza kartı takın</string>
-	<string name="not_enough_free_space_on_sdcard">Uygulamayı kullanabilmeniz için lütfen SD kart/USB depolama aygıtında biraz alan boşaltın</string>
-	<string name="not_enough_memory">Uygulamayı başlatmak için yeterli hafıza yok</string>
+	<!-- Used in DownloadResources startup screen -->
+	<string name="disconnect_usb_cable">Organic Maps’i kullanabilmek için lütfen USB kablosunun bağlantısını kesin veya hafıza kartı takın</string>
+	<!-- Used in DownloadResources startup screen -->
+	<string name="not_enough_free_space_on_sdcard">Uygulamayı kullanabilmek için lütfen SD kart/USB depolama aygıtında biraz alan boşaltın</string>
 	<string name="download_resources">Başlamadan önce cihazınıza genel dünya haritasını indirelim.\n%s alan gerekli.</string>
 	<string name="download_resources_continue">Haritaya Git</string>
 	<string name="downloading_country_can_proceed">%s indiriliyor. Şimdi haritaya\ngidebilirsiniz.</string>
@@ -79,6 +78,8 @@
 	<string name="maps_storage">Haritaları şuraya kaydet:</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Haritaların indirileceği yeri seçin</string>
+	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+	<string name="maps_storage_downloaded">Haritalar</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Haritalar taşınsın mı?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
@@ -125,6 +126,8 @@
 	<string name="post">Posta</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
 	<string name="police">Polis</string>
+	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! -->
+	<string name="wifi">WiFi</string>
 	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
 	<string name="recycling">Geri dönüşüm</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
@@ -157,7 +160,7 @@
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">Hey, Organic Maps’te geçerli konumumu incele!</string>
 	<!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-	<string name="my_position_share_email">Merhaba,\n\nŞu anda bulunduğum yer: %1$s. Yeri haritada görmek için bu %2$s veya şu %3$s bağlantıya tıkla.\n\nTeşekkürler.</string>
+	<string name="my_position_share_email">Merhaba,\n\nŞu anda bulunduğum yer: %1$s. Yeri haritada görmek için %2$s veya %3$s bağlantısına tıkla.\n\nTeşekkürler.</string>
 	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
 	<string name="share">Paylaş</string>
 	<!-- Share by email button text, also used in editor and About. -->
@@ -212,6 +215,8 @@
 	<string name="search_show_on_map">Haritada görüntüle</string>
 	<!-- Text in menu -->
 	<string name="website">Web Sitesi</string>
+	<!-- Text in About menu, opens Organic Maps news website -->
+	<string name="news">Haberler</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">Geri Bildirim</string>
 	<!-- Text in menu -->
@@ -226,17 +231,16 @@
 	<string name="copyright">Telif hakkı</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Hata bildir</string>
-	<!-- Search category -->
-	<string name="wifi">WiFi</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Tümünü güncelle</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">Tümünü İptal Et</string>
-	<!-- Downloaded maps category -->
+	<!-- Downloaded maps list header -->
 	<string name="downloader_downloaded_subtitle">İndirilenler</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">Sıraya alındı</string>
 	<string name="downloader_near_me_subtitle">Yakınlarımda</string>
+	<!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
 	<string name="downloader_status_maps">Haritalar</string>
 	<string name="downloader_download_all_button">Hepsini İndir</string>
 	<string name="downloader_downloading">İndiriliyor:</string>
@@ -252,6 +256,8 @@
 	<string name="downloader_delete_map">Haritayı Sil</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">Haritayı Güncelle</string>
+	<!-- Preference title -->
+	<string name="google_play_services">Google Play Hizmetleri</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">Mevcut konumunuzu belirlemek için Google Play Hizmetlerini kullanın</string>
 	<!-- Text for routing error dialog -->
@@ -297,8 +303,6 @@
 	<string name="gray">Gri</string>
 	<!-- blue gray color -->
 	<string name="blue_gray">Mavi Gri</string>
-	<!-- Wi-Fi available -->
-	<string name="WiFi_available">Evet</string>
 
 	<!-- SECTION: Routing dialogs strings -->
 	<string name="dialog_routing_disclaimer_title">Rotanızı takip ederken şunları lütfen unutmayın:</string>
@@ -340,6 +344,8 @@
 	<string name="routing_arrive">Varış: %s</string>
 	<string name="categories">Kategoriler</string>
 	<string name="history">Geçmiş</string>
+	<string name="opens_in">%s sonra açılıyor</string>
+	<string name="closes_in">%s sonra kapanıyor</string>
 	<string name="closed">Kapalı</string>
 	<string name="search_not_found">Üzgünüz, hiç bir şey bulamadık.</string>
 	<string name="search_not_found_query">Lütfen başka bir sorgu girin.</string>
@@ -379,7 +385,7 @@
 	<string name="editor_report_problem_duplicate_place_title">Kopyalanmış yer</string>
 	<string name="autodownload">Otomatik indir</string>
 	<!-- Place Page opening hours text -->
-	<string name="daily">Günlük</string>
+	<string name="daily">Her gün</string>
 	<string name="twentyfour_seven">7/24</string>
 	<string name="day_off_today">Bugün kapalı</string>
 	<string name="day_off">Kapalı</string>
@@ -458,6 +464,7 @@
 	<string name="kilometer">km</string>
 	<string name="kilometers_per_hour">km/s</string>
 	<string name="mile">mil</string>
+	<!-- A unit of measure -->
 	<string name="foot">fit</string>
 	<string name="miles_per_hour">saatte mil</string>
 	<string name="hour">sa</string>
@@ -484,7 +491,7 @@
 	<string name="error_enter_correct_twitter_page">Geçerli bir Twitter web adresi veya kullanıcı adı girin</string>
 	<string name="error_enter_correct_vk_page">Geçerli bir VK web adresi veya hesap adı girin</string>
 	<string name="error_enter_correct_line_page">Geçerli bir LINE web adresi veya LINE ID\'si girin</string>
-	<string name="placepage_add_place_button">Haritaya bir yer ekleyin</string>
+	<string name="placepage_add_place_button">Haritaya bir yer ekle</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Bunu tüm kullanıcılara göndermek ister misiniz?</string>
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
@@ -564,7 +571,8 @@
 	<plurals name="tracks">
 	  <item quantity="other">%d kayıt</item>
 	</plurals>
-	<string name="subtittle_opt_out">Kayıt ayarları</string>
+	<!-- used to choose between the Google and Android location services -->
+	<string name="subtittle_opt_out">Takip ayarları</string>
 	<string name="crash_reports">Çökme raporu</string>
 	<string name="crash_reports_description">Organic Maps deneyimini geliştirmek için verilerinizi kullanabiliriz. Değişiklikler, uygulama yeniden başlatıldıktan sonra geçerli olur.</string>
 	<string name="privacy_policy">Gizlilik politikası</string>
@@ -613,6 +621,14 @@
 	<string name="avoid_toll_roads_placepage">Paralı yollardan kaçın</string>
 	<string name="avoid_unpaved_roads_placepage">Asfaltsız yollardan kaçın</string>
 	<string name="avoid_ferry_crossing_placepage">Feribot geçişlerinden kaçın</string>
+	<!-- A generic "Yes" button in dialogs -->
+	<string name="yes">Evet</string>
+	<!-- A generic "No" button in dialogs -->
+	<string name="no">Hayır</string>
+	<!-- E.g. "WiFi:Yes" -->
+	<string name="yes_available">Var</string>
+	<!-- E.g. "WiFi:No" -->
+	<string name="no_available">Yok</string>
 	<string name="ok">Tamam</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Sırala…</string>
@@ -666,7 +682,13 @@
 	<string name="elevation_profile_time">Süre:</string>
 	<string name="isolines_toast_zooms_1_10">İzohipsleri görmek için haritayı büyütün</string>
 	<string name="download_map_title">Dünya haritasını indir</string>
+	<!-- Used in DownloadResources startup screen -->
+	<string name="disk_error">Dahili aygıtın belleğinde veya SD kartta klasör oluşturulamıyor ve dosyalar taşınamıyor</string>
+	<!-- Used in DownloadResources startup screen -->
+	<string name="disk_error_title">Disk hatası</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="connection_failure">Bağlantı hatası</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable_title">USB kablosunu çıkarın</string>
 	<string name="enable_screen_sleep">Ekranın kapanmasına izin ver</string>
 	<!-- Description in preferences -->
@@ -675,6 +697,8 @@
 	<string name="enable_show_on_lock_screen">Kilit ekranında göster</string>
 	<!-- Description in preferences -->
 	<string name="enable_show_on_lock_screen_description">Etkinleştirildiğinde, uygulama çalışırken her seferinde cihazınızın kilidini açmanıza gerek kalmaz.</string>
+	<!-- OpenStreetMap text on splash screen -->
+	<string name="splash_subtitle">OpenStreetMap\'ten harita verileri</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway">Teleferik</string>
@@ -702,6 +726,7 @@
 	<string name="type.amenity.bench">Bank</string>
 	<string name="type.amenity.bicycle_parking">Bisiklet Park Yeri</string>
 	<string name="type.amenity.bicycle_rental">Bisiklet Kiralama</string>
+	<string name="type.amenity.bicycle_repair_station">Bisiklet tamir istasyonu</string>
 	<string name="type.amenity.biergarten">Bira Bahçesi</string>
 	<string name="type.amenity.brothel">Genelev</string>
 	<string name="type.amenity.bureau_de_change">Döviz Bürosu</string>
@@ -769,7 +794,7 @@
 	<string name="type.amenity.post_box">Posta Kutusu</string>
 	<string name="type.amenity.post_office">Postane</string>
 	<string name="type.amenity.prison">Hapishane</string>
-	<string name="type.amenity.pub">Bar</string>
+	<string name="type.amenity.pub">Meyhane</string>
 	<string name="type.amenity.public_bookcase">Kitap Değişimi</string>
 
 	<!-- SECTION: Types: Recycling -->
@@ -806,11 +831,11 @@
 	<string name="type.amenity.vending_machine.parking_tickets">Otopark Fişi</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">Toplu Taşıma Biletleri için Otomatlar</string>
 	<string name="type.amenity.vending_machine.excrement_bags">Dışkı Torbası Dağıtıcı</string>
-	<string name="type.amenity.parcel_locker">Posta Kutusu</string>
+	<string name="type.amenity.parcel_locker">Kilitlenebilen Kutu Dolaplar</string>
 	<string name="type.amenity.vending_machine.fuel">Yakıt Dağıtıcı</string>
 	<string name="type.amenity.veterinary">Veteriner</string>
 	<string name="type.amenity.waste_basket">Çöp Kutusu</string>
-	<string name="type.amenity.waste_disposal">Çöp Kutusu</string>
+	<string name="type.amenity.waste_disposal">Çöp Konteyneri</string>
 	<string name="type.amenity.waste_transfer_station">Atık Transfer İstasyonu</string>
 	<string name="type.amenity.water_point">Karavanlar için Su Noktası</string>
 	<string name="type.barrier">Bariyer</string>
@@ -857,11 +882,17 @@
 	<string name="type.building.has_parts">Bina</string>
 	<string name="type.building.train_station">Tren İstasyonu</string>
 	<string name="type.building.warehouse">Depo</string>
+	<string name="type.cemetery.grave">Mezar</string>
 	<string name="type.craft">Zanaat</string>
+	<string name="type.craft.beekeeper">Arıcı</string>
+	<string name="type.craft.blacksmith">Demirci</string>
 	<string name="type.craft.brewery">Bira Fabrikası</string>
 	<string name="type.craft.carpenter">Marangoz</string>
 	<string name="type.craft.electrician">Elektrikçi</string>
+	<string name="type.craft.electronics_repair">Elektronik Tamircisi</string>
 	<string name="type.craft.gardener">Bahçe Düzenleyici</string>
+	<string name="type.craft.handicraft">El İşi</string>
+	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Klimacı</string>
 	<string name="type.craft.metal_construction">Dökümcü</string>
 	<string name="type.craft.painter">Boyacı</string>
@@ -964,42 +995,55 @@
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway">Otoyol</string>
 	<string name="type.highway.bridleway">Atlı Yolu</string>
-	<string name="type.highway.bridleway.bridge">Atlı Yolu</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.bridleway.bridge">Köprü</string>
 	<string name="type.highway.bridleway.permissive">Atlı Yolu</string>
-	<string name="type.highway.bridleway.tunnel">Atlı Yolu</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.bridleway.tunnel">Tünel</string>
 	<string name="type.highway.bus_stop">Otobüs Durağı</string>
 	<string name="type.highway.construction">Yapım Aşamasında Yol</string>
 	<string name="type.highway.cycleway">Bisiklet Yolu</string>
-	<string name="type.highway.cycleway.bridge">Bisiklet Yolu</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.cycleway.bridge">Köprü</string>
 	<string name="type.highway.cycleway.permissive">Bisiklet Yolu</string>
-	<string name="type.highway.cycleway.tunnel">Bisiklet Yolu</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.cycleway.tunnel">Tünel</string>
 	<string name="type.highway.elevator">Asansör</string>
 	<string name="type.highway.footway">Yaya Yolu</string>
 	<string name="type.highway.footway.alpine_hiking">Yol</string>
 	<string name="type.highway.footway.area">Yaya Alanı</string>
-	<string name="type.highway.footway.bridge">Yaya Yolu</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.footway.bridge">Köprü</string>
 	<string name="type.highway.footway.demanding_alpine_hiking">Yol</string>
 	<string name="type.highway.footway.demanding_mountain_hiking">Yol</string>
 	<string name="type.highway.footway.difficult_alpine_hiking">Yol</string>
 	<string name="type.highway.footway.hiking">Yol</string>
 	<string name="type.highway.footway.mountain_hiking">Yol</string>
 	<string name="type.highway.footway.permissive">Yaya Yolu</string>
-	<string name="type.highway.footway.tunnel">Yaya Yolu</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.footway.tunnel">Tünel</string>
 	<string name="type.highway.ford">Geçit</string>
 	<string name="type.highway.living_street">Cadde</string>
-	<string name="type.highway.living_street.bridge">Cadde</string>
-	<string name="type.highway.living_street.tunnel">Cadde</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.living_street.bridge">Köprü</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.living_street.tunnel">Tünel</string>
 	<string name="type.highway.motorway">Otoyol</string>
-	<string name="type.highway.motorway.bridge">Otoyol</string>
-	<string name="type.highway.motorway.tunnel">Otoyol</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway.bridge">Köprü</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway.tunnel">Tünel</string>
 	<string name="type.highway.motorway_junction">Çıkış</string>
 	<string name="type.highway.motorway_link">Otoyol Rampası</string>
-	<string name="type.highway.motorway_link.bridge">Otoyol Rampası</string>
-	<string name="type.highway.motorway_link.tunnel">Otoyol Rampası</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway_link.bridge">Köprü</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway_link.tunnel">Tünel</string>
 	<string name="type.highway.path">Yol</string>
 	<string name="type.highway.path.alpine_hiking">Yol</string>
 	<string name="type.highway.path.bicycle">Bisiklet ve Yürüyüş Yolu</string>
-	<string name="type.highway.path.bridge">Yol</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.path.bridge">Köprü</string>
 	<string name="type.highway.path.demanding_alpine_hiking">Yol</string>
 	<string name="type.highway.path.demanding_mountain_hiking">Yol</string>
 	<string name="type.highway.path.difficult_alpine_hiking">Yol</string>
@@ -1007,52 +1051,76 @@
 	<string name="type.highway.path.horse">Atlı Yolu</string>
 	<string name="type.highway.path.mountain_hiking">Yol</string>
 	<string name="type.highway.path.permissive">Yol</string>
-	<string name="type.highway.path.tunnel">Yol</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.path.tunnel">Tünel</string>
 	<string name="type.highway.pedestrian">Yayalar için Cadde</string>
 	<string name="type.highway.pedestrian.area">Yaya Alanı</string>
-	<string name="type.highway.pedestrian.bridge">Yayalar için Cadde</string>
-	<string name="type.highway.pedestrian.tunnel">Yayalar için Cadde</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.pedestrian.bridge">Köprü</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.pedestrian.tunnel">Tünel</string>
 	<string name="type.highway.primary">Ana Yol</string>
-	<string name="type.highway.primary.bridge">Ana Yol</string>
-	<string name="type.highway.primary.tunnel">Ana Yol</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary.bridge">Köprü</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary.tunnel">Tünel</string>
 	<string name="type.highway.primary_link">Ana Yol</string>
-	<string name="type.highway.primary_link.bridge">Ana Yol</string>
-	<string name="type.highway.primary_link.tunnel">Ana Yol</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary_link.bridge">Köprü</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary_link.tunnel">Tünel</string>
 	<string name="type.highway.raceway">Yarış Pisti</string>
 	<string name="type.highway.residential">Sokak</string>
 	<string name="type.highway.residential.area">Sokak</string>
-	<string name="type.highway.residential.bridge">Sokak</string>
-	<string name="type.highway.residential.tunnel">Sokak</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.residential.bridge">Köprü</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.residential.tunnel">Tünel</string>
 	<string name="type.highway.rest_area">Dinlenme Alanı</string>
 	<string name="type.highway.road">Yol</string>
-	<string name="type.highway.road.bridge">Yol</string>
-	<string name="type.highway.road.tunnel">Yol</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.road.bridge">Köprü</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.road.tunnel">Tünel</string>
 	<string name="type.highway.secondary">Tali Yol</string>
-	<string name="type.highway.secondary.bridge">Tali Yol</string>
-	<string name="type.highway.secondary.tunnel">Tali Yol</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary.bridge">Köprü</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary.tunnel">Tünel</string>
 	<string name="type.highway.secondary_link">Tali Yol</string>
-	<string name="type.highway.secondary_link.bridge">Tali Yol</string>
-	<string name="type.highway.secondary_link.tunnel">Tali Yol</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary_link.bridge">Köprü</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary_link.tunnel">Tünel</string>
 	<string name="type.highway.service">Servis Yolu</string>
 	<string name="type.highway.service.area">Servis Yolu</string>
-	<string name="type.highway.service.bridge">Servis Yolu</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.service.bridge">Köprü</string>
 	<string name="type.highway.service.driveway">Servis Yolu</string>
 	<string name="type.highway.service.parking_aisle">Park Koridoru</string>
-	<string name="type.highway.service.tunnel">Servis Yolu</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.service.tunnel">Tünel</string>
 	<string name="type.highway.services">Servis Alanı</string>
 	<string name="type.highway.speed_camera">Hız Kamerası</string>
 	<string name="type.highway.steps">Merdiven</string>
-	<string name="type.highway.steps.bridge">Merdiven</string>
-	<string name="type.highway.steps.tunnel">Merdiven</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.steps.bridge">Köprü</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.steps.tunnel">Tünel</string>
 	<string name="type.highway.tertiary">Üçüncül Yol</string>
-	<string name="type.highway.tertiary.bridge">Üçüncül Yol</string>
-	<string name="type.highway.tertiary.tunnel">Üçüncül Yol</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary.bridge">Köprü</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary.tunnel">Tünel</string>
 	<string name="type.highway.tertiary_link">Üçüncül Yol Rampası</string>
-	<string name="type.highway.tertiary_link.bridge">Üçüncül Yol Rampası</string>
-	<string name="type.highway.tertiary_link.tunnel">Üçüncül Yol Rampası</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary_link.bridge">Köprü</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary_link.tunnel">Tünel</string>
 	<string name="type.highway.track">Pist</string>
 	<string name="type.highway.track.area">Pist</string>
-	<string name="type.highway.track.bridge">Pist</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.track.bridge">Köprü</string>
 	<string name="type.highway.track.grade1">Pist</string>
 	<string name="type.highway.track.grade2">Pist</string>
 	<string name="type.highway.track.grade3">Pist</string>
@@ -1060,18 +1128,25 @@
 	<string name="type.highway.track.grade5">Pist</string>
 	<string name="type.highway.track.no.access">Pist</string>
 	<string name="type.highway.track.permissive">Pist</string>
-	<string name="type.highway.track.tunnel">Pist</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.track.tunnel">Tünel</string>
 	<string name="type.highway.traffic_signals">Trafik Işıkları</string>
 	<string name="type.highway.trunk">Devlet Yolu</string>
-	<string name="type.highway.trunk.bridge">Devlet Yolu</string>
-	<string name="type.highway.trunk.tunnel">Devlet Yolu</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk.bridge">Köprü</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk.tunnel">Tünel</string>
 	<string name="type.highway.trunk_link">Devlet Yolu</string>
-	<string name="type.highway.trunk_link.bridge">Devlet Yolu</string>
-	<string name="type.highway.trunk_link.tunnel">Devlet Yolu</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk_link.bridge">Köprü</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk_link.tunnel">Tünel</string>
 	<string name="type.highway.unclassified">Tali Yol</string>
 	<string name="type.highway.unclassified.area">Tali Yol</string>
-	<string name="type.highway.unclassified.bridge">Tali Yol</string>
-	<string name="type.highway.unclassified.tunnel">Tali Yol</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.unclassified.bridge">Köprü</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.unclassified.tunnel">Tünel</string>
 	<string name="type.area_highway.cycleway">Bisiklet Yolu</string>
 	<string name="type.area_highway.footway">Yaya Yolu</string>
 	<string name="type.area_highway.living_street">Cadde</string>
@@ -1098,7 +1173,7 @@
 	<string name="type.historic.castle.stately">Kale</string>
 	<string name="type.historic.citywalls">Şehir Duvarı</string>
 	<string name="type.historic.fort">Hisar</string>
-	<string name="type.historic.memorial">Anıt</string>
+	<string name="type.historic.memorial">Abide</string>
 	<string name="type.historic.memorial.plaque">Hatıra Plaketi</string>
 	<string name="type.historic.memorial.sculpture">Heykel</string>
 	<string name="type.historic.memorial.statue">Heykel</string>
@@ -1171,10 +1246,8 @@
 	<string name="type.leisure.sauna">Sauna</string>
 	<string name="type.leisure.slipway">Kızak</string>
 	<string name="type.leisure.sports_centre">Spor Merkezi</string>
-	<string name="type.leisure.sports_centre.climbing">Tırmanma Merkezi</string>
-	<string name="type.leisure.sports_centre.shooting">Poligon</string>
-	<string name="type.leisure.sports_centre.swimming">Yüzme Merkezi</string>
-	<string name="type.leisure.sports_centre.yoga">Yoga Stüdyosu</string>
+	<string name="type.sport.climbing">Tırmanma Merkezi</string>
+	<string name="type.sport.yoga">Yoga Stüdyosu</string>
 	<string name="type.leisure.stadium">Stadyum</string>
 	<string name="type.leisure.swimming_pool">Yüzme Havuzu</string>
 	<string name="type.leisure.swimming_pool.private">Yüzme Havuzu</string>
@@ -1197,7 +1270,7 @@
 	<string name="type.man_made.surveillance">Güvenlik Kamerası</string>
 	<string name="type.man_made.tower">Kule</string>
 	<string name="type.man_made.wastewater_plant">Atıksu Tesisi</string>
-	<string name="type.man_made.water_tap">Çeşme Suyu</string>
+	<string name="type.man_made.water_tap">Su Musluğu</string>
 	<string name="type.man_made.water_tower">Su Kulesi</string>
 	<string name="type.man_made.water_well">Su Kuyusu</string>
 	<string name="type.man_made.windmill">Yel Değirmeni</string>
@@ -1205,7 +1278,7 @@
 	<string name="type.military">Askeri</string>
 	<string name="type.military.bunker">Sığınak</string>
 	<string name="type.mountain_pass">Boğaz</string>
-	<string name="type.natural">Doğal</string>
+	<string name="type.natural">Doğa</string>
 	<string name="type.natural.bare_rock">Çıplak Kaya</string>
 	<string name="type.natural.bay">Koy</string>
 	<string name="type.natural.beach">Plaj</string>
@@ -1214,13 +1287,16 @@
 	<string name="type.natural.cape">Burun</string>
 	<string name="type.natural.cave_entrance">Mağara</string>
 	<string name="type.natural.cliff">Uçurum</string>
+	<string name="type.natural.earth_bank">Uçurum</string>
+	<string name="type.man_made.embankment">Set</string>
 	<string name="type.natural.coastline">Kıyı Şeridi</string>
 	<string name="type.natural.geyser">Gayzer</string>
 	<string name="type.natural.glacier">Buzul</string>
-	<string name="type.natural.grassland">Yeşillik</string>
+	<string name="type.natural.grassland">Campo</string>
 	<string name="type.natural.heath">Çalı</string>
 	<string name="type.natural.hot_spring">Kaplıca</string>
 	<string name="type.natural.water.lake">Göl</string>
+	<string name="type.natural.water.lock">Kilit Odası</string>
 	<string name="type.natural.water.pond">Gölet</string>
 	<string name="type.natural.water.reservoir">Rezervuar</string>
 	<string name="type.natural.water.basin">Havza</string>
@@ -1244,13 +1320,13 @@
 	<string name="type.natural.wetland.marsh">Sulak Alan</string>
 	<string name="type.noexit">Çıkmaz</string>
 	<string name="type.office">Ofis</string>
-	<string name="type.office.company">Şirket bürosu</string>
+	<string name="type.office.company">Şirket Bürosu</string>
 	<string name="type.office.estate_agent">Emlakçı</string>
-	<string name="type.office.government">Devlet dairesi</string>
-	<string name="type.office.insurance">Sigorta Acentası</string>
-	<string name="type.office.lawyer">Avukatlık bürosu</string>
+	<string name="type.office.government">Devlet Dairesi</string>
+	<string name="type.office.insurance">Sigorta Acentesi</string>
+	<string name="type.office.lawyer">Avukatlık Bürosu</string>
 	<string name="type.office.ngo">STK Binası</string>
-	<string name="type.office.telecommunication">Cep telefonu operatörü</string>
+	<string name="type.office.telecommunication">Cep Telefonu Operatörü</string>
 	<string name="type.place">Yer</string>
 	<string name="type.place.city">Şehir</string>
 	<string name="type.place.city.capital">Başkent</string>
@@ -1374,7 +1450,7 @@
 	<string name="type.shop.alcohol">İçki dükkanı</string>
 	<string name="type.shop.bakery">Fırın</string>
 	<string name="type.shop.beauty">Güzellik Salonu</string>
-	<string name="type.shop.beverages">İçecek</string>
+	<string name="type.shop.beverages">İçecekler</string>
 	<string name="type.shop.bicycle">Bisikletçi</string>
 	<string name="type.shop.bookmaker">Bahisçi</string>
 	<string name="type.shop.books">Kitapçı</string>
@@ -1393,22 +1469,28 @@
 	<string name="type.shop.convenience">Bakkal</string>
 	<string name="type.shop.copyshop">Kopyalama Merkezi</string>
 	<string name="type.shop.cosmetics">Bakım ürünleri</string>
+	<string name="type.shop.deli">Şarküteri Dükkanı</string>
 	<string name="type.shop.department_store">Büyük Mağaza</string>
 	<string name="type.shop.doityourself">Hırdavatçı</string>
 	<string name="type.shop.dry_cleaning">Kuru Temizleme</string>
 	<string name="type.shop.electronics">Elektronik Mağazası</string>
 	<string name="type.shop.erotic">Erotik Ürünler Mağazası</string>
 	<string name="type.shop.fabric">Mağaza</string>
+	<string name="type.shop.farm">Çiftlik Gıda Dükkanı</string>
 	<string name="type.shop.florist">Çiçekçi</string>
 	<string name="type.shop.funeral_directors">Cenaze Levazımcısı</string>
 	<string name="type.shop.furniture">Mobilya Mağazası</string>
 	<string name="type.shop.garden_centre">Bahçe Mağazası</string>
 	<string name="type.shop.gift">Hediyelik Eşya Mağazası</string>
 	<string name="type.shop.greengrocer">Manav</string>
+	<string name="type.shop.grocery">Bakkal</string>
 	<string name="type.shop.hairdresser">Kuaför</string>
-	<string name="type.shop.hardware">Hırdavatçı</string>
+	<string name="type.shop.hardware">Donanım mağazası</string>
+	<string name="type.shop.health_food">Sağlık Gıda Mağazası</string>
+	<string name="type.shop.houseware">Ev Eşyaları Dükkanı</string>
 	<string name="type.shop.jewelry">Kuyumcu</string>
 	<string name="type.shop.kiosk">Büfe</string>
+	<string name="type.shop.kitchen">Mutfak Mağazası</string>
 	<string name="type.shop.laundry">Çamaşırhane</string>
 	<string name="type.shop.mall">Alışveriş Merkezi</string>
 	<string name="type.shop.massage">Masaj Salonu</string>
@@ -1420,10 +1502,12 @@
 	<string name="type.shop.newsagent">Gazete Standı</string>
 	<string name="type.shop.optician">Gözlükçü</string>
 	<string name="type.shop.outdoor">Dış Mekan Ekipmanları</string>
+	<string name="type.shop.pastry">Hamur işi</string>
 	<string name="type.shop.pawnbroker">Tefeci</string>
 	<string name="type.shop.pet">Evcil Hayvan Mağazası</string>
 	<string name="type.shop.photo">Fotoğrafçı</string>
 	<string name="type.shop.seafood">Deniz Ürünleri Mağazası</string>
+	<string name="type.shop.second_hand">İkinci El Mağazası</string>
 	<string name="type.shop.shoes">Ayakkabı Mağazası</string>
 	<string name="type.shop.sports">Spor Ürünleri</string>
 	<string name="type.shop.stationery">Kırtasiye</string>
@@ -1438,31 +1522,61 @@
 	<string name="type.shop.video">Video Mağazası</string>
 	<string name="type.shop.video_games">Video Oyunları Mağazası</string>
 	<string name="type.shop.wine">Şarap Mağazası</string>
+	<string name="type.shop.antiques">Antikalar</string>
+	<string name="type.shop.art">Sanat Mağazası</string>
+	<string name="type.shop.baby_goods">Çocuk mağazası</string>
+	<string name="type.shop.bag">Çanta Mağazası</string>
+	<string name="type.shop.boutique">Butik</string>
+	<string name="type.shop.charity">Hayır Dükkanı</string>
+	<string name="type.shop.cheese">Peynir Dükkanı</string>
+	<string name="type.shop.craft">Sanat ve El işi</string>
+	<string name="type.shop.dairy">Süt Ürünleri</string>
+	<string name="type.shop.electrical">Elektirikli eşya dükkanı</string>
+	<string name="type.shop.fishing">Balıkçı Dükkanı</string>
+	<string name="type.shop.interior_decoration">İç Dekorasyon</string>
+	<string name="type.shop.lottery">Piyango bileti</string>
+	<string name="type.shop.medical_supply">Tıbbi malzemeler</string>
+	<string name="type.shop.nutrition_supplements">Besin Takviyeleri</string>
+	<string name="type.shop.paint">Boyalar</string>
+	<string name="type.shop.perfumery">Parfümeri</string>
+	<string name="type.shop.sewing">Dikiş malzemeleri</string>
+	<string name="type.shop.storage_rental">Depolama Kiralama</string>
+	<string name="type.shop.tobacco">Tütün</string>
+	<string name="type.shop.trade">Esnaf Malzemeleri</string>
+	<string name="type.shop.watches">Saatler</string>
+	<string name="type.shop.wholesale">Toptan satış mağazası</string>
 	<string name="type.sport">Spor</string>
 	<string name="type.sport.american_football">Amerikan Futbolu</string>
 	<string name="type.sport.archery">Okçuluk</string>
 	<string name="type.sport.athletics">Atletizm</string>
-	<string name="type.sport.australian_football">Ragbi</string>
+	<string name="type.sport.australian_football">Avustralya futbolu</string>
 	<string name="type.sport.baseball">Beyzbol</string>
 	<string name="type.sport.basketball">Basketbol</string>
+	<string name="type.sport.beachvolleyball">Plaj voleybolu</string>
 	<string name="type.sport.bowls">Kuka Oynu</string>
+	<string name="type.sport.chess">Satranç</string>
 	<string name="type.sport.cricket">Kriket</string>
-	<string name="type.sport.curling">Сurling</string>
-	<string name="type.sport.diving">Dalış</string>
+	<string name="type.sport.curling">Körling</string>
 	<string name="type.sport.equestrian">Binicilik Sporları</string>
 	<string name="type.sport.golf">Golf</string>
 	<string name="type.sport.gymnastics">Jimnastik</string>
 	<string name="type.sport.handball">Hentbol</string>
 	<string name="type.sport.multi">Çeşitli Sporlar</string>
+	<!-- Used to tag a scuba diving site. -->
 	<string name="type.sport.scuba_diving">Tüplü Dalış</string>
-	<string name="type.sport.shooting">Atış Sporları</string>
-	<string name="type.sport.skiing">Kayak</string>
+	<string name="type.sport.shooting">Çekim</string>
+	<string name="type.sport.skateboard">Kaykay</string>
+	<string name="type.sport.skiing">Kayak yapmak</string>
 	<string name="type.sport.soccer">Futbol</string>
 	<string name="type.sport.swimming">Yüzme</string>
+	<string name="type.sport.table_tennis">Masa tenisi</string>
 	<string name="type.sport.tennis">Tenis Kortu</string>
+	<string name="type.sport.volleyball">Voleybol</string>
+	<string name="type.sport.9pin">Bowling</string>
+	<string name="type.sport.10pin">Bowling</string>
 	<string name="type.tourism">Turizm</string>
 	<string name="type.tourism.alpine_hut">Dağda Konaklama</string>
-	<string name="type.tourism.apartment">Apart otel</string>
+	<string name="type.tourism.apartment">Apart Otel</string>
 	<string name="type.tourism.artwork">Sanat</string>
 	<string name="type.tourism.artwork.architecture">Sanatsal Mimari</string>
 	<string name="type.tourism.artwork.painting">Sanat Eserleri</string>
@@ -1480,7 +1594,7 @@
 	<string name="type.tourism.hotel">Otel</string>
 	<string name="type.tourism.information">Turist Bilgilendirme</string>
 	<string name="type.tourism.information.board">Bilgi Panosu</string>
-	<string name="type.tourism.information.guidepost">Turist Bilgilendirme</string>
+	<string name="type.tourism.information.guidepost">Kılavuz direği</string>
 	<string name="type.tourism.information.map">Turist Haritası</string>
 	<string name="type.tourism.information.office">Turizm Ofisi</string>
 	<string name="type.tourism.motel">Motel</string>
@@ -1503,7 +1617,6 @@
 	<string name="type.waterway.dock">Rıhtım</string>
 	<string name="type.waterway.drain">Lağım</string>
 	<string name="type.waterway.drain.tunnel">Lağım</string>
-	<string name="type.waterway.lock">Kanal Havuzu</string>
 	<string name="type.waterway.lock_gate">Kilit Kapısı</string>
 	<string name="type.waterway.river">Nehir</string>
 	<string name="type.waterway.river.tunnel">Nehir</string>
@@ -1535,4 +1648,5 @@
 	<string name="type.piste_type.nordic">İskandinav Kayak Pisti</string>
 	<string name="type.piste_type.sled">Kızak Pisti</string>
 	<string name="type.building_part">Bina</string>
+	<string name="type.amenity.events_venue">Etkinlik mekanı</string>
 </resources>

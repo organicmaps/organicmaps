@@ -86,8 +86,7 @@ void SupportManager::Init(ref_ptr<GraphicsContext> context)
 //#ifdef OMIM_OS_ANDROID
 //    std::vector<std::string> const models = {"Mali-G71", "Mali-T880", "Adreno (TM) 540",
 //                                             "Adreno (TM) 530", "Adreno (TM) 430"};
-//    m_isAntialiasingEnabledByDefault =
-//        (std::find(models.begin(), models.end(), m_rendererName) != models.end());
+//    m_isAntialiasingEnabledByDefault = base::IsExist(models, m_rendererName);
 //#else
 //    m_isAntialiasingEnabledByDefault = true;
 //#endif
@@ -119,10 +118,14 @@ bool SupportManager::IsVulkanForbidden(std::string const & deviceName,
   };
 
   // On these configurations we've detected fatal driver-specific Vulkan errors.
-  static std::array<Configuration, 3> const kBannedConfigurations = {
+  static Configuration const kBannedConfigurations[] = {
       Configuration{"Adreno (TM) 506", {1, 0, 31}, {42, 264, 975}},
       Configuration{"Adreno (TM) 506", {1, 1, 66}, {512, 313, 0}},
-      Configuration{"Adreno (TM) 530", {1, 1, 66}, {512, 313, 0}}
+      Configuration{"Adreno (TM) 530", {1, 1, 66}, {512, 313, 0}},
+
+      /// @todo Dashed lines stopped drawing after updating LineShape::Construct<DashedLineBuilder>.
+      /// Should obtain a device (Huawei P20) for better investigation.
+      Configuration{"Mali-G72", {1, 1, 97}, {18, 0, 0}},
   };
 
   for (auto const & d : kBannedDevices)
@@ -142,13 +145,15 @@ bool SupportManager::IsVulkanForbidden(std::string const & deviceName,
   return false;
 }
 
+// Finally, the result of this function is used in GraphicsContext::HasPartialTextureUpdates.
 bool SupportManager::IsVulkanTexturePartialUpdateBuggy(int sdkVersion,
                                                        std::string const & deviceName,
                                                        Version apiVersion,
                                                        Version driverVersion) const
 {
-  int constexpr kMinSdkVersionForVulkan10 = 29;
-  if (sdkVersion >= kMinSdkVersionForVulkan10)
+  /// @todo Assume that all Android 10+ (API 29) doesn't support Vulkan partial texture updates.
+  /// Can't say for sure is it right or not ..
+  if (sdkVersion >= 29)
     return true;
 
   // For these configurations partial updates of texture clears whole texture except part updated

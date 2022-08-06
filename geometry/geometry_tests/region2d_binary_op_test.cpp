@@ -97,6 +97,78 @@ UNIT_TEST(RegionDifference_Smoke)
   }
 }
 
+UNIT_TEST(AddRegion_Smoke)
+{
+  {
+    P arr1[] = { {0, 0}, {0, 1}, {1, 1}, {1, 0} };
+    P arr2[] = { {2, 2}, {2, 3}, {3, 3}, {3, 2} };
+
+    R r1, r2;
+    r1.Assign(arr1, arr1 + ARRAY_SIZE(arr1));
+    r2.Assign(arr2, arr2 + ARRAY_SIZE(arr2));
+
+    m2::MultiRegionI res;
+    res.push_back(r2);
+    m2::AddRegion(r1, res);
+
+    TEST_EQUAL(res.size(), 2, ());
+    TEST_EQUAL(m2::Area(res), 2, ());
+
+    res = m2::IntersectRegions(r1, {r2});
+    TEST_EQUAL(res.size(), 0, ());
+    TEST_EQUAL(m2::Area(res), 0, ());
+  }
+
+  {
+    P arr1[] = { {0, 0}, {0, 3}, {3, 3}, {3, 0} };
+    P arr2[] = { {1, 1}, {1, 2}, {2, 2}, {2, 1} };
+
+    R r1, r2;
+    r1.Assign(arr1, arr1 + ARRAY_SIZE(arr1));
+    r2.Assign(arr2, arr2 + ARRAY_SIZE(arr2));
+
+    m2::MultiRegionI res;
+    res.push_back(r2);
+    m2::AddRegion(r1, res);
+
+    TEST_EQUAL(res.size(), 1, ());
+    TEST_EQUAL(m2::Area(res), 9, ());
+
+    res = m2::IntersectRegions(r1, {r2});
+    TEST_EQUAL(res.size(), 1, ());
+    TEST_EQUAL(m2::Area(res), 1, ());
+  }
+}
+
+UNIT_TEST(RegionIntersect_Floats)
+{
+  P arr1[] = { {0, 1}, {2, 3}, {3, 2}, {1, 0} };
+  P arr2[] = { {0, 2}, {1, 3}, {3, 1}, {2, 0} };
+
+  R r1, r2;
+  r1.Assign(arr1, arr1 + ARRAY_SIZE(arr1));
+  r2.Assign(arr2, arr2 + ARRAY_SIZE(arr2));
+
+  // Moved diamond as a result with sqrt(2) edge's length and nearest integer coordinates.
+  m2::MultiRegionI res;
+  m2::IntersectRegions(r1, r2, res);
+
+  TEST_EQUAL(m2::Area(res), 2, ());
+}
+
+UNIT_TEST(RegionArea_2Directions)
+{
+  P arr[] = { {1, 1}, {1, 0}, {2, 0}, {2, 1}, {1, 1}, // CCW direction
+              {1, 1}, {1, 0}, {0, 0}, {0, 1}, {1, 1}  // CW direction
+  };
+
+  R r;
+  r.Assign(arr, arr + ARRAY_SIZE(arr));
+
+  // Natural area is 2, but calculated area is 0, because one region with 2 opposite directions.
+  TEST_EQUAL(r.CalculateArea(), 0, ());
+}
+
 /*
 UNIT_TEST(RegionDifference_Data1)
 {

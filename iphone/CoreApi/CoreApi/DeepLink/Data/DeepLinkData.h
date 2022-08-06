@@ -7,6 +7,7 @@ typedef NS_ENUM(NSUInteger, DeeplinkUrlType) {
   DeeplinkUrlTypeMap,
   DeeplinkUrlTypeRoute,
   DeeplinkUrlTypeSearch,
+  DeeplinkUrlTypeCrosshair,
 };
 
 @protocol IDeepLinkData <NSObject>

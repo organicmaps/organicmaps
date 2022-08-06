@@ -568,15 +568,36 @@ Java_com_mapswithme_maps_editor_Editor_nativeGetSelectedCuisines(JNIEnv * env, j
 }
 
 JNIEXPORT jobjectArray JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeFilterCuisinesKeys(JNIEnv * env, jclass thiz, jstring jSubstr)
+{
+  std::string const substr = jni::ToNativeString(env, jSubstr);
+  bool const noFilter = substr.length() == 0;
+  osm::AllCuisines const & cuisines = osm::Cuisines::Instance().AllSupportedCuisines();
+  std::vector<std::string> keys;
+  keys.reserve(cuisines.size());
+
+  for (TCuisine const & cuisine : cuisines)
+  {
+    std::string const & key = cuisine.first;
+    std::string const & label = cuisine.second;
+    if (noFilter || search::ContainsNormalized(key, substr) || search::ContainsNormalized(label, substr))
+      keys.push_back(key);
+  }
+
+  return jni::ToJavaStringArray(env, keys);
+}
+
+JNIEXPORT jobjectArray JNICALL
 Java_com_mapswithme_maps_editor_Editor_nativeTranslateCuisines(JNIEnv * env, jclass clazz, jobjectArray jKeys)
 {
   int const length = env->GetArrayLength(jKeys);
+  auto const & cuisines = osm::Cuisines::Instance();
   std::vector<std::string> translations;
   translations.reserve(length);
   for (int i = 0; i < length; i++)
   {
-    std::string const & key = jni::ToNativeString(env, (jstring) env->GetObjectArrayElement(jKeys, i));
-    translations.push_back(osm::Cuisines::Instance().Translate(key));
+    std::string const key = jni::ToNativeString(env, static_cast<jstring>(env->GetObjectArrayElement(jKeys, i)));
+    translations.push_back(cuisines.Translate(key));
   }
   return jni::ToJavaStringArray(env, translations);
 }
@@ -588,7 +609,7 @@ Java_com_mapswithme_maps_editor_Editor_nativeSetSelectedCuisines(JNIEnv * env, j
   std::vector<std::string> cuisines;
   cuisines.reserve(length);
   for (int i = 0; i < length; i++)
-    cuisines.push_back(jni::ToNativeString(env, (jstring) env->GetObjectArrayElement(jKeys, i)));
+    cuisines.push_back(jni::ToNativeString(env, static_cast<jstring>(env->GetObjectArrayElement(jKeys, i))));
   g_editableMapObject.SetCuisines(cuisines);
 }
 

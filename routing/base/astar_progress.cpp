@@ -31,7 +31,9 @@ AStarSubProgress::AStarSubProgress(double contributionCoef)
 
 double AStarSubProgress::UpdateProgress(ms::LatLon const & current, ms::LatLon const & finish)
 {
-  ASSERT_NOT_EQUAL(m_fullDistance, 0.0, ());
+  // to avoid 0/0
+  if (m_fullDistance < 1.0E-6)
+    return m_currentProgress;
 
   double const dist = ms::DistanceOnEarth(current, finish);
   double & toUpdate = finish == m_finishPoint ? m_forwardDistance : m_backwardDistance;
@@ -81,18 +83,15 @@ void AStarProgress::AppendSubProgress(AStarSubProgress const & subProgress)
 void AStarProgress::DropLastSubProgress()
 {
   CHECK(!m_subProgresses.empty(), ());
-  auto const last = std::prev(m_subProgresses.end());
-  m_subProgresses.erase(last);
+  m_subProgresses.pop_back();
 }
 
 void AStarProgress::PushAndDropLastSubProgress()
 {
-  CHECK(m_subProgresses.begin() != m_subProgresses.end(), ());
-  CHECK(m_subProgresses.begin() != std::prev(m_subProgresses.end()), ());
-
+  CHECK_GREATER(m_subProgresses.size(), 1, ());
   auto prevLast = std::prev(std::prev(m_subProgresses.end()));
-  prevLast->Flush(m_subProgresses.back().GetMaxContribution());
 
+  prevLast->Flush(m_subProgresses.back().GetMaxContribution());
   DropLastSubProgress();
 }
 

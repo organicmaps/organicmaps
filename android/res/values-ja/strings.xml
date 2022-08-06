@@ -17,17 +17,15 @@
 	<string name="downloading">ダウンロード中…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">キロメートル</string>
-	<!-- View and button titles for accessibility -->
-	<string name="maps">マップ</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">マイル</string>
-	<!-- View and button titles for accessibility -->
+	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">現在地</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">次の機会に</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">検索</string>
-	<!-- Search box placeholder text -->
+	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">マップを検索</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">端末の位置情報サービスが無効になっているか、このアプリケーションからの位置情報利用が制限されています。端末の設定を有効化してください。</string>
@@ -41,9 +39,10 @@
 	<string name="close">閉じる</string>
 	<string name="unsupported_phone">ハードウェアアクセラレーションされたOpenGLが必要です。残念ながらご利用中のデバイスではサポートされていません。</string>
 	<string name="download">ダウンロード</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable">Organic Mapsを利用するにはUSBケーブルを抜くかメモリーカードを挿入してください</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="not_enough_free_space_on_sdcard">アプリを起動するにはSDカード/USBストレージの空き容量を確保する必要があります</string>
-	<string name="not_enough_memory">メモリ不足のためアプリを起動できません</string>
 	<string name="download_resources">利用を開始する前におおまかな世界地図をダウンロードします。これには%sの空き容量が必要です。</string>
 	<string name="download_resources_continue">マップを表示</string>
 	<string name="downloading_country_can_proceed">%sをダウンロードしました\nマップを表示可能です</string>
@@ -77,6 +76,8 @@
 	<string name="maps_storage">地図の保存先</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">マップのダウンロード先を選択してください</string>
+	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+	<string name="maps_storage_downloaded">マップ</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">マップを移動させますか？</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
@@ -123,6 +124,8 @@
 	<string name="post">郵便局</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
 	<string name="police">警察</string>
+	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! -->
+	<string name="wifi">無線LAN</string>
 	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
 	<string name="recycling">リサイクル</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
@@ -201,6 +204,8 @@
 	<string name="search_show_on_map">地図に表示</string>
 	<!-- Text in menu -->
 	<string name="website">ウェブサイト</string>
+	<!-- Text in About menu, opens Organic Maps news website -->
+	<string name="news">ニュース</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">フィードバック</string>
 	<!-- Text in menu -->
@@ -215,17 +220,16 @@
 	<string name="copyright">著作権</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">バグを報告</string>
-	<!-- Search category -->
-	<string name="wifi">無線LAN</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">全てをアップデート</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">すべてキャンセル</string>
-	<!-- Downloaded maps category -->
+	<!-- Downloaded maps list header -->
 	<string name="downloader_downloaded_subtitle">ダウンロード済み</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">待ち行列型の</string>
 	<string name="downloader_near_me_subtitle">付近</string>
+	<!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
 	<string name="downloader_status_maps">地図</string>
 	<string name="downloader_download_all_button">全てをダウンロード</string>
 	<string name="downloader_downloading">ダウンロード中：</string>
@@ -241,6 +245,8 @@
 	<string name="downloader_delete_map">地図を削除</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">地図を更新</string>
+	<!-- Preference title -->
+	<string name="google_play_services">Google Play 開発者サービス</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">現在のロケーションを取得するためにGoogle Playのサービスを使う</string>
 	<!-- Text for routing error dialog -->
@@ -286,8 +292,6 @@
 	<string name="gray">グレイ</string>
 	<!-- blue gray color -->
 	<string name="blue_gray">ブルーグレイ</string>
-	<!-- Wi-Fi available -->
-	<string name="WiFi_available">はい</string>
 
 	<!-- SECTION: Routing dialogs strings -->
 	<string name="dialog_routing_disclaimer_title">案内ルートに従う際は、以下の点にご留意ください：</string>
@@ -357,7 +361,7 @@
 	<string name="editor_example_values">値の例</string>
 	<string name="editor_correct_mistake">間違いの訂正</string>
 	<string name="editor_add_select_location">現在位置</string>
-	<string name="editor_report_problem_desription_1">OpenStreeMapコミュニティがエラーを修正できるよう、問題の詳細を説明してください。</string>
+	<string name="editor_report_problem_desription_1">OpenStreetMapコミュニティがエラーを修正できるよう、問題の詳細を説明してください。</string>
 	<string name="editor_report_problem_desription_2">または、このURLでご自身で修正してください https://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">送信</string>
 	<string name="editor_report_problem_title">問題</string>
@@ -442,6 +446,7 @@
 	<string name="kilometer">km</string>
 	<string name="kilometers_per_hour">キロメートル毎時</string>
 	<string name="mile">マイル</string>
+	<!-- A unit of measure -->
 	<string name="foot">フィート</string>
 	<string name="miles_per_hour">マイル毎時</string>
 	<string name="hour">時間</string>
@@ -539,6 +544,7 @@
 	<plurals name="tracks">
 	  <item quantity="other">%dの追跡</item>
 	</plurals>
+	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">追跡の設定</string>
 	<string name="crash_reports">クラッシュレポート</string>
 	<string name="crash_reports_description">Organic Maps体験を向上させるため、お客様のデータを使用する可能性があります。変更は、アプリを再起動した後に、反映されます。</string>
@@ -588,6 +594,14 @@
 	<string name="avoid_toll_roads_placepage">有料道路を回避</string>
 	<string name="avoid_unpaved_roads_placepage">未舗装道路を回避</string>
 	<string name="avoid_ferry_crossing_placepage">フェリー航路を回避</string>
+	<!-- A generic "Yes" button in dialogs -->
+	<string name="yes">はい</string>
+	<!-- A generic "No" button in dialogs -->
+	<string name="no">いいえ</string>
+	<!-- E.g. "WiFi:Yes" -->
+	<string name="yes_available">はい</string>
+	<!-- E.g. "WiFi:No" -->
+	<string name="no_available">いいえ</string>
 	<string name="ok">OK</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">並び替え中…</string>
@@ -643,6 +657,8 @@
 	<string name="enable_screen_sleep">画面をスリープ状態にする</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">有効にすると、画面は一定時間非アクティブになった後もスリープ状態になります。</string>
+	<!-- OpenStreetMap text on splash screen -->
+	<string name="splash_subtitle">OpenStreetMapからの地図データ</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway">索道</string>
@@ -669,6 +685,7 @@
 	<string name="type.amenity.bench">ベンチ</string>
 	<string name="type.amenity.bicycle_parking">駐輪場</string>
 	<string name="type.amenity.bicycle_rental">レンタサイクル</string>
+	<string name="type.amenity.bicycle_repair_station">自転車修理ステーション</string>
 	<string name="type.amenity.biergarten">ビアガーデン</string>
 	<string name="type.amenity.brothel">売春宿</string>
 	<string name="type.amenity.bureau_de_change">外貨両替所</string>
@@ -803,11 +820,13 @@
 	<string name="type.building.garage">車庫</string>
 	<string name="type.building.has_parts">建物</string>
 	<string name="type.building.train_station">鉄道駅</string>
+	<string name="type.cemetery.grave">墓</string>
 	<string name="type.craft">工房</string>
 	<string name="type.craft.brewery">醸造所</string>
 	<string name="type.craft.carpenter">大工</string>
 	<string name="type.craft.electrician">電気技師</string>
 	<string name="type.craft.gardener">造園家</string>
+	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">冷暖房空調</string>
 	<string name="type.craft.metal_construction">金属工</string>
 	<string name="type.craft.painter">塗装工</string>
@@ -909,41 +928,54 @@
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway">道路</string>
 	<string name="type.highway.bridleway">馬道</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.bridleway.bridge">馬道(橋)</string>
 	<string name="type.highway.bridleway.permissive">馬道</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">馬道(トンネル)</string>
 	<string name="type.highway.bus_stop">バス停</string>
 	<string name="type.highway.construction">工事中の道路</string>
 	<string name="type.highway.cycleway">自転車道</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.cycleway.bridge">自転車道(橋)</string>
 	<string name="type.highway.cycleway.permissive">自転車道</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.cycleway.tunnel">自転車道(トンネル)</string>
 	<string name="type.highway.footway">歩道</string>
 	<string name="type.highway.footway.alpine_hiking">歩道</string>
 	<string name="type.highway.footway.area">歩道</string>
-	<string name="type.highway.footway.bridge">歩道</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.footway.bridge">橋</string>
 	<string name="type.highway.footway.demanding_alpine_hiking">歩道</string>
 	<string name="type.highway.footway.demanding_mountain_hiking">歩道</string>
 	<string name="type.highway.footway.difficult_alpine_hiking">歩道</string>
 	<string name="type.highway.footway.hiking">歩道</string>
 	<string name="type.highway.footway.mountain_hiking">歩道</string>
 	<string name="type.highway.footway.permissive">歩道</string>
-	<string name="type.highway.footway.tunnel">歩道</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.footway.tunnel">トンネル</string>
 	<string name="type.highway.ford">浅瀬</string>
 	<string name="type.highway.living_street">ストリート</string>
-	<string name="type.highway.living_street.bridge">ストリート</string>
-	<string name="type.highway.living_street.tunnel">ストリート</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.living_street.bridge">橋</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.living_street.tunnel">トンネル</string>
 	<string name="type.highway.motorway">ストリート</string>
-	<string name="type.highway.motorway.bridge">ストリート</string>
-	<string name="type.highway.motorway.tunnel">ストリート</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway.bridge">橋</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway.tunnel">トンネル</string>
 	<string name="type.highway.motorway_junction">ジャンクション</string>
 	<string name="type.highway.motorway_link">ストリート</string>
-	<string name="type.highway.motorway_link.bridge">ストリート</string>
-	<string name="type.highway.motorway_link.tunnel">ストリート</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway_link.bridge">橋</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway_link.tunnel">トンネル</string>
 	<string name="type.highway.path">歩道</string>
 	<string name="type.highway.path.alpine_hiking">歩道</string>
 	<string name="type.highway.path.bicycle">歩道</string>
-	<string name="type.highway.path.bridge">歩道</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.path.bridge">橋</string>
 	<string name="type.highway.path.demanding_alpine_hiking">歩道</string>
 	<string name="type.highway.path.demanding_mountain_hiking">歩道</string>
 	<string name="type.highway.path.difficult_alpine_hiking">歩道</string>
@@ -951,52 +983,76 @@
 	<string name="type.highway.path.horse">歩道</string>
 	<string name="type.highway.path.mountain_hiking">歩道</string>
 	<string name="type.highway.path.permissive">歩道</string>
-	<string name="type.highway.path.tunnel">歩道</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.path.tunnel">トンネル</string>
 	<string name="type.highway.pedestrian">ストリート</string>
 	<string name="type.highway.pedestrian.area">ストリート</string>
-	<string name="type.highway.pedestrian.bridge">ストリート</string>
-	<string name="type.highway.pedestrian.tunnel">ストリート</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.pedestrian.bridge">橋</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.pedestrian.tunnel">トンネル</string>
 	<string name="type.highway.primary">ストリート</string>
-	<string name="type.highway.primary.bridge">ストリート</string>
-	<string name="type.highway.primary.tunnel">ストリート</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary.bridge">橋</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary.tunnel">トンネル</string>
 	<string name="type.highway.primary_link">ストリート</string>
-	<string name="type.highway.primary_link.bridge">ストリート</string>
-	<string name="type.highway.primary_link.tunnel">ストリート</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary_link.bridge">橋</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary_link.tunnel">トンネル</string>
 	<string name="type.highway.raceway">レース場</string>
 	<string name="type.highway.residential">ストリート</string>
 	<string name="type.highway.residential.area">ストリート</string>
-	<string name="type.highway.residential.bridge">ストリート</string>
-	<string name="type.highway.residential.tunnel">ストリート</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.residential.bridge">橋</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.residential.tunnel">トンネル</string>
 	<string name="type.highway.rest_area">休憩所</string>
 	<string name="type.highway.road">ストリート</string>
-	<string name="type.highway.road.bridge">ストリート</string>
-	<string name="type.highway.road.tunnel">ストリート</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.road.bridge">橋</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.road.tunnel">トンネル</string>
 	<string name="type.highway.secondary">ストリート</string>
-	<string name="type.highway.secondary.bridge">ストリート</string>
-	<string name="type.highway.secondary.tunnel">ストリート</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary.bridge">橋</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary.tunnel">トンネル</string>
 	<string name="type.highway.secondary_link">ストリート</string>
-	<string name="type.highway.secondary_link.bridge">ストリート</string>
-	<string name="type.highway.secondary_link.tunnel">ストリート</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary_link.bridge">橋</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary_link.tunnel">トンネル</string>
 	<string name="type.highway.service">ストリート</string>
 	<string name="type.highway.service.area">ストリート</string>
-	<string name="type.highway.service.bridge">ストリート</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.service.bridge">橋</string>
 	<string name="type.highway.service.driveway">ストリート</string>
 	<string name="type.highway.service.parking_aisle">ストリート</string>
-	<string name="type.highway.service.tunnel">ストリート</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.service.tunnel">トンネル</string>
 	<string name="type.highway.services">サービスエリア</string>
 	<string name="type.highway.speed_camera">自動速度違反取締装置</string>
 	<string name="type.highway.steps">歩道</string>
-	<string name="type.highway.steps.bridge">歩道</string>
-	<string name="type.highway.steps.tunnel">歩道</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.steps.bridge">橋</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.steps.tunnel">トンネル</string>
 	<string name="type.highway.tertiary">ストリート</string>
-	<string name="type.highway.tertiary.bridge">ストリート</string>
-	<string name="type.highway.tertiary.tunnel">ストリート</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary.bridge">橋</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary.tunnel">トンネル</string>
 	<string name="type.highway.tertiary_link">ストリート</string>
-	<string name="type.highway.tertiary_link.bridge">ストリート</string>
-	<string name="type.highway.tertiary_link.tunnel">ストリート</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary_link.bridge">橋</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary_link.tunnel">トンネル</string>
 	<string name="type.highway.track">ストリート</string>
 	<string name="type.highway.track.area">ストリート</string>
-	<string name="type.highway.track.bridge">ストリート</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.track.bridge">橋</string>
 	<string name="type.highway.track.grade1">ストリート</string>
 	<string name="type.highway.track.grade2">ストリート</string>
 	<string name="type.highway.track.grade3">ストリート</string>
@@ -1004,18 +1060,25 @@
 	<string name="type.highway.track.grade5">ストリート</string>
 	<string name="type.highway.track.no.access">ストリート</string>
 	<string name="type.highway.track.permissive">ストリート</string>
-	<string name="type.highway.track.tunnel">ストリート</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.track.tunnel">トンネル</string>
 	<string name="type.highway.traffic_signals">交通信号</string>
 	<string name="type.highway.trunk">ストリート</string>
-	<string name="type.highway.trunk.bridge">ストリート</string>
-	<string name="type.highway.trunk.tunnel">ストリート</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk.bridge">橋</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk.tunnel">トンネル</string>
 	<string name="type.highway.trunk_link">ストリート</string>
-	<string name="type.highway.trunk_link.bridge">ストリート</string>
-	<string name="type.highway.trunk_link.tunnel">ストリート</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk_link.bridge">橋</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk_link.tunnel">トンネル</string>
 	<string name="type.highway.unclassified">ストリート</string>
 	<string name="type.highway.unclassified.area">ストリート</string>
-	<string name="type.highway.unclassified.bridge">ストリート</string>
-	<string name="type.highway.unclassified.tunnel">ストリート</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.unclassified.bridge">橋</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.unclassified.tunnel">トンネル</string>
 	<string name="type.area_highway.cycleway">自転車道</string>
 	<string name="type.area_highway.footway">歩道</string>
 	<string name="type.area_highway.living_street">ストリート</string>
@@ -1113,10 +1176,8 @@
 	<string name="type.leisure.sauna">サウナ</string>
 	<string name="type.leisure.slipway">スリップウェイ</string>
 	<string name="type.leisure.sports_centre">スポーツセンター</string>
-	<string name="type.leisure.sports_centre.climbing">クライミングセンター</string>
-	<string name="type.leisure.sports_centre.shooting">射撃場</string>
-	<string name="type.leisure.sports_centre.swimming">スイミングセンター</string>
-	<string name="type.leisure.sports_centre.yoga">ヨガスタジオ</string>
+	<string name="type.sport.climbing">クライミングセンター</string>
+	<string name="type.sport.yoga">ヨガスタジオ</string>
 	<string name="type.leisure.stadium">スタジアム</string>
 	<string name="type.leisure.swimming_pool">プール</string>
 	<string name="type.leisure.swimming_pool.private">プール</string>
@@ -1127,6 +1188,7 @@
 	<string name="type.man_made.cairn">ケルン</string>
 	<string name="type.man_made.chimney">工場煙突</string>
 	<string name="type.man_made.cutline">森林の切れ目</string>
+	<string name="type.man_made.survey_point">測量標</string>
 	<string name="type.man_made.lighthouse">灯台</string>
 	<string name="type.man_made.pier">桟橋</string>
 	<string name="type.man_made.pipeline">パイプライン</string>
@@ -1145,16 +1207,21 @@
 	<string name="type.natural.bare_rock">岩肌</string>
 	<string name="type.natural.bay">港湾</string>
 	<string name="type.natural.beach">ビーチ</string>
+	<string name="type.natural.beach.sand">砂浜</string>
+	<string name="type.natural.beach.gravel">グラベルビーチ</string>
 	<string name="type.natural.cape">岬</string>
 	<string name="type.natural.cave_entrance">洞窟</string>
 	<string name="type.natural.cliff">崖</string>
+	<string name="type.natural.earth_bank">崖</string>
+	<string name="type.man_made.embankment">盛土</string>
 	<string name="type.natural.coastline">海岸線</string>
 	<string name="type.natural.geyser">間欠泉</string>
 	<string name="type.natural.glacier">氷河</string>
-	<string name="type.natural.grassland">野原</string>
+	<string name="type.natural.grassland">草原</string>
 	<string name="type.natural.heath">ヒース</string>
 	<string name="type.natural.hot_spring">温泉</string>
 	<string name="type.natural.water.lake">湖</string>
+	<string name="type.natural.water.lock">ロックチャンバー</string>
 	<string name="type.natural.water.pond">池</string>
 	<string name="type.natural.water.reservoir">貯水池</string>
 	<string name="type.natural.water.basin">水地</string>
@@ -1163,6 +1230,7 @@
 	<string name="type.natural.meadow">牧草地</string>
 	<string name="type.natural.orchard">果樹園</string>
 	<string name="type.natural.peak">山頂</string>
+	<string name="type.natural.saddle">鞍部</string>
 	<string name="type.natural.rock">岩</string>
 	<string name="type.natural.scrub">雑木林</string>
 	<string name="type.natural.spring">泉</string>
@@ -1321,22 +1389,28 @@
 	<string name="type.shop.convenience">コンビニエンスストア</string>
 	<string name="type.shop.copyshop">コピーショップ</string>
 	<string name="type.shop.cosmetics">化粧品</string>
+	<string name="type.shop.deli">デリカテッセンショップ</string>
 	<string name="type.shop.department_store">デパート</string>
 	<string name="type.shop.doityourself">工具店</string>
 	<string name="type.shop.dry_cleaning">クリーニング屋</string>
 	<string name="type.shop.electronics">電気店</string>
 	<string name="type.shop.erotic">アダルトショップ</string>
 	<string name="type.shop.fabric">生地屋</string>
+	<string name="type.shop.farm">ファームフードショップ</string>
 	<string name="type.shop.florist">フローリスト/花屋</string>
 	<string name="type.shop.funeral_directors">葬儀屋</string>
 	<string name="type.shop.furniture">家具店</string>
 	<string name="type.shop.garden_centre">ガーデンセンター</string>
 	<string name="type.shop.gift">ギフトショップ</string>
 	<string name="type.shop.greengrocer">八百屋</string>
+	<string name="type.shop.grocery">買い物</string>
 	<string name="type.shop.hairdresser">美容院/理容店</string>
-	<string name="type.shop.hardware">工具店</string>
+	<string name="type.shop.hardware">ホームセンター</string>
+	<string name="type.shop.health_food">健康食品店</string>
+	<string name="type.shop.houseware">家庭用品店</string>
 	<string name="type.shop.jewelry">宝石店</string>
 	<string name="type.shop.kiosk">キオスク</string>
+	<string name="type.shop.kitchen">キッチンストア</string>
 	<string name="type.shop.laundry">ランドリー</string>
 	<string name="type.shop.mall">モール</string>
 	<string name="type.shop.massage">マッサージ店</string>
@@ -1348,10 +1422,12 @@
 	<string name="type.shop.newsagent">新聞販売店</string>
 	<string name="type.shop.optician">眼鏡店</string>
 	<string name="type.shop.outdoor">アウトドア用品店</string>
+	<string name="type.shop.pastry">ペストリー</string>
 	<string name="type.shop.pawnbroker">質屋</string>
 	<string name="type.shop.pet">ペットショップ</string>
 	<string name="type.shop.photo">写真屋</string>
 	<string name="type.shop.seafood">魚屋</string>
+	<string name="type.shop.second_hand">古物商</string>
 	<string name="type.shop.shoes">靴屋</string>
 	<string name="type.shop.sports">スポーツ用品店</string>
 	<string name="type.shop.stationery">文房具店</string>
@@ -1366,6 +1442,29 @@
 	<string name="type.shop.video">ビデオショップ</string>
 	<string name="type.shop.video_games">ゲームショップ</string>
 	<string name="type.shop.wine">ワイン店</string>
+	<string name="type.shop.antiques">骨董品</string>
+	<string name="type.shop.art">アートショップ</string>
+	<string name="type.shop.baby_goods">キッズストア</string>
+	<string name="type.shop.bag">バッグストア</string>
+	<string name="type.shop.boutique">ブティック</string>
+	<string name="type.shop.charity">チャリティーショップ</string>
+	<string name="type.shop.cheese">チーズ店</string>
+	<string name="type.shop.craft">美術工芸</string>
+	<string name="type.shop.dairy">乳製品</string>
+	<string name="type.shop.electrical">電気店</string>
+	<string name="type.shop.fishing">フィッシングストア</string>
+	<string name="type.shop.interior_decoration">室内装飾</string>
+	<string name="type.shop.lottery">宝くじ</string>
+	<string name="type.shop.medical_supply">医療用品</string>
+	<string name="type.shop.nutrition_supplements">栄養補助食品</string>
+	<string name="type.shop.paint">塗料</string>
+	<string name="type.shop.perfumery">香水</string>
+	<string name="type.shop.sewing">ミシン用品</string>
+	<string name="type.shop.storage_rental">ストレージレンタル</string>
+	<string name="type.shop.tobacco">タバコ</string>
+	<string name="type.shop.trade">貿易用品</string>
+	<string name="type.shop.watches">時計</string>
+	<string name="type.shop.wholesale">問屋</string>
 	<string name="type.sport">スポーツ</string>
 	<string name="type.sport.american_football">アメリカンフットボール</string>
 	<string name="type.sport.archery">アーチェリー</string>
@@ -1373,21 +1472,28 @@
 	<string name="type.sport.australian_football">オーストラリアンフットボール</string>
 	<string name="type.sport.baseball">野球</string>
 	<string name="type.sport.basketball">バスケットボール</string>
+	<string name="type.sport.beachvolleyball">ビーチバレー</string>
 	<string name="type.sport.bowls">ローンボウルズ</string>
+	<string name="type.sport.chess">チェス</string>
 	<string name="type.sport.cricket">クリケット</string>
 	<string name="type.sport.curling">カーリング</string>
-	<string name="type.sport.diving">ダイビング</string>
 	<string name="type.sport.equestrian">馬術</string>
 	<string name="type.sport.golf">ゴルフ</string>
-	<string name="type.sport.gymnastics">体操競技</string>
+	<string name="type.sport.gymnastics">体操</string>
 	<string name="type.sport.handball">ハンドボール</string>
 	<string name="type.sport.multi">複数</string>
-	<string name="type.sport.scuba_diving">スクーバダイビング</string>
+	<!-- Used to tag a scuba diving site. -->
+	<string name="type.sport.scuba_diving">スキューバダイビング</string>
 	<string name="type.sport.shooting">射撃競技</string>
+	<string name="type.sport.skateboard">スケートボード</string>
 	<string name="type.sport.skiing">スキー</string>
 	<string name="type.sport.soccer">サッカー</string>
 	<string name="type.sport.swimming">水泳</string>
+	<string name="type.sport.table_tennis">卓球</string>
 	<string name="type.sport.tennis">テニスコート</string>
+	<string name="type.sport.volleyball">バレーボール</string>
+	<string name="type.sport.9pin">ボウリング</string>
+	<string name="type.sport.10pin">ボウリング</string>
 	<string name="type.tourism">観光</string>
 	<string name="type.tourism.alpine_hut">山小屋</string>
 	<string name="type.tourism.apartment">アパート</string>
@@ -1407,7 +1513,7 @@
 	<string name="type.tourism.hostel">ホステル</string>
 	<string name="type.tourism.hotel">ホテル</string>
 	<string name="type.tourism.information">インフォメーション</string>
-	<string name="type.tourism.information.board">案内板</string>
+	<string name="type.tourism.information.board">情報板</string>
 	<string name="type.tourism.information.guidepost">道標</string>
 	<string name="type.tourism.information.map">観光マップ</string>
 	<string name="type.tourism.information.office">観光案内所</string>
@@ -1446,4 +1552,5 @@
 	<string name="type.wheelchair.no">車椅子でのアクセスなし</string>
 	<string name="type.wheelchair.yes">車椅子でのアクセスあり</string>
 	<string name="type.building_part">建物</string>
+	<string name="type.amenity.events_venue">イベント会場</string>
 </resources>

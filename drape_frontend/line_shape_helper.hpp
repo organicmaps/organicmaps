@@ -58,13 +58,13 @@ void ConstructLineSegments(std::vector<m2::PointD> const & path, std::vector<gls
 
 void UpdateNormals(LineSegment * segment, LineSegment * prevSegment, LineSegment * nextSegment);
 
-void GenerateJoinNormals(dp::LineJoin joinType, glsl::vec2 const & normal1, glsl::vec2 const & normal2,
-                         float halfWidth, bool isLeft, float widthScalar, std::vector<glsl::vec2> & normals,
-                         std::vector<glsl::vec2> * uv = nullptr);
+std::vector<glsl::vec2> GenerateJoinNormals(
+    dp::LineJoin joinType, glsl::vec2 const & normal1, glsl::vec2 const & normal2,
+    float halfWidth, bool isLeft, float widthScalar, std::vector<glsl::vec2> * uv = nullptr);
 
-void GenerateCapNormals(dp::LineCap capType, glsl::vec2 const & normal1, glsl::vec2 const & normal2,
-                        glsl::vec2 const & direction, float halfWidth, bool isStart, std::vector<glsl::vec2> & normals,
-                        int segmentsCount = 8);
+std::vector<glsl::vec2> GenerateCapNormals(
+    dp::LineCap capType, glsl::vec2 const & normal1, glsl::vec2 const & normal2,
+    glsl::vec2 const & direction, float halfWidth, bool isStart, int segmentsCount = 8);
 
 glsl::vec2 GetNormal(LineSegment const & segment, bool isLeft, ENormalType normalType);
 

@@ -1,6 +1,7 @@
 package com.mapswithme.maps.search;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.text.SpannableStringBuilder;
@@ -32,8 +33,6 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
   private final SearchFragment mSearchFragment;
   @Nullable
   private SearchResult[] mResults;
-  @NonNull
-  private final Drawable mClosedMarkerBackground;
 
   static abstract class SearchDataViewHolder extends RecyclerView.ViewHolder
   {
@@ -60,14 +59,7 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
         if (tintAttr != 0)
           Graphics.tint((TextView)view, tintAttr);
       }
-      view.setOnClickListener(new View.OnClickListener()
-      {
-        @Override
-        public void onClick(View v)
-        {
-          processClick(mResult, mOrder);
-        }
-      });
+      view.setOnClickListener(v -> processClick(mResult, mOrder));
     }
 
     @Override
@@ -142,7 +134,7 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
     @NonNull
     final TextView mName;
     @NonNull
-    final View mClosedMarker;
+    final TextView mOpen;
     @NonNull
     final TextView mDescription;
     @NonNull
@@ -166,21 +158,21 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
 
       if (!TextUtils.isEmpty(result.description.airportIata))
       {
-        tail.append(" • " + result.description.airportIata);
+        tail.append(" • ").append(result.description.airportIata);
       }
       else if (!TextUtils.isEmpty(result.description.roadShields))
       {
-        tail.append(" • " + result.description.roadShields);
+        tail.append(" • ").append(result.description.roadShields);
       }
       else
       {
         if (!TextUtils.isEmpty(result.description.brand))
         {
-          tail.append(" • " + Utils.getLocalizedBrand(mFrame.getContext(), result.description.brand));
+          tail.append(" • ").append(Utils.getLocalizedBrand(mFrame.getContext(), result.description.brand));
         }
         if (!TextUtils.isEmpty(result.description.cuisine))
         {
-          tail.append(" • " + result.description.cuisine);
+          tail.append(" • ").append(result.description.cuisine);
         }
       }
 
@@ -203,12 +195,10 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
       super(view);
       mFrame = view;
       mName = view.findViewById(R.id.title);
-      mClosedMarker = view.findViewById(R.id.closed);
+      mOpen = view.findViewById(R.id.open);
       mDescription =  view.findViewById(R.id.description);
       mRegion = view.findViewById(R.id.region);
       mDistance = view.findViewById(R.id.distance);
-
-      mClosedMarker.setBackgroundDrawable(mClosedMarkerBackground);
     }
 
     @Override
@@ -222,48 +212,64 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
     {
       super.bind(result, order);
       setBackground();
-      // TODO: Support also "Open Now" mark.
 
-      UiUtils.showIf(isClosedVisible(), mClosedMarker);
+      formatOpeningHours(mResult);
       UiUtils.setTextAndHideIfEmpty(mDescription, formatDescription(mResult));
       UiUtils.setTextAndHideIfEmpty(mRegion, mResult.description.region);
       UiUtils.setTextAndHideIfEmpty(mDistance, mResult.description.distance);
     }
 
-    private boolean isClosedVisible()
+    private void formatOpeningHours(SearchResult result)
     {
-      boolean isClosed = mResult.description.openNow == SearchResult.OPEN_NOW_NO;
-      if (!isClosed)
-        return false;
+      final Resources resources = mSearchFragment.getResources();
 
-      boolean isNotPopular = mResult.getPopularity().getType() == Popularity.Type.NOT_POPULAR;
+      switch (result.description.openNow)
+      {
+        case SearchResult.OPEN_NOW_YES:
+          if (result.description.minutesUntilClosed < 60)   // less than 1 hour
+          {
+            final String time = result.description.minutesUntilClosed + " " +
+                          resources.getString(R.string.minute);
+            final String string = resources.getString(R.string.closes_in, time);
 
-      return isNotPopular || !mResult.description.hasPopularityHigherPriority;
-    }
+            UiUtils.setTextAndShow(mOpen, string);
+            mOpen.setTextColor(resources.getColor(R.color.base_yellow));
+          }
+          else
+          {
+            UiUtils.setTextAndShow(mOpen, resources.getString(R.string.editor_time_open));
+            mOpen.setTextColor(resources.getColor(R.color.base_green));
+          }
+          break;
 
-    private boolean isPopularVisible()
-    {
-      boolean isNotPopular = mResult.getPopularity().getType() == Popularity.Type.NOT_POPULAR;
-      if (isNotPopular)
-        return false;
+        case SearchResult.OPEN_NOW_NO:
+          if (result.description.minutesUntilOpen < 60) // less than 1 hour
+          {
+            final String time = result.description.minutesUntilOpen + " " +
+                          resources.getString(R.string.minute);
+            final String string = resources.getString(R.string.opens_in, time);
 
-      boolean isClosed = mResult.description.openNow == SearchResult.OPEN_NOW_NO;
+            UiUtils.setTextAndShow(mOpen, string);
+            mOpen.setTextColor(resources.getColor(R.color.base_red));
+          }
+          else
+          {
+            UiUtils.setTextAndShow(mOpen, resources.getString(R.string.closed));
+            mOpen.setTextColor(resources.getColor(R.color.base_red));
+          }
+          break;
 
-      return !isClosed || mResult.description.hasPopularityHigherPriority;
+        default:
+          UiUtils.hide(mOpen);
+          break;
+      }
     }
 
     private void setBackground()
     {
-      Context context = mSearchFragment.getActivity();
-      int itemBg = ThemeUtils.getResource(context, R.attr.clickableBackground);
-      int bottomPad = mFrame.getPaddingBottom();
-      int topPad = mFrame.getPaddingTop();
-      int rightPad = mFrame.getPaddingRight();
-      int leftPad = mFrame.getPaddingLeft();
+      final Context context = mSearchFragment.getActivity();
+      final int itemBg = ThemeUtils.getResource(context, R.attr.clickableBackground);
       mFrame.setBackgroundResource(itemBg);
-      // On old Android (4.1) after setting the view background the previous paddings
-      // are discarded for unknown reasons, that's why restoring the previous paddings is needed.
-      mFrame.setPadding(leftPad, topPad, rightPad, bottomPad);
     }
 
     @Override
@@ -276,10 +282,6 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
   SearchAdapter(SearchFragment fragment)
   {
     mSearchFragment = fragment;
-    mClosedMarkerBackground = fragment.getResources().getDrawable(
-        ThemeUtils.isNightTheme(fragment.requireContext()) ?
-        R.drawable.search_closed_marker_night :
-        R.drawable.search_closed_marker);
   }
 
   @Override

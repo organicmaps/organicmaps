@@ -8,12 +8,13 @@
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"
 
-#include <cstddef>
-#include <cstdint>
 #include <limits>
+#include <random>
 #include <string>
 #include <vector>
 
+namespace simple_dense_coding_test
+{
 using namespace coding;
 using namespace std;
 
@@ -51,3 +52,38 @@ UNIT_TEST(SimpleDenseCoding_Smoke)
     TestSDC(data, coding);
   }
 }
+
+UNIT_TEST(SimpleDenseCoding_Ratio)
+{
+  for (uint8_t const maxValue : {16, 32, 64})
+  {
+    size_t constexpr kSize = 1 << 20;
+
+    normal_distribution<> randDist(maxValue / 2, 2);
+    random_device randDevice;
+    mt19937 randEngine(randDevice());
+
+    vector<uint8_t> data(kSize);
+    for (size_t i = 0; i < kSize; ++i)
+    {
+      double d = round(randDist(randEngine));
+      if (d < 0)
+        d = 0;
+      else if (d > maxValue)
+        d = maxValue;
+      data[i] = static_cast<uint8_t>(d);
+    }
+
+    SimpleDenseCoding coding(data);
+    TestSDC(data, coding);
+
+    vector<uint8_t> buffer;
+    MemWriter writer(buffer);
+    Freeze(coding, writer, "");
+
+    auto const ratio = data.size() / double(buffer.size());
+    LOG(LINFO, (maxValue, ratio));
+    TEST_GREATER(ratio, 1.8, ());
+  }
+}
+} // namespace simple_dense_coding_test

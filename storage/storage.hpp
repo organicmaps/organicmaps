@@ -174,10 +174,11 @@ private:
   /// stores countries whose download has failed recently
   CountriesSet m_failedCountries;
 
+  /// @todo Do we really store a list of local files here (of different versions)?
+  /// I suspect that only one at a time, old versions are deleted automatically.
   std::map<CountryId, std::list<LocalFilePtr>> m_localFiles;
 
-  // Our World.mwm and WorldCoasts.mwm are fake countries, together with any custom mwm in data
-  // folder.
+  // World and WorldCoasts are fake countries, together with any custom mwm in data folder.
   std::map<platform::CountryFile, LocalFilePtr> m_localFilesForFakeCountries;
 
   // Since the diffs applying runs on a different thread, the result
@@ -230,18 +231,21 @@ private:
 
   CountryNameGetter m_countryNameGetter;
 
-  // |m_affiliations| is a mapping from countryId to the list of names of
-  // geographical objects (such as countries) that encompass this countryId.
-  // Note. Affiliations is inherited from ancestors of the countryId in country tree.
-  // |m_affiliations| is filled during Storage initialization or during migration process.
-  // It is filled with data of countries.txt (field "affiliations").
-  // Once filled |m_affiliations| is not changed.
+  /**
+   * @brief Mapping from countryId to the list of names of
+   * geographical objects (such as countries) that encompass this countryId.
+   * @note Affiliations are inherited from ancestors of the countryId in country tree.
+   * Initialized with data of countries.txt (field "affiliations").
+   * Once filled, they are not changed.
+   */
   Affiliations m_affiliations;
   CountryNameSynonyms m_countryNameSynonyms;
+
+  /// @todo This containers are empty for now, but probably will be used in future.
+  /// @{
   MwmTopCityGeoIds m_mwmTopCityGeoIds;
   MwmTopCountryGeoIds m_mwmTopCountryGeoIds;
-
-  MwmSize m_maxMwmSizeBytes = 0;
+  /// @}
 
   ThreadChecker m_threadChecker;
 
@@ -420,34 +424,36 @@ public:
 
   struct UpdateInfo
   {
-    UpdateInfo() : m_numberOfMwmFilesToUpdate(0), m_totalUpdateSizeInBytes(0), m_sizeDifference(0) {}
+    MwmCounter m_numberOfMwmFilesToUpdate = 0;
 
-    MwmCounter m_numberOfMwmFilesToUpdate;
-    MwmSize m_totalUpdateSizeInBytes;
+    MwmSize m_maxFileSizeInBytes = 0;
+    MwmSize m_totalDownloadSizeInBytes = 0;
+
     // Difference size in bytes between before update and after update.
-    int64_t m_sizeDifference;
+    int64_t m_sizeDifference = 0;
   };
 
   /// \brief Get information for mwm update button.
   /// \return true if updateInfo is filled correctly and false otherwise.
   bool GetUpdateInfo(CountryId const & countryId, UpdateInfo & updateInfo) const;
 
-  Affiliations const & GetAffiliations() const { return m_affiliations; }
-
-  CountryNameSynonyms const & GetCountryNameSynonyms() const { return m_countryNameSynonyms; }
-
-  MwmTopCityGeoIds const & GetMwmTopCityGeoIds() const { return m_mwmTopCityGeoIds; }
+  /// @name This functions should be called from 'main' thread only to avoid races.
+  /// @{
+  /// @return Pointer that will be stored for later use.
+  Affiliations const * GetAffiliations() const;
+  CountryNameSynonyms const & GetCountryNameSynonyms() const;
+  MwmTopCityGeoIds const & GetMwmTopCityGeoIds() const;
   std::vector<base::GeoObjectId> GetTopCountryGeoIds(CountryId const & countryId) const;
+  /// @}
 
-  /// \brief Calls |toDo| for each node for subtree with |root|.
-  /// For example ForEachInSubtree(GetRootId()) calls |toDo| for every node including
-  /// the result of GetRootId() call.
+  /// For each node with \a root subtree (including).
   template <class ToDo>
   void ForEachInSubtree(CountryId const & root, ToDo && toDo) const;
   template <class ToDo>
   void ForEachAncestorExceptForTheRoot(CountryId const & childId, ToDo && toDo) const;
   template <class ToDo>
-  void ForEachCountryFile(ToDo && toDo) const;
+  /// For each leaf country excluding Worlds.
+  void ForEachCountry(ToDo && toDo) const;
 
   /// \brief Sets callback which will be called in case of a click on download map button on the map.
   void SetCallbackForClickOnDownloadMap(DownloadFn & downloadFn);
@@ -461,7 +467,7 @@ public:
 
   /// \returns real (not fake) local maps contained in countries.txt.
   /// So this method does not return custom user local maps and World and WorldCoasts country id.
-  void GetLocalRealMaps(CountriesVec & localMaps) const;
+  //void GetLocalRealMaps(CountriesVec & localMaps) const;
 
   /// Do we have downloaded countries
   bool HaveDownloadedCountries() const;
@@ -472,11 +478,22 @@ public:
   // Clears local files registry and downloader's queue.
   void Clear();
 
+  /// Used in Android to get absent Worlds files to download.
+  /// @param[out] res Out vector, empty if all files are present some or error occured.
+  /// @return     WorldStatus:
+  enum class WorldStatus {
+    READY = 0,            ///< Ready to download or all files are present if \a res is empty
+    WAS_MOVED,            ///< All World files are present and one or more files was moved, \a res is empty.
+    ERROR_CREATE_FOLDER,  ///< Error when creating folder
+    ERROR_MOVE_FILE       ///< Error when trying to move World file
+  };
+  WorldStatus GetForceDownloadWorlds(std::vector<platform::CountryFile> & res) const;
+
   // Finds and registers all map files in maps directory. In the case
   // of several versions of the same map keeps only the latest one, others
   // are deleted from disk.
   // *NOTE* storage will forget all already known local maps.
-  void RegisterAllLocalMaps(bool enableDiffs);
+  void RegisterAllLocalMaps(bool enableDiffs = false);
 
   // Returns list of all local maps, including fake countries (World*.mwm).
   void GetLocalMaps(std::vector<LocalFilePtr> & maps) const;
@@ -501,7 +518,7 @@ public:
   // Returns true iff |countryId| exists as a node in the tree.
   bool IsNode(CountryId const & countryId) const;
 
-  // Returns true iff |countryId| is a leaf of the tree.
+  /// @return true iff \a countryId is a leaf of the tree.
   bool IsLeaf(CountryId const & countryId) const;
 
   // Returns true iff |countryId| is an inner node of the tree.
@@ -532,13 +549,11 @@ public:
   bool IsDownloadInProgress() const;
 
   /// @param[out] res Populated with oudated countries.
-  void GetOutdatedCountries(std::vector<Country const *> & countries) const;
+  //void GetOutdatedCountries(std::vector<Country const *> & countries) const;
 
   /// Sets and gets locale, which is used to get localized counries names
   void SetLocale(std::string const & locale) { m_countryNameGetter.SetLocale(locale); }
   std::string GetLocale() const { return m_countryNameGetter.GetLocale(); }
-
-  MwmSize GetMaxMwmSizeBytes() const { return m_maxMwmSizeBytes; }
 
   // for testing:
   void SetEnabledIntegrityValidationForTesting(bool enabled);
@@ -547,11 +562,12 @@ public:
   void SetDownloadingServersForTesting(std::vector<std::string> const & downloadingUrls);
   void SetLocaleForTesting(std::string const & jsonBuffer, std::string const & locale);
 
-  /// Returns true if the diff scheme is available and all local outdated maps can be updated via
-  /// diffs.
-  bool IsPossibleToAutoupdate() const;
+  /// Returns true if the diff scheme is available and all local outdated maps can be updated via diffs.
+  //bool IsPossibleToAutoupdate() const;
 
   void SetStartDownloadingCallback(StartDownloadingCallback const & cb);
+
+  std::string GetFilePath(CountryId const & countryId, MapFileType file) const;
 
 protected:
   void OnFinishDownloading();
@@ -580,8 +596,7 @@ private:
 
   // Registers disk files for a country. This method must be used only
   // for real (listed in countries.txt) countries.
-  void RegisterCountryFiles(CountryId const & countryId, std::string const & directory,
-                            int64_t version);
+  void RegisterCountryFiles(CountryId const & countryId, platform::LocalCountryFile const & localFile);
 
   // Registers disk files for a country. This method must be used only
   // for custom (made by user) map files.
@@ -593,8 +608,7 @@ private:
   // Removes country files from downloader.
   bool DeleteCountryFilesFromDownloader(CountryId const & countryId);
 
-  // Returns a path to a place on disk downloader can use for
-  // downloaded files.
+  // Returns a path to a place on disk downloader can use for downloaded files.
   std::string GetFileDownloadPath(CountryId const & countryId, MapFileType file) const;
 
   /// Fast version, doesn't check if country is out of date
@@ -602,6 +616,7 @@ private:
 
   /// Returns status for a node (group node or not).
   StatusAndError GetNodeStatus(CountryTree::Node const & node) const;
+
   /// Returns status for a node (group node or not).
   /// Fills |disputedTeritories| with all disputed teritories in subtree with the root == |node|.
   StatusAndError GetNodeStatusInfo(
@@ -624,14 +639,16 @@ private:
   void ForEachAncestorExceptForTheRoot(std::vector<CountryTree::Node const *> const & nodes,
                                        ToDo && toDo) const;
 
-  /// Returns true if |node.Value().Name()| is a disputed territory and false otherwise.
+  /// @return true if |node.Value().Name()| is a disputed territory and false otherwise.
   bool IsDisputed(CountryTree::Node const & node) const;
 
-  void CalcMaxMwmSizeBytes();
+  /// @return true iff \a node is a country MWM leaf of the tree.
+  static bool IsCountryLeaf(CountryTree::Node const & node);
+  static bool IsWorldCountryID(CountryId const & country);
 
   void OnMapDownloadFailed(CountryId const & countryId);
 
-  void LoadDiffScheme();
+  //void LoadDiffScheme();
   void ApplyDiff(CountryId const & countryId, std::function<void(bool isSuccess)> const & fn);
 
   using IsDiffAbsentForCountry = std::function<bool(CountryId const & id)>;
@@ -702,11 +719,12 @@ void Storage::ForEachAncestorExceptForTheRoot(std::vector<CountryTree::Node cons
 }
 
 template <class ToDo>
-void Storage::ForEachCountryFile(ToDo && toDo) const
+void Storage::ForEachCountry(ToDo && toDo) const
 {
-  m_countries.GetRoot().ForEachInSubtree([&](CountryTree::Node const & node) {
-    if (node.ChildrenCount() == 0)
-      toDo(node.Value().GetFile());
+  m_countries.GetRoot().ForEachInSubtree([&](CountryTree::Node const & node)
+  {
+    if (IsCountryLeaf(node))
+      toDo(node.Value());
   });
 }
 }  // namespace storage

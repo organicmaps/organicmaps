@@ -40,14 +40,9 @@ ReaderStreamBuf::int_type ReaderStreamBuf::underflow()
 }
 
 
-WriterStreamBuf::~WriterStreamBuf()
-{
-  delete m_writer;
-}
-
 streamsize WriterStreamBuf::xsputn(char_type const * s, streamsize n)
 {
-  m_writer->Write(s, n);
+  m_writer.Write(s, n);
   return n;
 }
 
@@ -63,7 +58,7 @@ WriterStreamBuf::int_type WriterStreamBuf::overflow(int_type c)
 
 int WriterStreamBuf::sync()
 {
-  FileWriter * p = dynamic_cast<FileWriter *>(m_writer);
+  FileWriter * p = dynamic_cast<FileWriter *>(&m_writer);
   if (p)
     p->Flush();
   return 0;

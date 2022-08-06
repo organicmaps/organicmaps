@@ -253,7 +253,7 @@ void Processor::SetInputLocale(string const & locale)
   m_inputLocaleCode = CategoriesHolder::MapLocaleToInteger(locale);
 }
 
-void Processor::SetQuery(string const & query)
+void Processor::SetQuery(string const & query, bool categorialRequest /* = false */)
 {
   m_query = query;
   m_tokens.clear();
@@ -266,7 +266,7 @@ void Processor::SetQuery(string const & query)
 
   vector<strings::UniString> tokens;
   {
-    search::DelimitersWithExceptions delims(vector<strings::UniChar>{'#'});
+    search::DelimitersWithExceptions delims({'#'});
     auto normalizedQuery = NormalizeAndSimplifyString(query);
     PreprocessBeforeTokenization(normalizedQuery);
     SplitUniString(normalizedQuery, base::MakeBackInsertFunctor(tokens), delims);
@@ -314,25 +314,29 @@ void Processor::SetQuery(string const & query)
     }
   }
 
-  RemoveStopWordsIfNeeded(m_tokens, m_prefix);
+  QuerySliceOnRawStrings const tokenSlice(m_tokens, m_prefix);
 
   // Get preferred types to show in results.
   m_preferredTypes.clear();
-  auto const tokenSlice = QuerySliceOnRawStrings<decltype(m_tokens)>(m_tokens, m_prefix);
-  m_isCategorialRequest = FillCategories(tokenSlice, GetCategoryLocales(), m_categories, m_preferredTypes);
+  m_isCategorialRequest = categorialRequest;
 
-  if (!m_isCategorialRequest)
+  auto const locales = GetCategoryLocales();
+  if (!FillCategories(tokenSlice, locales, m_categories, m_preferredTypes))
   {
     // Try to match query to cuisine categories.
-    bool const isCuisineRequest = FillCategories(
-        tokenSlice, GetCategoryLocales(), GetDefaultCuisineCategories(), m_cuisineTypes);
-
-    if (isCuisineRequest)
+    if (FillCategories(tokenSlice, locales, GetDefaultCuisineCategories(), m_cuisineTypes))
     {
+      /// @todo What if I'd like to find "Burger" street? @see "BurgerStreet" test.
       m_isCategorialRequest = true;
       m_preferredTypes = ftypes::IsEatChecker::Instance().GetTypes();
     }
+  }
 
+  // Remove stopwords *after* FillCategories call (it makes exact tokens match).
+  RemoveStopWordsIfNeeded(m_tokens, m_prefix);
+
+  if (!m_isCategorialRequest)
+  {
     // Assign tokens and prefix to scorer.
     m_keywordsScorer.SetKeywords(m_tokens.data(), m_tokens.size(), m_prefix);
 
@@ -601,7 +605,7 @@ void Processor::Search(SearchParams const & params)
 
   SetInputLocale(params.m_inputLocale);
 
-  SetQuery(params.m_query);
+  SetQuery(params.m_query, params.m_categorialRequest);
   SetViewport(viewport);
 
   // Used to store the earliest available cancellation status:
@@ -738,7 +742,7 @@ void Processor::SearchPlusCode()
 void Processor::SearchPostcode()
 {
   // Create a copy of the query to trim it in-place.
-  string query(m_query);
+  string_view query(m_query);
   strings::Trim(query);
 
   if (!LooksLikePostcode(query, !m_prefix.empty()))
@@ -802,12 +806,9 @@ void Processor::InitParams(QueryParams & params) const
   else
     params.InitWithPrefix(m_tokens.begin(), m_tokens.end(), m_prefix);
 
-  // Add names of categories (and synonyms).
   Classificator const & c = classif();
-  auto addCategorySynonyms = [&](size_t i, uint32_t t) {
-    uint32_t const index = c.GetIndexForType(t);
-    params.GetTypeIndices(i).push_back(index);
-  };
+
+  // Add names of categories (and synonyms).
   auto const tokenSlice = QuerySliceOnRawStrings<decltype(m_tokens)>(m_tokens, m_prefix);
   params.SetCategorialRequest(m_isCategorialRequest);
   if (m_isCategorialRequest)
@@ -822,11 +823,14 @@ void Processor::InitParams(QueryParams & params) const
   else
   {
     // todo(@m, @y). Shall we match prefix tokens for categories?
-    ForEachCategoryTypeFuzzy(tokenSlice, addCategorySynonyms);
+    ForEachCategoryTypeFuzzy(tokenSlice, [&c, &params](size_t i, uint32_t t)
+    {
+      uint32_t const index = c.GetIndexForType(t);
+      params.GetTypeIndices(i).push_back(index);
+    });
   }
 
-  // Remove all type indices for streets, as they're considired
-  // individually.
+  // Remove all type indices for streets, as they're considired individually.
   for (size_t i = 0; i < params.GetNumTokens(); ++i)
   {
     auto & token = params.GetToken(i);
@@ -837,8 +841,10 @@ void Processor::InitParams(QueryParams & params) const
   for (size_t i = 0; i < params.GetNumTokens(); ++i)
     base::SortUnique(params.GetTypeIndices(i));
 
-  m_keywordsScorer.ForEachLanguage(
-      [&](int8_t lang) { params.GetLangs().Insert(static_cast<uint64_t>(lang)); });
+  m_keywordsScorer.ForEachLanguage([&params](int8_t lang)
+  {
+    params.GetLangs().Insert(static_cast<uint64_t>(lang));
+  });
 }
 
 void Processor::InitGeocoder(Geocoder::Params & geocoderParams, SearchParams const & searchParams)
@@ -885,6 +891,23 @@ void Processor::InitPreRanker(Geocoder::Params const & geocoderParams,
   m_preRanker.Init(params);
 }
 
+namespace
+{
+class NotInPreffered : public ftypes::BaseChecker
+{
+  NotInPreffered() : ftypes::BaseChecker(1)
+  {
+    base::StringIL const types[] = { {"organic"}, {"internet_access"} };
+    auto const & c = classif();
+    for (auto const & e : types)
+      m_types.push_back(c.GetTypeByPath(e));
+  }
+
+public:
+  DECLARE_CHECKER_INSTANCE(NotInPreffered);
+};
+} // namespace
+
 void Processor::InitRanker(Geocoder::Params const & geocoderParams,
                            SearchParams const & searchParams)
 {
@@ -898,7 +921,11 @@ void Processor::InitRanker(Geocoder::Params const & geocoderParams,
   params.m_limit = searchParams.m_maxNumResults;
   params.m_pivot = m_position ? *m_position : GetViewport().Center();
   params.m_pivotRegion = GetPivotRegion();
+
   params.m_preferredTypes = m_preferredTypes;
+  // Remove "secondary" category types from preferred.
+  base::EraseIf(params.m_preferredTypes, NotInPreffered::Instance());
+
   params.m_suggestsEnabled = searchParams.m_suggestsEnabled;
   params.m_needAddress = searchParams.m_needAddress;
   params.m_needHighlighting = searchParams.m_needHighlighting && !geocoderParams.IsCategorialRequest();
@@ -946,11 +973,9 @@ void Processor::EmitFeatureIfExists(vector<shared_ptr<MwmInfo>> const & infos,
     auto ft = guard->GetFeatureByIndex(fid);
     if (!ft)
       continue;
-    auto const center = feature::GetCenter(*ft, FeatureType::WORST_GEOMETRY);
-    string name;
-    ft->GetReadableName(name);
+
     m_emitter.AddResultNoChecks(m_ranker.MakeResult(
-        RankerResult(*ft, center, m2::PointD() /* pivot */, name, guard->GetCountryFileName()),
+        RankerResult(*ft, m2::PointD() /* pivot */, guard->GetCountryFileName()),
         true /* needAddress */, true /* needHighlighting */));
     m_emitter.Emit();
   }
@@ -969,6 +994,7 @@ void Processor::EmitFeaturesByIndexFromAllMwms(vector<shared_ptr<MwmInfo>> const
     auto ft = guard->GetFeatureByIndex(fid);
     if (!ft)
       continue;
+
     auto const center = feature::GetCenter(*ft, FeatureType::WORST_GEOMETRY);
     double dist = center.SquaredLength(m_viewport.Center());
     auto pivot = m_viewport.Center();
@@ -984,13 +1010,13 @@ void Processor::EmitFeaturesByIndexFromAllMwms(vector<shared_ptr<MwmInfo>> const
     results.emplace_back(dist, pivot, guard->GetCountryFileName(), move(ft));
     guards.push_back(move(guard));
   }
+
   sort(results.begin(), results.end());
+
   for (auto const & [dist, pivot, country, ft] : results)
   {
-    auto const center = feature::GetCenter(*ft, FeatureType::WORST_GEOMETRY);
-    string name;
-    ft->GetReadableName(name);
-    m_emitter.AddResultNoChecks(m_ranker.MakeResult(RankerResult(*ft, center, pivot, name, country),
+    /// @todo We make duplicating feature::GetCenter call in RankerResult.
+    m_emitter.AddResultNoChecks(m_ranker.MakeResult(RankerResult(*ft, pivot, country),
                                                     true /* needAddress */,
                                                     true /* needHighlighting */));
     m_emitter.Emit();

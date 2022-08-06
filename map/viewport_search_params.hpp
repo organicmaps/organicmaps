@@ -17,6 +17,7 @@ struct ViewportSearchParams
   std::string m_query;
   std::string m_inputLocale;
   std::optional<std::chrono::steady_clock::duration> m_timeout;
+  bool m_isCategory = false;
 
   OnStarted m_onStarted;
   OnCompleted m_onCompleted;

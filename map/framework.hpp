@@ -177,10 +177,6 @@ protected:
 
   drape_ptr<df::DrapeEngine> m_drapeEngine;
 
-  // Time in seconds.
-  double m_startForegroundTime = 0.0;
-  double m_startBackgroundTime = 0.0;
-
   StorageDownloadingPolicy m_storageDownloadingPolicy;
   storage::Storage m_storage;
   bool m_enabledDiffs;
@@ -253,7 +249,7 @@ public:
   /// Checks, whether the country which contains the specified point is loaded.
   bool IsCountryLoaded(m2::PointD const & pt) const;
   /// Checks, whether the country is loaded.
-  bool IsCountryLoadedByName(std::string const & name) const;
+  bool IsCountryLoadedByName(std::string_view name) const;
 
   void InvalidateRect(m2::RectD const & rect);
 
@@ -269,8 +265,7 @@ public:
     AskForUpdateMaps,
     Migrate
   };
-
-  DoAfterUpdate ToDoAfterUpdate() const;
+//  DoAfterUpdate ToDoAfterUpdate() const;
 
   storage::Storage & GetStorage() { return m_storage; }
   storage::Storage const & GetStorage() const { return m_storage; }
@@ -304,10 +299,13 @@ public:
   BookmarkManager & GetBookmarkManager();
   BookmarkManager const & GetBookmarkManager() const;
 
-  // Utilities
+  /// @name Visualize utilities, used in desktop only. Implemented in framework_visualize.cpp
+  /// @{
   void VisualizeRoadsInRect(m2::RectD const & rect);
   void VisualizeCityBoundariesInRect(m2::RectD const & rect);
   void VisualizeCityRoadsInRect(m2::RectD const & rect);
+  void VisualizeCrossMwmTransitionsInRect(m2::RectD const & rect);
+  /// @}
 
 public:
   // SearchAPI::Delegate overrides:
@@ -362,7 +360,6 @@ public:
 
   std::vector<std::string> GetRegionsCountryIdByRect(m2::RectD const & rect, bool rough) const;
   std::vector<MwmSet::MwmId> GetMwmsByRect(m2::RectD const & rect, bool rough) const;
-  MwmSet::MwmId GetMwmIdByName(std::string const & name) const;
 
   void ReadFeatures(std::function<void(FeatureType &)> const & reader,
                     std::vector<FeatureID> const & features);
@@ -399,6 +396,8 @@ public:
   void SetMyPositionModeListener(location::TMyPositionModeChanged && fn);
   void SetMyPositionPendingTimeoutListener(df::DrapeEngine::UserPositionPendingTimeoutHandler && fn);
 
+  location::EMyPositionMode GetMyPositionMode() const;
+
 private:
   void OnUserPositionChanged(m2::PointD const & position, bool hasPosition);
 
@@ -410,9 +409,6 @@ public:
     int m_surfaceWidth = 0;
     int m_surfaceHeight = 0;
     gui::TWidgetsInitInfo m_widgetsInitInfo;
-
-    bool m_hasMyPositionState = false;
-    location::EMyPositionMode m_initialMyPositionState = location::PendingPosition;
 
     bool m_isChoosePositionMode = false;
     df::Hints m_hints;
@@ -582,6 +578,7 @@ public:
 
   ParsedRoutingData GetParsedRoutingData() const;
   url_scheme::SearchRequest GetParsedSearchRequest() const;
+  std::string const & GetParsedAppName() const;
 
   using FeatureMatcher = std::function<bool(FeatureType & ft)>;
 
@@ -610,6 +607,7 @@ private:
   void FillSearchResultInfo(SearchMarkPoint const & smp, place_page::Info & info) const;
   void FillMyPositionInfo(place_page::Info & info, place_page::BuildInfo const & buildInfo) const;
   void FillRouteMarkInfo(RouteMarkPoint const & rmp, place_page::Info & info) const;
+  void FillTransitMarkInfo(TransitMark const & transitMark, place_page::Info & info) const;
   void FillRoadTypeMarkInfo(RoadWarningMark const & roadTypeMark, place_page::Info & info) const;
   void FillPointInfoForBookmark(Bookmark const & bmk, place_page::Info & info) const;
   void FillBookmarkInfo(Bookmark const & bmk, place_page::Info & info) const;
@@ -734,19 +732,12 @@ public:
   void CreateNote(osm::MapObject const & mapObject, osm::Editor::NoteProblemType const type,
                   std::string const & note);
 
-public:
-  storage::CountriesVec GetTopmostCountries(ms::LatLon const & latlon) const;
-
 private:
-  std::unique_ptr<search::CityFinder> m_cityFinder;
   CachingAddressGetter m_addressGetter;
-
-  void InitCityFinder();
 
 public:
   // TipsApi::Delegate override.
   bool HaveTransit(m2::PointD const & pt) const;
-  double GetLastBackgroundTime() const;
 
   power_management::PowerManager & GetPowerManager() { return m_powerManager; }
 

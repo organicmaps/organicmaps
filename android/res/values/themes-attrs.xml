@@ -43,7 +43,6 @@
     <attr name="primaryButtonBackground" format="reference" />
     <attr name="circleAccent" format="reference" />
     <attr name="menuBackground" format="color" />
-    <attr name="menuBackgroundOpen" format="color" />
     <attr name="myPositionButtonAnimation" format="reference" />
     <attr name="wheelPendingAnimation" format="reference" />
     <attr name="trafficLoadingAnimation" format="reference" />
@@ -51,7 +50,7 @@
     <attr name="downloaderTheme" format="reference" />
     <attr name="navigationTheme" format="reference" />
     <attr name="fabAdd" format="reference" />
-    <attr name="fabViewOnMap" format="reference" />
+    <attr name="showOnMapFab" format="reference" />
     <attr name="routingButtonHint" format="color" />
     <attr name="routingButtonPressedHint" format="color" />
     <attr name="routingButtonActivatedHint" format="color" />

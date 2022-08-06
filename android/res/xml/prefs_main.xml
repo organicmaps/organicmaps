@@ -175,7 +175,7 @@
     android:order="6">
     <SwitchPreferenceCompat
       android:key="@string/pref_play_services"
-      android:title="Google Play Services"
+      android:title="@string/google_play_services"
       app:singleLineTitle="false"
       android:summary="@string/pref_use_google_play"
       android:defaultValue="true"

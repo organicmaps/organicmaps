@@ -48,8 +48,7 @@ double CalcTrackLength(MatchedTrack const & track, Geometry & geometry)
 double CalcSpeedKMpH(double meters, uint64_t secondsElapsed)
 {
   CHECK_GREATER(secondsElapsed, 0, ());
-  double constexpr kMPS2KMPH = 60.0 * 60.0 / 1000.0;
-  return kMPS2KMPH * meters / static_cast<double>(secondsElapsed);
+  return measurement_utils::MpsToKmph(meters / static_cast<double>(secondsElapsed));
 }
 
 void ReadTracks(shared_ptr<NumMwmIds> numMwmIds, string const & filename,
@@ -94,8 +93,7 @@ MatchedTrack const & GetMatchedTrack(MwmToMatchedTracks const & mwmToMatchedTrac
 
 std::string GetCurrentVersionMwmFile(storage::Storage const & storage, std::string const & mwmName)
 {
-  return base::JoinPath(GetPlatform().WritableDir(), to_string(storage.GetCurrentDataVersion()),
-                      mwmName + DATA_FILE_EXTENSION);
+  return storage.GetFilePath(mwmName, MapFileType::Map);
 }
 
 void ForEachTrackFile(

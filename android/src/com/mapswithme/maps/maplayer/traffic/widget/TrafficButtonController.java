@@ -9,11 +9,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.maplayer.MapLayerController;
 import com.mapswithme.maps.maplayer.traffic.TrafficManager;
 import com.mapswithme.util.Utils;
 
-public class TrafficButtonController implements TrafficManager.TrafficCallback, MapLayerController
+public class TrafficButtonController implements TrafficManager.TrafficCallback
 {
   @NonNull
   private final TrafficButton mButton;
@@ -35,61 +34,51 @@ public class TrafficButtonController implements TrafficManager.TrafficCallback, 
     turnOn();
   }
 
-  @Override
   public void turnOn()
   {
     mButton.turnOn();
   }
 
-  @Override
   public void hideImmediately()
   {
     mButton.hideImmediately();
   }
 
-  @Override
   public void adjust(int offsetX, int offsetY)
   {
     mButton.setOffset(offsetX, offsetY);
   }
 
-  @Override
   public void attachCore()
   {
     TrafficManager.INSTANCE.attach(this);
   }
 
-  @Override
   public void detachCore()
   {
     destroy();
   }
 
-  @Override
   public void onDisabled()
   {
     turnOff();
   }
 
-  @Override
   public void turnOff()
   {
     mButton.turnOff();
   }
 
-  @Override
   public void show()
   {
     mButton.show();
   }
 
-  @Override
   public void showImmediately()
   {
     mButton.showImmediately();
   }
 
-  @Override
   public void hide()
   {
     mButton.hide();

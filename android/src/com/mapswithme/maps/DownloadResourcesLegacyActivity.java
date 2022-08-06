@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 
+import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 import com.mapswithme.maps.dialog.AlertDialog;
 import com.mapswithme.maps.dialog.AlertDialogCallback;
@@ -33,24 +34,24 @@ import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.LoggerFactory;
 
 import java.util.List;
 
 @SuppressLint("StringFormatMatches")
 public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity implements AlertDialogCallback
 {
-  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.DOWNLOADER);
-  private static final String TAG = DownloadResourcesLegacyActivity.class.getName();
+  private static final String TAG = DownloadResourcesLegacyActivity.class.getSimpleName();
 
   private static final String ERROR_LOADING_DIALOG_TAG = "error_loading_dialog";
   private static final int ERROR_LOADING_DIALOG_REQ_CODE = 234;
+
+  private static final int REQ_CODE_API_RESULT = 10;
 
   public static final String EXTRA_COUNTRY = "country";
 
   // Error codes, should match the same codes in JNI
   private static final int ERR_DOWNLOAD_SUCCESS = 0;
-  private static final int ERR_NOT_ENOUGH_MEMORY = -1;
+  private static final int ERR_DISK_ERROR = -1;
   private static final int ERR_NOT_ENOUGH_FREE_SPACE = -2;
   private static final int ERR_STORAGE_DISCONNECTED = -3;
   private static final int ERR_DOWNLOAD_ERROR = -4;
@@ -91,12 +92,9 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity imp
   private final IntentProcessor[] mIntentProcessors = {
       new Factory.GeoIntentProcessor(),
       new Factory.HttpGeoIntentProcessor(),
-      new Factory.MapsWithMeIntentProcessor(),
       new Factory.HttpMapsIntentProcessor(),
       new Factory.OpenCountryTaskProcessor(),
       new Factory.KmzKmlProcessor(this),
-      new Factory.ShowOnMapProcessor(),
-      new Factory.BuildRouteProcessor(),
   };
 
   private final LocationListener mLocationListener = new LocationListener.Simple()
@@ -350,15 +348,14 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity imp
     {
     case ERR_NOT_ENOUGH_FREE_SPACE:
       return R.string.not_enough_free_space_on_sdcard;
-
     case ERR_STORAGE_DISCONNECTED:
       return R.string.disconnect_usb_cable;
-
     case ERR_DOWNLOAD_ERROR:
       return (ConnectionState.INSTANCE.isConnected() ? R.string.download_has_failed
                                             : R.string.common_check_internet_connection_dialog);
     default:
-      return R.string.not_enough_memory;
+      assert(res == ERR_DISK_ERROR);
+      return R.string.disk_error;
     }
   }
 
@@ -367,13 +364,15 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity imp
   {
     switch (res)
     {
+      case ERR_NOT_ENOUGH_FREE_SPACE:
+        return R.string.routing_not_enough_space;
       case ERR_STORAGE_DISCONNECTED:
         return R.string.disconnect_usb_cable_title;
-
       case ERR_DOWNLOAD_ERROR:
         return R.string.connection_failure;
       default:
-        return R.string.routing_not_enough_space;
+        assert(res == ERR_DISK_ERROR);
+        return R.string.disk_error_title;
     }
   }
 
@@ -393,21 +392,36 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity imp
       intent.putExtra(MwmActivity.EXTRA_TASK, mMapTaskToForward);
       intent.putExtra(MwmActivity.EXTRA_LAUNCH_BY_DEEP_LINK, true);
       mMapTaskToForward = null;
+
+      if (ParsedMwmRequest.getCurrentRequest() != null)
+      {
+        // Wait for the result from MwmActivity for API callers.
+        startActivityForResult(intent, REQ_CODE_API_RESULT);
+        return;
+      }
     }
 
     startActivity(intent);
-
     finish();
+  }
+
+  protected void onActivityResult(int requestCode, int resultCode, Intent data)
+  {
+    super.onActivityResult(requestCode, resultCode, data);
+    if (requestCode == REQ_CODE_API_RESULT)
+    {
+      setResult(resultCode, data);
+      finish();
+    }
   }
 
   private void finishFilesDownload(int result)
   {
     if (result == ERR_NO_MORE_FILES)
     {
-      // World and WorldCoasts has been downloaded, we should register maps again to correctly add them to the model and generate indexes etc.
-      // TODO fix the hack when separate download of World-s will be removed or refactored
-      Framework.nativeDeregisterMaps();
-      Framework.nativeRegisterMaps();
+      // World and WorldCoasts has been downloaded, we should register maps again to correctly add them to the model.
+      Framework.nativeReloadWorldMaps();
+
       if (mCurrentCountry != null && mChbDownloadCountry.isChecked())
       {
         CountryItem item = CountryItem.fill(mCurrentCountry);
@@ -441,7 +455,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity imp
       return null;
 
     String msg = "Incoming intent uri: " + intent;
-    LOGGER.i(TAG, msg);
+    Logger.i(TAG, msg);
     CrashlyticsUtils.INSTANCE.log(Log.INFO, TAG, msg);
 
     MapTask mapTaskToForward;

@@ -125,6 +125,16 @@ void Platform::SetSettingsDir(string const & path)
   m_settingsDir = base::AddSlashIfNeeded(path);
 }
 
+std::string Platform::SettingsPathForFile(std::string const & file) const
+{
+  return base::JoinPath(SettingsDir(), file);
+}
+
+std::string Platform::WritablePathForFile(std::string const & file) const
+{
+  return base::JoinPath(WritableDir(), file);
+}
+
 string Platform::ReadPathForFile(string const & file, string searchScope) const
 {
   if (searchScope.empty())
@@ -135,11 +145,24 @@ string Platform::ReadPathForFile(string const & file, string searchScope) const
   {
     switch (searchScope[i])
     {
-    case 'w': fullPath = m_writableDir + file; break;
-    case 'r': fullPath = m_resourcesDir + file; break;
-    case 's': fullPath = m_settingsDir + file; break;
-    case 'f': fullPath = file; break;
-    default : CHECK(false, ("Unsupported searchScope:", searchScope)); break;
+    case 'w':
+      ASSERT(!m_writableDir.empty(), ());
+      fullPath = base::JoinPath(m_writableDir, file);
+      break;
+    case 'r':
+      ASSERT(!m_resourcesDir.empty(), ());
+      fullPath = base::JoinPath(m_resourcesDir, file);
+      break;
+    case 's':
+      ASSERT(!m_settingsDir.empty(), ());
+      fullPath = base::JoinPath(m_settingsDir, file);
+      break;
+    case 'f':
+      fullPath = file;
+      break;
+    default :
+      CHECK(false, ("Unsupported searchScope:", searchScope));
+      break;
     }
     if (IsFileExistsByFullPath(fullPath))
       return fullPath;
@@ -167,13 +190,13 @@ bool Platform::RemoveFileIfExists(string const & filePath)
 string Platform::TmpPathForFile() const
 {
   size_t constexpr kNameLen = 32;
-  return TmpDir() + RandomString(kNameLen);
+  return base::JoinPath(TmpDir(), RandomString(kNameLen));
 }
 
 string Platform::TmpPathForFile(string const & prefix, string const & suffix) const
 {
   size_t constexpr kRandomLen = 8;
-  return TmpDir() + prefix + RandomString(kRandomLen) + suffix;
+  return base::JoinPath(TmpDir(), prefix + RandomString(kRandomLen) + suffix);
 }
 
 void Platform::GetFontNames(FilesList & res) const
@@ -181,7 +204,6 @@ void Platform::GetFontNames(FilesList & res) const
   ASSERT(res.empty(), ());
 
   /// @todo Actually, this list should present once in all our code.
-  /// We can take it from data/external_resources.txt
   char const * arrDef[] = {
     "00_NotoNaskhArabic-Regular.ttf",
     "00_NotoSansThai-Regular.ttf",
@@ -297,12 +319,12 @@ bool Platform::MkDirChecked(string const & dirName)
 // static
 bool Platform::MkDirRecursively(string const & dirName)
 {
-  auto const sep = base::GetNativeSeparator();
-  string path = strings::StartsWith(dirName, sep) ? sep : "";
-  auto const tokens = strings::Tokenize(dirName, sep.c_str());
+  string::value_type const sep[] = { base::GetNativeSeparator(), 0};
+  string path = strings::StartsWith(dirName, sep) ? sep : ".";
+  auto const tokens = strings::Tokenize(dirName, sep);
   for (auto const & t : tokens)
   {
-    path = base::JoinPath(path, t);
+    path = base::JoinPath(path, string(t));
     if (!IsFileExistsByFullPath(path))
     {
       auto const ret = MkDir(path);

@@ -10,6 +10,8 @@
 #include "geometry/angles.hpp"
 #include "geometry/mercator.hpp"
 
+#include "indexer/road_shields_parser.hpp"
+
 #include <utility>
 
 using namespace location;
@@ -21,8 +23,7 @@ namespace
 
 int constexpr kOnRouteMissedCount = 10;
 
-// @TODO(vbykoianko) The distance should depend on the current speed.
-double constexpr kShowLanesDistInMeters = 500.;
+double constexpr kShowLanesMinDistInMeters = 500.0;
 
 // @TODO The distance may depend on the current speed.
 double constexpr kShowPedestrianTurnInMeters = 20.0;
@@ -40,6 +41,16 @@ void FormatDistance(double dist, string & value, string & suffix)
 {
   /// @todo Make better formatting of distance and units.
   value = measurement_utils::FormatDistance(dist);
+
+  size_t const delim = value.find(' ');
+  ASSERT(delim != string::npos, ());
+  suffix = value.substr(delim + 1);
+  value.erase(delim);
+};
+
+void FormatSpeed(double speedKmPH, string & value, string & suffix)
+{
+  value = measurement_utils::FormatSpeed(measurement_utils::KmphToMps(speedKmPH));
 
   size_t const delim = value.find(' ');
   ASSERT(delim != string::npos, ());
@@ -339,6 +350,41 @@ SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
   return m_state;
 }
 
+// For next street returns "[ref] name" .
+// For highway exits (or main roads with exit info) returns "[junction:ref]: [target:ref] > target".
+// If no |target| - it will be replaced by |name| of next street.
+// If no |target:ref| - it will be replaced by |ref| of next road.
+// So if link has no info at all, "[ref] name" of next will be returned (as for next street).
+void GetFullRoadName(RouteSegment::RoadNameInfo & road, string & name)
+{
+  if (auto const & sh = ftypes::GetRoadShields(road.m_ref); !sh.empty())
+    road.m_ref = sh[0].m_name;
+  if (auto const & sh = ftypes::GetRoadShields(road.m_destination_ref); !sh.empty())
+    road.m_destination_ref = sh[0].m_name;
+
+  name.clear();
+  if (road.HasExitInfo())
+  {
+    if (!road.m_junction_ref.empty())
+      name = "[" + road.m_junction_ref + "]";
+
+    if (!road.m_destination_ref.empty())
+      name += string(name.empty() ? "" : ": ") + "[" + road.m_destination_ref + "]";
+
+    if (!road.m_destination.empty())
+      name += string(name.empty() ? "" : " ") + "> " + road.m_destination;
+    else if (!road.m_name.empty())
+      name += (road.m_destination_ref.empty() ? string(name.empty() ? "" : " ") : ": ") + road.m_name;
+  }
+  else
+  {
+    if (!road.m_ref.empty())
+      name = "[" + road.m_ref + "]";
+    if (!road.m_name.empty())
+      name += (name.empty() ? "" : " ") + road.m_name;
+  }
+}
+
 void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
@@ -364,9 +410,14 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
 
   double distanceToTurnMeters = 0.;
   turns::TurnItem turn;
-  m_route->GetCurrentTurn(distanceToTurnMeters, turn);
+  m_route->GetNearestTurn(distanceToTurnMeters, turn);
   FormatDistance(distanceToTurnMeters, info.m_distToTurn, info.m_turnUnitsSuffix);
   info.m_turn = turn.m_turn;
+
+  SpeedInUnits speedLimit;
+  m_route->GetCurrentSpeedLimit(speedLimit);
+  if (speedLimit.IsValid())
+    FormatSpeed(speedLimit.GetSpeedKmPH(), info.m_speedLimit, info.m_speedLimitUnitsSuffix);
 
   // The turn after the next one.
   if (m_routingSettings.m_showTurnAfterNext)
@@ -376,12 +427,18 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
 
   info.m_exitNum = turn.m_exitNum;
   info.m_time = static_cast<int>(max(kMinimumETASec, m_route->GetCurrentTimeToEndSec()));
-  m_route->GetCurrentStreetName(info.m_sourceName);
-  m_route->GetStreetNameAfterIdx(turn.m_index, info.m_targetName);
+  RouteSegment::RoadNameInfo sourceRoadNameInfo, targetRoadNameInfo;
+  m_route->GetCurrentStreetName(sourceRoadNameInfo);
+  GetFullRoadName(sourceRoadNameInfo, info.m_sourceName);
+  m_route->GetNextTurnStreetName(targetRoadNameInfo);
+  GetFullRoadName(targetRoadNameInfo, info.m_targetName);
+
   info.m_completionPercent = GetCompletionPercent();
 
+  double const timeToNearestTurnSec = m_route->GetCurrentTimeToNearestTurnSec();
+
   // Lane information and next street name.
-  if (distanceToTurnMeters < kShowLanesDistInMeters)
+  if (distanceToTurnMeters < kShowLanesMinDistInMeters || timeToNearestTurnSec < 60.0)
   {
     info.m_displayedStreetName = info.m_targetName;
     // There are two nested loops below. Outer one is for lanes and inner one (ctor of

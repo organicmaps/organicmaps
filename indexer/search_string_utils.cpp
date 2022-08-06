@@ -98,7 +98,7 @@ strings::LevenshteinDFA BuildLevenshteinDFA(strings::UniString const & s)
   return strings::LevenshteinDFA(s, 1 /* prefixSize */, kAllowedMisprints, GetMaxErrorsForToken(s));
 }
 
-UniString NormalizeAndSimplifyString(string const & s)
+UniString NormalizeAndSimplifyString(string_view s)
 {
   UniString uniString = MakeUniString(s);
   for (size_t i = 0; i < uniString.size(); ++i)
@@ -434,23 +434,18 @@ string DropLastToken(string const & str)
   return string(str.begin(), iter.base());
 }
 
-UniString GetStreetNameAsKey(string const & name, bool ignoreStreetSynonyms)
+UniString GetStreetNameAsKey(string_view name, bool ignoreStreetSynonyms)
 {
   if (name.empty())
     return UniString();
 
   UniString res;
-  SimpleTokenizer iter(name, kStreetTokensSeparator);
-  while (iter)
+  Tokenize(name, kStreetTokensSeparator, [&](string_view v)
   {
-    UniString const s = NormalizeAndSimplifyString(*iter);
-    ++iter;
-
-    if (ignoreStreetSynonyms && IsStreetSynonym(s))
-      continue;
-
-    res.append(s);
-  }
+    UniString const s = NormalizeAndSimplifyString(v);
+    if (!ignoreStreetSynonyms || !IsStreetSynonym(s))
+      res.append(s);
+  });
 
   return (res.empty() ? NormalizeAndSimplifyString(name) : res);
 }

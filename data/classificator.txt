@@ -27,6 +27,7 @@ world  +
         bench  -
         bicycle_parking  -
         bicycle_rental  -
+        bicycle_repair_station  -
         biergarten  -
         brothel  -
         bureau_de_change  -
@@ -117,11 +118,16 @@ world  +
         university  -
         vending_machine  +
             cigarettes  -
+            coffee  -
+            condoms  -
             drinks  -
             excrement_bags  -
+            food  -
             fuel  -
+            newspapers  -
             parking_tickets  -
             public_transport_tickets  -
+            sweets  -
             {}
         veterinary  -
         waste_basket  -
@@ -194,19 +200,29 @@ world  +
         train_station  -
         {}
     building:part  -
+    cemetery  +
+        grave  -
+        {}
     complex_entry  -
     craft  +
+        beekeeper  -
+        blacksmith  -
         brewery  -
         carpenter  -
+        confectionery  -
         electrician  -
+        electronics_repair  -
         gardener  -
+        handicraft  -
         hvac  -
         metal_construction  -
         painter  -
         photographer  -
         plumber  -
+        sawmill  -
         shoemaker  -
         tailor  -
+        winery  -
         {}
     cuisine  +
         african  -
@@ -222,6 +238,7 @@ world  +
         beef_bowl  -
         brazilian  -
         breakfast  -
+        bubble_tea  -
         burger  -
         buschenschank  -
         cake  -
@@ -502,6 +519,7 @@ world  +
         churchyard  -
         commercial  -
         construction  -
+        education  -
         farm  -
         farmland  -
         farmyard  -
@@ -553,12 +571,7 @@ world  +
         recreation_ground  -
         sauna  -
         slipway  -
-        sports_centre  +
-            climbing  -
-            shooting  -
-            swimming  -
-            yoga  -
-            {}
+        sports_centre  -
         stadium  -
         swimming_pool  +
             private  -
@@ -571,16 +584,16 @@ world  +
         cairn  -
         chimney  -
         cutline  -
+        embankment  -
         flagpole  -
         lighthouse  -
         mast  -
         pier  -
-        pipeline  +
-            overground  -
-            {}
+        pipeline  -
         silo  -
         storage_tank  -
         surveillance  -
+        survey_point  -
         tower  -
         wastewater_plant  -
         water_tap  -
@@ -607,6 +620,7 @@ world  +
         cave_entrance  -
         cliff  -
         coastline  -
+        earth_bank  -
         geyser  -
         glacier  -
         grassland  -
@@ -625,9 +639,11 @@ world  +
         water  +
             basin  -
             lake  -
+            lock  -
             pond  -
             reservoir  -
             river  -
+            tunnel  -
             {}
         wetland  +
             bog  -
@@ -644,6 +660,10 @@ world  +
         lawyer  -
         ngo  -
         telecommunication  -
+        {}
+    organic  +
+        only  -
+        yes  -
         {}
     piste:lift  +
         j-bar  -
@@ -702,9 +722,7 @@ world  +
         {}
     power  +
         generator  -
-        line  +
-            underground  -
-            {}
+        line  -
         minor_line  -
         pole  -
         station  -
@@ -830,12 +848,17 @@ world  +
         {}
     shop  +
         alcohol  -
+        antiques  -
+        art  -
+        baby_goods  -
+        bag  -
         bakery  -
         beauty  -
         beverages  -
         bicycle  -
         bookmaker  -
         books  -
+        boutique  -
         butcher  -
         car  -
         car_parts  -
@@ -843,6 +866,8 @@ world  +
             tyres  -
             {}
         caravan  -
+        charity  -
+        cheese  -
         chemist  -
         chocolate  -
         clothes  -
@@ -852,60 +877,89 @@ world  +
         convenience  -
         copyshop  -
         cosmetics  -
+        craft  -
+        dairy  -
+        deli  -
         department_store  -
         doityourself  -
         dry_cleaning  -
+        electrical  -
         electronics  -
         erotic  -
         fabric  -
+        farm  -
+        fishing  -
         florist  -
         funeral_directors  -
         furniture  -
         garden_centre  -
         gift  -
         greengrocer  -
+        grocery  -
         hairdresser  -
         hardware  -
+        health_food  -
+        houseware  -
+        interior_decoration  -
         jewelry  -
         kiosk  -
+        kitchen  -
         laundry  -
+        lottery  -
         mall  -
         massage  -
+        medical_supply  -
         mobile_phone  -
         money_lender  -
         motorcycle  -
         music  -
         musical_instrument  -
         newsagent  -
+        nutrition_supplements  -
         optician  -
         outdoor  -
+        paint  -
+        pastry  -
         pawnbroker  -
+        perfumery  -
         pet  -
         photo  -
         seafood  -
+        second_hand  -
+        sewing  -
         shoes  -
         sports  -
         stationery  -
+        storage_rental  -
         supermarket  -
         tattoo  -
         tea  -
         ticket  -
+        tobacco  -
         toys  -
+        trade  -
         travel_agency  -
         tyres  -
         variety_store  -
         video  -
         video_games  -
+        watches  -
+        wholesale  -
         wine  -
         {}
     sport  +
+        10pin  -
+        9pin  -
         american_football  -
         archery  -
         athletics  -
         australian_football  -
         baseball  -
         basketball  -
+        beachvolleyball  -
         bowls  -
+        chess  -
+        climbing  -
         cricket  -
         curling  -
         diving  -
@@ -916,10 +970,14 @@ world  +
         multi  -
         scuba_diving  -
         shooting  -
+        skateboard  -
         skiing  -
         soccer  -
         swimming  -
+        table_tennis  -
         tennis  -
+        volleyball  -
+        yoga  -
         {}
     tourism  +
         alpine_hut  -
@@ -972,7 +1030,6 @@ world  +
         drain  +
             tunnel  -
             {}
-        lock  -
         lock_gate  -
         river  +
             tunnel  -

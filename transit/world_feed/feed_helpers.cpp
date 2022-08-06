@@ -6,6 +6,7 @@
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
+#include "base/stl_helpers.hpp"
 
 #include <cmath>
 
@@ -224,8 +225,7 @@ bool IsRelevantType(gtfs::RouteType const & routeType)
       gtfs::RouteType::SchoolBus,
       gtfs::RouteType::SchoolAndPublicServiceBus};
 
-  return std::find(kNotRelevantTypes.begin(), kNotRelevantTypes.end(), routeType) ==
-         kNotRelevantTypes.end();
+  return !base::IsExist(kNotRelevantTypes, routeType);
 }
 
 std::string ToString(gtfs::RouteType const & routeType)

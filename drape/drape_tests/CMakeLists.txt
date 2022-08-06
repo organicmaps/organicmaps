@@ -22,6 +22,7 @@ set(SRC
   texture_of_colors_tests.cpp
   testing_graphics_context.hpp
   uniform_value_tests.cpp
+  vertex_buffer_tests.cpp
 )
 
 omim_add_test(${PROJECT_NAME} ${SRC})

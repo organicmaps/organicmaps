@@ -5,15 +5,18 @@
 
 #include "drape/stipple_pen_resource.hpp"
 #include "drape/texture.hpp"
+#include "drape/tm_read_resources.hpp"
 
+
+namespace stipple_pen_tests
+{
 using namespace dp;
 
 namespace
 {
 void TestPacker(StipplePenPacker & packer, uint32_t width, m2::RectU const & expect)
 {
-  m2::RectU rect = packer.PackResource(width);
-  TEST_EQUAL(rect, expect, ());
+  TEST_EQUAL(packer.PackResource({ width, 1 }), expect, ());
 }
 
 bool IsRectsEqual(m2::RectF const & r1, m2::RectF const & r2)
@@ -23,24 +26,9 @@ bool IsRectsEqual(m2::RectF const & r1, m2::RectF const & r2)
          base::AlmostEqualULPs(r1.maxX(), r2.maxX()) &&
          base::AlmostEqualULPs(r1.maxY(), r2.maxY());
 }
-
-class DummyStipplePenIndex : public StipplePenIndex
-{
-  using Base = StipplePenIndex;
-public:
-  explicit DummyStipplePenIndex(m2::PointU const & size)
-    : Base(size)
-  {}
-
-  ref_ptr<Texture::ResourceInfo> MapResource(StipplePenKey const & key)
-  {
-    bool dummy = false;
-    return Base::MapResource(key, dummy);
-  }
-};
 }  // namespace
 
-UNIT_TEST(SimpleStipplePackTest)
+UNIT_TEST(StippleTest_Pack)
 {
   StipplePenPacker packer(m2::PointU(512, 8));
   TestPacker(packer, 30, m2::RectU(0, 0, 30, 1));
@@ -54,33 +42,44 @@ UNIT_TEST(SimpleStipplePackTest)
                                       255.5f / 512.0f, 0.5f / 8.0f)), ());
 }
 
-UNIT_TEST(SimplePatternKey)
+UNIT_TEST(StippleTest_EqualPatterns)
 {
-  {
-    StipplePenKey info;
-    info.m_pattern.push_back(2);
-    info.m_pattern.push_back(21);
+  using PatternT = std::array<double, 2>;
+  std::vector<PatternT> patterns;
 
-    TEST_EQUAL(StipplePenHandle(info), StipplePenHandle(0x204A000000000000), ());
-  }
-
+  using namespace dp::impl;
+  ParsePatternsList("./data/patterns.txt", [&patterns](buffer_vector<double, 8> const & p)
   {
-    StipplePenKey info;
-    info.m_pattern.push_back(1);
-    info.m_pattern.push_back(1);
-    TEST_EQUAL(StipplePenHandle(info), StipplePenHandle(0x2000000000000000), ());
-  }
+    if (p.size() == 2)
+      patterns.push_back({p[0], p[1]});
+  });
 
+  auto const IsEqualPatterns = [](PatternT const & p1, PatternT const & p2)
   {
-    StipplePenKey info;
-    info.m_pattern.push_back(12);
-    info.m_pattern.push_back(12);
-    info.m_pattern.push_back(8);
-    info.m_pattern.push_back(9);
-    info.m_pattern.push_back(128);
-    info.m_pattern.push_back(128);
-    info.m_pattern.push_back(40);
-    info.m_pattern.push_back(40);
-    TEST_EQUAL(StipplePenHandle(info), StipplePenHandle(0xE2C58711FFFA74E0), ());
+    for (double scale : { 1, 2, 3 })
+    {
+      if ((PatternFloat2Pixel(scale * p1[0]) != PatternFloat2Pixel(scale * p2[0])) ||
+          (PatternFloat2Pixel(scale * p1[1]) != PatternFloat2Pixel(scale * p2[1])))
+        return false;
+    }
+    return true;
+  };
+  auto const IsAlmostEqualPatterns = [](PatternT const & p1, PatternT const & p2)
+  {
+    double const scale = 3;
+    return (fabs(scale * p1[0] - scale * p2[0]) + fabs(scale * p1[1] - scale * p2[1])) < 1;
+  };
+
+  size_t const count = patterns.size();
+  for (size_t i = 0; i < count - 1; ++i)
+  {
+    for (size_t j = i + 1; j < count; ++j)
+    {
+      if (IsEqualPatterns(patterns[i], patterns[j]))
+        LOG(LINFO, ("Equal:", patterns[i], patterns[j]));
+      else if (IsAlmostEqualPatterns(patterns[i], patterns[j]))
+        LOG(LINFO, ("Almost equal:", patterns[i], patterns[j]));
+    }
   }
 }
+} // namespace stipple_pen_tests

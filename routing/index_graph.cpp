@@ -226,7 +226,7 @@ void IndexGraph::SetRestrictions(RestrictionVec && restrictions)
     m_restrictionsBackward[restriction.front()].emplace_back(next(restriction.begin()), restriction.end());
   }
 
-  LOG(LDEBUG, ("Restrictions are loaded in:", timer.ElapsedNano() / 1e6, "ms"));
+  LOG(LDEBUG, ("Restrictions are loaded in:", timer.ElapsedMilliseconds(), "ms"));
 }
 
 void IndexGraph::SetUTurnRestrictions(vector<RestrictionUTurn> && noUTurnRestrictions)
@@ -449,11 +449,7 @@ void IndexGraph::GetNeighboringEdge(astar::VertexData<Segment, RouteWeight> cons
 IndexGraph::PenaltyData IndexGraph::GetRoadPenaltyData(Segment const & segment) const
 {
   auto const & road = GetRoadGeometry(segment.GetFeatureId());
-
-  PenaltyData result(road.IsPassThroughAllowed(),
-                     road.GetRoutingOptions().Has(RoutingOptions::Road::Ferry));
-
-  return result;
+  return { road.IsPassThroughAllowed(), road.GetRoutingOptions().Has(RoutingOptions::Road::Ferry) };
 }
 
 RouteWeight IndexGraph::GetPenalties(EdgeEstimator::Purpose purpose, Segment const & u,
@@ -563,8 +559,7 @@ RouteWeight IndexGraph::CalculateEdgeWeight(EdgeEstimator::Purpose purpose, bool
   auto const & road = GetRoadGeometry(segment.GetFeatureId());
 
   auto const weight = RouteWeight(m_estimator->CalcSegmentWeight(segment, road, purpose));
-  auto const & penalties =
-      GetPenalties(purpose, isOutgoing ? from : to, isOutgoing ? to : from, prevWeight);
+  auto const penalties = GetPenalties(purpose, isOutgoing ? from : to, isOutgoing ? to : from, prevWeight);
 
   return weight + penalties;
 }

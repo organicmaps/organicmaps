@@ -29,6 +29,7 @@
 #include "drape/utils/projection.hpp"
 
 #include "base/logging.hpp"
+#include "base/small_map.hpp"
 #include "base/stl_helpers.hpp"
 
 #include <algorithm>
@@ -148,7 +149,7 @@ void Extract(::LineDefProto const * lineRule, df::LineViewParams & params)
     int const count = dd.dd_size();
     params.m_pattern.reserve(count);
     for (int i = 0; i < count; ++i)
-      params.m_pattern.push_back(static_cast<uint8_t>(dd.dd(i) * scale));
+      params.m_pattern.push_back(dp::PatternFloat2Pixel(dd.dd(i) * scale));
   }
 
   switch(lineRule->cap())
@@ -199,18 +200,18 @@ void ShieldRuleProtoToFontDecl(ShieldRuleProto const * shieldRule, dp::FontDecl 
     params.m_isSdf = df::VisualParams::Instance().IsSdfPrefered();
 }
 
-dp::Anchor GetAnchor(CaptionDefProto const * capRule)
+dp::Anchor GetAnchor(int offsetX, int offsetY)
 {
-  if (capRule->offset_y() != 0)
+  if (offsetY != 0)
   {
-    if (capRule->offset_y() > 0)
+    if (offsetY > 0)
       return dp::Top;
     else
       return dp::Bottom;
   }
-  if (capRule->offset_x() != 0)
+  if (offsetX != 0)
   {
-    if (capRule->offset_x() > 0)
+    if (offsetX > 0)
       return dp::Left;
     else
       return dp::Right;
@@ -218,16 +219,10 @@ dp::Anchor GetAnchor(CaptionDefProto const * capRule)
   return dp::Center;
 }
 
-m2::PointF GetOffset(CaptionDefProto const * capRule)
+m2::PointF GetOffset(int offsetX, int offsetY)
 {
   double const vs = VisualParams::Instance().GetVisualScale();
-  m2::PointF result(0, 0);
-  if (capRule != nullptr)
-  {
-    result.x = static_cast<float>(capRule->offset_x() * vs);
-    result.y = static_cast<float>(capRule->offset_y() * vs);
-  }
-  return result;
+  return { static_cast<float>(offsetX * vs), static_cast<float>(offsetY * vs) };
 }
 
 uint16_t CalculateNavigationPoiPriority()
@@ -289,45 +284,40 @@ bool IsColoredRoadShield(ftypes::RoadShield const & shield)
          shield.m_type == ftypes::RoadShieldType::Generic_Orange;
 }
 
-dp::FontDecl GetRoadShieldTextFont(dp::FontDecl const & baseFont, ftypes::RoadShield const & shield)
+void UpdateRoadShieldTextFont(dp::FontDecl & font, ftypes::RoadShield const & shield)
 {
-  dp::FontDecl f = baseFont;
-  f.m_outlineColor = dp::Color::Transparent();
+  font.m_outlineColor = dp::Color::Transparent();
 
   using ftypes::RoadShieldType;
 
-  static std::unordered_map<int, df::ColorConstant> kColors = {
-      {base::Underlying(RoadShieldType::Generic_Green), kRoadShieldWhiteTextColor},
-      {base::Underlying(RoadShieldType::Generic_Blue), kRoadShieldWhiteTextColor},
-      {base::Underlying(RoadShieldType::UK_Highway), kRoadShieldUKYellowTextColor},
-      {base::Underlying(RoadShieldType::US_Interstate), kRoadShieldWhiteTextColor},
-      {base::Underlying(RoadShieldType::US_Highway), kRoadShieldBlackTextColor},
-      {base::Underlying(RoadShieldType::Generic_Red), kRoadShieldWhiteTextColor},
-      {base::Underlying(RoadShieldType::Generic_Orange), kRoadShieldBlackTextColor}
+  static base::SmallMapBase<RoadShieldType, df::ColorConstant> kColors = {
+      {RoadShieldType::Generic_Green, kRoadShieldWhiteTextColor},
+      {RoadShieldType::Generic_Blue, kRoadShieldWhiteTextColor},
+      {RoadShieldType::UK_Highway, kRoadShieldUKYellowTextColor},
+      {RoadShieldType::US_Interstate, kRoadShieldWhiteTextColor},
+      {RoadShieldType::US_Highway, kRoadShieldBlackTextColor},
+      {RoadShieldType::Generic_Red, kRoadShieldWhiteTextColor},
+      {RoadShieldType::Generic_Orange, kRoadShieldBlackTextColor}
   };
 
-  auto it = kColors.find(base::Underlying(shield.m_type));
-  if (it != kColors.end())
-    f.m_color = df::GetColorConstant(it->second);
-
-  return f;
+  if (auto const * cl = kColors.Find(shield.m_type); cl)
+    font.m_color = df::GetColorConstant(*cl);
 }
 
 dp::Color GetRoadShieldColor(dp::Color const & baseColor, ftypes::RoadShield const & shield)
 {
   using ftypes::RoadShieldType;
 
-  static std::unordered_map<int, df::ColorConstant> kColors = {
-      {base::Underlying(RoadShieldType::Generic_Green), kRoadShieldGreenBackgroundColor},
-      {base::Underlying(RoadShieldType::Generic_Blue), kRoadShieldBlueBackgroundColor},
-      {base::Underlying(RoadShieldType::UK_Highway), kRoadShieldGreenBackgroundColor},
-      {base::Underlying(RoadShieldType::Generic_Red), kRoadShieldRedBackgroundColor},
-      {base::Underlying(RoadShieldType::Generic_Orange), kRoadShieldOrangeBackgroundColor}
+  static base::SmallMapBase<ftypes::RoadShieldType, df::ColorConstant> kColors = {
+      {RoadShieldType::Generic_Green, kRoadShieldGreenBackgroundColor},
+      {RoadShieldType::Generic_Blue, kRoadShieldBlueBackgroundColor},
+      {RoadShieldType::UK_Highway, kRoadShieldGreenBackgroundColor},
+      {RoadShieldType::Generic_Red, kRoadShieldRedBackgroundColor},
+      {RoadShieldType::Generic_Orange, kRoadShieldOrangeBackgroundColor}
   };
 
-  auto it = kColors.find(base::Underlying(shield.m_type));
-  if (it != kColors.end())
-    return df::GetColorConstant(it->second);
+  if (auto const * cl = kColors.Find(shield.m_type); cl)
+    return df::GetColorConstant(*cl);
 
   return baseColor;
 }
@@ -414,19 +404,19 @@ BaseApplyFeature::BaseApplyFeature(TileKey const & tileKey, TInsertShapeFn const
 
 void BaseApplyFeature::ExtractCaptionParams(CaptionDefProto const * primaryProto,
                                             CaptionDefProto const * secondaryProto,
-                                            float depth, TextViewParams & params) const
+                                            double depth, TextViewParams & params) const
 {
   dp::FontDecl decl;
   CaptionDefProtoToFontDecl(primaryProto, decl);
 
-  params.m_depth = depth;
+  params.m_depth = static_cast<float>(depth);
   params.m_featureId = m_id;
 
   auto & titleDecl = params.m_titleDecl;
-  titleDecl.m_anchor = GetAnchor(primaryProto);
+  titleDecl.m_anchor = GetAnchor(primaryProto->offset_x(), primaryProto->offset_y());
   titleDecl.m_primaryText = m_captions.GetMainText();
   titleDecl.m_primaryTextFont = decl;
-  titleDecl.m_primaryOffset = GetOffset(primaryProto);
+  titleDecl.m_primaryOffset = GetOffset(primaryProto->offset_x(), primaryProto->offset_y());
   titleDecl.m_primaryOptional = primaryProto->is_optional();
   titleDecl.m_secondaryOptional = true;
 
@@ -473,23 +463,20 @@ void ApplyPointFeature::ProcessPointRule(Stylist::TRuleWrapper const & rule)
   if (!m_hasPoint)
     return;
 
-  drule::BaseRule const * pRule = rule.first;
-  auto const depth = static_cast<float>(rule.second);
-
-  SymbolRuleProto const * symRule = pRule->GetSymbol();
+  SymbolRuleProto const * symRule = rule.m_rule->GetSymbol();
   if (symRule != nullptr)
   {
-    m_symbolDepth = depth;
+    m_symbolDepth = rule.m_depth;
     m_symbolRule = symRule;
   }
 
-  bool const isNode = (pRule->GetType() & drule::node) != 0;
-  CaptionDefProto const * capRule = pRule->GetCaption(0);
+  bool const isNode = (rule.m_rule->GetType() & drule::node) != 0;
+  CaptionDefProto const * capRule = rule.m_rule->GetCaption(0);
   if (capRule && isNode)
   {
     TextViewParams params;
     params.m_tileCenter = m_tileRect.Center();
-    ExtractCaptionParams(capRule, pRule->GetCaption(1), depth, params);
+    ExtractCaptionParams(capRule, rule.m_rule->GetCaption(1), rule.m_depth, params);
     params.m_depthLayer = m_depthLayer;
     params.m_depthTestEnabled = m_depthLayer != DepthLayer::NavigationLayer &&
       m_depthLayer != DepthLayer::OverlayLayer;
@@ -565,6 +552,15 @@ void ApplyPointFeature::Finish(ref_ptr<dp::TextureManager> texMng)
       textParams.m_specialDisplacement = specialDisplacementMode ? SpecialDisplacement::SpecialMode
                                                                  : SpecialDisplacement::None;
     }
+
+    /// @todo Hardcoded styles-bug patch. The patch is ok, but probably should enhance (or fire assert) styles?
+    /// @see https://github.com/organicmaps/organicmaps/issues/2573
+    if (hasPOI && textParams.m_titleDecl.m_anchor == dp::Anchor::Center)
+    {
+      textParams.m_titleDecl.m_anchor = GetAnchor(0, 1);
+      textParams.m_titleDecl.m_primaryOffset = GetOffset(0, 1);
+    }
+
     textParams.m_specialPriority = specialModePriority;
     textParams.m_startOverlayRank = hasPOI ? dp::OverlayRank1 : dp::OverlayRank0;
     m_insertShape(make_unique_dp<TextShape>(m2::PointD(m_centerPoint), textParams, m_tileKey, symbolSize,
@@ -576,12 +572,11 @@ void ApplyPointFeature::Finish(ref_ptr<dp::TextureManager> texMng)
 ApplyAreaFeature::ApplyAreaFeature(TileKey const & tileKey, TInsertShapeFn const & insertShape,
                                    FeatureID const & id, double currentScaleGtoP, bool isBuilding,
                                    bool skipAreaGeometry, float minPosZ, float posZ, int minVisibleScale,
-                                   uint8_t rank, CaptionDescription const & captions, bool hatchingArea)
+                                   uint8_t rank, CaptionDescription const & captions)
   : TBase(tileKey, insertShape, id, minVisibleScale, rank, captions, posZ, DepthLayer::OverlayLayer)
   , m_minPosZ(minPosZ)
   , m_isBuilding(isBuilding)
   , m_skipAreaGeometry(skipAreaGeometry)
-  , m_hatchingArea(hatchingArea)
   , m_currentScaleGtoP(currentScaleGtoP)
 {}
 
@@ -744,21 +739,18 @@ void ApplyAreaFeature::CalculateBuildingOutline(bool calculateNormals, BuildingO
 
 void ApplyAreaFeature::ProcessAreaRule(Stylist::TRuleWrapper const & rule)
 {
-  drule::BaseRule const * pRule = rule.first;
-  auto const depth = static_cast<float>(rule.second);
-
-  AreaRuleProto const * areaRule = pRule->GetArea();
+  AreaRuleProto const * areaRule = rule.m_rule->GetArea();
   if (areaRule && !m_triangles.empty())
   {
     AreaViewParams params;
     params.m_tileCenter = m_tileRect.Center();
-    params.m_depth = depth;
+    params.m_depth = static_cast<float>(rule.m_depth);
     params.m_color = ToDrapeColor(areaRule->color());
     params.m_minVisibleScale = m_minVisibleScale;
     params.m_rank = m_rank;
     params.m_minPosZ = m_minPosZ;
     params.m_posZ = m_posZ;
-    params.m_hatching = m_hatchingArea;
+    params.m_hatching = rule.m_hatching;
     params.m_baseGtoPScale = static_cast<float>(m_currentScaleGtoP);
 
     BuildingOutline outline;
@@ -815,7 +807,7 @@ void ApplyLineFeatureGeometry::operator() (m2::PointD const & point)
   }
   else
   {
-    static double minSegmentLength = pow(4.0 * df::VisualParams::Instance().GetVisualScale(), 2);
+    static double minSegmentLength = base::Pow2(4.0 * df::VisualParams::Instance().GetVisualScale());
     if (m_simplify &&
         ((m_spline->GetSize() > 1 && point.SquaredLength(m_lastAddedPoint) * m_sqrScale < minSegmentLength) ||
         m_spline->IsPrelonging(point)))
@@ -838,10 +830,8 @@ bool ApplyLineFeatureGeometry::HasGeometry() const
 void ApplyLineFeatureGeometry::ProcessLineRule(Stylist::TRuleWrapper const & rule)
 {
   ASSERT(HasGeometry(), ());
-  drule::BaseRule const * pRule = rule.first;
-  float const depth = static_cast<float>(rule.second);
 
-  LineDefProto const * pLineRule = pRule->GetLine();
+  LineDefProto const * pLineRule = rule.m_rule->GetLine();
   if (pLineRule == nullptr)
     return;
 
@@ -880,7 +870,7 @@ void ApplyLineFeatureGeometry::ProcessLineRule(Stylist::TRuleWrapper const & rul
     PathSymProto const & symRule = pLineRule->pathsym();
     PathSymbolViewParams params;
     params.m_tileCenter = m_tileRect.Center();
-    params.m_depth = depth;
+    params.m_depth = static_cast<float>(rule.m_depth);
     params.m_minVisibleScale = m_minVisibleScale;
     params.m_rank = m_rank;
     params.m_symbolName = symRule.name();
@@ -897,7 +887,7 @@ void ApplyLineFeatureGeometry::ProcessLineRule(Stylist::TRuleWrapper const & rul
     LineViewParams params;
     params.m_tileCenter = m_tileRect.Center();
     Extract(pLineRule, params);
-    params.m_depth = depth;
+    params.m_depth = static_cast<float>(rule.m_depth);
     params.m_minVisibleScale = m_minVisibleScale;
     params.m_rank = m_rank;
     params.m_baseGtoPScale = m_currentScaleGtoP;
@@ -935,18 +925,17 @@ void ApplyLineFeatureAdditional::ProcessLineRule(Stylist::TRuleWrapper const & r
   if (m_clippedSplines.empty())
     return;
 
-  drule::BaseRule const * pRule = rule.first;
-  m_depth = static_cast<float>(rule.second);
+  m_depth = static_cast<float>(rule.m_depth);
 
-  ShieldRuleProto const * pShieldRule = pRule->GetShield();
+  ShieldRuleProto const * pShieldRule = rule.m_rule->GetShield();
   if (pShieldRule != nullptr)
     m_shieldRule = pShieldRule;
 
-  bool const isWay = (pRule->GetType() & drule::way) != 0;
+  bool const isWay = (rule.m_rule->GetType() & drule::way) != 0;
   if (!isWay)
     return;
 
-  CaptionDefProto const * pCaptionRule = pRule->GetCaption(0);
+  CaptionDefProto const * pCaptionRule = rule.m_rule->GetCaption(0);
   if (pCaptionRule != nullptr && pCaptionRule->height() > 2 && !m_captions.GetMainText().empty())
     m_captionRule = pCaptionRule;
 }
@@ -971,9 +960,9 @@ void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ref_ptr<dp::TextureMan
   m2::PointF const shieldTextOffset = GetShieldOffset(anchor, borderWidth, borderHeight);
 
   // Text properties.
-  dp::FontDecl baseFont;
-  ShieldRuleProtoToFontDecl(m_shieldRule, baseFont);
-  dp::FontDecl font = GetRoadShieldTextFont(baseFont, shield);
+  dp::FontDecl font;
+  ShieldRuleProtoToFontDecl(m_shieldRule, font);
+  UpdateRoadShieldTextFont(font, shield);
   textParams.m_tileCenter = m_tileRect.Center();
   textParams.m_depthTestEnabled = false;
   textParams.m_depth = m_depth;
@@ -1100,7 +1089,7 @@ bool ApplyLineFeatureAdditional::CheckShieldsNearby(m2::PointD const & shieldPos
 }
 
 void ApplyLineFeatureAdditional::Finish(ref_ptr<dp::TextureManager> texMng,
-                                        std::set<ftypes::RoadShield> && roadShields,
+                                        ftypes::RoadShieldsSetT const & roadShields,
                                         GeneratedRoadShields & generatedRoadShields)
 {
   if (m_clippedSplines.empty())

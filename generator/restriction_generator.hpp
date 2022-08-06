@@ -6,13 +6,10 @@
 #include <memory>
 #include <string>
 
-namespace routing
+namespace routing_builder
 {
-std::unique_ptr<IndexGraph>
-CreateIndexGraph(std::string const & targetPath,
-                 std::string const & mwmPath,
-                 std::string const & country,
-                 CountryParentNameGetterFn const & countryParentNameGetterFn);
+std::unique_ptr<routing::IndexGraph> CreateIndexGraph(std::string const & mwmPath, std::string const & country,
+                                                      CountryParentNameGetterFn const & countryParentNameGetterFn);
 
 void SerializeRestrictions(RestrictionCollector & restrictionCollector,
                            std::string const & mwmPath);
@@ -41,8 +38,8 @@ void SerializeRestrictions(RestrictionCollector & restrictionCollector,
 /// \param osmIdsToFeatureIdsPath a binary file with mapping form osm ids to feature ids.
 /// One osm id is mapped to one feature id. The file should be saved with the help of
 /// OsmID2FeatureID class or using a similar way.
-bool BuildRoadRestrictions(IndexGraph & graph,
+bool BuildRoadRestrictions(routing::IndexGraph & graph,
                            std::string const & mwmPath,
                            std::string const & restrictionPath,
                            std::string const & osmIdsToFeatureIdsPath);
-}  // namespace routing
+}  // namespace routing_builder

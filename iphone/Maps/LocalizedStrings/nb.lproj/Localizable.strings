@@ -26,13 +26,10 @@
 /* Leave Review dialog - Review button */
 "leave_a_review" = "Legg inn en vurdering";
 
-/* View and button titles for accessibility */
-"maps" = "Kart";
-
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "Miles";
 
-/* View and button titles for accessibility */
+/* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Min posisjon";
 
 /* Update maps later/Buy pro version later button text */
@@ -145,6 +142,9 @@
 
 /* Search category for police; any changes should be duplicated in categories.txt @police! */
 "police" = "Politi";
+
+/* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
+"wifi" = "WiFi";
 
 /* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
 "recycling" = "Resirkulering";
@@ -261,6 +261,9 @@
 /* Text in menu */
 "website" = "Nettside";
 
+/* Text in About menu, opens Organic Maps news website */
+"news" = "Nyheter";
+
 /* Text in menu */
 "github" = "GitHub";
 
@@ -312,13 +315,10 @@
 /* Settings item title */
 "pref_calibration_title" = "Kompasskalibrering";
 
-/* Search category */
-"wifi" = "WiFi";
-
 /* Update all button text */
 "downloader_update_all_button" = "Oppdater alle";
 
-/* Downloaded maps category */
+/* Downloaded maps list header */
 "downloader_downloaded_subtitle" = "Lastet ned";
 
 /* Downloaded maps category */
@@ -329,6 +329,7 @@
 
 "downloader_near_me_subtitle" = "I nærheten";
 
+/* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
 "downloader_status_maps" = "Kart";
 
 "downloader_download_all_button" = "Last ned alle";
@@ -419,9 +420,6 @@
 /* blue gray color */
 "blue_gray" = "Gråblå";
 
-/* Wi-Fi available */
-"WiFi_available" = "Ja";
-
 
 /********** Routing dialogs strings **********/
 
@@ -504,6 +502,10 @@
 "categories" = "Kategorier";
 
 "history" = "Historikk";
+
+"opens_in" = "Opens in %@";
+
+"closes_in" = "Closes in %@";
 
 "closed" = "Stengt";
 
@@ -743,9 +745,12 @@
 
 "mile" = "mi";
 
+/* A unit of measure */
 "foot" = "fot";
 
 "miles_per_hour" = "mph";
+
+"minute" = "min";
 
 "placepage_place_description" = "Beskrivelse";
 
@@ -1025,9 +1030,17 @@
 
 "redirect_route_alert" = "Vil du planlegge en rute på nytt?";
 
-"redirect_route_yes" = "Ja";
+/* A generic "Yes" button in dialogs */
+"yes" = "Ja";
 
-"redirect_route_no" = "Nei";
+/* A generic "No" button in dialogs */
+"no" = "Nei";
+
+/* E.g. "WiFi:Yes" */
+"yes_available" = "Ja";
+
+/* E.g. "WiFi:No" */
+"no_available" = "Nei";
 
 "trip_finished" = "Du har ankommet!";
 
@@ -1245,6 +1258,8 @@
 
 "type.amenity.bicycle_rental" = "Sykkelutleie";
 
+"type.amenity.bicycle_repair_station" = "Sykkelreparasjonsstasjon";
+
 "type.amenity.biergarten" = "Uteservering";
 
 "type.amenity.brothel" = "Bordell";
@@ -1442,11 +1457,21 @@
 
 "type.amenity.vending_machine.cigarettes" = "Sigarettautomat";
 
+"type.amenity.vending_machine.coffee" = "Coffee Dispenser";
+
+"type.amenity.vending_machine.condoms" = "Condoms Dispenser";
+
 "type.amenity.vending_machine.drinks" = "Drikkeautomat";
+
+"type.amenity.vending_machine.food" = "Food Dispenser";
+
+"type.amenity.vending_machine.newspapers" = "Newspapers Dispenser";
 
 "type.amenity.vending_machine.parking_tickets" = "Parkeringsautomat";
 
 "type.amenity.vending_machine.public_transport_tickets" = "Billettmaskin for offentlig transport";
+
+"type.amenity.vending_machine.sweets" = "Sweets Dispenser";
 
 "type.amenity.vending_machine.excrement_bags" = "Excrement Bags Dispenser";
 
@@ -1552,16 +1577,29 @@
 
 "type.building.warehouse" = "Warehouse";
 
+"type.cemetery.grave" = "Grav";
+
 "type.craft" = "Craft";
+
+"type.craft.beekeeper" = "Beekeeper";
+
+"type.craft.blacksmith" = "Blacksmith";
 
 "type.craft.brewery" = "Bryggeri";
 
 "type.craft.carpenter" = "Snekker";
 
+"type.craft.confectionery" = "Confectionery";
+
 "type.craft.electrician" = "Elektriker";
+
+"type.craft.electronics_repair" = "Electronics Repair";
 
 "type.craft.gardener" = "Anleggsgartner";
 
+"type.craft.handicraft" = "Handicraft";
+
+/* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Klimaanlegg";
 
 "type.craft.metal_construction" = "Metallarbeider";
@@ -1572,7 +1610,11 @@
 
 "type.craft.plumber" = "Rørlegger";
 
+"type.craft.sawmill" = "Sawmill";
+
 "type.craft.shoemaker" = "Skoreparasjon";
+
+"type.craft.winery" = "Winery";
 
 "type.craft.tailor" = "Skredder";
 
@@ -1601,6 +1643,8 @@
 "type.cuisine.brazilian" = "Brasiliansk mat";
 
 "type.cuisine.breakfast" = "Frokost";
+
+"type.cuisine.bubble_tea" = "Bubble Tea";
 
 "type.cuisine.burger" = "Burger";
 
@@ -1765,11 +1809,13 @@
 
 "type.highway.bridleway" = "Bridle Path";
 
-"type.highway.bridleway.bridge" = "Bridle Path";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.bridleway.bridge" = "Bridge";
 
 "type.highway.bridleway.permissive" = "Bridle Path";
 
-"type.highway.bridleway.tunnel" = "Bridle Path";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.bridleway.tunnel" = "Tunnel";
 
 "type.highway.bus_stop" = "Busstopp";
 
@@ -1777,11 +1823,13 @@
 
 "type.highway.cycleway" = "Cycle Path";
 
-"type.highway.cycleway.bridge" = "Cycle Path";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.cycleway.bridge" = "Bridge";
 
 "type.highway.cycleway.permissive" = "Cycle Path";
 
-"type.highway.cycleway.tunnel" = "Cycle Path";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.cycleway.tunnel" = "Tunnel";
 
 "type.highway.elevator" = "Elevator";
 
@@ -1791,7 +1839,8 @@
 
 "type.highway.footway.area" = "Sti";
 
-"type.highway.footway.bridge" = "Sti";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.footway.bridge" = "Bridge";
 
 "type.highway.footway.demanding_alpine_hiking" = "Sti";
 
@@ -1805,29 +1854,36 @@
 
 "type.highway.footway.permissive" = "Sti";
 
-"type.highway.footway.tunnel" = "Sti";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.footway.tunnel" = "Tunnel";
 
 "type.highway.ford" = "Vadested";
 
 "type.highway.living_street" = "Gate";
 
-"type.highway.living_street.bridge" = "Gate";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.living_street.bridge" = "Bridge";
 
-"type.highway.living_street.tunnel" = "Gate";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.living_street.tunnel" = "Tunnel";
 
 "type.highway.motorway" = "Gate";
 
-"type.highway.motorway.bridge" = "Gate";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway.bridge" = "Bridge";
 
-"type.highway.motorway.tunnel" = "Gate";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway.tunnel" = "Tunnel";
 
 "type.highway.motorway_junction" = "Utgang";
 
 "type.highway.motorway_link" = "Gate";
 
-"type.highway.motorway_link.bridge" = "Gate";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway_link.bridge" = "Bridge";
 
-"type.highway.motorway_link.tunnel" = "Gate";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway_link.tunnel" = "Tunnel";
 
 "type.highway.path" = "Sti";
 
@@ -1835,7 +1891,8 @@
 
 "type.highway.path.bicycle" = "Sti";
 
-"type.highway.path.bridge" = "Sti";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.path.bridge" = "Bridge";
 
 "type.highway.path.demanding_alpine_hiking" = "Sti";
 
@@ -1851,27 +1908,34 @@
 
 "type.highway.path.permissive" = "Sti";
 
-"type.highway.path.tunnel" = "Sti";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.path.tunnel" = "Tunnel";
 
 "type.highway.pedestrian" = "Gate";
 
 "type.highway.pedestrian.area" = "Gate";
 
-"type.highway.pedestrian.bridge" = "Gate";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.pedestrian.bridge" = "Bridge";
 
-"type.highway.pedestrian.tunnel" = "Gate";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.pedestrian.tunnel" = "Tunnel";
 
 "type.highway.primary" = "Gate";
 
-"type.highway.primary.bridge" = "Gate";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary.bridge" = "Bridge";
 
-"type.highway.primary.tunnel" = "Gate";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary.tunnel" = "Tunnel";
 
 "type.highway.primary_link" = "Gate";
 
-"type.highway.primary_link.bridge" = "Gate";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary_link.bridge" = "Bridge";
 
-"type.highway.primary_link.tunnel" = "Gate";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary_link.tunnel" = "Tunnel";
 
 "type.highway.raceway" = "Løpebane";
 
@@ -1879,41 +1943,51 @@
 
 "type.highway.residential.area" = "Gate";
 
-"type.highway.residential.bridge" = "Gate";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.residential.bridge" = "Bridge";
 
-"type.highway.residential.tunnel" = "Gate";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.residential.tunnel" = "Tunnel";
 
 "type.highway.rest_area" = "Rasteplass";
 
 "type.highway.road" = "Gate";
 
-"type.highway.road.bridge" = "Gate";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.road.bridge" = "Bridge";
 
-"type.highway.road.tunnel" = "Gate";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.road.tunnel" = "Tunnel";
 
 "type.highway.secondary" = "Gate";
 
-"type.highway.secondary.bridge" = "Gate";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary.bridge" = "Bridge";
 
-"type.highway.secondary.tunnel" = "Gate";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary.tunnel" = "Tunnel";
 
 "type.highway.secondary_link" = "Gate";
 
-"type.highway.secondary_link.bridge" = "Gate";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary_link.bridge" = "Bridge";
 
-"type.highway.secondary_link.tunnel" = "Gate";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary_link.tunnel" = "Tunnel";
 
 "type.highway.service" = "Gate";
 
 "type.highway.service.area" = "Gate";
 
-"type.highway.service.bridge" = "Gate";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.service.bridge" = "Bridge";
 
 "type.highway.service.driveway" = "Gate";
 
 "type.highway.service.parking_aisle" = "Gate";
 
-"type.highway.service.tunnel" = "Gate";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.service.tunnel" = "Tunnel";
 
 "type.highway.services" = "Service Area";
 
@@ -1921,27 +1995,34 @@
 
 "type.highway.steps" = "Sti";
 
-"type.highway.steps.bridge" = "Sti";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.steps.bridge" = "Bridge";
 
-"type.highway.steps.tunnel" = "Sti";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.steps.tunnel" = "Tunnel";
 
 "type.highway.tertiary" = "Gate";
 
-"type.highway.tertiary.bridge" = "Gate";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary.bridge" = "Bridge";
 
-"type.highway.tertiary.tunnel" = "Gate";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary.tunnel" = "Tunnel";
 
 "type.highway.tertiary_link" = "Gate";
 
-"type.highway.tertiary_link.bridge" = "Gate";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary_link.bridge" = "Bridge";
 
-"type.highway.tertiary_link.tunnel" = "Gate";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary_link.tunnel" = "Tunnel";
 
 "type.highway.track" = "Gate";
 
 "type.highway.track.area" = "Gate";
 
-"type.highway.track.bridge" = "Gate";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.track.bridge" = "Bridge";
 
 "type.highway.track.grade1" = "Gate";
 
@@ -1957,29 +2038,36 @@
 
 "type.highway.track.permissive" = "Gate";
 
-"type.highway.track.tunnel" = "Gate";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.track.tunnel" = "Tunnel";
 
 "type.highway.traffic_signals" = "Trafikklys";
 
 "type.highway.trunk" = "Gate";
 
-"type.highway.trunk.bridge" = "Gate";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk.bridge" = "Bridge";
 
-"type.highway.trunk.tunnel" = "Gate";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk.tunnel" = "Tunnel";
 
 "type.highway.trunk_link" = "Gate";
 
-"type.highway.trunk_link.bridge" = "Gate";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk_link.bridge" = "Bridge";
 
-"type.highway.trunk_link.tunnel" = "Gate";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk_link.tunnel" = "Tunnel";
 
 "type.highway.unclassified" = "Gate";
 
 "type.highway.unclassified.area" = "Gate";
 
-"type.highway.unclassified.bridge" = "Gate";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.unclassified.bridge" = "Bridge";
 
-"type.highway.unclassified.tunnel" = "Gate";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.unclassified.tunnel" = "Tunnel";
 
 "type.area_highway.cycleway" = "Cycle Path";
 
@@ -2110,6 +2198,8 @@
 
 "type.landuse.construction" = "Construction";
 
+"type.landuse.education" = "Educational Facilities";
+
 "type.landuse.farm" = "Farm";
 
 "type.landuse.farmland" = "Jordbruksområde";
@@ -2206,13 +2296,9 @@
 
 "type.leisure.sports_centre" = "Sportssenter";
 
-"type.leisure.sports_centre.climbing" = "Klatresenter";
+"type.sport.climbing" = "Klatresenter";
 
-"type.leisure.sports_centre.shooting" = "Skytebane";
-
-"type.leisure.sports_centre.swimming" = "Svømmehall";
-
-"type.leisure.sports_centre.yoga" = "Yogastudio";
+"type.sport.yoga" = "Yogastudio";
 
 "type.leisure.stadium" = "Stadion";
 
@@ -2235,6 +2321,8 @@
 "type.man_made.chimney" = "Fabrikkpipe";
 
 "type.man_made.cutline" = "Cutline";
+
+"type.man_made.survey_point" = "Survey Point";
 
 "type.man_made.flagpole" = "Flagpole";
 
@@ -2278,37 +2366,43 @@
 
 "type.mountain_pass" = "Mountain Pass";
 
-"type.natural" = "Natural";
+"type.natural" = "Natur";
 
-"type.natural.bare_rock" = "Bare Rock";
+"type.natural.bare_rock" = "Bar stein";
 
 "type.natural.bay" = "Bukt";
 
 "type.natural.beach" = "Strand";
 
-"type.natural.beach.sand" = "Sandy Beach";
+"type.natural.beach.sand" = "Sandstrand";
 
-"type.natural.beach.gravel" = "Gravel Beach";
+"type.natural.beach.gravel" = "Grusstrand";
 
 "type.natural.cape" = "Kapp";
 
 "type.natural.cave_entrance" = "Grotte";
 
-"type.natural.cliff" = "Cliff";
+"type.natural.cliff" = "Klippe";
 
-"type.natural.coastline" = "Coastline";
+"type.natural.earth_bank" = "Klippe";
+
+"type.man_made.embankment" = "Fylling";
+
+"type.natural.coastline" = "Kyst";
 
 "type.natural.geyser" = "Gaysir";
 
 "type.natural.glacier" = "Isbre";
 
-"type.natural.grassland" = "Slette";
+"type.natural.grassland" = "Sletteland";
 
 "type.natural.heath" = "Heath";
 
-"type.natural.hot_spring" = "Hot Spring";
+"type.natural.hot_spring" = "Varm kilde";
 
 "type.natural.water.lake" = "Innsjø";
+
+"type.natural.water.lock" = "Låsekammer";
 
 "type.natural.water.pond" = "Dam";
 
@@ -2320,15 +2414,15 @@
 
 "type.natural.land" = "Land";
 
-"type.natural.meadow" = "Meadow";
+"type.natural.meadow" = "Eng";
 
-"type.natural.orchard" = "Orchard";
+"type.natural.orchard" = "Frukthage";
 
 "type.natural.peak" = "Høydepunkt";
 
-"type.natural.saddle" = "Mountain Saddle";
+"type.natural.saddle" = "Fjellsadel";
 
-"type.natural.rock" = "Rock";
+"type.natural.rock" = "Bergart";
 
 "type.natural.scrub" = "Myr";
 
@@ -2338,9 +2432,9 @@
 
 "type.natural.tree" = "Tre";
 
-"type.natural.tree_row" = "Tree Row";
+"type.natural.tree_row" = "Trerekke";
 
-"type.natural.vineyard" = "Vineyard";
+"type.natural.vineyard" = "Vingård";
 
 "type.natural.volcano" = "Vulkan";
 
@@ -2348,9 +2442,9 @@
 
 "type.natural.wetland" = "Våtmarksområde";
 
-"type.natural.wetland.bog" = "Wetland";
+"type.natural.wetland.bog" = "Myr";
 
-"type.natural.wetland.marsh" = "Wetland";
+"type.natural.wetland.marsh" = "Sump";
 
 "type.noexit" = "Dead End";
 
@@ -2369,6 +2463,10 @@
 "type.office.ngo" = "NGO-kontor";
 
 "type.office.telecommunication" = "Mobiloperatør";
+
+"type.organic.only" = "Organic";
+
+"type.organic.yes" = "Organic";
 
 "type.place" = "place";
 
@@ -2664,6 +2762,8 @@
 
 "type.shop.cosmetics" = "Kosmetikk";
 
+"type.shop.deli" = "Delikatessebutikk";
+
 "type.shop.department_store" = "Varehus";
 
 "type.shop.doityourself" = "Jernvareforretning";
@@ -2675,6 +2775,8 @@
 "type.shop.erotic" = "Erotisk butikk";
 
 "type.shop.fabric" = "Butikk";
+
+"type.shop.farm" = "Gårdsmatbutikk";
 
 "type.shop.florist" = "Blomsterhandler";
 
@@ -2688,13 +2790,21 @@
 
 "type.shop.greengrocer" = "Frukt- og grønnsakshandler";
 
+"type.shop.grocery" = "Dagligvare";
+
 "type.shop.hairdresser" = "Frisør";
 
 "type.shop.hardware" = "Jernvareforretning";
 
+"type.shop.health_food" = "Helsekostbutikk";
+
+"type.shop.houseware" = "Husholdningsbutikk";
+
 "type.shop.jewelry" = "Gullsmed";
 
 "type.shop.kiosk" = "Butikk";
+
+"type.shop.kitchen" = "Kjøkkenbutikk";
 
 "type.shop.laundry" = "Vaskeri";
 
@@ -2718,6 +2828,8 @@
 
 "type.shop.outdoor" = "Fritidsutstyr";
 
+"type.shop.pastry" = "Kake";
+
 "type.shop.pawnbroker" = "Pantelåner";
 
 "type.shop.pet" = "Dyrebutikk";
@@ -2725,6 +2837,8 @@
 "type.shop.photo" = "Fotobutikk";
 
 "type.shop.seafood" = "Fiskehandler";
+
+"type.shop.second_hand" = "Bruktbutikk";
 
 "type.shop.shoes" = "Skobutikk";
 
@@ -2754,49 +2868,108 @@
 
 "type.shop.wine" = "Alkoholutsalg";
 
-"type.sport" = "sport";
+"type.shop.antiques" = "Antikviteter";
 
-"type.sport.american_football" = "American Football";
+"type.shop.art" = "Kunstbutikk";
 
-"type.sport.archery" = "Archery";
+"type.shop.baby_goods" = "Barnebutikk";
+
+"type.shop.bag" = "Veskerbutikk";
+
+"type.shop.boutique" = "Boutique";
+
+"type.shop.charity" = "Veldedighetsbutikk";
+
+"type.shop.cheese" = "Ostebutikk";
+
+"type.shop.craft" = "Kunst og Håndverk";
+
+"type.shop.dairy" = "Meieriprodukter";
+
+"type.shop.electrical" = "Elektronisk butikk";
+
+"type.shop.fishing" = "Fiskebutikk";
+
+"type.shop.interior_decoration" = "Interiørdekorasjoner";
+
+"type.shop.lottery" = "Lotteribilletter";
+
+"type.shop.medical_supply" = "Medisinsk utstyr";
+
+"type.shop.nutrition_supplements" = "Kosttilskudd";
+
+"type.shop.paint" = "Maling";
+
+"type.shop.perfumery" = "Parfymeri";
+
+"type.shop.sewing" = "Syutstyr";
+
+"type.shop.storage_rental" = "Utleie av lager";
+
+"type.shop.tobacco" = "Tobakk";
+
+"type.shop.trade" = "Handler rekvisita";
+
+"type.shop.watches" = "Klokker";
+
+"type.shop.wholesale" = "Engrosbutikk";
+
+"type.sport" = "Sport";
+
+"type.sport.american_football" = "Amerikansk fotball";
+
+"type.sport.archery" = "Bueskyting";
 
 "type.sport.athletics" = "Friidrett";
 
-"type.sport.australian_football" = "Rugby";
+"type.sport.australian_football" = "Australsk fotball";
 
 "type.sport.baseball" = "Baseball";
 
 "type.sport.basketball" = "Basketball";
 
+"type.sport.beachvolleyball" = "Sandvolleyball";
+
 "type.sport.bowls" = "Bowls";
+
+"type.sport.chess" = "Sjakk";
 
 "type.sport.cricket" = "Cricket";
 
-"type.sport.curling" = "Сurling";
-
-"type.sport.diving" = "Diving";
+"type.sport.curling" = "Curling";
 
 "type.sport.equestrian" = "Hestesport";
 
 "type.sport.golf" = "Golf";
 
-"type.sport.gymnastics" = "Gymnastics";
+"type.sport.gymnastics" = "Gymnastikk";
 
-"type.sport.handball" = "Handball";
+"type.sport.handball" = "Håndball";
 
-"type.sport.multi" = "Various Sport";
+"type.sport.multi" = "Ulike idretter";
 
-"type.sport.scuba_diving" = "Scuba Diving";
+/* Used to tag a scuba diving site. */
+"type.sport.scuba_diving" = "Dykking";
 
-"type.sport.shooting" = "Shooting";
+"type.sport.shooting" = "Skyting";
 
-"type.sport.skiing" = "Skiing";
+"type.sport.skateboard" = "Rullebrettkjøring";
 
-"type.sport.soccer" = "Soccer (Football)";
+"type.sport.skiing" = "Stå på ski";
 
-"type.sport.swimming" = "Swimming";
+"type.sport.soccer" = "Fotball";
+
+"type.sport.swimming" = "Svømming";
+
+"type.sport.table_tennis" = "Bordtennis";
 
 "type.sport.tennis" = "Tennisbane";
+
+"type.sport.volleyball" = "Volleyball";
+
+"type.sport.9pin" = "Bowling";
+
+"type.sport.10pin" = "Bowling";
 
 "type.tourism" = "Tourism";
 
@@ -2838,7 +3011,7 @@
 
 "type.tourism.information.board" = "Informasjonstavle";
 
-"type.tourism.information.guidepost" = "Turistinformasjon";
+"type.tourism.information.guidepost" = "Guidepost";
 
 "type.tourism.information.map" = "Turistkart";
 
@@ -2883,8 +3056,6 @@
 "type.waterway.drain" = "Drain";
 
 "type.waterway.drain.tunnel" = "Drain";
-
-"type.waterway.lock" = "Waterway Lock";
 
 "type.waterway.lock_gate" = "Sluseport";
 
@@ -2948,3 +3119,5 @@
 "type.piste_type.sled" = "Sledding Piste";
 
 "type.building_part" = "Bygning";
+
+"type.amenity.events_venue" = "Arrangementssted";

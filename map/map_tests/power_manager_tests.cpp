@@ -8,6 +8,7 @@
 #include "coding/file_writer.hpp"
 
 #include "base/scope_guard.hpp"
+#include "base/stl_helpers.hpp"
 
 #include <functional>
 #include <vector>
@@ -56,12 +57,7 @@ void TestAllFacilitiesEnabledExcept(PowerManager const & manager,
   for (size_t i = 0; i < count; ++i)
   {
     auto const facility = static_cast<Facility>(i);
-    auto const it = std::find(disabledFacilities.cbegin(), disabledFacilities.cend(), facility);
-
-    if (it == disabledFacilities.cend())
-      TEST(manager.IsFacilityEnabled(facility), ());
-    else
-      TEST(!manager.IsFacilityEnabled(facility), ());
+    TEST_EQUAL(manager.IsFacilityEnabled(facility), !base::IsExist(disabledFacilities, facility), ());
   }
 }
 

@@ -20,9 +20,7 @@ bool PopularityHasHigherPriority(bool hasPosition, double distanceInMeters)
 @property(weak, nonatomic) IBOutlet UILabel * distanceLabel;
 @property(weak, nonatomic) IBOutlet UILabel * infoLabel;
 @property(weak, nonatomic) IBOutlet UILabel * locationLabel;
-@property(weak, nonatomic) IBOutlet UILabel * typeLabel;
-@property(weak, nonatomic) IBOutlet UIView * closedView;
-@property(weak, nonatomic) IBOutlet UIView * infoView;
+@property(weak, nonatomic) IBOutlet UILabel * openLabel;
 @property(weak, nonatomic) IBOutlet UIView * popularView;
 
 @end
@@ -35,8 +33,6 @@ bool PopularityHasHigherPriority(bool hasPosition, double distanceInMeters)
 {
   [super config:result localizedTypeName:localizedTypeName];
 
-  self.typeLabel.text = localizedTypeName;
-
   self.locationLabel.text = @(result.GetAddress().c_str());
   [self.locationLabel sizeToFit];
 
@@ -47,22 +43,27 @@ bool PopularityHasHigherPriority(bool hasPosition, double distanceInMeters)
   NSString * brand  = @"";
   if (!result.GetBrand().empty())
     brand = @(platform::GetLocalizedBrandName(result.GetBrand()).c_str());
+  
+  NSString * description = @"";
 
   static NSString * fiveStars = [NSString stringWithUTF8String:"★★★★★"];
   if (starsCount > 0)
-    [self setInfoText:[fiveStars substringToIndex:starsCount]];
+    description = [fiveStars substringToIndex:starsCount];
   else if (airportIata.length > 0)
-    [self setInfoText:airportIata];
+    description = airportIata;
   else if (roadShields.length > 0)
-    [self setInfoText:roadShields];
+    description = roadShields;
   else if (brand.length > 0 && cuisine.length > 0)
-    [self setInfoText:[NSString stringWithFormat:@"%@ • %@", brand, cuisine]];
+    description = [NSString stringWithFormat:@"%@ • %@", brand, cuisine];
   else if (brand.length > 0)
-    [self setInfoText:brand];
+    description = brand;
   else if (cuisine.length > 0)
-    [self setInfoText:cuisine];
+    description = cuisine;
+  
+  if ([description length] == 0)
+    self.infoLabel.text = localizedTypeName;
   else
-    [self clearInfo];
+    self.infoLabel.text = [NSString stringWithFormat:@"%@ • %@", localizedTypeName, description];
 
   CLLocation * lastLocation = [MWMLocationManager lastLocation];
   double distanceInMeters = 0.0;
@@ -80,31 +81,55 @@ bool PopularityHasHigherPriority(bool hasPosition, double distanceInMeters)
     }
   }
 
-  bool popularityHasHigherPriority = PopularityHasHigherPriority(lastLocation, distanceInMeters);
-  bool showClosed = result.IsOpenNow() == osm::No;
   bool showPopular = result.GetRankingInfo().m_popularity > 0;
-
-  if (showClosed && showPopular)
+  self.popularView.hidden = !showPopular;
+  
+  switch (result.IsOpenNow())
   {
-    self.closedView.hidden = popularityHasHigherPriority;
-    self.popularView.hidden = !popularityHasHigherPriority;
-  }
-  else
-  {
-    self.closedView.hidden = !showClosed;
-    self.popularView.hidden = !showPopular;
+    case osm::Yes:
+    {
+      int const minutes = result.GetMinutesUntilClosed();
+      if (minutes < 60) // less than 1 hour
+      {
+        self.openLabel.textColor = UIColor.systemYellowColor;
+        NSString *time = [NSString stringWithFormat: @"%d %@", minutes, L(@"minute")];
+        self.openLabel.text = [NSString stringWithFormat: L(@"closes_in"), time];
+      }
+      else
+      {
+        self.openLabel.textColor = UIColor.systemGreenColor;
+        self.openLabel.text = L(@"editor_time_open");
+      }
+      self.openLabel.hidden = false;
+      break;
+    }
+      
+    case osm::No:
+    {
+      self.openLabel.textColor = UIColor.systemRedColor;
+      int const minutes = result.GetMinutesUntilOpen();
+      if (minutes < 60) // less than 1 hour
+      {
+        NSString *time = [NSString stringWithFormat: @"%d %@", minutes, L(@"minute")];
+        self.openLabel.text = [NSString stringWithFormat: L(@"opens_in"), time];
+      }
+      else
+      {
+        self.openLabel.text = L(@"closed");
+      }
+      self.openLabel.hidden = false;
+      break;
+    }
+      
+    case osm::Unknown:
+    {
+      self.openLabel.hidden = true;
+      break;
+    }
   }
 
   [self setStyleAndApply: @"Background"];
 }
-
-- (void)setInfoText:(NSString *)infoText
-{
-  self.infoView.hidden = NO;
-  self.infoLabel.text = infoText;
-}
-
-- (void)clearInfo { self.infoView.hidden = YES; }
 
 - (NSDictionary *)selectedTitleAttributes
 {

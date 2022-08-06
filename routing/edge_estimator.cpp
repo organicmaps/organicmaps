@@ -1,10 +1,12 @@
 #include "routing/edge_estimator.hpp"
+
+#include "routing/geometry.hpp"
 #include "routing/latlon_with_altitude.hpp"
 #include "routing/routing_exceptions.hpp"
 #include "routing/routing_helpers.hpp"
+#include "routing/traffic_stash.hpp"
 
 #include "traffic/speed_groups.hpp"
-#include "traffic/traffic_info.hpp"
 
 #include "geometry/distance_on_sphere.hpp"
 #include "geometry/point_with_altitude.hpp"
@@ -14,9 +16,12 @@
 #include <algorithm>
 #include <unordered_map>
 
+namespace routing
+{
 using namespace routing;
 using namespace std;
 using namespace traffic;
+using measurement_utils::KmphToMps;
 
 namespace
 {
@@ -34,13 +39,12 @@ double CalcTrafficFactor(SpeedGroup speedGroup)
 {
   if (speedGroup == SpeedGroup::TempBlock)
   {
-    double constexpr kImpossibleDrivingFactor = 1e4;
-    return kImpossibleDrivingFactor;
+    // impossible driving factor
+    return 1.0E4;
   }
 
-  double const percentage =
-      0.01 * static_cast<double>(kSpeedGroupThresholdPercentage[static_cast<size_t>(speedGroup)]);
-  CHECK_GREATER(percentage, 0.0, ("Speed group:", speedGroup));
+  double const percentage = 0.01 * kSpeedGroupThresholdPercentage[static_cast<size_t>(speedGroup)];
+  CHECK_GREATER(percentage, 0.0, (speedGroup));
   return 1.0 / percentage;
 }
 
@@ -54,7 +58,7 @@ double CalcClimbSegment(EdgeEstimator::Purpose purpose, Segment const & segment,
 
   double const distance = ms::DistanceOnEarth(from.GetLatLon(), to.GetLatLon());
   double const speedMpS =
-      KMPH2MPS(purpose == EdgeEstimator::Purpose::Weight ? speed.m_weight : speed.m_eta);
+      KmphToMps(purpose == EdgeEstimator::Purpose::Weight ? speed.m_weight : speed.m_eta);
   CHECK_GREATER(speedMpS, 0.0, ("from:", from.GetLatLon(), "to:", to.GetLatLon(), "speed:", speed));
   double const timeSec = distance / speedMpS;
 
@@ -67,8 +71,6 @@ double CalcClimbSegment(EdgeEstimator::Purpose purpose, Segment const & segment,
 }
 }  // namespace
 
-namespace routing
-{
 double GetPedestrianClimbPenalty(EdgeEstimator::Purpose purpose, double tangent,
                                  geometry::Altitude altitudeM)
 {
@@ -110,25 +112,25 @@ double GetBicycleClimbPenalty(EdgeEstimator::Purpose purpose, double tangent,
 }
 
 double GetCarClimbPenalty(EdgeEstimator::Purpose /* purpose */, double /* tangent */,
-                          geometry::Altitude /* altitude */)
+                          geometry::Altitude /* altitudeM */)
 {
   return 1.0;
 }
 
 // EdgeEstimator -----------------------------------------------------------------------------------
 EdgeEstimator::EdgeEstimator(double maxWeightSpeedKMpH, SpeedKMpH const & offroadSpeedKMpH,
-                             DataSource * /*dataSourcePtr*/, std::shared_ptr<NumMwmIds> numMwmIds)
-  : m_maxWeightSpeedMpS(KMPH2MPS(maxWeightSpeedKMpH))
+                             DataSource * /*dataSourcePtr*/, std::shared_ptr<NumMwmIds> /*numMwmIds*/)
+  : m_maxWeightSpeedMpS(KmphToMps(maxWeightSpeedKMpH))
   , m_offroadSpeedKMpH(offroadSpeedKMpH)
   //, m_dataSourcePtr(dataSourcePtr)
-  , m_numMwmIds(numMwmIds)
+  //, m_numMwmIds(numMwmIds)
 {
   CHECK_GREATER(m_offroadSpeedKMpH.m_weight, 0.0, ());
   CHECK_GREATER(m_offroadSpeedKMpH.m_eta, 0.0, ());
-  CHECK_GREATER_OR_EQUAL(m_maxWeightSpeedMpS, KMPH2MPS(m_offroadSpeedKMpH.m_weight), ());
+  CHECK_GREATER_OR_EQUAL(m_maxWeightSpeedMpS, KmphToMps(m_offroadSpeedKMpH.m_weight), ());
 
   if (m_offroadSpeedKMpH.m_eta != kNotUsed)
-    CHECK_GREATER_OR_EQUAL(m_maxWeightSpeedMpS, KMPH2MPS(m_offroadSpeedKMpH.m_eta), ());
+    CHECK_GREATER_OR_EQUAL(m_maxWeightSpeedMpS, KmphToMps(m_offroadSpeedKMpH.m_eta), ());
 }
 
 double EdgeEstimator::CalcHeuristic(ms::LatLon const & from, ms::LatLon const & to) const
@@ -143,8 +145,10 @@ double EdgeEstimator::ComputeDefaultLeapWeightSpeed() const
 
   /// @todo By VNG: Current m_maxWeightSpeedMpS is > 120 km/h, so estimating speed was > 60km/h
   /// for start/end fake edges by straight line! I strongly believe that this is very! optimistic.
-  /// Set factor to 2.5, see a good example here https://github.com/organicmaps/organicmaps/issues/1071.
-  return m_maxWeightSpeedMpS / 2.5;
+  /// Set factor to 2.15:
+  /// - lower bound Russia_MoscowDesnogorsk (https://github.com/organicmaps/organicmaps/issues/1071)
+  /// - upper bound RussiaSmolenskRussiaMoscowTimeTest
+  return m_maxWeightSpeedMpS / 2.15;
 }
 
 /*
@@ -202,7 +206,7 @@ double EdgeEstimator::CalcOffroad(ms::LatLon const & from, ms::LatLon const & to
   if (offroadSpeedKMpH == kNotUsed)
     return 0.0;
 
-  return TimeBetweenSec(from, to, KMPH2MPS(offroadSpeedKMpH));
+  return TimeBetweenSec(from, to, KmphToMps(offroadSpeedKMpH));
 }
 
 // PedestrianEstimator -----------------------------------------------------------------------------
@@ -272,13 +276,11 @@ public:
                SpeedKMpH const & offroadSpeedKMpH);
 
   // EdgeEstimator overrides:
-  double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road,
-                           Purpose purpose) const override;
+  double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road, Purpose purpose) const override;
   double GetUTurnPenalty(Purpose /* purpose */) const override;
   double GetFerryLandingPenalty(Purpose purpose) const override;
 
 private:
-  double CalcSegment(Purpose purpose, Segment const & segment, RoadGeometry const & road) const;
   shared_ptr<TrafficStash> m_trafficStash;
 };
 
@@ -288,12 +290,6 @@ CarEstimator::CarEstimator(DataSource * dataSourcePtr, std::shared_ptr<NumMwmIds
   : EdgeEstimator(maxWeightSpeedKMpH, offroadSpeedKMpH, dataSourcePtr, numMwmIds)
   , m_trafficStash(move(trafficStash))
 {
-}
-
-double CarEstimator::CalcSegmentWeight(Segment const & segment, RoadGeometry const & road,
-                                       Purpose purpose) const
-{
-  return CalcSegment(purpose, segment, road);
 }
 
 double CarEstimator::GetUTurnPenalty(Purpose /* purpose */) const
@@ -315,8 +311,7 @@ double CarEstimator::GetFerryLandingPenalty(Purpose purpose) const
   UNREACHABLE();
 }
 
-double CarEstimator::CalcSegment(Purpose purpose, Segment const & segment,
-                                 RoadGeometry const & road) const
+double CarEstimator::CalcSegmentWeight(Segment const & segment, RoadGeometry const & road, Purpose purpose) const
 {
   double result = CalcClimbSegment(purpose, segment, road, GetCarClimbPenalty);
 
@@ -331,9 +326,8 @@ double CarEstimator::CalcSegment(Purpose purpose, Segment const & segment,
       // Current time estimation are too optimistic.
       // Need more accurate tuning: traffic lights, traffic jams, road models and so on.
       // Add some penalty to make estimation of a more realistic.
-      // TODO: make accurate tuning, remove penalty.
-      double constexpr kTimePenalty = 1.8;
-      result *= kTimePenalty;
+      /// @todo Make accurate tuning, remove penalty.
+      result *= 1.8;
     }
   }
 

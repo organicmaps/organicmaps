@@ -2,10 +2,6 @@
 
 #include "routing/routing_helpers.hpp"
 
-#include "routing_common/bicycle_model.hpp"
-#include "routing_common/car_model.hpp"
-#include "routing_common/pedestrian_model.hpp"
-
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_impl.hpp"
 #include "indexer/feature_visibility.hpp"
@@ -198,8 +194,7 @@ bool FeatureBuilder::RemoveInvalidTypes()
   if (!m_params.FinishAddingTypes())
     return false;
 
-  return RemoveUselessTypes(m_params.m_types, m_params.GetGeomType(),
-                            m_params.IsEmptyNames());
+  return RemoveUselessTypes(m_params.m_types, m_params.GetGeomType(), m_params.IsEmptyNames());
 }
 
 TypesHolder FeatureBuilder::GetTypesHolder() const
@@ -304,12 +299,12 @@ void FeatureBuilder::RemoveUselessNames()
     }
 
     // We want to skip alt_name which is almost equal to name.
-    std::string altName;
-    std::string name;
-    if (m_params.name.GetString("alt_name", altName) && m_params.name.GetString("default", name) &&
+    std::string_view name, altName;
+    if (m_params.name.GetString(StringUtf8Multilang::kAltNameCode, altName) &&
+        m_params.name.GetString(StringUtf8Multilang::kDefaultCode, name) &&
         search::NormalizeAndSimplifyString(altName) == search::NormalizeAndSimplifyString(name))
     {
-      m_params.name.RemoveString("alt_name");
+      m_params.name.RemoveString(StringUtf8Multilang::kAltNameCode);
     }
   }
 }
@@ -581,16 +576,16 @@ int FeatureBuilder::GetMinFeatureDrawScale() const
   return (minScale == -1 ? 1000 : minScale);
 }
 
-bool FeatureBuilder::AddName(string const & lang, string const & name)
+bool FeatureBuilder::AddName(string_view lang, string_view name)
 {
   return m_params.AddName(lang, name);
 }
 
-string FeatureBuilder::GetName(int8_t lang) const
+string_view FeatureBuilder::GetName(int8_t lang) const
 {
-  string s;
-  VERIFY(m_params.name.GetString(lang, s) != s.empty(), ());
-  return s;
+  string_view sv;
+  CHECK(m_params.name.GetString(lang, sv) != sv.empty(), ());
+  return sv;
 }
 
 size_t FeatureBuilder::GetPointsCount() const

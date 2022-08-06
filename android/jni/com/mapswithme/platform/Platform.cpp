@@ -16,25 +16,23 @@
 #include <memory>
 #include <utility>
 
-#include <sys/system_properties.h>
-
 std::string Platform::GetMemoryInfo() const
 {
   JNIEnv * env = jni::GetEnv();
   if (env == nullptr)
     return std::string();
 
-  static std::shared_ptr<jobject> classMemLogging = jni::make_global_ref(env->FindClass("com/mapswithme/util/log/MemLogging"));
-  ASSERT(classMemLogging, ());
+  static std::shared_ptr<jobject> classLogsManager = jni::make_global_ref(env->FindClass("com/mapswithme/util/log/LogsManager"));
+  ASSERT(classLogsManager, ());
 
   jobject context = android::Platform::Instance().GetContext();
   static jmethodID const getMemoryInfoId
     = jni::GetStaticMethodID(env,
-                             static_cast<jclass>(*classMemLogging),
+                             static_cast<jclass>(*classLogsManager),
                              "getMemoryInfo",
                              "(Landroid/content/Context;)Ljava/lang/String;");
   jstring const memInfoString = static_cast<jstring>(env->CallStaticObjectMethod(
-    static_cast<jclass>(*classMemLogging), getMemoryInfoId, context));
+    static_cast<jclass>(*classLogsManager), getMemoryInfoId, context));
   ASSERT(memInfoString, ());
 
   return jni::ToNativeString(env, memInfoString);
@@ -132,7 +130,6 @@ void Platform::Initialize(JNIEnv * env, jobject functorProcessObject, jstring ap
 
   m_isTablet = isTablet;
   m_resourcesDir = jni::ToNativeString(env, apkPath);
-  m_privateDir = jni::ToNativeString(env, privatePath);
   m_tmpDir = jni::ToNativeString(env, tmpPath);
   SetWritableDir(jni::ToNativeString(env, writablePath));
   LOG(LINFO, ("Apk path = ", m_resourcesDir));
@@ -157,7 +154,6 @@ void Platform::OnExternalStorageStatusChanged(bool isAvailable)
 void Platform::SetWritableDir(std::string const & dir)
 {
   m_writableDir = dir;
-  settings::Set("StoragePath", m_writableDir);
   LOG(LINFO, ("Writable path = ", m_writableDir));
 }
 
@@ -244,19 +240,6 @@ void Platform::AndroidSecureStorage::Remove(std::string const & key)
   jobject context = android::Platform::Instance().GetContext();
   env->CallStaticVoidMethod(m_secureStorageClass, removeMethodId, context,
                             jni::TScopedLocalRef(env, jni::ToJavaString(env, key)).get());
-}
-
-int GetAndroidSdkVersion()
-{
-  char osVersion[PROP_VALUE_MAX + 1];
-  if (__system_property_get("ro.build.version.sdk", osVersion) == 0)
-    return 0;
-
-  int version;
-  if (!strings::to_int(std::string(osVersion), version))
-    version = 0;
-
-  return version;
 }
 }  // namespace android
 

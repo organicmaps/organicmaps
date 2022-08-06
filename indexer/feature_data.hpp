@@ -43,14 +43,11 @@ namespace feature
 
   static constexpr int kMaxTypesCount = HEADER_MASK_TYPE + 1;
 
-  enum Layer
+  enum Layer : int8_t
   {
-    LAYER_LOW = -11,
-
+    LAYER_LOW = -10,
     LAYER_EMPTY = 0,
-    LAYER_TRANSPARENT_TUNNEL = 11,
-
-    LAYER_HIGH = 12
+    LAYER_HIGH = 10
   };
 
   class TypesHolder
@@ -100,7 +97,7 @@ namespace feature
       return (m_size > 0 ? m_types[0] : 0);
     }
 
-    bool Has(uint32_t t) const { return std::find(begin(), end(), t) != end(); }
+    bool Has(uint32_t t) const { return base::IsExist(*this, t); }
 
     template <typename Fn>
     bool RemoveIf(Fn && fn)
@@ -143,7 +140,7 @@ struct FeatureParamsBase
   int8_t layer;
   uint8_t rank;
 
-  FeatureParamsBase() : layer(0), rank(0) {}
+  FeatureParamsBase() : layer(feature::LAYER_EMPTY), rank(0) {}
 
   void MakeZero();
 
@@ -223,7 +220,7 @@ public:
 
   void ClearName();
 
-  bool AddName(std::string const & lang, std::string const & s);
+  bool AddName(std::string_view lang, std::string_view s);
   bool AddHouseName(std::string const & s);
   bool AddHouseNumber(std::string houseNumber);
 

@@ -16,11 +16,14 @@
 #include "defines.hpp"
 
 #include <algorithm>
-#include <cstddef>
-#include <cstdint>
 #include <string>
 #include <utility>
 #include <vector>
+
+// Define this option to DebugPrint provenance.
+#ifdef DEBUG
+//#define SEARCH_USE_PROVENANCE
+#endif
 
 namespace search
 {
@@ -56,11 +59,15 @@ public:
     std::string m_roadShields;
 
     // Following fields are used for hotels only.
-    int m_stars = 0;
+    uint8_t m_stars = 0;
     bool m_isHotel = false;
 
     // Valid for any result.
     osm::YesNoUnknown m_isOpenNow = osm::Unknown;
+
+    uint16_t m_minutesUntilOpen = 0;
+
+    uint16_t m_minutesUntilClosed = 0;
 
     bool m_isInitialized = false;
   };
@@ -69,20 +76,20 @@ public:
   static auto constexpr kPopularityHighPriorityMinDistance = 50000.0;
 
   // For Type::Feature.
-  Result(FeatureID const & id, m2::PointD const & pt, std::string const & str,
-         std::string const & address, uint32_t featureType, Details const & meta);
+  Result(FeatureID const & id, m2::PointD const & pt, std::string && str,
+         std::string && address, uint32_t featureType, Details && meta);
 
   // For Type::LatLon.
-  Result(m2::PointD const & pt, std::string const & latlon, std::string const & address);
+  Result(m2::PointD const & pt, std::string && latlon, std::string && address);
 
   // For Type::Postcode.
-  Result(m2::PointD const & pt, std::string const & postcode);
+  Result(m2::PointD const & pt, std::string && postcode);
 
   // For Type::PureSuggest.
-  Result(std::string const & str, std::string const & suggest);
+  Result(std::string str, std::string && suggest);
 
   // For Type::SuggestFromFeature.
-  Result(Result const & res, std::string const & suggest);
+  Result(Result && res, std::string && suggest);
 
   Type GetResultType() const { return m_resultType; }
 
@@ -95,6 +102,8 @@ public:
   bool IsHotel() const { return m_details.m_isHotel; }
 
   osm::YesNoUnknown IsOpenNow() const { return m_details.m_isOpenNow; }
+  uint16_t GetMinutesUntilOpen() const { return m_details.m_minutesUntilOpen; }
+  uint16_t GetMinutesUntilClosed() const { return m_details.m_minutesUntilClosed; }
   int GetStarsCount() const { return m_details.m_stars; }
 
   bool IsSuggest() const;
@@ -122,31 +131,32 @@ public:
   std::pair<uint16_t, uint16_t> const & GetHighlightRange(size_t idx) const;
   size_t GetHighlightRangesCount() const { return m_hightlightRanges.size(); }
 
-  void PrependCity(std::string const & name);
+  void PrependCity(std::string_view name);
 
   int32_t GetPositionInResults() const { return m_positionInResults; }
   void SetPositionInResults(int32_t pos) { m_positionInResults = pos; }
 
   RankingInfo const & GetRankingInfo() const { return m_info; }
-
-  std::vector<ResultTracer::Branch> const & GetProvenance() const { return m_provenance; }
-
-  template <typename Info>
-  void SetRankingInfo(Info && info)
+  void SetRankingInfo(RankingInfo & info)
   {
-    m_info = std::forward<Info>(info);
+    // No sense to make move for RankingInfo.
+    m_info = info;
   }
 
+#ifdef SEARCH_USE_PROVENANCE
   template <typename Prov>
   void SetProvenance(Prov && prov)
   {
     m_provenance = std::forward<Prov>(prov);
   }
+#endif
 
   // Returns a representation of this result that is sent to the
   // statistics servers and later used to measure the quality of our
   // search engine.
   std::string ToStringForStats() const;
+
+  friend std::string DebugPrint(search::Result const & result);
 
 private:
   Type m_resultType;
@@ -165,7 +175,9 @@ private:
   // a search query. -1 if undefined.
   int32_t m_positionInResults = -1;
 
+#ifdef SEARCH_USE_PROVENANCE
   std::vector<ResultTracer::Branch> m_provenance;
+#endif
 
 public:
   // Careful when moving: the order of destructors is important.
@@ -173,7 +185,6 @@ public:
 };
 
 std::string DebugPrint(search::Result::Type type);
-std::string DebugPrint(search::Result const & result);
 
 class Results
 {

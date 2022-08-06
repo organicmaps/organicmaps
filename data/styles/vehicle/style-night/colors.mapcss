@@ -80,11 +80,13 @@
 
 /* 4.3 Barriers */
 @fence: #444444;
+@hedge: #143C14;
+@cliff: #7D4F23;
 
 /* 4.4 Buildings */
 
 @building: #191919;
-@building_dark: #191919;
+@building_dark: #1D1D1D;
 @building_border: #1C1C1C;
 @building_dark_border: #191919;
 
@@ -105,9 +107,8 @@
 @footway: #2B2827;
 @cycleway: #6E3D47;
 @construction: #332F2D;
-@track: #2B2827;
-@path: #A05012;
-@tracktype: #262525;
+@track: #5F532D;
+@path: #944A12;
 @bridleway: #2B2827;
 
 /* 5.2 Bridges */

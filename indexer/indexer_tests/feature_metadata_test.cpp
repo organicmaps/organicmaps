@@ -63,8 +63,11 @@ UNIT_TEST(Feature_Metadata_PresentTypes)
 
   auto const types = m.GetPresentTypes();
   TEST_EQUAL(types.size(), m.Size(), ());
-  for (auto const & type : types)
-    TEST_EQUAL(m.Get(type), kKeyValues.find(static_cast<Metadata::EType>(type))->second, ());
+  for (auto const t : types)
+  {
+    auto const type = static_cast<Metadata::EType>(t);
+    TEST_EQUAL(m.Get(type), kKeyValues.find(type)->second, ());
+  }
 }
 
 UNIT_TEST(Feature_MwmTmpSerialization)
@@ -125,4 +128,16 @@ UNIT_TEST(Feature_Metadata_RegionData_Languages)
     TEST(!rd.HasLanguage(StringUtf8Multilang::GetLangIndex("en")), ());
     TEST(!rd.IsSingleLanguage(StringUtf8Multilang::GetLangIndex("en")), ());
   }
+}
+
+UNIT_TEST(Feature_Metadata_Print)
+{
+  StringUtf8Multilang s;
+  s.AddString("en", "English");
+  s.AddString("be", "Беларуская");
+
+  Metadata m;
+  m.Set(Metadata::FMD_DESCRIPTION, s.GetBuffer());
+
+  TEST_EQUAL(DebugPrint(m), "Metadata [description=" + DebugPrint(s) + "]", ());
 }

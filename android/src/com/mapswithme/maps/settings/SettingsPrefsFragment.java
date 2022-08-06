@@ -1,6 +1,5 @@
 package com.mapswithme.maps.settings;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -22,7 +21,6 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
 import androidx.preference.PreferenceScreen;
 import androidx.preference.TwoStatePreference;
-
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.downloader.MapManager;
@@ -41,7 +39,7 @@ import com.mapswithme.util.SharedPropertiesUtils;
 import com.mapswithme.util.ThemeSwitcher;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
-import com.mapswithme.util.log.LoggerFactory;
+import com.mapswithme.util.log.LogsManager;
 
 import java.util.HashMap;
 import java.util.List;
@@ -51,8 +49,6 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
 {
   private static final int REQUEST_INSTALL_DATA = 1;
 
-  @NonNull
-  private final StoragePathManager mPathManager = new StoragePathManager();
   @Nullable
   private Preference mStoragePref;
 
@@ -70,31 +66,6 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
   private final Map<String, LanguageData> mLanguages = new HashMap<>();
   private LanguageData mCurrentLanguage;
   private String mSelectedLanguage;
-
-  private boolean singleStorageOnly()
-  {
-    return !mPathManager.hasMoreThanOneStorage();
-  }
-
-  private void updateStoragePrefs()
-  {
-    Preference old = findPreference(getString(R.string.pref_storage));
-
-    if (singleStorageOnly())
-    {
-      if (old != null)
-      {
-        removePreference(getString(R.string.pref_settings_general), old);
-      }
-    }
-    else
-    {
-      if (old == null && mStoragePref != null)
-      {
-        getPreferenceScreen().addPreference(mStoragePref);
-      }
-    }
-  }
 
   private final Preference.OnPreferenceChangeListener mEnabledListener = new Preference.OnPreferenceChangeListener()
   {
@@ -285,7 +256,6 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     mLangInfo = findPreference(getString(R.string.pref_tts_info));
     mLangInfoLink = findPreference(getString(R.string.pref_tts_info_link));
     initLangInfoLink();
-    updateStoragePrefs();
     initStoragePrefCallbacks();
     initMeasureUnitsPrefsCallbacks();
     initZoomPrefsCallbacks();
@@ -510,16 +480,16 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     if (pref == null)
       return;
 
-    final boolean isLoggingEnabled = LoggerFactory.INSTANCE.isFileLoggingEnabled();
-    ((TwoStatePreference) pref).setChecked(isLoggingEnabled);
-    pref.setOnPreferenceChangeListener(
-        (preference, newValue) ->
-        {
-          boolean newVal = (Boolean) newValue;
-          if (isLoggingEnabled != newVal)
-            LoggerFactory.INSTANCE.setFileLoggingEnabled(newVal);
-          return true;
-        });
+    ((TwoStatePreference) pref).setChecked(LogsManager.INSTANCE.isFileLoggingEnabled());
+    pref.setOnPreferenceChangeListener((preference, newValue) -> {
+      if (!LogsManager.INSTANCE.setFileLoggingEnabled((Boolean) newValue))
+      {
+        // It's a very rare condition when debugging, so we can do without translation.
+        Utils.showSnackbar(getView(), "ERROR: Can't create a logs folder!");
+        return false;
+      }
+      return true;
+    });
   }
 
   private void initEmulationBadStorage()
@@ -818,31 +788,6 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
       return;
 
     category.removePreference(preference);
-  }
-
-  @Override
-  public void onAttach(Context context)
-  {
-    super.onAttach(context);
-
-    if (!(context instanceof Activity))
-      return;
-
-    mPathManager.startExternalStorageWatching((Activity) context, new StoragePathManager.OnStorageListChangedListener()
-    {
-      @Override
-      public void onStorageListChanged(List<StorageItem> storageItems, int currentStorageIndex)
-      {
-        updateStoragePrefs();
-      }
-    }, null);
-  }
-
-  @Override
-  public void onDetach()
-  {
-    super.onDetach();
-    mPathManager.stopExternalStorageWatching();
   }
 
   enum ThemeMode

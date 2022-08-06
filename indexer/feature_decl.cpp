@@ -21,9 +21,7 @@ string DebugPrint(GeomType type)
 
 string DebugPrint(FeatureID const & id)
 {
-  ostringstream ss;
-  ss << "{ " << DebugPrint(id.m_mwmId) << ", " << id.m_index << " }";
-  return ss.str();
+  return "{ " + DebugPrint(id.m_mwmId) + ", " + std::to_string(id.m_index) + " }";
 }
 
 // static

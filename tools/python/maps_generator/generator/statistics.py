@@ -13,13 +13,14 @@ from maps_generator.generator.exceptions import ParseError
 
 logger = logging.getLogger("maps_generator")
 
+# Parse entries, written by ./generator/statistics.cpp PrintTypeStats.
 RE_STAT = re.compile(
-    r"(?:\d+\. )?([\w:|-]+?)\|: "
-    r"size = \d+; "
-    r"count = (\d+); "
-    r"length = ([0-9.e+-]+) m; "
-    r"area = ([0-9.e+-]+) m²; "
-    r"names = (\d+)\s*"
+    r"([\w:-]+): "
+    r"size = +\d+; "
+    r"features = +(\d+); "
+    r"length = +([0-9.e+-]+) m; "
+    r"area = +([0-9.e+-]+) m²; "
+    r"w\/names = +(\d+)"
 )
 
 RE_TIME_DELTA = re.compile(
@@ -37,9 +38,13 @@ def read_stat(f):
     stats = []
     for line in f:
         m = RE_STAT.match(line)
+        # Skip explanation header strings.
+        if m is None:
+            continue
+
         stats.append(
             {
-                "name": m.group(1).replace("|", "-"),
+                "name": m.group(1),
                 "cnt": int(m.group(2)),
                 "len": float(m.group(3)),
                 "area": float(m.group(4)),

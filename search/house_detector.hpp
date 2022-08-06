@@ -111,7 +111,7 @@ public:
     return s1->m_processedName == s2->m_processedName;
   }
 
-  void SetName(std::string const & name);
+  void SetName(std::string_view name);
   std::string const & GetDbgName() const { return m_processedName; }
   std::string const & GetName() const { return m_name; }
 

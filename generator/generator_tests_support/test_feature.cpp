@@ -89,9 +89,12 @@ void TestFeature::Init()
 
 bool TestFeature::Matches(FeatureType & feature) const
 {
-  istringstream is(feature.GetMetadata(Metadata::FMD_TEST_ID));
+  auto const sv = feature.GetMetadata(feature::Metadata::FMD_TEST_ID);
+  if (sv.empty())
+    return false;
+
   uint64_t id;
-  is >> id;
+  CHECK(strings::to_uint(sv, id), (sv));
   return id == m_id;
 }
 
@@ -106,10 +109,7 @@ void TestFeature::Serialize(FeatureBuilder & fb) const
   {
     auto const type = static_cast<Metadata::EType>(i);
     if (m_metadata.Has(type))
-    {
-      auto const value = m_metadata.Get(type);
-      fb.GetMetadata().Set(type, value);
-    }
+      fb.GetMetadata().Set(type, std::string(m_metadata.Get(type)));
   }
 
   switch (m_type)
@@ -130,7 +130,8 @@ void TestFeature::Serialize(FeatureBuilder & fb) const
   case Type::Unknown: break;
   }
 
-  m_names.ForEach([&](int8_t langCode, string const & name) {
+  m_names.ForEach([&](int8_t langCode, string_view name)
+  {
     if (!name.empty())
     {
       auto const lang = StringUtf8Multilang::GetLangByCode(langCode);
@@ -256,8 +257,7 @@ void TestStreet::Serialize(FeatureBuilder & fb) const
 {
   TestFeature::Serialize(fb);
 
-  auto const & classificator = classif();
-  fb.SetType(classificator.GetTypeByPath({"highway", m_highwayType}));
+  fb.SetType(classif().GetTypeByPath({string_view("highway"), m_highwayType}));
 
   fb.GetParams().ref = m_roadNumber;
 
@@ -305,7 +305,7 @@ string TestSquare::ToDebugString() const
 TestPOI::TestPOI(m2::PointD const & center, string const & name, string const & lang)
   : TestFeature(center, name, lang)
 {
-  m_types = {{"railway", "station"}};
+  SetTypes({{"railway", "station"}});
 }
 
 // static
@@ -329,14 +329,14 @@ pair<TestPOI, FeatureID> TestPOI::AddWithEditor(osm::Editor & editor, MwmSet::Mw
 void TestPOI::Serialize(FeatureBuilder & fb) const
 {
   TestFeature::Serialize(fb);
-  auto const & classificator = classif();
 
-  for (auto const & path : m_types)
-    fb.AddType(classificator.GetTypeByPath(path));
+  for (uint32_t t : m_types)
+    fb.AddType(t);
 
   auto & params = fb.GetParams();
   if (!m_houseNumber.empty())
     params.AddHouseNumber(m_houseNumber);
+
   if (!m_streetName.empty())
     params.AddStreet(m_streetName);
 }
@@ -356,9 +356,16 @@ string TestPOI::ToDebugString() const
 TypesHolder TestPOI::GetTypes() const
 {
   TypesHolder types;
-  for (auto const & path : m_types)
-    types.Add(classif().GetTypeByPath(path));
+  types.Assign(m_types.begin(), m_types.end());
   return types;
+}
+
+void TestPOI::SetTypes(initializer_list<base::StringIL> const & types)
+{
+  m_types.clear();
+  auto const & c = classif();
+  for (auto const & e : types)
+    m_types.push_back(c.GetTypeByPath(e));
 }
 
 // TestMultilingualPOI -----------------------------------------------------------------------------
@@ -402,13 +409,13 @@ TestBuilding::TestBuilding(m2::PointD const & center, string const & name,
 }
 
 TestBuilding::TestBuilding(m2::PointD const & center, string const & name,
-                           string const & houseNumber, string const & street, string const & lang)
+                           string const & houseNumber, string_view street, string const & lang)
   : TestFeature(center, name, lang), m_houseNumber(houseNumber), m_streetName(street)
 {
 }
 
 TestBuilding::TestBuilding(vector<m2::PointD> const & boundary, string const & name,
-                           string const & houseNumber, string const & street, string const & lang)
+                           string const & houseNumber, string_view street, string const & lang)
   : TestFeature(boundary, name, lang)
   , m_boundary(boundary)
   , m_houseNumber(houseNumber)

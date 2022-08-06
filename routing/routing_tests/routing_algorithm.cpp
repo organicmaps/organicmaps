@@ -68,10 +68,7 @@ void DirectedGraph::GetEdgesList(Vertex const & v, bool isOutgoing, EdgeListT & 
 {
   adj = isOutgoing ? m_outgoing[v] : m_ingoing[v];
 }
-}  // namespace routing_tests
 
-namespace routing
-{
 using namespace std;
 
 namespace
@@ -114,8 +111,8 @@ class RoadGraph : public Algorithm::Graph
 {
 public:
 
-  explicit RoadGraph(IRoadGraph const & roadGraph)
-    : m_roadGraph(roadGraph), m_maxSpeedMPS(KMPH2MPS(roadGraph.GetMaxSpeedKMpH()))
+  explicit RoadGraph(RoadGraphIFace const & roadGraph)
+    : m_roadGraph(roadGraph), m_maxSpeedMPS(measurement_utils::KmphToMps(roadGraph.GetMaxSpeedKMpH()))
   {}
 
   void GetOutgoingEdgesList(astar::VertexData<Vertex, Weight> const & vertexData,
@@ -132,7 +129,7 @@ public:
     {
       ASSERT_EQUAL(v, e.GetStartJunction(), ());
 
-      double const speedMPS = KMPH2MPS(
+      double const speedMPS = measurement_utils::KmphToMps(
           m_roadGraph.GetSpeedKMpH(e, {true /* forward */, false /* in city */, Maxspeed()}));
       adj.emplace_back(e.GetEndJunction(), TimeBetweenSec(e.GetStartJunction(), e.GetEndJunction(), speedMPS));
     }
@@ -152,7 +149,7 @@ public:
     {
       ASSERT_EQUAL(v, e.GetEndJunction(), ());
 
-      double const speedMPS = KMPH2MPS(
+      double const speedMPS = measurement_utils::KmphToMps(
           m_roadGraph.GetSpeedKMpH(e, {true /* forward */, false /* in city */, Maxspeed()}));
       adj.emplace_back(e.GetStartJunction(), TimeBetweenSec(e.GetStartJunction(), e.GetEndJunction(), speedMPS));
     }
@@ -164,7 +161,7 @@ public:
   }
 
 private:
-  IRoadGraph const & m_roadGraph;
+  RoadGraphIFace const & m_roadGraph;
   double const m_maxSpeedMPS;
 };
 
@@ -200,16 +197,15 @@ string DebugPrint(TestAStarBidirectionalAlgo::Result const & value)
 
 // *************************** AStar-bidirectional routing algorithm implementation ***********************
 TestAStarBidirectionalAlgo::Result TestAStarBidirectionalAlgo::CalculateRoute(
-    IRoadGraph const & graph, geometry::PointWithAltitude const & startPos,
+    RoadGraphIFace const & graph, geometry::PointWithAltitude const & startPos,
     geometry::PointWithAltitude const & finalPos,
     RoutingResult<IRoadGraph::Vertex, IRoadGraph::Weight> & path)
 {
   RoadGraph roadGraph(graph);
   base::Cancellable cancellable;
-  Algorithm::Params<> params(roadGraph, startPos, finalPos, {} /* prevRoute */,
-                             cancellable);
+  Algorithm::Params<> params(roadGraph, startPos, finalPos, cancellable);
 
   Algorithm::Result const res = Algorithm().FindPathBidirectional(params, path);
   return Convert(res);
 }
-}  // namespace routing
+}  // namespace routing_tests

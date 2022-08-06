@@ -27,8 +27,8 @@ set(SRC
   postcodes_matcher_tests.cpp
   rank_table_test.cpp
   read_features_tests.cpp
+  road_shields_parser_tests.cpp
   scale_index_reading_tests.cpp
-  scales_test.cpp
   search_string_utils_test.cpp
   sort_and_merge_intervals_test.cpp
   string_slice_tests.cpp

@@ -7,17 +7,7 @@
 #include <memory>
 #include <string>
 
-class RelationElement;
-
-namespace generator
-{
-namespace cache
-{
-class IntermediateDataReaderInterface;
-}  // namespace cache
-}  // namespace generator
-
-namespace routing
+namespace routing_builder
 {
 class RestrictionWriter : public generator::CollectorInterface
 {
@@ -62,5 +52,5 @@ private:
 };
 
 std::string DebugPrint(RestrictionWriter::ViaType const & type);
-}  // namespace routing
+}  // namespace routing_builder
 

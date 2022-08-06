@@ -19,6 +19,7 @@ namespace base
 template <typename T>
 T Abs(T x)
 {
+  static_assert(std::is_signed<T>::value, "");
   return (x < 0 ? -x : x);
 }
 

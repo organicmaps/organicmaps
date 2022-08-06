@@ -8,19 +8,14 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.DocumentsContract;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.CallSuper;
-import androidx.annotation.IdRes;
 import androidx.annotation.LayoutRes;
-import androidx.annotation.MenuRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.cocosw.bottomsheet.BottomSheet;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.adapter.OnItemClickListener;
@@ -33,33 +28,32 @@ import com.mapswithme.maps.dialog.DialogUtils;
 import com.mapswithme.maps.dialog.EditTextDialogFragment;
 import com.mapswithme.maps.widget.PlaceholderView;
 import com.mapswithme.maps.widget.recycler.ItemDecoratorFactory;
-import com.mapswithme.util.BottomSheetHelper;
 import com.mapswithme.util.StorageUtils;
+import com.mapswithme.util.bottomsheet.MenuBottomSheetFragment;
+import com.mapswithme.util.bottomsheet.MenuBottomSheetItem;
 import com.mapswithme.util.concurrency.ThreadPool;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.LoggerFactory;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<BookmarkCategoriesAdapter>
-    implements MenuItem.OnMenuItemClickListener,
-    BookmarkManager.BookmarksLoadingListener,
-    CategoryListCallback,
-    OnItemClickListener<BookmarkCategory>,
-    OnItemMoreClickListener<BookmarkCategory>,
-    OnItemLongClickListener<BookmarkCategory>, BookmarkManager.BookmarksSharingListener
+    implements BookmarkManager.BookmarksLoadingListener,
+               CategoryListCallback,
+               OnItemClickListener<BookmarkCategory>,
+               OnItemMoreClickListener<BookmarkCategory>,
+               OnItemLongClickListener<BookmarkCategory>, BookmarkManager.BookmarksSharingListener
 
 {
+  private static final String TAG = BookmarkCategoriesFragment.class.getSimpleName();
+
   static final int REQ_CODE_DELETE_CATEGORY = 102;
   static final int REQ_CODE_IMPORT_DIRECTORY = 103;
 
   private static final int MAX_CATEGORY_NAME_LENGTH = 60;
-
-  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
-  private static final String TAG = BookmarkCategoriesFragment.class.getSimpleName();
 
   @Nullable
   private BookmarkCategory mSelectedCategory;
@@ -155,49 +149,27 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
     BookmarkManager.INSTANCE.removeCategoriesUpdatesListener(mCategoriesAdapterObserver);
   }
 
-  @Override
-  public boolean onMenuItemClick(MenuItem item)
-  {
-    MenuItemClickProcessorWrapper processor = MenuItemClickProcessorWrapper
-        .getInstance(item.getItemId());
-
-    processor
-        .mInternalProcessor
-        .process(this, getSelectedCategory());
-    return true;
-  }
-
   protected final void showBottomMenu(@NonNull BookmarkCategory item)
   {
     mSelectedCategory = item;
-    showBottomMenuInternal(item);
+    new MenuBottomSheetFragment(item.getName(), getMenuItems(item))
+            .show(getParentFragmentManager(), "bookmarkCategoriesBottomSheet");
   }
 
-  private void showBottomMenuInternal(@NonNull BookmarkCategory item)
+  private ArrayList<MenuBottomSheetItem> getMenuItems(@NonNull BookmarkCategory item)
   {
-    BottomSheetHelper.Builder bs = BottomSheetHelper.create(getActivity(), item.getName())
-        .sheet(getCategoryMenuResId())
-        .listener(this);
+    ArrayList<MenuBottomSheetItem> items = new ArrayList<>();
+    items.add(new MenuBottomSheetItem(R.string.list_settings, R.drawable.ic_settings, () -> onSettingsActionSelected(item)));
+    items.add(new MenuBottomSheetItem(
+            item.isVisible() ? R.string.hide : R.string.show,
+            item.isVisible() ? R.drawable.ic_hide : R.drawable.ic_show,
+            () -> onShowActionSelected(item)));
+    items.add(new MenuBottomSheetItem(R.string.export_file, R.drawable.ic_share, () -> onShareActionSelected(item)));
+    // Disallow deleting the last category
+    if (getAdapter().getBookmarkCategories().size() > 1)
+      items.add(new MenuBottomSheetItem(R.string.delete, R.drawable.ic_delete, () -> onDeleteActionSelected(item)));
 
-    BottomSheet bottomSheet = bs.build();
-    prepareBottomMenuItems(bottomSheet);
-    MenuItem menuItem = BottomSheetHelper.findItemById(bottomSheet, R.id.show_on_map);
-    menuItem.setIcon(item.isVisible() ? R.drawable.ic_hide : R.drawable.ic_show)
-        .setTitle(item.isVisible() ? R.string.hide : R.string.show);
-    BottomSheetHelper.tint(bottomSheet);
-    bottomSheet.show();
-  }
-
-  protected void prepareBottomMenuItems(@NonNull BottomSheet bottomSheet)
-  {
-    boolean isMultipleItems = getAdapter().getBookmarkCategories().size() > 1;
-    setEnableForMenuItem(R.id.delete, bottomSheet, isMultipleItems);
-  }
-
-  @MenuRes
-  protected int getCategoryMenuResId()
-  {
-    return R.menu.menu_bookmark_categories;
+    return items;
   }
 
   @Override
@@ -264,21 +236,26 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
     BookmarkListActivity.startForResult(this, category);
   }
 
+  private void onShowActionSelected(@NonNull BookmarkCategory category)
+  {
+    BookmarkManager.INSTANCE.toggleCategoryVisibility(category);
+    getAdapter().notifyDataSetChanged();
+  }
+
   protected void onShareActionSelected(@NonNull BookmarkCategory category)
   {
-    BookmarksSharingHelper.INSTANCE.prepareBookmarkCategoryForSharing(getActivity(), category.getId());
+    BookmarksSharingHelper.INSTANCE.prepareBookmarkCategoryForSharing(requireActivity(), category.getId());
   }
 
   private void onDeleteActionSelected(@NonNull BookmarkCategory category)
   {
     BookmarkManager.INSTANCE.deleteCategory(category.getId());
     getAdapter().notifyDataSetChanged();
-    onDeleteActionSelected();
   }
 
-  protected void onDeleteActionSelected()
+  private void onSettingsActionSelected(@NonNull BookmarkCategory category)
   {
-    // Do nothing.
+    BookmarkCategorySettingsActivity.startForResult(this, category);
   }
 
   @Override
@@ -303,7 +280,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
       final Uri rootUri = data.getData();
       final ProgressDialog dialog = DialogUtils.createModalProgressDialog(context, R.string.wait_several_minutes);
       dialog.show();
-      LOGGER.d(TAG, "Importing bookmarks from " + rootUri);
+      Logger.d(TAG, "Importing bookmarks from " + rootUri);
       MwmApplication app = MwmApplication.from(context);
       final File tempDir = new File(StorageUtils.getTempPath(app));
       final ContentResolver resolver = context.getContentResolver();
@@ -341,16 +318,6 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
     showBottomMenu(category);
   }
 
-
-  static void setEnableForMenuItem(@IdRes int id, @NonNull BottomSheet bottomSheet,
-                                   boolean enable)
-  {
-    BottomSheetHelper
-        .findItemById(bottomSheet, id)
-        .setVisible(enable)
-        .setEnabled(enable);
-  }
-
   private void onSaveText(@NonNull String text)
   {
     if (mCategoryEditor != null)
@@ -370,110 +337,6 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
   interface CategoryEditor
   {
     void commit(@NonNull String newName);
-  }
-
-
-  protected enum MenuItemClickProcessorWrapper
-  {
-    SET_SHARE(R.id.share, shareAction()),
-    SHOW_ON_MAP(R.id.show_on_map, showAction()),
-    LIST_SETTINGS(R.id.settings, showListSettings()),
-    DELETE_LIST(R.id.delete, deleteAction());
-
-    @NonNull
-    private static MenuClickProcessorBase showListSettings()
-    {
-      return new MenuClickProcessorBase.OpenListSettings();
-    }
-
-    @NonNull
-    private static MenuClickProcessorBase.ShowAction showAction()
-    {
-      return new MenuClickProcessorBase.ShowAction();
-    }
-
-    @NonNull
-    private static MenuClickProcessorBase.ShareAction shareAction()
-    {
-      return new MenuClickProcessorBase.ShareAction();
-    }
-
-    @NonNull
-    private static MenuClickProcessorBase.DeleteAction deleteAction()
-    {
-      return new MenuClickProcessorBase.DeleteAction();
-    }
-
-    @IdRes
-    private final int mId;
-    @NonNull
-    private final MenuClickProcessorBase mInternalProcessor;
-
-    MenuItemClickProcessorWrapper(@IdRes int id, @NonNull MenuClickProcessorBase processorBase)
-    {
-      mId = id;
-      mInternalProcessor = processorBase;
-    }
-
-    @NonNull
-    public static MenuItemClickProcessorWrapper getInstance(@IdRes int resId)
-    {
-      for (MenuItemClickProcessorWrapper each : values())
-      {
-        if (each.mId == resId)
-        {
-          return each;
-        }
-      }
-      throw new IllegalArgumentException("Enum value for res id = " + resId + " not found");
-    }
-  }
-
-  protected static abstract class MenuClickProcessorBase
-  {
-    public abstract void process(@NonNull BookmarkCategoriesFragment frag,
-                                 @NonNull BookmarkCategory category);
-
-    protected static class ShowAction extends MenuClickProcessorBase
-    {
-      @Override
-      public void process(@NonNull BookmarkCategoriesFragment frag,
-                          @NonNull BookmarkCategory category)
-      {
-        BookmarkManager.INSTANCE.toggleCategoryVisibility(category);
-        frag.getAdapter().notifyDataSetChanged();
-      }
-    }
-
-    protected static class ShareAction extends MenuClickProcessorBase
-    {
-      @Override
-      public void process(@NonNull BookmarkCategoriesFragment frag,
-                          @NonNull BookmarkCategory category)
-      {
-        frag.onShareActionSelected(category);
-      }
-    }
-
-    protected static class DeleteAction extends MenuClickProcessorBase
-    {
-      @Override
-      public void process(@NonNull BookmarkCategoriesFragment frag,
-                          @NonNull BookmarkCategory category)
-      {
-        frag.onDeleteActionSelected(category);
-      }
-    }
-
-    protected static class OpenListSettings extends MenuClickProcessorBase
-    {
-      @Override
-      public void process(@NonNull BookmarkCategoriesFragment frag,
-                          @NonNull BookmarkCategory category)
-      {
-        BookmarkCategorySettingsActivity.startForResult(frag, category);
-      }
-    }
   }
 
   private static class CategoriesAdapterObserver implements DataChangedListener<BookmarkCategoriesFragment>

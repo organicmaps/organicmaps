@@ -28,21 +28,21 @@
 #include <memory>
 #include <optional>
 
-using namespace std;
-
 namespace search
 {
+using namespace std;
+
 namespace
 {
 template <typename Slice>
-void UpdateNameScores(string const & name, uint8_t lang, Slice const & slice,
-                      NameScores & bestScores)
+void UpdateNameScores(string_view name, uint8_t lang, Slice const & slice, NameScores & bestScores)
 {
   if (lang == StringUtf8Multilang::kAltNameCode || lang == StringUtf8Multilang::kOldNameCode)
   {
-    auto const names = strings::Tokenize(name, ";");
-    for (auto const & n : names)
+    strings::Tokenize(name, ";", [&](string_view n)
+    {
       bestScores.UpdateIfBetter(GetNameScores(n, lang, slice));
+    });
   }
   else
   {
@@ -97,7 +97,7 @@ vector<vector<strings::UniString>> ModifyStrasse(vector<strings::UniString> cons
 }
 
 NameScores GetNameScores(FeatureType & ft, Geocoder::Params const & params,
-                                       TokenRange const & range, Model::Type type)
+                         TokenRange const & range, Model::Type type)
 {
   NameScores bestScores;
 
@@ -106,24 +106,15 @@ NameScores GetNameScores(FeatureType & ft, Geocoder::Params const & params,
 
   for (auto const lang : params.GetLangs())
   {
-    string name;
-    if (!ft.GetName(lang, name))
+    string_view const name = ft.GetName(lang);
+    if (name.empty())
       continue;
-    vector<vector<strings::UniString>> tokens(1);
-    if (lang == StringUtf8Multilang::kAltNameCode || lang == StringUtf8Multilang::kOldNameCode)
-    {
-      auto const names = strings::Tokenize(name, ";");
-      tokens.resize(names.size());
-      for (size_t i = 0; i < names.size(); ++i)
-        PrepareStringForMatching(names[i], tokens[i]);
-    }
-    else
-    {
-      PrepareStringForMatching(name, tokens[0]);
-    }
 
-    for (auto const & t : tokens)
+    auto const updateScore = [&](string_view n)
     {
+      vector<strings::UniString> t;
+      PrepareStringForMatching(n, t);
+
       UpdateNameScores(t, lang, slice, bestScores);
       UpdateNameScores(t, lang, sliceNoCategories, bestScores);
 
@@ -136,6 +127,18 @@ NameScores GetNameScores(FeatureType & ft, Geocoder::Params const & params,
           UpdateNameScores(variant, lang, sliceNoCategories, bestScores);
         }
       }
+    };
+
+    if (lang == StringUtf8Multilang::kAltNameCode || lang == StringUtf8Multilang::kOldNameCode)
+    {
+      strings::Tokenize(name, ";", [&updateScore](string_view n)
+      {
+        updateScore(n);
+      });
+    }
+    else
+    {
+      updateScore(name);
     }
   }
 
@@ -145,20 +148,22 @@ NameScores GetNameScores(FeatureType & ft, Geocoder::Params const & params,
 
   if (ftypes::IsAirportChecker::Instance()(ft))
   {
-    string const iata = ft.GetMetadata(feature::Metadata::FMD_AIRPORT_IATA);
+    auto const iata = ft.GetMetadata(feature::Metadata::FMD_AIRPORT_IATA);
     if (!iata.empty())
       UpdateNameScores(iata, StringUtf8Multilang::kDefaultCode, sliceNoCategories, bestScores);
   }
 
-  string const op = ft.GetMetadata(feature::Metadata::FMD_OPERATOR);
+  auto const op = ft.GetMetadata(feature::Metadata::FMD_OPERATOR);
   if (!op.empty())
     UpdateNameScores(op, StringUtf8Multilang::kDefaultCode, sliceNoCategories, bestScores);
 
-  string const brand = ft.GetMetadata(feature::Metadata::FMD_BRAND);
+  auto const brand = ft.GetMetadata(feature::Metadata::FMD_BRAND);
   if (!brand.empty())
   {
     auto const & brands = indexer::GetDefaultBrands();
-    brands.ForEachNameByKey(brand, [&](indexer::BrandsHolder::Brand::Name const & name) {
+    /// @todo Avoid temporary string when unordered_map will allow search by string_view.
+    brands.ForEachNameByKey(std::string(brand), [&](indexer::BrandsHolder::Brand::Name const & name)
+    {
       UpdateNameScores(name.m_name, name.m_locale, sliceNoCategories, bestScores);
     });
   }
@@ -188,7 +193,8 @@ void RemoveDuplicatingLinear(vector<RankerResult> & results)
 {
   double constexpr kDistSameStreetMeters = 5000.0;
 
-  auto lessCmp = [](RankerResult const & r1, RankerResult const & r2) -> bool {
+  auto lessCmp = [](RankerResult const & r1, RankerResult const & r2)
+  {
     if (r1.GetGeomType() != r2.GetGeomType())
       return r1.GetGeomType() < r2.GetGeomType();
 
@@ -204,7 +210,8 @@ void RemoveDuplicatingLinear(vector<RankerResult> & results)
     return r1.GetLinearModelRank() > r2.GetLinearModelRank();
   };
 
-  auto equalCmp = [](RankerResult const & r1, RankerResult const & r2) -> bool {
+  auto equalCmp = [](RankerResult const & r1, RankerResult const & r2)
+  {
     // Note! Do compare for distance when filtering linear objects.
     // Otherwise we will skip the results for different parts of the map.
     return r1.GetGeomType() == feature::GeomType::Line && r1.IsEqualCommon(r2) &&
@@ -254,7 +261,8 @@ bool ResultExists(RankerResult const & p, vector<RankerResult> const & results,
                   double minDistanceOnMapBetweenResults)
 {
   // Filter equal features in different mwms.
-  auto equalCmp = [&p, &minDistanceOnMapBetweenResults](RankerResult const & r) -> bool {
+  auto equalCmp = [&p, &minDistanceOnMapBetweenResults](RankerResult const & r)
+  {
     if (p.GetResultType() == r.GetResultType() &&
         p.GetResultType() == RankerResult::Type::Feature)
     {
@@ -336,14 +344,17 @@ public:
     if (!ft)
       return {};
 
-    RankerResult r(*ft, center, m_ranker.m_params.m_pivot, name, country);
+    RankerResult r(*ft, center, m_ranker.m_params.m_pivot, std::move(name), country);
 
     search::RankingInfo info;
     InitRankingInfo(*ft, center, preRankerResult, info);
     info.m_rank = NormalizeRank(info.m_rank, info.m_type, center, country,
                                 ftypes::IsCapitalChecker::Instance()(*ft), !info.m_allTokensUsed);
-    r.SetRankingInfo(move(info));
-    r.m_provenance = move(preRankerResult.GetProvenance());
+    r.SetRankingInfo(info);
+
+#ifdef SEARCH_USE_PROVENANCE
+    r.m_provenance = preRankerResult.GetProvenance();
+#endif
 
     return r;
   }
@@ -391,8 +402,7 @@ private:
     if (name.empty())
     {
       ReverseGeocoder::Address addr;
-      LazyAddressGetter addressGetter(m_reverseGeocoder, center);
-      if (addressGetter.GetExactAddress(addr))
+      if (LazyAddressGetter(m_reverseGeocoder, center).GetExactAddress(addr))
       {
         unique_ptr<FeatureType> streetFeature;
 
@@ -625,35 +635,36 @@ void Ranker::Finish(bool cancelled)
   m_emitter.Finish(cancelled);
 }
 
-Result Ranker::MakeResult(RankerResult const & rankerResult, bool needAddress,
-                          bool needHighlighting) const
+Result Ranker::MakeResult(RankerResult rankerResult, bool needAddress, bool needHighlighting) const
 {
-  string name = rankerResult.GetName();
-
-  string address;
-  if (needAddress)
-  {
-    LazyAddressGetter addressGetter(m_reverseGeocoder, rankerResult.GetCenter());
-
-    address = GetLocalizedRegionInfoForResult(rankerResult);
-
-    // Format full address only for suitable results.
-    if (ftypes::IsAddressObjectChecker::Instance()(rankerResult.GetTypes()))
-      address = FormatFullAddress(addressGetter.GetNearbyAddress(), address);
-  }
-
   // todo(@m) Used because Result does not have a default constructor. Factor out?
-  auto mk = [&](RankerResult const & r) -> Result {
+  auto mk = [&](RankerResult & r) -> Result
+  {
+    string address;
+    if (needAddress)
+    {
+      address = GetLocalizedRegionInfoForResult(rankerResult);
+
+      // Format full address only for suitable results.
+      if (ftypes::IsAddressObjectChecker::Instance()(rankerResult.GetTypes()))
+      {
+        address = FormatFullAddress(
+              LazyAddressGetter(m_reverseGeocoder, rankerResult.GetCenter()).GetNearbyAddress(), address);
+      }
+    }
+
+    string & name = rankerResult.m_str;
+
     switch (r.GetResultType())
     {
     case RankerResult::Type::Feature:
     case RankerResult::Type::Building:
     {
       auto const type = rankerResult.GetBestType(m_params.m_preferredTypes);
-      return Result(r.GetID(), r.GetCenter(), name, address, type, r.GetDetails());
+      return Result(r.GetID(), r.GetCenter(), move(name), move(address), type, move(r.m_details));
     }
-    case RankerResult::Type::LatLon: return Result(r.GetCenter(), name, address);
-    case RankerResult::Type::Postcode: return Result(r.GetCenter(), name);
+    case RankerResult::Type::LatLon: return Result(r.GetCenter(), move(name), move(address));
+    case RankerResult::Type::Postcode: return Result(r.GetCenter(), move(name));
     }
     ASSERT(false, ("Bad RankerResult type:", static_cast<size_t>(r.GetResultType())));
     UNREACHABLE();
@@ -664,8 +675,9 @@ Result Ranker::MakeResult(RankerResult const & rankerResult, bool needAddress,
   if (needAddress &&
       ftypes::IsLocalityChecker::Instance().GetType(rankerResult.GetTypes()) == ftypes::LocalityType::None)
   {
-    m_localities.GetLocality(res.GetFeatureCenter(), [&](LocalityItem const & item) {
-      string city;
+    m_localities.GetLocality(res.GetFeatureCenter(), [&](LocalityItem const & item)
+    {
+      string_view city;
       if (item.GetReadableName(city))
         res.PrependCity(city);
     });
@@ -674,8 +686,12 @@ Result Ranker::MakeResult(RankerResult const & rankerResult, bool needAddress,
   if (needHighlighting)
     HighlightResult(m_params.m_tokens, m_params.m_prefix, res);
 
-  res.SetRankingInfo(rankerResult.GetRankingInfo());
-  res.SetProvenance(rankerResult.GetProvenance());
+  res.SetRankingInfo(rankerResult.m_info);
+
+#ifdef SEARCH_USE_PROVENANCE
+  res.SetProvenance(move(rankerResult.m_provenance));
+#endif
+
   return res;
 }
 
@@ -713,6 +729,7 @@ void Ranker::UpdateResults(bool lastUpdate)
     // is negligible.
     sort(m_tentativeResults.rbegin(), m_tentativeResults.rend(),
          base::LessBy(&RankerResult::GetLinearModelRank));
+
     ProcessSuggestions(m_tentativeResults);
   }
 
@@ -738,12 +755,14 @@ void Ranker::UpdateResults(bool lastUpdate)
         m_emitter.Emit();
     }
 
-    auto const & rankerResult = m_tentativeResults[i];
-
     if (count >= m_params.m_limit)
       break;
 
-    Result result = MakeResult(rankerResult, m_params.m_needAddress, m_params.m_needHighlighting);
+    auto & rankerResult = m_tentativeResults[i];
+    if (!m_params.m_viewportSearch)
+      LOG(LDEBUG, (rankerResult));
+
+    Result result = MakeResult(move(rankerResult), m_params.m_needAddress, m_params.m_needHighlighting);
 
     if (m_params.m_viewportSearch)
     {
@@ -752,11 +771,12 @@ void Ranker::UpdateResults(bool lastUpdate)
     }
     else
     {
-      LOG(LDEBUG, (rankerResult));
       if (m_emitter.AddResult(move(result)))
         ++count;
     }
   }
+
+  /// @todo Use deque for m_tentativeResults?
   m_tentativeResults.erase(m_tentativeResults.begin(), m_tentativeResults.begin() + i);
 
   // The last update must be handled by a call to Finish().
@@ -791,6 +811,10 @@ void Ranker::MakeRankerResults()
       continue;
     }
 
+    /// @todo Do not filter "equal" results by distance in Mode::Viewport mode.
+    /// Strange when (for example bus stops) not all results are highlighted.
+    /// @todo Is it ok to make duplication check for O(N) here?
+    /// Especially when we make RemoveDuplicatingLinear later.
     if (!ResultExists(*p, m_tentativeResults, m_params.m_minDistanceBetweenResultsM))
       m_tentativeResults.push_back(move(*p));
   };
@@ -802,7 +826,8 @@ void Ranker::GetBestMatchName(FeatureType & f, string & name) const
 {
   int8_t bestLang = StringUtf8Multilang::kUnsupportedLanguageCode;
   KeywordLangMatcher::Score bestScore;
-  auto updateScore = [&](int8_t lang, string const & s, bool force) {
+  auto updateScore = [&](int8_t lang, string_view s, bool force)
+  {
     // Ignore name for categorial requests.
     auto const score = m_keywordsScorer.CalcScore(lang, m_params.m_categorialRequest ? "" : s);
     if (force ? bestScore <= score : bestScore < score)
@@ -813,12 +838,14 @@ void Ranker::GetBestMatchName(FeatureType & f, string & name) const
     }
   };
 
-  auto bestNameFinder = [&](int8_t lang, string const & s) {
+  auto bestNameFinder = [&](int8_t lang, string_view s)
+  {
     if (lang == StringUtf8Multilang::kAltNameCode || lang == StringUtf8Multilang::kOldNameCode)
     {
-      auto const names = strings::Tokenize(s, ";");
-      for (auto const & n : names)
+      strings::Tokenize(s, ";", [lang, &updateScore](std::string_view n)
+      {
         updateScore(lang, n, true /* force */);
+      });
     }
     else
     {
@@ -840,11 +867,10 @@ void Ranker::GetBestMatchName(FeatureType & f, string & name) const
   if (bestLang == StringUtf8Multilang::kAltNameCode ||
       bestLang == StringUtf8Multilang::kOldNameCode)
   {
-    string readableName;
-    f.GetReadableName(readableName);
+    string_view const readableName = f.GetReadableName();
     // Do nothing if alt/old name is the only name we have.
     if (readableName != name && !readableName.empty())
-      name = readableName + " (" + name + ")";
+      name = std::string(readableName) + " (" + name + ")";
   }
 }
 
@@ -867,32 +893,31 @@ void Ranker::MatchForSuggestions(strings::UniString const & token, int8_t locale
   }
 }
 
-void Ranker::ProcessSuggestions(vector<RankerResult> & vec) const
+void Ranker::ProcessSuggestions(vector<RankerResult> const & vec) const
 {
   if (m_params.m_prefix.empty() || !m_params.m_suggestsEnabled)
     return;
 
   size_t added = 0;
-  for (auto i = vec.begin(); i != vec.end();)
+  for (RankerResult const & r : vec)
   {
-    RankerResult const & r = *i;
+    if (added >= kMaxNumSuggests)
+      break;
 
     ftypes::LocalityType const type = GetLocalityIndex(r.GetTypes());
     if (type == ftypes::LocalityType::Country || type == ftypes::LocalityType::City || r.IsStreet())
     {
-      string suggestion;
-      GetSuggestion(r, m_params.m_query, m_params.m_tokens, m_params.m_prefix, suggestion);
-      if (!suggestion.empty() && added < kMaxNumSuggests)
+      string suggestion = GetSuggestion(r, m_params.m_query, m_params.m_tokens, m_params.m_prefix);
+      if (!suggestion.empty())
       {
         // todo(@m) RankingInfo is lost here. Should it be?
-        if (m_emitter.AddResult(Result(
-                MakeResult(r, false /* needAddress */, true /* needHighlighting */), suggestion)))
+        if (m_emitter.AddResult(Result(MakeResult(r, false /* needAddress */, true /* needHighlighting */),
+                                       move(suggestion))))
         {
           ++added;
         }
       }
     }
-    ++i;
   }
 }
 

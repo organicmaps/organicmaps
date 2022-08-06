@@ -1,6 +1,5 @@
 #pragma once
 
-#include "routing/base/astar_algorithm.hpp"
 #include "routing/base/astar_graph.hpp"
 #include "routing/base/astar_vertex_data.hpp"
 
@@ -18,8 +17,6 @@
 
 #include "geometry/point2d.hpp"
 
-#include <cstdint>
-#include <map>
 #include <memory>
 #include <optional>
 #include <unordered_map>
@@ -79,6 +76,8 @@ public:
   RoadJointIds const & GetRoad(uint32_t featureId) const { return m_roadIndex.GetRoad(featureId); }
   RoadGeometry const & GetRoadGeometry(uint32_t featureId) const { return m_geometry->GetRoad(featureId); }
 
+  Geometry & GetGeometry() const { return *m_geometry; }
+
   RoadAccess::Type GetAccessType(Segment const & segment) const
   {
     return m_roadAccess.GetAccessWithoutConditional(segment.GetFeatureId()).first;
@@ -134,6 +133,10 @@ public:
 
   bool IsUTurnAndRestricted(Segment const & parent, Segment const & child, bool isOutgoing) const;
 
+  /// @param[in]  isOutgoing true, when movig from -> to, false otherwise.
+  /// @param[in]  prevWeight used for fetching access:conditional.
+  /// I suppose :) its time when user will be at the end of |from| (|to| if \a isOutgoing == false) segment.
+  /// @return Transition weight + |to| (|from| if \a isOutgoing == false) segment's weight.
   RouteWeight CalculateEdgeWeight(EdgeEstimator::Purpose purpose, bool isOutgoing,
                                   Segment const & from, Segment const & to,
                                   std::optional<RouteWeight const> const & prevWeight = std::nullopt) const;

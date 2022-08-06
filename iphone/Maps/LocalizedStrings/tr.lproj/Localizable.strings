@@ -26,13 +26,10 @@
 /* Leave Review dialog - Review button */
 "leave_a_review" = "Bir Yorum Bırak";
 
-/* View and button titles for accessibility */
-"maps" = "Haritalar";
-
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "Mil";
 
-/* View and button titles for accessibility */
+/* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Konumum";
 
 /* Update maps later/Buy pro version later button text */
@@ -145,6 +142,9 @@
 
 /* Search category for police; any changes should be duplicated in categories.txt @police! */
 "police" = "Polis";
+
+/* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
+"wifi" = "WiFi";
 
 /* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
 "recycling" = "Geri dönüşüm";
@@ -261,6 +261,9 @@
 /* Text in menu */
 "website" = "Web Sitesi";
 
+/* Text in About menu, opens Organic Maps news website */
+"news" = "Haberler";
+
 /* Text in menu */
 "github" = "GitHub";
 
@@ -312,13 +315,10 @@
 /* Settings item title */
 "pref_calibration_title" = "Pusula kalibrasyonu";
 
-/* Search category */
-"wifi" = "WiFi";
-
 /* Update all button text */
 "downloader_update_all_button" = "Tümünü güncelle";
 
-/* Downloaded maps category */
+/* Downloaded maps list header */
 "downloader_downloaded_subtitle" = "İndirilenler";
 
 /* Downloaded maps category */
@@ -329,6 +329,7 @@
 
 "downloader_near_me_subtitle" = "Yakınlarımda";
 
+/* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
 "downloader_status_maps" = "Haritalar";
 
 "downloader_download_all_button" = "Hepsini İndir";
@@ -419,9 +420,6 @@
 /* blue gray color */
 "blue_gray" = "Mavi Gri";
 
-/* Wi-Fi available */
-"WiFi_available" = "Evet";
-
 
 /********** Routing dialogs strings **********/
 
@@ -505,6 +503,10 @@
 
 "history" = "Geçmiş";
 
+"opens_in" = "%@ sonra açılıyor";
+
+"closes_in" = "%@ sonra kapanıyor";
+
 "closed" = "Kapalı";
 
 "search_not_found" = "Üzgünüz, hiç bir şey bulamadık.";
@@ -566,7 +568,7 @@
 "closed_now" = "Şu anda kapalı";
 
 /* Place Page opening hours text */
-"daily" = "Günlük";
+"daily" = "Her gün";
 
 "twentyfour_seven" = "7/24";
 
@@ -743,9 +745,12 @@
 
 "mile" = "mil";
 
+/* A unit of measure */
 "foot" = "fit";
 
 "miles_per_hour" = "saatte mil";
+
+"minute" = "dk";
 
 "placepage_place_description" = "Açıklama";
 
@@ -788,7 +793,7 @@
 
 "refresh" = "Yenile";
 
-"placepage_add_place_button" = "Haritaya bir yer ekleyin";
+"placepage_add_place_button" = "Haritaya bir yer ekle";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Bunu tüm kullanıcılara göndermek ister misiniz?";
@@ -1025,9 +1030,17 @@
 
 "redirect_route_alert" = "Yeniden bir rota oluşturmak ister misiniz?";
 
-"redirect_route_yes" = "Evet";
+/* A generic "Yes" button in dialogs */
+"yes" = "Evet";
 
-"redirect_route_no" = "Hayır";
+/* A generic "No" button in dialogs */
+"no" = "Hayır";
+
+/* E.g. "WiFi:Yes" */
+"yes_available" = "Var";
+
+/* E.g. "WiFi:No" */
+"no_available" = "Yok";
 
 "trip_finished" = "Vardınız!";
 
@@ -1245,6 +1258,8 @@
 
 "type.amenity.bicycle_rental" = "Bisiklet Kiralama";
 
+"type.amenity.bicycle_repair_station" = "Bisiklet tamir istasyonu";
+
 "type.amenity.biergarten" = "Bira Bahçesi";
 
 "type.amenity.brothel" = "Genelev";
@@ -1377,7 +1392,7 @@
 
 "type.amenity.prison" = "Hapishane";
 
-"type.amenity.pub" = "Bar";
+"type.amenity.pub" = "Meyhane";
 
 "type.amenity.public_bookcase" = "Kitap Değişimi";
 
@@ -1442,15 +1457,25 @@
 
 "type.amenity.vending_machine.cigarettes" = "Sigara Dağıtıcı";
 
+"type.amenity.vending_machine.coffee" = "Coffee Dispenser";
+
+"type.amenity.vending_machine.condoms" = "Condoms Dispenser";
+
 "type.amenity.vending_machine.drinks" = "İçecek Dağıtıcı";
+
+"type.amenity.vending_machine.food" = "Food Dispenser";
+
+"type.amenity.vending_machine.newspapers" = "Newspapers Dispenser";
 
 "type.amenity.vending_machine.parking_tickets" = "Otopark Fişi";
 
 "type.amenity.vending_machine.public_transport_tickets" = "Toplu Taşıma Biletleri için Otomatlar";
 
+"type.amenity.vending_machine.sweets" = "Sweets Dispenser";
+
 "type.amenity.vending_machine.excrement_bags" = "Dışkı Torbası Dağıtıcı";
 
-"type.amenity.parcel_locker" = "Posta Kutusu";
+"type.amenity.parcel_locker" = "Kilitlenebilen Kutu Dolaplar";
 
 "type.amenity.vending_machine.fuel" = "Yakıt Dağıtıcı";
 
@@ -1458,7 +1483,7 @@
 
 "type.amenity.waste_basket" = "Çöp Kutusu";
 
-"type.amenity.waste_disposal" = "Çöp Kutusu";
+"type.amenity.waste_disposal" = "Çöp Konteyneri";
 
 "type.amenity.waste_transfer_station" = "Atık Transfer İstasyonu";
 
@@ -1552,16 +1577,29 @@
 
 "type.building.warehouse" = "Depo";
 
+"type.cemetery.grave" = "Mezar";
+
 "type.craft" = "Zanaat";
+
+"type.craft.beekeeper" = "Arıcı";
+
+"type.craft.blacksmith" = "Demirci";
 
 "type.craft.brewery" = "Bira Fabrikası";
 
 "type.craft.carpenter" = "Marangoz";
 
+"type.craft.confectionery" = "Confectionery";
+
 "type.craft.electrician" = "Elektrikçi";
+
+"type.craft.electronics_repair" = "Elektronik Tamircisi";
 
 "type.craft.gardener" = "Bahçe Düzenleyici";
 
+"type.craft.handicraft" = "El İşi";
+
+/* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Klimacı";
 
 "type.craft.metal_construction" = "Dökümcü";
@@ -1572,7 +1610,11 @@
 
 "type.craft.plumber" = "Tesisatçı";
 
+"type.craft.sawmill" = "Sawmill";
+
 "type.craft.shoemaker" = "Ayakkabı Tamircisi";
+
+"type.craft.winery" = "Winery";
 
 "type.craft.tailor" = "Terzi";
 
@@ -1601,6 +1643,8 @@
 "type.cuisine.brazilian" = "Brezilya mutfağı";
 
 "type.cuisine.breakfast" = "Kahvaltı";
+
+"type.cuisine.bubble_tea" = "Bubble Tea";
 
 "type.cuisine.burger" = "Hamburger";
 
@@ -1765,11 +1809,13 @@
 
 "type.highway.bridleway" = "Atlı Yolu";
 
-"type.highway.bridleway.bridge" = "Atlı Yolu";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.bridleway.bridge" = "Köprü";
 
 "type.highway.bridleway.permissive" = "Atlı Yolu";
 
-"type.highway.bridleway.tunnel" = "Atlı Yolu";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.bridleway.tunnel" = "Tünel";
 
 "type.highway.bus_stop" = "Otobüs Durağı";
 
@@ -1777,11 +1823,13 @@
 
 "type.highway.cycleway" = "Bisiklet Yolu";
 
-"type.highway.cycleway.bridge" = "Bisiklet Yolu";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.cycleway.bridge" = "Köprü";
 
 "type.highway.cycleway.permissive" = "Bisiklet Yolu";
 
-"type.highway.cycleway.tunnel" = "Bisiklet Yolu";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.cycleway.tunnel" = "Tünel";
 
 "type.highway.elevator" = "Asansör";
 
@@ -1791,7 +1839,8 @@
 
 "type.highway.footway.area" = "Yaya Alanı";
 
-"type.highway.footway.bridge" = "Yaya Yolu";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.footway.bridge" = "Köprü";
 
 "type.highway.footway.demanding_alpine_hiking" = "Yol";
 
@@ -1805,29 +1854,36 @@
 
 "type.highway.footway.permissive" = "Yaya Yolu";
 
-"type.highway.footway.tunnel" = "Yaya Yolu";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.footway.tunnel" = "Tünel";
 
 "type.highway.ford" = "Geçit";
 
 "type.highway.living_street" = "Cadde";
 
-"type.highway.living_street.bridge" = "Cadde";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.living_street.bridge" = "Köprü";
 
-"type.highway.living_street.tunnel" = "Cadde";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.living_street.tunnel" = "Tünel";
 
 "type.highway.motorway" = "Otoyol";
 
-"type.highway.motorway.bridge" = "Otoyol";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway.bridge" = "Köprü";
 
-"type.highway.motorway.tunnel" = "Otoyol";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway.tunnel" = "Tünel";
 
 "type.highway.motorway_junction" = "Çıkış";
 
 "type.highway.motorway_link" = "Otoyol Rampası";
 
-"type.highway.motorway_link.bridge" = "Otoyol Rampası";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway_link.bridge" = "Köprü";
 
-"type.highway.motorway_link.tunnel" = "Otoyol Rampası";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway_link.tunnel" = "Tünel";
 
 "type.highway.path" = "Yol";
 
@@ -1835,7 +1891,8 @@
 
 "type.highway.path.bicycle" = "Bisiklet ve Yürüyüş Yolu";
 
-"type.highway.path.bridge" = "Yol";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.path.bridge" = "Köprü";
 
 "type.highway.path.demanding_alpine_hiking" = "Yol";
 
@@ -1851,27 +1908,34 @@
 
 "type.highway.path.permissive" = "Yol";
 
-"type.highway.path.tunnel" = "Yol";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.path.tunnel" = "Tünel";
 
 "type.highway.pedestrian" = "Yayalar için Cadde";
 
 "type.highway.pedestrian.area" = "Yaya Alanı";
 
-"type.highway.pedestrian.bridge" = "Yayalar için Cadde";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.pedestrian.bridge" = "Köprü";
 
-"type.highway.pedestrian.tunnel" = "Yayalar için Cadde";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.pedestrian.tunnel" = "Tünel";
 
 "type.highway.primary" = "Ana Yol";
 
-"type.highway.primary.bridge" = "Ana Yol";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary.bridge" = "Köprü";
 
-"type.highway.primary.tunnel" = "Ana Yol";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary.tunnel" = "Tünel";
 
 "type.highway.primary_link" = "Ana Yol";
 
-"type.highway.primary_link.bridge" = "Ana Yol";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary_link.bridge" = "Köprü";
 
-"type.highway.primary_link.tunnel" = "Ana Yol";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary_link.tunnel" = "Tünel";
 
 "type.highway.raceway" = "Yarış Pisti";
 
@@ -1879,41 +1943,51 @@
 
 "type.highway.residential.area" = "Sokak";
 
-"type.highway.residential.bridge" = "Sokak";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.residential.bridge" = "Köprü";
 
-"type.highway.residential.tunnel" = "Sokak";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.residential.tunnel" = "Tünel";
 
 "type.highway.rest_area" = "Dinlenme Alanı";
 
 "type.highway.road" = "Yol";
 
-"type.highway.road.bridge" = "Yol";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.road.bridge" = "Köprü";
 
-"type.highway.road.tunnel" = "Yol";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.road.tunnel" = "Tünel";
 
 "type.highway.secondary" = "Tali Yol";
 
-"type.highway.secondary.bridge" = "Tali Yol";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary.bridge" = "Köprü";
 
-"type.highway.secondary.tunnel" = "Tali Yol";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary.tunnel" = "Tünel";
 
 "type.highway.secondary_link" = "Tali Yol";
 
-"type.highway.secondary_link.bridge" = "Tali Yol";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary_link.bridge" = "Köprü";
 
-"type.highway.secondary_link.tunnel" = "Tali Yol";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary_link.tunnel" = "Tünel";
 
 "type.highway.service" = "Servis Yolu";
 
 "type.highway.service.area" = "Servis Yolu";
 
-"type.highway.service.bridge" = "Servis Yolu";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.service.bridge" = "Köprü";
 
 "type.highway.service.driveway" = "Servis Yolu";
 
 "type.highway.service.parking_aisle" = "Park Koridoru";
 
-"type.highway.service.tunnel" = "Servis Yolu";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.service.tunnel" = "Tünel";
 
 "type.highway.services" = "Servis Alanı";
 
@@ -1921,27 +1995,34 @@
 
 "type.highway.steps" = "Merdiven";
 
-"type.highway.steps.bridge" = "Merdiven";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.steps.bridge" = "Köprü";
 
-"type.highway.steps.tunnel" = "Merdiven";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.steps.tunnel" = "Tünel";
 
 "type.highway.tertiary" = "Üçüncül Yol";
 
-"type.highway.tertiary.bridge" = "Üçüncül Yol";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary.bridge" = "Köprü";
 
-"type.highway.tertiary.tunnel" = "Üçüncül Yol";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary.tunnel" = "Tünel";
 
 "type.highway.tertiary_link" = "Üçüncül Yol Rampası";
 
-"type.highway.tertiary_link.bridge" = "Üçüncül Yol Rampası";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary_link.bridge" = "Köprü";
 
-"type.highway.tertiary_link.tunnel" = "Üçüncül Yol Rampası";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary_link.tunnel" = "Tünel";
 
 "type.highway.track" = "Pist";
 
 "type.highway.track.area" = "Pist";
 
-"type.highway.track.bridge" = "Pist";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.track.bridge" = "Köprü";
 
 "type.highway.track.grade1" = "Pist";
 
@@ -1957,29 +2038,36 @@
 
 "type.highway.track.permissive" = "Pist";
 
-"type.highway.track.tunnel" = "Pist";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.track.tunnel" = "Tünel";
 
 "type.highway.traffic_signals" = "Trafik Işıkları";
 
 "type.highway.trunk" = "Devlet Yolu";
 
-"type.highway.trunk.bridge" = "Devlet Yolu";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk.bridge" = "Köprü";
 
-"type.highway.trunk.tunnel" = "Devlet Yolu";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk.tunnel" = "Tünel";
 
 "type.highway.trunk_link" = "Devlet Yolu";
 
-"type.highway.trunk_link.bridge" = "Devlet Yolu";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk_link.bridge" = "Köprü";
 
-"type.highway.trunk_link.tunnel" = "Devlet Yolu";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk_link.tunnel" = "Tünel";
 
 "type.highway.unclassified" = "Tali Yol";
 
 "type.highway.unclassified.area" = "Tali Yol";
 
-"type.highway.unclassified.bridge" = "Tali Yol";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.unclassified.bridge" = "Köprü";
 
-"type.highway.unclassified.tunnel" = "Tali Yol";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.unclassified.tunnel" = "Tünel";
 
 "type.area_highway.cycleway" = "Bisiklet Yolu";
 
@@ -2036,7 +2124,7 @@
 
 "type.historic.fort" = "Hisar";
 
-"type.historic.memorial" = "Anıt";
+"type.historic.memorial" = "Abide";
 
 "type.historic.memorial.plaque" = "Hatıra Plaketi";
 
@@ -2109,6 +2197,8 @@
 "type.landuse.commercial" = "Ticari Alan";
 
 "type.landuse.construction" = "Yapı";
+
+"type.landuse.education" = "Educational Facilities";
 
 "type.landuse.farm" = "Çiftlik";
 
@@ -2206,13 +2296,9 @@
 
 "type.leisure.sports_centre" = "Spor Merkezi";
 
-"type.leisure.sports_centre.climbing" = "Tırmanma Merkezi";
+"type.sport.climbing" = "Tırmanma Merkezi";
 
-"type.leisure.sports_centre.shooting" = "Poligon";
-
-"type.leisure.sports_centre.swimming" = "Yüzme Merkezi";
-
-"type.leisure.sports_centre.yoga" = "Yoga Stüdyosu";
+"type.sport.yoga" = "Yoga Stüdyosu";
 
 "type.leisure.stadium" = "Stadyum";
 
@@ -2236,6 +2322,8 @@
 
 "type.man_made.cutline" = "Kesme Çizgisi";
 
+"type.man_made.survey_point" = "Survey Point";
+
 "type.man_made.flagpole" = "Bayrak Direği";
 
 "type.man_made.lighthouse" = "Deniz Feneri";
@@ -2258,7 +2346,7 @@
 
 "type.man_made.wastewater_plant" = "Atıksu Tesisi";
 
-"type.man_made.water_tap" = "Çeşme Suyu";
+"type.man_made.water_tap" = "Su Musluğu";
 
 "type.man_made.water_tower" = "Su Kulesi";
 
@@ -2278,7 +2366,7 @@
 
 "type.mountain_pass" = "Boğaz";
 
-"type.natural" = "Doğal";
+"type.natural" = "Doğa";
 
 "type.natural.bare_rock" = "Çıplak Kaya";
 
@@ -2296,19 +2384,25 @@
 
 "type.natural.cliff" = "Uçurum";
 
+"type.natural.earth_bank" = "Uçurum";
+
+"type.man_made.embankment" = "Set";
+
 "type.natural.coastline" = "Kıyı Şeridi";
 
 "type.natural.geyser" = "Gayzer";
 
 "type.natural.glacier" = "Buzul";
 
-"type.natural.grassland" = "Yeşillik";
+"type.natural.grassland" = "Campo";
 
 "type.natural.heath" = "Çalı";
 
 "type.natural.hot_spring" = "Kaplıca";
 
 "type.natural.water.lake" = "Göl";
+
+"type.natural.water.lock" = "Kilit Odası";
 
 "type.natural.water.pond" = "Gölet";
 
@@ -2356,19 +2450,23 @@
 
 "type.office" = "Ofis";
 
-"type.office.company" = "Şirket bürosu";
+"type.office.company" = "Şirket Bürosu";
 
 "type.office.estate_agent" = "Emlakçı";
 
-"type.office.government" = "Devlet dairesi";
+"type.office.government" = "Devlet Dairesi";
 
-"type.office.insurance" = "Sigorta Acentası";
+"type.office.insurance" = "Sigorta Acentesi";
 
-"type.office.lawyer" = "Avukatlık bürosu";
+"type.office.lawyer" = "Avukatlık Bürosu";
 
 "type.office.ngo" = "STK Binası";
 
-"type.office.telecommunication" = "Cep telefonu operatörü";
+"type.office.telecommunication" = "Cep Telefonu Operatörü";
+
+"type.organic.only" = "Organic";
+
+"type.organic.yes" = "Organic";
 
 "type.place" = "Yer";
 
@@ -2626,7 +2724,7 @@
 
 "type.shop.beauty" = "Güzellik Salonu";
 
-"type.shop.beverages" = "İçecek";
+"type.shop.beverages" = "İçecekler";
 
 "type.shop.bicycle" = "Bisikletçi";
 
@@ -2664,6 +2762,8 @@
 
 "type.shop.cosmetics" = "Bakım ürünleri";
 
+"type.shop.deli" = "Şarküteri Dükkanı";
+
 "type.shop.department_store" = "Büyük Mağaza";
 
 "type.shop.doityourself" = "Hırdavatçı";
@@ -2675,6 +2775,8 @@
 "type.shop.erotic" = "Erotik Ürünler Mağazası";
 
 "type.shop.fabric" = "Mağaza";
+
+"type.shop.farm" = "Çiftlik Gıda Dükkanı";
 
 "type.shop.florist" = "Çiçekçi";
 
@@ -2688,13 +2790,21 @@
 
 "type.shop.greengrocer" = "Manav";
 
+"type.shop.grocery" = "Bakkal";
+
 "type.shop.hairdresser" = "Kuaför";
 
-"type.shop.hardware" = "Hırdavatçı";
+"type.shop.hardware" = "Donanım mağazası";
+
+"type.shop.health_food" = "Sağlık Gıda Mağazası";
+
+"type.shop.houseware" = "Ev Eşyaları Dükkanı";
 
 "type.shop.jewelry" = "Kuyumcu";
 
 "type.shop.kiosk" = "Büfe";
+
+"type.shop.kitchen" = "Mutfak Mağazası";
 
 "type.shop.laundry" = "Çamaşırhane";
 
@@ -2718,6 +2828,8 @@
 
 "type.shop.outdoor" = "Dış Mekan Ekipmanları";
 
+"type.shop.pastry" = "Hamur işi";
+
 "type.shop.pawnbroker" = "Tefeci";
 
 "type.shop.pet" = "Evcil Hayvan Mağazası";
@@ -2725,6 +2837,8 @@
 "type.shop.photo" = "Fotoğrafçı";
 
 "type.shop.seafood" = "Deniz Ürünleri Mağazası";
+
+"type.shop.second_hand" = "İkinci El Mağazası";
 
 "type.shop.shoes" = "Ayakkabı Mağazası";
 
@@ -2754,6 +2868,52 @@
 
 "type.shop.wine" = "Şarap Mağazası";
 
+"type.shop.antiques" = "Antikalar";
+
+"type.shop.art" = "Sanat Mağazası";
+
+"type.shop.baby_goods" = "Çocuk mağazası";
+
+"type.shop.bag" = "Çanta Mağazası";
+
+"type.shop.boutique" = "Butik";
+
+"type.shop.charity" = "Hayır Dükkanı";
+
+"type.shop.cheese" = "Peynir Dükkanı";
+
+"type.shop.craft" = "Sanat ve El işi";
+
+"type.shop.dairy" = "Süt Ürünleri";
+
+"type.shop.electrical" = "Elektirikli eşya dükkanı";
+
+"type.shop.fishing" = "Balıkçı Dükkanı";
+
+"type.shop.interior_decoration" = "İç Dekorasyon";
+
+"type.shop.lottery" = "Piyango bileti";
+
+"type.shop.medical_supply" = "Tıbbi malzemeler";
+
+"type.shop.nutrition_supplements" = "Besin Takviyeleri";
+
+"type.shop.paint" = "Boyalar";
+
+"type.shop.perfumery" = "Parfümeri";
+
+"type.shop.sewing" = "Dikiş malzemeleri";
+
+"type.shop.storage_rental" = "Depolama Kiralama";
+
+"type.shop.tobacco" = "Tütün";
+
+"type.shop.trade" = "Esnaf Malzemeleri";
+
+"type.shop.watches" = "Saatler";
+
+"type.shop.wholesale" = "Toptan satış mağazası";
+
 "type.sport" = "Spor";
 
 "type.sport.american_football" = "Amerikan Futbolu";
@@ -2762,19 +2922,21 @@
 
 "type.sport.athletics" = "Atletizm";
 
-"type.sport.australian_football" = "Ragbi";
+"type.sport.australian_football" = "Avustralya futbolu";
 
 "type.sport.baseball" = "Beyzbol";
 
 "type.sport.basketball" = "Basketbol";
 
+"type.sport.beachvolleyball" = "Plaj voleybolu";
+
 "type.sport.bowls" = "Kuka Oynu";
+
+"type.sport.chess" = "Satranç";
 
 "type.sport.cricket" = "Kriket";
 
-"type.sport.curling" = "Сurling";
-
-"type.sport.diving" = "Dalış";
+"type.sport.curling" = "Körling";
 
 "type.sport.equestrian" = "Binicilik Sporları";
 
@@ -2786,23 +2948,34 @@
 
 "type.sport.multi" = "Çeşitli Sporlar";
 
+/* Used to tag a scuba diving site. */
 "type.sport.scuba_diving" = "Tüplü Dalış";
 
-"type.sport.shooting" = "Atış Sporları";
+"type.sport.shooting" = "Çekim";
 
-"type.sport.skiing" = "Kayak";
+"type.sport.skateboard" = "Kaykay";
+
+"type.sport.skiing" = "Kayak yapmak";
 
 "type.sport.soccer" = "Futbol";
 
 "type.sport.swimming" = "Yüzme";
 
+"type.sport.table_tennis" = "Masa tenisi";
+
 "type.sport.tennis" = "Tenis Kortu";
+
+"type.sport.volleyball" = "Voleybol";
+
+"type.sport.9pin" = "Bowling";
+
+"type.sport.10pin" = "Bowling";
 
 "type.tourism" = "Turizm";
 
 "type.tourism.alpine_hut" = "Dağda Konaklama";
 
-"type.tourism.apartment" = "Apart otel";
+"type.tourism.apartment" = "Apart Otel";
 
 "type.tourism.artwork" = "Sanat";
 
@@ -2838,7 +3011,7 @@
 
 "type.tourism.information.board" = "Bilgi Panosu";
 
-"type.tourism.information.guidepost" = "Turist Bilgilendirme";
+"type.tourism.information.guidepost" = "Kılavuz direği";
 
 "type.tourism.information.map" = "Turist Haritası";
 
@@ -2883,8 +3056,6 @@
 "type.waterway.drain" = "Lağım";
 
 "type.waterway.drain.tunnel" = "Lağım";
-
-"type.waterway.lock" = "Kanal Havuzu";
 
 "type.waterway.lock_gate" = "Kilit Kapısı";
 
@@ -2948,3 +3119,5 @@
 "type.piste_type.sled" = "Kızak Pisti";
 
 "type.building_part" = "Bina";
+
+"type.amenity.events_venue" = "Etkinlik mekanı";

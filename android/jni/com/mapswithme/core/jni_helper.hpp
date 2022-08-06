@@ -22,7 +22,7 @@ extern jclass g_httpClientClazz;
 extern jclass g_httpParamsClazz;
 extern jclass g_platformSocketClazz;
 extern jclass g_utilsClazz;
-extern jclass g_loggerFactoryClazz;
+extern jclass g_loggerClazz;
 extern jclass g_keyValueClazz;
 extern jclass g_httpUploaderClazz;
 extern jclass g_httpPayloadClazz;
@@ -53,6 +53,11 @@ jstring ToJavaString(JNIEnv * env, char const * s);
 inline jstring ToJavaString(JNIEnv * env, std::string const & s)
 {
   return ToJavaString(env, s.c_str());
+}
+inline jstring ToJavaString(JNIEnv * env, std::string_view sv)
+{
+  /// @todo Make conversion without a temporary some day.
+  return ToJavaString(env, std::string(sv).c_str());
 }
 
 jclass GetStringClass(JNIEnv * env);

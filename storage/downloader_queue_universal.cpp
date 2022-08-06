@@ -16,7 +16,7 @@ size_t Queue::Count() const
 
 bool Queue::Contains(CountryId const & country) const
 {
-  return std::find(m_queue.cbegin(), m_queue.cend(), country) != m_queue.cend();
+  return base::IsExist(m_queue, country);
 }
 
 void Queue::ForEachCountry(ForEachCountryFunction const & fn) const

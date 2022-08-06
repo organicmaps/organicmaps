@@ -179,9 +179,9 @@ public:
       return;
     for (auto const lang : m_params.GetLangs())
     {
-      string name;
-      if (ft->GetName(lang, name))
-        names.push_back(name);
+      string_view name = ft->GetName(lang);
+      if (!name.empty())
+        names.push_back(std::string(name));
     }
   }
 
@@ -232,17 +232,23 @@ void JoinQueryTokens(QueryParams const & params, TokenRange const & range, UniSt
   }
 }
 
-WARN_UNUSED_RESULT bool GetAffiliationName(FeatureType & ft, string & affiliation)
+/// @todo Can't change on string_view now, because of unordered_map<string> Affiliations.
+[[nodiscard]] bool GetAffiliationName(FeatureType & ft, string & affiliation)
 {
-  affiliation.clear();
+  string_view name = ft.GetName(StringUtf8Multilang::kDefaultCode);
+  if (name.empty())
+  {
+    // As a best effort, we try to read an english name if default name is absent.
+    name = ft.GetName(StringUtf8Multilang::kEnglishCode);
+    if (name.empty())
+    {
+      affiliation.clear();
+      return false;
+    }
+  }
 
-  if (ft.GetName(StringUtf8Multilang::kDefaultCode, affiliation) && !affiliation.empty())
-    return true;
-
-  // As a best effort, we try to read an english name if default name is absent.
-  if (ft.GetName(StringUtf8Multilang::kEnglishCode, affiliation) && !affiliation.empty())
-    return true;
-  return false;
+  affiliation = name;
+  return true;
 }
 
 double Area(m2::RectD const & rect) { return rect.IsValid() ? rect.SizeX() * rect.SizeY() : 0; }
@@ -728,7 +734,8 @@ void Geocoder::CacheWorldLocalities()
 
 void Geocoder::FillLocalitiesTable(BaseContext const & ctx)
 {
-  auto addRegionMaps = [&](FeatureType & ft, Locality const & l, Region::Type type) {
+  auto addRegionMaps = [&](FeatureType & ft, Locality const & l, Region::Type type)
+  {
     if (ft.GetGeomType() != feature::GeomType::Point)
       return;
 
@@ -739,11 +746,11 @@ void Geocoder::FillLocalitiesTable(BaseContext const & ctx)
     Region region(l, type);
     region.m_center = ft.GetCenter();
 
-    ft.GetName(StringUtf8Multilang::kDefaultCode, region.m_defaultName);
+    region.m_defaultName = ft.GetName(StringUtf8Multilang::kDefaultCode);
     LOG(LDEBUG, ("Region =", region.m_defaultName));
 
     m_infoGetter.GetMatchedRegions(affiliation, region.m_ids);
-    m_regions[type][l.m_tokenRange].push_back(region);
+    m_regions[type][l.m_tokenRange].push_back(std::move(region));
   };
 
   vector<Locality> preLocalities;
@@ -808,8 +815,8 @@ void Geocoder::FillLocalitiesTable(BaseContext const & ctx)
         city.m_rect = mercator::RectByCenterXYAndSizeInMeters(center, radius);
       }
 
-#if defined(DEBUG)
-      ft->GetName(StringUtf8Multilang::kDefaultCode, city.m_defaultName);
+#ifdef DEBUG
+      city.m_defaultName = ft->GetName(StringUtf8Multilang::kDefaultCode);
       LOG(LINFO,
           ("City =", city.m_defaultName, "rect =", city.m_rect,
            "rect source:", haveBoundary ? "table" : "population",
@@ -817,7 +824,7 @@ void Geocoder::FillLocalitiesTable(BaseContext const & ctx)
            "sizeY =", mercator::DistanceOnEarth(city.m_rect.LeftTop(), city.m_rect.LeftBottom())));
 #endif
 
-      m_cities[city.m_tokenRange].push_back(city);
+      m_cities[city.m_tokenRange].push_back(std::move(city));
     }
   }
 }
@@ -863,12 +870,12 @@ void Geocoder::FillVillageLocalities(BaseContext const & ctx)
     auto const radius = ftypes::GetRadiusByPopulation(population);
     village.m_rect = mercator::RectByCenterXYAndSizeInMeters(center, radius);
 
-#if defined(DEBUG)
-    ft->GetName(StringUtf8Multilang::kDefaultCode, village.m_defaultName);
+#ifdef DEBUG
+    village.m_defaultName = ft->GetName(StringUtf8Multilang::kDefaultCode);
     LOG(LDEBUG, ("Village =", village.m_defaultName, "radius =", radius));
 #endif
 
-    m_cities[village.m_tokenRange].push_back(village);
+    m_cities[village.m_tokenRange].push_back(std::move(village));
     if (numVillages >= kMaxNumVillages)
       break;
   }
@@ -1213,26 +1220,28 @@ void Geocoder::GreedilyMatchStreetsWithSuburbs(BaseContext & ctx,
   vector<StreetsMatcher::Prediction> suburbs;
   StreetsMatcher::Go(ctx, ctx.m_suburbs, *m_filter, m_params, suburbs);
 
+  auto const & suburbChecker = ftypes::IsSuburbChecker::Instance();
   for (auto const & suburb : suburbs)
   {
     ScopedMarkTokens mark(ctx.m_tokens, BaseContext::TOKEN_TYPE_SUBURB, suburb.m_tokenRange);
 
-    suburb.m_features.ForEach([&](uint64_t suburbId) {
-      auto ft = m_context->GetFeature(static_cast<uint32_t>(suburbId));
+    suburb.m_features.ForEach([&](uint64_t suburbId)
+    {
+      auto ft = m_context->GetFeature(base::asserted_cast<uint32_t>(suburbId));
       if (!ft)
         return;
 
       auto & layers = ctx.m_layers;
       ASSERT(layers.empty(), ());
       layers.emplace_back();
-      SCOPE_GUARD(cleanupGuard, [&]{ layers.pop_back(); });
+      SCOPE_GUARD(cleanupGuard, [&layers]{ layers.pop_back(); });
 
       auto & layer = layers.back();
       InitLayer(Model::TYPE_SUBURB, suburb.m_tokenRange, layer);
       vector<uint32_t> suburbFeatures = {ft->GetID().m_index};
       layer.m_sortedFeatures = &suburbFeatures;
 
-      auto const suburbType = ftypes::IsSuburbChecker::Instance().GetType(*ft);
+      auto const suburbType = suburbChecker.GetType(*ft);
       double radius = 0.0;
       switch (suburbType)
       {

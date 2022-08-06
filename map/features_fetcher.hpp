@@ -47,9 +47,9 @@ public:
 
   void ClearCaches();
 
-  bool IsLoaded(std::string const & countryFileName) const
+  bool IsLoaded(std::string_view countryFileName) const
   {
-    return m_dataSource.IsLoaded(platform::CountryFile(countryFileName));
+    return m_dataSource.IsLoaded(platform::CountryFile(std::string(countryFileName)));
   }
 
   void ForEachFeature(m2::RectD const & rect, std::function<void(FeatureType &)> const & fn,

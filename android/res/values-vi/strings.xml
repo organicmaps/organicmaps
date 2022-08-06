@@ -17,17 +17,15 @@
 	<string name="downloading">Đang tải xuống…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Kilômét</string>
-	<!-- View and button titles for accessibility -->
-	<string name="maps">Bản đồ</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Dặm</string>
-	<!-- View and button titles for accessibility -->
+	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">Vị trí của Tôi</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">Để sau</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Tìm kiếm</string>
-	<!-- Search box placeholder text -->
+	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">Tìm kiếm Bản đồ</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">Bạn hiện đang tắt tất cả Dịch vụ Định vị cho thiết bị hoặc ứng dụng này. Bạn vui lòng bật lại chúng trong Thiết lập.</string>
@@ -41,9 +39,10 @@
 	<string name="close">Đóng</string>
 	<string name="unsupported_phone">Cần có OpenGL được tăng tốc phần cứng. Thật không may, thiết bị của bạn không được hỗ trợ.</string>
 	<string name="download">Tải xuống</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable">Bạn vui lòng tháo cáp USB hoặc lắp thẻ nhớ vào để sử dụng Organic Maps</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="not_enough_free_space_on_sdcard">Bạn vui lòng giải phóng dung lượng trên ổ lưu trữ thẻ SD/USB để có thể sử dụng ứng dụng</string>
-	<string name="not_enough_memory">Không đủ bộ nhớ để chạy ứng dụng</string>
 	<string name="download_resources">Trước khi bạn bắt đầu, hãy để chúng tôi tải bản đồ thế giới vào thiết bị của bạn.\nBản đồ này cần %s dữ liệu.</string>
 	<string name="download_resources_continue">Đến Bản đồ</string>
 	<string name="downloading_country_can_proceed">Đang tải xuống %s. Bây giờ bạn đã có thể\nvào bản đồ.</string>
@@ -54,7 +53,7 @@
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="continue_download">Tiếp tục</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
-	<string name="download_country_failed">%s - descărcarea a eșuat</string>
+	<string name="download_country_failed">%s</string>
 	<!-- "Add new bookmark list" dialog title -->
 	<string name="add_new_set">Thêm Bộ Mới</string>
 	<!-- Bookmark Color dialog title -->
@@ -77,6 +76,8 @@
 	<string name="maps_storage">Lưu bản đồ vào</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Chọn vị trí nơi bản đồ sẽ được tải về</string>
+	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+	<string name="maps_storage_downloaded">Bản đồ</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Di chuyển bản đồ?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
@@ -123,6 +124,8 @@
 	<string name="post">Bưu điện</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
 	<string name="police">Cảnh sát</string>
+	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! -->
+	<string name="wifi">WiFi</string>
 	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
 	<string name="recycling">Tái chế rác thải</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
@@ -203,6 +206,8 @@
 	<string name="search_show_on_map">Xem trên bản đồ</string>
 	<!-- Text in menu -->
 	<string name="website">Trang web</string>
+	<!-- Text in About menu, opens Organic Maps news website -->
+	<string name="news">Tin tức</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">Phản hồi</string>
 	<!-- Text in menu -->
@@ -217,17 +222,16 @@
 	<string name="copyright">Bản quyền</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Báo cáo lỗi</string>
-	<!-- Search category -->
-	<string name="wifi">WiFi</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Cập nhật tất cả</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">Hủy tất cả</string>
-	<!-- Downloaded maps category -->
+	<!-- Downloaded maps list header -->
 	<string name="downloader_downloaded_subtitle">Đã tải xuống</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">Đã xếp hàng chờ</string>
 	<string name="downloader_near_me_subtitle">Gần tôi</string>
+	<!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
 	<string name="downloader_status_maps">Bản đồ</string>
 	<string name="downloader_download_all_button">Tải xuống tất cả</string>
 	<string name="downloader_downloading">Đang tải về:</string>
@@ -243,6 +247,8 @@
 	<string name="downloader_delete_map">Xóa Bản đồ</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">Cập nhật Bản đồ</string>
+	<!-- Preference title -->
+	<string name="google_play_services">Dịch vụ Google Play</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">Sử dụng Dịch vụ Google Play để có được vị trí hiện tại của bạn</string>
 	<!-- Text for routing error dialog -->
@@ -288,8 +294,6 @@
 	<string name="gray">Xám</string>
 	<!-- blue gray color -->
 	<string name="blue_gray">Xám xanh da trời</string>
-	<!-- Wi-Fi available -->
-	<string name="WiFi_available">Có</string>
 
 	<!-- SECTION: Routing dialogs strings -->
 	<string name="dialog_routing_disclaimer_title">Khi đi theo tuyến đường, hãy lưu ý:</string>
@@ -359,7 +363,7 @@
 	<string name="editor_example_values">Giá trị ví dụ</string>
 	<string name="editor_correct_mistake">Sửa lỗi</string>
 	<string name="editor_add_select_location">Vị trí</string>
-	<string name="editor_report_problem_desription_1">Xin mô tả chi tiết vấn đề để cộng đồng OpenStreeMap có thể sửa lỗi đó.</string>
+	<string name="editor_report_problem_desription_1">Xin mô tả chi tiết vấn đề để cộng đồng OpenStreetMap có thể sửa lỗi đó.</string>
 	<string name="editor_report_problem_desription_2">Hoặc bạn có thể tự sửa tại https://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">Gửi</string>
 	<string name="editor_report_problem_title">Vấn đề</string>
@@ -444,6 +448,7 @@
 	<string name="kilometer">km</string>
 	<string name="kilometers_per_hour">km/giờ</string>
 	<string name="mile">dặm</string>
+	<!-- A unit of measure -->
 	<string name="foot">ft</string>
 	<string name="miles_per_hour">mph</string>
 	<string name="hour">giờ</string>
@@ -542,6 +547,7 @@
 	<plurals name="tracks">
 	  <item quantity="other">%d các chặn đường</item>
 	</plurals>
+	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Thiết lập theo dõi</string>
 	<string name="crash_reports">Báo cáo sự cố</string>
 	<string name="crash_reports_description">Chúng tôi có thể sử dụng dữ liệu của bạn để cải thiện trải nghiệm trên Organic Maps. Thay đổi sẽ có hiệu lực sau khi bạn khởi động lại ứng dụng.</string>
@@ -591,6 +597,14 @@
 	<string name="avoid_toll_roads_placepage">Tránh đường trả phí</string>
 	<string name="avoid_unpaved_roads_placepage">Tránh đường đất</string>
 	<string name="avoid_ferry_crossing_placepage">Tránh bến phà</string>
+	<!-- A generic "Yes" button in dialogs -->
+	<string name="yes">Có</string>
+	<!-- A generic "No" button in dialogs -->
+	<string name="no">Không</string>
+	<!-- E.g. "WiFi:Yes" -->
+	<string name="yes_available">Có</string>
+	<!-- E.g. "WiFi:No" -->
+	<string name="no_available">Không</string>
 	<string name="ok">Ok</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Sắp xếp…</string>
@@ -646,6 +660,8 @@
 	<string name="enable_screen_sleep">Cho phép màn hình ở chế độ ngủ</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Khi được bật, màn hình sẽ được phép ở chế độ ngủ sau một thời gian không hoạt động.</string>
+	<!-- OpenStreetMap text on splash screen -->
+	<string name="splash_subtitle">Dữ liệu bản đồ từ OpenStreetMap</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Trạm Cáp Treo</string>
@@ -660,6 +676,7 @@
 	<string name="type.amenity.bench">Xe đạp</string>
 	<string name="type.amenity.bicycle_parking">Chỗ Đậu Xe Đạp</string>
 	<string name="type.amenity.bicycle_rental">Cho thuê xe đạp</string>
+	<string name="type.amenity.bicycle_repair_station">trạm sửa xe đạp</string>
 	<string name="type.amenity.biergarten">Vườn bia</string>
 	<string name="type.amenity.brothel">Giải trí</string>
 	<string name="type.amenity.bureau_de_change">Tỉ giá hiện tại</string>
@@ -772,10 +789,12 @@
 	<string name="type.building.garage">Gara</string>
 	<string name="type.building.has_parts">Tòa nhà</string>
 	<string name="type.building.train_station">Đường tàu hỏa</string>
+	<string name="type.cemetery.grave">Phần mộ</string>
 	<string name="type.craft.brewery">Nhà máy bia</string>
 	<string name="type.craft.carpenter">Thợ mộc</string>
 	<string name="type.craft.electrician">Thợ điện</string>
 	<string name="type.craft.gardener">Người thiết kế và xây dựng cảnh quan</string>
+	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Điều hòa nhiệt độ</string>
 	<string name="type.craft.metal_construction">Nhà kim khí</string>
 	<string name="type.craft.painter">Họa sỹ</string>
@@ -875,34 +894,51 @@
 	<string name="type.healthcare.laboratory">Phòng thí nghiệm y tế</string>
 
 	<!-- SECTION: Types: Roads -->
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.bridleway.bridge">Cầu</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.bridleway.tunnel">Đường hầm</string>
 	<string name="type.highway.bus_stop">Bến xe buýt</string>
 	<string name="type.highway.construction">Đường đang thi công</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.cycleway.bridge">Cầu</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.cycleway.tunnel">Đường hầm</string>
 	<string name="type.highway.footway">Đường</string>
 	<string name="type.highway.footway.alpine_hiking">Đường</string>
 	<string name="type.highway.footway.area">Đường</string>
-	<string name="type.highway.footway.bridge">Đường</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.footway.bridge">Cầu</string>
 	<string name="type.highway.footway.demanding_alpine_hiking">Đường</string>
 	<string name="type.highway.footway.demanding_mountain_hiking">Đường</string>
 	<string name="type.highway.footway.difficult_alpine_hiking">Đường</string>
 	<string name="type.highway.footway.hiking">Đường</string>
 	<string name="type.highway.footway.mountain_hiking">Đường</string>
 	<string name="type.highway.footway.permissive">Đường</string>
-	<string name="type.highway.footway.tunnel">Đường</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.footway.tunnel">Đường hầm</string>
 	<string name="type.highway.ford">Đập tràn</string>
 	<string name="type.highway.living_street">Phố</string>
-	<string name="type.highway.living_street.bridge">Phố</string>
-	<string name="type.highway.living_street.tunnel">Phố</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.living_street.bridge">Cầu</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.living_street.tunnel">Đường hầm</string>
 	<string name="type.highway.motorway">Phố</string>
-	<string name="type.highway.motorway.bridge">Phố</string>
-	<string name="type.highway.motorway.tunnel">Phố</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway.bridge">Cầu</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway.tunnel">Đường hầm</string>
 	<string name="type.highway.motorway_junction">Lối ra</string>
 	<string name="type.highway.motorway_link">Phố</string>
-	<string name="type.highway.motorway_link.bridge">Phố</string>
-	<string name="type.highway.motorway_link.tunnel">Phố</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway_link.bridge">Cầu</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway_link.tunnel">Đường hầm</string>
 	<string name="type.highway.path">Đường</string>
 	<string name="type.highway.path.alpine_hiking">Đường</string>
 	<string name="type.highway.path.bicycle">Đường</string>
-	<string name="type.highway.path.bridge">Đường</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.path.bridge">Cầu</string>
 	<string name="type.highway.path.demanding_alpine_hiking">Đường</string>
 	<string name="type.highway.path.demanding_mountain_hiking">Đường</string>
 	<string name="type.highway.path.difficult_alpine_hiking">Đường</string>
@@ -910,51 +946,75 @@
 	<string name="type.highway.path.horse">Đường</string>
 	<string name="type.highway.path.mountain_hiking">Đường</string>
 	<string name="type.highway.path.permissive">Đường</string>
-	<string name="type.highway.path.tunnel">Đường</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.path.tunnel">Đường hầm</string>
 	<string name="type.highway.pedestrian">Phố</string>
 	<string name="type.highway.pedestrian.area">Phố</string>
-	<string name="type.highway.pedestrian.bridge">Phố</string>
-	<string name="type.highway.pedestrian.tunnel">Phố</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.pedestrian.bridge">Cầu</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.pedestrian.tunnel">Đường hầm</string>
 	<string name="type.highway.primary">Phố</string>
-	<string name="type.highway.primary.bridge">Phố</string>
-	<string name="type.highway.primary.tunnel">Phố</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary.bridge">Cầu</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary.tunnel">Đường hầm</string>
 	<string name="type.highway.primary_link">Phố</string>
-	<string name="type.highway.primary_link.bridge">Phố</string>
-	<string name="type.highway.primary_link.tunnel">Phố</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary_link.bridge">Cầu</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary_link.tunnel">Đường hầm</string>
 	<string name="type.highway.raceway">Đường đua</string>
 	<string name="type.highway.residential">Phố</string>
 	<string name="type.highway.residential.area">Phố</string>
-	<string name="type.highway.residential.bridge">Phố</string>
-	<string name="type.highway.residential.tunnel">Phố</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.residential.bridge">Cầu</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.residential.tunnel">Đường hầm</string>
 	<string name="type.highway.rest_area">Khu Vực Thụt Vào Để Đỗ Xe</string>
 	<string name="type.highway.road">Phố</string>
-	<string name="type.highway.road.bridge">Phố</string>
-	<string name="type.highway.road.tunnel">Phố</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.road.bridge">Cầu</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.road.tunnel">Đường hầm</string>
 	<string name="type.highway.secondary">Phố</string>
-	<string name="type.highway.secondary.bridge">Phố</string>
-	<string name="type.highway.secondary.tunnel">Phố</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary.bridge">Cầu</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary.tunnel">Đường hầm</string>
 	<string name="type.highway.secondary_link">Phố</string>
-	<string name="type.highway.secondary_link.bridge">Phố</string>
-	<string name="type.highway.secondary_link.tunnel">Phố</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary_link.bridge">Cầu</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary_link.tunnel">Đường hầm</string>
 	<string name="type.highway.service">Phố</string>
 	<string name="type.highway.service.area">Phố</string>
-	<string name="type.highway.service.bridge">Phố</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.service.bridge">Cầu</string>
 	<string name="type.highway.service.driveway">Phố</string>
 	<string name="type.highway.service.parking_aisle">Phố</string>
-	<string name="type.highway.service.tunnel">Phố</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.service.tunnel">Đường hầm</string>
 	<string name="type.highway.speed_camera">Camera bắn tốc độ</string>
 	<string name="type.highway.steps">Đường</string>
-	<string name="type.highway.steps.bridge">Đường</string>
-	<string name="type.highway.steps.tunnel">Đường</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.steps.bridge">Cầu</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.steps.tunnel">Đường hầm</string>
 	<string name="type.highway.tertiary">Phố</string>
-	<string name="type.highway.tertiary.bridge">Phố</string>
-	<string name="type.highway.tertiary.tunnel">Phố</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary.bridge">Cầu</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary.tunnel">Đường hầm</string>
 	<string name="type.highway.tertiary_link">Phố</string>
-	<string name="type.highway.tertiary_link.bridge">Phố</string>
-	<string name="type.highway.tertiary_link.tunnel">Phố</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary_link.bridge">Cầu</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary_link.tunnel">Đường hầm</string>
 	<string name="type.highway.track">Phố</string>
 	<string name="type.highway.track.area">Phố</string>
-	<string name="type.highway.track.bridge">Phố</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.track.bridge">Cầu</string>
 	<string name="type.highway.track.grade1">Phố</string>
 	<string name="type.highway.track.grade2">Phố</string>
 	<string name="type.highway.track.grade3">Phố</string>
@@ -962,18 +1022,25 @@
 	<string name="type.highway.track.grade5">Phố</string>
 	<string name="type.highway.track.no.access">Phố</string>
 	<string name="type.highway.track.permissive">Phố</string>
-	<string name="type.highway.track.tunnel">Phố</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.track.tunnel">Đường hầm</string>
 	<string name="type.highway.traffic_signals">Đèn Giao Thông</string>
 	<string name="type.highway.trunk">Phố</string>
-	<string name="type.highway.trunk.bridge">Phố</string>
-	<string name="type.highway.trunk.tunnel">Phố</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk.bridge">Cầu</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk.tunnel">Đường hầm</string>
 	<string name="type.highway.trunk_link">Phố</string>
-	<string name="type.highway.trunk_link.bridge">Phố</string>
-	<string name="type.highway.trunk_link.tunnel">Phố</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk_link.bridge">Cầu</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk_link.tunnel">Đường hầm</string>
 	<string name="type.highway.unclassified">Phố</string>
 	<string name="type.highway.unclassified.area">Phố</string>
-	<string name="type.highway.unclassified.bridge">Phố</string>
-	<string name="type.highway.unclassified.tunnel">Phố</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.unclassified.bridge">Cầu</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.unclassified.tunnel">Đường hầm</string>
 	<string name="type.area_highway.footway">Đường</string>
 	<string name="type.area_highway.living_street">Phố</string>
 	<string name="type.area_highway.motorway">Phố</string>
@@ -1032,10 +1099,8 @@
 	<string name="type.leisure.playground">Sân chơi</string>
 	<string name="type.leisure.sauna">Sauna</string>
 	<string name="type.leisure.sports_centre">Thể thao</string>
-	<string name="type.leisure.sports_centre.climbing">Trung tâm leo núi</string>
-	<string name="type.leisure.sports_centre.shooting">Nơi bắn súng</string>
-	<string name="type.leisure.sports_centre.swimming">Trung tâm Bơi lội</string>
-	<string name="type.leisure.sports_centre.yoga">Phòng tập yoga</string>
+	<string name="type.sport.climbing">Trung tâm leo núi</string>
+	<string name="type.sport.yoga">Phòng tập yoga</string>
 	<string name="type.leisure.stadium">Sân vận động</string>
 	<string name="type.leisure.swimming_pool">Bể bơi</string>
 	<string name="type.leisure.swimming_pool.private">Bể bơi</string>
@@ -1049,26 +1114,46 @@
 	<string name="type.man_made.water_well">Giếng Nước</string>
 	<string name="type.man_made.windmill">Cối xay gió</string>
 	<string name="type.military.bunker">Boongke</string>
+	<string name="type.natural">Tự nhiên</string>
+	<string name="type.natural.bare_rock">Đá trần</string>
 	<string name="type.natural.bay">Vịnh</string>
 	<string name="type.natural.beach">Bãi biển</string>
+	<string name="type.natural.beach.sand">Bãi cát</string>
+	<string name="type.natural.beach.gravel">Bãi biển sỏi</string>
 	<string name="type.natural.cape">Áo choàng</string>
 	<string name="type.natural.cave_entrance">Hang động</string>
+	<string name="type.natural.cliff">Vách đá</string>
+	<string name="type.natural.earth_bank">Vách đá</string>
+	<string name="type.man_made.embankment">Kè</string>
+	<string name="type.natural.coastline">Bờ biển</string>
 	<string name="type.natural.geyser">Suối nước nóng</string>
 	<string name="type.natural.glacier">Sông băng</string>
-	<string name="type.natural.grassland">Cánh đồng</string>
+	<string name="type.natural.grassland">Đồng cỏ</string>
+	<string name="type.natural.heath">Cây thạch thảo</string>
+	<string name="type.natural.hot_spring">Suối nước nóng</string>
 	<string name="type.natural.water.lake">Hồ</string>
+	<string name="type.natural.water.lock">Khoang khóa</string>
 	<string name="type.natural.water.pond">Ao</string>
 	<string name="type.natural.water.reservoir">Hồ chứa</string>
 	<string name="type.natural.water.basin">Một chậu nước</string>
 	<string name="type.natural.water.river">Sông</string>
+	<string name="type.natural.land">Đất liền</string>
+	<string name="type.natural.meadow">Thảo điền</string>
+	<string name="type.natural.orchard">Vườn cây ăn trái</string>
 	<string name="type.natural.peak">Đỉnh</string>
+	<string name="type.natural.saddle">Col</string>
+	<string name="type.natural.rock">Đá</string>
 	<string name="type.natural.scrub">Bụi rậm</string>
 	<string name="type.natural.spring">Suối</string>
 	<string name="type.natural.strait">Eo biển</string>
 	<string name="type.natural.tree">Cây</string>
+	<string name="type.natural.tree_row">Hàng cây</string>
+	<string name="type.natural.vineyard">Vườn nho</string>
 	<string name="type.natural.volcano">Núi lửa</string>
 	<string name="type.natural.water">Thủy vực</string>
 	<string name="type.natural.wetland">Khu vực đầm lầy</string>
+	<string name="type.natural.wetland.bog">Đầm lầy toan</string>
+	<string name="type.natural.wetland.marsh">Đầm lầy cỏ</string>
 	<string name="type.office">Văn phòng</string>
 	<string name="type.office.company">Văn phòng công ty</string>
 	<string name="type.office.estate_agent">Đại Lý Bất Động Sản</string>
@@ -1162,22 +1247,28 @@
 	<string name="type.shop.convenience">Cửa hàng tạp hóa</string>
 	<string name="type.shop.copyshop">Cửa hàng Copy</string>
 	<string name="type.shop.cosmetics">Mỹ phẩm</string>
+	<string name="type.shop.deli">Cửa hàng đồ ăn ngon</string>
 	<string name="type.shop.department_store">Cửa hàng bách hóa</string>
 	<string name="type.shop.doityourself">Cửa hàng phần cứng</string>
 	<string name="type.shop.dry_cleaning">Giặt Sấy</string>
 	<string name="type.shop.electronics">Cửa hàng điện</string>
 	<string name="type.shop.erotic">Cửa hàng người lớn</string>
 	<string name="type.shop.fabric">Cửa hàng</string>
+	<string name="type.shop.farm">Cửa hàng thực phẩm nông trại</string>
 	<string name="type.shop.florist">Cửa hàng hoa</string>
 	<string name="type.shop.funeral_directors">Tổ chức tang lễ</string>
 	<string name="type.shop.furniture">Cửa hàng nội thất</string>
 	<string name="type.shop.garden_centre">Nhà trẻ</string>
 	<string name="type.shop.gift">Cửa hàng quà tặng</string>
 	<string name="type.shop.greengrocer">Cửa hàng rau củ</string>
+	<string name="type.shop.grocery">Cửa hàng tạp hóa</string>
 	<string name="type.shop.hairdresser">Tiệm làm tóc</string>
 	<string name="type.shop.hardware">Cửa hàng phần cứng</string>
+	<string name="type.shop.health_food">Cửa hàng thực phẩm sức khỏe</string>
+	<string name="type.shop.houseware">Cửa hàng đồ gia dụng</string>
 	<string name="type.shop.jewelry">Đồ trang sức</string>
 	<string name="type.shop.kiosk">Cửa hàng</string>
+	<string name="type.shop.kitchen">Cửa hàng nhà bếp</string>
 	<string name="type.shop.laundry">Giặt là</string>
 	<string name="type.shop.mall">Khu mua sắm</string>
 	<string name="type.shop.massage">Quán massage</string>
@@ -1189,10 +1280,12 @@
 	<string name="type.shop.newsagent">Quầy báo</string>
 	<string name="type.shop.optician">Cửa hàng mắt kính</string>
 	<string name="type.shop.outdoor">Thiết bị Ngoài trời</string>
+	<string name="type.shop.pastry">Bánh ngọt</string>
 	<string name="type.shop.pawnbroker">Cầm đồ</string>
 	<string name="type.shop.pet">Cửa Hàng Vật Nuôi</string>
 	<string name="type.shop.photo">Hiệu Ảnh</string>
 	<string name="type.shop.seafood">Người bán cá</string>
+	<string name="type.shop.second_hand">Cửa hàng bán đồ đã qua sử dụng</string>
 	<string name="type.shop.shoes">Cửa hàng giày</string>
 	<string name="type.shop.sports">Đồ dùng thể thao</string>
 	<string name="type.shop.stationery">Cửa hàng văn phòng phẩm</string>
@@ -1207,10 +1300,57 @@
 	<string name="type.shop.video">Cửa hàng bán/cho thuê bằng đĩa</string>
 	<string name="type.shop.video_games">Cửa hàng bán trò chơi điện tử</string>
 	<string name="type.shop.wine">Rượu</string>
+	<string name="type.shop.antiques">Đồ cổ</string>
+	<string name="type.shop.art">Cửa hàng nghệ thuật</string>
+	<string name="type.shop.baby_goods">Cửa hàng trẻ em</string>
+	<string name="type.shop.bag">Cửa hàng túi xách</string>
+	<string name="type.shop.boutique">Cửa hàng</string>
+	<string name="type.shop.charity">Cửa hàng từ thiện</string>
+	<string name="type.shop.cheese">Cửa hàng pho mát</string>
+	<string name="type.shop.craft">Nghệ thuật và thủ công</string>
+	<string name="type.shop.dairy">Sản phẩm từ sữa</string>
+	<string name="type.shop.electrical">Cửa hàng điện tử</string>
+	<string name="type.shop.fishing">Cửa hàng câu cá</string>
+	<string name="type.shop.interior_decoration">Đồ trang trí nội thất</string>
+	<string name="type.shop.lottery">Vé xổ số kiến thiết</string>
+	<string name="type.shop.medical_supply">Vật tư y tế</string>
+	<string name="type.shop.nutrition_supplements">Bổ sung dinh dưỡng</string>
+	<string name="type.shop.paint">Sơn</string>
+	<string name="type.shop.perfumery">Nước hoa</string>
+	<string name="type.shop.sewing">Nguồn cung cấp may</string>
+	<string name="type.shop.storage_rental">Cho thuê kho lưu trữ</string>
+	<string name="type.shop.tobacco">Thuốc lá</string>
+	<string name="type.shop.trade">Nguồn cung cấp Giao dịch</string>
+	<string name="type.shop.watches">Xem</string>
+	<string name="type.shop.wholesale">Cửa hàng bán buôn</string>
+	<string name="type.sport">Thể thao</string>
+	<string name="type.sport.american_football">Bóng bầu dục Mỹ</string>
+	<string name="type.sport.archery">Bắn cung</string>
 	<string name="type.sport.athletics">Điền kinh</string>
+	<string name="type.sport.australian_football">Bóng bầu dục Úc</string>
+	<string name="type.sport.baseball">Bóng chày</string>
 	<string name="type.sport.basketball">Bóng rổ</string>
+	<string name="type.sport.beachvolleyball">Bóng chuyền bãi biển</string>
+	<string name="type.sport.chess">Cờ vua</string>
+	<string name="type.sport.cricket">Cricket</string>
+	<string name="type.sport.curling">Bi đá trên băng</string>
 	<string name="type.sport.equestrian">Thể thao cưỡi ngựa</string>
+	<string name="type.sport.golf">Golf</string>
+	<string name="type.sport.gymnastics">Thể dục</string>
+	<string name="type.sport.handball">bóng ném</string>
+	<string name="type.sport.multi">Các môn thể thao khác nhau</string>
+	<!-- Used to tag a scuba diving site. -->
+	<string name="type.sport.scuba_diving">Môn lặn</string>
+	<string name="type.sport.shooting">Chụp</string>
+	<string name="type.sport.skateboard">Trượt ván</string>
+	<string name="type.sport.skiing">Trượt tuyết</string>
+	<string name="type.sport.soccer">Bóng đá</string>
+	<string name="type.sport.swimming">Bơi</string>
+	<string name="type.sport.table_tennis">Bóng bàn</string>
 	<string name="type.sport.tennis">Sân tenis</string>
+	<string name="type.sport.volleyball">Bóng chuyền</string>
+	<string name="type.sport.9pin">Bowling</string>
+	<string name="type.sport.10pin">Bowling</string>
 	<string name="type.tourism.alpine_hut">Nhà ở trên núi</string>
 	<string name="type.tourism.apartment">Căn hộ</string>
 	<string name="type.tourism.artwork">Du lịch</string>
@@ -1230,7 +1370,7 @@
 	<string name="type.tourism.hotel">Khách sạn</string>
 	<string name="type.tourism.information">Thông tin du lịch</string>
 	<string name="type.tourism.information.board">Bảng Thông Tin</string>
-	<string name="type.tourism.information.guidepost">Thông tin du lịch</string>
+	<string name="type.tourism.information.guidepost">Hướng dẫn</string>
 	<string name="type.tourism.information.map">Bản Đồ Du Lịch</string>
 	<string name="type.tourism.information.office">Văn Phòng Du Lịch</string>
 	<string name="type.tourism.motel">Nhà nghỉ</string>
@@ -1256,4 +1396,5 @@
 	<string name="type.wheelchair.no">Không trang bị cho người khuyết tật</string>
 	<string name="type.wheelchair.yes">Được trang bị cho người khuyết tật</string>
 	<string name="type.building_part">Tòa nhà</string>
+	<string name="type.amenity.events_venue">Địa điểm tổ chức sự kiện</string>
 </resources>

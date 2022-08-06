@@ -1,16 +1,73 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>curling-m</title>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="curling-m" fill-rule="nonzero">
-            <circle id="Oval" fill="#FFFFFF" opacity="0.6" cx="12" cy="12" r="12"></circle>
-            <circle id="Oval" fill="#717065" cx="12" cy="12" r="11"></circle>
-            <g id="curling" transform="translate(5.000000, 6.000000)" fill="#FFFFFF">
-                <path d="M0.0991212873,7.80665587 C0.0385590284,8.07144216 0,8.34413251 0,8.62696997 C0,8.90980744 0.0385590284,9.18249779 0.0991212873,9.44728408 L13.9009061,9.44728408 C13.9614683,9.18249779 14.0000273,8.90980744 14.0000273,8.62696997 C14.0000273,8.34413251 13.9613615,8.07144216 13.9009061,7.80665587 L0.0991212873,7.80665587 Z" id="Path"></path>
-                <path d="M3.30860021,4.96525019 C2.04362886,5.10795066 0.949983559,5.89301688 0.402039359,6.98634177 L13.5980948,6.98634177 C13.0500438,5.89301688 11.9563985,5.10795066 10.6914271,4.96525019 L10.6914271,3.29492831 L4.53907137,3.29492831 C3.85953514,3.29492831 3.30860021,3.84586324 3.30860021,4.52539946 L3.30860021,4.96525019 Z" id="Path"></path>
-                <path d="M0.402039359,10.2675982 C1.00851636,11.4777751 2.27530353,12.3183834 3.71875726,12.3183834 L10.2812701,12.3183834 C11.7247238,12.3183834 12.991511,11.4777751 13.597988,10.2675982 L0.402039359,10.2675982 Z" id="Path"></path>
-                <path d="M3.30860021,0.423828953 C3.30860021,1.10336518 3.85953514,1.65430011 4.53907137,1.65430011 L8.23048483,1.65430011 C8.68358018,1.65430011 9.05079893,2.02151885 9.05079893,2.47461421 L10.6914271,2.47461421 L10.6914271,2.06445716 C10.6914271,0.93182555 9.77327348,0.0136719017 8.64064188,0.0136719017 L3.71875726,0.0136719017 C3.49220959,0.0136719017 3.30860021,0.197281276 3.30860021,0.423828953 Z" id="Path"></path>
-            </g>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="24px"
+   height="24px"
+   viewBox="0 0 24 24"
+   version="1.1"
+   id="svg2884"
+   sodipodi:docname="curling-m.svg"
+   inkscape:version="1.2 (dc2aedaf03, 2022-05-15)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs2888" />
+  <sodipodi:namedview
+     id="namedview2886"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="31.5"
+     inkscape:cx="11.746032"
+     inkscape:cy="12"
+     inkscape:window-width="1920"
+     inkscape:window-height="1003"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg2884" />
+  <title
+     id="title2869">curling-m</title>
+  <g
+     id="Page-1"
+     stroke="none"
+     stroke-width="1"
+     fill="none"
+     fill-rule="evenodd">
+    <g
+       id="curling-m"
+       fill-rule="nonzero">
+      <g
+         id="curling"
+         transform="translate(5.000000, 6.000000)"
+         fill="#FFFFFF">
+        <g
+           id="g3374"
+           transform="matrix(1.2857119,0,0,1.2857119,0.5714238,-1.9277349)">
+          <path
+             d="M -1.9008787,7.8066559 C -1.961441,8.0714422 -2,8.3441325 -2,8.62697 c 0,0.2828374 0.038559,0.5555278 0.099121,0.8203141 h 13.801785 c 0.06056,-0.2647863 0.09912,-0.5374767 0.09912,-0.8203141 0,-0.2828375 -0.03866,-0.5555278 -0.09912,-0.8203141 z"
+             id="Path"
+             style="fill:#717065;fill-opacity:1" />
+          <path
+             d="M 1.3086002,4.9652502 C 0.04362886,5.1079507 -1.0500164,5.8930169 -1.5979606,6.9863418 H 11.598095 C 11.050044,5.8930169 9.9563985,5.1079507 8.6914271,4.9652502 V 3.2949283 H 2.5390714 c -0.6795363,0 -1.2304712,0.5509349 -1.2304712,1.2304712 z"
+             id="path2875"
+             style="fill:#717065;fill-opacity:1" />
+          <path
+             d="m -1.5979606,10.267598 c 0.60647696,1.210177 1.87326413,2.050785 3.3167179,2.050785 h 6.5625128 c 1.4434537,0 2.7102409,-0.840608 3.3167179,-2.050785 z"
+             id="path2877"
+             style="fill:#717065;fill-opacity:1" />
+          <path
+             d="m 1.3086002,0.42382895 c 0,0.67953625 0.5509349,1.23047115 1.2304712,1.23047115 h 3.6914134 c 0.4530954,0 0.8203141,0.3672188 0.8203141,0.8203141 h 1.6406282 v -0.410157 c 0,-1.13263165 -0.9181536,-2.0507853 -2.0507852,-2.0507853 H 1.7187573 c -0.2265477,0 -0.4101571,0.18360938 -0.4101571,0.41015705 z"
+             id="path2879"
+             style="fill:#717065;fill-opacity:1" />
         </g>
+      </g>
     </g>
+  </g>
 </svg>

@@ -18,15 +18,13 @@ void LazyCentersTable::EnsureTableLoaded()
   if (m_state != STATE_NOT_LOADED)
     return;
 
-  if (!m_value.m_cont.IsExist(CENTERS_FILE_TAG))
+  try
   {
-    m_state = STATE_FAILED;
-    return;
+    m_reader = m_value.m_cont.GetReader(CENTERS_FILE_TAG);
   }
-
-  m_reader = m_value.m_cont.GetReader(CENTERS_FILE_TAG);
-  if (!m_reader.GetPtr())
+  catch (RootException const & ex)
   {
+    LOG(LERROR, ("Unable to load", CENTERS_FILE_TAG, ex.Msg()));
     m_state = STATE_FAILED;
     return;
   }
@@ -36,8 +34,7 @@ void LazyCentersTable::EnsureTableLoaded()
 
   if (format == version::MwmTraits::CentersTableFormat::PlainEliasFanoMap)
   {
-    m_table =
-        CentersTable::LoadV0(*m_reader.GetPtr(), m_value.GetHeader().GetDefGeometryCodingParams());
+    m_table = CentersTable::LoadV0(*m_reader.GetPtr(), m_value.GetHeader().GetDefGeometryCodingParams());
   }
   else if (format == version::MwmTraits::CentersTableFormat::EliasFanoMapWithHeader)
   {

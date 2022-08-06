@@ -136,7 +136,7 @@ void ChangesetWrapper::LoadXmlFromOSM(ms::LatLon const & ll, pugi::xml_document 
   if (response.first != OsmOAuth::HTTP::OK)
     MYTHROW(HttpErrorException, ("HTTP error", response, "with GetXmlFeaturesAtLatLon", ll));
 
-  if (pugi::status_ok != doc.load(response.second.c_str()).status)
+  if (pugi::status_ok != doc.load_string(response.second.c_str()).status)
     MYTHROW(
         OsmXmlParseException,
         ("Can't parse OSM server response for GetXmlFeaturesAtLatLon request", response.second));
@@ -149,7 +149,7 @@ void ChangesetWrapper::LoadXmlFromOSM(ms::LatLon const & min, ms::LatLon const &
   if (response.first != OsmOAuth::HTTP::OK)
     MYTHROW(HttpErrorException, ("HTTP error", response, "with GetXmlFeaturesInRect", min, max));
 
-  if (pugi::status_ok != doc.load(response.second.c_str()).status)
+  if (pugi::status_ok != doc.load_string(response.second.c_str()).status)
     MYTHROW(OsmXmlParseException,
             ("Can't parse OSM server response for GetXmlFeaturesInRect request", response.second));
 }

@@ -1,17 +1,15 @@
 #pragma once
 
-#include "routing/road_graph.hpp"
 #include "routing/routing_options.hpp"
 #include "routing/routing_settings.hpp"
 #include "routing/segment.hpp"
 #include "routing/transit_info.hpp"
 #include "routing/turns.hpp"
+#include "routing/maxspeeds.hpp"
 
 #include "routing/base/followed_polyline.hpp"
 
 #include "traffic/speed_groups.hpp"
-
-#include "indexer/feature_altitude.hpp"
 
 #include "platform/country_file.hpp"
 
@@ -26,7 +24,6 @@
 #include <optional>
 #include <set>
 #include <string>
-#include <utility>
 #include <vector>
 
 namespace location
@@ -67,21 +64,51 @@ public:
     uint8_t m_maxSpeedKmPH = 0;
   };
 
+  struct RoadNameInfo
+  {
+    // This is for street/road. |m_ref| |m_name|.
+    std::string m_name; // E.g "Johnson Ave.".
+    std::string m_ref; // Number of street/road e.g. "CA 85".
+    // This is for 1st segment of link after junction. Exit |junction_ref| to |m_destination_ref| for |m_destination|.
+    std::string m_junction_ref; // Number of junction e.g. "398B".
+    std::string m_destination_ref; // Number of next road, e.g. "CA 85", Sometimes "CA 85 South". Usually match |m_ref| of next main road.
+    std::string m_destination; // E.g. "Cupertino".
+    bool m_isLink = false;
+
+    bool HasBasicTextInfo() const { return !m_ref.empty() || !m_name.empty(); }
+    bool HasExitInfo() const
+    {
+      return m_isLink || !m_junction_ref.empty() || !m_destination_ref.empty() || !m_destination.empty();
+    }
+
+    friend std::string DebugPrint(RoadNameInfo const & rni);
+  };
+
   RouteSegment(Segment const & segment, turns::TurnItem const & turn,
-               geometry::PointWithAltitude const & junction, std::string const & street,
-               double distFromBeginningMeters, double distFromBeginningMerc,
-               double timeFromBeginningS, traffic::SpeedGroup traffic,
-               std::unique_ptr<TransitInfo> transitInfo)
+               geometry::PointWithAltitude const & junction, RoadNameInfo const & roadNameInfo)
     : m_segment(segment)
     , m_turn(turn)
     , m_junction(junction)
-    , m_street(street)
-    , m_distFromBeginningMeters(distFromBeginningMeters)
-    , m_distFromBeginningMerc(distFromBeginningMerc)
-    , m_timeFromBeginningS(timeFromBeginningS)
-    , m_traffic(traffic)
-    , m_transitInfo(move(transitInfo))
+    , m_roadNameInfo(roadNameInfo)
+    , m_transitInfo(nullptr)
   {
+  }
+
+  void ClearTurn()
+  {
+    m_turn.m_turn = turns::CarDirection::None;
+    m_turn.m_pedestrianTurn = turns::PedestrianDirection::None;
+  }
+
+  void SetTurnExits(uint32_t exitNum) { m_turn.m_exitNum = exitNum; }
+
+  std::vector<turns::SingleLaneInfo> & GetTurnLanes() { return m_turn.m_lanes; };
+
+  void SetDistancesAndTime(double distFromBeginningMeters, double distFromBeginningMerc, double timeFromBeginningS)
+  {
+    m_distFromBeginningMeters = distFromBeginningMeters;
+    m_distFromBeginningMerc = distFromBeginningMerc;
+    m_timeFromBeginningS = timeFromBeginningS;
   }
 
   void SetTransitInfo(std::unique_ptr<TransitInfo> transitInfo)
@@ -92,8 +119,7 @@ public:
   Segment const & GetSegment() const { return m_segment; }
   Segment & GetSegment() { return m_segment; }
   geometry::PointWithAltitude const & GetJunction() const { return m_junction; }
-  std::string const & GetStreet() const { return m_street; }
-  traffic::SpeedGroup GetTraffic() const { return m_traffic; }
+  RoadNameInfo const & GetRoadNameInfo() const { return m_roadNameInfo; }
   turns::TurnItem const & GetTurn() const { return m_turn; }
 
   double GetDistFromBeginningMeters() const { return m_distFromBeginningMeters; }
@@ -109,18 +135,28 @@ public:
   RoutingOptions GetRoadTypes() const { return m_roadTypes; }
   void SetRoadTypes(RoutingOptions types) { m_roadTypes = types; }
 
+  traffic::SpeedGroup GetTraffic() const { return m_traffic; }
+  void SetTraffic(traffic::SpeedGroup group) { m_traffic = group; }
+
+  SpeedInUnits const & GetSpeedLimit() const { return m_speedLimit; }
+  void SetSpeedLimit(SpeedInUnits const & speed) { m_speedLimit = speed; }
+
 private:
   Segment m_segment;
 
   /// Turn (maneuver) information for the turn next to the |m_segment| if any.
-  /// If not |m_turn::m_turn| is equal to TurnDirection::NoTurn.
+  /// |m_turn::m_index| == segment index + 1.
+  /// If not |m_turn::m_turn| is equal to TurnDirection::None.
   turns::TurnItem m_turn;
 
   /// The furthest point of the segment from the beginning of the route along the route.
   geometry::PointWithAltitude m_junction;
 
-  /// Street name of |m_segment| if any. Otherwise |m_street| is empty.
-  std::string m_street;
+  /// RoadNameInfo of |m_segment| if any. Otherwise |m_roadNameInfo| is empty.
+  RoadNameInfo m_roadNameInfo;
+
+  /// Speed limit of |m_segment| if any.
+  SpeedInUnits m_speedLimit;
 
   /// Distance from the route (not the subroute) beginning to the farthest end of |m_segment| in meters.
   double m_distFromBeginningMeters = 0.0;
@@ -131,6 +167,7 @@ private:
   /// ETA from the route beginning (not the subroute) in seconds to reach the farthest from the route beginning
   /// end of |m_segment|.
   double m_timeFromBeginningS = 0.0;
+
   traffic::SpeedGroup m_traffic = traffic::SpeedGroup::Unknown;
 
   /// Information needed to display transit segments properly.
@@ -147,12 +184,6 @@ private:
 class Route
 {
 public:
-  using TTurns = std::vector<turns::TurnItem>;
-  using TTimeItem = std::pair<uint32_t, double>;
-  using TTimes = std::vector<TTimeItem>;
-  using TStreetItem = std::pair<uint32_t, std::string>;
-  using TStreets = std::vector<TStreetItem>;
-
   class SubrouteAttrs final
   {
   public:
@@ -277,36 +308,48 @@ public:
   /// \returns estimated time to reach the route end.
   double GetCurrentTimeToEndSec() const;
 
+  /// \brief estimated time to reach segment.
+  double GetCurrentTimeToSegmentSec(size_t segIdx) const;
+
+  /// \brief estimated time to the nearest turn.
+  double GetCurrentTimeToNearestTurnSec() const;
+
   FollowedPolyline const & GetFollowedPolyline() const { return m_poly; }
 
   std::string const & GetRouterId() const { return m_router; }
   m2::PolylineD const & GetPoly() const { return m_poly.GetPolyline(); }
-  
+
   size_t GetCurrentSubrouteIdx() const { return m_currentSubrouteIdx; }
   std::vector<SubrouteAttrs> const & GetSubroutes() const { return m_subrouteAttrs; }
 
   std::vector<double> const & GetSegDistanceMeters() const { return m_poly.GetSegDistanceMeters(); }
-  bool IsValid() const { return (m_poly.GetPolyline().GetSize() > 1); }
+  bool IsValid() const { return m_poly.IsValid(); }
 
   double GetTotalDistanceMeters() const;
   double GetCurrentDistanceFromBeginMeters() const;
   double GetCurrentDistanceToEndMeters() const;
   double GetMercatorDistanceFromBegin() const;
 
-  /// \brief Extracts information about the nearest turn according to the route.
+  /// \brief Extracts information about the nearest turn from the remaining part of the route.
   /// \param distanceToTurnMeters is a distance from current position to the nearest turn.
   /// \param turn is information about the nearest turn.
-  void GetCurrentTurn(double & distanceToTurnMeters, turns::TurnItem & turn) const;
+  void GetNearestTurn(double & distanceToTurnMeters, turns::TurnItem & turn) const;
 
   /// \returns information about turn from RouteSegment according to current iterator
   /// set with MoveIterator() method. If it's not possible returns nullopt.
   std::optional<turns::TurnItem> GetCurrentIteratorTurn() const;
 
-  /// \brief Returns a name of a street where the user rides at this moment.
-  void GetCurrentStreetName(std::string & name) const;
+  /// \brief Returns first non-empty name info of a street starting from segIdx.
+  void GetClosestStreetNameAfterIdx(size_t segIdx, RouteSegment::RoadNameInfo & roadNameInfo) const;
 
-  /// \brief Returns a name of a street next to idx point of the path. Function avoids short unnamed links.
-  void GetStreetNameAfterIdx(uint32_t idx, std::string & name) const;
+  /// \brief Returns name info of a street where the user rides at this moment.
+  void GetCurrentStreetName(RouteSegment::RoadNameInfo & roadNameInfo) const;
+
+  /// \brief Returns current speed limit
+  void GetCurrentSpeedLimit(SpeedInUnits & speedLimit) const;
+
+  /// \brief Return name info of a street according to the next turn.
+  void GetNextTurnStreetName(RouteSegment::RoadNameInfo & roadNameInfo) const;
 
   /// \brief Gets turn information after the turn next to the nearest one.
   /// \param distanceToTurnMeters is a distance from current position to the second turn.
@@ -317,18 +360,18 @@ public:
   bool GetNextTurns(std::vector<turns::TurnItemDist> & turns) const;
 
   void GetCurrentDirectionPoint(m2::PointD & pt) const;
-  
+
   bool MoveIterator(location::GpsInfo const & info);
 
-  /// \brief Finds projection of |location| to the nearest route and sets |routeMatchingInfo|
+  /// \brief Finds projection of |location| to the nearest route and sets |routeMatchingInfo|.
   /// fields accordingly.
   bool MatchLocationToRoute(location::GpsInfo & location,
                             location::RouteMatchingInfo & routeMatchingInfo) const;
 
-  /// Add country name if we have no country filename to make route
+  /// Add country name if we have no country filename to make route.
   void AddAbsentCountry(std::string const & name);
 
-  /// Get absent file list of a routing files for shortest path finding
+  /// Get absent file list of a routing files for shortest path finding.
   std::set<std::string> const & GetAbsentCountries() const { return m_absentCountries; }
 
   inline void SetRoutingSettings(RoutingSettings const & routingSettings)
@@ -386,18 +429,16 @@ public:
   /// about speed cameras.
   std::vector<platform::CountryFile> const & GetMwmsPartlyProhibitedForSpeedCams() const;
 
+  std::string DebugPrintTurns() const;
+
 private:
   friend std::string DebugPrint(Route const & r);
 
   double GetPolySegAngle(size_t ind) const;
-  void GetClosestTurn(size_t segIdx, turns::TurnItem & turn) const;
-  size_t ConvertPointIdxToSegmentIdx(size_t pointIdx) const;
+  void GetClosestTurnAfterIdx(size_t segIdx, turns::TurnItem & turn) const;
 
-  /// \returns Estimated time to pass the route segment with |segIdx|.
-  double GetTimeToPassSegSec(size_t segIdx) const;
-
-  /// \returns ETA to the last passed route point in seconds.
-  double GetETAToLastPassedPointSec() const;
+  /// \returns Estimated time from the beginning.
+  double GetCurrentTimeFromBeginSec() const;
 
   std::string m_router;
   RoutingSettings m_routingSettings;

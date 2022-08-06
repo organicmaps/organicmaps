@@ -5,21 +5,20 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.annotation.NonNull;
-
-import com.trafi.anchorbottomsheetbehavior.AnchorBottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 class PlacePageGestureListener extends GestureDetector.SimpleOnGestureListener
 {
   @NonNull
-  private final AnchorBottomSheetBehavior<View> mBottomSheetBehavior;
+  private final BottomSheetBehavior<View> mBottomSheetBehavior;
 
-  PlacePageGestureListener(@NonNull AnchorBottomSheetBehavior<View> bottomSheetBehavior)
+  PlacePageGestureListener(@NonNull BottomSheetBehavior<View> bottomSheetBehavior)
   {
     mBottomSheetBehavior = bottomSheetBehavior;
   }
 
   @NonNull
-  AnchorBottomSheetBehavior<View> getBottomSheetBehavior()
+  BottomSheetBehavior<View> getBottomSheetBehavior()
   {
     return mBottomSheetBehavior;
   }
@@ -27,17 +26,17 @@ class PlacePageGestureListener extends GestureDetector.SimpleOnGestureListener
   @Override
   public boolean onSingleTapConfirmed(MotionEvent e)
   {
-    @AnchorBottomSheetBehavior.State
+    @BottomSheetBehavior.State
     int state = mBottomSheetBehavior.getState();
     if (PlacePageUtils.isCollapsedState(state))
     {
-      mBottomSheetBehavior.setState(AnchorBottomSheetBehavior.STATE_ANCHORED);
+      mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
       return true;
     }
 
-    if (PlacePageUtils.isAnchoredState(state) || PlacePageUtils.isExpandedState(state))
+    if (PlacePageUtils.isExpandedState(state))
     {
-      mBottomSheetBehavior.setState(AnchorBottomSheetBehavior.STATE_COLLAPSED);
+      mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
       return true;
     }
 

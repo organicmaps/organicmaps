@@ -9,6 +9,7 @@
     de = Halten Sie sich rechts.
     el = Μείνετε δεξιά.
     es = Mantente a la derecha.
+    eu = Mantendu eskuinera.
     fa = به راست برانید.
     fi = Pysy oikealla.
     fr = Serrez à droite.
@@ -19,9 +20,11 @@
     it = Rimani sulla destra.
     ja = 右を維持してください。
     ko = 오른쪽에 두기.
+    mr = उजवीकडे ठेवा.
     nl = Rechts aanhouden.
     pl = Trzymaj się prawej strony.
     pt = Mantenha-se à direita.
+    pt-BR = Mantenha-se à direita.
     ro = Păstrați la dreapta.
     ru = Держитесь правее.
     sk = Uchovať napravo.
@@ -43,6 +46,7 @@
     de = Rechts abbiegen.
     el = Στρίψε δεξιά.
     es = Gire a la derecha.
+    eu = Biratu eskuinera.
     fa = به راست بپیچید.
     fi = Käänny oikealle.
     fr = Tournez à droite.
@@ -53,9 +57,11 @@
     it = Gira a destra.
     ja = 右に曲がります。
     ko = 우회전하십시오.
+    mr = उजवीकडे वळा.
     nl = Sla rechtsaf.
     pl = Skręć w prawo.
     pt = Vire à direita.
+    pt-BR = Vire à direita.
     ro = Virați la dreapta.
     ru = Поверните направо.
     sk = Odbočte doprava.
@@ -77,6 +83,7 @@
     de = Scharf rechts.
     el = Απότομα δεξιά.
     es = Gire bruscamente a la derecha.
+    eu = Eman bira itxia eskuinera.
     fa = منتها الیه سمت راست.
     fi = Jyrkkä oikea.
     fr = À droite toute.
@@ -87,9 +94,11 @@
     it = Svoltare a destra.
     ja = 急に右折。
     ko = 급우회전.
+    mr = तीव्र उजवे वळण
     nl = Scherp rechtsaf.
     pl = Ostro w prawo.
     pt = Curva acentuada à direita.
+    pt-BR = Curva acentuada à direita.
     ro = Virați strâns la dreapta.
     ru = Резко поверните направо.
     sk = Ostro doprava.
@@ -111,6 +120,7 @@
     de = Fahren Sie in den Kreisverkehr ein.
     el = Μπείτε στην κυκλική διασταύρωση.
     es = Entre a la rotonda.
+    eu = Sartu biribilgunera.
     fa = به میدان وارد شوید.
     fi = Aja liikenneympyrään.
     fr = Prenez le rond-point.
@@ -121,9 +131,11 @@
     it = Entra nella rotonda.
     ja = ロータリー入口です。
     ko = 로터리 진입입니다.
+    mr = चौकात प्रवेश करा.
     nl = Rij de rotonde op.
     pl = Wjedź na rondo.
     pt = Entre na rotunda.
+    pt-BR = Entre na rotatória.
     ro = Intrați în sensul giratoriu.
     ru = Поверните на кольцо.
     sk = Vojdite na kruhový objazd.
@@ -145,6 +157,7 @@
     de = Aus dem Kreisverkehr ausfahren.
     el = Βγείτε από την κυκλική διασταύρωση.
     es = Salga de la rotonda.
+    eu = Irten biribilgunetik.
     fa = از میدان خارج شوید.
     fi = Poistu liikenneympyrästä.
     fr = Sortir du rond-point.
@@ -155,9 +168,11 @@
     it = Esci dalla rotonda.
     ja = ロータリーから抜けてください。
     ko = 원형 교차로에서 나갑니다.
+    mr = चौकातून बाहेर पडा.
     nl = Verlaat de rotonde.
     pl = Zjazd z ronda.
     pt = Saia da rotunda.
+    pt-BR = Saia da rotatória.
     ro = Ieșiți din sensul giratoriu.
     ru = Сверните с кольца.
     sk = Výjazd z kruhového objazdu.
@@ -179,6 +194,7 @@
     de = Halten Sie sich links.
     el = Μείνετε αριστερά.
     es = Mantente a la izquierda.
+    eu = Mantendu ezkerrean.
     fa = به چپ برانید.
     fi = Pysy vasemmalla.
     fr = Serrez à gauche.
@@ -189,9 +205,11 @@
     it = Rimani sulla sinistra.
     ja = 左を維持してください。
     ko = 왼쪽에 두기.
+    mr = डावीकडे ठेवा.
     nl = Links aanhouden.
     pl = Trzymaj się lewej strony.
     pt = Mantenha-se à esquerda.
+    pt-BR = Mantenha-se à esquerda.
     ro = Păstrați la stânga.
     ru = Держитесь левее.
     sk = Uchovať naľavo.
@@ -213,6 +231,7 @@
     de = Links abbiegen.
     el = Στρίψε αριστερά.
     es = Gire a la izquierda.
+    eu = Biratu ezkerrera.
     fa = به چپ بپیچید.
     fi = Käänny vasemmalle.
     fr = Tournez à gauche.
@@ -223,9 +242,11 @@
     it = Gira a sinistra.
     ja = 左に曲がります。
     ko = 좌회전하십시오.
+    mr = डावीकडे वळा.
     nl = Sla linksaf.
     pl = Skręć w lewo.
     pt = Vire à esquerda.
+    pt-BR = Vire à esquerda.
     ro = Virați la stânga.
     ru = Поверните налево.
     sk = Odbočte doľava.
@@ -247,6 +268,7 @@
     de = Scharf links.
     el = Απότομα αριστερά.
     es = Gire bruscamente a la izquierda.
+    eu = Eman bira itxia ezkerrera.
     fa = منتها الیه سمت چپ.
     fi = Jyrkkä vasen.
     fr = À gauche toute.
@@ -257,9 +279,11 @@
     it = Svoltare a sinistra.
     ja = 急に左折。
     ko = 급좌회전.
+    mr = तीव्र डावे वळण
     nl = Scherp linksaf.
     pl = Ostro w lewo.
     pt = Curva acentuada à esquerda.
+    pt-BR = Curva acentuada à esquerda.
     ro = Virați strâns la stânga.
     ru = Резко поверните налево.
     sk = Ostro doľava.
@@ -281,6 +305,7 @@
     de = Wenden Sie.
     el = Κάντε στροφή 180 μοιρών.
     es = Cambie de sentido.
+    eu = Norabidea aldaketa egin.
     fa = دور بزنید.
     fi = Tee U-käännös.
     fr = Faites demi-tour.
@@ -291,9 +316,11 @@
     it = Effettua un'inversione a U.
     ja = Uターンです。
     ko = 유턴입니다.
+    mr = यू-टर्न घ्या.
     nl = Keer om.
     pl = Zawróć.
     pt = Faça inversão de marcha.
+    pt-BR = Faça o retorno.
     ro = Întoarceți-vă o sută optzeci de grade.
     ru = Развернитесь.
     sk = Otočte sa o stoosemdesiat stupňov.
@@ -315,6 +342,7 @@
     de = Fahren Sie geradeaus.
     el = Συνεχίστε ευθεία.
     es = Continúe recto.
+    eu = Zuzen jarraitu.
     fa = مستقیم بروید.
     fi = Aja suoraan.
     fr = Continuez tout droit.
@@ -325,9 +353,11 @@
     it = Sempre dritto.
     ja = 直進です。
     ko = 직진입니다.
+    mr = सरळ जा.
     nl = Rij rechtdoor.
     pl = Jedź prosto.
     pt = Siga em frente.
+    pt-BR = Siga em frente.
     ro = Mergeți înainte.
     ru = Двигайтесь прямо.
     sk = Choďte rovno.
@@ -346,9 +376,10 @@
     be = З'езд.
     cs = výstup.
     da = Afkørsel.
-    de = Ausfahrt.
+    de = Nehmen Sie die Ausfahrt.
     el = Εξοδος.
     es = Salida.
+    eu = Irteera.
     fa = خروج.
     fi = Poistu.
     fr = Sortie.
@@ -359,9 +390,11 @@
     it = Uscita.
     ja = 出口.
     ko = 출구.
+    mr = बाहेर पडा.
     nl = Verlaat.
     pl = Zjazd.
     pt = Saída.
+    pt-BR = Saída.
     ro = Ieșire.
     ru = Съезд.
     sk = Výjazd.
@@ -383,6 +416,7 @@
     de = Werden Sie ankommen.
     el = Θα φτάσετε.
     es = Llegará a su destino.
+    eu = Zure helmugara iritsiko zara.
     fa = شما خواهید رسید.
     fi = Olet perillä.
     fr = Vous arriverez.
@@ -393,9 +427,11 @@
     it = Arriverai.
     ja = 到着します。
     ko = 도착할 예정입니다.
+    mr = तुम्ही पोहोचाल.
     nl = Arriveert u.
     pl = Dojedziesz.
     pt = Você vai chegar.
+    pt-BR = Você vai chegar.
     ro = Veți sosi.
     ru = Вы прибудете в пункт назначения.
     sk = Dorazíte.
@@ -417,6 +453,7 @@
     de = Sie sind angekommen.
     el = Έχετε φτάσει.
     es = Ha llegado a su destino.
+    eu = Helmugara iritsi zara.
     fa = شما رسیده اید.
     fi = Olet saapunut.
     fr = Vous êtes arrivé.
@@ -427,9 +464,11 @@
     it = Sei arrivato.
     ja = 到着。
     ko = 도착했습니다.
+    mr = तुम्ही पोहोचला आहात.
     nl = Bestemming bereikt.
     pl = Jesteś u celu.
     pt = Chegou.
+    pt-BR = Chegou.
     ro = Ați ajuns.
     ru = Вы прибыли в пункт назначения.
     sk = Dorazili ste do cieľa.
@@ -451,6 +490,7 @@
     de = In fünfzig Metern
     el = Σε πενήντα μέτρα
     es = En cincuenta metros
+    eu = Berrogeita hamar metrora
     fa = در پنجاه متری
     fi = Viidenkymmenen metrin päässä
     fr = Dans cinquante mètres
@@ -461,9 +501,11 @@
     it = Tra cinquanta metri
     ja = 五十メートル先
     ko = 오십 미터 앞
+    mr = पन्नास मीटर मध्ये
     nl = Over vijftig meter
     pl = Za pięćdziesiąt metrów
     pt = A cinquenta metros
+    pt-BR = A cinquenta metros
     ro = După cincizeci de metri
     ru = Через пятьдесят метров
     sk = Po päťdesiatich metroch
@@ -485,6 +527,7 @@
     de = In einhundert Metern
     el = Σε εκατό μέτρα
     es = En cien metros
+    eu = Ehun metrora
     fa = در صد متری
     fi = Sadan metrin päässä
     fr = Dans cents mètres
@@ -495,9 +538,11 @@
     it = Tra cento metri
     ja = 百メートル先
     ko = 백 미터 앞
+    mr = शंभर मीटर मध्ये
     nl = Over honderd meter
     pl = Za sto metrów
     pt = A cem metros
+    pt-BR = A cem metros
     ro = După o sută de metri
     ru = Через сто метров
     sk = Po sto metroch
@@ -519,6 +564,7 @@
     de = In zweihundert Metern
     el = Σε διακόσια μέτρα
     es = En doscientos metros
+    eu = Berrehun metrora
     fa = در دویست و پنجاه متری
     fi = Kahdensadan metrin päässä
     fr = Dans deux cents mètres
@@ -529,9 +575,11 @@
     it = Tra duecento metri
     ja = 二百メートル先
     ko = 이백 미터 앞
+    mr = दोनशे मीटर मध्ये
     nl = Over tweehonderd meter
     pl = Za dwieście metrów
     pt = A duzentos metros
+    pt-BR = A duzentos metros
     ro = După două sute de metri
     ru = Через двести метров
     sk = Po dvesto metroch
@@ -553,6 +601,7 @@
     de = In zweihundertfünfzig Metern
     el = Σε διακόσια πενήντα μέτρα
     es = En doscientos cincuenta metros
+    eu = Berrehun eta berrogeita hamar metrora
     fa = در دوصد و پنجاه متر
     fi = Kahdensadanviidenkymmenen metrin päässä
     fr = Dans deux cents cinquante mètres
@@ -563,9 +612,11 @@
     it = Tra duecento cinquanta metri
     ja = 二百五十メートル先
     ko = 이백오십 미터 앞
+    mr = अडीचशे मीटर मध्ये
     nl = Over tweehonderdvijftig meter
     pl = Za dwieście pięćdziesiąt metrów
     pt = A duzentos e cinquenta metros
+    pt-BR = A duzentos e cinquenta metros
     ro = După două sute cincizeci de metri
     ru = Через двести пятьдесят метров
     sk = Po dvestopäťdesiatich metroch
@@ -587,6 +638,7 @@
     de = In dreihundert Metern
     el = Σε τριακόσια μέτρα
     es = En trescientos metros
+    eu = Hirurehun metrora
     fa = در سیصد متری
     fi = Kolmensadan metrin päässä
     fr = Dans trois cents mètres
@@ -597,9 +649,11 @@
     it = Tra trecento metri
     ja = 三百メートル先
     ko = 삼백 미터 앞
+    mr = तीनशे मीटर मध्ये
     nl = Over driehonderd meter
     pl = Za trzysta metrów
     pt = A trezentos metros
+    pt-BR = A trezentos metros
     ro = După trei sute de metri
     ru = Через триста метров
     sk = Po tristo metroch
@@ -621,6 +675,7 @@
     de = In vierhundert Metern
     el = Σε τετρακόσια μέτρα
     es = En cuatrocientos metros
+    eu = Laurehun metrora
     fa = در چهارصد متری
     fi = Neljänsadan metrin päässä
     fr = Dans quatre cents mètres
@@ -631,9 +686,11 @@
     it = Tra quattrocento metri
     ja = 四百メートル先
     ko = 사백 미터 앞
+    mr = चारशे मीटर मध्ये
     nl = Over vierhonderd meter
     pl = Za czterysta metrów
     pt = A quatrocentos metros
+    pt-BR = A quatrocentos metros
     ro = După patru sute de metri
     ru = Через четыреста метров
     sk = Po štyristo metroch
@@ -655,6 +712,7 @@
     de = In fünfhundert Metern
     el = Σε πεντακόσια μέτρα
     es = En quinientos metros
+    eu = Bostehun metrora
     fa = در پانصد متری
     fi = Viidensadan metrin päässä
     fr = Dans cinq cents mètres
@@ -665,9 +723,11 @@
     it = Tra cinquecento metri
     ja = 五百メートル先
     ko = 오백 미터 앞
+    mr = पाचशे मीटर मध्ये
     nl = Over vijfhonderd meter
     pl = Za pięćset metrów
     pt = A quinhentos metros
+    pt-BR = A quinhentos metros
     ro = După cinci sute de metri
     ru = Через пятьсот метров
     sk = Po päťsto metroch
@@ -689,6 +749,7 @@
     de = In sechshundert Metern
     el = Σε εξακόσια μέτρα
     es = En seiscientos metros
+    eu = Seiehun metrora
     fa = در ششصد متری
     fi = Kuudensadan metrin päässä
     fr = Dans six cents mètres
@@ -699,9 +760,11 @@
     it = Tra seicento metri
     ja = 六百メートル先
     ko = 육백 미터 앞
+    mr = सहाशे मीटर मध्ये
     nl = Over zeshonderd meter
     pl = Za sześćset metrów
     pt = A seiscentos metros
+    pt-BR = A seiscentos metros
     ro = După șase sute de metri
     ru = Через шестьсот метров
     sk = Po šesťsto metroch
@@ -723,6 +786,7 @@
     de = In siebenhundert Metern
     el = Σε επτακόσια μέτρα
     es = En setecientos metros
+    eu = Zazpiehun metrora
     fa = در هفتصد متری
     fi = Seitsemänsadan metrin päässä
     fr = Dans sept cents mètres
@@ -733,9 +797,11 @@
     it = Tra settecento metri
     ja = 七百メートル先
     ko = 칠백 미터 앞
+    mr = सातशे मीटर मध्ये
     nl = Over zevenhonderd meter
     pl = Za siedemset metrów
     pt = A setecentos metros
+    pt-BR = A setecentos metros
     ro = După șapte sute de metri
     ru = Через семьсот метров
     sk = Po sedemsto metroch
@@ -757,6 +823,7 @@
     de = In siebenhundertfünfzig Metern
     el = Σε επτακόσια πενήντα μέτρα
     es = En setecientos cincuenta metros
+    eu = Zazpiehun eta berrogeita hamar metrora
     fa = در هفتصد و پنجاه متری
     fi = Seitsemänsadanviidenkymmenen metrin päässä
     fr = Dans sept cents cinquante mètres
@@ -767,9 +834,11 @@
     it = Tra settecento cinquanta metri
     ja = 七百五十メートル先
     ko = 칠백오십 미터 앞
+    mr = साडेसातशे मीटर मध्ये
     nl = Over zevenhonderdvijftig meter
     pl = Za siedemset pięćdziesiąt metrów
     pt = A setecentos e cinquenta metros
+    pt-BR = A setecentos e cinquenta metros
     ro = După șapte sute cincizeci de metri
     ru = Через семьсот пятьдесят метров
     sk = Po sedemstopäťdesiatich metroch
@@ -791,6 +860,7 @@
     de = In achthundert Metern
     el = Σε οκτακόσια μέτρα
     es = En ochocientos metros
+    eu = Zortziehun metrora
     fa = در هشتصد متری
     fi = Kahdeksansadan metrin päässä
     fr = Dans huit cents mètres
@@ -801,9 +871,11 @@
     it = Tra ottocento metri
     ja = 八百メートル先
     ko = 팔백 미터 앞
+    mr = आठशे मीटर मध्ये
     nl = Over achthonderd meter
     pl = Za osiemset metrów
     pt = A oitocentos metros
+    pt-BR = A oitocentos metros
     ro = După opt sute de metri
     ru = Через восемьсот метров
     sk = Po osemsto metroch
@@ -825,6 +897,7 @@
     de = In neunhundert Metern
     el = Σε εννιακόσια μέτρα
     es = En novecientos metros
+    eu = Bederatziehun metrora
     fa = در نهصد متری
     fi = Yhdeksänsadan metrin päässä
     fr = Dans neuf cents mètres
@@ -835,9 +908,11 @@
     it = Tra novecento metri
     ja = 九百メートル先
     ko = 구백 미터 앞
+    mr = नऊशे मीटर मध्ये
     nl = Over negenhonderd meter
     pl = Za dziewięćset metrów
     pt = A novecentos metros
+    pt-BR = A novecentos metros
     ro = După nouă sute de metri
     ru = Через девятьсот метров
     sk = Po deväťsto metroch
@@ -859,6 +934,7 @@
     de = In einem Kilometer
     el = Σε ένα χιλιόμετρο
     es = En un kilómetro
+    eu = Kilometro batera
     fa = در یک کیلومتری
     fi = Yhden kilometrin päässä
     fr = Dans un kilomètre
@@ -869,9 +945,11 @@
     it = Tra un chilometro
     ja = 一キロ先
     ko = 일 킬로미터 앞
+    mr = एक किलोमीटर मध्ये
     nl = Over één kilometer
     pl = Za kilometr
     pt = A um quilómetro
+    pt-BR = A um quilômetro
     ro = După un kilometru
     ru = Через километр
     sk = Po jednom kilometri
@@ -893,6 +971,7 @@
     de = In anderthalb Kilometern
     el = Σε ενάμισυ χιλιόμετρο
     es = En un kilómetro y medio
+    eu = Kilometro eta erdira
     fa = در یک و نیم کیلومتری
     fi = Puolentoista kilomertin päässä
     fr = Dans un virgule cinq kilomètre
@@ -903,9 +982,11 @@
     it = Tra un chilometro e mezzo
     ja = 一.五キロ先
     ko = 일점오 킬로미터 앞
+    mr = दीड किलोमीटरमध्ये
     nl = Over anderhalve kilometer
     pl = Za półtora kilometra
     pt = A um quilómetro e meio
+    pt-BR = A um quilômetro e meio
     ro = După un kilometru și jumătate
     ru = Через полтора километра
     sk = Po jeden a pol kilometri
@@ -927,6 +1008,7 @@
     de = In zwei Kilometern
     el = Σε δύο χιλιόμετρα
     es = En dos kilómetros
+    eu = Bi kilometrora
     fa = در دو کیلومتری
     fi = Kahden kilometrin päässä
     fr = Dans deux kilomètres
@@ -937,9 +1019,11 @@
     it = Tra due chilometri
     ja = 二キロ先
     ko = 이 킬로미터 앞
+    mr = दोन किलोमीटर मध्ये
     nl = Over twee kilometer
     pl = Za dwa kilometry
     pt = A dois quilómetros
+    pt-BR = A dois quilômetros
     ro = După doi kilometri
     ru = Через два километра
     sk = Po dvoch kilometroch
@@ -961,6 +1045,7 @@
     de = In zweieinhalb Kilometern
     el = Σε δυόμισι χιλιόμετρα
     es = En dos kilómetros y medio
+    eu = Bi kilometro eta erdira
     fa = در دو و نیم کیلومتری
     fi = Kahden ja puolen kilometrin päässä
     fr = Dans deux virgule cinq kilomètres
@@ -971,9 +1056,11 @@
     it = Tra due chilometri e mezzo
     ja = 二.五キロ先
     ko = 이점오 킬로미터 앞
+    mr = अडीच किलोमीटरमध्ये
     nl = Over tweeëneenhalve kilometer
     pl = Za dwa i pół kilometra
     pt = A dois quilómetros e meio
+    pt-BR = A dois quilômetros e meio
     ro = După doi kilometri și jumătate
     ru = Через два с половиной километра
     sk = Po dva a pol kilometri
@@ -995,6 +1082,7 @@
     de = In drei Kilometern
     el = Σε τρία χιλιόμετρα
     es = En tres kilómetros
+    eu = Hiru kilometrora
     fa = در سه کیلومتری
     fi = Kolmen kilometrin päässä
     fr = Dans trois kilomètres
@@ -1005,9 +1093,11 @@
     it = Tra tre chilometri
     ja = 三キロ先
     ko = 삼 킬로미터 앞
+    mr = तीन किलोमीटर मध्ये
     nl = Over drie kilometer
     pl = Za trzy kilometry
-    pt = A três quilômetros
+    pt = A três quilómetros
+    pt-BR = A três quilômetros
     ro = După trei kilometri
     ru = Через три километра
     sk = Po troch kilometroch
@@ -1029,6 +1119,7 @@
     de = Danach
     el = Στη συνέχεια
     es = Después
+    eu = Gero
     fa = سپس
     fi = Sitten
     fr = Puis
@@ -1036,12 +1127,14 @@
     hr = Zatim
     hu = Majd
     id = Lalu.
-    it = Quindi
+    it = Poi
     ja = その先
     ko = 그 다음
+    mr = मग
     nl = Daarna
     pl = Następnie
     pt = Depois
+    pt-BR = Depois
     ro = Apoi
     ru = Затем
     sk = Potom
@@ -1063,6 +1156,7 @@
     de = Nehmen Sie die erste Ausfahrt.
     el = Πάρτε την πρώτη έξοδο.
     es = Tome la primera salida.
+    eu = Hartu lehen irteera.
     fa = اولین خروجی را داخل شوید
     fi = Poistu seuraavassa liittymässä.
     fr = Prenez la première sortie.
@@ -1073,9 +1167,11 @@
     it = Prendi la prima uscita.
     ja = 一番目の出口です。
     ko = 첫 번째 출구입니다.
+    mr = पहिला निर्गमन घ्या
     nl = Neem de eerste afslag.
     pl = Zjedź pierwszym zjazdem.
     pt = Saia na primeira saída.
+    pt-BR = Saia na primeira saída.
     ro = Folosiți prima ieșire.
     ru = Сверните на первый съезд.
     sk = Opustite kruhový objazd na prvom výjazde.
@@ -1097,6 +1193,7 @@
     de = Nehmen Sie die zweite Ausfahrt.
     el = Πάρτε τη δεύτερη έξοδο.
     es = Tome la segunda salida.
+    eu = Hartu bigarren irteera.
     fa = دومین خروجی را داخل شوید.
     fi = Poistu toisessa liittymässä.
     fr = Prenez la deuxième sortie.
@@ -1107,9 +1204,11 @@
     it = Prendi la seconda uscita.
     ja = 二番目の出口です。
     ko = 두 번째 출구입니다.
+    mr = दुसरा निर्गमन घ्या
     nl = Neem de tweede afslag.
     pl = Zjedź drugim zjazdem.
     pt = Saia na segunda saída.
+    pt-BR = Saia na segunda saída.
     ro = Folosiți a doua ieșire.
     ru = Сверните на второй съезд.
     sk = Opustite kruhový objazd na druhom výjazde.
@@ -1131,6 +1230,7 @@
     de = Nehmen Sie die dritte Ausfahrt.
     el = Πάρτε την τρίτη έξοδο.
     es = Tome la tercera salida.
+    eu = Hartu hirugarren irteera.
     fa = سومین خروجی را داخل شوید.
     fi = Poistu kolmannessa liittymässä.
     fr = Prenez la troisième sortie.
@@ -1141,9 +1241,11 @@
     it = Prendi la terza uscita.
     ja = 三番目の出口です。
     ko = 세 번째 출구입니다.
+    mr = तिसरा निर्गमन घ्या
     nl = Neem de derde afslag.
     pl = Zjedź trzecim zjazdem.
     pt = Saia na terceira saída.
+    pt-BR = Saia na terceira saída.
     ro = Folosiți a treia ieșire.
     ru = Сверните на третий съезд.
     sk = Opustite kruhový objazd na treťom výjazde.
@@ -1165,6 +1267,7 @@
     de = Nehmen Sie die vierte Ausfahrt.
     el = Πάρτε την τέταρτη έξοδο.
     es = Tome la cuarta salida.
+    eu = Hartu laugarren irteera.
     fa = چهارمین خروجی را داخل شوید.
     fi = Poistu neljännessä liittymässä.
     fr = Prenez la quatrième sortie.
@@ -1175,9 +1278,11 @@
     it = Prendi la quarta uscita.
     ja = 四番目の出口です。
     ko = 네 번째 출구입니다.
+    mr = चौथा निर्गमन घ्या
     nl = Neem de vierde afslag.
     pl = Zjedź czwartym zjazdem.
     pt = Saia na quarta saída.
+    pt-BR = Saia na quarta saída.
     ro = Folosiți a patra ieșire.
     ru = Сверните на четвертый съезд.
     sk = Opustite kruhový objazd na štvrtom výjazde.
@@ -1199,6 +1304,7 @@
     de = Nehmen Sie die fünfte Ausfahrt.
     el = Πάρτε την πέμπτη έξοδο.
     es = Tome la quinta salida.
+    eu = Hartu bosgarren irteera.
     fa = پنجمین خروجی را داخل شوید.
     fi = Poistu viidennessä liittymässä.
     fr = Prenez la cinquième sortie.
@@ -1209,9 +1315,11 @@
     it = Prendi la quinta uscita.
     ja = 五番目の出口です。
     ko = 다섯 번째 출구입니다.
+    mr = पाचवा निर्गमन घ्या
     nl = Neem de vijfde afslag.
     pl = Zjedź piątym zjazdem.
     pt = Saia na quinta saída.
+    pt-BR = Saia na quinta saída.
     ro = Folosiți a cincea ieșire.
     ru = Сверните на пятый съезд.
     sk = Opustite kruhový objazd na piatom výjazde.
@@ -1233,6 +1341,7 @@
     de = Nehmen Sie die sechste Ausfahrt.
     el = Πάρτε την έκτη έξοδο.
     es = Tome la sexta salida.
+    eu = Hartu seigarren irteera.
     fa = ششمین خروجی را داخل شوید.
     fi = Poistu kuudennessa liittymässä.
     fr = Prenez la sixième sortie.
@@ -1243,9 +1352,11 @@
     it = Prendi la sesta uscita.
     ja = 六番目の出口です。
     ko = 여섯 번째 출구입니다.
+    mr = सहावा निर्गमन घ्या
     nl = Neem de zesde afslag.
     pl = Zjedź szóstym zjazdem.
     pt = Saia na sexta saída.
+    pt-BR = Saia na sexta saída.
     ro = Folosiți a șasea ieșire.
     ru = Сверните на шестой съезд.
     sk = Opustite kruhový objazd na šiestom výjazde.
@@ -1267,6 +1378,7 @@
     de = Nehmen Sie die siebte Ausfahrt.
     el = Πάρτε την έβδομη έξοδο.
     es = Tome la séptima salida.
+    eu = Hartu zazpigarren irteera.
     fa = هفتمین خروجی را داخل شوید.
     fi = Poistu seitsemännessä liittymässä.
     fr = Prenez la septième sortie.
@@ -1277,9 +1389,11 @@
     it = Prendi la settima uscita.
     ja = 七番目の出口です。
     ko = 일곱 번째 출구입니다.
+    mr = सातवा निर्गमन घ्या
     nl = Neem de zevende afslag.
     pl = Zjedź siódmym zjazdem.
     pt = Saia na sétima saída.
+    pt-BR = Saia na sétima saída.
     ro = Folosiți a șaptea ieșire.
     ru = Сверните на седьмой съезд.
     sk = Opustite kruhový objazd na siedmom výjazde.
@@ -1301,6 +1415,7 @@
     de = Nehmen Sie die achte Ausfahrt.
     el = Πάρτε την όγδοη έξοδο.
     es = Tome la octava salida.
+    eu = Hartu zortzigarren irteera.
     fa = هشتمین خروجی را داخل شوید.
     fi = Poistu kahdeksannessa liittymässä.
     fr = Prenez la huitième sortie.
@@ -1311,9 +1426,11 @@
     it = Prendi l'ottava uscita.
     ja = 八番目の出口です。
     ko = 여덟 번째 출구입니다.
+    mr = आठवा निर्गमन घ्या
     nl = Neem de achtste afslag.
     pl = Zjedź ósmym zjazdem.
     pt = Saia na oitava saída.
+    pt-BR = Saia na oitava saída.
     ro = Folosiți a opta ieșire.
     ru = Сверните на восьмой съезд.
     sk = Opustite kruhový objazd na ôsmom výjazde.
@@ -1335,6 +1452,7 @@
     de = Nehmen Sie die neunte Ausfahrt.
     el = Πάρτε την ένατη έξοδο.
     es = Tome la novena salida.
+    eu = Hartu bederatzigarren irteera.
     fa = نهمین خروجی را داخل شوید.
     fi = Poistu yhdeksännessä liittymässä.
     fr = Prenez la neuvième sortie.
@@ -1345,9 +1463,11 @@
     it = Prendi la nona uscita.
     ja = 九番目の出口です。
     ko = 아홉 번째 출구입니다.
+    mr = नववा निर्गमन घ्या
     nl = Neem de negende afslag.
     pl = Zjedź dziewiątym zjazdem.
     pt = Saia na nona saída.
+    pt-BR = Saia na nona saída.
     ro = Folosiți a noua ieșire.
     ru = Сверните на девятый съезд.
     sk = Opustite kruhový objazd na deviatom výjazde.
@@ -1369,6 +1489,7 @@
     de = Nehmen Sie die zehnte Ausfahrt.
     el = Πάρτε την δέκατη έξοδο.
     es = Tome la décima salida.
+    eu = Hartu hamargarren irteera.
     fa = دهمین خروجی را داخل شوید.
     fi = Poistu kymmenennessä liittymässä.
     fr = Prenez la dixième sortie.
@@ -1379,9 +1500,11 @@
     it = Prendi la decima uscita.
     ja = 十番目の出口です。
     ko = 열 번째 출구입니다.
+    mr = दहावा निर्गमन घ्या
     nl = Neem de tiende afslag.
     pl = Zjedź dziesiątym zjazdem.
     pt = Saia na décima saída.
+    pt-BR = Saia na décima saída.
     ro = Folosiți a zecea ieșire.
     ru = Сверните на десятый съезд.
     sk = Opustite kruhový objazd na desiatom výjazde.
@@ -1403,6 +1526,7 @@
     de = Nehmen Sie die elfte Ausfahrt.
     el = Πάρτε την ενδέκατη έξοδο.
     es = Tome la undécima salida.
+    eu = Hartu hamaikagarren irteera.
     fa = یازدهمین خروجی را داخل شوید.
     fi = Poistu yhdennessätoista liittymässä.
     fr = Prenez la onzième sortie.
@@ -1413,9 +1537,11 @@
     it = Prendi l'undicesima uscita.
     ja = 十一番目の出口です。
     ko = 열한 번째 출구입니다.
+    mr = अकरावा निर्गमन घ्या
     nl = Neem de elfde afslag.
     pl = Zjedź jedenastym zjazdem.
     pt = Saia na décima primeira saída.
+    pt-BR = Saia na décima primeira saída.
     ro = Folosiți a unsprezecea ieșire.
     ru = Сверните на одиннадцатый съезд.
     sk = Opustite kruhový objazd na jedenástom výjazde.
@@ -1437,6 +1563,7 @@
     de = In fünfzig Fuß
     el = Σε πενήντα πόδια
     es = En cincuenta pies
+    eu = Berrogeita hamar oinetara
     fa = در پنجاه قدمی
     fi = Viidenkymmenen jalan päässä
     fr = Dans cinquante pieds
@@ -1447,9 +1574,11 @@
     it = Tra cinquanta piedi
     ja = 五十フィート先
     ko = 오십 피트 앞
+    mr = पन्नास फुटांत
     nl = Over vijftig voet
     pl = Za pięćdziesiąt stóp
     pt = A cinquenta pés
+    pt-BR = A cinquenta pés
     ro = După cincizeci de picioare
     ru = Через пятьдесят футов
     sk = Po päťdesiatich stopách
@@ -1471,6 +1600,7 @@
     de = In einhundert Fuß
     el = Σε εκατό πόδια
     es = En cien pies
+    eu = Ehun oinetara
     fa = در یک صد قدمی
     fi = Sadan jalan päässä
     fr = Dans cent pieds
@@ -1481,9 +1611,11 @@
     it = Tra cento piedi
     ja = 百フィート先
     ko = 백 피트 앞
+    mr = शंभर फुटात
     nl = Over honderd voet
     pl = Za sto stóp
     pt = A cem pés
+    pt-BR = A cem pés
     ro = După o sută de picioare
     ru = Через сто футов
     sk = Po sto stopách
@@ -1505,6 +1637,7 @@
     de = In zweihundert Fuß
     el = Σε διακόσια πόδια
     es = En doscientos pies
+    eu = Berrehun oinetara
     fa = در دویست قدمی
     fi = Kahdensadan jalan päässä
     fr = Dans deux cents pieds
@@ -1515,9 +1648,11 @@
     it = Tra duecento piedi
     ja = 二百フィート先
     ko = 이백 피트 앞
+    mr = दोनशे फुटांत
     nl = Over tweehonderd voet
     pl = Za dwieście stóp
     pt = A duzentos pés
+    pt-BR = A duzentos pés
     ro = După două sute de picioare
     ru = Через двести футов
     sk = Po dvesto stopách
@@ -1539,6 +1674,7 @@
     de = In dreihundert Fuß
     el = Στα τριακόσια πόδια
     es = En trescientos pies
+    eu = Hirurehun oinetara
     fa = در سیصد قدمی
     fi = Kolmensadan jalan päässä
     fr = Dans trois cents pieds
@@ -1549,9 +1685,11 @@
     it = Tra trecento piedi
     ja = 三百フィート先
     ko = 삼백 피트 앞
+    mr = तीनशे फुटांत
     nl = Over driehonderd voet
     pl = Za trzysta stóp
     pt = A trezentos pés
+    pt-BR = A trezentos pés
     ro = După trei sute de picioare
     ru = Через триста футов
     sk = Po tristo stopách
@@ -1573,6 +1711,7 @@
     de = In vierhundert Fuß
     el = Σε τετρακόσια πόδια
     es = En cuatrocientos pies
+    eu = Laurehun oinetara
     fa = در چهارصد قدمی
     fi = Neljänsadan jalan päässä
     fr = Dans quatre cents pieds
@@ -1583,9 +1722,11 @@
     it = Tra quattrocento piedi
     ja = 四百フィート先
     ko = 사백 피트 앞
+    mr = चारशे फुटांत
     nl = Over vierhonderd voet
     pl = Za czterysta stóp
     pt = A quatrocentos pés
+    pt-BR = A quatrocentos pés
     ro = După patru sute de picioare
     ru = Через четыреста футов
     sk = Po štyristo stopách
@@ -1607,6 +1748,7 @@
     de = In fünfhundert Fuß
     el = Σε πεντακόσια πόδια
     es = En quinientos pies
+    eu = Bostehun oinetara
     fa = در پانصد قدمی
     fi = Viidensadan jalan päässä
     fr = Dans cinq cents pieds
@@ -1617,9 +1759,11 @@
     it = Tra cinquecento piedi
     ja = 五百フィート先
     ko = 오백 피트 앞
+    mr = पाचशे फुटात
     nl = Over vijfhonderd voet
     pl = Za pięćset stóp
     pt = A quinhentos pés
+    pt-BR = A quinhentos pés
     ro = După cinci sute de picioare
     ru = Через пятьсот футов
     sk = Po päťsto stopách
@@ -1641,6 +1785,7 @@
     de = In sechshundert Fuß
     el = Σε εξακόσια πόδια
     es = En seiscientos pies
+    eu = Seiehun oinetara
     fa = در ششصد قدمی
     fi = Kuudensadan jalan päässä
     fr = Dans six cents pieds
@@ -1651,9 +1796,11 @@
     it = Tra seicento piedi
     ja = 六百フィート先
     ko = 육백 피트 앞
+    mr = सहाशे फुटांत
     nl = Over zeshonderd voet
     pl = Za sześćset stóp
     pt = A seiscentos pés
+    pt-BR = A seiscentos pés
     ro = După șase sute de picioare
     ru = Через шестьсот футов
     sk = Po šesťsto stopách
@@ -1675,6 +1822,7 @@
     de = In siebenhundert Fuß
     el = Σε επτακόσια πόδια
     es = En setecientos pies
+    eu = Zazpiehun oinetara
     fa = در هفتصد قدمی
     fi = Seitsemänsadan jalan päässä
     fr = Dans sept cents pieds
@@ -1685,9 +1833,11 @@
     it = Tra settecento piedi
     ja = 七百フィート先
     ko = 칠백 피트 앞
+    mr = सातशे फुटांत
     nl = Over zevenhonderd voet
     pl = Za siedemset stóp
     pt = A setecentos pés
+    pt-BR = A setecentos pés
     ro = După șapte sute de picioare
     ru = Через семьсот футов
     sk = Po sedemsto stopách
@@ -1709,6 +1859,7 @@
     de = In achthundert Fuß
     el = Σε οκτακόσια πόδια
     es = En ochocientos pies
+    eu = Zortziehun oinetara
     fa = در هشتصد قدمی
     fi = Kahdeksansadan jalan päässä
     fr = Dans huit cents pieds
@@ -1719,9 +1870,11 @@
     it = Tra ottocento piedi
     ja = 八百フィート先
     ko = 팔백 피트 앞
+    mr = आठशे फुटांत
     nl = Over achthonderd voet
     pl = Za osiemset stóp
     pt = A oitocentos pés
+    pt-BR = A oitocentos pés
     ro = După opt sute de picioare
     ru = Через восемьсот футов
     sk = Po osemsto stopách
@@ -1743,6 +1896,7 @@
     de = In neunhundert Fuß
     el = Σε εννιακόσια πόδια
     es = En novecientos pies
+    eu = Bederatziehun oinetara
     fa = در نه صد قدمی
     fi = Yhdeksänsadan jalan päässä
     fr = Dans neuf cents pieds
@@ -1753,9 +1907,11 @@
     it = Tra novecento piedi
     ja = 九百フィート先
     ko = 구백 피트 앞
+    mr = नऊशे फुटांत
     nl = Over negenhonderd voet
     pl = Za dziewięćset stóp
     pt = A novecentos pés
+    pt-BR = A novecentos pés
     ro = După nouă sute de picioare
     ru = Через девятьсот футов
     sk = Po deväťsto stopách
@@ -1777,6 +1933,7 @@
     de = In eintausend Fuß
     el = Σε χίλια πόδια
     es = En mil pies
+    eu = Mila oinetara
     fa = در یک هزار قدمی
     fi = Tuhannen jalan päässä
     fr = Dans mille pieds
@@ -1787,9 +1944,11 @@
     it = Tra mille piedi
     ja = 千フィート先
     ko = 천 피트 앞
+    mr = एक हजार फुटात
     nl = Over duizend voet
     pl = Za tysiąc stóp
     pt = A mil pés
+    pt-BR = A mil pés
     ro = După o mie de picioare
     ru = Через тысячу футов
     sk = Po tisíc stopách
@@ -1811,6 +1970,7 @@
     de = In eintausendfünfhundert Fuß
     el = Σε χίλια πεντακόσια πόδια
     es = En mil quinientos pies
+    eu = Mila bostehun oinetara
     fa = در یک هزار و پانصد قدمی
     fi = Tuhannenviidensadan jalan päässä
     fr = Dans mille cinq cents pieds
@@ -1821,9 +1981,11 @@
     it = Tra mille cinquecento piedi
     ja = 千五百フィート先
     ko = 천오백 피트 앞
+    mr = पंधराशे फुटांत
     nl = Over vijftienhonderd voet
     pl = Za tysiąc pięćset stóp
     pt = A mil e quinhentos pés
+    pt-BR = A mil e quinhentos pés
     ro = După o mie cinci sute de picioare
     ru = Через тысячу пятьсот футов
     sk = Po tisícpäťsto stopách
@@ -1845,6 +2007,7 @@
     de = In zweitausend Fuß
     el = Σε δύο χιλιάδες πόδια
     es = En dos mil pies
+    eu = Bi mila oinetara
     fa = در دو هزار قدمی
     fi = Kahdentuhannen jalan päässä
     fr = Dans deux mille pieds
@@ -1855,9 +2018,11 @@
     it = Tra duemila piedi
     ja = 二千フィート先
     ko = 이천 피트 앞
+    mr = दोन हजार फुटात
     nl = Over tweeduizend voet
     pl = Za dwa tysiące stóp
     pt = A dois mil pés
+    pt-BR = A dois mil pés
     ro = După două mii de picioare
     ru = Через две тысячи футов
     sk = Po dvetisíc stopách
@@ -1879,6 +2044,7 @@
     de = In zweitausendfünfhundert Fuß
     el = Σε δυόμισυ χιλιάδες πόδια
     es = En dos mil quinientos pies
+    eu = Bi mila bostehun oinetara
     fa = در پانصد و بیست قدمی
     fi = Kahdentuhannenviidensadan jalan päässä
     fr = Dans deux mille cinq cents pieds
@@ -1889,9 +2055,11 @@
     it = Tra duemila cinquecento piedi
     ja = 二千五百フィート先
     ko = 이천오백 피트 앞
+    mr = पंचवीसशे फुटांत
     nl = Over vijfentwintighonderd voet
     pl = Za dwa i pół tysiąca stóp
     pt = A dois mil e quinhentos pés
+    pt-BR = A dois mil e quinhentos pés
     ro = După două mii cinci sute de picioare
     ru = Через две тысячи пятьсот футов
     sk = Po dvetisícpäťsto stopách
@@ -1913,6 +2081,7 @@
     de = In dreitausend Fuß
     el = Σε τρεις χιλιάδες πόδια
     es = En tres mil pies
+    eu = Hiru mila oinetara
     fa = در سه هزار قدمی
     fi = Kolmentuhannen jalan päässä
     fr = Dans trois mille pieds
@@ -1923,9 +2092,11 @@
     it = Tra tremila piedi
     ja = 三千フィート先
     ko = 삼천 피트 앞
+    mr = तीन हजार फुटात
     nl = Over drieduizend voet
     pl = Za trzy tysiące stóp
     pt = A três mil pés
+    pt-BR = A três mil pés
     ro = După trei mii de picioare
     ru = Через три тысячи футов
     sk = Po tritisíc stopách
@@ -1947,6 +2118,7 @@
     de = In dreitausendfünfhundert Fuß
     el = Σε τρισύμιση χιλιάδες πόδια
     es = En tres mil quinientos pies
+    eu = Hiru mila bostehun oinetara
     fa = در سه هزار و پانصد قدمی
     fi = Kolmentuhannenviidensadan jalan päässä
     fr = Dans trois mille cinq cents pieds
@@ -1957,9 +2129,11 @@
     it = Tra tremila cinquecento piedi
     ja = 三千五百フィート先
     ko = 삼천오백 피트 앞
+    mr = पस्तीसशे फुटांत
     nl = Over vijfendertighonderd voet
     pl = Za trzy i pół tysiąca stóp
     pt = A três mil e quinhentos pés
+    pt-BR = A três mil e quinhentos pés
     ro = După trei mii cinci sute de picioare
     ru = Через три тысячи пятьсот футов
     sk = Po tritisícpäťsto stopách
@@ -1981,6 +2155,7 @@
     de = In viertausend Fuß
     el = Σε τέσσερις χιλιάδες πόδια
     es = En cuatro mil pies
+    eu = Lau mila oinetara
     fa = در چهار هزار قدمی
     fi = Neljäntuhannen jalan päässä
     fr = Dans quatre mille pieds
@@ -1991,9 +2166,11 @@
     it = Tra quattromila piedi
     ja = 四千フィート先
     ko = 사천 피트 앞
+    mr = चार हजार फुटात
     nl = Over vierduizend voet
     pl = Za cztery tysiące stóp
     pt = A quatro mil pés
+    pt-BR = A quatro mil pés
     ro = După patru mii de picioare
     ru = Через четыре тысячи футов
     sk = Po štyritisíc stopách
@@ -2015,6 +2192,7 @@
     de = In viertausendfünfhundert Fuß
     el = Σε τεσσερισήμισι χιλιάδες πόδια
     es = En cuatro mil quinientos pies
+    eu = Lau mila bostehun oinetara
     fa = در چهار هزار و پانصد قدمی
     fi = Neljäntuhannenviidensadan jalan päässä
     fr = Dans quatre mille cinq cents pieds
@@ -2025,9 +2203,11 @@
     it = Tra quattromila cinquecento piedi
     ja = 四千五百フィート先
     ko = 사천오백 피트 앞
+    mr = पंचेचाळीसशे फुटांत
     nl = Over vijfenveertighonderd voet
     pl = Za cztery i pół tysiąca stóp
     pt = A quatro mil e quinhentos pés
+    pt-BR = A quatro mil e quinhentos pés
     ro = După patru mii cinci sute de picioare
     ru = Через четыре тысячи пятьсот футов
     sk = Po štyritisícpäťsto stopách
@@ -2049,6 +2229,7 @@
     de = In fünftausend Fuß
     el = Σε πέντε χιλιάδες πόδια
     es = En cinco mil pies
+    eu = Bost mila oinetara
     fa = در پنج هزار قدمی
     fi = Viidentuhannen jalan päässä
     fr = Dans cinq mille pieds
@@ -2059,9 +2240,11 @@
     it = Tra cinquemila piedi
     ja = 五千フィート先
     ko = 오천 피트 앞
+    mr = पाच हजार फुटात
     nl = Over vijfduizend voet
     pl = Za pięć tysięcy stóp
     pt = A cinco mil pés
+    pt-BR = A cinco mil pés
     ro = După cinci mii de picioare
     ru = Через пять тысяч футов
     sk = Po päťtisíc stopách
@@ -2083,6 +2266,7 @@
     de = In einer Meile
     el = Σε ένα μίλι
     es = En una milla
+    eu = Milia batera
     fa = در یک مایلی
     fi = Mailin päässä
     fr = Dans un mile
@@ -2093,9 +2277,11 @@
     it = Tra un miglio
     ja = 一マイル先
     ko = 일 마일 앞
+    mr = एक मैल मध्ये
     nl = Over één mijl
     pl = Za jedną milę
     pt = A uma milha
+    pt-BR = A uma milha
     ro = După o milă
     ru = Через одну милю
     sk = Po jednej míli
@@ -2117,6 +2303,7 @@
     de = In anderthalb Meilen
     el = Σε ενάμισυ μίλι
     es = En una milla y media
+    eu = Milia eta erdira
     fa = در یک و نیم مایلی
     fi = Puolentoista mailin päässä
     fr = Dans un virgule cinq mile
@@ -2127,9 +2314,11 @@
     it = Tra un miglio e mezzo
     ja = 一.五マイル先
     ko = 일점오 마일 앞
+    mr = दीड मैल मध्ये
     nl = Over anderhalve mijl
     pl = Za półtorej mili
     pt = A uma milha e meia
+    pt-BR = A uma milha e meia
     ro = După o milă și jumătate
     ru = Через полторы мили
     sk = Po jeden a pol míli
@@ -2151,6 +2340,7 @@
     de = In zwei Meilen
     el = Σε δύο μίλια
     es = En dos millas
+    eu = Bi milietara
     fa = در دو مایلی
     fi = Kahden mailin päässä
     fr = Dans deux miles
@@ -2161,9 +2351,11 @@
     it = Tra due miglia
     ja = 二マイル先
     ko = 이 마일 앞
+    mr = दोन मैल मध्ये
     nl = Over twee mijl
     pl = Za dwie mile
     pt = A duas milhas
+    pt-BR = A duas milhas
     ro = După două mile
     ru = Через две мили
     sk = Po dvoch míľach
@@ -2182,9 +2374,10 @@
     be = Наперадзе камера
     cs = Radar vpředu
     da = Kamera foran dig
-    de = Kamera vorne
+    de = Blitzer voraus
     el = Κάμερα παρακάτω
     es = Cámara adelante
+    eu = Kamera aurrera
     es-MX = Cámara próxima
     fa = به دوربین نزدیک می شوید
     fi = Edessä on kamera
@@ -2194,6 +2387,7 @@
     it = Autovelox in prossimità
     ja = この先にある自動速度違反取締装置
     ko = 전방에 카메라
+    mr = पुढे कॅमेरा आहे
     nb = Kommer til kamera
     nl = Camera in zicht
     pl = Kamera z przodu
@@ -2210,3 +2404,4 @@
     vi = Máy ảnh phía trước
     zh-Hans = 在摄像头前
     zh-Hant = 在攝像頭前
+    

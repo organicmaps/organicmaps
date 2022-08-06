@@ -14,6 +14,8 @@
 #include <limits>
 #include <unordered_map>
 
+namespace generator
+{
 namespace
 {
 double constexpr kDefaultRadiusMeters = 5.0;
@@ -52,14 +54,13 @@ void UpdateFeatureGeometry(feature::FeatureBuilder::PointSeq const & seq,
 feature::FeatureBuilder::PointSeq::iterator GetIterOnRoad(m2::PointD const & point,
                                                           feature::FeatureBuilder::PointSeq & road)
 {
-  return base::FindIf(road, [&point](m2::PointD const & pointOnRoad) {
+  return std::find_if(road.begin(), road.end(), [&point](m2::PointD const & pointOnRoad)
+  {
     return m2::AlmostEqualAbs(pointOnRoad, point, kMwmPointAccuracy);
   });
 }
-}
+} // namespace
 
-namespace generator
-{
 MiniRoundaboutData::MiniRoundaboutData(std::vector<MiniRoundaboutInfo> && data)
   : m_data(std::move(data))
 {
@@ -310,7 +311,7 @@ std::vector<feature::FeatureBuilder> MiniRoundaboutTransformer::ProcessRoundabou
 
         if (!foundSurrogateRoad)
         {
-          LOG(LERROR, ("Not found road for mini_roundabout", mercator::FromLatLon(rb.m_coord)));
+          LOG(LERROR, ("Road not found for mini_roundabout", rb.m_coord));
           continue;
         }
       }

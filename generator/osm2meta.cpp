@@ -146,6 +146,32 @@ string MetadataTagProcessorImpl::ValidateAndFormat_ele(string const & v) const
   return measurement_utils::OSMDistanceToMetersString(v);
 }
 
+string MetadataTagProcessorImpl::ValidateAndFormat_destination(string const & v) const
+{
+  // Normalization. "a1 a2;b1-b2;  c,d ;e,;f;  ;g" -> "a1 a2; b1-b2; c; d; e; f; g"
+  string r;
+  strings::Tokenize(v, ";,", [&](std::string_view d)
+  {
+    strings::Trim(d);
+    if (d.empty())
+      return;
+    if (!r.empty())
+      r += "; ";
+    r.append(d);
+  });
+  return r;
+}
+
+string MetadataTagProcessorImpl::ValidateAndFormat_destination_ref(string const & v) const
+{
+  return v;
+}
+
+string MetadataTagProcessorImpl::ValidateAndFormat_junction_ref(string const & v) const
+{
+  return v;
+}
+
 string MetadataTagProcessorImpl::ValidateAndFormat_turn_lanes(string const & v) const
 {
   return v;
@@ -175,12 +201,11 @@ string MetadataTagProcessorImpl::ValidateAndFormat_flats(string const & v) const
 
 string MetadataTagProcessorImpl::ValidateAndFormat_internet(string v) const
 {
-  // TODO(AlexZ): Reuse/synchronize this code with MapObject::SetInternet().
   strings::AsciiToLower(v);
-  if (v == "wlan" || v == "wired" || v == "yes" || v == "no")
+  if (v == "wlan" || v == "wired" || v == "terminal" || v == "yes" || v == "no")
     return v;
-  // Process wifi=free tag.
-  if (v == "free")
+  // Process additional top tags.
+  if (v == "free" || v == "wifi" || v == "public")
     return "wlan";
   return {};
 }
@@ -282,7 +307,7 @@ string MetadataTagProcessorImpl::ValidateAndFormat_airport_iata(string const & v
 
 string MetadataTagProcessorImpl::ValidateAndFormat_duration(string const & v) const
 {
-  if (!ftypes::IsFerryChecker::Instance()(m_params.m_types))
+  if (!ftypes::IsWayWithDurationChecker::Instance()(m_params.m_types))
     return {};
 
   auto const format = [](double hours) -> string {
@@ -419,16 +444,7 @@ void MetadataTagProcessor::operator()(std::string const & k, std::string const &
 
   Metadata::EType mdType;
   if (!Metadata::TypeFromString(k, mdType))
-  {
-    // Specific cases which do not map directly to our metadata types.
-    if (k == "building:min_level")
-    {
-      // Converting this attribute into height only if min_height has not been already set.
-      if (!md.Has(Metadata::FMD_MIN_HEIGHT))
-        md.Set(Metadata::FMD_MIN_HEIGHT, ValidateAndFormat_building_levels(v));
-    }
     return;
-  }
 
   std::string valid;
   switch (mdType)
@@ -447,6 +463,9 @@ void MetadataTagProcessor::operator()(std::string const & k, std::string const &
   case Metadata::FMD_CONTACT_LINE: valid = osm::ValidateAndFormat_contactLine(v); break;
   case Metadata::FMD_INTERNET: valid = ValidateAndFormat_internet(v); break;
   case Metadata::FMD_ELE: valid = ValidateAndFormat_ele(v); break;
+  case Metadata::FMD_DESTINATION: valid = ValidateAndFormat_destination(v); break;
+  case Metadata::FMD_DESTINATION_REF: valid = ValidateAndFormat_destination_ref(v); break;
+  case Metadata::FMD_JUNCTION_REF: valid = ValidateAndFormat_junction_ref(v); break;
   case Metadata::FMD_TURN_LANES: valid = ValidateAndFormat_turn_lanes(v); break;
   case Metadata::FMD_TURN_LANES_FORWARD: valid = ValidateAndFormat_turn_lanes_forward(v); break;
   case Metadata::FMD_TURN_LANES_BACKWARD: valid = ValidateAndFormat_turn_lanes_backward(v); break;
@@ -457,6 +476,7 @@ void MetadataTagProcessor::operator()(std::string const & k, std::string const &
   case Metadata::FMD_MIN_HEIGHT:  // The same validator as for height.
   case Metadata::FMD_HEIGHT: valid = ValidateAndFormat_height(v); break;
   case Metadata::FMD_DENOMINATION: valid = ValidateAndFormat_denomination(v); break;
+  case Metadata::FMD_BUILDING_MIN_LEVEL:  // The same validator as for building_levels.
   case Metadata::FMD_BUILDING_LEVELS: valid = ValidateAndFormat_building_levels(v); break;
   case Metadata::FMD_LEVEL: valid = ValidateAndFormat_level(v); break;
   case Metadata::FMD_AIRPORT_IATA: valid = ValidateAndFormat_airport_iata(v); break;

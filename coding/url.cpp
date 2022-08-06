@@ -137,7 +137,7 @@ string UrlEncode(string const & rawUrl)
   return result;
 }
 
-string UrlDecode(string const & encodedUrl)
+string UrlDecode(string_view encodedUrl)
 {
   size_t const count = encodedUrl.size();
   string result;

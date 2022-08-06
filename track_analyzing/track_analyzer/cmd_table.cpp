@@ -6,6 +6,7 @@
 #include "track_analyzing/utils.hpp"
 
 #include "routing/city_roads.hpp"
+#include "routing/data_source.hpp"
 #include "routing/geometry.hpp"
 #include "routing/index_graph.hpp"
 #include "routing/index_graph_loader.hpp"
@@ -18,7 +19,6 @@
 #include "traffic/speed_groups.hpp"
 
 #include "indexer/classificator.hpp"
-#include "indexer/data_source.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_data.hpp"
 #include "indexer/features_vector.hpp"
@@ -53,9 +53,10 @@
 
 #include "defines.hpp"
 
+namespace track_analyzing
+{
 using namespace routing;
 using namespace std;
-using namespace track_analyzing;
 
 namespace
 {
@@ -337,10 +338,10 @@ public:
     : m_featuresVector(container), m_vehicleModel(vehicleModel)
   {
     if (container.IsExist(CITY_ROADS_FILE_TAG))
-      LoadCityRoads(container.GetFileName(), container.GetReader(CITY_ROADS_FILE_TAG), m_cityRoads);
+      m_cityRoads.Load(container.GetReader(CITY_ROADS_FILE_TAG));
 
     if (container.IsExist(MAXSPEEDS_FILE_TAG))
-      LoadMaxspeeds(container.GetReader(MAXSPEEDS_FILE_TAG), m_maxspeeds);
+      m_maxspeeds.Load(container.GetReader(MAXSPEEDS_FILE_TAG));
   }
 
   MoveType GetMoveType(MatchedTrackPoint const & point)
@@ -383,20 +384,20 @@ private:
 };
 }  // namespace
 
-namespace track_analyzing
-{
+
 void CmdTagsTable(string const & filepath, string const & trackExtension, StringFilter mwmFilter,
                   StringFilter userFilter)
 {
   WriteCsvTableHeader(cout);
 
   storage::Storage storage;
-  storage.RegisterAllLocalMaps(false /* enableDiffs */);
+  storage.RegisterAllLocalMaps();
   FrozenDataSource dataSource;
   auto numMwmIds = CreateNumMwmIds(storage);
 
   Stats stats;
-  auto processMwm = [&](string const & mwmName, UserToMatchedTracks const & userToMatchedTracks) {
+  auto processMwm = [&](string const & mwmName, UserToMatchedTracks const & userToMatchedTracks)
+  {
     if (mwmFilter(mwmName))
       return;
 
@@ -410,8 +411,10 @@ void CmdTagsTable(string const & filepath, string const & trackExtension, String
     auto const vehicleType = VehicleType::Car;
     auto const edgeEstimator = EdgeEstimator::Create(vehicleType, *vehicleModel,
       nullptr /* trafficStash */, &dataSource, numMwmIds);
-    auto indexGraphLoader = IndexGraphLoader::Create(vehicleType, false /* loadAltitudes */, numMwmIds,
-                                                     carModelFactory, edgeEstimator, dataSource);
+
+    MwmDataSource routingSource(dataSource, numMwmIds);
+    auto indexGraphLoader = IndexGraphLoader::Create(vehicleType, false /* loadAltitudes */,
+                                                     carModelFactory, edgeEstimator, routingSource);
 
     platform::CountryFile const countryFile(mwmName);
     auto localCountryFile = storage.GetLatestLocalFile(countryFile);
@@ -472,7 +475,8 @@ void CmdTagsTable(string const & filepath, string const & trackExtension, String
     }
   };
 
-  auto processTrack = [&](string const & filename, MwmToMatchedTracks const & mwmToMatchedTracks) {
+  auto processTrack = [&](string const & filename, MwmToMatchedTracks const & mwmToMatchedTracks)
+  {
     LOG(LINFO, ("Processing", filename));
     ForTracksSortedByMwmName(mwmToMatchedTracks, *numMwmIds, processMwm);
   };

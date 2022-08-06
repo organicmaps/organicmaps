@@ -27,7 +27,7 @@ esac
 
 # Note: default Google engine doesn't properly support European Portuguese (pt-PT)
 # and always produces Brazilian translations. Need to use Deepl.
-LANGUAGES=( en ar be bg cs da de el es fa 'fi' fr he hu id it ja ko nb nl pl pt-PT pt-BR ro ru sk sv sw th tr uk vi zh-CN zh-TW )
+LANGUAGES=( en ar be bg cs da de el es eu fa 'fi' fr he hu id it ja ko nb nl pl pt-PT pt-BR ro ru sk sv sw th tr uk vi zh-CN zh-TW )
 
 for lang in "${LANGUAGES[@]}"; do
   TRANSLATION=$(trans -b "$SRC:$lang" "$WORD" | sed 's/   *//')

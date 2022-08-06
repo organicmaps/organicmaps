@@ -26,13 +26,10 @@
 /* Leave Review dialog - Review button */
 "leave_a_review" = "Ajánlás írása";
 
-/* View and button titles for accessibility */
-"maps" = "Térképek";
-
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "Mérföld";
 
-/* View and button titles for accessibility */
+/* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Saját helyzet";
 
 /* Update maps later/Buy pro version later button text */
@@ -145,6 +142,9 @@
 
 /* Search category for police; any changes should be duplicated in categories.txt @police! */
 "police" = "Rendőrség";
+
+/* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
+"wifi" = "WiFi";
 
 /* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
 "recycling" = "Újrahasznosítás";
@@ -261,6 +261,9 @@
 /* Text in menu */
 "website" = "Honlap";
 
+/* Text in About menu, opens Organic Maps news website */
+"news" = "Hírek";
+
 /* Text in menu */
 "github" = "GitHub";
 
@@ -312,13 +315,10 @@
 /* Settings item title */
 "pref_calibration_title" = "Iránytű kalibrálás";
 
-/* Search category */
-"wifi" = "WiFi";
-
 /* Update all button text */
 "downloader_update_all_button" = "Mindegyik frissítése";
 
-/* Downloaded maps category */
+/* Downloaded maps list header */
 "downloader_downloaded_subtitle" = "Letöltve";
 
 /* Downloaded maps category */
@@ -329,6 +329,7 @@
 
 "downloader_near_me_subtitle" = "A közelemben";
 
+/* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
 "downloader_status_maps" = "Térképek";
 
 "downloader_download_all_button" = "Mindegyik letöltése";
@@ -419,9 +420,6 @@
 /* blue gray color */
 "blue_gray" = "Kékes Szürke";
 
-/* Wi-Fi available */
-"WiFi_available" = "Igen";
-
 
 /********** Routing dialogs strings **********/
 
@@ -504,6 +502,10 @@
 "categories" = "Kategóriák";
 
 "history" = "Előzmények";
+
+"opens_in" = "Opens in %@";
+
+"closes_in" = "Closes in %@";
 
 "closed" = "Zárva";
 
@@ -743,9 +745,12 @@
 
 "mile" = "mf";
 
+/* A unit of measure */
 "foot" = "ft";
 
 "miles_per_hour" = "mph";
+
+"minute" = "p";
 
 "placepage_place_description" = "Leírás";
 
@@ -1025,9 +1030,17 @@
 
 "redirect_route_alert" = "Szeretnél újratervezni egy útvonalat?";
 
-"redirect_route_yes" = "Igen";
+/* A generic "Yes" button in dialogs */
+"yes" = "Igen";
 
-"redirect_route_no" = "Nem";
+/* A generic "No" button in dialogs */
+"no" = "Nem";
+
+/* E.g. "WiFi:Yes" */
+"yes_available" = "Igen";
+
+/* E.g. "WiFi:No" */
+"no_available" = "Nem";
 
 "trip_finished" = "Megérkeztél!";
 
@@ -1245,6 +1258,8 @@
 
 "type.amenity.bicycle_rental" = "Kerékpárkölcsönző";
 
+"type.amenity.bicycle_repair_station" = "Kerékpárjavító állomás";
+
 "type.amenity.biergarten" = "Sörkert";
 
 "type.amenity.brothel" = "Bordélyház";
@@ -1442,11 +1457,21 @@
 
 "type.amenity.vending_machine.cigarettes" = "Cigarettaautomata";
 
+"type.amenity.vending_machine.coffee" = "Coffee Dispenser";
+
+"type.amenity.vending_machine.condoms" = "Condoms Dispenser";
+
 "type.amenity.vending_machine.drinks" = "Italautomata";
+
+"type.amenity.vending_machine.food" = "Food Dispenser";
+
+"type.amenity.vending_machine.newspapers" = "Newspapers Dispenser";
 
 "type.amenity.vending_machine.parking_tickets" = "Parkolóautomata";
 
 "type.amenity.vending_machine.public_transport_tickets" = "Automata jegykiadó tömegközlekedési eszközökhöz";
+
+"type.amenity.vending_machine.sweets" = "Sweets Dispenser";
 
 "type.amenity.vending_machine.excrement_bags" = "Excrement Bags Dispenser";
 
@@ -1552,16 +1577,29 @@
 
 "type.building.warehouse" = "Warehouse";
 
+"type.cemetery.grave" = "Sír";
+
 "type.craft" = "Craft";
+
+"type.craft.beekeeper" = "Beekeeper";
+
+"type.craft.blacksmith" = "Blacksmith";
 
 "type.craft.brewery" = "Sörfőzde";
 
 "type.craft.carpenter" = "Ács";
 
+"type.craft.confectionery" = "Confectionery";
+
 "type.craft.electrician" = "Villanyszerelő";
+
+"type.craft.electronics_repair" = "Electronics Repair";
 
 "type.craft.gardener" = "Kertész";
 
+"type.craft.handicraft" = "Handicraft";
+
+/* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Hűtés-fűtés szerelő";
 
 "type.craft.metal_construction" = "Lakatos";
@@ -1572,7 +1610,11 @@
 
 "type.craft.plumber" = "Vízvezeték-szerelő";
 
+"type.craft.sawmill" = "Sawmill";
+
 "type.craft.shoemaker" = "Cipész";
+
+"type.craft.winery" = "Winery";
 
 "type.craft.tailor" = "Szabó";
 
@@ -1601,6 +1643,8 @@
 "type.cuisine.brazilian" = "Brazil konyha";
 
 "type.cuisine.breakfast" = "Reggeli";
+
+"type.cuisine.bubble_tea" = "Bubble Tea";
 
 "type.cuisine.burger" = "Hamburger";
 
@@ -1765,11 +1809,13 @@
 
 "type.highway.bridleway" = "Bridle Path";
 
-"type.highway.bridleway.bridge" = "Bridle Path";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.bridleway.bridge" = "Híd";
 
 "type.highway.bridleway.permissive" = "Bridle Path";
 
-"type.highway.bridleway.tunnel" = "Bridle Path";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.bridleway.tunnel" = "Alagút";
 
 "type.highway.bus_stop" = "Buszmegálló";
 
@@ -1777,11 +1823,13 @@
 
 "type.highway.cycleway" = "Cycle Path";
 
-"type.highway.cycleway.bridge" = "Cycle Path";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.cycleway.bridge" = "Híd";
 
 "type.highway.cycleway.permissive" = "Cycle Path";
 
-"type.highway.cycleway.tunnel" = "Cycle Path";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.cycleway.tunnel" = "Alagút";
 
 "type.highway.elevator" = "Elevator";
 
@@ -1791,7 +1839,8 @@
 
 "type.highway.footway.area" = "Ösvény";
 
-"type.highway.footway.bridge" = "Ösvény";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.footway.bridge" = "Híd";
 
 "type.highway.footway.demanding_alpine_hiking" = "Ösvény";
 
@@ -1805,29 +1854,36 @@
 
 "type.highway.footway.permissive" = "Ösvény";
 
-"type.highway.footway.tunnel" = "Ösvény";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.footway.tunnel" = "Alagút";
 
 "type.highway.ford" = "Gázló";
 
 "type.highway.living_street" = "Utca";
 
-"type.highway.living_street.bridge" = "Utca";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.living_street.bridge" = "Híd";
 
-"type.highway.living_street.tunnel" = "Utca";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.living_street.tunnel" = "Alagút";
 
 "type.highway.motorway" = "Utca";
 
-"type.highway.motorway.bridge" = "Utca";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway.bridge" = "Híd";
 
-"type.highway.motorway.tunnel" = "Utca";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway.tunnel" = "Alagút";
 
 "type.highway.motorway_junction" = "Kijárat";
 
 "type.highway.motorway_link" = "Utca";
 
-"type.highway.motorway_link.bridge" = "Utca";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway_link.bridge" = "Híd";
 
-"type.highway.motorway_link.tunnel" = "Utca";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway_link.tunnel" = "Alagút";
 
 "type.highway.path" = "Ösvény";
 
@@ -1835,7 +1891,8 @@
 
 "type.highway.path.bicycle" = "Ösvény";
 
-"type.highway.path.bridge" = "Ösvény";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.path.bridge" = "Híd";
 
 "type.highway.path.demanding_alpine_hiking" = "Ösvény";
 
@@ -1851,27 +1908,34 @@
 
 "type.highway.path.permissive" = "Ösvény";
 
-"type.highway.path.tunnel" = "Ösvény";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.path.tunnel" = "Alagút";
 
 "type.highway.pedestrian" = "Utca";
 
 "type.highway.pedestrian.area" = "Utca";
 
-"type.highway.pedestrian.bridge" = "Utca";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.pedestrian.bridge" = "Híd";
 
-"type.highway.pedestrian.tunnel" = "Utca";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.pedestrian.tunnel" = "Alagút";
 
 "type.highway.primary" = "Utca";
 
-"type.highway.primary.bridge" = "Utca";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary.bridge" = "Híd";
 
-"type.highway.primary.tunnel" = "Utca";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary.tunnel" = "Alagút";
 
 "type.highway.primary_link" = "Utca";
 
-"type.highway.primary_link.bridge" = "Utca";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary_link.bridge" = "Híd";
 
-"type.highway.primary_link.tunnel" = "Utca";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary_link.tunnel" = "Alagút";
 
 "type.highway.raceway" = "Versenypálya";
 
@@ -1879,41 +1943,51 @@
 
 "type.highway.residential.area" = "Utca";
 
-"type.highway.residential.bridge" = "Utca";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.residential.bridge" = "Híd";
 
-"type.highway.residential.tunnel" = "Utca";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.residential.tunnel" = "Alagút";
 
 "type.highway.rest_area" = "Pihenőzóna";
 
 "type.highway.road" = "Utca";
 
-"type.highway.road.bridge" = "Utca";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.road.bridge" = "Híd";
 
-"type.highway.road.tunnel" = "Utca";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.road.tunnel" = "Alagút";
 
 "type.highway.secondary" = "Utca";
 
-"type.highway.secondary.bridge" = "Utca";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary.bridge" = "Híd";
 
-"type.highway.secondary.tunnel" = "Utca";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary.tunnel" = "Alagút";
 
 "type.highway.secondary_link" = "Utca";
 
-"type.highway.secondary_link.bridge" = "Utca";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary_link.bridge" = "Híd";
 
-"type.highway.secondary_link.tunnel" = "Utca";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary_link.tunnel" = "Alagút";
 
 "type.highway.service" = "Utca";
 
 "type.highway.service.area" = "Utca";
 
-"type.highway.service.bridge" = "Utca";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.service.bridge" = "Híd";
 
 "type.highway.service.driveway" = "Utca";
 
 "type.highway.service.parking_aisle" = "Utca";
 
-"type.highway.service.tunnel" = "Utca";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.service.tunnel" = "Alagút";
 
 "type.highway.services" = "Service Area";
 
@@ -1921,27 +1995,34 @@
 
 "type.highway.steps" = "Ösvény";
 
-"type.highway.steps.bridge" = "Ösvény";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.steps.bridge" = "Híd";
 
-"type.highway.steps.tunnel" = "Ösvény";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.steps.tunnel" = "Alagút";
 
 "type.highway.tertiary" = "Utca";
 
-"type.highway.tertiary.bridge" = "Utca";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary.bridge" = "Híd";
 
-"type.highway.tertiary.tunnel" = "Utca";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary.tunnel" = "Alagút";
 
 "type.highway.tertiary_link" = "Utca";
 
-"type.highway.tertiary_link.bridge" = "Utca";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary_link.bridge" = "Híd";
 
-"type.highway.tertiary_link.tunnel" = "Utca";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary_link.tunnel" = "Alagút";
 
 "type.highway.track" = "Utca";
 
 "type.highway.track.area" = "Utca";
 
-"type.highway.track.bridge" = "Utca";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.track.bridge" = "Híd";
 
 "type.highway.track.grade1" = "Utca";
 
@@ -1957,29 +2038,36 @@
 
 "type.highway.track.permissive" = "Utca";
 
-"type.highway.track.tunnel" = "Utca";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.track.tunnel" = "Alagút";
 
 "type.highway.traffic_signals" = "Közlekedési lámpák";
 
 "type.highway.trunk" = "Utca";
 
-"type.highway.trunk.bridge" = "Utca";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk.bridge" = "Híd";
 
-"type.highway.trunk.tunnel" = "Utca";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk.tunnel" = "Alagút";
 
 "type.highway.trunk_link" = "Utca";
 
-"type.highway.trunk_link.bridge" = "Utca";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk_link.bridge" = "Híd";
 
-"type.highway.trunk_link.tunnel" = "Utca";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk_link.tunnel" = "Alagút";
 
 "type.highway.unclassified" = "Utca";
 
 "type.highway.unclassified.area" = "Utca";
 
-"type.highway.unclassified.bridge" = "Utca";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.unclassified.bridge" = "Híd";
 
-"type.highway.unclassified.tunnel" = "Utca";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.unclassified.tunnel" = "Alagút";
 
 "type.area_highway.cycleway" = "Cycle Path";
 
@@ -2110,6 +2198,8 @@
 
 "type.landuse.construction" = "Construction";
 
+"type.landuse.education" = "Educational Facilities";
+
 "type.landuse.farm" = "Farm";
 
 "type.landuse.farmland" = "Termőföld";
@@ -2206,13 +2296,9 @@
 
 "type.leisure.sports_centre" = "Sportközpont";
 
-"type.leisure.sports_centre.climbing" = "Hegymászó központ";
+"type.sport.climbing" = "Hegymászó központ";
 
-"type.leisure.sports_centre.shooting" = "Lőtér";
-
-"type.leisure.sports_centre.swimming" = "Uszoda";
-
-"type.leisure.sports_centre.yoga" = "Jógastúdió";
+"type.sport.yoga" = "Jógastúdió";
 
 "type.leisure.stadium" = "Stadion";
 
@@ -2235,6 +2321,8 @@
 "type.man_made.chimney" = "Gyárkémény";
 
 "type.man_made.cutline" = "Cutline";
+
+"type.man_made.survey_point" = "Survey Point";
 
 "type.man_made.flagpole" = "Flagpole";
 
@@ -2278,37 +2366,43 @@
 
 "type.mountain_pass" = "Mountain Pass";
 
-"type.natural" = "Natural";
+"type.natural" = "Természet";
 
-"type.natural.bare_rock" = "Bare Rock";
+"type.natural.bare_rock" = "Csupasz szikla";
 
 "type.natural.bay" = "Öböl";
 
 "type.natural.beach" = "Strand";
 
-"type.natural.beach.sand" = "Sandy Beach";
+"type.natural.beach.sand" = "Homokos part";
 
-"type.natural.beach.gravel" = "Gravel Beach";
+"type.natural.beach.gravel" = "Kavicsos strand";
 
 "type.natural.cape" = "Hegytető";
 
 "type.natural.cave_entrance" = "Barlang";
 
-"type.natural.cliff" = "Cliff";
+"type.natural.cliff" = "Szikla";
 
-"type.natural.coastline" = "Coastline";
+"type.natural.earth_bank" = "Szikla";
+
+"type.man_made.embankment" = "Töltés";
+
+"type.natural.coastline" = "Tengerpart";
 
 "type.natural.geyser" = "Gejzír";
 
 "type.natural.glacier" = "Gleccser";
 
-"type.natural.grassland" = "Mező";
+"type.natural.grassland" = "Füves puszta";
 
-"type.natural.heath" = "Heath";
+"type.natural.heath" = "Fenyér";
 
-"type.natural.hot_spring" = "Hot Spring";
+"type.natural.hot_spring" = "Termálvíz";
 
 "type.natural.water.lake" = "Tó";
+
+"type.natural.water.lock" = "Zsilipkamra";
 
 "type.natural.water.pond" = "Tavacska";
 
@@ -2318,17 +2412,17 @@
 
 "type.natural.water.river" = "Folyó";
 
-"type.natural.land" = "Land";
+"type.natural.land" = "Föld";
 
-"type.natural.meadow" = "Meadow";
+"type.natural.meadow" = "Rét";
 
-"type.natural.orchard" = "Orchard";
+"type.natural.orchard" = "Gyümölcsöskert";
 
 "type.natural.peak" = "Csúcs";
 
-"type.natural.saddle" = "Mountain Saddle";
+"type.natural.saddle" = "Hegyi nyereg";
 
-"type.natural.rock" = "Rock";
+"type.natural.rock" = "Kőzet";
 
 "type.natural.scrub" = "Cserjés";
 
@@ -2338,9 +2432,9 @@
 
 "type.natural.tree" = "Fa";
 
-"type.natural.tree_row" = "Tree Row";
+"type.natural.tree_row" = "Fa sor";
 
-"type.natural.vineyard" = "Vineyard";
+"type.natural.vineyard" = "Szőlőskert";
 
 "type.natural.volcano" = "Tűzhányó";
 
@@ -2348,9 +2442,9 @@
 
 "type.natural.wetland" = "Vizes terület";
 
-"type.natural.wetland.bog" = "Wetland";
+"type.natural.wetland.bog" = "Láp";
 
-"type.natural.wetland.marsh" = "Wetland";
+"type.natural.wetland.marsh" = "Mocsár";
 
 "type.noexit" = "Dead End";
 
@@ -2369,6 +2463,10 @@
 "type.office.ngo" = "Civil szervezet irodája";
 
 "type.office.telecommunication" = "Mobilüzemeltető";
+
+"type.organic.only" = "Organic";
+
+"type.organic.yes" = "Organic";
 
 "type.place" = "place";
 
@@ -2664,6 +2762,8 @@
 
 "type.shop.cosmetics" = "Kozmetikum";
 
+"type.shop.deli" = "Csemegebolt";
+
 "type.shop.department_store" = "Áruház";
 
 "type.shop.doityourself" = "Vaskereskedés";
@@ -2675,6 +2775,8 @@
 "type.shop.erotic" = "Erotikus bolt";
 
 "type.shop.fabric" = "Bolt";
+
+"type.shop.farm" = "Farm Food Shop";
 
 "type.shop.florist" = "Virágos";
 
@@ -2688,13 +2790,21 @@
 
 "type.shop.greengrocer" = "Zöldséges";
 
+"type.shop.grocery" = "Élelmiszerbolt";
+
 "type.shop.hairdresser" = "Fodrász";
 
-"type.shop.hardware" = "Vaskereskedés";
+"type.shop.hardware" = "Hardver üzlet";
+
+"type.shop.health_food" = "Egészségügyi élelmiszerbolt";
+
+"type.shop.houseware" = "Háztartási bolt";
 
 "type.shop.jewelry" = "Ékszer";
 
 "type.shop.kiosk" = "Trafik";
+
+"type.shop.kitchen" = "Konyhabolt";
 
 "type.shop.laundry" = "Mosoda";
 
@@ -2718,6 +2828,8 @@
 
 "type.shop.outdoor" = "Kültéri felszerelés";
 
+"type.shop.pastry" = "Cukrászsütemény";
+
 "type.shop.pawnbroker" = "Zálogház";
 
 "type.shop.pet" = "Házikedvenc-üzlet";
@@ -2725,6 +2837,8 @@
 "type.shop.photo" = "Fénykép üzlet";
 
 "type.shop.seafood" = "Halüzlet";
+
+"type.shop.second_hand" = "Second Hand Store";
 
 "type.shop.shoes" = "Cipőbolt";
 
@@ -2754,49 +2868,108 @@
 
 "type.shop.wine" = "Szeszesital-üzlet";
 
-"type.sport" = "sport";
+"type.shop.antiques" = "Régiségek";
 
-"type.sport.american_football" = "American Football";
+"type.shop.art" = "Művészeti Bolt";
 
-"type.sport.archery" = "Archery";
+"type.shop.baby_goods" = "Gyermekbolt";
+
+"type.shop.bag" = "Táskák bolt";
+
+"type.shop.boutique" = "Butik";
+
+"type.shop.charity" = "Jótékonysági Bolt";
+
+"type.shop.cheese" = "Sajtbolt";
+
+"type.shop.craft" = "Művészetek és kézművesség";
+
+"type.shop.dairy" = "Tejtermékek";
+
+"type.shop.electrical" = "Elektronikai üzlet";
+
+"type.shop.fishing" = "Horgászbolt";
+
+"type.shop.interior_decoration" = "Belső dekorációk";
+
+"type.shop.lottery" = "Sorsjegyek";
+
+"type.shop.medical_supply" = "Orvosi eszközök";
+
+"type.shop.nutrition_supplements" = "Táplálékkiegészítők";
+
+"type.shop.paint" = "Festékek";
+
+"type.shop.perfumery" = "Illatszerek";
+
+"type.shop.sewing" = "Varrás kellékek";
+
+"type.shop.storage_rental" = "Tárhely bérlés";
+
+"type.shop.tobacco" = "Dohány";
+
+"type.shop.trade" = "Kellékekkel kereskedik";
+
+"type.shop.watches" = "Órák";
+
+"type.shop.wholesale" = "Nagykereskedelmi üzlet";
+
+"type.sport" = "Sport";
+
+"type.sport.american_football" = "Amerikai foci";
+
+"type.sport.archery" = "Íjászat";
 
 "type.sport.athletics" = "Atlétika";
 
-"type.sport.australian_football" = "Rugby";
+"type.sport.australian_football" = "Ausztrál futball";
 
 "type.sport.baseball" = "Baseball";
 
 "type.sport.basketball" = "Kosárlabda";
 
+"type.sport.beachvolleyball" = "Strandröplabda";
+
 "type.sport.bowls" = "Bowls";
 
-"type.sport.cricket" = "Cricket";
+"type.sport.chess" = "Sakk";
 
-"type.sport.curling" = "Сurling";
+"type.sport.cricket" = "Krikett";
 
-"type.sport.diving" = "Diving";
+"type.sport.curling" = "Curling";
 
 "type.sport.equestrian" = "Lovas sportok";
 
 "type.sport.golf" = "Golf";
 
-"type.sport.gymnastics" = "Gymnastics";
+"type.sport.gymnastics" = "Gimnasztika";
 
-"type.sport.handball" = "Handball";
+"type.sport.handball" = "Kézilabda";
 
-"type.sport.multi" = "Various Sport";
+"type.sport.multi" = "Különféle sportágak";
 
-"type.sport.scuba_diving" = "Scuba Diving";
+/* Used to tag a scuba diving site. */
+"type.sport.scuba_diving" = "Búvárkodás";
 
-"type.sport.shooting" = "Shooting";
+"type.sport.shooting" = "Lövés";
 
-"type.sport.skiing" = "Skiing";
+"type.sport.skateboard" = "Gördeszkázás";
 
-"type.sport.soccer" = "Soccer (Football)";
+"type.sport.skiing" = "Síelés";
 
-"type.sport.swimming" = "Swimming";
+"type.sport.soccer" = "Futball";
+
+"type.sport.swimming" = "Úszás";
+
+"type.sport.table_tennis" = "Asztalitenisz";
 
 "type.sport.tennis" = "Teniszpálya";
+
+"type.sport.volleyball" = "Röplabda";
+
+"type.sport.9pin" = "Bowling";
+
+"type.sport.10pin" = "Bowling";
 
 "type.tourism" = "Tourism";
 
@@ -2838,7 +3011,7 @@
 
 "type.tourism.information.board" = "Információs tábla";
 
-"type.tourism.information.guidepost" = "Túrista információ";
+"type.tourism.information.guidepost" = "Útmutató";
 
 "type.tourism.information.map" = "Turistatérkép";
 
@@ -2883,8 +3056,6 @@
 "type.waterway.drain" = "Drain";
 
 "type.waterway.drain.tunnel" = "Drain";
-
-"type.waterway.lock" = "Waterway Lock";
 
 "type.waterway.lock_gate" = "Zsilip";
 
@@ -2948,3 +3119,5 @@
 "type.piste_type.sled" = "Sledding Piste";
 
 "type.building_part" = "Épület";
+
+"type.amenity.events_venue" = "Rendezvények helyszíne";

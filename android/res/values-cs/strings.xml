@@ -17,17 +17,15 @@
 	<string name="downloading">Stahování…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Kilometry</string>
-	<!-- View and button titles for accessibility -->
-	<string name="maps">Mapy</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Míle</string>
-	<!-- View and button titles for accessibility -->
+	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">Moje poloha</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">Později</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Hledat</string>
-	<!-- Search box placeholder text -->
+	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">Prohledat mapu</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">Aktuálně máte všechny možnosti pro určování polohy vypnuté. Prosím, povolte je v Nastavení.</string>
@@ -41,9 +39,10 @@
 	<string name="close">Zavřít</string>
 	<string name="unsupported_phone">Je vyžadována hardwarová akcelerace OpenGL. Bohužel, vaše zařízení není podporováno.</string>
 	<string name="download">Stáhnout</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable">Prosím, odpojte USB kabel nebo vložte paměťovou kartu pro použití s Organic Maps</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="not_enough_free_space_on_sdcard">Prosím, uvolněte nejprve místo na SD kartě/USB uložišti</string>
-	<string name="not_enough_memory">Nedostatek paměti ke spuštění aplikace</string>
 	<string name="download_resources">Ještě než začnete, bude třeba stáhnout obecnou mapu světa.\nZabere to %s.</string>
 	<string name="download_resources_continue">Přejít na mapu</string>
 	<string name="downloading_country_can_proceed">Stahování %s. Nyní můžete\npřejít na mapu.</string>
@@ -77,6 +76,8 @@
 	<string name="maps_storage">Uložit mapy na</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Vyberte místo, kam by měly být mapy stahovány</string>
+	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+	<string name="maps_storage_downloaded">Mapy</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Přesunout mapy?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
@@ -123,6 +124,8 @@
 	<string name="post">Pošta</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
 	<string name="police">Policie</string>
+	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! -->
+	<string name="wifi">WiFi</string>
 	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
 	<string name="recycling">Recyklace</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
@@ -203,6 +206,8 @@
 	<string name="search_show_on_map">Zobrazit na mapě</string>
 	<!-- Text in menu -->
 	<string name="website">Webové stránky</string>
+	<!-- Text in About menu, opens Organic Maps news website -->
+	<string name="news">Zprávy</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">Zpětná vazba</string>
 	<!-- Text in menu -->
@@ -217,17 +222,16 @@
 	<string name="copyright">Autorská práva</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Nahlásit chybu</string>
-	<!-- Search category -->
-	<string name="wifi">WiFi</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Aktualizovat vše</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">Zrušit vše</string>
-	<!-- Downloaded maps category -->
+	<!-- Downloaded maps list header -->
 	<string name="downloader_downloaded_subtitle">Staženo</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">Ve frontě</string>
 	<string name="downloader_near_me_subtitle">Poblíž mě</string>
+	<!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
 	<string name="downloader_status_maps">Mapy</string>
 	<string name="downloader_download_all_button">Stáhnout vše</string>
 	<string name="downloader_downloading">Probíhá stahování:</string>
@@ -243,6 +247,8 @@
 	<string name="downloader_delete_map">Smazat mapu</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">Aktualizovat mapu</string>
+	<!-- Preference title -->
+	<string name="google_play_services">Služby Google Play</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">Používat Služby Google Play pro získání aktuální polohy</string>
 	<!-- Text for routing error dialog -->
@@ -288,8 +294,6 @@
 	<string name="gray">Šedá</string>
 	<!-- blue gray color -->
 	<string name="blue_gray">Modrošedá</string>
-	<!-- Wi-Fi available -->
-	<string name="WiFi_available">Ano</string>
 
 	<!-- SECTION: Routing dialogs strings -->
 	<string name="dialog_routing_disclaimer_title">Při navigaci podle trasy mějte na paměti následující:</string>
@@ -359,7 +363,7 @@
 	<string name="editor_example_values">Vzorové hodnoty</string>
 	<string name="editor_correct_mistake">Opravit chybu</string>
 	<string name="editor_add_select_location">Umístění</string>
-	<string name="editor_report_problem_desription_1">Popište prosím detailně problém, aby vám komunita OpenStreeMap mohla pomoct opravit chybu.</string>
+	<string name="editor_report_problem_desription_1">Popište prosím detailně problém, aby vám komunita OpenStreetMap mohla pomoct opravit chybu.</string>
 	<string name="editor_report_problem_desription_2">Nebo to udělejte sami na https://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">Odeslat</string>
 	<string name="editor_report_problem_title">Problém</string>
@@ -446,6 +450,7 @@
 	<string name="kilometer">km</string>
 	<string name="kilometers_per_hour">km/h</string>
 	<string name="mile">mil</string>
+	<!-- A unit of measure -->
 	<string name="foot">stopa</string>
 	<string name="miles_per_hour">mil/h</string>
 	<string name="hour">hod</string>
@@ -545,6 +550,7 @@
 	<plurals name="tracks">
 	  <item quantity="other">%d cest</item>
 	</plurals>
+	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Natavení doprovodu</string>
 	<string name="crash_reports">Zprávy o chybách</string>
 	<string name="crash_reports_description">Můžeme používat vaše údaje pro vývoj a zlepšení Organic Maps. Změny se projeví po restartování aplikace.</string>
@@ -594,6 +600,14 @@
 	<string name="avoid_toll_roads_placepage">Vyhnout se silnicím s mýtným</string>
 	<string name="avoid_unpaved_roads_placepage">Vyhnout se nezpevněným silnicím</string>
 	<string name="avoid_ferry_crossing_placepage">Vyhnout se přejezdům trajektů</string>
+	<!-- A generic "Yes" button in dialogs -->
+	<string name="yes">Ano</string>
+	<!-- A generic "No" button in dialogs -->
+	<string name="no">Ne</string>
+	<!-- E.g. "WiFi:Yes" -->
+	<string name="yes_available">Ano</string>
+	<!-- E.g. "WiFi:No" -->
+	<string name="no_available">Ne</string>
 	<string name="ok">Ok</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Třídit…</string>
@@ -649,6 +663,8 @@
 	<string name="enable_screen_sleep">Nechte obrazovku spát</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Je-li tato možnost povolena, bude obrazovka po určité době nečinnosti umožněna usnout.</string>
+	<!-- OpenStreetMap text on splash screen -->
+	<string name="splash_subtitle">Mapová data z OpenStreetMap</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stanice lanové dráhy</string>
@@ -662,6 +678,7 @@
 	<string name="type.amenity.bench">Lavička</string>
 	<string name="type.amenity.bicycle_parking">Parkování kol</string>
 	<string name="type.amenity.bicycle_rental">Půjčovna kol</string>
+	<string name="type.amenity.bicycle_repair_station">Stanice na opravu jízdních kol</string>
 	<string name="type.amenity.biergarten">Hospoda se zahrádkou</string>
 	<string name="type.amenity.brothel">Nevěstinec</string>
 	<string name="type.amenity.bureau_de_change">Směnárna</string>
@@ -773,10 +790,12 @@
 	<string name="type.building.garage">Garáž</string>
 	<string name="type.building.has_parts">Stavba</string>
 	<string name="type.building.train_station">Železniční stanice</string>
+	<string name="type.cemetery.grave">Hrob</string>
 	<string name="type.craft.brewery">Pivovar</string>
 	<string name="type.craft.carpenter">Truhlář</string>
 	<string name="type.craft.electrician">Elektrikář</string>
 	<string name="type.craft.gardener">Zahradník</string>
+	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">HVAC</string>
 	<string name="type.craft.metal_construction">Kovodílna</string>
 	<string name="type.craft.painter">Malíř</string>
@@ -876,34 +895,51 @@
 	<string name="type.healthcare.laboratory">Lékařská laboratoř</string>
 
 	<!-- SECTION: Types: Roads -->
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.bridleway.bridge">Most</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.bridleway.tunnel">Tunel</string>
 	<string name="type.highway.bus_stop">Autobusová zastávka</string>
 	<string name="type.highway.construction">Silnice v rekonstrukci</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.cycleway.bridge">Most</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.cycleway.tunnel">Tunel</string>
 	<string name="type.highway.footway">Cesta</string>
 	<string name="type.highway.footway.alpine_hiking">Cesta</string>
 	<string name="type.highway.footway.area">Cesta</string>
-	<string name="type.highway.footway.bridge">Cesta</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.footway.bridge">Most</string>
 	<string name="type.highway.footway.demanding_alpine_hiking">Cesta</string>
 	<string name="type.highway.footway.demanding_mountain_hiking">Cesta</string>
 	<string name="type.highway.footway.difficult_alpine_hiking">Cesta</string>
 	<string name="type.highway.footway.hiking">Cesta</string>
 	<string name="type.highway.footway.mountain_hiking">Cesta</string>
 	<string name="type.highway.footway.permissive">Cesta</string>
-	<string name="type.highway.footway.tunnel">Cesta</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.footway.tunnel">Tunel</string>
 	<string name="type.highway.ford">Brod</string>
 	<string name="type.highway.living_street">Ulice</string>
-	<string name="type.highway.living_street.bridge">Ulice</string>
-	<string name="type.highway.living_street.tunnel">Ulice</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.living_street.bridge">Most</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.living_street.tunnel">Tunel</string>
 	<string name="type.highway.motorway">Ulice</string>
-	<string name="type.highway.motorway.bridge">Ulice</string>
-	<string name="type.highway.motorway.tunnel">Ulice</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway.bridge">Most</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway.tunnel">Tunel</string>
 	<string name="type.highway.motorway_junction">Dopravní uzel</string>
 	<string name="type.highway.motorway_link">Ulice</string>
-	<string name="type.highway.motorway_link.bridge">Ulice</string>
-	<string name="type.highway.motorway_link.tunnel">Ulice</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway_link.bridge">Most</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway_link.tunnel">Tunel</string>
 	<string name="type.highway.path">Cesta</string>
 	<string name="type.highway.path.alpine_hiking">Cesta</string>
 	<string name="type.highway.path.bicycle">Cesta</string>
-	<string name="type.highway.path.bridge">Cesta</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.path.bridge">Most</string>
 	<string name="type.highway.path.demanding_alpine_hiking">Cesta</string>
 	<string name="type.highway.path.demanding_mountain_hiking">Cesta</string>
 	<string name="type.highway.path.difficult_alpine_hiking">Cesta</string>
@@ -911,51 +947,75 @@
 	<string name="type.highway.path.horse">Cesta</string>
 	<string name="type.highway.path.mountain_hiking">Cesta</string>
 	<string name="type.highway.path.permissive">Cesta</string>
-	<string name="type.highway.path.tunnel">Cesta</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.path.tunnel">Tunel</string>
 	<string name="type.highway.pedestrian">Ulice</string>
 	<string name="type.highway.pedestrian.area">Ulice</string>
-	<string name="type.highway.pedestrian.bridge">Ulice</string>
-	<string name="type.highway.pedestrian.tunnel">Ulice</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.pedestrian.bridge">Most</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.pedestrian.tunnel">Tunel</string>
 	<string name="type.highway.primary">Ulice</string>
-	<string name="type.highway.primary.bridge">Ulice</string>
-	<string name="type.highway.primary.tunnel">Ulice</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary.bridge">Most</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary.tunnel">Tunel</string>
 	<string name="type.highway.primary_link">Ulice</string>
-	<string name="type.highway.primary_link.bridge">Ulice</string>
-	<string name="type.highway.primary_link.tunnel">Ulice</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary_link.bridge">Most</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary_link.tunnel">Tunel</string>
 	<string name="type.highway.raceway">Závodiště</string>
 	<string name="type.highway.residential">Ulice</string>
 	<string name="type.highway.residential.area">Ulice</string>
-	<string name="type.highway.residential.bridge">Ulice</string>
-	<string name="type.highway.residential.tunnel">Ulice</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.residential.bridge">Most</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.residential.tunnel">Tunel</string>
 	<string name="type.highway.rest_area">Odpočívadlo</string>
 	<string name="type.highway.road">Ulice</string>
-	<string name="type.highway.road.bridge">Ulice</string>
-	<string name="type.highway.road.tunnel">Ulice</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.road.bridge">Most</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.road.tunnel">Tunel</string>
 	<string name="type.highway.secondary">Ulice</string>
-	<string name="type.highway.secondary.bridge">Ulice</string>
-	<string name="type.highway.secondary.tunnel">Ulice</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary.bridge">Most</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary.tunnel">Tunel</string>
 	<string name="type.highway.secondary_link">Ulice</string>
-	<string name="type.highway.secondary_link.bridge">Ulice</string>
-	<string name="type.highway.secondary_link.tunnel">Ulice</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary_link.bridge">Most</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary_link.tunnel">Tunel</string>
 	<string name="type.highway.service">Ulice</string>
 	<string name="type.highway.service.area">Ulice</string>
-	<string name="type.highway.service.bridge">Ulice</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.service.bridge">Most</string>
 	<string name="type.highway.service.driveway">Ulice</string>
 	<string name="type.highway.service.parking_aisle">Ulice</string>
-	<string name="type.highway.service.tunnel">Ulice</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.service.tunnel">Tunel</string>
 	<string name="type.highway.speed_camera">Rychlostní kamera</string>
 	<string name="type.highway.steps">Cesta</string>
-	<string name="type.highway.steps.bridge">Cesta</string>
-	<string name="type.highway.steps.tunnel">Cesta</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.steps.bridge">Most</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.steps.tunnel">Tunel</string>
 	<string name="type.highway.tertiary">Ulice</string>
-	<string name="type.highway.tertiary.bridge">Ulice</string>
-	<string name="type.highway.tertiary.tunnel">Ulice</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary.bridge">Most</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary.tunnel">Tunel</string>
 	<string name="type.highway.tertiary_link">Ulice</string>
-	<string name="type.highway.tertiary_link.bridge">Ulice</string>
-	<string name="type.highway.tertiary_link.tunnel">Ulice</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary_link.bridge">Most</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary_link.tunnel">Tunel</string>
 	<string name="type.highway.track">Ulice</string>
 	<string name="type.highway.track.area">Ulice</string>
-	<string name="type.highway.track.bridge">Ulice</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.track.bridge">Most</string>
 	<string name="type.highway.track.grade1">Ulice</string>
 	<string name="type.highway.track.grade2">Ulice</string>
 	<string name="type.highway.track.grade3">Ulice</string>
@@ -963,18 +1023,25 @@
 	<string name="type.highway.track.grade5">Ulice</string>
 	<string name="type.highway.track.no.access">Ulice</string>
 	<string name="type.highway.track.permissive">Ulice</string>
-	<string name="type.highway.track.tunnel">Ulice</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.track.tunnel">Tunel</string>
 	<string name="type.highway.traffic_signals">Semafor</string>
 	<string name="type.highway.trunk">Ulice</string>
-	<string name="type.highway.trunk.bridge">Ulice</string>
-	<string name="type.highway.trunk.tunnel">Ulice</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk.bridge">Most</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk.tunnel">Tunel</string>
 	<string name="type.highway.trunk_link">Ulice</string>
-	<string name="type.highway.trunk_link.bridge">Ulice</string>
-	<string name="type.highway.trunk_link.tunnel">Ulice</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk_link.bridge">Most</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk_link.tunnel">Tunel</string>
 	<string name="type.highway.unclassified">Ulice</string>
 	<string name="type.highway.unclassified.area">Ulice</string>
-	<string name="type.highway.unclassified.bridge">Ulice</string>
-	<string name="type.highway.unclassified.tunnel">Ulice</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.unclassified.bridge">Most</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.unclassified.tunnel">Tunel</string>
 	<string name="type.area_highway.footway">Cesta</string>
 	<string name="type.area_highway.living_street">Ulice</string>
 	<string name="type.area_highway.motorway">Ulice</string>
@@ -1033,10 +1100,8 @@
 	<string name="type.leisure.playground">Hřiště</string>
 	<string name="type.leisure.sauna">Sauna</string>
 	<string name="type.leisure.sports_centre">Sportovní centrum</string>
-	<string name="type.leisure.sports_centre.climbing">Horolezecké centrum</string>
-	<string name="type.leisure.sports_centre.shooting">Střelnice</string>
-	<string name="type.leisure.sports_centre.swimming">Plavecký bazén</string>
-	<string name="type.leisure.sports_centre.yoga">Studio jógy</string>
+	<string name="type.sport.climbing">Horolezecké centrum</string>
+	<string name="type.sport.yoga">Studio jógy</string>
 	<string name="type.leisure.stadium">Stadion</string>
 	<string name="type.leisure.swimming_pool">Koupaliště</string>
 	<string name="type.leisure.swimming_pool.private">Koupaliště</string>
@@ -1050,26 +1115,46 @@
 	<string name="type.man_made.water_well">Studna</string>
 	<string name="type.man_made.windmill">Větrný mlýn</string>
 	<string name="type.military.bunker">Bunkr</string>
+	<string name="type.natural">Příroda</string>
+	<string name="type.natural.bare_rock">Holá skála</string>
 	<string name="type.natural.bay">Záliv</string>
 	<string name="type.natural.beach">Pláž</string>
+	<string name="type.natural.beach.sand">Písečná pláž</string>
+	<string name="type.natural.beach.gravel">Štěrková pláž</string>
 	<string name="type.natural.cape">Mys</string>
 	<string name="type.natural.cave_entrance">Jeskyně</string>
+	<string name="type.natural.cliff">Útes</string>
+	<string name="type.natural.earth_bank">Útes</string>
+	<string name="type.man_made.embankment">Násyp</string>
+	<string name="type.natural.coastline">Pobřeží</string>
 	<string name="type.natural.geyser">Gejzír</string>
 	<string name="type.natural.glacier">Ledovec</string>
-	<string name="type.natural.grassland">Pole</string>
+	<string name="type.natural.grassland">Louky a pastviny</string>
+	<string name="type.natural.heath">Vřesoviště</string>
+	<string name="type.natural.hot_spring">Termální pramen</string>
 	<string name="type.natural.water.lake">Jezero</string>
+	<string name="type.natural.water.lock">Zámková komora</string>
 	<string name="type.natural.water.pond">Rybník</string>
 	<string name="type.natural.water.reservoir">Nádrž</string>
 	<string name="type.natural.water.basin">Vodní nádrž</string>
 	<string name="type.natural.water.river">Řeka</string>
+	<string name="type.natural.land">Země</string>
+	<string name="type.natural.meadow">Louka</string>
+	<string name="type.natural.orchard">Sad</string>
 	<string name="type.natural.peak">Hora</string>
+	<string name="type.natural.saddle">Sedlo</string>
+	<string name="type.natural.rock">Hornina</string>
 	<string name="type.natural.scrub">Křoviny</string>
 	<string name="type.natural.spring">Pramen</string>
 	<string name="type.natural.strait">Průliv</string>
 	<string name="type.natural.tree">Strom</string>
+	<string name="type.natural.tree_row">Řada stromů</string>
+	<string name="type.natural.vineyard">Vinice</string>
 	<string name="type.natural.volcano">Sopka</string>
 	<string name="type.natural.water">Vodní plocha</string>
 	<string name="type.natural.wetland">Mokřadní oblast</string>
+	<string name="type.natural.wetland.bog">Rašeliniště</string>
+	<string name="type.natural.wetland.marsh">Bažina</string>
 	<string name="type.office">Kancelář</string>
 	<string name="type.office.company">Kancelář společnosti</string>
 	<string name="type.office.estate_agent">Realitní makléř</string>
@@ -1162,21 +1247,27 @@
 	<string name="type.shop.convenience">Smíšené zboží</string>
 	<string name="type.shop.copyshop">Kopírovací obchod</string>
 	<string name="type.shop.cosmetics">Kosmetika</string>
+	<string name="type.shop.deli">Prodejna lahůdek</string>
 	<string name="type.shop.department_store">Obchodní dům</string>
 	<string name="type.shop.doityourself">Železářství</string>
 	<string name="type.shop.dry_cleaning">Chemické čištění</string>
 	<string name="type.shop.electronics">Elektronika</string>
 	<string name="type.shop.erotic">Obchod s erotickými pomůckami</string>
 	<string name="type.shop.fabric">Obchod</string>
+	<string name="type.shop.farm">Prodejna farmářských potravin</string>
 	<string name="type.shop.florist">Květinářství</string>
 	<string name="type.shop.funeral_directors">Pohřební služba</string>
 	<string name="type.shop.furniture">Nábytek</string>
 	<string name="type.shop.garden_centre">Školka</string>
 	<string name="type.shop.gift">Obchod s dárkovým zbožím</string>
 	<string name="type.shop.greengrocer">Ovoce a zelenina</string>
+	<string name="type.shop.grocery">Potraviny</string>
 	<string name="type.shop.hairdresser">Kadeřnictví</string>
 	<string name="type.shop.hardware">Železářství</string>
+	<string name="type.shop.health_food">Prodejna zdravé výživy</string>
+	<string name="type.shop.houseware">Obchod s domácími potřebami</string>
 	<string name="type.shop.jewelry">Klenotnictví</string>
+	<string name="type.shop.kitchen">Prodejna kuchyní</string>
 	<string name="type.shop.laundry">Prádelna</string>
 	<string name="type.shop.mall">Obchoďák</string>
 	<string name="type.shop.massage">Masážní salon</string>
@@ -1188,10 +1279,12 @@
 	<string name="type.shop.newsagent">Novinový stánek</string>
 	<string name="type.shop.optician">Optika</string>
 	<string name="type.shop.outdoor">Venkovní vybavení</string>
+	<string name="type.shop.pastry">Pečivo</string>
 	<string name="type.shop.pawnbroker">Zastavárna</string>
 	<string name="type.shop.pet">Zverimex</string>
 	<string name="type.shop.photo">Fotografický obchod</string>
 	<string name="type.shop.seafood">Prodej ryb</string>
+	<string name="type.shop.second_hand">Obchod z druhé ruky</string>
 	<string name="type.shop.shoes">Obuv</string>
 	<string name="type.shop.sports">Sportovní zboží</string>
 	<string name="type.shop.stationery">Papírnictví</string>
@@ -1205,10 +1298,57 @@
 	<string name="type.shop.video">Videopůjčovna</string>
 	<string name="type.shop.video_games">Obchod s videohrami</string>
 	<string name="type.shop.wine">Vinařství</string>
+	<string name="type.shop.antiques">Starožitnosti</string>
+	<string name="type.shop.art">Obchod s uměním</string>
+	<string name="type.shop.baby_goods">Dětský obchod</string>
+	<string name="type.shop.bag">Obchod s taškami</string>
+	<string name="type.shop.boutique">Butik</string>
+	<string name="type.shop.charity">Charitativní obchod</string>
+	<string name="type.shop.cheese">Prodejna sýrů</string>
+	<string name="type.shop.craft">Umění a řemesla</string>
+	<string name="type.shop.dairy">Mléčné výrobky</string>
+	<string name="type.shop.electrical">Elektro obchod</string>
+	<string name="type.shop.fishing">Rybářský obchod</string>
+	<string name="type.shop.interior_decoration">Interiérové dekorace</string>
+	<string name="type.shop.lottery">Loterijní lístky</string>
+	<string name="type.shop.medical_supply">Zdravotní zásoby</string>
+	<string name="type.shop.nutrition_supplements">Doplňky výživy</string>
+	<string name="type.shop.paint">Barvy</string>
+	<string name="type.shop.perfumery">Parfumerie</string>
+	<string name="type.shop.sewing">Šicí potřeby</string>
+	<string name="type.shop.storage_rental">Pronájem skladu</string>
+	<string name="type.shop.tobacco">Tabák</string>
+	<string name="type.shop.trade">Obchod se zásobami</string>
+	<string name="type.shop.watches">Hodinky</string>
+	<string name="type.shop.wholesale">Velkoobchodní prodejna</string>
+	<string name="type.sport">Sport</string>
+	<string name="type.sport.american_football">Americký fotbal</string>
+	<string name="type.sport.archery">Lukostřelba</string>
 	<string name="type.sport.athletics">Atletika</string>
+	<string name="type.sport.australian_football">Australský fotbal</string>
+	<string name="type.sport.baseball">Baseball</string>
 	<string name="type.sport.basketball">Basketbal</string>
+	<string name="type.sport.beachvolleyball">Plážový volejbal</string>
+	<string name="type.sport.chess">Šachy</string>
+	<string name="type.sport.cricket">Kriket</string>
+	<string name="type.sport.curling">Curling</string>
 	<string name="type.sport.equestrian">Koňské sporty</string>
+	<string name="type.sport.golf">Golf</string>
+	<string name="type.sport.gymnastics">Gymnastika</string>
+	<string name="type.sport.handball">Házená</string>
+	<string name="type.sport.multi">Různé sporty</string>
+	<!-- Used to tag a scuba diving site. -->
+	<string name="type.sport.scuba_diving">Potápění</string>
+	<string name="type.sport.shooting">Střílení</string>
+	<string name="type.sport.skateboard">Skateboarding</string>
+	<string name="type.sport.skiing">Lyžování</string>
+	<string name="type.sport.soccer">Fotbal</string>
+	<string name="type.sport.swimming">Plavání</string>
+	<string name="type.sport.table_tennis">Stolní tenis</string>
 	<string name="type.sport.tennis">Tenisový kurt</string>
+	<string name="type.sport.volleyball">Volejbal</string>
+	<string name="type.sport.9pin">Bowling</string>
+	<string name="type.sport.10pin">Bowling</string>
 	<string name="type.tourism.alpine_hut">Ubytování v horách</string>
 	<string name="type.tourism.apartment">Byty</string>
 	<string name="type.tourism.artwork">Umělecké dílo</string>
@@ -1225,7 +1365,7 @@
 	<string name="type.tourism.guest_house">Penzion</string>
 	<string name="type.tourism.information">Infocentrum</string>
 	<string name="type.tourism.information.board">Nástěnka</string>
-	<string name="type.tourism.information.guidepost">Infocentrum</string>
+	<string name="type.tourism.information.guidepost">Rozcestník</string>
 	<string name="type.tourism.information.map">Turistická mapa</string>
 	<string name="type.tourism.information.office">Informační centrum</string>
 	<string name="type.tourism.museum">Muzeum</string>
@@ -1250,4 +1390,5 @@
 	<string name="type.wheelchair.no">Bez přístupu pro vozíčkáře</string>
 	<string name="type.wheelchair.yes">Plný vstup pro vozíčkáře</string>
 	<string name="type.building_part">Stavba</string>
+	<string name="type.amenity.events_venue">Místo konání akcí</string>
 </resources>

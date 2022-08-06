@@ -18,6 +18,7 @@
 
 namespace
 {
+/// @todo Can't change on string_view now, because of unordered_map<string> synonyms.
 bool GetGroupCountryIdFromFeature(storage::Storage const & storage, FeatureType & ft,
                                   std::string & name)
 {
@@ -28,8 +29,10 @@ bool GetGroupCountryIdFromFeature(storage::Storage const & storage, FeatureType 
 
   for (auto const langIndex : langIndices)
   {
-    if (!ft.GetName(langIndex, name))
+    name = ft.GetName(langIndex);
+    if (name.empty())
       continue;
+
     if (storage.IsInnerNode(name))
       return true;
     auto const it = synonyms.find(name);

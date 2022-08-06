@@ -7,8 +7,6 @@ import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.Size;
-import androidx.annotation.UiThread;
-
 import com.mapswithme.maps.api.ParsedRoutingData;
 import com.mapswithme.maps.api.ParsedSearchRequest;
 import com.mapswithme.maps.api.ParsingResult;
@@ -22,8 +20,6 @@ import com.mapswithme.maps.routing.TransitRouteInfo;
 import com.mapswithme.maps.settings.SettingsPrefsFragment;
 import com.mapswithme.maps.widget.placepage.PlacePageData;
 import com.mapswithme.util.Constants;
-import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.LoggerFactory;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -34,9 +30,6 @@ import java.lang.annotation.RetentionPolicy;
  */
 public class Framework
 {
-  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
-  private static final String TAG = Framework.class.getSimpleName();
-
   @Retention(RetentionPolicy.SOURCE)
   @IntDef({MAP_STYLE_CLEAR, MAP_STYLE_DARK, MAP_STYLE_VEHICLE_CLEAR, MAP_STYLE_VEHICLE_DARK})
 
@@ -186,20 +179,20 @@ public class Framework
 
   public static native void nativeRemovePlacePageActivationListener();
 
-  @UiThread
-  public static native String nativeGetOutdatedCountriesString();
-
-  @UiThread
-  @NonNull
-  public static native String[] nativeGetOutdatedCountries();
-
-  @UiThread
-  @DoAfterUpdate
-  public static native int nativeToDoAfterUpdate();
-
-  public static native boolean nativeIsDataVersionChanged();
-
-  public static native void nativeUpdateSavedDataVersion();
+//  @UiThread
+//  public static native String nativeGetOutdatedCountriesString();
+//
+//  @UiThread
+//  @NonNull
+//  public static native String[] nativeGetOutdatedCountries();
+//
+//  @UiThread
+//  @DoAfterUpdate
+//  public static native int nativeToDoAfterUpdate();
+//
+//  public static native boolean nativeIsDataVersionChanged();
+//
+//  public static native void nativeUpdateSavedDataVersion();
 
   public static native long nativeGetDataVersion();
 
@@ -209,8 +202,11 @@ public class Framework
   public static native ParsingResult nativeParseAndSetApiUrl(String url);
   public static native ParsedRoutingData nativeGetParsedRoutingData();
   public static native ParsedSearchRequest nativeGetParsedSearchRequest();
+  public static native String nativeGetParsedAppName();
 
   public static native void nativeDeactivatePopup();
+
+  public static native String nativeGetDataFileExt();
 
   public static native String[] nativeGetMovableFilesExts();
 
@@ -222,7 +218,7 @@ public class Framework
 
   public static native String nativeGetWritableDir();
 
-  public static native void nativeSetWritableDir(String newPath);
+  public static native void nativeChangeWritableDir(String newPath);
 
   // Routing.
   public static native boolean nativeIsRoutingActive();
@@ -308,9 +304,7 @@ public class Framework
   /**
    * Registers all maps(.mwms). Adds them to the models, generates indexes and does all necessary stuff.
    */
-  public static native void nativeRegisterMaps();
-
-  public static native void nativeDeregisterMaps();
+  public static native void nativeReloadWorldMaps();
 
   /**
    * Determines if currently is day or night at the given location. Used to switch day/night styles.

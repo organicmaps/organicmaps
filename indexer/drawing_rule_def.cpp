@@ -1,12 +1,12 @@
 #include "indexer/drawing_rule_def.hpp"
 
 #include <algorithm>
-#include <iterator> 
-
-using namespace std;
+#include <iterator>
 
 namespace drule
 {
+using namespace std;
+
 namespace
 {
 struct less_key
@@ -29,7 +29,14 @@ struct equal_key
     if (r1.m_type == drule::line)
       return (r1 == r2);
     else
-      return (r1.m_type == r2.m_type);
+    {
+      if (r1.m_type == r2.m_type)
+      {
+        // Keep several area styles if bigger one (r1) is hatching.
+        return !(r1.m_type == drule::area && r1.m_hatching);
+      }
+      return false;
+    }
   }
 };
 }  // namespace

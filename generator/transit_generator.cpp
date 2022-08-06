@@ -11,6 +11,8 @@
 #include "storage/country_info_getter.hpp"
 #include "storage/routing_helpers.hpp"
 
+#include "traffic/traffic_cache.hpp"
+
 #include "transit/transit_types.hpp"
 
 #include "indexer/mwm_set.hpp"
@@ -116,11 +118,7 @@ void CalculateBestPedestrianSegments(string const & mwmPath, CountryId const & c
       if (countryFileGetter(gate.GetPoint()) != countryId)
         continue;
 
-      bool dummy = false;
-      if (indexRouter.FindBestEdges(gate.GetPoint(), platform::CountryFile(countryId),
-                                    m2::PointD::Zero() /* direction */, true /* isOutgoing */,
-                                    FeaturesRoadGraph::kClosestEdgesRadiusM,
-                                    *worldGraph, bestEdges, dummy))
+      if (indexRouter.GetBestOutgoingEdges(gate.GetPoint(), *worldGraph, bestEdges))
       {
         CHECK(!bestEdges.empty(), ());
         IndexRouter::BestEdgeComparator bestEdgeComparator(gate.GetPoint(),

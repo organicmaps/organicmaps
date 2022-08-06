@@ -5,7 +5,6 @@
 #include <fstream>
 #include <functional>
 #include <optional>
-#include <sstream>
 #include <string>
 #include <vector>
 
@@ -98,10 +97,13 @@ class CSVRunner
 public:
   explicit CSVRunner(CSVReader && reader);
 
-  class Iterator : public std::iterator<std::input_iterator_tag, CSVReader::Row>
+  class Iterator
   {
   public:
-    Iterator(CSVReader & reader, bool isEnd = false);
+    using iterator_category = std::input_iterator_tag;
+    using value_type = CSVReader::Row;
+
+    explicit Iterator(CSVReader & reader, bool isEnd = false);
     Iterator(Iterator const & other);
     Iterator & operator++();
     Iterator operator++(int);

@@ -11,7 +11,7 @@
 #include <string>
 #include <random>
 
-#include "3party/pugixml/src/pugixml.hpp"
+#include "3party/pugixml/pugixml/src/pugixml.hpp"
 
 using osm::ServerApi06;
 using osm::OsmOAuth;
@@ -41,7 +41,7 @@ ServerApi06 CreateAPI()
   osm::UserPreferences prefs;
   TEST_NO_THROW(prefs = api.GetUserPreferences(), ());
   TEST_EQUAL(prefs.m_displayName, kValidOsmUser, ("User display name"));
-  TEST_EQUAL(prefs.m_id, 11600, ("User id"));
+  TEST_EQUAL(prefs.m_id, 14235, ("User id"));
   return api;
 }
 

@@ -3,6 +3,7 @@ package com.mapswithme.maps.widget;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -19,8 +20,7 @@ import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 
-public class SearchToolbarController extends ToolbarController
-                                  implements View.OnClickListener
+public class SearchToolbarController extends ToolbarController implements View.OnClickListener
 {
   private static final int REQUEST_VOICE_RECOGNITION = 0xCA11;
   @Nullable
@@ -31,6 +31,7 @@ public class SearchToolbarController extends ToolbarController
   private final View mBack;
   @NonNull
   private final EditText mQuery;
+  private boolean mFromCategory = false;
   @NonNull
   private final View mProgress;
   @NonNull
@@ -146,17 +147,27 @@ public class SearchToolbarController extends ToolbarController
     return R.string.search;
   }
 
+  protected void disableQueryEditing()
+  {
+    mQuery.setFocusable(false);
+    mQuery.setLongClickable(false);
+    mQuery.setInputType(InputType.TYPE_NULL);
+  }
+
   public String getQuery()
   {
     return (UiUtils.isVisible(mSearchContainer) ? mQuery.getText().toString() : "");
   }
+  public boolean isCategory() { return mFromCategory; }
 
-  public void setQuery(CharSequence query)
+  public void setQuery(CharSequence query, boolean fromCategory)
   {
+    mFromCategory = fromCategory;
     mQuery.setText(query);
     if (!TextUtils.isEmpty(query))
       mQuery.setSelection(query.length());
   }
+  public void setQuery(CharSequence query) { setQuery(query, false); }
 
   public void clear()
   {
@@ -190,12 +201,12 @@ public class SearchToolbarController extends ToolbarController
   {
     switch (v.getId())
     {
-    case R.id.query:
-      onQueryClick(getQuery());
-      break;
-
     case R.id.clear:
       onClearClick();
+      break;
+
+    case R.id.query:
+      onQueryClick(getQuery());
       break;
 
     case R.id.voice_input:

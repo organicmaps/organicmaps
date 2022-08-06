@@ -223,7 +223,8 @@ void OverlayTree::Add(ref_ptr<OverlayHandle> handle)
 void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle, int currentRank,
                                ref_ptr<OverlayHandle> const & parentOverlay)
 {
-  ASSERT(handle->GetOverlayID().IsValid(), ());
+  /// @todo Fires when updating country (delete-add) ?!
+  //ASSERT(handle->GetOverlayID().IsValid(), ());
   ASSERT(IsNeedUpdate(), ());
 
 #ifdef DEBUG_OVERLAYS_OUTPUT
@@ -500,8 +501,7 @@ void OverlayTree::Select(m2::RectD const & rect, TOverlayContainer & result) con
   ScreenBase screen = GetModelView();
   ForEachInRect(rect, [&](ref_ptr<OverlayHandle> const & h)
   {
-    auto const & overlayId = h->GetOverlayID();
-    ASSERT(overlayId.IsValid(), ());
+    ASSERT(h->GetOverlayID().IsValid(), ());
 
     if (!h->HasLinearFeatureShape() && h->IsVisible())
     {

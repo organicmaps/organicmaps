@@ -1,7 +1,6 @@
 #include "base/timer.hpp"
 
 #include "base/assert.hpp"
-#include "base/get_time.hpp"
 #include "base/gmtime.hpp"
 #include "base/logging.hpp"
 #include "base/macros.hpp"
@@ -13,19 +12,13 @@
 #include <array>
 #include <chrono>
 #include <cstdio>
-#include <iomanip>
+#include <iomanip>  // std::get_time
 #include <sstream>
 
 #include <sys/time.h>
 
 namespace base
 {
-Timer::Timer(bool start/* = true*/)
-{
-  if (start)
-    Reset();
-}
-
 // static
 double Timer::LocalTime()
 {
@@ -144,7 +137,7 @@ time_t StringToTimestamp(std::string const & s)
     // Parse UTC format: 1970-01-01T00:00:00Z
     tm t{};
     std::istringstream ss(s);
-    ss >> base::get_time(&t, "%Y-%m-%dT%H:%M:%SZ");
+    ss >> std::get_time(&t, "%Y-%m-%dT%H:%M:%SZ");
 
     if (!ss.fail() && IsValid(t))
       res = base::TimeGM(t);
@@ -155,7 +148,7 @@ time_t StringToTimestamp(std::string const & s)
     tm t1{}, t2{};
     char sign;
     std::istringstream ss(s);
-    ss >> base::get_time(&t1, "%Y-%m-%dT%H:%M:%S") >> sign >> base::get_time(&t2, "%H:%M");
+    ss >> std::get_time(&t1, "%Y-%m-%dT%H:%M:%S") >> sign >> std::get_time(&t2, "%H:%M");
 
     if (!ss.fail() && IsValid(t1))
     {
@@ -170,32 +163,6 @@ time_t StringToTimestamp(std::string const & s)
   }
 
   return res;
-}
-
-HighResTimer::HighResTimer(bool start/* = true*/)
-{
-  if (start)
-    Reset();
-}
-
-void HighResTimer::Reset()
-{
-  m_start = std::chrono::high_resolution_clock::now();
-}
-
-uint64_t HighResTimer::ElapsedNano() const
-{
-  return std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::high_resolution_clock::now() - m_start).count();
-}
-
-uint64_t HighResTimer::ElapsedMillis() const
-{
-  return std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - m_start).count();
-}
-
-double HighResTimer::ElapsedSeconds() const
-{
-  return std::chrono::duration_cast<std::chrono::duration<double>>(std::chrono::high_resolution_clock::now() - m_start).count();
 }
 
 time_t SecondsSinceEpochToTimeT(uint64_t secondsSinceEpoch)
@@ -221,7 +188,7 @@ ScopedTimerWithLog::~ScopedTimerWithLog()
   {
   case Measure::MilliSeconds:
   {
-    LOG(LINFO, (m_name, "time:", m_timer.ElapsedMillis(), "ms"));
+    LOG(LINFO, (m_name, "time:", m_timer.ElapsedMilliseconds(), "ms"));
     return;
   }
   case Measure::Seconds:

@@ -17,19 +17,17 @@
 	<string name="downloading">جاري التنزيل…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">كيلومتر</string>
-	<!-- View and button titles for accessibility -->
-	<string name="maps">الخرائط</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="mb">م.ب.</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">ميل</string>
-	<!-- View and button titles for accessibility -->
+	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">موقعي</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">لاحقا</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">البحث</string>
-	<!-- Search box placeholder text -->
+	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">ابحث في الخريطة</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">التطبيق أو جميع خدمات تحديد المواقع معطلة لديك في الوقت الحالي. الرجاء تفعيلها في الإعدادات.</string>
@@ -43,9 +41,10 @@
 	<string name="close">اغلاق</string>
 	<string name="unsupported_phone">أنت بحاجة الى OpenGL بأجهزة تسريع. لسوء الحظ جهازك لا يدعم هذه الخاصية.</string>
 	<string name="download">تنزيل</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable">الرجاء فصل كابل الناقل التسلسلي الشامل أو إدخال بطاقة الذاكرة من أجل استخدام Organic Maps.</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="not_enough_free_space_on_sdcard">الرجاء إخلاء بعض المساحة في تخزين البطاقة الرقمية الآمنة\الناقل التسلسلي الشامل أولا من أجل استخدام هذا التطبيق.</string>
-	<string name="not_enough_memory">لا يوجد ذاكرة كافية لتشغيل التطبيق.</string>
 	<string name="download_resources">قبل أن تبدأ، دعنا نقوم بتنزيل خريطة العالم العامة على جهازك.\nانها بحاجة الى %s من البيانات.</string>
 	<string name="download_resources_continue">الذهاب الى الخريطة</string>
 	<string name="downloading_country_can_proceed">تنزيل %s. يمكنك الآن\nالمتابعة الى الخريطة.</string>
@@ -79,6 +78,8 @@
 	<string name="maps_storage">تخزين الخرائط</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">اختر المكان الذي ينبغي تنزيل الخرائط  فيه.</string>
+	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+	<string name="maps_storage_downloaded">الخرائط</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">هل تريد نقل الخرائط؟</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
@@ -125,6 +126,8 @@
 	<string name="post">بريد</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
 	<string name="police">شرطة</string>
+	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! -->
+	<string name="wifi">واي-فاي</string>
 	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
 	<string name="recycling">إعادة تدوير</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
@@ -166,7 +169,7 @@
 	<!-- Prints version number in About dialog -->
 	<string name="version">الاصدار: %s</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
-	<string name="data_version">OpenStreetMap: %s ﺕﺎﻧﺎﻴﺑ</string>
+	<string name="data_version">OpenStreetMap بيانات %s</string>
 	<!-- Confirmation in downloading countries dialog -->
 	<string name="are_you_sure">هل أنت واثق أنك تريد الاستمرار؟</string>
 	<!-- Title for tracks category in bookmarks manager -->
@@ -205,6 +208,8 @@
 	<string name="search_show_on_map">مشاهدة على الخريطة</string>
 	<!-- Text in menu -->
 	<string name="website">الموقع الإلكتروني</string>
+	<!-- Text in About menu, opens Organic Maps news website -->
+	<string name="news">ﺭﺎﺒﺧﺃ</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">تعقيب</string>
 	<!-- Text in menu -->
@@ -212,24 +217,23 @@
 	<!-- Text in menu -->
 	<string name="help">مساعدة</string>
 	<!-- Button in the main Help dialog -->
-	<string name="faq">ﺔﺑﻮﺟﺃﻭ ﺔﻠﺌﺳﺃ</string>
+	<string name="faq">اسئلة واجوبة</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">كيف تدعم لنا؟</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">حقوق الطبع والنشر</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">الإبلاغ عن خطأ</string>
-	<!-- Search category -->
-	<string name="wifi">واي-فاي</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">تحديث الكل</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">إلغاء الكل</string>
-	<!-- Downloaded maps category -->
+	<!-- Downloaded maps list header -->
 	<string name="downloader_downloaded_subtitle">تم تنزيلها</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">مَصْفوف</string>
 	<string name="downloader_near_me_subtitle">بالقرب مني</string>
+	<!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
 	<string name="downloader_status_maps">الخرائط</string>
 	<string name="downloader_download_all_button">تنزيل الكل</string>
 	<string name="downloader_downloading">يتم تنزيل:</string>
@@ -245,6 +249,8 @@
 	<string name="downloader_delete_map">حذف الخريطة</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">تحديث الخريطة</string>
+	<!-- Preference title -->
+	<string name="google_play_services">خدمات Google Play</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">استخدم خدمات جوجل بلاي لتتعرف على موقعك الحالي</string>
 	<!-- Text for routing error dialog -->
@@ -290,8 +296,6 @@
 	<string name="gray">رمادي</string>
 	<!-- blue gray color -->
 	<string name="blue_gray">رمادي أزرق</string>
-	<!-- Wi-Fi available -->
-	<string name="WiFi_available">نعم</string>
 
 	<!-- SECTION: Routing dialogs strings -->
 	<string name="dialog_routing_disclaimer_title">عند اتباع المسار، يُرجى وضع ما يلي في الاعتبار:</string>
@@ -361,7 +365,7 @@
 	<string name="editor_example_values">أمثلة على القيم</string>
 	<string name="editor_correct_mistake">تصحيح الخطأ</string>
 	<string name="editor_add_select_location">الموقع</string>
-	<string name="editor_report_problem_desription_1">يرجى وصف المشكلة بالتفاصيل حتى يتسنى لفريق OpenStreeMap إصلاح الخطأ.</string>
+	<string name="editor_report_problem_desription_1">يرجى وصف المشكلة بالتفاصيل حتى يتسنى لفريق OpenStreetMap إصلاح الخطأ.</string>
 	<string name="editor_report_problem_desription_2">أو افعل ذلك بنفسك من خلال الموقع https://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">إرسال</string>
 	<string name="editor_report_problem_title">مشكلة</string>
@@ -448,6 +452,7 @@
 	<string name="kilometer">كم</string>
 	<string name="kilometers_per_hour">كم/ساعة</string>
 	<string name="mile">ميل</string>
+	<!-- A unit of measure -->
 	<string name="foot">قدم</string>
 	<string name="miles_per_hour">ميل/ساعة</string>
 	<string name="hour">س</string>
@@ -545,6 +550,7 @@
 	<plurals name="tracks">
 	  <item quantity="other">المسارات %d</item>
 	</plurals>
+	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">إعدادات التتبع</string>
 	<string name="crash_reports">تقرير الحادث</string>
 	<string name="crash_reports_description">قد نستخدم بياناتك لتحسين تجربة Organic Maps. سوف تكون التغييرات نافذة المفعول بعد إعادة تشغيل التطبيق.</string>
@@ -594,6 +600,14 @@
 	<string name="avoid_toll_roads_placepage">تجنب نقاط تحصيل الرسوم</string>
 	<string name="avoid_unpaved_roads_placepage">تجنب الطرق الغير ممهدة</string>
 	<string name="avoid_ferry_crossing_placepage">تجنب تقاطع العبارات</string>
+	<!-- A generic "Yes" button in dialogs -->
+	<string name="yes">نعم</string>
+	<!-- A generic "No" button in dialogs -->
+	<string name="no">لا</string>
+	<!-- E.g. "WiFi:Yes" -->
+	<string name="yes_available">نعم</string>
+	<!-- E.g. "WiFi:No" -->
+	<string name="no_available">لا</string>
 	<string name="ok">موافق</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">تريتب…</string>
@@ -649,6 +663,8 @@
 	<string name="enable_screen_sleep">اسمح للشاشة بالنوم</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">عند التمكين ، سيتم السماح للشاشة بالنوم بعد فترة من عدم النشاط.</string>
+	<!-- OpenStreetMap text on splash screen -->
+	<string name="splash_subtitle">OpenStreetMap ﻦﻣ ﺔﻄﻳﺮﺨﻟﺍ ﺕﺎﻧﺎﻴﺑ</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">محطة تلفريك</string>
@@ -664,6 +680,7 @@
 	<string name="type.amenity.bench">مقعد طويل</string>
 	<string name="type.amenity.bicycle_parking">أماكن وقوف للدراجات</string>
 	<string name="type.amenity.bicycle_rental">تأجير دراجات</string>
+	<string name="type.amenity.bicycle_repair_station">محطة تصليح الدراجات</string>
 	<string name="type.amenity.biergarten">متجر بيرة</string>
 	<string name="type.amenity.brothel">دعارة</string>
 	<string name="type.amenity.bureau_de_change">تحويل عملات</string>
@@ -777,10 +794,12 @@
 	<string name="type.building.garage">جراج</string>
 	<string name="type.building.has_parts">مبنى</string>
 	<string name="type.building.train_station">محطة سكك حديدية</string>
+	<string name="type.cemetery.grave">ﺮﻴﻄﺧ</string>
 	<string name="type.craft.brewery">مصنع جعة</string>
 	<string name="type.craft.carpenter">نجار</string>
 	<string name="type.craft.electrician">كهربائي</string>
 	<string name="type.craft.gardener">مهندس مناظر</string>
+	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">تكييف</string>
 	<string name="type.craft.metal_construction">عامل معادن</string>
 	<string name="type.craft.painter">رسام</string>
@@ -880,34 +899,51 @@
 	<string name="type.healthcare.laboratory">ﺔﻴﺒﻄﻟﺍ ﺕﺍﺮﺒﺘﺨﻤﻟﺍ</string>
 
 	<!-- SECTION: Types: Roads -->
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.bridleway.bridge">كوبري</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.bridleway.tunnel">نفق</string>
 	<string name="type.highway.bus_stop">موقف حافلة</string>
 	<string name="type.highway.construction">طريق تحت الإنشاء</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.cycleway.bridge">كوبري</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.cycleway.tunnel">نفق</string>
 	<string name="type.highway.footway">مسار</string>
 	<string name="type.highway.footway.alpine_hiking">مسار</string>
 	<string name="type.highway.footway.area">مسار</string>
-	<string name="type.highway.footway.bridge">مسار</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.footway.bridge">كوبري</string>
 	<string name="type.highway.footway.demanding_alpine_hiking">مسار</string>
 	<string name="type.highway.footway.demanding_mountain_hiking">مسار</string>
 	<string name="type.highway.footway.difficult_alpine_hiking">مسار</string>
 	<string name="type.highway.footway.hiking">مسار</string>
 	<string name="type.highway.footway.mountain_hiking">مسار</string>
 	<string name="type.highway.footway.permissive">مسار</string>
-	<string name="type.highway.footway.tunnel">مسار</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.footway.tunnel">نفق</string>
 	<string name="type.highway.ford">مخاضة</string>
 	<string name="type.highway.living_street">شارع</string>
-	<string name="type.highway.living_street.bridge">شارع</string>
-	<string name="type.highway.living_street.tunnel">شارع</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.living_street.bridge">كوبري</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.living_street.tunnel">نفق</string>
 	<string name="type.highway.motorway">شارع</string>
-	<string name="type.highway.motorway.bridge">شارع</string>
-	<string name="type.highway.motorway.tunnel">شارع</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway.bridge">كوبري</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway.tunnel">نفق</string>
 	<string name="type.highway.motorway_junction">مخرج</string>
 	<string name="type.highway.motorway_link">شارع</string>
-	<string name="type.highway.motorway_link.bridge">شارع</string>
-	<string name="type.highway.motorway_link.tunnel">شارع</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway_link.bridge">كوبري</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway_link.tunnel">نفق</string>
 	<string name="type.highway.path">مسار</string>
 	<string name="type.highway.path.alpine_hiking">مسار</string>
 	<string name="type.highway.path.bicycle">مسار</string>
-	<string name="type.highway.path.bridge">مسار</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.path.bridge">كوبري</string>
 	<string name="type.highway.path.demanding_alpine_hiking">مسار</string>
 	<string name="type.highway.path.demanding_mountain_hiking">مسار</string>
 	<string name="type.highway.path.difficult_alpine_hiking">مسار</string>
@@ -915,51 +951,75 @@
 	<string name="type.highway.path.horse">مسار</string>
 	<string name="type.highway.path.mountain_hiking">مسار</string>
 	<string name="type.highway.path.permissive">مسار</string>
-	<string name="type.highway.path.tunnel">مسار</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.path.tunnel">نفق</string>
 	<string name="type.highway.pedestrian">شارع</string>
 	<string name="type.highway.pedestrian.area">شارع</string>
-	<string name="type.highway.pedestrian.bridge">شارع</string>
-	<string name="type.highway.pedestrian.tunnel">شارع</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.pedestrian.bridge">كوبري</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.pedestrian.tunnel">نفق</string>
 	<string name="type.highway.primary">شارع</string>
-	<string name="type.highway.primary.bridge">شارع</string>
-	<string name="type.highway.primary.tunnel">شارع</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary.bridge">كوبري</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary.tunnel">نفق</string>
 	<string name="type.highway.primary_link">شارع</string>
-	<string name="type.highway.primary_link.bridge">شارع</string>
-	<string name="type.highway.primary_link.tunnel">شارع</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary_link.bridge">كوبري</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary_link.tunnel">نفق</string>
 	<string name="type.highway.raceway">مسار سباق</string>
 	<string name="type.highway.residential">شارع</string>
 	<string name="type.highway.residential.area">شارع</string>
-	<string name="type.highway.residential.bridge">شارع</string>
-	<string name="type.highway.residential.tunnel">شارع</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.residential.bridge">كوبري</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.residential.tunnel">نفق</string>
 	<string name="type.highway.rest_area">استراحة</string>
 	<string name="type.highway.road">شارع</string>
-	<string name="type.highway.road.bridge">شارع</string>
-	<string name="type.highway.road.tunnel">شارع</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.road.bridge">كوبري</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.road.tunnel">نفق</string>
 	<string name="type.highway.secondary">شارع</string>
-	<string name="type.highway.secondary.bridge">شارع</string>
-	<string name="type.highway.secondary.tunnel">شارع</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary.bridge">كوبري</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary.tunnel">نفق</string>
 	<string name="type.highway.secondary_link">شارع</string>
-	<string name="type.highway.secondary_link.bridge">شارع</string>
-	<string name="type.highway.secondary_link.tunnel">شارع</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary_link.bridge">كوبري</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary_link.tunnel">نفق</string>
 	<string name="type.highway.service">شارع</string>
 	<string name="type.highway.service.area">شارع</string>
-	<string name="type.highway.service.bridge">شارع</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.service.bridge">كوبري</string>
 	<string name="type.highway.service.driveway">شارع</string>
 	<string name="type.highway.service.parking_aisle">شارع</string>
-	<string name="type.highway.service.tunnel">شارع</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.service.tunnel">نفق</string>
 	<string name="type.highway.speed_camera">كاميرا لرصد السرعة</string>
 	<string name="type.highway.steps">مسار</string>
-	<string name="type.highway.steps.bridge">مسار</string>
-	<string name="type.highway.steps.tunnel">مسار</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.steps.bridge">كوبري</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.steps.tunnel">نفق</string>
 	<string name="type.highway.tertiary">شارع</string>
-	<string name="type.highway.tertiary.bridge">شارع</string>
-	<string name="type.highway.tertiary.tunnel">شارع</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary.bridge">كوبري</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary.tunnel">نفق</string>
 	<string name="type.highway.tertiary_link">شارع</string>
-	<string name="type.highway.tertiary_link.bridge">شارع</string>
-	<string name="type.highway.tertiary_link.tunnel">شارع</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary_link.bridge">كوبري</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary_link.tunnel">نفق</string>
 	<string name="type.highway.track">شارع</string>
 	<string name="type.highway.track.area">شارع</string>
-	<string name="type.highway.track.bridge">شارع</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.track.bridge">كوبري</string>
 	<string name="type.highway.track.grade1">شارع</string>
 	<string name="type.highway.track.grade2">شارع</string>
 	<string name="type.highway.track.grade3">شارع</string>
@@ -967,18 +1027,25 @@
 	<string name="type.highway.track.grade5">شارع</string>
 	<string name="type.highway.track.no.access">شارع</string>
 	<string name="type.highway.track.permissive">شارع</string>
-	<string name="type.highway.track.tunnel">شارع</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.track.tunnel">نفق</string>
 	<string name="type.highway.traffic_signals">إشارات مرور</string>
 	<string name="type.highway.trunk">شارع</string>
-	<string name="type.highway.trunk.bridge">شارع</string>
-	<string name="type.highway.trunk.tunnel">شارع</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk.bridge">كوبري</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk.tunnel">نفق</string>
 	<string name="type.highway.trunk_link">شارع</string>
-	<string name="type.highway.trunk_link.bridge">شارع</string>
-	<string name="type.highway.trunk_link.tunnel">شارع</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk_link.bridge">كوبري</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk_link.tunnel">نفق</string>
 	<string name="type.highway.unclassified">شارع</string>
 	<string name="type.highway.unclassified.area">شارع</string>
-	<string name="type.highway.unclassified.bridge">شارع</string>
-	<string name="type.highway.unclassified.tunnel">شارع</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.unclassified.bridge">كوبري</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.unclassified.tunnel">نفق</string>
 	<string name="type.area_highway.footway">مسار</string>
 	<string name="type.area_highway.living_street">شارع</string>
 	<string name="type.area_highway.motorway">شارع</string>
@@ -1039,10 +1106,8 @@
 	<string name="type.leisure.playground">ملعب</string>
 	<string name="type.leisure.sauna">ساونا</string>
 	<string name="type.leisure.sports_centre">رياضة</string>
-	<string name="type.leisure.sports_centre.climbing">مركز تسلق</string>
-	<string name="type.leisure.sports_centre.shooting">ملعب رماية</string>
-	<string name="type.leisure.sports_centre.swimming">مركز سباحة</string>
-	<string name="type.leisure.sports_centre.yoga">نادي يوغا</string>
+	<string name="type.sport.climbing">مركز تسلق</string>
+	<string name="type.sport.yoga">نادي يوغا</string>
 	<string name="type.leisure.stadium">استاد</string>
 	<string name="type.leisure.swimming_pool">حوض سباحة</string>
 	<string name="type.leisure.swimming_pool.private">حوض سباحة</string>
@@ -1056,26 +1121,46 @@
 	<string name="type.man_made.water_well">بئر ماء</string>
 	<string name="type.man_made.windmill">طاحونة هواء</string>
 	<string name="type.military.bunker">مأوى</string>
+	<string name="type.natural">طبيعة</string>
+	<string name="type.natural.bare_rock">الصخور العارية</string>
 	<string name="type.natural.bay">خليج</string>
 	<string name="type.natural.beach">شاطئ</string>
+	<string name="type.natural.beach.sand">شاطئ رملي</string>
+	<string name="type.natural.beach.gravel">شاطئ جرافيل</string>
 	<string name="type.natural.cape">رأس</string>
 	<string name="type.natural.cave_entrance">كهف</string>
+	<string name="type.natural.cliff">جرف</string>
+	<string name="type.natural.earth_bank">بنك الأرض</string>
+	<string name="type.man_made.embankment">سد</string>
+	<string name="type.natural.coastline">ساحل</string>
 	<string name="type.natural.geyser">نبع ماء حار</string>
 	<string name="type.natural.glacier">كتلة جليدية</string>
-	<string name="type.natural.grassland">ملعب</string>
+	<string name="type.natural.grassland">أرض عشبية</string>
+	<string name="type.natural.heath">براح</string>
+	<string name="type.natural.hot_spring">حمة</string>
 	<string name="type.natural.water.lake">بحيرة</string>
+	<string name="type.natural.water.lock">ﻞﻔﻘﻟﺍ ﺔﻓﺮﻏ</string>
 	<string name="type.natural.water.pond">بركة</string>
 	<string name="type.natural.water.reservoir">خزان</string>
 	<string name="type.natural.water.basin">حوض المياه</string>
 	<string name="type.natural.water.river">نهر</string>
+	<string name="type.natural.land">بر</string>
+	<string name="type.natural.meadow">مرج</string>
+	<string name="type.natural.orchard">بستان</string>
 	<string name="type.natural.peak">قمة</string>
+	<string name="type.natural.saddle">سرج الجبل</string>
+	<string name="type.natural.rock">صخر</string>
 	<string name="type.natural.scrub">أَيْكَة</string>
 	<string name="type.natural.spring">ينبوع</string>
 	<string name="type.natural.strait">مضيق</string>
 	<string name="type.natural.tree">شجرة</string>
+	<string name="type.natural.tree_row">صف الشجرة</string>
+	<string name="type.natural.vineyard">كرم</string>
 	<string name="type.natural.volcano">بركان</string>
 	<string name="type.natural.water">مسطح مائي</string>
 	<string name="type.natural.wetland">منطقة رطبة</string>
+	<string name="type.natural.wetland.bog">رخاخ</string>
+	<string name="type.natural.wetland.marsh">هور</string>
 	<string name="type.office">مكتب</string>
 	<string name="type.office.company">مكتب شركة</string>
 	<string name="type.office.estate_agent">وكيل عقاري</string>
@@ -1169,22 +1254,28 @@
 	<string name="type.shop.convenience">متجر صغير</string>
 	<string name="type.shop.copyshop">محل نسخ</string>
 	<string name="type.shop.cosmetics">مستحضرات تجميل</string>
+	<string name="type.shop.deli">ﺔﺒﻠﻌﻤﻟﺍ ﺔﻤﻌﻃﻷﺍ ﻊﻴﺒﻟ ﻞﺤﻣ</string>
 	<string name="type.shop.department_store">متجر شامل</string>
 	<string name="type.shop.doityourself">متجر عدد وأدوات</string>
 	<string name="type.shop.dry_cleaning">غسيل جاف</string>
 	<string name="type.shop.electronics">متجر إلكترونيات</string>
 	<string name="type.shop.erotic">متجر منتجات جنسية</string>
 	<string name="type.shop.fabric">متجر</string>
+	<string name="type.shop.farm">ﺔﻋﺭﺰﻤﻟﺍ ﺔﻳﺬﻏﺃ ﺮﺠﺘﻣ</string>
 	<string name="type.shop.florist">متجر زهور</string>
 	<string name="type.shop.funeral_directors">منظموا الجنازات</string>
 	<string name="type.shop.furniture">معرض أثاث</string>
 	<string name="type.shop.garden_centre">حضانة</string>
 	<string name="type.shop.gift">متجر هدايا</string>
 	<string name="type.shop.greengrocer">متجر خضروات وفواكه</string>
+	<string name="type.shop.grocery">ﺕﺍﻭﺮﻀﺧ</string>
 	<string name="type.shop.hairdresser">مصفف شعر</string>
-	<string name="type.shop.hardware">متجر عدد وأدوات</string>
+	<string name="type.shop.hardware">ﺕﺍﺪﻌﻣ ﻞﺤﻣ</string>
+	<string name="type.shop.health_food">ﺔﻴﺤﺼﻟﺍ ﺔﻳﺬﻏﻼﻟ ﺮﺠﺘﻣ</string>
+	<string name="type.shop.houseware">ﺔﻴﻟﺰﻨﻣ ﺕﺍﻭﺩﺃ ﻞﺤﻣ</string>
 	<string name="type.shop.jewelry">مجوهرات</string>
 	<string name="type.shop.kiosk">كشك</string>
+	<string name="type.shop.kitchen">ﺦﺒﻄﻤﻟﺍ ﺮﺠﺘﻣ</string>
 	<string name="type.shop.laundry">مغسلة ملابس</string>
 	<string name="type.shop.mall">مركز تسوق</string>
 	<string name="type.shop.massage">قاعة تدليك</string>
@@ -1196,10 +1287,12 @@
 	<string name="type.shop.newsagent">كشك الجرائد</string>
 	<string name="type.shop.optician">مركز بصريات</string>
 	<string name="type.shop.outdoor">معدات خارجية</string>
+	<string name="type.shop.pastry">ﺕﺎﻨﺠﻌﻣ</string>
 	<string name="type.shop.pawnbroker">سمسار تسليف</string>
 	<string name="type.shop.pet">متجر للحيوانات الأليفة</string>
 	<string name="type.shop.photo">محل صور</string>
 	<string name="type.shop.seafood">سماك</string>
+	<string name="type.shop.second_hand">ﺔﻠﻤﻌﺘﺴﻣ ﺕﺍﻭﺩﺍ ﺮﺠﺘﻣ</string>
 	<string name="type.shop.shoes">متجر أحذية</string>
 	<string name="type.shop.sports">أدوات رياضية</string>
 	<string name="type.shop.stationery">متجر قرطاسية</string>
@@ -1214,10 +1307,58 @@
 	<string name="type.shop.video">متجر فيديو</string>
 	<string name="type.shop.video_games">متجر ألعاب فيديو</string>
 	<string name="type.shop.wine">متجر مشروبات روحية</string>
+	<string name="type.shop.antiques">ﻒﺤﺘﻟﺍ</string>
+	<string name="type.shop.art">ﻥﻮﻨﻔﻟﺍ ﺮﺠﺘﻣ</string>
+	<string name="type.shop.baby_goods">ﻝﺎﻔﻃﻸﻟ ﺮﺠﺘﻣ</string>
+	<string name="type.shop.bag">ﺐﺋﺎﻘﺤﻟﺍ ﺮﺠﺘﻣ</string>
+	<string name="type.shop.boutique">ﺮﺠﺘﻣ</string>
+	<string name="type.shop.charity">ﻱﺮﻴﺧ ﺮﺠﺘﻣ</string>
+	<string name="type.shop.cheese">ﻦﺒﺠﻟﺍ ﺮﺠﺘﻣ</string>
+	<string name="type.shop.craft">ﺔﻳﻭﺪﻴﻟﺍ ﻑﺮﺤﻟﺍﻭ ﻥﻮﻨﻔﻟﺍ</string>
+	<string name="type.shop.dairy">ﻥﺎﺒﻟﻷﺍ ﺕﺎﺠﺘﻨﻣ</string>
+	<string name="type.shop.electrical">ﺔﻴﺋﺎﺑﺮﻬﻜﻟﺍ ﺕﺍﻭﺩﻷﺍ ﺮﺠﺘﻣ</string>
+	<string name="type.shop.fishing">ﺪﻴﺻ ﺮﺠﺘﻣ</string>
+	<string name="type.shop.interior_decoration">ﺔﻴﻠﺧﺍﺩ ﺕﺍﺭﻮﻜﻳﺩ</string>
+	<string name="type.shop.lottery">ﺐﻴﺼﻧﺎﻴﻟﺍ ﺮﻛﺍﺬﺗ</string>
+	<string name="type.shop.medical_supply">ﺔﻴﺒﻄﻟﺍ ﺕﺍﺩﺍﺪﻣﻹﺍ</string>
+	<string name="type.shop.nutrition_supplements">ﺔﻴﺋﺍﺬﻏ ﺕﻼﻤﻜﻣ</string>
+	<string name="type.shop.paint">ﺕﺎﻧﺎﻫﺪﻟﺍ</string>
+	<string name="type.shop.perfumery">ﺭﻮﻄﻌﻟﺍ</string>
+	<string name="type.shop.sewing">ﺔﻃﺎﻴﺨﻟﺍ ﺕﺍﺪﻌﻣ</string>
+	<string name="type.shop.storage_rental">ﻦﻳﺰﺨﺘﻟﺍ ﺕﺍﺪﺣﻭ ﺮﻴﺟﺄﺗ</string>
+	<string name="type.shop.tobacco">ﻎﺒﺗ</string>
+	<string name="type.shop.trade">ﺔﻳﺭﺎﺠﺘﻟﺍ ﺕﺍﺪﻳﺭﻮﺘﻟﺍ</string>
+	<string name="type.shop.watches">ﺕﺎﻋﺎﺳ</string>
+	<string name="type.shop.wholesale">ﺔﻠﻤﺠﻟﺎﺑ ﺔﻴﺋﺍﺬﻐﻟﺍ ﺩﺍﻮﻤﻟﺍ ﺓﺭﺎﺠﺗ</string>
+	<string name="type.sport">رياضة</string>
+	<string name="type.sport.american_football">كرة القدم الأمريكية</string>
+	<string name="type.sport.archery">الرماية</string>
 	<string name="type.sport.athletics">العاب رياضية</string>
+	<string name="type.sport.australian_football">كرة القدم الأسترالية</string>
+	<string name="type.sport.baseball">البيسبول</string>
 	<string name="type.sport.basketball">كرة السلة</string>
+	<string name="type.sport.beachvolleyball">كرة طائرة شاطئية</string>
+	<string name="type.sport.bowls">لعبة البولينج</string>
+	<string name="type.sport.chess">شطرنج</string>
+	<string name="type.sport.cricket">كريكت</string>
+	<string name="type.sport.curling">كيرلنغ</string>
 	<string name="type.sport.equestrian">رياضة الفروسية</string>
+	<string name="type.sport.golf">الجولف</string>
+	<string name="type.sport.gymnastics">رياضة بدنية</string>
+	<string name="type.sport.handball">كرة اليد</string>
+	<string name="type.sport.multi">رياضات متنوعة</string>
+	<!-- Used to tag a scuba diving site. -->
+	<string name="type.sport.scuba_diving">الغوص</string>
+	<string name="type.sport.shooting">رماية</string>
+	<string name="type.sport.skateboard">تزلج على اللوح</string>
+	<string name="type.sport.skiing">التزحلق</string>
+	<string name="type.sport.soccer">كرة القدم</string>
+	<string name="type.sport.swimming">سباحة</string>
+	<string name="type.sport.table_tennis">كرة الطاولة</string>
 	<string name="type.sport.tennis">ملعب تنس</string>
+	<string name="type.sport.volleyball">كرة الطائرة</string>
+	<string name="type.sport.9pin">بولينج بعشرة دبابيس</string>
+	<string name="type.sport.10pin">بولينج بعشرة دبابيس</string>
 	<string name="type.tourism.alpine_hut">مساكن جبلية</string>
 	<string name="type.tourism.apartment">شُقَق</string>
 	<string name="type.tourism.artwork">عمل فني</string>
@@ -1237,7 +1378,7 @@
 	<string name="type.tourism.hotel">فندق</string>
 	<string name="type.tourism.information">معلومات سياحية</string>
 	<string name="type.tourism.information.board">لوحة معلومات</string>
-	<string name="type.tourism.information.guidepost">معلومات سياحية</string>
+	<string name="type.tourism.information.guidepost">دليل</string>
 	<string name="type.tourism.information.map">خريطة سياحية</string>
 	<string name="type.tourism.information.office">مكتب سياحة</string>
 	<string name="type.tourism.motel">فندق رخيص</string>
@@ -1263,4 +1404,5 @@
 	<string name="type.wheelchair.no">لا يدعم لكراسي المعاقين</string>
 	<string name="type.wheelchair.yes">دعم كامل لكراسي المعاقين</string>
 	<string name="type.building_part">مبنى</string>
+	<string name="type.amenity.events_venue">مكان الأحداث</string>
 </resources>

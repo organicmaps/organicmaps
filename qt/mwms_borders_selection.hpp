@@ -1,5 +1,7 @@
 #pragma once
 
+#include "qt/selection.hpp"
+
 #include <string>
 
 #include <QtWidgets/QApplication>
@@ -17,21 +19,7 @@ class MwmsBordersSelection : public QDialog
 public:
   MwmsBordersSelection(QWidget * parent);
 
-  enum class Response
-  {
-    MwmsBordersByPolyFiles,
-    MwmsBordersWithVerticesByPolyFiles,
-
-    MwmsBordersByPackedPolygon,
-    MwmsBordersWithVerticesByPackedPolygon,
-
-    BoundingBoxByPolyFiles,
-    BoundingBoxByPackedPolygon,
-
-    Cancelled
-  };
-
-  Response ShowModal();
+  SelectionMode ShowModal();
 
 private:
   QGroupBox * CreateSourceChoosingGroup();

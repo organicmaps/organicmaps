@@ -19,15 +19,15 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.LoggerFactory;
 
 public class AlertDialog extends BaseMwmDialogFragment
 {
+  private static final String TAG = AlertDialog.class.getSimpleName();
+
   private static final String ARG_TITLE_ID = "arg_title_id";
   private static final String ARG_MESSAGE_ID = "arg_message_id";
   private static final String ARG_POSITIVE_BUTTON_ID = "arg_positive_button_id";
@@ -94,9 +94,7 @@ public class AlertDialog extends BaseMwmDialogFragment
     }
     catch (ClassCastException e)
     {
-      Logger logger = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
-      logger.w(AlertDialog.class.getSimpleName(),
-               "Caller doesn't implement AlertDialogCallback interface.");
+      Logger.w(TAG, "Caller doesn't implement AlertDialogCallback interface.");
     }
   }
 

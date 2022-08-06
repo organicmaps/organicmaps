@@ -17,14 +17,8 @@
 #include <vector>
 
 class FeatureType;
-namespace feature
-{
-class FeatureBuilder;
-}  // namespace feature
-namespace osm
-{
-class Editor;
-}
+namespace feature { class FeatureBuilder; }
+namespace osm { class Editor; }
 
 namespace generator
 {
@@ -38,10 +32,10 @@ public:
   bool Matches(FeatureType & feature) const;
   void SetPostcode(std::string const & postcode) { m_postcode = postcode; }
   uint64_t GetId() const { return m_id; }
-  StringUtf8Multilang const & GetNames() const { return m_names; }
-  std::string GetName(std::string const & lang) const
+//  StringUtf8Multilang const & GetNames() const { return m_names; }
+  std::string_view GetName(std::string_view lang) const
   {
-    std::string res;
+    std::string_view res;
     if (m_names.GetString(lang, res))
       return res;
     return {};
@@ -180,13 +174,15 @@ public:
 
   feature::TypesHolder GetTypes() const;
   void SetHouseNumber(std::string const & houseNumber) { m_houseNumber = houseNumber; }
-  void SetStreetName(std::string const & name) { m_streetName = name; }
-  void SetTypes(std::vector<std::vector<std::string>> const & types) { m_types = types; }
+  void SetStreetName(std::string_view name) { m_streetName = name; }
+
+  void SetType(uint32_t type) { m_types.assign(1 /* count */, type); }
+  void SetTypes(std::initializer_list<base::StringIL> const & types);
 
 protected:
   std::string m_houseNumber;
   std::string m_streetName;
-  std::vector<std::vector<std::string>> m_types;
+  std::vector<uint32_t> m_types;
 };
 
 class TestMultilingualPOI : public TestPOI
@@ -208,9 +204,9 @@ public:
   TestBuilding(m2::PointD const & center, std::string const & name, std::string const & houseNumber,
                std::string const & lang);
   TestBuilding(m2::PointD const & center, std::string const & name, std::string const & houseNumber,
-               std::string const & street, std::string const & lang);
+               std::string_view street, std::string const & lang);
   TestBuilding(std::vector<m2::PointD> const & boundary, std::string const & name,
-               std::string const & houseNumber, std::string const & street,
+               std::string const & houseNumber, std::string_view street,
                std::string const & lang);
 
   // TestFeature overrides:

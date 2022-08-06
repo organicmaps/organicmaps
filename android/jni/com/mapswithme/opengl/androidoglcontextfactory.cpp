@@ -10,6 +10,7 @@
 #include <algorithm>
 
 #include <EGL/egl.h>
+#include <android/api-level.h>
 #include <android/native_window.h>
 #include <android/native_window_jni.h>
 
@@ -106,14 +107,9 @@ AndroidOGLContextFactory::AndroidOGLContextFactory(JNIEnv * env, jobject jsurfac
   }
 
   // Check ES3 availability.
-  bool availableES3 = IsSupportedRGB8(m_display, true /* es3 */);
-  if (availableES3)
-  {
-    int const sdkVersion = GetAndroidSdkVersion();
-    if (sdkVersion != 0)
-      availableES3 = (sdkVersion >= kMinSdkVersionForES3);
-  }
-  m_supportedES3 = availableES3 && gl3stubInit();
+  bool const isES3Supported = IsSupportedRGB8(m_display, true /* es3 */) &&
+             android_get_device_api_level() >= kMinSdkVersionForES3;
+  m_supportedES3 = isES3Supported && gl3stubInit();
 
   SetSurface(env, jsurface);
 

@@ -5,6 +5,7 @@ on:
     paths-ignore:
       - .gitignore
       - .github/**
+      - '!.github/workflows/ios-check.yaml'  # Run check on self change
       - '**/*_tests/**'
       - '**/CMakeLists.txt'
       - CONTRIBUTORS
@@ -26,9 +27,8 @@ on:
 jobs:
   ios-check:
     name: Build iOS
-    runs-on: macos-11
+    runs-on: macos-12
     env:
-      DEVELOPER_DIR: /Applications/Xcode_13.2.1.app/Contents/Developer
       LANG: en_US.UTF-8  # Fastlane complains that the terminal is using ASCII.
       LANGUAGE: en_US.UTF-8
       LC_ALL: en_US.UTF-8

@@ -17,17 +17,15 @@
 	<string name="downloading">Pobieranie…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Kilometry</string>
-	<!-- View and button titles for accessibility -->
-	<string name="maps">Mapy</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Mile</string>
-	<!-- View and button titles for accessibility -->
+	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">Moje położenie</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">Później</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Wyszukaj</string>
-	<!-- Search box placeholder text -->
+	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">Wyszukaj mapy</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">Usługi lokalizacji są aktualnie wyłączone dla tego urządzenia lub aplikacji. Proszę włączyć je w ustawieniach.</string>
@@ -41,9 +39,10 @@
 	<string name="close">Zamknij</string>
 	<string name="unsupported_phone">Wymagana jest sprzętowa akceleracja OpenGL. Aktualne urządzenie nie jest obsługiwane.</string>
 	<string name="download">Pobierz</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable">Proszę odłączyć kabel USB albo włożyć kartę pamięci, aby korzystać z Organic Maps</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="not_enough_free_space_on_sdcard">Proszę zwolnić trochę pamięci na karcie SD/pamięci USB, aby korzystać z aplikacji</string>
-	<string name="not_enough_memory">Za mało pamięci, aby uruchomić aplikację</string>
 	<string name="download_resources">Przed rozpoczęciem prosimy o pobranie ogólnej mapy świata na urządzenie.\nWymaga to %s danych.</string>
 	<string name="download_resources_continue">Przejdź do mapy</string>
 	<string name="downloading_country_can_proceed">Pobieranie %s. Można teraz\nprzejść do mapy.</string>
@@ -77,6 +76,8 @@
 	<string name="maps_storage">Zapisz mapy do</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Określa położenie przechowywania pobranych map</string>
+	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+	<string name="maps_storage_downloaded">Mapy</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Przenieść mapy?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
@@ -123,6 +124,8 @@
 	<string name="post">Poczta</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
 	<string name="police">Policja</string>
+	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! -->
+	<string name="wifi">WiFi</string>
 	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
 	<string name="recycling">Recykling</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
@@ -208,6 +211,8 @@
 	<string name="search_show_on_map">Wyświetl na mapie</string>
 	<!-- Text in menu -->
 	<string name="website">Strona internetowa</string>
+	<!-- Text in About menu, opens Organic Maps news website -->
+	<string name="news">Wiadomości</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">Opinia</string>
 	<!-- Text in menu -->
@@ -222,17 +227,16 @@
 	<string name="copyright">Prawa autorskie</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Zgłoś błąd</string>
-	<!-- Search category -->
-	<string name="wifi">WiFi</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Aktualizuj wszystkie</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">Anuluj wszystko</string>
-	<!-- Downloaded maps category -->
+	<!-- Downloaded maps list header -->
 	<string name="downloader_downloaded_subtitle">Pobrane</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">W kolejce</string>
 	<string name="downloader_near_me_subtitle">Blisko mnie</string>
+	<!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
 	<string name="downloader_status_maps">Mapy</string>
 	<string name="downloader_download_all_button">Pobierz wszystkie</string>
 	<string name="downloader_downloading">Pobieranie:</string>
@@ -248,6 +252,8 @@
 	<string name="downloader_delete_map">Usuń mapę</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">Aktualizuj mapę</string>
+	<!-- Preference title -->
+	<string name="google_play_services">Usługi Google Play</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">Używa usług Google Play do ustalenia aktualnego położenia</string>
 	<!-- Text for routing error dialog -->
@@ -293,8 +299,6 @@
 	<string name="gray">Szary</string>
 	<!-- blue gray color -->
 	<string name="blue_gray">Szaroniebieski</string>
-	<!-- Wi-Fi available -->
-	<string name="WiFi_available">Tak</string>
 
 	<!-- SECTION: Routing dialogs strings -->
 	<string name="dialog_routing_disclaimer_title">Jadąc wyznaczoną trasą, pamiętaj, że:</string>
@@ -450,6 +454,7 @@
 	<string name="kilometer">km</string>
 	<string name="kilometers_per_hour">km/h</string>
 	<string name="mile">mi</string>
+	<!-- A unit of measure -->
 	<string name="foot">ft</string>
 	<string name="miles_per_hour">mph</string>
 	<string name="hour">godz</string>
@@ -555,6 +560,7 @@
 	<plurals name="tracks">
 	  <item quantity="other">%d tras</item>
 	</plurals>
+	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Ustawienia śledzenia</string>
 	<string name="crash_reports">Raport o błędzie</string>
 	<string name="crash_reports_description">Możemy używać Twoich danych do usprawnienia działania Organic Maps. Zmiany zostaną zastosowane po ponownym uruchomieniu aplikacji.</string>
@@ -604,6 +610,14 @@
 	<string name="avoid_toll_roads_placepage">Unikać dróg płatnych</string>
 	<string name="avoid_unpaved_roads_placepage">Unikać dróg gruntowych</string>
 	<string name="avoid_ferry_crossing_placepage">Unikać przepraw promowych</string>
+	<!-- A generic "Yes" button in dialogs -->
+	<string name="yes">Tak</string>
+	<!-- A generic "No" button in dialogs -->
+	<string name="no">Nie</string>
+	<!-- E.g. "WiFi:Yes" -->
+	<string name="yes_available">Tak</string>
+	<!-- E.g. "WiFi:No" -->
+	<string name="no_available">Nie</string>
 	<string name="ok">Ok</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Sortuj…</string>
@@ -657,7 +671,9 @@
 	<string name="elevation_profile_time">Trasa:</string>
 	<string name="isolines_toast_zooms_1_10">Powiększ mapę, aby zobaczyć izolinie</string>
 	<string name="download_map_title">Pobierz mapę świata</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="connection_failure">Błąd połączenia</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable_title">Odłącz kabel USB</string>
 	<string name="enable_screen_sleep">Pozwól ekranowi spać</string>
 	<!-- Description in preferences -->
@@ -666,6 +682,8 @@
 	<string name="enable_show_on_lock_screen">Pokazuj na ekranie blokady</string>
 	<!-- Description in preferences -->
 	<string name="enable_show_on_lock_screen_description">Po włączeniu nie musisz odblokowywać urządzenia za każdym razem, gdy aplikacja jest uruchomiona.</string>
+	<!-- OpenStreetMap text on splash screen -->
+	<string name="splash_subtitle">Dane mapy z OpenStreetMap</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway">Transport linowy</string>
@@ -690,6 +708,7 @@
 	<string name="type.amenity.bench">Ławka</string>
 	<string name="type.amenity.bicycle_parking">Parking dla rowerów</string>
 	<string name="type.amenity.bicycle_rental">Wynajem rowerów</string>
+	<string name="type.amenity.bicycle_repair_station">Stacja naprawy rowerów</string>
 	<string name="type.amenity.biergarten">Ogródek piwny</string>
 	<string name="type.amenity.brothel">Burdel</string>
 	<string name="type.amenity.bureau_de_change">Kantor</string>
@@ -830,11 +849,13 @@
 	<string name="type.building.garage">Garaż</string>
 	<string name="type.building.has_parts">Część budynku</string>
 	<string name="type.building.train_station">Dworzec kolejowy</string>
+	<string name="type.cemetery.grave">Mogiła</string>
 	<string name="type.craft">Rzemiosło</string>
 	<string name="type.craft.brewery">Browar</string>
 	<string name="type.craft.carpenter">Stolarz</string>
 	<string name="type.craft.electrician">Elektryk</string>
 	<string name="type.craft.gardener">Ogrodnik</string>
+	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Klimatyzacja</string>
 	<string name="type.craft.metal_construction">Ślusarz, obrabiacz metalu</string>
 	<string name="type.craft.painter">Malarz</string>
@@ -937,18 +958,23 @@
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway">Droga</string>
 	<string name="type.highway.bridleway">Droga dla koni</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.bridleway.bridge">Most drogowy dla koni</string>
 	<string name="type.highway.bridleway.permissive">Droga dla koni ograniczona</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Tunel drogowy dla koni</string>
 	<string name="type.highway.bus_stop">Przystanek autobusowy</string>
 	<string name="type.highway.construction">Droga w trakcie budowy</string>
 	<string name="type.highway.cycleway">Droga rowerowa</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.cycleway.bridge">Most drogowy dla rowerów</string>
 	<string name="type.highway.cycleway.permissive">Droga rowerowa ograniczona</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.cycleway.tunnel">Tunel drogowy dla rowerów</string>
 	<string name="type.highway.footway">Chodnik</string>
 	<string name="type.highway.footway.alpine_hiking">Ścieżka wspinaczkowa</string>
 	<string name="type.highway.footway.area">Obszar chodnika</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.footway.bridge">Most dla pieszych</string>
 	<string name="type.highway.footway.demanding_alpine_hiking">Ścieżka</string>
 	<string name="type.highway.footway.demanding_mountain_hiking">Ścieżka</string>
@@ -956,22 +982,30 @@
 	<string name="type.highway.footway.hiking">Ścieżka</string>
 	<string name="type.highway.footway.mountain_hiking">Ścieżka</string>
 	<string name="type.highway.footway.permissive">Chodnik</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Tunel dla pieszych</string>
 	<string name="type.highway.ford">Bród</string>
 	<string name="type.highway.living_street">Ulica w strefie zamieszkania</string>
-	<string name="type.highway.living_street.bridge">Ulica w strefie zamieszkania</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.living_street.bridge">Most</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.living_street.tunnel">Tunel ulicy</string>
 	<string name="type.highway.motorway">Ulica</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.motorway.bridge">Most drogowy</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.motorway.tunnel">Tunel drogowy</string>
 	<string name="type.highway.motorway_junction">Wyjazd</string>
 	<string name="type.highway.motorway_link">Ulica</string>
-	<string name="type.highway.motorway_link.bridge">Ulica</string>
-	<string name="type.highway.motorway_link.tunnel">Ulica</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway_link.bridge">Most</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway_link.tunnel">Tunel</string>
 	<string name="type.highway.path">Ścieżka</string>
 	<string name="type.highway.path.alpine_hiking">Ścieżka wspinaczkowa</string>
 	<string name="type.highway.path.bicycle">Ścieżka dla rowerów</string>
-	<string name="type.highway.path.bridge">Ścieżka</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.path.bridge">Most</string>
 	<string name="type.highway.path.demanding_alpine_hiking">Ścieżka</string>
 	<string name="type.highway.path.demanding_mountain_hiking">Ścieżka</string>
 	<string name="type.highway.path.difficult_alpine_hiking">Ścieżka</string>
@@ -979,52 +1013,76 @@
 	<string name="type.highway.path.horse">Ścieżka</string>
 	<string name="type.highway.path.mountain_hiking">Ścieżka</string>
 	<string name="type.highway.path.permissive">Ścieżka</string>
-	<string name="type.highway.path.tunnel">Ścieżka</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.path.tunnel">Tunel</string>
 	<string name="type.highway.pedestrian">Pasaż pieszy</string>
 	<string name="type.highway.pedestrian.area">Pasaż pieszy</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.pedestrian.bridge">Most pasażu pieszego</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.pedestrian.tunnel">Tunel pasażu pieszego</string>
 	<string name="type.highway.primary">Ulica</string>
-	<string name="type.highway.primary.bridge">Ulica</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary.bridge">Most</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.primary.tunnel">Tunel drogowy</string>
 	<string name="type.highway.primary_link">Ulica</string>
-	<string name="type.highway.primary_link.bridge">Ulica</string>
-	<string name="type.highway.primary_link.tunnel">Ulica</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary_link.bridge">Most</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary_link.tunnel">Tunel</string>
 	<string name="type.highway.raceway">Tor wyścigowy</string>
 	<string name="type.highway.residential">Ulica</string>
 	<string name="type.highway.residential.area">Ulica</string>
-	<string name="type.highway.residential.bridge">Ulica</string>
-	<string name="type.highway.residential.tunnel">Ulica</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.residential.bridge">Most</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.residential.tunnel">Tunel</string>
 	<string name="type.highway.rest_area">Miejsce wypoczynku</string>
 	<string name="type.highway.road">Ulica</string>
-	<string name="type.highway.road.bridge">Ulica</string>
-	<string name="type.highway.road.tunnel">Tunel drogowy</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.road.bridge">Most</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.road.tunnel">Tunel</string>
 	<string name="type.highway.secondary">Ulica</string>
-	<string name="type.highway.secondary.bridge">Ulica</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary.bridge">Most</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.secondary.tunnel">Tunel drogowy</string>
 	<string name="type.highway.secondary_link">Ulica</string>
-	<string name="type.highway.secondary_link.bridge">Ulica</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary_link.bridge">Most</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.secondary_link.tunnel">Tunel drogowy</string>
 	<string name="type.highway.service">Ulica</string>
 	<string name="type.highway.service.area">Ulica</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.service.bridge">Most drogowy</string>
 	<string name="type.highway.service.driveway">Ulica</string>
 	<string name="type.highway.service.parking_aisle">Miejsca parkingowe</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.service.tunnel">Tunel drogowy</string>
 	<string name="type.highway.services">Miejsce obsługi podróżnych</string>
 	<string name="type.highway.speed_camera">Fotoradar</string>
 	<string name="type.highway.steps">Schody</string>
-	<string name="type.highway.steps.bridge">Schody</string>
-	<string name="type.highway.steps.tunnel">Schody</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.steps.bridge">Most</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.steps.tunnel">Tunel</string>
 	<string name="type.highway.tertiary">Ulica</string>
-	<string name="type.highway.tertiary.bridge">Ulica</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary.bridge">Most</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.tertiary.tunnel">Tunel drogowy</string>
 	<string name="type.highway.tertiary_link">Ulica</string>
-	<string name="type.highway.tertiary_link.bridge">Ulica</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary_link.bridge">Most</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.tertiary_link.tunnel">Tunel drogowy</string>
 	<string name="type.highway.track">Ulica</string>
 	<string name="type.highway.track.area">Ulica</string>
-	<string name="type.highway.track.bridge">Ulica</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.track.bridge">Most</string>
 	<string name="type.highway.track.grade1">Ulica</string>
 	<string name="type.highway.track.grade2">Ulica</string>
 	<string name="type.highway.track.grade3">Ulica</string>
@@ -1032,17 +1090,24 @@
 	<string name="type.highway.track.grade5">Ulica</string>
 	<string name="type.highway.track.no.access">Ulica</string>
 	<string name="type.highway.track.permissive">Ulica</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">Tunel drogowy</string>
 	<string name="type.highway.traffic_signals">Sygnalizacja świetlna</string>
 	<string name="type.highway.trunk">Ulica</string>
-	<string name="type.highway.trunk.bridge">Ulica</string>
-	<string name="type.highway.trunk.tunnel">Ulica</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk.bridge">Most</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk.tunnel">Tunel</string>
 	<string name="type.highway.trunk_link">Ulica</string>
-	<string name="type.highway.trunk_link.bridge">Ulica</string>
-	<string name="type.highway.trunk_link.tunnel">Ulica</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk_link.bridge">Most</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk_link.tunnel">Tunel</string>
 	<string name="type.highway.unclassified">Ulica</string>
 	<string name="type.highway.unclassified.area">Ulica</string>
-	<string name="type.highway.unclassified.bridge">Ulica</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.unclassified.bridge">Most</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.unclassified.tunnel">Tunel drogowy</string>
 	<string name="type.area_highway.cycleway">Droga rowerowa</string>
 	<string name="type.area_highway.footway">Chodnik</string>
@@ -1137,10 +1202,8 @@
 	<string name="type.leisure.sauna">Sauna</string>
 	<string name="type.leisure.slipway">Pochylnia</string>
 	<string name="type.leisure.sports_centre">Centrum sportowe</string>
-	<string name="type.leisure.sports_centre.climbing">Centrum wspinaczkowe</string>
-	<string name="type.leisure.sports_centre.shooting">Strzelnica</string>
-	<string name="type.leisure.sports_centre.swimming">Pływalnia</string>
-	<string name="type.leisure.sports_centre.yoga">Studio jogi</string>
+	<string name="type.sport.climbing">Centrum wspinaczkowe</string>
+	<string name="type.sport.yoga">Studio jogi</string>
 	<string name="type.leisure.stadium">Stadion</string>
 	<string name="type.leisure.swimming_pool">Basen</string>
 	<string name="type.leisure.swimming_pool.private">Basen</string>
@@ -1149,6 +1212,7 @@
 	<string name="type.man_made.cairn">Kopiec</string>
 	<string name="type.man_made.chimney">Komin fabryki</string>
 	<string name="type.man_made.cutline">Przecinka leśna</string>
+	<string name="type.man_made.survey_point">Znak geodezyjny</string>
 	<string name="type.man_made.lighthouse">Latarnia morska</string>
 	<string name="type.man_made.pier">Molo</string>
 	<string name="type.man_made.pipeline">Rurociąg</string>
@@ -1166,23 +1230,30 @@
 	<string name="type.natural.bare_rock">Skała macierzysta</string>
 	<string name="type.natural.bay">Zatoka</string>
 	<string name="type.natural.beach">Plaża</string>
+	<string name="type.natural.beach.sand">Piaszczysta plaża</string>
+	<string name="type.natural.beach.gravel">Żwirowa plaża</string>
 	<string name="type.natural.cape">Przylądek</string>
 	<string name="type.natural.cave_entrance">Jaskinia</string>
 	<string name="type.natural.cliff">Klif</string>
+	<string name="type.natural.earth_bank">Żleb</string>
+	<string name="type.man_made.embankment">Nasyp</string>
 	<string name="type.natural.coastline">Linia brzegowa</string>
 	<string name="type.natural.geyser">Gejzer</string>
 	<string name="type.natural.glacier">Lodowiec</string>
-	<string name="type.natural.grassland">Pastwisko</string>
+	<string name="type.natural.grassland">Formacje trawiaste</string>
 	<string name="type.natural.heath">Wrzosowisko</string>
 	<string name="type.natural.hot_spring">Gorące źródło</string>
 	<string name="type.natural.water.lake">Jezioro</string>
+	<string name="type.natural.water.lock">Komora zamka</string>
 	<string name="type.natural.water.pond">Staw</string>
 	<string name="type.natural.water.reservoir">Zbiornik</string>
 	<string name="type.natural.water.basin">Zbiornik</string>
 	<string name="type.natural.water.river">Rzeka</string>
+	<string name="type.natural.land">Grunt</string>
 	<string name="type.natural.meadow">Łąka</string>
 	<string name="type.natural.orchard">Sad</string>
 	<string name="type.natural.peak">Szczyt</string>
+	<string name="type.natural.saddle">Siodło</string>
 	<string name="type.natural.rock">Skała</string>
 	<string name="type.natural.scrub">Zarośla</string>
 	<string name="type.natural.spring">Źródło</string>
@@ -1298,21 +1369,27 @@
 	<string name="type.shop.convenience">Sklep spożywczy</string>
 	<string name="type.shop.copyshop">Punkt ksero</string>
 	<string name="type.shop.cosmetics">Kosmetyki</string>
+	<string name="type.shop.deli">Sklep delikatesowy</string>
 	<string name="type.shop.department_store">Dom towarowy</string>
 	<string name="type.shop.doityourself">Sklep narzędziowy</string>
 	<string name="type.shop.dry_cleaning">Pralnia chemiczna</string>
 	<string name="type.shop.electronics">Sklep ze sprzętem elektronicznym</string>
 	<string name="type.shop.erotic">Sex shop</string>
 	<string name="type.shop.fabric">Sklep</string>
+	<string name="type.shop.farm">Sklep spożywczy dla gospodarstw rolnych</string>
 	<string name="type.shop.florist">Kwiaciarnia</string>
 	<string name="type.shop.funeral_directors">Celebranci pogrzebowi</string>
 	<string name="type.shop.furniture">Sklep meblowy</string>
 	<string name="type.shop.garden_centre">Sklep ogrodniczy</string>
 	<string name="type.shop.gift">Sklep z pamiątkami</string>
 	<string name="type.shop.greengrocer">Warzywniak</string>
+	<string name="type.shop.grocery">Sklep spożywczy</string>
 	<string name="type.shop.hairdresser">Fryzjer</string>
-	<string name="type.shop.hardware">Sklep narzędziowy</string>
+	<string name="type.shop.hardware">Sklep z narzędziami</string>
+	<string name="type.shop.health_food">Sklep ze zdrową żywnością</string>
+	<string name="type.shop.houseware">Sklep AGD</string>
 	<string name="type.shop.jewelry">Jubiler</string>
+	<string name="type.shop.kitchen">Sklep kuchenny</string>
 	<string name="type.shop.laundry">Pralnia samoobsługowa</string>
 	<string name="type.shop.mall">Centrum handlowe</string>
 	<string name="type.shop.massage">Salon masażu</string>
@@ -1324,10 +1401,12 @@
 	<string name="type.shop.newsagent">Stoisko z prasą</string>
 	<string name="type.shop.optician">Sklep optyczny</string>
 	<string name="type.shop.outdoor">Sprzęt turystyczny</string>
+	<string name="type.shop.pastry">Ciasto</string>
 	<string name="type.shop.pawnbroker">Lombard</string>
 	<string name="type.shop.pet">Sklep zoologiczny</string>
 	<string name="type.shop.photo">Fotograf</string>
 	<string name="type.shop.seafood">Sklep rybny</string>
+	<string name="type.shop.second_hand">Sklep z używaną ręką</string>
 	<string name="type.shop.shoes">Sklep obuwniczy</string>
 	<string name="type.shop.sports">Sklep sportowy</string>
 	<string name="type.shop.stationery">Artykuły papiernicze</string>
@@ -1341,21 +1420,58 @@
 	<string name="type.shop.video">Wypożyczalnia wideo</string>
 	<string name="type.shop.video_games">Sklep z grami wideo</string>
 	<string name="type.shop.wine">Sklep monopolowy</string>
+	<string name="type.shop.antiques">Antyki</string>
+	<string name="type.shop.art">Sklep artystyczny</string>
+	<string name="type.shop.baby_goods">Sklep dla dzieci</string>
+	<string name="type.shop.bag">Sklep z torbami</string>
+	<string name="type.shop.boutique">Butik</string>
+	<string name="type.shop.charity">Sklep charytatywny</string>
+	<string name="type.shop.cheese">Sklep z serami</string>
+	<string name="type.shop.craft">Sztuka i rzemiosło</string>
+	<string name="type.shop.dairy">Nabiał</string>
+	<string name="type.shop.electrical">Sklep elektryczny</string>
+	<string name="type.shop.fishing">Sklep wędkarski</string>
+	<string name="type.shop.interior_decoration">Dekoracje wnętrz</string>
+	<string name="type.shop.lottery">Bilety na loterię</string>
+	<string name="type.shop.medical_supply">Produkty medyczne</string>
+	<string name="type.shop.nutrition_supplements">Suplementy diety</string>
+	<string name="type.shop.paint">Malatura</string>
+	<string name="type.shop.perfumery">Perfumeria</string>
+	<string name="type.shop.sewing">Przybory do szycia</string>
+	<string name="type.shop.storage_rental">Wynajem magazynu</string>
+	<string name="type.shop.tobacco">Tytoń</string>
+	<string name="type.shop.trade">Zaopatrzenie handlowe</string>
+	<string name="type.shop.watches">Zegarki</string>
+	<string name="type.shop.wholesale">Hurtownia</string>
+	<string name="type.sport">Sport</string>
 	<string name="type.sport.american_football">Futbol amerykański</string>
-	<string name="type.sport.archery">Łucznictwo sportowe</string>
+	<string name="type.sport.archery">Łucznictwo</string>
 	<string name="type.sport.athletics">Lekka atletyka</string>
+	<string name="type.sport.australian_football">Futbol australijski</string>
 	<string name="type.sport.baseball">Baseball</string>
 	<string name="type.sport.basketball">Koszykówka</string>
+	<string name="type.sport.beachvolleyball">Siatkówka plażowa</string>
 	<string name="type.sport.bowls">Kręgle</string>
+	<string name="type.sport.chess">Szachy</string>
 	<string name="type.sport.cricket">Krykiet</string>
+	<string name="type.sport.curling">Curling</string>
 	<string name="type.sport.equestrian">Jeździectwo</string>
 	<string name="type.sport.golf">Golf</string>
 	<string name="type.sport.gymnastics">Gimnastyka</string>
-	<string name="type.sport.handball">Piłka ręczna</string>
+	<string name="type.sport.handball">Gra w piłkę ręczną</string>
+	<string name="type.sport.multi">Różne sporty</string>
+	<!-- Used to tag a scuba diving site. -->
 	<string name="type.sport.scuba_diving">Nurkowanie</string>
 	<string name="type.sport.shooting">Strzelectwo sportowe</string>
+	<string name="type.sport.skateboard">Skateboarding</string>
+	<string name="type.sport.skiing">Jazda na nartach</string>
+	<string name="type.sport.soccer">Piłka nożna</string>
 	<string name="type.sport.swimming">Pływanie</string>
+	<string name="type.sport.table_tennis">Tenis stołowy</string>
 	<string name="type.sport.tennis">Kort tenisowy</string>
+	<string name="type.sport.volleyball">Piłka siatkowa</string>
+	<string name="type.sport.9pin">Bowling</string>
+	<string name="type.sport.10pin">Bowling</string>
 	<string name="type.tourism">Turystyka</string>
 	<string name="type.tourism.alpine_hut">Schronisko górskie</string>
 	<string name="type.tourism.apartment">Apartamenty</string>
@@ -1366,7 +1482,7 @@
 	<string name="type.tourism.artwork.statue">Rzeźba</string>
 	<string name="type.tourism.attraction">Atrakcja turystyczna</string>
 	<string name="type.tourism.attraction.animal">Atrakcje zwierzęce</string>
-	<string name="type.tourism.attraction.specified">Atrakcje</string>
+	<string name="type.tourism.attraction.specified">Atrakcja turystyczna</string>
 	<string name="type.tourism.camp_site">Kamping</string>
 	<string name="type.tourism.caravan_site">Pole namiotowe</string>
 	<string name="type.tourism.chalet">Domek letniskowy</string>
@@ -1374,7 +1490,7 @@
 	<string name="type.tourism.guest_house">Pensjonat</string>
 	<string name="type.tourism.information">Informacja turystyczna</string>
 	<string name="type.tourism.information.board">Tablica informacyjna</string>
-	<string name="type.tourism.information.guidepost">Informacja turystyczna</string>
+	<string name="type.tourism.information.guidepost">Drogowskaz</string>
 	<string name="type.tourism.information.map">Mapa turystyczna</string>
 	<string name="type.tourism.information.office">Biuro informacji turystycznej</string>
 	<string name="type.tourism.museum">Muzeum</string>
@@ -1402,4 +1518,5 @@
 	<string name="type.wheelchair.no">Nie wyposażono dla osób niepełnosprawnych</string>
 	<string name="type.wheelchair.yes">Wyposażono dla osób niepełnosprawnych</string>
 	<string name="type.building_part">Część budynku</string>
+	<string name="type.amenity.events_venue">Miejsce wydarzeń</string>
 </resources>

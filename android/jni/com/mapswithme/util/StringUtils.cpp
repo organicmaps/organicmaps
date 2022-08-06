@@ -37,13 +37,13 @@ Java_com_mapswithme_util_StringUtils_nativeContainsNormalized(JNIEnv * env, jcla
 JNIEXPORT jobjectArray JNICALL
 Java_com_mapswithme_util_StringUtils_nativeFilterContainsNormalized(JNIEnv * env, jclass thiz, jobjectArray src, jstring jSubstr)
 {
-  std::string substr = jni::ToNativeString(env, jSubstr);
+  std::string const substr = jni::ToNativeString(env, jSubstr);
   int const length = env->GetArrayLength(src);
   std::vector<std::string> filtered;
   filtered.reserve(length);
   for (int i = 0; i < length; i++)
   {
-    std::string str = jni::ToNativeString(env, (jstring) env->GetObjectArrayElement(src, i));
+    std::string const str = jni::ToNativeString(env, static_cast<jstring>(env->GetObjectArrayElement(src, i)));
     if (search::ContainsNormalized(str, substr))
       filtered.push_back(str);
   }
@@ -54,9 +54,8 @@ Java_com_mapswithme_util_StringUtils_nativeFilterContainsNormalized(JNIEnv * env
 JNIEXPORT jobject JNICALL Java_com_mapswithme_util_StringUtils_nativeFormatSpeedAndUnits(
     JNIEnv * env, jclass thiz, jdouble metersPerSecond)
 {
-  measurement_utils::Units units;
-  if (!settings::Get(settings::kMeasurementUnits, units))
-    units = measurement_utils::Units::Metric;
+  auto units = measurement_utils::Units::Metric;
+  settings::Get(settings::kMeasurementUnits, units);
   return MakeJavaPair(env, measurement_utils::FormatSpeedNumeric(metersPerSecond, units),
                       measurement_utils::FormatSpeedUnits(units));
 }

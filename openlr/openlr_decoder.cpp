@@ -216,79 +216,11 @@ void CopyWithoutOffsets(InputIterator start, InputIterator stop, OutputIterator 
   copy(from, to, out);
 }
 
-class SegmentsDecoderV1
-{
-public:
-  SegmentsDecoderV1(DataSource const & dataSource, unique_ptr<CarModelFactory> cmf)
-    : m_roadGraph(dataSource, IRoadGraph::Mode::ObeyOnewayTag, move(cmf))
-    , m_infoGetter(dataSource)
-    , m_router(m_roadGraph, m_infoGetter)
-  {
-  }
-
-  bool DecodeSegment(LinearSegment const & segment, DecodedPath & path, Stats & stat)
-  {
-    double const kOffsetToleranceM = 10;
-
-    auto const & ref = segment.m_locationReference;
-
-    path.m_segmentId.Set(segment.m_segmentId);
-
-    m_points.clear();
-    for (auto const & point : ref.m_points)
-      m_points.emplace_back(point);
-
-    auto positiveOffsetM = ref.m_positiveOffsetMeters;
-    if (positiveOffsetM >= m_points[0].m_distanceToNextPointM)
-    {
-      LOG(LWARNING, ("Wrong positive offset for segment:", segment.m_segmentId));
-      positiveOffsetM = 0;
-    }
-
-    auto negativeOffsetM = ref.m_negativeOffsetMeters;
-    if (negativeOffsetM >= m_points[m_points.size() - 2].m_distanceToNextPointM)
-    {
-      LOG(LWARNING, ("Wrong negative offset for segment:", segment.m_segmentId));
-      negativeOffsetM = 0;
-    }
-
-    {
-      double expectedLength = 0;
-      for (size_t i = 0; i + 1 < m_points.size(); ++i)
-        expectedLength += m_points[i].m_distanceToNextPointM;
-
-      if (positiveOffsetM + negativeOffsetM >= expectedLength)
-      {
-        LOG(LINFO, ("Skipping", segment.m_segmentId, "due to wrong positive/negative offsets."));
-        return false;
-      }
-
-      if (positiveOffsetM + negativeOffsetM + kOffsetToleranceM >= expectedLength)
-      {
-        LOG(LINFO, ("Too tight positive and negative offsets, setting them to zero."));
-        positiveOffsetM = 0;
-        negativeOffsetM = 0;
-        ++stat.m_tightOffsets;
-      }
-    }
-
-    if (!m_router.Go(m_points, positiveOffsetM, negativeOffsetM, path.m_path))
-      return false;
-
-    return true;
-  }
-
-private:
-  FeaturesRoadGraph m_roadGraph;
-  RoadInfoGetter m_infoGetter;
-  Router m_router;
-  vector<WayPoint> m_points;
-};
 
 class SegmentsDecoderV2
 {
 public:
-  SegmentsDecoderV2(DataSource const & dataSource, unique_ptr<CarModelFactory> cmf)
+  SegmentsDecoderV2(DataSource & dataSource, unique_ptr<CarModelFactory> cmf)
     : m_dataSource(dataSource), m_graph(dataSource, move(cmf)), m_infoGetter(dataSource)
   {
   }
@@ -377,7 +309,7 @@ private:
 class SegmentsDecoderV3
 {
 public:
-  SegmentsDecoderV3(DataSource const & dataSource, unique_ptr<CarModelFactory> carModelFactory)
+  SegmentsDecoderV3(DataSource & dataSource, unique_ptr<CarModelFactory> carModelFactory)
       : m_dataSource(dataSource), m_graph(dataSource, move(carModelFactory)), m_infoGetter(dataSource)
   {
   }
@@ -503,16 +435,10 @@ bool OpenLRDecoder::SegmentsFilter::Matches(LinearSegment const & segment) const
 }
 
 // OpenLRDecoder -----------------------------------------------------------------------------
-OpenLRDecoder::OpenLRDecoder(vector<FrozenDataSource> const & dataSources,
+OpenLRDecoder::OpenLRDecoder(vector<FrozenDataSource> & dataSources,
                              CountryParentNameGetter const & countryParentNameGetter)
   : m_dataSources(dataSources), m_countryParentNameGetter(countryParentNameGetter)
 {
-}
-
-void OpenLRDecoder::DecodeV1(vector<LinearSegment> const & segments, uint32_t const numThreads,
-                             vector<DecodedPath> & paths)
-{
-  Decode<SegmentsDecoderV1, Stats>(segments, numThreads, paths);
 }
 
 void OpenLRDecoder::DecodeV2(vector<LinearSegment> const & segments, uint32_t const numThreads,
@@ -531,8 +457,8 @@ template <typename Decoder, typename Stats>
 void OpenLRDecoder::Decode(vector<LinearSegment> const & segments,
                            uint32_t const numThreads, vector<DecodedPath> & paths)
 {
-  auto const worker = [&segments, &paths, numThreads, this](size_t threadNum, DataSource const & dataSource,
-                                                            Stats & stat) {
+  auto const worker = [&](size_t threadNum, DataSource & dataSource, Stats & stat)
+  {
     size_t constexpr kBatchSize = GetOptimalBatchSize();
     size_t constexpr kProgressFrequency = 100;
 

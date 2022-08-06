@@ -112,9 +112,7 @@ class IsServiceTypeChecker
 private:
   IsServiceTypeChecker()
   {
-    array<string, 3> const oneLevelTypes = {"barrier", "power", "traffic_calming"};
-
-    for (auto const & t : oneLevelTypes)
+    for (string_view const t : {"barrier", "power", "traffic_calming"})
       m_oneLevelTypes.push_back(classif().GetTypeByPath({t}));
   }
 

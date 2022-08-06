@@ -22,7 +22,7 @@ target_link_libraries(${PROJECT_NAME}
   opening_hours
 )
 
-add_subdirectory(gtfs_converter)
+omim_add_tool_subdirectory(gtfs_converter)
 
 omim_add_test_subdirectory(world_feed_tests)
 omim_add_test_subdirectory(world_feed_integration_tests)

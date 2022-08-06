@@ -51,7 +51,7 @@ public:
 
   bool IsValid() const { return m_api.IsValid(); }
 
-  string const & GetAppTitle() const { return m_api.GetAppTitle(); }
+  string const & GetAppName() const { return m_api.GetAppName(); }
   bool GoBackOnBalloonClick() const { return m_api.GoBackOnBalloonClick(); }
 
   size_t GetPointCount() const
@@ -353,15 +353,15 @@ UNIT_TEST(AppNameTest)
 {
   {
     ApiTest api("mwm://map?ll=1,2&v=1&n=PointName&appname=Google");
-    TEST_EQUAL(api.GetAppTitle(), "Google", ());
+    TEST_EQUAL(api.GetAppName(), "Google", ());
   }
   {
     ApiTest api("mwm://map?ll=1,2&v=1&n=PointName&appname=%D0%AF%D0%BD%D0%B4%D0%B5%D0%BA%D1%81");
-    TEST_EQUAL(api.GetAppTitle(), "Яндекс", ());
+    TEST_EQUAL(api.GetAppName(), "Яндекс", ());
   }
   {
     ApiTest api("mwm://map?ll=1,2&v=1&n=PointName");
-    TEST_EQUAL(api.GetAppTitle(), "", ());
+    TEST_EQUAL(api.GetAppName(), "", ());
   }
 }
 

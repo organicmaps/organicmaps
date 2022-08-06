@@ -18,7 +18,7 @@ UNIT_TEST(Test_Dashes)
 {
   styles::RunForEveryMapStyle([](MapStyle)
   {
-    drule::rules().ForEachRule([](int, int, int, drule::BaseRule const * rule)
+    drule::rules().ForEachRule([](drule::BaseRule const * rule)
     {
       LineDefProto const * const line = rule->GetLine();
       if (nullptr == line || !line->has_dashdot())

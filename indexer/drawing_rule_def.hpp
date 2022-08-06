@@ -8,12 +8,13 @@ namespace drule
   class Key
   {
   public:
-    int m_scale;
-    int m_type;
-    int m_index;
-    int m_priority;
+    int m_scale = -1;
+    int m_type = -1;
+    int m_index = -1;
+    int m_priority = -1;
+    bool m_hatching = false;
 
-    Key() : m_scale(-1), m_type(-1), m_index(-1), m_priority(-1) {}
+    Key() = default;
     Key(int s, int t, int i) : m_scale(s), m_type(t), m_index(i), m_priority(-1) {}
 
     bool operator==(Key const & r) const

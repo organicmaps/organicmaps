@@ -34,11 +34,11 @@
 namespace road_access_test
 {
 using namespace feature;
-using namespace generator::tests_support;
 using namespace generator;
 using namespace platform::tests_support;
 using namespace platform;
 using namespace routing;
+using namespace routing_builder;
 using namespace std;
 
 string const kTestDir = "road_access_generation_test";
@@ -58,7 +58,7 @@ void BuildTestMwmWithRoads(LocalCountryFile & country)
     for (size_t j = 0; j < 10; ++j)
       points.emplace_back(static_cast<double>(i), static_cast<double>(j));
 
-    builder.Add(TestRoad(points, name, lang));
+    builder.Add(generator::tests_support::TestRoad(points, name, lang));
   }
 }
 

@@ -6,12 +6,12 @@
 
 #include <utility>
 
-using namespace std;
-
 namespace search
 {
 namespace tests_support
 {
+using namespace std;
+
 TestSearchEngine::TestSearchEngine(DataSource & dataSource,
                                    unique_ptr<storage::CountryInfoGetter> infoGetter,
                                    Engine::Params const & params)
@@ -26,7 +26,7 @@ TestSearchEngine::TestSearchEngine(DataSource & dataSource, Engine::Params const
 {
 }
 
-weak_ptr<::search::ProcessorHandle> TestSearchEngine::Search(::search::SearchParams const & params)
+weak_ptr<ProcessorHandle> TestSearchEngine::Search(SearchParams const & params)
 {
   return m_engine.Search(params);
 }

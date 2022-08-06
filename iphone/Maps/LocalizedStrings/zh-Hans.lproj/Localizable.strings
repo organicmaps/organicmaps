@@ -26,13 +26,10 @@
 /* Leave Review dialog - Review button */
 "leave_a_review" = "发表评论";
 
-/* View and button titles for accessibility */
-"maps" = "地图";
-
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "英里";
 
-/* View and button titles for accessibility */
+/* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "我的位置";
 
 /* Update maps later/Buy pro version later button text */
@@ -145,6 +142,9 @@
 
 /* Search category for police; any changes should be duplicated in categories.txt @police! */
 "police" = "警察";
+
+/* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
+"wifi" = "无线网络";
 
 /* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
 "recycling" = "回收";
@@ -261,6 +261,9 @@
 /* Text in menu */
 "website" = "网站";
 
+/* Text in About menu, opens Organic Maps news website */
+"news" = "新闻";
+
 /* Text in menu */
 "github" = "GitHub";
 
@@ -312,13 +315,10 @@
 /* Settings item title */
 "pref_calibration_title" = "指南针校准";
 
-/* Search category */
-"wifi" = "无线网络";
-
 /* Update all button text */
 "downloader_update_all_button" = "更新全部";
 
-/* Downloaded maps category */
+/* Downloaded maps list header */
 "downloader_downloaded_subtitle" = "已下载";
 
 /* Downloaded maps category */
@@ -329,6 +329,7 @@
 
 "downloader_near_me_subtitle" = "在我附近";
 
+/* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
 "downloader_status_maps" = "地图";
 
 "downloader_download_all_button" = "下载全部";
@@ -419,9 +420,6 @@
 /* blue gray color */
 "blue_gray" = "蓝灰色";
 
-/* Wi-Fi available */
-"WiFi_available" = "是";
-
 
 /********** Routing dialogs strings **********/
 
@@ -504,6 +502,10 @@
 "categories" = "类别";
 
 "history" = "历史";
+
+"opens_in" = "Opens in %@";
+
+"closes_in" = "Closes in %@";
 
 "closed" = "已关闭";
 
@@ -743,9 +745,12 @@
 
 "mile" = "英里";
 
+/* A unit of measure */
 "foot" = "英尺";
 
 "miles_per_hour" = "英里每小时";
+
+"minute" = "分鐘";
 
 "placepage_place_description" = "说明";
 
@@ -1025,9 +1030,17 @@
 
 "redirect_route_alert" = "想重建路线?";
 
-"redirect_route_yes" = "是";
+/* A generic "Yes" button in dialogs */
+"yes" = "是";
 
-"redirect_route_no" = "否";
+/* A generic "No" button in dialogs */
+"no" = "否";
+
+/* E.g. "WiFi:Yes" */
+"yes_available" = "是";
+
+/* E.g. "WiFi:No" */
+"no_available" = "否";
 
 "trip_finished" = "您已到达!";
 
@@ -1245,6 +1258,8 @@
 
 "type.amenity.bicycle_rental" = "自行车出租点";
 
+"type.amenity.bicycle_repair_station" = "自行车维修站";
+
 "type.amenity.biergarten" = "啤酒花园";
 
 "type.amenity.brothel" = "妓院";
@@ -1442,11 +1457,21 @@
 
 "type.amenity.vending_machine.cigarettes" = "香烟售货机";
 
+"type.amenity.vending_machine.coffee" = "Coffee Dispenser";
+
+"type.amenity.vending_machine.condoms" = "Condoms Dispenser";
+
 "type.amenity.vending_machine.drinks" = "饮料售货机";
+
+"type.amenity.vending_machine.food" = "Food Dispenser";
+
+"type.amenity.vending_machine.newspapers" = "Newspapers Dispenser";
 
 "type.amenity.vending_machine.parking_tickets" = "停车缴费机";
 
 "type.amenity.vending_machine.public_transport_tickets" = "公共交通售票机";
+
+"type.amenity.vending_machine.sweets" = "Sweets Dispenser";
 
 "type.amenity.vending_machine.excrement_bags" = "Excrement Bags Dispenser";
 
@@ -1552,16 +1577,29 @@
 
 "type.building.warehouse" = "仓库";
 
+"type.cemetery.grave" = "墓穴";
+
 "type.craft" = "工艺作坊";
+
+"type.craft.beekeeper" = "Beekeeper";
+
+"type.craft.blacksmith" = "Blacksmith";
 
 "type.craft.brewery" = "酿酒厂";
 
 "type.craft.carpenter" = "木匠";
 
+"type.craft.confectionery" = "Confectionery";
+
 "type.craft.electrician" = "电工";
+
+"type.craft.electronics_repair" = "Electronics Repair";
 
 "type.craft.gardener" = "园艺工";
 
+"type.craft.handicraft" = "Handicraft";
+
+/* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "暖通工程师";
 
 "type.craft.metal_construction" = "金属制造工";
@@ -1572,7 +1610,11 @@
 
 "type.craft.plumber" = "管道工";
 
+"type.craft.sawmill" = "Sawmill";
+
 "type.craft.shoemaker" = "鞋匠";
+
+"type.craft.winery" = "Winery";
 
 "type.craft.tailor" = "裁缝";
 
@@ -1601,6 +1643,8 @@
 "type.cuisine.brazilian" = "巴西菜";
 
 "type.cuisine.breakfast" = "早餐";
+
+"type.cuisine.bubble_tea" = "Bubble Tea";
 
 "type.cuisine.burger" = "汉堡包";
 
@@ -1765,11 +1809,13 @@
 
 "type.highway.bridleway" = "马道";
 
-"type.highway.bridleway.bridge" = "马道";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.bridleway.bridge" = "桥";
 
 "type.highway.bridleway.permissive" = "马道";
 
-"type.highway.bridleway.tunnel" = "马道";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.bridleway.tunnel" = "隧道";
 
 "type.highway.bus_stop" = "公交站";
 
@@ -1777,11 +1823,13 @@
 
 "type.highway.cycleway" = "自行车道";
 
-"type.highway.cycleway.bridge" = "自行车道";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.cycleway.bridge" = "桥";
 
 "type.highway.cycleway.permissive" = "自行车道";
 
-"type.highway.cycleway.tunnel" = "自行车道";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.cycleway.tunnel" = "隧道";
 
 "type.highway.elevator" = "Elevator";
 
@@ -1791,7 +1839,8 @@
 
 "type.highway.footway.area" = "步行道路";
 
-"type.highway.footway.bridge" = "步行道路";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.footway.bridge" = "桥";
 
 "type.highway.footway.demanding_alpine_hiking" = "步行道路";
 
@@ -1805,29 +1854,36 @@
 
 "type.highway.footway.permissive" = "步行道路";
 
-"type.highway.footway.tunnel" = "步行道路";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.footway.tunnel" = "隧道";
 
 "type.highway.ford" = "浅滩";
 
 "type.highway.living_street" = "生活性街道";
 
-"type.highway.living_street.bridge" = "生活性街道";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.living_street.bridge" = "桥";
 
-"type.highway.living_street.tunnel" = "生活性街道";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.living_street.tunnel" = "隧道";
 
 "type.highway.motorway" = "高速公路";
 
-"type.highway.motorway.bridge" = "高速公路";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway.bridge" = "桥";
 
-"type.highway.motorway.tunnel" = "高速公路";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway.tunnel" = "隧道";
 
 "type.highway.motorway_junction" = "出口";
 
 "type.highway.motorway_link" = "高速公路连接路";
 
-"type.highway.motorway_link.bridge" = "高速公路连接路";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway_link.bridge" = "桥";
 
-"type.highway.motorway_link.tunnel" = "高速公路连接路";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway_link.tunnel" = "隧道";
 
 "type.highway.path" = "小道";
 
@@ -1835,7 +1891,8 @@
 
 "type.highway.path.bicycle" = "小道";
 
-"type.highway.path.bridge" = "小道";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.path.bridge" = "桥";
 
 "type.highway.path.demanding_alpine_hiking" = "小道";
 
@@ -1851,27 +1908,34 @@
 
 "type.highway.path.permissive" = "小道";
 
-"type.highway.path.tunnel" = "小道";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.path.tunnel" = "隧道";
 
 "type.highway.pedestrian" = "步行街";
 
 "type.highway.pedestrian.area" = "步行区域";
 
-"type.highway.pedestrian.bridge" = "步行街";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.pedestrian.bridge" = "桥";
 
-"type.highway.pedestrian.tunnel" = "步行街";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.pedestrian.tunnel" = "隧道";
 
 "type.highway.primary" = "主要道路";
 
-"type.highway.primary.bridge" = "主要道路";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary.bridge" = "桥";
 
-"type.highway.primary.tunnel" = "主要道路";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary.tunnel" = "隧道";
 
 "type.highway.primary_link" = "主要道路连接路";
 
-"type.highway.primary_link.bridge" = "主要道路连接路";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary_link.bridge" = "桥";
 
-"type.highway.primary_link.tunnel" = "主要道路连接路";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary_link.tunnel" = "隧道";
 
 "type.highway.raceway" = "赛车场";
 
@@ -1879,41 +1943,51 @@
 
 "type.highway.residential.area" = "住宅区道路";
 
-"type.highway.residential.bridge" = "住宅区道路";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.residential.bridge" = "桥";
 
-"type.highway.residential.tunnel" = "住宅区道路";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.residential.tunnel" = "隧道";
 
 "type.highway.rest_area" = "休息区";
 
 "type.highway.road" = "道路";
 
-"type.highway.road.bridge" = "道路";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.road.bridge" = "桥";
 
-"type.highway.road.tunnel" = "道路";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.road.tunnel" = "隧道";
 
 "type.highway.secondary" = "次要道路";
 
-"type.highway.secondary.bridge" = "次要道路";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary.bridge" = "桥";
 
-"type.highway.secondary.tunnel" = "次要道路";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary.tunnel" = "隧道";
 
 "type.highway.secondary_link" = "次要道路连接路";
 
-"type.highway.secondary_link.bridge" = "次要道路连接路";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary_link.bridge" = "桥";
 
-"type.highway.secondary_link.tunnel" = "次要道路连接路";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary_link.tunnel" = "隧道";
 
 "type.highway.service" = "辅助道路";
 
 "type.highway.service.area" = "辅助道路";
 
-"type.highway.service.bridge" = "辅助道路";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.service.bridge" = "桥";
 
 "type.highway.service.driveway" = "车道";
 
 "type.highway.service.parking_aisle" = "停车场通道";
 
-"type.highway.service.tunnel" = "辅助道路";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.service.tunnel" = "隧道";
 
 "type.highway.services" = "服务区";
 
@@ -1921,27 +1995,34 @@
 
 "type.highway.steps" = "阶梯";
 
-"type.highway.steps.bridge" = "阶梯";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.steps.bridge" = "桥";
 
-"type.highway.steps.tunnel" = "阶梯";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.steps.tunnel" = "隧道";
 
 "type.highway.tertiary" = "三级道路";
 
-"type.highway.tertiary.bridge" = "三级道路";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary.bridge" = "桥";
 
-"type.highway.tertiary.tunnel" = "三级道路";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary.tunnel" = "隧道";
 
 "type.highway.tertiary_link" = "三级道路连接路";
 
-"type.highway.tertiary_link.bridge" = "三级道路连接路";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary_link.bridge" = "桥";
 
-"type.highway.tertiary_link.tunnel" = "三级道路连接路";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary_link.tunnel" = "隧道";
 
 "type.highway.track" = "土路";
 
 "type.highway.track.area" = "土路";
 
-"type.highway.track.bridge" = "土路";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.track.bridge" = "桥";
 
 "type.highway.track.grade1" = "土路";
 
@@ -1957,29 +2038,36 @@
 
 "type.highway.track.permissive" = "土路";
 
-"type.highway.track.tunnel" = "土路";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.track.tunnel" = "隧道";
 
 "type.highway.traffic_signals" = "交通信号灯";
 
 "type.highway.trunk" = "干线道路";
 
-"type.highway.trunk.bridge" = "干线道路";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk.bridge" = "桥";
 
-"type.highway.trunk.tunnel" = "干线道路";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk.tunnel" = "隧道";
 
 "type.highway.trunk_link" = "干线道路连接路";
 
-"type.highway.trunk_link.bridge" = "干线道路连接路";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk_link.bridge" = "桥";
 
-"type.highway.trunk_link.tunnel" = "干线道路连接路";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk_link.tunnel" = "隧道";
 
 "type.highway.unclassified" = "道路";
 
 "type.highway.unclassified.area" = "道路";
 
-"type.highway.unclassified.bridge" = "道路";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.unclassified.bridge" = "桥";
 
-"type.highway.unclassified.tunnel" = "道路";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.unclassified.tunnel" = "隧道";
 
 "type.area_highway.cycleway" = "自行车道";
 
@@ -2110,6 +2198,8 @@
 
 "type.landuse.construction" = "建设区域";
 
+"type.landuse.education" = "Educational Facilities";
+
 "type.landuse.farm" = "农田";
 
 "type.landuse.farmland" = "农业用地";
@@ -2206,13 +2296,9 @@
 
 "type.leisure.sports_centre" = "体育中心";
 
-"type.leisure.sports_centre.climbing" = "攀登中心";
+"type.sport.climbing" = "攀登中心";
 
-"type.leisure.sports_centre.shooting" = "射击场";
-
-"type.leisure.sports_centre.swimming" = "游泳中心";
-
-"type.leisure.sports_centre.yoga" = "瑜伽工作室";
+"type.sport.yoga" = "瑜伽工作室";
 
 "type.leisure.stadium" = "体育场";
 
@@ -2235,6 +2321,8 @@
 "type.man_made.chimney" = "工厂烟囱";
 
 "type.man_made.cutline" = "树林分界线";
+
+"type.man_made.survey_point" = "Survey Point";
 
 "type.man_made.flagpole" = "Flagpole";
 
@@ -2286,15 +2374,19 @@
 
 "type.natural.beach" = "海滩";
 
-"type.natural.beach.sand" = "Sandy Beach";
+"type.natural.beach.sand" = "沙滩";
 
-"type.natural.beach.gravel" = "Gravel Beach";
+"type.natural.beach.gravel" = "砾石海滩";
 
 "type.natural.cape" = "海角";
 
 "type.natural.cave_entrance" = "洞口";
 
-"type.natural.cliff" = "峭壁";
+"type.natural.cliff" = "悬崖";
+
+"type.natural.earth_bank" = "悬崖";
+
+"type.man_made.embankment" = "路堤";
 
 "type.natural.coastline" = "海岸线";
 
@@ -2304,11 +2396,13 @@
 
 "type.natural.grassland" = "草原";
 
-"type.natural.heath" = "荒野";
+"type.natural.heath" = "石楠荒原";
 
 "type.natural.hot_spring" = "温泉";
 
 "type.natural.water.lake" = "湖";
+
+"type.natural.water.lock" = "船闸";
 
 "type.natural.water.pond" = "池塘";
 
@@ -2318,15 +2412,15 @@
 
 "type.natural.water.river" = "河流";
 
-"type.natural.land" = "Land";
+"type.natural.land" = "陆地";
 
-"type.natural.meadow" = "Meadow";
+"type.natural.meadow" = "草甸";
 
-"type.natural.orchard" = "Orchard";
+"type.natural.orchard" = "果园";
 
 "type.natural.peak" = "峰";
 
-"type.natural.saddle" = "Mountain Saddle";
+"type.natural.saddle" = "山坳";
 
 "type.natural.rock" = "岩石";
 
@@ -2340,7 +2434,7 @@
 
 "type.natural.tree_row" = "树列";
 
-"type.natural.vineyard" = "Vineyard";
+"type.natural.vineyard" = "葡萄园";
 
 "type.natural.volcano" = "火山";
 
@@ -2350,7 +2444,7 @@
 
 "type.natural.wetland.bog" = "泥炭地";
 
-"type.natural.wetland.marsh" = "沼泽地";
+"type.natural.wetland.marsh" = "草沼";
 
 "type.noexit" = "Dead End";
 
@@ -2369,6 +2463,10 @@
 "type.office.ngo" = "非政府组织办公室";
 
 "type.office.telecommunication" = "电信办公室";
+
+"type.organic.only" = "Organic";
+
+"type.organic.yes" = "Organic";
 
 "type.place" = "地点";
 
@@ -2664,6 +2762,8 @@
 
 "type.shop.cosmetics" = "化妝品店";
 
+"type.shop.deli" = "熟食店";
+
 "type.shop.department_store" = "百货商场";
 
 "type.shop.doityourself" = "家居用品店";
@@ -2675,6 +2775,8 @@
 "type.shop.erotic" = "成人用品店";
 
 "type.shop.fabric" = "商店";
+
+"type.shop.farm" = "农场食品店";
 
 "type.shop.florist" = "花店";
 
@@ -2688,13 +2790,21 @@
 
 "type.shop.greengrocer" = "蔬果零售店";
 
+"type.shop.grocery" = "杂货店";
+
 "type.shop.hairdresser" = "理发师";
 
-"type.shop.hardware" = "硬件店";
+"type.shop.hardware" = "五金店";
+
+"type.shop.health_food" = "保健食品店";
+
+"type.shop.houseware" = "家居用品店";
 
 "type.shop.jewelry" = "珠宝店";
 
 "type.shop.kiosk" = "商店";
+
+"type.shop.kitchen" = "厨房用品店";
 
 "type.shop.laundry" = "洗衣店";
 
@@ -2718,6 +2828,8 @@
 
 "type.shop.outdoor" = "室外设备";
 
+"type.shop.pastry" = "糕点";
+
 "type.shop.pawnbroker" = "典当商铺";
 
 "type.shop.pet" = "宠物店";
@@ -2725,6 +2837,8 @@
 "type.shop.photo" = "照片店";
 
 "type.shop.seafood" = "鱼商";
+
+"type.shop.second_hand" = "二手店";
 
 "type.shop.shoes" = "鞋店";
 
@@ -2754,27 +2868,75 @@
 
 "type.shop.wine" = "酒品商店";
 
-"type.sport" = "sport";
+"type.shop.antiques" = "古董";
 
-"type.sport.american_football" = "American Football";
+"type.shop.art" = "艺术商店";
 
-"type.sport.archery" = "Archery";
+"type.shop.baby_goods" = "儿童商店";
 
-"type.sport.athletics" = "田径";
+"type.shop.bag" = "箱包店";
 
-"type.sport.australian_football" = "Rugby";
+"type.shop.boutique" = "精品店";
+
+"type.shop.charity" = "慈善商店";
+
+"type.shop.cheese" = "奶酪店";
+
+"type.shop.craft" = "美术和工艺";
+
+"type.shop.dairy" = "乳制品";
+
+"type.shop.electrical" = "电器商城";
+
+"type.shop.fishing" = "钓鱼店";
+
+"type.shop.interior_decoration" = "室内装饰";
+
+"type.shop.lottery" = "彩票";
+
+"type.shop.medical_supply" = "医疗用品";
+
+"type.shop.nutrition_supplements" = "营养补充剂";
+
+"type.shop.paint" = "油漆";
+
+"type.shop.perfumery" = "香水";
+
+"type.shop.sewing" = "缝纫用品";
+
+"type.shop.storage_rental" = "存储租赁";
+
+"type.shop.tobacco" = "烟草";
+
+"type.shop.trade" = "贸易用品";
+
+"type.shop.watches" = "手表";
+
+"type.shop.wholesale" = "批发店";
+
+"type.sport" = "体育运动";
+
+"type.sport.american_football" = "美式足球";
+
+"type.sport.archery" = "射箭";
+
+"type.sport.athletics" = "竞技";
+
+"type.sport.australian_football" = "澳式足球";
 
 "type.sport.baseball" = "棒球";
 
 "type.sport.basketball" = "篮球";
 
-"type.sport.bowls" = "保龄球";
+"type.sport.beachvolleyball" = "沙滩排球";
+
+"type.sport.bowls" = "草地滾球";
+
+"type.sport.chess" = "国际象棋";
 
 "type.sport.cricket" = "板球";
 
-"type.sport.curling" = "Сurling";
-
-"type.sport.diving" = "跳水";
+"type.sport.curling" = "冰壶";
 
 "type.sport.equestrian" = "马术运动";
 
@@ -2784,19 +2946,30 @@
 
 "type.sport.handball" = "手球";
 
-"type.sport.multi" = "多元";
+"type.sport.multi" = "各种运动";
 
-"type.sport.scuba_diving" = "Scuba Diving";
+/* Used to tag a scuba diving site. */
+"type.sport.scuba_diving" = "水肺潜水";
 
 "type.sport.shooting" = "射击";
 
-"type.sport.skiing" = "Skiing";
+"type.sport.skateboard" = "滑板活动";
+
+"type.sport.skiing" = "滑雪";
 
 "type.sport.soccer" = "足球";
 
 "type.sport.swimming" = "游泳";
 
+"type.sport.table_tennis" = "乒乓球";
+
 "type.sport.tennis" = "网球场";
+
+"type.sport.volleyball" = "排球";
+
+"type.sport.9pin" = "保龄球";
+
+"type.sport.10pin" = "保龄球";
 
 "type.tourism" = "旅游要素";
 
@@ -2836,9 +3009,9 @@
 
 "type.tourism.information" = "旅游问询处";
 
-"type.tourism.information.board" = "公告板";
+"type.tourism.information.board" = "标示";
 
-"type.tourism.information.guidepost" = "旅游信息";
+"type.tourism.information.guidepost" = "指路牌";
 
 "type.tourism.information.map" = "旅游地图";
 
@@ -2883,8 +3056,6 @@
 "type.waterway.drain" = "渠";
 
 "type.waterway.drain.tunnel" = "渠";
-
-"type.waterway.lock" = "Waterway Lock";
 
 "type.waterway.lock_gate" = "闸门";
 
@@ -2948,3 +3119,5 @@
 "type.piste_type.sled" = "Sledding Piste";
 
 "type.building_part" = "建筑部分";
+
+"type.amenity.events_venue" = "活动场所";

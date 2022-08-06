@@ -167,7 +167,7 @@ public:
 
   void operator()(FeatureType & f, uint32_t const & id)
   {
-    f.ParseBeforeStatistic();
+    f.ParseHeader2();
     if (!GetBicycleModel().IsRoad(f))
     {
       ++m_notRoadCount;

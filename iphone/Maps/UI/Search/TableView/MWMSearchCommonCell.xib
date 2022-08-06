@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -45,33 +45,7 @@
                             <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
                         </userDefinedRuntimeAttributes>
                     </view>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V8w-dT-7B1" userLabel="ClosedBackground">
-                        <rect key="frame" x="248" y="16" width="56" height="16"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Closed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wcB-Lv-cex">
-                                <rect key="frame" x="0.0" y="1" width="56" height="14"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular12:whiteText"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="closed"/>
-                                </userDefinedRuntimeAttributes>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.26000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="16" id="Ahy-Bj-hS9"/>
-                            <constraint firstAttribute="centerY" secondItem="wcB-Lv-cex" secondAttribute="centerY" id="HKD-vK-tIf"/>
-                            <constraint firstAttribute="trailing" secondItem="wcB-Lv-cex" secondAttribute="trailing" id="NQK-Dn-xg9"/>
-                            <constraint firstItem="wcB-Lv-cex" firstAttribute="leading" secondItem="V8w-dT-7B1" secondAttribute="leading" id="gLv-OB-7Bi"/>
-                            <constraint firstAttribute="width" constant="56" id="xkl-3E-FRu"/>
-                        </constraints>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="SearchClosedBackground"/>
-                        </userDefinedRuntimeAttributes>
-                    </view>
-                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uWz-7m-GUu">
+                    <view hidden="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uWz-7m-GUu">
                         <rect key="frame" x="262.5" y="16" width="41.5" height="20"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TOP" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yjT-ah-SWQ">
@@ -97,7 +71,7 @@
                             <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="SearchPopularView"/>
                         </userDefinedRuntimeAttributes>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Сafe" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5UO-MD-Hgx">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Сafe" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5UO-MD-Hgx">
                         <rect key="frame" x="16" y="36" width="26" height="14"/>
                         <accessibility key="accessibilityConfiguration" identifier="searchType"/>
                         <constraints>
@@ -110,40 +84,27 @@
                             <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular12:blackSecondaryText"/>
                         </userDefinedRuntimeAttributes>
                     </label>
-                    <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AXe-5n-maZ" userLabel="Info">
-                        <rect key="frame" x="46" y="36" width="258" height="14"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vjT-oU-iIA">
-                                <rect key="frame" x="8" y="0.0" width="71" height="14"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular12:blackSecondaryText"/>
-                                </userDefinedRuntimeAttributes>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="•" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tUT-ew-nNT" userLabel="Dot">
-                                <rect key="frame" x="2" y="0.0" width="4" height="14"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular12:blackSecondaryText"/>
-                                </userDefinedRuntimeAttributes>
-                            </label>
-                        </subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Open" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SDd-3c-YeL">
+                        <rect key="frame" x="274.5" y="36" width="29.5" height="14"/>
+                        <accessibility key="accessibilityConfiguration" identifier="searchType"/>
                         <constraints>
-                            <constraint firstItem="vjT-oU-iIA" firstAttribute="leading" secondItem="tUT-ew-nNT" secondAttribute="trailing" constant="2" id="UAm-zh-FNA"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="26" id="tqr-8N-JwN"/>
                         </constraints>
-                    </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" ambiguous="YES" text="Russia, Moscow &amp; Central, Moscow" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6pc-4s-GyP">
-                        <rect key="frame" x="16" y="59" width="220" height="14"/>
-                        <accessibility key="accessibilityConfiguration" identifier="searchSubTitle"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular12:blackSecondaryText"/>
+                        </userDefinedRuntimeAttributes>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" ambiguous="YES" text="Russia, Moscow &amp; Central, Moscow" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6pc-4s-GyP">
+                        <rect key="frame" x="16" y="59" width="220" height="14"/>
+                        <accessibility key="accessibilityConfiguration" identifier="searchSubTitle"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue-Italic" family="Helvetica Neue" pointSize="12"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="italic12:blackSecondaryText"/>
                         </userDefinedRuntimeAttributes>
                     </label>
                 </subviews>
@@ -152,25 +113,20 @@
                     <constraint firstItem="P8X-Xp-AaE" firstAttribute="leading" secondItem="6pc-4s-GyP" secondAttribute="trailing" id="0hr-QT-t0D"/>
                     <constraint firstItem="5UO-MD-Hgx" firstAttribute="top" secondItem="4FD-RE-ffF" secondAttribute="bottom" constant="4" id="5dn-ca-dCn"/>
                     <constraint firstItem="6pc-4s-GyP" firstAttribute="top" secondItem="5UO-MD-Hgx" secondAttribute="bottom" constant="8" id="7pm-XZ-vLK"/>
-                    <constraint firstItem="AXe-5n-maZ" firstAttribute="leading" secondItem="5UO-MD-Hgx" secondAttribute="trailing" constant="4" id="A63-OI-W5K"/>
-                    <constraint firstItem="uWz-7m-GUu" firstAttribute="trailing" secondItem="V8w-dT-7B1" secondAttribute="trailing" id="OB1-ad-dby"/>
-                    <constraint firstItem="AXe-5n-maZ" firstAttribute="top" secondItem="5UO-MD-Hgx" secondAttribute="top" id="PNu-ZN-b8a"/>
                     <constraint firstItem="4FD-RE-ffF" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="Qld-dY-CQN"/>
-                    <constraint firstItem="AXe-5n-maZ" firstAttribute="bottom" secondItem="5UO-MD-Hgx" secondAttribute="bottom" id="SgY-ef-ISG"/>
+                    <constraint firstItem="5UO-MD-Hgx" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="SDd-3c-YeL" secondAttribute="leading" id="SJj-b5-T2k"/>
                     <constraint firstAttribute="trailing" secondItem="4FD-RE-ffF" secondAttribute="trailing" constant="84" id="Ugu-lP-b9G"/>
                     <constraint firstAttribute="trailing" secondItem="P8X-Xp-AaE" secondAttribute="trailing" constant="16" id="VJE-wo-TBb"/>
-                    <constraint firstItem="uWz-7m-GUu" firstAttribute="top" secondItem="V8w-dT-7B1" secondAttribute="top" id="ZbQ-Z5-4k9"/>
-                    <constraint firstAttribute="trailing" secondItem="AXe-5n-maZ" secondAttribute="trailing" constant="16" id="dJN-0Z-98x"/>
                     <constraint firstItem="4FD-RE-ffF" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="hM6-br-iKE"/>
                     <constraint firstItem="6pc-4s-GyP" firstAttribute="leading" secondItem="5UO-MD-Hgx" secondAttribute="leading" id="jvQ-jd-XUJ"/>
-                    <constraint firstAttribute="trailing" secondItem="V8w-dT-7B1" secondAttribute="trailing" constant="16" id="lr7-cG-wNo"/>
                     <constraint firstItem="HGm-lZ-JNr" firstAttribute="top" secondItem="6pc-4s-GyP" secondAttribute="bottom" constant="12" id="m1K-R2-0LQ"/>
                     <constraint firstItem="5UO-MD-Hgx" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="nGL-Ta-pBZ"/>
                     <constraint firstAttribute="trailing" secondItem="6pc-4s-GyP" secondAttribute="trailing" constant="84" id="nfE-NI-LX9"/>
                     <constraint firstItem="6pc-4s-GyP" firstAttribute="bottom" secondItem="P8X-Xp-AaE" secondAttribute="bottom" id="q7E-Jg-MYT"/>
                     <constraint firstItem="HGm-lZ-JNr" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="sq9-C3-M3R"/>
                     <constraint firstAttribute="bottom" secondItem="HGm-lZ-JNr" secondAttribute="bottom" id="vJc-aE-MsA"/>
-                    <constraint firstItem="V8w-dT-7B1" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="x1p-sf-n4c"/>
+                    <constraint firstAttribute="trailing" secondItem="SDd-3c-YeL" secondAttribute="trailing" constant="16" id="vay-ux-6dA"/>
+                    <constraint firstItem="SDd-3c-YeL" firstAttribute="top" secondItem="5UO-MD-Hgx" secondAttribute="top" id="wXg-ce-SnG"/>
                     <constraint firstAttribute="trailing" secondItem="HGm-lZ-JNr" secondAttribute="trailing" id="xt0-86-Efu"/>
                 </constraints>
             </tableViewCellContentView>
@@ -178,14 +134,12 @@
                 <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
             </userDefinedRuntimeAttributes>
             <connections>
-                <outlet property="closedView" destination="V8w-dT-7B1" id="5by-Nb-6Ch"/>
                 <outlet property="distanceLabel" destination="P8X-Xp-AaE" id="Kaw-aR-8uJ"/>
-                <outlet property="infoLabel" destination="vjT-oU-iIA" id="K5N-O7-B0x"/>
-                <outlet property="infoView" destination="AXe-5n-maZ" id="obW-dd-NLt"/>
                 <outlet property="locationLabel" destination="6pc-4s-GyP" id="Te0-y3-sVQ"/>
+                <outlet property="openLabel" destination="SDd-3c-YeL" id="5Rv-fO-g4x"/>
                 <outlet property="popularView" destination="uWz-7m-GUu" id="LAK-NA-Fea"/>
                 <outlet property="titleLabel" destination="4FD-RE-ffF" id="OQm-o8-LUd"/>
-                <outlet property="typeLabel" destination="5UO-MD-Hgx" id="lgJ-zE-omX"/>
+                <outlet property="infoLabel" destination="5UO-MD-Hgx" id="lgJ-zE-omX"/>
             </connections>
             <point key="canvasLocation" x="314.49275362318843" y="297.99107142857139"/>
         </tableViewCell>

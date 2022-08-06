@@ -66,11 +66,10 @@ TrackMatcher::TrackMatcher(storage::Storage const & storage, NumMwmId mwmId,
   CHECK_EQUAL(registerResult.second, MwmSet::RegResult::Success,
               ("Can't register mwm", countryFile.GetName()));
 
-  MwmSet::MwmHandle const handle = m_dataSource.GetMwmHandleByCountryFile(countryFile);
+  MwmSet::MwmHandle handle = m_dataSource.GetMwmHandleByCountryFile(countryFile);
+
   m_graph = make_unique<IndexGraph>(
-      make_shared<Geometry>(GeometryLoader::Create(m_dataSource, handle, m_vehicleModel,
-                                                   AttrLoader(m_dataSource, handle),
-                                                   false /* loadAltitudes */)),
+      make_shared<Geometry>(GeometryLoader::Create(handle, m_vehicleModel, false /* loadAltitudes */)),
       EdgeEstimator::Create(VehicleType::Car, *m_vehicleModel, nullptr /* trafficStash */,
         nullptr /* dataSource */, nullptr /* numMvmIds */));
 

@@ -26,13 +26,10 @@
 /* Leave Review dialog - Review button */
 "leave_a_review" = "Jätä arviointi";
 
-/* View and button titles for accessibility */
-"maps" = "Kartat";
-
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "Mailit";
 
-/* View and button titles for accessibility */
+/* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Sijaintini";
 
 /* Update maps later/Buy pro version later button text */
@@ -145,6 +142,9 @@
 
 /* Search category for police; any changes should be duplicated in categories.txt @police! */
 "police" = "Poliisi";
+
+/* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
+"wifi" = "WiFi";
 
 /* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
 "recycling" = "Kierrätys";
@@ -261,6 +261,9 @@
 /* Text in menu */
 "website" = "Kotisivut";
 
+/* Text in About menu, opens Organic Maps news website */
+"news" = "Uutiset";
+
 /* Text in menu */
 "github" = "GitHub";
 
@@ -312,13 +315,10 @@
 /* Settings item title */
 "pref_calibration_title" = "Kompassin kalibrointi";
 
-/* Search category */
-"wifi" = "WiFi";
-
 /* Update all button text */
 "downloader_update_all_button" = "Päivitä kaikki";
 
-/* Downloaded maps category */
+/* Downloaded maps list header */
 "downloader_downloaded_subtitle" = "Ladatut";
 
 /* Downloaded maps category */
@@ -329,6 +329,7 @@
 
 "downloader_near_me_subtitle" = "Lähelläni";
 
+/* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
 "downloader_status_maps" = "Kartat";
 
 "downloader_download_all_button" = "Lataa kaikki";
@@ -419,9 +420,6 @@
 /* blue gray color */
 "blue_gray" = "Harmaan sininen";
 
-/* Wi-Fi available */
-"WiFi_available" = "Kyllä";
-
 
 /********** Routing dialogs strings **********/
 
@@ -504,6 +502,10 @@
 "categories" = "Luokat";
 
 "history" = "Historia";
+
+"opens_in" = "Opens in %@";
+
+"closes_in" = "Closes in %@";
 
 "closed" = "Suljettu";
 
@@ -743,9 +745,12 @@
 
 "mile" = "mi";
 
+/* A unit of measure */
 "foot" = "ft";
 
 "miles_per_hour" = "mph";
+
+"minute" = "min";
 
 "placepage_place_description" = "Kuvaus";
 
@@ -1025,9 +1030,17 @@
 
 "redirect_route_alert" = "Haluatko luoda reitin uudelleen?";
 
-"redirect_route_yes" = "Kyllä";
+/* A generic "Yes" button in dialogs */
+"yes" = "Kyllä";
 
-"redirect_route_no" = "Ei";
+/* A generic "No" button in dialogs */
+"no" = "Ei";
+
+/* E.g. "WiFi:Yes" */
+"yes_available" = "Kyllä";
+
+/* E.g. "WiFi:No" */
+"no_available" = "Ei";
 
 "trip_finished" = "Olet saapunut!";
 
@@ -1245,6 +1258,8 @@
 
 "type.amenity.bicycle_rental" = "Polkupyöränvuokraus";
 
+"type.amenity.bicycle_repair_station" = "Polkupyörän korjausasema";
+
 "type.amenity.biergarten" = "Biergarten";
 
 "type.amenity.brothel" = "Bordelli";
@@ -1442,11 +1457,21 @@
 
 "type.amenity.vending_machine.cigarettes" = "Savukeautomaatti";
 
+"type.amenity.vending_machine.coffee" = "Coffee Dispenser";
+
+"type.amenity.vending_machine.condoms" = "Condoms Dispenser";
+
 "type.amenity.vending_machine.drinks" = "Juoma-automaatti";
+
+"type.amenity.vending_machine.food" = "Food Dispenser";
+
+"type.amenity.vending_machine.newspapers" = "Newspapers Dispenser";
 
 "type.amenity.vending_machine.parking_tickets" = "Pysäköintimaksuautomaatti";
 
 "type.amenity.vending_machine.public_transport_tickets" = "Julkisen liikenteen lippuautomaatti";
+
+"type.amenity.vending_machine.sweets" = "Sweets Dispenser";
 
 "type.amenity.vending_machine.excrement_bags" = "Excrement Bags Dispenser";
 
@@ -1552,16 +1577,29 @@
 
 "type.building.warehouse" = "Warehouse";
 
+"type.cemetery.grave" = "Hauta";
+
 "type.craft" = "Craft";
+
+"type.craft.beekeeper" = "Beekeeper";
+
+"type.craft.blacksmith" = "Blacksmith";
 
 "type.craft.brewery" = "Panimo";
 
 "type.craft.carpenter" = "Puuseppä";
 
+"type.craft.confectionery" = "Confectionery";
+
 "type.craft.electrician" = "Sähkömies";
+
+"type.craft.electronics_repair" = "Electronics Repair";
 
 "type.craft.gardener" = "Puutarhuri";
 
+"type.craft.handicraft" = "Handicraft";
+
+/* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Ilmastointilaite";
 
 "type.craft.metal_construction" = "Metallimies";
@@ -1572,7 +1610,11 @@
 
 "type.craft.plumber" = "Putkimies";
 
+"type.craft.sawmill" = "Sawmill";
+
 "type.craft.shoemaker" = "Suutari";
+
+"type.craft.winery" = "Winery";
 
 "type.craft.tailor" = "Räätäli";
 
@@ -1601,6 +1643,8 @@
 "type.cuisine.brazilian" = "Brasilialainen keittiö";
 
 "type.cuisine.breakfast" = "Aamiainen";
+
+"type.cuisine.bubble_tea" = "Bubble Tea";
 
 "type.cuisine.burger" = "Hampurilainen";
 
@@ -1765,11 +1809,13 @@
 
 "type.highway.bridleway" = "Bridle Path";
 
-"type.highway.bridleway.bridge" = "Bridle Path";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.bridleway.bridge" = "Silta";
 
 "type.highway.bridleway.permissive" = "Bridle Path";
 
-"type.highway.bridleway.tunnel" = "Bridle Path";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.bridleway.tunnel" = "Tunneli";
 
 "type.highway.bus_stop" = "Bussipysäkki";
 
@@ -1777,11 +1823,13 @@
 
 "type.highway.cycleway" = "Cycle Path";
 
-"type.highway.cycleway.bridge" = "Cycle Path";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.cycleway.bridge" = "Silta";
 
 "type.highway.cycleway.permissive" = "Cycle Path";
 
-"type.highway.cycleway.tunnel" = "Cycle Path";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.cycleway.tunnel" = "Tunneli";
 
 "type.highway.elevator" = "Elevator";
 
@@ -1791,7 +1839,8 @@
 
 "type.highway.footway.area" = "Polku";
 
-"type.highway.footway.bridge" = "Polku";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.footway.bridge" = "Silta";
 
 "type.highway.footway.demanding_alpine_hiking" = "Polku";
 
@@ -1805,29 +1854,36 @@
 
 "type.highway.footway.permissive" = "Polku";
 
-"type.highway.footway.tunnel" = "Polku";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.footway.tunnel" = "Tunneli";
 
 "type.highway.ford" = "Kahluupaikka";
 
 "type.highway.living_street" = "Katu";
 
-"type.highway.living_street.bridge" = "Katu";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.living_street.bridge" = "Silta";
 
-"type.highway.living_street.tunnel" = "Katu";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.living_street.tunnel" = "Tunneli";
 
 "type.highway.motorway" = "Katu";
 
-"type.highway.motorway.bridge" = "Katu";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway.bridge" = "Silta";
 
-"type.highway.motorway.tunnel" = "Katu";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway.tunnel" = "Tunneli";
 
 "type.highway.motorway_junction" = "Poistumistie";
 
 "type.highway.motorway_link" = "Katu";
 
-"type.highway.motorway_link.bridge" = "Katu";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway_link.bridge" = "Silta";
 
-"type.highway.motorway_link.tunnel" = "Katu";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway_link.tunnel" = "Tunneli";
 
 "type.highway.path" = "Polku";
 
@@ -1835,7 +1891,8 @@
 
 "type.highway.path.bicycle" = "Polku";
 
-"type.highway.path.bridge" = "Polku";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.path.bridge" = "Silta";
 
 "type.highway.path.demanding_alpine_hiking" = "Polku";
 
@@ -1851,27 +1908,34 @@
 
 "type.highway.path.permissive" = "Polku";
 
-"type.highway.path.tunnel" = "Polku";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.path.tunnel" = "Tunneli";
 
 "type.highway.pedestrian" = "Katu";
 
 "type.highway.pedestrian.area" = "Katu";
 
-"type.highway.pedestrian.bridge" = "Katu";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.pedestrian.bridge" = "Silta";
 
-"type.highway.pedestrian.tunnel" = "Katu";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.pedestrian.tunnel" = "Tunneli";
 
 "type.highway.primary" = "Katu";
 
-"type.highway.primary.bridge" = "Katu";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary.bridge" = "Silta";
 
-"type.highway.primary.tunnel" = "Katu";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary.tunnel" = "Tunneli";
 
 "type.highway.primary_link" = "Katu";
 
-"type.highway.primary_link.bridge" = "Katu";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary_link.bridge" = "Silta";
 
-"type.highway.primary_link.tunnel" = "Katu";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary_link.tunnel" = "Tunneli";
 
 "type.highway.raceway" = "Kilparata";
 
@@ -1879,41 +1943,51 @@
 
 "type.highway.residential.area" = "Katu";
 
-"type.highway.residential.bridge" = "Katu";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.residential.bridge" = "Silta";
 
-"type.highway.residential.tunnel" = "Katu";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.residential.tunnel" = "Tunneli";
 
 "type.highway.rest_area" = "Levähdyspaikka";
 
 "type.highway.road" = "Katu";
 
-"type.highway.road.bridge" = "Katu";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.road.bridge" = "Silta";
 
-"type.highway.road.tunnel" = "Katu";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.road.tunnel" = "Tunneli";
 
 "type.highway.secondary" = "Katu";
 
-"type.highway.secondary.bridge" = "Katu";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary.bridge" = "Silta";
 
-"type.highway.secondary.tunnel" = "Katu";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary.tunnel" = "Tunneli";
 
 "type.highway.secondary_link" = "Katu";
 
-"type.highway.secondary_link.bridge" = "Katu";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary_link.bridge" = "Silta";
 
-"type.highway.secondary_link.tunnel" = "Katu";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary_link.tunnel" = "Tunneli";
 
 "type.highway.service" = "Katu";
 
 "type.highway.service.area" = "Katu";
 
-"type.highway.service.bridge" = "Katu";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.service.bridge" = "Silta";
 
 "type.highway.service.driveway" = "Katu";
 
 "type.highway.service.parking_aisle" = "Katu";
 
-"type.highway.service.tunnel" = "Katu";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.service.tunnel" = "Tunneli";
 
 "type.highway.services" = "Service Area";
 
@@ -1921,27 +1995,34 @@
 
 "type.highway.steps" = "Polku";
 
-"type.highway.steps.bridge" = "Polku";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.steps.bridge" = "Silta";
 
-"type.highway.steps.tunnel" = "Polku";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.steps.tunnel" = "Tunneli";
 
 "type.highway.tertiary" = "Katu";
 
-"type.highway.tertiary.bridge" = "Katu";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary.bridge" = "Silta";
 
-"type.highway.tertiary.tunnel" = "Katu";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary.tunnel" = "Tunneli";
 
 "type.highway.tertiary_link" = "Katu";
 
-"type.highway.tertiary_link.bridge" = "Katu";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary_link.bridge" = "Silta";
 
-"type.highway.tertiary_link.tunnel" = "Katu";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary_link.tunnel" = "Tunneli";
 
 "type.highway.track" = "Katu";
 
 "type.highway.track.area" = "Katu";
 
-"type.highway.track.bridge" = "Katu";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.track.bridge" = "Silta";
 
 "type.highway.track.grade1" = "Katu";
 
@@ -1957,29 +2038,36 @@
 
 "type.highway.track.permissive" = "Katu";
 
-"type.highway.track.tunnel" = "Katu";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.track.tunnel" = "Tunneli";
 
 "type.highway.traffic_signals" = "Liikennevalot";
 
 "type.highway.trunk" = "Katu";
 
-"type.highway.trunk.bridge" = "Katu";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk.bridge" = "Silta";
 
-"type.highway.trunk.tunnel" = "Katu";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk.tunnel" = "Tunneli";
 
 "type.highway.trunk_link" = "Katu";
 
-"type.highway.trunk_link.bridge" = "Katu";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk_link.bridge" = "Silta";
 
-"type.highway.trunk_link.tunnel" = "Katu";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk_link.tunnel" = "Tunneli";
 
 "type.highway.unclassified" = "Katu";
 
 "type.highway.unclassified.area" = "Katu";
 
-"type.highway.unclassified.bridge" = "Katu";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.unclassified.bridge" = "Silta";
 
-"type.highway.unclassified.tunnel" = "Katu";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.unclassified.tunnel" = "Tunneli";
 
 "type.area_highway.cycleway" = "Pyörätie";
 
@@ -2110,6 +2198,8 @@
 
 "type.landuse.construction" = "Construction";
 
+"type.landuse.education" = "Educational Facilities";
+
 "type.landuse.farm" = "Farm";
 
 "type.landuse.farmland" = "Maatalousmaa";
@@ -2206,13 +2296,9 @@
 
 "type.leisure.sports_centre" = "Urheilukeskus";
 
-"type.leisure.sports_centre.climbing" = "Kiipeilykeskus";
+"type.sport.climbing" = "Kiipeilykeskus";
 
-"type.leisure.sports_centre.shooting" = "Ampumarata";
-
-"type.leisure.sports_centre.swimming" = "Uimahalli";
-
-"type.leisure.sports_centre.yoga" = "Joogastudio";
+"type.sport.yoga" = "Joogastudio";
 
 "type.leisure.stadium" = "Stadion";
 
@@ -2235,6 +2321,8 @@
 "type.man_made.chimney" = "Tehtaan piippu";
 
 "type.man_made.cutline" = "Cutline";
+
+"type.man_made.survey_point" = "Survey Point";
 
 "type.man_made.flagpole" = "Flagpole";
 
@@ -2278,37 +2366,43 @@
 
 "type.mountain_pass" = "Mountain Pass";
 
-"type.natural" = "Natural";
+"type.natural" = "Luonto";
 
-"type.natural.bare_rock" = "Bare Rock";
+"type.natural.bare_rock" = "Paljas kallio";
 
 "type.natural.bay" = "Lahti";
 
 "type.natural.beach" = "Ranta";
 
-"type.natural.beach.sand" = "Sandy Beach";
+"type.natural.beach.sand" = "Hiekkainen ranta";
 
-"type.natural.beach.gravel" = "Gravel Beach";
+"type.natural.beach.gravel" = "Soraranta";
 
 "type.natural.cape" = "Niemeke";
 
 "type.natural.cave_entrance" = "Luola";
 
-"type.natural.cliff" = "Cliff";
+"type.natural.cliff" = "Jyrkänne";
 
-"type.natural.coastline" = "Coastline";
+"type.natural.earth_bank" = "Kallio";
+
+"type.man_made.embankment" = "Pengerrys";
+
+"type.natural.coastline" = "Rannikko";
 
 "type.natural.geyser" = "Geysir";
 
 "type.natural.glacier" = "Jäätikkö";
 
-"type.natural.grassland" = "Pelto";
+"type.natural.grassland" = "Nurmi";
 
-"type.natural.heath" = "Heath";
+"type.natural.heath" = "Nummi";
 
-"type.natural.hot_spring" = "Hot Spring";
+"type.natural.hot_spring" = "Kuuma lähde";
 
 "type.natural.water.lake" = "Järvi";
+
+"type.natural.water.lock" = "Lukko kammio";
 
 "type.natural.water.pond" = "Lampi";
 
@@ -2318,17 +2412,17 @@
 
 "type.natural.water.river" = "Joki";
 
-"type.natural.land" = "Land";
+"type.natural.land" = "Maa";
 
-"type.natural.meadow" = "Meadow";
+"type.natural.meadow" = "Niitty";
 
-"type.natural.orchard" = "Orchard";
+"type.natural.orchard" = "Hedelmänviljely";
 
 "type.natural.peak" = "Huippu";
 
-"type.natural.saddle" = "Mountain Saddle";
+"type.natural.saddle" = "Vuoristo satula";
 
-"type.natural.rock" = "Rock";
+"type.natural.rock" = "Kivi";
 
 "type.natural.scrub" = "Tiheiköt";
 
@@ -2338,9 +2432,9 @@
 
 "type.natural.tree" = "Puu";
 
-"type.natural.tree_row" = "Tree Row";
+"type.natural.tree_row" = "Puurivi";
 
-"type.natural.vineyard" = "Vineyard";
+"type.natural.vineyard" = "Viinitila";
 
 "type.natural.volcano" = "Tulivuori";
 
@@ -2348,9 +2442,9 @@
 
 "type.natural.wetland" = "Suoperäinen seutu";
 
-"type.natural.wetland.bog" = "Wetland";
+"type.natural.wetland.bog" = "Suo";
 
-"type.natural.wetland.marsh" = "Wetland";
+"type.natural.wetland.marsh" = "Marsh";
 
 "type.noexit" = "Dead End";
 
@@ -2369,6 +2463,10 @@
 "type.office.ngo" = "Valtioista riippumattoman järjestön toimisto";
 
 "type.office.telecommunication" = "Matkapuhelinoperaattori";
+
+"type.organic.only" = "Organic";
+
+"type.organic.yes" = "Organic";
 
 "type.place" = "place";
 
@@ -2664,6 +2762,8 @@
 
 "type.shop.cosmetics" = "Kosmetiikka";
 
+"type.shop.deli" = "Herkkukauppa";
+
 "type.shop.department_store" = "Tavaratalo";
 
 "type.shop.doityourself" = "Rautakauppa";
@@ -2675,6 +2775,8 @@
 "type.shop.erotic" = "Erotiikkaliike";
 
 "type.shop.fabric" = "Kauppa";
+
+"type.shop.farm" = "Maatilaruokakauppa";
 
 "type.shop.florist" = "Floristi";
 
@@ -2688,13 +2790,21 @@
 
 "type.shop.greengrocer" = "Vihanneskauppias";
 
+"type.shop.grocery" = "Päivittäistavarakauppa";
+
 "type.shop.hairdresser" = "Kampaamo";
 
 "type.shop.hardware" = "Rautakauppa";
 
+"type.shop.health_food" = "Terveysruokakauppa";
+
+"type.shop.houseware" = "Taloustavarakauppa";
+
 "type.shop.jewelry" = "Korukauppa";
 
 "type.shop.kiosk" = "Kioski";
+
+"type.shop.kitchen" = "Keittiökauppa";
 
 "type.shop.laundry" = "Pesula";
 
@@ -2718,6 +2828,8 @@
 
 "type.shop.outdoor" = "Ulkoiluvarusteet";
 
+"type.shop.pastry" = "Leivonnainen";
+
 "type.shop.pawnbroker" = "Panttilainaamo";
 
 "type.shop.pet" = "Eläinkauppa";
@@ -2725,6 +2837,8 @@
 "type.shop.photo" = "Valokuvakauppa";
 
 "type.shop.seafood" = "Kalakauppias";
+
+"type.shop.second_hand" = "Second Hand Store";
 
 "type.shop.shoes" = "Kenkäkauppa";
 
@@ -2754,6 +2868,52 @@
 
 "type.shop.wine" = "Alkoholimyymälä";
 
+"type.shop.antiques" = "Antiikkia";
+
+"type.shop.art" = "Taidekauppa";
+
+"type.shop.baby_goods" = "Lasten kauppa";
+
+"type.shop.bag" = "Laukkukauppa";
+
+"type.shop.boutique" = "Boutique";
+
+"type.shop.charity" = "Hyväntekeväisyysmyymälä";
+
+"type.shop.cheese" = "Juustokauppa";
+
+"type.shop.craft" = "Käsityöt";
+
+"type.shop.dairy" = "Maitotuotteet";
+
+"type.shop.electrical" = "Sähköliike";
+
+"type.shop.fishing" = "Kalastuskauppa";
+
+"type.shop.interior_decoration" = "Sisustuskoristeet";
+
+"type.shop.lottery" = "Lottoliput";
+
+"type.shop.medical_supply" = "Lääketieteellisiä tarvikkeita";
+
+"type.shop.nutrition_supplements" = "Ravintolisät";
+
+"type.shop.paint" = "Maalit";
+
+"type.shop.perfumery" = "Hajuvedet";
+
+"type.shop.sewing" = "Ompelutarvikkeet";
+
+"type.shop.storage_rental" = "Varastoinnin vuokraus";
+
+"type.shop.tobacco" = "Tupakka";
+
+"type.shop.trade" = "Kauppa tarvikkeita";
+
+"type.shop.watches" = "Kellot";
+
+"type.shop.wholesale" = "Tukkukauppa";
+
 "type.sport" = "Urheilu";
 
 "type.sport.american_football" = "Amerikkalainen jalkapallo";
@@ -2762,19 +2922,21 @@
 
 "type.sport.athletics" = "Yleisurheilu";
 
-"type.sport.australian_football" = "Rugby";
+"type.sport.australian_football" = "Australialainen jalkapallo";
 
 "type.sport.baseball" = "Baseball";
 
 "type.sport.basketball" = "Koripallo";
 
-"type.sport.bowls" = "Bowls";
+"type.sport.beachvolleyball" = "Rantalentopallo";
+
+"type.sport.bowls" = "Nurmikeilailu";
+
+"type.sport.chess" = "Shakki";
 
 "type.sport.cricket" = "Kriketti";
 
 "type.sport.curling" = "Curling";
-
-"type.sport.diving" = "Diving";
 
 "type.sport.equestrian" = "Hevosurheilu";
 
@@ -2784,11 +2946,14 @@
 
 "type.sport.handball" = "Käsipallo";
 
-"type.sport.multi" = "Various Sport";
+"type.sport.multi" = "Erilaisia urheilulajeja";
 
-"type.sport.scuba_diving" = "Scuba Diving";
+/* Used to tag a scuba diving site. */
+"type.sport.scuba_diving" = "Sukellus";
 
 "type.sport.shooting" = "Ammunta";
+
+"type.sport.skateboard" = "Rullalautailu";
 
 "type.sport.skiing" = "Hiihto";
 
@@ -2796,7 +2961,15 @@
 
 "type.sport.swimming" = "Uinti";
 
+"type.sport.table_tennis" = "Pöytätennis";
+
 "type.sport.tennis" = "Tenniskenttä";
+
+"type.sport.volleyball" = "Lentopallo";
+
+"type.sport.9pin" = "Keilailu";
+
+"type.sport.10pin" = "Keilailu";
 
 "type.tourism" = "Turismi";
 
@@ -2838,7 +3011,7 @@
 
 "type.tourism.information.board" = "Informaatio";
 
-"type.tourism.information.guidepost" = "Turisti-informaatio";
+"type.tourism.information.guidepost" = "Tienviitta";
 
 "type.tourism.information.map" = "Turistikartta";
 
@@ -2883,8 +3056,6 @@
 "type.waterway.drain" = "Drain";
 
 "type.waterway.drain.tunnel" = "Drain";
-
-"type.waterway.lock" = "Waterway Lock";
 
 "type.waterway.lock_gate" = "Kanavasulku";
 
@@ -2948,3 +3119,5 @@
 "type.piste_type.sled" = "Sledding Piste";
 
 "type.building_part" = "Rakennus";
+
+"type.amenity.events_venue" = "Tapahtumapaikka";

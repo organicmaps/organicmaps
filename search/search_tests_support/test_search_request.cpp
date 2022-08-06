@@ -10,13 +10,13 @@
 
 #include <functional>
 
-using namespace std::chrono;
-using namespace std;
-
 namespace search
 {
 namespace tests_support
 {
+using namespace std::chrono;
+using namespace std;
+
 TestSearchRequest::TestSearchRequest(TestSearchEngine & engine, string const & query,
                                      string const & locale, Mode mode, m2::RectD const & viewport)
   : m_engine(engine)
@@ -60,7 +60,7 @@ void TestSearchRequest::Run()
   Wait();
 }
 
-steady_clock::duration TestSearchRequest::ResponseTime() const
+TestSearchRequest::TimeDurationT TestSearchRequest::ResponseTime() const
 {
   lock_guard<mutex> lock(m_mu);
   CHECK(m_done, ("This function may be called only when request is processed."));

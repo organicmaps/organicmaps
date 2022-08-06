@@ -129,10 +129,8 @@ node[historic=castle],
 area[historic=castle]
 {z-index: 2890;}
 
-node[amenity=hospital],
 node[building=hospital],
 area[building=hospital],
-area[amenity=hospital],
 node[building=university],
 area[building=university],
 {z-index: 2900;}
@@ -484,7 +482,7 @@ area|z15[historic=memorial]
 node|z16-[historic=monument],
 area|z16-[historic=monument],
 node|z16-[historic=memorial],
-area|z16-[historic=memorial]
+area|z16-[historic=memorial],
 {icon-image: monument-m.svg;icon-min-distance: 12;text: name;text-offset: 1;font-size: 10;text-color: @poi_label;}
 
 node|z15-[historic=memorial][memorial=plaque],
@@ -498,7 +496,7 @@ area|z17[historic=memorial][memorial=plaque]
 {icon-image: zero-icon.svg;text: none;}
 node|z18-[historic=memorial][memorial=plaque],
 area|z18-[historic=memorial][memorial=plaque]
-{icon-image: monument-m.svg;icon-min-distance: 12;}
+{icon-image: plaque.svg;icon-min-distance: 12;}
 
 node|z15[tourism=museum],
 area|z15[tourism=museum]
@@ -589,8 +587,8 @@ area|z14[amenity=community_centre]
 node|z15[amenity=community_centre],
 area|z15[amenity=community_centre]
 {icon-image: tourism-m.svg;icon-min-distance: 24;}
-node|z16[amenity=community_centre],
-area|z16[amenity=community_centre]
+node|z16-[amenity=community_centre],
+area|z16-[amenity=community_centre]
 {icon-image: tourism-m.svg;icon-min-distance: 16;}
 
 
@@ -680,6 +678,10 @@ area|z17-[amenity=post_office],
 
 
 /* 5.1 Hospital */
+
+area|z15-[amenity=hospital],
+node|z15-[amenity=hospital],
+{-x-me-text-priority:16000;}
 
 node|z15[amenity=hospital],
 node|z15[building=hospital],

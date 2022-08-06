@@ -22,7 +22,8 @@
 #import "MapViewController.h"
 #import "SwiftBridge.h"
 
-#include <CoreApi/Framework.h>
+#import <CoreApi/Framework.h>
+#import <CoreApi/StringUtils.h>
 
 #include "platform/localization.hpp"
 
@@ -445,7 +446,7 @@ void registerCellsForTableView(std::vector<MWMEditorCellType> const & cells, UIT
     MWMEditorTextTableViewCell * tCell = static_cast<MWMEditorTextTableViewCell *>(cell);
     [tCell configWithDelegate:self
                          icon:[UIImage imageNamed:@"ic_placepage_phone_number"]
-                         text:@(m_mapObject.GetPhone().c_str())
+                         text:ToNSString(m_mapObject.GetPhone())
                   placeholder:L(@"phone")
                  errorMessage:L(@"error_enter_correct_phone")
                       isValid:isValid
@@ -458,7 +459,7 @@ void registerCellsForTableView(std::vector<MWMEditorCellType> const & cells, UIT
     MWMEditorTextTableViewCell * tCell = static_cast<MWMEditorTextTableViewCell *>(cell);
     [tCell configWithDelegate:self
                          icon:[UIImage imageNamed:@"ic_placepage_website"]
-                         text:@(m_mapObject.GetWebsite().c_str())
+                         text:ToNSString(m_mapObject.GetWebsite())
                   placeholder:L(@"website")
                  errorMessage:L(@"error_enter_correct_web")
                       isValid:isValid
@@ -471,7 +472,7 @@ void registerCellsForTableView(std::vector<MWMEditorCellType> const & cells, UIT
     MWMEditorTextTableViewCell * tCell = static_cast<MWMEditorTextTableViewCell *>(cell);
     [tCell configWithDelegate:self
                          icon:[UIImage imageNamed:@"ic_placepage_email"]
-                         text:@(m_mapObject.GetEmail().c_str())
+                         text:ToNSString(m_mapObject.GetEmail())
                   placeholder:L(@"email")
                  errorMessage:L(@"error_enter_correct_email")
                       isValid:isValid
@@ -484,7 +485,7 @@ void registerCellsForTableView(std::vector<MWMEditorCellType> const & cells, UIT
     MWMEditorTextTableViewCell * tCell = static_cast<MWMEditorTextTableViewCell *>(cell);
     [tCell configWithDelegate:self
                          icon:[UIImage imageNamed:@"ic_operator"]
-                         text:@(m_mapObject.GetOperator().c_str())
+                         text:ToNSString(m_mapObject.GetOperator())
                   placeholder:L(@"editor_operator")
                  keyboardType:UIKeyboardTypeDefault
                capitalization:UITextAutocapitalizationTypeSentences];
@@ -493,7 +494,7 @@ void registerCellsForTableView(std::vector<MWMEditorCellType> const & cells, UIT
   case MWMEditorCellTypeOpenHours:
   {
     MWMPlacePageOpeningHoursCell * tCell = static_cast<MWMPlacePageOpeningHoursCell *>(cell);
-    NSString * text = @(m_mapObject.GetOpeningHours().c_str());
+    NSString * text = ToNSString(m_mapObject.GetOpeningHours());
     [tCell configWithDelegate:self info:(text.length ? text : L(@"add_opening_hours"))];
     break;
   }
@@ -587,7 +588,7 @@ void registerCellsForTableView(std::vector<MWMEditorCellType> const & cells, UIT
     MWMEditorTextTableViewCell * tCell = static_cast<MWMEditorTextTableViewCell *>(cell);
     [tCell configWithDelegate:self
                          icon:nil
-                         text:@(m_mapObject.GetPostcode().c_str())
+                         text:ToNSString(m_mapObject.GetPostcode())
                   placeholder:L(@"editor_zip_code")
                  errorMessage:L(@"error_enter_correct_zip_code")
                       isValid:isValid
@@ -606,7 +607,7 @@ void registerCellsForTableView(std::vector<MWMEditorCellType> const & cells, UIT
     MWMEditorTextTableViewCell * tCell = static_cast<MWMEditorTextTableViewCell *>(cell);
     [tCell configWithDelegate:self
                          icon:nil
-                         text:@(m_mapObject.GetBuildingLevels().c_str())
+                         text:ToNSString(m_mapObject.GetBuildingLevels())
                   placeholder:placeholder
                  errorMessage:errorMessage
                       isValid:isValid
@@ -1009,7 +1010,7 @@ void registerCellsForTableView(std::vector<MWMEditorCellType> const & cells, UIT
   if ([segue.identifier isEqualToString:kOpeningHoursEditorSegue])
   {
     MWMOpeningHoursEditorViewController * dvc = segue.destinationViewController;
-    dvc.openingHours = @(m_mapObject.GetOpeningHours().c_str());
+    dvc.openingHours = ToNSString(m_mapObject.GetOpeningHours());
     dvc.delegate = self;
   }
   else if ([segue.identifier isEqualToString:kCuisineEditorSegue])

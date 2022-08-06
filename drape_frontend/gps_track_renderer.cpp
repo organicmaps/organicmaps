@@ -107,7 +107,7 @@ void GpsTrackRenderer::UpdatePoints(std::vector<GpsTrackPoint> const & toAdd,
   {
     auto removePredicate = [&toRemove](GpsTrackPoint const & pt)
     {
-      return std::find(toRemove.begin(), toRemove.end(), pt.m_id) != toRemove.end();
+      return base::IsExist(toRemove, pt.m_id);
     };
     m_points.erase(std::remove_if(m_points.begin(), m_points.end(), removePredicate),
                    m_points.end());

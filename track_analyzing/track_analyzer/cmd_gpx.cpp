@@ -28,7 +28,6 @@ void CmdGPX(string const & logFile, string const & outputDirName, string const &
   }
 
   storage::Storage storage;
-  storage.RegisterAllLocalMaps(false /* enableDiffs */);
   shared_ptr<NumMwmIds> numMwmIds = CreateNumMwmIds(storage);
   MwmToTracks mwmToTracks;
   ParseTracks(logFile, numMwmIds, mwmToTracks);

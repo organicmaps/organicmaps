@@ -17,19 +17,15 @@
 	<string name="downloading">Wird heruntergeladen…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Kilometer</string>
-	<!-- View and button titles for accessibility -->
-	<string name="maps">Karten</string>
-	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
-	<string name="mb">MB</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Meilen</string>
-	<!-- View and button titles for accessibility -->
+	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">Mein Standort</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">Später</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Suche</string>
-	<!-- Search box placeholder text -->
+	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">Auf der Karte suchen</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">Ortungsdienste sind für dieses Gerät oder die App deaktiviert. Bitte aktivieren Sie diese in den Einstellungen.</string>
@@ -43,10 +39,11 @@
 	<string name="close">Schließen</string>
 	<string name="unsupported_phone">Das Programm benötigt OpenGL, um zu funktionieren. Leider wird Ihr Gerät nicht unterstützt.</string>
 	<string name="download">Herunterladen</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable">Bitte USB-Kabel entfernen oder Speicherkarte einsetzen, um Organic Maps zu verwenden</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="not_enough_free_space_on_sdcard">Bitte zuerst Speicherplatz auf SD-Karte/USB-Speicher freigeben, um die Anwendung zu nutzen</string>
-	<string name="not_enough_memory">Nicht genügend Speicher, um die Anwendung zu starten</string>
-	<string name="download_resources">Bevor Sie starten, laden Sie die allgemeine Weltkarte auf Ihr Gerät herunter.\nEs wird %s Speicherplatz benötigt.</string>
+	<string name="download_resources">Bevor Sie starten, laden Sie die allgemeine Weltkarte auf Ihr Gerät herunter.\nEs werden %s Speicherplatz benötigt.</string>
 	<string name="download_resources_continue">Zur Karte</string>
 	<string name="downloading_country_can_proceed">%s wird heruntergeladen. Sie können jetzt\nzur Karte weitergehen.</string>
 	<string name="download_country_ask">%s herunterladen?</string>
@@ -64,7 +61,7 @@
 	<!-- Add Bookmark list dialog - hint when the list name is empty -->
 	<string name="bookmark_set_name">Name des Lesezeichens</string>
 	<!-- "Bookmarks" dialog title -->
-	<string name="bookmarks">Lesezeichengruppen</string>
+	<string name="bookmarks">Lesezeichen</string>
 	<!-- Default bookmark list name -->
 	<string name="core_my_places">Meine Orte</string>
 	<!-- Add bookmark dialog - bookmark name -->
@@ -78,9 +75,23 @@
 	<!-- Header of settings activity where user defines storage path -->
 	<string name="maps_storage">Karten speichern auf</string>
 	<!-- Detailed description of Maps Storage settings button -->
-	<string name="maps_storage_summary">Wählen Sie den Speicherort, an den die Karten heruntergeladen werden sollen</string>
+	<string name="maps_storage_summary">Wählen Sie den Speicherort für die heruntergeladenen Karten</string>
+	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+	<string name="maps_storage_downloaded">Karten</string>
+	<!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
+	<string name="maps_storage_internal">Interner persönlicher Speicher</string>
+	<!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
+	<string name="maps_storage_shared">Interner gemeinsamer Speicher</string>
+	<!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
+	<string name="maps_storage_removable">SD-Karte</string>
+	<!-- Generic external storage type in Maps Storage settings -->
+	<string name="maps_storage_external">Externer gemeinsamer Speicher</string>
+	<!-- Free space out of total storage size in Maps Storage settings, e.g. "300 MB free of 2 GB" -->
+	<string name="maps_storage_free_size">%1$s frei von %2$s</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Karten verschieben?</string>
+	<!-- Error moving map files from one storage to another -->
+	<string name="move_maps_error">Fehler beim Verschieben der Karten</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
 	<string name="wait_several_minutes">Dies kann einige Minuten in Anspruch nehmen.\nBitte warten…</string>
 	<!-- Measurement units title in settings activity -->
@@ -125,20 +136,25 @@
 	<string name="post">Post</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
 	<string name="police">Polizeistation</string>
+	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! -->
+	<string name="wifi">WLAN</string>
 	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
 	<string name="recycling">Recycling</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
 	<string name="water">Wasser</string>
+	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
+	<string name="rv">Einrichtungen für Wohnmobile</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Notizen</string>
 	<!-- Email Subject when sharing bookmark list -->
 	<string name="share_bookmarks_email_subject">Organic Maps-Lesezeichen mit Ihnen geteilt</string>
+	<string name="share_bookmarks_email_body">Hallo!\n\nIm Anhang sind meine Lesezeichen der Organic Maps App. Sie können sie mit Organic Maps öffnen. Wenn Sie die App nicht installiert haben, können Sie sie von https://omaps.app/get?kmz für iOS oder Android herunterladen.\n\nViel Spaß beim Reisen mit Organic Maps!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Lesezeichen werden geladen</string>
 	<!-- Kmz file successful loading -->
 	<string name="load_kmz_successful">Lesezeichen erfolgreich geladen! Sie können diese nun auf Ihrer Karte oder im Lesezeichen-Manager anzeigen.</string>
 	<!-- Kml file loading failed -->
-	<string name="load_kmz_failed">Hochladen der Lesezeichen fehlgeschlagen. Die Datei könnte beschädigt oder defekt sein.</string>
+	<string name="load_kmz_failed">Laden der Lesezeichen fehlgeschlagen. Die Datei könnte beschädigt oder defekt sein.</string>
 	<!-- resource for context menu -->
 	<string name="edit">Bearbeiten</string>
 	<!-- Warning message when doing search around current position -->
@@ -146,7 +162,7 @@
 	<!-- Alert message that we can't run Map Storage settings due to some reasons. -->
 	<string name="cant_change_this_setting">Leider sind die Einstellungen für die Kartenspeicherung deaktiviert.</string>
 	<!-- Alert message that downloading is in progress. -->
-	<string name="downloading_is_active">Das Land wird gerade heruntergeladen.</string>
+	<string name="downloading_is_active">Die Karte wird heruntergeladen.</string>
 	<!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
 	<string name="my_position_share_sms">Hey, sieh dir meinen aktuellen Standort auf Organic Maps an! %1$s oder %2$s Keine Offline-Karten installiert? Hier herunterladen: https://omaps.app/get</string>
 	<!-- Subject for emailed bookmark -->
@@ -209,6 +225,8 @@
 	<string name="search_show_on_map">Auf der Karte ansehen</string>
 	<!-- Text in menu -->
 	<string name="website">Webseite</string>
+	<!-- Text in About menu, opens Organic Maps news website -->
+	<string name="news">Nachrichten</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">Feedback</string>
 	<!-- Text in menu -->
@@ -223,22 +241,21 @@
 	<string name="copyright">Copyright</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Fehler melden</string>
-	<!-- Search category -->
-	<string name="wifi">WLAN</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Alle aktualisieren</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">Alle abbrechen</string>
-	<!-- Downloaded maps category -->
+	<!-- Downloaded maps list header -->
 	<string name="downloader_downloaded_subtitle">Heruntergeladen</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">In der Warteschlange</string>
 	<string name="downloader_near_me_subtitle">In meiner Nähe</string>
+	<!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
 	<string name="downloader_status_maps">Karten</string>
 	<string name="downloader_download_all_button">Alle herunterladen</string>
-	<string name="downloader_downloading">Gerade wird heruntergeladen:</string>
+	<string name="downloader_downloading">Wird heruntergeladen:</string>
 	<!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
-	<string name="downloader_delete_map_while_routing_dialog">Um die Karte zu löschen, die Navigation unterbrechen.</string>
+	<string name="downloader_delete_map_while_routing_dialog">Zum Löschen der Karte bitte Navigation unterbrechen.</string>
 	<!-- PointsInDifferentMWM -->
 	<string name="routing_failed_cross_mwm_building">Es können nur Routen erstellt werden, die vollständig in einer einzigen Karte enthalten sind.</string>
 	<!-- Context menu item for downloader. -->
@@ -249,6 +266,8 @@
 	<string name="downloader_delete_map">Karte löschen</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">Karte aktualisieren</string>
+	<!-- Preference title -->
+	<string name="google_play_services">Google Play-Dienste</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">Nutzen Sie die Google Play-Dienste, um Ihren aktuellen Standort zu erhalten</string>
 	<!-- Text for routing error dialog -->
@@ -294,13 +313,11 @@
 	<string name="gray">Grau</string>
 	<!-- blue gray color -->
 	<string name="blue_gray">Graublau</string>
-	<!-- Wi-Fi available -->
-	<string name="WiFi_available">Ja</string>
 
 	<!-- SECTION: Routing dialogs strings -->
 	<string name="dialog_routing_disclaimer_title">Wenn Sie der Route folgen, beachten Sie bitte:</string>
 	<string name="dialog_routing_disclaimer_priority">– Straßenverhältnisse, die Verkehrsordnung und Straßenschilder haben stets Vorrang vor Navigationsanweisungen;</string>
-	<string name="dialog_routing_disclaimer_precision">– Die Karte kann ungenau sein, und die vorgeschlagene Route ist möglicherweise nicht der optimalste Weg, um das Ziel zu erreichen;</string>
+	<string name="dialog_routing_disclaimer_precision">– Die Karte kann ungenau sein, und die vorgeschlagene Route ist möglicherweise nicht der optimale Weg, um das Ziel zu erreichen;</string>
 	<string name="dialog_routing_disclaimer_recommendations">— Die vorgeschlagenen Routen sind als Empfehlungen zu verstehen;</string>
 	<string name="dialog_routing_disclaimer_borders">— Bitte seien Sie vorsichtig bei Routen in Grenzgebieten: die Routen, die unsere App erstellt, können manchmal Landesgrenzen in gesperrten Gebieten überschreiten;</string>
 	<string name="dialog_routing_disclaimer_beware">Bitte fahren Sie aufmerksam und sicher!</string>
@@ -337,6 +354,8 @@
 	<string name="routing_arrive">Ankunft: %s</string>
 	<string name="categories">Kategorien</string>
 	<string name="history">Verlauf</string>
+	<string name="opens_in">Öffnet in %s</string>
+	<string name="closes_in">Schließt in %s</string>
 	<string name="closed">Geschlossen</string>
 	<string name="search_not_found">Leider wurde nichts gefunden.</string>
 	<string name="search_not_found_query">Versuchen Sie bitte eine andere Suchanfrage.</string>
@@ -365,7 +384,7 @@
 	<string name="editor_example_values">Beispiele</string>
 	<string name="editor_correct_mistake">Fehler korrigieren</string>
 	<string name="editor_add_select_location">Position</string>
-	<string name="editor_report_problem_desription_1">Bitte beschreiben Sie das Problem detailliert, damit die OpenStreeMap-Gemeinschaft den Fehler beheben kann.</string>
+	<string name="editor_report_problem_desription_1">Bitte beschreiben Sie das Problem detailliert, damit die OpenStreetMap-Gemeinschaft den Fehler beheben kann.</string>
 	<string name="editor_report_problem_desription_2">Oder kümmern Sie sich selbst darum auf https://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">Senden</string>
 	<string name="editor_report_problem_title">Problem</string>
@@ -387,7 +406,7 @@
 	<string name="forgot_password">Passwort vergessen?</string>
 	<string name="logout">Abmelden</string>
 	<string name="thank_you">Danke</string>
-	<string name="edit_place">Platz bearbeiten</string>
+	<string name="edit_place">Eintrag bearbeiten</string>
 	<string name="add_language">Eine Sprache hinzufügen</string>
 	<string name="street">Straße</string>
 	<!-- Editable House Number text field (in address block). -->
@@ -417,7 +436,7 @@
 	<string name="editor_focus_map_on_location">Ziehen Sie die Karte, um den Standort des Objektes zu korrigieren.</string>
 	<string name="editor_edit_place_title">Wird bearbeitet</string>
 	<string name="editor_add_place_title">Wird hinzugefügt</string>
-	<string name="editor_edit_place_name_hint">Name des Orts</string>
+	<string name="editor_edit_place_name_hint">Name des Ortes</string>
 	<string name="editor_edit_place_category_title">Kategorie</string>
 	<string name="detailed_problem_description">Detaillierte Beschreibung eines Problems</string>
 	<string name="editor_report_problem_other_title">Ein anderes Problem</string>
@@ -429,9 +448,9 @@
 	<string name="download_over_mobile_header">Über eine Mobilfunknetzverbindung herunterladen?</string>
 	<string name="download_over_mobile_message">Das könnte mit einigen Tarifen oder beim Roaming sehr teuer werden.</string>
 	<string name="error_enter_correct_house_number">Richtige Hausnummer eingeben</string>
-	<string name="editor_storey_number">Anzahl der Etagen (%d maximal)</string>
+	<string name="editor_storey_number">Anzahl der Etagen (maximal %d)</string>
 	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">Bearbeiten Sie die Gebäude mit maximal 25 Etagen</string>
+	<string name="error_enter_correct_storey_number">Das Gebäude kann nicht mehr als 25 Etagen haben</string>
 	<string name="editor_zip_code">Postleitzahl</string>
 	<string name="error_enter_correct_zip_code">Geben Sie die korrekte Postleitzahl ein</string>
 	<!-- Place Page title for long tap -->
@@ -451,8 +470,9 @@
 	<string name="current_location_unknown_stop_button">Anhalten</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
-	<string name="kilometers_per_hour">km / h</string>
+	<string name="kilometers_per_hour">km/h</string>
 	<string name="mile">mi</string>
+	<!-- A unit of measure -->
 	<string name="foot">ft</string>
 	<string name="miles_per_hour">mph</string>
 	<string name="hour">h</string>
@@ -468,22 +488,25 @@
 	<string name="editor_remove_place_message">Hinzugefügtes Objekt löschen?</string>
 	<string name="editor_remove_place_button">Löschen</string>
 	<string name="editor_place_doesnt_exist">Dieser Ort existiert nicht</string>
+	<!-- Error message for "Place doesn't exist" dialog when comment is empty -->
+	<string name="delete_place_empty_comment_error">Geben Sie bitte den Grund für die Löschung an</string>
 	<!-- Phone number error message -->
-	<string name="error_enter_correct_phone">Geben Sie die richtige Telefonnummer ein</string>
+	<string name="error_enter_correct_phone">Geben Sie eine gültige Telefonnummer ein</string>
 	<string name="error_enter_correct_web">Geben Sie eine gültige Internetadresse ein</string>
 	<string name="error_enter_correct_email">Geben Sie eine gültige Email-Adresse ein</string>
 	<string name="error_enter_correct_facebook_page">Geben Sie eine gültige Facebook-Webadresse, ein Konto oder einen Seitennamen ein</string>
 	<string name="error_enter_correct_instagram_page">Geben Sie eine gültige Instagram-Webadresse oder einen Kontonamen ein</string>
 	<string name="error_enter_correct_twitter_page">Geben Sie eine gültige Twitter-Webadresse oder einen Benutzernamen ein</string>
 	<string name="error_enter_correct_vk_page">Geben Sie eine gültige VK-Webadresse oder einen Kontonamen ein</string>
+	<string name="error_enter_correct_line_page">Geben Sie eine gültige LINE-Webadresse oder LINE ID ein</string>
 	<string name="placepage_add_place_button">Einen Ort zur Karte hinzufügen</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
-	<string name="editor_share_to_all_dialog_title">Wollen Sie sie an alle Benutzer senden?</string>
+	<string name="editor_share_to_all_dialog_title">An alle Benutzer senden?</string>
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Stellen Sie sicher, dass Sie keine persönlichen Daten eingegeben haben.</string>
 	<string name="editor_share_to_all_dialog_message_2">Wir werden die Änderungen prüfen. Wenn wir Fragen haben, werden wir Sie per Email kontaktieren.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
-	<string name="about_description">Organic Maps ist eine kostenlose Open-Source-Offline-Kartenanwendung. Keine Werbung. Keine Verfolgung. Wenn Sie einen Fehler auf der Karte sehen, beheben Sie ihn bitte in OpenStreetMap. Das Projekt wird von Enthusiasten in unserer Freizeit erstellt, daher brauchen wir Ihr Feedback und Ihre Unterstützung.</string>
+	<string name="about_description">Organic Maps ist eine schnelle und kostenlose Offline-Karten-App ohne Werbung und Tracking. Die Karten basieren auf den Daten von OpenStreetMap.org, so dass Sie selbst Kartenfehler beheben und Orte hinzufügen können. Organic Maps ist ein Open-Source-Projekt, das von Enthusiasten in ihrer Freizeit entwickelt wird. Ihr Feedback und Ihre Unterstützung sind sehr willkommen!</string>
 	<!-- For the first routing -->
 	<string name="accept">Annehmen</string>
 	<!-- For the first routing -->
@@ -496,11 +519,11 @@
 	<string name="mobile_data_option_not_today">Heute nicht verwenden</string>
 	<string name="mobile_data">Mobiles Internet</string>
 	<!-- NOTE to translators: please synchronize your translation with the English one. -->
-	<string name="mobile_data_description">Mobiles Internet wird benötigt, um genauere Informationen über Orte anzuzeigen, wie Fotos, Preise und Bewertungen.</string>
+	<string name="mobile_data_description">Es wird mobiles Internet benötigt, um über Kartenaktualisierungen informiert zu werden und genauere Informationen über Orte anzuzeigen.</string>
 	<string name="mobile_data_option_never">Nie verwenden</string>
 	<string name="mobile_data_option_ask">Immer fragen</string>
 	<string name="traffic_update_maps_text">Um Verkehrsdaten anzuzeigen, müssen die Karten aktualisiert werden.</string>
-	<string name="big_font">Schriftgröße auf der Karte erhöhen</string>
+	<string name="big_font">Schrift auf der Karte vergrößern</string>
 	<string name="traffic_update_app">Bitte aktualisieren Sie Organic Maps</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">Verkehrsdaten sind nicht verfügbar</string>
@@ -509,8 +532,8 @@
 	<string name="feedback_general">Allgemeines Feedback</string>
 	<string name="on">An</string>
 	<string name="off">Aus</string>
-	<string name="prefs_languages_information">Wir verwenden Text-to-Speech-Systeme für Sprachanweisungen. Viele Android-Geräte nutzen Google-TTS, das können Sie bei Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts) herunterladen oder aktualisieren.</string>
-	<string name="prefs_languages_information_off">Für einige Sprachen müssen Sie einen anderen Sprachsynthesizer oder ein zusätzliches Sprachpaket aus dem App Store installieren (Google Play, Samsung Apps, App Gallery, FDroid). \nÖffnen Sie die Einstellungen Ihres Gerätes → Sprache und Eingabe → Sprache → Text-to-Speech-Ausgabe. Hier können Sie die Einstellungen für Sprachsynthese verwalten (beispielsweise ein Sprachpaket für die Offline-Verwendung herunterladen) und ein anderes Versprachlichungsprogramm auswählen.</string>
+	<string name="prefs_languages_information">Wir verwenden Text-to-Speech-Systeme für Sprachanweisungen. Viele Android-Geräte nutzen Google-TTS, das Sie bei Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts) herunterladen oder aktualisieren können.</string>
+	<string name="prefs_languages_information_off">Für einige Sprachen müssen Sie einen anderen Sprachgenerator oder ein zusätzliches Sprachpaket aus dem App Store installieren (Google Play, Samsung Apps, App Gallery, FDroid). \nÖffnen Sie die Einstellungen Ihres Gerätes → Sprache und Eingabe → Sprache → Text-to-Speech-Ausgabe. Hier können Sie die Einstellungen für Sprachsynthese verwalten (beispielsweise ein Sprachpaket für die Offline-Verwendung herunterladen) und ein anderes Sprachausgabeprogramm auswählen.</string>
 	<string name="prefs_languages_information_off_link">Weitere Informationen finden Sie in dieser Anleitung.</string>
 	<string name="transliteration_title">Transliteration ins Lateinische</string>
 	<string name="learn_more">Weitere Informationen</string>
@@ -521,7 +544,7 @@
 	<string name="placepage_remove_stop">Entfernen</string>
 	<string name="placepage_add_stop">Zwischenstopp hinzufügen</string>
 	<string name="dialog_error_storage_title">Problem mit dem Zugreifen auf den Speicher</string>
-	<string name="dialog_error_storage_message">Der externe Speicher ist nicht verfügbar, möglicherweise wurde die SD-Karte entfernt oder sie ist beschädigt oder das Dateisystem ist schreibgeschützt. Überprüfen Sie das bitte und kontaktieren Sie uns unter support\@organicmaps.app</string>
+	<string name="dialog_error_storage_message">Der externe Speicher ist nicht verfügbar, möglicherweise wurde die SD-Karte entfernt oder sie ist beschädigt oder das Dateisystem ist schreibgeschützt. Überprüfen Sie das bitte oder kontaktieren Sie uns unter support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Fehlerhaften Speicher emulieren</string>
 	<string name="core_entrance">Eingang</string>
 	<string name="error_enter_correct_name">Bitte geben Sie einen korrekten Namen ein</string>
@@ -529,45 +552,49 @@
 	<!-- Do not display all bookmark lists on the map -->
 	<string name="bookmark_lists_hide_all">Alle verbergen</string>
 	<string name="bookmark_lists_show_all">Alle anzeigen</string>
-	<string name="bookmarks_create_new_group">Erstelle eine neue Liste</string>
+	<string name="bookmarks_create_new_group">Neue Liste erstellen</string>
 	<!-- Bookmark categories screen -->
 	<string name="bookmarks_import">Lesezeichen importieren</string>
 	<string name="bookmarks_error_message_share_general">Freigabe wegen eines Anwendungsfehlers nicht möglich</string>
 	<string name="bookmarks_error_title_share_empty">Fehler bei der Freigabe</string>
-	<string name="bookmarks_error_message_share_empty">Es kann keine leere Liste freigegeben werden</string>
+	<string name="bookmarks_error_message_share_empty">Eine leere Liste kann nicht freigegeben werden</string>
 	<string name="bookmarks_error_title_empty_list_name">Der Name darf nicht leer sein</string>
 	<string name="bookmarks_error_message_empty_list_name">Bitte geben Sie den Listennamen ein</string>
 	<string name="bookmarks_new_list_hint">Neue Liste</string>
 	<string name="bookmarks_error_title_list_name_already_taken">Dieser Name ist bereits vergeben</string>
 	<string name="bookmarks_error_message_list_name_already_taken">Bitte wähle einen anderen Namen</string>
-	<string name="please_wait">Warten Sie mal…</string>
+	<string name="please_wait">Bitte warten…</string>
 	<string name="phone_number">Telefonnummer</string>
 	<string name="profile">OpenStreetMap-Profil</string>
 	<plurals name="bookmarks_detect_message">
-	  <item quantity="one">%d Datei wurde gefunden. Sie werden es nach der Konvertierung sehen.</item>
+	  <item quantity="one">%d Datei wurde gefunden. Sie werden sie nach der Konvertierung sehen.</item>
 	  <item quantity="other">%d Dateien wurden gefunden. Sie werden sie nach der Konvertierung sehen.</item>
 	</plurals>
 	<string name="common_check_internet_connection_dialog_title">Keine Internetverbindung</string>
 	<plurals name="objects">
-	  <item quantity="other">%d Platz</item>
+	  <item quantity="one">%d Objekt</item>
+	  <item quantity="other">%d Objekte</item>
 	</plurals>
 	<plurals name="places">
-	  <item quantity="other">%d Plätze</item>
+	  <item quantity="one">%d Ort</item>
+	  <item quantity="other">%d Orte</item>
 	</plurals>
 	<plurals name="tracks">
+	  <item quantity="one">%d Strecke</item>
 	  <item quantity="other">%d Strecken</item>
 	</plurals>
-	<string name="subtittle_opt_out">Einstellungen der Begleitung</string>
-	<string name="crash_reports">Berichte über die Fehler</string>
-	<string name="crash_reports_description">Wir können Ihre Daten benutzen, um Organic Maps zu entwickeln und zu verbessern. Die Änderungen werden nach dem Neustart der App in Kraft treten.</string>
+	<!-- used to choose between the Google and Android location services -->
+	<string name="subtittle_opt_out">Standortdienste</string>
+	<string name="crash_reports">Fehlerberichte</string>
+	<string name="crash_reports_description">Wir können Ihre Daten nutzen, um Organic Maps weiterzuentwickeln und zu verbessern. Die Änderungen werden nach dem Neustart der App wirksam werden.</string>
 	<string name="privacy_policy">Datenschutzerklärung</string>
 	<string name="terms_of_use">Nutzungsbedingungen</string>
 	<string name="button_layer_traffic">Staus</string>
 	<string name="button_layer_subway">U-Bahn</string>
-	<string name="layers_title">Kartenschichten</string>
+	<string name="layers_title">Kartenebenen</string>
 	<string name="subway_data_unavailable">Die U-Bahnkarte steht nicht zur Verfügung</string>
 	<string name="bookmarks_empty_list_title">Die Liste ist leer</string>
-	<string name="bookmarks_empty_list_message">Um eine neue Markierung hinzuzufügen, drücken Sie auf das Sternzeichen in der Karte des Objekts</string>
+	<string name="bookmarks_empty_list_message">Zum Hinzufügen eine Lesezeichens tippen Sie in der Karte auf den Ort und dann unten auf das Sternchen</string>
 	<string name="category_desc_more">…mehr</string>
 	<string name="export_file">Datei exportieren</string>
 	<string name="list_settings">Listeneinstellungen</string>
@@ -576,7 +603,7 @@
 	<string name="limited_access">Privater Zugriff</string>
 	<string name="bookmark_list_description_hint">Fügen Sie die Beschreibung hinzu (Text oder html)</string>
 	<string name="not_shared">Persönlich</string>
-	<string name="speedcams_alert_title">Geschwindigkeitskameras</string>
+	<string name="speedcams_alert_title">Blitzer</string>
 	<string name="speedcam_option_auto">Auto</string>
 	<string name="speedcam_option_always">Immer</string>
 	<string name="speedcam_option_never">Niemals</string>
@@ -584,11 +611,11 @@
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Karten werden geladen</string>
 	<string name="power_managment_title">Stromsparmodus</string>
-	<string name="power_managment_description">Falls der Stromsparmodus aktiviert ist, wird die App stromintensive Prozesse je nach dem aktuellen Ladezustand deaktivieren</string>
+	<string name="power_managment_description">Wenn der Stromsparmodus aktiviert ist, wird die App stromintensive Funktionen je nach aktuellem Ladezustand des Akkus deaktivieren</string>
 	<string name="power_managment_setting_never">Niemals</string>
 	<string name="power_managment_setting_auto">Auto</string>
 	<string name="power_managment_setting_manual_max">Maximale Stromsparung</string>
-	<string name="enable_logging_warning_message">Diese Option wird aktiviert, um Aktivitäten zwecks Diagnostik zu loggen. Das hilft unserem Team Probleme mit der App zu erkennen. Aktivieren Sie diese Option nur auf Ersuchen des Organic Maps-Supports.</string>
+	<string name="enable_logging_warning_message">Diese Option wird aktiviert, um Aktivitäten zwecks Diagnostik aufzuzeichnen. Das hilft unserem Team, Probleme mit der App zu erkennen. Aktivieren Sie diese Option nur auf Ersuchen des Organic Maps-Supports.</string>
 	<string name="access_rules_author_only">Online bearbeiten</string>
 	<string name="driving_options_title">Routenbeschränkungen</string>
 	<string name="driving_options_subheader">In jeder Reiseroute vermeiden</string>
@@ -596,8 +623,8 @@
 	<string name="avoid_unpaved">Erdwege</string>
 	<string name="avoid_ferry">Fährstellen</string>
 	<string name="avoid_motorways">Autobahnen</string>
-	<string name="unable_to_calc_alert_title">Es ist unmöglich, eine Route zu planen</string>
-	<string name="unable_to_calc_alert_subtitle">Leider konnten wir keine Route mit ausgewählten Optionen planen. Ändern Sie die Einstellungen und versuchen Sie den Versuch erneut</string>
+	<string name="unable_to_calc_alert_title">Route kann nicht berechnet werden</string>
+	<string name="unable_to_calc_alert_subtitle">Leider konnten wir keine Route mit den gewählten Optionen erstellen. Ändern Sie die Einstellungen und versuchen Sie es erneut</string>
 	<string name="define_to_avoid_btn">Umwege einstellen</string>
 	<string name="change_driving_options_btn">Routenbeschränkungen aktiv</string>
 	<string name="toll_road">Mautstraße</string>
@@ -606,13 +633,21 @@
 	<string name="avoid_toll_roads_placepage">Mautstraßen vermeiden</string>
 	<string name="avoid_unpaved_roads_placepage">Erdwege vermeiden</string>
 	<string name="avoid_ferry_crossing_placepage">Fährstellen vermeiden</string>
+	<!-- A generic "Yes" button in dialogs -->
+	<string name="yes">Ja</string>
+	<!-- A generic "No" button in dialogs -->
+	<string name="no">Nein</string>
+	<!-- E.g. "WiFi:Yes" -->
+	<string name="yes_available">Ja</string>
+	<!-- E.g. "WiFi:No" -->
+	<string name="no_available">Nein</string>
 	<string name="ok">Ok</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Sortieren…</string>
 	<!-- Android, title, max 20-22 symbols -->
 	<string name="sort_bookmarks">Lesezeichen sortieren</string>
 	<!-- Android -->
-	<string name="by_default">Default</string>
+	<string name="by_default">Nach Voreinstellung</string>
 	<!-- Android -->
 	<string name="by_type">Nach Kategorie</string>
 	<!-- Android -->
@@ -642,14 +677,14 @@
 	<string name="fuel_places">Tankstellen</string>
 	<string name="medicine">Medizin</string>
 	<string name="search_in_the_list">In der Liste suchen</string>
-	<string name="religious_places">Heilige Orte</string>
+	<string name="religious_places">Religiöse Stätten</string>
 	<string name="select_list">Wählen Sie die Liste</string>
 	<string name="transit_not_found">Die U-Bahn-Navigation ist in dieser Region noch nicht verfügbar</string>
 	<string name="dialog_pedestrian_route_is_long_header">Keine U-Bahn-Route gefunden</string>
-	<string name="dialog_pedestrian_route_is_long_message">Wählen Sie den Start- und Endpunkt der Route, die am nächsten zur U-Bahn-Station liegen</string>
-	<string name="button_layer_isolines">Terrain</string>
-	<string name="isolines_activation_error_dialog">Um den Topographie-Layer benutzen zu können, aktualisieren oder laden Sie die Karte der benötigten Gegend herunter</string>
-	<string name="isolines_location_error_dialog">Topographie-Layer sind in dieser Region noch nicht verfügbar</string>
+	<string name="dialog_pedestrian_route_is_long_message">Wählen Sie einen zu einer U-Bahn-Station nähergelegenen Start- oder Endpunkt</string>
+	<string name="button_layer_isolines">Gelände</string>
+	<string name="isolines_activation_error_dialog">Um die Topographieebene nutzen zu können, aktualisieren Sie die Karte des betreffenden Gebiets oder laden Sie diese herunter</string>
+	<string name="isolines_location_error_dialog">Topographieebene ist für dieses Gebiet noch nicht verfügbar</string>
 	<string name="elevation_profile_ascent">Bergauf</string>
 	<string name="elevation_profile_descent">Bergab</string>
 	<string name="elevation_profile_minaltitude">Min. Höhe</string>
@@ -657,13 +692,25 @@
 	<string name="elevation_profile_difficulty">Schwierigkeitsgrad</string>
 	<string name="elevation_profile_distance">Entf.:</string>
 	<string name="elevation_profile_time">Dauer:</string>
-	<string name="isolines_toast_zooms_1_10">Karte vergrößern, um Isolinien zu sehen</string>
-	<string name="download_map_title">Download der Weltkarte</string>
+	<string name="isolines_toast_zooms_1_10">Karte vergrößern, um Höhenlinien sichtbar zu machen</string>
+	<string name="download_map_title">Herunterladen der Weltkarte</string>
+	<!-- Used in DownloadResources startup screen -->
+	<string name="disk_error">Ordner kann nicht erstellt und Dateien können nicht auf den Gerätespeicher oder die SD-Karte verschoben werden</string>
+	<!-- Used in DownloadResources startup screen -->
+	<string name="disk_error_title">Speicherfehler</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="connection_failure">Verbindungsfehler</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable_title">USB-Kabel trennen</string>
 	<string name="enable_screen_sleep">Bildschirm schlafen lassen</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Wenn diese Option aktiviert ist, kann der Bildschirm nach einer gewissen Zeit der Inaktivität in den Ruhezustand versetzt werden.</string>
+	<!-- A preference title; keep short! -->
+	<string name="enable_show_on_lock_screen">Auf dem Sperrbildschirm anzeigen</string>
+	<!-- Description in preferences -->
+	<string name="enable_show_on_lock_screen_description">Wenn aktiviert, muss das Gerät nicht jedes Mal entsperrt werden, wenn die App ausgeführt wird.</string>
+	<!-- OpenStreetMap text on splash screen -->
+	<string name="splash_subtitle">Kartendaten von OpenStreetMap</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway">Seilbahn</string>
@@ -688,6 +735,7 @@
 	<string name="type.amenity.bench">Parkbank</string>
 	<string name="type.amenity.bicycle_parking">Fahrradständer</string>
 	<string name="type.amenity.bicycle_rental">Fahrradverleih</string>
+	<string name="type.amenity.bicycle_repair_station">Fahrrad-Reparaturstation</string>
 	<string name="type.amenity.brothel">Bordell</string>
 	<string name="type.amenity.bureau_de_change">Geldwechselstelle</string>
 	<string name="type.amenity.bus_station">Busbahnhof</string>
@@ -774,7 +822,7 @@
 	<string name="type.recycling.cartons">Getränkekarton</string>
 	<string name="type.amenity.sanitary_dump_station">VE-Station</string>
 	<string name="type.amenity.school">Schule</string>
-	<string name="type.amenity.shelter">Schutzhütte</string>
+	<string name="type.amenity.shelter">Unterstand</string>
 	<string name="type.amenity.shower">Dusche</string>
 	<string name="type.amenity.telephone">Telefon</string>
 	<string name="type.amenity.theatre">Theater</string>
@@ -783,13 +831,21 @@
 	<string name="type.amenity.university">Universität</string>
 	<string name="type.amenity.vending_machine">Verkaufsautomat</string>
 	<string name="type.amenity.vending_machine.cigarettes">Zigarettenautomat</string>
+	<string name="type.amenity.vending_machine.coffee">Kaffeeautomat</string>
+	<string name="type.amenity.vending_machine.condoms">Kondomautomat</string>
 	<string name="type.amenity.vending_machine.drinks">Getränkeautomat</string>
+	<string name="type.amenity.vending_machine.food">Essensautomat</string>
+	<string name="type.amenity.vending_machine.newspapers">Zeitungsautomat</string>
 	<string name="type.amenity.vending_machine.parking_tickets">Parkautomat</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">Fahrkartenautomat</string>
+	<string name="type.amenity.vending_machine.sweets">Süßigkeitenautomat</string>
+	<string name="type.amenity.vending_machine.excrement_bags">Hundekotbeutelspender</string>
+	<string name="type.amenity.parcel_locker">Paketstation</string>
 	<string name="type.amenity.vending_machine.fuel">Tankautomat</string>
 	<string name="type.amenity.veterinary">Tierarzt</string>
 	<string name="type.amenity.waste_basket">Abfalleimer</string>
 	<string name="type.amenity.waste_disposal">Müllcontainer</string>
+	<string name="type.amenity.waste_transfer_station">Müllumladestation</string>
 	<string name="type.amenity.water_point">Wasseranschluss</string>
 	<string name="type.barrier">Barriere</string>
 	<string name="type.barrier.block">Block</string>
@@ -824,10 +880,12 @@
 	<string name="type.building.address">Gebäude</string>
 	<string name="type.building.has_parts">Gebäude</string>
 	<string name="type.building.train_station">Bahnhof</string>
+	<string name="type.cemetery.grave">Grab</string>
 	<string name="type.craft.brewery">Brauerei</string>
 	<string name="type.craft.carpenter">Zimmermann</string>
 	<string name="type.craft.electrician">Elektriker</string>
 	<string name="type.craft.gardener">Landschaftsgärtner</string>
+	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Heizung</string>
 	<string name="type.craft.metal_construction">Schlosser</string>
 	<string name="type.craft.painter">Maler</string>
@@ -835,91 +893,91 @@
 	<string name="type.craft.plumber">Installateur</string>
 	<string name="type.craft.shoemaker">Schuhmacher</string>
 	<string name="type.craft.tailor">Schneider</string>
-	<string name="type.cuisine.african">Afrikanische Küche</string>
-	<string name="type.cuisine.american">Amerikanische Küche</string>
-	<string name="type.cuisine.arab">Arabische Küche</string>
-	<string name="type.cuisine.argentinian">Argentinische Küche</string>
-	<string name="type.cuisine.asian">Asiatische Küche</string>
-	<string name="type.cuisine.austrian">Österreichische Küche</string>
+	<string name="type.cuisine.african">Afrikanisch</string>
+	<string name="type.cuisine.american">Amerikanisch</string>
+	<string name="type.cuisine.arab">Arabisch</string>
+	<string name="type.cuisine.argentinian">Argentinisch</string>
+	<string name="type.cuisine.asian">Asiatisch</string>
+	<string name="type.cuisine.austrian">Österreichisch</string>
 	<string name="type.cuisine.bagel">Bagel</string>
-	<string name="type.cuisine.balkan">Balkanküche</string>
+	<string name="type.cuisine.balkan">Balkanisch</string>
 	<string name="type.cuisine.barbecue">Grill</string>
-	<string name="type.cuisine.bavarian">Bayerische Küche</string>
+	<string name="type.cuisine.bavarian">Bayerisch</string>
 	<string name="type.cuisine.beef_bowl">Gyūdon</string>
-	<string name="type.cuisine.brazilian">Brasilianische Küche</string>
+	<string name="type.cuisine.brazilian">Brasilianisch</string>
 	<string name="type.cuisine.breakfast">Frühstück</string>
 	<string name="type.cuisine.burger">Burger</string>
 	<string name="type.cuisine.buschenschank">Buschenschank</string>
 	<string name="type.cuisine.cake">Kuchen</string>
-	<string name="type.cuisine.caribbean">Karibische Küche</string>
+	<string name="type.cuisine.caribbean">Karibisch</string>
 	<string name="type.cuisine.chicken">Hühnchen</string>
-	<string name="type.cuisine.chinese">Chinesische Küche</string>
+	<string name="type.cuisine.chinese">Chinesisch</string>
 	<string name="type.cuisine.coffee_shop">Kaffee</string>
 	<string name="type.cuisine.crepe">Crêpe</string>
-	<string name="type.cuisine.croatian">Kroatische Küche</string>
+	<string name="type.cuisine.croatian">Kroatisch</string>
 	<string name="type.cuisine.curry">Curry</string>
-	<string name="type.cuisine.deli">Deli-Küche</string>
+	<string name="type.cuisine.deli">Delikatessen</string>
 	<string name="type.cuisine.diner">Diner</string>
 	<string name="type.cuisine.donut">Donuts</string>
-	<string name="type.cuisine.ethiopian">Äthiopische Küche</string>
-	<string name="type.cuisine.filipino">Philippinische Küche</string>
-	<string name="type.cuisine.fine_dining">Gehobene Küche</string>
+	<string name="type.cuisine.ethiopian">Äthiopisch</string>
+	<string name="type.cuisine.filipino">Philippinisch</string>
+	<string name="type.cuisine.fine_dining">Gehoben</string>
 	<string name="type.cuisine.fish">Fisch</string>
 	<string name="type.cuisine.fish_and_chips">Fish and Chips</string>
-	<string name="type.cuisine.french">Französische Küche</string>
+	<string name="type.cuisine.french">Französisch</string>
 	<string name="type.cuisine.friture">Pommes</string>
-	<string name="type.cuisine.georgian">Georgische Küche</string>
-	<string name="type.cuisine.german">Deutsche Küche</string>
-	<string name="type.cuisine.greek">Griechische Küche</string>
+	<string name="type.cuisine.georgian">Georgisch</string>
+	<string name="type.cuisine.german">Deutsch</string>
+	<string name="type.cuisine.greek">Griechisch</string>
 	<string name="type.cuisine.grill">Grill</string>
 	<string name="type.cuisine.heuriger">Heuriger</string>
 	<string name="type.cuisine.hotdog">Hotdog</string>
-	<string name="type.cuisine.hungarian">Ungarische Küche</string>
+	<string name="type.cuisine.hungarian">Ungarisch</string>
 	<string name="type.cuisine.ice_cream">Eis</string>
-	<string name="type.cuisine.indian">Indische Küche</string>
-	<string name="type.cuisine.indonesian">Indonesische Küche</string>
-	<string name="type.cuisine.international">Internationale Küche</string>
-	<string name="type.cuisine.irish">Irische Küche</string>
-	<string name="type.cuisine.italian">Italienische Küche</string>
-	<string name="type.cuisine.italian_pizza">Italienische Küche; Pizza</string>
-	<string name="type.cuisine.japanese">Japanische Küche</string>
+	<string name="type.cuisine.indian">Indisch</string>
+	<string name="type.cuisine.indonesian">Indonesisch</string>
+	<string name="type.cuisine.international">International</string>
+	<string name="type.cuisine.irish">Irisch</string>
+	<string name="type.cuisine.italian">Italienisch</string>
+	<string name="type.cuisine.italian_pizza">Italienisch; Pizza</string>
+	<string name="type.cuisine.japanese">Japanisch</string>
 	<string name="type.cuisine.kebab">Kebap</string>
-	<string name="type.cuisine.korean">Koreanische Küche</string>
-	<string name="type.cuisine.lao">Laotische Küche</string>
-	<string name="type.cuisine.lebanese">Libanesische Küche</string>
-	<string name="type.cuisine.local">Lokale Küche</string>
-	<string name="type.cuisine.malagasy">Madegassische Küche</string>
-	<string name="type.cuisine.malaysian">Malaysische Küche</string>
-	<string name="type.cuisine.mediterranean">Mediterrane Küche</string>
-	<string name="type.cuisine.mexican">Mexikanische Küche</string>
-	<string name="type.cuisine.moroccan">Marokkanische Küche</string>
+	<string name="type.cuisine.korean">Koreanisch</string>
+	<string name="type.cuisine.lao">Laotisch</string>
+	<string name="type.cuisine.lebanese">Libanesisch</string>
+	<string name="type.cuisine.local">Regional</string>
+	<string name="type.cuisine.malagasy">Madegassisch</string>
+	<string name="type.cuisine.malaysian">Malaysisch</string>
+	<string name="type.cuisine.mediterranean">Mediterran</string>
+	<string name="type.cuisine.mexican">Mexikanisch</string>
+	<string name="type.cuisine.moroccan">Marokkanisch</string>
 	<string name="type.cuisine.noodles">Nudeln</string>
-	<string name="type.cuisine.oriental">Orientalische Küche</string>
+	<string name="type.cuisine.oriental">Orientalisch</string>
 	<string name="type.cuisine.pancake">Pfannkuchen</string>
 	<string name="type.cuisine.pasta">Pasta</string>
-	<string name="type.cuisine.persian">Persische Küche</string>
-	<string name="type.cuisine.peruvian">Peruanische Küche</string>
+	<string name="type.cuisine.persian">Persisch</string>
+	<string name="type.cuisine.peruvian">Peruanisch</string>
 	<string name="type.cuisine.pizza">Pizza</string>
-	<string name="type.cuisine.polish">Polnische Küche</string>
-	<string name="type.cuisine.portuguese">Portugiesische Küche</string>
+	<string name="type.cuisine.polish">Polnisch</string>
+	<string name="type.cuisine.portuguese">Portugiesisch</string>
 	<string name="type.cuisine.ramen">Ramen</string>
-	<string name="type.cuisine.regional">Regionale Küche</string>
-	<string name="type.cuisine.russian">Russische Küche</string>
+	<string name="type.cuisine.regional">Regional</string>
+	<string name="type.cuisine.russian">Russisch</string>
 	<string name="type.cuisine.sandwich">Sandwich</string>
 	<string name="type.cuisine.sausage">Wurst</string>
 	<string name="type.cuisine.savory_pancakes">Herzhafte Pfannkuchen</string>
 	<string name="type.cuisine.seafood">Meeresfrüchte</string>
 	<string name="type.cuisine.soba">Soba</string>
-	<string name="type.cuisine.spanish">Spanische Küche</string>
+	<string name="type.cuisine.spanish">Spanisch</string>
 	<string name="type.cuisine.steak_house">Steakhaus</string>
 	<string name="type.cuisine.sushi">Sushi</string>
 	<string name="type.cuisine.tapas">Tapas</string>
 	<string name="type.cuisine.tea">Tee</string>
-	<string name="type.cuisine.thai">Thailändische Küche</string>
-	<string name="type.cuisine.turkish">Türkische Küche</string>
-	<string name="type.cuisine.vegan">Vegane Küche</string>
-	<string name="type.cuisine.vegetarian">Vegetarische Küche</string>
-	<string name="type.cuisine.vietnamese">Vietnamesische Küche</string>
+	<string name="type.cuisine.thai">Thailändisch</string>
+	<string name="type.cuisine.turkish">Türkisch</string>
+	<string name="type.cuisine.vegan">Vegan</string>
+	<string name="type.cuisine.vegetarian">Vegetarisch</string>
+	<string name="type.cuisine.vietnamese">Vietnamesisch</string>
 	<string name="type.emergency">Notfall</string>
 	<string name="type.emergency.defibrillator">Defibrillator</string>
 	<string name="type.emergency.fire_hydrant">Hydrant</string>
@@ -930,42 +988,55 @@
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway">Straße</string>
 	<string name="type.highway.bridleway">Reitweg</string>
-	<string name="type.highway.bridleway.bridge">Reitweg</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.bridleway.bridge">Brücke</string>
 	<string name="type.highway.bridleway.permissive">Reitweg</string>
-	<string name="type.highway.bridleway.tunnel">Reitweg</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.bridleway.tunnel">Tunnel</string>
 	<string name="type.highway.bus_stop">Bushaltestelle</string>
 	<string name="type.highway.construction">Straße im Bau</string>
 	<string name="type.highway.cycleway">Radweg</string>
-	<string name="type.highway.cycleway.bridge">Radweg</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.cycleway.bridge">Brücke</string>
 	<string name="type.highway.cycleway.permissive">Radweg</string>
-	<string name="type.highway.cycleway.tunnel">Radweg</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.cycleway.tunnel">Tunnel</string>
 	<string name="type.highway.elevator">Aufzug</string>
 	<string name="type.highway.footway">Fußweg</string>
 	<string name="type.highway.footway.alpine_hiking">Alpinwanderweg</string>
 	<string name="type.highway.footway.area">Fußweg</string>
-	<string name="type.highway.footway.bridge">Fußweg</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.footway.bridge">Brücke</string>
 	<string name="type.highway.footway.demanding_alpine_hiking">Anspruchsvoller Alpinwanderweg</string>
 	<string name="type.highway.footway.demanding_mountain_hiking">Anspruchsvoller Bergwanderweg</string>
 	<string name="type.highway.footway.difficult_alpine_hiking">Schwieriger Alpinwanderweg</string>
 	<string name="type.highway.footway.hiking">Wanderweg</string>
 	<string name="type.highway.footway.mountain_hiking">Bergwanderweg</string>
 	<string name="type.highway.footway.permissive">Fußweg</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Fußgängertunnel</string>
 	<string name="type.highway.ford">Furt</string>
 	<string name="type.highway.living_street">Spielstraße</string>
-	<string name="type.highway.living_street.bridge">Spielstraße</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.living_street.bridge">Brücke</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.living_street.tunnel">Spielstraßentunnel</string>
 	<string name="type.highway.motorway">Autobahn</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.motorway.bridge">Autobahnbrücke</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.motorway.tunnel">Autobahntunnel</string>
 	<string name="type.highway.motorway_junction">Autobahnausfahrt</string>
 	<string name="type.highway.motorway_link">Autobahnauffahrt</string>
-	<string name="type.highway.motorway_link.bridge">Autobahnauffahrt</string>
-	<string name="type.highway.motorway_link.tunnel">Autobahnauffahrt</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway_link.bridge">Brücke</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway_link.tunnel">Tunnel</string>
 	<string name="type.highway.path">Weg</string>
 	<string name="type.highway.path.alpine_hiking">Alpinwanderweg</string>
 	<string name="type.highway.path.bicycle">Radweg</string>
-	<string name="type.highway.path.bridge">Weg</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.path.bridge">Brücke</string>
 	<string name="type.highway.path.demanding_alpine_hiking">Anspruchsvoller Alpinwanderweg</string>
 	<string name="type.highway.path.demanding_mountain_hiking">Anspruchsvoller Bergwanderweg</string>
 	<string name="type.highway.path.difficult_alpine_hiking">Schwieriger Alpinwanderweg</string>
@@ -973,52 +1044,76 @@
 	<string name="type.highway.path.horse">Reitweg</string>
 	<string name="type.highway.path.mountain_hiking">Bergwanderweg</string>
 	<string name="type.highway.path.permissive">Weg</string>
-	<string name="type.highway.path.tunnel">Weg</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.path.tunnel">Tunnel</string>
 	<string name="type.highway.pedestrian">Fußgängerzone</string>
 	<string name="type.highway.pedestrian.area">Fußgängerzone</string>
-	<string name="type.highway.pedestrian.bridge">Fußgängerzone</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.pedestrian.bridge">Brücke</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.pedestrian.tunnel">Fußgängertunnel</string>
 	<string name="type.highway.primary">Hauptstraße</string>
-	<string name="type.highway.primary.bridge">Hauptstraße</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary.bridge">Brücke</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.primary.tunnel">Hauptstraßentunnel</string>
 	<string name="type.highway.primary_link">Hauptstraße</string>
-	<string name="type.highway.primary_link.bridge">Hauptstraße</string>
-	<string name="type.highway.primary_link.tunnel">Hauptstraße</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary_link.bridge">Brücke</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary_link.tunnel">Tunnel</string>
 	<string name="type.highway.raceway">Rennbahn</string>
 	<string name="type.highway.residential">Wohnstraße</string>
 	<string name="type.highway.residential.area">Wohnstraße</string>
-	<string name="type.highway.residential.bridge">Wohnstraße</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.residential.bridge">Brücke</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.residential.tunnel">Wohnstraßentunnel</string>
 	<string name="type.highway.rest_area">Rastplatz</string>
 	<string name="type.highway.road">Straße</string>
-	<string name="type.highway.road.bridge">Straße</string>
-	<string name="type.highway.road.tunnel">Straßentunnel</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.road.bridge">Brücke</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.road.tunnel">Tunnel</string>
 	<string name="type.highway.secondary">Straße</string>
-	<string name="type.highway.secondary.bridge">Straße</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary.bridge">Brücke</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.secondary.tunnel">Straßentunnel</string>
 	<string name="type.highway.secondary_link">Straße</string>
-	<string name="type.highway.secondary_link.bridge">Straße</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary_link.bridge">Brücke</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.secondary_link.tunnel">Straßentunnel</string>
 	<string name="type.highway.service">Straße</string>
 	<string name="type.highway.service.area">Straße</string>
-	<string name="type.highway.service.bridge">Straße</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.service.bridge">Brücke</string>
 	<string name="type.highway.service.driveway">Zufahrt</string>
 	<string name="type.highway.service.parking_aisle">Straße</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.service.tunnel">Straßentunnel</string>
 	<string name="type.highway.services">Raststätte</string>
 	<string name="type.highway.speed_camera">Blitzer</string>
 	<string name="type.highway.steps">Stufen</string>
-	<string name="type.highway.steps.bridge">Stufen</string>
-	<string name="type.highway.steps.tunnel">Stufen</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.steps.bridge">Brücke</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.steps.tunnel">Tunnel</string>
 	<string name="type.highway.tertiary">Straße</string>
-	<string name="type.highway.tertiary.bridge">Straße</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary.bridge">Brücke</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.tertiary.tunnel">Straßentunnel</string>
 	<string name="type.highway.tertiary_link">Straße</string>
-	<string name="type.highway.tertiary_link.bridge">Straße</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary_link.bridge">Brücke</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.tertiary_link.tunnel">Straßentunnel</string>
 	<string name="type.highway.track">Straße</string>
 	<string name="type.highway.track.area">Straße</string>
-	<string name="type.highway.track.bridge">Straße</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.track.bridge">Brücke</string>
 	<string name="type.highway.track.grade1">Straße</string>
 	<string name="type.highway.track.grade2">Straße</string>
 	<string name="type.highway.track.grade3">Straße</string>
@@ -1026,17 +1121,24 @@
 	<string name="type.highway.track.grade5">Straße</string>
 	<string name="type.highway.track.no.access">Straße</string>
 	<string name="type.highway.track.permissive">Straße</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">Straßentunnel</string>
 	<string name="type.highway.traffic_signals">Verkehrsampel</string>
 	<string name="type.highway.trunk">Schnellstraße</string>
-	<string name="type.highway.trunk.bridge">Schnellstraße</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk.bridge">Brücke</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.trunk.tunnel">Schnellstraßentunnel</string>
 	<string name="type.highway.trunk_link">Schnellstraße</string>
-	<string name="type.highway.trunk_link.bridge">Schnellstraße</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk_link.bridge">Brücke</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.trunk_link.tunnel">Straßentunnel</string>
 	<string name="type.highway.unclassified">Straße</string>
 	<string name="type.highway.unclassified.area">Straße</string>
-	<string name="type.highway.unclassified.bridge">Straße</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.unclassified.bridge">Brücke</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.unclassified.tunnel">Straßentunnel</string>
 	<string name="type.area_highway.cycleway">Radweg</string>
 	<string name="type.area_highway.footway">Weg</string>
@@ -1100,7 +1202,7 @@
 	<string name="type.landuse.industrial">Industriegebiet</string>
 	<string name="type.landuse.landfill">Müllhalde</string>
 	<string name="type.landuse.meadow">Wiese</string>
-	<string name="type.landuse.military">Militärisch genutztes Gebiet</string>
+	<string name="type.landuse.military">Militärgebiet</string>
 	<string name="type.landuse.orchard">Obstplantage</string>
 	<string name="type.landuse.quarry">Steinbruch</string>
 	<string name="type.landuse.railway">Eisenbahnanlagen</string>
@@ -1132,9 +1234,7 @@
 	<string name="type.leisure.sauna">Sauna</string>
 	<string name="type.leisure.slipway">Bootsrampe</string>
 	<string name="type.leisure.sports_centre">Sportzentrum</string>
-	<string name="type.leisure.sports_centre.climbing">Kletterhalle</string>
-	<string name="type.leisure.sports_centre.shooting">Schießanlage</string>
-	<string name="type.leisure.sports_centre.swimming">Schwimmhalle</string>
+	<string name="type.sport.climbing">Kletterhalle</string>
 	<string name="type.leisure.stadium">Stadion</string>
 	<string name="type.leisure.swimming_pool">Schwimmbecken</string>
 	<string name="type.leisure.swimming_pool.private">Schwimmbecken</string>
@@ -1145,6 +1245,7 @@
 	<string name="type.man_made.cairn">Steinhaufen</string>
 	<string name="type.man_made.chimney">Fabrikschornstein</string>
 	<string name="type.man_made.cutline">Schneise</string>
+	<string name="type.man_made.survey_point">Vermessungspunkt</string>
 	<string name="type.man_made.lighthouse">Leuchtturm</string>
 	<string name="type.man_made.pier">Anlegestelle</string>
 	<string name="type.man_made.silo">Silo</string>
@@ -1161,7 +1262,7 @@
 	<string name="type.military.bunker">Bunker</string>
 	<string name="type.mountain_pass">Gebirgspass</string>
 	<string name="type.natural">Natur</string>
-	<string name="type.natural.bare_rock">Nackter Fels</string>
+	<string name="type.natural.bare_rock">Kahler Fels</string>
 	<string name="type.natural.bay">Bucht</string>
 	<string name="type.natural.beach">Strand</string>
 	<string name="type.natural.beach.sand">Sandstrand</string>
@@ -1169,17 +1270,21 @@
 	<string name="type.natural.cape">Kap</string>
 	<string name="type.natural.cave_entrance">Höhle</string>
 	<string name="type.natural.cliff">Klippe</string>
-	<string name="type.natural.coastline">Küstenlinie</string>
+	<string name="type.natural.earth_bank">Steilabhang</string>
+	<string name="type.man_made.embankment">Damm</string>
+	<string name="type.natural.coastline">Küste</string>
 	<string name="type.natural.geyser">Geysir</string>
 	<string name="type.natural.glacier">Gletscher</string>
 	<string name="type.natural.grassland">Grasland</string>
 	<string name="type.natural.heath">Heide</string>
 	<string name="type.natural.hot_spring">Thermalquelle</string>
 	<string name="type.natural.water.lake">See</string>
+	<string name="type.natural.water.lock">Schleusenkammer</string>
 	<string name="type.natural.water.pond">Teich</string>
 	<string name="type.natural.water.reservoir">Reservoir</string>
 	<string name="type.natural.water.basin">Wasserbecken</string>
 	<string name="type.natural.water.river">Fluss</string>
+	<string name="type.natural.land">Land</string>
 	<string name="type.natural.meadow">Wiese</string>
 	<string name="type.natural.orchard">Garten</string>
 	<string name="type.natural.peak">Gipfel</string>
@@ -1202,8 +1307,10 @@
 	<string name="type.office.government">Regierungsstelle</string>
 	<string name="type.office.insurance">Versicherungsbüro</string>
 	<string name="type.office.lawyer">Anwaltsbüro</string>
-	<string name="type.office.ngo">Büro einer Nichtregierungsorganisation</string>
+	<string name="type.office.ngo">Nichtregierungsorganisation</string>
 	<string name="type.office.telecommunication">Mobilfunkbetreiber</string>
+	<string name="type.organic.only">Bio</string>
+	<string name="type.organic.yes">Bio</string>
 	<string name="type.place">Ort</string>
 	<string name="type.place.city">Großstadt</string>
 	<string name="type.place.city.capital">Hauptstadt</string>
@@ -1344,21 +1451,27 @@
 	<string name="type.shop.convenience">Gemischtwarenladen</string>
 	<string name="type.shop.copyshop">Kopierladen</string>
 	<string name="type.shop.cosmetics">Kosmetikgeschäft</string>
+	<string name="type.shop.deli">Feinkostgeschäft</string>
 	<string name="type.shop.department_store">Kaufhaus</string>
 	<string name="type.shop.doityourself">Baumarkt</string>
 	<string name="type.shop.dry_cleaning">Chemische Reinigung</string>
 	<string name="type.shop.electronics">Elektronik</string>
 	<string name="type.shop.erotic">Erotikladen</string>
 	<string name="type.shop.fabric">Textilgeschäft</string>
+	<string name="type.shop.farm">Hoflebensmittelladen</string>
 	<string name="type.shop.florist">Florist</string>
 	<string name="type.shop.funeral_directors">Bestattungsinstitut</string>
 	<string name="type.shop.furniture">Möbelgeschäft</string>
 	<string name="type.shop.garden_centre">Gärtnerei</string>
 	<string name="type.shop.gift">Geschenkladen</string>
 	<string name="type.shop.greengrocer">Gemüseladen</string>
+	<string name="type.shop.grocery">Lebensmittelgeschäft</string>
 	<string name="type.shop.hairdresser">Friseur</string>
-	<string name="type.shop.hardware">Eisenwarengeschäft</string>
+	<string name="type.shop.hardware">Baumarkt</string>
+	<string name="type.shop.health_food">Reformhaus</string>
+	<string name="type.shop.houseware">Haushaltswarengeschäft</string>
 	<string name="type.shop.jewelry">Juweliergeschäft</string>
+	<string name="type.shop.kitchen">Küchengeschäft</string>
 	<string name="type.shop.laundry">Wäscherei</string>
 	<string name="type.shop.mall">Einkaufszentrum</string>
 	<string name="type.shop.massage">Massagesalon</string>
@@ -1370,10 +1483,12 @@
 	<string name="type.shop.newsagent">Zeitungsstand</string>
 	<string name="type.shop.optician">Optiker</string>
 	<string name="type.shop.outdoor">Outdoor-Ausrüstung</string>
+	<string name="type.shop.pastry">Gebäck</string>
 	<string name="type.shop.pawnbroker">Pfandleihe</string>
 	<string name="type.shop.pet">Tierhandlung</string>
 	<string name="type.shop.photo">Fotofachgeschäft</string>
 	<string name="type.shop.seafood">Fischhändler</string>
+	<string name="type.shop.second_hand">Second-Hand-Laden</string>
 	<string name="type.shop.shoes">Schuhgeschäft</string>
 	<string name="type.shop.sports">Sportartikel</string>
 	<string name="type.shop.stationery">Schreibwarenladen</string>
@@ -1388,28 +1503,58 @@
 	<string name="type.shop.video">Videothek</string>
 	<string name="type.shop.video_games">Gameshop</string>
 	<string name="type.shop.wine">Wein- und Spirituosengeschäft</string>
+	<string name="type.shop.antiques">Antiquitäten</string>
+	<string name="type.shop.art">Kunstgeschäft</string>
+	<string name="type.shop.baby_goods">Kinderladen</string>
+	<string name="type.shop.bag">Taschen Shop</string>
+	<string name="type.shop.boutique">Boutique</string>
+	<string name="type.shop.charity">Wohltätigkeitsladen</string>
+	<string name="type.shop.cheese">Käseladen</string>
+	<string name="type.shop.craft">Kunst und Handwerk</string>
+	<string name="type.shop.dairy">Milchprodukte</string>
+	<string name="type.shop.electrical">Elektrogeschäft</string>
+	<string name="type.shop.fishing">Angelgeschäft</string>
+	<string name="type.shop.interior_decoration">Innendekorationen</string>
+	<string name="type.shop.lottery">Lotteriescheine</string>
+	<string name="type.shop.medical_supply">Medizinische Versorgung</string>
+	<string name="type.shop.nutrition_supplements">Nahrungsergänzungsmittel</string>
+	<string name="type.shop.paint">Farben</string>
+	<string name="type.shop.perfumery">Parfümerie</string>
+	<string name="type.shop.sewing">Nähzubehör</string>
+	<string name="type.shop.storage_rental">Speichermiete</string>
+	<string name="type.shop.tobacco">Tabak</string>
+	<string name="type.shop.trade">Handelsbedarf</string>
+	<string name="type.shop.watches">Uhren</string>
+	<string name="type.shop.wholesale">Großhandelsgeschäft</string>
 	<string name="type.sport">Sport</string>
 	<string name="type.sport.american_football">American Football</string>
 	<string name="type.sport.archery">Bogenschießen</string>
 	<string name="type.sport.athletics">Leichtathletik</string>
-	<string name="type.sport.australian_football">Rugby</string>
+	<string name="type.sport.australian_football">Australian Football</string>
 	<string name="type.sport.baseball">Baseball</string>
 	<string name="type.sport.basketball">Basketball</string>
+	<string name="type.sport.beachvolleyball">Beachvolleyball</string>
 	<string name="type.sport.bowls">Bowls</string>
+	<string name="type.sport.chess">Schach</string>
 	<string name="type.sport.cricket">Cricket</string>
 	<string name="type.sport.curling">Curling</string>
-	<string name="type.sport.diving">Tauchen</string>
-	<string name="type.sport.equestrian">Reiten</string>
+	<string name="type.sport.equestrian">Reitsport</string>
 	<string name="type.sport.golf">Golf</string>
 	<string name="type.sport.gymnastics">Gymnastik</string>
 	<string name="type.sport.handball">Handball</string>
-	<string name="type.sport.multi">verschiedene Sportarten</string>
-	<string name="type.sport.scuba_diving">Sporttauchen</string>
-	<string name="type.sport.shooting">Sportschießen</string>
-	<string name="type.sport.skiing">Skisport</string>
+	<string name="type.sport.multi">Verschiedene Sportarten</string>
+	<!-- Used to tag a scuba diving site. -->
+	<string name="type.sport.scuba_diving">Gerätetauchen</string>
+	<string name="type.sport.shooting">Schießen</string>
+	<string name="type.sport.skateboard">Skateboarding</string>
+	<string name="type.sport.skiing">Skifahren</string>
 	<string name="type.sport.soccer">Fußball</string>
 	<string name="type.sport.swimming">Schwimmen</string>
+	<string name="type.sport.table_tennis">Tischtennis</string>
 	<string name="type.sport.tennis">Tennisspielfeld</string>
+	<string name="type.sport.volleyball">Volleyball</string>
+	<string name="type.sport.9pin">Bowling</string>
+	<string name="type.sport.10pin">Bowling</string>
 	<string name="type.tourism">Tourismus</string>
 	<string name="type.tourism.alpine_hut">Berghütte</string>
 	<string name="type.tourism.apartment">Ferienwohnung</string>
@@ -1439,7 +1584,7 @@
 	<string name="type.tourism.resort">Resort</string>
 	<string name="type.tourism.theme_park">Freizeitpark</string>
 	<string name="type.tourism.viewpoint">Aussichtspunkt</string>
-	<string name="type.tourism.wilderness_hut">Wildnishütte</string>
+	<string name="type.tourism.wilderness_hut">Waldhütte</string>
 	<string name="type.tourism.zoo">Zoo</string>
 	<string name="type.traffic_calming">Verkehrsberuhigung</string>
 	<string name="type.traffic_calming.bump">kurze Bodenwelle</string>
@@ -1453,7 +1598,6 @@
 	<string name="type.waterway.dock">Dock</string>
 	<string name="type.waterway.drain">Abfluss</string>
 	<string name="type.waterway.drain.tunnel">Abfluss</string>
-	<string name="type.waterway.lock">Schleuse</string>
 	<string name="type.waterway.lock_gate">Schleusentor</string>
 	<string name="type.waterway.river">Fluss</string>
 	<string name="type.waterway.river.tunnel">Fluss</string>
@@ -1486,4 +1630,5 @@
 	<string name="type.piste_type.nordic">Langlaufloipe</string>
 	<string name="type.piste_type.sled">Rodelbahn</string>
 	<string name="type.building_part">Gebäude</string>
+	<string name="type.amenity.events_venue">Veranstaltungszentrum</string>
 </resources>

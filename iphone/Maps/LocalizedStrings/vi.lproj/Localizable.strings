@@ -26,13 +26,10 @@
 /* Leave Review dialog - Review button */
 "leave_a_review" = "Để lại Đánh giá";
 
-/* View and button titles for accessibility */
-"maps" = "Bản đồ";
-
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "Dặm";
 
-/* View and button titles for accessibility */
+/* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Vị trí của Tôi";
 
 /* Update maps later/Buy pro version later button text */
@@ -145,6 +142,9 @@
 
 /* Search category for police; any changes should be duplicated in categories.txt @police! */
 "police" = "Cảnh sát";
+
+/* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
+"wifi" = "WiFi";
 
 /* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
 "recycling" = "Tái chế rác thải";
@@ -261,6 +261,9 @@
 /* Text in menu */
 "website" = "Trang web";
 
+/* Text in About menu, opens Organic Maps news website */
+"news" = "Tin tức";
+
 /* Text in menu */
 "github" = "GitHub";
 
@@ -312,13 +315,10 @@
 /* Settings item title */
 "pref_calibration_title" = "Chuẩn hóa la bàn";
 
-/* Search category */
-"wifi" = "WiFi";
-
 /* Update all button text */
 "downloader_update_all_button" = "Cập nhật tất cả";
 
-/* Downloaded maps category */
+/* Downloaded maps list header */
 "downloader_downloaded_subtitle" = "Đã tải xuống";
 
 /* Downloaded maps category */
@@ -329,6 +329,7 @@
 
 "downloader_near_me_subtitle" = "Gần tôi";
 
+/* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
 "downloader_status_maps" = "Bản đồ";
 
 "downloader_download_all_button" = "Tải xuống tất cả";
@@ -419,9 +420,6 @@
 /* blue gray color */
 "blue_gray" = "Xám xanh da trời";
 
-/* Wi-Fi available */
-"WiFi_available" = "Có";
-
 
 /********** Routing dialogs strings **********/
 
@@ -504,6 +502,10 @@
 "categories" = "Thể loại";
 
 "history" = "Lịch sử";
+
+"opens_in" = "Opens in %@";
+
+"closes_in" = "Closes in %@";
 
 "closed" = "Đã đóng";
 
@@ -743,9 +745,12 @@
 
 "mile" = "dặm";
 
+/* A unit of measure */
 "foot" = "ft";
 
 "miles_per_hour" = "mph";
+
+"minute" = "phút";
 
 "placepage_place_description" = "Mô tả";
 
@@ -1025,9 +1030,17 @@
 
 "redirect_route_alert" = "Bạn có muốn tạo lại tuyến không?";
 
-"redirect_route_yes" = "Có";
+/* A generic "Yes" button in dialogs */
+"yes" = "Có";
 
-"redirect_route_no" = "Không";
+/* A generic "No" button in dialogs */
+"no" = "Không";
+
+/* E.g. "WiFi:Yes" */
+"yes_available" = "Có";
+
+/* E.g. "WiFi:No" */
+"no_available" = "Không";
 
 "trip_finished" = "Bạn đã tới nơi!";
 
@@ -1245,6 +1258,8 @@
 
 "type.amenity.bicycle_rental" = "Cho thuê xe đạp";
 
+"type.amenity.bicycle_repair_station" = "trạm sửa xe đạp";
+
 "type.amenity.biergarten" = "Vườn bia";
 
 "type.amenity.brothel" = "Giải trí";
@@ -1442,11 +1457,21 @@
 
 "type.amenity.vending_machine.cigarettes" = "Máy bán thuốc lá";
 
+"type.amenity.vending_machine.coffee" = "Coffee Dispenser";
+
+"type.amenity.vending_machine.condoms" = "Condoms Dispenser";
+
 "type.amenity.vending_machine.drinks" = "Máy bán thức uống";
+
+"type.amenity.vending_machine.food" = "Food Dispenser";
+
+"type.amenity.vending_machine.newspapers" = "Newspapers Dispenser";
 
 "type.amenity.vending_machine.parking_tickets" = "Máy trả tiền vé đậu xe";
 
 "type.amenity.vending_machine.public_transport_tickets" = "Máy bán vé phương tiện công cộng tự động";
+
+"type.amenity.vending_machine.sweets" = "Sweets Dispenser";
 
 "type.amenity.vending_machine.excrement_bags" = "Excrement Bags Dispenser";
 
@@ -1552,16 +1577,29 @@
 
 "type.building.warehouse" = "Warehouse";
 
+"type.cemetery.grave" = "Phần mộ";
+
 "type.craft" = "Craft";
+
+"type.craft.beekeeper" = "Beekeeper";
+
+"type.craft.blacksmith" = "Blacksmith";
 
 "type.craft.brewery" = "Nhà máy bia";
 
 "type.craft.carpenter" = "Thợ mộc";
 
+"type.craft.confectionery" = "Confectionery";
+
 "type.craft.electrician" = "Thợ điện";
+
+"type.craft.electronics_repair" = "Electronics Repair";
 
 "type.craft.gardener" = "Người thiết kế và xây dựng cảnh quan";
 
+"type.craft.handicraft" = "Handicraft";
+
+/* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Điều hòa nhiệt độ";
 
 "type.craft.metal_construction" = "Nhà kim khí";
@@ -1572,7 +1610,11 @@
 
 "type.craft.plumber" = "Thợ đường ống";
 
+"type.craft.sawmill" = "Sawmill";
+
 "type.craft.shoemaker" = "Sửa giày";
+
+"type.craft.winery" = "Winery";
 
 "type.craft.tailor" = "Thợ may";
 
@@ -1601,6 +1643,8 @@
 "type.cuisine.brazilian" = "Ẩm thực brazil";
 
 "type.cuisine.breakfast" = "Bữa ăn sáng";
+
+"type.cuisine.bubble_tea" = "Bubble Tea";
 
 "type.cuisine.burger" = "Bánh hamburger";
 
@@ -1765,11 +1809,13 @@
 
 "type.highway.bridleway" = "Bridle Path";
 
-"type.highway.bridleway.bridge" = "Bridle Path";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.bridleway.bridge" = "Cầu";
 
 "type.highway.bridleway.permissive" = "Bridle Path";
 
-"type.highway.bridleway.tunnel" = "Bridle Path";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.bridleway.tunnel" = "Đường hầm";
 
 "type.highway.bus_stop" = "Bến xe buýt";
 
@@ -1777,11 +1823,13 @@
 
 "type.highway.cycleway" = "Cycle Path";
 
-"type.highway.cycleway.bridge" = "Cycle Path";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.cycleway.bridge" = "Cầu";
 
 "type.highway.cycleway.permissive" = "Cycle Path";
 
-"type.highway.cycleway.tunnel" = "Cycle Path";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.cycleway.tunnel" = "Đường hầm";
 
 "type.highway.elevator" = "Elevator";
 
@@ -1791,7 +1839,8 @@
 
 "type.highway.footway.area" = "Đường";
 
-"type.highway.footway.bridge" = "Đường";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.footway.bridge" = "Cầu";
 
 "type.highway.footway.demanding_alpine_hiking" = "Đường";
 
@@ -1805,29 +1854,36 @@
 
 "type.highway.footway.permissive" = "Đường";
 
-"type.highway.footway.tunnel" = "Đường";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.footway.tunnel" = "Đường hầm";
 
 "type.highway.ford" = "Đập tràn";
 
 "type.highway.living_street" = "Phố";
 
-"type.highway.living_street.bridge" = "Phố";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.living_street.bridge" = "Cầu";
 
-"type.highway.living_street.tunnel" = "Phố";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.living_street.tunnel" = "Đường hầm";
 
 "type.highway.motorway" = "Phố";
 
-"type.highway.motorway.bridge" = "Phố";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway.bridge" = "Cầu";
 
-"type.highway.motorway.tunnel" = "Phố";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway.tunnel" = "Đường hầm";
 
 "type.highway.motorway_junction" = "Lối ra";
 
 "type.highway.motorway_link" = "Phố";
 
-"type.highway.motorway_link.bridge" = "Phố";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway_link.bridge" = "Cầu";
 
-"type.highway.motorway_link.tunnel" = "Phố";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway_link.tunnel" = "Đường hầm";
 
 "type.highway.path" = "Đường";
 
@@ -1835,7 +1891,8 @@
 
 "type.highway.path.bicycle" = "Đường";
 
-"type.highway.path.bridge" = "Đường";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.path.bridge" = "Cầu";
 
 "type.highway.path.demanding_alpine_hiking" = "Đường";
 
@@ -1851,27 +1908,34 @@
 
 "type.highway.path.permissive" = "Đường";
 
-"type.highway.path.tunnel" = "Đường";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.path.tunnel" = "Đường hầm";
 
 "type.highway.pedestrian" = "Phố";
 
 "type.highway.pedestrian.area" = "Phố";
 
-"type.highway.pedestrian.bridge" = "Phố";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.pedestrian.bridge" = "Cầu";
 
-"type.highway.pedestrian.tunnel" = "Phố";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.pedestrian.tunnel" = "Đường hầm";
 
 "type.highway.primary" = "Phố";
 
-"type.highway.primary.bridge" = "Phố";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary.bridge" = "Cầu";
 
-"type.highway.primary.tunnel" = "Phố";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary.tunnel" = "Đường hầm";
 
 "type.highway.primary_link" = "Phố";
 
-"type.highway.primary_link.bridge" = "Phố";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary_link.bridge" = "Cầu";
 
-"type.highway.primary_link.tunnel" = "Phố";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary_link.tunnel" = "Đường hầm";
 
 "type.highway.raceway" = "Đường đua";
 
@@ -1879,41 +1943,51 @@
 
 "type.highway.residential.area" = "Phố";
 
-"type.highway.residential.bridge" = "Phố";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.residential.bridge" = "Cầu";
 
-"type.highway.residential.tunnel" = "Phố";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.residential.tunnel" = "Đường hầm";
 
 "type.highway.rest_area" = "Khu Vực Thụt Vào Để Đỗ Xe";
 
 "type.highway.road" = "Phố";
 
-"type.highway.road.bridge" = "Phố";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.road.bridge" = "Cầu";
 
-"type.highway.road.tunnel" = "Phố";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.road.tunnel" = "Đường hầm";
 
 "type.highway.secondary" = "Phố";
 
-"type.highway.secondary.bridge" = "Phố";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary.bridge" = "Cầu";
 
-"type.highway.secondary.tunnel" = "Phố";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary.tunnel" = "Đường hầm";
 
 "type.highway.secondary_link" = "Phố";
 
-"type.highway.secondary_link.bridge" = "Phố";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary_link.bridge" = "Cầu";
 
-"type.highway.secondary_link.tunnel" = "Phố";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary_link.tunnel" = "Đường hầm";
 
 "type.highway.service" = "Phố";
 
 "type.highway.service.area" = "Phố";
 
-"type.highway.service.bridge" = "Phố";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.service.bridge" = "Cầu";
 
 "type.highway.service.driveway" = "Phố";
 
 "type.highway.service.parking_aisle" = "Phố";
 
-"type.highway.service.tunnel" = "Phố";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.service.tunnel" = "Đường hầm";
 
 "type.highway.services" = "Service Area";
 
@@ -1921,27 +1995,34 @@
 
 "type.highway.steps" = "Đường";
 
-"type.highway.steps.bridge" = "Đường";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.steps.bridge" = "Cầu";
 
-"type.highway.steps.tunnel" = "Đường";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.steps.tunnel" = "Đường hầm";
 
 "type.highway.tertiary" = "Phố";
 
-"type.highway.tertiary.bridge" = "Phố";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary.bridge" = "Cầu";
 
-"type.highway.tertiary.tunnel" = "Phố";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary.tunnel" = "Đường hầm";
 
 "type.highway.tertiary_link" = "Phố";
 
-"type.highway.tertiary_link.bridge" = "Phố";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary_link.bridge" = "Cầu";
 
-"type.highway.tertiary_link.tunnel" = "Phố";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary_link.tunnel" = "Đường hầm";
 
 "type.highway.track" = "Phố";
 
 "type.highway.track.area" = "Phố";
 
-"type.highway.track.bridge" = "Phố";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.track.bridge" = "Cầu";
 
 "type.highway.track.grade1" = "Phố";
 
@@ -1957,29 +2038,36 @@
 
 "type.highway.track.permissive" = "Phố";
 
-"type.highway.track.tunnel" = "Phố";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.track.tunnel" = "Đường hầm";
 
 "type.highway.traffic_signals" = "Đèn Giao Thông";
 
 "type.highway.trunk" = "Phố";
 
-"type.highway.trunk.bridge" = "Phố";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk.bridge" = "Cầu";
 
-"type.highway.trunk.tunnel" = "Phố";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk.tunnel" = "Đường hầm";
 
 "type.highway.trunk_link" = "Phố";
 
-"type.highway.trunk_link.bridge" = "Phố";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk_link.bridge" = "Cầu";
 
-"type.highway.trunk_link.tunnel" = "Phố";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk_link.tunnel" = "Đường hầm";
 
 "type.highway.unclassified" = "Phố";
 
 "type.highway.unclassified.area" = "Phố";
 
-"type.highway.unclassified.bridge" = "Phố";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.unclassified.bridge" = "Cầu";
 
-"type.highway.unclassified.tunnel" = "Phố";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.unclassified.tunnel" = "Đường hầm";
 
 "type.area_highway.cycleway" = "Cycle Path";
 
@@ -2110,6 +2198,8 @@
 
 "type.landuse.construction" = "Construction";
 
+"type.landuse.education" = "Educational Facilities";
+
 "type.landuse.farm" = "Farm";
 
 "type.landuse.farmland" = "Đất nông nghiệp";
@@ -2206,13 +2296,9 @@
 
 "type.leisure.sports_centre" = "Thể thao";
 
-"type.leisure.sports_centre.climbing" = "Trung tâm leo núi";
+"type.sport.climbing" = "Trung tâm leo núi";
 
-"type.leisure.sports_centre.shooting" = "Nơi bắn súng";
-
-"type.leisure.sports_centre.swimming" = "Trung tâm Bơi lội";
-
-"type.leisure.sports_centre.yoga" = "Phòng tập yoga";
+"type.sport.yoga" = "Phòng tập yoga";
 
 "type.leisure.stadium" = "Sân vận động";
 
@@ -2235,6 +2321,8 @@
 "type.man_made.chimney" = "Ống Khói Nhà Máy";
 
 "type.man_made.cutline" = "Cutline";
+
+"type.man_made.survey_point" = "Survey Point";
 
 "type.man_made.flagpole" = "Flagpole";
 
@@ -2278,37 +2366,43 @@
 
 "type.mountain_pass" = "Mountain Pass";
 
-"type.natural" = "Natural";
+"type.natural" = "Tự nhiên";
 
-"type.natural.bare_rock" = "Bare Rock";
+"type.natural.bare_rock" = "Đá trần";
 
 "type.natural.bay" = "Vịnh";
 
 "type.natural.beach" = "Bãi biển";
 
-"type.natural.beach.sand" = "Sandy Beach";
+"type.natural.beach.sand" = "Bãi cát";
 
-"type.natural.beach.gravel" = "Gravel Beach";
+"type.natural.beach.gravel" = "Bãi biển sỏi";
 
 "type.natural.cape" = "Áo choàng";
 
 "type.natural.cave_entrance" = "Hang động";
 
-"type.natural.cliff" = "Cliff";
+"type.natural.cliff" = "Vách đá";
 
-"type.natural.coastline" = "Coastline";
+"type.natural.earth_bank" = "Vách đá";
+
+"type.man_made.embankment" = "Kè";
+
+"type.natural.coastline" = "Bờ biển";
 
 "type.natural.geyser" = "Suối nước nóng";
 
 "type.natural.glacier" = "Sông băng";
 
-"type.natural.grassland" = "Cánh đồng";
+"type.natural.grassland" = "Đồng cỏ";
 
-"type.natural.heath" = "Heath";
+"type.natural.heath" = "Cây thạch thảo";
 
-"type.natural.hot_spring" = "Hot Spring";
+"type.natural.hot_spring" = "Suối nước nóng";
 
 "type.natural.water.lake" = "Hồ";
+
+"type.natural.water.lock" = "Khoang khóa";
 
 "type.natural.water.pond" = "Ao";
 
@@ -2318,17 +2412,17 @@
 
 "type.natural.water.river" = "Sông";
 
-"type.natural.land" = "Land";
+"type.natural.land" = "Đất liền";
 
-"type.natural.meadow" = "Meadow";
+"type.natural.meadow" = "Thảo điền";
 
-"type.natural.orchard" = "Orchard";
+"type.natural.orchard" = "Vườn cây ăn trái";
 
 "type.natural.peak" = "Đỉnh";
 
-"type.natural.saddle" = "Mountain Saddle";
+"type.natural.saddle" = "Col";
 
-"type.natural.rock" = "Rock";
+"type.natural.rock" = "Đá";
 
 "type.natural.scrub" = "Bụi rậm";
 
@@ -2338,9 +2432,9 @@
 
 "type.natural.tree" = "Cây";
 
-"type.natural.tree_row" = "Tree Row";
+"type.natural.tree_row" = "Hàng cây";
 
-"type.natural.vineyard" = "Vineyard";
+"type.natural.vineyard" = "Vườn nho";
 
 "type.natural.volcano" = "Núi lửa";
 
@@ -2348,9 +2442,9 @@
 
 "type.natural.wetland" = "Khu vực đầm lầy";
 
-"type.natural.wetland.bog" = "Wetland";
+"type.natural.wetland.bog" = "Đầm lầy toan";
 
-"type.natural.wetland.marsh" = "Wetland";
+"type.natural.wetland.marsh" = "Đầm lầy cỏ";
 
 "type.noexit" = "Dead End";
 
@@ -2369,6 +2463,10 @@
 "type.office.ngo" = "Văn phòng NGO";
 
 "type.office.telecommunication" = "Điều hành di động";
+
+"type.organic.only" = "Organic";
+
+"type.organic.yes" = "Organic";
 
 "type.place" = "place";
 
@@ -2664,6 +2762,8 @@
 
 "type.shop.cosmetics" = "Mỹ phẩm";
 
+"type.shop.deli" = "Cửa hàng đồ ăn ngon";
+
 "type.shop.department_store" = "Cửa hàng bách hóa";
 
 "type.shop.doityourself" = "Cửa hàng phần cứng";
@@ -2675,6 +2775,8 @@
 "type.shop.erotic" = "Cửa hàng người lớn";
 
 "type.shop.fabric" = "Cửa hàng";
+
+"type.shop.farm" = "Cửa hàng thực phẩm nông trại";
 
 "type.shop.florist" = "Cửa hàng hoa";
 
@@ -2688,13 +2790,21 @@
 
 "type.shop.greengrocer" = "Cửa hàng rau củ";
 
+"type.shop.grocery" = "Cửa hàng tạp hóa";
+
 "type.shop.hairdresser" = "Tiệm làm tóc";
 
 "type.shop.hardware" = "Cửa hàng phần cứng";
 
+"type.shop.health_food" = "Cửa hàng thực phẩm sức khỏe";
+
+"type.shop.houseware" = "Cửa hàng đồ gia dụng";
+
 "type.shop.jewelry" = "Đồ trang sức";
 
 "type.shop.kiosk" = "Cửa hàng";
+
+"type.shop.kitchen" = "Cửa hàng nhà bếp";
 
 "type.shop.laundry" = "Giặt là";
 
@@ -2718,6 +2828,8 @@
 
 "type.shop.outdoor" = "Thiết bị Ngoài trời";
 
+"type.shop.pastry" = "Bánh ngọt";
+
 "type.shop.pawnbroker" = "Cầm đồ";
 
 "type.shop.pet" = "Cửa Hàng Vật Nuôi";
@@ -2725,6 +2837,8 @@
 "type.shop.photo" = "Hiệu Ảnh";
 
 "type.shop.seafood" = "Người bán cá";
+
+"type.shop.second_hand" = "Cửa hàng bán đồ đã qua sử dụng";
 
 "type.shop.shoes" = "Cửa hàng giày";
 
@@ -2754,49 +2868,108 @@
 
 "type.shop.wine" = "Rượu";
 
-"type.sport" = "sport";
+"type.shop.antiques" = "Đồ cổ";
 
-"type.sport.american_football" = "American Football";
+"type.shop.art" = "Cửa hàng nghệ thuật";
 
-"type.sport.archery" = "Archery";
+"type.shop.baby_goods" = "Cửa hàng trẻ em";
+
+"type.shop.bag" = "Cửa hàng túi xách";
+
+"type.shop.boutique" = "Cửa hàng";
+
+"type.shop.charity" = "Cửa hàng từ thiện";
+
+"type.shop.cheese" = "Cửa hàng pho mát";
+
+"type.shop.craft" = "Nghệ thuật và thủ công";
+
+"type.shop.dairy" = "Sản phẩm từ sữa";
+
+"type.shop.electrical" = "Cửa hàng điện tử";
+
+"type.shop.fishing" = "Cửa hàng câu cá";
+
+"type.shop.interior_decoration" = "Đồ trang trí nội thất";
+
+"type.shop.lottery" = "Vé xổ số kiến thiết";
+
+"type.shop.medical_supply" = "Vật tư y tế";
+
+"type.shop.nutrition_supplements" = "Bổ sung dinh dưỡng";
+
+"type.shop.paint" = "Sơn";
+
+"type.shop.perfumery" = "Nước hoa";
+
+"type.shop.sewing" = "Nguồn cung cấp may";
+
+"type.shop.storage_rental" = "Cho thuê kho lưu trữ";
+
+"type.shop.tobacco" = "Thuốc lá";
+
+"type.shop.trade" = "Nguồn cung cấp Giao dịch";
+
+"type.shop.watches" = "Xem";
+
+"type.shop.wholesale" = "Cửa hàng bán buôn";
+
+"type.sport" = "Thể thao";
+
+"type.sport.american_football" = "Bóng bầu dục Mỹ";
+
+"type.sport.archery" = "Bắn cung";
 
 "type.sport.athletics" = "Điền kinh";
 
-"type.sport.australian_football" = "Rugby";
+"type.sport.australian_football" = "Bóng bầu dục Úc";
 
-"type.sport.baseball" = "Baseball";
+"type.sport.baseball" = "Bóng chày";
 
 "type.sport.basketball" = "Bóng rổ";
 
+"type.sport.beachvolleyball" = "Bóng chuyền bãi biển";
+
 "type.sport.bowls" = "Bowls";
+
+"type.sport.chess" = "Cờ vua";
 
 "type.sport.cricket" = "Cricket";
 
-"type.sport.curling" = "Сurling";
-
-"type.sport.diving" = "Diving";
+"type.sport.curling" = "Bi đá trên băng";
 
 "type.sport.equestrian" = "Thể thao cưỡi ngựa";
 
 "type.sport.golf" = "Golf";
 
-"type.sport.gymnastics" = "Gymnastics";
+"type.sport.gymnastics" = "Thể dục";
 
-"type.sport.handball" = "Handball";
+"type.sport.handball" = "bóng ném";
 
-"type.sport.multi" = "Various Sport";
+"type.sport.multi" = "Các môn thể thao khác nhau";
 
-"type.sport.scuba_diving" = "Scuba Diving";
+/* Used to tag a scuba diving site. */
+"type.sport.scuba_diving" = "Môn lặn";
 
-"type.sport.shooting" = "Shooting";
+"type.sport.shooting" = "Chụp";
 
-"type.sport.skiing" = "Skiing";
+"type.sport.skateboard" = "Trượt ván";
 
-"type.sport.soccer" = "Soccer (Football)";
+"type.sport.skiing" = "Trượt tuyết";
 
-"type.sport.swimming" = "Swimming";
+"type.sport.soccer" = "Bóng đá";
+
+"type.sport.swimming" = "Bơi";
+
+"type.sport.table_tennis" = "Bóng bàn";
 
 "type.sport.tennis" = "Sân tenis";
+
+"type.sport.volleyball" = "Bóng chuyền";
+
+"type.sport.9pin" = "Bowling";
+
+"type.sport.10pin" = "Bowling";
 
 "type.tourism" = "Tourism";
 
@@ -2838,7 +3011,7 @@
 
 "type.tourism.information.board" = "Bảng Thông Tin";
 
-"type.tourism.information.guidepost" = "Thông tin du lịch";
+"type.tourism.information.guidepost" = "Hướng dẫn";
 
 "type.tourism.information.map" = "Bản Đồ Du Lịch";
 
@@ -2883,8 +3056,6 @@
 "type.waterway.drain" = "Drain";
 
 "type.waterway.drain.tunnel" = "Drain";
-
-"type.waterway.lock" = "Waterway Lock";
 
 "type.waterway.lock_gate" = "Cổng Khóa";
 
@@ -2948,3 +3119,5 @@
 "type.piste_type.sled" = "Sledding Piste";
 
 "type.building_part" = "Tòa nhà";
+
+"type.amenity.events_venue" = "Địa điểm tổ chức sự kiện";

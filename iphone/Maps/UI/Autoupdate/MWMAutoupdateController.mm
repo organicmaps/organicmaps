@@ -196,11 +196,10 @@ using namespace storage;
 - (void)updateSize
 {
   auto containerView = static_cast<MWMAutoupdateView *>(self.view);
-  auto & f = GetFramework();
-  auto const & s = f.GetStorage();
+  auto const & s = GetFramework().GetStorage();
   storage::Storage::UpdateInfo updateInfo;
   s.GetUpdateInfo(s.GetRootId(), updateInfo);
-  MwmSize const updateSizeInBytes = updateInfo.m_totalUpdateSizeInBytes;
+  MwmSize const updateSizeInBytes = updateInfo.m_totalDownloadSizeInBytes;
   containerView.updateSize = formattedSize(updateSizeInBytes);
   _sizeInMB = updateSizeInBytes / MB;
 }
@@ -252,7 +251,7 @@ using namespace storage;
 {
   auto const & s = GetFramework().GetStorage();
   NodeAttrs nodeAttrs;
-  s.GetNodeAttrs(RootId().UTF8String, nodeAttrs);
+  s.GetNodeAttrs(s.GetRootId(), nodeAttrs);
   auto view = static_cast<MWMAutoupdateView *>(self.view);
   NSString * nodeName = @(s.GetNodeLocalName(countryId).c_str());
   [view setStatusForNodeName:nodeName rootAttributes:nodeAttrs];

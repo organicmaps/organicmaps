@@ -29,8 +29,8 @@ same name as ours. If we don't someone else will kill us.
 
 from __future__ import print_function
 
-from BaseHTTPServer import BaseHTTPRequestHandler
-from BaseHTTPServer import HTTPServer
+from http.server import BaseHTTPRequestHandler
+from http.server import HTTPServer
 from ResponseProvider import Payload
 from ResponseProvider import ResponseProvider
 from ResponseProvider import ResponseProviderMixin
@@ -65,7 +65,7 @@ class InternalServer(HTTPServer):
 
     def kill_me(self):
         self.shutdown()
-        logging.info("The server's life has come to an end, pid: {}".format(os.getpid()))
+        logging.info(f"The server's life has come to an end, pid: {os.getpid()}")
 
 
     def reset_selfdestruct_timer(self):
@@ -104,7 +104,7 @@ class TestServer:
         self.may_serve = False
         
         pid = os.getpid()
-        logging.info("Init server. Pid: {}".format(pid))
+        logging.info(f"Init server. Pid: {pid}")
         
         self.server = None
         
@@ -113,7 +113,7 @@ class TestServer:
         if killer.allow_serving():
             try:
                 self.init_server()
-                logging.info("Started server with pid: {}".format(pid))
+                logging.info(f"Started server with pid: {pid}")
                 self.may_serve = True
 
             except socket.error:
@@ -123,7 +123,7 @@ class TestServer:
                 logging.info("Failed to start serving for unknown reason")
                 traceback.print_exc()
         else:
-            logging.info("Not allowed to start serving for process: {}".format(pid))
+            logging.info(f"Not allowed to start serving for process: {pid}")
 
     def init_server(self):
         
@@ -184,7 +184,7 @@ class PostHandler(BaseHTTPRequestHandler, ResponseProviderMixin):
         headers = self.prepare_headers()
         payload = self.response_provider.response_for_url_and_headers(self.path, headers)
         if payload.response_code() >= 300:
-            length = int(self.headers.getheader('content-length'))
+            length = int(self.headers.get('content-length'))
             self.dispatch_response(Payload(self.rfile.read(length)))
         else:
             self.dispatch_response(payload)
@@ -199,7 +199,7 @@ class PostHandler(BaseHTTPRequestHandler, ResponseProviderMixin):
     def prepare_headers(self):
         ret = dict()
         for h in self.headers:
-            ret[h] = self.headers.get(h)
+            ret[h.lower()] = self.headers.get(h)
         return ret
         
 

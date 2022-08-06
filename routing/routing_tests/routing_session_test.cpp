@@ -28,17 +28,20 @@ using namespace std;
 using chrono::seconds;
 using chrono::steady_clock;
 
-vector<m2::PointD> kTestRoute = {{0., 1.}, {0., 2.}, {0., 3.}, {0., 4.}};
-vector<Segment> const kTestSegments({{0, 0, 0, true}, {0, 0, 1, true}, {0, 0, 2, true}});
-Route::TTurns const kTestTurnsReachOnly = {
-    turns::TurnItem(3, turns::CarDirection::ReachedYourDestination)};
-Route::TTurns const kTestTurns = {turns::TurnItem(1, turns::CarDirection::TurnLeft),
+vector<m2::PointD> kTestRoute = {{0., 1.}, {0., 1.}, {0., 3.}, {0., 4.}};
+vector<Segment> const kTestSegments = {{0, 0, 0, true}, {0, 0, 1, true}, {0, 0, 2, true}};
+vector<turns::TurnItem> const kTestTurnsReachOnly =
+                                 {turns::TurnItem(1, turns::CarDirection::None),
+                                  turns::TurnItem(2, turns::CarDirection::None),
                                   turns::TurnItem(3, turns::CarDirection::ReachedYourDestination)};
-Route::TTimes const kTestTimes({Route::TTimeItem(1, 5), Route::TTimeItem(2, 10),
-                                Route::TTimeItem(3, 15)});
+vector<turns::TurnItem> const kTestTurns =
+                                 {turns::TurnItem(1, turns::CarDirection::None),
+                                  turns::TurnItem(2, turns::CarDirection::TurnLeft),
+                                  turns::TurnItem(3, turns::CarDirection::ReachedYourDestination)};
+vector<double> const kTestTimes = {5.0, 10.0, 15.0};
 auto const kRouteBuildingMaxDuration = seconds(30);
 
-void FillSubroutesInfo(Route & route, Route::TTurns const & turns = kTestTurnsReachOnly);
+void FillSubroutesInfo(Route & route, vector<turns::TurnItem> const & turns = kTestTurnsReachOnly);
 
 // Simple router. It returns route given to him on creation.
 class DummyRouter : public IRouter
@@ -192,15 +195,15 @@ private:
   RoutingSession & m_session;
 };
 
-void FillSubroutesInfo(Route & route, Route::TTurns const & turns /* = kTestTurnsReachOnly */)
+void FillSubroutesInfo(Route & route, vector<turns::TurnItem> const & turns /* = kTestTurnsReachOnly */)
 {
   vector<geometry::PointWithAltitude> junctions;
   for (auto const & point : kTestRoute)
     junctions.emplace_back(point, geometry::kDefaultAltitudeMeters);
 
   vector<RouteSegment> segmentInfo;
-  FillSegmentInfo(kTestSegments, junctions, turns, {}, kTestTimes, nullptr /* trafficStash */,
-                  segmentInfo);
+  RouteSegmentsFrom(kTestSegments, kTestRoute, turns, {}, segmentInfo);
+  FillSegmentInfo(kTestTimes, segmentInfo);
   route.SetRouteSegments(move(segmentInfo));
   route.SetSubroteAttrs(vector<Route::SubrouteAttrs>(
       {Route::SubrouteAttrs(junctions.front(), junctions.back(), 0, kTestSegments.size())}));
@@ -332,7 +335,7 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestRouteRebuildingMovingA
   GetPlatform().RunTask(Platform::Thread::Gui, [&checkTimedSignal, &info, this]() {
     info.m_longitude = 0.;
     info.m_latitude = 1.;
-    info.m_speedMpS = routing::KMPH2MPS(60);
+    info.m_speedMpS = measurement_utils::KmphToMps(60);
     SessionState code = SessionState::NoValidRoute;
     for (size_t i = 0; i < 10; ++i)
     {
@@ -382,7 +385,7 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestRouteRebuildingMovingT
     GetPlatform().RunTask(Platform::Thread::Gui, [&checkTimedSignalAway, &info, this]() {
       info.m_longitude = 0.0;
       info.m_latitude = 0.0;
-      info.m_speedMpS = routing::KMPH2MPS(60);
+      info.m_speedMpS = measurement_utils::KmphToMps(60);
       SessionState code = SessionState::NoValidRoute;
       {
         for (size_t i = 0; i < 8; ++i)
@@ -462,7 +465,7 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestFollowRouteFlagPersist
     TEST(m_session->IsFollowing(), ());
     info.m_longitude = 0.;
     info.m_latitude = 1.;
-    info.m_speedMpS = routing::KMPH2MPS(60);
+    info.m_speedMpS = measurement_utils::KmphToMps(60);
     SessionState code = SessionState::NoValidRoute;
     for (size_t i = 0; i < 10; ++i)
     {

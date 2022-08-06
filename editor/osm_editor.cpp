@@ -40,7 +40,7 @@
 #include <sstream>
 
 #include "3party/opening_hours/opening_hours.hpp"
-#include "3party/pugixml/src/pugixml.hpp"
+#include "3party/pugixml/pugixml/src/pugixml.hpp"
 
 using namespace std;
 
@@ -307,7 +307,7 @@ void Editor::ClearAllLocalEdits()
   Invalidate();
 }
 
-void Editor::OnMapRegistered(platform::LocalCountryFile const & localFile)
+void Editor::OnMapRegistered(platform::LocalCountryFile const &)
 {
   // todo(@a, @m) Reloading edits only for |localFile| should be enough.
   LoadEdits();
@@ -563,14 +563,14 @@ EditableProperties Editor::GetEditableProperties(FeatureType & feature) const
     }
 
     auto const & metadata = originalObjectPtr->GetMetadata();
-    auto const & featureOpeningHours = metadata.Get(feature::Metadata::FMD_OPEN_HOURS);
-    // Note: empty string is parsed as a valid opening hours rule.
+
+    /// @todo Avoid temporary string when OpeningHours (boost::spirit) will allow string_view.
+    std::string const featureOpeningHours(metadata.Get(feature::Metadata::FMD_OPEN_HOURS));
+    /// @note Empty string is parsed as a valid opening hours rule.
     if (!osmoh::OpeningHours(featureOpeningHours).IsValid())
     {
       auto & meta = editableProperties.m_metadata;
-      auto const toBeRemoved = remove(begin(meta), end(meta), feature::Metadata::FMD_OPEN_HOURS);
-      if (toBeRemoved != end(meta))
-        meta.erase(toBeRemoved);
+      meta.erase(remove(begin(meta), end(meta), feature::Metadata::FMD_OPEN_HOURS), end(meta));
     }
   }
 
@@ -670,10 +670,11 @@ void Editor::UploadChanges(string const & key, string const & secret, ChangesetT
             try
             {
               auto const center = fti.m_object.GetMercator();
-
+              // Throws, see catch below.
               XMLFeature osmFeature = changeset.GetMatchingNodeFeatureFromOSM(center);
+
               // If we are here, it means that object already exists at the given point.
-              // To avoid nodes duplication, merge and apply changes to it instead of creating an new one.
+              // To avoid nodes duplication, merge and apply changes to it instead of creating a new one.
               XMLFeature const osmFeatureCopy = osmFeature;
               osmFeature.ApplyPatch(feature);
               // Check to avoid uploading duplicates into OSM.

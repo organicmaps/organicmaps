@@ -17,17 +17,15 @@
 	<string name="downloading">Letöltés…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Kilométer</string>
-	<!-- View and button titles for accessibility -->
-	<string name="maps">Térképek</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Mérföld</string>
-	<!-- View and button titles for accessibility -->
+	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">Saját helyzet</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">Később</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Keresés</string>
-	<!-- Search box placeholder text -->
+	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">Keresés a térképen</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">Ezen az eszközön jelenleg minden helyzetmeghatározó szolgáltatás ki van kapcsolva. Kérjük kapcsolja be ezeket a Beállítások között.</string>
@@ -41,9 +39,10 @@
 	<string name="close">Bezár</string>
 	<string name="unsupported_phone">Hardware-s gyorsítású OpenGL szükséges. Sajnos az Ön eszköze nem támogatott.</string>
 	<string name="download">Letöltés</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable">Kérjük bontsa az USB kapcsolatot vagy helyezzen be memóriakártyát a Organic Maps használatához</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="not_enough_free_space_on_sdcard">Kérjük szabadítson fel helyet az SD kártyán / USB tárolón az alkalmazás használatához!</string>
-	<string name="not_enough_memory">Nincs elegendő memória az alkalmazás futtatásához</string>
 	<string name="download_resources">Első használat előtt letöltjük a világtérképet.\n%s tárolóhely szükséges.</string>
 	<string name="download_resources_continue">Térképhez ugrás</string>
 	<string name="downloading_country_can_proceed">%s letöltése. Mos továbbléphet\na térképhez.</string>
@@ -77,6 +76,8 @@
 	<string name="maps_storage">Térképek mentése ide:</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Válassza ki, hogy hova töltsük le a térképeket</string>
+	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+	<string name="maps_storage_downloaded">Térképek</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Áthelyezzük a térképeket?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
@@ -123,6 +124,8 @@
 	<string name="post">Posta</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
 	<string name="police">Rendőrség</string>
+	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! -->
+	<string name="wifi">WiFi</string>
 	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
 	<string name="recycling">Újrahasznosítás</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
@@ -203,6 +206,8 @@
 	<string name="search_show_on_map">Megtekintés a térképen</string>
 	<!-- Text in menu -->
 	<string name="website">Honlap</string>
+	<!-- Text in About menu, opens Organic Maps news website -->
+	<string name="news">Hírek</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">Visszajelzés</string>
 	<!-- Text in menu -->
@@ -217,17 +222,16 @@
 	<string name="copyright">Szerzői jog</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Hibabejelentés</string>
-	<!-- Search category -->
-	<string name="wifi">WiFi</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Mindegyik frissítése</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">Mindent visszavon</string>
-	<!-- Downloaded maps category -->
+	<!-- Downloaded maps list header -->
 	<string name="downloader_downloaded_subtitle">Letöltve</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">Várólistás</string>
 	<string name="downloader_near_me_subtitle">A közelemben</string>
+	<!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
 	<string name="downloader_status_maps">Térképek</string>
 	<string name="downloader_download_all_button">Mindegyik letöltése</string>
 	<string name="downloader_downloading">Letöltés:</string>
@@ -243,6 +247,8 @@
 	<string name="downloader_delete_map">Térkép törlése</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">Térkép frissítése</string>
+	<!-- Preference title -->
+	<string name="google_play_services">Google Play-szolgáltatások</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">Használja a Google Play szolgáltatást, hogy szert tegyen aktuális helyszínéről</string>
 	<!-- Text for routing error dialog -->
@@ -288,8 +294,6 @@
 	<string name="gray">Szürke</string>
 	<!-- blue gray color -->
 	<string name="blue_gray">Kékes Szürke</string>
-	<!-- Wi-Fi available -->
-	<string name="WiFi_available">Igen</string>
 
 	<!-- SECTION: Routing dialogs strings -->
 	<string name="dialog_routing_disclaimer_title">Az útvonal követése során, kérjük, vegye figyelembe az alábbiakat:</string>
@@ -359,7 +363,7 @@
 	<string name="editor_example_values">Példa értékek</string>
 	<string name="editor_correct_mistake">Hiba javítása</string>
 	<string name="editor_add_select_location">Elhelyezkedés</string>
-	<string name="editor_report_problem_desription_1">Kérjük, írd le részletesen a problémát, hogy az OpenStreeMap csapata kijavíthassa.</string>
+	<string name="editor_report_problem_desription_1">Kérjük, írd le részletesen a problémát, hogy az OpenStreetMap csapata kijavíthassa.</string>
 	<string name="editor_report_problem_desription_2">Vagy végezd el te magad a javítást itt: https://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">Küldés</string>
 	<string name="editor_report_problem_title">Probléma</string>
@@ -444,6 +448,7 @@
 	<string name="kilometer">km</string>
 	<string name="kilometers_per_hour">km/h</string>
 	<string name="mile">mf</string>
+	<!-- A unit of measure -->
 	<string name="foot">ft</string>
 	<string name="miles_per_hour">mph</string>
 	<string name="hour">ó</string>
@@ -542,6 +547,7 @@
 	<plurals name="tracks">
 	  <item quantity="other">%d út</item>
 	</plurals>
+	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Követési beállítások</string>
 	<string name="crash_reports">Hibajelentés</string>
 	<string name="crash_reports_description">A Organic Maps fejlesztéséhez felhasználhatjuk az adatait. A változtatások az alkalmazás újraindítása után lépnek életbe.</string>
@@ -591,6 +597,14 @@
 	<string name="avoid_toll_roads_placepage">Fizetős utak elkerülése</string>
 	<string name="avoid_unpaved_roads_placepage">Kövezetlen utak elkerülése</string>
 	<string name="avoid_ferry_crossing_placepage">Kompátkelők elkerülése</string>
+	<!-- A generic "Yes" button in dialogs -->
+	<string name="yes">Igen</string>
+	<!-- A generic "No" button in dialogs -->
+	<string name="no">Nem</string>
+	<!-- E.g. "WiFi:Yes" -->
+	<string name="yes_available">Igen</string>
+	<!-- E.g. "WiFi:No" -->
+	<string name="no_available">Nem</string>
 	<string name="ok">Oké</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Rendezd…</string>
@@ -646,6 +660,8 @@
 	<string name="enable_screen_sleep">Hagyja aludni a képernyőt</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Ha engedélyezve van, akkor a képernyő inaktivitás után alszik.</string>
+	<!-- OpenStreetMap text on splash screen -->
+	<string name="splash_subtitle">Térképadatok az OpenStreetMapből</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Felvonóállomás</string>
@@ -660,6 +676,7 @@
 	<string name="type.amenity.bench">Pad</string>
 	<string name="type.amenity.bicycle_parking">Kerékpárparkoló</string>
 	<string name="type.amenity.bicycle_rental">Kerékpárkölcsönző</string>
+	<string name="type.amenity.bicycle_repair_station">Kerékpárjavító állomás</string>
 	<string name="type.amenity.biergarten">Sörkert</string>
 	<string name="type.amenity.brothel">Bordélyház</string>
 	<string name="type.amenity.bureau_de_change">Pénzváltó</string>
@@ -772,10 +789,12 @@
 	<string name="type.building.garage">Garázs</string>
 	<string name="type.building.has_parts">Épület</string>
 	<string name="type.building.train_station">Vonatmegálló</string>
+	<string name="type.cemetery.grave">Sír</string>
 	<string name="type.craft.brewery">Sörfőzde</string>
 	<string name="type.craft.carpenter">Ács</string>
 	<string name="type.craft.electrician">Villanyszerelő</string>
 	<string name="type.craft.gardener">Kertész</string>
+	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Hűtés-fűtés szerelő</string>
 	<string name="type.craft.metal_construction">Lakatos</string>
 	<string name="type.craft.painter">Festő</string>
@@ -875,34 +894,51 @@
 	<string name="type.healthcare.laboratory">Orvosi laboratórium</string>
 
 	<!-- SECTION: Types: Roads -->
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.bridleway.bridge">Híd</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.bridleway.tunnel">Alagút</string>
 	<string name="type.highway.bus_stop">Buszmegálló</string>
 	<string name="type.highway.construction">Útépítés</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.cycleway.bridge">Híd</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.cycleway.tunnel">Alagút</string>
 	<string name="type.highway.footway">Ösvény</string>
 	<string name="type.highway.footway.alpine_hiking">Ösvény</string>
 	<string name="type.highway.footway.area">Ösvény</string>
-	<string name="type.highway.footway.bridge">Ösvény</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.footway.bridge">Híd</string>
 	<string name="type.highway.footway.demanding_alpine_hiking">Ösvény</string>
 	<string name="type.highway.footway.demanding_mountain_hiking">Ösvény</string>
 	<string name="type.highway.footway.difficult_alpine_hiking">Ösvény</string>
 	<string name="type.highway.footway.hiking">Ösvény</string>
 	<string name="type.highway.footway.mountain_hiking">Ösvény</string>
 	<string name="type.highway.footway.permissive">Ösvény</string>
-	<string name="type.highway.footway.tunnel">Ösvény</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.footway.tunnel">Alagút</string>
 	<string name="type.highway.ford">Gázló</string>
 	<string name="type.highway.living_street">Utca</string>
-	<string name="type.highway.living_street.bridge">Utca</string>
-	<string name="type.highway.living_street.tunnel">Utca</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.living_street.bridge">Híd</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.living_street.tunnel">Alagút</string>
 	<string name="type.highway.motorway">Utca</string>
-	<string name="type.highway.motorway.bridge">Utca</string>
-	<string name="type.highway.motorway.tunnel">Utca</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway.bridge">Híd</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway.tunnel">Alagút</string>
 	<string name="type.highway.motorway_junction">Kijárat</string>
 	<string name="type.highway.motorway_link">Utca</string>
-	<string name="type.highway.motorway_link.bridge">Utca</string>
-	<string name="type.highway.motorway_link.tunnel">Utca</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway_link.bridge">Híd</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway_link.tunnel">Alagút</string>
 	<string name="type.highway.path">Ösvény</string>
 	<string name="type.highway.path.alpine_hiking">Ösvény</string>
 	<string name="type.highway.path.bicycle">Ösvény</string>
-	<string name="type.highway.path.bridge">Ösvény</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.path.bridge">Híd</string>
 	<string name="type.highway.path.demanding_alpine_hiking">Ösvény</string>
 	<string name="type.highway.path.demanding_mountain_hiking">Ösvény</string>
 	<string name="type.highway.path.difficult_alpine_hiking">Ösvény</string>
@@ -910,51 +946,75 @@
 	<string name="type.highway.path.horse">Ösvény</string>
 	<string name="type.highway.path.mountain_hiking">Ösvény</string>
 	<string name="type.highway.path.permissive">Ösvény</string>
-	<string name="type.highway.path.tunnel">Ösvény</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.path.tunnel">Alagút</string>
 	<string name="type.highway.pedestrian">Utca</string>
 	<string name="type.highway.pedestrian.area">Utca</string>
-	<string name="type.highway.pedestrian.bridge">Utca</string>
-	<string name="type.highway.pedestrian.tunnel">Utca</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.pedestrian.bridge">Híd</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.pedestrian.tunnel">Alagút</string>
 	<string name="type.highway.primary">Utca</string>
-	<string name="type.highway.primary.bridge">Utca</string>
-	<string name="type.highway.primary.tunnel">Utca</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary.bridge">Híd</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary.tunnel">Alagút</string>
 	<string name="type.highway.primary_link">Utca</string>
-	<string name="type.highway.primary_link.bridge">Utca</string>
-	<string name="type.highway.primary_link.tunnel">Utca</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary_link.bridge">Híd</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary_link.tunnel">Alagút</string>
 	<string name="type.highway.raceway">Versenypálya</string>
 	<string name="type.highway.residential">Utca</string>
 	<string name="type.highway.residential.area">Utca</string>
-	<string name="type.highway.residential.bridge">Utca</string>
-	<string name="type.highway.residential.tunnel">Utca</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.residential.bridge">Híd</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.residential.tunnel">Alagút</string>
 	<string name="type.highway.rest_area">Pihenőzóna</string>
 	<string name="type.highway.road">Utca</string>
-	<string name="type.highway.road.bridge">Utca</string>
-	<string name="type.highway.road.tunnel">Utca</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.road.bridge">Híd</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.road.tunnel">Alagút</string>
 	<string name="type.highway.secondary">Utca</string>
-	<string name="type.highway.secondary.bridge">Utca</string>
-	<string name="type.highway.secondary.tunnel">Utca</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary.bridge">Híd</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary.tunnel">Alagút</string>
 	<string name="type.highway.secondary_link">Utca</string>
-	<string name="type.highway.secondary_link.bridge">Utca</string>
-	<string name="type.highway.secondary_link.tunnel">Utca</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary_link.bridge">Híd</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary_link.tunnel">Alagút</string>
 	<string name="type.highway.service">Utca</string>
 	<string name="type.highway.service.area">Utca</string>
-	<string name="type.highway.service.bridge">Utca</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.service.bridge">Híd</string>
 	<string name="type.highway.service.driveway">Utca</string>
 	<string name="type.highway.service.parking_aisle">Utca</string>
-	<string name="type.highway.service.tunnel">Utca</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.service.tunnel">Alagút</string>
 	<string name="type.highway.speed_camera">Traffipax</string>
 	<string name="type.highway.steps">Ösvény</string>
-	<string name="type.highway.steps.bridge">Ösvény</string>
-	<string name="type.highway.steps.tunnel">Ösvény</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.steps.bridge">Híd</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.steps.tunnel">Alagút</string>
 	<string name="type.highway.tertiary">Utca</string>
-	<string name="type.highway.tertiary.bridge">Utca</string>
-	<string name="type.highway.tertiary.tunnel">Utca</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary.bridge">Híd</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary.tunnel">Alagút</string>
 	<string name="type.highway.tertiary_link">Utca</string>
-	<string name="type.highway.tertiary_link.bridge">Utca</string>
-	<string name="type.highway.tertiary_link.tunnel">Utca</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary_link.bridge">Híd</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary_link.tunnel">Alagút</string>
 	<string name="type.highway.track">Utca</string>
 	<string name="type.highway.track.area">Utca</string>
-	<string name="type.highway.track.bridge">Utca</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.track.bridge">Híd</string>
 	<string name="type.highway.track.grade1">Utca</string>
 	<string name="type.highway.track.grade2">Utca</string>
 	<string name="type.highway.track.grade3">Utca</string>
@@ -962,18 +1022,25 @@
 	<string name="type.highway.track.grade5">Utca</string>
 	<string name="type.highway.track.no.access">Utca</string>
 	<string name="type.highway.track.permissive">Utca</string>
-	<string name="type.highway.track.tunnel">Utca</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.track.tunnel">Alagút</string>
 	<string name="type.highway.traffic_signals">Közlekedési lámpák</string>
 	<string name="type.highway.trunk">Utca</string>
-	<string name="type.highway.trunk.bridge">Utca</string>
-	<string name="type.highway.trunk.tunnel">Utca</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk.bridge">Híd</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk.tunnel">Alagút</string>
 	<string name="type.highway.trunk_link">Utca</string>
-	<string name="type.highway.trunk_link.bridge">Utca</string>
-	<string name="type.highway.trunk_link.tunnel">Utca</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk_link.bridge">Híd</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk_link.tunnel">Alagút</string>
 	<string name="type.highway.unclassified">Utca</string>
 	<string name="type.highway.unclassified.area">Utca</string>
-	<string name="type.highway.unclassified.bridge">Utca</string>
-	<string name="type.highway.unclassified.tunnel">Utca</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.unclassified.bridge">Híd</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.unclassified.tunnel">Alagút</string>
 	<string name="type.area_highway.footway">Ösvény</string>
 	<string name="type.area_highway.living_street">Utca</string>
 	<string name="type.area_highway.motorway">Utca</string>
@@ -1032,10 +1099,8 @@
 	<string name="type.leisure.playground">Játszótér</string>
 	<string name="type.leisure.sauna">Szauna</string>
 	<string name="type.leisure.sports_centre">Sportközpont</string>
-	<string name="type.leisure.sports_centre.climbing">Hegymászó központ</string>
-	<string name="type.leisure.sports_centre.shooting">Lőtér</string>
-	<string name="type.leisure.sports_centre.swimming">Uszoda</string>
-	<string name="type.leisure.sports_centre.yoga">Jógastúdió</string>
+	<string name="type.sport.climbing">Hegymászó központ</string>
+	<string name="type.sport.yoga">Jógastúdió</string>
 	<string name="type.leisure.stadium">Stadion</string>
 	<string name="type.leisure.swimming_pool">Úszómedence</string>
 	<string name="type.leisure.swimming_pool.private">Úszómedence</string>
@@ -1048,26 +1113,46 @@
 	<string name="type.man_made.water_tower">Víztorony</string>
 	<string name="type.man_made.water_well">Ivókút</string>
 	<string name="type.man_made.windmill">Szélmalom</string>
+	<string name="type.natural">Természet</string>
+	<string name="type.natural.bare_rock">Csupasz szikla</string>
 	<string name="type.natural.bay">Öböl</string>
 	<string name="type.natural.beach">Strand</string>
+	<string name="type.natural.beach.sand">Homokos part</string>
+	<string name="type.natural.beach.gravel">Kavicsos strand</string>
 	<string name="type.natural.cape">Hegytető</string>
 	<string name="type.natural.cave_entrance">Barlang</string>
+	<string name="type.natural.cliff">Szikla</string>
+	<string name="type.natural.earth_bank">Szikla</string>
+	<string name="type.man_made.embankment">Töltés</string>
+	<string name="type.natural.coastline">Tengerpart</string>
 	<string name="type.natural.geyser">Gejzír</string>
 	<string name="type.natural.glacier">Gleccser</string>
-	<string name="type.natural.grassland">Mező</string>
+	<string name="type.natural.grassland">Füves puszta</string>
+	<string name="type.natural.heath">Fenyér</string>
+	<string name="type.natural.hot_spring">Termálvíz</string>
 	<string name="type.natural.water.lake">Tó</string>
+	<string name="type.natural.water.lock">Zsilipkamra</string>
 	<string name="type.natural.water.pond">Tavacska</string>
 	<string name="type.natural.water.reservoir">Rezervoár</string>
 	<string name="type.natural.water.basin">Vízgyűjtő</string>
 	<string name="type.natural.water.river">Folyó</string>
+	<string name="type.natural.land">Föld</string>
+	<string name="type.natural.meadow">Rét</string>
+	<string name="type.natural.orchard">Gyümölcsöskert</string>
 	<string name="type.natural.peak">Csúcs</string>
+	<string name="type.natural.saddle">Hegyi nyereg</string>
+	<string name="type.natural.rock">Kőzet</string>
 	<string name="type.natural.scrub">Cserjés</string>
 	<string name="type.natural.spring">Forrás</string>
 	<string name="type.natural.strait">Szoros</string>
 	<string name="type.natural.tree">Fa</string>
+	<string name="type.natural.tree_row">Fa sor</string>
+	<string name="type.natural.vineyard">Szőlőskert</string>
 	<string name="type.natural.volcano">Tűzhányó</string>
 	<string name="type.natural.water">Vizek</string>
 	<string name="type.natural.wetland">Vizes terület</string>
+	<string name="type.natural.wetland.bog">Láp</string>
+	<string name="type.natural.wetland.marsh">Mocsár</string>
 	<string name="type.office">Hivatal</string>
 	<string name="type.office.company">Vállalati iroda</string>
 	<string name="type.office.estate_agent">Ingatlanügynök</string>
@@ -1161,22 +1246,28 @@
 	<string name="type.shop.convenience">Csemegebolt</string>
 	<string name="type.shop.copyshop">Fénymásoló üzlet</string>
 	<string name="type.shop.cosmetics">Kozmetikum</string>
+	<string name="type.shop.deli">Csemegebolt</string>
 	<string name="type.shop.department_store">Áruház</string>
 	<string name="type.shop.doityourself">Vaskereskedés</string>
 	<string name="type.shop.dry_cleaning">Ruhatisztító</string>
 	<string name="type.shop.electronics">Elektronika</string>
 	<string name="type.shop.erotic">Erotikus bolt</string>
 	<string name="type.shop.fabric">Bolt</string>
+	<string name="type.shop.farm">Farm Food Shop</string>
 	<string name="type.shop.florist">Virágos</string>
 	<string name="type.shop.funeral_directors">Temetkezési vállalkozó</string>
 	<string name="type.shop.furniture">Bútoráruház</string>
 	<string name="type.shop.garden_centre">Faiskola</string>
 	<string name="type.shop.gift">Ajándékbolt</string>
 	<string name="type.shop.greengrocer">Zöldséges</string>
+	<string name="type.shop.grocery">Élelmiszerbolt</string>
 	<string name="type.shop.hairdresser">Fodrász</string>
-	<string name="type.shop.hardware">Vaskereskedés</string>
+	<string name="type.shop.hardware">Hardver üzlet</string>
+	<string name="type.shop.health_food">Egészségügyi élelmiszerbolt</string>
+	<string name="type.shop.houseware">Háztartási bolt</string>
 	<string name="type.shop.jewelry">Ékszer</string>
 	<string name="type.shop.kiosk">Trafik</string>
+	<string name="type.shop.kitchen">Konyhabolt</string>
 	<string name="type.shop.laundry">Mosoda</string>
 	<string name="type.shop.mall">A pláza</string>
 	<string name="type.shop.massage">Masszázs szalon</string>
@@ -1188,10 +1279,12 @@
 	<string name="type.shop.newsagent">Újságárus</string>
 	<string name="type.shop.optician">Optika</string>
 	<string name="type.shop.outdoor">Kültéri felszerelés</string>
+	<string name="type.shop.pastry">Cukrászsütemény</string>
 	<string name="type.shop.pawnbroker">Zálogház</string>
 	<string name="type.shop.pet">Házikedvenc-üzlet</string>
 	<string name="type.shop.photo">Fénykép üzlet</string>
 	<string name="type.shop.seafood">Halüzlet</string>
+	<string name="type.shop.second_hand">Second Hand Store</string>
 	<string name="type.shop.shoes">Cipőbolt</string>
 	<string name="type.shop.sports">Sporteszközök</string>
 	<string name="type.shop.stationery">Írószer bolt</string>
@@ -1206,10 +1299,57 @@
 	<string name="type.shop.video">Videotéka</string>
 	<string name="type.shop.video_games">Videojáték bolt</string>
 	<string name="type.shop.wine">Szeszesital-üzlet</string>
+	<string name="type.shop.antiques">Régiségek</string>
+	<string name="type.shop.art">Művészeti Bolt</string>
+	<string name="type.shop.baby_goods">Gyermekbolt</string>
+	<string name="type.shop.bag">Táskák bolt</string>
+	<string name="type.shop.boutique">Butik</string>
+	<string name="type.shop.charity">Jótékonysági Bolt</string>
+	<string name="type.shop.cheese">Sajtbolt</string>
+	<string name="type.shop.craft">Művészetek és kézművesség</string>
+	<string name="type.shop.dairy">Tejtermékek</string>
+	<string name="type.shop.electrical">Elektronikai üzlet</string>
+	<string name="type.shop.fishing">Horgászbolt</string>
+	<string name="type.shop.interior_decoration">Belső dekorációk</string>
+	<string name="type.shop.lottery">Sorsjegyek</string>
+	<string name="type.shop.medical_supply">Orvosi eszközök</string>
+	<string name="type.shop.nutrition_supplements">Táplálékkiegészítők</string>
+	<string name="type.shop.paint">Festékek</string>
+	<string name="type.shop.perfumery">Illatszerek</string>
+	<string name="type.shop.sewing">Varrás kellékek</string>
+	<string name="type.shop.storage_rental">Tárhely bérlés</string>
+	<string name="type.shop.tobacco">Dohány</string>
+	<string name="type.shop.trade">Kellékekkel kereskedik</string>
+	<string name="type.shop.watches">Órák</string>
+	<string name="type.shop.wholesale">Nagykereskedelmi üzlet</string>
+	<string name="type.sport">Sport</string>
+	<string name="type.sport.american_football">Amerikai foci</string>
+	<string name="type.sport.archery">Íjászat</string>
 	<string name="type.sport.athletics">Atlétika</string>
+	<string name="type.sport.australian_football">Ausztrál futball</string>
+	<string name="type.sport.baseball">Baseball</string>
 	<string name="type.sport.basketball">Kosárlabda</string>
+	<string name="type.sport.beachvolleyball">Strandröplabda</string>
+	<string name="type.sport.chess">Sakk</string>
+	<string name="type.sport.cricket">Krikett</string>
+	<string name="type.sport.curling">Curling</string>
 	<string name="type.sport.equestrian">Lovas sportok</string>
+	<string name="type.sport.golf">Golf</string>
+	<string name="type.sport.gymnastics">Gimnasztika</string>
+	<string name="type.sport.handball">Kézilabda</string>
+	<string name="type.sport.multi">Különféle sportágak</string>
+	<!-- Used to tag a scuba diving site. -->
+	<string name="type.sport.scuba_diving">Búvárkodás</string>
+	<string name="type.sport.shooting">Lövés</string>
+	<string name="type.sport.skateboard">Gördeszkázás</string>
+	<string name="type.sport.skiing">Síelés</string>
+	<string name="type.sport.soccer">Futball</string>
+	<string name="type.sport.swimming">Úszás</string>
+	<string name="type.sport.table_tennis">Asztalitenisz</string>
 	<string name="type.sport.tennis">Teniszpálya</string>
+	<string name="type.sport.volleyball">Röplabda</string>
+	<string name="type.sport.9pin">Bowling</string>
+	<string name="type.sport.10pin">Bowling</string>
 	<string name="type.tourism.alpine_hut">Hegyi menedék</string>
 	<string name="type.tourism.apartment">Apartmanok</string>
 	<string name="type.tourism.artwork">Szobor</string>
@@ -1228,7 +1368,7 @@
 	<string name="type.tourism.hotel">Szálloda</string>
 	<string name="type.tourism.information">Túrista információ</string>
 	<string name="type.tourism.information.board">Információs tábla</string>
-	<string name="type.tourism.information.guidepost">Túrista információ</string>
+	<string name="type.tourism.information.guidepost">Útmutató</string>
 	<string name="type.tourism.information.map">Turistatérkép</string>
 	<string name="type.tourism.information.office">Idegenforgalmi iroda</string>
 	<string name="type.tourism.museum">Múzeum</string>
@@ -1253,4 +1393,5 @@
 	<string name="type.wheelchair.no">Nem akadálymentesített</string>
 	<string name="type.wheelchair.yes">Teljesen akadálymentesített</string>
 	<string name="type.building_part">Épület</string>
+	<string name="type.amenity.events_venue">Rendezvények helyszíne</string>
 </resources>

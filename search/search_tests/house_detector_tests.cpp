@@ -15,6 +15,7 @@
 
 #include "geometry/distance_on_sphere.hpp"
 
+#include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 
 #include <algorithm>
@@ -24,6 +25,8 @@
 #include <string>
 #include <vector>
 
+namespace house_detector_tests
+{
 using namespace std;
 using platform::LocalCountryFile;
 
@@ -38,12 +41,9 @@ public:
   {
     if (f.GetGeomType() == feature::GeomType::Line)
     {
-      string name;
-      if (f.GetName(0, name) &&
-          find(streetNames.begin(), streetNames.end(), name) != streetNames.end())
-      {
+      string_view const name = f.GetName(StringUtf8Multilang::kDefaultCode);
+      if (!name.empty() && base::IsExist(streetNames, name))
         vect.push_back(f.GetID());
-      }
     }
   }
 
@@ -58,7 +58,7 @@ public:
 
 class CollectStreetIDs
 {
-  static bool GetKey(string const & name, string & key)
+  static bool GetKey(string_view name, string & key)
   {
     TEST(!name.empty(), ());
     key = strings::ToUtf8(search::GetStreetNameAsKey(name, false /* ignoreStreetSynonyms */));
@@ -80,8 +80,8 @@ public:
   {
     if (f.GetGeomType() == feature::GeomType::Line)
     {
-      string name;
-      if (f.GetName(0, name) && ftypes::IsWayChecker::Instance()(f))
+      string_view const name = f.GetName(StringUtf8Multilang::kDefaultCode);
+      if (!name.empty() && ftypes::IsWayChecker::Instance()(f))
       {
         string key;
         if (GetKey(name, key))
@@ -343,7 +343,7 @@ UNIT_TEST(HS_StreetsCompare)
 
 namespace
 {
-string GetStreetKey(string const & name)
+string GetStreetKey(string_view name)
 {
   return strings::ToUtf8(search::GetStreetNameAsKey(name, false /* ignoreStreetSynonyms */));
 }
@@ -383,7 +383,7 @@ UNIT_TEST(HS_MWMSearch)
   // "Minsk", "Belarus", "Lithuania", "USA_New York", "USA_California"
   string const country = "minsk-pass";
 
-  string const path = GetPlatform().WritableDir() + country + ".addr";
+  string const path = base::JoinPath(GetPlatform().WritableDir(), country + ".addr");
   ifstream file(path.c_str());
   if (!file.good())
   {
@@ -412,8 +412,7 @@ UNIT_TEST(HS_MWMSearch)
     if (line.empty())
       continue;
 
-    vector<string> v;
-    strings::Tokenize(line, "|", base::MakeBackInsertFunctor(v));
+    auto const v = strings::Tokenize(line, "|");
 
     string key = GetStreetKey(v[0]);
     if (key.empty())
@@ -496,3 +495,4 @@ UNIT_TEST(HS_MWMSearch)
   LOG(LINFO, ("Matched =", matched, "Not matched =", notMatched, "Not found =", all - matched - notMatched));
   LOG(LINFO, ("All count =", all, "Percent matched =", matched / double(all)));
 }
+}  // namespace house_detector_tests

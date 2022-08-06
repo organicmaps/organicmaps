@@ -10,11 +10,11 @@
 #include <string>
 #include <vector>
 
+namespace features_vector_test
+{
 using namespace platform;
 using namespace std;
 
-namespace
-{
 // Postcodes with frequences.
 // One can easily get this list of frequences with postcodes:
 //
@@ -69,11 +69,11 @@ UNIT_TEST(FeaturesVectorTest_ParseMetadata)
 
   map<string, int> actual;
   fv.ForEach([&](FeatureType & ft, uint32_t index)
-             {
-               string postcode = ft.GetMetadata(feature::Metadata::FMD_POSTCODE);
-               if (!postcode.empty())
-                 ++actual[postcode];
-             });
+  {
+    string const postcode(ft.GetMetadata(feature::Metadata::FMD_POSTCODE));
+    if (!postcode.empty())
+      ++actual[postcode];
+  });
   TEST_EQUAL(expected, actual, ());
 }
-}  // namespace
+} // namespace features_vector_test

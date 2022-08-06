@@ -8,6 +8,8 @@
 
 #include "base/math.hpp"
 
+namespace bicycle_route_test
+{
 using namespace integration;
 using namespace routing;
 using namespace routing::turns;
@@ -64,7 +66,7 @@ UNIT_TEST(NetherlandsAmsterdamBicycleYes)
   Route const & route = *routeResult.first;
   RouterResultCode const result = routeResult.second;
   TEST_EQUAL(result, RouterResultCode::NoError, ());
-  TEST_ALMOST_EQUAL_ABS(route.GetTotalTimeSec(), 300.0, 10.0, ());
+  TEST_ALMOST_EQUAL_ABS(route.GetTotalTimeSec(), 336.0, 10.0, ());
 }
 
 // This test on tag cycleway=opposite for a streets which have oneway=yes.
@@ -146,10 +148,12 @@ UNIT_TEST(CrossMwmKaliningradRegionToLiepaja)
 // Test on riding up from Adeje (sea level) to Vilaflor (altitude 1400 meters).
 UNIT_TEST(SpainTenerifeAdejeVilaflor)
 {
+  // Route length: 30440 meters. ETA: 10022.6 seconds.
+  // Can't say ETA is good or not, but avg speed is 3m/s, which looks ok.
   integration::CalculateRouteAndTestRouteTime(
       integration::GetVehicleComponents(VehicleType::Bicycle),
       mercator::FromLatLon(28.11984, -16.72592), {0.0, 0.0},
-      mercator::FromLatLon(28.15865, -16.63704), 10787.6 /* expectedTimeSeconds */);
+      mercator::FromLatLon(28.15865, -16.63704), 10022.6 /* expectedTimeSeconds */);
 }
 
 // Test on riding down from Vilaflor (altitude 1400 meters) to Adeje (sea level).
@@ -162,18 +166,30 @@ UNIT_TEST(SpainTenerifeVilaflorAdeje)
 }
 
 // Two tests on not building route against traffic on road with oneway:bicycle=yes.
-UNIT_TEST(MunichRoadWithOnewayBicycleYes1)
+UNIT_TEST(Munich_OnewayBicycle1)
 {
+  /// @todo Should combine TurnSlightLeft, TurnLeft, TurnLeft into UTurnLeft?
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Bicycle),
-      mercator::FromLatLon(48.15995, 11.56296), {0.0, 0.0},
-      mercator::FromLatLon(48.16027, 11.56306), 262.1 /* expectedRouteMeters */);
+      mercator::FromLatLon(48.1601673, 11.5630245), {0.0, 0.0},
+      mercator::FromLatLon(48.1606349, 11.5631699), 279.515 /* expectedRouteMeters */);
 }
 
-UNIT_TEST(MunichRoadWithOnewayBicycleYes2)
+UNIT_TEST(Munich_OnewayBicycle2)
 {
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Bicycle),
       mercator::FromLatLon(48.17819, 11.57286), {0.0, 0.0},
-      mercator::FromLatLon(48.17867, 11.57303), 177.2 /* expectedRouteMeters */);
+      mercator::FromLatLon(48.17867, 11.57303), 201.532 /* expectedRouteMeters */);
 }
+
+// https://github.com/organicmaps/organicmaps/issues/1603
+UNIT_TEST(London_GreenwichTunnel)
+{
+  // Avoiding barrier=gate https://www.openstreetmap.org/node/3881243716
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetVehicleComponents(VehicleType::Bicycle),
+      mercator::FromLatLon(51.4817397, -0.0100070258), {0.0, 0.0},
+      mercator::FromLatLon(51.4883739, -0.00809729298), 1332.8 /* expectedRouteMeters */);
+}
+} // namespace bicycle_route_test

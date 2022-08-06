@@ -3,11 +3,11 @@
 #include "platform/platform_tests_support/async_gui_thread.hpp"
 
 #include "routing/routing_session.hpp"
-#include "routing/routing_settings.hpp"
-#include "routing/vehicle_mask.hpp"
 
 #include <memory>
 
+namespace routing
+{
 class AsyncGuiThreadTest
 {
   platform::tests_support::AsyncGuiThread m_asyncGuiThread;
@@ -16,14 +16,13 @@ class AsyncGuiThreadTest
 class AsyncGuiThreadTestWithRoutingSession : public AsyncGuiThreadTest
 {
 public:
-  void InitRoutingSession()
-  {
-    m_session = std::make_unique<routing::RoutingSession>();
-    m_session->Init(nullptr /* pointCheckCallback */);
-    m_session->SetRoutingSettings(routing::GetRoutingSettings(routing::VehicleType::Car));
-    m_session->SetOnNewTurnCallback([this]() { ++m_onNewTurnCallbackCounter; });
-  }
+  void InitRoutingSession();
 
-  std::unique_ptr<routing::RoutingSession> m_session;
+  std::unique_ptr<RoutingSession> m_session;
   size_t m_onNewTurnCallbackCounter = 0;
 };
+
+void RouteSegmentsFrom(std::vector<Segment> const & segments, std::vector<m2::PointD> const & path,
+                       std::vector<turns::TurnItem> const & turns, std::vector<RouteSegment::RoadNameInfo> const & names,
+                       std::vector<RouteSegment> & routeSegments);
+}  // namespace routing

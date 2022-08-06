@@ -184,6 +184,7 @@ bool SearchAPI::SearchEverywhere(EverywhereSearchParams const & params)
   p.m_suggestsEnabled = true;
   p.m_needAddress = true;
   p.m_needHighlighting = true;
+  p.m_categorialRequest = params.m_isCategory;
   if (params.m_timeout)
     p.m_timeout = *params.m_timeout;
 
@@ -211,6 +212,7 @@ bool SearchAPI::SearchInViewport(ViewportSearchParams const & params)
   p.m_suggestsEnabled = false;
   p.m_needAddress = false;
   p.m_needHighlighting = false;
+  p.m_categorialRequest = params.m_isCategory;
   if (params.m_timeout)
     p.m_timeout = *params.m_timeout;
 

@@ -114,44 +114,51 @@ void SortUnique(Cont & c)
   c.erase(std::unique(c.begin(), c.end()), c.end());
 }
 
-// Sorts according to |less| and removes duplicate entries according to |equals| from |c|.
-// Note. If several entries are equal according to |less| an arbitrary entry of them
-// is left in |c| after a call of this function.
+/// @name Use std::ref to pass functors into std, since all algorithm functions here get forwarding reference.
+/// @{
 template <typename Cont, typename Less, typename Equals>
 void SortUnique(Cont & c, Less && less, Equals && equals)
 {
-  std::sort(c.begin(), c.end(), std::forward<Less>(less));
-  c.erase(std::unique(c.begin(), c.end(), std::forward<Equals>(equals)), c.end());
+  std::sort(c.begin(), c.end(), std::ref(less));
+  c.erase(std::unique(c.begin(), c.end(), std::ref(equals)), c.end());
 }
 
 template <typename Cont, typename Fn>
 void EraseIf(Cont & c, Fn && fn)
 {
-  c.erase(std::remove_if(c.begin(), c.end(), std::forward<Fn>(fn)), c.end());
+  c.erase(std::remove_if(c.begin(), c.end(), std::ref(fn)), c.end());
 }
 
 template <typename Cont, typename Fn>
-bool AllOf(Cont && c, Fn && fn)
+bool AllOf(Cont const & c, Fn && fn)
 {
-  return std::all_of(c.cbegin(), c.cend(), std::forward<Fn>(fn));
+  return std::all_of(std::cbegin(c), std::cend(c), std::ref(fn));
 }
 
 template <typename Cont, typename Fn>
-bool AnyOf(Cont && c, Fn && fn)
+bool AnyOf(Cont const & c, Fn && fn)
 {
-  return std::any_of(c.cbegin(), c.cend(), std::forward<Fn>(fn));
+  return std::any_of(std::cbegin(c), std::cend(c), std::ref(fn));
 }
 
 template <typename Cont, typename OutIt, typename Fn>
-decltype(auto) Transform(Cont && c, OutIt && it, Fn && fn)
+decltype(auto) Transform(Cont const & c, OutIt it, Fn && fn)
 {
-  return std::transform(std::cbegin(c), std::cend(c), std::forward<OutIt>(it), std::forward<Fn>(fn));
+  return std::transform(std::cbegin(c), std::cend(c), it, std::ref(fn));
 }
 
 template <typename Cont, typename Fn>
-decltype(auto) FindIf(Cont && c, Fn && fn)
+decltype(auto) FindIf(Cont const & c, Fn && fn)
 {
-  return std::find_if(c.begin(), c.end(), std::forward<Fn>(fn));
+  return std::find_if(std::cbegin(c), std::cend(c), std::ref(fn));
+}
+/// @}
+
+template <typename Cont, typename T>
+bool IsExist(Cont const & c, T const & t)
+{
+  auto end = std::cend(c);
+  return std::find(std::cbegin(c), end, t) != end;
 }
 
 // Creates a comparer being able to compare two instances of class C

@@ -26,13 +26,10 @@
 /* Leave Review dialog - Review button */
 "leave_a_review" = "Lascia una recensione";
 
-/* View and button titles for accessibility */
-"maps" = "Mappe";
-
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "Miglia";
 
-/* View and button titles for accessibility */
+/* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "La mia posizione";
 
 /* Update maps later/Buy pro version later button text */
@@ -126,7 +123,7 @@
 "nightlife" = "Vita notturna";
 
 /* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! */
-"children" = "Tempo libero";
+"children" = "Divertimento in famiglia";
 
 /* Search category for banks; any changes should be duplicated in categories.txt @bank! */
 "bank" = "Banca";
@@ -145,6 +142,9 @@
 
 /* Search category for police; any changes should be duplicated in categories.txt @police! */
 "police" = "Polizia";
+
+/* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
+"wifi" = "Wi-Fi";
 
 /* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
 "recycling" = "Riciclo";
@@ -261,6 +261,9 @@
 /* Text in menu */
 "website" = "Sito web";
 
+/* Text in About menu, opens Organic Maps news website */
+"news" = "Notizia";
+
 /* Text in menu */
 "github" = "GitHub";
 
@@ -312,13 +315,10 @@
 /* Settings item title */
 "pref_calibration_title" = "Calibrazione bussola";
 
-/* Search category */
-"wifi" = "Wi-Fi";
-
 /* Update all button text */
 "downloader_update_all_button" = "Aggiorna tutte";
 
-/* Downloaded maps category */
+/* Downloaded maps list header */
 "downloader_downloaded_subtitle" = "Scaricate";
 
 /* Downloaded maps category */
@@ -329,6 +329,7 @@
 
 "downloader_near_me_subtitle" = "Vicino a me";
 
+/* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
 "downloader_status_maps" = "Mappe";
 
 "downloader_download_all_button" = "Scarica tutte";
@@ -419,9 +420,6 @@
 /* blue gray color */
 "blue_gray" = "Grigiazzurro";
 
-/* Wi-Fi available */
-"WiFi_available" = "Sì";
-
 
 /********** Routing dialogs strings **********/
 
@@ -504,6 +502,10 @@
 "categories" = "Categorie";
 
 "history" = "Cronologia";
+
+"opens_in" = "Apre tra %@";
+
+"closes_in" = "Chiude tra %@";
 
 "closed" = "Chiuso";
 
@@ -743,9 +745,12 @@
 
 "mile" = "mi";
 
-"foot" = "piede";
+/* A unit of measure */
+"foot" = "ft";
 
 "miles_per_hour" = "mph";
+
+"minute" = "min";
 
 "placepage_place_description" = "Descrizione";
 
@@ -1025,9 +1030,17 @@
 
 "redirect_route_alert" = "Vuoi ricalcolare il percorso?";
 
-"redirect_route_yes" = "Sì";
+/* A generic "Yes" button in dialogs */
+"yes" = "Sì";
 
-"redirect_route_no" = "No";
+/* A generic "No" button in dialogs */
+"no" = "No";
+
+/* E.g. "WiFi:Yes" */
+"yes_available" = "Sì";
+
+/* E.g. "WiFi:No" */
+"no_available" = "No";
 
 "trip_finished" = "Sei arrivato!";
 
@@ -1245,6 +1258,8 @@
 
 "type.amenity.bicycle_rental" = "Noleggio biciclette";
 
+"type.amenity.bicycle_repair_station" = "Stazione di riparazione biciclette";
+
 "type.amenity.biergarten" = "Biergarten";
 
 "type.amenity.brothel" = "Bordello";
@@ -1442,11 +1457,21 @@
 
 "type.amenity.vending_machine.cigarettes" = "Distributore automatico di sigarette";
 
+"type.amenity.vending_machine.coffee" = "Distributore di caffè";
+
+"type.amenity.vending_machine.condoms" = "Distributore di profilattici";
+
 "type.amenity.vending_machine.drinks" = "Distributore automatico di bibite";
+
+"type.amenity.vending_machine.food" = "Distributore di alimenti";
+
+"type.amenity.vending_machine.newspapers" = "Distributore di giornali";
 
 "type.amenity.vending_machine.parking_tickets" = "Parcometro";
 
 "type.amenity.vending_machine.public_transport_tickets" = "Distributore automatico biglietti di trasporto";
+
+"type.amenity.vending_machine.sweets" = "Distributore di dolciumi";
 
 "type.amenity.vending_machine.excrement_bags" = "Excrement Bags Dispenser";
 
@@ -1552,16 +1577,29 @@
 
 "type.building.warehouse" = "Warehouse";
 
-"type.craft" = "Craft";
+"type.cemetery.grave" = "La tomba";
+
+"type.craft" = "Artigianato";
+
+"type.craft.beekeeper" = "Apicoltore";
+
+"type.craft.blacksmith" = "Fabbro";
 
 "type.craft.brewery" = "Birrificio";
 
 "type.craft.carpenter" = "Falegname";
 
+"type.craft.confectionery" = "Confectionery";
+
 "type.craft.electrician" = "Elettricista";
+
+"type.craft.electronics_repair" = "Riparazioni elettroniche";
 
 "type.craft.gardener" = "Giardiniere";
 
+"type.craft.handicraft" = "Artigiano";
+
+/* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Impianti HVAC";
 
 "type.craft.metal_construction" = "Fabbro";
@@ -1572,7 +1610,11 @@
 
 "type.craft.plumber" = "Idraulico";
 
+"type.craft.sawmill" = "Sawmill";
+
 "type.craft.shoemaker" = "Calzolaio";
+
+"type.craft.winery" = "Winery";
 
 "type.craft.tailor" = "Sarto";
 
@@ -1601,6 +1643,8 @@
 "type.cuisine.brazilian" = "Cucina brasiliana";
 
 "type.cuisine.breakfast" = "Colazione";
+
+"type.cuisine.bubble_tea" = "Bubble Tea";
 
 "type.cuisine.burger" = "Hamburger";
 
@@ -1765,11 +1809,13 @@
 
 "type.highway.bridleway" = "Bridle Path";
 
-"type.highway.bridleway.bridge" = "Bridle Path";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.bridleway.bridge" = "Ponte";
 
 "type.highway.bridleway.permissive" = "Bridle Path";
 
-"type.highway.bridleway.tunnel" = "Bridle Path";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.bridleway.tunnel" = "Tunnel";
 
 "type.highway.bus_stop" = "Fermata";
 
@@ -1777,11 +1823,13 @@
 
 "type.highway.cycleway" = "Cycle Path";
 
-"type.highway.cycleway.bridge" = "Cycle Path";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.cycleway.bridge" = "Ponte";
 
 "type.highway.cycleway.permissive" = "Cycle Path";
 
-"type.highway.cycleway.tunnel" = "Cycle Path";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.cycleway.tunnel" = "Tunnel";
 
 "type.highway.elevator" = "Elevator";
 
@@ -1791,7 +1839,8 @@
 
 "type.highway.footway.area" = "Sentiero";
 
-"type.highway.footway.bridge" = "Sentiero";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.footway.bridge" = "Ponte";
 
 "type.highway.footway.demanding_alpine_hiking" = "Sentiero";
 
@@ -1805,29 +1854,36 @@
 
 "type.highway.footway.permissive" = "Sentiero";
 
-"type.highway.footway.tunnel" = "Sentiero";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.footway.tunnel" = "Tunnel";
 
 "type.highway.ford" = "Guado";
 
 "type.highway.living_street" = "Via";
 
-"type.highway.living_street.bridge" = "Via";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.living_street.bridge" = "Ponte";
 
-"type.highway.living_street.tunnel" = "Via";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.living_street.tunnel" = "Tunnel";
 
 "type.highway.motorway" = "Via";
 
-"type.highway.motorway.bridge" = "Via";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway.bridge" = "Ponte";
 
-"type.highway.motorway.tunnel" = "Via";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway.tunnel" = "Tunnel";
 
 "type.highway.motorway_junction" = "Road Exit";
 
 "type.highway.motorway_link" = "Via";
 
-"type.highway.motorway_link.bridge" = "Via";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway_link.bridge" = "Ponte";
 
-"type.highway.motorway_link.tunnel" = "Via";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway_link.tunnel" = "Tunnel";
 
 "type.highway.path" = "Sentiero";
 
@@ -1835,7 +1891,8 @@
 
 "type.highway.path.bicycle" = "Sentiero";
 
-"type.highway.path.bridge" = "Sentiero";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.path.bridge" = "Ponte";
 
 "type.highway.path.demanding_alpine_hiking" = "Sentiero";
 
@@ -1851,27 +1908,34 @@
 
 "type.highway.path.permissive" = "Sentiero";
 
-"type.highway.path.tunnel" = "Sentiero";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.path.tunnel" = "Tunnel";
 
 "type.highway.pedestrian" = "Via";
 
 "type.highway.pedestrian.area" = "Via";
 
-"type.highway.pedestrian.bridge" = "Via";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.pedestrian.bridge" = "Ponte";
 
-"type.highway.pedestrian.tunnel" = "Via";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.pedestrian.tunnel" = "Tunnel";
 
 "type.highway.primary" = "Via";
 
-"type.highway.primary.bridge" = "Via";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary.bridge" = "Ponte";
 
-"type.highway.primary.tunnel" = "Via";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary.tunnel" = "Tunnel";
 
 "type.highway.primary_link" = "Via";
 
-"type.highway.primary_link.bridge" = "Via";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary_link.bridge" = "Ponte";
 
-"type.highway.primary_link.tunnel" = "Via";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary_link.tunnel" = "Tunnel";
 
 "type.highway.raceway" = "Pista";
 
@@ -1879,41 +1943,51 @@
 
 "type.highway.residential.area" = "Via";
 
-"type.highway.residential.bridge" = "Via";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.residential.bridge" = "Ponte";
 
-"type.highway.residential.tunnel" = "Via";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.residential.tunnel" = "Tunnel";
 
 "type.highway.rest_area" = "Area di sosta";
 
 "type.highway.road" = "Via";
 
-"type.highway.road.bridge" = "Via";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.road.bridge" = "Ponte";
 
-"type.highway.road.tunnel" = "Via";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.road.tunnel" = "Tunnel";
 
 "type.highway.secondary" = "Via";
 
-"type.highway.secondary.bridge" = "Via";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary.bridge" = "Ponte";
 
-"type.highway.secondary.tunnel" = "Via";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary.tunnel" = "Tunnel";
 
 "type.highway.secondary_link" = "Via";
 
-"type.highway.secondary_link.bridge" = "Via";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary_link.bridge" = "Ponte";
 
-"type.highway.secondary_link.tunnel" = "Via";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary_link.tunnel" = "Tunnel";
 
 "type.highway.service" = "Via";
 
 "type.highway.service.area" = "Via";
 
-"type.highway.service.bridge" = "Via";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.service.bridge" = "Ponte";
 
 "type.highway.service.driveway" = "Via";
 
 "type.highway.service.parking_aisle" = "Via";
 
-"type.highway.service.tunnel" = "Via";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.service.tunnel" = "Tunnel";
 
 "type.highway.services" = "Service Area";
 
@@ -1921,27 +1995,34 @@
 
 "type.highway.steps" = "Sentiero";
 
-"type.highway.steps.bridge" = "Sentiero";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.steps.bridge" = "Ponte";
 
-"type.highway.steps.tunnel" = "Sentiero";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.steps.tunnel" = "Tunnel";
 
 "type.highway.tertiary" = "Via";
 
-"type.highway.tertiary.bridge" = "Via";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary.bridge" = "Ponte";
 
-"type.highway.tertiary.tunnel" = "Via";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary.tunnel" = "Tunnel";
 
 "type.highway.tertiary_link" = "Via";
 
-"type.highway.tertiary_link.bridge" = "Via";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary_link.bridge" = "Ponte";
 
-"type.highway.tertiary_link.tunnel" = "Via";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary_link.tunnel" = "Tunnel";
 
 "type.highway.track" = "Via";
 
 "type.highway.track.area" = "Via";
 
-"type.highway.track.bridge" = "Via";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.track.bridge" = "Ponte";
 
 "type.highway.track.grade1" = "Via";
 
@@ -1957,29 +2038,36 @@
 
 "type.highway.track.permissive" = "Via";
 
-"type.highway.track.tunnel" = "Via";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.track.tunnel" = "Tunnel";
 
 "type.highway.traffic_signals" = "Semaforo";
 
 "type.highway.trunk" = "Via";
 
-"type.highway.trunk.bridge" = "Via";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk.bridge" = "Ponte";
 
-"type.highway.trunk.tunnel" = "Via";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk.tunnel" = "Tunnel";
 
 "type.highway.trunk_link" = "Via";
 
-"type.highway.trunk_link.bridge" = "Via";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk_link.bridge" = "Ponte";
 
-"type.highway.trunk_link.tunnel" = "Via";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk_link.tunnel" = "Tunnel";
 
 "type.highway.unclassified" = "Via";
 
 "type.highway.unclassified.area" = "Via";
 
-"type.highway.unclassified.bridge" = "Via";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.unclassified.bridge" = "Ponte";
 
-"type.highway.unclassified.tunnel" = "Via";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.unclassified.tunnel" = "Tunnel";
 
 "type.area_highway.cycleway" = "Cycle Path";
 
@@ -2110,6 +2198,8 @@
 
 "type.landuse.construction" = "Construction";
 
+"type.landuse.education" = "Strutture didattiche";
+
 "type.landuse.farm" = "Farm";
 
 "type.landuse.farmland" = "Terreno agricolo";
@@ -2206,13 +2296,9 @@
 
 "type.leisure.sports_centre" = "Centro sportivo";
 
-"type.leisure.sports_centre.climbing" = "Centro di arrampicata";
+"type.sport.climbing" = "Centro di arrampicata";
 
-"type.leisure.sports_centre.shooting" = "Poligono di tiro";
-
-"type.leisure.sports_centre.swimming" = "Centro natatorio";
-
-"type.leisure.sports_centre.yoga" = "Centro Yoga";
+"type.sport.yoga" = "Centro Yoga";
 
 "type.leisure.stadium" = "Stadio";
 
@@ -2235,6 +2321,8 @@
 "type.man_made.chimney" = "Ciminiera industriale";
 
 "type.man_made.cutline" = "Cutline";
+
+"type.man_made.survey_point" = "Survey Point";
 
 "type.man_made.flagpole" = "Flagpole";
 
@@ -2278,37 +2366,43 @@
 
 "type.mountain_pass" = "Passo";
 
-"type.natural" = "Natural";
+"type.natural" = "Natura";
 
-"type.natural.bare_rock" = "Bare Rock";
+"type.natural.bare_rock" = "Roccia nuda";
 
 "type.natural.bay" = "Baia";
 
 "type.natural.beach" = "Spiaggia";
 
-"type.natural.beach.sand" = "Sandy Beach";
+"type.natural.beach.sand" = "Spiaggia sabbiosa";
 
-"type.natural.beach.gravel" = "Gravel Beach";
+"type.natural.beach.gravel" = "Spiaggia di ghiaia";
 
 "type.natural.cape" = "Capo";
 
 "type.natural.cave_entrance" = "Grotta";
 
-"type.natural.cliff" = "Cliff";
+"type.natural.cliff" = "Falesia";
 
-"type.natural.coastline" = "Coastline";
+"type.natural.earth_bank" = "Scogliera";
+
+"type.man_made.embankment" = "Rilevato";
+
+"type.natural.coastline" = "Costa";
 
 "type.natural.geyser" = "Geyser";
 
 "type.natural.glacier" = "Ghiacciaio";
 
-"type.natural.grassland" = "Campo";
+"type.natural.grassland" = "Prateria";
 
-"type.natural.heath" = "Heath";
+"type.natural.heath" = "Landa";
 
-"type.natural.hot_spring" = "Hot Spring";
+"type.natural.hot_spring" = "Sorgente calda";
 
 "type.natural.water.lake" = "Lago";
+
+"type.natural.water.lock" = "Camera di blocco";
 
 "type.natural.water.pond" = "Stagno";
 
@@ -2318,17 +2412,17 @@
 
 "type.natural.water.river" = "Fiume";
 
-"type.natural.land" = "Land";
+"type.natural.land" = "Terra";
 
-"type.natural.meadow" = "Meadow";
+"type.natural.meadow" = "Prato";
 
-"type.natural.orchard" = "Orchard";
+"type.natural.orchard" = "Frutteto";
 
 "type.natural.peak" = "Monte";
 
 "type.natural.saddle" = "Sella";
 
-"type.natural.rock" = "Rock";
+"type.natural.rock" = "Roccia";
 
 "type.natural.scrub" = "Boscaglia";
 
@@ -2338,9 +2432,9 @@
 
 "type.natural.tree" = "Albero";
 
-"type.natural.tree_row" = "Tree Row";
+"type.natural.tree_row" = "Fila di alberi";
 
-"type.natural.vineyard" = "Vineyard";
+"type.natural.vineyard" = "Vigneto";
 
 "type.natural.volcano" = "Vulcano";
 
@@ -2348,9 +2442,9 @@
 
 "type.natural.wetland" = "Terreno paludoso";
 
-"type.natural.wetland.bog" = "Wetland";
+"type.natural.wetland.bog" = "Torbiera";
 
-"type.natural.wetland.marsh" = "Wetland";
+"type.natural.wetland.marsh" = "Palude";
 
 "type.noexit" = "Dead End";
 
@@ -2369,6 +2463,10 @@
 "type.office.ngo" = "Sede ONG";
 
 "type.office.telecommunication" = "Operatore di telefonia mobile";
+
+"type.organic.only" = "Biologico";
+
+"type.organic.yes" = "Biologico";
 
 "type.place" = "place";
 
@@ -2664,6 +2762,8 @@
 
 "type.shop.cosmetics" = "Cosmetici";
 
+"type.shop.deli" = "Negozio di specialità gastronomiche";
+
 "type.shop.department_store" = "Grandi magazzini";
 
 "type.shop.doityourself" = "Ferramenta";
@@ -2675,6 +2775,8 @@
 "type.shop.erotic" = "Sexy Shop";
 
 "type.shop.fabric" = "Negozio";
+
+"type.shop.farm" = "Negozio di prodotti alimentari della fattoria";
 
 "type.shop.florist" = "Fiorista";
 
@@ -2688,13 +2790,21 @@
 
 "type.shop.greengrocer" = "Fruttivendolo";
 
+"type.shop.grocery" = "Drogheria";
+
 "type.shop.hairdresser" = "Parrucchiera";
 
-"type.shop.hardware" = "Ferramenta";
+"type.shop.hardware" = "Negozio hardware";
+
+"type.shop.health_food" = "Negozio di alimenti naturali";
+
+"type.shop.houseware" = "Negozio di casalinghi";
 
 "type.shop.jewelry" = "Gioielleria";
 
 "type.shop.kiosk" = "Chiosco";
+
+"type.shop.kitchen" = "Negozio di cucina";
 
 "type.shop.laundry" = "Lavanderia";
 
@@ -2718,6 +2828,8 @@
 
 "type.shop.outdoor" = "Attrezzatura sportiva";
 
+"type.shop.pastry" = "Pasticcino";
+
 "type.shop.pawnbroker" = "Pegni";
 
 "type.shop.pet" = "Negozio di animali";
@@ -2725,6 +2837,8 @@
 "type.shop.photo" = "Negozio di fotografia";
 
 "type.shop.seafood" = "Pescivendolo";
+
+"type.shop.second_hand" = "Negozio di articoli usati";
 
 "type.shop.shoes" = "Negozio di scarpe";
 
@@ -2754,49 +2868,108 @@
 
 "type.shop.wine" = "Negozio di alcolici";
 
-"type.sport" = "sport";
+"type.shop.antiques" = "Oggetti d'antiquariato";
 
-"type.sport.american_football" = "American Football";
+"type.shop.art" = "Negozio d'arte";
 
-"type.sport.archery" = "Archery";
+"type.shop.baby_goods" = "Negozio per bambini";
+
+"type.shop.bag" = "Negozio di borse";
+
+"type.shop.boutique" = "Boutique";
+
+"type.shop.charity" = "Negozio di beneficenza";
+
+"type.shop.cheese" = "Negozio di formaggi";
+
+"type.shop.craft" = "Arti e mestieri";
+
+"type.shop.dairy" = "Latticini";
+
+"type.shop.electrical" = "Negozio di articoli elettrici";
+
+"type.shop.fishing" = "Negozio di pesca";
+
+"type.shop.interior_decoration" = "Decorazioni per interni";
+
+"type.shop.lottery" = "Biglietti della lotteria";
+
+"type.shop.medical_supply" = "Forniture mediche";
+
+"type.shop.nutrition_supplements" = "Integratori Alimentari";
+
+"type.shop.paint" = "Vernici";
+
+"type.shop.perfumery" = "Profumeria";
+
+"type.shop.sewing" = "Forniture per il cucito";
+
+"type.shop.storage_rental" = "Noleggio deposito";
+
+"type.shop.tobacco" = "Tabacco";
+
+"type.shop.trade" = "Forniture commerciali";
+
+"type.shop.watches" = "Orologi";
+
+"type.shop.wholesale" = "Negozio all'ingrosso";
+
+"type.sport" = "Sport";
+
+"type.sport.american_football" = "Football americano";
+
+"type.sport.archery" = "Tiro con l'arco";
 
 "type.sport.athletics" = "Atletica leggera";
 
-"type.sport.australian_football" = "Rugby";
+"type.sport.australian_football" = "Football australiano";
 
 "type.sport.baseball" = "Baseball";
 
 "type.sport.basketball" = "Pallacanestro";
 
+"type.sport.beachvolleyball" = "Beach volley";
+
 "type.sport.bowls" = "Bowls";
+
+"type.sport.chess" = "Scacchi";
 
 "type.sport.cricket" = "Cricket";
 
-"type.sport.curling" = "Сurling";
-
-"type.sport.diving" = "Diving";
+"type.sport.curling" = "Curling";
 
 "type.sport.equestrian" = "Equitazione";
 
 "type.sport.golf" = "Golf";
 
-"type.sport.gymnastics" = "Gymnastics";
+"type.sport.gymnastics" = "Ginnastica";
 
-"type.sport.handball" = "Handball";
+"type.sport.handball" = "Palla a mano";
 
-"type.sport.multi" = "Various Sport";
+"type.sport.multi" = "Sport vari";
 
-"type.sport.scuba_diving" = "Scuba Diving";
+/* Used to tag a scuba diving site. */
+"type.sport.scuba_diving" = "Immersioni in subacquea";
 
-"type.sport.shooting" = "Shooting";
+"type.sport.shooting" = "Tiro";
 
-"type.sport.skiing" = "Skiing";
+"type.sport.skateboard" = "Skateboard";
 
-"type.sport.soccer" = "Soccer (Football)";
+"type.sport.skiing" = "Sciare";
 
-"type.sport.swimming" = "Swimming";
+"type.sport.soccer" = "Calcio";
+
+"type.sport.swimming" = "Nuoto";
+
+"type.sport.table_tennis" = "Tennistavolo";
 
 "type.sport.tennis" = "Campo da tennis";
+
+"type.sport.volleyball" = "Pallavolo";
+
+"type.sport.9pin" = "Bowling";
+
+"type.sport.10pin" = "Bowling";
 
 "type.tourism" = "Tourism";
 
@@ -2838,7 +3011,7 @@
 
 "type.tourism.information.board" = "Tabellone informativo";
 
-"type.tourism.information.guidepost" = "Informazione";
+"type.tourism.information.guidepost" = "Guida";
 
 "type.tourism.information.map" = "Mappa turistica";
 
@@ -2883,8 +3056,6 @@
 "type.waterway.drain" = "Drain";
 
 "type.waterway.drain.tunnel" = "Drain";
-
-"type.waterway.lock" = "Waterway Lock";
 
 "type.waterway.lock_gate" = "Sbarramento";
 
@@ -2948,3 +3119,5 @@
 "type.piste_type.sled" = "Sledding Piste";
 
 "type.building_part" = "Edificio";
+
+"type.amenity.events_venue" = "Sede degli eventi";

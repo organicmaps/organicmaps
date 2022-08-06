@@ -30,9 +30,9 @@ public:
   void Init(std::string const & icuDataDir);
 
   void SetMode(Mode mode);
-  // Transliterates |str| with transliterators set for |langCode| in StringUtf8Multilang
+  // Transliterates |sv| with transliterators set for |langCode| in StringUtf8Multilang
   // if mode is set to Enabled.
-  bool Transliterate(std::string const & str, int8_t langCode, std::string & out) const;
+  bool Transliterate(std::string_view sv, int8_t langCode, std::string & out) const;
 
   // Transliterates |str| with |transliteratorId|, ignores mode.
   bool TransliterateForce(std::string const & str, std::string const & transliteratorId,

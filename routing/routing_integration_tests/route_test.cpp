@@ -9,30 +9,10 @@
 
 #include <limits>
 
+namespace route_test
+{
 using namespace routing;
 using namespace std;
-
-namespace
-{
-  class RoutingOptionSetter
-  {
-  public:
-    RoutingOptionSetter(RoutingOptions::Road road)
-    {
-      RoutingOptions routingOptions;
-      routingOptions.Add(road);
-      RoutingOptions::SaveCarOptionsToSettings(routingOptions);
-    }
-
-    ~RoutingOptionSetter()
-    {
-      RoutingOptions::SaveCarOptionsToSettings(m_formerRoutingOptions);
-    }
-
-  private:
-    RoutingOptions m_formerRoutingOptions = RoutingOptions::LoadCarOptionsFromSettings();
-  };
-
 
   UNIT_TEST(StrangeCaseInAfrica)
   {
@@ -301,7 +281,7 @@ namespace
 
     CHECK(routeResult.first, ());
     Route const & route = *routeResult.first;
-    integration::TestRouteTime(route, 18011.8);
+    integration::TestRouteTime(route, 18045.9);
   }
 
   UNIT_TEST(RussiaMoscowLenigradskiy39GeroevPanfilovtsev22TimeTest)
@@ -410,7 +390,7 @@ namespace
 
     CHECK(routeResult.first, ());
     Route const & route = *routeResult.first;
-    integration::TestRouteTime(route, 6349.9);
+    integration::TestRouteTime(route, 6210.24);
   }
 
   UNIT_TEST(TolyattiFeatureThatCrossSeveralMwmsTest)
@@ -442,7 +422,7 @@ namespace
     for (auto const & routeSegment : routeSegments)
     {
       TEST(routeSegment.GetSpeedCams().empty(),
-           (routeSegment.GetSegment(), routeSegment.GetStreet()));
+           (routeSegment.GetSegment(), routeSegment.GetRoadNameInfo().m_name));
     }
   }
 
@@ -516,26 +496,30 @@ namespace
   }
 
   // Test that toll road is not crossed by a fake edge if RouingOptions are set to Road::Toll.
+  // Test on necessity calling RectCoversPolyline() after DataSource::ForEachInRect() while looking for fake edges.
   UNIT_TEST(RussiaMoscowNotCrossingTollRoadTest)
   {
     auto & vehicleComponents = integration::GetVehicleComponents(VehicleType::Car);
-    RoutingOptionSetter routingOptionSetter(RoutingOptions::Road::Toll);
 
-    integration::CalculateRouteAndTestRouteLength(
-        vehicleComponents, mercator::FromLatLon(55.93934, 37.406), {0.0, 0.0},
-        mercator::FromLatLon(55.93952, 37.45089), 10713.9);
-  }
+    auto const start = mercator::FromLatLon(55.93934, 37.406);
+    m2::PointD finish[] = { mercator::FromLatLon(55.9414245, 37.4489627), mercator::FromLatLon(55.9421391, 37.4484832) };
 
-  // Test on necessity calling RectCoversPolyline() after DataSource::ForEachInRect()
-  // while looking for fake edges.
-  UNIT_TEST(RussiaMoscowNecessityRectCoversPolylineTest)
-  {
-    auto & vehicleComponents = integration::GetVehicleComponents(VehicleType::Car);
-    RoutingOptionSetter routingOptionSetter(RoutingOptions::Road::Toll);
+    {
+      // Avoid motorway toll road and build route through minor residential roads (short but slow).
+      RoutingOptionSetter optionsGuard(RoutingOptions::Road::Toll);
 
-    integration::CalculateRouteAndTestRouteLength(
-        vehicleComponents, mercator::FromLatLon(55.93885, 37.40588), {0.0, 0.0},
-        mercator::FromLatLon(55.93706, 37.45339), 10894.3);
+      // 1. End point is near the motorway toll road, but choose a minor track as end segment.
+      integration::CalculateRouteAndTestRouteLength(vehicleComponents, start, {0.0, 0.0}, finish[0], 8427.71);
+
+      // 2. End point is near the service road via the motorway toll road, but choose a minor track as end segment.
+      integration::CalculateRouteAndTestRouteLength(vehicleComponents, start, {0.0, 0.0},finish[1], 8972.7);
+    }
+
+    {
+      // Normal route via the motorway toll road (long but fast).
+      integration::CalculateRouteAndTestRouteLength(vehicleComponents, start, {0.0, 0.0}, finish[0], 20604.9);
+      integration::CalculateRouteAndTestRouteLength(vehicleComponents, start, {0.0, 0.0}, finish[1], 20689.6);
+    }
   }
 
   UNIT_TEST(NoCrash_RioGrandeCosmopolis)
@@ -664,4 +648,97 @@ namespace
         mercator::FromLatLon(35.6233244, -78.3917262), {0., 0.},
         mercator::FromLatLon(36.0081839, -81.5245347), 333425);
   }
-}  // namespace
+
+  // https://github.com/organicmaps/organicmaps/issues/1565
+  UNIT_TEST(Cyprus_NoUTurnFromFake)
+  {
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetVehicleComponents(VehicleType::Car),
+        mercator::FromLatLon(34.70639, 33.1184951), {0., 0.},
+        mercator::FromLatLon(34.7065239, 33.1184222), 384.238);
+
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetVehicleComponents(VehicleType::Car),
+        mercator::FromLatLon(34.7068976, 33.1199084), {0., 0.},
+        mercator::FromLatLon(34.7070505, 33.1198391), 670.077);
+  }
+
+  UNIT_TEST(Crimea_UseGravelTertiary)
+  {
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetVehicleComponents(VehicleType::Car),
+        mercator::FromLatLon(45.362591, 36.471533), {0., 0.},
+        mercator::FromLatLon(45.475055, 36.341766), 18815.6);
+
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetVehicleComponents(VehicleType::Car),
+        mercator::FromLatLon(45.470764, 36.331289), {0., 0.},
+        mercator::FromLatLon(45.424964, 36.080336), 55220.2);
+  }
+
+  // https://github.com/organicmaps/organicmaps/issues/2475
+  UNIT_TEST(Spain_LinksJunction)
+  {
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetVehicleComponents(VehicleType::Car),
+        mercator::FromLatLon(38.8031, 0.0383), {0., 0.},
+        mercator::FromLatLon(38.8228, 0.0357), 3479.63);
+  }
+
+  // https://github.com/organicmaps/organicmaps/issues/1773
+  UNIT_TEST(Netherlands_CrossMwm_A15)
+  {
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetVehicleComponents(VehicleType::Car),
+        mercator::FromLatLon(51.847656, 4.089189), {0., 0.},
+        mercator::FromLatLon(51.651632, 4.725924), 70596.3);
+  }
+
+  // https://github.com/organicmaps/organicmaps/issues/2494
+  UNIT_TEST(Netherlands_CrossMwm_GoudaToApenheul)
+  {
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetVehicleComponents(VehicleType::Car),
+        mercator::FromLatLon(52.0181, 4.7111), {0., 0.},
+        mercator::FromLatLon(52.2153, 5.9187), 103576);
+  }
+
+  // https://github.com/organicmaps/organicmaps/issues/2285
+  UNIT_TEST(Hawaii_KeepH1)
+  {
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetVehicleComponents(VehicleType::Car),
+        mercator::FromLatLon(21.277841, -157.779314), {0., 0.},
+        mercator::FromLatLon(21.296098, -157.823823), 5289.31);
+  }
+
+  // https://github.com/organicmaps/organicmaps/issues/1668
+  UNIT_TEST(Russia_Moscow_KeepPrimary)
+  {
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetVehicleComponents(VehicleType::Car),
+        mercator::FromLatLon(55.7083688, 37.6213856), {0., 0.},
+        mercator::FromLatLon(55.724623, 37.62588), 1921.88);
+  }
+
+  // https://github.com/organicmaps/organicmaps/issues/1727
+  // https://github.com/organicmaps/organicmaps/issues/2020
+  // https://github.com/organicmaps/organicmaps/issues/2057
+  UNIT_TEST(DontUseLinksWhenRidingOnMotorway)
+  {
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetVehicleComponents(VehicleType::Car),
+        mercator::FromLatLon(32.16881, 34.90656), {0., 0.},
+        mercator::FromLatLon(32.1588823, 34.9330855), 2847.33);
+
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetVehicleComponents(VehicleType::Car),
+        mercator::FromLatLon(43.587808, 1.495385), {0., 0.},
+        mercator::FromLatLon(43.600145, 1.490489), 1457.16);
+
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetVehicleComponents(VehicleType::Car),
+        mercator::FromLatLon(34.0175371, -84.3272339), {0., 0.},
+        mercator::FromLatLon(34.0298011, -84.3182477), 1609.76);
+  }
+} // namespace route_test

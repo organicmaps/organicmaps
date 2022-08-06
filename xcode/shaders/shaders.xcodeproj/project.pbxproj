@@ -176,7 +176,7 @@
 		45789EE321353CA3009955CC /* program_manager_metal.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = program_manager_metal.mm; sourceTree = "<group>"; };
 		45789EE52135464D009955CC /* metal_program_params.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = metal_program_params.hpp; sourceTree = "<group>"; };
 		45789EE62135464D009955CC /* metal_program_params.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = metal_program_params.mm; sourceTree = "<group>"; };
-		4598437C21394BE000F8CAB2 /* shaders_metal.metallib */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "archive.metal-library"; path = shaders_metal.metallib; sourceTree = BUILT_PRODUCTS_DIR; };
+		4598437C21394BE000F8CAB2 /* shaders_metal.metallib */ = {isa = PBXFileReference; explicitFileType = "archive.metal-library"; includeInIndex = 0; path = shaders_metal.metallib; sourceTree = BUILT_PRODUCTS_DIR; };
 		56DAC3652399214F000BC50D /* libvulkan_wrapper.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libvulkan_wrapper.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBF7916F2146D8EC00D27BD8 /* system.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = system.metal; sourceTree = "<group>"; };
 		BBF7917221493AFC00D27BD8 /* arrow3d.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = arrow3d.metal; sourceTree = "<group>"; };
@@ -412,7 +412,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4566607720E254060085E8C1 /* Build configuration list for PBXNativeTarget "shaders" */;
 			buildPhases = (
-				456660D520E256C00085E8C1 /* ShellScript */,
+				456660D520E256C00085E8C1 /* Run Script */,
 				4566606A20E254060085E8C1 /* Sources */,
 			);
 			buildRules = (
@@ -463,7 +463,7 @@
 		4566606620E254060085E8C1 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1310;
+				LastUpgradeCheck = 1400;
 				TargetAttributes = {
 					4566606D20E254060085E8C1 = {
 						CreatedOnToolsVersion = 9.4;
@@ -508,7 +508,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		456660D520E256C00085E8C1 /* ShellScript */ = {
+		456660D520E256C00085E8C1 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -595,6 +595,7 @@
 				"$(SRCROOT)/../../shaders/programs.hpp",
 				"$(SRCROOT)/../../shaders/GL/shaders_lib.glsl",
 			);
+			name = "Run Script";
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -603,7 +604,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Without this check shaders library is always rebuilt in XCode 13.\n# See https://stackoverflow.com/a/69481200/1209392\nif [ $ACTION != \"indexbuild\" ]; then\npython ${SRCROOT}/../../shaders/gl_shaders_preprocessor.py ${SRCROOT}/../../shaders/GL shader_index.txt programs.hpp shaders_lib.glsl ${SRCROOT}/../../shaders gl_shaders\nfi\n";
+			shellScript = "# Without this check shaders library is always rebuilt in XCode 13.\n# See https://stackoverflow.com/a/69481200/1209392\nif [ $ACTION != \"indexbuild\" ]; then\npython3 ${SRCROOT}/../../shaders/gl_shaders_preprocessor.py ${SRCROOT}/../../shaders/GL shader_index.txt programs.hpp shaders_lib.glsl ${SRCROOT}/../../shaders gl_shaders\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

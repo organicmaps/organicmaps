@@ -50,7 +50,7 @@ public:
 
   /// @return Score of the name (greater is better).
   //@{
-  Score CalcScore(std::string const & name) const;
+  Score CalcScore(std::string_view name) const;
   Score CalcScore(strings::UniString const & name) const;
   Score CalcScore(strings::UniString const * tokens, size_t count) const;
   //@}

@@ -17,6 +17,12 @@
   <a href="https://f-droid.org/en/packages/app.organicmaps/">
     <img src="docs/badges/fdroid.png" width="180">
   </a>
+  <a href='https://flathub.org/apps/details/app.organicmaps.desktop'>
+    <img alt="Download on Flathub" src="https://flathub.org/assets/badges/flathub-badge-en.png" width="180"/>
+  </a>
+  <a href="https://repology.org/project/organicmaps/versions">
+    <img src="https://repology.org/badge/vertical-allrepos/organicmaps.svg" width="180" alt="Packaging status">
+  </a>
 </p>
 
 <p float="left">
@@ -127,9 +133,11 @@ and [Google Play](https://play.google.com/store/apps/details?id=app.organicmaps)
 - [Discuss](https://github.com/organicmaps/organicmaps/discussions/categories/ideas) ideas or propose feature requests.
 - Subscribe to our [Telegram Channel](https://t.me/OrganicMapsApp) or to the [[matrix] space](https://matrix.to/#/#organicmaps:matrix.org) for updates.
 - Join our [Telegram Group](https://t.me/OrganicMaps) to discuss with other users.
-- Присоединяйтесь к нашей [русскоязычной группе в Telegram](https://t.me/OrganicMapsRu) для обратной связи и помощи.
+  - Присоединяйтесь к нашей [русскоязычной группе в Telegram](https://t.me/OrganicMapsRu) для обратной связи и помощи.
+  - Diğer kullanıcılarla tartışmak için [Telegram Grubumuza](https://t.me/OrganicMapsTR) katılın.
 - Contact us by [email](mailto:hello@organicmaps.app).
 - Follow our updates in [Facebook](https://facebook.com/OrganicMaps), [Twitter](https://twitter.com/OrganicMapsApp),
 [Instagram](https://instagram.com/organicmaps.app/).
+  - Güncellemelerimizi [Instagram](https://instagram.com/organicmapstr/) üzerinden takip edin.
 
 The Organic Maps community abides by the CNCF code of conduct.

@@ -121,7 +121,7 @@ void StaticLabel::CacheStaticText(std::string const & text, char const * delim,
   ASSERT(!text.empty(), ());
 
   dp::TextureManager::TMultilineText textParts;
-  strings::Tokenize(text, delim, [&textParts](std::string const & part)
+  strings::Tokenize(text, delim, [&textParts](std::string_view part)
   {
     textParts.push_back(bidi::log2vis(part));
   });

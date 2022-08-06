@@ -28,6 +28,8 @@
 
 namespace df
 {
+namespace
+{
 std::array<double, 20> const kLineWidthZoomFactor =
 {
 // 1   2    3    4    5    6    7    8    9    10   11   12   13   14   15   16   17   18   19   20
@@ -35,14 +37,6 @@ std::array<double, 20> const kLineWidthZoomFactor =
 };
 int const kLineSimplifyLevelEnd = 15;
 
-std::string DebugPrint(ColoredSymbolViewParams const & csvp)
-{
-  return DebugPrint(csvp.m_anchor) + DebugPrint(csvp.m_color) +
-         DebugPrint(csvp.m_sizeInPixels) + DebugPrint(csvp.m_offset);
-}
-
-namespace
-{
 template <typename TCreateVector>
 void AlignFormingNormals(TCreateVector const & fn, dp::Anchor anchor, dp::Anchor first,
                          dp::Anchor second, glsl::vec2 & firstNormal, glsl::vec2 & secondNormal)
@@ -339,7 +333,7 @@ m2::SharedSpline SimplifySpline(UserLineRenderParams const & renderInfo, double 
   m2::SharedSpline spline;
   spline.Reset(new m2::Spline(renderInfo.m_spline->GetSize()));
 
-  static double const kMinSegmentLength = std::pow(4.0 * vs, 2);
+  static double const kMinSegmentLength = base::Pow2(4.0 * vs);
   m2::PointD lastAddedPoint;
   for (auto const & point : renderInfo.m_spline->GetPath())
   {
@@ -364,11 +358,12 @@ std::string GetBackgroundForSymbol(std::string const & symbolName,
   auto const tokens = strings::Tokenize(symbolName, kDelimiter.c_str());
   if (tokens.size() < 2 || tokens.size() > 3)
     return {};
+
   std::string backgroundSymbol;
-  if (tokens.size() == 2)
-    backgroundSymbol = tokens[0] + kDelimiter + kBackgroundName;
-  else
-    backgroundSymbol = tokens[0] + kDelimiter + kBackgroundName + kDelimiter + tokens[2];
+  backgroundSymbol.append(tokens[0]).append(kDelimiter).append(kBackgroundName);
+  if (tokens.size() == 3)
+    backgroundSymbol.append(kDelimiter).append(tokens[2]);
+
   return textures->HasSymbolRegion(backgroundSymbol) ? backgroundSymbol : "";
 }
 

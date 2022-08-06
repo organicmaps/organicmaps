@@ -121,6 +121,7 @@ private:
         {"hwtag"},
         {"psurface"},
         {"internet_access"},
+        {"organic"},
         {"wheelchair"},
         {"entrance"},
         {"cuisine"},
@@ -133,6 +134,7 @@ private:
         {"amenity", "shelter"},
         {"amenity", "toilets"},
         {"amenity", "drinking_water"},
+        {"leisure", "pitch"}, // Give priority to tag "sport"=*.
         {"public_transport", "platform"},
         {"building", "address"},
         {"building", "has_parts"},
@@ -173,7 +175,7 @@ uint8_t CalculateHeader(size_t const typesCount, HeaderGeomType const headerGeom
   if (!params.name.IsEmpty())
     header |= HEADER_MASK_HAS_NAME;
 
-  if (params.layer != 0)
+  if (params.layer != LAYER_EMPTY)
     header |= HEADER_MASK_HAS_LAYER;
 
   header |= static_cast<uint8_t>(headerGeomType);
@@ -234,7 +236,7 @@ bool FeatureParamsBase::operator == (FeatureParamsBase const & rhs) const
 
 bool FeatureParamsBase::IsValid() const
 {
-  return layer > LAYER_LOW && layer < LAYER_HIGH;
+  return layer >= LAYER_LOW && layer <= LAYER_HIGH;
 }
 
 string FeatureParamsBase::DebugString() const
@@ -254,7 +256,7 @@ bool FeatureParamsBase::IsEmptyNames() const
 namespace
 {
 
-bool IsDummyName(string const & s)
+bool IsDummyName(string_view s)
 {
   return s.empty();
 }
@@ -270,7 +272,7 @@ void FeatureParams::ClearName()
   name.Clear();
 }
 
-bool FeatureParams::AddName(string const & lang, string const & s)
+bool FeatureParams::AddName(string_view lang, string_view s)
 {
   if (IsDummyName(s))
     return false;
@@ -297,7 +299,7 @@ bool FeatureParams::AddHouseName(string const & s)
     if (AddHouseNumber(s))
     {
       // Duplicating code to avoid changing the method header.
-      string dummy;
+      string_view dummy;
       if (!name.GetString(StringUtf8Multilang::kDefaultCode, dummy))
         name.AddString(StringUtf8Multilang::kDefaultCode, housename);
       return true;
@@ -305,7 +307,7 @@ bool FeatureParams::AddHouseName(string const & s)
   }
 
   // Add as a default name if we don't have it yet.
-  string dummy;
+  string_view dummy;
   if (!name.GetString(StringUtf8Multilang::kDefaultCode, dummy))
   {
     name.AddString(StringUtf8Multilang::kDefaultCode, s);

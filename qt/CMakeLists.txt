@@ -40,6 +40,8 @@ set(SRC
   place_page_dialog.hpp
   preferences_dialog.cpp
   preferences_dialog.hpp
+  popup_menu_holder.cpp
+  popup_menu_holder.hpp
   routing_settings_dialog.cpp
   routing_settings_dialog.hpp
   routing_turns_visualizer.cpp
@@ -50,6 +52,7 @@ set(SRC
   screenshoter.hpp
   search_panel.cpp
   search_panel.hpp
+  selection.hpp
   update_dialog.cpp
   update_dialog.hpp
 )
@@ -140,6 +143,15 @@ copy_resources(
   06_code2000.ttf
   07_roboto_medium.ttf
 )
+
+install(TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/)
+install(DIRECTORY ${OMIM_ROOT}/data DESTINATION ${CMAKE_INSTALL_PREFIX}/share/organicmaps/)
+
+if (PLATFORM_LINUX)
+  install(FILES ${OMIM_ROOT}/qt/res/app.organicmaps.desktop.metainfo.xml DESTINATION ${CMAKE_INSTALL_PREFIX}/share/metainfo/)
+  install(FILES ${OMIM_ROOT}/qt/res/OrganicMaps.desktop DESTINATION ${CMAKE_INSTALL_PREFIX}/share/applications/)
+  install(FILES ${OMIM_ROOT}/qt/res/logo.png DESTINATION ${CMAKE_INSTALL_PREFIX}/share/icons/hicolor/512x512/apps/ RENAME organicmaps.png)
+endif()
 
 if (NOT PLATFORM_LINUX)
   # On Linux, ICU data is loaded from the shared library.

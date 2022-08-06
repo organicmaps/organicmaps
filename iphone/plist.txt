@@ -9,6 +9,7 @@
     da = Søg
     de = Suche
     es = Buscar
+    eu = Bilatu
     fi = Haku
     fr = Recherche
     hu = Keresés
@@ -16,6 +17,7 @@
     it = Cerca
     ja = 検索
     ko = 검색하기
+    mr = शोधा
     nb = Søk
     nl = Zoeken
     pl = Szukaj
@@ -43,6 +45,7 @@
     de = Lesezeichengruppen
     el = Αγαπημένα
     es = Marcadores
+    eu = Markagailuak
     fa = نشانه ها
     fi = Kirjanmerkit
     fr = Signets
@@ -52,6 +55,7 @@
     it = Segnalibri
     ja = ブックマーク
     ko = 북마크
+    mr = खूणपत्रे
     nb = Bokmerker
     nl = Bladwijzers
     pl = Zakładki
@@ -79,6 +83,7 @@
     de = Route
     el = Διαδρομή
     es = Ruta
+    eu = Ibilbidea
     et = Marsruut
     fa = مسیر
     fi = Reitti
@@ -90,6 +95,7 @@
     it = Linea
     ja = 経路
     ko = 경로
+    mr = मार्ग
     lt = Maršrutas
     lv = Maršruts
     ms = Laluan
@@ -124,6 +130,7 @@
     de = Das Bestimmen des aktuellen Standortes im Hintergrund ist erforderlich, um den vollen Funktionsumfang der App zu genießen. Dies wird dafür genutzt, der Route zu folgen und, um Ihren bereits bestrittenen Weg zu speichern.
     el = Ο εντοπισμός τοποθεσίας στο παρασκήνιο είναι απαραίτητος για να απολαύσετε πλήρως τη λειτουργικότητα της εφαρμογής. Χρησιμοποιείται για πλοήγηση και αποθήκευση του κομματιού που ταξιδέψατε πρόσφατα.
     es = Es necesario definir la ubicación actual en el entorno para disfrutar al máximo de la funcionalidad de la aplicación. Se emplea en las opciones de seguir la ruta y guardar el camino recorrido reciente.
+    eu = Beharrezkoa da inguruneko egungo kokapena definitzea aplikazioaren funtzionaltasunaz guztiz gozatzeko. Ibilbidea jarraitu eta duela gutxi egindako bidea gordetzeko aukeretan erabiltzen da.
     fa = تشخیص مکان در پس زمینه برای لذت بردن کامل از عملکرد برنامه ضروری است. برای ناوبری و ذخیره مسیرهای اخیر سفر شده شما استفاده می شود.
     fi = Tämänhetkisen sijainnin selvittäminen sovellusta ajettaessa taustalla on tärkeää sovelluksen täydellisen toiminnan takaamiseksi. Sijaintitietoja käytetään reittiopastukseen sekä kuljetun reitin tallennukseen.
     fr = La localisation actuelle en arrière-plan est nécessaire pour profiter pleinement de toutes les fonctionnalités de l'application. Elle est utilisée dans les options de navigation et d'enregistrement de votre chemin récemment parcouru.
@@ -133,6 +140,7 @@
     it = Il rilevamento della posizione corrente in background è necessario per godere appieno delle funzionalità dell'app. Viene utilizzato per la navigazione e il salvataggio della traccia percorsa di recente.
     ja = バックグラウンドでの現在位置の定義は、アプリの機能を完全にご利用いただくために必要です。にルート追跡と最近の道のりの保存に使用されます。
     ko = 백그라운드에서 현재 위치를 정의하는 것은 완전히 앱의 기능을 즐길 수 있도록 해줍니다. 이는 로 경로를 따르고 최근 여행 경로를 저장하는 옵션에 사용됩니다.
+    mr = ऍपच्या कार्यक्षमतेचा पूर्णपणे आनंद घेण्यासाठी पार्श्वभूमीतील स्थान जाणणे आवश्यक आहे. मार्गनिर्देशनासाठी व अलीकडे प्रवास केलेला मार्ग जतन करण्यासाठी ह्याचा उपयोग होतो.
     nb = Det er nødvendig å fastslå den gjeldende posisjonen i bakgrunnen for å utnytte appens funksjonalitet til fulle. Dette brukes når en rute skal følges og når den siste reiseruten din skal lagres.
     nl = Het op de achtergrond vaststellen van de huidige locatie is noodzakelijk om volledig gebruik te maken van de functionaliteit van de app. Dit wordt gebruikt bij de opties voor het volgen van de route en het opslaan van je recent afgelegde pad.
     pl = Określanie w tle bieżącej lokalizacji jest konieczne, aby w pełni korzystać z funkcjonalności aplikacji. Funkcji tej używa się w ramach opcji podążania zgodnie z trasą i zapisywania niedawno przebytej trasy.
@@ -160,6 +168,7 @@
     de = Die Angabe des aktuellen Standortes wird in den Optionen bei der Verfolgung der Route und beim Speichern Ihres zuletzt zurückgelegten Weges verwendet.
     el = Ο προσδιορισμός της θέσης σας είναι απαραίτητος για την πλοήγηση και για την αποθήκευση της διαδρομής που διανύσατε πρόσφατα.
     es = La definición de la ubicación actual se utiliza en las opciones de seguir la ruta y guardar el camino recorrido reciente.
+    eu = Uneko kokapenaren definizioa ibilbidea jarraitu eta duela gutxi egindako bidea gordetzeko aukeretan erabiltzen da.
     fa = تعیین موقعیت مکانی شما برای ناوبری و ذخیره مسیرهای اخیر سفر شده ضروری است.
     fi = Sijaintitietojasi käytetään reittivalintoihin ja viimeaikaisten matkojesi tallentamiseen.
     fr = La définition de lemplacement actuel est utilisée dans certaines fonctions comme le suivi dun trajet et la sauvegarde des trajets récemment effectués.
@@ -169,6 +178,7 @@
     it = La definizione della posizione corrente viene utilizzata nelle opzioni di tracciamento del percorso e salvataggio del percorso effettuato di recente.
     ja = 現在位置の定義はルート追跡オプションと最近使用したルートの保存に使用されます。
     ko = 현재 위치를 정의하는 것은 경로를 따르고 최근 여행한 경로를 저장하는 옵션에서 사용됩니다.
+    mr = मार्गनिर्देशनासाठी व अलीकडे प्रवास केलेला मार्ग जतन करण्यासाठी तुमचे स्थान जाणणे आवश्यक आहे.
     nb = Definerer nåværende plassering brukes i alternativene hvor man følger ruten og lagrer din nylige reiseretning.
     nl = Bepaling van de huidige locatie wordt gebruikt in de opties voor het volgen van de route en het opslaan van uw onlangs afgelegde weg.
     pl = Określanie bieżącej lokalizacji używane jest w przypadku opcji podążania trasą i zapisywania ostatnio przebytej trasy.

@@ -107,7 +107,7 @@ EditorDialog::EditorDialog(QWidget * parent, osm::EditableMapObject & emo)
     grid->addWidget(houseLineEdit, row++, 1);
 
     grid->addWidget(new QLabel(kPostcodeObjectName), row, 0);
-    QLineEdit * postcodeEdit = new QLineEdit(QString::fromStdString(emo.GetPostcode()));
+    QLineEdit * postcodeEdit = new QLineEdit(QString::fromStdString(std::string(emo.GetPostcode())));
     postcodeEdit->setObjectName(kPostcodeObjectName);
     grid->addWidget(postcodeEdit, row++, 1);
   }
@@ -134,6 +134,7 @@ EditorDialog::EditorDialog(QWidget * parent, osm::EditableMapObject & emo)
         std::string const values[] = {DebugPrint(osm::Internet::Unknown),
                                       DebugPrint(osm::Internet::Wlan),
                                       DebugPrint(osm::Internet::Wired),
+                                      DebugPrint(osm::Internet::Terminal),
                                       DebugPrint(osm::Internet::Yes),
                                       DebugPrint(osm::Internet::No)};
         for (auto const & v : values)
@@ -228,17 +229,7 @@ void EditorDialog::OnSave()
     if (prop == osm::Props::Internet)
     {
       QComboBox * cmb = findChild<QComboBox *>(kInternetObjectName);
-      std::string const str = cmb->currentText().toStdString();
-      osm::Internet v = osm::Internet::Unknown;
-      if (str == DebugPrint(osm::Internet::Wlan))
-        v = osm::Internet::Wlan;
-      else if (str == DebugPrint(osm::Internet::Wired))
-        v = osm::Internet::Wired;
-      else if (str == DebugPrint(osm::Internet::No))
-        v = osm::Internet::No;
-      else if (str == DebugPrint(osm::Internet::Yes))
-        v = osm::Internet::Yes;
-      m_feature.SetInternet(v);
+      m_feature.SetInternet(osm::InternetFromString(cmb->currentText().toStdString()));
       continue;
     }
 
@@ -260,12 +251,8 @@ void EditorDialog::OnSave()
     case osm::Props::ContactLine: m_feature.SetLinePage(v); break;
     case osm::Props::Internet: ASSERT(false, ("Is handled separately above."));
     case osm::Props::Cuisine:
-    {
-      std::vector<std::string> cuisines;
-      strings::Tokenize(v, ";", base::MakeBackInsertFunctor(cuisines));
-      m_feature.SetCuisines(cuisines);
-    }
-    break;
+      m_feature.SetCuisines(strings::Tokenize(v, ";"));
+      break;
     case osm::Props::OpeningHours: m_feature.SetOpeningHours(v); break;
     case osm::Props::Stars:
     {

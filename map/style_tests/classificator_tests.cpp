@@ -71,7 +71,7 @@ public:
   }
 };
 
-void ForEachObject(Classificator const & c, vector<string> const & path, GeomType geomType,
+void ForEachObject(Classificator const & c, vector<string_view> const & path, GeomType geomType,
                    int rules)
 {
   uint32_t const type = c.GetTypeByPath(path);
@@ -84,9 +84,7 @@ void ForEachObject(Classificator const & c, vector<string> const & path, GeomTyp
 
 void ForEachObject(Classificator const & c, string const & name, GeomType geomType, int rules)
 {
-  vector<string> path;
-  strings::Tokenize(name, "-", base::MakeBackInsertFunctor(path));
-  ForEachObject(c, path, geomType, rules);
+  ForEachObject(c, strings::Tokenize(name, "-"), geomType, rules);
 }
 
 void CheckPointStyles(Classificator const & c, string const & name)
@@ -256,6 +254,35 @@ UNIT_TEST(Classificator_PoiPriority)
       {"highway", "bus_stop"}, {"amenity", "bus_station"},
       {"railway", "station"}, {"railway", "halt"}, {"railway", "tram_stop"},
     }, {2, 5}, drule::symbol);
+  }
+
+  /// @todo Check that all of sport=* icons priority is bigger than all of pitch, sport_center, playground.
+
+  {
+    CheckPriority({
+      // 1
+      {"leisure", "pitch"},
+      // 2
+      {"sport", "yoga"}
+    }, {1, 1}, drule::symbol);
+  }
+
+  {
+    CheckPriority({
+      // 1
+      {"leisure", "sports_centre"},
+      // 2
+      {"sport", "shooting"}
+    }, {1, 1}, drule::symbol);
+  }
+
+  {
+    CheckPriority({
+      // 1
+      {"leisure", "playground"},
+      // 2
+      {"sport", "cricket"}
+    }, {1, 1}, drule::symbol);
   }
 }
 }  // namespace classificator_tests

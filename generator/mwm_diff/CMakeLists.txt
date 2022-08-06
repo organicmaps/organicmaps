@@ -12,6 +12,6 @@ target_link_libraries(${PROJECT_NAME}
   coding
 )
 
-add_subdirectory(mwm_diff_tool)
+omim_add_tool_subdirectory(mwm_diff_tool)
 
 omim_add_test_subdirectory(mwm_diff_tests)

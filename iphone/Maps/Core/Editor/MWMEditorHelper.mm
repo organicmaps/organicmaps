@@ -33,7 +33,7 @@
     osm::Editor::Instance().UploadChanges(
         keySecret.first, keySecret.second,
         {{"created_by",
-          std::string("OMaps " OMIM_OS_NAME " ") + AppInfo.sharedInfo.bundleVersion.UTF8String},
+          std::string("Organic Maps " OMIM_OS_NAME " ") + AppInfo.sharedInfo.bundleVersion.UTF8String},
          {"bundle_id", NSBundle.mainBundle.bundleIdentifier.UTF8String}},
         lambda);
   }

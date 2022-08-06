@@ -1,105 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/nav_bottom_frame"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:orientation="vertical"
-  android:layout_gravity="bottom"
-  android:clickable="true"
-  android:visibility="invisible"
-  android:background="?menuBackgroundOpen"
-  tools:visibility="visible"
   tools:showIn="@layout/layout_nav">
 
-  <FrameLayout
+  <LinearLayout
     android:id="@+id/line_frame"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <include layout="@layout/layout_nav_bottom_numbers"/>
-
-    <ImageView
-      android:id="@+id/toggle"
-      android:layout_width="@dimen/nav_menu_height"
-      android:layout_height="@dimen/nav_menu_height"
-      android:layout_gravity="end|center_vertical"
-      android:background="?clickableBackground"
-      android:scaleType="center"
-      app:tint="?iconTint"
-      tools:src="@drawable/ic_menu_close"/>
-  </FrameLayout>
-
-  <com.mapswithme.maps.widget.FlatProgressView
-    android:id="@+id/navigation_progress"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:headRadius="@dimen/nav_progress_head"
-    app:progressColor="?colorAccent"
-    app:headColor="?colorAccent"
-    app:progressThickness="@dimen/nav_progress"
-    app:secondaryProgressColor="@color/bg_routing_progress"
-    app:secondaryProgressThickness="@dimen/nav_progress"/>
+    android:clickable="true"
+    android:focusable="true">
+
+    <include layout="@layout/bottom_sheet_handle" />
+    <include layout="@layout/layout_nav_bottom_numbers" />
+
+    <com.mapswithme.maps.widget.FlatProgressView
+      android:id="@+id/navigation_progress"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:headColor="?colorAccent"
+      app:headRadius="@dimen/nav_progress_head"
+      app:progressColor="?colorAccent"
+      app:progressThickness="@dimen/nav_progress"
+      app:secondaryProgressColor="@color/bg_routing_progress"
+      app:secondaryProgressThickness="@dimen/nav_progress" />
+  </LinearLayout>
 
   <LinearLayout
     android:id="@+id/content_frame"
     android:layout_width="match_parent"
     android:layout_height="@dimen/nav_menu_content_height"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
     android:paddingStart="@dimen/nav_bottom_gap"
     android:paddingEnd="@dimen/nav_bottom_gap"
-    android:orientation="horizontal"
-    android:gravity="center_vertical"
     tools:background="#300000FF">
 
     <ImageView
       android:id="@+id/tts_volume"
-      android:layout_weight="0.2"
       android:layout_width="0dp"
       android:layout_height="@dimen/nav_icon_size"
-      android:scaleType="center"
-      android:src="@drawable/ic_voice_on"
-      android:background="?selectableItemBackgroundBorderless"/>
-
-    <ImageView
-      android:id="@+id/subway"
       android:layout_weight="0.2"
-      android:layout_width="0dp"
-      android:layout_height="@dimen/nav_icon_size"
+      android:background="?selectableItemBackgroundBorderless"
       android:scaleType="center"
-      android:visibility="gone"
-      android:background="?attr/nav_bg_subway"/>
-
-    <ImageView
-      android:id="@+id/isolines"
-      android:layout_weight="0.2"
-      android:layout_width="0dp"
-      android:layout_height="@dimen/nav_icon_size"
-      android:scaleType="center"
-      android:visibility="gone"
-      android:background="?nav_bg_isolines"/>
+      android:src="@drawable/ic_voice_on" />
 
     <ImageView
       android:id="@+id/settings"
-      android:layout_weight="0.2"
       android:layout_width="0dp"
       android:layout_height="@dimen/nav_icon_size"
       android:layout_marginEnd="@dimen/nav_bottom_gap"
+      android:layout_weight="0.2"
+      android:background="?selectableItemBackgroundBorderless"
       android:scaleType="center"
       android:src="@drawable/ic_menu_settings"
-      android:background="?selectableItemBackgroundBorderless"
       app:tint="?iconTint" />
 
     <Button
-        android:id="@+id/stop"
-        android:layout_weight="0.4"
-        android:layout_width="0dp"
-        android:minWidth="@dimen/start_button_width"
-        android:layout_height="@dimen/nav_button_height"
-        android:background="?redButtonBackground"
-        android:text="@string/current_location_unknown_stop_button"
-        android:fontFamily="@string/robotoMedium"
-        android:textAppearance="@style/MwmTextAppearance.Button.Red"
-        tools:ignore="UnusedAttribute"/>
+      android:id="@+id/stop"
+      android:layout_width="0dp"
+      android:layout_height="@dimen/nav_button_height"
+      android:layout_weight="0.4"
+      android:background="?redButtonBackground"
+      android:fontFamily="@string/robotoMedium"
+      android:minWidth="@dimen/start_button_width"
+      android:text="@string/current_location_unknown_stop_button"
+      android:textAppearance="@style/MwmTextAppearance.Button.Red"
+      tools:ignore="UnusedAttribute" />
   </LinearLayout>
 </LinearLayout>

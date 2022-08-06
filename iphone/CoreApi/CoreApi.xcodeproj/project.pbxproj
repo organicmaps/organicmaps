@@ -88,6 +88,7 @@
 		9974CA2923DF1968003FE824 /* ElevationProfileData.h in Headers */ = {isa = PBXBuildFile; fileRef = 9974CA2723DF1968003FE824 /* ElevationProfileData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9974CA2A23DF1968003FE824 /* ElevationProfileData.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9974CA2823DF1968003FE824 /* ElevationProfileData.mm */; };
 		9974CA2D23DF197B003FE824 /* ElevationProfileData+Core.h in Headers */ = {isa = PBXBuildFile; fileRef = 9974CA2B23DF197B003FE824 /* ElevationProfileData+Core.h */; };
+		AC6A585728057EF6003EABAF /* StringUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = AC6A585628057CC1003EABAF /* StringUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -179,6 +180,7 @@
 		9974CA2723DF1968003FE824 /* ElevationProfileData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ElevationProfileData.h; sourceTree = "<group>"; };
 		9974CA2823DF1968003FE824 /* ElevationProfileData.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ElevationProfileData.mm; sourceTree = "<group>"; };
 		9974CA2B23DF197B003FE824 /* ElevationProfileData+Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ElevationProfileData+Core.h"; sourceTree = "<group>"; };
+		AC6A585628057CC1003EABAF /* StringUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringUtils.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -308,6 +310,7 @@
 		479F7048234F784B00011E2E /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				AC6A585628057CC1003EABAF /* StringUtils.h */,
 				479F7049234F785B00011E2E /* MWMTypes.h */,
 				47EEAFF52350CEF6005CF316 /* MWMCommon.h */,
 				47EEAFF32350CEDB005CF316 /* AppInfo.h */,
@@ -439,6 +442,7 @@
 				47A65CAF235008E100DCD85F /* CoreApi-swift.h in Headers */,
 				9957FACE237AB01400855F48 /* DeepLinkParser.h in Headers */,
 				9974CA2D23DF197B003FE824 /* ElevationProfileData+Core.h in Headers */,
+				AC6A585728057EF6003EABAF /* StringUtils.h in Headers */,
 				47F701EF238C86F000D18E95 /* PlacePageButtonsData.h in Headers */,
 				47EEAFF72350D060005CF316 /* MWMCommon.h in Headers */,
 				47F0D2152516847F00BC685E /* MWMBookmarksSection.h in Headers */,

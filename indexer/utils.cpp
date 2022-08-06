@@ -1,9 +1,9 @@
 #include "indexer/utils.hpp"
 
-using namespace std;
-
 namespace indexer
 {
+using namespace std;
+
 MwmSet::MwmHandle FindWorld(DataSource const & dataSource,
                             vector<shared_ptr<MwmInfo>> const & infos)
 {

@@ -113,7 +113,7 @@ void CmdMatch(string const & logFile, string const & trackFile, string const & i
 {
   LOG(LINFO, ("Matching", logFile));
   Storage storage;
-  storage.RegisterAllLocalMaps(false /* enableDiffs */);
+  storage.RegisterAllLocalMaps();
   shared_ptr<NumMwmIds> numMwmIds = CreateNumMwmIds(storage);
 
   Stats stats;
@@ -125,7 +125,7 @@ void CmdMatch(string const & logFile, string const & trackFile, string const & i
 void UnzipAndMatch(Iter begin, Iter end, string const & trackExt, Stats & stats)
 {
   Storage storage;
-  storage.RegisterAllLocalMaps(false /* enableDiffs */);
+  storage.RegisterAllLocalMaps();
   shared_ptr<NumMwmIds> numMwmIds = CreateNumMwmIds(storage);
   for (auto it = begin; it != end; ++it)
   {

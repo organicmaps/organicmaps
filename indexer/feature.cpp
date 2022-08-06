@@ -6,7 +6,6 @@
 #include "indexer/feature_utils.hpp"
 #include "indexer/feature_visibility.hpp"
 #include "indexer/map_object.hpp"
-#include "indexer/postcodes.hpp"
 #include "indexer/scales.hpp"
 #include "indexer/shared_load_info.hpp"
 
@@ -188,13 +187,10 @@ uint8_t ReadByte(TSource & src)
 FeatureType::FeatureType(SharedLoadInfo const * loadInfo, vector<uint8_t> && buffer,
                          indexer::MetadataDeserializer * metadataDeserializer)
   : m_loadInfo(loadInfo)
-  , m_data(buffer)
+  , m_data(std::move(buffer))
   , m_metadataDeserializer(metadataDeserializer)
 {
-  CHECK(m_loadInfo, ());
-
-  ASSERT(m_loadInfo->GetMWMFormat() >= version::Format::v11 && m_metadataDeserializer,
-         (m_loadInfo->GetMWMFormat()));
+  CHECK(m_loadInfo && m_metadataDeserializer, ());
 
   m_header = Header(m_data);
 }
@@ -378,6 +374,7 @@ void FeatureType::ParseHeader2()
 
       auto const * start = src.PtrUint8();
       src = ArrayByteSource(serial::LoadInnerPath(start, ptsCount, cp, m_points));
+      // TODO: here and further m_innerStats is needed for stats calculation in generator_tool only
       m_innerStats.m_points = static_cast<uint32_t>(src.PtrUint8() - start);
     }
     else
@@ -401,6 +398,7 @@ void FeatureType::ParseHeader2()
       ReadOffsets(*m_loadInfo, src, trgMask, m_offsets.m_trg);
     }
   }
+  // Size of the whole header incl. inner geometry / triangles.
   m_innerStats.m_size = CalcOffset(src, m_data.data());
   m_parsed.m_header2 = true;
 }
@@ -423,9 +421,8 @@ void FeatureType::ResetGeometry()
   m_ptsSimpMask = 0;
 }
 
-uint32_t FeatureType::ParseGeometry(int scale)
+void FeatureType::ParseGeometry(int scale)
 {
-  uint32_t sz = 0;
   if (!m_parsed.m_points)
   {
     CHECK(m_loadInfo, ());
@@ -434,10 +431,10 @@ uint32_t FeatureType::ParseGeometry(int scale)
     auto const headerGeomType = static_cast<HeaderGeomType>(Header(m_data) & HEADER_MASK_GEOMTYPE);
     if (headerGeomType == HeaderGeomType::Line)
     {
-      size_t const count = m_points.size();
-      if (count < 2)
+      size_t const pointsCount = m_points.size();
+      if (pointsCount < 2)
       {
-        ASSERT_EQUAL(count, 1, ());
+        ASSERT_EQUAL(pointsCount, 1, ());
 
         // outer geometry
         int const ind = GetScaleIndex(*m_loadInfo, scale, m_offsets.m_pts);
@@ -449,8 +446,6 @@ uint32_t FeatureType::ParseGeometry(int scale)
           serial::GeometryCodingParams cp = m_loadInfo->GetGeometryCodingParams(ind);
           cp.SetBasePoint(m_points[0]);
           serial::LoadOuterPath(src, cp, m_points);
-
-          sz = static_cast<uint32_t>(src.Pos() - m_offsets.m_pts[ind]);
         }
       }
       else
@@ -458,13 +453,13 @@ uint32_t FeatureType::ParseGeometry(int scale)
         // filter inner geometry
 
         FeatureType::Points points;
-        points.reserve(count);
+        points.reserve(pointsCount);
 
         int const scaleIndex = GetScaleIndex(*m_loadInfo, scale);
         ASSERT_LESS(scaleIndex, m_loadInfo->GetScalesCount(), ());
 
         points.emplace_back(m_points.front());
-        for (size_t i = 1; i + 1 < count; ++i)
+        for (size_t i = 1; i + 1 < pointsCount; ++i)
         {
           // check for point visibility in needed scaleIndex
           if (static_cast<int>((m_ptsSimpMask >> (2 * (i - 1))) & 0x3) <= scaleIndex)
@@ -479,12 +474,60 @@ uint32_t FeatureType::ParseGeometry(int scale)
     }
     m_parsed.m_points = true;
   }
-  return sz;
 }
 
-uint32_t FeatureType::ParseTriangles(int scale)
+FeatureType::GeomStat FeatureType::GetOuterGeometryStats()
 {
-  uint32_t sz = 0;
+  ASSERT(!m_parsed.m_points, ("Geometry had been parsed already!"));
+  CHECK(m_loadInfo, ());
+  size_t const scalesCount = m_loadInfo->GetScalesCount();
+  ASSERT_LESS_OR_EQUAL(scalesCount, DataHeader::kMaxScalesCount, ("MWM has too many geometry scales!"));
+  FeatureType::GeomStat res;
+
+  auto const headerGeomType = static_cast<HeaderGeomType>(Header(m_data) & HEADER_MASK_GEOMTYPE);
+  if (headerGeomType == HeaderGeomType::Line)
+  {
+    size_t const pointsCount = m_points.size();
+    if (pointsCount < 2)
+    {
+      // Outer geometry present.
+      ASSERT_EQUAL(pointsCount, 1, ());
+
+      FeatureType::Points points;
+
+      for (size_t ind = 0; ind < scalesCount; ++ind)
+      {
+        auto const scaleOffset = m_offsets.m_pts[ind];
+        if (scaleOffset != kInvalidOffset)
+        {
+          points.clear();
+          points.emplace_back(m_points.front());
+
+          ReaderSource<FilesContainerR::TReader> src(m_loadInfo->GetGeometryReader(ind));
+          src.Skip(scaleOffset);
+
+          serial::GeometryCodingParams cp = m_loadInfo->GetGeometryCodingParams(ind);
+          cp.SetBasePoint(points[0]);
+          serial::LoadOuterPath(src, cp, points);
+
+          res.m_sizes[ind] = static_cast<uint32_t>(src.Pos() - scaleOffset);
+          res.m_elements[ind] = points.size();
+        }
+      }
+      // Retain best geometry.
+      m_points.swap(points);
+    }
+    CalcRect(m_points, m_limitRect);
+  }
+  m_parsed.m_points = true;
+
+  // Points count can come from the inner geometry.
+  res.m_elements[scalesCount - 1] = m_points.size();
+  return res;
+}
+
+void FeatureType::ParseTriangles(int scale)
+{
   if (!m_parsed.m_triangles)
   {
     CHECK(m_loadInfo, ());
@@ -501,8 +544,6 @@ uint32_t FeatureType::ParseTriangles(int scale)
           ReaderSource<FilesContainerR::TReader> src(m_loadInfo->GetTrianglesReader(ind));
           src.Skip(m_offsets.m_trg[ind]);
           serial::LoadOuterTriangles(src, m_loadInfo->GetGeometryCodingParams(ind), m_triangles);
-
-          sz = static_cast<uint32_t>(src.Pos() - m_offsets.m_trg[ind]);
         }
       }
 
@@ -510,7 +551,44 @@ uint32_t FeatureType::ParseTriangles(int scale)
     }
     m_parsed.m_triangles = true;
   }
-  return sz;
+}
+
+FeatureType::GeomStat FeatureType::GetOuterTrianglesStats()
+{
+  ASSERT(!m_parsed.m_triangles, ("Triangles had been parsed already!"));
+  CHECK(m_loadInfo, ());
+  size_t const scalesCount = m_loadInfo->GetScalesCount();
+  ASSERT_LESS_OR_EQUAL(scalesCount, DataHeader::kMaxScalesCount, ("MWM has too many geometry scales!"));
+  FeatureType::GeomStat res;
+
+  auto const headerGeomType = static_cast<HeaderGeomType>(Header(m_data) & HEADER_MASK_GEOMTYPE);
+  if (headerGeomType == HeaderGeomType::Area)
+  {
+    if (m_triangles.empty())
+    {
+      for (size_t ind = 0; ind < scalesCount; ++ind)
+      {
+        if (m_offsets.m_trg[ind] != kInvalidOffset)
+        {
+          m_triangles.clear();
+
+          ReaderSource<FilesContainerR::TReader> src(m_loadInfo->GetTrianglesReader(ind));
+          src.Skip(m_offsets.m_trg[ind]);
+          serial::LoadOuterTriangles(src, m_loadInfo->GetGeometryCodingParams(ind), m_triangles);
+
+          res.m_sizes[ind] = static_cast<uint32_t>(src.Pos() - m_offsets.m_trg[ind]);
+          res.m_elements[ind] = m_triangles.size() / 3;
+        }
+      }
+      // The best geometry is retained in m_triangles.
+    }
+    CalcRect(m_triangles, m_limitRect);
+  }
+  m_parsed.m_triangles = true;
+
+  // Triangles count can come from the inner geometry.
+  res.m_elements[scalesCount - 1] = m_triangles.size() / 3;
+  return res;
 }
 
 void FeatureType::ParseMetadata()
@@ -522,23 +600,10 @@ void FeatureType::ParseMetadata()
   try
   {
     UNUSED_VALUE(m_metadataDeserializer->Get(m_id.m_index, m_metadata));
-
-    // December 19 - September 20 mwm compatibility
-    auto postcodesReader = m_loadInfo->GetPostcodesReader();
-    if (postcodesReader)
-    {
-      auto postcodes = indexer::Postcodes::Load(*postcodesReader->GetPtr());
-      CHECK(postcodes, ());
-      string postcode;
-      auto const havePostcode = postcodes->Get(m_id.m_index, postcode);
-      CHECK(!havePostcode || !postcode.empty(), (havePostcode, postcode));
-      if (havePostcode)
-        m_metadata.Set(feature::Metadata::FMD_POSTCODE, postcode);
-    }
   }
   catch (Reader::OpenException const &)
   {
-    // now ignore exception because not all mwm have needed sections
+    LOG(LERROR, ("Error reading metadata", m_id));
   }
 
   m_parsed.m_metadata = true;
@@ -556,7 +621,7 @@ void FeatureType::ParseMetaIds()
   }
   catch (Reader::OpenException const &)
   {
-    // now ignore exception because not all mwm have needed sections
+    LOG(LERROR, ("Error reading metadata", m_id));
   }
 
   m_parsed.m_metaIds = true;
@@ -687,88 +752,46 @@ void FeatureType::ParseGeometryAndTriangles(int scale)
   ParseTriangles(scale);
 }
 
-FeatureType::GeomStat FeatureType::GetGeometrySize(int scale)
+std::pair<std::string_view, std::string_view> FeatureType::GetPreferredNames()
 {
-  uint32_t sz = ParseGeometry(scale);
-  if (sz == 0 && !m_points.empty())
-    sz = m_innerStats.m_points;
-
-  return GeomStat(sz, m_points.size());
+  feature::NameParamsOut out;
+  GetPreferredNames(false /* allowTranslit */, StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm()), out);
+  return { out.primary, out.secondary };
 }
 
-FeatureType::GeomStat FeatureType::GetTrianglesSize(int scale)
-{
-  uint32_t sz = ParseTriangles(scale);
-  if (sz == 0 && !m_triangles.empty())
-    sz = m_innerStats.m_strips;
-
-  return GeomStat(sz, m_triangles.size());
-}
-
-void FeatureType::GetPreferredNames(string & primary, string & secondary)
+void FeatureType::GetPreferredNames(bool allowTranslit, int8_t deviceLang, feature::NameParamsOut & out)
 {
   if (!HasName())
     return;
 
-  auto const mwmInfo = GetID().m_mwmId.GetInfo();
-
+  auto const & mwmInfo = m_id.m_mwmId.GetInfo();
   if (!mwmInfo)
     return;
 
   ParseCommon();
 
-  auto const deviceLang = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
-  ::GetPreferredNames(mwmInfo->GetRegionData(), GetNames(), deviceLang, false /* allowTranslit */,
-                      primary, secondary);
+  feature::GetPreferredNames({ GetNames(), mwmInfo->GetRegionData(), deviceLang, allowTranslit }, out);
 }
 
-void FeatureType::GetPreferredNames(bool allowTranslit, int8_t deviceLang, string & primary,
-                                    string & secondary)
+string_view FeatureType::GetReadableName()
+{
+  feature::NameParamsOut out;
+  GetReadableName(false /* allowTranslit */, StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm()), out);
+  return out.primary;
+}
+
+void FeatureType::GetReadableName(bool allowTranslit, int8_t deviceLang, feature::NameParamsOut & out)
 {
   if (!HasName())
     return;
 
-  auto const mwmInfo = GetID().m_mwmId.GetInfo();
-
+  auto const & mwmInfo = m_id.m_mwmId.GetInfo();
   if (!mwmInfo)
     return;
 
   ParseCommon();
 
-  ::GetPreferredNames(mwmInfo->GetRegionData(), GetNames(), deviceLang, allowTranslit,
-                      primary, secondary);
-}
-
-void FeatureType::GetReadableName(string & name)
-{
-  if (!HasName())
-    return;
-
-  auto const mwmInfo = GetID().m_mwmId.GetInfo();
-
-  if (!mwmInfo)
-    return;
-
-  ParseCommon();
-
-  auto const deviceLang = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
-  ::GetReadableName(mwmInfo->GetRegionData(), GetNames(), deviceLang, false /* allowTranslit */,
-                    name);
-}
-
-void FeatureType::GetReadableName(bool allowTranslit, int8_t deviceLang, string & name)
-{
-  if (!HasName())
-    return;
-
-  auto const mwmInfo = GetID().m_mwmId.GetInfo();
-
-  if (!mwmInfo)
-    return;
-
-  ParseCommon();
-
-  ::GetReadableName(mwmInfo->GetRegionData(), GetNames(), deviceLang, allowTranslit, name);
+  feature::GetReadableName({ GetNames(), mwmInfo->GetRegionData(), deviceLang, allowTranslit }, out);
 }
 
 string const & FeatureType::GetHouseNumber()
@@ -777,13 +800,19 @@ string const & FeatureType::GetHouseNumber()
   return m_params.house.Get();
 }
 
-bool FeatureType::GetName(int8_t lang, string & name)
+string_view FeatureType::GetName(int8_t lang)
 {
   if (!HasName())
-    return false;
+    return {};
 
   ParseCommon();
-  return m_params.name.GetString(lang, name);
+
+  // We don't store empty names.
+  string_view name;
+  if (m_params.name.GetString(lang, name))
+    ASSERT(!name.empty(), ());
+
+  return name;
 }
 
 uint8_t FeatureType::GetRank()
@@ -806,19 +835,18 @@ feature::Metadata const & FeatureType::GetMetadata()
   return m_metadata;
 }
 
-std::string FeatureType::GetMetadata(feature::Metadata::EType type)
+std::string_view FeatureType::GetMetadata(feature::Metadata::EType type)
 {
   ParseMetaIds();
-  if (m_metadata.Has(type))
-    return m_metadata.Get(type);
 
-  auto const it = base::FindIf(m_metaIds, [&type](auto const & v) { return v.first == type; });
-  if (it == m_metaIds.end())
-    return {};
-
-  auto value = m_metadataDeserializer->GetMetaById(it->second);
-  m_metadata.Set(type, value);
-  return value;
+  auto meta = m_metadata.Get(type);
+  if (meta.empty())
+  {
+    auto const it = base::FindIf(m_metaIds, [&type](auto const & v) { return v.first == type; });
+    if (it != m_metaIds.end())
+      meta = m_metadata.Set(type, m_metadataDeserializer->GetMetaById(it->second));
+  }
+  return meta;
 }
 
 bool FeatureType::HasMetadata(feature::Metadata::EType type)

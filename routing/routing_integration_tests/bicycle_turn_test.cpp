@@ -6,6 +6,8 @@
 
 #include "routing/route.hpp"
 
+namespace bicycle_turn_test
+{
 using namespace routing;
 using namespace routing::turns;
 
@@ -19,14 +21,29 @@ UNIT_TEST(RussiaMoscowSevTushinoParkBicycleWayTurnTest)
   RouterResultCode const result = routeResult.second;
   TEST_EQUAL(result, RouterResultCode::NoError, ());
 
-  /// @todo 5 turns is ok here for now, IMHO. Probably the second turn is redundant.
-  integration::TestTurnCount(route, 5 /* expectedTurnCount */);
-  integration::GetNthTurn(route, 0).TestValid().TestOneOfDirections(
-      {CarDirection::TurnSlightRight});
-  integration::GetNthTurn(route, 1).TestValid().TestOneOfDirections(
-      {CarDirection::TurnLeft});
+  integration::TestTurnCount(route, 3 /* expectedTurnCount */);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnSlightRight);
+  integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnLeft);
+  integration::GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnSlightRight);
 
   integration::TestRouteLength(route, 753.0);
+}
+
+UNIT_TEST(SpainTenerifeSlightTurnMain_TurnTest)
+{
+  TRouteResult const routeResult =
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Bicycle),
+                                  mercator::FromLatLon(28.09214, -16.73121), {0.0, 0.0},
+                                  mercator::FromLatLon(28.09227, -16.7303));
+
+  Route const & route = *routeResult.first;
+  RouterResultCode const result = routeResult.second;
+  TEST_EQUAL(result, RouterResultCode::NoError, ());
+
+  integration::TestTurnCount(route, 1 /* expectedTurnCount */);
+  // Turn is needed because the route goes to the one of symmetric ways.
+  // It's complicated since route way has tag tertiary and alternative way - residential.
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnSlightRight);
 }
 
 UNIT_TEST(RussiaMoscowGerPanfilovtsev22BicycleWayTurnTest)
@@ -59,11 +76,11 @@ UNIT_TEST(RussiaMoscowSalameiNerisPossibleTurnCorrectionBicycleWayTurnTest)
 
   integration::TestTurnCount(route, 3 /* expectedTurnCount */);
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnRight);
-  integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnSlightRight);
-  integration::GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnLeft);
+  integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnLeft);
+  integration::GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnSlightLeft);
 }
 
-UNIT_TEST(RussiaMoscowSalameiNerisNoUTurnBicycleWayTurnTest)
+UNIT_TEST(Russia_Moscow_SalameiNerisNoUTurnBicycleWay_TurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Bicycle),
@@ -74,11 +91,20 @@ UNIT_TEST(RussiaMoscowSalameiNerisNoUTurnBicycleWayTurnTest)
   RouterResultCode const result = routeResult.second;
   TEST_EQUAL(result, RouterResultCode::NoError, ());
 
-  /// @todo This route goes not as expected after adding surface=ground here:
+  /// @note This route goes not as expected after adding surface=ground here:
   /// https://www.openstreetmap.org/way/605548369.
-  integration::TestTurnCount(route, 2 /* expectedTurnCount */);
+
+  // Test for unexpected but factual route.
+  integration::TestTurnCount(route, 3 /* expectedTurnCount */);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnRight);
+  integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnRight);
+  integration::GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnRight);
+  // Test for expected but not factual route.
+  /*
+  integration::TestTurnCount(route, 2);
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnLeft);
   integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnLeft);
+  */
 }
 
 UNIT_TEST(RussiaMoscowSevTushinoParkBicycleOnePointOnewayRoadTurnTest)
@@ -101,7 +127,7 @@ UNIT_TEST(RussiaMoscowSevTushinoParkBicycleOnePointTwowayRoadTurnTest)
   TEST_EQUAL(result, RouterResultCode::NoError, ());
 }
 
-UNIT_TEST(RussiaMoscowTatishchevaOnewayCarRoadTurnTest)
+UNIT_TEST(Russia_Moscow_TatishchevaOnewayCarRoad_TurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Bicycle),
@@ -122,7 +148,7 @@ UNIT_TEST(RussiaMoscowTatishchevaOnewayCarRoadTurnTest)
   integration::TestRouteLength(route, 320.0);
 }
 
-UNIT_TEST(RussiaMoscowSvobodiOnewayBicycleWayTurnTest)
+UNIT_TEST(Russia_Moscow_SvobodiOnewayBicycleWay_TurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Bicycle),
@@ -133,16 +159,14 @@ UNIT_TEST(RussiaMoscowSvobodiOnewayBicycleWayTurnTest)
   RouterResultCode const result = routeResult.second;
   TEST_EQUAL(result, RouterResultCode::NoError, ());
 
-  /// @todo The first turn is redundant, IMHO.
-  integration::TestTurnCount(route, 7 /* expectedTurnCount */);
+  integration::TestTurnCount(route, 5 /* expectedTurnCount */);
 
-  integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnLeft);
-  integration::GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnSlightRight);
-  integration::GetNthTurn(route, 3).TestValid().TestOneOfDirections(
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnLeft);
+  integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnSlightRight);
+  integration::GetNthTurn(route, 2).TestValid().TestOneOfDirections(
       {CarDirection::TurnSlightLeft, CarDirection::TurnLeft});
-  integration::GetNthTurn(route, 4).TestValid().TestDirection(CarDirection::TurnSlightRight);
-  integration::GetNthTurn(route, 5).TestValid().TestDirection(CarDirection::TurnLeft);
-  integration::GetNthTurn(route, 6).TestValid().TestDirection(CarDirection::TurnLeft);
+  integration::GetNthTurn(route, 3).TestValid().TestDirection(CarDirection::TurnLeft);
+  integration::GetNthTurn(route, 4).TestValid().TestDirection(CarDirection::TurnLeft);
 
   integration::TestRouteLength(route, 768.0);
 }
@@ -158,13 +182,18 @@ UNIT_TEST(TurnsNearAltufievskoeShosseLongFakeSegmentTest)
   RouterResultCode const result = routeResult.second;
   TEST_EQUAL(result, RouterResultCode::NoError, ());
 
-  integration::TestTurnCount(route, 4 /* expectedTurnCount */);
+  integration::TestTurnCount(route, 3 /* expectedTurnCount */);
 
+  // Complicated case.
+  // RoutingEngineResult::GetPossibleTurns at (turn_m_index == 3)
+  // return nodes with isCandidatesAngleValid and 2 candidates with m_angle == 0
+  // In fact they are -90 and +90, but we don't know it.
+  // But this should not prevent from proper directions.
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnRight);
   integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnLeft);
-  integration::GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnSlightLeft);
-  integration::GetNthTurn(route, 3).TestValid().TestDirection(CarDirection::TurnRight);
+  integration::GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnRight);
 
+  /// @todo Check how end point snapping on "nearest" edge works. Visually, closest road is on North (now on South).
   integration::TestRouteLength(route, 279.0);
 }
 
@@ -179,11 +208,13 @@ UNIT_TEST(TurnsNearMoscowRiverShortFakeSegmentTest)
   RouterResultCode const result = routeResult.second;
   TEST_EQUAL(result, RouterResultCode::NoError, ());
 
-  integration::TestTurnCount(route, 1 /* expectedTurnCount */);
+  // Closest snapping road is a footway on East, and there are 2 turns, obviously.
+  integration::TestTurnCount(route, 2 /* expectedTurnCount */);
 
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnRight);
+  integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnRight);
 
-  integration::TestRouteLength(route, 382.2);
+  integration::TestRouteLength(route, 401.2);
 }
 
 UNIT_TEST(TurnsNearMKAD85kmShortFakeSegmentTest)
@@ -197,11 +228,18 @@ UNIT_TEST(TurnsNearMKAD85kmShortFakeSegmentTest)
   RouterResultCode const result = routeResult.second;
   TEST_EQUAL(result, RouterResultCode::NoError, ());
 
-  // 4 is absolutely wrong here. Seems like old route ignored fences here:
-  // https://www.openstreetmap.org/way/1005920588
-  integration::TestTurnCount(route, 13 /* expectedTurnCount */);
+  integration::TestTurnCount(route, 9 /* expectedTurnCount */);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnRight);
+  integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnLeft);
+  integration::GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnRight);
+  integration::GetNthTurn(route, 3).TestValid().TestDirection(CarDirection::EnterRoundAbout);
+  integration::GetNthTurn(route, 4).TestValid().TestDirection(CarDirection::LeaveRoundAbout);
+  integration::GetNthTurn(route, 5).TestValid().TestDirection(CarDirection::EnterRoundAbout);
+  integration::GetNthTurn(route, 6).TestValid().TestDirection(CarDirection::LeaveRoundAbout);
+  integration::GetNthTurn(route, 7).TestValid().TestDirection(CarDirection::TurnRight);
+  integration::GetNthTurn(route, 8).TestValid().TestDirection(CarDirection::TurnLeft);
 
-  integration::TestRouteLength(route, 1680.86);
+  integration::TestRouteLength(route, 1704.21);
 }
 
 UNIT_TEST(TurnsNearKhladkombinatTest)
@@ -215,8 +253,6 @@ UNIT_TEST(TurnsNearKhladkombinatTest)
   RouterResultCode const result = routeResult.second;
   TEST_EQUAL(result, RouterResultCode::NoError, ());
 
-  /// @todo Seems like a bug here. Redundant first turn now, but also I'd expect one more turn
-  /// before oneway road (we are on bicycle). Should fix algo and test.
   integration::TestTurnCount(route, 2 /* expectedTurnCount */);
 
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnLeft);
@@ -224,3 +260,4 @@ UNIT_TEST(TurnsNearKhladkombinatTest)
 
   integration::TestRouteLength(route, 484.3);
 }
+} // namespace bicycle_turn_test

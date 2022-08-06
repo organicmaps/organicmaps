@@ -5,7 +5,7 @@
   android:orientation="vertical">
 
   <androidx.appcompat.widget.Toolbar
-    android:id="@+id/toolbar_position_chooser"
+    android:id="@+id/toolbar_point_chooser"
     style="@style/MwmWidget.ToolbarStyle"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
@@ -19,6 +19,7 @@
       android:padding="@dimen/margin_half">
 
       <TextView
+        android:id="@+id/title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"

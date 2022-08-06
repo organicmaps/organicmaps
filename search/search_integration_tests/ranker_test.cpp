@@ -9,13 +9,13 @@
 #include <utility>
 #include <vector>
 
+namespace ranker_test
+{
 using namespace generator::tests_support;
 using namespace search::tests_support;
 using namespace search;
 using namespace std;
 
-namespace
-{
 class RankerTest : public SearchTest
 {
 };
@@ -105,6 +105,8 @@ UNIT_CLASS_TEST(RankerTest, UniteSameResults)
   }
 }
 
+/// @todo This test doesn't make sense because we don't have POIs in World.
+/*
 UNIT_CLASS_TEST(RankerTest, PreferCountry)
 {
   TestCountry wonderland(m2::PointD(10.0, 10.0), "Wonderland", "en");
@@ -141,4 +143,5 @@ UNIT_CLASS_TEST(RankerTest, PreferCountry)
     TEST(ResultsMatch({results[1]}, {rules[0]}), ());
   }
 }
-}  // namespace
+*/
+} // namespace ranker_test

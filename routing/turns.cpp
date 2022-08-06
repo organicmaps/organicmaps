@@ -171,9 +171,6 @@ string DebugPrint(TurnItem const & turnItem)
   out << "TurnItem [ m_index = " << turnItem.m_index
       << ", m_turn = " << DebugPrint(turnItem.m_turn)
       << ", m_lanes = " << ::DebugPrint(turnItem.m_lanes) << ", m_exitNum = " << turnItem.m_exitNum
-      << ", m_sourceName = " << turnItem.m_sourceName
-      << ", m_targetName = " << turnItem.m_targetName
-      << ", m_keepAnyway = " << turnItem.m_keepAnyway
       << ", m_pedestrianDir = " << DebugPrint(turnItem.m_pedestrianTurn)
       << " ]" << endl;
   return out.str();
@@ -188,7 +185,7 @@ string DebugPrint(TurnItemDist const & turnItemDist)
   return out.str();
 }
 
-string const GetTurnString(CarDirection turn)
+string GetTurnString(CarDirection turn)
 {
   for (auto const & p : g_turnNames)
   {
@@ -196,9 +193,8 @@ string const GetTurnString(CarDirection turn)
       return p.second;
   }
 
-  stringstream out;
-  out << "unknown CarDirection (" << static_cast<int>(turn) << ")";
-  return out.str();
+  ASSERT(false, (static_cast<int>(turn)));
+  return "unknown CarDirection";
 }
 
 bool IsLeftTurn(CarDirection t)
@@ -351,9 +347,7 @@ string DebugPrint(LaneWay const l)
 
 string DebugPrint(CarDirection const turn)
 {
-  stringstream out;
-  out << "[ " << GetTurnString(turn) << " ]";
-  return out.str();
+  return GetTurnString(turn);
 }
 
 string DebugPrint(PedestrianDirection const l)
@@ -371,9 +365,8 @@ string DebugPrint(PedestrianDirection const l)
     break;
   }
 
-  stringstream out;
-  out << "unknown PedestrianDirection (" << static_cast<int>(l) << ")";
-  return out.str();
+  ASSERT(false, (static_cast<int>(l)));
+  return "unknown PedestrianDirection";
 }
 
 string DebugPrint(SingleLaneInfo const & singleLaneInfo)

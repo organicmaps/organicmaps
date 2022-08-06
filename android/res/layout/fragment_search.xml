@@ -24,7 +24,6 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           app:layout_scrollFlags="scroll|enterAlways"/>
-      <include layout="@layout/search_filter_panel"/>
     </com.google.android.material.appbar.AppBarLayout>
 
     <FrameLayout
@@ -65,9 +64,7 @@
         android:clickable="true"
         android:focusable="true"
         android:background="?cardBackground">
-        <include
-          layout="@layout/recycler_default"
-          app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        <include layout="@layout/recycler_with_fab"/>
 
         <com.mapswithme.maps.widget.PlaceholderView
           android:id="@+id/placeholder"
@@ -87,6 +84,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
     </FrameLayout>
+
+    <include
+      layout="@layout/show_on_map_fab"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_gravity="bottom|end"
+      android:layout_margin="@dimen/margin_base"/>
+
     <com.mapswithme.maps.widget.FadeView
       android:id="@+id/fade_view"
       android:layout_width="match_parent"

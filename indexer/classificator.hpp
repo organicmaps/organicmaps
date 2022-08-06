@@ -46,11 +46,19 @@ public:
 
 class ClassifObject
 {
-  struct less_name_t
+  struct LessName
   {
     bool operator() (ClassifObject const & r1, ClassifObject const & r2) const
     {
       return (r1.m_name < r2.m_name);
+    }
+    bool operator() (ClassifObject const & r1, std::string_view r2) const
+    {
+      return (r1.m_name < r2);
+    }
+    bool operator() (std::string_view r1, ClassifObject const & r2) const
+    {
+      return (r1 < r2.m_name);
     }
   };
 
@@ -71,7 +79,7 @@ public:
 
   /// @name Find substitution when reading osm features.
   //@{
-  ClassifObjectPtr BinaryFind(std::string const & s) const;
+  ClassifObjectPtr BinaryFind(std::string_view const s) const;
   //@}
 
   void Sort();
@@ -91,13 +99,21 @@ public:
 
   std::pair<int, int> GetDrawScaleRange() const;
 
-  template <typename ToDo>
-  void ForEachObject(ToDo && toDo)
+  /// @name Iterate first level children only.
+  /// @{
+  template <class ToDo> void ForEachObject(ToDo && toDo)
   {
-    for (size_t i = 0; i < m_objs.size(); ++i)
-      toDo(&m_objs[i]);
+    for (auto & e: m_objs)
+      toDo(&e);
   }
+  template <class ToDo> void ForEachObject(ToDo && toDo) const
+  {
+    for (auto const & e: m_objs)
+      toDo(e);
+  }
+  /// @}
 
+  // Recursive sub-tree iteration.
   template <typename ToDo>
   void ForEachObjectInTree(ToDo && toDo, uint32_t const start) const
   {
@@ -177,9 +193,10 @@ public:
   /// @name Type by \a path in classificator tree, for example {"natural", "caostline"}.
   ///@{
   /// @return INVALID_TYPE in case of nonexisting type
-  uint32_t GetTypeByPathSafe(std::vector<std::string> const & path) const;
+  uint32_t GetTypeByPathSafe(std::vector<std::string_view> const & path) const;
   /// Invokes ASSERT in case of nonexisting type
   uint32_t GetTypeByPath(std::vector<std::string> const & path) const;
+  uint32_t GetTypeByPath(std::vector<std::string_view> const & path) const;
   uint32_t GetTypeByPath(std::initializer_list<char const *> const & lst) const;
   ///@}
 
@@ -218,20 +235,16 @@ public:
                                          root);
   }
 
-  /// @name Used only in feature_visibility.cpp, not for public use.
-  //@{
-  template <typename ToDo>
-  typename ToDo::ResultType ProcessObjects(uint32_t type, ToDo & toDo) const;
-
   ClassifObject const * GetObject(uint32_t type) const;
   std::string GetFullObjectName(uint32_t type) const;
   std::vector<std::string> GetFullObjectNamePath(uint32_t type) const;
-  //@}
 
   /// @return Object name to show in UI (not for debug purposes).
   std::string GetReadableObjectName(uint32_t type) const;
 
 private:
+  template <class ToDo> void ForEachPathObject(uint32_t type, ToDo && toDo) const;
+
   static ClassifObject * AddV(ClassifObject * parent, std::string const & key,
                               std::string const & value);
 

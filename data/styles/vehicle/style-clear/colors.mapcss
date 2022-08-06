@@ -132,7 +132,10 @@
 @farmland: #ededc3;
 
 /* BARRIERS */
-@fence: #999999;
+@fence: #888888;
+@hedge: #36831C;
+@cliff: #8C5826;
+
 
 /* LABELS COLORS */
 @label_extra_dark: #000000;

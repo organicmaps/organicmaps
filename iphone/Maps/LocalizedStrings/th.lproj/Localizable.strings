@@ -26,13 +26,10 @@
 /* Leave Review dialog - Review button */
 "leave_a_review" = "ให้คำวิจารณ์";
 
-/* View and button titles for accessibility */
-"maps" = "แผนที่";
-
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "ไมล์";
 
-/* View and button titles for accessibility */
+/* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "ตำแหน่งของฉัน";
 
 /* Update maps later/Buy pro version later button text */
@@ -145,6 +142,9 @@
 
 /* Search category for police; any changes should be duplicated in categories.txt @police! */
 "police" = "ตำรวจ";
+
+/* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
+"wifi" = "WiFi";
 
 /* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
 "recycling" = "การรีไซเคิล";
@@ -261,6 +261,9 @@
 /* Text in menu */
 "website" = "เว็บไซต์";
 
+/* Text in About menu, opens Organic Maps news website */
+"news" = "ข่าว";
+
 /* Text in menu */
 "github" = "GitHub";
 
@@ -312,13 +315,10 @@
 /* Settings item title */
 "pref_calibration_title" = "การปรับเทียบเข็มทิศ";
 
-/* Search category */
-"wifi" = "WiFi";
-
 /* Update all button text */
 "downloader_update_all_button" = "อัปเดตทั้งหมด";
 
-/* Downloaded maps category */
+/* Downloaded maps list header */
 "downloader_downloaded_subtitle" = "ดาวน์โหลดแล้ว";
 
 /* Downloaded maps category */
@@ -329,6 +329,7 @@
 
 "downloader_near_me_subtitle" = "ใกล้ฉัน";
 
+/* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
 "downloader_status_maps" = "แผนที่";
 
 "downloader_download_all_button" = "ดาวน์โหลดทั้งหมด";
@@ -419,9 +420,6 @@
 /* blue gray color */
 "blue_gray" = "สีฟ้าอมเทา";
 
-/* Wi-Fi available */
-"WiFi_available" = "ใช่";
-
 
 /********** Routing dialogs strings **********/
 
@@ -504,6 +502,10 @@
 "categories" = "หมวดหมู่";
 
 "history" = "ประวัติ";
+
+"opens_in" = "Opens in %@";
+
+"closes_in" = "Closes in %@";
 
 "closed" = "ปิด";
 
@@ -743,9 +745,12 @@
 
 "mile" = "ไมล์";
 
+/* A unit of measure */
 "foot" = "ฟุต";
 
 "miles_per_hour" = "ไมล์/ชม.";
+
+"minute" = "น.";
 
 "placepage_place_description" = "คำอธิบาย";
 
@@ -1025,9 +1030,17 @@
 
 "redirect_route_alert" = "ต้องการสร้างเส้นทางใหม่หรือไม่";
 
-"redirect_route_yes" = "ใช่";
+/* A generic "Yes" button in dialogs */
+"yes" = "ใช่";
 
-"redirect_route_no" = "ไม่ใช่";
+/* A generic "No" button in dialogs */
+"no" = "ไม่ใช่";
+
+/* E.g. "WiFi:Yes" */
+"yes_available" = "ใช่";
+
+/* E.g. "WiFi:No" */
+"no_available" = "ไม่ใช่";
 
 "trip_finished" = "คุณมาถึงแล้ว!";
 
@@ -1245,6 +1258,8 @@
 
 "type.amenity.bicycle_rental" = "จักรยานให้เช่า";
 
+"type.amenity.bicycle_repair_station" = "สถานีซ่อมจักรยาน";
+
 "type.amenity.biergarten" = "ลานเบียร์";
 
 "type.amenity.brothel" = "ซ่อง";
@@ -1442,11 +1457,21 @@
 
 "type.amenity.vending_machine.cigarettes" = "เครื่องขายบุหรี่";
 
+"type.amenity.vending_machine.coffee" = "Coffee Dispenser";
+
+"type.amenity.vending_machine.condoms" = "Condoms Dispenser";
+
 "type.amenity.vending_machine.drinks" = "เครื่องขายเครื่องดื่มอัตโนมัติ";
+
+"type.amenity.vending_machine.food" = "Food Dispenser";
+
+"type.amenity.vending_machine.newspapers" = "Newspapers Dispenser";
 
 "type.amenity.vending_machine.parking_tickets" = "เครื่องชำระค่าที่จอดรถอัตโนมัติ";
 
 "type.amenity.vending_machine.public_transport_tickets" = "เครื่องขายของหรือตั๋วขนส่งมวลชนอัตโนมัติ";
+
+"type.amenity.vending_machine.sweets" = "Sweets Dispenser";
 
 "type.amenity.vending_machine.excrement_bags" = "Excrement Bags Dispenser";
 
@@ -1552,16 +1577,29 @@
 
 "type.building.warehouse" = "Warehouse";
 
+"type.cemetery.grave" = "หลุมฝังศพ";
+
 "type.craft" = "Craft";
+
+"type.craft.beekeeper" = "Beekeeper";
+
+"type.craft.blacksmith" = "Blacksmith";
 
 "type.craft.brewery" = "โรงเบียร์";
 
 "type.craft.carpenter" = "ช่างไม้";
 
+"type.craft.confectionery" = "Confectionery";
+
 "type.craft.electrician" = "ช่างไฟฟ้า";
+
+"type.craft.electronics_repair" = "Electronics Repair";
 
 "type.craft.gardener" = "คนจัดสวน";
 
+"type.craft.handicraft" = "Handicraft";
+
+/* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "ระบบปรับอากาศ";
 
 "type.craft.metal_construction" = "ช่างเหล็ก";
@@ -1572,7 +1610,11 @@
 
 "type.craft.plumber" = "ช่างประปา";
 
+"type.craft.sawmill" = "Sawmill";
+
 "type.craft.shoemaker" = "ช่างซ่อมรองเท้า";
+
+"type.craft.winery" = "Winery";
 
 "type.craft.tailor" = "ช่างตัดเสื้อ";
 
@@ -1601,6 +1643,8 @@
 "type.cuisine.brazilian" = "อาหารบราซิล";
 
 "type.cuisine.breakfast" = "อาหารเช้า";
+
+"type.cuisine.bubble_tea" = "Bubble Tea";
 
 "type.cuisine.burger" = "เบอร์เกอร์";
 
@@ -1765,11 +1809,13 @@
 
 "type.highway.bridleway" = "Bridle Path";
 
-"type.highway.bridleway.bridge" = "Bridle Path";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.bridleway.bridge" = "สะพาน";
 
 "type.highway.bridleway.permissive" = "Bridle Path";
 
-"type.highway.bridleway.tunnel" = "Bridle Path";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.bridleway.tunnel" = "อุโมงค์";
 
 "type.highway.bus_stop" = "ป้ายรถเมล์";
 
@@ -1777,11 +1823,13 @@
 
 "type.highway.cycleway" = "Cycle Path";
 
-"type.highway.cycleway.bridge" = "Cycle Path";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.cycleway.bridge" = "สะพาน";
 
 "type.highway.cycleway.permissive" = "Cycle Path";
 
-"type.highway.cycleway.tunnel" = "Cycle Path";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.cycleway.tunnel" = "อุโมงค์";
 
 "type.highway.elevator" = "Elevator";
 
@@ -1791,7 +1839,8 @@
 
 "type.highway.footway.area" = "เส้นทาง";
 
-"type.highway.footway.bridge" = "เส้นทาง";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.footway.bridge" = "สะพาน";
 
 "type.highway.footway.demanding_alpine_hiking" = "เส้นทาง";
 
@@ -1805,29 +1854,36 @@
 
 "type.highway.footway.permissive" = "เส้นทาง";
 
-"type.highway.footway.tunnel" = "เส้นทาง";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.footway.tunnel" = "อุโมงค์";
 
 "type.highway.ford" = "ที่ตื้นของทางน้ำ";
 
 "type.highway.living_street" = "ถนน";
 
-"type.highway.living_street.bridge" = "ถนน";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.living_street.bridge" = "สะพาน";
 
-"type.highway.living_street.tunnel" = "ถนน";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.living_street.tunnel" = "อุโมงค์";
 
 "type.highway.motorway" = "ถนน";
 
-"type.highway.motorway.bridge" = "ถนน";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway.bridge" = "สะพาน";
 
-"type.highway.motorway.tunnel" = "ถนน";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway.tunnel" = "อุโมงค์";
 
 "type.highway.motorway_junction" = "ทางออก";
 
 "type.highway.motorway_link" = "ถนน";
 
-"type.highway.motorway_link.bridge" = "ถนน";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway_link.bridge" = "สะพาน";
 
-"type.highway.motorway_link.tunnel" = "ถนน";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway_link.tunnel" = "อุโมงค์";
 
 "type.highway.path" = "เส้นทาง";
 
@@ -1835,7 +1891,8 @@
 
 "type.highway.path.bicycle" = "เส้นทาง";
 
-"type.highway.path.bridge" = "เส้นทาง";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.path.bridge" = "สะพาน";
 
 "type.highway.path.demanding_alpine_hiking" = "เส้นทาง";
 
@@ -1851,27 +1908,34 @@
 
 "type.highway.path.permissive" = "เส้นทาง";
 
-"type.highway.path.tunnel" = "เส้นทาง";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.path.tunnel" = "อุโมงค์";
 
 "type.highway.pedestrian" = "ถนน";
 
 "type.highway.pedestrian.area" = "ถนน";
 
-"type.highway.pedestrian.bridge" = "ถนน";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.pedestrian.bridge" = "สะพาน";
 
-"type.highway.pedestrian.tunnel" = "ถนน";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.pedestrian.tunnel" = "อุโมงค์";
 
 "type.highway.primary" = "ถนน";
 
-"type.highway.primary.bridge" = "ถนน";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary.bridge" = "สะพาน";
 
-"type.highway.primary.tunnel" = "ถนน";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary.tunnel" = "อุโมงค์";
 
 "type.highway.primary_link" = "ถนน";
 
-"type.highway.primary_link.bridge" = "ถนน";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary_link.bridge" = "สะพาน";
 
-"type.highway.primary_link.tunnel" = "ถนน";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary_link.tunnel" = "อุโมงค์";
 
 "type.highway.raceway" = "สนามแข่ง";
 
@@ -1879,41 +1943,51 @@
 
 "type.highway.residential.area" = "ถนน";
 
-"type.highway.residential.bridge" = "ถนน";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.residential.bridge" = "สะพาน";
 
-"type.highway.residential.tunnel" = "ถนน";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.residential.tunnel" = "อุโมงค์";
 
 "type.highway.rest_area" = "บริเวณพักผ่อน";
 
 "type.highway.road" = "ถนน";
 
-"type.highway.road.bridge" = "ถนน";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.road.bridge" = "สะพาน";
 
-"type.highway.road.tunnel" = "ถนน";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.road.tunnel" = "อุโมงค์";
 
 "type.highway.secondary" = "ถนน";
 
-"type.highway.secondary.bridge" = "ถนน";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary.bridge" = "สะพาน";
 
-"type.highway.secondary.tunnel" = "ถนน";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary.tunnel" = "อุโมงค์";
 
 "type.highway.secondary_link" = "ถนน";
 
-"type.highway.secondary_link.bridge" = "ถนน";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary_link.bridge" = "สะพาน";
 
-"type.highway.secondary_link.tunnel" = "ถนน";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary_link.tunnel" = "อุโมงค์";
 
 "type.highway.service" = "ถนน";
 
 "type.highway.service.area" = "ถนน";
 
-"type.highway.service.bridge" = "ถนน";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.service.bridge" = "สะพาน";
 
 "type.highway.service.driveway" = "ถนน";
 
 "type.highway.service.parking_aisle" = "ถนน";
 
-"type.highway.service.tunnel" = "ถนน";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.service.tunnel" = "อุโมงค์";
 
 "type.highway.services" = "Service Area";
 
@@ -1921,27 +1995,34 @@
 
 "type.highway.steps" = "เส้นทาง";
 
-"type.highway.steps.bridge" = "เส้นทาง";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.steps.bridge" = "สะพาน";
 
-"type.highway.steps.tunnel" = "เส้นทาง";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.steps.tunnel" = "อุโมงค์";
 
 "type.highway.tertiary" = "ถนน";
 
-"type.highway.tertiary.bridge" = "ถนน";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary.bridge" = "สะพาน";
 
-"type.highway.tertiary.tunnel" = "ถนน";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary.tunnel" = "อุโมงค์";
 
 "type.highway.tertiary_link" = "ถนน";
 
-"type.highway.tertiary_link.bridge" = "ถนน";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary_link.bridge" = "สะพาน";
 
-"type.highway.tertiary_link.tunnel" = "ถนน";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary_link.tunnel" = "อุโมงค์";
 
 "type.highway.track" = "ถนน";
 
 "type.highway.track.area" = "ถนน";
 
-"type.highway.track.bridge" = "ถนน";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.track.bridge" = "สะพาน";
 
 "type.highway.track.grade1" = "ถนน";
 
@@ -1957,29 +2038,36 @@
 
 "type.highway.track.permissive" = "ถนน";
 
-"type.highway.track.tunnel" = "ถนน";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.track.tunnel" = "อุโมงค์";
 
 "type.highway.traffic_signals" = "สัญญาณไฟจราจร";
 
 "type.highway.trunk" = "ถนน";
 
-"type.highway.trunk.bridge" = "ถนน";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk.bridge" = "สะพาน";
 
-"type.highway.trunk.tunnel" = "ถนน";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk.tunnel" = "อุโมงค์";
 
 "type.highway.trunk_link" = "ถนน";
 
-"type.highway.trunk_link.bridge" = "ถนน";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk_link.bridge" = "สะพาน";
 
-"type.highway.trunk_link.tunnel" = "ถนน";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk_link.tunnel" = "อุโมงค์";
 
 "type.highway.unclassified" = "ถนน";
 
 "type.highway.unclassified.area" = "ถนน";
 
-"type.highway.unclassified.bridge" = "ถนน";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.unclassified.bridge" = "สะพาน";
 
-"type.highway.unclassified.tunnel" = "ถนน";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.unclassified.tunnel" = "อุโมงค์";
 
 "type.area_highway.cycleway" = "Cycle Path";
 
@@ -2110,6 +2198,8 @@
 
 "type.landuse.construction" = "Construction";
 
+"type.landuse.education" = "Educational Facilities";
+
 "type.landuse.farm" = "Farm";
 
 "type.landuse.farmland" = "พื้นที่ทำการเกษตร";
@@ -2206,13 +2296,9 @@
 
 "type.leisure.sports_centre" = "กีฬา";
 
-"type.leisure.sports_centre.climbing" = "ศูนย์ปีนเขา";
+"type.sport.climbing" = "ศูนย์ปีนเขา";
 
-"type.leisure.sports_centre.shooting" = "สนามยิงปืน";
-
-"type.leisure.sports_centre.swimming" = "ศูนย์ว่ายน้ำ";
-
-"type.leisure.sports_centre.yoga" = "โยคะสตูดิโอ";
+"type.sport.yoga" = "โยคะสตูดิโอ";
 
 "type.leisure.stadium" = "สนามกีฬา";
 
@@ -2235,6 +2321,8 @@
 "type.man_made.chimney" = "ปล่องควันโรงงาน";
 
 "type.man_made.cutline" = "Cutline";
+
+"type.man_made.survey_point" = "Survey Point";
 
 "type.man_made.flagpole" = "Flagpole";
 
@@ -2278,25 +2366,29 @@
 
 "type.mountain_pass" = "Mountain Pass";
 
-"type.natural" = "Natural";
+"type.natural" = "ธรรมชาติ";
 
-"type.natural.bare_rock" = "Bare Rock";
+"type.natural.bare_rock" = "เปลือยร็อค";
 
 "type.natural.bay" = "อ่าว";
 
 "type.natural.beach" = "ชายหาด";
 
-"type.natural.beach.sand" = "Sandy Beach";
+"type.natural.beach.sand" = "หาดทราย";
 
-"type.natural.beach.gravel" = "Gravel Beach";
+"type.natural.beach.gravel" = "หาดกรวด";
 
 "type.natural.cape" = "พื้นที่ยื่นเข้าไปในน้ำ";
 
 "type.natural.cave_entrance" = "ถ้ำ";
 
-"type.natural.cliff" = "Cliff";
+"type.natural.cliff" = "หน้าผา";
 
-"type.natural.coastline" = "Coastline";
+"type.natural.earth_bank" = "หน้าผา";
+
+"type.man_made.embankment" = "เขื่อน";
+
+"type.natural.coastline" = "ชายฝั่ง";
 
 "type.natural.geyser" = "นำ้พุร้อน";
 
@@ -2304,11 +2396,13 @@
 
 "type.natural.grassland" = "ทุ่งหญ้า";
 
-"type.natural.heath" = "Heath";
+"type.natural.heath" = "เฮลธ์";
 
-"type.natural.hot_spring" = "Hot Spring";
+"type.natural.hot_spring" = "บ่อน้ำร้อน";
 
 "type.natural.water.lake" = "ทะเลสาบ";
+
+"type.natural.water.lock" = "ห้องล็อค";
 
 "type.natural.water.pond" = "บ่อ";
 
@@ -2318,17 +2412,17 @@
 
 "type.natural.water.river" = "แม่น้ำ";
 
-"type.natural.land" = "Land";
+"type.natural.land" = "พื้นดิน";
 
-"type.natural.meadow" = "Meadow";
+"type.natural.meadow" = "ทุ่งหญ้า";
 
-"type.natural.orchard" = "Orchard";
+"type.natural.orchard" = "สวนผลไม้";
 
 "type.natural.peak" = "จุดสูงสุด";
 
-"type.natural.saddle" = "Mountain Saddle";
+"type.natural.saddle" = "อานภูเขา";
 
-"type.natural.rock" = "Rock";
+"type.natural.rock" = "หิน";
 
 "type.natural.scrub" = "ป่าละเมาะ";
 
@@ -2338,9 +2432,9 @@
 
 "type.natural.tree" = "ต้นไม้";
 
-"type.natural.tree_row" = "Tree Row";
+"type.natural.tree_row" = "แถวต้นไม้";
 
-"type.natural.vineyard" = "Vineyard";
+"type.natural.vineyard" = "ไร่องุ่น";
 
 "type.natural.volcano" = "ภูเขาไฟ";
 
@@ -2348,9 +2442,9 @@
 
 "type.natural.wetland" = "พื้นที่น้ำท่วมขัง";
 
-"type.natural.wetland.bog" = "Wetland";
+"type.natural.wetland.bog" = "พรุ";
 
-"type.natural.wetland.marsh" = "Wetland";
+"type.natural.wetland.marsh" = "ที่ลุ่มชื้นแฉะ";
 
 "type.noexit" = "Dead End";
 
@@ -2369,6 +2463,10 @@
 "type.office.ngo" = "สำนักงานองค์กรพัฒนาเอกชน";
 
 "type.office.telecommunication" = "ผู้ให้บริการโทรศัพท์มือถือ";
+
+"type.organic.only" = "Organic";
+
+"type.organic.yes" = "Organic";
 
 "type.place" = "place";
 
@@ -2664,6 +2762,8 @@
 
 "type.shop.cosmetics" = "เครื่องสำอาง";
 
+"type.shop.deli" = "ร้านขายอาหารสำเร็จรูป";
+
 "type.shop.department_store" = "ห้างสรรพสินค้า";
 
 "type.shop.doityourself" = "ร้านขายฮาร์ดแวร์";
@@ -2675,6 +2775,8 @@
 "type.shop.erotic" = "ร้านเฉพาะผู้ใหญ่";
 
 "type.shop.fabric" = "ร้านค้า";
+
+"type.shop.farm" = "ฟาร์มฟู้ดช็อป";
 
 "type.shop.florist" = "ร้านดอกไม้";
 
@@ -2688,13 +2790,21 @@
 
 "type.shop.greengrocer" = "ร้านขายผัด";
 
+"type.shop.grocery" = "ร้านขายของชำ";
+
 "type.shop.hairdresser" = "ช่างทำผม";
 
-"type.shop.hardware" = "ร้านขายฮาร์ดแวร์";
+"type.shop.hardware" = "ร้านฮาร์ดแวร์";
+
+"type.shop.health_food" = "ร้านอาหารเพื่อสุขภาพ";
+
+"type.shop.houseware" = "ร้านของใช้ในบ้าน";
 
 "type.shop.jewelry" = "ร้านขายเครื่องประดับ";
 
 "type.shop.kiosk" = "ร้าน";
+
+"type.shop.kitchen" = "ร้านครัว";
 
 "type.shop.laundry" = "ร้านซักรีด";
 
@@ -2718,6 +2828,8 @@
 
 "type.shop.outdoor" = "อุปกรณ์กลางแจ้ง";
 
+"type.shop.pastry" = "ขนมอบ";
+
 "type.shop.pawnbroker" = "ผู้รับจำนำ";
 
 "type.shop.pet" = "เพ็ทชอป";
@@ -2725,6 +2837,8 @@
 "type.shop.photo" = "ร้านถ่ายภาพ";
 
 "type.shop.seafood" = "ร้านขายปลา";
+
+"type.shop.second_hand" = "ร้านขายของมือสอง";
 
 "type.shop.shoes" = "ร้านขายรองเท้า";
 
@@ -2754,49 +2868,108 @@
 
 "type.shop.wine" = "ร้านขายไวน์";
 
-"type.sport" = "sport";
+"type.shop.antiques" = "ของเก่า";
 
-"type.sport.american_football" = "American Football";
+"type.shop.art" = "ร้านศิลปะ";
 
-"type.sport.archery" = "Archery";
+"type.shop.baby_goods" = "ร้านขายของสำหรับเด็ก";
+
+"type.shop.bag" = "ร้านกระเป๋า";
+
+"type.shop.boutique" = "บูติก";
+
+"type.shop.charity" = "ร้านการกุศล";
+
+"type.shop.cheese" = "ร้านชีส";
+
+"type.shop.craft" = "ศิลปะและงานฝีมือ";
+
+"type.shop.dairy" = "ผลิตภัณฑ์นม";
+
+"type.shop.electrical" = "ร้านขายเครื่องใช้ไฟฟ้า";
+
+"type.shop.fishing" = "ร้านตกปลา";
+
+"type.shop.interior_decoration" = "ตกแต่งภายใน";
+
+"type.shop.lottery" = "สลากกินแบ่ง";
+
+"type.shop.medical_supply" = "เวชภัณฑ์";
+
+"type.shop.nutrition_supplements" = "อาหารเสริม";
+
+"type.shop.paint" = "สี";
+
+"type.shop.perfumery" = "น้ำหอม";
+
+"type.shop.sewing" = "อุปกรณ์เย็บผ้า";
+
+"type.shop.storage_rental" = "ค่าเช่าห้องเก็บของ";
+
+"type.shop.tobacco" = "ยาสูบ";
+
+"type.shop.trade" = "อุปกรณ์การค้า";
+
+"type.shop.watches" = "นาฬิกา";
+
+"type.shop.wholesale" = "ร้านขายส่ง";
+
+"type.sport" = "กีฬา";
+
+"type.sport.american_football" = "อเมริกันฟุตบอล";
+
+"type.sport.archery" = "ยิงธนู";
 
 "type.sport.athletics" = "กรีฑา";
 
-"type.sport.australian_football" = "Rugby";
+"type.sport.australian_football" = "Australian Football";
 
-"type.sport.baseball" = "Baseball";
+"type.sport.baseball" = "เบสบอล";
 
 "type.sport.basketball" = "บาสเก็ตบอล";
 
+"type.sport.beachvolleyball" = "วอลเลย์บอลชายหาด";
+
 "type.sport.bowls" = "Bowls";
+
+"type.sport.chess" = "หมากรุกสากล";
 
 "type.sport.cricket" = "Cricket";
 
-"type.sport.curling" = "Сurling";
-
-"type.sport.diving" = "Diving";
+"type.sport.curling" = "เคอร์ลิง";
 
 "type.sport.equestrian" = "กีฬาแข่งม้า";
 
-"type.sport.golf" = "Golf";
+"type.sport.golf" = "กอล์ฟ";
 
-"type.sport.gymnastics" = "Gymnastics";
+"type.sport.gymnastics" = "ยิมนาสติก";
 
-"type.sport.handball" = "Handball";
+"type.sport.handball" = "แฮนด์บอล";
 
-"type.sport.multi" = "Various Sport";
+"type.sport.multi" = "กีฬาต่างๆ";
 
-"type.sport.scuba_diving" = "Scuba Diving";
+/* Used to tag a scuba diving site. */
+"type.sport.scuba_diving" = "ดำน้ำลึก";
 
-"type.sport.shooting" = "Shooting";
+"type.sport.shooting" = "ยิงปืน";
 
-"type.sport.skiing" = "Skiing";
+"type.sport.skateboard" = "สเกตบอร์ด";
 
-"type.sport.soccer" = "Soccer (Football)";
+"type.sport.skiing" = "เล่นสกี";
 
-"type.sport.swimming" = "Swimming";
+"type.sport.soccer" = "ฟุตบอล";
+
+"type.sport.swimming" = "การว่ายน้ำ";
+
+"type.sport.table_tennis" = "เทเบิลเทนนิส";
 
 "type.sport.tennis" = "คอร์ทเทนนิส";
+
+"type.sport.volleyball" = "วอลเลย์บอล";
+
+"type.sport.9pin" = "โบว์ลิ่ง";
+
+"type.sport.10pin" = "โบว์ลิ่ง";
 
 "type.tourism" = "Tourism";
 
@@ -2838,7 +3011,7 @@
 
 "type.tourism.information.board" = "บอร์ดประชาสัมพันธ์";
 
-"type.tourism.information.guidepost" = "ข้อมูลการท่องเที่ยว";
+"type.tourism.information.guidepost" = "ไกด์โพส";
 
 "type.tourism.information.map" = "แผนที่ท่องเที่ยว";
 
@@ -2883,8 +3056,6 @@
 "type.waterway.drain" = "Drain";
 
 "type.waterway.drain.tunnel" = "Drain";
-
-"type.waterway.lock" = "Waterway Lock";
 
 "type.waterway.lock_gate" = "ประตูระบายน้ำ";
 
@@ -2948,3 +3119,5 @@
 "type.piste_type.sled" = "Sledding Piste";
 
 "type.building_part" = "อาคาร";
+
+"type.amenity.events_venue" = "สถานที่จัดงาน";

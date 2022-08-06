@@ -18,24 +18,14 @@
 
 namespace coding
 {
-namespace
-{
-size_t const kAlphabetSize = static_cast<size_t>(std::numeric_limits<uint8_t>::max()) + 1;
-
-// Calculates frequences for data symbols.
-void CalcFrequences(std::vector<uint8_t> const & data, uint64_t frequency[])
-{
-  memset(frequency, 0, sizeof(*frequency) * kAlphabetSize);
-  for (uint8_t symbol : data)
-    ++frequency[symbol];
-}
-}  // namespace
 
 SimpleDenseCoding::SimpleDenseCoding(std::vector<uint8_t> const & data)
 {
-  // This static initialization isn't thread safe prior to C++11.
-  uint64_t frequency[kAlphabetSize];  // Maps symbols to frequences.
-  CalcFrequences(data, frequency);
+  size_t constexpr kAlphabetSize = size_t(std::numeric_limits<uint8_t>::max()) + 1;
+
+  uint64_t frequency[kAlphabetSize] = { 0 };  // Maps symbols to frequences.
+  for (uint8_t symbol : data)
+    ++frequency[symbol];
 
   uint8_t symbols[kAlphabetSize];  // Maps ranks to symbols.
   uint8_t rank[kAlphabetSize];     // Maps symbols to ranks.

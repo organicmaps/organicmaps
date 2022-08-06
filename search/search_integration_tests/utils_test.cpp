@@ -17,14 +17,12 @@
 #include <string>
 #include <vector>
 
+namespace search_utils_test
+{
 using namespace generator::tests_support;
-using namespace search::tests_support;
+using namespace search;
 using namespace std;
 
-namespace search
-{
-namespace
-{
 class SearchUtilsTest : public SearchTest
 {
 public:
@@ -52,16 +50,21 @@ UNIT_CLASS_TEST(SearchUtilsTest, Utils)
   });
 
   auto const & categories = GetDefaultCategories();
+  auto const typesPost = GetCategoryTypes("Oficina de correos", "es", categories);
   auto const typesCafe = GetCategoryTypes("Cafe", "en", categories);
   auto const typesRestaurant = GetCategoryTypes("Restaurant", "en", categories);
   auto const typesBar = GetCategoryTypes("Bar", "en", categories);
   auto const typesFood = GetCategoryTypes("Eat", "en", categories);
 
   // GetCategoryTypes must return sorted vector of types.
+  TEST(is_sorted(typesPost.begin(), typesPost.end()), ());
   TEST(is_sorted(typesCafe.begin(), typesCafe.end()), ());
   TEST(is_sorted(typesRestaurant.begin(), typesRestaurant.end()), ());
   TEST(is_sorted(typesBar.begin(), typesBar.end()), ());
   TEST(is_sorted(typesFood.begin(), typesFood.end()), ());
+
+  for (char const * s : {"post_office", "post_box", "parcel_locker"})
+    TEST(binary_search(typesPost.begin(), typesPost.end(), classif().GetTypeByPath({"amenity", s})), (s));
 
   // Now "Cafe" and "Restaurant" are synonyms in categories.
   TEST_EQUAL(typesCafe, typesRestaurant, ());
@@ -111,5 +114,4 @@ UNIT_TEST(IsCategorialRequestFuzzy)
   TEST(!isHotelRequest("where to stay"), ());
   TEST(!isHotelRequest("random request"), ());
 }
-}  // namespace
-}  // namespace search
+}  // namespace search_utils_test

@@ -20,6 +20,7 @@
 namespace feature
 {
 class SharedLoadInfo;
+struct NameParamsOut; // Include feature_utils.hpp when using
 }
 
 namespace osm
@@ -71,12 +72,13 @@ public:
 
   std::vector<m2::PointD> GetTrianglesAsPoints(int scale);
 
-  void SetID(FeatureID const & id) { m_id = id; }
+  void SetID(FeatureID id) { m_id = std::move(id); }
   FeatureID const & GetID() const { return m_id; }
 
+  void ParseHeader2();
   void ResetGeometry();
-  uint32_t ParseGeometry(int scale);
-  uint32_t ParseTriangles(int scale);
+  void ParseGeometry(int scale);
+  void ParseTriangles(int scale);
   //@}
 
   /// @name Geometry.
@@ -136,18 +138,16 @@ public:
   std::string const & GetHouseNumber();
 
   /// @name Get names for feature.
-  /// @param[out] defaultName corresponds to osm tag "name"
-  /// @param[out] intName optionally choosen from tags "name:<lang_code>" by the algorithm
   //@{
-  /// Just get feature names.
-  void GetPreferredNames(std::string & defaultName, std::string & intName);
-  void GetPreferredNames(bool allowTranslit, int8_t deviceLang, std::string & defaultName,
-                         std::string & intName);
-  /// Get one most suitable name for user.
-  void GetReadableName(std::string & name);
-  void GetReadableName(bool allowTranslit, int8_t deviceLang, std::string & name);
+  /// @return {primary, secondary} names
+  std::pair<std::string_view, std::string_view> GetPreferredNames();
+  void GetPreferredNames(bool allowTranslit, int8_t deviceLang, feature::NameParamsOut & out);
 
-  bool GetName(int8_t lang, std::string & name);
+  /// Get one most suitable name for user.
+  std::string_view GetReadableName();
+  void GetReadableName(bool allowTranslit, int8_t deviceLang, feature::NameParamsOut & out);
+
+  std::string_view GetName(int8_t lang);
   //@}
 
   uint8_t GetRank();
@@ -157,34 +157,27 @@ public:
   feature::Metadata const & GetMetadata();
 
   // Gets single metadata string. Does not parse all metadata.
-  std::string GetMetadata(feature::Metadata::EType type);
+  std::string_view GetMetadata(feature::Metadata::EType type);
   bool HasMetadata(feature::Metadata::EType type);
 
-  /// @name Statistic functions.
+  /// @name Stats functions.
   //@{
-  void ParseBeforeStatistic() { ParseHeader2(); }
-
   struct InnerGeomStat
   {
     uint32_t m_points = 0, m_strips = 0, m_size = 0;
-
-    void MakeZero()
-    {
-      m_points = m_strips = m_size = 0;
-    }
   };
 
-  InnerGeomStat GetInnerStatistic() const { return m_innerStats; }
+  InnerGeomStat GetInnerStats() const { return m_innerStats; }
 
+  using GeomArr = uint32_t[feature::DataHeader::kMaxScalesCount];
   struct GeomStat
   {
-    uint32_t m_size = 0, m_count = 0;
-
-    GeomStat(uint32_t sz, size_t count) : m_size(sz), m_count(static_cast<uint32_t>(count)) {}
+    GeomArr m_sizes = {}, m_elements = {};
   };
 
-  GeomStat GetGeometrySize(int scale);
-  GeomStat GetTrianglesSize(int scale);
+  // Returns outer points/triangles stats for all geo levels and loads the best geometry.
+  GeomStat GetOuterGeometryStats();
+  GeomStat GetOuterTrianglesStats();
   //@}
 
 private:
@@ -222,7 +215,6 @@ private:
 
   void ParseTypes();
   void ParseCommon();
-  void ParseHeader2();
   void ParseMetadata();
   void ParseMetaIds();
   void ParseGeometryAndTriangles(int scale);

@@ -154,7 +154,7 @@ string ToString(RoadAccess::Type type)
   return "Bad RoadAccess::Type";
 }
 
-void FromString(string const & s, RoadAccess::Type & result)
+void FromString(string_view s, RoadAccess::Type & result)
 {
   for (size_t i = 0; i <= static_cast<size_t>(RoadAccess::Type::Count); ++i)
   {
