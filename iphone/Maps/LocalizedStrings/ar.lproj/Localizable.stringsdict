@@ -50,7 +50,7 @@
       <key>NSStringFormatValueTypeKey</key>
       <string>d</string>
       <key>other</key>
-      <string>المكان %d</string>
+      <string>غرض %d</string>
     </dict>
   </dict>
 
@@ -65,7 +65,7 @@
       <key>NSStringFormatValueTypeKey</key>
       <string>d</string>
       <key>other</key>
-      <string>المسارات %d</string>
+      <string>مسار %d</string>
     </dict>
   </dict>
 </dict>
