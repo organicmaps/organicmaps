@@ -434,48 +434,48 @@
 	<string name="downloader_delete_map_dialog">سيتم حذف جميع التغييرات بالخريطة بالإضافة إلى حذف الخريطة نفسها.</string>
 	<string name="downloader_update_maps">تحديث الخرائط</string>
 	<string name="downloader_mwm_migration_dialog">لإنشاء مسار، فأنت تحتاج إلى تحديث كافة الخرائط ثم إعادة تخطيط المسار مرة أخرى.</string>
-	<string name="downloader_search_field_hint">اعثر على الخريطة</string>
+	<string name="downloader_search_field_hint">ابحث عن خريطة</string>
 	<string name="common_check_internet_connection_dialog">يرجى التحقق من الإعدادات والتأكد من اتصال جهازك بالإنترنت.</string>
-	<string name="downloader_no_space_title">مساحة غير كافية</string>
+	<string name="downloader_no_space_title">لا تتوفر مساحة كافية</string>
 	<string name="downloader_no_space_message">من فضلك، قم بإزالة البيانات غير الضرورية</string>
 	<string name="editor_login_error_dialog">خطأ في تسجيل الدخول.</string>
-	<string name="editor_profile_changes">التغييرات التي تم التحقق منها</string>
-	<string name="editor_focus_map_on_location">اسحب الخريطة لتحدد الموقع الصحيح للهدف.</string>
-	<string name="editor_edit_place_title">تعديل</string>
-	<string name="editor_add_place_title">إٍضافة</string>
+	<string name="editor_profile_changes">التعديلات التي تم التحقق منها</string>
+	<string name="editor_focus_map_on_location">اسحب الخريطة لتحدد موقع الإضافة.</string>
+	<string name="editor_edit_place_title">يتم التعديل</string>
+	<string name="editor_add_place_title">يتم الإٍضافة</string>
 	<string name="editor_edit_place_name_hint">اسم المكان</string>
 	<string name="editor_edit_place_category_title">الفئة</string>
-	<string name="detailed_problem_description">وصف مفصل للمشكلة</string>
-	<string name="editor_report_problem_other_title">مشكلة مختلفة</string>
+	<string name="detailed_problem_description">وصف مفصّل للمشكلة</string>
+	<string name="editor_report_problem_other_title">مشكلة أخرى</string>
 	<string name="placepage_add_business_button">إضافة مؤسسة</string>
 	<string name="message_invalid_feature_position">لا يمكن تحديد موقع الكائن هنا</string>
 	<string name="login_to_make_edits_visible">قم بتسجيل الدخول حتى يتمكن باقي المستخدمين من رؤية التغييرات التي قمت بها.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d من%2$d</string>
-	<string name="download_over_mobile_header">تنزيل باستخدام اتصال الشبكة الخلوية؟</string>
-	<string name="download_over_mobile_message">قد يكون هذا مكلفا جدا لبعض الخطط أو عند التجوال.</string>
-	<string name="error_enter_correct_house_number">أدخل رقم منزل صحيح</string>
+	<string name="download_over_mobile_header">تنزيل باستخدام بيانات الجوال؟</string>
+	<string name="download_over_mobile_message">قد يكون هذا مكلفاً جداً في بعض الاحيان أو عند التجوال.</string>
+	<string name="error_enter_correct_house_number">أدخل رقم بناء صحيح</string>
 	<string name="editor_storey_number">عدد الطوابق (بحد أقصى %d)</string>
 	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">تحرير المبنى بحد أقصى 25 طابقًا</string>
+	<string name="error_enter_correct_storey_number">يجب ألا يتجاوز عدد طوابق المبنى 25</string>
 	<string name="editor_zip_code">الرمز البريدي</string>
-	<string name="error_enter_correct_zip_code">أدخل الرمز البريدي الصحيح</string>
+	<string name="error_enter_correct_zip_code">أدخل الرمز البريدي صالح</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">مكان غير معروف</string>
-	<string name="editor_other_info">ارسل ملاحظة إلى محرري OSM</string>
-	<string name="editor_detailed_description_hint">تعليق مفصل</string>
-	<string name="editor_detailed_description">سيتم إرسال التغييرات التي اقترحتها إلى مجتمع OpenStreetMap. اذكر التفاصيل التي لا يمكن تحريرها في Organic Maps</string>
-	<string name="editor_more_about_osm">المزيد عن OpenStreetMap</string>
-	<string name="editor_operator">معامل</string>
+	<string name="editor_other_info">ارسل ملاحظة إلى محرري خريطة الشارع المفتوحة</string>
+	<string name="editor_detailed_description_hint">تعليق مفصّل</string>
+	<string name="editor_detailed_description">سيتم إرسال التغييرات التي اقترحتها إلى مجتمع خريطة الشارع المفتوحة. اذكر التفاصيل التي لا يمكن تحريرها في Organic Maps</string>
+	<string name="editor_more_about_osm">المزيد عن خريطة الشارع المفتوحة</string>
+	<string name="editor_operator">المالك</string>
 	<string name="downloader_no_downloaded_maps_title">لم تقم بتنزيل أية خرائط</string>
-	<string name="downloader_no_downloaded_maps_message">قم بتنزيل خرائط للبحث عن مكان والتنقل بدون اتصال بالإنترنت.</string>
+	<string name="downloader_no_downloaded_maps_message">قم بتنزيل خرائط للبحث عن مكان واستخدام الملاحة بدون اتصال بالإنترنت.</string>
 	<!-- Error title that appears after certain time without location. -->
 	<string name="current_location_unknown_title">هل تريد متابعة اكتشاف موقعك الحالي؟</string>
 	<!-- Error that appears after certain time without location. -->
 	<string name="current_location_unknown_message">الموقع الحالي غير معروف. ربما تتواجد داخل مبنى أو نفق.</string>
-	<string name="current_location_unknown_continue_button">استمرار</string>
+	<string name="current_location_unknown_continue_button">الاستمرار</string>
 	<string name="current_location_unknown_stop_button">إيقاف</string>
-	<string name="meter">م</string>
+	<string name="meter">متر</string>
 	<string name="kilometer">كم</string>
 	<string name="kilometers_per_hour">كم/ساعة</string>
 	<string name="mile">ميل</string>
@@ -492,34 +492,41 @@
 	<string name="editor_comment_hint">تعليق…</string>
 	<string name="editor_reset_edits_message">هل تريد مسح كافة التغييرات المحلية؟</string>
 	<string name="editor_reset_edits_button">مسح</string>
-	<string name="editor_remove_place_message">إزالة مكان تمت إضافته؟</string>
+	<string name="editor_remove_place_message">إزالة مكان الذي تمت إضافته؟</string>
 	<string name="editor_remove_place_button">إزالة</string>
 	<string name="editor_place_doesnt_exist">المكان غير موجود</string>
+	<!-- Error message for "Place doesn't exist" dialog when comment is empty -->
+	<string name="delete_place_empty_comment_error">الرجاء توضيح سبب مسح هذا المكان</string>
 	<!-- Phone number error message -->
-	<string name="error_enter_correct_phone">أدخل رقم هاتف صحيح</string>
+	<string name="error_enter_correct_phone">أدخل رقم هاتف صالح</string>
 	<string name="error_enter_correct_web">أدخل عنوان ويب صالح</string>
-	<string name="error_enter_correct_email">أدخل بريدا إلكترونيا صالحا</string>
+	<string name="error_enter_correct_email">أدخل بريداً إلكترونياً صالحاً</string>
+	<string name="error_enter_correct_facebook_page">أدخل اسم صفحة أو حساب أو عنوان ويب خاص بفيسبوك صالح</string>
+	<string name="error_enter_correct_instagram_page">أدخل اسم حساب أو عنوان ويب خاص بإنستغرام صالح</string>
+	<string name="error_enter_correct_twitter_page">أدخل اسم مستخدم او موقع ويب خاص بتويتر صالح</string>
+	<string name="error_enter_correct_vk_page">أدخل اسم حساب أو عنوان ويب خاص بموقع VK صالح</string>
+	<string name="error_enter_correct_line_page">أدخل رقم تعريفي خاص بتطبيق LINE أو موقع ويب خاص بتطيق LINE صالح</string>
 	<string name="placepage_add_place_button">إضافة مكان ما للخريطة</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">هل ترغب في إرساله لجميع المستخدمين؟</string>
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
-	<string name="editor_share_to_all_dialog_message_1">تأكد من أنك لم تقم بإدخال أي بيانات شخصية.</string>
-	<string name="editor_share_to_all_dialog_message_2">سنقوم بمراجعة هذه التغييرات. إذا كانت لدينا أي أسئلة فسوف نتصل بك عبر البريد الإلكتروني.</string>
+	<string name="editor_share_to_all_dialog_message_1">تأكد من أنك لم تقم بإدخال أية بيانات شخصية.</string>
+	<string name="editor_share_to_all_dialog_message_2">سنقوم بمراجعة هذه التغييرات. إذا كانت لدينا أي أسئلة فسننتواصل معك عبر البريد الإلكتروني.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
-	<string name="about_description">Organic Maps هي تطبيق خرائط مجاني ومفتوح المصدر بلا اتصال بالإنترنت. لا اعلانات. لا تتبع. إذا رأيت خطأً على الخريطة ، فيرجى إصلاحه في OpenStreetMap. تم إنشاء المشروع بواسطة المتحمسين في أوقات فراغنا ، لذلك نحتاج إلى ملاحظاتك ودعمك.</string>
+	<string name="about_description">Organic Maps هو تطبيق سريع ومجاني للوصول إلى الخرائط بدون اتصال بالانترنت، وهو بدون إعلانات ومتتبعات. إن الخرائط هي مصدرها بيانات خريطة الشارع المفتوحة التي يستطيع الجميع تعديلها، لذلك يمكنك إصلاح أخطاء الخريطة وإضافة الميزات بنفسك. Organic Maps هو مشروع مفتوح المصدر أُنشأ من قبل مجموعة من الهواة في وقت فراغهم. نقدّر جداً مساهماتك ودعمك.</string>
 	<!-- For the first routing -->
 	<string name="accept">قبول</string>
 	<!-- For the first routing -->
 	<string name="decline">رفض</string>
 	<!-- A noun - a button name used to show search results in list form -->
 	<string name="search_in_table">قائمة</string>
-	<string name="mobile_data_dialog">استخدام إنترنت المحمول لإظهار المعلومات التفصيلية؟</string>
+	<string name="mobile_data_dialog">استخدام بيانات الجوال لإظهار المعلومات التفصيلية؟</string>
 	<string name="mobile_data_option_always">استخدام دائمًا</string>
 	<string name="mobile_data_option_today">اليوم فقط</string>
 	<string name="mobile_data_option_not_today">عدم الاستخدام اليوم</string>
-	<string name="mobile_data">انترنت المحمول</string>
+	<string name="mobile_data">بيانات الجوال</string>
 	<!-- NOTE to translators: please synchronize your translation with the English one. -->
-	<string name="mobile_data_description">الإنترنت المحمول مطلوب لعرض معلومات تفصيلية عن الأماكن مثل الصور الفوتوغرافية والأسعار والمراجعات.</string>
+	<string name="mobile_data_description">إننا نحتاج بيانات الجوال لعرض معلومات تفصيلية عن الأماكن والإشارات المرجعية.</string>
 	<string name="mobile_data_option_never">عدم الاستخدام مطلقًا</string>
 	<string name="mobile_data_option_ask">السؤال دوماً</string>
 	<string name="traffic_update_maps_text">لعرض البيانات المرورية، يجب تحديث الخرائط.</string>
@@ -527,16 +534,16 @@
 	<string name="traffic_update_app">الرجاء تحديث Organic Maps</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">البيانات المرورية غير متاحة</string>
-	<string name="enable_logging">تمكين التسجيل</string>
+	<string name="enable_logging">تفعيل التسجيل</string>
 	<!-- Settings: "Send general feedback" button -->
 	<string name="feedback_general">تعقيب عام</string>
 	<string name="on">تشغيل</string>
 	<string name="off">إيقاف</string>
-	<string name="prefs_languages_information">نحن نستخدم نظام النص إلى كلام (TTS) للتعليمات الصوتية. تستخدم العديد من أجهزة Android نظام Google TTS، يمكنك تنزيله من أو تحديثه من Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">(TTS) إضافي (حيث إن نظام Google TTS لا يدعم اللغات بعد (من Google Play مثل Vocalizer TTS أو SVOX Classics.\nلإدارة الإعدادات لتخليق الكلام، في الجهاز الخاص بك افتح الإعدادات –> اللغة والإدخال –> الكلام –> إخراج نص إلى كلام. هنا يمكنك تنزيل حزمة لغة إضافية أو تحديد محرك النص إلى كلام المفضل.</string>
+	<string name="prefs_languages_information">نحن نستخدم نظام تحويل النص إلى كلام (TTS) للتعليمات الصوتية. تستخدم العديد من أجهزة أندرويد نظام Google TTS، يمكنك تنزيله من أو تحديثه من متجر Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
+	<string name="prefs_languages_information_off">بالنسبة لبعض اللغات، ستحتاج إلى تنزيل تطبيق تحويل النص إلى كلام أو حزمة لغات إضافية من متجر التطبيقات(متجر Play، Samasung Apps، App Gallery، FDroid(.\nافتح إعدادات جهازك ثم اللغة والإدخال ثم تحويل النص إلى كلام.\nهنا يمكنك إدارة الإعدادات لأنظمة تحويل النص إلى كلا(على سبيل المثال، تنزيل حزمة اللغة للاستجدام دون اتصال انترنيت)</string>
 	<string name="prefs_languages_information_off_link">لمزيد من المعلومات الرجاء مراجعة هذا الدليل.</string>
-	<string name="transliteration_title">كتابة بالحروف اللاتينية</string>
-	<string name="learn_more">تعلم المزيد</string>
+	<string name="transliteration_title">كتابة جميع الاسماء بالحروف اللاتينية بشكل حرفي</string>
+	<string name="learn_more">معرفة المزيد</string>
 	<string name="core_exit">خروج</string>
 	<string name="routing_add_start_point">أضف نقطة البداية لتخطيط المسار</string>
 	<string name="routing_add_finish_point">أضف النهاية لتخطيط المسار</string>
@@ -544,7 +551,7 @@
 	<string name="placepage_remove_stop">إزالة</string>
 	<string name="placepage_add_stop">إضافة نقطة توقف</string>
 	<string name="dialog_error_storage_title">مشكلة الوصول للتخزين</string>
-	<string name="dialog_error_storage_message">التخزين الخارجي غير متوفر، ربما تمت إزالة بطاقة SD، أو أنها تالفة أو ملف النظام للقراءة فقط. افحصه واتصل بنا على support\@organicmaps.app</string>
+	<string name="dialog_error_storage_message">التخزين الخارجي غير متوفر، ربما تمت إزالة بطاقة SD، أو أنها تالفة أو نظام الملفات للقراءة فقط. افحصه أو راسلنا على support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">محاكاة التخزين السيء</string>
 	<string name="core_entrance">المدخل</string>
 	<string name="error_enter_correct_name">الرجاء إدخال اسم صحيح</string>
@@ -553,33 +560,35 @@
 	<string name="bookmark_lists_hide_all">إخفاء الكل</string>
 	<string name="bookmark_lists_show_all">إظهار الكل</string>
 	<string name="bookmarks_create_new_group">إنشاء قائمة جديدة</string>
+	<!-- Bookmark categories screen -->
+	<string name="bookmarks_import">إضافة الإشارات المرجعية من ملفات الجهاز</string>
 	<string name="bookmarks_error_message_share_general">تعذرت المشاركة بسبب خطأ في التطبيق</string>
 	<string name="bookmarks_error_title_share_empty">خطأ في المشاركة</string>
 	<string name="bookmarks_error_message_share_empty">لا يمكن مشاركة قائمة فارغة</string>
-	<string name="bookmarks_error_title_empty_list_name">الاسم لا يمكن أن يكون فارغًا</string>
+	<string name="bookmarks_error_title_empty_list_name">لا يمكن للاسم أن يكون فارغًا</string>
 	<string name="bookmarks_error_message_empty_list_name">يرجى إدخال اسم القائمة</string>
 	<string name="bookmarks_new_list_hint">قائمة جديدة</string>
-	<string name="bookmarks_error_title_list_name_already_taken">هذا الاسم أخذ سابقا</string>
+	<string name="bookmarks_error_title_list_name_already_taken">هذا الاسم موجود سابقا</string>
 	<string name="bookmarks_error_message_list_name_already_taken">يرجى اختيار اسم آخر</string>
 	<string name="please_wait">أرجو الإنتظار…</string>
 	<string name="phone_number">رقم الهاتف</string>
-	<string name="profile">الملف الشخصي OpenStreetMap</string>
+	<string name="profile">ملف الشخصي على خريطة الشارع المفتوحة</string>
 	<plurals name="bookmarks_detect_message">
 	  <item quantity="other">تم العثور على %d ملفات. سوف تراهم بعد التحويل.</item>
 	</plurals>
 	<string name="common_check_internet_connection_dialog_title">لا يوجد اتصال بالإنترنت</string>
 	<plurals name="objects">
-	  <item quantity="other">المكان %d</item>
+	  <item quantity="other">غرض %d</item>
 	</plurals>
 	<plurals name="places">
-	  <item quantity="other">الأماكن %d</item>
+	  <item quantity="other">مكان %d</item>
 	</plurals>
 	<plurals name="tracks">
-	  <item quantity="other">المسارات %d</item>
+	  <item quantity="other">مسار %d</item>
 	</plurals>
 	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">إعدادات التتبع</string>
-	<string name="crash_reports">تقرير الحادث</string>
+	<string name="crash_reports">تقرير الخاص بتعطل التطبيق</string>
 	<string name="crash_reports_description">قد نستخدم بياناتك لتحسين تجربة Organic Maps. سوف تكون التغييرات نافذة المفعول بعد إعادة تشغيل التطبيق.</string>
 	<string name="privacy_policy">سياسة الخصوصية</string>
 	<string name="terms_of_use">شروط الاستخدام</string>
@@ -587,46 +596,46 @@
 	<string name="button_layer_subway">مترو الانفاق</string>
 	<string name="layers_title">طبقات الخريطة</string>
 	<string name="subway_data_unavailable">خريطة مترو الانفاق غير متوفرة</string>
-	<string name="bookmarks_empty_list_title">هذه اللائحة شاغرة</string>
-	<string name="bookmarks_empty_list_message">لإضافة إشارة مرجعية ، اضغط على مكان على الخريطة ثم انقر فوق رمز النجمة</string>
+	<string name="bookmarks_empty_list_title">هذه اللائحة فارغة</string>
+	<string name="bookmarks_empty_list_message">لإضافة إشارة مرجعية ، اضغط على مكان على الخريطة ثم انقر على رمز النجمة</string>
 	<string name="category_desc_more">…المزيد</string>
 	<string name="export_file">ملف التصدير</string>
-	<string name="list_settings">قائمة الإعدادات</string>
+	<string name="list_settings">إعدادات القائمة</string>
 	<string name="delete_list">حذف القائمة</string>
-	<string name="public_access">إطلاع الجمهور</string>
-	<string name="limited_access">محدودية فرص حصول</string>
+	<string name="public_access">مسموح الوصول لعامة الشعب</string>
+	<string name="limited_access">مسموح الوصول بشكل محدود</string>
 	<string name="bookmark_list_description_hint">اكتب وصفًا (نص أو html)</string>
 	<string name="not_shared">خاص</string>
-	<string name="speedcams_alert_title">كاميرات السرعة</string>
-	<string name="speedcam_option_auto">السيارات</string>
-	<string name="speedcam_option_always">دائما</string>
-	<string name="speedcam_option_never">مطلقا</string>
+	<string name="speedcams_alert_title">تحذيرات كاميرات السرعة</string>
+	<string name="speedcam_option_auto">تلفائياً</string>
+	<string name="speedcam_option_always">مفعل دائماً</string>
+	<string name="speedcam_option_never">معطل دائماً</string>
 	<string name="place_description_title">وصف المكان</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
-	<string name="notification_channel_downloader">محمل الخريطة</string>
+	<string name="notification_channel_downloader">مُنزّل الخريطة</string>
 	<string name="power_managment_title">وضع توفير الطاقة</string>
-	<string name="power_managment_description">عندما يتم اختيار الوضع التلقائي، يبدأ التطبيق بتعطيل الخصائص التي تستهلك البطارية بناءً على مستوى شحن البطارية</string>
+	<string name="power_managment_description">عندما يتم اختيار الوضع التلقائي، يبدأ التطبيق بتعطيل الخصائص التي تستهلك البطارية بناءً على مستوى شحن البطارية الحالي</string>
 	<string name="power_managment_setting_never">أبدًا</string>
 	<string name="power_managment_setting_auto">تلقائي</string>
-	<string name="power_managment_setting_manual_max">توفير الطاقة القصوى</string>
-	<string name="enable_logging_warning_message">يتحول الخيار إلى التسجيل لإغراض التشخيص. يمكن أن يكون مفيدًا لفريق الدعم الخاص بنا الذين يعملون على استكشاف أخطاء التطبيق وإصلاحها. قم بتفعيل هذا الخيار فقط في حالة طلب الدعم من Organic Maps.</string>
-	<string name="access_rules_author_only">التحرير على الإنترنت</string>
-	<string name="driving_options_title">خيارات قيادة</string>
-	<string name="driving_options_subheader">تجنب على كل الطرق</string>
-	<string name="avoid_tolls">نقطة تحصيل رسوم</string>
-	<string name="avoid_unpaved">طرق غير ممهدة</string>
-	<string name="avoid_ferry">تقاطع عبارات</string>
-	<string name="avoid_motorways">طرق سريعة</string>
+	<string name="power_managment_setting_manual_max">توفير الطاقة الأقصى</string>
+	<string name="enable_logging_warning_message">هذا الخيار يقوم ببدأ تسجيل سجلات التطبيق لإغراض التشخيصة. يمكن أن يكون مفيدًا لفريق الدعم الخاص بنا لحل المشاكل التي تواجهكم داخل التطبيق. قم بتفعيل هذا الخيار بشكل مؤقت فقط في حالة طلب الدعم من Organic Maps.</string>
+	<string name="access_rules_author_only">التعديل باستخدام الإنترنت</string>
+	<string name="driving_options_title">خيارات رسم المسار</string>
+	<string name="driving_options_subheader">تجنبها على جميع الطرق</string>
+	<string name="avoid_tolls">الطرق ذات الرسوم</string>
+	<string name="avoid_unpaved">الطرق غير المعبدة</string>
+	<string name="avoid_ferry">استخدام العبّارات</string>
+	<string name="avoid_motorways">الطرق السريعة</string>
 	<string name="unable_to_calc_alert_title">لا يمكن حساب الطريق</string>
-	<string name="unable_to_calc_alert_subtitle">نأسف، لم نعثر على الطريق ربما بسبب الخيارات التي قمت بتحديدها. يرجى تغيير الاعدادات والمحاولة مجددًا</string>
+	<string name="unable_to_calc_alert_subtitle">نأسف، لم نعثر على الطريق ربما بسبب الخيارات التي قمت بتحديدها. يرجى تغيير الإعدادات والمحاولة مجددًا</string>
 	<string name="define_to_avoid_btn">حدد الطرق التي يجب تجنبها</string>
-	<string name="change_driving_options_btn">تم تفعيل خيارات الطريق</string>
-	<string name="toll_road">نقطة تحصيل رسوم</string>
-	<string name="unpaved_road">طريق غير ممهدة</string>
-	<string name="ferry_crossing">تقاطع عبارة</string>
-	<string name="avoid_toll_roads_placepage">تجنب نقاط تحصيل الرسوم</string>
-	<string name="avoid_unpaved_roads_placepage">تجنب الطرق الغير ممهدة</string>
-	<string name="avoid_ferry_crossing_placepage">تجنب تقاطع العبارات</string>
+	<string name="change_driving_options_btn">تم تفعيل خيارات رسم الطريق</string>
+	<string name="toll_road">طريق برسوم مرور</string>
+	<string name="unpaved_road">طريق غير معبد</string>
+	<string name="ferry_crossing">استخدام عبّارة</string>
+	<string name="avoid_toll_roads_placepage">تجنب الطرق ذات الرسوم</string>
+	<string name="avoid_unpaved_roads_placepage">تجنب الطرق الغير معبدة</string>
+	<string name="avoid_ferry_crossing_placepage">تجنب استخدام العبّارات</string>
 	<!-- A generic "Yes" button in dialogs -->
 	<string name="yes">نعم</string>
 	<!-- A generic "No" button in dialogs -->
@@ -637,11 +646,11 @@
 	<string name="no_available">لا</string>
 	<string name="ok">موافق</string>
 	<!-- max. 10 symbols, both iOS and Android -->
-	<string name="sort">تريتب…</string>
+	<string name="sort">ترتيب…</string>
 	<!-- Android, title, max 20-22 symbols -->
-	<string name="sort_bookmarks">رتب العلامات المرجعية</string>
+	<string name="sort_bookmarks">رتّب العلامات المرجعية</string>
 	<!-- Android -->
-	<string name="by_default">افتراضي</string>
+	<string name="by_default">بشكل افتراضي</string>
 	<!-- Android -->
 	<string name="by_type">حسب النوع</string>
 	<!-- Android -->
@@ -657,27 +666,27 @@
 
 	<!-- SECTION: Bookmark types used for sorting -->
 	<string name="food_places">طعام</string>
-	<string name="tourist_places">مشاهد</string>
+	<string name="tourist_places">أماكن سياحية</string>
 	<string name="museums">متاحف</string>
 	<string name="parks">حدائق</string>
 	<string name="swim_places">سباحة</string>
 	<string name="mountains">جبال</string>
 	<string name="animals">حيوانات</string>
 	<string name="hotels">فنادق</string>
-	<string name="buildings">بنايات</string>
+	<string name="buildings">أبنية</string>
 	<string name="money">نقود</string>
 	<string name="shops">متاجر</string>
 	<string name="parkings">مواقف سيارات</string>
 	<string name="fuel_places">محطات وقود</string>
 	<string name="medicine">دواء</string>
-	<string name="search_in_the_list">بحث في القائمة</string>
+	<string name="search_in_the_list">ابحث في القائمة</string>
 	<string name="religious_places">أماكن دينية</string>
 	<string name="select_list">اختر القائمة</string>
 	<string name="transit_not_found">التنقل باستخدام مترو الأنفاق في هذه المنطقة غير متاح حتى الآن</string>
 	<string name="dialog_pedestrian_route_is_long_header">لم يتم العثور على مترو الانفاق</string>
-	<string name="dialog_pedestrian_route_is_long_message">يرجى اختيار نقطة بداية أو نهاية أقرب لمحطة المترو</string>
+	<string name="dialog_pedestrian_route_is_long_message">يرجى اختيار نقطة بداية أو نهاية أقرب لمحطة مترو الأنفاق</string>
 	<string name="button_layer_isolines">تضاريس</string>
-	<string name="isolines_activation_error_dialog">لتفعيل الطبقة الطبوغرافية واستخدامها ، يرجى تحديث أوتنزيل خريطة المنطقة</string>
+	<string name="isolines_activation_error_dialog">لتفعيل الطبقة الطبوغرافية واستخدامها ، يرجى تحديث أو تنزيل خريطة المنطقة</string>
 	<string name="isolines_location_error_dialog">الطبقة الطبوغرافية ليست متاحة بعد في هذه المنطقة</string>
 	<string name="elevation_profile_ascent">تصاعدي</string>
 	<string name="elevation_profile_descent">تنازلي</string>
@@ -685,13 +694,24 @@
 	<string name="elevation_profile_maxaltitude">الحد الأقصى للارتفاع</string>
 	<string name="elevation_profile_difficulty">درجة الصعوبة</string>
 	<string name="elevation_profile_distance">المسافة:</string>
-	<string name="elevation_profile_time">مدة:</string>
-	<string name="isolines_toast_zooms_1_10">قرب لتكتشف خطوط الكنتور</string>
+	<string name="elevation_profile_time">المدة:</string>
+	<string name="isolines_toast_zooms_1_10">قم بالتقريب لتكتشف خطوط الكنتور</string>
+	<string name="download_map_title">تنزيل خريطة العالم</string>
+	<!-- Used in DownloadResources startup screen -->
+	<string name="disk_error">تعذر إنشاء المجلد ونقل الملفات على الذاكرة الداخلية للجهاز أو على بطاقة SD</string>
+	<!-- Used in DownloadResources startup screen -->
+	<string name="disk_error_title">حدث خطأ في التخزين</string>
+	<!-- Used in DownloadResources startup screen -->
+	<string name="connection_failure">فشل الاتصال</string>
 	<string name="enable_screen_sleep">اسمح للشاشة بالنوم</string>
 	<!-- Description in preferences -->
-	<string name="enable_screen_sleep_description">عند التمكين ، سيتم السماح للشاشة بالنوم بعد فترة من عدم النشاط.</string>
+	<string name="enable_screen_sleep_description">عند التفعيل ، سيتم السماح للشاشة بالنوم بعد فترة من عدم النشاط.</string>
+	<!-- A preference title; keep short! -->
+	<string name="enable_show_on_lock_screen">إظهار  التطبيق فوق شاشة القفل</string>
+	<!-- Description in preferences -->
+	<string name="enable_show_on_lock_screen_description">عند التفعيل، لن تحتاج لفتح قفل جهازك كل مرة أثناء تشغيل التطبيق</string>
 	<!-- OpenStreetMap text on splash screen -->
-	<string name="splash_subtitle">OpenStreetMap ﻦﻣ ﺔﻄﻳﺮﺨﻟﺍ ﺕﺎﻧﺎﻴﺑ</string>
+	<string name="splash_subtitle">بيانات الخريطة من خريطة الشارع المفتوحة</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">محطة تلفريك</string>
