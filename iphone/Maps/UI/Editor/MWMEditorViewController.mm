@@ -74,6 +74,10 @@ MWMEditorCellTypeClassMap const kCellType2Class{
     {MWMEditorCellTypeOperator, [MWMEditorTextTableViewCell class]},
     {MWMEditorCellTypeCuisine, [MWMEditorSelectTableViewCell class]},
     {MWMEditorCellTypeWiFi, [MWMEditorSwitchTableViewCell class]},
+    {MWMEditorCellTypeContactFacebook, [MWMEditorTextTableViewCell class]},
+    {MWMEditorCellTypeContactInstagram, [MWMEditorTextTableViewCell class]},
+    {MWMEditorCellTypeContactTwitter, [MWMEditorTextTableViewCell class]},
+    {MWMEditorCellTypeContactVk, [MWMEditorTextTableViewCell class]},
     {MWMEditorCellTypeNote, [MWMNoteCell class]},
     {MWMEditorCellTypeReportButton, [MWMButtonCell class]}};
 
@@ -137,6 +141,10 @@ std::vector<MWMEditorCellType> cellsForProperties(std::vector<osm::Props> const 
     case Props::Cuisine: res.push_back(MWMEditorCellTypeCuisine); break;
     case Props::Operator: res.push_back(MWMEditorCellTypeOperator); break;
     case Props::Internet: res.push_back(MWMEditorCellTypeWiFi); break;
+    case Props::ContactFacebook: res.push_back(MWMEditorCellTypeContactFacebook); break;
+    case Props::ContactInstagram: res.push_back(MWMEditorCellTypeContactInstagram); break;
+    case Props::ContactTwitter: res.push_back(MWMEditorCellTypeContactTwitter); break;
+    case Props::ContactVk: res.push_back(MWMEditorCellTypeContactVk); break;
     case Props::Wikipedia:
     case Props::Fax:
     case Props::Stars:
@@ -624,6 +632,50 @@ void registerCellsForTableView(std::vector<MWMEditorCellType> const & cells, UIT
                   placeholder:L(@"select_cuisine")];
     break;
   }
+  case MWMEditorCellTypeContactFacebook:
+  {
+    MWMEditorTextTableViewCell * tCell = static_cast<MWMEditorTextTableViewCell *>(cell);
+    [tCell configWithDelegate:self
+                         icon:[UIImage imageNamed:@"ic_placepage_facebook"]
+                         text:ToNSString(m_mapObject.GetFacebookPage())
+                  placeholder:L(@"facebook")
+                 keyboardType:UIKeyboardTypeDefault
+               capitalization:UITextAutocapitalizationTypeSentences];
+    break;
+  }
+  case MWMEditorCellTypeContactInstagram:
+  {
+    MWMEditorTextTableViewCell * tCell = static_cast<MWMEditorTextTableViewCell *>(cell);
+    [tCell configWithDelegate:self
+                         icon:[UIImage imageNamed:@"ic_placepage_instagram"]
+                         text:ToNSString(m_mapObject.GetInstagramPage())
+                  placeholder:L(@"instagram")
+                 keyboardType:UIKeyboardTypeDefault
+               capitalization:UITextAutocapitalizationTypeSentences];
+    break;
+  }
+  case MWMEditorCellTypeContactTwitter:
+  {
+    MWMEditorTextTableViewCell * tCell = static_cast<MWMEditorTextTableViewCell *>(cell);
+    [tCell configWithDelegate:self
+                         icon:[UIImage imageNamed:@"ic_placepage_twitter"]
+                         text:ToNSString(m_mapObject.GetTwitterPage())
+                  placeholder:L(@"twitter")
+                 keyboardType:UIKeyboardTypeDefault
+               capitalization:UITextAutocapitalizationTypeSentences];
+    break;
+  }
+  case MWMEditorCellTypeContactVk:
+  {
+    MWMEditorTextTableViewCell * tCell = static_cast<MWMEditorTextTableViewCell *>(cell);
+    [tCell configWithDelegate:self
+                         icon:[UIImage imageNamed:@"ic_placepage_vk"]
+                         text:ToNSString(m_mapObject.GetVkPage())
+                  placeholder:L(@"vk")
+                 keyboardType:UIKeyboardTypeDefault
+               capitalization:UITextAutocapitalizationTypeSentences];
+    break;
+  }
   case MWMEditorCellTypeNote:
   {
     MWMNoteCell * tCell = static_cast<MWMNoteCell *>(cell);
@@ -865,7 +917,9 @@ void registerCellsForTableView(std::vector<MWMEditorCellType> const & cells, UIT
     m_mapObject.SetEmail(val);
     isFieldValid = osm::EditableMapObject::ValidateEmail(val);
     break;
-  case MWMEditorCellTypeOperator: m_mapObject.SetOperator(val); break;
+  case MWMEditorCellTypeOperator:
+    m_mapObject.SetOperator(val);
+    break;
   case MWMEditorCellTypeBuilding:
     m_mapObject.SetHouseNumber(val);
     isFieldValid = osm::EditableMapObject::ValidateHouseNumber(val);
@@ -882,6 +936,18 @@ void registerCellsForTableView(std::vector<MWMEditorCellType> const & cells, UIT
     isFieldValid = osm::EditableMapObject::ValidateName(val);
     if (isFieldValid)
       m_mapObject.SetName(val, static_cast<MWMEditorAdditionalNameTableViewCell *>(cell).code);
+    break;
+  case MWMEditorCellTypeContactFacebook:
+    m_mapObject.SetFacebookPage(val);
+    break;
+  case MWMEditorCellTypeContactInstagram:
+    m_mapObject.SetInstagramPage(val);
+    break;
+  case MWMEditorCellTypeContactTwitter:
+    m_mapObject.SetTwitterPage(val);
+    break;
+  case MWMEditorCellTypeContactVk:
+    m_mapObject.SetVkPage(val);
     break;
   default: NSAssert(false, @"Invalid field for changeText");
   }

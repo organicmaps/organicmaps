@@ -25,5 +25,9 @@ typedef NS_ENUM(NSUInteger, MWMEditorCellType) {
   MWMEditorCellTypeCuisine,
   MWMEditorCellTypeNote,
   MWMEditorCellTypeBookingMore,
+  MWMEditorCellTypeContactFacebook,
+  MWMEditorCellTypeContactInstagram,
+  MWMEditorCellTypeContactTwitter,
+  MWMEditorCellTypeContactVk,
   MWMEditorCellTypeCount
 };
