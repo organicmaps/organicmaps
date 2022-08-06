@@ -7,8 +7,6 @@
 
 #include <cmath>
 
-using namespace std;
-
 double constexpr kPerspectiveAngleFOV = math::pi / 3.0;
 double constexpr kMaxPerspectiveAngle1 = math::pi4;
 double constexpr kMaxPerspectiveAngle2 = math::pi * 55.0 / 180.0;
@@ -80,7 +78,7 @@ void ScreenBase::UpdateDependentParameters()
   double constexpr kEps = 1.0E-5;
   double const angle = CalculatePerspectiveAngle(m_Scale);
   m_isPerspective = angle > 0.0;
-  if (fabs(angle - m_3dAngleX) > kEps)
+  if (std::fabs(angle - m_3dAngleX) > kEps)
   {
     m_3dMaxAngleX = angle;
     m_3dScale = CalculateScale3d(angle);
@@ -135,7 +133,7 @@ void ScreenBase::SetFromRects(m2::AnyRectD const & glbRect, m2::RectD const & px
 
   CHECK_GREATER_OR_EQUAL(hScale, 0.0, ());
   CHECK_GREATER_OR_EQUAL(vScale, 0.0, ());
-  m_Scale = max(hScale, vScale);
+  m_Scale = std::max(hScale, vScale);
   m_Angle = glbRect.Angle();
   m_Org = glbRect.GlobalCenter();
 
@@ -317,7 +315,7 @@ double ScreenBase::CalculateScale3d(double rotationAngle) const
   double const x3dScale =
       1.0 + 2 * sin(rotationAngle) * cos(halfFOV) / (cameraZ * cos(halfFOV + rotationAngle));
 
-  return max(x3dScale, y3dScale);
+  return std::max(x3dScale, y3dScale);
 }
 
 m2::RectD ScreenBase::CalculatePixelRect(double scale) const

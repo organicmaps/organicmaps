@@ -22,6 +22,8 @@
 #include <utility>
 #include <vector>
 
+namespace intermediate_data_test
+{
 using namespace generator;
 using namespace std;
 
@@ -115,3 +117,4 @@ UNIT_TEST(Intermediate_Data_relation_element_save_load_test)
   TEST_NOT_EQUAL(e2.m_tags["key1old"], "value1old", ());
   TEST_NOT_EQUAL(e2.m_tags["key2old"], "value2old", ());
 }
+}  // namespace intermediate_data_test

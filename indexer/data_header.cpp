@@ -1,48 +1,48 @@
 #include "indexer/data_header.hpp"
 #include "indexer/scales.hpp"
 
+#include "platform/mwm_version.hpp"
 #include "platform/platform.hpp"
 
 #include "coding/files_container.hpp"
 #include "coding/file_writer.hpp"
 #include "coding/point_coding.hpp"
 #include "coding/varint.hpp"
-#include "coding/write_to_sink.hpp"
 
 #include "defines.hpp"
 
+namespace feature
+{
 using namespace std;
 
 namespace
 {
-  template <class Sink, class Cont>
-  void SaveBytes(Sink & sink, Cont const & cont)
+template <class Sink, class Cont>
+void SaveBytes(Sink & sink, Cont const & cont)
+{
+  static_assert(sizeof(typename Cont::value_type) == 1);
+
+  uint32_t const count = static_cast<uint32_t>(cont.size());
+  WriteVarUint(sink, count);
+  if (count > 0)
+    sink.Write(&cont[0], count);
+}
+
+template <class Source, class Cont>
+void LoadBytes(Source & src, Cont & cont)
+{
+  static_assert(sizeof(typename Cont::value_type) == 1);
+  ASSERT(cont.empty(), ());
+
+  uint32_t const count = ReadVarUint<uint32_t>(src);
+  if (count > 0)
   {
-    static_assert(sizeof(typename Cont::value_type) == 1, "");
-
-    uint32_t const count = static_cast<uint32_t>(cont.size());
-    WriteVarUint(sink, count);
-    if (count > 0)
-      sink.Write(&cont[0], count);
+    cont.resize(count);
+    src.Read(&cont[0], count);
   }
-
-  template <class Source, class Cont>
-  void LoadBytes(Source & src, Cont & cont)
-  {
-    static_assert(sizeof(typename Cont::value_type) == 1, "");
-    ASSERT(cont.empty(), ());
-
-    uint32_t const count = ReadVarUint<uint32_t>(src);
-    if (count > 0)
-    {
-      cont.resize(count);
-      src.Read(&cont[0], count);
-    }
-  }
+}
 }  // namespace
 
-namespace feature
-{
   DataHeader::DataHeader(string const & fileName)
     : DataHeader((FilesContainerR(GetPlatform().GetReader(fileName))))
   {
@@ -60,7 +60,7 @@ namespace feature
         m_codingParams.GetBasePointUint64());
   }
 
-  m2::RectD const DataHeader::GetBounds() const
+  m2::RectD DataHeader::GetBounds() const
   {
     return Int64ToRectObsolete(m_bounds, m_codingParams.GetCoordBits());
   }
@@ -107,14 +107,10 @@ namespace feature
 
   void DataHeader::Load(FilesContainerR const & cont)
   {
-    ModelReaderPtr headerReader = cont.GetReader(HEADER_FILE_TAG);
-    version::MwmVersion version;
-
-    CHECK(version::ReadVersion(cont, version), ());
-    Load(headerReader, version.GetFormat());
+    Load(cont.GetReader(HEADER_FILE_TAG));
   }
 
-  void DataHeader::Load(ModelReaderPtr const & r, version::Format format)
+  void DataHeader::Load(ModelReaderPtr const & r)
   {
     ReaderSource<ModelReaderPtr> src(r);
     m_codingParams.Load(src);
@@ -126,16 +122,9 @@ namespace feature
     LoadBytes(src, m_langs);
 
     m_type = static_cast<MapType>(ReadVarInt<int32_t>(src));
-    m_format = format;
 
-    if (!IsMWMSuitable())
-    {
-      // Actually, old versions of the app should read mwm header correct!
-      // This condition is also checked in adding mwm to the model.
-      return;
-    }
-
-    // Place all new serializable staff here.
+    if (m_type < MapType::World || m_type > MapType::Country || m_scales.size() != kMaxScalesCount)
+      MYTHROW(CorruptedMwmFile, (r.GetName()));
   }
 
   string DebugPrint(DataHeader::MapType type)

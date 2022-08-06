@@ -633,16 +633,6 @@ StringUtf8Multilang const & FeatureType::GetNames()
   return m_params.name;
 }
 
-namespace
-{
-  template <class TCont>
-  void Points2String(string & s, TCont const & points)
-  {
-    for (size_t i = 0; i < points.size(); ++i)
-      s += DebugPrint(points[i]) + " ";
-  }
-}
-
 string FeatureType::DebugString(int scale)
 {
   ParseCommon();

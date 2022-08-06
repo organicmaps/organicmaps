@@ -6,8 +6,6 @@
 
 #include <array>
 
-using namespace std;
-
 UNIT_TEST(Point_Rotate)
 {
   m2::PointD p(1.0, 0.0);
@@ -66,13 +64,13 @@ UNIT_TEST(PointInTriangle_EmptyTriangle)
 /// @todo add more tests
 UNIT_TEST(GetArrowPoints)
 {
-  array<m2::PointF, 3> arrPntsFlt;
+  std::array<m2::PointF, 3> arrPntsFlt;
   m2::GetArrowPoints(m2::PointF(0, 0), m2::PointF(1, 0), 1.f, 1.f, arrPntsFlt);
   TEST(m2::AlmostEqualULPs(arrPntsFlt[0], m2::PointF(1.f, 1.f)), ());
   TEST(m2::AlmostEqualULPs(arrPntsFlt[1], m2::PointF(2.f, 0.f)), ());
   TEST(m2::AlmostEqualULPs(arrPntsFlt[2], m2::PointF(1.f, -1.f)), ());
 
-  array<m2::PointD, 3> arrPntsDbl;
+  std::array<m2::PointD, 3> arrPntsDbl;
   m2::GetArrowPoints(m2::PointD(-1., 2.), m2::PointD(-1., 100.), 2., 5., arrPntsDbl);
   TEST(m2::AlmostEqualULPs(arrPntsDbl[0], m2::PointD(-3.f, 100.f)), ());
   TEST(m2::AlmostEqualULPs(arrPntsDbl[1], m2::PointD(-1.f, 105.f)), ());

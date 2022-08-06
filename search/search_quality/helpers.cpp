@@ -11,16 +11,12 @@
 #include "platform/platform.hpp"
 
 #include "coding/reader.hpp"
-#include "coding/reader_wrapper.hpp"
 
 #include "geometry/mercator.hpp"
 
 #include "base/assert.hpp"
-#include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
-
-#include "std/target_os.hpp"
 
 #include <fstream>
 #include <limits>
@@ -30,6 +26,10 @@
 
 #include "3party/jansson/myjansson.hpp"
 
+namespace search
+{
+namespace search_quality
+{
 using namespace std;
 
 namespace
@@ -43,20 +43,10 @@ uint64_t ReadVersionFromHeader(platform::LocalCountryFile const & mwm)
       return mwm.GetVersion();
   }
 
-  ModelReaderPtr reader =
-      FilesContainerR(mwm.GetPath(MapFileType::Map)).GetReader(VERSION_FILE_TAG);
-  ReaderSrc src(reader.GetPtr());
-
-  version::MwmVersion version;
-  version::ReadVersion(src, version);
-  return version.GetVersion();
+  return version::MwmVersion::Read(FilesContainerR(mwm.GetPath(MapFileType::Map))).GetVersion();
 }
 }  // namespace
 
-namespace search
-{
-namespace search_quality
-{
 void CheckLocale()
 {
   string const kJson = "{\"coord\":123.456}";

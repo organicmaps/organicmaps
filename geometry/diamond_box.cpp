@@ -1,10 +1,8 @@
 #include "geometry/diamond_box.hpp"
 
-using namespace std;
-
 namespace m2
 {
-DiamondBox::DiamondBox(vector<PointD> const & points)
+DiamondBox::DiamondBox(std::vector<PointD> const & points)
 {
   for (auto const & p : points)
     Add(p);

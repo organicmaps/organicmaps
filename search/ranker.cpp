@@ -193,33 +193,61 @@ void RemoveDuplicatingLinear(vector<RankerResult> & results)
 {
   double constexpr kDistSameStreetMeters = 5000.0;
 
-  auto lessCmp = [](RankerResult const & r1, RankerResult const & r2)
+  auto const lessCmp = [](RankerResult const & r1, RankerResult const & r2)
   {
     if (r1.GetGeomType() != r2.GetGeomType())
       return r1.GetGeomType() < r2.GetGeomType();
 
+    auto const & ri1 = r1.GetRankingInfo();
+    auto const & ri2 = r2.GetRankingInfo();
+
+    if (ri1.m_type != ri2.m_type)
+      return ri1.m_type < ri2.m_type;
+
     if (r1.GetName() != r2.GetName())
       return r1.GetName() < r2.GetName();
 
-    uint32_t const t1 = r1.GetBestType();
-    uint32_t const t2 = r2.GetBestType();
-    if (t1 != t2)
-      return t1 < t2;
+    if (ri1.m_type == Model::TYPE_STREET)
+    {
+      if (ri1.m_classifType.street != ri2.m_classifType.street)
+        return ri1.m_classifType.street < ri2.m_classifType.street;
+    }
+    else
+    {
+      uint32_t const t1 = r1.GetBestType();
+      uint32_t const t2 = r2.GetBestType();
+      if (t1 != t2)
+        return t1 < t2;
+    }
 
     // After unique, the better feature should be kept.
     return r1.GetLinearModelRank() > r2.GetLinearModelRank();
   };
 
-  auto equalCmp = [](RankerResult const & r1, RankerResult const & r2)
+  auto const equalCmp = [](RankerResult const & r1, RankerResult const & r2)
   {
+    if (r1.GetGeomType() != feature::GeomType::Line || !r1.IsEqualBasic(r2))
+      return false;
+
+    auto const & ri1 = r1.GetRankingInfo();
+    auto const & ri2 = r2.GetRankingInfo();
+    if (ri1.m_type == Model::TYPE_STREET)
+    {
+      if (ri1.m_classifType.street != ri2.m_classifType.street)
+        return false;
+    }
+    else
+    {
+      if (r1.GetBestType() != r2.GetBestType())
+        return false;
+    }
+
     // Note! Do compare for distance when filtering linear objects.
     // Otherwise we will skip the results for different parts of the map.
-    return r1.GetGeomType() == feature::GeomType::Line && r1.IsEqualCommon(r2) &&
-           PointDistance(r1.GetCenter(), r2.GetCenter()) < kDistSameStreetMeters;
+    return PointDistance(r1.GetCenter(), r2.GetCenter()) < kDistSameStreetMeters;
   };
 
-  sort(results.begin(), results.end(), lessCmp);
-  results.erase(unique(results.begin(), results.end(), equalCmp), results.end());
+  base::SortUnique(results, lessCmp, equalCmp);
 }
 
 ftypes::LocalityType GetLocalityIndex(feature::TypesHolder const & types)
@@ -322,11 +350,18 @@ private:
 
 class RankerResultMaker
 {
+  ftypes::IsWayChecker const & m_wayChecker;
+  ftypes::IsCapitalChecker const & m_capitalChecker;
+  ftypes::IsCountryChecker const & m_countryChecker;
+
 public:
   RankerResultMaker(Ranker & ranker, DataSource const & dataSource,
                     storage::CountryInfoGetter const & infoGetter,
                     ReverseGeocoder const & reverseGeocoder, Geocoder::Params const & params)
-    : m_ranker(ranker)
+    : m_wayChecker(ftypes::IsWayChecker::Instance())
+    , m_capitalChecker(ftypes::IsCapitalChecker::Instance())
+    , m_countryChecker(ftypes::IsCountryChecker::Instance())
+    , m_ranker(ranker)
     , m_dataSource(dataSource)
     , m_infoGetter(infoGetter)
     , m_reverseGeocoder(reverseGeocoder)
@@ -334,29 +369,52 @@ public:
   {
   }
 
-  optional<RankerResult> operator()(PreRankerResult const & preRankerResult)
+  optional<RankerResult> operator()(PreRankerResult const & preResult)
   {
     m2::PointD center;
     string name;
     string country;
 
-    auto ft = LoadFeature(preRankerResult.GetId(), center, name, country);
+    auto ft = LoadFeature(preResult.GetId(), center, name, country);
     if (!ft)
       return {};
 
-    RankerResult r(*ft, center, m_ranker.m_params.m_pivot, std::move(name), country);
+    RankerResult res(*ft, center, m_ranker.m_params.m_pivot, std::move(name), country);
 
-    search::RankingInfo info;
-    InitRankingInfo(*ft, center, preRankerResult, info);
+    RankingInfo info;
+    InitRankingInfo(*ft, center, preResult, info);
+
+    if (info.m_type == Model::TYPE_STREET)
+      info.m_classifType.street = m_wayChecker.GetSearchRank(res.GetBestType());
+
     info.m_rank = NormalizeRank(info.m_rank, info.m_type, center, country,
-                                ftypes::IsCapitalChecker::Instance()(*ft), !info.m_allTokensUsed);
-    r.SetRankingInfo(info);
+                                m_capitalChecker(*ft), !info.m_allTokensUsed);
+
+    if (preResult.GetInfo().m_isCommonMatchOnly)
+    {
+      // Count tokens in Feature's name.
+      auto normalized = NormalizeAndSimplifyString(res.GetName());
+      PreprocessBeforeTokenization(normalized);
+      int count = 0;
+      SplitUniString(normalized, [&count](strings::UniString const &)
+      {
+        ++count;
+      }, Delimiters());
+
+      // Factor is a number of the rest, not common matched tokens in Feature' name. Bigger is worse.
+      info.m_commonTokensFactor = min(3, count - int(info.m_tokenRanges[info.m_type].Size()));
+      ASSERT_GREATER_OR_EQUAL(info.m_commonTokensFactor, 0, ());
+    }
+
+    res.SetRankingInfo(info);
+    if (m_params.m_useDebugInfo)
+      res.m_dbgInfo = std::make_shared<RankingInfo>(std::move(info));
 
 #ifdef SEARCH_USE_PROVENANCE
-    r.m_provenance = preRankerResult.GetProvenance();
+    res.m_provenance = preResult.GetProvenance();
 #endif
 
-    return r;
+    return res;
   }
 
 private:
@@ -429,19 +487,19 @@ private:
     return ft;
   }
 
-  void InitRankingInfo(FeatureType & ft, m2::PointD const & center, PreRankerResult const & res,
-                       search::RankingInfo & info)
+  void InitRankingInfo(FeatureType & ft, m2::PointD const & center, PreRankerResult const & res, RankingInfo & info)
   {
     auto const & preInfo = res.GetInfo();
-
     auto const & pivot = m_ranker.m_params.m_accuratePivotCenter;
+
+    feature::TypesHolder featureTypes(ft);
 
     info.m_distanceToPivot = mercator::DistanceOnEarth(center, pivot);
     info.m_rank = preInfo.m_rank;
     info.m_popularity = preInfo.m_popularity;
     info.m_type = preInfo.m_type;
     if (Model::IsPoi(info.m_type))
-      info.m_resultType = GetResultType(feature::TypesHolder(ft));
+      info.m_classifType.poi = GetPoiType(featureTypes);
     info.m_allTokensUsed = preInfo.m_allTokensUsed;
     info.m_numTokens = m_params.GetNumTokens();
     info.m_exactMatch = preInfo.m_exactMatch;
@@ -534,29 +592,16 @@ private:
       info.m_nameScore = nameScore;
       info.m_errorsMade = errorsMade;
       info.m_isAltOrOldName = isAltOrOldName;
-      info.m_matchedFraction =
-          totalLength == 0 ? 1.0
-                           : static_cast<double>(matchedLength) / static_cast<double>(totalLength);
+      info.m_matchedFraction = (totalLength == 0) ? 1 : matchedLength / static_cast<float>(totalLength);
 
-      auto const isCountryOrCapital = [](FeatureType & ft) {
-        auto static const countryType = classif().GetTypeByPath({"place", "country"});
-        auto static const capitalType = classif().GetTypeByPath({"place", "city", "capital", "2"});
-
-        bool hasType = false;
-        ft.ForEachType([&hasType](uint32_t type) {
-          if (hasType)
-            return;
-          if (type == countryType || type == capitalType)
-            hasType = true;
-        });
-
-        return hasType;
-      };
       info.m_exactCountryOrCapital = info.m_errorsMade == ErrorsMade(0) && info.m_allTokensUsed &&
-                                     info.m_nameScore == NAME_SCORE_FULL_MATCH &&
-                                     isCountryOrCapital(ft);
+                                     info.m_nameScore == NameScore::FULL_MATCH &&
+          // Upgrade _any_ capital rank, not only _true_ capital (=2).
+          // For example, search Barcelona from Istanbul or vice-versa.
+                                     (m_countryChecker(featureTypes) || m_capitalChecker(featureTypes));
     }
-    CategoriesInfo const categoriesInfo(feature::TypesHolder(ft),
+
+    CategoriesInfo const categoriesInfo(featureTypes,
                                         TokenSlice(m_params, preInfo.InnermostTokenRange()),
                                         m_ranker.m_params.m_categoryLocales, m_ranker.m_categories);
 
@@ -586,8 +631,8 @@ private:
       if (info.IsNotEmpty() && info.m_name == m_ranker.m_params.m_pivotRegion)
         return base::Clamp(static_cast<int>(rank * 1.7), 0, 0xFF);
 
-      // Fall through like "STATE" for cities without info.
-    }
+      // Fallthrough like "STATE" for cities without info.
+    } [[fallthrough]];
     case Model::TYPE_STATE: return rank / 1.5;
     case Model::TYPE_COUNTRY: return rank;
 
@@ -660,7 +705,7 @@ Result Ranker::MakeResult(RankerResult rankerResult, bool needAddress, bool need
     case RankerResult::Type::Feature:
     case RankerResult::Type::Building:
     {
-      auto const type = rankerResult.GetBestType(m_params.m_preferredTypes);
+      auto const type = rankerResult.GetBestType(&m_params.m_preferredTypes);
       return Result(r.GetID(), r.GetCenter(), move(name), move(address), type, move(r.m_details));
     }
     case RankerResult::Type::LatLon: return Result(r.GetCenter(), move(name), move(address));
@@ -686,7 +731,7 @@ Result Ranker::MakeResult(RankerResult rankerResult, bool needAddress, bool need
   if (needHighlighting)
     HighlightResult(m_params.m_tokens, m_params.m_prefix, res);
 
-  res.SetRankingInfo(rankerResult.m_info);
+  res.SetRankingInfo(rankerResult.m_dbgInfo);
 
 #ifdef SEARCH_USE_PROVENANCE
   res.SetProvenance(move(rankerResult.m_provenance));
@@ -724,9 +769,7 @@ void Ranker::UpdateResults(bool lastUpdate)
   }
   else
   {
-    // *NOTE* GetLinearModelRank is calculated on the fly
-    // but the model is lightweight enough and the slowdown
-    // is negligible.
+    /// @note Here is _reverse_ order sorting, because bigger is better.
     sort(m_tentativeResults.rbegin(), m_tentativeResults.rend(),
          base::LessBy(&RankerResult::GetLinearModelRank));
 
@@ -923,7 +966,7 @@ void Ranker::ProcessSuggestions(vector<RankerResult> const & vec) const
 
 string Ranker::GetLocalizedRegionInfoForResult(RankerResult const & result) const
 {
-  auto const type = result.GetBestType(m_params.m_preferredTypes);
+  auto const type = result.GetBestType(&m_params.m_preferredTypes);
 
   storage::CountryId id;
   if (!result.GetCountryId(m_infoGetter, type, id))

@@ -1,7 +1,11 @@
 #import "MWMCarPlaySearchResultObject.h"
 #import "MWMSearch.h"
-#include "platform/localization.hpp"
+
 #include "search/result.hpp"
+
+#include "indexer/classificator.hpp"
+
+#include "platform/localization.hpp"
 
 @interface MWMCarPlaySearchResultObject()
 @property(assign, nonatomic, readwrite) NSInteger originalRow;

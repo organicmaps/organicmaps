@@ -189,6 +189,7 @@ void Sample::FillSearchParams(search::SearchParams & params) const
   params.m_needAddress = true;
   params.m_suggestsEnabled = false;
   params.m_needHighlighting = false;
+  params.m_useDebugInfo = true;     // for RankingInfo printing
 }
 
 void FromJSONObject(json_t * root, char const * field, Sample::Result::Relevance & relevance)

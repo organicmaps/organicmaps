@@ -2296,15 +2296,15 @@
 
 "type.leisure.sports_centre" = "Sports Center";
 
-"type.sport.climbing" = "Climbing Centre";
+"type.sport.climbing" = "Скаладром";
 
-"type.sport.yoga" = "Yoga Studio";
+"type.sport.yoga" = "Ёга";
 
 "type.leisure.stadium" = "Stadium";
 
-"type.leisure.swimming_pool" = "Swimming Pool";
+"type.leisure.swimming_pool" = "Басейн";
 
-"type.leisure.swimming_pool.private" = "Swimming Pool";
+"type.leisure.swimming_pool.private" = "Басейн";
 
 "type.leisure.track" = "Track";
 

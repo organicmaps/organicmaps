@@ -2,7 +2,7 @@
 
 #include "indexer/feature_data.hpp"
 
-#include "base/base.hpp"
+#include "base/small_map.hpp"
 #include "base/stl_helpers.hpp"
 
 #include <array>
@@ -207,12 +207,33 @@ public:
   DECLARE_CHECKER_INSTANCE(IsSuburbChecker);
 };
 
+/// @todo Better to rename like IsStreetChecker, as it is used in search context only?
 class IsWayChecker : public BaseChecker
 {
   IsWayChecker();
 
 public:
   DECLARE_CHECKER_INSTANCE(IsWayChecker);
+
+  enum SearchRank : uint8_t
+  {
+    Default = 0,  // Not a road, other linear way like river, rail ...
+
+    // Bigger is better (more important).
+    Pedestrian,
+    Cycleway,
+    Outdoor,
+    Residential,
+    Regular,
+    Motorway,
+
+    Count
+  };
+
+  SearchRank GetSearchRank(uint32_t type) const;
+
+private:
+  base::SmallMap<uint32_t, SearchRank> m_ranks;
 };
 
 class IsStreetOrSquareChecker : public BaseChecker

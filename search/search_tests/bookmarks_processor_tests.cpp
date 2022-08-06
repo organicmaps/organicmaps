@@ -63,15 +63,7 @@ public:
         TokenizeStringAndCheckIfLastTokenIsPrefix(query, tokens, search::Delimiters());
 
     Processor::Params params;
-    if (isPrefix)
-    {
-      ASSERT(!tokens.empty(), ());
-      params.InitWithPrefix(tokens.begin(), tokens.end() - 1, tokens.back());
-    }
-    else
-    {
-      params.InitNoPrefix(tokens.begin(), tokens.end());
-    }
+    params.Init(query, tokens, isPrefix);
 
     params.m_groupId = groupId;
 

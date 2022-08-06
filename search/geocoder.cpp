@@ -13,22 +13,17 @@
 #include "search/tracer.hpp"
 #include "search/utils.hpp"
 
-#include "indexer/classificator.hpp"
 #include "indexer/data_source.hpp"
 #include "indexer/feature_decl.hpp"
-#include "indexer/feature_impl.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/postcodes_matcher.hpp"
 #include "indexer/rank_table.hpp"
-#include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
 #include "indexer/utils.hpp"
 
 #include "storage/country_info_getter.hpp"
 
 #include "coding/string_utf8_multilang.hpp"
-
-#include "platform/preferred_languages.hpp"
 
 #include "geometry/mercator.hpp"
 
@@ -37,8 +32,6 @@
 #include "base/control_flow.hpp"
 #include "base/logging.hpp"
 #include "base/macros.hpp"
-#include "base/pprof.hpp"
-#include "base/random.hpp"
 #include "base/scope_guard.hpp"
 #include "base/stl_helpers.hpp"
 
@@ -50,15 +43,17 @@
 
 #include "defines.hpp"
 
-#if defined(DEBUG)
+#ifdef DEBUG
 #include "base/timer.hpp"
-#endif
+#endif  // DEBUG
 
-using namespace std;
-using namespace strings;
+#include "search/features_layer_path_finder.cpp"    // template functions implementation
 
 namespace search
 {
+using namespace std;
+using namespace strings;
+
 namespace
 {
 size_t constexpr kMaxNumCities = 10;
@@ -1684,6 +1679,16 @@ void Geocoder::EmitResult(BaseContext & ctx, MwmSet::MwmId const & mwmId, uint32
   // distant from the pivot when there are enough results close to the
   // pivot.
   PreRankingInfo info(type, tokenRange);
+
+  info.m_isCommonMatchOnly = true;
+  for (size_t i : tokenRange)
+  {
+    if (!m_params.IsCommonToken(i))
+    {
+      info.m_isCommonMatchOnly = false;
+      break;
+    }
+  }
 
   for (auto const & layer : ctx.m_layers)
     info.m_tokenRanges[layer.m_type] = layer.m_tokenRange;

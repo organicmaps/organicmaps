@@ -1674,7 +1674,7 @@ node|z17-[leisure=fitness_centre]
 node|z17-[leisure=sauna]
 {icon-image: sauna-m.svg;-x-me-text-priority: 15500;icon-min-distance: 10;}
 node|z17-[leisure=playground]
-{icon-image: pitch-m.svg;font-size: 11;icon-min-distance: 10;}
+{icon-image: playground-m.svg;font-size: 11;icon-min-distance: 10;}
 node|z17-[leisure=swimming_pool],
 area|z17-[leisure=swimming_pool]
 {icon-image: swimming-m.svg;icon-min-distance: 10;}
@@ -1689,17 +1689,26 @@ node|z17-[sport],
 area|z17-[sport],
 {icon-image: pitch-m.svg; icon-min-distance: 10; }
 
+node|z17-[sport=american_football],
+area|z17-[sport=american_football]
+{icon-image: america-football-m.svg;}
+node|z17-[sport=basketball],
+area|z17-[sport=basketball]
+{icon-image: basketball-m.svg;}
+node|z17-[sport=baseball],
+area|z17-[sport=baseball]
+{icon-image: baseball-m.svg;}
 node|z17-[sport=equestrian],
 area|z17-[sport=equestrian]
 {icon-image: equestrian-m.svg;}
 node|z17-[sport=soccer],
 area|z17-[sport=soccer]
 {icon-image: soccer-m.svg;}
+node|z17-[sport=tennis],
 area|z17-[sport=tennis]
-node|z17-[sport=tennis]
 {icon-image: tennis-m.svg;}
+node|z17-[sport=skiing],
 area|z17-[sport=skiing]
-node|z17-[sport=skiing]
 {icon-image: skiing-m.svg;}
 node|z17-[sport=archery],
 area|z17-[sport=archery]

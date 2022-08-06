@@ -4,46 +4,45 @@
 
 #include "base/logging.hpp"
 
+namespace tesselator_test
+{
 using namespace std;
 
-namespace
+typedef m2::PointD P;
+
+class DoDump
 {
-  typedef m2::PointD P;
-
-  class DoDump
+  size_t & m_count;
+public:
+  explicit DoDump(size_t & count) : m_count(count)
   {
-    size_t & m_count;
-  public:
-    explicit DoDump(size_t & count) : m_count(count)
-    {
-      m_count = 0;
-    }
-    void operator() (P const & p1, P const & p2, P const & p3)
-    {
-      ++m_count;
-      LOG(LINFO, (p1, p2, p3));
-    }
-  };
-
-  size_t RunTest(list<vector<P> > const & l)
-  {
-    tesselator::TrianglesInfo info;
-    int const trianglesCount = tesselator::TesselateInterior(l, info);
-
-    size_t count;
-    info.ForEachTriangle(DoDump(count));
-    TEST_EQUAL(count, static_cast<size_t>(trianglesCount), ());
-    return count;
+    m_count = 0;
   }
-
-  size_t RunTess(P const * arr, size_t count)
+  void operator() (P const & p1, P const & p2, P const & p3)
   {
-    list<vector<P> > l;
-    l.push_back(vector<P>());
-    l.back().assign(arr, arr + count);
-
-    return RunTest(l);
+    ++m_count;
+    LOG(LINFO, (p1, p2, p3));
   }
+};
+
+size_t RunTest(list<vector<P> > const & l)
+{
+  tesselator::TrianglesInfo info;
+  int const trianglesCount = tesselator::TesselateInterior(l, info);
+
+  size_t count;
+  info.ForEachTriangle(DoDump(count));
+  TEST_EQUAL(count, static_cast<size_t>(trianglesCount), ());
+  return count;
+}
+
+size_t RunTess(P const * arr, size_t count)
+{
+  list<vector<P> > l;
+  l.push_back(vector<P>());
+  l.back().assign(arr, arr + count);
+
+  return RunTest(l);
 }
 
 UNIT_TEST(Tesselator_SelfISect)
@@ -73,3 +72,4 @@ UNIT_TEST(Tesselator_Odd)
 
   TEST_EQUAL(2, RunTest(l), ());
 }
+}  // namespace tesselator_test

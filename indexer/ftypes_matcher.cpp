@@ -6,7 +6,6 @@
 #include "base/assert.hpp"
 #include "base/buffer_vector.hpp"
 #include "base/stl_helpers.hpp"
-#include "base/string_utils.hpp"
 
 #include <algorithm>
 #include <cmath>
@@ -332,32 +331,46 @@ SuburbType IsSuburbChecker::GetType(FeatureType & f) const
 
 IsWayChecker::IsWayChecker()
 {
-  // TODO (@y, @m, @vng): this list must be up-to-date with
-  // data/categories.txt, so, it's worth it to generate or parse it
-  // from that file.
   Classificator const & c = classif();
-  base::StringIL const types[] = { {"highway", "living_street"},
-                                   {"highway", "footway"},
-                                   {"highway", "cycleway"},
-                                   {"highway", "motorway"},
-                                   {"highway", "motorway_link"},
-                                   {"highway", "path"},
-                                   {"highway", "pedestrian"},
-                                   {"highway", "primary"},
-                                   {"highway", "primary_link"},
-                                   {"highway", "residential"},
-                                   {"highway", "road"},
-                                   {"highway", "secondary"},
-                                   {"highway", "secondary_link"},
-                                   {"highway", "service"},
-                                   {"highway", "tertiary"},
-                                   {"highway", "tertiary_link"},
-                                   {"highway", "track"},
-                                   {"highway", "trunk"},
-                                   {"highway", "trunk_link"},
-                                   {"highway", "unclassified"}};
+  std::pair<char const *, SearchRank> const types[] = {
+      // type           rank
+      {"cycleway",      Cycleway},
+      {"footway",       Pedestrian},
+      {"living_street", Residential},
+      {"motorway",      Motorway},
+      {"motorway_link", Motorway},
+      {"path",          Outdoor},
+      {"pedestrian",    Pedestrian},
+      {"primary",       Regular},
+      {"primary_link",  Regular},
+      {"residential",   Residential},
+      {"road",          Outdoor},
+      {"secondary",     Regular},
+      {"secondary_link",Regular},
+      {"service",       Residential},
+      {"tertiary",      Regular},
+      {"tertiary_link", Regular},
+      {"track",         Outdoor},
+      {"trunk",         Motorway},
+      {"trunk_link",    Motorway},
+      {"unclassified",  Outdoor},
+  };
+
+  m_ranks.Reserve(std::size(types));
   for (auto const & e : types)
-    m_types.push_back(c.GetTypeByPath(e));
+  {
+    uint32_t const type = c.GetTypeByPath({"highway", e.first});
+    m_types.push_back(type);
+    m_ranks.Insert(type, e.second);
+  }
+}
+
+IsWayChecker::SearchRank IsWayChecker::GetSearchRank(uint32_t type) const
+{
+  ftype::TruncValue(type, 2);
+  if (auto const * res = m_ranks.Find(type))
+    return *res;
+  return Default;
 }
 
 IsStreetOrSquareChecker::IsStreetOrSquareChecker()

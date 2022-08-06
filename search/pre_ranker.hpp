@@ -10,13 +10,11 @@
 #include "base/macros.hpp"
 
 #include <algorithm>
-#include <cstddef>
 #include <limits>
 #include <optional>
-#include <random>
 #include <set>
 #include <string>
-#include <utility>
+#include <unordered_set>
 #include <vector>
 
 class DataSource;
@@ -29,10 +27,8 @@ class PreRanker
 public:
   struct Params
   {
-    // Minimal distance between search results in mercators, needed for
-    // filtering of viewport search results.
-    double m_minDistanceOnMapBetweenResultsX = 0.0;
-    double m_minDistanceOnMapBetweenResultsY = 0.0;
+    // Minimal distance between search results (by x,y axes in mercator), needed for filtering of viewport search results.
+    m2::PointD m_minDistanceOnMapBetweenResults{0, 0};
 
     // This is different from geocoder's pivot because pivot is
     // usually a rectangle created by radius and center and, due to
@@ -147,8 +143,10 @@ private:
 
   DataSource const & m_dataSource;
   Ranker & m_ranker;
-  std::vector<PreRankerResult> m_results;
-  std::vector<PreRankerResult> m_relaxedResults;
+
+  using PreResultsContainerT = std::vector<PreRankerResult>;
+  PreResultsContainerT m_results, m_relaxedResults;
+
   Params m_params;
 
   // Amount of results sent up the pipeline.
@@ -160,16 +158,13 @@ private:
   // Cache of nested rects used to estimate distance from a feature to the pivot.
   NestedRectsCache m_pivotFeatures;
 
-  // A set of ids for features that are emitted during the current search session.
-  std::set<FeatureID> m_currEmit;
-
-  // A set of ids for features that were emitted during the previous
-  // search session.  They're used for filtering of current search in
-  // viewport results, because we need to give more priority to
-  // results that were on map previously.
-  std::set<FeatureID> m_prevEmit;
-
-  std::minstd_rand m_rng;
+  /// @name Only for the viewport search. Store a set of ids that were emitted during the previous
+  /// search session. They're used for filtering of current search, because we need to give more priority
+  /// to results that were on map previously, to avoid result's annoying blinking/flickering on map.
+  /// @{
+  std::unordered_set<FeatureID> m_currEmit;
+  std::unordered_set<FeatureID> m_prevEmit;
+  /// @}
 
   DISALLOW_COPY_AND_MOVE(PreRanker);
 };

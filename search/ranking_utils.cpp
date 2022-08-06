@@ -11,15 +11,11 @@
 #include <algorithm>
 #include <sstream>
 
-#include <boost/iterator/transform_iterator.hpp>
-
+namespace search
+{
 using namespace std;
 using namespace strings;
 
-using boost::make_transform_iterator;
-
-namespace search
-{
 namespace
 {
 struct TokenInfo
@@ -62,14 +58,10 @@ CategoriesInfo::CategoriesInfo(feature::TypesHolder const & holder, TokenSlice c
 // ErrorsMade --------------------------------------------------------------------------------------
 string DebugPrint(ErrorsMade const & errorsMade)
 {
-  ostringstream os;
-  os << "ErrorsMade [ ";
   if (errorsMade.IsValid())
-    os << errorsMade.m_errorsMade;
+    return std::to_string(errorsMade.m_errorsMade);
   else
-    os << "invalid";
-  os << " ]";
-  return os.str();
+    return "Invalid";
 }
 
 namespace impl
@@ -105,15 +97,30 @@ ErrorsMade GetPrefixErrorsMade(QueryParams::Token const & token, strings::UniStr
 
 bool IsStopWord(UniString const & s)
 {
-  /// @todo Get all common used stop words and factor out this array into
+  /// @todo Get all common used stop words and take out this array into
   /// search_string_utils.cpp module for example.
-  static char const * arr[] = {"a", "de", "di", "da", "la", "le", "де", "ди", "да", "ла", "ля", "ле"};
+  class StopWordsChecker
+  {
+    set<UniString> m_set;
+  public:
+    StopWordsChecker()
+    {
+      // Don't want to put _full_ stopwords list, not to break current ranking.
+      // Only 2-letters and the most common.
+      char const * arr[] = {
+        "a",              // English
+        "am", "im", "an", // German
+        "de", "di", "da", "la", "le", // French, Spanish, Italian
+        "и", "я"          // Cyrillic
+      };
+      for (char const * s : arr)
+        m_set.insert(MakeUniString(s));
+    }
+    bool Has(UniString const & s) const { return m_set.count(s) > 0; }
+  };
 
-  static set<UniString> const kStopWords(
-      make_transform_iterator(arr, &MakeUniString),
-      make_transform_iterator(arr + ARRAY_SIZE(arr), &MakeUniString));
-
-  return kStopWords.count(s) > 0;
+  static StopWordsChecker const swChecker;
+  return swChecker.Has(s);
 }
 
 void PrepareStringForMatching(string_view name, vector<strings::UniString> & tokens)
@@ -129,11 +136,12 @@ string DebugPrint(NameScore const & score)
 {
   switch (score)
   {
-  case NAME_SCORE_ZERO: return "Zero";
-  case NAME_SCORE_SUBSTRING: return "Substring";
-  case NAME_SCORE_PREFIX: return "Prefix";
-  case NAME_SCORE_FULL_MATCH: return "Full Match";
-  case NAME_SCORE_COUNT: return "Count";
+  case NameScore::ZERO: return "Zero";
+  case NameScore::SUBSTRING: return "Substring";
+  case NameScore::PREFIX: return "Prefix";
+  case NameScore::FULL_MATCH: return "Full Match";
+  case NameScore::FULL_PREFIX: return "Full Prefix";
+  case NameScore::COUNT: return "Count";
   }
   return "Unknown";
 }
@@ -141,8 +149,12 @@ string DebugPrint(NameScore const & score)
 string DebugPrint(NameScores const & scores)
 {
   ostringstream os;
-  os << "[ " << DebugPrint(scores.m_nameScore) << ", Length:" << scores.m_matchedLength << ", " << DebugPrint(scores.m_errorsMade) << ", "
-     << (scores.m_isAltOrOldName ? "Old name" : "New name") << " ]";
+  os << boolalpha << "NameScores "
+     << "{ m_nameScore: " << DebugPrint(scores.m_nameScore)
+     << ", m_matchedLength: " << scores.m_matchedLength
+     << ", m_errorsMade: " << DebugPrint(scores.m_errorsMade)
+     << ", m_isAltOrOldName: "
+     << " }";
   return os.str();
 }
 }  // namespace search

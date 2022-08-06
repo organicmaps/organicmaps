@@ -20,6 +20,8 @@ if (APPLE AND NOT ("${CMAKE_SYSTEM_NAME}" STREQUAL Android))
   set(CMAKE_OBJCXX_FLAGS -fobjc-arc)
 endif()
 
+message("Using compiler ${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VERSION}")
+
 option(UNITY_DISABLE "Disable unity build" OFF)
 
 if (NOT UNITY_DISABLE)

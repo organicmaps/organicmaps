@@ -5,12 +5,12 @@
 
 #include <vector>
 
+namespace convex_hull_tests
+{
 using namespace m2;
 using namespace std;
 
-namespace
-{
-double const kEps = 1e-12;
+double constexpr kEps = 1e-12;
 
 vector<PointD> BuildConvexHull(vector<PointD> const & points)
 {
@@ -47,4 +47,4 @@ UNIT_TEST(ConvexHull_Smoke)
       BuildConvexHull({PointD(0, 0), PointD(0, 5), PointD(10, 5), PointD(3, 3), PointD(10, 0)}),
       vector<PointD>({PointD(0, 0), PointD(10, 0), PointD(10, 5), PointD(0, 5)}), ());
 }
-}  // namespace
+}  // namespace convex_hull_tests

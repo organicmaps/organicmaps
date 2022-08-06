@@ -3,21 +3,19 @@
 #include <cmath>
 #include <sstream>
 
-using namespace std;
-
 namespace m2
 {
 namespace
 {
 bool Collinear(PointD const & a, PointD const & b, double eps)
 {
-  return fabs(CrossProduct(a, b)) < eps;
+  return std::fabs(CrossProduct(a, b)) < eps;
 }
 }  // namespace
 
-string DebugPrint(Line2D const & line)
+std::string DebugPrint(Line2D const & line)
 {
-  ostringstream os;
+  std::ostringstream os;
   os << "Line2D [ ";
   os << "point: " << DebugPrint(line.m_point) << ", ";
   os << "direction: " << DebugPrint(line.m_direction);

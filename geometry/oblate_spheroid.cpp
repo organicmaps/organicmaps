@@ -8,8 +8,6 @@
 #include <cmath>
 #include <limits>
 
-using namespace std;
-
 namespace
 {
 // Length of semi-major axis of the spheroid WGS-84.
@@ -28,7 +26,7 @@ double constexpr kEps = 1e-10;
 int constexpr kIterations = 10;
 
 /// \brief Calculates latitude on the auxiliary sphere for |angleRad| latitude on a spheroid.
-double ReducedLatitude(double angleRad) { return atan((1.0 - kF) * tan(angleRad)); }
+double ReducedLatitude(double angleRad) { return std::atan((1.0 - kF) * std::tan(angleRad)); }
 }
 
 namespace oblate_spheroid
@@ -36,6 +34,7 @@ namespace oblate_spheroid
 double GetDistance(ms::LatLon const & point1, ms::LatLon const & point2)
 {
   using namespace base;
+  using namespace std;
 
   m2::PointD const p1 = {DegToRad(point1.m_lon), DegToRad(point1.m_lat)};
   m2::PointD const p2 = {DegToRad(point2.m_lon), DegToRad(point2.m_lat)};

@@ -413,9 +413,6 @@ MwmValue::MwmValue(LocalCountryFile const & localFile)
 
 void MwmValue::SetTable(MwmInfoEx & info)
 {
-  auto const version = GetHeader().GetFormat();
-  CHECK_GREATER(version, version::Format::v5, ("Old maps should not be registered."));
-
   m_table = info.m_table.lock();
   if (m_table)
     return;

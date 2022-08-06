@@ -18,11 +18,11 @@
 #include <string>
 #include <vector>
 
+namespace coasts_test
+{
 using namespace std;
 using namespace feature;
 
-namespace
-{
 m2::PointU D2I(double x, double y) { return PointDToPointU(m2::PointD(x, y), kPointCoordBits); }
 
 class ProcessCoastsBase
@@ -104,7 +104,6 @@ public:
 private:
   FeaturesCollector m_collector;
 };
-}  // namespace
 
 UNIT_TEST(CellID_CheckRectPoints)
 {
@@ -208,3 +207,4 @@ UNIT_TEST(WorldCoasts_CheckBounds)
   ForEachFeatureRawFormat("/Users/alena/omim/omim-indexer-tmp/WorldCoasts.mwm.tmp", doProcess);
 }
 */
+}  // namespace coasts_test

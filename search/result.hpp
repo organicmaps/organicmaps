@@ -2,7 +2,6 @@
 
 #include "search/bookmarks/results.hpp"
 #include "search/ranking_info.hpp"
-#include "search/tracer.hpp"
 
 #include "indexer/feature_decl.hpp"
 
@@ -12,8 +11,6 @@
 
 #include "base/assert.hpp"
 #include "base/buffer_vector.hpp"
-
-#include "defines.hpp"
 
 #include <algorithm>
 #include <string>
@@ -136,12 +133,15 @@ public:
   int32_t GetPositionInResults() const { return m_positionInResults; }
   void SetPositionInResults(int32_t pos) { m_positionInResults = pos; }
 
-  RankingInfo const & GetRankingInfo() const { return m_info; }
-  void SetRankingInfo(RankingInfo & info)
+  /// @name Used for debug logs and tests only.
+  /// @{
+  RankingInfo const & GetRankingInfo() const
   {
-    // No sense to make move for RankingInfo.
-    m_info = info;
+    CHECK(m_dbgInfo, ());
+    return *m_dbgInfo;
   }
+  void SetRankingInfo(std::shared_ptr<RankingInfo> info) { m_dbgInfo = std::move(info); }
+  /// @}
 
 #ifdef SEARCH_USE_PROVENANCE
   template <typename Prov>
@@ -169,7 +169,7 @@ private:
   std::string m_suggestionStr;
   buffer_vector<std::pair<uint16_t, uint16_t>, 4> m_hightlightRanges;
 
-  RankingInfo m_info = {};
+  std::shared_ptr<RankingInfo> m_dbgInfo;   // used in debug logs and tests, nullptr in production
 
   // The position that this result occupied in the vector returned by
   // a search query. -1 if undefined.

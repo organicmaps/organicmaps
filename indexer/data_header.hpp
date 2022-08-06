@@ -1,7 +1,5 @@
 #pragma once
 
-#include "platform/mwm_version.hpp"
-
 #include "coding/geometry_coding.hpp"
 
 #include "geometry/rect2d.hpp"
@@ -9,8 +7,6 @@
 #include "base/assert.hpp"
 #include "base/buffer_vector.hpp"
 
-#include <cstddef>
-#include <cstdint>
 #include <string>
 #include <utility>
 
@@ -23,6 +19,7 @@ namespace feature
   class DataHeader
   {
   public:
+    /// @note An order is important here, @see Load function.
     enum class MapType : uint8_t
     {
       World,
@@ -49,7 +46,7 @@ namespace feature
 
     serial::GeometryCodingParams GetGeometryCodingParams(int scaleIndex) const;
 
-    m2::RectD const GetBounds() const;
+    m2::RectD GetBounds() const;
     void SetBounds(m2::RectD const & r);
 
     template <size_t N>
@@ -70,9 +67,6 @@ namespace feature
 
     std::pair<int, int> GetScaleRange() const;
 
-    version::Format GetFormat() const { return m_format; }
-    bool IsMWMSuitable() const { return m_format <= version::Format::lastFormat; }
-
     void Save(FileWriter & w) const;
     void Load(FilesContainerR const & cont);
 
@@ -80,11 +74,8 @@ namespace feature
     MapType GetType() const { return m_type; }
 
   private:
-    /// Use lastFormat as a default value for indexes building.
-    /// Pass the valid format from mwm in all other cases.
-    void Load(ModelReaderPtr const & r, version::Format format);
+    void Load(ModelReaderPtr const & r);
 
-    version::Format m_format = version::Format::unknownFormat;
     MapType m_type = MapType::World;
 
     serial::GeometryCodingParams m_codingParams;

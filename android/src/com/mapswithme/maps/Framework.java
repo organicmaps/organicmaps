@@ -112,8 +112,8 @@ public class Framework
 
   public static class RouteAltitudeLimits
   {
-    public int minRouteAltitude;
-    public int maxRouteAltitude;
+    public int totalAscent;
+    public int totalDescent;
     public boolean isMetricUnits;
   }
 
