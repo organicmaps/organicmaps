@@ -925,8 +925,14 @@ RouterResultCode IndexRouter::CalculateSubrouteLeapsOnlyMode(
   if (result.Empty())
     return RouterResultCode::RouteNotFound;
 
-  LeapsPostProcessor leapsPostProcessor(result.m_path, starter);
-  subroute = leapsPostProcessor.GetProcessedPath();
+  LOG(LDEBUG, ("Result route weight:", result.m_distance));
+
+  /// @todo This routine is buggy and should be revised, I'm not sure if it's still needed ...
+  /// Russia_UseDonMotorway test coordinates makes valid route until this point, but LeapsPostProcessor
+  /// adds highway=service detour in this coordinates (53.8782154, 38.0483006) instead of keeping "Дон" motorway.
+//  LeapsPostProcessor leapsPostProcessor(result.m_path, starter);
+//  subroute = leapsPostProcessor.GetProcessedPath();
+  subroute = std::move(result.m_path);
 
   return RouterResultCode::NoError;
 }

@@ -741,4 +741,12 @@ using namespace std;
         mercator::FromLatLon(34.0175371, -84.3272339), {0., 0.},
         mercator::FromLatLon(34.0298011, -84.3182477), 1609.76);
   }
+
+  UNIT_TEST(Russia_UseDonMotorway)
+  {
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetVehicleComponents(VehicleType::Car),
+        mercator::FromLatLon(54.5775321, 38.2206224), {0., 0.},
+        mercator::FromLatLon(49.9315563, 40.5529881), 608031);
+  }
 } // namespace route_test
