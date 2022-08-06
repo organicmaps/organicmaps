@@ -19,7 +19,6 @@ landuse|forest
 *place|locality
 *natural|coastline
 *place|village
-mapswithme
 *waterway|river
 *hwtag|oneway
 *hwtag|private
@@ -1244,6 +1243,7 @@ mapswithme
 *cuisine|sandwich
 *cuisine|german
 *cuisine|japanese
+*cuisine|juice
 *cuisine|kebab
 *cuisine|mexican
 *cuisine|indian
