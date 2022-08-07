@@ -10,6 +10,7 @@
 #include <iterator>
 #include <string>
 #include <utility>
+#include <optional>
 
 using namespace std;
 
@@ -93,8 +94,11 @@ void SkipNSEW(char const * & s, char const * (&arrPos) [4])
 // by a dot or by a comma, with digits on both sides
 // of the separator.
 // If the attempt fails, falls back to std::strtod.
-double EatDouble(char const * str, char ** strEnd)
+std::optional<double> EatDouble(char const * const str, char ** strEnd)
 {
+  auto is_separator = [](char const * ptr) -> bool {  // checks if symbol points to
+    return *ptr == kSpaces[0] || *ptr == kSpaces[1];  // separator (space or tabulation
+  };                                                  // symbol)
   bool gotDigitBeforeMark = false;
   bool gotMark = false;
   bool gotDigitAfterMark = false;
@@ -116,6 +120,10 @@ double EatDouble(char const * str, char ** strEnd)
       else
         gotDigitBeforeMark = true;
     }
+    else if (p != str && *p == '-' && !is_separator(p - 1))  // this check processes invalid
+    {                                                        // input like "3-8", "140-29",
+      return std::nullopt;                                   // "121-103" and so on
+    }
     else
     {
       break;
@@ -130,10 +138,9 @@ double EatDouble(char const * str, char ** strEnd)
     *strEnd = const_cast<char *>(p);
     auto const x1 = atof(part1.c_str());
     auto const x2 = atof(part2.c_str());
-    return x1 + x2 * pow(10.0, -static_cast<double>(part2.size()));
+    return std::make_optional<double>(x1 + x2 * pow(10.0, -static_cast<double>(part2.size())));
   }
-
-  return strtod(str, strEnd);
+  return std::make_optional<double>(strtod(str, strEnd));
 }
 }  // namespace
 
@@ -163,7 +170,11 @@ bool MatchLatLonDegree(string const & query, double & lat, double & lon)
 
     SkipSpaces(s);
     char * s2;
-    double const x = EatDouble(s, &s2);
+    double x = 0;
+    if (std::optional<double> opt_double = EatDouble(s, &s2); opt_double)
+      x = opt_double.value();
+    else
+      return false;
     if (s == s2)
     {
       // invalid token

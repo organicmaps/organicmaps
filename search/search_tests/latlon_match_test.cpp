@@ -46,11 +46,20 @@ UNIT_TEST(LatLon_Degree_Match)
   TestAlmostEqual(lat, 10.1);
   TestAlmostEqual(lon, 20.2);
 
+  TEST(MatchLatLonDegree("-22.3534 -42.7076", lat, lon), ());
+  TestAlmostEqual(lat, -22.3534);
+  TestAlmostEqual(lon, -42.7076);
+
   // The ".123" form is not accepted, so our best-effort
   // parse results in "10" and "20".
   TEST(MatchLatLonDegree(".10, ,20", lat, lon), ());
   TestAlmostEqual(lat, 10.0);
   TestAlmostEqual(lon, 20.0);
+  
+  // Invalid input tests
+  TEST(!MatchLatLonDegree("34-31", lat, lon), ());
+  TEST(!MatchLatLonDegree("34/31", lat, lon), ());
+  TEST(!MatchLatLonDegree("34,31", lat, lon), ());
 
   TEST(!MatchLatLonDegree("., .", lat, lon), ());
   TEST(!MatchLatLonDegree("10, .", lat, lon), ());
