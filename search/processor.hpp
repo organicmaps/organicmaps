@@ -73,7 +73,8 @@ public:
   // Tries to parse a custom debugging command from |m_query|.
   void SearchDebug();
   // Tries to generate a (lat, lon) result from |m_query|.
-  void SearchCoordinates();
+  // Returns true if |m_query| contains coordinates.
+  bool SearchCoordinates();
   // Tries to parse a plus code from |m_query| and generate a (lat, lon) result.
   void SearchPlusCode();
   // Tries to parse a postcode from |m_query| and generate a (lat, lon) result based on
