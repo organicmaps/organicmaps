@@ -14151,22 +14151,11 @@
   [type.organic.yes]
     ref = type.organic.only
 
-  [type.place]
-    en = place
-    de = Ort
-    ja = 地名
-    mr = जागा
-    pl = Miejsce
-    pt = Local
-    pt-BR = Local
-    ru = Место
-    tr = Yer
-    uk = Мicце
-    zh-Hans = 地点
-
   [type.place.city]
     en = City
     ar = مدينة
+    be = Горад
+    bg = Град
     cs = Velkoměsto
     da = By
     de = Großstadt
@@ -14176,6 +14165,7 @@
     fa = شهر
     fi = Kaupunki
     fr = Ville
+    he = עיר
     hu = Város
     id = Kota
     it = Città
@@ -14186,11 +14176,11 @@
     nl = Stad
     pl = Miasto
     pt = Cidade
-    pt-BR = Cidade
     ro = Municipiu
     ru = Город
     sk = Mesto
     sv = Stad
+    sw = Jiji
     th = เมือง
     tr = Şehir
     uk = Місто
@@ -14201,13 +14191,18 @@
   [type.place.city.capital]
     en = Capital
     ar = عاصمة
+    be = Сталіца
+    bg = Столица
     cs = Hlavní město
     da = Kapital
     de = Hauptstadt
     el = Πρωτεύουσα
+    es = Capital
+    eu = Hiriburu
     fa = پایتخت
     fi = Pääkaupunki
     fr = Capitale
+    he = עיר בירה
     hu = Főváros
     id = Ibu kota
     it = Capitale
@@ -14218,11 +14213,11 @@
     nl = Hoofdstad
     pl = Stolica
     pt = Capital
-    pt-BR = Capital
     ro = Capitală
     ru = Столица
     sk = Hlavné mesto
     sv = Huvudstad
+    sw = Mji mkuu
     th = เมือง
     tr = Başkent
     uk = Столиця
@@ -14263,6 +14258,8 @@
   [type.place.continent]
     en = Continent
     ar = قارة
+    be = Кантынент
+    bg = Континент
     cs = Kontinent
     da = Kontinent
     de = Kontinent
@@ -14271,6 +14268,8 @@
     eu = Kontinentea
     fa = قاره
     fi = Maanosa
+    fr = Continent
+    he = יבשת
     hu = Kontinens
     id = Benua
     it = Continente
@@ -14278,12 +14277,14 @@
     ko = 대륙
     mr = खंड
     nb = Kontinent
+    nl = Continent
     pl = Kontynent
     pt = Continente
-    pt-BR = Continente
+    ro = Continent
     ru = Континент
     sk = Kontinent
     sv = Kontinent
+    sw = Bara
     th = ทวีป
     tr = Kıta
     uk = Континент
@@ -14294,6 +14295,8 @@
   [type.place.country]
     en = Country
     ar = دولة
+    be = Краіна
+    bg = Страна
     cs = Země
     da = Land
     de = Staat
@@ -14303,6 +14306,7 @@
     fa = کشور
     fi = Maa
     fr = Pays
+    he = ארץ
     hu = Ország
     id = Benua
     it = Paese
@@ -14313,11 +14317,11 @@
     nl = Land
     pl = Kraj
     pt = País
-    pt-BR = País
     ro = Continent
     ru = Страна
     sk = Krajina
     sv = Land
+    sw = Nchi
     th = ประเทศ
     tr = Ülke
     uk = Країна
@@ -14328,6 +14332,8 @@
   [type.place.county]
     en = County
     ar = مقاطعة
+    be = Графства
+    bg = Графство
     cs = Země
     da = Amt
     de = Kreis
@@ -14337,6 +14343,7 @@
     fa = بخش
     fi = Lääni
     fr = Comté
+    he = נפה
     hu = Kerület
     id = Kabupaten
     it = Contea
@@ -14347,11 +14354,11 @@
     nl = Graafschap
     pl = Wieś
     pt = Condado
-    pt-BR = Condado
     ro = Județ
     ru = Округ
     sk = Krajina
     sv = Län
+    sw = Wilaya
     th = เขต
     tr = Kırsal kesim
     uk = Округ
@@ -14362,6 +14369,8 @@
   [type.place.farm]
     en = Farm
     ar = مزرعة
+    be = Ферма
+    bg = Ферма
     cs = Farma
     da = Gård
     de = Bauernhof
@@ -14371,6 +14380,7 @@
     fa = مزرعه
     fi = Maatila
     fr = Ferme
+    he = חווה חקלאית
     hu = Tanya
     id = Ladang
     it = Fattoria
@@ -14386,6 +14396,7 @@
     ru = Ферма
     sk = Farma
     sv = Bondgård
+    sw = Shamba
     th = ฟาร์ม
     tr = Çiftlik
     uk = Ферма
@@ -14396,6 +14407,8 @@
   [type.place.hamlet]
     en = Hamlet
     ar = قرية صغيرة
+    be = Вёска
+    bg = Cело
     cs = Vesnička
     da = Landsby
     de = Weiler
@@ -14405,6 +14418,7 @@
     fa = روستا
     fi = Pieni kylä
     fr = Hameau
+    he = כְּפָר קָטָן
     hu = Tanya
     id = Dusun
     it = Piccolo villaggio
@@ -14420,6 +14434,7 @@
     ru = Посёлок
     sk = Dedina
     sv = By
+    sw = Hamlet
     th = หมู่บ้านเล็ก ๆ
     tr = Mezra
     uk = Поселення
@@ -14430,6 +14445,8 @@
   [type.place.island]
     en = Island
     ar = جزيرة
+    be = Востраў
+    bg = Остров
     cs = Ostrov
     da = Ø
     de = Insel
@@ -14439,6 +14456,7 @@
     fa = جزیره
     fi = Saari
     fr = Île
+    he = אי
     hu = Sziget
     id = Pulau
     it = Isola
@@ -14449,11 +14467,11 @@
     nl = Eilandje
     pl = Wyspa
     pt = Ilha
-    pt-BR = Ilha
     ro = Insulă
     ru = Остров
     sk = Ostrov
     sv = Ö
+    sw = Kisiwa
     th = เกาะ
     tr = Ada
     uk = Острів
@@ -14464,15 +14482,18 @@
   [type.place.islet]
     en = Island
     ar = جزيرة
+    be = Астравок
+    bg = Острови
     cs = Ostrov
     da = Ø
-    de = kleine Insel
+    de = Kleine Insel
     el = Νησί
     es = Isla
     eu = Uhartea
     fa = جزیره
     fi = Saari
     fr = Île
+    he = איון
     hu = Sziget
     id = Pulau
     it = Isola
@@ -14483,11 +14504,11 @@
     nl = Eilandje
     pl = Wyspa
     pt = Ilhéu
-    pt-BR = Ilhéu
-    ro = Insulă
+    ro = Insult
     ru = Остров
     sk = Ostrov
     sv = Ö
+    sw = Kisiwa
     th = เกาะ
     tr = Ada
     uk = Острів
@@ -14496,22 +14517,47 @@
     zh-Hant = 島
 
   [type.place.isolated_dwelling]
-    en = Dwelling
+    en = Isolated Dwelling
+    ar = مسكن منعزل
+    be = Хутар
+    bg = Изолирано жилище
+    cs = Izolované obydlí
+    da = Isoleret bolig
     de = Kleinstsiedlung
+    el = Απομονωμένη κατοικία
+    es = Vivienda aislada
+    eu = Etxebizitza Isolatua
+    fa = مسکن منزوی
+    fi = Erillinen asunto
     fr = Lieu-dit
+    he = דירת מגורים מבודדת
+    hu = Elszigetelt lakás
+    id = Tempat Tinggal Terisolasi
+    it = Abitazione isolata
     ja = 小規模な村
+    ko = 고립된 주거
     mr = निवासस्थान
+    nb = Isolert bolig
+    nl = Geïsoleerde woning
     pl = Mała osada
     pt = Habitação isolada
-    pt-BR = Habitação isolada
-    ru = Жилище
+    ro = Locuință izolată
+    ru = Хутор
+    sk = Izolované obydlie
+    sv = Isolerade bostäder
+    sw = Makao ya Pekee
+    th = ที่อยู่อาศัยโดดเดี่ยว
     tr = Konut
-    uk = Житло
+    uk = Хутір
+    vi = Nhà ở Biệt lập
     zh-Hans = 孤立居所
+    zh-Hant = 孤立居所
 
   [type.place.locality]
     en = Locality
     ar = منطقة مجاورة
+    be = Місце
+    bg = Място
     cs = Lokalita
     da = Lokalitet
     de = Örtlichkeit
@@ -14521,6 +14567,7 @@
     fa = محله
     fi = Paikkakunta
     fr = Lieu-dit
+    he = מקום
     hu = Falu
     id = Wilayah
     it = Località
@@ -14531,35 +14578,63 @@
     nl = Plaats
     pl = Lokalne
     pt = Localidade
-    pt-BR = Localidade
     ro = Localitate
     ru = Местность
     sk = Lokalita
     sv = Lokalitet
+    sw = Eneo
     th = ท้องถิ่น
     tr = Semt
-    uk = Місцевість
+    uk = Місце
     vi = Thôn
     zh-Hans = 地方
     zh-Hant = 當地
 
   [type.place.neighbourhood]
     en = Neighbourhood
+    ar = حي سكني
+    be = Мікрараён
+    bg = Съседство
+    cs = Čtvrť
+    da = Kvarter
     de = Stadtviertel
+    el = Γειτονιά
+    es = Vecindario
+    eu = Auzo
+    fa = محله
+    fi = Naapurusto
+    fr = Quartier
+    he = שכונה
+    hu = Szomszédság
+    id = Lingkungan
+    it = Quartiere
     ja = 地域
+    ko = 동네
     mr = शेजार
+    nb = Strøk
+    nl = Buurt
     pl = Sąsiedztwo
     pt = Bairro
-    pt-BR = Bairro
+    pt-BR = Vizinhança
+    ro = Cartier
     ru = Микрорайон
+    sk = Susedstvo
+    sv = Grannskap
+    sw = Mtaa
+    th = ละแวกบ้าน
     tr = Mahalle
     uk = Мiкрорайон
-    zh-Hans = 街坊社区/小区
+    vi = Vùng lân cận
+    zh-Hans = 邻里社区
+    zh-Hant = 鄰里社區
 
   [type.place.ocean]
     en = Ocean
     ar = المحيط
+    be = Акіян
+    bg = Океан
     cs = Oceán
+    da = Verdenshave
     de = Ozean
     el = Ωκεανός
     es = Océano
@@ -14567,6 +14642,7 @@
     fa = اقیانوس
     fi = Valtameri
     fr = Océan
+    he = אוקיינוס
     hu = Óceán
     id = Samudra
     it = Oceano
@@ -14575,10 +14651,13 @@
     mr = महासागर
     nb = Hav
     nl = Oceaan
+    pl = Ocean
     pt = Oceano
-    pt-BR = Oceano
+    ro = Ocean
     ru = Океан
     sk = Oceán
+    sv = Ocean
+    sw = Bahari kuu
     th = มหาสมุทร
     tr = Okyanus
     uk = Океан
@@ -14589,6 +14668,10 @@
   [type.place.region]
     en = Region
     ar = منطقة
+    be = Рэгіён
+    bg = Регион
+    cs = Region
+    da = Region
     de = Region
     el = Περιοχή
     es = Región
@@ -14596,18 +14679,22 @@
     fa = منطقه
     fi = Alue
     fr = Région
+    he = חבל ארץ
     hu = Régió
     id = Wilayah
     it = Regione
     ja = 地方
     ko = 지역
     mr = प्रदेश
+    nb = Region
     nl = Regio
+    pl = Region
     pt = Região
-    pt-BR = Região
     ro = Regiune
     ru = Район
     sk = Región
+    sv = Region
+    sw = Mkoa
     th = ภูมิภาค
     tr = Bölge
     uk = Район
@@ -14618,6 +14705,8 @@
   [type.place.sea]
     en = Sea
     ar = يكون
+    be = Мора
+    bg = Море
     cs = Moře
     da = Er
     de = Meer
@@ -14627,6 +14716,7 @@
     fa = دریا
     fi = Meri
     fr = Mer
+    he = ים
     hu = Tenger
     id = Laut
     it = Mare
@@ -14637,11 +14727,11 @@
     nl = Zee
     pl = Morze
     pt = Mar
-    pt-BR = Mar
     ro = Mare
     ru = Море
     sk = More
     sv = Hav
+    sw = Bahari
     th = เห็น
     tr = Deniz
     uk = Море
@@ -14651,21 +14741,46 @@
 
   [type.place.square]
     en = Square
+    ar = ميدان
+    be = Плошча
+    bg = Площад
+    cs = Náměstí
+    da = Torv
     de = Platz
+    el = Πλατεία
+    es = Plaza
+    eu = Plaza
+    fa = میدان
+    fi = Tori
     fr = Place
+    he = כיכר עירונית
+    hu = Tér
+    id = Lapangan kota
+    it = Piazza
     ja = 広場
+    ko = 광장
     mr = चौरस
+    nb = Torg
+    nl = Plein
     pl = Plac
     pt = Praça ou largo
-    pt-BR = Praça ou largo
+    ro = Spațiu
     ru = Площадь
+    sk = Námestie
+    sv = Torg
+    sw = Nafasi
+    th = ช่องว่าง
     tr = Meydan
     uk = Площа
+    vi = Quảng trường
     zh-Hans = 广场
+    zh-Hant = 廣場
 
   [type.place.state]
     en = State
     ar = محافظة
+    be = Штат
+    bg = Федерален щат
     cs = Země
     da = Stat
     de = Bundesland
@@ -14675,6 +14790,7 @@
     fa = ایالت
     fi = Lääni
     fr = État
+    he = מדינה פדרלית
     hu = Állam
     id = Negara bagian
     it = Provincia
@@ -14685,11 +14801,11 @@
     nl = Deelstaat
     pl = Stan
     pt = Estado
-    pt-BR = Estado
     ro = Stat
     ru = Штат
     sk = Štát
     sv = Stat
+    sw = Jimbo la Shirikisho
     th = รัฐ
     tr = Eyalet
     uk = Штат
@@ -14700,6 +14816,8 @@
   [type.place.state.USA]
     en = State
     ar = محافظة
+    be = Штат
+    bg = Държава
     cs = Země
     da = Stat
     de = Bundesstaat
@@ -14709,6 +14827,7 @@
     fa = ایالت
     fi = Lääni
     fr = État
+    he = מדינה
     hu = Állam
     id = Negara bagian
     it = Provincia
@@ -14719,11 +14838,11 @@
     nl = Deelstaat
     pl = Stan
     pt = Estado
-    pt-BR = Estado
     ro = Stat
     ru = Штат
     sk = Štát
     sv = Stat
+    sw = Jimbo
     th = รัฐ
     tr = Eyalet
     uk = Штат
@@ -14734,15 +14853,18 @@
   [type.place.suburb]
     en = Suburb
     ar = حي سكني
+    be = Раён
+    bg = Предградие
     cs = Předměstí
     da = Forstad
-    de = Stadtteil
+    de = Vorort
     el = Προάστιο
     es = Barrio
     eu = Auzoa
     fa = حومه
     fi = Esikaupunki
     fr = Quartier
+    he = פרוור
     hu = Kerület
     id = Pinggiran kota
     it = Quartiere
@@ -14753,11 +14875,11 @@
     nl = Buitenwijken
     pl = Przedmieścia
     pt = Subúrbio
-    pt-BR = Subúrbio
     ro = Suburbie
     ru = Район
     sk = Predmestie
     sv = Förort
+    sw = Pambizo
     th = ชานเมือง
     tr = Banliyö
     uk = Район
@@ -14768,15 +14890,18 @@
   [type.place.town]
     en = Town
     ar = بلدة
+    be = Мястэчка
+    bg = Касаба
     cs = Město
     da = By
-    de = Stadt
+    de = Kleinstadt
     el = Κωμόπολη
     es = Pueblo
     eu = Herria
     fa = شهر
     fi = Kaupunki
     fr = Ville
+    he = עיירה
     hu = Város
     id = Kota
     it = Città
@@ -14787,11 +14912,11 @@
     nl = Stad
     pl = Miasteczko
     pt = Cidade
-    pt-BR = Cidade
     ro = Oraș
     ru = Город
     sk = Mesto
     sv = Stad
+    sw = Mji
     th = เมือง
     tr = Kasaba
     uk = Місто
@@ -14802,6 +14927,8 @@
   [type.place.village]
     en = Village
     ar = قرية
+    be = Вёска
+    bg = Село
     cs = Vesnice
     da = Landsby
     de = Dorf
@@ -14810,6 +14937,8 @@
     eu = Herria
     fa = روستا
     fi = Kylä
+    fr = Village
+    he = כפר
     hu = Falu
     id = Desa
     it = Villaggio
@@ -14820,11 +14949,12 @@
     nl = Dorp
     pl = Wioska
     pt = Vila
-    pt-BR = Povoado
+    pt-BR = Aldeia
     ro = Sat
     ru = Деревня
     sk = Dedina
     sv = By
+    sw = Kijiji
     th = หมู่บ้าน
     tr = Köy
     uk = Село
