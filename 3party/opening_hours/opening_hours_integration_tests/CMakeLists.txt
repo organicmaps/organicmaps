@@ -14,6 +14,6 @@ else()
 endif()
 
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-  COMMAND ${COPY_CMD} "${CMAKE_CURRENT_SOURCE_DIR}/opening-count.lst" "${CMAKE_BINARY_DIR}/"
-  COMMENT "Copying opening-count.lst file for testing"
+  COMMAND ln -fs "${CMAKE_CURRENT_SOURCE_DIR}/opening-count.lst" "${CMAKE_BINARY_DIR}/"
+  COMMENT "Symlinked opening-count.lst file for testing"
 )

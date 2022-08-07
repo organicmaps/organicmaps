@@ -30,7 +30,7 @@ using OsmIdToFeatureIdsMap = std::map<base::GeoObjectId, std::vector<FeatureId>>
 class DeserializerFromJson
 {
 public:
-  DeserializerFromJson(json_struct_t * node, OsmIdToFeatureIdsMap const & osmIdToFeatureIds);
+  DeserializerFromJson(json_t * node, OsmIdToFeatureIdsMap const & osmIdToFeatureIds);
 
   template <typename T>
   typename std::enable_if<std::is_integral<T>::value || std::is_enum<T>::value ||
@@ -106,7 +106,7 @@ private:
       return;
     }
 
-    json_struct_t * field = base::GetJSONOptionalField(m_node, name);
+    json_t * field = base::GetJSONOptionalField(m_node, name);
     if (field == nullptr)
     {
       // No optional field |name| at |m_node|. In that case the default value should be set to |t|.
@@ -117,7 +117,7 @@ private:
     FromJSON(field, t);
   }
 
-  json_struct_t * m_node;
+  json_t * m_node;
   OsmIdToFeatureIdsMap const & m_osmIdToFeatureIds;
 };
 

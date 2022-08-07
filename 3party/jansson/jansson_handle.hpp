@@ -2,17 +2,15 @@
 
 #include <algorithm>
 
-struct json_struct_t;
-
 namespace base
 {
-class JsonHandle
+template <typename T> class JsonHandle
 {
   void IncRef();
   void DecRef();
 
 public:
-  JsonHandle(json_struct_t * pJson = 0) : m_pJson(pJson)
+  JsonHandle(T * pJson = 0) : m_pJson(pJson)
   {
     IncRef();
   }
@@ -39,12 +37,12 @@ public:
     std::swap(m_pJson, json.m_pJson);
   }
 
-  json_struct_t * get() const
+  T * get() const
   {
     return m_pJson;
   }
 
-  json_struct_t * operator -> () const
+  T * operator -> () const
   {
     return m_pJson;
   }
@@ -55,7 +53,7 @@ public:
   }
 
   /// Attach newly created object without incrementing ref count (it's already == 1).
-  void AttachNew(json_struct_t * pJson)
+  void AttachNew(T * pJson)
   {
     DecRef();
 
@@ -63,6 +61,6 @@ public:
   }
 
 private:
-  json_struct_t * m_pJson;
+  T * m_pJson;
 };
 }  // namespace base

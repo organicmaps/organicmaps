@@ -27,7 +27,7 @@ namespace place_page
 char const * const Info::kSubtitleSeparator = " • ";
 char const * const Info::kStarSymbol = "★";
 char const * const Info::kMountainSymbol = "▲";
-char const * const kWheelchairSymbol = u8"\u267F";
+char const * const kWheelchairSymbol = "\u267F";
 
 bool Info::IsBookmark() const
 {

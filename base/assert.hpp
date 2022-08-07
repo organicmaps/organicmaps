@@ -81,14 +81,14 @@ AssertFailedFn SetAssertFunction(AssertFailedFn fn);
 #define ASSERT_GREATER(X, Y, msg) CHECK_GREATER(X, Y, msg)
 #define ASSERT_GREATER_OR_EQUAL(X, Y, msg) CHECK_GREATER_OR_EQUAL(X, Y, msg)
 #else
-#define ASSERT(X, msg)
+#define ASSERT(X, msg) {}
 #define VERIFY(X, msg) (void)(X)
-#define ASSERT_EQUAL(X, Y, msg)
-#define ASSERT_NOT_EQUAL(X, Y, msg)
-#define ASSERT_LESS(X, Y, msg)
-#define ASSERT_LESS_OR_EQUAL(X, Y, msg)
-#define ASSERT_GREATER(X, Y, msg)
-#define ASSERT_GREATER_OR_EQUAL(X, Y, msg)
+#define ASSERT_EQUAL(X, Y, msg) {}
+#define ASSERT_NOT_EQUAL(X, Y, msg) {}
+#define ASSERT_LESS(X, Y, msg) {}
+#define ASSERT_LESS_OR_EQUAL(X, Y, msg) {}
+#define ASSERT_GREATER(X, Y, msg) {}
+#define ASSERT_GREATER_OR_EQUAL(X, Y, msg) {}
 #endif
 
 // The macro that causes this warning to be ignored:

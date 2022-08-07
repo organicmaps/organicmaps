@@ -50,11 +50,11 @@ Platform::EError Platform::GetFileType(string const & path, EFileType & type)
   if (stat(path.c_str(), &stats) != 0)
     return ErrnoToError();
   if (S_ISREG(stats.st_mode))
-    type = FILE_TYPE_REGULAR;
+    type = Regular;
   else if (S_ISDIR(stats.st_mode))
-    type = FILE_TYPE_DIRECTORY;
+    type = Directory;
   else
-    type = FILE_TYPE_UNKNOWN;
+    type = Unknown;
   return ERR_OK;
 }
 

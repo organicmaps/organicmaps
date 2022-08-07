@@ -137,7 +137,7 @@ namespace routing
 namespace transit
 {
 // DeserializerFromJson ---------------------------------------------------------------------------
-DeserializerFromJson::DeserializerFromJson(json_struct_t * node,
+DeserializerFromJson::DeserializerFromJson(json_t * node,
                                            OsmIdToFeatureIdsMap const & osmIdToFeatureIds)
     : m_node(node), m_osmIdToFeatureIds(osmIdToFeatureIds)
 {
@@ -166,7 +166,7 @@ void DeserializerFromJson::operator()(FeatureIdentifiers & id, char const * name
   GetField(osmIdStr, name);
   uint64_t osmIdNum;
   CHECK(strings::to_uint64(osmIdStr, osmIdNum),
-        ("Cann't convert osm id string:", osmIdStr, "to a number."));
+        ("Can't convert osm id string:", osmIdStr, "to a number."));
   base::GeoObjectId const osmId(osmIdNum);
   auto const it = m_osmIdToFeatureIds.find(osmId);
   if (it != m_osmIdToFeatureIds.cend())

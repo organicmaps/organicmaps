@@ -28,7 +28,7 @@ public:
 
   using ProgressFn = std::function<void(uint64_t, uint64_t)>;
   /// Contains file name inside zip and it's uncompressed size
-  using FileList = std::vector<std::pair<std::string, uint32_t>>;
+  using FileList = std::vector<std::pair<std::string, uint64_t>>;
 
   DECLARE_EXCEPTION(OpenZipException, OpenException);
   DECLARE_EXCEPTION(LocateZipException, OpenException);

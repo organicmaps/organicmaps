@@ -56,13 +56,13 @@ bool IsDiffFile(string const & name)
 bool DirectoryHasIndexesOnly(string const & directory)
 {
   Platform::TFilesWithType fwts;
-  Platform::GetFilesByType(directory, Platform::FILE_TYPE_REGULAR | Platform::FILE_TYPE_DIRECTORY, fwts);
+  Platform::GetFilesByType(directory, Platform::Regular | Platform::Directory, fwts);
 
   for (auto const & fwt : fwts)
   {
     auto const & name = fwt.first;
     auto const & type = fwt.second;
-    if (type == Platform::FILE_TYPE_DIRECTORY)
+    if (type == Platform::Directory)
     {
       if (!IsSpecialName(name))
         return false;
@@ -86,7 +86,7 @@ void FindAllDiffsInDirectory(string const & dir, vector<LocalCountryFile> & diff
   Platform & platform = GetPlatform();
 
   Platform::TFilesWithType files;
-  platform.GetFilesByType(dir, Platform::FILE_TYPE_REGULAR, files);
+  platform.GetFilesByType(dir, Platform::Regular, files);
 
   for (auto const & fileWithType : files)
   {
@@ -150,11 +150,11 @@ size_t FindAllLocalMapsInDirectoryAndCleanup(string const & directory, int64_t v
   size_t const szBefore = localFiles.size();
 
   Platform::TFilesWithType fwts;
-  platform.GetFilesByType(directory, Platform::FILE_TYPE_REGULAR | Platform::FILE_TYPE_DIRECTORY, fwts);
+  platform.GetFilesByType(directory, Platform::Regular | Platform::Directory, fwts);
 
   for (auto const & fwt : fwts)
   {
-    if (fwt.second != Platform::FILE_TYPE_REGULAR)
+    if (fwt.second != Platform::Regular)
       continue;
 
     string name = fwt.first;
@@ -180,7 +180,7 @@ size_t FindAllLocalMapsInDirectoryAndCleanup(string const & directory, int64_t v
   /*
   for (auto const & fwt : fwts)
   {
-    if (fwt.second != Platform::FILE_TYPE_DIRECTORY)
+    if (fwt.second != Platform::Directory)
       continue;
 
     string const & name = fwt.first;
@@ -203,7 +203,7 @@ void FindAllDiffs(string const & dataDir, vector<LocalCountryFile> & diffs)
   FindAllDiffsInDirectory(dir, diffs);
 
   Platform::TFilesWithType fwts;
-  Platform::GetFilesByType(dir, Platform::FILE_TYPE_DIRECTORY, fwts);
+  Platform::GetFilesByType(dir, Platform::Directory, fwts);
 
   for (auto const & fwt : fwts)
     FindAllDiffsInDirectory(base::JoinPath(dir, fwt.first /* subdir */), diffs);
@@ -223,7 +223,7 @@ void FindAllLocalMapsAndCleanup(int64_t latestVersion, string const & dataDir,
   //FindAllLocalMapsInDirectoryAndCleanup(dir, 0 /* version */, latestVersion, localFiles);
 
   Platform::TFilesWithType fwts;
-  Platform::GetFilesByType(dir, Platform::FILE_TYPE_DIRECTORY, fwts);
+  Platform::GetFilesByType(dir, Platform::Directory, fwts);
   for (auto const & fwt : fwts)
   {
     string const & subdir = fwt.first;

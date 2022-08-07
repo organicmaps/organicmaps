@@ -20,33 +20,27 @@
 static json_malloc_t do_malloc = malloc;
 static json_free_t do_free = free;
 
-void *jsonp_malloc(size_t size)
-{
-    if(!size)
+void *jsonp_malloc(size_t size) {
+    if (!size)
         return NULL;
 
     return (*do_malloc)(size);
 }
 
-void jsonp_free(void *ptr)
-{
-    if(!ptr)
+void jsonp_free(void *ptr) {
+    if (!ptr)
         return;
 
     (*do_free)(ptr);
 }
 
-char *jsonp_strdup(const char *str)
-{
-    return jsonp_strndup(str, strlen(str));
-}
+char *jsonp_strdup(const char *str) { return jsonp_strndup(str, strlen(str)); }
 
-char *jsonp_strndup(const char *str, size_t len)
-{
+char *jsonp_strndup(const char *str, size_t len) {
     char *new_str;
 
     new_str = jsonp_malloc(len + 1);
-    if(!new_str)
+    if (!new_str)
         return NULL;
 
     memcpy(new_str, str, len);
@@ -54,14 +48,12 @@ char *jsonp_strndup(const char *str, size_t len)
     return new_str;
 }
 
-void json_set_alloc_funcs(json_malloc_t malloc_fn, json_free_t free_fn)
-{
+void json_set_alloc_funcs(json_malloc_t malloc_fn, json_free_t free_fn) {
     do_malloc = malloc_fn;
     do_free = free_fn;
 }
 
-void json_get_alloc_funcs(json_malloc_t *malloc_fn, json_free_t *free_fn)
-{
+void json_get_alloc_funcs(json_malloc_t *malloc_fn, json_free_t *free_fn) {
     if (malloc_fn)
         *malloc_fn = do_malloc;
     if (free_fn)

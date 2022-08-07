@@ -47,8 +47,8 @@ namespace succinct {
 
         value_type operator[](size_t idx) const
         {
-            std::pair<size_t, size_t> r = m_ef.select_range(idx);
-            size_t l = r.second - r.first;
+            std::pair<uint64_t, uint64_t> const r = m_ef.select_range(idx);
+            uint64_t const l = r.second - r.first;
             return ((uint64_t(1) << l) | m_bits.get_bits(r.first, l)) - 1;
         }
 

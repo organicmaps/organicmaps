@@ -12,40 +12,51 @@
 #include <mutex>
 #include <sstream>
 
-using namespace std;
-
-namespace
-{
-mutex g_logMutex;
-}  // namespace
-
 namespace base
 {
-string ToString(LogLevel level)
+namespace
 {
-  auto const & names = GetLogLevelNames();
-  CHECK_LESS(level, names.size(), ());
-  return names[level];
+using namespace std::literals;
+auto constexpr kDebug    = "DEBUG"sv;
+auto constexpr kInfo     = "INFO"sv;
+auto constexpr kWarning  = "WARN"sv;
+auto constexpr kError    = "ERROR"sv;
+auto constexpr kCritical = "CRIT"sv;
+
+std::mutex g_logMutex;
+
+std::string_view constexpr ToString(LogLevel level)
+{
+  switch (level)
+  {
+  case LDEBUG:    return kDebug;
+  case LINFO:     return kInfo;
+  case LWARNING:  return kWarning;
+  case LERROR:    return kError;
+  case LCRITICAL: return kCritical;
+  }
+  CHECK(false, ("Unknown log level", static_cast<int>(level)));
 }
 
-bool FromString(string const & s, LogLevel & level)
-{
-  auto const & names = GetLogLevelNames();
-  auto it = find(names.begin(), names.end(), s);
-  if (it == names.end())
-    return false;
-  level = static_cast<LogLevel>(distance(names.begin(), it));
-  return true;
-}
+// bool FromString(std::string const & s, LogLevel & level)
+// {
+//   auto const & names = GetLogLevelNames();
+//   auto const it = std::find(names.begin(), names.end(), s);
+//   if (it == names.end())
+//     return false;
+//   level = static_cast<LogLevel>(std::distance(names.begin(), it));
+//   return true;
+// }
 
-array<char const *, NUM_LOG_LEVELS> const & GetLogLevelNames()
-{
-  // If you're going to modify the behavior of the function, please,
-  // check validity of LogHelper ctor.
-  static array<char const *, NUM_LOG_LEVELS> const kNames = {
-      {"DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"}};
-  return kNames;
-}
+// std::array<std::string_view, NUM_LOG_LEVELS> constexpr & GetLogLevelNames()
+// {
+//   // If you're going to modify the behavior of the function, please,
+//   // check validity of LogHelper ctor.
+//   static std::array<std::string_view, NUM_LOG_LEVELS> constexpr kNames = {
+//       {"DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"}};
+//   return kNames;
+// }
+}  // namespace
 
 // static
 LogHelper & LogHelper::Instance()
@@ -59,9 +70,9 @@ LogHelper::LogHelper() : m_threadsCount(0)
   // This code highly depends on the fact that GetLogLevelNames()
   // always returns the same constant array of strings.
 
-  m_names = GetLogLevelNames();
-  for (size_t i = 0; i < m_lens.size(); ++i)
-    m_lens[i] = strlen(m_names[i]);
+  // m_names = GetLogLevelNames();
+  // for (size_t i = 0; i < m_lens.size(); ++i)
+  //   m_lens[i] = std::strlen(m_names[i]);
 }
 
 int LogHelper::GetThreadID()
@@ -72,39 +83,33 @@ int LogHelper::GetThreadID()
   return id;
 }
 
-void LogHelper::WriteProlog(ostream & s, LogLevel level)
+void LogHelper::WriteProlog(std::ostream & s, LogLevel level)
 {
-  s << "LOG";
-
-  s << " TID(" << GetThreadID() << ")";
-  s << " " << m_names[level];
+  auto const strLevel = ToString(level);
+  s << strLevel << ' ' << GetThreadID() << ' ';
 
   double const sec = m_timer.ElapsedSeconds();
-  s << " " << setfill(' ') << setw(static_cast<int>(16 - m_lens[level])) << sec << " ";
+  s << " " << std::setfill(' ') << std::setw(static_cast<int>(16 - strLevel.size())) << std::setprecision(4) << sec << " ";
 }
 
-void LogMessageDefault(LogLevel level, SrcPoint const & srcPoint, string const & msg)
+void LogMessageDefault(LogLevel level, SrcPoint const & srcPoint, std::string const & msg)
 {
-  lock_guard<mutex> lock(g_logMutex);
+  std::lock_guard<std::mutex> lock(g_logMutex);
 
   auto & logger = LogHelper::Instance();
 
-  ostringstream out;
+  auto & out = std::cerr;
   logger.WriteProlog(out, level);
-
-  out << DebugPrint(srcPoint) << msg << endl;
-  cerr << out.str();
+  out << DebugPrint(srcPoint) << msg << std::endl;
 
   CHECK_LESS(level, g_LogAbortLevel, ("Abort. Log level is too serious", level));
 }
 
-void LogMessageTests(LogLevel level, SrcPoint const &, string const & msg)
+void LogMessageTests(LogLevel level, SrcPoint const &, std::string const & msg)
 {
-  lock_guard<mutex> lock(g_logMutex);
+  std::lock_guard<std::mutex> lock(g_logMutex);
 
-  ostringstream out;
-  out << msg << endl;
-  cerr << out.str();
+  std::cerr << msg << std::endl;
 
   CHECK_LESS(level, g_LogAbortLevel, ("Abort. Log level is too serious", level));
 }
@@ -113,7 +118,7 @@ LogMessageFn LogMessage = &LogMessageDefault;
 
 LogMessageFn SetLogMessageFn(LogMessageFn fn)
 {
-  swap(LogMessage, fn);
+  std::swap(LogMessage, fn);
   return fn;
 }
 

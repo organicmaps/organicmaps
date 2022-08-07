@@ -1,3 +1,4 @@
+// clang-format off
 /*
 -------------------------------------------------------------------------------
 lookup3.c, by Bob Jenkins, May 2006, Public Domain.
@@ -72,7 +73,7 @@ on 1 byte), but shoehorning those bytes into integers efficiently is messy.
 # define HASH_BIG_ENDIAN 0
 #endif
 
-#define hashsize(n) ((uint32_t)1<<(n))
+#define hashsize(n) ((size_t)1<<(n))
 #define hashmask(n) (hashsize(n)-1)
 #define rot(x,k) (((x)<<(k)) | ((x)>>(32-(k))))
 
@@ -243,7 +244,7 @@ static uint32_t hashlittle(const void *key, size_t length, uint32_t initval)
      * rest of the string.  Every machine with memory protection I've seen
      * does it on word boundaries, so is OK with this.  But VALGRIND will
      * still catch it and complain.  The masking trick does make the hash
-     * noticably faster for short strings (like English words).
+     * noticeably faster for short strings (like English words).
      */
 #ifndef NO_MASKING_TRICK
 

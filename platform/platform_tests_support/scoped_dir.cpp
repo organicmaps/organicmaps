@@ -24,7 +24,7 @@ ScopedDir::ScopedDir(std::string const & relativePath)
     case Platform::ERR_FILE_ALREADY_EXISTS:
       Platform::EFileType type;
       TEST_EQUAL(Platform::ERR_OK, Platform::GetFileType(GetFullPath(), type), ());
-      TEST_EQUAL(Platform::FILE_TYPE_DIRECTORY, type, ());
+      TEST_EQUAL(Platform::Directory, type, ());
       break;
     default:
       TEST(false, ("Can't create directory:", GetFullPath(), "error:", ret));

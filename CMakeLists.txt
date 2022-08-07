@@ -22,7 +22,6 @@ endif()
 
 message("Using compiler ${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VERSION}")
 
-option(UNITY_DISABLE "Disable unity build" OFF)
 
 if (NOT UNITY_DISABLE)
   message("Using unity builds, pass -DUNITY_DISABLE=ON to disable it.")
@@ -86,11 +85,15 @@ if (NOT CMAKE_BUILD_TYPE)
 endif()
 
 # Global compile options for all configurations.
-add_compile_options(-ffast-math)
+#add_compile_options(-ffast-math)
+if (MSVC)
+  add_compile_definitions(_CRT_SECURE_NO_WARNINGS)
+  add_compile_options(/utf-8)
+endif (MSVC)
 
 # Built-in CMake configurations: Debug, Release, RelWithDebInfo, MinSizeRel
 if (${CMAKE_BUILD_TYPE} STREQUAL "Debug")
-  add_definitions(-DDEBUG -fno-omit-frame-pointer)
+  add_definitions(-DDEBUG)
 elseif (${CMAKE_BUILD_TYPE} MATCHES "Rel")
   add_definitions(-DRELEASE)
   add_compile_options(-Ofast)
@@ -241,10 +244,10 @@ if (NOT PLATFORM_IPHONE AND NOT PLATFORM_ANDROID)
   endif()
 endif()
 
-find_library(LIBZ NAMES z)
-if (LIBZ STREQUAL "LIBZ-NOTFOUND")
-  message(FATAL_ERROR "Failed to find libz library.")
-endif()
+#find_library(LIBZ NAMES z)
+#if (LIBZ STREQUAL "LIBZ-NOTFOUND")
+#  message(FATAL_ERROR "Failed to find libz library.")
+#endif()
 
 # To allow #include "base/file_name.hpp" in all sources.
 include_directories(${CMAKE_HOME_DIRECTORY})
@@ -333,17 +336,24 @@ add_subdirectory(3party/sdf_image)
 add_subdirectory(3party/stb_image)
 add_subdirectory(3party/succinct)
 add_subdirectory(3party/open-location-code)
-add_subdirectory(3party/vulkan_wrapper)
+if (NOT MSVC)
+  add_subdirectory(3party/vulkan_wrapper)
+endif()
+add_subdirectory(3party/zlib)
 
 if (PLATFORM_DESKTOP)
   add_subdirectory(3party/libtess2)
 endif()
 
+if (MSVC)
+  add_compile_options(/Zc:lambda)
+endif()
+
 # Only options related to warnings should be placed here.
 # Other options should be set before all add_subdirectory calls.
-add_compile_options(
-  "-Wall"
-)
+#add_compile_options(
+#  "-Wall"
+#)
 
 find_package(Python3 COMPONENTS Interpreter)
 if (Python3_Interpreter_FOUND)

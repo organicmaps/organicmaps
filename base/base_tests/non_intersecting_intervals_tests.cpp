@@ -2,7 +2,7 @@
 
 #include "base/non_intersecting_intervals.hpp"
 
-namespace
+namespace non_intersecting_intervals_test
 {
 using namespace base;
 
@@ -76,4 +76,4 @@ UNIT_TEST(NonIntersectingIntervals_5)
   // Overlap with [2, 3] and [4, 5].
   TEST(!intervals.AddInterval(2, 5), ());
 }
-}  // namespace
+}  // namespace non_intersecting_intervals_test
