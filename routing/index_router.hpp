@@ -200,8 +200,13 @@ private:
   public:
     RoutesCalculator(IndexGraphStarter & starter, RouterDelegate const & delegate)
       : m_starter(starter), m_delegate(delegate) {}
+
+    using ProgressPtrT = std::shared_ptr<AStarProgress>;
     RoutingResultT const * Calc(Segment const & beg, Segment const & end,
-                                std::shared_ptr<AStarProgress> const & progress, double progressCoef);
+                                ProgressPtrT const & progress, double progressCoef);
+    // Makes JointSingleMwm first and Joints then, if first attempt was failed.
+    RoutingResultT const * Calc2Times(Segment const & beg, Segment const & end,
+                                      ProgressPtrT const & progress, double progressCoef);
   };
 
   // Input route may contains 'leaps': shortcut edges from mwm border enter to exit.

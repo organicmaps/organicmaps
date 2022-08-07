@@ -41,7 +41,6 @@
 
 #include "base/assert.hpp"
 #include "base/exception.hpp"
-#include "base/limited_priority_queue.hpp"
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"
 #include "base/stl_helpers.hpp"
@@ -825,50 +824,72 @@ RouterResultCode IndexRouter::CalculateSubrouteLeapsOnlyMode(
       return false;
     };
 
-    std::set<std::pair<Vertex, Vertex>> edges;
-    std::set<Vertex> keys[2];    // 0 - end vertex of the first edge; 1 - beg vertex of the last edge
+    // Use Feature's index as a key to avoid multiple vertices with the same feature but a bit different segment.
+    using EdgeKeyT = std::array<uint32_t, 2>;
+    vector<RoutingResultT> routes;
+    set<EdgeKeyT> edges;
+    set<uint32_t> keys[2];    // 0 - end vertex of the first edge; 1 - beg vertex of the last edge
 
-    size_t constexpr kMaxNumRoutes = 20;
-    base::limited_priority_queue<RoutingResultT, RoutingResultT::LessWeight> routes(kMaxNumRoutes);
+    auto const getBegEnd = [](RoutingResultT const & r) -> EdgeKeyT
+    {
+      size_t const pathSize = r.m_path.size();
+      ASSERT_GREATER(pathSize, 2, ());
+      return { r.m_path[1].GetFeatureId(), r.m_path[pathSize - 2].GetFeatureId() };
+    };
+
+    /// @todo Looks like there is no big deal in this constant due to the bidirectional search.
+    /// But still Zalau -> Tiburg lasts 2 minutes, so set some reasonable timeout.
+    size_t constexpr kMaxVertices = 15;
+    uint64_t constexpr kTimeoutMilliS = 30*1000;
+    base::Timer timer;
 
     using AlgoT = AStarAlgorithm<Vertex, Edge, Weight>;
-    AlgoT algorithm;
-    auto const result = algorithm.FindPathBidirectionalEx(params, [&routes, &edges, &keys](RoutingResultT && route)
+    auto const result = AlgoT().FindPathBidirectionalEx(params, [&](RoutingResultT && route)
     {
-      // Routes fetching is not necessary ordered by m_distance, so continue search.
-      if (routes.size() > kMaxNumRoutes && routes.top().m_distance <= route.m_distance)
-        return false;
-
       // Take unique routes by key vertices.
-      size_t const pathSize = route.m_path.size();
-      ASSERT_GREATER(pathSize, 2, ());
-      auto const & beg = route.m_path[1];
-      auto const & end = route.m_path[pathSize - 2];
-      if (edges.insert({beg, end}).second)
+      auto const be = getBegEnd(route);
+      if (edges.insert(be).second)
       {
-        keys[0].insert(beg);
-        keys[1].insert(end);
-        routes.push(std::move(route));
+        keys[0].insert(be[0]);
+        keys[1].insert(be[1]);
+        routes.push_back(std::move(route));
       }
 
-      /// @todo Looks like there is no big deal in this constant due to the bidirectional search.
-      /// But still Zalau -> Tiburg lasts 2 minutes here.
-      // Continue until got 5 different first/last edges. Bigger maxVertices - bigger calculation time.
-      //size_t const maxVertices = std::min(size_t(5), std::max(size_t(2), (50 + pathSize) / pathSize));
-      size_t constexpr maxVertices = 5;
+      // Stop if got needed number of vertices.
+      if (keys[0].size() >= kMaxVertices && keys[1].size() >= kMaxVertices)
+        return true;
 
-      return keys[0].size() >= maxVertices && keys[1].size() >= maxVertices;
+      // Stop if have some routes and reached timeout.
+      return (!routes.empty() && timer.ElapsedMilliseconds() > kTimeoutMilliS);
     });
 
     if (routes.empty() || result == AlgoT::Result::Cancelled)
       return ConvertResult<Vertex, Edge, Weight>(result);
 
-    candidates = routes.move();
-    sort(candidates.begin(), candidates.end(), [](RoutingResultT const & l, RoutingResultT const & r)
+    sort(routes.begin(), routes.end(), [](RoutingResultT const & l, RoutingResultT const & r)
     {
       return l.m_distance < r.m_distance;
     });
 
+    keys[0].clear();
+    keys[1].clear();
+    for (auto & r : routes)
+    {
+      auto const be = getBegEnd(r);
+      for (size_t idx  = 0; idx < 2; ++idx)
+      {
+        if (keys[idx].size() < kMaxVertices && keys[idx].insert(be[idx]).second)
+        {
+          size_t const nextIdx = (idx + 1) % 2;
+          keys[nextIdx].insert(be[nextIdx]);
+
+          candidates.push_back(std::move(r));
+          break;
+        }
+      }
+    }
+
+    LOG(LINFO, ("Candidates count =", candidates.size()));
     candidateMidWeights.reserve(candidates.size());
     for (auto const & c : candidates)
       candidateMidWeights.push_back(leapsGraph.CalcMiddleCrossMwmWeight(c.m_path));
@@ -877,9 +898,6 @@ RouterResultCode IndexRouter::CalculateSubrouteLeapsOnlyMode(
   // Purge cross-mwm-graph cache memory before calculating subroutes for each MWM.
   // CrossMwmConnector takes a lot of memory with its weights matrix now.
   starter.GetGraph().GetCrossMwmGraph().Purge();
-
-  ASSERT_EQUAL(starter.GetGraph().GetMode(), WorldGraphMode::LeapsOnly, ());
-  starter.GetGraph().SetMode(WorldGraphMode::JointSingleMwm);
 
   RoutesCalculator calculator(starter, delegate);
   RoutingResultT const * bestC = nullptr;
@@ -897,8 +915,8 @@ RouterResultCode IndexRouter::CalculateSubrouteLeapsOnlyMode(
       LOG(LDEBUG, ("Process leaps:", c.m_distance, c.m_path));
 
       size_t const sz = c.m_path.size();
-      auto const * r1 = calculator.Calc(c.m_path[0], c.m_path[1], progress, candidateContribution);
-      auto const * r2 = calculator.Calc(c.m_path[sz-2], c.m_path[sz-1], progress, candidateContribution);
+      auto const * r1 = calculator.Calc2Times(c.m_path[0], c.m_path[1], progress, candidateContribution);
+      auto const * r2 = calculator.Calc2Times(c.m_path[sz-2], c.m_path[sz-1], progress, candidateContribution);
 
       if (r1 && r2)
       {
@@ -1330,8 +1348,7 @@ bool IndexRouter::PointsOnEdgesSnapping::FindBestEdges(
 }
 
 IndexRouter::RoutingResultT const * IndexRouter::RoutesCalculator::Calc(
-    Segment const & beg, Segment const & end,
-    shared_ptr<AStarProgress> const & progress, double progressCoef)
+    Segment const & beg, Segment const & end, ProgressPtrT const & progress, double progressCoef)
 {
   auto itCache = m_cache.insert({{beg, end}, {}});
   auto * res = &itCache.first->second;
@@ -1370,10 +1387,32 @@ IndexRouter::RoutingResultT const * IndexRouter::RoutesCalculator::Calc(
       progress->PushAndDropLastSubProgress();
     }
     else
+    {
       progress->DropLastSubProgress();
+
+      m_cache.erase(itCache.first);
+      return nullptr;
+    }
   }
 
-  return res->Empty() ? nullptr : res;
+  CHECK(!res->Empty(), ());
+  return res;
+}
+
+IndexRouter::RoutingResultT const * IndexRouter::RoutesCalculator::Calc2Times(
+    Segment const & beg, Segment const & end, ProgressPtrT const & progress, double progressCoef)
+{
+  /// @see RussiaMoscow_ItalySienaCenter_SplittedMotorway
+  /// Enter Tuscany motorway (43.5016115, 11.1872607) is splitted by MWM boundaries many times.
+
+  m_starter.GetGraph().SetMode(WorldGraphMode::JointSingleMwm);
+  auto const * r = Calc(beg, end, progress, progressCoef);
+  if (r == nullptr)
+  {
+    m_starter.GetGraph().SetMode(WorldGraphMode::Joints);
+    r = Calc(beg, end, progress, progressCoef);
+  }
+  return r;
 }
 
 RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
