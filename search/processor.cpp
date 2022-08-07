@@ -595,19 +595,21 @@ void Processor::Search(SearchParams const & params)
 
     try
     {
-      SearchDebug();
-      SearchCoordinates();
-      SearchPlusCode();
-      SearchPostcode();
-      if (viewportSearch)
+      if (!SearchCoordinates())
       {
-        m_geocoder.GoInViewport();
-      }
-      else
-      {
-        if (m_tokens.empty())
-          m_ranker.SuggestStrings();
-        m_geocoder.GoEverywhere();
+        SearchDebug();
+        SearchPlusCode();
+        SearchPostcode();
+        if (viewportSearch)
+        {
+          m_geocoder.GoInViewport();
+        }
+        else
+        {
+          if (m_tokens.empty())
+            m_ranker.SuggestStrings();
+          m_geocoder.GoEverywhere();
+        }
       }
     }
     catch (CancelException const &)
@@ -641,15 +643,19 @@ void Processor::SearchDebug()
   SearchByFeatureId();
 }
 
-void Processor::SearchCoordinates()
+bool Processor::SearchCoordinates()
 {
+  bool coords_found = false;
   buffer_vector<ms::LatLon, 3> results;
 
   {
     double lat;
     double lon;
     if (MatchLatLonDegree(m_query, lat, lon))
+    {
+      coords_found = true;
       results.emplace_back(lat, lon);
+    }
   }
 
   istringstream iss(m_query);
@@ -659,11 +665,17 @@ void Processor::SearchCoordinates()
     ge0::Ge0Parser parser;
     ge0::Ge0Parser::Result r;
     if (parser.Parse(token, r))
+    {
+      coords_found = true;
       results.emplace_back(r.m_lat, r.m_lon);
+    }
 
     geo::GeoURLInfo const info = m_geoUrlParser.Parse(token);
     if (info.IsValid())
+    {
+      coords_found = true;
       results.emplace_back(info.m_lat, info.m_lon);
+    }
   }
 
   base::SortUnique(results);
@@ -673,6 +685,7 @@ void Processor::SearchCoordinates()
         RankerResult(r.m_lat, r.m_lon), true /* needAddress */, true /* needHighlighting */));
     m_emitter.Emit();
   }
+  return coords_found;
 }
 
 void Processor::SearchPlusCode()
