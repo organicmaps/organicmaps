@@ -112,26 +112,14 @@ public:
       if (twinSeg->IsForward() != s.IsForward())
         continue;
 
-      CHECK_NOT_EQUAL(twinSeg->GetMwmId(), s.GetMwmId(), ());
-
       // Checks twins for equality if they are from different mwm versions.
       // There are same in common, but in case of different version of mwms
       // their's geometry can differ from each other. Because of this we can not
       // build the route, because we fail in astar_algorithm.hpp CHECK(invariant) sometimes.
-      auto const & sMwmId = m_dataSource.GetMwmId(s.GetMwmId());
-      CHECK(sMwmId.IsAlive(), (s));
-      auto const & twinSegMwmId = m_dataSource.GetMwmId(twinSeg->GetMwmId());
-      CHECK(twinSegMwmId.IsAlive(), (*twinSeg));
-
-      if (sMwmId.GetInfo()->GetVersion() == twinSegMwmId.GetInfo()->GetVersion() ||
-          SegmentsAreEqualByGeometry(s, *twinSeg))
-      {
+      if (IsTwinSegmentsEqual(s, *twinSeg))
         twins.push_back(*twinSeg);
-      }
       else
-      {
-        LOG(LINFO, ("Bad cross mwm feature, differ in geometry. Current:", s, ", twin:", *twinSeg));
-      }
+        LOG(LDEBUG, ("Bad cross mwm feature, differ in geometry. Current:", s, ", twin:", *twinSeg));
     }
   }
 
@@ -194,18 +182,13 @@ public:
   }
 
 private:
-  std::vector<m2::PointD> GetFeaturePointsBySegment(Segment const & segment)
+  std::vector<m2::PointD> GetFeaturePointsBySegment(MwmSet::MwmId const & mwmId, Segment const & segment)
   {
-    std::vector<m2::PointD> geometry;
-
-    auto const mwmId = m_dataSource.GetMwmId(segment.GetMwmId());
-    if (!mwmId.IsAlive())
-      return geometry;
-
     auto ft = m_dataSource.GetFeature({ mwmId, segment.GetFeatureId() });
     ft->ParseGeometry(FeatureType::BEST_GEOMETRY);
 
     size_t const count = ft->GetPointsCount();
+    std::vector<m2::PointD> geometry;
     geometry.reserve(count);
     for (uint32_t i = 0; i < count; ++i)
       geometry.emplace_back(ft->GetPoint(i));
@@ -213,11 +196,12 @@ private:
     return geometry;
   }
 
-  /// \brief Checks segment for equality point by point.
-  bool SegmentsAreEqualByGeometry(Segment const & one, Segment const & two)
+  /// \brief Checks that segments from different MWMs are really equal.
+  /// Compare point by point in case of different MWM versions.
+  bool IsTwinSegmentsEqual(Segment const & s1, Segment const & s2)
   {
     // Do not check for transit graph.
-    if (!one.IsRealSegment() || !two.IsRealSegment())
+    if (!s1.IsRealSegment() || !s2.IsRealSegment())
       return true;
 
     static_assert(std::is_same<CrossMwmId, base::GeoObjectId>::value ||
@@ -225,15 +209,25 @@ private:
                   "Be careful of usage other ids here. "
                   "Make sure, there is not crash with your new CrossMwmId");
 
-    std::vector<m2::PointD> geometryOne = GetFeaturePointsBySegment(one);
-    std::vector<m2::PointD> geometryTwo = GetFeaturePointsBySegment(two);
+    ASSERT_NOT_EQUAL(s1.GetMwmId(), s2.GetMwmId(), ());
 
-    if (geometryOne.size() != geometryTwo.size())
+    auto const mwmId1 = m_dataSource.GetMwmId(s1.GetMwmId());
+    ASSERT(mwmId1.IsAlive(), (s1));
+    auto const mwmId2 = m_dataSource.GetMwmId(s2.GetMwmId());
+    ASSERT(mwmId2.IsAlive(), (s2));
+
+    if (mwmId1.GetInfo()->GetVersion() == mwmId2.GetInfo()->GetVersion())
+      return true;
+
+    auto const geo1 = GetFeaturePointsBySegment(mwmId1, s1);
+    auto const geo2 = GetFeaturePointsBySegment(mwmId2, s2);
+
+    if (geo1.size() != geo2.size())
       return false;
 
-    for (uint32_t i = 0; i < geometryOne.size(); ++i)
+    for (uint32_t i = 0; i < geo1.size(); ++i)
     {
-      if (!base::AlmostEqualAbs(geometryOne[i], geometryTwo[i], kMwmPointAccuracy))
+      if (!base::AlmostEqualAbs(geo1[i], geo2[i], kMwmPointAccuracy))
         return false;
     }
 
