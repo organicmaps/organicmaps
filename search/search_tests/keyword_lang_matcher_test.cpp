@@ -2,15 +2,14 @@
 
 #include "search/keyword_lang_matcher.hpp"
 
-#include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
 
 #include <vector>
 
+namespace keyword_lang_matcher_test
+{
 using namespace std;
 
-namespace
-{
 using search::KeywordLangMatcher;
 using Score = search::KeywordLangMatcher::Score;
 
@@ -41,7 +40,7 @@ KeywordLangMatcher CreateMatcher(string const & query)
 
   vector<strings::UniString> keywords;
   strings::UniString prefix;
-  if (search::TokenizeStringAndCheckIfLastTokenIsPrefix(query, keywords, search::Delimiters()))
+  if (search::TokenizeStringAndCheckIfLastTokenIsPrefix(query, keywords))
   {
     prefix = keywords.back();
     keywords.pop_back();
@@ -50,7 +49,6 @@ KeywordLangMatcher CreateMatcher(string const & query)
 
   return matcher;
 }
-}  // namespace
 
 UNIT_TEST(KeywordMatcher_TokensMatchHasPriority)
 {
@@ -72,3 +70,5 @@ UNIT_TEST(KeywordMatcher_LanguageMatchIsUsedWhenTokenMatchIsTheSame)
   TEST(matcher.CalcScore(LANG_SOME, name) < matcher.CalcScore(LANG_HIGH_PRIORITY, name), ());
   TEST(matcher.CalcScore(LANG_SOME_OTHER, name) < matcher.CalcScore(LANG_HIGH_PRIORITY, name), ());
 }
+
+} // namespace keyword_lang_matcher_test

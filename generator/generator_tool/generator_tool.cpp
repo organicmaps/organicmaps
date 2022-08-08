@@ -606,7 +606,7 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
     auto file = OfstreamWithExceptions(genInfo.GetIntermediateFileName(FLAGS_output, STATS_EXTENSION));
     stats::MapInfo info(FLAGS_stats_geometry_dup_factor);
     stats::CalcStats(dataFile, info);
-    
+
     if (FLAGS_stats_general)
     {
       LOG(LINFO, ("Writing general statistics"));
@@ -627,16 +627,16 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
   }
 
   if (FLAGS_dump_types)
-    feature::DumpTypes(dataFile);
+    features_dumper::DumpTypes(dataFile);
 
   if (FLAGS_dump_prefixes)
-    feature::DumpPrefixes(dataFile);
+    features_dumper::DumpPrefixes(dataFile);
 
   if (FLAGS_dump_search_tokens)
-    feature::DumpSearchTokens(dataFile, 100 /* maxTokensToShow */);
+    features_dumper::DumpSearchTokens(dataFile, 100 /* maxTokensToShow */);
 
   if (FLAGS_dump_feature_names != "")
-    feature::DumpFeatureNames(dataFile, FLAGS_dump_feature_names);
+    features_dumper::DumpFeatureNames(dataFile, FLAGS_dump_feature_names);
 
   if (FLAGS_unpack_mwm)
     UnpackMwm(dataFile);

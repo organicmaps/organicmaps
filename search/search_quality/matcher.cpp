@@ -7,9 +7,7 @@
 #include "indexer/feature_algo.hpp"
 #include "indexer/search_string_utils.hpp"
 
-#include "base/assert.hpp"
 #include "base/control_flow.hpp"
-#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
 #include <algorithm>
@@ -59,10 +57,19 @@ bool EndsWithHouseNumber(Iter beg, Iter end)
   return false;
 }
 
+std::vector<std::string> NormalizeAndTokenizeAsUtf8(std::string_view str)
+{
+  std::vector<std::string> res;
+  ForEachNormalizedToken(str, [&res](strings::UniString const & token)
+  {
+    res.push_back(strings::ToUtf8(token));
+  });
+  return res;
+}
+
 bool StreetMatches(std::string_view name, std::vector<std::string> const & queryTokens)
 {
-  auto const nameTokens = search::NormalizeAndTokenizeAsUtf8(name);
-
+  auto const nameTokens = NormalizeAndTokenizeAsUtf8(name);
   if (nameTokens.empty())
     return false;
 

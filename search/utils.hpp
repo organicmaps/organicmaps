@@ -86,26 +86,24 @@ bool FillCategories(QuerySliceOnRawStrings<T> const & slice, Locales const & loc
                     CategoriesHolder const & catHolder, std::vector<uint32_t> & types)
 {
   types.clear();
-  catHolder.ForEachNameAndType(
-      [&](CategoriesHolder::Category::Name const & categorySynonym, uint32_t type) {
-        if (!locales.Contains(static_cast<uint64_t>(categorySynonym.m_locale)))
-          return;
+  catHolder.ForEachNameAndType([&](CategoriesHolder::Category::Name const & categorySynonym, uint32_t type)
+  {
+    if (!locales.Contains(static_cast<uint64_t>(categorySynonym.m_locale)))
+      return;
 
-        std::vector<QueryParams::String> categoryTokens;
-        SplitUniString(search::NormalizeAndSimplifyString(categorySynonym.m_name),
-                       base::MakeBackInsertFunctor(categoryTokens), search::Delimiters());
+    auto const categoryTokens = NormalizeAndTokenizeString(categorySynonym.m_name);
 
-        if (slice.Size() != categoryTokens.size())
-          return;
+    if (slice.Size() != categoryTokens.size())
+      return;
 
-        for (size_t i = 0; i < slice.Size(); ++i)
-        {
-          if (slice.Get(i) != categoryTokens[i])
-            return;
-        }
+    for (size_t i = 0; i < slice.Size(); ++i)
+    {
+      if (slice.Get(i) != categoryTokens[i])
+        return;
+    }
 
-        types.push_back(type);
-      });
+    types.push_back(type);
+  });
 
   return !types.empty();
 }

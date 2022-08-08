@@ -2,7 +2,7 @@
 
 #include <string>
 
-namespace feature
+namespace features_dumper
 {
   void DumpTypes(std::string const & fPath);
   void DumpPrefixes(std::string const & fPath);

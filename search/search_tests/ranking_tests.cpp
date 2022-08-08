@@ -10,7 +10,6 @@
 #include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
 
-#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
 #include <cstdint>
@@ -29,8 +28,7 @@ NameScores GetScore(string const & name, string const & query)
   Delimiters delims;
   QueryParams params;
 
-  vector<strings::UniString> tokens;
-  SplitUniString(NormalizeAndSimplifyString(query), base::MakeBackInsertFunctor(tokens), delims);
+  auto const tokens = NormalizeAndTokenizeString(query);
 
   params.Init(query, tokens, !query.empty() && !delims(strings::LastUniChar(query)));
 

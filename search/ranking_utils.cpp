@@ -125,11 +125,11 @@ bool IsStopWord(UniString const & s)
 
 void PrepareStringForMatching(string_view name, vector<strings::UniString> & tokens)
 {
-  SplitUniString(NormalizeAndSimplifyString(name), [&tokens](strings::UniString const & token)
+  ForEachNormalizedToken(name, [&tokens](strings::UniString && token)
   {
     if (!IsStopWord(token))
-      tokens.push_back(token);
-  }, Delimiters());
+      tokens.push_back(std::move(token));
+  });
 }
 
 string DebugPrint(NameScore const & score)
