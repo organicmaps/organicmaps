@@ -3,13 +3,10 @@
 #include "indexer/search_delimiters.hpp"
 
 #include "base/levenshtein_dfa.hpp"
-#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
-#include <cstdint>
 #include <functional>
 #include <string>
-#include <utility>
 #include <vector>
 
 namespace search
@@ -28,12 +25,35 @@ strings::UniString NormalizeAndSimplifyString(std::string_view s);
 void PreprocessBeforeTokenization(strings::UniString & query);
 
 template <class Delims, typename Fn>
-void SplitUniString(strings::UniString const & uniS, Fn && f, Delims const & delims)
+void SplitUniString(strings::UniString const & uniS, Fn && fn, Delims const & delims)
 {
-  using namespace strings;
-  TokenizeIterator<Delims, UniString::const_iterator> iter(uniS.begin(), uniS.end(), delims);
-  for (; iter; ++iter)
-    f(iter.GetUniString());
+  size_t const count = uniS.size();
+  size_t i = 0;
+  while (true)
+  {
+    while (i < count && delims(uniS[i]))
+      ++i;
+    if (i >= count)
+      break;
+
+    size_t j = i + 1;
+    while (j < count && !delims(uniS[j]))
+      ++j;
+
+    auto const beg = uniS.begin();
+    strings::UniString str(beg + i, beg + j);
+
+    // Transform "xyz's" -> "xyzs".
+    if (j+1 < count && uniS[j] == '\'' && uniS[j+1] == 's' && (j+2 == count || delims(uniS[j+2])))
+    {
+      str.push_back(uniS[j+1]);
+      j += 2;
+    }
+
+    fn(std::move(str));
+
+    i = j;
+  }
 }
 
 template <class FnT>
