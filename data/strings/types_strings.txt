@@ -5555,7 +5555,7 @@
 
   [type.cuisine.barbecue]
     en = Barbecue
-    ar = مشويات
+    ar = شواء
     cs = Grilované pokrmy
     da = Barbecue
     de = Grill
@@ -5722,6 +5722,7 @@
 
   [type.cuisine.bubble_tea]
     en = Bubble Tea
+    ar = شاي الفقاعات
     be = Чай з бурбалкамі
     es = Té de burbujas
     eu = Burbuila tea
@@ -5764,7 +5765,7 @@
 
   [type.cuisine.buschenschank]
     en = Buschenschank
-    ar = البيرة
+    ar = مطبخ هنغاري
     cs = Buschenschank
     da = Buschenschank
     de = Buschenschank
@@ -5932,7 +5933,7 @@
 
   [type.cuisine.coffee_shop]
     en = Coffee
-    ar = ﺓﻮﻬﻗ
+    ar = قهوة
     cs = Káva
     da = Kaffe
     de = Kaffee
@@ -6100,7 +6101,7 @@
 
   [type.cuisine.diner]
     en = Diner
-    ar = العشاء
+    ar = عشاء
     cs = Večeře
     da = Diner
     de = Diner
@@ -6299,7 +6300,7 @@
 
   [type.cuisine.fish_and_chips]
     en = Fish and Chips
-    ar = سمك و رقائق البطاطس
+    ar = سمك ورقائق البطاطا
     cs = Ryba a hranolky
     da = Fish and chips
     de = Fish and Chips
@@ -6365,7 +6366,7 @@
 
   [type.cuisine.friture]
     en = Friture
-    ar = وجبات سريعة
+    ar = وجبات مقلية
     cs = Smažené pokrmy
     da = Friture
     de = Pommes
@@ -6530,7 +6531,6 @@
 
   [type.cuisine.heuriger]
     en = Heuriger
-    ar = البيرة
     cs = Heuriger
     da = Heuriger
     de = Heuriger
@@ -6596,7 +6596,7 @@
 
   [type.cuisine.hungarian]
     en = Hungarian
-    ar = مطبخ مجري
+    ar = مطبخ هنغاري
     cs = Maďarská kuchyně
     da = Ungarsk
     de = Ungarisch
@@ -6831,7 +6831,7 @@
 
   [type.cuisine.italian_pizza]
     en = Italian, Pizza
-    ar = مطبخ إيطالي؛بيتزا
+    ar = مطبخ إيطالي، بيتزا
     cs = Italská, pizza
     da = Italiensk, pizza
     de = Italienisch; Pizza
@@ -7065,7 +7065,7 @@
 
   [type.cuisine.malagasy]
     en = Malagasy
-    ar = مدغشقر
+    ar = مطبخ مدغشقري
     cs = Madagaskarská kuchyně
     da = Madagaskisk
     de = Madegassisch
@@ -7397,7 +7397,7 @@
 
   [type.cuisine.peruvian]
     en = Peruvian
-    ar = بيرو
+    ar = مطبخ من دولة بيرو
     cs = Peruánská kuchyně
     da = Peruviansk
     de = Peruanisch
@@ -8129,6 +8129,7 @@
 
   [type.emergency]
     en = Emergency
+    ar = طوارئ
     de = Notfall
     fr = Urgence
     mr = आणीबाणी
@@ -8277,7 +8278,7 @@
 
   [type.healthcare.laboratory]
     en = Medical Laboratory
-    ar = ﺔﻴﺒﻄﻟﺍ ﺕﺍﺮﺒﺘﺨﻤﻟﺍ
+    ar = مختبر طبي
     be = Медыцынская лабараторыя
     bg = Медицинска лаборатория
     cs = Lékařská laboratoř
@@ -8317,6 +8318,7 @@
 
   [type.highway]
     en = Highway
+    ar = طريق السريع
     de = Straße
     ja = 道路
     mr = महामार्ग
@@ -8430,6 +8432,7 @@
 
   [type.highway.cycleway]
     en = Cycle Path
+    ar = مسار للدراجات
     de = Radweg
     es = Ciclovía
     eu = Bizikletabidea
@@ -8464,6 +8467,7 @@
   [type.highway.elevator]
     en = Elevator
     en-GB = Lift
+    ar = مِصعَد
     de = Aufzug
     es = Ascensor
     eu = Igogailua
@@ -8476,7 +8480,7 @@
 
   [type.highway.footway]
     en = Foot Path
-    ar = مسار
+    ar = مسار للمشي
     cs = Cesta
     da = Sti
     de = Fußweg
@@ -8519,6 +8523,7 @@
   [type.highway.footway.area]
     ref = type.highway.footway
     en = Pedestrian Zone
+    ar = منطقة مشاة
     mr = पादचारी झोन
     pl = Obszar chodnika
     pt-BR = Área de pedestres
@@ -8529,6 +8534,7 @@
   [type.highway.footway.bridge]
     ref = type.highway.road.bridge
     en = Pedestrian Bridge
+    ar = جسر للمشاة
     mr = पादचारी पूल
     pl = Most dla pieszych
     pt-BR = Ponte para pedestres
@@ -8575,6 +8581,7 @@
   [type.highway.footway.tunnel]
     ref = type.highway.road.tunnel
     en = Pedestrian Tunnel
+    ar = نفق للمشاة
     de = Fußgängertunnel
     mr = पादचारी बोगदा
     pl = Tunel dla pieszych
@@ -8660,7 +8667,7 @@
 
   [type.highway.motorway]
     en = Motorway
-    ar = شارع
+    ar = طريق سريع
     cs = Ulice
     da = Gade
     de = Autobahn
@@ -8804,6 +8811,7 @@
   [type.highway.path.bicycle]
     ref = type.highway.path
     en = Cycle & Foot Path
+    ar = مسار للمشاة والدراجات معاً
     de = Radweg
     mr = सायकल आणि पाऊलवाट
     pl = Ścieżka dla rowerów
@@ -8857,7 +8865,7 @@
 
   [type.highway.pedestrian]
     en = Pedestrian Street
-    ar = شارع
+    ar = شارع للمشاة
     cs = Ulice
     da = Gade
     de = Fußgängerzone
@@ -8917,7 +8925,7 @@
 
   [type.highway.primary]
     en = Primary Road
-    ar = شارع
+    ar = شارع رئيسي
     cs = Ulice
     da = Gade
     de = Hauptstraße
@@ -9123,7 +9131,7 @@
   [type.highway.road.bridge]
     comment = These translations are used for all type.highway.*.bridge.
     en = Bridge
-    ar = كوبري
+    ar = جسر 
     be = Мост
     bg = Мост
     cs = Most
@@ -9202,7 +9210,7 @@
 
   [type.highway.secondary]
     en = Secondary Road
-    ar = شارع
+    ar = شارع ثانوي
     cs = Ulice
     da = Gade
     de = Straße
@@ -9385,7 +9393,7 @@
 
   [type.highway.steps]
     en = Stairs
-    ar = مسار
+    ar = درج
     cs = Cesta
     da = Sti
     de = Stufen
@@ -9589,7 +9597,7 @@
 
   [type.highway.trunk]
     en = National Highway
-    ar = شارع
+    ar = شارع وطني
     cs = Ulice
     da = Gade
     de = Schnellstraße
@@ -9649,7 +9657,7 @@
 
   [type.highway.unclassified]
     en = Minor Road
-    ar = شارع
+    ar =  شارع صغير
     cs = Ulice
     da = Gade
     de = Straße
@@ -9761,6 +9769,7 @@
 
   [type.historic]
     en = Historic
+    ar = مكان تاريخي
     de = Historisches Objekt
     ja = 史跡
     mr = ऐतिहासिक
@@ -9811,6 +9820,7 @@
 
   [type.historic.battlefield]
     en = Battlefield
+    ar = ساحة معركة تاريخية
     de = Schlachtfeld
     fr = Champ de bataille
     ja = 古戦場
@@ -9826,6 +9836,7 @@
 
   [type.historic.boundary_stone]
     en = Boundary Stone
+    ar = حجر لتحديد الحدود
     de = Grenzstein
     fr = Borne frontière
     ja = 境界標
@@ -9873,7 +9884,7 @@
 
   [type.historic.castle.defensive]
     en = Castle
-    ar = قلعة
+    ar = قلعة دفاعية
     cs = Zámek
     da = Slot
     de = Burg
@@ -9939,6 +9950,7 @@
 
   [type.historic.citywalls]
     en = City Wall
+    ar = جدار المدينة
     de = Stadtmauer
     fr = Muraille
     ja = 歴史的な城壁
@@ -9954,6 +9966,7 @@
 
   [type.historic.fort]
     en = Fort
+    ar = قلعة
     de = Festung
     fr = Fort militaire
     ja = 歴史的な要塞
@@ -10001,7 +10014,7 @@
 
   [type.historic.memorial.plaque]
     en = Commemorative plaque
-    ar = نصب تذكاري
+    ar = لوحة تذكارية
     cs = Pomník
     da = Mindesmærke
     de = Gedenktafel
@@ -10032,7 +10045,7 @@
 
   [type.historic.memorial.sculpture]
     en = Sculpture
-    ar = نصب تذكاري
+    ar = منحوتة تذكارية
     cs = Pomník
     da = Mindesmærke
     de = Skulptur
@@ -10064,7 +10077,7 @@
 
   [type.historic.memorial.statue]
     en = Statue
-    ar = نصب تذكاري
+    ar = تمثال تذكاري
     cs = Pomník
     da = Mindesmærke
     de = Statue
@@ -10157,7 +10170,7 @@
 
   [type.historic.ship]
     en = Ship
-    ar = سياحة
+    ar = سفينة تاريخية
     cs = Pamětihodnost
     da = Turisme
     de = Schiff
@@ -10191,7 +10204,7 @@
 
   [type.historic.tomb]
     en = Tomb
-    ar = سياحة
+    ar = قبر
     cs = Pamětihodnost
     da = Turisme
     de = Grabstätte
@@ -10225,6 +10238,7 @@
 
   [type.historic.wayside_cross]
     en = Christian Cross
+    ar = صليب مسيحي
     de = Wegkreuz
     fr = Croix
     ja = 歴史的な十字架
@@ -10240,6 +10254,7 @@
 
   [type.historic.wayside_shrine]
     en = Shrine
+    ar = ضريح
     de = Bildstock
     fr = Oratoire
     ja = 歴史的な祠
@@ -10294,7 +10309,7 @@
 
   [type.internet_access]
     en = Internet
-    ar = واي فاي
+    ar = إنترنت
     el = Ίντερνετ
     fa = وای فای
     ja = インターネット
@@ -10311,7 +10326,7 @@
 
   [type.internet_access.wlan]
     en = Internet
-    ar = واي فاي
+    ar = إنترنت لا سلكي
     el = Ίντερνετ
     fa = وای فای
     ja = インターネット
@@ -10328,6 +10343,7 @@
 
   [type.junction]
     en = Junction
+    ar = تقاطع
     ja = 交差点
     mr = जंक्शन
     pl = Skrzyżowanie
@@ -10340,6 +10356,7 @@
 
   [type.junction.roundabout]
     en = Roundabout
+    ar = دوّار
     de = Kreisverkehr
     es = Rotonda
     eu = Biribilgunea
@@ -10436,6 +10453,7 @@
     comment = In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship.
     ref = type.amenity.grave_yard
     en = Cemetery
+    
 
   [type.landuse.cemetery.christian]
     ref = type.amenity.grave_yard.christian
@@ -10478,6 +10496,7 @@
 
   [type.landuse.commercial]
     en = Commercial Area
+    ar = منطقة تجارية
     de = Gewerbegebiet
     fr = Zone commerciale
     ja = 商業用地
@@ -10492,6 +10511,7 @@
 
   [type.landuse.construction]
     en = Construction
+    ar = منطقة بناء
     de = Baustelle
     fr = Chantier de construction
     ja = 建設工事中
@@ -10506,6 +10526,7 @@
 
   [type.landuse.education]
     en = Educational Facilities
+    ar = مؤسسات تعليمية
     be = Адукацыйныя ўстановы
     es = Instalaciones educativas
     fr = Établissements éducatifs
@@ -10517,6 +10538,7 @@
 
   [type.landuse.farm]
     en = Farm
+    ar = مزرعة
     de = Bauernhof
     ja = 農地
     mr = शेत
@@ -10579,6 +10601,7 @@
 
   [type.landuse.field]
     en = Field
+    ar = حقل
     de = Feld
     fr = Champ
     mr = क्षेत्र
@@ -10625,7 +10648,7 @@
 
   [type.landuse.forest.coniferous]
     en = Coniferous Forest
-    ar = غابة
+    ar = غابة صنوبرية
     cs = Les
     da = Skov
     de = Nadelwald
@@ -10659,7 +10682,7 @@
 
   [type.landuse.forest.deciduous]
     en = Deciduous Forest
-    ar = غابة
+    ar = غابة تتساقط أوراقها
     cs = Les
     da = Skov
     de = Laubwald
@@ -10693,7 +10716,7 @@
 
   [type.landuse.forest.mixed]
     en = Mixed Forest
-    ar = غابة
+    ar = غابة مختلطة
     cs = Les
     da = Skov
     de = Mischwald
@@ -10740,7 +10763,7 @@
 
   [type.landuse.grass]
     en = Lawn
-    ar = حديقة
+    ar = عشب
     cs = Trávník
     da = Græsplæne
     de = Wiese
@@ -10776,6 +10799,7 @@
 
   [type.landuse.greenfield]
     en = Greenfield
+    ar = مساحة خضراء
     de = Rohbauland
     fr = Terrain vierge
     ja = 建設予定地
@@ -10803,6 +10827,7 @@
 
   [type.landuse.industrial]
     en = Industrial Land
+    ar = منطقة صناعية
     de = Industriegebiet
     fr = Zone industrielle
     ja = 工業用地
@@ -10867,6 +10892,7 @@
 
   [type.landuse.military]
     en = Military Area
+    ar = منطقة عسكرية
     de = Militärgebiet
     fr = Terrain militaire
     ja = 軍用地
@@ -10881,6 +10907,7 @@
 
   [type.landuse.orchard]
     en = Orchard
+    ar = بستان
     de = Obstplantage
     fr = Vergers
     ja = 果樹園
@@ -10991,6 +11018,7 @@
 
   [type.landuse.residential]
     en = Residential Land
+    ar = منطقة سكنية
     de = Wohngebiet
     fr = Zone résidentielle
     ja = 住宅地
@@ -11005,6 +11033,7 @@
 
   [type.landuse.retail]
     en = Retail Land
+    ar = منطقة متاجر
     de = Einzelhandelsgebiet
     fr = Zone commerciale
     ja = 小売店エリア
@@ -11019,6 +11048,7 @@
 
   [type.landuse.salt_pond]
     en = Pond
+    ar = مستنقع
     de = Saline
     fr = Marais salant
     ja = 塩田
@@ -11044,6 +11074,7 @@
 
   [type.landuse.vineyard]
     en = Vineyard
+    ar = حقل عنب
     de = Weinberg
     fr = Vignes
     ja = ブドウ園
@@ -11187,7 +11218,7 @@
 
   [type.leisure.garden]
     en = Garden
-    ar = بستان
+    ar = حديقة
     cs = Zahrada
     da = Have
     de = Garten
@@ -11291,7 +11322,7 @@
 
   [type.leisure.nature_reserve]
     en = Nature Reserve
-    ar = محمية
+    ar = محمية طبيعية
     cs = Rezervace
     da = Reservat
     de = Naturschutzgebiet
@@ -11434,7 +11465,7 @@
 
   [type.leisure.park.private]
     en = Park
-    ar = موقف سيارات
+    ar = موقف سيارات خاص
     cs = Park
     da = Park
     de = Park
@@ -11635,7 +11666,7 @@
 
   [type.leisure.sports_centre]
     en = Sports Center
-    ar = رياضة
+    ar = مركز رياضي
     cs = Sportovní centrum
     da = Idrætscenter
     de = Sportzentrum
@@ -11740,7 +11771,7 @@
 
   [type.leisure.stadium]
     en = Stadium
-    ar = استاد
+    ar = استاد أو مدّرج
     cs = Stadion
     de = Stadion
     el = Γήπεδο
@@ -11772,7 +11803,7 @@
 
   [type.leisure.swimming_pool]
     en = Swimming Pool
-    ar = حوض سباحة
+    ar = مسبح
     be = Басейн
     bg = Басейн
     cs = Koupaliště
@@ -11808,7 +11839,8 @@
 
   [type.leisure.swimming_pool.private]
     ref = type.leisure.swimming_pool
-
+    ar = مسبح خاص
+    
   [type.leisure.track]
     en = Track
     de = Laufbahn
@@ -11858,6 +11890,7 @@
 
   [type.leisure.beach_resort]
     en = Beach Resort
+    ar = منتجع شاطئي
     mr = समुद्री रिसॉर्ट
     ru = Пляжный курорт
     tr = Sahil Tatil Yeri
@@ -11959,6 +11992,7 @@
 
   [type.man_made.flagpole]
     en = Flagpole
+    ar = سارية علم
     be = Флагшток
     fr = Mât de drapeau
     mr = ध्वजस्तंभ
@@ -12011,6 +12045,7 @@
 
   [type.man_made.pier]
     en = Pier
+    ar = رصيف بحري
     de = Anlegestelle
     fr = Jetée
     ja = 桟橋
@@ -12051,6 +12086,7 @@
 
   [type.man_made.silo]
     en = Silo
+    ar = صومعة
     be = Сілас
     de = Silo
     mr = पेव(धान्यसाठा)
@@ -12308,6 +12344,7 @@
 
   [type.military]
     en = Military
+    ar = جيش
     de = Militärisches Objekt
     ja = 軍事
     mr = लष्करी
@@ -12320,7 +12357,7 @@
 
   [type.military.bunker]
     en = Bunker
-    ar = مأوى
+    ar = ملجأ
     cs = Bunkr
     de = Bunker
     el = Στρατιωτική αποθήκη
@@ -22517,7 +22554,7 @@
 
   [type.waterway.waterfall]
     en = Waterfall
-    ar = شلال
+    ar = شلّال
     cs = Vodopád
     da = Vandfald
     de = Wasserfall
