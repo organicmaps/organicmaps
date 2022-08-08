@@ -509,8 +509,14 @@ void RoutingSession::GenerateNotifications(vector<string> & notifications)
 
   // Generate turns notifications.
   vector<turns::TurnItemDist> turns;
-  if (m_route->GetNextTurns(turns))
-    m_turnNotificationsMgr.GenerateTurnNotifications(turns, notifications);
+  if (m_route->GetNextTurns(turns)) {
+    RouteSegment::RoadNameInfo targetRoadNameInfo;
+    std::string nextStreet;
+    m_route->GetNextTurnStreetName(targetRoadNameInfo);
+    GetFullRoadName(targetRoadNameInfo, nextStreet);
+
+    m_turnNotificationsMgr.GenerateTurnNotifications(turns, notifications, nextStreet);
+  }
 
   m_speedCameraManager.GenerateNotifications(notifications);
 }

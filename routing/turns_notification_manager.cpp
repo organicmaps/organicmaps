@@ -73,12 +73,13 @@ NotificationManager NotificationManager::CreateNotificationManagerForTesting(
 
 string NotificationManager::GenerateTurnText(uint32_t distanceUnits, uint8_t exitNum,
                                              bool useThenInsteadOfDistance, TurnItem const & turn,
-                                             measurement_utils::Units lengthUnits) const
+                                             measurement_utils::Units lengthUnits,
+                                             std::string nextStreet) const
 {
   if (turn.m_turn != CarDirection::None)
   {
     Notification const notification(distanceUnits, exitNum, useThenInsteadOfDistance, turn.m_turn,
-                                    lengthUnits);
+                                    lengthUnits, nextStreet);
     return m_getTtsText.GetTurnNotification(notification);
   }
 
@@ -93,7 +94,8 @@ string NotificationManager::GenerateSpeedCameraText() const
 }
 
 void NotificationManager::GenerateTurnNotifications(vector<TurnItemDist> const & turns,
-                                                    vector<string> & turnNotifications)
+                                                    vector<string> & turnNotifications,
+                                                    std::string nextStreet)
 {
   m_secondTurnNotification = GenerateSecondTurnNotification(turns);
 
@@ -102,7 +104,7 @@ void NotificationManager::GenerateTurnNotifications(vector<TurnItemDist> const &
     return;
 
   TurnItemDist const & firstTurn = turns.front();
-  string firstNotification = GenerateFirstTurnSound(firstTurn.m_turnItem, firstTurn.m_distMeters);
+  string firstNotification = GenerateFirstTurnSound(firstTurn.m_turnItem, firstTurn.m_distMeters, nextStreet);
   if (m_nextTurnNotificationProgress == PronouncedNotification::Nothing)
     return;
   if (firstNotification.empty())
@@ -121,7 +123,7 @@ void NotificationManager::GenerateTurnNotifications(vector<TurnItemDist> const &
   }
   string secondNotification = GenerateTurnText(
       0 /* distanceUnits is not used because of "Then" is used */, secondTurn.m_turnItem.m_exitNum,
-      true, secondTurn.m_turnItem, m_settings.GetLengthUnits());
+      true, secondTurn.m_turnItem, m_settings.GetLengthUnits(), "");
   if (secondNotification.empty())
     return;
   turnNotifications.emplace_back(move(secondNotification));
@@ -132,7 +134,8 @@ void NotificationManager::GenerateTurnNotifications(vector<TurnItemDist> const &
 }
 
 string NotificationManager::GenerateFirstTurnSound(TurnItem const & turn,
-                                                   double distanceToTurnMeters)
+                                                   double distanceToTurnMeters,
+                                                   std::string nextStreet)
 {
   if (m_nextTurnIndex != turn.m_index)
   {
@@ -176,7 +179,8 @@ string NotificationManager::GenerateFirstTurnSound(TurnItem const & turn,
           m_nextTurnNotificationProgress = PronouncedNotification::First;
           return GenerateTurnText(roundedDistToPronounceUnits, turn.m_exitNum,
                                   false /* useThenInsteadOfDistance */, turn,
-                                  m_settings.GetLengthUnits());
+                                  m_settings.GetLengthUnits(),
+                                  nextStreet);
         }
       }
     }
@@ -197,7 +201,7 @@ string NotificationManager::GenerateFirstTurnSound(TurnItem const & turn,
     FastForwardFirstTurnNotification();
     return GenerateTurnText(0 /* distanceUnits */, turn.m_exitNum,
                             false /* useThenInsteadOfDistance */, turn,
-                            m_settings.GetLengthUnits());
+                            m_settings.GetLengthUnits(), nextStreet);
   }
   return string();
 }

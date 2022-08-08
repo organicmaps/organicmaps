@@ -49,8 +49,10 @@ void GetTtsText::ForTestingSetLocaleWithJson(string const & jsonBuffer, string c
 
 string GetTtsText::GetTurnNotification(Notification const & notification) const
 {
+  string const dirStr = GetTextById(GetDirectionTextId(notification));
+
   if (notification.m_distanceUnits == 0 && !notification.m_useThenInsteadOfDistance)
-    return GetTextById(GetDirectionTextId(notification));
+    return dirStr;
 
   if (notification.IsPedestrianNotification())
   {
@@ -62,11 +64,14 @@ string GetTtsText::GetTurnNotification(Notification const & notification) const
   if (notification.m_useThenInsteadOfDistance && notification.m_turnDir == CarDirection::None)
     return string();
 
-  string const dirStr = GetTextById(GetDirectionTextId(notification));
   if (dirStr.empty())
     return string();
 
   string const distStr = GetTextById(GetDistanceTextId(notification));
+
+  if (notification.m_distanceUnits > 0 && !notification.m_nextStreet.empty())
+    return distStr + " " + dirStr + " " + GetTextById("onto") + " " + notification.m_nextStreet;
+
   return distStr + " " + dirStr;
 }
 
