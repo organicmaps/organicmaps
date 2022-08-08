@@ -9777,6 +9777,43 @@ shop-second_hand
 en:4Second Hand
 ru:4Подержанные товары
 
+shop-charity
+en:4Charity Shop
+ar:ﻱﺮﻴﺧ ﺮﺠﺘﻣ
+be:Дабрачынная крама
+bg:Благотворителен магазин
+cs:Charitativní obchod
+da:Velgørenhedsbutik
+de:Wohltätigkeitsladen
+el:Φιλανθρωπικό κατάστημα
+es:Tienda de caridad
+eu:Ongintzazko Denda
+fa:ﻪﯾﺮﯿﺧ ﻩﺎﮕﺷﻭﺮﻓ
+fi:Hyväntekeväisyysmyymälä
+fr:Magasin de charité
+he:הקדצ תונח
+hu:Jótékonysági Bolt
+id:Toko Amal
+it:Negozio di beneficenza
+ja:チャリティーショップ
+ko:자선 상점
+nb:Veldedighetsbutikk
+nl:Kringloopwinkel
+pl:Sklep charytatywny
+pt:Loja de caridade
+pt-BR:Loja de caridade
+ro:Magazin de caritate
+ru:Благотворительный магазин
+sk:Charitatívny obchod
+sv:Välgörenhetsbutik
+sw:Duka la msaada
+th:ร้านการกุศล
+tr:Hayır Dükkanı
+uk:Магазин благодійності
+vi:Cửa hàng từ thiện
+zh-Hans:慈善商店
+zh-Hant:慈善商店
+
 shop-ticket
 en:4Ticket Shop|tickets|ticket hub|ticket office|ticket center|booking office|box office|ticket agency|ticket booth|pay box
 ru:4Билетная касса|билет|театральная касса|билетный центр|городская касса|продажа билетов|бронирование билетов

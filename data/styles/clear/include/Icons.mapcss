@@ -355,6 +355,8 @@ area[tourism=attraction][attraction=animal],
 
 node[amenity=cafe],
 area[amenity=cafe],
+node[shop=charity],
+area[shop=charity],
 node[amenity=theatre],
 area[amenity=theatre]
 {z-index: 2790;}
@@ -2210,6 +2212,9 @@ area|z16[shop=wine]
 node|z16[shop=books],
 area|z16[shop=books]
 {icon-image: book-shop-m.svg;}
+node|z16[shop=charity],
+area|z16[shop=charity]
+{icon-image: charity_shop-m.svg;}
 node|z16[shop=bookmaker],
 area|z16[shop=bookmaker]
 {icon-image: bookmaker-m.svg;}
@@ -2390,6 +2395,9 @@ area|z17-[shop=wine]
 node|z17-[shop=books],
 area|z17-[shop=books]
 {icon-image: book-shop-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=charity],
+area|z17-[shop=charity]
+{icon-image: charity_shop-m.svg;icon-min-distance: 24;text-optional: true;}
 node|z17-[shop=bookmaker],
 area|z17-[shop=bookmaker]
 {icon-image: bookmaker-m.svg;icon-min-distance: 24;text-optional: true;}
