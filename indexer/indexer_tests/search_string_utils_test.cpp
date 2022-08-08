@@ -257,11 +257,8 @@ UNIT_TEST(StreetTokensFilter)
 
 UNIT_TEST(NormalizeAndSimplifyString_Numero)
 {
-  /// @todo Consider adding "numero" processing in SplitUniString instead of NormalizeAndSimplifyString.
-  TEST_EQUAL(NormalizeAndSimplifyStringUtf8("Зона №51"), "зона 51", ());
-  TEST_EQUAL(NormalizeAndSimplifyStringUtf8("Зона № 51"), "зона 51", ());
-  TEST_EQUAL(NormalizeAndSimplifyStringUtf8("Area #51"), "area 51", ());
-  TEST_EQUAL(NormalizeAndSimplifyStringUtf8("Area # "), "area ", ());
+  TEST_EQUAL(NormalizeAndSimplifyStringUtf8("Зона №51"), "зона #51", ());
+  TEST_EQUAL(NormalizeAndSimplifyStringUtf8("Area № 51"), "area # 51", ());
   TEST_EQUAL(NormalizeAndSimplifyStringUtf8("Area #One"), "area #one", ());
 }
 

@@ -247,35 +247,11 @@ void Processor::SetQuery(string const & query, bool categorialRequest /* = false
   // retrieve all tokens that start with a single hashtag and leave
   // them as is.
 
-  vector<strings::UniString> tokens;
+  Delimiters delims;
   {
-    search::DelimitersWithExceptions delims({'#'});
     auto normalizedQuery = NormalizeAndSimplifyString(query);
     PreprocessBeforeTokenization(normalizedQuery);
-    SplitUniString(normalizedQuery, base::MakeBackInsertFunctor(tokens), delims);
-  }
-
-  search::Delimiters delims;
-  {
-    for (auto const & token : tokens)
-    {
-      size_t numHashes = 0;
-      for (; numHashes < token.size() && token[numHashes] == '#'; ++numHashes)
-        ;
-
-      // Splits |token| by hashtags, because all other delimiters are already removed.
-      bool isFirst = true;
-      SplitUniString(token, [this, &isFirst, numHashes](strings::UniString && token)
-      {
-        if (isFirst && numHashes == 1)
-        {
-          m_tokens.push_back(strings::MakeUniString("#") + token);
-          isFirst = false;
-        }
-        else
-          m_tokens.push_back(move(token));
-      }, delims);
-    }
+    SplitUniString(normalizedQuery, base::MakeBackInsertFunctor(m_tokens), delims);
   }
 
   static_assert(kMaxNumTokens > 0, "");
