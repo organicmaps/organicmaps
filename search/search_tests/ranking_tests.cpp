@@ -87,6 +87,10 @@ UNIT_TEST(NameScore_Smoke)
   test("Barnes & Noble", "barne & noble", NameScore::FULL_MATCH, 1, 10);
   test("Barnes Avenue", "barne ", NameScore::FULL_PREFIX, 1, 5);
   test("Barnes Avenue", "barne & noble", NameScore::SUBSTRING, 1, 5);
+
+  test("Barnes Avenue", "barne's & noble", NameScore::SUBSTRING, 0, 6);
+  test("Barnes & Noble", "barne's & noble", NameScore::FULL_MATCH, 0, 11);
+  test("Barne's & Noble", "barnes & noble", NameScore::FULL_MATCH, 0, 11);
 }
 
 UNIT_TEST(NameScore_SubstringVsErrors)

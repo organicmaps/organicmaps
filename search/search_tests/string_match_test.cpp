@@ -43,7 +43,7 @@ uint32_t PrefixMatchCost(char const * a, char const * b)
 
 void TestEqual(vector<UniString> const & v, base::StringIL const & expected)
 {
-  TEST_EQUAL(v.size(), expected.size(), ());
+  TEST_EQUAL(v.size(), expected.size(), (expected));
 
   size_t i = 0;
   for (auto const & e : expected)
@@ -106,7 +106,15 @@ UNIT_TEST(StringSplit_Smoke)
 {
   TestEqual(NormalizeAndTokenizeString("1/2"), { "1", "2" });
   TestEqual(NormalizeAndTokenizeString("xxx-yyy"), { "xxx", "yyy" });
-  TestEqual(NormalizeAndTokenizeString("Barne's & Noble"), { "barne", "s", "noble" });
+}
+
+UNIT_TEST(StringSplit_Apostrophe)
+{
+  TestEqual(NormalizeAndTokenizeString("Barne's & Noble"), { "barnes", "noble" });
+  TestEqual(NormalizeAndTokenizeString("Michael's"), { "michaels" });
+  TestEqual(NormalizeAndTokenizeString("'s"), { "s" });
+  TestEqual(NormalizeAndTokenizeString("xyz'"), { "xyz" });
+  TestEqual(NormalizeAndTokenizeString("'''"), { });
 }
 
 } // namespace string_match_test
