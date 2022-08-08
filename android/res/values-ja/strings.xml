@@ -1494,6 +1494,12 @@
 	<string name="type.sport.volleyball">バレーボール</string>
 	<string name="type.sport.9pin">ボウリング</string>
 	<string name="type.sport.10pin">ボウリング</string>
+	<string name="type.sport.padel">パデル</string>
+	<string name="type.sport.futsal">フットサル</string>
+	<string name="type.sport.ice_hockey">アイスホッケー</string>
+	<string name="type.sport.field_hockey">フィールドホッケー</string>
+	<string name="type.sport.badminton">バドミントン</string>
+	<string name="type.sport.pelota">バスクペロタ</string>
 	<string name="type.tourism">観光</string>
 	<string name="type.tourism.alpine_hut">山小屋</string>
 	<string name="type.tourism.apartment">アパート</string>

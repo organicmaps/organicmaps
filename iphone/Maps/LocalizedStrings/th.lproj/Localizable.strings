@@ -2971,6 +2971,18 @@
 
 "type.sport.10pin" = "โบว์ลิ่ง";
 
+"type.sport.padel" = "พาเดล";
+
+"type.sport.futsal" = "ฟุตซอล";
+
+"type.sport.ice_hockey" = "ฮอคกี้น้ำแข็ง";
+
+"type.sport.field_hockey" = "กีฬาฮอกกี้";
+
+"type.sport.badminton" = "แบดมินตัน";
+
+"type.sport.pelota" = "Basque pelota";
+
 "type.tourism" = "Tourism";
 
 "type.tourism.alpine_hut" = "ที่พักบนภูเขาโรงแรม";

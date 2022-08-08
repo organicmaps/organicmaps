@@ -1450,6 +1450,12 @@
 	<string name="type.sport.volleyball">Voleibol</string>
 	<string name="type.sport.9pin">Bowling</string>
 	<string name="type.sport.10pin">Bowling</string>
+	<string name="type.sport.padel">Pádel</string>
+	<string name="type.sport.futsal">Futsal</string>
+	<string name="type.sport.ice_hockey">Hockey sobre hielo</string>
+	<string name="type.sport.field_hockey">Hockey sobre césped</string>
+	<string name="type.sport.badminton">Bádminton</string>
+	<string name="type.sport.pelota">Pelota vasca</string>
 	<string name="type.tourism">Turismo</string>
 	<string name="type.tourism.alpine_hut">Cabaña</string>
 	<string name="type.tourism.apartment">Apartamentos</string>

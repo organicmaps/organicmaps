@@ -1472,6 +1472,12 @@
 	<string name="type.sport.volleyball">Piłka siatkowa</string>
 	<string name="type.sport.9pin">Bowling</string>
 	<string name="type.sport.10pin">Bowling</string>
+	<string name="type.sport.padel">Padel</string>
+	<string name="type.sport.futsal">Futsal</string>
+	<string name="type.sport.ice_hockey">Hokej na lodzie</string>
+	<string name="type.sport.field_hockey">Hokej na trawie</string>
+	<string name="type.sport.badminton">Badminton</string>
+	<string name="type.sport.pelota">Pelota baskijska</string>
 	<string name="type.tourism">Turystyka</string>
 	<string name="type.tourism.alpine_hut">Schronisko górskie</string>
 	<string name="type.tourism.apartment">Apartamenty</string>

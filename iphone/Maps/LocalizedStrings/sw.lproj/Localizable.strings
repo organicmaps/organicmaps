@@ -2971,6 +2971,18 @@
 
 "type.sport.10pin" = "Bowling";
 
+"type.sport.padel" = "Padel";
+
+"type.sport.futsal" = "Futsal";
+
+"type.sport.ice_hockey" = "Hoki ya barafu";
+
+"type.sport.field_hockey" = "Hoki ya shamba";
+
+"type.sport.badminton" = "Badminton";
+
+"type.sport.pelota" = "Basque pelota";
+
 "type.tourism" = "Tourism";
 
 "type.tourism.alpine_hut" = "Mountains Lodging";

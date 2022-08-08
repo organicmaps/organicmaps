@@ -833,6 +833,12 @@
 	<string name="type.sport.volleyball">Волейбол</string>
 	<string name="type.sport.9pin">Боулинг</string>
 	<string name="type.sport.10pin">Боулинг</string>
+	<string name="type.sport.padel">Падел</string>
+	<string name="type.sport.futsal">Футзал</string>
+	<string name="type.sport.ice_hockey">Хокей на лед</string>
+	<string name="type.sport.field_hockey">Хокей на трева</string>
+	<string name="type.sport.badminton">Бадминтон</string>
+	<string name="type.sport.pelota">Баска пелота</string>
 	<string name="type.tourism.information">Туринформация</string>
 	<string name="type.tourism.information.board">Информационен щит</string>
 	<string name="type.tourism.information.guidepost">Пътеводител</string>

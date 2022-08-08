@@ -2971,6 +2971,18 @@
 
 "type.sport.10pin" = "Bowling";
 
+"type.sport.padel" = "Padel";
+
+"type.sport.futsal" = "Futsal";
+
+"type.sport.ice_hockey" = "Khúc côn cầu trên băng";
+
+"type.sport.field_hockey" = "Khúc côn cầu";
+
+"type.sport.badminton" = "Cầu lông";
+
+"type.sport.pelota" = "Pơ mu Basque";
+
 "type.tourism" = "Tourism";
 
 "type.tourism.alpine_hut" = "Nhà ở trên núi";

@@ -1262,6 +1262,12 @@
 	<string name="type.sport.volleyball">والیبال</string>
 	<string name="type.sport.9pin">بولینگ</string>
 	<string name="type.sport.10pin">بولینگ</string>
+	<string name="type.sport.padel">ﻝﺩﺎﭘ</string>
+	<string name="type.sport.futsal">ﻝﺎﺴﺗﻮﻓ</string>
+	<string name="type.sport.ice_hockey">ﺦﯾ ﯼﻭﺭ ﯽﮐﺎﻫ</string>
+	<string name="type.sport.field_hockey">ﻦﻤﭼ ﯼﻭﺭ ﯽﮐﺎﻫ</string>
+	<string name="type.sport.badminton">ﻥﻮﺘﻨﯿﻣﺪﺑ</string>
+	<string name="type.sport.pelota">ﯽﮑﺳﺎﺑ ﯼﺎﺗﻮﻠﭘ</string>
 	<string name="type.tourism.apartment">اپارتمان</string>
 	<string name="type.tourism.artwork">گردشگری</string>
 	<string name="type.tourism.artwork.architecture">گردشگری</string>

@@ -1350,6 +1350,12 @@
 	<string name="type.sport.volleyball">Röplabda</string>
 	<string name="type.sport.9pin">Bowling</string>
 	<string name="type.sport.10pin">Bowling</string>
+	<string name="type.sport.padel">Padel</string>
+	<string name="type.sport.futsal">Futsal</string>
+	<string name="type.sport.ice_hockey">Jéghoki</string>
+	<string name="type.sport.field_hockey">Gyeplabda</string>
+	<string name="type.sport.badminton">Tollaslabda</string>
+	<string name="type.sport.pelota">Baszk pelota</string>
 	<string name="type.tourism.alpine_hut">Hegyi menedék</string>
 	<string name="type.tourism.apartment">Apartmanok</string>
 	<string name="type.tourism.artwork">Szobor</string>

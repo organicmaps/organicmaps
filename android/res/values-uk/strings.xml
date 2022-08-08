@@ -1569,6 +1569,12 @@
 	<string name="type.sport.volleyball">Волейбол</string>
 	<string name="type.sport.9pin">Боулінг</string>
 	<string name="type.sport.10pin">Боулінг</string>
+	<string name="type.sport.padel">Падель</string>
+	<string name="type.sport.futsal">Футзал</string>
+	<string name="type.sport.ice_hockey">Хокей із шайбою</string>
+	<string name="type.sport.field_hockey">Хокей на траві</string>
+	<string name="type.sport.badminton">Бадмінтон</string>
+	<string name="type.sport.pelota">Баскська пелота</string>
 	<string name="type.tourism">Туризм</string>
 	<string name="type.tourism.alpine_hut">Гірський готель</string>
 	<string name="type.tourism.apartment">Апартаменти</string>

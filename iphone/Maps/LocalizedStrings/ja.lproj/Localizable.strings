@@ -2971,6 +2971,18 @@
 
 "type.sport.10pin" = "ボウリング";
 
+"type.sport.padel" = "パデル";
+
+"type.sport.futsal" = "フットサル";
+
+"type.sport.ice_hockey" = "アイスホッケー";
+
+"type.sport.field_hockey" = "フィールドホッケー";
+
+"type.sport.badminton" = "バドミントン";
+
+"type.sport.pelota" = "バスクペロタ";
+
 "type.tourism" = "観光";
 
 "type.tourism.alpine_hut" = "山小屋";

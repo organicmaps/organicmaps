@@ -1365,6 +1365,12 @@
 	<string name="type.sport.volleyball">Volei</string>
 	<string name="type.sport.9pin">Bowling</string>
 	<string name="type.sport.10pin">Bowling</string>
+	<string name="type.sport.padel">Padel</string>
+	<string name="type.sport.futsal">Futsal</string>
+	<string name="type.sport.ice_hockey">Hochei pe gheata</string>
+	<string name="type.sport.field_hockey">Hochei pe iarbă</string>
+	<string name="type.sport.badminton">Badminton</string>
+	<string name="type.sport.pelota">Pilota bascilor</string>
 	<string name="type.tourism.alpine_hut">Cabană de munte</string>
 	<string name="type.tourism.apartment">Apartamente</string>
 	<string name="type.tourism.artwork">Turism</string>

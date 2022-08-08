@@ -2971,6 +2971,18 @@
 
 "type.sport.10pin" = "بولینگ";
 
+"type.sport.padel" = "ﻝﺩﺎﭘ";
+
+"type.sport.futsal" = "ﻝﺎﺴﺗﻮﻓ";
+
+"type.sport.ice_hockey" = "ﺦﯾ ﯼﻭﺭ ﯽﮐﺎﻫ";
+
+"type.sport.field_hockey" = "ﻦﻤﭼ ﯼﻭﺭ ﯽﮐﺎﻫ";
+
+"type.sport.badminton" = "ﻥﻮﺘﻨﯿﻣﺪﺑ";
+
+"type.sport.pelota" = "ﯽﮑﺳﺎﺑ ﯼﺎﺗﻮﻠﭘ";
+
 "type.tourism" = "Tourism";
 
 "type.tourism.alpine_hut" = "Mountains Lodging";
