@@ -224,6 +224,23 @@ UNIT_CLASS_TEST(MwmTestsFixture, London_Asda)
   TEST_LESS(dist, 2000, ());
 }
 
+// https://github.com/organicmaps/organicmaps/issues/3103
+UNIT_CLASS_TEST(MwmTestsFixture, Lyon_Aldi)
+{
+  // Lyon
+  ms::LatLon const center(45.7578137, 4.8320114);
+  SetViewportAndLoadMaps(center);
+
+  auto request = MakeRequest("aldi");
+  auto const & results = request->Results();
+  TEST_GREATER(results.size(), kTopPoiResultsCount, ());
+
+  Range const range(results);
+  EqualClassifType(range, GetClassifTypes({{"shop", "supermarket"}}));
+  double const dist = SortedByDistance(range, center);
+  TEST_LESS(dist, 4000, ());
+}
+
 // https://github.com/organicmaps/organicmaps/issues/2470
 UNIT_CLASS_TEST(MwmTestsFixture, Hamburg_Park)
 {
