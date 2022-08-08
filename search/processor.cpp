@@ -257,27 +257,24 @@ void Processor::SetQuery(string const & query, bool categorialRequest /* = false
 
   search::Delimiters delims;
   {
-    QueryTokens subTokens;
     for (auto const & token : tokens)
     {
       size_t numHashes = 0;
       for (; numHashes < token.size() && token[numHashes] == '#'; ++numHashes)
         ;
 
-      // Splits |token| by hashtags, because all other delimiters are
-      // already removed.
-      subTokens.clear();
-      SplitUniString(token, base::MakeBackInsertFunctor(subTokens), delims);
-      if (subTokens.empty())
-        continue;
-
-      if (numHashes == 1)
-        m_tokens.push_back(strings::MakeUniString("#") + subTokens[0]);
-      else
-        m_tokens.emplace_back(move(subTokens[0]));
-
-      for (size_t i = 1; i < subTokens.size(); ++i)
-        m_tokens.push_back(move(subTokens[i]));
+      // Splits |token| by hashtags, because all other delimiters are already removed.
+      bool isFirst = true;
+      SplitUniString(token, [this, &isFirst, numHashes](strings::UniString && token)
+      {
+        if (isFirst && numHashes == 1)
+        {
+          m_tokens.push_back(strings::MakeUniString("#") + token);
+          isFirst = false;
+        }
+        else
+          m_tokens.push_back(move(token));
+      }, delims);
     }
   }
 

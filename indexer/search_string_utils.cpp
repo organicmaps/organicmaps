@@ -1,13 +1,10 @@
 #include "indexer/search_string_utils.hpp"
 
-#include "indexer/string_set.hpp"
 #include "indexer/transliteration_loader.hpp"
 
 #include "coding/transliteration.hpp"
 
-#include "base/assert.hpp"
 #include "base/dfa_helpers.hpp"
-#include "base/macros.hpp"
 #include "base/mem_trie.hpp"
 
 #include <algorithm>
@@ -17,11 +14,11 @@
 
 #include "3party/utfcpp/source/utf8/unchecked.h"
 
+namespace search
+{
 using namespace std;
 using namespace strings;
 
-namespace search
-{
 namespace
 {
 vector<strings::UniString> const kAllowedMisprints = {
@@ -219,6 +216,22 @@ UniString FeatureTypeToString(uint32_t type)
 {
   string const s = "!type:" + to_string(type);
   return UniString(s.begin(), s.end());
+}
+
+std::vector<strings::UniString> NormalizeAndTokenizeString(std::string_view s)
+{
+  std::vector<strings::UniString> tokens;
+  ForEachNormalizedToken(s, base::MakeBackInsertFunctor(tokens));
+  return tokens;
+}
+
+bool TokenizeStringAndCheckIfLastTokenIsPrefix(std::string_view s, std::vector<strings::UniString> & tokens)
+{
+  auto const uniString = NormalizeAndSimplifyString(s);
+
+  Delimiters delims;
+  SplitUniString(uniString, base::MakeBackInsertFunctor(tokens), delims);
+  return !uniString.empty() && !delims(uniString.back());
 }
 
 namespace

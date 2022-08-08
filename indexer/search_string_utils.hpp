@@ -30,65 +30,22 @@ void PreprocessBeforeTokenization(strings::UniString & query);
 template <class Delims, typename Fn>
 void SplitUniString(strings::UniString const & uniS, Fn && f, Delims const & delims)
 {
-  /// @todo Make string_view analog for strings::UniString.
-
   using namespace strings;
   TokenizeIterator<Delims, UniString::const_iterator> iter(uniS.begin(), uniS.end(), delims);
   for (; iter; ++iter)
     f(iter.GetUniString());
 }
 
-template <typename Tokens, typename Delims>
-void NormalizeAndTokenizeString(std::string_view s, Tokens & tokens, Delims const & delims)
+template <class FnT>
+void ForEachNormalizedToken(std::string_view s, FnT && fn)
 {
-  SplitUniString(NormalizeAndSimplifyString(s), ::base::MakeBackInsertFunctor(tokens), delims);
+  SplitUniString(NormalizeAndSimplifyString(s), fn, Delimiters());
 }
 
-template <typename Tokens>
-void NormalizeAndTokenizeString(std::string_view s, Tokens & tokens)
-{
-  SplitUniString(NormalizeAndSimplifyString(s), ::base::MakeBackInsertFunctor(tokens),
-                 search::Delimiters());
-}
-
-template <typename Tokens>
-void NormalizeAndTokenizeAsUtf8(std::string_view s, Tokens & tokens)
-{
-  tokens.clear();
-  auto const fn = [&](strings::UniString const & s) { tokens.emplace_back(strings::ToUtf8(s)); };
-  SplitUniString(NormalizeAndSimplifyString(s), fn, search::Delimiters());
-}
-
-inline std::vector<std::string> NormalizeAndTokenizeAsUtf8(std::string_view s)
-{
-  std::vector<std::string> result;
-  NormalizeAndTokenizeAsUtf8(s, result);
-  return result;
-}
-
-template <typename Fn>
-void ForEachNormalizedToken(std::string const & s, Fn && fn)
-{
-  SplitUniString(NormalizeAndSimplifyString(s), std::forward<Fn>(fn), search::Delimiters());
-}
+std::vector<strings::UniString> NormalizeAndTokenizeString(std::string_view s);
+bool TokenizeStringAndCheckIfLastTokenIsPrefix(std::string_view s, std::vector<strings::UniString> & tokens);
 
 strings::UniString FeatureTypeToString(uint32_t type);
-
-template <class Tokens, class Delims>
-bool TokenizeStringAndCheckIfLastTokenIsPrefix(strings::UniString const & s,
-                                               Tokens & tokens,
-                                               Delims const & delims)
-{
-  SplitUniString(s, ::base::MakeBackInsertFunctor(tokens), delims);
-  return !s.empty() && !delims(s.back());
-}
-
-template <class Tokens, class Delims>
-bool TokenizeStringAndCheckIfLastTokenIsPrefix(std::string_view sv, Tokens & tokens,
-                                               Delims const & delims)
-{
-  return TokenizeStringAndCheckIfLastTokenIsPrefix(NormalizeAndSimplifyString(sv), tokens, delims);
-}
 
 // Chops off the last query token (the "prefix" one) from |str|.
 std::string DropLastToken(std::string const & str);

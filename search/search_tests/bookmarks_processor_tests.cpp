@@ -7,7 +7,6 @@
 #include "search/emitter.hpp"
 
 #include "indexer/classificator.hpp"
-#include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
 
 #include "base/cancellable.hpp"
@@ -16,12 +15,12 @@
 #include <string>
 #include <vector>
 
+namespace bookmarks_processor_tests
+{
 using namespace search::bookmarks;
 using namespace search;
 using namespace std;
 
-namespace
-{
 using Ids = vector<Id>;
 
 string const kLocale = "en";
@@ -59,8 +58,7 @@ public:
     m_emitter.Init([](::search::Results const & /* results */) {} /* onResults */);
 
     vector<strings::UniString> tokens;
-    auto const isPrefix =
-        TokenizeStringAndCheckIfLastTokenIsPrefix(query, tokens, search::Delimiters());
+    auto const isPrefix = TokenizeStringAndCheckIfLastTokenIsPrefix(query, tokens);
 
     Processor::Params params;
     params.Init(query, tokens, isPrefix);
@@ -208,4 +206,5 @@ UNIT_CLASS_TEST(BookmarksProcessorTest, IndexDescriptions)
   TEST_EQUAL(Search("diner"), Ids{}, ());
   TEST_EQUAL(Search("cherry pie"), Ids{}, ());
 }
-}  // namespace
+
+} // namespace bookmarks_processor_tests

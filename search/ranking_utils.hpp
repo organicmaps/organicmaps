@@ -298,8 +298,6 @@ NameScores GetNameScores(std::vector<strings::UniString> const & tokens, uint8_t
 template <typename Slice>
 NameScores GetNameScores(std::string_view name, uint8_t lang, Slice const & slice)
 {
-  std::vector<strings::UniString> tokens;
-  SplitUniString(NormalizeAndSimplifyString(name), base::MakeBackInsertFunctor(tokens), Delimiters());
-  return GetNameScores(tokens, lang, slice);
+  return GetNameScores(NormalizeAndTokenizeString(name), lang, slice);
 }
 }  // namespace search
