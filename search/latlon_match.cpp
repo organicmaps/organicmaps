@@ -16,7 +16,7 @@ using namespace std;
 namespace
 {
 string const kSpaces = " \t";
-string const kCharsToSkip = " \t,;:.()";
+string const kCharsToSkip = " \n\t,;:.()";
 string const kDecimalMarks = ".,";
 
 bool IsDecimalMark(char c)
