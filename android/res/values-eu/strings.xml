@@ -1415,6 +1415,12 @@
 	<string name="type.sport.volleyball">Boleibol</string>
 	<string name="type.sport.9pin">Bowling</string>
 	<string name="type.sport.10pin">Bowling</string>
+	<string name="type.sport.padel">Padel</string>
+	<string name="type.sport.futsal">Areto-futbola</string>
+	<string name="type.sport.ice_hockey">Izotz hockey</string>
+	<string name="type.sport.field_hockey">Belar hockey</string>
+	<string name="type.sport.badminton">Badminton</string>
+	<string name="type.sport.pelota">Eusko pilota</string>
 	<string name="type.tourism">Turismoa</string>
 	<string name="type.tourism.alpine_hut">Kabina</string>
 	<string name="type.tourism.apartment">Apartamentuak</string>

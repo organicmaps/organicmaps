@@ -2971,6 +2971,18 @@
 
 "type.sport.10pin" = "Μπόουλινγκ";
 
+"type.sport.padel" = "Padel";
+
+"type.sport.futsal" = "Futsal";
+
+"type.sport.ice_hockey" = "Χόκεϊ στον παγο";
+
+"type.sport.field_hockey" = "Χόκεϊ επί χόρτου";
+
+"type.sport.badminton" = "Αντιπτέριση";
+
+"type.sport.pelota" = "Βασκική πελότα";
+
 "type.tourism" = "Tourism";
 
 "type.tourism.alpine_hut" = "Ορεινό καταφύγιο";

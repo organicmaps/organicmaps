@@ -1353,6 +1353,12 @@
 	<string name="type.sport.volleyball">배구</string>
 	<string name="type.sport.9pin">볼링</string>
 	<string name="type.sport.10pin">볼링</string>
+	<string name="type.sport.padel">파델</string>
+	<string name="type.sport.futsal">풋살</string>
+	<string name="type.sport.ice_hockey">아이스 하키</string>
+	<string name="type.sport.field_hockey">필드 하키</string>
+	<string name="type.sport.badminton">배드민턴</string>
+	<string name="type.sport.pelota">바스크 펠로타</string>
 	<string name="type.tourism.alpine_hut">고산 오두막</string>
 	<string name="type.tourism.apartment">아파트</string>
 	<string name="type.tourism.artwork">작품</string>

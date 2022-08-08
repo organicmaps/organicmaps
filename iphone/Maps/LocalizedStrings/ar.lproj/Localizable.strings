@@ -2971,6 +2971,18 @@
 
 "type.sport.10pin" = "بولينج بعشرة دبابيس";
 
+"type.sport.padel" = "ﻞﻳﺩﺎﺑ";
+
+"type.sport.futsal" = "كرة الصالات";
+
+"type.sport.ice_hockey" = "هوكي الجليد";
+
+"type.sport.field_hockey" = "ﻥﺍﺪﻴﻤﻟﺍ ﻲﻛﻮﻫ";
+
+"type.sport.badminton" = "ﺔﺸﻳﺮﻟﺍ ﺲﻨﺗ";
+
+"type.sport.pelota" = "ﻚﺳﺎﺒﻟﺍ ﺎﺗﻮﻠﻴﺑ";
+
 "type.tourism" = "Tourism";
 
 "type.tourism.alpine_hut" = "مساكن جبلية";

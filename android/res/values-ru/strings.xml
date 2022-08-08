@@ -1613,6 +1613,12 @@
 	<string name="type.sport.volleyball">Волейбол</string>
 	<string name="type.sport.9pin">Боулинг</string>
 	<string name="type.sport.10pin">Боулинг</string>
+	<string name="type.sport.padel">Падель</string>
+	<string name="type.sport.futsal">Футзал</string>
+	<string name="type.sport.ice_hockey">Хоккей с шайбой</string>
+	<string name="type.sport.field_hockey">Хоккей на траве</string>
+	<string name="type.sport.badminton">Бадминтон</string>
+	<string name="type.sport.pelota">Баскская пелота</string>
 	<string name="type.tourism">Туризм</string>
 	<string name="type.tourism.alpine_hut">Горный отель</string>
 	<string name="type.tourism.apartment">Апартаменты</string>

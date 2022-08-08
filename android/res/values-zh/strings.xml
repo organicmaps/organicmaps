@@ -1499,6 +1499,12 @@
 	<string name="type.sport.volleyball">排球</string>
 	<string name="type.sport.9pin">保龄球</string>
 	<string name="type.sport.10pin">保龄球</string>
+	<string name="type.sport.padel">帕德尔</string>
+	<string name="type.sport.futsal">五人制足球</string>
+	<string name="type.sport.ice_hockey">冰球</string>
+	<string name="type.sport.field_hockey">曲棍球</string>
+	<string name="type.sport.badminton">羽毛球</string>
+	<string name="type.sport.pelota">巴斯克回力球</string>
 	<string name="type.tourism">旅游要素</string>
 	<string name="type.tourism.alpine_hut">山上住宿</string>
 	<string name="type.tourism.apartment">公寓</string>

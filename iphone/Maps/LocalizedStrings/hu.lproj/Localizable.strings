@@ -2971,6 +2971,18 @@
 
 "type.sport.10pin" = "Bowling";
 
+"type.sport.padel" = "Padel";
+
+"type.sport.futsal" = "Futsal";
+
+"type.sport.ice_hockey" = "Jéghoki";
+
+"type.sport.field_hockey" = "Gyeplabda";
+
+"type.sport.badminton" = "Tollaslabda";
+
+"type.sport.pelota" = "Baszk pelota";
+
 "type.tourism" = "Tourism";
 
 "type.tourism.alpine_hut" = "Hegyi menedék";

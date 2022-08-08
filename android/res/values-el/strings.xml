@@ -1353,6 +1353,12 @@
 	<string name="type.sport.volleyball">Πετοσφαίριση</string>
 	<string name="type.sport.9pin">Μπόουλινγκ</string>
 	<string name="type.sport.10pin">Μπόουλινγκ</string>
+	<string name="type.sport.padel">Padel</string>
+	<string name="type.sport.futsal">Futsal</string>
+	<string name="type.sport.ice_hockey">Χόκεϊ στον παγο</string>
+	<string name="type.sport.field_hockey">Χόκεϊ επί χόρτου</string>
+	<string name="type.sport.badminton">Αντιπτέριση</string>
+	<string name="type.sport.pelota">Βασκική πελότα</string>
 	<string name="type.tourism.alpine_hut">Ορεινό καταφύγιο</string>
 	<string name="type.tourism.apartment">Διαμερίσματα</string>
 	<string name="type.tourism.artwork">Έργα τέχνης</string>

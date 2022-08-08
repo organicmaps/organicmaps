@@ -2971,6 +2971,18 @@
 
 "type.sport.10pin" = "Bowling";
 
+"type.sport.padel" = "Pádel";
+
+"type.sport.futsal" = "Futsal";
+
+"type.sport.ice_hockey" = "Hockey sobre hielo";
+
+"type.sport.field_hockey" = "Hockey sobre césped";
+
+"type.sport.badminton" = "Bádminton";
+
+"type.sport.pelota" = "Pelota vasca";
+
 "type.tourism" = "Turismo";
 
 "type.tourism.alpine_hut" = "Cabaña";

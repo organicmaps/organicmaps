@@ -1351,6 +1351,12 @@
 	<string name="type.sport.volleyball">Bóng chuyền</string>
 	<string name="type.sport.9pin">Bowling</string>
 	<string name="type.sport.10pin">Bowling</string>
+	<string name="type.sport.padel">Padel</string>
+	<string name="type.sport.futsal">Futsal</string>
+	<string name="type.sport.ice_hockey">Khúc côn cầu trên băng</string>
+	<string name="type.sport.field_hockey">Khúc côn cầu</string>
+	<string name="type.sport.badminton">Cầu lông</string>
+	<string name="type.sport.pelota">Pơ mu Basque</string>
 	<string name="type.tourism.alpine_hut">Nhà ở trên núi</string>
 	<string name="type.tourism.apartment">Căn hộ</string>
 	<string name="type.tourism.artwork">Du lịch</string>

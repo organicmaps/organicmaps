@@ -2971,6 +2971,18 @@
 
 "type.sport.10pin" = "Боулинг";
 
+"type.sport.padel" = "Падель";
+
+"type.sport.futsal" = "Футзал";
+
+"type.sport.ice_hockey" = "Хоккей с шайбой";
+
+"type.sport.field_hockey" = "Хоккей на траве";
+
+"type.sport.badminton" = "Бадминтон";
+
+"type.sport.pelota" = "Баскская пелота";
+
 "type.tourism" = "Туризм";
 
 "type.tourism.alpine_hut" = "Горный отель";

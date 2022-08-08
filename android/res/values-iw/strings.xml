@@ -506,6 +506,12 @@
 	<string name="type.sport.volleyball">כדורעף</string>
 	<string name="type.sport.9pin">בָּאוּלִינְג</string>
 	<string name="type.sport.10pin">בָּאוּלִינְג</string>
+	<string name="type.sport.padel">לדאפ</string>
+	<string name="type.sport.futsal">לסטופ</string>
+	<string name="type.sport.ice_hockey">חרק יקוה</string>
+	<string name="type.sport.field_hockey">הדש יקוה</string>
+	<string name="type.sport.badminton">תיצונ</string>
+	<string name="type.sport.pelota">תיקסאב הטלפ</string>
 	<string name="type.tourism.information">מידע לתייר</string>
 	<string name="type.tourism.information.board">לוח מידע</string>
 	<string name="type.tourism.information.guidepost">מנחה</string>

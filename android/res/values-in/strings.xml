@@ -1342,6 +1342,12 @@
 	<string name="type.sport.volleyball">Bola voli</string>
 	<string name="type.sport.9pin">Boling</string>
 	<string name="type.sport.10pin">Boling</string>
+	<string name="type.sport.padel">Padel</string>
+	<string name="type.sport.futsal">Futsal</string>
+	<string name="type.sport.ice_hockey">Hoki es</string>
+	<string name="type.sport.field_hockey">Hoki Lapangan</string>
+	<string name="type.sport.badminton">Bulu tangkis</string>
+	<string name="type.sport.pelota">Basque pelota</string>
 	<string name="type.tourism.alpine_hut">Penginapan di pegunungan</string>
 	<string name="type.tourism.apartment">Apartemen</string>
 	<string name="type.tourism.artwork">Pariwisata</string>

@@ -1366,6 +1366,12 @@
 	<string name="type.sport.volleyball">Lentopallo</string>
 	<string name="type.sport.9pin">Keilailu</string>
 	<string name="type.sport.10pin">Keilailu</string>
+	<string name="type.sport.padel">Padel</string>
+	<string name="type.sport.futsal">Futsal</string>
+	<string name="type.sport.ice_hockey">Jääkiekko</string>
+	<string name="type.sport.field_hockey">Maahockey</string>
+	<string name="type.sport.badminton">Sulkapallo</string>
+	<string name="type.sport.pelota">Baskimaan pelota</string>
 	<string name="type.tourism">Turismi</string>
 	<string name="type.tourism.alpine_hut">Vuorimajoitus</string>
 	<string name="type.tourism.apartment">Loma-asunnot</string>

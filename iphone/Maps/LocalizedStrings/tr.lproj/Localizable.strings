@@ -2971,6 +2971,18 @@
 
 "type.sport.10pin" = "Bowling";
 
+"type.sport.padel" = "Padel";
+
+"type.sport.futsal" = "Futsal";
+
+"type.sport.ice_hockey" = "Buz Hokeyi";
+
+"type.sport.field_hockey" = "Çim Hokeyi";
+
+"type.sport.badminton" = "Badminton";
+
+"type.sport.pelota" = "Bask pelotası";
+
 "type.tourism" = "Turizm";
 
 "type.tourism.alpine_hut" = "Dağda Konaklama";

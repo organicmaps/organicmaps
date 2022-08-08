@@ -2971,6 +2971,18 @@
 
 "type.sport.10pin" = "볼링";
 
+"type.sport.padel" = "파델";
+
+"type.sport.futsal" = "풋살";
+
+"type.sport.ice_hockey" = "아이스 하키";
+
+"type.sport.field_hockey" = "필드 하키";
+
+"type.sport.badminton" = "배드민턴";
+
+"type.sport.pelota" = "바스크 펠로타";
+
 "type.tourism" = "Tourism";
 
 "type.tourism.alpine_hut" = "고산 오두막";

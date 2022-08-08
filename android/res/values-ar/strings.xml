@@ -1406,6 +1406,12 @@
 	<string name="type.sport.volleyball">كرة الطائرة</string>
 	<string name="type.sport.9pin">بولينج بعشرة دبابيس</string>
 	<string name="type.sport.10pin">بولينج بعشرة دبابيس</string>
+	<string name="type.sport.padel">ﻞﻳﺩﺎﺑ</string>
+	<string name="type.sport.futsal">كرة الصالات</string>
+	<string name="type.sport.ice_hockey">هوكي الجليد</string>
+	<string name="type.sport.field_hockey">ﻥﺍﺪﻴﻤﻟﺍ ﻲﻛﻮﻫ</string>
+	<string name="type.sport.badminton">ﺔﺸﻳﺮﻟﺍ ﺲﻨﺗ</string>
+	<string name="type.sport.pelota">ﻚﺳﺎﺒﻟﺍ ﺎﺗﻮﻠﻴﺑ</string>
 	<string name="type.tourism.alpine_hut">مساكن جبلية</string>
 	<string name="type.tourism.apartment">شُقَق</string>
 	<string name="type.tourism.artwork">عمل فني</string>

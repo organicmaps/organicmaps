@@ -450,6 +450,12 @@
 	<string name="type.sport.volleyball">Voliboli</string>
 	<string name="type.sport.9pin">Bowling</string>
 	<string name="type.sport.10pin">Bowling</string>
+	<string name="type.sport.padel">Padel</string>
+	<string name="type.sport.futsal">Futsal</string>
+	<string name="type.sport.ice_hockey">Hoki ya barafu</string>
+	<string name="type.sport.field_hockey">Hoki ya shamba</string>
+	<string name="type.sport.badminton">Badminton</string>
+	<string name="type.sport.pelota">Basque pelota</string>
 	<string name="type.tourism.information">Taarifa za Watalii</string>
 	<string name="type.tourism.information.board">Bodi ya habari</string>
 	<string name="type.tourism.information.guidepost">Chapisho la mwongozo</string>
