@@ -32,31 +32,6 @@ vector<strings::UniString> const kAllowedMisprints = {
     strings::MakeUniString("шщ"),
 };
 
-// Replaces '#' followed by an end-of-string or a digit with space.
-void RemoveNumeroSigns(UniString & s)
-{
-  size_t const n = s.size();
-
-  size_t i = 0;
-  while (i < n)
-  {
-    if (s[i] != '#')
-    {
-      ++i;
-      continue;
-    }
-
-    size_t j = i + 1;
-    while (j < n && IsASCIISpace(s[j]))
-      ++j;
-
-    if (j == n || IsASCIIDigit(s[j]))
-      s[i] = ' ';
-
-    i = j;
-  }
-}
-
 void TransliterateHiraganaToKatakana(UniString & s)
 {
   // Transliteration is heavy. Check we have any hiragana symbol before transliteration.
@@ -147,17 +122,18 @@ UniString NormalizeAndSimplifyString(string_view s)
   TransliterateHiraganaToKatakana(uniString);
 
   // Remove accents that can appear after NFKD normalization.
-  uniString.erase_if([](UniChar const & c) {
+  uniString.erase_if([](UniChar const & c)
+  {
     // ̀  COMBINING GRAVE ACCENT
     // ́  COMBINING ACUTE ACCENT
     return (c == 0x0300 || c == 0x0301);
   });
 
-  RemoveNumeroSigns(uniString);
-
   // Replace sequence of spaces with single one.
-  auto const spacesChecker = [](UniChar lhs, UniChar rhs) { return (lhs == rhs) && (lhs == ' '); };
-  uniString.erase(unique(uniString.begin(), uniString.end(), spacesChecker), uniString.end());
+  uniString.erase(unique(uniString.begin(), uniString.end(), [](UniChar l, UniChar r)
+  {
+    return (l == r && l == ' ');
+  }), uniString.end());
 
   return uniString;
 
