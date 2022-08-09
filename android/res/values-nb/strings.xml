@@ -502,7 +502,7 @@
 	<string name="on">På</string>
 	<string name="off">Av</string>
 	<string name="prefs_languages_information">Vi bruker system TTS for stemmeveiledning. Mange Android-enheter bruker Google TTS, Du kan laste ned eller oppdatere via Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">For enkelte språk er det nødvendig å installere en annen talesyntese eller en ekstra språkpakke fra appbutikken (Google Play, Samsung Apps, App Gallery, FDroid).\nGå til enhetens innstillinger → Språk og input → Tale → Tekst til tale output.\nHer kan du administrere innstillingene for talesyntese (for eksempel laste ned språkpakke for offline bruk) og velge en annen tekst-til-tale-motor.</string>
+	<string name="prefs_languages_information_off">For enkelte språk er det nødvendig å installere en annen talesyntese eller en ekstra språkpakke fra appbutikken (Google Play, Galaxy Store, App Gallery, FDroid).\nGå til enhetens innstillinger → Språk og input → Tale → Tekst til tale output.\nHer kan du administrere innstillingene for talesyntese (for eksempel laste ned språkpakke for offline bruk) og velge en annen tekst-til-tale-motor.</string>
 	<string name="prefs_languages_information_off_link">Les denne veiledningen for mer informasjon.</string>
 	<string name="transliteration_title">Omskrivning til latin</string>
 	<string name="learn_more">Finn ut mer</string>
@@ -1176,9 +1176,13 @@
 	<string name="type.place.hamlet">Landsby</string>
 	<string name="type.place.island">Øy</string>
 	<string name="type.place.islet">Øy</string>
+	<string name="type.place.isolated_dwelling">Isolert bolig</string>
 	<string name="type.place.locality">Lokalitet</string>
+	<string name="type.place.neighbourhood">Strøk</string>
 	<string name="type.place.ocean">Hav</string>
+	<string name="type.place.region">Region</string>
 	<string name="type.place.sea">Sjø</string>
+	<string name="type.place.square">Torg</string>
 	<string name="type.place.state">Stat</string>
 	<string name="type.place.state.USA">Stat</string>
 	<string name="type.place.suburb">Forstad</string>

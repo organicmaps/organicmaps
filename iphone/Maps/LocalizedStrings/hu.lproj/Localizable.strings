@@ -2468,8 +2468,6 @@
 
 "type.organic.yes" = "Organic";
 
-"type.place" = "place";
-
 "type.place.city" = "Város";
 
 "type.place.city.capital" = "Főváros";
@@ -2508,11 +2506,11 @@
 
 "type.place.islet" = "Sziget";
 
-"type.place.isolated_dwelling" = "Dwelling";
+"type.place.isolated_dwelling" = "Elszigetelt lakás";
 
 "type.place.locality" = "Falu";
 
-"type.place.neighbourhood" = "Neighbourhood";
+"type.place.neighbourhood" = "Szomszédság";
 
 "type.place.ocean" = "Óceán";
 
@@ -2520,7 +2518,7 @@
 
 "type.place.sea" = "Tenger";
 
-"type.place.square" = "Square";
+"type.place.square" = "Tér";
 
 "type.place.state" = "Állam";
 

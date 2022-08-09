@@ -538,7 +538,7 @@
 	<string name="on">Вкл.</string>
 	<string name="off">Выкл.</string>
 	<string name="prefs_languages_information">Подсказки озвучиваются системным синтезатором речи (TTS). На многих устройствах используется Google TTS, его можно загрузить или обновить в Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">Для некоторых языков, возможно, необходимо установить дополнительный синтезатор речи (TTS) из магазина приложений (Google Play, Samsung Apps, App Gallery, FDroid).\nЧтобы настроить синтезатор речи, перейдите в Настройки → Язык и ввод → Синтез речи.\nЗдесь можно установить дополнительные языковые пакеты или выбрать синтезатор речи.</string>
+	<string name="prefs_languages_information_off">Для некоторых языков, возможно, необходимо установить дополнительный синтезатор речи (TTS) из магазина приложений (Google Play, Galaxy Store, App Gallery, FDroid).\nЧтобы настроить синтезатор речи, перейдите в Настройки → Язык и ввод → Синтез речи.\nЗдесь можно установить дополнительные языковые пакеты или выбрать синтезатор речи.</string>
 	<string name="prefs_languages_information_off_link">Более подробная информация — в этом руководстве.</string>
 	<string name="transliteration_title">Латинская транслитерация</string>
 	<string name="learn_more">Узнать больше</string>
@@ -1361,7 +1361,6 @@
 	<string name="type.office.telecommunication">Телекоммуникационная компания</string>
 	<string name="type.organic.only">Эко</string>
 	<string name="type.organic.yes">Эко</string>
-	<string name="type.place">Место</string>
 	<string name="type.place.city">Город</string>
 	<string name="type.place.city.capital">Столица</string>
 	<string name="type.place.city.capital.10">Город</string>
@@ -1381,7 +1380,7 @@
 	<string name="type.place.hamlet">Посёлок</string>
 	<string name="type.place.island">Остров</string>
 	<string name="type.place.islet">Остров</string>
-	<string name="type.place.isolated_dwelling">Жилище</string>
+	<string name="type.place.isolated_dwelling">Хутор</string>
 	<string name="type.place.locality">Местность</string>
 	<string name="type.place.neighbourhood">Микрорайон</string>
 	<string name="type.place.ocean">Океан</string>

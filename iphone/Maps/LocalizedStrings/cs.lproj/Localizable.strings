@@ -2468,8 +2468,6 @@
 
 "type.organic.yes" = "Organic";
 
-"type.place" = "place";
-
 "type.place.city" = "Velkoměsto";
 
 "type.place.city.capital" = "Hlavní město";
@@ -2508,11 +2506,11 @@
 
 "type.place.islet" = "Ostrov";
 
-"type.place.isolated_dwelling" = "Dwelling";
+"type.place.isolated_dwelling" = "Izolované obydlí";
 
 "type.place.locality" = "Lokalita";
 
-"type.place.neighbourhood" = "Neighbourhood";
+"type.place.neighbourhood" = "Čtvrť";
 
 "type.place.ocean" = "Oceán";
 
@@ -2520,7 +2518,7 @@
 
 "type.place.sea" = "Moře";
 
-"type.place.square" = "Square";
+"type.place.square" = "Náměstí";
 
 "type.place.state" = "Země";
 

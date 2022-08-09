@@ -2468,8 +2468,6 @@
 
 "type.organic.yes" = "Еко";
 
-"type.place" = "Мicце";
-
 "type.place.city" = "Місто";
 
 "type.place.city.capital" = "Столиця";
@@ -2508,9 +2506,9 @@
 
 "type.place.islet" = "Острів";
 
-"type.place.isolated_dwelling" = "Житло";
+"type.place.isolated_dwelling" = "Хутір";
 
-"type.place.locality" = "Місцевість";
+"type.place.locality" = "Місце";
 
 "type.place.neighbourhood" = "Мiкрорайон";
 

@@ -2468,8 +2468,6 @@
 
 "type.organic.yes" = "Bio";
 
-"type.place" = "Ort";
-
 "type.place.city" = "Großstadt";
 
 "type.place.city.capital" = "Hauptstadt";
@@ -2506,7 +2504,7 @@
 
 "type.place.island" = "Insel";
 
-"type.place.islet" = "kleine Insel";
+"type.place.islet" = "Kleine Insel";
 
 "type.place.isolated_dwelling" = "Kleinstsiedlung";
 
@@ -2526,9 +2524,9 @@
 
 "type.place.state.USA" = "Bundesstaat";
 
-"type.place.suburb" = "Stadtteil";
+"type.place.suburb" = "Vorort";
 
-"type.place.town" = "Stadt";
+"type.place.town" = "Kleinstadt";
 
 "type.place.village" = "Dorf";
 

@@ -496,7 +496,7 @@
 	<string name="on">Ενεργ.</string>
 	<string name="off">Απενεργ.</string>
 	<string name="prefs_languages_information">Χρησιμοποιούμε σύστημα TTS για τις φωνητικές οδηγίες. Αρκετές συσκευές Android χρησιμοποιούν Google TTS, μπορείτε να το κατεβάσετε ή να το ενημερώσετε από το Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">Για μερικές γλώσσες θα χρειαστεί να εγκαταστήσετε συνθεσάιζερ ομιλίας ή συμπληρωματικό πακέτο γλώσσας από το app store (Google Play, Samsung Apps, App Gallery, FDroid).\nΑνοίξτε τις Ρυθμίσεις της συσκευής σας → Γλώσσα και εισαγωγή → Ομιλία → Μετατροπή κειμένου σε ομιλία.\nΕδώ μπορείτε να διαχειριστείτε τις ρυθμίσεις της σύνθεσης ομιλίας (για παράδειγμα, μπορείτε να κατεβάσετε πακέτο γλώσσας για χρήση εκτός σύνδεσης) και να επιλέξετε άλλη μηχανή μετατροπής κειμένου σε ομιλία.</string>
+	<string name="prefs_languages_information_off">Για μερικές γλώσσες θα χρειαστεί να εγκαταστήσετε συνθεσάιζερ ομιλίας ή συμπληρωματικό πακέτο γλώσσας από το app store (Google Play, Galaxy Store, App Gallery, FDroid).\nΑνοίξτε τις Ρυθμίσεις της συσκευής σας → Γλώσσα και εισαγωγή → Ομιλία → Μετατροπή κειμένου σε ομιλία.\nΕδώ μπορείτε να διαχειριστείτε τις ρυθμίσεις της σύνθεσης ομιλίας (για παράδειγμα, μπορείτε να κατεβάσετε πακέτο γλώσσας για χρήση εκτός σύνδεσης) και να επιλέξετε άλλη μηχανή μετατροπής κειμένου σε ομιλία.</string>
 	<string name="prefs_languages_information_off_link">Για περισσότερες πληροφορίες δείτε αυτό τον οδηγό.</string>
 	<string name="transliteration_title">Μεταγραφή στα Λατινικά</string>
 	<string name="learn_more">Μάθετε περισσότερα</string>
@@ -1184,10 +1184,13 @@
 	<string name="type.place.hamlet">Χωριουδάκι</string>
 	<string name="type.place.island">Νησί</string>
 	<string name="type.place.islet">Νησί</string>
+	<string name="type.place.isolated_dwelling">Απομονωμένη κατοικία</string>
 	<string name="type.place.locality">Τοποθεσία</string>
+	<string name="type.place.neighbourhood">Γειτονιά</string>
 	<string name="type.place.ocean">Ωκεανός</string>
 	<string name="type.place.region">Περιοχή</string>
 	<string name="type.place.sea">Θάλασσα</string>
+	<string name="type.place.square">Πλατεία</string>
 	<string name="type.place.state">Πολιτεία</string>
 	<string name="type.place.state.USA">Πολιτεία</string>
 	<string name="type.place.suburb">Προάστιο</string>

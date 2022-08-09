@@ -2468,8 +2468,6 @@
 
 "type.organic.yes" = "Эко";
 
-"type.place" = "Место";
-
 "type.place.city" = "Город";
 
 "type.place.city.capital" = "Столица";
@@ -2508,7 +2506,7 @@
 
 "type.place.islet" = "Остров";
 
-"type.place.isolated_dwelling" = "Жилище";
+"type.place.isolated_dwelling" = "Хутор";
 
 "type.place.locality" = "Местность";
 

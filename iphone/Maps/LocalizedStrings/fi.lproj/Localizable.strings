@@ -2468,8 +2468,6 @@
 
 "type.organic.yes" = "Organic";
 
-"type.place" = "place";
-
 "type.place.city" = "Kaupunki";
 
 "type.place.city.capital" = "Pääkaupunki";
@@ -2508,11 +2506,11 @@
 
 "type.place.islet" = "Saari";
 
-"type.place.isolated_dwelling" = "Dwelling";
+"type.place.isolated_dwelling" = "Erillinen asunto";
 
 "type.place.locality" = "Paikkakunta";
 
-"type.place.neighbourhood" = "Neighbourhood";
+"type.place.neighbourhood" = "Naapurusto";
 
 "type.place.ocean" = "Valtameri";
 
@@ -2520,7 +2518,7 @@
 
 "type.place.sea" = "Meri";
 
-"type.place.square" = "Square";
+"type.place.square" = "Tori";
 
 "type.place.state" = "Lääni";
 

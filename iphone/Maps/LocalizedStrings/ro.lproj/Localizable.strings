@@ -2468,8 +2468,6 @@
 
 "type.organic.yes" = "Organic";
 
-"type.place" = "place";
-
 "type.place.city" = "Municipiu";
 
 "type.place.city.capital" = "Capitală";
@@ -2506,13 +2504,13 @@
 
 "type.place.island" = "Insulă";
 
-"type.place.islet" = "Insulă";
+"type.place.islet" = "Insult";
 
-"type.place.isolated_dwelling" = "Dwelling";
+"type.place.isolated_dwelling" = "Locuință izolată";
 
 "type.place.locality" = "Localitate";
 
-"type.place.neighbourhood" = "Neighbourhood";
+"type.place.neighbourhood" = "Cartier";
 
 "type.place.ocean" = "Ocean";
 
@@ -2520,7 +2518,7 @@
 
 "type.place.sea" = "Mare";
 
-"type.place.square" = "Square";
+"type.place.square" = "Spațiu";
 
 "type.place.state" = "Stat";
 

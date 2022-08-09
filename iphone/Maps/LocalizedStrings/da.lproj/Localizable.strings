@@ -2468,8 +2468,6 @@
 
 "type.organic.yes" = "Organic";
 
-"type.place" = "place";
-
 "type.place.city" = "By";
 
 "type.place.city.capital" = "Kapital";
@@ -2508,19 +2506,19 @@
 
 "type.place.islet" = "Ø";
 
-"type.place.isolated_dwelling" = "Dwelling";
+"type.place.isolated_dwelling" = "Isoleret bolig";
 
 "type.place.locality" = "Lokalitet";
 
-"type.place.neighbourhood" = "Neighbourhood";
+"type.place.neighbourhood" = "Kvarter";
 
-"type.place.ocean" = "Ocean";
+"type.place.ocean" = "Verdenshave";
 
 "type.place.region" = "Region";
 
 "type.place.sea" = "Er";
 
-"type.place.square" = "Square";
+"type.place.square" = "Torv";
 
 "type.place.state" = "Stat";
 

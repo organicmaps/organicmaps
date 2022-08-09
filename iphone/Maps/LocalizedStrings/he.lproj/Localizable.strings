@@ -2468,69 +2468,67 @@
 
 "type.organic.yes" = "Organic";
 
-"type.place" = "place";
+"type.place.city" = "עיר";
 
-"type.place.city" = "City";
+"type.place.city.capital" = "עיר בירה";
 
-"type.place.city.capital" = "Capital";
+"type.place.city.capital.10" = "עיר";
 
-"type.place.city.capital.10" = "City";
+"type.place.city.capital.11" = "עיר";
 
-"type.place.city.capital.11" = "City";
+"type.place.city.capital.2" = "עיר בירה";
 
-"type.place.city.capital.2" = "Capital";
+"type.place.city.capital.3" = "עיר";
 
-"type.place.city.capital.3" = "City";
+"type.place.city.capital.4" = "עיר";
 
-"type.place.city.capital.4" = "City";
+"type.place.city.capital.5" = "עיר";
 
-"type.place.city.capital.5" = "City";
+"type.place.city.capital.6" = "עיר";
 
-"type.place.city.capital.6" = "City";
+"type.place.city.capital.7" = "עיר";
 
-"type.place.city.capital.7" = "City";
+"type.place.city.capital.8" = "עיר";
 
-"type.place.city.capital.8" = "City";
+"type.place.city.capital.9" = "עיר";
 
-"type.place.city.capital.9" = "City";
+"type.place.continent" = "יבשת";
 
-"type.place.continent" = "Continent";
+"type.place.country" = "ארץ";
 
-"type.place.country" = "Country";
+"type.place.county" = "נפה";
 
-"type.place.county" = "County";
+"type.place.farm" = "חווה חקלאית";
 
-"type.place.farm" = "Farm";
+"type.place.hamlet" = "כְּפָר קָטָן";
 
-"type.place.hamlet" = "Hamlet";
+"type.place.island" = "אי";
 
-"type.place.island" = "Island";
+"type.place.islet" = "איון";
 
-"type.place.islet" = "Island";
+"type.place.isolated_dwelling" = "דירת מגורים מבודדת";
 
-"type.place.isolated_dwelling" = "Dwelling";
+"type.place.locality" = "מקום";
 
-"type.place.locality" = "Locality";
+"type.place.neighbourhood" = "שכונה";
 
-"type.place.neighbourhood" = "Neighbourhood";
+"type.place.ocean" = "אוקיינוס";
 
-"type.place.ocean" = "Ocean";
+"type.place.region" = "חבל ארץ";
 
-"type.place.region" = "Region";
+"type.place.sea" = "ים";
 
-"type.place.sea" = "Sea";
+"type.place.square" = "כיכר עירונית";
 
-"type.place.square" = "Square";
+"type.place.state" = "מדינה פדרלית";
 
-"type.place.state" = "State";
+"type.place.state.USA" = "מדינה";
 
-"type.place.state.USA" = "State";
+"type.place.suburb" = "פרוור";
 
-"type.place.suburb" = "Suburb";
+"type.place.town" = "עיירה";
 
-"type.place.town" = "Town";
-
-"type.place.village" = "Village";
+"type.place.village" = "כפר";
 
 "type.power" = "Power";
 

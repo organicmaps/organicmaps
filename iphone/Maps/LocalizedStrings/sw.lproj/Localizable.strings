@@ -2468,69 +2468,67 @@
 
 "type.organic.yes" = "Organic";
 
-"type.place" = "place";
+"type.place.city" = "Jiji";
 
-"type.place.city" = "City";
+"type.place.city.capital" = "Mji mkuu";
 
-"type.place.city.capital" = "Capital";
+"type.place.city.capital.10" = "Jiji";
 
-"type.place.city.capital.10" = "City";
+"type.place.city.capital.11" = "Jiji";
 
-"type.place.city.capital.11" = "City";
+"type.place.city.capital.2" = "Mji mkuu";
 
-"type.place.city.capital.2" = "Capital";
+"type.place.city.capital.3" = "Jiji";
 
-"type.place.city.capital.3" = "City";
+"type.place.city.capital.4" = "Jiji";
 
-"type.place.city.capital.4" = "City";
+"type.place.city.capital.5" = "Jiji";
 
-"type.place.city.capital.5" = "City";
+"type.place.city.capital.6" = "Jiji";
 
-"type.place.city.capital.6" = "City";
+"type.place.city.capital.7" = "Jiji";
 
-"type.place.city.capital.7" = "City";
+"type.place.city.capital.8" = "Jiji";
 
-"type.place.city.capital.8" = "City";
+"type.place.city.capital.9" = "Jiji";
 
-"type.place.city.capital.9" = "City";
+"type.place.continent" = "Bara";
 
-"type.place.continent" = "Continent";
+"type.place.country" = "Nchi";
 
-"type.place.country" = "Country";
+"type.place.county" = "Wilaya";
 
-"type.place.county" = "County";
-
-"type.place.farm" = "Farm";
+"type.place.farm" = "Shamba";
 
 "type.place.hamlet" = "Hamlet";
 
-"type.place.island" = "Island";
+"type.place.island" = "Kisiwa";
 
-"type.place.islet" = "Island";
+"type.place.islet" = "Kisiwa";
 
-"type.place.isolated_dwelling" = "Dwelling";
+"type.place.isolated_dwelling" = "Makao ya Pekee";
 
-"type.place.locality" = "Locality";
+"type.place.locality" = "Eneo";
 
-"type.place.neighbourhood" = "Neighbourhood";
+"type.place.neighbourhood" = "Mtaa";
 
-"type.place.ocean" = "Ocean";
+"type.place.ocean" = "Bahari kuu";
 
-"type.place.region" = "Region";
+"type.place.region" = "Mkoa";
 
-"type.place.sea" = "Sea";
+"type.place.sea" = "Bahari";
 
-"type.place.square" = "Square";
+"type.place.square" = "Nafasi";
 
-"type.place.state" = "State";
+"type.place.state" = "Jimbo la Shirikisho";
 
-"type.place.state.USA" = "State";
+"type.place.state.USA" = "Jimbo";
 
-"type.place.suburb" = "Suburb";
+"type.place.suburb" = "Pambizo";
 
-"type.place.town" = "Town";
+"type.place.town" = "Mji";
 
-"type.place.village" = "Village";
+"type.place.village" = "Kijiji";
 
 "type.power" = "Power";
 

@@ -530,7 +530,7 @@
 	<string name="on">Увімкн.</string>
 	<string name="off">Вимкн.</string>
 	<string name="prefs_languages_information">Для озвучування голосових інструкцій ми використовуємо систему TTS. Більшість Android-пристроїв підтримують систему Google TTS. Для завантаження або оновлення перейдіть до магазину Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">Для деяких мов вам знадобиться встановити інший додаток для синтезу мовлення або додатковий мовний пакет з магазину додатків (Google Play, Samsung Apps, App Gallery, FDroid).\nВідкрийте налаштування пристрою → Мови та введення → Мовлення → Синтез мовлення.\nТут ви можете здійснювати управління налаштуваннями синтезу мовлення (наприклад, завантажити мовний пакет для використання офлайн) або вибрати інший програмний рушій для синтезу мовлення.</string>
+	<string name="prefs_languages_information_off">Для деяких мов вам знадобиться встановити інший додаток для синтезу мовлення або додатковий мовний пакет з магазину додатків (Google Play, Galaxy Store, App Gallery, FDroid).\nВідкрийте налаштування пристрою → Мови та введення → Мовлення → Синтез мовлення.\nТут ви можете здійснювати управління налаштуваннями синтезу мовлення (наприклад, завантажити мовний пакет для використання офлайн) або вибрати інший програмний рушій для синтезу мовлення.</string>
 	<string name="prefs_languages_information_off_link">Додаткову інформацію див. у цьому керівництві.</string>
 	<string name="transliteration_title">Транслітерація латинськими літерами</string>
 	<string name="learn_more">Докладніше</string>
@@ -1324,7 +1324,6 @@
 	<string name="type.office.telecommunication">Телекомунікаційна компанія</string>
 	<string name="type.organic.only">Еко</string>
 	<string name="type.organic.yes">Еко</string>
-	<string name="type.place">Мicце</string>
 	<string name="type.place.city">Місто</string>
 	<string name="type.place.city.capital">Столиця</string>
 	<string name="type.place.city.capital.10">Місто</string>
@@ -1344,8 +1343,8 @@
 	<string name="type.place.hamlet">Поселення</string>
 	<string name="type.place.island">Острів</string>
 	<string name="type.place.islet">Острів</string>
-	<string name="type.place.isolated_dwelling">Житло</string>
-	<string name="type.place.locality">Місцевість</string>
+	<string name="type.place.isolated_dwelling">Хутір</string>
+	<string name="type.place.locality">Місце</string>
 	<string name="type.place.neighbourhood">Мiкрорайон</string>
 	<string name="type.place.ocean">Океан</string>
 	<string name="type.place.region">Район</string>

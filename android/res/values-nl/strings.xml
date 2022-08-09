@@ -504,7 +504,7 @@
 	<string name="on">Aan</string>
 	<string name="off">Uit</string>
 	<string name="prefs_languages_information">We gebruiken het TTS-systeem voor gesproken instructies. Vele Android toestellen gebruiken Google TTS, u kunt het downloaden of bijwerken in Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">Voor sommige talen dient u een andere spraaksynthese software of een aanvullende taalpakket te installeren van de app store (Google Play, Samsung Apps, App Gallery, FDroid).\nOpen de instellingen van uw toestel → Taal en invoer → Spraak → Uitvoer voor tekst-naar-spraak.\nHier kunt u instellingen voor spraaksynthese beheren (bijvoorbeeld taalpakket downloaden voor offline gebruik) en een andere tekst-naar-spraak engine selecteren.</string>
+	<string name="prefs_languages_information_off">Voor sommige talen dient u een andere spraaksynthese software of een aanvullende taalpakket te installeren van de app store (Google Play, Galaxy Store, App Gallery, FDroid).\nOpen de instellingen van uw toestel → Taal en invoer → Spraak → Uitvoer voor tekst-naar-spraak.\nHier kunt u instellingen voor spraaksynthese beheren (bijvoorbeeld taalpakket downloaden voor offline gebruik) en een andere tekst-naar-spraak engine selecteren.</string>
 	<string name="prefs_languages_information_off_link">Gelieve deze handleiding te lezen voor meer informatie.</string>
 	<string name="transliteration_title">Transliteratie in het Latijn</string>
 	<string name="learn_more">Meer informatie</string>
@@ -1175,16 +1175,20 @@
 	<string name="type.place.city.capital.7">Stad</string>
 	<string name="type.place.city.capital.8">Stad</string>
 	<string name="type.place.city.capital.9">Stad</string>
+	<string name="type.place.continent">Continent</string>
 	<string name="type.place.country">Land</string>
 	<string name="type.place.county">Graafschap</string>
 	<string name="type.place.farm">Boerderij</string>
 	<string name="type.place.hamlet">Gehucht</string>
 	<string name="type.place.island">Eilandje</string>
 	<string name="type.place.islet">Eilandje</string>
+	<string name="type.place.isolated_dwelling">Geïsoleerde woning</string>
 	<string name="type.place.locality">Plaats</string>
+	<string name="type.place.neighbourhood">Buurt</string>
 	<string name="type.place.ocean">Oceaan</string>
 	<string name="type.place.region">Regio</string>
 	<string name="type.place.sea">Zee</string>
+	<string name="type.place.square">Plein</string>
 	<string name="type.place.state">Deelstaat</string>
 	<string name="type.place.state.USA">Deelstaat</string>
 	<string name="type.place.suburb">Buitenwijken</string>

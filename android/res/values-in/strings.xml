@@ -502,7 +502,7 @@
 	<string name="on">On</string>
 	<string name="off">Mati</string>
 	<string name="prefs_languages_information">Kami menggunakan TTS sistem untuk petunjuk suara. Banyak perangkat Android menggunakan Google TTS, Anda dapat mengunduhnya dari Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">Untuk beberapa bahasa, Anda perlu menginstal synthesizer suara atau paket bahasa tambahan dari toko aplikasi (Google Play, Samsung Apps, App Gallery, FDroid).\nBuka pengaturan perangkat Anda → Language and input (Bahasa dan input) → Speech (Suara) → Text to speech (Teks ke suara).\nDi sini, Anda dapat mengelola pengaturan untuk sintesis suara (contohnya, mengunduh paket bahasa untuk penggunaan tanpa internet) dan memilih mesin tekske suara lain.</string>
+	<string name="prefs_languages_information_off">Untuk beberapa bahasa, Anda perlu menginstal synthesizer suara atau paket bahasa tambahan dari toko aplikasi (Google Play, Galaxy Store, App Gallery, FDroid).\nBuka pengaturan perangkat Anda → Language and input (Bahasa dan input) → Speech (Suara) → Text to speech (Teks ke suara).\nDi sini, Anda dapat mengelola pengaturan untuk sintesis suara (contohnya, mengunduh paket bahasa untuk penggunaan tanpa internet) dan memilih mesin tekske suara lain.</string>
 	<string name="prefs_languages_information_off_link">Untuk informasi selengkapnya, bacalah panduan ini.</string>
 	<string name="transliteration_title">Transliterasi ke dalam bahasa Latin</string>
 	<string name="learn_more">Pelajari selengkapnya</string>
@@ -1173,10 +1173,13 @@
 	<string name="type.place.hamlet">Dusun</string>
 	<string name="type.place.island">Pulau</string>
 	<string name="type.place.islet">Pulau</string>
+	<string name="type.place.isolated_dwelling">Tempat Tinggal Terisolasi</string>
 	<string name="type.place.locality">Wilayah</string>
+	<string name="type.place.neighbourhood">Lingkungan</string>
 	<string name="type.place.ocean">Samudra</string>
 	<string name="type.place.region">Wilayah</string>
 	<string name="type.place.sea">Laut</string>
+	<string name="type.place.square">Lapangan kota</string>
 	<string name="type.place.state">Negara bagian</string>
 	<string name="type.place.state.USA">Negara bagian</string>
 	<string name="type.place.suburb">Pinggiran kota</string>

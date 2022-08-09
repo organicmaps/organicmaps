@@ -2468,8 +2468,6 @@
 
 "type.organic.yes" = "Organic";
 
-"type.place" = "place";
-
 "type.place.city" = "شهر";
 
 "type.place.city.capital" = "پایتخت";
@@ -2508,11 +2506,11 @@
 
 "type.place.islet" = "جزیره";
 
-"type.place.isolated_dwelling" = "Dwelling";
+"type.place.isolated_dwelling" = "مسکن منزوی";
 
 "type.place.locality" = "محله";
 
-"type.place.neighbourhood" = "Neighbourhood";
+"type.place.neighbourhood" = "محله";
 
 "type.place.ocean" = "اقیانوس";
 
@@ -2520,7 +2518,7 @@
 
 "type.place.sea" = "دریا";
 
-"type.place.square" = "Square";
+"type.place.square" = "میدان";
 
 "type.place.state" = "ایالت";
 

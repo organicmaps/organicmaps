@@ -2468,8 +2468,6 @@
 
 "type.organic.yes" = "Orgânico";
 
-"type.place" = "Local";
-
 "type.place.city" = "Cidade";
 
 "type.place.city.capital" = "Capital";
@@ -2512,7 +2510,7 @@
 
 "type.place.locality" = "Localidade";
 
-"type.place.neighbourhood" = "Bairro";
+"type.place.neighbourhood" = "Vizinhança";
 
 "type.place.ocean" = "Oceano";
 
@@ -2530,7 +2528,7 @@
 
 "type.place.town" = "Cidade";
 
-"type.place.village" = "Povoado";
+"type.place.village" = "Aldeia";
 
 "type.power" = "Energia";
 

@@ -2468,8 +2468,6 @@
 
 "type.organic.yes" = "Biologisch";
 
-"type.place" = "place";
-
 "type.place.city" = "Stad";
 
 "type.place.city.capital" = "Hoofdstad";
@@ -2508,11 +2506,11 @@
 
 "type.place.islet" = "Eilandje";
 
-"type.place.isolated_dwelling" = "Dwelling";
+"type.place.isolated_dwelling" = "Geïsoleerde woning";
 
 "type.place.locality" = "Plaats";
 
-"type.place.neighbourhood" = "Neighbourhood";
+"type.place.neighbourhood" = "Buurt";
 
 "type.place.ocean" = "Oceaan";
 
@@ -2520,7 +2518,7 @@
 
 "type.place.sea" = "Zee";
 
-"type.place.square" = "Square";
+"type.place.square" = "Plein";
 
 "type.place.state" = "Deelstaat";
 

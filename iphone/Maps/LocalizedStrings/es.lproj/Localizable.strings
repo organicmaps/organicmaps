@@ -2468,8 +2468,6 @@
 
 "type.organic.yes" = "Orgánico";
 
-"type.place" = "place";
-
 "type.place.city" = "Ciudad";
 
 "type.place.city.capital" = "Capital";
@@ -2508,11 +2506,11 @@
 
 "type.place.islet" = "Isla";
 
-"type.place.isolated_dwelling" = "Dwelling";
+"type.place.isolated_dwelling" = "Vivienda aislada";
 
 "type.place.locality" = "Localidad";
 
-"type.place.neighbourhood" = "Neighbourhood";
+"type.place.neighbourhood" = "Vecindario";
 
 "type.place.ocean" = "Océano";
 
@@ -2520,7 +2518,7 @@
 
 "type.place.sea" = "Mar";
 
-"type.place.square" = "Square";
+"type.place.square" = "Plaza";
 
 "type.place.state" = "Estado";
 

@@ -518,7 +518,7 @@
 	<string name="on">Pornit</string>
 	<string name="off">Oprit</string>
 	<string name="prefs_languages_information">Pentru instrucțiuni vocale utilizăm sistemul TTS. Multe dispozitive Android folosesc Google TTS. Poți descărca sau actualiza aplicația din Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">Pentru unele limbi trebuie să instalezi alt sintetizator de voce sau un pachet lingvistic suplimentar din Magazinul de aplicații (Google Play, Samsung Apps, App Gallery, FDroid).\nDeschide setările dispozitivului → Limbă → Transformare text în vorbire → Motor preferat.\nAici poți alege motorul de transformare a textului în vorbire și poți descărca o limbă pentru utilizare fără internet.</string>
+	<string name="prefs_languages_information_off">Pentru unele limbi trebuie să instalezi alt sintetizator de voce sau un pachet lingvistic suplimentar din Magazinul de aplicații (Google Play, Galaxy Store, App Gallery, FDroid).\nDeschide setările dispozitivului → Limbă → Transformare text în vorbire → Motor preferat.\nAici poți alege motorul de transformare a textului în vorbire și poți descărca o limbă pentru utilizare fără internet.</string>
 	<string name="prefs_languages_information_off_link">Consultă acest ghid pentru informații suplimentare.</string>
 	<string name="transliteration_title">Transcrie în alfabet latin</string>
 	<string name="learn_more">Mai multe</string>
@@ -1192,15 +1192,20 @@
 	<string name="type.place.city.capital.7">Municipiu</string>
 	<string name="type.place.city.capital.8">Municipiu</string>
 	<string name="type.place.city.capital.9">Municipiu</string>
+	<string name="type.place.continent">Continent</string>
 	<string name="type.place.country">Continent</string>
 	<string name="type.place.county">Județ</string>
 	<string name="type.place.farm">Fermă</string>
 	<string name="type.place.hamlet">Cătun</string>
 	<string name="type.place.island">Insulă</string>
-	<string name="type.place.islet">Insulă</string>
+	<string name="type.place.islet">Insult</string>
+	<string name="type.place.isolated_dwelling">Locuință izolată</string>
 	<string name="type.place.locality">Localitate</string>
+	<string name="type.place.neighbourhood">Cartier</string>
+	<string name="type.place.ocean">Ocean</string>
 	<string name="type.place.region">Regiune</string>
 	<string name="type.place.sea">Mare</string>
+	<string name="type.place.square">Spațiu</string>
 	<string name="type.place.state">Stat</string>
 	<string name="type.place.state.USA">Stat</string>
 	<string name="type.place.suburb">Suburbie</string>

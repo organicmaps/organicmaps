@@ -2468,8 +2468,6 @@
 
 "type.organic.yes" = "Organic";
 
-"type.place" = "place";
-
 "type.place.city" = "Đất nước";
 
 "type.place.city.capital" = "Thủ đô";
@@ -2508,11 +2506,11 @@
 
 "type.place.islet" = "Tỉnh";
 
-"type.place.isolated_dwelling" = "Dwelling";
+"type.place.isolated_dwelling" = "Nhà ở Biệt lập";
 
 "type.place.locality" = "Thôn";
 
-"type.place.neighbourhood" = "Neighbourhood";
+"type.place.neighbourhood" = "Vùng lân cận";
 
 "type.place.ocean" = "Đại dương";
 
@@ -2520,7 +2518,7 @@
 
 "type.place.sea" = "Biển";
 
-"type.place.square" = "Square";
+"type.place.square" = "Quảng trường";
 
 "type.place.state" = "Hạt";
 
