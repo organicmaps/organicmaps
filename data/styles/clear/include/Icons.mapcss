@@ -228,6 +228,18 @@ node|z18-[sport=table_tennis],
 area|z18-[sport=table_tennis],
 node|z18-[sport=yoga],
 area|z18-[sport=yoga],
+node|z18-[sport=padel],
+area|z18-[sport=padel],
+node|z18-[sport=handball],
+area|z18-[sport=handball],
+node|z18-[sport=ice_hockey],
+area|z18-[sport=ice_hockey],
+node|z18-[sport=field_hockey],
+area|z18-[sport=field_hockey],
+node|z18-[sport=badminton],
+area|z18-[sport=badminton],
+node|z18-[sport=pelota],
+area|z18-[sport=pelota],
 {z-index: 2460;}
 
 node[landuse=landfill],
@@ -1763,6 +1775,27 @@ area|z17-[sport=beachvolleyball],
 node|z17-[sport=yoga],
 area|z17-[sport=yoga]
 {icon-image: yoga-m.svg;}
+node|z17-[sport=padel],
+area|z17-[sport=padel]
+{icon-image: padel-m.svg;}
+node|z17-[sport=handball],
+area|z17-[sport=handball]
+{icon-image: handball-m.svg;}
+node|z17-[sport=futsal],
+area|z17-[sport=futsal]
+{icon-image: soccer-m.svg;}
+node|z17-[sport=ice_hockey],
+area|z17-[sport=ice_hockey]
+{icon-image: hockey-m.svg;}
+node|z17-[sport=field_hockey],
+area|z17-[sport=field_hockey]
+{icon-image: hockey-m.svg;}
+node|z17-[sport=badminton],
+area|z17-[sport=badminton]
+{icon-image: badminton-m.svg;}
+node|z17-[sport=pelota],
+area|z17-[sport=pelota]
+{icon-image: pelota-m.svg;}
 
 node|z18-[sport],
 area|z18-[sport],
