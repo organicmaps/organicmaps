@@ -67847,6 +67847,59 @@ cont {
   }
 }
 cont {
+  name: "sport-badminton"
+  element {
+    scale: 17
+    symbol {
+      name: "badminton-m"
+      priority: 16609
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15609
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "badminton-m"
+      priority: 16628
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15628
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "badminton-m"
+      priority: 16628
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15628
+    }
+  }
+}
+cont {
   name: "sport-baseball"
   element {
     scale: 17
@@ -68377,6 +68430,112 @@ cont {
   }
 }
 cont {
+  name: "sport-field_hockey"
+  element {
+    scale: 17
+    symbol {
+      name: "hockey-m"
+      priority: 16609
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15609
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "hockey-m"
+      priority: 16628
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15628
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "hockey-m"
+      priority: 16628
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15628
+    }
+  }
+}
+cont {
+  name: "sport-futsal"
+  element {
+    scale: 17
+    symbol {
+      name: "soccer-m"
+      priority: 16609
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15609
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "soccer-m"
+      priority: 16609
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15609
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "soccer-m"
+      priority: 16609
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15609
+    }
+  }
+}
+cont {
   name: "sport-golf"
   element {
     scale: 17
@@ -68487,7 +68646,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "pitch-m"
+      name: "handball-m"
       priority: 16609
       min_distance: 10
     }
@@ -68503,8 +68662,8 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "pitch-m"
-      priority: 16609
+      name: "handball-m"
+      priority: 16628
       min_distance: 10
     }
     caption {
@@ -68514,14 +68673,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15609
+      priority: 15628
     }
   }
   element {
     scale: 19
     symbol {
-      name: "pitch-m"
-      priority: 16609
+      name: "handball-m"
+      priority: 16628
       min_distance: 10
     }
     caption {
@@ -68531,7 +68690,60 @@ cont {
         offset_y: 1
         is_optional: true
       }
+      priority: 15628
+    }
+  }
+}
+cont {
+  name: "sport-ice_hockey"
+  element {
+    scale: 17
+    symbol {
+      name: "hockey-m"
+      priority: 16609
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
       priority: 15609
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "hockey-m"
+      priority: 16628
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15628
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "hockey-m"
+      priority: 16628
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15628
     }
   }
 }
@@ -68597,6 +68809,112 @@ cont {
         is_optional: true
       }
       priority: 15609
+    }
+  }
+}
+cont {
+  name: "sport-padel"
+  element {
+    scale: 17
+    symbol {
+      name: "padel-m"
+      priority: 16609
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15609
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "padel-m"
+      priority: 16628
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15628
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "padel-m"
+      priority: 16628
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15628
+    }
+  }
+}
+cont {
+  name: "sport-pelota"
+  element {
+    scale: 17
+    symbol {
+      name: "pelota-m"
+      priority: 16609
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15609
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "pelota-m"
+      priority: 16628
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15628
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "pelota-m"
+      priority: 16628
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15628
     }
   }
 }
