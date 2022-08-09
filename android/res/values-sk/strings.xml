@@ -500,7 +500,7 @@
 	<string name="on">Zap.</string>
 	<string name="off">Vyp.</string>
 	<string name="prefs_languages_information">Na hlasové pokyny používame systém TTS. Mnohé zariadenia s Adroidom používajú Google TTS, ktorý si môžete stiahnuť alebo aktualizovať z obchodu Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">Pre niektoré jazyky bude potrebné nainštalovať syntetizátor reči alebo balík doplnkového jazyka z obchodu s aplikáciami (Google Play, Samsung Apps, App Gallery, FDroid). Otvorte nastavenia zariadenia → Jazyk a vstup → Reč → Prevod textu na reč. Tu môžete spravovať nastavenia pre syntézu reči (napríklad stiahnuť jazykový balík pre použitie v režime offline) a vybrať iný jazyk.</string>
+	<string name="prefs_languages_information_off">Pre niektoré jazyky bude potrebné nainštalovať syntetizátor reči alebo balík doplnkového jazyka z obchodu s aplikáciami (Google Play, Galaxy Store, App Gallery, FDroid). Otvorte nastavenia zariadenia → Jazyk a vstup → Reč → Prevod textu na reč. Tu môžete spravovať nastavenia pre syntézu reči (napríklad stiahnuť jazykový balík pre použitie v režime offline) a vybrať iný jazyk.</string>
 	<string name="prefs_languages_information_off_link">Viac informácií nájdete v tomto návode.</string>
 	<string name="transliteration_title">Prepis do latinčiny</string>
 	<string name="learn_more">Zistiť viac</string>
@@ -1178,10 +1178,13 @@
 	<string name="type.place.hamlet">Dedina</string>
 	<string name="type.place.island">Ostrov</string>
 	<string name="type.place.islet">Ostrov</string>
+	<string name="type.place.isolated_dwelling">Izolované obydlie</string>
 	<string name="type.place.locality">Lokalita</string>
+	<string name="type.place.neighbourhood">Susedstvo</string>
 	<string name="type.place.ocean">Oceán</string>
 	<string name="type.place.region">Región</string>
 	<string name="type.place.sea">More</string>
+	<string name="type.place.square">Námestie</string>
 	<string name="type.place.state">Štát</string>
 	<string name="type.place.state.USA">Štát</string>
 	<string name="type.place.suburb">Predmestie</string>

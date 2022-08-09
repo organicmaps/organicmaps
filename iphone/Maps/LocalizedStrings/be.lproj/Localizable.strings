@@ -2468,69 +2468,67 @@
 
 "type.organic.yes" = "Эка";
 
-"type.place" = "place";
+"type.place.city" = "Горад";
 
-"type.place.city" = "City";
+"type.place.city.capital" = "Сталіца";
 
-"type.place.city.capital" = "Capital";
+"type.place.city.capital.10" = "Горад";
 
-"type.place.city.capital.10" = "City";
+"type.place.city.capital.11" = "Горад";
 
-"type.place.city.capital.11" = "City";
+"type.place.city.capital.2" = "Сталіца";
 
-"type.place.city.capital.2" = "Capital";
+"type.place.city.capital.3" = "Горад";
 
-"type.place.city.capital.3" = "City";
+"type.place.city.capital.4" = "Горад";
 
-"type.place.city.capital.4" = "City";
+"type.place.city.capital.5" = "Горад";
 
-"type.place.city.capital.5" = "City";
+"type.place.city.capital.6" = "Горад";
 
-"type.place.city.capital.6" = "City";
+"type.place.city.capital.7" = "Горад";
 
-"type.place.city.capital.7" = "City";
+"type.place.city.capital.8" = "Горад";
 
-"type.place.city.capital.8" = "City";
+"type.place.city.capital.9" = "Горад";
 
-"type.place.city.capital.9" = "City";
+"type.place.continent" = "Кантынент";
 
-"type.place.continent" = "Continent";
+"type.place.country" = "Краіна";
 
-"type.place.country" = "Country";
+"type.place.county" = "Графства";
 
-"type.place.county" = "County";
+"type.place.farm" = "Ферма";
 
-"type.place.farm" = "Farm";
+"type.place.hamlet" = "Вёска";
 
-"type.place.hamlet" = "Hamlet";
+"type.place.island" = "Востраў";
 
-"type.place.island" = "Island";
+"type.place.islet" = "Астравок";
 
-"type.place.islet" = "Island";
+"type.place.isolated_dwelling" = "Хутар";
 
-"type.place.isolated_dwelling" = "Dwelling";
+"type.place.locality" = "Місце";
 
-"type.place.locality" = "Locality";
+"type.place.neighbourhood" = "Мікрараён";
 
-"type.place.neighbourhood" = "Neighbourhood";
+"type.place.ocean" = "Акіян";
 
-"type.place.ocean" = "Ocean";
+"type.place.region" = "Рэгіён";
 
-"type.place.region" = "Region";
+"type.place.sea" = "Мора";
 
-"type.place.sea" = "Sea";
+"type.place.square" = "Плошча";
 
-"type.place.square" = "Square";
+"type.place.state" = "Штат";
 
-"type.place.state" = "State";
+"type.place.state.USA" = "Штат";
 
-"type.place.state.USA" = "State";
+"type.place.suburb" = "Раён";
 
-"type.place.suburb" = "Suburb";
+"type.place.town" = "Мястэчка";
 
-"type.place.town" = "Town";
-
-"type.place.village" = "Village";
+"type.place.village" = "Вёска";
 
 "type.power" = "Power";
 

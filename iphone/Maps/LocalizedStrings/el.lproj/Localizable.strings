@@ -2468,8 +2468,6 @@
 
 "type.organic.yes" = "Organic";
 
-"type.place" = "place";
-
 "type.place.city" = "Πόλη";
 
 "type.place.city.capital" = "Πρωτεύουσα";
@@ -2508,11 +2506,11 @@
 
 "type.place.islet" = "Νησί";
 
-"type.place.isolated_dwelling" = "Dwelling";
+"type.place.isolated_dwelling" = "Απομονωμένη κατοικία";
 
 "type.place.locality" = "Τοποθεσία";
 
-"type.place.neighbourhood" = "Neighbourhood";
+"type.place.neighbourhood" = "Γειτονιά";
 
 "type.place.ocean" = "Ωκεανός";
 
@@ -2520,7 +2518,7 @@
 
 "type.place.sea" = "Θάλασσα";
 
-"type.place.square" = "Square";
+"type.place.square" = "Πλατεία";
 
 "type.place.state" = "Πολιτεία";
 

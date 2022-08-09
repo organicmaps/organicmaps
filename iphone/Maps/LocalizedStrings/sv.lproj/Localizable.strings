@@ -2468,8 +2468,6 @@
 
 "type.organic.yes" = "Organic";
 
-"type.place" = "place";
-
 "type.place.city" = "Stad";
 
 "type.place.city.capital" = "Huvudstad";
@@ -2508,11 +2506,11 @@
 
 "type.place.islet" = "Ö";
 
-"type.place.isolated_dwelling" = "Dwelling";
+"type.place.isolated_dwelling" = "Isolerade bostäder";
 
 "type.place.locality" = "Lokalitet";
 
-"type.place.neighbourhood" = "Neighbourhood";
+"type.place.neighbourhood" = "Grannskap";
 
 "type.place.ocean" = "Ocean";
 
@@ -2520,7 +2518,7 @@
 
 "type.place.sea" = "Hav";
 
-"type.place.square" = "Square";
+"type.place.square" = "Torg";
 
 "type.place.state" = "Stat";
 

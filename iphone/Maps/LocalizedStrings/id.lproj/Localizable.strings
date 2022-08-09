@@ -2468,8 +2468,6 @@
 
 "type.organic.yes" = "Organic";
 
-"type.place" = "place";
-
 "type.place.city" = "Kota";
 
 "type.place.city.capital" = "Ibu kota";
@@ -2508,11 +2506,11 @@
 
 "type.place.islet" = "Pulau";
 
-"type.place.isolated_dwelling" = "Dwelling";
+"type.place.isolated_dwelling" = "Tempat Tinggal Terisolasi";
 
 "type.place.locality" = "Wilayah";
 
-"type.place.neighbourhood" = "Neighbourhood";
+"type.place.neighbourhood" = "Lingkungan";
 
 "type.place.ocean" = "Samudra";
 
@@ -2520,7 +2518,7 @@
 
 "type.place.sea" = "Laut";
 
-"type.place.square" = "Square";
+"type.place.square" = "Lapangan kota";
 
 "type.place.state" = "Negara bagian";
 

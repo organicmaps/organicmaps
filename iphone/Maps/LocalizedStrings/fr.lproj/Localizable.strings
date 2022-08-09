@@ -2468,8 +2468,6 @@
 
 "type.organic.yes" = "Biologique";
 
-"type.place" = "place";
-
 "type.place.city" = "Ville";
 
 "type.place.city.capital" = "Capitale";
@@ -2512,7 +2510,7 @@
 
 "type.place.locality" = "Lieu-dit";
 
-"type.place.neighbourhood" = "Neighbourhood";
+"type.place.neighbourhood" = "Quartier";
 
 "type.place.ocean" = "Océan";
 

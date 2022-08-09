@@ -512,7 +512,7 @@
 	<string name="on">Wł.</string>
 	<string name="off">Wył.</string>
 	<string name="prefs_languages_information">Stosujemy system TTS dla komend głosowych. Stosuje go wiele urządzeń z systemem Android, można go pobrać lub zaktualizować z Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">W przypadku niektórych języków wymagana będzie instalacja innego syntezatora lub pakietu językowego ze strony aplikacji (Google Play, Samsung Apps, App Gallery, FDroid). Otwórz ustawienia urządzenia → Język i klawiatura → Mowa → Przetwarzanie tekstu na mowę.\nMożesz w tym miejscu zarządzać ustawieniami syntezy mowy (np. pobrać pakiet językowy do stosowania offline) i wybrać inny silnik przetwarzania tekstu na mowę.</string>
+	<string name="prefs_languages_information_off">W przypadku niektórych języków wymagana będzie instalacja innego syntezatora lub pakietu językowego ze strony aplikacji (Google Play, Galaxy Store, App Gallery, FDroid). Otwórz ustawienia urządzenia → Język i klawiatura → Mowa → Przetwarzanie tekstu na mowę.\nMożesz w tym miejscu zarządzać ustawieniami syntezy mowy (np. pobrać pakiet językowy do stosowania offline) i wybrać inny silnik przetwarzania tekstu na mowę.</string>
 	<string name="prefs_languages_information_off_link">Aby uzyskać więcej informacji, sprawdź ten poradnik.</string>
 	<string name="transliteration_title">Transkrypcja na alfabet łaciński</string>
 	<string name="learn_more">Dowiedz się więcej</string>
@@ -1275,7 +1275,6 @@
 	<string name="type.office.lawyer">Prawnik</string>
 	<string name="type.office.ngo">Biuro organizacji pozarządowej</string>
 	<string name="type.office.telecommunication">Biuro operatora telefonii komórkowej</string>
-	<string name="type.place">Miejsce</string>
 	<string name="type.place.city">Miasto</string>
 	<string name="type.place.city.capital">Stolica</string>
 	<string name="type.place.city.capital.10">Miasto</string>
@@ -1298,6 +1297,8 @@
 	<string name="type.place.isolated_dwelling">Mała osada</string>
 	<string name="type.place.locality">Lokalne</string>
 	<string name="type.place.neighbourhood">Sąsiedztwo</string>
+	<string name="type.place.ocean">Ocean</string>
+	<string name="type.place.region">Region</string>
 	<string name="type.place.sea">Morze</string>
 	<string name="type.place.square">Plac</string>
 	<string name="type.place.state">Stan</string>

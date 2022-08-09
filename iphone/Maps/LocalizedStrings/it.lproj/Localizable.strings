@@ -2468,8 +2468,6 @@
 
 "type.organic.yes" = "Biologico";
 
-"type.place" = "place";
-
 "type.place.city" = "Città";
 
 "type.place.city.capital" = "Capitale";
@@ -2508,11 +2506,11 @@
 
 "type.place.islet" = "Isola";
 
-"type.place.isolated_dwelling" = "Dwelling";
+"type.place.isolated_dwelling" = "Abitazione isolata";
 
 "type.place.locality" = "Località";
 
-"type.place.neighbourhood" = "Neighbourhood";
+"type.place.neighbourhood" = "Quartiere";
 
 "type.place.ocean" = "Oceano";
 
@@ -2520,7 +2518,7 @@
 
 "type.place.sea" = "Mare";
 
-"type.place.square" = "Square";
+"type.place.square" = "Piazza";
 
 "type.place.state" = "Provincia";
 

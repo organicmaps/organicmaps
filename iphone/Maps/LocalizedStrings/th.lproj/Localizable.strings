@@ -2468,8 +2468,6 @@
 
 "type.organic.yes" = "Organic";
 
-"type.place" = "place";
-
 "type.place.city" = "เมือง";
 
 "type.place.city.capital" = "เมือง";
@@ -2508,11 +2506,11 @@
 
 "type.place.islet" = "เกาะ";
 
-"type.place.isolated_dwelling" = "Dwelling";
+"type.place.isolated_dwelling" = "ที่อยู่อาศัยโดดเดี่ยว";
 
 "type.place.locality" = "ท้องถิ่น";
 
-"type.place.neighbourhood" = "Neighbourhood";
+"type.place.neighbourhood" = "ละแวกบ้าน";
 
 "type.place.ocean" = "มหาสมุทร";
 
@@ -2520,7 +2518,7 @@
 
 "type.place.sea" = "เห็น";
 
-"type.place.square" = "Square";
+"type.place.square" = "ช่องว่าง";
 
 "type.place.state" = "รัฐ";
 

@@ -517,7 +517,7 @@
 	<string name="on">Act.</string>
 	<string name="off">Desact.</string>
 	<string name="prefs_languages_information">Utilizamos el sistema TTS para las instrucciones de voz. Muchos dispositivos de Android usan Google TTS. Puede descargar o actualizarlo desde Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">Para algunos idiomas, debe instalar otro sintetizador de voz o un paquete de idioma adicional desde la tienda de aplicaciones (Google Play, Samsung Apps, App Gallery, FDroid). Abra los Ajustes de su dispositivo → Idioma e introducción → Voz → Opciones texto a voz. Aquí puede administrar la configuración de síntesis de voz (por ejemplo, descargar un paquete de idioma para poder usarlo sin conexión) o seleccionar otro motor de texto a voz.</string>
+	<string name="prefs_languages_information_off">Para algunos idiomas, debe instalar otro sintetizador de voz o un paquete de idioma adicional desde la tienda de aplicaciones (Google Play, Galaxy Store, App Gallery, FDroid). Abra los Ajustes de su dispositivo → Idioma e introducción → Voz → Opciones texto a voz. Aquí puede administrar la configuración de síntesis de voz (por ejemplo, descargar un paquete de idioma para poder usarlo sin conexión) o seleccionar otro motor de texto a voz.</string>
 	<string name="prefs_languages_information_off_link">Para obtener más información, consulte esta guía.</string>
 	<string name="transliteration_title">Transliteración al latín</string>
 	<string name="learn_more">Leer más</string>
@@ -1262,8 +1262,10 @@
 	<string name="type.organic.only">Orgánico</string>
 	<string name="type.organic.yes">Orgánico</string>
 	<string name="type.place.city">Ciudad</string>
+	<string name="type.place.city.capital">Capital</string>
 	<string name="type.place.city.capital.10">Ciudad</string>
 	<string name="type.place.city.capital.11">Ciudad</string>
+	<string name="type.place.city.capital.2">Capital</string>
 	<string name="type.place.city.capital.3">Ciudad</string>
 	<string name="type.place.city.capital.4">Ciudad</string>
 	<string name="type.place.city.capital.5">Ciudad</string>
@@ -1278,10 +1280,13 @@
 	<string name="type.place.hamlet">Aldea</string>
 	<string name="type.place.island">Isla</string>
 	<string name="type.place.islet">Isla</string>
+	<string name="type.place.isolated_dwelling">Vivienda aislada</string>
 	<string name="type.place.locality">Localidad</string>
+	<string name="type.place.neighbourhood">Vecindario</string>
 	<string name="type.place.ocean">Océano</string>
 	<string name="type.place.region">Región</string>
 	<string name="type.place.sea">Mar</string>
+	<string name="type.place.square">Plaza</string>
 	<string name="type.place.state">Estado</string>
 	<string name="type.place.state.USA">Estado</string>
 	<string name="type.place.suburb">Barrio</string>

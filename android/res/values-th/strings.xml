@@ -504,7 +504,7 @@
 	<string name="on">เปิด</string>
 	<string name="off">ปิด</string>
 	<string name="prefs_languages_information">เราใช้ระบบ TTS สำหรับคำแนะนำด้วยเสียงพูด เครื่องแอนดรอยด์จำนวนมากใช้งาน Google TTS คุณสามารถดาวน์โหลดหรืออัปเดตได้จาก Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">สำหรับบางภาษาคุณจำเป็นต้องติดตั้งตัวสังเคราะห์เสียงหรือชุดภาษาเพิ่มเติมจากแอปสโตร์ (Google Play, Samsung Apps, App Gallery, FDroid)\nเปิดการตั้งค่าของเครื่องคุณ → ภาษาและการป้อนข้อมูล → คำพูด → เอาต์พุตการอ่านออกเสียง\nที่นี่คุณสามารถจัดการการตั้งค่าสำหรับการสังเคราะห์เสียง (ตัวอย่างเช่น ดาวน์โหลดชุดภาษาสำหรับใช้งานออฟไลน์) และเลือกเครื่องมืออ่านออกเสียงข้อความตัวอื่นได้</string>
+	<string name="prefs_languages_information_off">สำหรับบางภาษาคุณจำเป็นต้องติดตั้งตัวสังเคราะห์เสียงหรือชุดภาษาเพิ่มเติมจากแอปสโตร์ (Google Play, Galaxy Store, App Gallery, FDroid)\nเปิดการตั้งค่าของเครื่องคุณ → ภาษาและการป้อนข้อมูล → คำพูด → เอาต์พุตการอ่านออกเสียง\nที่นี่คุณสามารถจัดการการตั้งค่าสำหรับการสังเคราะห์เสียง (ตัวอย่างเช่น ดาวน์โหลดชุดภาษาสำหรับใช้งานออฟไลน์) และเลือกเครื่องมืออ่านออกเสียงข้อความตัวอื่นได้</string>
 	<string name="prefs_languages_information_off_link">สำหรับข้อมูลเพิ่มเติม กรุณาเข้าชมคำแนะนำนี้</string>
 	<string name="transliteration_title">การทับศัพท์เป็นภาษาละติน</string>
 	<string name="learn_more">ศึกษาเพิ่มเติม</string>
@@ -1186,10 +1186,13 @@
 	<string name="type.place.hamlet">หมู่บ้านเล็ก ๆ</string>
 	<string name="type.place.island">เกาะ</string>
 	<string name="type.place.islet">เกาะ</string>
+	<string name="type.place.isolated_dwelling">ที่อยู่อาศัยโดดเดี่ยว</string>
 	<string name="type.place.locality">ท้องถิ่น</string>
+	<string name="type.place.neighbourhood">ละแวกบ้าน</string>
 	<string name="type.place.ocean">มหาสมุทร</string>
 	<string name="type.place.region">ภูมิภาค</string>
 	<string name="type.place.sea">เห็น</string>
+	<string name="type.place.square">ช่องว่าง</string>
 	<string name="type.place.state">รัฐ</string>
 	<string name="type.place.state.USA">รัฐ</string>
 	<string name="type.place.suburb">ชานเมือง</string>

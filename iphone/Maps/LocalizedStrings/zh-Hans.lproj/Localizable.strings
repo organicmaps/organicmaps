@@ -2468,8 +2468,6 @@
 
 "type.organic.yes" = "Organic";
 
-"type.place" = "地点";
-
 "type.place.city" = "城市";
 
 "type.place.city.capital" = "首府";
@@ -2512,7 +2510,7 @@
 
 "type.place.locality" = "地方";
 
-"type.place.neighbourhood" = "街坊社区/小区";
+"type.place.neighbourhood" = "邻里社区";
 
 "type.place.ocean" = "海洋";
 

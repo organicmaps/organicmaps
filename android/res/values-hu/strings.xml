@@ -502,7 +502,7 @@
 	<string name="on">Be</string>
 	<string name="off">Ki</string>
 	<string name="prefs_languages_information">TTS rendszert használunk a hangnavigációhoz. Sok Android-os készülék használja a Google TTS-t; töltse le vagy frissítse a Google Play áruházból (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">Egyes nyelveknél másik beszédszintetizátort vagy további nyelvi csomagot kell telepítenie az alkalmazás-áruházból (Google Play, Samsung Apps, App Gallery, FDroid). Nyissa meg a készülék beállításait → Nyelv és bevitel → Beszéd → Szöveg-beszéd átalakító kimenet. Itt kezelheti a beszédszintézis beállításokat (például nyelvi csomag letöltése kapcsolat nélküli használatra) és másik szövegfelolvasót jelölhe tki.</string>
+	<string name="prefs_languages_information_off">Egyes nyelveknél másik beszédszintetizátort vagy további nyelvi csomagot kell telepítenie az alkalmazás-áruházból (Google Play, Galaxy Store, App Gallery, FDroid). Nyissa meg a készülék beállításait → Nyelv és bevitel → Beszéd → Szöveg-beszéd átalakító kimenet. Itt kezelheti a beszédszintézis beállításokat (például nyelvi csomag letöltése kapcsolat nélküli használatra) és másik szövegfelolvasót jelölhe tki.</string>
 	<string name="prefs_languages_information_off_link">További tájékoztatást találhat még ebben az útmutatóban.</string>
 	<string name="transliteration_title">Átírás latin nyelvre</string>
 	<string name="learn_more">Tudjon meg többet</string>
@@ -1180,10 +1180,13 @@
 	<string name="type.place.hamlet">Tanya</string>
 	<string name="type.place.island">Sziget</string>
 	<string name="type.place.islet">Sziget</string>
+	<string name="type.place.isolated_dwelling">Elszigetelt lakás</string>
 	<string name="type.place.locality">Falu</string>
+	<string name="type.place.neighbourhood">Szomszédság</string>
 	<string name="type.place.ocean">Óceán</string>
 	<string name="type.place.region">Régió</string>
 	<string name="type.place.sea">Tenger</string>
+	<string name="type.place.square">Tér</string>
 	<string name="type.place.state">Állam</string>
 	<string name="type.place.state.USA">Állam</string>
 	<string name="type.place.suburb">Kerület</string>

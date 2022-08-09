@@ -556,7 +556,7 @@
 	<string name="on">On</string>
 	<string name="off">Off</string>
 	<string name="prefs_languages_information">We use system TTS for voice instructions. Many Android devices use Google TTS, you can download or update it from Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">For some languages, you will need to install a speech synthesizer or an additional language pack from the app store (Google Play, Samsung Apps, App Gallery, FDroid).\nOpen your device\'s settings → Language and input → Speech → Text to speech output.\nHere you can manage settings for speech synthesis (for example, download language pack for offline use) and select another text-to-speech engine.</string>
+	<string name="prefs_languages_information_off">For some languages, you will need to install a speech synthesizer or an additional language pack from the app store (Google Play, Galaxy Store, App Gallery, FDroid).\nOpen your device\'s settings → Language and input → Speech → Text to speech output.\nHere you can manage settings for speech synthesis (for example, download language pack for offline use) and select another text-to-speech engine.</string>
 	<string name="prefs_languages_information_off_link">For more information please check this guide.</string>
 	<string name="transliteration_title">Transliteration into Latin</string>
 	<string name="learn_more">Learn more</string>
@@ -1392,7 +1392,6 @@
 	<string name="type.office.telecommunication">Telecom Company</string>
 	<string name="type.organic.only">Organic</string>
 	<string name="type.organic.yes">Organic</string>
-	<string name="type.place">place</string>
 	<string name="type.place.city">City</string>
 	<string name="type.place.city.capital">Capital</string>
 	<string name="type.place.city.capital.10">City</string>
@@ -1412,7 +1411,7 @@
 	<string name="type.place.hamlet">Hamlet</string>
 	<string name="type.place.island">Island</string>
 	<string name="type.place.islet">Island</string>
-	<string name="type.place.isolated_dwelling">Dwelling</string>
+	<string name="type.place.isolated_dwelling">Isolated Dwelling</string>
 	<string name="type.place.locality">Locality</string>
 	<string name="type.place.neighbourhood">Neighbourhood</string>
 	<string name="type.place.ocean">Ocean</string>

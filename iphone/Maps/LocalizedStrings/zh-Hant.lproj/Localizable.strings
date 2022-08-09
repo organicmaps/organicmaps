@@ -2468,8 +2468,6 @@
 
 "type.organic.yes" = "Organic";
 
-"type.place" = "place";
-
 "type.place.city" = "城市";
 
 "type.place.city.capital" = "首府";
@@ -2508,11 +2506,11 @@
 
 "type.place.islet" = "島";
 
-"type.place.isolated_dwelling" = "Dwelling";
+"type.place.isolated_dwelling" = "孤立居所";
 
 "type.place.locality" = "當地";
 
-"type.place.neighbourhood" = "Neighbourhood";
+"type.place.neighbourhood" = "鄰里社區";
 
 "type.place.ocean" = "海洋";
 
@@ -2520,7 +2518,7 @@
 
 "type.place.sea" = "海";
 
-"type.place.square" = "Square";
+"type.place.square" = "廣場";
 
 "type.place.state" = "州/省";
 

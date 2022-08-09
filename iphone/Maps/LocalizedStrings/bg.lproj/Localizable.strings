@@ -2468,69 +2468,67 @@
 
 "type.organic.yes" = "Organic";
 
-"type.place" = "place";
+"type.place.city" = "Град";
 
-"type.place.city" = "City";
+"type.place.city.capital" = "Столица";
 
-"type.place.city.capital" = "Capital";
+"type.place.city.capital.10" = "Град";
 
-"type.place.city.capital.10" = "City";
+"type.place.city.capital.11" = "Град";
 
-"type.place.city.capital.11" = "City";
+"type.place.city.capital.2" = "Столица";
 
-"type.place.city.capital.2" = "Capital";
+"type.place.city.capital.3" = "Град";
 
-"type.place.city.capital.3" = "City";
+"type.place.city.capital.4" = "Град";
 
-"type.place.city.capital.4" = "City";
+"type.place.city.capital.5" = "Град";
 
-"type.place.city.capital.5" = "City";
+"type.place.city.capital.6" = "Град";
 
-"type.place.city.capital.6" = "City";
+"type.place.city.capital.7" = "Град";
 
-"type.place.city.capital.7" = "City";
+"type.place.city.capital.8" = "Град";
 
-"type.place.city.capital.8" = "City";
+"type.place.city.capital.9" = "Град";
 
-"type.place.city.capital.9" = "City";
+"type.place.continent" = "Континент";
 
-"type.place.continent" = "Continent";
+"type.place.country" = "Страна";
 
-"type.place.country" = "Country";
+"type.place.county" = "Графство";
 
-"type.place.county" = "County";
+"type.place.farm" = "Ферма";
 
-"type.place.farm" = "Farm";
+"type.place.hamlet" = "Cело";
 
-"type.place.hamlet" = "Hamlet";
+"type.place.island" = "Остров";
 
-"type.place.island" = "Island";
+"type.place.islet" = "Острови";
 
-"type.place.islet" = "Island";
+"type.place.isolated_dwelling" = "Изолирано жилище";
 
-"type.place.isolated_dwelling" = "Dwelling";
+"type.place.locality" = "Място";
 
-"type.place.locality" = "Locality";
+"type.place.neighbourhood" = "Съседство";
 
-"type.place.neighbourhood" = "Neighbourhood";
+"type.place.ocean" = "Океан";
 
-"type.place.ocean" = "Ocean";
+"type.place.region" = "Регион";
 
-"type.place.region" = "Region";
+"type.place.sea" = "Море";
 
-"type.place.sea" = "Sea";
+"type.place.square" = "Площад";
 
-"type.place.square" = "Square";
+"type.place.state" = "Федерален щат";
 
-"type.place.state" = "State";
+"type.place.state.USA" = "Държава";
 
-"type.place.state.USA" = "State";
+"type.place.suburb" = "Предградие";
 
-"type.place.suburb" = "Suburb";
+"type.place.town" = "Касаба";
 
-"type.place.town" = "Town";
-
-"type.place.village" = "Village";
+"type.place.village" = "Село";
 
 "type.power" = "Power";
 

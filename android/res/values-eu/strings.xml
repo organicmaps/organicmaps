@@ -513,7 +513,7 @@
 	<string name="on">Ekin.</string>
 	<string name="off">Itzali</string>
 	<string name="prefs_languages_information">TTS sistema erabiltzen dugu ahots-argibideetarako. Android gailu askok Google TTS erabiltzen dute. Google Play-tik deskargatu edo egunera dezakezu (https://play.google.com/store/apps/details?idu003dcom.google.android.tts)</string>
-	<string name="prefs_languages_information_off">Zenbait hizkuntzatan, beste ahots-sintetizadore bat edo hizkuntza-pakete gehigarri bat instalatu behar duzu aplikazio-dendatik (Google Play, Samsung Apps, App Gallery, FDroid). Ireki gailua Ezarpenak > Hizkuntza eta sarrera > Hizkera > Hizketarako testurako aukerak. Hemen ahots-sintesiaren ezarpenak kudea ditzakezu (adibidez, hizkuntza pakete bat deskargatu, konexiorik gabe erabiltzeko) edo testu-hizketarako beste motor bat hauta dezakezu.</string>
+	<string name="prefs_languages_information_off">Zenbait hizkuntzatan, beste ahots-sintetizadore bat edo hizkuntza-pakete gehigarri bat instalatu behar duzu aplikazio-dendatik (Google Play, Galaxy Store, App Gallery, FDroid). Ireki gailua Ezarpenak > Hizkuntza eta sarrera > Hizkera > Hizketarako testurako aukerak. Hemen ahots-sintesiaren ezarpenak kudea ditzakezu (adibidez, hizkuntza pakete bat deskargatu, konexiorik gabe erabiltzeko) edo testu-hizketarako beste motor bat hauta dezakezu.</string>
 	<string name="prefs_languages_information_off_link">Informazio gehiago lortzeko, ikusi gida hau.</string>
 	<string name="transliteration_title">Latinezko transliterazioa</string>
 	<string name="learn_more">Irakurri gehiago</string>
@@ -1228,8 +1228,10 @@
 	<string name="type.organic.only">Organikoa</string>
 	<string name="type.organic.yes">Organikoa</string>
 	<string name="type.place.city">Herria</string>
+	<string name="type.place.city.capital">Hiriburu</string>
 	<string name="type.place.city.capital.10">Herria</string>
 	<string name="type.place.city.capital.11">Herria</string>
+	<string name="type.place.city.capital.2">Hiriburu</string>
 	<string name="type.place.city.capital.3">Herria</string>
 	<string name="type.place.city.capital.4">Herria</string>
 	<string name="type.place.city.capital.5">Herria</string>
@@ -1244,10 +1246,13 @@
 	<string name="type.place.hamlet">Herria</string>
 	<string name="type.place.island">Uhartea</string>
 	<string name="type.place.islet">Uhartea</string>
+	<string name="type.place.isolated_dwelling">Etxebizitza Isolatua</string>
 	<string name="type.place.locality">Kokapena</string>
+	<string name="type.place.neighbourhood">Auzo</string>
 	<string name="type.place.ocean">Ozeanoa</string>
 	<string name="type.place.region">Eskualdea</string>
 	<string name="type.place.sea">Itsasoa</string>
+	<string name="type.place.square">Plaza</string>
 	<string name="type.place.state">Baldintza</string>
 	<string name="type.place.state.USA">Baldintza</string>
 	<string name="type.place.suburb">Auzoa</string>

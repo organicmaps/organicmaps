@@ -2468,8 +2468,6 @@
 
 "type.organic.yes" = "Organic";
 
-"type.place" = "place";
-
 "type.place.city" = "City";
 
 "type.place.city.capital" = "Capital";
@@ -2508,7 +2506,7 @@
 
 "type.place.islet" = "Island";
 
-"type.place.isolated_dwelling" = "Dwelling";
+"type.place.isolated_dwelling" = "Isolated Dwelling";
 
 "type.place.locality" = "Locality";
 

@@ -2468,8 +2468,6 @@
 
 "type.organic.yes" = "Organic";
 
-"type.place" = "place";
-
 "type.place.city" = "By";
 
 "type.place.city.capital" = "Hovedstad";
@@ -2508,11 +2506,11 @@
 
 "type.place.islet" = "Øy";
 
-"type.place.isolated_dwelling" = "Dwelling";
+"type.place.isolated_dwelling" = "Isolert bolig";
 
 "type.place.locality" = "Lokalitet";
 
-"type.place.neighbourhood" = "Neighbourhood";
+"type.place.neighbourhood" = "Strøk";
 
 "type.place.ocean" = "Hav";
 
@@ -2520,7 +2518,7 @@
 
 "type.place.sea" = "Sjø";
 
-"type.place.square" = "Square";
+"type.place.square" = "Torg";
 
 "type.place.state" = "Stat";
 

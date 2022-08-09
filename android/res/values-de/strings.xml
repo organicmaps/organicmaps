@@ -533,7 +533,7 @@
 	<string name="on">An</string>
 	<string name="off">Aus</string>
 	<string name="prefs_languages_information">Wir verwenden Text-to-Speech-Systeme für Sprachanweisungen. Viele Android-Geräte nutzen Google-TTS, das Sie bei Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts) herunterladen oder aktualisieren können.</string>
-	<string name="prefs_languages_information_off">Für einige Sprachen müssen Sie einen anderen Sprachgenerator oder ein zusätzliches Sprachpaket aus dem App Store installieren (Google Play, Samsung Apps, App Gallery, FDroid). \nÖffnen Sie die Einstellungen Ihres Gerätes → Sprache und Eingabe → Sprache → Text-to-Speech-Ausgabe. Hier können Sie die Einstellungen für Sprachsynthese verwalten (beispielsweise ein Sprachpaket für die Offline-Verwendung herunterladen) und ein anderes Sprachausgabeprogramm auswählen.</string>
+	<string name="prefs_languages_information_off">Für einige Sprachen müssen Sie einen anderen Sprachgenerator oder ein zusätzliches Sprachpaket aus dem App Store installieren (Google Play, Galaxy Store, App Gallery, FDroid). \nÖffnen Sie die Einstellungen Ihres Gerätes → Sprache und Eingabe → Sprache → Text-to-Speech-Ausgabe. Hier können Sie die Einstellungen für Sprachsynthese verwalten (beispielsweise ein Sprachpaket für die Offline-Verwendung herunterladen) und ein anderes Sprachausgabeprogramm auswählen.</string>
 	<string name="prefs_languages_information_off_link">Weitere Informationen finden Sie in dieser Anleitung.</string>
 	<string name="transliteration_title">Transliteration ins Lateinische</string>
 	<string name="learn_more">Weitere Informationen</string>
@@ -1311,7 +1311,6 @@
 	<string name="type.office.telecommunication">Mobilfunkbetreiber</string>
 	<string name="type.organic.only">Bio</string>
 	<string name="type.organic.yes">Bio</string>
-	<string name="type.place">Ort</string>
 	<string name="type.place.city">Großstadt</string>
 	<string name="type.place.city.capital">Hauptstadt</string>
 	<string name="type.place.city.capital.10">Großstadt</string>
@@ -1330,7 +1329,7 @@
 	<string name="type.place.farm">Bauernhof</string>
 	<string name="type.place.hamlet">Weiler</string>
 	<string name="type.place.island">Insel</string>
-	<string name="type.place.islet">kleine Insel</string>
+	<string name="type.place.islet">Kleine Insel</string>
 	<string name="type.place.isolated_dwelling">Kleinstsiedlung</string>
 	<string name="type.place.locality">Örtlichkeit</string>
 	<string name="type.place.neighbourhood">Stadtviertel</string>
@@ -1340,8 +1339,8 @@
 	<string name="type.place.square">Platz</string>
 	<string name="type.place.state">Bundesland</string>
 	<string name="type.place.state.USA">Bundesstaat</string>
-	<string name="type.place.suburb">Stadtteil</string>
-	<string name="type.place.town">Stadt</string>
+	<string name="type.place.suburb">Vorort</string>
+	<string name="type.place.town">Kleinstadt</string>
 	<string name="type.place.village">Dorf</string>
 	<string name="type.power">Energie</string>
 	<string name="type.power.generator">Generator</string>

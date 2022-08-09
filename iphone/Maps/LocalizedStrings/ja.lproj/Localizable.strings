@@ -2468,8 +2468,6 @@
 
 "type.organic.yes" = "Organic";
 
-"type.place" = "地名";
-
 "type.place.city" = "市";
 
 "type.place.city.capital" = "首都";

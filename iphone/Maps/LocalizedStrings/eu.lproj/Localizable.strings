@@ -2468,17 +2468,15 @@
 
 "type.organic.yes" = "Organikoa";
 
-"type.place" = "place";
-
 "type.place.city" = "Herria";
 
-"type.place.city.capital" = "Capital";
+"type.place.city.capital" = "Hiriburu";
 
 "type.place.city.capital.10" = "Herria";
 
 "type.place.city.capital.11" = "Herria";
 
-"type.place.city.capital.2" = "Capital";
+"type.place.city.capital.2" = "Hiriburu";
 
 "type.place.city.capital.3" = "Herria";
 
@@ -2508,11 +2506,11 @@
 
 "type.place.islet" = "Uhartea";
 
-"type.place.isolated_dwelling" = "Dwelling";
+"type.place.isolated_dwelling" = "Etxebizitza Isolatua";
 
 "type.place.locality" = "Kokapena";
 
-"type.place.neighbourhood" = "Neighbourhood";
+"type.place.neighbourhood" = "Auzo";
 
 "type.place.ocean" = "Ozeanoa";
 
@@ -2520,7 +2518,7 @@
 
 "type.place.sea" = "Itsasoa";
 
-"type.place.square" = "Square";
+"type.place.square" = "Plaza";
 
 "type.place.state" = "Baldintza";
 
