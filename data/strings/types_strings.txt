@@ -9131,7 +9131,7 @@
   [type.highway.road.bridge]
     comment = These translations are used for all type.highway.*.bridge.
     en = Bridge
-    ar = جسر 
+    ar = جسر
     be = Мост
     bg = Мост
     cs = Most
@@ -9657,7 +9657,7 @@
 
   [type.highway.unclassified]
     en = Minor Road
-    ar =  شارع صغير
+    ar = شارع صغير
     cs = Ulice
     da = Gade
     de = Straße
@@ -10453,7 +10453,6 @@
     comment = In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship.
     ref = type.amenity.grave_yard
     en = Cemetery
-    
 
   [type.landuse.cemetery.christian]
     ref = type.amenity.grave_yard.christian
@@ -11840,7 +11839,7 @@
   [type.leisure.swimming_pool.private]
     ref = type.leisure.swimming_pool
     ar = مسبح خاص
-    
+
   [type.leisure.track]
     en = Track
     de = Laufbahn
