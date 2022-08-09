@@ -954,6 +954,7 @@ world  +
         archery  -
         athletics  -
         australian_football  -
+        badminton  -
         baseball  -
         basketball  -
         beachvolleyball  -
@@ -964,10 +965,15 @@ world  +
         curling  -
         diving  -
         equestrian  -
+        field_hockey  -
+        futsal  -
         golf  -
         gymnastics  -
         handball  -
+        ice_hockey  -
         multi  -
+        padel  -
+        pelota  -
         scuba_diving  -
         shooting  -
         skateboard  -
