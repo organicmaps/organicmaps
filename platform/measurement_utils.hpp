@@ -31,7 +31,8 @@ inline double InchesToMeters(double in) { return in / 39.370; }
 inline double NauticalMilesToMeters(double nmi) { return nmi * 1852; }
 inline double KmphToMps(double kmph) { return kmph * 1000 / 3600; }
 
-double ToSpeedKmPH(double speed, measurement_utils::Units units);
+double ToSpeedKmPH(double speed, Units units);
+double MpsToUnits(double mps, Units units);
 
 /// Takes into an account user settings [metric, imperial]
 /// @param[in] m meters

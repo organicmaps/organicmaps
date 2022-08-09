@@ -73,7 +73,7 @@ std::string DebugPrint(Units units)
   UNREACHABLE();
 }
 
-double ToSpeedKmPH(double speed, measurement_utils::Units units)
+double ToSpeedKmPH(double speed, Units units)
 {
   switch (units)
   {
@@ -224,14 +224,19 @@ string FormatSpeed(double metersPerSecond)
   return FormatSpeedNumeric(metersPerSecond, units) + " " + FormatSpeedUnits(units);
 }
 
-string FormatSpeedNumeric(double metersPerSecond, Units units)
+double MpsToUnits(double metersPerSecond, Units units)
 {
-  double unitsPerHour;
   switch (units)
   {
-  case Units::Imperial: unitsPerHour = KmphToMiph(MpsToKmph(metersPerSecond)); break;
-  case Units::Metric: unitsPerHour = MpsToKmph(metersPerSecond); break;
+  case Units::Imperial: return KmphToMiph(MpsToKmph(metersPerSecond)); break;
+  case Units::Metric: return MpsToKmph(metersPerSecond); break;
   }
+  UNREACHABLE();
+}
+
+string FormatSpeedNumeric(double metersPerSecond, Units units)
+{
+  double const unitsPerHour = MpsToUnits(metersPerSecond, units);
   return ToStringPrecision(unitsPerHour, unitsPerHour >= 10.0 ? 0 : 1);
 }
 

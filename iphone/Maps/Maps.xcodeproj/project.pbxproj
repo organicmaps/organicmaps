@@ -99,7 +99,6 @@
 		34AB39C21D2BD8310021857D /* MWMStopButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 34AB39C01D2BD8310021857D /* MWMStopButton.m */; };
 		34AB66051FC5AA320078E451 /* MWMNavigationDashboardManager+Entity.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34AB65C51FC5AA320078E451 /* MWMNavigationDashboardManager+Entity.mm */; };
 		34AB66081FC5AA320078E451 /* MWMNavigationDashboardManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34AB65C61FC5AA320078E451 /* MWMNavigationDashboardManager.mm */; };
-		34AB660B1FC5AA320078E451 /* MWMNavigationDashboardEntity.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34AB65CB1FC5AA320078E451 /* MWMNavigationDashboardEntity.mm */; };
 		34AB660E1FC5AA320078E451 /* NavigationControlView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34AB65CD1FC5AA320078E451 /* NavigationControlView.xib */; };
 		34AB66111FC5AA320078E451 /* NavigationTurnsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34AB65CE1FC5AA320078E451 /* NavigationTurnsView.swift */; };
 		34AB66141FC5AA320078E451 /* MWMNavigationInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34AB65D01FC5AA320078E451 /* MWMNavigationInfoView.xib */; };
@@ -855,7 +854,6 @@
 		34AB65C71FC5AA320078E451 /* MWMNavigationDashboardManager+Entity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MWMNavigationDashboardManager+Entity.h"; sourceTree = "<group>"; };
 		34AB65C91FC5AA320078E451 /* MWMNavigationDashboardEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMNavigationDashboardEntity.h; sourceTree = "<group>"; };
 		34AB65CA1FC5AA320078E451 /* MWMNavigationDashboardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMNavigationDashboardManager.h; sourceTree = "<group>"; };
-		34AB65CB1FC5AA320078E451 /* MWMNavigationDashboardEntity.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMNavigationDashboardEntity.mm; sourceTree = "<group>"; };
 		34AB65CD1FC5AA320078E451 /* NavigationControlView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NavigationControlView.xib; sourceTree = "<group>"; };
 		34AB65CE1FC5AA320078E451 /* NavigationTurnsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationTurnsView.swift; sourceTree = "<group>"; };
 		34AB65CF1FC5AA320078E451 /* MWMNavigationInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMNavigationInfoView.h; sourceTree = "<group>"; };
@@ -2267,7 +2265,6 @@
 			isa = PBXGroup;
 			children = (
 				34AB65C91FC5AA320078E451 /* MWMNavigationDashboardEntity.h */,
-				34AB65CB1FC5AA320078E451 /* MWMNavigationDashboardEntity.mm */,
 				34AB65CA1FC5AA320078E451 /* MWMNavigationDashboardManager.h */,
 				34AB65C61FC5AA320078E451 /* MWMNavigationDashboardManager.mm */,
 				34AB65C71FC5AA320078E451 /* MWMNavigationDashboardManager+Entity.h */,
@@ -4325,7 +4322,6 @@
 				993DF10923F6BDB100AC231A /* IFonts.swift in Sources */,
 				47699A0821F08E37009E6585 /* NSDate+TimeDistance.m in Sources */,
 				34845DB31E165E24003D55B9 /* SearchNoResultsViewController.swift in Sources */,
-				34AB660B1FC5AA320078E451 /* MWMNavigationDashboardEntity.mm in Sources */,
 				47E3C72B2111E62A008B3B27 /* FadeOutAnimatedTransitioning.swift in Sources */,
 				471A7BC4248471BE00A0D4C1 /* BookmarkUIUtils.swift in Sources */,
 			);

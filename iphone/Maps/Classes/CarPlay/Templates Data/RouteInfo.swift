@@ -8,9 +8,10 @@ class RouteInfo: NSObject {
   let turnUnits: UnitLength
   let turnImageName: String?
   let nextTurnImageName: String?
-  let speed: Int
+  let speedMps: Double
+  let speedLimitMps: Double?
   let roundExitNumber: Int
-  
+
   @objc init(timeToTarget: TimeInterval,
              targetDistance: String,
              targetUnits: String,
@@ -19,7 +20,8 @@ class RouteInfo: NSObject {
              turnUnits: String,
              turnImageName: String?,
              nextTurnImageName: String?,
-             speed: Int,
+             speedMps: Double,
+             speedLimitMps: Double,
              roundExitNumber: Int) {
     self.timeToTarget = timeToTarget
     self.targetDistance = targetDistance
@@ -29,10 +31,12 @@ class RouteInfo: NSObject {
     self.turnUnits = RouteInfo.unitLength(for: turnUnits)
     self.turnImageName = turnImageName
     self.nextTurnImageName = nextTurnImageName
-    self.speed = speed
+    self.speedMps = speedMps
+    // speedLimitMps >= 0 means known limited speed.
+    self.speedLimitMps = speedLimitMps < 0 ? nil : speedLimitMps
     self.roundExitNumber = roundExitNumber
   }
-  
+
   class func unitLength(for targetUnits: String) -> UnitLength {
     switch targetUnits {
     case "mi":

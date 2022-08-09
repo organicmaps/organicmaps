@@ -82,10 +82,9 @@
   self.rm.GetRouteFollowingInfo(info);
   if (!info.IsValid()) { return nil; }
   CLLocation * lastLocation = [MWMLocationManager lastLocation];
-  NSString *speed = @"0";
+  double speedMps = 0;
   if (lastLocation && lastLocation.speed >= 0) {
-    auto const units = coreUnits([MWMSettings measurementUnits]);
-    speed = @(measurement_utils::FormatSpeedNumeric(lastLocation.speed, units).c_str());
+    speedMps = lastLocation.speed;
   }
   NSInteger roundExitNumber = 0;
   if (info.m_turn == routing::turns::CarDirection::EnterRoundAbout ||
@@ -93,7 +92,7 @@
       info.m_turn == routing::turns::CarDirection::LeaveRoundAbout) {
     roundExitNumber = info.m_exitNum;
   }
-  
+
   MWMRouteInfo *objCInfo = [[MWMRouteInfo alloc] initWithTimeToTarget:info.m_time
                                                        targetDistance:@(info.m_distToTarget.c_str())
                                                           targetUnits:@(info.m_targetUnitsSuffix.c_str())
@@ -102,8 +101,9 @@
                                                             turnUnits:@(info.m_turnUnitsSuffix.c_str())
                                                         turnImageName:[self turnImageName:info.m_turn isPrimary:YES]
                                                     nextTurnImageName:[self turnImageName:info.m_nextTurn isPrimary:NO]
-                                                                speed:[speed integerValue]
-                                                      roundExitNumber: roundExitNumber];
+                                                             speedMps:speedMps
+                                                        speedLimitMps:info.m_speedLimitMps
+                                                      roundExitNumber:roundExitNumber];
   return objCInfo;
 }
 
@@ -143,7 +143,7 @@
 - (void)buildRouteWithDidFailError:(NSError * __autoreleasing  __nullable *)errorPtr {
   auto const & points = self.rm.GetRoutePoints();
   auto const pointsCount = points.size();
-  
+
   if (pointsCount > 1) {
     self.rm.BuildRoute();
   } else {
@@ -229,12 +229,10 @@
   NSArray<id<MWMRoutingManagerListener>> * objects = self.listeners.allObjects;
   for (id<MWMRoutingManagerListener> object in objects) {
     if (speedLimit == routing::SpeedCameraOnRoute::kNoSpeedInfo) {
-      [object updateCameraInfo:YES speedLimit:nil];
+      [object updateCameraInfo:YES speedLimitMps:-1];
     } else {
       auto const metersPerSecond = measurement_utils::KmphToMps(speedLimit);
-
-      NSString *limit = @(measurement_utils::FormatSpeed(metersPerSecond).c_str());
-      [object updateCameraInfo:YES speedLimit:limit];
+      [object updateCameraInfo:YES speedLimitMps:metersPerSecond];
     }
   }
 }
@@ -242,7 +240,7 @@
 - (void)speedCameraLeftVisibleArea {
   NSArray<id<MWMRoutingManagerListener>> * objects = self.listeners.allObjects;
   for (id<MWMRoutingManagerListener> object in objects) {
-    [object updateCameraInfo:NO speedLimit:nil];
+    [object updateCameraInfo:NO speedLimitMps:-1];
   }
 }
 
