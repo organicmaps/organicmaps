@@ -46,11 +46,31 @@ UNIT_TEST(LatLon_Degree_Match)
   TestAlmostEqual(lat, 10.1);
   TestAlmostEqual(lon, 20.2);
 
+  TEST(MatchLatLonDegree("-22.3534 -42.7076\n", lat, lon), ());
+  TestAlmostEqual(lat, -22.3534);
+  TestAlmostEqual(lon, -42.7076);
+
   // The ".123" form is not accepted, so our best-effort
   // parse results in "10" and "20".
   TEST(MatchLatLonDegree(".10, ,20", lat, lon), ());
   TestAlmostEqual(lat, 10.0);
   TestAlmostEqual(lon, 20.0);
+
+  TEST(!MatchLatLonDegree("34-31", lat, lon), ());
+  TEST(!MatchLatLonDegree("34/31", lat, lon), ());
+  TEST(!MatchLatLonDegree("34,31", lat, lon), ());
+
+  /// @todo 5E-5 eats as full double here. This is a very fancy case, but anyway ...
+  TEST(!MatchLatLonDegree("N5E-5", lat, lon), ());
+  TEST(!MatchLatLonDegree("5E-5", lat, lon), ());
+
+  TEST(MatchLatLonDegree("N5W-5", lat, lon), ());
+  TestAlmostEqual(lat, 5);
+  TestAlmostEqual(lon, 5);
+  // Same as "N5 E-5"
+  TEST(MatchLatLonDegree("5 E-5", lat, lon), ());
+  TestAlmostEqual(lat, 5);
+  TestAlmostEqual(lon, -5);
 
   TEST(!MatchLatLonDegree("., .", lat, lon), ());
   TEST(!MatchLatLonDegree("10, .", lat, lon), ());
@@ -84,6 +104,14 @@ UNIT_TEST(LatLon_Degree_Match)
   TEST(MatchLatLonDegree("N55°45′20.99″ E37°37′03.62″", lat, lon), ());
   TestAlmostEqual(lat, 55.755830555555556);
   TestAlmostEqual(lon, 37.617672222222222);
+
+  {
+    TEST(MatchLatLonDegree("N-55°45′20.99″ E-37°37′03.62″", lat, lon), ());
+    double lat1, lon1;
+    TEST(MatchLatLonDegree("S55°45′20.99″ W37°37′03.62″", lat1, lon1), ());
+    TestAlmostEqual(lat, lat1);
+    TestAlmostEqual(lon, lon1);
+  }
 
   TEST(MatchLatLonDegree("55°45’20.9916\"N, 37°37’3.6228\"E hsdfjgkdsjbv", lat, lon), ());
   TestAlmostEqual(lat, 55.755831);
