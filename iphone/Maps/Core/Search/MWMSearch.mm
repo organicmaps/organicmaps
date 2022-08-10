@@ -139,7 +139,7 @@ using Observers = NSHashTable<Observer>;
   std::string locale = (!inputLocale || inputLocale.length == 0)
                         ? [MWMSearch manager]->m_locale
                         : inputLocale.UTF8String;
-  std::string text = query.precomposedStringWithCompatibilityMapping.UTF8String;
+  std::string text = query.UTF8String;
   GetFramework().GetSearchAPI().SaveSearchQuery({std::move(locale), std::move(text)});
 }
 
@@ -151,7 +151,9 @@ using Observers = NSHashTable<Observer>;
   if (inputLocale.length != 0)
     manager->m_locale = inputLocale.UTF8String;
 
-  manager->m_query = query.precomposedStringWithCompatibilityMapping.UTF8String;
+  // Pass input query as-is without any normalization (precomposedStringWithCompatibilityMapping).
+  // Otherwise № -> No, and it's unexpectable for the search index.
+  manager->m_query = query.UTF8String;
   manager->m_isCategory = (isCategory == YES);
   manager.textChanged = YES;
 
