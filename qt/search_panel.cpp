@@ -195,9 +195,11 @@ bool SearchPanel::TryTrafficSimplifiedColorsCmd(QString const & str)
   return true;
 }
 
-void SearchPanel::OnSearchTextChanged(QString const & str)
+void SearchPanel::OnSearchTextChanged(QString const & normalized)
 {
-  QString const normalized = str.normalized(QString::NormalizationForm_KC);
+  // Pass input query as-is without any normalization.
+  // Otherwise № -> No, and it's unexpectable for the search index.
+  //QString const normalized = str.normalized(QString::NormalizationForm_KC);
 
   if (Try3dModeCmd(normalized))
     return;
