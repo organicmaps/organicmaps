@@ -9774,7 +9774,8 @@ fa:فروشگاه غذای دریایی
 mr:सीफूड शॉप
 
 shop-second_hand
-en:4Second Hand
+en:4Second Hand|Thrift shop|Flea market
+it:Negozio dell'usato|Mercatino delle pulci
 ru:4Подержанные товары
 
 shop-charity
