@@ -91,7 +91,7 @@ public:
   ~Engine();
 
   // Posts search request to the queue and returns its handle.
-  std::weak_ptr<ProcessorHandle> Search(SearchParams const & params);
+  std::weak_ptr<ProcessorHandle> Search(SearchParams params);
 
   // Sets default locale on all query processors.
   void SetLocale(std::string const & locale);
@@ -169,8 +169,7 @@ private:
   template <typename... Args>
   void PostMessage(Args &&... args);
 
-  void DoSearch(SearchParams const & params, std::shared_ptr<ProcessorHandle> handle,
-                Processor & processor);
+  void DoSearch(SearchParams params, std::shared_ptr<ProcessorHandle> handle, Processor & processor);
 
   std::vector<Suggest> m_suggests;
 

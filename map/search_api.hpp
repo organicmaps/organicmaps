@@ -45,7 +45,7 @@ struct DownloaderSearchParams;
 
 class SearchAPI : public search::DownloaderSearchCallback::Delegate,
                   public search::ViewportSearchCallback::Delegate,
-                  public search::ProductInfo::Delegate
+                  public search::EverywhereSearchCallback::Delegate
 {
 public:
   struct Delegate
@@ -81,16 +81,16 @@ public:
   }
 
   // Search everywhere.
-  bool SearchEverywhere(search::EverywhereSearchParams const & params);
+  bool SearchEverywhere(search::EverywhereSearchParams params);
 
   // Search in the viewport.
-  bool SearchInViewport(search::ViewportSearchParams const & params);
+  bool SearchInViewport(search::ViewportSearchParams params);
 
   // Search for maps by countries or cities.
-  bool SearchInDownloader(storage::DownloaderSearchParams const & params);
+  bool SearchInDownloader(storage::DownloaderSearchParams params);
 
   // Search for bookmarks.
-  bool SearchInBookmarks(search::BookmarksSearchParams const & params);
+  bool SearchInBookmarks(search::BookmarksSearchParams params);
 
   search::Engine & GetEngine() { return m_engine; }
   search::Engine const & GetEngine() const { return m_engine; }
@@ -153,7 +153,7 @@ private:
     bool m_isDelayed = false;
   };
 
-  bool Search(search::SearchParams const & params, bool forceSearch);
+  bool Search(search::SearchParams params, bool forceSearch);
   void Search(SearchIntent & intent);
 
   void SetViewportIfPossible(search::SearchParams & params);

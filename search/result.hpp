@@ -189,7 +189,6 @@ std::string DebugPrint(search::Result::Type type);
 class Results
 {
 public:
-  using Iter = std::vector<Result>::iterator;
   using ConstIter = std::vector<Result>::const_iterator;
 
   enum class Type
@@ -220,19 +219,11 @@ public:
 
   void Clear();
 
-  Iter begin() { return m_results.begin(); }
-  Iter end() { return m_results.end(); }
   ConstIter begin() const { return m_results.cbegin(); }
   ConstIter end() const { return m_results.cend(); }
 
   size_t GetCount() const { return m_results.size(); }
   size_t GetSuggestsCount() const;
-
-  Result & operator[](size_t i)
-  {
-    ASSERT_LESS(i, m_results.size(), ());
-    return m_results[i];
-  }
 
   Result const & operator[](size_t i) const
   {
@@ -242,12 +233,13 @@ public:
 
   bookmarks::Results const & GetBookmarksResults() const;
 
+  /// @deprecated Fucntion is obsolete (used in tests) and doesn't take into account bookmarks.
   template <typename Fn>
   void SortBy(Fn && comparator)
   {
-    std::sort(begin(), end(), std::forward<Fn>(comparator));
-    for (int32_t i = 0; i < static_cast<int32_t>(GetCount()); ++i)
-      operator[](i).SetPositionInResults(i);
+    std::sort(m_results.begin(), m_results.end(), comparator);
+    for (size_t i = 0; i < m_results.size(); ++i)
+      m_results[i].SetPositionInResults(i);
   }
 
 private:

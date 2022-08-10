@@ -68,7 +68,7 @@ public:
 
   inline bool IsEmptyQuery() const { return m_prefix.empty() && m_tokens.empty(); }
 
-  void Search(SearchParams const & params);
+  void Search(SearchParams params);
 
   // Tries to parse a custom debugging command from |m_query|.
   void SearchDebug();
@@ -88,7 +88,6 @@ public:
   void InitGeocoder(Geocoder::Params & geocoderParams, SearchParams const & searchParams);
   void InitPreRanker(Geocoder::Params const & geocoderParams, SearchParams const & searchParams);
   void InitRanker(Geocoder::Params const & geocoderParams, SearchParams const & searchParams);
-  void InitEmitter(SearchParams const & searchParams);
 
   void ClearCaches();
   void CacheWorldLocalities();

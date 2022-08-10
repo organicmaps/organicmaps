@@ -238,6 +238,8 @@ void Processor::SetInputLocale(string const & locale)
 
 void Processor::SetQuery(string const & query, bool categorialRequest /* = false */)
 {
+  LOG(LDEBUG, ("query:", query, "isCategorial:", categorialRequest));
+
   m_query = query;
   m_tokens.clear();
   m_prefix.clear();
@@ -515,11 +517,9 @@ void Processor::ForEachCategoryTypeFuzzy(StringSliceBase const & slice, ToDo && 
                                      forward<ToDo>(toDo));
 }
 
-void Processor::Search(SearchParams const & params)
+void Processor::Search(SearchParams params)
 {
   SetDeadline(chrono::steady_clock::now() + params.m_timeout);
-
-  InitEmitter(params);
 
   if (params.m_onStarted)
     params.m_onStarted();
@@ -529,13 +529,11 @@ void Processor::Search(SearchParams const & params)
   {
     Results results;
     results.SetEndMarker(true /* isCancelled */);
-
-    if (params.m_onResults)
-      params.m_onResults(results);
-    else
-      LOG(LERROR, ("OnResults is not set."));
+    params.m_onResults(std::move(results));
     return;
   }
+
+  m_emitter.Init(std::move(params.m_onResults));
 
   bool const viewportSearch = params.m_mode == Mode::Viewport;
 
@@ -879,11 +877,6 @@ void Processor::InitRanker(Geocoder::Params const & geocoderParams,
   params.m_categorialRequest = geocoderParams.IsCategorialRequest();
 
   m_ranker.Init(params, geocoderParams);
-}
-
-void Processor::InitEmitter(SearchParams const & searchParams)
-{
-  m_emitter.Init(searchParams.m_onResults);
 }
 
 void Processor::ClearCaches()

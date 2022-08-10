@@ -497,31 +497,33 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
 
 - (void)searchBookmarksGroup:(MWMMarkGroupID)groupId
                         text:(NSString *)text
-                  completion:(SearchBookmarksCompletionBlock)completion {
-  search::BookmarksSearchParams searchParams;
-  searchParams.m_query = text.UTF8String;
-  searchParams.m_groupId = groupId;
-
+                  completion:(SearchBookmarksCompletionBlock)completion
+{
   auto const searchId = ++self.lastSearchId;
   __weak auto weakSelf = self;
-  searchParams.m_onStarted = [] {};
-  searchParams.m_onResults = [weakSelf, searchId, completion](search::BookmarksSearchParams::Results const &results,
-                                                              search::BookmarksSearchParams::Status status) {
-    __strong auto self = weakSelf;
-    if (!self || searchId != self.lastSearchId)
-      return;
 
-    auto filteredResults = results;
-    self.bm.FilterInvalidBookmarks(filteredResults);
+  using search::BookmarksSearchParams;
+  BookmarksSearchParams params{
+    text.UTF8String,
+    groupId,
+    // m_onResults
+    [weakSelf, searchId, completion](BookmarksSearchParams::Results results, BookmarksSearchParams::Status status)
+    {
+      __strong auto self = weakSelf;
+      if (!self || searchId != self.lastSearchId)
+        return;
 
-    NSMutableArray *result = [NSMutableArray array];
-    for (auto bookmarkId : filteredResults)
-      [result addObject:[[MWMBookmark alloc] initWithMarkId:bookmarkId bookmarkData:self.bm.GetBookmark(bookmarkId)]];
+      self.bm.FilterInvalidBookmarks(results);
 
-    completion([result copy]);
+      NSMutableArray *result = [NSMutableArray array];
+      for (auto bookmarkId : results)
+        [result addObject:[[MWMBookmark alloc] initWithMarkId:bookmarkId bookmarkData:self.bm.GetBookmark(bookmarkId)]];
+
+      completion([result copy]);
+    }
   };
 
-  GetFramework().GetSearchAPI().SearchInBookmarks(searchParams);
+  GetFramework().GetSearchAPI().SearchInBookmarks(std::move(params));
 }
 
 

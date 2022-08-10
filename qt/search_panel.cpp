@@ -7,15 +7,11 @@
 #include "map/framework.hpp"
 #include "map/user_mark_layer.hpp"
 
-#include "drape/constants.hpp"
-
-#include "platform/measurement_utils.hpp"
 #include "platform/platform.hpp"
 
 #include "base/assert.hpp"
 
 #include <functional>
-#include <utility>
 
 #include <QtCore/QTimer>
 #include <QtGui/QBitmap>
@@ -99,11 +95,7 @@ void SearchPanel::ClearResults()
   m_pTable->clear();
   m_pTable->setRowCount(0);
   m_results.clear();
-  m_pDrawWidget->GetFramework().GetBookmarkManager().GetEditSession().ClearGroup(
-      UserMark::Type::SEARCH);
-
-  m_everywhereParams = {};
-  m_viewportParams = {};
+  m_pDrawWidget->GetFramework().GetBookmarkManager().GetEditSession().ClearGroup(UserMark::Type::SEARCH);
 }
 
 void SearchPanel::StartBusyIndicator()
@@ -121,7 +113,7 @@ void SearchPanel::StopBusyIndicator()
   m_pClearButton->setIcon(QIcon(":/ui/x.png"));
 }
 
-void SearchPanel::OnEverywhereSearchResults(uint64_t timestamp, search::Results const & results)
+void SearchPanel::OnEverywhereSearchResults(uint64_t timestamp, search::Results results)
 {
   CHECK(m_threadChecker.CalledOnOriginalThread(), ());
   CHECK_LESS_OR_EQUAL(timestamp, m_timestamp, ());
@@ -135,7 +127,7 @@ void SearchPanel::OnEverywhereSearchResults(uint64_t timestamp, search::Results 
 
   for (size_t i = m_results.size(); i < results.GetCount(); ++i)
   {
-    auto const & res = results[i];
+    auto & res = results[i];
     QString const name = QString::fromStdString(res.GetString());
     QString strHigh;
     int pos = 0;
@@ -163,7 +155,7 @@ void SearchPanel::OnEverywhereSearchResults(uint64_t timestamp, search::Results 
       m_pTable->setItem(rowCount, 3, CreateItem(m_pDrawWidget->GetDistance(res).c_str()));
     }
 
-    m_results.push_back(res);
+    m_results.push_back(std::move(res));
   }
 
   m_pDrawWidget->GetFramework().FillSearchResultsMarks(m_results.begin() + sizeBeforeUpdate,
@@ -226,29 +218,33 @@ void SearchPanel::OnSearchTextChanged(QString const & str)
   bool started = false;
   auto const timestamp = ++m_timestamp;
 
+  using namespace search;
   switch (m_mode)
   {
-  case search::Mode::Everywhere:
+  case Mode::Everywhere:
   {
-    m_everywhereParams.m_query = normalized.toUtf8().constData();
-    m_everywhereParams.m_onResults = [this, timestamp](
-                                         search::Results const & results,
-                                         std::vector<search::ProductInfo> const & productInfo) {
-      GetPlatform().RunTask(
-          Platform::Thread::Gui,
-          std::bind(&SearchPanel::OnEverywhereSearchResults, this, timestamp, results));
+    EverywhereSearchParams params{
+      normalized.toUtf8().constData(), {} /* locale */, {} /* timeout */, false /* isCategory */,
+      // m_onResults
+      [this, timestamp](Results results, std::vector<ProductInfo> /* productInfo */)
+      {
+        OnEverywhereSearchResults(timestamp, std::move(results));
+      }
     };
-    m_everywhereParams.m_timeout = search::SearchParams::kDefaultDesktopTimeout;
 
-    started = m_pDrawWidget->GetFramework().GetSearchAPI().SearchEverywhere(m_everywhereParams);
+    started = m_pDrawWidget->GetFramework().GetSearchAPI().SearchEverywhere(std::move(params));
   }
   break;
 
-  case search::Mode::Viewport:
+  case Mode::Viewport:
   {
-    m_viewportParams.m_query = normalized.toUtf8().constData();
-    m_viewportParams.m_onCompleted = [this](search::Results const & results) {
-      GetPlatform().RunTask(Platform::Thread::Gui, [this, results] {
+    ViewportSearchParams params{
+      normalized.toUtf8().constData(), {} /* locale*/, {} /* timeout */, false /* isCategory */,
+      // m_onStarted
+      {},
+      // m_onCompleted
+      [this](search::Results results)
+      {
         // |m_pTable| is not updated here because the OnResults callback is recreated within
         // SearchAPI when the viewport is changed. Thus a single call to SearchInViewport may
         // initiate an arbitrary amount of actual search requests with different viewports, and
@@ -257,11 +253,10 @@ void SearchPanel::OnSearchTextChanged(QString const & str)
         // results in the viewport search mode.
         m_pDrawWidget->GetFramework().FillSearchResultsMarks(true /* clear */, results);
         StopBusyIndicator();
-      });
+      }
     };
-    m_viewportParams.m_timeout = search::SearchParams::kDefaultDesktopTimeout;
 
-    started = m_pDrawWidget->GetFramework().GetSearchAPI().SearchInViewport(m_viewportParams);
+    started = m_pDrawWidget->GetFramework().GetSearchAPI().SearchInViewport(std::move(params));
   }
   break;
 

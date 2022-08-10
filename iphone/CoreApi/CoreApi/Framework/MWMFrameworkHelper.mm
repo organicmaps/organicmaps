@@ -130,18 +130,23 @@
 + (void)searchInDownloader:(NSString *)query
                inputLocale:(NSString *)locale
                 completion:(SearchInDownloaderCompletions)completion {
-  storage::DownloaderSearchParams searchParams;
-  searchParams.m_query = query.UTF8String;
-  searchParams.m_inputLocale = locale.precomposedStringWithCompatibilityMapping.UTF8String;
-  searchParams.m_onResults = [completion](storage::DownloaderSearchResults const &results) {
-    NSMutableArray *resultsArray = [NSMutableArray arrayWithCapacity:results.m_results.size()];
-    for (auto const &searchResult : results.m_results) {
-      MWMMapSearchResult *result = [[MWMMapSearchResult alloc] initWithSearchResult:searchResult];
-      [resultsArray addObject:result];
+  storage::DownloaderSearchParams params{
+    query.UTF8String,
+    locale.precomposedStringWithCompatibilityMapping.UTF8String,
+    // m_onResults
+    [completion](storage::DownloaderSearchResults const & results)
+    {
+      NSMutableArray *resultsArray = [NSMutableArray arrayWithCapacity:results.m_results.size()];
+      for (auto const & res : results.m_results)
+      {
+        MWMMapSearchResult *result = [[MWMMapSearchResult alloc] initWithSearchResult:res];
+        [resultsArray addObject:result];
+      }
+      completion([resultsArray copy], results.m_endMarker);
     }
-    completion([resultsArray copy], results.m_endMarker);
   };
-  GetFramework().GetSearchAPI().SearchInDownloader(searchParams);
+
+  GetFramework().GetSearchAPI().SearchInDownloader(std::move(params));
 }
 
 + (BOOL)canEditMap {

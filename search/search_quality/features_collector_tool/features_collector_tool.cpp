@@ -18,19 +18,11 @@
 
 #include "platform/platform_tests_support/helpers.hpp"
 
-#include "platform/local_country_file.hpp"
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
 
-#include "geometry/mercator.hpp"
-
-#include "base/file_name_utils.hpp"
-#include "base/macros.hpp"
 #include "base/string_utils.hpp"
 
-#include "defines.hpp"
-
-#include <cstddef>
 #include <fstream>
 #include <iostream>
 #include <limits>
@@ -156,7 +148,6 @@ int main(int argc, char * argv[])
     sample.FillSearchParams(params);
     params.m_batchSize = 100;
     params.m_maxNumResults = 300;
-    params.m_timeout = search::SearchParams::kDefaultDesktopTimeout;
     requests.push_back(make_unique<TestSearchRequest>(*engine, params));
     requests.back()->Start();
   }

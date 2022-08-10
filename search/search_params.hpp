@@ -32,7 +32,6 @@ struct SearchParams
   using TimeDurationT = base::Timer::DurationT;
   /// @todo Short timeouts lead to a non-working search on slow devices. Design a better solution.
   static TimeDurationT constexpr kDefaultTimeout = std::chrono::seconds(8);
-  static TimeDurationT constexpr kDefaultDesktopTimeout = std::chrono::seconds(8);
 
   using OnStarted = std::function<void()>;
   using OnResults = std::function<void(Results const &)>;
