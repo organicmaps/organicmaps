@@ -1,31 +1,26 @@
 #include "map/everywhere_search_callback.hpp"
 
-#include <cstddef>
-#include <utility>
-
 namespace search
 {
-EverywhereSearchCallback::EverywhereSearchCallback(
-    ProductInfo::Delegate & productInfoDelegate,
-    EverywhereSearchParams::OnResults onResults)
-  : m_productInfoDelegate(productInfoDelegate)
+EverywhereSearchCallback::EverywhereSearchCallback(Delegate & delegate, OnResults onResults)
+  : m_delegate(delegate)
   , m_onResults(std::move(onResults))
 {
+  CHECK(m_onResults, ());
 }
 
 void EverywhereSearchCallback::operator()(Results const & results)
 {
-  auto const prevSize = m_productInfo.size();
-  ASSERT_LESS_OR_EQUAL(prevSize, results.GetCount(), ());
+  size_t const prevSize = m_productInfo.size();
+  size_t const currSize = results.GetCount();
+  ASSERT_LESS_OR_EQUAL(prevSize, currSize, ());
 
-  LOG(LINFO, ("Emitted", results.GetCount() - prevSize, "search results."));
+  for (size_t i = prevSize; i < currSize; ++i)
+    m_productInfo.push_back(m_delegate.GetProductInfo(results[i]));
 
-  for (size_t i = prevSize; i < results.GetCount(); ++i)
+  m_delegate.RunUITask([onResults = m_onResults, results, productInfo = m_productInfo]
   {
-    m_productInfo.push_back(m_productInfoDelegate.GetProductInfo(results[i]));
-  }
-
-  ASSERT_EQUAL(m_productInfo.size(), results.GetCount(), ());
-  m_onResults(results, m_productInfo);
+    onResults(std::move(results), std::move(productInfo));
+  });
 }
 }  // namespace search

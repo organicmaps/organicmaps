@@ -1,17 +1,9 @@
 #pragma once
 
-#include "search/result.hpp"
-
 namespace search
 {
+/// Here was an additional info like UGC, advertising stuff, etc.
 struct ProductInfo
 {
-  class Delegate
-  {
-  public:
-    virtual ~Delegate() = default;
-
-    virtual ProductInfo GetProductInfo(Result const & result) const = 0;
-  };
 };
-}
+} // namespace search

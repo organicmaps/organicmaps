@@ -142,9 +142,6 @@ private:
 
   void AddSynonyms();
 
-  // The original query without any normalizations.
-  std::string m_query;
-
   std::vector<Token> m_tokens;
   Token m_prefixToken;
   bool m_hasPrefix = false;
