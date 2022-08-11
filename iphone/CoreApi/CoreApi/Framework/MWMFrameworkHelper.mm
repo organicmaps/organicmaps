@@ -142,7 +142,7 @@
         MWMMapSearchResult *result = [[MWMMapSearchResult alloc] initWithSearchResult:res];
         [resultsArray addObject:result];
       }
-      completion([resultsArray copy], results.m_endMarker);
+      completion(resultsArray, results.m_endMarker);
     }
   };
 

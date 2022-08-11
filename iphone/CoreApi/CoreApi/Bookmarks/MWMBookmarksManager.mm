@@ -519,7 +519,7 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
       for (auto bookmarkId : results)
         [result addObject:[[MWMBookmark alloc] initWithMarkId:bookmarkId bookmarkData:self.bm.GetBookmark(bookmarkId)]];
 
-      completion([result copy]);
+      completion(result);
     }
   };
 
