@@ -836,8 +836,8 @@ deprecated|deprecated;835;x
 deprecated|deprecated;836;x
 deprecated|deprecated;837;x
 deprecated|deprecated;838;x
-deprecated|deprecated;839;x
-deprecated|deprecated;840;x
+landuse|military|danger_area;[landuse=military][military=danger_area][wikipedia?],[landuse=military][military=cordon][wikipedia?];;name;int_name;839;
+boundary|military;840;
 deprecated|deprecated;841;x
 deprecated|deprecated;842;x
 deprecated|deprecated;843;x
