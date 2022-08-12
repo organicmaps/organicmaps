@@ -12,15 +12,24 @@
   <style name="MwmWidget.MapButton">
     <item name="android:layout_width">wrap_content</item>
     <item name="android:layout_height">wrap_content</item>
-    <item name="android:backgroundTint">?cardBackground</item>
-    <item name="android:alpha">0.8</item>
+    <item name="android:backgroundTint">?mapButtonBackground</item>
+    <item name="elevation">0dp</item>
+    <item name="hoveredFocusedTranslationZ">0dp</item>
+    <item name="pressedTranslationZ">0dp</item>
     <item name="android:tint">?iconTint</item>
     <item name="fabCustomSize">48dp</item>
+    <item name="maxImageSize">28dp</item>
     <item name="borderWidth">0dp</item>
   </style>
 
   <style name="MwmWidget.MapButton.Search">
     <item name="fabCustomSize">38dp</item>
+  </style>
+
+  <style name="MwmWidget.MapButton.Square">
+    <item name="android:backgroundTint">?menuBackground</item>
+    <item name="cornerFamily">rounded</item>
+    <item name="cornerSize">10dp</item>
   </style>
 
   <style name="MwmWidget.Button">

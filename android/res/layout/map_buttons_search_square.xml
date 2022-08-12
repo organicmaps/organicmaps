@@ -2,7 +2,8 @@
 <com.google.android.material.floatingactionbutton.FloatingActionButton
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
-  android:id="@+id/help_button"
+  android:id="@+id/btn_search"
   style="@style/MwmWidget.MapButton.Square"
   app:shapeAppearanceOverlay="@style/MwmWidget.MapButton.Square"
-  android:src="@drawable/ic_question_mark" />
+  android:contentDescription="@string/search"
+  android:src="@drawable/ic_search" />

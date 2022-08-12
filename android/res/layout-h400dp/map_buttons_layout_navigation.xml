@@ -65,7 +65,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_alignParentBottom="true"
-      android:layout_marginBottom="@dimen/margin_half"
+      android:layout_marginBottom="@dimen/zoom_buttons_margin"
       app:layout_constraintBottom_toTopOf="@+id/my_position"
       app:layout_constraintEnd_toEndOf="parent" />
     <include
