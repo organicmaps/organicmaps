@@ -836,8 +836,8 @@ mapswithme
 mapswithme
 mapswithme
 mapswithme
-mapswithme
-mapswithme
+*landuse|military|danger_area
+*boundary|military
 mapswithme
 mapswithme
 mapswithme
