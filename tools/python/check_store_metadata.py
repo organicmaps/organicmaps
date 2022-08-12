@@ -56,7 +56,11 @@ def check_raw(path, max_length):
         return ok, text
 
 def check_text(path, max):
-    return done(path, check_raw(path, max)[0])
+    try:
+        return done(path, check_raw(path, max)[0])
+    except FileNotFoundError as e:
+        print("🚫", path)
+        return True,
 
 def check_url(path,):
     (ok, url) = check_raw(path, 500)
