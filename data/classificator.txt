@@ -191,6 +191,7 @@ world  +
             state  -
             suburb  -
             {}
+        military  -
         national_park  -
         {}
     building  +
@@ -536,7 +537,9 @@ world  +
         industrial  -
         landfill  -
         meadow  -
-        military  -
+        military  +
+            danger_area  -
+            {}
         orchard  -
         quarry  -
         railway  -
