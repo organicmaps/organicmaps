@@ -1504,6 +1504,49 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Internet)
   }
 }
 
+// Significant military danger areas for DMZ like in Cyprus or Korea.
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_MilitaryDanger)
+{
+  {
+    Tags const tags = {
+      {"landuse", "military"},
+      {"military", "danger_area"},
+      {"wikipedia", "xxx"},
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 1, (params));
+    TEST(params.IsTypeExist(GetType({"landuse", "military", "danger_area"})), (params));
+  }
+
+  {
+    Tags const tags = {
+      {"landuse", "military"},
+      {"military", "cordon"},
+      {"wikipedia", "xxx"},
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 1, (params));
+    TEST(params.IsTypeExist(GetType({"landuse", "military", "danger_area"})), (params));
+  }
+
+  {
+    Tags const tags = {
+      {"landuse", "military"},
+      {"military", "danger_area"},
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 1, (params));
+    // Skip danger_area type without additional wikipedia tags.
+    TEST(params.IsTypeExist(GetType({"landuse", "military"})), (params));
+  }
+}
+
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
 {
   Tags const oneTypes = {
