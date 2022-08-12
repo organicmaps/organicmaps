@@ -7,7 +7,6 @@
   android:layout_height="wrap_content"
   android:clipChildren="false"
   android:clipToPadding="false"
-  android:elevation="6dp"
   android:layoutDirection="ltr"
   android:theme="?navButtonsThemeRound">
   <RelativeLayout
@@ -17,7 +16,6 @@
     android:layout_alignParentStart="true"
     android:layout_marginStart="-56dp"
     android:background="?searchLayoutBackground"
-    android:elevation="5dp"
     android:visibility="invisible"
     tools:visibility="visible">
     <com.google.android.material.floatingactionbutton.FloatingActionButton
