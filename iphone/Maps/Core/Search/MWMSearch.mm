@@ -67,16 +67,19 @@ using Observers = NSHashTable<Observer>;
     // m_onResults
     [self, timestamp](search::Results results, std::vector<search::ProductInfo> productInfo)
     {
+      // Store the flag first, because we will make move next.
+      bool const isEndMarker = results.IsEndMarker();
+
       if (timestamp == self.lastSearchTimestamp)
       {
+        self.suggestionsCount = results.GetSuggestsCount();
         self->m_everywhereResults = std::move(results);
         self->m_productInfo = std::move(productInfo);
-        self.suggestionsCount = results.GetSuggestsCount();
 
         [self onSearchResultsUpdated];
       }
 
-      if (results.IsEndMarker())
+      if (isEndMarker)
         self.searchCount -= 1;
     }
   };
