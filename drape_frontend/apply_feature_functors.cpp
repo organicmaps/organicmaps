@@ -51,9 +51,6 @@ namespace
 {
 double const kMinVisibleFontSize = 8.0;
 
-std::string const kStarSymbol = "★";
-std::string const kPriceSymbol = "$";
-
 df::ColorConstant const kPoiDeletedMaskColor = "PoiDeletedMask";
 df::ColorConstant const kPoiHotelTextOutlineColor = "PoiHotelTextOutline";
 df::ColorConstant const kRoadShieldBlackTextColor = "RoadShieldBlackText";

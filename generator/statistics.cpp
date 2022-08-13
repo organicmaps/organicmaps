@@ -2,10 +2,9 @@
 
 #include "indexer/classificator.hpp"
 #include "indexer/data_factory.hpp"
-#include "indexer/feature_impl.hpp"
 #include "indexer/feature_processor.hpp"
 
-#include "geometry/triangle2d.hpp"
+#include "geometry/mercator.hpp"
 
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"

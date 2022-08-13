@@ -441,10 +441,10 @@ void ApplyPatch(XMLFeature const & xml, osm::EditableMapObject & object)
   if (!cuisineStr.empty())
     object.SetCuisines(strings::Tokenize(cuisineStr, ";"));
 
-  xml.ForEachTag([&object](string const & k, string const & v)
+  xml.ForEachTag([&object](string_view k, string v)
   {
     // Skip result because we iterate via *all* tags here.
-    (void)object.UpdateMetadataValue(k, v);
+    (void)object.UpdateMetadataValue(k, std::move(v));
   });
 }
 
@@ -559,9 +559,9 @@ bool FromXML(XMLFeature const & xml, osm::EditableMapObject & object)
   feature::TypesHolder types = object.GetTypes();
 
   Classificator const & cl = classif();
-  xml.ForEachTag([&](string const & k, string const & v)
+  xml.ForEachTag([&](string_view k, string_view v)
   {
-    if (object.UpdateMetadataValue(k, v))
+    if (object.UpdateMetadataValue(k, std::string(v)))
       return;
 
     // Cuisines are already processed before this loop.

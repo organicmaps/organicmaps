@@ -32,8 +32,6 @@
 #include "base/string_utils.hpp"
 
 #include <algorithm>
-#include <cstddef>
-#include <cstdint>
 #include <iostream>
 #include <limits>
 #include <map>
@@ -268,8 +266,8 @@ public:
     string const denomination(meta.Get(feature::Metadata::FMD_DENOMINATION));
     string const wheelchair(GetWheelchairType(f));
     string const opening_hours(meta.Get(feature::Metadata::FMD_OPEN_HOURS));
-    string const wikipedia(meta.GetWikiURL());
-    string const wikimedia_commons(meta.GetWikimediaCommonsURL());
+    string const wikipedia(meta.Get(feature::Metadata::FMD_WIKIPEDIA));
+    string const wikimedia_commons(meta.Get(feature::Metadata::FMD_WIKIMEDIA_COMMONS));
     string const floor(meta.Get(feature::Metadata::FMD_LEVEL));
     string const fee = strings::EndsWith(category, "-fee") ? "yes" : "";
     string const atm = HasAtm(f) ? "yes" : "";

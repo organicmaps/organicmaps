@@ -5,12 +5,8 @@
 #include "indexer/feature_meta.hpp"
 #include "indexer/map_object.hpp"
 
-#include "geometry/latlon.hpp"
-#include "geometry/mercator.hpp"
-
 #include "coding/string_utf8_multilang.hpp"
 
-#include <cstdint>
 #include <functional>
 #include <string>
 #include <vector>
@@ -21,18 +17,19 @@ namespace osm
 struct EditableProperties
 {
   EditableProperties() = default;
-  EditableProperties(std::vector<feature::Metadata::EType> const & metadata, bool name,
+  EditableProperties(std::vector<feature::Metadata::EType> metadata, bool name,
                      bool address, bool cuisine)
-    : m_name(name), m_address(address), m_cuisine(cuisine), m_metadata(metadata)
+    : m_metadata(std::move(metadata)), m_name(name), m_address(address), m_cuisine(cuisine)
   {
   }
 
+  bool IsEditable() const { return m_name || m_address || m_cuisine || !m_metadata.empty(); }
+
+  std::vector<feature::Metadata::EType> m_metadata;
   bool m_name = false;
-  /// If true, enables editing of house number, street address and postcode.
+  /// Can edit house number, street address and postcode.
   bool m_address = false;
   bool m_cuisine = false;
-  std::vector<feature::Metadata::EType> m_metadata;
-  bool IsEditable() const { return m_name || m_address || m_cuisine || !m_metadata.empty(); }
 };
 
 struct LocalizedName
@@ -94,26 +91,24 @@ struct LocalizedStreet
 class EditableMapObject : public MapObject
 {
 public:
-  static int8_t const kMaximumLevelsEditableByUsers;
+  static uint8_t constexpr kMaximumLevelsEditableByUsers = 25;
 
   bool IsNameEditable() const;
   bool IsAddressEditable() const;
 
-  std::vector<Props> GetEditableProperties() const;
-  // TODO(AlexZ): Remove this method and use GetEditableProperties() in UI.
-  std::vector<feature::Metadata::EType> const & GetEditableFields() const;
+  /// @todo Can implement polymorphic approach here and store map<MetadataID, MetadataEntryIFace>.
+  /// All store/load/valid operations will be via MetadataEntryIFace interface instead of switch-case.
+  std::vector<MetadataID> GetEditableProperties() const;
 
   /// See comment for NamesDataSource class.
   NamesDataSource GetNamesDataSource(bool addFakes = true);
   LocalizedStreet const & GetStreet() const;
   std::vector<LocalizedStreet> const & GetNearbyStreets() const;
-  std::string_view GetPostcode() const;
-  std::string_view GetWikipedia() const;
 
   /// @note { tag, value } are temporary string views and can't be stored for later use.
   void ForEachMetadataItem(std::function<void(std::string_view tag, std::string_view value)> const & fn) const;
 
-  // These two methods should only be used in tests.
+  // Used only in testing framework.
   void SetTestId(uint64_t id);
 
   void SetEditableProperties(osm::EditableProperties const & props);
@@ -128,29 +123,14 @@ public:
   void SetStreet(LocalizedStreet const & st);
   void SetNearbyStreets(std::vector<LocalizedStreet> && streets);
   void SetHouseNumber(std::string const & houseNumber);
-  bool UpdateMetadataValue(std::string const & key, std::string const & value);
   void SetPostcode(std::string const & postcode);
-  void SetPhone(std::string const & phone);
-  void SetFax(std::string const & fax);
 
-  void SetEmail(std::string const & email);
-  void SetWebsite(std::string website);
-  void SetFacebookPage(std::string const & facebookPage);
-  void SetInstagramPage(std::string const & instagramPage);
-  void SetTwitterPage(std::string const & twitterPage);
-  void SetVkPage(std::string const & vkPage);
-  void SetLinePage(std::string const & linePage);
-  void SetWikipedia(std::string const & wikipedia);
+  static bool IsValidMetadata(MetadataID type, std::string const & value);
+  void SetMetadata(MetadataID type, std::string value);
+  bool UpdateMetadataValue(std::string_view key, std::string value);
 
+  void SetOpeningHours(std::string oh);
   void SetInternet(Internet internet);
-  void SetStars(int stars);
-  void SetOperator(std::string const & op);
-
-  void SetElevation(double ele);
-  void SetFlats(std::string const & flats);
-
-  void SetBuildingLevels(std::string const & buildingLevels);
-  void SetLevel(std::string const & level);
 
   /// @param[in] cuisine is a vector of osm cuisine ids.
 private:
@@ -158,8 +138,6 @@ private:
 public:
   void SetCuisines(std::vector<std::string_view> const & cuisines);
   void SetCuisines(std::vector<std::string> const & cuisines);
-
-  void SetOpeningHours(std::string const & openingHours);
 
   /// Special mark that it's a point feature, not area or line.
   void SetPointType();
@@ -176,7 +154,6 @@ public:
   static bool ValidateFlats(std::string const & flats);
   static bool ValidatePostCode(std::string const & postCode);
   static bool ValidatePhoneList(std::string const & phone);
-  static bool ValidateWebsite(std::string const & site);
   static bool ValidateEmail(std::string const & email);
   static bool ValidateLevel(std::string const & level);
   static bool ValidateName(std::string const & name);
@@ -190,6 +167,9 @@ public:
                                             int8_t const userLanguage);
   /// Removes fake names (which were added for user convenience) from name.
   static void RemoveFakeNames(FakeNames const & fakeNames, StringUtf8Multilang & name);
+
+  /// Compares editable fields connected with feature ignoring street.
+  friend bool AreObjectsEqualIgnoringStreet(EditableMapObject const & lhs, EditableMapObject const & rhs);
 
 private:
   LocalizedStreet m_street;

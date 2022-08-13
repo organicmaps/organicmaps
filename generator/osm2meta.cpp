@@ -467,7 +467,6 @@ void MetadataTagProcessor::operator()(std::string const & k, std::string const &
   case Metadata::FMD_PHONE_NUMBER: valid = ValidateAndFormat_phone(v); break;
   case Metadata::FMD_STARS: valid = ValidateAndFormat_stars(v); break;
   case Metadata::FMD_OPERATOR: valid = ValidateAndFormat_operator(v); break;
-  case Metadata::FMD_URL:  // The same validator as for website.
   case Metadata::FMD_WEBSITE: valid = ValidateAndFormat_url(v); break;
   case Metadata::FMD_CONTACT_FACEBOOK: valid = osm::ValidateAndFormat_facebook(v); break;
   case Metadata::FMD_CONTACT_INSTAGRAM: valid = osm::ValidateAndFormat_instagram(v); break;
@@ -496,6 +495,7 @@ void MetadataTagProcessor::operator()(std::string const & k, std::string const &
   case Metadata::FMD_AIRPORT_IATA: valid = ValidateAndFormat_airport_iata(v); break;
   case Metadata::FMD_DURATION: valid = ValidateAndFormat_duration(v); break;
   // Metadata types we do not get from OSM.
+  case Metadata::FMD_CUISINE:
   case Metadata::FMD_BRAND:
   case Metadata::FMD_DESCRIPTION:   // processed separately
   case Metadata::FMD_TEST_ID:

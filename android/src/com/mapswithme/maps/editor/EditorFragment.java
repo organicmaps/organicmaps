@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import androidx.annotation.CallSuper;
 import androidx.annotation.DrawableRes;
+import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
@@ -29,7 +30,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
-import com.mapswithme.maps.bookmarks.data.MapObject.OsmProps;
+import com.mapswithme.maps.bookmarks.data.Metadata;
 import com.mapswithme.maps.dialog.EditTextDialogFragment;
 import com.mapswithme.maps.editor.data.LocalizedName;
 import com.mapswithme.maps.editor.data.LocalizedStreet;
@@ -42,6 +43,9 @@ import com.mapswithme.util.Option;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class EditorFragment extends BaseMwmFragment implements View.OnClickListener
 {
@@ -94,38 +98,46 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
   private TextView mStreet;
   private EditText mHouseNumber;
-  private EditText mZipcode;
   private View mBlockLevels;
   private EditText mBuildingLevels;
+
+  // Define Metadata entries, that have more tricky logic, separately.
   private TextView mPhone;
   private TextView mEditPhoneLink;
-  private EditText mWebsite;
-  private EditText mEmail;
-  private EditText mFacebookPage;
-  private EditText mInstagramPage;
-  private EditText mTwitterPage;
-  private EditText mVkPage;
-  private EditText mLinePage;
   private TextView mCuisine;
-  private EditText mOperator;
   private SwitchCompat mWifi;
+
+  // Default Metadata entries.
+  private final class MetadataEntry
+  {
+    EditText mEdit;
+    TextInputLayout mInput;
+  }
+  Map<Metadata.MetadataType, MetadataEntry> mMetadata = new HashMap<>();
+
+  private void initMetadataEntry(Metadata.MetadataType type, @StringRes int error)
+  {
+    final MetadataEntry e = mMetadata.get(type);
+    final int id = type.toInt();
+    e.mEdit.setText(Editor.nativeGetMetadata(id));
+    e.mEdit.addTextChangedListener(new StringUtils.SimpleTextWatcher()
+    {
+      @Override
+      public void onTextChanged(CharSequence s, int start, int before, int count)
+      {
+        UiUtils.setInputError(e.mInput, Editor.nativeIsMetadataValid(id, s.toString()) ? 0 : error);
+      }
+    });
+  }
 
   private TextInputLayout mInputHouseNumber;
   private TextInputLayout mInputBuildingLevels;
-  private TextInputLayout mInputZipcode;
-  private TextInputLayout mInputWebsite;
-  private TextInputLayout mInputEmail;
-  private TextInputLayout mInputFacebookPage;
-  private TextInputLayout mInputInstagramPage;
-  private TextInputLayout mInputTwitterPage;
-  private TextInputLayout mInputVkPage;
-  private TextInputLayout mInputLinePage;
 
   private View mEmptyOpeningHours;
   private TextView mOpeningHours;
   private View mEditOpeningHours;
   private EditText mDescription;
-  private final SparseArray<View> mDetailsBlocks = new SparseArray<>(7);
+  private final Map<Metadata.MetadataType, View> mDetailsBlocks = new HashMap<>();
   private TextView mReset;
 
   private EditorHostFragment mParent;
@@ -159,15 +171,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
       }
     });
 
-    mZipcode.setText(Editor.nativeGetZipCode());
-    mZipcode.addTextChangedListener(new StringUtils.SimpleTextWatcher()
-    {
-      @Override
-      public void onTextChanged(CharSequence s, int start, int before, int count)
-      {
-        UiUtils.setInputError(mInputZipcode, Editor.nativeIsZipcodeValid(s.toString()) ? 0 : R.string.error_enter_correct_zip_code);
-      }
-    });
+    initMetadataEntry(Metadata.MetadataType.FMD_POSTCODE, R.string.error_enter_correct_zip_code);
 
     mBuildingLevels.setText(Editor.nativeGetBuildingLevels());
     mBuildingLevels.addTextChangedListener(new StringUtils.SimpleTextWatcher()
@@ -181,78 +185,16 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
     mPhone.setText(Editor.nativeGetPhone());
 
-    mWebsite.setText(Editor.nativeGetWebsite());
-    mWebsite.addTextChangedListener(new StringUtils.SimpleTextWatcher()
-    {
-      @Override
-      public void onTextChanged(CharSequence s, int start, int before, int count)
-      {
-        UiUtils.setInputError(mInputWebsite, Editor.nativeIsWebsiteValid(s.toString()) ? 0 : R.string.error_enter_correct_web);
-      }
-    });
-
-    mEmail.setText(Editor.nativeGetEmail());
-    mEmail.addTextChangedListener(new StringUtils.SimpleTextWatcher()
-    {
-      @Override
-      public void onTextChanged(CharSequence s, int start, int before, int count)
-      {
-        UiUtils.setInputError(mInputEmail, Editor.nativeIsEmailValid(s.toString()) ? 0 : R.string.error_enter_correct_email);
-      }
-    });
-
-    mFacebookPage.setText(Editor.nativeGetFacebookPage());
-    mFacebookPage.addTextChangedListener(new StringUtils.SimpleTextWatcher()
-    {
-      @Override
-      public void onTextChanged(CharSequence s, int start, int before, int count)
-      {
-        UiUtils.setInputError(mInputFacebookPage, Editor.nativeIsFacebookPageValid(s.toString()) ? 0 : R.string.error_enter_correct_facebook_page);
-      }
-    });
-
-    mInstagramPage.setText(Editor.nativeGetInstagramPage());
-    mInstagramPage.addTextChangedListener(new StringUtils.SimpleTextWatcher()
-    {
-      @Override
-      public void onTextChanged(CharSequence s, int start, int before, int count)
-      {
-        UiUtils.setInputError(mInputInstagramPage, Editor.nativeIsInstagramPageValid(s.toString()) ? 0 : R.string.error_enter_correct_instagram_page);
-      }
-    });
-
-    mTwitterPage.setText(Editor.nativeGetTwitterPage());
-    mTwitterPage.addTextChangedListener(new StringUtils.SimpleTextWatcher()
-    {
-      @Override
-      public void onTextChanged(CharSequence s, int start, int before, int count)
-      {
-        UiUtils.setInputError(mInputTwitterPage, Editor.nativeIsTwitterPageValid(s.toString()) ? 0 : R.string.error_enter_correct_twitter_page);
-      }
-    });
-
-    mVkPage.setText(Editor.nativeGetVkPage());
-    mVkPage.addTextChangedListener(new StringUtils.SimpleTextWatcher()
-    {
-      @Override
-      public void onTextChanged(CharSequence s, int start, int before, int count)
-      {
-        UiUtils.setInputError(mInputVkPage, Editor.nativeIsVkPageValid(s.toString()) ? 0 : R.string.error_enter_correct_vk_page);
-      }
-    });
-
-    mLinePage.setText(Editor.nativeGetLinePage());
-    mLinePage.addTextChangedListener(new StringUtils.SimpleTextWatcher()
-    {
-      @Override
-      public void onTextChanged(CharSequence s, int start, int before, int count)
-      {
-        UiUtils.setInputError(mInputLinePage, Editor.nativeIsLinePageValid(s.toString()) ? 0 : R.string.error_enter_correct_line_page);
-      }
-    });
+    initMetadataEntry(Metadata.MetadataType.FMD_WEBSITE, R.string.error_enter_correct_web);
+    initMetadataEntry(Metadata.MetadataType.FMD_EMAIL, R.string.error_enter_correct_email);
+    initMetadataEntry(Metadata.MetadataType.FMD_CONTACT_FACEBOOK, R.string.error_enter_correct_facebook_page);
+    initMetadataEntry(Metadata.MetadataType.FMD_CONTACT_INSTAGRAM, R.string.error_enter_correct_instagram_page);
+    initMetadataEntry(Metadata.MetadataType.FMD_CONTACT_TWITTER, R.string.error_enter_correct_twitter_page);
+    initMetadataEntry(Metadata.MetadataType.FMD_CONTACT_VK, R.string.error_enter_correct_vk_page);
+    initMetadataEntry(Metadata.MetadataType.FMD_CONTACT_LINE, R.string.error_enter_correct_line_page);
 
     mCuisine.setText(Editor.nativeGetFormattedCuisine());
-    mOperator.setText(Editor.nativeGetOperator());
+    initMetadataEntry(Metadata.MetadataType.FMD_OPERATOR, 0);
     mWifi.setChecked(Editor.nativeHasWifi());
     refreshOpeningTime();
     refreshEditableFields();
@@ -272,18 +214,12 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
       return false;
 
     Editor.nativeSetHouseNumber(mHouseNumber.getText().toString());
-    Editor.nativeSetZipCode(mZipcode.getText().toString());
     Editor.nativeSetBuildingLevels(mBuildingLevels.getText().toString());
-    Editor.nativeSetWebsite(mWebsite.getText().toString());
-    Editor.nativeSetEmail(mEmail.getText().toString());
-    Editor.nativeSetFacebookPage(mFacebookPage.getText().toString());
-    Editor.nativeSetInstagramPage(mInstagramPage.getText().toString());
-    Editor.nativeSetTwitterPage(mTwitterPage.getText().toString());
-    Editor.nativeSetVkPage(mVkPage.getText().toString());
-    Editor.nativeSetLinePage(mLinePage.getText().toString());
     Editor.nativeSetHasWifi(mWifi.isChecked());
-    Editor.nativeSetOperator(mOperator.getText().toString());
     Editor.nativeSetNames(mParent.getNamesAsArray());
+
+    for (var e : mMetadata.entrySet())
+      Editor.nativeSetMetadata(e.getKey().toInt(), e.getValue().mEdit.getText().toString());
 
     return true;
   }
@@ -313,66 +249,21 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
       }
     }
 
-    if (!Editor.nativeIsZipcodeValid(mZipcode.getText().toString()))
+    for (var e : mMetadata.entrySet())
     {
-      mZipcode.requestFocus();
-      InputUtils.showKeyboard(mZipcode);
-      return false;
+      final EditText edit = e.getValue().mEdit;
+      if (!Editor.nativeIsMetadataValid(e.getKey().toInt(), edit.getText().toString()))
+      {
+        edit.requestFocus();
+        InputUtils.showKeyboard(edit);
+        return false;
+      }
     }
 
     if (!Editor.nativeIsPhoneValid(mPhone.getText().toString()))
     {
       mPhone.requestFocus();
       InputUtils.showKeyboard(mPhone);
-      return false;
-    }
-
-    if (!Editor.nativeIsWebsiteValid(mWebsite.getText().toString()))
-    {
-      mWebsite.requestFocus();
-      InputUtils.showKeyboard(mWebsite);
-      return false;
-    }
-
-    if (!Editor.nativeIsEmailValid(mEmail.getText().toString()))
-    {
-      mEmail.requestFocus();
-      InputUtils.showKeyboard(mEmail);
-      return false;
-    }
-
-    if (!Editor.nativeIsFacebookPageValid(mFacebookPage.getText().toString()))
-    {
-      mFacebookPage.requestFocus();
-      InputUtils.showKeyboard(mFacebookPage);
-      return false;
-    }
-
-    if (!Editor.nativeIsInstagramPageValid(mInstagramPage.getText().toString()))
-    {
-      mInstagramPage.requestFocus();
-      InputUtils.showKeyboard(mInstagramPage);
-      return false;
-    }
-
-    if (!Editor.nativeIsTwitterPageValid(mTwitterPage.getText().toString()))
-    {
-      mTwitterPage.requestFocus();
-      InputUtils.showKeyboard(mTwitterPage);
-      return false;
-    }
-
-    if (!Editor.nativeIsVkPageValid(mVkPage.getText().toString()))
-    {
-      mVkPage.requestFocus();
-      InputUtils.showKeyboard(mVkPage);
-      return false;
-    }
-
-    if (!Editor.nativeIsLinePageValid(mLinePage.getText().toString()))
-    {
-      mLinePage.requestFocus();
-      InputUtils.showKeyboard(mLinePage);
       return false;
     }
 
@@ -411,13 +302,13 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
       return;
     }
 
-    for (int i = 0; i < mDetailsBlocks.size(); i++)
-      UiUtils.hide(mDetailsBlocks.valueAt(i));
+    for (var e : mDetailsBlocks.entrySet())
+      UiUtils.hide(e.getValue());
 
     boolean anyEditableDetails = false;
     for (int type : editableDetails)
     {
-      final View detailsBlock = mDetailsBlocks.get(type);
+      final View detailsBlock = mDetailsBlocks.get(Metadata.MetadataType.fromInt(type));
       if (detailsBlock == null)
         continue;
 
@@ -497,6 +388,19 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     });
   }
 
+  private View initBlock(View view, Metadata.MetadataType type, @IdRes int idBlock,
+                         @DrawableRes int idIcon, @StringRes int idName, int inputType)
+  {
+    View block = view.findViewById(idBlock);
+    MetadataEntry e = new MetadataEntry();
+    e.mEdit = findInputAndInitBlock(block, idIcon, idName);
+    if (inputType > 0)
+      e.mEdit.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE | inputType);
+    e.mInput = block.findViewById(R.id.custom_input);
+    mMetadata.put(type, e);
+    return block;
+  }
+
   private void initViews(View view)
   {
     final View categoryBlock = view.findViewById(R.id.category);
@@ -515,9 +419,8 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     View blockHouseNumber = view.findViewById(R.id.block_building);
     mHouseNumber = findInputAndInitBlock(blockHouseNumber, 0, R.string.house_number);
     mInputHouseNumber = blockHouseNumber.findViewById(R.id.custom_input);
-    View blockZipcode = view.findViewById(R.id.block_zipcode);
-    mZipcode = findInputAndInitBlock(blockZipcode, 0, R.string.editor_zip_code);
-    mInputZipcode = blockZipcode.findViewById(R.id.custom_input);
+
+    initBlock(view, Metadata.MetadataType.FMD_POSTCODE, R.id.block_zipcode, 0, R.string.editor_zip_code, 0);
 
     // Details
     mBlockLevels = view.findViewById(R.id.block_levels);
@@ -529,52 +432,30 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mEditPhoneLink = blockPhone.findViewById(R.id.edit_phone);
     mEditPhoneLink.setOnClickListener(this);
     mPhone.setOnClickListener(this);
-    View blockWeb = view.findViewById(R.id.block_website);
-    mWebsite = findInputAndInitBlock(blockWeb, R.drawable.ic_website, R.string.website);
-    mWebsite.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_URI
-            | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
-    mInputWebsite = blockWeb.findViewById(R.id.custom_input);
-    View blockEmail = view.findViewById(R.id.block_email);
-    mEmail = findInputAndInitBlock(blockEmail, R.drawable.ic_email, R.string.email);
-    mEmail.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
-            | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
-    mInputEmail = blockEmail.findViewById(R.id.custom_input);
 
-    View blockFacebookPage = view.findViewById(R.id.block_facebook);
-    mFacebookPage = findInputAndInitBlock(blockFacebookPage, R.drawable.ic_facebook_white, R.string.facebook);
-    mFacebookPage.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_URI
-            | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
-    mInputFacebookPage = blockFacebookPage.findViewById(R.id.custom_input);
+    View blockWeb = initBlock(view, Metadata.MetadataType.FMD_WEBSITE, R.id.block_website,
+            0, R.string.website, InputType.TYPE_TEXT_VARIATION_URI);
+    View blockEmail = initBlock(view, Metadata.MetadataType.FMD_EMAIL, R.id.block_email,
+            0, R.string.email, InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
 
-    View blockInstagramPage = view.findViewById(R.id.block_instagram);
-    mInstagramPage = findInputAndInitBlock(blockInstagramPage, R.drawable.ic_instagram_white, R.string.instagram);
-    mInstagramPage.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_URI
-            | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
-    mInputInstagramPage = blockInstagramPage.findViewById(R.id.custom_input);
-
-    View blockTwitterPage = view.findViewById(R.id.block_twitter);
-    mTwitterPage = findInputAndInitBlock(blockTwitterPage, R.drawable.ic_twitter_white, R.string.twitter);
-    mTwitterPage.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_URI
-            | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
-    mInputTwitterPage = blockTwitterPage.findViewById(R.id.custom_input);
-
-    View blockVkPage = view.findViewById(R.id.block_vk);
-    mVkPage = findInputAndInitBlock(blockVkPage, R.drawable.ic_vk_white, R.string.vk);
-    mVkPage.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_URI
-            | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
-    mInputVkPage = blockVkPage.findViewById(R.id.custom_input);
-
-    View blockLinePage = view.findViewById(R.id.block_line);
-    mLinePage = findInputAndInitBlock(blockLinePage, R.drawable.ic_line_white, R.string.editor_line_social_network);
-    mLinePage.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_URI
-            | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
-    mInputLinePage = blockLinePage.findViewById(R.id.custom_input);
+    initBlock(view, Metadata.MetadataType.FMD_CONTACT_FACEBOOK, R.id.block_facebook,
+            R.drawable.ic_facebook_white, R.string.facebook, InputType.TYPE_TEXT_VARIATION_URI);
+    initBlock(view, Metadata.MetadataType.FMD_CONTACT_INSTAGRAM, R.id.block_instagram,
+            R.drawable.ic_instagram_white, R.string.instagram, InputType.TYPE_TEXT_VARIATION_URI);
+    initBlock(view, Metadata.MetadataType.FMD_CONTACT_TWITTER, R.id.block_twitter,
+            R.drawable.ic_twitter_white, R.string.twitter, InputType.TYPE_TEXT_VARIATION_URI);
+    initBlock(view, Metadata.MetadataType.FMD_CONTACT_VK, R.id.block_vk,
+            R.drawable.ic_vk_white, R.string.vk, InputType.TYPE_TEXT_VARIATION_URI);
+    initBlock(view, Metadata.MetadataType.FMD_CONTACT_LINE, R.id.block_line,
+            R.drawable.ic_line_white, R.string.editor_line_social_network, InputType.TYPE_TEXT_VARIATION_URI);
 
     View blockCuisine = view.findViewById(R.id.block_cuisine);
     blockCuisine.setOnClickListener(this);
     mCuisine = view.findViewById(R.id.cuisine);
-    View blockOperator = view.findViewById(R.id.block_operator);
-    mOperator = findInputAndInitBlock(blockOperator, R.drawable.ic_operator, R.string.editor_operator);
+
+    View blockOperator = initBlock(view, Metadata.MetadataType.FMD_OPERATOR, R.id.block_operator,
+              R.drawable.ic_operator, R.string.editor_operator, 0);
+
     View blockWifi = view.findViewById(R.id.block_wifi);
     mWifi = view.findViewById(R.id.sw__wifi);
     blockWifi.setOnClickListener(this);
@@ -591,13 +472,13 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mReset = view.findViewById(R.id.reset);
     mReset.setOnClickListener(this);
 
-    mDetailsBlocks.append(OsmProps.OpeningHours.ordinal(), blockOpeningHours);
-    mDetailsBlocks.append(OsmProps.Phone.ordinal(), blockPhone);
-    mDetailsBlocks.append(OsmProps.Website.ordinal(), blockWeb);
-    mDetailsBlocks.append(OsmProps.Email.ordinal(), blockEmail);
-    mDetailsBlocks.append(OsmProps.Cuisine.ordinal(), blockCuisine);
-    mDetailsBlocks.append(OsmProps.Operator.ordinal(), blockOperator);
-    mDetailsBlocks.append(OsmProps.Internet.ordinal(), blockWifi);
+    mDetailsBlocks.put(Metadata.MetadataType.FMD_OPEN_HOURS, blockOpeningHours);
+    mDetailsBlocks.put(Metadata.MetadataType.FMD_PHONE_NUMBER, blockPhone);
+    mDetailsBlocks.put(Metadata.MetadataType.FMD_WEBSITE, blockWeb);
+    mDetailsBlocks.put(Metadata.MetadataType.FMD_EMAIL, blockEmail);
+    mDetailsBlocks.put(Metadata.MetadataType.FMD_CUISINE, blockCuisine);
+    mDetailsBlocks.put(Metadata.MetadataType.FMD_OPERATOR, blockOperator);
+    mDetailsBlocks.put(Metadata.MetadataType.FMD_INTERNET, blockWifi);
   }
 
   private static EditText findInput(View blockWithInput)

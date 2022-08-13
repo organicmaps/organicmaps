@@ -1,14 +1,12 @@
-#include "base/logging.hpp"
-#include "base/string_utils.hpp"
+#include "indexer/validate_and_format_contacts.hpp"
 
 #include "coding/url.hpp"
 
-#include "indexer/editable_map_object.hpp"
-#include "indexer/validate_and_format_contacts.hpp"
+#include "base/string_utils.hpp"
 
+namespace osm
+{
 using namespace std;
-
-namespace osm {
 
 static auto const s_instaRegex = regex(R"(^@?[A-Za-z0-9_][A-Za-z0-9_.]{0,28}[A-Za-z0-9_]$)");
 static auto const s_twitterRegex = regex(R"(^@?[A-Za-z0-9_]{1,15}$)");
@@ -16,6 +14,23 @@ static auto const s_badVkRegex = regex(R"(^\d\d\d.+$)");
 static auto const s_goodVkRegex = regex(R"(^[A-Za-z0-9_.]{5,32}$)");
 static auto const s_lineRegex = regex(R"(^[a-z0-9-_.]{4,20}$)");
 
+char const * const kWebsiteProtocols[] = {"http://", "https://"};
+size_t const kWebsiteProtocolDefaultIndex = 0;
+
+size_t GetProtocolNameLength(string const & website)
+{
+  for (auto const & protocol : kWebsiteProtocols)
+  {
+    if (strings::StartsWith(website, protocol))
+      return strlen(protocol);
+  }
+  return 0;
+}
+
+bool IsProtocolSpecified(string const & website)
+{
+  return GetProtocolNameLength(website) > 0;
+}
 
 // TODO: Current implementation looks only for restricted symbols from ASCII block ignoring
 //       unicode. Need to find all restricted *Unicode* symbols
@@ -39,6 +54,13 @@ bool containsInvalidFBSymbol(string const & facebookPage, size_t startIndex = 0)
   return false;
 }
 
+std::string ValidateAndFormat_website(std::string const & v)
+{
+  if (!v.empty() && !IsProtocolSpecified(v))
+    return kWebsiteProtocols[kWebsiteProtocolDefaultIndex] + v;
+  return v;
+}
+
 string ValidateAndFormat_facebook(string const & facebookPage)
 {
   if (facebookPage.empty())
@@ -59,7 +81,7 @@ string ValidateAndFormat_facebook(string const & facebookPage)
   }
 
   // facebookPage is not a valid username it must be an URL.
-  if (!EditableMapObject::ValidateWebsite(facebookPage))
+  if (!ValidateWebsite(facebookPage))
     return {};
 
   url::Url const url = url::Url::FromString(facebookPage);
@@ -90,7 +112,7 @@ string ValidateAndFormat_instagram(string const & instagramPage)
       return instagramPage.substr(1);
     return instagramPage;
   }
-  if (!EditableMapObject::ValidateWebsite(instagramPage))
+  if (!ValidateWebsite(instagramPage))
     return {};
 
   url::Url const url = url::Url::FromString(instagramPage);
@@ -119,7 +141,7 @@ string ValidateAndFormat_twitter(string const & twitterPage)
       return twitterPage.substr(1);
     return twitterPage;
   }
-  if (!EditableMapObject::ValidateWebsite(twitterPage))
+  if (!ValidateWebsite(twitterPage))
     return {};
 
   url::Url const url = url::Url::FromString(twitterPage);
@@ -160,7 +182,7 @@ string ValidateAndFormat_vk(string const & vkPage)
     if (regex_match(vkPageClean, s_goodVkRegex))
       return vkPageClean;
   }
-  if (!EditableMapObject::ValidateWebsite(vkPage))
+  if (!ValidateWebsite(vkPage))
     return {};
 
   url::Url const url = url::Url::FromString(vkPage);
@@ -207,7 +229,7 @@ string ValidateAndFormat_contactLine(string const & linePage)
       return linePageClean;
   }
 
-  if (!EditableMapObject::ValidateWebsite(linePage))
+  if (!ValidateWebsite(linePage))
     return {};
 
   // URL schema documentation: https://developers.line.biz/en/docs/messaging-api/using-line-url-scheme/
@@ -254,6 +276,29 @@ string ValidateAndFormat_contactLine(string const & linePage)
   return {};
 }
 
+bool ValidateWebsite(string const & site)
+{
+  if (site.empty())
+    return true;
+
+  auto const startPos = GetProtocolNameLength(site);
+
+  if (startPos >= site.size())
+    return false;
+
+  // Site should contain at least one dot but not at the begining/end.
+  if ('.' == site[startPos] || '.' == site.back())
+    return false;
+
+  if (string::npos == site.find("."))
+    return false;
+
+  if (string::npos != site.find(".."))
+    return false;
+
+  return true;
+}
+
 bool ValidateFacebookPage(string const & page)
 {
   if (page.empty())
@@ -268,7 +313,7 @@ bool ValidateFacebookPage(string const & page)
   else if (page.length() >= 5 && !containsInvalidFBSymbol(page))
     return true;
 
-  if (!EditableMapObject::ValidateWebsite(page))
+  if (!ValidateWebsite(page))
     return false;
 
   string const domain = strings::MakeLowerCase(url::Url::FromString(page).GetHost());
@@ -285,7 +330,7 @@ bool ValidateInstagramPage(string const & page)
   if (regex_match(page, s_instaRegex))
     return true;
 
-  if (!EditableMapObject::ValidateWebsite(page))
+  if (!ValidateWebsite(page))
     return false;
 
   string const domain = strings::MakeLowerCase(url::Url::FromString(page).GetHost());
@@ -297,7 +342,7 @@ bool ValidateTwitterPage(string const & page)
   if (page.empty())
     return true;
 
-  if (!EditableMapObject::ValidateWebsite(page))
+  if (!ValidateWebsite(page))
     return regex_match(page, s_twitterRegex); // Rules are defined here: https://stackoverflow.com/q/11361044
 
   string const domain = strings::MakeLowerCase(url::Url::FromString(page).GetHost());
@@ -330,7 +375,7 @@ bool ValidateVkPage(string const & page)
       return true;
   }
 
-  if (!EditableMapObject::ValidateWebsite(page))
+  if (!ValidateWebsite(page))
     return false;
 
   string const domain = strings::MakeLowerCase(url::Url::FromString(page).GetHost());
@@ -353,7 +398,7 @@ bool ValidateLinePage(string const & page)
       return true;
   }
 
-  if (!EditableMapObject::ValidateWebsite(page))
+  if (!ValidateWebsite(page))
     return false;
 
   string const domain = strings::MakeLowerCase(url::Url::FromString(page).GetHost());

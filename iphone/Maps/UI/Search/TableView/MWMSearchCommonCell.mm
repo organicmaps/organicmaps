@@ -5,15 +5,11 @@
 
 #include "map/place_page_info.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include "platform/localization.hpp"
 #include "platform/measurement_utils.hpp"
-namespace
-{
-bool PopularityHasHigherPriority(bool hasPosition, double distanceInMeters)
-{
-  return !hasPosition || distanceInMeters > search::Result::kPopularityHighPriorityMinDistance;
-}
-}  // namespace
+
 
 @interface MWMSearchCommonCell ()
 
