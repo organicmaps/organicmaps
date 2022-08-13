@@ -741,9 +741,9 @@ boundary|administrative|4
 *barrier|chain
 *sport|climbing
 *sport|yoga
-mapswithme
-mapswithme
-mapswithme
+*amenity|parking_entrance
+*amenity|parking_entrance|private
+*amenity|parking_entrance|permissive
 mapswithme
 mapswithme
 mapswithme

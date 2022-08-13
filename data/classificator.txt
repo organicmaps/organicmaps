@@ -79,6 +79,10 @@ world  +
             private  -
             underground  -
             {}
+        parking_entrance  +
+            permissive  -
+            private  -
+            {}
         parking_space  +
             permissive  -
             private  -

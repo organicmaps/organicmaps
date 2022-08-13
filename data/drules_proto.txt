@@ -5875,6 +5875,105 @@ cont {
   }
 }
 cont {
+  name: "amenity-parking_entrance"
+  element {
+    scale: 17
+    symbol {
+      name: "parking_entrance-m"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "parking_entrance-m"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "parking_entrance-m"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15300
+    }
+  }
+}
+cont {
+  name: "amenity-parking_entrance-permissive"
+  element {
+    scale: 17
+    symbol {
+      name: "zero-icon"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "parking_entrance-m"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "parking_entrance-m"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15300
+    }
+  }
+}
+cont {
+  name: "amenity-parking_entrance-private"
+  element {
+    scale: 17
+    symbol {
+      name: "zero-icon"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "parking_entrance-m"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "parking_entrance-m"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15300
+    }
+  }
+}
+cont {
   name: "amenity-parking_space"
   element {
     scale: 15
