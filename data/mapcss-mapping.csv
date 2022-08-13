@@ -741,9 +741,9 @@ barrier|swing_gate;740;
 barrier|chain;741;
 sport|climbing;742;
 sport|yoga;743;
-deprecated|deprecated;744;x
-deprecated|deprecated;745;x
-deprecated|deprecated;746;x
+amenity|parking_entrance;[amenity=parking_entrance];;name;int_name;744;
+amenity|parking_entrance|private;[amenity=parking_entrance][access=private];;name;int_name;745;
+amenity|parking_entrance|permissive;[amenity=parking_entrance][access=permissive];;name;int_name;746;
 deprecated|deprecated;747;x
 deprecated|deprecated;748;x
 deprecated|deprecated;749;x
