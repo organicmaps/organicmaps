@@ -1368,6 +1368,12 @@
 
 "type.amenity.parking.underground" = "موقف سيارات";
 
+"type.amenity.parking_entrance.private" = "ﺕﺍﺭﺎﻴﺴﻟﺍ ﻑﻮﻗﻭ ﻞﺧﺪﻣ";
+
+"type.amenity.parking_entrance.permissive" = "ﺕﺍﺭﺎﻴﺴﻟﺍ ﻑﻮﻗﻭ ﻞﺧﺪﻣ";
+
+"type.amenity.parking_entrance" = "ﺕﺍﺭﺎﻴﺴﻟﺍ ﻑﻮﻗﻭ ﻞﺧﺪﻣ";
+
 "type.amenity.parking_space" = "مكان لوقوف السيارات";
 
 "type.amenity.parking_space.permissive" = "مكان لوقوف السيارات";

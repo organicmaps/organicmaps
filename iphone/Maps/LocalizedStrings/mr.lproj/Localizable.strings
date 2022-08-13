@@ -1368,6 +1368,12 @@
 
 "type.amenity.parking.underground" = "वाहनतळ";
 
+"type.amenity.parking_entrance.private" = "Parking entrance";
+
+"type.amenity.parking_entrance.permissive" = "Parking entrance";
+
+"type.amenity.parking_entrance" = "Parking entrance";
+
 "type.amenity.parking_space" = "पार्किंगची जागा";
 
 "type.amenity.parking_space.permissive" = "पार्किंगची जागा";

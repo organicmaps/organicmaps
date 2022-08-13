@@ -759,6 +759,9 @@
 	<string name="type.amenity.parking.permissive">Estacionamento</string>
 	<string name="type.amenity.parking.private">Estacionamento privado</string>
 	<string name="type.amenity.parking.underground">Estacionamento subterrâneo</string>
+	<string name="type.amenity.parking_entrance.private">Entrada do estacionamento</string>
+	<string name="type.amenity.parking_entrance.permissive">Entrada do estacionamento</string>
+	<string name="type.amenity.parking_entrance">Entrada do estacionamento</string>
 	<string name="type.amenity.parking_space">Lugar de estacionamento</string>
 	<string name="type.amenity.parking_space.permissive">Lugar de estacionamento</string>
 	<string name="type.amenity.parking_space.private">Lugar de estacionamento privado</string>

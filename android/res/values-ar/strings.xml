@@ -777,6 +777,9 @@
 	<string name="type.amenity.parking.permissive">موقف سيارات</string>
 	<string name="type.amenity.parking.private">موقف سيارات</string>
 	<string name="type.amenity.parking.underground">موقف سيارات</string>
+	<string name="type.amenity.parking_entrance.private">ﺕﺍﺭﺎﻴﺴﻟﺍ ﻑﻮﻗﻭ ﻞﺧﺪﻣ</string>
+	<string name="type.amenity.parking_entrance.permissive">ﺕﺍﺭﺎﻴﺴﻟﺍ ﻑﻮﻗﻭ ﻞﺧﺪﻣ</string>
+	<string name="type.amenity.parking_entrance">ﺕﺍﺭﺎﻴﺴﻟﺍ ﻑﻮﻗﻭ ﻞﺧﺪﻣ</string>
 	<string name="type.amenity.parking_space">مكان لوقوف السيارات</string>
 	<string name="type.amenity.parking_space.permissive">مكان لوقوف السيارات</string>
 	<string name="type.amenity.parking_space.private">مكان لوقوف السيارات</string>

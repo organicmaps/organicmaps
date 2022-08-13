@@ -1368,6 +1368,12 @@
 
 "type.amenity.parking.underground" = "Aparkalekua";
 
+"type.amenity.parking_entrance.private" = "Aparkalekuaren sarrera";
+
+"type.amenity.parking_entrance.permissive" = "Aparkalekuaren sarrera";
+
+"type.amenity.parking_entrance" = "Aparkalekuaren sarrera";
+
 "type.amenity.parking_space" = "Aparkaleku";
 
 "type.amenity.parking_space.permissive" = "Aparkaleku";

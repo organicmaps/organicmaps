@@ -777,6 +777,9 @@
 	<string name="type.amenity.parking.permissive">Парковка</string>
 	<string name="type.amenity.parking.private">Парковка</string>
 	<string name="type.amenity.parking.underground">Парковка</string>
+	<string name="type.amenity.parking_entrance.private">Вхід на паркінг</string>
+	<string name="type.amenity.parking_entrance.permissive">Вхід на паркінг</string>
+	<string name="type.amenity.parking_entrance">Вхід на паркінг</string>
 	<string name="type.amenity.parking_space">Паркувальне місце</string>
 	<string name="type.amenity.parking_space.permissive">Паркувальне місце</string>
 	<string name="type.amenity.parking_space.private">Паркувальне місце</string>

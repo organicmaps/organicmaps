@@ -726,6 +726,9 @@
 	<string name="type.amenity.parking.permissive">Parkoló</string>
 	<string name="type.amenity.parking.private">Parkoló</string>
 	<string name="type.amenity.parking.underground">Parkoló</string>
+	<string name="type.amenity.parking_entrance.private">Parkoló bejárata</string>
+	<string name="type.amenity.parking_entrance.permissive">Parkoló bejárata</string>
+	<string name="type.amenity.parking_entrance">Parkoló bejárata</string>
 	<string name="type.amenity.parking_space">Parkolóhely</string>
 	<string name="type.amenity.parking_space.permissive">Parkolóhely</string>
 	<string name="type.amenity.parking_space.private">Parkolóhely</string>

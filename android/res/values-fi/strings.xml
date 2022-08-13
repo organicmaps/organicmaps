@@ -738,6 +738,9 @@
 	<string name="type.amenity.parking.permissive">Parkkipaikka</string>
 	<string name="type.amenity.parking.private">Parkkipaikka</string>
 	<string name="type.amenity.parking.underground">Parkkipaikka</string>
+	<string name="type.amenity.parking_entrance.private">Pysäköinti sisäänkäynti</string>
+	<string name="type.amenity.parking_entrance.permissive">Pysäköinti sisäänkäynti</string>
+	<string name="type.amenity.parking_entrance">Pysäköinti sisäänkäynti</string>
 	<string name="type.amenity.parking_space">Parkkipaikka</string>
 	<string name="type.amenity.parking_space.permissive">Parkkipaikka</string>
 	<string name="type.amenity.parking_space.private">Parkkipaikka</string>

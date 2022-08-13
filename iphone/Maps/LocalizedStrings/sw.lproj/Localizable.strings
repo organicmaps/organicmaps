@@ -1368,6 +1368,12 @@
 
 "type.amenity.parking.underground" = "Parking";
 
+"type.amenity.parking_entrance.private" = "Mlango wa maegesho";
+
+"type.amenity.parking_entrance.permissive" = "Mlango wa maegesho";
+
+"type.amenity.parking_entrance" = "Mlango wa maegesho";
+
 "type.amenity.parking_space" = "Sehemu ya maegesho";
 
 "type.amenity.parking_space.permissive" = "Sehemu ya maegesho";

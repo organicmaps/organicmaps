@@ -1368,6 +1368,12 @@
 
 "type.amenity.parking.underground" = "Tiefgarage";
 
+"type.amenity.parking_entrance.private" = "Parkplatzeinfahrt";
+
+"type.amenity.parking_entrance.permissive" = "Parkplatzeinfahrt";
+
+"type.amenity.parking_entrance" = "Parkplatzeinfahrt";
+
 "type.amenity.parking_space" = "Parkplatz";
 
 "type.amenity.parking_space.permissive" = "Parkplatz";

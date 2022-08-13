@@ -1368,6 +1368,12 @@
 
 "type.amenity.parking.underground" = "Parcare";
 
+"type.amenity.parking_entrance.private" = "Intrare parcare";
+
+"type.amenity.parking_entrance.permissive" = "Intrare parcare";
+
+"type.amenity.parking_entrance" = "Intrare parcare";
+
 "type.amenity.parking_space" = "Loc de parcare";
 
 "type.amenity.parking_space.permissive" = "Loc de parcare";

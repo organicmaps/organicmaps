@@ -759,6 +759,9 @@
 	<string name="type.amenity.parking.permissive">停車場</string>
 	<string name="type.amenity.parking.private">停車場</string>
 	<string name="type.amenity.parking.underground">停車場</string>
+	<string name="type.amenity.parking_entrance.private">停車場入口</string>
+	<string name="type.amenity.parking_entrance.permissive">停車場入口</string>
+	<string name="type.amenity.parking_entrance">停車場入口</string>
 	<string name="type.amenity.parking_space">停車地點</string>
 	<string name="type.amenity.parking_space.permissive">停車地點</string>
 	<string name="type.amenity.parking_space.private">停車地點</string>

@@ -727,6 +727,9 @@
 	<string name="type.amenity.parking.permissive">Parkoviště</string>
 	<string name="type.amenity.parking.private">Parkoviště</string>
 	<string name="type.amenity.parking.underground">Parkoviště</string>
+	<string name="type.amenity.parking_entrance.private">Vjezd na parkoviště</string>
+	<string name="type.amenity.parking_entrance.permissive">Vjezd na parkoviště</string>
+	<string name="type.amenity.parking_entrance">Vjezd na parkoviště</string>
 	<string name="type.amenity.parking_space">Prostor pro parkování</string>
 	<string name="type.amenity.parking_space.permissive">Prostor pro parkování</string>
 	<string name="type.amenity.parking_space.private">Prostor pro parkování</string>

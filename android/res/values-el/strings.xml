@@ -725,6 +725,9 @@
 	<string name="type.amenity.parking.permissive">Χώρος στάθμευσης</string>
 	<string name="type.amenity.parking.private">Χώρος στάθμευσης</string>
 	<string name="type.amenity.parking.underground">Χώρος στάθμευσης</string>
+	<string name="type.amenity.parking_entrance.private">Είσοδος στάθμευσης</string>
+	<string name="type.amenity.parking_entrance.permissive">Είσοδος στάθμευσης</string>
+	<string name="type.amenity.parking_entrance">Είσοδος στάθμευσης</string>
 	<string name="type.amenity.parking_space">Χώρος στάθμευσης</string>
 	<string name="type.amenity.parking_space.permissive">Χώρος στάθμευσης</string>
 	<string name="type.amenity.parking_space.private">Χώρος στάθμευσης</string>

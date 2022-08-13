@@ -1368,6 +1368,12 @@
 
 "type.amenity.parking.underground" = "Parkering";
 
+"type.amenity.parking_entrance.private" = "Parkeringsinngang";
+
+"type.amenity.parking_entrance.permissive" = "Parkeringsinngang";
+
+"type.amenity.parking_entrance" = "Parkeringsinngang";
+
 "type.amenity.parking_space" = "Parkeringsplass";
 
 "type.amenity.parking_space.permissive" = "Parkeringsplass";

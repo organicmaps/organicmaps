@@ -1368,6 +1368,12 @@
 
 "type.amenity.parking.underground" = "پارکینگ";
 
+"type.amenity.parking_entrance.private" = "ﮓﻨﯿﮐﺭﺎﭘ ﯼﺩﻭﺭﻭ";
+
+"type.amenity.parking_entrance.permissive" = "ﮓﻨﯿﮐﺭﺎﭘ ﯼﺩﻭﺭﻭ";
+
+"type.amenity.parking_entrance" = "ﮓﻨﯿﮐﺭﺎﭘ ﯼﺩﻭﺭﻭ";
+
 "type.amenity.parking_space" = "جای پارک";
 
 "type.amenity.parking_space.permissive" = "جای پارک";

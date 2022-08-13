@@ -787,6 +787,9 @@
 	<string name="type.amenity.parking.permissive">Parkplatz</string>
 	<string name="type.amenity.parking.private">Parkplatz</string>
 	<string name="type.amenity.parking.underground">Tiefgarage</string>
+	<string name="type.amenity.parking_entrance.private">Parkplatzeinfahrt</string>
+	<string name="type.amenity.parking_entrance.permissive">Parkplatzeinfahrt</string>
+	<string name="type.amenity.parking_entrance">Parkplatzeinfahrt</string>
 	<string name="type.amenity.parking_space">Parkplatz</string>
 	<string name="type.amenity.parking_space.permissive">Parkplatz</string>
 	<string name="type.amenity.parking_space.private">Parkplatz</string>

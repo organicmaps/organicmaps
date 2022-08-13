@@ -722,6 +722,9 @@
 	<string name="type.amenity.parking.permissive">Parkering</string>
 	<string name="type.amenity.parking.private">Parkering</string>
 	<string name="type.amenity.parking.underground">Parkering</string>
+	<string name="type.amenity.parking_entrance.private">Parkering entré</string>
+	<string name="type.amenity.parking_entrance.permissive">Parkering entré</string>
+	<string name="type.amenity.parking_entrance">Parkering entré</string>
 	<string name="type.amenity.parking_space">Parkeringsplats</string>
 	<string name="type.amenity.parking_space.permissive">Parkeringsplats</string>
 	<string name="type.amenity.parking_space.private">Parkeringsplats</string>

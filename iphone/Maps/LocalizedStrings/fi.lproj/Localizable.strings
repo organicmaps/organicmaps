@@ -1368,6 +1368,12 @@
 
 "type.amenity.parking.underground" = "Parkkipaikka";
 
+"type.amenity.parking_entrance.private" = "Pysäköinti sisäänkäynti";
+
+"type.amenity.parking_entrance.permissive" = "Pysäköinti sisäänkäynti";
+
+"type.amenity.parking_entrance" = "Pysäköinti sisäänkäynti";
+
 "type.amenity.parking_space" = "Parkkipaikka";
 
 "type.amenity.parking_space.permissive" = "Parkkipaikka";

@@ -749,6 +749,9 @@
 	<string name="type.amenity.parking.permissive">Aparkalekua</string>
 	<string name="type.amenity.parking.private">Aparkalekua</string>
 	<string name="type.amenity.parking.underground">Aparkalekua</string>
+	<string name="type.amenity.parking_entrance.private">Aparkalekuaren sarrera</string>
+	<string name="type.amenity.parking_entrance.permissive">Aparkalekuaren sarrera</string>
+	<string name="type.amenity.parking_entrance">Aparkalekuaren sarrera</string>
 	<string name="type.amenity.parking_space">Aparkaleku</string>
 	<string name="type.amenity.parking_space.permissive">Aparkaleku</string>
 	<string name="type.amenity.parking_space.private">Aparkaleku</string>

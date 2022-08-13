@@ -1368,6 +1368,12 @@
 
 "type.amenity.parking.underground" = "Парковка";
 
+"type.amenity.parking_entrance.private" = "Вхід на паркінг";
+
+"type.amenity.parking_entrance.permissive" = "Вхід на паркінг";
+
+"type.amenity.parking_entrance" = "Вхід на паркінг";
+
 "type.amenity.parking_space" = "Паркувальне місце";
 
 "type.amenity.parking_space.permissive" = "Паркувальне місце";
