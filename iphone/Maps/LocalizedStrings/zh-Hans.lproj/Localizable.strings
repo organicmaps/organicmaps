@@ -1368,6 +1368,12 @@
 
 "type.amenity.parking.underground" = "停车场";
 
+"type.amenity.parking_entrance.private" = "停车场入口";
+
+"type.amenity.parking_entrance.permissive" = "停车场入口";
+
+"type.amenity.parking_entrance" = "停车场入口";
+
 "type.amenity.parking_space" = "停车位";
 
 "type.amenity.parking_space.permissive" = "停车位";

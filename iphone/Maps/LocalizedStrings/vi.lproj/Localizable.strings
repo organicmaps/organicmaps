@@ -1368,6 +1368,12 @@
 
 "type.amenity.parking.underground" = "đỗ xe";
 
+"type.amenity.parking_entrance.private" = "Lối vào bãi đậu xe";
+
+"type.amenity.parking_entrance.permissive" = "Lối vào bãi đậu xe";
+
+"type.amenity.parking_entrance" = "Lối vào bãi đậu xe";
+
 "type.amenity.parking_space" = "Chỗ để xe";
 
 "type.amenity.parking_space.permissive" = "Chỗ để xe";

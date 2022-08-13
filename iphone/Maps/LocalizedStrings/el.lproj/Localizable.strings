@@ -1368,6 +1368,12 @@
 
 "type.amenity.parking.underground" = "Χώρος στάθμευσης";
 
+"type.amenity.parking_entrance.private" = "Είσοδος στάθμευσης";
+
+"type.amenity.parking_entrance.permissive" = "Είσοδος στάθμευσης";
+
+"type.amenity.parking_entrance" = "Είσοδος στάθμευσης";
+
 "type.amenity.parking_space" = "Χώρος στάθμευσης";
 
 "type.amenity.parking_space.permissive" = "Χώρος στάθμευσης";

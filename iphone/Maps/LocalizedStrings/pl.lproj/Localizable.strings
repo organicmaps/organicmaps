@@ -1368,6 +1368,12 @@
 
 "type.amenity.parking.underground" = "Parking podziemny";
 
+"type.amenity.parking_entrance.private" = "Wejście na parking";
+
+"type.amenity.parking_entrance.permissive" = "Wejście na parking";
+
+"type.amenity.parking_entrance" = "Wejście na parking";
+
 "type.amenity.parking_space" = "Miejsce parkingowe";
 
 "type.amenity.parking_space.permissive" = "Miejsce parkingowe";

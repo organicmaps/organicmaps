@@ -724,6 +724,9 @@
 	<string name="type.amenity.parking.permissive">Parkovisko</string>
 	<string name="type.amenity.parking.private">Parkovisko</string>
 	<string name="type.amenity.parking.underground">Parkovisko</string>
+	<string name="type.amenity.parking_entrance.private">Vstup na parkovisko</string>
+	<string name="type.amenity.parking_entrance.permissive">Vstup na parkovisko</string>
+	<string name="type.amenity.parking_entrance">Vstup na parkovisko</string>
 	<string name="type.amenity.parking_space">Parkovacie miesto</string>
 	<string name="type.amenity.parking_space.permissive">Parkovacie miesto</string>
 	<string name="type.amenity.parking_space.private">Parkovacie miesto</string>

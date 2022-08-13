@@ -1368,6 +1368,12 @@
 
 "type.amenity.parking.underground" = "Parkoló";
 
+"type.amenity.parking_entrance.private" = "Parkoló bejárata";
+
+"type.amenity.parking_entrance.permissive" = "Parkoló bejárata";
+
+"type.amenity.parking_entrance" = "Parkoló bejárata";
+
 "type.amenity.parking_space" = "Parkolóhely";
 
 "type.amenity.parking_space.permissive" = "Parkolóhely";

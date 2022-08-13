@@ -725,6 +725,9 @@
 	<string name="type.amenity.parking.permissive">پارکینگ</string>
 	<string name="type.amenity.parking.private">پارکینگ</string>
 	<string name="type.amenity.parking.underground">پارکینگ</string>
+	<string name="type.amenity.parking_entrance.private">ﮓﻨﯿﮐﺭﺎﭘ ﯼﺩﻭﺭﻭ</string>
+	<string name="type.amenity.parking_entrance.permissive">ﮓﻨﯿﮐﺭﺎﭘ ﯼﺩﻭﺭﻭ</string>
+	<string name="type.amenity.parking_entrance">ﮓﻨﯿﮐﺭﺎﭘ ﯼﺩﻭﺭﻭ</string>
 	<string name="type.amenity.parking_space">جای پارک</string>
 	<string name="type.amenity.parking_space.permissive">جای پارک</string>
 	<string name="type.amenity.parking_space.private">جای پارک</string>

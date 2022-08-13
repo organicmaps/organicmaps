@@ -1368,6 +1368,12 @@
 
 "type.amenity.parking.underground" = "Parkir";
 
+"type.amenity.parking_entrance.private" = "Pintu masuk parkir";
+
+"type.amenity.parking_entrance.permissive" = "Pintu masuk parkir";
+
+"type.amenity.parking_entrance" = "Pintu masuk parkir";
+
 "type.amenity.parking_space" = "Tempat parkir";
 
 "type.amenity.parking_space.permissive" = "Tempat parkir";

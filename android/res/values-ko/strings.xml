@@ -725,6 +725,9 @@
 	<string name="type.amenity.parking.permissive">주차</string>
 	<string name="type.amenity.parking.private">주차</string>
 	<string name="type.amenity.parking.underground">주차</string>
+	<string name="type.amenity.parking_entrance.private">주차장 입구</string>
+	<string name="type.amenity.parking_entrance.permissive">주차장 입구</string>
+	<string name="type.amenity.parking_entrance">주차장 입구</string>
 	<string name="type.amenity.parking_space">주차장</string>
 	<string name="type.amenity.parking_space.permissive">주차장</string>
 	<string name="type.amenity.parking_space.private">주차장</string>

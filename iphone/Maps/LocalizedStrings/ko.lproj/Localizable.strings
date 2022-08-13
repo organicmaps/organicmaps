@@ -1368,6 +1368,12 @@
 
 "type.amenity.parking.underground" = "주차";
 
+"type.amenity.parking_entrance.private" = "주차장 입구";
+
+"type.amenity.parking_entrance.permissive" = "주차장 입구";
+
+"type.amenity.parking_entrance" = "주차장 입구";
+
 "type.amenity.parking_space" = "주차장";
 
 "type.amenity.parking_space.permissive" = "주차장";

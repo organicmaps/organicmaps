@@ -640,6 +640,11 @@
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">Картографски данни от OpenStreetMap</string>
 
+	<!-- SECTION: Types -->
+	<string name="type.amenity.parking_entrance.private">Вход за паркинг</string>
+	<string name="type.amenity.parking_entrance.permissive">Вход за паркинг</string>
+	<string name="type.amenity.parking_entrance">Вход за паркинг</string>
+
 	<!-- SECTION: Types: Recycling -->
 	<string name="type.recycling.batteries">Батерии</string>
 	<string name="type.cemetery.grave">Гроб</string>

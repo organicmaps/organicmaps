@@ -227,6 +227,11 @@
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">OpenStreetMap-מ הפמ ינותנ</string>
 
+	<!-- SECTION: Types -->
+	<string name="type.amenity.parking_entrance.private">הינחל הסינכ</string>
+	<string name="type.amenity.parking_entrance.permissive">הינחל הסינכ</string>
+	<string name="type.amenity.parking_entrance">הינחל הסינכ</string>
+
 	<!-- SECTION: Types: Recycling -->
 	<string name="type.recycling.batteries">תוללוס</string>
 	<string name="type.cemetery.grave">רבק</string>

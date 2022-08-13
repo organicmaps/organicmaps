@@ -1368,6 +1368,12 @@
 
 "type.amenity.parking.underground" = "Parkoviště";
 
+"type.amenity.parking_entrance.private" = "Vjezd na parkoviště";
+
+"type.amenity.parking_entrance.permissive" = "Vjezd na parkoviště";
+
+"type.amenity.parking_entrance" = "Vjezd na parkoviště";
+
 "type.amenity.parking_space" = "Prostor pro parkování";
 
 "type.amenity.parking_space.permissive" = "Prostor pro parkování";

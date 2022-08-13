@@ -726,6 +726,9 @@
 	<string name="type.amenity.parking.permissive">đỗ xe</string>
 	<string name="type.amenity.parking.private">đỗ xe</string>
 	<string name="type.amenity.parking.underground">đỗ xe</string>
+	<string name="type.amenity.parking_entrance.private">Lối vào bãi đậu xe</string>
+	<string name="type.amenity.parking_entrance.permissive">Lối vào bãi đậu xe</string>
+	<string name="type.amenity.parking_entrance">Lối vào bãi đậu xe</string>
 	<string name="type.amenity.parking_space">Chỗ để xe</string>
 	<string name="type.amenity.parking_space.permissive">Chỗ để xe</string>
 	<string name="type.amenity.parking_space.private">Chỗ để xe</string>

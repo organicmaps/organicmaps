@@ -1368,6 +1368,12 @@
 
 "type.amenity.parking.underground" = "Otopark";
 
+"type.amenity.parking_entrance.private" = "Otopark girişi";
+
+"type.amenity.parking_entrance.permissive" = "Otopark girişi";
+
+"type.amenity.parking_entrance" = "Otopark girişi";
+
 "type.amenity.parking_space" = "Park Alanı";
 
 "type.amenity.parking_space.permissive" = "Park Alanı";
