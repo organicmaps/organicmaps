@@ -2188,6 +2188,49 @@
     zh-Hans = 停车场
     zh-Hant = 停車場
 
+  [type.amenity.parking_entrance.private]
+    ref = type.amenity.parking_entrance
+
+  [type.amenity.parking_entrance.permissive]
+    ref = type.amenity.parking_entrance
+
+  [type.amenity.parking_entrance]
+    en = Parking entrance
+    ar = ﺕﺍﺭﺎﻴﺴﻟﺍ ﻑﻮﻗﻭ ﻞﺧﺪﻣ
+    be = Уваход на паркоўку
+    bg = Вход за паркинг
+    cs = Vjezd na parkoviště
+    da = Parkeringsindgang
+    de = Parkplatzeinfahrt
+    el = Είσοδος στάθμευσης
+    es = Entrada al aparcamiento
+    eu = Aparkalekuaren sarrera
+    fa = ﮓﻨﯿﮐﺭﺎﭘ ﯼﺩﻭﺭﻭ
+    fi = Pysäköinti sisäänkäynti
+    fr = Entrée du stationnement
+    he = הינחל הסינכ
+    hu = Parkoló bejárata
+    id = Pintu masuk parkir
+    it = Ingresso parcheggio
+    ja = 駐車場入口
+    ko = 주차장 입구
+    nb = Parkeringsinngang
+    nl = Parkeeringang
+    pl = Wejście na parking
+    pt = Entrada do estacionamento
+    pt-BR = Entrada do estacionamento
+    ro = Intrare parcare
+    ru = Въезд на парковку
+    sk = Vstup na parkovisko
+    sv = Parkering entré
+    sw = Mlango wa maegesho
+    th = ทางเข้าที่จอดรถ
+    tr = Otopark girişi
+    uk = Вхід на паркінг
+    vi = Lối vào bãi đậu xe
+    zh-Hans = 停车场入口
+    zh-Hant = 停車場入口
+
   [type.amenity.parking_space]
     en = Parking Space
     ar = مكان لوقوف السيارات

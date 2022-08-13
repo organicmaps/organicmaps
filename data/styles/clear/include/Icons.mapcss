@@ -2673,6 +2673,17 @@ node|z18-[amenity=parking],
 area|z18-[amenity=parking]
 {icon-image: parking-m.svg;font-size: 11;text-optional: true;}
 
+node|z17[amenity=parking_entrance],
+area|z17[amenity=parking_entrance]
+{icon-image: parking_entrance-m.svg;}
+node|z17[amenity=parking_entrance][access=permissive],
+node|z17[amenity=parking_entrance][access=private]
+{icon-image: zero-icon.svg;}
+
+node|z18-[amenity=parking_entrance],
+area|z18-[amenity=parking_entrance]
+{icon-image: parking_entrance-m.svg;font-size: 11;text-optional: true;}
+
 node|z17-[amenity=bicycle_parking],
 area|z17-[amenity=bicycle_parking]
 {icon-image: bike-parking-m.svg;icon-min-distance: 20;}

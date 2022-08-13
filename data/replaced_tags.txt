@@ -54,7 +54,6 @@ sanitary_dump_station=customers : amenity=sanitary_dump_station
 sanitary_dump_station=public : amenity=sanitary_dump_station
 waterway=sanitary_dump_station : amenity=sanitary_dump_station
 amenity=monastery : amenity=place_of_worship
-amenity=parking_entrance : amenity=parking
 vending=parcel_pickup;parcel_mail_in : amenity=parcel_locker | u
 vending=parcel_pickup : amenity=parcel_locker | u
 vending=water : vending=drinks
