@@ -10,6 +10,7 @@
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_utils.hpp"
 #include "indexer/ftypes_matcher.hpp"
+#include "indexer/map_object.hpp"
 
 #include "platform/measurement_utils.hpp"
 
@@ -281,16 +282,15 @@ void FillDetails(FeatureType & ft, Result::Details & details)
   }
 
   if (strings::to_uint(ft.GetMetadata(feature::Metadata::FMD_STARS), details.m_stars))
-    details.m_stars = std::min(details.m_stars, uint8_t(5));
+    details.m_stars = std::min(details.m_stars, osm::MapObject::kMaxStarsCount);
   else
     details.m_stars = 0;
 
-  string const kFieldsSeparator = " • ";
   auto const cuisines = feature::GetLocalizedCuisines(feature::TypesHolder(ft));
-  details.m_cuisine = strings::JoinStrings(cuisines, kFieldsSeparator);
+  details.m_cuisine = strings::JoinStrings(cuisines, osm::MapObject::kFieldsSeparator);
 
   auto const roadShields = feature::GetRoadShieldsNames(ft.GetRoadNumber());
-  details.m_roadShields = strings::JoinStrings(roadShields, kFieldsSeparator);
+  details.m_roadShields = strings::JoinStrings(roadShields, osm::MapObject::kFieldsSeparator);
 
   details.m_isInitialized = true;
 }

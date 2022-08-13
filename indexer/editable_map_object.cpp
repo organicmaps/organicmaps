@@ -1,7 +1,6 @@
 #include "indexer/editable_map_object.hpp"
 
 #include "indexer/classificator.hpp"
-#include "indexer/cuisines.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/postcodes_matcher.hpp"
 #include "indexer/validate_and_format_contacts.hpp"
@@ -9,11 +8,9 @@
 #include "platform/preferred_languages.hpp"
 
 #include "base/control_flow.hpp"
-#include "base/macros.hpp"
 #include "base/string_utils.hpp"
 
 #include <algorithm>
-#include <cctype>
 #include <cmath>
 #include <codecvt>
 #include <regex>
@@ -63,24 +60,6 @@ size_t PushMwmLanguages(StringUtf8Multilang const & names, vector<int8_t> const 
   }
 
   return count;
-}
-
-char const * const kWebsiteProtocols[] = {"http://", "https://"};
-size_t const kWebsiteProtocolDefaultIndex = 0;
-
-size_t GetProtocolNameLength(string const & website)
-{
-  for (auto const & protocol : kWebsiteProtocols)
-  {
-    if (strings::StartsWith(website, protocol))
-      return strlen(protocol);
-  }
-  return 0;
-}
-
-bool IsProtocolSpecified(string const & website)
-{
-  return GetProtocolNameLength(website) > 0;
 }
 
 osm::FakeNames MakeFakeSource(StringUtf8Multilang const & source,
@@ -196,27 +175,23 @@ LocalizedName::LocalizedName(string const & langCode, string const & name)
 
 // EditableMapObject -------------------------------------------------------------------------------
 
-// static
-int8_t const EditableMapObject::kMaximumLevelsEditableByUsers = 25;
-
 bool EditableMapObject::IsNameEditable() const { return m_editableProperties.m_name; }
 bool EditableMapObject::IsAddressEditable() const { return m_editableProperties.m_address; }
 
-vector<Props> EditableMapObject::GetEditableProperties() const
+vector<MapObject::MetadataID> EditableMapObject::GetEditableProperties() const
 {
-  auto props = MetadataToProps(m_editableProperties.m_metadata);
+  auto props = m_editableProperties.m_metadata;
+
   if (m_editableProperties.m_cuisine)
   {
-    props.push_back(Props::Cuisine);
-    base::SortUnique(props);
+    // Props are already sorted by Metadata::EType value.
+    auto insertBefore = props.begin();
+    if (insertBefore != props.end() && *insertBefore == MetadataID::FMD_OPEN_HOURS)
+      ++insertBefore;
+    props.insert(insertBefore, MetadataID::FMD_CUISINE);
   }
 
   return props;
-}
-
-vector<feature::Metadata::EType> const & EditableMapObject::GetEditableFields() const
-{
-  return m_editableProperties.m_metadata;
 }
 
 NamesDataSource EditableMapObject::GetNamesDataSource(bool needFakes /* = true */)
@@ -288,24 +263,14 @@ NamesDataSource EditableMapObject::GetNamesDataSource(StringUtf8Multilang const 
 
 vector<LocalizedStreet> const & EditableMapObject::GetNearbyStreets() const { return m_nearbyStreets; }
 
-string_view EditableMapObject::GetPostcode() const
-{
-  return m_metadata.Get(feature::Metadata::FMD_POSTCODE);
-}
-
-string_view EditableMapObject::GetWikipedia() const
-{
-  return m_metadata.Get(feature::Metadata::FMD_WIKIPEDIA);
-}
-
 void EditableMapObject::ForEachMetadataItem(function<void(string_view tag, string_view value)> const & fn) const
 {
-  m_metadata.ForEachKey([&fn, this](feature::Metadata::EType type)
+  m_metadata.ForEach([&fn](feature::Metadata::EType type, std::string_view value)
   {
     // Multilang description may produce several tags with different values.
     if (type == feature::Metadata::FMD_DESCRIPTION)
     {
-      auto const mlDescr = StringUtf8Multilang::FromBuffer(std::string(m_metadata.Get(type)));
+      auto const mlDescr = StringUtf8Multilang::FromBuffer(std::string(value));
       mlDescr.ForEach([&fn](int8_t code, string_view v)
       {
         if (code == StringUtf8Multilang::kDefaultCode)
@@ -316,7 +281,7 @@ void EditableMapObject::ForEachMetadataItem(function<void(string_view tag, strin
     }
     else
     {
-      fn(ToString(type), m_metadata.Get(type));
+      fn(ToString(type), value);
     }
   });
 }
@@ -452,72 +417,79 @@ void EditableMapObject::SetHouseNumber(string const & houseNumber)
   m_houseNumber = houseNumber;
 }
 
-bool EditableMapObject::UpdateMetadataValue(string const & key, string const & value)
+void EditableMapObject::SetPostcode(std::string const & postcode)
 {
-  feature::Metadata::EType mdType;
-  if (!feature::Metadata::TypeFromString(key, mdType))
+  m_metadata.Set(MetadataID::FMD_POSTCODE, postcode);
+}
+
+bool EditableMapObject::IsValidMetadata(MetadataID type, std::string const & value)
+{
+  switch (type)
+  {
+  case MetadataID::FMD_WEBSITE: return ValidateWebsite(value);
+  case MetadataID::FMD_CONTACT_FACEBOOK: return ValidateFacebookPage(value);
+  case MetadataID::FMD_CONTACT_INSTAGRAM: return ValidateInstagramPage(value);
+  case MetadataID::FMD_CONTACT_TWITTER: return ValidateTwitterPage(value);
+  case MetadataID::FMD_CONTACT_VK: return ValidateVkPage(value);
+  case MetadataID::FMD_CONTACT_LINE: return ValidateLinePage(value);
+
+  case MetadataID::FMD_STARS:
+  {
+    uint32_t stars;
+    return strings::to_uint(value, stars) && stars > 0 && stars <= kMaxStarsCount;
+  }
+  case MetadataID::FMD_ELE:
+  {
+    /// @todo Reuse existing validadors in generator (osm2meta).
+    double ele;
+    return strings::to_double(value, ele) && ele > -11000 && ele < 9000;
+  }
+
+  case MetadataID::FMD_BUILDING_LEVELS: return ValidateBuildingLevels(value);
+  case MetadataID::FMD_LEVEL: return ValidateLevel(value);
+  case MetadataID::FMD_FLATS: return ValidateFlats(value);
+  case MetadataID::FMD_POSTCODE: return ValidatePostCode(value);
+  case MetadataID::FMD_PHONE_NUMBER: return ValidatePhoneList(value);
+  case MetadataID::FMD_EMAIL: return ValidateEmail(value);
+
+  default: return true;
+  }
+}
+
+void EditableMapObject::SetMetadata(MetadataID type, std::string value)
+{
+  switch (type)
+  {
+  case MetadataID::FMD_WEBSITE: value = ValidateAndFormat_website(value); break;
+  case MetadataID::FMD_CONTACT_FACEBOOK: value = ValidateAndFormat_facebook(value); break;
+  case MetadataID::FMD_CONTACT_INSTAGRAM: value = ValidateAndFormat_instagram(value); break;
+  case MetadataID::FMD_CONTACT_TWITTER: value = ValidateAndFormat_twitter(value); break;
+  case MetadataID::FMD_CONTACT_VK: value = ValidateAndFormat_vk(value); break;
+  case MetadataID::FMD_CONTACT_LINE: value = ValidateAndFormat_contactLine(value); break;
+  default: break;
+  }
+
+  m_metadata.Set(type, std::move(value));
+}
+
+bool EditableMapObject::UpdateMetadataValue(string_view key, string value)
+{
+  MetadataID type;
+  if (!feature::Metadata::TypeFromString(key, type))
     return false;
-  m_metadata.Set(mdType, value);
+
+  m_metadata.Set(type, std::move(value));
   return true;
 }
 
-void EditableMapObject::SetPostcode(string const & postcode)
+void EditableMapObject::SetOpeningHours(std::string oh)
 {
-  m_metadata.Set(feature::Metadata::FMD_POSTCODE, postcode);
-}
-
-void EditableMapObject::SetPhone(string const & phone)
-{
-  m_metadata.Set(feature::Metadata::FMD_PHONE_NUMBER, phone);
-}
-
-void EditableMapObject::SetFax(string const & fax)
-{
-  m_metadata.Set(feature::Metadata::FMD_FAX_NUMBER, fax);
-}
-
-void EditableMapObject::SetEmail(string const & email)
-{
-  m_metadata.Set(feature::Metadata::FMD_EMAIL, email);
-}
-
-void EditableMapObject::SetWebsite(string website)
-{
-  if (!website.empty() && !IsProtocolSpecified(website))
-    website = kWebsiteProtocols[kWebsiteProtocolDefaultIndex] + website;
-
-  m_metadata.Set(feature::Metadata::FMD_WEBSITE, website);
-  m_metadata.Drop(feature::Metadata::FMD_URL);
-}
-
-void EditableMapObject::SetFacebookPage(string const & facebookPage)
-{
-  m_metadata.Set(feature::Metadata::FMD_CONTACT_FACEBOOK, ValidateAndFormat_facebook(facebookPage));
-}
-
-void EditableMapObject::SetInstagramPage(string const & instagramPage)
-{
-  m_metadata.Set(feature::Metadata::FMD_CONTACT_INSTAGRAM, ValidateAndFormat_instagram(instagramPage));
-}
-
-void EditableMapObject::SetTwitterPage(string const & twitterPage)
-{
-  m_metadata.Set(feature::Metadata::FMD_CONTACT_TWITTER, ValidateAndFormat_twitter(twitterPage));
-}
-
-void EditableMapObject::SetVkPage(string const & vkPage)
-{
-  m_metadata.Set(feature::Metadata::FMD_CONTACT_VK, ValidateAndFormat_vk(vkPage));
-}
-
-void EditableMapObject::SetLinePage(string const & linePage)
-{
-  m_metadata.Set(feature::Metadata::FMD_CONTACT_LINE, ValidateAndFormat_contactLine(linePage));
+  m_metadata.Set(MetadataID::FMD_OPEN_HOURS, std::move(oh));
 }
 
 void EditableMapObject::SetInternet(Internet internet)
 {
-  m_metadata.Set(feature::Metadata::FMD_INTERNET, DebugPrint(internet));
+  m_metadata.Set(MetadataID::FMD_INTERNET, DebugPrint(internet));
 
   uint32_t const wifiType = ftypes::IsWifiChecker::Instance().GetType();
   bool const hasWiFi = m_types.Has(wifiType);
@@ -526,50 +498,6 @@ void EditableMapObject::SetInternet(Internet internet)
     m_types.Remove(wifiType);
   else if (!hasWiFi && internet == Internet::Wlan)
     m_types.Add(wifiType);
-}
-
-void EditableMapObject::SetStars(int stars)
-{
-  if (stars > 0 && stars <= 7)
-    m_metadata.Set(feature::Metadata::FMD_STARS, strings::to_string(stars));
-  else
-    LOG(LWARNING, ("Ignored invalid value to Stars:", stars));
-}
-
-void EditableMapObject::SetOperator(string const & op)
-{
-  m_metadata.Set(feature::Metadata::FMD_OPERATOR, op);
-}
-
-void EditableMapObject::SetElevation(double ele)
-{
-  // TODO: Reuse existing validadors in generator (osm2meta).
-  constexpr double kMaxElevationOnTheEarthInMeters = 10000;
-  constexpr double kMinElevationOnTheEarthInMeters = -15000;
-  if (ele < kMaxElevationOnTheEarthInMeters && ele > kMinElevationOnTheEarthInMeters)
-    m_metadata.Set(feature::Metadata::FMD_ELE, strings::to_string_dac(ele, 1));
-  else
-    LOG(LWARNING, ("Ignored invalid value to Elevation:", ele));
-}
-
-void EditableMapObject::SetWikipedia(string const & wikipedia)
-{
-  m_metadata.Set(feature::Metadata::FMD_WIKIPEDIA, wikipedia);
-}
-
-void EditableMapObject::SetFlats(string const & flats)
-{
-  m_metadata.Set(feature::Metadata::FMD_FLATS, flats);
-}
-
-void EditableMapObject::SetBuildingLevels(string const & buildingLevels)
-{
-  m_metadata.Set(feature::Metadata::FMD_BUILDING_LEVELS, buildingLevels);
-}
-
-void EditableMapObject::SetLevel(string const & level)
-{
-  m_metadata.Set(feature::Metadata::FMD_LEVEL, level);
 }
 
 LocalizedStreet const & EditableMapObject::GetStreet() const { return m_street; }
@@ -605,11 +533,6 @@ void EditableMapObject::SetCuisines(std::vector<std::string_view> const & cuisin
 void EditableMapObject::SetCuisines(std::vector<std::string> const & cuisines)
 {
   SetCuisinesImpl(cuisines);
-}
-
-void EditableMapObject::SetOpeningHours(string const & openingHours)
-{
-  m_metadata.Set(feature::Metadata::FMD_OPEN_HOURS, openingHours);
 }
 
 void EditableMapObject::SetPointType() { m_geomType = feature::GeomType::Point; }
@@ -759,30 +682,6 @@ bool EditableMapObject::ValidatePhoneList(string const & phone)
 }
 
 // static
-bool EditableMapObject::ValidateWebsite(string const & site)
-{
-  if (site.empty())
-    return true;
-
-  auto const startPos = GetProtocolNameLength(site);
-
-  if (startPos >= site.size())
-    return false;
-
-  // Site should contain at least one dot but not at the begining/end.
-  if ('.' == site[startPos] || '.' == site.back())
-    return false;
-
-  if (string::npos == site.find("."))
-    return false;
-
-  if (string::npos != site.find(".."))
-    return false;
-
-  return true;
-}
-
-// static
 bool EditableMapObject::ValidateEmail(string const & email)
 {
   if (email.empty())
@@ -880,4 +779,28 @@ bool EditableMapObject::ValidateName(string const & name)
   }
   return true;
 }
+
+bool AreObjectsEqualIgnoringStreet(EditableMapObject const & lhs, EditableMapObject const & rhs)
+{
+  feature::TypesHolder const & lhsTypes = lhs.GetTypes();
+  feature::TypesHolder const & rhsTypes = rhs.GetTypes();
+
+  if (!lhsTypes.Equals(rhsTypes))
+    return false;
+
+  if (lhs.GetHouseNumber() != rhs.GetHouseNumber())
+    return false;
+
+  if (lhs.GetCuisines() != rhs.GetCuisines())
+    return false;
+
+  if (!lhs.m_metadata.Equals(rhs.m_metadata))
+    return false;
+
+  if (lhs.GetNameMultilang() != rhs.GetNameMultilang())
+    return false;
+
+  return true;
+}
+
 }  // namespace osm

@@ -1,12 +1,8 @@
 #pragma once
 
-#include "map/bookmark.hpp"
 #include "map/routing_mark.hpp"
 
-
 #include "storage/storage_defines.hpp"
-
-#include "editor/osm_editor.hpp"
 
 #include "drape_frontend/frontend_renderer.hpp"
 #include "drape_frontend/selection_shape.hpp"
@@ -14,15 +10,11 @@
 #include "kml/types.hpp"
 
 #include "indexer/feature_data.hpp"
-#include "indexer/feature_meta.hpp"
 #include "indexer/feature_source.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/map_object.hpp"
 
-#include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
-
-#include "defines.hpp"
 
 #include <memory>
 #include <optional>
@@ -100,7 +92,6 @@ struct BuildInfo
 class Info : public osm::MapObject
 {
 public:
-  static char const * const kSubtitleSeparator;
   static char const * const kStarSymbol;
   static char const * const kMountainSymbol;
 

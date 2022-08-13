@@ -2,7 +2,6 @@
 
 #include "indexer/editable_map_object.hpp"
 
-#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
 #include <string>
@@ -28,7 +27,8 @@ EditorDialog::EditorDialog(QWidget * parent, osm::EditableMapObject & emo)
   QGridLayout * grid = new QGridLayout();
   int row = 0;
 
-  {  // Coordinates.
+  // Coordinates.
+  {
     ms::LatLon const ll = emo.GetLatLon();
     grid->addWidget(new QLabel("Latitude/Longitude:"), row, 0);
     QHBoxLayout * coords = new QHBoxLayout();
@@ -37,7 +37,8 @@ EditorDialog::EditorDialog(QWidget * parent, osm::EditableMapObject & emo)
     grid->addLayout(coords, row++, 1);
   }
 
-  {  // Feature types.
+  // Feature types.
+  {
     grid->addWidget(new QLabel("Type:"), row, 0);
 
     std::string const raw = DebugPrint(m_feature.GetTypes());
@@ -46,41 +47,30 @@ EditorDialog::EditorDialog(QWidget * parent, osm::EditableMapObject & emo)
     grid->addWidget(label, row++, 1);
   }
 
+  // Names.
   if (emo.IsNameEditable())
-  {  // Names.
-    char const * defaultLangStr =
-        StringUtf8Multilang::GetLangByCode(StringUtf8Multilang::kDefaultCode);
-    // Default name editor is always displayed, even if feature name is empty.
+  {
     grid->addWidget(new QLabel(QString("Name:")), row, 0);
-    QLineEdit * defaultName = new QLineEdit();
-    defaultName->setObjectName(defaultLangStr);
+
     QGridLayout * namesGrid = new QGridLayout();
     int namesRow = 0;
-    namesGrid->addWidget(defaultName, namesRow++, 0, 1, 0);
-
-    auto const namesDataSource = emo.GetNamesDataSource();
-
-    for (auto const & ln : namesDataSource.names)
+    for (auto const & ln : emo.GetNamesDataSource().names)
     {
-      if (ln.m_code == StringUtf8Multilang::kDefaultCode)
-      {
-        defaultName->setText(QString::fromStdString(ln.m_name));
-      }
-      else
-      {
-        char const * langStr = StringUtf8Multilang::GetLangByCode(ln.m_code);
-        namesGrid->addWidget(new QLabel(ln.m_lang), namesRow, 0);
-        QLineEdit * lineEditName = new QLineEdit(QString::fromStdString(ln.m_name));
-        lineEditName->setReadOnly(!emo.IsNameEditable());
-        lineEditName->setObjectName(langStr);
-        namesGrid->addWidget(lineEditName, namesRow++, 1);
-      }
+      namesGrid->addWidget(new QLabel(ln.m_lang), namesRow, 0);
+      QLineEdit * lineEditName = new QLineEdit(QString::fromStdString(ln.m_name));
+      lineEditName->setReadOnly(!emo.IsNameEditable());
+      lineEditName->setObjectName(StringUtf8Multilang::GetLangByCode(ln.m_code));
+      namesGrid->addWidget(lineEditName, namesRow++, 1);
     }
+
     grid->addLayout(namesGrid, row++, 1);
   }
 
+  using PropID = osm::MapObject::MetadataID;
+
+  // Address rows.
   if (emo.IsAddressEditable())
-  {  // Address rows.
+  {
     auto nearbyStreets = emo.GetNearbyStreets();
     grid->addWidget(new QLabel(kStreetObjectName), row, 0);
     QComboBox * cmb = new QComboBox();
@@ -113,21 +103,12 @@ EditorDialog::EditorDialog(QWidget * parent, osm::EditableMapObject & emo)
   }
 
   // Editable metadata rows.
-  for (osm::Props const prop : emo.GetEditableProperties())
+  for (auto const prop : emo.GetEditableProperties())
   {
     std::string v;
     switch (prop)
     {
-    case osm::Props::Phone: v = emo.GetPhone(); break;
-    case osm::Props::Fax: v = emo.GetFax(); break;
-    case osm::Props::Email: v = emo.GetEmail(); break;
-    case osm::Props::Website: v = emo.GetWebsite(); break;
-    case osm::Props::ContactFacebook: v = emo.GetFacebookPage(); break;
-    case osm::Props::ContactInstagram: v = emo.GetInstagramPage(); break;
-    case osm::Props::ContactTwitter: v = emo.GetTwitterPage(); break;
-    case osm::Props::ContactVk: v = emo.GetVkPage(); break;
-    case osm::Props::ContactLine: v = emo.GetLinePage(); break;
-    case osm::Props::Internet:
+    case PropID::FMD_INTERNET:
       {
         grid->addWidget(new QLabel(kInternetObjectName), row, 0);
         QComboBox * cmb = new QComboBox();
@@ -144,31 +125,25 @@ EditorDialog::EditorDialog(QWidget * parent, osm::EditableMapObject & emo)
         grid->addWidget(cmb, row++, 1);
       }
       continue;
-    case osm::Props::Cuisine: v = strings::JoinStrings(emo.GetLocalizedCuisines(), ", "); break;
-    case osm::Props::OpeningHours: v = emo.GetOpeningHours(); break;
-    case osm::Props::Stars: v = strings::to_string(emo.GetStars()); break;
-    case osm::Props::Operator: v = emo.GetOperator(); break;
-    case osm::Props::Elevation:
-      {
-        double ele;
-        if (emo.GetElevation(ele))
-          v = strings::to_string_dac(ele, 2);
-      }
+    case PropID::FMD_CUISINE:
+      v = strings::JoinStrings(emo.GetLocalizedCuisines(), ", ");
       break;
-    case osm::Props::Wikipedia: v = emo.GetWikipedia(); break;
-    case osm::Props::Flats: v = emo.GetFlats(); break;
-    case osm::Props::BuildingLevels: v = emo.GetBuildingLevels(); break;
-    case osm::Props::Level: v = emo.GetLevel(); break;
+    case PropID::FMD_POSTCODE:  // already set above
+      continue;
+    default:
+      v = emo.GetMetadata(prop);
+      break;
     }
+
     QString const fieldName = QString::fromStdString(DebugPrint(prop));
     grid->addWidget(new QLabel(fieldName), row, 0);
     QLineEdit * lineEdit = new QLineEdit(QString::fromStdString(v));
-    // Mark line editor to query it's text value when editing is finished.
     lineEdit->setObjectName(fieldName);
     grid->addWidget(lineEdit, row++, 1);
   }
 
-  {  // Dialog buttons.
+  // Dialog buttons.
+  {
     QDialogButtonBox * buttonBox =
         new QDialogButtonBox(QDialogButtonBox::Cancel | QDialogButtonBox::Save);
     connect(buttonBox, &QDialogButtonBox::accepted, this, &EditorDialog::OnSave);
@@ -189,7 +164,7 @@ EditorDialog::EditorDialog(QWidget * parent, osm::EditableMapObject & emo)
 
 void EditorDialog::OnSave()
 {
-  // Store all edits.
+  // Store names.
   if (m_feature.IsNameEditable())
   {
     StringUtf8Multilang names;
@@ -199,13 +174,18 @@ void EditorDialog::OnSave()
       QLineEdit * le = findChild<QLineEdit *>(StringUtf8Multilang::GetLangByCode(langCode));
       if (!le)
         continue;
+
       std::string const name = le->text().toStdString();
       if (!name.empty())
         names.AddString(langCode, name);
     }
+
     m_feature.SetName(names);
   }
 
+  using PropID = osm::MapObject::MetadataID;
+
+  // Store address.
   if (m_feature.IsAddressEditable())
   {
     m_feature.SetHouseNumber(findChild<QLineEdit *>(kHouseNumberObjectName)->text().toStdString());
@@ -221,59 +201,46 @@ void EditorDialog::OnSave()
       m_feature.SetStreet({names.at(0).toStdString(), localized.toStdString()});
     else
       m_feature.SetStreet({});
-    m_feature.SetPostcode(findChild<QLineEdit *>(kPostcodeObjectName)->text().toStdString());
+
+    QLineEdit * editor = findChild<QLineEdit *>(kPostcodeObjectName);
+    std::string v = editor->text().toStdString();
+    if (osm::EditableMapObject::ValidatePostCode(v))
+      m_feature.SetPostcode(v);
   }
 
-  for (osm::Props const prop : m_feature.GetEditableProperties())
+  // Store other props.
+  for (auto const prop : m_feature.GetEditableProperties())
   {
-    if (prop == osm::Props::Internet)
+    if (prop == PropID::FMD_INTERNET)
     {
       QComboBox * cmb = findChild<QComboBox *>(kInternetObjectName);
       m_feature.SetInternet(osm::InternetFromString(cmb->currentText().toStdString()));
       continue;
     }
+    if (prop == PropID::FMD_POSTCODE) // already set above
+      continue;
 
     QLineEdit * editor = findChild<QLineEdit *>(QString::fromStdString(DebugPrint(prop)));
     if (!editor)
       continue;
 
-    std::string const v = editor->text().toStdString();
+    std::string v = editor->text().toStdString();
     switch (prop)
     {
-    case osm::Props::Phone: m_feature.SetPhone(v); break;
-    case osm::Props::Fax: m_feature.SetFax(v); break;
-    case osm::Props::Email: m_feature.SetEmail(v); break;
-    case osm::Props::Website: m_feature.SetWebsite(v); break;
-    case osm::Props::ContactFacebook: m_feature.SetFacebookPage(v); break;
-    case osm::Props::ContactInstagram: m_feature.SetInstagramPage(v); break;
-    case osm::Props::ContactTwitter: m_feature.SetTwitterPage(v); break;
-    case osm::Props::ContactVk: m_feature.SetVkPage(v); break;
-    case osm::Props::ContactLine: m_feature.SetLinePage(v); break;
-    case osm::Props::Internet: CHECK(false, ("Is handled separately above."));
-    case osm::Props::Cuisine:
+    case PropID::FMD_CUISINE:
       m_feature.SetCuisines(strings::Tokenize(v, ";"));
       break;
-    case osm::Props::OpeningHours: m_feature.SetOpeningHours(v); break;
-    case osm::Props::Stars:
-    {
-      int num;
-      if (strings::to_int(v, num))
-        m_feature.SetStars(num);
-    }
-    break;
-    case osm::Props::Operator: m_feature.SetOperator(v); break;
-    case osm::Props::Elevation:
-    {
-      double ele;
-      if (strings::to_double(v, ele))
-        m_feature.SetElevation(ele);
-    }
-    break;
-    case osm::Props::Wikipedia: m_feature.SetWikipedia(v); break;
-    case osm::Props::Flats: m_feature.SetFlats(v); break;
-    case osm::Props::BuildingLevels: m_feature.SetBuildingLevels(v); break;
-    case osm::Props::Level: m_feature.SetLevel(v); break;
+    default:
+      if (osm::EditableMapObject::IsValidMetadata(prop, v))
+        m_feature.SetMetadata(prop, std::move(v));
+      else
+      {
+        /// @todo Show error popup?
+        editor->setFocus();
+        return;
+      }
     }
   }
+
   accept();
 }

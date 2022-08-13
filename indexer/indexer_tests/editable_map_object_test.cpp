@@ -4,14 +4,15 @@
 #include "indexer/classificator_loader.hpp"
 #include "indexer/editable_map_object.hpp"
 #include "indexer/feature.hpp"
+#include "indexer/validate_and_format_contacts.hpp"
 
 #include <string>
 #include <vector>
 
+namespace editable_map_object_test
+{
 using namespace std;
 
-namespace
-{
 using osm::EditableMapObject;
 
 int8_t GetLangCode(char const * ch)
@@ -50,21 +51,22 @@ void CheckExpectations(StringUtf8Multilang const & s, vector<ExpectedName> const
   TEST_EQUAL(counter, expectations.size(), ("Unexpected count of names, expected ", expectations.size(),
                                             ", but turned out ", counter, ". Expectations: ", expectations));
 }
-  
+
 UNIT_TEST(EditableMapObject_SetWebsite)
 {
+  pair<char const *, char const *> arr[] = {
+    { "https://some.thing.org", "https://some.thing.org" },
+    { "http://some.thing.org", "http://some.thing.org" },
+    { "some.thing.org", "http://some.thing.org" },
+    { "", "" },
+  };
+
   EditableMapObject emo;
-  emo.SetWebsite("https://some.thing.org");
-  TEST_EQUAL(emo.GetWebsite(), "https://some.thing.org", ());
-
-  emo.SetWebsite("http://some.thing.org");
-  TEST_EQUAL(emo.GetWebsite(), "http://some.thing.org", ());
-
-  emo.SetWebsite("some.thing.org");
-  TEST_EQUAL(emo.GetWebsite(), "http://some.thing.org", ());
-
-  emo.SetWebsite("");
-  TEST_EQUAL(emo.GetWebsite(), "", ());
+  for (auto const & e : arr)
+  {
+    emo.SetMetadata(feature::Metadata::FMD_WEBSITE, e.first);
+    TEST_EQUAL(emo.GetMetadata(feature::Metadata::FMD_WEBSITE), e.second, ());
+  }
 }
 
 UNIT_TEST(EditableMapObject_ValidateBuildingLevels)
@@ -156,20 +158,20 @@ UNIT_TEST(EditableMapObject_ValidatePhoneList)
 
 UNIT_TEST(EditableMapObject_ValidateWebsite)
 {
-  TEST(EditableMapObject::ValidateWebsite(""), ());
-  TEST(EditableMapObject::ValidateWebsite("qwe.rty"), ());
-  TEST(EditableMapObject::ValidateWebsite("http://websit.e"), ());
-  TEST(EditableMapObject::ValidateWebsite("https://websit.e"), ());
+  TEST(osm::ValidateWebsite(""), ());
+  TEST(osm::ValidateWebsite("qwe.rty"), ());
+  TEST(osm::ValidateWebsite("http://websit.e"), ());
+  TEST(osm::ValidateWebsite("https://websit.e"), ());
 
-  TEST(!EditableMapObject::ValidateWebsite("qwerty"), ());
-  TEST(!EditableMapObject::ValidateWebsite(".qwerty"), ());
-  TEST(!EditableMapObject::ValidateWebsite("qwerty."), ());
-  TEST(!EditableMapObject::ValidateWebsite(".qwerty."), ());
-  TEST(!EditableMapObject::ValidateWebsite("w..com"), ());
-  TEST(!EditableMapObject::ValidateWebsite("http://.websit.e"), ());
-  TEST(!EditableMapObject::ValidateWebsite("https://.websit.e"), ());
-  TEST(!EditableMapObject::ValidateWebsite("http://"), ());
-  TEST(!EditableMapObject::ValidateWebsite("https://"), ());
+  TEST(!osm::ValidateWebsite("qwerty"), ());
+  TEST(!osm::ValidateWebsite(".qwerty"), ());
+  TEST(!osm::ValidateWebsite("qwerty."), ());
+  TEST(!osm::ValidateWebsite(".qwerty."), ());
+  TEST(!osm::ValidateWebsite("w..com"), ());
+  TEST(!osm::ValidateWebsite("http://.websit.e"), ());
+  TEST(!osm::ValidateWebsite("https://.websit.e"), ());
+  TEST(!osm::ValidateWebsite("http://"), ());
+  TEST(!osm::ValidateWebsite("https://"), ());
 }
 
 UNIT_TEST(EditableMapObject_ValidateEmail)
@@ -660,25 +662,26 @@ UNIT_TEST(EditableMapObject_FromFeatureType)
   names.AddString(GetLangCode("ru"), "Ru name");
   emo.SetName(names);
 
-  emo.SetWebsite("https://some.thing.org");
+  emo.SetMetadata(feature::Metadata::FMD_WEBSITE, "https://some.thing.org");
   emo.SetInternet(osm::Internet::Wlan);
 
   emo.SetPointType();
   emo.SetMercator(m2::PointD(1.0, 1.0));
 
-  FeatureType ft(emo);
+  auto ft = FeatureType::CreateFromMapObject(emo);
   EditableMapObject emo2;
-  emo2.SetFromFeatureType(ft);
+  emo2.SetFromFeatureType(*ft);
 
   TEST(emo.GetTypes().Equals(emo2.GetTypes()), ());
 
   TEST_EQUAL(emo.GetNameMultilang(), emo2.GetNameMultilang(), ());
   TEST_EQUAL(emo.GetHouseNumber(), emo2.GetHouseNumber(), ());
   TEST_EQUAL(emo.GetMercator(), emo2.GetMercator(), ());
-  TEST_EQUAL(emo.GetWebsite(), emo2.GetWebsite(), ());
+  TEST_EQUAL(emo.GetMetadata(feature::Metadata::FMD_WEBSITE), emo2.GetMetadata(feature::Metadata::FMD_WEBSITE), ());
   TEST_EQUAL(emo.GetInternet(), emo2.GetInternet(), ());
 
   TEST(emo.IsPointType(), ());
   TEST(emo2.IsPointType(), ());
 }
-}  // namespace
+
+} // namespace editable_map_object_test

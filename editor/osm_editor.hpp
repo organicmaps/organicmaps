@@ -9,7 +9,6 @@
 
 #include "indexer/editable_map_object.hpp"
 #include "indexer/feature.hpp"
-#include "indexer/feature_meta.hpp"
 #include "indexer/feature_source.hpp"
 #include "indexer/mwm_set.hpp"
 
@@ -171,8 +170,8 @@ public:
                    EditableMapObject & outFeature) const;
 
   void CreateNote(ms::LatLon const & latLon, FeatureID const & fid,
-                  feature::TypesHolder const & holder, std::string const & defaultName,
-                  NoteProblemType const type, std::string const & note);
+                  feature::TypesHolder const & holder, std::string_view defaultName,
+                  NoteProblemType const type, std::string_view note);
 
   Stats GetStats() const;
 

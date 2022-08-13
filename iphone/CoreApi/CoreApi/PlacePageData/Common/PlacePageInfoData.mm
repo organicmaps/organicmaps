@@ -17,17 +17,27 @@ using namespace osm;
 
 - (instancetype)initWithRawData:(Info const &)rawData ohLocalization:(id<IOpeningHoursLocalization>)localization {
   self = [super init];
-  if (self) {
-    auto availableProperties = rawData.AvailableProperties();
-    for (auto property : availableProperties) {
-      switch (property) {
-        case Props::OpeningHours:
-          _openingHoursString = ToNSString(rawData.GetOpeningHours());
+  if (self)
+  {
+    auto const cuisines = rawData.FormatCuisines();
+    if (!cuisines.empty())
+      _cuisine = ToNSString(cuisines);
+
+    /// @todo Refactor PlacePageInfoData to have a map of simple string properties.
+    using MetadataID = MapObject::MetadataID;
+    rawData.ForEachMetadataReadable([&](MetadataID metaID, std::string const & value)
+    {
+      /// @todo Show wikipedia, wikimedia_commons here?
+      switch (metaID)
+      {
+        case MetadataID::FMD_OPEN_HOURS:
+          _openingHoursString = ToNSString(value);
           _openingHours = [[OpeningHours alloc] initWithRawString:_openingHoursString
                                                      localization:localization];
           break;
-        case Props::Phone: {
-          _phone = ToNSString(rawData.GetPhone());
+        case MetadataID::FMD_PHONE_NUMBER:
+        {
+          _phone = ToNSString(value);
           NSString *filteredDigits = [[_phone componentsSeparatedByCharactersInSet:
                                        [[NSCharacterSet decimalDigitCharacterSet] invertedSet]]
                                       componentsJoinedByString:@""];
@@ -35,42 +45,25 @@ using namespace osm;
           _phoneUrl = [NSURL URLWithString:[NSString stringWithFormat:@"tel://%@", resultNumber]];
           break;
         }
-        case Props::Website:
-          _website = ToNSString(rawData.GetWebsite());
-          break;
-        case Props::Email:
-          _email = ToNSString(rawData.GetEmail());
+        case MetadataID::FMD_WEBSITE: _website = ToNSString(value); break;
+        case MetadataID::FMD_EMAIL:
+          _email = ToNSString(value);
           _emailUrl = [NSURL URLWithString:[NSString stringWithFormat:@"mailto:%@", _email]];
           break;
-        case Props::ContactFacebook:
-          _facebook = ToNSString(rawData.GetFacebookPage());
-          break;
-        case Props::ContactInstagram:
-          _instagram = ToNSString(rawData.GetInstagramPage());
-          break;
-        case Props::ContactTwitter:
-          _twitter = ToNSString(rawData.GetTwitterPage());
-          break;
-        case Props::ContactVk:
-          _vk = ToNSString(rawData.GetVkPage());
-          break;
-        case Props::Cuisine:
-          _cuisine = @(strings::JoinStrings(rawData.GetLocalizedCuisines(), Info::kSubtitleSeparator).c_str());
-          break;
-        case Props::Operator:
-          _ppOperator = ToNSString(rawData.GetOperator());
-          break;
-        case Props::Internet:
+        case MetadataID::FMD_CONTACT_FACEBOOK: _facebook = ToNSString(value); break;
+        case MetadataID::FMD_CONTACT_INSTAGRAM: _instagram = ToNSString(value); break;
+        case MetadataID::FMD_CONTACT_TWITTER: _twitter = ToNSString(value); break;
+        case MetadataID::FMD_CONTACT_VK: _vk = ToNSString(value); break;
+        case MetadataID::FMD_OPERATOR: _ppOperator = ToNSString(value); break;
+        case MetadataID::FMD_INTERNET:
           _wifiAvailable = (rawData.GetInternet() == osm::Internet::No)
               ? NSLocalizedString(@"no_available", nil) : NSLocalizedString(@"yes_available", nil);
           break;
-        case Props::Level:
-          _level = ToNSString(rawData.GetLevel());
-          break;
+        case MetadataID::FMD_LEVEL: _level = ToNSString(value); break;
         default:
           break;
       }
-    }
+    });
 
     _address = rawData.GetAddress().empty() ? nil : @(rawData.GetAddress().c_str());
     _rawCoordinates = @(rawData.GetFormattedCoordinate(true).c_str());

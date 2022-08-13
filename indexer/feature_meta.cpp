@@ -2,10 +2,10 @@
 
 #include "std/target_os.hpp"
 
-using namespace std;
-
 namespace feature
 {
+using namespace std;
+
 namespace
 {
 char constexpr const * kBaseWikiUrl =
@@ -16,12 +16,8 @@ char constexpr const * kBaseWikiUrl =
 #endif
 } // namespace
 
-string Metadata::GetWikiURL() const
+string Metadata::ToWikiURL(std::string v)
 {
-  string v(this->Get(FMD_WIKIPEDIA));
-  if (v.empty())
-    return v;
-
   auto const colon = v.find(':');
   if (colon == string::npos)
     return v;
@@ -35,15 +31,20 @@ string Metadata::GetWikiURL() const
     v.replace(percent, 1, escapedPercent);
     pos = percent + escapedPercent.size();
   }
+
   // Trying to avoid redirects by constructing the right link.
   // TODO: Wikipedia article could be opened it a user's language, but need
   // generator level support to check for available article languages first.
   return "https://" + v.substr(0, colon) + kBaseWikiUrl + v.substr(colon + 1);
 }
 
-string Metadata::GetWikimediaCommonsURL() const
+std::string Metadata::GetWikiURL() const
 {
-  string v(this->Get(FMD_WIKIMEDIA_COMMONS));
+  return ToWikiURL(string(Get(FMD_WIKIPEDIA)));
+}
+
+string Metadata::ToWikimediaCommonsURL(std::string const & v)
+{
   if (v.empty())
     return v;
 
@@ -51,7 +52,7 @@ string Metadata::GetWikimediaCommonsURL() const
 }
 
 // static
-bool Metadata::TypeFromString(string const & k, Metadata::EType & outType)
+bool Metadata::TypeFromString(string_view k, Metadata::EType & outType)
 {
   if (k == "opening_hours")
     outType = Metadata::FMD_OPEN_HOURS;
@@ -63,9 +64,7 @@ bool Metadata::TypeFromString(string const & k, Metadata::EType & outType)
     outType = Metadata::FMD_STARS;
   else if (k == "operator")
     outType = Metadata::FMD_OPERATOR;
-  else if (k == "url")  // TODO: Should we match url to website here?
-    outType = Metadata::FMD_WEBSITE;
-  else if (k == "website" || k == "contact:website")
+  else if (k == "url" || k == "website" || k == "contact:website")
     outType = Metadata::FMD_WEBSITE;
   else if (k == "facebook" || k == "contact:facebook")
     outType = Metadata::FMD_CONTACT_FACEBOOK;
@@ -174,12 +173,12 @@ string ToString(Metadata::EType type)
 {
   switch (type)
   {
+  case Metadata::FMD_CUISINE: return "cuisine";
   case Metadata::FMD_OPEN_HOURS: return "opening_hours";
   case Metadata::FMD_PHONE_NUMBER: return "phone";
   case Metadata::FMD_FAX_NUMBER: return "fax";
   case Metadata::FMD_STARS: return "stars";
   case Metadata::FMD_OPERATOR: return "operator";
-  case Metadata::FMD_URL: return "url";
   case Metadata::FMD_WEBSITE: return "website";
   case Metadata::FMD_CONTACT_FACEBOOK: return "contact:facebook";
   case Metadata::FMD_CONTACT_INSTAGRAM: return "contact:instagram";

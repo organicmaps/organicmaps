@@ -9,10 +9,10 @@
 
 #include <type_traits>
 
-using namespace std;
-
 namespace indexer
 {
+using namespace std;
+
 void MetadataDeserializer::Header::Read(Reader & reader)
 {
   static_assert(is_same<underlying_type_t<Version>, uint8_t>::value, "");
@@ -99,14 +99,12 @@ unique_ptr<MetadataDeserializer> MetadataDeserializer::Load(Reader & reader)
 }
 
 // MetadataBuilder -----------------------------------------------------------------------------
-void MetadataBuilder::Put(uint32_t featureId, feature::MetadataBase const & meta)
+void MetadataBuilder::Put(uint32_t featureId, feature::Metadata const & meta)
 {
   MetadataDeserializer::MetaIds metaIds;
-  for (auto const & type : meta.GetPresentTypes())
+  meta.ForEach([&](feature::Metadata::EType type, std::string const & value)
   {
     uint32_t id = 0;
-    /// @todo Avoid temporary string when unordered_map will allow search by string_view.
-    string const value(meta.Get(type));
     auto const it = m_stringToId.find(value);
     if (it != m_stringToId.end())
     {
@@ -122,7 +120,8 @@ void MetadataBuilder::Put(uint32_t featureId, feature::MetadataBase const & meta
       CHECK_EQUAL(m_idToString.size(), m_stringToId.size(), ());
     }
     metaIds.emplace_back(type, id);
-  }
+  });
+
   m_builder.Put(featureId, metaIds);
 }
 

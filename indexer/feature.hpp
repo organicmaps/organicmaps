@@ -1,6 +1,4 @@
 #pragma once
-#include "indexer/cell_id.hpp"
-#include "indexer/feature_altitude.hpp"
 #include "indexer/feature_data.hpp"
 
 #include "geometry/point2d.hpp"
@@ -10,11 +8,9 @@
 #include "base/macros.hpp"
 
 #include <array>
-#include <cstdint>
 #include <functional>
 #include <iterator>
 #include <string>
-#include <utility>
 #include <vector>
 
 namespace feature
@@ -31,12 +27,15 @@ class MapObject;
 // Lazy feature loader. Loads needed data and caches it.
 class FeatureType
 {
+  FeatureType() = default;
+
 public:
   using GeometryOffsets = buffer_vector<uint32_t, feature::DataHeader::kMaxScalesCount>;
 
   FeatureType(feature::SharedLoadInfo const * loadInfo, std::vector<uint8_t> && buffer,
               indexer::MetadataDeserializer * metadataDeserializer);
-  FeatureType(osm::MapObject const & emo);
+
+  static std::unique_ptr<FeatureType> CreateFromMapObject(osm::MapObject const & emo);
 
   feature::GeomType GetGeomType() const;
 

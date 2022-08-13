@@ -7,33 +7,20 @@
 #include "editor/xml_feature.hpp"
 
 #include "indexer/categories_holder.hpp"
-#include "indexer/classificator.hpp"
-#include "indexer/data_source_helpers.hpp"
 #include "indexer/fake_feature_ids.hpp"
-#include "indexer/feature_algo.hpp"
 #include "indexer/feature_decl.hpp"
-#include "indexer/feature_impl.hpp"
 #include "indexer/feature_meta.hpp"
 #include "indexer/feature_source.hpp"
-#include "indexer/ftypes_matcher.hpp"
 #include "indexer/mwm_set.hpp"
 
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
-#include "platform/preferred_languages.hpp"
-
-#include "coding/internal/file_data.hpp"
-
-#include "geometry/algorithm.hpp"
 
 #include "base/exception.hpp"
 #include "base/logging.hpp"
 #include "base/stl_helpers.hpp"
-#include "base/string_utils.hpp"
 #include "base/thread_checker.hpp"
 #include "base/timer.hpp"
-
-#include "std/target_os.hpp"
 
 #include <algorithm>
 #include <array>
@@ -42,6 +29,12 @@
 #include "3party/opening_hours/opening_hours.hpp"
 #include "3party/pugixml/pugixml/src/pugixml.hpp"
 
+namespace osm
+{
+// TODO(AlexZ): Normalize osm multivalue strings for correct merging
+// (e.g. insert/remove spaces after ';' delimeter);
+
+using namespace std;
 using namespace pugi;
 using feature::GeomType;
 using feature::Metadata;
@@ -114,31 +107,6 @@ bool NeedsUpload(std::string const & uploadStatus)
          uploadStatus != kMatchedFeatureIsEmpty;
 }
 
-/// Compares editable fields connected with feature ignoring street.
-bool AreObjectsEqualButStreet(osm::EditableMapObject const & lhs,
-                              osm::EditableMapObject const & rhs)
-{
-  feature::TypesHolder const & lhsTypes = lhs.GetTypes();
-  feature::TypesHolder const & rhsTypes = rhs.GetTypes();
-
-  if (!lhsTypes.Equals(rhsTypes))
-    return false;
-
-  if (lhs.GetHouseNumber() != rhs.GetHouseNumber())
-    return false;
-
-  if (lhs.GetCuisines() != rhs.GetCuisines())
-    return false;
-
-  if (!lhs.GetMetadata().Equals(rhs.GetMetadata()))
-    return false;
-
-  if (lhs.GetNameMultilang() != rhs.GetNameMultilang())
-    return false;
-
-  return true;
-}
-
 XMLFeature GetMatchingFeatureFromOSM(osm::ChangesetWrapper & cw, osm::EditableMapObject & o)
 {
   ASSERT_NOT_EQUAL(o.GetGeomType(), feature::GeomType::Line,
@@ -166,13 +134,6 @@ bool IsObsolete(editor::XMLFeature const & xml, FeatureID const & fid)
          base::TimeTToSecondsSinceEpoch(uploadTime) < GetMwmCreationTimeByMwmId(fid.m_mwmId);
 }
 }  // namespace
-
-namespace osm
-{
-// TODO(AlexZ): Normalize osm multivalue strings for correct merging
-// (e.g. insert/remove spaces after ';' delimeter);
-
-using namespace std;
 
 Editor::Editor()
   : m_configLoader(m_config)
@@ -397,7 +358,7 @@ Editor::SaveResult Editor::SaveEditedFeature(EditableMapObject const & emo)
     if (featureStatus == FeatureStatus::Created)
     {
       auto const & editedFeatureInfo = features->at(fid.m_mwmId).at(fid.m_index);
-      if (AreObjectsEqualButStreet(fti.m_object, editedFeatureInfo.m_object) &&
+      if (AreObjectsEqualIgnoringStreet(fti.m_object, editedFeatureInfo.m_object) &&
           emo.GetStreet().m_defaultName == editedFeatureInfo.m_street)
       {
         return SaveResult::NothingWasChanged;
@@ -414,14 +375,14 @@ Editor::SaveResult Editor::SaveEditedFeature(EditableMapObject const & emo)
     }
     fti.m_object = emo;
     bool const sameAsInMWM =
-        AreObjectsEqualButStreet(fti.m_object, *originalObjectPtr) &&
+        AreObjectsEqualIgnoringStreet(fti.m_object, *originalObjectPtr) &&
         emo.GetStreet().m_defaultName == GetOriginalFeatureStreet(fti.m_object.GetID());
 
     if (featureStatus != FeatureStatus::Untouched)
     {
       // A feature was modified and equals to the one in editor.
       auto const & editedFeatureInfo = features->at(fid.m_mwmId).at(fid.m_index);
-      if (AreObjectsEqualButStreet(fti.m_object, editedFeatureInfo.m_object) &&
+      if (AreObjectsEqualIgnoringStreet(fti.m_object, editedFeatureInfo.m_object) &&
           emo.GetStreet().m_defaultName == editedFeatureInfo.m_street)
       {
         return SaveResult::NothingWasChanged;
@@ -562,10 +523,8 @@ EditableProperties Editor::GetEditableProperties(FeatureType & feature) const
       return {};
     }
 
-    auto const & metadata = originalObjectPtr->GetMetadata();
-
     /// @todo Avoid temporary string when OpeningHours (boost::spirit) will allow string_view.
-    string const featureOpeningHours(metadata.Get(feature::Metadata::FMD_OPEN_HOURS));
+    string const featureOpeningHours(originalObjectPtr->GetOpeningHours());
     /// @note Empty string is parsed as a valid opening hours rule.
     if (!osmoh::OpeningHours(featureOpeningHours).IsValid())
     {
@@ -581,8 +540,10 @@ EditableProperties Editor::GetEditablePropertiesForTypes(feature::TypesHolder co
 {
   editor::TypeAggregatedDescription desc;
   if (m_config.Get()->GetTypeDescription(types.ToObjectNames(), desc))
-    return {desc.GetEditableFields(), desc.IsNameEditable(), desc.IsAddressEditable(),
-            desc.IsCuisineEditable()};
+  {
+    return { std::move(desc.m_editableFields), desc.IsNameEditable(),
+             desc.IsAddressEditable(), desc.IsCuisineEditable() };
+  }
   return {};
 }
 
@@ -1029,8 +990,8 @@ bool Editor::CreatePoint(uint32_t type, m2::PointD const & mercator, MwmSet::Mwm
 }
 
 void Editor::CreateNote(ms::LatLon const & latLon, FeatureID const & fid,
-                        feature::TypesHolder const & holder, string const & defaultName,
-                        NoteProblemType const type, string const & note)
+                        feature::TypesHolder const & holder, string_view defaultName,
+                        NoteProblemType const type, string_view note)
 {
   CHECK_THREAD_CHECKER(MainThreadChecker, (""));
 
