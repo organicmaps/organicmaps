@@ -84,6 +84,7 @@ world  +
             private  -
             {}
         parking_space  +
+            disabled  -
             permissive  -
             private  -
             underground  -

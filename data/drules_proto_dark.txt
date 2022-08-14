@@ -5954,6 +5954,31 @@ cont {
   }
 }
 cont {
+  name: "amenity-parking_space-disabled"
+  element {
+    scale: 18
+    symbol {
+      name: "parking-disabled-m"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "parking-disabled-m"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15300
+    }
+  }
+}
+cont {
   name: "amenity-parking_space-permissive"
   element {
     scale: 19
