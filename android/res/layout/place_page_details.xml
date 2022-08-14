@@ -39,6 +39,8 @@
 
     <include layout="@layout/place_page_opening_hours"/>
 
+    <include layout="@layout/place_page_cuisine"/>
+
     <include layout="@layout/place_page_entrance"/>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -48,7 +50,15 @@
       android:background="?cardBackground"
       app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
+    <include layout="@layout/place_page_operator"/>
+
     <include layout="@layout/place_page_website"/>
+
+    <include layout="@layout/place_page_wifi"/>
+
+    <include layout="@layout/place_page_level" />
+
+    <include layout="@layout/place_page_email"/>
 
     <include layout="@layout/place_page_facebook"/>
 
@@ -64,15 +74,7 @@
 
     <include layout="@layout/place_page_wikimedia"/>
 
-    <include layout="@layout/place_page_email"/>
-
-    <include layout="@layout/place_page_wifi"/>
-
-    <include layout="@layout/place_page_operator"/>
-
-    <include layout="@layout/place_page_cuisine"/>
-
-    <include layout="@layout/place_page_level" />
+    <!-- ToDo: Address is missing compared with iOS. It's shown in title but anyway .. -->
 
     <include layout="@layout/place_page_latlon"/>
   </LinearLayout>
