@@ -733,6 +733,7 @@
 	<string name="type.amenity.parking_space.permissive">Chỗ để xe</string>
 	<string name="type.amenity.parking_space.private">Chỗ để xe</string>
 	<string name="type.amenity.parking_space.underground">Chỗ để xe</string>
+	<string name="type.amenity.parking_space.disabled">Chỗ đậu xe dành cho người khuyết tật</string>
 	<string name="type.amenity.payment_terminal">Thiết bị thanh toán</string>
 	<string name="type.amenity.pharmacy">3Hiệu thuốc</string>
 	<string name="type.amenity.place_of_worship">Chùa</string>

@@ -1382,6 +1382,8 @@
 
 "type.amenity.parking_space.underground" = "Loc de parcare";
 
+"type.amenity.parking_space.disabled" = "Loc de parcare pentru persoane cu handicap";
+
 "type.amenity.payment_terminal" = "Terminal de plăți";
 
 "type.amenity.pharmacy" = "Farmacie";

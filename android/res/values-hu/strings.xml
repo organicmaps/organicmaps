@@ -733,6 +733,7 @@
 	<string name="type.amenity.parking_space.permissive">Parkolóhely</string>
 	<string name="type.amenity.parking_space.private">Parkolóhely</string>
 	<string name="type.amenity.parking_space.underground">Parkolóhely</string>
+	<string name="type.amenity.parking_space.disabled">Mozgássérült parkolóhely</string>
 	<string name="type.amenity.payment_terminal">Fizető terminál</string>
 	<string name="type.amenity.pharmacy">Gyógyszertár</string>
 	<string name="type.amenity.place_of_worship">Templom</string>

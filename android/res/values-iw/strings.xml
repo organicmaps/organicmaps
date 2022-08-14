@@ -231,6 +231,7 @@
 	<string name="type.amenity.parking_entrance.private">הינחל הסינכ</string>
 	<string name="type.amenity.parking_entrance.permissive">הינחל הסינכ</string>
 	<string name="type.amenity.parking_entrance">הינחל הסינכ</string>
+	<string name="type.amenity.parking_space.disabled">םיכנל הינח</string>
 
 	<!-- SECTION: Types: Recycling -->
 	<string name="type.recycling.batteries">תוללוס</string>

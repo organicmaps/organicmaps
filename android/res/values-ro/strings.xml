@@ -757,6 +757,7 @@
 	<string name="type.amenity.parking_space.permissive">Loc de parcare</string>
 	<string name="type.amenity.parking_space.private">Loc de parcare</string>
 	<string name="type.amenity.parking_space.underground">Loc de parcare</string>
+	<string name="type.amenity.parking_space.disabled">Loc de parcare pentru persoane cu handicap</string>
 	<string name="type.amenity.payment_terminal">Terminal de plăți</string>
 	<string name="type.amenity.pharmacy">Farmacie</string>
 	<string name="type.amenity.place_of_worship">Loc de cult</string>

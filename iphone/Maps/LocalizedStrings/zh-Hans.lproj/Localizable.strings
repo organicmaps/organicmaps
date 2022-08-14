@@ -1382,6 +1382,8 @@
 
 "type.amenity.parking_space.underground" = "停车位";
 
+"type.amenity.parking_space.disabled" = "残疾人停车位";
+
 "type.amenity.payment_terminal" = "支付终端";
 
 "type.amenity.pharmacy" = "药店";

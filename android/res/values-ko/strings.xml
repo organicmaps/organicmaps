@@ -732,6 +732,7 @@
 	<string name="type.amenity.parking_space.permissive">주차장</string>
 	<string name="type.amenity.parking_space.private">주차장</string>
 	<string name="type.amenity.parking_space.underground">주차장</string>
+	<string name="type.amenity.parking_space.disabled">장애인 주차 공간</string>
 	<string name="type.amenity.payment_terminal">결제 단말기</string>
 	<string name="type.amenity.pharmacy">약국</string>
 	<string name="type.amenity.place_of_worship">예배 장소</string>

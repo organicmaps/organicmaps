@@ -745,6 +745,7 @@
 	<string name="type.amenity.parking_space.permissive">Parkkipaikka</string>
 	<string name="type.amenity.parking_space.private">Parkkipaikka</string>
 	<string name="type.amenity.parking_space.underground">Parkkipaikka</string>
+	<string name="type.amenity.parking_space.disabled">Vammaispysäköinti</string>
 	<string name="type.amenity.payment_terminal">Maksupääte</string>
 	<string name="type.amenity.pharmacy">Apteekki</string>
 	<string name="type.amenity.place_of_worship">Uskonnollinen kohde</string>

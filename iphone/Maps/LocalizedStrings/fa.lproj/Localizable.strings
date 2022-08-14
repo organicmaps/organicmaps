@@ -1382,6 +1382,8 @@
 
 "type.amenity.parking_space.underground" = "جای پارک";
 
+"type.amenity.parking_space.disabled" = "ﻦﯿﻟﻮﻠﻌﻣ ﮎﺭﺎﭘ ﯼﺎﺟ";
+
 "type.amenity.payment_terminal" = "دستگاه کارتخوان";
 
 "type.amenity.pharmacy" = "داروخانه";

@@ -823,6 +823,7 @@
 	<string name="type.amenity.parking_space.permissive">Parking Space</string>
 	<string name="type.amenity.parking_space.private">Parking Space</string>
 	<string name="type.amenity.parking_space.underground">Parking Space</string>
+	<string name="type.amenity.parking_space.disabled">Disabled Parking Space</string>
 	<string name="type.amenity.payment_terminal">Payment Terminal</string>
 	<string name="type.amenity.pharmacy">Pharmacy</string>
 	<string name="type.amenity.place_of_worship">Place of Worship</string>

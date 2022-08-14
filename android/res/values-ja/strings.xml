@@ -743,6 +743,7 @@
 	<string name="type.amenity.parking_space.permissive">駐車スペース</string>
 	<string name="type.amenity.parking_space.private">駐車スペース</string>
 	<string name="type.amenity.parking_space.underground">駐車スペース</string>
+	<string name="type.amenity.parking_space.disabled">身障者用駐車スペース</string>
 	<string name="type.amenity.payment_terminal">決済端末</string>
 	<string name="type.amenity.pharmacy">薬局</string>
 	<string name="type.amenity.place_of_worship">礼拝</string>

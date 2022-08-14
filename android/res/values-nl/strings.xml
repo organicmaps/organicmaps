@@ -738,6 +738,7 @@
 	<string name="type.amenity.parking_space.permissive">Parkeerplaats</string>
 	<string name="type.amenity.parking_space.private">Parkeerplaats</string>
 	<string name="type.amenity.parking_space.underground">Parkeerplaats</string>
+	<string name="type.amenity.parking_space.disabled">Invalide parkeerplaats</string>
 	<string name="type.amenity.payment_terminal">Betaalautomaat</string>
 	<string name="type.amenity.pharmacy">Apotheek</string>
 	<string name="type.amenity.place_of_worship">Gebedsplaats</string>
