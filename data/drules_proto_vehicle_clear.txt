@@ -2304,6 +2304,44 @@ cont {
   }
 }
 cont {
+  name: "amenity-parking_space-disabled"
+  element {
+    scale: 15
+    area {
+      color: 15921870
+      priority: -15489
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 15921870
+      priority: -15489
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 16579778
+      priority: -15489
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 16579778
+      priority: -15489
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 16579778
+      priority: -15489
+    }
+  }
+}
+cont {
   name: "amenity-parking_space-permissive"
   element {
     scale: 15

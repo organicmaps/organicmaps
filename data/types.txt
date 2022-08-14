@@ -1352,3 +1352,4 @@ amenity|recycling|container
 *recycling|shoes
 *recycling|green_waste
 *recycling|cartons
+*amenity|parking_space|disabled
