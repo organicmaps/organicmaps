@@ -10873,6 +10873,42 @@ zh-Hant:機車停車格
 fa:پارکینگ موتورسیکلت
 mr:दुचाकी पार्किंग
 
+amenity-parking_space-disabled
+en:Disabled Parking Space
+ar:ﺔﺻﺎﺨﻟﺍ ﺕﺎﺟﺎﻴﺘﺣﻻ﻿ﺍ ﻱﻭﺬﻟ ﺕﺍﺭﺎﻴﺴﻟﺍ ﻑﻮﻗﻮﻟ ﻦﻛﺎﻣﺃ
+be:Паркоўка для інвалідаў
+bg:Паркомясто за инвалиди
+cs:Parkovací místo pro invalidy
+da:Handicapparkeringsplads
+de:Behindertenparkplatz
+el:Χώρος στάθμευσης για ΑΜΕΑ
+es:Plaza de aparcamiento para discapacitados
+eu:Ezinduentzako aparkalekua
+fa:ﻦﯿﻟﻮﻠﻌﻣ ﮎﺭﺎﭘ ﯼﺎﺟ
+fi:Vammaispysäköinti
+fr:Place de stationnement handicapé
+he:םיכנל הינח
+hu:Mozgássérült parkolóhely
+id:Tempat parkir penyandang cacat
+it:Posto auto per disabili
+ja:身障者用駐車スペース
+ko:장애인 주차 공간
+nb:Parkeringsplass for funksjonshemmede
+nl:Invalide parkeerplaats
+pl:Miejsce parkingowe dla niepełnosprawnych
+pt:Estacionamento para deficientes
+ro:Loc de parcare pentru persoane cu handicap
+ru:Парковочное место для инвалидов
+sk:Parkovacie miesto pre invalidov
+sv:Handikappparkeringsplats
+sw:Nafasi ya maegesho iliyozimwa
+th:ที่จอดรถสำหรับผู้พิการ
+tr:Engelli park yeri
+uk:Паркомісце для інвалідів
+vi:Chỗ đậu xe dành cho người khuyết tật
+zh-Hans:残疾人停车位
+zh-Hant:殘疾人停車位
+
 amenity-nursing_home
 en:4Nursing Home
 ru:3Дом престарелых

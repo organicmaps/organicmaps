@@ -2699,3 +2699,7 @@ area|z18-[amenity=bicycle_parking]
 node|z18-[amenity=motorcycle_parking],
 area|z18-[amenity=motorcycle_parking]
 {icon-image: motorcycle-parking-m.svg;icon-min-distance: 20;text-optional: true;}
+
+node|z18-[amenity=parking_space][parking_space=disabled],
+area|z18-[amenity=parking_space][parking_space=disabled]
+{icon-image: parking-disabled-m.svg;}

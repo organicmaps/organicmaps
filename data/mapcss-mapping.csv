@@ -1350,3 +1350,4 @@ recycling|cans;[recycling:cans=yes];;name;int_name;1351;
 recycling|shoes;[recycling:shoes=yes];;name;int_name;1352;
 recycling|green_waste;[recycling:green_waste=yes];;name;int_name;1353;
 recycling|cartons;[recycling:cartons=yes];;name;int_name;1354;
+amenity|parking_space|disabled;[amenity=parking_space][parking_space=disabled];;name;int_name;1355;
