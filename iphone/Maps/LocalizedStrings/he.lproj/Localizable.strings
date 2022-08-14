@@ -1382,6 +1382,8 @@
 
 "type.amenity.parking_space.underground" = "Parking Space";
 
+"type.amenity.parking_space.disabled" = "םיכנל הינח";
+
 "type.amenity.payment_terminal" = "Payment Terminal";
 
 "type.amenity.pharmacy" = "Pharmacy";

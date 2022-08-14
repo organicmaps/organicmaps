@@ -809,6 +809,7 @@
 	<string name="type.amenity.parking_space.permissive">Парковочное место</string>
 	<string name="type.amenity.parking_space.private">Парковочное место</string>
 	<string name="type.amenity.parking_space.underground">Парковочное место</string>
+	<string name="type.amenity.parking_space.disabled">Парковочное место для инвалидов</string>
 	<string name="type.amenity.payment_terminal">Терминал оплаты</string>
 	<string name="type.amenity.pharmacy">Аптека</string>
 	<string name="type.amenity.place_of_worship">Храм</string>

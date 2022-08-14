@@ -756,6 +756,7 @@
 	<string name="type.amenity.parking_space.permissive">Aparkaleku</string>
 	<string name="type.amenity.parking_space.private">Aparkaleku</string>
 	<string name="type.amenity.parking_space.underground">Aparkaleku</string>
+	<string name="type.amenity.parking_space.disabled">Ezinduentzako aparkalekua</string>
 	<string name="type.amenity.payment_terminal">Ordainketa terminala</string>
 	<string name="type.amenity.pharmacy">Farmazia</string>
 	<string name="type.amenity.place_of_worship">Kultu lekua</string>

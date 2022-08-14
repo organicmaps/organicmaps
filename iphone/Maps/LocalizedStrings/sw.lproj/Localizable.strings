@@ -1382,6 +1382,8 @@
 
 "type.amenity.parking_space.underground" = "Sehemu ya maegesho";
 
+"type.amenity.parking_space.disabled" = "Nafasi ya maegesho iliyozimwa";
+
 "type.amenity.payment_terminal" = "Payment Terminal";
 
 "type.amenity.pharmacy" = "Pharmacy";

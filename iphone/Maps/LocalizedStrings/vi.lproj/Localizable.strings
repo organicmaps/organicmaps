@@ -1382,6 +1382,8 @@
 
 "type.amenity.parking_space.underground" = "Chỗ để xe";
 
+"type.amenity.parking_space.disabled" = "Chỗ đậu xe dành cho người khuyết tật";
+
 "type.amenity.payment_terminal" = "Thiết bị thanh toán";
 
 "type.amenity.pharmacy" = "3Hiệu thuốc";

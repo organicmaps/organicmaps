@@ -1382,6 +1382,8 @@
 
 "type.amenity.parking_space.underground" = "Парковочное место";
 
+"type.amenity.parking_space.disabled" = "Парковочное место для инвалидов";
+
 "type.amenity.payment_terminal" = "Терминал оплаты";
 
 "type.amenity.pharmacy" = "Аптека";

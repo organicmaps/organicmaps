@@ -734,6 +734,7 @@
 	<string name="type.amenity.parking_space.permissive">Prostor pro parkování</string>
 	<string name="type.amenity.parking_space.private">Prostor pro parkování</string>
 	<string name="type.amenity.parking_space.underground">Prostor pro parkování</string>
+	<string name="type.amenity.parking_space.disabled">Parkovací místo pro invalidy</string>
 	<string name="type.amenity.payment_terminal">Platební terminál</string>
 	<string name="type.amenity.pharmacy">Lékárna</string>
 	<string name="type.amenity.place_of_worship">Posvátné místo</string>

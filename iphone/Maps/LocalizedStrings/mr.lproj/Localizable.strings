@@ -1382,6 +1382,8 @@
 
 "type.amenity.parking_space.underground" = "पार्किंगची जागा";
 
+"type.amenity.parking_space.disabled" = "Disabled Parking Space";
+
 "type.amenity.payment_terminal" = "पेमेंट टर्मिनल";
 
 "type.amenity.pharmacy" = "औषधालय";

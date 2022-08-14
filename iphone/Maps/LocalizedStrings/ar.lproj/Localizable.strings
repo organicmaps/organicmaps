@@ -1382,6 +1382,8 @@
 
 "type.amenity.parking_space.underground" = "مكان لوقوف السيارات";
 
+"type.amenity.parking_space.disabled" = "ﺔﺻﺎﺨﻟﺍ ﺕﺎﺟﺎﻴﺘﺣﻻ﻿ﺍ ﻱﻭﺬﻟ ﺕﺍﺭﺎﻴﺴﻟﺍ ﻑﻮﻗﻮﻟ ﻦﻛﺎﻣﺃ";
+
 "type.amenity.payment_terminal" = "محطة دفع";
 
 "type.amenity.pharmacy" = "متجر أدوية";

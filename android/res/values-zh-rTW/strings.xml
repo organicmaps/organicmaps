@@ -766,6 +766,7 @@
 	<string name="type.amenity.parking_space.permissive">停車地點</string>
 	<string name="type.amenity.parking_space.private">停車地點</string>
 	<string name="type.amenity.parking_space.underground">停車地點</string>
+	<string name="type.amenity.parking_space.disabled">殘疾人停車位</string>
 	<string name="type.amenity.payment_terminal">付款終端</string>
 	<string name="type.amenity.pharmacy">藥局</string>
 	<string name="type.amenity.place_of_worship">寺廟</string>

@@ -764,6 +764,7 @@
 	<string name="type.amenity.parking_space.permissive">Miejsce parkingowe</string>
 	<string name="type.amenity.parking_space.private">Miejsce parkingowe</string>
 	<string name="type.amenity.parking_space.underground">Miejsce parkingowe</string>
+	<string name="type.amenity.parking_space.disabled">Miejsce parkingowe dla niepełnosprawnych</string>
 	<string name="type.amenity.payment_terminal">Wpłatomat</string>
 	<string name="type.amenity.pharmacy">Apteka</string>
 	<string name="type.amenity.place_of_worship">Świątynia</string>

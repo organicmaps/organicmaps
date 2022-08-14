@@ -1382,6 +1382,8 @@
 
 "type.amenity.parking_space.underground" = "Miejsce parkingowe";
 
+"type.amenity.parking_space.disabled" = "Miejsce parkingowe dla niepełnosprawnych";
+
 "type.amenity.payment_terminal" = "Wpłatomat";
 
 "type.amenity.pharmacy" = "Apteka";

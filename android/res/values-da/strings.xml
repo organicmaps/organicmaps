@@ -732,6 +732,7 @@
 	<string name="type.amenity.parking_space.permissive">Parkeringsplads</string>
 	<string name="type.amenity.parking_space.private">Parkeringsplads</string>
 	<string name="type.amenity.parking_space.underground">Parkeringsplads</string>
+	<string name="type.amenity.parking_space.disabled">Handicapparkeringsplads</string>
 	<string name="type.amenity.payment_terminal">Betalingsautomat</string>
 	<string name="type.amenity.pharmacy">Apotek</string>
 	<string name="type.amenity.place_of_worship">Tempel</string>

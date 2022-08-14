@@ -1382,6 +1382,8 @@
 
 "type.amenity.parking_space.underground" = "Parkeerplaats";
 
+"type.amenity.parking_space.disabled" = "Invalide parkeerplaats";
+
 "type.amenity.payment_terminal" = "Betaalautomaat";
 
 "type.amenity.pharmacy" = "Apotheek";

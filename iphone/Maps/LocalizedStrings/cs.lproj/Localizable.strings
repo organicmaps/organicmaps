@@ -1382,6 +1382,8 @@
 
 "type.amenity.parking_space.underground" = "Prostor pro parkování";
 
+"type.amenity.parking_space.disabled" = "Parkovací místo pro invalidy";
+
 "type.amenity.payment_terminal" = "Platební terminál";
 
 "type.amenity.pharmacy" = "Lékárna";

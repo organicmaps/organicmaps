@@ -1382,6 +1382,8 @@
 
 "type.amenity.parking_space.underground" = "Aparkaleku";
 
+"type.amenity.parking_space.disabled" = "Ezinduentzako aparkalekua";
+
 "type.amenity.payment_terminal" = "Ordainketa terminala";
 
 "type.amenity.pharmacy" = "Farmazia";

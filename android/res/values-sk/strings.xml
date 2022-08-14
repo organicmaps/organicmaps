@@ -731,6 +731,7 @@
 	<string name="type.amenity.parking_space.permissive">Parkovacie miesto</string>
 	<string name="type.amenity.parking_space.private">Parkovacie miesto</string>
 	<string name="type.amenity.parking_space.underground">Parkovacie miesto</string>
+	<string name="type.amenity.parking_space.disabled">Parkovacie miesto pre invalidov</string>
 	<string name="type.amenity.payment_terminal">Platobný terminál</string>
 	<string name="type.amenity.pharmacy">Lekáreň</string>
 	<string name="type.amenity.place_of_worship">Svätyňa</string>

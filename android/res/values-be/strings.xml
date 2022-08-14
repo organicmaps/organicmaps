@@ -722,6 +722,7 @@
 	<string name="type.amenity.parking_entrance.private">Уваход на паркоўку</string>
 	<string name="type.amenity.parking_entrance.permissive">Уваход на паркоўку</string>
 	<string name="type.amenity.parking_entrance">Уваход на паркоўку</string>
+	<string name="type.amenity.parking_space.disabled">Паркоўка для інвалідаў</string>
 	<string name="type.amenity.post_box">Паштовая скрыня</string>
 
 	<!-- SECTION: Types: Recycling -->

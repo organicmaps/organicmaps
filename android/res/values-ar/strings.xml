@@ -784,6 +784,7 @@
 	<string name="type.amenity.parking_space.permissive">مكان لوقوف السيارات</string>
 	<string name="type.amenity.parking_space.private">مكان لوقوف السيارات</string>
 	<string name="type.amenity.parking_space.underground">مكان لوقوف السيارات</string>
+	<string name="type.amenity.parking_space.disabled">ﺔﺻﺎﺨﻟﺍ ﺕﺎﺟﺎﻴﺘﺣﻻ﻿ﺍ ﻱﻭﺬﻟ ﺕﺍﺭﺎﻴﺴﻟﺍ ﻑﻮﻗﻮﻟ ﻦﻛﺎﻣﺃ</string>
 	<string name="type.amenity.payment_terminal">محطة دفع</string>
 	<string name="type.amenity.pharmacy">متجر أدوية</string>
 	<string name="type.amenity.place_of_worship">مكان عبادة</string>

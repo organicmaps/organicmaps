@@ -731,6 +731,7 @@
 	<string name="type.amenity.parking_space.permissive">Parkeringsplass</string>
 	<string name="type.amenity.parking_space.private">Parkeringsplass</string>
 	<string name="type.amenity.parking_space.underground">Parkeringsplass</string>
+	<string name="type.amenity.parking_space.disabled">Parkeringsplass for funksjonshemmede</string>
 	<string name="type.amenity.payment_terminal">Betalingsterminal</string>
 	<string name="type.amenity.pharmacy">Apotek</string>
 	<string name="type.amenity.place_of_worship">Gudshus</string>

@@ -1382,6 +1382,8 @@
 
 "type.amenity.parking_space.underground" = "Parkolóhely";
 
+"type.amenity.parking_space.disabled" = "Mozgássérült parkolóhely";
+
 "type.amenity.payment_terminal" = "Fizető terminál";
 
 "type.amenity.pharmacy" = "Gyógyszertár";

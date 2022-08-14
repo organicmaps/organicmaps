@@ -732,6 +732,7 @@
 	<string name="type.amenity.parking_space.permissive">جای پارک</string>
 	<string name="type.amenity.parking_space.private">جای پارک</string>
 	<string name="type.amenity.parking_space.underground">جای پارک</string>
+	<string name="type.amenity.parking_space.disabled">ﻦﯿﻟﻮﻠﻌﻣ ﮎﺭﺎﭘ ﯼﺎﺟ</string>
 	<string name="type.amenity.payment_terminal">دستگاه کارتخوان</string>
 	<string name="type.amenity.pharmacy">داروخانه</string>
 	<string name="type.amenity.place_of_worship">گردشگری</string>

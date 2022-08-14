@@ -1382,6 +1382,8 @@
 
 "type.amenity.parking_space.underground" = "주차장";
 
+"type.amenity.parking_space.disabled" = "장애인 주차 공간";
+
 "type.amenity.payment_terminal" = "결제 단말기";
 
 "type.amenity.pharmacy" = "약국";

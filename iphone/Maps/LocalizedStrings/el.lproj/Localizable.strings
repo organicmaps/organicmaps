@@ -1382,6 +1382,8 @@
 
 "type.amenity.parking_space.underground" = "Χώρος στάθμευσης";
 
+"type.amenity.parking_space.disabled" = "Χώρος στάθμευσης για ΑΜΕΑ";
+
 "type.amenity.payment_terminal" = "Τερματικό πληρωμών";
 
 "type.amenity.pharmacy" = "Φαρμακείο";

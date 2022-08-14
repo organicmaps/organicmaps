@@ -735,6 +735,7 @@
 	<string name="type.amenity.parking_space.permissive">พื้นที่จอดรถ</string>
 	<string name="type.amenity.parking_space.private">พื้นที่จอดรถ</string>
 	<string name="type.amenity.parking_space.underground">พื้นที่จอดรถ</string>
+	<string name="type.amenity.parking_space.disabled">ที่จอดรถสำหรับผู้พิการ</string>
 	<string name="type.amenity.payment_terminal">จุดชำระเงิน</string>
 	<string name="type.amenity.pharmacy">ร้านขายยา</string>
 	<string name="type.amenity.place_of_worship">สถานที่ประกอบพิธีกรรม</string>
