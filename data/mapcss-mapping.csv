@@ -134,7 +134,7 @@ sport|tennis;133;
 landuse|vineyard;134;
 aeroway|taxiway;135;
 aeroway|aerodrome;136;
-deprecated|deprecated;137;x
+leisure|garden|residential;[leisure=garden][garden:type=residential];;name;int_name;137;
 amenity|fire_station;138;
 landuse|retail;139;
 leisure|nature_reserve;140;
