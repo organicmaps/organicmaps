@@ -46,7 +46,7 @@ UNIT_TEST(CountriesNamesTest)
                                  StringUtf8Multilang::kDefaultCode,
                                  StringUtf8Multilang::kInternationalCode };
 
-  set<string> const kIgnoreList = {"Turkish Republic Of Northern Cyprus",
+  set<string> const kIgnoreList = {"Northern Cyprus",
                                    "Transnistria",
                                    "Nagorno-Karabakh Republic",
                                    "Republic of Artsakh",
