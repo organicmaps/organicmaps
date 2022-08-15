@@ -151,45 +151,40 @@ UNIT_CLASS_TEST(TestAbsentRegionsFinder, Colorado_Saskatchewan)
   TestRegions(checkpoints, planRegions);
 }
 
+/// @todo OSRM/GraphHopper route differs from Organic (check the links below). The difference is not significant,
+/// OM prefers major road E40 vs GraphHopper with E314.
+/// @{
 // From "Belgium_Flemish Brabant" to "Germany_North Rhine-Westphalia_Regierungsbezirk Koln_Aachen".
-// https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=50.878%2C4.447%3B50.775%2C6.444#map=9/50.8204/5.5810
-/// @todo OSRM route differs from Organic (check the link below). The difference is not significant,
-/// just Organic wants to cross 3 countries instead of 2 (+Netherlands).
+// https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=50.87763%2C4.44676%3B50.76935%2C6.42488
 UNIT_CLASS_TEST(TestAbsentRegionsFinder, Belgium_Germany)
 {
   Checkpoints const checkpoints{mercator::FromLatLon(50.87763, 4.44676),
                                 mercator::FromLatLon(50.76935, 6.42488)};
 
-  std::set<std::string> const planRegions{"Belgium_Flemish Brabant", "Belgium_Limburg",
-                                          "Germany_North Rhine-Westphalia_Regierungsbezirk Koln_Aachen",
-                                          "Netherlands_Limburg"};
-
-  TestRegions(checkpoints, planRegions);
-}
-
-// From "Germany_North Rhine-Westphalia_Regierungsbezirk Koln_Aachen" to "Belgium_Flemish Brabant".
-UNIT_CLASS_TEST(TestAbsentRegionsFinder, Germany_Belgium)
-{
-  Checkpoints const checkpoints{mercator::FromLatLon(50.76935, 6.42488),
-                                mercator::FromLatLon(50.78285, 4.46508)};
-
-  // OSRM makes route via Netherlands (177km).
-  std::set<std::string> const plan1 = {
+  std::set<std::string> const planRegions = {
     "Belgium_Flemish Brabant", "Belgium_Liege", "Belgium_Limburg",
     "Germany_North Rhine-Westphalia_Regierungsbezirk Koln_Aachen",
     "Netherlands_Limburg"
   };
 
-  /// @todo OM makes this route (183km). They are really equal, but need to investigate deeper.
-  /// But the trick here is that we also need Belgium_Walloon Brabant for a small piece of route.
-  std::set<std::string> const plan2 = {
-    "Belgium_Flemish Brabant", "Belgium_Liege", "Germany_North Rhine-Westphalia_Regierungsbezirk Koln_Aachen"
+  TestRegions(checkpoints, planRegions);
+}
+
+// From "Germany_North Rhine-Westphalia_Regierungsbezirk Koln_Aachen" to "Belgium_Flemish Brabant".
+// https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=50.76935%2C6.42488%3B50.78285%2C4.46508
+UNIT_CLASS_TEST(TestAbsentRegionsFinder, Germany_Belgium)
+{
+  Checkpoints const checkpoints{mercator::FromLatLon(50.76935, 6.42488),
+                                mercator::FromLatLon(50.78285, 4.46508)};
+
+  std::set<std::string> const planRegions = {
+    "Belgium_Flemish Brabant", "Belgium_Liege", "Belgium_Limburg",
+    "Germany_North Rhine-Westphalia_Regierungsbezirk Koln_Aachen"
   };
 
-  /// @todo Make OR option here.
-  //TestRegions(checkpoints, plan1);
-  TestRegions(checkpoints, plan2);
+  TestRegions(checkpoints, planRegions);
 }
+/// @}
 
 // From "Kazakhstan_South" to "Mongolia".
 UNIT_CLASS_TEST(TestAbsentRegionsFinder, Kazakhstan_Mongolia)

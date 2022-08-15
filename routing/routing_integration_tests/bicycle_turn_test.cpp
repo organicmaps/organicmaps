@@ -193,8 +193,7 @@ UNIT_TEST(TurnsNearAltufievskoeShosseLongFakeSegmentTest)
   integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnLeft);
   integration::GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnRight);
 
-  /// @todo Check how end point snapping on "nearest" edge works. Visually, closest road is on North (now on South).
-  integration::TestRouteLength(route, 279.0);
+  integration::TestRouteLength(route, 289.784);
 }
 
 UNIT_TEST(TurnsNearMoscowRiverShortFakeSegmentTest)
