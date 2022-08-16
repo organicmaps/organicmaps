@@ -79,6 +79,7 @@ area[leisure=garden]
 {z-index: 40;}
 
 area[landuse=farmland],
+area[landuse=farmyard],
 area[landuse=allotments],
 area[natural=scrub],
 area[natural=bare_rock],
@@ -593,6 +594,7 @@ area|z15-[landuse=churchyard]
 
 /* 7.8 Agricultural */
 area|z10-[landuse=farmland],
+area|z10-[landuse=farmyard],
 {fill-position: background; fill-color: @farmland; fill-opacity: 1;}
 
 /* Parking */
