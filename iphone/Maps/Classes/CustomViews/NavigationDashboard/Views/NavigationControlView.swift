@@ -161,11 +161,14 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MapO
     }
     let speedMeasure = Measure(asSpeed: speedMps)
     var speed = speedMeasure.valueAsString;
+    /// @todo Draw speed limit sign similar to the CarPlay implemenation.
     // speedLimitMps >= 0 means known limited speed.
     if (info.speedLimitMps >= 0) {
+      // Short delimeter to not overlap with timeToTarget longer than an hour.
+      let delimeter = info.timeToTarget < 60 * 60 ? " / " : "/"
       let speedLimitMeasure = Measure(asSpeed: info.speedLimitMps)
       // speedLimitMps == 0 means unlimited speed.
-      speed += " / " + (info.speedLimitMps == 0 ? "∞" : speedLimitMeasure.valueAsString);
+      speed += delimeter + (info.speedLimitMps == 0 ? "∞" : speedLimitMeasure.valueAsString)
     }
 
     speedLabel.text = speed
