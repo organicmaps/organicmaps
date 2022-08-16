@@ -572,10 +572,8 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
 
     if (!FLAGS_wikipedia_pages.empty())
     {
-      if (!FLAGS_idToWikidata.empty())
-        BuildDescriptionsSection(FLAGS_wikipedia_pages, dataFile, FLAGS_idToWikidata);
-      else
-        BuildDescriptionsSection(FLAGS_wikipedia_pages, dataFile);
+      // FLAGS_idToWikidata maybe empty.
+      DescriptionsSectionBuilder::CollectAndBuild(FLAGS_wikipedia_pages, dataFile, FLAGS_idToWikidata);
     }
 
     // This section must be built with the same isolines file as had been used at the features stage.
