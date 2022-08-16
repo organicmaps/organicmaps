@@ -13,6 +13,8 @@
 #include <utility>
 #include <vector>
 
+namespace checker_test
+{
 using namespace std;
 
 namespace
@@ -26,16 +28,6 @@ vector<uint32_t> GetTypes(char const * arr[][roadArrColumnCount], size_t const r
 
   for (size_t i = 0; i < recCount; ++i)
     types.push_back(c.GetTypeByPath(vector<string>(arr[i], arr[i] + roadArrColumnCount)));
-  return types;
-}
-
-vector<uint32_t> GetTypes(vector<string_view> const & t)
-{
-  Classificator const & c = classif();
-  vector<uint32_t> types;
-
-  for (auto const & k : t)
-    types.push_back(c.GetTypeByPath({k}));
   return types;
 }
 
@@ -105,38 +97,6 @@ uint32_t GetMotorwayJunctionType()
   return c.GetTypeByPath({"highway", "motorway_junction"});
 }
 
-vector<uint32_t> GetPoiTypes()
-{
-  std::vector<std::string_view> const types = {
-    "amenity",
-    "shop",
-    "tourism",
-    "leisure",
-    "sport",
-    "craft",
-    "man_made",
-    "emergency",
-    "office",
-    "historic",
-    "railway",
-    "highway",
-    "aeroway"
-  };
-  return GetTypes(types);
-}
-
-vector<uint32_t> GetAttractionsTypes()
-{
-  auto const & checker = ftypes::AttractionsChecker::Instance();
-  vector<uint32_t> types;
-  types.reserve(checker.m_primaryTypes.size() + checker.m_additionalTypes.size());
-  for (auto t : checker.m_primaryTypes)
-    types.push_back(t);
-  for (auto t : checker.m_additionalTypes)
-    types.push_back(t);
-
-  return types;
-}
 }  // namespace
 
 UNIT_TEST(IsTypeConformed)
@@ -226,8 +186,11 @@ UNIT_TEST(IsPoiChecker)
   Classificator const & c = classif();
   auto const & checker = ftypes::IsPoiChecker::Instance();
 
-  for (auto const & t : GetPoiTypes())
-    TEST(checker(t), ());
+  for (char const * t : { "amenity", "shop", "tourism", "leisure", "sport", "craft", "man_made", "emergency",
+                          "office", "historic", "railway", "highway", "aeroway" })
+  {
+    TEST(checker(c.GetTypeByPath({t})), ());
+  }
 
   TEST(!checker(c.GetTypeByPath({"building"})), ());
 }
@@ -238,8 +201,13 @@ UNIT_TEST(IsAttractionsChecker)
   Classificator const & c = classif();
   auto const & checker = ftypes::AttractionsChecker::Instance();
 
-  for (auto const & t : GetAttractionsTypes())
-    TEST(checker(t), ());
+  base::StringIL const types[] = {
+    {"amenity", "grave_yard"},
+    {"historic", "ruins"},
+    {"waterway", "waterfall"},
+  };
+  for (auto const & t : types)
+    TEST(checker(c.GetTypeByPath(t)), ());
 
   TEST(!checker(c.GetTypeByPath({"route", "shuttle_train"})), ());
 }
@@ -249,5 +217,6 @@ UNIT_TEST(IsMotorwayJunctionChecker)
   classificator::Load();
 
   TEST(ftypes::IsMotorwayJunctionChecker::Instance()(GetMotorwayJunctionType()), ());
-  TEST(!ftypes::IsMotorwayJunctionChecker::Instance()(GetPoiTypes()), ());
+  TEST(!ftypes::IsMotorwayJunctionChecker::Instance()(GetStreetTypes()), ());
 }
+} // namespacce checker_test
