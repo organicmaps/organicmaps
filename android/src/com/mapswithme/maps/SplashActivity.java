@@ -39,7 +39,7 @@ public class SplashActivity extends AppCompatActivity implements BaseActivity
     @Override
     public void run()
     {
-     // init();
+      init();
     }
   };
 

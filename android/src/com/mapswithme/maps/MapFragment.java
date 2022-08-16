@@ -153,7 +153,7 @@ public class MapFragment extends BaseMwmFragment
   @Override
   public void surfaceCreated(SurfaceHolder surfaceHolder)
   {
-
+  /*
     if (isThemeChangingProcess())
     {
       Logger.d(TAG, "Activity is being recreated due theme changing, skip 'surfaceCreated' callback");
@@ -209,6 +209,8 @@ public class MapFragment extends BaseMwmFragment
     nativeResumeSurfaceRendering();
     if (mMapRenderingListener != null)
       mMapRenderingListener.onRenderingCreated();
+
+ */
   }
 
   @Override
@@ -385,8 +387,8 @@ public class MapFragment extends BaseMwmFragment
   }
 
   static native void nativeCompassUpdated(double north, boolean forceRedraw);
-  static native void nativeScalePlus();
-  static native void nativeScaleMinus();
+  public static native void nativeScalePlus();
+  public static native void nativeScaleMinus();
   public static native boolean nativeShowMapForUrl(String url);
   public static native boolean nativeIsEngineCreated();
   static native boolean nativeDestroySurfaceOnDetach();
@@ -395,12 +397,12 @@ public class MapFragment extends BaseMwmFragment
                                                    boolean isLaunchByDeepLink,
                                                    int appVersionCode);
   public static native boolean nativeAttachSurface(Surface surface);
-  private static native void nativeDetachSurface(boolean destroySurface);
+  public static native void nativeDetachSurface(boolean destroySurface);
   private static native void nativePauseSurfaceRendering();
   public static native void nativeResumeSurfaceRendering();
   private static native void nativeSurfaceChanged(Surface surface, int w, int h);
   private static native void nativeOnTouch(int actionType, int id1, float x1, float y1, int id2, float x2, float y2, int maskedPointer);
-  private static native void nativeSetupWidget(int widget, float x, float y, int anchor);
+  public static native void nativeSetupWidget(int widget, float x, float y, int anchor);
   private static native void nativeApplyWidgets();
   private static native void nativeCleanWidgets();
   private static native void nativeSetRenderingInitializationFinishedListener(

@@ -1,12 +1,12 @@
 package com.androidAuto;
 
-import android.graphics.Canvas;
+import android.content.Context;
 import android.graphics.Rect;
 import android.util.Log;
 import android.view.Surface;
-import android.opengl.GLUtils;
-import com.mapswithme.util.log.Logger;
+
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.car.app.AppManager;
 import androidx.car.app.CarContext;
 import androidx.car.app.Screen;
@@ -14,29 +14,39 @@ import androidx.car.app.SurfaceCallback;
 import androidx.car.app.SurfaceContainer;
 import androidx.car.app.model.Action;
 import androidx.car.app.model.ActionStrip;
+import androidx.car.app.model.CarIcon;
 import androidx.car.app.model.Template;
 import androidx.car.app.navigation.NavigationManager;
 import androidx.car.app.navigation.model.NavigationTemplate;
+import androidx.core.graphics.drawable.IconCompat;
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MapFragment;
 import com.mapswithme.maps.MwmApplication;
-import com.mapswithme.maps.location.LocationHelper;
-import javax.microedition.khronos.egl.EGL10;
-import javax.microedition.khronos.egl.EGLConfig;
-import javax.microedition.khronos.egl.EGLContext;
-import javax.microedition.khronos.egl.EGLDisplay;
-import javax.microedition.khronos.egl.EGLSurface;
+import com.mapswithme.maps.R;
 
 import java.io.IOException;
 
 public class HelloWorldScreen extends Screen implements SurfaceCallback
 {
-  private static final String TAG = "error";
+  private static final String TAG = HelloWorldScreen.class.getSimpleName();
+  @Nullable
+  private MapFragment mMapFragment;
   private SurfaceCallback mSurfaceCallback;
 
   public HelloWorldScreen(@NonNull CarContext carContext)
   {
     super(carContext);
+
+    MwmApplication cat = MwmApplication.from(carContext);
+    try
+    {
+      cat.init();
+    }
+    catch (IOException e)
+    {
+      e.printStackTrace();
+      return;
+    }
 
     carContext.getCarService(AppManager.class).setSurfaceCallback(this);
   }
@@ -51,119 +61,73 @@ public class HelloWorldScreen extends Screen implements SurfaceCallback
     actionStripBuilder.addAction(new Action.Builder().setTitle("Exit")
                                                      .setOnClickListener(this::exit)
                                                      .build());
+
+    Action panAction = new Action.Builder(Action.PAN).build();
+    Action zoomIn = new Action.Builder().setIcon(new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_zoom_in)).build())
+                                        .setOnClickListener(this::zoomIn)
+                                        .build();
+    Action zoomOut = new Action.Builder().setIcon(new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_zoom_out)).build())
+                                         .setOnClickListener(this::zoomOut)
+                                         .build();
+    ActionStrip mapActionStrip = new ActionStrip.Builder().addAction(zoomIn)
+                                                          .addAction(zoomOut)
+                                                          .addAction(panAction)
+                                                          .build();
+    builder.setMapActionStrip(mapActionStrip);
     builder.setActionStrip(actionStripBuilder.build());
     NavigationManager navigationManager = getCarContext().getCarService(NavigationManager.class);
     return builder.build();
   }
 
+  private void zoomOut()
+  {
+    MapFragment.nativeScaleMinus();
+  }
+
+  private void zoomIn()
+  {
+    MapFragment.nativeScalePlus();
+  }
+
   private void exit()
   {
     getCarContext().finishCarApp();
+    MapFragment.nativeDetachSurface(true);
   }
 
   @Override
   public void onSurfaceAvailable(@NonNull SurfaceContainer surfaceContainer)
   {
-    MwmApplication cat = MwmApplication.from(getCarContext());
-    try
+    Log.i(TAG, "Surface available " + surfaceContainer);
+
+    final Surface surface = surfaceContainer.getSurface();
+    if (surface == null)
     {
-      cat.init();
+      Log.e(TAG, "Surface is NULL");
+      return;
     }
-    catch (IOException e)
+
+    if (MapFragment.nativeIsEngineCreated())
     {
-      e.printStackTrace();
-    }
-    int h = surfaceContainer.getHeight();
-    int w = surfaceContainer.getWidth();
-
-    if (surfaceContainer.getSurface() != null)
-    {
-      final boolean firstStart = LocationHelper.INSTANCE.isInFirstRun();
-      Log.e("Create Engine", "!");
-
-      //Getting the surface to
-      Surface surface = surfaceContainer.getSurface();
-      boolean cr = MapFragment.nativeCreateEngine(surface, surface.lockHardwareCanvas()
-                                                                  .getDensity(), firstStart, false, BuildConfig.VERSION_CODE);
-
-//
-//      EGL10 egl = (EGL10) EGLContext.getEGL();
-//      EGLDisplay eglDisplay = egl.eglGetDisplay(EGL10.EGL_DEFAULT_DISPLAY);
-//      if (eglDisplay == EGL10.EGL_NO_DISPLAY) {
-//        throw new RuntimeException("eglGetDisplay failed: " + GLUtils.getEGLErrorString(egl.eglGetError()));
-//      }
-//      int[] version = new int[2];
-//      if(!egl.eglInitialize(eglDisplay, version)) {
-//        throw new RuntimeException("eglInitialize failed: " + GLUtils.getEGLErrorString(egl.eglGetError()));
-//      }
-//      final int EGL_CONTEXT_CLIENT_VERSION = 0x3098;
-//      final int EGL_OPENGL_ES2_BIT = 0x0004;
-//      final int MAX_CONFIG_COUNT = 40;
-//      int[] configsCount = new int[1];
-//      EGLConfig[] configs = new EGLConfig[MAX_CONFIG_COUNT];
-//      int[] configSpec = new int[] {
-//          EGL10.EGL_RED_SIZE, 8,
-//          EGL10.EGL_GREEN_SIZE, 8,
-//          EGL10.EGL_BLUE_SIZE, 8,
-//          EGL10.EGL_ALPHA_SIZE, 0,
-//          EGL10.EGL_STENCIL_SIZE, 0,
-//          EGL10.EGL_DEPTH_SIZE, 16,
-//          EGL10.EGL_RENDERABLE_TYPE, EGL_OPENGL_ES2_BIT,
-//          EGL10.EGL_SURFACE_TYPE, EGL10.EGL_PBUFFER_BIT | EGL10.EGL_WINDOW_BIT,
-//          EGL10.EGL_NONE
-//      };
-//      if (!egl.eglChooseConfig(eglDisplay, configSpec, configs, MAX_CONFIG_COUNT, configsCount)) {
-//        throw new IllegalArgumentException("eglChooseConfig failed " +
-//                                           GLUtils.getEGLErrorString(egl.eglGetError()));
-//      } else if (configsCount[0] == 0) {
-//        throw new RuntimeException("eglConfig not initialized");
-//      }
-//      Log.i(TAG, "Backbuffer format: RGB8");
-//      EGLConfig eglConfig = configs[0];
-//      int[] contextAttributes = { EGL_CONTEXT_CLIENT_VERSION, 2, EGL10.EGL_NONE };
-//      EGLContext eglContext = egl.eglCreateContext(eglDisplay,
-//                                                   eglConfig,
-//                                                   EGL10.EGL_NO_CONTEXT,
-//                                                   contextAttributes);
-//      int[] surfaceAttributes = { EGL10.EGL_NONE };
-//      EGLSurface eglSurface = egl.eglCreateWindowSurface(eglDisplay,
-//                                                         eglConfig,
-//                                                         surface,
-//                                                         surfaceAttributes);
-//      if (eglSurface == null || eglSurface == EGL10.EGL_NO_SURFACE) {
-//        int error = egl.eglGetError();
-//        String errorString = GLUtils.getEGLErrorString(error);
-//        throw new RuntimeException("createWindowSurface failed "
-//                                   + GLUtils.getEGLErrorString(error));
-//      }
-//      Log.i(TAG, "egl success");
-
-      Log.e("Native Create Engine", String.valueOf(cr));
-      if (!cat.arePlatformAndCoreInitialized())
+      if (!MapFragment.nativeAttachSurface(surface))
       {
-        Log.e("arePlatformAndCoreInitialized()", String.valueOf(cat.arePlatformAndCoreInitialized()));
-        Log.e("Nope", "Cannot draw onto the canvas as it's null");
+        reportUnsupported();
+        return;
       }
-      else
-      {
-        Log.e("arePlatformAndCoreInitialized()", String.valueOf(cat.arePlatformAndCoreInitialized()));
-        Log.e("Draw", "Rendering Should be done successfully?");
+      MapFragment.nativeResumeSurfaceRendering();
+      return;
+    }
 
-        try
-        {
-          Log.e("Attcing Surafce", "!!!");
-          MapFragment.nativeAttachSurface(surface);
-        }
-        catch (Exception e)
-        {
-          e.printStackTrace();
-        }
-      }
-    }
-    else
+    final int WIDGET_COPYRIGHT = 0x04;
+    MapFragment.nativeSetupWidget(WIDGET_COPYRIGHT, 0.0f, 0.0f, 0);
+
+    if (!MapFragment.nativeCreateEngine(surface, surfaceContainer.getDpi(), true, false, BuildConfig.VERSION_CODE))
     {
-      Log.e("NPE", "Surface Not Available");
+      reportUnsupported();
+      return;
     }
+
+    MapFragment.nativeResumeSurfaceRendering();
   }
 
   @Override
@@ -183,18 +147,22 @@ public class HelloWorldScreen extends Screen implements SurfaceCallback
   public void onSurfaceDestroyed(@NonNull SurfaceContainer surfaceContainer)
   {
     SurfaceCallback.super.onSurfaceDestroyed(surfaceContainer);
+    MapFragment.nativeDetachSurface(true);
+    Log.i(TAG, "Surface destroyed");
   }
 
   @Override
   public void onScroll(float distanceX, float distanceY)
   {
     SurfaceCallback.super.onScroll(distanceX, distanceY);
+    Log.i("Scroll", "Scrolled ");
   }
 
   @Override
   public void onFling(float velocityX, float velocityY)
   {
     SurfaceCallback.super.onFling(velocityX, velocityY);
+    Log.i("Fling", "Flinged");
   }
 
   @Override
@@ -207,5 +175,11 @@ public class HelloWorldScreen extends Screen implements SurfaceCallback
   public void onClick(float x, float y)
   {
     SurfaceCallback.super.onClick(x, y);
+  }
+
+  private void reportUnsupported()
+  {
+    final Context context = getCarContext();
+    Log.e(TAG, context.getString(R.string.unsupported_phone));
   }
 }
