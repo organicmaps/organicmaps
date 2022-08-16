@@ -511,11 +511,13 @@ area|z18-[leisure=forest]::int_name
 {text-offset: 1;font-size: 11;}
 
 area|z15-[landuse=farmland],
+area|z15-[landuse=farmyard],
 area|z15-[landuse=allotments],
 area|z15-[landuse=recreation_ground],
 area|z15-[landuse=orchard],
 area|z15-[landuse=vineyard],
 node|z17-[landuse=farmland],
+node|z17-[landuse=farmyard],
 node|z17-[landuse=allotments],
 node|z17-[landuse=recreation_ground],
 node|z17-[landuse=orchard],
