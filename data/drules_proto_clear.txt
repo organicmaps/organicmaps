@@ -35719,6 +35719,93 @@ cont {
   }
 }
 cont {
+  name: "leisure-garden-residential"
+  element {
+    scale: 12
+    area {
+      color: 12372094
+      priority: -15916
+    }
+  }
+  element {
+    scale: 13
+    area {
+      color: 11781233
+      priority: -15916
+    }
+  }
+  element {
+    scale: 14
+    area {
+      color: 11453035
+      priority: -15916
+    }
+  }
+  element {
+    scale: 15
+    area {
+      color: 11584112
+      priority: -15916
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 11190117
+      priority: -15916
+    }
+    apply_if: "!name"
+  }
+  element {
+    scale: 17
+    area {
+      color: 11190117
+      priority: -15953
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15047
+    }
+    apply_if: "!name"
+  }
+  element {
+    scale: 18
+    area {
+      color: 11190117
+      priority: -15953
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15047
+    }
+    apply_if: "!name"
+  }
+  element {
+    scale: 19
+    area {
+      color: 11190117
+      priority: -15953
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15047
+    }
+    apply_if: "!name"
+  }
+}
+cont {
   name: "leisure-golf_course"
   element {
     scale: 12

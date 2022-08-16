@@ -134,7 +134,7 @@ landuse|forest|mixed
 *landuse|vineyard
 *aeroway|taxiway
 *aeroway|aerodrome
-mapswithme
+*leisure|garden|residential
 *amenity|fire_station
 *landuse|retail
 *leisure|nature_reserve
