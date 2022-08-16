@@ -32448,6 +32448,114 @@ cont {
   }
 }
 cont {
+  name: "landuse-farmyard"
+  element {
+    scale: 10
+    area {
+      color: 15459493
+      priority: -15906
+    }
+  }
+  element {
+    scale: 11
+    area {
+      color: 15459493
+      priority: -15906
+    }
+  }
+  element {
+    scale: 12
+    area {
+      color: 15459493
+      priority: -15906
+    }
+  }
+  element {
+    scale: 13
+    area {
+      color: 15459493
+      priority: -15906
+    }
+  }
+  element {
+    scale: 14
+    area {
+      color: 15459493
+      priority: -15906
+    }
+  }
+  element {
+    scale: 15
+    area {
+      color: 15459493
+      priority: -15906
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+      }
+      priority: 15094
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 15459493
+      priority: -15906
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+      }
+      priority: 15094
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 15459493
+      priority: -15906
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+      }
+      priority: 15094
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 15459493
+      priority: -15906
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+      }
+      priority: 15094
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 15459493
+      priority: -15906
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+      }
+      priority: 15094
+    }
+  }
+}
+cont {
   name: "landuse-field"
   element {
     scale: 12
