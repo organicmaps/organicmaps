@@ -562,7 +562,9 @@ world  +
         dog_park  -
         fitness_centre  -
         fitness_station  -
-        garden  -
+        garden  +
+            residential  -
+            {}
         golf_course  -
         ice_rink  -
         landscape_reserve  -
