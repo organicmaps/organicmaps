@@ -206,7 +206,7 @@ public class Factory
       if (!result.isSuccess())
         return false;
       
-      Uri uri = Uri.parse(getUrl());
+      final Uri uri = Uri.parse(getUrl());
       String backUrl = uri.getQueryParameter("backurl");
       if (!TextUtils.isEmpty(backUrl))
       {
