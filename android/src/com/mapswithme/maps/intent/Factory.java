@@ -207,7 +207,7 @@ public class Factory
         return false;
       
       final Uri uri = Uri.parse(getUrl());
-      String backUrl = uri.getQueryParameter("backurl");
+      final String backUrl = uri.getQueryParameter("backurl");
       if (!TextUtils.isEmpty(backUrl))
       {
         Intent intent = target.getIntent();
