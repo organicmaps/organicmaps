@@ -123,7 +123,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 {
   public static final String EXTRA_TASK = "map_task";
   public static final String EXTRA_LAUNCH_BY_DEEP_LINK = "launch_by_deep_link";
-  public static final String EXTRA_BACK_URL = "back_url";
+  public static final String EXTRA_BACK_URL = "backurl";
   private static final String EXTRA_CONSUMED = "mwm.extra.intent.processed";
 
   private static final String[] DOCKED_FRAGMENTS = { SearchFragment.class.getName(),
