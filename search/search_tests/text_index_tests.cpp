@@ -74,7 +74,7 @@ void TestForEach(Index const & index, Token const & token, vector<uint32_t> cons
   vector<uint32_t> actual;
   index.ForEachPosting(token, base::MakeBackInsertFunctor(actual));
   TEST_EQUAL(actual, expected, (token));
-};
+}
 
 UNIT_TEST(TextIndex_Smoke)
 {

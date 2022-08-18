@@ -415,7 +415,7 @@ void CorrectRightmostAndLeftmost(vector<TurnCandidate> const & turnCandidates,
     // If yes - this candidate is rightmost, not route's one.
     if (candidate->m_angle < kMaxAbsAngleConsideredLeftOrRightMost)
       break;
-  };
+  }
 }
 
 void GetTurnDirectionBasic(IRoutingResult const & result, size_t const outgoingSegmentIndex,
@@ -601,7 +601,7 @@ size_t CheckUTurnOnRoute(IRoutingResult const & result, size_t const outgoingSeg
 }
 
 bool FixupLaneSet(CarDirection turn, vector<SingleLaneInfo> & lanes,
-                  function<bool(LaneWay l, CarDirection t)> checker)
+                  function<bool(LaneWay l, CarDirection t)> const & checker)
 {
   bool isLaneConformed = false;
   // There are two nested loops below. (There is a for-loop in checker.)

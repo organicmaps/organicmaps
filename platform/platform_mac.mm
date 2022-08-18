@@ -160,7 +160,7 @@ std::string Platform::DeviceModel() const
 Platform::EConnectionType Platform::ConnectionStatus()
 {
   struct sockaddr_in zero;
-  bzero(&zero, sizeof(zero));
+  memset(&zero, 0, sizeof(zero));
   zero.sin_len = sizeof(zero);
   zero.sin_family = AF_INET;
   SCNetworkReachabilityRef reachability = SCNetworkReachabilityCreateWithAddress(kCFAllocatorDefault, reinterpret_cast<const struct sockaddr*>(&zero));

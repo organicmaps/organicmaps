@@ -180,10 +180,10 @@ private:
         : m_rs(rs), m_callback(cb)
     {}
 
-    void operator()(std::shared_ptr<Route> route, RouterResultCode e);
+    void operator()(std::shared_ptr<Route> const & route, RouterResultCode e);
   };
 
-  void AssignRoute(std::shared_ptr<Route> route, RouterResultCode e);
+  void AssignRoute(std::shared_ptr<Route> const & route, RouterResultCode e);
   /// RemoveRoute() removes m_route and resets route attributes (m_lastDistance, m_moveAwayCounter).
   void RemoveRoute();
   void RebuildRouteOnTrafficUpdate();

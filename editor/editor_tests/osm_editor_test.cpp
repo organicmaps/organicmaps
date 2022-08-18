@@ -920,7 +920,7 @@ void EditorTest::CreateNoteTest()
 
     auto const notes = editor.m_notes->GetNotes();
     TEST_EQUAL(notes.size(), 1, ());
-    auto const note = notes.front();
+    auto const & note = notes.front();
     TEST(note.m_point.EqualDxDy(pos, 1e-10), ());
     TEST(note.m_note.find("with comment") != std::string::npos, ());
     TEST(note.m_note.find("OSM snapshot date") != std::string::npos, ());

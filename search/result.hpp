@@ -10,6 +10,7 @@
 #include "geometry/point2d.hpp"
 
 #include "base/assert.hpp"
+#include "base/checked_cast.hpp"
 #include "base/buffer_vector.hpp"
 
 #include <algorithm>
@@ -239,7 +240,7 @@ public:
   {
     std::sort(m_results.begin(), m_results.end(), comparator);
     for (size_t i = 0; i < m_results.size(); ++i)
-      m_results[i].SetPositionInResults(i);
+      m_results[i].SetPositionInResults(base::asserted_cast<uint32_t>(i));
   }
 
 private:
