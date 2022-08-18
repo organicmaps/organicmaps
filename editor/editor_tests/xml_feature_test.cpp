@@ -259,7 +259,7 @@ UNIT_TEST(XMLFeature_FromXmlNode)
   XMLFeature const feature(doc.child("osm").child("node"));
   TEST_EQUAL(feature.GetAttribute("id"), "4", ());
   TEST_EQUAL(feature.GetTagValue("amenity"), "fountain", ());
-  XMLFeature copy(feature);
+  XMLFeature const copy(feature);
   TEST_EQUAL(copy.GetAttribute("id"), "4", ());
   TEST_EQUAL(copy.GetTagValue("amenity"), "fountain", ());
 }

@@ -26,7 +26,7 @@ CBV CategoriesCache::Get(MwmContext const & context)
   if (it != m_cache.cend())
     return it->second;
 
-  auto const cbv = Load(context);
+  auto cbv = Load(context);
   m_cache[id] = cbv;
   return cbv;
 }

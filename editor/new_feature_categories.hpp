@@ -23,7 +23,7 @@ public:
   NewFeatureCategories() = default;
   explicit NewFeatureCategories(editor::EditorConfig const & config);
 
-  NewFeatureCategories(NewFeatureCategories && other);
+  NewFeatureCategories(NewFeatureCategories && other) noexcept;
   NewFeatureCategories & operator=(NewFeatureCategories && other) = default;
 
   // Adds all known synonyms in language |lang| for all categories that

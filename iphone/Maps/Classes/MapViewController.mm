@@ -613,8 +613,7 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 #pragma mark - Properties
 
 - (MWMMapViewControlsManager *)controlsManager {
-  if (!self.isViewLoaded)
-    return nil;
+  NSAssert(self.isViewLoaded, @"Load the view first");
   if (!_controlsManager)
     _controlsManager = [[MWMMapViewControlsManager alloc] initWithParentController:self];
   return _controlsManager;

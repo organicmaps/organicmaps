@@ -158,7 +158,7 @@ UNIT_TEST(GetTtsTextTest)
 
 UNIT_TEST(GetAllSoundedDistMetersTest)
 {
-  VecPairDist const allSoundedDistMeters = GetAllSoundedDistMeters();
+  VecPairDist const & allSoundedDistMeters = GetAllSoundedDistMeters();
 
   TEST(is_sorted(allSoundedDistMeters.cbegin(), allSoundedDistMeters.cend(),
                  [](PairDist const & p1, PairDist const & p2)
@@ -177,7 +177,7 @@ UNIT_TEST(GetAllSoundedDistMetersTest)
 
 UNIT_TEST(GetAllSoundedDistFeet)
 {
-  VecPairDist const allSoundedDistFeet = GetAllSoundedDistFeet();
+  VecPairDist const & allSoundedDistFeet = GetAllSoundedDistFeet();
 
   TEST(is_sorted(allSoundedDistFeet.cbegin(), allSoundedDistFeet.cend(),
                  [](PairDist const & p1, PairDist const & p2)
@@ -196,8 +196,8 @@ UNIT_TEST(GetAllSoundedDistFeet)
 
 UNIT_TEST(GetSoundedDistMeters)
 {
-  vector<uint32_t> const soundedDistMeters = GetSoundedDistMeters();
-  VecPairDist const allSoundedDistMeters = GetAllSoundedDistMeters();
+  vector<uint32_t> const & soundedDistMeters = GetSoundedDistMeters();
+  VecPairDist const & allSoundedDistMeters = GetAllSoundedDistMeters();
 
   TEST(is_sorted(soundedDistMeters.cbegin(), soundedDistMeters.cend()), ());
   // Checking that allSounded contains any element of inst.
@@ -217,7 +217,7 @@ UNIT_TEST(GetSoundedDistMeters)
 UNIT_TEST(GetSoundedDistFeet)
 {
   vector<uint32_t> soundedDistFeet = GetSoundedDistFeet();
-  VecPairDist const allSoundedDistFeet = GetAllSoundedDistFeet();
+  VecPairDist const & allSoundedDistFeet = GetAllSoundedDistFeet();
 
   TEST(is_sorted(soundedDistFeet.cbegin(), soundedDistFeet.cend()), ());
   // Checking that allSounded contains any element of inst.

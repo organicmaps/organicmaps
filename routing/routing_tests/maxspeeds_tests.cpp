@@ -28,6 +28,7 @@ void TestMaxspeedsSerialization(vector<FeatureMaxspeed> const & speeds)
   MemWriter<vector<char>> w(buffer);
 
   std::vector<MaxspeedsSerializer::FeatureSpeedMacro> inputSpeeds;
+  inputSpeeds.reserve(speeds.size());
   MaxspeedConverter const & converter = GetMaxspeedConverter();
   for (auto const & s : speeds)
   {

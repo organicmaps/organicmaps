@@ -468,7 +468,7 @@ XMLFeature ToXML(osm::EditableMapObject const & object, bool serializeType)
     toFeature.SetName(lang, name);
   });
 
-  string const house = object.GetHouseNumber();
+  string const & house = object.GetHouseNumber();
   if (!house.empty())
     toFeature.SetHouse(house);
 

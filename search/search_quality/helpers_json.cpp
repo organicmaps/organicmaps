@@ -69,7 +69,7 @@ void FromJSONObjectOptional(json_t * root, char const * field, optional<PointD> 
 
   PointD parsed;
   ParsePoint(p, parsed);
-  point = move(parsed);
+  point = parsed;
 }
 
 void ToJSONObject(json_t & root, char const * field, PointD const & point)

@@ -46,7 +46,7 @@ void FormatDistance(double dist, string & value, string & suffix)
   ASSERT(delim != string::npos, ());
   suffix = value.substr(delim + 1);
   value.erase(delim);
-};
+}
 
 RoutingSession::RoutingSession()
   : m_router(nullptr)
@@ -121,7 +121,7 @@ m2::PointD RoutingSession::GetEndPoint() const
   return m_checkpoints.GetFinish();
 }
 
-void RoutingSession::DoReadyCallback::operator()(shared_ptr<Route> route, RouterResultCode e)
+void RoutingSession::DoReadyCallback::operator()(shared_ptr<Route> const & route, RouterResultCode e)
 {
   ASSERT(m_rs.m_route, ());
   m_rs.AssignRoute(route, e);
@@ -509,7 +509,7 @@ void RoutingSession::GenerateNotifications(vector<string> & notifications)
   m_speedCameraManager.GenerateNotifications(notifications);
 }
 
-void RoutingSession::AssignRoute(shared_ptr<Route> route, RouterResultCode e)
+void RoutingSession::AssignRoute(shared_ptr<Route> const & route, RouterResultCode e)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 

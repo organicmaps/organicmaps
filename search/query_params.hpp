@@ -79,7 +79,7 @@ public:
   QueryParams() = default;
 
   template <typename IterT>
-  void Init(std::string const & query, IterT tokenBegin, IterT tokenEnd, String const & prefix)
+  void Init(std::string const & /*query*/, IterT tokenBegin, IterT tokenEnd, String const & prefix)
   {
     Clear();
 
