@@ -49,10 +49,11 @@ CGFloat const kButtonsBottomOffset = 6;
     else
       self.minX = self.availableArea.origin.x + kViewControlsOffsetToBounds;
   } else {
+    const auto availableAreaMaxX = self.availableArea.origin.x + self.availableArea.size.width;
     if (hidden)
       self.minX = self.superview.width;
     else
-      self.maxX = self.superview.width - kViewControlsOffsetToBounds;
+      self.maxX = availableAreaMaxX - kViewControlsOffsetToBounds;
   }
 }
 
@@ -119,16 +120,16 @@ CGFloat const kButtonsBottomOffset = 6;
   if (animated) {
     if (self.hidden == hidden)
       return;
-    if (!hidden)
-      self.hidden = NO;
+    // Side buttons should be visible during any our show/hide anamation.
+    // Visibility should be detemined by alpha, not self.hidden.
+    self.hidden = NO;
     [UIView animateWithDuration:kDefaultAnimationDuration
       animations:^{
         self.alpha = hidden ? 0.0 : 1.0;
         [self layoutXPosition:hidden];
       }
       completion:^(BOOL finished) {
-        if (hidden)
-          self.hidden = YES;
+        self.hidden = hidden;
       }];
   } else {
     self.hidden = hidden;
@@ -138,8 +139,20 @@ CGFloat const kButtonsBottomOffset = 6;
 - (void)updateAvailableArea:(CGRect)frame {
   if (CGRectEqualToRect(self.availableArea, frame))
     return;
-  self.availableArea = frame;
-  [self layoutXPosition:self.hidden];
+  // If during our show/hide animation position is changed it is corrupted.
+  // Such kind of animation has 2 keys (opacity and position).
+  // But there are other animation cases like change of orientation.
+  // So we can use condition below:
+  // if (self.layer.animationKeys.count != 2)
+  // More elegant way is to check if x values are changed.
+  // If no - there is no need to update self x values.
+  if (self.availableArea.origin.x != frame.origin.x || self.availableArea.size.width != frame.size.width)
+  {
+    self.availableArea = frame;
+    [self layoutXPosition:self.hidden];
+  }
+  else
+    self.availableArea = frame;
   [self setNeedsLayout];
 }
 
