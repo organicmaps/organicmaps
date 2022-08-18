@@ -3183,8 +3183,8 @@ void Framework::FillDescription(FeatureType & ft, place_page::Info & info) const
   auto const deviceLang = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
   auto const langPriority = feature::GetDescriptionLangPriority(regionData, deviceLang);
 
-  std::string description;
-  if (m_descriptionsLoader->GetDescription(ft.GetID(), langPriority, description))
+  std::string description = m_descriptionsLoader->GetDescription(ft.GetID(), langPriority);
+  if (!description.empty())
   {
     info.SetDescription(std::move(description));
     info.SetOpeningMode(m_routingManager.IsRoutingActive()

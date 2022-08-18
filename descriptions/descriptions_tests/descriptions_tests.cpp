@@ -5,41 +5,46 @@
 #include "coding/reader.hpp"
 #include "coding/writer.hpp"
 
-#include <cstdint>
 #include <map>
 #include <string>
-#include <utility>
 #include <vector>
 
 using namespace descriptions;
 
-using RawDescriptionsCollection = std::map<FeatureIndex, std::map<LangCode, std::string>>;
+struct RawDescription
+{
+  FeatureIndex m_idx;
+  std::vector<std::pair<LangCode, std::string>> m_strings;
+};
 
 template <typename Reader>
 std::string GetDescription(Reader & reader, FeatureIndex fid, std::vector<int8_t> const & langPriority)
 {
   Deserializer des;
-  std::string description;
-  des.Deserialize(reader, fid, langPriority, description);
-  return description;
+  return des.Deserialize(reader, fid, langPriority);
 }
 
-DescriptionsCollection Convert(RawDescriptionsCollection const & rawDescriptionsCollection)
+DescriptionsCollection Convert(std::vector<RawDescription> const & rawDescriptions)
 {
-  DescriptionsCollection descriptionsCollection;
-  for (auto const & featureDesc : rawDescriptionsCollection)
+  DescriptionsCollection descriptions;
+  for (auto const & desc : rawDescriptions)
   {
-    StringUtf8Multilang str;
-    for (auto const & translation : featureDesc.second)
-      str.AddString(translation.first, translation.second);
-    descriptionsCollection.emplace_back(featureDesc.first, std::move(str));
+    descriptions.m_features.push_back({});
+    FeatureDescription & ftDesc = descriptions.m_features.back();
+    ftDesc.m_ftIndex = desc.m_idx;
+
+    for (auto const & translation : desc.m_strings)
+    {
+      ftDesc.m_strIndices.emplace_back(translation.first, descriptions.m_strings.size());
+      descriptions.m_strings.push_back(translation.second);
+    }
   }
-  return descriptionsCollection;
+  return descriptions;
 }
 
 UNIT_TEST(Descriptions_SerDes)
 {
-  RawDescriptionsCollection const data =
+  std::vector<RawDescription> const data =
     { {100, {{10, "Description of feature 100, language 10."},
              {11, "Описание фичи 100, язык 11."}}},
       {101, {{11, "Описание фичи 101, язык 11."}}},
@@ -93,7 +98,7 @@ UNIT_TEST(Descriptions_SerDes)
 
 UNIT_TEST(Descriptions_Html)
 {
-  RawDescriptionsCollection const data =
+  std::vector<RawDescription> const data =
     { {100, {{1, "<div class=\"section\">\n"
                  "<p lang=\"en\">Map data &copy; <a href=\"https://www.openstreetmap.org/\">"
                  "OpenStreetMap</a> contributors, <a href=\"http://opendatacommons.org/licenses/odbl/\">ODbL</a>.</p>\n"
@@ -246,10 +251,10 @@ UNIT_TEST(Descriptions_Html)
 
     MemReader reader(buffer.data(), buffer.size());
 
-    for (auto const & featureDesc : data)
+    for (auto const & rawDesc : data)
     {
-      for (auto const & translation : featureDesc.second)
-        TEST_EQUAL(GetDescription(reader, featureDesc.first, {translation.first}), translation.second, ());
+      for (auto const & translation : rawDesc.m_strings)
+        TEST_EQUAL(GetDescription(reader, rawDesc.m_idx, {translation.first}), translation.second, ());
     }
   }
 }

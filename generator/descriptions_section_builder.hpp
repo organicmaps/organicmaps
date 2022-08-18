@@ -1,11 +1,12 @@
 #pragma once
 #include "descriptions/serdes.hpp"
 
+#include "coding/string_utf8_multilang.hpp"
+
 #include "base/assert.hpp"
 #include "base/geo_object_id.hpp"
 
 #include <array>
-#include <functional>
 #include <string>
 #include <unordered_map>
 
@@ -73,18 +74,20 @@ public:
   void operator() (std::string const & wikiUrl, uint32_t featureId);
 
   static std::string MakePathForWikipedia(std::string const & wikipediaDir, std::string wikipediaUrl);
-  static std::string MakePathForWikidata(std::string const & wikipediaDir, std::string wikidataId);
+  static std::string MakePathForWikidata(std::string const & wikipediaDir, std::string const & wikidataId);
 
-  static size_t FillStringFromFile(std::string const & fullPath, int8_t code, StringUtf8Multilang & str);
-  size_t FindPageAndFill(std::string const & wikipediaUrl, StringUtf8Multilang & str);
-  size_t GetFeatureDescription(std::string const & wikiUrl, uint32_t featureId,
-                               descriptions::FeatureDescription & description);
+  static std::string FillStringFromFile(std::string const & fullPath);
+
+  /// @return -1 If page not found. 0 if page from cache. Size > 0 if page was loaded from disk.
+  int FindPageAndFill(std::string const & wikipediaUrl, descriptions::LangMeta & meta);
 
 public:
   DescriptionsCollectionBuilderStat m_stat;
-  descriptions::DescriptionsCollection m_descriptions;
+  descriptions::DescriptionsCollection m_collection;
 
 private:
+  std::unordered_map<std::string, descriptions::StringIndex> m_path2Index;
+
   WikidataHelper m_wikidataHelper;
   std::string m_wikipediaDir;
   std::string m_mwmFile;

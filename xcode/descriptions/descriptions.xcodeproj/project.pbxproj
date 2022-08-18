@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B7A5517521CAFB2800789B7E /* serdes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B7A5517021CAFB2800789B7E /* serdes.cpp */; };
 		B7A5517621CAFB2800789B7E /* loader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = B7A5517121CAFB2800789B7E /* loader.hpp */; };
 		B7A5517721CAFB2800789B7E /* serdes.hpp in Headers */ = {isa = PBXBuildFile; fileRef = B7A5517221CAFB2800789B7E /* serdes.hpp */; };
 		B7A5517821CAFB2800789B7E /* header.hpp in Headers */ = {isa = PBXBuildFile; fileRef = B7A5517321CAFB2800789B7E /* header.hpp */; };
@@ -15,7 +14,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		B7A5517021CAFB2800789B7E /* serdes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = serdes.cpp; sourceTree = "<group>"; };
 		B7A5517121CAFB2800789B7E /* loader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = loader.hpp; sourceTree = "<group>"; };
 		B7A5517221CAFB2800789B7E /* serdes.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = serdes.hpp; sourceTree = "<group>"; };
 		B7A5517321CAFB2800789B7E /* header.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = header.hpp; sourceTree = "<group>"; };
@@ -60,7 +58,6 @@
 				B7A5517321CAFB2800789B7E /* header.hpp */,
 				B7A5517421CAFB2800789B7E /* loader.cpp */,
 				B7A5517121CAFB2800789B7E /* loader.hpp */,
-				B7A5517021CAFB2800789B7E /* serdes.cpp */,
 				B7A5517221CAFB2800789B7E /* serdes.hpp */,
 			);
 			name = descriptions;
@@ -138,7 +135,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B7A5517921CAFB2800789B7E /* loader.cpp in Sources */,
-				B7A5517521CAFB2800789B7E /* serdes.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,18 +1,15 @@
 #include "testing/testing.hpp"
 
 #include "generator/descriptions_section_builder.hpp"
-#include "generator/generator_tests_support/test_feature.hpp"
-#include "generator/osm2meta.hpp"
 
 #include "descriptions/serdes.hpp"
 
 #include "indexer/classificator_loader.hpp"
-#include "indexer/classificator.hpp"
-#include "indexer/feature_meta.hpp"
-#include "indexer/ftypes_matcher.hpp"
 
 #include "platform/platform.hpp"
 #include "platform/platform_tests_support/scoped_mwm.hpp"
+
+#include "coding/files_container.hpp"
 
 #include "base/assert.hpp"
 #include "base/file_name_utils.hpp"
@@ -35,11 +32,12 @@ using namespace generator;
 class TestDescriptionSectionBuilder
 {
 public:
+  using PageT = std::pair<std::string, std::string>;
   struct WikiData
   {
     std::string m_url;
     // A collection of pairs of languages ​​and content.
-    std::vector<std::pair<std::string, std::string>> m_pages;
+    std::vector<PageT> m_pages;
   };
 
   static std::string const kMwmFile;
@@ -74,9 +72,9 @@ public:
   {
     DescriptionsCollector collector(m_wikiDir, kMwmFile);
     ForEachUrlMock(collector);
-    auto const & descriptionList = collector.m_descriptions;
+    auto const & descriptions = collector.m_collection;
     auto const & stat = collector.m_stat;
-    TEST_EQUAL(GetTestDataPages(), descriptionList.size(), ());
+    TEST_EQUAL(GetTestDataPages(), descriptions.GetFeaturesCount(), ());
     TEST_EQUAL(GetTestDataPages(), stat.GetNumberOfPages(), ());
     TEST_EQUAL(GetTestDataSize(), stat.GetTotalSize(), ());
     TEST(CheckLangs(stat.GetLangStatistics()), ());
@@ -105,17 +103,18 @@ public:
       DescriptionsCollector collector(m_wikiDir, kMwmFile);
       CHECK(!kWikiData.empty(), ());
       auto const & first = kWikiData.front();
-      StringUtf8Multilang str;
+      descriptions::LangMeta meta;
       auto const path = DescriptionsCollector::MakePathForWikipedia(m_wikiDir, first.m_url);
-      TEST_EQUAL(collector.FindPageAndFill(path, str), GetNumberOfPagesize(first.m_pages), ());
-      TEST(CheckLangs(str, first.m_pages), ());
+      TEST_EQUAL(collector.FindPageAndFill(path, meta), SumPageSizes(first.m_pages), ());
+      TEST(CheckLangs(meta, first.m_pages), ());
     }
     {
       DescriptionsCollector collector(m_wikiDir, kMwmFile);
       StringUtf8Multilang str;
       std::string const badUrl = "https://en.wikipedia.org/wiki/Not_exists";
       auto const path = DescriptionsCollector::MakePathForWikipedia(m_wikiDir, badUrl);
-      TEST_EQUAL(collector.FindPageAndFill(path, str), 0, ());
+      descriptions::LangMeta meta;
+      TEST_EQUAL(collector.FindPageAndFill(path, meta), -1, ());
     }
   }
 
@@ -125,16 +124,13 @@ public:
     CHECK(!kWikiData.empty(), ());
     auto const & first = kWikiData.front();
     std::string const lang = "en";
-    auto const langIndex = StringUtf8Multilang::GetLangIndex(lang);
     auto const path = DescriptionsCollector::MakePathForWikipedia(m_wikiDir, first.m_url);
     auto const fullPath = base::JoinPath(path, (lang + ".html"));
-    StringUtf8Multilang str;
     // This is a private function and should take the right path fullPath.
-    auto const size = DescriptionsCollector::FillStringFromFile(fullPath, langIndex, str);
+    std::string const str = DescriptionsCollector::FillStringFromFile(fullPath);
     auto const it = base::FindIf(first.m_pages, [&](auto const & p) { return p.first == lang; });
     CHECK(it != std::end(first.m_pages), ());
-    TEST_EQUAL(size, it->second.size(), ());
-    TEST(CheckLangs(str, first.m_pages), ());
+    TEST_EQUAL(str.size(), it->second.size(), ());
   }
 
   void GetFeatureDescription() const
@@ -142,22 +138,21 @@ public:
     DescriptionsCollector collector(m_wikiDir, kMwmFile);
     CHECK(!kWikiData.empty(), ());
     auto const & first = kWikiData.front();
-    auto const featureId = 0;
     auto const wikiUrl = first.m_url;
     auto const path = DescriptionsCollector::MakePathForWikipedia(m_wikiDir, wikiUrl);
 
-    descriptions::FeatureDescription description;
-    auto const size = collector.GetFeatureDescription(path, featureId, description);
-    TEST_EQUAL(size, GetNumberOfPagesize(first.m_pages), ());
+    descriptions::LangMeta meta;
+    auto const size = collector.FindPageAndFill(path, meta);
+    TEST_EQUAL(size, SumPageSizes(first.m_pages), ());
     CHECK_NOT_EQUAL(size, 0, ());
-    TEST_EQUAL(description.m_featureIndex, featureId, ());
-    TEST(CheckLangs(description.m_description, first.m_pages), ());
+    TEST(CheckLangs(meta, first.m_pages), ());
   }
 
   void BuildDescriptionsSection() const
   {
     using namespace platform;
     using namespace platform::tests_support;
+
     auto const testMwm = kMwmFile + DATA_FILE_EXTENSION;
     ScopedMwm testScopedMwm(testMwm);
 
@@ -176,12 +171,10 @@ public:
       for (auto const & p : pages)
       {
         auto const featureId = i;
-        if (!IsSupportedLang(p.first))
-          continue;
+        TEST(IsSupportedLang(p.first), (p.first));
 
         auto const langIndex = StringUtf8Multilang::GetLangIndex(p.first);
-        std::string str;
-        d.Deserialize(*reader.GetPtr(), featureId, {langIndex,}, str);
+        std::string const str = d.Deserialize(*reader.GetPtr(), featureId, {langIndex});
         TEST_EQUAL(str, p.second, ());
       }
     }
@@ -243,11 +236,11 @@ private:
     return StringUtf8Multilang::GetLangIndex(lang) != StringUtf8Multilang::kUnsupportedLanguageCode;
   }
 
-  static size_t GetNumberOfPagesize(std::vector<std::pair<std::string, std::string>> const & p)
+  static int SumPageSizes(std::vector<PageT> const & p)
   {
-    return std::accumulate(std::begin(p), std::end(p), size_t{0}, [] (size_t acc, auto const & n)
+    return std::accumulate(std::begin(p), std::end(p), 0, [] (int acc, PageT const & p)
     {
-      return acc + n.second.size();
+      return acc + p.second.size();
     });
   }
 
@@ -270,19 +263,18 @@ private:
     return true;
   }
 
-  static bool CheckLangs(StringUtf8Multilang const & str, std::vector<std::pair<std::string, std::string>> const & p)
+  static bool CheckLangs(descriptions::LangMeta const & meta, std::vector<PageT> const & p)
   {
-    bool result = true;
-    str.ForEach([&](auto code, auto const &) {
-      auto const it = base::FindIf(p, [&](auto const & p) {
-        return StringUtf8Multilang::GetLangIndex(p.first) == code;
+    for (auto const & [lang, _] : meta)
+    {
+      auto const it = base::FindIf(p, [lang = lang](auto const & p)
+      {
+        return StringUtf8Multilang::GetLangIndex(p.first) == lang;
       });
-
       if (it == std::end(p))
-        result = false;
-    });
-
-    return result;
+        return false;
+    }
+    return true;
   }
 
   std::string const m_writableDir;
@@ -293,32 +285,32 @@ std::string const TestDescriptionSectionBuilder::kMwmFile = "MwmFile";
 std::string const TestDescriptionSectionBuilder::kDirPages = "wiki";
 
 
-UNIT_CLASS_TEST(TestDescriptionSectionBuilder, DescriptionsCollectionBuilder_MakeDescriptions)
+UNIT_CLASS_TEST(TestDescriptionSectionBuilder, MakeDescriptions)
 {
   TestDescriptionSectionBuilder::MakeDescriptions();
 }
 
-UNIT_CLASS_TEST(TestDescriptionSectionBuilder, DescriptionsCollectionBuilder_MakePath)
+UNIT_CLASS_TEST(TestDescriptionSectionBuilder, MakePath)
 {
   TestDescriptionSectionBuilder::MakePath();
 }
 
-UNIT_CLASS_TEST(TestDescriptionSectionBuilder, DescriptionsCollectionBuilder_FindPageAndFill)
+UNIT_CLASS_TEST(TestDescriptionSectionBuilder, FindPageAndFill)
 {
   TestDescriptionSectionBuilder::FindPageAndFill();
 }
 
-UNIT_CLASS_TEST(TestDescriptionSectionBuilder, DescriptionsCollectionBuilder_FillStringFromFile)
+UNIT_CLASS_TEST(TestDescriptionSectionBuilder, FillStringFromFile)
 {
   TestDescriptionSectionBuilder::FillStringFromFile();
 }
 
-UNIT_CLASS_TEST(TestDescriptionSectionBuilder, DescriptionsCollectionBuilder_GetFeatureDescription)
+UNIT_CLASS_TEST(TestDescriptionSectionBuilder, GetFeatureDescription)
 {
   TestDescriptionSectionBuilder::GetFeatureDescription();
 }
 
-UNIT_CLASS_TEST(TestDescriptionSectionBuilder, DescriptionsCollectionBuilder_BuildDescriptionsSection)
+UNIT_CLASS_TEST(TestDescriptionSectionBuilder, BuildDescriptionsSection)
 {
   TestDescriptionSectionBuilder::BuildDescriptionsSection();
 }
