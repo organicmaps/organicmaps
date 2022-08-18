@@ -122,9 +122,9 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
     else if (id == R.id.github)
       openLink(Constants.Url.GITHUB);
     else if (id == R.id.telegram)
-      openLink(Constants.Url.TELEGRAM);
+      openLink(getString(R.string.telegram_url));
     else if (id == R.id.instagram)
-      openLink(Constants.Url.INSTAGRAM);
+      openLink(getString(R.string.instagram_url));
     else if (id == R.id.facebook)
       Utils.showFacebookPage(getActivity());
     else if (id == R.id.twitter)
