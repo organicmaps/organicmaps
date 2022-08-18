@@ -125,9 +125,9 @@ public:
     for (size_t i = m_results.size(); i < rs.size(); ++i)
       m_results.emplace_back(SearchBookmarkIdToKmlMarkId(rs[i].m_id));
 
-    m_delegate.RunUITask([onResults = m_onResults, results = m_results, status = m_status]()
+    m_delegate.RunUITask([onResults = m_onResults, results = m_results, status = m_status]() mutable
     {
-      onResults(results, status);
+      onResults(std::move(results), status);
     });
   }
 
@@ -218,7 +218,7 @@ bool SearchAPI::SearchInViewport(ViewportSearchParams params)
 
   if (params.m_onStarted)
   {
-    p.m_onStarted = [this, onStarted = std::move(params.m_onStarted)]
+    p.m_onStarted = [this, onStarted = std::move(params.m_onStarted)]() mutable
     {
       RunUITask([onStarted = std::move(onStarted)]() { onStarted(); });
     };

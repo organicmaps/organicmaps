@@ -18,7 +18,7 @@ void EverywhereSearchCallback::operator()(Results const & results)
   for (size_t i = prevSize; i < currSize; ++i)
     m_productInfo.push_back(m_delegate.GetProductInfo(results[i]));
 
-  m_delegate.RunUITask([onResults = m_onResults, results, productInfo = m_productInfo]
+  m_delegate.RunUITask([onResults = m_onResults, results, productInfo = m_productInfo]() mutable
   {
     onResults(std::move(results), std::move(productInfo));
   });

@@ -118,7 +118,7 @@ void DownloaderSearchCallback::operator()(search::Results const & results)
   downloaderSearchResults.m_query = m_params.m_query;
   downloaderSearchResults.m_endMarker = results.IsEndMarker();
 
-  m_delegate.RunUITask([onResults = m_params.m_onResults, results = std::move(downloaderSearchResults)]()
+  m_delegate.RunUITask([onResults = m_params.m_onResults, results = std::move(downloaderSearchResults)]() mutable
   {
     onResults(std::move(results));
   });
