@@ -22,8 +22,7 @@ class Loader
 public:
   explicit Loader(DataSource const & dataSource) : m_dataSource(dataSource) {}
 
-  bool GetDescription(FeatureID const & featureId, std::vector<int8_t> const & langPriority,
-                      std::string & description);
+  std::string GetDescription(FeatureID const & featureId, std::vector<int8_t> const & langPriority);
 
 private:
   struct Entry
