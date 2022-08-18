@@ -295,7 +295,14 @@ set(EXPAT_SHARED_LIBS OFF)
 add_subdirectory(3party/expat/expat)
 add_subdirectory(3party/agg)
 add_subdirectory(3party/bsdiff-courgette)
+
 add_subdirectory(3party/gflags)
+# Not needed for the usual build process, but it fixes QtCreator editor,
+# that doesn't see gflags/gflags.h in binary dir (gflags has tricky cmake configuration).
+if (PLATFORM_DESKTOP)
+  include_directories("${PROJECT_BINARY_DIR}/3party/gflags/include")
+endif()
+
 if (LINUX_DETECTED)
   find_package(ICU COMPONENTS uc i18n data REQUIRED)
   find_package(Freetype REQUIRED)
