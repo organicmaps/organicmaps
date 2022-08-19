@@ -1009,36 +1009,18 @@ public class PlacePageView extends NestedScrollViewClickFixed
   private void refreshSocialLinks(@NonNull MapObject mapObject)
   {
     final String facebookPageLink = mapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_FACEBOOK);
-    refreshSocialPageLink(mFacebookPage, mTvFacebookPage, facebookPageLink, "facebook.com");
+    refreshSocialPageLink(mFacebookPage, mTvFacebookPage, facebookPageLink);
     final String instagramPageLink = mapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_INSTAGRAM);
-    refreshSocialPageLink(mInstagramPage, mTvInstagramPage, instagramPageLink, "instagram.com");
+    refreshSocialPageLink(mInstagramPage, mTvInstagramPage, instagramPageLink);
     final String twitterPageLink = mapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_TWITTER);
-    refreshSocialPageLink(mTwitterPage, mTvTwitterPage, twitterPageLink, "twitter.com");
+    refreshSocialPageLink(mTwitterPage, mTvTwitterPage, twitterPageLink);
     final String vkPageLink = mapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_VK);
-    refreshSocialPageLink(mVkPage, mTvVkPage, vkPageLink, "vk.com");
+    refreshSocialPageLink(mVkPage, mTvVkPage, vkPageLink);
     final String linePageLink = mapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_LINE);
-    refreshLinePageLink(mLinePage, mTvLinePage, linePageLink);
+    refreshSocialPageLink(mLinePage, mTvLinePage, linePageLink);
   }
 
-  private void refreshSocialPageLink(View view, TextView tvSocialPage, String socialPage, String webDomain)
-  {
-    if (TextUtils.isEmpty(socialPage))
-    {
-      view.setVisibility(GONE);
-    }
-    else
-    {
-      view.setVisibility(VISIBLE);
-      if (socialPage.indexOf('/') >= 0)
-        tvSocialPage.setText("https://" + webDomain + "/" + socialPage);
-      else
-        tvSocialPage.setText("@" + socialPage);
-    }
-  }
-
-  // Tag `contact:line` could contain urls from domains: line.me, liff.line.me, page.line.me, etc.
-  // And `socialPage` should not be prepended with domain, but only with "https://" protocol.
-  private void refreshLinePageLink(View view, TextView tvSocialPage, String socialPage)
+  private void refreshSocialPageLink(View view, TextView tvSocialPage, String socialPage)
   {
     if (TextUtils.isEmpty(socialPage))
     {
@@ -1356,26 +1338,23 @@ public class PlacePageView extends NestedScrollViewClickFixed
         break;
       case R.id.ll__place_facebook:
         final String facebookPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_FACEBOOK);
-        Utils.openUrl(getContext(), "https://m.facebook.com/"+facebookPage);
+        Utils.openUrl(getContext(), facebookPage.contains("/") ? "https://"+facebookPage : "https://m.facebook.com/"+facebookPage);
         break;
       case R.id.ll__place_instagram:
         final String instagramPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_INSTAGRAM);
-        Utils.openUrl(getContext(), "https://instagram.com/"+instagramPage);
+        Utils.openUrl(getContext(), instagramPage.contains("/") ? "https://"+instagramPage : "https://instagram.com/"+instagramPage);
         break;
       case R.id.ll__place_twitter:
         final String twitterPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_TWITTER);
-        Utils.openUrl(getContext(), "https://mobile.twitter.com/"+twitterPage);
+        Utils.openUrl(getContext(), twitterPage.contains("/") ? "https://"+twitterPage : "https://mobile.twitter.com/"+twitterPage);
         break;
       case R.id.ll__place_vk:
         final String vkPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_VK);
-        Utils.openUrl(getContext(), "https://vk.com/" + vkPage);
+        Utils.openUrl(getContext(), vkPage.contains("/") ? "https://" + vkPage : "https://vk.com/" + vkPage);
         break;
       case R.id.ll__place_line:
         final String linePage = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_LINE);
-        if (linePage.indexOf('/') >= 0)
-          Utils.openUrl(getContext(), "https://" + linePage);
-        else
-          Utils.openUrl(getContext(), "https://line.me/R/ti/p/@" + linePage);
+        Utils.openUrl(getContext(), linePage.contains("/") ? "https://" + linePage : "https://line.me/R/ti/p/@" + linePage);
         break;
       case R.id.ll__place_wiki:
         Utils.openUrl(getContext(), mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIPEDIA));
@@ -1449,36 +1428,52 @@ public class PlacePageView extends NestedScrollViewClickFixed
       case R.id.ll__place_facebook:
         final String facebookPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_FACEBOOK);
         if (facebookPage.indexOf('/') == -1)
+        {
           items.add(facebookPage); // Show username along with URL.
-        items.add("https://m.facebook.com/" + facebookPage);
+          items.add("https://m.facebook.com/" + facebookPage);
+        }
+        else
+          items.add("https://" + facebookPage);
         break;
       case R.id.ll__place_instagram:
         final String instagramPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_INSTAGRAM);
         if (instagramPage.indexOf('/') == -1)
+        {
           items.add(instagramPage); // Show username along with URL.
-        items.add("https://instagram.com/" + instagramPage);
+          items.add("https://instagram.com/" + instagramPage);
+        }
+        else
+          items.add("https://" + instagramPage);
         break;
       case R.id.ll__place_twitter:
         final String twitterPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_TWITTER);
         if (twitterPage.indexOf('/') == -1)
+        {
           items.add(twitterPage); // Show username along with URL.
-        items.add("https://mobile.twitter.com/" + twitterPage);
+          items.add("https://mobile.twitter.com/" + twitterPage);
+        }
+        else
+          items.add("https://" + twitterPage);
         break;
       case R.id.ll__place_vk:
         final String vkPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_VK);
         if (vkPage.indexOf('/') == -1)
+        {
           items.add(vkPage); // Show username along with URL.
-        items.add("https://vk.com/" + vkPage);
+          items.add("https://vk.com/" + vkPage);
+        }
+        else
+          items.add("https://" + vkPage);
         break;
       case R.id.ll__place_line:
         final String linePage = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_LINE);
-        if (linePage.indexOf('/') >= 0)
-          items.add("https://" + linePage);
-        else
+        if (linePage.indexOf('/') == -1)
         {
           items.add(linePage); // Show username along with URL.
           items.add("https://line.me/R/ti/p/@" + linePage);
         }
+        else
+          items.add("https://" + linePage);
         break;
       case R.id.ll__place_email:
         items.add(mTvEmail.getText().toString());

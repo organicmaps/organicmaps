@@ -14,6 +14,8 @@ UNIT_TEST(EditableMapObject_ValidateAndFormat_facebook)
   TEST_EQUAL(osm::ValidateAndFormat_facebook("http://www.facebook.com/OpenStreetMap"), "OpenStreetMap", ());
   TEST_EQUAL(osm::ValidateAndFormat_facebook("https://www.facebook.com/OpenStreetMap"), "OpenStreetMap", ());
   TEST_EQUAL(osm::ValidateAndFormat_facebook("https://en-us.facebook.com/OpenStreetMap"), "OpenStreetMap", ());
+  TEST_EQUAL(osm::ValidateAndFormat_facebook("https://fr.facebook.com/pages/Daikichi-Japans-Restaurant/118163444928138"), "facebook.com/pages/Daikichi-Japans-Restaurant/118163444928138", ());
+  TEST_EQUAL(osm::ValidateAndFormat_facebook("fr-fr.facebook.com/people/Paillote-Lgm/100012630853826/"), "facebook.com/people/Paillote-Lgm/100012630853826", ());
   TEST_EQUAL(osm::ValidateAndFormat_facebook("some.good.page"), "some.good.page", ());
   TEST_EQUAL(osm::ValidateAndFormat_facebook("@tree-house-interiors"), "tree-house-interiors", ());
 
@@ -35,8 +37,8 @@ UNIT_TEST(EditableMapObject_ValidateAndFormat_instagram)
   TEST_EQUAL(osm::ValidateAndFormat_instagram("https://www.instagram.com/openstreetmapus"), "openstreetmapus", ());
   TEST_EQUAL(osm::ValidateAndFormat_instagram("https://en-us.instagram.com/openstreetmapus"), "openstreetmapus", ());
   TEST_EQUAL(osm::ValidateAndFormat_instagram("@open_street_map_us"), "open_street_map_us", ());
-  TEST_EQUAL(osm::ValidateAndFormat_instagram("https://www.instagram.com/explore/locations/358536820/trivium-sport-en-dance/"), "explore/locations/358536820/trivium-sport-en-dance", ());
-  TEST_EQUAL(osm::ValidateAndFormat_instagram("https://www.instagram.com/p/BvkgKZNDbqN/?ghid=UwPchX7B"), "p/BvkgKZNDbqN", ());
+  TEST_EQUAL(osm::ValidateAndFormat_instagram("https://www.instagram.com/explore/locations/358536820/trivium-sport-en-dance/"), "instagram.com/explore/locations/358536820/trivium-sport-en-dance", ());
+  TEST_EQUAL(osm::ValidateAndFormat_instagram("https://www.instagram.com/p/BvkgKZNDbqN/?ghid=UwPchX7B"), "instagram.com/p/BvkgKZNDbqN", ());
 
   TEST_EQUAL(osm::ValidateAndFormat_instagram("facebook.com/osm_us"), "", ());
   TEST_EQUAL(osm::ValidateAndFormat_instagram(".dots_not_allowed."), "", ());
@@ -51,6 +53,7 @@ UNIT_TEST(EditableMapObject_ValidateAndFormat_twitter)
   TEST_EQUAL(osm::ValidateAndFormat_twitter("https://twitter.com/osm_tech"), "osm_tech", ());
   TEST_EQUAL(osm::ValidateAndFormat_twitter("http://www.twitter.com/osm_tech"), "osm_tech", ());
   TEST_EQUAL(osm::ValidateAndFormat_twitter("https://www.twitter.com/osm_tech"), "osm_tech", ());
+  TEST_EQUAL(osm::ValidateAndFormat_twitter("https://twitter.com/hashtag/sotanosiete"), "twitter.com/hashtag/sotanosiete", ());
   TEST_EQUAL(osm::ValidateAndFormat_twitter("@_osm_tech_"), "_osm_tech_", ());
 
   TEST_EQUAL(osm::ValidateAndFormat_twitter("instagram.com/osm_tech"), "", ());

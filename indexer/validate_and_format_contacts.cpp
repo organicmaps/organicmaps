@@ -94,7 +94,7 @@ string ValidateAndFormat_facebook(string const & facebookPage)
     auto webPath = url.GetPath();
     // Strip last '/' symbol
     webPath.erase(webPath.find_last_not_of('/') + 1);
-    return webPath;
+    return (webPath.find('/') == string::npos) ? webPath : ("facebook.com/" + webPath);
   }
 
   return {};
@@ -123,7 +123,7 @@ string ValidateAndFormat_instagram(string const & instagramPage)
     auto webPath = url.GetPath();
     // Strip last '/' symbol.
     webPath.erase(webPath.find_last_not_of('/') + 1);
-    return webPath;
+    return (webPath.find('/') == string::npos) ? webPath : ("instagram.com/" + webPath);
   }
 
   return {};
@@ -155,7 +155,7 @@ string ValidateAndFormat_twitter(string const & twitterPage)
     webPath.erase(webPath.find_last_not_of('/') + 1);
     webPath.erase(0, webPath.find_first_not_of('@'));
 
-    return webPath;
+    return (webPath.find('/') == string::npos) ? webPath : ("twitter.com/" + webPath);
   }
 
   return {};
@@ -194,7 +194,7 @@ string ValidateAndFormat_vk(string const & vkPage)
     auto webPath = url.GetPath();
     // Strip last '/' symbol.
     webPath.erase(webPath.find_last_not_of('/') + 1);
-    return webPath;
+    return (webPath.find('/') == string::npos) ? webPath : ("vk.com/" + webPath);
   }
 
   return {};

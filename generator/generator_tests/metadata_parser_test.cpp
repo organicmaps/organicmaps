@@ -319,15 +319,15 @@ UNIT_CLASS_TEST(TestWithClassificator, ValidateAndFormat_facebook)
   md.Drop(Metadata::FMD_CONTACT_FACEBOOK);
 
   p("contact:facebook", "https://facebook.com/238702340219158/posts/284664265622965");
-  TEST_EQUAL(md.Get(Metadata::FMD_CONTACT_FACEBOOK), "238702340219158/posts/284664265622965", ());
+  TEST_EQUAL(md.Get(Metadata::FMD_CONTACT_FACEBOOK), "facebook.com/238702340219158/posts/284664265622965", ());
   md.Drop(Metadata::FMD_CONTACT_FACEBOOK);
 
   p("contact:facebook", "https://facebook.com/238702340219158/posts/284664265622965");
-  TEST_EQUAL(md.Get(Metadata::FMD_CONTACT_FACEBOOK), "238702340219158/posts/284664265622965", ());
+  TEST_EQUAL(md.Get(Metadata::FMD_CONTACT_FACEBOOK), "facebook.com/238702340219158/posts/284664265622965", ());
   md.Drop(Metadata::FMD_CONTACT_FACEBOOK);
 
   p("contact:facebook", "https://fr-fr.facebook.com/people/Paillote-Lgm/100012630853826/");
-  TEST_EQUAL(md.Get(Metadata::FMD_CONTACT_FACEBOOK), "people/Paillote-Lgm/100012630853826", ());
+  TEST_EQUAL(md.Get(Metadata::FMD_CONTACT_FACEBOOK), "facebook.com/people/Paillote-Lgm/100012630853826", ());
   md.Drop(Metadata::FMD_CONTACT_FACEBOOK);
 
   p("contact:facebook", "https://www.sandwichparlour.com.au/");
@@ -368,15 +368,15 @@ UNIT_CLASS_TEST(TestWithClassificator, ValidateAndFormat_instagram)
   md.Drop(Metadata::FMD_CONTACT_INSTAGRAM);
 
   p("contact:instagram", "https://www.instagram.com/explore/locations/358536820/trivium-sport-en-dance/");
-  TEST_EQUAL(md.Get(Metadata::FMD_CONTACT_INSTAGRAM), "explore/locations/358536820/trivium-sport-en-dance", ());
+  TEST_EQUAL(md.Get(Metadata::FMD_CONTACT_INSTAGRAM), "instagram.com/explore/locations/358536820/trivium-sport-en-dance", ());
   md.Drop(Metadata::FMD_CONTACT_INSTAGRAM);
 
   p("contact:instagram", "https://www.instagram.com/explore/tags/boojum/");
-  TEST_EQUAL(md.Get(Metadata::FMD_CONTACT_INSTAGRAM), "explore/tags/boojum", ());
+  TEST_EQUAL(md.Get(Metadata::FMD_CONTACT_INSTAGRAM), "instagram.com/explore/tags/boojum", ());
   md.Drop(Metadata::FMD_CONTACT_INSTAGRAM);
 
   p("contact:instagram", "https://www.instagram.com/p/BvkgKZNDbqN");
-  TEST_EQUAL(md.Get(Metadata::FMD_CONTACT_INSTAGRAM), "p/BvkgKZNDbqN", ());
+  TEST_EQUAL(md.Get(Metadata::FMD_CONTACT_INSTAGRAM), "instagram.com/p/BvkgKZNDbqN", ());
   md.Drop(Metadata::FMD_CONTACT_INSTAGRAM);
 
   p("contact:instagram", "dharampura road");
@@ -399,7 +399,7 @@ UNIT_CLASS_TEST(TestWithClassificator, ValidateAndFormat_twitter)
   TEST(md.Empty(), ());
 
   p("contact:twitter", "https://twitter.com/hashtag/sotanosiete");
-  TEST_EQUAL(md.Get(Metadata::FMD_CONTACT_TWITTER), "hashtag/sotanosiete", ());
+  TEST_EQUAL(md.Get(Metadata::FMD_CONTACT_TWITTER), "twitter.com/hashtag/sotanosiete", ());
   md.Drop(Metadata::FMD_CONTACT_TWITTER);
 
   p("contact:twitter", "twitter.com/osm_tech");
