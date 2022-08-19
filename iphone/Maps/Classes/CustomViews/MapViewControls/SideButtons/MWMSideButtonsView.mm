@@ -80,37 +80,25 @@ CGFloat const kButtonsBottomOffset = 6;
                    }];
 }
 
+// Show/hide zoom and location buttons depending on available vertical space.
 - (void)animate {
   [self layoutYPosition];
 
-  auto const spaceLeft = self.availableHeight;
   BOOL const isZoomHidden = self.zoomIn.alpha == 0.0;
-  BOOL const willZoomHide = (self.location.maxY > spaceLeft);
-  if (willZoomHide) {
-    if (!isZoomHidden)
-      [self fadeZoomButtonsShow:NO];
-  } else {
-    if (isZoomHidden)
-      [self fadeZoomButtonsShow:YES];
-  }
+  BOOL const willZoomHide = (self.location.maxY > self.availableHeight);
+  if (willZoomHide != isZoomHidden)
+    [self fadeZoomButtonsShow: !willZoomHide];
+
   BOOL const isLocationHidden = self.location.alpha == 0.0;
-  BOOL const willLocationHide = (self.location.height > spaceLeft);
-  if (willLocationHide) {
-    if (!isLocationHidden)
-      [self fadeLocationButtonShow:NO];
-  } else {
-    if (isLocationHidden)
-      [self fadeLocationButtonShow:YES];
-  }
+  BOOL const willLocationHide = (self.location.height > self.availableHeight);
+  if (willLocationHide != isLocationHidden)
+    [self fadeLocationButtonShow: !willLocationHide];
 }
 
 #pragma mark - Properties
 
 - (void)setZoomHidden:(BOOL)zoomHidden {
   _zoomHidden = zoomHidden;
-  CGFloat const minX = zoomHidden ? self.width + kViewControlsOffsetToBounds : 0.0;
-  self.zoomIn.minX = minX;
-  self.zoomOut.minX = minX;
   self.zoomIn.hidden = zoomHidden;
   self.zoomOut.hidden = zoomHidden;
   [self setNeedsLayout];
