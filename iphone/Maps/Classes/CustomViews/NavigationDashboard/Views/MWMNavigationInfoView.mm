@@ -339,6 +339,11 @@ BOOL defaultOrientation(CGSize const &size) {
 
 - (void)refreshLayout {
   dispatch_async(dispatch_get_main_queue(), ^{
+    if (UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation))
+      self.streetNameLabel.numberOfLines = 1;
+    else
+      self.streetNameLabel.numberOfLines = 2;
+
     auto const availableArea = self.availableArea;
     [self animateConstraintsWithAnimations:^{
       self.topConstraint.constant = availableArea.origin.y;
