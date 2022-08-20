@@ -1,0 +1,12 @@
+- Nuovi dati OSM dal 18 luglio
+- Mostra "Aperto"/"Apre in"/"Chiude in" nei risultati di ricerca
+- Aggiunti i tipi di negozio mancanti dai tag OSM principali: antiquariato, arte, articoli_per_bambini, borse, boutique, beneficenza, formaggio, artigianato, latteria, gastronomia, elettricità, fattoria, pesca, alimentari, articoli per la casa, decorazione_interni, cucina, lotteria, forniture mediche, integratori alimentari, vernici, pasticceria, profumeria, seconda mano, cucito, deposito_noleggio, tabacco, commercio, orologi, ingrosso
+- Mostra il limite di velocità vicino alla velocità corrente in modalità navigazione
+- Selezionare correttamente la velocità massima in alcuni casi di instradamento
+- I tag sport=* hanno una priorità maggiore rispetto a leisure=pitch
+- Riempire la pagina dei luoghi di transito con informazioni sulle caratteristiche
+- Mostrare informazioni testuali sulla strada della prossima svolta più lunga
+- Utilizzare building:min_level per gli edifici 3D
+- Permettere di rimuovere le cucine dalla selezione nell'Editor
+- Correggere le traduzioni in bielorusso, tedesco, russo e ucraino.
+- Aggiungere le traduzioni mancanti per i tipi OSM natural=* e amenity=events_venue
