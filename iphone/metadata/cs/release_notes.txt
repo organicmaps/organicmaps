@@ -1,0 +1,12 @@
+- Nová data OSM k 18. červenci
+- Zobrazení "Otevřeno"/"Otevřeno v"/"Zavřeno v" ve výsledcích vyhledávání
+- Přidány chybějící typy obchodů z top tagů OSM: starožitnosti, umění, dětské_zboží, tašky, butik, charita, sýry, řemesla, mléčné výrobky, lahůdky, elektro, farma, rybolov, potraviny, zdravé_potraviny, domácí potřeby, dekorace_interiéru, kuchyně, loterie, zdravotnické_potřeby, doplňky_živin, barvy, pečivo, parfumerie, second_hand, šití, skladování_půjčovna, tabák, obchod, hodinky, velkoobchod
+- Zobrazení omezení rychlosti v blízkosti aktuální rychlosti v režimu navigace
+- Správně vybrat maximální rychlost v některých případech směrování
+- Značky sport=* mají vyšší prioritu než značky volný čas=pouť
+- Vyplnit stránku s místem tranzitní značky informacemi o funkci
+- Zobrazovat textové informace o ulici příští odbočky déle
+- Použít building:min_level pro 3D budovy
+- Umožnit odstranění kuchyní z výběru v editoru
+- Oprava překladů do běloruštiny, němčiny, ruštiny a ukrajinštiny
+- Přidat chybějící překlady pro typy OSM natural=* a amenity=events_venue
