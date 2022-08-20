@@ -719,8 +719,10 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 }
 
 - (void)goBack {
-   NSString *backURL = [DeepLinkHandler.shared getBackUrl];
-   [[UIApplication sharedApplication] openURL:[NSURL URLWithString: backURL] options:@{} completionHandler:nil];
+  NSString *backURL = [DeepLinkHandler.shared getBackUrl];
+  if (backURL != nil) {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString: backURL] options:@{} completionHandler:nil];
+  }
 }
 
 @end
