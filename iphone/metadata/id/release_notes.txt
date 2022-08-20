@@ -1,0 +1,12 @@
+• Data OSM baru per 18 Juli
+• Tampilkan "Buka"/"Buka pada"/"Tutup pada" dalam hasil pencarian
+• Tambahkan jenis toko yang belum ada dari tag OSM teratas: antiques, art, baby_goods, bag, boutique, charity, cheese, craft, dairy, deli, electrical, farm, fishing, grocery, health_food, houseware, interior_decoration, kitchen, lottery, medical_supply, nutrition_supplements, paint, pastry, perfumery, second_hand, sewing, storage_rental, tobacco, trade, watches, wholesale
+• Tampilkan batas kecepatan di dekat kecepatan saat ini dalam mode navigasi
+• Pilih kecepatan maksimal dengan benar dalam beberapa kasus perutean
+• Tag sport=* memiliki prioritas lebih tinggi daripada leisure=pitch
+• Isi halaman tempat tanda transit dengan info fitur
+• Tampilkan info teks tentang jalan belokan berikutnya lebih panjang
+• Gunakan building:min_level untuk bangunan 3D
+• Izinkan menghapus masakan dari pilihan di Editor
+• Perbaiki terjemahan Belarusia, Jerman, Rusia, Ukraina
+• Tambahkan terjemahan yang belum ada untuk jenis OSM natural=* dan amenity=events_venue
