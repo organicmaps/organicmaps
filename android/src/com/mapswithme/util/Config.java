@@ -41,6 +41,7 @@ public final class Config
   private static final String KEY_MISC_ENABLE_SCREEN_SLEEP = "EnableScreenSleep";
   private static final String KEY_MISC_SHOW_ON_LOCK_SCREEN = "ShowOnLockScreen";
   private static final String KEY_MISC_AGPS_TIMESTAMP = "AGPSTimestamp";
+  private static final String KEY_DONATE_URL = "DonateUrl";
 
   private Config() {}
 
@@ -64,11 +65,13 @@ public final class Config
     return nativeGetLong(key, def);
   }
 
+  @NonNull
   private static String getString(String key)
   {
     return getString(key, "");
   }
 
+  @NonNull
   private static String getString(String key, String def)
   {
     return nativeGetString(key, def);
@@ -335,6 +338,11 @@ public final class Config
     nativeSetTransliteration(value);
   }
 
+  @NonNull
+  public static String getDonateUrl()
+  {
+    return getString(KEY_DONATE_URL);
+  }
 
   private static native boolean nativeGetBoolean(String name, boolean defaultValue);
   private static native void nativeSetBoolean(String name, boolean value);

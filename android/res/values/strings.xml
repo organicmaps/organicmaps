@@ -256,6 +256,8 @@
 	<string name="help">Help</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">Frequently Asked Questions</string>
+	<!-- Button in the main menu -->
+	<string name="donate">Donate</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">How to support us?</string>
 	<!-- Button in the main Help dialog -->
