@@ -6,7 +6,7 @@
 
 #include "private.h"
 
-namespace
+namespace downloader_tests
 {
 
 class DownloaderStub : public storage::MapFilesDownloaderWithPing
@@ -16,8 +16,6 @@ class DownloaderStub : public storage::MapFilesDownloaderWithPing
   }
 };
 
-} // namespace
-
 UNIT_TEST(GetMetaConfig)
 {
   if (std::string(METASERVER_URL).empty())
@@ -26,10 +24,12 @@ UNIT_TEST(GetMetaConfig)
   base::ScopedLogLevelChanger logLevel(base::LDEBUG);
   Platform::ThreadRunner runner;
 
-  DownloaderStub().GetMetaConfig([](MetaConfig const & metaConfig)
+  DownloaderStub().GetMetaConfig([](downloader::MetaConfig const & metaConfig)
   {
     TEST_GREATER(metaConfig.m_serversList.size(), 0, ());
     for (auto const & s : metaConfig.m_serversList)
       LOG(LINFO, (s));
   });
 }
+
+} // namespace downloader_tests
