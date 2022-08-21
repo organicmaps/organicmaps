@@ -217,7 +217,7 @@ UNIT_TEST(Metadata_ValidateAndFormat_wikimedia_commons)
   md.Drop(Metadata::FMD_WIKIPEDIA);
 
   p(kWikiKey, "incorrect_wikimedia_content");
-  TEST_EQUAL(md.Get(Metadata::FMD_WIKIMEDIA_COMMONS), "", ());
+  TEST(md.Get(Metadata::FMD_WIKIMEDIA_COMMONS).empty(), ());
   md.Drop(Metadata::FMD_WIKIPEDIA);
 }
 

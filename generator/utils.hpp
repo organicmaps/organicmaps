@@ -56,7 +56,7 @@ private:
 class FeatureGetter
 {
 public:
-  FeatureGetter(std::string const & countryFullPath);
+  explicit FeatureGetter(std::string const & countryFullPath);
 
   std::unique_ptr<FeatureType> GetFeatureByIndex(uint32_t index) const;
 

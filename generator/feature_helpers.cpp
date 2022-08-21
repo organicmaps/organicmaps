@@ -8,8 +8,6 @@
 
 #include <algorithm>
 
-using namespace std;
-
 namespace feature
 {
 CalculateMidPoints::CalculateMidPoints()
@@ -38,7 +36,7 @@ void CalculateMidPoints::operator()(FeatureBuilder const & ft, uint64_t pos)
   if (minScale != -1)
   {
     uint64_t const order = (static_cast<uint64_t>(minScale) << 59) | (pointAsInt64 >> 5);
-    m_vec.push_back(make_pair(order, pos));
+    m_vec.emplace_back(order, pos);
   }
 }
 
@@ -61,6 +59,6 @@ m2::PointD CalculateMidPoints::GetCenter() const
 
 void CalculateMidPoints::Sort()
 {
-  sort(m_vec.begin(), m_vec.end(), base::LessBy(&CellAndOffset::first));
+  std::sort(m_vec.begin(), m_vec.end(), base::LessBy(&CellAndOffset::first));
 }
 }  // namespace feature

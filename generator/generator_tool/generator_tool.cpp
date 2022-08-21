@@ -9,7 +9,6 @@
 #include "generator/descriptions_section_builder.hpp"
 #include "generator/dumper.hpp"
 #include "generator/feature_builder.hpp"
-#include "generator/feature_generator.hpp"
 #include "generator/feature_sorter.hpp"
 #include "generator/generate_info.hpp"
 #include "generator/isolines_section_builder.hpp"
@@ -30,7 +29,6 @@
 #include "generator/traffic_generator.hpp"
 #include "generator/transit_generator.hpp"
 #include "generator/transit_generator_experimental.hpp"
-#include "generator/translator_collection.hpp"
 #include "generator/translator_factory.hpp"
 #include "generator/unpack_mwm.hpp"
 #include "generator/utils.hpp"
@@ -41,12 +39,9 @@
 
 #include "storage/country_parent_getter.hpp"
 
-#include "indexer/classificator.hpp"
 #include "indexer/classificator_loader.hpp"
 #include "indexer/data_header.hpp"
-#include "indexer/drawing_rules.hpp"
 #include "indexer/features_offsets_table.hpp"
-#include "indexer/features_vector.hpp"
 #include "indexer/index_builder.hpp"
 #include "indexer/map_style_reader.hpp"
 #include "indexer/rank_table.hpp"
@@ -65,7 +60,6 @@
 #include <fstream>
 #include <memory>
 #include <string>
-#include <thread>
 
 #include "gflags/gflags.h"
 
@@ -632,7 +626,7 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
   if (FLAGS_dump_search_tokens)
     features_dumper::DumpSearchTokens(dataFile, 100 /* maxTokensToShow */);
 
-  if (FLAGS_dump_feature_names != "")
+  if (!FLAGS_dump_feature_names.empty())
     features_dumper::DumpFeatureNames(dataFile, FLAGS_dump_feature_names);
 
   if (FLAGS_unpack_mwm)
@@ -651,4 +645,4 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
     check_model::ReadFeatures(dataFile);
 
   return EXIT_SUCCESS;
-});
+})
