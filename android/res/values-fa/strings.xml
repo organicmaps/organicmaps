@@ -209,6 +209,8 @@
 	<string name="help">کمک</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">ﺦﺳﺎﭘ ﻭ ﺶﺳﺮﭘ</string>
+	<!-- Button in the main menu -->
+	<string name="donate">ﺪﯿﻨﮐ ﺍﺪﻫﺍ</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">چگونه از ما حمایت کنیم؟</string>
 	<!-- Button in the main Help dialog -->

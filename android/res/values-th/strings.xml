@@ -218,6 +218,8 @@
 	<string name="help">ความช่วยเหลือ</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">คำถามและคำตอบ</string>
+	<!-- Button in the main menu -->
+	<string name="donate">บริจาค</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">วิธีการสนับสนุนเรา</string>
 	<!-- Button in the main Help dialog -->

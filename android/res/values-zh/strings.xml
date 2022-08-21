@@ -224,6 +224,8 @@
 	<string name="help">帮助</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">问题和解答</string>
+	<!-- Button in the main menu -->
+	<string name="donate">捐</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">如何支持我们？</string>
 	<!-- Button in the main Help dialog -->

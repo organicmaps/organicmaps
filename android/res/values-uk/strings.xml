@@ -231,6 +231,8 @@
 	<string name="help">Допомога</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">Питання та відповіді</string>
+	<!-- Button in the main menu -->
+	<string name="donate">Пожертвувати</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">Як нас підтримати?</string>
 	<!-- Button in the main Help dialog -->

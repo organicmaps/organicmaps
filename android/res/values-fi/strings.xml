@@ -222,6 +222,8 @@
 	<string name="help">Ohje</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">Kysymykset ja vastaukset</string>
+	<!-- Button in the main menu -->
+	<string name="donate">Lahjoittaa</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">Kuinka tukea meitä?</string>
 	<!-- Button in the main Help dialog -->

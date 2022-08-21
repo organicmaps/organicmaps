@@ -221,6 +221,8 @@
 	<string name="help">Laguntza</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">Maiz galderak</string>
+	<!-- Button in the main menu -->
+	<string name="donate">Dohaintza eman</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">Nola lagundu diguzu?</string>
 	<!-- Button in the main Help dialog -->

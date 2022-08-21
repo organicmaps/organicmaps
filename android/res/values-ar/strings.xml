@@ -240,6 +240,8 @@
 	<string name="help">مساعدة</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">اسئلة مكررة</string>
+	<!-- Button in the main menu -->
+	<string name="donate">ﻉﺮﺒﺘﻳ</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">كيف يمكنك دعمنا؟</string>
 	<!-- Button in the main Help dialog -->

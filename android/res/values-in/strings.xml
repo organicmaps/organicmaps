@@ -218,6 +218,8 @@
 	<string name="help">Bantuan</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">Pertanyaan dan jawaban</string>
+	<!-- Button in the main menu -->
+	<string name="donate">Menyumbangkan</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">Bagaimana cara mendukung kami?</string>
 	<!-- Button in the main Help dialog -->

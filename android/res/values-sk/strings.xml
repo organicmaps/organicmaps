@@ -216,6 +216,8 @@
 	<string name="help">Nápoveda</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">Otázky a odpovede</string>
+	<!-- Button in the main menu -->
+	<string name="donate">Darovať</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">Ako nás podporiť?</string>
 	<!-- Button in the main Help dialog -->

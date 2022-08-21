@@ -238,6 +238,8 @@
 	<string name="help">Справка</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">Вопросы и ответы</string>
+	<!-- Button in the main menu -->
+	<string name="donate">Поддержать рублём</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">Как наc поддержать?</string>
 	<!-- Button in the main Help dialog -->

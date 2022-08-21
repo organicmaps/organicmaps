@@ -218,6 +218,8 @@
 	<string name="help">Hulp</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">Vragen en antwoorden</string>
+	<!-- Button in the main menu -->
+	<string name="donate">Doneren</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">Hoe ons te steunen?</string>
 	<!-- Button in the main Help dialog -->

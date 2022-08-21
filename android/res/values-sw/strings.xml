@@ -30,6 +30,8 @@
 	<string name="news">Habari</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">Maswali na majibu</string>
+	<!-- Button in the main menu -->
+	<string name="donate">Changia</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">Jinsi ya kutuunga mkono?</string>
 	<!-- Preference title -->

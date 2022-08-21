@@ -214,6 +214,8 @@
 	<string name="help">Hjälp</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">Frågor och svar</string>
+	<!-- Button in the main menu -->
+	<string name="donate">Donera</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">Hur stöder vi oss?</string>
 	<!-- Button in the main Help dialog -->

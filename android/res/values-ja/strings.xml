@@ -214,6 +214,8 @@
 	<string name="help">ヘルプ</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">質問と回答</string>
+	<!-- Button in the main menu -->
+	<string name="donate">寄付</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">どのように私たちを支持する方法？</string>
 	<!-- Button in the main Help dialog -->
