@@ -97,6 +97,21 @@ void StringStorageBase::SetValue(string const & key, string && value)
   Save();
 }
 
+void StringStorageBase::Update(std::map<std::string, std::string> const & values)
+{
+  lock_guard<mutex> guard(m_mutex);
+
+  for (const auto & pair: values)
+  {
+    if (pair.second.empty())
+      m_values.erase(pair.first);
+    else
+      m_values[pair.first] = pair.second;
+  }
+
+  Save();
+}
+
 void StringStorageBase::DeleteKeyAndValue(string const & key)
 {
   lock_guard<mutex> guard(m_mutex);
