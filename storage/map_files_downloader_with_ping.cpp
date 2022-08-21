@@ -8,14 +8,18 @@
 
 namespace storage
 {
-void MapFilesDownloaderWithPing::GetServersList(ServersListCallback const & callback)
+void MapFilesDownloaderWithPing::GetMetaConfig(MetaConfigCallback const & callback)
 {
   ASSERT(callback , ());
 
-  auto const urls = LoadServersList();
-  CHECK(!urls.empty(), ());
+  MetaConfig metaConfig = LoadMetaConfig();
+  CHECK(!metaConfig.m_serversList.empty(), ());
 
-  auto const sorted = Pinger::ExcludeUnavailableAndSortEndpoints(urls);
-  callback(sorted.empty() ? urls : sorted);
+  // Sort the list of servers by latency.
+  auto const sorted = Pinger::ExcludeUnavailableAndSortEndpoints(metaConfig.m_serversList);
+  // Keep the original list if all servers are unavailable.
+  if (!sorted.empty())
+    metaConfig.m_serversList = sorted;
+  callback(metaConfig);
 }
 }  // namespace storage

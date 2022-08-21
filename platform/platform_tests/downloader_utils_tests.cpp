@@ -1,6 +1,7 @@
 #include "testing/testing.hpp"
 
 #include "platform/downloader_utils.hpp"
+#include "platform/servers_list.hpp"
 #include "platform/local_country_file_utils.hpp"
 #include "platform/mwm_version.hpp"
 #include "platform/platform.hpp"
@@ -83,4 +84,40 @@ UNIT_TEST(Downloader_IsUrlSupported)
   TEST(!downloader::IsUrlSupported("diffs/Luna.mwmdiff"), ());
   TEST(!downloader::IsUrlSupported("Luna.mwmdiff"), ());
   TEST(!downloader::IsUrlSupported("Luna"), ());
+}
+
+UNIT_TEST(Downloader_ParseMetaConfig)
+{
+  std::optional<downloader::MetaConfig> cfg;
+
+  TEST((cfg = downloader::ParseMetaConfig(R"([ "https://url1/", "https://url2/" ])")), ());
+  TEST_EQUAL(cfg->m_serversList.size(), 2, ());
+  TEST_EQUAL(cfg->m_serversList[0], "https://url1/", ());
+  TEST_EQUAL(cfg->m_serversList[1], "https://url2/", ());
+
+  TEST((cfg = downloader::ParseMetaConfig(R"(
+    {
+      "servers": [ "https://url1/", "https://url2/" ],
+      "settings": {
+        "key1": "value1",
+        "key2": "value2"
+      }
+    }
+  )")), ());
+  TEST_EQUAL(cfg->m_serversList.size(), 2, ());
+  TEST_EQUAL(cfg->m_serversList[0], "https://url1/", ());
+  TEST_EQUAL(cfg->m_serversList[1], "https://url2/", ());
+  TEST_EQUAL(cfg->m_settings.size(), 2, ());
+  TEST_EQUAL(cfg->m_settings["key1"], "value1", ());
+  TEST_EQUAL(cfg->m_settings["key2"], "value2", ());
+
+  TEST(!downloader::ParseMetaConfig(R"(broken json)"), ());
+
+  TEST(!downloader::ParseMetaConfig(R"([])"), ());
+
+  TEST(!downloader::ParseMetaConfig(R"({})"), ());
+
+  TEST(!downloader::ParseMetaConfig(R"({"no_servers": "invalid"})"), ());
+
+  TEST(!downloader::ParseMetaConfig(R"({"servers": "invalid"})"), ());
 }

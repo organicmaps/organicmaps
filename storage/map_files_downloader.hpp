@@ -15,8 +15,12 @@
 #include <utility>
 #include <vector>
 
+#include "platform/servers_list.hpp"
+
 namespace storage
 {
+using downloader::MetaConfig;
+
 // This interface encapsulates HTTP routines for receiving servers
 // URLs and downloading a single map file.
 class MapFilesDownloader
@@ -24,7 +28,7 @@ class MapFilesDownloader
 public:
   // Denotes bytes downloaded and total number of bytes.
   using ServersList = std::vector<std::string>;
-  using ServersListCallback = platform::SafeCallback<void(ServersList const & serverList)>;
+  using MetaConfigCallback = platform::SafeCallback<void(MetaConfig const & metaConfig)>;
 
   virtual ~MapFilesDownloader() = default;
 
@@ -60,7 +64,7 @@ public:
 
   /// @name Legacy functions for Android resourses downloading routine.
   /// @{
-  void EnsureServersListReady(std::function<void ()> && callback);
+  void EnsureMetaConfigReady(std::function<void ()> && callback);
   std::vector<std::string> MakeUrlListLegacy(std::string const & fileName) const;
   /// @}
 
@@ -69,20 +73,20 @@ protected:
   std::vector<std::string> MakeUrlList(std::string const & relativeUrl) const;
 
   // Synchronously loads list of servers by http client.
-  ServersList LoadServersList();
+  MetaConfig LoadMetaConfig();
 
 private:
   /**
    * @brief This method is blocking and should be called on network thread.
    * Default implementation receives a list of all servers that can be asked
-   * for a map file and invokes callback on the main thread (@see ServersListCallback as SafeCallback).
+   * for a map file and invokes callback on the main thread (@see MetaConfigCallback as SafeCallback).
    */
-  virtual void GetServersList(ServersListCallback const & callback);
+  virtual void GetMetaConfig(MetaConfigCallback const & callback);
   /// Asynchronously downloads the file and saves result to provided directory.
   virtual void Download(QueuedCountry && queuedCountry) = 0;
 
-  /// @param[in]  callback  Called in main thread (@see GetServersList).
-  void RunServersListAsync(std::function<void()> && callback);
+  /// @param[in]  callback  Called in main thread (@see GetMetaConfig).
+  void RunMetaConfigAsync(std::function<void()> && callback);
 
   /// Current file downloading request for DownloadAsString.
   using RequestT = downloader::HttpRequest;
@@ -92,7 +96,7 @@ private:
   int64_t m_dataVersion = 0;
 
   /// Used as guard for m_serversList assign.
-  std::atomic_bool m_isServersListRequested = false;
+  std::atomic_bool m_isMetaConfigRequested = false;
 
   DownloadingPolicy * m_downloadingPolicy = nullptr;
 

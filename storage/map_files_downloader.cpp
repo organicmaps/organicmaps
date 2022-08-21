@@ -6,6 +6,7 @@
 #include "platform/http_client.hpp"
 #include "platform/platform.hpp"
 #include "platform/servers_list.hpp"
+#include "platform/settings.hpp"
 
 #include "coding/url.hpp"
 
@@ -24,9 +25,9 @@ void MapFilesDownloader::DownloadMapFile(QueuedCountry && queuedCountry)
 
   m_pendingRequests.Append(std::move(queuedCountry));
 
-  if (!m_isServersListRequested)
+  if (!m_isMetaConfigRequested)
   {
-    RunServersListAsync([this]()
+    RunMetaConfigAsync([this]()
     {
       m_pendingRequests.ForEachCountry([this](QueuedCountry & country)
       {
@@ -38,20 +39,21 @@ void MapFilesDownloader::DownloadMapFile(QueuedCountry && queuedCountry)
   }
 }
 
-void MapFilesDownloader::RunServersListAsync(std::function<void()> && callback)
+void MapFilesDownloader::RunMetaConfigAsync(std::function<void()> && callback)
 {
-  m_isServersListRequested = true;
+  m_isMetaConfigRequested = true;
 
   GetPlatform().RunTask(Platform::Thread::Network, [this, callback = std::move(callback)]()
   {
-    GetServersList([this, callback = std::move(callback)](ServersList const & serversList)
+    GetMetaConfig([this, callback = std::move(callback)](MetaConfig const & metaConfig)
     {
-      m_serversList = serversList;
+      m_serversList = metaConfig.m_serversList;
+      settings::Update(metaConfig.m_settings);
 
       callback();
 
       // Reset flag to invoke servers list downloading next time if current request has failed.
-      m_isServersListRequested = false;
+      m_isMetaConfigRequested = false;
     });
   });
 }
@@ -75,7 +77,7 @@ QueueInterface const & MapFilesDownloader::GetQueue() const
 void MapFilesDownloader::DownloadAsString(std::string url, std::function<bool (std::string const &)> && callback,
                                           bool forceReset /* = false */)
 {
-  EnsureServersListReady([this, forceReset, url = std::move(url), callback = std::move(callback)]()
+  EnsureMetaConfigReady([this, forceReset, url = std::move(url), callback = std::move(callback)]()
   {
     if ((m_fileRequest && !forceReset) || m_serversList.empty())
       return;
@@ -99,17 +101,17 @@ void MapFilesDownloader::DownloadAsString(std::string url, std::function<bool (s
   });
 }
 
-void MapFilesDownloader::EnsureServersListReady(std::function<void ()> && callback)
+void MapFilesDownloader::EnsureMetaConfigReady(std::function<void ()> && callback)
 {
-  /// @todo Implement logic if m_serversList is "outdated".
+  /// @todo Implement logic if m_metaConfig is "outdated".
   /// Fetch new servers list on each download request?
   if (!m_serversList.empty())
   {
     callback();
   }
-  else if (!m_isServersListRequested)
+  else if (!m_isMetaConfigRequested)
   {
-    RunServersListAsync(std::move(callback));
+    RunMetaConfigAsync(std::move(callback));
   }
   else
   {
@@ -148,7 +150,7 @@ std::vector<std::string> MapFilesDownloader::MakeUrlList(std::string const & rel
 }
 
 // static
-MapFilesDownloader::ServersList MapFilesDownloader::LoadServersList()
+MetaConfig MapFilesDownloader::LoadMetaConfig()
 {
   std::string const metaServerUrl = GetPlatform().MetaServerUrl();
   std::string httpResult;
@@ -161,15 +163,20 @@ MapFilesDownloader::ServersList MapFilesDownloader::LoadServersList()
     request.RunHttpRequest(httpResult);
   }
 
-  std::vector<std::string> urls;
-  downloader::GetServersList(httpResult, urls);
-  CHECK(!urls.empty(), ());
-  return urls;
+  std::optional<MetaConfig> metaConfig = downloader::ParseMetaConfig(httpResult);
+  if (!metaConfig)
+  {
+    metaConfig = downloader::ParseMetaConfig(GetPlatform().DefaultUrlsJSON());
+    CHECK(metaConfig, ());
+    LOG(LWARNING, ("Can't get meta configuration from request, using default servers:", metaConfig->m_serversList));
+  }
+  CHECK(!metaConfig->m_serversList.empty(), ());
+  return *metaConfig;
 }
 
-void MapFilesDownloader::GetServersList(ServersListCallback const & callback)
+void MapFilesDownloader::GetMetaConfig(MetaConfigCallback const & callback)
 {
-  callback(LoadServersList());
+  callback(LoadMetaConfig());
 }
 
 }  // namespace storage
