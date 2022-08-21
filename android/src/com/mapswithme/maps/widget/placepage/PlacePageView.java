@@ -1272,11 +1272,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
       metaLayout.setVisibility(View.GONE);
   }
 
-  public String getWikimediaLink(String wikimedia)
-  {
-    return "https://commons.wikimedia.org/wiki/" + wikimedia;
-  }
-
   public void refreshAzimuth(double northAzimuth)
   {
     if (mMapObject == null || MapObject.isOfType(MapObject.MY_POSITION, mMapObject))
@@ -1307,6 +1302,11 @@ public class PlacePageView extends NestedScrollViewClickFixed
   {
     getActivity().showPositionChooserForEditor(false, true);
   }
+
+  /// @todo
+  /// - Why ll__place_editor and ll__place_latlon check if (mMapObject == null)
+  /// - Unify urls processing: fb, twitter, instagram, .. add prefix here while
+  /// wiki, website, wikimedia, ... already have full url. Better to make it in the same way and in Core.
 
   @Override
   public void onClick(View v)
@@ -1351,8 +1351,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
         Utils.openUrl(getContext(), mTvWebsite.getText().toString());
         break;
       case R.id.ll__place_wikimedia:
-        String wikimedia_commons = mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIMEDIA_COMMONS);
-        Utils.openUrl(getContext(), getWikimediaLink(wikimedia_commons));
+        Utils.openUrl(getContext(), mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIMEDIA_COMMONS));
         break;
       case R.id.ll__place_facebook:
         final String facebookPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_FACEBOOK);
@@ -1378,12 +1377,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
           Utils.openUrl(getContext(), "https://line.me/R/ti/p/@" + linePage);
         break;
       case R.id.ll__place_wiki:
-        // TODO: Refactor and use separate getters for Wiki and all other PP meta info too.
-        if (mMapObject == null)
-        {
-          Logger.e(TAG, "Cannot follow url, mMapObject is null!");
-          break;
-        }
         Utils.openUrl(getContext(), mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIPEDIA));
         break;
       case R.id.direction_frame:
@@ -1410,6 +1403,9 @@ public class PlacePageView extends NestedScrollViewClickFixed
     fragment.setMapObject(mMapObject);
     fragment.show(getActivity().getSupportFragmentManager(), null);
   }
+
+  /// @todo Unify urls processing (fb, twitter, instagram, ...).
+  /// onLongClick behaviour differs even from onClick function several lines above.
 
   @Override
   public boolean onLongClick(View v)
@@ -1447,8 +1443,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
         items.add(mTvWebsite.getText().toString());
         break;
       case R.id.ll__place_wikimedia:
-        String wikimedia_commons = mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIMEDIA_COMMONS);
-        items.add(getWikimediaLink(wikimedia_commons));
+        items.add(mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIMEDIA_COMMONS));
         break;
       case R.id.ll__place_facebook:
         final String facebookPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_FACEBOOK);
