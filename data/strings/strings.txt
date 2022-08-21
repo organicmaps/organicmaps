@@ -5138,6 +5138,45 @@
     zh-Hans = 问题和解答
     zh-Hant = 問題和解答
 
+  [donate]
+    comment = Button in the main menu
+    tags = android
+    en = Donate
+    ar = ﻉﺮﺒﺘﻳ
+    be = Ахвяраваць
+    bg = Дарете
+    cs = Darovat
+    da = Doner
+    de = Spenden
+    el = Προσφέρω
+    es = Donar
+    eu = Dohaintza eman
+    fa = ﺪﯿﻨﮐ ﺍﺪﻫﺍ
+    fi = Lahjoittaa
+    fr = Faire un don
+    he = םוֹרתְלִ
+    hu = Adományoz
+    id = Menyumbangkan
+    it = Donare
+    ja = 寄付
+    ko = 기부
+    nb = Donere
+    nl = Doneren
+    pl = Podarować
+    pt = Doar
+    pt-BR = Doar
+    ro = Donează
+    ru = Поддержать рублём
+    sk = Darovať
+    sv = Donera
+    sw = Changia
+    th = บริจาค
+    tr = Bağış yapmak
+    uk = Пожертвувати
+    vi = Quyên tặng
+    zh-Hans = 捐
+    zh-Hant = 捐
+
   [how_to_support_us]
     comment = Button in the main Help dialog
     tags = android,ios
