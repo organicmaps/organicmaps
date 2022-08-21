@@ -216,6 +216,8 @@
 	<string name="help">Segítség</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">Kérdések és válaszok</string>
+	<!-- Button in the main menu -->
+	<string name="donate">Adományoz</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">Hogyan támogat minket?</string>
 	<!-- Button in the main Help dialog -->

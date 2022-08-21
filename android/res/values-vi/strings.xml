@@ -216,6 +216,8 @@
 	<string name="help">Trợ giúp</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">Câu hỏi và trả lời</string>
+	<!-- Button in the main menu -->
+	<string name="donate">Quyên tặng</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">Làm thế nào để hỗ trợ chúng tôi?</string>
 	<!-- Button in the main Help dialog -->

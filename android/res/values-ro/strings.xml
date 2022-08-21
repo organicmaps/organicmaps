@@ -223,6 +223,8 @@
 	<string name="help">Ajutor</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">Întrebări frecvente</string>
+	<!-- Button in the main menu -->
+	<string name="donate">Donează</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">Cum să ne sprijiniți?</string>
 	<!-- Button in the main Help dialog -->

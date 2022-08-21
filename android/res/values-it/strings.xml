@@ -221,6 +221,8 @@
 	<string name="help">Aiuto</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">Domande frequenti</string>
+	<!-- Button in the main menu -->
+	<string name="donate">Donare</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">Come sostenerci?</string>
 	<!-- Button in the main Help dialog -->

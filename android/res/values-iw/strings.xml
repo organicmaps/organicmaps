@@ -164,6 +164,8 @@
 	<string name="help">עזרה</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">תובושתו תולאש</string>
+	<!-- Button in the main menu -->
+	<string name="donate">םוֹרתְלִ</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">כיצד לתמוך בנו?</string>
 	<!-- Button in the main Help dialog -->

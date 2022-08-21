@@ -216,6 +216,8 @@
 	<string name="help">도움말</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">질문과 답변</string>
+	<!-- Button in the main menu -->
+	<string name="donate">기부</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">우리를 지원하는 방법?</string>
 	<!-- Button in the main Help dialog -->

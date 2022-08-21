@@ -217,6 +217,8 @@
 	<string name="help">Βοήθεια</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">Ερωτήσεις και απαντήσεις</string>
+	<!-- Button in the main menu -->
+	<string name="donate">Προσφέρω</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">Πώς να μας υποστηρίξετε;</string>
 	<!-- Button in the main Help dialog -->
