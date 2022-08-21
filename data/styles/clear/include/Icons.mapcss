@@ -2126,6 +2126,9 @@ node|z18-[amenity=waste_disposal],
 area|z18-[amenity=waste_disposal]
 {icon-image: waste-basket-m.svg;font-size: 11;}
 
+node|z18-[amenity=internet_cafe]
+{icon-image: internet_cafe-m.svg;}
+
 node|z18-[amenity=hunting_stand],
 area|z18-[amenity=hunting_stand]
 {icon-image: hunting-tower-m.svg;font-size: 11;text-optional: true;}
