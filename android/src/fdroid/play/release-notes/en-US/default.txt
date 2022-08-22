@@ -1,13 +1,12 @@
-• New OSM data as of July 18
-• Fixed/updated API (see omaps.app/api)
-• Fixed invisible paths/trails on some Huawei devices
-• Added missing shop types from top OSM tags
-• Minor routing improvement
-• Use min_level for 3D buildings
-• Allow removing cuisines from selection in the Editor
-• Fixed be, de, ru, uk translations
-• Fixed FB URLs validation
-• Limited bottom menu title to 3 lines
-• Show only one back arrow in bookmark search
-• Fixed padding of bookmark categories
+• New data as of August 16
+• Longer routes are calculated way faster than before
+• Search should work way better and faster now, many improvements!
+• Reduced size of mwm files
+• Fixed issue when some found objects were not highlighted on the map
+• Improved visibility of military areas and boundaries
+• Show disabled parking spaces
+• Added different sports icons
+• Render farm yard
+• Updated Arabic translations and TTS texts
+• Belarusian translations of countries
 …more: organicmaps.app/news
