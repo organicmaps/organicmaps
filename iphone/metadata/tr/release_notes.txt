@@ -1,11 +1,43 @@
-• Yeni OSM harita verileri (18 Temmuz)
-• Artık arama sonuçlarında "Açık", "... süre sonra açılıyor/kapanıyor" bilgisi gösteriliyor
-• Popüler OSM etiketlerinden bazı eksik mağaza türleri eklendi: antiques, art, baby_goods, bag, boutique, charity, cheese, craft, dairy, deli, electrical, farm, fishing, grocery, health_food, houseware, interior_decoration, kitchen, lottery, medical_supply, nutrition_supplements, paint, pastry, perfumery, second_hand, sewing, storage_rental, tobacco, trade, watches, wholesale
-• Navigasyon modunda anlık hızın yanında hız sınırı da gösteriliyor
-• Bazı rotalar için maksimum hız artık daha doğru seçiliyor
-• Artık sport=* etiketleri leisure=pitch etiketlerinden daha yüksek önceliğe sahip
-• Transit işareti mekan sayfası özellik bilgileri ile dolduruldu
-• Sonraki dönüşteki sokak hakkında daha uzun bilgi metni gösteriliyor
-• 3D yapılar için building:min_level kullanılıyor
-• Düzenleyicide mutfaklar seçimden kaldırılabiliyor
-• OSM natural=* ve amenity=events_venue türleri için eksik çeviriler eklendi
+Öne Çıkanlar:
+• Yeni harita verileri (16 Ağustos)
+• Uzun rotalar artık daha hızlı hesaplanıyor
+• Arama artık daha iyi ve daha hızlı
+• mwm (harita) dosya boyutları azaltıldı
+• WunderLINQ desteği geri geldi (evet, API hizmetimiz mevcut! omaps.app/api adresini ziyaret edin)
+
+Kullanıcı Arayüzü:
+• Birleşik Mekan Sayfası ve Düzenleyici Arayüzü düzeni
+• Yükseklik farkı, iniş ve çıkış olarak değiştirildi
+• Mekan Sayfasında POI (İÇN) seviyesi gösteriliyor
+• Sosyal medya bağlantıları Mekan Sayfası ve Düzenleyicide gösteriliyor
+• Mekan Sayfasında "süre sonra açılıyor/kapanıyor" gösteriliyor
+• Kenardaki butonlar için animasyonlar düzeltildi
+
+Navigasyon:
+• CarPlay için geliştirilmiş hız sınırı görüntüleme (aşırı hızlı için kırmızı)
+• Kavşak numaraları düzeltildi
+• Bir sonraki sokağın görünürlüğü arttırıldı
+
+Arama İyileştirmeleri:
+• Aranan bazı nesnelerin haritada vurgulanmaması sorunu düzeltildi
+• Park yolu, yol, hat, yürüyüş yolu, patika vb. gibi yaygın sokak arama eş anlamlıları kaldırıldı.
+• Arama sorgusunda yeni satır içeren koordinat aramaları düzeltildi
+• Koordinatlar için alakasız arama sonuçları kaldırıldı
+• Başkentler için daha iyi arama
+• 'Acil' kategorisi son seçenek özellik türü olarak hesaplanıyor
+• Artık arama sonuçlarında aynı seviyedeki caddeleri uygun şekilde filtreleniyor
+
+Harita Stili:
+• Askeri alan ve sınırların görünürlüğü iyileştirildi
+• Engelli park yerleri eklendi
+• Artık konut bahçeleri için simge gösterilmiyor
+• Çiftlik avlusu eklendi
+• parking_entrance eklendi
+• Oyun alanı ve internet kafe simgesi eklendi
+• second_hand ve hayır kurumları eklendi
+• table_tennis, volleyball, beachvolleyball, skateboard, chess, padel, handball, futsal, hockey, badminton, pelota eklendi
+• Simgelerden arka plan daireleri kaldırıldı
+
+Çeviriler:
+• place=* için eksik çeviriler eklendi
+• Eksik Türkçe çeviriler eklendi
