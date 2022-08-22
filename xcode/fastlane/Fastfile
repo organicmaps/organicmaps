@@ -62,6 +62,7 @@ platform :ios do
       workspace: 'omim.xcworkspace',
       scheme: 'OMaps',
       configuration: 'Release',
+      destination: 'generic/platform=iOS',
       silent: false,
       clean: false,
       include_symbols: true,
