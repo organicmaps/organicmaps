@@ -323,10 +323,14 @@ void DirectionsEngine::MakeTurnAnnotation(IndexRoadGraph::EdgeVector const & rou
     CHECK_GREATER_OR_EQUAL(loadedSegment.m_segments.size(), 1, ());
     CHECK_EQUAL(loadedSegment.m_segments.size() + 1, loadedSegment.m_path.size(), ());
 
+    auto rni = loadedSegment.m_roadNameInfo;
+
     for (size_t i = 0; i < loadedSegment.m_segments.size() - 1; ++i)
     {
       auto const & junction = loadedSegment.m_path[i + 1];
-      routeSegments.emplace_back(loadedSegment.m_segments[i], TurnItem(), junction, RouteSegment::RoadNameInfo());
+      routeSegments.emplace_back(loadedSegment.m_segments[i], TurnItem(), junction, rni);
+      if (i == 0)
+        rni = {"","","","", "", loadedSegment.m_isLink};
     }
 
     // For the last segment of current loadedSegment put info about turn
@@ -340,8 +344,7 @@ void DirectionsEngine::MakeTurnAnnotation(IndexRoadGraph::EdgeVector const & rou
     else
       --skipTurnSegments;
 
-    routeSegments.emplace_back(loadedSegment.m_segments.back(), turnItem,
-                               loadedSegment.m_path.back(), loadedSegment.m_roadNameInfo);
+    routeSegments.emplace_back(loadedSegment.m_segments.back(), turnItem, loadedSegment.m_path.back(), rni);
   }
 
   ASSERT_EQUAL(routeSegments.front().GetJunction(), result.GetStartPoint(), ());
