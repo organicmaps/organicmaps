@@ -4857,7 +4857,20 @@ cont {
 cont {
   name: "amenity-internet_cafe"
   element {
+    scale: 18
+    symbol {
+      name: "internet_cafe-m"
+      apply_for_type: 1
+      priority: 16000
+    }
+  }
+  element {
     scale: 19
+    symbol {
+      name: "internet_cafe-m"
+      apply_for_type: 1
+      priority: 16000
+    }
     caption {
       primary {
         height: 10
