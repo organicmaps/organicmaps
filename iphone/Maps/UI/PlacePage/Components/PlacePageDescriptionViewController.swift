@@ -4,7 +4,7 @@ final class PlacePageDescriptionViewController: WebViewController {
     let styleTags = """
       <head>
       <style type=\"text/css\">
-        body{font-family:'-apple-system','HelveticaNeue'; font-size:\(14 * scale); line-height:1.5em;}
+        body{font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif, "Apple Color Emoji"; font-size:\(14 * scale); line-height:1.5em;}
       </style>
       </head>
       <body>

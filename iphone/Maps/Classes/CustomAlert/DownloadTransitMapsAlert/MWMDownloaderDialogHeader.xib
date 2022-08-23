@@ -20,7 +20,7 @@
                         <constraint firstAttribute="width" constant="160" id="4WE-p5-RdF"/>
                         <constraint firstAttribute="height" constant="16" id="FQE-Zk-gXr"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="textColor" red="0.0977349653840065" green="0.0977320596575737" blue="0.09773370623588562" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                     <userDefinedRuntimeAttributes>
@@ -53,7 +53,7 @@
                         <constraint firstAttribute="height" constant="16" id="7Hg-8z-e56"/>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="64" id="hct-Jz-zGl"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="textColor" red="0.0977349653840065" green="0.0977320596575737" blue="0.09773370623588562" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                     <userDefinedRuntimeAttributes>
