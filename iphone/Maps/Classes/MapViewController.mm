@@ -399,7 +399,10 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
   return NO;
 }
 - (UIStatusBarStyle)preferredStatusBarStyle {
-  return [self.controlsManager preferredStatusBarStyle];
+  MWMMapViewControlsManager * manager = self.controlsManager;
+  if (manager)
+    return manager.preferredStatusBarStyle;
+  return UIStatusBarStyleDefault;
 }
 
 - (void)updateStatusBarStyle {
@@ -613,7 +616,10 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 #pragma mark - Properties
 
 - (MWMMapViewControlsManager *)controlsManager {
-  NSAssert(self.isViewLoaded, @"Load the view first");
+  if (!self.isViewLoaded) {
+    // TODO: Returns nil when called from MapViewController.preferredStatusBarStyle.
+    return nil;
+  }
   if (!_controlsManager)
     _controlsManager = [[MWMMapViewControlsManager alloc] initWithParentController:self];
   return _controlsManager;
