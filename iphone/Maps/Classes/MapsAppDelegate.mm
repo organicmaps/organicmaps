@@ -336,8 +336,6 @@ using namespace osm_auth_ios;
   auto obj = [(UINavigationController *)self.window.rootViewController viewControllers].firstObject;
   if ([obj isKindOfClass:[MapViewController class]])
     return obj;
-
-  NSAssert(false, @"Please check the logic");
   return nil;
 }
 
