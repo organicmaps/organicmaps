@@ -55,6 +55,16 @@ public class MenuBottomSheetFragment extends BottomSheetDialogFragment
     this.menuBottomSheetItems = new ArrayList<>();
   }
 
+  // https://stackoverflow.com/questions/51831053/could-not-find-fragment-constructor
+  public MenuBottomSheetFragment()
+  {
+    this.title = null;
+    this.headerFragment = null;
+    /// @todo Make an empty list as in ctor above. Can we leave it null and don't create MenuAdapter?
+    /// What is the reason of MenuAdapter with empty items list?
+    this.menuBottomSheetItems = new ArrayList<>();
+  }
+
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState)
   {
