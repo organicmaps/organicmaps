@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.Surface;
@@ -153,7 +154,7 @@ public class MapFragment extends BaseMwmFragment
   @Override
   public void surfaceCreated(SurfaceHolder surfaceHolder)
   {
-  /*
+
     if (isThemeChangingProcess())
     {
       Logger.d(TAG, "Activity is being recreated due theme changing, skip 'surfaceCreated' callback");
@@ -210,7 +211,7 @@ public class MapFragment extends BaseMwmFragment
     if (mMapRenderingListener != null)
       mMapRenderingListener.onRenderingCreated();
 
- */
+
   }
 
   @Override
@@ -336,6 +337,7 @@ public class MapFragment extends BaseMwmFragment
   @Override
   public boolean onTouch(View view, MotionEvent event)
   {
+    Log.i("MOTION EVENT",event.toString());
     final int count = event.getPointerCount();
 
     if (count == 0)

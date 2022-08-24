@@ -107,6 +107,9 @@ public class HelloWorldScreen extends Screen implements SurfaceCallback
       return;
     }
 
+
+    MapFragment.nativeDetachSurface(true);
+
     if (MapFragment.nativeIsEngineCreated())
     {
       if (!MapFragment.nativeAttachSurface(surface))
