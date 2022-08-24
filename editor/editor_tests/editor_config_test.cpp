@@ -21,6 +21,7 @@ UNIT_TEST(EditorConfig_TypeDescription)
     EType::FMD_CONTACT_INSTAGRAM,
     EType::FMD_CONTACT_TWITTER,
     EType::FMD_CONTACT_VK,
+    EType::FMD_CONTACT_LINE,
   };
 
   pugi::xml_document doc;

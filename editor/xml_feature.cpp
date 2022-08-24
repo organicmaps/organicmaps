@@ -3,6 +3,7 @@
 #include "indexer/classificator.hpp"
 #include "indexer/editable_map_object.hpp"
 #include "indexer/ftypes_matcher.hpp"
+#include "indexer/validate_and_format_contacts.hpp"
 
 #include "coding/string_utf8_multilang.hpp"
 
@@ -606,7 +607,10 @@ XMLFeature ToXML(osm::EditableMapObject const & object, bool serializeType)
 
   object.ForEachMetadataItem([&toFeature](string_view tag, string_view value)
   {
-    toFeature.SetTagValue(tag, value);
+    if (osm::isSocialContactTag(tag) && value.find('/') != std::string::npos)
+      toFeature.SetTagValue(tag, osm::socialContactToURL(tag, value));
+    else
+      toFeature.SetTagValue(tag, value);
   });
 
   return toFeature;

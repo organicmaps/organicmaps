@@ -337,6 +337,15 @@ bool EndsWith(std::string const & s1, char const * s2)
   return (s1.compare(n - m, m, s2) == 0);
 }
 
+bool EndsWith(std::string const & s1, std::string_view s2)
+{
+  size_t const n = s1.size();
+  size_t const m = s2.size();
+  if (n < m)
+    return false;
+  return (s1.compare(n - m, m, s2) == 0);
+}
+
 bool EndsWith(std::string const & s, std::string::value_type c)
 {
   return s.empty() ? false : s.back() == c;

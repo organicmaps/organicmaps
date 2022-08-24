@@ -597,6 +597,7 @@ bool StartsWith(std::string const & s1, std::string const & s2);
 
 bool EndsWith(UniString const & s1, UniString const & s2);
 bool EndsWith(std::string const & s1, char const * s2);
+bool EndsWith(std::string const & s1, std::string_view s2);
 bool EndsWith(std::string const & s, std::string::value_type c);
 bool EndsWith(std::string const & s1, std::string const & s2);
 

@@ -72,7 +72,6 @@ public final class Editor
   public static native String nativeGetMetadata(int id);
   public static native boolean nativeIsMetadataValid(int id, String value);
   public static native void nativeSetMetadata(int id, String value);
-
   public static native String nativeGetOpeningHours();
   public static native void nativeSetOpeningHours(String openingHours);
   public static String nativeGetPhone()

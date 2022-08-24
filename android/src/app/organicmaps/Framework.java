@@ -335,12 +335,11 @@ public class Framework
 
   public static native boolean nativeIsIsolinesLayerEnabled();
 
-  public static native void nativeSetGuidesLayerEnabled(boolean enabled);
-
-  public static native boolean nativeIsGuidesLayerEnabled();
-
   @NonNull
   public static native MapObject nativeDeleteBookmarkFromMapObject();
+
+  @NonNull
+  public static native String nativeGetPoiContactUrl(int metadataType);
 
   public static native void nativeZoomToPoint(double lat, double lon, int zoom, boolean animate);
 

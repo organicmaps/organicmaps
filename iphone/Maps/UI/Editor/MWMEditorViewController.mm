@@ -26,6 +26,7 @@
 #import <CoreApi/StringUtils.h>
 
 #include "platform/localization.hpp"
+#include "indexer/validate_and_format_contacts.hpp"
 
 namespace
 {
@@ -416,10 +417,15 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
                       icon:(NSString * _Nonnull)icon
                placeholder:(NSString * _Nonnull)name
 {
+  MetadataID metaId = static_cast<MetadataID>(cellID);
+  NSString* value = ToNSString(m_mapObject.GetMetadata(metaId));
+  if (osm::isSocialContactTag(metaId) && [value containsString:@"/"])
+    value = ToNSString(osm::socialContactToURL(metaId, [value UTF8String]));
+
   MWMEditorTextTableViewCell * tCell = static_cast<MWMEditorTextTableViewCell *>(cell);
   [tCell configWithDelegate:self
                        icon:[UIImage imageNamed:icon]
-                       text:ToNSString(m_mapObject.GetMetadata(static_cast<MetadataID>(cellID)))
+                       text:value
                 placeholder:name
                keyboardType:UIKeyboardTypeDefault
              capitalization:UITextAutocapitalizationTypeSentences];
@@ -660,6 +666,14 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
                       cellID:cellID
                         icon:@"ic_placepage_vk"
                  placeholder:L(@"vk")];
+    break;
+  }
+  case MetadataID::FMD_CONTACT_LINE:
+  {
+    [self configTextViewCell:cell
+                      cellID:cellID
+                        icon:@"ic_placepage_line"
+                 placeholder:L(@"line")];
     break;
   }
   case MWMEditorCellTypeNote:
