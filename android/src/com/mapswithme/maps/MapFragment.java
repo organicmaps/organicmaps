@@ -153,7 +153,9 @@ public class MapFragment extends BaseMwmFragment
 
   @Override
   public void surfaceCreated(SurfaceHolder surfaceHolder)
-  {
+  {  if(nativeIsEngineCreated()){
+    nativeDetachSurface(true);
+  }
 
     if (isThemeChangingProcess())
     {

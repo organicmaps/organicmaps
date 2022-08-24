@@ -69,9 +69,14 @@ public class HelloWorldScreen extends Screen implements SurfaceCallback
     Action zoomOut = new Action.Builder().setIcon(new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_zoom_out)).build())
                                          .setOnClickListener(this::zoomOut)
                                          .build();
+
+    Action openMic = new Action.Builder().setIcon(new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_booking)).build())
+                                         .setOnClickListener(this::zoomOut)
+                                         .build();
+
     ActionStrip mapActionStrip = new ActionStrip.Builder().addAction(zoomIn)
                                                           .addAction(zoomOut)
-                                                          .addAction(panAction)
+                                                          .addAction(panAction).addAction(openMic)
                                                           .build();
     builder.setMapActionStrip(mapActionStrip);
     builder.setActionStrip(actionStripBuilder.build());
@@ -108,7 +113,11 @@ public class HelloWorldScreen extends Screen implements SurfaceCallback
     }
 
 
-    MapFragment.nativeDetachSurface(true);
+
+   if (MapFragment.nativeIsEngineCreated()){
+     MapFragment.nativeDetachSurface(true);
+   }
+
 
     if (MapFragment.nativeIsEngineCreated())
     {
