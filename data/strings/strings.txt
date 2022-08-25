@@ -6065,6 +6065,7 @@
     ar = يمكن فقط إنشاء المسارات التي توجد بشكل كامل ضمن خريطة دولة واحدة.
     be = Маршруты могуць быць пракладзены толькі ў межах карты аднаго рэгіёна.
     bg = Могат да се създават само маршрути, които са изцяло в рамките на картата на един регион.
+    ca = Només es poden crear rutes que pertanyin totalment al mapa d'una sola regió.
     cs = Lze vytvářet jen takové trasy, které se nachází na území jediné mapy.
     da = Ruter kan kun oprettes, hvis de er fuldt indeholdt i ét enkelt kort.
     de = Es können nur Routen erstellt werden, die vollständig in einer einzigen Karte enthalten sind.
@@ -6104,6 +6105,7 @@
     ar = تنزيل الخريطة
     be = Спампаваць мапу
     bg = Изтегляне на карта
+    ca = Baixeu el mapa
     cs = Stáhnout mapu
     da = Download kortet
     de = Karte herunterladen
@@ -6143,6 +6145,7 @@
     ar = المحاولة مجدداً
     be = Паспрабаваць зноў
     bg = Повторно
+    ca = Torna-hi
     cs = Opakovat
     da = Gentag
     de = Wiederholen
@@ -6181,6 +6184,7 @@
     ar = حذف الخريطة
     be = Выдаліць мапу
     bg = Изтриване на карта
+    ca = Esborra mapa
     cs = Smazat mapu
     da = Slet kort
     de = Karte löschen
@@ -6220,6 +6224,7 @@
     ar = تحديث الخريطة
     be = Абнавіць мапу
     bg = Обнояване на карта
+    ca = Actualitza mapa
     cs = Aktualizovat mapu
     da = Opdater kort
     de = Karte aktualisieren
@@ -6335,6 +6340,7 @@
     ar = استخدام خدمات Google Play لتحديد موقعك الحالي
     be = Ужываць службы Google Play для вызначэння месцазнаходжання
     bg = Използвайте услугите на Google Play, за да определите текущото си местоположение
+    ca = Utilitzar els serveis de Google Play per obtenir la teva ubicació actual
     cs = Používat Služby Google Play pro získání aktuální polohy
     da = Anvend Google Play Services til at få din aktuelle placering
     de = Nutzen Sie die Google Play-Dienste, um Ihren aktuellen Standort zu erhalten
@@ -6373,6 +6379,7 @@
     ar = تنزيل الخرائط على طول طريقك
     be = Спампаваць усе мапы на вашым шляху
     bg = Изтегляне на всички карти по вашия маршрут
+    ca = Baixa't tots els mapes de la teva ruta
     cs = Stahovat mapy podél cesty
     da = Download kort på vejen
     de = Karten entlang der Route herunterladen
