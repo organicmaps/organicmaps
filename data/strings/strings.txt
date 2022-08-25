@@ -1182,6 +1182,7 @@
     ar = تنزيل %@. يمكنك الآن\nالمتابعة الى الخريطة.
     be = Спампоўваецца %@. Можаце зараз\nперайсці да мапы.
     bg = Изтегляне на %@. Вече можете да преминете към картата.
+    ca = S'està baixant %@. Mentrestant, podeu\nanar al mapa.
     cs = Stahování %@. Nyní můžete\npřejít na mapu.
     da = Downloader %@. Du kan nu\nfortsætte til kortet.
     de = %@ wird heruntergeladen. Sie können jetzt\nzur Karte weitergehen.
@@ -1220,6 +1221,7 @@
     ar = هل تريد تنزيل %@؟
     be = Спампаваць %@?
     bg = Изтегляне на %@?
+    ca = Voleu baixar %@?
     cs = Stáhnout %@?
     da = Download %@?
     de = %@ herunterladen?
@@ -1258,6 +1260,7 @@
     ar = هل تريد تحديث %@ ؟
     be = Абнавіць %@?
     bg = Обновяване на %@?
+    ca = Voleu actualitzar %@?
     cs = Aktualizovat %@?
     da = Opdater %@?
     de = %@ aktualisieren?
@@ -1297,6 +1300,7 @@
     ar = توقيف مؤقت
     be = Прыпыніць
     bg = Пауза
+    ca = Pausa
     cs = Pauza
     da = Pause
     de = Pause
@@ -1336,6 +1340,7 @@
     ar = استمرار
     be = Працягнуць
     bg = Възобновяване
+    ca = Continua
     cs = Pokračovat
     da = Fortsæt
     de = Fortfahren
@@ -1375,6 +1380,7 @@
     ar = فشلت عملية تنزيل %@
     be = Спампаваць %@ не ўдалося
     bg = Изтеглянето на %@ се провали
+    ca = La baixada de %@ ha fallat
     cs = Stahování selhalo: %@
     da = %@ download mislykkedes
     de = %@ Herunterladen fehlgeschlagen
@@ -1414,6 +1420,7 @@
     ar = إضافة قائمة جديدة
     be = Дадаць новы спіс
     bg = Добавяне на нова група
+    ca = Afegeix una llista nova
     cs = Přidat novou skupinu záložek
     da = Tilføj nyt sæt
     de = Neue Gruppe hinzufügen
@@ -1454,6 +1461,7 @@
     ar = لون الإشارة المرجعية
     be = Колер закладкі
     bg = Цвят на отметка
+    ca = Color del marcador
     cs = Barva záložky
     da = Bogmærke Farve
     de = Lesezeichenfarbe
@@ -1493,6 +1501,7 @@
     ar = اسم قائمة الإشارات المرجعية
     be = Назва спісу закладак
     bg = Име на група
+    ca = Nom de la llista de marcadors
     cs = Název záložky
     da = Indstil bogmærkenavn
     de = Name des Lesezeichens
@@ -1530,6 +1539,7 @@
     en = Bookmark Lists
     ar = قائمة الإشارات المرجعية
     be = Спісы закладак
+    ca = Llistes de marcadors
     cs = Skupiny záložek
     da = Bogmærk sæt
     de = Lesezeichenmappe
@@ -1568,6 +1578,7 @@
     ar = الإشارات المرجعية
     be = Закладкі
     bg = Отметки
+    ca = Marcadors
     cs = Záložky
     da = Bogmærker
     de = Lesezeichen
@@ -1607,6 +1618,7 @@
     ar = أماكني
     be = Мае месцы
     bg = Мои места
+    ca = Els meus llocs
     cs = Moje místa
     da = Mine Steder
     de = Meine Orte
@@ -1646,6 +1658,7 @@
     ar = الاسم
     be = Назва
     bg = Име
+    ca = Nom
     cs = Název
     da = Navn
     de = Name
@@ -1685,6 +1698,7 @@
     ar = العنوان
     be = Адрас
     bg = Адрес
+    ca = Adreça
     cs = Adresa
     da = Adresse
     de = Adresse
@@ -1724,6 +1738,7 @@
     ar = قائمة
     be = Спіс
     bg = Списък
+    ca = Llista
     cs = Seznam
     da = Liste
     de = Liste
@@ -1763,6 +1778,7 @@
     ar = الإعدادات
     be = Налады
     bg = Настройки
+    ca = Configuració
     cs = Nastavení
     da = Indstillinger
     de = Einstellungen
@@ -1802,6 +1818,7 @@
     ar = مكان تخزين الخرائط
     be = Захаваць мапы ў
     bg = Запаметяване на карти в
+    ca = Desa els mapes a
     cs = Uložit mapy na
     da = Gem kort på
     de = Karten speichern auf
@@ -1841,6 +1858,7 @@
     ar = اختر المكان الذي ينبغي تنزيل الخرائط إليه.
     be = Выберыце месца, дзе захоўваць запампаваныя мапы
     bg = Изберете мястото, където картите трябва да се изтеглят
+    ca = Indiqueu la ubicació on s'han de desar els mapes
     cs = Vyberte místo, kam by měly být mapy stahovány
     da = Vælg destination hvor dine kort skal downloades til
     de = Wählen Sie den Speicherort für die heruntergeladenen Karten
@@ -1880,6 +1898,7 @@
     ar = الخرائط المنزلة
     be = Мапы
     bg = Карти
+    ca = Mapes baixats
     cs = Mapy
     da = Kort
     de = Karten
@@ -1917,6 +1936,7 @@
     en = Internal private storage
     ar = وحدة التخزين الداخلية الخاصة
     be = Унутранае прыватнае сховішча
+    ca = Emmagatzematge privat intern
     de = Interner persönlicher Speicher
     fr = Stockage interne privé
     pt-BR = Armazenamento interno privado
@@ -1931,6 +1951,7 @@
     ar = وحدة التخزين الداخلية المشتركة
     be = Унутранае абагуленае сховішча
     de = Interner gemeinsamer Speicher
+    ca = Emmagatzematge compartit intern
     fr = Stockage interne partagé
     pt-BR = Armazenamento interno compartilhado
     ru = Внутренний общий накопитель
@@ -1943,6 +1964,7 @@
     en = SD card
     ar = بطاقة الذاكرة
     be = SD-карта
+    ca = Targeta SD
     de = SD-Karte
     fr = Carte SD
     pt-BR = Cartão SD
@@ -1956,6 +1978,7 @@
     en = External shared storage
     ar = وحدة تخزين خارجية مشتركة
     be = Знешняе абагульнае сховішча
+    ca = Emmagatzematge compartit extern
     de = Externer gemeinsamer Speicher
     fr = Stockage externe partagé
     pt-BR = Armazenamento externo compartilhado
@@ -1969,6 +1992,7 @@
     en = %1$@ free of %2$@
     ar = %1$@ فارغ من %2$@
     be = %1$@ вольна з %2$@
+    ca = %1$@ lliures de %2$@
     de = %1$@ frei von %2$@
     fr = %1$@ libres sur %2$@
     pt-BR = %1$@ livre de %2$@
@@ -1983,6 +2007,7 @@
     ar = هل تريد نقل الخرائط؟
     be = Перамясціць мапы?
     bg = Преместване на карти?
+    ca = Voleu moure els mapes?
     cs = Přesunout mapy?
     da = Flyt kort?
     de = Karten verschieben?
@@ -2020,6 +2045,7 @@
     tags = android
     en = Error moving map files
     ar = فشلت عملية نقل ملفات الخرائط
+    ca = S'ha produït un error en moure els fitxers de mapes
     de = Fehler beim Verschieben der Karten
     fr = Erreur lors du déplacement des cartes
     pt-BR = Erro ao mover arquivos de mapas
@@ -2033,6 +2059,7 @@
     ar = يمكن أن تستغرق هذه العملية عدة دقائق.\nالرجاء الانتظار…
     be = Гэта можа заняць некальмі хвілін.\nКалі ласка, пачакайце…
     bg = Това може да отнеме няколко минути.\nМоля изчакайте…
+    ca = Això pot trigar uns minuts.\nEspereu…
     cs = Tato akce může trvat několik minut.\nProsím čekejte…
     da = Dette kan tage flere minutter.\nVent venligst…
     de = Dies kann einige Minuten in Anspruch nehmen.\nBitte warten…
@@ -2072,6 +2099,7 @@
     ar = وحدات القياس
     be = Адзінкі вымярэння
     bg = Мерни единици
+    ca = Unitats de mesura
     cs = Měřicí jednotky
     da = Måleenhed
     de = Maßeinheiten
@@ -2112,6 +2140,7 @@
     ar = اختر من بين الأميال و الكيلومترات.
     be = Ужываць кіламетры альбо мілі
     bg = Изберете между километри или мили
+    ca = Trieu entre milles i quilòmetres
     cs = Vyberte si míle nebo kilometry
     da = Vælg mellem mil eller kilometer
     de = Wählen Sie zwischen Kilometern und Meilen
@@ -2153,6 +2182,7 @@
     ar = أمكان لتناول الطعام
     be = Дзе паесці
     bg = Места за хапване
+    ca = On menjar
     cs = Kde se najíst
     da = Spisesteder
     de = Essmöglichkeiten
@@ -2192,6 +2222,7 @@
     ar = بقالية
     be = Прадукты
     bg = Продукти
+    ca = Alimentació
     cs = Potraviny
     da = Dagligvarer
     de = Lebensmittel
@@ -2231,6 +2262,7 @@
     ar = مواصلات
     be = Транспарт
     bg = Транспорт
+    ca = Transport
     cs = Doprava
     da = Transport
     de = Verkehr
@@ -2272,6 +2304,7 @@
     be = Запраўка
     bg = Гориво
     cs = Čerpací stanice
+    ca = Gasolinera
     da = Benzin
     de = Tankstelle
     el = Βενζίνη
@@ -2310,6 +2343,7 @@
     ar = مرافق ركن السيارات
     be = Паркоўка
     bg = Паркинг
+    ca = Aparcament
     cs = Parkoviště
     da = Parkering
     de = Parkplatz
@@ -2349,6 +2383,7 @@
     ar = تسوق
     be = Закупы
     bg = Шопинг
+    ca = Compres
     cs = Nákupy
     da = Indkøb
     de = Shopping
@@ -2388,6 +2423,7 @@
     ar = فندق
     be = Гатэль
     bg = Хотел
+    ca = Hotel
     cs = Hotel
     da = Hotel
     de = Hotel
@@ -2427,6 +2463,7 @@
     ar = سياحة
     be = Славутасці
     bg = Забележителности
+    ca = Turisme
     cs = Pamětihodnost
     da = Seværdigheder
     de = Sehenswürdigkeit
@@ -2466,6 +2503,7 @@
     ar = تسلية
     be = Забавы
     bg = Развлечения
+    ca = Entreteniment
     cs = Zábava
     da = Underholdning
     de = Unterhaltung
@@ -2505,6 +2543,7 @@
     ar = صراف آلي
     be = Банкамат
     bg = Банкомат
+    ca = Caixer automàtic
     cs = Bankomat
     da = Hæveautomat
     de = Geldautomat
@@ -2544,6 +2583,7 @@
     ar = أنشطة ترفيه ليلية
     be = Начное жыццё
     bg = Нощен живот
+    ca = Vida nocturna
     cs = Noční život
     da = Natteliv
     de = Nachtleben
@@ -2583,6 +2623,7 @@
     ar = عطلة عائلية
     be = Сямейны адпачынак
     bg = Семейна почивка
+    ca = Oci familiar
     cs = Dovolená s dětmi
     da = Familieferie
     de = Freizeit mit Kindern
@@ -2622,6 +2663,7 @@
     ar = بنك
     be = Банк
     bg = Банка
+    ca = Banc
     cs = Banka
     da = Bank
     de = Bank
@@ -2661,6 +2703,7 @@
     ar = صيدلية
     be = Аптэка
     bg = Аптека
+    ca = Farmàcia
     cs = Lékárna
     da = Apotek
     de = Apotheke
@@ -2700,6 +2743,7 @@
     ar = مستشفى
     be = Лякарня
     bg = Болница
+    ca = Hospital
     cs = Nemocnice
     da = Hospital
     de = Krankenhaus
@@ -2740,6 +2784,7 @@
     ar = مرحاض
     be = Прыбіральня
     bg = Тоалетна
+    ca = Lavabos
     cs = Záchody
     da = Toilet
     de = Toilette
@@ -2779,6 +2824,7 @@
     ar = بريد
     be = Пошта
     bg = Поща
+    ca = Oficina postal
     cs = Pošta
     da = Post
     de = Post
@@ -2818,6 +2864,7 @@
     ar = شرطة
     be = Паліцыя
     bg = Полиция
+    ca = Policia
     cs = Policie
     da = Politi
     de = Polizeistation
@@ -2857,6 +2904,7 @@
     ar = إنترنت لا سلكي
     be = WiFi
     bg = WiFi
+    ca = WiFi
     cs = WiFi
     da = WiFi
     de = WLAN
@@ -2894,6 +2942,7 @@
     ar = إعادة تدوير
     be = Перапрацоўка
     bg = Рециклиране
+    ca = Reciclatge
     cs = Recyklace
     da = Genbrug
     de = Recycling
@@ -2933,6 +2982,7 @@
     ar = ماء
     be = Вада
     bg = Вода
+    ca = Aigua
     cs = Voda
     da = Vand
     de = Wasser
@@ -2973,6 +3023,7 @@
     en = RV Facilities
     ar = منشآت للمنازل المتنقلة
     be = Для аўтадамоў
+    ca = Caravanes
     de = Einrichtungen für Wohnmobile
     es = Caravanas
     eu = Karabanak
@@ -2989,6 +3040,7 @@
     ar = ملاحظات
     be = Нататкі
     bg = Бележки
+    ca = Notes
     cs = Poznámky
     da = Noter
     de = Notizen
@@ -3028,6 +3080,7 @@
     ar = تم مشاركة إشارات Organic Maps المرجعية معك
     be = З вамі падзяліліся закладкамі Ogranic Maps
     bg = Споделени са с вас отметки за Organic Maps
+    ca = Marcadors d'Organic Maps compartits
     cs = Sdílené záložky Organic Maps
     da = Organic Maps bogmærker er blevet delt med dig
     de = Organic Maps-Lesezeichen mit Ihnen geteilt
@@ -3064,6 +3117,7 @@
     en = Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!
     ar = مرحباً! ْ\n\n تم إرفاق إشاراتي المرجعية من تطبيق Organic Maps. الرجاء فتحهم إذا لديك تطبيق Organic Maps مثبتاً. أو، إذا لم يكن مثبتاً، قم بتنزيل التطبيق لنظام iOS أو أندرويد من خلال الضغط على هذا الرابط: https://omaps.app/get?kmz \n\nاستمتع بالسفر مع Organic Maps!
     be = Вітаю!\n\nУ далучаным файле мае закладкі з дататка Organic Maps. Калі ласка, адчыніце іх калі ў вас усталяваны Organic Maps. Калі не, спампуйце дадатак для вашай прылады iOS альбо Andriod па спасылцы: https://omaps.app/get?kmz\n\nПрыемных падарожжаў з Organic Maps!
+    ca = Hola!\n\nAdjunto els meus marcadors de l'aplicació Organic Maps. Obriu-los si teniu l'Organic Maps instal·lat. O, si no teniu l'aplicació, baixeu-la per al vostre aparell iOS o Android seguint aquest enllaç: https://omaps.app/get?kmz\n\nGaudiu viatjant amb l'Organic Maps!
     de = Hallo!\n\nIm Anhang sind meine Lesezeichen der Organic Maps App. Sie können sie mit Organic Maps öffnen. Wenn Sie die App nicht installiert haben, können Sie sie von https://omaps.app/get?kmz für iOS oder Android herunterladen.\n\nViel Spaß beim Reisen mit Organic Maps!
     es = Hola!\n\Adjunto mis marcadores de la aplicación Organic Maps. Por favor, ábrelos si tienes instalado Organic Maps. O, si no lo tienes, descarga la aplicación para tu dispositivo iOS o Android siguiendo este link: https://omaps.app/get?kmz\n¡Disfruta viajando con Organic Maps!
     eu = Kaixo!\nNire markatzaileak Mapak organikoak aplikaziotik erantsi ditut. Mesedez, ireki itzazu Organic Maps instalatuta baduzu. Edo, ez baduzu, deskargatu aplikazioa zure iOS edo Android gailurako esteka hau jarraituz: https://omaps.app/get?kmz\n\nGozatu bidaiatzen Organic Maps-ekin!
@@ -3086,6 +3140,7 @@
     ar = يتم تحميل الإشارات المرجعية
     be = Загрузка закладак
     bg = Зареждане на отметки
+    ca = S'estan carregant els marcadors
     cs = Nahrávání záložek
     da = Indlæser Bogmærker
     de = Lesezeichen werden geladen
@@ -3125,6 +3180,7 @@
     ar = تم تحميل الإشارات المرجعية بنجاح! يمكنك العثور عليها على الخريطة أو على شاشة إدارة الإشارات المرجعية.
     be = Закладкі паспяхова загружаны! Вы можаце іх убачыць на мапе альбо ў захаваных закладках.
     bg = Отметките са заредени успешно! Можете да ги откриете на картата или при секцията с отметки.
+    ca = Els marcadors s'han carregat correctament! Podeu trobar-los en el mapa o en la pantalla de gestió de marcadors.
     cs = Záložky byly úspěšně nahrány! Naleznete je na mapě nebo ve správci záložek.
     da = Bogmærkerne er indlæst! Du kan nu finde dem på kortet eller i Bogmærke Manager sektionen.
     de = Lesezeichen erfolgreich geladen! Sie können diese nun auf Ihrer Karte oder im Lesezeichen-Manager anzeigen.
@@ -3164,6 +3220,7 @@
     ar = فشلت عملية تحميل الإشارات المرجعية. قد يكون الملف تالف أو غير صالح.
     be = Не атрамалася запампаваць закладкі. Файл можа быць пашкоджаны альбо дэфектыўны.
     bg = Качването на отметките се провали. Файлът може да бъде повреден или дефектен.
+    ca = No s'ha pogut carregar els marcadors. El fitxer pot ser malmès o defectuós.
     cs = Nahrávání záložek se nezdařilo. Soubor může být poškozený nebo vadný.
     da = Bogmærkerne kunne ikke indlæses. Fil kan være skadet eller defekte.
     de = Laden der Lesezeichen fehlgeschlagen. Die Datei könnte beschädigt oder defekt sein.
@@ -3203,6 +3260,7 @@
     ar = تعديل
     be = Правіць
     bg = Редакция
+    ca = Edita
     cs = Upravit
     da = Rediger
     de = Bearbeiten
@@ -3241,6 +3299,7 @@
     ar = لم يتم تحديد موقعك بعد.
     be = Ваша месцазнаходжанне пакуль не вызначана
     bg = Местоположението ви още не е определено
+    ca = Encara no s'ha pogut determinar la vostra geolocalització
     cs = Vaše poloha zatím nebyla určena
     da = Din lokation er ikke blevet bestemt endnu
     de = Ihr Standort konnte noch nicht ermittelt werden
@@ -3280,6 +3339,7 @@
     ar = نأسف، اعدادات تخزين الخرائط معطلة حالياً.
     be = Прабачце, налады сховішча мапаў зараз недасягальныя.
     bg = Съжаляваме, но настройките за съхранение на карти в момента са деактивирани.
+    ca = La configuració de l'emmagatzematge del mapes està desactivada.
     cs = Omlouváme se, nastavení uložení map je dočasně nedostupné.
     da = Beklager, Kort Lagring er ikke slået til i indstillinger.
     de = Leider sind die Einstellungen für die Kartenspeicherung deaktiviert.
@@ -3319,6 +3379,7 @@
     ar = جاري الآن تنزيل الخريطة
     be = Мапы спампоўваюцца.
     bg = Изтеглянето на картата вече е в ход.
+    ca = La baixada del mapa és en curs.
     cs = Právě probíhá stahování země.
     da = Download af kort over land er i gang nu.
     de = Die Karte wird heruntergeladen.
@@ -3358,6 +3419,7 @@
     ar = مرحباً، تفقد الموقع الخاص بي على Organic Maps! %1$@ أو %2$@. ليس لديك أي خرائط تعمل بدون الاتصال مع الانترنت مثبتة على جهازك؟ قم بتحميلها من هنا: https://omaps.app/get
     be = Гэй, глядзі дзе я зараз на мапе! %1$@ альбо %2$@ Няма офлайн-мапаў? Спампуй тут: https://omaps.app/get
     bg = Хей, виж текущото ми местоположение в Organic Maps! %1$@ или %2$@
+    ca = Mira la meva ubicació en l'Organic Maps! %1$@ o %2$@ No teniu mapes sense connexió? Baixeu-los aquí: https://omaps.app/get
     cs = Koukni kde jsem. Otevři odkaz: %1$@ nebo %2$@
     da = Hey, tjek min nuværende lokation ud på Organic Maps! %1$@ or %2$@. Har du ikke offline kort? Download her: https://omaps.app/get
     de = Hey, sieh dir meinen aktuellen Standort auf Organic Maps an! %1$@ oder %2$@ Keine Offline-Karten installiert? Hier herunterladen: https://omaps.app/get
@@ -3396,6 +3458,7 @@
     ar = مرحباً، تفقد الدبوس الخاص بي على خريطة Organic Maps!
     be = Гэй, глядзі маю метку на Organic Maps!
     bg = Хей, виж какво съм отбелязал в Organic Maps!
+    ca = Ep, mireu el meu marcador a l'Organic Maps!
     cs = Koukni na moji značku na mapě v Organic Maps
     da = Hey, tjek min knappenål på Organic Maps kortet ud!
     de = Hey, sieh dir meine Stecknadel auf der Organic Maps-Karte an!
@@ -3434,6 +3497,7 @@
     ar = مرحباً، تحقق من موقعي الحالي على خريطة Organic Maps!
     be = Гэй, глядзі дзе я зараз на мапе Organic Maps!
     bg = Хей, виж текущото ми местоположение на картата в Organic Maps!
+    ca = Ep, mireu la meva ubicació actual en el mapa de l'Organic Maps!
     cs = Podívej se na mou aktuální polohu na mapě na Organic Maps
     da = Hey, tjek min nuværende lokation ud på Organic Maps kortet!
     de = Hey, sieh dir meinen aktuellen Standort auf der Organic Maps-Karte an
@@ -3472,6 +3536,7 @@
     ar = ًمرحبا،\n\nأنا هنا الآن: %1$@. انقر على هذا الرابط %2$@ أو ذلك الرابط %3$@ لمشاهدة المكان على الخريطة.\n\nشكراً.
     be = Прывітанне,\n\nЯ зараз тут: %1$@. Перайдзі па гэтай %2$@ альбо гэтай %3$@ спасылцы каб убачыць месца на мапе.\n\nДзякуй.
     bg = Здравей,\n\nСега съм тук: %1$@. Натисни върху тази връзка %2$@ или тази %3$@, за да видиш мястото на картата.\n\nБлагодаря.
+    ca = Hola,\n\nSoc aquí: %1$@. Feu clic en aquest enllaç %2$@ o en aquest altre %3$@ per a veure el lloc en el mapa.\n\nGràcies.
     cs = Ahoj,\n\nPrávě jsem tady: %1$@. Klepni na jeden z těchto odkazů %2$@, %3$@ a uvidíš toto místo na mapě.\n\nDíky.
     da = Hey, her er jeg nu: %1$@. Tryk på dette link %2$@ eller dette %3$@ for at se stedet på kortet. Tak.
     de = Hi,\n\nich bin gerade hier: %1$@. Klicke den Link %2$@ oder %3$@, um den Ort auf der Karte anzuzeigen.\n\nVielen Dank.
@@ -3510,6 +3575,7 @@
     ar = مشاركة
     be = Падзяліцца
     bg = Споделяне
+    ca = Comparteix
     cs = Sdílet
     da = Del
     de = Teilen
@@ -3549,6 +3615,7 @@
     ar = البريد الالكتروني
     be = Электронная пошта
     bg = Имейл
+    ca = Correu-e
     cs = Email
     da = Email
     de = Email
@@ -3587,6 +3654,7 @@
     ar = تم النسخ الى الحافظة: %1$@
     be = Скапіравана ў буфер абмена: %1$@
     bg = Копирано в клипборда: %1$@
+    ca = S'ha copiat al porta-retalls: %1$@
     cs = Zkopírováno do schránky: %1$@
     da = Kopieret til udklipsholderen: %1$@
     de = In die Zwischenablage kopiert: %1$@
@@ -3626,6 +3694,7 @@
     ar = المعلومات
     be = Інфармацыя
     bg = Информация
+    ca = Informació
     cs = Více informací
     da = Info
     de = Info
@@ -3665,6 +3734,7 @@
     ar = تم
     be = Гатова
     bg = Готово
+    ca = Fet
     cs = Hotovo
     da = Færdig
     de = Fertig
@@ -3704,6 +3774,7 @@
     ar = الاصدار: %@
     be = Версія: %@
     bg = Версия: %@
+    ca = Versió: %@
     cs = Verze: %@
     da = Version: %@
     de = Version: %@
@@ -3744,6 +3815,7 @@
     ar = بيانات خريطة الشارع المفتوحة: %@
     be = Дадзеныя OpenStreetMap: %@
     bg = Данни на OpenStreetMap: %@
+    ca = Dades de l'OpenStreetMap: %@
     cs = Data OpenStreetMap: %@
     da = OpenStreetMap-data: %@
     de = OpenStreetMap-Daten: %@
@@ -3784,6 +3856,7 @@
     ar = هل أنت واثق أنك تريد الاستمرار؟
     be = Сапраўды хочаце працягнуць?
     bg = Сигурни ли сте, че искате да продължите?
+    ca = Segur que voleu continuar?
     cs = Opravdu chcete pokračovat?
     da = Er du sikker på, at du vil fortsætte?
     de = Möchten Sie wirklich fortfahren?
@@ -3823,6 +3896,7 @@
     ar = المسارات
     be = Сцежкі
     bg = Пътеки
+    ca = Traces
     cs = Stopy
     da = Ruter
     de = Strecken
@@ -3862,6 +3936,7 @@
     ar = الطول
     be = Даўжыня
     bg = Дължина
+    ca = Longitud
     cs = Délka
     da = Længde
     de = Länge
@@ -3900,6 +3975,7 @@
     ar = مشاركة موقعي
     be = Падзяліцца месцазнаходжаннем
     bg = Споделяне на местоположение
+    ca = Comparteix la meva ubicacio
     cs = Sdílet mé umístění
     da = Del min lokation
     de = Meinen Standort teilen
@@ -3939,6 +4015,7 @@
     ar = الإعدادات العامة
     be = Агульныя налады
     bg = Общи настройки
+    ca = Configuració general
     de = Allgemeine Einstellungen
     es = Ajustes generales
     eu = Doikuntza orokorrak
@@ -3964,6 +4041,7 @@
     ar = معلومات
     be = Інфармацыя
     bg = Информация
+    ca = Informació
     de = Information
     es = Información
     eu = Informazioa
@@ -3988,6 +4066,7 @@
     ar = الملاحة
     be = Навігацыя
     bg = Навигация
+    ca = Navegació
     cs = Navigace
     da = Navigation
     de = Navigation
@@ -4025,6 +4104,7 @@
     ar = أزرار التكبير والتصغير
     be = Кнопкі маштаба
     bg = Мащабни бутони
+    ca = Botons de zoom
     cs = Tlačítka přiblížení/oddálení
     da = Zoom knapper
     de = Zoom-Tasten
@@ -4063,6 +4143,7 @@
     ar = عرض على الشاشة
     be = Паказаць на мапе
     bg = Показване на картата
+    ca = Mostra'ls al mapa
     cs = Zobrazit na obrazovce
     da = Vis på skærmen
     de = Auf dem Bildschirm anzeigen
@@ -4102,6 +4183,7 @@
     ar = الوضع الليلي
     be = Начны рэжым
     bg = Нощен режим
+    ca = Mode nocturn
     cs = Noční režim
     da = Nattilstand
     de = Nachtmodus
@@ -4140,6 +4222,7 @@
     ar = تعطيل
     be = Выключаны
     bg = Изключен
+    ca = Desactivat
     cs = Vypnuto
     da = Fra
     de = Aus
@@ -4178,6 +4261,7 @@
     ar = تشغيل
     be = Уключаны
     bg = Включен
+    ca = Activat
     cs = Zapnuto
     da = Til
     de = An
@@ -4216,6 +4300,7 @@
     ar = تلقائي
     be = Аўтаматычна
     bg = Автоматично
+    ca = Automàtic
     cs = Automaticky
     da = Auto
     de = Auto
@@ -4254,6 +4339,7 @@
     ar = العرض المنظوري
     be = Перспектыўны выгляд
     bg = Перспективен изглед
+    ca = Vista en perspectiva
     cs = Zobrazení perspektivy
     da = Perspektivvisning
     de = Perspektivische Ansicht
@@ -4292,6 +4378,7 @@
     ar = مباني ثلاثية الأبعاد
     be = 3D будынкі
     bg = 3D сгради
+    ca = Edificis en 3D
     cs = 3D budovy
     da = 3D-bygninger
     de = 3D-Gebäude
@@ -4330,6 +4417,7 @@
     ar = تعليمات صوتية
     be = Галасавыя інструкцыі
     bg = Гласови инструкции
+    ca = Instruccions de veu
     cs = Hlasové instrukce
     da = Stemmeinstruktioner
     de = Sprachführung
@@ -4368,6 +4456,7 @@
     ar = لغة الصوت
     be = Мова агучвання
     bg = Език на инструкциите
+    ca = Llengua de la veu
     cs = Jazyk hlasu
     da = Stemmesprog
     de = Sprache für Sprachführung
@@ -4406,6 +4495,7 @@
     ar = غير متاح
     be = Не дасягальна
     bg = Не е налично
+    ca = No disponible
     cs = Není dostupná
     da = Ikke til rådighed
     de = Nicht verfügbar
@@ -4444,6 +4534,7 @@
     ar = آخر
     be = Іншы
     bg = Друго
+    ca = Altres
     cs = Ostatní
     da = Andet
     de = Weitere
@@ -4482,6 +4573,7 @@
     ar = المسار الأخير
     be = Нядаўняя сцежка
     bg = Скорошна пътека
+    ca = Traces recents
     cs = Historie polohy
     da = Seneste sti
     de = Letzte Strecke
@@ -4519,6 +4611,7 @@
     ar = تكبير تلقائي
     be = Аўтаматычны маштаб
     bg = Автоматично мащабиране
+    ca = Zoom automàtic
     cs = Automatické zvětšení
     da = Auto zoom
     de = Auto-Zoom
@@ -4556,6 +4649,7 @@
     ar = لا يعمل
     be = Выключана
     bg = Изключено
+    ca = Desactivada
     cs = Vypnuto
     da = Fra
     de = Aus
@@ -4593,6 +4687,7 @@
     ar = 1 ساعة
     be = 1 гадзіна
     bg = 1 час
+    ca = 1 hora
     cs = 1 hodina
     da = 1 time
     de = 1 Stunde
@@ -4630,6 +4725,7 @@
     ar = 2 ساعة
     be = 2 гадзіны
     bg = 2 часа
+    ca = 2 hores
     cs = 2 hodiny
     da = 2 timer
     de = 2 Stunden
@@ -4667,6 +4763,7 @@
     ar = 6 ساعات
     be = 6 гадзін
     bg = 6 часа
+    ca = 6 hores
     cs = 6 hodin
     da = 6 timer
     de = 6 Stunden
@@ -4704,6 +4801,7 @@
     ar = 12 ساعة
     be = 12 гадзін
     bg = 12 часа
+    ca = 12 hores
     cs = 12 hodin
     da = 12 timer
     de = 12 Stunden
@@ -4741,6 +4839,7 @@
     ar = 1 يوم
     be = 1 дзень
     bg = 1 ден
+    ca = 1 dia
     cs = 1 den
     da = 1 dag
     de = 1 Tag
@@ -4815,6 +4914,7 @@
     en = Distance
     ar = المسافة
     be = Адлегласць
+    ca = Distància
     cs = Vzdálenost
     da = Afstand
     de = Entfernung
@@ -4891,6 +4991,7 @@
     ar = الموقع الإلكتروني
     be = Вэб-сайт
     bg = Уебсайт
+    ca = Lloc web
     cs = Webové stránky
     da = Hjemmeside
     de = Webseite
@@ -4929,6 +5030,7 @@
     ar = أخبار
     be = Навіны
     bg = Новини
+    ca = Notícies
     cs = Zprávy
     da = Nyheder
     de = Nachrichten
@@ -5018,6 +5120,7 @@
     ar = إرسال التعليقات
     be = Водгук
     bg = Обратна връзка
+    ca = Comentaris
     cs = Zpětná vazba
     da = Feedback
     de = Feedback
@@ -5056,6 +5159,7 @@
     ar = قيّم التطبيق
     be = Ацаніць дадатак
     bg = Оцени приложение
+    ca = Puntua l'aplicació
     cs = Ohodnotit aplikaci
     da = Bedøm appen
     de = Bewerten Sie die App
@@ -5095,6 +5199,7 @@
     ar = مساعدة
     be = Дапамога
     bg = Помощ
+    ca = Ajuda
     cs = Nápověda
     da = Hjælp
     de = Hilfe
@@ -5134,6 +5239,7 @@
     ar = اسئلة مكررة
     be = Пытанні і адказы
     bg = Въпроси и отговори
+    ca = Preguntes més freqüents
     cs = Otázky a odpovědi
     da = Spørgsmål og svar
     de = Fragen und Antworten
@@ -5174,6 +5280,7 @@
     ar = ﻉﺮﺒﺘﻳ
     be = Ахвяраваць
     bg = Дарете
+    ca = Donatiu
     cs = Darovat
     da = Doner
     de = Spenden
@@ -5213,6 +5320,7 @@
     ar = كيف يمكنك دعمنا؟
     be = Як нас падтрымаць?
     bg = Как да ни подкрепите?
+    ca = Com ajudar-nos?
     cs = Jak nás podpořit?
     da = Sådan støtter vi os?
     de = Wie unterstützen Sie uns?
@@ -5252,6 +5360,7 @@
     ar = حقوق النشر
     be = Капірайт
     bg = Авторски права
+    ca = Copyright
     cs = Autorská práva
     da = Copyright
     de = Copyright
@@ -5291,6 +5400,7 @@
     ar = الإبلاغ عن خطأ
     be = Паведаміць аб памылцы
     bg = Докладване на проблем
+    ca = Informació d'errors
     cs = Nahlásit chybu
     da = Rapportér fejl
     de = Fehler melden
@@ -5330,6 +5440,7 @@
     ar = لم يتم تنصيب البريد الإلكتروني. يرجى تفعيله أو استخدام أي وسيلة أخرى للاتصال بنا على %@
     be = Паштовы кліент не наладжаны. Наладзьце яго альбо звяжыцеся з намі па адрасе %@ іншым чынам.
     bg = Имейл клиентът не е настроен. Моля, конфигурирайте го или използвайте друг начин, за да се свържете с нас на %@
+    ca = No s'ha configurat cap client de correu electrònic. Configureu-lo o useu un altra via per contactar amb nosaltres a %@
     cs = Emailový klient nebyl ještě nakonfigurován. Nastavte ho, prosím, nebo použijte jiný způsob k našemu kontaktování na %@
     da = Emailklienten er ikke blevet sat op. Venligst konfigurér den eller brug en anden måde til at kontakte os på %@
     de = Der Email-Client ist noch nicht eingerichtet worden. Konfigurieren Sie ihn bitte oder nutzen Sie eine andere Möglichkeit, uns unter %@ zu erreichen.
@@ -5369,6 +5480,7 @@
     ar = حذث خطأ في إرسال البريد الإلكتروني
     be = Памылка адпраўкі пошты
     bg = Грешка при изпращане на поща
+    ca = S'ha produït un error en enviar el correu
     cs = Chyba při odesílání emailu
     da = Mailforsendelsesfejl
     de = Fehler beim Email-Versand
@@ -5408,6 +5520,7 @@
     ar = معايرة البوصلة
     be = Каліброўка компаса
     bg = Калибриране на компас
+    ca = Calibratge de la brúixola
     cs = Kalibrace kompasu
     da = Kalibrering af kompas
     de = Kompass-Kalibrierung
@@ -5447,6 +5560,7 @@
     ar = تحديث الكل
     be = Абнавіць усё
     bg = Обновяване на всичко
+    ca = Actualitza-ho tot
     cs = Aktualizovat vše
     da = Opdatér alle
     de = Alle aktualisieren
@@ -5485,6 +5599,7 @@
     ar = إلغاء الكل
     be = Адмяніць усё
     bg = Отмяна на всичко
+    ca = Cancel·la-ho tot
     cs = Zrušit vše
     da = Aflys Alt
     de = Alle abbrechen
@@ -5524,6 +5639,7 @@
     ar = التي تم تنزيلها
     be = Спампаваныя
     bg = Изтеглено
+    ca = Baixats
     cs = Staženo
     da = Downloadet
     de = Heruntergeladen
@@ -5561,6 +5677,7 @@
     en = Available
     ar = متوفر
     be = Дасягальныя
+    ca = Disponibles
     cs = Dostupné
     da = Tilgængelige
     de = Verfügbar
@@ -5599,6 +5716,7 @@
     ar = مَصْفوف
     be = У чарзе
     bg = На опашка
+    ca = En cua
     cs = Ve frontě
     da = I kø
     de = In der Warteschlange
@@ -5637,6 +5755,7 @@
     ar = قريب مني
     be = Каля мяне
     bg = Близо до мен
+    ca = A prop meu
     cs = Poblíž mě
     da = I nærheden
     de = In meiner Nähe
@@ -5675,6 +5794,7 @@
     ar = الخرائط
     be = Мапы
     bg = Карти
+    ca = Mapes
     cs = Mapy
     da = Kort
     de = Karten
@@ -5712,6 +5832,7 @@
     ar = تنزيل الكل
     be = Спампаваць усё
     bg = Изтегляне на всичко
+    ca = Baixa-ho tot
     cs = Stáhnout vše
     da = Download alle
     de = Alle herunterladen
@@ -5749,6 +5870,7 @@
     ar = يتم التنزيل:
     be = Спампоўваецца:
     bg = Теглене:
+    ca = Baixant:
     cs = Probíhá stahování:
     da = Downloader:
     de = Wird heruntergeladen:
@@ -5785,6 +5907,7 @@
     en = Found
     ar = تم العثور على
     be = Знойдзена
+    ca = Trobat
     cs = Nalezeno
     da = Fundet
     de = Gefunden
@@ -5823,6 +5946,7 @@
     ar = تحديث
     be = Абнавіць
     bg = Обновление
+    ca = Actualitza
     cs = Aktualizace
     da = Opdater
     de = Aktualisieren
@@ -5862,6 +5986,7 @@
     ar = فشل
     be = Не атрымалася
     bg = Провал
+    ca = Fallit
     cs = Selhalo
     da = Mislykkedes
     de = Fehlgeschlagen
@@ -5901,6 +6026,7 @@
     ar = لحذف الخريطة يرجى إيقاف الملاحة.
     be = Каб выдаліць мапу, спыніце навігацыю.
     bg = За да изтриете карта, моля спрете навигирането.
+    ca = Per a suprimir el mapa, abans atureu la navegació.
     cs = Chcete-li odstranit mapu, pak prosím zastavte navigaci.
     da = For at slette kortet skal du stoppe navigeringen.
     de = Zum Löschen der Karte bitte Navigation unterbrechen.
