@@ -32,13 +32,13 @@ Most of the data collisions between OSM and GTFS sources are excluded, because w
 Example:
 
 ```
-python3 download_gtfs.py --path=dir_for_storing_feeds --mode=fullrun --source=all --omd_api_key=YOUR_KEY_FOR_OPEN_MOBILITY_DATA_API
+python3 download_gtfs.py --path=dir_for_storing_feeds --mode=fullrun --source=all --transitland_api_key=YOUR_KEY_FOR_TRANSITLAND_API
 ```
 
-In this example all accessible feeds from Transitland and OpenMobilityData will be downloaded to the `dir_for_storing_feeds` directory. But if you don't want to create key for OpenMobilityData API you can run this tool for crawling Transitland only:
+In this example all accessible feeds from Transitland and OpenMobilityData will be downloaded to the `dir_for_storing_feeds` directory. But if you don't want to create key for Transitland API you can run this tool for crawling OpenMobilityData only:
 
 ```
-python3 download_gtfs.py --path=dir_for_storing_feeds --mode=fullrun --source=transitland
+python3 download_gtfs.py --path=dir_for_storing_feeds --mode=fullrun --source=mobilitydb
 ```
 
 After completing this step you will have directory containing subdirectories with GTFS feeds.
