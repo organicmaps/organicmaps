@@ -71,7 +71,7 @@ TRANSIT_URL: file:///home/result_json_dir
 
 Run generator tool [as usual](../tools/python/maps_generator) with this ini config. After it is done you'll have mwms with transit section in experimental GTFS format.
 
-:checkered_flag: Use the resulting mwms in your app. Enjoy the experimental public transport in MAPS.ME!
+:checkered_flag: Use the resulting mwms in your app. Enjoy the experimental public transport in Organic Maps!
 
 ## If you have questions
 
