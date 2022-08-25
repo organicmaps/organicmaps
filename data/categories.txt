@@ -1179,7 +1179,7 @@ el:Κρεοπωλείο|κατάστημα
 sk:Mäsiar
 fa:قصابی
 
-shop-furniture|shop-kitchen
+shop-furniture
 en:4Furniture Store
 ru:Магазин мебели|4мебель
 bg:Магазин за мебели
@@ -1213,6 +1213,43 @@ zh-Hant:家具店|1購物|店鋪|商店|雜貨店|便利商店
 el:Κατάστημα επίπλων|κατάστημα
 sk:Nábytok
 fa:فروشگاه لوازم خانگی
+
+shop-kitchen
+en:Kitchen Store|Kitchen Studio
+ar:ﺦﺒﻄﻤﻟﺍ ﺮﺠﺘﻣ
+be:Крама для кухні
+bg:Магазин за кухня
+cs:Prodejna kuchyní
+da:Køkkenforretning
+de:Küchengeschäft
+el:Κατάστημα κουζίνας
+es:Tienda de cocina
+eu:Sukalde-denda
+fa:ﻪﻧﺎﺧﺰﭙﺷﺁ ﻩﺎﮕﺷﻭﺮﻓ
+fi:Keittiökauppa
+fr:Magasin de cuisine
+he:םיחבטמ תונח
+hu:Konyhabolt
+id:Toko Dapur
+it:Negozio di cucina
+ja:キッチンストア
+ko:"주방용품점"
+nb:Kjøkkenbutikk
+nl:Keukenwinkel
+pl:Sklep kuchenny
+pt:Loja de cozinha
+pt-BR:Loja de cozinha
+ro:Magazin de bucatarie
+ru:Кухонный магазин
+sk:Kuchynský obchod
+sv:Köksbutik
+sw:Duka la Jikoni
+th:ร้านครัว
+tr:Mutfak Mağazası
+uk:Магазин кухні
+vi:Cửa hàng nhà bếp
+zh-Hans:厨房用品店
+zh-Hant:廚房用品店
 
 shop-alcohol|@food
 en:Liquor Store|4liquor|4alcohol|U+1F377
@@ -6460,8 +6497,8 @@ ru:Крикет
 tr:Kriket
 uk:Крикет
 vi:Cricket
-zh-Hans = 板球
-zh-Hant = 板球
+zh-Hans:板球
+zh-Hant:板球
 
 sport-curling
 en:Curling
