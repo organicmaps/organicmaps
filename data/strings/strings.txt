@@ -7,6 +7,7 @@
     ar = رجوع
     be = Назад
     bg = Назад
+    ca = Enrere
     cs = Zpět
     da = Tilbage
     de = Zurück
@@ -46,6 +47,7 @@
     ar = إلغاء
     be = Адмяніць
     bg = Отмяна
+    ca = Cancel·la
     cs = Zrušit
     da = Afbryd
     de = Abbrechen
@@ -85,6 +87,7 @@
     ar = إلغاء التنزيل
     be = Адмяніць спампоўку
     bg = Отмяна на изтегляне
+    ca = Cancel·la la baixada
     cs = Zrušit stahování
     da = Annuller download
     de = Herunterladen abbrechen
@@ -124,6 +127,7 @@
     ar = حذف
     be = Выдаліць
     bg = Изтриване
+    ca = Suprimeix
     cs = Smazat
     da = Slet
     de = Löschen
@@ -162,6 +166,7 @@
     ar = تنزيل الخرائط
     be = Спампаваць мапы
     bg = Изтегляне на карти
+    ca = Baixa mapes
     cs = Stáhnout mapy
     da = Download kort
     de = Karten herunterladen
@@ -201,6 +206,7 @@
     ar = فشلت عملية التنزيل، انقر لإعادة المحاولة
     be = Не атрымалася спампаваць. Націсніце, каб паспрабаваць зноў.
     bg = Изтеглянето се провали. Натиснете, за да опитате отново.
+    ca = La baixada ha fallat. Toqueu per a tornar-ho a intentar.
     cs = Stahování selhalo, zkuste to znovu.
     da = Der skete en fejl ved download, tryk for at prøve igen.
     de = Herunterladen fehlgeschlagen. Antippen für einen neuen Versuch.
@@ -240,6 +246,7 @@
     ar = جاري التنزيل…
     be = Спампоўваецца…
     bg = Теглене…
+    ca = S'està baixant…
     cs = Stahování…
     da = Downloader…
     de = Wird heruntergeladen…
@@ -280,6 +287,7 @@
     ar = الكيلومترات
     be = Кіламетры
     bg = Километри
+    ca = Quilòmetres
     cs = Kilometry
     da = Kilometre
     de = Kilometer
@@ -319,6 +327,7 @@
     ar = اترك تعليقاً
     be = Напісаць водгук
     bg = Напишете отзив
+    ca = Deixa un comentari
     cs = Zpětná vazba
     da = Lav en bedømmelse
     de = Bericht abgeben
@@ -386,6 +395,7 @@
     ar = الأميال
     be = Мілі
     bg = Мили
+    ca = Milles
     cs = Míle
     da = Mil
     de = Meilen
@@ -425,6 +435,7 @@
     ar = موقعي
     be = Маё месцазнаходжанне
     bg = Мое местоположение
+    ca = La meva posició
     cs = Moje poloha
     da = Min position
     de = Mein Standort
@@ -464,6 +475,7 @@
     ar = ًلاحقا
     be = Потым
     bg = По-късно
+    ca = Més tard
     cs = Později
     da = Senere
     de = Später
@@ -502,6 +514,7 @@
     ar = البحث
     be = Шукаць
     bg = Търсене
+    ca = Cerca
     cs = Hledat
     da = Søg
     de = Suche
@@ -540,6 +553,7 @@
     ar = ابحث في الخريطة
     be = Шукаць на мапе
     bg = Търсене в карта
+    ca = Cerca en el mapa
     cs = Prohledat mapu
     da = Søg kort
     de = Auf der Karte suchen
@@ -579,6 +593,7 @@
     ar = نعم
     be = Так
     bg = Да
+    ca = Sí
     cs = Ano
     da = Ja
     de = Ja
@@ -618,6 +633,7 @@
     ar = التطبيق أو جميع خدمات تحديد المواقع معطلة لديك في الوقت الحالي. الرجاء تفعيلها في الإعدادات.
     be = У вас выключана геалакацыя для гэтай прылады альбо дадатку. Калі ласка, уключыце яе ў Наладах.
     bg = В момента всички услуги за местоположение за това устройство или приложение са деактивирани. Моля, разрешете ги в Настройки.
+    ca = Teniu tots els serveis de geolocalització d'aquest aparell desactivats. Activeu-los a la configuració.
     cs = Aktuálně máte všechny možnosti pro určování polohy vypnuté. Prosím, povolte je v Nastavení.
     da = Du har alle lokationstjenester for denne enhed eller applikation slukket. Slå dem venligst til i Indstillinger.
     de = Ortungsdienste sind für dieses Gerät oder die App deaktiviert. Bitte aktivieren Sie diese in den Einstellungen.
@@ -657,6 +673,7 @@
     ar = عرض على الخريطة
     be = Паказаць на мапе
     bg = Показване на картата
+    ca = Mostra-ho al mapa
     cs = Ukázat na mapě
     da = Vis på kortet
     de = Auf der Karte anzeigen
@@ -695,6 +712,7 @@
     ar = تنزيل الخريطة
     be = Спампаваць мапу
     bg = Изтегляне на карта
+    ca = Baixa el mapa
     cs = Stáhnout mapu
     da = Download kort
     de = Karte herunterladen
@@ -734,6 +752,7 @@
     ar = فشلت عملية تنزيل
     be = Спампоўка не атрымалася
     bg = Изтеглянето се провали
+    ca = La baixada ha fallat
     cs = Stahování selhalo
     da = Download mislykket
     de = Herunterladen fehlgeschlagen
@@ -773,6 +792,7 @@
     ar = محاولة مرة أخرى
     be = Паспрабаваць зноў
     bg = Опитайте отново
+    ca = Torna-ho a intentar
     cs = Zkusit znovu
     da = Prøv igen
     de = Erneut versuchen
@@ -811,6 +831,7 @@
     ar = حول Organic Maps
     be = Аб дадатку Organic Maps
     bg = Относно приложението
+    ca = Quant a l'Organic Maps
     cs = O aplikaci Organic Maps
     da = Om Organic Maps
     de = Über Organic Maps
@@ -849,6 +870,7 @@
     ar = إعدادات الاتصال
     be = Налады злучэння
     bg = Настройки за свързване
+    ca = Paràmetres de connexió
     cs = Nastavení připojení
     da = Forbindelsesindstillinger
     de = Verbindungseinstellungen
@@ -887,6 +909,7 @@
     ar = إغلاق
     be = Зачыніць
     bg = Затваряне
+    ca = Tanca
     cs = Zavřít
     da = Luk
     de = Schließen
@@ -925,6 +948,7 @@
     ar = أنت بحاجة الى OpenGL بأجهزة تسريع. لسوء الحظ جهازك لا يدعم هذه الخاصية.
     be = Дадатак патрабуе апаратна паскоранага OpenGL. Нажаль, ваша прылада не падтрымліваецца.
     bg = Приложението изисква хардуерно ускорение на OpenGL. За съжаление вашето устройство не се поддържа.
+    ca = L'aplicació requereix acceleració per maquinari OpenGL. Malauradament, el vostre aparell no ho suporta.
     cs = Je vyžadována hardwarová akcelerace OpenGL. Bohužel, vaše zařízení není podporováno.
     da = En hardware accelereret OpenGL er påkrævet. Din enhed er desværre ikke understøttet.
     de = Das Programm benötigt OpenGL, um zu funktionieren. Leider wird Ihr Gerät nicht unterstützt.
@@ -963,6 +987,7 @@
     ar = تنزيل
     be = Спампаваць
     bg = Изтегляне
+    ca = Baixa
     cs = Stáhnout
     da = Download
     de = Herunterladen
@@ -1001,6 +1026,7 @@
     ar = الرجاء فصل كابل الناقل التسلسلي الشامل أو إدخال بطاقة الذاكرة من أجل استخدام Organic Maps.
     be = Калі ласка, адлучыце USB кабель альбо ўстаўце карту памяці каб карыстацца Organic Maps
     bg = Моля, изключете USB кабела или поставете карта с памет.
+    ca = Desconnecteu el cable USB o inseriu una targeta de memòria per a usar l'Organic Maps
     cs = Prosím, odpojte USB kabel nebo vložte paměťovou kartu pro použití s Organic Maps
     da = Frakobl venligst USB-kabel eller indsæt et memory kort for at bruge Organic Maps
     de = Bitte USB-Kabel entfernen oder Speicherkarte einsetzen, um Organic Maps zu verwenden
@@ -1039,6 +1065,7 @@
     ar = الرجاء إخلاء بعض المساحة في تخزين البطاقة الرقمية الآمنة\الناقل التسلسلي الشامل أولا من أجل استخدام هذا التطبيق.
     be = Калі ласка, спачатку вызваліце трохі месца на SD карце/USB сховішчы каб карыстацца дататкам
     bg = Моля, първо освободете място на SD картата/USB паметта, за да можете да използвате приложението.
+    ca = Allibereu espai en la targeta SD o emmagatzematge USB per a poder usar l'aplicació 
     cs = Prosím, uvolněte nejprve místo na SD kartě/USB uložišti
     da = Frigør venligst plads på dit SD-kort/USB lager først for at bruge denne app
     de = Bitte zuerst Speicherplatz auf SD-Karte/USB-Speicher freigeben, um die Anwendung zu nutzen
@@ -1077,6 +1104,7 @@
     ar = قبل أن تبدأ باستخدام التطبيق، سنقوم بتنزيل خريطة العالم العامة على جهازك.\nستحتاج إلى %@ من البيانات.
     be = Перад пачаткам працы дазвольце нам спампаваць агульную мапу свету на вашу прыладу.\nГэта патрабуе %@ дадзеных.
     bg = Преди да започнете да използвате приложението, позволете ни да изтеглим общата карта на света на вашето устройство.\nТова ще използва %@ от паметта.
+    ca = Abans d'usar l'aplicació, autoritzeu que baixem el mapa del món general al vostre aparell.\nUsarà %@ d'emmagatzematge.
     cs = Ještě než začnete, bude třeba stáhnout obecnou mapu světa.\nZabere to %@.
     da = Før du starter, så lad os downloade det generelle verdenskort til din enhed.\nIt behøver %@ af data.
     de = Bevor Sie starten, laden Sie die allgemeine Weltkarte auf Ihr Gerät herunter.\nEs werden %@ Speicherplatz benötigt.
@@ -1115,6 +1143,7 @@
     ar = الذهاب الى الخريطة
     be = Перайскі да мапы
     bg = Към картата
+    ca = Ves al mapa
     cs = Přejít na mapu
     da = Gå til kort
     de = Zur Karte
