@@ -97,7 +97,7 @@ protected:
 
 private:
   void SubmitFakeLocationPoint(m2::PointD const & pt);
-  void SubmitRulerPoint(QMouseEvent * e);
+  void SubmitRulerPoint(m2::PointD const & pt);
   void SubmitRoutingPoint(m2::PointD const & pt);
   void SubmitBookmark(m2::PointD const & pt);
   void ShowPlacePage();
@@ -105,7 +105,8 @@ private:
   void VisualizeMwmsBordersInRect(m2::RectD const & rect, bool withVertices,
                                   bool fromPackedPolygon, bool boundingBox);
 
-  m2::PointD GetCoordsFromSettingsIfExists(bool start, m2::PointD const & pt);
+  m2::PointD P2G(m2::PointD const & pt) const;
+  m2::PointD GetCoordsFromSettingsIfExists(bool start, m2::PointD const & pt) const;
 
   QRubberBand * m_rubberBand;
   QPoint m_rubberBandOrigin;

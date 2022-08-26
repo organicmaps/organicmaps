@@ -192,7 +192,7 @@ void DrawWidget::mousePressEvent(QMouseEvent * e)
     if (IsShiftModifier(e))
       SubmitRoutingPoint(pt);
     else if (m_ruler.IsActive() && IsAltModifier(e))
-      SubmitRulerPoint(e);
+      SubmitRulerPoint(pt);
     else if (IsAltModifier(e))
       SubmitFakeLocationPoint(pt);
     else
@@ -494,25 +494,23 @@ void DrawWidget::SubmitFakeLocationPoint(m2::PointD const & pt)
   }
 }
 
-void DrawWidget::SubmitRulerPoint(QMouseEvent * e)
+void DrawWidget::SubmitRulerPoint(m2::PointD const & pt)
 {
-  m2::PointD const pt = GetDevicePoint(e);
-  m2::PointD const point = GetCoordsFromSettingsIfExists(true /* start */, pt);
-  m_ruler.AddPoint(point);
+  m_ruler.AddPoint(P2G(pt));
   m_ruler.DrawLine(m_framework.GetDrapeApi());
 }
 
 void DrawWidget::SubmitRoutingPoint(m2::PointD const & pt)
 {
   auto & routingManager = m_framework.GetRoutingManager();
-  auto const pointsCount = routingManager.GetRoutePoints().size();
 
   // Check if limit of intermediate points is reached.
-  if (m_routePointAddMode == RouteMarkType::Intermediate && !routingManager.CouldAddIntermediatePoint())
+  bool const isIntermediate = m_routePointAddMode == RouteMarkType::Intermediate;
+  if (isIntermediate && !routingManager.CouldAddIntermediatePoint())
     routingManager.RemoveRoutePoint(RouteMarkType::Intermediate, 0);
 
   // Insert implicit start point.
-  if (m_routePointAddMode == RouteMarkType::Finish && pointsCount == 0)
+  if (m_routePointAddMode == RouteMarkType::Finish && routingManager.GetRoutePoints().empty())
   {
     RouteMarkData startPoint;
     startPoint.m_pointType = RouteMarkType::Start;
@@ -523,7 +521,10 @@ void DrawWidget::SubmitRoutingPoint(m2::PointD const & pt)
   RouteMarkData point;
   point.m_pointType = m_routePointAddMode;
   point.m_isMyPosition = false;
-  point.m_position = GetCoordsFromSettingsIfExists(false /* start */, pt);
+  if (!isIntermediate)
+    point.m_position = GetCoordsFromSettingsIfExists(false /* start */, pt);
+ else
+    point.m_position = P2G(pt);
 
   routingManager.AddRoutePoint(std::move(point));
 
@@ -699,11 +700,16 @@ void DrawWidget::RefreshDrawingRules()
   SetMapStyle(MapStyleClear);
 }
 
-m2::PointD DrawWidget::GetCoordsFromSettingsIfExists(bool start, m2::PointD const & pt)
+m2::PointD DrawWidget::P2G(m2::PointD const & pt) const
+{
+  return m_framework.P3dtoG(pt);
+}
+
+m2::PointD DrawWidget::GetCoordsFromSettingsIfExists(bool start, m2::PointD const & pt) const
 {
   if (auto optional = RoutingSettings::GetCoords(start))
     return mercator::FromLatLon(*optional);
 
-  return m_framework.P3dtoG(pt);
+  return P2G(pt);
 }
 }  // namespace qt
