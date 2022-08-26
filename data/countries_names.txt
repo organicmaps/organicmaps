@@ -7036,7 +7036,7 @@
   en = Comoros
   ru = Коморы
   ar = جزر القمر
-  be = Каморскій Астравы
+  be = Каморскія Астравы
   cs = Komory
   da = Comorerne
   nl = Comoren
@@ -12394,6 +12394,7 @@
   en = Gabon
   ru = Габон
   ar = الغابون
+  be = Габон
   cs = Gabon
   da = Gabon
   nl = Gabon
@@ -12426,6 +12427,7 @@
   en = Georgia
   ru = Грузия
   ar = جورجيا
+  be = Грузія
   cs = Gruzie
   da = Georgien
   nl = Georgië
@@ -12458,6 +12460,7 @@
   en = Georgia
   ru = Грузия
   ar = جورجيا
+  be = Грузія
   cs = Gruzie
   da = Georgien
   nl = Georgië
@@ -12490,6 +12493,7 @@
   en = Germany
   ru = Германия
   ar = ألمانيا
+  be = Германія
   cs = Německo
   da = Tyskland
   nl = Duitsland
@@ -12523,6 +12527,7 @@
   en = Baden-Württemberg
   ru = Баден-Вюртемберг
   ar = بادن فورتمبيرغ
+  be = Бадэн-Вюнтэмберг
   cs = Bádensko-Württembersko
   da = Baden-Württemberg
   nl = Baden-Württemberg
@@ -12554,6 +12559,7 @@
   en = Freiburg im Breisgau
   ru = Фрайбург-в-Брайсгау
   ar = فرايبورغ
+  be = Фрайбург
   cs = Freiburg im Breisgau
   da = Freiburg im Breisgau
   nl = Freiburg im Breisgau
@@ -12585,6 +12591,7 @@
   en = Karlsruhe
   ru = Карлсруэ
   ar = منطقة حكومة كارلسروه
+  be = Карлсруэ
   cs = Vládní obvod Karlsruhe
   da = Regierungsbezirk Karlsruhe
   nl = Regierungsbezirk Karlsruhe
@@ -12616,6 +12623,7 @@
   en = Stuttgart — Heilbronn
   ru = Штутгарт — Хайльбронн
   ar = منطقة حكومة شتوتغارت - هايلبرون
+  be = Штутгарт — Гайльброн
   cs = Vládní obvod Stuttgart — Heilbronn
   da = Regierungsbezirk Stuttgart — Heilbronn
   nl = Regierungsbezirk Stuttgart — Heilbronn
@@ -12647,6 +12655,7 @@
   en = Stuttgart — Stuttgart
   ru = Штутгарт — Штутгарт
   ar = منطقة حكومة شتوتغارت - شتوتغارت
+  be = Штутгарт — Штутгарт
   cs = Vládní obvod Stuttgart — Stuttgart
   da = Regierungsbezirk Stuttgart — Stuttgart
   nl = Regierungsbezirk Stuttgart — Stuttgart
@@ -12678,6 +12687,7 @@
   en = Tübingen
   ru = Тюбинген
   ar = توبنغن
+  be = Цюбінген
   cs = Tübingen
   da = Regierungsbezirk Tübingen
   nl = Regierungsbezirk Tübingen
@@ -12709,6 +12719,7 @@
   en = Berlin
   ru = Берлин
   ar = برلين
+  be = Берлін
   cs = Berlín
   da = Berlin
   nl = Berlijn
@@ -12740,6 +12751,7 @@
   en = Brandenburg — North
   ru = Бранденбург — Север
   ar = براندنبورغ — شمال
+  be = Брандэнбург — Поўнач
   cs = Braniborsko — Sever
   da = Brandenburg — Nord
   nl = Brandenburg — Noord
@@ -12771,6 +12783,7 @@
   en = Brandenburg — South
   ru = Бранденбург — Юг
   ar = براندنبورغ — جنوب
+  be = Брандэнбург — Поўдзень
   cs = Braniborsko — Jih
   da = Brandenburg — Syd
   nl = Brandenburg — Zuid
@@ -12802,6 +12815,7 @@
   en = Bavaria
   ru = Бавария
   ar = بافاريا
+  be = Баварыя
   cs = Bavorsko
   da = Bayern
   nl = Beieren
@@ -12833,6 +12847,7 @@
   en = Lower Bavaria
   ru = Нижняя Бавария
   ar = بافاريا السفلى
+  be = Ніжняя Баварыя
   cs = Dolní Bavorsko
   da = Niederbayern
   nl = Regierungsbezirk Niederbayern
@@ -12864,6 +12879,7 @@
   en = Lower Franconia
   ru = Нижняя Франкония
   ar = فرنكونيا السفلى
+  be = Ніжняя Франконія
   cs = Dolní Franky
   da = Unterfranken
   nl = Regierungsbezirk Unterfranken
@@ -12895,6 +12911,7 @@
   en = Middle Franconia
   ru = Средняя Франкония
   ar = فرنكونيا الوسطى
+  be = Сярэдняя Франконія
   cs = Střední Franky
   da = Mittelfranken
   nl = Regierungsbezirk Mittelfranken
@@ -12926,6 +12943,7 @@
   en = Swabia
   ru = Административный округ Швабия
   ar = شوابيا
+  be = Швабія
   cs = Švábsko
   da = Schwaben
   nl = Regierungsbezirk Schwaben
@@ -12957,6 +12975,7 @@
   en = Upper Bavaria — East
   ru = Верхняя Бавария — Восток
   ar = بافاريا العليا- الشرق
+  be = Верхняя Баварыя — Усход
   cs = Horní Bavorsko — Východ
   da = Oberbayern — Øst
   nl = Oberbayern — Oost
@@ -12988,6 +13007,7 @@
   en = Upper Bavaria — Ingolstadt
   ru = Верхняя Бавария — Ингольштадт
   ar = بافاريا العليا- إنغولشتات
+  be = Верхняя Баварыя — Інгальштат
   cs = Horní Bavorsko — Ingolstadt
   da = Oberbayern — Ingolstadt
   nl = Oberbayern — Ingolstadt
@@ -13019,6 +13039,7 @@
   en = Upper Bavaria — Munich
   ru = Верхняя Бавария — Мюнхен
   ar = بافاريا العليا- ميونيخ
+  be = Верхняя Баварыя — Мюнхен
   cs = Horní Bavorsko — Mnichov
   da = Oberbayern — München
   nl = Oberbayern — München
@@ -13050,6 +13071,7 @@
   en = Upper Franconia
   ru = Верхняя Франкония
   ar = فرنكونيا العليا
+  be = Верхняя Франконія
   cs = Horní Franky
   da = Oberfranken
   nl = Regierungsbezirk Oberfranken
@@ -13081,6 +13103,7 @@
   en = Upper Palatinate
   ru = Верхний Пфальц
   ar = بالاتينات العليا
+  be = Верхні Пфальц
   cs = Horní Falc
   da = Oberpfalz
   nl = Regierungsbezirk Oberpfalz
@@ -13112,6 +13135,7 @@
   en = Hamburg
   ru = Гамбург
   ar = هامبورغ
+  be = Гамбург
   cs = Hamburk
   da = Hamborg
   nl = Hamburg
@@ -13143,6 +13167,7 @@
   en = Hesse
   ru = Гессен
   ar = هسن
+  be = Гесэн
   cs = Hesensko
   da = Hessen
   nl = Hessen
@@ -13174,6 +13199,7 @@
   en = Darmstadt
   ru = Дармштадт
   ar = منطقة حكومة دارمشتادت
+  be = Дармштат
   cs = Darmstadt
   da = Regierungsbezirk Darmstadt
   nl = Regierungsbezirk Darmstadt
@@ -13205,6 +13231,7 @@
   en = Giessen
   ru = Гиссен
   ar = منطقة حكومة جيسن
+  be = Гісэн
   cs = Vládní obvod Giessen
   da = Regierungsbezirk Gießen
   nl = Regierungsbezirk Gießen
@@ -13236,6 +13263,7 @@
   en = Kassel
   ru = Кассель
   ar = منطقة حكومة كاسل
+  be = Касель
   cs = Vládní obvod Kassel
   da = Regierungsbezirk Kassel
   nl = Regierungsbezirk Kassel
@@ -13267,6 +13295,7 @@
   en = Lower Saxony
   ru = Нижняя Саксония
   ar = سكسونيا السفلى
+  be = Ніжняя Саксонія
   cs = Dolní Sasko
   da = Niedersachsen
   nl = Nedersaksen
@@ -13298,6 +13327,7 @@
   en = Bremen
   ru = Бремен
   ar = ولاية بريمن
+  be = Брэмен
   cs = Svobodné hanzovní město Brémy
   da = Bremen
   nl = Bremen
@@ -13329,6 +13359,7 @@
   en = Lüneburg
   ru = Люнебург
   ar = لونيبورغ
+  be = Люнебург
   cs = Lüneburg
   da = Lüneburg
   nl = Lüneburg
@@ -13360,6 +13391,7 @@
   en = Hanover
   ru = Ганновер
   ar = هانوفر
+  be = Гановер
   cs = Hannover
   da = Hannover
   nl = Hannover
@@ -13391,6 +13423,7 @@
   en = Oldenburg
   ru = Ольденбург
   ar = أولدنبورغ
+  be = Ольдэнбург
   cs = Oldenburg
   da = Oldenburg
   nl = Oldenburg
@@ -13422,6 +13455,7 @@
   en = Mecklenburg-Vorpommern
   ru = Мекленбург-Передняя Померания
   ar = مكلنبورغ فوربومرن
+  be = Мекленбург-Пяредняя Памеранія
   cs = Meklenbursko-Přední Pomořansko
   da = Mecklenburg-Vorpommern
   nl = Mecklenburg-Voor-Pommeren
@@ -13453,6 +13487,7 @@
   en = North Rhine-Westphalia
   ru = Северный Рейн-Вестфалия
   ar = شمال الراين وستفاليا
+  be = Паўночны Рэйн-Вестфалія
   cs = Severní Porýní-Vestfálsko
   da = Nordrhein-Westfalen
   nl = Noordrijn-Westfalen
@@ -13484,6 +13519,7 @@
   en = Arnsberg — Arnsberg
   ru = Арнсберг — Арнсберг
   ar = آرنسبيرغ — آرنسبرغ
+  be = Арнсберг — Арнсберг
   cs = Arnsberg — Arnsberg
   da = Arnsberg — Arnsberg
   nl = Arnsberg — Arnsberg
@@ -13515,6 +13551,7 @@
   en = Arnsberg — Dortmund
   ru = Арнсберг — Дортмунд
   ar = آرنسبيرغ — دورتموند
+  be = Арнсберг — Дортмунд
   cs = Arnsberg — Dortmund
   da = Arnsberg — Dortmund
   nl = Arnsberg — Dortmund
@@ -13546,6 +13583,7 @@
   en = Detmold
   ru = Детмольд
   ar = منطقة حكومة ديتمولد
+  be = Дэтмальд
   cs = Detmold
   da = Detmold
   nl = Detmold
@@ -13577,6 +13615,7 @@
   en = Düsseldorf — Düsseldorf
   ru = Дюссельдорф — Дюссельдорф
   ar = دوسلدورف — دوسلدورف
+  be = Дзюсельдорф — Дзюсельдорф
   cs = Düsseldorf — Düsseldorf
   da = Düsseldorf — Düsseldorf
   nl = Düsseldorf — Düsseldorf
@@ -13608,6 +13647,7 @@
   en = Düsseldorf — Mülheim an der Ruhr
   ru = Дюссельдорф — Мюльхайм-на-Руре
   ar = دوسلدورف — مولهايم
+  be = Дзюсельдорф — Мюльгайм-на-Руры
   cs = Düsseldorf — Mülheim an der Ruhr
   da = Düsseldorf — Mülheim an der Ruhr
   nl = Düsseldorf — Mülheim an der Ruhr
@@ -13639,6 +13679,7 @@
   en = Düsseldorf — Wesel
   ru = Дюссельдорф — Везель
   ar = دوسلدورف — فيزل
+  be = Дзюсельдорф — Везель
   cs = Düsseldorf — Wesel
   da = Düsseldorf — Wesel
   nl = Düsseldorf — Wesel
@@ -13670,6 +13711,7 @@
   en = Cologne — Aachen
   ru = Кёльн — Ахен
   ar = منطقة حكومة كولونيا – آخن
+  be = Кёльн — Ахен
   cs = Kolín nad Rýnem — Cáchy
   da = Köln — Aachen
   nl = Keulen — Aken
@@ -13701,6 +13743,7 @@
   en = Cologne — Cologne
   ru = Кёльн — Кёльн
   ar = منطقة حكومة كولونيا – كولونيا
+  be = Кёльн — Кёльн
   cs = Kolín nad Rýnem — Kolín nad Rýnem
   da = Köln — Köln
   nl = Keulen — Keulen
@@ -13732,6 +13775,7 @@
   en = Münster — Münster
   ru = Мюнстер — Мюнстер
   ar = مونستر — مونستر
+  be = Мюнстэр — Мюнстэр
   cs = Münster — Münster
   da = Münster — Münster
   nl = Münster — Münster
@@ -13763,6 +13807,7 @@
   en = Münster — Recklinghausen
   ru = Мюнстер — Реклингхаузен
   ar = مونستر — رايكلنغوسن
+  be = Мюнстэр — Рэклінгхаўзен
   cs = Münster — Recklinghausen
   da = Münster — Recklinghausen
   nl = Münster — Recklinghausen
@@ -13794,6 +13839,7 @@
   en = Rhineland-Palatinate — Koblenz
   ru = Рейнланд-Пфальц — Кобленц
   ar = راينلند بالاتينات — كوبلنس
+  be = Рэйнланд-Пфальц — Кобленц
   cs = Porýní-Falc — Koblenz
   da = Rheinland-Pfalz — Koblenz
   nl = Rijnland-Palts — Koblenz
@@ -13825,6 +13871,7 @@
   en = Rhineland-Palatinate — Mainz
   ru = Рейнланд-Пфальц — Майнц
   ar = راينلند بالاتينات — ماينتس
+  be = Рэйнланд-Пфальц — Майнц
   cs = Porýní-Falc — Mohuč
   da = Rheinland-Pfalz — Mainz
   nl = Rijnland-Palts — Mainz
@@ -13856,6 +13903,7 @@
   en = Saarland
   ru = Саар
   ar = سارلاند
+  be = Саар
   cs = Sársko
   da = Saarland
   nl = Saarland
@@ -13887,6 +13935,7 @@
   en = Saxony-Anhalt
   ru = Саксония-Анхальт
   ar = ساكسونيا أنهالت
+  be = Саксонія-Ангальт
   cs = Sasko-Anhaltsko
   da = Sachsen-Anhalt
   nl = Saksen-Anhalt
@@ -13918,6 +13967,7 @@
   en = Saxony — Dresden
   ru = Саксония — Дрезден
   ar = ساكسونيا — دريسدن
+  be = Саксонія — Дрэздэн
   cs = Sasko — Drážďany
   da = Sachsen — Dresden
   nl = Saksen — Dresden
@@ -13949,6 +13999,7 @@
   en = Saxony — Leipzig
   ru = Саксония — Лейпциг
   ar = ساكسونيا — لايبزيغ
+  be = Саксонія — Лейпцыг
   cs = Sasko — Lipsko
   da = Sachsen — Leipzig
   nl = Saksen — Leipzig
@@ -13980,6 +14031,7 @@
   en = Schleswig-Holstein
   ru = Шлезвиг-Гольштейн
   ar = شليسفيغ هولشتاين
+  be = Шлезвіг-Гольштэйн
   cs = Šlesvicko-Holštýnsko
   da = Slesvig-Holsten
   nl = Sleeswijk-Holstein
@@ -14011,6 +14063,7 @@
   en = Thuringia
   ru = Тюрингия
   ar = تورينغن
+  be = Цюрынгія
   cs = Durynsko
   da = Thüringen
   nl = Thüringen
@@ -14042,6 +14095,7 @@
   en = Ghana
   ru = Гана
   ar = غانا
+  be = Гана
   cs = Ghana
   da = Ghana
   nl = Ghana
@@ -14075,6 +14129,7 @@
   en = Gibraltar
   ru = Гибралтар
   ar = جبل طارق
+  be = Гібралтар
   cs = Gibraltar
   da = Gibraltar
   nl = Gibraltar
@@ -14108,6 +14163,7 @@
   en = Greece
   ru = Греция
   ar = اليونان
+  be = Грэцыя
   cs = Řecko
   da = Grækenland
   nl = Griekenland
@@ -14141,6 +14197,7 @@
   en = Aegean
   ru = Эгейские острова
   ar = إيجان
+  be = Эгейскія астравы
   cs = Egeis
   da = Decentraliseret administration for Ægæerhavet
   nl = Egeïsche Eilanden
@@ -14172,6 +14229,7 @@
   en = Attica
   ru = Аттика
   ar = أتيكا
+  be = Атыка
   cs = Decentralizovaná správa Attiky
   da = Decentraliseret administration for Attika
   nl = Attica
@@ -14203,6 +14261,7 @@
   en = Crete
   ru = Крит
   ar = كريت
+  be = Крыт
   cs = Decentralizovaná správa Kréty
   da = Decentraliseret administration for Kreta
   nl = Kreta
@@ -14234,6 +14293,7 @@
   en = Epirus and Western Macedonia
   ru = Эпир и западная Македония
   ar = إيبروس ومقدونيا الغربية
+  be = Эпір і Заходняя Македонія
   cs = Decentralizovaná správa Epira a západní Makedonie
   da = Decentraliseret administration for Epiros og Vestmakedonien
   nl = Epirus en West-Macedonië
@@ -14265,6 +14325,7 @@
   en = Macedonia and Thrace
   ru = Македония и Фракия
   ar = مقدونيا وتراقيا
+  be = Македонія і Фракія
   cs = Decentralizovaná správa Makedonie a Thrákie
   da = Decentraliseret administration for Makedonien og Thrakien
   nl = Macedonië en Thracië
@@ -14296,6 +14357,7 @@
   en = Thessaly and Central Greece
   ru = Фессалия и Центральная Греция
   ar = ثيساليا ووسط اليونان
+  be = Фесалія і Цэнтральная Грэцыя
   cs = Decentralizovaná správa Thesálie a Středního Řecka
   da = Decentraliseret administration for Thessalien og Centralgrækenland
   nl = Thessalië en Centraal Griekenland
@@ -14327,6 +14389,7 @@
   en = Peloponnese
   ru = Пелопоннес
   ar = بيلوبونيز
+  be = Пелапанес
   cs = Decentralizovaná správa Peloponés
   da = Peloponnes
   nl = Peloponnesos
@@ -14358,6 +14421,7 @@
   en = Greenland
   ru = Гренландия
   ar = جرينلاند
+  be = Грэнландыя
   cs = Grónsko
   da = Grønland
   nl = Groenland
@@ -14391,6 +14455,7 @@
   en = Grenada
   ru = Гренада
   ar = جرينادا
+  be = Грэнада
   cs = Grenada
   da = Grenada
   nl = Grenada
@@ -14423,6 +14488,7 @@
   en = Guadeloupe
   ru = Гваделупа
   ar = جوادلوب
+  be = Гвадэлупа
   cs = Guadeloupe
   da = Guadeloupe
   nl = Guadeloupe
@@ -14455,6 +14521,7 @@
   en = Guatemala
   ru = Гватемала
   ar = غواتيمالا
+  be = Гватэмала
   cs = Guatemala
   da = Guatemala
   nl = Guatemala
@@ -14487,6 +14554,7 @@
   en = Guernsey
   ru = Гернси
   ar = جيرنزي
+  be = Гернсі
   cs = Guernsey
   da = Guernsey
   nl = Guernsey
@@ -14519,6 +14587,7 @@
   en = Guinea
   ru = Гвинея
   ar = غينيا
+  be = Гвінея
   cs = Guinea
   da = Guinea
   nl = Guinee
@@ -14551,6 +14620,7 @@
   en = Guinea-Bissau
   ru = Гвинея-Бисау
   ar = غينيا بيساو
+  be = Гвінея-Бісаў
   cs = Guinea-Bissau
   da = Guinea-Bissau
   nl = Guinee-Bissau
@@ -14583,6 +14653,7 @@
   en = Guyana
   ru = Гайана
   ar = غويانا
+  be = Гаяна
   cs = Guyana
   da = Guyana
   nl = Guyana
@@ -14616,6 +14687,7 @@
   en = Haiti
   ru = Республика Гаити
   ar = هايتي
+  be = Гаіці
   cs = Haiti
   da = Haiti
   nl = Haïti
@@ -14649,6 +14721,7 @@
   en = Honduras
   ru = Гондурас
   ar = هندوراس
+  be = Гандурас
   cs = Honduras
   da = Honduras
   nl = Honduras
@@ -14682,6 +14755,7 @@
   en = Hungary
   ru = Венгрия
   ar = المجر
+  be = Венгрыя
   cs = Maďarsko
   da = Ungarn
   nl = Hongarije
@@ -14715,6 +14789,7 @@
   en = Central Hungary
   ru = Центральная Венгрия
   ar = وسط المجر
+  be = Цэнтральная Венгрыя
   cs = Közép-Magyarország
   da = Central-Ungarn
   nl = Centraal Hongarije
@@ -14746,6 +14821,7 @@
   en = Hungary — East
   ru = Венгрия — Восток
   ar = المجر — شرق
+  be = Венгрыя — Усход
   cs = Maďarsko — Východ
   da = Ungarn — Øst
   nl = Hongarije — Oost
@@ -14777,6 +14853,7 @@
   en = Hungary — West
   ru = Венгрия — Запад
   ar = المجر — غرب
+  be = Венгрыя — Захад
   cs = Maďarsko — Západ
   da = Ungarn — Vest
   nl = Hongarije — West
@@ -14808,6 +14885,7 @@
   en = Iceland
   ru = Исландия
   ar = آيسلندا
+  be = Ісландыя
   cs = Island
   da = Island
   nl = IJsland
@@ -14841,6 +14919,7 @@
   en = Illinois
   ru = Иллинойс
   ar = إلينوي
+  be = Ілінойс
   cs = Illinois
   da = Illinois
   nl = Illinois
@@ -14873,6 +14952,7 @@
   en = India
   ru = Индия
   ar = الهند
+  be = Індыя
   cs = Indie
   da = Indien
   nl = India
@@ -14906,6 +14986,7 @@
   en = Andaman and Nicobar Islands
   ru = Андаманские и Никобарские острова
   ar = جزر أندمان ونيكوبار
+  be = Андаманскія і Нікабарскія астравы
   cs = Andamany a Nikobary
   da = Andamanerne og Nicobarerne
   nl = Andamanen en Nicobaren
@@ -14938,6 +15019,7 @@
   en = Andhra Pradesh
   ru = Андхра-Прадеш
   ar = أندرا برديش
+  be = Андхра-Прадэш
   cs = Ándhrapradéš
   da = Andhra Pradesh
   nl = Andhra Pradesh
@@ -14970,6 +15052,7 @@
   en = Arunachal Pradesh
   ru = Аруначал-Прадеш
   ar = أروناجل برديش
+  be = Аруначал-Прадэш
   cs = Arunáčalpradéš
   da = Arunachal Pradesh
   nl = Arunachal Pradesh
@@ -15002,6 +15085,7 @@
   en = Assam
   ru = Ассам
   ar = أسام
+  be = Асам
   cs = Ásám
   da = Assam
   nl = Assam
@@ -15034,6 +15118,7 @@
   en = Bihar
   ru = Бихар
   ar = بيهار
+  be = Біхар
   cs = Bihár
   da = Bihar
   nl = Bihar
@@ -15066,6 +15151,7 @@
   en = Chandigarh
   ru = Чандигарх
   ar = شانديغار
+  be = Чандыгарх
   cs = Čandígarh
   da = Chandigarh
   nl = Chandigarh
@@ -15098,6 +15184,7 @@
   en = Chhattisgarh
   ru = Чхаттисгарх
   ar = تشاتيسغار
+  be = Чхатысгарх
   cs = Čhattísgarh
   da = Chattisgarh
   nl = Chhattisgarh
@@ -15130,6 +15217,7 @@
   en = Delhi
   ru = Дели
   ar = دلهي
+  be = Дэлі
   cs = Dillí
   da = Delhi
   nl = Delhi
@@ -15162,6 +15250,7 @@
   en = Goa
   ru = Гоа
   ar = غوا
+  be = Гоа
   cs = Goa
   da = Goa
   nl = Goa
@@ -15194,6 +15283,7 @@
   en = Gujarat
   ru = Гуджарат
   ar = غوجارات
+  be = Гуджарат
   cs = Gudžarát
   da = Gujarat
   nl = Gujarat
@@ -15226,6 +15316,7 @@
   en = Haryana
   ru = Харьяна
   ar = هاريانا
+  be = Хар'яна
   cs = Harijána
   da = Haryana
   nl = Haryana
@@ -15258,6 +15349,7 @@
   en = Himachal Pradesh
   ru = Химачал-Прадеш
   ar = هيماجل برديش
+  be = Хімачал-Прадэш
   cs = Himáčalpradéš
   da = Himachal Pradesh
   nl = Himachal Pradesh
@@ -15290,6 +15382,7 @@
   en = Jammu and Kashmir
   ru = Джамму и Кашмир
   ar = جامو وكشمير
+  be = Джаму і Кашмір
   cs = Džammú a Kašmír
   da = Jammu og Kashmir
   nl = Jammu en Kasjmir
@@ -15322,6 +15415,7 @@
   en = Jharkhand
   ru = Джаркханд
   ar = جهارخاند
+  be = Джхаркханд
   cs = Džhárkhand
   da = Jharkhand
   nl = Jharkhand
@@ -15354,6 +15448,7 @@
   en = Karnataka
   ru = Карнатака
   ar = كارناتاكا
+  be = Карнатака
   cs = Karnátaka
   da = Karnataka
   nl = Karnataka
@@ -15386,6 +15481,7 @@
   en = Kerala
   ru = Керала
   ar = كيرلا
+  be = Керала
   cs = Kérala
   da = Kerala
   nl = Kerala
@@ -15418,6 +15514,7 @@
   en = Lakshadweep
   ru = Лакшадвип
   ar = لكشديب
+  be = Лакшадвіп
   cs = Lakadivy
   da = Lakshadweep
   nl = Laccadiven
@@ -15450,6 +15547,7 @@
   en = Madhya Pradesh
   ru = Мадхья-Прадеш
   ar = ماديا براديش
+  be = Мадх'я-Прадэш
   cs = Madhjapradéš
   da = Madhya Pradesh
   nl = Madhya Pradesh
@@ -15482,6 +15580,7 @@
   en = Maharashtra
   ru = Махараштра
   ar = ماهاراشترا
+  be = Махараштра
   cs = Maháráštra
   da = Maharashtra
   nl = Maharashtra
@@ -15514,6 +15613,7 @@
   en = Manipur
   ru = Манипур
   ar = مانيبور
+  be = Маніпур
   cs = Manípur
   da = Manipur
   nl = Manipur
@@ -15546,6 +15646,7 @@
   en = Meghalaya
   ru = Мегалая
   ar = ميغالايا
+  be = Мегхалая
   cs = Méghálaja
   da = Meghalaya
   nl = Meghalaya
@@ -15578,6 +15679,7 @@
   en = Mizoram
   ru = Мизорам
   ar = ميزورام
+  be = Мізарам
   cs = Mizóram
   da = Mizoram
   nl = Mizoram
@@ -15610,6 +15712,7 @@
   en = Nagaland
   ru = Нагаленд
   ar = ناجالاند
+  be = Нагаленд
   cs = Nágáland
   da = Nagaland
   nl = Nagaland
@@ -15642,6 +15745,7 @@
   en = Odisha
   ru = Орисса
   ar = أوريسا
+  be = Арыса
   cs = Urísa
   da = Orissa
   nl = Odisha
@@ -15674,6 +15778,7 @@
   en = Punjab
   ru = Пенджаб
   ar = بنجاب
+  be = Пенджаб
   cs = Paňdžáb
   da = Punjab
   nl = Punjab
@@ -15706,6 +15811,7 @@
   en = Rajasthan
   ru = Раджастхан
   ar = راجستان
+  be = Раджастхан
   cs = Rádžasthán
   da = Rajasthan
   nl = Rajasthan
@@ -15738,6 +15844,7 @@
   en = Sikkim
   ru = Сикким
   ar = سيكيم
+  be = Сікім
   cs = Sikkim
   da = Sikkim
   nl = Sikkim
@@ -15770,6 +15877,7 @@
   en = Tamil Nadu
   ru = Тамилнад
   ar = تامل نادو
+  be = Тамілнад
   cs = Tamilnádu
   da = Tamil Nadu
   nl = Tamil Nadu
@@ -15802,6 +15910,7 @@
   en = Telangana
   ru = Телангана
   ar = تيلانغانا
+  be = Тэлангана
   cs = Telangána
   da = Telangana
   nl = Telangana
@@ -15834,6 +15943,7 @@
   en = Tripura
   ru = Трипура
   ar = ترايبورا
+  be = Трыпура
   cs = Tripura
   da = Tripura
   nl = Tripura
@@ -15866,6 +15976,7 @@
   en = Uttar Pradesh
   ru = Уттар-Прадеш
   ar = أتر برديش
+  be = Утар-Прадэш
   cs = Uttarpradéš
   da = Uttar Pradesh
   nl = Uttar Pradesh
@@ -15898,6 +16009,7 @@
   en = Uttarakhand
   ru = Уттаракханд
   ar = أوتاراخند
+  be = Утаракханд
   cs = Uttarákhand
   da = Uttarakhand
   nl = Uttarakhand
@@ -15930,6 +16042,7 @@
   en = West Bengal
   ru = Западная Бенгалия
   ar = بنغال الغربية
+  be = Заходняя Бенгалія
   cs = Západní Bengálsko
   da = Vestbengalen
   nl = West-Bengalen
@@ -15962,6 +16075,7 @@
   en = Indiana
   ru = Индиана
   ar = إنديانا
+  be = Індыяна
   cs = Indiana
   da = Indiana
   nl = Indiana
@@ -15994,6 +16108,7 @@
   en = Indonesia
   ru = Индонезия
   ar = إندونيسيا
+  be = Інданезія
   cs = Indonésie
   da = Indonesien
   nl = Indonesië
@@ -16027,6 +16142,7 @@
   en = Sulawesi, Kalimantan
   ru = Сулавеси, Индонезийский Калимантан
   ar = سولاوسي, كاليمنتان
+  be = Сулавесі, Калімантан
   cs = Sulawesi, Kalimantan
   da = Sulawesi, Kalimantan
   nl = Celebes, Kalimantan
@@ -16058,6 +16174,7 @@
   en = Indonesia — East
   ru = Индонезия — Восток
   ar = إندونيسيا — شرق
+  be = Інданезія — Усход
   cs = Indonésie — Východ
   da = Indonesien — Øst
   nl = Indonesië — Oost
@@ -16089,6 +16206,7 @@
   en = West Java Province
   ru = Западная Ява
   ar = جاوة الغربية
+  be = Заходняя Ява
   cs = Západní Jáva
   da = Vestjava
   nl = West-Java
@@ -16120,6 +16238,7 @@
   en = Central Java Province
   ru = Центральная Ява
   ar = جاوة الوسطى
+  be = Цэнтральная Ява
   cs = Střední Jáva
   da = Centraljava
   nl = Midden-Java
@@ -16151,6 +16270,7 @@
   en = East Java Province
   ru = Восточная Ява
   ar = جاوة الشرقية
+  be = Усходняя Ява
   cs = Východní Jáva
   da = Provinsen Østjava
   nl = Oost-Java
@@ -16182,6 +16302,7 @@
   en = Lesser Sunda Islands
   ru = Малые Зондские острова
   ar = جزر سوندا الصغرى
+  be = Малыя Зондскія астравы
   cs = Malé Sundy
   da = De små Sundaøer
   nl = Kleine Soenda-eilanden
@@ -16213,6 +16334,7 @@
   en = Sumatra
   ru = Суматра
   ar = سومطرة
+  be = Суматра
   cs = Sumatra
   da = Sumatra
   nl = Sumatra
@@ -16244,6 +16366,7 @@
   en = Iowa
   ru = Айова
   ar = آيوا
+  be = Аява
   cs = Iowa
   da = Iowa
   nl = Iowa
@@ -16276,6 +16399,7 @@
   en = Iran
   ru = Иран
   ar = إيران
+  be = Іран
   cs = Írán
   da = Iran
   nl = Iran
@@ -16309,6 +16433,7 @@
   en = Iran — North
   ru = Иран — Север
   ar = إيران — شمال
+  be = Іран — Поўнач
   cs = Írán — Sever
   da = Iran — Nord
   nl = Iran — Noord
@@ -16340,6 +16465,7 @@
   en = Iran — South
   ru = Иран — Юг
   ar = إيران — جنوب
+  be = Іран — Поўдзень
   cs = Írán — Jih
   da = Iran — Syd
   nl = Iran — Zuid
@@ -16371,6 +16497,7 @@
   en = Iraq
   ru = Ирак
   ar = العراق
+  be = Ірак
   cs = Irák
   da = Irak
   nl = Irak
@@ -16404,6 +16531,7 @@
   en = Ireland
   ru = Ирландия
   ar = جمهورية أيرلندا
+  be = Ірландыя
   cs = Irsko
   da = Irland
   nl = Ierland
@@ -16437,6 +16565,7 @@
   en = Connacht
   ru = Коннахт
   ar = كوناكت
+  be = Конахт
   cs = Connacht
   da = Connacht
   nl = Connacht
@@ -16468,6 +16597,7 @@
   en = Leinster
   ru = Ленстер
   ar = لاينستر
+  be = Ленстэр
   cs = Leinster
   da = Leinster
   nl = Leinster
@@ -16499,6 +16629,7 @@
   en = Munster
   ru = Манстер
   ar = مونستر
+  be = Манстэр
   cs = Munster
   da = Munster
   nl = Munster
@@ -16530,6 +16661,7 @@
   en = Ulster
   ru = Ольстер
   ar = أولستر
+  be = Ольстэр
   cs = Ulster
   da = Ulster
   nl = Ulster
@@ -16561,6 +16693,7 @@
   en = Isle of Man
   ru = Остров Мэн
   ar = جزيرة مان
+  be = Востраў Мэн
   cs = Man
   da = Isle of Man
   nl = Man
@@ -16593,6 +16726,7 @@
   en = Israel
   ru = Израиль
   ar = إسرائيل
+  be = Ізраіль
   cs = Izrael
   da = Israel
   nl = Israël
@@ -16626,6 +16760,7 @@
   en = Israel
   ru = Израиль
   ar = إسرائيل
+  be = Ізраіль
   cs = Izrael
   da = Israel
   nl = Israël
@@ -16658,6 +16793,7 @@
   en = Italy
   ru = Италия
   ar = إيطاليا
+  be = Італія
   cs = Itálie
   da = Italien
   nl = Italië
@@ -16691,6 +16827,7 @@
   en = Abruzzo
   ru = Абруццо
   ar = أبروتسو
+  be = Абруца
   cs = Abruzzo
   da = Abruzzo
   nl = Abruzzen
@@ -16722,6 +16859,7 @@
   en = Aosta Valley
   ru = Валле-д’Аоста
   ar = فالي دا أوستا
+  be = Вале-д’Аоста
   cs = Valle d'Aosta
   da = Valle d'Aosta
   nl = Valle d'Aosta
@@ -16753,6 +16891,7 @@
   en = Apulia
   ru = Апулия
   ar = بوليا
+  be = Апулія
   cs = Apulie
   da = Apulien
   nl = Apulië
@@ -16784,6 +16923,7 @@
   en = Basilicata
   ru = Базиликата
   ar = بازيليكاتا
+  be = Базіліката
   cs = Basilicata
   da = Basilicata
   nl = Basilicata
@@ -16815,6 +16955,7 @@
   en = Calabria
   ru = Калабрия
   ar = قلورية
+  be = Калабрыя
   cs = Kalábrie
   da = Calabrien
   nl = Calabrië
@@ -16846,6 +16987,7 @@
   en = Campania
   ru = Кампания
   ar = كامبانيا
+  be = Кампанія
   cs = Kampánie
   da = Campania
   nl = Campania
@@ -16877,6 +17019,7 @@
   en = Emilia-Romagna
   ru = Эмилия-Романья
   ar = إميليا رومانيا
+  be = Эмілія-Раманья
   cs = Emilia-Romagna
   da = Emilia-Romagna
   nl = Emilia-Romagna
@@ -16908,6 +17051,7 @@
   en = Province of Bologna
   ru = Болонья
   ar = مقاطعة بولونيا
+  be = Правінцыя Балоння
   cs = Provincie Bologna
   da = Bologna
   nl = Bologna
@@ -16939,6 +17083,7 @@
   en = Province of Ferrara
   ru = Феррара
   ar = مقاطعة فيرارا
+  be = Правінцыя Ферара
   cs = Provincie Ferrara
   da = Ferrara
   nl = Ferrara
@@ -16970,6 +17115,7 @@
   en = Province of Forlì-Cesena
   ru = Форли-Чезена
   ar = مقاطعة فورلي تشيزينا
+  be = Правінцыя Фарлі-Чэзена
   cs = Provincie Forlì-Cesena
   da = Forlì-Cesena
   nl = Forlì-Cesena
@@ -17001,6 +17147,7 @@
   en = Province of Modena
   ru = Модена
   ar = مقاطعة مودينا
+  be = Правінцыя Модэна
   cs = Provincie Modena
   da = Modena
   nl = Modena
@@ -17032,6 +17179,7 @@
   en = Province of Parma
   ru = Парма
   ar = مقاطعة بارما
+  be = Правінцыя Парма
   cs = Provincie Parma
   da = Parma
   nl = Parma
@@ -17063,6 +17211,7 @@
   en = Province of Piacenza
   ru = Пьяченца
   ar = مقاطعة بياتشنزا
+  be = Правінцыя П'ячэнца
   cs = Provincie Piacenza
   da = Piacenza
   nl = Piacenza
@@ -17094,6 +17243,7 @@
   en = Province of Ravenna
   ru = Равенна
   ar = مقاطعة رافينا
+  be = Правінцыя Равена
   cs = Provincie Ravenna
   da = Ravenna
   nl = Ravenna
@@ -17125,6 +17275,7 @@
   en = Province of Reggio Emilia
   ru = Реджо-Эмилия
   ar = مقاطعة ريدجو إميليا
+  be = Правінцыя Рэджа-Эмілія
   cs = Provincie Reggio Emilia
   da = Reggio Emilia
   nl = Reggio Emilia
@@ -17156,6 +17307,7 @@
   en = Province of Rimini
   ru = Римини
   ar = مقاطعة ريميني
+  be = Правінцыя Рыміні
   cs = Provincie Rimini
   da = Provinsen Rimini
   nl = Rimini
@@ -17187,6 +17339,7 @@
   en = Friuli–Venezia Giulia
   ru = Фриули-Венеция-Джулия
   ar = فريولي فينيتسيا جوليا
+  be = Фрыўлі-Венецыя-Джулія
   cs = Furlansko-Julské Benátsko
   da = Friuli-Venezia Giulia
   nl = Friuli-Venezia Giulia
@@ -17218,6 +17371,7 @@
   en = Province of Gorizia
   ru = Гориция
   ar = مقاطعة غوريتسيا
+  be = Правінцыя Гарыцыя
   cs = Provincie Gorizia
   da = Gorizia
   nl = Gorizia
@@ -17249,6 +17403,7 @@
   en = Province of Pordenone
   ru = Порденоне
   ar = مقاطعة بوردينوني
+  be = Правінцыя Пардэнонэ
   cs = Provincie Pordenone
   da = Pordenone
   nl = Pordenone
@@ -17280,6 +17435,7 @@
   en = Province of Trieste
   ru = Триест
   ar = مقاطعة ترييستي
+  be = Правінцыя Трыест
   cs = Provincie Trieste
   da = Trieste
   nl = Triëst
@@ -17311,6 +17467,7 @@
   en = Province of Udine
   ru = Удине
   ar = مقاطعة أوديني
+  be = Правінцыя Удзінэ
   cs = Provincie Udine
   da = Udine
   nl = Udine
@@ -17342,6 +17499,7 @@
   en = Lazio
   ru = Лацио
   ar = لاتسيو
+  be = Лацыа
   cs = Lazio
   da = Lazio
   nl = Lazio
@@ -17373,6 +17531,7 @@
   en = Liguria
   ru = Лигурия
   ar = ليغوريا
+  be = Лігурыя
   cs = Ligurie
   da = Liguria
   nl = Ligurië
@@ -17404,6 +17563,7 @@
   en = Lombardy
   ru = Ломбардия
   ar = لومبارديا
+  be = Ламбардыя
   cs = Lombardie
   da = Lombardiet
   nl = Lombardije
@@ -17435,6 +17595,7 @@
   en = Province of Bergamo
   ru = Бергамо
   ar = مقاطعة بيرغامو
+  be = Правінцыя Бергама
   cs = Provincie Bergamo
   da = Bergamo
   nl = Bergamo
@@ -17466,6 +17627,7 @@
   en = Province of Brescia
   ru = Брешиа
   ar = مقاطعة بريشا
+  be = Правінцыя Брэшыя
   cs = Provincie Brescia
   da = Brescia
   nl = Brescia
@@ -17497,6 +17659,7 @@
   en = Province of Como
   ru = Комо
   ar = مقاطعة كومو
+  be = Правінцыя Кома
   cs = Provincie Como
   da = Como
   nl = Como
@@ -17528,6 +17691,7 @@
   en = Province of Cremona
   ru = Кремона
   ar = مقاطعة كريمونا
+  be = Правінцыя Крэмона
   cs = Provincie Cremona
   da = Cremona
   nl = Cremona
@@ -17559,6 +17723,7 @@
   en = Province of Lecco
   ru = Лекко
   ar = مقاطعة ليكو
+  be = Правінцыя Леко
   cs = Provincie Lecco
   da = Lecco
   nl = Lecco
@@ -17590,6 +17755,7 @@
   en = Province of Lodi
   ru = Лоди
   ar = مقاطعة لودي
+  be = Правінцыя Лодзі
   cs = Provincie Lodi
   da = Lodi
   nl = Lodi
@@ -17621,6 +17787,7 @@
   en = Province of Mantua
   ru = Мантуя
   ar = مقاطعة مانتوفا
+  be = Правінцыя Мантуя
   cs = Provincie Mantova
   da = Mantova
   nl = Mantua
@@ -17652,6 +17819,7 @@
   en = Province of Milan
   ru = Милан
   ar = مقاطعة ميلانو
+  be = Правінцыя Мілан
   cs = Provincie Milano
   da = Milano
   nl = Milaan
@@ -17683,6 +17851,7 @@
   en = Province of Monza and Brianza
   ru = Монца и Брианца
   ar = مقاطعة منزا وبريانسا
+  be = Правінцыя Монца і Брыянца
   cs = Provincie Monza e Brianza
   da = Monza e Brianza
   nl = Monza e Brianza
@@ -17714,6 +17883,7 @@
   en = Province of Pavia
   ru = Павия
   ar = مقاطعة بافيا
+  be = Правінцыя Павія
   cs = Provincie Pavia
   da = Pavia
   nl = Pavia
@@ -17745,6 +17915,7 @@
   en = Province of Sondrio
   ru = Сондрио
   ar = مقاطعة سوندريو
+  be = Правінцыя Сондрыё
   cs = Provincie Sondrio
   da = Sondrio
   nl = Sondrio
@@ -17776,6 +17947,7 @@
   en = Province of Varese
   ru = Варезе
   ar = مقاطعة فاريزي
+  be = Правінцыя Варэзэ
   cs = Provincie Varese
   da = Varese
   nl = Varese
@@ -17807,6 +17979,7 @@
   en = Marche
   ru = Марке
   ar = ماركي
+  be = Марке
   cs = Marche
   da = Marche
   nl = Marche
@@ -17838,6 +18011,7 @@
   en = Molise
   ru = Молизе
   ar = موليزي
+  be = Малізэ
   cs = Molise
   da = Molise
   nl = Molise
@@ -17869,6 +18043,7 @@
   en = Piedmont
   ru = Пьемонт
   ar = بييمونتي
+  be = П'емонт
   cs = Piemont
   da = Piemonte
   nl = Piemonte
@@ -17900,6 +18075,7 @@
   en = Province of Alessandria
   ru = Алессандрия
   ar = مقاطعة ألساندريا
+  be = Правінцыя Алесандрыя
   cs = Provincie Alessandria
   da = Alessandria
   nl = Alessandria
@@ -17931,6 +18107,7 @@
   en = Province of Asti
   ru = Асти
   ar = مقاطعة أستي
+  be = Правінцыя Асці
   cs = Provincie Asti
   da = Asti
   nl = Asti
@@ -17962,6 +18139,7 @@
   en = Province of Biella
   ru = Бьелла
   ar = مقاطعة بييلا
+  be = Правінцыя Б'ела
   cs = Provincie Biella
   da = Biella
   nl = Biella
@@ -17993,6 +18171,7 @@
   en = Province of Cuneo
   ru = Кунео
   ar = مقاطعة كونيو
+  be = Правінцыя Кунеа
   cs = Provincie Cuneo
   da = Cuneo
   nl = Cuneo
@@ -18024,6 +18203,7 @@
   en = Province of Novara
   ru = Новара
   ar = مقاطعة نوفارا
+  be = Правінцыя Навара
   cs = Provincie Novara
   da = Novara
   nl = Novara
@@ -18055,6 +18235,7 @@
   en = Province of Turin
   ru = Турин
   ar = مقاطعة تورينو
+  be = Правінцыя Турын
   cs = Provincie Torino
   da = Torino
   nl = Turijn
@@ -18086,6 +18267,7 @@
   en = Verbano-Cusio-Ossola
   ru = Вербано-Кузьо-Оссола
   ar = مقاطعة فربانو كوزيو أوسولا
+  be = Правінцыя Вербана-Куз'ё-Асола
   cs = Provincie Verbano-Cusio-Ossola
   da = Verbano-Cusio-Ossola
   nl = Verbano-Cusio-Ossola
@@ -18117,6 +18299,7 @@
   en = Province of Vercelli
   ru = Верчелли
   ar = مقاطعة فرشيلي
+  be = Правінцыя Верчэлі
   cs = Provincie Vercelli
   da = Vercelli
   nl = Vercelli
@@ -18148,6 +18331,7 @@
   en = Sardinia
   ru = Сардиния
   ar = سردينيا
+  be = Сардзінія
   cs = Sardinie
   da = Sardinien
   nl = Sardinië
@@ -18179,6 +18363,7 @@
   en = Sicily
   ru = Сицилия
   ar = صقلية
+  be = Сіцылія
   cs = Sicílie
   da = Sicilien
   nl = Sicilië
@@ -18210,6 +18395,7 @@
   en = Trentino-South Tyrol
   ru = Трентино — Альто-Адидже
   ar = ترينتينو ألتو أديجي
+  be = Трэнціна — Альта-Адыджэ
   cs = Tridentsko-Horní Adiže
   da = Trentino-Sydtyrol
   nl = Trentino-Zuid-Tirol
@@ -18241,6 +18427,7 @@
   en = Tuscany — Province of Grosseto
   ru = Тоскана — Гроссето
   ar = توسكانا — مقاطعة غروسيتو
+  be = Таскана — Правінцыя Грасета
   cs = Toskánsko — Provincie Grosseto
   da = Toscana — Grosseto
   nl = Toscane — Grosseto
@@ -18272,6 +18459,7 @@
   en = Tuscany — Province of Massa and Carrara
   ru = Тоскана — Масса-Каррара
   ar = توسكانا — مقاطعة ماسا كرارا
+  be = Таскана — Правінцыя Маса-Карара
   cs = Toskánsko — Provincie Massa-Carrara
   da = Toscana — Massa-Carrara
   nl = Toscane — Massa-Carrara
@@ -18303,6 +18491,7 @@
   en = Umbria
   ru = Умбрия
   ar = أومبريا
+  be = Умбрыя
   cs = Umbrie
   da = Umbria
   nl = Umbrië
@@ -18334,6 +18523,7 @@
   en = Veneto
   ru = Венето
   ar = فينيتو
+  be = Венета
   cs = Benátsko
   da = Veneto
   nl = Veneto
@@ -18365,6 +18555,7 @@
   en = Province of Belluno
   ru = Беллуно
   ar = مقاطعة بلونو
+  be = Правінцыя Белуна
   cs = Provincie Belluno
   da = Belluno
   nl = Belluno
@@ -18396,6 +18587,7 @@
   en = Province of Padua
   ru = Падуя
   ar = مقاطعة بادوفا
+  be = Правінцыя Падуя
   cs = Provincie Padova
   da = Padova
   nl = Padua
@@ -18427,6 +18619,7 @@
   en = Province of Rovigo
   ru = Ровиго
   ar = مقاطعة روفيغو
+  be = Правінцыя Равіга
   cs = Provincie Rovigo
   da = Rovigo
   nl = Rovigo
@@ -18458,6 +18651,7 @@
   en = Province of Treviso
   ru = Тревизо
   ar = مقاطعة تريفيزو
+  be = Правінцыя Трэвіза
   cs = Provincie Treviso
   da = Treviso
   nl = Treviso
@@ -18489,6 +18683,7 @@
   en = Province of Venice
   ru = Венеция
   ar = مقاطعة فينيسيا
+  be = Правінцыя Венецыя
   cs = Provincie Venezia
   da = Venedig
   nl = Venetië
@@ -18520,6 +18715,7 @@
   en = Province of Verona
   ru = Верона
   ar = مقاطعة فيرونا
+  be = Правінцыя Верона
   cs = Provincie Verona
   da = Verona
   nl = Verona
@@ -18551,6 +18747,7 @@
   en = Province of Vicenza
   ru = Виченца
   ar = مقاطعة فيشنزا
+  be = Правінцыя Вічэнца
   cs = Provincie Vicenza
   da = Vicenza
   nl = Vicenza
@@ -18582,6 +18779,7 @@
   en = Jamaica
   ru = Ямайка
   ar = جامايكا
+  be = Ямайка
   cs = Jamajka
   da = Jamaica
   nl = Jamaica
@@ -18615,6 +18813,7 @@
   en = Japan
   ru = Япония
   ar = اليابان
+  be = Японія
   cs = Japonsko
   da = Japan
   nl = Japan
@@ -18648,6 +18847,7 @@
   en = Chūbu Region
   ru = Тюбу
   ar = منطقة تشوبو
+  be = Рэгіён Цюбу
   cs = Čúbu
   da = Chubu-regionen
   nl = Chubu
@@ -18680,6 +18880,7 @@
   en = Aichi Prefecture
   ru = Айти
   ar = آيتشي
+  be = Прэфектура Айты
   cs = Prefektura Aiči
   da = Aichi-præfekturet
   nl = Aichi
@@ -18712,6 +18913,7 @@
   en = Fukui Prefecture
   ru = Фукуи
   ar = فوكوي
+  be = Прэфектура Фукуі
   cs = Prefektura Fukui
   da = Fukui-præfekturet
   nl = Fukui
@@ -18744,6 +18946,7 @@
   en = Gifu Prefecture
   ru = Гифу
   ar = غيفو
+  be = Прэфектура Гуфі
   cs = Prefektura Gifu
   da = Gifu-præfekturet
   nl = Gifu
@@ -18775,6 +18978,7 @@
   en = Ishikawa Prefecture
   ru = Исикава
   ar = إيشيكاوا
+  be = Прэфектура Ісікава
   cs = Prefektura Išikawa
   da = Ishikawa-præfekturet
   nl = Ishikawa
@@ -18806,6 +19010,7 @@
   en = Nagano Prefecture
   ru = Нагано
   ar = ناغانو
+  be = Прэфектура Нагана
   cs = Prefektura Nagano
   da = Nagano-præfekturet
   nl = Nagano
@@ -18838,6 +19043,7 @@
   en = Niigata Prefecture
   ru = Ниигата
   ar = نييغاتا
+  be = Прэфектура Ніігата
   cs = Prefektura Niigata
   da = Niigata-præfekturet
   nl = Niigata
@@ -18870,6 +19076,7 @@
   en = Shizuoka Prefecture
   ru = Сидзуока
   ar = شيزوكا
+  be = Прэфектура Сідзуока
   cs = Prefektura Šizuoka
   da = Shizuoka-præfekturet
   nl = Shizuoka
@@ -18902,6 +19109,7 @@
   en = Toyama Prefecture
   ru = Тояма
   ar = توياما
+  be = Прэфектура Таяма
   cs = Prefektura Tojama
   da = Toyama-præfekturet
   nl = Toyama
@@ -18933,6 +19141,7 @@
   en = Yamanashi Prefecture
   ru = Яманаси
   ar = ياماناشي
+  be = Прэфектура Яманасі
   cs = Prefektura Jamanaši
   da = Yamanashi-præfekturet
   nl = Yamanashi
@@ -18965,6 +19174,7 @@
   en = Chūgoku Region
   ru = Тюгоку
   ar = منطقة تشوغوكو
+  be = Рэгіён Цюгоку
   cs = Čúgoku
   da = Chugoku-regionen
   nl = Chugoku
@@ -18997,6 +19207,7 @@
   en = Hiroshima Prefecture
   ru = Хиросима
   ar = هيروشيما
+  be = Прэфектура Хірасіма
   cs = Prefektura Hirošima
   da = Hiroshima-præfekturet
   nl = Hiroshima
@@ -19029,6 +19240,7 @@
   en = Okayama Prefecture
   ru = Окаяма
   ar = أوكاياما
+  be = Прэфектура Акаяма
   cs = Prefektura Okajama
   da = Okayama-præfekturet
   nl = Okayama
@@ -19061,6 +19273,7 @@
   en = Shimane Prefecture
   ru = Симане
   ar = شيمانه
+  be = Прэфектура Сіманэ
   cs = Prefektura Šimane
   da = Shimane-præfekturet
   nl = Shimane
@@ -19093,6 +19306,7 @@
   en = Tottori Prefecture
   ru = Тоттори
   ar = توتوري
+  be = Прэфектура Таторы
   cs = Prefektura Tottori
   da = Tottori-præfekturet
   nl = Tottori
@@ -19124,7 +19338,7 @@
 [Japan_Chugoku Region_Yamaguchi]
   en = Yamaguchi Prefecture
   ru = Ямагути
-  ar = ياماغوتشي
+  ar = ياماغوتشيbe = Прэфектура ТыбаЯмагуты
   cs = Prefektura Jamaguči
   da = Yamaguchi-præfekturet
   nl = Yamaguchi
@@ -19157,6 +19371,7 @@
   en = Hokkaidō
   ru = Хоккайдо
   ar = هوكايدو
+  be = Хакайда
   cs = Hokkaidó
   da = Hokkaido
   nl = Hokkaido
@@ -19189,6 +19404,7 @@
   en = Hokkaidō — East
   ru = Хоккайдо — Восток
   ar = هوكايدو — شرق
+  be = Хакайда — Усход
   cs = Hokkaidó — Východ
   da = Hokkaido — Øst
   nl = Hokkaido — Oost
@@ -19220,6 +19436,7 @@
   en = Hokkaidō — North
   ru = Хоккайдо — Север
   ar = هوكايدو — شمال
+  be = Хакайда — Поўнач
   cs = Hokkaidó — Sever
   da = Hokkaido — Nord
   nl = Hokkaido — Noord
@@ -19251,6 +19468,7 @@
   en = Hokkaidō — West
   ru = Хоккайдо — Запад
   ar = هوكايدو — غرب
+  be = Хакайда — Захад
   cs = Hokkaidó — Západ
   da = Hokkaido — Vest
   nl = Hokkaido — West
@@ -19282,6 +19500,7 @@
   en = Kantō Region
   ru = Канто
   ar = منطقة كانتو
+  be = Рэгіён Канто
   cs = Kantó
   da = Kanto-regionen
   nl = Kanto
@@ -19314,6 +19533,7 @@
   en = Chiba Prefecture
   ru = Тиба
   ar = تشيبا
+  be = Прэфектура Тыба
   cs = Prefektura Čiba
   da = Chiba-præfekturet
   nl = Chiba
@@ -19346,6 +19566,7 @@
   en = Gunma Prefecture
   ru = Гумма
   ar = غونما
+  be = Прэфектура Гуму
   cs = Prefektura Gunma
   da = Gunma-præfekturet
   nl = Gunma
@@ -19377,6 +19598,7 @@
   en = Ibaraki Prefecture
   ru = Ибараки
   ar = إيباراكي
+  be = Прэфектура Ібаракі
   cs = Prefektura Ibaraki
   da = Ibaraki-præfekturet
   nl = Ibaraki
@@ -19408,6 +19630,7 @@
   en = Kanagawa Prefecture
   ru = Канагава
   ar = كاناغاوا
+  be = Прэфектура Канагава
   cs = Prefektura Kanagawa
   da = Kanagawa-præfekturet
   nl = Kanagawa
@@ -19440,6 +19663,7 @@
   en = Saitama Prefecture
   ru = Сайтама
   ar = سايتاما
+  be = Прэфектура Сайтама
   cs = Prefektura Saitama
   da = Saitama-præfekturet
   nl = Saitama
@@ -19472,6 +19696,7 @@
   en = Tochigi Prefecture
   ru = Тотиги
   ar = توتشيغي
+  be = Прэфектура Татыгі
   cs = Prefektura Točigi
   da = Tochigi-præfekturet
   nl = Tochigi
@@ -19504,6 +19729,7 @@
   en = Tokyo Prefecture
   ru = Токио
   ar = طوكيو
+  be = Прэфектура Токіа
   cs = Prefektura Tokio
   da = Tokyo
   nl = Tokio
@@ -19536,6 +19762,7 @@
   en = Kansai Region
   ru = Кансай
   ar = منطقة كانساي
+  be = Рэгіён Кансай
   cs = Kansai
   da = Kansai-regionen
   nl = Kansai
@@ -19567,6 +19794,7 @@
   en = Mie Prefecture
   ru = Миэ
   ar = ميه
+  be = Прэфектура Міэ
   cs = Prefektura Mie
   da = Mie-præfekturet
   nl = Mie
@@ -19598,6 +19826,7 @@
   en = Nara Prefecture
   ru = Нара
   ar = نارا
+  be = Прэфектура Нара
   cs = Prefektura Nara
   da = Nara-præfekturet
   nl = Nara
@@ -19630,6 +19859,7 @@
   en = Ōsaka Prefecture
   ru = Осака
   ar = أوساكا
+  be = Прэфектура Осака
   cs = Prefektura Ósaka
   da = Osaka-præfekturet
   nl = Osaka
@@ -19662,6 +19892,7 @@
   en = Wakayama Prefecture
   ru = Вакаяма
   ar = واكاياما
+  be = Прэфектура Вакаяма
   cs = Prefektura Wakajama
   da = Wakayama-præfekturet
   nl = Wakayama
@@ -19694,6 +19925,7 @@
   en = Kyushu
   ru = Кюсю
   ar = كيوشو
+  be = Кюсю
   cs = Kjúšú
   da = Kyushu
   nl = Kyushu
@@ -19726,6 +19958,7 @@
   en = Fukuoka Prefecture
   ru = Фукуока
   ar = فوكوكا
+  be = Прэфектура Фукуока
   cs = Prefektura Fukuoka
   da = Fukuoka-præfekturet
   nl = Fukuoka
@@ -19758,6 +19991,7 @@
   en = Kagoshima Prefecture
   ru = Кагосима
   ar = كاغوشيما
+  be = Прэфектура Кагосіма
   cs = Prefektura Kagošima
   da = Kagoshima-præfekturet
   nl = Kagoshima
@@ -19790,6 +20024,7 @@
   en = Kumamoto Prefecture
   ru = Кумамото
   ar = كوماموتو
+  be = Прэфектура Кумамота
   cs = Prefektura Kumamoto
   da = Kumamoto-præfekturet
   nl = Kumamoto
@@ -19822,6 +20057,7 @@
   en = Miyazaki Prefecture
   ru = Миядзаки
   ar = ميازاكي
+  be = Прэфектура Міядзакі
   cs = Prefektura Mijazaki
   da = Miyazaki-præfekturet
   nl = Miyazaki
@@ -19854,6 +20090,7 @@
   en = Nagasaki Prefecture
   ru = Нагасаки
   ar = ناغاساكي
+  be = Прэфектура Нагасакі
   cs = Prefektura Nagasaki
   da = Nagasaki-præfekturet
   nl = Nagasaki
@@ -19886,6 +20123,7 @@
   en = Ōita Prefecture
   ru = Оита
   ar = أويتا
+  be = Прэфектура Оіта
   cs = Prefektura Óita
   da = Ooita-præfekturet
   nl = Oita
@@ -19917,6 +20155,7 @@
   en = Okinawa Prefecture
   ru = Окинава
   ar = أوكيناوا
+  be = Прэфектура Акінава
   cs = Prefektura Okinawa
   da = Okinawa-præfekturet
   nl = Okinawa
@@ -19949,6 +20188,7 @@
   en = Saga Prefecture
   ru = Сага
   ar = ساغا
+  be = Прэфектура Сага
   cs = Prefektura Saga
   da = Saga-præfekturet
   nl = Saga
@@ -19980,6 +20220,7 @@
   en = Shikoku
   ru = Сикоку
   ar = شيكوكو
+  be = Сікоку
   cs = Šikoku
   da = Shikoku
   nl = Shikoku
@@ -20011,6 +20252,7 @@
   en = Ehime Prefecture
   ru = Эхиме
   ar = إهيمه
+  be = Прэфектура Эхімэ
   cs = Prefektura Ehime
   da = Ehime-præfekturet
   nl = Ehime
@@ -20042,6 +20284,7 @@
   en = Kagawa Prefecture
   ru = Кагава (префектура)
   ar = كاغاوا
+  be = Прэфектура Кагава
   cs = Prefektura Kagawa
   da = Kagawa-præfekturet
   nl = Kagawa
@@ -20073,6 +20316,7 @@
   en = Kōchi Prefecture
   ru = Коти
   ar = كوتشي
+  be = Прэфектура Коты
   cs = Prefektura Kóči
   da = Kouchi-præfekturet
   nl = Kochi
@@ -20104,6 +20348,7 @@
   en = Kyōto Prefecture
   ru = Киото
   ar = كيوتو
+  be = Прэфектура Кіёта
   cs = Prefektura Kjóto
   da = Kyoto-præfekturet
   nl = Kioto
@@ -20136,6 +20381,7 @@
   en = Tokushima Prefecture
   ru = Токусима
   ar = توكوشيما
+  be = Прэфектура Такусіма
   cs = Prefektura Tokušima
   da = Tokushima-præfekturet
   nl = Tokushima
@@ -20167,6 +20413,7 @@
   en = Tōhoku Region
   ru = Тохоку
   ar = منطقة توهوكو
+  be = Рэгіён Тахоку
   cs = Tóhoku
   da = Tohoku-regionen
   nl = Tohoku
@@ -20199,6 +20446,7 @@
   en = Akita Prefecture
   ru = Акита
   ar = أكيتا
+  be = Прэфектура Акіта
   cs = Prefektura Akita
   da = Akita-præfekturet
   nl = Akita
@@ -20231,6 +20479,7 @@
   en = Aomori Prefecture
   ru = Аомори
   ar = آوموري
+  be = Прэфектура Аомары
   cs = Prefektura Aomori
   da = Aomori-præfekturet
   nl = Aomori
@@ -20262,6 +20511,7 @@
   en = Fukushima Prefecture
   ru = Фукусима
   ar = فوكوشيما
+  be = Прэфектура Фукусіма
   cs = Prefektura Fukušima
   da = Fukushima-præfekturet
   nl = Fukushima
@@ -20294,6 +20544,7 @@
   en = Iwate Prefecture
   ru = Иватэ
   ar = إيواته
+  be = Прэфектура Іватэ
   cs = Prefektura Iwate
   da = Iwate-præfekturet
   nl = Iwate
@@ -20325,6 +20576,7 @@
   en = Miyagi Prefecture
   ru = Мияги
   ar = مياغي
+  be = Прэфектура Міягі
   cs = Prefektura Mijagi
   da = Miyagi-præfekturet
   nl = Miyagi
@@ -20356,6 +20608,7 @@
   en = Yamagata Prefecture
   ru = Ямагата
   ar = ياماغاتا
+  be = Прэфектура Ямагата
   cs = Prefektura Jamagata
   da = Yamagata-præfekturet
   nl = Yamagata
@@ -20387,6 +20640,7 @@
   en = Jersey
   ru = Джерси
   ar = جيرزي
+  be = Джэрсі
   cs = Jersey
   da = Jersey
   nl = Jersey
@@ -20419,6 +20673,7 @@
   en = Jerusalem
   ru = Иерусалим
   ar = القدس
+  be = Іерусалім
   cs = Jeruzalém
   da = Jerusalem
   nl = Jeruzalem
@@ -20451,6 +20706,7 @@
   en = Jordan
   ru = Иордания
   ar = الأردن
+  be = Іарданія
   cs = Jordánsko
   da = Jordan
   nl = Jordanië
@@ -20484,6 +20740,7 @@
   en = Kansas
   ru = Канзас
   ar = كانساس
+  be = Канзас
   cs = Kansas
   da = Kansas
   nl = Kansas
@@ -20516,6 +20773,7 @@
   en = Kazakhstan
   ru = Казахстан
   ar = كازاخستان
+  be = Казахстан
   cs = Kazachstán
   da = Kasakhstan
   nl = Kazachstan
@@ -20549,6 +20807,7 @@
   en = Kentucky
   ru = Кентукки
   ar = كنتاكي
+  be = Кентукі
   cs = Kentucky
   da = Kentucky
   nl = Kentucky
@@ -20581,6 +20840,7 @@
   en = Kenya
   ru = Кения
   ar = كينيا
+  be = Кенія
   cs = Keňa
   da = Kenya
   nl = Kenia
@@ -20614,6 +20874,7 @@
   en = Lesotho
   ru = Лесото
   ar = ليسوتو
+  be = Лесота
   cs = Lesotho
   da = Lesotho
   nl = Lesotho
@@ -20646,6 +20907,7 @@
   en = Kiribati
   ru = Кирибати
   ar = كيريباتي
+  be = Кірыбаці
   cs = Kiribati
   da = Kiribati
   nl = Kiribati
@@ -20678,6 +20940,7 @@
   en = Kuwait
   ru = Кувейт
   ar = الكويت
+  be = Кувейт
   cs = Kuvajt
   da = Kuwait
   nl = Koeweit
@@ -20711,6 +20974,7 @@
   en = Kyrgyzstan
   ru = Киргизия
   ar = قرغيزستان
+  be = Кыргызстан
   cs = Kyrgyzstán
   da = Kirgisistan
   nl = Kirgizië
@@ -20743,6 +21007,7 @@
   en = Laos
   ru = Лаос
   ar = لاوس
+  be = Лаос
   cs = Laos
   da = Laos
   nl = Laos
@@ -20775,6 +21040,7 @@
   en = Latvia
   ru = Латвия
   ar = لاتفيا
+  be = Латвія
   cs = Lotyšsko
   da = Letland
   nl = Letland
@@ -20807,6 +21073,7 @@
   en = Lebanon
   ru = Ливан
   ar = لبنان
+  be = Ліван
   cs = Libanon
   da = Libanon
   nl = Libanon
@@ -20840,6 +21107,7 @@
   en = Liberia
   ru = Либерия
   ar = ليبيريا
+  be = Ліберыя
   cs = Libérie
   da = Liberia
   nl = Liberia
@@ -20873,6 +21141,7 @@
   en = Libya
   ru = Ливия
   ar = ليبيا
+  be = Лівія
   cs = Libye
   da = Libyen
   nl = Libië
@@ -20906,6 +21175,7 @@
   en = Liechtenstein
   ru = Лихтенштейн
   ar = ليختنشتاين
+  be = Ліхтэнштэйн
   cs = Lichtenštejnsko
   da = Liechtenstein
   nl = Liechtenstein
@@ -20939,6 +21209,7 @@
   en = Lithuania
   ru = Литва
   ar = ليتوانيا
+  be = Літва
   cs = Litva
   da = Litauen
   nl = Litouwen
@@ -20972,6 +21243,7 @@
   en = Louisiana
   ru = Луизиана
   ar = لويزيانا
+  be = Луізіяна
   cs = Louisiana
   da = Louisiana
   nl = Louisiana
@@ -21004,6 +21276,7 @@
   en = Luxembourg
   ru = Люксембург
   ar = لوكسمبورغ
+  be = Люксембург
   cs = Lucembursko
   da = Luxembourg
   nl = Luxemburg
@@ -21037,6 +21310,7 @@
   en = Macedonia
   ru = Республика Македония
   ar = جمهورية مقدونيا
+  be = Паўночная Македонія
   cs = Makedonie
   da = Makedonien
   nl = Macedonië
@@ -21070,6 +21344,7 @@
   en = Madagascar
   ru = Мадагаскар
   ar = مدغشقر
+  be = Мадагаскар
   cs = Madagaskar
   da = Madagaskar
   nl = Madagaskar
@@ -21103,6 +21378,7 @@
   en = Malawi
   ru = Малави
   ar = مالاوي
+  be = Малаві
   cs = Malawi
   da = Malawi
   nl = Malawi
@@ -21135,6 +21411,7 @@
   en = Malaysia
   ru = Малайзия
   ar = ماليزيا
+  be = Малайзія
   cs = Malajsie
   da = Malaysia
   nl = Maleisië
@@ -21168,6 +21445,7 @@
   en = Maldives
   ru = Мальдивы
   ar = جزر المالديف
+  be = Мальдывы
   cs = Maledivy
   da = Maldiverne
   nl = Maldiven
@@ -21201,6 +21479,7 @@
   en = Mali
   ru = Мали
   ar = مالي
+  be = Малі
   cs = Mali
   da = Mali
   nl = Mali
@@ -21234,6 +21513,7 @@
   en = Malta
   ru = Мальта
   ar = مالطا
+  be = Мальта
   cs = Malta
   da = Malta
   nl = Malta
@@ -21267,6 +21547,7 @@
   en = Marshall Islands
   ru = Маршалловы Острова
   ar = جزر مارشال
+  be = Маршалавы Астравы
   cs = Marshallovy ostrovy
   da = Marshalløerne
   nl = Marshalleilanden
@@ -21299,6 +21580,7 @@
   en = Martinique
   ru = Мартиника
   ar = مارتينيك
+  be = Марцініка
   cs = Martinik
   da = Martinique
   nl = Martinique
@@ -21331,6 +21613,7 @@
   en = Maryland
   ru = Мэриленд
   ar = ماريلاند
+  be = Мэрыленд
   cs = Maryland
   da = Maryland
   nl = Maryland
@@ -21363,6 +21646,7 @@
   en = Massachusetts
   ru = Массачусетс
   ar = ماساتشوستس
+  be = Масачусетс
   cs = Massachusetts
   da = Massachusetts
   nl = Massachusetts
@@ -21395,6 +21679,7 @@
   en = Mauritania
   ru = Мавритания
   ar = موريتانيا
+  be = Маўрытанія
   cs = Mauritánie
   da = Mauretanien
   nl = Mauritanië
@@ -21427,6 +21712,7 @@
   en = Mauritius
   ru = Маврикий
   ar = موريشيوس
+  be = Маўрыкій
   cs = Mauricius
   da = Mauritius
   nl = Mauritius
@@ -21460,6 +21746,7 @@
   en = Mexico
   ru = Мексика
   ar = المكسيك
+  be = Мексіка
   cs = Mexiko
   da = Mexico
   nl = Mexico
@@ -21493,6 +21780,7 @@
   en = Baja California
   ru = Нижняя Калифорния
   ar = ولاية باها كاليفورنيا
+  be = Ніжняя Каліфорнія
   cs = Baja California
   da = Baja California
   nl = Baja California
@@ -21524,6 +21812,7 @@
   en = Nuevo León
   ru = Нуэво-Леон
   ar = ولاية نويفو ليون
+  be = Нуэва-Леон
   cs = Nuevo León
   da = Nuevo León
   nl = Nuevo León
@@ -21555,6 +21844,7 @@
   en = Nayarit
   ru = Наярит
   ar = ولاية ناياريت
+  be = Наярыт
   cs = Nayarit
   da = Nayarit
   nl = Nayarit
@@ -21586,6 +21876,7 @@
   en = Mexico — East
   ru = Мексика — Восток
   ar = المكسيك — شرق
+  be = Мексіка — Усход
   cs = Mexiko — Východ
   da = Mexico — Øst
   nl = Mexico — Oost
@@ -21617,6 +21908,7 @@
   en = Mexico City
   ru = Мехико
   ar = مدينة مكسيكو
+  be = Мехіка
   cs = Ciudad de México
   da = Mexico City
   nl = Mexico-Stad
@@ -21648,6 +21940,7 @@
   en = Mexico — North
   ru = Мексика — Север
   ar = المكسيك — شمال
+  be = Мексіка — Поўнач
   cs = Mexiko — Sever
   da = Mexico — Nord
   nl = Mexico — Noord
@@ -21679,6 +21972,7 @@
   en = Mexico — South
   ru = Мексика — Юг
   ar = المكسيك — جنوب
+  be = Мексіка — Поўдзень
   cs = Mexiko — Jih
   da = Mexico — Syd
   nl = Mexico — Zuid
@@ -21710,6 +22004,7 @@
   en = Michigan
   ru = Мичиган
   ar = ميشيغان
+  be = Мічыган
   cs = Michigan
   da = Michigan
   nl = Michigan
@@ -21742,6 +22037,7 @@
   en = Minnesota
   ru = Миннесота
   ar = مينيسوتا
+  be = Мінесота
   cs = Minnesota
   da = Minnesota
   nl = Minnesota
@@ -21774,6 +22070,7 @@
   en = Missouri
   ru = Миссури
   ar = ميزوري
+  be = Місуры
   cs = Missouri
   da = Missouri
   nl = Missouri
@@ -21806,6 +22103,7 @@
   en = Moldova
   ru = Молдавия
   ar = مولدوفا
+  be = Малдова
   cs = Moldavsko
   da = Moldova
   nl = Moldavië
@@ -21839,6 +22137,7 @@
   en = Monaco
   ru = Монако
   ar = موناكو
+  be = Манака
   cs = Monako
   da = Monaco
   nl = Monaco
@@ -21872,6 +22171,7 @@
   en = Mongolia
   ru = Монголия
   ar = منغوليا
+  be = Манголія
   cs = Mongolsko
   da = Mongoliet
   nl = Mongolië
@@ -21905,6 +22205,7 @@
   en = Montenegro
   ru = Черногория
   ar = الجبل الأسود
+  be = Чарнагорыя
   cs = Černá Hora
   da = Montenegro
   nl = Montenegro
@@ -21937,6 +22238,7 @@
   en = Montserrat
   ru = Монтсеррат
   ar = مونتسرات
+  be = Мантсерат
   cs = Montserrat
   da = Montserrat
   nl = Montserrat
@@ -21969,6 +22271,7 @@
   en = Morocco
   ru = Марокко
   ar = المغرب
+  be = Марока
   cs = Maroko
   da = Marokko
   nl = Marokko
@@ -22002,6 +22305,7 @@
   en = Doukkala-Abda
   ru = Дуккала-Абда
   ar = دكالة عبدة
+  be = Дукала-Абда
   cs = Doukkala-Abda
   da = Doukala-Abda
   nl = Doukala-Abda
@@ -22033,6 +22337,7 @@
   en = Rabat-Salé-Zemmour-Zaer
   ru = Рабат-Сале-Заммур-Заер
   ar = الرباط سلا زمور زعير
+  be = Рабат-Сале-Замур-Заер
   cs = Rabat-Salé-Zemmour-Zaer
   da = Rabat-Salé-Zemmour-Zaēr
   nl = Rabat-Salé-Zemmour-Zaer
@@ -22064,6 +22369,7 @@
   en = Morocco — South
   ru = Марокко — Юг
   ar = المغرب — جنوب
+  be = Марока — Поўдзень
   cs = Maroko — Jih
   da = Marokko — Syd
   nl = Marokko — Zuid
@@ -22095,6 +22401,7 @@
   en = Western Sahara
   ru = Западная Сахара
   ar = الصحراء الغربية
+  be = Заходняя Сахара
   cs = Západní Sahara
   da = Vestsahara
   nl = Westelijke Sahara
@@ -22126,6 +22433,7 @@
   en = Mozambique
   ru = Мозамбик
   ar = موزمبيق
+  be = Мазамбік
   cs = Mosambik
   da = Mozambique
   nl = Mozambique
@@ -22158,6 +22466,7 @@
   en = Myanmar
   ru = Мьянма
   ar = بورما
+  be = М'янма
   cs = Myanmar
   da = Burma
   nl = Myanmar
@@ -22191,6 +22500,7 @@
   en = Nagorno-Karabakh
   ru = Нагорный Карабах
   ar = قرة باغ
+  be = Нагорны Карабах
   cs = Náhorní Karabach
   da = Nagorno-Karabakh
   nl = Nagorno-Karabach
@@ -22223,6 +22533,7 @@
   en = Namibia
   ru = Намибия
   ar = ناميبيا
+  be = Намібія
   cs = Namibie
   da = Namibia
   nl = Namibië
@@ -22256,6 +22567,7 @@
   en = Nauru
   ru = Науру
   ar = ناورو
+  be = Науру
   cs = Nauru
   da = Nauru
   nl = Nauru
@@ -22288,6 +22600,7 @@
   en = Nepal
   ru = Непал
   ar = نيبال
+  be = Непал
   cs = Nepál
   da = Nepal
   nl = Nepal
@@ -22321,6 +22634,7 @@
   en = Nepal — East
   ru = Непал — Восток
   ar = نيبال — شرق
+  be = Непал — Усход
   cs = Nepál — Východ
   da = Nepal — Øst
   nl = Nepal — Oost
@@ -22352,6 +22666,7 @@
   en = Nepal — West
   ru = Непал — Запад
   ar = نيبال — غرب
+  be = Непал — Захад
   cs = Nepál — Západ
   da = Nepal — Vest
   nl = Nepal — West
@@ -22383,6 +22698,7 @@
   en = Netherlands
   ru = Нидерланды
   ar = هولندا
+  be = Нідэрланды
   cs = Nizozemsko
   da = Holland
   nl = Nederland
@@ -22415,6 +22731,7 @@
   en = Drenthe
   ru = Дренте
   ar = درينته
+  be = Дрэнтэ
   cs = Drenthe
   da = Drenthe
   nl = Drenthe
@@ -22446,6 +22763,7 @@
   en = Flevoland
   ru = Флеволанд
   ar = فليفولند
+  be = Флеваланд
   cs = Flevoland
   da = Flevoland
   nl = Flevoland
@@ -22477,6 +22795,7 @@
   en = Friesland
   ru = Фрисландия
   ar = فرايزلاند
+  be = Фрысландыя
   cs = Frísko
   da = Frisland
   nl = Friesland
@@ -22508,6 +22827,7 @@
   en = Gelderland — Nijmegen
   ru = Гелдерланд — Неймеген
   ar = خيلدرلند — نيميغن
+  be = Гелдэрланд — Неймеген
   cs = Gelderland — Nijmegen
   da = Gelderland — Nijmegen
   nl = Gelderland — Nijmegen
@@ -22539,6 +22859,7 @@
   en = Gelderland — Apeldoorn
   ru = Гелдерланд — Апелдорн
   ar = خيلدرلند — آبلدورن
+  be = Гелдэрланд — Апелдорн
   cs = Gelderland — Apeldoorn
   da = Gelderland — Apeldoorn
   nl = Gelderland — Apeldoorn
@@ -22570,6 +22891,7 @@
   en = Gelderland — Zutphen
   ru = Гелдерланд — Зютфен
   ar = خيلدرلند — زوتفن
+  be = Гелдэрланд — Зютфен
   cs = Gelderland — Zutphen
   da = Gelderland — Zutphen
   nl = Gelderland — Zutphen
@@ -22601,6 +22923,7 @@
   en = Groningen
   ru = Гронинген
   ar = مقاطعة خرونينغن
+  be = Гронінген
   cs = Groningen
   da = Groningen
   nl = Groningen
@@ -22632,6 +22955,7 @@
   en = Limburg
   ru = Лимбург
   ar = ليمبورخ
+  be = Лімбург
   cs = Limburg
   da = Limburg
   nl = Limburg
@@ -22663,6 +22987,7 @@
   en = North Brabant — Eindhoven
   ru = Северный Брабант — Эйндховен
   ar = شمال برابنت — آيندهوفن
+  be = Паўночны Брабант — Эйндхавен
   cs = Severní Brabantsko — Eindhoven
   da = Noord-Brabant — Eindhoven
   nl = Noord-Brabant — Eindhoven
@@ -22694,6 +23019,7 @@
   en = North Brabant — Roosendaal
   ru = Северный Брабант — Розендал
   ar = شمال برابنت — روسيندال
+  be = Паўночны Брабант — Розендаль
   cs = Severní Brabantsko — Roosendaal
   da = Noord-Brabant — Roosendaal
   nl = Noord-Brabant — Roosendaal
@@ -22725,6 +23051,7 @@
   en = North Brabant — Tilburg
   ru = Северный Брабант — Тилбург
   ar = شمال برابنت — تلبرغ
+  be = Паўночны Брабант — Цілбург
   cs = Severní Brabantsko — Tilburg
   da = Noord-Brabant — Tilburg
   nl = Noord-Brabant — Tilburg
@@ -22756,6 +23083,7 @@
   en = North Brabant — Uden
   ru = Северный Брабант — Уден
   ar = شمال برابنت — أودن
+  be = Паўночны Брабант — Удэн
   cs = Severní Brabantsko — Uden
   da = Noord-Brabant — Uden
   nl = Noord-Brabant — Uden
@@ -22787,6 +23115,7 @@
   en = North Holland — Alkmaar
   ru = Северная Голландия — Алкмар
   ar = شمال-هولندا — ألكمار
+  be = Паўночная Галандыя — Алкмар
   cs = Severní Holandsko — Alkmaar
   da = Noord-Holland — Alkmaar
   nl = Noord-Holland — Alkmaar
@@ -22818,6 +23147,7 @@
   en = North Holland — Amsterdam
   ru = Северная Голландия — Амстердам
   ar = شمال-هولندا — أمستردام
+  be = Паўночная Галандыя — Амстэрдам
   cs = Severní Holandsko — Amsterdam
   da = Noord-Holland — Amsterdam
   nl = Noord-Holland — Amsterdam
@@ -22849,6 +23179,7 @@
   en = North Holland — Zaanstad
   ru = Северная Голландия — Занстад
   ar = شمال-هولندا — زانستاد
+  be = Паўночная Галандыя — Занстад
   cs = Severní Holandsko — Zaanstad
   da = Noord-Holland — Zaanstad
   nl = Noord-Holland — Zaanstad
@@ -22880,6 +23211,7 @@
   en = Overijssel — Enschede
   ru = Оверэйсел — Энсхеде
   ar = أوفرايسل — إنسخيده
+  be = Аверэйсел — Энсхедэ
   cs = Overijssel — Enschede
   da = Overijssel — Enschede
   nl = Overijssel — Enschede
@@ -22911,6 +23243,7 @@
   en = Overijssel — Zwolle
   ru = Оверэйсел — Зволле
   ar = أوفرايسل — زفوله
+  be = Аверэйсел — Зволе
   cs = Overijssel — Zwolle
   da = Overijssel — Zwolle
   nl = Overijssel — Zwolle
@@ -22942,6 +23275,7 @@
   en = South Holland — Brielle
   ru = Южная Голландия — Брилле
   ar = جنوب هولندا — بريله
+  be = Паўднёвая Галандыя — Брыле
   cs = Jižní Holandsko — Brielle
   da = Zuid-Holland — Brielle
   nl = Zuid-Holland — Brielle
@@ -22973,6 +23307,7 @@
   en = South Holland — The Hague
   ru = Южная Голландия — Гаага
   ar = جنوب هولندا — لاهاي
+  be = Паўднёвая Галандыя — Гаага
   cs = Jižní Holandsko — Haag
   da = Zuid-Holland — Haag
   nl = Zuid-Holland — Den Haag
@@ -23004,6 +23339,7 @@
   en = South Holland — Leiden
   ru = Южная Голландия — Лейден
   ar = جنوب هولندا — ليدن
+  be = Паўднёвая Галандыя — Лейдэн
   cs = Jižní Holandsko — Leiden
   da = Zuid-Holland — Leiden
   nl = Zuid-Holland — Leiden
@@ -23035,6 +23371,7 @@
   en = South Holland — Rotterdam
   ru = Южная Голландия — Роттердам
   ar = جنوب هولندا — روتردام
+  be = Паўднёвая Галандыя — Ротэрдам
   cs = Jižní Holandsko — Rotterdam
   da = Zuid-Holland — Rotterdam
   nl = Zuid-Holland — Rotterdam
@@ -23066,6 +23403,7 @@
   en = Utrecht — Amersfoort
   ru = Утрехт — Амерсфорт
   ar = مقاطعة أوترخت — آمرسفورت
+  be = Утрэхт — Амерсфарт
   cs = Utrecht — Amersfoort
   da = Utrecht — Amersfoort
   nl = Utrecht — Amersfoort
@@ -23097,6 +23435,7 @@
   en = Utrecht — Utrecht
   ru = Утрехт — Утрехт
   ar = مقاطعة أوترخت — أوترخت
+  be = Утрэхт — Утрэхт
   cs = Utrecht — Utrecht
   da = Utrecht — Utrecht
   nl = Utrecht — Utrecht
@@ -23128,6 +23467,7 @@
   en = Zeeland
   ru = Зеландия
   ar = زيلند
+  be = Зеландыя
   cs = Zeeland
   da = Zeeland
   nl = Zeeland
@@ -23159,6 +23499,7 @@
   en = New Jersey
   ru = Нью-Джерси
   ar = نيو جيرسي
+  be = Нью-Джэрсі
   cs = New Jersey
   da = New Jersey
   nl = New Jersey
@@ -23191,6 +23532,7 @@
   en = New York
   ru = Нью-Йорк
   ar = نيويورك
+  be = Нью-Ёрк
   cs = New York
   da = New York
   nl = New York
@@ -23223,6 +23565,7 @@
   en = New Zealand
   ru = Новая Зеландия
   ar = نيوزيلندا
+  be = Новая Зеландыя
   cs = Nový Zéland
   da = New Zealand
   nl = Nieuw-Zeeland
@@ -23256,6 +23599,7 @@
   en = North — Auckland
   ru = Север — Окленд
   ar = شمال — أوكلاند
+  be = Поўнач — Окленд
   cs = Sever — Auckland
   da = Nord — Auckland
   nl = Noord — Auckland
@@ -23287,6 +23631,7 @@
   en = North — Wellington
   ru = Север — Веллингтон
   ar = شمال — ويلينغتون
+  be = Поўнач — Уэлінгтан
   cs = Sever — Wellington
   da = Nord — Wellington
   nl = Noord — Wellington
@@ -23318,6 +23663,7 @@
   en = South — Canterbury Region
   ru = Юг — Кентербери
   ar = جنوب -منطقة كانتربري
+  be = Поўдзень — Кентэрберы
   cs = Jih — Canterbury
   da = Syd — Canterbury
   nl = Zuid — Canterbury
@@ -23349,6 +23695,7 @@
   en = South — Southland Region
   ru = Юг — Саутленд
   ar = الجنوب – منطقة ساوثلاند
+  be = Поўдзень — Саўтленд
   cs = Jih — Region Southland
   da = Southland District
   nl = Zuid — Southland
@@ -23380,6 +23727,7 @@
   en = Nicaragua
   ru = Никарагуа
   ar = نيكاراجوا
+  be = Нікарагуа
   cs = Nikaragua
   da = Nicaragua
   nl = Nicaragua
@@ -23412,6 +23760,7 @@
   en = Niger
   ru = Нигер
   ar = النيجر
+  be = Нігер
   cs = Niger
   da = Niger
   nl = Niger
@@ -23444,6 +23793,7 @@
   en = Nigeria
   ru = Нигерия
   ar = نيجيريا
+  be = Нігерыя
   cs = Nigérie
   da = Nigeria
   nl = Nigeria
@@ -23477,6 +23827,7 @@
   en = Niue
   ru = Ниуэ
   ar = نييوي
+  be = Ніуэ
   cs = Niue
   da = Niue
   nl = Niue
@@ -23509,6 +23860,7 @@
   en = North Carolina
   ru = Северная Каролина
   ar = كارولاينا الشمالية
+  be = Паўночная Караліна
   cs = Severní Karolína
   da = North Carolina
   nl = North Carolina
@@ -23541,6 +23893,7 @@
   en = North Dakota
   ru = Северная Дакота
   ar = داكوتا الشمالية
+  be = Паўночная Дакота
   cs = Severní Dakota
   da = North Dakota
   nl = North Dakota
@@ -23573,6 +23926,7 @@
   en = North Korea
   ru = Корейская Народно-Демократическая Республика
   ar = كوريا الشمالية
+  be = КНДР
   cs = Severní Korea
   da = Nordkorea
   nl = Noord-Korea
@@ -23606,6 +23960,7 @@
   en = Norway
   ru = Норвегия
   ar = النرويج
+  be = Нарвегія
   cs = Norsko
   da = Norge
   nl = Noorwegen
@@ -23639,6 +23994,7 @@
   en = Bouvet Island
   ru = Остров Буве
   ar = جزيرة بوفيه
+  be = Востраў Бувэ
   cs = Bouvetův ostrov
   da = Bouvetøen
   nl = Bouveteiland
@@ -23670,6 +24026,7 @@
   en = Oslo
   ru = Осло
   ar = أوسلو
+  be = Осла
   cs = Oslo
   da = Oslo
   nl = Oslo
@@ -23701,6 +24058,7 @@
   en = Hedmark
   ru = Хедмарк
   ar = هيدمارك
+  be = Хедмарк
   cs = Hedmark
   da = Hedmark
   nl = Hedmark
@@ -23732,6 +24090,7 @@
   en = Jan Mayen
   ru = Ян-Майен
   ar = جان ماين
+  be = Ян-Маен
   cs = Jan Mayen
   da = Jan Mayen
   nl = Jan Mayen
@@ -23763,6 +24122,7 @@
   en = Northern Norway
   ru = Нур-Норге
   ar = شمال النرويج
+  be = Нур-Норгэ
   cs = Severní Norsko
   da = Nord-Norge
   nl = Nord-Norge
@@ -23794,6 +24154,7 @@
   en = Oppland
   ru = Оппланн
   ar = أوبلاند
+  be = Оплан
   cs = Oppland
   da = Oppland
   nl = Oppland
@@ -23825,6 +24186,7 @@
   en = Southern Norway
   ru = Сёрланд
   ar = النرويج الجنوبي
+  be = Сёрлан
   cs = Jižní Norsko
   da = Sørlandet
   nl = Sørlandet
@@ -23856,6 +24218,7 @@
   en = Svalbard
   ru = Шпицберген
   ar = سفالبارد
+  be = Свальбард
   cs = Špicberky
   da = Svalbard
   nl = Spitsbergen
@@ -23887,6 +24250,7 @@
   en = Trøndelag
   ru = Трёнделаг
   ar = ترونديلاغ
+  be = Трондэлаг
   cs = Trøndelag
   da = Trøndelag
   nl = Trøndelag
@@ -23918,6 +24282,7 @@
   en = Western Norway
   ru = Вестланн
   ar = النرويج الغربي
+  be = Вестлан
   cs = Západní Norsko
   da = Vestlandet
   nl = Vestlandet
@@ -23949,6 +24314,7 @@
   en = Ohio
   ru = Огайо
   ar = أوهايو
+  be = Агая
   cs = Ohio
   da = Ohio
   nl = Ohio
@@ -23981,6 +24347,7 @@
   en = Oklahoma
   ru = Оклахома
   ar = أوكلاهوما
+  be = Аклахома
   cs = Oklahoma
   da = Oklahoma
   nl = Oklahoma
@@ -24013,6 +24380,7 @@
   en = Oman
   ru = Оман
   ar = سلطنة عمان
+  be = Аман
   cs = Omán
   da = Oman
   nl = Oman
@@ -24046,6 +24414,7 @@
   en = Oregon
   ru = Орегон
   ar = أوريغون
+  be = Арэгон
   cs = Oregon
   da = Oregon
   nl = Oregon
@@ -24078,6 +24447,7 @@
   en = Pakistan
   ru = Пакистан
   ar = باكستان
+  be = Пакістан
   cs = Pákistán
   da = Pakistan
   nl = Pakistan
@@ -24111,6 +24481,7 @@
   en = Palau
   ru = Палау
   ar = بالاو
+  be = Палау
   cs = Palau
   da = Palau
   nl = Palau
@@ -24143,6 +24514,7 @@
   en = Palestinian Territories
   ru = Территории Палестины
   ar = الأراضي الفلسطينية
+  be = Палесцінская аўтаномія
   cs = Palestinská autonomní území
   da = Palæstinensiske områder
   nl = Palestijnse Gebieden
@@ -24175,6 +24547,7 @@
   en = Palestinian Territories
   ru = Территории Палестины
   ar = الأراضي الفلسطينية
+  be = Палесцінская аўтаномія
   cs = Palestinská autonomní území
   da = Palæstinensiske områder
   nl = Palestijnse Gebieden
@@ -24207,6 +24580,7 @@
   en = Panama
   ru = Панама
   ar = بنما
+  be = Панама
   cs = Panama
   da = Panama
   nl = Panama
@@ -24239,6 +24613,7 @@
   en = Papua New Guinea
   ru = Папуа — Новая Гвинея
   ar = بابوا غينيا الجديدة
+  be = Папуа — Новая Гвінея
   cs = Papua-Nová Guinea
   da = Papua Ny Guinea
   nl = Papoea-Nieuw-Guinea
@@ -24272,6 +24647,7 @@
   en = Paraguay
   ru = Парагвай
   ar = باراغواي
+  be = Парагвай
   cs = Paraguay
   da = Paraguay
   nl = Paraguay
@@ -24305,6 +24681,7 @@
   en = Pennsylvania
   ru = Пенсильвания
   ar = بنسيلفانيا
+  be = Пенсільванія
   cs = Pensylvánie
   da = Pennsylvania
   nl = Pennsylvania
@@ -24337,6 +24714,7 @@
   en = China
   ru = Китай
   ar = الصين
+  be = Кітай
   cs = Čína
   da = Kina
   nl = China
@@ -24370,6 +24748,7 @@
   en = Peru
   ru = Перу
   ar = بيرو
+  be = Перу
   cs = Peru
   da = Peru
   nl = Peru
@@ -24403,6 +24782,7 @@
   en = Peru — North
   ru = Перу — Север
   ar = بيرو — شمال
+  be = Перу — Поўнач
   cs = Peru — Sever
   da = Peru — Nord
   nl = Peru — Noord
@@ -24434,6 +24814,7 @@
   en = Peru — South
   ru = Перу — Юг
   ar = بيرو — جنوب
+  be = Перу — Поўдзень
   cs = Peru — Jih
   da = Peru — Syd
   nl = Peru — Zuid
@@ -24465,6 +24846,7 @@
   en = Philippines
   ru = Филиппины
   ar = الفلبين
+  be = Філіпіны
   cs = Filipíny
   da = Filippinerne
   nl = Filipijnen
@@ -24498,6 +24880,7 @@
   en = Metro Manila
   ru = Столичный Регион
   ar = مترو مانيلا
+  be = Сталічны Рэгіён
   cs = Metropole Manila
   da = Metro Manila
   nl = National Capital Region
@@ -24529,6 +24912,7 @@
   en = Luzon — North
   ru = Лусон — Север
   ar = لوزون — شمال
+  be = Лусон — Поўнач
   cs = Luzon — Sever
   da = Luzon — Nord
   nl = Luzon — Noord
@@ -24560,6 +24944,7 @@
   en = Luzon — South
   ru = Лусон — Юг
   ar = لوزون — جنوب
+  be = Лусон — Поўдзень
   cs = Luzon — Jih
   da = Luzon — Syd
   nl = Luzon — Zuid
@@ -24591,6 +24976,7 @@
   en = Mindanao
   ru = Минданао
   ar = مندناو
+  be = Мінданаа
   cs = Mindanao
   da = Mindanao
   nl = Mindanao
@@ -24622,6 +25008,7 @@
   en = Visayas
   ru = Висайские острова
   ar = بيسايا
+  be = Вісаі
   cs = Visayas
   da = Visayas
   nl = Visayas
@@ -24653,6 +25040,7 @@
   en = Pitcairn
   ru = Острова Питкэрн
   ar = جزر بيتكيرن
+  be = Астравы Піткэрн
   cs = Pitcairnovy ostrovy
   da = Pitcairn
   nl = Pitcairneilanden
@@ -24685,6 +25073,7 @@
   en = Poland
   ru = Польша
   ar = بولندا
+  be = Польшча
   cs = Polsko
   da = Polen
   nl = Polen
@@ -24718,6 +25107,7 @@
   en = Greater Poland Voivodeship
   ru = Великопольское воеводство
   ar = بولندا الكبرى
+  be = Велікапольскае ваяводства
   cs = Velkopolské vojvodství
   da = Województwo wielkopolskie
   nl = Woiwodschap Groot-Polen
@@ -24749,6 +25139,7 @@
   en = Kuyavian-Pomeranian Voivodeship
   ru = Куявско-Поморское воеводство
   ar = محافظة كويافيا-بوميرانيا
+  be = Куяўска-Паморскае ваяводства
   cs = Kujavsko-pomořské vojvodství
   da = Województwo kujawsko-pomorskie
   nl = Koejavië-Pommeren
@@ -24780,6 +25171,7 @@
   en = Lesser Poland Voivodeship
   ru = Малопольское воеводство
   ar = محافظة بولندا الصغرى
+  be = Малапольскае ваяводства
   cs = Malopolské vojvodství
   da = Województwo małopolskie
   nl = Woiwodschap Klein-Polen
@@ -24811,6 +25203,7 @@
   en = Łódź Voivodeship
   ru = Лодзинское воеводство
   ar = محافظة وودج
+  be = Лодзьскае ваяводства
   cs = Lodžské vojvodství
   da = Województwo łódzkie
   nl = Woiwodschap Łódź
@@ -24842,6 +25235,7 @@
   en = Lower Silesian Voivodeship
   ru = Нижнесилезское воеводство
   ar = محافظة سيلزيا السفلى
+  be = Ніжнесілезскае ваяводства
   cs = Dolnoslezské vojvodství
   da = Województwo dolnośląskie
   nl = Neder-Silezië
@@ -24873,6 +25267,7 @@
   en = Lublin Voivodeship
   ru = Люблинское воеводство
   ar = محافظة لوبيلسكي
+  be = Люблінскае ваяводства
   cs = Lublinské vojvodství
   da = Województwo lubelskie
   nl = Lublin
@@ -24904,6 +25299,7 @@
   en = Lubusz Voivodeship
   ru = Любушское воеводство
   ar = محافظة لوبوسكي
+  be = Любушскае ваяводства
   cs = Lubušské vojvodství
   da = Województwo lubuskie
   nl = Woiwodschap Lubusz
@@ -24935,6 +25331,7 @@
   en = Masovian Voivodeship
   ru = Мазовецкое воеводство
   ar = محافظة مازوفيا
+  be = Мазавецкае ваяводства
   cs = Mazovské vojvodství
   da = Województwo mazowieckie
   nl = Woiwodschap Mazovië
@@ -24966,6 +25363,7 @@
   en = Opole Voivodeship
   ru = Опольское воеводство
   ar = محافظة أوبولي
+  be = Апольскае ваяводства
   cs = Opolské vojvodství
   da = Województwo opolskie
   nl = Opole
@@ -24997,6 +25395,7 @@
   en = Podlaskie Voivodeship
   ru = Подляское воеводство
   ar = محافظة بودلسكي
+  be = Падляскае ваяводства
   cs = Podleské vojvodství
   da = Województwo podlaskie
   nl = Woiwodschap Podlachië
@@ -25028,6 +25427,7 @@
   en = Pomeranian Voivodeship
   ru = Поморское воеводство
   ar = محافظة بومرسكي
+  be = Паморскае ваяводства
   cs = Pomořské vojvodství
   da = Województwo pomorskie
   nl = Woiwodschap Pommeren
@@ -25059,6 +25459,7 @@
   en = Silesian Voivodeship
   ru = Силезское воеводство
   ar = محافظة سيليزيا
+  be = Сілезскае ваяводства
   cs = Slezské vojvodství
   da = Województwo śląskie
   nl = Woiwodschap Silezië
@@ -25090,6 +25491,7 @@
   en = Podkarpackie Voivodeship
   ru = Подкарпатское воеводство
   ar = محافظة سوبكارباتيا
+  be = Падкарпацкае ваяводства
   cs = Podkarpatské vojvodství
   da = Województwo podkarpackie
   nl = Woiwodschap Subkarpaten
@@ -25121,6 +25523,7 @@
   en = Świętokrzyskie Voivodeship
   ru = Свентокшиское воеводство
   ar = محافظة شفينتوكشيسكي
+  be = Свентакшыскае ваяводства
   cs = Svatokřížské vojvodství
   da = Województwo świętokrzyskie
   nl = Święty Krzyż
@@ -25152,6 +25555,7 @@
   en = Warmian-Masurian Voivodeship
   ru = Варминско-Мазурское воеводство
   ar = محافظة فارمينسكو-مازورسكي
+  be = Вармінска-Мазурскае ваяводства
   cs = Varmijsko-mazurské vojvodství
   da = Województwo warmińsko-mazurskie
   nl = Ermland-Mazurië
@@ -25183,6 +25587,7 @@
   en = West Pomeranian Voivodeship
   ru = Западно-Поморское воеводство
   ar = محافظة غرب بوميرانيا
+  be = Заходнепаморскае ваяводства
   cs = Západopomořanské vojvodství
   da = Województwo zachodniopomorskie
   nl = Woiwodschap West-Pommeren
@@ -25214,6 +25619,7 @@
   en = Portugal
   ru = Португалия
   ar = البرتغال
+  be = Партугалія
   cs = Portugalsko
   da = Portugal
   nl = Portugal
@@ -25247,6 +25653,7 @@
   en = Portugal — North
   ru = Португалия — Север
   ar = البرتغال — شمال
+  be = Партугалія — Поўнач
   cs = Portugalsko — Sever
   da = Portugal — Nord
   nl = Portugal — Noord
@@ -25278,6 +25685,7 @@
   en = Portugal — South
   ru = Португалия — Юг
   ar = البرتغال — جنوب
+  be = Партугалія — Поўдзень
   cs = Portugalsko — Jih
   da = Portugal — Syd
   nl = Portugal — Zuid
@@ -25309,6 +25717,7 @@
   en = Qatar
   ru = Катар
   ar = قطر
+  be = Катар
   cs = Katar
   da = Qatar
   nl = Qatar
@@ -25342,6 +25751,7 @@
   en = Kosovo
   ru = Республика Косово
   ar = كوسوفو
+  be = Косава
   cs = Kosovo
   da = Kosovo
   nl = Kosovo
@@ -25374,6 +25784,7 @@
   en = Romania
   ru = Румыния
   ar = رومانيا
+  be = Румынія
   cs = Rumunsko
   da = Rumænien
   nl = Roemenië
@@ -25406,6 +25817,7 @@
   en = Centru
   ru = Центральный регион развития Румынии
   ar = المركز
+  be = Цэнтральны рэгіён
   cs = Centru
   da = Centru
   nl = Centrum
@@ -25437,6 +25849,7 @@
   en = Nord-Est
   ru = Северо-восточный регион развития Румынии
   ar = الشمال الشرقي
+  be = Паўночна-ўсходні рэгіён
   cs = Nord-Est
   da = Nord-Est
   nl = Noordoost
@@ -25468,6 +25881,7 @@
   en = Nord-Vest
   ru = Северо-западный регион развития Румынии
   ar = الشمال الغربي
+  be = Паўночна-заходні рэгіён
   cs = Nord-Vest
   da = Nord-Vest
   nl = Noordwest
@@ -25499,6 +25913,7 @@
   en = Sud
   ru = Южный регион развития Румынии
   ar = الجنوب
+  be = Паўднёвы рэгіён
   cs = Sud
   da = Sud
   nl = Zuid
@@ -25530,6 +25945,7 @@
   en = Sud-Est
   ru = Юго-восточный регион развития Румынии
   ar = الجنوب الشرقي
+  be = Паўднёва-ўсходні рэгіён
   cs = Sud-Est
   da = Sud-Est
   nl = Zuidoost
@@ -25561,6 +25977,7 @@
   en = Sud-Vest
   ru = Юго-западный регион развития Румынии
   ar = الجنوب الغربي
+  be = Паўднёва-заходні рэгіён
   cs = Sud-Vest
   da = Sud-Vest
   nl = Zuidwest
@@ -25592,6 +26009,7 @@
   en = Vest
   ru = Западный регион развития Румынии
   ar = الغرب
+  be = Заходні рэгіён
   cs = Vest
   da = Vest
   nl = Vest
@@ -25623,6 +26041,7 @@
   en = Altai Krai
   ru = Алтайский край
   ar = ألطاي كراي
+  be = Алтайскі край
   cs = Altajský kraj
   da = Altaj kraj
   nl = Kraj Altaj
@@ -25654,6 +26073,7 @@
   en = Altai Republic
   ru = Республика Алтай
   ar = جمهورية ألطاي
+  be = Рэспубліка Алтай
   cs = Republika Altaj
   da = Altai
   nl = Altaj
@@ -25685,6 +26105,7 @@
   en = Amur Oblast
   ru = Амурская область
   ar = أمور أوبلاست
+  be = Амурская вобласць
   cs = Amurská oblast
   da = Amur oblast
   nl = Oblast Amoer
@@ -25716,6 +26137,7 @@
   en = Arkhangelsk Oblast — Centre
   ru = Архангельская область — Центр
   ar = أرخانجيلسك أوبلاست — مركز
+  be = Архангельская вобласць — Цэнтр
   cs = Archangelská oblast — Střed
   da = Arkhangelsk oblast — Centrum
   nl = Oblast Archangelsk — Centrum
@@ -25747,6 +26169,7 @@
   en = Arkhangelsk Oblast — North
   ru = Архангельская область — Север
   ar = أرخانجيلسك أوبلاست — شمال
+  be = Архангельская вобласць — Поўнач
   cs = Archangelská oblast — Sever
   da = Arkhangelsk oblast — Nord
   nl = Oblast Archangelsk — Noord
@@ -25778,6 +26201,7 @@
   en = Astrakhan Oblast
   ru = Астраханская область
   ar = أستراخان أوبلاست
+  be = Астраханская вобласць
   cs = Astrachaňská oblast
   da = Astrakhan oblast
   nl = Oblast Astrachan
@@ -25809,6 +26233,7 @@
   en = Republic of Bashkortostan
   ru = Башкортостан
   ar = باشقورتوستان
+  be = Рэспубліка Башкартастан
   cs = Baškortostán
   da = Basjkortostan
   nl = Basjkirostan
@@ -25840,6 +26265,7 @@
   en = Belgorod Oblast
   ru = Белгородская область
   ar = بيلغورود أوبلاست
+  be = Белгародская вобласць
   cs = Belgorodská oblast
   da = Belgorod oblast
   nl = Oblast Belgorod
@@ -25871,6 +26297,7 @@
   en = Bryansk Oblast
   ru = Брянская область
   ar = بريانسك أوبلاست
+  be = Бранская вобласць
   cs = Brjanská oblast
   da = Brjansk oblast
   nl = Oblast Brjansk
@@ -25902,6 +26329,7 @@
   en = Buryat Republic
   ru = Бурятия
   ar = بورياتيا
+  be = Рэспубліка Бурація
   cs = Burjatsko
   da = Burjatien
   nl = Boerjatië
@@ -25933,6 +26361,7 @@
   en = Chechen Republic
   ru = Чечня
   ar = الشيشان
+  be = Чачэнская Рэспубліка
   cs = Čečensko
   da = Tjetjenien
   nl = Tsjetsjenië
@@ -25964,6 +26393,7 @@
   en = Chelyabinsk Oblast
   ru = Челябинская область
   ar = تشيليابينسك أوبلاست
+  be = Чалябінская вобласць
   cs = Čeljabinská oblast
   da = Tjeljabinsk oblast
   nl = Oblast Tsjeljabinsk
@@ -25995,6 +26425,7 @@
   en = Chukotka Autonomous Okrug
   ru = Чукотский автономный округ
   ar = أوكروغ تشوكوتكا الذاتية
+  be = Чукоцкая аўтаномная акруга
   cs = Čukotský autonomní okruh
   da = Tjuktjien
   nl = Tsjoekotka
@@ -26026,6 +26457,7 @@
   en = Chuvash Republic
   ru = Чувашия
   ar = تشوفاشيا
+  be = Чувашская Рэспубліка
   cs = Čuvašsko
   da = Tjuvasjien
   nl = Tsjoevasjië
@@ -26057,6 +26489,7 @@
   en = Republic of Ingushetia
   ru = Ингушетия
   ar = إنغوشيتيا
+  be = Рэспубліка Інгушэція
   cs = Ingušsko
   da = Ingusjien
   nl = Ingoesjetië
@@ -26088,6 +26521,7 @@
   en = Irkutsk Oblast
   ru = Иркутская область
   ar = إركوتسك أوبلاست
+  be = Іркуцкая вобласць
   cs = Irkutská oblast
   da = Irkutsk oblast
   nl = Oblast Irkoetsk
@@ -26119,6 +26553,7 @@
   en = Ivanovo Oblast
   ru = Ивановская область
   ar = إيفانوفو أوبلاست
+  be = Іванаўская вобласць
   cs = Ivanovská oblast
   da = Ivanovo oblast
   nl = Oblast Ivanovo
@@ -26150,6 +26585,7 @@
   en = Jewish Autonomous Oblast
   ru = Еврейская автономная область
   ar = الأوبلاست اليهودية الذاتية
+  be = Яўрэйская аўтаномная вобласць
   cs = Židovská autonomní oblast
   da = Jødiske autonome oblast
   nl = Joodse Autonome Oblast
@@ -26181,6 +26617,7 @@
   en = Kabardino-Balkar Republic
   ru = Кабардино-Балкария
   ar = قبردينو - بلقاريا
+  be = Кабардзіна-Балкарская Рэспубліка
   cs = Kabardsko-Balkarsko
   da = Kabardino-Balkarien
   nl = Kabardië-Balkarië
@@ -26212,6 +26649,7 @@
   en = Kaliningrad Oblast
   ru = Калининградская область
   ar = كالينينغرادسكايا أوبلاست
+  be = Калінінградская вобласць
   cs = Kaliningradská oblast
   da = Kaliningrad oblast
   nl = Oblast Kaliningrad
@@ -26243,6 +26681,7 @@
   en = Kaluga Oblast
   ru = Калужская область
   ar = كالوغا أوبلاست
+  be = Калужская вобласць
   cs = Kalužská oblast
   da = Kaluga oblast
   nl = Oblast Kaloega
@@ -26274,6 +26713,7 @@
   en = Kamchatka Krai
   ru = Камчатский край
   ar = كامتشاتكا كراي
+  be = Камчацкі край
   cs = Kamčatský kraj
   da = Kamtjatka kraj
   nl = Kraj Kamtsjatka
@@ -26305,6 +26745,7 @@
   en = Karachay-Cherkess Republic
   ru = Карачаево-Черкесия
   ar = قراتشاي - تشيركيسيا
+  be = Карачаева-Чаркеская Рэспубліка
   cs = Karačajevsko-Čerkesko
   da = Karatjajevo-Tjerkessien
   nl = Karatsjaj-Tsjerkessië
@@ -26336,6 +26777,7 @@
   en = Kemerovo Oblast
   ru = Кемеровская область
   ar = كيميروفو أوبلاست
+  be = Кемераўская вобласць
   cs = Kemerovská oblast
   da = Kemerovo oblast
   nl = Oblast Kemerovo
@@ -26367,6 +26809,7 @@
   en = Khabarovsk Krai
   ru = Хабаровский край
   ar = خاباروفسك كراي
+  be = Хабараўскі край
   cs = Chabarovský kraj
   da = Khabarovsk kraj
   nl = Kraj Chabarovsk
@@ -26398,6 +26841,7 @@
   en = Republic of Khakassia
   ru = Хакасия
   ar = خقاسيا
+  be = Рэспубліка Хакасія
   cs = Chakasie
   da = Khakasien
   nl = Chakassië
@@ -26429,6 +26873,7 @@
   en = Kirov Oblast
   ru = Кировская область
   ar = كيروف أوبلاست
+  be = Кіраўская вобласць
   cs = Kirovská oblast
   da = Kirov oblast
   nl = Oblast Kirov
@@ -26460,6 +26905,7 @@
   en = Komi Republic
   ru = Республика Коми
   ar = جمهورية كومي
+  be = Рэспубліка Комі
   cs = Republika Komi
   da = Komi
   nl = Komi
@@ -26491,6 +26937,7 @@
   en = Kostroma Oblast
   ru = Костромская область
   ar = كوستروما أوبلاست
+  be = Кастрамская вобласць
   cs = Kostromská oblast
   da = Kostroma oblast
   nl = Oblast Kostroma
@@ -26522,6 +26969,7 @@
   en = Krasnodar Krai — North
   ru = Краснодарский край — Север
   ar = كراسنودار كراي — شمال
+  be = Краснадарскі край — Поўнач
   cs = Krasnodarský kraj — Sever
   da = Krasnodar kraj — Nord
   nl = Kraj Krasnodar — Noord
@@ -26551,8 +26999,9 @@
 
 [Russia_Krasnodar Krai_Adygeya]
   en = Krasnodar Krai, Republic of Adygea
-  ru = Краснодарский край, Адыгея
+  ru = Краснодарский край, Рэспубліка Адыгея
   ar = كراسنودار كراي, أديغيا
+  be = Краснадарскі край, Адыгея
   cs = Krasnodarský kraj, Adygejsko
   da = Krasnodar kraj, Adygejien
   nl = Kraj Krasnodar, Adygea
@@ -26584,6 +27033,7 @@
   en = Krasnoyarsk Krai
   ru = Красноярский край
   ar = كراسنويارسك كراي
+  be = Краснаярскі край
   cs = Krasnojarský kraj
   da = Krasnojarsk kraj
   nl = Kraj Krasnojarsk
@@ -26615,6 +27065,7 @@
   en = Kurgan Oblast
   ru = Курганская область
   ar = كورغان أوبلاست
+  be = Курганская вобласць
   cs = Kurganská oblast
   da = Kurgan oblast
   nl = Oblast Koergan
@@ -26646,6 +27097,7 @@
   en = Kursk Oblast
   ru = Курская область
   ar = كورسك أوبلاست
+  be = Курская вобласць
   cs = Kurská oblast
   da = Kursk oblast
   nl = Oblast Koersk
@@ -26677,6 +27129,7 @@
   en = Leningrad Oblast — North
   ru = Ленинградская область — Север
   ar = لينينغراد أوبلاست — شمال
+  be = Ленінградская вобласць — Поўнач 
   cs = Leningradská oblast — Sever
   da = Leningrad oblast — Nord
   nl = Oblast Leningrad — Noord
@@ -26708,6 +27161,7 @@
   en = Leningrad Oblast — South
   ru = Ленинградская область — Юг
   ar = لينينغراد أوبلاست — جنوب
+  be = Ленінградская вобласць — Поўдзень
   cs = Leningradská oblast — Jih
   da = Leningrad oblast — Syd
   nl = Oblast Leningrad — Zuid
@@ -26739,6 +27193,7 @@
   en = Lipetsk Oblast
   ru = Липецкая область
   ar = ليبيتسك أوبلاست
+  be = Ліпецкая вобласць
   cs = Lipecká oblast
   da = Lipetsk oblast
   nl = Oblast Lipetsk
@@ -26770,6 +27225,7 @@
   en = Magadan Oblast
   ru = Магаданская область
   ar = ماغادان أوبلاست
+  be = Магаданская вобласць
   cs = Magadanská oblast
   da = Magadan oblast
   nl = Oblast Magadan
@@ -26801,6 +27257,7 @@
   en = Mari El Republic
   ru = Марий Эл
   ar = ماري إل
+  be = Рэспубліка Марый Эл
   cs = Marij El
   da = Mari El
   nl = Mari El
@@ -26832,6 +27289,7 @@
   en = Moscow
   ru = Москва
   ar = موسكو
+  be = Масква
   cs = Moskva
   da = Moskva
   nl = Moskou
@@ -26863,6 +27321,7 @@
   en = Moscow Oblast
   ru = Московская область
   ar = محافظة موسكو
+  be = Маскоўская вобласць
   cs = Moskevská oblast
   da = Moskva oblast
   nl = Oblast Moskou
@@ -26894,6 +27353,7 @@
   en = Murmansk Oblast
   ru = Мурманская область
   ar = مورمانسك أوبلاست
+  be = Мурманская вобласць
   cs = Murmanská oblast
   da = Murmansk oblast
   nl = Oblast Moermansk
@@ -26925,6 +27385,7 @@
   en = Nenets Autonomous Okrug
   ru = Ненецкий автономный округ
   ar = أوكروغ نينيتس الذاتية
+  be = Ненецкая аўтаномная акруга
   cs = Něnecký autonomní okruh
   da = Nenets autonome okrug
   nl = Nenetsië
@@ -26956,6 +27417,7 @@
   en = Nizhny Novgorod Oblast
   ru = Нижегородская область
   ar = نيجني نوفغورود أوبلاست
+  be = Ніжагародская вобласць
   cs = Nižněnovgorodská oblast
   da = Nisjnij Novgorod oblast
   nl = Oblast Nizjni Novgorod
@@ -26987,6 +27449,7 @@
   en = Republic of North Ossetia-Alania
   ru = Северная Осетия
   ar = أوسيتيا الشمالية - ألانيا
+  be = Рэспубліка Паўночная Асеція
   cs = Severní Osetie-Alanie
   da = Nordossetien
   nl = Noord-Ossetië
@@ -27018,6 +27481,7 @@
   en = Novgorod Oblast
   ru = Новгородская область
   ar = نوفغورود أوبلاست
+  be = Наўгародская вобласць
   cs = Novgorodská oblast
   da = Novgorod oblast
   nl = Oblast Novgorod
@@ -27049,6 +27513,7 @@
   en = Novosibirsk Oblast
   ru = Новосибирская область
   ar = نوفوسيبيرسك أوبلاست
+  be = Новасібірская вобласць
   cs = Novosibirská oblast
   da = Novosibirsk oblast
   nl = Oblast Novosibirsk
@@ -27080,6 +27545,7 @@
   en = Omsk Oblast
   ru = Омская область
   ar = أومسك أوبلاست
+  be = Омская вобласць
   cs = Omská oblast
   da = Omsk oblast
   nl = Oblast Omsk
@@ -27111,6 +27577,7 @@
   en = Orenburg Oblast
   ru = Оренбургская область
   ar = أورنبرغ أوبلاست
+  be = Арэнбургская вобласць
   cs = Orenburská oblast
   da = Orenburg oblast
   nl = Oblast Orenburg
@@ -27142,6 +27609,7 @@
   en = Oryol Oblast
   ru = Орловская область
   ar = أوريول أوبلاست
+  be = Арлоўская вобласць
   cs = Orelská oblast
   da = Orjol oblast
   nl = Oblast Orjol
@@ -27173,6 +27641,7 @@
   en = Penza Oblast
   ru = Пензенская область
   ar = بانزا أوبلاست
+  be = Пензенская вобласць
   cs = Penzenská oblast
   da = Penza oblast
   nl = Oblast Penza
@@ -27204,6 +27673,7 @@
   en = Perm Krai
   ru = Пермский край
   ar = بيرم كراي
+  be = Пермскі край
   cs = Permský kraj
   da = Perm kraj
   nl = Kraj Perm
@@ -27235,6 +27705,7 @@
   en = Primorsky Krai
   ru = Приморский край
   ar = بريمورسكي كراي
+  be = Прыморскі край
   cs = Přímořský kraj
   da = Primorskij kraj
   nl = Kraj Primorski
@@ -27266,6 +27737,7 @@
   en = Pskov Oblast
   ru = Псковская область
   ar = بسكوف أوبلاست
+  be = Пскоўская вобласць
   cs = Pskovská oblast
   da = Pskov oblast
   nl = Oblast Pskov
@@ -27297,6 +27769,7 @@
   en = Republic of Dagestan
   ru = Дагестан
   ar = داغستان
+  be = Рэспубліка Дагестан
   cs = Dagestán
   da = Dagestan
   nl = Dagestan
@@ -27328,6 +27801,7 @@
   en = Republic of Kalmykia
   ru = Калмыкия
   ar = كالميكيا
+  be = Рэспубліка Калмыкія
   cs = Kalmycko
   da = Kalmykien
   nl = Kalmukkië
@@ -27359,6 +27833,7 @@
   en = Republic of Karelia
   ru = Республика Карелия
   ar = جمهورية كاريليا
+  be = Рэспубліка Карэлія
   cs = Republika Karélie
   da = Karelen
   nl = Karelië
@@ -27390,6 +27865,7 @@
   en = Republic of Mordovia
   ru = Мордовия
   ar = موردوفيا
+  be = Рэспубліка Мардовія
   cs = Mordvinsko
   da = Mordva
   nl = Mordovië
@@ -27421,6 +27897,7 @@
   en = Rostov Oblast
   ru = Ростовская область
   ar = روستوف أوبلاست
+  be = Растоўская вобласць
   cs = Rostovská oblast
   da = Rostov oblast
   nl = Oblast Rostov
@@ -27452,6 +27929,7 @@
   en = Ryazan Oblast
   ru = Рязанская область
   ar = ريازان أوبلاست
+  be = Разанская вобласць
   cs = Rjazaňská oblast
   da = Rjasan oblast
   nl = Oblast Rjazan
@@ -27483,6 +27961,7 @@
   en = Saint Petersburg
   ru = Санкт-Петербург
   ar = سانت بطرسبرغ
+  be = Санкт-Пецярбург
   cs = Petrohrad
   da = Sankt Petersborg
   nl = Sint-Petersburg
@@ -27514,6 +27993,7 @@
   en = Sakha Republic
   ru = Якутия
   ar = ياقوتيا
+  be = Рэспубліка Саха
   cs = Sacha
   da = Sakha
   nl = Jakoetië
@@ -27545,6 +28025,7 @@
   en = Sakhalin Oblast
   ru = Сахалинская область
   ar = ساخالين أوبلاست
+  be = Сахалінская вобласць
   cs = Sachalinská oblast
   da = Sakhalin oblast
   nl = Oblast Sachalin
@@ -27576,6 +28057,7 @@
   en = Samara Oblast
   ru = Самарская область
   ar = سمارا أوبلاست
+  be = Самарская вобласць
   cs = Samarská oblast
   da = Samara oblast
   nl = Oblast Samara
@@ -27607,6 +28089,7 @@
   en = Saratov Oblast
   ru = Саратовская область
   ar = ساراتوف أوبلاست
+  be = Саратаўская вобласць
   cs = Saratovská oblast
   da = Saratov oblast
   nl = Oblast Saratov
@@ -27638,6 +28121,7 @@
   en = Smolensk Oblast
   ru = Смоленская область
   ar = سمولينسك أوبلاست
+  be = Смаленская вобласць
   cs = Smolenská oblast
   da = Smolensk oblast
   nl = Oblast Smolensk
@@ -27669,6 +28153,7 @@
   en = Stavropol Krai
   ru = Ставропольский край
   ar = ستافروبول كراي
+  be = Стаўрапольскі край
   cs = Stavropolský kraj
   da = Stavropol kraj
   nl = Kraj Stavropol
@@ -27700,6 +28185,7 @@
   en = Sverdlovsk Oblast
   ru = Свердловская область
   ar = سفيردلوفسك أوبلاست
+  be = Свярдлоўская вобласць
   cs = Sverdlovská oblast
   da = Sverdlovsk oblast
   nl = Oblast Sverdlovsk
@@ -27731,6 +28217,7 @@
   en = Tambov Oblast
   ru = Тамбовская область
   ar = تامبوف أوبلاست
+  be = Тамбоўская вобласць
   cs = Tambovská oblast
   da = Tambov oblast
   nl = Oblast Tambov
@@ -27762,6 +28249,7 @@
   en = Republic of Tatarstan
   ru = Татарстан
   ar = تتارستان
+  be = Рэспубліка Татарстан
   cs = Tatarstán
   da = Tatarstan
   nl = Tatarije
@@ -27793,6 +28281,7 @@
   en = Tomsk Oblast
   ru = Томская область
   ar = تومسك أوبلاست
+  be = Томская вобласць
   cs = Tomská oblast
   da = Tomsk oblast
   nl = Oblast Tomsk
@@ -27824,6 +28313,7 @@
   en = Tula Oblast
   ru = Тульская область
   ar = تولا أوبلاست
+  be = Тульская вобласць
   cs = Tulská oblast
   da = Tula oblast
   nl = Oblast Toela
@@ -27855,6 +28345,7 @@
   en = Tuva Republic
   ru = Тыва
   ar = توفا
+  be = Рэспубліка Тыва
   cs = Tuva
   da = Tuva
   nl = Toeva
@@ -27886,6 +28377,7 @@
   en = Tver Oblast
   ru = Тверская область
   ar = تفير أوبلاست
+  be = Цвярская вобласць
   cs = Tverská oblast
   da = Tver oblast
   nl = Oblast Tver
@@ -27917,6 +28409,7 @@
   en = Tyumen Oblast
   ru = Тюменская область
   ar = تيومين أوبلاست
+  be = Цюменская вобласць
   cs = Ťumeňská oblast
   da = Tjumen oblast
   nl = Oblast Tjoemen
@@ -27948,6 +28441,7 @@
   en = Udmurt Republic
   ru = Удмуртия
   ar = أودمورتيا
+  be = Удмурцкая Рэспубліка
   cs = Udmurtsko
   da = Udmurtien
   nl = Oedmoertië
@@ -27979,6 +28473,7 @@
   en = Ulyanovsk Oblast
   ru = Ульяновская область
   ar = أوليانوفسك أوبلاست
+  be = Ульянаўская вобласць
   cs = Uljanovská oblast
   da = Uljanovsk oblast
   nl = Oblast Oeljanovsk
@@ -28010,6 +28505,7 @@
   en = Vladimir Oblast
   ru = Владимирская область
   ar = فلاديمير أوبلاست
+  be = Уладзімірская вобласць
   cs = Vladimirská oblast
   da = Vladimir oblast
   nl = Oblast Vladimir
@@ -28041,6 +28537,7 @@
   en = Volgograd Oblast
   ru = Волгоградская область
   ar = فولغوغراد أوبلاست
+  be = Валгаградская вобласць
   cs = Volgogradská oblast
   da = Volgograd oblast
   nl = Oblast Wolgograd
@@ -28072,6 +28569,7 @@
   en = Vologda Oblast
   ru = Вологодская область
   ar = فولوغدا أوبلاست
+  be = Валагодская вобласць
   cs = Vologdská oblast
   da = Vologda oblast
   nl = Oblast Vologda
@@ -28103,6 +28601,7 @@
   en = Voronezh Oblast
   ru = Воронежская область
   ar = فورونيج أوبلاست
+  be = Варонежская вобласць
   cs = Voroněžská oblast
   da = Voronezj oblast
   nl = Oblast Voronezj
@@ -28134,6 +28633,7 @@
   en = Yamalo-Nenets Autonomous Okrug
   ru = Ямало-Ненецкий автономный округ
   ar = أوكروغ يامالو-نينيتس الذاتية
+  be = Ямала-Ненецкая аўтаномная акруга
   cs = Jamalo-něnecký autonomní okruh
   da = Jamalo-Nenets autonome okrug
   nl = Jamalië
@@ -28165,6 +28665,7 @@
   en = Yaroslavl Oblast
   ru = Ярославская область
   ar = ياروسلافل أوبلاست
+  be = Яраслаўская вобласць
   cs = Jaroslavská oblast
   da = Jaroslavl oblast
   nl = Oblast Jaroslavl
@@ -28196,6 +28697,7 @@
   en = Khanty-Mansi Autonomous Okrug
   ru = Ханты-Мансийский автономный округ — Югра
   ar = أوكروغ خانتي-مانسي ذاتية الحكم
+  be = Ханты-Мансійская аўтаномная акруга — Югра
   cs = Chantymansijský autonomní okruh - Jugra
   da = Hanti-Mansi autonome okrug
   nl = Chanto-Mansië
@@ -28227,6 +28729,7 @@
   en = Zabaykalsky Krai
   ru = Забайкальский край
   ar = زابايكالسكي كراي
+  be = Забайкальскі край
   cs = Zabajkalský kraj
   da = Zabajkalskij kraj
   nl = Kraj Transbaikal
@@ -28258,6 +28761,7 @@
   en = Russia
   ru = Россия
   ar = روسيا
+  be = Расія
   cs = Rusko
   da = Rusland
   nl = Rusland
@@ -28291,6 +28795,7 @@
   en = Rwanda
   ru = Руанда
   ar = رواندا
+  be = Руанда
   cs = Rwanda
   da = Rwanda
   nl = Rwanda
@@ -28324,6 +28829,7 @@
   en = Sahrawi Arab Democratic Republic
   ru = Сахарская Арабская Демократическая Республика
   ar = الجمهورية العربية الصحراوية الديمقراطية
+  be = Сахарская Арабская Дэмакратычная Рэспубліка
   cs = Saharská arabská demokratická republika
   da = Saharawiske arabiske demokratiske republik
   nl = Arabische Democratische Republiek Sahara
@@ -28356,6 +28862,7 @@
   en = Saint-Barthélemy
   ru = Сен-Бартелеми
   ar = سان بارتليمي
+  be = Сен-Бартэльмі
   cs = Svatý Bartoloměj
   da = Saint-Barthélemy
   nl = Saint-Barthélemy
@@ -28388,6 +28895,7 @@
   en = Saint Helena, Ascension and Tristan da Cunha
   ru = Острова Святой Елены, Вознесения и Тристан-да-Кунья
   ar = جزر سانت هيلينا وأسينشين وتريستان دا كونا
+  be = Астравы Святой Алены, Ушэсця і Трыстан-да-Кунья
   cs = Svatá Helena, Ascension a Tristan da Cunha
   da = Saint Helena, Ascension og Tristan da Cunha
   nl = Sint-Helena, Ascension en Tristan da Cunha
@@ -28420,6 +28928,7 @@
   en = Saint Kitts and Nevis
   ru = Сент-Китс и Невис
   ar = سانت كيتس ونيفيس
+  be = Сент-Кітс і Невіс
   cs = Svatý Kryštof a Nevis
   da = Saint Kitts og Nevis
   nl = Saint Kitts en Nevis
@@ -28452,6 +28961,7 @@
   en = Saint Lucia
   ru = Сент-Люсия
   ar = سانت لوسيا
+  be = Сент-Люсія
   cs = Svatá Lucie
   da = Saint Lucia
   nl = Saint Lucia
@@ -28484,6 +28994,7 @@
   en = Saint Martin
   ru = Сен-Мартен
   ar = سانت مارتن الفرنسية
+  be = Сен-Мартэн
   cs = Svatý Martin
   da = Saint-Martin
   nl = Sint-Maarten
@@ -28516,6 +29027,7 @@
   en = Saint Vincent and the Grenadines
   ru = Сент-Винсент и Гренадины
   ar = سانت فنسينت والجرينادينز
+  be = Сент-Вінсент і Грэнадзіны
   cs = Svatý Vincenc a Grenadiny
   da = Saint Vincent og Grenadinerne
   nl = Saint Vincent en de Grenadines
@@ -28548,6 +29060,7 @@
   en = Samoa
   ru = Самоа
   ar = ساموا
+  be = Самоа
   cs = Samoa
   da = Samoa
   nl = Samoa
@@ -28580,6 +29093,7 @@
   en = San Marino
   ru = Сан-Марино
   ar = سان مارينو
+  be = Сан-Марына
   cs = San Marino
   da = San Marino
   nl = San Marino
@@ -28612,6 +29126,7 @@
   en = Sao Tomé and Príncipe
   ru = Сан-Томе и Принсипи
   ar = ساو تومي وبرينسيبي
+  be = Сан-Тамэ і Прынсіпі
   cs = Svatý Tomáš a Princův ostrov
   da = São Tomé og Príncipe
   nl = Sao Tomé en Principe
@@ -28644,6 +29159,7 @@
   en = Saudi Arabia
   ru = Саудовская Аравия
   ar = السعودية
+  be = Саўдавская Аравія
   cs = Saúdská Arábie
   da = Saudi-Arabien
   nl = Saoedi-Arabië
@@ -28677,6 +29193,7 @@
   en = Senegal
   ru = Сенегал
   ar = السنغال
+  be = Сенегал
   cs = Senegal
   da = Senegal
   nl = Senegal
@@ -28710,6 +29227,7 @@
   en = Serbia
   ru = Сербия
   ar = صربيا
+  be = Сербія
   cs = Srbsko
   da = Serbien
   nl = Servië
@@ -28743,6 +29261,7 @@
   en = Seychelles
   ru = Сейшелы
   ar = سيشيل
+  be = Сейшэльскія Астравы
   cs = Seychely
   da = Seychellerne
   nl = Seychellen
@@ -28776,6 +29295,7 @@
   en = Sierra Leone
   ru = Сьерра-Леоне
   ar = سيراليون
+  be = Сьера-Леонэ
   cs = Sierra Leone
   da = Sierra Leone
   nl = Sierra Leone
@@ -28809,6 +29329,7 @@
   en = Singapore
   ru = Сингапур
   ar = سنغافورة
+  be = Сінгапур
   cs = Singapur
   da = Singapore
   nl = Singapore
@@ -28842,6 +29363,7 @@
   en = Slovakia
   ru = Словакия
   ar = سلوفاكيا
+  be = Славакія
   cs = Slovensko
   da = Slovakiet
   nl = Slowakije
@@ -28875,6 +29397,7 @@
   en = Banská Bystrica Region
   ru = Банскобистрицкий край
   ar = إقليم بانسكا بيستريتسا
+  be = Банскабістрыцкі край
   cs = Banskobystrický kraj
   da = Banská Bystrica
   nl = Banská Bystrica
@@ -28906,6 +29429,7 @@
   en = Bratislava Region
   ru = Братиславский край
   ar = إقليم براتيسلافا
+  be = Браціслаўскі край
   cs = Bratislavský kraj
   da = Bratislava
   nl = Bratislava
@@ -28937,6 +29461,7 @@
   en = Košice Region
   ru = Кошицкий край
   ar = إقليم كوشيتسه
+  be = Кошыцкі край
   cs = Košický kraj
   da = Košice
   nl = Košice
@@ -28968,6 +29493,7 @@
   en = Nitra Region
   ru = Нитранский край
   ar = إقليم نيترا
+  be = Нітранскі край
   cs = Nitranský kraj
   da = Nitra
   nl = Nitra
@@ -28999,6 +29525,7 @@
   en = Prešov Region
   ru = Прешовский край
   ar = إقليم بريشوف
+  be = Прэшаўскі край
   cs = Prešovský kraj
   da = Prešov
   nl = Prešov
@@ -29030,6 +29557,7 @@
   en = Trenčín Region
   ru = Тренчинский край
   ar = إقليم ترنتشين
+  be = Трэнчынскі край
   cs = Trenčínský kraj
   da = Trenčín
   nl = Trenčín
@@ -29061,6 +29589,7 @@
   en = Trnava Region
   ru = Трнавский край
   ar = إقليم ترنافا
+  be = Трнаўскі край
   cs = Trnavský kraj
   da = Trnava
   nl = Trnava
@@ -29092,6 +29621,7 @@
   en = Žilina Region
   ru = Жилинский край
   ar = إقليم جيلينا
+  be = Жылінскі край
   cs = Žilinský kraj
   da = Žilina
   nl = Žilina
@@ -29123,6 +29653,7 @@
   en = Slovenia
   ru = Словения
   ar = سلوفينيا
+  be = Славенія
   cs = Slovinsko
   da = Slovenien
   nl = Slovenië
@@ -29156,6 +29687,7 @@
   en = Solomon Islands
   ru = Соломоновы Острова
   ar = جزر سليمان
+  be = Саламонавы Астравы
   cs = Šalamounovy ostrovy
   da = Salomonøerne
   nl = Salomonseilanden
@@ -29189,6 +29721,7 @@
   en = Somalia
   ru = Сомали
   ar = الصومال
+  be = Самалі
   cs = Somálsko
   da = Somalia
   nl = Somalië
@@ -29222,6 +29755,7 @@
   en = South Africa
   ru = Южно-Африканская Республика
   ar = جنوب أفريقيا
+  be = Паўднёва-Афрыканская Рэспубліка
   cs = Jihoafrická republika
   da = Sydafrika
   nl = Zuid-Afrika
@@ -29255,6 +29789,7 @@
   en = Eastern Cape
   ru = Восточно-Капская провинция
   ar = كيب الشرقية
+  be = Усходне-Капская правінцыя
   cs = Východní Kapsko
   da = Øst-Kapprovinsen
   nl = Oost-Kaap
@@ -29286,6 +29821,7 @@
   en = Free State
   ru = Фри-Стейт
   ar = فري ستيت
+  be = Фры-Стэйт
   cs = Svobodný stát
   da = Fristatprovinsen
   nl = Vrijstaat
@@ -29317,6 +29853,7 @@
   en = Gauteng
   ru = Гаутенг
   ar = غاوتينج
+  be = Гаўтэнг
   cs = Gauteng
   da = Gauteng
   nl = Gauteng
@@ -29348,6 +29885,7 @@
   en = KwaZulu-Natal
   ru = Квазулу-Натал
   ar = كوازولو ناتال
+  be = Квазулу-Натал
   cs = KwaZulu-Natal
   da = KwaZulu-Natal
   nl = KwaZoeloe-Natal
@@ -29379,6 +29917,7 @@
   en = Limpopo
   ru = Лимпопо
   ar = ليمبوبو
+  be = Лімпопа
   cs = Limpopo
   da = Limpopo
   nl = Limpopo
@@ -29410,6 +29949,7 @@
   en = Mpumalanga
   ru = Мпумаланга
   ar = مبومالانجا
+  be = Мпумаланга
   cs = Mpumalanga
   da = Mpumalanga
   nl = Mpumalanga
@@ -29441,6 +29981,7 @@
   en = North West
   ru = Северо-Западная провинция
   ar = الشمالية الغربية
+  be = Паўночна-Заходняя правінцыя
   cs = Severozápadní provincie
   da = Nordvest
   nl = Noordwest
@@ -29472,6 +30013,7 @@
   en = Northern Cape
   ru = Северо-Капская провинция
   ar = كيب الشمالية
+  be = Паўночна-Капская правінцыя
   cs = Severní Kapsko
   da = Nord-Kapprovinsen
   nl = Noord-Kaap
@@ -29503,6 +30045,7 @@
   en = Western Cape
   ru = Западно-Капская провинция
   ar = كيب الغربية
+  be = Заходне-Капская правінцыя
   cs = Západní Kapsko
   da = Vest-Kapprovinsen
   nl = West-Kaap
@@ -29534,6 +30077,7 @@
   en = South Carolina
   ru = Южная Каролина
   ar = كارولاينا الجنوبية
+  be = Паўднёвая Караліна
   cs = Jižní Karolína
   da = South Carolina
   nl = South Carolina
