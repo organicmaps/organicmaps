@@ -107,6 +107,29 @@
   </screenshots>
 
   <releases>
+   <release version="2022.08.23-5" date="2022-08-23">
+     <description>
+       <ul>
+         <li>Fixed issue when some found objects were not highlighted on the map</li>
+         <li>Removed common street search synonyms like parkway, path, line, walk, trail, etc.</li>
+         <li>Fixed coordinates search if the query contains a newline</li>
+         <li>Ignore non-relevant search results for coordinates</li>
+         <li>Better search for capitals</li>
+         <li>Treat 'emergency' as a last-choice feature type</li>
+         <li>Added Catalan street search synonyms</li>
+         <li>Properly filter equal streets in search results</li>
+         <li>Improved visibility of military areas and boundaries</li>
+         <li>Show disabled parking spaces</li>
+         <li>Do not draw icon for residential gardens</li>
+         <li>Render farm yard</li>
+         <li>Add parking_entrance</li>
+         <li>Add playground and internet cafe icon</li>
+         <li>Add second_hand and charity</li>
+         <li>Add table_tennis, volleyball, beachvolleyball, skateboard, chess, padel, handball, futsal, hockey, badminton, pelota</li>
+         <li>Removed background circles from icons</li>
+       </ul>
+     </description>
+   </release>
    <release version="2022.07.27-3" date="2022-07-27">
      <description>
        <ul>
