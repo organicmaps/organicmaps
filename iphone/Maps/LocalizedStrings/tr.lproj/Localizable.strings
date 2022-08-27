@@ -572,15 +572,15 @@
 
 "today" = "Bugün";
 
-"opens_tomorrow_at" = "Opens tomorrow at %@";
+"opens_tomorrow_at" = "Açılış yarın %@";
 
-"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
+"opens_dayoftheweek_at" = "Açılış %1$@ %2$@";
 
-"opens_at" = "Opens at %@";
+"opens_at" = "Açılış %@";
 
 "opens_in" = "%@ sonra açılıyor";
 
-"closes_at" = "Closes at %@";
+"closes_at" = "Kapanış %@";
 
 "closes_in" = "%@ sonra kapanıyor";
 
@@ -588,7 +588,7 @@
 
 "add_opening_hours" = "Açılış saatlerini ekle";
 
-"no_osm_account" = "OpenStreetMap hesabın yok mu?";
+"no_osm_account" = "OpenStreetMap hesabınız yok mu?";
 
 "register_at_openstreetmap" = "Kaydol";
 
@@ -1216,6 +1216,12 @@
 
 /* edit track screen title */
 "track_title" = "Kayıt";
+
+/* Telegram group url for the help page */
+"telegram_url" = "https://t.me/OrganicMapsTR";
+
+/* Instagram account url for the help page */
+"instagram_url" = "https://www.instagram.com/organicmapstr";
 
 
 /********** Types **********/
