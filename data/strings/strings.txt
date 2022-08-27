@@ -127,7 +127,7 @@
     ar = حذف
     be = Выдаліць
     bg = Изтриване
-    ca = Suprimeix
+    ca = Esborra
     cs = Smazat
     da = Slet
     de = Löschen
@@ -6026,7 +6026,7 @@
     ar = لحذف الخريطة يرجى إيقاف الملاحة.
     be = Каб выдаліць мапу, спыніце навігацыю.
     bg = За да изтриете карта, моля спрете навигирането.
-    ca = Per a suprimir el mapa, abans atureu la navegació.
+    ca = Per a esborrar el mapa, abans atureu la navegació.
     cs = Chcete-li odstranit mapu, pak prosím zastavte navigaci.
     da = For at slette kortet skal du stoppe navigeringen.
     de = Zum Löschen der Karte bitte Navigation unterbrechen.
@@ -9360,7 +9360,7 @@
     ar = حذف جدول
     be = Выдаліць расклад
     bg = Изтриване на график
-    ca = Suprimeix l'horari
+    ca = Esborra l'horari
     cs = Smazat rozvrh
     da = Slet tidsplan
     de = Zeitplan löschen
@@ -11273,6 +11273,7 @@
     ar = إضافة شارع
     be = Дадаць вуліцу
     bg = Добавяне на улица
+    ca = Afegeix un carrer
     cs = Přidat ulici
     da = Tilføj en gade
     de = Eine Straße hinzufügen
@@ -11311,6 +11312,7 @@
     ar = الرجاء إدخال اسم الشارع
     be = Увядзіце назву вуліцы
     bg = Въведете име на улица
+    ca = Introduïu un nom de carrer
     cs = Zadejte název ulice
     da = Indtast et gadenavn
     de = Geben Sie einen Straßennamen ein
@@ -11332,6 +11334,7 @@
     ar = اختر اللغة
     be = Выбраць мову
     bg = Избор на език
+    ca = Trieu una llengua
     cs = Zvolit jazyk
     da = Vælg et sprog
     de = Eine Sprache wählen
@@ -11369,6 +11372,7 @@
     ar = اختر الشارع
     be = Выбраць вуліцу
     bg = Избор на улица
+    ca = Trieu un carrer
     cs = Zvolit ulici
     da = Vælg en gade
     de = Eine Straße wählen
@@ -11406,6 +11410,7 @@
     ar = الرمز البريدي
     be = Паштовы індэкс
     bg = Пощенски код
+    ca = Codi postal
     cs = PSČ
     da = Postnummer
     de = Postleitzahl
@@ -11442,6 +11447,7 @@
     ar = المطبخ
     be = Кухня
     bg = Кухня
+    ca = Cuina
     cs = Kuchyně
     da = Køkken
     de = Küche
@@ -11479,6 +11485,7 @@
     ar = اختر المطبخ
     be = Выбраць кухню
     bg = Избор на кухня
+    ca = Trieu una cuina
     cs = Vybrat kuchyni
     da = Vælg køkken
     de = Küche auswählen
@@ -11517,6 +11524,7 @@
     ar = البريد الإلكتروني أو اسم المستخدم
     be = Email альбо імя карыстальніка
     bg = Имейл или потребителско име
+    ca = Adreça electrònica o nom d'usuari
     cs = Email nebo uživatelské jméno
     da = Email eller brugernavn
     de = Email oder Benutzername
@@ -11554,6 +11562,7 @@
     ar = رقم الهاتف
     be = Тэлефон
     bg = Телефон
+    ca = Telèfon
     cs = Telefon
     da = Telefon
     de = Telefon
@@ -11589,6 +11598,7 @@
     tags = android
     en = Add Phone
     ar = إضافة رقم هاتف
+    ca = Afegeix un telèfon
     de = Telefon hinzufügen
     fr = Ajouter un numéro de téléphone
     it = Aggiungi numero
@@ -11605,6 +11615,7 @@
     ar = طابق
     be = Паверх
     bg = Етаж
+    ca = Planta
     cs = Podlaží
     da = Etage
     de = Stockwerk
@@ -11643,6 +11654,7 @@
     ar = يرجى العلم أنه،
     be = Звярніце ўвагу
     bg = Моля, имайте предвид
+    ca = Avís
     cs = Vezměte prosím na vědomí
     da = Bemærk venligst
     de = Bitte beachten
@@ -11680,6 +11692,7 @@
     ar = سيتم حذف جميع التغييرات بالخريطة بالإضافة إلى حذف الخريطة نفسها.
     be = Усе вашы праўкі мапы будуць выдаленыя разам з мапай.
     bg = Всички ваши редакции на картата ще бъдат изтрити заедно с нея.
+    ca = Totes els canvis que heu fet en el mapa s'esborraran conjuntament amb el mapa.
     cs = Zároveň s touto mapou budou odstraněny také všechny změny na této mapě.
     da = Alle kortændringer vil blive slettet sammen med kortet.
     de = Alle Kartenänderungen werden zusammen mit der Karte gelöscht.
@@ -11717,6 +11730,7 @@
     ar = تحديث الخرائط
     be = Абнавіць мапы
     bg = Обновяване на карти
+    ca = Actualitza els mapes
     cs = Aktualizujte mapy
     da = Opdatér kort
     de = Karten aktualisieren
@@ -11754,6 +11768,7 @@
     ar = لإنشاء مسار، فأنت تحتاج إلى تحديث كافة الخرائط ثم إعادة تخطيط المسار مرة أخرى.
     be = Каб стварыць маршрут, вам трэба абнавіць усе мапы і потым пракласці маршрут зноў.
     bg = За да създадете маршрут, трябва да актуализирате всички карти и след това да планирате маршрута отново.
+    ca = Per a crear una ruta, cal que actualitzeu tots els mapes i després torneu a planificar la ruta.
     cs = Chcete-li vytvořit trasu, pak musíte aktualizovat všechny mapy a poté trasu naplánovat znovu.
     da = For at oprette en rute skal du opdatere alle kort og så planlægge ruten igen.
     de = Um eine Strecke zu erstellen, müssen Sie alle Karten aktualisieren und dann die Strecken erneut planen.
@@ -11791,6 +11806,7 @@
     ar = ابحث عن خريطة
     be = Знайсці мапу
     bg = Намиране на карта
+    ca = Troba el mapa
     cs = Najít mapu
     da = Find kortet
     de = Karte finden
@@ -11828,6 +11844,7 @@
     ar = خطأ بالتنزيل
     be = Памылка спампоўкі
     bg = Грешка при изтегляне
+    ca = Error de baixada
     cs = Chyba při stahování
     da = Fejl ved download
     de = Fehler beim Herunterladen
@@ -11865,6 +11882,7 @@
     ar = يرجى التحقق من الإعدادات والتأكد من اتصال جهازك بالإنترنت.
     be = Праверце налады і ўпэўніцеся, што прылада падключана да інтэрнэту.
     bg = Моля, проверете настройките си и се уверете, че устройството ви е свързано с интернет.
+    ca = Reviseu la configuració i assegureu-vos que l'aparell està connectat a Internet.
     cs = Zkontrolujte prosím své nastavení a ujistěte se, že je vaše zařízení připojeno k internetu.
     da = Tjek dine indstillinger og sørg for, din enhed er forbundet til internettet.
     de = Bitte überprüfen Sie Ihre Einstellungen und stellen Sie sicher, dass Ihr Gerät mit dem Internet verbunden ist.
@@ -11902,6 +11920,7 @@
     ar = لا تتوفر مساحة كافية
     be = Не хапае месца
     bg = Няма достатъчно място
+    ca = No hi ha prou espai
     cs = Nedostatek místa
     da = Ikke nok plads
     de = Nicht genug Speicherplatz
@@ -11939,6 +11958,7 @@
     ar = من فضلك، قم بإزالة البيانات غير الضرورية
     be = Выдаліце непатрэбныя дадзеныя
     bg = Моля, изтрийте всички ненужни данни.
+    ca = Esborreu les dades no necessàries
     cs = Odstraňte prosím nepotřebná data
     da = Fjern unødvendig data
     de = Bitte entfernen Sie unnötige Daten
@@ -11976,6 +11996,7 @@
     ar = خطأ في تسجيل الدخول.
     be = Памылка аўтарызацыі.
     bg = Грешка при вход.
+    ca = Error en iniciar sessió.
     cs = Chyba při přihlašování.
     da = Login-fejl.
     de = Login-Fehler.
@@ -12013,6 +12034,7 @@
     ar = التعديلات التي تم التحقق منها
     be = Правераныя змены
     bg = Потвърдени промени
+    ca = Canvis verificats
     cs = Oveřené změny
     da = Bekræftede ændringer
     de = Bestätigte Änderungen der Karte
@@ -12050,6 +12072,7 @@
     ar = اسحب الخريطة لتحدد موقع الإضافة.
     be = Перацягніце мапу каб выбраць правільнае месцазнаходжанне аб'екта.
     bg = Плъзнете картата, за да изберете правилното местоположение на обекта.
+    ca = Arrossegueu el mapa per a indicar la ubicació correcta de l'objecte.
     cs = Táhněte mapu, abyste vybrali správné umístění objektu.
     da = Træk kortet for at vælge objektets korrekte placering.
     de = Ziehen Sie die Karte, um den Standort des Objektes zu korrigieren.
@@ -12087,6 +12110,7 @@
     ar = اختر الفئة
     be = Выбраць катэгорыю
     bg = Избор на категория
+    ca = Trieu una categoria
     cs = Vyberte kategorii
     da = Vælg kategori
     de = Kategorie auswählen
@@ -12124,6 +12148,7 @@
     ar = رائج
     be = Папулярныя
     bg = Популярно
+    ca = Popular
     cs = Populární
     da = Populær
     de = Beliebt
@@ -12161,6 +12186,7 @@
     ar = جميع الفئات
     be = Усе катэгорыі
     bg = Всички категории
+    ca = Totes les categories
     cs = Všechny kategorie
     da = Alle kategorier
     de = Alle Kategorien
@@ -12198,6 +12224,7 @@
     ar = يتم التعديل
     be = Праўка
     bg = Редактиране
+    ca = Edició
     cs = Probíhají úpravy
     da = Redigerer
     de = Wird bearbeitet
@@ -12235,6 +12262,7 @@
     ar = يتم الإٍضافة
     be = Даданне
     bg = Добавяне
+    ca = Addició
     cs = Probíhá přidávání
     da = Tilføjer
     de = Wird hinzugefügt
@@ -12272,6 +12300,7 @@
     ar = اسم المكان
     be = Назва месца
     bg = Име на мястото
+    ca = Nom del lloc
     cs = Název místa
     da = Stedets navn
     de = Name des Ortes
@@ -12309,6 +12338,7 @@
     ar = الفئة
     be = Катэгорыя
     bg = Категория
+    ca = Categoria
     cs = Kategorie
     da = Kategori
     de = Kategorie
@@ -12346,6 +12376,7 @@
     ar = وصف مفصّل للمشكلة
     be = Падрабязнае апісанне праблемы
     bg = Подробно описание на проблема
+    ca = Descripció detallada del problema
     cs = Detailní popis problému
     da = Detaljeret beskrivelse af problemet
     de = Detaillierte Beschreibung eines Problems
@@ -12383,6 +12414,7 @@
     ar = مشكلة أخرى
     be = Іншая праблема
     bg = Друг проблем
+    ca = Un altre problema
     cs = Jiný problém
     da = Et anderledes problem
     de = Ein anderes Problem
@@ -12420,6 +12452,7 @@
     ar = إضافة مؤسسة
     be = Дадаць установу
     bg = Добавяне на бизнес
+    ca = Afegeix un negoci
     cs = Přidat organizaci
     da = Tilføj organisationen
     de = Organisation hinzufügen
@@ -12457,6 +12490,7 @@
     ar = قم بإضافة أماكن جديدة للخريطة، وعدل أماكن حالية مباشرة من التطبيق.
     be = Стварайце на мапе новыя месцы і праўце існуючыя прама ў дататку.
     bg = Добавяне на нови места в картата и редакция на съществуващите директно от приложението.
+    ca = Afegiu llocs al mapa, i editeu-ne els existents directament des de l'aplicació.
     cs = Přidejte na mapu nová místa a upravte existující místa přímo z aplikace.
     da = Tilføj nye steder til kortet og redigér eksisterende direkte fra app'en.
     de = Fügen Sie auf der Karte einen neuen Ort hinzu und bearbeiten Sie existierende Orte direkt in der App.
@@ -12494,6 +12528,7 @@
     ar = تغيير الموقع
     be = Змяніце месцазнаходжанне
     bg = Смяна на местоположение
+    ca = Canvia la ubicació
     cs = Změnit umístění
     da = Skift lokation
     de = Standort wechseln
@@ -12531,6 +12566,7 @@
     ar = لا يمكن تحديد موقع الكائن هنا
     be = Аб'ект не можа знаходзіцца тут
     bg = Тук не може да бъде намерен обект
+    ca = No s'ha trobat cap objecte aquí
     cs = Objekt zde nemůže být umístěn
     da = Et objekt kan ikke placeres her
     de = Ein Objekt kann hier nicht positioniert werden
@@ -12568,6 +12604,7 @@
     ar = قم بتسجيل الدخول حتى يتمكن باقي المستخدمين من رؤية التغييرات التي قمت بها.
     be = Аўтарызуйцеся, каб іншыя карыстальнікі бачылі вашыя змены.
     bg = Влезте в системата, за да могат другите потребители да видят направените от вас промени
+    ca = Inicieu sessió perquè altres usuaris puguin veure els canvis que heu fet
     cs = Přihlaste se, aby ostatní uživatelé mohli vidět změny, které jste provedli.
     da = Log på så andre brugere kan se ændringerne som du har foretaget.
     de = Melden Sie sich an, damit andere Benutzer Ihre Änderungen sehen können.
@@ -12606,6 +12643,7 @@
     ar = للتنزيل، فأنت تحتاج إلى توفير مساحة أكبر. من فضلك، الرجاء قم بحذف البيانات غير الضرورية.
     be = Каб спампаваць, трэба больш месца. Выдаліце непатрэбныя дадзеныя.
     bg = За изтегляне ви е необходимо повече място. Моля, изтрийте всички ненужни данни.
+    ca = Per a la baixada, us cal més espai. Esborreu les dades no necessàries.
     cs = Ke stažení potřebujete více volného místa. Odstraňte prosím nepotřebná data.
     da = For at opdatere app'en skal du bruge mere plads. Slet unødvendig data.
     de = Zum Herunterladen benötigen Sie mehr Platz. Bitte löschen Sie unnötige Daten.
@@ -12643,6 +12681,7 @@
     ar = لقد قمت بتحسين خرائط تطبيق Organic Maps
     be = Я палепшыў мапы Organic Maps
     bg = Подобрих картите на Organic Maps
+    ca = He millorat els mapes de l'Organic Maps
     cs = Vylepšil jsem mapy Organic Maps
     da = Jeg forbedrede Organic Maps kortene
     de = Ich habe die Organic Maps-Karten verbessert
@@ -12681,6 +12720,7 @@
     ar = %1$d من%2$d
     be = %1$d з %2$d
     bg = %1$d от %2$d
+    ca = %1$d de %2$d
     cs = %1$d z %2$d
     da = %1$d af %2$d
     de = %1$d von %2$d
@@ -12719,6 +12759,7 @@
     be = Спампаваць праз мабільны інтэрнэт?
     bg = Изтегляне чрез мобилни данни?
     cs = Stáhnout pomocí připojení přes mobilní síť?
+    ca = Voleu baixar-ho a través d'una connexió de xarxa de telefònia mòbil?
     da = Download ved brug af mobilnetværksforbindelse?
     de = Über eine Mobilfunknetzverbindung herunterladen?
     el = Να γίνει λήψη μέσω δικτύου κινητής τηλεφωνίας;
@@ -12754,6 +12795,7 @@
     ar = قد يكون هذا مكلفاً جداً في بعض الاحيان أو عند التجوال.
     be = Гэта можа быць даволі дорага з некаторымі тарыфнымі планамі альбо ў роўмінгу.
     bg = Това може да бъде значително скъпо при някои планове или при роуминг.
+    ca = Això podria ser força car amb algunes tarifes d'itinerància de dades.
     cs = Toto by mohli být s některými tarify nebo roamingem výrazně dražší.
     da = Dette kan blive dyrt med nogle abonnementer eller hvis du er i roamingtilstand.
     de = Das könnte mit einigen Tarifen oder beim Roaming sehr teuer werden.
@@ -12790,6 +12832,7 @@
     ar = أدخل رقم بناء صحيح
     be = Увядзіце нумар дома правільна
     bg = Въведете валиден номер на сграда
+    ca = Introduïu un número d'edifici vàlid
     cs = Zadejte správné číslo domu
     da = Skriv det rigtige husnummer
     de = Richtige Hausnummer eingeben
@@ -12827,6 +12870,7 @@
     ar = عدد الطوابق (بحد أقصى %d)
     be = Колькасць паверхаў (максімум %d)
     bg = Брой етажи (максимум %d)
+    ca = Nombre de plantes (màxim $d)
     cs = Počet poschodí (max. %d)
     da = Antal etager (maks %d)
     de = Anzahl der Etagen (maximal %d)
@@ -12865,6 +12909,7 @@
     ar = يجب ألا يتجاوز عدد طوابق المبنى 25
     be = Колькасць паверхаў павінна быць не больш за 25
     bg = Броят на етажите не трябва да надвишава 25
+    ca = El nombre de plantes no pot excedir de 25
     cs = Opravte počet poschodí, max. 25
     da = Rediger bygningen med maksimum 25 etager
     de = Das Gebäude kann nicht mehr als 25 Etagen haben
@@ -12902,6 +12947,7 @@
     ar = الرمز البريدي
     be = Паштовы індэкс
     bg = Пощенски код
+    ca = Codi postal
     cs = PSČ
     da = Postnummer
     de = Postleitzahl
@@ -12939,6 +12985,7 @@
     ar = أدخل الرمز البريدي صالح
     be = Увядзіце паштовы індэкс правільна
     bg = Въведете валиден пощенски код
+    ca = Introduïu un codi postal vàlid
     cs = Zadejte správné PSČ
     da = Indtast det korrekte postnummer
     de = Geben Sie die korrekte Postleitzahl ein
@@ -12977,6 +13024,7 @@
     ar = مكان غير معروف
     be = Невядомае месца
     bg = Неизвестно място
+    ca = Lloc desconegut
     cs = Neznámé místo
     da = Ukendt sted
     de = Unbekannter Ort
@@ -13014,6 +13062,7 @@
     ar = ارسل ملاحظة إلى محرري خريطة الشارع المفتوحة
     be = Адправіць нататку рэдактарам OSM
     bg = Изпращане на бележка до редакторите на OSM
+    ca = Envia una ota als editors d'OSM
     cs = Odeslat poznámku editorům OSM
     da = Send en besked til OSM-redaktører
     de = Notiz an OSM-Redakteure senden
@@ -13053,6 +13102,7 @@
     ar = تعليق مفصّل
     be = Падрабязны каментар
     bg = Подробен коментар
+    ca = Comentari detallat
     cs = Podrobný komentář
     da = Detaljerede bemærkninger
     de = Ausführlicher Kommentar
@@ -13090,6 +13140,7 @@
     ar = سيتم إرسال التغييرات التي اقترحتها إلى مجتمع خريطة الشارع المفتوحة. اذكر التفاصيل التي لا يمكن تحريرها في Organic Maps
     be = Запрапанаваныя вамі змены будуць дасланыя суполцы OpenStreetMap. Апішыце любыя іншыя падрабязнасці, каторыя нельга паправіць у Organic Maps.
     bg = Предложените от вас промени по картата ще бъдат изпратени до общността на OpenStreetMap. Опишете всички допълнителни подробности, които не могат да бъдат въведени в Organic Maps.
+    ca = Heu suggerit canvis en el mapa que s'enviaran a la comunitat d'OpenStreetMap. Descriviu qualsevol detall addicional que no es pot editar en l'Organic Maps.
     cs = Vámi navržené změny odešleme do komunity OpenStreetMap. Popište podrobnosti, které nelze upravit v Organic Maps.
     da = Dine foreslåede ændringer vil blive sendt til OpenStreetMap fællesskabet. Beskrive detaljer, som ikke kan redigeres i Organic Maps.
     de = Ihre Änderungsvorschläge für die Karte werden an OpenStreetMap gesendet: Beschreiben Sie die Details der Objekte, die Sie in Organic Maps nicht bearbeiten können.
@@ -13127,6 +13178,7 @@
     ar = المزيد عن خريطة الشارع المفتوحة
     be = Падрабязней пра OpenStreetMap
     bg = Повече за OpenStreetMap
+    ca = Més sobre l'OpenStreetMap
     cs = Více o projektu OpenStreetMap
     da = Mere om OpenStreetMap
     de = Mehr Informationen über OpenStreetMap
@@ -13164,6 +13216,7 @@
     ar = المالك
     be = Уладальнік
     bg = Собственик
+    ca = Propietari
     cs = Operátor
     da = Bruger
     de = Betreiber oder Eigentümer
@@ -13201,6 +13254,7 @@
     ar = لم تقم بتنزيل أية خرائط
     be = Вы не спампавалі ніводнай мапы
     bg = Не сте изтеглили никакви карти
+    ca = No heu baixat cap mapa
     cs = Nemáte stažené žádné mapy
     da = Du har ikke hentet alle kort
     de = Keine Karten geladen
@@ -13238,6 +13292,7 @@
     ar = قم بتنزيل خرائط للبحث عن مكان واستخدام الملاحة بدون اتصال بالإنترنت.
     be = Спампуйце мапы, каб шукаць месцы і карыстацца навігацыяй без інтэрнэту.
     bg = Изтеглете картите, от които се нуждаете, за да намирате места и да навигирате без интернет.
+    ca = Baixeu mapes per a cercar una ubicacio i usar la navegació sense connexió.
     cs = Stáhněte si mapy a hledejte cestu a její cíl, i když jste offline.
     da = Download kort for at finde position og navigere offline.
     de = Laden Sie die für die Suche nach Orten erforderlichen Karten und verwenden Sie die Navigation offline.
@@ -13276,6 +13331,7 @@
     ar = هل تريد متابعة اكتشاف موقعك الحالي؟
     be = Працягнуць вызначэнне месцазнаходжання?
     bg = Да продължаваме ли да ви засичаме местоположението?
+    ca = Voleu continuar detectant la vostra ubicació actual?
     cs = Pokračovat se zjišťováním současné polohy?
     da = Fortsæt med at registrere din aktuelle position?
     de = Standortsuche fortsetzen?
@@ -13314,6 +13370,7 @@
     ar = الموقع الحالي غير معروف. ربما تتواجد داخل مبنى أو نفق.
     be = Месцазнаходжанне невядома. Магчыма вы ў будынку альбо ў танэлі.
     bg = Настоящото местоположение е неизвестно. Може би се намирате в сграда или тунел.
+    ca = Es desconeix la ubicació actual. Potser sou en un edifici o en un túnel.
     cs = Nezjistili jsme vaši současnou polohu. Možná jste v budově nebo tunelu.
     da = Aktuel placering er ukendt. Måske er du i en bygning eller i en tunnel.
     de = Standort nicht gefunden. Möglicherweise befinden Sie sich in einem Gebäude oder einem Tunnel.
@@ -13351,6 +13408,7 @@
     ar = الاستمرار
     be = Працягнуць
     bg = Продължаване
+    ca = Continua
     cs = Pokračovat
     da = Fortsæt
     de = Fortsetzen
@@ -13388,6 +13446,7 @@
     ar = إيقاف
     be = Спыніць
     bg = Стоп
+    ca = Atura't
     cs = Zastavit
     da = Stop
     de = Anhalten
@@ -13425,6 +13484,7 @@
     ar = الموقع الحالي غير معروف.
     be = Месцазнаходжанне невядома.
     bg = Настоящото местоположение е неизвестно.
+    ca = Es desconeix la ubicació actual.
     cs = Současná poloha nezjištěna.
     da = Aktuel position er ukendt.
     de = Standort nicht gefunden.
@@ -13461,6 +13521,7 @@
     ar = حدث خطأ أثناء البحث عن موقعك. تأكد من أن جهازك يعمل بشكل صحيح وأعد المحاولة لاحقًا.
     be = Адбылася памылка пры пошуку месцазнаходжання. Праверце, што ваша прылада працуе як трэба, і паспрабуйце зноў.
     bg = Възникна грешка при търсенето на вашето местоположение. Проверете дали устройството ви работи правилно и опитайте отново по-късно.
+    ca = S'ha produït un error en cercar la vostra ubicació. Comproveu que l'aparel funciona correctament i torneu-ho a intentar.
     cs = Při zjišťování současné polohy došlo k chybě. Zkontrolujte, že nedošlo k chybě zařízení a pokus prosím opakujte později.
     da = Der opstod en fejl under søgning efter din position. Kontrollér at din enhed fungerer korrekt, og prøv igen senere.
     de = Bei der Standortsuche ist ein unbekannter Fehler aufgetreten. Prüfen Sie die Funktionstüchtigkeit Ihres Geräts und versuchen Sie es etwas später erneut.
@@ -13498,6 +13559,7 @@
     ar = تم تعطيل خدمات تحديد الموقع الجغرافي
     be = Геалакацыя выключана
     bg = Услугите за местоположение са деактивирани
+    ca = Els serveis de geolocalització estan desactivats
     cs = Určení polohy je zakázáno
     da = Placeringsservices er slået fra
     de = Standort-Identifizierung ist deaktiviert
@@ -13536,6 +13598,7 @@
     ar = قم بإعطاء التطبيق السماحية بالوصول إلى الموقع الجغرافي في إعدادات الجهاز
     be = Уключыце доступ да геалакацыі у наладах прылады.
     bg = Разрешаване на достъпа до геолокация в настройките на устройството
+    ca = Activeu l'accés a la geolocalització en la configuració de l'aparell
     cs = Povolte přístup ke geolokaci v nastavení přístroje
     da = Slå adgang til geoposition til i enhedens indstillinger
     de = Aktivieren Sie den Zugang zur Positionsbestimmung in den Geräteeinstellungen
@@ -13574,6 +13637,7 @@
     ar = 1. افتح الإعدادات
     be = 1. Адчыніце Налады
     bg = 1. Отваряне на Настройки
+    ca = 1. Obriu la configuració
     cs = 1. Otevřete Nastavení
     da = 1. Åbn Indstillinger
     de = 1. Einstellungen öffnen
@@ -13612,6 +13676,7 @@
     ar = 2. انقر على الموقع
     be = 2. Націсніце Геалакацыя
     bg = 2. Натискане на Местоположение
+    ca = 2. Toqueu Ubicació
     cs = 2. Klepněte na položku Poloha
     da = 2. Tryk på Placering
     de = 2. Auf Standort tippen
@@ -13650,6 +13715,7 @@
     ar = 3. اختيار التفعيل أثناء استخدام التطبيق
     be = 3. Выберыце "Падчас ужывання дадатку"
     bg = 3. Избиране на Докато приложението се използва
+    ca = 3. Trieu "Mentre s'usa l'aplicació"
     cs = 3. Vyberte při používání aplikace
     da = 3. Vælg Mens app'en bruges
     de = 3. Wählen Sie „Beim Verwenden der App“
@@ -13686,6 +13752,7 @@
     ar = متر
     be = м
     bg = м
+    ca = m
     cs = m
     da = m
     de = m
@@ -13722,6 +13789,7 @@
     ar = كم
     be = км
     bg = км
+    ca = km
     cs = km
     da = km
     de = km
@@ -13757,6 +13825,7 @@
     en = km/h
     ar = كم/ساعة
     be = км/г
+    ca = km/h
     cs = km/h
     da = km/t
     de = km/h
@@ -13793,6 +13862,7 @@
     ar = ميل
     be = міля
     bg = ми
+    ca = mi
     cs = mil
     da = mil
     de = mi
@@ -13830,6 +13900,7 @@
     ar = قدم
     be = фут
     bg = фут
+    ca = ft
     cs = stopa
     da = fod
     de = ft
@@ -13862,6 +13933,7 @@
     en = mph
     ar = ميل/ساعة
     be = міль/г
+    ca = mph
     cs = mil/h
     da = mph
     de = mph
@@ -13898,6 +13970,7 @@
     ar = س
     be = г
     bg = ч
+    ca = h
     cs = hod
     da = time
     de = h
@@ -13932,6 +14005,7 @@
     ar = د
     be = хв
     bg = мин
+    ca = min
     cs = min
     da = min
     de = min
@@ -13968,6 +14042,7 @@
     ar = الوصف
     be = Апісанне
     bg = Описание
+    ca = Descripció
     cs = Popis
     da = Beskrivelse
     de = Beschreibung
@@ -14004,6 +14079,7 @@
     ar = المزيد
     be = Яшчэ
     bg = Още
+    ca = Més
     cs = Více
     da = Mere
     de = Mehr
@@ -14041,6 +14117,7 @@
     ar = المزيد من المراجعات
     be = Больш водгукаў
     bg = Още отзиви
+    ca = Més comentaris
     cs = Více recenzí
     da = Flere anmeldelser
     de = Mehr Feedbacks
@@ -14080,6 +14157,7 @@
     ar = حجز
     be = Забраніраваць
     bg = Резервиране
+    ca = Reserva
     cs = Rezervace
     da = Book
     de = Buchen
@@ -14116,6 +14194,7 @@
     ar = اتصال
     be = Патэлефанаваць
     bg = Обаждане
+    ca = Truca-hi
     cs = Volat
     da = Ring
     de = Anruf
@@ -14153,6 +14232,7 @@
     ar = تحرير العلامة المرجعية
     be = Правіць закладку
     bg = Редакция на отметка
+    ca = Edita el marcador
     cs = Upravit záložku
     da = Rediger bogmærke
     de = Lesezeichen bearbeiten
@@ -14190,6 +14270,7 @@
     ar = اسم العلامة المرجعية
     be = Назва закладкі
     bg = Име на отметка
+    ca = Nom del marcador
     cs = Název záložky
     da = Bogmærke
     de = Name des Lesezeichens
@@ -14226,6 +14307,7 @@
     en = Personal notes
     ar = ملاحظات شخصية
     be = Асабістыя нататкі
+    ca = Notes personals
     cs = Vlastní poznámka
     da = Personlige notater
     de = Anmerkung
@@ -14262,6 +14344,7 @@
     en = Delete Bookmark
     ar = حذف العلامة المرجعية
     be = Выдаліць закладку
+    ca = Esborra el marcador
     cs = Smazat záložku
     da = Slet bogmærke
     de = Lesezeichen löschen
@@ -14299,6 +14382,7 @@
     ar = لقد تم إرسال التغييرات التي اقترحتها
     be = Запрапанаваныя вамі змены адпраўлены
     bg = Предложените от вас промени са изпратени
+    ca = S'han enviat els canvis que heu suggerit
     cs = Odeslali jsme Vámi navržené změny
     da = Dine foreslåede ændringer er blevet sendt
     de = Ihre Änderungsvorschläge wurden gesendet
@@ -14336,6 +14420,7 @@
     ar = تعليق…
     be = Каментар…
     bg = Коментиране…
+    ca = Comentari…
     cs = Poznámka…
     da = Kommentar…
     de = Kommentar…
@@ -14373,6 +14458,7 @@
     ar = هل تريد مسح كافة التغييرات المحلية؟
     be = Скінуць усе лакальныя змены?
     bg = Отхвърляне на всички локални промени?
+    ca = Voleu descartar tots els canvis locals?
     cs = Vymazat všechny místní změny?
     da = Nulstil alle lokale ændringer?
     de = Alle lokalen Korrekturen verwerfen
@@ -14410,6 +14496,7 @@
     ar = مسح
     be = Скінуць
     bg = Отхвърляне
+    ca = Descarta
     cs = Vymazat
     da = Nulstil
     de = Verwerfen
@@ -14447,6 +14534,7 @@
     ar = إزالة مكان الذي تمت إضافته؟
     be = Выдаліць даданае месца?
     bg = Изтриване на добавеното място?
+    ca = Voleu esborrar el lloc afegit?
     cs = Odstranit přidané místo?
     da = Fjern en ekstra plads?
     de = Hinzugefügtes Objekt löschen?
@@ -14484,6 +14572,7 @@
     ar = إزالة
     be = Выдаліць
     bg = Изтриване
+    ca = Esborra
     cs = Odstranit
     da = Fjern
     de = Löschen
@@ -14521,6 +14610,7 @@
     ar = المكان غير موجود
     be = Месца не існуе
     bg = Мястото не съществува
+    ca = El lloc no existeix
     cs = Místo neexistuje
     da = Stedet eksisterer ikke
     de = Dieser Ort existiert nicht
@@ -14558,6 +14648,7 @@
     en = Please indicate the reason for deleting the place
     ar = الرجاء توضيح سبب مسح هذا المكان
     be = Калі ласка, укажыце прычыну выдалення
+    ca = Indiqueu per què esborreu el lloc
     de = Geben Sie bitte den Grund für die Löschung an
     it = Indicare il motivo dell' eliminazione del luogo
     mr = कृपया ठिकाण हटवण्याचे कारण सूचित करा
@@ -14573,6 +14664,7 @@
     ar = …المزيد
     be = …яшчэ
     bg = …още
+    ca = …més
     cs = …dále
     da = …mere
     de = …Mehr
@@ -14611,6 +14703,7 @@
     ar = أدخل رقم هاتف صالح
     be = Увядзіце нумар тэлефона правільна
     bg = Въведете валиден телефонен номер
+    ca = Introduïu un número de telèfon vàlid
     cs = Zadejte správné telefonní číslo
     da = Indtast korrekt telefonnummer
     de = Geben Sie eine gültige Telefonnummer ein
@@ -14648,6 +14741,7 @@
     ar = أدخل عنوان ويب صالح
     be = Увядзіце web-адрас правільна
     bg = Въведете валиден уеб адрес
+    ca = Introduïu una adreça web vàlida
     cs = Zadat platnou webovou adresu
     da = Indtast en gyldig webadresse
     de = Geben Sie eine gültige Internetadresse ein
@@ -14685,6 +14779,7 @@
     ar = أدخل بريداً إلكترونياً صالحاً
     be = Увядзіце email правільна
     bg = Въведете валиден имейл
+    ca = Introduïu una adreça electrònica vàlida
     cs = Zadat platný email
     da = Indtast en gyldig emailadresse
     de = Geben Sie eine gültige Email-Adresse ein
@@ -14720,6 +14815,7 @@
     tags = android
     en = Enter a valid Facebook web address, account, or page name
     ar = أدخل اسم صفحة أو حساب أو عنوان ويب خاص بفيسبوك صالح
+    ca = Introduïu una adreça web de Facebook, un compte o un nom de pàgina vàlids
     de = Geben Sie eine gültige Facebook-Webadresse, ein Konto oder einen Seitennamen ein
     es = Introduce una dirección web, una cuenta o un nombre de página de Facebook válidos
     eu = Mesedez, idatzi baliozko Facebook-eko web-helbide, kontu edo orri-izena
@@ -14737,6 +14833,7 @@
     tags = android
     en = Enter a valid Instagram web address or account name
     ar = أدخل اسم حساب أو عنوان ويب خاص بإنستغرام صالح
+    ca = Introduïu una adreça web d'Instagram o un nom de compte vàlids
     de = Geben Sie eine gültige Instagram-Webadresse oder einen Kontonamen ein
     es = Introduce una dirección web o un nombre de cuenta de Instagram válidos
     eu = Sartu baliozko Instagram kontuaren izena edo web helbidea
@@ -14754,6 +14851,7 @@
     tags = android
     en = Enter a valid Twitter web address or username
     ar = أدخل اسم مستخدم او موقع ويب خاص بتويتر صالح
+    ca = Introduïu una adreça web de Twitter o un nom d'usuari vàlids
     de = Geben Sie eine gültige Twitter-Webadresse oder einen Benutzernamen ein
     es = Introduzca una dirección web o un nombre de usuario válido de Twitter
     eu = Sartu baliozko Twitter erabiltzaile-izena edo web-helbide bat
@@ -14771,6 +14869,7 @@
     tags = android
     en = Enter a valid VK web address or account name
     ar = أدخل اسم حساب أو عنوان ويب خاص بموقع VK صالح
+    ca = Introduïu una adreça web de VK o un nom de compte vàlids
     de = Geben Sie eine gültige VK-Webadresse oder einen Kontonamen ein
     es = Introduce una dirección web o un nombre de cuenta de VK válidos
     eu = Mesedez, idatzi baliozko web helbide bat edo VK kontuaren izena
@@ -14787,6 +14886,7 @@
     tags = android
     en = Enter a valid LINE web address or LINE ID
     ar = أدخل رقم تعريفي خاص بتطبيق LINE أو موقع ويب خاص بتطيق LINE صالح
+    ca = Introduïu una adreça web de LINE o un ID LINE vàlids
     be = Упішыце вэб-адрас LINE старонкі або LINE ID
     de = Geben Sie eine gültige LINE-Webadresse oder LINE ID ein
     it = Inserisca un indirizzo web LINE valido o un ID LINE
@@ -14801,6 +14901,7 @@
     ar = تحديث
     be = Абнавіць
     bg = Обновление
+    ca = Actualitza
     cs = Aktualizovat
     da = Opdater
     de = Aktualisieren
@@ -14838,6 +14939,7 @@
     ar = إضافة مكان ما للخريطة
     be = Дадаць месца на мапу
     bg = Добавяне на място в картата
+    ca = Afegeix un lloc en el mapa
     cs = Přidat místo na mapu
     da = Tilføj et sted på kortet
     de = Einen Ort zur Karte hinzufügen
@@ -14876,6 +14978,7 @@
     ar = هل ترغب في إرساله لجميع المستخدمين؟
     be = Хочаце адправіць усім карыстальнікам?
     bg = Искате ли да го изпратите на всички потребители?
+    ca = Voleu enviar-ho a tots els usuaris?
     cs = Chcete jej poslat všem uživatelům?
     da = Ønsker du at sende det til alle brugere?
     de = An alle Benutzer senden?
@@ -14914,6 +15017,7 @@
     ar = تأكد من أنك لم تقم بإدخال أية بيانات شخصية.
     be = Упэўніцеся, што вы не ўвялі ніякіх асабістых дадзеных.
     bg = Уверете се, че не сте въвели никакви лични данни.
+    ca = Assegureu-vos que no heu introduït cap dada personal.
     cs = Ujistěte se, že jste nezadali žádná osobní data.
     da = Sørg for at du ikke indtastede personlige oplysninger.
     de = Stellen Sie sicher, dass Sie keine persönlichen Daten eingegeben haben.
@@ -14951,6 +15055,7 @@
     ar = سنقوم بمراجعة هذه التغييرات. إذا كانت لدينا أي أسئلة فسننتواصل معك عبر البريد الإلكتروني.
     be = Мы праверым змены. Калі ў нас з'явяцца пытанні, мы з вамі звяжамся праз email.
     bg = Ще проверим промените. Ако имаме някакви въпроси, ще се свържем с вас по имейл.
+    ca = Revisarem els canvis. Si tenim cap pregunta contactem amb vós via correu electrònic.
     cs = Změny ověříme. Budeme-li k vám mít jakékoli dotazy, budeme vás kontaktovat prostřednictvím emailu.
     da = Vi vil kigge på ændringerne. Hvis vi har spørgsmål, vil vi kontakte dig via email.
     de = Wir werden die Änderungen prüfen. Wenn wir Fragen haben, werden wir Sie per Email kontaktieren.
@@ -14987,6 +15092,7 @@
     en = stop
     ar = توقف
     be = спыніць
+    ca = atura't
     cs = stop
     da = stop
     de = Stopp
@@ -15024,6 +15130,7 @@
     ar = هل تريد تعطيل تسجيل مسارات سفرك؟
     be = Выключыць запіс вашага нядаўна пройдзенага маршрута?
     bg = Деактивиране на записването на последния ви маршрут?
+    ca = Voleu desactivar l'enregistrament de la ruta recent?
     cs = Zakázat zaznamenávání vaší nedávno ujeté trasy?
     da = Vil du deaktivere gemningen af din seneste rejserute?
     de = Aufzeichnung Ihrer kürzlich gefahrenen Route deaktivieren?
@@ -15061,6 +15168,7 @@
     ar = تعطيل
     be = Выключыць
     bg = Деактивиране
+    ca = Desactiva
     cs = Zakázat
     da = Deaktiver
     de = Deaktivieren
@@ -15099,6 +15207,7 @@
     ar = اتطلع على
     be = Паглядзі
     bg = Виж
+    ca = Verifica
     cs = Odjezd
     da = Tjek
     de = Nachsehen
@@ -15136,6 +15245,7 @@
     ar = يستخدم Organic Maps موقعك الجغرافي في الخلفية لتسجيل مسار سفرك الأخير.
     be = Organic Maps ужывае вашу геалакацыю ў фонавым рэжыме каб запісваць ваш нядаўна пройдзены маршрут.
     bg = Organic Maps използва геопозицията ви във фонов режим за записване на последния ви маршрут.
+    ca = Organic Maps usa la vostra ubicaicó en segon pla per a enregistrar la ruta que heu fet recentment.
     cs = Organic Maps používají geopozici na pozadí, aby se zaznamenala vaše nedávno ujetá trasa.
     da = Organic Maps anvender din geoposition i baggrunden til at gemme din seneste rejserute.
     de = Organic Maps verwendet Ihre Geoposition im Hintergrund, um Ihre kürzlich gefahrene Route aufzunehmen.
@@ -15174,6 +15284,7 @@
     ar = Organic Maps هو تطبيق سريع ومجاني للوصول إلى الخرائط بدون اتصال بالانترنت، وهو بدون إعلانات ومتتبعات. إن الخرائط هي مصدرها بيانات خريطة الشارع المفتوحة التي يستطيع الجميع تعديلها، لذلك يمكنك إصلاح أخطاء الخريطة وإضافة الميزات بنفسك. Organic Maps هو مشروع مفتوح المصدر أُنشأ من قبل مجموعة من الهواة في وقت فراغهم. نقدّر جداً مساهماتك ودعمك.
     be = Organic Maps — гэта хуткія і бясплатныя мапы без рэкламы, якія працуюць без Інтэрнэту і не шпіёняць за вамі. Усе картаграфічныя дадзеныя бяруцца з OpenStreetMap.org, там вы зможаце самастойна выпраўляць памылкі і дадаваць новыя аб'екты. Organic Maps — гэта праект з адкрытым зыходным кодам, які ствараецца энтузіястамі ў вольны час. Будзем рады вашай падтрымцы і зваротнай сувязі!
     bg = Organic Maps е безплатно приложение за офлайн карти с отворен код. Без реклами. Без проследяване. Ако видите грешка на картата, моля, поправете я в OpenStreetMap. Проектът е създаден от ентусиасти в свободното ни време, така че имаме нужда от вашата отзиви и подкрепа.
+    ca = Organic Maps és una aplicació de mapes sense connexió, ràpida, de codi lliure, gratuïta, sense anuncis ni seguiment. Els mapes es basen en les dades col·laboratives d'OpenStreetMap. Podeu corregir errors del mapa i afegir-hi característiques. L'Organic Maps és un projecte de codi obert creat per entusiastes en el seu temps lliure. Els vostres comentaris i suport són molt apreciats!
     cs = Organic Maps jsou bezplatná offline mapová aplikace s otevřeným zdrojovým kódem. Žádné reklamy. Žádné sledování. Pokud na mapě vidíte chybu, opravte ji v OpenStreetMap. Projekt vytvářejí nadšenci v našem volném čase, takže potřebujeme vaši zpětnou vazbu a podporu.
     da = Organic Maps er en gratis og open source offline kortapplikation. Ingen annoncer. Ingen sporing. Hvis du ser en fejl på kortet, skal du rette den i OpenStreetMap. Projektet er skabt af entusiaster i vores fritid, så vi har brug for din feedback og support.
     de = Organic Maps ist eine schnelle und kostenlose Offline-Karten-App ohne Werbung und Tracking. Die Karten basieren auf den Daten von OpenStreetMap.org, so dass Sie selbst Kartenfehler beheben und Orte hinzufügen können. Organic Maps ist ein Open-Source-Projekt, das von Enthusiasten in ihrer Freizeit entwickelt wird. Ihr Feedback und Ihre Unterstützung sind sehr willkommen!
@@ -15213,6 +15324,7 @@
     ar = الإعدادات العامة
     be = Агульныя налады
     bg = Общи настройки
+    ca = Configuració general
     cs = Obecná nastavení
     da = Generelle indstillinger
     de = Allgemeine Einstellungen
@@ -15251,6 +15363,7 @@
     ar = قبول
     be = Прыняць
     bg = Приемане
+    ca = D'acord
     cs = Přijmout
     da = Accepter
     de = Annehmen
@@ -15289,6 +15402,7 @@
     ar = رفض
     be = Адхіліць
     bg = Отказване
+    ca = Ho rebutjo
     cs = Odmítnout
     da = Afvis
     de = Ablehnen
@@ -15327,6 +15441,7 @@
     ar = قائمة
     be = Спіс
     bg = Списък
+    ca = Llista
     cs = Seznam
     da = Liste
     de = Liste
@@ -15364,6 +15479,7 @@
     ar = استخدام بيانات الجوال لإظهار المعلومات التفصيلية؟
     be = Ужываць мабільны інтэрнэт для паказу больш падрабязнай інфармацыі?
     bg = Използване на мобилни данни за подробна информация?
+    ca = Voleu usar Internet mòbil per a mostrar informació detallada?
     cs = Použít mobilní data k zobrazení podrobnějších informací?
     da = Skal mobilt internet bruges til at vise detaljerede oplysninger?
     de = Mobiles Internet verwenden, um genauere Informationen anzuzeigen?
@@ -15401,6 +15517,7 @@
     ar = استخدام دائمًا
     be = Заўсёды
     bg = Винаги
+    ca = Sempre
     cs = Vždy použít
     da = Brug altid
     de = Immer verwenden
@@ -15438,6 +15555,7 @@
     ar = اليوم فقط
     be = Толькі сёння
     bg = Само днес
+    ca = Només avui
     cs = Jen dnes
     da = Kun i dag
     de = Nur heute
@@ -15475,6 +15593,7 @@
     ar = عدم الاستخدام اليوم
     be = Не сёння
     bg = Без днес
+    ca = Avui no
     cs = Nepoužívat dnes
     da = Brug ikke i dag
     de = Heute nicht verwenden
@@ -15512,6 +15631,7 @@
     ar = بيانات الجوال
     be = Мабільны інтэрнэт
     bg = Мобилни данни
+    ca = Internet mòbil
     cs = Mobilní data
     da = Mobilt internet
     de = Mobiles Internet
@@ -15550,6 +15670,7 @@
     ar = إننا نحتاج بيانات الجوال لعرض معلومات تفصيلية عن الأماكن والإشارات المرجعية.
     be = Мабільны інтэрнэт неабходны для апавяшчэнняў аб абнаўленні мапы і для адлюстравання падрабязнай інфармацыі аб месцах і закладках.
     bg = Мобилните данни са необходими за показване на подробна информация за местата, като например снимки, цени и отзиви.
+    ca = Es necessita Internet mòbil per a les notifiacions d'actualitzacions del mapa i per a mostrar informació detallada dels llocs i marcadors.
     cs = Ke zobrazení podrobných informací o místech, jako jsou fotografie, ceny a recenze, je třeba mobilní internet.
     da = Mobile internet er nødvendigt til visning af detaljerede oplysninger om steder, såsom fotos, priser og anmeldelser.
     de = Es wird mobiles Internet benötigt, um über Kartenaktualisierungen informiert zu werden und genauere Informationen über Orte anzuzeigen.
@@ -15587,6 +15708,7 @@
     ar = عدم الاستخدام مطلقًا
     be = Ніколі не ужываць
     bg = Никога
+    ca = Mai
     cs = Nikdy nepoužívat
     da = Brug aldrig
     de = Nie verwenden
@@ -15624,6 +15746,7 @@
     ar = السؤال دوماً
     be = Заўсёды пытаць
     bg = Винаги питай
+    ca = Demana-ho sempre
     cs = Vždy se zeptat
     da = Spørg altid
     de = Immer fragen
@@ -15661,6 +15784,7 @@
     ar = لعرض البيانات المرورية، يجب تحديث الخرائط.
     be = Для паказу інфармацыі пра рух, трэба абнавіць мапы.
     bg = За да се показват данни за трафика, картите трябва да са актуализирани.
+    ca = Per a mostrar les dades de trànsit, els maps han d'estar actualitzats.
     cs = Ke zobrazení údajů o provozu musí být aktualizovány mapy.
     da = Kortet opdateres for kunne vise trafikdata.
     de = Um Verkehrsdaten anzuzeigen, müssen die Karten aktualisiert werden.
@@ -15698,6 +15822,7 @@
     ar = زيادة حجم الخط على الخريطة
     be = Павялічыць шрыфт мапы
     bg = Увеличаване на размера на шрифта в картата
+    ca = Augmenta la mida de lletra del mapa
     cs = Zvětšit velikost písma na mapě
     da = Forøg skriftstørrelsen på kortet
     de = Schrift auf der Karte vergrößern
@@ -15735,6 +15860,7 @@
     ar = الرجاء تحديث Organic Maps
     be = Абнавіце Organic Maps
     bg = Моля, актуализирайте Organic Maps
+    ca = Actualitzeu l'Organic Maps
     cs = Aktualizujte Organic Maps
     da = Opdater Organic Maps
     de = Bitte aktualisieren Sie Organic Maps
@@ -15774,6 +15900,7 @@
     be = Для паказу інфармацыі пра рух трэба абнавіць дадатак.
     bg = За да се показват данни за трафика, приложението трябва да се актуализира.
     cs = Ke zobrazení dat o provozu je nutné aplikaci aktualizovat.
+    ca = Per a mostrar les dades de trànsit, cal que l'aplicació estigui actualitzada.
     da = Appen skal opdateres for at kunne vise trafikdata.
     de = Zum Anzeigen von Verkehrsdaten muss die Anwendung aktualisiert werden.
     el = Για να εμφανιστούν πληροφορίες για την κίνηση, πρέπει να γίνει ενημέρωση της εφαρμογής.
@@ -15811,6 +15938,7 @@
     ar = البيانات المرورية غير متاحة
     be = Інфармацыі пра рух няма
     bg = Няма налични данни за трафика
+    ca = No hi ha dades de trànsit disponibles.
     cs = Data o provozu nejsou k dispozici
     da = Trafikdata er ikke tilgængelige
     de = Verkehrsdaten sind nicht verfügbar
@@ -15848,6 +15976,7 @@
     ar = تفعيل التسجيل
     be = Уключыць вядзенне журналу
     bg = Активиране на запис на дневник
+    ca = Activa el registre
     cs = Povolit protokolování
     da = Aktiver logføring
     de = Protokollierung aktivieren
@@ -15886,6 +16015,7 @@
     ar = تعقيب عام
     be = Агульны водгук
     bg = Обща обратна връзка
+    ca = Opinió general
     cs = Všeobecné připomínky
     da = Generel feedback
     de = Allgemeines Feedback
@@ -15924,6 +16054,7 @@
     ar = تشغيل
     be = Укл.
     bg = Вкл.
+    ca = Actiu
     cs = Zapnout
     da = Til
     de = An
@@ -15962,6 +16093,7 @@
     ar = إيقاف
     be = Выкл.
     bg = Изкл.
+    ca = Inactiu
     cs = Vypnout
     da = Fra
     de = Aus
