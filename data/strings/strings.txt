@@ -10166,6 +10166,7 @@
     it = Apre domani alle %@
     pt = Abre amanhã às %@
     ru = Откроется завтра в %@
+    tr = Açılış yarın %@
     uk = Відкриття завтра о %@
 
   [opens_dayoftheweek_at]
@@ -10178,6 +10179,7 @@
     it = Apre %1$@ alle %2$@
     pt = Abre %1$@ às %2$@
     ru = Открывается в %1$@ в %2$@
+    tr = Açılış %1$@ %2$@
     uk = Відчиняється в %1$@ о %2$@
 
   [opens_at]
@@ -10190,6 +10192,7 @@
     it = Apre alle %@
     pt = Abre às %@
     ru = Открывается в %@
+    tr = Açılış %@
     uk = Відкриття о %@
 
   [opens_in]
@@ -10216,6 +10219,7 @@
     it = Chiude alle %@
     pt = Encerra às %@
     ru = Закрывается в %@
+    tr = Kapanış %@
     uk = Закривається о %@
 
   [closes_in]
@@ -10337,7 +10341,7 @@
     sk = Upraviť otváracie hodiny
     sv = Redigera öppettider
     th = แก้ไขชั่วโมงทำการ
-    tr = İş saatlerini düzenle
+    tr = Çalışma saatlerini düzenle
     uk = Редагувати години роботи
     vi = Sửa giờ làm việc
     zh-Hans = 编辑工作时间
@@ -10374,7 +10378,7 @@
     sk = Nemáte účet v OpenStreetMap?
     sv = Inget konto hos OpenStreetMap?
     th = ไม่มีบัญชีใน OpenStreetMap?
-    tr = OpenStreetMap hesabın yok mu?
+    tr = OpenStreetMap hesabınız yok mu?
     uk = Не зареєстровані в OpenStreetMap?
     vi = Bạn chưa có tài khoản tại OpenStreetMap ư?
     zh-Hans = 在OpenStreetMap上没有账户吗？
@@ -23659,3 +23663,18 @@
     vi = Dữ liệu bản đồ từ OpenStreetMap
     zh-Hans = 地图数据来自OpenStreetMap
     zh-Hant = 來自 OpenStreetMap 的地圖數據
+
+  [telegram_url]
+    comment = Telegram group url for the help page
+    tags = android,ios
+    en = https://t.me/OrganicMapsApp
+    be = https://t.me/OrganicMapsRu
+    fa = https://t.me/OrganicMapsIR
+    ru = https://t.me/OrganicMapsRu
+    tr = https://t.me/OrganicMapsTR
+
+  [instagram_url]
+    comment = Instagram account url for the help page
+    tags = android,ios
+    en = https://www.instagram.com/organicmaps.app
+    tr = https://www.instagram.com/organicmapstr
