@@ -1,7 +1,5 @@
 #include "generator/osm_element.hpp"
 
-#include "coding/parse_xml.hpp"
-
 #include "base/string_utils.hpp"
 #include "base/stl_helpers.hpp"
 
@@ -162,13 +160,6 @@ std::string OsmElement::GetTag(std::string const & key) const
 {
   auto const it = base::FindIf(m_tags, [&key](Tag const & tag) { return tag.m_key == key; });
   return it == m_tags.cend() ? std::string() : it->m_value;
-}
-
-std::string OsmElement::GetTagValue(std::string const & key,
-                                    std::string const & defaultValue) const
-{
-  auto const it = base::FindIf(m_tags, [&key](Tag const & tag) { return tag.m_key == key; });
-  return it != m_tags.cend() ? it->m_value : defaultValue;
 }
 
 std::string DebugPrint(OsmElement const & element)
