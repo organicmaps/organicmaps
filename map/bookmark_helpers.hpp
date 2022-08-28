@@ -89,9 +89,9 @@ inline std::string DebugPrint(KmlFileType fileType)
 /// @name File name/path helpers.
 /// @{
 std::string GetBookmarksDirectory();
-std::string RemoveInvalidSymbols(std::string const & name);
+std::string RemoveInvalidSymbols(std::string name);
 std::string GenerateUniqueFileName(const std::string & path, std::string name, std::string const & ext = kKmlExtension);
-std::string GenerateValidAndUniqueFilePathForKML(std::string const & fileName);
+std::string GenerateValidAndUniqueFilePathForKML(std::string fileName);
 /// @}
 
 /// @name SerDes helpers.

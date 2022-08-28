@@ -210,13 +210,6 @@ std::string GetFileExt(std::string const & filePath)
   return strings::MakeLowerCase(base::GetFileExtension(filePath));
 }
 
-std::string GetFileName(std::string const & filePath)
-{
-  std::string ret = filePath;
-  base::GetNameFromFullPath(ret);
-  return ret;
-}
-
 bool IsBadCharForPath(char c)
 {
   for (char illegalChar : {':', '/', '\\', '<', '>', '\"', '|', '?', '*'})
@@ -234,17 +227,14 @@ std::string GetBookmarksDirectory()
   return base::JoinPath(GetPlatform().SettingsDir(), "bookmarks");
 }
 
-std::string RemoveInvalidSymbols(std::string const & name)
+std::string RemoveInvalidSymbols(std::string name)
 {
   // Remove not allowed symbols.
-  std::string res;
-  res.reserve(name.size());
-  for (auto c : name)
+  name.erase(std::remove_if(name.begin(), name.end(), [](char c)
   {
-    if (!IsBadCharForPath(c))
-      res.push_back(c);
-  }
-  return res;
+    return IsBadCharForPath(c);
+  }), name.end());
+  return name;
 }
 
 std::string GenerateUniqueFileName(const std::string & path, std::string name, std::string const & ext)
@@ -260,9 +250,9 @@ std::string GenerateUniqueFileName(const std::string & path, std::string name, s
   return base::JoinPath(path, name + suffix + ext);
 }
 
-std::string GenerateValidAndUniqueFilePathForKML(std::string const & fileName)
+std::string GenerateValidAndUniqueFilePathForKML(std::string fileName)
 {
-  std::string filePath = RemoveInvalidSymbols(fileName);
+  std::string filePath = RemoveInvalidSymbols(std::move(fileName));
   if (filePath.empty())
     filePath = kDefaultBookmarksFileName;
 
@@ -297,7 +287,7 @@ std::string GetKMLPath(std::string const & filePath)
   std::string fileSavePath;
   if (fileExt == kKmlExtension)
   {
-    fileSavePath = GenerateValidAndUniqueFilePathForKML(GetFileName(filePath));
+    fileSavePath = GenerateValidAndUniqueFilePathForKML(base::FileNameFromFullPath(filePath));
     if (!base::CopyFileX(filePath, fileSavePath))
       return {};
   }
@@ -307,7 +297,7 @@ std::string GetKMLPath(std::string const & filePath)
     if (kmlData == nullptr)
       return {};
 
-    fileSavePath = GenerateValidAndUniqueFilePathForKML(GetFileName(filePath));
+    fileSavePath = GenerateValidAndUniqueFilePathForKML(base::FileNameFromFullPath(filePath));
     if (!SaveKmlFileByExt(*kmlData, fileSavePath))
       return {};
   }

@@ -1,11 +1,7 @@
 #include "routing/routing_quality/routing_quality_tool/utils.hpp"
 
-#include "routing/vehicle_mask.hpp"
-
 #include "kml/serdes.hpp"
 #include "kml/types.hpp"
-
-#include "coding/string_utf8_multilang.hpp"
 
 #include "geometry/point_with_altitude.hpp"
 
@@ -515,16 +511,15 @@ void SimilarityCounter::CreateKmlFiles(double percent, std::vector<Result> const
       CHECK_LESS(realResultIndex, results.size(), ());
       auto const mapsmeResult = RoutesBuilder::Result::Load(results[realResultIndex].m_mapsmeDumpPath);
 
+      std::string const kmlFile = base::JoinPath(savePath, std::to_string(i) + ".kml");
       if (m_routesSaver.GetComparsionType() == ComparisonType::MapsmeVsApi)
       {
         auto const apiResult = api::Response::Load(results[realResultIndex].m_anotherDumpPath);
-        std::string const kmlFile = base::JoinPath(savePath, std::to_string(i) + ".kml");
         SaveKmlFileDataTo(mapsmeResult, apiResult, kmlFile);
       }
       else
       {
         auto const mapsmeAnotherResult = RoutesBuilder::Result::Load(results[realResultIndex].m_anotherDumpPath);
-        std::string const kmlFile = base::JoinPath(savePath, std::to_string(i) + ".kml");
         SaveKmlFileDataTo(mapsmeResult, mapsmeAnotherResult, kmlFile);
       }
 
