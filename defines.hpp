@@ -36,7 +36,6 @@
 #define HEADER_FILE_TAG "header"
 #define VERSION_FILE_TAG "version"
 #define METADATA_FILE_TAG "meta"
-#define METADATA_INDEX_FILE_TAG "metaidx"
 #define ALTITUDES_FILE_TAG "altitudes"
 #define ROAD_ACCESS_FILE_TAG "roadaccess"
 #define RESTRICTIONS_FILE_TAG "restrictions"

@@ -1,9 +1,10 @@
 #include "features_vector.hpp"
 #include "features_offsets_table.hpp"
 #include "data_factory.hpp"
+#include "dat_section_header.hpp"
 
 #include "platform/constants.hpp"
-#include "platform/mwm_version.hpp"
+
 
 FeaturesVector::FeaturesVector(FilesContainerR const & cont, feature::DataHeader const & header,
                                feature::FeaturesOffsetsTable const * table)
@@ -11,6 +12,8 @@ FeaturesVector::FeaturesVector(FilesContainerR const & cont, feature::DataHeader
 {
   InitRecordsReader();
 
+  /// @todo Probably, some kind of lazy m_metaDeserializer will be better here,
+  /// depending on how often FeaturesVector ctor is called.
   auto metaReader = m_loadInfo.GetMetadataReader();
   m_metaDeserializer = indexer::MetadataDeserializer::Load(*metaReader.GetPtr());
   CHECK(m_metaDeserializer, ());
