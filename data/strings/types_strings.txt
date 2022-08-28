@@ -8453,7 +8453,7 @@
     fr = Arrêt de bus
     hu = Buszmegálló
     id = Halte bus
-    it = Fermata
+    it = Fermata dell'autobus
     ja = バス停
     ko = 버스 정류장
     mr = बस थांबा
@@ -16739,7 +16739,7 @@
     fr = Arrêt de tramway
     hu = Villamosmegálló
     id = Perhentian trem
-    it = Fermata
+    it = Fermata del tram
     ja = トラム
     ko = 트램 정류장
     mr = ट्राम थांबा
