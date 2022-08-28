@@ -17,12 +17,10 @@
 #include "indexer/scales.hpp"
 #include "indexer/scales_patch.hpp"
 
-#include "platform/country_file.hpp"
 #include "platform/mwm_version.hpp"
 #include "platform/platform.hpp"
 
 #include "coding/files_container.hpp"
-#include "coding/internal/file_data.hpp"
 #include "coding/point_coding.hpp"
 #include "coding/succinct_mapper.hpp"
 
@@ -38,8 +36,10 @@
 #include <memory>
 #include <vector>
 
+
 namespace feature
 {
+
 class FeaturesCollector2 : public FeaturesCollector
 {
 public:
@@ -354,9 +354,10 @@ bool GenerateFinalFeatures(feature::GenerateInfo const & info, std::string const
     try
     {
       // FeaturesCollector2 will create temporary file `dataFilePath + FEATURES_FILE_TAG`.
-      // We cannot remove it in ~FeaturesCollector2(), we need to remove it in SCOPE_GUARD.
+      // Can't remove file in ~FeaturesCollector2() because of using it in base class dtor logic.
       SCOPE_GUARD(_, [&]() { Platform::RemoveFileIfExists(info.GetTargetFileName(name, FEATURES_FILE_TAG)); });
       LOG(LINFO, ("Simplifying and filtering geometry for all geom levels"));
+
       FeaturesCollector2 collector(name, info, header, regionData, info.m_versionDate);
       for (auto const & point : midPoints.GetVector())
       {

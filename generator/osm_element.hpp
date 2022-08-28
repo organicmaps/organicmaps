@@ -154,8 +154,9 @@ struct OsmElement
       AddTag(key, value);
   }
 
+  /// @todo return string_view
   std::string GetTag(std::string const & key) const;
-  std::string GetTagValue(std::string const & key, std::string const & defaultValue) const;
+
   EntityType m_type = EntityType::Unknown;
   uint64_t m_id = 0;
   double m_lon = 0;
