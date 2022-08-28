@@ -79,8 +79,7 @@ public:
 BookmarkManager::SharingResult GetFileForSharing(BookmarkManager::KMLDataCollectionPtr collection)
 {
   auto const & kmlToShare = collection->front();
-  auto const categoryName = kml::GetDefaultStr(kmlToShare.second->m_categoryData.m_name);
-  std::string fileName = RemoveInvalidSymbols(categoryName);
+  std::string fileName = RemoveInvalidSymbols(kml::GetDefaultStr(kmlToShare.second->m_categoryData.m_name));
   if (fileName.empty())
     fileName = base::GetNameFromFullPathWithoutExt(kmlToShare.first);
 
@@ -1925,10 +1924,8 @@ void BookmarkManager::LoadBookmarkRoutine(std::string const & filePath, bool isT
 
       if (kmlData)
       {
-        std::string const fileName = base::GetNameFromFullPathWithoutExt(fileSavePath);
-
         base::DeleteFileX(fileSavePath);
-        fileSavePath = GenerateValidAndUniqueFilePathForKML(fileName);
+        fileSavePath = GenerateValidAndUniqueFilePathForKML(base::GetNameFromFullPathWithoutExt(std::move(fileSavePath)));
 
         if (!SaveKmlFileSafe(*kmlData, fileSavePath, KmlFileType::Text))
           base::DeleteFileX(fileSavePath);
