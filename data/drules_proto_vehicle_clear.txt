@@ -3742,23 +3742,15 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "vending-m"
+      name: "zero-icon"
       priority: 16000
       min_distance: 20
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15300
     }
   }
   element {
     scale: 18
     symbol {
-      name: "vending-m"
+      name: "fuel-dispenser-m"
       priority: 16000
       min_distance: 20
     }
@@ -3774,7 +3766,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "vending-m"
+      name: "fuel-dispenser-m"
       priority: 16000
       min_distance: 20
     }
