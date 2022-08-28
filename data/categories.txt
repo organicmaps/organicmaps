@@ -2126,7 +2126,7 @@ fr:Arrêt de bus|2bus|arrêt|2autobus
 de:Bushaltestelle|Haltestelle|2Bus|Autobus|ÖPNV
 hu:2Buszmegálló|2busz|megálló
 id:3Halte bus
-it:3Fermata|autobus
+it:3Fermata|3autobus|3pullman
 ja:1バス停|停留所|トランスポート|バス|乗合|交通|ばす
 ko:버스 정류장|버스
 mr:बस स्टॉप|बस थांबा
@@ -2162,7 +2162,7 @@ fr:Arrêt de tramway|3tramway|tram|arrêt
 de:4Straßenbahnhaltestelle|Tramhaltestelle|Haltestelle|Tram|ÖPNV
 hu:4Villamosmegálló|3villamos|megálló
 id:3Perhentian trem
-it:Fermata|tram
+it:3Fermata|3tram
 ja:1トラム|トラム停留所|市電|トランスポート|交通|路面電車
 ko:시가 전차 정류장|시가 전차
 nb:3Trikkestopp
