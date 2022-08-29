@@ -81,14 +81,14 @@ public:
 /// to rules in ftp://ftp.unicode.org/Public/UNIDATA/CaseFolding.txt
 /// For implementation @see base/lower_case.cpp
 void MakeLowerCaseInplace(UniString & s);
-UniString MakeLowerCase(UniString const & s);
+UniString MakeLowerCase(UniString s);
 
 /// Performs NFKD - Compatibility decomposition for Unicode according
 /// to rules in ftp://ftp.unicode.org/Public/UNIDATA/UnicodeData.txt
 /// For implementation @see base/normalize_unicode.cpp
 void NormalizeInplace(UniString & s);
 
-UniString Normalize(UniString const & s);
+UniString Normalize(UniString s);
 std::string Normalize(std::string const & s);
 
 /// Replaces "full width" unicode digits with ascii ones.
@@ -120,7 +120,7 @@ bool ReplaceFirst(std::string & str, std::string const & from, std::string const
 bool ReplaceLast(std::string & str, std::string const & from, std::string const & to);
 
 void MakeLowerCaseInplace(std::string & s);
-std::string MakeLowerCase(std::string const & s);
+std::string MakeLowerCase(std::string s);
 bool EqualNoCase(std::string const & s1, std::string const & s2);
 
 UniString MakeUniString(std::string_view utf8s);

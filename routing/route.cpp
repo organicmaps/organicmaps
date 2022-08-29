@@ -196,11 +196,10 @@ void Route::GetNextTurnStreetName(RouteSegment::RoadNameInfo & roadNameInfo) con
 // Usually |destination:ref| = |ref| in such cases, or only 1st part of |destination:ref| can match.
 void Route::GetClosestStreetNameAfterIdx(size_t segIdx, RouteSegment::RoadNameInfo & roadNameInfo) const
 {
+  roadNameInfo = {};
+
   if (!IsValid())
-  {
-    roadNameInfo = {};
     return;
-  }
 
   // Info about 1st segment with existing basic (non-link) info after link.
   RouteSegment::RoadNameInfo roadNameInfoNext;
@@ -219,10 +218,15 @@ void Route::GetClosestStreetNameAfterIdx(size_t segIdx, RouteSegment::RoadNameIn
         roadNameInfo = r;
       break;
     }
-    else if (r.HasExitInfo() && !roadNameInfo.HasExitInfo())
-      roadNameInfo = r;
+    else if (r.HasExitTextInfo() || i == segIdx)
+    {
+      ASSERT(!roadNameInfo.HasBasicTextInfo(), ());
+      if (!roadNameInfo.HasExitTextInfo())
+        roadNameInfo = r;
+    }
+
     // For exit wait for non-exit.
-    else if (roadNameInfo.HasExitInfo() && !r.m_isLink)
+    if (roadNameInfo.HasExitInfo() && r.m_isLink)
       continue;
 
     // For non-exits check only during first |kSteetNameLinkMeters|.

@@ -18,7 +18,7 @@
                     <constraints>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" priority="750" constant="68" id="TSk-hp-vXl"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                     <userDefinedRuntimeAttributes>
@@ -30,7 +30,7 @@
                     <constraints>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="HSs-ZO-QYt"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                     <userDefinedRuntimeAttributes>
@@ -42,7 +42,7 @@
                     <constraints>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" priority="750" constant="68" id="zcl-0l-OMI"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                     <userDefinedRuntimeAttributes>

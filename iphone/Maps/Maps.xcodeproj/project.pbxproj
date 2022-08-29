@@ -1563,6 +1563,9 @@
 		FA456C4026BDCC8E00B83C20 /* shaders.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = shaders.xcodeproj; path = ../../xcode/shaders/shaders.xcodeproj; sourceTree = "<group>"; };
 		FA459EB314327AF700B5BB3C /* WorldCoasts.mwm */ = {isa = PBXFileReference; lastKnownFileType = file; name = WorldCoasts.mwm; path = ../../data/WorldCoasts.mwm; sourceTree = "<group>"; };
 		FA46DA2B12D4166E00968C36 /* countries.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = countries.txt; path = ../../data/countries.txt; sourceTree = SOURCE_ROOT; };
+		FA4F29DE28BC1B35001754FC /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		FA4F29DF28BC1B36001754FC /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/Localizable.strings; sourceTree = "<group>"; };
+		FA4F29E028BC1B36001754FC /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ca; path = ca.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		FA64D9A813F975AD00350ECF /* types.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = types.txt; path = ../../data/types.txt; sourceTree = SOURCE_ROOT; };
 		FA853BA626BC3ACE0026D455 /* CoreApi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CoreApi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA853BA826BC3B8A0026D455 /* libbase.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libbase.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -3692,6 +3695,7 @@
 				he,
 				eu,
 				mr,
+				ca,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* Maps */;
 			productRefGroup = 19C28FACFE9D520D11CA2CBB /* Products */;
@@ -4379,6 +4383,7 @@
 				FAF8C681278CEEA3006CAE66 /* he */,
 				FA9730AB28049F5B008722AC /* eu */,
 				FA00953E286A48A10094B3ED /* mr */,
+				FA4F29DE28BC1B35001754FC /* ca */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -4424,6 +4429,7 @@
 				FAF8C67E278CEEA3006CAE66 /* he */,
 				FA9730AC28049F5C008722AC /* eu */,
 				FA00953F286A48A20094B3ED /* mr */,
+				FA4F29DF28BC1B36001754FC /* ca */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -4469,6 +4475,7 @@
 				FAF8C680278CEEA3006CAE66 /* es-MX */,
 				FA9730AD28049F5E008722AC /* eu */,
 				FA009540286A48A30094B3ED /* mr */,
+				FA4F29E028BC1B36001754FC /* ca */,
 			);
 			name = Localizable.stringsdict;
 			sourceTree = "<group>";

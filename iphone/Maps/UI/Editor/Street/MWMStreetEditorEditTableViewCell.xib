@@ -21,7 +21,7 @@
                         <constraints>
                             <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="44" id="bRV-YH-9xE"/>
                         </constraints>
-                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <textInputTraits key="textInputTraits"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular17:blackPrimaryText"/>

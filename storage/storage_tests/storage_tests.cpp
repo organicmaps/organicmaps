@@ -636,7 +636,7 @@ UNIT_CLASS_TEST(StorageTest, DeleteCountry)
     writer.Write(data.data(), data.size());
   }
 
-  storage.RegisterFakeCountryFiles(file);
+  storage.RegisterLocalFile(file);
   TEST(map.Exists(), ());
   TEST(Platform::IsFileExistsByFullPath(bitsPath), (bitsPath));
 
