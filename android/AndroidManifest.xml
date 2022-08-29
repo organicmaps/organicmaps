@@ -825,7 +825,7 @@
         android:resource="@xml/automotive_app_desc"/>
 
     <service
-        android:name="com.androidAuto.HelloWorldService"
+        android:name="com.androidAuto.AndroidAutoService"
         android:exported="true">
       <intent-filter>
         <action android:name="androidx.car.app.CarAppService" />

@@ -10,10 +10,10 @@ import androidx.car.app.Screen;
 import androidx.car.app.Session;
 import androidx.car.app.validation.HostValidator;
 
-public final class HelloWorldService extends CarAppService
+public final class AndroidAutoService extends CarAppService
 {
 
-  public HelloWorldService()
+  public AndroidAutoService()
   {
     // Exported services must have an empty public constructor.
   }
@@ -28,7 +28,7 @@ public final class HelloWorldService extends CarAppService
       @NonNull
       public Screen onCreateScreen(@Nullable Intent intent)
       {
-        return new HelloWorldScreen(getCarContext());
+        return new MainScreen(getCarContext());
       }
     };
   }

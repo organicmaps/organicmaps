@@ -26,14 +26,14 @@ import com.mapswithme.maps.R;
 
 import java.io.IOException;
 
-public class HelloWorldScreen extends Screen implements SurfaceCallback
+public class MainScreen extends Screen implements SurfaceCallback
 {
-  private static final String TAG = HelloWorldScreen.class.getSimpleName();
+  private static final String TAG = MainScreen.class.getSimpleName();
   @Nullable
   private MapFragment mMapFragment;
   private SurfaceCallback mSurfaceCallback;
 
-  public HelloWorldScreen(@NonNull CarContext carContext)
+  public MainScreen(@NonNull CarContext carContext)
   {
     super(carContext);
 
