@@ -194,8 +194,14 @@ void RoadGeometry::Load(VehicleModelInterface const & vehicleModel, FeatureType 
   m_junctions.reserve(count);
   for (size_t i = 0; i < count; ++i)
   {
-    m_junctions.emplace_back(mercator::ToLatLon(feature.GetPoint(i)),
-                             altitudes ? (*altitudes)[i] : geometry::kDefaultAltitudeMeters);
+    auto const ll = mercator::ToLatLon(feature.GetPoint(i));
+    m_junctions.emplace_back(ll, altitudes ? (*altitudes)[i] : geometry::kDefaultAltitudeMeters);
+
+#ifdef DEBUG
+    // I'd like to check these big jumps manually, if any.
+    if (altitudes && i > 0 && abs((*altitudes)[i] - (*altitudes)[i-1]) > 30)
+      LOG(LWARNING, ("Altitudes jump:", m_junctions[i], m_junctions[i-1]));
+#endif
   }
   m_distances.resize(count - 1, -1);
 
