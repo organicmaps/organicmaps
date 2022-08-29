@@ -85,19 +85,11 @@ geometry::Altitudes AltitudeLoaderBase::GetAltitudes(uint32_t featureId, size_t 
     Altitudes altitudes;
     ReaderSource<FilesContainerR::TReader> src(*m_reader);
     src.Skip(altitudeInfoOffsetInSection);
-    bool const isDeserialized = altitudes.Deserialize(m_header.m_minAltitude, pointCount,
-                                                      m_countryFileName, featureId,  src);
+    altitudes.Deserialize(m_header.m_minAltitude, pointCount, m_countryFileName, featureId,  src);
 
-    bool const allValid =
-        isDeserialized &&
-        none_of(altitudes.m_altitudes.begin(), altitudes.m_altitudes.end(),
-                [](geometry::Altitude a) { return a == geometry::kInvalidAltitude; });
-    if (!allValid)
-    {
-      LOG(LERROR, ("Only a part point of a feature has a valid altitdue. Altitudes: ", altitudes.m_altitudes,
-                   ". Feature Id", featureId, "of", m_countryFileName));
-      return geometry::Altitudes(pointCount, m_header.m_minAltitude);
-    }
+    // It's filtered on generator stage.
+    ASSERT(none_of(altitudes.m_altitudes.begin(), altitudes.m_altitudes.end(),
+           [](geometry::Altitude a) { return a == geometry::kInvalidAltitude; }), (featureId, m_countryFileName));
 
     return std::move(altitudes.m_altitudes);
   }
