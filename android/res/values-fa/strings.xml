@@ -665,6 +665,8 @@
 	<string name="enable_screen_sleep_description">درصورت فعال بودن ، بعد از یک دوره عدم فعالیت به صفحه اجازه خواب داده می شود.</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">OpenStreetMap ﺯﺍ ﻪﺸﻘﻧ ﯼﺎﻫ ﻩﺩﺍﺩ</string>
+	<!-- Telegram group url for the help page -->
+	<string name="telegram_url">https://t.me/OrganicMapsIR</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aeroway.aerodrome">فرودگاه</string>

@@ -17,10 +17,10 @@ std::string GetFileExtension(std::string const & name);
 /// Get file name from full path.
 void GetNameFromFullPath(std::string & name);
 
-std::string GetNameFromFullPath(std::string const & path);
+std::string FileNameFromFullPath(std::string path);
 
 /// Get file name from full path without extension.
-std::string GetNameFromFullPathWithoutExt(std::string const & path);
+std::string GetNameFromFullPathWithoutExt(std::string path);
 
 /// Returns all but last components of the path. After dropping the last
 /// component, all trailing slashes are removed, unless the result is a

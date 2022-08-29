@@ -177,13 +177,13 @@ final class AboutController: MWMViewController, UITableViewDataSource, UITableVi
       }
       // Second section. Open urls in external Safari so logged-in users can easily follow us.
       case 2: switch indexPath[1] {
-        case 0: self.openUrl("https://t.me/OrganicMapsApp", inSafari: true)
+        case 0: self.openUrl(L("telegram_url"), inSafari: true)
         case 1: self.openUrl("https://github.com/organicmaps/organicmaps/", inSafari: true)
         case 2: self.openUrl("https://organicmaps.app/")
         case 3: sendEmailWith(header: "Organic Maps", toRecipients: [kiOSEmail])
         case 4: self.openUrl("https://facebook.com/OrganicMaps", inSafari: true)
         case 5: self.openUrl("https://twitter.com/OrganicMapsApp", inSafari: true)
-        case 6: self.openUrl("https://www.instagram.com/organicmaps.app", inSafari: true)
+        case 6: self.openUrl(L("instagram_url"), inSafari: true)
         case 7: self.openUrl("https://matrix.to/#/%23organicmaps:matrix.org", inSafari: true)
         case 8: self.openUrl("https://wiki.openstreetmap.org/wiki/About_OpenStreetMap", inSafari: true)
         default: fatalError("Invalid cell1 \(indexPath)")

@@ -401,11 +401,15 @@
 	<string name="day_off_today">Bugün kapalı</string>
 	<string name="day_off">Kapalı</string>
 	<string name="today">Bugün</string>
+	<string name="opens_tomorrow_at">Açılış yarın %s</string>
+	<string name="opens_dayoftheweek_at">Açılış %1$s %2$s</string>
+	<string name="opens_at">Açılış %s</string>
 	<string name="opens_in">%s sonra açılıyor</string>
+	<string name="closes_at">Kapanış %s</string>
 	<string name="closes_in">%s sonra kapanıyor</string>
 	<string name="closed">Kapalı</string>
-	<string name="edit_opening_hours">İş saatlerini düzenle</string>
-	<string name="no_osm_account">OpenStreetMap hesabın yok mu?</string>
+	<string name="edit_opening_hours">Çalışma saatlerini düzenle</string>
+	<string name="no_osm_account">OpenStreetMap hesabınız yok mu?</string>
 	<string name="register_at_openstreetmap">Kaydol</string>
 	<string name="login">Oturum aç</string>
 	<string name="password">Şifre</string>
@@ -714,6 +718,10 @@
 	<string name="enable_show_on_lock_screen_description">Etkinleştirildiğinde, uygulama çalışırken her seferinde cihazınızın kilidini açmanıza gerek kalmaz.</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">Harita verileri OpenStreetMap\'ten</string>
+	<!-- Telegram group url for the help page -->
+	<string name="telegram_url">https://t.me/OrganicMapsTR</string>
+	<!-- Instagram account url for the help page -->
+	<string name="instagram_url">https://www.instagram.com/organicmapstr</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway">Teleferik</string>

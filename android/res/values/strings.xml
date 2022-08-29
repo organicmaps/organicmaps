@@ -741,6 +741,10 @@
 	<string name="enable_show_on_lock_screen_description">When enabled, you don\'t need to unlock your device every time while the app is running.</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">Map data from OpenStreetMap</string>
+	<!-- Telegram group url for the help page -->
+	<string name="telegram_url">https://t.me/OrganicMapsApp</string>
+	<!-- Instagram account url for the help page -->
+	<string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway">Aerialway</string>
