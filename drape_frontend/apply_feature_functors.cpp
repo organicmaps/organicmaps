@@ -778,7 +778,7 @@ ApplyLineFeatureGeometry::ApplyLineFeatureGeometry(TileKey const & tileKey,
                                                    size_t pointsCount, bool smooth)
   : TBase(tileKey, insertShape, id, minVisibleScale, rank, CaptionDescription())
   , m_currentScaleGtoP(static_cast<float>(currentScaleGtoP))
-  , m_sqrScale(currentScaleGtoP * currentScaleGtoP)
+  , m_minSegmentSqrLength(base::Pow2(4.0 * df::VisualParams::Instance().GetVisualScale() / currentScaleGtoP))
   , m_simplify(tileKey.m_zoomLevel >= kLineSimplifyLevelStart &&
                tileKey.m_zoomLevel <= kLineSimplifyLevelEnd)
   , m_smooth(smooth)
@@ -804,9 +804,8 @@ void ApplyLineFeatureGeometry::operator() (m2::PointD const & point)
   }
   else
   {
-    static double minSegmentLength = base::Pow2(4.0 * df::VisualParams::Instance().GetVisualScale());
     if (m_simplify &&
-        ((m_spline->GetSize() > 1 && point.SquaredLength(m_lastAddedPoint) * m_sqrScale < minSegmentLength) ||
+        ((m_spline->GetSize() > 1 && point.SquaredLength(m_lastAddedPoint) < m_minSegmentSqrLength) ||
         m_spline->IsPrelonging(point)))
     {
       m_spline->ReplacePoint(point);

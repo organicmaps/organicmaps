@@ -324,7 +324,7 @@ void RuleDrawer::ProcessLineStyle(FeatureType & f, Stylist const & s,
                                   TInsertShapeFn const & insertShape, int & minVisibleScale)
 {
   int const zoomLevel = m_context->GetTileKey().m_zoomLevel;
-  auto const smooth = ftypes::IsIsolineChecker::Instance()(f);
+  bool const smooth = ftypes::IsIsolineChecker::Instance()(f);
 
   ApplyLineFeatureGeometry applyGeom(m_context->GetTileKey(), insertShape, f.GetID(),
                                      m_currentScaleGtoP, minVisibleScale, f.GetRank(),

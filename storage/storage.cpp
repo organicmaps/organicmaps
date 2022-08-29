@@ -2,7 +2,7 @@
 
 #include "storage/country_tree_helpers.hpp"
 #include "storage/diff_scheme/apply_diff.hpp"
-#include "storage/diff_scheme/diff_scheme_loader.hpp"
+//#include "storage/diff_scheme/diff_scheme_loader.hpp"
 #include "storage/downloader.hpp"
 #include "storage/map_files_downloader.hpp"
 #include "storage/storage_helpers.hpp"
@@ -21,9 +21,7 @@
 
 #include "base/exception.hpp"
 #include "base/file_name_utils.hpp"
-#include "base/gmtime.hpp"
 #include "base/logging.hpp"
-#include "base/scope_guard.hpp"
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
@@ -315,16 +313,7 @@ void Storage::RegisterAllLocalMaps(bool enableDiffs /* = false */)
       ++j;
     }
 
-    LocalCountryFile const & localFile = *i;
-    string const & name = localFile.GetCountryName();
-    CountryId const countryId = FindCountryIdByFile(name);
-    if (IsLeaf(countryId))
-      RegisterCountryFiles(countryId, localFile);
-    else
-      RegisterFakeCountryFiles(localFile);  // Also called for Worlds from resources.
-
-    LOG(LINFO, ("Found file:", name, "in directory:", localFile.GetDirectory()));
-
+    RegisterLocalFile(*i);
     i = j;
   }
 
@@ -418,7 +407,7 @@ LocalFilePtr Storage::GetLatestLocalFile(CountryFile const & countryFile) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
-  CountryId const countryId = FindCountryIdByFile(countryFile.GetName());
+  CountryId const & countryId = FindCountryIdByFile(countryFile.GetName());
   if (IsLeaf(countryId))
   {
     LocalFilePtr localFile = GetLatestLocalFile(countryId);
@@ -516,9 +505,9 @@ void Storage::RestoreDownloadQueue()
   strings::Tokenize(download, ";", [this](string_view v)
   {
     auto const it = base::FindIf(m_notAppliedDiffs, [this, v](LocalCountryFile const & localDiff)
-                                {
-                                  return v == FindCountryIdByFile(localDiff.GetCountryName());
-                                });
+    {
+      return v == FindCountryId(localDiff);
+    });
 
     if (it == m_notAppliedDiffs.end())
     {
@@ -580,20 +569,17 @@ void Storage::DeleteCustomCountryVersion(LocalCountryFile const & localFile)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
-  CountryFile const countryFile = localFile.GetCountryFile();
   DeleteFromDiskWithIndexes(localFile, MapFileType::Map);
   DeleteFromDiskWithIndexes(localFile, MapFileType::Diff);
 
+  auto it = m_localFilesForFakeCountries.find(localFile.GetCountryFile());
+  if (it != m_localFilesForFakeCountries.end())
   {
-    auto it = m_localFilesForFakeCountries.find(countryFile);
-    if (it != m_localFilesForFakeCountries.end())
-    {
-      m_localFilesForFakeCountries.erase(it);
-      return;
-    }
+    m_localFilesForFakeCountries.erase(it);
+    return;
   }
 
-  CountryId const countryId = FindCountryIdByFile(countryFile.GetName());
+  CountryId const & countryId = FindCountryId(localFile);
   if (!IsLeaf(countryId))
   {
     LOG(LERROR, ("Removed files for an unknown country:", localFile));
@@ -859,22 +845,6 @@ void Storage::OnMapDownloadFinished(CountryId const & countryId, DownloadStatus 
   RegisterDownloadedFiles(countryId, type);
 }
 
-CountryId Storage::FindCountryIdByFile(string const & name) const
-{
-  // @TODO(bykoianko) Probably it's worth to check here if name represent a node in the tree.
-  return CountryId(name);
-}
-
-CountriesVec Storage::FindAllIndexesByFile(CountryId const & name) const
-{
-  // @TODO(bykoianko) This method should be rewritten. At list now name and the param of Find
-  // have different types: string and CountryId.
-  CountriesVec result;
-  if (m_countries.FindFirst(name))
-    result.push_back(name);
-  return result;
-}
-
 /*
 void Storage::GetOutdatedCountries(vector<Country const *> & countries) const
 {
@@ -951,36 +921,47 @@ void Storage::RegisterCountryFiles(LocalFilePtr localFile)
   CHECK(localFile, ());
   localFile->SyncWithDisk();
 
-  for (auto const & countryId : FindAllIndexesByFile(localFile->GetCountryName()))
+  CountryId const & countryId = FindCountryId(*localFile);
+  LocalFilePtr existingFile = GetLocalFile(countryId, localFile->GetVersion());
+  if (existingFile)
   {
-    LocalFilePtr existingFile = GetLocalFile(countryId, localFile->GetVersion());
-    if (existingFile)
-    {
-      if (existingFile->IsInBundle())
-        *existingFile = *localFile;
-      else
-        ASSERT_EQUAL(localFile.get(), existingFile.get(), ());
-    }
+    if (existingFile->IsInBundle())
+      *existingFile = *localFile;
     else
-      m_localFiles[countryId].push_front(localFile);
+      ASSERT_EQUAL(localFile.get(), existingFile.get(), ());
   }
+  else
+    m_localFiles[countryId].push_front(localFile);
 }
 
-void Storage::RegisterCountryFiles(CountryId const & countryId, LocalCountryFile const & localFile)
+void Storage::RegisterLocalFile(platform::LocalCountryFile const & localFile)
 {
-  LocalFilePtr p = GetLocalFile(countryId, localFile.GetVersion());
-  if (!p)
+  LocalFilePtr ptr;
+
+  CountryId const & countryId = FindCountryId(localFile);
+  if (IsLeaf(countryId))
   {
-    p = make_shared<LocalCountryFile>(localFile);
-    RegisterCountryFiles(p);
+    ptr = GetLocalFile(countryId, localFile.GetVersion());
+    if (!ptr)
+    {
+      ptr = make_shared<LocalCountryFile>(localFile);
+      RegisterCountryFiles(ptr);
+    }
   }
-}
+  else
+  {
+    ptr = make_shared<LocalCountryFile>(localFile);
+    ptr->SyncWithDisk();
+    m_localFilesForFakeCountries[ptr->GetCountryFile()] = ptr;
+  }
 
-void Storage::RegisterFakeCountryFiles(LocalCountryFile const & localFile)
-{
-  LocalFilePtr p = make_shared<LocalCountryFile>(localFile);
-  p->SyncWithDisk();
-  m_localFilesForFakeCountries[p->GetCountryFile()] = p;
+  uint64_t const size = ptr->GetSize(MapFileType::Map);
+  LOG(LINFO, ("Found file:", countryId, "in directory:", ptr->GetDirectory(), "with size:", size));
+
+  /// Funny, but ptr->GetCountryFile() has valid name only. Size and sha1 are not initialized.
+  /// @todo Store only name (CountryId) in LocalCountryFile instead of CountryFile?
+  if (m_currentVersion == ptr->GetVersion() && size != GetCountryFile(countryId).GetRemoteSize())
+    LOG(LERROR, ("Inconsistent MWM and version for", *ptr));
 }
 
 void Storage::DeleteCountryFiles(CountryId const & countryId, MapFileType type, bool deferredDelete)

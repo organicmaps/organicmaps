@@ -75,7 +75,7 @@ bool SkipFeed(std::string const & feedPath, bool & pass)
 {
   if (!FLAGS_start_feed.empty() && pass)
   {
-    if (base::GetNameFromFullPath(feedPath) != FLAGS_start_feed)
+    if (base::FileNameFromFullPath(feedPath) != FLAGS_start_feed)
       return true;
     pass = false;
   }
@@ -84,7 +84,7 @@ bool SkipFeed(std::string const & feedPath, bool & pass)
 
 bool StopOnFeed(std::string const & feedPath)
 {
-  if (!FLAGS_stop_feed.empty() && base::GetNameFromFullPath(feedPath) == FLAGS_stop_feed)
+  if (!FLAGS_stop_feed.empty() && base::FileNameFromFullPath(feedPath) == FLAGS_stop_feed)
   {
     LOG(LINFO, ("Stop on", feedPath));
     return true;
@@ -271,7 +271,7 @@ int main(int argc, char ** argv)
 {
   gflags::SetUsageMessage("Reads GTFS feeds or subway transit.json, produces json with global ids for generator.");
   gflags::ParseCommandLineFlags(&argc, &argv, true);
-  auto const toolName = base::GetNameFromFullPath(argv[0]);
+  auto const toolName = base::FileNameFromFullPath(argv[0]);
 
   if (FLAGS_path_gtfs_feeds.empty() && FLAGS_path_subway_json.empty())
   {

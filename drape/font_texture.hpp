@@ -88,7 +88,7 @@ public:
 
   bool CanBeGlyphPacked(uint32_t glyphsCount) const;
 
-  uint32_t GetAbsentGlyphsCount(strings::UniString const & text, int fixedHeight) const;
+  //uint32_t GetAbsentGlyphsCount(strings::UniString const & text, int fixedHeight) const;
 
   // ONLY for unit-tests. DO NOT use this function anywhere else.
   size_t GetPendingNodesCount();
@@ -138,10 +138,10 @@ public:
     return m_index.CanBeGlyphPacked(newKeysCount);
   }
 
-  uint32_t GetAbsentGlyphsCount(strings::UniString const & text, int fixedHeight) const
-  {
-    return m_index.GetAbsentGlyphsCount(text, fixedHeight);
-  }
+//  uint32_t GetAbsentGlyphsCount(strings::UniString const & text, int fixedHeight) const
+//  {
+//    return m_index.GetAbsentGlyphsCount(text, fixedHeight);
+//  }
 
 private:
   GlyphIndex m_index;

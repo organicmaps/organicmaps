@@ -13,16 +13,12 @@
 #include "platform/local_country_file.hpp"
 
 #include "base/cancellable.hpp"
-#include "base/deferred_task.hpp"
 #include "base/thread_checker.hpp"
 #include "base/thread_pool_delayed.hpp"
 
-#include <cstddef>
-#include <cstdint>
 #include <functional>
 #include <list>
 #include <memory>
-#include <optional>
 #include <set>
 #include <string>
 #include <unordered_map>
@@ -513,7 +509,17 @@ public:
   Country const & CountryLeafByCountryId(CountryId const & countryId) const;
   Country const & CountryByCountryId(CountryId const & countryId) const;
 
-  CountryId FindCountryIdByFile(std::string const & name) const;
+  /// @todo Proxy functions for future, to distinguish CountryId from regular file name.
+  /// @{
+  CountryId const & FindCountryId(platform::LocalCountryFile const & localFile) const
+  {
+    return localFile.GetCountryName();
+  }
+  CountryId const & FindCountryIdByFile(std::string const & name) const
+  {
+    return name;
+  }
+  /// @}
 
   // Returns true iff |countryId| exists as a node in the tree.
   bool IsNode(CountryId const & countryId) const;
@@ -596,11 +602,7 @@ private:
 
   // Registers disk files for a country. This method must be used only
   // for real (listed in countries.txt) countries.
-  void RegisterCountryFiles(CountryId const & countryId, platform::LocalCountryFile const & localFile);
-
-  // Registers disk files for a country. This method must be used only
-  // for custom (made by user) map files.
-  void RegisterFakeCountryFiles(platform::LocalCountryFile const & localFile);
+  void RegisterLocalFile(platform::LocalCountryFile const & localFile);
 
   // Removes disk files for all versions of a country.
   void DeleteCountryFiles(CountryId const & countryId, MapFileType type, bool deferredDelete);
@@ -626,10 +628,6 @@ private:
 
   void NotifyStatusChanged(CountryId const & countryId);
   void NotifyStatusChangedForHierarchy(CountryId const & countryId);
-
-  /// @todo Temporary function to gel all associated indexes for the country file name.
-  /// Will be removed in future after refactoring.
-  CountriesVec FindAllIndexesByFile(CountryId const & name) const;
 
   /// Calculates progress of downloading for expandable nodes in country tree.
   /// |descendants| All descendants of the parent node.
