@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """Parses GTFS feeds urls:
 https://transit.land/        - Transitland
 https://storage.googleapis.com/storage/v1/b/mdb-csv/o/sources.csv?alt=media  
@@ -47,9 +48,9 @@ def download_gtfs_sources_mobilitydb(path):
 
 def get_gtfs_urls_mobilitydb(path, countries_list):
     """Extracts the feed urls from the downloaded csv file"""
-    download_from_all_countries = False
-    if not countries_list:
-        download_from_all_countries = True
+    download_from_all_countries = True
+    if countries_list:
+        download_from_all_countries = False
 
     download_gtfs_sources_mobilitydb(path)
     file = open(os.path.join(path, RAW_FILE_MOBILITYDB), encoding='UTF-8')
@@ -242,7 +243,7 @@ def main():
         help="user key for working with transitland API v2"
     )
 
-    # Example: to download data only for Germany and France use "--mdb_countries DE FR"
+    # Example: to download data only for Germany and France use "--mdb_countries DE,FR"
     parser.add_argument(
         "-c",
         "--mdb_countries",
@@ -262,7 +263,7 @@ def main():
         if args.source in ["all", "mobilitydb"]:
             mdb_countries = []
             if args.mdb_countries:
-                mdb_countries = args.mdb_countries.split()
+                mdb_countries = args.mdb_countries.split(',')
 
             get_gtfs_urls_mobilitydb(args.path, mdb_countries)
         if args.source in ["all", "transitland"]:
