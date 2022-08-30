@@ -56,7 +56,7 @@ def get_gtfs_urls_mobilitydb(path, countries_list):
     file = open(os.path.join(path, RAW_FILE_MOBILITYDB), encoding='UTF-8')
     raw_sources = csv.DictReader(file)
     next(raw_sources)
-    urls = [field["urls.direct_download"] for field in raw_sources if field["location.country_code"] in countries_list or download_from_all_countries]
+    urls = [field["urls.direct_download"] for field in raw_sources if download_from_all_countries or field["location.country_code"] in countries_list]
     write_list_to_file(os.path.join(path, URLS_FILE_MOBILITYDB), urls)
 
 
