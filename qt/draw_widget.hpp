@@ -5,23 +5,15 @@
 #include "qt/ruler.hpp"
 #include "qt/selection.hpp"
 
-#include "map/everywhere_search_params.hpp"
-#include "map/place_page_info.hpp"
 #include "map/routing_manager.hpp"
 
 #include "search/result.hpp"
 
 #include "routing/router.hpp"
 
-#include "drape_frontend/drape_engine.hpp"
-#include "drape_frontend/gui/skin.hpp"
-
 #include <QtWidgets/QRubberBand>
 
-#include <condition_variable>
-#include <functional>
 #include <memory>
-#include <mutex>
 #include <optional>
 #include <string>
 

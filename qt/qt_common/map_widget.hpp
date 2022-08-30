@@ -8,8 +8,6 @@
 
 #include "qt/qt_common/qtoglcontextfactory.hpp"
 
-#include "kml/type_utils.hpp"
-
 #include "indexer/feature.hpp"
 
 #include <QtCore/QTimer>
@@ -97,7 +95,6 @@ protected:
   bool m_screenshotMode;
   ScaleSlider * m_slider;
   SliderState m_sliderState;
-  kml::MarkGroupId m_bookmarksCategoryId = 0;
 
   float m_ratio;
   drape_ptr<QtOGLContextFactory> m_contextFactory;

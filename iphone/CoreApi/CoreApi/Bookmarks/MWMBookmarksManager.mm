@@ -206,11 +206,11 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
 - (MWMGroupIDCollection)groupsIdList
 {
   auto const & list = self.bm.GetBmGroupsIdList();
-  NSMutableArray<NSNumber *> * collection = @[].mutableCopy;
+  NSMutableArray<NSNumber *> * collection = [[NSMutableArray alloc] initWithCapacity:list.size()];
+
   for (auto const & groupId : list)
     [collection addObject:@(groupId)];
-
-  return collection.copy;
+  return collection;
 }
 
 - (NSString *)getCategoryName:(MWMMarkGroupID)groupId
@@ -530,38 +530,39 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
 #pragma mark - Tracks
 
 - (MWMTrackIDCollection)trackIdsForCategory:(MWMMarkGroupID)categoryId {
-  auto const &trackIds = self.bm.GetTrackIds(categoryId);
-  NSMutableArray<NSNumber *> *collection = [[NSMutableArray alloc] initWithCapacity:trackIds.size()];
+  auto const & trackIds = self.bm.GetTrackIds(categoryId);
+  NSMutableArray<NSNumber *> * collection = [[NSMutableArray alloc] initWithCapacity:trackIds.size()];
+
   for (auto trackId : trackIds)
     [collection addObject:@(trackId)];
-  return [collection copy];
+  return collection;
 }
 
 - (NSArray<MWMTrack *> *)tracksForGroup:(MWMMarkGroupID)groupId {
-  auto const &trackIds = self.bm.GetTrackIds(groupId);
-  NSMutableArray *result = [NSMutableArray array];
-  for (auto trackId : trackIds) {
+  auto const & trackIds = self.bm.GetTrackIds(groupId);
+  NSMutableArray * result = [[NSMutableArray alloc] initWithCapacity:trackIds.size()];
+
+  for (auto trackId : trackIds)
     [result addObject:[[MWMTrack alloc] initWithTrackId:trackId trackData:self.bm.GetTrack(trackId)]];
-  }
-  return [result copy];
+  return result;
 }
 
 - (NSArray<MWMBookmarkGroup *> *)collectionsForGroup:(MWMMarkGroupID)groupId {
-  auto const &collectionIds = self.bm.GetChildrenCollections(groupId);
-  NSMutableArray *result = [NSMutableArray array];
-  for (auto collectionId : collectionIds) {
+  auto const & collectionIds = self.bm.GetChildrenCollections(groupId);
+  NSMutableArray * result = [[NSMutableArray alloc] initWithCapacity:collectionIds.size()];
+
+  for (auto collectionId : collectionIds)
     [result addObject:[[MWMBookmarkGroup alloc] initWithCategoryId:collectionId bookmarksManager:self]];
-  }
-  return [result copy];
+  return result;
 }
 
 - (NSArray<MWMBookmarkGroup *> *)categoriesForGroup:(MWMMarkGroupID)groupId {
-  auto const &categoryIds = self.bm.GetChildrenCategories(groupId);
-  NSMutableArray *result = [NSMutableArray array];
-  for (auto categoryId : categoryIds) {
+  auto const & categoryIds = self.bm.GetChildrenCategories(groupId);
+  NSMutableArray * result = [[NSMutableArray alloc] initWithCapacity:categoryIds.size()];
+
+  for (auto categoryId : categoryIds)
     [result addObject:[[MWMBookmarkGroup alloc] initWithCategoryId:categoryId bookmarksManager:self]];
-  }
-  return [result copy];
+  return result;
 }
 
 #pragma mark - Category sharing
@@ -630,12 +631,12 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
 
 - (NSArray<MWMBookmarkGroup *> *)userCategories
 {
-  NSMutableArray<MWMBookmarkGroup *> * result = [NSMutableArray array];
   auto const & list = self.bm.GetBmGroupsIdList();
+  NSMutableArray<MWMBookmarkGroup *> * result = [[NSMutableArray alloc] initWithCapacity:list.size()];
+
   for (auto const & groupId : list)
     [result addObject:[self categoryWithId:groupId]];
-
-  return [result copy];
+  return result;
 }
 
 - (MWMBookmarkGroup *)categoryWithId:(MWMMarkGroupID)groupId {

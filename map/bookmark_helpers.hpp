@@ -108,6 +108,7 @@ bool SaveKmlFileByExt(kml::FileData & kmlData, std::string const & file);
 
 void ResetIds(kml::FileData & kmlData);
 
+namespace feature { class TypesHolder; }
 void SaveFeatureTypes(feature::TypesHolder const & types, kml::BookmarkData & bmData);
 
 std::string GetPreferredBookmarkName(kml::BookmarkData const & bmData);

@@ -6,6 +6,8 @@
 #include "map/track.hpp"
 #include "map/user_mark_layer.hpp"
 
+#include "search/region_address_getter.hpp"
+
 #include "drape_frontend/drape_engine_safe_ptr.hpp"
 
 #include "platform/safe_callback.hpp"
@@ -27,10 +29,6 @@
 #include <string>
 #include <vector>
 
-namespace search
-{
-class RegionAddressGetter;
-}  // namespace search
 
 namespace storage
 {
@@ -365,7 +363,11 @@ public:
   void EnableTestMode(bool enable);
   bool SaveBookmarkCategory(kml::MarkGroupId groupId);
   bool SaveBookmarkCategory(kml::MarkGroupId groupId, Writer & writer, KmlFileType fileType) const;
+
+  static void UpdateLastModifiedTime(KMLDataCollection & collection);
+  // Used for LoadBookmarks() and unit tests only. Does *not* update last modified time.
   void CreateCategories(KMLDataCollection && dataCollection, bool autoSave = true);
+
   static std::string GetTracksSortedBlockName();
   static std::string GetOthersSortedBlockName();
   static std::string GetNearMeSortedBlockName();
