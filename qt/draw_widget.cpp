@@ -4,7 +4,6 @@
 #include "qt/editor_dialog.hpp"
 #include "qt/place_page_dialog.hpp"
 #include "qt/qt_common/helpers.hpp"
-#include "qt/qt_common/scale_slider.hpp"
 #include "qt/routing_settings_dialog.hpp"
 #include "qt/screenshoter.hpp"
 
@@ -23,9 +22,7 @@
 
 #include "indexer/editable_map_object.hpp"
 
-#include "platform/downloader_defines.hpp"
 #include "platform/platform.hpp"
-#include "platform/settings.hpp"
 
 #include "coding/reader.hpp"
 
@@ -549,13 +546,11 @@ void DrawWidget::SubmitRoutingPoint(m2::PointD const & pt)
 void DrawWidget::SubmitBookmark(m2::PointD const & pt)
 {
   auto & manager = m_framework.GetBookmarkManager();
-  if (!manager.HasBmCategory(m_bookmarksCategoryId))
-    m_bookmarksCategoryId = manager.CreateBookmarkCategory("Desktop_bookmarks");
 
   kml::BookmarkData data;
   data.m_color.m_predefinedColor = kml::PredefinedColor::Red;
   data.m_point = m_framework.P3dtoG(pt);
-  manager.GetEditSession().CreateBookmark(std::move(data), m_bookmarksCategoryId);
+  manager.GetEditSession().CreateBookmark(std::move(data), manager.LastEditedBMCategory());
 }
 
 void DrawWidget::FollowRoute()

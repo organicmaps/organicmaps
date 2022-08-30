@@ -5,9 +5,8 @@
 
 #include "kml/types.hpp"
 
-#include "search/region_address_getter.hpp"
+#include "search/reverse_geocoder.hpp"
 
-#include <memory>
 #include <string>
 #include <vector>
 
@@ -118,6 +117,11 @@ public:
   void SetCustomProperty(std::string const & key, std::string const & value);
 
   void SetDirty() override;
+
+  kml::Timestamp GetLastModifiedTime() const { return m_data.m_lastModified; }
+
+  // For serdes to access protected UserMarkLayer sets.
+  friend class BookmarkManager;
 
 private:
   // Stores file name from which bookmarks were loaded.

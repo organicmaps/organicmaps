@@ -2,14 +2,11 @@
 
 #include "drape_frontend/visual_params.hpp"
 
-#include "indexer/data_header.hpp"
 #include "indexer/feature_utils.hpp"
 #include "indexer/mwm_set.hpp"
 
 #include "map/bookmark_helpers.hpp"
 #include "map/framework.hpp"
-
-#include "search/result.hpp"
 
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
@@ -21,7 +18,6 @@
 #include "base/scope_guard.hpp"
 
 #include <array>
-#include <fstream>
 #include <map>
 #include <memory>
 #include <set>
@@ -591,7 +587,7 @@ UNIT_TEST(Bookmarks_Sorting)
   auto const kMonth = 31 * kDay;
   auto const kYear = 365 * kDay;
   auto const kUnknownTime = std::chrono::hours(0);
-  auto const currentTime = std::chrono::system_clock::now();
+  auto const currentTime = kml::TimestampClock::now();
 
   auto const & c = classif();
   auto const setFeatureTypes = [&c](std::vector<std::string> const & readableTypes, kml::BookmarkData & bmData)
@@ -1064,6 +1060,8 @@ UNIT_CLASS_TEST(Runner, Bookmarks_SpecialXMLNames)
   BookmarkManager::KMLDataCollection kmlDataCollection3;
   kmlDataCollection3.emplace_back("" /* filePath */,
                                   LoadKmlData(MemReader(kmlString3, strlen(kmlString3)), KmlFileType::Text));
+
+  bmManager.UpdateLastModifiedTime(kmlDataCollection3);
   bmManager.CreateCategories(std::move(kmlDataCollection3), false /* autoSave */);
 
   TEST_EQUAL(bmManager.GetBmGroupsIdList().size(), 2, ());

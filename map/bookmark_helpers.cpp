@@ -6,6 +6,7 @@
 #include "kml/serdes_binary.hpp"
 
 #include "indexer/classificator.hpp"
+#include "indexer/feature_data.hpp"
 
 #include "platform/localization.hpp"
 #include "platform/platform.hpp"
@@ -455,7 +456,7 @@ void ResetIds(kml::FileData & kmlData)
   for (auto & trackData : kmlData.m_tracksData)
     trackData.m_id = kml::kInvalidTrackId;
   for (auto & compilationData : kmlData.m_compilationsData)
-    compilationData.m_id = kml::kInvalidTrackId;
+    compilationData.m_id = kml::kInvalidMarkGroupId;
 }
 
 bool TruncType(std::string & type)

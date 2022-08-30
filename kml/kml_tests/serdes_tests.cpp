@@ -17,7 +17,6 @@
 #include "base/file_name_utils.hpp"
 #include "base/scope_guard.hpp"
 
-#include <chrono>
 #include <cstring>
 #include <functional>
 #include <memory>
@@ -61,7 +60,7 @@ kml::FileData GenerateKmlFileData()
   result.m_categoryData.m_authorId = "12345";
   result.m_categoryData.m_rating = 8.9;
   result.m_categoryData.m_reviewsNumber = 567;
-  result.m_categoryData.m_lastModified = std::chrono::system_clock::from_time_t(1000);
+  result.m_categoryData.m_lastModified = kml::TimestampClock::from_time_t(1000);
   result.m_categoryData.m_accessRules = kml::AccessRules::Public;
   result.m_categoryData.m_tags = {"mountains", "ski", "snowboard"};
   result.m_categoryData.m_toponyms = {"12345", "54321"};
@@ -79,7 +78,7 @@ kml::FileData GenerateKmlFileData()
   bookmarkData.m_color = {kml::PredefinedColor::Blue, 0};
   bookmarkData.m_icon = kml::BookmarkIcon::None;
   bookmarkData.m_viewportScale = 15;
-  bookmarkData.m_timestamp = std::chrono::system_clock::from_time_t(800);
+  bookmarkData.m_timestamp = kml::TimestampClock::from_time_t(800);
   bookmarkData.m_point = m2::PointD(45.9242, 56.8679);
   bookmarkData.m_boundTracks = {0};
   bookmarkData.m_visible = false;
@@ -99,7 +98,7 @@ kml::FileData GenerateKmlFileData()
   trackData.m_description[kRuLang] = "Тестовое описание трека";
   trackData.m_layers = {{6.0, {kml::PredefinedColor::None, 0xff0000ff}},
                         {7.0, {kml::PredefinedColor::None, 0x00ff00ff}}};
-  trackData.m_timestamp = std::chrono::system_clock::from_time_t(900);
+  trackData.m_timestamp = kml::TimestampClock::from_time_t(900);
   trackData.m_pointsWithAltitudes = {{m2::PointD(45.9242, 56.8679), 1},
                                      {m2::PointD(45.2244, 56.2786), 2},
                                      {m2::PointD(45.1964, 56.9832), 3}};
@@ -123,7 +122,7 @@ kml::FileData GenerateKmlFileData()
   compilationData1.m_authorId = "54321";
   compilationData1.m_rating = 5.9;
   compilationData1.m_reviewsNumber = 333;
-  compilationData1.m_lastModified = std::chrono::system_clock::from_time_t(999);
+  compilationData1.m_lastModified = kml::TimestampClock::from_time_t(999);
   compilationData1.m_accessRules = kml::AccessRules::Public;
   compilationData1.m_tags = {"mountains", "ski"};
   compilationData1.m_toponyms = {"8", "9"};
@@ -146,7 +145,7 @@ kml::FileData GenerateKmlFileData()
   compilationData2.m_authorId = "11111";
   compilationData2.m_rating = 3.3;
   compilationData2.m_reviewsNumber = 222;
-  compilationData2.m_lastModified = std::chrono::system_clock::from_time_t(323);
+  compilationData2.m_lastModified = kml::TimestampClock::from_time_t(323);
   compilationData2.m_accessRules = kml::AccessRules::Public;
   compilationData2.m_tags = {"mountains", "bike"};
   compilationData2.m_toponyms = {"10", "11"};
