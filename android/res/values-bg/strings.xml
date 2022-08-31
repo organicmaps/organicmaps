@@ -873,8 +873,8 @@
 	<string name="type.sport.table_tennis">Тенис на маса</string>
 	<string name="type.sport.tennis">Тенис корт</string>
 	<string name="type.sport.volleyball">Волейбол</string>
-	<string name="type.sport.9pin">Боулинг</string>
 	<string name="type.sport.10pin">Боулинг</string>
+	<string name="type.sport.9pin">Боулинг</string>
 	<string name="type.sport.padel">Падел</string>
 	<string name="type.sport.futsal">Футзал</string>
 	<string name="type.sport.ice_hockey">Хокей на лед</string>

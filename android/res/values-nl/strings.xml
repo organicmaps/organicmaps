@@ -1359,8 +1359,8 @@
 	<string name="type.sport.table_tennis">Tafeltennis</string>
 	<string name="type.sport.tennis">Tennisveld</string>
 	<string name="type.sport.volleyball">Volleyball</string>
-	<string name="type.sport.9pin">Bowlen</string>
 	<string name="type.sport.10pin">Bowlen</string>
+	<string name="type.sport.9pin">Bowlen</string>
 	<string name="type.sport.padel">Padel</string>
 	<string name="type.sport.futsal">Futsal</string>
 	<string name="type.sport.ice_hockey">Ijshockey</string>

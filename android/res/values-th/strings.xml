@@ -1364,8 +1364,8 @@
 	<string name="type.sport.table_tennis">เทเบิลเทนนิส</string>
 	<string name="type.sport.tennis">คอร์ทเทนนิส</string>
 	<string name="type.sport.volleyball">วอลเลย์บอล</string>
-	<string name="type.sport.9pin">โบว์ลิ่ง</string>
 	<string name="type.sport.10pin">โบว์ลิ่ง</string>
+	<string name="type.sport.9pin">โบว์ลิ่ง</string>
 	<string name="type.sport.padel">พาเดล</string>
 	<string name="type.sport.futsal">ฟุตซอล</string>
 	<string name="type.sport.ice_hockey">ฮอคกี้น้ำแข็ง</string>

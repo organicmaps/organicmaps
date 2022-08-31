@@ -489,8 +489,8 @@
 	<string name="type.sport.table_tennis">Tenisi ya meza</string>
 	<string name="type.sport.tennis">Wanja wa tenisi</string>
 	<string name="type.sport.volleyball">Voliboli</string>
-	<string name="type.sport.9pin">Bowling</string>
 	<string name="type.sport.10pin">Bowling</string>
+	<string name="type.sport.9pin">Bowling</string>
 	<string name="type.sport.padel">Padel</string>
 	<string name="type.sport.futsal">Futsal</string>
 	<string name="type.sport.ice_hockey">Hoki ya barafu</string>

@@ -1625,8 +1625,8 @@
 	<string name="type.sport.table_tennis">Настольный теннис</string>
 	<string name="type.sport.tennis">Теннисный корт</string>
 	<string name="type.sport.volleyball">Волейбол</string>
-	<string name="type.sport.9pin">Боулинг</string>
 	<string name="type.sport.10pin">Боулинг</string>
+	<string name="type.sport.9pin">Боулинг</string>
 	<string name="type.sport.padel">Падель</string>
 	<string name="type.sport.futsal">Футзал</string>
 	<string name="type.sport.ice_hockey">Хоккей с шайбой</string>

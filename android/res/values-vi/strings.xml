@@ -1361,8 +1361,8 @@
 	<string name="type.sport.table_tennis">Bóng bàn</string>
 	<string name="type.sport.tennis">Sân tenis</string>
 	<string name="type.sport.volleyball">Bóng chuyền</string>
-	<string name="type.sport.9pin">Bowling</string>
 	<string name="type.sport.10pin">Bowling</string>
+	<string name="type.sport.9pin">Bowling</string>
 	<string name="type.sport.padel">Padel</string>
 	<string name="type.sport.futsal">Futsal</string>
 	<string name="type.sport.ice_hockey">Khúc côn cầu trên băng</string>

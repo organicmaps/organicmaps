@@ -1025,8 +1025,8 @@
 	<string name="type.sport.table_tennis">Настольны тэніс</string>
 	<string name="type.sport.tennis">Тэнісны корт</string>
 	<string name="type.sport.volleyball">Валейбол</string>
-	<string name="type.sport.9pin">Боўлінг</string>
 	<string name="type.sport.10pin">Боўлінг</string>
+	<string name="type.sport.9pin">Боўлінг</string>
 	<string name="type.sport.padel">Падэль</string>
 	<string name="type.sport.futsal">Футзал</string>
 	<string name="type.sport.ice_hockey">Хакей з шайбай</string>

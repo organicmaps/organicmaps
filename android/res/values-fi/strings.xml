@@ -1376,8 +1376,8 @@
 	<string name="type.sport.table_tennis">Pöytätennis</string>
 	<string name="type.sport.tennis">Tenniskenttä</string>
 	<string name="type.sport.volleyball">Lentopallo</string>
-	<string name="type.sport.9pin">Keilailu</string>
 	<string name="type.sport.10pin">Keilailu</string>
+	<string name="type.sport.9pin">Keilailu</string>
 	<string name="type.sport.padel">Padel</string>
 	<string name="type.sport.futsal">Futsal</string>
 	<string name="type.sport.ice_hockey">Jääkiekko</string>

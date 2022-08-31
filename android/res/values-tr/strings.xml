@@ -1600,8 +1600,8 @@
 	<string name="type.sport.table_tennis">Masa tenisi</string>
 	<string name="type.sport.tennis">Tenis Kortu</string>
 	<string name="type.sport.volleyball">Voleybol</string>
-	<string name="type.sport.9pin">Bowling</string>
 	<string name="type.sport.10pin">Bowling</string>
+	<string name="type.sport.9pin">Bowling</string>
 	<string name="type.sport.padel">Padel</string>
 	<string name="type.sport.futsal">Futsal</string>
 	<string name="type.sport.ice_hockey">Buz Hokeyi</string>

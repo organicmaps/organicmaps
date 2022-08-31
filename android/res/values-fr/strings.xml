@@ -1528,8 +1528,8 @@
 	<string name="type.sport.table_tennis">Tennis de table</string>
 	<string name="type.sport.tennis">Court de tennis</string>
 	<string name="type.sport.volleyball">Volley-ball</string>
-	<string name="type.sport.9pin">Bowling</string>
 	<string name="type.sport.10pin">Bowling</string>
+	<string name="type.sport.9pin">Bowling</string>
 	<string name="type.sport.padel">Padel</string>
 	<string name="type.sport.futsal">Futsal</string>
 	<string name="type.sport.ice_hockey">Hockey sur glace</string>

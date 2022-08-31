@@ -944,7 +944,7 @@
 	<string name="type.highway.bridleway.bridge">Ponte</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Tunnel</string>
-	<string name="type.highway.bus_stop">Fermata</string>
+	<string name="type.highway.bus_stop">Fermata dell\'autobus</string>
 	<string name="type.highway.construction">Strada in costruzione</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.cycleway.bridge">Ponte</string>
@@ -1275,7 +1275,7 @@
 	<string name="type.railway.subway_entrance.paris">Metrò</string>
 	<string name="type.railway.subway_entrance.roma">Metrò</string>
 	<string name="type.railway.subway_entrance.spb">Metrò</string>
-	<string name="type.railway.tram_stop">Fermata</string>
+	<string name="type.railway.tram_stop">Fermata del tram</string>
 	<string name="type.shop">Negozio</string>
 	<string name="type.shop.alcohol">Enoteca</string>
 	<string name="type.shop.bakery">Panetteria</string>
@@ -1401,8 +1401,8 @@
 	<string name="type.sport.table_tennis">Tennistavolo</string>
 	<string name="type.sport.tennis">Campo da tennis</string>
 	<string name="type.sport.volleyball">Pallavolo</string>
-	<string name="type.sport.9pin">Bowling</string>
 	<string name="type.sport.10pin">Bowling</string>
+	<string name="type.sport.9pin">Bowling</string>
 	<string name="type.sport.padel">Padel</string>
 	<string name="type.sport.futsal">Futsal</string>
 	<string name="type.sport.ice_hockey">Hockey su ghiaccio</string>

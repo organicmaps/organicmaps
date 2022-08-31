@@ -1352,8 +1352,8 @@
 	<string name="type.sport.table_tennis">Tenis meja</string>
 	<string name="type.sport.tennis">Lapangan tenis</string>
 	<string name="type.sport.volleyball">Bola voli</string>
-	<string name="type.sport.9pin">Boling</string>
 	<string name="type.sport.10pin">Boling</string>
+	<string name="type.sport.9pin">Boling</string>
 	<string name="type.sport.padel">Padel</string>
 	<string name="type.sport.futsal">Futsal</string>
 	<string name="type.sport.ice_hockey">Hoki es</string>
