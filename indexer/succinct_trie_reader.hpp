@@ -3,11 +3,10 @@
 #include "coding/huffman.hpp"
 #include "coding/reader.hpp"
 #include "coding/varint.hpp"
+#include "coding/writer.hpp"
 
 #include "base/assert.hpp"
-#include "base/bits.hpp"
 #include "base/checked_cast.hpp"
-#include "base/macros.hpp"
 #include "base/string_utils.hpp"
 
 #include <cstdint>
@@ -19,9 +18,9 @@
  #pragma clang diagnostic push
  #pragma clang diagnostic ignored "-Wunused-private-field"
 #endif
- 
+
 #include "3party/succinct/rs_bit_vector.hpp"
- 
+
 #if defined(__clang__)
   #pragma clang diagnostic pop
 #endif

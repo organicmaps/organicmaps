@@ -71,15 +71,13 @@ public:
 private:
   bool GoodPosAndSize(uint64_t pos, uint64_t size) const
   {
-    uint64_t const readerSize = Size();
-    bool const ret1 = (pos + size <= readerSize);
-    bool const ret2 = (size <= static_cast<size_t>(-1));
-    return ret1 && ret2;
+    // In case of 32 bit system, when sizeof(size_t) == 4.
+    return (pos + size <= Size() && size <= std::numeric_limits<size_t>::max());
   }
 
   void AssertPosAndSize(uint64_t pos, uint64_t size) const
   {
-    if (WithExceptions)
+    if constexpr (WithExceptions)
     {
       if (!GoodPosAndSize(pos, size))
         MYTHROW(Reader::SizeException, (pos, size, Size()));

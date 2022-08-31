@@ -1,7 +1,6 @@
 #pragma once
 
 #include "base/threaded_container.hpp"
-#include "base/logging.hpp"
 
 #include <atomic>
 #include <list>
@@ -14,8 +13,9 @@ private:
   std::list<T> m_list;
   std::atomic<bool> m_isEmpty;
 
-  bool WaitNonEmpty(std::unique_lock<std::mutex> &lock)
+  bool WaitNonEmpty(std::unique_lock<std::mutex> & lock)
   {
+    /// @todo Remove unused Empty(), m_isEmpty, pass stop predicate into wait.
     while ((m_isEmpty = m_list.empty()))
     {
       if (IsCancelled())

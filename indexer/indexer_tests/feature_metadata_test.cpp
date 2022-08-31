@@ -30,14 +30,17 @@ UNIT_TEST(Feature_Metadata_GetSet)
 {
   Metadata m;
   EType const type = EType::FMD_ELE;
+
   // Absent types should return empty values.
   TEST_EQUAL(m.Get(type), "", ());
   m.Set(type, "12345");
   TEST_EQUAL(m.Get(type), "12345", ());
   TEST_EQUAL(m.Size(), 1, ());
+
   // Same types should replace old metadata values.
-  m.Set(type, "5678");
-  TEST_EQUAL(m.Get(type), "5678", ());
+  m.Set(type, "9876543210");
+  TEST_EQUAL(m.Get(type), "9876543210", ());
+
   // Empty values should drop fields.
   m.Set(type, "");
   TEST_EQUAL(m.Get(type), "", ());
@@ -58,7 +61,7 @@ UNIT_TEST(Feature_Metadata_PresentTypes)
   });
 }
 
-UNIT_TEST(Feature_MwmTmpSerialization)
+UNIT_TEST(Feature_Metadata_MwmTmpSerialization)
 {
   Metadata original;
   for (auto const & value : kKeyValues)

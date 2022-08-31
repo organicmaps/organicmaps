@@ -46,7 +46,7 @@ UNIT_TEST(CreateDestroyIndexBufferTest)
   EXPECTGL(glBindBuffer(0, gl_const::GLElementArrayBuffer));
   EXPECTGL(glDeleteBuffer(1));
 
-  std::unique_ptr<DataBuffer> buffer(new IndexBuffer(100));
+  std::unique_ptr<IndexBuffer> buffer(new IndexBuffer(100));
   buffer->MoveToGPU(make_ref(&context), GPUBuffer::IndexBuffer, 0);
 }
 

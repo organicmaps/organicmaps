@@ -123,9 +123,7 @@ void IndexGraph::GetLastPointsForJoint(SegmentListT const & children,
     bool forward = child.IsForward() == isOutgoing;
     if (IsRoad(child.GetFeatureId()))
     {
-      std::tie(std::ignore, endPointId) =
-        GetRoad(child.GetFeatureId()).FindNeighbor(startPointId, forward,
-                                                   pointsNumber);
+      endPointId = GetRoad(child.GetFeatureId()).FindNeighbor(startPointId, forward, pointsNumber).second;
     }
     else
     {

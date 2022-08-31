@@ -979,8 +979,6 @@ UNIT_TEST(UniString_LessAndEqualsAndNotEquals)
   v.push_back(strings::MakeUniString("To!"));
   for (size_t i = 0; i < v.size(); ++i)
   {
-    TEST(v[i] == v[i], ());
-    TEST(!(v[i] < v[i]), ());
     for (size_t j = i + 1; j < v.size(); ++j)
     {
       TEST(v[i] < v[j], ());

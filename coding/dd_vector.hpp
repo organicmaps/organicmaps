@@ -52,10 +52,6 @@ public:
       difference_type>
   {
   public:
-    const_iterator() : m_pReader(NULL), m_I(0), m_bValueRead(false)
-    {
-    }
-
 #ifdef DEBUG
     const_iterator(ReaderType const * pReader, size_type i, size_type size)
       : m_pReader(pReader), m_I(i), m_bValueRead(false), m_Size(size)

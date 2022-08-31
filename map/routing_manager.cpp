@@ -1,7 +1,6 @@
 #include "routing_manager.hpp"
 
 #include "map/chart_generator.hpp"
-#include "map/power_management/power_manager.hpp"
 #include "map/routing_mark.hpp"
 
 #include "routing/absent_regions_finder.hpp"
@@ -21,10 +20,8 @@
 #include "routing_common/num_mwm_id.hpp"
 
 #include "indexer/map_style_reader.hpp"
-#include "indexer/scales.hpp"
 
 #include "platform/country_file.hpp"
-#include "platform/mwm_traits.hpp"
 #include "platform/platform.hpp"
 #include "platform/socket.hpp"
 
@@ -32,12 +29,9 @@
 
 #include "coding/file_reader.hpp"
 #include "coding/file_writer.hpp"
-#include "coding/string_utf8_multilang.hpp"
 
 #include "base/scope_guard.hpp"
 #include "base/string_utils.hpp"
-
-#include "private.h"
 
 #include <iomanip>
 #include <ios>
@@ -368,7 +362,7 @@ RoutingManager::RoutingManager(Callbacks && callbacks, Delegate & delegate)
 
       double speed = cameraSpeedKmPH;
       measurement_utils::Units units = measurement_utils::Units::Metric;
-      settings::Get(settings::kMeasurementUnits, units);
+      settings::TryGet(settings::kMeasurementUnits, units);
 
       if (units == measurement_utils::Units::Imperial)
         speed = measurement_utils::KmphToMiph(cameraSpeedKmPH);
@@ -682,7 +676,7 @@ bool RoutingManager::InsertRoute(Route const & route)
     {
       case RouterType::Vehicle:
         {
-          subroute->m_routeType = m_currentRouterType == RouterType::Vehicle ? df::RouteType::Car : df::RouteType::Taxi;
+          subroute->m_routeType = df::RouteType::Car;
           subroute->AddStyle(df::SubrouteStyle(df::kRouteColor, df::kRouteOutlineColor));
           FillTrafficForRendering(segments, subroute->m_traffic);
           FillTurnsDistancesForRendering(segments, subroute->m_baseDistance, subroute->m_turns);
@@ -1172,14 +1166,13 @@ bool RoutingManager::GenerateRouteAltitudeChart(uint32_t width, uint32_t height,
 
   uint32_t totalAscentM = 0;
   uint32_t totalDescentM = 0;
-  int16_t delta;
-
-  for (size_t i = 1; i < altitudes.size(); i++) {
-    delta = altitudes[i] - altitudes[i - 1];
+  for (size_t i = 1; i < altitudes.size(); i++)
+  {
+    int16_t const delta = altitudes[i] - altitudes[i - 1];
     if (delta > 0)
       totalAscentM += delta;
     else
-      totalDescentM += -delta;   
+      totalDescentM += -delta;
   }
 
   if (!settings::Get(settings::kMeasurementUnits, altitudeUnits))

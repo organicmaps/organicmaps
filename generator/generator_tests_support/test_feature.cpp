@@ -7,10 +7,8 @@
 #include "indexer/classificator.hpp"
 #include "indexer/editable_map_object.hpp"
 #include "indexer/feature.hpp"
-#include "indexer/feature_algo.hpp"
 #include "indexer/feature_decl.hpp"
 #include "indexer/feature_meta.hpp"
-#include "indexer/ftypes_matcher.hpp"
 #include "indexer/mwm_set.hpp"
 
 #include "coding/string_utf8_multilang.hpp"
@@ -424,7 +422,6 @@ TestBuilding::TestBuilding(m2::PointD const & center, string const & name,
 TestBuilding::TestBuilding(vector<m2::PointD> const & boundary, string const & name,
                            string const & houseNumber, string_view street, string const & lang)
   : TestFeature(boundary, name, lang)
-  , m_boundary(boundary)
   , m_houseNumber(houseNumber)
   , m_streetName(street)
 {
@@ -455,7 +452,7 @@ string TestBuilding::ToDebugString() const
 
 // TestPark ----------------------------------------------------------------------------------------
 TestPark::TestPark(vector<m2::PointD> const & boundary, string const & name, string const & lang)
-  : TestFeature(name, lang), m_boundary(boundary)
+  : TestFeature(boundary, name, lang)
 {
 }
 

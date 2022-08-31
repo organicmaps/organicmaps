@@ -108,9 +108,11 @@ void ThreadPool::ProcessTasks()
         // delayed task with an earlier execution time may arrive
         // while we are waiting.
         auto const when = m_delayed.GetFirstValue()->m_when;
-        m_cv.wait_until(lk, when, [this, when]() {
-          return m_shutdown || !m_immediate.IsEmpty() || m_delayed.IsEmpty() ||
-                 (!m_delayed.IsEmpty() && m_delayed.GetFirstValue()->m_when < when);
+        m_cv.wait_until(lk, when, [this, when]()
+        {
+          if (m_shutdown || !m_immediate.IsEmpty() || m_delayed.IsEmpty())
+            return true;
+          return m_delayed.GetFirstValue()->m_when < when;
         });
       }
       else

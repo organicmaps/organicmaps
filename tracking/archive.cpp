@@ -1,5 +1,7 @@
 #include "tracking/archive.hpp"
 
+#include "geometry/latlon.hpp"
+
 namespace tracking
 {
 namespace helpers

@@ -367,6 +367,9 @@ RoadAccess::Type GetAccessTypeFromMapping(OsmElement const & elem, TagMapping co
 optional<pair<string, string>> GetTagValueConditionalAccess(
     OsmElement const & elem, vector<ConditionalTagsList> const & tagsList)
 {
+  if (tagsList.empty())
+    return {};
+
   for (auto const & tags : tagsList)
   {
     for (auto const & tag : tags)
@@ -376,19 +379,17 @@ optional<pair<string, string>> GetTagValueConditionalAccess(
     }
   }
 
-  if (tagsList.empty())
-    return nullopt;
-
   for (auto const & [tag, access] : kTagToAccessConditional)
   {
     if (elem.HasTag(tag.m_key, tag.m_value))
     {
-      CHECK(!tagsList.empty() && !tagsList.back().empty(), ());
+      CHECK(!tagsList.back().empty(), ());
       auto const anyAccessConditionalTag = tagsList.back().back();
       return make_pair(anyAccessConditionalTag, access);
     }
   }
-  return nullopt;
+
+  return {};
 }
 
 // "motor_vehicle:conditional" -> "motor_vehicle"

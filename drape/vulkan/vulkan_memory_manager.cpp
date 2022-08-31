@@ -2,7 +2,6 @@
 #include "drape/vulkan/vulkan_utils.hpp"
 
 #include "base/assert.hpp"
-#include "base/macros.hpp"
 #include "base/math.hpp"
 
 #include <algorithm>
@@ -199,8 +198,7 @@ VulkanMemoryManager::AllocationPtr VulkanMemoryManager::Allocate(ResourceType re
     memoryTypeIndex = GetMemoryTypeIndex(memReqs.memoryTypeBits, flags);
   }
 
-  if (!memoryTypeIndex)
-    CHECK(false, ("Unsupported memory allocation configuration."));
+  CHECK(memoryTypeIndex, ("Unsupported memory allocation configuration."));
 
   // Create new memory block.
   auto const blockSize = std::max(kMinBlockSizeInBytes[static_cast<size_t>(resourceType)],
