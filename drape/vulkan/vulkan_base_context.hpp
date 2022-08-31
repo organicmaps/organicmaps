@@ -194,8 +194,8 @@ protected:
 
   drape_ptr<VulkanTexture> m_depthTexture;
 
-  uint32_t m_clearBits;
-  uint32_t m_storeBits;
+  uint32_t m_clearBits = 0;
+  uint32_t m_storeBits = 0;
   Color m_clearColor;
   uint32_t m_stencilReferenceValue = 1;
 

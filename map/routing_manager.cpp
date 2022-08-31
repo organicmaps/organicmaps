@@ -704,7 +704,7 @@ bool RoutingManager::InsertRoute(Route const & route)
           FillTurnsDistancesForRendering(segments, subroute->m_baseDistance, subroute->m_turns);
           break;
         }
-      default: ASSERT(false, ("Unknown router type"));
+      default: CHECK(false, ("Unknown router type"));
     }
 
     auto const subrouteId = m_drapeEngine.SafeCallWithResult(&df::DrapeEngine::AddSubroute,
