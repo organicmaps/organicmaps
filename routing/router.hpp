@@ -1,9 +1,11 @@
 #pragma once
 
 #include "routing/checkpoints.hpp"
+#include "routing/edge_estimator.hpp"
 #include "routing/road_graph.hpp"
 #include "routing/router_delegate.hpp"
 #include "routing/routing_callbacks.hpp"
+#include "routing/routing_options.hpp"
 
 #include "kml/type_utils.hpp"
 
@@ -60,6 +62,10 @@ public:
 
   /// Clear all temporary buffers.
   virtual void ClearState() {}
+
+  virtual void SetEstimatorOptions(RoutingOptions::RoadType options) {}
+
+  virtual void SetEstimatorStrategy(EdgeEstimator::Strategy strategy) {}
 
   virtual void SetGuides(GuidesTracks && guides) = 0;
 

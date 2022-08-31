@@ -556,9 +556,15 @@ RouteWeight IndexGraph::CalculateEdgeWeight(EdgeEstimator::Purpose purpose, bool
   auto const & segment = isOutgoing ? to : from;
   auto const & road = GetRoadGeometry(segment.GetFeatureId());
 
-  m_estimator->SetAvoidRoutingOptions(this->m_avoidRoutingOptions.GetOptions());
+//  m_estimator->SetAvoidRoutingOptions(this->m_avoidRoutingOptions.GetOptions());
 
   auto const weight = RouteWeight(m_estimator->CalcSegmentWeight(segment, road, purpose));
+
+  if(m_estimator->GetStrategy() == EdgeEstimator::Strategy::Shortest)
+  {
+    return weight;
+  }
+
   auto const penalties = GetPenalties(purpose, isOutgoing ? from : to, isOutgoing ? to : from, prevWeight);
 
   return weight + penalties;

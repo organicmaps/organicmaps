@@ -51,19 +51,23 @@ double CalcTrafficFactor(SpeedGroup speedGroup)
 
 template <typename GetClimbPenalty>
 double CalcClimbSegment(EdgeEstimator::Purpose purpose, Segment const & segment,
-                        RoadGeometry const & road, GetClimbPenalty && getClimbPenalty)
+                        RoadGeometry const & road, GetClimbPenalty && getClimbPenalty, EdgeEstimator::Strategy strategy)
 {
   LatLonWithAltitude const & from = road.GetJunction(segment.GetPointId(false /* front */));
   LatLonWithAltitude const & to = road.GetJunction(segment.GetPointId(true /* front */));
   SpeedKMpH const & speed = road.GetSpeed(segment.IsForward());
 
   double const distance = road.GetDistance(segment.GetSegmentIdx());
-  double const speedMpS =
+  double speedMpS =
       KmphToMps(purpose == EdgeEstimator::Purpose::Weight ? speed.m_weight : speed.m_eta);
+  if (strategy == EdgeEstimator::Strategy::Shortest && purpose == EdgeEstimator::Purpose::Weight)
+  {
+    speedMpS = 1.0;
+  }
   CHECK_GREATER(speedMpS, 0.0, ("from:", from.GetLatLon(), "to:", to.GetLatLon(), "speed:", speed));
   double const timeSec = distance / speedMpS;
 
-  if (base::AlmostEqualAbs(distance, 0.0, 0.1))
+  if (base::AlmostEqualAbs(distance, 0.0, 0.1) || strategy == EdgeEstimator::Strategy::Shortest)
     return timeSec;
 
   double const altitudeDiff =
@@ -134,6 +138,7 @@ EdgeEstimator::EdgeEstimator(double maxWeightSpeedKMpH, SpeedKMpH const & offroa
     CHECK_GREATER_OR_EQUAL(m_maxWeightSpeedMpS, KmphToMps(m_offroadSpeedKMpH.m_eta), ());
 
   m_avoidRoutingOptions = RoutingOptions();
+  m_strategy = EdgeEstimator::Strategy::Fastest;
 }
 
 double EdgeEstimator::CalcHeuristic(ms::LatLon const & from, ms::LatLon const & to) const
@@ -222,6 +227,16 @@ void EdgeEstimator::SetAvoidRoutingOptions(RoutingOptions::RoadType options)
   m_avoidRoutingOptions.SetOptions(options);
 }
 
+EdgeEstimator::Strategy EdgeEstimator::GetStrategy() const
+{
+  return m_strategy;
+}
+
+void EdgeEstimator::SetStrategy(EdgeEstimator::Strategy strategy)
+{
+  m_strategy = strategy;
+}
+
 // PedestrianEstimator -----------------------------------------------------------------------------
 class PedestrianEstimator final : public EdgeEstimator
 {
@@ -247,11 +262,14 @@ public:
   double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road,
                            Purpose purpose) const override
   {
-    double result = CalcClimbSegment(purpose, segment, road, GetPedestrianClimbPenalty);
+    double result = CalcClimbSegment(purpose, segment, road, GetPedestrianClimbPenalty, this->GetStrategy());
 
-    if (!road.SuitableForOptions(EdgeEstimator::GetAvoidRoutingOptions()))
+    if (purpose == EdgeEstimator::Purpose::Weight)
     {
-      result += (24 * 60 * 60);
+      if (!road.SuitableForOptions(EdgeEstimator::GetAvoidRoutingOptions()))
+      {
+        result += (24 * 60 * 60);
+      }
     }
 
     return result;
@@ -283,11 +301,14 @@ public:
   double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road,
                            Purpose purpose) const override
   {
-    double result = CalcClimbSegment(purpose, segment, road, GetBicycleClimbPenalty);
+    double result = CalcClimbSegment(purpose, segment, road, GetBicycleClimbPenalty, this->GetStrategy());
 
-    if (!road.SuitableForOptions(EdgeEstimator::GetAvoidRoutingOptions()))
+    if (purpose == EdgeEstimator::Purpose::Weight)
     {
-      result += (24 * 60 * 60);
+      if (!road.SuitableForOptions(EdgeEstimator::GetAvoidRoutingOptions()))
+      {
+        result += (24 * 60 * 60);
+      }
     }
 
     return result;
@@ -340,11 +361,14 @@ double CarEstimator::GetFerryLandingPenalty(Purpose purpose) const
 
 double CarEstimator::CalcSegmentWeight(Segment const & segment, RoadGeometry const & road, Purpose purpose) const
 {
-  double result = CalcClimbSegment(purpose, segment, road, GetCarClimbPenalty);
+  double result = CalcClimbSegment(purpose, segment, road, GetCarClimbPenalty, this->GetStrategy());
 
-  if (!road.SuitableForOptions(EdgeEstimator::GetAvoidRoutingOptions()))
+  if (purpose == EdgeEstimator::Purpose::Weight)
   {
-    result += (24 * 60 * 60);
+    if (!road.SuitableForOptions(EdgeEstimator::GetAvoidRoutingOptions()))
+    {
+      result += (24 * 60 * 60);
+    }
   }
 
   if (m_trafficStash)

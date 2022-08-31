@@ -29,6 +29,12 @@ public:
     ETA
   };
 
+  enum class Strategy
+  {
+    Fastest,
+    Shortest
+  };
+
   EdgeEstimator(double maxWeightSpeedKMpH, SpeedKMpH const & offroadSpeedKMpH,
                 DataSource * dataSourcePtr = nullptr, std::shared_ptr<NumMwmIds> numMwmIds = nullptr);
   virtual ~EdgeEstimator() = default;
@@ -49,6 +55,9 @@ public:
 
   RoutingOptions GetAvoidRoutingOptions() const;
   void SetAvoidRoutingOptions(RoutingOptions::RoadType options);
+
+  Strategy GetStrategy() const;
+  void SetStrategy(Strategy strategy);
 
   virtual double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road,
                                    Purpose purpose) const = 0;
@@ -71,6 +80,7 @@ private:
   double const m_maxWeightSpeedMpS;
   SpeedKMpH const m_offroadSpeedKMpH;
   RoutingOptions m_avoidRoutingOptions;
+  Strategy m_strategy;
 
   //DataSource * m_dataSourcePtr;
   //std::shared_ptr<NumMwmIds> m_numMwmIds;
