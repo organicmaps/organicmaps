@@ -21191,9 +21191,6 @@
     zh-Hans = 排球
     zh-Hant = 排球
 
-  [type.sport.9pin]
-    ref = type.sport.10pin
-
   [type.sport.10pin]
     en = Bowling
     ar = بولينج بعشرة دبابيس
@@ -21230,6 +21227,9 @@
     vi = Bowling
     zh-Hans = 保龄球
     zh-Hant = 保齡球
+
+  [type.sport.9pin]
+    ref = type.sport.10pin
 
   [type.sport.padel]
     en = Padel
