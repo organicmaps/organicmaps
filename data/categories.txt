@@ -61,7 +61,7 @@ da:Spisesteder|Mad
 nl:Waar iets gaan eten|Eten
 fi:Missä syödä|Ruoka
 fr:Un endroit pour manger|Nourriture
-de:Essmöglichkeiten|Essen
+de:Essmöglichkeiten|Essen|5Essensmöglichkeiten
 hu:Hol lehet enni valamit|Élelmiszer
 id:Tempat makan|Makanan
 it:Dove mangiare|Cibo
@@ -100,7 +100,7 @@ da:Dagligvarer|Mad|Butik
 nl:Kruidenierswinkels|Eten|Winkel
 fi:Tuotteet|Ruoka|Kauppa
 fr:Les courses|Nourriture|Magasin
-de:Lebensmittel|Essen|Geschäft|Laden
+de:6Lebensmittel|Essen|Geschäft|Laden
 hu:Élelmiszer|Ennivaló|Bolt|Üzlet
 id:Toserba|Makanan|Toko
 it:4Alimentari|Cibo|Negozio
@@ -177,7 +177,7 @@ da:Brændstof|Benzin
 nl:3Benzine
 fi:3Huoltoasema
 fr:3Stations-service|4Essence|4Carburant
-de:3Tankstelle
+de:3Tankstelle|4Benzin|4Diesel|4Sprit
 hu:Benzinkút
 id:Bahan bakar
 it:4Benzinaio|3Stazione di rifornimento
@@ -293,7 +293,7 @@ da:Hotel|Hoteller
 nl:Hotel|Hotels
 fi:Hotelli|Hotellit
 fr:Hôtel|Hôtels|4Hébergement
-de:Hotel|Hotels
+de:5Hotel|Hotels
 hu:Szálloda|Szállodák|Hotel|Hotelek
 id:Hotel|Hotel
 it:Hôtel|Alberghi
@@ -331,7 +331,7 @@ da:5Seværdigheder|4Turisme|3sightseeing
 nl:5Bezienswaardigheden|4Toerisme
 fi:4Nähtävyydet
 fr:5Sites touristiques|4Tourisme|4Attraction
-de:4Sehenswürdigkeit|4Attraktion|4Tourismus|Touristenattraktion
+de:4Sehenswürdigkeit|4Attraktion|4Tourismus|Touristenattraktion|Sehenswürdigkeiten
 hu:4Látnivaló|4Túrizmus
 id:Pemandangan
 it:5Luoghi turistici|4Turistico
@@ -483,7 +483,7 @@ da:3Hæveautomat
 nl:3Geldautomaat
 fi:Pankkiautomaatti
 fr:DAB|GAB|argent|Distributeur de billets
-de:3Geldautomat
+de:3Geldautomat|4Bankautomat|7Bargeldautomat
 hu:4Pénzautomata
 id:2ATM
 it:3Bancomat
@@ -532,7 +532,7 @@ da:penge
 nl:geld
 fi:2Raha
 fr:DAB|argent
-de:Bankomat|Geld
+de:5Bankomat|Geld
 hu:pénz|ATM
 id:uang
 it:soldi
@@ -677,7 +677,7 @@ da:3Vekselbureau|3penge
 nl:3Wisselkantoor|3geld wisselen|wisselen|geld
 fi:4Rahanvaihto
 fr:3Bureau de change|3change|3devises|argent
-de:3Geldwechselstelle|Wechselstube|Geld
+de:3Geldwechselstelle|Wechselstube|Geld|Geldumtausch
 hu:3Pénzváltó|pénz
 id:3Pertukaran valuta|pertukaran
 it:3Cambio valute|valuta|soldi
@@ -711,7 +711,7 @@ da:2Bar|værtshus|kro|øl|pub|drink
 nl:2Bar|2pub|kroeg|bier|drinken
 fi:2Baari|pubi
 fr:2Bar|2pub|bière|boisson
-de:2Bar|2Pub|Kneipe|Bier|Trinken|Gaststätte|Bars und Kneipen|Brauhaus|Cocktail-Lounge
+de:2Bar|2Pub|4Kneipe|Bier|Trinken|4Gaststätte|4Bars und Kneipen|Brauhaus|Cocktail-Lounge
 hu:2Bár|2kocsma|sör|ital|élelmiszer
 id:2Bar|2pub|minuman
 it:2Bar|2birra|pub|mangiare
@@ -747,7 +747,7 @@ da:3Café|restaurant
 nl:3Tearoom|3brasserie|3café|3restaurant
 fi:2Kahvila
 fr:3Café|3restaurant|3resto
-de:3Café|3Restaurant|Kaffee|Kaffeehaus|Kaffeebar|Bistro|Mittagessen|Kantine|Cafeteria|Esszimmer|Speiselokal|Buffet
+de:3Café|3Restaurant|4Kaffee|6Kaffeehaus|Kaffeebar|4Bistro|Mittagessen|Kantine|Cafeteria|Esszimmer|Speiselokal|Buffet
 hu:3Kávézó|3étterem|3élelmiszer
 id:3Kafe|3restoran
 it:3Caffè|3ristorante|pasto|mangiare
@@ -783,7 +783,7 @@ da:4Fastfood|restaurant|café|takeaway
 nl:4Fast food|3frituur|fritkot|3restaurant|afhaaleten
 fi:3Pikaruokala
 fr:4Restauration rapide|3restaurant|3café|à emporter|3resto
-de:4Fast-Food|Takeaway|Restaurant|Café|Pizzeria|Imbiss|Essen zum Mitnehmen|Junkfood
+de:4Fast-Food|Takeaway|Restaurant|Café|Pizzeria|3Imbiss|5Essen zum Mitnehmen|Junkfood|7Schnellimbiss
 hu:4Gyorsétterem|3étterem|3kávézó|3élelmiszer
 id:Cepat saji|3restoran
 it:4Fast food|takeaway|caffè|ristorante|pasto|mangiare
@@ -818,7 +818,7 @@ da:3Restaurant|café
 nl:3Restaurant|3café
 fi:3Ravintola
 fr:3Restaurant|3café|3resto
-de:3Restaurant|3Café|Gasthaus|Gaststube|Imbiss|Speiselokal|Mahlzeiten|Mittagessen|Abendessen|Gastwirtschaft|Buffet
+de:3Restaurant|3Café|4Gasthaus|Gaststube|Imbiss|6Speiselokal|Mahlzeiten|Mittagessen|Abendessen|Gastwirtschaft|Buffet
 hu:3Étterem|3kávézó|3élelmiszer
 id:3Restoran|3kafe
 it:3Ristorante|3caffè|mangiare
@@ -919,7 +919,7 @@ bg:4Магазин
 ar:متجر
 cs:Obchod
 da:Butik|forretning
-de:3Verbrauchermarkt|Geschäft|Laden
+de:3Verbrauchermarkt|5Geschäft|5Laden
 el:Κατάστημα
 es:Tienda
 eu:Denda
@@ -1041,7 +1041,7 @@ da:Planteskole|havecenter|plantecenter|havebutik
 nl:Tuincentrum
 fi:Taimitarha
 fr:Jardinerie
-de:Gärtnerei|Garten-Center
+de:7Gärtnerei|Garten-Center
 hu:Kertészet|Kertészeti áruház
 id:Penitipan anak
 it:Vivaio|articoli da giardinaggio
@@ -1119,7 +1119,7 @@ da:Blomsterbutik|blomsterforretning|blomsterhandel|blomsterhandler
 nl:Bloemist|bloemenwinkel
 fi:4Floristi|kukkakauppa
 fr:4Fleuriste
-de:4Florist|Gestecke|Blumengeschäft|Blumenladen|Blumenhändler|Blumen|Blumenstrauß|Taggleiche Blumen
+de:4Florist|Gestecke|Blumengeschäft|4Blumenladen|Blumenhändler|Blumen|Blumenstrauß|Taggleiche Blumen
 hu:Virágbolt|virágárus
 id:Tukang bunga|toko bunga
 it:4Fiorista|fioraio
@@ -1154,7 +1154,7 @@ da:Slagter|slagterbutik
 nl:Slager|beenhouwer
 fi:Lihakauppias
 fr:4Boucherie|Charcuterie
-de:Metzgerei|Metzger|Schlachter
+de:5Metzgerei|Metzger|Schlachter
 hu:Hentes|Mészáros
 id:Tukang daging
 it:Macellaio
@@ -1189,7 +1189,7 @@ da:Møbelbutik|møbelforretning|møbelhandler
 nl:4Meubelzaak
 fi:Huonekalukauppa
 fr:Magasin de meubles|Ameublement
-de:Möbelgeschäft
+de:5Möbelgeschäft|Möbelhaus
 hu:Bútoráruház
 id:Toko mebel
 it:Negozio di mobili
@@ -1221,7 +1221,7 @@ be:Крама для кухні
 bg:Магазин за кухня
 cs:Prodejna kuchyní
 da:Køkkenforretning
-de:Küchengeschäft
+de:6Küchengeschäft|Küchenstudio
 el:Κατάστημα κουζίνας
 es:Tienda de cocina
 eu:Sukalde-denda
@@ -1263,7 +1263,7 @@ da:4Alkohol|vinhandel|sprut|spiritus
 nl:Slijterij|drankhandel
 fi:Alkoholikauppa|4alkoholi
 fr:Magasin de vins et spiritueux|vins et spiritueux|4alcool
-de:Spirituosengeschäft|Spirituosen
+de:5Spirituosengeschäft|Spirituosen
 hu:Italbolt|ital
 id:Toko alkohol|minuman keras
 it:Enoteca
@@ -1298,7 +1298,7 @@ da:Boghandel|boghandler|boglade
 nl:Boekenwinkel|boekwinkel
 fi:Kirjakauppa
 fr:4Librairie
-de:Büchergeschäft|Buchhandlung
+de:Büchergeschäft|4Buchhandlung|Buchladen
 hu:Könyvesbolt
 id:Toko buku
 it:4Libreria
@@ -1333,7 +1333,7 @@ da:Skobutik
 nl:Schoenenwinkel|schoenwinkel
 fi:Kenkäkauppa
 fr:Magasin de chaussures
-de:Schuhgeschäft|Schuhe|Schuhladen|Schuhhandlung|Fußbekleidung
+de:4Schuhgeschäft|Schuhe|Schuhladen|Schuhhandlung|Fußbekleidung
 hu:Cipőbolt
 id:Toko sepatu
 it:Negozio di scarpe
@@ -1404,7 +1404,7 @@ da:Isenkræmmer|Byggemarked
 nl:Ijzerhandel|Bouwmarkt
 fi:Rautakauppa|Työkalukauppa
 fr:Quincaillerie|bricolage
-de:Eisenwarengeschäft|Baumarkt|Heimwerkermarkt|Eisenwarenhandlung
+de:5Eisenwarengeschäft|3Baumarkt|Heimwerkermarkt|Eisenwarenhandlung
 hu:Vas-műszaki bolt|Vaskereskedés|Barkácsüzlet|ezermester
 id:Toko perangkat keras|bahan bangunan
 it:Ferramenta|bricolage
@@ -1476,7 +1476,7 @@ da:4Optiker
 nl:4Opticien
 fi:4Optikko
 fr:4Opticien
-de:4Optiker|Brillengeschäft
+de:4Optiker|5Brillengeschäft|5Augenoptiker
 hu:4Optika
 id:Toko kacamata
 it:4Ottico
@@ -1511,7 +1511,7 @@ da:Gavebutik|4souvenirbutik
 nl:Cadeauwinkel
 fi:Lahjatavaraliike
 fr:Boutique de souvenirs|cadeaux
-de:Geschenkladen|Geschenke|Geschenkartikelladen|Andenkenladen|Andenken|Präsente
+de:5Geschenkladen|Geschenke|Geschenkartikelladen|Andenkenladen|Andenken|Präsente|Mitbringsel
 hu:Ajándékbolt|4Souvenir|Szuvenír
 id:Toko hadiah
 it:Negozio di regali
@@ -1583,7 +1583,7 @@ da:Grønthandler|grønthandel|frugt og grønt
 nl:Groentenwinkel|groenteboer
 fi:Vihanneskauppias
 fr:Primeur|Marchand de fruits et légumes
-de:Gemüseladen|Gemüsehändler
+de:5Gemüseladen|Gemüsehändler
 hu:Zöldséges|Zöldség-gyümölcs
 id:Penjual sayuran
 it:4Fruttivendolo
@@ -1690,7 +1690,7 @@ da:Indkøbscenter|butikscenter|storcenter|center
 nl:Het winkelcentrum
 fi:Ostoskeskus
 fr:Centre commercial|Galerie marchande
-de:Einkaufszentrum|Ladenstraße|Einkaufsgalerie|Einkaufen|Einkaufspassage|Kaufhalle|Vergnügungszentrum|Einzelhandel
+de:5Einkaufszentrum|Ladenstraße|Einkaufsgalerie|Einkaufen|Einkaufspassage|Kaufhalle|Vergnügungszentrum|Einzelhandel
 hu:Bevásárlóközpont
 id:Mall
 it:Centro commerciale
@@ -1727,7 +1727,7 @@ da:Stormagasin|varehus
 nl:Warenhuis
 fi:Tavaratalo
 fr:Grand magasin
-de:Kaufhaus|Einkaufen|Einkaufszentrum|Einkaufspassage
+de:4Kaufhaus|Einkaufen|Einkaufszentrum|Einkaufspassage
 hu:Áruház|Nagyáruház
 id:Toko serba ada
 it:Grandi magazzini|centro commerciale
@@ -1763,7 +1763,7 @@ da:4Drikkevarer
 nl:Drank|slijterij
 fi:Juomat
 fr:4Boissons
-de:Getränke
+de:5Getränke
 hu:Italok|üdítők
 id:Minuman
 it:4Bibite|bevande
@@ -1834,7 +1834,7 @@ da:Slikbutik|slikforretning|konfektureforretning|slik|konfekt
 nl:Banketbakker|snoepwinkel
 fi:Makeiskauppa
 fr:Pâtisserie|confiserie
-de:Süßwarengeschäft|Süßwaren|Süßwarenladen|Süßigkeiten|Konditorei|Gebäck|Konfiserie|Kiosk
+de:3Süßwarengeschäft|Süßwaren|Süßwarenladen|4Süßigkeiten|Konditorei|Gebäck|Konfiserie|Kiosk
 hu:Cukrászüzlet|édességbolt
 id:Penganan|manisan
 it:Pasticceria|drogheria
@@ -1869,7 +1869,7 @@ da:4Vaskeri|møntvask
 nl:4Wasserette
 fi:4Pesula
 fr:4Blanchisserie|laverie automatique|pressing
-de:Wäscherei|Waschsalon
+de:5Wäscherei|5Waschsalon
 hu:4Mosoda
 id:4Londri|binatu
 it:4Lavanderia|lavanderia automatica
@@ -1904,7 +1904,7 @@ da:Legetøjsbutik|legetøj
 nl:Speelgoedwinkel
 fi:Lelukauppa
 fr:Magasin de jouets
-de:Spielzeuggeschäft
+de:5Spielzeuggeschäft
 hu:Játékbolt
 id:Toko mainan
 it:Negozio di giocattoli
@@ -1972,7 +1972,7 @@ da:Tøjbutik|tøjforretning|tøj
 nl:Kledingwinkel|4kleding
 fi:Vaatekauppa
 fr:Boutique de vêtements|4vêtements
-de:Bekleidungsgeschäft|Kleidung|Bekleidung|Kleidungsgeschäft|Kleiderladen|Einkaufen
+de:5Bekleidungsgeschäft|Kleidung|Bekleidung|Kleidungsgeschäft|5Kleiderladen|Einkaufen
 hu:Ruhabolt|Ruházati bolt|4ruhák
 id:Toko baju
 it:Negozio di abbigliamento
@@ -2019,7 +2019,7 @@ da:Bilforhandler
 nl:Autohandelaar
 fi:Autokauppa
 fr:Réparation auto|voitures|auto
-de:Autohaus
+de:4Autohaus
 hu:Autókereskedés|Autószalon|Kocsi
 id:Toko mobil
 it:Concessionaria|Autosalone
@@ -2123,7 +2123,7 @@ da:3Busstoppested|bus
 nl:3Bushalte|bus|halte
 fi:3Bussipysäkki
 fr:Arrêt de bus|2bus|arrêt|2autobus
-de:Bushaltestelle|Haltestelle|2Bus|Autobus|ÖPNV
+de:3Bushaltestelle|Haltestelle|2Bus|Autobus|ÖPNV|Omnibushaltestelle
 hu:2Buszmegálló|2busz|megálló
 id:3Halte bus
 it:3Fermata|3autobus|3pullman
@@ -2159,7 +2159,7 @@ da:3Sporvogn|station
 nl:3Tramhalte
 fi:4Raitiovaunupysäkki
 fr:Arrêt de tramway|3tramway|tram|arrêt
-de:4Straßenbahnhaltestelle|Tramhaltestelle|Haltestelle|Tram|ÖPNV
+de:4Straßenbahnhaltestelle|4Tramhaltestelle|Haltestelle|Tram|ÖPNV
 hu:4Villamosmegálló|3villamos|megálló
 id:3Perhentian trem
 it:3Fermata|3tram
@@ -2193,7 +2193,7 @@ da:2Busstation|2bus|station
 nl:Busstation|2bus|station
 fi:3Linja-autoasema|3Bussiasema
 fr:Gare routière|2bus|2autobus|arrêt
-de:4Busbahnhof|Haltestelle|Bus|Autobus|ÖPNV
+de:3Busbahnhof|Haltestelle|Bus|Autobus|ÖPNV
 hu:2Buszpályaudvar|Buszállomás|2busz|megálló
 id:3Stasiun bus
 it:5Autostazione|4fermata|autobus
@@ -2265,7 +2265,7 @@ da:3Metro|3undergrundsbane|3undergrund
 nl:3Metro
 fi:3Metro
 fr:3Métro
-de:2U-Bahn|3Metro|ÖPNV
+de:2U-Bahn|3Metro|ÖPNV|4Ubahn
 hu:3Metró|Földalatti
 id:3Stasiun bawah tanah
 it:3Metrò
@@ -2482,7 +2482,7 @@ da:Udsigtspunkt|sightseeing
 nl:4Uitzicht|panorama
 fi:3Näköalatasanne
 fr:4Belvédère|4point de vue|4panorama
-de:3Panorama|Ausblick|Aussichtspunkt
+de:3Panorama|Ausblick|4Aussichtspunkt
 hu:4Kilátó|Panoráma
 id:Titik pandang
 it:3Panorama|Punto panoramico
@@ -2518,7 +2518,7 @@ da:4Turistinformation|turistinformation|4information
 nl:4Toeristische informatie|3VVV|4informatie
 fi:3Turisti-informaatio
 fr:4Informations touristiques|4informations
-de:4Tourist-Information|Information
+de:4Tourist-Information|Information|7Touristeninformation
 hu:4Turistainformáció|4információ
 id:3Informasi turis
 it:4Informazione
@@ -3206,7 +3206,7 @@ da:Bænk
 nl:Zitbank|bankje
 fi:Penkki
 fr:Banc
-de:Parkbank
+de:4Parkbank|4Sitzbank
 hu:Pad
 id:Bangku panjang
 it:Panchina|panca
@@ -3242,7 +3242,7 @@ da:4Cykeludlejning|udlejning|cykel
 nl:4Fietsverhuur|2huur
 fi:Polkupyöränvuokraus
 fr:Location de vélos|vélo|bicyclette|3location
-de:3Fahrradverleih|Fahrrad|Fahrradvermietung|Radfahren|Radverleih|Velo|3Verleih
+de:4Fahrradverleih|Fahrrad|Fahrradvermietung|Radfahren|Radverleih|Velo|3Verleih
 hu:4Kerékpárkölcsönző|kerékpár|3bérlés
 id:Penyewaan Sepeda
 it:Noleggio biciclette|4bicicletta|bici|3noleggio
@@ -3548,7 +3548,7 @@ da:Universitet|4college|gymnasium
 nl:Hogeschool|hoger beroepsonderwijs|hbo
 fi:4College
 fr:Enseignement post-secondaire
-de:Hochschule|Fachschule|4Kolleg
+de:4Hochschule|4Fachschule|4Kolleg
 hu:Főiskola
 id:Kampus
 it:4Collegio
@@ -3585,7 +3585,7 @@ da:2Brandstation
 nl:Brandweer
 fi:Paloasema
 fr:Caserne de pompiers
-de:Feuerwehr|Feuerwache
+de:5Feuerwehr|Feuerwache
 hu:Tűzoltóság
 id:Kantor pemadam kebakaran
 it:Scuadra antincendio
@@ -3621,7 +3621,7 @@ da:3Springvand|4fontæne
 nl:4Fontein
 fi:Suihkulähde
 fr:4Fontaine
-de:Springbrunnen|4Fontäne
+de:4Springbrunnen|4Fontäne
 hu:Szökőkút
 id:Air mancur
 it:4Fontana|zampillo
@@ -3657,7 +3657,7 @@ da:Kirkegård|gravplads
 nl:Begraafplaats|kerkhof
 fi:Hautausmaa
 fr:Cimetière
-de:Friedhof|Gottesacker|Kirchhof
+de:5Friedhof|Gottesacker|Kirchhof
 hu:Temető
 id:Pemakaman
 it:Cimitero
@@ -3689,7 +3689,7 @@ ar:منظموا الجنازات
 be:4Рытуальныя паслугі|Пахавальнае бюро
 cs:4Pohřební služba
 da:Bedemand
-de:Bestattungsinstitut
+de:7Bestattungsinstitut|Bestatter|5Beerdigungsunternehmer|Beerdigungsinstitut|Leichenbestatter
 el:Γραφεία τελετών
 es:5Funeraria
 eu:5Beilatokia
@@ -3766,7 +3766,7 @@ cs:klinika|pohotovost|zdravotnické centrum|3lékař|4doktor
 da:sygehus
 nl:kliniek|hospitaal|3dokter|3eerste hulp
 fr:clinique|3médecin|3docteur
-de:Spital|Klinik|3Arzt|Doktor|Medizinische Einrichtung|Medizinisches Zentrum|Gesundheitswesen|Ambulanz|Gesundheitsdienstleistungen|Erste Hilfe
+de:Spital|Klinik|3Arzt|Doktor|Medizinische Einrichtung|Medizinisches Zentrum|Gesundheitswesen|3Ambulanz|Gesundheitsdienstleistungen|Erste Hilfe
 hu:rendelőintézet|3orvos
 ja:クリニック|医師|医者|ドクター|救急|診療
 mr:रुग्णालय|हॉस्पिटल
@@ -3863,7 +3863,7 @@ da:Tandlæge
 nl:Tandarts
 fi:Hammaslääkäri
 fr:4Dentiste
-de:Zahnarzt
+de:4Zahnarzt
 hu:Fogorvos
 id:Dokter gigi
 it:4Dentista|studio odontoiatrico
@@ -4008,7 +4008,7 @@ da:3Bibliotek
 nl:3Bibliotheek
 fi:Kirjasto
 fr:3Bibliothèque
-de:3Bibliothek|Bücherei
+de:3Bibliothek|4Bücherei
 hu:3Könyvtár
 id:Perpustakaan
 it:3Biblioteca
@@ -4071,7 +4071,7 @@ da:3Apotek
 nl:3Apotheek
 fi:3Apteekki
 fr:3Pharmacie
-de:3Apotheke
+de:3Apotheke|Pharmazie
 hu:3Gyógyszertár|patika
 id:3Apotek
 it:3Farmacia
@@ -4238,7 +4238,7 @@ da:Bortskaffelse af affald|skraldespand|skrald
 nl:4Afvalcontainer|afval|prullenbak|vuilnis
 fi:Roska
 fr:Déchets|poubelle|déchet
-de:4Müllcontainer|Mülltonne|Abfälle|Müll
+de:4Müllcontainer|Mülltonne|Abfälle|Müll|Müllentsorgung
 hu:Szemeteskonténer|Kuka|Hulladék|Szemét
 id:Sampah
 it:Spazzatura
@@ -4276,7 +4276,7 @@ da:Genbrugsplads
 nl:Milieustraat|recycling centrum|milieupark|gemeentewerf
 fi:Kierrätyskeskus
 fr:Centre de recyclage
-de:Recyclinghof|Recyclingzentrum
+de:4Recyclinghof|Recyclingzentrum
 hu:Hulladékudvar|Újrahasznosító központ|hulladékgyűjtő központ
 id:TPA
 it:Centro di riciclaggio
@@ -4312,7 +4312,7 @@ da:Genbrugscontainer
 nl:Recycling container
 fi:Kierrätysjäteastia
 fr:Conteneur de recyclage
-de:Wertstoffcontainer|Recyclingbehälter
+de:5Wertstoffcontainer|5Recyclingbehälter
 hu:Újrahasznosító tartály
 id:Wadah daur ulang
 it:Contenitore per materiali riciclabili
@@ -4387,7 +4387,7 @@ da:Gammelt tøj|Genbrug gammelt tøj
 nl:Oude kleding|Oude kleding recyclen
 fi:Vanhat vaatteet|Jätä tarpeettomat tavarat tähän
 fr:Vêtement usagés|Déposer des affaires non-utilisées
-de:Altkleider|Alte Kleidung|Sachen spenden
+de:4Altkleider|Alte Kleidung|Sachen spenden
 hu:Régi ruhák|Régi ruhák újrahasznosítása
 id:Pakaian lama|Mendaur ulang pakaian lama
 it:Vestiti usati|Riciclare vestiti usati
@@ -4424,7 +4424,7 @@ da:Glasflasker
 nl:Glazen flessen
 fi:Lasipullot
 fr:Verre
-de:Glas-Container
+de:4Glas-Container|Glasflaschen
 hu:Üveg palackok
 id:Botol kaca
 it:Contenitori in vetro
@@ -4461,7 +4461,7 @@ da:Papiraffald
 nl:Papierafval
 fi:Paperi- ja kartonkijäte
 fr:Papier usagé
-de:Altpapier
+de:4Altpapier
 hu:Papír hulladék
 id:Limbah kertas
 it:Rifiuti in carta e cartone
@@ -4572,7 +4572,7 @@ da:Skrot metal
 nl:Schroot
 fi:Metalliromu
 fr:Ferraille
-de:Altmetall
+de:4Altmetall|Schrott
 hu:Fémhulladék
 id:Besi tua
 it:Rifiuti metallici
@@ -5368,7 +5368,7 @@ da:Gård
 nl:Boerderij
 fi:Maatila
 fr:Ferme
-de:Bauernhof|Farm
+de:4Bauernhof|Farm
 hu:Tanya
 id:Ladang
 it:Fattoria|allevamento
@@ -5635,7 +5635,7 @@ da:Skov|plantage
 nl:Bos|woud
 fi:Metsä
 fr:Forêt|bois
-de:Wald|Urwald|Nadelwald|Laubwald|Mischwald
+de:Wald|Urwald|Nadelwald|Laubwald|Mischwald|Forst
 hu:Erdő
 id:Hutan
 it:Foresta
@@ -7110,7 +7110,7 @@ da:4Politi
 nl:4Politie
 fi:4Poliisi
 fr:4Police|4gendarmerie
-de:4Polizeistation
+de:Polizeistation|4Polizei
 hu:4Rendőrség
 id:4Polisi
 it:4Polizia
@@ -7397,7 +7397,7 @@ bg:водна точка|вода за каравана
 ar:نقطة مائية|الماء للقافلة
 cs:Vodní zdroj|voda pro karavanu
 da:Vandstation
-de:Wasseranschluss
+de:6Wasseranschluss
 el:Παροχή νερού
 es:Fuente de agua|agua para caravana
 eu:Ur iturria|karabanarako ura
@@ -7434,7 +7434,7 @@ bg:кран за вода|чешмяна вода
 ar:حنفية مياه
 cs:Vodovodní kohoutek
 da:Vandhane
-de:Wasserhahn
+de:6Wasserhahn
 el:Βρύση νερού
 es:Toma de agua
 eu:Ura hartzea
@@ -7741,7 +7741,7 @@ da:3Garage|3bilværksted|service station
 nl:3Auto reparatie|auto|wagen|garage
 fi:4Autokorjaamo
 fr:3Réparation d'automobiles|3garage|4station service|voiture|auto
-de:3Autowerkstatt|Kfz|Reparaturwerkstatt|Auto|Werkstatt
+de:3Autowerkstatt|Kfz|Reparaturwerkstatt|Auto|4Werkstatt
 hu:3Autószerelő|Autószerviz|Gépkocsiszerviz|Autójavító|4javítóműhely|kocsi
 id:Bengkel mobil
 it:3Riparazione auto|auto|macchina|3automobile|vettura
@@ -7814,7 +7814,7 @@ da:5Autocamperplads|husvogn
 nl:4Caravan site|camping|woonwagenkamp
 fi:Asuntovaunupaikka|Retkeily
 fr:4Parc caravanier|VR|caravane|camping-car
-de:4Wohnwagenstellplatz|Campingplatz|Wohnwagenplatz|Wohnmobilpark
+de:4Wohnwagenstellplatz|Campingplatz|Wohnwagenplatz|Wohnmobilpark|Wohnmobilstellplatz
 hu:4Lakókocsihely|kemping
 id:Lokasi perkemahan
 it:Area per campeggiatori
@@ -7955,7 +7955,7 @@ da:4Advokatkontor
 nl:4Advocatenkantoor|advocaat
 fi:Lakitoimisto
 fr:Cabinet d'avocat
-de:Anwaltsbüro|Anwaltskanzlei|Anwalt|Rechtsanwalt|Jurist|Gerichtsanwalt|Rechtsbeistand|Rechtsberater|Verteidiger
+de:Anwaltsbüro|5Anwaltskanzlei|Anwalt|Rechtsanwalt|Jurist|Gerichtsanwalt|Rechtsbeistand|Rechtsberater|Verteidiger
 hu:Ügyvéd|Ügyvédi iroda
 id:Kantor pengacara
 it:Studio legale
@@ -8219,7 +8219,7 @@ da:Skomager|skoreparation
 nl:Schoenmaker|schoenmakerij
 fi:Suutari
 fr:Cordonnier
-de:Schuhreparatur|Schuhmacher|Schuster
+de:Schuhreparatur|4Schuhmacher|Schuster
 hu:Cipész
 id:Tukang sepatu
 it:Calzolaio|Riparazione di calzature
@@ -8595,7 +8595,7 @@ da:4Kopieringsbutik|4Trykkeri
 nl:4Copy shop|Kopieerwinkel|printer|4drukker
 fi:5Painotalo|5Tulostaja
 fr:Boutique de photocopies|5Imprimerie
-de:4Kopierladen|4Drucker
+de:4Kopierladen|4Drucker|Copyshop
 hu:Fénymásoló üzlet|Nyomda
 id:4Fotokopi|4Printer
 it:4Copisteria|4Stampe
@@ -8664,7 +8664,7 @@ da:Rejsebureau|rundrejser
 nl:Reisbureau|reisagentschap|reizen
 fi:Matkatoimisto
 fr:Agence de voyages|Voyages organisés
-de:Reisebüro|Reisen|Rundreisen|Reisevermittlung|Reisevermittler|Reiseagentur|Touren|Ausflüge|Urlaub|Touristeninformation|Last-Minute-Tour
+de:5Reisebüro|Reisen|Rundreisen|Reisevermittlung|Reisevermittler|Reiseagentur|Touren|Ausflüge|Urlaub|Touristeninformation|Last-Minute-Tour
 hu:Utazási iroda|utazás|túra|utak|utazásközvetítő|utazásszervező|last minute
 id:Agen Perjalanan Wisata|tur
 it:Agenzia viaggi|tour
@@ -8733,7 +8733,7 @@ da:Renseri|vaskeri
 nl:Stomerij|chemisch reinigen|droogkuis|wassen|stomen
 fi:Kuivapesula|pesula
 fr:Nettoyage à sec|Pressing|Lavage
-de:Chemische Reinigung|Reinigung
+de:Chemische Reinigung|4Reinigung
 hu:Ruhatisztító|vegytisztító|patyolat|tisztító
 id:Cuci Kering|kering
 it:Lavaggio a secco|lavanderia
@@ -8769,7 +8769,7 @@ da:Dækforretning
 nl:Bandenwinkel
 fi:Rengasliike
 fr:Magasin de pneus
-de:Reifen-Shop
+de:Reifen-Shop|4Autoreifen|Reifen
 hu:Gumiszaküzlet
 id:Toko Ban
 it:Gommista
@@ -8839,7 +8839,7 @@ da:Dyrlæge
 nl:Dierenarts
 fi:Eläinlääkäri
 fr:Docteur vétérinaire|véto
-de:Tierarzt
+de:4Tierarzt
 hu:Állatorvos
 id:Dokter Hewan
 it:4Veterinario
@@ -8874,7 +8874,7 @@ da:Ladestation|opladning
 nl:Oplaadstation|opladen
 fi:Latausasema|lataus
 fr:Station de recharge|Recharge
-de:Ladestation|aufladen
+de:4Ladestation|aufladen
 hu:Töltőállomás|töltés
 id:Pusat Pengisian Daya|pengisian daya
 it:Stazione di ricarica|ricarica
@@ -8945,7 +8945,7 @@ da:4Cykelparkering
 nl:Fietsenstalling
 fi:Polkupyöräpysäköinti
 fr:Parking à vélo
-de:Fahrradständer
+de:6Fahrradständer
 hu:Kerékpártároló
 id:Parkir Sepeda
 it:Parcheggio biciclette
@@ -8982,7 +8982,7 @@ da:Skraldespand
 nl:Vuilnisbak
 fi:Roska-astia
 fr:Poubelle
-de:Abfalleimer|Mülleimer
+de:6Abfalleimer|4Mülleimer|Papierkorb
 hu:Szemétkosár
 id:Kotak sampah
 it:Contenitore per rifiuti
@@ -9127,7 +9127,7 @@ da:Dækreparation
 nl:Bandenreparatie
 fi:Rengashuolto
 fr:Réparation de pneus
-de:Reifenservice|Reifen|Reifenreparatur|Reifeninstandsetzung|Reifenpannenreparatur|Reifenpannenbehebung|Reifenersatz|Pneureparatur|Pneu|Pannenreparatur
+de:Reifenservice|Reifen|6Reifenreparatur|Reifeninstandsetzung|Reifenpannenreparatur|Reifenpannenbehebung|Reifenersatz|Pneureparatur|Pneu|Pannenreparatur
 hu:Gumiszerviz|Gumijavítás
 id:Tambal ban
 it:Gommista
@@ -9198,7 +9198,7 @@ da:Dyrehandel
 nl:Dierenwinkel
 fi:Eläinkauppa
 fr:5Animalerie
-de:Tierhandlung
+de:4Tierhandlung
 hu:Házikedvenc-üzlet
 id:Toko hewan
 it:Negozio di animali
@@ -9377,7 +9377,7 @@ da:Cigaretautomat
 nl:Sigarettenautomaat
 fi:Savukeautomaatti
 fr:Distributeur de cigarettes
-de:Zigarettenautomat
+de:5Zigarettenautomat
 hu:Cigarettaautomata
 id:Mesin rokok
 it:Distributore automatico di sigarette
@@ -9405,7 +9405,7 @@ mr:सिगारेट विक्रीयंत्र
 amenity-vending_machine-coffee
 en:4Coffee Dispenser|Coffee
 be:3Кававы аўтамат|кава
-de:Kaffeeautomat
+de:6Kaffeeautomat
 es:Máquina expendedora de café|Café
 eu:3Kafea saltzeko makina|Kafea
 fr:Distributeur de café|Café
@@ -9417,7 +9417,7 @@ mr:कॉफी विक्रीयंत्र
 amenity-vending_machine-condoms
 en:4Condoms Dispenser|Condoms|Condomat
 be:Аўтамат з прэзерватывамі|5прэзерватывы|5кандамат
-de:Kondomautomat
+de:6Kondomautomat
 es:Máquina expendedora de condones|Condones
 eu:4Kondoiak saltzeko makina|Preserbatiboak
 fr:Distributeur de préservatifs|Préservatifs
@@ -9437,7 +9437,7 @@ da:Automat for drikkevarer|drikkevarer
 nl:Drankautomaat
 fi:Juoma-automaatti
 fr:Distributeur de boissons|cannettes
-de:Getränkeautomat
+de:9Getränkeautomat
 hu:Italautomata
 id:Mesin penjual minuman
 it:Distributore automatico di bibite
@@ -9465,7 +9465,7 @@ mr:पेय विक्रीयंत्र
 amenity-vending_machine-food|@food
 en:4Food Dispenser|Food|Snacks
 be:Аўтамат з ежай|5перакус|4снэкі
-de:Essensautomat
+de:5Essensautomat|9Lebensmittelautomat|Snacks|Knabbereien|Nahrungsmittelautomat
 es:Máquina expendedora de comida|Comida|Snacks
 eu:4Janaria saltzeko makina|Elikagaia|Askariak
 fr:Distributeur d'aliments|Aliments
@@ -9516,7 +9516,7 @@ ar:آلة بيع تذاكر النقل العام
 be:Автомат по продаже билетов
 cs:Prodejní automat lístků na městskou dopravu
 da:Billetautomat for offentlig transport
-de:Fahrkartenautomat|Fahrscheinautomat
+de:5Fahrkartenautomat|5Fahrscheinautomat
 el:Μηχάνημα αυτόματης πώλησης εισιτηρίων για τα μέσα μαζικής μεταφοράς
 es:Máquina expendedora de boletos para el transporte público
 eu:4Garraio publikorako txartelak saltzeko makina
@@ -9562,7 +9562,7 @@ mr:वर्तमानपत्र विक्रीयंत्र
 amenity-vending_machine-sweets
 en:4Sweets Dispenser|Sweets|4Candies|Lollies
 be:Аўтамат з прысмакамі|4прысмакі|4цукеркі
-de:Süßigkeitenautomat
+de:Süßigkeitenautomat|Süßwaren|Süßigkeiten
 es:Máquina expendedora de dulces|Dulces|Chuches|Chucherías
 eu:4Gozokiak saltzeko makina|Gozokiak
 fr:Distributeur de bonbons|Bonbons
@@ -9574,7 +9574,7 @@ mr:मिठाई विक्रीयंत्र
 amenity-vending_machine-excrement_bags
 en:5Excrement Bags Dispenser|4Poop Bags|3Dog Poop Bags|Animal Waste
 be:5Мяшкі дзеля экскрыментаў|Какашкі|5Пакеты для какашак
-de:Hundetütenspender|Hundekotsäckchenspender
+de:Hundetütenspender|Hundekotsähuckchenspender|Hundekotbeutelspender|Hundekotbeutel
 fr:5Distributeur de sacs à excréments
 ru:5Пакеты для экскрементов|Какашки|Пакеты для какашек
 tr:5Dışkı torbası dispenseri
@@ -9584,7 +9584,7 @@ mr:मलमूत्र पिशव्या विक्रीयंत्र
 amenity-parcel_locker|@post
 en:4Parcel Locker|4Parcel Pickup
 be:3Паштамат|5Атрыманне пасылак
-de:Paketstation|Paket Abholstation|Paket SB|Paket Versandstation
+de:5Paketstation|Paket Abholstation|Paket SB|Paket Versandstation
 fr:Consigne automatique pour colis|3locker
 ru:3Почтомат|Постамат|5Получение посылок
 tr:4koli dolabı
@@ -9785,7 +9785,7 @@ da:Fiskehandler
 nl:Visboer|vismarkt|vis|zeevoedsel|schelpdier
 fi:Kalakauppias
 fr:Poissonnier|fruits de mer
-de:Fischhändler|Fischmarkt|Fisch|Meeresfrüchte|Schaltier
+de:Fischhändler|Fischmarkt|Fisch|Meeresfrüchte|Schalentier
 hu:Halüzlet
 id:Penjual Ikan
 it:Pescivendolo
@@ -9898,7 +9898,7 @@ da:Vinhandel
 nl:Slijterij|Wijn
 fi:Alkoholimyymälä
 fr:Cave à vins|Caviste|Magasin de vins
-de:Wein- und Spirituosengeschäft|Weinladen
+de:Wein- und Spirituosengeschäft|Weinladen|Weingeschäft|Weinhändler
 hu:Borkereskedés
 id:Toko anggur
 it:Negozio di alcolici
@@ -9933,7 +9933,7 @@ da:Bildele
 nl:Auto onderdelen
 fi:Auton osat
 fr:Pièces de voiture
-de:Autoteile
+de:4Autoteile|Autoersatzteile
 hu:Autóalkatrész
 id:Bagian mobil
 it:Ricambi auto
@@ -10425,7 +10425,7 @@ da:Ejendomsmægler
 nl:Makelaar
 fi:Kiinteistönvälittäjä
 fr:Agence immobilière|agent immobilier
-de:Immobilienmakler
+de:9Immobilienmakler
 hu:Ingatlaniroda
 id:Agen ril estat
 it:Agenzia immobiliare
@@ -10493,7 +10493,7 @@ da:Bog udveksling
 nl:Boekenkast|Boekuitwisseling
 fi:Kirjahylly|Kirjakauppa
 fr:Microbibliothèque|boîte à livres
-de:Bücherregal|Büchertausch|Bücherschrank
+de:Bücherregal|Büchertausch|Bücherschrank|Bücherbox|Bücherzelle
 hu:Nyilvános könyvespolc|könyvcsere
 id:Rak Buku|Bursa Buku
 it:Libreria|Scambio libri
@@ -10809,7 +10809,7 @@ bg:4Сладолед
 ar:كشك أيس كريم
 cs:Stánek se zmrzlinou
 da:Isbod
-de:Eis|Eisstand
+de:Eis|Eisstand|Eisdiele
 el:Παγωτατζίδικο
 es:5Heladería
 eu:5Izozkitegia
@@ -10881,7 +10881,7 @@ bg:Паркинг|мотоциклети|мотори
 ar:موقف دراجات نارية
 cs:Parkování pro motocykly
 da:4Motorcykelparkering
-de:4Motorrad-Parkplatz
+de:4Motorrad-Parkplatz|9Motorradparkplatz
 el:Χώρος στάθμευσης μοτοσικλετών
 es:Aparcamiento de motos
 eu:Motoentzako aparkalekua
@@ -11244,7 +11244,7 @@ bg:4Секс-шоп|Еротика|4Еротичен магазин
 ar:متجر منتجات جنسية
 cs:Obchod s erotickými pomůckami
 da:4Erotisk butik
-de:4Erotikladen|Sexshop|Erotikshop
+de:4Erotikladen|3Sexshop|Erotikshop
 el:Κατάστημα ερωτικών ειδών
 es:3Sex Shop
 eu:3Sex Shop
@@ -11422,7 +11422,7 @@ bg:Магазин за канцеларски материали
 ar:متجر قرطاسية
 cs:Papírnictví
 da:Kontorartikler
-de:Schreibwarenladen
+de:7Schreibwarenladen
 el:Κατάστημα γραφικής ύλης|χαρτικά
 es:Papelería
 eu:Papergintza
@@ -11494,7 +11494,7 @@ bg:Магазин за разнообразни стоки
 ar:متجر متنوع\n
 cs:Smíšené zboží
 da:Småtingsbutik
-de:Billigladen
+de:Billigladen|Niedrigpreisgeschäft
 el:Παντοπωλείο|Μπακάλικο|Ψιλικατζίδικο
 es:Tienda de Variedades
 eu:Barietate Denda
@@ -11675,7 +11675,7 @@ bg:Национален парк
 ar:منتزه وطني
 cs:Národní park
 da:National park
-de:Naturschutzpark|Nationalpark
+de:5Naturschutzpark|Nationalpark
 el:Εθνικό πάρκο
 es:Parque nacional
 eu:Parke Nazionala
@@ -11711,7 +11711,7 @@ bg:Природен парк|Резерват
 ar:محمية
 cs:Rezervace
 da:Reservat
-de:Naturschutzgebiet
+de:5Naturschutzgebiet
 el:Φυσικό απόθεμα
 es:Territorio reservado
 eu:Erreserbatutako lurraldea
