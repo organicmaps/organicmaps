@@ -216,7 +216,6 @@ public:
   void AddType(std::vector<std::string> const & path) { m_types.push_back(path); }
 
 private:
-  std::vector<m2::PointD> const m_boundary;
   std::string const m_houseNumber;
   std::string const m_streetName;
 
@@ -231,9 +230,6 @@ public:
   // TestFeature overrides:
   void Serialize(feature::FeatureBuilder & fb) const override;
   std::string ToDebugString() const override;
-
-private:
-  std::vector<m2::PointD> m_boundary;
 };
 
 class TestRoad : public TestFeature

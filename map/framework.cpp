@@ -710,7 +710,7 @@ void Framework::FillSearchResultInfo(SearchMarkPoint const & smp, place_page::In
 void Framework::FillMyPositionInfo(place_page::Info & info, place_page::BuildInfo const & buildInfo) const
 {
   auto const position = GetCurrentPosition();
-  VERIFY(position, ());
+  CHECK(position, ());
   info.SetMercator(*position);
   info.SetCustomName(m_stringsBundle.GetString("core_my_position"));
 

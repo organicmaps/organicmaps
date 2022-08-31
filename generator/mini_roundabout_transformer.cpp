@@ -130,7 +130,7 @@ void MiniRoundaboutTransformer::UpdateRoadType(FeatureParams::Types const & foun
       continue;
 
     auto const itPrev = std::find(kHighwayTypes.begin(), kHighwayTypes.end(), roadType);
-    if (itPrev == kHighwayTypes.end() || (itPrev > it && itPrev != kHighwayTypes.end()))
+    if (itPrev == kHighwayTypes.end() || itPrev > it)
       roadType = *it;
 
     return;

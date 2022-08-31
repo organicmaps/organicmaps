@@ -51,8 +51,6 @@ protected:
         new SimplifiedModelFactory<routing::PedestrianModel>());
     return factory;
   }
-
-  FrozenDataSource m_dataSource;
 };
 
 // Tests on features -------------------------------------------------------------------------------

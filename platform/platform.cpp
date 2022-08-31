@@ -1,17 +1,11 @@
 #include "platform/platform.hpp"
 
-#include "platform/local_country_file.hpp"
-
-#include "coding/base64.hpp"
 #include "coding/internal/file_data.hpp"
-#include "coding/sha1.hpp"
 #include "coding/writer.hpp"
 
 #include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
-
-#include "std/target_os.hpp"
 
 #include <algorithm>
 #include <random>
@@ -367,9 +361,9 @@ void Platform::ShutdownThreads()
 
 void Platform::RunThreads()
 {
-  ASSERT(!m_networkThread || (m_networkThread && m_networkThread->IsShutDown()), ());
-  ASSERT(!m_fileThread || (m_fileThread && m_fileThread->IsShutDown()), ());
-  ASSERT(!m_backgroundThread || (m_backgroundThread && m_backgroundThread->IsShutDown()), ());
+  ASSERT(!m_networkThread || m_networkThread->IsShutDown(), ());
+  ASSERT(!m_fileThread || m_fileThread->IsShutDown(), ());
+  ASSERT(!m_backgroundThread || m_backgroundThread->IsShutDown(), ());
 
   m_networkThread = make_unique<base::thread_pool::delayed::ThreadPool>();
   m_fileThread = make_unique<base::thread_pool::delayed::ThreadPool>();

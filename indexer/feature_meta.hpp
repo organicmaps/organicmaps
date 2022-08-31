@@ -77,10 +77,9 @@ protected:
       m_metadata.erase(type);
     else
     {
-      auto res = m_metadata.try_emplace(type, std::move(value));
-      if (!res.second)
-        res.first->second = std::move(value);
-      sv = res.first->second;
+      auto & res = m_metadata[type];
+      res = std::move(value);
+      sv = res;
     }
 
     return sv;
@@ -244,8 +243,7 @@ public:
 
   void SetLeapWeightSpeed(double speedValue)
   {
-    std::string strValue = std::to_string(speedValue);
-    MetadataBase::Set(Type::RD_LEAP_WEIGHT_SPEED, strValue);
+    MetadataBase::Set(Type::RD_LEAP_WEIGHT_SPEED, std::to_string(speedValue));
   }
 
   /// @see EdgeEstimator::GetLeapWeightSpeed

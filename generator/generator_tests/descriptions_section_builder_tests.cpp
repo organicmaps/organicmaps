@@ -36,7 +36,7 @@ public:
   struct WikiData
   {
     std::string m_url;
-    // A collection of pairs of languages ​​and content.
+    // A collection of pairs of languages and content.
     std::vector<PageT> m_pages;
   };
 
