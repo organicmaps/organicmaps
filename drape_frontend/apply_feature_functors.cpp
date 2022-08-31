@@ -149,7 +149,7 @@ void Extract(::LineDefProto const * lineRule, df::LineViewParams & params)
       params.m_pattern.push_back(dp::PatternFloat2Pixel(dd.dd(i) * scale));
   }
 
-  switch(lineRule->cap())
+  switch (lineRule->cap())
   {
   case ::ROUNDCAP : params.m_cap = dp::RoundCap;
     break;
@@ -158,7 +158,7 @@ void Extract(::LineDefProto const * lineRule, df::LineViewParams & params)
   case ::SQUARECAP: params.m_cap = dp::SquareCap;
     break;
   default:
-    ASSERT(false, ());
+    CHECK(false, ());
   }
 
   switch (lineRule->join())
@@ -170,7 +170,7 @@ void Extract(::LineDefProto const * lineRule, df::LineViewParams & params)
   case ::BEVELJOIN : params.m_join = dp::BevelJoin;
     break;
   default:
-    ASSERT(false, ());
+    CHECK(false, ());
   }
 }
 
