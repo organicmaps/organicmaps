@@ -1500,8 +1500,8 @@
 	<string name="type.sport.table_tennis">卓球</string>
 	<string name="type.sport.tennis">テニスコート</string>
 	<string name="type.sport.volleyball">バレーボール</string>
-	<string name="type.sport.9pin">ボウリング</string>
 	<string name="type.sport.10pin">ボウリング</string>
+	<string name="type.sport.9pin">ボウリング</string>
 	<string name="type.sport.padel">パデル</string>
 	<string name="type.sport.futsal">フットサル</string>
 	<string name="type.sport.ice_hockey">アイスホッケー</string>

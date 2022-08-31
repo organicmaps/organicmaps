@@ -1449,8 +1449,8 @@
 	<string name="type.sport.table_tennis">كرة الطاولة</string>
 	<string name="type.sport.tennis">ملعب تنس</string>
 	<string name="type.sport.volleyball">كرة الطائرة</string>
-	<string name="type.sport.9pin">بولينج بعشرة دبابيس</string>
 	<string name="type.sport.10pin">بولينج بعشرة دبابيس</string>
+	<string name="type.sport.9pin">بولينج بعشرة دبابيس</string>
 	<string name="type.sport.padel">ﻞﻳﺩﺎﺑ</string>
 	<string name="type.sport.futsal">كرة الصالات</string>
 	<string name="type.sport.ice_hockey">هوكي الجليد</string>

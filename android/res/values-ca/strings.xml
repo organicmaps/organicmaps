@@ -407,7 +407,7 @@
 	<string name="closed">Tancat</string>
 	<string name="edit_opening_hours">Edita l\'horari d\'obertura</string>
 	<string name="no_osm_account">No teniu commpte d\'OpenStreetMap?</string>
-	<string name="register_at_openstreetmap">Registre a OSM</string>
+	<string name="register_at_openstreetmap">Registre a OpenStreetMap</string>
 	<string name="login">Inicia sessió</string>
 	<string name="password">Contrasenya</string>
 	<string name="forgot_password">Heu oblidat la contrasenya?</string>
@@ -510,7 +510,7 @@
 	<string name="placepage_add_place_button">Afegeix un lloc en el mapa</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Voleu enviar-ho a tots els usuaris?</string>
-	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Assegureu-vos que no heu introduït cap dada personal.</string>
 	<string name="editor_share_to_all_dialog_message_2">Revisarem els canvis. Si tenim cap pregunta contactem amb vós via correu electrònic.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->

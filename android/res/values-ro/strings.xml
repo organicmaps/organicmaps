@@ -1377,8 +1377,8 @@
 	<string name="type.sport.table_tennis">Tenis de masă</string>
 	<string name="type.sport.tennis">Teren de tenis</string>
 	<string name="type.sport.volleyball">Volei</string>
-	<string name="type.sport.9pin">Bowling</string>
 	<string name="type.sport.10pin">Bowling</string>
+	<string name="type.sport.9pin">Bowling</string>
 	<string name="type.sport.padel">Padel</string>
 	<string name="type.sport.futsal">Futsal</string>
 	<string name="type.sport.ice_hockey">Hochei pe gheata</string>

@@ -1363,8 +1363,8 @@
 	<string name="type.sport.table_tennis">탁구</string>
 	<string name="type.sport.tennis">테니스 코트</string>
 	<string name="type.sport.volleyball">배구</string>
-	<string name="type.sport.9pin">볼링</string>
 	<string name="type.sport.10pin">볼링</string>
+	<string name="type.sport.9pin">볼링</string>
 	<string name="type.sport.padel">파델</string>
 	<string name="type.sport.futsal">풋살</string>
 	<string name="type.sport.ice_hockey">아이스 하키</string>

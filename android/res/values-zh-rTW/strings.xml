@@ -1415,8 +1415,8 @@
 	<string name="type.sport.table_tennis">乒乓球</string>
 	<string name="type.sport.tennis">網球場</string>
 	<string name="type.sport.volleyball">排球</string>
-	<string name="type.sport.9pin">保齡球</string>
 	<string name="type.sport.10pin">保齡球</string>
+	<string name="type.sport.9pin">保齡球</string>
 	<string name="type.sport.padel">帕德爾</string>
 	<string name="type.sport.futsal">五人制足球</string>
 	<string name="type.sport.ice_hockey">冰球</string>

@@ -1363,8 +1363,8 @@
 	<string name="type.sport.table_tennis">Επιτραπέζια αντισφαίριση</string>
 	<string name="type.sport.tennis">Γήπεδο τένις</string>
 	<string name="type.sport.volleyball">Πετοσφαίριση</string>
-	<string name="type.sport.9pin">Μπόουλινγκ</string>
 	<string name="type.sport.10pin">Μπόουλινγκ</string>
+	<string name="type.sport.9pin">Μπόουλινγκ</string>
 	<string name="type.sport.padel">Padel</string>
 	<string name="type.sport.futsal">Futsal</string>
 	<string name="type.sport.ice_hockey">Χόκεϊ στον παγο</string>

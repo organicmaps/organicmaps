@@ -1843,7 +1843,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "Tunnel";
 
-"type.highway.bus_stop" = "Fermata";
+"type.highway.bus_stop" = "Fermata dell'autobus";
 
 "type.highway.construction" = "Strada in costruzione";
 
@@ -2726,7 +2726,7 @@
 
 "type.railway.tram.tunnel" = "Tram Line";
 
-"type.railway.tram_stop" = "Fermata";
+"type.railway.tram_stop" = "Fermata del tram";
 
 "type.railway.yard" = "Railway Yard";
 
@@ -2991,9 +2991,9 @@
 
 "type.sport.volleyball" = "Pallavolo";
 
-"type.sport.9pin" = "Bowling";
-
 "type.sport.10pin" = "Bowling";
+
+"type.sport.9pin" = "Bowling";
 
 "type.sport.padel" = "Padel";
 

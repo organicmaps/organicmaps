@@ -590,7 +590,7 @@
 
 "no_osm_account" = "No teniu commpte d'OpenStreetMap?";
 
-"register_at_openstreetmap" = "Registre a OSM";
+"register_at_openstreetmap" = "Registre a OpenStreetMap";
 
 "password_8_chars_min" = "Contrasenya (mínim 8 caràcters)";
 
@@ -810,7 +810,7 @@
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Voleu enviar-ho a tots els usuaris?";
 
-/* iOS Dialog before publishing the modifications to the public map. */
+/* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "Assegureu-vos que no heu introduït cap dada personal.";
 
 "editor_share_to_all_dialog_message_2" = "Revisarem els canvis. Si tenim cap pregunta contactem amb vós via correu electrònic.";
@@ -2991,9 +2991,9 @@
 
 "type.sport.volleyball" = "Volleyball";
 
-"type.sport.9pin" = "Bowling";
-
 "type.sport.10pin" = "Bowling";
+
+"type.sport.9pin" = "Bowling";
 
 "type.sport.padel" = "Padel";
 

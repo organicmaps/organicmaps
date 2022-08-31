@@ -1541,8 +1541,8 @@
 	<string name="type.sport.table_tennis">Ténis de mesa</string>
 	<string name="type.sport.tennis">Campo de ténis</string>
 	<string name="type.sport.volleyball">Voleibol</string>
-	<string name="type.sport.9pin">Boliche</string>
 	<string name="type.sport.10pin">Boliche</string>
+	<string name="type.sport.9pin">Boliche</string>
 	<string name="type.sport.padel">Padel</string>
 	<string name="type.sport.futsal">Futsal</string>
 	<string name="type.sport.ice_hockey">Hóquei no gelo</string>

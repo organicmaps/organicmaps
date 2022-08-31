@@ -2991,9 +2991,9 @@
 
 "type.sport.volleyball" = "Πετοσφαίριση";
 
-"type.sport.9pin" = "Μπόουλινγκ";
-
 "type.sport.10pin" = "Μπόουλινγκ";
+
+"type.sport.9pin" = "Μπόουλινγκ";
 
 "type.sport.padel" = "Padel";
 

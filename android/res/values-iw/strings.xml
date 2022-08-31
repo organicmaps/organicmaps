@@ -547,8 +547,8 @@
 	<string name="type.sport.table_tennis">טניס שולחן</string>
 	<string name="type.sport.tennis">טֶנִיס</string>
 	<string name="type.sport.volleyball">כדורעף</string>
-	<string name="type.sport.9pin">בָּאוּלִינְג</string>
 	<string name="type.sport.10pin">בָּאוּלִינְג</string>
+	<string name="type.sport.9pin">בָּאוּלִינְג</string>
 	<string name="type.sport.padel">לדאפ</string>
 	<string name="type.sport.futsal">לסטופ</string>
 	<string name="type.sport.ice_hockey">חרק יקוה</string>
