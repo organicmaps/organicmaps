@@ -20499,7 +20499,7 @@
     zh-Hant = 籃球
 
   [type.sport.beachvolleyball]
-    en = Beachvolleyball
+    en = Beach volleyball
     ar = كرة طائرة شاطئية
     be = Пляжны валейбол
     bg = Плажен волейбол
