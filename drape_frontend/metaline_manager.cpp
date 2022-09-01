@@ -31,19 +31,19 @@ void MetalineManager::Update(std::set<MwmSet::MwmId> const & mwms)
   std::lock_guard<std::mutex> lock(m_mwmsMutex);
   for (auto const & mwm : mwms)
   {
-    auto const result = m_mwms.insert(mwm);
-    if (!result.second)
-      return;
+    ASSERT(mwm.IsAlive(), ());
+    if (mwm.GetInfo()->GetType() != MwmInfo::MwmTypeT::COUNTRY || !m_mwms.insert(mwm).second)
+      continue;
 
     auto readingTask = std::make_shared<ReadMetalineTask>(m_model, mwm);
-    auto routineResult = dp::DrapeRoutine::Run([this, readingTask]()
+    auto routine = dp::DrapeRoutine::Run([this, readingTask]()
     {
       readingTask->Run();
       OnTaskFinished(readingTask);
     });
 
-    if (routineResult)
-      m_activeTasks.Add(readingTask, routineResult);
+    if (routine)
+      m_activeTasks.Add(std::move(readingTask), std::move(routine));
   }
 }
 
@@ -63,14 +63,9 @@ void MetalineManager::OnTaskFinished(std::shared_ptr<ReadMetalineTask> const & t
 
   std::lock_guard<std::mutex> lock(m_metalineCacheMutex);
 
-  // Update metalines cache.
-  auto const & metalines = task->GetMetalines();
-  for (auto const & metaline : metalines)
-    m_metalineCache[metaline.first] = metaline.second;
-
-  // Notify FR.
-  if (!metalines.empty())
+  if (task->UpdateCache(m_metalineCache))
   {
+    // Notify frontend renderer.
     LOG(LDEBUG, ("Metalines prepared:", task->GetMwmId()));
     m_commutator->PostMessage(ThreadsCommutator::RenderThread,
                               make_unique_dp<UpdateMetalinesMessage>(),
