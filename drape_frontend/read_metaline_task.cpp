@@ -1,19 +1,13 @@
 #include "drape_frontend/read_metaline_task.hpp"
 
-#include "drape_frontend/drape_api.hpp"
 #include "drape_frontend/map_data_provider.hpp"
-#include "drape_frontend/message_subclasses.hpp"
 #include "drape_frontend/metaline_manager.hpp"
-#include "drape_frontend/threads_commutator.hpp"
+
+#include "indexer/feature_decl.hpp"
 
 #include "coding/files_container.hpp"
 #include "coding/reader_wrapper.hpp"
 #include "coding/varint.hpp"
-
-#include "geometry/mercator.hpp"
-
-#include "indexer/feature_decl.hpp"
-#include "indexer/scales.hpp"
 
 #include "defines.hpp"
 
@@ -67,44 +61,41 @@ std::vector<MetalineData> ReadMetalinesFromFile(MwmSet::MwmId const & mwmId)
 std::map<FeatureID, std::vector<m2::PointD>> ReadPoints(df::MapDataProvider & model,
                                                         MetalineData const & metaline)
 {
-  bool failed = false;
   auto features = metaline.m_features;
   std::sort(features.begin(), features.end());
 
   std::map<FeatureID, std::vector<m2::PointD>> result;
-  model.ReadFeatures([&metaline, &failed, &result](FeatureType & ft)
+  model.ReadFeatures([&metaline, &result](FeatureType & ft)
   {
-    if (failed)
-      return;
+    ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
+    size_t const count = ft.GetPointsCount();
 
     std::vector<m2::PointD> featurePoints;
-    featurePoints.reserve(5);
-    ft.ForEachPoint([&featurePoints](m2::PointD const & pt)
-    {
-      if (featurePoints.empty() || !featurePoints.back().EqualDxDy(pt, mercator::kPointEqualityEps))
-        featurePoints.push_back(pt);
-    }, scales::GetUpperScale());
+    featurePoints.reserve(count);
+    featurePoints.push_back(ft.GetPoint(0));
 
-    if (featurePoints.size() < 2)
+    for (size_t i = 1; i < count; ++i)
     {
-      failed = true;
-      return;
+      auto const & pt = ft.GetPoint(i);
+      if (!featurePoints.back().EqualDxDy(pt, kMwmPointAccuracy))
+        featurePoints.push_back(pt);
     }
+
     if (metaline.m_reversed.find(ft.GetID()) != metaline.m_reversed.cend())
       std::reverse(featurePoints.begin(), featurePoints.end());
 
-    result.insert(std::make_pair(ft.GetID(), std::move(featurePoints)));
+    result.emplace(ft.GetID(), std::move(featurePoints));
   }, features);
-
-  if (failed)
-    return {};
 
   return result;
 }
 
-std::vector<m2::PointD> MergePoints(std::map<FeatureID, std::vector<m2::PointD>> const & points,
+std::vector<m2::PointD> MergePoints(std::map<FeatureID, std::vector<m2::PointD>> && points,
                                     std::vector<FeatureID> const & featuresOrder)
 {
+  if (points.size() == 1)
+    return std::move(points.begin()->second);
+
   size_t sz = 0;
   for (auto const & p : points)
     sz += p.second.size();
@@ -115,12 +106,18 @@ std::vector<m2::PointD> MergePoints(std::map<FeatureID, std::vector<m2::PointD>>
   {
     auto const it = points.find(f);
     ASSERT(it != points.cend(), ());
-    for (auto const & pt : it->second)
+
+    if (!result.empty())
     {
-      if (result.empty() || !result.back().EqualDxDy(pt, mercator::kPointEqualityEps))
-        result.push_back(pt);
+      auto iBeg = it->second.begin();
+      if (result.back().EqualDxDy(*iBeg, kMwmPointAccuracy))
+        ++iBeg;
+      result.insert(result.end(), iBeg, it->second.end());
     }
+    else
+      result = std::move(it->second);
   }
+
   return result;
 }
 }  // namespace
@@ -133,29 +130,10 @@ ReadMetalineTask::ReadMetalineTask(MapDataProvider & model, MwmSet::MwmId const 
   , m_isCancelled(false)
 {}
 
-void ReadMetalineTask::Cancel()
-{
-  m_isCancelled = true;
-}
-
-bool ReadMetalineTask::IsCancelled() const
-{
-  return m_isCancelled;
-}
-
 void ReadMetalineTask::Run()
 {
-  if (m_isCancelled)
-    return;
-
-  if (!m_mwmId.IsAlive())
-    return;
-
-  if (m_mwmId.GetInfo()->GetType() != MwmInfo::MwmTypeT::COUNTRY)
-    return;
-
   auto metalines = ReadMetalinesFromFile(m_mwmId);
-  for (auto const & metaline : metalines)
+  for (auto & metaline : metalines)
   {
     if (m_isCancelled)
       return;
@@ -172,17 +150,24 @@ void ReadMetalineTask::Run()
     if (failed)
       continue;
 
-    auto const points = ReadPoints(m_model, metaline);
-    if (points.size() != metaline.m_features.size())
+    auto mergedPoints = MergePoints(ReadPoints(m_model, metaline), metaline.m_features);
+    if (mergedPoints.size() < 2)
       continue;
 
-    std::vector<m2::PointD> const mergedPoints = MergePoints(points, metaline.m_features);
-    if (mergedPoints.empty())
-      continue;
-
-    m2::SharedSpline const spline(mergedPoints);
-    for (auto const & fid : metaline.m_features)
-      m_metalines[fid] = spline;
+    m2::SharedSpline const spline(std::move(mergedPoints));
+    for (auto & fid : metaline.m_features)
+      m_metalines.emplace(std::move(fid), spline);
   }
 }
+
+bool ReadMetalineTask::UpdateCache(MetalineCache & cache)
+{
+  if (m_metalines.empty())
+    return false;
+
+  cache.merge(m_metalines);
+  m_metalines.clear();
+  return true;
+}
+
 }  // namespace df
