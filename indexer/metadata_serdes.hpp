@@ -59,6 +59,7 @@ public:
   using MetaIds = std::vector<std::pair<uint8_t, uint32_t>>;
 
   static std::unique_ptr<MetadataDeserializer> Load(Reader & reader);
+  static std::unique_ptr<MetadataDeserializer> Load(FilesContainerR const & cont);
 
   // Tries to get metadata of the feature with id |featureId|. Returns false if table
   // does not have entry for the feature.

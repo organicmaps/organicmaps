@@ -7,16 +7,11 @@
 
 
 FeaturesVector::FeaturesVector(FilesContainerR const & cont, feature::DataHeader const & header,
-                               feature::FeaturesOffsetsTable const * table)
-: m_loadInfo(cont, header), m_table(table)
+                               feature::FeaturesOffsetsTable const * table,
+                               indexer::MetadataDeserializer * metaDeserializer)
+: m_loadInfo(cont, header), m_table(table), m_metaDeserializer(metaDeserializer)
 {
   InitRecordsReader();
-
-  /// @todo Probably, some kind of lazy m_metaDeserializer will be better here,
-  /// depending on how often FeaturesVector ctor is called.
-  auto metaReader = m_loadInfo.GetMetadataReader();
-  m_metaDeserializer = indexer::MetadataDeserializer::Load(*metaReader.GetPtr());
-  CHECK(m_metaDeserializer, ());
 }
 
 void FeaturesVector::InitRecordsReader()
@@ -34,8 +29,7 @@ void FeaturesVector::InitRecordsReader()
 std::unique_ptr<FeatureType> FeaturesVector::GetByIndex(uint32_t index) const
 {
   auto const ftOffset = m_table ? m_table->GetFeatureOffset(index) : index;
-  return std::make_unique<FeatureType>(&m_loadInfo, m_recordReader->ReadRecord(ftOffset),
-                                       m_metaDeserializer.get());
+  return std::make_unique<FeatureType>(&m_loadInfo, m_recordReader->ReadRecord(ftOffset), m_metaDeserializer);
 }
 
 size_t FeaturesVector::GetNumFeatures() const
@@ -49,12 +43,16 @@ FeaturesVectorTest::FeaturesVectorTest(std::string const & filePath)
 }
 
 FeaturesVectorTest::FeaturesVectorTest(FilesContainerR const & cont)
-  : m_cont(cont), m_header(m_cont), m_vector(m_cont, m_header, nullptr)
+  : m_cont(cont), m_header(m_cont), m_vector(m_cont, m_header, nullptr, nullptr)
 {
   m_vector.m_table = feature::FeaturesOffsetsTable::Load(m_cont).release();
+
+  if (m_cont.IsExist(METADATA_FILE_TAG))
+    m_vector.m_metaDeserializer = indexer::MetadataDeserializer::Load(m_cont).release();
 }
 
 FeaturesVectorTest::~FeaturesVectorTest()
 {
   delete m_vector.m_table;
+  delete m_vector.m_metaDeserializer;
 }

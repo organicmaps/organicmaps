@@ -171,10 +171,13 @@ std::unique_ptr<MwmInfo> DataSource::CreateInfo(platform::LocalCountryFile const
 
 std::unique_ptr<MwmValue> DataSource::CreateValue(MwmInfo & info) const
 {
-  // Create a section with rank table if it does not exist.
   platform::LocalCountryFile const & localFile = info.GetLocalFile();
   auto p = std::make_unique<MwmValue>(localFile);
+
   p->SetTable(dynamic_cast<MwmInfoEx &>(info));
+
+  p->m_metaDeserializer = indexer::MetadataDeserializer::Load(p->m_cont);
+  CHECK(p->m_metaDeserializer, ());
   return p;
 }
 

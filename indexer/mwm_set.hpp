@@ -374,6 +374,7 @@ public:
   platform::LocalCountryFile const m_file;
 
   std::shared_ptr<feature::FeaturesOffsetsTable> m_table;
+  std::unique_ptr<indexer::MetadataDeserializer> m_metaDeserializer;
 
   explicit MwmValue(platform::LocalCountryFile const & localFile);
   void SetTable(MwmInfoEx & info);
