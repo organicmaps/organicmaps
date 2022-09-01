@@ -307,7 +307,7 @@ unique_ptr<RankTable> RankTable::Load(FilesMappingContainer const & mcont, strin
 void SearchRankTableBuilder::CalcSearchRanks(FilesContainerR & rcont, vector<uint8_t> & ranks)
 {
   feature::DataHeader header(rcont);
-  FeaturesVector featuresVector(rcont, header, nullptr /* features offsets table */);
+  FeaturesVector featuresVector(rcont, header, nullptr, nullptr);
 
   featuresVector.ForEach(
       [&ranks](FeatureType & ft, uint32_t /* index */) { ranks.push_back(CalcSearchRank(ft)); });
