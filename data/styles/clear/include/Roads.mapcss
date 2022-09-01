@@ -164,7 +164,7 @@ line[highway=bridleway]
 
 line[highway=track],
 line[highway=raceway],
-line[leisure=track],
+line[leisure=track][!area],
 line[highway=path],
 line[route=hiking],
 line[highway=footway]
@@ -816,8 +816,9 @@ line|z16-[highway=service][bridge?]::bridgeblack
 {casing-linecap: butt;casing-color:@bridge_casing;}
 line|z14-[highway=track],
 line|z14-[highway=raceway],
-line|z14-[leisure=track],
 {color: @track;opacity: 1;}
+line|z15-[leisure=track][!area],
+{color: @sport;opacity: 1;}
 line|z14-[highway=path],
 line|z14-[route=hiking],
 line|z14-[highway=footway][sac_scale],
@@ -929,23 +930,22 @@ line|z19-[highway=proposed]
 
 line|z14[highway=track][tracktype=grade1],
 line|z14[highway=raceway],
-line|z14[leisure=track]
 {width: 1;}
 line|z15[highway=track][tracktype=grade1],
 line|z15[highway=raceway],
-line|z15[leisure=track]
+line|z15[leisure=track][!area]
 {width: 1.5;}
 line|z16[highway=track][tracktype=grade1],
 line|z16[highway=raceway],
-line|z16[leisure=track]
+line|z16[leisure=track][!area]
 {width: 1.8;}
 line|z17-18[highway=track][tracktype=grade1],
 line|z17-18[highway=raceway],
-line|z17-18[leisure=track]
+line|z17-18[leisure=track][!area]
 {width:3;}
 line|z19-[highway=track][tracktype=grade1],
 line|z19-[highway=raceway],
-line|z19-[leisure=track]
+line|z19-[leisure=track][!area]
 {width:4;}
 
 line|z14[highway=track],

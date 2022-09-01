@@ -405,7 +405,7 @@ leisure|dog_park;404;
 aerialway|gondola;405;
 historic|museum;[historic=museum];x;name;int_name;406;tourism|museum
 highway|living_street|bridge;[highway=living_street][bridge?];;name;int_name;407;
-deprecated|deprecated;408;x
+leisure|track|area;[leisure=track][area?];;name;int_name;408;
 railway|monorail;409;
 deprecated|deprecated;410;x
 deprecated|deprecated;411;x
