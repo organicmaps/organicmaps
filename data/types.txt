@@ -405,7 +405,7 @@ mapswithme
 *aerialway|gondola
 tourism|museum
 *highway|living_street|bridge
-mapswithme
+*leisure|track|area
 *railway|monorail
 mapswithme
 mapswithme
