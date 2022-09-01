@@ -586,7 +586,9 @@ world  +
         swimming_pool  +
             private  -
             {}
-        track  -
+        track  +
+            area  -
+            {}
         water_park  -
         {}
     man_made  +
