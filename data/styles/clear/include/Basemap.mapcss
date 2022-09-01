@@ -5,6 +5,7 @@
 3.BOUNDARY
   3.1 Countries
   3.2 Region
+  3.3 Military
 4.VEGETATION
 5.BEACH & GLACIER
 6.WATER
@@ -78,6 +79,7 @@ area[leisure=garden]
 {z-index: 40;}
 
 area[landuse=farmland],
+area[landuse=farmyard],
 area[landuse=allotments],
 area[natural=scrub],
 area[natural=bare_rock],
@@ -154,12 +156,17 @@ line[man_made=breakwater],
 line[man_made=cutline]
 {z-index: 120;}
 
+line[boundary=military]
+{z-index: 125;}
+
 line[boundary=administrative]
 {z-index: 130;}
 
 area[leisure=nature_reserve],
 area[boundary=national_park],
-area[landuse=military]
+area[landuse=military],
+area[landuse=military][military=danger_area][wikipedia?],
+area[landuse=military][military=cordon][wikipedia?]
 {z-index: 140;}
 
 line[natural=cliff],
@@ -246,6 +253,11 @@ line|z9[boundary=administrative][admin_level=4]
 line|z10-[boundary=administrative][admin_level=4]
 {width: 1.2;dashes: 1.8,0.9;}
 
+/* 3.3 Military */
+
+line|z10-[boundary=military]
+{color: @military;opacity: 1;dashes: 1.8,0.9;width: 1.2;}
+
 /* 4.VEGETATION */
 
 area|z10-[landuse=forest],
@@ -305,12 +317,18 @@ area|z12-13[landuse=village_green],
 area|z12-13[landuse=field],
 {fill-color: @green0;}
 
-/* These 3 types are hardcoded to have a hatching-style fill, see drape_frontend/stylist.cpp */
+/* Next types are hardcoded to have a hatching-style fill, see drape_frontend/stylist.cpp */
 area|z10-[leisure=nature_reserve],
 area|z10-[boundary=national_park],
 {fill-position: background; fill-opacity: 0.2; fill-color: @green6;}
+
+area|z10-[landuse=military][military=danger_area][wikipedia?],
+area|z10-[landuse=military][military=cordon][wikipedia?],
+{fill-position: background; fill-opacity: 1.0; fill-color: @military;}
+
 area|z12-[landuse=military]
 {fill-position: background; fill-opacity: 0.5; fill-color: @military;}
+/* End of hardcoded */
 
 area|z14[landuse=forest],
 area|z14[leisure=park],
@@ -576,6 +594,7 @@ area|z15-[landuse=churchyard]
 
 /* 7.8 Agricultural */
 area|z10-[landuse=farmland],
+area|z10-[landuse=farmyard],
 {fill-position: background; fill-color: @farmland; fill-opacity: 1;}
 
 /* Parking */

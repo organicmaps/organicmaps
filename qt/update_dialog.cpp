@@ -1,11 +1,9 @@
 #include "qt/update_dialog.hpp"
-#include "qt/info_dialog.hpp"
 
 #include "storage/downloader_search_params.hpp"
 #include "storage/storage_defines.hpp"
 
 #include "platform/downloader_defines.hpp"
-#include "platform/settings.hpp"
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
@@ -258,25 +256,25 @@ namespace qt
 
     auto const timestamp = m_fillTreeTimestamp;
 
-    DownloaderSearchParams params;
-    params.m_query = m_query;
-    params.m_inputLocale = m_locale;
-    auto const query = m_query;
-
-    params.m_onResults = [this, timestamp, query](DownloaderSearchResults const & results) {
-      Filter filter;
-      for (size_t i = 0; i < results.m_results.size(); ++i)
+    DownloaderSearchParams params{
+      m_query, m_locale,
+      // m_onResults
+      [this, timestamp](DownloaderSearchResults const & results)
       {
-        auto const & res = results.m_results[i];
-        auto const added = filter.emplace(res.m_countryId, make_pair(i + 1, res.m_matchedName));
-        if (!added.second)
-          LOG(LWARNING, ("Duplicate CountryId in results for query:", query));
-      }
+        Filter filter;
+        for (size_t i = 0; i < results.m_results.size(); ++i)
+        {
+          auto const & res = results.m_results[i];
+          auto const added = filter.emplace(res.m_countryId, make_pair(i + 1, res.m_matchedName));
+          if (!added.second)
+            LOG(LWARNING, ("Duplicate CountryId in results for query:", results.m_query));
+        }
 
-      FillTree(filter, timestamp);
+        FillTree(filter, timestamp);
+      }
     };
 
-    m_framework.GetSearchAPI().SearchInDownloader(params);
+    m_framework.GetSearchAPI().SearchInDownloader(std::move(params));
   }
 
   void UpdateDialog::FillTree(optional<Filter> const & filter, uint64_t timestamp)

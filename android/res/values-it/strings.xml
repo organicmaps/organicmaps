@@ -221,6 +221,8 @@
 	<string name="help">Aiuto</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">Domande frequenti</string>
+	<!-- Button in the main menu -->
+	<string name="donate">Donare</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">Come sostenerci?</string>
 	<!-- Button in the main Help dialog -->
@@ -338,9 +340,6 @@
 	<string name="routing_arrive">Arrivo a %s</string>
 	<string name="categories">Categorie</string>
 	<string name="history">Cronologia</string>
-	<string name="opens_in">Apre tra %s</string>
-	<string name="closes_in">Chiude tra %s</string>
-	<string name="closed">Chiuso</string>
 	<string name="search_not_found">Non ho trovato nulla.</string>
 	<string name="search_not_found_query">Prova con un\'altra ricerca.</string>
 	<string name="search_history_title">Cronologia delle ricerche</string>
@@ -384,10 +383,18 @@
 	<string name="day_off_today">Oggi chiuso</string>
 	<string name="day_off">Chiuso</string>
 	<string name="today">Oggi</string>
+	<string name="opens_tomorrow_at">Apre domani alle %s</string>
+	<string name="opens_dayoftheweek_at">Apre %1$s alle %2$s</string>
+	<string name="opens_at">Apre alle %s</string>
+	<string name="opens_in">Apre tra %s</string>
+	<string name="closes_at">Chiude alle %s</string>
+	<string name="closes_in">Chiude tra %s</string>
+	<string name="closed">Chiuso</string>
 	<string name="edit_opening_hours">Modifica orari di apertura</string>
 	<string name="no_osm_account">Non hai un account OpenStreetMap?</string>
 	<string name="register_at_openstreetmap">Iscriviti</string>
 	<string name="login">Accedi</string>
+	<string name="login_osm">Accedi a OpenStreetMap</string>
 	<string name="password">Password</string>
 	<string name="forgot_password">Hai dimenticato la password?</string>
 	<string name="logout">Esci</string>
@@ -410,6 +417,7 @@
 	<!-- login text field -->
 	<string name="email_or_username">E-mail o nome utente</string>
 	<string name="editor_add_phone">Aggiungi numero</string>
+	<string name="level">Piano</string>
 	<string name="downloader_delete_map_dialog">Tutte le tue modifiche alla mappa saranno cancellate insieme alla mappa.</string>
 	<string name="downloader_update_maps">Aggiorna mappe</string>
 	<string name="downloader_mwm_migration_dialog">Per creare un percorso, devi aggiornare tutte le mappe e pianificare nuovamente il percorso.</string>
@@ -428,6 +436,7 @@
 	<string name="editor_report_problem_other_title">Un problema diverso</string>
 	<string name="placepage_add_business_button">Aggiungi attività</string>
 	<string name="message_invalid_feature_position">Nessun oggetto può essere posizionato qui</string>
+	<string name="osm_presentation">Tutti i dati della mappa provengono dal progetto OpenStreetMap. È come Wikipedia per le mappe in cui puoi aggiungere o modificare luoghi e diventano disponibili per milioni di utenti in tutto il mondo.</string>
 	<string name="login_to_make_edits_visible">Accedi per consentire ad altri utenti di vedere le modifiche apportate.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d di %2$d</string>
@@ -485,9 +494,9 @@
 	<string name="placepage_add_place_button">Aggiungi un luogo sulla mappa</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Vuoi inviarlo a tutti gli utenti?</string>
-	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Assicurati di non aver inserito alcun dato personale.</string>
-	<string name="editor_share_to_all_dialog_message_2">Controlleremo le modifiche. Se avremo delle domande, ti contatteremo via e-mail.</string>
+	<string name="editor_share_to_all_dialog_message_2">Gli editori di OpenStreetMap controlleranno le modifiche e si metteranno in contatto con te in caso di domande.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps è un\'applicazione gratuita e open-source di mappe offline. Nessuna pubblicità. Nessun tracciamento. Se vedi un errore sulla mappa, correggilo in OpenStreetMap. Il progetto è creato da appassionati nel nostro tempo libero, quindi abbiamo bisogno del vostro parere e sostegno.</string>
 	<!-- For the first routing -->
@@ -516,7 +525,7 @@
 	<string name="on">Acceso</string>
 	<string name="off">Spento</string>
 	<string name="prefs_languages_information">Usiamo il TTS di sistema per le istruzioni vocali. Molti dispositivi Android utilizzano Google TTS, che puoi scaricare o aggiornare da Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">Per alcune lingue, sarà necessario installare un altro sintetizzatore vocale o un language pack aggiuntivo dall\'app store (Google Play, Samsung Apps, App Gallery, FDroid).\nApri le impostazioni del tuo dispositivo → Lingua e inserimento → Da testo a voce → Motore sintesi vocale.\nQui puoi gestire le impostazioni di sintesi vocale (ad esempio, scaricare una lingua per l\'utilizzo offline) e selezionare un altro motore di sintesi vocale.</string>
+	<string name="prefs_languages_information_off">Per alcune lingue, sarà necessario installare un altro sintetizzatore vocale o un language pack aggiuntivo dall\'app store (Google Play, Galaxy Store, App Gallery, FDroid).\nApri le impostazioni del tuo dispositivo → Lingua e inserimento → Da testo a voce → Motore sintesi vocale.\nQui puoi gestire le impostazioni di sintesi vocale (ad esempio, scaricare una lingua per l\'utilizzo offline) e selezionare un altro motore di sintesi vocale.</string>
 	<string name="prefs_languages_information_off_link">Per maggiori informazioni, consulta questa guida.</string>
 	<string name="transliteration_title">Trascrizione in latino</string>
 	<string name="learn_more">Scopri di più</string>
@@ -749,10 +758,14 @@
 	<string name="type.amenity.parking.permissive">Parcheggio</string>
 	<string name="type.amenity.parking.private">Parcheggio</string>
 	<string name="type.amenity.parking.underground">Parcheggio</string>
+	<string name="type.amenity.parking_entrance.private">Ingresso parcheggio</string>
+	<string name="type.amenity.parking_entrance.permissive">Ingresso parcheggio</string>
+	<string name="type.amenity.parking_entrance">Ingresso parcheggio</string>
 	<string name="type.amenity.parking_space">Parcheggio</string>
 	<string name="type.amenity.parking_space.permissive">Parcheggio</string>
 	<string name="type.amenity.parking_space.private">Parcheggio</string>
 	<string name="type.amenity.parking_space.underground">Parcheggio</string>
+	<string name="type.amenity.parking_space.disabled">Posto auto per disabili</string>
 	<string name="type.amenity.payment_terminal">Terminale di pagamento</string>
 	<string name="type.amenity.pharmacy">Farmacia</string>
 	<string name="type.amenity.place_of_worship">Tempio</string>
@@ -1216,10 +1229,13 @@
 	<string name="type.place.hamlet">Piccolo villaggio</string>
 	<string name="type.place.island">Isola</string>
 	<string name="type.place.islet">Isola</string>
+	<string name="type.place.isolated_dwelling">Abitazione isolata</string>
 	<string name="type.place.locality">Località</string>
+	<string name="type.place.neighbourhood">Quartiere</string>
 	<string name="type.place.ocean">Oceano</string>
 	<string name="type.place.region">Regione</string>
 	<string name="type.place.sea">Mare</string>
+	<string name="type.place.square">Piazza</string>
 	<string name="type.place.state">Provincia</string>
 	<string name="type.place.state.USA">Provincia</string>
 	<string name="type.place.suburb">Quartiere</string>
@@ -1387,6 +1403,12 @@
 	<string name="type.sport.volleyball">Pallavolo</string>
 	<string name="type.sport.9pin">Bowling</string>
 	<string name="type.sport.10pin">Bowling</string>
+	<string name="type.sport.padel">Padel</string>
+	<string name="type.sport.futsal">Futsal</string>
+	<string name="type.sport.ice_hockey">Hockey su ghiaccio</string>
+	<string name="type.sport.field_hockey">Hockey su prato</string>
+	<string name="type.sport.badminton">Badminton</string>
+	<string name="type.sport.pelota">Palla basca</string>
 	<string name="type.tourism.alpine_hut">Hotel di montagna</string>
 	<string name="type.tourism.apartment">Residence</string>
 	<string name="type.tourism.artwork">Opere d\'arte</string>

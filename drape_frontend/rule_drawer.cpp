@@ -2,11 +2,10 @@
 
 #include "drape_frontend/apply_feature_functors.hpp"
 #include "drape_frontend/engine_context.hpp"
+#include "drape_frontend/line_shape.hpp"
 #include "drape_frontend/stylist.hpp"
 #include "drape_frontend/traffic_renderer.hpp"
 #include "drape_frontend/visual_params.hpp"
-
-#include "drape/drape_diagnostics.hpp"
 
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
@@ -17,13 +16,13 @@
 #include "indexer/scales.hpp"
 
 #include "geometry/clipping.hpp"
+#include "geometry/mercator.hpp"
 
 #include "base/assert.hpp"
-#include "base/logging.hpp"
 
-#include "drape_frontend/text_shape.hpp"
-#include "drape_frontend/line_shape.hpp"
 #ifdef DRAW_TILE_NET
+#include "drape/drape_diagnostics.hpp"
+
 #include "drape_frontend/line_shape.hpp"
 #include "drape_frontend/text_shape.hpp"
 
@@ -32,7 +31,6 @@
 
 #include <array>
 #include <functional>
-#include <utility>
 #include <vector>
 
 namespace df
@@ -326,7 +324,7 @@ void RuleDrawer::ProcessLineStyle(FeatureType & f, Stylist const & s,
                                   TInsertShapeFn const & insertShape, int & minVisibleScale)
 {
   int const zoomLevel = m_context->GetTileKey().m_zoomLevel;
-  auto const smooth = ftypes::IsIsolineChecker::Instance()(f);
+  bool const smooth = ftypes::IsIsolineChecker::Instance()(f);
 
   ApplyLineFeatureGeometry applyGeom(m_context->GetTileKey(), insertShape, f.GetID(),
                                      m_currentScaleGtoP, minVisibleScale, f.GetRank(),

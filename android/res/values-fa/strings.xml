@@ -209,6 +209,8 @@
 	<string name="help">کمک</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">ﺦﺳﺎﭘ ﻭ ﺶﺳﺮﭘ</string>
+	<!-- Button in the main menu -->
+	<string name="donate">ﺪﯿﻨﮐ ﺍﺪﻫﺍ</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">چگونه از ما حمایت کنیم؟</string>
 	<!-- Button in the main Help dialog -->
@@ -328,7 +330,6 @@
 	<string name="routing_arrive">ورود به: %s</string>
 	<string name="categories">دسته بندی ها</string>
 	<string name="history">تاریخچه</string>
-	<string name="closed">تعطیل</string>
 	<string name="search_not_found">متاسفانه چیزی پیدا نشد</string>
 	<string name="search_not_found_query">با تغییر در معیار های جست و جو دوباره امتحان کنید</string>
 	<string name="search_history_title">سوابق جست وجو</string>
@@ -372,10 +373,12 @@
 	<string name="day_off_today">امروز تعطیل است</string>
 	<string name="day_off">تعطیل است</string>
 	<string name="today">امروز</string>
+	<string name="closed">تعطیل</string>
 	<string name="edit_opening_hours">ویرایش ساعت کاری</string>
 	<string name="no_osm_account">ایا حساب OpenStreetMap ندارید؟</string>
-	<string name="register_at_openstreetmap">ثبت نام در OSM</string>
+	<string name="register_at_openstreetmap">ثبت نام در OpenStreetMap</string>
 	<string name="login">ورود</string>
+	<string name="login_osm">ﺪﯾﻮﺷ OpenStreetMap ﺩﺭﺍﻭ</string>
 	<string name="password">رمز عبور</string>
 	<string name="forgot_password">رمز عبور خود را فراموش کردید؟</string>
 	<string name="logout">خروج از حساب</string>
@@ -397,6 +400,7 @@
 	<string name="select_cuisine">انتخاب غذاخوری</string>
 	<!-- login text field -->
 	<string name="email_or_username">ایمیل یا نام کاربری</string>
+	<string name="level">طبقه</string>
 	<string name="downloader_delete_map_dialog">تمام ویرایش های که بر روی نقشه انجام داده اید به همراه نقشه حذف شد.</string>
 	<string name="downloader_update_maps">بروزرسانی نقشه ها</string>
 	<string name="downloader_mwm_migration_dialog">برای ایجاد مسیر شما نیازمند بروزرسانی تمامی  نقشه ها هستید سپس می توانید دوباره مسیرتان را برنامه ریزی کنید</string>
@@ -415,6 +419,7 @@
 	<string name="editor_report_problem_other_title">مشکلی دیگر</string>
 	<string name="placepage_add_business_button">اضافه کردن یک تجارت</string>
 	<string name="message_invalid_feature_position">نمی توان شی ای در این مکان باشد</string>
+	<string name="osm_presentation">.ﺪﻧﺮﯿﮔu200cﯽﻣ ﺭﺍﺮﻗ ﺱﺮﺘﺳﺩ ﺭﺩ ﻥﺎﻬﺟ ﺮﺳﺍﺮﺳ ﺭﺩ ﺮﺑﺭﺎﮐ ﺎﻫu200cﻥﻮﯿﻠﯿﻣ ﯼﺍﺮﺑ ﺎﻫu200cﻥﺁ ﻭ</string>
 	<string name="login_to_make_edits_visible">وارد شوید تا دیگر کاربران نیز بتوانند تغییرات ایجاد شده توسط شما را ببینند</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d  از  %2$d</string>
@@ -468,9 +473,9 @@
 	<string name="placepage_add_place_button">اضافه کردن یک مکان به نقشه</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">ایا می خواهید ان را برای دیگر کاربران ارسال کنید؟</string>
-	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">مطمئن شوید که هیچ اطلاعات شخصی وارد نکرده باشد.</string>
-	<string name="editor_share_to_all_dialog_message_2">ما تغییرات را بررسی می کنیم.اگر سوالی بود با ایمیل با شما تماس می گیریم.</string>
+	<string name="editor_share_to_all_dialog_message_2">.ﺖﻓﺮﮔ ﺪﻨﻫﺍﻮﺧ ﺱﺎﻤﺗ ﺎﻤﺷ ﺎﺑ ﻝﺍﻮﺳ ﻪﻧﻮﮔﺮﻫ ﻦﺘﺷﺍﺩ ﺕﺭﻮﺻ ﺭﺩ ﻭ ﻩﺩﺮﮐ ﯽﺳﺭﺮﺑ ﺍﺭ ﺕﺍﺮﯿﯿﻐﺗ Ope</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps یک برنامه نقشه آفلاین رایگان و منبع باز است. بدون تبلیغات بدون ردیابی اگر خطایی روی نقشه مشاهده کردید، لطفاً آن را در OpenStreetMap برطرف کنید. این پروژه توسط علاقه مندان در اوقات فراغت ما ایجاد می شود، بنابراین ما به بازخورد و پشتیبانی شما نیاز داریم.</string>
 	<!-- For the first routing -->
@@ -499,7 +504,7 @@
 	<string name="on">روشن</string>
 	<string name="off">خاموش</string>
 	<string name="prefs_languages_information">ما از TTS سیستم برای دستورالعمل های صوتی استفاده می کنیم. بسیاری از دستگاه های Android از Google TTS استفاده می کنند، شما می توانید آن را از Google Play دانلود کنید (https://play.google.com/store/apps/details؟id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">برای بعضی از زبان ها، شما باید speech synthesizer یا یک بسته زبان دیگر را از فروشگاه برنامه (بازار Google Play، Samsung Apps) نصب کنید. \n تنظیمات دستگاه خود را باز کنید. → زبان و ورودی → گفتار → خروجی متن به گفتار. می توانید تنظیمات برای ترکیب گفتار (به عنوان مثال، بسته های زبان را برای استفاده آفلاین دانلود کنید) را مدیریت کنید و یک موتور دیگر متن به گفتار را انتخاب کنید.</string>
+	<string name="prefs_languages_information_off">برای بعضی از زبان ها، شما باید speech synthesizer یا یک بسته زبان دیگر را از فروشگاه برنامه (بازار Google Play، Galaxy Store) نصب کنید. \n تنظیمات دستگاه خود را باز کنید. → زبان و ورودی → گفتار → خروجی متن به گفتار. می توانید تنظیمات برای ترکیب گفتار (به عنوان مثال، بسته های زبان را برای استفاده آفلاین دانلود کنید) را مدیریت کنید و یک موتور دیگر متن به گفتار را انتخاب کنید.</string>
 	<string name="prefs_languages_information_off_link">برای اطلاعات بیشتر لطفا این راهنما را بررسی کنید.</string>
 	<string name="transliteration_title">ترجمه به لاتین</string>
 	<string name="learn_more">بیشتر بدانید</string>
@@ -662,6 +667,8 @@
 	<string name="enable_screen_sleep_description">درصورت فعال بودن ، بعد از یک دوره عدم فعالیت به صفحه اجازه خواب داده می شود.</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">OpenStreetMap ﺯﺍ ﻪﺸﻘﻧ ﯼﺎﻫ ﻩﺩﺍﺩ</string>
+	<!-- Telegram group url for the help page -->
+	<string name="telegram_url">https://t.me/OrganicMapsIR</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aeroway.aerodrome">فرودگاه</string>
@@ -724,10 +731,14 @@
 	<string name="type.amenity.parking.permissive">پارکینگ</string>
 	<string name="type.amenity.parking.private">پارکینگ</string>
 	<string name="type.amenity.parking.underground">پارکینگ</string>
+	<string name="type.amenity.parking_entrance.private">ﮓﻨﯿﮐﺭﺎﭘ ﯼﺩﻭﺭﻭ</string>
+	<string name="type.amenity.parking_entrance.permissive">ﮓﻨﯿﮐﺭﺎﭘ ﯼﺩﻭﺭﻭ</string>
+	<string name="type.amenity.parking_entrance">ﮓﻨﯿﮐﺭﺎﭘ ﯼﺩﻭﺭﻭ</string>
 	<string name="type.amenity.parking_space">جای پارک</string>
 	<string name="type.amenity.parking_space.permissive">جای پارک</string>
 	<string name="type.amenity.parking_space.private">جای پارک</string>
 	<string name="type.amenity.parking_space.underground">جای پارک</string>
+	<string name="type.amenity.parking_space.disabled">ﻦﯿﻟﻮﻠﻌﻣ ﮎﺭﺎﭘ ﯼﺎﺟ</string>
 	<string name="type.amenity.payment_terminal">دستگاه کارتخوان</string>
 	<string name="type.amenity.pharmacy">داروخانه</string>
 	<string name="type.amenity.place_of_worship">گردشگری</string>
@@ -1092,10 +1103,13 @@
 	<string name="type.place.hamlet">روستا</string>
 	<string name="type.place.island">جزیره</string>
 	<string name="type.place.islet">جزیره</string>
+	<string name="type.place.isolated_dwelling">مسکن منزوی</string>
 	<string name="type.place.locality">محله</string>
+	<string name="type.place.neighbourhood">محله</string>
 	<string name="type.place.ocean">اقیانوس</string>
 	<string name="type.place.region">منطقه</string>
 	<string name="type.place.sea">دریا</string>
+	<string name="type.place.square">میدان</string>
 	<string name="type.place.state">ایالت</string>
 	<string name="type.place.state.USA">ایالت</string>
 	<string name="type.place.suburb">حومه</string>
@@ -1262,6 +1276,12 @@
 	<string name="type.sport.volleyball">والیبال</string>
 	<string name="type.sport.9pin">بولینگ</string>
 	<string name="type.sport.10pin">بولینگ</string>
+	<string name="type.sport.padel">ﻝﺩﺎﭘ</string>
+	<string name="type.sport.futsal">ﻝﺎﺴﺗﻮﻓ</string>
+	<string name="type.sport.ice_hockey">ﺦﯾ ﯼﻭﺭ ﯽﮐﺎﻫ</string>
+	<string name="type.sport.field_hockey">ﻦﻤﭼ ﯼﻭﺭ ﯽﮐﺎﻫ</string>
+	<string name="type.sport.badminton">ﻥﻮﺘﻨﯿﻣﺪﺑ</string>
+	<string name="type.sport.pelota">ﯽﮑﺳﺎﺑ ﯼﺎﺗﻮﻠﭘ</string>
 	<string name="type.tourism.apartment">اپارتمان</string>
 	<string name="type.tourism.artwork">گردشگری</string>
 	<string name="type.tourism.artwork.architecture">گردشگری</string>

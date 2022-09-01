@@ -453,11 +453,11 @@ node|z17-[landuse=residential]::int_name,
 
 area|z14-[leisure=park][name],
 area|z14-[landuse=forest][name],
-area|z16-[leisure=garden][name]
+area|z16-[leisure=garden][garden:type!=residential][name]
 {text: name;text-color: @park_label;text-halo-color: @halo_park_label;text-halo-radius: 0.5;text-halo-opacity: 0.8;icon-min-distance: 10;}
 area|z14-[leisure=park][name]::int_name,
 area|z14-[landuse=forest][name]::int_name,
-area|z16-[leisure=garden][name]::int_name
+area|z16-[leisure=garden][garden:type!=residential][name]::int_name
 {text: int_name;text-color: @park_label;text-halo-color: @halo_park_label;text-halo-radius: 0.5;text-halo-opacity: 0.8;}
 
 /*
@@ -489,21 +489,21 @@ area|z16[landuse=forest][name]
 {icon-image: nparkf-m.svg;text-offset: 1;font-size: 11;}
 area|z16[leisure=park][name]
 {icon-image: park-m.svg;text-offset: 1;font-size: 11;}
-area|z16[leisure=garden][name]
+area|z16[leisure=garden][garden:type!=residential][name]
 {icon-image: garden-m.svg;text-offset: 1;font-size: 11;}
 
 area|z17[landuse=forest][name]
 {icon-image: nparkf-m.svg;text-offset: 1;font-size: 12;}
 area|z17[leisure=park][name]
 {icon-image: park-m.svg;text-offset: 1;font-size: 12;}
-area|z17[leisure=garden][name]
+area|z17[leisure=garden][garden:type!=residential][name]
 {icon-image: garden-m.svg;text-offset: 1;font-size: 12;}
 
 area|z18-[landuse=forest]
 {icon-image: nparkf-m.svg;text-offset: 1;font-size: 13;}
 area|z18-[leisure=park]
 {icon-image: park-m.svg;text-offset: 1;font-size: 13;}
-area|z18-[leisure=garden]
+area|z18-[leisure=garden][garden:type!=residential]
 {icon-image: garden-m.svg;text-offset: 1;font-size: 13;}
 area|z18-[leisure=park]::int_name,
 area|z18-[leisure=garden]::int_name,
@@ -511,11 +511,13 @@ area|z18-[leisure=forest]::int_name
 {text-offset: 1;font-size: 11;}
 
 area|z15-[landuse=farmland],
+area|z15-[landuse=farmyard],
 area|z15-[landuse=allotments],
 area|z15-[landuse=recreation_ground],
 area|z15-[landuse=orchard],
 area|z15-[landuse=vineyard],
 node|z17-[landuse=farmland],
+node|z17-[landuse=farmyard],
 node|z17-[landuse=allotments],
 node|z17-[landuse=recreation_ground],
 node|z17-[landuse=orchard],

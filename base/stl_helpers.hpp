@@ -254,7 +254,7 @@ class BackInsertFunctor
 {
 public:
   explicit BackInsertFunctor(Container & container) : m_Container(container) {}
-  void operator()(typename Container::value_type const & t) const { m_Container.push_back(t); }
+  template <class T> void operator()(T && t) const { m_Container.push_back(std::forward<T>(t)); }
 
 private:
   Container & m_Container;

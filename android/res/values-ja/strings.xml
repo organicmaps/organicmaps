@@ -214,6 +214,8 @@
 	<string name="help">ヘルプ</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">質問と回答</string>
+	<!-- Button in the main menu -->
+	<string name="donate">寄付</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">どのように私たちを支持する方法？</string>
 	<!-- Button in the main Help dialog -->
@@ -333,7 +335,6 @@
 	<string name="routing_arrive">到着予定: %s</string>
 	<string name="categories">カテゴリー</string>
 	<string name="history">履歴</string>
-	<string name="closed">閉鎖</string>
 	<string name="search_not_found">申し訳ありませんが該当するものは見つかりませんでした。</string>
 	<string name="search_not_found_query">別のクエリをお試しください。</string>
 	<string name="search_history_title">検索履歴</string>
@@ -375,10 +376,12 @@
 	<string name="day_off_today">本日終業</string>
 	<string name="day_off">終業</string>
 	<string name="today">今日は</string>
+	<string name="closed">閉鎖</string>
 	<string name="edit_opening_hours">営業時間を編集</string>
 	<string name="no_osm_account">OpenStreetMapのアカウントがありませんか？</string>
 	<string name="register_at_openstreetmap">登録</string>
 	<string name="login">ログイン</string>
+	<string name="login_osm">OpenStreetMapにログイン</string>
 	<string name="password">パスワード</string>
 	<string name="forgot_password">パスワードをお忘れですか？</string>
 	<string name="logout">ログアウト</string>
@@ -398,6 +401,7 @@
 	<string name="select_cuisine">料理を選択</string>
 	<!-- login text field -->
 	<string name="email_or_username">メールアドレスまたはユーザー名</string>
+	<string name="level">階</string>
 	<string name="downloader_delete_map_dialog">この地図を削除すると、今まで行った変更の全ても一緒に削除されます。</string>
 	<string name="downloader_update_maps">地図をアップデート</string>
 	<string name="downloader_mwm_migration_dialog">ルートを作成するには、全ての地図をアップデートした後で再びルート計画を行う必要があります。</string>
@@ -416,6 +420,7 @@
 	<string name="editor_report_problem_other_title">異なる問題</string>
 	<string name="placepage_add_business_button">団体を追加</string>
 	<string name="message_invalid_feature_position">ここにはオブジェクトを配置できません</string>
+	<string name="osm_presentation">すべての地図データは、OpenStreetMap プロジェクトから取得されます。場所を追加または編集できる地図のウィキペディアのようなもので、世界中の何百万人ものユーザーが利用できるようになります。</string>
 	<string name="login_to_make_edits_visible">他のユーザーにも変更が表示されるようログインしてください。</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%2$d中%1$d</string>
@@ -469,9 +474,9 @@
 	<string name="placepage_add_place_button">地図上に場所を追加</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">全てのユーザーに送信しますか？</string>
-	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">個人情報を入力していないことを確認してください。</string>
-	<string name="editor_share_to_all_dialog_message_2">弊社で変更を確認します。質問がある場合はメールでご連絡します。</string>
+	<string name="editor_share_to_all_dialog_message_2">OpenStreetMap の編集者が変更を確認し、質問があれば連絡します。</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Mapsは、無料のオープンソースのオフラインマップアプリケーションです。広告なし。全く追跡しません。地図上にエラーが表示された場合は、OpenStreetMapで修正してください。プロジェクトは私たちの自由な時間に愛好家によって作成されているため、フィードバックとサポートが必要です。</string>
 	<!-- For the first routing -->
@@ -500,7 +505,7 @@
 	<string name="on">オン</string>
 	<string name="off">オフ</string>
 	<string name="prefs_languages_information">音声案内にはシステムの TTS を使用します。多くの Android 端末が Google の TTS を使用しており、Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts) からダウンロードや更新を行うことができます。</string>
-	<string name="prefs_languages_information_off">いくつかの言語では、アプリストアからその他の音声合成または追加の言語パックをインストールする必要があります (Google Play マーケット、Samsung Apps) 。お使いのデバイスで [設定] → [言語と入力] → [音声] → [音声出力] を開いてください。ここで音声合成の設定 (たとえば、オフラインで使用する言語パックのダウンロードなど) を管理し、別の音声合成エンジンを選択することができます。</string>
+	<string name="prefs_languages_information_off">いくつかの言語では、アプリストアからその他の音声合成または追加の言語パックをインストールする必要があります (Google Play マーケット、Galaxy Store) 。お使いのデバイスで [設定] → [言語と入力] → [音声] → [音声出力] を開いてください。ここで音声合成の設定 (たとえば、オフラインで使用する言語パックのダウンロードなど) を管理し、別の音声合成エンジンを選択することができます。</string>
 	<string name="prefs_languages_information_off_link">詳細については、このガイドをご確認ください。</string>
 	<string name="transliteration_title">ラテン文字への字訳</string>
 	<string name="learn_more">詳細情報</string>
@@ -735,10 +740,14 @@
 	<string name="type.amenity.parking.permissive">駐車場</string>
 	<string name="type.amenity.parking.private">駐車場</string>
 	<string name="type.amenity.parking.underground">駐車場</string>
+	<string name="type.amenity.parking_entrance.private">駐車場入口</string>
+	<string name="type.amenity.parking_entrance.permissive">駐車場入口</string>
+	<string name="type.amenity.parking_entrance">駐車場入口</string>
 	<string name="type.amenity.parking_space">駐車スペース</string>
 	<string name="type.amenity.parking_space.permissive">駐車スペース</string>
 	<string name="type.amenity.parking_space.private">駐車スペース</string>
 	<string name="type.amenity.parking_space.underground">駐車スペース</string>
+	<string name="type.amenity.parking_space.disabled">身障者用駐車スペース</string>
 	<string name="type.amenity.payment_terminal">決済端末</string>
 	<string name="type.amenity.pharmacy">薬局</string>
 	<string name="type.amenity.place_of_worship">礼拝</string>
@@ -1252,7 +1261,6 @@
 	<string name="type.office.lawyer">弁護士事務所</string>
 	<string name="type.office.ngo">NGO 事務局</string>
 	<string name="type.office.telecommunication">携帯電話事業者</string>
-	<string name="type.place">地名</string>
 	<string name="type.place.city">市</string>
 	<string name="type.place.city.capital">首都</string>
 	<string name="type.place.city.capital.10">市</string>
@@ -1494,6 +1502,12 @@
 	<string name="type.sport.volleyball">バレーボール</string>
 	<string name="type.sport.9pin">ボウリング</string>
 	<string name="type.sport.10pin">ボウリング</string>
+	<string name="type.sport.padel">パデル</string>
+	<string name="type.sport.futsal">フットサル</string>
+	<string name="type.sport.ice_hockey">アイスホッケー</string>
+	<string name="type.sport.field_hockey">フィールドホッケー</string>
+	<string name="type.sport.badminton">バドミントン</string>
+	<string name="type.sport.pelota">バスクペロタ</string>
 	<string name="type.tourism">観光</string>
 	<string name="type.tourism.alpine_hut">山小屋</string>
 	<string name="type.tourism.apartment">アパート</string>

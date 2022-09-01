@@ -2304,6 +2304,44 @@ cont {
   }
 }
 cont {
+  name: "amenity-parking_space-disabled"
+  element {
+    scale: 15
+    area {
+      color: 15921870
+      priority: -15489
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 15921870
+      priority: -15489
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 16579778
+      priority: -15489
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 16579778
+      priority: -15489
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 16579778
+      priority: -15489
+    }
+  }
+}
+cont {
   name: "amenity-parking_space-permissive"
   element {
     scale: 15
@@ -3704,23 +3742,15 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "vending-m"
+      name: "zero-icon"
       priority: 16000
       min_distance: 20
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15300
     }
   }
   element {
     scale: 18
     symbol {
-      name: "vending-m"
+      name: "fuel-dispenser-m"
       priority: 16000
       min_distance: 20
     }
@@ -3736,7 +3766,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "vending-m"
+      name: "fuel-dispenser-m"
       priority: 16000
       min_distance: 20
     }
@@ -22230,6 +22260,65 @@ cont {
 }
 cont {
   name: "leisure-garden"
+  element {
+    scale: 12
+    area {
+      color: 13031851
+      priority: -15896
+    }
+  }
+  element {
+    scale: 13
+    area {
+      color: 13031851
+      priority: -15896
+    }
+  }
+  element {
+    scale: 14
+    area {
+      color: 13031851
+      priority: -15896
+    }
+  }
+  element {
+    scale: 15
+    area {
+      color: 13031851
+      priority: -15896
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 13163437
+      priority: -15896
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 13163437
+      priority: -15896
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 13163437
+      priority: -15896
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 13163437
+      priority: -15896
+    }
+  }
+}
+cont {
+  name: "leisure-garden-residential"
   element {
     scale: 12
     area {

@@ -9,12 +9,12 @@
 #include <utility>
 #include <vector>
 
+namespace search_string_utils_test
+{
 using namespace search;
 using namespace std;
 using namespace strings;
 
-namespace
-{
 class Utf8StreetTokensFilter
 {
 public:
@@ -60,14 +60,13 @@ string NormalizeAndSimplifyStringUtf8(string const & s)
 {
   return strings::ToUtf8(NormalizeAndSimplifyString(s));
 }
-} // namespace
 
 UNIT_TEST(FeatureTypeToString)
 {
   TEST_EQUAL("!type:123", ToUtf8(FeatureTypeToString(123)), ());
 }
 
-UNIT_TEST(NormalizeAndSimplifyStringWithOurTambourines)
+UNIT_TEST(NormalizeAndSimplifyString_WithOurTambourines)
 {
   // This test is dependent from strings::NormalizeAndSimplifyString implementation.
   // TODO: Fix it when logic with и-й will change.
@@ -96,10 +95,10 @@ UNIT_TEST(NormalizeAndSimplifyStringWithOurTambourines)
                        };
 
   for (size_t i = 0; i < ARRAY_SIZE(arr); i += 2)
-    TEST_EQUAL(arr[i + 1], ToUtf8(NormalizeAndSimplifyString(arr[i])), (i));
+    TEST_EQUAL(arr[i + 1], NormalizeAndSimplifyStringUtf8(arr[i]), ());
 }
 
-UNIT_TEST(Contains)
+UNIT_TEST(NormalizeAndSimplifyString_Contains)
 {
   constexpr char const * kTestStr = "ØøÆæŒœ Ўвага!";
   TEST(ContainsNormalized(kTestStr, ""), ());
@@ -258,9 +257,9 @@ UNIT_TEST(StreetTokensFilter)
 
 UNIT_TEST(NormalizeAndSimplifyString_Numero)
 {
-  TEST_EQUAL(NormalizeAndSimplifyStringUtf8("Зона №51"), "зона 51", ());
-  TEST_EQUAL(NormalizeAndSimplifyStringUtf8("Зона № 51"), "зона 51", ());
-  TEST_EQUAL(NormalizeAndSimplifyStringUtf8("Area #51"), "area 51", ());
-  TEST_EQUAL(NormalizeAndSimplifyStringUtf8("Area # "), "area ", ());
+  TEST_EQUAL(NormalizeAndSimplifyStringUtf8("Зона №51"), "зона #51", ());
+  TEST_EQUAL(NormalizeAndSimplifyStringUtf8("Area № 51"), "area # 51", ());
   TEST_EQUAL(NormalizeAndSimplifyStringUtf8("Area #One"), "area #one", ());
 }
+
+} // namespace search_string_utils_test

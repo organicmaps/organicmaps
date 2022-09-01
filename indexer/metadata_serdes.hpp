@@ -8,17 +8,16 @@
 
 #include "base/stl_helpers.hpp"
 
-#include <cstdint>
 #include <memory>
 #include <mutex>
 #include <string>
 #include <unordered_map>
-#include <utility>
 #include <vector>
 
 namespace feature
 {
 class MetadataBase;
+class Metadata;
 }  // namespace feature
 
 namespace indexer
@@ -88,7 +87,7 @@ private:
 class MetadataBuilder
 {
 public:
-  void Put(uint32_t featureId, feature::MetadataBase const & meta);
+  void Put(uint32_t featureId, feature::Metadata const & meta);
   void Freeze(Writer & writer) const;
 
 private:

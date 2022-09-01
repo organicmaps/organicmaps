@@ -237,6 +237,8 @@
 	<string name="help">Aide</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">Foire aux questions</string>
+	<!-- Button in the main menu -->
+	<string name="donate">Faire un don</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">Comment nous soutenir?</string>
 	<!-- Button in the main Help dialog -->
@@ -356,9 +358,6 @@
 	<string name="routing_arrive">Arrivée: %s</string>
 	<string name="categories">Catégories</string>
 	<string name="history">Historique</string>
-	<string name="opens_in">Ouvert dans %s</string>
-	<string name="closes_in">Fermé dans %s</string>
-	<string name="closed">Fermé</string>
 	<string name="search_not_found">Désolé, je n\'ai rien trouvé.</string>
 	<string name="search_not_found_query">Veuillez essayer un autre mot-clé.</string>
 	<string name="search_history_title">Historique de recherche</string>
@@ -402,10 +401,18 @@
 	<string name="day_off_today">Fermé aujourd\'hui</string>
 	<string name="day_off">Fermé</string>
 	<string name="today">Aujourd\'hui</string>
+	<string name="opens_tomorrow_at">Ouvre demain à %s</string>
+	<string name="opens_dayoftheweek_at">Ouvre le %1$s à %2$s</string>
+	<string name="opens_at">Ouvre à %s</string>
+	<string name="opens_in">Ouvert dans %s</string>
+	<string name="closes_at">Ferme à %s</string>
+	<string name="closes_in">Fermé dans %s</string>
+	<string name="closed">Fermé</string>
 	<string name="edit_opening_hours">Modifier les heures d\'ouverture</string>
 	<string name="no_osm_account">Vous n\'avez pas de compte sur OpenStreetMap?</string>
-	<string name="register_at_openstreetmap">Inscription</string>
+	<string name="register_at_openstreetmap">S\'inscrire sur OpenStreetMap</string>
 	<string name="login">Connexion</string>
+	<string name="login_osm">Se connecter à OpenStreetMap</string>
 	<string name="password">Mot de passe</string>
 	<string name="forgot_password">Mot de passe oublié ?</string>
 	<string name="logout">Déconnexion</string>
@@ -426,6 +433,7 @@
 	<!-- login text field -->
 	<string name="email_or_username">Email ou nom d\'utilisateur</string>
 	<string name="editor_add_phone">Ajouter un numéro de téléphone</string>
+	<string name="level">Étage</string>
 	<string name="downloader_delete_map_dialog">Toutes vos modifications de la carte seront supprimées avec elle.</string>
 	<string name="downloader_update_maps">Mettre à jour les cartes</string>
 	<string name="downloader_mwm_migration_dialog">Pour créer un itinéraire, vous devez mettre à jour toutes les cartes puis reprogrammer l\'itinéraire.</string>
@@ -444,7 +452,8 @@
 	<string name="editor_report_problem_other_title">Un problème différent</string>
 	<string name="placepage_add_business_button">Ajouter une organisation</string>
 	<string name="message_invalid_feature_position">Aucun objet ne peut être localisé ici</string>
-	<string name="login_to_make_edits_visible">Se connecter pour que d\'autres utilisateurs puissent voir les changements que vous avez effectués.</string>
+	<string name="osm_presentation">Toutes les données géographiques proviennent du projet OpenStreetMap. Le principe est similaire à Wikipedia: vous pouvez ajouter et modifier des lieux et ils deviendront accessibles à des millions d\'utilisateurs partout dans le monde.</string>
+	<string name="login_to_make_edits_visible">Connectez vous à votre compte openstreetmap.org pour que d\'autres utilisateurs puissent voir vos changements.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d de %2$d</string>
 	<string name="download_over_mobile_header">Téléchargement avec une connexion réseau cellulaire ?</string>
@@ -499,9 +508,9 @@
 	<string name="placepage_add_place_button">Ajouter un lieu sur la carte</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Souhaitez-vous l’envoyer à tous les utilisateurs ?</string>
-	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Assurez-vous de n’avoir saisi aucunes données personnelles.</string>
-	<string name="editor_share_to_all_dialog_message_2">Nous vérifierons les changements. Si nous avons des questions quelles qu’elles soient, nous vous contacterons par courriel.</string>
+	<string name="editor_share_to_all_dialog_message_2">Les éditeurs d\'OpenStreetMap vérifieront vos modifications et vous contacteront s\'ils ont des questions.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps est une application de cartographie hors ligne gratuite et open source. Pas de pubs. Pas de localisation. Si vous voyez une erreur sur la carte, veuillez la corriger dans OpenStreetMap. Le projet est créé par des passionnés pendant notre temps libre, nous avons donc besoin de vos commentaires et de votre soutien.</string>
 	<!-- For the first routing -->
@@ -530,7 +539,7 @@
 	<string name="on">On</string>
 	<string name="off">Off</string>
 	<string name="prefs_languages_information">Nous utilisons le système TTS pour les instructions vocales. De nombreux appareils Android utilisent Google TTS, vous pouvez le télécharger ou le mettre à jour depuis Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">Pour certaines langues, il vous faudra installer un autre logiciel de synthèse vocale ou un pack de langue supplémentaire depuis l’app store (Google Play, Samsung Apps, App Gallery, FDroid). Ouvrez les paramètres de votre appareil → Langue et saisie → Reconnaissance vocale → Saisie vocale. Ici, vous pouvez gérer les paramètres pour la synthèse vocale (par exemple, télécharger un pack de langue pour une utilisation en mode hors ligne) et sélectionner un autre moteur de saisie vocale.</string>
+	<string name="prefs_languages_information_off">Pour certaines langues, il vous faudra installer un autre logiciel de synthèse vocale ou un pack de langue supplémentaire depuis l’app store (Google Play, Galaxy Store, App Gallery, FDroid). Ouvrez les paramètres de votre appareil → Langue et saisie → Reconnaissance vocale → Saisie vocale. Ici, vous pouvez gérer les paramètres pour la synthèse vocale (par exemple, télécharger un pack de langue pour une utilisation en mode hors ligne) et sélectionner un autre moteur de saisie vocale.</string>
 	<string name="prefs_languages_information_off_link">Pour plus d’informations, veuillez consulter ce guide.</string>
 	<string name="transliteration_title">Translittération en latin</string>
 	<string name="learn_more">En savoir plus</string>
@@ -777,10 +786,14 @@
 	<string name="type.amenity.parking.permissive">Stationnement</string>
 	<string name="type.amenity.parking.private">Stationnement</string>
 	<string name="type.amenity.parking.underground">Parking souterrain</string>
+	<string name="type.amenity.parking_entrance.private">Entrée du stationnement</string>
+	<string name="type.amenity.parking_entrance.permissive">Entrée du stationnement</string>
+	<string name="type.amenity.parking_entrance">Entrée du stationnement</string>
 	<string name="type.amenity.parking_space">Place de stationnement</string>
 	<string name="type.amenity.parking_space.permissive">Place de stationnement</string>
 	<string name="type.amenity.parking_space.private">Place de stationnement</string>
 	<string name="type.amenity.parking_space.underground">Place de stationnement</string>
+	<string name="type.amenity.parking_space.disabled">Place de stationnement handicapé</string>
 	<string name="type.amenity.payment_terminal">Terminal de paiement</string>
 	<string name="type.amenity.pharmacy">Pharmacie</string>
 	<string name="type.amenity.place_of_worship">Lieu de culte</string>
@@ -1313,6 +1326,7 @@
 	<string name="type.place.city.capital.7">Ville</string>
 	<string name="type.place.city.capital.8">Ville</string>
 	<string name="type.place.city.capital.9">Ville</string>
+	<string name="type.place.continent">Continent</string>
 	<string name="type.place.country">Pays</string>
 	<string name="type.place.county">Comté</string>
 	<string name="type.place.farm">Ferme</string>
@@ -1321,6 +1335,7 @@
 	<string name="type.place.islet">Île</string>
 	<string name="type.place.isolated_dwelling">Lieu-dit</string>
 	<string name="type.place.locality">Lieu-dit</string>
+	<string name="type.place.neighbourhood">Quartier</string>
 	<string name="type.place.ocean">Océan</string>
 	<string name="type.place.region">Région</string>
 	<string name="type.place.sea">Mer</string>
@@ -1329,6 +1344,7 @@
 	<string name="type.place.state.USA">État</string>
 	<string name="type.place.suburb">Quartier</string>
 	<string name="type.place.town">Ville</string>
+	<string name="type.place.village">Village</string>
 	<string name="type.power.pole">Poteau électrique</string>
 	<string name="type.power.substation">Poste électrique</string>
 	<string name="type.power.tower">Poteau électrique</string>
@@ -1514,6 +1530,12 @@
 	<string name="type.sport.volleyball">Volley-ball</string>
 	<string name="type.sport.9pin">Bowling</string>
 	<string name="type.sport.10pin">Bowling</string>
+	<string name="type.sport.padel">Padel</string>
+	<string name="type.sport.futsal">Futsal</string>
+	<string name="type.sport.ice_hockey">Hockey sur glace</string>
+	<string name="type.sport.field_hockey">Hockey sur gazon</string>
+	<string name="type.sport.badminton">Badminton</string>
+	<string name="type.sport.pelota">Pelote basque</string>
 	<string name="type.tourism.alpine_hut">Refuge de montagne</string>
 	<string name="type.tourism.apartment">Appart\'hôtel</string>
 	<string name="type.tourism.artwork">Œuvre</string>

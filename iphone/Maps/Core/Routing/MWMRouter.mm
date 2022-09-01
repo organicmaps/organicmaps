@@ -88,6 +88,12 @@ char const *kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeIm
 + (BOOL)IsRouteValid {
   return GetFramework().GetRoutingManager().IsRouteValid();
 }
+
++ (BOOL)isSpeedCamLimitExceeded
+{
+  return GetFramework().GetRoutingManager().IsSpeedCamLimitExceeded();
+}
+
 + (NSArray<MWMRoutePoint *> *)points {
   NSMutableArray<MWMRoutePoint *> *points = [@[] mutableCopy];
   auto const routePoints = GetFramework().GetRoutingManager().GetRoutePoints();

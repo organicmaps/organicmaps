@@ -80,8 +80,20 @@
 	<string name="maps_storage_summary">Haritaların indirileceği yeri seçin</string>
 	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
 	<string name="maps_storage_downloaded">Haritalar</string>
+	<!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
+	<string name="maps_storage_internal">Dahili özel depolama</string>
+	<!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
+	<string name="maps_storage_shared">Dahili paylaşılan depolama</string>
+	<!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
+	<string name="maps_storage_removable">SD kart</string>
+	<!-- Generic external storage type in Maps Storage settings -->
+	<string name="maps_storage_external">Harici paylaşılan depolama</string>
+	<!-- Free space out of total storage size in Maps Storage settings, e.g. "300 MB free of 2 GB" -->
+	<string name="maps_storage_free_size">%2$s\'ın %1$s\'ı boş</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Haritalar taşınsın mı?</string>
+	<!-- Error moving map files from one storage to another -->
+	<string name="move_maps_error">Harita dosyalarını taşıma hatası</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
 	<string name="wait_several_minutes">Bu işlem birkaç dakika sürebilir.\nLütfen bekleyin…</string>
 	<!-- Measurement units title in settings activity -->
@@ -225,6 +237,8 @@
 	<string name="help">Yardım</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">Sıkça Sorulan Sorular</string>
+	<!-- Button in the main menu -->
+	<string name="donate">Bağış yapmak</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">Sizi nasıl destekleyebilirim?</string>
 	<!-- Button in the main Help dialog -->
@@ -344,9 +358,6 @@
 	<string name="routing_arrive">Varış: %s</string>
 	<string name="categories">Kategoriler</string>
 	<string name="history">Geçmiş</string>
-	<string name="opens_in">%s sonra açılıyor</string>
-	<string name="closes_in">%s sonra kapanıyor</string>
-	<string name="closed">Kapalı</string>
 	<string name="search_not_found">Üzgünüz, hiç bir şey bulamadık.</string>
 	<string name="search_not_found_query">Lütfen başka bir sorgu girin.</string>
 	<string name="search_history_title">Arama Geçmişi</string>
@@ -390,10 +401,18 @@
 	<string name="day_off_today">Bugün kapalı</string>
 	<string name="day_off">Kapalı</string>
 	<string name="today">Bugün</string>
-	<string name="edit_opening_hours">İş saatlerini düzenle</string>
-	<string name="no_osm_account">OpenStreetMap hesabın yok mu?</string>
+	<string name="opens_tomorrow_at">Açılış yarın %s</string>
+	<string name="opens_dayoftheweek_at">Açılış %1$s %2$s</string>
+	<string name="opens_at">Açılış %s</string>
+	<string name="opens_in">%s sonra açılıyor</string>
+	<string name="closes_at">Kapanış %s</string>
+	<string name="closes_in">%s sonra kapanıyor</string>
+	<string name="closed">Kapalı</string>
+	<string name="edit_opening_hours">Çalışma saatlerini düzenle</string>
+	<string name="no_osm_account">OpenStreetMap hesabınız yok mu?</string>
 	<string name="register_at_openstreetmap">Kaydol</string>
 	<string name="login">Oturum aç</string>
+	<string name="login_osm">OpenStreetMap\'e giriş yapın</string>
 	<string name="password">Şifre</string>
 	<string name="forgot_password">Şifreni mi unuttun?</string>
 	<string name="logout">Oturumu kapat</string>
@@ -416,6 +435,7 @@
 	<!-- login text field -->
 	<string name="email_or_username">E-posta veya kullanıcı adı</string>
 	<string name="editor_add_phone">Telefon Ekle</string>
+	<string name="level">Zemin</string>
 	<string name="downloader_delete_map_dialog">Harita ile birlikte tüm harita değişiklikleri de silinecektir.</string>
 	<string name="downloader_update_maps">Haritaları güncelle</string>
 	<string name="downloader_mwm_migration_dialog">Bir rota oluşturmak için tüm haritaları güncellemeli ve ardından rotayı tekrar planlamalısınız.</string>
@@ -434,6 +454,7 @@
 	<string name="editor_report_problem_other_title">Farklı bir sorun</string>
 	<string name="placepage_add_business_button">Kuruluş ekle</string>
 	<string name="message_invalid_feature_position">Buraya bir nesne konumlandırılamıyor</string>
+	<string name="osm_presentation">Tüm harita verileri OpenStreetMap projesinden gelir. Yer ekleyebileceğiniz veya düzenleyebileceğiniz haritalar için Wikipedia gibidir ve bunlar tüm dünyada milyonlarca kullanıcı tarafından kullanılabilir hale gelir.</string>
 	<string name="login_to_make_edits_visible">Diğer kullanıcıların yaptığınız değişiklikleri görebilmesi için oturum açın</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d/%2$d</string>
@@ -494,9 +515,9 @@
 	<string name="placepage_add_place_button">Haritaya bir yer ekle</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Bunu tüm kullanıcılara göndermek ister misiniz?</string>
-	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Herhangi bir kişisel bilgi girmediğinizden emin olun.</string>
-	<string name="editor_share_to_all_dialog_message_2">Değişikliği kontrol edeceğiz. Eğer herhangi bir sorumuz olursa sizinle e-posta aracılığıyla iletişime geçeceğiz.</string>
+	<string name="editor_share_to_all_dialog_message_2">OpenStreetMap editörleri değişiklikleri kontrol edecek ve soruları olursa sizinle iletişime geçecektir.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps, reklam ve izleyici içermeyen hızlı ve ücretsiz bir çevrimdışı harita uygulamasıdır. Haritalar kitle kaynaklı OpenStreetMap.org verilerine dayanmaktadır, böylece kendiniz harita hatalarını düzeltebilir ve haritaya yeni nesneler ekleyebilirsiniz. Organic Maps, teknoloji tutkunlarının boş zamanlarında oluşturduğu açık kaynaklı bir projedir. Geri bildirim ve desteğinize çok değer veriyoruz!</string>
 	<!-- For the first routing -->
@@ -525,7 +546,7 @@
 	<string name="on">Aç</string>
 	<string name="off">Kapat</string>
 	<string name="prefs_languages_information">Sesli yönlendirme için TTS sistemini kullanıyoruz. Çoğu Android cihaz, Google TTS\'yi kullanıyor. Uygulamayı, Google Play\'den indirebilir veya güncelleyebilirsiniz (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">Bazı diller için uygulama mağazasından (Google Play, Samsung Apps, App Gallery, FDroid) farklı bir konuşma sentezleyicisi veya ek bir dil paketi yüklemeniz gerekebilir. Cihaz ayarları → Dil ve Giriş → Konuşma → Metin Okuma seçeneğini açın. Buradan konuşma sentezi ayarlarını yönetebilir (örneğin, çevrimdışı kullanım için bir dil paketini karşıdan yükleyebilir) ve başka bir metin okuma motorunu seçebilirsiniz.</string>
+	<string name="prefs_languages_information_off">Bazı diller için uygulama mağazasından (Google Play, Galaxy Store, App Gallery, FDroid) farklı bir konuşma sentezleyicisi veya ek bir dil paketi yüklemeniz gerekebilir. Cihaz ayarları → Dil ve Giriş → Konuşma → Metin Okuma seçeneğini açın. Buradan konuşma sentezi ayarlarını yönetebilir (örneğin, çevrimdışı kullanım için bir dil paketini karşıdan yükleyebilir) ve başka bir metin okuma motorunu seçebilirsiniz.</string>
 	<string name="prefs_languages_information_off_link">Daha fazla bilgi için lütfen bu kılavuzu inceleyin.</string>
 	<string name="transliteration_title">Latin harf çevirisi</string>
 	<string name="learn_more">Daha fazla bilgi edinin</string>
@@ -698,7 +719,11 @@
 	<!-- Description in preferences -->
 	<string name="enable_show_on_lock_screen_description">Etkinleştirildiğinde, uygulama çalışırken her seferinde cihazınızın kilidini açmanıza gerek kalmaz.</string>
 	<!-- OpenStreetMap text on splash screen -->
-	<string name="splash_subtitle">OpenStreetMap\'ten harita verileri</string>
+	<string name="splash_subtitle">Harita verileri OpenStreetMap\'ten</string>
+	<!-- Telegram group url for the help page -->
+	<string name="telegram_url">https://t.me/OrganicMapsTR</string>
+	<!-- Instagram account url for the help page -->
+	<string name="instagram_url">https://www.instagram.com/organicmapstr</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway">Teleferik</string>
@@ -776,10 +801,14 @@
 	<string name="type.amenity.parking.permissive">Otopark</string>
 	<string name="type.amenity.parking.private">Otopark</string>
 	<string name="type.amenity.parking.underground">Otopark</string>
+	<string name="type.amenity.parking_entrance.private">Otopark girişi</string>
+	<string name="type.amenity.parking_entrance.permissive">Otopark girişi</string>
+	<string name="type.amenity.parking_entrance">Otopark girişi</string>
 	<string name="type.amenity.parking_space">Park Alanı</string>
 	<string name="type.amenity.parking_space.permissive">Park Alanı</string>
 	<string name="type.amenity.parking_space.private">Park Alanı</string>
 	<string name="type.amenity.parking_space.underground">Park Alanı</string>
+	<string name="type.amenity.parking_space.disabled">Engelli park yeri</string>
 	<string name="type.amenity.payment_terminal">Ödeme Noktası</string>
 	<string name="type.amenity.pharmacy">Eczane</string>
 	<string name="type.amenity.place_of_worship">İbadet Yerleri</string>
@@ -1327,7 +1356,6 @@
 	<string name="type.office.lawyer">Avukatlık Bürosu</string>
 	<string name="type.office.ngo">STK Binası</string>
 	<string name="type.office.telecommunication">Cep Telefonu Operatörü</string>
-	<string name="type.place">Yer</string>
 	<string name="type.place.city">Şehir</string>
 	<string name="type.place.city.capital">Başkent</string>
 	<string name="type.place.city.capital.10">Şehir</string>
@@ -1574,6 +1602,12 @@
 	<string name="type.sport.volleyball">Voleybol</string>
 	<string name="type.sport.9pin">Bowling</string>
 	<string name="type.sport.10pin">Bowling</string>
+	<string name="type.sport.padel">Padel</string>
+	<string name="type.sport.futsal">Futsal</string>
+	<string name="type.sport.ice_hockey">Buz Hokeyi</string>
+	<string name="type.sport.field_hockey">Çim Hokeyi</string>
+	<string name="type.sport.badminton">Badminton</string>
+	<string name="type.sport.pelota">Bask pelotası</string>
 	<string name="type.tourism">Turizm</string>
 	<string name="type.tourism.alpine_hut">Dağda Konaklama</string>
 	<string name="type.tourism.apartment">Apart Otel</string>

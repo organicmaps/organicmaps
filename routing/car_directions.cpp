@@ -53,7 +53,7 @@ void FixupCarTurns(vector<RouteSegment> & routeSegments)
       ASSERT(enterRoundAbout == kInvalidEnter, ("It's not expected to find new EnterRoundAbout until previous EnterRoundAbout was leaved."));
       enterRoundAbout = idx;
       ASSERT(exitNum == 0, ("exitNum is reset at start and after LeaveRoundAbout."));
-      exitNum = 0;
+      exitNum = t.m_exitNum; // Normally it is 0, but sometimes it can be 1.
     }
     else if (t.m_turn == CarDirection::StayOnRoundAbout)
     {
@@ -415,7 +415,7 @@ void CorrectRightmostAndLeftmost(vector<TurnCandidate> const & turnCandidates,
     // If yes - this candidate is rightmost, not route's one.
     if (candidate->m_angle < kMaxAbsAngleConsideredLeftOrRightMost)
       break;
-  };
+  }
 }
 
 void GetTurnDirectionBasic(IRoutingResult const & result, size_t const outgoingSegmentIndex,
@@ -461,6 +461,9 @@ void GetTurnDirectionBasic(IRoutingResult const & result, size_t const outgoingS
   if (turnInfo.m_ingoing->m_onRoundabout || turnInfo.m_outgoing->m_onRoundabout)
   {
     turn.m_turn = GetRoundaboutDirection(turnInfo, nodes, numMwmIds);
+    // If there is 1 or more exits (nodes.candidates > 1) right at the enter it should be counted. Issue #3027.
+    if (turn.m_turn == CarDirection::EnterRoundAbout && nodes.candidates.size() > 1)
+      turn.m_exitNum = 1;
     return;
   }
 
@@ -598,7 +601,7 @@ size_t CheckUTurnOnRoute(IRoutingResult const & result, size_t const outgoingSeg
 }
 
 bool FixupLaneSet(CarDirection turn, vector<SingleLaneInfo> & lanes,
-                  function<bool(LaneWay l, CarDirection t)> checker)
+                  function<bool(LaneWay l, CarDirection t)> const & checker)
 {
   bool isLaneConformed = false;
   // There are two nested loops below. (There is a for-loop in checker.)

@@ -503,12 +503,6 @@
 
 "history" = "Historia";
 
-"opens_in" = "Opens in %@";
-
-"closes_in" = "Closes in %@";
-
-"closed" = "Zamknięte";
-
 "search_not_found" = "Przepraszamy, nic nie znaleziono.";
 
 "search_not_found_query" = "Wpisz inne zapytanie.";
@@ -578,6 +572,20 @@
 
 "today" = "Dzisiaj";
 
+"opens_tomorrow_at" = "Opens tomorrow at %@";
+
+"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
+
+"opens_at" = "Opens at %@";
+
+"opens_in" = "Opens in %@";
+
+"closes_at" = "Closes at %@";
+
+"closes_in" = "Closes in %@";
+
+"closed" = "Zamknięte";
+
 "add_opening_hours" = "Dodaj godziny otwarcia";
 
 "no_osm_account" = "Nie masz konta w OpenStreetMap?";
@@ -629,6 +637,8 @@
 "email_or_username" = "Email lub nazwa użytkownika";
 
 "phone" = "Telefon";
+
+"level" = "Kondygnacja";
 
 "please_note" = "Uwaga!";
 
@@ -750,6 +760,8 @@
 
 "miles_per_hour" = "mph";
 
+"hour" = "godz";
+
 "minute" = "min";
 
 "placepage_place_description" = "Opis";
@@ -798,10 +810,10 @@
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Czy chcesz wysłać je wszystkim użytkownikom?";
 
-/* iOS Dialog before publishing the modifications to the public map. */
+/* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "Upewnij się, że nie podałeś osobistych danych.";
 
-"editor_share_to_all_dialog_message_2" = "Zapoznamy się ze zmianami. W przypadku pytań skontaktujemy się z Tobą przez email.";
+"editor_share_to_all_dialog_message_2" = "Redaktorzy OpenStreetMap sprawdzą zmiany i skontaktują się z Tobą, jeśli będą mieli jakiekolwiek pytania.";
 
 "navigation_stop_button" = "stop";
 
@@ -1205,6 +1217,12 @@
 /* edit track screen title */
 "track_title" = "Trasa";
 
+/* Telegram group url for the help page */
+"telegram_url" = "https://t.me/OrganicMapsApp";
+
+/* Instagram account url for the help page */
+"instagram_url" = "https://www.instagram.com/organicmaps.app";
+
 
 /********** Types **********/
 
@@ -1356,6 +1374,12 @@
 
 "type.amenity.parking.underground" = "Parking podziemny";
 
+"type.amenity.parking_entrance.private" = "Wejście na parking";
+
+"type.amenity.parking_entrance.permissive" = "Wejście na parking";
+
+"type.amenity.parking_entrance" = "Wejście na parking";
+
 "type.amenity.parking_space" = "Miejsce parkingowe";
 
 "type.amenity.parking_space.permissive" = "Miejsce parkingowe";
@@ -1363,6 +1387,8 @@
 "type.amenity.parking_space.private" = "Miejsce parkingowe";
 
 "type.amenity.parking_space.underground" = "Miejsce parkingowe";
+
+"type.amenity.parking_space.disabled" = "Miejsce parkingowe dla niepełnosprawnych";
 
 "type.amenity.payment_terminal" = "Wpłatomat";
 
@@ -2468,8 +2494,6 @@
 
 "type.organic.yes" = "Organic";
 
-"type.place" = "Miejsce";
-
 "type.place.city" = "Miasto";
 
 "type.place.city.capital" = "Stolica";
@@ -2970,6 +2994,18 @@
 "type.sport.9pin" = "Bowling";
 
 "type.sport.10pin" = "Bowling";
+
+"type.sport.padel" = "Padel";
+
+"type.sport.futsal" = "Futsal";
+
+"type.sport.ice_hockey" = "Hokej na lodzie";
+
+"type.sport.field_hockey" = "Hokej na trawie";
+
+"type.sport.badminton" = "Badminton";
+
+"type.sport.pelota" = "Pelota baskijska";
 
 "type.tourism" = "Turystyka";
 

@@ -2188,6 +2188,49 @@
     zh-Hans = 停车场
     zh-Hant = 停車場
 
+  [type.amenity.parking_entrance.private]
+    ref = type.amenity.parking_entrance
+
+  [type.amenity.parking_entrance.permissive]
+    ref = type.amenity.parking_entrance
+
+  [type.amenity.parking_entrance]
+    en = Parking entrance
+    ar = ﺕﺍﺭﺎﻴﺴﻟﺍ ﻑﻮﻗﻭ ﻞﺧﺪﻣ
+    be = Уваход на паркоўку
+    bg = Вход за паркинг
+    cs = Vjezd na parkoviště
+    da = Parkeringsindgang
+    de = Parkplatzeinfahrt
+    el = Είσοδος στάθμευσης
+    es = Entrada al aparcamiento
+    eu = Aparkalekuaren sarrera
+    fa = ﮓﻨﯿﮐﺭﺎﭘ ﯼﺩﻭﺭﻭ
+    fi = Pysäköinti sisäänkäynti
+    fr = Entrée du stationnement
+    he = הינחל הסינכ
+    hu = Parkoló bejárata
+    id = Pintu masuk parkir
+    it = Ingresso parcheggio
+    ja = 駐車場入口
+    ko = 주차장 입구
+    nb = Parkeringsinngang
+    nl = Parkeeringang
+    pl = Wejście na parking
+    pt = Entrada do estacionamento
+    pt-BR = Entrada do estacionamento
+    ro = Intrare parcare
+    ru = Въезд на парковку
+    sk = Vstup na parkovisko
+    sv = Parkering entré
+    sw = Mlango wa maegesho
+    th = ทางเข้าที่จอดรถ
+    tr = Otopark girişi
+    uk = Вхід на паркінг
+    vi = Lối vào bãi đậu xe
+    zh-Hans = 停车场入口
+    zh-Hant = 停車場入口
+
   [type.amenity.parking_space]
     en = Parking Space
     ar = مكان لوقوف السيارات
@@ -2331,6 +2374,42 @@
     vi = Chỗ để xe
     zh-Hans = 停车位
     zh-Hant = 停車地點
+
+  [type.amenity.parking_space.disabled]
+    en = Disabled Parking Space
+    ar = ﺔﺻﺎﺨﻟﺍ ﺕﺎﺟﺎﻴﺘﺣﻻ﻿ﺍ ﻱﻭﺬﻟ ﺕﺍﺭﺎﻴﺴﻟﺍ ﻑﻮﻗﻮﻟ ﻦﻛﺎﻣﺃ
+    be = Паркоўка для інвалідаў
+    bg = Паркомясто за инвалиди
+    cs = Parkovací místo pro invalidy
+    da = Handicapparkeringsplads
+    de = Behindertenparkplatz
+    el = Χώρος στάθμευσης για ΑΜΕΑ
+    es = Plaza de aparcamiento para discapacitados
+    eu = Ezinduentzako aparkalekua
+    fa = ﻦﯿﻟﻮﻠﻌﻣ ﮎﺭﺎﭘ ﯼﺎﺟ
+    fi = Vammaispysäköinti
+    fr = Place de stationnement handicapé
+    he = םיכנל הינח
+    hu = Mozgássérült parkolóhely
+    id = Tempat parkir penyandang cacat
+    it = Posto auto per disabili
+    ja = 身障者用駐車スペース
+    ko = 장애인 주차 공간
+    nb = Parkeringsplass for funksjonshemmede
+    nl = Invalide parkeerplaats
+    pl = Miejsce parkingowe dla niepełnosprawnych
+    pt = Estacionamento para deficientes
+    ro = Loc de parcare pentru persoane cu handicap
+    ru = Парковочное место для инвалидов
+    sk = Parkovacie miesto pre invalidov
+    sv = Handikappparkeringsplats
+    sw = Nafasi ya maegesho iliyozimwa
+    th = ที่จอดรถสำหรับผู้พิการ
+    tr = Engelli park yeri
+    uk = Паркомісце для інвалідів
+    vi = Chỗ đậu xe dành cho người khuyết tật
+    zh-Hans = 残疾人停车位
+    zh-Hant = 殘疾人停車位
 
   [type.amenity.payment_terminal]
     en = Payment Terminal
@@ -5555,7 +5634,7 @@
 
   [type.cuisine.barbecue]
     en = Barbecue
-    ar = مشويات
+    ar = شواء
     cs = Grilované pokrmy
     da = Barbecue
     de = Grill
@@ -5722,6 +5801,7 @@
 
   [type.cuisine.bubble_tea]
     en = Bubble Tea
+    ar = شاي الفقاعات
     be = Чай з бурбалкамі
     es = Té de burbujas
     eu = Burbuila tea
@@ -5764,7 +5844,7 @@
 
   [type.cuisine.buschenschank]
     en = Buschenschank
-    ar = البيرة
+    ar = مطبخ هنغاري
     cs = Buschenschank
     da = Buschenschank
     de = Buschenschank
@@ -5932,7 +6012,7 @@
 
   [type.cuisine.coffee_shop]
     en = Coffee
-    ar = ﺓﻮﻬﻗ
+    ar = قهوة
     cs = Káva
     da = Kaffe
     de = Kaffee
@@ -6100,7 +6180,7 @@
 
   [type.cuisine.diner]
     en = Diner
-    ar = العشاء
+    ar = عشاء
     cs = Večeře
     da = Diner
     de = Diner
@@ -6299,7 +6379,7 @@
 
   [type.cuisine.fish_and_chips]
     en = Fish and Chips
-    ar = سمك و رقائق البطاطس
+    ar = سمك ورقائق البطاطا
     cs = Ryba a hranolky
     da = Fish and chips
     de = Fish and Chips
@@ -6365,7 +6445,7 @@
 
   [type.cuisine.friture]
     en = Friture
-    ar = وجبات سريعة
+    ar = وجبات مقلية
     cs = Smažené pokrmy
     da = Friture
     de = Pommes
@@ -6530,7 +6610,6 @@
 
   [type.cuisine.heuriger]
     en = Heuriger
-    ar = البيرة
     cs = Heuriger
     da = Heuriger
     de = Heuriger
@@ -6596,7 +6675,7 @@
 
   [type.cuisine.hungarian]
     en = Hungarian
-    ar = مطبخ مجري
+    ar = مطبخ هنغاري
     cs = Maďarská kuchyně
     da = Ungarsk
     de = Ungarisch
@@ -6831,7 +6910,7 @@
 
   [type.cuisine.italian_pizza]
     en = Italian, Pizza
-    ar = مطبخ إيطالي؛بيتزا
+    ar = مطبخ إيطالي، بيتزا
     cs = Italská, pizza
     da = Italiensk, pizza
     de = Italienisch; Pizza
@@ -7072,7 +7151,7 @@
 
   [type.cuisine.malagasy]
     en = Malagasy
-    ar = مدغشقر
+    ar = مطبخ مدغشقري
     cs = Madagaskarská kuchyně
     da = Madagaskisk
     de = Madegassisch
@@ -7404,7 +7483,7 @@
 
   [type.cuisine.peruvian]
     en = Peruvian
-    ar = بيرو
+    ar = مطبخ من دولة بيرو
     cs = Peruánská kuchyně
     da = Peruviansk
     de = Peruanisch
@@ -8136,6 +8215,7 @@
 
   [type.emergency]
     en = Emergency
+    ar = طوارئ
     de = Notfall
     fr = Urgence
     mr = आणीबाणी
@@ -8284,7 +8364,7 @@
 
   [type.healthcare.laboratory]
     en = Medical Laboratory
-    ar = ﺔﻴﺒﻄﻟﺍ ﺕﺍﺮﺒﺘﺨﻤﻟﺍ
+    ar = مختبر طبي
     be = Медыцынская лабараторыя
     bg = Медицинска лаборатория
     cs = Lékařská laboratoř
@@ -8324,6 +8404,7 @@
 
   [type.highway]
     en = Highway
+    ar = طريق السريع
     de = Straße
     ja = 道路
     mr = महामार्ग
@@ -8379,7 +8460,7 @@
     fr = Arrêt de bus
     hu = Buszmegálló
     id = Halte bus
-    it = Fermata
+    it = Fermata dell'autobus
     ja = バス停
     ko = 버스 정류장
     mr = बस थांबा
@@ -8437,6 +8518,7 @@
 
   [type.highway.cycleway]
     en = Cycle Path
+    ar = مسار للدراجات
     de = Radweg
     es = Ciclovía
     eu = Bizikletabidea
@@ -8471,6 +8553,7 @@
   [type.highway.elevator]
     en = Elevator
     en-GB = Lift
+    ar = مِصعَد
     de = Aufzug
     es = Ascensor
     eu = Igogailua
@@ -8483,7 +8566,7 @@
 
   [type.highway.footway]
     en = Foot Path
-    ar = مسار
+    ar = مسار للمشي
     cs = Cesta
     da = Sti
     de = Fußweg
@@ -8526,6 +8609,7 @@
   [type.highway.footway.area]
     ref = type.highway.footway
     en = Pedestrian Zone
+    ar = منطقة مشاة
     mr = पादचारी झोन
     pl = Obszar chodnika
     pt-BR = Área de pedestres
@@ -8536,6 +8620,7 @@
   [type.highway.footway.bridge]
     ref = type.highway.road.bridge
     en = Pedestrian Bridge
+    ar = جسر للمشاة
     mr = पादचारी पूल
     pl = Most dla pieszych
     pt-BR = Ponte para pedestres
@@ -8582,6 +8667,7 @@
   [type.highway.footway.tunnel]
     ref = type.highway.road.tunnel
     en = Pedestrian Tunnel
+    ar = نفق للمشاة
     de = Fußgängertunnel
     mr = पादचारी बोगदा
     pl = Tunel dla pieszych
@@ -8667,7 +8753,7 @@
 
   [type.highway.motorway]
     en = Motorway
-    ar = شارع
+    ar = طريق سريع
     cs = Ulice
     da = Gade
     de = Autobahn
@@ -8811,6 +8897,7 @@
   [type.highway.path.bicycle]
     ref = type.highway.path
     en = Cycle & Foot Path
+    ar = مسار للمشاة والدراجات معاً
     de = Radweg
     mr = सायकल आणि पाऊलवाट
     pl = Ścieżka dla rowerów
@@ -8864,7 +8951,7 @@
 
   [type.highway.pedestrian]
     en = Pedestrian Street
-    ar = شارع
+    ar = شارع للمشاة
     cs = Ulice
     da = Gade
     de = Fußgängerzone
@@ -8924,7 +9011,7 @@
 
   [type.highway.primary]
     en = Primary Road
-    ar = شارع
+    ar = شارع رئيسي
     cs = Ulice
     da = Gade
     de = Hauptstraße
@@ -9130,7 +9217,7 @@
   [type.highway.road.bridge]
     comment = These translations are used for all type.highway.*.bridge.
     en = Bridge
-    ar = كوبري
+    ar = جسر
     be = Мост
     bg = Мост
     cs = Most
@@ -9209,7 +9296,7 @@
 
   [type.highway.secondary]
     en = Secondary Road
-    ar = شارع
+    ar = شارع ثانوي
     cs = Ulice
     da = Gade
     de = Straße
@@ -9392,7 +9479,7 @@
 
   [type.highway.steps]
     en = Stairs
-    ar = مسار
+    ar = درج
     cs = Cesta
     da = Sti
     de = Stufen
@@ -9596,7 +9683,7 @@
 
   [type.highway.trunk]
     en = National Highway
-    ar = شارع
+    ar = شارع وطني
     cs = Ulice
     da = Gade
     de = Schnellstraße
@@ -9656,7 +9743,7 @@
 
   [type.highway.unclassified]
     en = Minor Road
-    ar = شارع
+    ar = شارع صغير
     cs = Ulice
     da = Gade
     de = Straße
@@ -9768,6 +9855,7 @@
 
   [type.historic]
     en = Historic
+    ar = مكان تاريخي
     de = Historisches Objekt
     ja = 史跡
     mr = ऐतिहासिक
@@ -9818,6 +9906,7 @@
 
   [type.historic.battlefield]
     en = Battlefield
+    ar = ساحة معركة تاريخية
     de = Schlachtfeld
     fr = Champ de bataille
     ja = 古戦場
@@ -9833,6 +9922,7 @@
 
   [type.historic.boundary_stone]
     en = Boundary Stone
+    ar = حجر لتحديد الحدود
     de = Grenzstein
     fr = Borne frontière
     ja = 境界標
@@ -9880,7 +9970,7 @@
 
   [type.historic.castle.defensive]
     en = Castle
-    ar = قلعة
+    ar = قلعة دفاعية
     cs = Zámek
     da = Slot
     de = Burg
@@ -9946,6 +10036,7 @@
 
   [type.historic.citywalls]
     en = City Wall
+    ar = جدار المدينة
     de = Stadtmauer
     fr = Muraille
     ja = 歴史的な城壁
@@ -9961,6 +10052,7 @@
 
   [type.historic.fort]
     en = Fort
+    ar = قلعة
     de = Festung
     fr = Fort militaire
     ja = 歴史的な要塞
@@ -10008,7 +10100,7 @@
 
   [type.historic.memorial.plaque]
     en = Commemorative plaque
-    ar = نصب تذكاري
+    ar = لوحة تذكارية
     cs = Pomník
     da = Mindesmærke
     de = Gedenktafel
@@ -10039,7 +10131,7 @@
 
   [type.historic.memorial.sculpture]
     en = Sculpture
-    ar = نصب تذكاري
+    ar = منحوتة تذكارية
     cs = Pomník
     da = Mindesmærke
     de = Skulptur
@@ -10071,7 +10163,7 @@
 
   [type.historic.memorial.statue]
     en = Statue
-    ar = نصب تذكاري
+    ar = تمثال تذكاري
     cs = Pomník
     da = Mindesmærke
     de = Statue
@@ -10164,7 +10256,7 @@
 
   [type.historic.ship]
     en = Ship
-    ar = سياحة
+    ar = سفينة تاريخية
     cs = Pamětihodnost
     da = Turisme
     de = Schiff
@@ -10198,7 +10290,7 @@
 
   [type.historic.tomb]
     en = Tomb
-    ar = سياحة
+    ar = قبر
     cs = Pamětihodnost
     da = Turisme
     de = Grabstätte
@@ -10232,6 +10324,7 @@
 
   [type.historic.wayside_cross]
     en = Christian Cross
+    ar = صليب مسيحي
     de = Wegkreuz
     fr = Croix
     ja = 歴史的な十字架
@@ -10247,6 +10340,7 @@
 
   [type.historic.wayside_shrine]
     en = Shrine
+    ar = ضريح
     de = Bildstock
     fr = Oratoire
     ja = 歴史的な祠
@@ -10301,7 +10395,7 @@
 
   [type.internet_access]
     en = Internet
-    ar = واي فاي
+    ar = إنترنت
     el = Ίντερνετ
     fa = وای فای
     ja = インターネット
@@ -10318,7 +10412,7 @@
 
   [type.internet_access.wlan]
     en = Internet
-    ar = واي فاي
+    ar = إنترنت لا سلكي
     el = Ίντερνετ
     fa = وای فای
     ja = インターネット
@@ -10335,6 +10429,7 @@
 
   [type.junction]
     en = Junction
+    ar = تقاطع
     ja = 交差点
     mr = जंक्शन
     pl = Skrzyżowanie
@@ -10347,6 +10442,7 @@
 
   [type.junction.roundabout]
     en = Roundabout
+    ar = دوّار
     de = Kreisverkehr
     es = Rotonda
     eu = Biribilgunea
@@ -10485,6 +10581,7 @@
 
   [type.landuse.commercial]
     en = Commercial Area
+    ar = منطقة تجارية
     de = Gewerbegebiet
     fr = Zone commerciale
     ja = 商業用地
@@ -10499,6 +10596,7 @@
 
   [type.landuse.construction]
     en = Construction
+    ar = منطقة بناء
     de = Baustelle
     fr = Chantier de construction
     ja = 建設工事中
@@ -10513,6 +10611,7 @@
 
   [type.landuse.education]
     en = Educational Facilities
+    ar = مؤسسات تعليمية
     be = Адукацыйныя ўстановы
     es = Instalaciones educativas
     fr = Établissements éducatifs
@@ -10524,6 +10623,7 @@
 
   [type.landuse.farm]
     en = Farm
+    ar = مزرعة
     de = Bauernhof
     ja = 農地
     mr = शेत
@@ -10586,6 +10686,7 @@
 
   [type.landuse.field]
     en = Field
+    ar = حقل
     de = Feld
     fr = Champ
     mr = क्षेत्र
@@ -10632,7 +10733,7 @@
 
   [type.landuse.forest.coniferous]
     en = Coniferous Forest
-    ar = غابة
+    ar = غابة صنوبرية
     cs = Les
     da = Skov
     de = Nadelwald
@@ -10666,7 +10767,7 @@
 
   [type.landuse.forest.deciduous]
     en = Deciduous Forest
-    ar = غابة
+    ar = غابة تتساقط أوراقها
     cs = Les
     da = Skov
     de = Laubwald
@@ -10700,7 +10801,7 @@
 
   [type.landuse.forest.mixed]
     en = Mixed Forest
-    ar = غابة
+    ar = غابة مختلطة
     cs = Les
     da = Skov
     de = Mischwald
@@ -10747,7 +10848,7 @@
 
   [type.landuse.grass]
     en = Lawn
-    ar = حديقة
+    ar = عشب
     cs = Trávník
     da = Græsplæne
     de = Wiese
@@ -10783,6 +10884,7 @@
 
   [type.landuse.greenfield]
     en = Greenfield
+    ar = مساحة خضراء
     de = Rohbauland
     fr = Terrain vierge
     ja = 建設予定地
@@ -10810,6 +10912,7 @@
 
   [type.landuse.industrial]
     en = Industrial Land
+    ar = منطقة صناعية
     de = Industriegebiet
     fr = Zone industrielle
     ja = 工業用地
@@ -10874,6 +10977,7 @@
 
   [type.landuse.military]
     en = Military Area
+    ar = منطقة عسكرية
     de = Militärgebiet
     fr = Terrain militaire
     ja = 軍用地
@@ -10888,6 +10992,7 @@
 
   [type.landuse.orchard]
     en = Orchard
+    ar = بستان
     de = Obstplantage
     fr = Vergers
     ja = 果樹園
@@ -10998,6 +11103,7 @@
 
   [type.landuse.residential]
     en = Residential Land
+    ar = منطقة سكنية
     de = Wohngebiet
     fr = Zone résidentielle
     ja = 住宅地
@@ -11012,6 +11118,7 @@
 
   [type.landuse.retail]
     en = Retail Land
+    ar = منطقة متاجر
     de = Einzelhandelsgebiet
     fr = Zone commerciale
     ja = 小売店エリア
@@ -11026,6 +11133,7 @@
 
   [type.landuse.salt_pond]
     en = Pond
+    ar = مستنقع
     de = Saline
     fr = Marais salant
     ja = 塩田
@@ -11051,6 +11159,7 @@
 
   [type.landuse.vineyard]
     en = Vineyard
+    ar = حقل عنب
     de = Weinberg
     fr = Vignes
     ja = ブドウ園
@@ -11194,7 +11303,7 @@
 
   [type.leisure.garden]
     en = Garden
-    ar = بستان
+    ar = حديقة
     cs = Zahrada
     da = Have
     de = Garten
@@ -11298,7 +11407,7 @@
 
   [type.leisure.nature_reserve]
     en = Nature Reserve
-    ar = محمية
+    ar = محمية طبيعية
     cs = Rezervace
     da = Reservat
     de = Naturschutzgebiet
@@ -11441,7 +11550,7 @@
 
   [type.leisure.park.private]
     en = Park
-    ar = موقف سيارات
+    ar = موقف سيارات خاص
     cs = Park
     da = Park
     de = Park
@@ -11642,7 +11751,7 @@
 
   [type.leisure.sports_centre]
     en = Sports Center
-    ar = رياضة
+    ar = مركز رياضي
     cs = Sportovní centrum
     da = Idrætscenter
     de = Sportzentrum
@@ -11747,7 +11856,7 @@
 
   [type.leisure.stadium]
     en = Stadium
-    ar = استاد
+    ar = استاد أو مدّرج
     cs = Stadion
     de = Stadion
     el = Γήπεδο
@@ -11779,7 +11888,7 @@
 
   [type.leisure.swimming_pool]
     en = Swimming Pool
-    ar = حوض سباحة
+    ar = مسبح
     be = Басейн
     bg = Басейн
     cs = Koupaliště
@@ -11815,6 +11924,7 @@
 
   [type.leisure.swimming_pool.private]
     ref = type.leisure.swimming_pool
+    ar = مسبح خاص
 
   [type.leisure.track]
     en = Track
@@ -11865,6 +11975,7 @@
 
   [type.leisure.beach_resort]
     en = Beach Resort
+    ar = منتجع شاطئي
     mr = समुद्री रिसॉर्ट
     ru = Пляжный курорт
     tr = Sahil Tatil Yeri
@@ -11966,6 +12077,7 @@
 
   [type.man_made.flagpole]
     en = Flagpole
+    ar = سارية علم
     be = Флагшток
     fr = Mât de drapeau
     mr = ध्वजस्तंभ
@@ -12018,6 +12130,7 @@
 
   [type.man_made.pier]
     en = Pier
+    ar = رصيف بحري
     de = Anlegestelle
     fr = Jetée
     ja = 桟橋
@@ -12058,6 +12171,7 @@
 
   [type.man_made.silo]
     en = Silo
+    ar = صومعة
     be = Сілас
     de = Silo
     mr = पेव(धान्यसाठा)
@@ -12315,6 +12429,7 @@
 
   [type.military]
     en = Military
+    ar = جيش
     de = Militärisches Objekt
     ja = 軍事
     mr = लष्करी
@@ -12327,7 +12442,7 @@
 
   [type.military.bunker]
     en = Bunker
-    ar = مأوى
+    ar = ملجأ
     cs = Bunkr
     de = Bunker
     el = Στρατιωτική αποθήκη
@@ -16631,7 +16746,7 @@
     fr = Arrêt de tramway
     hu = Villamosmegálló
     id = Perhentian trem
-    it = Fermata
+    it = Fermata del tram
     ja = トラム
     ko = 트램 정류장
     mr = ट्राम थांबा
@@ -21123,6 +21238,222 @@
     zh-Hans = 保龄球
     zh-Hant = 保齡球
 
+  [type.sport.padel]
+    en = Padel
+    ar = ﻞﻳﺩﺎﺑ
+    be = Падэль
+    bg = Падел
+    cs = Padel
+    da = Padel
+    de = Padel
+    el = Padel
+    es = Pádel
+    eu = Padel
+    fa = ﻝﺩﺎﭘ
+    fi = Padel
+    fr = Padel
+    he = לדאפ
+    hu = Padel
+    id = Padel
+    it = Padel
+    ja = パデル
+    ko = 파델
+    nb = Padel
+    nl = Padel
+    pl = Padel
+    pt = Padel
+    ro = Padel
+    ru = Падель
+    sk = Padel
+    sv = Padel
+    sw = Padel
+    th = พาเดล
+    tr = Padel
+    uk = Падель
+    vi = Padel
+    zh-Hans = 帕德尔
+    zh-Hant = 帕德爾
+
+  [type.sport.futsal]
+    en = Futsal
+    ar = كرة الصالات
+    be = Футзал
+    bg = Футзал
+    cs = Futsal
+    da = Futsal
+    de = Futsal
+    el = Futsal
+    es = Futsal
+    eu = Areto-futbola
+    fa = ﻝﺎﺴﺗﻮﻓ
+    fi = Futsal
+    fr = Futsal
+    he = לסטופ
+    hu = Futsal
+    id = Futsal
+    it = Futsal
+    ja = フットサル
+    ko = 풋살
+    nb = Futsal
+    nl = Futsal
+    pl = Futsal
+    pt = Futsal
+    ro = Futsal
+    ru = Футзал
+    sk = Futsal
+    sv = Futsal
+    sw = Futsal
+    th = ฟุตซอล
+    tr = Futsal
+    uk = Футзал
+    vi = Futsal
+    zh-Hans = 五人制足球
+    zh-Hant = 五人制足球
+
+  [type.sport.ice_hockey]
+    en = Ice Hockey
+    ar = هوكي الجليد
+    be = Хакей з шайбай
+    bg = Хокей на лед
+    cs = Lední hokej
+    da = Ishockey
+    de = Eishockey
+    el = Χόκεϊ στον παγο
+    es = Hockey sobre hielo
+    eu = Izotz hockey
+    fa = ﺦﯾ ﯼﻭﺭ ﯽﮐﺎﻫ
+    fi = Jääkiekko
+    fr = Hockey sur glace
+    he = חרק יקוה
+    hu = Jéghoki
+    id = Hoki es
+    it = Hockey su ghiaccio
+    ja = アイスホッケー
+    ko = 아이스 하키
+    nb = Ishockey
+    nl = Ijshockey
+    pl = Hokej na lodzie
+    pt = Hóquei no gelo
+    ro = Hochei pe gheata
+    ru = Хоккей с шайбой
+    sk = Ľadový hokej
+    sv = Ishockey
+    sw = Hoki ya barafu
+    th = ฮอคกี้น้ำแข็ง
+    tr = Buz Hokeyi
+    uk = Хокей із шайбою
+    vi = Khúc côn cầu trên băng
+    zh-Hans = 冰球
+    zh-Hant = 冰球
+
+  [type.sport.field_hockey]
+    en = Field Hockey
+    ar = ﻥﺍﺪﻴﻤﻟﺍ ﻲﻛﻮﻫ
+    be = Хакей на траве
+    bg = Хокей на трева
+    cs = Pozemní hokej
+    da = Landhockey
+    de = Feldhockey
+    el = Χόκεϊ επί χόρτου
+    es = Hockey sobre césped
+    eu = Belar hockey
+    fa = ﻦﻤﭼ ﯼﻭﺭ ﯽﮐﺎﻫ
+    fi = Maahockey
+    fr = Hockey sur gazon
+    he = הדש יקוה
+    hu = Gyeplabda
+    id = Hoki Lapangan
+    it = Hockey su prato
+    ja = フィールドホッケー
+    ko = 필드 하키
+    nb = Landhockey
+    nl = Veld hockey
+    pl = Hokej na trawie
+    pt = Hóquei em campo
+    ro = Hochei pe iarbă
+    ru = Хоккей на траве
+    sk = Pozemný hokej
+    sv = Landhockey
+    sw = Hoki ya shamba
+    th = กีฬาฮอกกี้
+    tr = Çim Hokeyi
+    uk = Хокей на траві
+    vi = Khúc côn cầu
+    zh-Hans = 曲棍球
+    zh-Hant = 曲棍球
+
+  [type.sport.badminton]
+    en = Badminton
+    ar = ﺔﺸﻳﺮﻟﺍ ﺲﻨﺗ
+    be = Бадмінтон
+    bg = Бадминтон
+    cs = Badminton
+    da = Badminton
+    de = Badminton
+    el = Αντιπτέριση
+    es = Bádminton
+    eu = Badminton
+    fa = ﻥﻮﺘﻨﯿﻣﺪﺑ
+    fi = Sulkapallo
+    fr = Badminton
+    he = תיצונ
+    hu = Tollaslabda
+    id = Bulu tangkis
+    it = Badminton
+    ja = バドミントン
+    ko = 배드민턴
+    nb = Badminton
+    nl = Badminton
+    pl = Badminton
+    pt = Badminton
+    ro = Badminton
+    ru = Бадминтон
+    sk = Bedminton
+    sv = Badminton
+    sw = Badminton
+    th = แบดมินตัน
+    tr = Badminton
+    uk = Бадмінтон
+    vi = Cầu lông
+    zh-Hans = 羽毛球
+    zh-Hant = 羽毛球
+
+  [type.sport.pelota]
+    en = Basque pelota
+    ar = ﻚﺳﺎﺒﻟﺍ ﺎﺗﻮﻠﻴﺑ
+    be = Баскская пелота
+    bg = Баска пелота
+    cs = Baskická pelota
+    da = Baskisk pelota
+    de = Pelota Vasca
+    el = Βασκική πελότα
+    es = Pelota vasca
+    eu = Eusko pilota
+    fa = ﯽﮑﺳﺎﺑ ﯼﺎﺗﻮﻠﭘ
+    fi = Baskimaan pelota
+    fr = Pelote basque
+    he = תיקסאב הטלפ
+    hu = Baszk pelota
+    id = Basque pelota
+    it = Palla basca
+    ja = バスクペロタ
+    ko = 바스크 펠로타
+    nb = Baskisk pelota
+    nl = Baskische peloton
+    pl = Pelota baskijska
+    pt = Pelota basca
+    ro = Pilota bascilor
+    ru = Баскская пелота
+    sk = Baskická pelota
+    sv = Baskisk pelota
+    sw = Basque pelota
+    th = Basque pelota
+    tr = Bask pelotası
+    uk = Баскська пелота
+    vi = Pơ mu Basque
+    zh-Hans = 巴斯克回力球
+    zh-Hant = 巴斯克回力球
+
   [type.tourism]
     en = Tourism
     de = Tourismus
@@ -22524,7 +22855,7 @@
 
   [type.waterway.waterfall]
     en = Waterfall
-    ar = شلال
+    ar = شلّال
     cs = Vodopád
     da = Vandfald
     de = Wasserfall

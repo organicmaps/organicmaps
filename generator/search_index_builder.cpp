@@ -14,14 +14,12 @@
 #include "indexer/classificator.hpp"
 #include "indexer/data_source.hpp"
 #include "indexer/feature_algo.hpp"
-#include "indexer/feature_impl.hpp"
 #include "indexer/feature_utils.hpp"
 #include "indexer/feature_visibility.hpp"
 #include "indexer/features_vector.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/postcodes_matcher.hpp"
 #include "indexer/scales_patch.hpp"
-#include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
 #include "indexer/trie_builder.hpp"
 
@@ -31,8 +29,6 @@
 #include "coding/reader_writer_ops.hpp"
 #include "coding/succinct_mapper.hpp"
 #include "coding/writer.hpp"
-
-#include "geometry/mercator.hpp"
 
 #include "base/assert.hpp"
 #include "base/checked_cast.hpp"
@@ -136,8 +132,11 @@ void GetCategoryTypes(CategoriesHolder const & categories, pair<int, int> scaleR
 }
 
 template <typename Key, typename Value>
-struct FeatureNameInserter
+class FeatureNameInserter
 {
+  strings::UniString m_Str, m_Strasse;
+
+public:
   FeatureNameInserter(uint32_t index, SynonymsHolder * synonyms,
                       vector<pair<Key, Value>> & keyValuePairs, bool hasStreetType)
     : m_val(index)
@@ -145,6 +144,8 @@ struct FeatureNameInserter
     , m_keyValuePairs(keyValuePairs)
     , m_hasStreetType(hasStreetType)
   {
+    m_Strasse = strings::MakeUniString("strasse");
+    m_Str = strings::MakeUniString("str");
   }
 
   void AddToken(uint8_t lang, strings::UniString const & s) const
@@ -160,49 +161,45 @@ struct FeatureNameInserter
   // Adds search tokens for different ways of writing strasse:
   // Hauptstrasse -> Haupt strasse, Hauptstr.
   // Haupt strasse  -> Hauptstrasse, Hauptstr.
-  void AddStrasseNames(signed char lang, search::QueryTokens const & tokens) const
+  void AddStrasseNames(int8_t lang, std::vector<strings::UniString> const & tokens) const
   {
-    auto static const kStrasse = strings::MakeUniString("strasse");
-    auto static const kStr = strings::MakeUniString("str");
     for (size_t i = 0; i < tokens.size(); ++i)
     {
       auto const & token = tokens[i];
 
-      if (!strings::EndsWith(token, kStrasse))
+      if (!strings::EndsWith(token, m_Strasse))
         continue;
 
-      if (token == kStrasse)
+      if (token == m_Strasse)
       {
         if (i != 0)
         {
-          AddToken(lang, tokens[i - 1] + kStrasse);
-          AddToken(lang, tokens[i - 1] + kStr);
+          AddToken(lang, tokens[i - 1] + m_Strasse);
+          AddToken(lang, tokens[i - 1] + m_Str);
         }
       }
       else
       {
-        auto const name = strings::UniString(token.begin(), token.end() - kStrasse.size());
+        auto const name = strings::UniString(token.begin(), token.end() - m_Strasse.size());
         AddToken(lang, name);
-        AddToken(lang, name + kStr);
+        AddToken(lang, name + m_Str);
       }
     }
   }
 
-  void operator()(signed char lang, string_view name) const
+  void operator()(int8_t lang, string_view name) const
   {
-    // split input string on tokens
-    search::QueryTokens tokens;
-    SplitUniString(search::NormalizeAndSimplifyString(name),
-                   base::MakeBackInsertFunctor(tokens), search::Delimiters());
+    /// @todo No problem here if we will have duplicating tokens? (POI name like "Step by Step").
+    auto tokens = search::NormalizeAndTokenizeString(name);
 
     // add synonyms for input native string
     if (m_synonyms)
     {
       /// @todo Avoid creating temporary std::string.
       m_synonyms->ForEach(std::string(name), [&](string const & utf8str)
-                          {
-                            tokens.push_back(search::NormalizeAndSimplifyString(utf8str));
-                          });
+      {
+        tokens.push_back(search::NormalizeAndSimplifyString(utf8str));
+      });
     }
 
     static_assert(search::kMaxNumTokens > 0, "");
@@ -218,6 +215,7 @@ struct FeatureNameInserter
       search::StreetTokensFilter filter(
           [&](strings::UniString const & token, size_t /* tag */) { AddToken(lang, token); },
           false /* withMisprints */);
+
       for (auto const & token : tokens)
         filter.Put(token, false /* isPrefix */, 0 /* tag */);
 
@@ -266,7 +264,7 @@ bool InsertPostcodes(FeatureType & f, function<void(strings::UniString const &)>
   }
 
   for (auto const & pc : postcodes)
-    SplitUniString(NormalizeAndSimplifyString(pc), fn, Delimiters());
+    ForEachNormalizedToken(pc, fn);
   return useNameAsPostcode;
 }
 

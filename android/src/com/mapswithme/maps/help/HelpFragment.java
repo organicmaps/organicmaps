@@ -1,6 +1,7 @@
 package com.mapswithme.maps.help;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
+import com.mapswithme.util.Config;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.Utils;
@@ -22,6 +24,8 @@ import java.text.SimpleDateFormat;
 
 public class HelpFragment extends BaseMwmFragment implements View.OnClickListener
 {
+  private String mDonateUrl;
+
   private void setupItem(@IdRes int id, boolean tint, @NonNull View frame)
   {
     TextView view = frame.findViewById(id);
@@ -47,6 +51,7 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
   {
+    mDonateUrl = Config.getDonateUrl();
     View root = inflater.inflate(R.layout.about, container, false);
 
     ((TextView) root.findViewById(R.id.version))
@@ -67,13 +72,16 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
     setupItem(R.id.openstreetmap, true, root);
     setupItem(R.id.faq, true, root);
     setupItem(R.id.report, true, root);
-    if ("google".equalsIgnoreCase(BuildConfig.FLAVOR))
+    if (TextUtils.isEmpty(mDonateUrl))
     {
-      TextView view = root.findViewById(R.id.support_us);
-      view.setVisibility(View.GONE);
+      TextView donateView = root.findViewById(R.id.donate);
+      donateView.setVisibility(View.GONE);
+      TextView supportUsView = root.findViewById(R.id.support_us);
+      supportUsView.setVisibility(View.GONE);
     }
     else
     {
+      setupItem(R.id.donate, true, root);
       setupItem(R.id.support_us, true, root);
     }
     setupItem(R.id.rate, true, root);
@@ -114,9 +122,9 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
     else if (id == R.id.github)
       openLink(Constants.Url.GITHUB);
     else if (id == R.id.telegram)
-      openLink(Constants.Url.TELEGRAM);
+      openLink(getString(R.string.telegram_url));
     else if (id == R.id.instagram)
-      openLink(Constants.Url.INSTAGRAM);
+      openLink(getString(R.string.instagram_url));
     else if (id == R.id.facebook)
       Utils.showFacebookPage(getActivity());
     else if (id == R.id.twitter)
@@ -131,6 +139,8 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
       Utils.sendBugReport(getActivity(), "");
     else if (id == R.id.support_us)
       openLink(Constants.Url.SUPPORT_US);
+    else if (id == R.id.donate)
+      openLink(mDonateUrl);
     else if (id == R.id.rate)
       Utils.openAppInMarket(getActivity(), BuildConfig.REVIEW_URL);
     else if (id == R.id.copyright)

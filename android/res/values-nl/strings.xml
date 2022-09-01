@@ -218,6 +218,8 @@
 	<string name="help">Hulp</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">Vragen en antwoorden</string>
+	<!-- Button in the main menu -->
+	<string name="donate">Doneren</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">Hoe ons te steunen?</string>
 	<!-- Button in the main Help dialog -->
@@ -337,7 +339,6 @@
 	<string name="routing_arrive">Aankomst: %s</string>
 	<string name="categories">Categorieën</string>
 	<string name="history">Geschiedenis</string>
-	<string name="closed">Gesloten</string>
 	<string name="search_not_found">Sorry, ik heb niets gevonden.</string>
 	<string name="search_not_found_query">Probeer een andere zoekopdracht.</string>
 	<string name="search_history_title">Zoekgeschiedenis</string>
@@ -379,10 +380,12 @@
 	<string name="day_off_today">Vrije dag vandaag</string>
 	<string name="day_off">Vrije dag</string>
 	<string name="today">Vandaag</string>
+	<string name="closed">Gesloten</string>
 	<string name="edit_opening_hours">Openingsuren bewerken</string>
 	<string name="no_osm_account">Geen account bij OpenStreetMap?</string>
 	<string name="register_at_openstreetmap">Registeren</string>
 	<string name="login">Log in</string>
+	<string name="login_osm">Inloggen op OpenStreetMap</string>
 	<string name="password">Wachtwoord</string>
 	<string name="forgot_password">Wachtwoord vergeten?</string>
 	<string name="logout">Uitloggen</string>
@@ -402,6 +405,7 @@
 	<string name="select_cuisine">Selecteer Keuken</string>
 	<!-- login text field -->
 	<string name="email_or_username">Emailadres of gebruikersnaam</string>
+	<string name="level">Etage</string>
 	<string name="downloader_delete_map_dialog">Alle wijzigingen aan de kaart zullen samen met de kaart worden verwijderd.</string>
 	<string name="downloader_update_maps">Kaarten updaten</string>
 	<string name="downloader_mwm_migration_dialog">Om een route te creëren, moet je alle kaarten updaten en dan de route opnieuw plannen.</string>
@@ -420,6 +424,7 @@
 	<string name="editor_report_problem_other_title">Een ander probleem</string>
 	<string name="placepage_add_business_button">Een organisatie toevoegen</string>
 	<string name="message_invalid_feature_position">Hier kan geen object worden geplaatst</string>
+	<string name="osm_presentation">Alle kaartgegevens komen uit het OpenStreetMap-project. Het is als Wikipedia voor kaarten waar je plaatsen kunt toevoegen of bewerken, en ze worden beschikbaar voor miljoenen gebruikers over de hele wereld.</string>
 	<string name="login_to_make_edits_visible">Log in zodat andere gebruikers kunnen zien wat u hebt gewijzigd.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d van %2$d</string>
@@ -473,9 +478,9 @@
 	<string name="placepage_add_place_button">Een plek toevoegen aan de kaart</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Wil je het naar alle gebruikers sturen?</string>
-	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Controleer dat je geen persoonlijke gegevens hebt ingevoerd.</string>
-	<string name="editor_share_to_all_dialog_message_2">We zullen de wijzigingen controleren. Als we nog vragen hebben, zullen we contact met je opnemen via email.</string>
+	<string name="editor_share_to_all_dialog_message_2">OpenStreetMap-editors zullen de wijzigingen controleren en contact met u opnemen als ze vragen hebben.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps is een gratis en open-source offline kaartentoepassing. Geen advertenties. Geen volgen. Als je een fout op de kaart ziet, corrigeer deze dan in OpenStreetMap. Het project is gemaakt door enthousiastelingen in onze vrije tijd, dus we hebben uw feedback en ondersteuning nodig.</string>
 	<!-- For the first routing -->
@@ -504,7 +509,7 @@
 	<string name="on">Aan</string>
 	<string name="off">Uit</string>
 	<string name="prefs_languages_information">We gebruiken het TTS-systeem voor gesproken instructies. Vele Android toestellen gebruiken Google TTS, u kunt het downloaden of bijwerken in Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">Voor sommige talen dient u een andere spraaksynthese software of een aanvullende taalpakket te installeren van de app store (Google Play, Samsung Apps, App Gallery, FDroid).\nOpen de instellingen van uw toestel → Taal en invoer → Spraak → Uitvoer voor tekst-naar-spraak.\nHier kunt u instellingen voor spraaksynthese beheren (bijvoorbeeld taalpakket downloaden voor offline gebruik) en een andere tekst-naar-spraak engine selecteren.</string>
+	<string name="prefs_languages_information_off">Voor sommige talen dient u een andere spraaksynthese software of een aanvullende taalpakket te installeren van de app store (Google Play, Galaxy Store, App Gallery, FDroid).\nOpen de instellingen van uw toestel → Taal en invoer → Spraak → Uitvoer voor tekst-naar-spraak.\nHier kunt u instellingen voor spraaksynthese beheren (bijvoorbeeld taalpakket downloaden voor offline gebruik) en een andere tekst-naar-spraak engine selecteren.</string>
 	<string name="prefs_languages_information_off_link">Gelieve deze handleiding te lezen voor meer informatie.</string>
 	<string name="transliteration_title">Transliteratie in het Latijn</string>
 	<string name="learn_more">Meer informatie</string>
@@ -730,10 +735,14 @@
 	<string name="type.amenity.parking.permissive">Parkeerplaats</string>
 	<string name="type.amenity.parking.private">Parkeerplaats</string>
 	<string name="type.amenity.parking.underground">Parkeerplaats</string>
+	<string name="type.amenity.parking_entrance.private">Parkeeringang</string>
+	<string name="type.amenity.parking_entrance.permissive">Parkeeringang</string>
+	<string name="type.amenity.parking_entrance">Parkeeringang</string>
 	<string name="type.amenity.parking_space">Parkeerplaats</string>
 	<string name="type.amenity.parking_space.permissive">Parkeerplaats</string>
 	<string name="type.amenity.parking_space.private">Parkeerplaats</string>
 	<string name="type.amenity.parking_space.underground">Parkeerplaats</string>
+	<string name="type.amenity.parking_space.disabled">Invalide parkeerplaats</string>
 	<string name="type.amenity.payment_terminal">Betaalautomaat</string>
 	<string name="type.amenity.pharmacy">Apotheek</string>
 	<string name="type.amenity.place_of_worship">Gebedsplaats</string>
@@ -1175,16 +1184,20 @@
 	<string name="type.place.city.capital.7">Stad</string>
 	<string name="type.place.city.capital.8">Stad</string>
 	<string name="type.place.city.capital.9">Stad</string>
+	<string name="type.place.continent">Continent</string>
 	<string name="type.place.country">Land</string>
 	<string name="type.place.county">Graafschap</string>
 	<string name="type.place.farm">Boerderij</string>
 	<string name="type.place.hamlet">Gehucht</string>
 	<string name="type.place.island">Eilandje</string>
 	<string name="type.place.islet">Eilandje</string>
+	<string name="type.place.isolated_dwelling">Geïsoleerde woning</string>
 	<string name="type.place.locality">Plaats</string>
+	<string name="type.place.neighbourhood">Buurt</string>
 	<string name="type.place.ocean">Oceaan</string>
 	<string name="type.place.region">Regio</string>
 	<string name="type.place.sea">Zee</string>
+	<string name="type.place.square">Plein</string>
 	<string name="type.place.state">Deelstaat</string>
 	<string name="type.place.state.USA">Deelstaat</string>
 	<string name="type.place.suburb">Buitenwijken</string>
@@ -1348,6 +1361,12 @@
 	<string name="type.sport.volleyball">Volleyball</string>
 	<string name="type.sport.9pin">Bowlen</string>
 	<string name="type.sport.10pin">Bowlen</string>
+	<string name="type.sport.padel">Padel</string>
+	<string name="type.sport.futsal">Futsal</string>
+	<string name="type.sport.ice_hockey">Ijshockey</string>
+	<string name="type.sport.field_hockey">Veld hockey</string>
+	<string name="type.sport.badminton">Badminton</string>
+	<string name="type.sport.pelota">Baskische peloton</string>
 	<string name="type.tourism.alpine_hut">Berghut</string>
 	<string name="type.tourism.apartment">Appartementen</string>
 	<string name="type.tourism.artwork">Kunstwerk</string>

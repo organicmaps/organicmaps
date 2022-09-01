@@ -503,12 +503,6 @@
 
 "history" = "Histórico";
 
-"opens_in" = "Opens in %@";
-
-"closes_in" = "Closes in %@";
-
-"closed" = "Fechado";
-
 "search_not_found" = "Lamento, mas não foram encontrados resultados.";
 
 "search_not_found_query" = "Por favor, tente outro termo de pesquisa.";
@@ -578,11 +572,25 @@
 
 "today" = "Hoje";
 
+"opens_tomorrow_at" = "Abre amanhã às %@";
+
+"opens_dayoftheweek_at" = "Abre %1$@ às %2$@";
+
+"opens_at" = "Abre às %@";
+
+"opens_in" = "Opens in %@";
+
+"closes_at" = "Encerra às %@";
+
+"closes_in" = "Closes in %@";
+
+"closed" = "Fechado";
+
 "add_opening_hours" = "Adicionar horário de funcionamento";
 
 "no_osm_account" = "Não tem uma conta no OpenStreetMap?";
 
-"register_at_openstreetmap" = "Crie uma conta no OSM";
+"register_at_openstreetmap" = "Crie uma conta no OpenStreetMap";
 
 "password_8_chars_min" = "Palavra-chave (mínimo de 8 caracteres)";
 
@@ -629,6 +637,8 @@
 "email_or_username" = "Email ou nome de utilizador";
 
 "phone" = "Telefone";
+
+"level" = "Andar";
 
 "please_note" = "Aviso";
 
@@ -750,6 +760,8 @@
 
 "miles_per_hour" = "mph";
 
+"hour" = "h";
+
 "minute" = "min";
 
 "placepage_place_description" = "Descrição";
@@ -798,10 +810,10 @@
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Quer enviar para todos os utilizadores?";
 
-/* iOS Dialog before publishing the modifications to the public map. */
+/* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "Certifique-se que não incluiu nenhuns dados pessoais.";
 
-"editor_share_to_all_dialog_message_2" = "Vamos verificar as alterações. Se tivermos alguma pergunta, vamos contactá-lo por email.";
+"editor_share_to_all_dialog_message_2" = "Os editores do OpenStreetMap verificarão as alterações e entrarão em contacto consigo se tiverem alguma dúvida.";
 
 "navigation_stop_button" = "parar";
 
@@ -1205,6 +1217,12 @@
 /* edit track screen title */
 "track_title" = "Percurso";
 
+/* Telegram group url for the help page */
+"telegram_url" = "https://t.me/OrganicMapsApp";
+
+/* Instagram account url for the help page */
+"instagram_url" = "https://www.instagram.com/organicmaps.app";
+
 
 /********** Types **********/
 
@@ -1356,6 +1374,12 @@
 
 "type.amenity.parking.underground" = "Estacionamento subterrâneo";
 
+"type.amenity.parking_entrance.private" = "Entrada do estacionamento";
+
+"type.amenity.parking_entrance.permissive" = "Entrada do estacionamento";
+
+"type.amenity.parking_entrance" = "Entrada do estacionamento";
+
 "type.amenity.parking_space" = "Lugar de estacionamento";
 
 "type.amenity.parking_space.permissive" = "Lugar de estacionamento";
@@ -1363,6 +1387,8 @@
 "type.amenity.parking_space.private" = "Lugar de estacionamento privado";
 
 "type.amenity.parking_space.underground" = "Lugar de estacionamento subterrâneo";
+
+"type.amenity.parking_space.disabled" = "Estacionamento para deficientes";
 
 "type.amenity.payment_terminal" = "Terminal de pagamento";
 
@@ -2468,8 +2494,6 @@
 
 "type.organic.yes" = "Orgânico";
 
-"type.place" = "Local";
-
 "type.place.city" = "Cidade";
 
 "type.place.city.capital" = "Capital";
@@ -2970,6 +2994,18 @@
 "type.sport.9pin" = "Boliche";
 
 "type.sport.10pin" = "Boliche";
+
+"type.sport.padel" = "Padel";
+
+"type.sport.futsal" = "Futsal";
+
+"type.sport.ice_hockey" = "Hóquei no gelo";
+
+"type.sport.field_hockey" = "Hóquei em campo";
+
+"type.sport.badminton" = "Badminton";
+
+"type.sport.pelota" = "Pelota basca";
 
 "type.tourism" = "Turismo";
 

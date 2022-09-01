@@ -4,29 +4,21 @@
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_impl.hpp"
 #include "indexer/feature_utils.hpp"
-#include "indexer/feature_visibility.hpp"
 #include "indexer/map_object.hpp"
-#include "indexer/scales.hpp"
 #include "indexer/shared_load_info.hpp"
+
+#include "geometry/mercator.hpp"
 
 #include "platform/preferred_languages.hpp"
 
-#include "geometry/parametrized_segment.hpp"
-#include "geometry/robust_orientation.hpp"
-
 #include "coding/byte_stream.hpp"
-#include "coding/dd_vector.hpp"
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
-#include "base/range_iterator.hpp"
 #include "base/stl_helpers.hpp"
 
 #include <algorithm>
-#include <exception>
 #include <limits>
-
-#include "defines.hpp"
 
 using namespace feature;
 using namespace std;
@@ -195,10 +187,12 @@ FeatureType::FeatureType(SharedLoadInfo const * loadInfo, vector<uint8_t> && buf
   m_header = Header(m_data);
 }
 
-FeatureType::FeatureType(osm::MapObject const & emo)
+std::unique_ptr<FeatureType> FeatureType::CreateFromMapObject(osm::MapObject const & emo)
 {
+  auto ft = std::unique_ptr<FeatureType>(new FeatureType());
+
   HeaderGeomType headerGeomType = HeaderGeomType::Point;
-  m_limitRect.MakeEmpty();
+  ft->m_limitRect.MakeEmpty();
 
   switch (emo.GetGeomType())
   {
@@ -207,45 +201,46 @@ FeatureType::FeatureType(osm::MapObject const & emo)
     UNREACHABLE();
   case feature::GeomType::Point:
     headerGeomType = HeaderGeomType::Point;
-    m_center = emo.GetMercator();
-    m_limitRect.Add(m_center);
+    ft->m_center = emo.GetMercator();
+    ft->m_limitRect.Add(ft->m_center);
     break;
   case feature::GeomType::Line:
     headerGeomType = HeaderGeomType::Line;
-    m_points = Points(emo.GetPoints().begin(), emo.GetPoints().end());
-    for (auto const & p : m_points)
-      m_limitRect.Add(p);
+    ft->m_points = FeatureType::Points(emo.GetPoints().begin(), emo.GetPoints().end());
+    for (auto const & p : ft->m_points)
+      ft->m_limitRect.Add(p);
     break;
   case feature::GeomType::Area:
     headerGeomType = HeaderGeomType::Area;
-    m_triangles = Points(emo.GetTriangesAsPoints().begin(), emo.GetTriangesAsPoints().end());
-    for (auto const & p : m_triangles)
-      m_limitRect.Add(p);
+    ft->m_triangles = FeatureType::Points(emo.GetTriangesAsPoints().begin(), emo.GetTriangesAsPoints().end());
+    for (auto const & p : ft->m_triangles)
+      ft->m_limitRect.Add(p);
     break;
   }
 
-  m_parsed.m_points = m_parsed.m_triangles = true;
+  ft->m_parsed.m_points = ft->m_parsed.m_triangles = true;
 
-  m_params.name = emo.GetNameMultilang();
+  ft->m_params.name = emo.GetNameMultilang();
   string const & house = emo.GetHouseNumber();
   if (house.empty())
-    m_params.house.Clear();
+    ft->m_params.house.Clear();
   else
-    m_params.house.Set(house);
-  m_parsed.m_common = true;
+    ft->m_params.house.Set(house);
+  ft->m_parsed.m_common = true;
 
-  m_metadata = emo.GetMetadata();
-  m_parsed.m_metadata = true;
-  m_parsed.m_metaIds = true;
+  emo.AssignMetadata(ft->m_metadata);
+  ft->m_parsed.m_metadata = true;
+  ft->m_parsed.m_metaIds = true;
 
   CHECK_LESS_OR_EQUAL(emo.GetTypes().Size(), feature::kMaxTypesCount, ());
-  copy(emo.GetTypes().begin(), emo.GetTypes().end(), m_types.begin());
+  copy(emo.GetTypes().begin(), emo.GetTypes().end(), ft->m_types.begin());
 
-  m_parsed.m_types = true;
-  m_header = CalculateHeader(emo.GetTypes().Size(), headerGeomType, m_params);
-  m_parsed.m_header2 = true;
+  ft->m_parsed.m_types = true;
+  ft->m_header = CalculateHeader(emo.GetTypes().Size(), headerGeomType, ft->m_params);
+  ft->m_parsed.m_header2 = true;
 
-  m_id = emo.GetID();
+  ft->m_id = emo.GetID();
+  return ft;
 }
 
 feature::GeomType FeatureType::GetGeomType() const

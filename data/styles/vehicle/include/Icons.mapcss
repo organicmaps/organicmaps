@@ -824,6 +824,13 @@ node|z17-[amenity=vending_machine][vending=parking_tickets],
 area|z17-[amenity=vending_machine][vending=parking_tickets]
 {icon-image: parking-meter-m.svg;font-size: 13.5;}
 
+node|z17[amenity=vending_machine][vending=fuel],
+area|z17[amenity=vending_machine][vending=fuel]
+{icon-image: zero-icon.svg;text: none;}
+node|z18-[amenity=vending_machine][vending=fuel],
+area|z18-[amenity=vending_machine][vending=fuel]
+{icon-image: fuel-dispenser-m.svg;}
+
 node|z17-[amenity=parcel_locker],
 area|z17-[amenity=parcel_locker],
 {icon-image: mail-m.svg;icon-min-distance: 20;}

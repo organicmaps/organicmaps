@@ -224,6 +224,42 @@ UNIT_CLASS_TEST(MwmTestsFixture, London_Asda)
   TEST_LESS(dist, 2000, ());
 }
 
+// https://github.com/organicmaps/organicmaps/issues/3103
+UNIT_CLASS_TEST(MwmTestsFixture, Lyon_Aldi)
+{
+  // Lyon
+  ms::LatLon const center(45.7578137, 4.8320114);
+  SetViewportAndLoadMaps(center);
+
+  auto request = MakeRequest("aldi");
+  auto const & results = request->Results();
+  TEST_GREATER(results.size(), kTopPoiResultsCount, ());
+
+  Range const range(results);
+  EqualClassifType(range, GetClassifTypes({{"shop", "supermarket"}}));
+  double const dist = SortedByDistance(range, center);
+  TEST_LESS(dist, 4000, ());
+}
+
+// https://github.com/organicmaps/organicmaps/issues/1262
+UNIT_CLASS_TEST(MwmTestsFixture, NY_BarnesNoble)
+{
+  // New York
+  ms::LatLon const center(40.7355019, -73.9948155);
+  SetViewportAndLoadMaps(center);
+
+  auto request = MakeRequest("barne's & noble");
+  auto const & results = request->Results();
+  TEST_GREATER(results.size(), 10, ());
+
+  TEST_EQUAL(results[0].GetFeatureType(), classif().GetTypeByPath({"amenity", "cafe"}), ());
+
+  Range const range(results, 1);
+  EqualClassifType(range, GetClassifTypes({{"shop", "books"}}));
+  double const dist = SortedByDistance(range, center);
+  TEST_LESS(dist, 2000, ());
+}
+
 // https://github.com/organicmaps/organicmaps/issues/2470
 UNIT_CLASS_TEST(MwmTestsFixture, Hamburg_Park)
 {

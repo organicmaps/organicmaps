@@ -503,12 +503,6 @@
 
 "history" = "Historikk";
 
-"opens_in" = "Opens in %@";
-
-"closes_in" = "Closes in %@";
-
-"closed" = "Stengt";
-
 "search_not_found" = "Beklager, jeg fant ingenting.";
 
 "search_not_found_query" = "Vennligst prøv et annet søk.";
@@ -578,6 +572,20 @@
 
 "today" = "I dag";
 
+"opens_tomorrow_at" = "Opens tomorrow at %@";
+
+"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
+
+"opens_at" = "Opens at %@";
+
+"opens_in" = "Opens in %@";
+
+"closes_at" = "Closes at %@";
+
+"closes_in" = "Closes in %@";
+
+"closed" = "Stengt";
+
 "add_opening_hours" = "Legg til åpningstider";
 
 "no_osm_account" = "Har du ingen konto hos OpenStreetMap?";
@@ -629,6 +637,8 @@
 "email_or_username" = "E-postadresse eller brukernavn";
 
 "phone" = "Telefon";
+
+"level" = "Gulv";
 
 "please_note" = "Vær oppmerksom på at";
 
@@ -750,6 +760,8 @@
 
 "miles_per_hour" = "mph";
 
+"hour" = "t";
+
 "minute" = "min";
 
 "placepage_place_description" = "Beskrivelse";
@@ -798,10 +810,10 @@
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Vil du sende det til alle brukere?";
 
-/* iOS Dialog before publishing the modifications to the public map. */
+/* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "Sørg for at du ikke har skrevet noe personlig informasjon.";
 
-"editor_share_to_all_dialog_message_2" = "Vi vil sjekke endringene. Vi kontakter deg via e-post dersom vi har spørsmål.";
+"editor_share_to_all_dialog_message_2" = "OpenStreetMap-redaktører vil sjekke endringene og ta kontakt med deg hvis de har spørsmål.";
 
 "navigation_stop_button" = "stopp";
 
@@ -1205,6 +1217,12 @@
 /* edit track screen title */
 "track_title" = "Rute";
 
+/* Telegram group url for the help page */
+"telegram_url" = "https://t.me/OrganicMapsApp";
+
+/* Instagram account url for the help page */
+"instagram_url" = "https://www.instagram.com/organicmaps.app";
+
 
 /********** Types **********/
 
@@ -1356,6 +1374,12 @@
 
 "type.amenity.parking.underground" = "Parkering";
 
+"type.amenity.parking_entrance.private" = "Parkeringsinngang";
+
+"type.amenity.parking_entrance.permissive" = "Parkeringsinngang";
+
+"type.amenity.parking_entrance" = "Parkeringsinngang";
+
 "type.amenity.parking_space" = "Parkeringsplass";
 
 "type.amenity.parking_space.permissive" = "Parkeringsplass";
@@ -1363,6 +1387,8 @@
 "type.amenity.parking_space.private" = "Parkeringsplass";
 
 "type.amenity.parking_space.underground" = "Parkeringsplass";
+
+"type.amenity.parking_space.disabled" = "Parkeringsplass for funksjonshemmede";
 
 "type.amenity.payment_terminal" = "Betalingsterminal";
 
@@ -2468,8 +2494,6 @@
 
 "type.organic.yes" = "Organic";
 
-"type.place" = "place";
-
 "type.place.city" = "By";
 
 "type.place.city.capital" = "Hovedstad";
@@ -2508,11 +2532,11 @@
 
 "type.place.islet" = "Øy";
 
-"type.place.isolated_dwelling" = "Dwelling";
+"type.place.isolated_dwelling" = "Isolert bolig";
 
 "type.place.locality" = "Lokalitet";
 
-"type.place.neighbourhood" = "Neighbourhood";
+"type.place.neighbourhood" = "Strøk";
 
 "type.place.ocean" = "Hav";
 
@@ -2520,7 +2544,7 @@
 
 "type.place.sea" = "Sjø";
 
-"type.place.square" = "Square";
+"type.place.square" = "Torg";
 
 "type.place.state" = "Stat";
 
@@ -2970,6 +2994,18 @@
 "type.sport.9pin" = "Bowling";
 
 "type.sport.10pin" = "Bowling";
+
+"type.sport.padel" = "Padel";
+
+"type.sport.futsal" = "Futsal";
+
+"type.sport.ice_hockey" = "Ishockey";
+
+"type.sport.field_hockey" = "Landhockey";
+
+"type.sport.badminton" = "Badminton";
+
+"type.sport.pelota" = "Baskisk pelota";
 
 "type.tourism" = "Tourism";
 

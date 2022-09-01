@@ -216,6 +216,8 @@
 	<string name="help">도움말</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">질문과 답변</string>
+	<!-- Button in the main menu -->
+	<string name="donate">기부</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">우리를 지원하는 방법?</string>
 	<!-- Button in the main Help dialog -->
@@ -335,7 +337,6 @@
 	<string name="routing_arrive">도착: %s</string>
 	<string name="categories">범주</string>
 	<string name="history">내역</string>
-	<string name="closed">닫음</string>
 	<string name="search_not_found">죄송합니다. 아무것도 찾지 못했습니다.</string>
 	<string name="search_not_found_query">다른 쿼리를 시도하십시오.</string>
 	<string name="search_history_title">검색 기록</string>
@@ -377,10 +378,12 @@
 	<string name="day_off_today">오늘 영업 종료됨</string>
 	<string name="day_off">종료됨</string>
 	<string name="today">오늘</string>
+	<string name="closed">닫음</string>
 	<string name="edit_opening_hours">영업일 편집</string>
 	<string name="no_osm_account">OpenStreetMap에서 계정이 없습니까?</string>
 	<string name="register_at_openstreetmap">등록</string>
 	<string name="login">로그인</string>
+	<string name="login_osm">OpenStreetMap에 로그인</string>
 	<string name="password">암호</string>
 	<string name="forgot_password">암호를 잊으 셨나요?</string>
 	<string name="logout">로그 아웃</string>
@@ -400,6 +403,7 @@
 	<string name="select_cuisine">요리 선택</string>
 	<!-- login text field -->
 	<string name="email_or_username">이메일 또는 사용자 이름</string>
+	<string name="level">층</string>
 	<string name="downloader_delete_map_dialog">모든 지도의 변경 사항은 지도와 함께 삭제됩니다.</string>
 	<string name="downloader_update_maps">지도 업데이트</string>
 	<string name="downloader_mwm_migration_dialog">경로를 만들려면, 모든 지도를 업데이트한 다음, 다시 경로를 계획해야 합니다.</string>
@@ -418,6 +422,7 @@
 	<string name="editor_report_problem_other_title">다른 문제</string>
 	<string name="placepage_add_business_button">조직 추가</string>
 	<string name="message_invalid_feature_position">목적지를 이곳에서 찾을 수 없습니다</string>
+	<string name="osm_presentation">모든 지도 데이터는 OpenStreetMap 프로젝트에서 가져옵니다. \"\"장소를 추가하거나 편집할 수 있는 지도용 Wikipedia와 같으며 전 세계 수백만 사용자가 사용할 수 있습니다.</string>
 	<string name="login_to_make_edits_visible">로그인하여 다른 사용자가 변경한 내용을 볼 수 있도록 하십시오.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%2$d중의 %1$d</string>
@@ -471,9 +476,9 @@
 	<string name="placepage_add_place_button">지도에 장소 추가</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">이를 모든 사용자에게 전송하시겠습니까?</string>
-	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">개인 정보를 입력하지 않았는지 확인하십시오.</string>
-	<string name="editor_share_to_all_dialog_message_2">저희가 변경 사항을 확인할 것입니다. 질문이 있으신 경우, 저희에게 이메일을 통해 연락하십시오.</string>
+	<string name="editor_share_to_all_dialog_message_2">OpenStreetMap 편집자가 변경 사항을 확인하고 질문이 있는 경우 귀하에게 연락할 것입니다.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps는 무료 오픈 소스 오프라인 지도 애플리케이션입니다. 광고 없음. 추적이 없습니다. 지도에 오류가 표시되면 OpenStreetMap에서 수정하세요. 이 프로젝트는 여가 시간에 열광자들에 의해 만들어지므로 여러분의 피드백과 지원이 필요합니다.</string>
 	<!-- For the first routing -->
@@ -502,7 +507,7 @@
 	<string name="on">켜기</string>
 	<string name="off">끄기</string>
 	<string name="prefs_languages_information">당사는 음성 지침을 위해 시스템 TTS를 사용합니다. 많은 Android 장치에서 Google TTS를 사용합니다. Google Play(https://play.google.com/store/apps/details?id=com.google.android.tts)에서 Google TTS를 다운로드하거나 업데이트할 수 있습니다.</string>
-	<string name="prefs_languages_information_off">일부 언어의 경우 앱 스토어(Google Play, Samsung Apps, App Gallery, FDroid)에서 다른 음성 합성기 또는 추가 언어 팩을 설치해야 합니다.\n장치의 설정 → 언어 및 입력 → 음성 → 텍스트-음성 변환 출력을 엽니다.\n여기서 음성 합성에 대한 설정을 관리하고(예: 오프라인 사용을 위한 언어 팩 다운로드) 다른 텍스트-음성 변환 엔진을 선택할 수 있습니다.</string>
+	<string name="prefs_languages_information_off">일부 언어의 경우 앱 스토어(Google Play, Galaxy Store, App Gallery, FDroid)에서 다른 음성 합성기 또는 추가 언어 팩을 설치해야 합니다.\n장치의 설정 → 언어 및 입력 → 음성 → 텍스트-음성 변환 출력을 엽니다.\n여기서 음성 합성에 대한 설정을 관리하고(예: 오프라인 사용을 위한 언어 팩 다운로드) 다른 텍스트-음성 변환 엔진을 선택할 수 있습니다.</string>
 	<string name="prefs_languages_information_off_link">자세한 내용을 보려면 이 가이드를 확인하세요.</string>
 	<string name="transliteration_title">라틴어로 음역</string>
 	<string name="learn_more">자세히 알아보기</string>
@@ -724,10 +729,14 @@
 	<string name="type.amenity.parking.permissive">주차</string>
 	<string name="type.amenity.parking.private">주차</string>
 	<string name="type.amenity.parking.underground">주차</string>
+	<string name="type.amenity.parking_entrance.private">주차장 입구</string>
+	<string name="type.amenity.parking_entrance.permissive">주차장 입구</string>
+	<string name="type.amenity.parking_entrance">주차장 입구</string>
 	<string name="type.amenity.parking_space">주차장</string>
 	<string name="type.amenity.parking_space.permissive">주차장</string>
 	<string name="type.amenity.parking_space.private">주차장</string>
 	<string name="type.amenity.parking_space.underground">주차장</string>
+	<string name="type.amenity.parking_space.disabled">장애인 주차 공간</string>
 	<string name="type.amenity.payment_terminal">결제 단말기</string>
 	<string name="type.amenity.pharmacy">약국</string>
 	<string name="type.amenity.place_of_worship">예배 장소</string>
@@ -1182,10 +1191,13 @@
 	<string name="type.place.hamlet">작은 마을</string>
 	<string name="type.place.island">섬</string>
 	<string name="type.place.islet">섬</string>
+	<string name="type.place.isolated_dwelling">고립된 주거</string>
 	<string name="type.place.locality">장소</string>
+	<string name="type.place.neighbourhood">동네</string>
 	<string name="type.place.ocean">대양</string>
 	<string name="type.place.region">지역</string>
 	<string name="type.place.sea">바다</string>
+	<string name="type.place.square">광장</string>
 	<string name="type.place.state">주</string>
 	<string name="type.place.state.USA">주</string>
 	<string name="type.place.suburb">교외</string>
@@ -1353,6 +1365,12 @@
 	<string name="type.sport.volleyball">배구</string>
 	<string name="type.sport.9pin">볼링</string>
 	<string name="type.sport.10pin">볼링</string>
+	<string name="type.sport.padel">파델</string>
+	<string name="type.sport.futsal">풋살</string>
+	<string name="type.sport.ice_hockey">아이스 하키</string>
+	<string name="type.sport.field_hockey">필드 하키</string>
+	<string name="type.sport.badminton">배드민턴</string>
+	<string name="type.sport.pelota">바스크 펠로타</string>
 	<string name="type.tourism.alpine_hut">고산 오두막</string>
 	<string name="type.tourism.apartment">아파트</string>
 	<string name="type.tourism.artwork">작품</string>

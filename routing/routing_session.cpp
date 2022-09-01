@@ -46,17 +46,7 @@ void FormatDistance(double dist, string & value, string & suffix)
   ASSERT(delim != string::npos, ());
   suffix = value.substr(delim + 1);
   value.erase(delim);
-};
-
-void FormatSpeed(double speedKmPH, string & value, string & suffix)
-{
-  value = measurement_utils::FormatSpeed(measurement_utils::KmphToMps(speedKmPH));
-
-  size_t const delim = value.find(' ');
-  ASSERT(delim != string::npos, ());
-  suffix = value.substr(delim + 1);
-  value.erase(delim);
-};
+}
 
 RoutingSession::RoutingSession()
   : m_router(nullptr)
@@ -131,7 +121,7 @@ m2::PointD RoutingSession::GetEndPoint() const
   return m_checkpoints.GetFinish();
 }
 
-void RoutingSession::DoReadyCallback::operator()(shared_ptr<Route> route, RouterResultCode e)
+void RoutingSession::DoReadyCallback::operator()(shared_ptr<Route> const & route, RouterResultCode e)
 {
   ASSERT(m_rs.m_route, ());
   m_rs.AssignRoute(route, e);
@@ -416,8 +406,12 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
 
   SpeedInUnits speedLimit;
   m_route->GetCurrentSpeedLimit(speedLimit);
-  if (speedLimit.IsValid())
-    FormatSpeed(speedLimit.GetSpeedKmPH(), info.m_speedLimit, info.m_speedLimitUnitsSuffix);
+  if (speedLimit.IsNumeric())
+    info.m_speedLimitMps = measurement_utils::KmphToMps(speedLimit.GetSpeedKmPH());
+  else if (speedLimit.GetSpeed() == kNoneMaxSpeed)
+    info.m_speedLimitMps = 0;
+  else
+    info.m_speedLimitMps = -1.0;
 
   // The turn after the next one.
   if (m_routingSettings.m_showTurnAfterNext)
@@ -515,7 +509,7 @@ void RoutingSession::GenerateNotifications(vector<string> & notifications)
   m_speedCameraManager.GenerateNotifications(notifications);
 }
 
-void RoutingSession::AssignRoute(shared_ptr<Route> route, RouterResultCode e)
+void RoutingSession::AssignRoute(shared_ptr<Route> const & route, RouterResultCode e)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 

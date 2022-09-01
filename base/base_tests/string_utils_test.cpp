@@ -118,33 +118,23 @@ UNIT_TEST(LowerUniChar)
 
 UNIT_TEST(MakeLowerCase)
 {
-  std::string s;
+  using namespace strings;
 
-  s = "THIS_IS_UPPER";
-  strings::MakeLowerCaseInplace(s);
-  TEST_EQUAL(s, "this_is_upper", ());
+  TEST_EQUAL(MakeLowerCase("THIS_IS_UPPER"), "this_is_upper", ());
+  TEST_EQUAL(MakeLowerCase("THIS_iS_MiXed"), "this_is_mixed", ());
+  TEST_EQUAL(MakeLowerCase("this_is_lower"), "this_is_lower", ());
 
-  s = "THIS_iS_MiXed";
-  strings::MakeLowerCaseInplace(s);
-  TEST_EQUAL(s, "this_is_mixed", ());
+  TEST_EQUAL(MakeLowerCase("Hola! 99-\xD0\xA3\xD0\x9F\xD0\xAF\xD0\xA7\xD0\x9A\xD0\x90"),
+                           "hola! 99-\xD1\x83\xD0\xBF\xD1\x8F\xD1\x87\xD0\xBA\xD0\xB0", ());
 
-  s = "this_is_lower";
-  strings::MakeLowerCaseInplace(s);
-  TEST_EQUAL(s, "this_is_lower", ());
+  // es-cet
+  TEST_EQUAL(MakeLowerCase("\xc3\x9f"), "ss", ());
 
-  std::string const utf8("Hola! 99-\xD0\xA3\xD0\x9F\xD0\xAF\xD0\xA7\xD0\x9A\xD0\x90");
-  TEST_EQUAL(strings::MakeLowerCase(utf8),
-             "hola! 99-\xD1\x83\xD0\xBF\xD1\x8F\xD1\x87\xD0\xBA\xD0\xB0", ());
-
-  s = "\xc3\x9f";  // es-cet
-  strings::MakeLowerCaseInplace(s);
-  TEST_EQUAL(s, "ss", ());
-
-  strings::UniChar const arr[] = {0x397, 0x10B4, 'Z'};
-  strings::UniChar const carr[] = {0x3b7, 0x2d14, 'z'};
-  strings::UniString const us(&arr[0], &arr[0] + ARRAY_SIZE(arr));
-  strings::UniString const cus(&carr[0], &carr[0] + ARRAY_SIZE(carr));
-  TEST_EQUAL(cus, strings::MakeLowerCase(us), ());
+  UniChar const arr[] = {0x397, 0x10B4, 'Z'};
+  UniChar const carr[] = {0x3b7, 0x2d14, 'z'};
+  UniString const us(&arr[0], &arr[0] + ARRAY_SIZE(arr));
+  UniString const cus(&carr[0], &carr[0] + ARRAY_SIZE(carr));
+  TEST_EQUAL(cus, MakeLowerCase(us), ());
 }
 
 UNIT_TEST(EqualNoCase)

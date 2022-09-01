@@ -503,12 +503,6 @@
 
 "history" = "سجل البحث";
 
-"opens_in" = "يفتح بعد %@";
-
-"closes_in" = "يغلق في غضون %@";
-
-"closed" = "مغلق";
-
 "search_not_found" = "المعذرة، لم أعثر على أية نتائج.";
 
 "search_not_found_query" = "يرجى تجربة معاير بحث أخرى.";
@@ -578,6 +572,20 @@
 
 "today" = "اليوم";
 
+"opens_tomorrow_at" = "Opens tomorrow at %@";
+
+"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
+
+"opens_at" = "Opens at %@";
+
+"opens_in" = "يفتح بعد %@";
+
+"closes_at" = "Closes at %@";
+
+"closes_in" = "يغلق في غضون %@";
+
+"closed" = "مغلق";
+
 "add_opening_hours" = "أضف ساعات العمل";
 
 "no_osm_account" = "ليس لديك حساب في خريطة الشارع المفتوحة؟";
@@ -629,6 +637,8 @@
 "email_or_username" = "البريد الإلكتروني أو اسم المستخدم";
 
 "phone" = "رقم الهاتف";
+
+"level" = "طابق";
 
 "please_note" = "يرجى العلم أنه،";
 
@@ -750,6 +760,8 @@
 
 "miles_per_hour" = "ميل/ساعة";
 
+"hour" = "س";
+
 "minute" = "د";
 
 "placepage_place_description" = "الوصف";
@@ -798,10 +810,10 @@
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "هل ترغب في إرساله لجميع المستخدمين؟";
 
-/* iOS Dialog before publishing the modifications to the public map. */
+/* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "تأكد من أنك لم تقم بإدخال أية بيانات شخصية.";
 
-"editor_share_to_all_dialog_message_2" = "سنقوم بمراجعة هذه التغييرات. إذا كانت لدينا أي أسئلة فسننتواصل معك عبر البريد الإلكتروني.";
+"editor_share_to_all_dialog_message_2" = ".ﺔﻠﺌﺳﺃ ﻱﺃ ﻢﻬﻳﺪﻟ ﻥﺎﻛ ﺍﺫﺇ ﻚﻌﻣ ﻥﻮﻠﺻﺍﻮﺘﻳﻭ ﺕﺍﺮﻴﻴﻐﺘﻟﺍ ﻦﻣ OpenStreetMap ﻭﺭﺮﺤﻣ ﻖﻘﺤﺘﻴﺳ";
 
 "navigation_stop_button" = "توقف";
 
@@ -1205,6 +1217,12 @@
 /* edit track screen title */
 "track_title" = "مسار";
 
+/* Telegram group url for the help page */
+"telegram_url" = "https://t.me/OrganicMapsApp";
+
+/* Instagram account url for the help page */
+"instagram_url" = "https://www.instagram.com/organicmaps.app";
+
 
 /********** Types **********/
 
@@ -1356,6 +1374,12 @@
 
 "type.amenity.parking.underground" = "موقف سيارات";
 
+"type.amenity.parking_entrance.private" = "ﺕﺍﺭﺎﻴﺴﻟﺍ ﻑﻮﻗﻭ ﻞﺧﺪﻣ";
+
+"type.amenity.parking_entrance.permissive" = "ﺕﺍﺭﺎﻴﺴﻟﺍ ﻑﻮﻗﻭ ﻞﺧﺪﻣ";
+
+"type.amenity.parking_entrance" = "ﺕﺍﺭﺎﻴﺴﻟﺍ ﻑﻮﻗﻭ ﻞﺧﺪﻣ";
+
 "type.amenity.parking_space" = "مكان لوقوف السيارات";
 
 "type.amenity.parking_space.permissive" = "مكان لوقوف السيارات";
@@ -1363,6 +1387,8 @@
 "type.amenity.parking_space.private" = "مكان لوقوف السيارات";
 
 "type.amenity.parking_space.underground" = "مكان لوقوف السيارات";
+
+"type.amenity.parking_space.disabled" = "ﺔﺻﺎﺨﻟﺍ ﺕﺎﺟﺎﻴﺘﺣﻻ﻿ﺍ ﻱﻭﺬﻟ ﺕﺍﺭﺎﻴﺴﻟﺍ ﻑﻮﻗﻮﻟ ﻦﻛﺎﻣﺃ";
 
 "type.amenity.payment_terminal" = "محطة دفع";
 
@@ -1634,7 +1660,7 @@
 
 "type.cuisine.balkan" = "مطبخ بلقاني";
 
-"type.cuisine.barbecue" = "مشويات";
+"type.cuisine.barbecue" = "شواء";
 
 "type.cuisine.bavarian" = "مطبخ بافاري";
 
@@ -1644,11 +1670,11 @@
 
 "type.cuisine.breakfast" = "فطور";
 
-"type.cuisine.bubble_tea" = "Bubble Tea";
+"type.cuisine.bubble_tea" = "شاي الفقاعات";
 
 "type.cuisine.burger" = "برغر";
 
-"type.cuisine.buschenschank" = "البيرة";
+"type.cuisine.buschenschank" = "مطبخ هنغاري";
 
 "type.cuisine.cake" = "كيك";
 
@@ -1658,7 +1684,7 @@
 
 "type.cuisine.chinese" = "مطبخ صيني";
 
-"type.cuisine.coffee_shop" = "ﺓﻮﻬﻗ";
+"type.cuisine.coffee_shop" = "قهوة";
 
 "type.cuisine.crepe" = "كريب";
 
@@ -1668,7 +1694,7 @@
 
 "type.cuisine.deli" = "أطعمة مبردة";
 
-"type.cuisine.diner" = "العشاء";
+"type.cuisine.diner" = "عشاء";
 
 "type.cuisine.donut" = "الكعك المحلاة";
 
@@ -1680,11 +1706,11 @@
 
 "type.cuisine.fish" = "سمك";
 
-"type.cuisine.fish_and_chips" = "سمك و رقائق البطاطس";
+"type.cuisine.fish_and_chips" = "سمك ورقائق البطاطا";
 
 "type.cuisine.french" = "مطبخ فرنسي";
 
-"type.cuisine.friture" = "وجبات سريعة";
+"type.cuisine.friture" = "وجبات مقلية";
 
 "type.cuisine.georgian" = "مطبخ جورجي";
 
@@ -1694,11 +1720,11 @@
 
 "type.cuisine.grill" = "شواء";
 
-"type.cuisine.heuriger" = "البيرة";
+"type.cuisine.heuriger" = "Heuriger";
 
 "type.cuisine.hotdog" = "هوت دوغ";
 
-"type.cuisine.hungarian" = "مطبخ مجري";
+"type.cuisine.hungarian" = "مطبخ هنغاري";
 
 "type.cuisine.ice_cream" = "مُثَلّجات";
 
@@ -1712,7 +1738,7 @@
 
 "type.cuisine.italian" = "مطبخ إيطالي";
 
-"type.cuisine.italian_pizza" = "مطبخ إيطالي؛بيتزا";
+"type.cuisine.italian_pizza" = "مطبخ إيطالي، بيتزا";
 
 "type.cuisine.japanese" = "مطبخ ياباني";
 
@@ -1726,7 +1752,7 @@
 
 "type.cuisine.local" = "مطبخ محلي";
 
-"type.cuisine.malagasy" = "مدغشقر";
+"type.cuisine.malagasy" = "مطبخ مدغشقري";
 
 "type.cuisine.malaysian" = "مطبخ ماليزي";
 
@@ -1746,7 +1772,7 @@
 
 "type.cuisine.persian" = "مطبخ إيراني";
 
-"type.cuisine.peruvian" = "بيرو";
+"type.cuisine.peruvian" = "مطبخ من دولة بيرو";
 
 "type.cuisine.pizza" = "بيتزا";
 
@@ -1790,7 +1816,7 @@
 
 "type.cuisine.vietnamese" = "مطبخ فيتنامي";
 
-"type.emergency" = "Emergency";
+"type.emergency" = "طوارئ";
 
 "type.emergency.defibrillator" = "مزيل الرجفان";
 
@@ -1800,17 +1826,17 @@
 
 "type.entrance" = "مدخل";
 
-"type.healthcare.laboratory" = "ﺔﻴﺒﻄﻟﺍ ﺕﺍﺮﺒﺘﺨﻤﻟﺍ";
+"type.healthcare.laboratory" = "مختبر طبي";
 
 
 /********** Types: Roads **********/
 
-"type.highway" = "Highway";
+"type.highway" = "طريق السريع";
 
 "type.highway.bridleway" = "Bridle Path";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.bridleway.bridge" = "كوبري";
+"type.highway.bridleway.bridge" = "جسر";
 
 "type.highway.bridleway.permissive" = "Bridle Path";
 
@@ -1821,26 +1847,26 @@
 
 "type.highway.construction" = "طريق تحت الإنشاء";
 
-"type.highway.cycleway" = "Cycle Path";
+"type.highway.cycleway" = "مسار للدراجات";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.cycleway.bridge" = "كوبري";
+"type.highway.cycleway.bridge" = "جسر";
 
-"type.highway.cycleway.permissive" = "Cycle Path";
+"type.highway.cycleway.permissive" = "مسار للدراجات";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.cycleway.tunnel" = "نفق";
 
-"type.highway.elevator" = "Elevator";
+"type.highway.elevator" = "مِصعَد";
 
-"type.highway.footway" = "مسار";
+"type.highway.footway" = "مسار للمشي";
 
 "type.highway.footway.alpine_hiking" = "مسار";
 
-"type.highway.footway.area" = "مسار";
+"type.highway.footway.area" = "منطقة مشاة";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.footway.bridge" = "كوبري";
+"type.highway.footway.bridge" = "جسر للمشاة";
 
 "type.highway.footway.demanding_alpine_hiking" = "مسار";
 
@@ -1852,35 +1878,35 @@
 
 "type.highway.footway.mountain_hiking" = "مسار";
 
-"type.highway.footway.permissive" = "مسار";
+"type.highway.footway.permissive" = "مسار للمشي";
 
 /* These translations are used for all type.highway.*.tunnel. */
-"type.highway.footway.tunnel" = "نفق";
+"type.highway.footway.tunnel" = "نفق للمشاة";
 
 "type.highway.ford" = "مخاضة";
 
 "type.highway.living_street" = "شارع";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.living_street.bridge" = "كوبري";
+"type.highway.living_street.bridge" = "جسر";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.living_street.tunnel" = "نفق";
 
-"type.highway.motorway" = "شارع";
+"type.highway.motorway" = "طريق سريع";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.motorway.bridge" = "كوبري";
+"type.highway.motorway.bridge" = "جسر";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.motorway.tunnel" = "نفق";
 
 "type.highway.motorway_junction" = "مخرج";
 
-"type.highway.motorway_link" = "شارع";
+"type.highway.motorway_link" = "طريق سريع";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.motorway_link.bridge" = "كوبري";
+"type.highway.motorway_link.bridge" = "جسر";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.motorway_link.tunnel" = "نفق";
@@ -1889,10 +1915,10 @@
 
 "type.highway.path.alpine_hiking" = "مسار";
 
-"type.highway.path.bicycle" = "مسار";
+"type.highway.path.bicycle" = "مسار للمشاة والدراجات معاً";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.path.bridge" = "كوبري";
+"type.highway.path.bridge" = "جسر";
 
 "type.highway.path.demanding_alpine_hiking" = "مسار";
 
@@ -1911,28 +1937,28 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "نفق";
 
-"type.highway.pedestrian" = "شارع";
+"type.highway.pedestrian" = "شارع للمشاة";
 
-"type.highway.pedestrian.area" = "شارع";
+"type.highway.pedestrian.area" = "شارع للمشاة";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.pedestrian.bridge" = "كوبري";
+"type.highway.pedestrian.bridge" = "جسر";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "نفق";
 
-"type.highway.primary" = "شارع";
+"type.highway.primary" = "شارع رئيسي";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.primary.bridge" = "كوبري";
+"type.highway.primary.bridge" = "جسر";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.primary.tunnel" = "نفق";
 
-"type.highway.primary_link" = "شارع";
+"type.highway.primary_link" = "شارع رئيسي";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.primary_link.bridge" = "كوبري";
+"type.highway.primary_link.bridge" = "جسر";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.primary_link.tunnel" = "نفق";
@@ -1944,7 +1970,7 @@
 "type.highway.residential.area" = "شارع";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.residential.bridge" = "كوبري";
+"type.highway.residential.bridge" = "جسر";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.residential.tunnel" = "نفق";
@@ -1954,23 +1980,23 @@
 "type.highway.road" = "شارع";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.road.bridge" = "كوبري";
+"type.highway.road.bridge" = "جسر";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.road.tunnel" = "نفق";
 
-"type.highway.secondary" = "شارع";
+"type.highway.secondary" = "شارع ثانوي";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.secondary.bridge" = "كوبري";
+"type.highway.secondary.bridge" = "جسر";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.secondary.tunnel" = "نفق";
 
-"type.highway.secondary_link" = "شارع";
+"type.highway.secondary_link" = "شارع ثانوي";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.secondary_link.bridge" = "كوبري";
+"type.highway.secondary_link.bridge" = "جسر";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.secondary_link.tunnel" = "نفق";
@@ -1980,7 +2006,7 @@
 "type.highway.service.area" = "شارع";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.service.bridge" = "كوبري";
+"type.highway.service.bridge" = "جسر";
 
 "type.highway.service.driveway" = "شارع";
 
@@ -1993,10 +2019,10 @@
 
 "type.highway.speed_camera" = "كاميرا لرصد السرعة";
 
-"type.highway.steps" = "مسار";
+"type.highway.steps" = "درج";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.steps.bridge" = "كوبري";
+"type.highway.steps.bridge" = "جسر";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.steps.tunnel" = "نفق";
@@ -2004,7 +2030,7 @@
 "type.highway.tertiary" = "شارع";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.tertiary.bridge" = "كوبري";
+"type.highway.tertiary.bridge" = "جسر";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.tertiary.tunnel" = "نفق";
@@ -2012,7 +2038,7 @@
 "type.highway.tertiary_link" = "شارع";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.tertiary_link.bridge" = "كوبري";
+"type.highway.tertiary_link.bridge" = "جسر";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.tertiary_link.tunnel" = "نفق";
@@ -2022,7 +2048,7 @@
 "type.highway.track.area" = "شارع";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.track.bridge" = "كوبري";
+"type.highway.track.bridge" = "جسر";
 
 "type.highway.track.grade1" = "شارع";
 
@@ -2043,61 +2069,61 @@
 
 "type.highway.traffic_signals" = "إشارات مرور";
 
-"type.highway.trunk" = "شارع";
+"type.highway.trunk" = "شارع وطني";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.trunk.bridge" = "كوبري";
+"type.highway.trunk.bridge" = "جسر";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.trunk.tunnel" = "نفق";
 
-"type.highway.trunk_link" = "شارع";
+"type.highway.trunk_link" = "شارع وطني";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.trunk_link.bridge" = "كوبري";
+"type.highway.trunk_link.bridge" = "جسر";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.trunk_link.tunnel" = "نفق";
 
-"type.highway.unclassified" = "شارع";
+"type.highway.unclassified" = "شارع صغير";
 
-"type.highway.unclassified.area" = "شارع";
+"type.highway.unclassified.area" = "شارع صغير";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.unclassified.bridge" = "كوبري";
+"type.highway.unclassified.bridge" = "جسر";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.unclassified.tunnel" = "نفق";
 
-"type.area_highway.cycleway" = "Cycle Path";
+"type.area_highway.cycleway" = "مسار للدراجات";
 
-"type.area_highway.footway" = "مسار";
+"type.area_highway.footway" = "مسار للمشي";
 
 "type.area_highway.living_street" = "شارع";
 
-"type.area_highway.motorway" = "شارع";
+"type.area_highway.motorway" = "طريق سريع";
 
 "type.area_highway.path" = "مسار";
 
-"type.area_highway.pedestrian" = "شارع";
+"type.area_highway.pedestrian" = "شارع للمشاة";
 
-"type.area_highway.primary" = "شارع";
+"type.area_highway.primary" = "شارع رئيسي";
 
 "type.area_highway.residential" = "شارع";
 
-"type.area_highway.secondary" = "شارع";
+"type.area_highway.secondary" = "شارع ثانوي";
 
 "type.area_highway.service" = "شارع";
 
 "type.area_highway.tertiary" = "شارع";
 
-"type.area_highway.steps" = "مسار";
+"type.area_highway.steps" = "درج";
 
 "type.area_highway.track" = "شارع";
 
-"type.area_highway.trunk" = "شارع";
+"type.area_highway.trunk" = "شارع وطني";
 
-"type.area_highway.unclassified" = "شارع";
+"type.area_highway.unclassified" = "شارع صغير";
 
 "type.highway.world_level" = "highway-world_level";
 
@@ -2106,43 +2132,43 @@
 
 /********** Types: Historic **********/
 
-"type.historic" = "Historic";
+"type.historic" = "مكان تاريخي";
 
 "type.historic.archaeological_site" = "موقع أثري";
 
-"type.historic.battlefield" = "Battlefield";
+"type.historic.battlefield" = "ساحة معركة تاريخية";
 
-"type.historic.boundary_stone" = "Boundary Stone";
+"type.historic.boundary_stone" = "حجر لتحديد الحدود";
 
 "type.historic.castle" = "قلعة";
 
-"type.historic.castle.defensive" = "قلعة";
+"type.historic.castle.defensive" = "قلعة دفاعية";
 
 "type.historic.castle.stately" = "قلعة";
 
-"type.historic.citywalls" = "City Wall";
+"type.historic.citywalls" = "جدار المدينة";
 
-"type.historic.fort" = "Fort";
+"type.historic.fort" = "قلعة";
 
 "type.historic.memorial" = "نصب تذكاري";
 
-"type.historic.memorial.plaque" = "نصب تذكاري";
+"type.historic.memorial.plaque" = "لوحة تذكارية";
 
-"type.historic.memorial.sculpture" = "نصب تذكاري";
+"type.historic.memorial.sculpture" = "منحوتة تذكارية";
 
-"type.historic.memorial.statue" = "نصب تذكاري";
+"type.historic.memorial.statue" = "تمثال تذكاري";
 
 "type.historic.monument" = "صرح";
 
 "type.historic.ruins" = "آثار";
 
-"type.historic.ship" = "سياحة";
+"type.historic.ship" = "سفينة تاريخية";
 
-"type.historic.tomb" = "سياحة";
+"type.historic.tomb" = "قبر";
 
-"type.historic.wayside_cross" = "Christian Cross";
+"type.historic.wayside_cross" = "صليب مسيحي";
 
-"type.historic.wayside_shrine" = "Shrine";
+"type.historic.wayside_shrine" = "ضريح";
 
 "type.hwtag" = "hwtag";
 
@@ -2170,13 +2196,13 @@
 
 "type.hwtag.yesfoot" = "hwtag-yesfoot";
 
-"type.internet_access" = "واي فاي";
+"type.internet_access" = "إنترنت";
 
-"type.internet_access.wlan" = "واي فاي";
+"type.internet_access.wlan" = "إنترنت لا سلكي";
 
-"type.junction" = "Junction";
+"type.junction" = "تقاطع";
 
-"type.junction.roundabout" = "Roundabout";
+"type.junction.roundabout" = "دوّار";
 
 "type.landuse" = "Landuse";
 
@@ -2194,45 +2220,45 @@
 
 "type.landuse.churchyard" = "فناء الكنيسة";
 
-"type.landuse.commercial" = "Commercial Area";
+"type.landuse.commercial" = "منطقة تجارية";
 
-"type.landuse.construction" = "Construction";
+"type.landuse.construction" = "منطقة بناء";
 
-"type.landuse.education" = "Educational Facilities";
+"type.landuse.education" = "مؤسسات تعليمية";
 
-"type.landuse.farm" = "Farm";
+"type.landuse.farm" = "مزرعة";
 
 "type.landuse.farmland" = "حقل";
 
 "type.landuse.farmyard" = "Farmyard";
 
-"type.landuse.field" = "Field";
+"type.landuse.field" = "حقل";
 
 "type.landuse.forest" = "غابة";
 
-"type.landuse.forest.coniferous" = "غابة";
+"type.landuse.forest.coniferous" = "غابة صنوبرية";
 
-"type.landuse.forest.deciduous" = "غابة";
+"type.landuse.forest.deciduous" = "غابة تتساقط أوراقها";
 
-"type.landuse.forest.mixed" = "غابة";
+"type.landuse.forest.mixed" = "غابة مختلطة";
 
 "type.landuse.garages" = "Garages";
 
-"type.landuse.grass" = "حديقة";
+"type.landuse.grass" = "عشب";
 
-"type.landuse.greenfield" = "Greenfield";
+"type.landuse.greenfield" = "مساحة خضراء";
 
 "type.landuse.greenhouse_horticulture" = "Greenhouse";
 
-"type.landuse.industrial" = "Industrial Land";
+"type.landuse.industrial" = "منطقة صناعية";
 
 "type.landuse.landfill" = "مكب نفايات";
 
 "type.landuse.meadow" = "Meadow";
 
-"type.landuse.military" = "Military Area";
+"type.landuse.military" = "منطقة عسكرية";
 
-"type.landuse.orchard" = "Orchard";
+"type.landuse.orchard" = "بستان";
 
 "type.landuse.quarry" = "Quarry";
 
@@ -2242,15 +2268,15 @@
 
 "type.landuse.reservoir" = "مياه";
 
-"type.landuse.residential" = "Residential Land";
+"type.landuse.residential" = "منطقة سكنية";
 
-"type.landuse.retail" = "Retail Land";
+"type.landuse.retail" = "منطقة متاجر";
 
-"type.landuse.salt_pond" = "Pond";
+"type.landuse.salt_pond" = "مستنقع";
 
 "type.landuse.village_green" = "Land";
 
-"type.landuse.vineyard" = "Vineyard";
+"type.landuse.vineyard" = "حقل عنب";
 
 "type.leisure" = "Leisure";
 
@@ -2262,7 +2288,7 @@
 
 "type.leisure.fitness_station" = "مركز لياقة";
 
-"type.leisure.garden" = "بستان";
+"type.leisure.garden" = "حديقة";
 
 "type.leisure.golf_course" = "ملعب جولف";
 
@@ -2272,7 +2298,7 @@
 
 "type.leisure.marina" = "Marina";
 
-"type.leisure.nature_reserve" = "محمية";
+"type.leisure.nature_reserve" = "محمية طبيعية";
 
 "type.leisure.park" = "موقف سيارات";
 
@@ -2280,7 +2306,7 @@
 
 "type.leisure.park.permissive" = "موقف سيارات";
 
-"type.leisure.park.private" = "موقف سيارات";
+"type.leisure.park.private" = "موقف سيارات خاص";
 
 "type.leisure.picnic_table" = "ﺔﻫﺰﻨﻟﺍ ﺔﻟﻭﺎﻃ";
 
@@ -2294,23 +2320,23 @@
 
 "type.leisure.slipway" = "Slipway";
 
-"type.leisure.sports_centre" = "رياضة";
+"type.leisure.sports_centre" = "مركز رياضي";
 
 "type.sport.climbing" = "مركز تسلق";
 
 "type.sport.yoga" = "نادي يوغا";
 
-"type.leisure.stadium" = "استاد";
+"type.leisure.stadium" = "استاد أو مدّرج";
 
-"type.leisure.swimming_pool" = "حوض سباحة";
+"type.leisure.swimming_pool" = "مسبح";
 
-"type.leisure.swimming_pool.private" = "حوض سباحة";
+"type.leisure.swimming_pool.private" = "مسبح خاص";
 
 "type.leisure.track" = "Track";
 
 "type.leisure.water_park" = "ملاهي مائية";
 
-"type.leisure.beach_resort" = "Beach Resort";
+"type.leisure.beach_resort" = "منتجع شاطئي";
 
 "type.man_made" = "Man Made";
 
@@ -2324,19 +2350,19 @@
 
 "type.man_made.survey_point" = "Survey Point";
 
-"type.man_made.flagpole" = "Flagpole";
+"type.man_made.flagpole" = "سارية علم";
 
 "type.man_made.lighthouse" = "منارة";
 
 "type.man_made.mast" = "Mast";
 
-"type.man_made.pier" = "Pier";
+"type.man_made.pier" = "رصيف بحري";
 
 "type.man_made.pipeline" = "Pipeline";
 
 "type.man_made.pipeline.overground" = "Overground Pipeline";
 
-"type.man_made.silo" = "Silo";
+"type.man_made.silo" = "صومعة";
 
 "type.man_made.storage_tank" = "Storage Tank";
 
@@ -2360,9 +2386,9 @@
 
 "type.mapswithme.grid" = "mapswithme-grid";
 
-"type.military" = "Military";
+"type.military" = "جيش";
 
-"type.military.bunker" = "مأوى";
+"type.military.bunker" = "ملجأ";
 
 "type.mountain_pass" = "Mountain Pass";
 
@@ -2468,8 +2494,6 @@
 
 "type.organic.yes" = "Organic";
 
-"type.place" = "place";
-
 "type.place.city" = "مدينة";
 
 "type.place.city.capital" = "عاصمة";
@@ -2508,11 +2532,11 @@
 
 "type.place.islet" = "جزيرة";
 
-"type.place.isolated_dwelling" = "Dwelling";
+"type.place.isolated_dwelling" = "مسكن منعزل";
 
 "type.place.locality" = "منطقة مجاورة";
 
-"type.place.neighbourhood" = "Neighbourhood";
+"type.place.neighbourhood" = "حي سكني";
 
 "type.place.ocean" = "المحيط";
 
@@ -2520,7 +2544,7 @@
 
 "type.place.sea" = "يكون";
 
-"type.place.square" = "Square";
+"type.place.square" = "ميدان";
 
 "type.place.state" = "محافظة";
 
@@ -2971,6 +2995,18 @@
 
 "type.sport.10pin" = "بولينج بعشرة دبابيس";
 
+"type.sport.padel" = "ﻞﻳﺩﺎﺑ";
+
+"type.sport.futsal" = "كرة الصالات";
+
+"type.sport.ice_hockey" = "هوكي الجليد";
+
+"type.sport.field_hockey" = "ﻥﺍﺪﻴﻤﻟﺍ ﻲﻛﻮﻫ";
+
+"type.sport.badminton" = "ﺔﺸﻳﺮﻟﺍ ﺲﻨﺗ";
+
+"type.sport.pelota" = "ﻚﺳﺎﺒﻟﺍ ﺎﺗﻮﻠﻴﺑ";
+
 "type.tourism" = "Tourism";
 
 "type.tourism.alpine_hut" = "مساكن جبلية";
@@ -3073,7 +3109,7 @@
 
 "type.waterway.stream.tunnel" = "نهر";
 
-"type.waterway.waterfall" = "شلال";
+"type.waterway.waterfall" = "شلّال";
 
 "type.waterway.weir" = "Weir";
 

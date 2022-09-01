@@ -503,12 +503,6 @@
 
 "history" = "Історія";
 
-"opens_in" = "Відкривається через %@";
-
-"closes_in" = "Зачиняється через %@";
-
-"closed" = "Зачинено";
-
 "search_not_found" = "На жаль, нічого не знайдено.";
 
 "search_not_found_query" = "Спробуйте змінити запит.";
@@ -578,6 +572,20 @@
 
 "today" = "Сьогодні";
 
+"opens_tomorrow_at" = "Відкриття завтра о %@";
+
+"opens_dayoftheweek_at" = "Відчиняється в %1$@ о %2$@";
+
+"opens_at" = "Відкриття о %@";
+
+"opens_in" = "Відкривається через %@";
+
+"closes_at" = "Закривається о %@";
+
+"closes_in" = "Зачиняється через %@";
+
+"closed" = "Зачинено";
+
 "add_opening_hours" = "Додати години роботи";
 
 "no_osm_account" = "Не зареєстровані в OpenStreetMap?";
@@ -630,6 +638,8 @@
 
 "phone" = "Телефон";
 
+"level" = "Поверх";
+
 "please_note" = "Будь ласка, зверніть увагу";
 
 "downloader_delete_map_dialog" = "Разом з мапою будуть видалені й внесені Вами правки на цій мапі.";
@@ -670,7 +680,7 @@
 
 "message_invalid_feature_position" = "Об'єкт не може перебувати в цьому місцезнаходженні";
 
-"login_to_make_edits_visible" = "Увійдіть, щоб ваші зміни побачили інші користувачі.";
+"login_to_make_edits_visible" = "Увійдіть у OpenStreetMap.org, щоб ваші зміни побачили інші користувачі.";
 
 /* Error dialog no space */
 "migration_no_space_message" = "Для завантаження потрібно більше вільного місця. Будь ласка, видаліть непотрібні дані.";
@@ -750,6 +760,8 @@
 
 "miles_per_hour" = "ми/год";
 
+"hour" = "год";
+
 "minute" = "хв";
 
 "placepage_place_description" = "Опис";
@@ -798,10 +810,10 @@
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Надіслати усім користувачам?";
 
-/* iOS Dialog before publishing the modifications to the public map. */
+/* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "Переконайтеся, що ви не ввели особисті дані.";
 
-"editor_share_to_all_dialog_message_2" = "Якщо при перевірці змін виникнуть питання, ми напишемо вам на email.";
+"editor_share_to_all_dialog_message_2" = "Редактори OpenStreetMap перевірять зміни та зв’яжуться з вами, якщо у них виникнуть запитання.";
 
 "navigation_stop_button" = "стоп";
 
@@ -1205,6 +1217,12 @@
 /* edit track screen title */
 "track_title" = "Маршрут";
 
+/* Telegram group url for the help page */
+"telegram_url" = "https://t.me/OrganicMapsApp";
+
+/* Instagram account url for the help page */
+"instagram_url" = "https://www.instagram.com/organicmaps.app";
+
 
 /********** Types **********/
 
@@ -1356,6 +1374,12 @@
 
 "type.amenity.parking.underground" = "Парковка";
 
+"type.amenity.parking_entrance.private" = "Вхід на паркінг";
+
+"type.amenity.parking_entrance.permissive" = "Вхід на паркінг";
+
+"type.amenity.parking_entrance" = "Вхід на паркінг";
+
 "type.amenity.parking_space" = "Паркувальне місце";
 
 "type.amenity.parking_space.permissive" = "Паркувальне місце";
@@ -1363,6 +1387,8 @@
 "type.amenity.parking_space.private" = "Паркувальне місце";
 
 "type.amenity.parking_space.underground" = "Паркувальне місце";
+
+"type.amenity.parking_space.disabled" = "Паркомісце для інвалідів";
 
 "type.amenity.payment_terminal" = "Платіжний термінал";
 
@@ -2468,8 +2494,6 @@
 
 "type.organic.yes" = "Еко";
 
-"type.place" = "Мicце";
-
 "type.place.city" = "Місто";
 
 "type.place.city.capital" = "Столиця";
@@ -2508,9 +2532,9 @@
 
 "type.place.islet" = "Острів";
 
-"type.place.isolated_dwelling" = "Житло";
+"type.place.isolated_dwelling" = "Хутір";
 
-"type.place.locality" = "Місцевість";
+"type.place.locality" = "Місце";
 
 "type.place.neighbourhood" = "Мiкрорайон";
 
@@ -2970,6 +2994,18 @@
 "type.sport.9pin" = "Боулінг";
 
 "type.sport.10pin" = "Боулінг";
+
+"type.sport.padel" = "Падель";
+
+"type.sport.futsal" = "Футзал";
+
+"type.sport.ice_hockey" = "Хокей із шайбою";
+
+"type.sport.field_hockey" = "Хокей на траві";
+
+"type.sport.badminton" = "Бадмінтон";
+
+"type.sport.pelota" = "Баскська пелота";
 
 "type.tourism" = "Туризм";
 

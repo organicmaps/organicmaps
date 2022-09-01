@@ -164,6 +164,8 @@
 	<string name="help">עזרה</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">תובושתו תולאש</string>
+	<!-- Button in the main menu -->
+	<string name="donate">םוֹרתְלִ</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">כיצד לתמוך בנו?</string>
 	<!-- Button in the main Help dialog -->
@@ -213,6 +215,10 @@
 	<string name="search_without_internet_advertisement">על מנת להתחיל לחפש וליצור מסלולים, הורידו בבקשה את המפה ולא תזדקקו יותר לחיבור לאינטרנט.</string>
 	<string name="search_select_map">בחרו את המפה</string>
 	<string name="twentyfour_seven">יום ולילה</string>
+	<string name="login_osm">OpenStreetMap-ל סנכיה</string>
+	<string name="level">קוֹמָה</string>
+	<string name="osm_presentation">.םלועה יבחר לכב םישמתשמ ינוילימל תונימזל תוכפוה ןהו ,תומוקמ ךורעל וא ףיסוהל לו</string>
+	<string name="editor_share_to_all_dialog_message_2">.ןהשלכ תולאש םהל שי םא רשק ךתיא ורציו םייונישה תא וקדבי OpenStreetMap יכרוע</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps היא אפליקציית מפות לא מקוונות בחינם ובקוד פתוח. ללא פרסומות. אין מעקב. אם אתה רואה שגיאה במפה, אנא תקן אותה ב-OpenStreetMap. הפרויקט נוצר על ידי חובבים בזמננו הפנוי, אז אנו זקוקים למשוב ולתמיכה שלכם.</string>
 	<string name="transliteration_title">תעתיק ללטינית</string>
@@ -225,6 +231,12 @@
 	<string name="enable_screen_sleep_description">כאשר מופעל המסך יורשה לישון לאחר תקופה של חוסר פעילות.</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">OpenStreetMap-מ הפמ ינותנ</string>
+
+	<!-- SECTION: Types -->
+	<string name="type.amenity.parking_entrance.private">הינחל הסינכ</string>
+	<string name="type.amenity.parking_entrance.permissive">הינחל הסינכ</string>
+	<string name="type.amenity.parking_entrance">הינחל הסינכ</string>
+	<string name="type.amenity.parking_space.disabled">םיכנל הינח</string>
 
 	<!-- SECTION: Types: Recycling -->
 	<string name="type.recycling.batteries">תוללוס</string>
@@ -449,6 +461,37 @@
 	<string name="type.natural.wetland">ביצה</string>
 	<string name="type.natural.wetland.bog">ביצת כבול</string>
 	<string name="type.natural.wetland.marsh">ביצת עשב</string>
+	<string name="type.place.city">עיר</string>
+	<string name="type.place.city.capital">עיר בירה</string>
+	<string name="type.place.city.capital.10">עיר</string>
+	<string name="type.place.city.capital.11">עיר</string>
+	<string name="type.place.city.capital.2">עיר בירה</string>
+	<string name="type.place.city.capital.3">עיר</string>
+	<string name="type.place.city.capital.4">עיר</string>
+	<string name="type.place.city.capital.5">עיר</string>
+	<string name="type.place.city.capital.6">עיר</string>
+	<string name="type.place.city.capital.7">עיר</string>
+	<string name="type.place.city.capital.8">עיר</string>
+	<string name="type.place.city.capital.9">עיר</string>
+	<string name="type.place.continent">יבשת</string>
+	<string name="type.place.country">ארץ</string>
+	<string name="type.place.county">נפה</string>
+	<string name="type.place.farm">חווה חקלאית</string>
+	<string name="type.place.hamlet">כְּפָר קָטָן</string>
+	<string name="type.place.island">אי</string>
+	<string name="type.place.islet">איון</string>
+	<string name="type.place.isolated_dwelling">דירת מגורים מבודדת</string>
+	<string name="type.place.locality">מקום</string>
+	<string name="type.place.neighbourhood">שכונה</string>
+	<string name="type.place.ocean">אוקיינוס</string>
+	<string name="type.place.region">חבל ארץ</string>
+	<string name="type.place.sea">ים</string>
+	<string name="type.place.square">כיכר עירונית</string>
+	<string name="type.place.state">מדינה פדרלית</string>
+	<string name="type.place.state.USA">מדינה</string>
+	<string name="type.place.suburb">פרוור</string>
+	<string name="type.place.town">עיירה</string>
+	<string name="type.place.village">כפר</string>
 	<string name="type.shop.deli">תוינדעמ תונח</string>
 	<string name="type.shop.farm">הווחל ןוזמ תונח</string>
 	<string name="type.shop.grocery">תלֶוֹכּמַ</string>
@@ -506,6 +549,12 @@
 	<string name="type.sport.volleyball">כדורעף</string>
 	<string name="type.sport.9pin">בָּאוּלִינְג</string>
 	<string name="type.sport.10pin">בָּאוּלִינְג</string>
+	<string name="type.sport.padel">לדאפ</string>
+	<string name="type.sport.futsal">לסטופ</string>
+	<string name="type.sport.ice_hockey">חרק יקוה</string>
+	<string name="type.sport.field_hockey">הדש יקוה</string>
+	<string name="type.sport.badminton">תיצונ</string>
+	<string name="type.sport.pelota">תיקסאב הטלפ</string>
 	<string name="type.tourism.information">מידע לתייר</string>
 	<string name="type.tourism.information.board">לוח מידע</string>
 	<string name="type.tourism.information.guidepost">מנחה</string>

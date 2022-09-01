@@ -754,7 +754,7 @@
         android:parentActivityName="com.mapswithme.maps.MwmActivity" />
 
     <activity
-        android:name="com.mapswithme.maps.editor.OsmAuthActivity"
+        android:name="com.mapswithme.maps.editor.OsmLoginActivity"
         android:parentActivityName="com.mapswithme.maps.MwmActivity" />
 
     <activity

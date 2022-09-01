@@ -408,6 +408,7 @@ public:
   };
 
   UserEventStream();
+
   void AddEvent(drape_ptr<UserEvent> && event);
   ScreenBase const & ProcessEvents(bool & modelViewChanged, bool & viewportChanged);
   ScreenBase const & GetCurrentScreen() const;
@@ -497,7 +498,7 @@ private:
   bool DetectForceTap(Touch const & touch);
   void EndTapDetector(Touch const & touch);
   void CancelTapDetector();
-  
+
   void StartDoubleTapAndHold(Touch const & touch);
   void UpdateDoubleTapAndHold(Touch const & touch);
   void EndDoubleTapAndHold(Touch const & touch);
@@ -555,6 +556,8 @@ private:
   m2::PointD m_startDragOrg;
   std::array<m2::PointF, 2> m_twoFingersTouches;
   m2::PointD m_startDoubleTapAndHold;
+
+  double const m_dragThreshold;
 
   KineticScroller m_scroller;
   base::Timer m_kineticTimer;

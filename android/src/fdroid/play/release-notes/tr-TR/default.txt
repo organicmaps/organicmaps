@@ -1,12 +1,11 @@
-• Yeni OSM harita verileri (18 Temmuz)
-• Düzeltilmiş/güncellenmiş API (bkz. omaps.app/api)
-• Yol ve parkurlar Mali–G72 Huawei'de artık düzgün
-• Popüler OSM etiketlerinden bazı eksik mağaza türleri eklendi
-• Ufak rota iyileştirmeleri
-• 3D yapılar için min_level kullanılıyor
-• Düzenleyicide mutfaklar seçimden kaldırılabiliyor
-• FB URL doğrulamasında düzeltmeler
-• Alt menü başlığı 3 satıra sınırlandı
-• Yer imleri aramasında artık bir geri oku gösteriliyor
-
-tüm güncelleme notu: organicmaps.app/news
+• Yeni harita verileri (16 Ağustos)
+• Uzun rotalar artık eskisinden çok daha hızlı hesaplanıyor
+• Arama iyileştirildi, artık çok daha iyi ve daha hızlı!
+• mwm (harita) dosya boyutları azaltıldı
+• Aranan bazı nesnelerin haritada gösterilmemesi sorunu düzeltildi
+• Askeri alan ve sınırların görünürlüğü iyileştirildi
+• Engelli park yerleri eklendi
+• Farklı spor simgeleri eklendi
+• Çiftlik avlusu eklendi
+• Eksik çeviriler eklendi
+…dahası: organicmaps.app/news

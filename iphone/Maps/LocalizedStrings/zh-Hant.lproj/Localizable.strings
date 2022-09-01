@@ -503,12 +503,6 @@
 
 "history" = "記錄";
 
-"opens_in" = "Opens in %@";
-
-"closes_in" = "Closes in %@";
-
-"closed" = "已關閉";
-
 "search_not_found" = "很抱歉，找不到任何東西。";
 
 "search_not_found_query" = "請嘗試其他搜尋字詞。";
@@ -578,6 +572,20 @@
 
 "today" = "今天";
 
+"opens_tomorrow_at" = "Opens tomorrow at %@";
+
+"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
+
+"opens_at" = "Opens at %@";
+
+"opens_in" = "Opens in %@";
+
+"closes_at" = "Closes at %@";
+
+"closes_in" = "Closes in %@";
+
+"closed" = "已關閉";
+
 "add_opening_hours" = "新增營業時間";
 
 "no_osm_account" = "沒有 OpenStreetMap 帳號嗎？";
@@ -629,6 +637,8 @@
 "email_or_username" = "電子郵件或使用者名稱";
 
 "phone" = "電話";
+
+"level" = "樓層";
 
 "please_note" = "請註意";
 
@@ -750,6 +760,8 @@
 
 "miles_per_hour" = "英哩每小時";
 
+"hour" = "小時";
+
 "minute" = "分鐘";
 
 "placepage_place_description" = "說明";
@@ -798,10 +810,10 @@
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "您想要發給所有用戶嗎？";
 
-/* iOS Dialog before publishing the modifications to the public map. */
+/* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "確保您沒有輸入任何個人資料。";
 
-"editor_share_to_all_dialog_message_2" = "我們會檢查更改。如果我們有任何問題，我們會郵件與您聯絡。";
+"editor_share_to_all_dialog_message_2" = "OpenStreetMap 編輯人員將檢查更改並在有任何問題時與您聯繫。";
 
 "navigation_stop_button" = "停止";
 
@@ -1205,6 +1217,12 @@
 /* edit track screen title */
 "track_title" = "追踪";
 
+/* Telegram group url for the help page */
+"telegram_url" = "https://t.me/OrganicMapsApp";
+
+/* Instagram account url for the help page */
+"instagram_url" = "https://www.instagram.com/organicmaps.app";
+
 
 /********** Types **********/
 
@@ -1356,6 +1374,12 @@
 
 "type.amenity.parking.underground" = "停車場";
 
+"type.amenity.parking_entrance.private" = "停車場入口";
+
+"type.amenity.parking_entrance.permissive" = "停車場入口";
+
+"type.amenity.parking_entrance" = "停車場入口";
+
 "type.amenity.parking_space" = "停車地點";
 
 "type.amenity.parking_space.permissive" = "停車地點";
@@ -1363,6 +1387,8 @@
 "type.amenity.parking_space.private" = "停車地點";
 
 "type.amenity.parking_space.underground" = "停車地點";
+
+"type.amenity.parking_space.disabled" = "殘疾人停車位";
 
 "type.amenity.payment_terminal" = "付款終端";
 
@@ -2468,8 +2494,6 @@
 
 "type.organic.yes" = "Organic";
 
-"type.place" = "place";
-
 "type.place.city" = "城市";
 
 "type.place.city.capital" = "首府";
@@ -2508,11 +2532,11 @@
 
 "type.place.islet" = "島";
 
-"type.place.isolated_dwelling" = "Dwelling";
+"type.place.isolated_dwelling" = "孤立居所";
 
 "type.place.locality" = "當地";
 
-"type.place.neighbourhood" = "Neighbourhood";
+"type.place.neighbourhood" = "鄰里社區";
 
 "type.place.ocean" = "海洋";
 
@@ -2520,7 +2544,7 @@
 
 "type.place.sea" = "海";
 
-"type.place.square" = "Square";
+"type.place.square" = "廣場";
 
 "type.place.state" = "州/省";
 
@@ -2970,6 +2994,18 @@
 "type.sport.9pin" = "保齡球";
 
 "type.sport.10pin" = "保齡球";
+
+"type.sport.padel" = "帕德爾";
+
+"type.sport.futsal" = "五人制足球";
+
+"type.sport.ice_hockey" = "冰球";
+
+"type.sport.field_hockey" = "曲棍球";
+
+"type.sport.badminton" = "羽毛球";
+
+"type.sport.pelota" = "巴斯克回力球";
 
 "type.tourism" = "Tourism";
 

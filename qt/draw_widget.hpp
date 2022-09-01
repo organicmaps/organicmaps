@@ -5,23 +5,15 @@
 #include "qt/ruler.hpp"
 #include "qt/selection.hpp"
 
-#include "map/everywhere_search_params.hpp"
-#include "map/place_page_info.hpp"
 #include "map/routing_manager.hpp"
 
 #include "search/result.hpp"
 
 #include "routing/router.hpp"
 
-#include "drape_frontend/drape_engine.hpp"
-#include "drape_frontend/gui/skin.hpp"
-
 #include <QtWidgets/QRubberBand>
 
-#include <condition_variable>
-#include <functional>
 #include <memory>
-#include <mutex>
 #include <optional>
 #include <string>
 
@@ -97,7 +89,7 @@ protected:
 
 private:
   void SubmitFakeLocationPoint(m2::PointD const & pt);
-  void SubmitRulerPoint(QMouseEvent * e);
+  void SubmitRulerPoint(m2::PointD const & pt);
   void SubmitRoutingPoint(m2::PointD const & pt);
   void SubmitBookmark(m2::PointD const & pt);
   void ShowPlacePage();
@@ -105,7 +97,8 @@ private:
   void VisualizeMwmsBordersInRect(m2::RectD const & rect, bool withVertices,
                                   bool fromPackedPolygon, bool boundingBox);
 
-  m2::PointD GetCoordsFromSettingsIfExists(bool start, m2::PointD const & pt);
+  m2::PointD P2G(m2::PointD const & pt) const;
+  m2::PointD GetCoordsFromSettingsIfExists(bool start, m2::PointD const & pt) const;
 
   QRubberBand * m_rubberBand;
   QPoint m_rubberBandOrigin;

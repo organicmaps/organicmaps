@@ -45,6 +45,12 @@ public:
     return value;
   }
 
+  void Clear()
+  {
+    m_cache.clear();
+    m_keyAge.Clear();
+  }
+
   /// \brief Checks for coherence class params.
   /// \note It's a time consumption method and should be called for tests only.
   bool IsValidForTesting() const
@@ -72,7 +78,15 @@ private:
   class KeyAge
   {
     template <typename K, typename V> friend class LruCacheKeyAgeTest;
+
   public:
+    void Clear()
+    {
+      m_age = 0;
+      m_ageToKey.clear();
+      m_keyToAge.clear();
+    }
+
     /// \brief Increments |m_age| and insert key to |m_ageToKey| and |m_keyToAge|.
     /// \note This method should be used only if there's no |key| in |m_ageToKey| and |m_keyToAge|.
     void InsertKey(Key const & key)

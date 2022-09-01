@@ -18,7 +18,7 @@ UNIT_TEST(CountryParentGetter_Smoke)
 namespace
 {
 
-uint16_t GetCountryID(std::shared_ptr<NumMwmIds> mwmIDs, std::string const & mwmName)
+uint16_t GetCountryID(std::shared_ptr<NumMwmIds> const & mwmIDs, std::string const & mwmName)
 {
   return mwmIDs->GetId(platform::CountryFile(mwmName));
 }

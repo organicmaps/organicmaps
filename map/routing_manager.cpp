@@ -1483,7 +1483,7 @@ void RoutingManager::SetSubroutesVisibility(bool visible)
     lock.Get()->SetSubrouteVisibility(subrouteId, visible);
 }
 
-bool RoutingManager::IsSpeedLimitExceeded() const
+bool RoutingManager::IsSpeedCamLimitExceeded() const
 {
-  return m_routingSession.IsSpeedLimitExceeded();
+  return m_routingSession.IsSpeedCamLimitExceeded();
 }

@@ -224,6 +224,8 @@
 	<string name="help">帮助</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">问题和解答</string>
+	<!-- Button in the main menu -->
+	<string name="donate">捐</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">如何支持我们？</string>
 	<!-- Button in the main Help dialog -->
@@ -343,7 +345,6 @@
 	<string name="routing_arrive">抵達:%s</string>
 	<string name="categories">类别</string>
 	<string name="history">历史</string>
-	<string name="closed">已关闭</string>
 	<string name="search_not_found">抱歉，没有找到任何东西。</string>
 	<string name="search_not_found_query">请尝试其它查询。</string>
 	<string name="search_history_title">搜索历史</string>
@@ -387,10 +388,12 @@
 	<string name="day_off_today">今天没有营业</string>
 	<string name="day_off">没有营业</string>
 	<string name="today">今天</string>
+	<string name="closed">已关闭</string>
 	<string name="edit_opening_hours">编辑工作时间</string>
 	<string name="no_osm_account">在OpenStreetMap上没有账户吗？</string>
 	<string name="register_at_openstreetmap">注册</string>
 	<string name="login">登录</string>
+	<string name="login_osm">登录 OpenStreetMap</string>
 	<string name="password">密码</string>
 	<string name="forgot_password">忘记密码</string>
 	<string name="logout">登出</string>
@@ -410,6 +413,7 @@
 	<string name="select_cuisine">选择菜肴</string>
 	<!-- login text field -->
 	<string name="email_or_username">邮箱或用户名</string>
+	<string name="level">楼层</string>
 	<string name="downloader_delete_map_dialog">所有对地图的修改都将与地图一起被删除。</string>
 	<string name="downloader_update_maps">更新地图</string>
 	<string name="downloader_mwm_migration_dialog">为了创建路线，您需要更新全部地图并重新规划路线。</string>
@@ -428,6 +432,7 @@
 	<string name="editor_report_problem_other_title">一个不同的问题</string>
 	<string name="placepage_add_business_button">添加组织</string>
 	<string name="message_invalid_feature_position">对象无法设置在这里</string>
+	<string name="osm_presentation">所有地图数据均来自 OpenStreetMap 项目。它就像 Wikipedia 中的地图，您可以在其中添加或编辑地点，并且它们可供全球数百万用户使用。</string>
 	<string name="login_to_make_edits_visible">登录，让其他用户能看到您所作出的修改。</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d个/共%2$d个</string>
@@ -481,9 +486,9 @@
 	<string name="placepage_add_place_button">添加地点到地图上</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">您想要发给所有用户吗？</string>
-	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">确保您没有输入任何个人数据。</string>
-	<string name="editor_share_to_all_dialog_message_2">我们会检查更改。如果我们有任何问题，我们会邮件与您联系。</string>
+	<string name="editor_share_to_all_dialog_message_2">OpenStreetMap 编辑人员将检查更改并在有任何问题时与您联系。</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps 是一款免费的开源离线地图应用程序。无广告。没有跟踪。如果您在地图上看到错误，请在 OpenStreetMap 中修复它。该项目由爱好者在我们的空闲时间创建，因此我们需要您的反馈和支持。</string>
 	<!-- For the first routing -->
@@ -512,7 +517,7 @@
 	<string name="on">开</string>
 	<string name="off">关</string>
 	<string name="prefs_languages_information">我们为语音指令使用“文字转语音”系统。许多 Android 设备使用 Google 文字转语音，您可以从 Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts) 下载或更新这一功能</string>
-	<string name="prefs_languages_information_off">对于某些语言，您需要从应用商店（Google Play Market、Samsung Apps）中安装其他语音合成器或语言包。\n打开您的设备的设置 → 语言和输入法 → 语音 → 文字转语音 (TTS) 输出。\n您可以在这里管理语音合成的设置（例如，下载语言包供离线使用）和选择其他文字转语音引擎。</string>
+	<string name="prefs_languages_information_off">对于某些语言，您需要从应用商店（Google Play Market、Galaxy Store）中安装其他语音合成器或语言包。\n打开您的设备的设置 → 语言和输入法 → 语音 → 文字转语音 (TTS) 输出。\n您可以在这里管理语音合成的设置（例如，下载语言包供离线使用）和选择其他文字转语音引擎。</string>
 	<string name="prefs_languages_information_off_link">如需了解更多信息，请查阅此指南。</string>
 	<string name="transliteration_title">直译成拉丁文</string>
 	<string name="learn_more">了解更多</string>
@@ -748,10 +753,14 @@
 	<string name="type.amenity.parking.permissive">停车场</string>
 	<string name="type.amenity.parking.private">停车场</string>
 	<string name="type.amenity.parking.underground">停车场</string>
+	<string name="type.amenity.parking_entrance.private">停车场入口</string>
+	<string name="type.amenity.parking_entrance.permissive">停车场入口</string>
+	<string name="type.amenity.parking_entrance">停车场入口</string>
 	<string name="type.amenity.parking_space">停车位</string>
 	<string name="type.amenity.parking_space.permissive">停车位</string>
 	<string name="type.amenity.parking_space.private">停车位</string>
 	<string name="type.amenity.parking_space.underground">停车位</string>
+	<string name="type.amenity.parking_space.disabled">残疾人停车位</string>
 	<string name="type.amenity.payment_terminal">支付终端</string>
 	<string name="type.amenity.pharmacy">药店</string>
 	<string name="type.amenity.place_of_worship">礼拜场所</string>
@@ -1269,7 +1278,6 @@
 	<string name="type.office.lawyer">律师事务所</string>
 	<string name="type.office.ngo">非政府组织办公室</string>
 	<string name="type.office.telecommunication">电信办公室</string>
-	<string name="type.place">地点</string>
 	<string name="type.place.city">城市</string>
 	<string name="type.place.city.capital">首府</string>
 	<string name="type.place.city.capital.10">城市</string>
@@ -1291,7 +1299,7 @@
 	<string name="type.place.islet">岛</string>
 	<string name="type.place.isolated_dwelling">孤立居所</string>
 	<string name="type.place.locality">地方</string>
-	<string name="type.place.neighbourhood">街坊社区/小区</string>
+	<string name="type.place.neighbourhood">邻里社区</string>
 	<string name="type.place.ocean">海洋</string>
 	<string name="type.place.region">区域</string>
 	<string name="type.place.sea">海</string>
@@ -1499,6 +1507,12 @@
 	<string name="type.sport.volleyball">排球</string>
 	<string name="type.sport.9pin">保龄球</string>
 	<string name="type.sport.10pin">保龄球</string>
+	<string name="type.sport.padel">帕德尔</string>
+	<string name="type.sport.futsal">五人制足球</string>
+	<string name="type.sport.ice_hockey">冰球</string>
+	<string name="type.sport.field_hockey">曲棍球</string>
+	<string name="type.sport.badminton">羽毛球</string>
+	<string name="type.sport.pelota">巴斯克回力球</string>
 	<string name="type.tourism">旅游要素</string>
 	<string name="type.tourism.alpine_hut">山上住宿</string>
 	<string name="type.tourism.apartment">公寓</string>

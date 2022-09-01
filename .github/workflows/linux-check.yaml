@@ -153,6 +153,7 @@ jobs:
             -e routing_consistency_tests \
             -e opening_hours_supported_features_tests \
             -e storage_integration_tests \
+            -e osm_auth_tests \  # Disable temporarily while OSM dev server is down.
 
   linux-appstream:
     name: Linux validate appstream data

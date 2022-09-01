@@ -503,12 +503,6 @@
 
 "history" = "履歴";
 
-"opens_in" = "Opens in %@";
-
-"closes_in" = "Closes in %@";
-
-"closed" = "閉鎖";
-
 "search_not_found" = "申し訳ありませんが該当するものは見つかりませんでした。";
 
 "search_not_found_query" = "別のクエリをお試しください。";
@@ -578,6 +572,20 @@
 
 "today" = "今日は";
 
+"opens_tomorrow_at" = "Opens tomorrow at %@";
+
+"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
+
+"opens_at" = "Opens at %@";
+
+"opens_in" = "Opens in %@";
+
+"closes_at" = "Closes at %@";
+
+"closes_in" = "Closes in %@";
+
+"closed" = "閉鎖";
+
 "add_opening_hours" = "営業時間を追加";
 
 "no_osm_account" = "OpenStreetMapのアカウントがありませんか？";
@@ -629,6 +637,8 @@
 "email_or_username" = "メールアドレスまたはユーザー名";
 
 "phone" = "電話";
+
+"level" = "階";
 
 "please_note" = "ご注意ください";
 
@@ -750,6 +760,8 @@
 
 "miles_per_hour" = "マイル毎時";
 
+"hour" = "時間";
+
 "minute" = "分";
 
 "placepage_place_description" = "説明";
@@ -798,10 +810,10 @@
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "全てのユーザーに送信しますか？";
 
-/* iOS Dialog before publishing the modifications to the public map. */
+/* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "個人情報を入力していないことを確認してください。";
 
-"editor_share_to_all_dialog_message_2" = "弊社で変更を確認します。質問がある場合はメールでご連絡します。";
+"editor_share_to_all_dialog_message_2" = "OpenStreetMap の編集者が変更を確認し、質問があれば連絡します。";
 
 "navigation_stop_button" = "停止";
 
@@ -1205,6 +1217,12 @@
 /* edit track screen title */
 "track_title" = "トラック";
 
+/* Telegram group url for the help page */
+"telegram_url" = "https://t.me/OrganicMapsApp";
+
+/* Instagram account url for the help page */
+"instagram_url" = "https://www.instagram.com/organicmaps.app";
+
 
 /********** Types **********/
 
@@ -1356,6 +1374,12 @@
 
 "type.amenity.parking.underground" = "駐車場";
 
+"type.amenity.parking_entrance.private" = "駐車場入口";
+
+"type.amenity.parking_entrance.permissive" = "駐車場入口";
+
+"type.amenity.parking_entrance" = "駐車場入口";
+
 "type.amenity.parking_space" = "駐車スペース";
 
 "type.amenity.parking_space.permissive" = "駐車スペース";
@@ -1363,6 +1387,8 @@
 "type.amenity.parking_space.private" = "駐車スペース";
 
 "type.amenity.parking_space.underground" = "駐車スペース";
+
+"type.amenity.parking_space.disabled" = "身障者用駐車スペース";
 
 "type.amenity.payment_terminal" = "決済端末";
 
@@ -2468,8 +2494,6 @@
 
 "type.organic.yes" = "Organic";
 
-"type.place" = "地名";
-
 "type.place.city" = "市";
 
 "type.place.city.capital" = "首都";
@@ -2970,6 +2994,18 @@
 "type.sport.9pin" = "ボウリング";
 
 "type.sport.10pin" = "ボウリング";
+
+"type.sport.padel" = "パデル";
+
+"type.sport.futsal" = "フットサル";
+
+"type.sport.ice_hockey" = "アイスホッケー";
+
+"type.sport.field_hockey" = "フィールドホッケー";
+
+"type.sport.badminton" = "バドミントン";
+
+"type.sport.pelota" = "バスクペロタ";
 
 "type.tourism" = "観光";
 

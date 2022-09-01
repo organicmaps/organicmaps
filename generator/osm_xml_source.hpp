@@ -6,6 +6,7 @@
 #include "base/string_utils.hpp"
 
 #include <functional>
+#include <utility>
 #include <string>
 
 class XMLSource
@@ -13,7 +14,7 @@ class XMLSource
 public:
   using Emitter = std::function<void(OsmElement *)>;
 
-  XMLSource(Emitter fn) : m_emitter(fn) {}
+  XMLSource(Emitter && fn) : m_emitter(std::move(fn)) {}
 
   void CharData(std::string const &) {}
 
@@ -45,8 +46,7 @@ public:
     ASSERT_GREATER_OR_EQUAL(tagName.size(), 2, ());
 
     // As tagKey we use first two char of tag name.
-    OsmElement::EntityType tagKey =
-        OsmElement::EntityType(*reinterpret_cast<uint16_t const *>(tagName.data()));
+    auto tagKey = OsmElement::EntityType(*reinterpret_cast<uint16_t const *>(tagName.data()));
 
     switch (++m_depth)
     {

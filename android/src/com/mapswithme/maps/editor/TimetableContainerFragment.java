@@ -75,6 +75,10 @@ public class TimetableContainerFragment extends BaseMwmFragment implements OnBac
   @NonNull
   private TextView mSwitchMode;
 
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private View mBottomBar;
+
   @Nullable
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -117,9 +121,10 @@ public class TimetableContainerFragment extends BaseMwmFragment implements OnBac
   @Override
   public void onTimetableChanged(@Nullable String timetable)
   {
-    UiUtils.showIf(TextUtils.isEmpty(timetable)
-                           || OpeningHours.nativeTimetablesFromString(timetable) != null,
-                   mSwitchMode);
+    boolean isValidTimetable = TextUtils.isEmpty(timetable)
+                               || OpeningHours.nativeTimetablesFromString(timetable) != null;
+    UiUtils.showIf(isValidTimetable, mSwitchMode);
+    UiUtils.showIf(isValidTimetable, mBottomBar);
   }
 
   @Override
@@ -132,6 +137,7 @@ public class TimetableContainerFragment extends BaseMwmFragment implements OnBac
   {
     mSwitchMode = root.findViewById(R.id.tv__mode_switch);
     mSwitchMode.setOnClickListener(v -> switchMode());
+    mBottomBar = root.findViewById(R.id.v__bottom_bar);
   }
 
   private void switchMode()

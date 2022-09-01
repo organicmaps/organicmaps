@@ -1,13 +1,11 @@
-typedef NS_ENUM(NSUInteger, MWMEditorCellType) {
-  MWMEditorCellTypePostcode = feature::Metadata::EType::FMD_COUNT,
-  MWMEditorCellTypePhoneNumber,
-  MWMEditorCellTypeWebsite,
-  MWMEditorCellTypeURL,
-  MWMEditorCellTypeEmail,
-  MWMEditorCellTypeOperator,
-  MWMEditorCellTypeOpenHours,
-  MWMEditorCellTypeWiFi,
-  MWMEditorCellTypeCoordinate,
+#pragma once
+
+#include "indexer/feature_meta.hpp"
+
+using MetadataID = feature::Metadata::EType;
+enum MWMEditorCellType
+{
+  MWMEditorCellTypeCoordinate = MetadataID::FMD_COUNT + 1,
   MWMEditorCellTypeBookmark,
   MWMEditorCellTypeEditButton,
   MWMEditorCellTypeAddBusinessButton,
@@ -20,10 +18,9 @@ typedef NS_ENUM(NSUInteger, MWMEditorCellType) {
   MWMEditorCellTypeAddAdditionalNamePlaceholder,
   MWMEditorCellTypeStreet,
   MWMEditorCellTypeBuilding,
-  MWMEditorCellTypeZipCode,
-  MWMEditorCellTypeBuildingLevels,
-  MWMEditorCellTypeCuisine,
   MWMEditorCellTypeNote,
   MWMEditorCellTypeBookingMore,
-  MWMEditorCellTypeCount
 };
+
+// Combines MetadataID and MWMEditorCellType.
+using MWMEditorCellID = std::underlying_type<MetadataID>::type;

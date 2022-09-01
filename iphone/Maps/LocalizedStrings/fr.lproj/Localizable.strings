@@ -503,12 +503,6 @@
 
 "history" = "Historique";
 
-"opens_in" = "Ouvert dans %@";
-
-"closes_in" = "Fermé dans %@";
-
-"closed" = "Fermé";
-
 "search_not_found" = "Désolé, je n'ai rien trouvé.";
 
 "search_not_found_query" = "Veuillez essayer un autre mot-clé.";
@@ -578,11 +572,25 @@
 
 "today" = "Aujourd'hui";
 
+"opens_tomorrow_at" = "Ouvre demain à %@";
+
+"opens_dayoftheweek_at" = "Ouvre le %1$@ à %2$@";
+
+"opens_at" = "Ouvre à %@";
+
+"opens_in" = "Ouvert dans %@";
+
+"closes_at" = "Ferme à %@";
+
+"closes_in" = "Fermé dans %@";
+
+"closed" = "Fermé";
+
 "add_opening_hours" = "Ajouter les heures d'ouverture";
 
 "no_osm_account" = "Vous n'avez pas de compte sur OpenStreetMap?";
 
-"register_at_openstreetmap" = "Inscription";
+"register_at_openstreetmap" = "S'inscrire sur OpenStreetMap";
 
 "password_8_chars_min" = "Mot de passe (8 caractères minimum)";
 
@@ -630,6 +638,8 @@
 
 "phone" = "Numéro de téléphone";
 
+"level" = "Étage";
+
 "please_note" = "À noter";
 
 "downloader_delete_map_dialog" = "Toutes vos modifications de la carte seront supprimées avec elle.";
@@ -670,7 +680,7 @@
 
 "message_invalid_feature_position" = "Aucun objet ne peut être localisé ici";
 
-"login_to_make_edits_visible" = "Se connecter pour que d'autres utilisateurs puissent voir les changements que vous avez effectués.";
+"login_to_make_edits_visible" = "Connectez vous à votre compte openstreetmap.org pour que d'autres utilisateurs puissent voir vos changements.";
 
 /* Error dialog no space */
 "migration_no_space_message" = "Pour télécharger, vous avez besoin de plus d'espace. Veuillez supprimer les données non nécessaires.";
@@ -750,6 +760,8 @@
 
 "miles_per_hour" = "mph";
 
+"hour" = "h";
+
 "minute" = "min";
 
 "placepage_place_description" = "Description";
@@ -798,10 +810,10 @@
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Souhaitez-vous l’envoyer à tous les utilisateurs ?";
 
-/* iOS Dialog before publishing the modifications to the public map. */
+/* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "Assurez-vous de n’avoir saisi aucunes données personnelles.";
 
-"editor_share_to_all_dialog_message_2" = "Nous vérifierons les changements. Si nous avons des questions quelles qu’elles soient, nous vous contacterons par courriel.";
+"editor_share_to_all_dialog_message_2" = "Les éditeurs d'OpenStreetMap vérifieront vos modifications et vous contacteront s'ils ont des questions.";
 
 "navigation_stop_button" = "stop";
 
@@ -1205,6 +1217,12 @@
 /* edit track screen title */
 "track_title" = "Route";
 
+/* Telegram group url for the help page */
+"telegram_url" = "https://t.me/OrganicMapsApp";
+
+/* Instagram account url for the help page */
+"instagram_url" = "https://www.instagram.com/organicmaps.app";
+
 
 /********** Types **********/
 
@@ -1356,6 +1374,12 @@
 
 "type.amenity.parking.underground" = "Parking souterrain";
 
+"type.amenity.parking_entrance.private" = "Entrée du stationnement";
+
+"type.amenity.parking_entrance.permissive" = "Entrée du stationnement";
+
+"type.amenity.parking_entrance" = "Entrée du stationnement";
+
 "type.amenity.parking_space" = "Place de stationnement";
 
 "type.amenity.parking_space.permissive" = "Place de stationnement";
@@ -1363,6 +1387,8 @@
 "type.amenity.parking_space.private" = "Place de stationnement";
 
 "type.amenity.parking_space.underground" = "Place de stationnement";
+
+"type.amenity.parking_space.disabled" = "Place de stationnement handicapé";
 
 "type.amenity.payment_terminal" = "Terminal de paiement";
 
@@ -2468,8 +2494,6 @@
 
 "type.organic.yes" = "Biologique";
 
-"type.place" = "place";
-
 "type.place.city" = "Ville";
 
 "type.place.city.capital" = "Capitale";
@@ -2512,7 +2536,7 @@
 
 "type.place.locality" = "Lieu-dit";
 
-"type.place.neighbourhood" = "Neighbourhood";
+"type.place.neighbourhood" = "Quartier";
 
 "type.place.ocean" = "Océan";
 
@@ -2970,6 +2994,18 @@
 "type.sport.9pin" = "Bowling";
 
 "type.sport.10pin" = "Bowling";
+
+"type.sport.padel" = "Padel";
+
+"type.sport.futsal" = "Futsal";
+
+"type.sport.ice_hockey" = "Hockey sur glace";
+
+"type.sport.field_hockey" = "Hockey sur gazon";
+
+"type.sport.badminton" = "Badminton";
+
+"type.sport.pelota" = "Pelote basque";
 
 "type.tourism" = "Tourism";
 

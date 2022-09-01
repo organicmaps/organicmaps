@@ -17,7 +17,7 @@
 namespace base
 {
 class Cancellable;
-};
+}
 
 namespace search
 {

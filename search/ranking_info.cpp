@@ -39,29 +39,32 @@ double constexpr kExactCountryOrCapital = 0.1247733;
 double constexpr kRefusedByFilter = -1.0000000;
 double constexpr kCommonTokens = -0.05;
 
-double constexpr kNameScore[static_cast<size_t>(NameScore::COUNT)] = {
+double constexpr kNameScore[] = {
  -0.05,   // Zero
   0,      // Substring
   0.01,   // Prefix
   0.018,  // Full Prefix
   0.02,   // Full Match
 };
+static_assert(std::size(kNameScore) == static_cast<size_t>(NameScore::COUNT));
 
 // 0-based factors from POIs, Streets, Buildings, since we don't have ratings or popularities now.
-double constexpr kType[Model::TYPE_COUNT] = {
-  0 /* SUBPOI */,
-  0 /* COMPLEX_POI */,
-  0 /* Building */,
-  0 /* Street */,
-  0 /* Unclassified */,
- -0.0725383 /* Village */,
-  0.0073583 /* City */,
-  0.0233254 /* State */,
-  0.1679389 /* Country */
+double constexpr kType[] = {
+  0,          // POI
+  0,          // Complex POI
+  0,          // Building
+  0,          // Street
+  0,          // Suburb
+ -0.02,       // Unclassified
+  0,          // Village
+  0.0073583,  // City
+  0.0233254,  // State
+  0.1679389,  // Country
 };
+static_assert(std::size(kType) == static_cast<size_t>(Model::TYPE_COUNT));
 
 // 0-based factors from General.
-double constexpr kPoiType[base::Underlying(PoiType::Count)] = {
+double constexpr kPoiType[] = {
   0.0338794 /* TransportMajor */,
   0.01 /* TransportLocal */,
   0.01 /* Eat */,
@@ -70,8 +73,9 @@ double constexpr kPoiType[base::Underlying(PoiType::Count)] = {
  -0.01 /* Service */,
   0 /* General */
 };
+static_assert(std::size(kPoiType) == base::Underlying(PoiType::Count));
 
-double constexpr kStreetType[base::Underlying(StreetType::Count)] = {
+double constexpr kStreetType[] = {
   0 /* Default */,
   0 /* Pedestrian */,
   0 /* Cycleway */,
@@ -80,6 +84,7 @@ double constexpr kStreetType[base::Underlying(StreetType::Count)] = {
   0.005 /* Regular */,
   0.006 /* Motorway */,
 };
+static_assert(std::size(kStreetType) == base::Underlying(StreetType::Count));
 
 // Coeffs sanity checks.
 static_assert(kHasName >= 0, "");

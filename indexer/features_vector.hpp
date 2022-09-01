@@ -1,6 +1,5 @@
 #pragma once
 
-#include "indexer/dat_section_header.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/metadata_serdes.hpp"
 #include "indexer/shared_load_info.hpp"

@@ -13,7 +13,7 @@ std::unique_ptr<FeatureType> EditableFeatureSource::GetModifiedFeature(uint32_t 
   osm::Editor & editor = osm::Editor::Instance();
   auto const emo = editor.GetEditedFeature(FeatureID(m_handle.GetId(), index));
   if (emo)
-    return std::make_unique<FeatureType>(*emo);
+    return FeatureType::CreateFromMapObject(*emo);
   return {};
 }
 

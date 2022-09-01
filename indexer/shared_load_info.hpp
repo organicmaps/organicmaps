@@ -7,8 +7,6 @@
 
 #include "base/macros.hpp"
 
-#include <optional>
-
 namespace feature
 {
 // This info is created once per FeaturesVector.
@@ -18,15 +16,11 @@ public:
   using Reader = FilesContainerR::TReader;
 
   SharedLoadInfo(FilesContainerR const & cont, DataHeader const & header);
-  ~SharedLoadInfo() = default;
 
   Reader GetDataReader() const;
   Reader GetMetadataReader() const;
-  Reader GetMetadataIndexReader() const;
-  Reader GetAltitudeReader() const;
   Reader GetGeometryReader(int ind) const;
   Reader GetTrianglesReader(int ind) const;
-  std::optional<Reader> GetPostcodesReader() const;
 
   serial::GeometryCodingParams const & GetDefGeometryCodingParams() const
   {

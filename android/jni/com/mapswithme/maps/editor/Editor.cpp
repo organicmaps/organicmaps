@@ -96,184 +96,33 @@ Java_com_mapswithme_maps_editor_Editor_nativeSetOpeningHours(JNIEnv * env, jclas
 }
 
 JNIEXPORT jstring JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeGetPhone(JNIEnv * env, jclass)
+Java_com_mapswithme_maps_editor_Editor_nativeGetMetadata(JNIEnv * env, jclass, jint id)
 {
-  return jni::ToJavaString(env, g_editableMapObject.GetPhone());
+  auto const metaID = static_cast<osm::MapObject::MetadataID>(id);
+  ASSERT_LESS(metaID, osm::MapObject::MetadataID::FMD_COUNT, ());
+  return jni::ToJavaString(env, g_editableMapObject.GetMetadata(metaID));
+}
+
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeIsMetadataValid(JNIEnv * env, jclass, jint id, jstring value)
+{
+  auto const metaID = static_cast<osm::MapObject::MetadataID>(id);
+  ASSERT_LESS(metaID, osm::MapObject::MetadataID::FMD_COUNT, ());
+  return osm::EditableMapObject::IsValidMetadata(metaID, jni::ToNativeString(env, value));
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeSetPhone(JNIEnv * env, jclass, jstring value)
+Java_com_mapswithme_maps_editor_Editor_nativeSetMetadata(JNIEnv * env, jclass, jint id, jstring value)
 {
-  g_editableMapObject.SetPhone(jni::ToNativeString(env, value));
-}
-
-JNIEXPORT jstring JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeGetWebsite(JNIEnv * env, jclass)
-{
-  return jni::ToJavaString(env, g_editableMapObject.GetWebsite());
-}
-
-JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeSetWebsite(JNIEnv * env, jclass, jstring value)
-{
-  g_editableMapObject.SetWebsite(jni::ToNativeString(env, value));
-}
-
-JNIEXPORT jstring JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeGetFacebookPage(JNIEnv * env, jclass)
-{
-  return jni::ToJavaString(env, g_editableMapObject.GetFacebookPage());
-}
-
-JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeSetFacebookPage(JNIEnv * env, jclass, jstring value)
-{
-  g_editableMapObject.SetFacebookPage(jni::ToNativeString(env, value));
-}
-
-JNIEXPORT jstring JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeGetInstagramPage(JNIEnv * env, jclass)
-{
-  return jni::ToJavaString(env, g_editableMapObject.GetInstagramPage());
-}
-
-JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeSetInstagramPage(JNIEnv * env, jclass, jstring value)
-{
-  g_editableMapObject.SetInstagramPage(jni::ToNativeString(env, value));
-}
-
-JNIEXPORT jstring JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeGetTwitterPage(JNIEnv * env, jclass)
-{
-  return jni::ToJavaString(env, g_editableMapObject.GetTwitterPage());
-}
-
-JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeSetTwitterPage(JNIEnv * env, jclass, jstring value)
-{
-  g_editableMapObject.SetTwitterPage(jni::ToNativeString(env, value));
-}
-
-JNIEXPORT jstring JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeGetVkPage(JNIEnv * env, jclass)
-{
-  return jni::ToJavaString(env, g_editableMapObject.GetVkPage());
-}
-
-JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeSetVkPage(JNIEnv * env, jclass, jstring value)
-{
-  g_editableMapObject.SetVkPage(jni::ToNativeString(env, value));
-}
-
-JNIEXPORT jstring JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeGetLinePage(JNIEnv * env, jclass)
-{
-  return jni::ToJavaString(env, g_editableMapObject.GetLinePage());
-}
-
-JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeSetLinePage(JNIEnv * env, jclass, jstring value)
-{
-  g_editableMapObject.SetLinePage(jni::ToNativeString(env, value));
-}
-
-JNIEXPORT jstring JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeGetEmail(JNIEnv * env, jclass)
-{
-  return jni::ToJavaString(env, g_editableMapObject.GetEmail());
-}
-
-JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeSetEmail(JNIEnv * env, jclass, jstring value)
-{
-  g_editableMapObject.SetEmail(jni::ToNativeString(env, value));
+  auto const metaID = static_cast<osm::MapObject::MetadataID>(id);
+  ASSERT_LESS(metaID, osm::MapObject::MetadataID::FMD_COUNT, ());
+  g_editableMapObject.SetMetadata(metaID, jni::ToNativeString(env, value));
 }
 
 JNIEXPORT jint JNICALL
 Java_com_mapswithme_maps_editor_Editor_nativeGetStars(JNIEnv * env, jclass)
 {
   return g_editableMapObject.GetStars();
-}
-
-JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeSetStars(JNIEnv * env, jclass, jint value)
-{
-  g_editableMapObject.SetStars(value);
-}
-
-JNIEXPORT jstring JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeGetOperator(JNIEnv * env, jclass)
-{
-  return jni::ToJavaString(env, g_editableMapObject.GetOperator());
-}
-
-JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeSetOperator(JNIEnv * env, jclass, jstring value)
-{
-  g_editableMapObject.SetOperator(jni::ToNativeString(env, value));
-}
-
-JNIEXPORT jdouble JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeGetElevation(JNIEnv * env, jclass)
-{
-  double elevation;
-  return g_editableMapObject.GetElevation(elevation) ? elevation : -1;
-}
-
-JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeSetElevation(JNIEnv * env, jclass, jdouble value)
-{
-  g_editableMapObject.SetElevation(value);
-}
-
-JNIEXPORT jstring JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeGetWikipedia(JNIEnv * env, jclass)
-{
-  return jni::ToJavaString(env, g_editableMapObject.GetWikipedia());
-}
-
-JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeSetWikipedia(JNIEnv * env, jclass, jstring value)
-{
-  g_editableMapObject.SetWikipedia(jni::ToNativeString(env, value));
-}
-
-JNIEXPORT jstring JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeGetFlats(JNIEnv * env, jclass)
-{
-  return jni::ToJavaString(env, g_editableMapObject.GetFlats());
-}
-
-JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeSetFlats(JNIEnv * env, jclass, jstring value)
-{
-  g_editableMapObject.SetFlats(jni::ToNativeString(env, value));
-}
-
-JNIEXPORT jstring JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeGetBuildingLevels(JNIEnv * env, jclass)
-{
-  return jni::ToJavaString(env, g_editableMapObject.GetBuildingLevels());
-}
-
-JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeSetBuildingLevels(JNIEnv * env, jclass, jstring value)
-{
-  g_editableMapObject.SetBuildingLevels(jni::ToNativeString(env, value));
-}
-
-JNIEXPORT jstring JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeGetZipCode(JNIEnv * env, jclass)
-{
-  return jni::ToJavaString(env, g_editableMapObject.GetPostcode());
-}
-
-JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeSetZipCode(JNIEnv * env, jclass clazz, jstring value)
-{
-  g_editableMapObject.SetPostcode(jni::ToNativeString(env, value));
 }
 
 JNIEXPORT jboolean JNICALL
@@ -636,83 +485,6 @@ JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_editor_Editor_nativeIsHouseValid(JNIEnv * env, jclass clazz, jstring houseNumber)
 {
   return osm::EditableMapObject::ValidateHouseNumber(jni::ToNativeString(env, houseNumber));
-}
-
-// static boolean nativeIsLevelValid(String level);
-JNIEXPORT jboolean JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeIsLevelValid(JNIEnv * env, jclass clazz, jstring level)
-{
-  return osm::EditableMapObject::ValidateBuildingLevels(jni::ToNativeString(env, level));
-}
-
-// static boolean nativeIsFlatValid(String flats)
-JNIEXPORT jboolean JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeIsFlatValid(JNIEnv * env, jclass clazz, jstring flats)
-{
-  return osm::EditableMapObject::ValidateFlats(jni::ToNativeString(env, flats));
-}
-
-// static boolean nativeIsPostCodeValid(String zipCode)
-JNIEXPORT jboolean JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeIsZipcodeValid(JNIEnv * env, jclass clazz, jstring zipCode)
-{
-  return osm::EditableMapObject::ValidatePostCode(jni::ToNativeString(env, zipCode));
-}
-
-// static boolean nativeIsPhoneValid(String phone)
-JNIEXPORT jboolean JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeIsPhoneValid(JNIEnv * env, jclass clazz, jstring phone)
-{
-  return osm::EditableMapObject::ValidatePhoneList(jni::ToNativeString(env, phone));
-}
-
-// static boolean nativeIsWebsiteValid(String website)
-JNIEXPORT jboolean JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeIsWebsiteValid(JNIEnv * env, jclass clazz, jstring website)
-{
-  return osm::EditableMapObject::ValidateWebsite(jni::ToNativeString(env, website));
-}
-
-// static boolean nativeIsFacebookPageValid(String facebookPage)
-JNIEXPORT jboolean JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeIsFacebookPageValid(JNIEnv * env, jclass, jstring facebookPage)
-{
-  return osm::ValidateFacebookPage(jni::ToNativeString(env, facebookPage));
-}
-
-// static boolean nativeIsInstagramPageValid(String instagramPage)
-JNIEXPORT jboolean JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeIsInstagramPageValid(JNIEnv * env, jclass, jstring instagramPage)
-{
-  return osm::ValidateInstagramPage(jni::ToNativeString(env, instagramPage));
-}
-
-// static boolean nativeIsTwitterPageValid(String twitterPage)
-JNIEXPORT jboolean JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeIsTwitterPageValid(JNIEnv * env, jclass, jstring twitterPage)
-{
-  return osm::ValidateTwitterPage(jni::ToNativeString(env, twitterPage));
-}
-
-// static boolean nativeIsVkPageValid(String vkPage)
-JNIEXPORT jboolean JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeIsVkPageValid(JNIEnv * env, jclass, jstring vkPage)
-{
-  return osm::ValidateVkPage(jni::ToNativeString(env, vkPage));
-}
-
-// static boolean nativeIsLinePageValid(String linePage)
-JNIEXPORT jboolean JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeIsLinePageValid(JNIEnv * env, jclass, jstring linePage)
-{
-  return osm::ValidateLinePage(jni::ToNativeString(env, linePage));
-}
-
-// static boolean nativeIsEmailValid(String email)
-JNIEXPORT jboolean JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeIsEmailValid(JNIEnv * env, jclass clazz, jstring email)
-{
-  return osm::EditableMapObject::ValidateEmail(jni::ToNativeString(env, email));
 }
 
 JNIEXPORT jboolean JNICALL

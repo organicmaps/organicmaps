@@ -1,16 +1,12 @@
 #include "map/framework.hpp"
 #include "map/benchmark_tools.hpp"
-#include "map/chart_generator.hpp"
-#include "map/everywhere_search_params.hpp"
 #include "map/gps_tracker.hpp"
 #include "map/user_mark.hpp"
-#include "map/viewport_search_params.hpp"
+#include "map/track_mark.hpp"
 
 #include "ge0/geo_url_parser.hpp"
 #include "ge0/parser.hpp"
 #include "ge0/url_generator.hpp"
-
-#include "generator/borders.hpp"
 
 #include "routing/index_router.hpp"
 #include "routing/route.hpp"
@@ -19,25 +15,17 @@
 
 #include "routing_common/num_mwm_id.hpp"
 
-#include "search/cities_boundaries_table.hpp"
-#include "search/downloader_search_callback.hpp"
 #include "search/editor_delegate.hpp"
 #include "search/engine.hpp"
-#include "search/geometry_utils.hpp"
-#include "search/intermediate_result.hpp"
 #include "search/locality_finder.hpp"
 
 #include "storage/country_info_getter.hpp"
-#include "storage/downloader_search_params.hpp"
 #include "storage/routing_helpers.hpp"
 #include "storage/storage_helpers.hpp"
 
 #include "drape_frontend/color_constants.hpp"
 #include "drape_frontend/gps_track_point.hpp"
-#include "drape_frontend/route_renderer.hpp"
 #include "drape_frontend/visual_params.hpp"
-
-#include "drape/constants.hpp"
 
 #include "editor/editable_data_source.hpp"
 
@@ -45,7 +33,6 @@
 
 #include "indexer/categories_holder.hpp"
 #include "indexer/classificator.hpp"
-#include "indexer/classificator_loader.hpp"
 #include "indexer/drawing_rules.hpp"
 #include "indexer/editable_map_object.hpp"
 #include "indexer/feature.hpp"
@@ -60,20 +47,16 @@
 #include "platform/local_country_file_utils.hpp"
 #include "platform/localization.hpp"
 #include "platform/measurement_utils.hpp"
-#include "platform/mwm_traits.hpp"
 #include "platform/mwm_version.hpp"
-#include "platform/network_policy.hpp"
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
 #include "platform/settings.hpp"
-#include "platform/socket.hpp"
 
 #include "coding/endianness.hpp"
 #include "coding/point_coding.hpp"
 #include "coding/string_utf8_multilang.hpp"
 #include "coding/transliteration.hpp"
 #include "coding/url.hpp"
-#include "coding/zip_reader.hpp"
 
 #include "geometry/angles.hpp"
 #include "geometry/any_rect2d.hpp"
@@ -81,24 +64,18 @@
 #include "geometry/latlon.hpp"
 #include "geometry/mercator.hpp"
 #include "geometry/rect2d.hpp"
-#include "geometry/tree4d.hpp"
 #include "geometry/triangle2d.hpp"
 
-
-#include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 #include "base/math.hpp"
-#include "base/scope_guard.hpp"
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
-#include "base/timer.hpp"
 
 #include "std/target_os.hpp"
 
-#include <algorithm>
-
 #include "defines.hpp"
-#include "private.h"
+
+#include <algorithm>
 
 
 using namespace location;
@@ -1087,19 +1064,6 @@ void Framework::RunFirstLaunchAnimation()
     m_drapeEngine->RunFirstLaunchAnimation();
 }
 
-bool Framework::IsCountryLoaded(m2::PointD const & pt) const
-{
-  // TODO (@gorshenin, @govako): the method's name is quite
-  // obfuscating and should be fixed.
-
-  // Correct, but slow version (check country polygon).
-  string const fName = m_infoGetter->GetRegionCountryId(pt);
-  if (fName.empty())
-    return true;
-
-  return m_featuresFetcher.IsLoaded(fName);
-}
-
 bool Framework::IsCountryLoadedByName(string_view name) const
 {
   return m_featuresFetcher.IsLoaded(name);
@@ -1207,11 +1171,6 @@ void Framework::InitTransliteration()
 
   if (!LoadTransliteration())
     Transliteration::Instance().SetMode(Transliteration::Mode::Disabled);
-}
-
-storage::CountryId Framework::GetCountryIndex(m2::PointD const & pt) const
-{
-  return m_infoGetter->GetRegionCountryId(pt);
 }
 
 string Framework::GetCountryName(m2::PointD const & pt) const
@@ -1957,6 +1916,7 @@ void Framework::SetPlacePageListeners(PlacePageEvent::OnOpen onOpen,
   m_onPlacePageOpen = std::move(onOpen);
   m_onPlacePageClose = std::move(onClose);
   m_onPlacePageUpdate = std::move(onUpdate);
+
 #ifdef OMIM_OS_ANDROID
   // A click on the Search result from the search activity in Android calls
   // ShowSearchResult/SelectSearchResult, but SetPlacePageListeners is set later,
@@ -2745,10 +2705,10 @@ bool Framework::ParseRoutingDebugCommand(search::SearchParams const & params)
   return false;
 }
 
+// Editable map object helper functions.
 namespace
 {
-[[nodiscard]] bool LocalizeStreet(DataSource const & dataSource, FeatureID const & fid,
-                                       osm::LocalizedStreet & result)
+bool LocalizeStreet(DataSource const & dataSource, FeatureID const & fid, osm::LocalizedStreet & result)
 {
   FeaturesLoaderGuard g(dataSource, fid.m_mwmId);
   auto ft = g.GetFeatureByIndex(fid.m_index);
@@ -2947,7 +2907,7 @@ osm::Editor::SaveResult Framework::SaveEditedMapObject(osm::EditableMapObject em
     }
     else
     {
-      originalFeature = std::make_unique<FeatureType>(emo);
+      originalFeature = FeatureType::CreateFromMapObject(emo);
     }
 
     // Handle only pois.
@@ -3224,27 +3184,14 @@ void Framework::FillDescription(FeatureType & ft, place_page::Info & info) const
   auto const deviceLang = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
   auto const langPriority = feature::GetDescriptionLangPriority(regionData, deviceLang);
 
-  std::string description;
-  if (m_descriptionsLoader->GetDescription(ft.GetID(), langPriority, description))
+  std::string description = m_descriptionsLoader->GetDescription(ft.GetID(), langPriority);
+  if (!description.empty())
   {
     info.SetDescription(std::move(description));
     info.SetOpeningMode(m_routingManager.IsRoutingActive()
                         ? place_page::OpeningMode::Preview
                         : place_page::OpeningMode::PreviewPlus);
   }
-}
-
-bool Framework::HaveTransit(m2::PointD const & pt) const
-{
-  auto const & dataSource = m_featuresFetcher.GetDataSource();
-  MwmSet::MwmId const mwmId =
-      dataSource.GetMwmIdByCountryFile(platform::CountryFile(m_infoGetter->GetRegionCountryId(pt)));
-
-  MwmSet::MwmHandle handle = m_featuresFetcher.GetDataSource().GetMwmHandleById(mwmId);
-  if (!handle.IsAlive())
-    return false;
-
-  return handle.GetValue()->m_cont.IsExist(TRANSIT_FILE_TAG);
 }
 
 void Framework::OnPowerFacilityChanged(power_management::Facility const facility, bool enabled)

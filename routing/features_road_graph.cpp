@@ -222,7 +222,7 @@ void FeaturesRoadGraphBase::GetJunctionTypes(geometry::PointWithAltitude const &
 IRoadGraph::Mode FeaturesRoadGraphBase::GetMode() const
 {
   return m_mode;
-};
+}
 
 void FeaturesRoadGraphBase::ClearState()
 {

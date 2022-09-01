@@ -503,12 +503,6 @@
 
 "history" = "历史";
 
-"opens_in" = "Opens in %@";
-
-"closes_in" = "Closes in %@";
-
-"closed" = "已关闭";
-
 "search_not_found" = "抱歉，没有找到任何东西。";
 
 "search_not_found_query" = "请尝试其它查询。";
@@ -578,6 +572,20 @@
 
 "today" = "今天";
 
+"opens_tomorrow_at" = "Opens tomorrow at %@";
+
+"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
+
+"opens_at" = "Opens at %@";
+
+"opens_in" = "Opens in %@";
+
+"closes_at" = "Closes at %@";
+
+"closes_in" = "Closes in %@";
+
+"closed" = "已关闭";
+
 "add_opening_hours" = "添加工作时间";
 
 "no_osm_account" = "在OpenStreetMap上没有账户吗？";
@@ -629,6 +637,8 @@
 "email_or_username" = "邮箱或用户名";
 
 "phone" = "电话";
+
+"level" = "楼层";
 
 "please_note" = "请注意";
 
@@ -750,6 +760,8 @@
 
 "miles_per_hour" = "英里每小时";
 
+"hour" = "小時";
+
 "minute" = "分鐘";
 
 "placepage_place_description" = "说明";
@@ -798,10 +810,10 @@
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "您想要发给所有用户吗？";
 
-/* iOS Dialog before publishing the modifications to the public map. */
+/* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "确保您没有输入任何个人数据。";
 
-"editor_share_to_all_dialog_message_2" = "我们会检查更改。如果我们有任何问题，我们会邮件与您联系。";
+"editor_share_to_all_dialog_message_2" = "OpenStreetMap 编辑人员将检查更改并在有任何问题时与您联系。";
 
 "navigation_stop_button" = "停止";
 
@@ -1205,6 +1217,12 @@
 /* edit track screen title */
 "track_title" = "追踪";
 
+/* Telegram group url for the help page */
+"telegram_url" = "https://t.me/OrganicMapsApp";
+
+/* Instagram account url for the help page */
+"instagram_url" = "https://www.instagram.com/organicmaps.app";
+
 
 /********** Types **********/
 
@@ -1356,6 +1374,12 @@
 
 "type.amenity.parking.underground" = "停车场";
 
+"type.amenity.parking_entrance.private" = "停车场入口";
+
+"type.amenity.parking_entrance.permissive" = "停车场入口";
+
+"type.amenity.parking_entrance" = "停车场入口";
+
 "type.amenity.parking_space" = "停车位";
 
 "type.amenity.parking_space.permissive" = "停车位";
@@ -1363,6 +1387,8 @@
 "type.amenity.parking_space.private" = "停车位";
 
 "type.amenity.parking_space.underground" = "停车位";
+
+"type.amenity.parking_space.disabled" = "残疾人停车位";
 
 "type.amenity.payment_terminal" = "支付终端";
 
@@ -2468,8 +2494,6 @@
 
 "type.organic.yes" = "Organic";
 
-"type.place" = "地点";
-
 "type.place.city" = "城市";
 
 "type.place.city.capital" = "首府";
@@ -2512,7 +2536,7 @@
 
 "type.place.locality" = "地方";
 
-"type.place.neighbourhood" = "街坊社区/小区";
+"type.place.neighbourhood" = "邻里社区";
 
 "type.place.ocean" = "海洋";
 
@@ -2970,6 +2994,18 @@
 "type.sport.9pin" = "保龄球";
 
 "type.sport.10pin" = "保龄球";
+
+"type.sport.padel" = "帕德尔";
+
+"type.sport.futsal" = "五人制足球";
+
+"type.sport.ice_hockey" = "冰球";
+
+"type.sport.field_hockey" = "曲棍球";
+
+"type.sport.badminton" = "羽毛球";
+
+"type.sport.pelota" = "巴斯克回力球";
 
 "type.tourism" = "旅游要素";
 

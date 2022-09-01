@@ -256,6 +256,8 @@
 	<string name="help">Help</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">Frequently Asked Questions</string>
+	<!-- Button in the main menu -->
+	<string name="donate">Donate</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">How to support us?</string>
 	<!-- Button in the main Help dialog -->
@@ -375,9 +377,6 @@
 	<string name="routing_arrive">Arrival at %s</string>
 	<string name="categories">Categories</string>
 	<string name="history">History</string>
-	<string name="opens_in">Opens in %s</string>
-	<string name="closes_in">Closes in %s</string>
-	<string name="closed">Closed</string>
 	<string name="search_not_found">Oops, no results found.</string>
 	<string name="search_not_found_query">Try changing your search criteria.</string>
 	<string name="search_history_title">Search History</string>
@@ -421,10 +420,18 @@
 	<string name="day_off_today">Closed today</string>
 	<string name="day_off">Closed</string>
 	<string name="today">Today</string>
+	<string name="opens_tomorrow_at">Opens tomorrow at %s</string>
+	<string name="opens_dayoftheweek_at">Opens %1$s at %2$s</string>
+	<string name="opens_at">Opens at %s</string>
+	<string name="opens_in">Opens in %s</string>
+	<string name="closes_at">Closes at %s</string>
+	<string name="closes_in">Closes in %s</string>
+	<string name="closed">Closed</string>
 	<string name="edit_opening_hours">Edit business hours</string>
 	<string name="no_osm_account">Don\'t have an OpenStreetMap account?</string>
-	<string name="register_at_openstreetmap">Register at OSM</string>
+	<string name="register_at_openstreetmap">Register at OpenStreetMap</string>
 	<string name="login">Log In</string>
+	<string name="login_osm">Login to OpenStreetMap</string>
 	<string name="password">Password</string>
 	<string name="forgot_password">Forgot your password?</string>
 	<string name="logout">Log Out</string>
@@ -447,6 +454,7 @@
 	<!-- login text field -->
 	<string name="email_or_username">Email or username</string>
 	<string name="editor_add_phone">Add Phone</string>
+	<string name="level">Floor</string>
 	<string name="downloader_delete_map_dialog">All of your map edits will be deleted together with the map.</string>
 	<string name="downloader_update_maps">Update Maps</string>
 	<string name="downloader_mwm_migration_dialog">To create a route, you need to update all maps and then plan the route again.</string>
@@ -465,7 +473,8 @@
 	<string name="editor_report_problem_other_title">Different problem</string>
 	<string name="placepage_add_business_button">Add business</string>
 	<string name="message_invalid_feature_position">No object can be located here</string>
-	<string name="login_to_make_edits_visible">Log in so other users can see the changes that you have made</string>
+	<string name="osm_presentation">All map data comes from the OpenStreetMap project. It is like Wikipedia for maps where you can add or edit places, and they become available to millions of users all over the World.</string>
+	<string name="login_to_make_edits_visible">Log in to OpenStreetMap.org so other users can see the changes you have made.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d of %2$d</string>
 	<string name="download_over_mobile_header">Download over a cellular network connection?</string>
@@ -525,9 +534,9 @@
 	<string name="placepage_add_place_button">Add a place to the map</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Do you want to send it to all users?</string>
-	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Make sure you did not enter any personal data.</string>
-	<string name="editor_share_to_all_dialog_message_2">We will check the changes. If we have any questions we will contact you via email.</string>
+	<string name="editor_share_to_all_dialog_message_2">OpenStreetMap editors will check the changes and get in contact with you if they have any questions.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps is a fast and free offline maps app without ads and tracking. Maps are based on crowd-sourced OpenStreetMap.org data, so you can fix mapping errors and add features there yourself. Organic Maps is an open-source project created by enthusiasts in their spare time. Your feedback and support are much appreciated!</string>
 	<!-- For the first routing -->
@@ -556,7 +565,7 @@
 	<string name="on">On</string>
 	<string name="off">Off</string>
 	<string name="prefs_languages_information">We use system TTS for voice instructions. Many Android devices use Google TTS, you can download or update it from Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">For some languages, you will need to install a speech synthesizer or an additional language pack from the app store (Google Play, Samsung Apps, App Gallery, FDroid).\nOpen your device\'s settings → Language and input → Speech → Text to speech output.\nHere you can manage settings for speech synthesis (for example, download language pack for offline use) and select another text-to-speech engine.</string>
+	<string name="prefs_languages_information_off">For some languages, you will need to install a speech synthesizer or an additional language pack from the app store (Google Play, Galaxy Store, App Gallery, FDroid).\nOpen your device\'s settings → Language and input → Speech → Text to speech output.\nHere you can manage settings for speech synthesis (for example, download language pack for offline use) and select another text-to-speech engine.</string>
 	<string name="prefs_languages_information_off_link">For more information please check this guide.</string>
 	<string name="transliteration_title">Transliteration into Latin</string>
 	<string name="learn_more">Learn more</string>
@@ -734,6 +743,10 @@
 	<string name="enable_show_on_lock_screen_description">When enabled, you don\'t need to unlock your device every time while the app is running.</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">Map data from OpenStreetMap</string>
+	<!-- Telegram group url for the help page -->
+	<string name="telegram_url">https://t.me/OrganicMapsApp</string>
+	<!-- Instagram account url for the help page -->
+	<string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway">Aerialway</string>
@@ -811,10 +824,14 @@
 	<string name="type.amenity.parking.permissive">Parking</string>
 	<string name="type.amenity.parking.private">Parking</string>
 	<string name="type.amenity.parking.underground">Parking</string>
+	<string name="type.amenity.parking_entrance.private">Parking entrance</string>
+	<string name="type.amenity.parking_entrance.permissive">Parking entrance</string>
+	<string name="type.amenity.parking_entrance">Parking entrance</string>
 	<string name="type.amenity.parking_space">Parking Space</string>
 	<string name="type.amenity.parking_space.permissive">Parking Space</string>
 	<string name="type.amenity.parking_space.private">Parking Space</string>
 	<string name="type.amenity.parking_space.underground">Parking Space</string>
+	<string name="type.amenity.parking_space.disabled">Disabled Parking Space</string>
 	<string name="type.amenity.payment_terminal">Payment Terminal</string>
 	<string name="type.amenity.pharmacy">Pharmacy</string>
 	<string name="type.amenity.place_of_worship">Place of Worship</string>
@@ -1392,7 +1409,6 @@
 	<string name="type.office.telecommunication">Telecom Company</string>
 	<string name="type.organic.only">Organic</string>
 	<string name="type.organic.yes">Organic</string>
-	<string name="type.place">place</string>
 	<string name="type.place.city">City</string>
 	<string name="type.place.city.capital">Capital</string>
 	<string name="type.place.city.capital.10">City</string>
@@ -1412,7 +1428,7 @@
 	<string name="type.place.hamlet">Hamlet</string>
 	<string name="type.place.island">Island</string>
 	<string name="type.place.islet">Island</string>
-	<string name="type.place.isolated_dwelling">Dwelling</string>
+	<string name="type.place.isolated_dwelling">Isolated Dwelling</string>
 	<string name="type.place.locality">Locality</string>
 	<string name="type.place.neighbourhood">Neighbourhood</string>
 	<string name="type.place.ocean">Ocean</string>
@@ -1644,6 +1660,12 @@
 	<string name="type.sport.volleyball">Volleyball</string>
 	<string name="type.sport.9pin">Bowling</string>
 	<string name="type.sport.10pin">Bowling</string>
+	<string name="type.sport.padel">Padel</string>
+	<string name="type.sport.futsal">Futsal</string>
+	<string name="type.sport.ice_hockey">Ice Hockey</string>
+	<string name="type.sport.field_hockey">Field Hockey</string>
+	<string name="type.sport.badminton">Badminton</string>
+	<string name="type.sport.pelota">Basque pelota</string>
 	<string name="type.tourism">Tourism</string>
 	<string name="type.tourism.alpine_hut">Mountains Lodging</string>
 	<string name="type.tourism.apartment">Apartments</string>

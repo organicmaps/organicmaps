@@ -17,8 +17,7 @@ string GetSuggestion(RankerResult const & res, string const & query,
                      QueryTokens const & paramTokens, strings::UniString const & prefix)
 {
   // Splits result's name.
-  vector<strings::UniString> tokens;
-  SplitUniString(NormalizeAndSimplifyString(res.GetName()), base::MakeBackInsertFunctor(tokens), Delimiters());
+  auto const tokens = NormalizeAndTokenizeString(res.GetName());
 
   // Finds tokens that are already present in the input query.
   vector<bool> tokensMatched(tokens.size());

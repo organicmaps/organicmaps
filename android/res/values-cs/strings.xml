@@ -216,6 +216,8 @@
 	<string name="help">Nápověda</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">Otázky a odpovědi</string>
+	<!-- Button in the main menu -->
+	<string name="donate">Darovat</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">Jak nás podpořit?</string>
 	<!-- Button in the main Help dialog -->
@@ -335,7 +337,6 @@
 	<string name="routing_arrive">Příjezd: %s</string>
 	<string name="categories">Kategorie</string>
 	<string name="history">Historie</string>
-	<string name="closed">Zavřeno</string>
 	<string name="search_not_found">Omlouvám se, nic nenalezeno.</string>
 	<string name="search_not_found_query">Zkuste zadat jiný hledaný výraz.</string>
 	<string name="search_history_title">Prohledat historii</string>
@@ -377,10 +378,12 @@
 	<string name="day_off_today">Dnes zavřeno</string>
 	<string name="day_off">Zavřeno</string>
 	<string name="today">Dnes</string>
+	<string name="closed">Zavřeno</string>
 	<string name="edit_opening_hours">Upravit otevírací dobu</string>
 	<string name="no_osm_account">Nemáte účet u OpenStreetMap?</string>
 	<string name="register_at_openstreetmap">Registrace</string>
 	<string name="login">Přihlásit se</string>
+	<string name="login_osm">Přihlaste se do OpenStreetMap</string>
 	<string name="password">Heslo</string>
 	<string name="forgot_password">Zapomenuté heslo?</string>
 	<string name="logout">Odhlášení</string>
@@ -402,6 +405,7 @@
 	<string name="select_cuisine">Vybrat kuchyni</string>
 	<!-- login text field -->
 	<string name="email_or_username">Email nebo uživatelské jméno</string>
+	<string name="level">Podlaží</string>
 	<string name="downloader_delete_map_dialog">Zároveň s touto mapou budou odstraněny také všechny změny na této mapě.</string>
 	<string name="downloader_update_maps">Aktualizujte mapy</string>
 	<string name="downloader_mwm_migration_dialog">Chcete-li vytvořit trasu, pak musíte aktualizovat všechny mapy a poté trasu naplánovat znovu.</string>
@@ -420,6 +424,7 @@
 	<string name="editor_report_problem_other_title">Jiný problém</string>
 	<string name="placepage_add_business_button">Přidat organizaci</string>
 	<string name="message_invalid_feature_position">Objekt zde nemůže být umístěn</string>
+	<string name="osm_presentation">Všechna mapová data pocházejí z projektu OpenStreetMap. Je to jako Wikipedie s mapami, kde můžete přidávat nebo upravovat místa a jsou dostupné milionům uživatelů po celém světě.</string>
 	<string name="login_to_make_edits_visible">Přihlaste se, aby ostatní uživatelé mohli vidět změny, které jste provedli.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d z %2$d</string>
@@ -473,9 +478,9 @@
 	<string name="placepage_add_place_button">Přidat místo na mapu</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Chcete jej poslat všem uživatelům?</string>
-	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Ujistěte se, že jste nezadali žádná osobní data.</string>
-	<string name="editor_share_to_all_dialog_message_2">Změny ověříme. Budeme-li k vám mít jakékoli dotazy, budeme vás kontaktovat prostřednictvím emailu.</string>
+	<string name="editor_share_to_all_dialog_message_2">Redaktoři OpenStreetMap zkontrolují změny a budou vás kontaktovat, pokud budou mít nějaké dotazy.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps jsou bezplatná offline mapová aplikace s otevřeným zdrojovým kódem. Žádné reklamy. Žádné sledování. Pokud na mapě vidíte chybu, opravte ji v OpenStreetMap. Projekt vytvářejí nadšenci v našem volném čase, takže potřebujeme vaši zpětnou vazbu a podporu.</string>
 	<!-- For the first routing -->
@@ -504,7 +509,7 @@
 	<string name="on">Zapnout</string>
 	<string name="off">Vypnout</string>
 	<string name="prefs_languages_information">Pro hlasové pokyny používáme systém TTS. Mnoho zařízení se systémem Android používá Google TTS, můžete si ho stáhnout nebo aktualizovat na Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">U některých jazyků je třeba nainstalovat jiný hlasový syntetizátor nebo další jazykové sady z obchodu s aplikacemi (Google Play, Samsung Apps, App Gallery, FDroid).\nOtevřete zařízení → Nastavení jazyka a zadávání → Hlasitost → Převod textu na řeč. \nZde můžete spravovat nastavení pro syntézu řeči (například stáhnout jazykový balíček pro použití offline) a vybrat jiný modul převodu textu na řeč.</string>
+	<string name="prefs_languages_information_off">U některých jazyků je třeba nainstalovat jiný hlasový syntetizátor nebo další jazykové sady z obchodu s aplikacemi (Google Play, Galaxy Store, App Gallery, FDroid).\nOtevřete zařízení → Nastavení jazyka a zadávání → Hlasitost → Převod textu na řeč. \nZde můžete spravovat nastavení pro syntézu řeči (například stáhnout jazykový balíček pro použití offline) a vybrat jiný modul převodu textu na řeč.</string>
 	<string name="prefs_languages_information_off_link">Více informací najdete v tomto návodu.</string>
 	<string name="transliteration_title">Přepis do latinky</string>
 	<string name="learn_more">Zjistit více</string>
@@ -726,10 +731,14 @@
 	<string name="type.amenity.parking.permissive">Parkoviště</string>
 	<string name="type.amenity.parking.private">Parkoviště</string>
 	<string name="type.amenity.parking.underground">Parkoviště</string>
+	<string name="type.amenity.parking_entrance.private">Vjezd na parkoviště</string>
+	<string name="type.amenity.parking_entrance.permissive">Vjezd na parkoviště</string>
+	<string name="type.amenity.parking_entrance">Vjezd na parkoviště</string>
 	<string name="type.amenity.parking_space">Prostor pro parkování</string>
 	<string name="type.amenity.parking_space.permissive">Prostor pro parkování</string>
 	<string name="type.amenity.parking_space.private">Prostor pro parkování</string>
 	<string name="type.amenity.parking_space.underground">Prostor pro parkování</string>
+	<string name="type.amenity.parking_space.disabled">Parkovací místo pro invalidy</string>
 	<string name="type.amenity.payment_terminal">Platební terminál</string>
 	<string name="type.amenity.pharmacy">Lékárna</string>
 	<string name="type.amenity.place_of_worship">Posvátné místo</string>
@@ -1182,9 +1191,13 @@
 	<string name="type.place.hamlet">Vesnička</string>
 	<string name="type.place.island">Ostrov</string>
 	<string name="type.place.islet">Ostrov</string>
+	<string name="type.place.isolated_dwelling">Izolované obydlí</string>
 	<string name="type.place.locality">Lokalita</string>
+	<string name="type.place.neighbourhood">Čtvrť</string>
 	<string name="type.place.ocean">Oceán</string>
+	<string name="type.place.region">Region</string>
 	<string name="type.place.sea">Moře</string>
+	<string name="type.place.square">Náměstí</string>
 	<string name="type.place.state">Země</string>
 	<string name="type.place.state.USA">Země</string>
 	<string name="type.place.suburb">Předměstí</string>
@@ -1349,6 +1362,12 @@
 	<string name="type.sport.volleyball">Volejbal</string>
 	<string name="type.sport.9pin">Bowling</string>
 	<string name="type.sport.10pin">Bowling</string>
+	<string name="type.sport.padel">Padel</string>
+	<string name="type.sport.futsal">Futsal</string>
+	<string name="type.sport.ice_hockey">Lední hokej</string>
+	<string name="type.sport.field_hockey">Pozemní hokej</string>
+	<string name="type.sport.badminton">Badminton</string>
+	<string name="type.sport.pelota">Baskická pelota</string>
 	<string name="type.tourism.alpine_hut">Ubytování v horách</string>
 	<string name="type.tourism.apartment">Byty</string>
 	<string name="type.tourism.artwork">Umělecké dílo</string>

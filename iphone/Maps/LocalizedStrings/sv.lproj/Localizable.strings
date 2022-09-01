@@ -503,12 +503,6 @@
 
 "history" = "Historik";
 
-"opens_in" = "Opens in %@";
-
-"closes_in" = "Closes in %@";
-
-"closed" = "Stängt";
-
 "search_not_found" = "Ledsen, jag hittade ingenting.";
 
 "search_not_found_query" = "Försök med en annan sökförfrågan.";
@@ -578,6 +572,20 @@
 
 "today" = "Idag";
 
+"opens_tomorrow_at" = "Opens tomorrow at %@";
+
+"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
+
+"opens_at" = "Opens at %@";
+
+"opens_in" = "Opens in %@";
+
+"closes_at" = "Closes at %@";
+
+"closes_in" = "Closes in %@";
+
+"closed" = "Stängt";
+
 "add_opening_hours" = "Lägg till öppettider";
 
 "no_osm_account" = "Inget konto hos OpenStreetMap?";
@@ -629,6 +637,8 @@
 "email_or_username" = "E-postadress eller användarnamn";
 
 "phone" = "Telefon";
+
+"level" = "Våningsplan";
 
 "please_note" = "Observera";
 
@@ -750,6 +760,8 @@
 
 "miles_per_hour" = "mph";
 
+"hour" = "h";
+
 "minute" = "min";
 
 "placepage_place_description" = "Beskrivning";
@@ -798,10 +810,10 @@
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Vill du skicka det till alla användare?";
 
-/* iOS Dialog before publishing the modifications to the public map. */
+/* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "Se till att du inte angett någon personinformation";
 
-"editor_share_to_all_dialog_message_2" = "Vi kommer att kontrollera ändringar. Om vi har några frågor kontaktar vi dig via e-post.";
+"editor_share_to_all_dialog_message_2" = "OpenStreetMap-redigerare kommer att kontrollera ändringarna och kontakta dig om de har några frågor.";
 
 "navigation_stop_button" = "stopp";
 
@@ -1205,6 +1217,12 @@
 /* edit track screen title */
 "track_title" = "Rutt";
 
+/* Telegram group url for the help page */
+"telegram_url" = "https://t.me/OrganicMapsApp";
+
+/* Instagram account url for the help page */
+"instagram_url" = "https://www.instagram.com/organicmaps.app";
+
 
 /********** Types **********/
 
@@ -1356,6 +1374,12 @@
 
 "type.amenity.parking.underground" = "Parkering";
 
+"type.amenity.parking_entrance.private" = "Parkering entré";
+
+"type.amenity.parking_entrance.permissive" = "Parkering entré";
+
+"type.amenity.parking_entrance" = "Parkering entré";
+
 "type.amenity.parking_space" = "Parkeringsplats";
 
 "type.amenity.parking_space.permissive" = "Parkeringsplats";
@@ -1363,6 +1387,8 @@
 "type.amenity.parking_space.private" = "Parkeringsplats";
 
 "type.amenity.parking_space.underground" = "Parkeringsplats";
+
+"type.amenity.parking_space.disabled" = "Handikappparkeringsplats";
 
 "type.amenity.payment_terminal" = "Betalningsterminal";
 
@@ -2468,8 +2494,6 @@
 
 "type.organic.yes" = "Organic";
 
-"type.place" = "place";
-
 "type.place.city" = "Stad";
 
 "type.place.city.capital" = "Huvudstad";
@@ -2508,11 +2532,11 @@
 
 "type.place.islet" = "Ö";
 
-"type.place.isolated_dwelling" = "Dwelling";
+"type.place.isolated_dwelling" = "Isolerade bostäder";
 
 "type.place.locality" = "Lokalitet";
 
-"type.place.neighbourhood" = "Neighbourhood";
+"type.place.neighbourhood" = "Grannskap";
 
 "type.place.ocean" = "Ocean";
 
@@ -2520,7 +2544,7 @@
 
 "type.place.sea" = "Hav";
 
-"type.place.square" = "Square";
+"type.place.square" = "Torg";
 
 "type.place.state" = "Stat";
 
@@ -2970,6 +2994,18 @@
 "type.sport.9pin" = "Bowling";
 
 "type.sport.10pin" = "Bowling";
+
+"type.sport.padel" = "Padel";
+
+"type.sport.futsal" = "Futsal";
+
+"type.sport.ice_hockey" = "Ishockey";
+
+"type.sport.field_hockey" = "Landhockey";
+
+"type.sport.badminton" = "Badminton";
+
+"type.sport.pelota" = "Baskisk pelota";
 
 "type.tourism" = "Tourism";
 

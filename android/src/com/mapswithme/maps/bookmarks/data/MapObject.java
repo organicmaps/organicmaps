@@ -22,25 +22,6 @@ import java.util.List;
 // separate them. Simple getters from jni place_page::Info and osm::EditableFeature should be enough.
 public class MapObject implements PopularityProvider, PlacePageData
 {
-  // Order must correspond indexer/map_object.hpp
-  public enum OsmProps
-  {
-    OpeningHours,
-    Phone,
-    Fax,
-    Website,
-    Email,
-    Cuisine,
-    Stars,
-    Operator,
-    Elevation,
-    Internet,
-    Wikipedia,
-    Flats,
-    BuildingLevels,
-    Level
-  }
-
   @Retention(RetentionPolicy.SOURCE)
   @IntDef({ POI, API_POINT, BOOKMARK, MY_POSITION, SEARCH })
   public @interface MapObjectType

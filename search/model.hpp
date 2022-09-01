@@ -24,7 +24,7 @@ public:
 class Model
 {
 public:
-  // WARNING: after modifications to the enum below, re-check all methods in the class.
+  /// @note Check ranking_info.cpp constants (kType) before changing this enum.
   enum Type : uint8_t
   {
     // Low-level features such as amenities, offices, shops, buildings without house number, etc.

@@ -167,6 +167,9 @@
   <dimen name="editor_auth_btn_height">@dimen/primary_button_min_height</dimen>
   <dimen name="editor_margin_timetable_left">50dp</dimen>
 
+  <!-- Login -->
+  <dimen name="login_osm_logo">64dp</dimen>
+
   <!-- Altitude chart -->
   <dimen name="altitude_chart_container_padding_left">16dp</dimen>
   <dimen name="altitude_chart_container_padding_bottom">10dp</dimen>

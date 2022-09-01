@@ -503,12 +503,6 @@
 
 "history" = "Geschiedenis";
 
-"opens_in" = "Opens in %@";
-
-"closes_in" = "Closes in %@";
-
-"closed" = "Gesloten";
-
 "search_not_found" = "Sorry, ik heb niets gevonden.";
 
 "search_not_found_query" = "Probeer een andere zoekopdracht.";
@@ -578,6 +572,20 @@
 
 "today" = "Vandaag";
 
+"opens_tomorrow_at" = "Opens tomorrow at %@";
+
+"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
+
+"opens_at" = "Opens at %@";
+
+"opens_in" = "Opens in %@";
+
+"closes_at" = "Closes at %@";
+
+"closes_in" = "Closes in %@";
+
+"closed" = "Gesloten";
+
 "add_opening_hours" = "Openingsuren toevoegen";
 
 "no_osm_account" = "Geen account bij OpenStreetMap?";
@@ -629,6 +637,8 @@
 "email_or_username" = "Emailadres of gebruikersnaam";
 
 "phone" = "Telefoonnummer";
+
+"level" = "Etage";
 
 "please_note" = "Opgelet";
 
@@ -750,6 +760,8 @@
 
 "miles_per_hour" = "mph";
 
+"hour" = "u";
+
 "minute" = "min";
 
 "placepage_place_description" = "Beschrijving";
@@ -798,10 +810,10 @@
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Wil je het naar alle gebruikers sturen?";
 
-/* iOS Dialog before publishing the modifications to the public map. */
+/* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "Controleer dat je geen persoonlijke gegevens hebt ingevoerd.";
 
-"editor_share_to_all_dialog_message_2" = "We zullen de wijzigingen controleren. Als we nog vragen hebben, zullen we contact met je opnemen via email.";
+"editor_share_to_all_dialog_message_2" = "OpenStreetMap-editors zullen de wijzigingen controleren en contact met u opnemen als ze vragen hebben.";
 
 "navigation_stop_button" = "stoppen";
 
@@ -1205,6 +1217,12 @@
 /* edit track screen title */
 "track_title" = "Track";
 
+/* Telegram group url for the help page */
+"telegram_url" = "https://t.me/OrganicMapsApp";
+
+/* Instagram account url for the help page */
+"instagram_url" = "https://www.instagram.com/organicmaps.app";
+
 
 /********** Types **********/
 
@@ -1356,6 +1374,12 @@
 
 "type.amenity.parking.underground" = "Parkeerplaats";
 
+"type.amenity.parking_entrance.private" = "Parkeeringang";
+
+"type.amenity.parking_entrance.permissive" = "Parkeeringang";
+
+"type.amenity.parking_entrance" = "Parkeeringang";
+
 "type.amenity.parking_space" = "Parkeerplaats";
 
 "type.amenity.parking_space.permissive" = "Parkeerplaats";
@@ -1363,6 +1387,8 @@
 "type.amenity.parking_space.private" = "Parkeerplaats";
 
 "type.amenity.parking_space.underground" = "Parkeerplaats";
+
+"type.amenity.parking_space.disabled" = "Invalide parkeerplaats";
 
 "type.amenity.payment_terminal" = "Betaalautomaat";
 
@@ -2468,8 +2494,6 @@
 
 "type.organic.yes" = "Biologisch";
 
-"type.place" = "place";
-
 "type.place.city" = "Stad";
 
 "type.place.city.capital" = "Hoofdstad";
@@ -2508,11 +2532,11 @@
 
 "type.place.islet" = "Eilandje";
 
-"type.place.isolated_dwelling" = "Dwelling";
+"type.place.isolated_dwelling" = "Geïsoleerde woning";
 
 "type.place.locality" = "Plaats";
 
-"type.place.neighbourhood" = "Neighbourhood";
+"type.place.neighbourhood" = "Buurt";
 
 "type.place.ocean" = "Oceaan";
 
@@ -2520,7 +2544,7 @@
 
 "type.place.sea" = "Zee";
 
-"type.place.square" = "Square";
+"type.place.square" = "Plein";
 
 "type.place.state" = "Deelstaat";
 
@@ -2970,6 +2994,18 @@
 "type.sport.9pin" = "Bowlen";
 
 "type.sport.10pin" = "Bowlen";
+
+"type.sport.padel" = "Padel";
+
+"type.sport.futsal" = "Futsal";
+
+"type.sport.ice_hockey" = "Ijshockey";
+
+"type.sport.field_hockey" = "Veld hockey";
+
+"type.sport.badminton" = "Badminton";
+
+"type.sport.pelota" = "Baskische peloton";
 
 "type.tourism" = "Tourism";
 

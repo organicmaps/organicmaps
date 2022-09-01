@@ -206,6 +206,15 @@ public class Factory
       if (!result.isSuccess())
         return false;
 
+      final Uri uri = Uri.parse(getUrl());
+      final String backUrl = uri.getQueryParameter("backurl");
+      if (!TextUtils.isEmpty(backUrl))
+      {
+        Intent intent = target.getIntent();
+        if (intent != null)
+          intent.putExtra(MwmActivity.EXTRA_BACK_URL, backUrl);
+      }
+
       switch (result.getUrlType())
       {
         case ParsingResult.TYPE_INCORRECT:

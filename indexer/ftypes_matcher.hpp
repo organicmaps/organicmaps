@@ -320,25 +320,13 @@ public:
 
 class AttractionsChecker : public BaseChecker
 {
+  size_t m_additionalTypesStart;
+
   AttractionsChecker();
-
 public:
-  std::vector<uint32_t> m_primaryTypes;
-  std::vector<uint32_t> m_additionalTypes;
-
   DECLARE_CHECKER_INSTANCE(AttractionsChecker);
 
-  template <typename Ft>
-  bool NeedFeature(Ft & feature) const
-  {
-    bool need = false;
-    feature.ForEachType([&](uint32_t type) {
-      if (!need && IsMatched(type))
-        need = true;
-    });
-    return need;
-  }
-
+  // Used in generator.
   uint32_t GetBestType(FeatureParams::Types const & types) const;
 };
 

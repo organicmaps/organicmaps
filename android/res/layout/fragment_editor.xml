@@ -135,9 +135,45 @@
           android:text="@string/details"
           android:textAppearance="@style/MwmTextAppearance.Body3"
           tools:ignore="UnusedAttribute"/>
+
         <include
           android:id="@+id/block_opening_hours"
           layout="@layout/item_opening_hours"/>
+
+        <RelativeLayout
+            android:id="@+id/block_cuisine"
+            style="@style/MwmWidget.Editor.MetadataBlock.Clickable"
+            android:paddingBottom="@dimen/margin_half"
+            android:paddingTop="@dimen/margin_half">
+          <ImageView
+              style="@style/MwmWidget.Editor.MetadataIcon"
+              android:src="@drawable/ic_cuisine"
+              tools:ignore="ContentDescription" />
+          <TextView
+              android:id="@+id/title_cuisine"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="@dimen/editor_margin_left"
+              android:text="@string/cuisine"
+              android:textAppearance="@style/MwmTextAppearance.Body4"/>
+          <TextView
+              android:id="@+id/cuisine"
+              style="@style/MwmWidget.Editor.FieldLayout"
+              android:layout_below="@id/title_cuisine"
+              android:layout_marginTop="@dimen/margin_quarter"
+              android:gravity="center_vertical"
+              android:textAppearance="@style/MwmTextAppearance.Body1"
+              tools:text="Italian, russian, russian, russian, russian, russian, russian, russian, russian"
+              app:drawableEndCompat="@drawable/ic_arrow_down" />
+          <View
+              android:layout_width="match_parent"
+              android:layout_height="1dp"
+              android:layout_alignStart="@id/cuisine"
+              android:layout_below="@id/cuisine"
+              android:layout_marginTop="@dimen/margin_quarter_plus"
+              android:background="?dividerHorizontal"/>
+        </RelativeLayout>
+
         <RelativeLayout
             android:id="@+id/block_phone"
             style="@style/MwmWidget.Editor.MetadataBlock.Clickable">
@@ -167,9 +203,40 @@
               android:textAppearance="@style/MwmTextAppearance.Body1"
               android:textColor="?colorAccent"/>
         </RelativeLayout>
+
+        <include
+            android:id="@+id/block_operator"
+            layout="@layout/item_editor_input"/>
+
         <include
           android:id="@+id/block_website"
           layout="@layout/item_editor_input"/>
+
+        <RelativeLayout
+            android:id="@+id/block_wifi"
+            style="@style/MwmWidget.Editor.MetadataBlock.Clickable">
+          <ImageView
+              style="@style/MwmWidget.Editor.MetadataIcon"
+              android:src="@drawable/ic_wifi"
+              tools:ignore="ContentDescription" />
+          <TextView
+              style="@style/MwmWidget.Editor.FieldLayout.EditText"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_centerVertical="true"
+              android:layout_marginStart="@dimen/editor_margin_left"
+              android:layout_toStartOf="@+id/sw__wifi"
+              android:text="@string/wifi"/>
+          <androidx.appcompat.widget.SwitchCompat
+              android:id="@+id/sw__wifi"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_alignParentEnd="true"
+              android:layout_centerVertical="true"/>
+        </RelativeLayout>
+
+        <!-- ToDo: Level is missing compared with iOS. -->
+
         <include
           android:id="@+id/block_email"
           layout="@layout/item_editor_input"/>
@@ -188,64 +255,6 @@
         <include
           android:id="@+id/block_line"
           layout="@layout/item_editor_input"/>
-        <include
-          android:id="@+id/block_operator"
-          layout="@layout/item_editor_input"/>
-        <RelativeLayout
-          android:id="@+id/block_cuisine"
-          style="@style/MwmWidget.Editor.MetadataBlock.Clickable"
-          android:paddingBottom="@dimen/margin_half"
-          android:paddingTop="@dimen/margin_half">
-          <ImageView
-            style="@style/MwmWidget.Editor.MetadataIcon"
-            android:src="@drawable/ic_cuisine"
-            tools:ignore="ContentDescription" />
-          <TextView
-            android:id="@+id/title_cuisine"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/editor_margin_left"
-            android:text="@string/cuisine"
-            android:textAppearance="@style/MwmTextAppearance.Body4"/>
-          <TextView
-            android:id="@+id/cuisine"
-            style="@style/MwmWidget.Editor.FieldLayout"
-            android:layout_below="@id/title_cuisine"
-            android:layout_marginTop="@dimen/margin_quarter"
-            android:gravity="center_vertical"
-            android:textAppearance="@style/MwmTextAppearance.Body1"
-            tools:text="Italian, russian, russian, russian, russian, russian, russian, russian, russian"
-            app:drawableEndCompat="@drawable/ic_arrow_down" />
-          <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignStart="@id/cuisine"
-            android:layout_below="@id/cuisine"
-            android:layout_marginTop="@dimen/margin_quarter_plus"
-            android:background="?dividerHorizontal"/>
-        </RelativeLayout>
-        <RelativeLayout
-          android:id="@+id/block_wifi"
-          style="@style/MwmWidget.Editor.MetadataBlock.Clickable">
-          <ImageView
-            style="@style/MwmWidget.Editor.MetadataIcon"
-            android:src="@drawable/ic_wifi"
-            tools:ignore="ContentDescription" />
-          <TextView
-            style="@style/MwmWidget.Editor.FieldLayout.EditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="@dimen/editor_margin_left"
-            android:layout_toStartOf="@+id/sw__wifi"
-            android:text="@string/wifi"/>
-          <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/sw__wifi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"/>
-        </RelativeLayout>
       </LinearLayout>
     </androidx.cardview.widget.CardView>
     <androidx.cardview.widget.CardView

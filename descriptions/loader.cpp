@@ -8,18 +8,17 @@
 
 namespace descriptions
 {
-bool Loader::GetDescription(FeatureID const & featureId, std::vector<int8_t> const & langPriority,
-                            std::string & description)
+std::string Loader::GetDescription(FeatureID const & featureId, std::vector<int8_t> const & langPriority)
 {
   auto const handle = m_dataSource.GetMwmHandleById(featureId.m_mwmId);
 
   if (!handle.IsAlive())
-    return false;
+    return {};
 
   auto const & value = *handle.GetValue();
 
   if (!value.m_cont.IsExist(DESCRIPTIONS_FILE_TAG))
-    return false;
+    return {};
 
   EntryPtr entry;
   {
@@ -32,6 +31,6 @@ bool Loader::GetDescription(FeatureID const & featureId, std::vector<int8_t> con
   auto readerPtr = value.m_cont.GetReader(DESCRIPTIONS_FILE_TAG);
 
   std::lock_guard<std::mutex> lock(entry->m_mutex);
-  return entry->m_deserializer.Deserialize(*readerPtr.GetPtr(), featureId.m_index, langPriority, description);
+  return entry->m_deserializer.Deserialize(*readerPtr.GetPtr(), featureId.m_index, langPriority);
 }
 }  // namespace descriptions

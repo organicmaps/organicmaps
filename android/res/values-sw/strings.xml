@@ -30,6 +30,8 @@
 	<string name="news">Habari</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">Maswali na majibu</string>
+	<!-- Button in the main menu -->
+	<string name="donate">Changia</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">Jinsi ya kutuunga mkono?</string>
 	<!-- Preference title -->
@@ -56,8 +58,12 @@
 	<string name="dialog_routing_intermediate_not_determined">Tafadhali badilisha eneo lako la kati.</string>
 
 	<!-- SECTION: Strings for downloading map from search -->
+	<string name="login_osm">Ingia kwa OpenStreetMap</string>
+	<string name="level">Ghorofa</string>
+	<string name="osm_presentation">Data yote ya ramani inatoka kwa mradi wa OpenStreetMap. Ni kama Wikipedia ya ramani ambapo unaweza kuongeza au kuhariri maeneo, na yanapatikana kwa mamilioni ya watumiaji duniani kote.</string>
 	<string name="editor_other_info">Tuma ujumbe kwenye vihariri vya OSM</string>
 	<string name="placepage_more_reviews_button">Maoni Zaidi</string>
+	<string name="editor_share_to_all_dialog_message_2">Wahariri wa OpenStreetMap watakagua mabadiliko na kuwasiliana nawe ikiwa wana maswali yoyote.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps ni programu huria na ya chanzo huria ya ramani za nje ya mtandao. Hakuna matangazo. Hakuna ufuatiliaji. Ukiona hitilafu kwenye ramani, tafadhali irekebishe katika OpenStreetMap. Mradi huu umeundwa na wapendaji katika wakati wetu wa bure, kwa hivyo tunahitaji maoni na usaidizi wako.</string>
 	<!-- Settings: "Send general feedback" button -->
@@ -65,7 +71,7 @@
 	<string name="on">Washa</string>
 	<string name="off">Zima</string>
 	<string name="prefs_languages_information">Tunatumia maagizo ya sautii ya TTS ya mfumo. Vifaa vingi vya Android vinatumia Google TTS, unaweza kuipakua au kuisasisha kwenye Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">Kwa baadhi ya lugha, utahitaji kusakinisha programu nyingine ya kusanidi usemi au kifurushi cha ziada cha lugha kutoka kwenye duka la programu-tumizi (Google Play, Samsung Apps, App Gallery, FDroid).\nFungua mipangilio ya kifaa chako → Lugha na Ingizo → Usemi → Tokeo la maandishi kuwa usemi.\nHapa unaweza kusimamia usanidi wa usemi (kwa mfano, kupakua kifurushi cha lugha ili utumie nje ya mtandao) na uchague injini nyingine ya maandishi-kuwa-usemi.</string>
+	<string name="prefs_languages_information_off">Kwa baadhi ya lugha, utahitaji kusakinisha programu nyingine ya kusanidi usemi au kifurushi cha ziada cha lugha kutoka kwenye duka la programu-tumizi (Google Play, Galaxy Store, App Gallery, FDroid).\nFungua mipangilio ya kifaa chako → Lugha na Ingizo → Usemi → Tokeo la maandishi kuwa usemi.\nHapa unaweza kusimamia usanidi wa usemi (kwa mfano, kupakua kifurushi cha lugha ili utumie nje ya mtandao) na uchague injini nyingine ya maandishi-kuwa-usemi.</string>
 	<string name="prefs_languages_information_off_link">Kwa maelezo zaidi tafadhali tazama mwongozo huu.</string>
 	<string name="transliteration_title">Tafsiri kwa lugha ya Kilatini</string>
 	<string name="learn_more">Jua mengi zaidi</string>
@@ -226,10 +232,14 @@
 	<string name="type.amenity">Kistawishi</string>
 	<string name="type.amenity.arts_centre">Kituo cha sanaa</string>
 	<string name="type.amenity.bicycle_repair_station">Cykelreparationsstation</string>
+	<string name="type.amenity.parking_entrance.private">Mlango wa maegesho</string>
+	<string name="type.amenity.parking_entrance.permissive">Mlango wa maegesho</string>
+	<string name="type.amenity.parking_entrance">Mlango wa maegesho</string>
 	<string name="type.amenity.parking_space">Sehemu ya maegesho</string>
 	<string name="type.amenity.parking_space.permissive">Sehemu ya maegesho</string>
 	<string name="type.amenity.parking_space.private">Sehemu ya maegesho</string>
 	<string name="type.amenity.parking_space.underground">Sehemu ya maegesho</string>
+	<string name="type.amenity.parking_space.disabled">Nafasi ya maegesho iliyozimwa</string>
 	<string name="type.amenity.post_office">Ofisi ya posta</string>
 
 	<!-- SECTION: Types: Recycling -->
@@ -386,6 +396,37 @@
 	<string name="type.natural.wetland">Maeneo yenye majimaji</string>
 	<string name="type.natural.wetland.bog">Bogi</string>
 	<string name="type.natural.wetland.marsh">Marsh</string>
+	<string name="type.place.city">Jiji</string>
+	<string name="type.place.city.capital">Mji mkuu</string>
+	<string name="type.place.city.capital.10">Jiji</string>
+	<string name="type.place.city.capital.11">Jiji</string>
+	<string name="type.place.city.capital.2">Mji mkuu</string>
+	<string name="type.place.city.capital.3">Jiji</string>
+	<string name="type.place.city.capital.4">Jiji</string>
+	<string name="type.place.city.capital.5">Jiji</string>
+	<string name="type.place.city.capital.6">Jiji</string>
+	<string name="type.place.city.capital.7">Jiji</string>
+	<string name="type.place.city.capital.8">Jiji</string>
+	<string name="type.place.city.capital.9">Jiji</string>
+	<string name="type.place.continent">Bara</string>
+	<string name="type.place.country">Nchi</string>
+	<string name="type.place.county">Wilaya</string>
+	<string name="type.place.farm">Shamba</string>
+	<string name="type.place.hamlet">Hamlet</string>
+	<string name="type.place.island">Kisiwa</string>
+	<string name="type.place.islet">Kisiwa</string>
+	<string name="type.place.isolated_dwelling">Makao ya Pekee</string>
+	<string name="type.place.locality">Eneo</string>
+	<string name="type.place.neighbourhood">Mtaa</string>
+	<string name="type.place.ocean">Bahari kuu</string>
+	<string name="type.place.region">Mkoa</string>
+	<string name="type.place.sea">Bahari</string>
+	<string name="type.place.square">Nafasi</string>
+	<string name="type.place.state">Jimbo la Shirikisho</string>
+	<string name="type.place.state.USA">Jimbo</string>
+	<string name="type.place.suburb">Pambizo</string>
+	<string name="type.place.town">Mji</string>
+	<string name="type.place.village">Kijiji</string>
 	<string name="type.railway.level_crossing">Tambuka Reli</string>
 	<string name="type.railway.monorail">Mfumo wa reli moja</string>
 	<string name="type.railway.rail">Njia ya Reli</string>
@@ -450,6 +491,12 @@
 	<string name="type.sport.volleyball">Voliboli</string>
 	<string name="type.sport.9pin">Bowling</string>
 	<string name="type.sport.10pin">Bowling</string>
+	<string name="type.sport.padel">Padel</string>
+	<string name="type.sport.futsal">Futsal</string>
+	<string name="type.sport.ice_hockey">Hoki ya barafu</string>
+	<string name="type.sport.field_hockey">Hoki ya shamba</string>
+	<string name="type.sport.badminton">Badminton</string>
+	<string name="type.sport.pelota">Basque pelota</string>
 	<string name="type.tourism.information">Taarifa za Watalii</string>
 	<string name="type.tourism.information.board">Bodi ya habari</string>
 	<string name="type.tourism.information.guidepost">Chapisho la mwongozo</string>

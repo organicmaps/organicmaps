@@ -86,6 +86,7 @@ import com.mapswithme.maps.widget.placepage.PlacePageController;
 import com.mapswithme.maps.widget.placepage.PlacePageData;
 import com.mapswithme.maps.widget.placepage.PlacePageFactory;
 import com.mapswithme.maps.widget.placepage.RoutingModeListener;
+import com.mapswithme.util.Config;
 import com.mapswithme.util.Counters;
 import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.PermissionsUtils;
@@ -123,7 +124,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 {
   public static final String EXTRA_TASK = "map_task";
   public static final String EXTRA_LAUNCH_BY_DEEP_LINK = "launch_by_deep_link";
-  public static final String EXTRA_BACK_URL = "back_url";
+  public static final String EXTRA_BACK_URL = "backurl";
   private static final String EXTRA_CONSUMED = "mwm.extra.intent.processed";
 
   private static final String[] DOCKED_FRAGMENTS = { SearchFragment.class.getName(),
@@ -200,6 +201,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private PlacePageController mPlacePageController;
+
+  private String mDonatesUrl;
 
   public interface LeftAnimationTrackListener
   {
@@ -447,6 +450,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
         getDownloadMapsCounter(),
         this::onDownloadMapsOptionSelected
     ));
+    mDonatesUrl = Config.getDonateUrl();
+    if (!TextUtils.isEmpty(mDonatesUrl))
+      items.add(new MenuBottomSheetItem(R.string.donate, R.drawable.ic_donate, this::onDonateOptionSelected));
     items.add(new MenuBottomSheetItem(R.string.settings, R.drawable.ic_settings, this::onSettingsOptionSelected));
     items.add(new MenuBottomSheetItem(R.string.share_my_location, R.drawable.ic_share, this::onShareLocationOptionSelected));
     return items;
@@ -2002,6 +2008,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
     RoutingController.get().cancel();
     closeFloatingPanels();
     showDownloader(false);
+  }
+
+  public void onDonateOptionSelected()
+  {
+    Utils.openUrl(this, mDonatesUrl);
   }
 
   public void onSettingsOptionSelected()

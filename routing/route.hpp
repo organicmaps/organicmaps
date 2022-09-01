@@ -5,9 +5,10 @@
 #include "routing/segment.hpp"
 #include "routing/transit_info.hpp"
 #include "routing/turns.hpp"
-#include "routing/maxspeeds.hpp"
 
 #include "routing/base/followed_polyline.hpp"
+
+#include "routing_common/maxspeed_conversion.hpp"
 
 #include "traffic/speed_groups.hpp"
 
@@ -76,9 +77,10 @@ public:
     bool m_isLink = false;
 
     bool HasBasicTextInfo() const { return !m_ref.empty() || !m_name.empty(); }
-    bool HasExitInfo() const
+    bool HasExitInfo() const { return m_isLink || HasExitTextInfo(); }
+    bool HasExitTextInfo() const
     {
-      return m_isLink || !m_junction_ref.empty() || !m_destination_ref.empty() || !m_destination.empty();
+      return !m_junction_ref.empty() || !m_destination_ref.empty() || !m_destination.empty();
     }
 
     friend std::string DebugPrint(RoadNameInfo const & rni);

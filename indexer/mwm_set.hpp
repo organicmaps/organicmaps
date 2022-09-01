@@ -391,3 +391,14 @@ public:
 std::string DebugPrint(MwmSet::RegResult result);
 std::string DebugPrint(MwmSet::Event::Type type);
 std::string DebugPrint(MwmSet::Event const & event);
+
+namespace std
+{
+template <> struct hash<MwmSet::MwmId>
+{
+  size_t operator()(MwmSet::MwmId const & id) const
+  {
+    return std::hash<std::shared_ptr<MwmInfo>>()(id.GetInfo());
+  }
+};
+}  // namespace std

@@ -10,13 +10,15 @@ import androidx.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.mapswithme.util.log.Logger;
+
 public class Metadata implements Parcelable
 {
-  // Values must correspond to definitions from feature_meta.hpp.
+  // Values must correspond to the Metadata definition from indexer/feature_meta.hpp.
   public enum MetadataType
   {
     // Defined by classifier types now.
-    //FMD_CUISINE = 1,
+    FMD_CUISINE(1),
     FMD_OPEN_HOURS(2),
     FMD_PHONE_NUMBER(3),
     FMD_FAX_NUMBER(4),
@@ -56,7 +58,9 @@ public class Metadata implements Parcelable
     FMD_CONTACT_LINE(36),
     FMD_DESTINATION(37),
     FMD_DESTINATION_REF(38),
-    FMD_JUNCTION_REF(39);
+    FMD_JUNCTION_REF(39),
+    FMD_BUILDING_MIN_LEVEL(40),
+    FMD_WIKIMEDIA_COMMONS(41);
     private final int mMetaType;
 
     MetadataType(int metadataType)
@@ -65,13 +69,13 @@ public class Metadata implements Parcelable
     }
 
     @NonNull
-    public static MetadataType fromInt(@IntRange(from = 1, to = 28) int metaType)
+    public static MetadataType fromInt(@IntRange(from = 1, to = 41) int metaType)
     {
       for (MetadataType type : values())
         if (type.mMetaType == metaType)
           return type;
 
-      throw new IllegalArgumentException("Illegal metaType arg!");
+      throw new IllegalArgumentException("Illegal metaType: " + metaType);
     }
 
     public int toInt()

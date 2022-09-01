@@ -2,6 +2,7 @@
 
 #include "kml/minzoom_quadtree.hpp"
 
+#include "base/macros.hpp"
 #include "base/string_utils.hpp"
 
 #include <utility>

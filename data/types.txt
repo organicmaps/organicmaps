@@ -134,7 +134,7 @@ landuse|forest|mixed
 *landuse|vineyard
 *aeroway|taxiway
 *aeroway|aerodrome
-mapswithme
+*leisure|garden|residential
 *amenity|fire_station
 *landuse|retail
 *leisure|nature_reserve
@@ -741,9 +741,9 @@ boundary|administrative|4
 *barrier|chain
 *sport|climbing
 *sport|yoga
-mapswithme
-mapswithme
-mapswithme
+*amenity|parking_entrance
+*amenity|parking_entrance|private
+*amenity|parking_entrance|permissive
 mapswithme
 mapswithme
 mapswithme
@@ -836,8 +836,8 @@ mapswithme
 mapswithme
 mapswithme
 mapswithme
-mapswithme
-mapswithme
+*landuse|military|danger_area
+*boundary|military
 mapswithme
 mapswithme
 mapswithme
@@ -1133,12 +1133,12 @@ mapswithme
 mapswithme
 mapswithme
 mapswithme
-mapswithme
-mapswithme
-mapswithme
-mapswithme
-mapswithme
-mapswithme
+*sport|padel
+*sport|futsal
+*sport|ice_hockey
+*sport|field_hockey
+*sport|badminton
+*sport|pelota
 mapswithme
 mapswithme
 mapswithme
@@ -1352,3 +1352,4 @@ amenity|recycling|container
 *recycling|shoes
 *recycling|green_waste
 *recycling|cartons
+*amenity|parking_space|disabled

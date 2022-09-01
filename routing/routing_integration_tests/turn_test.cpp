@@ -749,7 +749,7 @@ UNIT_TEST(Netherlands_Barneveld_TurnTest)
 
   TEST_EQUAL(result, RouterResultCode::NoError, ());
   /// @todo Reasonable solution from GraphHopper:
-  // https://www.openstreetmap.org/directions?engine=graphhopper_car&route=52.16783%2C5.56589%3B52.16940%2C5.56270#map=19/52.16916/5.56537
+  // https://www.openstreetmap.org/directions?engine=graphhopper_car&route=52.15866%2C5.56538%3B52.17042%2C5.55834
   integration::TestTurnCount(route, 1);
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnSlightLeft);
 }
@@ -1156,6 +1156,26 @@ UNIT_TEST(Cyprus_A1AlphaMega_TurnTest)
   // No extra GoStraight caused by possible turn to parking.
 }
 
+UNIT_TEST(Crimea_Roundabout_test)
+{
+  TRouteResult const routeResult =
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
+                                  mercator::FromLatLon(45.20895, 33.32677), {0., 0.},
+                                  mercator::FromLatLon(45.20899, 33.32840));
+
+  Route const & route = *routeResult.first;
+  RouterResultCode const result = routeResult.second;
+
+  // Issue #2536.
+  TEST_EQUAL(result, RouterResultCode::NoError, ());
+  integration::TestTurnCount(route, 2 /* expectedTurnCount */);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::EnterRoundAbout);
+  integration::GetNthTurn(route, 0).TestValid().TestRoundAboutExitNum(3);
+  integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::LeaveRoundAbout);
+  integration::GetNthTurn(route, 1).TestValid().TestRoundAboutExitNum(3);
+}
+
+
 UNIT_TEST(Russia_Moscow_OnlyUTurnTest1_TurnTest)
 {
   TRouteResult const routeResult =
@@ -1193,3 +1213,72 @@ UNIT_TEST(Russia_Moscow_OnlyUTurnTest1WithDirection_TurnTest)
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::UTurnLeft);
 }
 */
+
+// Slight turn to the long link which is followed by another link.
+UNIT_TEST(USA_California_Cupertino_TurnTestNextRoad)
+{
+  TRouteResult const routeResult =
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
+                                  mercator::FromLatLon(37.5031583, -122.3317724), {0., 0.},
+                                  mercator::FromLatLon(37.5110368, -122.3317238));
+
+  Route const & route = *routeResult.first;
+  RouterResultCode const result = routeResult.second;
+
+  TEST_EQUAL(result, RouterResultCode::NoError, ());
+
+  double d;
+  TurnItem turn;
+  route.GetNearestTurn(d, turn);
+  TEST_EQUAL(turn.m_turn, CarDirection::TurnSlightRight, ());
+  RouteSegment::RoadNameInfo ri;
+  route.GetNextTurnStreetName(ri);
+  TEST_EQUAL(ri.m_destination, "San Mateo; Hayward; Belmont", ());
+  TEST_EQUAL(ri.m_destination_ref, "CA 92 East", ());
+}
+
+// Take destination from link and destination_ref from the next road.
+UNIT_TEST(Cyprus_Governors_Beach_TurnTestNextRoad)
+{
+  TRouteResult const routeResult =
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
+                                  mercator::FromLatLon(34.7247792, 33.2719482), {0., 0.},
+                                  mercator::FromLatLon(34.7230031, 33.2727327));
+
+  Route const & route = *routeResult.first;
+  RouterResultCode const result = routeResult.second;
+
+  TEST_EQUAL(result, RouterResultCode::NoError, ());
+
+  double d;
+  TurnItem turn;
+  route.GetNearestTurn(d, turn);
+  TEST_EQUAL(turn.m_turn, CarDirection::ExitHighwayToLeft, ());
+  RouteSegment::RoadNameInfo ri;
+  route.GetNextTurnStreetName(ri);
+  TEST_EQUAL(ri.m_destination, "Governer's Beach; Pentakomo", ());
+  TEST_EQUAL(ri.m_destination_ref, "B1", ());
+}
+
+// Exit which is marked as non-link, but has link tags m_destination_ref and m_destination.
+UNIT_TEST(Cyprus_A1_A5_TurnTestNextRoad)
+{
+  TRouteResult const routeResult =
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
+                                  mercator::FromLatLon(34.83254, 33.3835), {0., 0.},
+                                  mercator::FromLatLon(34.83793, 33.3926));
+
+  Route const & route = *routeResult.first;
+  RouterResultCode const result = routeResult.second;
+
+  TEST_EQUAL(result, RouterResultCode::NoError, ());
+
+  double d;
+  TurnItem turn;
+  route.GetNearestTurn(d, turn);
+  TEST_EQUAL(turn.m_turn, CarDirection::TurnSlightLeft, ());
+  RouteSegment::RoadNameInfo ri;
+  route.GetNextTurnStreetName(ri);
+  TEST_EQUAL(ri.m_destination, "Larnaka; Kefinou; Airport", ());
+  TEST_EQUAL(ri.m_destination_ref, "A5", ());
+}

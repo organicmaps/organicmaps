@@ -279,27 +279,6 @@ if (USE_PCH)
     ${OMIM_PCH_TARGET_NAME}
   )
 endif()
-
-# Generate version header file.
-execute_process(COMMAND tools/unix/version.sh android_name
-  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-  OUTPUT_VARIABLE OM_VERSION
-  OUTPUT_STRIP_TRAILING_WHITESPACE
-)
-execute_process(COMMAND tools/unix/version.sh android_code
-  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-  OUTPUT_VARIABLE OM_VERSION_CODE
-  OUTPUT_STRIP_TRAILING_WHITESPACE
-)
-execute_process(COMMAND tools/unix/version.sh git_hash
-  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-  OUTPUT_VARIABLE OM_GIT_HASH
-  OUTPUT_STRIP_TRAILING_WHITESPACE
-)
-# TODO: Does it run on every build or only on configure step?
-# TODO: Run only when dependent targets are built.
-configure_file(build_version.hpp.in ${CMAKE_SOURCE_DIR}/build_version.hpp @ONLY)
-
 # Include 3party dependencies.
 
 # Configure expat library.
@@ -316,7 +295,14 @@ set(EXPAT_SHARED_LIBS OFF)
 add_subdirectory(3party/expat/expat)
 add_subdirectory(3party/agg)
 add_subdirectory(3party/bsdiff-courgette)
+
 add_subdirectory(3party/gflags)
+# Not needed for the usual build process, but it fixes QtCreator editor,
+# that doesn't see gflags/gflags.h in binary dir (gflags has tricky cmake configuration).
+if (PLATFORM_DESKTOP)
+  include_directories("${PROJECT_BINARY_DIR}/3party/gflags/include")
+endif()
+
 if (LINUX_DETECTED)
   find_package(ICU COMPONENTS uc i18n data REQUIRED)
   find_package(Freetype REQUIRED)

@@ -294,7 +294,7 @@ unique_ptr<MwmContext> GetWorldContext(DataSource const & dataSource)
 
 #define TRACE(branch)                                      \
   m_resultTracer.CallMethod(ResultTracer::Branch::branch); \
-  SCOPE_GUARD(tracerGuard, [&] { m_resultTracer.LeaveMethod(ResultTracer::Branch::branch); });
+  SCOPE_GUARD(tracerGuard, [&] { m_resultTracer.LeaveMethod(ResultTracer::Branch::branch); })
 }  // namespace
 
 // Geocoder::ExtendedMwmInfos::ExtendedMwmInfo -----------------------------------------------------

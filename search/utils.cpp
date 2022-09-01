@@ -25,9 +25,7 @@ vector<uint32_t> GetCategoryTypes(string const & name, string const & locale,
   Locales locales;
   locales.Insert(static_cast<uint64_t>(code));
 
-  vector<strings::UniString> tokens;
-  SplitUniString(NormalizeAndSimplifyString(name), base::MakeBackInsertFunctor(tokens),
-                 Delimiters());
+  auto const tokens = NormalizeAndTokenizeString(name);
 
   FillCategories(QuerySliceOnRawStrings<vector<strings::UniString>>(tokens, {} /* prefix */),
                  locales, categories, types);
@@ -75,9 +73,7 @@ bool IsCategorialRequestFuzzy(string const & query, string const & categoryName)
   auto const & catHolder = GetDefaultCategories();
   auto const types = GetCategoryTypes(categoryName, "en", catHolder);
 
-  vector<QueryParams::String> queryTokens;
-  SplitUniString(NormalizeAndSimplifyString(query), base::MakeBackInsertFunctor(queryTokens),
-                 Delimiters());
+  auto const queryTokens = NormalizeAndTokenizeString(query);
 
   bool isCategorialRequest = false;
   for (auto const type : types)
@@ -85,31 +81,30 @@ bool IsCategorialRequestFuzzy(string const & query, string const & categoryName)
     if (isCategorialRequest)
       return true;
 
-    catHolder.ForEachNameByType(
-        type, [&](CategoriesHolder::Category::Name const & categorySynonym) {
-          if (isCategorialRequest)
-            return;
-          vector<QueryParams::String> categoryTokens;
-          SplitUniString(NormalizeAndSimplifyString(categorySynonym.m_name),
-                         base::MakeBackInsertFunctor(categoryTokens), Delimiters());
-          for (size_t start = 0; start < queryTokens.size(); ++start)
+    catHolder.ForEachNameByType(type, [&](CategoriesHolder::Category::Name const & categorySynonym)
+    {
+      if (isCategorialRequest)
+        return;
+
+      auto const categoryTokens = NormalizeAndTokenizeString(categorySynonym.m_name);
+      for (size_t start = 0; start < queryTokens.size(); ++start)
+      {
+        bool found = true;
+        for (size_t i = 0; i < categoryTokens.size() && start + i < queryTokens.size(); ++i)
+        {
+          if (queryTokens[start + i] != categoryTokens[i])
           {
-            bool found = true;
-            for (size_t i = 0; i < categoryTokens.size() && start + i < queryTokens.size(); ++i)
-            {
-              if (queryTokens[start + i] != categoryTokens[i])
-              {
-                found = false;
-                break;
-              }
-            }
-            if (found)
-            {
-              isCategorialRequest = true;
-              break;
-            }
+            found = false;
+            break;
           }
-        });
+        }
+        if (found)
+        {
+          isCategorialRequest = true;
+          break;
+        }
+      }
+    });
   }
 
   return isCategorialRequest;

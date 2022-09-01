@@ -228,6 +228,18 @@ node|z18-[sport=table_tennis],
 area|z18-[sport=table_tennis],
 node|z18-[sport=yoga],
 area|z18-[sport=yoga],
+node|z18-[sport=padel],
+area|z18-[sport=padel],
+node|z18-[sport=handball],
+area|z18-[sport=handball],
+node|z18-[sport=ice_hockey],
+area|z18-[sport=ice_hockey],
+node|z18-[sport=field_hockey],
+area|z18-[sport=field_hockey],
+node|z18-[sport=badminton],
+area|z18-[sport=badminton],
+node|z18-[sport=pelota],
+area|z18-[sport=pelota],
 {z-index: 2460;}
 
 node[landuse=landfill],
@@ -343,6 +355,10 @@ area[tourism=attraction][attraction=animal],
 
 node[amenity=cafe],
 area[amenity=cafe],
+node[shop=charity],
+area[shop=charity],
+node[shop=second_hand],
+area[shop=second_hand],
 node[amenity=theatre],
 area[amenity=theatre]
 {z-index: 2790;}
@@ -1763,6 +1779,27 @@ area|z17-[sport=beachvolleyball],
 node|z17-[sport=yoga],
 area|z17-[sport=yoga]
 {icon-image: yoga-m.svg;}
+node|z17-[sport=padel],
+area|z17-[sport=padel]
+{icon-image: padel-m.svg;}
+node|z17-[sport=handball],
+area|z17-[sport=handball]
+{icon-image: handball-m.svg;}
+node|z17-[sport=futsal],
+area|z17-[sport=futsal]
+{icon-image: soccer-m.svg;}
+node|z17-[sport=ice_hockey],
+area|z17-[sport=ice_hockey]
+{icon-image: hockey-m.svg;}
+node|z17-[sport=field_hockey],
+area|z17-[sport=field_hockey]
+{icon-image: hockey-m.svg;}
+node|z17-[sport=badminton],
+area|z17-[sport=badminton]
+{icon-image: badminton-m.svg;}
+node|z17-[sport=pelota],
+area|z17-[sport=pelota]
+{icon-image: pelota-m.svg;}
 
 node|z18-[sport],
 area|z18-[sport],
@@ -2054,6 +2091,13 @@ node|z17-[amenity=parcel_locker],
 area|z17-[amenity=parcel_locker],
 {icon-image: mail-m.svg;icon-min-distance: 20;}
 
+node|z17[amenity=vending_machine][vending=fuel],
+area|z17[amenity=vending_machine][vending=fuel]
+{icon-image: zero-icon.svg;text: none;}
+node|z18-[amenity=vending_machine][vending=fuel],
+area|z18-[amenity=vending_machine][vending=fuel]
+{icon-image: fuel-dispenser-m.svg;}
+
 node|z17-[aeroway=gate],
 area|z17-[aeroway=gate]
 {icon-image: gate-m.svg;font-size: 11;}
@@ -2088,6 +2132,9 @@ node|z18-[amenity=library]
 node|z18-[amenity=waste_disposal],
 area|z18-[amenity=waste_disposal]
 {icon-image: waste-basket-m.svg;font-size: 11;}
+
+node|z18-[amenity=internet_cafe]
+{icon-image: internet_cafe-m.svg;}
 
 node|z18-[amenity=hunting_stand],
 area|z18-[amenity=hunting_stand]
@@ -2177,6 +2224,12 @@ area|z16[shop=wine]
 node|z16[shop=books],
 area|z16[shop=books]
 {icon-image: book-shop-m.svg;}
+node|z16[shop=charity],
+area|z16[shop=charity]
+{icon-image: charity_shop-m.svg;}
+node|z16[shop=second_hand],
+area|z16[shop=second_hand]
+{icon-image: second_hand_shop-m.svg;}
 node|z16[shop=bookmaker],
 area|z16[shop=bookmaker]
 {icon-image: bookmaker-m.svg;}
@@ -2357,6 +2410,12 @@ area|z17-[shop=wine]
 node|z17-[shop=books],
 area|z17-[shop=books]
 {icon-image: book-shop-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=charity],
+area|z17-[shop=charity]
+{icon-image: charity_shop-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=second_hand],
+area|z17-[shop=second_hand]
+{icon-image: second_hand_shop-m.svg;icon-min-distance: 24;text-optional: true;}
 node|z17-[shop=bookmaker],
 area|z17-[shop=bookmaker]
 {icon-image: bookmaker-m.svg;icon-min-distance: 24;text-optional: true;}
@@ -2624,6 +2683,17 @@ node|z18-[amenity=parking],
 area|z18-[amenity=parking]
 {icon-image: parking-m.svg;font-size: 11;text-optional: true;}
 
+node|z17[amenity=parking_entrance],
+area|z17[amenity=parking_entrance]
+{icon-image: parking_entrance-m.svg;}
+node|z17[amenity=parking_entrance][access=permissive],
+node|z17[amenity=parking_entrance][access=private]
+{icon-image: zero-icon.svg;}
+
+node|z18-[amenity=parking_entrance],
+area|z18-[amenity=parking_entrance]
+{icon-image: parking_entrance-m.svg;font-size: 11;text-optional: true;}
+
 node|z17-[amenity=bicycle_parking],
 area|z17-[amenity=bicycle_parking]
 {icon-image: bike-parking-m.svg;icon-min-distance: 20;}
@@ -2639,3 +2709,7 @@ area|z18-[amenity=bicycle_parking]
 node|z18-[amenity=motorcycle_parking],
 area|z18-[amenity=motorcycle_parking]
 {icon-image: motorcycle-parking-m.svg;icon-min-distance: 20;text-optional: true;}
+
+node|z18-[amenity=parking_space][parking_space=disabled],
+area|z18-[amenity=parking_space][parking_space=disabled]
+{icon-image: parking-disabled-m.svg;}

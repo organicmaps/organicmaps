@@ -3,35 +3,26 @@
 #include "indexer/categories_holder.hpp"
 #include "indexer/classificator.hpp"
 
-#include "base/assert.hpp"
-#include "base/stl_helpers.hpp"
-
 #include <algorithm>
-#include <utility>
-
 
 namespace osm
 {
 NewFeatureCategories::NewFeatureCategories(editor::EditorConfig const & config)
 {
-  // TODO(mgsergio): Load types user can create from XML file.
-  // TODO: Not every editable type can be created by user.
-  // TODO(mgsergio): Store in Settings:: recent history of created types and use them here.
-  // Max history items count should be set in the config.
-  Classificator const & cl = classif();
-  for (auto const & classificatorType : config.GetTypesThatCanBeAdded())
+  Classificator const & c = classif();
+  for (auto const & clType : config.GetTypesThatCanBeAdded())
   {
-    uint32_t const type = cl.GetTypeByReadableObjectName(classificatorType);
+    uint32_t const type = c.GetTypeByReadableObjectName(clType);
     if (type == 0)
     {
-      LOG(LWARNING, ("Unknown type in Editor's config:", classificatorType));
+      LOG(LWARNING, ("Unknown type in Editor's config:", clType));
       continue;
     }
-    m_types.emplace_back(cl.GetReadableObjectName(type));
+    m_types.emplace_back(clType);
   }
 }
 
-NewFeatureCategories::NewFeatureCategories(NewFeatureCategories && other)
+NewFeatureCategories::NewFeatureCategories(NewFeatureCategories && other) noexcept
   : m_index(std::move(other.m_index)), m_types(std::move(other.m_types))
 {
   // Do not move m_addedLangs, see Framework::GetEditorCategories() usage.
@@ -50,9 +41,7 @@ void NewFeatureCategories::AddLanguage(std::string lang)
 
   auto const & c = classif();
   for (auto const & type : m_types)
-  {
     m_index.AddCategoryByTypeAndLang(c.GetTypeByReadableObjectName(type), langCode);
-  }
 
   m_addedLangs.Insert(langCode);
 }
@@ -65,9 +54,7 @@ NewFeatureCategories::TypeNames NewFeatureCategories::Search(std::string const &
   auto const & c = classif();
   NewFeatureCategories::TypeNames result(resultTypes.size());
   for (size_t i = 0; i < result.size(); ++i)
-  {
     result[i] = c.GetReadableObjectName(resultTypes[i]);
-  }
 
   return result;
 }

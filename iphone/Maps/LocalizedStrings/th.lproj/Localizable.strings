@@ -503,12 +503,6 @@
 
 "history" = "ประวัติ";
 
-"opens_in" = "Opens in %@";
-
-"closes_in" = "Closes in %@";
-
-"closed" = "ปิด";
-
 "search_not_found" = "ขออภัย ฉันไม่พบสิ่งใด";
 
 "search_not_found_query" = "โปรดลองใช้คำถามอื่น";
@@ -578,6 +572,20 @@
 
 "today" = "วันนี้";
 
+"opens_tomorrow_at" = "Opens tomorrow at %@";
+
+"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
+
+"opens_at" = "Opens at %@";
+
+"opens_in" = "Opens in %@";
+
+"closes_at" = "Closes at %@";
+
+"closes_in" = "Closes in %@";
+
+"closed" = "ปิด";
+
 "add_opening_hours" = "เพิ่มชั่วโมงทำการ";
 
 "no_osm_account" = "ไม่มีบัญชีใน OpenStreetMap?";
@@ -629,6 +637,8 @@
 "email_or_username" = "อีเมลหรือชื่อผู้ใช้";
 
 "phone" = "โทรศัพท์";
+
+"level" = "ชั้น";
 
 "please_note" = "โปรดทราบ";
 
@@ -750,6 +760,8 @@
 
 "miles_per_hour" = "ไมล์/ชม.";
 
+"hour" = "ชม.";
+
 "minute" = "น.";
 
 "placepage_place_description" = "คำอธิบาย";
@@ -798,10 +810,10 @@
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "คุณต้องการส่งมันให้ผู้ใช้ทั้งหมดหรือไม่?";
 
-/* iOS Dialog before publishing the modifications to the public map. */
+/* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "ตรวจสอบว่าคุณไม่ได้กรอกข้อมูลส่วนตัวใด ๆ";
 
-"editor_share_to_all_dialog_message_2" = "เราจะตรวจสอบการเปลี่ยนแปลง หากเรามีคำถามใด ๆ เราจะติดต่อคุณผ่านทางอีเมล";
+"editor_share_to_all_dialog_message_2" = "ผู้แก้ไข OpenStreetMap จะตรวจสอบการเปลี่ยนแปลงและติดต่อคุณหากมีคำถามใดๆ";
 
 "navigation_stop_button" = "หยุด";
 
@@ -1205,6 +1217,12 @@
 /* edit track screen title */
 "track_title" = "ติดตาม";
 
+/* Telegram group url for the help page */
+"telegram_url" = "https://t.me/OrganicMapsApp";
+
+/* Instagram account url for the help page */
+"instagram_url" = "https://www.instagram.com/organicmaps.app";
+
 
 /********** Types **********/
 
@@ -1356,6 +1374,12 @@
 
 "type.amenity.parking.underground" = "ที่จอดรถ";
 
+"type.amenity.parking_entrance.private" = "ทางเข้าที่จอดรถ";
+
+"type.amenity.parking_entrance.permissive" = "ทางเข้าที่จอดรถ";
+
+"type.amenity.parking_entrance" = "ทางเข้าที่จอดรถ";
+
 "type.amenity.parking_space" = "พื้นที่จอดรถ";
 
 "type.amenity.parking_space.permissive" = "พื้นที่จอดรถ";
@@ -1363,6 +1387,8 @@
 "type.amenity.parking_space.private" = "พื้นที่จอดรถ";
 
 "type.amenity.parking_space.underground" = "พื้นที่จอดรถ";
+
+"type.amenity.parking_space.disabled" = "ที่จอดรถสำหรับผู้พิการ";
 
 "type.amenity.payment_terminal" = "จุดชำระเงิน";
 
@@ -2468,8 +2494,6 @@
 
 "type.organic.yes" = "Organic";
 
-"type.place" = "place";
-
 "type.place.city" = "เมือง";
 
 "type.place.city.capital" = "เมือง";
@@ -2508,11 +2532,11 @@
 
 "type.place.islet" = "เกาะ";
 
-"type.place.isolated_dwelling" = "Dwelling";
+"type.place.isolated_dwelling" = "ที่อยู่อาศัยโดดเดี่ยว";
 
 "type.place.locality" = "ท้องถิ่น";
 
-"type.place.neighbourhood" = "Neighbourhood";
+"type.place.neighbourhood" = "ละแวกบ้าน";
 
 "type.place.ocean" = "มหาสมุทร";
 
@@ -2520,7 +2544,7 @@
 
 "type.place.sea" = "เห็น";
 
-"type.place.square" = "Square";
+"type.place.square" = "ช่องว่าง";
 
 "type.place.state" = "รัฐ";
 
@@ -2970,6 +2994,18 @@
 "type.sport.9pin" = "โบว์ลิ่ง";
 
 "type.sport.10pin" = "โบว์ลิ่ง";
+
+"type.sport.padel" = "พาเดล";
+
+"type.sport.futsal" = "ฟุตซอล";
+
+"type.sport.ice_hockey" = "ฮอคกี้น้ำแข็ง";
+
+"type.sport.field_hockey" = "กีฬาฮอกกี้";
+
+"type.sport.badminton" = "แบดมินตัน";
+
+"type.sport.pelota" = "Basque pelota";
 
 "type.tourism" = "Tourism";
 

@@ -503,12 +503,6 @@
 
 "history" = "History";
 
-"opens_in" = "Opens in %@";
-
-"closes_in" = "Closes in %@";
-
-"closed" = "Closed";
-
 "search_not_found" = "Oops, no results found.";
 
 "search_not_found_query" = "Try changing your search criteria.";
@@ -578,11 +572,25 @@
 
 "today" = "Today";
 
+"opens_tomorrow_at" = "Opens tomorrow at %@";
+
+"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
+
+"opens_at" = "Opens at %@";
+
+"opens_in" = "Opens in %@";
+
+"closes_at" = "Closes at %@";
+
+"closes_in" = "Closes in %@";
+
+"closed" = "Closed";
+
 "add_opening_hours" = "Add opening hours";
 
 "no_osm_account" = "Don't have an OpenStreetMap account?";
 
-"register_at_openstreetmap" = "Register at OSM";
+"register_at_openstreetmap" = "Register at OpenStreetMap";
 
 "password_8_chars_min" = "Password (8 characters minimum)";
 
@@ -630,6 +638,8 @@
 
 "phone" = "Phone";
 
+"level" = "קוֹמָה";
+
 "please_note" = "Please note";
 
 "downloader_delete_map_dialog" = "All of your map edits will be deleted together with the map.";
@@ -670,7 +680,7 @@
 
 "message_invalid_feature_position" = "No object can be located here";
 
-"login_to_make_edits_visible" = "Log in so other users can see the changes that you have made";
+"login_to_make_edits_visible" = "Log in to OpenStreetMap.org so other users can see the changes you have made.";
 
 /* Error dialog no space */
 "migration_no_space_message" = "To download, you need more space. Please delete any unnecessary data.";
@@ -750,6 +760,8 @@
 
 "miles_per_hour" = "mph";
 
+"hour" = "h";
+
 "minute" = "min";
 
 "placepage_place_description" = "Description";
@@ -798,10 +810,10 @@
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Do you want to send it to all users?";
 
-/* iOS Dialog before publishing the modifications to the public map. */
+/* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "Make sure you did not enter any personal data.";
 
-"editor_share_to_all_dialog_message_2" = "We will check the changes. If we have any questions we will contact you via email.";
+"editor_share_to_all_dialog_message_2" = ".ןהשלכ תולאש םהל שי םא רשק ךתיא ורציו םייונישה תא וקדבי OpenStreetMap יכרוע";
 
 "navigation_stop_button" = "stop";
 
@@ -1205,6 +1217,12 @@
 /* edit track screen title */
 "track_title" = "מַסלוּל";
 
+/* Telegram group url for the help page */
+"telegram_url" = "https://t.me/OrganicMapsApp";
+
+/* Instagram account url for the help page */
+"instagram_url" = "https://www.instagram.com/organicmaps.app";
+
 
 /********** Types **********/
 
@@ -1356,6 +1374,12 @@
 
 "type.amenity.parking.underground" = "Parking";
 
+"type.amenity.parking_entrance.private" = "הינחל הסינכ";
+
+"type.amenity.parking_entrance.permissive" = "הינחל הסינכ";
+
+"type.amenity.parking_entrance" = "הינחל הסינכ";
+
 "type.amenity.parking_space" = "Parking Space";
 
 "type.amenity.parking_space.permissive" = "Parking Space";
@@ -1363,6 +1387,8 @@
 "type.amenity.parking_space.private" = "Parking Space";
 
 "type.amenity.parking_space.underground" = "Parking Space";
+
+"type.amenity.parking_space.disabled" = "םיכנל הינח";
 
 "type.amenity.payment_terminal" = "Payment Terminal";
 
@@ -2468,69 +2494,67 @@
 
 "type.organic.yes" = "Organic";
 
-"type.place" = "place";
+"type.place.city" = "עיר";
 
-"type.place.city" = "City";
+"type.place.city.capital" = "עיר בירה";
 
-"type.place.city.capital" = "Capital";
+"type.place.city.capital.10" = "עיר";
 
-"type.place.city.capital.10" = "City";
+"type.place.city.capital.11" = "עיר";
 
-"type.place.city.capital.11" = "City";
+"type.place.city.capital.2" = "עיר בירה";
 
-"type.place.city.capital.2" = "Capital";
+"type.place.city.capital.3" = "עיר";
 
-"type.place.city.capital.3" = "City";
+"type.place.city.capital.4" = "עיר";
 
-"type.place.city.capital.4" = "City";
+"type.place.city.capital.5" = "עיר";
 
-"type.place.city.capital.5" = "City";
+"type.place.city.capital.6" = "עיר";
 
-"type.place.city.capital.6" = "City";
+"type.place.city.capital.7" = "עיר";
 
-"type.place.city.capital.7" = "City";
+"type.place.city.capital.8" = "עיר";
 
-"type.place.city.capital.8" = "City";
+"type.place.city.capital.9" = "עיר";
 
-"type.place.city.capital.9" = "City";
+"type.place.continent" = "יבשת";
 
-"type.place.continent" = "Continent";
+"type.place.country" = "ארץ";
 
-"type.place.country" = "Country";
+"type.place.county" = "נפה";
 
-"type.place.county" = "County";
+"type.place.farm" = "חווה חקלאית";
 
-"type.place.farm" = "Farm";
+"type.place.hamlet" = "כְּפָר קָטָן";
 
-"type.place.hamlet" = "Hamlet";
+"type.place.island" = "אי";
 
-"type.place.island" = "Island";
+"type.place.islet" = "איון";
 
-"type.place.islet" = "Island";
+"type.place.isolated_dwelling" = "דירת מגורים מבודדת";
 
-"type.place.isolated_dwelling" = "Dwelling";
+"type.place.locality" = "מקום";
 
-"type.place.locality" = "Locality";
+"type.place.neighbourhood" = "שכונה";
 
-"type.place.neighbourhood" = "Neighbourhood";
+"type.place.ocean" = "אוקיינוס";
 
-"type.place.ocean" = "Ocean";
+"type.place.region" = "חבל ארץ";
 
-"type.place.region" = "Region";
+"type.place.sea" = "ים";
 
-"type.place.sea" = "Sea";
+"type.place.square" = "כיכר עירונית";
 
-"type.place.square" = "Square";
+"type.place.state" = "מדינה פדרלית";
 
-"type.place.state" = "State";
+"type.place.state.USA" = "מדינה";
 
-"type.place.state.USA" = "State";
+"type.place.suburb" = "פרוור";
 
-"type.place.suburb" = "Suburb";
+"type.place.town" = "עיירה";
 
-"type.place.town" = "Town";
-
-"type.place.village" = "Village";
+"type.place.village" = "כפר";
 
 "type.power" = "Power";
 
@@ -2970,6 +2994,18 @@
 "type.sport.9pin" = "בָּאוּלִינְג";
 
 "type.sport.10pin" = "בָּאוּלִינְג";
+
+"type.sport.padel" = "לדאפ";
+
+"type.sport.futsal" = "לסטופ";
+
+"type.sport.ice_hockey" = "חרק יקוה";
+
+"type.sport.field_hockey" = "הדש יקוה";
+
+"type.sport.badminton" = "תיצונ";
+
+"type.sport.pelota" = "תיקסאב הטלפ";
 
 "type.tourism" = "Tourism";
 

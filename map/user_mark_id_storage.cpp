@@ -94,7 +94,7 @@ bool UserMarkIdStorage::CheckIds(kml::FileData const & fileData) const
 
   for (auto const & c : fileData.m_compilationsData)
   {
-    if (c.m_id != kml::kInvalidTrackId && c.m_id > m_initialLastCategoryId)
+    if (c.m_id != kml::kInvalidMarkGroupId && c.m_id > m_initialLastCategoryId)
       return false;
   }
 
@@ -129,7 +129,7 @@ kml::TrackId UserMarkIdStorage::GetNextTrackId()
 
 kml::MarkGroupId UserMarkIdStorage::GetNextCategoryId()
 {
-  auto const id = static_cast<kml::TrackId>(++m_lastCategoryId);
+  auto const id = static_cast<kml::MarkGroupId>(++m_lastCategoryId);
   SaveLastCategoryId();
   return id;
 }

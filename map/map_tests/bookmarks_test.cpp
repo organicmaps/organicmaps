@@ -2,14 +2,11 @@
 
 #include "drape_frontend/visual_params.hpp"
 
-#include "indexer/data_header.hpp"
 #include "indexer/feature_utils.hpp"
 #include "indexer/mwm_set.hpp"
 
 #include "map/bookmark_helpers.hpp"
 #include "map/framework.hpp"
-
-#include "search/result.hpp"
 
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
@@ -21,7 +18,6 @@
 #include "base/scope_guard.hpp"
 
 #include <array>
-#include <fstream>
 #include <map>
 #include <memory>
 #include <set>
@@ -216,7 +212,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ImportKML)
 
 UNIT_CLASS_TEST(Runner, Bookmarks_ExportKML)
 {
-  string const dir = BookmarkManager::GetActualBookmarksDirectory();
+  string const dir = GetBookmarksDirectory();
   bool const delDirOnExit = Platform::MkDir(dir) == Platform::ERR_OK;
   SCOPE_GUARD(dirDeleter, [&](){ if (delDirOnExit) (void)Platform::RmDir(dir); });
   string const ext = ".kmb";
@@ -287,7 +283,7 @@ namespace
 {
   void DeleteCategoryFiles(vector<string> const & arrFiles)
   {
-    string const path = BookmarkManager::GetActualBookmarksDirectory();
+    string const path = GetBookmarksDirectory();
     string const extension = ".kmb";
     for (auto const & fileName : arrFiles)
       FileWriter::DeleteFileX(base::JoinPath(path, fileName + extension));
@@ -490,32 +486,21 @@ UNIT_TEST(Bookmarks_IllegalFileName)
   vector<string> const arrLegal =   {"",  "",   "x",   "x",   "xy",   "xy"};
 
   for (size_t i = 0; i < arrIllegal.size(); ++i)
-  {
-    string const name = BookmarkManager::RemoveInvalidSymbols(arrIllegal[i], "Bookmarks");
-
-    if (arrLegal[i].empty())
-    {
-      TEST_EQUAL("Bookmarks", name, ());
-    }
-    else
-    {
-      TEST_EQUAL(arrLegal[i], name, ());
-    }
-  }
+    TEST_EQUAL(arrLegal[i], RemoveInvalidSymbols(arrIllegal[i]), ());
 }
 
 UNIT_TEST(Bookmarks_UniqueFileName)
 {
   string const BASE = "SomeUniqueFileName";
   string const FILEBASE = "./" + BASE;
-  string const FILENAME = FILEBASE + BOOKMARKS_FILE_EXTENSION;
+  string const FILENAME = FILEBASE + kKmlExtension;
 
   {
     FileWriter file(FILENAME);
     file.Write(FILENAME.data(), FILENAME.size());
   }
 
-  string gen = BookmarkManager::GenerateUniqueFileName(".", BASE, BOOKMARKS_FILE_EXTENSION);
+  string gen = GenerateUniqueFileName(".", BASE);
   TEST_NOT_EQUAL(gen, FILENAME, ());
   TEST_EQUAL(gen, FILEBASE + "1.kml", ());
 
@@ -524,7 +509,7 @@ UNIT_TEST(Bookmarks_UniqueFileName)
     FileWriter file(FILENAME1);
     file.Write(FILENAME1.data(), FILENAME1.size());
   }
-  gen = BookmarkManager::GenerateUniqueFileName(".", BASE, BOOKMARKS_FILE_EXTENSION);
+  gen = GenerateUniqueFileName(".", BASE);
   TEST_NOT_EQUAL(gen, FILENAME, ());
   TEST_NOT_EQUAL(gen, FILENAME1, ());
   TEST_EQUAL(gen, FILEBASE + "2.kml", ());
@@ -532,7 +517,7 @@ UNIT_TEST(Bookmarks_UniqueFileName)
   FileWriter::DeleteFileX(FILENAME);
   FileWriter::DeleteFileX(FILENAME1);
 
-  gen = BookmarkManager::GenerateUniqueFileName(".", BASE, BOOKMARKS_FILE_EXTENSION);
+  gen = GenerateUniqueFileName(".", BASE);
   TEST_EQUAL(gen, FILENAME, ());
 }
 
@@ -602,7 +587,7 @@ UNIT_TEST(Bookmarks_Sorting)
   auto const kMonth = 31 * kDay;
   auto const kYear = 365 * kDay;
   auto const kUnknownTime = std::chrono::hours(0);
-  auto const currentTime = std::chrono::system_clock::now();
+  auto const currentTime = kml::TimestampClock::now();
 
   auto const & c = classif();
   auto const setFeatureTypes = [&c](std::vector<std::string> const & readableTypes, kml::BookmarkData & bmData)
@@ -1075,6 +1060,8 @@ UNIT_CLASS_TEST(Runner, Bookmarks_SpecialXMLNames)
   BookmarkManager::KMLDataCollection kmlDataCollection3;
   kmlDataCollection3.emplace_back("" /* filePath */,
                                   LoadKmlData(MemReader(kmlString3, strlen(kmlString3)), KmlFileType::Text));
+
+  bmManager.UpdateLastModifiedTime(kmlDataCollection3);
   bmManager.CreateCategories(std::move(kmlDataCollection3), false /* autoSave */);
 
   TEST_EQUAL(bmManager.GetBmGroupsIdList().size(), 2, ());

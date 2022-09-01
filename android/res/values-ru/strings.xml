@@ -238,6 +238,8 @@
 	<string name="help">Справка</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">Вопросы и ответы</string>
+	<!-- Button in the main menu -->
+	<string name="donate">Поддержать рублём</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">Как наc поддержать?</string>
 	<!-- Button in the main Help dialog -->
@@ -357,9 +359,6 @@
 	<string name="routing_arrive">Прибытие в %s</string>
 	<string name="categories">Категории</string>
 	<string name="history">История</string>
-	<string name="opens_in">Открывается через %s</string>
-	<string name="closes_in">Закроется через %s</string>
-	<string name="closed">Закрыто</string>
 	<string name="search_not_found">К сожалению, мы ничего не нашли.</string>
 	<string name="search_not_found_query">Попробуйте изменить условия поиска.</string>
 	<string name="search_history_title">История поиска</string>
@@ -403,10 +402,18 @@
 	<string name="day_off_today">Сегодня закрыто</string>
 	<string name="day_off">Закрыто</string>
 	<string name="today">Сегодня</string>
+	<string name="opens_tomorrow_at">Откроется завтра в %s</string>
+	<string name="opens_dayoftheweek_at">Открывается в %1$s в %2$s</string>
+	<string name="opens_at">Открывается в %s</string>
+	<string name="opens_in">Открывается через %s</string>
+	<string name="closes_at">Закрывается в %s</string>
+	<string name="closes_in">Закроется через %s</string>
+	<string name="closed">Закрыто</string>
 	<string name="edit_opening_hours">Редактировать время работы</string>
 	<string name="no_osm_account">Не зарегистрированы в OpenStreetMap?</string>
 	<string name="register_at_openstreetmap">Зарегистрироваться</string>
 	<string name="login">Войти</string>
+	<string name="login_osm">Войти в OpenStreetMap</string>
 	<string name="password">Пароль</string>
 	<string name="forgot_password">Забыли пароль?</string>
 	<string name="logout">Выйти</string>
@@ -429,6 +436,7 @@
 	<!-- login text field -->
 	<string name="email_or_username">Эл. почта или имя пользователя</string>
 	<string name="editor_add_phone">Добавить телефон</string>
+	<string name="level">Этаж</string>
 	<string name="downloader_delete_map_dialog">Вместе с картой удалятся и внесенные вами правки на этой карте.</string>
 	<string name="downloader_update_maps">Обновите карты</string>
 	<string name="downloader_mwm_migration_dialog">Для построения маршрутов необходимо обновить все карты и построить маршрут заново.</string>
@@ -447,7 +455,8 @@
 	<string name="editor_report_problem_other_title">Другая проблема</string>
 	<string name="placepage_add_business_button">Добавить организацию</string>
 	<string name="message_invalid_feature_position">Объект не может находиться в этом месте</string>
-	<string name="login_to_make_edits_visible">Войдите, чтобы ваши изменения увидели другие пользователи.</string>
+	<string name="osm_presentation">Все данные карты поступают из проекта OpenStreetMap. Это как Википедия для карт, где вы можете добавлять или редактировать места, и они становятся доступными для миллионов пользователей по всему миру.</string>
+	<string name="login_to_make_edits_visible">Авторизуйтесь в OpenStreetMap.org, чтобы ваши изменения увидели другие пользователи.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d из %2$d</string>
 	<string name="download_over_mobile_header">Загрузить через сотовую связь?</string>
@@ -507,9 +516,9 @@
 	<string name="placepage_add_place_button">Добавить место на карту</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Отправить всем пользователям?</string>
-	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Убедитесь, что вы не ввели личные данные.</string>
-	<string name="editor_share_to_all_dialog_message_2">Если при проверке изменений возникнут вопросы, мы напишем вам на email.</string>
+	<string name="editor_share_to_all_dialog_message_2">Редакторы OpenStreetMap проверят изменения и свяжутся с вами, если у них возникнут вопросы.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps — быстрые и бесплатные карты, которые работают без Интернета. Все картографические данные берутся из OpenStreetMap.org, там можно самостоятельно исправлять ошибки и добавлять новые объекты. В Organic Maps нет рекламы и сбора персональных данных. Это проект с открытым исходным кодом, создаваемый энтузиастами в свободное время. Будем рады вашей поддержке и обратной связи!</string>
 	<!-- For the first routing -->
@@ -538,7 +547,7 @@
 	<string name="on">Вкл.</string>
 	<string name="off">Выкл.</string>
 	<string name="prefs_languages_information">Подсказки озвучиваются системным синтезатором речи (TTS). На многих устройствах используется Google TTS, его можно загрузить или обновить в Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">Для некоторых языков, возможно, необходимо установить дополнительный синтезатор речи (TTS) из магазина приложений (Google Play, Samsung Apps, App Gallery, FDroid).\nЧтобы настроить синтезатор речи, перейдите в Настройки → Язык и ввод → Синтез речи.\nЗдесь можно установить дополнительные языковые пакеты или выбрать синтезатор речи.</string>
+	<string name="prefs_languages_information_off">Для некоторых языков, возможно, необходимо установить дополнительный синтезатор речи (TTS) из магазина приложений (Google Play, Galaxy Store, App Gallery, FDroid).\nЧтобы настроить синтезатор речи, перейдите в Настройки → Язык и ввод → Синтез речи.\nЗдесь можно установить дополнительные языковые пакеты или выбрать синтезатор речи.</string>
 	<string name="prefs_languages_information_off_link">Более подробная информация — в этом руководстве.</string>
 	<string name="transliteration_title">Латинская транслитерация</string>
 	<string name="learn_more">Узнать больше</string>
@@ -720,6 +729,8 @@
 	<string name="enable_show_on_lock_screen_description">Если эта функция включена, вам не нужно каждый раз разблокировать устройство во время работы приложения.</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">Картографические данные из OpenStreetMap</string>
+	<!-- Telegram group url for the help page -->
+	<string name="telegram_url">https://t.me/OrganicMapsRu</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway">Канатная дорога</string>
@@ -797,10 +808,14 @@
 	<string name="type.amenity.parking.permissive">Парковка</string>
 	<string name="type.amenity.parking.private">Парковка</string>
 	<string name="type.amenity.parking.underground">Парковка</string>
+	<string name="type.amenity.parking_entrance.private">Въезд на парковку</string>
+	<string name="type.amenity.parking_entrance.permissive">Въезд на парковку</string>
+	<string name="type.amenity.parking_entrance">Въезд на парковку</string>
 	<string name="type.amenity.parking_space">Парковочное место</string>
 	<string name="type.amenity.parking_space.permissive">Парковочное место</string>
 	<string name="type.amenity.parking_space.private">Парковочное место</string>
 	<string name="type.amenity.parking_space.underground">Парковочное место</string>
+	<string name="type.amenity.parking_space.disabled">Парковочное место для инвалидов</string>
 	<string name="type.amenity.payment_terminal">Терминал оплаты</string>
 	<string name="type.amenity.pharmacy">Аптека</string>
 	<string name="type.amenity.place_of_worship">Храм</string>
@@ -1361,7 +1376,6 @@
 	<string name="type.office.telecommunication">Телекоммуникационная компания</string>
 	<string name="type.organic.only">Эко</string>
 	<string name="type.organic.yes">Эко</string>
-	<string name="type.place">Место</string>
 	<string name="type.place.city">Город</string>
 	<string name="type.place.city.capital">Столица</string>
 	<string name="type.place.city.capital.10">Город</string>
@@ -1381,7 +1395,7 @@
 	<string name="type.place.hamlet">Посёлок</string>
 	<string name="type.place.island">Остров</string>
 	<string name="type.place.islet">Остров</string>
-	<string name="type.place.isolated_dwelling">Жилище</string>
+	<string name="type.place.isolated_dwelling">Хутор</string>
 	<string name="type.place.locality">Местность</string>
 	<string name="type.place.neighbourhood">Микрорайон</string>
 	<string name="type.place.ocean">Океан</string>
@@ -1613,6 +1627,12 @@
 	<string name="type.sport.volleyball">Волейбол</string>
 	<string name="type.sport.9pin">Боулинг</string>
 	<string name="type.sport.10pin">Боулинг</string>
+	<string name="type.sport.padel">Падель</string>
+	<string name="type.sport.futsal">Футзал</string>
+	<string name="type.sport.ice_hockey">Хоккей с шайбой</string>
+	<string name="type.sport.field_hockey">Хоккей на траве</string>
+	<string name="type.sport.badminton">Бадминтон</string>
+	<string name="type.sport.pelota">Баскская пелота</string>
 	<string name="type.tourism">Туризм</string>
 	<string name="type.tourism.alpine_hut">Горный отель</string>
 	<string name="type.tourism.apartment">Апартаменты</string>

@@ -6,7 +6,6 @@
 
 #include <chrono>
 #include <functional>
-#include <memory>
 #include <optional>
 #include <string>
 #include <vector>
@@ -15,8 +14,7 @@ namespace search
 {
 struct EverywhereSearchParams
 {
-  using OnResults =
-      std::function<void(Results const & results, std::vector<ProductInfo> const & productInfo)>;
+  using OnResults = std::function<void(Results results, std::vector<ProductInfo> productInfo)>;
 
   std::string m_query;
   std::string m_inputLocale;

@@ -218,6 +218,8 @@
 	<string name="help">ความช่วยเหลือ</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">คำถามและคำตอบ</string>
+	<!-- Button in the main menu -->
+	<string name="donate">บริจาค</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">วิธีการสนับสนุนเรา</string>
 	<!-- Button in the main Help dialog -->
@@ -337,7 +339,6 @@
 	<string name="routing_arrive">มาถึง: %s</string>
 	<string name="categories">หมวดหมู่</string>
 	<string name="history">ประวัติ</string>
-	<string name="closed">ปิด</string>
 	<string name="search_not_found">ขออภัย ฉันไม่พบสิ่งใด</string>
 	<string name="search_not_found_query">โปรดลองใช้คำถามอื่น</string>
 	<string name="search_history_title">ประวัติการค้นหา</string>
@@ -379,10 +380,12 @@
 	<string name="day_off_today">วันนี้ปิด</string>
 	<string name="day_off">ปิด</string>
 	<string name="today">วันนี้</string>
+	<string name="closed">ปิด</string>
 	<string name="edit_opening_hours">แก้ไขชั่วโมงทำการ</string>
 	<string name="no_osm_account">ไม่มีบัญชีใน OpenStreetMap?</string>
 	<string name="register_at_openstreetmap">ลงทะเบียน</string>
 	<string name="login">ล็อกอิน</string>
+	<string name="login_osm">เข้าสู่ระบบ OpenStreetMap</string>
 	<string name="password">รหัสผ่าน</string>
 	<string name="forgot_password">ลืมรหัสผ่าน?</string>
 	<string name="logout">ออกจากระบบ</string>
@@ -402,6 +405,7 @@
 	<string name="select_cuisine">เลือกประเภทอาหาร</string>
 	<!-- login text field -->
 	<string name="email_or_username">อีเมลหรือชื่อผู้ใช้</string>
+	<string name="level">ชั้น</string>
 	<string name="downloader_delete_map_dialog">การเปลี่ยนแปลงแผนที่ทั้งหมดจะถูกลบไปพร้อมกับแผนที่</string>
 	<string name="downloader_update_maps">อัปเดตแผนที่</string>
 	<string name="downloader_mwm_migration_dialog">ในการสร้างเส้นทาง คุณต้องอัปเดตแผนที่ทั้งหมดแล้ววางแผนเส้นทางอีกครั้ง</string>
@@ -420,6 +424,7 @@
 	<string name="editor_report_problem_other_title">ปัญหาอีกอย่างหนึ่ง</string>
 	<string name="placepage_add_business_button">เพิ่มองค์กร</string>
 	<string name="message_invalid_feature_position">ไม่สามารถตั้งวัตถุได้ที่นี่</string>
+	<string name="osm_presentation">ข้อมูลแผนที่ทั้งหมดมาจากโครงการ OpenStreetMap เหมือนกับวิกิพีเดียสำหรับแผนที่ที่คุณสามารถเพิ่มหรือแก้ไขสถานที่ได้ และพวกเขาพร้อมให้ผู้ใช้หลายล้านคนทั่วโลกใช้งานได้</string>
 	<string name="login_to_make_edits_visible">ล็อกอินเพื่อให้ผู้ใช้คนอื่นสามารถเห็นการเปลี่ยนแปลงของคุณได้</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d จาก %2$d</string>
@@ -473,9 +478,9 @@
 	<string name="placepage_add_place_button">เพิ่มสถานที่ไปยังแผนที่</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">คุณต้องการส่งมันให้ผู้ใช้ทั้งหมดหรือไม่?</string>
-	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">ตรวจสอบว่าคุณไม่ได้กรอกข้อมูลส่วนตัวใด ๆ</string>
-	<string name="editor_share_to_all_dialog_message_2">เราจะตรวจสอบการเปลี่ยนแปลง หากเรามีคำถามใด ๆ เราจะติดต่อคุณผ่านทางอีเมล</string>
+	<string name="editor_share_to_all_dialog_message_2">ผู้แก้ไข OpenStreetMap จะตรวจสอบการเปลี่ยนแปลงและติดต่อคุณหากมีคำถามใดๆ</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps เป็นแอปพลิเคชันแผนที่ออฟไลน์แบบโอเพนซอร์สฟรี ไม่มีโฆษณา ไม่มีการติดตาม. หากคุณเห็นข้อผิดพลาดบนแผนที่ โปรดแก้ไขใน OpenStreetMap โครงการนี้สร้างขึ้นโดยผู้ที่ชื่นชอบในเวลาว่าง เราจึงต้องการความคิดเห็นและการสนับสนุนจากคุณ</string>
 	<!-- For the first routing -->
@@ -504,7 +509,7 @@
 	<string name="on">เปิด</string>
 	<string name="off">ปิด</string>
 	<string name="prefs_languages_information">เราใช้ระบบ TTS สำหรับคำแนะนำด้วยเสียงพูด เครื่องแอนดรอยด์จำนวนมากใช้งาน Google TTS คุณสามารถดาวน์โหลดหรืออัปเดตได้จาก Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">สำหรับบางภาษาคุณจำเป็นต้องติดตั้งตัวสังเคราะห์เสียงหรือชุดภาษาเพิ่มเติมจากแอปสโตร์ (Google Play, Samsung Apps, App Gallery, FDroid)\nเปิดการตั้งค่าของเครื่องคุณ → ภาษาและการป้อนข้อมูล → คำพูด → เอาต์พุตการอ่านออกเสียง\nที่นี่คุณสามารถจัดการการตั้งค่าสำหรับการสังเคราะห์เสียง (ตัวอย่างเช่น ดาวน์โหลดชุดภาษาสำหรับใช้งานออฟไลน์) และเลือกเครื่องมืออ่านออกเสียงข้อความตัวอื่นได้</string>
+	<string name="prefs_languages_information_off">สำหรับบางภาษาคุณจำเป็นต้องติดตั้งตัวสังเคราะห์เสียงหรือชุดภาษาเพิ่มเติมจากแอปสโตร์ (Google Play, Galaxy Store, App Gallery, FDroid)\nเปิดการตั้งค่าของเครื่องคุณ → ภาษาและการป้อนข้อมูล → คำพูด → เอาต์พุตการอ่านออกเสียง\nที่นี่คุณสามารถจัดการการตั้งค่าสำหรับการสังเคราะห์เสียง (ตัวอย่างเช่น ดาวน์โหลดชุดภาษาสำหรับใช้งานออฟไลน์) และเลือกเครื่องมืออ่านออกเสียงข้อความตัวอื่นได้</string>
 	<string name="prefs_languages_information_off_link">สำหรับข้อมูลเพิ่มเติม กรุณาเข้าชมคำแนะนำนี้</string>
 	<string name="transliteration_title">การทับศัพท์เป็นภาษาละติน</string>
 	<string name="learn_more">ศึกษาเพิ่มเติม</string>
@@ -727,10 +732,14 @@
 	<string name="type.amenity.parking.permissive">ที่จอดรถ</string>
 	<string name="type.amenity.parking.private">ที่จอดรถ</string>
 	<string name="type.amenity.parking.underground">ที่จอดรถ</string>
+	<string name="type.amenity.parking_entrance.private">ทางเข้าที่จอดรถ</string>
+	<string name="type.amenity.parking_entrance.permissive">ทางเข้าที่จอดรถ</string>
+	<string name="type.amenity.parking_entrance">ทางเข้าที่จอดรถ</string>
 	<string name="type.amenity.parking_space">พื้นที่จอดรถ</string>
 	<string name="type.amenity.parking_space.permissive">พื้นที่จอดรถ</string>
 	<string name="type.amenity.parking_space.private">พื้นที่จอดรถ</string>
 	<string name="type.amenity.parking_space.underground">พื้นที่จอดรถ</string>
+	<string name="type.amenity.parking_space.disabled">ที่จอดรถสำหรับผู้พิการ</string>
 	<string name="type.amenity.payment_terminal">จุดชำระเงิน</string>
 	<string name="type.amenity.pharmacy">ร้านขายยา</string>
 	<string name="type.amenity.place_of_worship">สถานที่ประกอบพิธีกรรม</string>
@@ -1186,10 +1195,13 @@
 	<string name="type.place.hamlet">หมู่บ้านเล็ก ๆ</string>
 	<string name="type.place.island">เกาะ</string>
 	<string name="type.place.islet">เกาะ</string>
+	<string name="type.place.isolated_dwelling">ที่อยู่อาศัยโดดเดี่ยว</string>
 	<string name="type.place.locality">ท้องถิ่น</string>
+	<string name="type.place.neighbourhood">ละแวกบ้าน</string>
 	<string name="type.place.ocean">มหาสมุทร</string>
 	<string name="type.place.region">ภูมิภาค</string>
 	<string name="type.place.sea">เห็น</string>
+	<string name="type.place.square">ช่องว่าง</string>
 	<string name="type.place.state">รัฐ</string>
 	<string name="type.place.state.USA">รัฐ</string>
 	<string name="type.place.suburb">ชานเมือง</string>
@@ -1354,6 +1366,12 @@
 	<string name="type.sport.volleyball">วอลเลย์บอล</string>
 	<string name="type.sport.9pin">โบว์ลิ่ง</string>
 	<string name="type.sport.10pin">โบว์ลิ่ง</string>
+	<string name="type.sport.padel">พาเดล</string>
+	<string name="type.sport.futsal">ฟุตซอล</string>
+	<string name="type.sport.ice_hockey">ฮอคกี้น้ำแข็ง</string>
+	<string name="type.sport.field_hockey">กีฬาฮอกกี้</string>
+	<string name="type.sport.badminton">แบดมินตัน</string>
+	<string name="type.sport.pelota">Basque pelota</string>
 	<string name="type.tourism.alpine_hut">ที่พักบนภูเขาโรงแรม</string>
 	<string name="type.tourism.apartment">อพาร์ตเมนต์</string>
 	<string name="type.tourism.artwork">งานศิลปะ</string>

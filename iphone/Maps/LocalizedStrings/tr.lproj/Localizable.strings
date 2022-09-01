@@ -503,12 +503,6 @@
 
 "history" = "Geçmiş";
 
-"opens_in" = "%@ sonra açılıyor";
-
-"closes_in" = "%@ sonra kapanıyor";
-
-"closed" = "Kapalı";
-
 "search_not_found" = "Üzgünüz, hiç bir şey bulamadık.";
 
 "search_not_found_query" = "Lütfen başka bir sorgu girin.";
@@ -578,9 +572,23 @@
 
 "today" = "Bugün";
 
+"opens_tomorrow_at" = "Açılış yarın %@";
+
+"opens_dayoftheweek_at" = "Açılış %1$@ %2$@";
+
+"opens_at" = "Açılış %@";
+
+"opens_in" = "%@ sonra açılıyor";
+
+"closes_at" = "Kapanış %@";
+
+"closes_in" = "%@ sonra kapanıyor";
+
+"closed" = "Kapalı";
+
 "add_opening_hours" = "Açılış saatlerini ekle";
 
-"no_osm_account" = "OpenStreetMap hesabın yok mu?";
+"no_osm_account" = "OpenStreetMap hesabınız yok mu?";
 
 "register_at_openstreetmap" = "Kaydol";
 
@@ -629,6 +637,8 @@
 "email_or_username" = "E-posta veya kullanıcı adı";
 
 "phone" = "Telefon";
+
+"level" = "Zemin";
 
 "please_note" = "Lütfen dikkat";
 
@@ -750,6 +760,8 @@
 
 "miles_per_hour" = "saatte mil";
 
+"hour" = "sa";
+
 "minute" = "dk";
 
 "placepage_place_description" = "Açıklama";
@@ -798,10 +810,10 @@
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Bunu tüm kullanıcılara göndermek ister misiniz?";
 
-/* iOS Dialog before publishing the modifications to the public map. */
+/* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "Herhangi bir kişisel bilgi girmediğinizden emin olun.";
 
-"editor_share_to_all_dialog_message_2" = "Değişikliği kontrol edeceğiz. Eğer herhangi bir sorumuz olursa sizinle e-posta aracılığıyla iletişime geçeceğiz.";
+"editor_share_to_all_dialog_message_2" = "OpenStreetMap editörleri değişiklikleri kontrol edecek ve soruları olursa sizinle iletişime geçecektir.";
 
 "navigation_stop_button" = "dur";
 
@@ -1205,6 +1217,12 @@
 /* edit track screen title */
 "track_title" = "Kayıt";
 
+/* Telegram group url for the help page */
+"telegram_url" = "https://t.me/OrganicMapsTR";
+
+/* Instagram account url for the help page */
+"instagram_url" = "https://www.instagram.com/organicmapstr";
+
 
 /********** Types **********/
 
@@ -1356,6 +1374,12 @@
 
 "type.amenity.parking.underground" = "Otopark";
 
+"type.amenity.parking_entrance.private" = "Otopark girişi";
+
+"type.amenity.parking_entrance.permissive" = "Otopark girişi";
+
+"type.amenity.parking_entrance" = "Otopark girişi";
+
 "type.amenity.parking_space" = "Park Alanı";
 
 "type.amenity.parking_space.permissive" = "Park Alanı";
@@ -1363,6 +1387,8 @@
 "type.amenity.parking_space.private" = "Park Alanı";
 
 "type.amenity.parking_space.underground" = "Park Alanı";
+
+"type.amenity.parking_space.disabled" = "Engelli park yeri";
 
 "type.amenity.payment_terminal" = "Ödeme Noktası";
 
@@ -2468,8 +2494,6 @@
 
 "type.organic.yes" = "Organic";
 
-"type.place" = "Yer";
-
 "type.place.city" = "Şehir";
 
 "type.place.city.capital" = "Başkent";
@@ -2970,6 +2994,18 @@
 "type.sport.9pin" = "Bowling";
 
 "type.sport.10pin" = "Bowling";
+
+"type.sport.padel" = "Padel";
+
+"type.sport.futsal" = "Futsal";
+
+"type.sport.ice_hockey" = "Buz Hokeyi";
+
+"type.sport.field_hockey" = "Çim Hokeyi";
+
+"type.sport.badminton" = "Badminton";
+
+"type.sport.pelota" = "Bask pelotası";
 
 "type.tourism" = "Turizm";
 

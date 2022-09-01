@@ -159,7 +159,7 @@ extern "C"
     storage::Storage const & storage = g_framework->GetStorage();
     downloader->SetDataVersion(storage.GetCurrentDataVersion());
 
-    downloader->EnsureServersListReady([&storage, ptr = jni::make_global_ref(listener)]()
+    downloader->EnsureMetaConfigReady([&storage, ptr = jni::make_global_ref(listener)]()
     {
       auto const & curFile = g_filesToDownload.back();
       auto const fileName = curFile.GetFileName(MapFileType::Map);

@@ -12,6 +12,7 @@ import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.background.AppBackgroundTracker;
 import com.mapswithme.maps.background.OsmUploadService;
+import com.mapswithme.maps.bookmarks.data.Metadata;
 import com.mapswithme.maps.editor.data.FeatureCategory;
 import com.mapswithme.maps.editor.data.Language;
 import com.mapswithme.maps.editor.data.LocalizedName;
@@ -67,38 +68,32 @@ public final class Editor
   public static native int[] nativeGetEditableProperties();
 
   public static native String nativeGetCategory();
+
+  public static native String nativeGetMetadata(int id);
+  public static native boolean nativeIsMetadataValid(int id, String value);
+  public static native void nativeSetMetadata(int id, String value);
+
   public static native String nativeGetOpeningHours();
   public static native void nativeSetOpeningHours(String openingHours);
-  public static native String nativeGetPhone();
-  public static native void nativeSetPhone(String phone);
-  public static native String nativeGetWebsite();
-  public static native void nativeSetWebsite(String website);
-  public static native String nativeGetFacebookPage();
-  public static native void nativeSetFacebookPage(String facebookPage);
-  public static native String nativeGetInstagramPage();
-  public static native void nativeSetInstagramPage(String instagramPage);
-  public static native String nativeGetTwitterPage();
-  public static native void nativeSetTwitterPage(String twitterPage);
-  public static native String nativeGetVkPage();
-  public static native void nativeSetVkPage(String vkPage);
-  public static native String nativeGetLinePage();
-  public static native void nativeSetLinePage(String vkPage);
-  public static native String nativeGetEmail();
-  public static native void nativeSetEmail(String email);
+  public static String nativeGetPhone()
+  {
+    return nativeGetMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER.toInt());
+  }
+  public static void nativeSetPhone(String phone)
+  {
+    nativeSetMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER.toInt(), phone);
+  }
   public static native int nativeGetStars();
-  public static native void nativeSetStars(String stars);
-  public static native String nativeGetOperator();
-  public static native void nativeSetOperator(String operator);
-  public static native String nativeGetWikipedia();
-  public static native void nativeSetWikipedia(String wikipedia);
-  public static native String nativeGetFlats();
-  public static native void nativeSetFlats(String flats);
-  public static native String nativeGetBuildingLevels();
-  public static native void nativeSetBuildingLevels(String levels);
-  public static native String nativeGetZipCode();
-  public static native void nativeSetZipCode(String zipCode);
+  public static String nativeGetBuildingLevels()
+  {
+    return nativeGetMetadata(Metadata.MetadataType.FMD_BUILDING_LEVELS.toInt());
+  }
+  public static void nativeSetBuildingLevels(String levels)
+  {
+    nativeSetMetadata(Metadata.MetadataType.FMD_BUILDING_LEVELS.toInt(), levels);
+  }
   public static native boolean nativeHasWifi();
-  public static native boolean nativeSetHasWifi(boolean hasWifi);
+  public static native void nativeSetHasWifi(boolean hasWifi);
 
   public static native boolean nativeIsAddressEditable();
   public static native boolean nativeIsNameEditable();
@@ -120,17 +115,14 @@ public final class Editor
   public static native String nativeGetHouseNumber();
   public static native void nativeSetHouseNumber(String houseNumber);
   public static native boolean nativeIsHouseValid(String houseNumber);
-  public static native boolean nativeIsLevelValid(String level);
-  public static native boolean nativeIsFlatValid(String flat);
-  public static native boolean nativeIsZipcodeValid(String zipCode);
-  public static native boolean nativeIsPhoneValid(String phone);
-  public static native boolean nativeIsWebsiteValid(String site);
-  public static native boolean nativeIsFacebookPageValid(String site);
-  public static native boolean nativeIsInstagramPageValid(String site);
-  public static native boolean nativeIsTwitterPageValid(String site);
-  public static native boolean nativeIsVkPageValid(String site);
-  public static native boolean nativeIsLinePageValid(String site);
-  public static native boolean nativeIsEmailValid(String email);
+  public static boolean nativeIsLevelValid(String level)
+  {
+    return nativeIsMetadataValid(Metadata.MetadataType.FMD_BUILDING_LEVELS.toInt(), level);
+  }
+  public static boolean nativeIsPhoneValid(String phone)
+  {
+    return nativeIsMetadataValid(Metadata.MetadataType.FMD_PHONE_NUMBER.toInt(), phone);
+  }
   public static native boolean nativeIsNameValid(String name);
 
 

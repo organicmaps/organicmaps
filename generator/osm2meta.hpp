@@ -31,6 +31,7 @@ struct MetadataTagProcessorImpl
   std::string ValidateAndFormat_level(std::string v) const;
   std::string ValidateAndFormat_denomination(std::string const & v) const;
   std::string ValidateAndFormat_wikipedia(std::string v) const;
+  std::string ValidateAndFormat_wikimedia_commons(std::string v) const;
   std::string ValidateAndFormat_airport_iata(std::string const & v) const;
   std::string ValidateAndFormat_duration(std::string const & v) const;
 

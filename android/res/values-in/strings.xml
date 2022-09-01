@@ -218,6 +218,8 @@
 	<string name="help">Bantuan</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">Pertanyaan dan jawaban</string>
+	<!-- Button in the main menu -->
+	<string name="donate">Menyumbangkan</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">Bagaimana cara mendukung kami?</string>
 	<!-- Button in the main Help dialog -->
@@ -335,7 +337,6 @@
 	<string name="routing_arrive">Kedatangan: %s</string>
 	<string name="categories">Kategori</string>
 	<string name="history">Riwayat</string>
-	<string name="closed">Tutup</string>
 	<string name="search_not_found">Maaf, saya tidak menemukan apa pun.</string>
 	<string name="search_not_found_query">Silakan coba kueri lainnya.</string>
 	<string name="search_history_title">Riwayat Pencarian</string>
@@ -377,10 +378,12 @@
 	<string name="day_off_today">Tutup hari ini</string>
 	<string name="day_off">Tutup</string>
 	<string name="today">Hari ini</string>
+	<string name="closed">Tutup</string>
 	<string name="edit_opening_hours">Sunting jam kerja</string>
 	<string name="no_osm_account">Tidak ada akun di OpenStreetMap?</string>
 	<string name="register_at_openstreetmap">Mendaftar</string>
 	<string name="login">Masuk</string>
+	<string name="login_osm">Masuk ke OpenStreetMap</string>
 	<string name="password">Kata sandi</string>
 	<string name="forgot_password">Lupa kata sandi?</string>
 	<string name="logout">Keluar</string>
@@ -400,6 +403,7 @@
 	<string name="select_cuisine">Pilih Masakan</string>
 	<!-- login text field -->
 	<string name="email_or_username">Surel atau nama pengguna</string>
+	<string name="level">Tingkat</string>
 	<string name="downloader_delete_map_dialog">Semua perubahan peta akan dihapus bersama dengan peta.</string>
 	<string name="downloader_update_maps">Perbarui peta</string>
 	<string name="downloader_mwm_migration_dialog">Untuk membuat rute, Anda perlu memperbarui semua peta dan kemudian merencanakan rute tersebut lagi.</string>
@@ -418,6 +422,7 @@
 	<string name="editor_report_problem_other_title">Masalah yang berbeda</string>
 	<string name="placepage_add_business_button">Tambahkan organisasi</string>
 	<string name="message_invalid_feature_position">Objek tidak dapat diletakkan di sini</string>
+	<string name="osm_presentation">Semua data peta berasal dari proyek OpenStreetMap. Ini seperti Wikipedia untuk peta tempat Anda dapat menambahkan atau mengedit tempat, dan peta tersebut tersedia bagi jutaan pengguna di seluruh Dunia.</string>
 	<string name="login_to_make_edits_visible">Masuk agar pengguna lain dapat melihat perubahan yang Anda buat.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d dari %2$d</string>
@@ -471,9 +476,9 @@
 	<string name="placepage_add_place_button">Tambahkan tempat ke peta</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Apakah Anda ingin mengirimkannya ke semua pengguna?</string>
-	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Pastikan Anda tidak memasukkan data pribadi apa pun.</string>
-	<string name="editor_share_to_all_dialog_message_2">Kami akan memeriksa perubahan tersebut. Jika kami memiliki pertanyaan maka kami akan menghubungi Anda melalui surel.</string>
+	<string name="editor_share_to_all_dialog_message_2">Editor OpenStreetMap akan memeriksa perubahan dan menghubungi Anda jika ada pertanyaan.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps adalah aplikasi peta offline sumber terbuka dan gratis. Tanpa iklan. Tidak ada pelacakan. Jika Anda melihat kesalahan pada peta, harap perbaiki di OpenStreetMap. Proyek ini dibuat oleh para penggemar di waktu luang kami, jadi kami membutuhkan masukan dan dukungan Anda.</string>
 	<!-- For the first routing -->
@@ -502,7 +507,7 @@
 	<string name="on">On</string>
 	<string name="off">Mati</string>
 	<string name="prefs_languages_information">Kami menggunakan TTS sistem untuk petunjuk suara. Banyak perangkat Android menggunakan Google TTS, Anda dapat mengunduhnya dari Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">Untuk beberapa bahasa, Anda perlu menginstal synthesizer suara atau paket bahasa tambahan dari toko aplikasi (Google Play, Samsung Apps, App Gallery, FDroid).\nBuka pengaturan perangkat Anda → Language and input (Bahasa dan input) → Speech (Suara) → Text to speech (Teks ke suara).\nDi sini, Anda dapat mengelola pengaturan untuk sintesis suara (contohnya, mengunduh paket bahasa untuk penggunaan tanpa internet) dan memilih mesin tekske suara lain.</string>
+	<string name="prefs_languages_information_off">Untuk beberapa bahasa, Anda perlu menginstal synthesizer suara atau paket bahasa tambahan dari toko aplikasi (Google Play, Galaxy Store, App Gallery, FDroid).\nBuka pengaturan perangkat Anda → Language and input (Bahasa dan input) → Speech (Suara) → Text to speech (Teks ke suara).\nDi sini, Anda dapat mengelola pengaturan untuk sintesis suara (contohnya, mengunduh paket bahasa untuk penggunaan tanpa internet) dan memilih mesin tekske suara lain.</string>
 	<string name="prefs_languages_information_off_link">Untuk informasi selengkapnya, bacalah panduan ini.</string>
 	<string name="transliteration_title">Transliterasi ke dalam bahasa Latin</string>
 	<string name="learn_more">Pelajari selengkapnya</string>
@@ -721,10 +726,14 @@
 	<string name="type.amenity.parking.permissive">Parkir</string>
 	<string name="type.amenity.parking.private">Parkir</string>
 	<string name="type.amenity.parking.underground">Parkir</string>
+	<string name="type.amenity.parking_entrance.private">Pintu masuk parkir</string>
+	<string name="type.amenity.parking_entrance.permissive">Pintu masuk parkir</string>
+	<string name="type.amenity.parking_entrance">Pintu masuk parkir</string>
 	<string name="type.amenity.parking_space">Tempat parkir</string>
 	<string name="type.amenity.parking_space.permissive">Tempat parkir</string>
 	<string name="type.amenity.parking_space.private">Tempat parkir</string>
 	<string name="type.amenity.parking_space.underground">Tempat parkir</string>
+	<string name="type.amenity.parking_space.disabled">Tempat parkir penyandang cacat</string>
 	<string name="type.amenity.payment_terminal">Terminal Pembayaran</string>
 	<string name="type.amenity.pharmacy">Apotek</string>
 	<string name="type.amenity.place_of_worship">Tempat ibadah</string>
@@ -1173,10 +1182,13 @@
 	<string name="type.place.hamlet">Dusun</string>
 	<string name="type.place.island">Pulau</string>
 	<string name="type.place.islet">Pulau</string>
+	<string name="type.place.isolated_dwelling">Tempat Tinggal Terisolasi</string>
 	<string name="type.place.locality">Wilayah</string>
+	<string name="type.place.neighbourhood">Lingkungan</string>
 	<string name="type.place.ocean">Samudra</string>
 	<string name="type.place.region">Wilayah</string>
 	<string name="type.place.sea">Laut</string>
+	<string name="type.place.square">Lapangan kota</string>
 	<string name="type.place.state">Negara bagian</string>
 	<string name="type.place.state.USA">Negara bagian</string>
 	<string name="type.place.suburb">Pinggiran kota</string>
@@ -1342,6 +1354,12 @@
 	<string name="type.sport.volleyball">Bola voli</string>
 	<string name="type.sport.9pin">Boling</string>
 	<string name="type.sport.10pin">Boling</string>
+	<string name="type.sport.padel">Padel</string>
+	<string name="type.sport.futsal">Futsal</string>
+	<string name="type.sport.ice_hockey">Hoki es</string>
+	<string name="type.sport.field_hockey">Hoki Lapangan</string>
+	<string name="type.sport.badminton">Bulu tangkis</string>
+	<string name="type.sport.pelota">Basque pelota</string>
 	<string name="type.tourism.alpine_hut">Penginapan di pegunungan</string>
 	<string name="type.tourism.apartment">Apartemen</string>
 	<string name="type.tourism.artwork">Pariwisata</string>

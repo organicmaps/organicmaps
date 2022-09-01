@@ -1,5 +1,7 @@
 #include "map/elevation_info.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include "base/string_utils.hpp"
 
 namespace

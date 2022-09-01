@@ -1,17 +1,13 @@
 #include "generator/dumper.hpp"
 
 #include "search/search_index_values.hpp"
-#include "search/search_trie.hpp"
 
 #include "indexer/classificator.hpp"
 #include "indexer/feature_processor.hpp"
 #include "indexer/trie_reader.hpp"
-#include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
 
 #include "coding/string_utf8_multilang.hpp"
-
-#include "base/logging.hpp"
 
 #include <algorithm>
 #include <functional>
@@ -21,6 +17,8 @@
 
 #include "defines.hpp"
 
+namespace features_dumper
+{
 using namespace std;
 
 namespace
@@ -55,8 +53,6 @@ struct SearchTokensCollector
 };
 }  // namespace
 
-namespace feature
-{
   class TypesCollector
   {
     vector<uint32_t> m_currFeatureTypes;
@@ -128,13 +124,7 @@ namespace feature
     {
       CHECK(!name.empty(), ("Feature name is empty"));
 
-      vector<strings::UniString> tokens;
-      search::SplitUniString(search::NormalizeAndSimplifyString(name),
-                             base::MakeBackInsertFunctor(tokens), search::Delimiters());
-
-      if (tokens.empty())
-        return;
-
+      auto const tokens = search::NormalizeAndTokenizeString(name);
       for (size_t i = 1; i < tokens.size(); ++i)
       {
         strings::UniString s;
@@ -230,4 +220,4 @@ namespace feature
       });
     });
   }
-}  // namespace feature
+} // namespace features_dumper

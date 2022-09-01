@@ -99,17 +99,13 @@ namespace
   }
 }
 
-void RunFeaturesLoadingBenchmark(string const & file, pair<int, int> scaleRange, AllResult & res)
+void RunFeaturesLoadingBenchmark(string fileName, pair<int, int> scaleRange, AllResult & res)
 {
-  string fileName = file;
   base::GetNameFromFullPath(fileName);
   base::GetNameWithoutExt(fileName);
 
-  platform::LocalCountryFile localFile =
-      platform::LocalCountryFile::MakeForTesting(fileName);
-
   FeaturesFetcher src;
-  auto const r = src.RegisterMap(localFile);
+  auto const r = src.RegisterMap(platform::LocalCountryFile::MakeForTesting(std::move(fileName)));
   if (r.second != MwmSet::RegResult::Success)
     return;
 

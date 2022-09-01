@@ -79,7 +79,7 @@ public:
   QueryParams() = default;
 
   template <typename IterT>
-  void Init(std::string const & query, IterT tokenBegin, IterT tokenEnd, String const & prefix)
+  void Init(std::string const & /*query*/, IterT tokenBegin, IterT tokenEnd, String const & prefix)
   {
     Clear();
 
@@ -141,9 +141,6 @@ private:
   friend std::string DebugPrint(QueryParams const & params);
 
   void AddSynonyms();
-
-  // The original query without any normalizations.
-  std::string m_query;
 
   std::vector<Token> m_tokens;
   Token m_prefixToken;

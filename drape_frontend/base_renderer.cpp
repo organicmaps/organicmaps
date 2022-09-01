@@ -8,9 +8,9 @@ namespace dp
 {
 extern void RenderFrameMediator(std::function<void()> && renderFrameFunction);
 }  // namespace dp
-#define RENDER_FRAME_MEDIATOR(renderFunction) dp::RenderFrameMediator([this]{ renderFunction; });
+#define RENDER_FRAME_MEDIATOR(renderFunction) dp::RenderFrameMediator([this]{ renderFunction; })
 #else
-#define RENDER_FRAME_MEDIATOR(renderFunction) renderFunction;
+#define RENDER_FRAME_MEDIATOR(renderFunction) renderFunction
 #endif
 
 namespace df

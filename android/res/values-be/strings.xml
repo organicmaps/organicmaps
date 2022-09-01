@@ -236,6 +236,8 @@
 	<string name="help">Дапамога</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">Пытанні і адказы</string>
+	<!-- Button in the main menu -->
+	<string name="donate">Ахвяраваць</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">Як нас падтрымаць?</string>
 	<!-- Button in the main Help dialog -->
@@ -355,9 +357,6 @@
 	<string name="routing_arrive">Прыбыццё а %s</string>
 	<string name="categories">Катэгорыі</string>
 	<string name="history">Гісторыя</string>
-	<string name="opens_in">Адчыняецца праз %s</string>
-	<string name="closes_in">Зачыняецца праз %s</string>
-	<string name="closed">Зачынена</string>
 	<string name="search_not_found">Нічога не знойдзена.</string>
 	<string name="search_not_found_query">Паспрабуйце змяніць умовы пошуку.</string>
 	<string name="search_history_title">Гісторыя пошуку</string>
@@ -401,10 +400,18 @@
 	<string name="day_off_today">Сёння зачынена</string>
 	<string name="day_off">Зачынена</string>
 	<string name="today">Сёння</string>
+	<string name="opens_tomorrow_at">Адкрыццё заўтра ў %s</string>
+	<string name="opens_dayoftheweek_at">Адкрыццё ў %1$s у %2$s</string>
+	<string name="opens_at">Адкрыццё ў %s</string>
+	<string name="opens_in">Адчыняецца праз %s</string>
+	<string name="closes_at">Зачыняецца ў %s</string>
+	<string name="closes_in">Зачыняецца праз %s</string>
+	<string name="closed">Зачынена</string>
 	<string name="edit_opening_hours">Правіць часы працы</string>
 	<string name="no_osm_account">Не зарэгістраваныя на OpenStreetMap?</string>
 	<string name="register_at_openstreetmap">Зарэгістравацца на OpenStreetMap</string>
 	<string name="login">Увайсці</string>
+	<string name="login_osm">Увайсці ў OpenStreetMap</string>
 	<string name="password">Пароль</string>
 	<string name="forgot_password">Забылі пароль?</string>
 	<string name="logout">Выйсці</string>
@@ -426,6 +433,7 @@
 	<string name="select_cuisine">Выбраць кухню</string>
 	<!-- login text field -->
 	<string name="email_or_username">Email альбо імя карыстальніка</string>
+	<string name="level">Паверх</string>
 	<string name="downloader_delete_map_dialog">Усе вашы праўкі мапы будуць выдаленыя разам з мапай.</string>
 	<string name="downloader_update_maps">Абнавіць мапы</string>
 	<string name="downloader_mwm_migration_dialog">Каб стварыць маршрут, вам трэба абнавіць усе мапы і потым пракласці маршрут зноў.</string>
@@ -444,7 +452,8 @@
 	<string name="editor_report_problem_other_title">Іншая праблема</string>
 	<string name="placepage_add_business_button">Дадаць установу</string>
 	<string name="message_invalid_feature_position">Аб\'ект не можа знаходзіцца тут</string>
-	<string name="login_to_make_edits_visible">Аўтарызуйцеся, каб іншыя карыстальнікі бачылі вашыя змены.</string>
+	<string name="osm_presentation">Усе дадзеныя карты паходзяць з праекта OpenStreetMap. Гэта як Wikipedia для карт, дзе вы можаце дадаваць або рэдагаваць месцы, і яны становяцца даступнымі для мільёнаў карыстальнікаў па ўсім свеце.</string>
+	<string name="login_to_make_edits_visible">Аўтарызуйцеся ў OpenStreetMap.org, каб іншыя карыстальнікі бачылі вашыя змены.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d з %2$d</string>
 	<string name="download_over_mobile_header">Спампаваць праз мабільны інтэрнэт?</string>
@@ -500,9 +509,9 @@
 	<string name="placepage_add_place_button">Дадаць месца на мапу</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Хочаце адправіць усім карыстальнікам?</string>
-	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Упэўніцеся, што вы не ўвялі ніякіх асабістых дадзеных.</string>
-	<string name="editor_share_to_all_dialog_message_2">Мы праверым змены. Калі ў нас з\'явяцца пытанні, мы з вамі звяжамся праз email.</string>
+	<string name="editor_share_to_all_dialog_message_2">Рэдактары OpenStreetMap правераць змены і звяжуцца з вамі, калі ў іх узнікнуць пытанні.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps — гэта хуткія і бясплатныя мапы без рэкламы, якія працуюць без Інтэрнэту і не шпіёняць за вамі. Усе картаграфічныя дадзеныя бяруцца з OpenStreetMap.org, там вы зможаце самастойна выпраўляць памылкі і дадаваць новыя аб\'екты. Organic Maps — гэта праект з адкрытым зыходным кодам, які ствараецца энтузіястамі ў вольны час. Будзем рады вашай падтрымцы і зваротнай сувязі!</string>
 	<!-- For the first routing -->
@@ -531,7 +540,7 @@
 	<string name="on">Укл.</string>
 	<string name="off">Выкл.</string>
 	<string name="prefs_languages_information">Мы ужываем сістэмны сінтэзатар маўлення (TTS). Многія прылады на Android ужываюць Google TTS, вы можаце спампаваць альбо абнавіць яго праз Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">Для некаторых моў вам спатрэбіцца ўсталяваць сінтэзатар маўлення альбо дадатковы моўны пакет з крамы дадаткаў (Google Play, Samsung Apps, App Gallery, FDroid).\Зайдзіце на вашай прыладзе ў Налады → Мова і ўвод → Маўленне → Сінтэз маўлення.\nТут вы можаце задаць налады сінтэза маўлення (напрыклад, спампаваць моўны пакет для выкарыстання без падключэння да інтэрнэту) альбо выбраць іншы сінтэзатар маўлення.</string>
+	<string name="prefs_languages_information_off">Для некаторых моў вам спатрэбіцца ўсталяваць сінтэзатар маўлення альбо дадатковы моўны пакет з крамы дадаткаў (Google Play, Galaxy Store, App Gallery, FDroid).\Зайдзіце на вашай прыладзе ў Налады → Мова і ўвод → Маўленне → Сінтэз маўлення.\nТут вы можаце задаць налады сінтэза маўлення (напрыклад, спампаваць моўны пакет для выкарыстання без падключэння да інтэрнэту) альбо выбраць іншы сінтэзатар маўлення.</string>
 	<string name="prefs_languages_information_off_link">Больш падрабязная інфармацыя знаходзіцца ў гэтым кіраўніцтве.</string>
 	<string name="transliteration_title">Транслітарацыя лацінкай</string>
 	<string name="learn_more">Даведацца больш</string>
@@ -704,6 +713,8 @@
 	<string name="enable_show_on_lock_screen_description">Калі ўключана, вам не трэба разблакіраваць прыладу кожны раз падчас працы дадатку.</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">Дадзеныя карты з OpenStreetMap</string>
+	<!-- Telegram group url for the help page -->
+	<string name="telegram_url">https://t.me/OrganicMapsRu</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.amenity.bicycle_parking">Велапаркоўка</string>
@@ -714,6 +725,10 @@
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.amenity.grave_yard.christian">Хрысціянскія могілкі</string>
 	<string name="type.amenity.ice_cream">Марозіва</string>
+	<string name="type.amenity.parking_entrance.private">Уваход на паркоўку</string>
+	<string name="type.amenity.parking_entrance.permissive">Уваход на паркоўку</string>
+	<string name="type.amenity.parking_entrance">Уваход на паркоўку</string>
+	<string name="type.amenity.parking_space.disabled">Паркоўка для інвалідаў</string>
 	<string name="type.amenity.post_box">Паштовая скрыня</string>
 
 	<!-- SECTION: Types: Recycling -->
@@ -917,6 +932,37 @@
 	<string name="type.office.telecommunication">Тэлекамунікацыйная кампанія</string>
 	<string name="type.organic.only">Эка</string>
 	<string name="type.organic.yes">Эка</string>
+	<string name="type.place.city">Горад</string>
+	<string name="type.place.city.capital">Сталіца</string>
+	<string name="type.place.city.capital.10">Горад</string>
+	<string name="type.place.city.capital.11">Горад</string>
+	<string name="type.place.city.capital.2">Сталіца</string>
+	<string name="type.place.city.capital.3">Горад</string>
+	<string name="type.place.city.capital.4">Горад</string>
+	<string name="type.place.city.capital.5">Горад</string>
+	<string name="type.place.city.capital.6">Горад</string>
+	<string name="type.place.city.capital.7">Горад</string>
+	<string name="type.place.city.capital.8">Горад</string>
+	<string name="type.place.city.capital.9">Горад</string>
+	<string name="type.place.continent">Кантынент</string>
+	<string name="type.place.country">Краіна</string>
+	<string name="type.place.county">Графства</string>
+	<string name="type.place.farm">Ферма</string>
+	<string name="type.place.hamlet">Вёска</string>
+	<string name="type.place.island">Востраў</string>
+	<string name="type.place.islet">Астравок</string>
+	<string name="type.place.isolated_dwelling">Хутар</string>
+	<string name="type.place.locality">Місце</string>
+	<string name="type.place.neighbourhood">Мікрараён</string>
+	<string name="type.place.ocean">Акіян</string>
+	<string name="type.place.region">Рэгіён</string>
+	<string name="type.place.sea">Мора</string>
+	<string name="type.place.square">Плошча</string>
+	<string name="type.place.state">Штат</string>
+	<string name="type.place.state.USA">Штат</string>
+	<string name="type.place.suburb">Раён</string>
+	<string name="type.place.town">Мястэчка</string>
+	<string name="type.place.village">Вёска</string>
 	<string name="type.railway.platform">Чыгуначная платформа</string>
 	<string name="type.shop.beverages">Напоі</string>
 	<string name="type.shop.caravan">Продаж аўтадамоў</string>
@@ -981,6 +1027,12 @@
 	<string name="type.sport.volleyball">Валейбол</string>
 	<string name="type.sport.9pin">Боўлінг</string>
 	<string name="type.sport.10pin">Боўлінг</string>
+	<string name="type.sport.padel">Падэль</string>
+	<string name="type.sport.futsal">Футзал</string>
+	<string name="type.sport.ice_hockey">Хакей з шайбай</string>
+	<string name="type.sport.field_hockey">Хакей на траве</string>
+	<string name="type.sport.badminton">Бадмінтон</string>
+	<string name="type.sport.pelota">Баскская пелота</string>
 	<string name="type.tourism.caravan_site">Кемпінг для аўтадамоў</string>
 	<string name="type.tourism.information">Турыстычная інфармацыя</string>
 	<string name="type.tourism.information.board">Інфармацыйны шчыт</string>

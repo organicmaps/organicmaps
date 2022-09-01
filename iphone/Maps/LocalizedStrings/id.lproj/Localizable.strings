@@ -503,12 +503,6 @@
 
 "history" = "Riwayat";
 
-"opens_in" = "Opens in %@";
-
-"closes_in" = "Closes in %@";
-
-"closed" = "Tutup";
-
 "search_not_found" = "Maaf, saya tidak menemukan apa pun.";
 
 "search_not_found_query" = "Silakan coba kueri lainnya.";
@@ -578,6 +572,20 @@
 
 "today" = "Hari ini";
 
+"opens_tomorrow_at" = "Opens tomorrow at %@";
+
+"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
+
+"opens_at" = "Opens at %@";
+
+"opens_in" = "Opens in %@";
+
+"closes_at" = "Closes at %@";
+
+"closes_in" = "Closes in %@";
+
+"closed" = "Tutup";
+
 "add_opening_hours" = "Tambah jam kerja";
 
 "no_osm_account" = "Tidak ada akun di OpenStreetMap?";
@@ -629,6 +637,8 @@
 "email_or_username" = "Surel atau nama pengguna";
 
 "phone" = "Telepon";
+
+"level" = "Tingkat";
 
 "please_note" = "Harap diperhatikan";
 
@@ -750,6 +760,8 @@
 
 "miles_per_hour" = "mpj";
 
+"hour" = "j";
+
 "minute" = "mnt";
 
 "placepage_place_description" = "Deskripsi";
@@ -798,10 +810,10 @@
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Apakah Anda ingin mengirimkannya ke semua pengguna?";
 
-/* iOS Dialog before publishing the modifications to the public map. */
+/* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "Pastikan Anda tidak memasukkan data pribadi apa pun.";
 
-"editor_share_to_all_dialog_message_2" = "Kami akan memeriksa perubahan tersebut. Jika kami memiliki pertanyaan maka kami akan menghubungi Anda melalui surel.";
+"editor_share_to_all_dialog_message_2" = "Editor OpenStreetMap akan memeriksa perubahan dan menghubungi Anda jika ada pertanyaan.";
 
 "navigation_stop_button" = "berhenti";
 
@@ -1205,6 +1217,12 @@
 /* edit track screen title */
 "track_title" = "Trek";
 
+/* Telegram group url for the help page */
+"telegram_url" = "https://t.me/OrganicMapsApp";
+
+/* Instagram account url for the help page */
+"instagram_url" = "https://www.instagram.com/organicmaps.app";
+
 
 /********** Types **********/
 
@@ -1356,6 +1374,12 @@
 
 "type.amenity.parking.underground" = "Parkir";
 
+"type.amenity.parking_entrance.private" = "Pintu masuk parkir";
+
+"type.amenity.parking_entrance.permissive" = "Pintu masuk parkir";
+
+"type.amenity.parking_entrance" = "Pintu masuk parkir";
+
 "type.amenity.parking_space" = "Tempat parkir";
 
 "type.amenity.parking_space.permissive" = "Tempat parkir";
@@ -1363,6 +1387,8 @@
 "type.amenity.parking_space.private" = "Tempat parkir";
 
 "type.amenity.parking_space.underground" = "Tempat parkir";
+
+"type.amenity.parking_space.disabled" = "Tempat parkir penyandang cacat";
 
 "type.amenity.payment_terminal" = "Terminal Pembayaran";
 
@@ -2468,8 +2494,6 @@
 
 "type.organic.yes" = "Organic";
 
-"type.place" = "place";
-
 "type.place.city" = "Kota";
 
 "type.place.city.capital" = "Ibu kota";
@@ -2508,11 +2532,11 @@
 
 "type.place.islet" = "Pulau";
 
-"type.place.isolated_dwelling" = "Dwelling";
+"type.place.isolated_dwelling" = "Tempat Tinggal Terisolasi";
 
 "type.place.locality" = "Wilayah";
 
-"type.place.neighbourhood" = "Neighbourhood";
+"type.place.neighbourhood" = "Lingkungan";
 
 "type.place.ocean" = "Samudra";
 
@@ -2520,7 +2544,7 @@
 
 "type.place.sea" = "Laut";
 
-"type.place.square" = "Square";
+"type.place.square" = "Lapangan kota";
 
 "type.place.state" = "Negara bagian";
 
@@ -2970,6 +2994,18 @@
 "type.sport.9pin" = "Boling";
 
 "type.sport.10pin" = "Boling";
+
+"type.sport.padel" = "Padel";
+
+"type.sport.futsal" = "Futsal";
+
+"type.sport.ice_hockey" = "Hoki es";
+
+"type.sport.field_hockey" = "Hoki Lapangan";
+
+"type.sport.badminton" = "Bulu tangkis";
+
+"type.sport.pelota" = "Basque pelota";
 
 "type.tourism" = "Tourism";
 

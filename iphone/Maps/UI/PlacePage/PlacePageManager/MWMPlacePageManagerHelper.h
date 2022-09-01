@@ -8,6 +8,11 @@
 + (void)addBusiness;
 + (void)addPlace:(CLLocationCoordinate2D)coordinate;
 + (void)openWebsite:(PlacePageData *)data;
++ (void)openEmail:(PlacePageData *)data;
++ (void)openFacebook:(PlacePageData *)data;
++ (void)openInstagram:(PlacePageData *)data;
++ (void)openTwitter:(PlacePageData *)data;
++ (void)openVk:(PlacePageData *)data;
 + (void)call:(PlacePageData *)data;
 + (void)showAllFacilities:(PlacePageData *)data;
 + (void)showPlaceDescription:(NSString *)htmlString;

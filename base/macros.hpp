@@ -78,4 +78,4 @@ inline void ForceUseValue(T const & t)
 #define UINT64_LO(x) (static_cast<uint32_t>(x & 0xFFFFFFFF))
 #define UINT64_HI(x) (static_cast<uint32_t>(x >> 32))
 
-#define NOTIMPLEMENTED() ASSERT(false, ("Function", __func__, "is not implemented!"));
+#define NOTIMPLEMENTED() ASSERT(false, ("Function", __func__, "is not implemented!"))

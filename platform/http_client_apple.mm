@@ -141,7 +141,7 @@ bool HttpClient::RunHttpRequest()
     {
       NSString * cookies = [response.allHeaderFields objectForKey:@"Set-Cookie"];
       if (cookies)
-        m_headers.emplace("Set-Cookie", NormalizeServerCookies(std::move(cookies.UTF8String)));
+        m_headers.emplace("Set-Cookie", NormalizeServerCookies(cookies.UTF8String));
     }
 
     if (url_data)

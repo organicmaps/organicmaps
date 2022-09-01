@@ -37,7 +37,6 @@ void SingleVehicleWorldGraph::CheckAndProcessTransitFeatures(Segment const & par
                                                              WeightListT & parentWeights,
                                                              bool isOutgoing)
 {
-  bool opposite = !isOutgoing;
   JointEdgeListT newCrossMwmEdges;
 
   NumMwmId const mwmId = parent.GetMwmId();
@@ -58,7 +57,7 @@ void SingleVehicleWorldGraph::CheckAndProcessTransitFeatures(Segment const & par
     for (auto const & twin : twins)
     {
       NumMwmId const twinMwmId = twin.GetMwmId();
-      Segment const start(twinMwmId, twin.GetFeatureId(), target.GetSegmentId(!opposite), target.IsForward());
+      Segment const start(twinMwmId, twin.GetFeatureId(), target.GetSegmentId(isOutgoing), target.IsForward());
 
       auto & twinIndexGraph = GetIndexGraph(twinMwmId);
 
@@ -67,7 +66,7 @@ void SingleVehicleWorldGraph::CheckAndProcessTransitFeatures(Segment const & par
       ASSERT_EQUAL(lastPoints.size(), 1, ());
 
       if (auto edge = currentIndexGraph.GetJointEdgeByLastPoint(parent,
-                                                                target.GetSegment(!opposite),
+                                                                target.GetSegment(isOutgoing),
                                                                 isOutgoing, lastPoints.back()))
       {
         newCrossMwmEdges.emplace_back(*edge);

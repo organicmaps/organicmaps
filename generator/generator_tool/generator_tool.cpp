@@ -69,8 +69,6 @@
 
 #include "gflags/gflags.h"
 
-#include "build_version.hpp"
-
 namespace
 {
 char const * GetDataPathHelp()
@@ -214,12 +212,13 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
 
   CHECK(IsLittleEndian(), ("Only little-endian architectures are supported."));
 
+  Platform & pl = GetPlatform();
+
   gflags::SetUsageMessage(
       "Takes OSM XML data from stdin and creates data and index files in several passes.");
-  gflags::SetVersionString(build_version::kName);
+  gflags::SetVersionString(pl.Version());
   gflags::ParseCommandLineFlags(&argc, &argv, true);
 
-  Platform & pl = GetPlatform();
   unsigned threadsCount = FLAGS_threads_count != 0 ? static_cast<unsigned>(FLAGS_threads_count)
                                                    : pl.CpuCores();
 
@@ -572,10 +571,8 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
 
     if (!FLAGS_wikipedia_pages.empty())
     {
-      if (!FLAGS_idToWikidata.empty())
-        BuildDescriptionsSection(FLAGS_wikipedia_pages, dataFile, FLAGS_idToWikidata);
-      else
-        BuildDescriptionsSection(FLAGS_wikipedia_pages, dataFile);
+      // FLAGS_idToWikidata maybe empty.
+      DescriptionsSectionBuilder::CollectAndBuild(FLAGS_wikipedia_pages, dataFile, FLAGS_idToWikidata);
     }
 
     // This section must be built with the same isolines file as had been used at the features stage.
@@ -606,7 +603,7 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
     auto file = OfstreamWithExceptions(genInfo.GetIntermediateFileName(FLAGS_output, STATS_EXTENSION));
     stats::MapInfo info(FLAGS_stats_geometry_dup_factor);
     stats::CalcStats(dataFile, info);
-    
+
     if (FLAGS_stats_general)
     {
       LOG(LINFO, ("Writing general statistics"));
@@ -627,16 +624,16 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
   }
 
   if (FLAGS_dump_types)
-    feature::DumpTypes(dataFile);
+    features_dumper::DumpTypes(dataFile);
 
   if (FLAGS_dump_prefixes)
-    feature::DumpPrefixes(dataFile);
+    features_dumper::DumpPrefixes(dataFile);
 
   if (FLAGS_dump_search_tokens)
-    feature::DumpSearchTokens(dataFile, 100 /* maxTokensToShow */);
+    features_dumper::DumpSearchTokens(dataFile, 100 /* maxTokensToShow */);
 
   if (FLAGS_dump_feature_names != "")
-    feature::DumpFeatureNames(dataFile, FLAGS_dump_feature_names);
+    features_dumper::DumpFeatureNames(dataFile, FLAGS_dump_feature_names);
 
   if (FLAGS_unpack_mwm)
     UnpackMwm(dataFile);

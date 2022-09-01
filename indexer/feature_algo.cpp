@@ -2,10 +2,9 @@
 #include "indexer/feature.hpp"
 
 #include "geometry/algorithm.hpp"
+#include "geometry/mercator.hpp"
 #include "geometry/parametrized_segment.hpp"
 #include "geometry/triangle2d.hpp"
-
-#include "base/logging.hpp"
 
 #include <limits>
 

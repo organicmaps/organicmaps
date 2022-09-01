@@ -199,12 +199,11 @@ string DebugPrint(QueryParams const & params)
 {
   ostringstream os;
   os << boolalpha << "QueryParams "
-     << "{ m_query=\"" << params.m_query << "\""
-     << ", m_tokens=" << ::DebugPrint(params.m_tokens)
-     << ", m_prefixToken=" << DebugPrint(params.m_prefixToken)
-     << ", m_typeIndices=" << ::DebugPrint(params.m_typeIndices)
-     << ", m_langs=" << DebugPrint(params.m_langs)
-     << ", m_isCommonToken=" << ::DebugPrint(params.m_isCommonToken)
+     << "{ m_tokens: " << ::DebugPrint(params.m_tokens)
+     << ", m_prefixToken: " << DebugPrint(params.m_prefixToken)
+     << ", m_typeIndices: " << ::DebugPrint(params.m_typeIndices)
+     << ", m_langs: " << DebugPrint(params.m_langs)
+     << ", m_isCommonToken: " << ::DebugPrint(params.m_isCommonToken)
      << " }";
   return os.str();
 }

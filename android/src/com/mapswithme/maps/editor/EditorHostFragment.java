@@ -17,7 +17,6 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
-import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmToolbarFragment;
@@ -28,7 +27,6 @@ import com.mapswithme.maps.editor.data.LocalizedName;
 import com.mapswithme.maps.editor.data.LocalizedStreet;
 import com.mapswithme.maps.editor.data.NamesDataSource;
 import com.mapswithme.maps.editor.data.PhoneFragment;
-import com.mapswithme.maps.intent.Factory;
 import com.mapswithme.maps.widget.SearchToolbarController;
 import com.mapswithme.maps.widget.ToolbarController;
 import com.mapswithme.util.ConnectionState;
@@ -370,23 +368,13 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
       return;
     }
 
-    final Intent intent = makeParentActivityIntent();
-    final Activity parent = getActivity();
-    parent.startActivity(intent);
-
-    if (parent instanceof MwmActivity)
-      ((MwmActivity) parent).customOnNavigateUp();
-    else
-      parent.finish();
+    showLoginDialog();
   }
 
-  private Intent makeParentActivityIntent()
+  private void showLoginDialog()
   {
-    Activity parent = getActivity();
-    Factory.ShowDialogTask task = new Factory.ShowDialogTask(AuthDialogFragment.class.getName());
-    return new Intent(parent, MwmActivity.class)
-        .addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-        .putExtra(MwmActivity.EXTRA_TASK, task);
+    startActivity(new Intent(getContext(), OsmLoginActivity.class));
+    requireActivity().finish();
   }
 
   private void saveNote()

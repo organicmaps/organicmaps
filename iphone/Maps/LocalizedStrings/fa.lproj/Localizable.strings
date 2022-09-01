@@ -503,12 +503,6 @@
 
 "history" = "تاریخچه";
 
-"opens_in" = "Opens in %@";
-
-"closes_in" = "Closes in %@";
-
-"closed" = "تعطیل";
-
 "search_not_found" = "متاسفانه چیزی پیدا نشد";
 
 "search_not_found_query" = "با تغییر در معیار های جست و جو دوباره امتحان کنید";
@@ -578,11 +572,25 @@
 
 "today" = "امروز";
 
+"opens_tomorrow_at" = "Opens tomorrow at %@";
+
+"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
+
+"opens_at" = "Opens at %@";
+
+"opens_in" = "Opens in %@";
+
+"closes_at" = "Closes at %@";
+
+"closes_in" = "Closes in %@";
+
+"closed" = "تعطیل";
+
 "add_opening_hours" = "اضافه کردن ساعت بازگشایی";
 
 "no_osm_account" = "ایا حساب OpenStreetMap ندارید؟";
 
-"register_at_openstreetmap" = "ثبت نام در OSM";
+"register_at_openstreetmap" = "ثبت نام در OpenStreetMap";
 
 "password_8_chars_min" = "رمز عبور (حداقل 8 عدد یا حرف)";
 
@@ -629,6 +637,8 @@
 "email_or_username" = "ایمیل یا نام کاربری";
 
 "phone" = "تلفن";
+
+"level" = "طبقه";
 
 "please_note" = "لطفا توجه داشته باشد";
 
@@ -750,6 +760,8 @@
 
 "miles_per_hour" = "مایل بر ساعت (mph)";
 
+"hour" = "ساعت";
+
 "minute" = "دقیقه";
 
 "placepage_place_description" = "توضیحات";
@@ -798,10 +810,10 @@
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "ایا می خواهید ان را برای دیگر کاربران ارسال کنید؟";
 
-/* iOS Dialog before publishing the modifications to the public map. */
+/* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "مطمئن شوید که هیچ اطلاعات شخصی وارد نکرده باشد.";
 
-"editor_share_to_all_dialog_message_2" = "ما تغییرات را بررسی می کنیم.اگر سوالی بود با ایمیل با شما تماس می گیریم.";
+"editor_share_to_all_dialog_message_2" = ".ﺖﻓﺮﮔ ﺪﻨﻫﺍﻮﺧ ﺱﺎﻤﺗ ﺎﻤﺷ ﺎﺑ ﻝﺍﻮﺳ ﻪﻧﻮﮔﺮﻫ ﻦﺘﺷﺍﺩ ﺕﺭﻮﺻ ﺭﺩ ﻭ ﻩﺩﺮﮐ ﯽﺳﺭﺮﺑ ﺍﺭ ﺕﺍﺮﯿﯿﻐﺗ Ope";
 
 "navigation_stop_button" = "توقف";
 
@@ -1205,6 +1217,12 @@
 /* edit track screen title */
 "track_title" = "مسیر";
 
+/* Telegram group url for the help page */
+"telegram_url" = "https://t.me/OrganicMapsIR";
+
+/* Instagram account url for the help page */
+"instagram_url" = "https://www.instagram.com/organicmaps.app";
+
 
 /********** Types **********/
 
@@ -1356,6 +1374,12 @@
 
 "type.amenity.parking.underground" = "پارکینگ";
 
+"type.amenity.parking_entrance.private" = "ﮓﻨﯿﮐﺭﺎﭘ ﯼﺩﻭﺭﻭ";
+
+"type.amenity.parking_entrance.permissive" = "ﮓﻨﯿﮐﺭﺎﭘ ﯼﺩﻭﺭﻭ";
+
+"type.amenity.parking_entrance" = "ﮓﻨﯿﮐﺭﺎﭘ ﯼﺩﻭﺭﻭ";
+
 "type.amenity.parking_space" = "جای پارک";
 
 "type.amenity.parking_space.permissive" = "جای پارک";
@@ -1363,6 +1387,8 @@
 "type.amenity.parking_space.private" = "جای پارک";
 
 "type.amenity.parking_space.underground" = "جای پارک";
+
+"type.amenity.parking_space.disabled" = "ﻦﯿﻟﻮﻠﻌﻣ ﮎﺭﺎﭘ ﯼﺎﺟ";
 
 "type.amenity.payment_terminal" = "دستگاه کارتخوان";
 
@@ -2468,8 +2494,6 @@
 
 "type.organic.yes" = "Organic";
 
-"type.place" = "place";
-
 "type.place.city" = "شهر";
 
 "type.place.city.capital" = "پایتخت";
@@ -2508,11 +2532,11 @@
 
 "type.place.islet" = "جزیره";
 
-"type.place.isolated_dwelling" = "Dwelling";
+"type.place.isolated_dwelling" = "مسکن منزوی";
 
 "type.place.locality" = "محله";
 
-"type.place.neighbourhood" = "Neighbourhood";
+"type.place.neighbourhood" = "محله";
 
 "type.place.ocean" = "اقیانوس";
 
@@ -2520,7 +2544,7 @@
 
 "type.place.sea" = "دریا";
 
-"type.place.square" = "Square";
+"type.place.square" = "میدان";
 
 "type.place.state" = "ایالت";
 
@@ -2970,6 +2994,18 @@
 "type.sport.9pin" = "بولینگ";
 
 "type.sport.10pin" = "بولینگ";
+
+"type.sport.padel" = "ﻝﺩﺎﭘ";
+
+"type.sport.futsal" = "ﻝﺎﺴﺗﻮﻓ";
+
+"type.sport.ice_hockey" = "ﺦﯾ ﯼﻭﺭ ﯽﮐﺎﻫ";
+
+"type.sport.field_hockey" = "ﻦﻤﭼ ﯼﻭﺭ ﯽﮐﺎﻫ";
+
+"type.sport.badminton" = "ﻥﻮﺘﻨﯿﻣﺪﺑ";
+
+"type.sport.pelota" = "ﯽﮑﺳﺎﺑ ﯼﺎﺗﻮﻠﭘ";
 
 "type.tourism" = "Tourism";
 

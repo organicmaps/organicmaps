@@ -1,9 +1,0 @@
-#pragma once
-
-#include <cstdint>
-
-namespace build_version
-{
-constexpr uint64_t kCode = @OM_VERSION_CODE@;
-constexpr char const * const kName = "@OM_VERSION@ (@OM_GIT_HASH@)";
-}  // namespace build_version

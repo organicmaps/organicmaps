@@ -78,6 +78,12 @@
           app:drawableStartCompat="@drawable/ic_report_a_bug"/>
 
       <TextView
+          android:id="@+id/donate"
+          style="@style/MwmWidget.TextView.Item"
+          android:text="@string/donate"
+          app:drawableStartCompat="@drawable/ic_donate" />
+
+      <TextView
           android:id="@+id/support_us"
           style="@style/MwmWidget.TextView.Item"
           android:text="@string/how_to_support_us"

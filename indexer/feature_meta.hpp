@@ -35,17 +35,6 @@ public:
     return sv;
   }
 
-  std::vector<uint8_t> GetPresentTypes() const
-  {
-    std::vector<uint8_t> types;
-    types.reserve(m_metadata.size());
-
-    for (auto const & item : m_metadata)
-      types.push_back(item.first);
-
-    return types;
-  }
-
   inline bool Empty() const { return m_metadata.empty(); }
   inline size_t Size() const { return m_metadata.size(); }
 
@@ -111,14 +100,14 @@ public:
   /// For types parsed from OSM get corresponding OSM tag to MetadataTagProcessor::TypeFromString().
   enum EType : int8_t
   {
-    // Defined by classifier types now.
-    //FMD_CUISINE = 1,
+    // Used as id only, because cuisines are defined by classifier types now. Will be active in future.
+    FMD_CUISINE = 1,
     FMD_OPEN_HOURS = 2,
     FMD_PHONE_NUMBER = 3,
     FMD_FAX_NUMBER = 4,
     FMD_STARS = 5,
     FMD_OPERATOR = 6,
-    FMD_URL = 7,
+    //FMD_URL = 7,        // Deprecated, use FMD_WEBSITE
     FMD_WEBSITE = 8,
     /// @todo We have meta and classifier type at the same type. It's ok now for search, but should be revised in future.
     FMD_INTERNET = 9,
@@ -157,16 +146,17 @@ public:
     FMD_DESTINATION_REF = 38,
     FMD_JUNCTION_REF = 39,
     FMD_BUILDING_MIN_LEVEL = 40,
+    FMD_WIKIMEDIA_COMMONS = 41,
     FMD_COUNT
   };
 
   /// Used to normalize tags like "contact:phone", "phone" and "contact:mobile" to a common metadata enum value.
-  static bool TypeFromString(std::string const & osmTagKey, EType & outType);
+  static bool TypeFromString(std::string_view osmTagKey, EType & outType);
 
-  template <class FnT> void ForEachKey(FnT && fn) const
+  template <class FnT> void ForEach(FnT && fn) const
   {
     for (auto const & e : m_metadata)
-      fn(static_cast<Metadata::EType>(e.first));
+      fn(static_cast<Metadata::EType>(e.first), e.second);
   }
 
   bool Has(EType type) const { return MetadataBase::Has(static_cast<uint8_t>(type)); }
@@ -178,7 +168,9 @@ public:
   }
   void Drop(EType type) { Set(type, std::string()); }
 
+  static std::string ToWikiURL(std::string v);
   std::string GetWikiURL() const;
+  static std::string ToWikimediaCommonsURL(std::string const & v);
 };
 
 class AddressData : public MetadataBase

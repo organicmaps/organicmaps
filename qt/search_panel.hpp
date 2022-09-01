@@ -1,14 +1,10 @@
 #pragma once
 
-#include "map/everywhere_search_params.hpp"
-#include "map/viewport_search_params.hpp"
-
 #include "search/mode.hpp"
 #include "search/result.hpp"
 
 #include "base/thread_checker.hpp"
 
-#include <cstdint>
 #include <vector>
 
 #include <QtGui/QPixmap>
@@ -38,8 +34,6 @@ class SearchPanel : public QWidget
   std::vector<search::Result> m_results;
 
   search::Mode m_mode;
-  search::EverywhereSearchParams m_everywhereParams;
-  search::ViewportSearchParams m_viewportParams;
   uint64_t m_timestamp;
 
   ThreadChecker m_threadChecker;
@@ -61,7 +55,7 @@ private slots:
   void OnSearchModeChanged(int mode);
   void OnSearchPanelItemClicked(int row, int column);
   void OnSearchTextChanged(QString const &);
-  void OnEverywhereSearchResults(uint64_t timestamp, search::Results const & results);
+  void OnEverywhereSearchResults(uint64_t timestamp, search::Results results);
 
   void OnAnimationTimer();
   void OnClearButton();

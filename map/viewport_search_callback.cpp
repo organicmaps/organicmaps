@@ -6,15 +6,14 @@
 
 namespace search
 {
-ViewportSearchCallback::ViewportSearchCallback(m2::RectD const & viewport,
-                                               Delegate & delegate,
-                                               OnResults const & onResults)
+ViewportSearchCallback::ViewportSearchCallback(m2::RectD const & viewport, Delegate & delegate, OnResults onResults)
   : m_viewport(viewport)
   , m_delegate(delegate)
-  , m_onResults(onResults)
+  , m_onResults(std::move(onResults))
   , m_firstCall(true)
   , m_lastResultsSize(0)
 {
+  // m_onResults may be empty (current Android)
 }
 
 void ViewportSearchCallback::operator()(Results const & results)
@@ -38,23 +37,22 @@ void ViewportSearchCallback::operator()(Results const & results)
   // * search in viewport may be cancelled completely - it is the
   // responsibility of the user of this class to handle this case and
   // clean up results.
-  if (results.IsEndedNormal() || (!results.IsEndMarker() && results.GetCount() != 0))
-  {
-    auto & delegate = m_delegate;
-    bool const firstCall = m_firstCall;
 
-    auto const lastResultsSize = m_lastResultsSize;
-    m_delegate.RunUITask([&delegate, firstCall, results, lastResultsSize]() {
-      if (!delegate.IsViewportSearchActive())
-        return;
+  auto & delegate = m_delegate;
+  m_delegate.RunUITask([&delegate, results, onResults = m_onResults,
+                       firstCall = m_firstCall, lastResultsSize = m_lastResultsSize]() mutable
+  {
+    if (delegate.IsViewportSearchActive() &&
+        (results.IsEndedNormal() || (!results.IsEndMarker() && results.GetCount() != 0)))
+    {
       delegate.ShowViewportSearchResults(results.begin() + lastResultsSize, results.end(), firstCall);
-    });
-  }
+    }
+
+    if (results.IsEndMarker() && onResults)
+      onResults(std::move(results));
+  });
 
   m_lastResultsSize = results.GetCount();
   m_firstCall = false;
-
-  if (m_onResults)
-    m_onResults(results);
 }
 }  // namespace search

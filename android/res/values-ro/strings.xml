@@ -223,6 +223,8 @@
 	<string name="help">Ajutor</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">Întrebări frecvente</string>
+	<!-- Button in the main menu -->
+	<string name="donate">Donează</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">Cum să ne sprijiniți?</string>
 	<!-- Button in the main Help dialog -->
@@ -342,7 +344,6 @@
 	<string name="routing_arrive">Sosire la %s</string>
 	<string name="categories">Categorii</string>
 	<string name="history">Cronologia</string>
-	<string name="closed">Închis</string>
 	<string name="search_not_found">Nu s-a găsit nimic.</string>
 	<string name="search_not_found_query">Încearcă să modifici condițiile căutării.</string>
 	<string name="search_history_title">Istoricul căutărilor</string>
@@ -386,10 +387,12 @@
 	<string name="day_off_today">Închis astăzi</string>
 	<string name="day_off">Închis</string>
 	<string name="today">Azi</string>
+	<string name="closed">Închis</string>
 	<string name="edit_opening_hours">Modifică orele de funcționare</string>
 	<string name="no_osm_account">Nu ai un cont OpenStreetMap?</string>
 	<string name="register_at_openstreetmap">Înscrie-te</string>
 	<string name="login">Autentificare</string>
+	<string name="login_osm">Conectați-vă la OpenStreetMap</string>
 	<string name="password">Parola</string>
 	<string name="forgot_password">Ai uitat parola?</string>
 	<string name="logout">Deconectare</string>
@@ -412,6 +415,7 @@
 	<!-- login text field -->
 	<string name="email_or_username">E-mail sau nume de utilizator</string>
 	<string name="editor_add_phone">Adaugă un număr</string>
+	<string name="level">Etaj</string>
 	<string name="downloader_delete_map_dialog">Toate modificările aduse hărții vor fi șterse împreună cu harta.</string>
 	<string name="downloader_update_maps">Actualizează hărțile</string>
 	<string name="downloader_mwm_migration_dialog">Pentru a crea un traseu, trebuie să actualizezi toate hărțile, iar apoi să planifici traseul încă o dată.</string>
@@ -430,6 +434,7 @@
 	<string name="editor_report_problem_other_title">Altă problemă</string>
 	<string name="placepage_add_business_button">Adaugă o firmă</string>
 	<string name="message_invalid_feature_position">Niciun obiect nu poate fi poziționat aici</string>
+	<string name="osm_presentation">Toate datele hărții provin din proiectul OpenStreetMap. Este ca Wikipedia pentru hărți în care puteți adăuga sau edita locuri și acestea devin disponibile pentru milioane de utilizatori din întreaga lume.</string>
 	<string name="login_to_make_edits_visible">Autentifică-te pentru ca modificările pe care le-ai făcut să poată fi văzute și de alți utilizatori.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d din %2$d</string>
@@ -487,9 +492,9 @@
 	<string name="placepage_add_place_button">Adaugă un loc pe hartă</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Vrei să-l trimiți tuturor utilizatorilor?</string>
-	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Asigură-te că nu ai introdus niciun fel de date personale.</string>
-	<string name="editor_share_to_all_dialog_message_2">Vom verifica modificările. Dacă vor apărea întrebări, te vom contacta prin e-mail.</string>
+	<string name="editor_share_to_all_dialog_message_2">Editorii OpenStreetMap vor verifica modificările și vor lua legătura cu dvs. dacă au întrebări.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps este o aplicație rapidă și gratuită fără reclame și urmărire. Hărțile sunt bazate pe datele OpenStreetMap.org oferite de utilizatori, de aceea chiar și tu poți corecta erorile și adăuga obiecte noi pe hartă. Organic Maps este un proiect creat de entuziaști în timpul lor liber. Părerea și sprijinul tău sunt foarte importante pentru noi</string>
 	<!-- For the first routing -->
@@ -518,7 +523,7 @@
 	<string name="on">Pornit</string>
 	<string name="off">Oprit</string>
 	<string name="prefs_languages_information">Pentru instrucțiuni vocale utilizăm sistemul TTS. Multe dispozitive Android folosesc Google TTS. Poți descărca sau actualiza aplicația din Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">Pentru unele limbi trebuie să instalezi alt sintetizator de voce sau un pachet lingvistic suplimentar din Magazinul de aplicații (Google Play, Samsung Apps, App Gallery, FDroid).\nDeschide setările dispozitivului → Limbă → Transformare text în vorbire → Motor preferat.\nAici poți alege motorul de transformare a textului în vorbire și poți descărca o limbă pentru utilizare fără internet.</string>
+	<string name="prefs_languages_information_off">Pentru unele limbi trebuie să instalezi alt sintetizator de voce sau un pachet lingvistic suplimentar din Magazinul de aplicații (Google Play, Galaxy Store, App Gallery, FDroid).\nDeschide setările dispozitivului → Limbă → Transformare text în vorbire → Motor preferat.\nAici poți alege motorul de transformare a textului în vorbire și poți descărca o limbă pentru utilizare fără internet.</string>
 	<string name="prefs_languages_information_off_link">Consultă acest ghid pentru informații suplimentare.</string>
 	<string name="transliteration_title">Transcrie în alfabet latin</string>
 	<string name="learn_more">Mai multe</string>
@@ -749,10 +754,14 @@
 	<string name="type.amenity.parking.permissive">Parcare</string>
 	<string name="type.amenity.parking.private">Parcare</string>
 	<string name="type.amenity.parking.underground">Parcare</string>
+	<string name="type.amenity.parking_entrance.private">Intrare parcare</string>
+	<string name="type.amenity.parking_entrance.permissive">Intrare parcare</string>
+	<string name="type.amenity.parking_entrance">Intrare parcare</string>
 	<string name="type.amenity.parking_space">Loc de parcare</string>
 	<string name="type.amenity.parking_space.permissive">Loc de parcare</string>
 	<string name="type.amenity.parking_space.private">Loc de parcare</string>
 	<string name="type.amenity.parking_space.underground">Loc de parcare</string>
+	<string name="type.amenity.parking_space.disabled">Loc de parcare pentru persoane cu handicap</string>
 	<string name="type.amenity.payment_terminal">Terminal de plăți</string>
 	<string name="type.amenity.pharmacy">Farmacie</string>
 	<string name="type.amenity.place_of_worship">Loc de cult</string>
@@ -1192,15 +1201,20 @@
 	<string name="type.place.city.capital.7">Municipiu</string>
 	<string name="type.place.city.capital.8">Municipiu</string>
 	<string name="type.place.city.capital.9">Municipiu</string>
+	<string name="type.place.continent">Continent</string>
 	<string name="type.place.country">Continent</string>
 	<string name="type.place.county">Județ</string>
 	<string name="type.place.farm">Fermă</string>
 	<string name="type.place.hamlet">Cătun</string>
 	<string name="type.place.island">Insulă</string>
-	<string name="type.place.islet">Insulă</string>
+	<string name="type.place.islet">Insult</string>
+	<string name="type.place.isolated_dwelling">Locuință izolată</string>
 	<string name="type.place.locality">Localitate</string>
+	<string name="type.place.neighbourhood">Cartier</string>
+	<string name="type.place.ocean">Ocean</string>
 	<string name="type.place.region">Regiune</string>
 	<string name="type.place.sea">Mare</string>
+	<string name="type.place.square">Spațiu</string>
 	<string name="type.place.state">Stat</string>
 	<string name="type.place.state.USA">Stat</string>
 	<string name="type.place.suburb">Suburbie</string>
@@ -1365,6 +1379,12 @@
 	<string name="type.sport.volleyball">Volei</string>
 	<string name="type.sport.9pin">Bowling</string>
 	<string name="type.sport.10pin">Bowling</string>
+	<string name="type.sport.padel">Padel</string>
+	<string name="type.sport.futsal">Futsal</string>
+	<string name="type.sport.ice_hockey">Hochei pe gheata</string>
+	<string name="type.sport.field_hockey">Hochei pe iarbă</string>
+	<string name="type.sport.badminton">Badminton</string>
+	<string name="type.sport.pelota">Pilota bascilor</string>
 	<string name="type.tourism.alpine_hut">Cabană de munte</string>
 	<string name="type.tourism.apartment">Apartamente</string>
 	<string name="type.tourism.artwork">Turism</string>

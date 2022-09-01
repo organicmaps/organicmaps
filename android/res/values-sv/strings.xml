@@ -214,6 +214,8 @@
 	<string name="help">Hjälp</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">Frågor och svar</string>
+	<!-- Button in the main menu -->
+	<string name="donate">Donera</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">Hur stöder vi oss?</string>
 	<!-- Button in the main Help dialog -->
@@ -333,7 +335,6 @@
 	<string name="routing_arrive">Ankomst: %s</string>
 	<string name="categories">Kategorier</string>
 	<string name="history">Historik</string>
-	<string name="closed">Stängt</string>
 	<string name="search_not_found">Ledsen, jag hittade ingenting.</string>
 	<string name="search_not_found_query">Försök med en annan sökförfrågan.</string>
 	<string name="search_history_title">Sökhistorik</string>
@@ -375,10 +376,12 @@
 	<string name="day_off_today">Stängt idag</string>
 	<string name="day_off">Stängt</string>
 	<string name="today">Idag</string>
+	<string name="closed">Stängt</string>
 	<string name="edit_opening_hours">Redigera öppettider</string>
 	<string name="no_osm_account">Inget konto hos OpenStreetMap?</string>
 	<string name="register_at_openstreetmap">Registrera</string>
 	<string name="login">Logga in</string>
+	<string name="login_osm">Logga in på OpenStreetMap</string>
 	<string name="password">Lösenord</string>
 	<string name="forgot_password">Glömt lösenord?</string>
 	<string name="logout">Logga ut</string>
@@ -398,6 +401,7 @@
 	<string name="select_cuisine">Välj kök</string>
 	<!-- login text field -->
 	<string name="email_or_username">E-postadress eller användarnamn</string>
+	<string name="level">Våningsplan</string>
 	<string name="downloader_delete_map_dialog">Alla kartändringar kommer att raderas tillsammans med kartan.</string>
 	<string name="downloader_update_maps">Uppdatera kartor</string>
 	<string name="downloader_mwm_migration_dialog">För att skapa en rutt måste du uppdatera alla kartor och sedan planera rutten igen.</string>
@@ -416,6 +420,7 @@
 	<string name="editor_report_problem_other_title">Ett annat problem</string>
 	<string name="placepage_add_business_button">Lägg till organisation</string>
 	<string name="message_invalid_feature_position">Ett objekt kan inte placeras här</string>
+	<string name="osm_presentation">All kartdata kommer från OpenStreetMap-projektet. Det är som Wikipedia för kartor där du kan lägga till eller redigera platser, och de blir tillgängliga för miljontals användare över hela världen.</string>
 	<string name="login_to_make_edits_visible">Logga in så att andra användare kan se de ändringar du gjort.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d av %2$d</string>
@@ -469,9 +474,9 @@
 	<string name="placepage_add_place_button">Lägg till en plats på kartan</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Vill du skicka det till alla användare?</string>
-	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Se till att du inte angett någon personinformation</string>
-	<string name="editor_share_to_all_dialog_message_2">Vi kommer att kontrollera ändringar. Om vi har några frågor kontaktar vi dig via e-post.</string>
+	<string name="editor_share_to_all_dialog_message_2">OpenStreetMap-redigerare kommer att kontrollera ändringarna och kontakta dig om de har några frågor.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps är en gratis offlinekartapplikation med öppen källkod. Inga annonser. Ingen spårning. Om du ser ett fel på kartan, åtgärda det i OpenStreetMap. Projektet skapas av entusiaster på vår fritid, så vi behöver din feedback och support.</string>
 	<!-- For the first routing -->
@@ -500,7 +505,7 @@
 	<string name="on">På</string>
 	<string name="off">Av</string>
 	<string name="prefs_languages_information">Vi använder TTS-system för röstinstruktioner. Flera Android-enheter använder Google TTS. Du kan ladda ned eller uppdatera det på Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">För vissa språk måste du installera en annan talsyntes eller ett annat språkpaket från appbutiken (Google Play Market, Samsung-appar).\nÖppna inställningarna på enheten → Språk och inmatning → Tal → Text till tal-uppspelning.\nHär kan du hantera inställningarna för talsyntes (till exempel, ladda ned språkpaket för användning offline) och välja en annan text till tal-motor.</string>
+	<string name="prefs_languages_information_off">För vissa språk måste du installera en annan talsyntes eller ett annat språkpaket från appbutiken (Google Play Market, Galaxy Store).\nÖppna inställningarna på enheten → Språk och inmatning → Tal → Text till tal-uppspelning.\nHär kan du hantera inställningarna för talsyntes (till exempel, ladda ned språkpaket för användning offline) och välja en annan text till tal-motor.</string>
 	<string name="prefs_languages_information_off_link">Kolla in den här guiden för mer information.</string>
 	<string name="transliteration_title">Transkribering till latin</string>
 	<string name="learn_more">Läs mer</string>
@@ -721,10 +726,14 @@
 	<string name="type.amenity.parking.permissive">Parkering</string>
 	<string name="type.amenity.parking.private">Parkering</string>
 	<string name="type.amenity.parking.underground">Parkering</string>
+	<string name="type.amenity.parking_entrance.private">Parkering entré</string>
+	<string name="type.amenity.parking_entrance.permissive">Parkering entré</string>
+	<string name="type.amenity.parking_entrance">Parkering entré</string>
 	<string name="type.amenity.parking_space">Parkeringsplats</string>
 	<string name="type.amenity.parking_space.permissive">Parkeringsplats</string>
 	<string name="type.amenity.parking_space.private">Parkeringsplats</string>
 	<string name="type.amenity.parking_space.underground">Parkeringsplats</string>
+	<string name="type.amenity.parking_space.disabled">Handikappparkeringsplats</string>
 	<string name="type.amenity.payment_terminal">Betalningsterminal</string>
 	<string name="type.amenity.pharmacy">Apotek</string>
 	<string name="type.amenity.place_of_worship">Plats för tillbedjan</string>
@@ -1173,8 +1182,13 @@
 	<string name="type.place.hamlet">By</string>
 	<string name="type.place.island">Ö</string>
 	<string name="type.place.islet">Ö</string>
+	<string name="type.place.isolated_dwelling">Isolerade bostäder</string>
 	<string name="type.place.locality">Lokalitet</string>
+	<string name="type.place.neighbourhood">Grannskap</string>
+	<string name="type.place.ocean">Ocean</string>
+	<string name="type.place.region">Region</string>
 	<string name="type.place.sea">Hav</string>
+	<string name="type.place.square">Torg</string>
 	<string name="type.place.state">Stat</string>
 	<string name="type.place.state.USA">Stat</string>
 	<string name="type.place.suburb">Förort</string>
@@ -1338,6 +1352,12 @@
 	<string name="type.sport.volleyball">Volleyboll</string>
 	<string name="type.sport.9pin">Bowling</string>
 	<string name="type.sport.10pin">Bowling</string>
+	<string name="type.sport.padel">Padel</string>
+	<string name="type.sport.futsal">Futsal</string>
+	<string name="type.sport.ice_hockey">Ishockey</string>
+	<string name="type.sport.field_hockey">Landhockey</string>
+	<string name="type.sport.badminton">Badminton</string>
+	<string name="type.sport.pelota">Baskisk pelota</string>
 	<string name="type.tourism.alpine_hut">Bergsboende</string>
 	<string name="type.tourism.apartment">Lägenheter</string>
 	<string name="type.tourism.artwork">Konstverk</string>

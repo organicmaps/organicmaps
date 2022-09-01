@@ -66,7 +66,7 @@ bool WikiDataValidator(std::string const & tagValue)
     return false;
 
   size_t pos = 0;
-  // Only items are are needed.
+  // Only Q-items are needed.
   if (tagValue[pos++] != 'Q')
     return false;
 

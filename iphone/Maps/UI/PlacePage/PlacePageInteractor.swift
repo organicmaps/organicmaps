@@ -32,9 +32,25 @@ extension PlacePageInteractor: PlacePageInfoViewControllerDelegate {
   func didPressWebsite() {
     MWMPlacePageManagerHelper.openWebsite(placePageData)
   }
+  
+  func didPressFacebook() {
+    MWMPlacePageManagerHelper.openFacebook(placePageData)
+  }
+  
+  func didPressInstagram() {
+    MWMPlacePageManagerHelper.openInstagram(placePageData)
+  }
 
+  func didPressTwitter() {
+    MWMPlacePageManagerHelper.openTwitter(placePageData)
+  }
+  
+  func didPressVk() {
+    MWMPlacePageManagerHelper.openVk(placePageData)
+  }
+  
   func didPressEmail() {
-
+    MWMPlacePageManagerHelper.openEmail(placePageData)
   }
 }
 

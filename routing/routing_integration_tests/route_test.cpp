@@ -153,7 +153,7 @@ using namespace std;
         mercator::FromLatLon(50.21480, -5.47994), 455902.);
   }
 
-  UNIT_TEST(RussiaMoscowLenigradskiy39ItalySienaCenterRouteTest)
+  UNIT_TEST(RussiaMoscow_ItalySienaCenter_SplittedMotorway)
   {
     integration::CalculateRouteAndTestRouteLength(
         integration::GetVehicleComponents(VehicleType::Car),
@@ -740,5 +740,21 @@ using namespace std;
         integration::GetVehicleComponents(VehicleType::Car),
         mercator::FromLatLon(34.0175371, -84.3272339), {0., 0.},
         mercator::FromLatLon(34.0298011, -84.3182477), 1609.76);
+  }
+
+  UNIT_TEST(Russia_UseDonMotorway)
+  {
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetVehicleComponents(VehicleType::Car),
+        mercator::FromLatLon(54.5775321, 38.2206224), {0., 0.},
+        mercator::FromLatLon(49.9315563, 40.5529881), 608031);
+  }
+
+  UNIT_TEST(Germany_Italy_Malcesine)
+  {
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetVehicleComponents(VehicleType::Car),
+        mercator::FromLatLon(48.4101446, 11.5892265), {0., 0.},
+        mercator::FromLatLon(45.7662964, 10.8111554), 427135);
   }
 } // namespace route_test

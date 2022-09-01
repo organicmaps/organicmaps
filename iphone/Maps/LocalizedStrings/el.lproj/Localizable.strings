@@ -503,12 +503,6 @@
 
 "history" = "Ιστορικό";
 
-"opens_in" = "Opens in %@";
-
-"closes_in" = "Closes in %@";
-
-"closed" = "Κλειστό";
-
 "search_not_found" = "Ωχ, δεν βρέθηκαν αποτελέσματα.";
 
 "search_not_found_query" = "Δοκιμάστε να αλλάξετε τα κριτήρια αναζήτησής σας.";
@@ -578,11 +572,25 @@
 
 "today" = "Σήμερα";
 
+"opens_tomorrow_at" = "Opens tomorrow at %@";
+
+"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
+
+"opens_at" = "Opens at %@";
+
+"opens_in" = "Opens in %@";
+
+"closes_at" = "Closes at %@";
+
+"closes_in" = "Closes in %@";
+
+"closed" = "Κλειστό";
+
 "add_opening_hours" = "Προσθέστε ώρες λειτουργίας";
 
 "no_osm_account" = "Δεν έχετε λογαριασμό OpenStreetMap;";
 
-"register_at_openstreetmap" = "Εγγραφείτε στο OSM";
+"register_at_openstreetmap" = "Εγγραφείτε στο OpenStreetMap";
 
 "password_8_chars_min" = "Κωδικός πρόσβασης (8 χαρακτήρες ελάχιστο)";
 
@@ -629,6 +637,8 @@
 "email_or_username" = "Email ή όνομα χρήστη";
 
 "phone" = "Τηλέφωνο";
+
+"level" = "Όροφος";
 
 "please_note" = "Λάβετε υπόψη";
 
@@ -750,6 +760,8 @@
 
 "miles_per_hour" = "mph";
 
+"hour" = "h";
+
 "minute" = "min";
 
 "placepage_place_description" = "Description";
@@ -798,10 +810,10 @@
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Θέλετε να το στείλετε σε όλους τους χρήστες;";
 
-/* iOS Dialog before publishing the modifications to the public map. */
+/* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "Βεβαιωθείτε ότι δεν έχετε εισάγει προσωπικά δεδομένα.";
 
-"editor_share_to_all_dialog_message_2" = "Θα ελέγξουμε τις αλλαγές. Εάν έχουμε οποιαδήποτε απορία θα επικοινωνήσουμε μαζί σας μέσω email.";
+"editor_share_to_all_dialog_message_2" = "Οι συντάκτες του OpenStreetMap θα ελέγξουν τις αλλαγές και θα επικοινωνήσουν μαζί σας εάν έχουν απορίες.";
 
 "navigation_stop_button" = "stop";
 
@@ -1205,6 +1217,12 @@
 /* edit track screen title */
 "track_title" = "Τροχιά";
 
+/* Telegram group url for the help page */
+"telegram_url" = "https://t.me/OrganicMapsApp";
+
+/* Instagram account url for the help page */
+"instagram_url" = "https://www.instagram.com/organicmaps.app";
+
 
 /********** Types **********/
 
@@ -1356,6 +1374,12 @@
 
 "type.amenity.parking.underground" = "Χώρος στάθμευσης";
 
+"type.amenity.parking_entrance.private" = "Είσοδος στάθμευσης";
+
+"type.amenity.parking_entrance.permissive" = "Είσοδος στάθμευσης";
+
+"type.amenity.parking_entrance" = "Είσοδος στάθμευσης";
+
 "type.amenity.parking_space" = "Χώρος στάθμευσης";
 
 "type.amenity.parking_space.permissive" = "Χώρος στάθμευσης";
@@ -1363,6 +1387,8 @@
 "type.amenity.parking_space.private" = "Χώρος στάθμευσης";
 
 "type.amenity.parking_space.underground" = "Χώρος στάθμευσης";
+
+"type.amenity.parking_space.disabled" = "Χώρος στάθμευσης για ΑΜΕΑ";
 
 "type.amenity.payment_terminal" = "Τερματικό πληρωμών";
 
@@ -2468,8 +2494,6 @@
 
 "type.organic.yes" = "Organic";
 
-"type.place" = "place";
-
 "type.place.city" = "Πόλη";
 
 "type.place.city.capital" = "Πρωτεύουσα";
@@ -2508,11 +2532,11 @@
 
 "type.place.islet" = "Νησί";
 
-"type.place.isolated_dwelling" = "Dwelling";
+"type.place.isolated_dwelling" = "Απομονωμένη κατοικία";
 
 "type.place.locality" = "Τοποθεσία";
 
-"type.place.neighbourhood" = "Neighbourhood";
+"type.place.neighbourhood" = "Γειτονιά";
 
 "type.place.ocean" = "Ωκεανός";
 
@@ -2520,7 +2544,7 @@
 
 "type.place.sea" = "Θάλασσα";
 
-"type.place.square" = "Square";
+"type.place.square" = "Πλατεία";
 
 "type.place.state" = "Πολιτεία";
 
@@ -2970,6 +2994,18 @@
 "type.sport.9pin" = "Μπόουλινγκ";
 
 "type.sport.10pin" = "Μπόουλινγκ";
+
+"type.sport.padel" = "Padel";
+
+"type.sport.futsal" = "Futsal";
+
+"type.sport.ice_hockey" = "Χόκεϊ στον παγο";
+
+"type.sport.field_hockey" = "Χόκεϊ επί χόρτου";
+
+"type.sport.badminton" = "Αντιπτέριση";
+
+"type.sport.pelota" = "Βασκική πελότα";
 
 "type.tourism" = "Tourism";
 

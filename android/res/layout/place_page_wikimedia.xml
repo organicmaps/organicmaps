@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/ll__place_wikimedia"
+  style="@style/PlacePageItemFrame"
+  android:tag="wikimedia"
+  tools:visibility="visible">
+
+  <ImageView
+    android:id="@+id/iv__place_wikimedia"
+    style="@style/PlacePageMetadataIcon"
+    android:src="@drawable/ic_wikicommons" />
+
+  <TextView
+    android:id="@+id/tv__place_wikimedia"
+    style="@style/PlacePageMetadataText.Button"
+    android:text="osm.org"/>
+</LinearLayout>

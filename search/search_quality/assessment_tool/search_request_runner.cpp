@@ -136,12 +136,10 @@ void SearchRequestRunner::RunRequest(size_t index, bool background, size_t times
   auto const & context = m_contexts[index];
   auto const & sample = context.m_sample;
 
-  auto & engine = m_framework.GetSearchAPI().GetEngine();
-
   search::SearchParams params;
   sample.FillSearchParams(params);
-  params.m_timeout = search::SearchParams::kDefaultDesktopTimeout;
-  params.m_onResults = [=](search::Results const & results) {
+  params.m_onResults = [=](search::Results const & results)
+  {
     vector<optional<ResultsEdits::Relevance>> relevances;
     vector<size_t> goldenMatching;
     vector<size_t> actualMatching;
@@ -170,7 +168,8 @@ void SearchRequestRunner::RunRequest(size_t index, bool background, size_t times
     }
 
     GetPlatform().RunTask(Platform::Thread::Gui, [this, background, timestamp, index, results,
-                                                  relevances, goldenMatching, actualMatching] {
+                                                  relevances, goldenMatching, actualMatching]
+    {
       size_t const latestTimestamp = background ? m_backgroundTimestamp : m_foregroundTimestamp;
       if (timestamp != latestTimestamp)
         return;
@@ -231,10 +230,11 @@ void SearchRequestRunner::RunRequest(size_t index, bool background, size_t times
     });
   };
 
+  auto & engine = m_framework.GetSearchAPI().GetEngine();
   if (background)
-    m_backgroundQueryHandles[index] = engine.Search(params);
+    m_backgroundQueryHandles[index] = engine.Search(std::move(params));
   else
-    m_foregroundQueryHandle = engine.Search(params);
+    m_foregroundQueryHandle = engine.Search(std::move(params));
 }
 
 void SearchRequestRunner::PrintBackgroundSearchStats() const

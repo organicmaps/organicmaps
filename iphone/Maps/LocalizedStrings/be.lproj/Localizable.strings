@@ -503,12 +503,6 @@
 
 "history" = "Гісторыя";
 
-"opens_in" = "Адчыняецца праз %@";
-
-"closes_in" = "Зачыняецца праз %@";
-
-"closed" = "Зачынена";
-
 "search_not_found" = "Нічога не знойдзена.";
 
 "search_not_found_query" = "Паспрабуйце змяніць умовы пошуку.";
@@ -578,6 +572,20 @@
 
 "today" = "Сёння";
 
+"opens_tomorrow_at" = "Адкрыццё заўтра ў %@";
+
+"opens_dayoftheweek_at" = "Адкрыццё ў %1$@ у %2$@";
+
+"opens_at" = "Адкрыццё ў %@";
+
+"opens_in" = "Адчыняецца праз %@";
+
+"closes_at" = "Зачыняецца ў %@";
+
+"closes_in" = "Зачыняецца праз %@";
+
+"closed" = "Зачынена";
+
 "add_opening_hours" = "Дадаць часы працы";
 
 "no_osm_account" = "Не зарэгістраваныя на OpenStreetMap?";
@@ -630,6 +638,8 @@
 
 "phone" = "Тэлефон";
 
+"level" = "Паверх";
+
 "please_note" = "Звярніце ўвагу";
 
 "downloader_delete_map_dialog" = "Усе вашы праўкі мапы будуць выдаленыя разам з мапай.";
@@ -670,7 +680,7 @@
 
 "message_invalid_feature_position" = "Аб'ект не можа знаходзіцца тут";
 
-"login_to_make_edits_visible" = "Аўтарызуйцеся, каб іншыя карыстальнікі бачылі вашыя змены.";
+"login_to_make_edits_visible" = "Аўтарызуйцеся ў OpenStreetMap.org, каб іншыя карыстальнікі бачылі вашыя змены.";
 
 /* Error dialog no space */
 "migration_no_space_message" = "Каб спампаваць, трэба больш месца. Выдаліце непатрэбныя дадзеныя.";
@@ -750,6 +760,8 @@
 
 "miles_per_hour" = "міль/г";
 
+"hour" = "г";
+
 "minute" = "хв";
 
 "placepage_place_description" = "Апісанне";
@@ -798,10 +810,10 @@
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Хочаце адправіць усім карыстальнікам?";
 
-/* iOS Dialog before publishing the modifications to the public map. */
+/* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "Упэўніцеся, што вы не ўвялі ніякіх асабістых дадзеных.";
 
-"editor_share_to_all_dialog_message_2" = "Мы праверым змены. Калі ў нас з'явяцца пытанні, мы з вамі звяжамся праз email.";
+"editor_share_to_all_dialog_message_2" = "Рэдактары OpenStreetMap правераць змены і звяжуцца з вамі, калі ў іх узнікнуць пытанні.";
 
 "navigation_stop_button" = "спыніць";
 
@@ -1205,6 +1217,12 @@
 /* edit track screen title */
 "track_title" = "Сцежка";
 
+/* Telegram group url for the help page */
+"telegram_url" = "https://t.me/OrganicMapsRu";
+
+/* Instagram account url for the help page */
+"instagram_url" = "https://www.instagram.com/organicmaps.app";
+
 
 /********** Types **********/
 
@@ -1356,6 +1374,12 @@
 
 "type.amenity.parking.underground" = "Parking";
 
+"type.amenity.parking_entrance.private" = "Уваход на паркоўку";
+
+"type.amenity.parking_entrance.permissive" = "Уваход на паркоўку";
+
+"type.amenity.parking_entrance" = "Уваход на паркоўку";
+
 "type.amenity.parking_space" = "Parking Space";
 
 "type.amenity.parking_space.permissive" = "Parking Space";
@@ -1363,6 +1387,8 @@
 "type.amenity.parking_space.private" = "Parking Space";
 
 "type.amenity.parking_space.underground" = "Parking Space";
+
+"type.amenity.parking_space.disabled" = "Паркоўка для інвалідаў";
 
 "type.amenity.payment_terminal" = "Payment Terminal";
 
@@ -2468,69 +2494,67 @@
 
 "type.organic.yes" = "Эка";
 
-"type.place" = "place";
+"type.place.city" = "Горад";
 
-"type.place.city" = "City";
+"type.place.city.capital" = "Сталіца";
 
-"type.place.city.capital" = "Capital";
+"type.place.city.capital.10" = "Горад";
 
-"type.place.city.capital.10" = "City";
+"type.place.city.capital.11" = "Горад";
 
-"type.place.city.capital.11" = "City";
+"type.place.city.capital.2" = "Сталіца";
 
-"type.place.city.capital.2" = "Capital";
+"type.place.city.capital.3" = "Горад";
 
-"type.place.city.capital.3" = "City";
+"type.place.city.capital.4" = "Горад";
 
-"type.place.city.capital.4" = "City";
+"type.place.city.capital.5" = "Горад";
 
-"type.place.city.capital.5" = "City";
+"type.place.city.capital.6" = "Горад";
 
-"type.place.city.capital.6" = "City";
+"type.place.city.capital.7" = "Горад";
 
-"type.place.city.capital.7" = "City";
+"type.place.city.capital.8" = "Горад";
 
-"type.place.city.capital.8" = "City";
+"type.place.city.capital.9" = "Горад";
 
-"type.place.city.capital.9" = "City";
+"type.place.continent" = "Кантынент";
 
-"type.place.continent" = "Continent";
+"type.place.country" = "Краіна";
 
-"type.place.country" = "Country";
+"type.place.county" = "Графства";
 
-"type.place.county" = "County";
+"type.place.farm" = "Ферма";
 
-"type.place.farm" = "Farm";
+"type.place.hamlet" = "Вёска";
 
-"type.place.hamlet" = "Hamlet";
+"type.place.island" = "Востраў";
 
-"type.place.island" = "Island";
+"type.place.islet" = "Астравок";
 
-"type.place.islet" = "Island";
+"type.place.isolated_dwelling" = "Хутар";
 
-"type.place.isolated_dwelling" = "Dwelling";
+"type.place.locality" = "Місце";
 
-"type.place.locality" = "Locality";
+"type.place.neighbourhood" = "Мікрараён";
 
-"type.place.neighbourhood" = "Neighbourhood";
+"type.place.ocean" = "Акіян";
 
-"type.place.ocean" = "Ocean";
+"type.place.region" = "Рэгіён";
 
-"type.place.region" = "Region";
+"type.place.sea" = "Мора";
 
-"type.place.sea" = "Sea";
+"type.place.square" = "Плошча";
 
-"type.place.square" = "Square";
+"type.place.state" = "Штат";
 
-"type.place.state" = "State";
+"type.place.state.USA" = "Штат";
 
-"type.place.state.USA" = "State";
+"type.place.suburb" = "Раён";
 
-"type.place.suburb" = "Suburb";
+"type.place.town" = "Мястэчка";
 
-"type.place.town" = "Town";
-
-"type.place.village" = "Village";
+"type.place.village" = "Вёска";
 
 "type.power" = "Power";
 
@@ -2970,6 +2994,18 @@
 "type.sport.9pin" = "Боўлінг";
 
 "type.sport.10pin" = "Боўлінг";
+
+"type.sport.padel" = "Падэль";
+
+"type.sport.futsal" = "Футзал";
+
+"type.sport.ice_hockey" = "Хакей з шайбай";
+
+"type.sport.field_hockey" = "Хакей на траве";
+
+"type.sport.badminton" = "Бадмінтон";
+
+"type.sport.pelota" = "Баскская пелота";
 
 "type.tourism" = "Tourism";
 

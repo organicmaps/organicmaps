@@ -79,7 +79,12 @@ world  +
             private  -
             underground  -
             {}
+        parking_entrance  +
+            permissive  -
+            private  -
+            {}
         parking_space  +
+            disabled  -
             permissive  -
             private  -
             underground  -
@@ -191,6 +196,7 @@ world  +
             state  -
             suburb  -
             {}
+        military  -
         national_park  -
         {}
     building  +
@@ -536,7 +542,9 @@ world  +
         industrial  -
         landfill  -
         meadow  -
-        military  -
+        military  +
+            danger_area  -
+            {}
         orchard  -
         quarry  -
         railway  -
@@ -554,7 +562,9 @@ world  +
         dog_park  -
         fitness_centre  -
         fitness_station  -
-        garden  -
+        garden  +
+            residential  -
+            {}
         golf_course  -
         ice_rink  -
         landscape_reserve  -
@@ -954,6 +964,7 @@ world  +
         archery  -
         athletics  -
         australian_football  -
+        badminton  -
         baseball  -
         basketball  -
         beachvolleyball  -
@@ -964,10 +975,15 @@ world  +
         curling  -
         diving  -
         equestrian  -
+        field_hockey  -
+        futsal  -
         golf  -
         gymnastics  -
         handball  -
+        ice_hockey  -
         multi  -
+        padel  -
+        pelota  -
         scuba_diving  -
         shooting  -
         skateboard  -

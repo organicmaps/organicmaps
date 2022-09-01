@@ -231,6 +231,8 @@
 	<string name="help">Ajuda</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">Perguntas e respostas</string>
+	<!-- Button in the main menu -->
+	<string name="donate">Doar</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">Direitos autorais</string>
 	<!-- Text in menu + Button in the main Help dialog -->
@@ -345,9 +347,6 @@
 	<string name="routing_arrive">Chegada: %s</string>
 	<string name="categories">Categorias</string>
 	<string name="history">Histórico</string>
-	<string name="opens_in">Abre em %s</string>
-	<string name="closes_in">Fecha em %s</string>
-	<string name="closed">Fechado</string>
 	<string name="search_not_found">Sinto muito, nenhum resultado foi encontrado.</string>
 	<string name="search_not_found_query">Por favor, tente outro termo de busca.</string>
 	<string name="search_history_title">Histórico de busca</string>
@@ -391,10 +390,14 @@
 	<string name="day_off_today">Fechado hoje</string>
 	<string name="day_off">Fechado</string>
 	<string name="today">Hoje</string>
+	<string name="opens_in">Abre em %s</string>
+	<string name="closes_in">Fecha em %s</string>
+	<string name="closed">Fechado</string>
 	<string name="edit_opening_hours">Editar horário de funcionamento</string>
 	<string name="no_osm_account">Sem conta no OpenStreetMap?</string>
-	<string name="register_at_openstreetmap">Abra uma conta no OSM</string>
+	<string name="register_at_openstreetmap">Abra uma conta no OpenStreetMap</string>
 	<string name="login">Login</string>
+	<string name="login_osm">Entrar no OpenStreetMap</string>
 	<string name="password">Senha</string>
 	<string name="forgot_password">Esqueceu sua senha?</string>
 	<string name="logout">Encerrar sessão</string>
@@ -434,6 +437,7 @@
 	<string name="editor_report_problem_other_title">Um problema diferente</string>
 	<string name="placepage_add_business_button">Adicionar uma empresa</string>
 	<string name="message_invalid_feature_position">Nenhum objeto pode ser posicionado aqui</string>
+	<string name="osm_presentation">Todos os dados do mapa são provenientes do projeto OpenStreetMap. É como a Wikipedia para mapas onde você pode adicionar ou editar lugares, e eles ficam disponíveis para milhões de usuários em todo o mundo.</string>
 	<string name="login_to_make_edits_visible">Fazer login para que outros usuários vejam as mudanças que você fez.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d de %2$d</string>
@@ -489,9 +493,9 @@
 	<string name="placepage_add_place_button">Adicionar um local ao mapa</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Deseja enviar para todos os usuários?</string>
-	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Certifique-se de não ter incluído nenhum dado pessoal.</string>
-	<string name="editor_share_to_all_dialog_message_2">Verificaremos as alterações. Se tivermos perguntas, entraremos em contato com você por email.</string>
+	<string name="editor_share_to_all_dialog_message_2">Os editores do OpenStreetMap verificarão as mudanças e entrarão em contato com você se tiverem alguma dúvida.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps é um aplicativo gratuito e de código aberto de mapas offline. Sem anúncios. Sem rastreamento. Se você vir um erro no mapa, por favor, corrija em OpenStreetMap. O projeto é criado por entusiastas em seu tempo livre, então precisamos de seu feedback e suporte.</string>
 	<!-- For the first routing -->
@@ -774,6 +778,9 @@
 	<string name="type.amenity.parking.permissive">Estacionamento</string>
 	<string name="type.amenity.parking.private">Estacionamento privado</string>
 	<string name="type.amenity.parking.underground">Estacionamento subterrâneo</string>
+	<string name="type.amenity.parking_entrance.private">Entrada do estacionamento</string>
+	<string name="type.amenity.parking_entrance.permissive">Entrada do estacionamento</string>
+	<string name="type.amenity.parking_entrance">Entrada do estacionamento</string>
 	<string name="type.amenity.parking_space">Lugar de estacionamento</string>
 	<string name="type.amenity.parking_space.permissive">Lugar de estacionamento</string>
 	<string name="type.amenity.parking_space.private">Lugar de estacionamento privado</string>
@@ -1271,38 +1278,10 @@
 	<string name="type.office.telecommunication">Operadora de telecomunicações</string>
 	<string name="type.organic.only">Orgânico</string>
 	<string name="type.organic.yes">Orgânico</string>
-	<string name="type.place">Local</string>
-	<string name="type.place.city">Cidade</string>
-	<string name="type.place.city.capital">Capital</string>
-	<string name="type.place.city.capital.10">Cidade</string>
-	<string name="type.place.city.capital.11">Cidade</string>
-	<string name="type.place.city.capital.2">Capital</string>
-	<string name="type.place.city.capital.3">Cidade</string>
-	<string name="type.place.city.capital.4">Cidade</string>
-	<string name="type.place.city.capital.5">Cidade</string>
-	<string name="type.place.city.capital.6">Cidade</string>
-	<string name="type.place.city.capital.7">Cidade</string>
-	<string name="type.place.city.capital.8">Cidade</string>
-	<string name="type.place.city.capital.9">Cidade</string>
-	<string name="type.place.continent">Continente</string>
-	<string name="type.place.country">País</string>
-	<string name="type.place.county">Condado</string>
 	<string name="type.place.farm">Fazenda</string>
 	<string name="type.place.hamlet">Lugarejo</string>
-	<string name="type.place.island">Ilha</string>
-	<string name="type.place.islet">Ilhéu</string>
-	<string name="type.place.isolated_dwelling">Habitação isolada</string>
-	<string name="type.place.locality">Localidade</string>
-	<string name="type.place.neighbourhood">Bairro</string>
-	<string name="type.place.ocean">Oceano</string>
-	<string name="type.place.region">Região</string>
-	<string name="type.place.sea">Mar</string>
-	<string name="type.place.square">Praça ou largo</string>
-	<string name="type.place.state">Estado</string>
-	<string name="type.place.state.USA">Estado</string>
-	<string name="type.place.suburb">Subúrbio</string>
-	<string name="type.place.town">Cidade</string>
-	<string name="type.place.village">Povoado</string>
+	<string name="type.place.neighbourhood">Vizinhança</string>
+	<string name="type.place.village">Aldeia</string>
 	<string name="type.power">Energia</string>
 	<string name="type.power.generator">Gerador de energia</string>
 	<string name="type.power.line">Linha de transmissão de energia</string>

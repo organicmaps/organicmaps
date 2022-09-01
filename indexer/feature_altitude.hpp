@@ -88,16 +88,17 @@ public:
     geometry::Altitude prevAltitude = minAltitude;
     for (auto const altitude : m_altitudes)
     {
-      CHECK_LESS_OR_EQUAL(minAltitude, altitude, ("A point altitude is less than min mwm altitude"));
+      CHECK_LESS_OR_EQUAL(minAltitude, altitude, ());
       uint32_t const delta = bits::ZigZagEncode(static_cast<int32_t>(altitude) -
                                                 static_cast<int32_t>(prevAltitude));
-      coding::DeltaCoder::Encode(bits, delta + 1 /* making it greater than zero */);
+      // Making serialized value greater than zero.
+      CHECK(coding::DeltaCoder::Encode(bits, delta + 1), ());
       prevAltitude = altitude;
     }
   }
 
   template <class TSource>
-  bool Deserialize(geometry::Altitude minAltitude, size_t pointCount,
+  void Deserialize(geometry::Altitude minAltitude, size_t pointCount,
                    std::string const & countryFileName, uint32_t featureId, TSource & src)
   {
     ASSERT_NOT_EQUAL(pointCount, 0, ());
@@ -108,28 +109,14 @@ public:
 
     for (size_t i = 0; i < pointCount; ++i)
     {
-      uint64_t const biasedDelta = coding::DeltaCoder::Decode(bits);
-      if (biasedDelta == 0)
-      {
-        LOG(LERROR, ("Decoded altitude delta is zero. File", countryFileName,
-                     ". Feature Id", featureId, ". Point number in the feature", i, "."));
-        m_altitudes.clear();
-        return false;
-      }
-      uint64_t const delta = biasedDelta - 1;
+      uint64_t const delta = coding::DeltaCoder::Decode(bits);
+      CHECK(delta > 0, (countryFileName, featureId));
 
-      m_altitudes[i] = static_cast<geometry::Altitude>(bits::ZigZagDecode(delta) + prevAltitude);
-      if (m_altitudes[i] < minAltitude)
-      {
-        LOG(LERROR, ("A point altitude read from file(", m_altitudes[i],
-                     ") is less than min mwm altitude(", minAltitude, "). File ",
-                     countryFileName, ". Feature Id", featureId, ". Point number in the feature", i, "."));
-        m_altitudes.clear();
-        return false;
-      }
+      m_altitudes[i] = static_cast<geometry::Altitude>(bits::ZigZagDecode(delta - 1) + prevAltitude);
+      CHECK_LESS_OR_EQUAL(minAltitude, m_altitudes[i], (countryFileName, featureId));
+
       prevAltitude = m_altitudes[i];
     }
-    return true;
   }
 
   /// \note |m_altitudes| is a vector of feature point altitudes. There's two possibilities:

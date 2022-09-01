@@ -30,51 +30,38 @@
 #include "kml/type_utils.hpp"
 
 #include "editor/new_feature_categories.hpp"
+#include "editor/osm_editor.hpp"
 
 #include "indexer/caching_rank_table_loader.hpp"
-#include "indexer/data_header.hpp"
 #include "indexer/data_source.hpp"
 #include "indexer/data_source_helpers.hpp"
 #include "indexer/map_object.hpp"
 #include "indexer/map_style.hpp"
 
-#include "search/city_finder.hpp"
 #include "search/displayed_categories.hpp"
-#include "search/mode.hpp"
-#include "search/region_address_getter.hpp"
 #include "search/result.hpp"
 #include "search/reverse_geocoder.hpp"
 
 #include "storage/downloading_policy.hpp"
 #include "storage/storage.hpp"
 
-#include "tracking/reporter.hpp"
-
-
-#include "platform/country_defines.hpp"
 #include "platform/location.hpp"
 #include "platform/platform.hpp"
 
 #include "routing/router.hpp"
-#include "routing/routing_session.hpp"
 
 #include "geometry/rect2d.hpp"
 #include "geometry/screenbase.hpp"
 
-#include "base/deferred_task.hpp"
 #include "base/macros.hpp"
 #include "base/strings_bundle.hpp"
-#include "base/thread_checker.hpp"
 
 #include "std/target_os.hpp"
 
-#include <cstdint>
 #include <functional>
-#include <list>
 #include <memory>
 #include <optional>
 #include <string>
-#include <utility>
 #include <vector>
 
 namespace osm
@@ -245,16 +232,10 @@ public:
   /// Shows group or leaf mwm on the map.
   void ShowNode(storage::CountryId const & countryId);
 
-  // TipsApi::Delegate override.
-  /// Checks, whether the country which contains the specified point is loaded.
-  bool IsCountryLoaded(m2::PointD const & pt) const;
   /// Checks, whether the country is loaded.
   bool IsCountryLoadedByName(std::string_view name) const;
 
   void InvalidateRect(m2::RectD const & rect);
-
-  /// @name Get any country info by point.
-  storage::CountryId GetCountryIndex(m2::PointD const & pt) const;
 
   std::string GetCountryName(m2::PointD const & pt) const;
 
@@ -736,9 +717,6 @@ private:
   CachingAddressGetter m_addressGetter;
 
 public:
-  // TipsApi::Delegate override.
-  bool HaveTransit(m2::PointD const & pt) const;
-
   power_management::PowerManager & GetPowerManager() { return m_powerManager; }
 
   // PowerManager::Subscriber override.

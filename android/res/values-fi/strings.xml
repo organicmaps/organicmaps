@@ -222,6 +222,8 @@
 	<string name="help">Ohje</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">Kysymykset ja vastaukset</string>
+	<!-- Button in the main menu -->
+	<string name="donate">Lahjoittaa</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">Kuinka tukea meitä?</string>
 	<!-- Button in the main Help dialog -->
@@ -341,7 +343,6 @@
 	<string name="routing_arrive">Saavut: %s</string>
 	<string name="categories">Luokat</string>
 	<string name="history">Historia</string>
-	<string name="closed">Suljettu</string>
 	<string name="search_not_found">Pahoittelut, hakutuloksia ei ole.</string>
 	<string name="search_not_found_query">Yritä jotain toista hakusanaa.</string>
 	<string name="search_history_title">Hakuhistoria</string>
@@ -383,10 +384,12 @@
 	<string name="day_off_today">Suljettu tänään</string>
 	<string name="day_off">Suljettu</string>
 	<string name="today">Tänään</string>
+	<string name="closed">Suljettu</string>
 	<string name="edit_opening_hours">Muokkaa aukioloaikoja</string>
 	<string name="no_osm_account">Eikö sinulla ole OpenStreetMap tiliä?</string>
 	<string name="register_at_openstreetmap">Rekisteröidy</string>
 	<string name="login">Kirjaudu sisään</string>
+	<string name="login_osm">Kirjaudu OpenStreetMapiin</string>
 	<string name="password">Salasana</string>
 	<string name="forgot_password">Unohtuiko salasana?</string>
 	<string name="logout">Kirjaudu ulos</string>
@@ -406,6 +409,7 @@
 	<string name="select_cuisine">Valitse ruokalaji</string>
 	<!-- login text field -->
 	<string name="email_or_username">Sähköposti tai käyttäjätunnus</string>
+	<string name="level">Kerros</string>
 	<string name="downloader_delete_map_dialog">Kaikki karttaan tehdyt muutokset poistetaan kartan mukana.</string>
 	<string name="downloader_update_maps">Päivitä kartat</string>
 	<string name="downloader_mwm_migration_dialog">Sinun täytyy päivittää kaikki kartat ja suunnitella reitti uudelleen luodaksesi uuden reitin.</string>
@@ -424,6 +428,7 @@
 	<string name="editor_report_problem_other_title">Eri ongelma</string>
 	<string name="placepage_add_business_button">Lisää organisaatio</string>
 	<string name="message_invalid_feature_position">Kohdetta ei voida asettaa tänne</string>
+	<string name="osm_presentation">Kaikki karttatiedot tulevat OpenStreetMap-projektista. Se on kuin karttojen Wikipedia, jossa voit lisätä tai muokata paikkoja, ja ne ovat miljoonien käyttäjien saatavilla kaikkialla maailmassa.</string>
 	<string name="login_to_make_edits_visible">Kirjaudu sisään jotta muut käyttäjät voivat nähdä tekemäsi muokkaukset.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d/%2$d</string>
@@ -477,9 +482,9 @@
 	<string name="placepage_add_place_button">Lisää paikka kartalle</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Haluatko lähettää sen kaikille käyttäjille?</string>
-	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Varmistat, ettet syöttänyt henkilökohtaisia tietojasi.</string>
-	<string name="editor_share_to_all_dialog_message_2">Tarkistamme muutokset. Otamme sinuun yhteyttä sähköpostitse, jos meillä on kysyttävää.</string>
+	<string name="editor_share_to_all_dialog_message_2">OpenStreetMap-editorit tarkistavat muutokset ja ottavat sinuun yhteyttä, jos heillä on kysyttävää.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps on ilmainen ja avoimen lähdekoodin offline-karttasovellus. Ei mainoksia. Ei seurantaa. Jos näet virheen kartalla, korjaa se OpenStreetMapissa. Hankkeen ovat luoneet harrastajat vapaa-ajallamme, joten tarvitsemme palautettasi ja tukeasi.</string>
 	<!-- For the first routing -->
@@ -508,7 +513,7 @@
 	<string name="on">Käytössä</string>
 	<string name="off">Ei käytössä</string>
 	<string name="prefs_languages_information">Käytämme ääniohjeisiin tekstistä puheeksi -järjestelmää. Monet Android-laitteet käyttävät Googlen tekstistä puheeksi -sovellusta, jonka voit ladata tai päivittää Google Playssä (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">Joidenkin kielien osalta sinun täytyy asentaa toinen puhesyntetisaattori tai lisäkielipaketti sovelluskaupasta (Google Play, Samsung Apps, App Gallery, FDroid). Avaa laitteen asetukset → Kieli ja syöttötapa → Puhe → Teksistä puheeksi -toisto. Täällä voit hallita puhesynteesin asetuksia (esimerkiksi ladata offline-tilassa käytettävän kielipaketin) ja valita toisen tekstistä puheeksi -moottorin.</string>
+	<string name="prefs_languages_information_off">Joidenkin kielien osalta sinun täytyy asentaa toinen puhesyntetisaattori tai lisäkielipaketti sovelluskaupasta (Google Play, Galaxy Store, App Gallery, FDroid). Avaa laitteen asetukset → Kieli ja syöttötapa → Puhe → Teksistä puheeksi -toisto. Täällä voit hallita puhesynteesin asetuksia (esimerkiksi ladata offline-tilassa käytettävän kielipaketin) ja valita toisen tekstistä puheeksi -moottorin.</string>
 	<string name="prefs_languages_information_off_link">Lisätietoja saat tästä oppaasta.</string>
 	<string name="transliteration_title">Translitterointi latinaksi</string>
 	<string name="learn_more">Lisätietoja</string>
@@ -737,10 +742,14 @@
 	<string name="type.amenity.parking.permissive">Parkkipaikka</string>
 	<string name="type.amenity.parking.private">Parkkipaikka</string>
 	<string name="type.amenity.parking.underground">Parkkipaikka</string>
+	<string name="type.amenity.parking_entrance.private">Pysäköinti sisäänkäynti</string>
+	<string name="type.amenity.parking_entrance.permissive">Pysäköinti sisäänkäynti</string>
+	<string name="type.amenity.parking_entrance">Pysäköinti sisäänkäynti</string>
 	<string name="type.amenity.parking_space">Parkkipaikka</string>
 	<string name="type.amenity.parking_space.permissive">Parkkipaikka</string>
 	<string name="type.amenity.parking_space.private">Parkkipaikka</string>
 	<string name="type.amenity.parking_space.underground">Parkkipaikka</string>
+	<string name="type.amenity.parking_space.disabled">Vammaispysäköinti</string>
 	<string name="type.amenity.payment_terminal">Maksupääte</string>
 	<string name="type.amenity.pharmacy">Apteekki</string>
 	<string name="type.amenity.place_of_worship">Uskonnollinen kohde</string>
@@ -1195,10 +1204,13 @@
 	<string name="type.place.hamlet">Pieni kylä</string>
 	<string name="type.place.island">Saari</string>
 	<string name="type.place.islet">Saari</string>
+	<string name="type.place.isolated_dwelling">Erillinen asunto</string>
 	<string name="type.place.locality">Paikkakunta</string>
+	<string name="type.place.neighbourhood">Naapurusto</string>
 	<string name="type.place.ocean">Valtameri</string>
 	<string name="type.place.region">Alue</string>
 	<string name="type.place.sea">Meri</string>
+	<string name="type.place.square">Tori</string>
 	<string name="type.place.state">Lääni</string>
 	<string name="type.place.state.USA">Lääni</string>
 	<string name="type.place.suburb">Esikaupunki</string>
@@ -1366,6 +1378,12 @@
 	<string name="type.sport.volleyball">Lentopallo</string>
 	<string name="type.sport.9pin">Keilailu</string>
 	<string name="type.sport.10pin">Keilailu</string>
+	<string name="type.sport.padel">Padel</string>
+	<string name="type.sport.futsal">Futsal</string>
+	<string name="type.sport.ice_hockey">Jääkiekko</string>
+	<string name="type.sport.field_hockey">Maahockey</string>
+	<string name="type.sport.badminton">Sulkapallo</string>
+	<string name="type.sport.pelota">Baskimaan pelota</string>
 	<string name="type.tourism">Turismi</string>
 	<string name="type.tourism.alpine_hut">Vuorimajoitus</string>
 	<string name="type.tourism.apartment">Loma-asunnot</string>

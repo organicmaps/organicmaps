@@ -1,8 +1,5 @@
 #pragma once
 
-#include "map/features_fetcher.hpp"
-
-#include "generator/generator_tests_support/test_feature.hpp"
 #include "generator/generator_tests_support/test_mwm_builder.hpp"
 
 #include "editor/editable_data_source.hpp"

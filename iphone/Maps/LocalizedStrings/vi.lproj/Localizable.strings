@@ -503,12 +503,6 @@
 
 "history" = "Lịch sử";
 
-"opens_in" = "Opens in %@";
-
-"closes_in" = "Closes in %@";
-
-"closed" = "Đã đóng";
-
 "search_not_found" = "Xin lỗi, tôi không tìm thấy kết quả nào.";
 
 "search_not_found_query" = "Vui lòng thử câu hỏi khác.";
@@ -578,6 +572,20 @@
 
 "today" = "Hôm nay";
 
+"opens_tomorrow_at" = "Opens tomorrow at %@";
+
+"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
+
+"opens_at" = "Opens at %@";
+
+"opens_in" = "Opens in %@";
+
+"closes_at" = "Closes at %@";
+
+"closes_in" = "Closes in %@";
+
+"closed" = "Đã đóng";
+
 "add_opening_hours" = "Thêm giờ làm việc";
 
 "no_osm_account" = "Bạn chưa có tài khoản tại OpenStreetMap ư?";
@@ -629,6 +637,8 @@
 "email_or_username" = "Email hoặc tên người dùng";
 
 "phone" = "Điện thoại";
+
+"level" = "Tầng";
 
 "please_note" = "Xin lưu ý";
 
@@ -750,6 +760,8 @@
 
 "miles_per_hour" = "mph";
 
+"hour" = "giờ";
+
 "minute" = "phút";
 
 "placepage_place_description" = "Mô tả";
@@ -798,10 +810,10 @@
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Bạn có muốn gửi cho toàn bộ người dùng?";
 
-/* iOS Dialog before publishing the modifications to the public map. */
+/* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "Chắc chắn rằng bạn không nhập bất kỳ thông tin cá nhân nào.";
 
-"editor_share_to_all_dialog_message_2" = "Chúng tôi sẽ kiểm tra những thay đổi. Nếu chúng tôi có câu hỏi nào, chúng tôi sẽ liên lạc với bạn qua email.";
+"editor_share_to_all_dialog_message_2" = "Các biên tập viên của OpenStreetMap sẽ kiểm tra các thay đổi và liên hệ với bạn nếu họ có bất kỳ câu hỏi nào.";
 
 "navigation_stop_button" = "dừng";
 
@@ -1205,6 +1217,12 @@
 /* edit track screen title */
 "track_title" = "Dấu chân";
 
+/* Telegram group url for the help page */
+"telegram_url" = "https://t.me/OrganicMapsApp";
+
+/* Instagram account url for the help page */
+"instagram_url" = "https://www.instagram.com/organicmaps.app";
+
 
 /********** Types **********/
 
@@ -1356,6 +1374,12 @@
 
 "type.amenity.parking.underground" = "đỗ xe";
 
+"type.amenity.parking_entrance.private" = "Lối vào bãi đậu xe";
+
+"type.amenity.parking_entrance.permissive" = "Lối vào bãi đậu xe";
+
+"type.amenity.parking_entrance" = "Lối vào bãi đậu xe";
+
 "type.amenity.parking_space" = "Chỗ để xe";
 
 "type.amenity.parking_space.permissive" = "Chỗ để xe";
@@ -1363,6 +1387,8 @@
 "type.amenity.parking_space.private" = "Chỗ để xe";
 
 "type.amenity.parking_space.underground" = "Chỗ để xe";
+
+"type.amenity.parking_space.disabled" = "Chỗ đậu xe dành cho người khuyết tật";
 
 "type.amenity.payment_terminal" = "Thiết bị thanh toán";
 
@@ -2468,8 +2494,6 @@
 
 "type.organic.yes" = "Organic";
 
-"type.place" = "place";
-
 "type.place.city" = "Đất nước";
 
 "type.place.city.capital" = "Thủ đô";
@@ -2508,11 +2532,11 @@
 
 "type.place.islet" = "Tỉnh";
 
-"type.place.isolated_dwelling" = "Dwelling";
+"type.place.isolated_dwelling" = "Nhà ở Biệt lập";
 
 "type.place.locality" = "Thôn";
 
-"type.place.neighbourhood" = "Neighbourhood";
+"type.place.neighbourhood" = "Vùng lân cận";
 
 "type.place.ocean" = "Đại dương";
 
@@ -2520,7 +2544,7 @@
 
 "type.place.sea" = "Biển";
 
-"type.place.square" = "Square";
+"type.place.square" = "Quảng trường";
 
 "type.place.state" = "Hạt";
 
@@ -2970,6 +2994,18 @@
 "type.sport.9pin" = "Bowling";
 
 "type.sport.10pin" = "Bowling";
+
+"type.sport.padel" = "Padel";
+
+"type.sport.futsal" = "Futsal";
+
+"type.sport.ice_hockey" = "Khúc côn cầu trên băng";
+
+"type.sport.field_hockey" = "Khúc côn cầu";
+
+"type.sport.badminton" = "Cầu lông";
+
+"type.sport.pelota" = "Pơ mu Basque";
 
 "type.tourism" = "Tourism";
 

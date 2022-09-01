@@ -1,13 +1,10 @@
 #include "indexer/search_string_utils.hpp"
 
-#include "indexer/string_set.hpp"
 #include "indexer/transliteration_loader.hpp"
 
 #include "coding/transliteration.hpp"
 
-#include "base/assert.hpp"
 #include "base/dfa_helpers.hpp"
-#include "base/macros.hpp"
 #include "base/mem_trie.hpp"
 
 #include <algorithm>
@@ -17,11 +14,11 @@
 
 #include "3party/utfcpp/source/utf8/unchecked.h"
 
+namespace search
+{
 using namespace std;
 using namespace strings;
 
-namespace search
-{
 namespace
 {
 vector<strings::UniString> const kAllowedMisprints = {
@@ -34,31 +31,6 @@ vector<strings::UniString> const kAllowedMisprints = {
     strings::MakeUniString("еиэ"),
     strings::MakeUniString("шщ"),
 };
-
-// Replaces '#' followed by an end-of-string or a digit with space.
-void RemoveNumeroSigns(UniString & s)
-{
-  size_t const n = s.size();
-
-  size_t i = 0;
-  while (i < n)
-  {
-    if (s[i] != '#')
-    {
-      ++i;
-      continue;
-    }
-
-    size_t j = i + 1;
-    while (j < n && IsASCIISpace(s[j]))
-      ++j;
-
-    if (j == n || IsASCIIDigit(s[j]))
-      s[i] = ' ';
-
-    i = j;
-  }
-}
 
 void TransliterateHiraganaToKatakana(UniString & s)
 {
@@ -150,17 +122,18 @@ UniString NormalizeAndSimplifyString(string_view s)
   TransliterateHiraganaToKatakana(uniString);
 
   // Remove accents that can appear after NFKD normalization.
-  uniString.erase_if([](UniChar const & c) {
+  uniString.erase_if([](UniChar const & c)
+  {
     // ̀  COMBINING GRAVE ACCENT
     // ́  COMBINING ACUTE ACCENT
     return (c == 0x0300 || c == 0x0301);
   });
 
-  RemoveNumeroSigns(uniString);
-
   // Replace sequence of spaces with single one.
-  auto const spacesChecker = [](UniChar lhs, UniChar rhs) { return (lhs == rhs) && (lhs == ' '); };
-  uniString.erase(unique(uniString.begin(), uniString.end(), spacesChecker), uniString.end());
+  uniString.erase(unique(uniString.begin(), uniString.end(), [](UniChar l, UniChar r)
+  {
+    return (l == r && l == ' ');
+  }), uniString.end());
 
   return uniString;
 
@@ -219,6 +192,22 @@ UniString FeatureTypeToString(uint32_t type)
 {
   string const s = "!type:" + to_string(type);
   return UniString(s.begin(), s.end());
+}
+
+std::vector<strings::UniString> NormalizeAndTokenizeString(std::string_view s)
+{
+  std::vector<strings::UniString> tokens;
+  ForEachNormalizedToken(s, base::MakeBackInsertFunctor(tokens));
+  return tokens;
+}
+
+bool TokenizeStringAndCheckIfLastTokenIsPrefix(std::string_view s, std::vector<strings::UniString> & tokens)
+{
+  auto const uniString = NormalizeAndSimplifyString(s);
+
+  Delimiters delims;
+  SplitUniString(uniString, base::MakeBackInsertFunctor(tokens), delims);
+  return !uniString.empty() && !delims(uniString.back());
 }
 
 namespace

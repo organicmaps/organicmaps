@@ -5,12 +5,10 @@
 #include "search/idf_map.hpp"
 #include "search/ranking_utils.hpp"
 #include "search/retrieval.hpp"
-#include "search/token_slice.hpp"
 #include "search/utils.hpp"
 
 #include "indexer/search_string_utils.hpp"
 
-#include "base/checked_cast.hpp"
 #include "base/dfa_helpers.hpp"
 #include "base/levenshtein_dfa.hpp"
 #include "base/stl_helpers.hpp"
@@ -20,13 +18,13 @@
 #include <unordered_set>
 #include <utility>
 
+namespace search
+{
 using namespace std;
 using namespace strings;
 
 using PrefixDFA = PrefixDFAModifier<LevenshteinDFA>;
 
-namespace search
-{
 namespace
 {
 class IdfMapDelegate : public IdfMap::Delegate
@@ -313,14 +311,13 @@ void LocalityScorer::GetDocVecs(uint32_t localityId, vector<DocVec> & dvs) const
 
   for (auto const & name : names)
   {
-    vector<UniString> tokens;
-    NormalizeAndTokenizeString(name, tokens);
-    base::EraseIf(tokens, &IsStopWord);
-
     DocVec::Builder builder;
-    for (auto const & token : tokens)
-      builder.Add(token);
-    dvs.emplace_back(builder);
+    ForEachNormalizedToken(name, [&](strings::UniString const & token)
+    {
+      if (!IsStopWord(token))
+        builder.Add(token);
+    });
+    dvs.emplace_back(std::move(builder));
   }
 }
 

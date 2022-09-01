@@ -2,7 +2,7 @@
 <resources>
   <dimen name="text_size_nav_street">26sp</dimen>
   <dimen name="text_size_nav_next_turn">32sp</dimen>
-  <dimen name="text_size_nav_circle_exit">16sp</dimen>
+  <dimen name="text_size_nav_circle_exit">30sp</dimen>
   <dimen name="text_size_nav_number">36sp</dimen>
   <dimen name="text_size_nav_dimension">30sp</dimen>
 </resources>

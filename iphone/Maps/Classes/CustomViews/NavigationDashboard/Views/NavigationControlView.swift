@@ -136,7 +136,7 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MapO
       ]
 
     if timePageControl.currentPage == 0 {
-      timeLabel.text = info.eta
+      timeLabel.text = DateComponentsFormatter.etaString(from: TimeInterval(info.timeToTarget))
     } else {
       timeLabel.text = info.arrival
     }
@@ -155,23 +155,38 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MapO
       }
     }
 
-    var speed = info.speed ?? "0"
-    if (info.speedLimit != "") {
-      speed += " / " + info.speedLimit;
+    var speedMps = 0.0
+    if let s = LocationManager.lastLocation()?.speed, s > 0 {
+      speedMps = s
     }
-    
+    let speedMeasure = Measure(asSpeed: speedMps)
+    var speed = speedMeasure.valueAsString;
+    /// @todo Draw speed limit sign similar to the CarPlay implemenation.
+    // speedLimitMps >= 0 means known limited speed.
+    if (info.speedLimitMps >= 0) {
+      // Short delimeter to not overlap with timeToTarget longer than an hour.
+      let delimeter = info.timeToTarget < 60 * 60 ? " / " : "/"
+      let speedLimitMeasure = Measure(asSpeed: info.speedLimitMps)
+      // speedLimitMps == 0 means unlimited speed.
+      speed += delimeter + (info.speedLimitMps == 0 ? "∞" : speedLimitMeasure.valueAsString)
+    }
+
     speedLabel.text = speed
-    speedLegendLabel.text = info.speedUnits
+    speedLegendLabel.text = speedMeasure.unit
     let speedWithLegend = NSMutableAttributedString(string: speed, attributes: routingNumberAttributes)
-    speedWithLegend.append(NSAttributedString(string: info.speedUnits, attributes: routingLegendAttributes))
+    speedWithLegend.append(NSAttributedString(string: speedMeasure.unit, attributes: routingLegendAttributes))
     speedWithLegendLabel.attributedText = speedWithLegend
 
-    let speedLimitExceeded = info.isSpeedLimitExceeded
-    let textColor = speedLimitExceeded ? UIColor.white() : UIColor.blackPrimaryText()
-    speedBackground.backgroundColor = speedLimitExceeded ? UIColor.buttonRed() : UIColor.clear
-    speedLabel.textColor = textColor
-    speedLegendLabel.textColor = textColor
-    speedWithLegendLabel.textColor = textColor
+    if MWMRouter.isSpeedCamLimitExceeded() {
+      speedLabel.textColor = UIColor.white()
+      speedBackground.backgroundColor = UIColor.buttonRed()
+    } else {
+      let isSpeedLimitExceeded = info.speedLimitMps > 0 && speedMps > info.speedLimitMps
+      speedLabel.textColor = isSpeedLimitExceeded ? UIColor.buttonRed() : UIColor.blackPrimaryText()
+      speedBackground.backgroundColor = UIColor.clear
+    }
+    speedLegendLabel.textColor = speedLabel.textColor
+    speedWithLegendLabel.textColor = speedLabel.textColor
 
     routingProgress.constant = progressView.width * info.progress / 100
   }

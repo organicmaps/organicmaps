@@ -216,6 +216,8 @@
 	<string name="help">Trợ giúp</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">Câu hỏi và trả lời</string>
+	<!-- Button in the main menu -->
+	<string name="donate">Quyên tặng</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">Làm thế nào để hỗ trợ chúng tôi?</string>
 	<!-- Button in the main Help dialog -->
@@ -335,7 +337,6 @@
 	<string name="routing_arrive">Đến: %s</string>
 	<string name="categories">Thể loại</string>
 	<string name="history">Lịch sử</string>
-	<string name="closed">Đã đóng</string>
 	<string name="search_not_found">Xin lỗi, tôi không tìm thấy kết quả nào.</string>
 	<string name="search_not_found_query">Vui lòng thử câu hỏi khác.</string>
 	<string name="search_history_title">Lịch sử tìm kiếm</string>
@@ -377,10 +378,12 @@
 	<string name="day_off_today">Nghỉ hôm nay</string>
 	<string name="day_off">Ngày nghỉ</string>
 	<string name="today">Hôm nay</string>
+	<string name="closed">Đã đóng</string>
 	<string name="edit_opening_hours">Sửa giờ làm việc</string>
 	<string name="no_osm_account">Bạn chưa có tài khoản tại OpenStreetMap ư?</string>
 	<string name="register_at_openstreetmap">Đăng ký</string>
 	<string name="login">Đăng nhập</string>
+	<string name="login_osm">Đăng nhập vào OpenStreetMap</string>
 	<string name="password">Mật khẩu</string>
 	<string name="forgot_password">Quên mật khẩu?</string>
 	<string name="logout">Đăng xuất</string>
@@ -400,6 +403,7 @@
 	<string name="select_cuisine">Chọn Ẩm thực</string>
 	<!-- login text field -->
 	<string name="email_or_username">Email hoặc tên người dùng</string>
+	<string name="level">Tầng</string>
 	<string name="downloader_delete_map_dialog">Tất cả những thay đổi của bản đồ sẽ bị xóa cùng với bản đồ đó.</string>
 	<string name="downloader_update_maps">Cập nhật các bản đồ</string>
 	<string name="downloader_mwm_migration_dialog">Để tạo một tuyến đường, bạn cần cập nhật tất cả các bản đồ và sau đó lập lại tuyến đường.</string>
@@ -418,6 +422,7 @@
 	<string name="editor_report_problem_other_title">Một vấn đề khác</string>
 	<string name="placepage_add_business_button">Thêm tổ chức</string>
 	<string name="message_invalid_feature_position">Một đối tượng không thể đặt được ở đây</string>
+	<string name="osm_presentation">Tất cả dữ liệu bản đồ đến từ dự án OpenStreetMap. Nó giống như Wikipedia dành cho bản đồ nơi bạn có thể thêm hoặc chỉnh sửa các địa điểm và chúng có sẵn cho hàng triệu người dùng trên khắp Thế giới.</string>
 	<string name="login_to_make_edits_visible">Đăng nhập để người dùng khác có thể nhìn thấy những thay đổi bạn đã thực hiện.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d trên %2$d</string>
@@ -471,9 +476,9 @@
 	<string name="placepage_add_place_button">Thêm địa điểm vào bản đồ</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Bạn có muốn gửi cho toàn bộ người dùng?</string>
-	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Chắc chắn rằng bạn không nhập bất kỳ thông tin cá nhân nào.</string>
-	<string name="editor_share_to_all_dialog_message_2">Chúng tôi sẽ kiểm tra những thay đổi. Nếu chúng tôi có câu hỏi nào, chúng tôi sẽ liên lạc với bạn qua email.</string>
+	<string name="editor_share_to_all_dialog_message_2">Các biên tập viên của OpenStreetMap sẽ kiểm tra các thay đổi và liên hệ với bạn nếu họ có bất kỳ câu hỏi nào.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps là một ứng dụng bản đồ ngoại tuyến mã nguồn mở và miễn phí. Không quảng cáo. Không theo dõi. Nếu bạn thấy lỗi trên bản đồ, hãy sửa lỗi đó trong OpenStreetMap. Dự án được tạo ra bởi những người đam mê trong thời gian rảnh của chúng tôi, vì vậy chúng tôi cần phản hồi và hỗ trợ của bạn.</string>
 	<!-- For the first routing -->
@@ -502,7 +507,7 @@
 	<string name="on">Bật</string>
 	<string name="off">Tắt</string>
 	<string name="prefs_languages_information">Chúng tôi sử dụng TTS hệ thống để hướng dẫn bằng giọng nói. Rất nhiều thiết bị Android sử dụng Google TTS, bạn có thể tải về hoặc cập nhật nó từ Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">Đối với một số ngôn ngữ, bạn sẽ cần cài đặt một trình tổng hợp lời nói khác hoặc một gói ngôn ngữ bổ sung từ cửa hàng ứng dụng (Google Play, Samsung Apps, App Gallery, FDroid).\nMở cài đặt của thiết bị → Ngôn ngữ và nhập liệu → Lời nói → Đầu ra văn bản sang lời nói.\nTại đây bạn có thể quản lý các cài đặt tổng hợp lời nói (ví dụ, tải về các gói ngôn ngữ để sử dụng ngoại tuyến) và chọn một công cụ chuyển đổi văn bản sang lời nói khác.</string>
+	<string name="prefs_languages_information_off">Đối với một số ngôn ngữ, bạn sẽ cần cài đặt một trình tổng hợp lời nói khác hoặc một gói ngôn ngữ bổ sung từ cửa hàng ứng dụng (Google Play, Galaxy Store, App Gallery, FDroid).\nMở cài đặt của thiết bị → Ngôn ngữ và nhập liệu → Lời nói → Đầu ra văn bản sang lời nói.\nTại đây bạn có thể quản lý các cài đặt tổng hợp lời nói (ví dụ, tải về các gói ngôn ngữ để sử dụng ngoại tuyến) và chọn một công cụ chuyển đổi văn bản sang lời nói khác.</string>
 	<string name="prefs_languages_information_off_link">Để biết thêm thông tin, vui lòng kiểm tra bài hướng dẫn này.</string>
 	<string name="transliteration_title">Chuyển ngữ sang chữ Latinh</string>
 	<string name="learn_more">Tìm hiểu thêm</string>
@@ -725,10 +730,14 @@
 	<string name="type.amenity.parking.permissive">đỗ xe</string>
 	<string name="type.amenity.parking.private">đỗ xe</string>
 	<string name="type.amenity.parking.underground">đỗ xe</string>
+	<string name="type.amenity.parking_entrance.private">Lối vào bãi đậu xe</string>
+	<string name="type.amenity.parking_entrance.permissive">Lối vào bãi đậu xe</string>
+	<string name="type.amenity.parking_entrance">Lối vào bãi đậu xe</string>
 	<string name="type.amenity.parking_space">Chỗ để xe</string>
 	<string name="type.amenity.parking_space.permissive">Chỗ để xe</string>
 	<string name="type.amenity.parking_space.private">Chỗ để xe</string>
 	<string name="type.amenity.parking_space.underground">Chỗ để xe</string>
+	<string name="type.amenity.parking_space.disabled">Chỗ đậu xe dành cho người khuyết tật</string>
 	<string name="type.amenity.payment_terminal">Thiết bị thanh toán</string>
 	<string name="type.amenity.pharmacy">3Hiệu thuốc</string>
 	<string name="type.amenity.place_of_worship">Chùa</string>
@@ -1181,10 +1190,13 @@
 	<string name="type.place.hamlet">Quận</string>
 	<string name="type.place.island">Tỉnh</string>
 	<string name="type.place.islet">Tỉnh</string>
+	<string name="type.place.isolated_dwelling">Nhà ở Biệt lập</string>
 	<string name="type.place.locality">Thôn</string>
+	<string name="type.place.neighbourhood">Vùng lân cận</string>
 	<string name="type.place.ocean">Đại dương</string>
 	<string name="type.place.region">Vùng</string>
 	<string name="type.place.sea">Biển</string>
+	<string name="type.place.square">Quảng trường</string>
 	<string name="type.place.state">Hạt</string>
 	<string name="type.place.state.USA">Hạt</string>
 	<string name="type.place.suburb">Đảo</string>
@@ -1351,6 +1363,12 @@
 	<string name="type.sport.volleyball">Bóng chuyền</string>
 	<string name="type.sport.9pin">Bowling</string>
 	<string name="type.sport.10pin">Bowling</string>
+	<string name="type.sport.padel">Padel</string>
+	<string name="type.sport.futsal">Futsal</string>
+	<string name="type.sport.ice_hockey">Khúc côn cầu trên băng</string>
+	<string name="type.sport.field_hockey">Khúc côn cầu</string>
+	<string name="type.sport.badminton">Cầu lông</string>
+	<string name="type.sport.pelota">Pơ mu Basque</string>
 	<string name="type.tourism.alpine_hut">Nhà ở trên núi</string>
 	<string name="type.tourism.apartment">Căn hộ</string>
 	<string name="type.tourism.artwork">Du lịch</string>

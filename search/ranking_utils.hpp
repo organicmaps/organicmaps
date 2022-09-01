@@ -170,6 +170,8 @@ bool IsStopWord(strings::UniString const & s);
 // Normalizes, simplifies and splits string, removes stop-words.
 void PrepareStringForMatching(std::string_view name, std::vector<strings::UniString> & tokens);
 
+/// @param[in]  tokens  Feature's name (splitted on tokens, without delimiters) to match.
+/// @param[in]  slice   Input query.
 template <typename Slice>
 NameScores GetNameScores(std::vector<strings::UniString> const & tokens, uint8_t lang,
                          Slice const & slice)
@@ -178,7 +180,6 @@ NameScores GetNameScores(std::vector<strings::UniString> const & tokens, uint8_t
     return {};
 
   NameScores scores;
-  // Slice is the user query. Token is the potential match.
   size_t const tokenCount = tokens.size();
   size_t const sliceCount = slice.Size();
 
@@ -254,7 +255,9 @@ NameScores GetNameScores(std::vector<strings::UniString> const & tokens, uint8_t
         }
       }
 
-      // If this was a full match and prior tokens matched, downgrade from full to prefix.
+      // This block was responsibe for: name = "X Y", query = "X Z" => score is FULL_PREFIX.
+      // IMHO, this is very controversial, keep it as SUBSTRING.
+      /*
       if (!errorsMade.IsValid() && nameScore == NameScore::FULL_MATCH && matchedLength)
       {
         nameScore = NameScore::FULL_PREFIX;
@@ -262,6 +265,7 @@ NameScores GetNameScores(std::vector<strings::UniString> const & tokens, uint8_t
         // Don't count this token towards match length.
         matchedLength -= slice.Get(i).GetOriginal().size();
       }
+      */
 
       if (errorsMade.IsValid())
       {
@@ -294,8 +298,6 @@ NameScores GetNameScores(std::vector<strings::UniString> const & tokens, uint8_t
 template <typename Slice>
 NameScores GetNameScores(std::string_view name, uint8_t lang, Slice const & slice)
 {
-  std::vector<strings::UniString> tokens;
-  SplitUniString(NormalizeAndSimplifyString(name), base::MakeBackInsertFunctor(tokens), Delimiters());
-  return GetNameScores(tokens, lang, slice);
+  return GetNameScores(NormalizeAndTokenizeString(name), lang, slice);
 }
 }  // namespace search

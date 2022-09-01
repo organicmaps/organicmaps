@@ -221,6 +221,8 @@
 	<string name="help">Pomoc</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">Pytania i odpowiedzi</string>
+	<!-- Button in the main menu -->
+	<string name="donate">Podarować</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">Jak nas wspierać?</string>
 	<!-- Button in the main Help dialog -->
@@ -340,7 +342,6 @@
 	<string name="routing_arrive">Przybycie: %s</string>
 	<string name="categories">Kategorie</string>
 	<string name="history">Historia</string>
-	<string name="closed">Zamknięte</string>
 	<string name="search_not_found">Przepraszamy, nic nie znaleziono.</string>
 	<string name="search_not_found_query">Wpisz inne zapytanie.</string>
 	<string name="search_history_title">Historia wyszukiwania</string>
@@ -382,10 +383,12 @@
 	<string name="day_off_today">Dziś nieczynne</string>
 	<string name="day_off">Nieczynne</string>
 	<string name="today">Dzisiaj</string>
+	<string name="closed">Zamknięte</string>
 	<string name="edit_opening_hours">Edytuj godziny otwarcia</string>
 	<string name="no_osm_account">Nie masz konta w OpenStreetMap?</string>
 	<string name="register_at_openstreetmap">Zarejestruj się</string>
 	<string name="login">Zaloguj się</string>
+	<string name="login_osm">Zaloguj się do OpenStreetMap</string>
 	<string name="password">Hasło</string>
 	<string name="forgot_password">Nie pamiętasz hasła?</string>
 	<string name="logout">Wyloguj</string>
@@ -406,6 +409,7 @@
 	<!-- login text field -->
 	<string name="email_or_username">Email lub nazwa użytkownika</string>
 	<string name="editor_add_phone">Dodaj numer telefonu</string>
+	<string name="level">Kondygnacja</string>
 	<string name="downloader_delete_map_dialog">Wszystkie zmiany dotyczące mapy zostaną usunięte wraz z nią.</string>
 	<string name="downloader_update_maps">Aktualizuj mapy</string>
 	<string name="downloader_mwm_migration_dialog">Aby utworzyć trasę, należy zaktualizować wszystkie mapy, a następnie ponownie zaplanować trasę.</string>
@@ -424,6 +428,7 @@
 	<string name="editor_report_problem_other_title">Inny problem</string>
 	<string name="placepage_add_business_button">Dodaj organizację</string>
 	<string name="message_invalid_feature_position">Obiekt nie może znajdować się tutaj</string>
+	<string name="osm_presentation">Wszystkie dane mapy pochodzą z projektu OpenStreetMap. Przypomina Wikipedię z mapami, w których można dodawać lub edytować miejsca, a stają się one dostępne dla milionów użytkowników na całym świecie.</string>
 	<string name="login_to_make_edits_visible">Zaloguj się, by inni użytkownicy mogli zobaczyć Twoje zmiany.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d z %2$d</string>
@@ -481,9 +486,9 @@
 	<string name="placepage_add_place_button">Dodaj miejsce do mapy</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Czy chcesz wysłać je wszystkim użytkownikom?</string>
-	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Upewnij się, że nie podałeś osobistych danych.</string>
-	<string name="editor_share_to_all_dialog_message_2">Zapoznamy się ze zmianami. W przypadku pytań skontaktujemy się z Tobą przez email.</string>
+	<string name="editor_share_to_all_dialog_message_2">Redaktorzy OpenStreetMap sprawdzą zmiany i skontaktują się z Tobą, jeśli będą mieli jakiekolwiek pytania.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps to bezpłatna aplikacja do map offline typu open source. Bez reklam. Bez śledzenia. Jeśli zobaczysz błąd na mapie, napraw go w OpenStreetMap. Projekt jest tworzony przez entuzjastów w czasie wolnym, dlatego potrzebujemy Twojej opinii i wsparcia.</string>
 	<!-- For the first routing -->
@@ -512,7 +517,7 @@
 	<string name="on">Wł.</string>
 	<string name="off">Wył.</string>
 	<string name="prefs_languages_information">Stosujemy system TTS dla komend głosowych. Stosuje go wiele urządzeń z systemem Android, można go pobrać lub zaktualizować z Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">W przypadku niektórych języków wymagana będzie instalacja innego syntezatora lub pakietu językowego ze strony aplikacji (Google Play, Samsung Apps, App Gallery, FDroid). Otwórz ustawienia urządzenia → Język i klawiatura → Mowa → Przetwarzanie tekstu na mowę.\nMożesz w tym miejscu zarządzać ustawieniami syntezy mowy (np. pobrać pakiet językowy do stosowania offline) i wybrać inny silnik przetwarzania tekstu na mowę.</string>
+	<string name="prefs_languages_information_off">W przypadku niektórych języków wymagana będzie instalacja innego syntezatora lub pakietu językowego ze strony aplikacji (Google Play, Galaxy Store, App Gallery, FDroid). Otwórz ustawienia urządzenia → Język i klawiatura → Mowa → Przetwarzanie tekstu na mowę.\nMożesz w tym miejscu zarządzać ustawieniami syntezy mowy (np. pobrać pakiet językowy do stosowania offline) i wybrać inny silnik przetwarzania tekstu na mowę.</string>
 	<string name="prefs_languages_information_off_link">Aby uzyskać więcej informacji, sprawdź ten poradnik.</string>
 	<string name="transliteration_title">Transkrypcja na alfabet łaciński</string>
 	<string name="learn_more">Dowiedz się więcej</string>
@@ -756,10 +761,14 @@
 	<string name="type.amenity.parking.permissive">Parking ograniczony</string>
 	<string name="type.amenity.parking.private">Parking prywatny</string>
 	<string name="type.amenity.parking.underground">Parking podziemny</string>
+	<string name="type.amenity.parking_entrance.private">Wejście na parking</string>
+	<string name="type.amenity.parking_entrance.permissive">Wejście na parking</string>
+	<string name="type.amenity.parking_entrance">Wejście na parking</string>
 	<string name="type.amenity.parking_space">Miejsce parkingowe</string>
 	<string name="type.amenity.parking_space.permissive">Miejsce parkingowe</string>
 	<string name="type.amenity.parking_space.private">Miejsce parkingowe</string>
 	<string name="type.amenity.parking_space.underground">Miejsce parkingowe</string>
+	<string name="type.amenity.parking_space.disabled">Miejsce parkingowe dla niepełnosprawnych</string>
 	<string name="type.amenity.payment_terminal">Wpłatomat</string>
 	<string name="type.amenity.pharmacy">Apteka</string>
 	<string name="type.amenity.place_of_worship">Świątynia</string>
@@ -1275,7 +1284,6 @@
 	<string name="type.office.lawyer">Prawnik</string>
 	<string name="type.office.ngo">Biuro organizacji pozarządowej</string>
 	<string name="type.office.telecommunication">Biuro operatora telefonii komórkowej</string>
-	<string name="type.place">Miejsce</string>
 	<string name="type.place.city">Miasto</string>
 	<string name="type.place.city.capital">Stolica</string>
 	<string name="type.place.city.capital.10">Miasto</string>
@@ -1298,6 +1306,8 @@
 	<string name="type.place.isolated_dwelling">Mała osada</string>
 	<string name="type.place.locality">Lokalne</string>
 	<string name="type.place.neighbourhood">Sąsiedztwo</string>
+	<string name="type.place.ocean">Ocean</string>
+	<string name="type.place.region">Region</string>
 	<string name="type.place.sea">Morze</string>
 	<string name="type.place.square">Plac</string>
 	<string name="type.place.state">Stan</string>
@@ -1472,6 +1482,12 @@
 	<string name="type.sport.volleyball">Piłka siatkowa</string>
 	<string name="type.sport.9pin">Bowling</string>
 	<string name="type.sport.10pin">Bowling</string>
+	<string name="type.sport.padel">Padel</string>
+	<string name="type.sport.futsal">Futsal</string>
+	<string name="type.sport.ice_hockey">Hokej na lodzie</string>
+	<string name="type.sport.field_hockey">Hokej na trawie</string>
+	<string name="type.sport.badminton">Badminton</string>
+	<string name="type.sport.pelota">Pelota baskijska</string>
 	<string name="type.tourism">Turystyka</string>
 	<string name="type.tourism.alpine_hut">Schronisko górskie</string>
 	<string name="type.tourism.apartment">Apartamenty</string>

@@ -503,12 +503,6 @@
 
 "history" = "История";
 
-"opens_in" = "Opens in %@";
-
-"closes_in" = "Closes in %@";
-
-"closed" = "Затворено";
-
 "search_not_found" = "За съжаление не са намерени резултати.";
 
 "search_not_found_query" = "Опитайте да промените критериите за търсене.";
@@ -578,11 +572,25 @@
 
 "today" = "Днес";
 
+"opens_tomorrow_at" = "Opens tomorrow at %@";
+
+"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
+
+"opens_at" = "Opens at %@";
+
+"opens_in" = "Opens in %@";
+
+"closes_at" = "Closes at %@";
+
+"closes_in" = "Closes in %@";
+
+"closed" = "Затворено";
+
 "add_opening_hours" = "Добавяне на работно време";
 
 "no_osm_account" = "Нямате акаунт в OpenStreetMap?";
 
-"register_at_openstreetmap" = "Регистриране в OSM";
+"register_at_openstreetmap" = "Регистриране в OpenStreetMap";
 
 "password_8_chars_min" = "Парола (поне 8 символа)";
 
@@ -629,6 +637,8 @@
 "email_or_username" = "Имейл или потребителско име";
 
 "phone" = "Телефон";
+
+"level" = "Етаж";
 
 "please_note" = "Моля, имайте предвид";
 
@@ -750,6 +760,8 @@
 
 "miles_per_hour" = "mph";
 
+"hour" = "ч";
+
 "minute" = "мин";
 
 "placepage_place_description" = "Описание";
@@ -798,10 +810,10 @@
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Искате ли да го изпратите на всички потребители?";
 
-/* iOS Dialog before publishing the modifications to the public map. */
+/* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "Уверете се, че не сте въвели никакви лични данни.";
 
-"editor_share_to_all_dialog_message_2" = "Ще проверим промените. Ако имаме някакви въпроси, ще се свържем с вас по имейл.";
+"editor_share_to_all_dialog_message_2" = "Редакторите на OpenStreetMap ще проверят промените и ще се свържат с вас, ако имат въпроси.";
 
 "navigation_stop_button" = "stop";
 
@@ -1205,6 +1217,12 @@
 /* edit track screen title */
 "track_title" = "Пътека";
 
+/* Telegram group url for the help page */
+"telegram_url" = "https://t.me/OrganicMapsApp";
+
+/* Instagram account url for the help page */
+"instagram_url" = "https://www.instagram.com/organicmaps.app";
+
 
 /********** Types **********/
 
@@ -1356,6 +1374,12 @@
 
 "type.amenity.parking.underground" = "Parking";
 
+"type.amenity.parking_entrance.private" = "Вход за паркинг";
+
+"type.amenity.parking_entrance.permissive" = "Вход за паркинг";
+
+"type.amenity.parking_entrance" = "Вход за паркинг";
+
 "type.amenity.parking_space" = "Parking Space";
 
 "type.amenity.parking_space.permissive" = "Parking Space";
@@ -1363,6 +1387,8 @@
 "type.amenity.parking_space.private" = "Parking Space";
 
 "type.amenity.parking_space.underground" = "Parking Space";
+
+"type.amenity.parking_space.disabled" = "Паркомясто за инвалиди";
 
 "type.amenity.payment_terminal" = "Payment Terminal";
 
@@ -2468,69 +2494,67 @@
 
 "type.organic.yes" = "Organic";
 
-"type.place" = "place";
+"type.place.city" = "Град";
 
-"type.place.city" = "City";
+"type.place.city.capital" = "Столица";
 
-"type.place.city.capital" = "Capital";
+"type.place.city.capital.10" = "Град";
 
-"type.place.city.capital.10" = "City";
+"type.place.city.capital.11" = "Град";
 
-"type.place.city.capital.11" = "City";
+"type.place.city.capital.2" = "Столица";
 
-"type.place.city.capital.2" = "Capital";
+"type.place.city.capital.3" = "Град";
 
-"type.place.city.capital.3" = "City";
+"type.place.city.capital.4" = "Град";
 
-"type.place.city.capital.4" = "City";
+"type.place.city.capital.5" = "Град";
 
-"type.place.city.capital.5" = "City";
+"type.place.city.capital.6" = "Град";
 
-"type.place.city.capital.6" = "City";
+"type.place.city.capital.7" = "Град";
 
-"type.place.city.capital.7" = "City";
+"type.place.city.capital.8" = "Град";
 
-"type.place.city.capital.8" = "City";
+"type.place.city.capital.9" = "Град";
 
-"type.place.city.capital.9" = "City";
+"type.place.continent" = "Континент";
 
-"type.place.continent" = "Continent";
+"type.place.country" = "Страна";
 
-"type.place.country" = "Country";
+"type.place.county" = "Графство";
 
-"type.place.county" = "County";
+"type.place.farm" = "Ферма";
 
-"type.place.farm" = "Farm";
+"type.place.hamlet" = "Cело";
 
-"type.place.hamlet" = "Hamlet";
+"type.place.island" = "Остров";
 
-"type.place.island" = "Island";
+"type.place.islet" = "Острови";
 
-"type.place.islet" = "Island";
+"type.place.isolated_dwelling" = "Изолирано жилище";
 
-"type.place.isolated_dwelling" = "Dwelling";
+"type.place.locality" = "Място";
 
-"type.place.locality" = "Locality";
+"type.place.neighbourhood" = "Съседство";
 
-"type.place.neighbourhood" = "Neighbourhood";
+"type.place.ocean" = "Океан";
 
-"type.place.ocean" = "Ocean";
+"type.place.region" = "Регион";
 
-"type.place.region" = "Region";
+"type.place.sea" = "Море";
 
-"type.place.sea" = "Sea";
+"type.place.square" = "Площад";
 
-"type.place.square" = "Square";
+"type.place.state" = "Федерален щат";
 
-"type.place.state" = "State";
+"type.place.state.USA" = "Държава";
 
-"type.place.state.USA" = "State";
+"type.place.suburb" = "Предградие";
 
-"type.place.suburb" = "Suburb";
+"type.place.town" = "Касаба";
 
-"type.place.town" = "Town";
-
-"type.place.village" = "Village";
+"type.place.village" = "Село";
 
 "type.power" = "Power";
 
@@ -2970,6 +2994,18 @@
 "type.sport.9pin" = "Боулинг";
 
 "type.sport.10pin" = "Боулинг";
+
+"type.sport.padel" = "Падел";
+
+"type.sport.futsal" = "Футзал";
+
+"type.sport.ice_hockey" = "Хокей на лед";
+
+"type.sport.field_hockey" = "Хокей на трева";
+
+"type.sport.badminton" = "Бадминтон";
+
+"type.sport.pelota" = "Баска пелота";
 
 "type.tourism" = "Tourism";
 
