@@ -3478,6 +3478,13 @@ cont {
 cont {
   name: "amenity-college"
   element {
+    scale: 15
+    area {
+      color: 16311482
+      priority: -15982
+    }
+  }
+  element {
     scale: 16
     area {
       color: 16311482
@@ -4849,6 +4856,20 @@ cont {
 }
 cont {
   name: "amenity-kindergarten"
+  element {
+    scale: 15
+    area {
+      color: 16311482
+      priority: -15982
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 16311482
+      priority: -15982
+    }
+  }
   element {
     scale: 17
     area {
@@ -7680,6 +7701,20 @@ cont {
 }
 cont {
   name: "amenity-school"
+  element {
+    scale: 15
+    area {
+      color: 16311482
+      priority: -15982
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 16311482
+      priority: -15982
+    }
+  }
   element {
     scale: 17
     area {
@@ -32323,6 +32358,20 @@ cont {
 cont {
   name: "landuse-education"
   element {
+    scale: 15
+    area {
+      color: 16311482
+      priority: -15991
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 16311482
+      priority: -15991
+    }
+  }
+  element {
     scale: 17
     area {
       color: 16311482
@@ -37651,6 +37700,13 @@ cont {
 }
 cont {
   name: "leisure-playground"
+  element {
+    scale: 16
+    area {
+      color: 13749671
+      priority: -15963
+    }
+  }
   element {
     scale: 17
     area {
@@ -68881,6 +68937,20 @@ cont {
 cont {
   name: "sport-multi"
   element {
+    scale: 15
+    area {
+      color: 13749671
+      priority: -15387
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 13749671
+      priority: -15387
+    }
+  }
+  element {
     scale: 17
     area {
       color: 13749671
@@ -69263,6 +69333,13 @@ cont {
 }
 cont {
   name: "sport-soccer"
+  element {
+    scale: 15
+    area {
+      color: 13749671
+      priority: -15387
+    }
+  }
   element {
     scale: 16
     area {
