@@ -739,7 +739,8 @@
         android:name="com.mapswithme.maps.editor.EditorActivity"
         android:configChanges="orientation|screenLayout|screenSize"
         android:label="@string/edit_place"
-        android:parentActivityName="com.mapswithme.maps.MwmActivity" />
+        android:parentActivityName="com.mapswithme.maps.MwmActivity"
+        android:windowSoftInputMode="adjustResize" />
 
     <activity
         android:name="com.mapswithme.maps.editor.ProfileActivity"
