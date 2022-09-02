@@ -38365,19 +38365,10 @@ cont {
 cont {
   name: "leisure-track"
   element {
-    scale: 14
-    lines {
-      width: 1.0
-      color: 6247213
-      priority: 1320
-      cap: BUTTCAP
-    }
-  }
-  element {
     scale: 15
     lines {
       width: 1.5
-      color: 6247213
+      color: 2171163
       priority: 1320
       cap: BUTTCAP
     }
@@ -38386,7 +38377,7 @@ cont {
     scale: 16
     lines {
       width: 1.8
-      color: 6247213
+      color: 2171163
       priority: 1320
     }
     caption {
@@ -38402,7 +38393,7 @@ cont {
     scale: 17
     lines {
       width: 3.0
-      color: 6247213
+      color: 2171163
       priority: 1047
     }
     caption {
@@ -38419,7 +38410,7 @@ cont {
     scale: 18
     lines {
       width: 3.0
-      color: 6247213
+      color: 2171163
       priority: 1047
     }
     caption {
@@ -38436,7 +38427,7 @@ cont {
     scale: 19
     lines {
       width: 4.0
-      color: 6247213
+      color: 2171163
       priority: 1047
     }
     caption {
@@ -38447,6 +38438,76 @@ cont {
         offset_y: 1
       }
       priority: 15047
+    }
+  }
+}
+cont {
+  name: "leisure-track-area"
+  element {
+    scale: 15
+    area {
+      color: 2171163
+      priority: -15680
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 2171163
+      priority: -15680
+    }
+    caption {
+      primary {
+        height: 9
+        color: 7829367
+        stroke_color: 856756480
+      }
+      priority: 15320
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 2171163
+      priority: -15680
+    }
+    caption {
+      primary {
+        height: 9
+        color: 7829367
+        stroke_color: 856756480
+      }
+      priority: 15320
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 2171163
+      priority: -15680
+    }
+    caption {
+      primary {
+        height: 10
+        color: 7829367
+        stroke_color: 856756480
+      }
+      priority: 15320
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 2171163
+      priority: -15680
+    }
+    caption {
+      primary {
+        height: 10
+        color: 7829367
+        stroke_color: 856756480
+      }
+      priority: 15320
     }
   }
 }

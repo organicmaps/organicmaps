@@ -6370,7 +6370,7 @@ zh-Hans:篮球
 zh-Hant:籃球
 
 sport-beachvolleyball
-en:Beachvolleyball
+en:Beach volleyball
 ar:كرة طائرة شاطئية
 be:Пляжны валейбол
 bg:Плажен волейбол
@@ -7096,7 +7096,7 @@ el:Κτίριο
 sk:Budova|stavba
 sw:Jengo
 fa:ساختمان
-mr:इमारत|बिल्डिंग|वाडा 
+mr:इमारत|बिल्डिंग|वाडा
 
 # First keyword should match [police] definition in strings.txt!
 @police
@@ -11906,7 +11906,7 @@ eu:Ekitaldien Lekua
 fa:محل برگزاری رویدادها
 fi:Tapahtumapaikka
 fr:Lieu des événements
-he:מקום אירועים 
+he:מקום אירועים
 hu:Rendezvények helyszíne
 id:Tempat acara
 it:Sede degli eventi

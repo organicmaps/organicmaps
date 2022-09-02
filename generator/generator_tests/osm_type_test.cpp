@@ -2348,6 +2348,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_ComplexTypesSmoke)
     {{"leisure", "park", "private"}, {{"leisure", "park"}, {"access", "private"}}},
     {{"leisure", "park", "private"}, {{"leisure", "park"}, {"access", "private"}}},
     {{"leisure", "sports_centre"}, {{"leisure", "sports_centre"}}},
+    {{"leisure", "track", "area"}, {{"leisure", "track"}, {"area", "any_value"}}},
     {{"mountain_pass"}, {{"mountain_pass", "any_value"}}},
     {{"natural", "water", "pond"}, {{"natural", "water"}, {"water", "pond"}}},
     {{"natural", "water", "lake"}, {{"natural", "water"}, {"water", "lake"}}},

@@ -289,6 +289,13 @@ string MetadataTagProcessorImpl::ValidateAndFormat_wikipedia(string v) const
 
 string MetadataTagProcessorImpl::ValidateAndFormat_wikimedia_commons(string v) const
 {
+
+    // Putting the full wikimedia url to this tag is incorrect according to:
+    // https://wiki.openstreetmap.org/wiki/Key:wikimedia_commons
+    // But it happens often enough that we should guard against it.
+    strings::ReplaceFirst(v, "https://commons.wikimedia.org/wiki/", "");
+    strings::ReplaceFirst(v, "https://commons.m.wikimedia.org/wiki/", "");
+
     if(strings::StartsWith(v, "File:") || strings::StartsWith(v, "Category:"))
     {
         return v;
