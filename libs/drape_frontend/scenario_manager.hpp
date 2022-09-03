@@ -84,6 +84,7 @@ public:
 private:
   void ThreadRoutine();
   void InterruptImpl();
+  bool IsRunningImpl();
 
   FrontendRenderer * m_frontendRenderer;
 

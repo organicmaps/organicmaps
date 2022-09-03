@@ -35,13 +35,9 @@ bool ScenarioManager::RunScenario(ScenarioData && scenarioData, ScenarioCallback
                                   ScenarioCallback const & onFinishFn)
 {
   std::lock_guard<std::mutex> lock(m_mutex);
-  if (m_thread != nullptr)
-  {
-    if (m_isFinished)
-      InterruptImpl();
-    else
-      return false;  // The only scenario can be executed currently.
-  }
+  // The only scenario can be executed currently.
+  if (IsRunningImpl())
+    return false;
 
   std::swap(m_scenarioData, scenarioData);
   m_onStartHandler = onStartFn;
@@ -53,9 +49,8 @@ bool ScenarioManager::RunScenario(ScenarioData && scenarioData, ScenarioCallback
   return true;
 }
 
-bool ScenarioManager::IsRunning()
+bool ScenarioManager::IsRunningImpl()
 {
-  std::lock_guard<std::mutex> lock(m_mutex);
   if (m_thread == nullptr)
     return false;
 
@@ -67,11 +62,17 @@ bool ScenarioManager::IsRunning()
   return true;
 }
 
+bool ScenarioManager::IsRunning()
+{
+  std::lock_guard<std::mutex> lock(m_mutex);
+  return IsRunningImpl();
+}
+
 void ScenarioManager::ThreadRoutine()
 {
   // TODO(AB): protect with m_mutex?
   std::string const scenarioName = m_scenarioData.m_name;
-  if (m_onStartHandler != nullptr)
+  if (m_onStartHandler)
     m_onStartHandler(scenarioName);
 
   for (auto const & action : m_scenarioData.m_scenario)
@@ -90,7 +91,7 @@ void ScenarioManager::ThreadRoutine()
     {
     case ActionType::CenterViewport:
     {
-      CenterViewportAction * centerViewportAction = static_cast<CenterViewportAction *>(action.get());
+      auto const * centerViewportAction = static_cast<CenterViewportAction const *>(action.get());
       m_frontendRenderer->AddUserEvent(make_unique_dp<SetCenterEvent>(
           centerViewportAction->GetCenter(), centerViewportAction->GetZoomLevel(), true /* isAnim */,
           false /* trackVisibleViewport */, nullptr /* parallelAnimCreator */));
@@ -99,7 +100,7 @@ void ScenarioManager::ThreadRoutine()
 
     case ActionType::WaitForTime:
     {
-      WaitForTimeAction * waitForTimeAction = static_cast<WaitForTimeAction *>(action.get());
+      auto const * waitForTimeAction = static_cast<WaitForTimeAction const *>(action.get());
       std::this_thread::sleep_for(waitForTimeAction->GetDuration());
       break;
     }
@@ -108,19 +109,19 @@ void ScenarioManager::ThreadRoutine()
     }
   }
 
-  ScenarioCallback handler = nullptr;
+  ScenarioCallback handler;
   {
     std::lock_guard<std::mutex> lock(m_mutex);
     m_scenarioData.m_scenario.clear();
     m_isFinished = true;
-    if (m_onFinishHandler != nullptr)
+    if (m_onFinishHandler)
     {
-      handler = m_onFinishHandler;
-      m_onFinishHandler = nullptr;
+      handler = std::move(m_onFinishHandler);
+      m_onFinishHandler = {};
     }
   }
 
-  if (handler != nullptr)
+  if (handler)
     handler(scenarioName);
 }
 

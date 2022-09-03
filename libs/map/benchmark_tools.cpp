@@ -7,7 +7,6 @@
 #include "storage/country_info_getter.hpp"
 
 #include "platform/downloader_defines.hpp"
-#include "platform/http_client.hpp"
 #include "platform/platform.hpp"
 
 #include "coding/reader.hpp"
@@ -51,6 +50,7 @@ struct BenchmarkScenarioJson
 
 struct BenchmarkDataJson
 {
+  bool isActive = true;
   std::vector<BenchmarkScenarioJson> scenarios;
 };
 }  // namespace benchmark_json
@@ -139,6 +139,9 @@ void RunGraphicsBenchmark(Framework * framework)
     if (auto const error = glz::read<opts>(benchmarkJson, benchmarkData); error)
       return;
   }
+
+  if (!benchmarkJson.isActive)
+    return;
 
   // Parse scenarios.
   handle->m_scenariosToRun.reserve(benchmarkJson.scenarios.size());
