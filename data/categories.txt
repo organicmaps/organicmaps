@@ -2972,39 +2972,94 @@ sw:Machimbo ya kihistoria|kivutio|utalii
 fa:سایت باستان شناسی
 
 historic-castle|@tourism
-en:4Castle|4Palace|4Fortress|U+1F3EF|U+1F3F0|U+1F451|U+1F478
-ru:3Замок|4Дворец|4Крепость
-bg:3Замък|4Дворец|4крепост
-ar:قلعة|سياحة|أماكن جذابة|مناظر
-cs:3Zámek|zajímavost
-da:Slot|borg
-nl:4Kasteel|burcht|attractie
-fi:Linna
-fr:4Château|4Forteresse|4Palais
-de:Burg|Schloss|Festung
-hu:Vár|Katély|Erőd|Palota
-id:4Kastel
-it:4Castello
-ja:城|お城|砦|城砦
-ko:성|궁전|성채|요새
-nb:Slott
-pl:3Zamek
-pt:4Castelo|4Palácio|4Fortaleza
-pt-BR:4Castelo
-ro:4Castel
-es:4Castillo
-eu:4Gaztelua
-sv:Slott
-th:ปราสาท|การท่องเที่ยว
-tr:Kale|Saray
-uk:3Замок|4фортеця|мури
-vi:Pháo đài
-zh-Hans:城堡|景点|旅游
-zh-Hant:城堡|堡|古蹟|歷史|旅遊景點
-el:Κάστρο|θέαμα|τουρισμός|αξιοθέατα
-sk:3Zámok|atrakcia
-sw:Ngome|kivutio|utalii
-fa:قلعه تاریخی
+en:4Castle|4Palace|4Fortress|U+1F3EF|U+1F3F0|U+1F451|U+1F478|Hillfort|Kremlin|Manor house
+ar:قلعة|سياحة|أماكن جذابة|مناظر|كاسترا|الكنيسة المحصنة|حصون التلال|كرملين|قصر مالك العزبة|قصر|شاتو
+be:Замак|Каструм|Крэпасць|Гарадзішча|Крэмль|Сядзіба|Палац
+bg:3Замък|4Дворец|4крепост|Каструм|Градище|Кремъл|Усадба
+cs:3Zámek|zajímavost|Hrad|Castrum|Pevnost|Hradiště|Kreml|Panský dům|Palác
+da:Slot|borg|Fæstningsværk|Voldsted|Kreml|Herregård|Palads
+de:Burg|Schloss|Festung|Palast|Wallburg|Kreml|Herrenhaus|Palais|Ruine
+el:Κάστρο|θέαμα|τουρισμός|αξιοθέατα|Ρωμαϊκό κάστρο|Οχυρωμένη εκκλησία|Φρούριο|Κρεμλίνο|Αρχοντικό|Παλάτι
+es:4Castillo|Castrum|Iglesia fortificada|Fortaleza|Castro|Kremlin|Casa solariega|Palacio
+eu:4Gaztelua|Castrum|Eliza-gotorleku|Gotorlekua|Kastro|Kremlina|Jauregitxo|Jauregi
+fa:قلعه تاریخی|قلعه رومی|کلیسای مستحکم|تپه‌قلعه|کرملین|خانه ارباب یا صاحب تیول|کاخ|گردشگری
+fi:Linna|Castra|Linnoitus|Linnavuori|Kreml|Kartano|Palatsi
+fr:4Château|4Forteresse|4Palais|Église fortifiée|Colline fortifiée|Kremlin|Manoir
+he:טירה|קסטרום|כנסייה מבוצרת|מִבצָר|מבצר גבעה|קרמלין|אחוזה|ארמון|שאטו
+hu:Vár|Kastély|Erőd|Palota|Castrum|Erősített templom|Erődrendszer|Földvár|Kreml|Udvarház
+id:4Kastel|Benteng Romawi|Gereja yang dibentengi|Benteng|Benteng bukit|Kremlin|Rumah bangsawan|Istana
+it:4Castello|Castra|Chiesa fortificata|Fortezza di collina|Cremlino|Maniero|Palazzo
+ja:城|お城|砦|城砦|カストラ|要塞化された教会|要塞|ヒルフォート|クレムリ|マナー・ハウス|宮殿
+ko:성|궁전|성채|요새|로마 요새|요새화된 교회|요새|힐포트|크렘린|매너하우스|궁전
+mr:गढी|रोमन किल्ला|तटबंदी असलेले चर्च|किल्ला|हिलफोर्ट|क्रेमलिन|मनोर घर|राजवाडा|किल्ला
+nb:Slott|Borg|Festning|Bygdeborg|Kreml|Herregård|Palass
+nl:4Kasteel|burcht|attractie|Castra|Weerkerk|Vesting|Heuvelfort|Kremlin|Manoir|Paleis
+pl:3Zamek|Castrum Romanum|Kościół obronny|Twierdza|Grodzisko|Kreml|Manoir|Pałac
+pt:4Castelo|4Palácio|4Fortaleza|Castro|Igreja fortificada|Kremlin|Solar|Château
+ro:4Castel|Castru|Biserică fortificată|Cetate|Castrul de deal|Kremlin|Conac|Palat
+ru:3Замок|4Дворец|4Крепость|Каструм|Городище|Кремль|Усадьба|Шато
+sk:3Zámok|atrakcia|Hrad|Kastrum|Opevnený kostol|Pevnosť|Hradisko|Kremeľ|Kaštieľ|Palác
+sv:Slott|Borg|Castrum|Försvarskyrka|Fästning|Fornborg|Kreml|Herrgård|Palats
+sw:Ngome|kivutio|utalii|Kanisa lililoimarishwa|Kremlin|Nyumba ya manor|Ikulu
+th:ปราสาท|การท่องเที่ยว|ป้อมโรมัน|โบสถ์เสริมความแข็งแกร่ง|ป้อม|ป้อมเนิน|เครมลิน|คฤหาสน์|วัง|ปราสาท
+tr:Kale|Saray|Müstahkem şato|Castra|Müstahkem şato|Müstahkem kilise|Tepe Kalesi|Kremlin|Malikane|Şato
+uk:3Замок|4фортеця|мури|Каструм|Фортеця|Городище|Кремль|Садиба|Палац|Шато
+vi:Pháo đài|Lâu đài|Pháo đài La mã|Nhà thờ kiên cố|Trang viên|Cung điện|
+zh-Hans:城堡|古罗马兵营|坚固的教堂|要塞|丘堡|克里姆林|庄园大屋|宮殿|法式城堡
+zh-Hant:城堡|堡|古蹟|歷史|古羅馬兵營|堅固的教堂|要塞|丘堡|克里姆林|莊園大屋|宮殿|法式城堡
+
+historic-city_gate|@tourism
+en:City gate
+ar:بوابة مدينة
+be:Гарадская брама
+bg:Градска порта
+cs:Městská brána
+da:Byport
+de:Stadttor
+el:Πύλη της πόλης
+es:Puerta de la ciudad
+eu:Portale
+fa:دروازه شهر
+fi:Kaupungin portti
+fr:Porte de ville
+he:שער העיר
+hu:Városi kapu
+id:Gerbang kota
+it:Porta cittadina
+ja:城門
+ko:성문
+mr:शहराचा दरवाजा
+nb:Byport
+nl:Stadspoort
+pl:Brama miejska
+pt:Portas da cidade|Portão da cidade
+ro:Poarta orașului
+ru:Городские ворота
+sk:Mestská brána
+sv:Stadsport
+sw:Lango la jiji
+th:ประตูเมือง
+tr:Şehir kapısı
+uk:Міська брама
+vi:Cổng thành
+zh-Hans:城门
+zh-Hant:城門
+
+historic-fort|@tourism
+en = Fort
+ar = قلعة
+de = Festung
+fr = Fort militaire
+ja = 歴史的な要塞
+mr = दुर्ग
+pl = Historyczny fort
+pt = Forte histórico
+pt-BR = Forte histórico
+ru = Форт
+tr = Hisar
+uk = Форт
+zh-Hans = 历史要塞
+zh-Hant = 歷史要塞
 
 historic-memorial|@tourism
 en:4Memorial|monument|U+1F5FC|U+1F5FD|U+1F5FF

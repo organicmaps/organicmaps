@@ -1002,6 +1002,8 @@ node|z12-[historic=fort],
 area|z12-[historic=fort],
 node|z12-[historic=castle],
 area|z12-[historic=castle],
+node|z13-[historic=city_gate],
+area|z13-[historic=city_gate],
 node|z13-[historic=monument],
 area|z13-[historic=monument],
 node|z13-[tourism=museum],
@@ -1091,6 +1093,16 @@ area|z15-[historic=memorial][memorial=plaque],
 node|z18-[historic=memorial][memorial=plaque],
 area|z18-[historic=memorial][memorial=plaque]
 {icon-image: plaque.svg;icon-min-distance: 12;}
+
+node|z13-14[historic=city_gate],
+area|z13-14[historic=city_gate]
+{icon-image: remains-s.svg;text-offset: 1;icon-min-distance: 12;}
+node|z15[historic=city_gate],
+area|z15[historic=city_gate],
+{icon-image: remains-m.svg;icon-min-distance: 24;}
+node|z16-[historic=city_gate],
+area|z16-[historic=city_gate],
+{icon-image: remains-m.svg;icon-min-distance: 12;}
 
 node|z13-14[tourism=museum],
 area|z13-14[tourism=museum]
