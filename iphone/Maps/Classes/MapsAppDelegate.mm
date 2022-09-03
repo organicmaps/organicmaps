@@ -333,10 +333,10 @@ using namespace osm_auth_ios;
 #pragma mark - Properties
 
 - (MapViewController *)mapViewController {
-  auto obj = [(UINavigationController *)self.window.rootViewController viewControllers].firstObject;
-  if ([obj isKindOfClass:[MapViewController class]])
-    return obj;
-
+  for (id vc in [(UINavigationController *)self.window.rootViewController viewControllers]) {
+    if ([vc isKindOfClass:[MapViewController class]])
+      return vc;
+  }
   NSAssert(false, @"Please check the logic");
   return nil;
 }
