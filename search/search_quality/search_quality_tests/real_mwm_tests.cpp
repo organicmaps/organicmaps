@@ -7,11 +7,11 @@
 namespace real_mwm_tests
 {
 
-class MwmTestsFixture : public search::tests_support::SearchTest
+class MwmTestsFixture : public search::tests_support::SearchTestBase
 {
 public:
   // Pass LDEBUG to verbose logs for debugging.
-  MwmTestsFixture() : search::tests_support::SearchTest(LINFO) {}
+  MwmTestsFixture() : search::tests_support::SearchTestBase(LINFO, false /* mockCountryInfo */) {}
 
   // Default top POIs count to check types or distances.
   static size_t constexpr kTopPoiResultsCount = 5;
@@ -108,6 +108,11 @@ public:
       auto const ll = mercator::ToLatLon(r.GetFeatureCenter());
       TEST(rect.IsPointInside({ll.m_lon, ll.m_lat}), (r));
     }
+  }
+
+  double GetDistanceM(search::Result const & r, ms::LatLon const & ll) const
+  {
+    return ms::DistanceOnEarth(ll, mercator::ToLatLon(r.GetFeatureCenter()));
   }
 };
 
@@ -306,4 +311,19 @@ UNIT_CLASS_TEST(MwmTestsFixture, Barcelona_Carrers)
   }
 }
 
+// https://github.com/organicmaps/organicmaps/issues/3307
+// "Karlstraße" is a common street name in Germany.
+UNIT_CLASS_TEST(MwmTestsFixture, Germany_Karlstraße_3)
+{
+  RegisterLocalMapsByPrefix("Germany");
+  // Ulm
+  SetViewport({48.40420, 9.98604}, 3000);
+
+  auto request = MakeRequest("Karlstraße 3");
+  auto const & results = request->Results();
+  TEST_GREATER(results.size(), kTopPoiResultsCount, ());
+
+  // First expected result in Ulm: https://www.openstreetmap.org/node/2293529605#map=19/48.40419/9.98615
+  TEST_LESS(GetDistanceM(results[0], {48.4042014, 9.9860426}), 500, ());
+}
 } // namespace real_mwm_tests

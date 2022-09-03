@@ -18,9 +18,7 @@ namespace tests_support
 class TestSearchEngine
 {
 public:
-  TestSearchEngine(DataSource & dataSource, std::unique_ptr<storage::CountryInfoGetter> infoGetter,
-                   Engine::Params const & params);
-  TestSearchEngine(DataSource & dataSource, Engine::Params const & params);
+  TestSearchEngine(DataSource & dataSource, Engine::Params const & params, bool mockCountryInfo = false);
 
   void SetLocale(std::string const & locale) { m_engine.SetLocale(locale); }
 

@@ -13,6 +13,8 @@
 #include "search/tracer.hpp"
 #include "search/utils.hpp"
 
+#include "storage/country_info_getter.hpp"
+
 #include "indexer/data_source.hpp"
 #include "indexer/feature_decl.hpp"
 #include "indexer/ftypes_matcher.hpp"
@@ -36,10 +38,6 @@
 #include "base/stl_helpers.hpp"
 
 #include <algorithm>
-#include <functional>
-#include <iterator>
-#include <random>
-#include <sstream>
 
 #include "defines.hpp"
 
@@ -248,9 +246,10 @@ void JoinQueryTokens(QueryParams const & params, TokenRange const & range, UniSt
 
 double Area(m2::RectD const & rect) { return rect.IsValid() ? rect.SizeX() * rect.SizeY() : 0; }
 
-// Computes the average similarity between |rect| and |pivot|. By
-// similarity between two rects we mean a fraction of the area of
-// rects intersection to the area of the smallest rect.
+/// @brief Computes the average similarity between |rect| and |pivot|.
+/// By similarity between two rects we mean a fraction of the area of
+/// rects intersection to the area of the smallest rect.
+/// @return [0, 1]
 double GetSimilarity(m2::RectD const & pivot, m2::RectD const & rect)
 {
   double const area = min(Area(pivot), Area(rect));
@@ -297,14 +296,6 @@ unique_ptr<MwmContext> GetWorldContext(DataSource const & dataSource)
   SCOPE_GUARD(tracerGuard, [&] { m_resultTracer.LeaveMethod(ResultTracer::Branch::branch); })
 }  // namespace
 
-// Geocoder::ExtendedMwmInfos::ExtendedMwmInfo -----------------------------------------------------
-bool Geocoder::ExtendedMwmInfos::ExtendedMwmInfo::operator<(
-    Geocoder::ExtendedMwmInfos::ExtendedMwmInfo const & rhs) const
-{
-  if (m_distance == 0.0 && rhs.m_distance == 0.0)
-    return m_similarity > rhs.m_similarity;
-  return m_distance < rhs.m_distance;
-}
 
 // Geocoder::LocalitiesCaches ----------------------------------------------------------------------
 Geocoder::LocalitiesCaches::LocalitiesCaches(base::Cancellable const & cancellable)
@@ -406,7 +397,7 @@ void Geocoder::GoEverywhere()
   if (m_params.GetNumTokens() == 0)
     return;
 
-  vector<shared_ptr<MwmInfo>> infos;
+  vector<MwmInfoPtr> infos;
   m_dataSource.GetMwmsInfo(infos);
 
   GoImpl(infos, false /* inViewport */);
@@ -419,10 +410,10 @@ void Geocoder::GoInViewport()
   if (m_params.GetNumTokens() == 0)
     return;
 
-  vector<shared_ptr<MwmInfo>> infos;
+  vector<MwmInfoPtr> infos;
   m_dataSource.GetMwmsInfo(infos);
 
-  base::EraseIf(infos, [this](shared_ptr<MwmInfo> const & info) {
+  base::EraseIf(infos, [this](MwmInfoPtr const & info) {
     return !m_params.m_pivot.IsIntersect(info->m_bordersRect);
   });
 
@@ -458,31 +449,7 @@ void Geocoder::SetParamsForCategorialSearch(Params const & params)
   LOG(LDEBUG, (static_cast<QueryParams const &>(m_params)));
 }
 
-Geocoder::ExtendedMwmInfos::ExtendedMwmInfo Geocoder::GetExtendedMwmInfo(
-    shared_ptr<MwmInfo> const & info, bool inViewport,
-    function<bool(shared_ptr<MwmInfo> const &)> const & isMwmWithMatchedCity,
-    function<bool(shared_ptr<MwmInfo> const &)> const & isMwmWithMatchedState) const
-{
-  ExtendedMwmInfos::ExtendedMwmInfo extendedInfo;
-  extendedInfo.m_info = info;
-
-  auto const & rect = info->m_bordersRect;
-  extendedInfo.m_type.m_viewportIntersected = m_params.m_pivot.IsIntersect(rect);
-  extendedInfo.m_type.m_containsUserPosition =
-      m_params.m_position && rect.IsPointInside(*m_params.m_position);
-  extendedInfo.m_type.m_containsMatchedCity = isMwmWithMatchedCity(info);
-  extendedInfo.m_type.m_containsMatchedState = isMwmWithMatchedState(info);
-
-  extendedInfo.m_similarity = GetSimilarity(m_params.m_pivot, rect);
-  if (!inViewport && extendedInfo.m_type.m_containsUserPosition)
-    extendedInfo.m_distance = 0.0;
-  else
-    extendedInfo.m_distance = GetDistanceMeters(m_params.m_pivot.Center(), rect);
-  return extendedInfo;
-}
-
-Geocoder::ExtendedMwmInfos Geocoder::OrderCountries(bool inViewport,
-                                                    vector<shared_ptr<MwmInfo>> const & infos)
+Geocoder::ExtendedMwmInfos Geocoder::OrderCountries(bool inViewport, vector<MwmInfoPtr> const & infos)
 {
   set<storage::CountryId> mwmsWithCities;
   set<storage::CountryId> mwmsWithStates;
@@ -502,29 +469,72 @@ Geocoder::ExtendedMwmInfos Geocoder::OrderCountries(bool inViewport,
     }
   }
 
-  ExtendedMwmInfos res;
-  res.m_infos.reserve(infos.size());
-  auto const hasMatchedCity = [&mwmsWithCities](auto const & i) {
+  auto const hasMatchedCity = [&mwmsWithCities](auto const & i)
+  {
     return mwmsWithCities.count(i->GetCountryName()) != 0;
   };
-  auto const hasMatchedState = [&mwmsWithStates](auto const & i) {
+  auto const hasMatchedState = [&mwmsWithStates](auto const & i)
+  {
     return mwmsWithStates.count(i->GetCountryName()) != 0;
   };
+
+  std::string locationMwm;
+  if (m_params.m_position)
+    locationMwm = m_infoGetter.GetRegionCountryId(*m_params.m_position);
+
+  auto const viewportCenter = m_params.m_pivot.Center();
+  std::string const viewportMwm = m_infoGetter.GetRegionCountryId(viewportCenter);
+
+  ExtendedMwmInfos res;
+  res.m_infos.reserve(infos.size());
   for (auto const & info : infos)
   {
-    res.m_infos.push_back(GetExtendedMwmInfo(info, inViewport, hasMatchedCity, hasMatchedState));
+    ExtendedMwmInfos::ExtendedMwmInfo ei;
+    ei.m_info = info;
+
+    auto const & rect = info->m_bordersRect;
+    ei.m_type.m_viewportIntersected = m_params.m_pivot.IsIntersect(rect);
+    ei.m_type.m_containsUserPosition = m_params.m_position && rect.IsPointInside(*m_params.m_position);
+    ei.m_type.m_containsMatchedCity = hasMatchedCity(info);
+    ei.m_type.m_containsMatchedState = hasMatchedState(info);
+
+    // Order MWMs like:
+    // - World
+    // - containing viewport center
+    // - containing user's position (except viewport search mode)
+    // - less by viewport center or rect similarity
+
+    if (info->GetType() == MwmInfo::WORLD)
+      ei.m_score = -6;
+    else if (info->GetCountryName() == viewportMwm)
+      ei.m_score = -4;
+    else if (!inViewport && ei.m_type.m_containsUserPosition)
+    {
+      ei.m_score = 0;
+      if (info->GetCountryName() == locationMwm)
+        ei.m_score = -2;
+    }
+    else
+      ei.m_score = GetDistanceMeters(viewportCenter, rect);
+
+    // Subtract [0, 1] similarity from the score in case of equal viewport distances.
+    ei.m_score -= GetSimilarity(m_params.m_pivot, rect);
+
+    res.m_infos.push_back(std::move(ei));
   }
+
   sort(res.m_infos.begin(), res.m_infos.end());
 
-  auto const firstBatch = [&](auto const & extendedInfo) {
+  auto const sep = stable_partition(res.m_infos.begin(), res.m_infos.end(), [&](auto const & extendedInfo)
+  {
     return extendedInfo.m_type.IsFirstBatchMwm(inViewport);
-  };
-  auto const sep = stable_partition(res.m_infos.begin(), res.m_infos.end(), firstBatch);
+  });
   res.m_firstBatchSize = distance(res.m_infos.begin(), sep);
+
   return res;
 }
 
-void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> const & infos, bool inViewport)
+void Geocoder::GoImpl(vector<MwmInfoPtr> const & infos, bool inViewport)
 {
   // base::PProf pprof("/tmp/geocoder.prof");
 
