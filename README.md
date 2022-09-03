@@ -115,7 +115,7 @@ See [GOVERNANCE](docs/GOVERNANCE.md).
 
 ## Contributing
 
-See [CONTRIBUTING](docs/CONTRIBUTING.md).
+See [CONTRIBUTING](docs/CONTRIBUTING.md) and read everything in the [docs folder](docs/) of the repository.
 
 ## Beta
 
