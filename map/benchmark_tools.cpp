@@ -7,7 +7,6 @@
 #include "storage/country_info_getter.hpp"
 
 #include "platform/downloader_defines.hpp"
-#include "platform/http_client.hpp"
 #include "platform/platform.hpp"
 
 #include "coding/reader.hpp"
@@ -91,7 +90,7 @@ void RunGraphicsBenchmark(Framework * framework)
   auto const fn = base::JoinPath(GetPlatform().SettingsDir(), "graphics_benchmark.json");
   if (!GetPlatform().IsFileExistsByFullPath(fn))
     return;
-  
+
   std::string benchmarkData;
   try
   {
@@ -102,7 +101,7 @@ void RunGraphicsBenchmark(Framework * framework)
     LOG(LCRITICAL, ("Error reading benchmark file: ", e.what()));
     return;
   }
-  
+
   std::shared_ptr<BenchmarkHandle> handle = std::make_shared<BenchmarkHandle>();
 
   // Parse scenarios.
@@ -110,6 +109,11 @@ void RunGraphicsBenchmark(Framework * framework)
   try
   {
     base::Json root(benchmarkData.c_str());
+
+    auto const isActive = FromJSONObjectOptional<bool>(root.get(), "isActive");
+    if (isActive && *isActive == false)
+      return;
+
     json_t * scenariosNode = json_object_get(root.get(), "scenarios");
     if (scenariosNode == nullptr || !json_is_array(scenariosNode))
       return;
