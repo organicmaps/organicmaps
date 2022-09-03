@@ -1,11 +1,42 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>wayside_shrine-m</title>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="wayside_shrine-m" fill-rule="nonzero">
-            <circle id="Oval" fill="#FFFFFF" opacity="0.6" cx="12" cy="12" r="12"></circle>
-            <circle id="Oval" fill="#7F5933" cx="12" cy="12" r="11"></circle>
-            <path d="M11.9995431,4 L6,10.1273333 L7.03434097,11.1829333 L12.0004569,6.1112 L16.965659,11.1829333 L18,10.1273333 L11.9995431,4 Z M16.0702048,12.1526667 L16.0702048,18 L14.2427473,18 L14.2427473,14.7333333 C14.2427473,13.4444 13.2202848,12.4 11.9584253,12.4 C10.6965659,12.4 9.6741034,13.4444 9.6741034,14.7333333 L9.6741034,18 L7.84664585,18 L7.84664585,12.2198667 L11.9922333,8.0796 L16.0702048,12.1526667 Z" id="Shape" fill="#FFFFFF"></path>
-        </g>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="24"
+   height="24"
+   viewBox="0 0 24 24"
+   version="1.1"
+   id="svg10"
+   sodipodi:docname="wayside_shrine-m.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs14" />
+  <sodipodi:namedview
+     id="namedview12"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false" />
+  <title
+     id="title2">wayside_shrine-m</title>
+  <g
+     id="Page-1"
+     stroke="none"
+     stroke-width="1"
+     fill="none"
+     fill-rule="evenodd">
+    <g
+       id="wayside_shrine-m"
+       fill-rule="nonzero">
+      <path
+         d="m 11.999413,3 -7.7136985,7.878 1.329867,1.3572 6.3850065,-6.5208 6.383831,6.5208 1.329867,-1.3572 z M 17.23312,13.482 V 21 h -2.349588 v -4.2 c 0,-1.6572 -1.314593,-3 -2.936986,-3 -1.62239,0 -2.9369845,1.3428 -2.9369845,3 V 21 H 6.6599734 V 13.5684 L 11.990014,8.2452 Z"
+         id="Shape"
+         fill="#7f5933" />
     </g>
+  </g>
 </svg>
