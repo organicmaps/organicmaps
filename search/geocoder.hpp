@@ -14,20 +14,13 @@
 #include "search/mode.hpp"
 #include "search/model.hpp"
 #include "search/mwm_context.hpp"
-#include "search/nested_rects_cache.hpp"
 #include "search/postcode_points.hpp"
-#include "search/pre_ranking_info.hpp"
 #include "search/query_params.hpp"
-#include "search/ranking_utils.hpp"
 #include "search/streets_matcher.hpp"
 #include "search/token_range.hpp"
 #include "search/tracer.hpp"
 
 #include "indexer/mwm_set.hpp"
-
-#include "storage/country_info_getter.hpp"
-
-#include "coding/compressed_bit_vector.hpp"
 
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
@@ -35,11 +28,8 @@
 #include "base/cancellable.hpp"
 #include "base/dfa_helpers.hpp"
 #include "base/levenshtein_dfa.hpp"
-#include "base/string_utils.hpp"
 
-#include <cstddef>
-#include <cstdint>
-#include <limits>
+#include <functional>
 #include <map>
 #include <memory>
 #include <optional>
@@ -147,16 +137,19 @@ private:
     Count
   };
 
+  using MwmInfoPtr = std::shared_ptr<MwmInfo>;
   struct ExtendedMwmInfos
   {
     struct ExtendedMwmInfo
     {
-      bool operator<(ExtendedMwmInfo const & rhs) const;
+      bool operator<(ExtendedMwmInfo const & rhs) const { return m_score < rhs.m_score; }
 
-      std::shared_ptr<MwmInfo> m_info;
+      MwmInfoPtr m_info;
       MwmContext::MwmType m_type;
-      double m_similarity;
-      double m_distance;
+
+      // Score is a rect distance, with exceptions for World, viewport and users's position.
+      // Less score is better for search priority.
+      double m_score;
     };
 
     std::vector<ExtendedMwmInfo> m_infos;
@@ -189,7 +182,7 @@ private:
   // Sets search query params for categorial search.
   void SetParamsForCategorialSearch(Params const & params);
 
-  void GoImpl(std::vector<std::shared_ptr<MwmInfo>> const & infos, bool inViewport);
+  void GoImpl(std::vector<MwmInfoPtr> const & infos, bool inViewport);
 
   template <typename Locality>
   using TokenToLocalities = std::map<TokenRange, std::vector<Locality>>;
@@ -292,13 +285,7 @@ private:
 
   // This is a faster wrapper around SearchModel::GetSearchType(), as
   // it uses pre-loaded lists of streets and villages.
-  [[nodiscard]] bool GetTypeInGeocoding(BaseContext const & ctx, uint32_t featureId,
-                                             Model::Type & type);
-
-  ExtendedMwmInfos::ExtendedMwmInfo GetExtendedMwmInfo(
-      std::shared_ptr<MwmInfo> const & info, bool inViewport,
-      std::function<bool(std::shared_ptr<MwmInfo> const &)> const & isMwmWithMatchedCity,
-      std::function<bool(std::shared_ptr<MwmInfo> const &)> const & isMwmWithMatchedState) const;
+  [[nodiscard]] bool GetTypeInGeocoding(BaseContext const & ctx, uint32_t featureId, Model::Type & type);
 
   // Reorders maps in a way that prefix consists of "best" maps to search and suffix consists of all
   // other maps ordered by minimum distance from pivot. Returns ExtendedMwmInfos structure which
@@ -308,8 +295,7 @@ private:
   // For non-viewport search mode prefix consists of maps intersecting with pivot, map with user
   // location and maps with cities matched to the query, sorting prefers mwms that contain the
   // user's position.
-  ExtendedMwmInfos OrderCountries(bool inViewport,
-                                  std::vector<std::shared_ptr<MwmInfo>> const & infos);
+  ExtendedMwmInfos OrderCountries(bool inViewport, std::vector<MwmInfoPtr> const & infos);
 
   DataSource const & m_dataSource;
   storage::CountryInfoGetter const & m_infoGetter;

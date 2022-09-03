@@ -72,6 +72,7 @@ public:
   void SetMwmVersion(uint32_t version) { m_version = version; }
 
   void RegisterLocalMapsInViewport(m2::RectD const & viewport);
+  void RegisterLocalMapsByPrefix(std::string const & prefix);
 
 protected:
   static void Cleanup(platform::LocalCountryFile const & file);

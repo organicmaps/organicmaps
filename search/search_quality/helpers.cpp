@@ -173,10 +173,9 @@ unique_ptr<search::tests_support::TestSearchEngine> InitSearchEngine(
   params.m_locale = locale;
   params.m_numThreads = base::checked_cast<size_t>(numThreads);
 
-  auto infoGetter = storage::CountryInfoReader::CreateCountryInfoGetter(GetPlatform());
-  infoGetter->SetAffiliations(&affiliations);
-
-  return make_unique<search::tests_support::TestSearchEngine>(dataSource, move(infoGetter), params);
+  auto res = make_unique<search::tests_support::TestSearchEngine>(dataSource, params);
+  res->GetCountryInfoGetter().SetAffiliations(&affiliations);
+  return res;
 }
 }  // namespace search_quality
 }  // namespace search
