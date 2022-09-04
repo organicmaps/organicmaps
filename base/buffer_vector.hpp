@@ -34,6 +34,17 @@ private:
     std::move(rhs.m_static, rhs.m_static + rhs.m_size, m_static);
   }
 
+  void SetStaticSize(size_t newSize)
+  {
+    if constexpr (std::is_destructible<T>::value)
+    {
+      // Call destructors for old elements.
+      for (size_t i = newSize; i < m_size; ++i)
+        m_static[i] = T();
+    }
+    m_size = newSize;
+  }
+
   static constexpr size_t SwitchCapacity() { return 3*N/2 + 1; }
 
 public:
@@ -45,9 +56,9 @@ public:
   typedef T * iterator;
 
   buffer_vector() : m_size(0) {}
-  explicit buffer_vector(size_t n, T c = T()) : m_size(0)
+  explicit buffer_vector(size_t n) : m_size(0)
   {
-    resize(n, c);
+    resize(n);
   }
 
   buffer_vector(std::initializer_list<T> init) : m_size(0)
@@ -147,7 +158,7 @@ public:
       m_dynamic.reserve(n);
   }
 
-  void resize_no_init(size_t n)
+  void resize(size_t n)
   {
     if (IsDynamic())
     {
@@ -157,7 +168,7 @@ public:
 
     if (n <= N)
     {
-      m_size = n;
+      SetStaticSize(n);
     }
     else
     {
@@ -167,7 +178,7 @@ public:
     }
   }
 
-  void resize(size_t n, T c = T())
+  void resize(size_t n, T c)
   {
     if (IsDynamic())
     {
@@ -177,9 +188,10 @@ public:
 
     if (n <= N)
     {
-      for (size_t i = m_size; i < n; ++i)
-        m_static[i] = c;
-      m_size = n;
+      if (n > m_size)
+        std::fill_n(&m_static[m_size], n - m_size, c);
+
+      SetStaticSize(n);
     }
     else
     {
@@ -198,10 +210,7 @@ public:
       return;
     }
 
-    // here we have to call destructors of objects inside
-    for (size_t i = 0; i < m_size; ++i)
-      m_static[i] = T();
-    m_size = 0;
+    SetStaticSize(0);
   }
 
   /// @todo Here is some inconsistencies:

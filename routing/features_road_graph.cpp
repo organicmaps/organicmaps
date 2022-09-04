@@ -263,7 +263,7 @@ void FeaturesRoadGraphBase::ExtractRoadInfo(FeatureID const & featureId, Feature
 
   CHECK_EQUAL(altitudes.size(), pointsCount, ("GetAltitudes for", featureId, "returns wrong altitudes:", altitudes));
 
-  ri.m_junctions.resize_no_init(pointsCount);
+  ri.m_junctions.resize(pointsCount);
   for (size_t i = 0; i < pointsCount; ++i)
     ri.m_junctions[i] = { ft.GetPoint(i), altitudes[i] };
 }

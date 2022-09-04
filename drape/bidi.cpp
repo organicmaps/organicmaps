@@ -63,35 +63,30 @@ StringT log2vis(StringT const & str)
   if (direction == UBIDI_LTR || direction == UBIDI_NEUTRAL)
     return ResultString();
 
-  uint32_t const buffSize = usize * 2;
-  buffer_vector<UChar, 256> buff(buffSize, 0);
+  int32_t const buffSize = usize * 2;
+  buffer_vector<UChar, 256> buff(buffSize);
 
-  u_shapeArabic(ustr.data(), usize, buff.data(), buffSize,
+  auto actualSize = u_shapeArabic(ustr.data(), usize, buff.data(), buffSize,
                 U_SHAPE_LETTERS_SHAPE_TASHKEEL_ISOLATED, &errorCode);
   if (errorCode != U_ZERO_ERROR)
   {
     LOG(LWARNING, ("u_shapeArabic failed, icu error:", errorCode));
     return ResultString();
   }
+  ASSERT(actualSize >= 0 && actualSize < buffSize && buff[actualSize] == 0, (actualSize, buffSize));
 
-  icu::UnicodeString shaped(buff.data());
+  icu::UnicodeString shaped(buff.data(), actualSize);
   ubidi_setPara(bidi, shaped.getTerminatedBuffer(), shaped.length(), direction, nullptr, &errorCode);
 
-  ubidi_writeReordered(bidi, buff.data(), buffSize, 0, &errorCode);
+  actualSize = ubidi_writeReordered(bidi, buff.data(), buffSize, 0, &errorCode);
   if (errorCode != U_ZERO_ERROR)
   {
     LOG(LWARNING, ("ubidi_writeReordered failed, icu error:", errorCode));
     return ResultString();
   }
+  ASSERT_EQUAL(actualSize >= 0 && actualSize < buffSize && buff[actualSize], 0, (actualSize, buffSize));
 
-  out.reserve(buffSize);
-  for (uint32_t i = 0; i < buffSize; ++i)
-  {
-    if (buff[i])
-      out.push_back(buff[i]);
-    else
-      break;
-  }
+  out.assign(buff.data(), buff.data() + actualSize);
   return out;
 }
 
