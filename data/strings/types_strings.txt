@@ -17,6 +17,7 @@
     uk = Канатна дорога
     zh-Hans = 缆车要素
     zh-Hant = 纜車要素
+    nl = Kabelbaan
 
   [type.aerialway.cable_car]
     en = Aerialway
@@ -35,6 +36,7 @@
     uk = Канатна дорога
     zh-Hans = 缆车
     zh-Hant = 纜車
+    nl = Cabinelift
 
   [type.aerialway.chair_lift]
     en = Aerialway
@@ -52,6 +54,7 @@
     tr = Telesiyej
     uk = Канатна дорога
     zh-Hans = 登山吊椅
+    nl = Stoeltjeslift
 
   [type.aerialway.drag_lift]
     en = Aerialway
@@ -70,6 +73,7 @@
     uk = Канатна дорога
     zh-Hans = 缆车要素
     zh-Hant = 纜車要素
+    nl = Sleeplift
 
   [type.aerialway.gondola]
     en = Aerialway
@@ -88,6 +92,7 @@
     uk = Канатна дорога
     zh-Hans = 循环式索道
     zh-Hant = 循環式索道
+    nl = Gondelbaan
 
   [type.aerialway.mixed_lift]
     en = Aerialway
@@ -105,6 +110,7 @@
     uk = Канатна дорога
     zh-Hans = 缆车
     zh-Hant = 纜車
+    nl = Gecombineerde kabelbaan
 
   [type.aerialway.station]
     en = Aerialway Station
@@ -153,6 +159,7 @@
     uk = Аерокосмічна інфраструктура
     zh-Hans = 机场要素
     zh-Hant = 機場要素
+    nl = Luchtvaartinfrastructuur
 
   [type.aeroway.aerodrome]
     en = Airport
@@ -237,6 +244,7 @@
     uk = Перон
     zh-Hans = 机场停机坪
     zh-Hant = 機場停機坪
+    nl = Platform
 
   [type.aeroway.gate]
     en = Gate
@@ -302,6 +310,7 @@
     uk = Злітно-посадкова смуга
     zh-Hans = 机场跑道
     zh-Hant = 機場跑道
+    nl = Startbaan
 
   [type.aeroway.taxiway]
     en = Taxiway
@@ -318,6 +327,7 @@
     uk = Рульова дорiжка
     zh-Hans = 滑行道
     zh-Hant = 滑行道
+    nl = Taxibaan
 
   [type.aeroway.terminal]
     en = Terminal
@@ -672,6 +682,7 @@
     vi = Vườn bia
     zh-Hans = 啤酒花园
     zh-Hant = 啤酒花園
+    nl = Biertuin
 
   [type.amenity.brothel]
     en = Brothel
@@ -2866,6 +2877,7 @@
     uk = В'язниця
     zh-Hans = 监狱
     zh-Hant = 監獄
+    nl = Gevangenis
 
   [type.amenity.pub]
     en = Pub
@@ -3298,6 +3310,7 @@
     ru = Картон
     tr = Karton
     uk = Картон
+    nl = Karton
 
   [type.recycling.cans]
     en = Cans
@@ -3310,6 +3323,7 @@
     ru = Жестяные и алюминиевые банки
     tr = Teneke ve alüminyum kutular
     uk = Бляшані та алюмінієві банки
+    nl = Blik
 
   [type.recycling.shoes]
     en = Shoes
@@ -3322,6 +3336,7 @@
     ru = Обувь
     tr = Ayakkabılar
     uk = Взуття
+    nl = Schoenen
 
   [type.recycling.green_waste]
     en = Green/Organic Waste
@@ -3333,6 +3348,7 @@
     ru = Органика / Пищевые отходы
     tr = Yeşil/Organik Atık
     uk = Органіка / Харчові відходи
+    nl = GFT afval
 
   [type.recycling.cartons]
     en = Bewerage Cartons
@@ -3384,6 +3400,7 @@
     ru = Слив для туалетов транспортных средств
     tr = Tank Boşaltma İstasyonu
     uk = Злив для туалетів транспортних засобів
+    nl = Caravantoilet cassette-leegpunt
 
   [type.amenity.school]
     en = School
@@ -3606,6 +3623,7 @@
     vi = Nhà vệ sinh
     zh-Hans = 厕所
     zh-Hant = 廁所
+    nl = WC
 
   [type.amenity.townhall]
     en = Town Hall
@@ -3692,6 +3710,7 @@
     tr = Otomat
     uk = Торговий автомат
     zh-Hans = 自动售货机
+    nl = Automaat
 
   [type.amenity.vending_machine.cigarettes]
     en = Cigarette Dispenser
@@ -3739,6 +3758,7 @@
     mr = कॉफी विक्रीयंत्र
     ru = Кофейный автомат
     uk = Кавовий автомат
+    nl = Koffieautomaat
 
   [type.amenity.vending_machine.condoms]
     en = Condoms Dispenser
@@ -3751,6 +3771,7 @@
     mr = कंडोम विक्रीयंत्र
     ru = Автомат с презервативами
     uk = Автомат з презервативами
+    nl = Condoomautomaat
 
   [type.amenity.vending_machine.drinks]
     en = Drinks Dispenser
@@ -3798,6 +3819,7 @@
     mr = अन्न विक्रीयंत्र
     ru = Автомат с едой
     uk = Автомат з їжею
+    nl = Etenswarenautomaat
 
   [type.amenity.vending_machine.newspapers]
     en = Newspapers Dispenser
@@ -3810,6 +3832,7 @@
     mr = वृत्तपत्र विक्रीयंत्र
     ru = Газетный автомат
     uk = Газетний автомат
+    nl = Krantenautomaat
 
   [type.amenity.vending_machine.parking_tickets]
     en = Parking Tickets
@@ -3894,6 +3917,7 @@
     mr = मिठाई विक्रीयंत्र
     ru = Автомат со сладостями
     uk = Автомат із солодощами
+    nl = Snoepautomaat
 
   [type.amenity.vending_machine.excrement_bags]
     en = Excrement Bags Dispenser
@@ -3906,6 +3930,7 @@
     ru = Пакеты для экскрементов
     tr = Dışkı Torbası Dağıtıcı
     uk = Мішки для екскрементів
+    nl = Hondenpoepzakjesdispenser
 
   [type.amenity.parcel_locker]
     en = Parcel Locker
@@ -3918,6 +3943,7 @@
     ru = Почтомат
     tr = Kilitlenebilen Kutu Dolaplar
     uk = Поштомат
+    nl = Pakketjeskluis
 
   [type.amenity.vending_machine.fuel]
     en = Fuel Dispenser
@@ -3928,6 +3954,7 @@
     ru = Топливная колонка
     tr = Yakıt Dağıtıcı
     uk = Паливна колонка
+    nl = Tankautomaat
 
   [type.amenity.veterinary]
     en = Veterinary Doctor
@@ -4040,6 +4067,7 @@
     ru = Станция перевалки отходов
     tr = Atık Transfer İstasyonu
     uk = Станція передачі сміття
+    nl = Overslagstation voor afval
 
   [type.amenity.water_point]
     en = RV Water Point
@@ -4090,6 +4118,7 @@
     tr = Bariyer
     uk = Перешкода
     zh-Hans = 屏障
+    nl = Barrière
 
   [type.barrier.block]
     en = Block
@@ -4204,6 +4233,7 @@
     ru = Цепь
     tr = Zincir
     uk = Ланцюг
+    nl = Ketting
 
   [type.barrier.city_wall]
     en = City Wall
@@ -4220,6 +4250,7 @@
     tr = Şehir Duvarı
     uk = Міська стіна
     zh-Hans = 城墙
+    nl = Stadsmuur
 
   [type.barrier.cycle_barrier]
     en = Cycle Barrier
@@ -4234,6 +4265,7 @@
     ru = Велосипедный барьер
     tr = Bisiklet Bariyeri
     uk = Велосипедна перешкода
+    nl = Fietsbarrière
 
   [type.barrier.entrance]
     en = Entrance
@@ -4284,6 +4316,7 @@
     tr = Çit
     uk = Огорожа
     zh-Hans = 篱笆
+    nl = Hek
 
   [type.barrier.gate]
     en = Gate
@@ -4333,6 +4366,7 @@
     ru = Живая изгородь
     tr = Çit
     zh-Hans = 树篱
+    nl = Heg
 
   [type.barrier.lift_gate]
     en = Lift Gate
@@ -4383,6 +4417,7 @@
     ru = Поддерживающая стена
     tr = İstinat duvarı
     zh-Hans = 挡土墙
+    nl = Keermuur
 
   [type.barrier.stile]
     en = Stile
@@ -4501,6 +4536,7 @@
     tr = Duvar
     uk = Стіна
     zh-Hans = 墙
+    nl = Muur
 
   [type.boundary]
     en = Boundary
@@ -4517,6 +4553,7 @@
     tr = Sınır
     uk = Кордон
     zh-Hans = 边界
+    nl = Grens
 
   [type.boundary.administrative]
     en = Administrative Boundary
@@ -4533,6 +4570,7 @@
     tr = İdari Sınır
     uk = Адміністративний поділ
     zh-Hans = 行政区域界线
+    nl = Administratieve grens
 
   [type.boundary.administrative.10]
     ref = type.boundary.administrative
@@ -4586,6 +4624,7 @@
     tr = Şehir Sınırı
     uk = Межа міста
     zh-Hans = 城市行政区域界线
+    nl = Stadsgrens
 
   [type.boundary.administrative.country]
     en = National Border
@@ -4600,6 +4639,7 @@
     tr = Ulusal Sınır
     uk = Кордон країни
     zh-Hans = 国家行政区域界线
+    nl = Landsgrens
 
   [type.boundary.administrative.county]
     en = County Boundary
@@ -4614,6 +4654,7 @@
     tr = İlçe Sınırı
     uk = Поділ округа
     zh-Hans = 县行政区域界线
+    nl = Provinciegrens
 
   [type.boundary.administrative.municipality]
     en = Municipality Boundary
@@ -4627,6 +4668,7 @@
     ru = Граница муниципалитета
     tr = Belediye Sınırı
     zh-Hans = 自治市行政区域界线
+    nl = Gemeentegrens
 
   [type.boundary.administrative.nation]
     ref = type.boundary.administrative.country
@@ -4634,6 +4676,7 @@
     eu = Nazio muga
     pt = Fronteira de nação
     pt-BR = Fronteira de nação
+    nl = Natiegrens
 
   [type.boundary.administrative.region]
     en = Regional Boundary
@@ -4648,6 +4691,7 @@
     tr = Bölgesel Sınır
     uk = Областний поділ
     zh-Hans = 1区域行政区域界线
+    nl = Regiogrens
 
   [type.boundary.administrative.state]
     en = State Boundary
@@ -4660,6 +4704,7 @@
     ru = Граница штата
     tr = Devlet Sınırı
     zh-Hans = 州省行政区域界线
+    nl = Staatsgrens
 
   [type.boundary.administrative.suburb]
     en = Suburb Boundary
@@ -4674,6 +4719,7 @@
     tr = Banliyö Sınırı
     uk = Приміська межа
     zh-Hans = 市郊行政区域界线
+    nl = Buitenwijkgrens
 
   [type.boundary.national_park]
     en = National Park
@@ -4887,6 +4933,7 @@
     tr = Depo
     uk = Склад
     zh-Hans = 仓库
+    nl = Magazijn
 
   [type.cemetery.grave]
     en = Grave
@@ -4939,6 +4986,7 @@
     tr = Zanaat
     uk = Майстерня
     zh-Hans = 工艺作坊
+    nl = Ambacht
 
   [type.craft.beekeeper]
     en = Beekeeper
@@ -4949,6 +4997,7 @@
     ru = Пчеловод
     tr = Arıcı
     uk = Бджоляр
+    nl = Imker
 
   [type.craft.blacksmith]
     en = Blacksmith
@@ -4959,6 +5008,7 @@
     ru = Кузница
     tr = Demirci
     uk = Кузня
+    nl = Smid
 
   [type.craft.brewery]
     en = Craft Brewery
@@ -5034,6 +5084,7 @@
     es = Confitería
     fr = Confiseur
     ru = Кондитер
+    nl = Banketbakkerij
 
   [type.craft.electrician]
     en = Electrician
@@ -5075,6 +5126,7 @@
     it = Riparazioni elettroniche
     ru = Ремонт электроники
     tr = Elektronik Tamircisi
+    nl = Electronica-reparatie
 
   [type.craft.gardener]
     en = Gardener
@@ -5116,6 +5168,7 @@
     it = Artigiano
     ru = Ремесленная мастерская
     tr = El İşi
+    nl = Handwerk
 
   [type.craft.hvac]
     comment = Heating, Ventilation, and Air Conditioning
@@ -5293,6 +5346,7 @@
     es = Serrería
     fr = Scierie
     ru = Лесопилка
+    nl = Zagerij
 
   [type.craft.shoemaker]
     en = Shoe Repair
@@ -5333,6 +5387,7 @@
     es = Bodega
     fr = Chai
     ru = Винодельня
+    nl = Wijnhandel
 
   [type.craft.tailor]
     en = Tailor
@@ -8218,6 +8273,7 @@
     ru = Экстренная служба
     tr = Acil
     zh-Hans = 应急要素
+    nl = Noodgeval
 
   [type.emergency.defibrillator]
     en = Defibrillator
@@ -8251,6 +8307,7 @@
     vi = Máy khử rung tim
     zh-Hans = 除颤器
     zh-Hant = 心臟電擊器
+    nl = Defibrillator (AED)
 
   [type.emergency.fire_hydrant]
     en = Fire Hydrant
@@ -8408,6 +8465,7 @@
     tr = Otoyol
     uk = Дорога
     zh-Hans = 公路要素
+    nl = Snelweg
 
   [type.highway.bridleway]
     en = Bridle Path
@@ -8421,6 +8479,7 @@
     tr = Atlı Yolu
     uk = Кінна доріжка
     zh-Hans = 马道
+    nl = Ruiterpad
 
   [type.highway.bridleway.bridge]
     ref = type.highway.road.bridge
@@ -8432,6 +8491,7 @@
     ref = type.highway.bridleway
     pl = Droga dla koni ograniczona
     pt-BR = Caminho para cavaleiros permissivo
+    nl = Pad toegankelijk voor ruiters
 
   [type.highway.bridleway.tunnel]
     ref = type.highway.road.tunnel
@@ -8525,6 +8585,7 @@
     tr = Bisiklet Yolu
     uk = Велодоріжка
     zh-Hans = 自行车道
+    nl = Fietspad
 
   [type.highway.cycleway.bridge]
     ref = type.highway.road.bridge
@@ -8536,6 +8597,7 @@
     ref = type.highway.cycleway
     pl = Droga rowerowa ograniczona
     pt-BR = Caminho para ciclistas permissivo
+    nl = Weg toegestaan voor fietsers
 
   [type.highway.cycleway.tunnel]
     ref = type.highway.road.tunnel
@@ -8556,6 +8618,7 @@
     ru = Лифт
     tr = Asansör
     uk = Ліфт
+    nl = Lift
 
   [type.highway.footway]
     en = Foot Path
@@ -9435,6 +9498,7 @@
     uk = Зона обслуговування
     zh-Hans = 服务区
     zh-Hant = 服務區
+    nl = Servicegebied
 
   [type.highway.speed_camera]
     en = Speed Camera
@@ -9784,6 +9848,7 @@
     ref = type.highway.cycleway
     fi = Pyörätie
     pt-BR = Caminho para ciclistas
+    nl = Fietspad
 
   [type.area_highway.footway]
     ref = type.highway.footway
@@ -9860,6 +9925,7 @@
     uk = Історичний об'єкт
     zh-Hans = 历史地点
     zh-Hant = 歷史地點
+    nl = Historisch
 
   [type.historic.archaeological_site]
     en = Archaeological Site
@@ -9912,6 +9978,7 @@
     uk = Поле битви
     zh-Hans = 古战场
     zh-Hant = 古戰場
+    nl = Slagveld
 
   [type.historic.boundary_stone]
     en = Boundary Stone
@@ -9927,6 +9994,7 @@
     uk = Прикордонний камінь
     zh-Hans = 界碑
     zh-Hant = 界碑
+    nl = Grenssteen
 
   [type.historic.castle]
     en = Castle
@@ -10042,6 +10110,7 @@
     uk = Міська стіна
     zh-Hans = 历史城墙
     zh-Hant = 歷史城牆
+    nl = Stadsmuur
 
   [type.historic.fort]
     en = Fort
@@ -10330,6 +10399,7 @@
     uk = Християнський хрест
     zh-Hans = 路旁十字架
     zh-Hant = 路旁十字架
+    nl = Kruis
 
   [type.historic.wayside_shrine]
     en = Shrine
@@ -10346,6 +10416,7 @@
     uk = Святиня
     zh-Hans = 路旁神龛
     zh-Hant = 路旁神龕
+    nl = Altaar
 
   [type.hwtag]
     en = hwtag
@@ -10432,6 +10503,7 @@
     tr = Kavşak noktası
     uk = Перехрестя
     zh-Hans = 交叉口
+    nl = Kruispunt
 
   [type.junction.roundabout]
     en = Roundabout
@@ -10449,6 +10521,7 @@
     tr = Göbekli kavşak
     uk = Кільце
     zh-Hans = 环岛
+    nl = Rotonde
 
   [type.landuse]
     en = Landuse
@@ -10462,6 +10535,7 @@
     tr = Arazi Kullanımı
     uk = Землевикористання
     zh-Hans = 土地利用要素
+    nl = Landgebruik
 
   [type.landuse.allotments]
     en = Allotments
@@ -10476,6 +10550,7 @@
     tr = Tahsisler
     uk = Земельні ділянки
     zh-Hans = 市民农园
+    nl = Volkstuinen
 
   [type.landuse.basin]
     en = Basin
@@ -10586,6 +10661,7 @@
     tr = Ticari Alan
     uk = Комерційні ділянки
     zh-Hans = 商务办公用地
+    nl = Commercieel gebied
 
   [type.landuse.construction]
     en = Construction
@@ -10601,6 +10677,7 @@
     tr = Yapı
     uk = Будівництво
     zh-Hans = 建设区域
+    nl = Bouwplaats
 
   [type.landuse.education]
     en = Educational Facilities
@@ -10613,6 +10690,7 @@
     pt-BR = Instituições educacionais
     ru = Образовательные учреждения
     uk = Освітній заклади
+    nl = Educatieve voorzieningen
 
   [type.landuse.farm]
     en = Farm
@@ -10627,6 +10705,7 @@
     tr = Çiftlik
     uk = Ферма
     zh-Hans = 农田
+    nl = Boerderij
 
   [type.landuse.farmland]
     en = Farmland
@@ -10676,6 +10755,7 @@
     tr = Çiftlik Bölgesi
     uk = Сільськогосподарська земля
     zh-Hans = 农庄
+    nl = Boerenerf
 
   [type.landuse.field]
     en = Field
@@ -10689,6 +10769,7 @@
     ru = Поле
     tr = Alan
     uk = Поле
+    nl = Veld
 
   [type.landuse.forest]
     en = Forest
@@ -10902,6 +10983,7 @@
     tr = Kış Bahçesi
     uk = Теплиці
     zh-Hans = 温室园艺
+    nl = Kassen
 
   [type.landuse.industrial]
     en = Industrial Land
@@ -10917,6 +10999,7 @@
     tr = Sanayi Bölgesi
     uk = Промзона
     zh-Hans = 工业用地
+    nl = Industrieterrein
 
   [type.landuse.landfill]
     en = Landfill
@@ -10967,6 +11050,7 @@
     tr = Çayır
     uk = Луг
     zh-Hans = 草甸
+    nl = Weiland
 
   [type.landuse.military]
     en = Military Area
@@ -10997,6 +11081,7 @@
     tr = Meyve Bahçesi
     uk = Сад
     zh-Hans = 种植用地
+    nl = Boomgaard
 
   [type.landuse.quarry]
     en = Quarry
@@ -11011,6 +11096,7 @@
     tr = Taş Ocağı
     uk = Кар'єр
     zh-Hans = 矿场
+    nl = Steengroeve
 
   [type.landuse.railway]
     en = Railway Premises
@@ -11060,6 +11146,7 @@
     tr = Dinlenme Alanı
     uk = База вiдпочинку
     zh-Hans = 康体场地
+    nl = Recreatiezone
 
   [type.landuse.reservoir]
     en = Water
@@ -11108,6 +11195,7 @@
     tr = Yerleşim Alanı
     uk = Житлова зона
     zh-Hans = 住宅用地
+    nl = Woonwijk
 
   [type.landuse.retail]
     en = Retail Land
@@ -11123,6 +11211,7 @@
     tr = Perakende Satış Alanı
     uk = Зона торгівлі
     zh-Hans = 零售用地
+    nl = Detailhandel
 
   [type.landuse.salt_pond]
     en = Pond
@@ -11137,6 +11226,7 @@
     ru = Соляной пруд
     tr = Havuz
     uk = Соляний став
+    nl = Zoutpoel
 
   [type.landuse.village_green]
     en = Land
@@ -11149,6 +11239,7 @@
     ru = Парк
     tr = Arazi
     uk = Парк
+    nl = Dorpspark
 
   [type.landuse.vineyard]
     en = Vineyard
@@ -11164,6 +11255,7 @@
     tr = Üzüm Bağı
     uk = Виноградник
     zh-Hans = 葡萄园
+    nl = Wijngaard
 
   [type.leisure]
     en = Leisure
@@ -11177,6 +11269,7 @@
     tr = Dinlenecek Yer
     uk = Місце відпочинку
     zh-Hans = 休闲要素
+    nl = Ontspanning
 
   [type.leisure.common]
     en = Public Land
@@ -11190,6 +11283,7 @@
     tr = Kamu Alanı
     uk = Громадська земля
     zh-Hans = 公共用地
+    nl = Openbare grond
 
   [type.leisure.dog_park]
     en = Dog Area
@@ -11375,6 +11469,7 @@
     tr = Buz Pateni Pisti
     uk = Каток
     zh-Hans = 滑冰场
+    nl = Schaatsbaan
 
   [type.leisure.landscape_reserve]
     en = Landscape Reserve
@@ -11385,6 +11480,7 @@
     ru = Ландшафтный заповедник
     tr = Peyzaj Rezervi
     uk = Ландшафтний заповідник
+    nl = Landschapsreservaat
 
   [type.leisure.marina]
     en = Marina
@@ -11397,6 +11493,7 @@
     tr = Liman
     uk = Пристань
     zh-Hans = 游艇码头
+    nl = Jachthaven
 
   [type.leisure.nature_reserve]
     en = Nature Reserve
@@ -11417,7 +11514,7 @@
     ko = 천연보호구역
     mr = संरक्षित निसर्गक्षेत्र
     nb = Reservat
-    nl = Reserve
+    nl = Natuurreservaat
     pl = Rezerwat przyrody
     pt = Reserva natural
     pt-BR = Reserva natural
@@ -11693,6 +11790,7 @@
     ru = Зона для отдыха
     tr = Rekreasyon Alanı
     uk = Зона для відпочинку
+    nl = Recreatieterrein
 
   [type.leisure.sauna]
     en = Sauna
@@ -11741,6 +11839,7 @@
     tr = Kızak
     uk = Шлюпковий спуск
     zh-Hans = 船台
+    nl = Scheepshelling
 
   [type.leisure.sports_centre]
     en = Sports Center
@@ -11878,6 +11977,7 @@
     vi = Sân vận động
     zh-Hans = 体育场
     zh-Hant = 體育場
+    nl = Stadion
 
   [type.leisure.swimming_pool]
     en = Swimming Pool
@@ -11931,6 +12031,7 @@
     tr = Pist
     uk = Бігова доріжка
     zh-Hans = 賽道
+    nl = Parcours
 
   [type.leisure.water_park]
     en = Water Park
@@ -11973,6 +12074,7 @@
     ru = Пляжный курорт
     tr = Sahil Tatil Yeri
     uk = Пляжний курорт
+    nl = Strandresort
 
   [type.man_made]
     en = Man Made
@@ -11985,6 +12087,7 @@
     tr = İnsan Yapımı
     uk = Штучна споруда
     zh-Hans = 人造要素
+    nl = Kunstmatige constructies
 
   [type.man_made.breakwater]
     en = Breakwater
@@ -11998,6 +12101,7 @@
     tr = Dalgakıran
     uk = Хвилеріз
     zh-Hans = 防波堤
+    nl = Golfbreker
 
   [type.man_made.cairn]
     en = Cairn
@@ -12009,6 +12113,7 @@
     ru = Тур
     tr = Höyük
     uk = Тур
+    nl = Steengroeve
 
   [type.man_made.chimney]
     en = Factory Chimney
@@ -12055,6 +12160,7 @@
     tr = Kesme Çizgisi
     uk = Просіка
     zh-Hans = 树林分界线
+    nl = Bospad
 
   [type.man_made.survey_point]
     en = Survey Point
@@ -12067,6 +12173,7 @@
     pl = Znak geodezyjny
     ru = Геодезический пункт
     uk = Геодезичний пункт
+    nl = Meetpunt
 
   [type.man_made.flagpole]
     en = Flagpole
@@ -12077,6 +12184,7 @@
     ru = Флагшток
     tr = Bayrak Direği
     uk = Флагшток
+    nl = Vlaggenpaal
 
   [type.man_made.lighthouse]
     en = Lighthouse
@@ -12183,6 +12291,7 @@
     ru = Резервуар
     tr = Depolama Tankı
     uk = Резервуар
+    nl = Opslagtank
 
   [type.man_made.surveillance]
     en = Surveillance Camera
@@ -12265,6 +12374,7 @@
     tr = Atıksu Tesisi
     uk = Очистні споруди
     zh-Hans = 污水处理厂
+    nl = Waterzuiveringsinstallatie
 
   [type.man_made.water_tap]
     en = Water Tap
@@ -12413,6 +12523,7 @@
     tr = Sanayi İşleri
     uk = Промислове виробництво
     zh-Hans = 工厂
+    nl = Fabriek
 
   [type.mapswithme]
     en = mapswithme
@@ -12432,6 +12543,7 @@
     ru = Военные объекты
     tr = Askeri
     zh-Hans = 军事
+    nl = Militair
 
   [type.military.bunker]
     en = Bunker
@@ -12468,6 +12580,7 @@
     ru = Перевал
     tr = Boğaz
     uk = Перевал
+    nl = Bergpas
 
   [type.natural]
     en = Nature
@@ -13966,6 +14079,7 @@
     ru = Тупик
     tr = Çıkmaz
     uk = Тупик
+    nl = Doodlopende weg
 
   [type.office]
     en = Office
@@ -15081,6 +15195,7 @@
     tr = Enerji
     uk = Енергія
     zh-Hans = 电力要素
+    nl = Electriciteit
 
   [type.power.generator]
     en = Generator
@@ -15106,6 +15221,7 @@
     tr = Elektrik Hattı
     uk = Лінія електропередач
     zh-Hans = 超高压输电线
+    nl = Hoogspanningsleiding
 
   [type.power.line.underground]
     en = Underground Power Line
@@ -15119,6 +15235,7 @@
     tr = Yeraltı Elektrik Hattı
     uk = Підземна лінія електропередач
     zh-Hans = 超高压输电线
+    nl = Ondergrondse hoogspanningsleiding
 
   [type.power.minor_line]
     en = Minor Power Line
@@ -15132,6 +15249,7 @@
     tr = Küçük Elektrik Hattı
     uk = Лінія електропередач низької напруги
     zh-Hans = 超高压输电线
+    nl = Laag/middelspanningsleiding
 
   [type.power.pole]
     en = Power Tower
@@ -15178,6 +15296,7 @@
     ru = Электростанция
     tr = Elektrik İstasyonu
     uk = Електростанція
+    nl = Transformatorstation
 
   [type.power.substation]
     en = Substation
@@ -15279,6 +15398,7 @@
     tr = Toplu Taşıma
     uk = Громадський транспорт
     zh-Hans = 公共交通要素
+    nl = Openbaar vervoer
 
   [type.public_transport.platform]
     en = Platform
@@ -15304,6 +15424,7 @@
     tr = Demiryolu
     uk = Залізниця
     zh-Hans = 铁路要素
+    nl = Spoorweg
 
   [type.railway.abandoned]
     en = Abandoned railway
@@ -15316,6 +15437,7 @@
     tr = Terk edilmiş demiryolu
     uk = Закинута залізниця
     zh-Hans = 铁路遗迹
+    nl = Voormalig treinspoor
 
   [type.railway.abandoned.bridge]
     en = Abandoned railway
@@ -15328,6 +15450,7 @@
     tr = Terk edilmiş demiryolu
     uk = Закинутий залізничний міст
     zh-Hans = 铁路遗迹
+    nl = Voormalige spoorbrug
 
   [type.railway.abandoned.tunnel]
     en = Abandoned Railway
@@ -15340,6 +15463,7 @@
     tr = Terk Edilmiş Demiryolu
     uk = Закинутий залізничний тунель
     zh-Hans = 铁路遗迹
+    nl = Voormalige spoortunnel
 
   [type.railway.construction]
     en = Railway's Construction
@@ -15353,6 +15477,7 @@
     tr = Demiryolu İnşaatı
     uk = Будівництво залізниці
     zh-Hans = 在建铁路
+    nl = Treinspoor in aanbouw
 
   [type.railway.crossing]
     en = Railway Crossing
@@ -15365,6 +15490,7 @@
     ru = Пешеходный переход
     tr = Demiryolu Geçişi
     uk = Пішохідний перехід
+    nl = Spoorwegovergang
 
   [type.railway.disused]
     en = Disused railway
@@ -15377,6 +15503,7 @@
     tr = Kullanılmayan demiryolu
     uk = Недійсна залізниця
     zh-Hans = 废弃铁路
+    nl = Ongebruikt spoor
 
   [type.railway.funicular]
     en = Funicular
@@ -15390,6 +15517,7 @@
     tr = Füniküler
     uk = Фунікулер
     zh-Hans = 缆索铁路轨道
+    nl = Kabelspoorweg
 
   [type.railway.funicular.bridge]
     en = Funicular
@@ -15403,6 +15531,7 @@
     tr = Füniküler
     uk = Фунікулер
     zh-Hans = 缆索铁路轨道
+    nl = Kabelspoorbuur
 
   [type.railway.funicular.tunnel]
     en = Funicular
@@ -15416,6 +15545,7 @@
     tr = Füniküler
     uk = Фунікулер
     zh-Hans = 缆索铁路轨道
+    nl = Kabelspoortunnel
 
   [type.railway.halt]
     ref = type.railway.station
@@ -15472,6 +15602,7 @@
     tr = Hafif Raylı
     uk = Швидкістний трамвай
     zh-Hans = 轻轨轨道
+    nl = Lightrail
 
   [type.railway.light_rail.bridge]
     en = Light Rail
@@ -15483,6 +15614,7 @@
     tr = Hafif Raylı
     uk = Швидкістний трамвай
     zh-Hans = 轻轨轨道
+    nl = Lightrail-brug
 
   [type.railway.light_rail.tunnel]
     en = Light Rail
@@ -15494,6 +15626,7 @@
     tr = Hafif Raylı
     uk = Швидкістний трамвай
     zh-Hans = 轻轨轨道
+    nl = Lightrail-tunnel
 
   [type.railway.monorail]
     en = Monorail
@@ -15544,6 +15677,7 @@
     uk = Монорейкова залізниця
     zh-Hans = 单轨轨道
     zh-Hant = 單軌軌道
+    nl = Monorail-brug
 
   [type.railway.monorail.tunnel]
     en = Monorail
@@ -15558,6 +15692,7 @@
     uk = Монорейкова залізниця
     zh-Hans = 单轨轨道
     zh-Hant = 單軌軌道
+    nl = Monorail-tunnel
 
   [type.railway.narrow_gauge]
     en = Narrow Gauge Rail
@@ -15570,6 +15705,7 @@
     tr = Dar Hat Rayı
     uk = Вузькоколійка
     zh-Hans = 窄轨铁路轨道
+    nl = Smalspoorbaan
 
   [type.railway.narrow_gauge.bridge]
     en = Narrow Gauge Rail
@@ -15582,6 +15718,7 @@
     tr = Dar Hat Rayı
     uk = Вузькоколійка
     zh-Hans = 窄轨铁路轨道
+    nl = Smalspoorbrug
 
   [type.railway.narrow_gauge.tunnel]
     en = Narrow Gauge Rail
@@ -15594,6 +15731,7 @@
     tr = Dar Hat Rayı
     uk = Вузькоколійка
     zh-Hans = 窄轨铁路轨道
+    nl = Smalspoortunnel
 
   [type.railway.platform]
     en = Railway Platform
@@ -15608,6 +15746,7 @@
     tr = Demiryolu Platformu
     uk = Залізнична платформа
     zh-Hans = 火车站台
+    nl = Spoor
 
   [type.railway.preserved]
     en = Preserved Rail
@@ -15619,6 +15758,7 @@
     ru = Законсервированная Ж/Д
     tr = Korunmuş Ray
     uk = Законсервована залізниця
+    nl = Museumspoorbaan
 
   [type.railway.preserved.bridge]
     en = Preserved Rail
@@ -15629,6 +15769,7 @@
     ru = Законсервированная Ж/Д
     tr = Korunmuş Ray
     uk = Законсервована залізниця
+    nl = Museumspoorbaanbrug
 
   [type.railway.preserved.tunnel]
     en = Preserved Rail
@@ -15639,6 +15780,7 @@
     ru = Законсервированная Ж/Д
     tr = Korunmuş Ray
     uk = Законсервована залізниця
+    nl = Museumspoorbaantunnel
 
   [type.railway.rail]
     en = Railway
@@ -15689,6 +15831,7 @@
     uk = Залізничний міст
     zh-Hans = 铁路轨道
     zh-Hant = 鐵路軌道
+    nl = Treinspoorbrug
 
   [type.railway.rail.motor_vehicle]
     en = Railway
@@ -15716,6 +15859,7 @@
     uk = Залізничний тунель
     zh-Hans = 铁路轨道
     zh-Hant = 鐵路軌道
+    nl = Spoortunnel
 
   [type.railway.razed]
     en = Razed Rail
@@ -15726,6 +15870,7 @@
     ru = Заброшенная Ж/Д
     tr = Yıkılmış Ray
     uk = Закинута залізниця
+    nl = Verwijderde spoorbaan
 
   [type.railway.siding]
     en = Siding Rail
@@ -15736,6 +15881,7 @@
     ru = Ветка Ж/Д
     tr = Demiryolu Hattı
     uk = Гілка залізниці
+    nl = Nevenspoor
 
   [type.railway.siding.bridge]
     en = Siding Rail
@@ -15746,6 +15892,7 @@
     ru = Ветка Ж/Д
     tr = Demiryolu Hattı
     uk = Гілка залізниці
+    nl = Nevenspoor-brug
 
   [type.railway.siding.tunnel]
     en = Siding Rail
@@ -15756,6 +15903,7 @@
     ru = Ветка Ж/Д
     tr = Demiryolu Hattı
     uk = Гілка залізниці
+    nl = Nevenspoor-tunnel
 
   [type.railway.spur]
     en = Spur Rail
@@ -15766,6 +15914,7 @@
     ru = Подъездная Ж/Д
     tr = Düz Ray
     uk = Під'їздна залізниця
+    nl = Zijspoor
 
   [type.railway.spur.bridge]
     en = Spur Rail
@@ -15776,6 +15925,7 @@
     ru = Подъездная Ж/Д
     tr = Düz Ray
     uk = Під'їздна залізниця
+    nl = Zijspoor-brug
 
   [type.railway.spur.tunnel]
     en = Spur Rail
@@ -15786,6 +15936,7 @@
     ru = Подъездная Ж/Д
     tr = Düz Ray
     uk = Під'їздна залізниця
+    nl = Zijspoor-tunnel
 
   [type.railway.station]
     en = Train Station
@@ -16250,6 +16401,7 @@
     ru = Ветка метро
     tr = Metro Hattı
     uk = Лінія метро
+    nl = Metro
 
   [type.railway.subway.bridge]
     en = Subway Line
@@ -16261,6 +16413,7 @@
     ru = Ветка метро
     tr = Metro Hattı
     uk = Лінія метро
+    nl = Metrobrug
 
   [type.railway.subway.tunnel]
     en = Subway Line
@@ -16272,6 +16425,7 @@
     ru = Ветка метро
     tr = Metro Hattı
     uk = Лінія метро
+    nl = Metrotunnel
 
   [type.railway.subway_entrance]
     en = Subway Entrance
@@ -16696,6 +16850,7 @@
     uk = Трамвай
     zh-Hans = 电车轨道
     zh-Hant = 電車軌道
+    nl = Tram
 
   [type.railway.tram.bridge]
     en = Tram Line
@@ -16710,6 +16865,7 @@
     uk = Трамвай
     zh-Hans = 电车轨道
     zh-Hant = 電車軌道
+    nl = Trambrug
 
   [type.railway.tram.tunnel]
     en = Tram Line
@@ -16724,6 +16880,7 @@
     uk = Трамвай
     zh-Hans = 电车轨道
     zh-Hant = 電車軌道
+    nl = Tramtunnel
 
   [type.railway.tram_stop]
     en = Tram Stop
@@ -16770,6 +16927,7 @@
     tr = Demiryolu Avlusu
     uk = Залізнична ділянка
     zh-Hans = 铁路货场
+    nl = Rangeerterrein
 
   [type.railway.yard.bridge]
     en = Railway Yard
@@ -16782,6 +16940,7 @@
     tr = Demiryolu Avlusu
     uk = Залізнична ділянка
     zh-Hans = 铁路货场
+    nl = Rangeerterrein brug
 
   [type.railway.yard.tunnel]
     en = Railway Yard
@@ -16794,6 +16953,7 @@
     tr = Demiryolu Avlusu
     uk = Залізнична ділянка
     zh-Hans = 铁路货场
+    nl = Rangeerterrein tunnel
 
   [type.route]
     en = route
@@ -16819,6 +16979,7 @@
     tr = Feribot
     uk = Паромна переправа
     zh-Hans = 航线
+    nl = Veerboot
 
   [type.route.shuttle_train]
     en = Shuttle Train
@@ -16827,6 +16988,7 @@
     pt-BR = Rota de trem vaivem
     ru = Челночная линия
     tr = Servis Treni
+    nl = Shuttle-trein
 
   [type.shop]
     en = Shop
@@ -17272,6 +17434,7 @@
     ru = Продажа автодомов
     tr = Karavan Bayiliği
     uk = Продаж автобудинків
+    nl = Caravan en camper verkoper
 
   [type.shop.chemist]
     en = Chemist Shop
@@ -17542,6 +17705,7 @@
     vi = Cửa hàng Copy
     zh-Hans = 复印店
     zh-Hant = 復印店
+    nl = Kopieerwinkel
 
   [type.shop.cosmetics]
     en = Cosmetics
@@ -21462,6 +21626,7 @@
     tr = Turizm
     uk = Туризм
     zh-Hans = 旅游要素
+    nl = Tourisme
 
   [type.tourism.alpine_hut]
     en = Mountains Lodging
@@ -22389,6 +22554,7 @@
     ru = Лежачий полицейский
     tr = Hız Kesici (Tümsek)
     uk = Лежачий полiцейський
+    nl = Snelheidsmatigende maatregel
 
   [type.traffic_calming.bump]
     en = Traffic Bump
@@ -22403,6 +22569,7 @@
     ru = Лежачий полицейский
     tr = Hız Kesici (Tümsek)
     uk = Лежачий полiцейський
+    nl = Verkeersdrempel
 
   [type.traffic_calming.hump]
     en = Traffic Hump
@@ -22415,6 +22582,7 @@
     ru = Лежачий полицейский
     tr = Hız Kesici (Tümsek)
     uk = Лежачий полiцейський
+    nl = Verkeersheuvel
 
   [type.waterway]
     en = Waterway
@@ -22428,6 +22596,7 @@
     tr = Su Yolu
     uk = Водяний шлях
     zh-Hans = 航道要素
+    nl = Waterweg
 
   [type.waterway.canal]
     en = Canal
@@ -22516,6 +22685,7 @@
     tr = Hendek
     uk = Канава
     zh-Hans = 水沟
+    nl = Sloot
 
   [type.waterway.ditch.tunnel]
     en = Ditch
@@ -22529,6 +22699,7 @@
     tr = Hendek
     uk = Канава
     zh-Hans = 水沟
+    nl = Sloot tunnel
 
   [type.waterway.dock]
     en = Waterway Dock
@@ -22543,6 +22714,7 @@
     tr = Rıhtım
     uk = Причал
     zh-Hans = 船坞
+    nl = Dok
 
   [type.waterway.drain]
     en = Drain
@@ -22555,6 +22727,7 @@
     tr = Lağım
     uk = Водовiдвiд
     zh-Hans = 渠
+    nl = Afvoer
 
   [type.waterway.drain.tunnel]
     en = Drain
@@ -22567,6 +22740,7 @@
     tr = Lağım
     uk = Водовiдвiд
     zh-Hans = 渠
+    nl = Afvoer tunnel
 
   [type.waterway.lock_gate]
     en = Lock Gate
@@ -22892,6 +23066,7 @@
     tr = Su Bendi
     uk = Гребля
     zh-Hans = 堰
+    nl = Stuw
 
   [type.wheelchair]
     en = Wheelchair
@@ -22907,6 +23082,7 @@
     tr = Tekerlekli sandalye
     uk = Iнвалiдний вiзок
     zh-Hans = 轮椅
+    nl = RolstoelS
 
   [type.wheelchair.limited]
     en = Limited Wheelchair Access
@@ -23026,6 +23202,7 @@
     ru = Бугельный подъёмник
     tr = Kayak Teleferiği
     uk = Бугельний витяг
+    nl = Sleeplift
 
   [type.piste_lift.j.bar]
     en = J-bar Lift
@@ -23036,6 +23213,7 @@
     ru = Бугельный подъёмник
     tr = Kayak Teleferiği
     uk = Бугельний витяг
+    nl = Sleeplift (J)
 
   [type.piste_lift.magic_carpet]
     en = Magic Carpet
@@ -23046,6 +23224,7 @@
     ru = Ленточный конвейер
     tr = Kayak Teleferiği
     uk = Стрiчковий конвеєр
+    nl = Loopband
 
   [type.piste_lift.platter]
     en = Platter Lift
@@ -23055,6 +23234,7 @@
     ru = Бугельный подъёмник
     tr = Tabak Asansörü
     uk = Бугельний витяг
+    nl = Sleeplift
 
   [type.piste_lift.rope_tow]
     en = Rope Tow
@@ -23064,6 +23244,7 @@
     ru = Бугельный подъёмник
     tr = Çekme Halatı
     uk = Бугельний витяг
+    nl = Touwlift
 
   [type.piste_lift.t.bar]
     en = T-bar Lift
@@ -23072,6 +23253,7 @@
     pt-BR = Telesqui de barra em T
     ru = Бугельный подъёмник
     uk = Бугельний витяг
+    nl = Sleeplift (T-beugel)
 
   [type.piste_type]
     en = Piste Type
@@ -23081,6 +23263,7 @@
     ru = Тип трассы
     tr = Kayakçı Taşıyıcı
     uk = Тип траси
+    nl = Pistesoort
 
   [type.piste_type.downhill]
     en = Downhill Ski Run
@@ -23092,6 +23275,7 @@
     ru = Горнолыжная трасса
     tr = Yokuş Aşağı Kayak Pisti
     uk = Гірськолижна траса
+    nl = Ski-afdaling
 
   [type.piste_type.downhill.advanced]
     ref = type.piste_type.downhill
@@ -23101,6 +23285,7 @@
     ru = Продвинутая горнолыжная трасса
     tr = Gelişmiş kayak pisti
     uk = Доповнена гірськолижна траса
+    nl = Moeilijke afdaling
 
   [type.piste_type.downhill.easy]
     ref = type.piste_type.downhill
@@ -23110,6 +23295,7 @@
     ru = Лёгкая горнолыжная трасса
     tr = Basit kayak pisti
     uk = Легка гірськолижна траса
+    nl = Makkelijke afdaling
 
   [type.piste_type.downhill.expert]
     ref = type.piste_type.downhill
@@ -23119,6 +23305,7 @@
     ru = Горнолыжная трасса для экспертов
     tr = Uzmanlar için kayak pisti
     uk = Гірськолижна траса для експертів
+    nl = Afdaling voor experts
 
   [type.piste_type.downhill.freeride]
     ref = type.piste_type.downhill
@@ -23136,6 +23323,7 @@
     ru = Горнолыжная трасса средней сложности
     tr = Orta zorlukta kayak pisti
     uk = Гірськолижна траса середнього рівня
+    nl = Gemiddelde afdaling
 
   [type.piste_type.downhill.novice]
     ref = type.piste_type.downhill
@@ -23145,6 +23333,7 @@
     ru = Горнолыжная трасса для новичков
     tr = Yeni başlayanlar için kayak pisti
     uk = Гірськолижна траса для новеньких
+    nl = Beginnersafdaling
 
   [type.piste_type.nordic]
     en = Nordic Ski Trail
@@ -23156,6 +23345,7 @@
     ru = Лыжня
     tr = İskandinav Kayak Pisti
     uk = Лижня
+    nl = Langlaufroute
 
   [type.piste_type.sled]
     en = Sledding Piste
@@ -23166,6 +23356,7 @@
     ru = Трасса для саней
     tr = Kızak Pisti
     uk = Траса для санок
+    nl = Sleebaan
 
   [type.building_part]
     en = Building
