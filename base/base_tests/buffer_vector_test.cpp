@@ -145,16 +145,6 @@ UNIT_TEST(BufferVectorSwap)
   }
 }
 
-UNIT_TEST(BufferVectorZeroInitialized)
-{
-  for (size_t size = 0; size < 20; ++size)
-  {
-    buffer_vector<int, 5> v(size);
-    for (size_t i = 0; i < size; ++i)
-      TEST_EQUAL(v[i], 0, ());
-  }
-}
-
 UNIT_TEST(BufferVectorResize)
 {
   for (size_t size = 0; size < 20; ++size)
@@ -347,7 +337,7 @@ void TestVector(VectorT const & v, size_t sz)
     TEST_EQUAL(v[i].m_s, strings::to_string(i), ());
 }
 
-}
+} // namespace
 
 UNIT_TEST(BufferVectorMove)
 {

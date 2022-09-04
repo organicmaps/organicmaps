@@ -34,7 +34,8 @@ public:
   using value_type = UniChar;
 
   UniString() {}
-  explicit UniString(size_t n, UniChar c = UniChar()) : BaseT(n, c) {}
+  explicit UniString(size_t n) : BaseT(n) {}
+  UniString(size_t n, UniChar c) { resize(n, c); }
 
   template <typename Iter>
   UniString(Iter b, Iter e) : BaseT(b, e)

@@ -8,11 +8,9 @@
 #include "coding/write_to_sink.hpp"
 
 #include "base/assert.hpp"
-#include "base/base.hpp"
 #include "base/bits.hpp"
 #include "base/logging.hpp"
 
-#include <cstdint>
 #include <limits>
 #include <vector>
 
@@ -244,11 +242,14 @@ public:
   {
     ASSERT_GREATER_OR_EQUAL(m_BitsPerLevel, 3, ());
     WriteVarUint(sink, (offset << 1) + 1);
-    buffer_vector<uint8_t, 32> bitMask(1 << (m_BitsPerLevel - 3));
+
+    buffer_vector<uint8_t, 32> bitMask;
+    bitMask.resize(1 << (m_BitsPerLevel - 3), 0);
     for (uint32_t i = 0; i < static_cast<uint32_t>(1 << m_BitsPerLevel); ++i)
       if (childSizes[i])
         bits::SetBitTo1(&bitMask[0], i);
     sink.Write(&bitMask[0], bitMask.size());
+
     for (uint32_t i = 0; i < static_cast<uint32_t>(1 << m_BitsPerLevel); ++i)
       if (childSizes[i])
         WriteVarUint(sink, childSizes[i]);
