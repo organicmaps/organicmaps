@@ -9,6 +9,7 @@
     fr = Transport par câble aérien
     ja = 索道
     mr = हवाई मार्ग
+    nl = Kabelbaan
     pl = Transport linowy
     pt = Transporte aéreo
     pt-BR = Transporte aéreo
@@ -27,6 +28,7 @@
     fr = Téléphérique
     ja = ロープウェイ
     mr = हवाई मार्ग
+    nl = Cabinelift
     pl = Kolej linowa
     pt = Teleférico
     pt-BR = Teleférico
@@ -45,6 +47,7 @@
     fr = Télésiège
     ja = チェアリフト
     mr = हवाई मार्ग
+    nl = Stoeltjeslift
     pl = Wyciąg krzesełkowy
     pt = Telecadeira
     pt-BR = Telecadeira
@@ -62,6 +65,7 @@
     fr = Téléski
     ja = 牽引リフト
     mr = हवाई मार्ग
+    nl = Sleeplift
     pl = Wyciąg orczykowy
     pt = Telesquis
     pt-BR = Telesquis
@@ -80,6 +84,7 @@
     fr = Télécabine
     ja = ゴンドラ
     mr = हवाई मार्ग
+    nl = Gondelbaan
     pl = Gondola kolejki linowej
     pt = Telecabine
     pt-BR = Telecabine
@@ -97,6 +102,7 @@
     eu = Telekondola/teleaulkia
     ja = 混合リフト
     mr = हवाई मार्ग
+    nl = Gecombineerde kabelbaan
     pl = Wyciąg mieszany
     pt = Teleférico híbrido
     pt-BR = Teleférico híbrido
@@ -146,6 +152,7 @@
     eu = Aire azpiegitura
     ja = 空路
     mr = हवाई आधार संरचना
+    nl = Luchtvaartinfrastructuurfv
     pt = Via aérea
     pt-BR = Via aérea
     ru = Аэрокосмическая инфраструктура
@@ -229,6 +236,7 @@
     eu = Plataforma
     fr = Aire de stationnement pour aéronefs
     ja = エプロン
+    nl = Platform
     pl = Płyta postojowa samolotów
     pt = Plataforma de estacionamento de aviões
     pt-BR = Plataforma de estacionamento de aviões
@@ -294,6 +302,7 @@
     fr = Piste d'aviation
     ja = 滑走路
     mr = धावपट्टी
+    nl = Startbaan
     pl = Droga startowa
     pt = Pista de aeroporto ou aeródromo
     pt-BR = Pista de aeroporto ou aeródromo
@@ -310,6 +319,7 @@
     eu = Taxiway
     fr = Taxiway
     ja = 誘導路
+    nl = Taxibaan
     pl = Droga kołowania
     pt = Faixa de manobras
     pt-BR = Pista de rolagem
@@ -659,6 +669,7 @@
     ja = ビアガーデン
     ko = 비어가르텐
     nb = Uteservering
+    nl = Biertuin
     pl = Ogródek piwny
     pt = Jardim da cerveja
     pt-BR = Jardim da cerveja
@@ -2858,6 +2869,7 @@
     eu = Kartzela
     ja = 刑務所
     mr = तुरुंग
+    nl = Gevangenis
     pl = Więzienie
     pt = Prisão
     pt-BR = Presidiário
@@ -3295,6 +3307,7 @@
     eu = Kartoia
     fr = Carton
     mr = पुठ्ठा
+    nl = Karton
     ru = Картон
     tr = Karton
     uk = Картон
@@ -3307,6 +3320,7 @@
     eu = Latak
     fr = Emballages métalliques
     mr = कॅन
+    nl = Blik
     ru = Жестяные и алюминиевые банки
     tr = Teneke ve alüminyum kutular
     uk = Бляшані та алюмінієві банки
@@ -3319,6 +3333,7 @@
     eu = Oinetakoak
     fr = Chaussures
     mr = पादत्राणे
+    nl = Schoenen
     ru = Обувь
     tr = Ayakkabılar
     uk = Взуття
@@ -3330,6 +3345,7 @@
     es = Orgánico
     eu = Organikoa
     fr = Déchets organiques
+    nl = GFT afval
     ru = Органика / Пищевые отходы
     tr = Yeşil/Organik Atık
     uk = Органіка / Харчові відходи
@@ -3381,6 +3397,7 @@
     es = Estación de vaciado para caravanas
     fr = Station de vidange
     it = Camper service
+    nl = Caravantoilet cassette-leegpunt
     ru = Слив для туалетов транспортных средств
     tr = Tank Boşaltma İstasyonu
     uk = Злив для туалетів транспортних засобів
@@ -3593,6 +3610,7 @@
     ko = 화장실
     mr = शौचालय
     nb = Toalett
+    nl = WC
     pl = Toaleta
     pt = Casa de banho
     pt-BR = Banheiro
@@ -3685,6 +3703,7 @@
     fr = Distributeur automatique
     ja = 自動販売機
     mr = विक्रीयंत्र
+    nl = Automaat
     pl = Automat sprzedający
     pt = Máquina de venda automática
     pt-BR = Máquina de venda automática
@@ -3737,6 +3756,7 @@
     fr = Distributeur de café
     it = Distributore di caffè
     mr = कॉफी विक्रीयंत्र
+    nl = Koffieautomaat
     ru = Кофейный автомат
     uk = Кавовий автомат
 
@@ -3749,6 +3769,7 @@
     fr = Distributeur de préservatifs
     it = Distributore di profilattici
     mr = कंडोम विक्रीयंत्र
+    nl = Condoomautomaat
     ru = Автомат с презервативами
     uk = Автомат з презервативами
 
@@ -3796,6 +3817,7 @@
     fr = Distributeur d'aliments
     it = Distributore di alimenti
     mr = अन्न विक्रीयंत्र
+    nl = Etenswarenautomaat
     ru = Автомат с едой
     uk = Автомат з їжею
 
@@ -3808,6 +3830,7 @@
     fr = Distributeur de journaux
     it = Distributore di giornali
     mr = वृत्तपत्र विक्रीयंत्र
+    nl = Krantenautomaat
     ru = Газетный автомат
     uk = Газетний автомат
 
@@ -3892,6 +3915,7 @@
     fr = Distributeur de bonbons
     it = Distributore di dolciumi
     mr = मिठाई विक्रीयंत्र
+    nl = Snoepautomaat
     ru = Автомат со сладостями
     uk = Автомат із солодощами
 
@@ -3903,6 +3927,7 @@
     eu = Kaka poltsak saltzeko makina
     fr = Distributeur de sacs à excréments
     mr = मलमूत्र पिशव्या विक्रीयंत्र
+    nl = Hondenpoepzakjesdispenser
     ru = Пакеты для экскрементов
     tr = Dışkı Torbası Dağıtıcı
     uk = Мішки для екскрементів
@@ -3915,6 +3940,7 @@
     eu = Paketeen aldagela
     fr = Consigne automatique pour colis
     mr = पार्सल लॉकर
+    nl = Pakketjeskluis
     ru = Почтомат
     tr = Kilitlenebilen Kutu Dolaplar
     uk = Поштомат
@@ -3925,6 +3951,7 @@
     de = Tankautomat
     es = Maquina expendedora de combustible
     mr = इंधन विक्रीयंत्र
+    nl = Tankautomaat
     ru = Топливная колонка
     tr = Yakıt Dağıtıcı
     uk = Паливна колонка
@@ -4037,6 +4064,7 @@
     de = Müllumladestation
     es = Estación de transferencia de residuos
     mr = कचरा हस्तांतरण केंद्र
+    nl = Overslagstation voor afval
     ru = Станция перевалки отходов
     tr = Atık Transfer İstasyonu
     uk = Станція передачі сміття
@@ -4083,6 +4111,7 @@
     fr = Barrière
     ja = 障害物
     mr = अडथळा
+    nl = Barrière
     pl = Bariera
     pt = Barreira
     pt-BR = Barreira
@@ -4201,6 +4230,7 @@
     eu = Katea
     fr = Chaîne
     mr = साखळी
+    nl = Ketting
     ru = Цепь
     tr = Zincir
     uk = Ланцюг
@@ -4213,6 +4243,7 @@
     fr = Muraille
     ja = 城壁
     mr = शहराची भिंत
+    nl = Stadsmuur
     pl = Mur miejski
     pt = Muralha de cidade
     pt-BR = Muralha de cidade
@@ -4228,6 +4259,7 @@
     eu = Bizikleta-hesia
     ja = バリカー
     mr = सायकल अडथळा
+    nl = Fietsbarrière
     pl = Bariera rowerowa
     pt = Barreira de bicicletas
     pt-BR = Barreira de bicicletas
@@ -4277,6 +4309,7 @@
     fr = Clôture
     ja = フェンス
     mr = कुंपण
+    nl = Hek
     pl = Płot
     pt = Vedação
     pt-BR = Cerca
@@ -4327,6 +4360,7 @@
     fr = Haie
     ja = 生垣
     mr = झुडुपांचे कुंपण
+    nl = Heg
     pl = Żywopłot
     pt = Sebe
     pt-BR = Sebe
@@ -4377,6 +4411,7 @@
     fr = Mur de soutènement
     ja = 擁壁
     mr = संधारक भिंत
+    nl = Keermuur
     pl = Mur oporowy
     pt = Muro de retenção
     pt-BR = Muro de retenção
@@ -4494,6 +4529,7 @@
     fr = Mur
     ja = 壁
     mr = भिंत
+    nl = Muur
     pl = Mur
     pt = Muro
     pt-BR = Muro
@@ -4510,6 +4546,7 @@
     fr = Frontière
     ja = 境界線
     mr = सीमा
+    nl = Grens
     pl = Granica
     pt = Fronteira
     pt-BR = Fronteira
@@ -4526,6 +4563,7 @@
     fr = Frontière administrative
     ja = 行政境界
     mr = प्रशासकीय सीमा
+    nl = Administratieve grens
     pl = Granica administracyjna
     pt = Fronteira administrativa
     pt-BR = Fronteira administrativa
@@ -4579,6 +4617,7 @@
     eu = Hiriko muga
     fr = Frontière de la ville
     mr = शहराची सीमा
+    nl = Stadsgrens
     pl = Granica miasta
     pt = Fronteira de cidade
     pt-BR = Fronteira de cidade
@@ -4593,6 +4632,7 @@
     eu = Herrialdeko muga
     fr = Frontière nationale
     mr = राष्ट्रीय सीमा
+    nl = Landsgrens
     pl = Granica państwa
     pt = Fronteira de país
     pt-BR = Fronteira de país
@@ -4607,6 +4647,7 @@
     eu = Eskualdeko muga
     fr = Frontière du comté
     mr = परगणा सीमा
+    nl = Provinciegrens
     pl = Granica hrabstwa
     pt = Fronteira de condado
     pt-BR = Fronteira de condado
@@ -4621,6 +4662,7 @@
     eu = Udalerriko muga
     fr = Frontière de la municipalité
     mr = नगरपालिकेची सीमा
+    nl = Gemeentegrens
     pl = Granica gminy
     pt = Fronteira de município
     pt-BR = Fronteira de município
@@ -4632,6 +4674,7 @@
     ref = type.boundary.administrative.country
     es = Frontera de nación
     eu = Nazio muga
+    nl = Natiegrens
     pt = Fronteira de nação
     pt-BR = Fronteira de nação
 
@@ -4641,6 +4684,7 @@
     eu = Eskualdeko muga
     fr = Frontière régionale
     mr = प्रादेशिक सीमा
+    nl = Regiogrens
     pl = Granica regionu
     pt = Fronteira de região
     pt-BR = Fronteira de região
@@ -4654,6 +4698,7 @@
     es = Frontera de estado
     eu = Estatuko muga
     mr = राज्य सीमा
+    nl = Staatsgrens
     pl = Granica województwa
     pt = Fronteira de estado
     pt-BR = Fronteira de estado
@@ -4667,6 +4712,7 @@
     eu = Auzoko muga
     fr = Frontière de quartier
     mr = उपनगर सीमा
+    nl = Buitenwijkgrens
     pl = Granica przedmieść
     pt = Fronteira de subúrbio
     pt-BR = Fronteira de subúrbio
@@ -4881,6 +4927,7 @@
     eu = Denda
     fr = Entrepôt
     mr = वखार
+    nl = Magazijn
     pt = Armazém
     pt-BR = Armazém
     ru = Склад
@@ -4932,6 +4979,7 @@
     it = Artigianato
     ja = 工房
     mr = हस्तकला
+    nl = Ambacht
     pl = Rzemiosło
     pt = Ofícios
     pt-BR = Ofícios
@@ -4946,6 +4994,7 @@
     es = Apicultor
     fr = Apiculteur
     it = Apicoltore
+    nl = Imker
     ru = Пчеловод
     tr = Arıcı
     uk = Бджоляр
@@ -4956,6 +5005,7 @@
     es = Herrero
     fr = Forgeron
     it = Fabbro
+    nl = Smid
     ru = Кузница
     tr = Demirci
     uk = Кузня
@@ -5033,6 +5083,7 @@
     en = Confectionery
     es = Confitería
     fr = Confiseur
+    nl = Banketbakkerij
     ru = Кондитер
 
   [type.craft.electrician]
@@ -5073,6 +5124,7 @@
     es = Reparación de aparatos electrónicos
     fr = Réparation d'appareils électroniques
     it = Riparazioni elettroniche
+    nl = Electronica-reparatie
     ru = Ремонт электроники
     tr = Elektronik Tamircisi
 
@@ -5114,6 +5166,7 @@
     en = Handicraft
     es = Artesanía
     it = Artigiano
+    nl = Handwerk
     ru = Ремесленная мастерская
     tr = El İşi
 
@@ -5292,6 +5345,7 @@
     en = Sawmill
     es = Serrería
     fr = Scierie
+    nl = Zagerij
     ru = Лесопилка
 
   [type.craft.shoemaker]
@@ -5332,6 +5386,7 @@
     en = Winery
     es = Bodega
     fr = Chai
+    nl = Wijnhandel
     ru = Винодельня
 
   [type.craft.tailor]
@@ -8212,6 +8267,7 @@
     de = Notfall
     fr = Urgence
     mr = आणीबाणी
+    nl = Noodgeval
     pl = Ratunkowe
     pt = Emergência
     pt-BR = Emergência
@@ -8239,6 +8295,7 @@
     ko = 제세동기
     mr = कंपनरोधक
     nb = Hjertestarter
+    nl = Defibrillator (AED)
     pl = Defibrylator
     pt = Desfibrilador
     pt-BR = Desfibrilador
@@ -8401,6 +8458,7 @@
     de = Straße
     ja = 道路
     mr = महामार्ग
+    nl = Snelweg
     pl = Droga
     pt = Rodovia
     pt-BR = Rodovia
@@ -8414,6 +8472,7 @@
     de = Reitweg
     fr = Chemin pour cavalier
     ja = 馬道
+    nl = Ruiterpad
     pl = Droga dla koni
     pt = Caminho para cavaleiros
     pt-BR = Caminho para cavaleiros
@@ -8430,6 +8489,7 @@
 
   [type.highway.bridleway.permissive]
     ref = type.highway.bridleway
+    nl = Pad toegankelijk voor ruiters
     pl = Droga dla koni ograniczona
     pt-BR = Caminho para cavaleiros permissivo
 
@@ -8518,6 +8578,7 @@
     fr = Piste cyclable
     ja = 自転車道
     mr = सायकल वाट
+    nl = Fietspad
     pl = Droga rowerowa
     pt = Ciclovia
     pt-BR = Ciclovia
@@ -8534,6 +8595,7 @@
 
   [type.highway.cycleway.permissive]
     ref = type.highway.cycleway
+    nl = Weg toegestaan voor fietsers
     pl = Droga rowerowa ograniczona
     pt-BR = Caminho para ciclistas permissivo
 
@@ -8552,6 +8614,7 @@
     eu = Igogailua
     fr = Ascenseur
     mr = उद्वाहक(लिफ्ट)
+    nl = Lift
     pt-BR = Elevador
     ru = Лифт
     tr = Asansör
@@ -9427,6 +9490,7 @@
     fr = Aire de service
     ja = サービスエリア
     mr = सेवा क्षेत्र
+    nl = Servicegebied
     pl = Miejsce obsługi podróżnych
     pt = Área de serviço
     pt-BR = Área de serviços de estrada
@@ -9852,6 +9916,7 @@
     de = Historisches Objekt
     ja = 史跡
     mr = ऐतिहासिक
+    nl = Historisch
     pl = Historyczne
     pt = Histórico
     pt-BR = Histórico
@@ -9904,6 +9969,7 @@
     fr = Champ de bataille
     ja = 古戦場
     mr = रणांगण
+    nl = Slagveld
     pl = Miejsce historycznej bitwy
     pt = Campo de batalha
     pt-BR = Campo de batalha
@@ -9919,6 +9985,7 @@
     de = Grenzstein
     fr = Borne frontière
     ja = 境界標
+    nl = Grenssteen
     pl = Historyczny kamień graniczny
     pt = Marco fronteiriço
     pt-BR = Marco fronteiriço
@@ -10034,6 +10101,7 @@
     fr = Muraille
     ja = 歴史的な城壁
     mr = शहराची भिंत
+    nl = Stadsmuur
     pl = Historyczne mury miasta
     pt = Muralha de cidade
     pt-BR = Muralha de cidade
@@ -10322,6 +10390,7 @@
     fr = Croix
     ja = 歴史的な十字架
     mr = ख्रिश्चन क्रॉस
+    nl = Kruis
     pl = Krzyż przydrożny
     pt = Cruzeiro
     pt-BR = Cruzeiro
@@ -10338,6 +10407,7 @@
     fr = Oratoire
     ja = 歴史的な祠
     mr = देवस्थान
+    nl = Altaar
     pl = Kapliczka przydrożna
     pt = Alminhas
     pt-BR = Alminhas
@@ -10425,6 +10495,7 @@
     ar = تقاطع
     ja = 交差点
     mr = जंक्शन
+    nl = Kruispunt
     pl = Skrzyżowanie
     pt = Cruzamento
     pt-BR = Cruzamento
@@ -10442,6 +10513,7 @@
     fr = Rond-point
     ja = ラウンドアバウト
     mr = गोलमार्ग
+    nl = Rotonde
     pl = Rondo
     pt = Rotunda
     pt-BR = Rotatória
@@ -10455,6 +10527,7 @@
     de = Landnutzung
     ja = 土地利用
     mr = भूमी उपयोग
+    nl = Landgebruik
     pl = Zagospodarowanie ziemi
     pt = Uso do solo
     pt-BR = Uso do solo
@@ -10469,6 +10542,7 @@
     fr = Jardins familiaux
     ja = 市民農園
     mr = वाटप
+    nl = Volkstuinen
     pl = Działki
     pt = Horta comunitária
     pt-BR = Horta comunitária
@@ -10579,6 +10653,7 @@
     fr = Zone commerciale
     ja = 商業用地
     mr = व्यावसायिक क्षेत्र
+    nl = Commercieel gebied
     pl = Teren handlu i usług
     pt = Área comercial
     pt-BR = Área comercial
@@ -10594,6 +10669,7 @@
     fr = Chantier de construction
     ja = 建設工事中
     mr = बांधकाम
+    nl = Bouwplaats
     pl = Teren budowy
     pt = Construção
     pt-BR = Construção
@@ -10610,6 +10686,7 @@
     fr = Établissements éducatifs
     it = Strutture didattiche
     mr = शैक्षणिक सुविधा
+    nl = Educatieve voorzieningen
     pt-BR = Instituições educacionais
     ru = Образовательные учреждения
     uk = Освітній заклади
@@ -10620,6 +10697,7 @@
     de = Bauernhof
     ja = 農地
     mr = शेत
+    nl = Boerderij
     pl = Gospodarstwo rolne
     pt = Quinta
     pt-BR = Fazenda
@@ -10669,6 +10747,7 @@
     de = Landwirtschaftlich genutzte Fläche
     fr = Ferme
     ja = 農地
+    nl = Boerenerf
     pl = Obejście gospodarskie
     pt = Pátio de quinta
     pt-BR = Pátio de fazenda
@@ -10683,6 +10762,7 @@
     de = Feld
     fr = Champ
     mr = क्षेत्र
+    nl = Veld
     pl = Pole
     pt = Campo
     pt-BR = Campo
@@ -10896,6 +10976,7 @@
     fr = Culture sous serre
     ja = 温室栽培
     mr = हरितगृह
+    nl = Kassen
     pt = Estufas
     pt-BR = Estufas
     ru = Теплицы
@@ -10910,6 +10991,7 @@
     fr = Zone industrielle
     ja = 工業用地
     mr = औद्योगिक जमीन
+    nl = Industrieterrein
     pl = Obszar przemysłowy
     pt = Terreno industrial
     pt-BR = Terreno industrial
@@ -10960,6 +11042,7 @@
     fr = Prairie
     ja = 牧草地
     mr = कुरण
+    nl = Weiland
     pl = Łąka
     pt = Pradaria
     pt-BR = Pradaria
@@ -10990,6 +11073,7 @@
     fr = Vergers
     ja = 果樹園
     mr = फळबागा
+    nl = Boomgaard
     pl = Sad
     pt = Pomar
     pt-BR = Pomar
@@ -11004,6 +11088,7 @@
     fr = Carrières
     ja = 採石場
     mr = खाण
+    nl = Steengroeve
     pl = Kamieniołom
     pt = Pedreira
     pt-BR = Pedreira
@@ -11053,6 +11138,7 @@
     de = Erholungsgebiet
     ja = レクリエーション
     mr = मनोरंजन मैदान
+    nl = Recreatiezone
     pl = Tereny wypoczynkowe
     pt = Área de lazer
     pt-BR = Área de lazer
@@ -11101,6 +11187,7 @@
     fr = Zone résidentielle
     ja = 住宅地
     mr = निवासी जमीन
+    nl = Woonwijk
     pl = Tereny zamieszkania
     pt = Área residencial
     pt-BR = Área residencial
@@ -11116,6 +11203,7 @@
     fr = Zone commerciale
     ja = 小売店エリア
     mr = किरकोळ जमीन
+    nl = Detailhandel
     pl = Obszar handlu
     pt = Área de retalho
     pt-BR = Área de varejo
@@ -11131,6 +11219,7 @@
     fr = Marais salant
     ja = 塩田
     mr = तलाव
+    nl = Zoutpoel
     pl = Słone jezioro
     pt = Salinas
     pt-BR = Salinas
@@ -11143,6 +11232,7 @@
     de = Dorfplatz
     ja = 村の中心
     mr = जमीन
+    nl = Dorpspark
     pl = Nawsie
     pt = Espaço verde de um vilarejo
     pt-BR = Espaço verde de um vilarejo
@@ -11157,6 +11247,7 @@
     fr = Vignes
     ja = ブドウ園
     mr = द्राक्षमळा
+    nl = Wijngaard
     pl = Winnica
     pt = Vinha
     pt-BR = Vinha
@@ -11170,6 +11261,7 @@
     de = Freizeit
     ja = レジャー
     mr = अवकाश
+    nl = Ontspanning
     pl = Wypoczynek
     pt = Lazer
     pt-BR = Lazer
@@ -11184,6 +11276,7 @@
     de = öffentliche Grünfläche
     ja = レジャー(共有地)
     mr = सार्वजनिक जमीन
+    nl = Openbare grond
     pt = Terreno baldio
     pt-BR = Terreno baldio
     ru = Общественная земля
@@ -11368,6 +11461,7 @@
     fr = Patinoire
     ja = アイスリンク
     mr = हिम क्रीडा क्षेत्र
+    nl = Schaatsbaan
     pl = Lodowisko
     pt = Rinque de patinagem
     pt-BR = Rinque de patinação
@@ -11379,6 +11473,7 @@
   [type.leisure.landscape_reserve]
     en = Landscape Reserve
     ja = 自然保護区
+    nl = Landschapsreservaat
     pl = Rezerwat krajobrazu
     pt = Reserva natural
     pt-BR = Reserva natural
@@ -11391,6 +11486,7 @@
     be = Прычал
     de = Jachthafen
     ja = マリーナ
+    nl = Jachthaven
     pt = Marina
     pt-BR = Marina
     ru = Причал
@@ -11417,7 +11513,7 @@
     ko = 천연보호구역
     mr = संरक्षित निसर्गक्षेत्र
     nb = Reservat
-    nl = Reserve
+    nl = Natuurreservaat
     pl = Rezerwat przyrody
     pt = Reserva natural
     pt-BR = Reserva natural
@@ -11687,6 +11783,7 @@
     en = Recreation Ground
     de = Freizeitgelände
     mr = मनोरंजन मैदान
+    nl = Recreatieterrein
     pl = Teren rekreacji
     pt = Zona recreativa
     pt-BR = Zona recreativa
@@ -11734,6 +11831,7 @@
     de = Bootsrampe
     fr = Cale de lancement
     ja = スリップウェイ
+    nl = Scheepshelling
     pl = Pochylnia
     pt = Rampa de barcos
     pt-BR = Rampa de barcos
@@ -11865,6 +11963,7 @@
     ko = 경기장
     mr = क्रीडागार(स्टेडियम)
     nb = Stadion
+    nl = Stadion
     pl = Stadion
     pt = Estádio
     pt-BR = Estádio
@@ -11925,6 +12024,7 @@
     fr = Piste de course
     ja = トラック
     mr = ट्रॅक
+    nl = Parcours
     pt = Pista para desportos não motorizados
     pt-BR = Pista para esportes não motorizados
     ru = Беговая дорожка
@@ -11970,6 +12070,7 @@
     en = Beach Resort
     ar = منتجع شاطئي
     mr = समुद्री रिसॉर्ट
+    nl = Strandresort
     ru = Пляжный курорт
     tr = Sahil Tatil Yeri
     uk = Пляжний курорт
@@ -11979,6 +12080,7 @@
     de = künstliche Anlage
     ja = 構造物
     mr = मानवनिर्मित
+    nl = Kunstmatige constructies
     pt = Construção humana
     pt-BR = Construção humana
     ru = Искусственное сооружение
@@ -11991,6 +12093,7 @@
     de = Wellenbrecher
     fr = Brise-lames
     ja = 防波堤
+    nl = Golfbreker
     pl = Falochron
     pt = Molhe
     pt-BR = Molhe
@@ -12003,6 +12106,7 @@
     en = Cairn
     de = Steinhaufen
     ja = ケルン
+    nl = Steengroeve
     pl = Kopiec
     pt = Moledro ou mariola
     pt-BR = Moledro ou mariola
@@ -12048,6 +12152,7 @@
     de = Schneise
     fr = Layon
     ja = 森林の切れ目
+    nl = Bospad
     pl = Przecinka leśna
     pt = Atalhada
     pt-BR = Aceiro
@@ -12064,6 +12169,7 @@
     fr = Borne géodésique
     ja = 測量標
     mr = सर्वेक्षण बिंदू
+    nl = Meetpunt
     pl = Znak geodezyjny
     ru = Геодезический пункт
     uk = Геодезичний пункт
@@ -12074,6 +12180,7 @@
     be = Флагшток
     fr = Mât de drapeau
     mr = ध्वजस्तंभ
+    nl = Vlaggenpaal
     ru = Флагшток
     tr = Bayrak Direği
     uk = Флагшток
@@ -12179,6 +12286,7 @@
     de = Speichertank
     fr = Réservoir
     mr = साठवण टाकी
+    nl = Opslagtank
     pt-BR = Tanque de armazenagem
     ru = Резервуар
     tr = Depolama Tankı
@@ -12258,6 +12366,7 @@
     fr = Station d'épuration
     ja = 下水処理場
     mr = सांडपाणी संयंत्र(प्लांट)
+    nl = Waterzuiveringsinstallatie
     pl = Oczyszczalnia ścieków
     pt = Estação de tratamento de águas residuais
     pt-BR = Estação de tratamento de esgoto
@@ -12407,6 +12516,7 @@
     de = Fabrik
     ja = 工場
     mr = औद्योगिक कामे
+    nl = Fabriek
     pt = Fábrica
     pt-BR = Fábrica
     ru = Промышленное производство
@@ -12426,6 +12536,7 @@
     de = Militärisches Objekt
     ja = 軍事
     mr = लष्करी
+    nl = Militair
     pl = Wojskowe
     pt = Militar
     pt-BR = Militar
@@ -12465,6 +12576,7 @@
     fr = Col de montagne
     it = Passo
     mr = डोंगरवाट
+    nl = Bergpas
     ru = Перевал
     tr = Boğaz
     uk = Перевал
@@ -13960,6 +14072,7 @@
     en = Dead End
     ja = 行き止まり
     mr = रस्ता बंद
+    nl = Doodlopende weg
     pl = Ślepy koniec drogi
     pt = Via sem saída
     pt-BR = Via sem saída
@@ -15075,6 +15188,7 @@
     de = Energie
     ja = 電力
     mr = शक्ती
+    nl = Electriciteit
     pt = Energia
     pt-BR = Energia
     ru = Энергетика
@@ -15099,6 +15213,7 @@
     de = Hochspannungs-Freileitung
     ja = 電力線
     mr = विद्युत तार
+    nl = Hoogspanningsleiding
     pl = Linia wysokiego napięcia
     pt = Linha de transmissão de energia
     pt-BR = Linha de transmissão de energia
@@ -15112,6 +15227,7 @@
     de = Unterirdische Hochpannungsleitung
     ja = 地下電力線
     mr = भूमिगत विद्युत तार
+    nl = Ondergrondse hoogspanningsleiding
     pl = Podziemna linia wysokiego napięcia
     pt = Linha de transmissão de energia subterrânea
     pt-BR = Linha de transmissão de energia subterrânea
@@ -15125,6 +15241,7 @@
     de = Nieder-/Mittelspannungsfreileitung
     ja = 低圧電力線
     mr = किरकोळ विद्युत तार
+    nl = Laag/middelspanningsleiding
     pl = Linia niskiego napięcia
     pt = Linha de transmissão de energia de baixa tensão
     pt-BR = Linha de transmissão de energia de baixa tensão
@@ -15172,6 +15289,7 @@
     de = Umspannwerk
     ja = 変電所
     mr = विद्युत घर
+    nl = Transformatorstation
     pl = Elektrownia
     pt = Subestação elétrica
     pt-BR = Subestação elétrica
@@ -15272,6 +15390,7 @@
     eu = Garraio publikoa
     ja = 公共交通機関
     mr = सार्वजनिक वाहतूक
+    nl = Openbaar vervoer
     pl = Transport publiczny
     pt = Transporte público
     pt-BR = Transporte público
@@ -15297,6 +15416,7 @@
     fr = Chemin de fer
     ja = 鉄道
     mr = रेल्वे
+    nl = Spoorweg
     pl = Kolej
     pt = Ferrovia
     pt-BR = Ferrovia
@@ -15310,6 +15430,7 @@
     de = Ehemalige Eisenbahnstrecke
     fr = Chemin de fer abandonné
     ja = 廃線
+    nl = Voormalig treinspoor
     pt = Ferrovia abandonada
     pt-BR = Ferrovia abandonada
     ru = Заброшенная железная дорога
@@ -15322,6 +15443,7 @@
     de = Ehemalige Eisenbahnbrücke
     fr = Chemin de fer abandonné
     ja = 廃線(橋)
+    nl = Voormalige spoorbrug
     pt = Ferrovia abandonada
     pt-BR = Ferrovia abandonada
     ru = Заброшенный железнодорожный мост
@@ -15334,6 +15456,7 @@
     de = Ehemaliger Eisenbahntunnel
     fr = Chemin de fer abandonné
     ja = 廃線(トンネル)
+    nl = Voormalige spoortunnel
     pt = Ferrovia abandonada
     pt-BR = Ferrovia abandonada
     ru = Заброшенный железнодорожный туннель
@@ -15347,6 +15470,7 @@
     fr = Chemin de fer en construction
     ja = 建設中の鉄道
     mr = रेल्वेचे बांधकाम
+    nl = Treinspoor in aanbouw
     pt = Ferrovia em construção
     pt-BR = Ferrovia em construção
     ru = Строящаяся железная дорога
@@ -15360,6 +15484,7 @@
     fr = Traversée de voie ferrée
     ja = 歩行者用踏切
     mr = रेल्वे ओलांडणी
+    nl = Spoorwegovergang
     pt = Passagem pedestre
     pt-BR = Passagem pedestre
     ru = Пешеходный переход
@@ -15371,6 +15496,7 @@
     de = Stillgelegte Bahnstrecke
     fr = Chemin de fer désaffecté
     ja = 休止線
+    nl = Ongebruikt spoor
     pt = Ferrovia em desuso
     pt-BR = Ferrovia em desuso
     ru = Неиспользуемая железная дорога
@@ -15384,6 +15510,7 @@
     fr = Funiculaire
     ja = ケーブルカー
     mr = हवाई रज्जुमार्ग
+    nl = Kabelspoorweg
     pt = Funicular
     pt-BR = Funicular
     ru = Фуникулер
@@ -15397,6 +15524,7 @@
     fr = Funiculaire
     ja = ケーブルカー(橋)
     mr = हवाई रज्जुमार्ग
+    nl = Kabelspoorbuur
     pt = Funicular
     pt-BR = Funicular
     ru = Фуникулер
@@ -15410,6 +15538,7 @@
     fr = Funiculaire
     ja = ケーブルカー(トンネル)
     mr = हवाई रज्जुमार्ग
+    nl = Kabelspoortunnel
     pt = Funicular
     pt-BR = Funicular
     ru = Фуникулер
@@ -15466,6 +15595,7 @@
     en = Light Rail
     de = Stadtbahn
     ja = ライトレール
+    nl = Lightrail
     pt = Metropolitano de superfície
     pt-BR = Metrô de superfície
     ru = Скоростной трамвай
@@ -15477,6 +15607,7 @@
     en = Light Rail
     de = Stadtbahnbrücke
     ja = ライトレール(橋)
+    nl = Lightrail-brug
     pt = Metropolitano de superfície
     pt-BR = Metrô de superfície
     ru = Скоростной трамвай
@@ -15488,6 +15619,7 @@
     en = Light Rail
     de = Stadtbahntunnel
     ja = ライトレール(トンネル)
+    nl = Lightrail-tunnel
     pt = Metropolitano de superfície
     pt-BR = Metrô de superfície
     ru = Скоростной трамвай
@@ -15537,6 +15669,7 @@
     fr = Monorail
     ja = モノレール(橋)
     mr = एकरूळी
+    nl = Monorail-brug
     pt = Monocarril
     pt-BR = Monotrilho
     ru = Монорельсовая железная дорога
@@ -15551,6 +15684,7 @@
     fr = Monorail
     ja = モノレール(トンネル)
     mr = एकरूळी
+    nl = Monorail-tunnel
     pt = Monocarril
     pt-BR = Monotrilho
     ru = Монорельсовая железная дорога
@@ -15564,6 +15698,7 @@
     de = Schmalspurbahn
     ja = 狭軌鉄道
     mr = अरुंदमापी रेल्वे
+    nl = Smalspoorbaan
     pt = Caminho de ferro de via estreita
     pt-BR = Caminho de ferro de via estreita
     ru = Узкоколейка
@@ -15576,6 +15711,7 @@
     de = Schmalspurbahnbrücke
     ja = 狭軌鉄道(橋)
     mr = अरुंदमापी रेल्वे
+    nl = Smalspoorbrug
     pt = Caminho de ferro de via estreita
     pt-BR = Caminho de ferro de via estreita
     ru = Узкоколейка
@@ -15588,6 +15724,7 @@
     de = Schmalspurbahntunnel
     ja = ja = 狭軌鉄道(トンネル)
     mr = अरुंदमापी रेल्वे
+    nl = Smalspoortunnel
     pt = Caminho de ferro de via estreita
     pt-BR = Caminho de ferro de via estreita
     ru = Узкоколейка
@@ -15602,6 +15739,7 @@
     fr = Quai de gare
     ja = プラットホーム
     mr = रेल्वे फलाट
+    nl = Spoor
     pt = Plataforma ferroviária
     pt-BR = Plataforma ferroviária
     ru = Железнодорожная платформа
@@ -15614,6 +15752,7 @@
     de = Museumsbahn
     fr = Chemin de fer touristique
     ja = 保存鉄道
+    nl = Museumspoorbaan
     pt = Ferrovia preservada
     pt-BR = Ferrovia preservada
     ru = Законсервированная Ж/Д
@@ -15624,6 +15763,7 @@
     en = Preserved Rail
     de = Museumsbahnbrücke
     ja = 保存鉄道(橋)
+    nl = Museumspoorbaanbrug
     pt = Ferrovia preservada
     pt-BR = Ferrovia preservada
     ru = Законсервированная Ж/Д
@@ -15634,6 +15774,7 @@
     en = Preserved Rail
     de = Museumsbahntunnel
     ja = 保存鉄道(トンネル)
+    nl = Museumspoorbaantunnel
     pt = Ferrovia preservada
     pt-BR = Ferrovia preservada
     ru = Законсервированная Ж/Д
@@ -15682,6 +15823,7 @@
     fr = Chemin de fer
     ja = 鉄道(橋)
     mr = रेल्वे
+    nl = Treinspoorbrug
     pt = Ferrovia
     pt-BR = Ferrovia
     ru = Железнодорожный мост
@@ -15709,6 +15851,7 @@
     fr = Chemin de fer
     ja = 鉄道(鉄道)
     mr = रेल्वे
+    nl = Spoortunnel
     pt = Ferrovia
     pt-BR = Ferrovia
     ru = Железнодорожный туннель
@@ -15721,6 +15864,7 @@
     en = Razed Rail
     de = Stillgelegte Eisenbahnstrecke
     ja = 撤去済の鉄道
+    nl = Verwijderde spoorbaan
     pt = Ferrovia removida
     pt-BR = Ferrovia removida
     ru = Заброшенная Ж/Д
@@ -15731,6 +15875,7 @@
     en = Siding Rail
     de = Ausweich-/Überholgleis
     ja = 側線
+    nl = Nevenspoor
     pt = Desvio de ferrovia
     pt-BR = Desvio de ferrovia
     ru = Ветка Ж/Д
@@ -15741,6 +15886,7 @@
     en = Siding Rail
     de = Ausweich-/Überholgleis
     ja = 側線(橋)
+    nl = Nevenspoor-brug
     pt = Desvio de ferrovia
     pt-BR = Desvio de ferrovia
     ru = Ветка Ж/Д
@@ -15751,6 +15897,7 @@
     en = Siding Rail
     de = Ausweich-/Überholgleis
     ja = 側線(トンネル)
+    nl = Nevenspoor-tunnel
     pt = Desvio de ferrovia
     pt-BR = Desvio de ferrovia
     ru = Ветка Ж/Д
@@ -15761,6 +15908,7 @@
     en = Spur Rail
     de = Anschlussgleis
     ja = 引き込み線
+    nl = Zijspoor
     pt = Ramal de ferrovia
     pt-BR = Ramal de ferrovia
     ru = Подъездная Ж/Д
@@ -15771,6 +15919,7 @@
     en = Spur Rail
     de = Anschlussgleis
     ja = 引き込み線(橋)
+    nl = Zijspoor-brug
     pt = Ramal de ferrovia
     pt-BR = Ramal de ferrovia
     ru = Подъездная Ж/Д
@@ -15781,6 +15930,7 @@
     en = Spur Rail
     de = Anschlussgleis
     ja = 引き込み線(トンネル)
+    nl = Zijspoor-tunnel
     pt = Ramal de ferrovia
     pt-BR = Ramal de ferrovia
     ru = Подъездная Ж/Д
@@ -16245,6 +16395,7 @@
     de = U-Bahn
     fr = Ligne de métro
     mr = भुयारी मार्गिका
+    nl = Metro
     pt = Metropolitano
     pt-BR = Metrô
     ru = Ветка метро
@@ -16256,6 +16407,7 @@
     de = U-Bahn-Brücke
     fr = Voie de métro
     mr = भुयारी मार्गिका
+    nl = Metrobrug
     pt = Metropolitano
     pt-BR = Metrô
     ru = Ветка метро
@@ -16267,6 +16419,7 @@
     de = U-Bahn-Tunnel
     fr = Voie de métro
     mr = भुयारी मार्गिका
+    nl = Metrotunnel
     pt = Metropolitano
     pt-BR = Metrô
     ru = Ветка метро
@@ -16689,6 +16842,7 @@
     fr = Voie de tramway
     ja = トラム
     mr = ट्राम मार्गिका
+    nl = Tram
     pt = Linha de elétrico
     pt-BR = Linha de bonde
     ru = Трамвай
@@ -16703,6 +16857,7 @@
     fr = Voie de tramway
     ja = トラム(橋)
     mr = ट्राम मार्गिका
+    nl = Trambrug
     pt = Linha de elétrico
     pt-BR = Linha de bonde
     ru = Трамвай
@@ -16717,6 +16872,7 @@
     fr = Voie de tramway
     ja = トラム(トンネル)
     mr = ट्राम मार्गिका
+    nl = Tramtunnel
     pt = Linha de elétrico
     pt-BR = Linha de bonde
     ru = Трамвай
@@ -16764,6 +16920,7 @@
     de = Abstellgleis
     ja = ヤード
     mr = रेल्वे आवार
+    nl = Rangeerterrein
     pt = Pátio de manobras ferroviárias
     pt-BR = Pátio de manobras ferroviárias
     ru = Ж/Д площадка
@@ -16776,6 +16933,7 @@
     de = Abstellgleis
     ja = ヤード(橋)
     mr = रेल्वे आवार
+    nl = Rangeerterrein brug
     pt = Pátio de manobras ferroviárias
     pt-BR = Pátio de manobras ferroviárias
     ru = Ж/Д площадка
@@ -16788,6 +16946,7 @@
     de = Abstellgleis
     ja = ヤード(トンネル)
     mr = रेल्वे आवार
+    nl = Rangeerterrein tunnel
     pt = Pátio de manobras ferroviárias
     pt-BR = Pátio de manobras ferroviárias
     ru = Ж/Д площадка
@@ -16813,6 +16972,7 @@
     fr = Trajet de ferry
     ja = フェリー航路
     mr = होडी
+    nl = Veerboot
     pt = Rota de ferry
     pt-BR = Rota de balsa
     ru = Паромная переправа
@@ -16823,6 +16983,7 @@
   [type.route.shuttle_train]
     en = Shuttle Train
     de = Shuttlezug
+    nl = Shuttle-trein
     pt = Rota de comboio vaivem
     pt-BR = Rota de trem vaivem
     ru = Челночная линия
@@ -17269,6 +17430,7 @@
     en = RV Dealership
     be = Продаж аўтадамоў
     fr = Concessionnaire de caravanes et camping-cars
+    nl = Caravan en camper verkoper
     ru = Продажа автодомов
     tr = Karavan Bayiliği
     uk = Продаж автобудинків
@@ -17529,6 +17691,7 @@
     ja = コピーショップ
     ko = 복사가게
     nb = Kopieringsbutikk
+    nl = Kopieerwinkel
     pl = Punkt ksero
     pt = Loja de cópias e impressão
     pt-BR = Copiadora
@@ -21455,6 +21618,7 @@
     fi = Turismi
     ja = 観光
     mr = पर्यटन
+    nl = Tourisme
     pl = Turystyka
     pt = Turismo
     pt-BR = Turismo
@@ -22383,6 +22547,7 @@
     en = Traffic Calming
     de = Verkehrsberuhigung
     ja = 交通静穏化
+    nl = Snelheidsmatigende maatregel
     pl = Uspokojenie ruchu drogowego
     pt = Redutor de velocidade
     pt-BR = Redutor de velocidade
@@ -22397,6 +22562,7 @@
     fr = Ralentisseur
     ja = スピードバンプ
     mr = वाहतूक गतिरोधक
+    nl = Verkeersdrempel
     pl = Krótki próg zwalniający
     pt = Lomba
     pt-BR = Quebra-molas
@@ -22409,6 +22575,7 @@
     de = lange Bodenwelle
     fr = Ralentisseur
     ja = スピードハンプ
+    nl = Verkeersheuvel
     pl = Długi próg zwalniający
     pt = Lomba longa
     pt-BR = Quebra-molas longa
@@ -22422,6 +22589,7 @@
     fi = Vesiväylä
     ja = 水域
     mr = जलमार्ग
+    nl = Waterweg
     pt = Curso de água
     pt-BR = Curso de água
     ru = Водный путь
@@ -22510,6 +22678,7 @@
     fr = Fossé
     ja = 排水路
     mr = खंदक
+    nl = Sloot
     pt = Vala
     pt-BR = Vala
     ru = Канава
@@ -22523,6 +22692,7 @@
     fr = Fossé
     ja = 排水路(トンネル)
     mr = खंदक
+    nl = Sloot tunnel
     pt = Vala
     pt-BR = Vala
     ru = Канава
@@ -22537,6 +22707,7 @@
     fr = Cale
     ja = ドック
     mr = जलमार्ग गोद
+    nl = Dok
     pt = Doca
     pt-BR = Doca
     ru = Причал
@@ -22549,6 +22720,7 @@
     de = Abfluss
     ja = 用水路
     mr = नाला
+    nl = Afvoer
     pt = Valeta de drenagem
     pt-BR = Valeta de drenagem
     ru = Водоотвод
@@ -22561,6 +22733,7 @@
     de = Abfluss
     ja = 用水路
     mr = नाला
+    nl = Afvoer tunnel
     pt = Valeta de drenagem
     pt-BR = Valeta de drenagem
     ru = Водоотвод
@@ -22886,6 +23059,7 @@
     fr = Seuil
     ja = 堰
     mr = अल्प धरण
+    nl = Stuw
     pt = Represa
     pt-BR = Açude
     ru = Плотина
@@ -22901,6 +23075,7 @@
     fi = Rullatuoli
     ja = 車椅子
     mr = चाकखुर्ची
+    nl = RolstoelS
     pt = Cadeiras de rodas
     pt-BR = Cadeiras de rodas
     ru = Инвалидная коляска
@@ -23021,6 +23196,7 @@
     en = Surface Lift
     de = Lift
     fr = Téléski
+    nl = Sleeplift
     pt = Telesqui
     pt-BR = Telesqui
     ru = Бугельный подъёмник
@@ -23031,6 +23207,7 @@
     en = J-bar Lift
     de = Schlepplift
     fr = Téléski
+    nl = Sleeplift (J)
     pt = Telesqui de barra em J
     pt-BR = Telesqui de barra em J
     ru = Бугельный подъёмник
@@ -23041,6 +23218,7 @@
     en = Magic Carpet
     de = Laufband
     fr = Tapis roulant
+    nl = Loopband
     pt = Tapete deslizante
     pt-BR = Tapete deslizante
     ru = Ленточный конвейер
@@ -23050,6 +23228,7 @@
   [type.piste_lift.platter]
     en = Platter Lift
     de = Tellerlift
+    nl = Sleeplift
     pt = Telesqui de disco
     pt-BR = Telesqui de disco
     ru = Бугельный подъёмник
@@ -23059,6 +23238,7 @@
   [type.piste_lift.rope_tow]
     en = Rope Tow
     de = Seillift
+    nl = Touwlift
     pt = Telesqui de corda
     pt-BR = Telesqui de corda
     ru = Бугельный подъёмник
@@ -23068,6 +23248,7 @@
   [type.piste_lift.t.bar]
     en = T-bar Lift
     de = T-Bügel-Lift
+    nl = Sleeplift (T-beugel)
     pt = Telesqui de barra em T
     pt-BR = Telesqui de barra em T
     ru = Бугельный подъёмник
@@ -23076,6 +23257,7 @@
   [type.piste_type]
     en = Piste Type
     de = Pistentyp
+    nl = Pistesoort
     pt = Tipo de pista
     pt-BR = Tipo de pista
     ru = Тип трассы
@@ -23087,6 +23269,7 @@
     de = Abfahrt
     fi = Laskettelurinne
     fr = Piste de ski alpin
+    nl = Ski-afdaling
     pt = Esqui alpino
     pt-BR = Esqui alpino
     ru = Горнолыжная трасса
@@ -23096,6 +23279,7 @@
   [type.piste_type.downhill.advanced]
     ref = type.piste_type.downhill
     de = Schwierige Abfahrt
+    nl = Moeilijke afdaling
     pt = Esqui alpino avançado
     pt-BR = Esqui alpino avançado
     ru = Продвинутая горнолыжная трасса
@@ -23105,6 +23289,7 @@
   [type.piste_type.downhill.easy]
     ref = type.piste_type.downhill
     de = Leichte Abfahrt
+    nl = Makkelijke afdaling
     pt = Esqui alpino fácil
     pt-BR = Esqui alpino fácil
     ru = Лёгкая горнолыжная трасса
@@ -23114,6 +23299,7 @@
   [type.piste_type.downhill.expert]
     ref = type.piste_type.downhill
     de = Profi Abfahrt
+    nl = Afdaling voor experts
     pt = Esqui alpino avançado
     pt-BR = Esqui alpino avançado
     ru = Горнолыжная трасса для экспертов
@@ -23131,6 +23317,7 @@
   [type.piste_type.downhill.intermediate]
     ref = type.piste_type.downhill
     de = Mittelschwere Abfahrt
+    nl = Gemiddelde afdaling
     pt = Esqui alpino intermédio
     pt-BR = Esqui alpino intermédio
     ru = Горнолыжная трасса средней сложности
@@ -23140,6 +23327,7 @@
   [type.piste_type.downhill.novice]
     ref = type.piste_type.downhill
     de = Anfängerfreundliche Abfahrt
+    nl = Beginnersafdaling
     pt = Esqui alpino iniciante
     pt-BR = Esqui alpino iniciante
     ru = Горнолыжная трасса для новичков
@@ -23151,6 +23339,7 @@
     de = Langlaufloipe
     fi = Latu
     fr = Piste de ski de fond
+    nl = Langlaufroute
     pt = Pista tipo nórdico
     pt-BR = Pista tipo nórdico
     ru = Лыжня
@@ -23161,6 +23350,7 @@
     en = Sledding Piste
     de = Rodelbahn
     fr = Piste de luge
+    nl = Sleebaan
     pt = Pista para trenós
     pt-BR = Pista para trenós
     ru = Трасса для саней

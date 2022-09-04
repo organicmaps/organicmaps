@@ -332,7 +332,7 @@ class StringsTxt:
 
         if target_file is None:
             target_file = self.strings_path
-        with open(target_file, "w") as outfile:
+        with open(target_file, "w", encoding='utf-8') as outfile:
             for key in self.keys_in_order:
                 # TODO: sort definitions and sections too?
                 if not key:

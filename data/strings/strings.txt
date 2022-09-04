@@ -493,6 +493,7 @@
     ko = 후
     mr = नंतर
     nb = Senere
+    nl = Later
     pl = Później
     pt = Mais tarde
     pt-BR = Mais tarde
@@ -1005,6 +1006,7 @@
     ko = 다운로드
     mr = डाउनलोड करा
     nb = Last ned
+    nl = Downloaden
     pl = Pobierz
     pt = Descarregar
     pt-BR = Baixar
@@ -1939,6 +1941,7 @@
     ca = Emmagatzematge privat intern
     de = Interner persönlicher Speicher
     fr = Stockage interne privé
+    nl = Intern persoonlijk geheugen
     pt-BR = Armazenamento interno privado
     ru = Внутренний скрытый накопитель
     tr = Dahili özel depolama
@@ -1953,6 +1956,7 @@
     ca = Emmagatzematge compartit intern
     de = Interner gemeinsamer Speicher
     fr = Stockage interne partagé
+    nl = Intern gedeeld geheugen
     pt-BR = Armazenamento interno compartilhado
     ru = Внутренний общий накопитель
     tr = Dahili paylaşılan depolama
@@ -1967,6 +1971,7 @@
     ca = Targeta SD
     de = SD-Karte
     fr = Carte SD
+    nl = SD-kaart
     pt-BR = Cartão SD
     ru = SD-карта
     tr = SD kart
@@ -1981,6 +1986,7 @@
     ca = Emmagatzematge compartit extern
     de = Externer gemeinsamer Speicher
     fr = Stockage externe partagé
+    nl = Extern gedeeld geheugen
     pt-BR = Armazenamento externo compartilhado
     ru = Внешний общий накопитель
     tr = Harici paylaşılan depolama
@@ -1995,6 +2001,7 @@
     ca = %1$@ lliures de %2$@
     de = %1$@ frei von %2$@
     fr = %1$@ libres sur %2$@
+    nl = %1$@ beschikbaar van %2$@
     pt-BR = %1$@ livre de %2$@
     ru = %1$@ свободно из %2$@
     tr = %2$@'ın %1$@'ı boş
@@ -2048,6 +2055,7 @@
     ca = S'ha produït un error en moure els fitxers de mapes
     de = Fehler beim Verschieben der Karten
     fr = Erreur lors du déplacement des cartes
+    nl = Fout bij het verplaatsen van kaartbestanden
     pt-BR = Erro ao mover arquivos de mapas
     ru = Ошибка перемещения файлов карт
     tr = Harita dosyalarını taşıma hatası
@@ -2239,7 +2247,7 @@
     ko = 식료품들
     mr = किराणा
     nb = Dagligvarer
-    nl = Kruidenierswinkels
+    nl = Boodschappen
     pl = Produkty
     pt = Lojas alimentares
     pt-BR = Mercados
@@ -3028,6 +3036,7 @@
     es = Caravanas
     eu = Karabanak
     fr = Aménagements pour camping-car
+    nl = Caravan faciliteiten
     ro = Pentru rulote
     ru = Для автодомов
     tr = Karavan tesisleri
@@ -10431,6 +10440,7 @@
     eu = Bihar %@ean irekiko da
     fr = Ouvre demain à %@
     it = Apre domani alle %@
+    nl = Opent morgen om %@
     pt = Abre amanhã às %@
     ru = Откроется завтра в %@
     tr = Açılış yarın %@
@@ -10445,6 +10455,7 @@
     eu = %1$@ean %2$@ean irekiko da
     fr = Ouvre le %1$@ à %2$@
     it = Apre %1$@ alle %2$@
+    nl = Opent %1$@ om %2$@
     pt = Abre %1$@ às %2$@
     ru = Открывается в %1$@ в %2$@
     tr = Açılış %1$@ %2$@
@@ -10459,6 +10470,7 @@
     eu = %@ean irekiko da
     fr = Ouvre à %@
     it = Apre alle %@
+    nl = Opent om %@
     pt = Abre às %@
     ru = Открывается в %@
     tr = Açılış %@
@@ -10474,6 +10486,7 @@
     eu = %@ barru irekitzen da
     fr = Ouvert dans %@
     it = Apre tra %@
+    nl = Opent over %@
     pt-BR = Abre em %@
     ru = Открывается через %@
     tr = %@ sonra açılıyor
@@ -10488,6 +10501,7 @@
     eu = %@ean itxiko da
     fr = Ferme à %@
     it = Chiude alle %@
+    nl = Sluit om %@
     pt = Encerra às %@
     ru = Закрывается в %@
     tr = Kapanış %@
@@ -10503,6 +10517,7 @@
     eu = %@ barru ixten da
     fr = Fermé dans %@
     it = Chiude tra %@
+    nl = Sluit over %@
     pt-BR = Fecha em %@
     ru = Закроется через %@
     tr = %@ sonra kapanıyor
@@ -11364,6 +11379,7 @@
     fa = ﺪﯿﻨﮐ ﺩﺭﺍﻭ ﺍﺭ ﻥﺎﺑﺎﯿﺧ ﻡﺎﻧ
     it = Inserire il nome della via
     mr = कृपया रस्त्याचे नाव जोडा
+    nl = Voer een straatnaam in a.u.b.
     pt-BR = Por favor, digite o nome da rua
     ro = Introdu numele străzii
     ru = Введите название улицы
@@ -11645,6 +11661,7 @@
     fr = Ajouter un numéro de téléphone
     it = Aggiungi numero
     mr = फोन जोडा
+    nl = Telefoonnummer toevoegen
     pl = Dodaj numer telefonu
     ro = Adaugă un număr
     ru = Добавить телефон
@@ -14732,6 +14749,7 @@
     de = Geben Sie bitte den Grund für die Löschung an
     it = Indicare il motivo dell' eliminazione del luogo
     mr = कृपया ठिकाण हटवण्याचे कारण सूचित करा
+    nl = Graag de reden voor verwijdering aangeven
     pt-BR = Por favor, explica o motivo pelo qual você está retirando o local
     ro = Indică motivul pentru care ai eliminat locul
     ru = Пожалуйста, укажите причину удаления
@@ -14902,6 +14920,7 @@
     fr = Saisissez une adresse web, un compte ou un nom de page Facebook valide
     it = Inserisci un indirizzo web, un account o un nome di pagina Facebook valido
     mr = वैध Facebook वेब पत्ता, खाते किंवा पृष्ठ नाव प्रविष्ट करा
+    nl = Voer een geldig Facebook-webadres, een accountnaam of een paginanaam in
     pl = Wprowadź poprawny link, nazwę konta lub nazwę strony na Facebooku
     ro = Introdu o adresă web, un cont sau un nume de pagină Facebook valabil
     ru = Введите корректный веб-адрес Facebook страницы или имя пользователя
@@ -14920,6 +14939,7 @@
     fr = Saisissez une adresse web, un nom de compte Instagram valide
     it = Inserisci un indirizzo web o un nome di account Instagram valido
     mr = वैध Instagram वेब पत्ता किंवा खाते नाव प्रविष्ट करा
+    nl = Voer een geldig Instagram-webadres of een accountnaam in
     pl = Wprowadź poprawny link lub nazwę konta na Instagramie
     ro = Introdu o adresă web sau un nume de cont Instagram valabil
     ru = Введите корректный веб-адрес Instagram страницы или имя пользователя
@@ -14938,6 +14958,7 @@
     fr = Saisissez une adresse web, un nom de compte Twitter valide
     it = Inserisci un indirizzo web o un nome utente Twitter valido
     mr = वैध Twitter वेब पत्ता किंवा वापरकर्तानाव प्रविष्ट करा
+    nl = Voer een geldig Twitter-webadres of een gebruikersnaam in
     pl = Wprowadź poprawny adres lub nazwę konta na Twitterze
     ro = Introdu o adresă web sau un nume de utilizator Twitter valabil
     ru = Введите корректный веб-адрес Twitter страницы или имя пользователя
@@ -14955,6 +14976,7 @@
     eu = Mesedez, idatzi baliozko web helbide bat edo VK kontuaren izena
     fr = Saisissez une adresse web, un nom de compte VK valide
     it = Inserisci un indirizzo web o un nome di account VK valido
+    nl = Voer een geldig VB webadres of een accountnaam in
     pl = Wprowadź poprawny adres lub nazwę konta na VK
     ro = Introdu o adresă web sau un nume de cont VK valabil
     ru = Введите корректный веб-адрес VK страницы или имя пользователя
@@ -14970,6 +14992,7 @@
     ca = Introduïu una adreça web de LINE o un ID LINE vàlids
     de = Geben Sie eine gültige LINE-Webadresse oder LINE ID ein
     it = Inserisca un indirizzo web LINE valido o un ID LINE
+    nl = Voer een geldig LINE-webadres of een LINE ID in
     ro = Introdu o adresă web LINE valabilă sau un ID LINE
     ru = Введите корректный веб-адрес LINE страницы или LINE ID
     tr = Geçerli bir LINE web adresi veya LINE ID'si girin
@@ -18992,6 +19015,7 @@
     fr = Populaire
     it = Popolare
     mr = लोकप्रिय
+    nl = Populair
     pl = Popularne
     pt = Popular
     pt-BR = Popular
@@ -23864,6 +23888,7 @@
     fr = Télécharger la carte du monde
     it = Scarica la mappa del mondo
     mr = जगाचा नकाशा डाउनलोड करा
+    nl = Download de wereldkaart
     pl = Pobierz mapę świata
     pt = Descarregar o mapa mundial
     pt-BR = Baixar mapa mundial
@@ -23880,6 +23905,7 @@
     de = Ordner kann nicht erstellt und Dateien können nicht auf den Gerätespeicher oder die SD-Karte verschoben werden
     fr = Impossible de créer un dossier et de déplacer des fichiers sur la mémoire interne de l'appareil ou sur la carte SD
     mr = उपकरणाच्या अंतर्गत मेमरी किंवा SD-card वर फोल्डर तयार करण्यात आणि फायली हलविण्यात अक्षम
+    nl = Het lukt niet om een map aan te maken en bestanden naar het interne geheugen of een SD-kaart te verplaatsen
     pt-BR = Não foi possível criar a pasta e mover os arquivos à memória interna ou sdcard do dispositivo
     ru = Не могу создать папку и переместить файлы на устройстве
     tr = Dahili aygıtın belleğinde veya SD kartta klasör oluşturulamıyor ve dosyalar taşınamıyor
@@ -23892,6 +23918,7 @@
     ca = Error de disc
     de = Speicherfehler
     mr = डिस्क त्रुटी
+    nl = Schijffout
     pt-BR = Erro do armazenamento
     ru = Ошибка диска
     tr = Disk hatası
@@ -23911,6 +23938,7 @@
     fr = Erreur de connexion
     it = Errore di connessione
     mr = जोडणी अयशस्वी
+    nl = Verbindingsfout
     pl = Błąd połączenia
     pt = Falha na coneção
     pt-BR = Falha na coneção
@@ -23932,6 +23960,7 @@
     fr = Déconnectez le câble USB
     it = Scollegare il cavo USB
     mr = USB केबल काढा
+    nl = USB-kabel losmaken
     pl = Odłącz kabel USB
     pt-BR = Desconecte o cabo USB
     ro = Deconectează cablul USB
@@ -24250,6 +24279,7 @@
     fr = Supprimer la route
     it = Elimina percorso
     mr = ट्रॅक पुसून टाका
+    nl = Verwijder traject
     pl = Usuwanie trasy
     pt-BR = Apagar rota
     ro = Elimină traseul
@@ -24271,6 +24301,7 @@
     fr = Nom de la route
     it = Nome percorso
     mr = ट्रॅकचे नाव
+    nl = Trajectnaam
     pl = Nazwa trasy
     pt-BR = Nome da rota
     ro = Numele traseului
@@ -24292,6 +24323,7 @@
     fr = Déplacer
     it = Sposta
     mr = हलवा
+    nl = Verplaats
     pl = Przenieś
     pt-BR = Mover
     ro = Mută
