@@ -493,6 +493,7 @@
     ko = 후
     mr = नंतर
     nb = Senere
+    nl = Later
     pl = Później
     pt = Mais tarde
     pt-BR = Mais tarde
@@ -506,7 +507,6 @@
     vi = Để sau
     zh-Hans = 稍后
     zh-Hant = 稍後
-    nl = Later
 
   [search]
     comment = View and button titles for accessibility
@@ -1006,6 +1006,7 @@
     ko = 다운로드
     mr = डाउनलोड करा
     nb = Last ned
+    nl = Downloaden
     pl = Pobierz
     pt = Descarregar
     pt-BR = Baixar
@@ -1019,7 +1020,6 @@
     vi = Tải xuống
     zh-Hans = 下载
     zh-Hant = 下載
-    nl = Downloaden
 
   [disconnect_usb_cable]
     comment = Used in DownloadResources startup screen
@@ -1941,11 +1941,11 @@
     ca = Emmagatzematge privat intern
     de = Interner persönlicher Speicher
     fr = Stockage interne privé
+    nl = Intern persoonlijk geheugen
     pt-BR = Armazenamento interno privado
     ru = Внутренний скрытый накопитель
     tr = Dahili özel depolama
     uk = Внутрішнє приватне сховище
-    nl = Intern persoonlijk geheugen
 
   [maps_storage_shared]
     comment = Shared storage type in Maps Storage settings (a primary storage usually)
@@ -1956,11 +1956,11 @@
     ca = Emmagatzematge compartit intern
     de = Interner gemeinsamer Speicher
     fr = Stockage interne partagé
+    nl = Intern gedeeld geheugen
     pt-BR = Armazenamento interno compartilhado
     ru = Внутренний общий накопитель
     tr = Dahili paylaşılan depolama
     uk = Внутрішнє спільне сховище
-    nl = Intern gedeeld geheugen
 
   [maps_storage_removable]
     comment = Removable external storage type in Maps Storage settings, e.g. an SD card
@@ -1971,11 +1971,11 @@
     ca = Targeta SD
     de = SD-Karte
     fr = Carte SD
+    nl = SD-kaart
     pt-BR = Cartão SD
     ru = SD-карта
     tr = SD kart
     uk = SD-карта
-    nl = SD-kaart
 
   [maps_storage_external]
     comment = Generic external storage type in Maps Storage settings
@@ -1986,11 +1986,11 @@
     ca = Emmagatzematge compartit extern
     de = Externer gemeinsamer Speicher
     fr = Stockage externe partagé
+    nl = Extern gedeeld geheugen
     pt-BR = Armazenamento externo compartilhado
     ru = Внешний общий накопитель
     tr = Harici paylaşılan depolama
     uk = Зовнiшне спільне сховище
-    nl = Extern gedeeld geheugen
 
   [maps_storage_free_size]
     comment = Free space out of total storage size in Maps Storage settings, e.g. "300 MB free of 2 GB"
@@ -2001,11 +2001,11 @@
     ca = %1$@ lliures de %2$@
     de = %1$@ frei von %2$@
     fr = %1$@ libres sur %2$@
+    nl = %1$@ beschikbaar van %2$@
     pt-BR = %1$@ livre de %2$@
     ru = %1$@ свободно из %2$@
     tr = %2$@'ın %1$@'ı boş
     uk = %1$@ вільно з %2$@
-    nl = %1$@ beschikbaar van %2$@
 
   [move_maps]
     comment = Question dialog for transferring maps from one storage to another
@@ -2055,10 +2055,10 @@
     ca = S'ha produït un error en moure els fitxers de mapes
     de = Fehler beim Verschieben der Karten
     fr = Erreur lors du déplacement des cartes
+    nl = Fout bij het verplaatsen van kaartbestanden
     pt-BR = Erro ao mover arquivos de mapas
     ru = Ошибка перемещения файлов карт
     tr = Harita dosyalarını taşıma hatası
-    nl = Fout bij het verplaatsen van kaartbestanden
 
   [wait_several_minutes]
     comment = Ask to wait user several minutes (some long process in modal dialog).
@@ -3036,11 +3036,11 @@
     es = Caravanas
     eu = Karabanak
     fr = Aménagements pour camping-car
+    nl = Caravan faciliteiten
     ro = Pentru rulote
     ru = Для автодомов
     tr = Karavan tesisleri
     uk = Для автобудинків
-    nl = Caravan faciliteiten
 
   [description]
     comment = Notes field in Bookmarks view
@@ -10440,11 +10440,11 @@
     eu = Bihar %@ean irekiko da
     fr = Ouvre demain à %@
     it = Apre domani alle %@
+    nl = Opent morgen om %@
     pt = Abre amanhã às %@
     ru = Откроется завтра в %@
     tr = Açılış yarın %@
     uk = Відкриття завтра о %@
-    nl = Opent morgen om %@
 
   [opens_dayoftheweek_at]
     en = Opens %1$@ at %2$@
@@ -10455,11 +10455,11 @@
     eu = %1$@ean %2$@ean irekiko da
     fr = Ouvre le %1$@ à %2$@
     it = Apre %1$@ alle %2$@
+    nl = Opent %1$@ om %2$@
     pt = Abre %1$@ às %2$@
     ru = Открывается в %1$@ в %2$@
     tr = Açılış %1$@ %2$@
     uk = Відчиняється в %1$@ о %2$@
-    nl = Opent %1$@ om %2$@
 
   [opens_at]
     en = Opens at %@
@@ -10470,11 +10470,11 @@
     eu = %@ean irekiko da
     fr = Ouvre à %@
     it = Apre alle %@
+    nl = Opent om %@
     pt = Abre às %@
     ru = Открывается в %@
     tr = Açılış %@
     uk = Відкриття о %@
-    nl = Opent om %@
 
   [opens_in]
     en = Opens in %@
@@ -10486,11 +10486,11 @@
     eu = %@ barru irekitzen da
     fr = Ouvert dans %@
     it = Apre tra %@
+    nl = Opent over %@
     pt-BR = Abre em %@
     ru = Открывается через %@
     tr = %@ sonra açılıyor
     uk = Відкривається через %@
-    nl = Opent over %@
 
   [closes_at]
     en = Closes at %@
@@ -10501,11 +10501,11 @@
     eu = %@ean itxiko da
     fr = Ferme à %@
     it = Chiude alle %@
+    nl = Sluit om %@
     pt = Encerra às %@
     ru = Закрывается в %@
     tr = Kapanış %@
     uk = Закривається о %@
-    nl = Sluit om %@
 
   [closes_in]
     en = Closes in %@
@@ -10517,11 +10517,11 @@
     eu = %@ barru ixten da
     fr = Fermé dans %@
     it = Chiude tra %@
+    nl = Sluit over %@
     pt-BR = Fecha em %@
     ru = Закроется через %@
     tr = %@ sonra kapanıyor
     uk = Зачиняється через %@
-    nl = Sluit over %@
 
   [closed]
     tags = android,ios
@@ -11379,12 +11379,12 @@
     fa = ﺪﯿﻨﮐ ﺩﺭﺍﻭ ﺍﺭ ﻥﺎﺑﺎﯿﺧ ﻡﺎﻧ
     it = Inserire il nome della via
     mr = कृपया रस्त्याचे नाव जोडा
+    nl = Voer een straatnaam in a.u.b.
     pt-BR = Por favor, digite o nome da rua
     ro = Introdu numele străzii
     ru = Введите название улицы
     tr = Lütfen bir sokak adı girin
     uk = Введіть назву вулиці
-    nl = Voer een straatnaam in a.u.b.
 
   [choose_language]
     tags = android,ios
@@ -11661,12 +11661,12 @@
     fr = Ajouter un numéro de téléphone
     it = Aggiungi numero
     mr = फोन जोडा
+    nl = Telefoonnummer toevoegen
     pl = Dodaj numer telefonu
     ro = Adaugă un număr
     ru = Добавить телефон
     tr = Telefon Ekle
     zh-Hant = 新增電話
-    nl = Telefoonnummer toevoegen
 
   [level]
     tags = android,ios
@@ -14749,12 +14749,12 @@
     de = Geben Sie bitte den Grund für die Löschung an
     it = Indicare il motivo dell' eliminazione del luogo
     mr = कृपया ठिकाण हटवण्याचे कारण सूचित करा
+    nl = Graag de reden voor verwijdering aangeven
     pt-BR = Por favor, explica o motivo pelo qual você está retirando o local
     ro = Indică motivul pentru care ai eliminat locul
     ru = Пожалуйста, укажите причину удаления
     tr = Lütfen bu yerin silinmesinin nedenini belirtin
     uk = Будь ласка, вкажіть причину видалення
-    nl = Graag de reden voor verwijdering aangeven
 
   [text_more_button]
     tags = ios
@@ -14920,13 +14920,13 @@
     fr = Saisissez une adresse web, un compte ou un nom de page Facebook valide
     it = Inserisci un indirizzo web, un account o un nome di pagina Facebook valido
     mr = वैध Facebook वेब पत्ता, खाते किंवा पृष्ठ नाव प्रविष्ट करा
+    nl = Voer een geldig Facebook-webadres, een accountnaam of een paginanaam in
     pl = Wprowadź poprawny link, nazwę konta lub nazwę strony na Facebooku
     ro = Introdu o adresă web, un cont sau un nume de pagină Facebook valabil
     ru = Введите корректный веб-адрес Facebook страницы или имя пользователя
     tr = Geçerli bir Facebook web adresi, hesap veya sayfa adı girin
     uk = Введіть вірну веб-адресу Facebook сторінки або і'мя користувача
     zh-Hant = 輸入有效臉書網址、帳號或粉絲頁名稱
-    nl = Voer een geldig Facebook-webadres, een accountnaam of een paginanaam in
 
   [error_enter_correct_instagram_page]
     tags = android
@@ -14939,13 +14939,13 @@
     fr = Saisissez une adresse web, un nom de compte Instagram valide
     it = Inserisci un indirizzo web o un nome di account Instagram valido
     mr = वैध Instagram वेब पत्ता किंवा खाते नाव प्रविष्ट करा
+    nl = Voer een geldig Instagram-webadres of een accountnaam in
     pl = Wprowadź poprawny link lub nazwę konta na Instagramie
     ro = Introdu o adresă web sau un nume de cont Instagram valabil
     ru = Введите корректный веб-адрес Instagram страницы или имя пользователя
     tr = Geçerli bir İnstagram web adresi veya hesap adı girin
     uk = Введіть вірну веб-адресу Instagram сторінки або і'мя користувача
     zh-Hant = 輸入有效 Instagram 網址或帳號名稱
-    nl = Voer een geldig Instagram-webadres of een accountnaam in
 
   [error_enter_correct_twitter_page]
     tags = android
@@ -14958,13 +14958,13 @@
     fr = Saisissez une adresse web, un nom de compte Twitter valide
     it = Inserisci un indirizzo web o un nome utente Twitter valido
     mr = वैध Twitter वेब पत्ता किंवा वापरकर्तानाव प्रविष्ट करा
+    nl = Voer een geldig Twitter-webadres of een gebruikersnaam in
     pl = Wprowadź poprawny adres lub nazwę konta na Twitterze
     ro = Introdu o adresă web sau un nume de utilizator Twitter valabil
     ru = Введите корректный веб-адрес Twitter страницы или имя пользователя
     tr = Geçerli bir Twitter web adresi veya kullanıcı adı girin
     uk = Введіть вірну веб-адресу Twitter сторінки або і'мя користувача
     zh-Hant = 輸入有效推特網址或使用者名稱
-    nl = Voer een geldig Twitter-webadres of een gebruikersnaam in
 
   [error_enter_correct_vk_page]
     tags = android
@@ -14976,13 +14976,13 @@
     eu = Mesedez, idatzi baliozko web helbide bat edo VK kontuaren izena
     fr = Saisissez une adresse web, un nom de compte VK valide
     it = Inserisci un indirizzo web o un nome di account VK valido
+    nl = Voer een geldig VB webadres of een accountnaam in
     pl = Wprowadź poprawny adres lub nazwę konta na VK
     ro = Introdu o adresă web sau un nume de cont VK valabil
     ru = Введите корректный веб-адрес VK страницы или имя пользователя
     tr = Geçerli bir VK web adresi veya hesap adı girin
     uk = Введіть вірну веб-адресу VK сторінки або і'мя користувача
     zh-Hant = 輸入有效 VK 網益止或帳號名稱
-    nl = Voer een geldig VB webadres of een accountnaam in
 
   [error_enter_correct_line_page]
     tags = android
@@ -14992,11 +14992,11 @@
     ca = Introduïu una adreça web de LINE o un ID LINE vàlids
     de = Geben Sie eine gültige LINE-Webadresse oder LINE ID ein
     it = Inserisca un indirizzo web LINE valido o un ID LINE
+    nl = Voer een geldig LINE-webadres of een LINE ID in
     ro = Introdu o adresă web LINE valabilă sau un ID LINE
     ru = Введите корректный веб-адрес LINE страницы или LINE ID
     tr = Geçerli bir LINE web adresi veya LINE ID'si girin
     uk = Введіть вірну веб-адресу LINE сторінки або LINE ID
-    nl = Voer een geldig LINE-webadres of een LINE ID in
 
   [refresh]
     tags = ios
@@ -19015,6 +19015,7 @@
     fr = Populaire
     it = Popolare
     mr = लोकप्रिय
+    nl = Populair
     pl = Popularne
     pt = Popular
     pt-BR = Popular
@@ -19022,7 +19023,6 @@
     ru = Популярно
     tr = Popüler
     zh-Hant = 受歡迎的
-    nl = Populair
 
   [export_file]
     tags = android,ios
@@ -23888,13 +23888,13 @@
     fr = Télécharger la carte du monde
     it = Scarica la mappa del mondo
     mr = जगाचा नकाशा डाउनलोड करा
+    nl = Download de wereldkaart
     pl = Pobierz mapę świata
     pt = Descarregar o mapa mundial
     pt-BR = Baixar mapa mundial
     ro = Descarcă harta lumii
     ru = Скачать карту мира
     tr = Dünya haritasını indir
-    nl = Download de wereldkaart
 
   [disk_error]
     tags = android
@@ -23905,10 +23905,10 @@
     de = Ordner kann nicht erstellt und Dateien können nicht auf den Gerätespeicher oder die SD-Karte verschoben werden
     fr = Impossible de créer un dossier et de déplacer des fichiers sur la mémoire interne de l'appareil ou sur la carte SD
     mr = उपकरणाच्या अंतर्गत मेमरी किंवा SD-card वर फोल्डर तयार करण्यात आणि फायली हलविण्यात अक्षम
+    nl = Het lukt niet om een map aan te maken en bestanden naar het interne geheugen of een SD-kaart te verplaatsen
     pt-BR = Não foi possível criar a pasta e mover os arquivos à memória interna ou sdcard do dispositivo
     ru = Не могу создать папку и переместить файлы на устройстве
     tr = Dahili aygıtın belleğinde veya SD kartta klasör oluşturulamıyor ve dosyalar taşınamıyor
-    nl = Het lukt niet om een map aan te maken en bestanden naar het interne geheugen of een SD-kaart te verplaatsen
 
   [disk_error_title]
     tags = android
@@ -23918,10 +23918,10 @@
     ca = Error de disc
     de = Speicherfehler
     mr = डिस्क त्रुटी
+    nl = Schijffout
     pt-BR = Erro do armazenamento
     ru = Ошибка диска
     tr = Disk hatası
-    nl = Schijffout
 
   [connection_failure]
     comment = Used in DownloadResources startup screen
@@ -23938,13 +23938,13 @@
     fr = Erreur de connexion
     it = Errore di connessione
     mr = जोडणी अयशस्वी
+    nl = Verbindingsfout
     pl = Błąd połączenia
     pt = Falha na coneção
     pt-BR = Falha na coneção
     ro = Eroare de conectare
     ru = Ошибка подключения
     tr = Bağlantı hatası
-    nl = Verbindingsfout
 
   [disconnect_usb_cable_title]
     comment = Used in DownloadResources startup screen
@@ -23960,13 +23960,13 @@
     fr = Déconnectez le câble USB
     it = Scollegare il cavo USB
     mr = USB केबल काढा
+    nl = USB-kabel losmaken
     pl = Odłącz kabel USB
     pt-BR = Desconecte o cabo USB
     ro = Deconectează cablul USB
     ru = Отсоедините USB кабель
     tr = USB kablosunu çıkarın
     zh-Hant = 拔除 USB 線
-    nl = USB-kabel losmaken
 
   [enable_screen_sleep]
     tags = android
@@ -24279,13 +24279,13 @@
     fr = Supprimer la route
     it = Elimina percorso
     mr = ट्रॅक पुसून टाका
+    nl = Verwijder traject
     pl = Usuwanie trasy
     pt-BR = Apagar rota
     ro = Elimină traseul
     ru = Удалить трек
     tr = Kaydı Sil
     zh-Hant = 刪除路徑
-    nl = Verwijder traject
 
   [placepage_track_name_hint]
     comment = Placeholder for track name input on track edit screen
@@ -24301,13 +24301,13 @@
     fr = Nom de la route
     it = Nome percorso
     mr = ट्रॅकचे नाव
+    nl = Trajectnaam
     pl = Nazwa trasy
     pt-BR = Nome da rota
     ro = Numele traseului
     ru = Название трека
     tr = Kayıt Adı
     zh-Hant = 路徑名稱
-    nl = Trajectnaam
 
   [move]
     comment = move track or bookmark from the list button text
@@ -24323,13 +24323,13 @@
     fr = Déplacer
     it = Sposta
     mr = हलवा
+    nl = Verplaats
     pl = Przenieś
     pt-BR = Mover
     ro = Mută
     ru = Переместить
     tr = Taşı
     zh-Hant = 移動
-    nl = Verplaats
 
   [track_title]
     comment = edit track screen title
