@@ -93,6 +93,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
 
   private boolean mIsDocked;
   private boolean mIsFloating;
+  private int mDescriptionMaxLength;
 
   // Preview.
   private ViewGroup mPreview;
@@ -694,6 +695,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
     mIsDocked = attrArray.getBoolean(R.styleable.PlacePageView_docked, false);
     mIsFloating = attrArray.getBoolean(R.styleable.PlacePageView_floating, false);
     attrArray.recycle();
+    mDescriptionMaxLength = getResources().getInteger(R.integer.place_page_description_max_length);
   }
 
   public boolean isDocked()
@@ -802,6 +804,20 @@ public class PlacePageView extends NestedScrollViewClickFixed
     }
   }
 
+  private Spanned getShortDescription(@NonNull MapObject mapObject)
+  {
+    String htmlDescription = mapObject.getDescription();
+    final int paragraphStart = htmlDescription.indexOf("<p>");
+    final int paragraphEnd = htmlDescription.indexOf("</p>");
+    if (paragraphStart == 0)
+      htmlDescription = htmlDescription.substring(3, paragraphEnd);
+
+    Spanned description = Html.fromHtml(htmlDescription);
+    if (description.length() > mDescriptionMaxLength)
+      description = (Spanned) description.subSequence(0, mDescriptionMaxLength);
+    return description;
+  }
+
   private void setPlaceDescription(@NonNull MapObject mapObject)
   {
     boolean isBookmark = MapObject.isOfType(MapObject.BOOKMARK, mapObject);
@@ -819,7 +835,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
       return;
     }
     UiUtils.show(mPlaceDescriptionContainer, mPlaceDescriptionHeaderContainer);
-    mPlaceDescriptionView.setText(Html.fromHtml(mapObject.getDescription()));
+    mPlaceDescriptionView.setText(getShortDescription(mapObject));
   }
 
   private void setTextAndColorizeSubtitle(@NonNull MapObject mapObject)
