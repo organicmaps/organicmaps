@@ -47,8 +47,12 @@ public:
   MwmInfo();
   virtual ~MwmInfo() = default;
 
-  m2::RectD m_bordersRect;        ///< Rect around region border. Features which cross region border may
-                                  ///< cross this rect.
+  /// @obsolete Rect around region border. Features which cross region border may cross this rect.
+  /// @todo VNG: Not true. This rect accumulates all features in MWM. Since we don't crop features by border,
+  /// the rect defines _bigger_ area (in general) that MWM is responsible for.
+  /// Take into account this fact, or you can get fair rect with CountryInfoGetter.
+  m2::RectD m_bordersRect;
+
   uint8_t m_minScale;             ///< Min zoom level of mwm.
   uint8_t m_maxScale;             ///< Max zoom level of mwm.
   version::MwmVersion m_version;  ///< Mwm file version.
