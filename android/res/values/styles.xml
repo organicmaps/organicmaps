@@ -9,7 +9,7 @@
 
   <style name="MwmWidget.Downloader"/>
 
-  <style name="MwmWidget.MapButton">
+  <style name="MwmWidget.MapButton" parent="Theme.Material3.Dark">
     <item name="android:layout_width">wrap_content</item>
     <item name="android:layout_height">wrap_content</item>
     <item name="android:backgroundTint">?mapButtonBackground</item>
@@ -24,6 +24,11 @@
 
   <style name="MwmWidget.MapButton.Search">
     <item name="fabCustomSize">38dp</item>
+  </style>
+
+  <style name="MwmWidget.MapButton.Bottom">
+    <item name="android:maxWidth">@dimen/map_buttons_bottom_max_width</item>
+    <item name="android:padding">@dimen/nav_frame_padding</item>
   </style>
 
   <style name="MwmWidget.MapButton.Square">
