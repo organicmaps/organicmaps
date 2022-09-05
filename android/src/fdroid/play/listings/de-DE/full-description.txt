@@ -13,7 +13,7 @@ Wichtigsten Eigenschaften:
 • Navigation mit Abbiegehinweisen für Fußgänger, Radfahrer und EXPERIMENTELLE Auto-Navigation mit Sprachführung
 • Schnelle Offlinesuche
 • Import und Export von Lesezeichen in den Formaten KML/KMZ (GPX folgt in Kürze)
-• Dark Mode zum besseren Schutz Ihrer Augen
+• Dunkles Design zum besseren Schutz Ihrer Augen
 
 Es gibt noch kein Android Auto, keine öffentlichen Verkehrsmittel, keine Satellitenkarten und noch keine anderen coolen Funktionen in Organic Maps. Aber mit Ihrer Hilfe und Unterstützung können wir diese Welt Schritt für Schritt besser machen.
 
