@@ -10,7 +10,7 @@ Wichtigsten Eigenschaften:
 • Detaillierte Offline-Karten mit Orten, die es auf Google Maps nicht gibt, und zwar dank der <b>OpenStreetMap</b>-Community
 • Radwege, Wanderwege und Spazierwege
 • Höhenlinien, Höhenprofile, Gipfel und Steigungen
-• Turn-by-Turn-Navigation für Fußgänger, Radfahrer und EXPERIMENTELLE Auto-Navigation mit Sprachführung
+• Navigation mit Abbiegehinweisen für Fußgänger, Radfahrer und EXPERIMENTELLE Auto-Navigation mit Sprachführung
 • Schnelle Offlinesuche
 • Import und Export von Lesezeichen in den Formaten KML/KMZ (GPX folgt in Kürze)
 • Dark Mode zum besseren Schutz Ihrer Augen
