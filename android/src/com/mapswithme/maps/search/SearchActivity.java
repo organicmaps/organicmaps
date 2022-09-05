@@ -7,18 +7,11 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
-import androidx.core.app.NavUtils;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-
-import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
-import com.mapswithme.maps.base.CustomNavigateUpListener;
-import com.mapswithme.maps.base.OnBackPressListener;
 import com.mapswithme.util.ThemeUtils;
 
 public class SearchActivity extends BaseMwmFragmentActivity
-    implements CustomNavigateUpListener
 {
   public static final String EXTRA_QUERY = "search_query";
   public static final String EXTRA_LOCALE = "locale";
@@ -39,7 +32,6 @@ public class SearchActivity extends BaseMwmFragmentActivity
     args.putBoolean(EXTRA_SEARCH_ON_MAP, isSearchOnMap);
     i.putExtras(args);
     activity.startActivity(i);
-    activity.overridePendingTransition(R.anim.search_fade_in, R.anim.search_fade_out);
   }
 
   @Override
@@ -65,30 +57,5 @@ public class SearchActivity extends BaseMwmFragmentActivity
   protected boolean useColorStatusBar()
   {
     return true;
-  }
-
-  @Override
-  public void customOnNavigateUp()
-  {
-    final FragmentManager manager = getSupportFragmentManager();
-    if (manager.getBackStackEntryCount() == 0)
-    {
-      NavUtils.navigateUpFromSameTask(this);
-      overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-      return;
-    }
-
-    manager.popBackStack();
-  }
-
-  @Override
-  public void onBackPressed()
-  {
-    for (Fragment f : getSupportFragmentManager().getFragments())
-      if ((f instanceof OnBackPressListener) && ((OnBackPressListener)f).onBackPressed())
-        return;
-
-    super.onBackPressed();
-    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
   }
 }
