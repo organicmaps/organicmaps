@@ -31,7 +31,6 @@ public class SearchWheel implements View.OnClickListener
   private static final String EXTRA_CURRENT_OPTION = "extra_current_option";
   private final View mFrame;
 
-  @Nullable
   private View mSearchLayout;
   private final ImageView mSearchButton;
   @Nullable
@@ -122,40 +121,39 @@ public class SearchWheel implements View.OnClickListener
     refreshSearchVisibility();
   }
 
-  private @Nullable View getSearchLayout()
+  private boolean initSearchLayout()
   {
+    if (mSearchLayout != null)
+      return true;
+
+    mSearchLayout = mFrame.findViewById(R.id.search_frame);
     if (mSearchLayout == null)
+      return false;
+
+    DisplayMetrics displayMetrics = new DisplayMetrics();
+    WindowManager windowmanager = (WindowManager) mFrame.getContext().getSystemService(Context.WINDOW_SERVICE);
+    windowmanager.getDefaultDisplay().getMetrics(displayMetrics);
+    // Get available screen height in DP
+    int height =  Math.round(displayMetrics.heightPixels / displayMetrics.density);
+    // If height is less than 400dp, the search wheel in a straight line
+    // In this case, move the pivot for the animation
+    if (height < 400)
     {
-      mSearchLayout = mFrame.findViewById(R.id.search_frame);
-      if (mSearchLayout != null)
-      {
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        WindowManager windowmanager = (WindowManager) mFrame.getContext().getSystemService(Context.WINDOW_SERVICE);
-        windowmanager.getDefaultDisplay().getMetrics(displayMetrics);
-        // Get available screen height in DP
-        int height =  Math.round(displayMetrics.heightPixels / displayMetrics.density);
-        // If height is less than 400dp, the search wheel in a straight line
-        // In this case, move the pivot for the animation
-        if (height < 400)
-        {
-          UiUtils.waitLayout(mSearchLayout, () -> {
-            mSearchLayout.setPivotX(0);
-            mSearchLayout.setPivotY(mSearchLayout.getMeasuredHeight() / 2f);
-          });
-        }
-        for (SearchOption searchOption : SearchOption.values())
-          mFrame.findViewById(searchOption.mResId).setOnClickListener(this);
-      }
+      UiUtils.waitLayout(mSearchLayout, () -> {
+        mSearchLayout.setPivotX(0);
+        mSearchLayout.setPivotY(mSearchLayout.getMeasuredHeight() / 2f);
+      });
     }
-    return mSearchLayout;
+    for (SearchOption searchOption : SearchOption.values())
+      mFrame.findViewById(searchOption.mResId).setOnClickListener(this);
+    return true;
   }
 
   public void show(boolean show)
   {
     UiUtils.showIf(show, mSearchButton);
-    View searchLayout = getSearchLayout();
-    if (searchLayout != null)
-      UiUtils.showIf(show && mIsExpanded, searchLayout);
+    if (initSearchLayout())
+      UiUtils.showIf(show && mIsExpanded, mSearchLayout);
   }
 
   public void saveState(@NonNull Bundle outState)
@@ -196,8 +194,7 @@ public class SearchWheel implements View.OnClickListener
 
   private void toggleSearchLayout()
   {
-    View searchLayout = getSearchLayout();
-    if (searchLayout != null)
+    if (initSearchLayout())
     {
       final int animRes;
       if (mIsExpanded)
@@ -228,11 +225,10 @@ public class SearchWheel implements View.OnClickListener
 
   private void refreshSearchVisibility()
   {
-    View searchLayout = getSearchLayout();
-    if (searchLayout != null)
+    if (initSearchLayout())
     {
       for (SearchOption searchOption : SearchOption.values())
-        UiUtils.visibleIf(mIsExpanded, searchLayout.findViewById(searchOption.mResId));
+        UiUtils.visibleIf(mIsExpanded, mSearchLayout.findViewById(searchOption.mResId));
 
       if (mTouchInterceptor != null)
         UiUtils.visibleIf(mIsExpanded, mSearchLayout, mTouchInterceptor);
