@@ -264,30 +264,29 @@ bool ReverseGeocoder::GetNearbyAddress(HouseTable & table, Building const & bld,
     return true;
   }
 
-  uint32_t streetId;
-  HouseToStreetTable::StreetIdType type;
-  if (!table.Get(bld.m_id, type, streetId))
+  auto const res = table.Get(bld.m_id);
+  if (!res)
     return false;
 
-  switch (type)
+  switch (res->m_type)
   {
   case HouseToStreetTable::StreetIdType::Index:
   {
     vector<Street> streets;
     // Get streets without squares and suburbs for backward compatibility with data.
     GetNearbyStreetsWaysOnly(bld.m_id.m_mwmId, bld.m_center, streets);
-    if (streetId < streets.size())
+    if (res->m_streetId < streets.size())
     {
       addr.m_building = bld;
-      addr.m_street = streets[streetId];
+      addr.m_street = streets[res->m_streetId];
       return true;
     }
-    LOG(LWARNING, ("Out of bound street index", streetId, "for", bld.m_id));
+    LOG(LWARNING, ("Out of bound street index", res->m_streetId, "for", bld.m_id));
     return false;
   }
   case HouseToStreetTable::StreetIdType::FeatureId:
   {
-    FeatureID streetFeature(bld.m_id.m_mwmId, streetId);
+    FeatureID streetFeature(bld.m_id.m_mwmId, res->m_streetId);
     CHECK(bld.m_id.m_mwmId.IsAlive(), (bld.m_id.m_mwmId));
     m_dataSource.ReadFeature([&bld, &addr](FeatureType & ft)
     {
@@ -295,17 +294,16 @@ bool ReverseGeocoder::GetNearbyAddress(HouseTable & table, Building const & bld,
       addr.m_street = Street(ft.GetID(), distance, ft.GetReadableName(), ft.GetNames());
     }, streetFeature);
 
-    CHECK(!addr.m_street.m_multilangName.IsEmpty(), (bld.m_id.m_mwmId, streetId));
+    CHECK(!addr.m_street.m_multilangName.IsEmpty(), (bld.m_id.m_mwmId, res->m_streetId));
     addr.m_building = bld;
     return true;
   }
-  case HouseToStreetTable::StreetIdType::None:
+  default:
   {
     // Prior call of table.Get() is expected to fail.
     UNREACHABLE();
   }
   }
-  UNREACHABLE();
 }
 
 void ReverseGeocoder::GetNearbyBuildings(m2::PointD const & center, double radius,
@@ -374,26 +372,27 @@ ReverseGeocoder::Building ReverseGeocoder::FromFeature(FeatureType & ft, double 
   return { ft.GetID(), distMeters, ft.GetHouseNumber(), feature::GetCenter(ft) };
 }
 
-bool ReverseGeocoder::HouseTable::Get(FeatureID const & fid,
-                                      HouseToStreetTable::StreetIdType & type,
-                                      uint32_t & streetIndex)
+std::optional<HouseToStreetTable::Result> ReverseGeocoder::HouseTable::Get(FeatureID const & fid)
 {
   if (feature::FakeFeatureIds::IsEditorCreatedFeature(fid.m_index))
-    return false;
+    return {};
 
-  if (!m_table || m_handle.GetId() != fid.m_mwmId)
+  if (m_handle.GetId() != fid.m_mwmId)
   {
-    m_handle = m_dataSource.GetMwmHandleById(fid.m_mwmId);
-    if (!m_handle.IsAlive())
+    auto handle = m_dataSource.GetMwmHandleById(fid.m_mwmId);
+    if (!handle.IsAlive())
     {
       LOG(LWARNING, ("MWM", fid, "is dead"));
-      return false;
+      return {};
     }
-    m_table = search::HouseToStreetTable::Load(*m_handle.GetValue());
+    m_handle = std::move(handle);
   }
 
-  type = m_table->GetStreetIdType();
-  return m_table->Get(fid.m_index, streetIndex);
+  auto value = m_handle.GetValue();
+  if (!value->m_house2street)
+    value->m_house2street = LoadHouseToStreetTable(*value);
+
+  return value->m_house2street->Get(fid.m_index);
 }
 
 string ReverseGeocoder::Address::FormatAddress() const

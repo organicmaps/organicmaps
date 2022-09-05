@@ -1,5 +1,6 @@
 #pragma once
 #include "indexer/data_factory.hpp"
+#include "indexer/house_to_street_iface.hpp"
 
 #include "platform/local_country_file.hpp"
 #include "platform/mwm_version.hpp"
@@ -146,7 +147,7 @@ public:
     ~MwmHandle();
 
     // Returns a non-owning ptr.
-    MwmValue const * GetValue() const { return m_value.get(); }
+    MwmValue * GetValue() const { return m_value.get(); }
 
     bool IsAlive() const { return m_value.get() != nullptr; }
     MwmId const & GetId() const { return m_mwmId; }
@@ -375,6 +376,7 @@ public:
 
   std::shared_ptr<feature::FeaturesOffsetsTable> m_table;
   std::unique_ptr<indexer::MetadataDeserializer> m_metaDeserializer;
+  std::unique_ptr<HouseToStreetTable> m_house2street;
 
   explicit MwmValue(platform::LocalCountryFile const & localFile);
   void SetTable(MwmInfoEx & info);
