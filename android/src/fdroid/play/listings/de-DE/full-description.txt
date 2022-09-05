@@ -12,7 +12,7 @@ Wichtigsten Eigenschaften:
 • Höhenlinien, Höhenprofile, Gipfel und Steigungen
 • Turn-by-Turn-Navigation für Fußgänger, Radfahrer und EXPERIMENTELLE Auto-Navigation mit Sprachführung
 • Schnelle Offlinesuche
-• Export und Import von Lesezeichen in den Formaten KML/KMZ (GPX folgt in Kürze)
+• Import und Export von Lesezeichen in den Formaten KML/KMZ (GPX folgt in Kürze)
 • Dark Mode zum besseren Schutz Ihrer Augen
 
 Es gibt noch kein Android Auto, keine öffentlichen Verkehrsmittel, keine Satellitenkarten und noch keine anderen coolen Funktionen in Organic Maps. Aber mit Ihrer Hilfe und Unterstützung können wir diese Welt Schritt für Schritt besser machen.
@@ -40,7 +40,7 @@ Frei von Trackern und sonstigem schädlichen Inhalt:
 
 Wir bei Organic Maps glauben, dass <b>Privatsphäre ein grundlegendes Menschenrecht</b> ist:
 
-• Organic Maps ist ein Open-Source-Projekt, das von einer unabhängigen Gemeinschaft betrieben wird.
+• Organic Maps ist ein Open-Source-Projekt, das von einer unabhängigen Gemeinschaft betrieben wird
 • Wir schützen Ihre Privatsphäre vor den neugierigen Augen von Großunternehmen
 • Bleiben Sie sicher, egal wo Sie sind
 
