@@ -1,0 +1,1 @@
+maps,offline,travel,navigation,GPS,directions,route,hike,bike,cycling,openstreetmap,osm,trails,nav

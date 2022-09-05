@@ -1,0 +1,46 @@
+Highlights:
+• New data as of August 16
+• Longer routes are calculated faster
+• Search should work way better and faster now
+• Reduced size of mwm files
+• Restored WunderLINQ support (yes, we have an API! Check omaps.app/api)
+
+User Interface:
+• Unified Place Page and Editor UI layout
+• Replaced altitude difference to ascent and descent
+• Show POI level in Place Page
+• Social media contacts are displayed in Place Page and Editor
+• Show "Opens in"/"Closes in" in Place Page
+• Fixed animation for side buttons
+
+Navigation:
+• Improved speed limit displaying for CarPlay (red for overspeed)
+• Fixed roundabout number
+• Increased visibility of next street
+
+Search improvements:
+• Fixed issue when some found objects were not highlighted on the map
+• Removed common street search synonyms like parkway, path, line, walk, trail, etc.
+• Fixed coordinates search if query contains newline
+• Ignore non-relevant search results for coordinates
+• Better search for capitails
+• Treat 'emergency' as last-choice feature type
+• Added Cathalan street search synonyms
+• Properly filter equal streets in search results
+
+Map styles:
+• Improved visibility of military areas and boundaries
+• Show disabled parking spaces
+• Do not draw icon for residential gardens
+• Render farm yard
+• Add parking_entrance
+• Add playground and internet cafe icon
+• Add second_hand and charity
+• Add table_tennis, volleyball, beachvolleyball, skateboard, chess, padel, handball, futsal, hockey, badminton, pelota
+• Removed background circles from icons
+
+Translations:
+• Updated Arabic translations and TTS texts
+• Added missing translations for place=*
+• Belarusian translations of countries
+• Added missing Turkish translations
