@@ -1,20 +1,15 @@
 #pragma once
 
-#include "search/house_to_street_table.hpp"
-
+#include "indexer/house_to_street_iface.hpp"
 #include "indexer/feature_decl.hpp"
 
 #include "storage/storage_defines.hpp"
 
 #include "coding/string_utf8_multilang.hpp"
 
-#include "base/string_utils.hpp"
-
-#include <cstdint>
 #include <memory>
 #include <optional>
 #include <string>
-#include <utility>
 #include <vector>
 
 class FeatureType;
@@ -161,12 +156,10 @@ private:
   {
   public:
     explicit HouseTable(DataSource const & dataSource) : m_dataSource(dataSource) {}
-    bool Get(FeatureID const & fid, HouseToStreetTable::StreetIdType & type,
-             uint32_t & streetIndex);
+    std::optional<HouseToStreetTable::Result> Get(FeatureID const & fid);
 
   private:
     DataSource const & m_dataSource;
-    std::unique_ptr<search::HouseToStreetTable> m_table;
     MwmSet::MwmHandle m_handle;
   };
 
