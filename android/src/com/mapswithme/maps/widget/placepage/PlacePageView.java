@@ -808,12 +808,17 @@ public class PlacePageView extends NestedScrollViewClickFixed
     String htmlDescription = mapObject.getDescription();
     final int paragraphStart = htmlDescription.indexOf("<p>");
     final int paragraphEnd = htmlDescription.indexOf("</p>");
-    if (paragraphStart == 0)
+    if (paragraphStart == 0 && paragraphEnd != -1)
       htmlDescription = htmlDescription.substring(3, paragraphEnd);
 
     Spanned description = Html.fromHtml(htmlDescription);
     if (description.length() > mDescriptionMaxLength)
-      description = (Spanned) description.subSequence(0, mDescriptionMaxLength);
+    {
+      description = (Spanned) new SpannableStringBuilder(description)
+          .insert(mDescriptionMaxLength - 3, "...")
+          .subSequence(0, mDescriptionMaxLength);
+    }
+
     return description;
   }
 
