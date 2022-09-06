@@ -373,7 +373,7 @@ pt:Entretenimento
 pt-BR:Entretenimento
 ro:Divertisment
 es:Entretenimiento
-eu:Entretenimendua
+eu:Ikuskizunak
 sv:Underhållning
 th:แหล่งบันเทิง
 tr:Eğlence
