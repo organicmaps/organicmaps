@@ -1958,7 +1958,7 @@
     de = Maßeinheiten
     el = Μονάδες μέτρησης
     es = Unidades de medida
-    eu = Neurketa-unitateak
+    eu = Neurri-unitateak
     fa = واحد اندازه گیری
     fi = Mittayksiköt
     fr = Unités de mesure
@@ -1997,7 +1997,7 @@
     de = Wählen Sie zwischen Kilometern und Meilen
     el = Επιλέξετε ανάμεσα σε μίλια και χιλιόμετρα
     es = Elija entre millas y kilómetros
-    eu = Aukeratu mila eta kilometroen artean
+    eu = Aukeratu milia eta kilometroen artean
     fa = بین مایل و کیلومتر انتخاب کنید
     fi = Valitse mailit tai kilometrit
     fr = Choisir entre miles et kilomètres
@@ -2075,7 +2075,7 @@
     de = Lebensmittel
     el = Παντοπωλεία
     es = Productos
-    eu = Janariak
+    eu = Janari-dendak
     fa = عطاری
     fi = Elintarvikkeet
     fr = Les courses
@@ -2342,7 +2342,7 @@
     de = Unterhaltung
     el = Ψυχαγωγία
     es = Entretenimiento
-    eu = Entretenimendua
+    eu = Ikuskizunak
     fa = سرگرمی
     fi = Viihde
     fr = Divertissement
@@ -2456,7 +2456,7 @@
     de = Freizeit mit Kindern
     el = Οικογενειακές Διακοπές
     es = Descanso con niños
-    eu = Familiako jarduerak
+    eu = Aisialdia umeekin
     fa = تعطیلات خانوادگی
     fi = Vapaa-aikaa lasten kanssa
     fr = Vacances en famille
@@ -3279,7 +3279,7 @@
     de = Hey, sieh dir meinen aktuellen Standort auf der Organic Maps-Karte an
     el = Έλεγξε την τρέχουσα τοποθεσία μου στο χάρτη Organic Maps!
     es = Mira mi ubicación actual en el mapa en Organic Maps!
-    eu = Ikusi nire uneko kokapena mapan Organic Maps-en!
+    eu = Aupa! Begira nire uneko kokapena Organic Maps-en!
     fi = Hei, kurkkaa tämänhetkinen sijaintini Organic Maps:n kartalla!
     fr = Hé, regarde ma position actuelle sur la carte Organic Maps !
     he = היי, בדקו את המיקום הנוכחי שלי במפה של Organic Maps!
@@ -3767,7 +3767,7 @@
     bg = Общи настройки
     de = Allgemeine Einstellungen
     es = Ajustes generales
-    eu = Doikuntza orokorrak
+    eu = Ezarpen orokorrak
     fa = تنظیمات عمومی
     fi = Yleiset asetukset
     fr = Paramètres généraux
@@ -5274,7 +5274,7 @@
     de = Heruntergeladen
     el = Έγινε λήψη
     es = Descargado
-    eu = Alta
+    eu = Deskargatuta
     fa = دانلود شده
     fi = Ladatut
     fr = Téléchargé
@@ -5942,7 +5942,7 @@
     de = Nutzen Sie die Google Play-Dienste, um Ihren aktuellen Standort zu erhalten
     el = Χρησιμοποιήστε υπηρεσίες Google Play για να προσδιορίσετε την τρέχουσα τοποθεσία σας
     es = Usar los servicios de Google Play para obtener tu ubicación actual
-    eu = Erabili Google Play zerbitzuak zure uneko kokapena lortzeko
+    eu = Erabili Google Play Services zure uneko kokapena zehazteko
     fa = استفاده از Google Play Services برای تعیین موقعیت کنونی شما
     fi = Käytä Google Play -palveluita sijaintisi selvittämiseksi
     fr = Utilisez l'application Google Play Services pour obtenir votre emplacement actuel
@@ -8282,7 +8282,7 @@
     de = Verlauf
     el = Ιστορικό
     es = Historial
-    eu = Grabatu
+    eu = Historia
     fa = تاریخچه
     fi = Historia
     fr = Historique
@@ -14285,7 +14285,7 @@
     de = Organic Maps ist eine kostenlose Open-Source-Offline-Kartenanwendung. Keine Werbung. Keine Verfolgung. Wenn Sie einen Fehler auf der Karte sehen, beheben Sie ihn bitte in OpenStreetMap. Das Projekt wird von Enthusiasten in unserer Freizeit erstellt, daher brauchen wir Ihr Feedback und Ihre Unterstützung.
     el = Οι Organic Maps είναι μια δωρεάν και ανοιχτού κώδικα εφαρμογή χαρτών εκτός σύνδεσης. Χωρίς διαφημίσεις. Χωρίς εντοπισμό. Εάν δείτε κάποιο σφάλμα στον χάρτη, διορθώστε το στο OpenStreetMap. Το έργο δημιουργείται από λάτρεις στον ελεύθερο χρόνο μας, επομένως χρειαζόμαστε τα σχόλια και την υποστήριξή σας.
     es = Organic Maps es una aplicación de mapas sin conexión gratuita y de código abierto. Sin anuncios. Sin seguimiento. Si ve un error en el mapa, corríjalo en OpenStreetMap. El proyecto está creado por entusiastas en nuestro tiempo libre, por lo que necesitamos tus comentarios y tu apoyo.
-    eu = Organic Maps lineaz kanpoko mapa aplikazio doako eta irekia da. Iragarkirik ez. Ez dago jarraipenik. Mapan errore bat ikusten baduzu, konpondu OpenStreetMap-en. Proiektua zaleek sortu dute gure aisialdian, beraz, zure iritzia eta laguntza behar dugu.
+    eu = Organic Maps offline mapa aplikazio doako eta irekia da. Iragarkirik gabe. Ez da zure jarraipenik egiten. Mapan errore bat ikusten baduzu, konpondu OpenStreetMap-en. Proiektua aisialdian sortu dugu zale talde batek, beraz zure iritzia eta laguntza behar dugu.
     fa = Organic Maps یک برنامه نقشه آفلاین رایگان و منبع باز است. بدون تبلیغات بدون ردیابی اگر خطایی روی نقشه مشاهده کردید، لطفاً آن را در OpenStreetMap برطرف کنید. این پروژه توسط علاقه مندان در اوقات فراغت ما ایجاد می شود، بنابراین ما به بازخورد و پشتیبانی شما نیاز داریم.
     fi = Organic Maps on ilmainen ja avoimen lähdekoodin offline-karttasovellus. Ei mainoksia. Ei seurantaa. Jos näet virheen kartalla, korjaa se OpenStreetMapissa. Hankkeen ovat luoneet harrastajat vapaa-ajallamme, joten tarvitsemme palautettasi ja tukeasi.
     fr = Organic Maps est une application de cartographie hors ligne gratuite et open source. Pas de pubs. Pas de localisation. Si vous voyez une erreur sur la carte, veuillez la corriger dans OpenStreetMap. Le projet est créé par des passionnés pendant notre temps libre, nous avons donc besoin de vos commentaires et de votre soutien.
@@ -15201,7 +15201,7 @@
     el = Μεταγραφή στα Λατινικά
     es = Transliteración al latín
     es-MX = Transliteración al alfabeto latino
-    eu = Latinezko transliterazioa
+    eu = Alfabeto latinora transliteratu
     fa = ترجمه به لاتین
     fi = Translitterointi latinaksi
     fr = Translittération en latin
@@ -18568,7 +18568,7 @@
     el = Αυτή η λειτουργία είναι ενεργοποιημένη για την καταγραφή ενεργειών για διαγνωστικούς σκοπούς. Αυτό βοηθά την ομάδα να εντοπίζει προβλήματα με την εφαρμογή. Να ενεργοποιείτε τη λειτουργία μόνο κατόπιν αιτήματος της υποστήριξης του Organic Maps.
     es = Esta opción está habilitada para las acciones de registro con fines de diagnóstico. Esto ayuda a nuestro equipo a identificar problemas con la aplicación. Habilite la opción solo a petición del apoyo de Organic Maps.
     es-MX = Esta opción está habilitada para las acciones de registro con fines de diagnóstico. Esto ayuda a nuestro equipo a identificar problemas con la aplicación. Habilite la opción solo a petición del apoyo de Organic Maps.
-    eu = Aukera hau diagnostiko-helburuetarako erregistro-ekintzetarako gaituta dago. Honek gure taldeari aplikazioarekin arazoak identifikatzen laguntzen dio. Gaitu aukera Organic Maps laguntzari eskatuta soilik.
+    eu = Akats teknikoen konponketan laguntzeko errejistroa aktibatzen du honek. Honek gure lan-taldeari arazoak identifikatzen laguntzen dio. Aldi baterako aktibatu aukera hau, arazoren bat baldin baduzu grabatu eta guri bidali ahal izateko.
     fa = این گزینه ثبت گزارش را برای اهداف تشخیصی فعال می‌کند. برای کارکنان بخش پشتیبانی که مشکلات برنامه را عیب یابی می‌کنند، مفید باشد. این گزینه را تنها در صورت درخواست پشتیبانی Organic Maps فعال کنید.
     fi = Valinta ottaa käyttöön lokikirjaukset diagnostiikkaa varten. Se voi auttaa tukihenkilöstöämme, kun he korjaavat sovelluksen ongelmia. Ota tämä ominaisuus käyttöön vain, jos Organic Maps:n tuki pyytää.
     fr = Cette option est activée pour l'identification des actions à des fins de diagnostic. Cela aide l’équipe à identifier les problèmes liés à l’application. Activez cette option uniquement à la demande du support Organic Maps.
@@ -18644,7 +18644,7 @@
     el = Ρυθμίσεις παράκαμψης
     es = Configuración de desvío
     es-MX = Ajustes de desvío
-    eu = Birbidali ezarpenak
+    eu = Bideratzailearen ezarpenak
     fa = گزینه های رانندگی
     fi = Kiertotien asetukset
     fr = Paramètres des itinéraires
@@ -21394,7 +21394,7 @@
     el = Πρατήρια βενζίνης
     es = Gasolinera
     es-MX = Gasolinería
-    eu = Erregai-geltokia
+    eu = Gasolindegia
     fa = پمپ بنزین
     fi = Huoltoasemat
     fr = Stations-service
@@ -22459,6 +22459,7 @@
     en = Show on the lock screen
     be = Паказваць на экране блакіроўкі
     de = Auf dem Sperrbildschirm anzeigen
+    eu = Erakutsi blokeoko pantailan
     it = Mostra sulla schermata di blocco
     pl = Pokazuj na ekranie blokady
     ro = Arată pe ecranul de blocare
@@ -22472,6 +22473,7 @@
     en = When enabled, you don't need to unlock your device every time while the app is running.
     be = Калі ўключана, вам не трэба разблакіраваць прыладу кожны раз падчас працы дадатку.
     de = Wenn aktiviert, muss das Gerät nicht jedes Mal entsperrt werden, wenn die App ausgeführt wird.
+    eu = Aktibatuta dagoenean, telefonoa ez duzu desblokeatu behar uneoro aplikazioa martxan dagoenean.
     it = Quando è abilitata, non è necessario sbloccare il dispositivo ogni volta mentre l'app è in esecuzione.
     pl = Po włączeniu nie musisz odblokowywać urządzenia za każdym razem, gdy aplikacja jest uruchomiona.
     ro = Când este activată, nu trebuie să deblochezi telefonul de fiecare dată când aplicația este în funcțiune.
