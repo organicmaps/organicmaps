@@ -18,7 +18,6 @@ public:
   SharedLoadInfo(FilesContainerR const & cont, DataHeader const & header);
 
   Reader GetDataReader() const;
-  Reader GetMetadataReader() const;
   Reader GetGeometryReader(int ind) const;
   Reader GetTrianglesReader(int ind) const;
 

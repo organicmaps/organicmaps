@@ -84,6 +84,7 @@ set(SRC
   ftraits.hpp
   ftypes_matcher.cpp
   ftypes_matcher.hpp
+  house_to_street_iface.hpp
   index_builder.cpp
   index_builder.hpp
   interval_index.hpp

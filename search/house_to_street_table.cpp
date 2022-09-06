@@ -5,11 +5,9 @@
 #include "platform/mwm_traits.hpp"
 
 #include "coding/files_container.hpp"
-#include "coding/fixed_bits_ddvector.hpp"
 #include "coding/map_uint32_to_val.hpp"
 #include "coding/reader.hpp"
 #include "coding/varint.hpp"
-#include "coding/write_to_sink.hpp"
 #include "coding/writer.hpp"
 
 #include "base/assert.hpp"
@@ -20,35 +18,12 @@
 
 #include <vector>
 
-using namespace std;
-
 namespace search
 {
+using namespace std;
+
 namespace
 {
-class Fixed3BitsTable : public HouseToStreetTable
-{
-public:
-  using Vector = FixedBitsDDVector<3, ModelReaderPtr>;
-
-  explicit Fixed3BitsTable(MwmValue const & value)
-    : m_vector(Vector::Create(value.m_cont.GetReader(SEARCH_ADDRESS_FILE_TAG)))
-  {
-    ASSERT(m_vector.get(), ("Can't instantiate Fixed3BitsDDVector."));
-  }
-
-  // HouseToStreetTable overrides:
-  bool Get(uint32_t houseId, uint32_t & streetIndex) const override
-  {
-    return m_vector->Get(houseId, streetIndex);
-  }
-
-  StreetIdType GetStreetIdType() const override { return StreetIdType::Index; }
-
-private:
-  unique_ptr<Vector> m_vector;
-};
-
 class EliasFanoMap : public HouseToStreetTable
 {
 public:
@@ -71,16 +46,17 @@ public:
     };
 
     m_map = Map::Load(*m_reader, readBlockCallback);
-    ASSERT(m_map.get(), ("Can't instantiate MapUint32ToValue<uint32_t>."));
+    ASSERT(m_map.get(), ());
   }
 
   // HouseToStreetTable overrides:
-  bool Get(uint32_t houseId, uint32_t & streetIndex) const override
+  std::optional<Result> Get(uint32_t houseId) const override
   {
-    return m_map->Get(houseId, streetIndex);
+    uint32_t fID;
+    if (!m_map->Get(houseId, fID))
+      return {};
+    return {{ fID, StreetIdType::FeatureId }};
   }
-
-  StreetIdType GetStreetIdType() const override { return StreetIdType::FeatureId; }
 
 private:
   unique_ptr<Reader> m_reader;
@@ -91,61 +67,33 @@ class DummyTable : public HouseToStreetTable
 {
 public:
   // HouseToStreetTable overrides:
-  bool Get(uint32_t /* houseId */, uint32_t & /* streetIndex */) const override { return false; }
-  StreetIdType GetStreetIdType() const override { return StreetIdType::None; }
+  std::optional<Result> Get(uint32_t /* houseId */) const override { return {}; }
 };
 }  // namespace
 
-// HouseToStreetTable::Header ---------------------------------------------------------------------
-void HouseToStreetTable::Header::Read(Reader & reader)
+unique_ptr<HouseToStreetTable> LoadHouseToStreetTable(MwmValue const & value)
 {
-  NonOwningReaderSource source(reader);
-  m_version = static_cast<Version>(ReadPrimitiveFromSource<uint8_t>(source));
-  CHECK_EQUAL(static_cast<uint8_t>(m_version), static_cast<uint8_t>(Version::V2), ());
-  m_tableOffset = ReadPrimitiveFromSource<uint32_t>(source);
-  m_tableSize = ReadPrimitiveFromSource<uint32_t>(source);
-}
-
-// HouseToStreetTable ------------------------------------------------------------------------------
-// static
-unique_ptr<HouseToStreetTable> HouseToStreetTable::Load(MwmValue const & value)
-{
-  version::MwmTraits traits(value.GetMwmVersion());
-  auto const format = traits.GetHouseToStreetTableFormat();
-
   unique_ptr<HouseToStreetTable> result;
 
   try
   {
-    if (format == version::MwmTraits::HouseToStreetTableFormat::Fixed3BitsDDVector)
-    {
-      result = make_unique<Fixed3BitsTable>(value);
-    }
-    if (format == version::MwmTraits::HouseToStreetTableFormat::EliasFanoMap)
-    {
-      FilesContainerR::TReader reader = value.m_cont.GetReader(SEARCH_ADDRESS_FILE_TAG);
-      ASSERT(reader.GetPtr(), ("Can't get", SEARCH_ADDRESS_FILE_TAG, "section reader."));
-      auto subreader = reader.GetPtr()->CreateSubReader(0, reader.Size());
-      CHECK(subreader, ());
-      result = make_unique<EliasFanoMap>(move(subreader));
-    }
-    if (format == version::MwmTraits::HouseToStreetTableFormat::HouseToStreetTableWithHeader)
-    {
-      FilesContainerR::TReader reader = value.m_cont.GetReader(SEARCH_ADDRESS_FILE_TAG);
-      ASSERT(reader.GetPtr(), ("Can't get", SEARCH_ADDRESS_FILE_TAG, "section reader."));
+    auto const format = version::MwmTraits(value.GetMwmVersion()).GetHouseToStreetTableFormat();
+    CHECK_EQUAL(format, version::MwmTraits::HouseToStreetTableFormat::HouseToStreetTableWithHeader, ());
 
-      Header header;
-      header.Read(*reader.GetPtr());
-      CHECK(header.m_version == Version::V2, (base::Underlying(header.m_version)));
+    FilesContainerR::TReader reader = value.m_cont.GetReader(SEARCH_ADDRESS_FILE_TAG);
 
-      auto subreader = reader.GetPtr()->CreateSubReader(header.m_tableOffset, header.m_tableSize);
-      CHECK(subreader, ());
-      result = make_unique<EliasFanoMap>(move(subreader));
-    }
+    HouseToStreetTable::Header header;
+    ReaderSource source(reader);
+    header.Read(source);
+    CHECK(header.m_version == HouseToStreetTable::Version::V2, ());
+
+    auto subreader = reader.GetPtr()->CreateSubReader(header.m_tableOffset, header.m_tableSize);
+    CHECK(subreader, ());
+    result = make_unique<EliasFanoMap>(move(subreader));
   }
   catch (Reader::OpenException const & ex)
   {
-    LOG(LWARNING, (ex.Msg()));
+    LOG(LERROR, (ex.Msg()));
   }
 
   if (!result)
@@ -173,8 +121,9 @@ void HouseToStreetTableBuilder::Freeze(Writer & writer) const
   // Each street id is encoded as delta from some prediction.
   // First street id in the block encoded as VarUint, all other street ids in the block
   // encoded as VarInt delta from previous id
-  auto const writeBlockCallback = [](auto & w, auto begin, auto end) {
-    CHECK(begin != end, ("MapUint32ToValueBuilder should guarantee begin != end."));
+  auto const writeBlockCallback = [](auto & w, auto begin, auto end)
+  {
+    CHECK(begin != end, ());
     WriteVarUint(w, *begin);
     auto prevIt = begin;
     for (auto it = begin + 1; it != end; ++it)

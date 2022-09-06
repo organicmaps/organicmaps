@@ -182,7 +182,7 @@ FeatureType::FeatureType(SharedLoadInfo const * loadInfo, vector<uint8_t> && buf
   , m_data(std::move(buffer))
   , m_metadataDeserializer(metadataDeserializer)
 {
-  CHECK(m_loadInfo && m_metadataDeserializer, ());
+  CHECK(m_loadInfo, ());
 
   m_header = Header(m_data);
 }
@@ -591,7 +591,7 @@ void FeatureType::ParseMetadata()
   if (m_parsed.m_metadata)
     return;
 
-  CHECK(m_loadInfo, ());
+  CHECK(m_metadataDeserializer, ());
   try
   {
     UNUSED_VALUE(m_metadataDeserializer->Get(m_id.m_index, m_metadata));
@@ -609,7 +609,7 @@ void FeatureType::ParseMetaIds()
   if (m_parsed.m_metaIds)
     return;
 
-  CHECK(m_loadInfo, ());
+  CHECK(m_metadataDeserializer, ());
   try
   {
     UNUSED_VALUE(m_metadataDeserializer->GetIds(m_id.m_index, m_metaIds));

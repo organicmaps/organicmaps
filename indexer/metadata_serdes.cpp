@@ -7,6 +7,8 @@
 #include "base/assert.hpp"
 #include "base/checked_cast.hpp"
 
+#include "defines.hpp"
+
 #include <type_traits>
 
 namespace indexer
@@ -96,6 +98,12 @@ unique_ptr<MetadataDeserializer> MetadataDeserializer::Load(Reader & reader)
     return {};
 
   return deserializer;
+}
+
+// static
+std::unique_ptr<MetadataDeserializer> MetadataDeserializer::Load(FilesContainerR const & cont)
+{
+  return Load(*cont.GetReader(METADATA_FILE_TAG).GetPtr());
 }
 
 // MetadataBuilder -----------------------------------------------------------------------------

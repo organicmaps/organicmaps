@@ -3,13 +3,11 @@ package com.mapswithme.maps.maplayer;
 import android.animation.Animator;
 import android.animation.AnimatorInflater;
 import android.content.Context;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.WindowMetrics;
 import android.widget.ImageView;
 
 import androidx.annotation.DrawableRes;
@@ -17,21 +15,18 @@ import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
-
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.search.SearchEngine;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.concurrency.UiThread;
-import com.mapswithme.util.log.Logger;
 
 public class SearchWheel implements View.OnClickListener
 {
   private static final String EXTRA_CURRENT_OPTION = "extra_current_option";
   private final View mFrame;
 
-  @Nullable
   private View mSearchLayout;
   private final ImageView mSearchButton;
   @Nullable
@@ -60,27 +55,24 @@ public class SearchWheel implements View.OnClickListener
 
   private enum SearchOption
   {
-    FUEL(R.id.search_fuel, R.drawable.ic_routing_fuel_off, R.drawable.ic_routing_fuel_on, R.string.fuel),
-    PARKING(R.id.search_parking, R.drawable.ic_routing_parking_off, R.drawable.ic_routing_parking_on, R.string.parking),
-    EAT(R.id.search_eat, R.drawable.ic_routing_eat_off, R.drawable.ic_routing_eat_on, R.string.eat),
-    FOOD(R.id.search_food, R.drawable.ic_routing_food_off, R.drawable.ic_routing_food_on, R.string.food),
-    ATM(R.id.search_atm, R.drawable.ic_routing_atm_off, R.drawable.ic_routing_atm_on, R.string.atm);
+    FUEL(R.id.search_fuel, R.drawable.ic_routing_fuel_off, R.string.fuel),
+    PARKING(R.id.search_parking, R.drawable.ic_routing_parking_off, R.string.parking),
+    EAT(R.id.search_eat, R.drawable.ic_routing_eat_off, R.string.eat),
+    FOOD(R.id.search_food, R.drawable.ic_routing_food_off, R.string.food),
+    ATM(R.id.search_atm, R.drawable.ic_routing_atm_off, R.string.atm);
 
     @IdRes
     private final int mResId;
     @DrawableRes
     private final int mDrawableOff;
-    @DrawableRes
-    private final int mDrawableOn;
     @StringRes
     private final int mQueryId;
 
-    SearchOption(@IdRes int resId, @DrawableRes int drawableOff, @DrawableRes int drawableOn,
+    SearchOption(@IdRes int resId, @DrawableRes int drawableOff,
                  @StringRes int queryId)
     {
       this.mResId = resId;
       this.mDrawableOff = drawableOff;
-      this.mDrawableOn = drawableOn;
       this.mQueryId = queryId;
     }
 
@@ -122,40 +114,39 @@ public class SearchWheel implements View.OnClickListener
     refreshSearchVisibility();
   }
 
-  private @Nullable View getSearchLayout()
+  private boolean initSearchLayout()
   {
+    if (mSearchLayout != null)
+      return true;
+
+    mSearchLayout = mFrame.findViewById(R.id.search_frame);
     if (mSearchLayout == null)
+      return false;
+
+    DisplayMetrics displayMetrics = new DisplayMetrics();
+    WindowManager windowmanager = (WindowManager) mFrame.getContext().getSystemService(Context.WINDOW_SERVICE);
+    windowmanager.getDefaultDisplay().getMetrics(displayMetrics);
+    // Get available screen height in DP
+    int height =  Math.round(displayMetrics.heightPixels / displayMetrics.density);
+    // If height is less than 400dp, the search wheel in a straight line
+    // In this case, move the pivot for the animation
+    if (height < 400)
     {
-      mSearchLayout = mFrame.findViewById(R.id.search_frame);
-      if (mSearchLayout != null)
-      {
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        WindowManager windowmanager = (WindowManager) mFrame.getContext().getSystemService(Context.WINDOW_SERVICE);
-        windowmanager.getDefaultDisplay().getMetrics(displayMetrics);
-        // Get available screen height in DP
-        int height =  Math.round(displayMetrics.heightPixels / displayMetrics.density);
-        // If height is less than 400dp, the search wheel in a straight line
-        // In this case, move the pivot for the animation
-        if (height < 400)
-        {
-          UiUtils.waitLayout(mSearchLayout, () -> {
-            mSearchLayout.setPivotX(0);
-            mSearchLayout.setPivotY(mSearchLayout.getMeasuredHeight() / 2f);
-          });
-        }
-        for (SearchOption searchOption : SearchOption.values())
-          mFrame.findViewById(searchOption.mResId).setOnClickListener(this);
-      }
+      UiUtils.waitLayout(mSearchLayout, () -> {
+        mSearchLayout.setPivotX(0);
+        mSearchLayout.setPivotY(mSearchLayout.getMeasuredHeight() / 2f);
+      });
     }
-    return mSearchLayout;
+    for (SearchOption searchOption : SearchOption.values())
+      mFrame.findViewById(searchOption.mResId).setOnClickListener(this);
+    return true;
   }
 
   public void show(boolean show)
   {
     UiUtils.showIf(show, mSearchButton);
-    View searchLayout = getSearchLayout();
-    if (searchLayout != null)
-      UiUtils.showIf(show && mIsExpanded, searchLayout);
+    if (initSearchLayout())
+      UiUtils.showIf(show && mIsExpanded, mSearchLayout);
   }
 
   public void saveState(@NonNull Bundle outState)
@@ -196,8 +187,7 @@ public class SearchWheel implements View.OnClickListener
 
   private void toggleSearchLayout()
   {
-    View searchLayout = getSearchLayout();
-    if (searchLayout != null)
+    if (initSearchLayout())
     {
       final int animRes;
       if (mIsExpanded)
@@ -228,11 +218,10 @@ public class SearchWheel implements View.OnClickListener
 
   private void refreshSearchVisibility()
   {
-    View searchLayout = getSearchLayout();
-    if (searchLayout != null)
+    if (initSearchLayout())
     {
       for (SearchOption searchOption : SearchOption.values())
-        UiUtils.visibleIf(mIsExpanded, searchLayout.findViewById(searchOption.mResId));
+        UiUtils.visibleIf(mIsExpanded, mSearchLayout.findViewById(searchOption.mResId));
 
       if (mTouchInterceptor != null)
         UiUtils.visibleIf(mIsExpanded, mSearchLayout, mTouchInterceptor);
