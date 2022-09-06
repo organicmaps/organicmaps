@@ -2102,6 +2102,9 @@ area|z17-[amenity=vending_machine],
 node|z17-[amenity=vending_machine][vending=parking_tickets],
 area|z17-[amenity=vending_machine][vending=parking_tickets]
 {icon-image: parking-meter-m.svg;font-size: 11;}
+node|z17-[amenity=vending_machine][vending=excrement_bags],
+area|z17-[amenity=vending_machine][vending=excrement_bags]
+{icon-image: excrement-bags-m.svg;font-size: 11;}
 node|z17-[amenity=parcel_locker],
 area|z17-[amenity=parcel_locker],
 {icon-image: mail-m.svg;icon-min-distance: 20;}
