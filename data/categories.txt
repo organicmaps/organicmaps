@@ -10858,7 +10858,7 @@ fa:اموزشگاه رانندگی
 mr:चालकशाळा|ड्रायव्हिंग स्कूल
 
 amenity-ice_cream
-en:3Ice Cream
+en:3Ice Cream|Gelato
 ru:4Мороженое
 be:4Марозіва
 bg:4Сладолед
@@ -10873,7 +10873,7 @@ fi:5Jäätelökioski
 fr:Stand de crème glacée|Marchand de glaces
 hu:5Fagylaltárus
 id:Kios Es Krim
-it:Chiosco gelati
+it:Chiosco gelati|Gelato
 ja:アイスクリーム屋
 ko:아이스크림 스탠드|아이스크림 가판대
 nb:4Iskrem
