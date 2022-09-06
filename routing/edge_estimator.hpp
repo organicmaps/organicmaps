@@ -32,7 +32,8 @@ public:
   enum class Strategy
   {
     Fastest,
-    Shortest
+    Shortest,
+    FewerTurns
   };
 
   EdgeEstimator(double maxWeightSpeedKMpH, SpeedKMpH const & offroadSpeedKMpH,
@@ -62,6 +63,7 @@ public:
   virtual double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road,
                                    Purpose purpose) const = 0;
   virtual double GetUTurnPenalty(Purpose purpose) const = 0;
+  virtual double GetTurnPenalty(Purpose purpose) const = 0;
   virtual double GetFerryLandingPenalty(Purpose purpose) const = 0;
 
   static std::shared_ptr<EdgeEstimator> Create(VehicleType vehicleType, double maxWeighSpeedKMpH,

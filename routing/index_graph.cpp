@@ -12,6 +12,7 @@
 #include "base/timer.hpp"
 
 #include <algorithm>
+#include <cmath>
 #include <cstdlib>
 #include <iterator>
 #include <limits>
@@ -514,6 +515,9 @@ RouteWeight IndexGraph::GetPenalties(EdgeEstimator::Purpose purpose, Segment con
   if (IsUTurn(u, v))
     weightPenalty += m_estimator->GetUTurnPenalty(purpose);
 
+  if (IsTurn(u, v))
+    weightPenalty += m_estimator->GetTurnPenalty(purpose);
+
   if (IsBoarding(fromPenaltyData.m_isFerry, toPenaltyData.m_isFerry))
     weightPenalty += m_estimator->GetFerryLandingPenalty(purpose);
 
@@ -549,6 +553,59 @@ bool IndexGraph::IsUTurnAndRestricted(Segment const & parent, Segment const & ch
   return uTurn.m_atTheEnd && turnPoint == n - 1;
 }
 
+bool IndexGraph::IsTurn(Segment const & u, Segment const & v) const
+{
+  // Boundary check for segmentIdx
+  if (u.GetSegmentIdx() == 0 && !(u.IsForward()))
+  {
+    return false;
+  }
+
+  if (v.GetSegmentIdx() == 0 && !(v.IsForward()))
+  {
+    return false;
+  }
+
+  auto geoU = GetRoadGeometry(u.GetFeatureId());
+  auto startPointU = geoU.GetPoint(u.GetSegmentIdx());
+  auto endPointU = geoU.GetPoint(u.IsForward() ? u.GetSegmentIdx() + 1: u.GetSegmentIdx() - 1);
+
+  auto geoV = GetRoadGeometry(v.GetFeatureId());
+  auto startPointV = geoV.GetPoint(v.GetSegmentIdx());
+  auto endPointV = geoV.GetPoint(v.IsForward() ? v.GetSegmentIdx() + 1: v.GetSegmentIdx() - 1);
+
+  if (!(endPointU == startPointV))
+  {
+    LOG(LDEBUG, ("Turn checking: u and v are not connected"));
+
+    return false;
+  }
+
+  double vectorU[2] = {endPointU.m_lat - startPointU.m_lat, endPointU.m_lon - startPointU.m_lon};
+  double vectorV[2] = {endPointV.m_lat - startPointV.m_lat, endPointV.m_lon - startPointV.m_lon};
+
+  //dot product
+  double dot = vectorU[0] * vectorV[0] + vectorU[1] * vectorV[1];
+
+  //determinant
+  double det = vectorU[0] * vectorV[1] - vectorU[1] * vectorV[0];
+
+  //calculate the anlge
+  double angle = atan2(det, dot);
+
+  //convert to degree value
+  angle = angle * 180 / 3.141592;
+
+  if (abs(angle) >= 45)
+  {
+    return true;
+  }
+  else
+  {
+    return false;
+  }
+}
+
 RouteWeight IndexGraph::CalculateEdgeWeight(EdgeEstimator::Purpose purpose, bool isOutgoing,
                                             Segment const & from, Segment const & to,
                                             std::optional<RouteWeight const> const & prevWeight) const
@@ -560,9 +617,12 @@ RouteWeight IndexGraph::CalculateEdgeWeight(EdgeEstimator::Purpose purpose, bool
 
   auto const weight = RouteWeight(m_estimator->CalcSegmentWeight(segment, road, purpose));
 
-  if(m_estimator->GetStrategy() == EdgeEstimator::Strategy::Shortest)
+  if (purpose == EdgeEstimator::Purpose::Weight)
   {
-    return weight;
+    if(m_estimator->GetStrategy() == EdgeEstimator::Strategy::Shortest)
+    {
+      return weight;
+    }
   }
 
   auto const penalties = GetPenalties(purpose, isOutgoing ? from : to, isOutgoing ? to : from, prevWeight);

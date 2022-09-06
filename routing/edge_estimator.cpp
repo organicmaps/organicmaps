@@ -248,6 +248,17 @@ public:
 
   // EdgeEstimator overrides:
   double GetUTurnPenalty(Purpose /* purpose */) const override { return 0.0 /* seconds */; }
+  double GetTurnPenalty(Purpose purpose) const override
+  {
+    if (purpose == EdgeEstimator::Purpose::Weight)
+    {
+      if (this->GetStrategy() == EdgeEstimator::Strategy::FewerTurns)
+      {
+        return 24 * 60 * 60;
+      }
+    }
+    return 0.0;
+  }
   // Based on: https://confluence.mail.ru/display/MAPSME/Ferries
   double GetFerryLandingPenalty(Purpose purpose) const override
   {
@@ -287,6 +298,17 @@ public:
 
   // EdgeEstimator overrides:
   double GetUTurnPenalty(Purpose /* purpose */) const override { return 20.0 /* seconds */; }
+  double GetTurnPenalty(Purpose purpose) const override
+  {
+    if (purpose == EdgeEstimator::Purpose::Weight)
+    {
+      if (this->GetStrategy() == EdgeEstimator::Strategy::FewerTurns)
+      {
+        return 24 * 60 * 60;
+      }
+    }
+    return 10.0;
+  }
   // Based on: https://confluence.mail.ru/display/MAPSME/Ferries
   double GetFerryLandingPenalty(Purpose purpose) const override
   {
@@ -326,6 +348,7 @@ public:
   // EdgeEstimator overrides:
   double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road, Purpose purpose) const override;
   double GetUTurnPenalty(Purpose /* purpose */) const override;
+  double GetTurnPenalty(Purpose purpose) const override;
   double GetFerryLandingPenalty(Purpose purpose) const override;
 
 private:
@@ -346,6 +369,18 @@ double CarEstimator::GetUTurnPenalty(Purpose /* purpose */) const
   // and needs to be properly selected after a number of real-world
   // experiments.
   return 2 * 60;  // seconds
+}
+
+double CarEstimator::GetTurnPenalty(Purpose purpose) const
+{
+  if (purpose == EdgeEstimator::Purpose::Weight)
+  {
+    if (this->GetStrategy() == EdgeEstimator::Strategy::FewerTurns)
+    {
+      return 24 * 60 * 60;
+    }
+  }
+  return 60;
 }
 
 double CarEstimator::GetFerryLandingPenalty(Purpose purpose) const
