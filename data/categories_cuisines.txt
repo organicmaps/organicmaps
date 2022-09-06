@@ -416,62 +416,67 @@ he:גריל
 sk:Gril
 
 cuisine-hotdog|@fastfood
-en:Hotdog
-ru:Хот-доги
-bg:Хотдог
+en:Hotdog|hot dog
 ar:هوت دوغ
+bg:Хотдог
+be:Хот-доги|хотдог
 cs:Hot dog
 da:Hotdogs
-nl:Hotdogs
+de:Hotdog
+el:Χοτ Ντογκ
+es:Perritos calientes
+eu:Txakur beroak
 fi:Hotdog
 fr:Hot-dog
-de:Hotdog
+he:נקניקיה
 hu:Hotdog
 id:Hotdog
 it:Hot dog
 ja:ホットドッグ
 ko:핫도그
 nb:Hotdog
+nl:Hotdogs
 pl:Hot-dogi
 pt:Cachorro-quente
 pt-BR:Cachorro-quente
 ro:Hot dog
-es:Perritos calientes
-eu:Txakur beroak
+ru:Хот-доги|хотдог
+sk:Párok v rožku
 sv:Varmkorv
 th:ฮอทดอก
 tr:Sosisli
-uk:Хот-доги
+uk:Хот-доги|хотдог
 vi:Hotdog
 zh-Hans:热狗
 zh-Hant:熱狗
-el:Χοτ Ντογκ
-he:נקניקיה
-sk:Párok v rožku
 
 cuisine-ice_cream
 en:Ice Cream|gelato
-ru:Кафе-мороженое|мороженое
-bg:Сладолед
 ar:مُثَلّجات
+be:Кафе-марозіва
+bg:Сладолед
 cs:Zmrzlina
 da:Is
-nl:Ijs
+de:Eis
+el:Παγωτό
+es:Helados
+eu:Izozkiak
 fi:Jäätelö
 fr:Crème glacée
-de:Eis
+he:גלידה
 hu:Jégkrém
 id:Es_krim
 it:Gelateria|gelato
 ja:アイスクリーム
 ko:아이스크림
 nb:Iskrem
+nl:Ijs
 pl:Lodziarnia
 pt:Gelados
 pt-BR:Sorvete
 ro:Înghețată
-es:Helados
-eu:Izozkiak
+ru:Кафе-мороженое
+sk:Zmrzlina
 sv:Glass
 th:ไอศกรีม
 tr:Dondurma
@@ -479,43 +484,41 @@ uk:Морозиво
 vi:Kem
 zh-Hans:冰淇淋
 zh-Hant:冰淇淋
-el:Παγωτό
-he:גלידה
-sk:Zmrzlina
 
 cuisine-kebab|@fastfood
 en:Kebab
-ru:Кебабы|кебаб|шаурма|шаурмичная
-bg:Кебап
 ar:كباب
+be:Кебабы|кебаб|шаурма
+bg:Кебап
 cs:Kebab
 da:Kebab
-nl:Kebab
+de:Kebab
+el:Κεμπάπ
+es:Kebabs
+eu:Kebabak
 fi:Kebab
 fr:Kebab
-de:Kebab
+he:קבב
 hu:Kebab
 id:Kebab
 it:Kebab
 ja:カバブ
 ko:케밥
 nb:Kebab
+nl:Kebab
 pl:Kebab
 pt:Kebab
 pt-BR:Espetinho
 ro:Kebab
-es:Kebabs
-eu:Kebabak
+ru:Кебабы|кебаб|шаурма
+sk:Kebab
 sv:Kebab
 th:เคบับ
 tr:Kebap
-uk:Кебаби
+uk:Кебаби|кебаб|шаурма
 vi:Thịt nướng kebab
 zh-Hans:烤肉
 zh-Hant:烤肉
-el:Κεμπάπ
-he:קבב
-sk:Kebab
 
 cuisine-noodles
 en:Noodles
@@ -553,27 +556,31 @@ sk:Rezance
 
 cuisine-pancake|cuisine-crepe
 en:Pancake|pancakes|crepes|crepe
-ru:Блинная|блины|блинчики|панкейки
-bg:Палачинка
 ar:بان كيك|كريب
+be:Бліны|панкейкі
+bg:Палачинка
 cs:Palačinka|Crêpe
 da:Pandekager|Crepes
-nl:Pannenkoek
+de:Pfannkuchen|Crêpe
+el:Τηγανίτα|Κρέπα
+es:Tortitas|Crepes
+eu:Krepeak
 fi:Lettu|Kreppi
 fr:Crêpe
-de:Pfannkuchen|Crêpe
+he:פנקייק|קרפ
 hu:Palacsinta|Francia palacsinta
 id:Panekuk|Kue dadar
 it:Pancake|Crêpes
 ja:ホットケーキ|クレープ
 ko:팬케이크|크레이프
 nb:Pannekake|Crepe
+nl:Pannenkoek
 pl:Naleśnik|Naleśnikarnia
 pt:Panqueca|panquecas|crepes|crepe
 pt-BR:Panqueca|panquecas|crepes|crepe
 ro:Clătită|Crep
-es:Tortitas|Crepes
-eu:Krepeak
+ru:Блинная|блины|панкейки
+sk:Lievance|Palacinky
 sv:Pannkaka|Crêpe
 th:แพนเค้ก|เครป
 tr:Gözleme|Krep
@@ -581,9 +588,6 @@ uk:Млинці|Креп
 vi:Bánh kếp|Bánh crepe
 zh-Hans:煎饼|千层饼
 zh-Hant:煎餅|可麗餅
-el:Τηγανίτα|Κρέπα
-he:פנקייק|קרפ
-sk:Lievance|Palacinky
 
 cuisine-pasta
 en:Pasta
@@ -671,8 +675,8 @@ ja:ラーメン
 ko:라면
 nb:Ramen
 pl:Zupa ramen
-pt:Lámen|rāmen|ramen
-pt-BR:Lámen|rāmen|ramen
+pt:Lámen|rāmen
+pt-BR:Lámen|rāmen
 ro:Ramen
 es:Ramen
 eu:Ramen
@@ -705,8 +709,8 @@ ja:サンドイッチ
 ko:샌드위치
 nb:Smørbrød
 pl:Kanapki
-pt:Sanduíche|sanduíches|sande|sandes
-pt-BR:Sanduíche|sanduíches
+pt:Sanduíche|sande
+pt-BR:Sanduíche
 ro:Sandwich
 es:Sándwiches
 eu:Ogitartekoak
@@ -756,42 +760,43 @@ he:נקניק
 sk:Klobása
 
 cuisine-seafood|cuisine-fish
-en:Seafood|fish restaurant|fish
-ru:Морепродукты|Рыбный ресторан|рыба
-bg:Морска храна|морски дарове|риба
+en:Seafood|fish
 ar:مأكولات بحرية|سمك
+be:Морапрадукты|рыба|рыбны
+bg:Морска храна|морски дарове|риба
 cs:Mořské plody|Ryba
 da:Fisk og skaldyr|Fisk
-nl:Vis en zeevruchten|Vis
+de:Meeresfrüchte|Fisch
+el:Θαλασσινά|Ψάρια
+es:Mariscos|Pescados
+eu:Itsaskia|Arraina
 fi:Meren elävät|Kala
 fr:Fruits de mer|Poisson
-de:Meeresfrüchte|Fisch
+he:מאכלי ים|דגים
 hu:Tenger gyümölcsei|Hal
 id:Hidangan laut|Ikan
 it:Frutti di mare|Pesce
 ja:シーフード|魚料理
 ko:해산물|생선
 nb:Sjømat|Fisk
+nl:Vis en zeevruchten|Vis
 pl:Owoce morza|Ryby
-pt:Frutos do mar|peixe|peixes|marisco|mariscos|marisqueira
-pt-BR:Frutos do mar|peixe|peixes|marisco|mariscos|marisqueira
+pt:Frutos do mar|peixe|marisco|marisqueira
+pt-BR:Frutos do mar|peixe|marisco|marisqueira
 ro:Fructe de mare|Pește
-es:Mariscos|Pescados
-eu:Itsaskia|Arraina
+ru:Морепродукты|рыба|рыбный
+sk:Morské plody|Ryby
 sv:Skaldjur|Fisk
 th:อาหารทะเล|ปลา
 tr:Deniz ürünleri|Balık
-uk:Морська їжа|Рибний ресторан
+uk:Морська їжа|Риба|Рибний
 vi:Hải sản|Cá
 zh-Hans:海鲜|鱼
 zh-Hant:海鮮|魚
-el:Θαλασσινά|Ψάρια
-he:מאכלי ים|דגים
-sk:Morské plody|Ryby
 
 cuisine-soba
 en:Soba
-ru:Соба|лапша|лапшичная
+ru:Соба|лапша
 bg:Соба
 ar:سوبا
 cs:Soba
