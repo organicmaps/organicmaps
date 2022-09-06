@@ -17,6 +17,9 @@ SearchTestBase::SearchTestBase(base::LogLevel logLevel, bool mockCountryInfo)
   : m_scopedLog(logLevel), m_engine(m_dataSource, {}, mockCountryInfo)
 {
   SetViewport(mercator::Bounds::FullRect());
+
+  if (!mockCountryInfo)
+    m_engine.InitAffiliations();
 }
 
 void SearchTestBase::SetViewport(ms::LatLon const & ll, double radiusM)
