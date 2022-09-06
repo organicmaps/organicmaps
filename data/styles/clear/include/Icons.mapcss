@@ -1064,10 +1064,13 @@ area|z17-[historic=ruins][name],
 node|z17-[historic=fort],
 area|z17-[historic=fort],
 node|z17-[historic=castle],
-area|z17-[historic=castle],
+area|z17-[historic=castle]
+{icon-image: remains-m.svg;}
+
 node|z17-[historic=archaeological_site],
 area|z17-[historic=archaeological_site]
-{icon-image: remains-m.svg;}
+{icon-image: archaeological-site-m.svg;}
+
 
 node|z19-[historic=ruins][!name],
 area|z19-[historic=ruins][!name],
