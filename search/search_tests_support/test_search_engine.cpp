@@ -2,6 +2,8 @@
 
 #include "indexer/categories_holder.hpp"
 
+#include "storage/storage.hpp"
+
 #include "platform/platform.hpp"
 
 #include <utility>
@@ -18,6 +20,13 @@ TestSearchEngine::TestSearchEngine(DataSource & dataSource, Engine::Params const
                    storage::CountryInfoReader::CreateCountryInfoGetter(GetPlatform()))
   , m_engine(dataSource, GetDefaultCategories(), *m_infoGetter, params)
 {
+}
+
+void TestSearchEngine::InitAffiliations()
+{
+  storage::Storage storage;
+  m_affiliations = *storage.GetAffiliations();
+  m_infoGetter->SetAffiliations(&m_affiliations);
 }
 
 weak_ptr<ProcessorHandle> TestSearchEngine::Search(SearchParams const & params)
