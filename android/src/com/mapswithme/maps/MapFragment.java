@@ -59,10 +59,11 @@ public class MapFragment extends BaseMwmFragment
 
   private int mCurrentCompassOffsetX;
   private int mCurrentCompassOffsetY;
+  private int mBottomWidgetOffsetX;
+  private int mBottomWidgetOffsetY;
 
   private int mHeight;
   private int mWidth;
-  private int mBottomWidgetOffset;
   private boolean mRequireResize;
   private boolean mSurfaceCreated;
   private boolean mSurfaceAttached;
@@ -82,7 +83,7 @@ public class MapFragment extends BaseMwmFragment
     Context context = requireContext();
 
     nativeCleanWidgets();
-    setupBottomWidgetsOffset(mBottomWidgetOffset);
+    setupBottomWidgetsOffset(mBottomWidgetOffsetY, mBottomWidgetOffsetX);
 
     nativeSetupWidget(WIDGET_SCALE_FPS_LABEL,
                       UiUtils.dimen(context, R.dimen.margin_base),
@@ -119,29 +120,38 @@ public class MapFragment extends BaseMwmFragment
     mCurrentCompassOffsetY = y;
   }
 
-  void setupBottomWidgetsOffset(int offset)
+  /**
+   * Moves the ruler and copyright using the given offsets.
+   *
+   * @param offsetY Pixel offset from the bottom. -1 to keep the previous value.
+   * @param offsetX Pixel offset from the left.  -1 to keep the previous value.
+   */
+  void setupBottomWidgetsOffset(int offsetY, int offsetX)
   {
-    mBottomWidgetOffset = offset;
-    setupRuler(offset, true);
-    setupAttribution(offset, true);
+    int x = offsetX < 0 ? mBottomWidgetOffsetX : offsetX;
+    int y = offsetY < 0 ? mBottomWidgetOffsetY : offsetY;
+    setupRuler(y, x,true);
+    setupAttribution(y, x, true);
+    mBottomWidgetOffsetX = x;
+    mBottomWidgetOffsetY = y;
   }
 
-  void setupRuler(int offsetY, boolean forceRedraw)
+  private void setupRuler(int offsetY, int offsetX, boolean forceRedraw)
   {
     Context context = requireContext();
     nativeSetupWidget(WIDGET_RULER,
-                      UiUtils.dimen(context, R.dimen.margin_ruler),
+                      UiUtils.dimen(context, R.dimen.margin_ruler) + offsetX,
                       mHeight - UiUtils.dimen(context, R.dimen.margin_ruler) - offsetY,
                       ANCHOR_LEFT_BOTTOM);
     if (forceRedraw && mSurfaceCreated)
       nativeApplyWidgets();
   }
 
-  void setupAttribution(int offsetY, boolean forceRedraw)
+  private void setupAttribution(int offsetY, int offsetX, boolean forceRedraw)
   {
     Context context = requireContext();
     nativeSetupWidget(WIDGET_COPYRIGHT,
-                      UiUtils.dimen(context, R.dimen.margin_ruler),
+                      UiUtils.dimen(context, R.dimen.margin_ruler) + offsetX,
                       mHeight - UiUtils.dimen(context, R.dimen.margin_ruler) - offsetY,
                       ANCHOR_LEFT_BOTTOM);
     if (forceRedraw && mSurfaceCreated)
