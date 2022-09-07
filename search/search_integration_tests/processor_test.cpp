@@ -912,6 +912,7 @@ UNIT_CLASS_TEST(ProcessorTest, TestCategorialSearch)
   }
 }
 
+#ifdef DEBUG
 UNIT_CLASS_TEST(ProcessorTest, SearchDebug)
 {
   string const countryName = "Wonderland";
@@ -937,9 +938,10 @@ UNIT_CLASS_TEST(ProcessorTest, SearchDebug)
   auto const ruleCafe = ExactMatch(wonderlandId, cafe);
   auto const ruleHotel = ExactMatch(wonderlandId, hotel);
 
-  TEST(ResultsMatch("fid=0", {ruleCity, ruleCafe}), ());
-  TEST(ResultsMatch("fid=1 ", {ruleHotel}), ());
+  TEST(ResultsMatch("?fid=0", {ruleCity, ruleCafe}), ());
+  TEST(ResultsMatch("?fid=1 ", {ruleHotel}), ());
 }
+#endif
 
 UNIT_CLASS_TEST(ProcessorTest, SearchCoordinates)
 {
