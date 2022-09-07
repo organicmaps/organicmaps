@@ -433,7 +433,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
     findViewById(R.id.routing_plan_frame).findViewById(R.id.toolbar)
                                          .setOnApplyWindowInsetsListener(this::setViewInsetsSides);
 
-
+    findViewById(R.id.map_fragment_container).setOnApplyWindowInsetsListener((view, windowInsets) -> {
+      adjustCompass(-1, windowInsets.getSystemWindowInsetRight());
+      return windowInsets;
+    });
   }
 
   private WindowInsets setViewInsets(View view, WindowInsets windowInsets)
@@ -1276,10 +1279,15 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   void adjustCompass(int offsetY)
   {
+    adjustCompass(offsetY, -1);
+  }
+
+  void adjustCompass(int offsetY, int offsetX)
+  {
     if (mMapFragment == null || !mMapFragment.isAdded())
       return;
 
-    mMapFragment.setupCompass(offsetY, true);
+    mMapFragment.setupCompass(offsetY, offsetX, true);
 
     CompassData compass = LocationHelper.INSTANCE.getCompassData();
     if (compass != null)
