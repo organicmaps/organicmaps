@@ -1087,8 +1087,17 @@
 	<!-- SECTION: Types: Historic -->
 	<string name="type.historic.archaeological_site">Sit arheologic</string>
 	<string name="type.historic.castle">Castel</string>
+	<string name="type.historic.castle.castrum">Castru</string>
 	<string name="type.historic.castle.defensive">Castel</string>
+	<string name="type.historic.castle.fortified_church">Biserică fortificată</string>
+	<string name="type.historic.castle.fortress">Cetate</string>
+	<string name="type.historic.castle.hillfort">Castrul de deal</string>
+	<string name="type.historic.castle.kremlin">Kremlin</string>
+	<string name="type.historic.castle.manor">Conac</string>
+	<string name="type.historic.castle.palace">Palat</string>
+	<string name="type.historic.castle.shiro">Castelul japonez</string>
 	<string name="type.historic.castle.stately">Castel</string>
+	<string name="type.historic.city_gate">Poarta orașului</string>
 	<string name="type.historic.memorial">Comemorare</string>
 	<string name="type.historic.memorial.plaque">Comemorare</string>
 	<string name="type.historic.memorial.sculpture">Comemorare</string>

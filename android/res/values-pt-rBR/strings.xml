@@ -1158,9 +1158,6 @@
 	<string name="type.historic.archaeological_site">Sítio arqueológico</string>
 	<string name="type.historic.battlefield">Campo de batalha</string>
 	<string name="type.historic.boundary_stone">Marco fronteiriço</string>
-	<string name="type.historic.castle">Castelo</string>
-	<string name="type.historic.castle.defensive">Castelo defensivo</string>
-	<string name="type.historic.castle.stately">Château</string>
 	<string name="type.historic.citywalls">Muralha de cidade</string>
 	<string name="type.historic.fort">Forte histórico</string>
 	<string name="type.historic.memorial">Memorial</string>

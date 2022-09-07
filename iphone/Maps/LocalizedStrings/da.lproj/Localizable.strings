@@ -2142,9 +2142,27 @@
 
 "type.historic.castle" = "Slot";
 
+"type.historic.castle.castrum" = "Romersk fort";
+
 "type.historic.castle.defensive" = "Slot";
 
+"type.historic.castle.fortified_church" = "Befæstet kirke";
+
+"type.historic.castle.fortress" = "Fæstningsværk";
+
+"type.historic.castle.hillfort" = "Voldsted";
+
+"type.historic.castle.kremlin" = "Kreml";
+
+"type.historic.castle.manor" = "Herregård";
+
+"type.historic.castle.palace" = "Palads";
+
+"type.historic.castle.shiro" = "Japansk slot";
+
 "type.historic.castle.stately" = "Slot";
+
+"type.historic.city_gate" = "Byport";
 
 "type.historic.citywalls" = "City Wall";
 

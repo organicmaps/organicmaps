@@ -1175,8 +1175,17 @@
 	<string name="type.historic.battlefield">Schlachtfeld</string>
 	<string name="type.historic.boundary_stone">Grenzstein</string>
 	<string name="type.historic.castle">Burg</string>
+	<string name="type.historic.castle.castrum">Römisches Militärlager</string>
 	<string name="type.historic.castle.defensive">Burg</string>
+	<string name="type.historic.castle.fortified_church">Wehrkirche</string>
+	<string name="type.historic.castle.fortress">Festung</string>
+	<string name="type.historic.castle.hillfort">Wallburg</string>
+	<string name="type.historic.castle.kremlin">Kreml</string>
+	<string name="type.historic.castle.manor">Herrenhaus</string>
+	<string name="type.historic.castle.palace">Palais</string>
+	<string name="type.historic.castle.shiro">Japanische Burg</string>
 	<string name="type.historic.castle.stately">Schloss</string>
+	<string name="type.historic.city_gate">Stadttor</string>
 	<string name="type.historic.citywalls">Stadtmauer</string>
 	<string name="type.historic.fort">Festung</string>
 	<string name="type.historic.memorial">Denkmal</string>

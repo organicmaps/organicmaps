@@ -2142,9 +2142,27 @@
 
 "type.historic.castle" = "قلعة";
 
-"type.historic.castle.defensive" = "قلعة دفاعية";
+"type.historic.castle.castrum" = "كاسترا";
 
-"type.historic.castle.stately" = "قلعة";
+"type.historic.castle.defensive" = "قلعة";
+
+"type.historic.castle.fortified_church" = "الكنيسة المحصنة";
+
+"type.historic.castle.fortress" = "قلعة";
+
+"type.historic.castle.hillfort" = "حصون التلال";
+
+"type.historic.castle.kremlin" = "كرملين";
+
+"type.historic.castle.manor" = "قصر مالك العزبة";
+
+"type.historic.castle.palace" = "قصر";
+
+"type.historic.castle.shiro" = "قلعة يابانية";
+
+"type.historic.castle.stately" = "شاتو";
+
+"type.historic.city_gate" = "بوابة مدينة";
 
 "type.historic.citywalls" = "جدار المدينة";
 

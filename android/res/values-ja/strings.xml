@@ -1110,8 +1110,17 @@
 	<string name="type.historic.battlefield">古戦場</string>
 	<string name="type.historic.boundary_stone">境界標</string>
 	<string name="type.historic.castle">城</string>
+	<string name="type.historic.castle.castrum">カストラ</string>
 	<string name="type.historic.castle.defensive">城</string>
+	<string name="type.historic.castle.fortified_church">要塞化された教会</string>
+	<string name="type.historic.castle.fortress">要塞</string>
+	<string name="type.historic.castle.hillfort">ヒルフォート</string>
+	<string name="type.historic.castle.kremlin">クレムリ</string>
+	<string name="type.historic.castle.manor">マナー・ハウス</string>
+	<string name="type.historic.castle.palace">宮殿</string>
+	<string name="type.historic.castle.shiro">日本の城</string>
 	<string name="type.historic.castle.stately">城</string>
+	<string name="type.historic.city_gate">城門</string>
 	<string name="type.historic.citywalls">歴史的な城壁</string>
 	<string name="type.historic.fort">歴史的な要塞</string>
 	<string name="type.historic.memorial">記念碑</string>

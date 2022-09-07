@@ -2142,9 +2142,27 @@
 
 "type.historic.castle" = "Castle";
 
+"type.historic.castle.castrum" = "Roman fort";
+
 "type.historic.castle.defensive" = "Castle";
 
+"type.historic.castle.fortified_church" = "Fortified church";
+
+"type.historic.castle.fortress" = "Fortress";
+
+"type.historic.castle.hillfort" = "Hillfort";
+
+"type.historic.castle.kremlin" = "Kremlin";
+
+"type.historic.castle.manor" = "Manor house";
+
+"type.historic.castle.palace" = "Palace";
+
+"type.historic.castle.shiro" = "Japanese castle";
+
 "type.historic.castle.stately" = "Castle";
+
+"type.historic.city_gate" = "City gate";
 
 "type.historic.citywalls" = "City Wall";
 

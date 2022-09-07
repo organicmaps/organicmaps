@@ -1068,8 +1068,17 @@
 	<!-- SECTION: Types: Historic -->
 	<string name="type.historic.archaeological_site">Αρχαιολογικός χώρος</string>
 	<string name="type.historic.castle">Κάστρο</string>
+	<string name="type.historic.castle.castrum">Ρωμαϊκό κάστρο</string>
 	<string name="type.historic.castle.defensive">Κάστρο</string>
+	<string name="type.historic.castle.fortified_church">Οχυρωμένη εκκλησία</string>
+	<string name="type.historic.castle.fortress">Φρούριο</string>
+	<string name="type.historic.castle.hillfort">Φρούριο</string>
+	<string name="type.historic.castle.kremlin">Κρεμλίνο</string>
+	<string name="type.historic.castle.manor">Αρχοντικό</string>
+	<string name="type.historic.castle.palace">Παλάτι</string>
+	<string name="type.historic.castle.shiro">Ιαπωνικό κάστρο</string>
 	<string name="type.historic.castle.stately">Κάστρο</string>
+	<string name="type.historic.city_gate">Πύλη της πόλης</string>
 	<string name="type.historic.memorial">Μνημείο</string>
 	<string name="type.historic.memorial.plaque">Μνημείο</string>
 	<string name="type.historic.memorial.sculpture">Μνημείο</string>

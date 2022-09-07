@@ -2142,9 +2142,27 @@
 
 "type.historic.castle" = "Замок";
 
+"type.historic.castle.castrum" = "Каструм";
+
 "type.historic.castle.defensive" = "Замок";
 
-"type.historic.castle.stately" = "Замок";
+"type.historic.castle.fortified_church" = "Оборонний храм";
+
+"type.historic.castle.fortress" = "Фортеця";
+
+"type.historic.castle.hillfort" = "Городище";
+
+"type.historic.castle.kremlin" = "Кремль";
+
+"type.historic.castle.manor" = "Садиба";
+
+"type.historic.castle.palace" = "Палац";
+
+"type.historic.castle.shiro" = "Японський замок";
+
+"type.historic.castle.stately" = "Шато";
+
+"type.historic.city_gate" = "Міська брама";
 
 "type.historic.citywalls" = "Міська стіна";
 

@@ -871,6 +871,18 @@
 
 	<!-- SECTION: Types: Historic -->
 	<string name="type.historic.archaeological_site">Археалагічны помнік</string>
+	<string name="type.historic.castle">Замак</string>
+	<string name="type.historic.castle.castrum">Каструм</string>
+	<string name="type.historic.castle.defensive">Замак</string>
+	<string name="type.historic.castle.fortified_church">Абарончы храм</string>
+	<string name="type.historic.castle.fortress">Крэпасць</string>
+	<string name="type.historic.castle.hillfort">Гарадзішча</string>
+	<string name="type.historic.castle.kremlin">Крэмль</string>
+	<string name="type.historic.castle.manor">Сядзіба</string>
+	<string name="type.historic.castle.palace">Палац</string>
+	<string name="type.historic.castle.shiro">Японскі замак</string>
+	<string name="type.historic.castle.stately">Замак</string>
+	<string name="type.historic.city_gate">Гарадская брама</string>
 	<string name="type.landuse.basin">Рэзервуар</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery">Могілкі</string>

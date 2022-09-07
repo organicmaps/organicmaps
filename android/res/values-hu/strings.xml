@@ -1068,8 +1068,17 @@
 	<!-- SECTION: Types: Historic -->
 	<string name="type.historic.archaeological_site">Ásatás</string>
 	<string name="type.historic.castle">Kastély</string>
+	<string name="type.historic.castle.castrum">Castrum</string>
 	<string name="type.historic.castle.defensive">Kastély</string>
+	<string name="type.historic.castle.fortified_church">Erősített templom</string>
+	<string name="type.historic.castle.fortress">Erődrendszer</string>
+	<string name="type.historic.castle.hillfort">Földvár</string>
+	<string name="type.historic.castle.kremlin">Kreml</string>
+	<string name="type.historic.castle.manor">Udvarház</string>
+	<string name="type.historic.castle.palace">Palota</string>
+	<string name="type.historic.castle.shiro">Japán várkastélyai</string>
 	<string name="type.historic.castle.stately">Kastély</string>
+	<string name="type.historic.city_gate">Városi kapu</string>
 	<string name="type.historic.memorial">Emlékmű</string>
 	<string name="type.historic.memorial.plaque">Emlékmű</string>
 	<string name="type.historic.memorial.sculpture">Emlékmű</string>

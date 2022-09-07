@@ -2140,11 +2140,29 @@
 
 "type.historic.boundary_stone" = "Boundary Stone";
 
-"type.historic.castle" = "Zámok";
+"type.historic.castle" = "Hrad";
 
-"type.historic.castle.defensive" = "Zámok";
+"type.historic.castle.castrum" = "Kastrum";
+
+"type.historic.castle.defensive" = "Hrad";
+
+"type.historic.castle.fortified_church" = "Opevnený kostol";
+
+"type.historic.castle.fortress" = "Pevnosť";
+
+"type.historic.castle.hillfort" = "Hradisko";
+
+"type.historic.castle.kremlin" = "Kremeľ";
+
+"type.historic.castle.manor" = "Kaštieľ";
+
+"type.historic.castle.palace" = "Palác";
+
+"type.historic.castle.shiro" = "Japonský hrad";
 
 "type.historic.castle.stately" = "Zámok";
+
+"type.historic.city_gate" = "Mestská brána";
 
 "type.historic.citywalls" = "City Wall";
 

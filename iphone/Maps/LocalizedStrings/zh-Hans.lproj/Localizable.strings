@@ -2142,9 +2142,27 @@
 
 "type.historic.castle" = "城堡";
 
+"type.historic.castle.castrum" = "古罗马兵营";
+
 "type.historic.castle.defensive" = "城堡";
 
-"type.historic.castle.stately" = "宫殿";
+"type.historic.castle.fortified_church" = "坚固的教堂";
+
+"type.historic.castle.fortress" = "要塞";
+
+"type.historic.castle.hillfort" = "丘堡";
+
+"type.historic.castle.kremlin" = "克里姆林";
+
+"type.historic.castle.manor" = "庄园大屋";
+
+"type.historic.castle.palace" = "宮殿";
+
+"type.historic.castle.shiro" = "城";
+
+"type.historic.castle.stately" = "法式城堡";
+
+"type.historic.city_gate" = "城门";
 
 "type.historic.citywalls" = "历史城墙";
 

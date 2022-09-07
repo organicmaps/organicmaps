@@ -2142,9 +2142,27 @@
 
 "type.historic.castle" = "Burg";
 
+"type.historic.castle.castrum" = "Römisches Militärlager";
+
 "type.historic.castle.defensive" = "Burg";
 
+"type.historic.castle.fortified_church" = "Wehrkirche";
+
+"type.historic.castle.fortress" = "Festung";
+
+"type.historic.castle.hillfort" = "Wallburg";
+
+"type.historic.castle.kremlin" = "Kreml";
+
+"type.historic.castle.manor" = "Herrenhaus";
+
+"type.historic.castle.palace" = "Palais";
+
+"type.historic.castle.shiro" = "Japanische Burg";
+
 "type.historic.castle.stately" = "Schloss";
+
+"type.historic.city_gate" = "Stadttor";
 
 "type.historic.citywalls" = "Stadtmauer";
 

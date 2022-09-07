@@ -2142,9 +2142,27 @@
 
 "type.historic.castle" = "Kastély";
 
+"type.historic.castle.castrum" = "Castrum";
+
 "type.historic.castle.defensive" = "Kastély";
 
+"type.historic.castle.fortified_church" = "Erősített templom";
+
+"type.historic.castle.fortress" = "Erődrendszer";
+
+"type.historic.castle.hillfort" = "Földvár";
+
+"type.historic.castle.kremlin" = "Kreml";
+
+"type.historic.castle.manor" = "Udvarház";
+
+"type.historic.castle.palace" = "Palota";
+
+"type.historic.castle.shiro" = "Japán várkastélyai";
+
 "type.historic.castle.stately" = "Kastély";
+
+"type.historic.city_gate" = "Városi kapu";
 
 "type.historic.citywalls" = "City Wall";
 

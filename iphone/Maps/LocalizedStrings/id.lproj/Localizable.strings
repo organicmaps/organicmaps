@@ -2142,9 +2142,27 @@
 
 "type.historic.castle" = "Kastel";
 
+"type.historic.castle.castrum" = "Benteng Romawi";
+
 "type.historic.castle.defensive" = "Kastel";
 
+"type.historic.castle.fortified_church" = "Gereja yang dibentengi";
+
+"type.historic.castle.fortress" = "Benteng";
+
+"type.historic.castle.hillfort" = "Benteng bukit";
+
+"type.historic.castle.kremlin" = "Kremlin";
+
+"type.historic.castle.manor" = "Rumah bangsawan";
+
+"type.historic.castle.palace" = "Istana";
+
+"type.historic.castle.shiro" = "Istana Jepang";
+
 "type.historic.castle.stately" = "Kastel";
+
+"type.historic.city_gate" = "Gerbang kota";
 
 "type.historic.citywalls" = "City Wall";
 

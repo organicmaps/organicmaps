@@ -2140,11 +2140,29 @@
 
 "type.historic.boundary_stone" = "Boundary Stone";
 
-"type.historic.castle" = "Slott";
+"type.historic.castle" = "Borg";
 
-"type.historic.castle.defensive" = "Slott";
+"type.historic.castle.castrum" = "Romersk fort";
+
+"type.historic.castle.defensive" = "Borg";
+
+"type.historic.castle.fortified_church" = "Befestet kirke";
+
+"type.historic.castle.fortress" = "Festning";
+
+"type.historic.castle.hillfort" = "Bygdeborg";
+
+"type.historic.castle.kremlin" = "Kreml";
+
+"type.historic.castle.manor" = "Herregård";
+
+"type.historic.castle.palace" = "Palass";
+
+"type.historic.castle.shiro" = "Japanske borger";
 
 "type.historic.castle.stately" = "Slott";
+
+"type.historic.city_gate" = "Byport";
 
 "type.historic.citywalls" = "City Wall";
 

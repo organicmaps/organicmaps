@@ -2142,9 +2142,27 @@
 
 "type.historic.castle" = "ปราสาท";
 
+"type.historic.castle.castrum" = "ป้อมโรมัน";
+
 "type.historic.castle.defensive" = "ปราสาท";
 
+"type.historic.castle.fortified_church" = "โบสถ์เสริมความแข็งแกร่ง";
+
+"type.historic.castle.fortress" = "ป้อม";
+
+"type.historic.castle.hillfort" = "ป้อมเนิน";
+
+"type.historic.castle.kremlin" = "เครมลิน";
+
+"type.historic.castle.manor" = "คฤหาสน์";
+
+"type.historic.castle.palace" = "วัง";
+
+"type.historic.castle.shiro" = "ปราสาทญี่ปุ่น";
+
 "type.historic.castle.stately" = "ปราสาท";
+
+"type.historic.city_gate" = "ประตูเมือง";
 
 "type.historic.citywalls" = "City Wall";
 

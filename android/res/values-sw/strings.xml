@@ -342,6 +342,18 @@
 	<string name="type.highway.unclassified.tunnel">Mtaro</string>
 
 	<!-- SECTION: Types: Historic -->
+	<string name="type.historic.castle">Ngome</string>
+	<string name="type.historic.castle.castrum">Ngome ya Kirumi</string>
+	<string name="type.historic.castle.defensive">Ngome</string>
+	<string name="type.historic.castle.fortified_church">Kanisa lililoimarishwa</string>
+	<string name="type.historic.castle.fortress">Ngome</string>
+	<string name="type.historic.castle.hillfort">Hillfort</string>
+	<string name="type.historic.castle.kremlin">Kremlin</string>
+	<string name="type.historic.castle.manor">Nyumba ya manor</string>
+	<string name="type.historic.castle.palace">Ikulu</string>
+	<string name="type.historic.castle.shiro">Ngome ya Kijapani</string>
+	<string name="type.historic.castle.stately">Ngome</string>
+	<string name="type.historic.city_gate">Lango la jiji</string>
 	<string name="type.landuse.basin">Bonde la Maji</string>
 	<string name="type.landuse.churchyard">Sehemu ya kanisa</string>
 	<string name="type.landuse.farmland">Shamba</string>

@@ -2142,9 +2142,27 @@
 
 "type.historic.castle" = "Linna";
 
+"type.historic.castle.castrum" = "Castra";
+
 "type.historic.castle.defensive" = "Linna";
 
+"type.historic.castle.fortified_church" = "Linnoitettu kirkko";
+
+"type.historic.castle.fortress" = "Linnoitus";
+
+"type.historic.castle.hillfort" = "Linnavuori";
+
+"type.historic.castle.kremlin" = "Kreml";
+
+"type.historic.castle.manor" = "Kartano";
+
+"type.historic.castle.palace" = "Palatsi";
+
+"type.historic.castle.shiro" = "Japanilainen linna";
+
 "type.historic.castle.stately" = "Linna";
+
+"type.historic.city_gate" = "Kaupungin portti";
 
 "type.historic.citywalls" = "City Wall";
 
