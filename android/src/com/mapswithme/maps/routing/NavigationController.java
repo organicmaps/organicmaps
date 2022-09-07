@@ -12,6 +12,7 @@ import android.os.IBinder;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -86,12 +87,25 @@ public class NavigationController implements Application.ActivityLifecycleCallba
     mOnSettingsClickListener = onSettingsClickListener;
     mMapButtonsController = mapButtonsController;
 
+    // Show a blank view below the navbar to hide the menu content
+    mFrame.findViewById(R.id.nav_bottom_sheet_nav_bar).setOnApplyWindowInsetsListener((view, windowInsets) -> {
+      view.getLayoutParams().height = windowInsets.getSystemWindowInsetBottom();
+      view.getLayoutParams().width = mFrame.findViewById(R.id.nav_bottom_sheet).getWidth();
+      return windowInsets;
+    });
+
     // Top frame
     View topFrame = mFrame.findViewById(R.id.nav_top_frame);
     View turnFrame = topFrame.findViewById(R.id.nav_next_turn_frame);
     mNextTurnImage = turnFrame.findViewById(R.id.turn);
     mNextTurnDistance = turnFrame.findViewById(R.id.distance);
     mCircleExit = turnFrame.findViewById(R.id.circle_exit);
+
+    topFrame.findViewById(R.id.nav_next_turn_container).setOnApplyWindowInsetsListener((view, windowInsets) -> {
+      view.setPadding(windowInsets.getSystemWindowInsetLeft(), view.getPaddingTop(),
+                      view.getPaddingRight(), view.getPaddingBottom());
+      return windowInsets;
+    });
 
     mNextNextTurnFrame = topFrame.findViewById(R.id.nav_next_next_turn_frame);
     mNextNextTurnImage = mNextNextTurnFrame.findViewById(R.id.turn);

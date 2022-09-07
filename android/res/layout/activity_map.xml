@@ -9,26 +9,33 @@
 <RelativeLayout
   android:layout_width="match_parent"
   android:layout_height="match_parent">
+
   <FrameLayout
     android:id="@+id/map_fragment_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"/>
 
-  <include
-    android:id="@+id/onmap_downloader"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_centerInParent="true"
-    layout="@layout/onmap_downloader"/>
 
-  <include
-    android:id="@+id/position_chooser"
-    layout="@layout/position_chooser"/>
-
-  <androidx.fragment.app.FragmentContainerView
-    android:id="@+id/map_buttons"
+  <RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    android:layout_height="match_parent"
+    android:id="@+id/map_ui_container">
+    <include
+      android:id="@+id/onmap_downloader"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_centerInParent="true"
+      layout="@layout/onmap_downloader"/>
+
+    <include
+      android:id="@+id/position_chooser"
+      layout="@layout/position_chooser"/>
+
+    <androidx.fragment.app.FragmentContainerView
+      android:id="@+id/map_buttons"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent" />
+  </RelativeLayout>
 
   <include
     android:id="@+id/toolbar"
@@ -39,14 +46,6 @@
     android:visibility="gone"
     tools:visibility="visible" />
 
-   <include
-    layout="@layout/layout_nav"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_below="@id/toolbar"
-    android:paddingBottom="@dimen/margin_base"
-    android:visibility="invisible"/>
-
   <include
     layout="@layout/routing_plan"
     android:visibility="invisible"/>
@@ -56,6 +55,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"/>
+
+  <include
+    layout="@layout/layout_nav"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@id/toolbar"
+    android:paddingBottom="@dimen/margin_base"
+    android:visibility="invisible"/>
 
 </RelativeLayout>
   <com.mapswithme.maps.widget.placepage.PlacePageView
@@ -70,13 +77,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="bottom"
+    android:background="?ppButtonsBackground"
     android:visibility="invisible">
     <LinearLayout
       android:id="@+id/container"
       android:layout_width="match_parent"
       android:layout_height="@dimen/place_page_buttons_height"
-      android:orientation="horizontal"
-      android:background="?ppButtonsBackground"/>
+      android:orientation="horizontal"/>
     <include layout="@layout/divider_horizontal"/>
   </FrameLayout>
   <include layout="@layout/elevation_profile_bottom_sheet" />

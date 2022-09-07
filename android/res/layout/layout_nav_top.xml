@@ -32,66 +32,72 @@
     android:layout_height="wrap_content"
     android:layout_below="@id/street_frame"/>
 
-  <LinearLayout
-    android:id="@+id/nav_next_turn_frame"
-    android:layout_width="@dimen/nav_next_turn_frame"
+  <RelativeLayout
+    android:id="@+id/nav_next_turn_container"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/margin_half"
-    android:orientation="vertical"
-    android:background="?navNextTurnFrame"
     android:elevation="@dimen/nav_elevation">
-    <FrameLayout
-      android:layout_width="wrap_content"
+    <LinearLayout
+      android:id="@+id/nav_next_turn_frame"
+      android:layout_width="@dimen/nav_next_turn_frame"
       android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/nav_next_turn_top"
-      android:layout_marginBottom="@dimen/nav_next_turn_space"
-      android:layout_gravity="center_horizontal">
-      <com.mapswithme.maps.widget.ArrowView
-        android:id="@+id/turn"
-        android:theme="?navigationTheme"
-        android:layout_width="@dimen/nav_next_turn_sign"
-        android:layout_height="@dimen/nav_next_turn_sign"
-        android:tint="?iconTint"
-        tools:background="#400000FF"/>
+      android:layout_margin="@dimen/margin_half"
+      android:orientation="vertical"
+      android:background="?navNextTurnFrame"
+      android:elevation="@dimen/nav_elevation">
+      <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/nav_next_turn_top"
+        android:layout_marginBottom="@dimen/nav_next_turn_space"
+        android:layout_gravity="center_horizontal">
+        <com.mapswithme.maps.widget.ArrowView
+          android:id="@+id/turn"
+          android:theme="?navigationTheme"
+          android:layout_width="@dimen/nav_next_turn_sign"
+          android:layout_height="@dimen/nav_next_turn_sign"
+          android:tint="?iconTint"
+          tools:background="#400000FF"/>
+
+        <TextView
+          android:id="@+id/circle_exit"
+          style="@style/MwmWidget.TextView.NavNextTurn.Exit"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          tools:text="9"/>
+      </FrameLayout>
 
       <TextView
-        android:id="@+id/circle_exit"
-        style="@style/MwmWidget.TextView.NavNextTurn.Exit"
+        android:id="@+id/distance"
+        style="@style/MwmWidget.TextView.NavNextTurn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/nav_next_turn_bottom"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        tools:text="9999 ft"/>
+    </LinearLayout>
+
+    <FrameLayout
+      android:id="@+id/nav_next_next_turn_frame"
+      android:layout_width="wrap_content"
+      android:layout_height="@dimen/nav_next_next_turn_frame"
+      android:layout_marginBottom="@dimen/margin_base"
+      android:layout_below="@id/nav_next_turn_frame"
+      android:layout_alignStart="@id/nav_next_turn_frame"
+      android:layout_alignEnd="@id/nav_next_turn_frame"
+      android:background="?navNextNextTurnFrame"
+      android:elevation="@dimen/nav_elevation"
+      android:visibility="gone"
+      tools:visibility="visible">
+      <ImageView
+        android:id="@id/turn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        tools:text="9"/>
+        android:tint="?iconTint"
+        tools:src="@drawable/ic_then_left_sharp"/>
     </FrameLayout>
-
-    <TextView
-      android:id="@+id/distance"
-      style="@style/MwmWidget.TextView.NavNextTurn"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginBottom="@dimen/nav_next_turn_bottom"
-      android:layout_gravity="center_horizontal"
-      android:gravity="center_horizontal"
-      tools:text="9999 ft"/>
-  </LinearLayout>
-
-  <FrameLayout
-    android:id="@+id/nav_next_next_turn_frame"
-    android:layout_width="wrap_content"
-    android:layout_height="@dimen/nav_next_next_turn_frame"
-    android:layout_marginBottom="@dimen/margin_base"
-    android:layout_below="@id/nav_next_turn_frame"
-    android:layout_alignStart="@id/nav_next_turn_frame"
-    android:layout_alignEnd="@id/nav_next_turn_frame"
-    android:background="?navNextNextTurnFrame"
-    android:elevation="@dimen/nav_elevation"
-    android:visibility="gone"
-    tools:visibility="visible">
-    <ImageView
-      android:id="@id/turn"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center"
-      android:tint="?iconTint"
-      tools:src="@drawable/ic_then_left_sharp"/>
-  </FrameLayout>
+  </RelativeLayout>
 </RelativeLayout>
