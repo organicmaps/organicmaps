@@ -33,15 +33,16 @@ public:
   CategoriesInfo(feature::TypesHolder const & holder, TokenSlice const & tokens,
                  Locales const & locales, CategoriesHolder const & categories);
 
-  // Returns true when all tokens correspond to categories in
-  // |holder|.
+  size_t GetMatchedLength() const { return m_matchedLength; }
+
+  /// @return true when all tokens correspond to categories in |holder|.
   bool IsPureCategories() const { return m_pureCategories; }
 
-  // Returns true when all tokens are categories tokens but none of
-  // them correspond to categories in |holder|.
+  /// @return true when all tokens are categories tokens but none of them correspond to categories in |holder|.
   bool IsFalseCategories() const { return m_falseCategories; }
 
 private:
+  size_t m_matchedLength = 0;
   bool m_pureCategories = false;
   bool m_falseCategories = false;
 };

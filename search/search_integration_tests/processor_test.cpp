@@ -363,7 +363,7 @@ UNIT_CLASS_TEST(ProcessorTest, DisableSuggests)
   }
 }
 
-UNIT_CLASS_TEST(ProcessorTest, TestRankingInfo)
+UNIT_CLASS_TEST(ProcessorTest, TestRankingInfo_Smoke)
 {
   TestCity sanFrancisco({1, 1}, "San Francisco", "en", 100 /* rank */);
   // Golden Gate Bridge-bridge is located in this test on the Golden
@@ -453,6 +453,51 @@ UNIT_CLASS_TEST(ProcessorTest, TestRankingInfo)
   }
 }
 
+UNIT_CLASS_TEST(ProcessorTest, TestRankingInfo_PureCategory)
+{
+  TestPOI cafe1({0.01, 0.01}, "Gelato", "en");
+  cafe1.SetTypes({{"amenity", "ice_cream"}});
+  TestPOI cafe2({0.02, 0.02}, "xxx", "en");
+  cafe2.SetTypes({{"amenity", "ice_cream"}});
+  TestPOI cafe3({0.03, 0.03}, "yyy", "en");
+  cafe3.SetTypes({{"amenity", "cafe"}, {"cuisine", "ice_cream"}});
+  TestPOI cafe4({0.04, 0.04}, "Ice Cream", "en");
+  cafe4.SetTypes({{"amenity", "ice_cream"}});
+
+  auto wonderlandId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
+    builder.Add(cafe1);
+    builder.Add(cafe2);
+    builder.Add(cafe3);
+    builder.Add(cafe4);
+  });
+
+  /// @todo We don't match cuisines if input query is category.
+  /// Good news that "ice cream (gelato)" is the only category like this now.
+  /// https://github.com/organicmaps/organicmaps/issues/2961
+  Rules const rules{ExactMatch(wonderlandId, cafe1),
+                    ExactMatch(wonderlandId, cafe2),
+                    ExactMatch(wonderlandId, cafe4)};
+
+  // Pure category results should be ordered by distance, not matter about name.
+  double constexpr rad = 1;
+  SetViewport({0 - rad, 0 - rad, 0 + rad, 0 + rad});  // center at {0, 0}
+  {
+    auto const request = MakeRequest("ice cream");
+    auto const & results = request->Results();
+    TEST(ResultsMatch(results, rules), ());
+    TEST(ResultsMatch({results.front()}, {ExactMatch(wonderlandId, cafe1)}), ());
+  }
+
+  SetViewport({0.05 - rad, 0.05 - rad, 0.05 + rad, 0.05 + rad});  // center at {0.05, 0.05}
+  {
+    auto const request = MakeRequest("gelato");
+    auto const & results = request->Results();
+    TEST(ResultsMatch(results, rules), ());
+    TEST(ResultsMatch({results.front()}, {ExactMatch(wonderlandId, cafe4)}), ());
+  }
+}
+
 UNIT_CLASS_TEST(ProcessorTest, TestRankingInfo_ErrorsMade)
 {
   TestCity chekhov({0, 0}, "Чеховъ Антонъ Павловичъ", "ru", 100 /* rank */);
@@ -495,7 +540,7 @@ UNIT_CLASS_TEST(ProcessorTest, TestRankingInfo_ErrorsMade)
   checkErrors("кафе лермнтовъ", ErrorsMade(1));
   // Full match.
   checkErrors("трактир лермонтов", ErrorsMade(1));
-  checkErrors("кафе", ErrorsMade());
+  checkErrors("кафе", ErrorsMade(0));
 
   checkErrors("Cafe Yesenina", ErrorsMade(0));
   checkErrors("Cafe Jesenina", ErrorsMade(1));
@@ -3023,6 +3068,7 @@ UNIT_CLASS_TEST(ProcessorTest, TestRankingInfo_MultipleOldNames)
 }
 
 /// @todo We are not ready for this test yet.
+/// https://github.com/organicmaps/organicmaps/issues/2961
 /*
 UNIT_CLASS_TEST(ProcessorTest, BurgerStreet)
 {

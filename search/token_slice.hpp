@@ -62,14 +62,14 @@ private:
 class QuerySlice : public StringSliceBase
 {
 public:
-  QuerySlice(TokenSlice const & slice) : m_slice(slice) {}
+  explicit QuerySlice(TokenSlice const & slice) : m_slice(slice) {}
 
   // QuerySlice overrides:
   QueryParams::String const & Get(size_t i) const override { return m_slice.Get(i).GetOriginal(); }
   size_t Size() const override { return m_slice.Size(); }
 
 private:
-  TokenSlice const m_slice;
+  TokenSlice const & m_slice;
 };
 
 template <typename Cont>

@@ -506,10 +506,16 @@ private:
     info.m_categorialRequest = m_params.IsCategorialRequest();
     info.m_tokenRanges = preInfo.m_tokenRanges;
 
-    // We do not compare result name and request for categorial requests but we prefer named
-    // features.
+    size_t totalLength = 0;
+    for (size_t i = 0; i < m_params.GetNumTokens(); ++i)
+      totalLength += m_params.GetToken(i).GetOriginal().size();
+    // Avoid division by zero.
+    if (totalLength == 0)
+      totalLength = 1;
+
     if (m_params.IsCategorialRequest())
     {
+      // We do not compare result name and request for categorial requests but we prefer named features.
       info.m_hasName = ft.HasName();
       if (!info.m_hasName)
       {
@@ -585,14 +591,10 @@ private:
         }
       }
 
-      size_t totalLength = 0;
-      for (size_t i = 0; i < m_params.GetNumTokens(); ++i)
-        totalLength += m_params.GetToken(i).GetOriginal().size();
-
       info.m_nameScore = nameScore;
       info.m_errorsMade = errorsMade;
       info.m_isAltOrOldName = isAltOrOldName;
-      info.m_matchedFraction = (totalLength == 0) ? 1 : matchedLength / static_cast<float>(totalLength);
+      info.m_matchedFraction = matchedLength / static_cast<float>(totalLength);
 
       info.m_exactCountryOrCapital = info.m_errorsMade == ErrorsMade(0) && info.m_allTokensUsed &&
                                      info.m_nameScore == NameScore::FULL_MATCH &&
@@ -606,6 +608,19 @@ private:
                                         m_ranker.m_params.m_categoryLocales, m_ranker.m_categories);
 
     info.m_pureCats = categoriesInfo.IsPureCategories();
+    if (info.m_pureCats)
+    {
+      // Compare with previous values, in case if was assigned by street or locality.
+
+      info.m_nameScore = NameScore::SUBSTRING;
+      if (m_params.GetNumTokens() == preInfo.InnermostTokenRange().Size())
+        info.m_nameScore = NameScore::FULL_PREFIX;
+
+      info.m_matchedFraction = std::max(info.m_matchedFraction,
+                                        categoriesInfo.GetMatchedLength() / static_cast<float>(totalLength));
+      if (!info.m_errorsMade.IsValid())
+        info.m_errorsMade = ErrorsMade(0);
+    }
     info.m_falseCats = categoriesInfo.IsFalseCategories();
   }
 

@@ -49,6 +49,18 @@ TypesHolder::TypesHolder(FeatureType & f) : m_size(0), m_geomType(f.GetGeomType(
   });
 }
 
+bool TypesHolder::HasWithSubclass(uint32_t type) const
+{
+  uint8_t const level = ftype::GetLevel(type);
+  for (uint32_t t : *this)
+  {
+    ftype::TruncValue(t, level);
+    if (t == type)
+      return true;
+  }
+  return false;
+}
+
 void TypesHolder::Remove(uint32_t type)
 {
   UNUSED_VALUE(RemoveIf(base::EqualFunctor<uint32_t>(type)));

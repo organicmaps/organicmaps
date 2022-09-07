@@ -315,6 +315,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, Barcelona_Carrers)
 // "Karlstraße" is a common street name in Germany.
 UNIT_CLASS_TEST(MwmTestsFixture, Germany_Karlstraße_3)
 {
+  // Load all Germany.
   RegisterLocalMapsByPrefix("Germany");
   // Ulm
   SetViewport({48.40420, 9.98604}, 3000);
@@ -325,5 +326,32 @@ UNIT_CLASS_TEST(MwmTestsFixture, Germany_Karlstraße_3)
 
   // First expected result in Ulm: https://www.openstreetmap.org/node/2293529605#map=19/48.40419/9.98615
   TEST_LESS(GetDistanceM(results[0], {48.4042014, 9.9860426}), 500, ());
+}
+
+// https://github.com/organicmaps/organicmaps/issues/3318
+// https://github.com/organicmaps/organicmaps/issues/3317
+UNIT_CLASS_TEST(MwmTestsFixture, IceCream)
+{
+  // Load all USA.
+  RegisterLocalMapsByPrefix("US_");
+  // Hilo, Hawaii
+  ms::LatLon const center{19.7073734, -155.0815800};
+  SetViewport(center, 3000);
+
+  auto request = MakeRequest("Gelato");
+  auto const & results = request->Results();
+  size_t constexpr kResultsCount = 10;
+  TEST_GREATER(results.size(), kResultsCount, ());
+
+  Range const range(results, 0, kResultsCount);
+  EqualClassifType(range, GetClassifTypes({{"amenity", "ice_cream"}, {"cuisine", "ice_cream"}}));
+  TEST_LESS(SortedByDistance(range, center), 2000.0, ());
+
+  auto request2 = MakeRequest("Ice cream");
+  auto const & results2 = request2->Results();
+  TEST_GREATER(results2.size(), kResultsCount, ());
+
+  for (size_t i = 0; i < kResultsCount; ++i)
+    TEST(results[i].GetFeatureID() == results2[i].GetFeatureID(), (results[i], results2[i]));
 }
 } // namespace real_mwm_tests

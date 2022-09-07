@@ -11,7 +11,14 @@
 
 namespace search
 {
-size_t GetMaxErrorsForTokenLength(size_t length);
+inline constexpr size_t GetMaxErrorsForTokenLength(size_t length)
+{
+  if (length < 4)
+    return 0;
+  if (length < 8)
+    return 1;
+  return 2;
+}
 size_t GetMaxErrorsForToken(strings::UniString const & token);
 
 strings::LevenshteinDFA BuildLevenshteinDFA(strings::UniString const & s);
