@@ -379,7 +379,7 @@ public:
     if (!ft)
       return {};
 
-    RankerResult res(*ft, center, m_ranker.m_params.m_pivot, std::move(name), country);
+    RankerResult res(*ft, center, std::move(name), country);
 
     RankingInfo info;
     InitRankingInfo(*ft, center, preResult, info);
@@ -490,7 +490,7 @@ private:
   void InitRankingInfo(FeatureType & ft, m2::PointD const & center, PreRankerResult const & res, RankingInfo & info)
   {
     auto const & preInfo = res.GetInfo();
-    auto const & pivot = m_ranker.m_params.m_accuratePivotCenter;
+    auto const & pivot = m_ranker.m_params.m_pivot;
 
     feature::TypesHolder featureTypes(ft);
 
