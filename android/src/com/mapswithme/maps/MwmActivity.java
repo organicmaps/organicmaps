@@ -195,6 +195,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private String mDonatesUrl;
 
+  private int navBarHeight;
+
   public interface LeftAnimationTrackListener
   {
     void onTrackStarted(boolean collapsed);
@@ -434,7 +436,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                          .setOnApplyWindowInsetsListener(this::setViewInsetsSides);
 
     findViewById(R.id.map_fragment_container).setOnApplyWindowInsetsListener((view, windowInsets) -> {
+      navBarHeight = windowInsets.getSystemWindowInsetBottom();
       adjustCompass(-1, windowInsets.getSystemWindowInsetRight());
+      adjustBottomWidgets(windowInsets.getSystemWindowInsetLeft());
       return windowInsets;
     });
   }
@@ -1296,19 +1300,24 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   public void adjustBottomWidgets()
   {
+    adjustBottomWidgets(-1);
+  }
+
+  public void adjustBottomWidgets(int offsetX)
+  {
     if (mMapFragment == null || !mMapFragment.isAdded())
       return;
 
     int mapButtonsHeight = 0;
     int mainMenuHeight = 0;
     if (mMapButtonsController != null)
-      mapButtonsHeight = (int) mMapButtonsController.getBottomButtonsHeight();
+      mapButtonsHeight = (int) mMapButtonsController.getBottomButtonsHeight() + navBarHeight;
     if (mMainMenu != null)
       mainMenuHeight = mMainMenu.getMenuHeight();
 
-    int offsetY = Math.max(mapButtonsHeight, mainMenuHeight);
+    int y = Math.max(Math.max(mapButtonsHeight, mainMenuHeight), navBarHeight);
 
-    mMapFragment.setupBottomWidgetsOffset(offsetY);
+    mMapFragment.setupBottomWidgetsOffset(y, offsetX);
   }
 
   @Override
