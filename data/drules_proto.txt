@@ -29999,7 +29999,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "remains-m"
+      name: "archaeological-site-m"
       priority: 16660
     }
     caption {
@@ -30015,7 +30015,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "remains-m"
+      name: "archaeological-site-m"
       priority: 16660
     }
     caption {
@@ -30031,7 +30031,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "remains-m"
+      name: "archaeological-site-m"
       priority: 16660
     }
     caption {
