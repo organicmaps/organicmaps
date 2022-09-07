@@ -2142,9 +2142,27 @@
 
 "type.historic.castle" = "Κάστρο";
 
+"type.historic.castle.castrum" = "Ρωμαϊκό κάστρο";
+
 "type.historic.castle.defensive" = "Κάστρο";
 
+"type.historic.castle.fortified_church" = "Οχυρωμένη εκκλησία";
+
+"type.historic.castle.fortress" = "Φρούριο";
+
+"type.historic.castle.hillfort" = "Φρούριο";
+
+"type.historic.castle.kremlin" = "Κρεμλίνο";
+
+"type.historic.castle.manor" = "Αρχοντικό";
+
+"type.historic.castle.palace" = "Παλάτι";
+
+"type.historic.castle.shiro" = "Ιαπωνικό κάστρο";
+
 "type.historic.castle.stately" = "Κάστρο";
+
+"type.historic.city_gate" = "Πύλη της πόλης";
 
 "type.historic.citywalls" = "City Wall";
 

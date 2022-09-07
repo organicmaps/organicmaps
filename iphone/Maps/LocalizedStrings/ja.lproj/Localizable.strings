@@ -2142,9 +2142,27 @@
 
 "type.historic.castle" = "城";
 
+"type.historic.castle.castrum" = "カストラ";
+
 "type.historic.castle.defensive" = "城";
 
+"type.historic.castle.fortified_church" = "要塞化された教会";
+
+"type.historic.castle.fortress" = "要塞";
+
+"type.historic.castle.hillfort" = "ヒルフォート";
+
+"type.historic.castle.kremlin" = "クレムリ";
+
+"type.historic.castle.manor" = "マナー・ハウス";
+
+"type.historic.castle.palace" = "宮殿";
+
+"type.historic.castle.shiro" = "日本の城";
+
 "type.historic.castle.stately" = "城";
+
+"type.historic.city_gate" = "城門";
 
 "type.historic.citywalls" = "歴史的な城壁";
 

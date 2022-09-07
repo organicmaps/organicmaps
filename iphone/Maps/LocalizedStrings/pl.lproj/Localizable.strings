@@ -2142,9 +2142,27 @@
 
 "type.historic.castle" = "Zamek";
 
-"type.historic.castle.defensive" = "Zamek obronny";
+"type.historic.castle.castrum" = "Castrum Romanum";
+
+"type.historic.castle.defensive" = "Zamek";
+
+"type.historic.castle.fortified_church" = "Kościół obronny";
+
+"type.historic.castle.fortress" = "Twierdza";
+
+"type.historic.castle.hillfort" = "Grodzisko";
+
+"type.historic.castle.kremlin" = "Kreml";
+
+"type.historic.castle.manor" = "Manoir";
+
+"type.historic.castle.palace" = "Pałac";
+
+"type.historic.castle.shiro" = "Japoński zamek";
 
 "type.historic.castle.stately" = "Zamek";
+
+"type.historic.city_gate" = "Brama miejska";
 
 "type.historic.citywalls" = "Historyczne mury miasta";
 

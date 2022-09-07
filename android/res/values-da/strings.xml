@@ -1063,8 +1063,17 @@
 	<!-- SECTION: Types: Historic -->
 	<string name="type.historic.archaeological_site">Arkæologisk sted</string>
 	<string name="type.historic.castle">Slot</string>
+	<string name="type.historic.castle.castrum">Romersk fort</string>
 	<string name="type.historic.castle.defensive">Slot</string>
+	<string name="type.historic.castle.fortified_church">Befæstet kirke</string>
+	<string name="type.historic.castle.fortress">Fæstningsværk</string>
+	<string name="type.historic.castle.hillfort">Voldsted</string>
+	<string name="type.historic.castle.kremlin">Kreml</string>
+	<string name="type.historic.castle.manor">Herregård</string>
+	<string name="type.historic.castle.palace">Palads</string>
+	<string name="type.historic.castle.shiro">Japansk slot</string>
 	<string name="type.historic.castle.stately">Slot</string>
+	<string name="type.historic.city_gate">Byport</string>
 	<string name="type.historic.memorial">Mindesmærke</string>
 	<string name="type.historic.memorial.plaque">Mindesmærke</string>
 	<string name="type.historic.memorial.sculpture">Mindesmærke</string>

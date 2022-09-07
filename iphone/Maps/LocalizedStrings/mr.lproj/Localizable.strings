@@ -2140,11 +2140,29 @@
 
 "type.historic.boundary_stone" = "Boundary Stone";
 
-"type.historic.castle" = "Castle";
+"type.historic.castle" = "गढी";
 
-"type.historic.castle.defensive" = "Castle";
+"type.historic.castle.castrum" = "रोमन किल्ला";
 
-"type.historic.castle.stately" = "Castle";
+"type.historic.castle.defensive" = "गढी";
+
+"type.historic.castle.fortified_church" = "तटबंदी असलेले चर्च";
+
+"type.historic.castle.fortress" = "किल्ला";
+
+"type.historic.castle.hillfort" = "हिलफोर्ट";
+
+"type.historic.castle.kremlin" = "क्रेमलिन";
+
+"type.historic.castle.manor" = "मनोर घर";
+
+"type.historic.castle.palace" = "राजवाडा";
+
+"type.historic.castle.shiro" = "जपानी किल्ला";
+
+"type.historic.castle.stately" = "किल्ला";
+
+"type.historic.city_gate" = "शहराचा दरवाजा";
 
 "type.historic.citywalls" = "शहराची भिंत";
 

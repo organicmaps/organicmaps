@@ -750,6 +750,18 @@
 
 	<!-- SECTION: Types: Historic -->
 	<string name="type.historic.archaeological_site">Археологически сайт</string>
+	<string name="type.historic.castle">Замък</string>
+	<string name="type.historic.castle.castrum">Каструм</string>
+	<string name="type.historic.castle.defensive">Замък</string>
+	<string name="type.historic.castle.fortified_church">Укрепена църква</string>
+	<string name="type.historic.castle.fortress">Крепост</string>
+	<string name="type.historic.castle.hillfort">Градище</string>
+	<string name="type.historic.castle.kremlin">Кремъл</string>
+	<string name="type.historic.castle.manor">Усадба</string>
+	<string name="type.historic.castle.palace">Дворец</string>
+	<string name="type.historic.castle.shiro">Японски замък</string>
+	<string name="type.historic.castle.stately">Замък</string>
+	<string name="type.historic.city_gate">Градска порта</string>
 	<string name="type.landuse.basin">Резервоар</string>
 	<string name="type.leisure.picnic_table">Маса за пикник</string>
 	<string name="type.sport.climbing">Катерене</string>

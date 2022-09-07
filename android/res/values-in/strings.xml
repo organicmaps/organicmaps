@@ -1061,8 +1061,17 @@
 	<!-- SECTION: Types: Historic -->
 	<string name="type.historic.archaeological_site">Situs arkeologi</string>
 	<string name="type.historic.castle">Kastel</string>
+	<string name="type.historic.castle.castrum">Benteng Romawi</string>
 	<string name="type.historic.castle.defensive">Kastel</string>
+	<string name="type.historic.castle.fortified_church">Gereja yang dibentengi</string>
+	<string name="type.historic.castle.fortress">Benteng</string>
+	<string name="type.historic.castle.hillfort">Benteng bukit</string>
+	<string name="type.historic.castle.kremlin">Kremlin</string>
+	<string name="type.historic.castle.manor">Rumah bangsawan</string>
+	<string name="type.historic.castle.palace">Istana</string>
+	<string name="type.historic.castle.shiro">Istana Jepang</string>
 	<string name="type.historic.castle.stately">Kastel</string>
+	<string name="type.historic.city_gate">Gerbang kota</string>
 	<string name="type.historic.memorial">Tugu peringatan</string>
 	<string name="type.historic.memorial.plaque">Tugu peringatan</string>
 	<string name="type.historic.memorial.sculpture">Tugu peringatan</string>

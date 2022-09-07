@@ -1065,9 +1065,18 @@
 
 	<!-- SECTION: Types: Historic -->
 	<string name="type.historic.archaeological_site">Vykopávky</string>
-	<string name="type.historic.castle">Zámok</string>
-	<string name="type.historic.castle.defensive">Zámok</string>
+	<string name="type.historic.castle">Hrad</string>
+	<string name="type.historic.castle.castrum">Kastrum</string>
+	<string name="type.historic.castle.defensive">Hrad</string>
+	<string name="type.historic.castle.fortified_church">Opevnený kostol</string>
+	<string name="type.historic.castle.fortress">Pevnosť</string>
+	<string name="type.historic.castle.hillfort">Hradisko</string>
+	<string name="type.historic.castle.kremlin">Kremeľ</string>
+	<string name="type.historic.castle.manor">Kaštieľ</string>
+	<string name="type.historic.castle.palace">Palác</string>
+	<string name="type.historic.castle.shiro">Japonský hrad</string>
 	<string name="type.historic.castle.stately">Zámok</string>
+	<string name="type.historic.city_gate">Mestská brána</string>
 	<string name="type.historic.memorial">Pomník</string>
 	<string name="type.historic.memorial.plaque">Pomník</string>
 	<string name="type.historic.memorial.sculpture">Pomník</string>

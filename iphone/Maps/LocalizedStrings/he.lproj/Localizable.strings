@@ -2140,11 +2140,29 @@
 
 "type.historic.boundary_stone" = "Boundary Stone";
 
-"type.historic.castle" = "Castle";
+"type.historic.castle" = "טירה";
 
-"type.historic.castle.defensive" = "Castle";
+"type.historic.castle.castrum" = "קסטרום";
 
-"type.historic.castle.stately" = "Castle";
+"type.historic.castle.defensive" = "טירה";
+
+"type.historic.castle.fortified_church" = "כנסייה מבוצרת";
+
+"type.historic.castle.fortress" = "מִבצָר";
+
+"type.historic.castle.hillfort" = "מבצר גבעה";
+
+"type.historic.castle.kremlin" = "קרמלין";
+
+"type.historic.castle.manor" = "אחוזה";
+
+"type.historic.castle.palace" = "ארמון";
+
+"type.historic.castle.shiro" = "טירה יפנית";
+
+"type.historic.castle.stately" = "שאטו";
+
+"type.historic.city_gate" = "שער העיר";
 
 "type.historic.citywalls" = "City Wall";
 

@@ -2140,11 +2140,29 @@
 
 "type.historic.boundary_stone" = "Grenssteen";
 
-"type.historic.castle" = "Kasteel";
+"type.historic.castle" = "Burcht";
 
-"type.historic.castle.defensive" = "Kasteel";
+"type.historic.castle.castrum" = "Castra";
+
+"type.historic.castle.defensive" = "Burcht";
+
+"type.historic.castle.fortified_church" = "Weerkerk";
+
+"type.historic.castle.fortress" = "Vesting";
+
+"type.historic.castle.hillfort" = "Heuvelfort";
+
+"type.historic.castle.kremlin" = "Kremlin";
+
+"type.historic.castle.manor" = "Manoir";
+
+"type.historic.castle.palace" = "Paleis";
+
+"type.historic.castle.shiro" = "Japans kasteel";
 
 "type.historic.castle.stately" = "Kasteel";
+
+"type.historic.city_gate" = "Stadspoort";
 
 "type.historic.citywalls" = "Stadsmuur";
 

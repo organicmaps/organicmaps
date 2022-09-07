@@ -2140,11 +2140,29 @@
 
 "type.historic.boundary_stone" = "Borne frontière";
 
-"type.historic.castle" = "Château";
+"type.historic.castle" = "Château fort";
 
-"type.historic.castle.defensive" = "Château";
+"type.historic.castle.castrum" = "Camp romain";
+
+"type.historic.castle.defensive" = "Château fort";
+
+"type.historic.castle.fortified_church" = "Église fortifiée";
+
+"type.historic.castle.fortress" = "Forteresse";
+
+"type.historic.castle.hillfort" = "Colline fortifiée";
+
+"type.historic.castle.kremlin" = "Kremlin";
+
+"type.historic.castle.manor" = "Manoir";
+
+"type.historic.castle.palace" = "Palais";
+
+"type.historic.castle.shiro" = "Château japonais";
 
 "type.historic.castle.stately" = "Château";
+
+"type.historic.city_gate" = "Porte de ville";
 
 "type.historic.citywalls" = "Muraille";
 

@@ -2140,11 +2140,29 @@
 
 "type.historic.boundary_stone" = "Sınır Taşı";
 
-"type.historic.castle" = "Kale";
+"type.historic.castle" = "Müstahkem şato";
 
-"type.historic.castle.defensive" = "Kale";
+"type.historic.castle.castrum" = "Castra";
 
-"type.historic.castle.stately" = "Kale";
+"type.historic.castle.defensive" = "Müstahkem şato";
+
+"type.historic.castle.fortified_church" = "Müstahkem kilise";
+
+"type.historic.castle.fortress" = "Kale";
+
+"type.historic.castle.hillfort" = "Tepe Kalesi";
+
+"type.historic.castle.kremlin" = "Kremlin";
+
+"type.historic.castle.manor" = "Malikane";
+
+"type.historic.castle.palace" = "Saray";
+
+"type.historic.castle.shiro" = "Japon kalesi";
+
+"type.historic.castle.stately" = "Şato";
+
+"type.historic.city_gate" = "Şehir kapısı";
 
 "type.historic.citywalls" = "Şehir Duvarı";
 

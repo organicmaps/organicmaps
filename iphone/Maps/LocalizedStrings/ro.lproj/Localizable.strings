@@ -2142,9 +2142,27 @@
 
 "type.historic.castle" = "Castel";
 
+"type.historic.castle.castrum" = "Castru";
+
 "type.historic.castle.defensive" = "Castel";
 
+"type.historic.castle.fortified_church" = "Biserică fortificată";
+
+"type.historic.castle.fortress" = "Cetate";
+
+"type.historic.castle.hillfort" = "Castrul de deal";
+
+"type.historic.castle.kremlin" = "Kremlin";
+
+"type.historic.castle.manor" = "Conac";
+
+"type.historic.castle.palace" = "Palat";
+
+"type.historic.castle.shiro" = "Castelul japonez";
+
 "type.historic.castle.stately" = "Castel";
+
+"type.historic.city_gate" = "Poarta orașului";
 
 "type.historic.citywalls" = "City Wall";
 
