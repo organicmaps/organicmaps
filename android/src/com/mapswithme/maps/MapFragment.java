@@ -57,6 +57,9 @@ public class MapFragment extends BaseMwmFragment
   private static final int INVALID_POINTER_MASK = 0xFF;
   private static final int INVALID_TOUCH_ID = -1;
 
+  private int mCurrentCompassOffsetX;
+  private int mCurrentCompassOffsetY;
+
   private int mHeight;
   private int mWidth;
   private int mBottomWidgetOffset;
@@ -86,21 +89,34 @@ public class MapFragment extends BaseMwmFragment
                       UiUtils.dimen(context, R.dimen.margin_base),
                       ANCHOR_LEFT_TOP);
 
-    setupCompass(UiUtils.getCompassYOffset(requireContext()), false);
+    mCurrentCompassOffsetX = 0;
+    mCurrentCompassOffsetY = UiUtils.getCompassYOffset(requireContext());
+    setupCompass(mCurrentCompassOffsetY, mCurrentCompassOffsetX, false);
   }
 
-  void setupCompass(int offsetY, boolean forceRedraw)
+  /**
+   * Moves the map compass using the given offsets.
+   *
+   * @param offsetY Pixel offset from the top. -1 to keep the previous value.
+   * @param offsetX Pixel offset from the right.  -1 to keep the previous value.
+   * @param forceRedraw True to force the compass to redraw
+   */
+  void setupCompass(int offsetY, int offsetX, boolean forceRedraw)
   {
     Context context = requireContext();
+    int x = offsetX < 0 ? mCurrentCompassOffsetX : offsetX;
+    int y = offsetY < 0 ? mCurrentCompassOffsetY : offsetY;
     int navPadding = UiUtils.dimen(context, R.dimen.nav_frame_padding);
     int marginX = UiUtils.dimen(context, R.dimen.margin_compass) + navPadding;
     int marginY = UiUtils.dimen(context, R.dimen.margin_compass_top) + navPadding;
     nativeSetupWidget(WIDGET_COMPASS,
-                      mWidth - marginX,
-                      offsetY + marginY,
+                      mWidth - x - marginX,
+                      y + marginY,
                       ANCHOR_CENTER);
     if (forceRedraw && mSurfaceCreated)
       nativeApplyWidgets();
+    mCurrentCompassOffsetX = x;
+    mCurrentCompassOffsetY = y;
   }
 
   void setupBottomWidgetsOffset(int offset)
