@@ -36,4 +36,10 @@
 
   </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
+  <View
+    android:id="@+id/nav_bottom_sheet_nav_bar"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_gravity="bottom"
+    android:background="@color/bg_cards"/>
 </FrameLayout>

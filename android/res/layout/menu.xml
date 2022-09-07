@@ -4,7 +4,7 @@
   android:id="@+id/menu_frame"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  android:background="?menuBackground"
+  android:background="?cardBackground"
   android:visibility="gone"
   tools:visibility="visible">
 

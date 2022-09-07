@@ -9,13 +9,13 @@ import android.content.Intent;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewTreeObserver;
+import android.view.WindowInsets;
 import android.view.WindowManager;
 import android.widget.TextView;
 
@@ -25,6 +25,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -419,6 +420,34 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (savedInstanceState == null && RoutingController.get().hasSavedRoute())
       addTask(new Factory.RestoreRouteTask());
+
+    updateViewsInsets();
+  }
+
+  private void updateViewsInsets()
+  {
+    findViewById(R.id.map_ui_container).setOnApplyWindowInsetsListener(this::setViewInsets);
+    findViewById(R.id.pp_buttons_layout).setOnApplyWindowInsetsListener(this::setViewInsets);
+    findViewById(R.id.toolbar).setOnApplyWindowInsetsListener(this::setViewInsets);
+    findViewById(R.id.menu_frame).setOnApplyWindowInsetsListener(this::setViewInsets);
+    findViewById(R.id.routing_plan_frame).findViewById(R.id.toolbar)
+                                         .setOnApplyWindowInsetsListener(this::setViewInsetsSides);
+
+
+  }
+
+  private WindowInsets setViewInsets(View view, WindowInsets windowInsets)
+  {
+    view.setPadding(windowInsets.getSystemWindowInsetLeft(), view.getPaddingTop(),
+                    windowInsets.getSystemWindowInsetRight(), windowInsets.getSystemWindowInsetBottom());
+    return windowInsets;
+  }
+
+  private WindowInsets setViewInsetsSides(View view, WindowInsets windowInsets)
+  {
+    view.setPadding(windowInsets.getSystemWindowInsetLeft(), view.getPaddingTop(),
+                    windowInsets.getSystemWindowInsetRight(), view.getPaddingBottom());
+    return windowInsets;
   }
 
   private void initBottomSheets()
