@@ -6,14 +6,15 @@
 <b>Ihr Feedback und Ihre 5-Sterne-Bewertungen sind die beste Motivation für uns!</b>
 
 Wichtigsten Eigenschaften:
-• Kostenlos, Open-Source, keine Werbung, kein Tracking
-• Detaillierte Offline-Karten mit Orten, die es auf Google Maps nicht gibt, und zwar dank der <b>OpenStreetMap</b>-Community
+• Detaillierte Offline-Karten mit Orten, die dank OpenStreetMap.org auf anderen Karten nicht zu finden sind
 • Radwege, Wanderwege und Spazierwege
 • Höhenlinien, Höhenprofile, Gipfel und Steigungen
-• Navigation mit Abbiegehinweisen für Fußgänger, Radfahrer und EXPERIMENTELLE Auto-Navigation mit Sprachführung
-• Schnelle Offlinesuche
-• Import und Export von Lesezeichen in den Formaten KML/KMZ (GPX folgt in Kürze)
+• Navigation mit Abbiegehinweisen für Fußgänger, Radfahrer und Autos mit Sprachführung
+• Schnelle Offlinesuche auf der Karte und in den Lesezeichen
+• Import und Export von Lesezeichen in den Formaten KML/KMZ (GPX ist geplant)
 • Dunkles Design zum besseren Schutz Ihrer Augen
+• Länder und Regionen nehmen nicht viel Speicherplatz in Anspruch
+• Kostenlos und Open-Source
 
 Es gibt noch kein Android Auto, keine öffentlichen Verkehrsmittel, keine Satellitenkarten und noch keine anderen coolen Funktionen in Organic Maps. Aber mit Ihrer Hilfe und Unterstützung können wir diese Welt Schritt für Schritt besser machen.
 

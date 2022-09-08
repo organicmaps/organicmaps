@@ -1,9 +1,12 @@
-• Detaillierte Offline-Karten mit Orten, die auf anderen Karten nicht zu finden sind
-• Radrouten, Wanderwege und Spazierwege
+• Detaillierte Offline-Karten mit Orten, die dank OpenStreetMap.org auf anderen Karten nicht zu finden sind
+• Radwege, Wanderwege und Spazierwege
 • Höhenlinien, Höhenprofile, Gipfel und Steigungen
 • Navigation mit Abbiegehinweisen für Fußgänger, Radfahrer und Autos mit Sprachführung
-• Schnelle Offline-Suche auf der Karte und Lesezeichen
-• Dark Mode zum besseren Schutz Ihrer Augen
+• Schnelle Offlinesuche auf der Karte und in den Lesezeichen
+• Import und Export von Lesezeichen in den Formaten KML/KMZ (GPX ist geplant)
+• Dunkles Design zum besseren Schutz Ihrer Augen
+• Länder und Regionen nehmen nicht viel Speicherplatz in Anspruch
+• Kostenlos und Open-Source
 
 Organic Maps ist rein, organisch und mit Liebe gemacht:
 
