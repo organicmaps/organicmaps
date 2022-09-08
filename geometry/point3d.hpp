@@ -12,8 +12,8 @@ template <typename T>
 class Point
 {
 public:
-  constexpr Point() : x(T()), y(T()), z(T()) {}
-  constexpr Point(T const & x, T const & y, T const & z) : x(x), y(y), z(z) {}
+  Point() = default;
+  constexpr Point(T x_, T y_, T z_) : x(x_), y(y_), z(z_) {}
 
   T Length() const { return std::sqrt(x * x + y * y + z * z); }
 
