@@ -1082,8 +1082,17 @@
 	<!-- SECTION: Types: Historic -->
 	<string name="type.historic.archaeological_site">Arkeologinen kohde</string>
 	<string name="type.historic.castle">Linna</string>
+	<string name="type.historic.castle.castrum">Castra</string>
 	<string name="type.historic.castle.defensive">Linna</string>
+	<string name="type.historic.castle.fortified_church">Linnoitettu kirkko</string>
+	<string name="type.historic.castle.fortress">Linnoitus</string>
+	<string name="type.historic.castle.hillfort">Linnavuori</string>
+	<string name="type.historic.castle.kremlin">Kreml</string>
+	<string name="type.historic.castle.manor">Kartano</string>
+	<string name="type.historic.castle.palace">Palatsi</string>
+	<string name="type.historic.castle.shiro">Japanilainen linna</string>
 	<string name="type.historic.castle.stately">Linna</string>
+	<string name="type.historic.city_gate">Kaupungin portti</string>
 	<string name="type.historic.memorial">Muistomerkki</string>
 	<string name="type.historic.memorial.plaque">Muistomerkki</string>
 	<string name="type.historic.memorial.sculpture">Muistomerkki</string>

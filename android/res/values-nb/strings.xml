@@ -1064,9 +1064,18 @@
 
 	<!-- SECTION: Types: Historic -->
 	<string name="type.historic.archaeological_site">Arkeologisk område</string>
-	<string name="type.historic.castle">Slott</string>
-	<string name="type.historic.castle.defensive">Slott</string>
+	<string name="type.historic.castle">Borg</string>
+	<string name="type.historic.castle.castrum">Romersk fort</string>
+	<string name="type.historic.castle.defensive">Borg</string>
+	<string name="type.historic.castle.fortified_church">Befestet kirke</string>
+	<string name="type.historic.castle.fortress">Festning</string>
+	<string name="type.historic.castle.hillfort">Bygdeborg</string>
+	<string name="type.historic.castle.kremlin">Kreml</string>
+	<string name="type.historic.castle.manor">Herregård</string>
+	<string name="type.historic.castle.palace">Palass</string>
+	<string name="type.historic.castle.shiro">Japanske borger</string>
 	<string name="type.historic.castle.stately">Slott</string>
+	<string name="type.historic.city_gate">Byport</string>
 	<string name="type.historic.memorial">Minnesmerke</string>
 	<string name="type.historic.memorial.plaque">Minnesmerke</string>
 	<string name="type.historic.memorial.sculpture">Minnesmerke</string>

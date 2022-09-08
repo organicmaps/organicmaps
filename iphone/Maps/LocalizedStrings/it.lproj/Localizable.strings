@@ -2142,9 +2142,27 @@
 
 "type.historic.castle" = "Castello";
 
+"type.historic.castle.castrum" = "Castra";
+
 "type.historic.castle.defensive" = "Castello";
 
+"type.historic.castle.fortified_church" = "Chiesa fortificata";
+
+"type.historic.castle.fortress" = "Fortezza";
+
+"type.historic.castle.hillfort" = "Fortezza di collina";
+
+"type.historic.castle.kremlin" = "Cremlino";
+
+"type.historic.castle.manor" = "Maniero";
+
+"type.historic.castle.palace" = "Palazzo";
+
+"type.historic.castle.shiro" = "Castello giapponese";
+
 "type.historic.castle.stately" = "Castello";
+
+"type.historic.city_gate" = "Porta cittadina";
 
 "type.historic.citywalls" = "City Wall";
 

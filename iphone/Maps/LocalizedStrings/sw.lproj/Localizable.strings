@@ -2140,11 +2140,29 @@
 
 "type.historic.boundary_stone" = "Boundary Stone";
 
-"type.historic.castle" = "Castle";
+"type.historic.castle" = "Ngome";
 
-"type.historic.castle.defensive" = "Castle";
+"type.historic.castle.castrum" = "Ngome ya Kirumi";
 
-"type.historic.castle.stately" = "Castle";
+"type.historic.castle.defensive" = "Ngome";
+
+"type.historic.castle.fortified_church" = "Kanisa lililoimarishwa";
+
+"type.historic.castle.fortress" = "Ngome";
+
+"type.historic.castle.hillfort" = "Hillfort";
+
+"type.historic.castle.kremlin" = "Kremlin";
+
+"type.historic.castle.manor" = "Nyumba ya manor";
+
+"type.historic.castle.palace" = "Ikulu";
+
+"type.historic.castle.shiro" = "Ngome ya Kijapani";
+
+"type.historic.castle.stately" = "Ngome";
+
+"type.historic.city_gate" = "Lango la jiji";
 
 "type.historic.citywalls" = "City Wall";
 

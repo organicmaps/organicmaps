@@ -559,7 +559,6 @@ public class SearchFragment extends BaseMwmFragment
   {
     final Activity activity  = requireActivity();
     activity.finish();
-    activity.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
   }
 
   public void setRecyclerScrollListener(RecyclerView recycler)

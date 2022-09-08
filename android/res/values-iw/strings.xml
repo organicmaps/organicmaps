@@ -419,6 +419,18 @@
 	<string name="type.highway.unclassified.tunnel">מִנהָרָה</string>
 
 	<!-- SECTION: Types: Historic -->
+	<string name="type.historic.castle">טירה</string>
+	<string name="type.historic.castle.castrum">קסטרום</string>
+	<string name="type.historic.castle.defensive">טירה</string>
+	<string name="type.historic.castle.fortified_church">כנסייה מבוצרת</string>
+	<string name="type.historic.castle.fortress">מִבצָר</string>
+	<string name="type.historic.castle.hillfort">מבצר גבעה</string>
+	<string name="type.historic.castle.kremlin">קרמלין</string>
+	<string name="type.historic.castle.manor">אחוזה</string>
+	<string name="type.historic.castle.palace">ארמון</string>
+	<string name="type.historic.castle.shiro">טירה יפנית</string>
+	<string name="type.historic.castle.stately">שאטו</string>
+	<string name="type.historic.city_gate">שער העיר</string>
 	<string name="type.landuse.basin">אגן מים</string>
 	<string name="type.leisure.picnic_table">קינקיפ ןחלוש</string>
 	<string name="type.natural">טבע</string>

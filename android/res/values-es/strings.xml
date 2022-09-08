@@ -1171,8 +1171,17 @@
 	<!-- SECTION: Types: Historic -->
 	<string name="type.historic.archaeological_site">Yacimiento arqueológico</string>
 	<string name="type.historic.castle">Castillo</string>
+	<string name="type.historic.castle.castrum">Castrum</string>
 	<string name="type.historic.castle.defensive">Castillo</string>
+	<string name="type.historic.castle.fortified_church">Iglesia fortificada</string>
+	<string name="type.historic.castle.fortress">Fortaleza</string>
+	<string name="type.historic.castle.hillfort">Castro</string>
+	<string name="type.historic.castle.kremlin">Kremlin</string>
+	<string name="type.historic.castle.manor">Casa solariega</string>
+	<string name="type.historic.castle.palace">Palacio</string>
+	<string name="type.historic.castle.shiro">Castillo japonés</string>
 	<string name="type.historic.castle.stately">Castillo</string>
+	<string name="type.historic.city_gate">Puerta de la ciudad</string>
 	<string name="type.historic.monument">Monumento</string>
 	<string name="type.historic.ruins">Ruinas</string>
 	<string name="type.historic.ship">Turismo</string>

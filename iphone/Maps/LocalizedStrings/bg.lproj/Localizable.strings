@@ -2140,11 +2140,29 @@
 
 "type.historic.boundary_stone" = "Boundary Stone";
 
-"type.historic.castle" = "Castle";
+"type.historic.castle" = "Замък";
 
-"type.historic.castle.defensive" = "Castle";
+"type.historic.castle.castrum" = "Каструм";
 
-"type.historic.castle.stately" = "Castle";
+"type.historic.castle.defensive" = "Замък";
+
+"type.historic.castle.fortified_church" = "Укрепена църква";
+
+"type.historic.castle.fortress" = "Крепост";
+
+"type.historic.castle.hillfort" = "Градище";
+
+"type.historic.castle.kremlin" = "Кремъл";
+
+"type.historic.castle.manor" = "Усадба";
+
+"type.historic.castle.palace" = "Дворец";
+
+"type.historic.castle.shiro" = "Японски замък";
+
+"type.historic.castle.stately" = "Замък";
+
+"type.historic.city_gate" = "Градска порта";
 
 "type.historic.citywalls" = "City Wall";
 

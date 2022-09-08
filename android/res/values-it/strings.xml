@@ -1104,8 +1104,17 @@
 	<!-- SECTION: Types: Historic -->
 	<string name="type.historic.archaeological_site">Sito archeologico</string>
 	<string name="type.historic.castle">Castello</string>
+	<string name="type.historic.castle.castrum">Castra</string>
 	<string name="type.historic.castle.defensive">Castello</string>
+	<string name="type.historic.castle.fortified_church">Chiesa fortificata</string>
+	<string name="type.historic.castle.fortress">Fortezza</string>
+	<string name="type.historic.castle.hillfort">Fortezza di collina</string>
+	<string name="type.historic.castle.kremlin">Cremlino</string>
+	<string name="type.historic.castle.manor">Maniero</string>
+	<string name="type.historic.castle.palace">Palazzo</string>
+	<string name="type.historic.castle.shiro">Castello giapponese</string>
 	<string name="type.historic.castle.stately">Castello</string>
+	<string name="type.historic.city_gate">Porta cittadina</string>
 	<string name="type.historic.memorial">Memoriale</string>
 	<string name="type.historic.memorial.plaque">Memoriale</string>
 	<string name="type.historic.memorial.sculpture">Memoriale</string>

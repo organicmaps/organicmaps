@@ -2140,11 +2140,29 @@
 
 "type.historic.boundary_stone" = "Boundary Stone";
 
-"type.historic.castle" = "Pháo đài";
+"type.historic.castle" = "Lâu đài";
 
-"type.historic.castle.defensive" = "Pháo đài";
+"type.historic.castle.castrum" = "Pháo đài La mã";
+
+"type.historic.castle.defensive" = "Lâu đài";
+
+"type.historic.castle.fortified_church" = "Nhà thờ kiên cố";
+
+"type.historic.castle.fortress" = "Pháo đài";
+
+"type.historic.castle.hillfort" = "Hillfort";
+
+"type.historic.castle.kremlin" = "Kremli";
+
+"type.historic.castle.manor" = "Trang viên";
+
+"type.historic.castle.palace" = "Cung điện";
+
+"type.historic.castle.shiro" = "Lâu đài nhật bản";
 
 "type.historic.castle.stately" = "Pháo đài";
+
+"type.historic.city_gate" = "Cổng thành";
 
 "type.historic.citywalls" = "City Wall";
 

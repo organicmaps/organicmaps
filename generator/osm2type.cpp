@@ -588,21 +588,6 @@ void PreprocessElement(OsmElement * p)
     }
   });
 
-  p->UpdateTag("castle_type", [](string & value) {
-    if (value.empty())
-      return;
-
-    if (value == "fortress" || value == "kremlin" || value == "castrum" || value == "shiro" ||
-        value == "citadel")
-    {
-      value = "defensive";
-    }
-    else if (value == "manor" || value == "palace")
-    {
-      value = "stately";
-    }
-  });
-
   p->UpdateTag("attraction", [](string & value) {
     // "specified" is a special value which means we have the "attraction" tag,
     // but its value is not "animal".

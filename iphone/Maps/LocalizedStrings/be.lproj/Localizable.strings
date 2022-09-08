@@ -2140,11 +2140,29 @@
 
 "type.historic.boundary_stone" = "Boundary Stone";
 
-"type.historic.castle" = "Castle";
+"type.historic.castle" = "Замак";
 
-"type.historic.castle.defensive" = "Castle";
+"type.historic.castle.castrum" = "Каструм";
 
-"type.historic.castle.stately" = "Castle";
+"type.historic.castle.defensive" = "Замак";
+
+"type.historic.castle.fortified_church" = "Абарончы храм";
+
+"type.historic.castle.fortress" = "Крэпасць";
+
+"type.historic.castle.hillfort" = "Гарадзішча";
+
+"type.historic.castle.kremlin" = "Крэмль";
+
+"type.historic.castle.manor" = "Сядзіба";
+
+"type.historic.castle.palace" = "Палац";
+
+"type.historic.castle.shiro" = "Японскі замак";
+
+"type.historic.castle.stately" = "Замак";
+
+"type.historic.city_gate" = "Гарадская брама";
 
 "type.historic.citywalls" = "City Wall";
 

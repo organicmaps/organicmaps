@@ -1071,8 +1071,17 @@
 	<!-- SECTION: Types: Historic -->
 	<string name="type.historic.archaeological_site">โบราณสถาน</string>
 	<string name="type.historic.castle">ปราสาท</string>
+	<string name="type.historic.castle.castrum">ป้อมโรมัน</string>
 	<string name="type.historic.castle.defensive">ปราสาท</string>
+	<string name="type.historic.castle.fortified_church">โบสถ์เสริมความแข็งแกร่ง</string>
+	<string name="type.historic.castle.fortress">ป้อม</string>
+	<string name="type.historic.castle.hillfort">ป้อมเนิน</string>
+	<string name="type.historic.castle.kremlin">เครมลิน</string>
+	<string name="type.historic.castle.manor">คฤหาสน์</string>
+	<string name="type.historic.castle.palace">วัง</string>
+	<string name="type.historic.castle.shiro">ปราสาทญี่ปุ่น</string>
 	<string name="type.historic.castle.stately">ปราสาท</string>
+	<string name="type.historic.city_gate">ประตูเมือง</string>
 	<string name="type.historic.memorial">ที่ระลึก</string>
 	<string name="type.historic.memorial.plaque">ที่ระลึก</string>
 	<string name="type.historic.memorial.sculpture">ที่ระลึก</string>

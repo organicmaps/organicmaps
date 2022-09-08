@@ -980,9 +980,18 @@
 
 	<!-- SECTION: Types: Historic -->
 	<string name="type.historic.archaeological_site">گردشگری</string>
-	<string name="type.historic.castle">گردشگری</string>
-	<string name="type.historic.castle.defensive">گردشگری</string>
+	<string name="type.historic.castle">قلعه</string>
+	<string name="type.historic.castle.castrum">قلعه رومی</string>
+	<string name="type.historic.castle.defensive">قلعه</string>
+	<string name="type.historic.castle.fortified_church">کلیسای مستحکم</string>
+	<string name="type.historic.castle.fortress">قلعه</string>
+	<string name="type.historic.castle.hillfort">تپه‌قلعه</string>
+	<string name="type.historic.castle.kremlin">کرملین</string>
+	<string name="type.historic.castle.manor">خانه ارباب یا صاحب تیول</string>
+	<string name="type.historic.castle.palace">کاخ</string>
+	<string name="type.historic.castle.shiro">قلعه ژاپنی</string>
 	<string name="type.historic.castle.stately">گردشگری</string>
+	<string name="type.historic.city_gate">دروازه شهر</string>
 	<string name="type.historic.memorial">گردشگری</string>
 	<string name="type.historic.memorial.plaque">گردشگری</string>
 	<string name="type.historic.memorial.sculpture">گردشگری</string>

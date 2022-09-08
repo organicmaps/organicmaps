@@ -1067,9 +1067,18 @@
 
 	<!-- SECTION: Types: Historic -->
 	<string name="type.historic.archaeological_site">Điểm khảo cổ</string>
-	<string name="type.historic.castle">Pháo đài</string>
-	<string name="type.historic.castle.defensive">Pháo đài</string>
+	<string name="type.historic.castle">Lâu đài</string>
+	<string name="type.historic.castle.castrum">Pháo đài La mã</string>
+	<string name="type.historic.castle.defensive">Lâu đài</string>
+	<string name="type.historic.castle.fortified_church">Nhà thờ kiên cố</string>
+	<string name="type.historic.castle.fortress">Pháo đài</string>
+	<string name="type.historic.castle.hillfort">Hillfort</string>
+	<string name="type.historic.castle.kremlin">Kremli</string>
+	<string name="type.historic.castle.manor">Trang viên</string>
+	<string name="type.historic.castle.palace">Cung điện</string>
+	<string name="type.historic.castle.shiro">Lâu đài nhật bản</string>
 	<string name="type.historic.castle.stately">Pháo đài</string>
+	<string name="type.historic.city_gate">Cổng thành</string>
 	<string name="type.historic.memorial">Đài tưởng niệm</string>
 	<string name="type.historic.memorial.plaque">Đài tưởng niệm</string>
 	<string name="type.historic.memorial.sculpture">Đài tưởng niệm</string>

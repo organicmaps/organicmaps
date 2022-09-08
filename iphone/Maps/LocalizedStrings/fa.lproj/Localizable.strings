@@ -2140,11 +2140,29 @@
 
 "type.historic.boundary_stone" = "Boundary Stone";
 
-"type.historic.castle" = "گردشگری";
+"type.historic.castle" = "قلعه";
 
-"type.historic.castle.defensive" = "گردشگری";
+"type.historic.castle.castrum" = "قلعه رومی";
+
+"type.historic.castle.defensive" = "قلعه";
+
+"type.historic.castle.fortified_church" = "کلیسای مستحکم";
+
+"type.historic.castle.fortress" = "قلعه";
+
+"type.historic.castle.hillfort" = "تپه‌قلعه";
+
+"type.historic.castle.kremlin" = "کرملین";
+
+"type.historic.castle.manor" = "خانه ارباب یا صاحب تیول";
+
+"type.historic.castle.palace" = "کاخ";
+
+"type.historic.castle.shiro" = "قلعه ژاپنی";
 
 "type.historic.castle.stately" = "گردشگری";
+
+"type.historic.city_gate" = "دروازه شهر";
 
 "type.historic.citywalls" = "City Wall";
 

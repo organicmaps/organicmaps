@@ -2140,11 +2140,29 @@
 
 "type.historic.boundary_stone" = "Boundary Stone";
 
-"type.historic.castle" = "Gaztelua";
+"type.historic.castle" = "Gaztelu";
 
-"type.historic.castle.defensive" = "Gaztelua";
+"type.historic.castle.castrum" = "Castrum";
+
+"type.historic.castle.defensive" = "Gaztelu";
+
+"type.historic.castle.fortified_church" = "Eliza-gotorleku";
+
+"type.historic.castle.fortress" = "Gotorlekua";
+
+"type.historic.castle.hillfort" = "Kastro";
+
+"type.historic.castle.kremlin" = "Kremlina";
+
+"type.historic.castle.manor" = "Jauregitxo";
+
+"type.historic.castle.palace" = "Jauregi";
+
+"type.historic.castle.shiro" = "Japoniar gaztelu";
 
 "type.historic.castle.stately" = "Gaztelua";
+
+"type.historic.city_gate" = "Portale";
 
 "type.historic.citywalls" = "City Wall";
 

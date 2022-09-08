@@ -2142,9 +2142,27 @@
 
 "type.historic.castle" = "Castillo";
 
+"type.historic.castle.castrum" = "Castrum";
+
 "type.historic.castle.defensive" = "Castillo";
 
+"type.historic.castle.fortified_church" = "Iglesia fortificada";
+
+"type.historic.castle.fortress" = "Fortaleza";
+
+"type.historic.castle.hillfort" = "Castro";
+
+"type.historic.castle.kremlin" = "Kremlin";
+
+"type.historic.castle.manor" = "Casa solariega";
+
+"type.historic.castle.palace" = "Palacio";
+
+"type.historic.castle.shiro" = "Castillo japonés";
+
 "type.historic.castle.stately" = "Castillo";
+
+"type.historic.city_gate" = "Puerta de la ciudad";
 
 "type.historic.citywalls" = "City Wall";
 

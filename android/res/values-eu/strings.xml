@@ -1139,9 +1139,18 @@
 
 	<!-- SECTION: Types: Historic -->
 	<string name="type.historic.archaeological_site">Aztarnategi arkeologikoa</string>
-	<string name="type.historic.castle">Gaztelua</string>
-	<string name="type.historic.castle.defensive">Gaztelua</string>
+	<string name="type.historic.castle">Gaztelu</string>
+	<string name="type.historic.castle.castrum">Castrum</string>
+	<string name="type.historic.castle.defensive">Gaztelu</string>
+	<string name="type.historic.castle.fortified_church">Eliza-gotorleku</string>
+	<string name="type.historic.castle.fortress">Gotorlekua</string>
+	<string name="type.historic.castle.hillfort">Kastro</string>
+	<string name="type.historic.castle.kremlin">Kremlina</string>
+	<string name="type.historic.castle.manor">Jauregitxo</string>
+	<string name="type.historic.castle.palace">Jauregi</string>
+	<string name="type.historic.castle.shiro">Japoniar gaztelu</string>
 	<string name="type.historic.castle.stately">Gaztelua</string>
+	<string name="type.historic.city_gate">Portale</string>
 	<string name="type.historic.monument">Monumentua</string>
 	<string name="type.historic.ruins">Hondakinak</string>
 	<string name="type.historic.ship">Turismoa</string>

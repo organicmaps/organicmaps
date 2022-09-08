@@ -2142,9 +2142,27 @@
 
 "type.historic.castle" = "성";
 
+"type.historic.castle.castrum" = "로마 요새";
+
 "type.historic.castle.defensive" = "성";
 
+"type.historic.castle.fortified_church" = "요새화된 교회";
+
+"type.historic.castle.fortress" = "요새";
+
+"type.historic.castle.hillfort" = "힐포트";
+
+"type.historic.castle.kremlin" = "크렘린";
+
+"type.historic.castle.manor" = "매너하우스";
+
+"type.historic.castle.palace" = "궁전";
+
+"type.historic.castle.shiro" = "일본의 성";
+
 "type.historic.castle.stately" = "성";
+
+"type.historic.city_gate" = "성문";
 
 "type.historic.citywalls" = "City Wall";
 

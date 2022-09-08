@@ -1232,8 +1232,17 @@
 	<string name="type.historic.battlefield">Battlefield</string>
 	<string name="type.historic.boundary_stone">Boundary Stone</string>
 	<string name="type.historic.castle">Castle</string>
+	<string name="type.historic.castle.castrum">Roman fort</string>
 	<string name="type.historic.castle.defensive">Castle</string>
+	<string name="type.historic.castle.fortified_church">Fortified church</string>
+	<string name="type.historic.castle.fortress">Fortress</string>
+	<string name="type.historic.castle.hillfort">Hillfort</string>
+	<string name="type.historic.castle.kremlin">Kremlin</string>
+	<string name="type.historic.castle.manor">Manor house</string>
+	<string name="type.historic.castle.palace">Palace</string>
+	<string name="type.historic.castle.shiro">Japanese castle</string>
 	<string name="type.historic.castle.stately">Castle</string>
+	<string name="type.historic.city_gate">City gate</string>
 	<string name="type.historic.citywalls">City Wall</string>
 	<string name="type.historic.fort">Fort</string>
 	<string name="type.historic.memorial">Memorial</string>

@@ -1067,8 +1067,17 @@
 	<!-- SECTION: Types: Historic -->
 	<string name="type.historic.archaeological_site">발굴</string>
 	<string name="type.historic.castle">성</string>
+	<string name="type.historic.castle.castrum">로마 요새</string>
 	<string name="type.historic.castle.defensive">성</string>
+	<string name="type.historic.castle.fortified_church">요새화된 교회</string>
+	<string name="type.historic.castle.fortress">요새</string>
+	<string name="type.historic.castle.hillfort">힐포트</string>
+	<string name="type.historic.castle.kremlin">크렘린</string>
+	<string name="type.historic.castle.manor">매너하우스</string>
+	<string name="type.historic.castle.palace">궁전</string>
+	<string name="type.historic.castle.shiro">일본의 성</string>
 	<string name="type.historic.castle.stately">성</string>
+	<string name="type.historic.city_gate">성문</string>
 	<string name="type.historic.memorial">기념비</string>
 	<string name="type.historic.memorial.plaque">기념비</string>
 	<string name="type.historic.memorial.sculpture">기념비</string>
