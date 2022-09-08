@@ -106,6 +106,7 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     Logger.i(TAG, "Initializing application");
     LogsManager.INSTANCE.initFileLogging(this);
 
+
     // Set configuration directory as early as possible.
     // Other methods may explicitly use Config, which requires settingsDir to be set.
     final String settingsPath = StorageUtils.getSettingsPath(this);

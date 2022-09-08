@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.Surface;
@@ -153,7 +154,12 @@ public class MapFragment extends BaseMwmFragment
   @Override
   public void surfaceCreated(SurfaceHolder surfaceHolder)
   {
-    /*
+  
+    if (MapFragment.nativeIsEngineCreated())
+    {
+      nativeDetachSurface(true);
+    }
+
     if (isThemeChangingProcess())
     {
       Logger.d(TAG, "Activity is being recreated due theme changing, skip 'surfaceCreated' callback");
@@ -209,7 +215,6 @@ public class MapFragment extends BaseMwmFragment
     nativeResumeSurfaceRendering();
     if (mMapRenderingListener != null)
       mMapRenderingListener.onRenderingCreated();
-     */
   }
 
   @Override
@@ -335,6 +340,7 @@ public class MapFragment extends BaseMwmFragment
   @Override
   public boolean onTouch(View view, MotionEvent event)
   {
+    Log.i("MOTION EVENT",event.toString());
     final int count = event.getPointerCount();
 
     if (count == 0)
@@ -386,8 +392,8 @@ public class MapFragment extends BaseMwmFragment
   }
 
   static native void nativeCompassUpdated(double north, boolean forceRedraw);
-  static native void nativeScalePlus();
-  static native void nativeScaleMinus();
+  public static native void nativeScalePlus();
+  public static native void nativeScaleMinus();
   public static native boolean nativeShowMapForUrl(String url);
   public static native boolean nativeIsEngineCreated();
   static native boolean nativeDestroySurfaceOnDetach();
@@ -396,7 +402,7 @@ public class MapFragment extends BaseMwmFragment
                                                    boolean isLaunchByDeepLink,
                                                    int appVersionCode);
   public static native boolean nativeAttachSurface(Surface surface);
-  private static native void nativeDetachSurface(boolean destroySurface);
+  public static native void nativeDetachSurface(boolean destroySurface);
   private static native void nativePauseSurfaceRendering();
   public static native void nativeResumeSurfaceRendering();
   private static native void nativeSurfaceChanged(Surface surface, int w, int h);
