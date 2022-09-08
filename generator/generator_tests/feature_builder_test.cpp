@@ -5,10 +5,8 @@
 #include "generator/feature_builder.hpp"
 #include "generator/generator_tests_support/test_with_classificator.hpp"
 #include "generator/geometry_holder.hpp"
-#include "generator/osm2type.hpp"
 
 #include "indexer/data_header.hpp"
-#include "indexer/classificator_loader.hpp"
 #include "indexer/feature_visibility.hpp"
 
 #include "base/geo_object_id.hpp"
@@ -250,7 +248,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FeatureBuilder_SerializeLocalityObjectFor
   fb.SerializeLocalityObject(serial::GeometryCodingParams(), buffer);
 }
 
-UNIT_TEST(FeatureBuilder_SerializeAccuratelyForIntermediate)
+UNIT_CLASS_TEST(TestWithClassificator, FeatureBuilder_SerializeAccuratelyForIntermediate)
 {
   FeatureBuilder fb1;
   FeatureBuilderParams params;

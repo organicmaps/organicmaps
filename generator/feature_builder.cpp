@@ -3,7 +3,6 @@
 #include "routing/routing_helpers.hpp"
 
 #include "indexer/feature_algo.hpp"
-#include "indexer/feature_impl.hpp"
 #include "indexer/feature_visibility.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/search_string_utils.hpp"
@@ -348,12 +347,11 @@ bool FeatureBuilder::operator==(FeatureBuilder const & fb) const
 
 bool FeatureBuilder::IsExactEq(FeatureBuilder const & fb) const
 {
-  return m_center == fb.m_center &&
-      m_polygons == fb.m_polygons &&
-      m_limitRect == fb.m_limitRect &&
-      m_osmIds == fb.m_osmIds &&
-      m_params == fb.m_params &&
-      m_coastCell == fb.m_coastCell;
+  if (m_params.GetGeomType() == GeomType::Point && m_center != fb.m_center)
+    return false;
+
+  return (m_polygons == fb.m_polygons && m_limitRect == fb.m_limitRect &&
+          m_osmIds == fb.m_osmIds && m_params == fb.m_params && m_coastCell == fb.m_coastCell);
 }
 
 void FeatureBuilder::SerializeForIntermediate(Buffer & data) const

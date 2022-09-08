@@ -70,9 +70,8 @@ TestFeature::TestFeature(m2::PointD const & center, StringUtf8Multilang const & 
   Init();
 }
 
-TestFeature::TestFeature(vector<m2::PointD> const & boundary, string const & name,
-                         string const & lang)
-  : m_id(GenUniqueId()), m_boundary(boundary), m_type(Type::Area)
+TestFeature::TestFeature(vector<m2::PointD> const & boundary, string const & name, string const & lang)
+  : m_id(GenUniqueId()), m_center(0, 0), m_boundary(boundary), m_type(Type::Area)
 {
   m_names.AddString(lang, name);
   m_names.AddString("default", name);
