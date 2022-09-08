@@ -348,7 +348,8 @@ void AsyncRouter::CalculateRoute()
     RoutingOptions const routingOptions = RoutingOptions::LoadCarOptionsFromSettings();
     router->SetEstimatorOptions(routingOptions.GetOptions());
 
-    router->SetEstimatorStrategy(EdgeEstimator::Strategy::Fastest);
+    EdgeEstimator::Strategy routingStrategy = EdgeEstimator::LoadRoutingStrategyFromSettings();
+    router->SetEstimatorStrategy(routingStrategy);
 
     // Run basic request.
     code = router->CalculateRoute(checkpoints, startDirection, adjustToPrevRoute,

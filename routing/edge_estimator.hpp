@@ -29,6 +29,8 @@ public:
     ETA
   };
 
+  static std::string const kRoutingStrategySettings;
+
   enum class Strategy
   {
     Fastest,
@@ -39,6 +41,8 @@ public:
   EdgeEstimator(double maxWeightSpeedKMpH, SpeedKMpH const & offroadSpeedKMpH,
                 DataSource * dataSourcePtr = nullptr, std::shared_ptr<NumMwmIds> numMwmIds = nullptr);
   virtual ~EdgeEstimator() = default;
+
+  static Strategy LoadRoutingStrategyFromSettings();
 
   double CalcHeuristic(ms::LatLon const & from, ms::LatLon const & to) const;
   // Estimates time in seconds it takes to go from point |from| to point |to| along a leap (fake)

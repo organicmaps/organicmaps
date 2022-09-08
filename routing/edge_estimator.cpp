@@ -1,5 +1,7 @@
 #include "routing/edge_estimator.hpp"
 
+#include "platform/settings.hpp"
+
 #include "routing/geometry.hpp"
 #include "routing/latlon_with_altitude.hpp"
 #include "routing/routing_exceptions.hpp"
@@ -123,6 +125,19 @@ double GetCarClimbPenalty(EdgeEstimator::Purpose /* purpose */, double /* tangen
 }
 
 // EdgeEstimator -----------------------------------------------------------------------------------
+
+string const EdgeEstimator::kRoutingStrategySettings = "router_strategy";
+
+//static
+EdgeEstimator::Strategy EdgeEstimator::LoadRoutingStrategyFromSettings()
+{
+  uint32_t mode = 0;
+  if (!settings::Get(kRoutingStrategySettings, mode))
+    mode = 0;
+
+  return (EdgeEstimator::Strategy) mode;
+}
+
 EdgeEstimator::EdgeEstimator(double maxWeightSpeedKMpH, SpeedKMpH const & offroadSpeedKMpH,
                              DataSource * /*dataSourcePtr*/, std::shared_ptr<NumMwmIds> /*numMwmIds*/)
   : m_maxWeightSpeedMpS(KmphToMps(maxWeightSpeedKMpH))
@@ -247,7 +262,17 @@ public:
   }
 
   // EdgeEstimator overrides:
-  double GetUTurnPenalty(Purpose /* purpose */) const override { return 0.0 /* seconds */; }
+  double GetUTurnPenalty(Purpose purpose) const override
+  {
+    if (purpose == EdgeEstimator::Purpose::Weight)
+    {
+      if (this->GetStrategy() == EdgeEstimator::Strategy::FewerTurns)
+      {
+        return 24 * 60 * 60;
+      }
+    }
+    return 0.0 /* seconds */;
+  }
   double GetTurnPenalty(Purpose purpose) const override
   {
     if (purpose == EdgeEstimator::Purpose::Weight)
@@ -297,7 +322,17 @@ public:
   }
 
   // EdgeEstimator overrides:
-  double GetUTurnPenalty(Purpose /* purpose */) const override { return 20.0 /* seconds */; }
+  double GetUTurnPenalty(Purpose purpose) const override
+  {
+    if (purpose == EdgeEstimator::Purpose::Weight)
+    {
+      if (this->GetStrategy() == EdgeEstimator::Strategy::FewerTurns)
+      {
+        return 24 * 60 * 60;
+      }
+    }
+    return 20.0 /* seconds */;
+  }
   double GetTurnPenalty(Purpose purpose) const override
   {
     if (purpose == EdgeEstimator::Purpose::Weight)
@@ -307,7 +342,7 @@ public:
         return 24 * 60 * 60;
       }
     }
-    return 10.0;
+    return 0.0;
   }
   // Based on: https://confluence.mail.ru/display/MAPSME/Ferries
   double GetFerryLandingPenalty(Purpose purpose) const override
@@ -347,7 +382,7 @@ public:
 
   // EdgeEstimator overrides:
   double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road, Purpose purpose) const override;
-  double GetUTurnPenalty(Purpose /* purpose */) const override;
+  double GetUTurnPenalty(Purpose purpose) const override;
   double GetTurnPenalty(Purpose purpose) const override;
   double GetFerryLandingPenalty(Purpose purpose) const override;
 
@@ -363,8 +398,16 @@ CarEstimator::CarEstimator(DataSource * dataSourcePtr, std::shared_ptr<NumMwmIds
 {
 }
 
-double CarEstimator::GetUTurnPenalty(Purpose /* purpose */) const
+double CarEstimator::GetUTurnPenalty(Purpose purpose) const
 {
+  if (purpose == EdgeEstimator::Purpose::Weight)
+  {
+    if (this->GetStrategy() == EdgeEstimator::Strategy::FewerTurns)
+    {
+      return 24 * 60 * 60;
+    }
+  }
+
   // Adds 2 minutes penalty for U-turn. The value is quite arbitrary
   // and needs to be properly selected after a number of real-world
   // experiments.
@@ -380,7 +423,7 @@ double CarEstimator::GetTurnPenalty(Purpose purpose) const
       return 24 * 60 * 60;
     }
   }
-  return 60;
+  return 0.0;
 }
 
 double CarEstimator::GetFerryLandingPenalty(Purpose purpose) const
