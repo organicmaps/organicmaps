@@ -12,4 +12,4 @@ target_link_libraries(${PROJECT_NAME}
   geometry
 )
 
-add_subdirectory(world_roads_builder_tool)
+omim_add_tool_subdirectory(world_roads_builder_tool)

@@ -830,6 +830,12 @@ Java_com_mapswithme_maps_Framework_nativeGetParsedSearchRequest(JNIEnv * env, jc
   return env->NewObject(cl, ctor, jni::ToJavaString(env, r.m_query), jni::ToJavaString(env, r.m_locale), r.m_centerLat, r.m_centerLon, r.m_isSearchOnMap);
 }
 
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_Framework_nativeGetParsedAppName(JNIEnv * env, jclass)
+{
+  return jni::ToJavaString(env, frm()->GetParsedAppName());
+}
+
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativePlacePageActivationListener(JNIEnv *env, jclass clazz,
                                                                      jobject jListener)

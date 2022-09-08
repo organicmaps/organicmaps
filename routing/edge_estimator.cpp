@@ -21,6 +21,7 @@ namespace routing
 using namespace routing;
 using namespace std;
 using namespace traffic;
+using measurement_utils::KmphToMps;
 
 namespace
 {
@@ -57,7 +58,7 @@ double CalcClimbSegment(EdgeEstimator::Purpose purpose, Segment const & segment,
 
   double const distance = ms::DistanceOnEarth(from.GetLatLon(), to.GetLatLon());
   double const speedMpS =
-      KMPH2MPS(purpose == EdgeEstimator::Purpose::Weight ? speed.m_weight : speed.m_eta);
+      KmphToMps(purpose == EdgeEstimator::Purpose::Weight ? speed.m_weight : speed.m_eta);
   CHECK_GREATER(speedMpS, 0.0, ("from:", from.GetLatLon(), "to:", to.GetLatLon(), "speed:", speed));
   double const timeSec = distance / speedMpS;
 
@@ -119,17 +120,17 @@ double GetCarClimbPenalty(EdgeEstimator::Purpose /* purpose */, double /* tangen
 // EdgeEstimator -----------------------------------------------------------------------------------
 EdgeEstimator::EdgeEstimator(double maxWeightSpeedKMpH, SpeedKMpH const & offroadSpeedKMpH,
                              DataSource * /*dataSourcePtr*/, std::shared_ptr<NumMwmIds> /*numMwmIds*/)
-  : m_maxWeightSpeedMpS(KMPH2MPS(maxWeightSpeedKMpH))
+  : m_maxWeightSpeedMpS(KmphToMps(maxWeightSpeedKMpH))
   , m_offroadSpeedKMpH(offroadSpeedKMpH)
   //, m_dataSourcePtr(dataSourcePtr)
   //, m_numMwmIds(numMwmIds)
 {
   CHECK_GREATER(m_offroadSpeedKMpH.m_weight, 0.0, ());
   CHECK_GREATER(m_offroadSpeedKMpH.m_eta, 0.0, ());
-  CHECK_GREATER_OR_EQUAL(m_maxWeightSpeedMpS, KMPH2MPS(m_offroadSpeedKMpH.m_weight), ());
+  CHECK_GREATER_OR_EQUAL(m_maxWeightSpeedMpS, KmphToMps(m_offroadSpeedKMpH.m_weight), ());
 
   if (m_offroadSpeedKMpH.m_eta != kNotUsed)
-    CHECK_GREATER_OR_EQUAL(m_maxWeightSpeedMpS, KMPH2MPS(m_offroadSpeedKMpH.m_eta), ());
+    CHECK_GREATER_OR_EQUAL(m_maxWeightSpeedMpS, KmphToMps(m_offroadSpeedKMpH.m_eta), ());
 }
 
 double EdgeEstimator::CalcHeuristic(ms::LatLon const & from, ms::LatLon const & to) const
@@ -205,7 +206,7 @@ double EdgeEstimator::CalcOffroad(ms::LatLon const & from, ms::LatLon const & to
   if (offroadSpeedKMpH == kNotUsed)
     return 0.0;
 
-  return TimeBetweenSec(from, to, KMPH2MPS(offroadSpeedKMpH));
+  return TimeBetweenSec(from, to, KmphToMps(offroadSpeedKMpH));
 }
 
 // PedestrianEstimator -----------------------------------------------------------------------------

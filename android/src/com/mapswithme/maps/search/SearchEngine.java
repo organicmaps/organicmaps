@@ -177,7 +177,7 @@ public enum SearchEngine implements NativeSearchListener,
   @MainThread
   private static void cancelApiCall()
   {
-    if (ParsedMwmRequest.hasRequest())
+    if (ParsedMwmRequest.getCurrentRequest() != null)
       ParsedMwmRequest.setCurrentRequest(null);
     Framework.nativeClearApiPoints();
   }

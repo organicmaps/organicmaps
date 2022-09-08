@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 
+import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 import com.mapswithme.maps.dialog.AlertDialog;
 import com.mapswithme.maps.dialog.AlertDialogCallback;
@@ -43,6 +44,8 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity imp
 
   private static final String ERROR_LOADING_DIALOG_TAG = "error_loading_dialog";
   private static final int ERROR_LOADING_DIALOG_REQ_CODE = 234;
+
+  private static final int REQ_CODE_API_RESULT = 10;
 
   public static final String EXTRA_COUNTRY = "country";
 
@@ -89,12 +92,9 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity imp
   private final IntentProcessor[] mIntentProcessors = {
       new Factory.GeoIntentProcessor(),
       new Factory.HttpGeoIntentProcessor(),
-      new Factory.MapsWithMeIntentProcessor(),
       new Factory.HttpMapsIntentProcessor(),
       new Factory.OpenCountryTaskProcessor(),
       new Factory.KmzKmlProcessor(this),
-      new Factory.ShowOnMapProcessor(),
-      new Factory.BuildRouteProcessor(),
   };
 
   private final LocationListener mLocationListener = new LocationListener.Simple()
@@ -392,11 +392,27 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity imp
       intent.putExtra(MwmActivity.EXTRA_TASK, mMapTaskToForward);
       intent.putExtra(MwmActivity.EXTRA_LAUNCH_BY_DEEP_LINK, true);
       mMapTaskToForward = null;
+
+      if (ParsedMwmRequest.getCurrentRequest() != null)
+      {
+        // Wait for the result from MwmActivity for API callers.
+        startActivityForResult(intent, REQ_CODE_API_RESULT);
+        return;
+      }
     }
 
     startActivity(intent);
-
     finish();
+  }
+
+  protected void onActivityResult(int requestCode, int resultCode, Intent data)
+  {
+    super.onActivityResult(requestCode, resultCode, data);
+    if (requestCode == REQ_CODE_API_RESULT)
+    {
+      setResult(resultCode, data);
+      finish();
+    }
   }
 
   private void finishFilesDownload(int result)

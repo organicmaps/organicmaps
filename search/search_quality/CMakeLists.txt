@@ -20,11 +20,11 @@ target_link_libraries(${PROJECT_NAME}
 )
 
 if (NOT SKIP_DESKTOP)
-  add_subdirectory(assessment_tool)
+  omim_add_tool_subdirectory(assessment_tool)
 endif()
 
-add_subdirectory(features_collector_tool)
-add_subdirectory(samples_generation_tool)
-add_subdirectory(search_quality_tool)
+omim_add_tool_subdirectory(features_collector_tool)
+omim_add_tool_subdirectory(samples_generation_tool)
+omim_add_tool_subdirectory(search_quality_tool)
 
 omim_add_test_subdirectory(search_quality_tests)

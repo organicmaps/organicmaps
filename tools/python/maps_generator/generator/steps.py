@@ -417,7 +417,7 @@ def step_statistics(env: Env, country: AnyStr, **kwargs):
         intermediate_data_path=env.paths.intermediate_data_path,
         cache_path=env.paths.cache_path,
         user_resource_path=env.paths.user_resource_path,
-        type_statistics=True,
+        stats_types=True,
         output=country,
         **kwargs,
     )

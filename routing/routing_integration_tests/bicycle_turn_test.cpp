@@ -6,6 +6,8 @@
 
 #include "routing/route.hpp"
 
+namespace bicycle_turn_test
+{
 using namespace routing;
 using namespace routing::turns;
 
@@ -191,6 +193,7 @@ UNIT_TEST(TurnsNearAltufievskoeShosseLongFakeSegmentTest)
   integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnLeft);
   integration::GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnRight);
 
+  /// @todo Check how end point snapping on "nearest" edge works. Visually, closest road is on North (now on South).
   integration::TestRouteLength(route, 279.0);
 }
 
@@ -205,11 +208,13 @@ UNIT_TEST(TurnsNearMoscowRiverShortFakeSegmentTest)
   RouterResultCode const result = routeResult.second;
   TEST_EQUAL(result, RouterResultCode::NoError, ());
 
-  integration::TestTurnCount(route, 1 /* expectedTurnCount */);
+  // Closest snapping road is a footway on East, and there are 2 turns, obviously.
+  integration::TestTurnCount(route, 2 /* expectedTurnCount */);
 
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnRight);
+  integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnRight);
 
-  integration::TestRouteLength(route, 382.2);
+  integration::TestRouteLength(route, 401.2);
 }
 
 UNIT_TEST(TurnsNearMKAD85kmShortFakeSegmentTest)
@@ -225,7 +230,7 @@ UNIT_TEST(TurnsNearMKAD85kmShortFakeSegmentTest)
 
   integration::TestTurnCount(route, 9 /* expectedTurnCount */);
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnRight);
-  integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::GoStraight);
+  integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnLeft);
   integration::GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnRight);
   integration::GetNthTurn(route, 3).TestValid().TestDirection(CarDirection::EnterRoundAbout);
   integration::GetNthTurn(route, 4).TestValid().TestDirection(CarDirection::LeaveRoundAbout);
@@ -255,3 +260,4 @@ UNIT_TEST(TurnsNearKhladkombinatTest)
 
   integration::TestRouteLength(route, 484.3);
 }
+} // namespace bicycle_turn_test

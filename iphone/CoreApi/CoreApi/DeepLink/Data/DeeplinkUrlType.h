@@ -11,6 +11,7 @@ static inline DeeplinkUrlType deeplinkUrlType(url_scheme::ParsedMapApi::UrlType 
      case url_scheme::ParsedMapApi::UrlType::Map: return DeeplinkUrlTypeMap;
      case url_scheme::ParsedMapApi::UrlType::Route: return DeeplinkUrlTypeRoute;
      case url_scheme::ParsedMapApi::UrlType::Search: return DeeplinkUrlTypeSearch;
+     case url_scheme::ParsedMapApi::UrlType::Crosshair: return DeeplinkUrlTypeCrosshair;
    }
 }
 

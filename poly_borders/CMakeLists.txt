@@ -14,4 +14,4 @@ target_link_libraries(${PROJECT_NAME} generator)
 
 omim_add_test_subdirectory(poly_borders_tests)
 
-add_subdirectory(poly_borders_tool)
+omim_add_tool_subdirectory(poly_borders_tool)

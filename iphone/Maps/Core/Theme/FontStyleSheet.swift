@@ -141,6 +141,9 @@ class FontStyleSheet: IStyleSheet {
     theme.add(styleName: "heavy38") { (s) -> (Void) in
       s.font = fonts.heavy38
     }
+    theme.add(styleName: "italic12") { (s) -> (Void) in
+      s.font = fonts.italic12
+    }
     theme.add(styleName: "italic16") { (s) -> (Void) in
       s.font = fonts.italic16
     }

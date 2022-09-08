@@ -15,7 +15,6 @@ import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MapFragment;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.MwmApplication;
-import com.mapswithme.maps.api.Const;
 import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.api.ParsedRoutingData;
 import com.mapswithme.maps.api.ParsedSearchRequest;
@@ -24,7 +23,6 @@ import com.mapswithme.maps.api.RoutePoint;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.bookmarks.data.MapObject;
-import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.search.SearchActivity;
 import com.mapswithme.maps.search.SearchEngine;
@@ -35,7 +33,6 @@ import com.mapswithme.util.concurrency.ThreadPool;
 
 import java.io.File;
 import java.util.List;
-import java.util.Locale;
 
 public class Factory
 {
@@ -51,6 +48,9 @@ public class Factory
       final String scheme = intent.getScheme();
       if (!"geo".equals(scheme) && !"ge0".equals(scheme) && !"om".equals(scheme) && !"mapsme".equals(scheme))
         return null;
+      SearchEngine.INSTANCE.cancelInteractiveSearch();
+      final ParsedMwmRequest request = ParsedMwmRequest.extractFromIntent(intent);
+      ParsedMwmRequest.setCurrentRequest(request);
       return new OpenUrlTask(uri.toString());
     }
   }
@@ -73,35 +73,11 @@ public class Factory
       if (uri.getPath() == null)
         return null;
       final String ge0Url = "om:/" + uri.getPath();
+
+      SearchEngine.INSTANCE.cancelInteractiveSearch();
+      final ParsedMwmRequest request = ParsedMwmRequest.extractFromIntent(intent);
+      ParsedMwmRequest.setCurrentRequest(request);
       return new OpenUrlTask(ge0Url);
-    }
-  }
-
-  /**
-   * Use this to invoke API task.
-   */
-  public static class MapsWithMeIntentProcessor implements IntentProcessor
-  {
-    @Nullable
-    @Override
-    public MapTask process(@NonNull Intent intent)
-    {
-      if (!Const.ACTION_MWM_REQUEST.equals(intent.getAction()))
-        return null;
-
-      final String apiUrl = intent.getStringExtra(Const.EXTRA_URL);
-      if (apiUrl != null)
-      {
-        SearchEngine.INSTANCE.cancelInteractiveSearch();
-
-        final ParsedMwmRequest request = ParsedMwmRequest.extractFromIntent(intent);
-        ParsedMwmRequest.setCurrentRequest(request);
-
-        if (!ParsedMwmRequest.isPickPointMode())
-          return new OpenUrlTask(apiUrl);
-      }
-
-      throw new AssertionError("Url must be provided!");
     }
   }
 
@@ -175,91 +151,6 @@ public class Factory
     }
   }
 
-  public static class ShowOnMapProcessor implements IntentProcessor
-  {
-    private static final String ACTION_SHOW_ON_MAP = "com.mapswithme.maps.pro.action.SHOW_ON_MAP";
-    private static final String EXTRA_LAT = "lat";
-    private static final String EXTRA_LON = "lon";
-
-    @Nullable
-    @Override
-    public MapTask process(@NonNull Intent intent)
-    {
-      if (!ACTION_SHOW_ON_MAP.equals(intent.getAction()))
-        return null;
-
-      if (!intent.hasExtra(EXTRA_LAT) || !intent.hasExtra(EXTRA_LON))
-        throw new AssertionError("Extra lat/lon must be provided!");
-
-      double lat = getCoordinateFromIntent(intent, EXTRA_LAT);
-      double lon = getCoordinateFromIntent(intent, EXTRA_LON);
-
-      return new ShowPointTask(lat, lon);
-    }
-  }
-
-  public static class BuildRouteProcessor implements IntentProcessor
-  {
-    private static final String ACTION_BUILD_ROUTE = "com.mapswithme.maps.pro.action.BUILD_ROUTE";
-    private static final String EXTRA_LAT_TO = "lat_to";
-    private static final String EXTRA_LON_TO = "lon_to";
-    private static final String EXTRA_LAT_FROM = "lat_from";
-    private static final String EXTRA_LON_FROM = "lon_from";
-    private static final String EXTRA_SADDR = "saddr";
-    private static final String EXTRA_DADDR = "daddr";
-    private static final String EXTRA_ROUTER = "router";
-
-    @Nullable
-    @Override
-    public MapTask process(@NonNull Intent intent)
-    {
-      if (!ACTION_BUILD_ROUTE.equals(intent.getAction()))
-        return null;
-
-      if (!intent.hasExtra(EXTRA_LAT_TO) || !intent.hasExtra(EXTRA_LON_TO))
-        throw new AssertionError("Extra lat/lon must be provided!");
-
-      String saddr = intent.getStringExtra(EXTRA_SADDR);
-      String daddr = intent.getStringExtra(EXTRA_DADDR);
-      double latTo = getCoordinateFromIntent(intent, EXTRA_LAT_TO);
-      double lonTo = getCoordinateFromIntent(intent, EXTRA_LON_TO);
-      boolean hasFrom = intent.hasExtra(EXTRA_LAT_FROM) && intent.hasExtra(EXTRA_LON_FROM);
-      boolean hasRouter = intent.hasExtra(EXTRA_ROUTER);
-
-      MapTask mapTaskToForward;
-      if (hasFrom && hasRouter)
-      {
-        double latFrom = getCoordinateFromIntent(intent, EXTRA_LAT_FROM);
-        double lonFrom = getCoordinateFromIntent(intent, EXTRA_LON_FROM);
-        mapTaskToForward = new BuildRouteTask(latTo, lonTo, saddr, latFrom,lonFrom,
-                                                           daddr, intent.getStringExtra(EXTRA_ROUTER));
-      }
-      else if (hasFrom)
-      {
-        double latFrom = getCoordinateFromIntent(intent, EXTRA_LAT_FROM);
-        double lonFrom = getCoordinateFromIntent(intent, EXTRA_LON_FROM);
-        mapTaskToForward = new BuildRouteTask(latTo, lonTo, saddr,
-                                                           latFrom,lonFrom, daddr);
-      }
-      else
-      {
-        mapTaskToForward = new BuildRouteTask(latTo, lonTo,
-                                                           intent.getStringExtra(EXTRA_ROUTER));
-      }
-
-      return mapTaskToForward;
-    }
-  }
-
-  private static double getCoordinateFromIntent(@NonNull Intent intent, @NonNull String key)
-  {
-    double value = intent.getDoubleExtra(key, 0.0);
-    if (Double.compare(value, 0.0) == 0)
-      value = intent.getFloatExtra(key, 0.0f);
-
-    return value;
-  }
-
   abstract static class UrlTaskWithStatistics implements MapTask
   {
     private static final long serialVersionUID = -8661639898700431066L;
@@ -318,9 +209,6 @@ public class Factory
       switch (result.getUrlType())
       {
         case ParsingResult.TYPE_INCORRECT:
-        case ParsingResult.TYPE_CATALOGUE:
-        case ParsingResult.TYPE_CATALOGUE_PATH:
-        case ParsingResult.TYPE_SUBSCRIPTION:
           return false;
 
         case ParsingResult.TYPE_MAP:
@@ -350,7 +238,9 @@ public class Factory
           }
           SearchActivity.start(target, request.mQuery, request.mLocale, request.mIsSearchOnMap);
           return true;
-        case ParsingResult.TYPE_LEAD:
+        case ParsingResult.TYPE_CROSSHAIR:
+          final String appName = Framework.nativeGetParsedAppName();
+          target.showPositionChooserForAPI(appName);
           return true;
       }
 
@@ -435,124 +325,6 @@ public class Factory
     public boolean run(@NonNull MwmActivity target)
     {
       target.showTrackOnMap(mId);
-      return true;
-    }
-  }
-
-  public static class ShowPointTask implements MapTask
-  {
-    private static final long serialVersionUID = -2467635346469323664L;
-    private final double mLat;
-    private final double mLon;
-
-    ShowPointTask(double lat, double lon)
-    {
-      mLat = lat;
-      mLon = lon;
-    }
-
-    @Override
-    public boolean run(@NonNull MwmActivity target)
-    {
-      MapFragment.nativeShowMapForUrl(String.format(Locale.US,
-                                                    "mapsme://map?ll=%f,%f", mLat, mLon));
-      return true;
-    }
-  }
-
-  public static class BuildRouteTask implements MapTask
-  {
-    private static final long serialVersionUID = 5301468481040195957L;
-    private final double mLatTo;
-    private final double mLonTo;
-    @Nullable
-    private final Double mLatFrom;
-    @Nullable
-    private final Double mLonFrom;
-    @Nullable
-    private final String mSaddr;
-    @Nullable
-    private final String mDaddr;
-    private final String mRouter;
-
-    @NonNull
-    private static MapObject fromLatLon(double lat, double lon, @Nullable String addr)
-    {
-      return MapObject.createMapObject(FeatureId.EMPTY, MapObject.API_POINT,
-                                       TextUtils.isEmpty(addr) ? "" : addr, "", lat, lon);
-    }
-
-    BuildRouteTask(double latTo, double lonTo, @Nullable String router)
-    {
-      this(latTo, lonTo, null, null, null, null, router);
-    }
-
-    BuildRouteTask(double latTo, double lonTo, @Nullable String saddr,
-                   @Nullable Double latFrom, @Nullable Double lonFrom, @Nullable String daddr)
-    {
-      this(latTo, lonTo, saddr, latFrom, lonFrom, daddr, null);
-    }
-
-    BuildRouteTask(double latTo, double lonTo, @Nullable String saddr,
-                   @Nullable Double latFrom, @Nullable Double lonFrom, @Nullable String daddr,
-                   @Nullable String router)
-    {
-      mLatTo = latTo;
-      mLonTo = lonTo;
-      mLatFrom = latFrom;
-      mLonFrom = lonFrom;
-      mSaddr = saddr;
-      mDaddr = daddr;
-      mRouter = router;
-    }
-
-    @Override
-    public boolean run(@NonNull MwmActivity target)
-    {
-      @Framework.RouterType int routerType = -1;
-      if (!TextUtils.isEmpty(mRouter))
-      {
-        switch (mRouter)
-        {
-          case "vehicle":
-            routerType = Framework.ROUTER_TYPE_VEHICLE;
-            break;
-          case "pedestrian":
-            routerType = Framework.ROUTER_TYPE_PEDESTRIAN;
-            break;
-          case "bicycle":
-            routerType = Framework.ROUTER_TYPE_BICYCLE;
-            break;
-          case "transit":
-            routerType = Framework.ROUTER_TYPE_TRANSIT;
-            break;
-        }
-      }
-
-      if (mLatFrom != null && mLonFrom != null && routerType >= 0)
-      {
-        RoutingController.get().prepare(fromLatLon(mLatFrom, mLonFrom, mSaddr),
-                                        fromLatLon(mLatTo, mLonTo, mDaddr), routerType,
-                                        true /* fromApi */);
-      }
-      else if (mLatFrom != null && mLonFrom != null)
-      {
-        RoutingController.get().prepare(fromLatLon(mLatFrom, mLonFrom, mSaddr),
-                                        fromLatLon(mLatTo, mLonTo, mDaddr), true /* fromApi */);
-      }
-      else if (routerType > 0)
-      {
-        MapObject startPoint = LocationHelper.INSTANCE.getMyPosition();
-        RoutingController.get().prepare(startPoint,
-                                        fromLatLon(mLatTo, mLonTo, mDaddr), routerType,
-                                        true /* fromApi */);
-      }
-      else
-      {
-        MapObject startPoint = LocationHelper.INSTANCE.getMyPosition();
-        RoutingController.get().prepare(startPoint,
-                                        fromLatLon(mLatTo, mLonTo, mDaddr), true /* fromApi */);
-      }
       return true;
     }
   }

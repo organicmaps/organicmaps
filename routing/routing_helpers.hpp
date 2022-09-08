@@ -27,8 +27,6 @@ class IndexRoadGraph;
 class TrafficStash;
 class WorldGraph;
 
-inline double KMPH2MPS(double kmph) { return kmph * 1000.0 / (60 * 60); }
-
 template <typename Types>
 bool IsCarRoad(Types const & types)
 {

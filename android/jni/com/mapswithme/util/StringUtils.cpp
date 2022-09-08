@@ -54,9 +54,8 @@ Java_com_mapswithme_util_StringUtils_nativeFilterContainsNormalized(JNIEnv * env
 JNIEXPORT jobject JNICALL Java_com_mapswithme_util_StringUtils_nativeFormatSpeedAndUnits(
     JNIEnv * env, jclass thiz, jdouble metersPerSecond)
 {
-  measurement_utils::Units units;
-  if (!settings::Get(settings::kMeasurementUnits, units))
-    units = measurement_utils::Units::Metric;
+  auto units = measurement_utils::Units::Metric;
+  settings::Get(settings::kMeasurementUnits, units);
   return MakeJavaPair(env, measurement_utils::FormatSpeedNumeric(metersPerSecond, units),
                       measurement_utils::FormatSpeedUnits(units));
 }

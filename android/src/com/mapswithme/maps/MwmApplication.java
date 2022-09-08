@@ -255,7 +255,7 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
   {
     Message m = Message.obtain(mMainLoopHandler, () -> nativeProcessTask(taskPointer));
     m.obj = mMainQueueToken;
-    mMainLoopHandler.sendMessage(m);
+    //mMainLoopHandler.sendMessage(m);
   }
 
   @NonNull

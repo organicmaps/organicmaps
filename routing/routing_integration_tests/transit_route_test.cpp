@@ -4,10 +4,10 @@
 
 #include "geometry/mercator.hpp"
 
+namespace transit_route_test
+{
 using namespace routing;
 
-namespace
-{
 UNIT_TEST(Transit_Moscow_CenterToKotelniki_CrossMwm)
 {
   TRouteResult routeResult =
@@ -58,8 +58,8 @@ UNIT_TEST(Transit_Piter_FrunzenskyaToPlochadVosstaniya)
                                   mercator::FromLatLon(59.93096, 30.35872));
   TEST_EQUAL(routeResult.second, RouterResultCode::NoError, ());
 
-  /// @todo https://github.com/organicmaps/organicmaps/issues/1669
-  integration::TestRouteLength(*routeResult.first, 4952.43);
+  /// @todo Check https://github.com/organicmaps/organicmaps/issues/1669 for details.
+  integration::TestRouteLength(*routeResult.first, 5593.96);
 
   CHECK(routeResult.first, ());
   integration::CheckSubwayExistence(*routeResult.first);
@@ -95,7 +95,8 @@ UNIT_TEST(Transit_Vatikan_CorneliaToOttaviano)
 
   TEST_EQUAL(routeResult.second, RouterResultCode::NoError, ());
 
-  integration::TestRouteLength(*routeResult.first, 4255.16);
+  // I don't see any bad routing sections here. Make actual value.
+  integration::TestRouteLength(*routeResult.first, 4316.61);
 
   CHECK(routeResult.first, ());
   integration::CheckSubwayExistence(*routeResult.first);
@@ -126,7 +127,7 @@ UNIT_TEST(Transit_London_DeptfordBridgeToCyprus)
   TEST_EQUAL(routeResult.second, RouterResultCode::NoError, ());
 
   // I don't see any bad routing sections here. Make actual value.
-  integration::TestRouteLength(*routeResult.first, 12707.1);
+  integration::TestRouteLength(*routeResult.first, 12882.2);
 
   CHECK(routeResult.first, ());
   integration::CheckSubwayExistence(*routeResult.first);
@@ -156,9 +157,10 @@ UNIT_TEST(Transit_NewYork_GrassmereToPleasantPlains)
 
   TEST_EQUAL(routeResult.second, RouterResultCode::NoError, ());
 
-  integration::TestRouteLength(*routeResult.first, 17224.5);
+  // I don't see any bad routing sections here. Make actual value.
+  integration::TestRouteLength(*routeResult.first, 17433.7);
 
   CHECK(routeResult.first, ());
   integration::CheckSubwayExistence(*routeResult.first);
 }
-}  // namespace
+} // namespace transit_route_test

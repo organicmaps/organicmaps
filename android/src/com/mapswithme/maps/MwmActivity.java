@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
@@ -27,7 +28,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import com.mapswithme.maps.Framework.PlacePageActivationListener;
-import com.mapswithme.maps.api.ParsedMwmRequest;
+import com.mapswithme.maps.api.Const;
 import com.mapswithme.maps.background.AppBackgroundTracker;
 import com.mapswithme.maps.background.Notifier;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
@@ -147,7 +148,15 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Nullable
   private MapFragment mMapFragment;
 
-  private View mPositionChooser;
+  private View mPointChooser;
+  enum PointChooserMode
+  {
+    NONE,
+    EDITOR,
+    API
+  };
+  @NonNull
+  private PointChooserMode mPointChooserMode = PointChooserMode.NONE;
 
   private RoutingPlanInplaceController mRoutingPlanInplaceController;
 
@@ -474,31 +483,53 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void initPositionChooser()
   {
-    mPositionChooser = findViewById(R.id.position_chooser);
-    if (mPositionChooser == null)
+    mPointChooser = findViewById(R.id.position_chooser);
+    if (mPointChooser == null)
       return;
 
-    final Toolbar toolbar = mPositionChooser.findViewById(R.id.toolbar_position_chooser);
+    final Toolbar toolbar = mPointChooser.findViewById(R.id.toolbar_point_chooser);
     UiUtils.extendViewWithStatusBar(toolbar);
     UiUtils.showHomeUpButton(toolbar);
-    toolbar.setNavigationOnClickListener(v -> closePositionChooser());
-    mPositionChooser.findViewById(R.id.done).setOnClickListener(
+    toolbar.setNavigationOnClickListener(v -> {
+      closePositionChooser();
+      if (mPointChooserMode == PointChooserMode.API)
+        finish();
+    });
+    mPointChooser.findViewById(R.id.done).setOnClickListener(
         v ->
         {
+          switch (mPointChooserMode)
+          {
+          case API:
+            final Intent apiResult = new Intent();
+            final double[] center = Framework.nativeGetScreenRectCenter();
+            apiResult.putExtra(Const.EXTRA_POINT_LAT, center[0]);
+            apiResult.putExtra(Const.EXTRA_POINT_LON, center[1]);
+            apiResult.putExtra(Const.EXTRA_ZOOM_LEVEL, Framework.nativeGetDrawScale());
+            setResult(Activity.RESULT_OK, apiResult);
+            finish();
+            break;
+          case EDITOR:
+            if (Framework.nativeIsDownloadedMapAtScreenCenter())
+              startActivity(new Intent(MwmActivity.this, FeatureCategoryActivity.class));
+            else
+              DialogUtils.showAlertDialog(MwmActivity.this, R.string.message_invalid_feature_position);
+            break;
+          case NONE:
+            throw new IllegalStateException("Unexpected mPositionChooserMode");
+          }
           closePositionChooser();
-          if (Framework.nativeIsDownloadedMapAtScreenCenter())
-            startActivity(new Intent(MwmActivity.this, FeatureCategoryActivity.class));
-          else
-            DialogUtils.showAlertDialog(MwmActivity.this, R.string.message_invalid_feature_position);
         });
-    UiUtils.hide(mPositionChooser);
+    UiUtils.hide(mPointChooser);
   }
 
   private void refreshSearchToolbar()
   {
-    mSearchController.refreshQuery();
-    if (!TextUtils.isEmpty(mSearchController.getQuery()))
+    mSearchController.showProgress(false);
+    final CharSequence query = SearchEngine.INSTANCE.getQuery();
+    if (!TextUtils.isEmpty(query))
     {
+      mSearchController.setQuery(query);
       // Close all panels and tool bars (including search) but do not stop search backend
       closeFloatingToolbars(false, false);
       // Do not show the search tool bar if we are planning or navigating
@@ -518,19 +549,38 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mSearchController.show();
   }
 
-  public void showPositionChooser(boolean isBusiness, boolean applyPosition)
+  public void showPositionChooserForAPI(String appName)
   {
+    showPositionChooser(PointChooserMode.API, false, false);
+    if (!TextUtils.isEmpty(appName))
+    {
+      setTitle(appName);
+      ((TextView) mPointChooser.findViewById(R.id.title)).setText(appName);
+    }
+  }
+
+  public void showPositionChooserForEditor(boolean isBusiness, boolean applyPosition)
+  {
+    showPositionChooser(PointChooserMode.EDITOR, isBusiness, applyPosition);
+  }
+
+  private void showPositionChooser(PointChooserMode mode, boolean isBusiness, boolean applyPosition)
+  {
+    mPointChooserMode = mode;
     closeFloatingToolbarsAndPanels(false);
-    UiUtils.show(mPositionChooser);
+    UiUtils.show(mPointChooser);
     setFullscreen(true);
     Framework.nativeTurnOnChoosePositionMode(isBusiness, applyPosition);
   }
 
   private void hidePositionChooser()
   {
-    UiUtils.hide(mPositionChooser);
+    UiUtils.hide(mPointChooser);
     Framework.nativeTurnOffChoosePositionMode();
     setFullscreen(false);
+    if (mPointChooserMode == PointChooserMode.API)
+      finish();
+    mPointChooserMode = PointChooserMode.NONE;
   }
 
   private void initMap(boolean isLaunchByDeepLink)
@@ -660,7 +710,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
    */
   private boolean closePositionChooser()
   {
-    if (UiUtils.isVisible(mPositionChooser))
+    if (UiUtils.isVisible(mPointChooser))
     {
       hidePositionChooser();
       return true;
@@ -963,7 +1013,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mMainMenu.onResume();
     if (Framework.nativeIsInChoosePositionMode())
     {
-      UiUtils.show(mPositionChooser);
+      UiUtils.show(mPointChooser);
       setFullscreen(true);
     }
     if (mOnmapDownloader != null)
@@ -1118,20 +1168,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onPlacePageActivated(@NonNull PlacePageData data)
   {
-    if (data instanceof MapObject)
-    {
-      MapObject object = (MapObject) data;
-      if (MapObject.isOfType(MapObject.API_POINT, object))
-      {
-        final ParsedMwmRequest request = ParsedMwmRequest.getCurrentRequest();
-        if (request == null)
-          return;
-
-        request.setPointData(object.getLat(), object.getLon(), object.getTitle(), object.getApiId());
-        object.setSubtitle(request.getCallerName(MwmApplication.from(this)).toString());
-      }
-    }
-
     setFullscreen(false);
 
     mPlacePageController.openFor(data);
@@ -1958,7 +1994,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void onAddPlaceOptionSelected()
   {
     closeFloatingPanels();
-    showPositionChooser(false, false);
+    showPositionChooserForEditor(false, false);
   }
 
   public void onDownloadMapsOptionSelected()

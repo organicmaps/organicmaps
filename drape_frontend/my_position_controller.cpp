@@ -13,6 +13,8 @@
 
 #include "base/math.hpp"
 
+#include "platform/measurement_utils.hpp"
+
 
 #include <algorithm>
 #include <array>
@@ -53,38 +55,35 @@ int GetZoomLevel(ScreenBase const & screen, m2::PointD const & position, double 
 }
 
 // Calculate zoom value in meters per pixel
-double CalculateZoomBySpeed(double speed, bool isPerspectiveAllowed)
+double CalculateZoomBySpeed(double speedMpS, bool isPerspectiveAllowed)
 {
   using TSpeedScale = std::pair<double, double>;
-  static std::array<TSpeedScale, 6> const scales3d = {
-    std::make_pair(20.0, 0.25),
-    std::make_pair(40.0, 0.75),
-    std::make_pair(60.0, 1.5),
-    std::make_pair(75.0, 2.5),
-    std::make_pair(85.0, 3.75),
-    std::make_pair(95.0, 6.0),
-  };
+  static std::array<TSpeedScale, 6> const scales3d = {{
+    {20.0, 0.25},
+    {40.0, 0.75},
+    {60.0, 1.50},
+    {75.0, 2.50},
+    {85.0, 3.75},
+    {95.0, 6.00},
+  }};
 
-  static std::array<TSpeedScale, 6> const scales2d = {
-    std::make_pair(20.0, 0.7),
-    std::make_pair(40.0, 1.25),
-    std::make_pair(60.0, 2.25),
-    std::make_pair(75.0, 3.0),
-    std::make_pair(85.0, 3.75),
-    std::make_pair(95.0, 6.0),
-  };
+  static std::array<TSpeedScale, 6> const scales2d = {{
+    {20.0, 0.70},
+    {40.0, 1.25},
+    {60.0, 2.25},
+    {75.0, 3.00},
+    {85.0, 3.75},
+    {95.0, 6.00},
+  }};
 
   std::array<TSpeedScale, 6> const & scales = isPerspectiveAllowed ? scales3d : scales2d;
 
-  double const kDefaultSpeed = 80.0;
-  if (speed < 0.0)
-    speed = kDefaultSpeed;
-  else
-    speed *= 3.6; // convert speed from m/s to km/h.
+  double constexpr kDefaultSpeedKmpH = 80.0;
+  double const speedKmpH = speedMpS >= 0 ? measurement_utils::MpsToKmph(speedMpS) : kDefaultSpeedKmpH;
 
   size_t i = 0;
   for (size_t sz = scales.size(); i < sz; ++i)
-    if (scales[i].first >= speed)
+    if (scales[i].first >= speedKmpH)
       break;
 
   double const vs = df::VisualParams::Instance().GetVisualScale();
@@ -96,7 +95,7 @@ double CalculateZoomBySpeed(double speed, bool isPerspectiveAllowed)
 
   double const minSpeed = scales[i - 1].first;
   double const maxSpeed = scales[i].first;
-  double const k = (speed - minSpeed) / (maxSpeed - minSpeed);
+  double const k = (speedKmpH - minSpeed) / (maxSpeed - minSpeed);
 
   double const minScale = scales[i - 1].second;
   double const maxScale = scales[i].second;

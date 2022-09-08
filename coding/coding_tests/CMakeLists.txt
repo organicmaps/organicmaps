@@ -32,6 +32,7 @@ set(SRC
   simple_dense_coding_test.cpp
   sparse_vector_tests.cpp
   string_utf8_multilang_tests.cpp
+  succinct_ef_test.cpp
   succinct_mapper_test.cpp
   test_polylines.cpp
   test_polylines.hpp

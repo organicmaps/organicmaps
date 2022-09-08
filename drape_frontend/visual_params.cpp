@@ -109,12 +109,12 @@ std::string const & VisualParams::GetResourcePostfix(double visualScale)
   ASSERT_INITED;
   static VisualScale postfixes[] =
   {
-    std::make_pair("mdpi", kMdpiScale),
-    std::make_pair("hdpi", kHdpiScale),
-    std::make_pair("xhdpi", kXhdpiScale),
-    std::make_pair("6plus", k6plusScale),
-    std::make_pair("xxhdpi", kXxhdpiScale),
-    std::make_pair("xxxhdpi", kXxxhdpiScale),
+    {"mdpi", kMdpiScale},
+    {"hdpi", kHdpiScale},
+    {"xhdpi", kXhdpiScale},
+    {"6plus", k6plusScale},
+    {"xxhdpi", kXxhdpiScale},
+    {"xxxhdpi", kXxxhdpiScale},
   };
 
   // Looking for the nearest available scale.

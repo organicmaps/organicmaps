@@ -1,6 +1,8 @@
 package com.mapswithme.maps.widget.placepage;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.location.Location;
@@ -36,6 +38,7 @@ import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.api.Const;
 import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
@@ -529,16 +532,19 @@ public class PlacePageView extends NestedScrollViewClickFixed
       return;
     }
 
-    if (ParsedMwmRequest.hasRequest())
+    final ParsedMwmRequest request = ParsedMwmRequest.getCurrentRequest();
+    if (request != null && request.isPickPointMode())
     {
-      ParsedMwmRequest request = ParsedMwmRequest.getCurrentRequest();
-      if (ParsedMwmRequest.isPickPointMode())
-        request.setPointData(mMapObject.getLat(), mMapObject.getLon(), mMapObject.getTitle(), "");
-
-      request.sendResponseAndFinish(getActivity(), true);
+      final Intent result = new Intent();
+      result.putExtra(Const.EXTRA_POINT_LAT, mMapObject.getLat())
+          .putExtra(Const.EXTRA_POINT_LON, mMapObject.getLon())
+          .putExtra(Const.EXTRA_POINT_NAME, mMapObject.getTitle())
+          .putExtra(Const.EXTRA_POINT_ID, mMapObject.getApiId())
+          .putExtra(Const.EXTRA_ZOOM_LEVEL, Framework.nativeGetDrawScale());
+      getActivity().setResult(Activity.RESULT_OK, result);
+      ParsedMwmRequest.setCurrentRequest(null);
     }
-    else
-      getActivity().finish();
+    getActivity().finish();
   }
 
   private void onRouteFromBtnClicked()
@@ -1139,7 +1145,8 @@ public class PlacePageView extends NestedScrollViewClickFixed
       return;
     }
 
-    if (showBackButton || ParsedMwmRequest.isPickPointMode())
+    final ParsedMwmRequest request = ParsedMwmRequest.getCurrentRequest();
+    if (showBackButton || (request != null && request.isPickPointMode()))
       buttons.add(PlacePageButtons.Item.BACK);
 
     final boolean hasNumber = mapObject.hasPhoneNumber();
@@ -1270,12 +1277,12 @@ public class PlacePageView extends NestedScrollViewClickFixed
 
   private void addOrganisation()
   {
-    getActivity().showPositionChooser(true, false);
+    getActivity().showPositionChooserForEditor(true, false);
   }
 
   private void addPlace()
   {
-    getActivity().showPositionChooser(false, true);
+    getActivity().showPositionChooserForEditor(false, true);
   }
 
   @Override

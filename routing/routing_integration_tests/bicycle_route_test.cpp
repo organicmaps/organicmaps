@@ -8,6 +8,8 @@
 
 #include "base/math.hpp"
 
+namespace bicycle_route_test
+{
 using namespace integration;
 using namespace routing;
 using namespace routing::turns;
@@ -146,10 +148,12 @@ UNIT_TEST(CrossMwmKaliningradRegionToLiepaja)
 // Test on riding up from Adeje (sea level) to Vilaflor (altitude 1400 meters).
 UNIT_TEST(SpainTenerifeAdejeVilaflor)
 {
+  // Route length: 30440 meters. ETA: 10022.6 seconds.
+  // Can't say ETA is good or not, but avg speed is 3m/s, which looks ok.
   integration::CalculateRouteAndTestRouteTime(
       integration::GetVehicleComponents(VehicleType::Bicycle),
       mercator::FromLatLon(28.11984, -16.72592), {0.0, 0.0},
-      mercator::FromLatLon(28.15865, -16.63704), 10787.6 /* expectedTimeSeconds */);
+      mercator::FromLatLon(28.15865, -16.63704), 10022.6 /* expectedTimeSeconds */);
 }
 
 // Test on riding down from Vilaflor (altitude 1400 meters) to Adeje (sea level).
@@ -182,8 +186,10 @@ UNIT_TEST(Munich_OnewayBicycle2)
 // https://github.com/organicmaps/organicmaps/issues/1603
 UNIT_TEST(London_GreenwichTunnel)
 {
+  // Avoiding barrier=gate https://www.openstreetmap.org/node/3881243716
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Bicycle),
       mercator::FromLatLon(51.4817397, -0.0100070258), {0.0, 0.0},
-      mercator::FromLatLon(51.4883739, -0.00809729298), 1222.44 /* expectedRouteMeters */);
+      mercator::FromLatLon(51.4883739, -0.00809729298), 1332.8 /* expectedRouteMeters */);
 }
+} // namespace bicycle_route_test

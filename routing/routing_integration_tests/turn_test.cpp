@@ -294,16 +294,17 @@ UNIT_TEST(Russia_HugeRoundabout_TurnTest)
   Route const & route = *routeResult.first;
   RouterResultCode const result = routeResult.second;
 
+  /// @todo Actualized exit num. But one exit is highway=unclassified, that (probably?) should not be counted?
   TEST_EQUAL(result, RouterResultCode::NoError, ());
   integration::TestTurnCount(route, 2 /* expectedTurnCount */);
   integration::GetNthTurn(route, 0)
       .TestValid()
       .TestDirection(CarDirection::EnterRoundAbout)
-      .TestRoundAboutExitNum(5);
+      .TestRoundAboutExitNum(6);
   integration::GetNthTurn(route, 1)
       .TestValid()
       .TestDirection(CarDirection::LeaveRoundAbout)
-      .TestRoundAboutExitNum(5);
+      .TestRoundAboutExitNum(6);
 }
 
 UNIT_TEST(Belarus_Misk_ProspNezavisimostiMKAD_TurnTest)

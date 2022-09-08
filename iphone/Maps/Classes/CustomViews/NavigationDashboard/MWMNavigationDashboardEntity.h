@@ -13,7 +13,6 @@
 @property(copy, nonatomic, readonly) NSString * speedLimit;
 @property(nonatomic, readonly) BOOL isValid;
 @property(nonatomic, readonly) CGFloat progress;
-@property(nonatomic, readonly) CLLocation * pedestrianDirectionPosition;
 @property(nonatomic, readonly) NSString * arrival;
 @property(nonatomic, readonly) NSString * eta;
 @property(nonatomic, readonly) NSString * speed;

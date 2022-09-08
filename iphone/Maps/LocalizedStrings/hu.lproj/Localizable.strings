@@ -750,6 +750,8 @@
 
 "miles_per_hour" = "mph";
 
+"minute" = "p";
+
 "placepage_place_description" = "Leírás";
 
 "placepage_more_button" = "Még";

@@ -597,22 +597,6 @@
           android:scheme="mapsme"/>
       </intent-filter>
 
-      <!-- API CALL -->
-      <intent-filter>
-        <action android:name="com.mapswithme.maps.api.request"/>
-        <category android:name="android.intent.category.DEFAULT"/>
-      </intent-filter>
-
-      <intent-filter>
-        <action android:name="com.mapswithme.maps.pro.action.SHOW_ON_MAP"/>
-        <category android:name="android.intent.category.DEFAULT"/>
-      </intent-filter>
-
-      <intent-filter>
-        <action android:name="com.mapswithme.maps.pro.action.BUILD_ROUTE"/>
-        <category android:name="android.intent.category.DEFAULT"/>
-      </intent-filter>
-
       <intent-filter>
         <action android:name="android.intent.action.VIEW"/>
         <category android:name="android.intent.category.DEFAULT"/>
@@ -824,8 +808,8 @@
     <meta-data android:name="com.google.android.gms.car.application"
         android:resource="@xml/automotive_app_desc"/>
 
-    <service
-        android:name="com.androidAuto.AndroidAutoService"
+    <service 
+    android:name="com.androidAuto.AndroidAutoService"
         android:exported="true">
       <intent-filter>
         <action android:name="androidx.car.app.CarAppService" />

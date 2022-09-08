@@ -206,10 +206,10 @@ drape_ptr<LayerRenderer> LayerCacher::RecacheWidgets(ref_ptr<dp::GraphicsContext
                                                ref_ptr<LayerRenderer> renderer,
                                                ref_ptr<dp::TextureManager> textures)>;
   static std::map<EWidget, TCacheShape> cacheFunctions{
-      std::make_pair(WIDGET_COMPASS, std::bind(&LayerCacher::CacheCompass, this, _1, _2, _3, _4)),
-      std::make_pair(WIDGET_RULER, std::bind(&LayerCacher::CacheRuler, this, _1, _2, _3, _4)),
-      std::make_pair(WIDGET_COPYRIGHT, std::bind(&LayerCacher::CacheCopyright, this, _1, _2, _3, _4)),
-      std::make_pair(WIDGET_SCALE_FPS_LABEL, std::bind(&LayerCacher::CacheScaleFpsLabel, this, _1, _2, _3, _4)),
+      {WIDGET_COMPASS, std::bind(&LayerCacher::CacheCompass, this, _1, _2, _3, _4)},
+      {WIDGET_RULER, std::bind(&LayerCacher::CacheRuler, this, _1, _2, _3, _4)},
+      {WIDGET_COPYRIGHT, std::bind(&LayerCacher::CacheCopyright, this, _1, _2, _3, _4)},
+      {WIDGET_SCALE_FPS_LABEL, std::bind(&LayerCacher::CacheScaleFpsLabel, this, _1, _2, _3, _4)},
   };
 
   drape_ptr<LayerRenderer> renderer = make_unique_dp<LayerRenderer>();

@@ -83,7 +83,7 @@ RoutingSettings GetRoutingSettings(VehicleType vehicleType)
             true /* m_soundDirection */,
             50.0 /* m_matchingThresholdM */,
             true /* m_showTurnAfterNext */,
-            routing::KMPH2MPS(3.0) /* m_minSpeedForRouteRebuildMpS */,
+            measurement_utils::KmphToMps(3.0) /* m_minSpeedForRouteRebuildMpS */,
             20.0 /* m_finishToleranceM */,
             9 /* m_maxOutgoingPointsCount */,
             120.0 /* m_minOutgoingDistMeters */,

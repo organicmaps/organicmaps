@@ -46,6 +46,7 @@ class Fonts: IFonts {
   var heavy20 = UIFont.systemFont(ofSize: 20, weight:UIFont.Weight.heavy)
   var heavy32 = UIFont.systemFont(ofSize: 32, weight:UIFont.Weight.heavy)
   var heavy38 = UIFont.systemFont(ofSize: 38, weight:UIFont.Weight.heavy)
+  var italic12 = UIFont.italicSystemFont(ofSize: 12)
   var italic16 = UIFont.italicSystemFont(ofSize: 16)
   var semibold12 = UIFont.systemFont(ofSize: 12, weight:UIFont.Weight.semibold)
   var semibold14 = UIFont.systemFont(ofSize: 14, weight:UIFont.Weight.semibold)

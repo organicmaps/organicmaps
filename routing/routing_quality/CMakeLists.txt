@@ -12,6 +12,6 @@ target_link_libraries(${PROJECT_NAME}
 )
 
 add_subdirectory(api)
-add_subdirectory(routing_quality_tool)
+omim_add_tool_subdirectory(routing_quality_tool)
 
 omim_add_test_subdirectory(routing_quality_tests)

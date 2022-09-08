@@ -112,7 +112,7 @@ class RoadGraph : public Algorithm::Graph
 public:
 
   explicit RoadGraph(RoadGraphIFace const & roadGraph)
-    : m_roadGraph(roadGraph), m_maxSpeedMPS(KMPH2MPS(roadGraph.GetMaxSpeedKMpH()))
+    : m_roadGraph(roadGraph), m_maxSpeedMPS(measurement_utils::KmphToMps(roadGraph.GetMaxSpeedKMpH()))
   {}
 
   void GetOutgoingEdgesList(astar::VertexData<Vertex, Weight> const & vertexData,
@@ -129,7 +129,7 @@ public:
     {
       ASSERT_EQUAL(v, e.GetStartJunction(), ());
 
-      double const speedMPS = KMPH2MPS(
+      double const speedMPS = measurement_utils::KmphToMps(
           m_roadGraph.GetSpeedKMpH(e, {true /* forward */, false /* in city */, Maxspeed()}));
       adj.emplace_back(e.GetEndJunction(), TimeBetweenSec(e.GetStartJunction(), e.GetEndJunction(), speedMPS));
     }
@@ -149,7 +149,7 @@ public:
     {
       ASSERT_EQUAL(v, e.GetEndJunction(), ());
 
-      double const speedMPS = KMPH2MPS(
+      double const speedMPS = measurement_utils::KmphToMps(
           m_roadGraph.GetSpeedKMpH(e, {true /* forward */, false /* in city */, Maxspeed()}));
       adj.emplace_back(e.GetStartJunction(), TimeBetweenSec(e.GetStartJunction(), e.GetEndJunction(), speedMPS));
     }

@@ -11,9 +11,9 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_centerVertical="true"
-    android:minWidth="@dimen/bookmark_category_checkbox_width"
     android:layout_marginStart="@dimen/margin_half_plus"
-    android:layout_marginEnd="@dimen/margin_base_plus" />
+    android:layout_marginEnd="0dp"
+    android:minWidth="@dimen/bookmark_category_checkbox_width" />
   <TextView
     android:id="@+id/name"
     android:layout_width="match_parent"
@@ -51,8 +51,8 @@
     android:layout_alignParentEnd="true"
     android:background="?selectableItemBackgroundBorderless"
     android:minHeight="@dimen/height_item_edit_bookmark"
-    android:paddingStart="@dimen/margin_double"
-    android:paddingEnd="@dimen/margin_base_plus_quarter"
+    android:paddingStart="@dimen/margin_quarter"
+    android:paddingEnd="@dimen/margin_half"
     android:src="@drawable/ic_more"
     android:tint="?secondary" />
 </RelativeLayout>

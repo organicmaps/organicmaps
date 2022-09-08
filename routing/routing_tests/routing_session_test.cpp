@@ -335,7 +335,7 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestRouteRebuildingMovingA
   GetPlatform().RunTask(Platform::Thread::Gui, [&checkTimedSignal, &info, this]() {
     info.m_longitude = 0.;
     info.m_latitude = 1.;
-    info.m_speedMpS = routing::KMPH2MPS(60);
+    info.m_speedMpS = measurement_utils::KmphToMps(60);
     SessionState code = SessionState::NoValidRoute;
     for (size_t i = 0; i < 10; ++i)
     {
@@ -385,7 +385,7 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestRouteRebuildingMovingT
     GetPlatform().RunTask(Platform::Thread::Gui, [&checkTimedSignalAway, &info, this]() {
       info.m_longitude = 0.0;
       info.m_latitude = 0.0;
-      info.m_speedMpS = routing::KMPH2MPS(60);
+      info.m_speedMpS = measurement_utils::KmphToMps(60);
       SessionState code = SessionState::NoValidRoute;
       {
         for (size_t i = 0; i < 8; ++i)
@@ -465,7 +465,7 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestFollowRouteFlagPersist
     TEST(m_session->IsFollowing(), ());
     info.m_longitude = 0.;
     info.m_latitude = 1.;
-    info.m_speedMpS = routing::KMPH2MPS(60);
+    info.m_speedMpS = measurement_utils::KmphToMps(60);
     SessionState code = SessionState::NoValidRoute;
     for (size_t i = 0; i < 10; ++i)
     {

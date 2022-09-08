@@ -432,13 +432,6 @@ UNIT_TEST(Transit_BuildHash1Arg)
   TEST_EQUAL(BuildHash(std::string("A"), std::string("B"), std::string("C")), "A_B_C", ());
 }
 
-UNIT_TEST(Measurement_Utils)
-{
-  double constexpr eps = 1e-5;
-  TEST(base::AlmostEqualAbs(KmphToMps(1.0), 0.27777, eps), ());
-  TEST(base::AlmostEqualAbs(MpsToKmph(1.0), 3.6, eps), ());
-}
-
 UNIT_TEST(IntersectionSimple)
 {
   auto const & factRes =

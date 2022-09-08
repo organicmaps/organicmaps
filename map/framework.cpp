@@ -1861,6 +1861,11 @@ url_scheme::SearchRequest Framework::GetParsedSearchRequest() const
   return m_parsedMapApi.GetSearchRequest();
 }
 
+std::string const & Framework::GetParsedAppName() const
+{
+  return m_parsedMapApi.GetAppName();
+}
+
 FeatureID Framework::GetFeatureAtPoint(m2::PointD const & mercator,
                                        FeatureMatcher && matcher /* = nullptr */) const
 {

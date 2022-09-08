@@ -45,7 +45,7 @@ location::GpsInfo MoveTo(ms::LatLon const & coords, double speed = -1)
 
 void ChangePosition(ms::LatLon const & coords, double speedKmPH, RoutingSession & routingSession)
 {
-  routingSession.OnLocationPositionChanged(MoveTo({coords.m_lat, coords.m_lon}, KMPH2MPS(speedKmPH)));
+  routingSession.OnLocationPositionChanged(MoveTo({coords.m_lat, coords.m_lon}, measurement_utils::KmphToMps(speedKmPH)));
 }
 
 void InitRoutingSession(ms::LatLon const & from, ms::LatLon const & to, RoutingSession & routingSession,
@@ -92,7 +92,7 @@ SpeedCameraManager::Interval CheckZone(RoutingSession const & routingSession, do
   SpeedCameraOnRoute const & closestCamera = routingSession.GetSpeedCamManager().GetClosestCamForTests();
   TEST(closestCamera.IsValid(), ("No speed camera found."));
 
-  double const speedMpS = routing::KMPH2MPS(speedKmPH);
+  double const speedMpS = measurement_utils::KmphToMps(speedKmPH);
   double const passedDist = routingSession.GetRouteForTests()->GetCurrentDistanceFromBeginMeters();
   double const distToCamera = closestCamera.m_distFromBeginMeters - passedDist;
 

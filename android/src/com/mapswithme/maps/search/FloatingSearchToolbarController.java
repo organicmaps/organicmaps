@@ -1,12 +1,10 @@
 package com.mapswithme.maps.search;
 
 import android.app.Activity;
-import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.widget.SearchToolbarController;
 import com.mapswithme.util.UiUtils;
 
@@ -51,19 +49,6 @@ public class FloatingSearchToolbarController extends SearchToolbarController
     super.onClearClick();
     if (mListener != null)
       mListener.onSearchClearClick();
-  }
-
-  public void refreshQuery()
-  {
-    showProgress(false);
-    CharSequence query = ParsedMwmRequest.hasRequest() ?
-            ParsedMwmRequest.getCurrentRequest().getTitle()
-            : SearchEngine.INSTANCE.getQuery();
-
-    if (!TextUtils.isEmpty(query))
-    {
-      setQuery(query);
-    }
   }
 
   public void cancelSearchApiAndHide(boolean clearText)

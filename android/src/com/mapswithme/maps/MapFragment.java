@@ -154,6 +154,7 @@ public class MapFragment extends BaseMwmFragment
   @Override
   public void surfaceCreated(SurfaceHolder surfaceHolder)
   {
+  
     if (MapFragment.nativeIsEngineCreated())
     {
       nativeDetachSurface(true);
@@ -214,8 +215,6 @@ public class MapFragment extends BaseMwmFragment
     nativeResumeSurfaceRendering();
     if (mMapRenderingListener != null)
       mMapRenderingListener.onRenderingCreated();
-
-
   }
 
   @Override

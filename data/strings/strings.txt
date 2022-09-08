@@ -13486,7 +13486,7 @@
     zh-Hant = 小時
 
   [minute]
-    tags = android
+    tags = android,ios
     en = min
     ar = د
     be = хв

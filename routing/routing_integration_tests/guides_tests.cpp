@@ -86,11 +86,7 @@ UNIT_TEST(Guides_FinishPointOnTrack)
   Checkpoints const checkpoints{mercator::FromLatLon(48.1394659, 11.575924),
                                 mercator::FromLatLon(48.1407632, 11.5716992)};
 
-  double const expectedDistM = 840.1;
-  double const expectedTimeS = 771.3;
-  size_t const expectedPointsCount = 37;
-
-  TestGuideRoute(checkpoints, expectedDistM, expectedTimeS, expectedPointsCount);
+  TestGuideRoute(checkpoints, 840.1 /* expectedDistM */, 771.3 /* expectedTimeS */, 37 /* expectedPointsCount */);
 }
 
 // Start checkpoint is on the track, finish checkpoint is far away. We build the first part of the
@@ -100,11 +96,7 @@ UNIT_TEST(Guides_StartPointOnTrack)
   Checkpoints const checkpoints{mercator::FromLatLon(48.14168, 11.57244),
                                 mercator::FromLatLon(48.13741, 11.56095)};
 
-  double const expectedDistM = 1200.45;
-  double const expectedTimeS = 1142.43;
-  size_t const expectedPointsCount = 52;
-
-  TestGuideRoute(checkpoints, expectedDistM, expectedTimeS, expectedPointsCount);
+  TestGuideRoute(checkpoints, 1200.45 /* expectedDistM */, 1116.43 /* expectedTimeS */, 52 /* expectedPointsCount */);
 }
 
 // Start and finish lie on the track; 3 intermediate points are far away from the track.
@@ -115,10 +107,6 @@ UNIT_TEST(Guides_MultipleIntermediatePoints)
        mercator::FromLatLon(48.14192, 11.57548), mercator::FromLatLon(48.14106, 11.57279),
        mercator::FromLatLon(48.14044, 11.57061)});
 
-  double const expectedDistM = 1258.05;
-  double const expectedTimeS = 1113.8;
-  size_t const expectedPointsCount = 77;
-
-  TestGuideRoute(checkpoints, expectedDistM, expectedTimeS, expectedPointsCount);
+  TestGuideRoute(checkpoints, 1258.05 /* expectedDistM */, 1094.78 /* expectedTimeS */, 66 /* expectedPointsCount */);
 }
 } // namespace guides_tests

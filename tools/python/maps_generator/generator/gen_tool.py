@@ -44,7 +44,7 @@ class GenTool:
         "make_transit_cross_mwm_experimental": bool,
         "preprocess": bool,
         "split_by_polygons": bool,
-        "type_statistics": bool,
+        "stats_types": bool,
         "version": bool,
         "threads_count": int,
         "booking_data": str,

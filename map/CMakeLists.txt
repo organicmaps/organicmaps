@@ -103,6 +103,6 @@ omim_add_test_subdirectory(mwm_tests)
 omim_add_test_subdirectory(style_tests)
 
 if (PLATFORM_DESKTOP)
-  add_subdirectory(benchmark_tool)
-  add_subdirectory(extrapolation_benchmark)
+  omim_add_tool_subdirectory(benchmark_tool)
+  omim_add_tool_subdirectory(extrapolation_benchmark)
 endif()
