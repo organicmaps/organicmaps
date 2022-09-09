@@ -361,4 +361,35 @@ UNIT_CLASS_TEST(MwmTestsFixture, IceCream)
   for (size_t i = 0; i < kResultsCount; ++i)
     TEST(results[i].GetFeatureID() == results2[i].GetFeatureID(), (results[i], results2[i]));
 }
+
+UNIT_CLASS_TEST(MwmTestsFixture, Hilo_City)
+{
+  // Istanbul, Kadikoy.
+  ms::LatLon const center(40.98647, 29.02552);
+  SetViewportAndLoadMaps(center);
+
+  // Lets start with trailing space here.
+  // Prefix search is more fuzzy and gives "Hill", "Holo", .. nearby variants.
+  auto request = MakeRequest("Hilo ");
+  auto const & results = request->Results();
+  size_t constexpr kResultsCount = 5;  // Hilo city in Hawaii should be at the top.
+  TEST_GREATER(results.size(), kResultsCount, ());
+
+  auto const cityType = classif().GetTypeByPath({"place", "city"});
+
+  bool found = false;
+  for (size_t i = 0; i < kResultsCount; ++i)
+  {
+    auto const & r = results[i];
+    if (r.GetResultType() == search::Result::Type::Feature &&
+        r.GetString() == "Hilo" &&
+        EqualClassifType(r.GetFeatureType(), cityType))
+    {
+      found = true;
+      break;
+    }
+  }
+
+  TEST(found, (results));
+}
 } // namespace real_mwm_tests
