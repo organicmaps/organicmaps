@@ -49,6 +49,8 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
   private static final int TYPE_COUNTRY = 0;
 
+  private static final String DOWNLOADER_MENU_ID = "DOWNLOADER_BOTTOM_SHEET";
+
   private final RecyclerView mRecycler;
   private final Activity mActivity;
   private final DownloaderFragment mFragment;
@@ -68,6 +70,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
   private int mNearMeCount;
 
   private int mListenerSlot;
+  private CountryItem mSelectedItem;
 
   private void onDownloadActionSelected(final CountryItem item, DownloaderAdapter adapter)
   {
@@ -260,6 +263,94 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     }
   }
 
+  private void showBottomSheet(CountryItem selectedItem)
+  {
+    mSelectedItem = selectedItem;
+    MenuBottomSheetFragment.newInstance(DOWNLOADER_MENU_ID, mSelectedItem.name)
+                           .show(mFragment.getChildFragmentManager(), DOWNLOADER_MENU_ID);
+  }
+
+  public ArrayList<MenuBottomSheetItem> getMenuItems()
+  {
+    ArrayList<MenuBottomSheetItem> items = new ArrayList<>();
+    switch (mSelectedItem.status)
+    {
+      case CountryItem.STATUS_DOWNLOADABLE:
+        items.add(getDownloadMenuItem());
+        break;
+
+      case CountryItem.STATUS_UPDATABLE:
+        items.add(getUpdateMenuItem());
+        // Fallthrough
+
+      case CountryItem.STATUS_DONE:
+        if (!mSelectedItem.isExpandable())
+          items.add(getExploreMenuItem());
+        appendDeleteMenuItem(items);
+        break;
+
+      case CountryItem.STATUS_FAILED:
+        items.add(getCancelMenuItem());
+
+        if (mSelectedItem.present)
+        {
+          appendDeleteMenuItem(items);
+          items.add(getExploreMenuItem());
+        }
+        break;
+
+      case CountryItem.STATUS_PROGRESS:
+      case CountryItem.STATUS_APPLYING:
+      case CountryItem.STATUS_ENQUEUED:
+        items.add(getCancelMenuItem());
+
+        if (mSelectedItem.present)
+          items.add(getExploreMenuItem());
+        break;
+
+      case CountryItem.STATUS_PARTLY:
+        items.add(getDownloadMenuItem());
+        appendDeleteMenuItem(items);
+        break;
+    }
+    return items;
+  }
+
+
+  private MenuBottomSheetItem getDownloadMenuItem()
+  {
+    return new MenuBottomSheetItem(R.string.downloader_download_map, R.drawable.ic_download,
+                                   () -> onDownloadActionSelected(mSelectedItem, DownloaderAdapter.this));
+  }
+
+  private MenuBottomSheetItem getUpdateMenuItem()
+  {
+    return new MenuBottomSheetItem(R.string.downloader_update_map, R.drawable.ic_update,
+                                   () -> onUpdateActionSelected(mSelectedItem, DownloaderAdapter.this));
+  }
+
+  private MenuBottomSheetItem getExploreMenuItem()
+  {
+    return new MenuBottomSheetItem(R.string.zoom_to_country, R.drawable.ic_explore,
+                                   () -> onExploreActionSelected(mSelectedItem, DownloaderAdapter.this));
+  }
+
+  private void appendDeleteMenuItem(ArrayList<MenuBottomSheetItem> items)
+  {
+    // Do not show "Delete" option for World files.
+    // Checking the name is not beautiful, but the simplest way for now ..
+    if (!mSelectedItem.id.startsWith("World")) {
+      items.add(new MenuBottomSheetItem(R.string.delete, R.drawable.ic_delete,
+                                        () -> onDeleteActionSelected(mSelectedItem, DownloaderAdapter.this)));
+    }
+  }
+
+  private MenuBottomSheetItem getCancelMenuItem()
+  {
+    return new MenuBottomSheetItem(R.string.cancel, R.drawable.ic_cancel,
+                                   () -> onCancelActionSelected(mSelectedItem, DownloaderAdapter.this));
+  }
+
   private class ItemViewHolder extends BaseInnerViewHolder<CountryItem>
   {
     private final DownloaderStatusIcon mStatusIcon;
@@ -311,89 +402,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
     private void processLongClick()
     {
-      ArrayList<MenuBottomSheetItem> items = getMenuItems();
-      new MenuBottomSheetFragment(mItem.name, items)
-          .show(mFragment.getParentFragmentManager(), "downloaderBottomSheet");
-    }
-
-    private MenuBottomSheetItem getDownloadMenuItem()
-    {
-      return new MenuBottomSheetItem(R.string.downloader_download_map, R.drawable.ic_download,
-          () -> onDownloadActionSelected(mItem, DownloaderAdapter.this));
-    }
-
-    private MenuBottomSheetItem getUpdateMenuItem()
-    {
-      return new MenuBottomSheetItem(R.string.downloader_update_map, R.drawable.ic_update,
-          () -> onUpdateActionSelected(mItem, DownloaderAdapter.this));
-    }
-
-    private MenuBottomSheetItem getExploreMenuItem()
-    {
-      return new MenuBottomSheetItem(R.string.zoom_to_country, R.drawable.ic_explore,
-          () -> onExploreActionSelected(mItem, DownloaderAdapter.this));
-    }
-
-    private void appendDeleteMenuItem(ArrayList<MenuBottomSheetItem> items)
-    {
-      // Do not show "Delete" option for World files.
-      // Checking name is not beautiful, but the simplest way for now ..
-      if (!mItem.id.startsWith("World")) {
-        items.add(new MenuBottomSheetItem(R.string.delete, R.drawable.ic_delete,
-                () -> onDeleteActionSelected(mItem, DownloaderAdapter.this)));
-      }
-    }
-
-    private MenuBottomSheetItem getCancelMenuItem()
-    {
-      return new MenuBottomSheetItem(R.string.cancel, R.drawable.ic_cancel,
-          () -> onCancelActionSelected(mItem, DownloaderAdapter.this));
-    }
-
-    private ArrayList<MenuBottomSheetItem> getMenuItems()
-    {
-      ArrayList<MenuBottomSheetItem> items = new ArrayList<>();
-      switch (mItem.status)
-      {
-        case CountryItem.STATUS_DOWNLOADABLE:
-          items.add(getDownloadMenuItem());
-          break;
-
-        case CountryItem.STATUS_UPDATABLE:
-          items.add(getUpdateMenuItem());
-          // Fallthrough
-
-        case CountryItem.STATUS_DONE:
-          if (!mItem.isExpandable())
-            items.add(getExploreMenuItem());
-          appendDeleteMenuItem(items);
-          break;
-
-        case CountryItem.STATUS_FAILED:
-          items.add(getCancelMenuItem());
-
-          if (mItem.present)
-          {
-            appendDeleteMenuItem(items);
-            items.add(getExploreMenuItem());
-          }
-          break;
-
-        case CountryItem.STATUS_PROGRESS:
-        case CountryItem.STATUS_APPLYING:
-        case CountryItem.STATUS_ENQUEUED:
-          items.add(getCancelMenuItem());
-
-          if (mItem.present)
-            items.add(getExploreMenuItem());
-          break;
-
-        case CountryItem.STATUS_PARTLY:
-          items.add(getDownloadMenuItem());
-          appendDeleteMenuItem(items);
-          break;
-      }
-      return items;
+      showBottomSheet(mItem);
     }
 
     ItemViewHolder(View frame)

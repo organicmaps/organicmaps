@@ -16,7 +16,9 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.bottomsheet.MenuBottomSheetItem;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class SimplePlacePageController implements PlacePageController
@@ -113,6 +115,13 @@ public class SimplePlacePageController implements PlacePageController
   public int getPlacePageWidth()
   {
     return mSheet.getWidth();
+  }
+
+  @Override
+  @Nullable
+  public ArrayList<MenuBottomSheetItem> getMenuBottomSheetItems()
+  {
+    return null;
   }
 
   @Override
