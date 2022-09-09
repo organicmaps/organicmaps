@@ -55,7 +55,7 @@ static_assert(std::size(kNameScore) == static_cast<size_t>(NameScore::COUNT));
 double constexpr kType[] = {
   0,          // POI
   0,          // Complex POI
-  0,          // Building
+  0.007,      // Building, to compensate max(kStreetType)
   0,          // Street
   0,          // Suburb
  -0.02,       // Unclassified

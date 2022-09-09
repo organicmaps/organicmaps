@@ -385,7 +385,19 @@ public:
     InitRankingInfo(*ft, center, preResult, info);
 
     if (info.m_type == Model::TYPE_STREET)
+    {
       info.m_classifType.street = m_wayChecker.GetSearchRank(res.GetBestType());
+
+      /// @see Arbat_Address test.
+      // "2" is a NameScore::FULL_PREFIX for "2-й Обыденский переулок", which is *very* high,
+      // and suppresses building's rank, matched by house number.
+      if (info.m_nameScore > NameScore::SUBSTRING)
+      {
+        auto const & range = info.m_tokenRanges[info.m_type];
+        if (range.Size() == 1 && m_params.IsNumberTokens(range))
+          info.m_nameScore = NameScore::SUBSTRING;
+      }
+    }
 
     info.m_rank = NormalizeRank(info.m_rank, info.m_type, center, country,
                                 m_capitalChecker(*ft), !info.m_allTokensUsed);

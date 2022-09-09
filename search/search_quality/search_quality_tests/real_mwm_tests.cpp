@@ -392,4 +392,39 @@ UNIT_CLASS_TEST(MwmTestsFixture, Hilo_City)
 
   TEST(found, (results));
 }
+
+// https://github.com/organicmaps/organicmaps/issues/3266
+// Moscow has suburb "Арбат" and many streets, starting from number (2-й Обыденский), (4-й Голутвинский) inside.
+// So "Арбат 2" is a _well-ranked_ street result like [Suburb full match, Street full prefix],
+// but we obviously expect the building "улица Арбат 2 с/1", which is a _low-ranked_ substring.
+UNIT_CLASS_TEST(MwmTestsFixture, Arbat_Address)
+{
+  // Moscow, Arbat
+  ms::LatLon const center(55.74988, 37.59240);
+  SetViewportAndLoadMaps(center);
+
+  for (auto const & query : {"Арбат 2", "Арбат 4"})
+  {
+    auto request = MakeRequest(query);
+    auto const & results = request->Results();
+    size_t constexpr kResultsCount = 3;   // Building should be at the top.
+    TEST_GREATER(results.size(), kResultsCount, ());
+
+    auto const buildingType = classif().GetTypeByPath({"building"});
+
+    bool found = false;
+    for (size_t i = 0; i < kResultsCount; ++i)
+    {
+      auto const & r = results[i];
+      if (r.GetResultType() == search::Result::Type::Feature &&
+          EqualClassifType(r.GetFeatureType(), buildingType))
+      {
+        found = true;
+        break;
+      }
+    }
+
+    TEST(found, (results));
+  }
+}
 } // namespace real_mwm_tests
