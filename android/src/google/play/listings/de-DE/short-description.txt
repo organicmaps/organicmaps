@@ -1,0 +1,1 @@
+../../../../fdroid/play/listings/de-DE/short-description.txt

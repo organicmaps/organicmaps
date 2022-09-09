@@ -466,10 +466,12 @@ area|z17-[historic=ruins][name],
 node|z17-[historic=fort],
 area|z17-[historic=fort],
 node|z17-[historic=castle],
-area|z17-[historic=castle],
+area|z17-[historic=castle]
+{icon-image: remains-m.svg;text: name;text-offset: 1;font-size: 10;text-color: @poi_label;}
+
 node|z17-[historic=archaeological_site],
 area|z17-[historic=archaeological_site]
-{icon-image: remains-m.svg;text: name;text-offset: 1;font-size: 10;text-color: @poi_label;}
+{icon-image: archaeological-site-m.svg;text: name;text-offset: 1;font-size: 10;text-color: @poi_label;}
 
 node|z19-[historic=ruins][!name],
 area|z19-[historic=ruins][!name],
