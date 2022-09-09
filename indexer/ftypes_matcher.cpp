@@ -696,12 +696,16 @@ IsWifiChecker::IsWifiChecker()
   m_types.push_back(classif().GetTypeByPath({"internet_access", "wlan"}));
 }
 
+IsShopChecker::IsShopChecker() : BaseChecker(1)
+{
+  m_types.push_back(classif().GetTypeByPath({"shop"}));
+}
+
 IsEatChecker::IsEatChecker()
 {
   // The order should be the same as in "enum class Type" declaration.
-  /// @todo Should we include shops like: confectionery and pastry, because bakery is already present?
+  /// @todo amenity=ice_cream if we already have biergarten :)
   base::StringIL const types[] = {{"amenity", "cafe"},
-                                  {"shop", "bakery"},
                                   {"amenity", "fast_food"},
                                   {"amenity", "restaurant"},
                                   {"amenity", "bar"},

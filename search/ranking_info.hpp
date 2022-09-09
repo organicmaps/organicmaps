@@ -24,6 +24,8 @@ enum class PoiType : uint8_t
   Eat,
   // Hotels.
   Hotel,
+  // Shops.
+  Shop,
   // Attractions.
   Attraction,
   // Service types: power lines and substations, barrier-fence, etc.
