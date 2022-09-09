@@ -72,6 +72,7 @@ double constexpr kPoiType[] = {
   0.01 /* TransportLocal */,
   0.01 /* Eat */,
   0.01 /* Hotel */,
+  0.01 /* Shop */,
   0.01 /* Attraction */,
  -0.01 /* Service */,
   0 /* General */
@@ -341,6 +342,9 @@ PoiType GetPoiType(feature::TypesHolder const & th)
     return PoiType::Eat;
   if (IsHotelChecker::Instance()(th))
     return PoiType::Hotel;
+  if (IsShopChecker::Instance()(th))
+    return PoiType::Shop;
+
   if (IsRailwayStationChecker::Instance()(th) ||
       IsSubwayStationChecker::Instance()(th) ||
       IsAirportChecker::Instance()(th))
@@ -374,6 +378,7 @@ string DebugPrint(PoiType type)
   case PoiType::TransportLocal: return "TransportLocal";
   case PoiType::Eat: return "Eat";
   case PoiType::Hotel: return "Hotel";
+  case PoiType::Shop: return "Shop";
   case PoiType::Attraction: return "Attraction";
   case PoiType::Service: return "Service";
   case PoiType::General: return "General";

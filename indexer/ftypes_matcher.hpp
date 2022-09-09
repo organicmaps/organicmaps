@@ -426,13 +426,21 @@ public:
   uint32_t GetType() const { return m_types[0]; }
 };
 
+class IsShopChecker : public BaseChecker
+{
+public:
+  DECLARE_CHECKER_INSTANCE(IsShopChecker);
+
+private:
+  IsShopChecker();
+};
+
 class IsEatChecker : public BaseChecker
 {
 public:
 //  enum class Type
 //  {
 //    Cafe = 0,
-//    Bakery,
 //    FastFood,
 //    Restaurant,
 //    Bar,

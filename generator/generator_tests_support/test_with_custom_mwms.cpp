@@ -62,10 +62,13 @@ void TestWithCustomMwms::RegisterLocalMapsInViewport(m2::RectD const & viewport)
       continue;
 
     auto const res = m_dataSource.RegisterMap(file);
-    CHECK_EQUAL(res.second, MwmSet::RegResult::Success, ());
-
-    auto const & info = res.first.GetInfo();
-    OnMwmBuilt(*info);
+    if (res.second == MwmSet::RegResult::Success)
+    {
+      auto const & info = res.first.GetInfo();
+      OnMwmBuilt(*info);
+    }
+    else
+      CHECK_EQUAL(res.second, MwmSet::RegResult::VersionAlreadyExists, ());
   }
 }
 

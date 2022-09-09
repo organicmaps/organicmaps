@@ -15,6 +15,8 @@ public:
 
   // Default top POIs count to check types or distances.
   static size_t constexpr kTopPoiResultsCount = 5;
+  static size_t constexpr kPopularPoiResultsCount = 10;
+
   // Feature's centers table is created with low coordinates precision for better compression,
   // so distance-to-pivot is not precise and real meters distance may differ.
   static double constexpr kDistanceEpsilon = 5;
@@ -72,15 +74,19 @@ public:
     return res;
   }
 
+  static bool EqualClassifType(uint32_t checkType, uint32_t ethalonType)
+  {
+    ftype::TruncValue(checkType, ftype::GetLevel(ethalonType));
+    return checkType == ethalonType;
+  }
+
   static void EqualClassifType(Range const & results, std::vector<uint32_t> const & types)
   {
     for (auto const & r : results)
     {
       auto const it = std::find_if(types.begin(), types.end(), [type = r.GetFeatureType()](uint32_t inType)
       {
-        uint32_t t = type;
-        ftype::TruncValue(t, ftype::GetLevel(inType));
-        return t == inType;
+        return EqualClassifType(type, inType);
       });
 
       TEST(it != types.end(), (r));
@@ -125,12 +131,10 @@ UNIT_CLASS_TEST(MwmTestsFixture, Berlin_Rewe)
 
   auto request = MakeRequest("rewe");
   auto const & results = request->Results();
-  TEST_GREATER(results.size(), kTopPoiResultsCount, ());
+  TEST_GREATER(results.size(), kPopularPoiResultsCount, ());
 
-  TEST_EQUAL(results[0].GetFeatureType(), classif().GetTypeByPath({"amenity", "fast_food"}), ());
-
-  Range const range(results, 1);
-  EqualClassifType(range, GetClassifTypes({{"shop"}}));
+  Range const range(results, 0, kPopularPoiResultsCount);
+  EqualClassifType(range, GetClassifTypes({{"shop"}, {"amenity", "fast_food"}}));
   double const dist = SortedByDistance(range, center);
   TEST_LESS(dist, 1000, ());
 }
@@ -144,12 +148,12 @@ UNIT_CLASS_TEST(MwmTestsFixture, Madrid_Carrefour)
 
   auto request = MakeRequest("carrefour");
   auto const & results = request->Results();
-  TEST_GREATER(results.size(), 10, ());
+  TEST_GREATER(results.size(), kPopularPoiResultsCount, ());
 
   /// @todo 'Carrefour' city in Haiti :)
   TEST_EQUAL(results[0].GetFeatureType(), classif().GetTypeByPath({"place", "city", "capital", "3"}), ());
 
-  Range const range(results, 1, 10);
+  Range const range(results, 1, kPopularPoiResultsCount);
   EqualClassifType(range, GetClassifTypes({{"shop"}}));
   double const dist = SortedByDistance(range, center);
   TEST_LESS(dist, 500, ());
@@ -203,7 +207,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, NY_Subway)
   // + Some noname cities LIKE("Subway", 1 error) in the World.
   auto request = MakeRequest("subway");
   auto const & results = request->Results();
-  TEST_GREATER(results.size(), kTopPoiResultsCount, ());
+  TEST_GREATER(results.size(), kPopularPoiResultsCount, ());
 
   Range const range(results, 0, 3);
   EqualClassifType(range, GetClassifTypes({{"amenity", "fast_food"}}));
@@ -211,22 +215,25 @@ UNIT_CLASS_TEST(MwmTestsFixture, NY_Subway)
   TEST_LESS(dist, 1000, ());
 }
 
+// https://github.com/organicmaps/organicmaps/issues/3249
 // https://github.com/organicmaps/organicmaps/issues/1997
 UNIT_CLASS_TEST(MwmTestsFixture, London_Asda)
 {
   // London
-  ms::LatLon const center(51.50295, 0.00325);
-  SetViewportAndLoadMaps(center);
+  ms::LatLon const arrPivots[] = { {51.50295, 0.00325}, {51.47890,0.01062} };
+  for (auto const & center : arrPivots)
+  {
+    SetViewportAndLoadMaps(center);
 
-  auto request = MakeRequest("asda");
-  auto const & results = request->Results();
-  TEST_GREATER(results.size(), kTopPoiResultsCount, ());
+    auto request = MakeRequest("asda");
+    auto const & results = request->Results();
+    TEST_GREATER(results.size(), kTopPoiResultsCount, ());
 
-  /// @todo 3 only because cafe is better than fuel, despite fuel is closer.
-  Range const range(results, 0, 3);
-  EqualClassifType(range, GetClassifTypes({{"shop"}, {"amenity"}}));
-  double const dist = SortedByDistance(range, center);
-  TEST_LESS(dist, 2000, ());
+    Range const range(results);
+    EqualClassifType(range, GetClassifTypes({{"shop"}, {"amenity"}}));
+    double const dist = SortedByDistance(range, center);
+    TEST_LESS(dist, 2000, ());
+  }
 }
 
 // https://github.com/organicmaps/organicmaps/issues/3103
@@ -238,7 +245,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, Lyon_Aldi)
 
   auto request = MakeRequest("aldi");
   auto const & results = request->Results();
-  TEST_GREATER(results.size(), kTopPoiResultsCount, ());
+  TEST_GREATER(results.size(), kPopularPoiResultsCount, ());
 
   Range const range(results);
   EqualClassifType(range, GetClassifTypes({{"shop", "supermarket"}}));
@@ -255,11 +262,9 @@ UNIT_CLASS_TEST(MwmTestsFixture, NY_BarnesNoble)
 
   auto request = MakeRequest("barne's & noble");
   auto const & results = request->Results();
-  TEST_GREATER(results.size(), 10, ());
+  TEST_GREATER(results.size(), kPopularPoiResultsCount, ());
 
-  TEST_EQUAL(results[0].GetFeatureType(), classif().GetTypeByPath({"amenity", "cafe"}), ());
-
-  Range const range(results, 1);
+  Range const range(results);
   EqualClassifType(range, GetClassifTypes({{"shop", "books"}}));
   double const dist = SortedByDistance(range, center);
   TEST_LESS(dist, 2000, ());
@@ -270,14 +275,16 @@ UNIT_CLASS_TEST(MwmTestsFixture, Hamburg_Park)
 {
   // Hamburg
   ms::LatLon const center(53.5503410, 10.0006540);
+  // Bremen-Munster should also be downloaded.
   SetViewportAndLoadMaps(center);
 
   auto request = MakeRequest("Heide-Park");
   auto const & results = request->Results();
   TEST_GREATER(results.size(), kTopPoiResultsCount, ());
 
-  Range const range(results, 0, 3);
-  EqualClassifType(range, GetClassifTypes({{"tourism"}, {"amenity", "fast_food"}, {"highway", "bus_stop"}}));
+  Range const range(results);
+  EqualClassifType(range, GetClassifTypes(
+                     {{"tourism"}, {"shop", "gift"}, {"amenity", "fast_food"}, {"highway", "bus_stop"}}));
   NameStartsWith(range, {"Heide Park", "Heide-Park"});
   double const dist = SortedByDistance(range, center);
   TEST_LESS(dist, 100000, ());
