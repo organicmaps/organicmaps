@@ -28,7 +28,7 @@ double constexpr kCategoriesRank = 1.0000000;
 double constexpr kCategoriesFalseCats = -1.0000000;
 
 double constexpr kDistanceToPivot = -0.2123693;
-double constexpr kRank = 0.1065355;
+double constexpr kRank = 0.15;
 double constexpr kPopularity = 1.0000000;
 
 // Decreased this value:
@@ -36,7 +36,7 @@ double constexpr kPopularity = 1.0000000;
 // - On the other hand, when search for "subway", do we usually prefer famous fast food or metro?
 double constexpr kFalseCats = -0.01;
 
-double constexpr kErrorsMade = -0.05;
+double constexpr kErrorsMade = -0.15;
 double constexpr kMatchedFraction = 0.1876736;
 double constexpr kAllTokensUsed = 0.0478513;
 double constexpr kExactCountryOrCapital = 0.1247733;
@@ -60,7 +60,7 @@ double constexpr kType[] = {
   0,          // Suburb
  -0.02,       // Unclassified
   0,          // Village
-  0.0073583,  // City
+  0.01,       // City
   0.0233254,  // State
   0.1679389,  // Country
 };
