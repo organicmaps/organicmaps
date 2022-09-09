@@ -6,9 +6,13 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 
+import androidx.annotation.Nullable;
 import com.mapswithme.maps.base.Initializable;
 import com.mapswithme.maps.base.Savable;
 import com.mapswithme.maps.base.Supportable;
+import com.mapswithme.util.bottomsheet.MenuBottomSheetItem;
+
+import java.util.ArrayList;
 
 public interface PlacePageController extends Initializable<Activity>,
                                              Savable<Bundle>,
@@ -19,6 +23,8 @@ public interface PlacePageController extends Initializable<Activity>,
   void close(boolean deactivateMapSelection);
   boolean isClosed();
   int getPlacePageWidth();
+  @Nullable
+  ArrayList<MenuBottomSheetItem> getMenuBottomSheetItems();
 
   interface SlideListener
   {

@@ -103,6 +103,8 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Stack;
 
+import static com.mapswithme.maps.widget.placepage.PlacePageButtons.PLACEPAGE_MORE_MENU_ID;
+
 public class MwmActivity extends BaseMwmFragmentActivity
     implements PlacePageActivationListener,
                View.OnTouchListener,
@@ -117,7 +119,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
                PlacePageController.SlideListener,
                AlertDialogCallback, RoutingModeListener,
                AppBackgroundTracker.OnTransitionListener,
-               NoConnectionListener
+               NoConnectionListener,
+               MenuBottomSheetFragment.MenuBottomSheetInterfaceWithHeader,
+               ToggleMapLayerFragment.LayerItemClickListener
 {
   public static final String EXTRA_TASK = "map_task";
   public static final String EXTRA_LAUNCH_BY_DEEP_LINK = "launch_by_deep_link";
@@ -140,6 +144,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   public static final String ERROR_DRIVING_OPTIONS_DIALOG_TAG = "error_driving_options_dialog_tag";
   private static final String ISOLINES_ERROR_DIALOG_TAG = "isolines_dialog_tag";
+
+  private static final String MAIN_MENU_ID = "MAIN_MENU_BOTTOM_SHEET";
+  private static final String LAYERS_MENU_ID = "LAYERS_MENU_BOTTOM_SHEET";
 
   // Map tasks that we run AFTER rendering initialized
   private final Stack<MapTask> mTasks = new Stack<>();
@@ -166,11 +173,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private PanelAnimator mPanelAnimator;
   @Nullable
   private OnmapDownloader mOnmapDownloader;
-
-  @NonNull
-  private MenuBottomSheetFragment mLayersBottomSheet;
-  @NonNull
-  private MenuBottomSheetFragment mMainMenuBottomSheet;
 
   @Nullable
   private MapButtonsController mMapButtonsController;
@@ -407,8 +409,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
                      .getViewTreeObserver()
                      .addOnGlobalLayoutListener(new ToolbarLayoutChangeListener());
 
-    initBottomSheets();
-
     boolean isLaunchByDeepLink = getIntent().getBooleanExtra(EXTRA_LAUNCH_BY_DEEP_LINK, false);
     initViews(isLaunchByDeepLink);
 
@@ -457,35 +457,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
     return windowInsets;
   }
 
-  private void initBottomSheets()
-  {
-    ToggleMapLayerFragment toggleMapLayerFragment = new ToggleMapLayerFragment(this::onLayerItemClicked);
-    mLayersBottomSheet = new MenuBottomSheetFragment(toggleMapLayerFragment);
-    mMainMenuBottomSheet = new MenuBottomSheetFragment(getMainMenuItems());
-  }
-
   private int getDownloadMapsCounter()
   {
     UpdateInfo info = MapManager.nativeGetUpdateInfo(null);
     return info == null ? 0 : info.filesCount;
-  }
-
-  private ArrayList<MenuBottomSheetItem> getMainMenuItems()
-  {
-    ArrayList<MenuBottomSheetItem> items = new ArrayList<>();
-    items.add(new MenuBottomSheetItem(R.string.placepage_add_place_button, R.drawable.ic_plus, this::onAddPlaceOptionSelected));
-    items.add(new MenuBottomSheetItem(
-        R.string.download_maps,
-        R.drawable.ic_download,
-        getDownloadMapsCounter(),
-        this::onDownloadMapsOptionSelected
-    ));
-    mDonatesUrl = Config.getDonateUrl();
-    if (!TextUtils.isEmpty(mDonatesUrl))
-      items.add(new MenuBottomSheetItem(R.string.donate, R.drawable.ic_donate, this::onDonateOptionSelected));
-    items.add(new MenuBottomSheetItem(R.string.settings, R.drawable.ic_settings, this::onSettingsOptionSelected));
-    items.add(new MenuBottomSheetItem(R.string.share_my_location, R.drawable.ic_share, this::onShareLocationOptionSelected));
-    return items;
   }
 
   @Override
@@ -702,7 +677,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         break;
       case menu:
         closeFloatingPanels();
-        showMainMenuBottomSheet();
+        showBottomSheet(MAIN_MENU_ID);
         break;
       case help:
         showHelp();
@@ -711,37 +686,25 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
 
+  private boolean closeBottomSheet(String id)
+  {
+    MenuBottomSheetFragment bottomSheet =
+        (MenuBottomSheetFragment) getSupportFragmentManager().findFragmentByTag(id);
+    if (bottomSheet == null || !bottomSheet.isAdded())
+      return false;
+    bottomSheet.dismiss();
+    return true;
+  }
+
+  private void showBottomSheet(String id)
+  {
+    MenuBottomSheetFragment.newInstance(id).show(getSupportFragmentManager(), id);
+  }
+
   private void toggleMapLayerBottomSheet()
   {
-    if (!closeMapLayerBottomSheet())
-      showMapLayerBottomSheet();
-  }
-
-  private boolean closeMapLayerBottomSheet()
-  {
-    if (!mLayersBottomSheet.isAdded())
-      return false;
-    mLayersBottomSheet.dismiss();
-    return true;
-  }
-
-  private void showMapLayerBottomSheet()
-  {
-    mLayersBottomSheet.show(getSupportFragmentManager(), "layersBottomSheet");
-  }
-
-  private boolean closeMainMenuBottomSheet()
-  {
-    if (!mMainMenuBottomSheet.isAdded())
-      return false;
-    mMainMenuBottomSheet.dismiss();
-    return true;
-  }
-
-  private void showMainMenuBottomSheet()
-  {
-    mMainMenuBottomSheet = new MenuBottomSheetFragment(getMainMenuItems());
-    mMainMenuBottomSheet.show(getSupportFragmentManager(), "mainMenuBottomSheet");
+    if (!closeBottomSheet(LAYERS_MENU_ID))
+      showBottomSheet(LAYERS_MENU_ID);
   }
 
   /**
@@ -835,8 +798,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   public void closeFloatingPanels()
   {
-    closeMainMenuBottomSheet();
-    closeMapLayerBottomSheet();
+    closeBottomSheet(LAYERS_MENU_ID);
+    closeBottomSheet(MAIN_MENU_ID);
     closePlacePage();
   }
 
@@ -1155,7 +1118,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void onBackPressed()
   {
     RoutingController routingController = RoutingController.get();
-    if (!closeMainMenuBottomSheet() && !closeMapLayerBottomSheet() && !collapseNavMenu() &&
+    if (!closeBottomSheet(MAIN_MENU_ID) && !closeBottomSheet(LAYERS_MENU_ID) && !collapseNavMenu() &&
         !closePlacePage() &&!closeSearchToolbar(true, true) &&
         !closeSidePanel() && !closePositionChooser() &&
         !routingController.resetToPlanningStateIfNavigating() && !routingController.cancel())
@@ -1970,9 +1933,46 @@ public class MwmActivity extends BaseMwmFragmentActivity
     shareMyLocation();
   }
 
-  public void onLayerItemClicked(@NonNull Mode mode)
+  @Override
+  public void onLayerItemClick(@NonNull Mode mode)
   {
     closeFloatingPanels();
-    mMapButtonsController.toggleMapLayer(mode);
+    if (mMapButtonsController != null)
+      mMapButtonsController.toggleMapLayer(mode);
+  }
+
+  @Override
+  @Nullable
+  public ArrayList<MenuBottomSheetItem> getMenuBottomSheetItems(String id)
+  {
+    if (id.equals(MAIN_MENU_ID))
+    {
+      ArrayList<MenuBottomSheetItem> items = new ArrayList<>();
+      items.add(new MenuBottomSheetItem(R.string.placepage_add_place_button, R.drawable.ic_plus, this::onAddPlaceOptionSelected));
+      items.add(new MenuBottomSheetItem(
+          R.string.download_maps,
+          R.drawable.ic_download,
+          getDownloadMapsCounter(),
+          this::onDownloadMapsOptionSelected
+      ));
+      mDonatesUrl = Config.getDonateUrl();
+      if (!TextUtils.isEmpty(mDonatesUrl))
+        items.add(new MenuBottomSheetItem(R.string.donate, R.drawable.ic_donate, this::onDonateOptionSelected));
+      items.add(new MenuBottomSheetItem(R.string.settings, R.drawable.ic_settings, this::onSettingsOptionSelected));
+      items.add(new MenuBottomSheetItem(R.string.share_my_location, R.drawable.ic_share, this::onShareLocationOptionSelected));
+      return items;
+    }
+    else if (id.equals(PLACEPAGE_MORE_MENU_ID))
+      return mPlacePageController.getMenuBottomSheetItems();
+    return null;
+  }
+
+  @Override
+  @Nullable
+  public Fragment getMenuBottomSheetFragment(String id)
+  {
+    if (id.equals(LAYERS_MENU_ID))
+      return new ToggleMapLayerFragment();
+    return null;
   }
 }

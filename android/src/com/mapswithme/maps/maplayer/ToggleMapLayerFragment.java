@@ -23,21 +23,20 @@ import java.util.List;
 
 public class ToggleMapLayerFragment extends Fragment
 {
-  @NonNull
-  private final LayerItemClickListener mLayerItemClickListener;
+  @Nullable
+  private LayerItemClickListener mLayerItemClickListener;
   @Nullable
   private LayersAdapter mAdapter;
-
-  public ToggleMapLayerFragment(@NonNull LayerItemClickListener layerItemClickListener)
-  {
-    mLayerItemClickListener = layerItemClickListener;
-  }
 
   @Nullable
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
   {
     View mRoot = inflater.inflate(R.layout.fragment_toggle_map_layer, container, false);
+
+    if (getActivity() instanceof LayerItemClickListener)
+      mLayerItemClickListener = ((LayerItemClickListener) getActivity());
+
     initRecycler(mRoot);
     return mRoot;
   }
@@ -73,11 +72,12 @@ public class ToggleMapLayerFragment extends Fragment
     mAdapter.notifyDataSetChanged();
     if (IsolinesManager.from(context).shouldShowNotification())
       Utils.showSnackbar(context, v.getRootView(), R.string.isolines_toast_zooms_1_10);
-    mLayerItemClickListener.onClick(mode);
+    if (mLayerItemClickListener != null)
+      mLayerItemClickListener.onLayerItemClick(mode);
   }
 
   public interface LayerItemClickListener
   {
-    void onClick(@NonNull Mode mode);
+    void onLayerItemClick(@NonNull Mode mode);
   }
 }

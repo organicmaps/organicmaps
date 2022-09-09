@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import com.mapswithme.util.bottomsheet.MenuBottomSheetItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +33,13 @@ class PlacePageControllerComposite implements PlacePageController
   public int getPlacePageWidth()
   {
     return mActiveController.getPlacePageWidth();
+  }
+
+  @Override
+  @Nullable
+  public ArrayList<MenuBottomSheetItem> getMenuBottomSheetItems()
+  {
+    return mActiveController.getMenuBottomSheetItems();
   }
 
   @Override
