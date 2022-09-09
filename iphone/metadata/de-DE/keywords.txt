@@ -1,0 +1,1 @@
+Karten,offline,Reisen,Navigation,GPS,Wegbeschreibung,Wandern,Radfahren,openstreetmap,osm,Trails,nav

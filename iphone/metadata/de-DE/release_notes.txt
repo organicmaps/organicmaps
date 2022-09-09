@@ -1,0 +1,46 @@
+Highlights:
+• Neue Daten vom 16. August
+• Längere Routen werden schneller berechnet
+• Die Suche sollte jetzt viel besser und schneller funktionieren
+• Reduzierte Größe der mwm-Dateien
+• Wiederhergestellte WunderLINQ-Unterstützung (ja, wir haben eine API! Siehe omaps.app/api)
+
+Benutzeroberfläche:
+• Vereinheitlichtes Layout von Orts-Seite und Editor UI
+• Ersetzte Höhendifferenz zu Aufstieg und Abstieg
+• Anzeige der POI-Ebene auf der Orts-Seite
+• Social Media Kanäle werden auf der Ortsseite und im Editor angezeigt
+• Anzeige von "Öffnet in"/"Schließt in" auf der Ort-Seite
+• Animation für seitliche Schaltflächen korrigiert
+
+Navigation:
+• Verbesserte Anzeige der Geschwindigkeitsbegrenzung für CarPlay (rot bei Geschwindigkeitsüberschreitung)
+• Feste Kreisverkehrsnummer
+• Verbesserte Sichtbarkeit der nächsten Straße
+
+Verbesserungen bei der Suche:
+• Problem behoben, bei dem einige gefundene Objekte nicht auf der Karte hervorgehoben wurden
+• Gängige Synonyme für die Straßensuche wie Parkway, Path, Line, Walk, Trail, etc. wurden entfernt.
+• Die Koordinatensuche wurde korrigiert, wenn die Anfrage einen Zeilenumbruch enthält
+• Ignorieren nicht relevanter Suchergebnisse für Koordinaten
+• Bessere Suche nach Hauptstädten
+• 'Notfall' als letzte Wahl des Merkmalstyps behandeln
+• Synonyme für die Straßensuche in Cathalan hinzugefügt
+• Richtiges Filtern gleicher Straßen in den Suchergebnissen
+
+Kartenstile:
+• Verbesserte Sichtbarkeit von militärischen Gebieten und Grenzen
+• Behindertenparkplätze anzeigen
+• Symbol für Hausgärten nicht einzeichnen
+• Bauernhof gerendert
+• Parkplateinfahrt (parking_entrance) hinzufügen
+• Spielplatz- und Internetcafé-Symbol hinzufügen
+• Second Hand Laden (second_hand) und Sozialkaufhaus (charity) hinzufügen
+• Hinzufügen von Tischtennis, Volleyball, Beachvolleyball, Skateboard, Schach, Padel, Handball, Futsal, Hockey, Badminton, Pelota
+• Hintergrundkreise aus den Icons entfernt
+
+Übersetzungen:
+• Arabische Übersetzungen und TTS-Texte aktualisiert
+• Fehlende Übersetzungen für place=* hinzugefügt
+• Weißrussische Übersetzungen von Ländern
+• Fehlende türkische Übersetzungen hinzugefügt
