@@ -527,6 +527,7 @@ void FillWeights(string const & path, string const & mwmFile, string const & cou
     if (i % 10 == 0)
       LOG(LINFO, ("Building leaps:", i, "/", numEnters, "waves passed"));
 
+    i++;
     using Algorithm =
         AStarAlgorithm<JointSegment, JointEdge, RouteWeight>;
 
