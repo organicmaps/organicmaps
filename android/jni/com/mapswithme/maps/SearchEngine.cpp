@@ -139,7 +139,7 @@ jobject ToJavaResult(Result const & result, search::ProductInfo const & productI
                                                       0/*static_cast<jint>(result.GetRankingInfo().m_popularity)*/));
   jobject ret =
       env->NewObject(g_resultClass, g_resultConstructor, name.get(), desc.get(), ll.m_lat, ll.m_lon,
-                     ranges.get(), result.IsHotel(), popularity.get());
+                     ranges.get(), result.IsHotel(), result.GetStarsCount(), popularity.get());
   ASSERT(ret, ());
 
   return ret;
@@ -249,7 +249,7 @@ extern "C"
     g_resultClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/search/SearchResult");
     g_resultConstructor = jni::GetConstructorID(
         env, g_resultClass,
-        "(Ljava/lang/String;Lcom/mapswithme/maps/search/SearchResult$Description;DD[IZ"
+        "(Ljava/lang/String;Lcom/mapswithme/maps/search/SearchResult$Description;DD[IZI"
           "Lcom/mapswithme/maps/search/Popularity;)V");
     g_suggestConstructor = jni::GetConstructorID(env, g_resultClass, "(Ljava/lang/String;Ljava/lang/String;DD[I)V");
     g_descriptionClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/search/SearchResult$Description");

@@ -281,7 +281,8 @@ void FillDetails(FeatureType & ft, Result::Details & details)
     }
   }
 
-  if (strings::to_uint(ft.GetMetadata(feature::Metadata::FMD_STARS), details.m_stars))
+  details.m_isHotel = ftypes::IsHotelChecker::Instance()(ft);
+  if (details.m_isHotel && strings::to_uint(ft.GetMetadata(feature::Metadata::FMD_STARS), details.m_stars))
     details.m_stars = std::min(details.m_stars, osm::MapObject::kMaxStarsCount);
   else
     details.m_stars = 0;

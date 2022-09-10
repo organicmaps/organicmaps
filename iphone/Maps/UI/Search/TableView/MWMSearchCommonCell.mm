@@ -32,7 +32,7 @@
   self.locationLabel.text = @(result.GetAddress().c_str());
   [self.locationLabel sizeToFit];
 
-  NSUInteger const starsCount = result.GetStarsCount();
+  int const starsCount = std::min(7, result.GetStarsCount());
   NSString * cuisine = @(result.GetCuisine().c_str()).capitalizedString;
   NSString * airportIata = @(result.GetAirportIata().c_str());
   NSString * roadShields = @(result.GetRoadShields().c_str());
@@ -42,9 +42,11 @@
   
   NSString * description = @"";
 
-  static NSString * fiveStars = [NSString stringWithUTF8String:"★★★★★"];
-  if (starsCount > 0)
-    description = [fiveStars substringToIndex:starsCount];
+  if (result.IsHotel() && starsCount > 0)
+  {
+    static NSString * sevenStars = [NSString stringWithUTF8String:"★★★★★★★"];
+    description = [sevenStars substringToIndex:starsCount];
+  }
   else if (airportIata.length > 0)
     description = airportIata;
   else if (roadShields.length > 0)
