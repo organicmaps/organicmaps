@@ -67,6 +67,7 @@ public class SearchResult implements PopularityProvider
   // Consecutive pairs of indexes (each pair contains : start index, length), specifying highlighted matches of original query in result
   public final int[] highlightRanges;
 
+  public final int stars;
   public final boolean isHotel;
   @NonNull
   private final Popularity mPopularity;
@@ -77,6 +78,7 @@ public class SearchResult implements PopularityProvider
     this.suggestion = suggestion;
     this.lat = lat;
     this.lon = lon;
+    this.stars = 0;
     this.isHotel = false;
     this.description = null;
     this.type = TYPE_SUGGEST;
@@ -85,10 +87,11 @@ public class SearchResult implements PopularityProvider
   }
 
   public SearchResult(String name, Description description, double lat, double lon, int[] highlightRanges,
-                      boolean isHotel, @NonNull Popularity popularity)
+                      boolean isHotel, int stars, @NonNull Popularity popularity)
   {
     this.type = TYPE_RESULT;
     this.name = name;
+    this.stars = stars;
     this.isHotel = isHotel;
     mPopularity = popularity;
     this.suggestion = null;
