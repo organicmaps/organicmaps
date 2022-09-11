@@ -1609,25 +1609,25 @@
 
 "type.cemetery.grave" = "Τάφος";
 
-"type.craft" = "Craft";
+"type.craft" = "Τεχνική";
 
-"type.craft.beekeeper" = "Beekeeper";
+"type.craft.beekeeper" = "Μελισσοκόμος";
 
-"type.craft.blacksmith" = "Blacksmith";
+"type.craft.blacksmith" = "Σιδηρουργός";
 
 "type.craft.brewery" = "Ζυθοποιείο";
 
 "type.craft.carpenter" = "Ξυλουργός";
 
-"type.craft.confectionery" = "Confectionery";
+"type.craft.confectionery" = "Ζαχαροπλάστης";
 
 "type.craft.electrician" = "Ηλεκτρολόγος";
 
-"type.craft.electronics_repair" = "Electronics Repair";
+"type.craft.electronics_repair" = "Επισκευή ηλεκτρονικών";
 
 "type.craft.gardener" = "Κηπουρός";
 
-"type.craft.handicraft" = "Handicraft";
+"type.craft.handicraft" = "Χειροτεχνία";
 
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Ψυκτικός";
@@ -1640,11 +1640,11 @@
 
 "type.craft.plumber" = "Υδραυλικός";
 
-"type.craft.sawmill" = "Sawmill";
+"type.craft.sawmill" = "Πριστήριο";
 
 "type.craft.shoemaker" = "Υποδηματοποιός";
 
-"type.craft.winery" = "Winery";
+"type.craft.winery" = "Οινοποιείο";
 
 "type.craft.tailor" = "Ράφτης";
 

@@ -1627,7 +1627,7 @@
 
 "type.craft.gardener" = "Paysagiste";
 
-"type.craft.handicraft" = "Handicraft";
+"type.craft.handicraft" = "Artisanat";
 
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Chauffage, ventilation et climatisation";

@@ -1609,25 +1609,25 @@
 
 "type.cemetery.grave" = "Phần mộ";
 
-"type.craft" = "Craft";
+"type.craft" = "Thủ công";
 
-"type.craft.beekeeper" = "Beekeeper";
+"type.craft.beekeeper" = "Người nuôi ong";
 
-"type.craft.blacksmith" = "Blacksmith";
+"type.craft.blacksmith" = "Thợ rèn";
 
 "type.craft.brewery" = "Nhà máy bia";
 
 "type.craft.carpenter" = "Thợ mộc";
 
-"type.craft.confectionery" = "Confectionery";
+"type.craft.confectionery" = "Người làm bánh kẹo";
 
 "type.craft.electrician" = "Thợ điện";
 
-"type.craft.electronics_repair" = "Electronics Repair";
+"type.craft.electronics_repair" = "Sửa chữa điện tử";
 
 "type.craft.gardener" = "Người thiết kế và xây dựng cảnh quan";
 
-"type.craft.handicraft" = "Handicraft";
+"type.craft.handicraft" = "Thủ công mỹ nghệ";
 
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Điều hòa nhiệt độ";
@@ -1640,11 +1640,11 @@
 
 "type.craft.plumber" = "Thợ đường ống";
 
-"type.craft.sawmill" = "Sawmill";
+"type.craft.sawmill" = "Sumel";
 
 "type.craft.shoemaker" = "Sửa giày";
 
-"type.craft.winery" = "Winery";
+"type.craft.winery" = "Nhà máy rượu";
 
 "type.craft.tailor" = "Thợ may";
 

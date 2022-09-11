@@ -1609,44 +1609,44 @@
 
 "type.cemetery.grave" = "Kaburi";
 
-"type.craft" = "Craft";
+"type.craft" = "Ufundi";
 
-"type.craft.beekeeper" = "Beekeeper";
+"type.craft.beekeeper" = "Mfugaji nyuki";
 
-"type.craft.blacksmith" = "Blacksmith";
+"type.craft.blacksmith" = "Mhunzi";
 
-"type.craft.brewery" = "Craft Brewery";
+"type.craft.brewery" = "Kiwanda cha pombe";
 
-"type.craft.carpenter" = "Carpenter";
+"type.craft.carpenter" = "Seremala";
 
-"type.craft.confectionery" = "Confectionery";
+"type.craft.confectionery" = "Confectioner";
 
-"type.craft.electrician" = "Electrician";
+"type.craft.electrician" = "Fundi umeme";
 
-"type.craft.electronics_repair" = "Electronics Repair";
+"type.craft.electronics_repair" = "Urekebishaji wa Elektroniki";
 
-"type.craft.gardener" = "Gardener";
+"type.craft.gardener" = "Mtunza bustani";
 
-"type.craft.handicraft" = "Handicraft";
+"type.craft.handicraft" = "Kazi za mikono";
 
 /* Heating, Ventilation, and Air Conditioning */
-"type.craft.hvac" = "HVAC";
+"type.craft.hvac" = "Kiyoyozi";
 
-"type.craft.metal_construction" = "Metal Worker";
+"type.craft.metal_construction" = "Mfanyikazi wa chuma";
 
-"type.craft.painter" = "Painter";
+"type.craft.painter" = "Mchoraji";
 
-"type.craft.photographer" = "Photographer";
+"type.craft.photographer" = "Mpiga picha";
 
-"type.craft.plumber" = "Plumber";
+"type.craft.plumber" = "Fundi bomba";
 
-"type.craft.sawmill" = "Sawmill";
+"type.craft.sawmill" = "Sumel";
 
-"type.craft.shoemaker" = "Shoe Repair";
+"type.craft.shoemaker" = "Mtengeneza viatu";
 
-"type.craft.winery" = "Winery";
+"type.craft.winery" = "Mvinyo";
 
-"type.craft.tailor" = "Tailor";
+"type.craft.tailor" = "Mshonaji nguo";
 
 "type.cuisine.african" = "African";
 

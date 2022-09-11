@@ -802,17 +802,25 @@
 	<string name="type.building.has_parts">Stavba</string>
 	<string name="type.building.train_station">Železniční stanice</string>
 	<string name="type.cemetery.grave">Hrob</string>
+	<string name="type.craft">Řemeslo</string>
+	<string name="type.craft.beekeeper">Včelař</string>
+	<string name="type.craft.blacksmith">Kovář</string>
 	<string name="type.craft.brewery">Pivovar</string>
 	<string name="type.craft.carpenter">Truhlář</string>
+	<string name="type.craft.confectionery">Cukrářské výrobky</string>
 	<string name="type.craft.electrician">Elektrikář</string>
+	<string name="type.craft.electronics_repair">Opravy elektroniky</string>
 	<string name="type.craft.gardener">Zahradník</string>
+	<string name="type.craft.handicraft">Ruční práce</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">HVAC</string>
 	<string name="type.craft.metal_construction">Kovodílna</string>
 	<string name="type.craft.painter">Malíř</string>
 	<string name="type.craft.photographer">Fotograf</string>
 	<string name="type.craft.plumber">Instalatér</string>
+	<string name="type.craft.sawmill">Pila</string>
 	<string name="type.craft.shoemaker">Opravna obuvi</string>
+	<string name="type.craft.winery">Vinařství</string>
 	<string name="type.craft.tailor">Krejčí</string>
 	<string name="type.cuisine.african">Africká kuchyně</string>
 	<string name="type.cuisine.american">Americká kuchyně</string>

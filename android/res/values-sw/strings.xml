@@ -249,6 +249,26 @@
 	<string name="type.amenity.vending_machine.public_transport_tickets">Mashine ya kuuzia tiketi za usafiri wa umma</string>
 	<string name="type.boundary.national_park">Hifadhi ya taifa</string>
 	<string name="type.cemetery.grave">Kaburi</string>
+	<string name="type.craft">Ufundi</string>
+	<string name="type.craft.beekeeper">Mfugaji nyuki</string>
+	<string name="type.craft.blacksmith">Mhunzi</string>
+	<string name="type.craft.brewery">Kiwanda cha pombe</string>
+	<string name="type.craft.carpenter">Seremala</string>
+	<string name="type.craft.confectionery">Confectioner</string>
+	<string name="type.craft.electrician">Fundi umeme</string>
+	<string name="type.craft.electronics_repair">Urekebishaji wa Elektroniki</string>
+	<string name="type.craft.gardener">Mtunza bustani</string>
+	<string name="type.craft.handicraft">Kazi za mikono</string>
+	<!-- Heating, Ventilation, and Air Conditioning -->
+	<string name="type.craft.hvac">Kiyoyozi</string>
+	<string name="type.craft.metal_construction">Mfanyikazi wa chuma</string>
+	<string name="type.craft.painter">Mchoraji</string>
+	<string name="type.craft.photographer">Mpiga picha</string>
+	<string name="type.craft.plumber">Fundi bomba</string>
+	<string name="type.craft.sawmill">Sumel</string>
+	<string name="type.craft.shoemaker">Mtengeneza viatu</string>
+	<string name="type.craft.winery">Mvinyo</string>
+	<string name="type.craft.tailor">Mshonaji nguo</string>
 	<string name="type.cuisine.coffee_shop">Kahawa</string>
 	<string name="type.healthcare.laboratory">Maabara ya Matibabu</string>
 

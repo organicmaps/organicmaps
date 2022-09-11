@@ -862,17 +862,24 @@
 	<string name="type.building.train_station">Dworzec kolejowy</string>
 	<string name="type.cemetery.grave">Mogiła</string>
 	<string name="type.craft">Rzemiosło</string>
+	<string name="type.craft.beekeeper">Pszczelarz</string>
+	<string name="type.craft.blacksmith">Kowal</string>
 	<string name="type.craft.brewery">Browar</string>
 	<string name="type.craft.carpenter">Stolarz</string>
+	<string name="type.craft.confectionery">Cukiernik</string>
 	<string name="type.craft.electrician">Elektryk</string>
+	<string name="type.craft.electronics_repair">Naprawa elektroniki</string>
 	<string name="type.craft.gardener">Ogrodnik</string>
+	<string name="type.craft.handicraft">Rzemiosło artystyczne</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Klimatyzacja</string>
 	<string name="type.craft.metal_construction">Ślusarz, obrabiacz metalu</string>
 	<string name="type.craft.painter">Malarz</string>
 	<string name="type.craft.photographer">Studio fotograficzne</string>
 	<string name="type.craft.plumber">Hydraulik</string>
+	<string name="type.craft.sawmill">Tartak</string>
 	<string name="type.craft.shoemaker">Szewc</string>
+	<string name="type.craft.winery">Winiarnia</string>
 	<string name="type.craft.tailor">Krawiec</string>
 	<string name="type.cuisine.african">Kuchnia afrykańska</string>
 	<string name="type.cuisine.american">Kuchnia amerykańska</string>

@@ -656,9 +656,26 @@
 	<!-- SECTION: Types: Recycling -->
 	<string name="type.recycling.batteries">Батерии</string>
 	<string name="type.cemetery.grave">Гроб</string>
+	<string name="type.craft">Занаяти</string>
+	<string name="type.craft.beekeeper">Пчелар</string>
+	<string name="type.craft.blacksmith">Ковачница</string>
+	<string name="type.craft.brewery">Пивоварна</string>
+	<string name="type.craft.carpenter">Марангоз</string>
+	<string name="type.craft.confectionery">Сладкарски изделия</string>
+	<string name="type.craft.electrician">Електротехник</string>
+	<string name="type.craft.electronics_repair">Ремонт на електроника</string>
+	<string name="type.craft.gardener">Градинар</string>
+	<string name="type.craft.handicraft">Занаят</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Отопление, вентилация и климатизация</string>
 	<string name="type.craft.metal_construction">Метални конструкции</string>
+	<string name="type.craft.painter">Художник</string>
+	<string name="type.craft.photographer">Фотограф</string>
+	<string name="type.craft.plumber">Водопроводчик</string>
+	<string name="type.craft.sawmill">Дъскорезница</string>
+	<string name="type.craft.shoemaker">Обущар</string>
+	<string name="type.craft.winery">Винарна</string>
+	<string name="type.craft.tailor">Шивач</string>
 	<string name="type.healthcare.laboratory">Медицинска лаборатория</string>
 
 	<!-- SECTION: Types: Roads -->

@@ -771,12 +771,26 @@
 	<string name="type.barrier.lift_gate">Шлагбаўм</string>
 	<string name="type.barrier.swing_gate">Шлагбаўм</string>
 	<string name="type.cemetery.grave">Магіла</string>
+	<string name="type.craft">Рамяство</string>
 	<string name="type.craft.beekeeper">Пчаляр</string>
 	<string name="type.craft.blacksmith">Кузня</string>
 	<string name="type.craft.brewery">Крафтавы бровар</string>
+	<string name="type.craft.carpenter">Цясляр</string>
+	<string name="type.craft.confectionery">Кандытар</string>
+	<string name="type.craft.electrician">Электрык</string>
+	<string name="type.craft.electronics_repair">Рамонт электронікі</string>
+	<string name="type.craft.gardener">Садоўнік</string>
+	<string name="type.craft.handicraft">Рамесніцтва</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Ацяпленне, вентыляцыя і кандыцыянаванне</string>
 	<string name="type.craft.metal_construction">Металаканструкцыі</string>
+	<string name="type.craft.painter">Мастак</string>
+	<string name="type.craft.photographer">Фатограф</string>
+	<string name="type.craft.plumber">Вадаправодчык</string>
+	<string name="type.craft.sawmill">Лесапільня</string>
+	<string name="type.craft.shoemaker">Шавец</string>
+	<string name="type.craft.winery">Вінакурня</string>
+	<string name="type.craft.tailor">Кравец</string>
 	<string name="type.cuisine.bubble_tea">Чай з бурбалкамі</string>
 	<string name="type.emergency.defibrillator">Дэфібрылятар</string>
 	<string name="type.emergency.fire_hydrant">Пажарны гідрант</string>

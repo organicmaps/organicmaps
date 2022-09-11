@@ -1609,25 +1609,25 @@
 
 "type.cemetery.grave" = "หลุมฝังศพ";
 
-"type.craft" = "Craft";
+"type.craft" = "งานฝีมือ";
 
-"type.craft.beekeeper" = "Beekeeper";
+"type.craft.beekeeper" = "คนเลี้ยงผึ้ง";
 
-"type.craft.blacksmith" = "Blacksmith";
+"type.craft.blacksmith" = "ช่างตีเหล็ก";
 
 "type.craft.brewery" = "โรงเบียร์";
 
 "type.craft.carpenter" = "ช่างไม้";
 
-"type.craft.confectionery" = "Confectionery";
+"type.craft.confectionery" = "ลูกกวาด";
 
 "type.craft.electrician" = "ช่างไฟฟ้า";
 
-"type.craft.electronics_repair" = "Electronics Repair";
+"type.craft.electronics_repair" = "ซ่อมเครื่องใช้ไฟฟ้า";
 
 "type.craft.gardener" = "คนจัดสวน";
 
-"type.craft.handicraft" = "Handicraft";
+"type.craft.handicraft" = "หัตถกรรม";
 
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "ระบบปรับอากาศ";
@@ -1640,11 +1640,11 @@
 
 "type.craft.plumber" = "ช่างประปา";
 
-"type.craft.sawmill" = "Sawmill";
+"type.craft.sawmill" = "ซูเมล";
 
 "type.craft.shoemaker" = "ช่างซ่อมรองเท้า";
 
-"type.craft.winery" = "Winery";
+"type.craft.winery" = "โรงกลั่นเหล้าองุ่น";
 
 "type.craft.tailor" = "ช่างตัดเสื้อ";
 

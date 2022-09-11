@@ -1609,28 +1609,28 @@
 
 "type.cemetery.grave" = "ﺮﺒﻗ";
 
-"type.craft" = "Craft";
+"type.craft" = "صنعت‌گری";
 
-"type.craft.beekeeper" = "Beekeeper";
+"type.craft.beekeeper" = "زنبوردار";
 
-"type.craft.blacksmith" = "Blacksmith";
+"type.craft.blacksmith" = "آهنگر";
 
 "type.craft.brewery" = "کارخانه ابجوسازی";
 
 "type.craft.carpenter" = "نجار";
 
-"type.craft.confectionery" = "Confectionery";
+"type.craft.confectionery" = "قنادی";
 
 "type.craft.electrician" = "برق کار";
 
-"type.craft.electronics_repair" = "Electronics Repair";
+"type.craft.electronics_repair" = "تعمیرات الکترونیک";
 
 "type.craft.gardener" = "باغبان";
 
-"type.craft.handicraft" = "Handicraft";
+"type.craft.handicraft" = "صنایع دستی";
 
 /* Heating, Ventilation, and Air Conditioning */
-"type.craft.hvac" = "HVAC";
+"type.craft.hvac" = "گرمایش و تهویه‌هوا";
 
 "type.craft.metal_construction" = "اهن کار";
 
@@ -1640,11 +1640,11 @@
 
 "type.craft.plumber" = "لوله کش";
 
-"type.craft.sawmill" = "Sawmill";
+"type.craft.sawmill" = "کارخانه چوب‌بری";
 
 "type.craft.shoemaker" = "کفاش";
 
-"type.craft.winery" = "Winery";
+"type.craft.winery" = "شراب‌خانه";
 
 "type.craft.tailor" = "خیاطی";
 

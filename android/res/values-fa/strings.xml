@@ -802,15 +802,25 @@
 	<string name="type.building.has_parts">ساختمان</string>
 	<string name="type.building.train_station">ایستگاه قطار</string>
 	<string name="type.cemetery.grave">ﺮﺒﻗ</string>
+	<string name="type.craft">صنعت‌گری</string>
+	<string name="type.craft.beekeeper">زنبوردار</string>
+	<string name="type.craft.blacksmith">آهنگر</string>
 	<string name="type.craft.brewery">کارخانه ابجوسازی</string>
 	<string name="type.craft.carpenter">نجار</string>
+	<string name="type.craft.confectionery">قنادی</string>
 	<string name="type.craft.electrician">برق کار</string>
+	<string name="type.craft.electronics_repair">تعمیرات الکترونیک</string>
 	<string name="type.craft.gardener">باغبان</string>
+	<string name="type.craft.handicraft">صنایع دستی</string>
+	<!-- Heating, Ventilation, and Air Conditioning -->
+	<string name="type.craft.hvac">گرمایش و تهویه‌هوا</string>
 	<string name="type.craft.metal_construction">اهن کار</string>
 	<string name="type.craft.painter">نقاش</string>
 	<string name="type.craft.photographer">عکاس</string>
 	<string name="type.craft.plumber">لوله کش</string>
+	<string name="type.craft.sawmill">کارخانه چوب‌بری</string>
 	<string name="type.craft.shoemaker">کفاش</string>
+	<string name="type.craft.winery">شراب‌خانه</string>
 	<string name="type.craft.tailor">خیاطی</string>
 	<string name="type.emergency.defibrillator">دستگاه شوک</string>
 	<string name="type.emergency.fire_hydrant">شیر آتش‌نشانی</string>

@@ -900,15 +900,20 @@
 	<string name="type.craft.blacksmith">Кузня</string>
 	<string name="type.craft.brewery">Крафтова пивоварня</string>
 	<string name="type.craft.carpenter">Столяр</string>
+	<string name="type.craft.confectionery">Кондитер</string>
 	<string name="type.craft.electrician">Електрик</string>
+	<string name="type.craft.electronics_repair">Ремонт електроніки</string>
 	<string name="type.craft.gardener">Садівник</string>
+	<string name="type.craft.handicraft">Народні художні промисли</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Опалення, вентиляція та кондиціювання повітря</string>
 	<string name="type.craft.metal_construction">Металоконструкції</string>
 	<string name="type.craft.painter">Маляр</string>
 	<string name="type.craft.photographer">Фотограф</string>
 	<string name="type.craft.plumber">Сантехнік</string>
+	<string name="type.craft.sawmill">Лісопильня</string>
 	<string name="type.craft.shoemaker">Ремонт взуття</string>
+	<string name="type.craft.winery">Виноробний завод</string>
 	<string name="type.craft.tailor">Ательє</string>
 	<string name="type.cuisine.african">Африканська кухня</string>
 	<string name="type.cuisine.american">Американська кухня</string>

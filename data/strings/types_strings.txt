@@ -5063,8 +5063,8 @@
     cs = Řemeslo
     da = Håndværk
     de = Handwerk
-    es = Gremios
     el = Τεχνική
+    es = Gremios
     eu = Artisautza
     fa = صنعت‌گری
     fi = Käsityö

@@ -1611,23 +1611,23 @@
 
 "type.craft" = "हस्तकला";
 
-"type.craft.beekeeper" = "Beekeeper";
+"type.craft.beekeeper" = "मधमाश्या पाळणारा";
 
-"type.craft.blacksmith" = "Blacksmith";
+"type.craft.blacksmith" = "लोहार";
 
 "type.craft.brewery" = "दारूभट्टी";
 
 "type.craft.carpenter" = "सुतार";
 
-"type.craft.confectionery" = "Confectionery";
+"type.craft.confectionery" = "हलवाई";
 
 "type.craft.electrician" = "इलेक्ट्रिशियन";
 
-"type.craft.electronics_repair" = "Electronics Repair";
+"type.craft.electronics_repair" = "इलेक्ट्रॉनिक्स दुरुस्ती";
 
 "type.craft.gardener" = "माळी";
 
-"type.craft.handicraft" = "Handicraft";
+"type.craft.handicraft" = "हस्तकला";
 
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "HVAC";
@@ -1640,11 +1640,11 @@
 
 "type.craft.plumber" = "नळकामगार";
 
-"type.craft.sawmill" = "Sawmill";
+"type.craft.sawmill" = "सुमेल";
 
 "type.craft.shoemaker" = "चांभार";
 
-"type.craft.winery" = "Winery";
+"type.craft.winery" = "वाइनरी";
 
 "type.craft.tailor" = "शिंपी";
 
