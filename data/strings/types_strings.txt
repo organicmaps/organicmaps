@@ -8498,7 +8498,6 @@
 
   [type.highway.bridleway.permissive]
     ref = type.highway.bridleway
-    nl = Ruiterpad
     pl = Droga dla koni ograniczona
     pt-BR = Caminho para cavaleiros permissivo
 
@@ -8604,7 +8603,6 @@
 
   [type.highway.cycleway.permissive]
     ref = type.highway.cycleway
-    nl = Fietspad
     pl = Droga rowerowa ograniczona
     pt-BR = Caminho para ciclistas permissivo
 
@@ -9057,7 +9055,6 @@
     ref = type.highway.pedestrian
     en = Pedestrian Zone
     mr = पादचारी झोन
-    nl = Voetgangersgebied
     ru = Пешеходная зона
     tr = Yaya Alanı
     uk = Пішохідна зона
@@ -15739,28 +15736,28 @@
 
   [type.psurface]
     en = psurface
-    ru = Поверхность
     nl = Wegdek
+    ru = Поверхность
 
   [type.psurface.paved_bad]
     en = psurface-paved_bad
-    ru = Плохая асфальтированная
     nl = Verhard
+    ru = Плохая асфальтированная
 
   [type.psurface.paved_good]
     en = psurface-paved_good
-    ru = Хорошая асфальтированная
     nl = Verhard
+    ru = Хорошая асфальтированная
 
   [type.psurface.unpaved_bad]
     en = psurface-unpaved_bad
-    ru = Плохая неасфальтированная
     nl = Onverhard
+    ru = Плохая неасфальтированная
 
   [type.psurface.unpaved_good]
     en = psurface-unpaved_good
-    ru = Хорошая неасфальтированная
     nl = Onverhard
+    ru = Хорошая неасфальтированная
 
   [type.public_transport]
     en = Public Transport

@@ -1893,7 +1893,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.living_street.tunnel" = "Tunnel";
 
-"type.highway.motorway" = "Via";
+"type.highway.motorway" = "Autostrada";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.motorway.bridge" = "Ponte";
@@ -1903,7 +1903,7 @@
 
 "type.highway.motorway_junction" = "Road Exit";
 
-"type.highway.motorway_link" = "Via";
+"type.highway.motorway_link" = "Autostrada";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.motorway_link.bridge" = "Ponte";
@@ -2101,7 +2101,7 @@
 
 "type.area_highway.living_street" = "Via";
 
-"type.area_highway.motorway" = "Via";
+"type.area_highway.motorway" = "Autostrada";
 
 "type.area_highway.path" = "Sentiero";
 
