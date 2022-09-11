@@ -2573,9 +2573,8 @@ UNIT_CLASS_TEST(ProcessorTest, FilterStreetPredictions)
   SearchParams defaultParams;
   defaultParams.m_query = "Lenina";
   defaultParams.m_inputLocale = "en";
-  defaultParams.m_viewport = m2::RectD(-1.0, -1.0, 1.0, 1.0);
+  defaultParams.m_viewport = m2::RectD(-1.0, -1.0, 1.0, 1.0); // viewport center is {0, 0}
   defaultParams.m_mode = Mode::Everywhere;
-  defaultParams.m_streetSearchRadiusM = TestSearchRequest::kDefaultTestStreetSearchRadiusM;
 
   {
     Rules const rules = {ExactMatch(countryId, lenina0), ExactMatch(countryId, lenina1),
@@ -2586,63 +2585,27 @@ UNIT_CLASS_TEST(ProcessorTest, FilterStreetPredictions)
     TEST(ResultsMatch(request.Results(), rules), ());
   }
 
+  double const smallRadius = mercator::DistanceOnEarth({0, 0}, {1, 0}) / 2.0;
   {
-    Rules const rules = {ExactMatch(countryId, lenina0), ExactMatch(countryId, lenina1),
-                         ExactMatch(countryId, lenina2)};
-
     auto params = defaultParams;
-    params.m_streetSearchRadiusM =
-        mercator::DistanceOnEarth(params.m_viewport.Center(), {3.0, 0.0}) - 1.0;
+    params.m_filteringParams.m_maxStreetsCount = 2;
+    params.m_filteringParams.m_streetSearchRadiusM = smallRadius;
 
-    TestSearchRequest request(m_engine, params);
-    request.Run();
-    TEST(ResultsMatch(request.Results(), rules), ());
-  }
-
-  {
     Rules const rules = {ExactMatch(countryId, lenina0), ExactMatch(countryId, lenina1)};
 
-    auto params = defaultParams;
-    params.m_streetSearchRadiusM =
-        mercator::DistanceOnEarth(params.m_viewport.Center(), {2.0, 0.0}) - 1.0;
-
     TestSearchRequest request(m_engine, params);
     request.Run();
     TEST(ResultsMatch(request.Results(), rules), ());
   }
 
   {
-    Rules const rules = {ExactMatch(countryId, lenina0)};
-
     auto params = defaultParams;
-    params.m_streetSearchRadiusM =
-        mercator::DistanceOnEarth(params.m_viewport.Center(), {1.0, 0.0}) - 1.0;
-
-    TestSearchRequest request(m_engine, params);
-    request.Run();
-    TEST(ResultsMatch(request.Results(), rules), ());
-  }
-
-  {
-    Rules const rules = {ExactMatch(countryId, lenina0), ExactMatch(countryId, lenina3)};
-
-    auto params = defaultParams;
-    params.m_streetSearchRadiusM =
-        mercator::DistanceOnEarth(params.m_viewport.Center(), {1.0, 0.0}) - 1.0;
-    params.m_position = {3.0, 0.0};
-
-    TestSearchRequest request(m_engine, params);
-    request.Run();
-    TEST(ResultsMatch(request.Results(), rules), ());
-  }
-
-  {
-    Rules const rules = {ExactMatch(countryId, lenina0), ExactMatch(countryId, lenina3)};
-
-    auto params = defaultParams;
-    params.m_streetSearchRadiusM =
-        mercator::DistanceOnEarth(params.m_viewport.Center(), {1.0, 0.0}) - 1.0;
+    params.m_filteringParams.m_maxStreetsCount = 1;
+    params.m_filteringParams.m_streetSearchRadiusM = smallRadius;
     params.m_query = "SmallCity Lenina";
+
+    // One near with viewport center and one near with city center.
+    Rules const rules = {ExactMatch(countryId, lenina0), ExactMatch(countryId, lenina3)};
 
     TestSearchRequest request(m_engine, params);
     request.Run();
@@ -2679,7 +2642,7 @@ UNIT_CLASS_TEST(ProcessorTest, FilterVillages)
   defaultParams.m_inputLocale = "en";
   defaultParams.m_viewport = m2::RectD(-1.0, -1.0, 1.0, 1.0);
   defaultParams.m_mode = Mode::Everywhere;
-  defaultParams.m_villageSearchRadiusM = TestSearchRequest::kDefaultTestVillageSearchRadiusM;
+  defaultParams.m_filteringParams.m_villageSearchRadiusM = TestSearchRequest::kDefaultTestVillageSearchRadiusM;
 
   {
     Rules const rules = {ExactMatch(otherId, petrovskoe0), ExactMatch(otherId, petrovskoe1),
@@ -2695,7 +2658,7 @@ UNIT_CLASS_TEST(ProcessorTest, FilterVillages)
                          ExactMatch(otherId, petrovskoe2)};
 
     auto params = defaultParams;
-    params.m_villageSearchRadiusM =
+    params.m_filteringParams.m_villageSearchRadiusM =
         mercator::DistanceOnEarth(params.m_viewport.Center(), petrovskoeMoscow.GetCenter()) - 1.0;
 
     TestSearchRequest request(m_engine, params);
@@ -2707,7 +2670,7 @@ UNIT_CLASS_TEST(ProcessorTest, FilterVillages)
     Rules const rules = {ExactMatch(otherId, petrovskoe0), ExactMatch(otherId, petrovskoe1)};
 
     auto params = defaultParams;
-    params.m_villageSearchRadiusM =
+    params.m_filteringParams.m_villageSearchRadiusM =
         mercator::DistanceOnEarth(params.m_viewport.Center(), petrovskoe2.GetCenter()) - 1.0;
 
     TestSearchRequest request(m_engine, params);
@@ -2719,7 +2682,7 @@ UNIT_CLASS_TEST(ProcessorTest, FilterVillages)
     Rules const rules = {ExactMatch(otherId, petrovskoe0)};
 
     auto params = defaultParams;
-    params.m_villageSearchRadiusM =
+    params.m_filteringParams.m_villageSearchRadiusM =
         mercator::DistanceOnEarth(params.m_viewport.Center(), petrovskoe1.GetCenter()) - 1.0;
 
     TestSearchRequest request(m_engine, params);
@@ -2732,10 +2695,10 @@ UNIT_CLASS_TEST(ProcessorTest, FilterVillages)
 
     auto params = defaultParams;
     params.m_position = {2.0, 2.0};
-    params.m_villageSearchRadiusM =
+    params.m_filteringParams.m_villageSearchRadiusM =
         min(mercator::DistanceOnEarth(params.m_viewport.Center(), petrovskoe1.GetCenter()),
             mercator::DistanceOnEarth(*params.m_position, petrovskoe1.GetCenter()));
-    params.m_villageSearchRadiusM -= 1.0;
+    params.m_filteringParams.m_villageSearchRadiusM -= 1.0;
 
     TestSearchRequest request(m_engine, params);
     request.Run();
@@ -2746,7 +2709,7 @@ UNIT_CLASS_TEST(ProcessorTest, FilterVillages)
     Rules const rules = {ExactMatch(otherId, petrovskoe0), ExactMatch(moscowId, petrovskoeMoscow)};
 
     auto params = defaultParams;
-    params.m_villageSearchRadiusM =
+    params.m_filteringParams.m_villageSearchRadiusM =
         mercator::DistanceOnEarth(params.m_viewport.Center(), petrovskoe1.GetCenter()) - 1.0;
     params.m_query = "Petrovskoe Moscow Region";
 
