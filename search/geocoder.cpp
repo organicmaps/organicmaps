@@ -620,17 +620,14 @@ void Geocoder::GoImpl(vector<MwmInfoPtr> const & infos, bool inViewport)
 
     if (m_params.IsCategorialRequest())
     {
-      auto const mwmType = m_context->GetType();
-      CHECK(mwmType, ());
-      MatchCategories(ctx, mwmType->m_viewportIntersected /* aroundPivot */);
+      MatchCategories(ctx, m_context->GetType().m_viewportIntersected /* aroundPivot */);
     }
     else
     {
       MatchRegions(ctx, Region::TYPE_COUNTRY);
 
-      auto const mwmType = m_context->GetType();
-      CHECK(mwmType, ());
-      if (mwmType->m_viewportIntersected || mwmType->m_containsUserPosition ||
+      auto const & mwmType = m_context->GetType();
+      if (mwmType.m_viewportIntersected || mwmType.m_containsUserPosition ||
           !m_preRanker.HaveFullyMatchedResult())
       {
         MatchAroundPivot(ctx);
@@ -858,11 +855,10 @@ void Geocoder::FillVillageLocalities(BaseContext const & ctx)
     vector<m2::PointD> pivotPoints = {m_params.m_pivot.Center()};
     if (m_params.m_position)
       pivotPoints.push_back(*m_params.m_position);
-    auto const mwmType = m_context->GetType();
-    CHECK(mwmType, ());
-    if (!mwmType->m_containsMatchedState &&
+
+    if (!m_context->GetType().m_containsMatchedState &&
         all_of(pivotPoints.begin(), pivotPoints.end(), [&](auto const & p) {
-          return mercator::DistanceOnEarth(center, p) > m_params.m_villageSearchRadiusM;
+          return mercator::DistanceOnEarth(center, p) > m_params.m_filteringParams.m_villageSearchRadiusM;
         }))
     {
       continue;
@@ -1082,7 +1078,11 @@ void Geocoder::MatchCities(BaseContext & ctx)
       LocalityFilter filter(cityFeatures);
 
       size_t const numEmitted = ctx.m_numEmitted;
-      LimitedSearch(ctx, filter, {city.m_rect.Center()});
+
+      CentersFilter centers;
+      centers.Add(city.m_rect.Center());
+      LimitedSearch(ctx, filter, centers);
+
       if (numEmitted == ctx.m_numEmitted)
       {
         TRACE(Relaxed);
@@ -1098,23 +1098,23 @@ void Geocoder::MatchAroundPivot(BaseContext & ctx)
 
   ViewportFilter filter(CBV::GetFull(), m_preRanker.Limit() /* threshold */);
 
-  vector<m2::PointD> centers = {m_params.m_pivot.Center()};
-  auto const mwmType = m_context->GetType();
-  CHECK(mwmType, ());
-  if (mwmType->m_containsUserPosition)
+  CentersFilter centers;
+  auto const & mwmType = m_context->GetType();
+  if (mwmType.m_containsUserPosition)
   {
     CHECK(m_params.m_position, ());
-    if (mwmType->m_viewportIntersected)
-      centers.push_back(*m_params.m_position);
-    else
-      centers = {*m_params.m_position};
+    if (mwmType.m_viewportIntersected)
+      centers.Add(m_params.m_pivot.Center());
+    centers.Add(*m_params.m_position);
   }
+  else
+    centers.Add(m_params.m_pivot.Center());
 
   LimitedSearch(ctx, filter, centers);
 }
 
 void Geocoder::LimitedSearch(BaseContext & ctx, FeaturesFilter const & filter,
-                             vector<m2::PointD> const & centers)
+                             CentersFilter const & centers)
 {
   m_filter = &filter;
   SCOPE_GUARD(resetFilter, [&]() { m_filter = nullptr; });
@@ -1204,7 +1204,7 @@ void Geocoder::WithPostcodes(BaseContext & ctx, Fn && fn)
   }
 }
 
-void Geocoder::GreedilyMatchStreets(BaseContext & ctx, vector<m2::PointD> const & centers)
+void Geocoder::GreedilyMatchStreets(BaseContext & ctx, CentersFilter const & centers)
 {
   TRACE(GreedilyMatchStreets);
 
@@ -1218,8 +1218,7 @@ void Geocoder::GreedilyMatchStreets(BaseContext & ctx, vector<m2::PointD> const 
   GreedilyMatchStreetsWithSuburbs(ctx, centers);
 }
 
-void Geocoder::GreedilyMatchStreetsWithSuburbs(BaseContext & ctx,
-                                               vector<m2::PointD> const & centers)
+void Geocoder::GreedilyMatchStreetsWithSuburbs(BaseContext & ctx, CentersFilter const & centers)
 {
   TRACE(GreedilyMatchStreetsWithSuburbs);
   vector<StreetsMatcher::Prediction> suburbs;
@@ -1271,9 +1270,77 @@ void Geocoder::GreedilyMatchStreetsWithSuburbs(BaseContext & ctx,
   }
 }
 
+void Geocoder::CentersFilter::ProcessStreets(std::vector<uint32_t> & streets, Geocoder & geocoder) const
+{
+  if (streets.size() <= geocoder.m_params.m_filteringParams.m_maxStreetsCount)
+    return;
+
+  std::vector<std::tuple<double, m2::PointD, uint32_t>> loadedStreets;
+  loadedStreets.reserve(streets.size());
+
+  // Calculate {distance, center, feature id}.
+  for (uint32_t fid : streets)
+  {
+    m2::PointD ftCenter;
+    if (geocoder.m_context->GetCenter(fid, ftCenter))
+    {
+      double minDist = std::numeric_limits<double>::max();
+      for (auto const & c : m_centers)
+        minDist = std::min(minDist, ftCenter.SquaredLength(c));
+      loadedStreets.emplace_back(minDist, ftCenter, fid);
+    }
+  }
+
+  // Sort by distance.
+  std::sort(loadedStreets.begin(), loadedStreets.end(), [](auto const & t1, auto const & t2)
+  {
+    return std::get<0>(t1) < std::get<0>(t2);
+  });
+
+  buffer_vector<m2::RectD, 2> rects(m_centers.size());
+  for (size_t i = 0; i < rects.size(); ++i)
+  {
+    rects[i] = mercator::RectByCenterXYAndSizeInMeters(
+          m_centers[i], geocoder.m_params.m_filteringParams.m_streetSearchRadiusM);
+  }
+
+  // Find the first (after m_maxStreetsCount) street that is out of the rect's bounds
+  size_t count = geocoder.m_params.m_filteringParams.m_maxStreetsCount;
+  for (; count < loadedStreets.size(); ++count)
+  {
+    bool const outside = std::all_of(rects.begin(), rects.end(),
+                                     [pt = std::get<1>(loadedStreets[count])](m2::RectD const & rect)
+                                     {
+                                       return !rect.IsPointInside(pt);
+                                     });
+    if (outside)
+      break;
+  }
+
+  // Emit results.
+  streets.clear();
+  for (size_t i = 0; i < count; ++i)
+    streets.push_back(std::get<2>(loadedStreets[i]));
+  std::sort(streets.begin(), streets.end());
+
+  // Alternative naive implementation (previous filtering logic).
+  /*
+  streets.erase(std::remove_if(streets.begin(), streets.end(), [&](uint32_t fid)
+  {
+    m2::PointD center;
+    if (!geocoder.m_context->GetCenter(fid, center))
+      return true;
+    return std::all_of(rects.begin(), rects.end(), [&center](m2::RectD const & rect)
+    {
+      return !rect.IsPointInside(center);
+    });
+  }), streets.end());
+  */
+}
+
 void Geocoder::CreateStreetsLayerAndMatchLowerLayers(BaseContext & ctx,
                                                      StreetsMatcher::Prediction const & prediction,
-                                                     vector<m2::PointD> const & centers)
+                                                     CentersFilter const & centers)
 {
   auto & layers = ctx.m_layers;
 
@@ -1284,19 +1351,13 @@ void Geocoder::CreateStreetsLayerAndMatchLowerLayers(BaseContext & ctx,
   InitLayer(Model::TYPE_STREET, prediction.m_tokenRange, layer);
 
   vector<uint32_t> sortedFeatures;
-  sortedFeatures.reserve(base::checked_cast<size_t>(prediction.m_features.PopCount()));
-  prediction.m_features.ForEach([&](uint64_t bit) {
-    auto const fid = base::asserted_cast<uint32_t>(bit);
-    m2::PointD streetCenter;
-    if (m_context->GetCenter(fid, streetCenter) &&
-        any_of(centers.begin(), centers.end(), [&](auto const & center) {
-          return mercator::DistanceOnEarth(center, streetCenter) <= m_params.m_streetSearchRadiusM;
-        }))
-    {
-      sortedFeatures.push_back(base::asserted_cast<uint32_t>(bit));
-    }
-  });
   layer.m_sortedFeatures = &sortedFeatures;
+  sortedFeatures.reserve(base::asserted_cast<size_t>(prediction.m_features.PopCount()));
+  prediction.m_features.ForEach([&](uint64_t bit)
+  {
+    sortedFeatures.push_back(base::asserted_cast<uint32_t>(bit));
+  });
+  centers.ProcessStreets(sortedFeatures, *this);
 
   ScopedMarkTokens mark(ctx.m_tokens, BaseContext::TOKEN_TYPE_STREET, prediction.m_tokenRange);
   size_t const numEmitted = ctx.m_numEmitted;

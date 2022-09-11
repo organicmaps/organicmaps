@@ -8,6 +8,7 @@
 #include "search/feature_offset_match.hpp"
 #include "search/features_layer.hpp"
 #include "search/features_layer_path_finder.hpp"
+#include "search/filtering_params.hpp"
 #include "search/geocoder_context.hpp"
 #include "search/geocoder_locality.hpp"
 #include "search/geometry_cache.hpp"
@@ -79,8 +80,9 @@ public:
     std::vector<uint32_t> m_cuisineTypes;
     std::vector<uint32_t> m_preferredTypes;
     std::shared_ptr<Tracer> m_tracer;
-    double m_streetSearchRadiusM = 0.0;
-    double m_villageSearchRadiusM = 0.0;
+
+    RecommendedFilteringParams m_filteringParams;
+
     int m_scale = scales::GetUpperScale();
 
     bool m_useDebugInfo = false;  // Set to true for debug logs and tests.
@@ -227,24 +229,32 @@ private:
   // retrieved, viewport is used to throw away excess features.
   void MatchAroundPivot(BaseContext & ctx);
 
+  class CentersFilter
+  {
+    buffer_vector<m2::PointD, 2> m_centers;
+  public:
+    void Add(m2::PointD const & pt) { m_centers.push_back(pt); }
+    void ProcessStreets(std::vector<uint32_t> & streets, Geocoder & geocoder) const;
+  };
+
   // Tries to do geocoding in a limited scope, assuming that knowledge
   // about high-level features, like cities or countries, is
   // incorporated into |filter|.
   void LimitedSearch(BaseContext & ctx, FeaturesFilter const & filter,
-                     std::vector<m2::PointD> const & centers);
+                     CentersFilter const & centers);
 
   template <typename Fn>
   void WithPostcodes(BaseContext & ctx, Fn && fn);
 
   // Tries to match some adjacent tokens in the query as streets and
   // then performs geocoding in street vicinities.
-  void GreedilyMatchStreets(BaseContext & ctx, std::vector<m2::PointD> const & centers);
+  void GreedilyMatchStreets(BaseContext & ctx, CentersFilter const & centers);
   // Matches suburbs and streets inside suburbs like |GreedilyMatchStreets|.
-  void GreedilyMatchStreetsWithSuburbs(BaseContext & ctx, std::vector<m2::PointD> const & centers);
+  void GreedilyMatchStreetsWithSuburbs(BaseContext & ctx, CentersFilter const & centers);
 
   void CreateStreetsLayerAndMatchLowerLayers(BaseContext & ctx,
                                              StreetsMatcher::Prediction const & prediction,
-                                             std::vector<m2::PointD> const & centers);
+                                             CentersFilter const & centers);
 
   // Tries to find all paths in a search tree, where each edge is
   // marked with some substring of the query tokens. These paths are

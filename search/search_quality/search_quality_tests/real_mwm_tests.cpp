@@ -116,6 +116,24 @@ public:
     }
   }
 
+  /// @param[in] street, house May be empty.
+  static void HasAddress(Range const & results, std::string const & street, std::string const & house)
+  {
+    auto const buildingType = classif().GetTypeByPath({"building"});
+
+    bool found = false;
+    for (auto const & r : results)
+    {
+      if (r.GetResultType() == search::Result::Type::Feature && EqualClassifType(r.GetFeatureType(), buildingType))
+      {
+        found = true;
+        break;
+      }
+    }
+
+    TEST(found, ());
+  }
+
   double GetDistanceM(search::Result const & r, ms::LatLon const & ll) const
   {
     return ms::DistanceOnEarth(ll, mercator::ToLatLon(r.GetFeatureCenter()));
@@ -410,21 +428,24 @@ UNIT_CLASS_TEST(MwmTestsFixture, Arbat_Address)
     size_t constexpr kResultsCount = 3;   // Building should be at the top.
     TEST_GREATER(results.size(), kResultsCount, ());
 
-    auto const buildingType = classif().GetTypeByPath({"building"});
-
-    bool found = false;
-    for (size_t i = 0; i < kResultsCount; ++i)
-    {
-      auto const & r = results[i];
-      if (r.GetResultType() == search::Result::Type::Feature &&
-          EqualClassifType(r.GetFeatureType(), buildingType))
-      {
-        found = true;
-        break;
-      }
-    }
-
-    TEST(found, (results));
+    Range const range(results, 0, kResultsCount);
+    HasAddress(range, {}, {});
   }
 }
+
+UNIT_CLASS_TEST(MwmTestsFixture, Hawaii_Address)
+{
+  // Honolulu
+  ms::LatLon const center(21.3045470, -157.8556760);
+  SetViewportAndLoadMaps(center);
+
+  auto request = MakeRequest("1000 Ululani Street");
+  auto const & results = request->Results();
+  size_t constexpr kResultsCount = 3;   // Building should be at the top.
+  TEST_GREATER_OR_EQUAL(results.size(), kResultsCount, ());
+
+  Range const range(results, 0, kResultsCount);
+  HasAddress(range, "Ululani Street", "1000");
+}
+
 } // namespace real_mwm_tests

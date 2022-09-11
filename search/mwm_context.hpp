@@ -52,7 +52,11 @@ public:
   MwmSet::MwmId const & GetId() const { return m_handle.GetId(); }
   std::string const & GetName() const { return GetInfo()->GetCountryName(); }
   std::shared_ptr<MwmInfo> const & GetInfo() const { return GetId().GetInfo(); }
-  std::optional<MwmType> const & GetType() const { return m_type; }
+  MwmType const & GetType() const
+  {
+    CHECK(m_type, ());
+    return *m_type;
+  }
 
   template <typename Fn>
   void ForEachIndex(covering::Intervals const & intervals, uint32_t scale, Fn && fn) const
