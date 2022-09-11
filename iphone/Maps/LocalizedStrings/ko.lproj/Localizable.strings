@@ -1605,25 +1605,25 @@
 
 "type.cemetery.grave" = "무덤";
 
-"type.craft" = "Craft";
+"type.craft" = "공예";
 
-"type.craft.beekeeper" = "Beekeeper";
+"type.craft.beekeeper" = "양봉가";
 
-"type.craft.blacksmith" = "Blacksmith";
+"type.craft.blacksmith" = "대장장이";
 
 "type.craft.brewery" = "양조장";
 
 "type.craft.carpenter" = "목수";
 
-"type.craft.confectionery" = "Confectionery";
+"type.craft.confectionery" = "과자 장수";
 
 "type.craft.electrician" = "전기기술자";
 
-"type.craft.electronics_repair" = "Electronics Repair";
+"type.craft.electronics_repair" = "전자제품 수리";
 
 "type.craft.gardener" = "조경사";
 
-"type.craft.handicraft" = "Handicraft";
+"type.craft.handicraft" = "수예";
 
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "냉난방기";
@@ -1636,11 +1636,11 @@
 
 "type.craft.plumber" = "배관공";
 
-"type.craft.sawmill" = "Sawmill";
+"type.craft.sawmill" = "제재소";
 
 "type.craft.shoemaker" = "구두수선";
 
-"type.craft.winery" = "Winery";
+"type.craft.winery" = "포도주 양조장";
 
 "type.craft.tailor" = "양복점";
 

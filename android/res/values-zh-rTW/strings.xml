@@ -834,17 +834,25 @@
 	<string name="type.building.has_parts">建築物</string>
 	<string name="type.building.train_station">鐵道</string>
 	<string name="type.cemetery.grave">墓穴</string>
+	<string name="type.craft">工藝作坊</string>
+	<string name="type.craft.beekeeper">蜂農</string>
+	<string name="type.craft.blacksmith">鐵匠</string>
 	<string name="type.craft.brewery">釀酒廠</string>
 	<string name="type.craft.carpenter">木工</string>
+	<string name="type.craft.confectionery">糖果商</string>
 	<string name="type.craft.electrician">電工</string>
+	<string name="type.craft.electronics_repair">電子產品維修</string>
 	<string name="type.craft.gardener">園藝師</string>
+	<string name="type.craft.handicraft">手工藝</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">空調設備</string>
 	<string name="type.craft.metal_construction">鐵工</string>
 	<string name="type.craft.painter">油漆工</string>
 	<string name="type.craft.photographer">攝影師</string>
 	<string name="type.craft.plumber">水管工人</string>
+	<string name="type.craft.sawmill">鋸木廠</string>
 	<string name="type.craft.shoemaker">修鞋工</string>
+	<string name="type.craft.winery">酒莊</string>
 	<string name="type.craft.tailor">裁縫師</string>
 	<string name="type.cuisine.african">非洲料理</string>
 	<string name="type.cuisine.american">美國料理</string>

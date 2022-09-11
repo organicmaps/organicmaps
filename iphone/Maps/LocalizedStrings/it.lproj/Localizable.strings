@@ -1615,7 +1615,7 @@
 
 "type.craft.carpenter" = "Falegname";
 
-"type.craft.confectionery" = "Confectionery";
+"type.craft.confectionery" = "Pasticciere";
 
 "type.craft.electrician" = "Elettricista";
 
@@ -1636,11 +1636,11 @@
 
 "type.craft.plumber" = "Idraulico";
 
-"type.craft.sawmill" = "Sawmill";
+"type.craft.sawmill" = "Segheria";
 
 "type.craft.shoemaker" = "Calzolaio";
 
-"type.craft.winery" = "Winery";
+"type.craft.winery" = "Casa vinicola";
 
 "type.craft.tailor" = "Sarto";
 

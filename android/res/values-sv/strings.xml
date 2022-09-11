@@ -794,17 +794,25 @@
 	<string name="type.building.has_parts">Byggnad</string>
 	<string name="type.building.train_station">Tågstation</string>
 	<string name="type.cemetery.grave">Grav</string>
+	<string name="type.craft">Hantverk</string>
+	<string name="type.craft.beekeeper">Biodlare</string>
+	<string name="type.craft.blacksmith">Smedja</string>
 	<string name="type.craft.brewery">Bryggeri</string>
 	<string name="type.craft.carpenter">Snickare</string>
+	<string name="type.craft.confectionery">Konditor</string>
 	<string name="type.craft.electrician">Elektriker</string>
+	<string name="type.craft.electronics_repair">Reparation av elektronik</string>
 	<string name="type.craft.gardener">Trädgårdsmästare</string>
+	<string name="type.craft.handicraft">Konsthantverk</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Vvs</string>
 	<string name="type.craft.metal_construction">Metallarbetare</string>
 	<string name="type.craft.painter">Målare</string>
 	<string name="type.craft.photographer">Fotograf</string>
 	<string name="type.craft.plumber">Vvs-montör</string>
+	<string name="type.craft.sawmill">Sågverk</string>
 	<string name="type.craft.shoemaker">Skomakare</string>
+	<string name="type.craft.winery">Vineri</string>
 	<string name="type.craft.tailor">Skräddare</string>
 	<string name="type.cuisine.african">Afrikansk mat</string>
 	<string name="type.cuisine.american">Amerikansk mat</string>

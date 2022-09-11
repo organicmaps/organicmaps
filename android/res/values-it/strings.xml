@@ -836,6 +836,7 @@
 	<string name="type.craft.blacksmith">Fabbro</string>
 	<string name="type.craft.brewery">Birrificio</string>
 	<string name="type.craft.carpenter">Falegname</string>
+	<string name="type.craft.confectionery">Pasticciere</string>
 	<string name="type.craft.electrician">Elettricista</string>
 	<string name="type.craft.electronics_repair">Riparazioni elettroniche</string>
 	<string name="type.craft.gardener">Giardiniere</string>
@@ -846,7 +847,9 @@
 	<string name="type.craft.painter">Imbianchino</string>
 	<string name="type.craft.photographer">Fotografo</string>
 	<string name="type.craft.plumber">Idraulico</string>
+	<string name="type.craft.sawmill">Segheria</string>
 	<string name="type.craft.shoemaker">Calzolaio</string>
+	<string name="type.craft.winery">Casa vinicola</string>
 	<string name="type.craft.tailor">Sarto</string>
 	<string name="type.cuisine.african">Cucina africana</string>
 	<string name="type.cuisine.american">Cucina americana</string>

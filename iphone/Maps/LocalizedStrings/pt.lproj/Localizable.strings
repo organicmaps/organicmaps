@@ -1607,23 +1607,23 @@
 
 "type.craft" = "Ofícios";
 
-"type.craft.beekeeper" = "Beekeeper";
+"type.craft.beekeeper" = "Apicultor";
 
-"type.craft.blacksmith" = "Blacksmith";
+"type.craft.blacksmith" = "Ferreiro";
 
 "type.craft.brewery" = "Cervejaria artesanal";
 
 "type.craft.carpenter" = "Carpinteiro";
 
-"type.craft.confectionery" = "Confectionery";
+"type.craft.confectionery" = "Confeitaria";
 
 "type.craft.electrician" = "Eletricista";
 
-"type.craft.electronics_repair" = "Electronics Repair";
+"type.craft.electronics_repair" = "Reparação electrónica";
 
 "type.craft.gardener" = "Jardineiro";
 
-"type.craft.handicraft" = "Handicraft";
+"type.craft.handicraft" = "Artesanato";
 
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Instalador de ar-condicionado";
@@ -1636,11 +1636,11 @@
 
 "type.craft.plumber" = "Picheleiro";
 
-"type.craft.sawmill" = "Sawmill";
+"type.craft.sawmill" = "Serraria";
 
 "type.craft.shoemaker" = "Sapateiro";
 
-"type.craft.winery" = "Winery";
+"type.craft.winery" = "Adega";
 
 "type.craft.tailor" = "Alfaiate";
 

@@ -1615,7 +1615,7 @@
 
 "type.craft.carpenter" = "Marangoz";
 
-"type.craft.confectionery" = "Confectionery";
+"type.craft.confectionery" = "Şekerlemeci";
 
 "type.craft.electrician" = "Elektrikçi";
 
@@ -1636,11 +1636,11 @@
 
 "type.craft.plumber" = "Tesisatçı";
 
-"type.craft.sawmill" = "Sawmill";
+"type.craft.sawmill" = "Kereste Fabrikası";
 
 "type.craft.shoemaker" = "Ayakkabı Tamircisi";
 
-"type.craft.winery" = "Winery";
+"type.craft.winery" = "Şaraphane";
 
 "type.craft.tailor" = "Terzi";
 

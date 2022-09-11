@@ -894,17 +894,25 @@
 	<string name="type.building.has_parts">Gebäude</string>
 	<string name="type.building.train_station">Bahnhof</string>
 	<string name="type.cemetery.grave">Grab</string>
+	<string name="type.craft">Handwerk</string>
+	<string name="type.craft.beekeeper">Imker</string>
+	<string name="type.craft.blacksmith">Schmied</string>
 	<string name="type.craft.brewery">Brauerei</string>
 	<string name="type.craft.carpenter">Zimmermann</string>
+	<string name="type.craft.confectionery">Konditor</string>
 	<string name="type.craft.electrician">Elektriker</string>
+	<string name="type.craft.electronics_repair">Elektrogerätereparatur</string>
 	<string name="type.craft.gardener">Landschaftsgärtner</string>
+	<string name="type.craft.handicraft">Kunsthandwerk</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
-	<string name="type.craft.hvac">Heizung</string>
+	<string name="type.craft.hvac">Heizung, Lüftung und Klimatisierung</string>
 	<string name="type.craft.metal_construction">Schlosser</string>
 	<string name="type.craft.painter">Maler</string>
 	<string name="type.craft.photographer">Fotograf</string>
 	<string name="type.craft.plumber">Installateur</string>
+	<string name="type.craft.sawmill">Sägewerk</string>
 	<string name="type.craft.shoemaker">Schuhmacher</string>
+	<string name="type.craft.winery">Weingut</string>
 	<string name="type.craft.tailor">Schneider</string>
 	<string name="type.cuisine.african">Afrikanisch</string>
 	<string name="type.cuisine.american">Amerikanisch</string>

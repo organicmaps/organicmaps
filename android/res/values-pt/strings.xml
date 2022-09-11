@@ -864,17 +864,24 @@
 	<string name="type.building.warehouse">Armazém</string>
 	<string name="type.cemetery.grave">Túmulo</string>
 	<string name="type.craft">Ofícios</string>
+	<string name="type.craft.beekeeper">Apicultor</string>
+	<string name="type.craft.blacksmith">Ferreiro</string>
 	<string name="type.craft.brewery">Cervejaria artesanal</string>
 	<string name="type.craft.carpenter">Carpinteiro</string>
+	<string name="type.craft.confectionery">Confeitaria</string>
 	<string name="type.craft.electrician">Eletricista</string>
+	<string name="type.craft.electronics_repair">Reparação electrónica</string>
 	<string name="type.craft.gardener">Jardineiro</string>
+	<string name="type.craft.handicraft">Artesanato</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Instalador de ar-condicionado</string>
 	<string name="type.craft.metal_construction">Serralheiro metálico</string>
 	<string name="type.craft.painter">Pintor</string>
 	<string name="type.craft.photographer">Fotógrafo</string>
 	<string name="type.craft.plumber">Picheleiro</string>
+	<string name="type.craft.sawmill">Serraria</string>
 	<string name="type.craft.shoemaker">Sapateiro</string>
+	<string name="type.craft.winery">Adega</string>
 	<string name="type.craft.tailor">Alfaiate</string>
 	<string name="type.cuisine.african">Cozinha africana</string>
 	<string name="type.cuisine.american">Cozinha americana</string>

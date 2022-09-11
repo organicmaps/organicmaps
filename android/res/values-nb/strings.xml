@@ -796,17 +796,25 @@
 	<string name="type.building.has_parts">Bygning</string>
 	<string name="type.building.train_station">Togstasjon</string>
 	<string name="type.cemetery.grave">Grav</string>
+	<string name="type.craft">Håndverk</string>
+	<string name="type.craft.beekeeper">Birøkter</string>
+	<string name="type.craft.blacksmith">Smed</string>
 	<string name="type.craft.brewery">Bryggeri</string>
 	<string name="type.craft.carpenter">Snekker</string>
+	<string name="type.craft.confectionery">Konditor</string>
 	<string name="type.craft.electrician">Elektriker</string>
+	<string name="type.craft.electronics_repair">Elektronikk reparasjon</string>
 	<string name="type.craft.gardener">Anleggsgartner</string>
+	<string name="type.craft.handicraft">Kunsthåndverk</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Klimaanlegg</string>
 	<string name="type.craft.metal_construction">Metallarbeider</string>
 	<string name="type.craft.painter">Maler</string>
 	<string name="type.craft.photographer">Fotograf</string>
 	<string name="type.craft.plumber">Rørlegger</string>
+	<string name="type.craft.sawmill">Sagbruk</string>
 	<string name="type.craft.shoemaker">Skoreparasjon</string>
+	<string name="type.craft.winery">Vingård</string>
 	<string name="type.craft.tailor">Skredder</string>
 	<string name="type.cuisine.african">Afrikansk mat</string>
 	<string name="type.cuisine.american">Amerikansk mat</string>

@@ -1605,25 +1605,25 @@
 
 "type.cemetery.grave" = "Grav";
 
-"type.craft" = "Craft";
+"type.craft" = "Håndverk";
 
-"type.craft.beekeeper" = "Beekeeper";
+"type.craft.beekeeper" = "Birøkter";
 
-"type.craft.blacksmith" = "Blacksmith";
+"type.craft.blacksmith" = "Smed";
 
 "type.craft.brewery" = "Bryggeri";
 
 "type.craft.carpenter" = "Snekker";
 
-"type.craft.confectionery" = "Confectionery";
+"type.craft.confectionery" = "Konditor";
 
 "type.craft.electrician" = "Elektriker";
 
-"type.craft.electronics_repair" = "Electronics Repair";
+"type.craft.electronics_repair" = "Elektronikk reparasjon";
 
 "type.craft.gardener" = "Anleggsgartner";
 
-"type.craft.handicraft" = "Handicraft";
+"type.craft.handicraft" = "Kunsthåndverk";
 
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Klimaanlegg";
@@ -1636,11 +1636,11 @@
 
 "type.craft.plumber" = "Rørlegger";
 
-"type.craft.sawmill" = "Sawmill";
+"type.craft.sawmill" = "Sagbruk";
 
 "type.craft.shoemaker" = "Skoreparasjon";
 
-"type.craft.winery" = "Winery";
+"type.craft.winery" = "Vingård";
 
 "type.craft.tailor" = "Skredder";
 

@@ -1605,28 +1605,28 @@
 
 "type.cemetery.grave" = "Grab";
 
-"type.craft" = "Craft";
+"type.craft" = "Handwerk";
 
-"type.craft.beekeeper" = "Beekeeper";
+"type.craft.beekeeper" = "Imker";
 
-"type.craft.blacksmith" = "Blacksmith";
+"type.craft.blacksmith" = "Schmied";
 
 "type.craft.brewery" = "Brauerei";
 
 "type.craft.carpenter" = "Zimmermann";
 
-"type.craft.confectionery" = "Confectionery";
+"type.craft.confectionery" = "Konditor";
 
 "type.craft.electrician" = "Elektriker";
 
-"type.craft.electronics_repair" = "Electronics Repair";
+"type.craft.electronics_repair" = "Elektrogerätereparatur";
 
 "type.craft.gardener" = "Landschaftsgärtner";
 
-"type.craft.handicraft" = "Handicraft";
+"type.craft.handicraft" = "Kunsthandwerk";
 
 /* Heating, Ventilation, and Air Conditioning */
-"type.craft.hvac" = "Heizung";
+"type.craft.hvac" = "Heizung, Lüftung und Klimatisierung";
 
 "type.craft.metal_construction" = "Schlosser";
 
@@ -1636,11 +1636,11 @@
 
 "type.craft.plumber" = "Installateur";
 
-"type.craft.sawmill" = "Sawmill";
+"type.craft.sawmill" = "Sägewerk";
 
 "type.craft.shoemaker" = "Schuhmacher";
 
-"type.craft.winery" = "Winery";
+"type.craft.winery" = "Weingut";
 
 "type.craft.tailor" = "Schneider";
 

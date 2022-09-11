@@ -1615,15 +1615,15 @@
 
 "type.craft.carpenter" = "Столяр";
 
-"type.craft.confectionery" = "Confectionery";
+"type.craft.confectionery" = "Кондитер";
 
 "type.craft.electrician" = "Електрик";
 
-"type.craft.electronics_repair" = "Electronics Repair";
+"type.craft.electronics_repair" = "Ремонт електроніки";
 
 "type.craft.gardener" = "Садівник";
 
-"type.craft.handicraft" = "Handicraft";
+"type.craft.handicraft" = "Народні художні промисли";
 
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Опалення, вентиляція та кондиціювання повітря";
@@ -1636,11 +1636,11 @@
 
 "type.craft.plumber" = "Сантехнік";
 
-"type.craft.sawmill" = "Sawmill";
+"type.craft.sawmill" = "Лісопильня";
 
 "type.craft.shoemaker" = "Ремонт взуття";
 
-"type.craft.winery" = "Winery";
+"type.craft.winery" = "Виноробний завод";
 
 "type.craft.tailor" = "Ательє";
 

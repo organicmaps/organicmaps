@@ -1605,25 +1605,25 @@
 
 "type.cemetery.grave" = "Hilobia";
 
-"type.craft" = "Craft";
+"type.craft" = "Artisautza";
 
-"type.craft.beekeeper" = "Beekeeper";
+"type.craft.beekeeper" = "Erlezaina";
 
-"type.craft.blacksmith" = "Blacksmith";
+"type.craft.blacksmith" = "Errementari";
 
 "type.craft.brewery" = "Garagardo fabrika";
 
 "type.craft.carpenter" = "Arotza";
 
-"type.craft.confectionery" = "Confectionery";
+"type.craft.confectionery" = "Gozogilea";
 
 "type.craft.electrician" = "Elektrizista teknikaria";
 
-"type.craft.electronics_repair" = "Electronics Repair";
+"type.craft.electronics_repair" = "Elektronika Konponketa";
 
 "type.craft.gardener" = "Paisaia";
 
-"type.craft.handicraft" = "Handicraft";
+"type.craft.handicraft" = "Eskulangintza";
 
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Aire girotua";
@@ -1636,11 +1636,11 @@
 
 "type.craft.plumber" = "Iturgina";
 
-"type.craft.sawmill" = "Sawmill";
+"type.craft.sawmill" = "Zerrategi";
 
 "type.craft.shoemaker" = "Zapataria";
 
-"type.craft.winery" = "Winery";
+"type.craft.winery" = "Upategi";
 
 "type.craft.tailor" = "Jostun";
 

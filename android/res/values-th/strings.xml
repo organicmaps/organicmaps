@@ -802,17 +802,25 @@
 	<string name="type.building.has_parts">อาคาร</string>
 	<string name="type.building.train_station">สถานีรถไฟ</string>
 	<string name="type.cemetery.grave">หลุมฝังศพ</string>
+	<string name="type.craft">งานฝีมือ</string>
+	<string name="type.craft.beekeeper">คนเลี้ยงผึ้ง</string>
+	<string name="type.craft.blacksmith">ช่างตีเหล็ก</string>
 	<string name="type.craft.brewery">โรงเบียร์</string>
 	<string name="type.craft.carpenter">ช่างไม้</string>
+	<string name="type.craft.confectionery">ลูกกวาด</string>
 	<string name="type.craft.electrician">ช่างไฟฟ้า</string>
+	<string name="type.craft.electronics_repair">ซ่อมเครื่องใช้ไฟฟ้า</string>
 	<string name="type.craft.gardener">คนจัดสวน</string>
+	<string name="type.craft.handicraft">หัตถกรรม</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">ระบบปรับอากาศ</string>
 	<string name="type.craft.metal_construction">ช่างเหล็ก</string>
 	<string name="type.craft.painter">ช่างทาสี</string>
 	<string name="type.craft.photographer">ช่างภาพ</string>
 	<string name="type.craft.plumber">ช่างประปา</string>
+	<string name="type.craft.sawmill">ซูเมล</string>
 	<string name="type.craft.shoemaker">ช่างซ่อมรองเท้า</string>
+	<string name="type.craft.winery">โรงกลั่นเหล้าองุ่น</string>
 	<string name="type.craft.tailor">ช่างตัดเสื้อ</string>
 	<string name="type.cuisine.african">อาหารแอฟริกัน</string>
 	<string name="type.cuisine.american">อาหารอเมริกัน</string>

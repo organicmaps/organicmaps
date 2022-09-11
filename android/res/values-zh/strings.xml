@@ -853,17 +853,24 @@
 	<string name="type.building.warehouse">仓库</string>
 	<string name="type.cemetery.grave">墓穴</string>
 	<string name="type.craft">工艺作坊</string>
+	<string name="type.craft.beekeeper">蜂农</string>
+	<string name="type.craft.blacksmith">铁匠</string>
 	<string name="type.craft.brewery">酿酒厂</string>
 	<string name="type.craft.carpenter">木匠</string>
+	<string name="type.craft.confectionery">糖果商</string>
 	<string name="type.craft.electrician">电工</string>
+	<string name="type.craft.electronics_repair">电子产品维修</string>
 	<string name="type.craft.gardener">园艺工</string>
+	<string name="type.craft.handicraft">手工艺</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">暖通工程师</string>
 	<string name="type.craft.metal_construction">金属制造工</string>
 	<string name="type.craft.painter">油漆匠</string>
 	<string name="type.craft.photographer">摄影棚</string>
 	<string name="type.craft.plumber">管道工</string>
+	<string name="type.craft.sawmill">锯木厂</string>
 	<string name="type.craft.shoemaker">鞋匠</string>
+	<string name="type.craft.winery">酒庄</string>
 	<string name="type.craft.tailor">裁缝</string>
 	<string name="type.cuisine.african">非洲菜</string>
 	<string name="type.cuisine.american">美国菜</string>

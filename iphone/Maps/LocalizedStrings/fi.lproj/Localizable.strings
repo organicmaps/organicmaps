@@ -1605,25 +1605,25 @@
 
 "type.cemetery.grave" = "Hauta";
 
-"type.craft" = "Craft";
+"type.craft" = "Käsityö";
 
-"type.craft.beekeeper" = "Beekeeper";
+"type.craft.beekeeper" = "Mehiläishoitaja";
 
-"type.craft.blacksmith" = "Blacksmith";
+"type.craft.blacksmith" = "Seppä";
 
 "type.craft.brewery" = "Panimo";
 
 "type.craft.carpenter" = "Puuseppä";
 
-"type.craft.confectionery" = "Confectionery";
+"type.craft.confectionery" = "Kondiittori";
 
 "type.craft.electrician" = "Sähkömies";
 
-"type.craft.electronics_repair" = "Electronics Repair";
+"type.craft.electronics_repair" = "Elektroniikan korjaus";
 
 "type.craft.gardener" = "Puutarhuri";
 
-"type.craft.handicraft" = "Handicraft";
+"type.craft.handicraft" = "Käsityö";
 
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Ilmastointilaite";
@@ -1636,11 +1636,11 @@
 
 "type.craft.plumber" = "Putkimies";
 
-"type.craft.sawmill" = "Sawmill";
+"type.craft.sawmill" = "Saha";
 
 "type.craft.shoemaker" = "Suutari";
 
-"type.craft.winery" = "Winery";
+"type.craft.winery" = "Viinitila";
 
 "type.craft.tailor" = "Räätäli";
 

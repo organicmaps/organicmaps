@@ -799,17 +799,25 @@
 	<string name="type.building.has_parts">Κτίριο</string>
 	<string name="type.building.train_station">Σιδηροδρομικός σταθμός</string>
 	<string name="type.cemetery.grave">Τάφος</string>
+	<string name="type.craft">Τεχνική</string>
+	<string name="type.craft.beekeeper">Μελισσοκόμος</string>
+	<string name="type.craft.blacksmith">Σιδηρουργός</string>
 	<string name="type.craft.brewery">Ζυθοποιείο</string>
 	<string name="type.craft.carpenter">Ξυλουργός</string>
+	<string name="type.craft.confectionery">Ζαχαροπλάστης</string>
 	<string name="type.craft.electrician">Ηλεκτρολόγος</string>
+	<string name="type.craft.electronics_repair">Επισκευή ηλεκτρονικών</string>
 	<string name="type.craft.gardener">Κηπουρός</string>
+	<string name="type.craft.handicraft">Χειροτεχνία</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Ψυκτικός</string>
 	<string name="type.craft.metal_construction">Μεταλλουργός</string>
 	<string name="type.craft.painter">Μπογιατζής</string>
 	<string name="type.craft.photographer">Φωτογράφος</string>
 	<string name="type.craft.plumber">Υδραυλικός</string>
+	<string name="type.craft.sawmill">Πριστήριο</string>
 	<string name="type.craft.shoemaker">Υποδηματοποιός</string>
+	<string name="type.craft.winery">Οινοποιείο</string>
 	<string name="type.craft.tailor">Ράφτης</string>
 	<string name="type.cuisine.african">Αφρικανική</string>
 	<string name="type.cuisine.american">Αμερικάνικη</string>

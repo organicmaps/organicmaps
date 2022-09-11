@@ -797,17 +797,25 @@
 	<string name="type.building.has_parts">Budova</string>
 	<string name="type.building.train_station">Železničná stanica</string>
 	<string name="type.cemetery.grave">Hrob</string>
+	<string name="type.craft">Remeslo</string>
+	<string name="type.craft.beekeeper">Včelár</string>
+	<string name="type.craft.blacksmith">Kováč</string>
 	<string name="type.craft.brewery">Pivovar</string>
 	<string name="type.craft.carpenter">Tesár</string>
+	<string name="type.craft.confectionery">Cukráreň</string>
 	<string name="type.craft.electrician">Elektrikár</string>
+	<string name="type.craft.electronics_repair">Oprava elektroniky</string>
 	<string name="type.craft.gardener">Záhradníctvo</string>
+	<string name="type.craft.handicraft">Ručné práce</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Vzduchotechnika</string>
 	<string name="type.craft.metal_construction">Kovorobotník</string>
 	<string name="type.craft.painter">Maliar natierač</string>
 	<string name="type.craft.photographer">Fotograf</string>
 	<string name="type.craft.plumber">Klampiarstvo</string>
+	<string name="type.craft.sawmill">Píla</string>
 	<string name="type.craft.shoemaker">Oprava obuvy</string>
+	<string name="type.craft.winery">Vinárstvo</string>
 	<string name="type.craft.tailor">Krajčírstvo</string>
 	<string name="type.cuisine.african">Africká kuchyňa</string>
 	<string name="type.cuisine.american">Americká kuchyňa</string>

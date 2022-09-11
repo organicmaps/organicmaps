@@ -799,17 +799,25 @@
 	<string name="type.building.has_parts">Tòa nhà</string>
 	<string name="type.building.train_station">Đường tàu hỏa</string>
 	<string name="type.cemetery.grave">Phần mộ</string>
+	<string name="type.craft">Thủ công</string>
+	<string name="type.craft.beekeeper">Người nuôi ong</string>
+	<string name="type.craft.blacksmith">Thợ rèn</string>
 	<string name="type.craft.brewery">Nhà máy bia</string>
 	<string name="type.craft.carpenter">Thợ mộc</string>
+	<string name="type.craft.confectionery">Người làm bánh kẹo</string>
 	<string name="type.craft.electrician">Thợ điện</string>
+	<string name="type.craft.electronics_repair">Sửa chữa điện tử</string>
 	<string name="type.craft.gardener">Người thiết kế và xây dựng cảnh quan</string>
+	<string name="type.craft.handicraft">Thủ công mỹ nghệ</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Điều hòa nhiệt độ</string>
 	<string name="type.craft.metal_construction">Nhà kim khí</string>
 	<string name="type.craft.painter">Họa sỹ</string>
 	<string name="type.craft.photographer">Thợ chụp ảnh</string>
 	<string name="type.craft.plumber">Thợ đường ống</string>
+	<string name="type.craft.sawmill">Sumel</string>
 	<string name="type.craft.shoemaker">Sửa giày</string>
+	<string name="type.craft.winery">Nhà máy rượu</string>
 	<string name="type.craft.tailor">Thợ may</string>
 	<string name="type.cuisine.african">Ẩm thực châu phi</string>
 	<string name="type.cuisine.american">Ẩm thực mỹ</string>

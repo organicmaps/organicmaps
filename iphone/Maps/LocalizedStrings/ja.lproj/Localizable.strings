@@ -1607,23 +1607,23 @@
 
 "type.craft" = "工房";
 
-"type.craft.beekeeper" = "Beekeeper";
+"type.craft.beekeeper" = "養蜂家";
 
-"type.craft.blacksmith" = "Blacksmith";
+"type.craft.blacksmith" = "鍛冶屋";
 
 "type.craft.brewery" = "醸造所";
 
 "type.craft.carpenter" = "大工";
 
-"type.craft.confectionery" = "Confectionery";
+"type.craft.confectionery" = "菓子職人";
 
 "type.craft.electrician" = "電気技師";
 
-"type.craft.electronics_repair" = "Electronics Repair";
+"type.craft.electronics_repair" = "電子機器修理";
 
 "type.craft.gardener" = "造園家";
 
-"type.craft.handicraft" = "Handicraft";
+"type.craft.handicraft" = "手芸";
 
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "冷暖房空調";
@@ -1636,11 +1636,11 @@
 
 "type.craft.plumber" = "配管工";
 
-"type.craft.sawmill" = "Sawmill";
+"type.craft.sawmill" = "製材所";
 
 "type.craft.shoemaker" = "靴修理";
 
-"type.craft.winery" = "Winery";
+"type.craft.winery" = "ワイナリー";
 
 "type.craft.tailor" = "仕立て屋";
 

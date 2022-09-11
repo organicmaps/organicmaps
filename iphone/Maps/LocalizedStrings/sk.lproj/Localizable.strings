@@ -1605,25 +1605,25 @@
 
 "type.cemetery.grave" = "Hrob";
 
-"type.craft" = "Craft";
+"type.craft" = "Remeslo";
 
-"type.craft.beekeeper" = "Beekeeper";
+"type.craft.beekeeper" = "Včelár";
 
-"type.craft.blacksmith" = "Blacksmith";
+"type.craft.blacksmith" = "Kováč";
 
 "type.craft.brewery" = "Pivovar";
 
 "type.craft.carpenter" = "Tesár";
 
-"type.craft.confectionery" = "Confectionery";
+"type.craft.confectionery" = "Cukráreň";
 
 "type.craft.electrician" = "Elektrikár";
 
-"type.craft.electronics_repair" = "Electronics Repair";
+"type.craft.electronics_repair" = "Oprava elektroniky";
 
 "type.craft.gardener" = "Záhradníctvo";
 
-"type.craft.handicraft" = "Handicraft";
+"type.craft.handicraft" = "Ručné práce";
 
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Vzduchotechnika";
@@ -1636,11 +1636,11 @@
 
 "type.craft.plumber" = "Klampiarstvo";
 
-"type.craft.sawmill" = "Sawmill";
+"type.craft.sawmill" = "Píla";
 
 "type.craft.shoemaker" = "Oprava obuvy";
 
-"type.craft.winery" = "Winery";
+"type.craft.winery" = "Vinárstvo";
 
 "type.craft.tailor" = "Krajčírstvo";
 

@@ -831,17 +831,24 @@
 	<string name="type.building.train_station">鉄道駅</string>
 	<string name="type.cemetery.grave">墓</string>
 	<string name="type.craft">工房</string>
+	<string name="type.craft.beekeeper">養蜂家</string>
+	<string name="type.craft.blacksmith">鍛冶屋</string>
 	<string name="type.craft.brewery">醸造所</string>
 	<string name="type.craft.carpenter">大工</string>
+	<string name="type.craft.confectionery">菓子職人</string>
 	<string name="type.craft.electrician">電気技師</string>
+	<string name="type.craft.electronics_repair">電子機器修理</string>
 	<string name="type.craft.gardener">造園家</string>
+	<string name="type.craft.handicraft">手芸</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">冷暖房空調</string>
 	<string name="type.craft.metal_construction">金属工</string>
 	<string name="type.craft.painter">塗装工</string>
 	<string name="type.craft.photographer">写真家</string>
 	<string name="type.craft.plumber">配管工</string>
+	<string name="type.craft.sawmill">製材所</string>
 	<string name="type.craft.shoemaker">靴修理</string>
+	<string name="type.craft.winery">ワイナリー</string>
 	<string name="type.craft.tailor">仕立て屋</string>
 	<string name="type.cuisine.african">アフリカ料理</string>
 	<string name="type.cuisine.american">アメリカ料理</string>

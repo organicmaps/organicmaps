@@ -794,15 +794,25 @@
 	<string name="type.building.has_parts">Gedung</string>
 	<string name="type.building.train_station">Rel kereta api</string>
 	<string name="type.cemetery.grave">Kuburan</string>
+	<string name="type.craft">Kerajinan</string>
+	<string name="type.craft.beekeeper">Peternak lebah</string>
+	<string name="type.craft.blacksmith">Pandai Besi</string>
 	<string name="type.craft.brewery">Toko minuman</string>
 	<string name="type.craft.carpenter">Tukang kayu</string>
+	<string name="type.craft.confectionery">Penganan</string>
 	<string name="type.craft.electrician">Tukang listrik</string>
+	<string name="type.craft.electronics_repair">Perbaikan Elektronik</string>
 	<string name="type.craft.gardener">Tukang kebun</string>
+	<string name="type.craft.handicraft">Kriya</string>
+	<!-- Heating, Ventilation, and Air Conditioning -->
+	<string name="type.craft.hvac">HVAC</string>
 	<string name="type.craft.metal_construction">Tukang besi</string>
 	<string name="type.craft.painter">Tukang cat</string>
 	<string name="type.craft.photographer">Juru foto</string>
 	<string name="type.craft.plumber">Tukang pipa</string>
+	<string name="type.craft.sawmill">Penggergajian kayu</string>
 	<string name="type.craft.shoemaker">Tukang sepatu</string>
+	<string name="type.craft.winery">Kilang Anggur</string>
 	<string name="type.craft.tailor">Tukang jahit</string>
 	<string name="type.cuisine.african">Masakan afrika</string>
 	<string name="type.cuisine.american">Masakan amerika</string>
