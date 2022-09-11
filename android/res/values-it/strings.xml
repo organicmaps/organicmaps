@@ -969,12 +969,12 @@
 	<string name="type.highway.living_street.bridge">Ponte</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.living_street.tunnel">Tunnel</string>
-	<string name="type.highway.motorway">Via</string>
+	<string name="type.highway.motorway">Autostrada</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.motorway.bridge">Ponte</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.motorway.tunnel">Tunnel</string>
-	<string name="type.highway.motorway_link">Via</string>
+	<string name="type.highway.motorway_link">Autostrada</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.motorway_link.bridge">Ponte</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
@@ -1088,7 +1088,7 @@
 	<string name="type.highway.unclassified.tunnel">Tunnel</string>
 	<string name="type.area_highway.footway">Sentiero</string>
 	<string name="type.area_highway.living_street">Via</string>
-	<string name="type.area_highway.motorway">Via</string>
+	<string name="type.area_highway.motorway">Autostrada</string>
 	<string name="type.area_highway.path">Sentiero</string>
 	<string name="type.area_highway.pedestrian">Via</string>
 	<string name="type.area_highway.primary">Via</string>
