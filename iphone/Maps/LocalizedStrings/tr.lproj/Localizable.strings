@@ -1318,6 +1318,10 @@
 
 "type.amenity.driving_school" = "Sürücü Kursu";
 
+"type.amenity.music_school" = "Müzik Okulu";
+
+"type.amenity.language_school" = "Dil Okulu";
+
 "type.office.diplomatic" = "Büyükelçilik";
 
 "type.amenity.fast_food" = "Hazır Yemek";

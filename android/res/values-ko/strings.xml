@@ -701,6 +701,8 @@
 	<string name="type.amenity.doctors">개인병원</string>
 	<string name="type.amenity.drinking_water">음수대</string>
 	<string name="type.amenity.driving_school">운전학원</string>
+	<string name="type.amenity.music_school">음악 학교</string>
+	<string name="type.amenity.language_school">언어 학교</string>
 	<string name="type.office.diplomatic">대사관</string>
 	<string name="type.amenity.fast_food">패스트 푸드</string>
 	<string name="type.amenity.ferry_terminal">페리</string>

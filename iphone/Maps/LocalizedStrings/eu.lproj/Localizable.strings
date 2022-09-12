@@ -1318,6 +1318,10 @@
 
 "type.amenity.driving_school" = "Autoeskola";
 
+"type.amenity.music_school" = "Musika Eskola";
+
+"type.amenity.language_school" = "Hizkuntza Eskola";
+
 "type.office.diplomatic" = "Enbaxada";
 
 "type.amenity.fast_food" = "Janari azkarra";

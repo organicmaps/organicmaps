@@ -702,6 +702,8 @@
 	<string name="type.amenity.doctors">Rendelő</string>
 	<string name="type.amenity.drinking_water">Ivóvíz</string>
 	<string name="type.amenity.driving_school">Autósiskola</string>
+	<string name="type.amenity.music_school">Zeneiskola</string>
+	<string name="type.amenity.language_school">Nyelviskola</string>
 	<string name="type.office.diplomatic">Nagykövetség</string>
 	<string name="type.amenity.fast_food">Gyorsétterem</string>
 	<string name="type.amenity.ferry_terminal">Komp</string>

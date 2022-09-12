@@ -645,6 +645,9 @@
 	<string name="splash_subtitle">Картографски данни от OpenStreetMap</string>
 
 	<!-- SECTION: Types -->
+	<string name="type.amenity.driving_school">Автошкола</string>
+	<string name="type.amenity.music_school">Музикално училище</string>
+	<string name="type.amenity.language_school">Езиково училище</string>
 	<string name="type.amenity.parking_entrance.private">Вход за паркинг</string>
 	<string name="type.amenity.parking_entrance.permissive">Вход за паркинг</string>
 	<string name="type.amenity.parking_entrance">Вход за паркинг</string>

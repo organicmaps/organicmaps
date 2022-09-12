@@ -1318,6 +1318,10 @@
 
 "type.amenity.driving_school" = "Køreskole";
 
+"type.amenity.music_school" = "Musikskolen";
+
+"type.amenity.language_school" = "Sprogskole";
+
 "type.office.diplomatic" = "Ambassade";
 
 "type.amenity.fast_food" = "Fastfood";

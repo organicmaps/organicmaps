@@ -1318,6 +1318,10 @@
 
 "type.amenity.driving_school" = "Autósiskola";
 
+"type.amenity.music_school" = "Zeneiskola";
+
+"type.amenity.language_school" = "Nyelviskola";
+
 "type.office.diplomatic" = "Nagykövetség";
 
 "type.amenity.fast_food" = "Gyorsétterem";

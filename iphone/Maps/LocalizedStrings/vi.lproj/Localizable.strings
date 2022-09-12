@@ -1318,6 +1318,10 @@
 
 "type.amenity.driving_school" = "Trường lái xe";
 
+"type.amenity.music_school" = "Trường âm nhạc";
+
+"type.amenity.language_school" = "Ngôn ngữ Trường học";
+
 "type.office.diplomatic" = "Đại sứ quán";
 
 "type.amenity.fast_food" = "Thức ăn nhanh";

@@ -1318,6 +1318,10 @@
 
 "type.amenity.driving_school" = "Autoškola";
 
+"type.amenity.music_school" = "Hudební škola";
+
+"type.amenity.language_school" = "Jazyková škola";
+
 "type.office.diplomatic" = "Velvyslanectví";
 
 "type.amenity.fast_food" = "Rychlé občerstvení";

@@ -1318,6 +1318,10 @@
 
 "type.amenity.driving_school" = "مدرسة قيادة";
 
+"type.amenity.music_school" = "ﻰﻘﻴﺳﻮﻣ ﺔﺳﺭﺪﻣ";
+
+"type.amenity.language_school" = "ﺔﻐﻟ ﺔﺳﺭﺪﻣ";
+
 "type.office.diplomatic" = "سفارة";
 
 "type.amenity.fast_food" = "وجبات سريعة";

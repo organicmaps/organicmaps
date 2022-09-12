@@ -724,6 +724,8 @@
 	<string name="type.amenity.doctors">医师办公室</string>
 	<string name="type.amenity.drinking_water">饮用水</string>
 	<string name="type.amenity.driving_school">驾校</string>
+	<string name="type.amenity.music_school">音乐学校</string>
+	<string name="type.amenity.language_school">语言学校</string>
 	<string name="type.office.diplomatic">大使馆</string>
 	<string name="type.amenity.fast_food">快餐店</string>
 	<string name="type.amenity.ferry_terminal">轮渡码头</string>

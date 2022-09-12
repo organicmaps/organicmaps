@@ -734,6 +734,8 @@
 	<string name="type.amenity.doctors">Consultório médico</string>
 	<string name="type.amenity.drinking_water">Água potável</string>
 	<string name="type.amenity.driving_school">Escola de condução</string>
+	<string name="type.amenity.music_school">Escola de música</string>
+	<string name="type.amenity.language_school">Escola de idiomas</string>
 	<string name="type.office.diplomatic">Embaixada ou consulado</string>
 	<string name="type.amenity.fast_food">Comida rápida</string>
 	<string name="type.amenity.ferry_terminal">Termina de ferry</string>

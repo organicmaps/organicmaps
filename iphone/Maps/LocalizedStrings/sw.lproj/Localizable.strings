@@ -1318,6 +1318,10 @@
 
 "type.amenity.driving_school" = "Driving School";
 
+"type.amenity.music_school" = "Shule ya Muziki";
+
+"type.amenity.language_school" = "Shule ya Lugha";
+
 "type.office.diplomatic" = "Embassy";
 
 "type.amenity.fast_food" = "Fast Food";

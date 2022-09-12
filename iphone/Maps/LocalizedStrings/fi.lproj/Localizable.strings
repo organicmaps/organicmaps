@@ -1318,6 +1318,10 @@
 
 "type.amenity.driving_school" = "Autokoulu";
 
+"type.amenity.music_school" = "Musiikkikoulu";
+
+"type.amenity.language_school" = "Kielikoulu";
+
 "type.office.diplomatic" = "Suurlähetystö";
 
 "type.amenity.fast_food" = "Pikaruokala";

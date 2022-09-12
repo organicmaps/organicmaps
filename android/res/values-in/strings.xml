@@ -698,6 +698,8 @@
 	<string name="type.amenity.doctors">Praktik dokter</string>
 	<string name="type.amenity.drinking_water">Air minum</string>
 	<string name="type.amenity.driving_school">Sekolah Mengemudi</string>
+	<string name="type.amenity.music_school">Sekolah musik</string>
+	<string name="type.amenity.language_school">Sekolah bahasa</string>
 	<string name="type.office.diplomatic">Kedutaan</string>
 	<string name="type.amenity.fast_food">Cepat saji</string>
 	<string name="type.amenity.ferry_terminal">Terminal</string>
