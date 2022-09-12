@@ -71,7 +71,7 @@
     <item name="circleAccent">@drawable/circle_accent</item>
 
     <item name="menuBackground">@color/bg_menu</item>
-    <item name="mapButtonBackground">@color/bg_map_button</item>
+    <item name="mapButtonBackground">@color/bg_menu</item>
 
     <item name="myPositionButtonAnimation">@drawable/anim_myposition_pending</item>
     <item name="wheelPendingAnimation">@drawable/anim_spinner_pending</item>
@@ -249,7 +249,7 @@
     <item name="circleAccent">@drawable/circle_accent_night</item>
 
     <item name="menuBackground">@color/bg_menu_night</item>
-    <item name="mapButtonBackground">@color/bg_map_button_night</item>
+    <item name="mapButtonBackground">@color/bg_menu_night</item>
 
     <item name="myPositionButtonAnimation">@drawable/anim_myposition_pending_night</item>
     <item name="wheelPendingAnimation">@drawable/anim_spinner_pending</item>
