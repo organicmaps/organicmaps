@@ -1686,6 +1686,16 @@ node|z18-[amenity=school],
 area|z18-[amenity=school]
 {font-size: 11;text-optional: true;}
 
+node|z17-[amenity=music_school],
+area|z17-[amenity=music_school]
+{icon-image: music_school-m.svg;}
+node|z17-[amenity=driving_school],
+area|z17-[amenity=driving_school]
+{icon-image: driving_school-m.svg;}
+node|z17-[amenity=language_school],
+area|z17-[amenity=language_school]
+{icon-image: language_school-m.svg;}
+
 /* 5.3 Sport */
 
 node|z13-14[leisure=stadium]
