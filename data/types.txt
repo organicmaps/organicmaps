@@ -1130,8 +1130,8 @@ leisure|sports_centre
 *amenity|vending_machine|newspapers
 *amenity|vending_machine|sweets
 mapswithme
-mapswithme
-mapswithme
+*amenity|music_school
+*amenity|language_school
 *historic|city_gate
 *sport|padel
 *sport|futsal
