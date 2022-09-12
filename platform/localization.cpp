@@ -20,7 +20,7 @@ const LocalizedUnits & GetLocalizedUnits(measurement_utils::Units units, Measure
 {
   static LocalizedUnits UnitsLenghImperial = {GetLocalizedString("foot"), GetLocalizedString("mile")};
   static LocalizedUnits UnitsLenghMetric = {GetLocalizedString("meter"), GetLocalizedString("kilometer")};
-  
+
   static LocalizedUnits UnitsSpeedImperial = {GetLocalizedString("foot"), GetLocalizedString("miles_per_hour")};
   static LocalizedUnits UnitsSpeedMetric = {GetLocalizedString("meter"), GetLocalizedString("kilometers_per_hour")};
 
@@ -47,18 +47,12 @@ const LocalizedUnits & GetLocalizedUnits(measurement_utils::Units units, Measure
 
 LocalizedUnits GetLocalizedDistanceUnits()
 {
-  auto units = measurement_utils::Units::Metric;
-  settings::TryGet(settings::kMeasurementUnits, units);
-
-  return GetLocalizedUnits(units, MeasurementType::Distance);
+  return GetLocalizedUnits(measurement_utils::GetMeasurementUnits(), MeasurementType::Distance);
 }
 
 LocalizedUnits GetLocalizedAltitudeUnits()
 {
-  auto units = measurement_utils::Units::Metric;
-  settings::TryGet(settings::kMeasurementUnits, units);
-
-  return GetLocalizedUnits(units, MeasurementType::Altitude);
+  return GetLocalizedUnits(measurement_utils::GetMeasurementUnits(), MeasurementType::Altitude);
 }
 
 const std::string & GetLocalizedSpeedUnits(measurement_utils::Units units)
@@ -68,9 +62,6 @@ const std::string & GetLocalizedSpeedUnits(measurement_utils::Units units)
 
 std::string GetLocalizedSpeedUnits()
 {
-  auto units = measurement_utils::Units::Metric;
-  settings::TryGet(settings::kMeasurementUnits, units);
-
-  return GetLocalizedSpeedUnits(units);
+  return GetLocalizedSpeedUnits(measurement_utils::GetMeasurementUnits());
 }
 }  // namespace platform

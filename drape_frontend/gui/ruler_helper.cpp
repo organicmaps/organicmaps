@@ -224,14 +224,12 @@ double RulerHelper::CalcMetersDiff(double value)
 
   auto conversionFn = &Identity;
 
-  auto units = measurement_utils::Units::Metric;
-  settings::TryGet(settings::kMeasurementUnits, units);
-
-  if (units == measurement_utils::Units::Imperial)
+  using namespace measurement_utils;
+  if (GetMeasurementUnits() == Units::Imperial)
   {
     arrU = g_arrFeets;
     count = ARRAY_SIZE(g_arrFeets);
-    conversionFn = &measurement_utils::MetersToFeet;
+    conversionFn = &MetersToFeet;
   }
 
   int prevUnitRange = m_rangeIndex;

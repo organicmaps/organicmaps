@@ -495,8 +495,11 @@ void DrawWidget::SubmitFakeLocationPoint(m2::PointD const & pt)
     }
     else
     {
-      LOG(LDEBUG, ("Distance:", loc.m_distToTarget + loc.m_targetUnitsSuffix, "Time:", loc.m_time,
-                   loc.m_speedLimitMps < 0 ? "" : "SpeedLimit: " + measurement_utils::FormatSpeed(loc.m_speedLimitMps),
+      std::string speed;
+      if (loc.m_speedLimitMps > 0)
+        speed = "SpeedLimit: " + measurement_utils::FormatSpeedNumeric(loc.m_speedLimitMps, measurement_utils::Units::Metric);
+
+      LOG(LDEBUG, ("Distance:", loc.m_distToTarget + loc.m_targetUnitsSuffix, "Time:", loc.m_time, speed,
                    GetTurnString(loc.m_turn), (loc.m_exitNum != 0 ? ":" + std::to_string(loc.m_exitNum) : ""),
                    "in", loc.m_distToTurn + loc.m_turnUnitsSuffix,
                    loc.m_targetName.empty() ? "" : "to " + loc.m_targetName ));

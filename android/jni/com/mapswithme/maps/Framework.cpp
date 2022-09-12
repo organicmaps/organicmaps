@@ -947,7 +947,9 @@ Java_com_mapswithme_maps_Framework_nativeFormatAltitude(JNIEnv * env, jclass, jd
 JNIEXPORT jstring JNICALL
 Java_com_mapswithme_maps_Framework_nativeFormatSpeed(JNIEnv * env, jclass, jdouble speed)
 {
-  return jni::ToJavaString(env, measurement_utils::FormatSpeed(speed));
+  auto const units = measurement_utils::GetMeasurementUnits();
+  return jni::ToJavaString(env, measurement_utils::FormatSpeedNumeric(speed, units) + " " +
+                                platform::GetLocalizedSpeedUnits(units));
 }
 
 /*

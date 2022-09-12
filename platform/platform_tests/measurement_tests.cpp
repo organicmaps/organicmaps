@@ -161,21 +161,6 @@ UNIT_TEST(FormatAltitude)
   TEST_EQUAL(FormatAltitude(5), "5 m", ());
 }
 
-UNIT_TEST(FormatSpeed)
-{
-  {
-    ScopedSettings guard(Units::Metric);
-    TEST_EQUAL(FormatSpeed(10), "36 km/h", ());
-    TEST_EQUAL(FormatSpeed(1), "3.6 km/h", ());
-  }
-
-  {
-    ScopedSettings guard(Units::Imperial);
-    TEST_EQUAL(FormatSpeed(10), "22 mph", ());
-    TEST_EQUAL(FormatSpeed(1), "2.2 mph", ());
-  }
-}
-
 UNIT_TEST(FormatSpeedNumeric)
 {
   TEST_EQUAL(FormatSpeedNumeric(10, Units::Metric), "36", ());
@@ -183,12 +168,6 @@ UNIT_TEST(FormatSpeedNumeric)
 
   TEST_EQUAL(FormatSpeedNumeric(10, Units::Imperial), "22", ());
   TEST_EQUAL(FormatSpeedNumeric(1, Units::Imperial), "2.2", ());
-}
-
-UNIT_TEST(FormatSpeedUnits)
-{
-  TEST_EQUAL(FormatSpeedUnits(Units::Metric), "km/h", ());
-  TEST_EQUAL(FormatSpeedUnits(Units::Imperial), "mph", ());
 }
 
 UNIT_TEST(OSMDistanceToMetersString)

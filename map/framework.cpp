@@ -1699,10 +1699,7 @@ void Framework::SetupMeasurementSystem()
 {
   GetPlatform().SetupMeasurementSystem();
 
-  auto units = measurement_utils::Units::Metric;
-  settings::TryGet(settings::kMeasurementUnits, units);
-
-  m_routingManager.SetTurnNotificationsUnits(units);
+  m_routingManager.SetTurnNotificationsUnits(measurement_utils::GetMeasurementUnits());
 }
 
 void Framework::SetWidgetLayout(gui::TWidgetsLayoutInfo && layout)
