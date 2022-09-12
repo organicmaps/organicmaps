@@ -237,7 +237,7 @@ public class SearchWheel implements View.OnClickListener
   private void resetSearchButtonImage()
   {
     mSearchButton.setImageDrawable(Graphics.tint(mSearchButton.getContext(),
-                                                 R.drawable.ic_routing_search_on));
+                                                 R.drawable.ic_search));
   }
 
   private void refreshSearchButtonImage()
