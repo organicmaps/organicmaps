@@ -12,7 +12,7 @@
   <style name="MwmWidget.MapButton" parent="Theme.Material3.Dark">
     <item name="android:layout_width">wrap_content</item>
     <item name="android:layout_height">wrap_content</item>
-    <item name="android:backgroundTint">?mapButtonBackground</item>
+    <item name="android:backgroundTint">?menuBackground</item>
     <item name="elevation">0dp</item>
     <item name="hoveredFocusedTranslationZ">0dp</item>
     <item name="pressedTranslationZ">0dp</item>
