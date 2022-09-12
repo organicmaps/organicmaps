@@ -63,10 +63,12 @@ world  00000000000000000000  +
         ice_cream  00000000000000000000  -
         internet_cafe  00000000000000000000  -
         kindergarten  00000000000000000000  -
+        language_school  00000000000000000000  -
         library  00000000000000000000  -
         loading_dock  00000000000000000000  -
         marketplace  00000000000000000000  -
         motorcycle_parking  00000000000000000000  -
+        music_school  00000000000000000000  -
         nightclub  00000000000000000000  -
         nursing_home  00000000000000000000  -
         parcel_locker  00000000000000000111  -
