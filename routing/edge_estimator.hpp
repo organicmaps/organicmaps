@@ -43,6 +43,7 @@ public:
   virtual ~EdgeEstimator() = default;
 
   static Strategy LoadRoutingStrategyFromSettings();
+  static void SaveRoutingStrategyToSettings(Strategy strategy);
 
   double CalcHeuristic(ms::LatLon const & from, ms::LatLon const & to) const;
   // Estimates time in seconds it takes to go from point |from| to point |to| along a leap (fake)

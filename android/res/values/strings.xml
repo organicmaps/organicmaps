@@ -651,10 +651,14 @@
 	<string name="access_rules_author_only">Online editing</string>
 	<string name="driving_options_title">Routing options</string>
 	<string name="driving_options_subheader">Avoid on every route</string>
+	<string name="driving_options_subheader2">Routing Strategy</string>
 	<string name="avoid_tolls">Toll roads</string>
 	<string name="avoid_unpaved">Unpaved roads</string>
 	<string name="avoid_ferry">Ferry crossings</string>
 	<string name="avoid_motorways">Motorways</string>
+	<string name="use_strategy_fastest">Fastest</string>
+	<string name="use_strategy_shortest">Shortest</string>
+	<string name="use_strategy_fewerTurns">Fewer turns</string>
 	<string name="unable_to_calc_alert_title">Unable to calculate route</string>
 	<string name="unable_to_calc_alert_subtitle">Unfortunately, we couldn\'t find a route, probably due to the options you have chosen. Please change the settings and try again.</string>
 	<string name="define_to_avoid_btn">Define roads to avoid</string>

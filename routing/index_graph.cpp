@@ -576,8 +576,6 @@ bool IndexGraph::IsTurn(Segment const & u, Segment const & v) const
 
   if (!(endPointU == startPointV))
   {
-    LOG(LDEBUG, ("Turn checking: u and v are not connected"));
-
     return false;
   }
 
@@ -596,7 +594,7 @@ bool IndexGraph::IsTurn(Segment const & u, Segment const & v) const
   //convert to degree value
   angle = angle * 180 / 3.141592;
 
-  if (abs(angle) >= 30)
+  if (abs(angle) >= 15)
   {
     return true;
   }

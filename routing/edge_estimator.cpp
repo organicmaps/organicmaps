@@ -128,14 +128,21 @@ double GetCarClimbPenalty(EdgeEstimator::Purpose /* purpose */, double /* tangen
 
 string const EdgeEstimator::kRoutingStrategySettings = "router_strategy";
 
-//static
+// static
 EdgeEstimator::Strategy EdgeEstimator::LoadRoutingStrategyFromSettings()
 {
-  uint32_t mode = 0;
+  int mode = 0;
   if (!settings::Get(kRoutingStrategySettings, mode))
     mode = 0;
 
   return (EdgeEstimator::Strategy) mode;
+}
+
+// static
+void EdgeEstimator::SaveRoutingStrategyToSettings(Strategy strategy)
+{
+  settings::Set(kRoutingStrategySettings,
+                strings::to_string(static_cast<int>(strategy)));
 }
 
 EdgeEstimator::EdgeEstimator(double maxWeightSpeedKMpH, SpeedKMpH const & offroadSpeedKMpH,
@@ -268,7 +275,7 @@ public:
     {
       if (this->GetStrategy() == EdgeEstimator::Strategy::FewerTurns)
       {
-        return 24 * 60 * 60;
+        return 60 * 60;
       }
     }
     return 0.0 /* seconds */;
@@ -279,7 +286,7 @@ public:
     {
       if (this->GetStrategy() == EdgeEstimator::Strategy::FewerTurns)
       {
-        return 24 * 60 * 60;
+        return 60 * 60;
       }
     }
     return 0.0;
@@ -328,7 +335,7 @@ public:
     {
       if (this->GetStrategy() == EdgeEstimator::Strategy::FewerTurns)
       {
-        return 24 * 60 * 60;
+        return 60 * 60;
       }
     }
     return 20.0 /* seconds */;
@@ -339,7 +346,7 @@ public:
     {
       if (this->GetStrategy() == EdgeEstimator::Strategy::FewerTurns)
       {
-        return 24 * 60 * 60;
+        return 60 * 60;
       }
     }
     return 0.0;
@@ -404,7 +411,7 @@ double CarEstimator::GetUTurnPenalty(Purpose purpose) const
   {
     if (this->GetStrategy() == EdgeEstimator::Strategy::FewerTurns)
     {
-      return 24 * 60 * 60;
+      return 60 * 60;
     }
   }
 
@@ -420,7 +427,7 @@ double CarEstimator::GetTurnPenalty(Purpose purpose) const
   {
     if (this->GetStrategy() == EdgeEstimator::Strategy::FewerTurns)
     {
-      return 24 * 60 * 60;
+      return 60 * 60;
     }
   }
   return 0.0;

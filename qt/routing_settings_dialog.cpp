@@ -110,6 +110,8 @@ void RoutingSettings::LoadSession(Framework & framework)
     settings::Delete(kStartCoordsCachedSettings);
     settings::Delete(kFinishCoordsCachedSettings);
     settings::Delete(kRouterTypeCachedSettings);
+    settings::Delete(kRouterStrategyCachedSettings);
+    settings::Delete(kAvoidRoutingOptionSettings);
   }
 }
 
