@@ -63,7 +63,7 @@ def download_file(url: AnyStr, name: AnyStr, download_if_exists: bool = True):
         return
 
     if is_file_uri(url):
-        #url uses 'file://' scheme
+        # url uses 'file://' scheme
         try:
             copy_overwrite(file_uri_to_path(url), name)
         except FileNotFoundError as e:
