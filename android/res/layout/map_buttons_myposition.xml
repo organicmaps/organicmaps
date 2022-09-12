@@ -3,5 +3,4 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:id="@+id/my_position"
   style="@style/MwmWidget.MapButton"
-  android:contentDescription="@string/core_my_position"
-  android:tint="@null" />
+  android:contentDescription="@string/core_my_position" />

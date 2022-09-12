@@ -1,18 +1,22 @@
 package com.mapswithme.maps.widget.menu;
 
+import android.content.Context;
+import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.SparseArray;
 import android.view.View;
-import android.widget.ImageView;
 
+import androidx.annotation.AttrRes;
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
-
+import androidx.core.content.res.ResourcesCompat;
+import androidx.core.widget.ImageViewCompat;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.location.LocationState;
 import com.mapswithme.maps.routing.RoutingController;
-import com.mapswithme.util.Graphics;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 
@@ -39,41 +43,42 @@ public class MyPositionButton
     update(myPositionMode);
   }
 
-  @SuppressWarnings("deprecation")
   public void update(int mode)
   {
     mMode = mode;
     Drawable image = mIcons.get(mode);
+    @AttrRes int colorAttr =
+        mode == LocationState.FOLLOW || mode == LocationState.FOLLOW_AND_ROTATE || mode == LocationState.PENDING_POSITION
+        ? R.attr.colorAccent : R.attr.iconTint;
+    Resources resources = mButton.getResources();
+    Context context = mButton.getContext();
     if (image == null)
     {
+      @DrawableRes int drawableRes;
       switch (mode)
       {
         case LocationState.PENDING_POSITION:
-          image = mButton.getResources()
-                         .getDrawable(ThemeUtils.getResource(mButton.getContext(), R.attr.myPositionButtonAnimation));
+          drawableRes = ThemeUtils.getResource(context, R.attr.myPositionButtonAnimation);
           break;
-
         case LocationState.NOT_FOLLOW_NO_POSITION:
         case LocationState.NOT_FOLLOW:
-          image = Graphics.tint(mButton.getContext(), R.drawable.ic_not_follow);
+          drawableRes = R.drawable.ic_not_follow;
           break;
-
         case LocationState.FOLLOW:
-          image = Graphics.tint(mButton.getContext(), R.drawable.ic_follow, R.attr.colorAccent);
+          drawableRes = R.drawable.ic_follow;
           break;
-
         case LocationState.FOLLOW_AND_ROTATE:
-          image = Graphics.tint(mButton.getContext(), R.drawable.ic_follow_and_rotate, R.attr.colorAccent);
+          drawableRes = R.drawable.ic_follow_and_rotate;
           break;
-
         default:
           throw new IllegalArgumentException("Invalid button mode: " + mode);
       }
-
+      image = ResourcesCompat.getDrawable(resources, drawableRes, context.getTheme());
       mIcons.put(mode, image);
     }
 
     mButton.setImageDrawable(image);
+    ImageViewCompat.setImageTintList(mButton, ColorStateList.valueOf(ThemeUtils.getColor(context, colorAttr)));
     updatePadding(mode);
 
     if (image instanceof AnimationDrawable)
