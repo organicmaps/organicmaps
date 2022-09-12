@@ -1318,6 +1318,10 @@
 
 "type.amenity.driving_school" = "Σχολή οδήγησης";
 
+"type.amenity.music_school" = "Μουσική Σχολή";
+
+"type.amenity.language_school" = "Σχολή Γλωσσών";
+
 "type.office.diplomatic" = "Πρεσβεία";
 
 "type.amenity.fast_food" = "Ταχυφαγίο";

@@ -1318,6 +1318,10 @@
 
 "type.amenity.driving_school" = "โรงเรียนสอนขับรถ";
 
+"type.amenity.music_school" = "โรงเรียนดนตรี";
+
+"type.amenity.language_school" = "โรงเรียนภาษา";
+
 "type.office.diplomatic" = "สถานทูต";
 
 "type.amenity.fast_food" = "อาหารจานด่วน";

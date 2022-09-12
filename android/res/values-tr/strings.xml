@@ -772,6 +772,8 @@
 	<string name="type.amenity.doctors">Doktor</string>
 	<string name="type.amenity.drinking_water">İçme Suyu</string>
 	<string name="type.amenity.driving_school">Sürücü Kursu</string>
+	<string name="type.amenity.music_school">Müzik Okulu</string>
+	<string name="type.amenity.language_school">Dil Okulu</string>
 	<string name="type.office.diplomatic">Büyükelçilik</string>
 	<string name="type.amenity.fast_food">Hazır Yemek</string>
 	<string name="type.amenity.ferry_terminal">Feribot</string>

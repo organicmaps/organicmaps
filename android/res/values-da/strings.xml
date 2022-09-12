@@ -702,6 +702,8 @@
 	<string name="type.amenity.doctors">Lægekontor</string>
 	<string name="type.amenity.drinking_water">Vand</string>
 	<string name="type.amenity.driving_school">Køreskole</string>
+	<string name="type.amenity.music_school">Musikskolen</string>
+	<string name="type.amenity.language_school">Sprogskole</string>
 	<string name="type.office.diplomatic">Ambassade</string>
 	<string name="type.amenity.fast_food">Fastfood</string>
 	<string name="type.amenity.ferry_terminal">Færge</string>

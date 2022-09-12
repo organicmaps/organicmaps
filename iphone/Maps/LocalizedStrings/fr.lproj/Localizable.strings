@@ -1318,6 +1318,10 @@
 
 "type.amenity.driving_school" = "Auto-école";
 
+"type.amenity.music_school" = "École de musique";
+
+"type.amenity.language_school" = "École de langue";
+
 "type.office.diplomatic" = "Ambassade";
 
 "type.amenity.fast_food" = "Restauration rapide";

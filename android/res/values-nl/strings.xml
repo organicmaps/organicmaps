@@ -763,6 +763,8 @@
 	<string name="type.amenity.doctors">Huisartsenpost</string>
 	<string name="type.amenity.drinking_water">Drinkwater</string>
 	<string name="type.amenity.driving_school">Rijschool</string>
+	<string name="type.amenity.music_school">Muziekschool</string>
+	<string name="type.amenity.language_school">Taalschool</string>
 	<string name="type.office.diplomatic">Ambassade</string>
 	<string name="type.amenity.fast_food">Fast food</string>
 	<string name="type.amenity.ferry_terminal">Veerpont</string>

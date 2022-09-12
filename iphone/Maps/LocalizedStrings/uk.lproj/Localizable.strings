@@ -1318,6 +1318,10 @@
 
 "type.amenity.driving_school" = "Автошкола";
 
+"type.amenity.music_school" = "Музична школа ім";
+
+"type.amenity.language_school" = "Мовна школа";
+
 "type.office.diplomatic" = "Посольство";
 
 "type.amenity.fast_food" = "Фастфуд";

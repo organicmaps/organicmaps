@@ -233,6 +233,8 @@
 	<string name="splash_subtitle">OpenStreetMap-מ הפמ ינותנ</string>
 
 	<!-- SECTION: Types -->
+	<string name="type.amenity.music_school">הקיזומל רפס תיב</string>
+	<string name="type.amenity.language_school">תופשל רפס תיב</string>
 	<string name="type.amenity.parking_entrance.private">הינחל הסינכ</string>
 	<string name="type.amenity.parking_entrance.permissive">הינחל הסינכ</string>
 	<string name="type.amenity.parking_entrance">הינחל הסינכ</string>

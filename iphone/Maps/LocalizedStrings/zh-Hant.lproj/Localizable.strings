@@ -1318,6 +1318,10 @@
 
 "type.amenity.driving_school" = "駕訓班";
 
+"type.amenity.music_school" = "音樂學校";
+
+"type.amenity.language_school" = "語言學校";
+
 "type.office.diplomatic" = "大使館";
 
 "type.amenity.fast_food" = "速食店";

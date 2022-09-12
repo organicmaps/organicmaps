@@ -724,6 +724,8 @@
 	<string name="type.amenity.doctors">Kontsulta medikoa</string>
 	<string name="type.amenity.drinking_water">Ur edangarria</string>
 	<string name="type.amenity.driving_school">Autoeskola</string>
+	<string name="type.amenity.music_school">Musika Eskola</string>
+	<string name="type.amenity.language_school">Hizkuntza Eskola</string>
 	<string name="type.office.diplomatic">Enbaxada</string>
 	<string name="type.amenity.fast_food">Janari azkarra</string>
 	<string name="type.amenity.ferry_terminal">Espazio-ontzia</string>

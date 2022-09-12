@@ -1316,7 +1316,11 @@
 
 "type.amenity.drinking_water" = "Drinking Water";
 
-"type.amenity.driving_school" = "Driving School";
+"type.amenity.driving_school" = "Аўташкола";
+
+"type.amenity.music_school" = "Музычная школа";
+
+"type.amenity.language_school" = "Моўная школа";
 
 "type.office.diplomatic" = "Embassy";
 
