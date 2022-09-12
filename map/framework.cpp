@@ -732,6 +732,19 @@ void Framework::FillRouteMarkInfo(RouteMarkPoint const & rmp, place_page::Info &
   info.SetIntermediateIndex(rmp.GetIntermediateIndex());
 }
 
+void Framework::FillSpeedCameraMarkInfo(SpeedCameraMark const & speedCameraMark, place_page::Info & info) const
+{
+  info.SetCanEditOrAdd(false);
+  info.SetMercator(speedCameraMark.GetPivot());
+
+  // Title is a speed limit, if any.
+  auto title = speedCameraMark.GetTitle();
+  if (!title.empty())
+    title = title + " " + platform::GetLocalizedSpeedUnits(measurement_utils::GetMeasurementUnits());
+
+  info.SetCustomNames(title, platform::GetLocalizedTypeName("highway-speed_camera"));
+}
+
 void Framework::FillTransitMarkInfo(TransitMark const & transitMark, place_page::Info & info) const
 {
   FillFeatureInfo(transitMark.GetFeatureID(), info);
@@ -2145,6 +2158,11 @@ std::optional<place_page::Info> Framework::BuildPlacePageInfo(
       case UserMark::Type::TRANSIT:
       {
         FillTransitMarkInfo(*static_cast<TransitMark const *>(mark), outInfo);
+        break;
+      }
+      case UserMark::Type::SPEED_CAM:
+      {
+        FillSpeedCameraMarkInfo(*static_cast<SpeedCameraMark const *>(mark), outInfo);
         break;
       }
       default:
