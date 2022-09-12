@@ -8,7 +8,7 @@
 
 namespace settings
 {
-/// Metric or Feet.
+/// Metric or Imperial.
 extern char const * kMeasurementUnits;
 
 template <class T>
