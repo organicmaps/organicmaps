@@ -66,8 +66,6 @@ def download_file(url: AnyStr, name: AnyStr, download_if_exists: bool = True):
     if is_file_uri(url):
         # url uses 'file://' scheme
         copy_overwrite(file_uri_to_path(url), name)
-        
-        
         logger.info(f"File {name} was copied from {url}.")
         return
 
