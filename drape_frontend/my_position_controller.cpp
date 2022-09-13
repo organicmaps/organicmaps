@@ -336,7 +336,6 @@ void MyPositionController::NextMode(ScreenBase const & screen)
   // Start looking for location.
   if (m_mode == location::NotFollowNoPosition)
   {
-    ResetNotification(m_locationWaitingNotifyId);
     ChangeMode(location::PendingPosition);
 
     if (!m_isPositionAssigned)
@@ -525,14 +524,9 @@ void MyPositionController::LoseLocation()
     return;
 
   if (m_mode == location::Follow || m_mode == location::FollowAndRotate)
-  {
-    ResetNotification(m_locationWaitingNotifyId);
     ChangeMode(location::PendingPosition);
-  }
   else
-  {
     ChangeMode(location::NotFollowNoPosition);
-  }
 
   if (m_listener != nullptr)
     m_listener->PositionChanged(Position(), false /* hasPosition */);
@@ -636,6 +630,7 @@ void MyPositionController::ChangeMode(location::EMyPositionMode newMode)
 
   if (newMode == location::PendingPosition)
   {
+    ResetNotification(m_locationWaitingNotifyId);
     m_pendingTimer.Reset();
     m_pendingStarted = true;
   }

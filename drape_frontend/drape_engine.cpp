@@ -743,9 +743,18 @@ void DrapeEngine::OnEnterBackground()
   m_startBackgroundTime = base::Timer::LocalTime();
   settings::Set(kLastEnterBackground, m_startBackgroundTime);
 
-  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  make_unique_dp<OnEnterBackgroundMessage>(),
-                                  MessagePriority::High);
+  /// @todo By VNG: Make direct call to FR, because logic with PostMessage is not working now.
+  /// Rendering engine becomes disabled first and posted message won't be processed in a correct timing
+  /// and will remain pending in queue, waiting until rendering queue will became active.
+  /// As a result, we will get OnEnterBackground notification when we already entered foreground (sic!).
+  /// One minus with direct call is that we are not in FR rendering thread, but I don't see a problem here now.
+  /// To make it works as expected with PostMessage, we should refactor platform notifications,
+  /// especially Android with its AppBackgroundTracker.
+  m_frontend->OnEnterBackground();
+
+//  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+//                                  make_unique_dp<OnEnterBackgroundMessage>(),
+//                                  MessagePriority::High);
 }
 
 void DrapeEngine::RequestSymbolsSize(std::vector<std::string> const & symbols,

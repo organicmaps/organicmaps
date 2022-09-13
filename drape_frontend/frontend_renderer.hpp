@@ -1,16 +1,11 @@
 #pragma once
 
-#include "base/thread.hpp"
-
-#include "drape_frontend/gui/layer_render.hpp"
-
-#include "drape_frontend/backend_renderer.hpp"
 #include "drape_frontend/base_renderer.hpp"
 #include "drape_frontend/drape_api_renderer.hpp"
 #include "drape_frontend/frame_values.hpp"
 #include "drape_frontend/gps_track_renderer.hpp"
+#include "drape_frontend/gui/layer_render.hpp"
 #include "drape_frontend/my_position_controller.hpp"
-#include "drape_frontend/navigator.hpp"
 #include "drape_frontend/overlays_tracker.hpp"
 #include "drape_frontend/render_group.hpp"
 #include "drape_frontend/render_state_extension.hpp"
@@ -18,7 +13,6 @@
 #include "drape_frontend/route_renderer.hpp"
 #include "drape_frontend/postprocess_renderer.hpp"
 #include "drape_frontend/threads_commutator.hpp"
-#include "drape_frontend/tile_info.hpp"
 #include "drape_frontend/traffic_renderer.hpp"
 #include "drape_frontend/transit_scheme_renderer.hpp"
 #include "drape_frontend/user_event_stream.hpp"
@@ -29,18 +23,18 @@
 
 #include "drape/overlay_tree.hpp"
 #include "drape/pointers.hpp"
-#include "drape/vertex_array_buffer.hpp"
 
 #include "platform/location.hpp"
 
 #include "geometry/screenbase.hpp"
 #include "geometry/triangle2d.hpp"
 
+#include "base/thread.hpp"
+
 #include <array>
 #include <functional>
 #include <memory>
 #include <optional>
-#include <unordered_set>
 #include <vector>
 
 namespace dp
@@ -148,9 +142,10 @@ public:
   void ChangeModelView(double autoScale, m2::PointD const & userPos, double azimuth,
                        m2::PointD const & pxZero, TAnimationCreator const & parallelAnimCreator) override;
 
-  drape_ptr<ScenarioManager> const & GetScenarioManager() const;
-
+  drape_ptr<ScenarioManager> const & GetScenarioManager() const { return m_scenarioManager; }
   location::EMyPositionMode GetMyPositionMode() const { return m_myPositionController->GetCurrentMode(); }
+
+  void OnEnterBackground();
 
 protected:
   void AcceptMessage(ref_ptr<Message> message) override;
