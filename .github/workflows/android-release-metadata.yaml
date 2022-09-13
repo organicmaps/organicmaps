@@ -6,6 +6,7 @@ jobs:
   android-release-metadata:
     name: Upload Google Play metadata
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     environment: production
     steps:
       - name: Checkout sources

@@ -30,6 +30,7 @@ jobs:
   android-google-beta:
     name: Android Google Beta
     runs-on: ubuntu-latest
+    timeout-minutes: 120
     environment: beta
     steps:
       - name: Install build tools and dependencies

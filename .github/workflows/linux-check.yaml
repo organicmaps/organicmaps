@@ -26,8 +26,7 @@ jobs:
   linux-no-unity:
     name: Linux no unity build
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
+    timeout-minutes: 120
     steps:
       - name: Free disk space by removing .NET, Android and Haskell
         shell: bash
@@ -72,6 +71,7 @@ jobs:
   linux-matrix:
     name: Linux builds and tests
     runs-on: ubuntu-latest
+    timeout-minutes: 120
     strategy:
       fail-fast: false
       matrix:
@@ -158,8 +158,7 @@ jobs:
   linux-appstream:
     name: Linux validate appstream data
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
+    timeout-minutes: 120
     steps:
       - name: Checkout sources
         uses: actions/checkout@v2

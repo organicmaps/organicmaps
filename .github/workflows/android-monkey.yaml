@@ -7,6 +7,7 @@ on:
 jobs:
   precondition:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     name: Check preconditions
     steps:
       - name: Checkout sources
@@ -31,6 +32,7 @@ jobs:
   android-google-debug:
     name: Android Google Debug
     runs-on: ubuntu-latest
+    timeout-minutes: 120
     needs: precondition
     if: ${{ needs.precondition.outputs.updated != '' }}
     environment: beta

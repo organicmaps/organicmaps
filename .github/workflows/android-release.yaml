@@ -10,6 +10,7 @@ jobs:
   tag:
     name: Tag
     runs-on: ubuntu-latest
+    timeout-minutes: 120
     environment: production
     steps:
       - name: Checkout sources
@@ -58,6 +59,7 @@ jobs:
   android-release:
     name: Android Release
     runs-on: ubuntu-latest
+    timeout-minutes: 120
     environment: production
     needs: tag
     strategy:

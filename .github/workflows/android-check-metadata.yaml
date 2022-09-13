@@ -12,6 +12,7 @@ jobs:
   android-check-metadata:
     name: Check app metadata
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - name: Checkout
         uses: actions/checkout@v2
