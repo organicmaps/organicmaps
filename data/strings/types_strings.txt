@@ -12118,6 +12118,18 @@
     zh-Hans = 花园
     zh-Hant = 花園
 
+  [type.leisure.garden.residential]
+    ref = type.leisure.garden
+    en = Residential Garden
+    be = Частный сад
+    pl = Ogród przydomowy
+    pt = Jardim residencial
+    pt-BR = Jardim residencial
+    ru = Частный сад
+    tr = Konut Bahçesi
+    uk = Частный сад
+    zh-Hans = 居民区花园
+
   [type.leisure.golf_course]
     en = Golf Course
     ar = ملعب جولف

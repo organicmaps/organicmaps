@@ -3046,20 +3046,21 @@ zh-Hans:城门
 zh-Hant:城門
 
 historic-fort|@tourism
-en = Fort
-ar = قلعة
-de = Festung
-fr = Fort militaire
-ja = 歴史的な要塞
-mr = दुर्ग
-pl = Historyczny fort
-pt = Forte histórico
-pt-BR = Forte histórico
-ru = Форт
-tr = Hisar
-uk = Форт
-zh-Hans = 历史要塞
-zh-Hant = 歷史要塞
+en:Fort
+ar:قلعة
+de:Festung
+fr:Fort militaire
+it:Fortezza
+ja:歴史的な要塞
+mr:दुर्ग
+pl:Historyczny fort
+pt:Forte histórico
+pt-BR:Forte histórico
+ru:Форт
+tr:Hisar
+uk:Форт
+zh-Hans:历史要塞
+zh-Hant:歷史要塞
 
 historic-memorial|@tourism
 en:4Memorial|monument|U+1F5FC|U+1F5FD|U+1F5FF
@@ -8481,6 +8482,7 @@ vi:Nhà kim khí
 zh-Hans:金属制造工
 zh-Hant:鐵工
 
+craft-painter
 en:Painter
 ar:رسام
 be:Мастак
