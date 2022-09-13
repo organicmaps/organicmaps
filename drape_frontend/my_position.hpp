@@ -3,7 +3,6 @@
 #include "drape_frontend/arrow3d.hpp"
 #include "drape_frontend/frame_values.hpp"
 #include "drape_frontend/render_node.hpp"
-#include "drape_frontend/render_state_extension.hpp"
 
 #include "shaders/program_manager.hpp"
 
@@ -63,7 +62,6 @@ private:
   float m_accuracy;
   bool m_showAzimuth;
   bool m_isRoutingMode;
-  bool m_obsoletePosition;
 
   using TPart = std::pair<dp::IndicesRange, size_t>;
 
