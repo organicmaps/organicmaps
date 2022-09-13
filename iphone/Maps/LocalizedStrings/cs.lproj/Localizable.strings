@@ -1318,6 +1318,10 @@
 
 "type.amenity.driving_school" = "Autoškola";
 
+"type.amenity.music_school" = "Hudební škola";
+
+"type.amenity.language_school" = "Jazyková škola";
+
 "type.office.diplomatic" = "Velvyslanectví";
 
 "type.amenity.fast_food" = "Rychlé občerstvení";
@@ -1605,25 +1609,25 @@
 
 "type.cemetery.grave" = "Hrob";
 
-"type.craft" = "Craft";
+"type.craft" = "Řemeslo";
 
-"type.craft.beekeeper" = "Beekeeper";
+"type.craft.beekeeper" = "Včelař";
 
-"type.craft.blacksmith" = "Blacksmith";
+"type.craft.blacksmith" = "Kovář";
 
 "type.craft.brewery" = "Pivovar";
 
 "type.craft.carpenter" = "Truhlář";
 
-"type.craft.confectionery" = "Confectionery";
+"type.craft.confectionery" = "Cukrářské výrobky";
 
 "type.craft.electrician" = "Elektrikář";
 
-"type.craft.electronics_repair" = "Electronics Repair";
+"type.craft.electronics_repair" = "Opravy elektroniky";
 
 "type.craft.gardener" = "Zahradník";
 
-"type.craft.handicraft" = "Handicraft";
+"type.craft.handicraft" = "Ruční práce";
 
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "HVAC";
@@ -1636,11 +1640,11 @@
 
 "type.craft.plumber" = "Instalatér";
 
-"type.craft.sawmill" = "Sawmill";
+"type.craft.sawmill" = "Pila";
 
 "type.craft.shoemaker" = "Opravna obuvi";
 
-"type.craft.winery" = "Winery";
+"type.craft.winery" = "Vinařství";
 
 "type.craft.tailor" = "Krejčí";
 

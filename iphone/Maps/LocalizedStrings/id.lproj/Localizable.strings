@@ -1318,6 +1318,10 @@
 
 "type.amenity.driving_school" = "Sekolah Mengemudi";
 
+"type.amenity.music_school" = "Sekolah musik";
+
+"type.amenity.language_school" = "Sekolah bahasa";
+
 "type.office.diplomatic" = "Kedutaan";
 
 "type.amenity.fast_food" = "Cepat saji";
@@ -1605,25 +1609,25 @@
 
 "type.cemetery.grave" = "Kuburan";
 
-"type.craft" = "Craft";
+"type.craft" = "Kerajinan";
 
-"type.craft.beekeeper" = "Beekeeper";
+"type.craft.beekeeper" = "Peternak lebah";
 
-"type.craft.blacksmith" = "Blacksmith";
+"type.craft.blacksmith" = "Pandai Besi";
 
 "type.craft.brewery" = "Toko minuman";
 
 "type.craft.carpenter" = "Tukang kayu";
 
-"type.craft.confectionery" = "Confectionery";
+"type.craft.confectionery" = "Penganan";
 
 "type.craft.electrician" = "Tukang listrik";
 
-"type.craft.electronics_repair" = "Electronics Repair";
+"type.craft.electronics_repair" = "Perbaikan Elektronik";
 
 "type.craft.gardener" = "Tukang kebun";
 
-"type.craft.handicraft" = "Handicraft";
+"type.craft.handicraft" = "Kriya";
 
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "HVAC";
@@ -1636,11 +1640,11 @@
 
 "type.craft.plumber" = "Tukang pipa";
 
-"type.craft.sawmill" = "Sawmill";
+"type.craft.sawmill" = "Penggergajian kayu";
 
 "type.craft.shoemaker" = "Tukang sepatu";
 
-"type.craft.winery" = "Winery";
+"type.craft.winery" = "Kilang Anggur";
 
 "type.craft.tailor" = "Tukang jahit";
 

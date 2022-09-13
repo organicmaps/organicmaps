@@ -6,16 +6,10 @@
 #include "search/intermediate_result.hpp"
 #include "search/keyword_lang_matcher.hpp"
 #include "search/locality_finder.hpp"
-#include "search/mode.hpp"
 #include "search/region_info_getter.hpp"
 #include "search/result.hpp"
 #include "search/reverse_geocoder.hpp"
-#include "search/search_params.hpp"
 #include "search/suggest.hpp"
-#include "search/utils.hpp"
-
-#include "indexer/categories_holder.hpp"
-#include "indexer/feature_decl.hpp"
 
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
@@ -45,7 +39,6 @@ class Ranker
 public:
   struct Params
   {
-    int8_t m_currentLocaleCode = CategoriesHolder::kEnglishCode;
     m2::RectD m_viewport;
     m2::PointD m_pivot;
     std::string m_pivotRegion;
@@ -61,8 +54,6 @@ public:
     // Prefix of the last token in the query.
     // We need it here to make suggestions.
     strings::UniString m_prefix;
-
-    m2::PointD m_accuratePivotCenter = m2::PointD(0, 0);
 
     // Minimal distance between search results in meters, needed for
     // filtering of identical search results.

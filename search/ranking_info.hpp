@@ -24,6 +24,8 @@ enum class PoiType : uint8_t
   Eat,
   // Hotels.
   Hotel,
+  // Shops.
+  Shop,
   // Attractions.
   Attraction,
   // Service types: power lines and substations, barrier-fence, etc.
@@ -79,6 +81,7 @@ struct RankingInfo : public StoredRankingInfo
   double GetErrorsMadePerToken() const;
 
   NameScore GetNameScore() const;
+  PoiType GetPoiType() const;
 
   // Matched parts of the query.
   // todo(@m) Using TokenType instead of ModelType here would

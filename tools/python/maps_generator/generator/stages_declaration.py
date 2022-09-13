@@ -203,6 +203,7 @@ class StageMwm(Stage):
         ]
 
         for stage in world_stages.get(country, mwm_stages):
+            logger.info('Mwm stage {}: start...'.format(stage.__name__))
             stage(country=country)(env)
 
         env.finish_mwm(country)

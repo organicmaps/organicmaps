@@ -1318,6 +1318,10 @@
 
 "type.amenity.driving_school" = "Auto-école";
 
+"type.amenity.music_school" = "École de musique";
+
+"type.amenity.language_school" = "École de langue";
+
 "type.office.diplomatic" = "Ambassade";
 
 "type.amenity.fast_food" = "Restauration rapide";
@@ -1623,7 +1627,7 @@
 
 "type.craft.gardener" = "Paysagiste";
 
-"type.craft.handicraft" = "Handicraft";
+"type.craft.handicraft" = "Artisanat";
 
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Chauffage, ventilation et climatisation";

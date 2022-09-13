@@ -1318,6 +1318,10 @@
 
 "type.amenity.driving_school" = "驾校";
 
+"type.amenity.music_school" = "音乐学校";
+
+"type.amenity.language_school" = "语言学校";
+
 "type.office.diplomatic" = "大使馆";
 
 "type.amenity.fast_food" = "快餐店";
@@ -1607,23 +1611,23 @@
 
 "type.craft" = "工艺作坊";
 
-"type.craft.beekeeper" = "Beekeeper";
+"type.craft.beekeeper" = "蜂农";
 
-"type.craft.blacksmith" = "Blacksmith";
+"type.craft.blacksmith" = "铁匠";
 
 "type.craft.brewery" = "酿酒厂";
 
 "type.craft.carpenter" = "木匠";
 
-"type.craft.confectionery" = "Confectionery";
+"type.craft.confectionery" = "糖果商";
 
 "type.craft.electrician" = "电工";
 
-"type.craft.electronics_repair" = "Electronics Repair";
+"type.craft.electronics_repair" = "电子产品维修";
 
 "type.craft.gardener" = "园艺工";
 
-"type.craft.handicraft" = "Handicraft";
+"type.craft.handicraft" = "手工艺";
 
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "暖通工程师";
@@ -1636,11 +1640,11 @@
 
 "type.craft.plumber" = "管道工";
 
-"type.craft.sawmill" = "Sawmill";
+"type.craft.sawmill" = "锯木厂";
 
 "type.craft.shoemaker" = "鞋匠";
 
-"type.craft.winery" = "Winery";
+"type.craft.winery" = "酒庄";
 
 "type.craft.tailor" = "裁缝";
 

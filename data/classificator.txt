@@ -63,10 +63,12 @@ world  +
         ice_cream  -
         internet_cafe  -
         kindergarten  -
+        language_school  -
         library  -
         loading_dock  -
         marketplace  -
         motorcycle_parking  -
+        music_school  -
         nightclub  -
         nursing_home  -
         parcel_locker  -

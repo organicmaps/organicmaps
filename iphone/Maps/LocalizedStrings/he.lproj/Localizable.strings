@@ -1318,6 +1318,10 @@
 
 "type.amenity.driving_school" = "Driving School";
 
+"type.amenity.music_school" = "הקיזומל רפס תיב";
+
+"type.amenity.language_school" = "תופשל רפס תיב";
+
 "type.office.diplomatic" = "Embassy";
 
 "type.amenity.fast_food" = "Fast Food";
@@ -1605,44 +1609,44 @@
 
 "type.cemetery.grave" = "רבק";
 
-"type.craft" = "Craft";
+"type.craft" = "מְלָאכָה";
 
-"type.craft.beekeeper" = "Beekeeper";
+"type.craft.beekeeper" = "כוורן";
 
-"type.craft.blacksmith" = "Blacksmith";
+"type.craft.blacksmith" = "נַפָּח";
 
-"type.craft.brewery" = "Craft Brewery";
+"type.craft.brewery" = "מבשלה";
 
-"type.craft.carpenter" = "Carpenter";
+"type.craft.carpenter" = "נגר";
 
-"type.craft.confectionery" = "Confectionery";
+"type.craft.confectionery" = "קוֹנדִיטוֹר";
 
-"type.craft.electrician" = "Electrician";
+"type.craft.electrician" = "חשמלאי";
 
-"type.craft.electronics_repair" = "Electronics Repair";
+"type.craft.electronics_repair" = "תיקון אלקטרוניקה";
 
-"type.craft.gardener" = "Gardener";
+"type.craft.gardener" = "גנן";
 
-"type.craft.handicraft" = "Handicraft";
+"type.craft.handicraft" = "אומנות";
 
 /* Heating, Ventilation, and Air Conditioning */
-"type.craft.hvac" = "HVAC";
+"type.craft.hvac" = "חימום, אוורור ומיזוג אוויר";
 
-"type.craft.metal_construction" = "Metal Worker";
+"type.craft.metal_construction" = "עובד מתכת";
 
-"type.craft.painter" = "Painter";
+"type.craft.painter" = "צייר";
 
-"type.craft.photographer" = "Photographer";
+"type.craft.photographer" = "צלם";
 
-"type.craft.plumber" = "Plumber";
+"type.craft.plumber" = "שרברב";
 
-"type.craft.sawmill" = "Sawmill";
+"type.craft.sawmill" = "מנסרה";
 
-"type.craft.shoemaker" = "Shoe Repair";
+"type.craft.shoemaker" = "סנדלר";
 
-"type.craft.winery" = "Winery";
+"type.craft.winery" = "יקב";
 
-"type.craft.tailor" = "Tailor";
+"type.craft.tailor" = "חייט";
 
 "type.cuisine.african" = "מטבח אפריקאי";
 

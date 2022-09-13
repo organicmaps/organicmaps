@@ -141,6 +141,7 @@
   <dimen name="nav_frame_padding">@dimen/margin_half</dimen>
   <dimen name="zoom_buttons_margin">64dp</dimen>
   <dimen name="map_buttons_bottom_margin">136dp</dimen>
+  <dimen name="map_buttons_bottom_max_width">300dp</dimen>
 
   <dimen name="panel_elevation">12dp</dimen>
   <dimen name="appbar_elevation">4dp</dimen>

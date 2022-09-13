@@ -772,6 +772,8 @@
 	<string name="type.amenity.doctors">Doktor</string>
 	<string name="type.amenity.drinking_water">İçme Suyu</string>
 	<string name="type.amenity.driving_school">Sürücü Kursu</string>
+	<string name="type.amenity.music_school">Müzik Okulu</string>
+	<string name="type.amenity.language_school">Dil Okulu</string>
 	<string name="type.office.diplomatic">Büyükelçilik</string>
 	<string name="type.amenity.fast_food">Hazır Yemek</string>
 	<string name="type.amenity.ferry_terminal">Feribot</string>
@@ -917,6 +919,7 @@
 	<string name="type.craft.blacksmith">Demirci</string>
 	<string name="type.craft.brewery">Bira Fabrikası</string>
 	<string name="type.craft.carpenter">Marangoz</string>
+	<string name="type.craft.confectionery">Şekerlemeci</string>
 	<string name="type.craft.electrician">Elektrikçi</string>
 	<string name="type.craft.electronics_repair">Elektronik Tamircisi</string>
 	<string name="type.craft.gardener">Bahçe Düzenleyici</string>
@@ -927,7 +930,9 @@
 	<string name="type.craft.painter">Boyacı</string>
 	<string name="type.craft.photographer">Fotoğraf Stüdyosu</string>
 	<string name="type.craft.plumber">Tesisatçı</string>
+	<string name="type.craft.sawmill">Kereste Fabrikası</string>
 	<string name="type.craft.shoemaker">Ayakkabı Tamircisi</string>
+	<string name="type.craft.winery">Şaraphane</string>
 	<string name="type.craft.tailor">Terzi</string>
 	<string name="type.cuisine.african">Afrika mutfağı</string>
 	<string name="type.cuisine.american">Amerikan mutfağı</string>

@@ -731,6 +731,8 @@
 	<string name="type.amenity.doctors">Studio medico</string>
 	<string name="type.amenity.drinking_water">Acqua potabile</string>
 	<string name="type.amenity.driving_school">Scuola guida</string>
+	<string name="type.amenity.music_school">Scuola di Musica</string>
+	<string name="type.amenity.language_school">Scuola di lingue</string>
 	<string name="type.office.diplomatic">Ambasciata</string>
 	<string name="type.amenity.fast_food">Fast food</string>
 	<string name="type.amenity.ferry_terminal">Traghetto</string>
@@ -836,6 +838,7 @@
 	<string name="type.craft.blacksmith">Fabbro</string>
 	<string name="type.craft.brewery">Birrificio</string>
 	<string name="type.craft.carpenter">Falegname</string>
+	<string name="type.craft.confectionery">Pasticciere</string>
 	<string name="type.craft.electrician">Elettricista</string>
 	<string name="type.craft.electronics_repair">Riparazioni elettroniche</string>
 	<string name="type.craft.gardener">Giardiniere</string>
@@ -846,7 +849,9 @@
 	<string name="type.craft.painter">Imbianchino</string>
 	<string name="type.craft.photographer">Fotografo</string>
 	<string name="type.craft.plumber">Idraulico</string>
+	<string name="type.craft.sawmill">Segheria</string>
 	<string name="type.craft.shoemaker">Calzolaio</string>
+	<string name="type.craft.winery">Casa vinicola</string>
 	<string name="type.craft.tailor">Sarto</string>
 	<string name="type.cuisine.african">Cucina africana</string>
 	<string name="type.cuisine.american">Cucina americana</string>
@@ -969,12 +974,12 @@
 	<string name="type.highway.living_street.bridge">Ponte</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.living_street.tunnel">Tunnel</string>
-	<string name="type.highway.motorway">Via</string>
+	<string name="type.highway.motorway">Autostrada</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.motorway.bridge">Ponte</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.motorway.tunnel">Tunnel</string>
-	<string name="type.highway.motorway_link">Via</string>
+	<string name="type.highway.motorway_link">Autostrada</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.motorway_link.bridge">Ponte</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
@@ -1088,7 +1093,7 @@
 	<string name="type.highway.unclassified.tunnel">Tunnel</string>
 	<string name="type.area_highway.footway">Sentiero</string>
 	<string name="type.area_highway.living_street">Via</string>
-	<string name="type.area_highway.motorway">Via</string>
+	<string name="type.area_highway.motorway">Autostrada</string>
 	<string name="type.area_highway.path">Sentiero</string>
 	<string name="type.area_highway.pedestrian">Via</string>
 	<string name="type.area_highway.primary">Via</string>

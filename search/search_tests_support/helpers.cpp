@@ -17,6 +17,9 @@ SearchTestBase::SearchTestBase(base::LogLevel logLevel, bool mockCountryInfo)
   : m_scopedLog(logLevel), m_engine(m_dataSource, {}, mockCountryInfo)
 {
   SetViewport(mercator::Bounds::FullRect());
+
+  if (!mockCountryInfo)
+    m_engine.InitAffiliations();
 }
 
 void SearchTestBase::SetViewport(ms::LatLon const & ll, double radiusM)
@@ -90,8 +93,10 @@ unique_ptr<TestSearchRequest> SearchTestBase::MakeRequest(
   params.m_mode = Mode::Everywhere;
   params.m_needAddress = true;
   params.m_suggestsEnabled = false;
-  params.m_streetSearchRadiusM = TestSearchRequest::kDefaultTestStreetSearchRadiusM;
-  params.m_villageSearchRadiusM = TestSearchRequest::kDefaultTestVillageSearchRadiusM;
+
+  /// @todo Run tests with production constants.
+  //params.m_filteringParams.m_streetSearchRadiusM = TestSearchRequest::kDefaultTestStreetSearchRadiusM;
+  params.m_filteringParams.m_villageSearchRadiusM = TestSearchRequest::kDefaultTestVillageSearchRadiusM;
 
   auto request = make_unique<TestSearchRequest>(m_engine, params);
   request->Run();

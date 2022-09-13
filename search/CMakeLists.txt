@@ -63,6 +63,7 @@ set(SRC
   # Template functions implementation. Should be included when using.
   # features_layer_path_finder.cpp
   features_layer_path_finder.hpp
+  filtering_params.hpp
   geocoder.cpp
   geocoder.hpp
   geocoder_context.cpp

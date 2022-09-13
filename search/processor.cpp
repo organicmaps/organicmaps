@@ -415,35 +415,23 @@ bool Processor::IsCancelled() const
 
 void Processor::SearchByFeatureId()
 {
-  // String processing is suboptimal in this method so
-  // we need a guard against very long strings.
-  size_t const kMaxFeatureIdStringSize = 1000;
-  if (m_query.size() > kMaxFeatureIdStringSize)
-    return;
-
   // Create a copy of the query to trim it in-place.
   string query(m_query);
   strings::Trim(query);
 
-  strings::EatPrefix(query, "?");
-
-  string const kFidPrefix = "fid";
-  bool hasFidPrefix = false;
-
-  if (strings::EatPrefix(query, kFidPrefix))
+  if (strings::EatPrefix(query, "?fid"))
   {
-    hasFidPrefix = true;
-
     strings::Trim(query);
     if (strings::EatPrefix(query, "="))
       strings::Trim(query);
   }
+  else
+    return;
 
   vector<shared_ptr<MwmInfo>> infos;
   m_dataSource.GetMwmsInfo(infos);
 
   // Case 0.
-  if (hasFidPrefix)
   {
     string s = query;
     uint32_t fid;
@@ -452,7 +440,6 @@ void Processor::SearchByFeatureId()
   }
 
   // Case 1.
-  if (hasFidPrefix)
   {
     string s = query;
     storage::CountryId mwmName;
@@ -611,7 +598,9 @@ void Processor::Search(SearchParams params)
 
 void Processor::SearchDebug()
 {
+#ifdef DEBUG
   SearchByFeatureId();
+#endif
 }
 
 bool Processor::SearchCoordinates()
@@ -800,8 +789,7 @@ void Processor::InitGeocoder(Geocoder::Params & geocoderParams, SearchParams con
   geocoderParams.m_cuisineTypes = m_cuisineTypes;
   geocoderParams.m_preferredTypes = m_preferredTypes;
   geocoderParams.m_tracer = searchParams.m_tracer;
-  geocoderParams.m_streetSearchRadiusM = searchParams.m_streetSearchRadiusM;
-  geocoderParams.m_villageSearchRadiusM = searchParams.m_villageSearchRadiusM;
+  geocoderParams.m_filteringParams = searchParams.m_filteringParams;
   geocoderParams.m_useDebugInfo = searchParams.m_useDebugInfo;
 
   m_geocoder.SetParams(geocoderParams);
@@ -853,11 +841,9 @@ void Processor::InitRanker(Geocoder::Params const & geocoderParams,
 
   Ranker::Params params;
 
-  params.m_currentLocaleCode = m_currentLocaleCode;
-
   params.m_batchSize = searchParams.m_batchSize;
   params.m_limit = searchParams.m_maxNumResults;
-  params.m_pivot = m_position ? *m_position : GetViewport().Center();
+  params.m_pivot = GetPivotPoint(viewportSearch);
   params.m_pivotRegion = GetPivotRegion();
 
   params.m_preferredTypes = m_preferredTypes;
@@ -871,7 +857,6 @@ void Processor::InitRanker(Geocoder::Params const & geocoderParams,
   params.m_tokens = m_tokens;
   params.m_prefix = m_prefix;
   params.m_categoryLocales = GetCategoryLocales();
-  params.m_accuratePivotCenter = GetPivotPoint(viewportSearch);
   params.m_viewportSearch = viewportSearch;
   params.m_viewport = GetViewport();
   params.m_categorialRequest = geocoderParams.IsCategorialRequest();
@@ -908,7 +893,7 @@ void Processor::EmitFeatureIfExists(vector<shared_ptr<MwmInfo>> const & infos,
       continue;
 
     m_emitter.AddResultNoChecks(m_ranker.MakeResult(
-        RankerResult(*ft, m2::PointD() /* pivot */, guard->GetCountryFileName()),
+        RankerResult(*ft, guard->GetCountryFileName()),
         true /* needAddress */, true /* needHighlighting */));
     m_emitter.Emit();
   }
@@ -917,8 +902,10 @@ void Processor::EmitFeatureIfExists(vector<shared_ptr<MwmInfo>> const & infos,
 void Processor::EmitFeaturesByIndexFromAllMwms(vector<shared_ptr<MwmInfo>> const & infos,
                                                uint32_t fid)
 {
-  vector<tuple<double, m2::PointD, std::string, std::unique_ptr<FeatureType>>> results;
+  // Don't pay attention on possible overhead here, this function is used for debug purpose only.
+  vector<tuple<double, std::string, std::unique_ptr<FeatureType>>> results;
   vector<unique_ptr<FeaturesLoaderGuard>> guards;
+
   for (auto const & info : infos)
   {
     auto guard = make_unique<FeaturesLoaderGuard>(m_dataSource, MwmSet::MwmId(info));
@@ -928,28 +915,18 @@ void Processor::EmitFeaturesByIndexFromAllMwms(vector<shared_ptr<MwmInfo>> const
     if (!ft)
       continue;
 
+    // Distance needed for sorting.
     auto const center = feature::GetCenter(*ft, FeatureType::WORST_GEOMETRY);
-    double dist = center.SquaredLength(m_viewport.Center());
-    auto pivot = m_viewport.Center();
-    if (m_position)
-    {
-      auto const distPos = center.SquaredLength(*m_position);
-      if (dist > distPos)
-      {
-        dist = distPos;
-        pivot = *m_position;
-      }
-    }
-    results.emplace_back(dist, pivot, guard->GetCountryFileName(), move(ft));
+    double const dist = center.SquaredLength(m_viewport.Center());
+    results.emplace_back(dist, guard->GetCountryFileName(), move(ft));
     guards.push_back(move(guard));
   }
 
   sort(results.begin(), results.end());
 
-  for (auto const & [dist, pivot, country, ft] : results)
+  for (auto const & [_, country, ft] : results)
   {
-    /// @todo We make duplicating feature::GetCenter call in RankerResult.
-    m_emitter.AddResultNoChecks(m_ranker.MakeResult(RankerResult(*ft, pivot, country),
+    m_emitter.AddResultNoChecks(m_ranker.MakeResult(RankerResult(*ft, country),
                                                     true /* needAddress */,
                                                     true /* needHighlighting */));
     m_emitter.Emit();

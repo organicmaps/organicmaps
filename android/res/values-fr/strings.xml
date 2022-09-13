@@ -757,6 +757,8 @@
 	<string name="type.amenity.doctors">Cabinet médical</string>
 	<string name="type.amenity.drinking_water">Eau potable</string>
 	<string name="type.amenity.driving_school">Auto-école</string>
+	<string name="type.amenity.music_school">École de musique</string>
+	<string name="type.amenity.language_school">École de langue</string>
 	<string name="type.office.diplomatic">Ambassade</string>
 	<string name="type.amenity.fast_food">Restauration rapide</string>
 	<string name="type.amenity.ferry_terminal">Terminal de ferry</string>
@@ -898,6 +900,7 @@
 	<string name="type.craft.electrician">Électricien</string>
 	<string name="type.craft.electronics_repair">Réparation d\'appareils électroniques</string>
 	<string name="type.craft.gardener">Paysagiste</string>
+	<string name="type.craft.handicraft">Artisanat</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Chauffage, ventilation et climatisation</string>
 	<string name="type.craft.metal_construction">Métallo</string>

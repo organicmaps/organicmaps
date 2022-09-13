@@ -702,6 +702,8 @@
 	<string name="type.amenity.doctors">Rendelő</string>
 	<string name="type.amenity.drinking_water">Ivóvíz</string>
 	<string name="type.amenity.driving_school">Autósiskola</string>
+	<string name="type.amenity.music_school">Zeneiskola</string>
+	<string name="type.amenity.language_school">Nyelviskola</string>
 	<string name="type.office.diplomatic">Nagykövetség</string>
 	<string name="type.amenity.fast_food">Gyorsétterem</string>
 	<string name="type.amenity.ferry_terminal">Komp</string>
@@ -799,17 +801,25 @@
 	<string name="type.building.has_parts">Épület</string>
 	<string name="type.building.train_station">Vonatmegálló</string>
 	<string name="type.cemetery.grave">Sír</string>
+	<string name="type.craft">Kézművesség</string>
+	<string name="type.craft.beekeeper">Méhész</string>
+	<string name="type.craft.blacksmith">Kovácsműhely</string>
 	<string name="type.craft.brewery">Sörfőzde</string>
 	<string name="type.craft.carpenter">Ács</string>
+	<string name="type.craft.confectionery">Cukrászda</string>
 	<string name="type.craft.electrician">Villanyszerelő</string>
+	<string name="type.craft.electronics_repair">Elektronikai javítás</string>
 	<string name="type.craft.gardener">Kertész</string>
+	<string name="type.craft.handicraft">Kézművesség</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Hűtés-fűtés szerelő</string>
 	<string name="type.craft.metal_construction">Lakatos</string>
 	<string name="type.craft.painter">Festő</string>
 	<string name="type.craft.photographer">Fényképész</string>
 	<string name="type.craft.plumber">Vízvezeték-szerelő</string>
+	<string name="type.craft.sawmill">Fűrészmalom</string>
 	<string name="type.craft.shoemaker">Cipész</string>
+	<string name="type.craft.winery">Pincészet</string>
 	<string name="type.craft.tailor">Szabó</string>
 	<string name="type.cuisine.african">Afrikai konyha</string>
 	<string name="type.cuisine.american">Amerikai konyha</string>

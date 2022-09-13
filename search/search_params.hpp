@@ -1,7 +1,7 @@
 #pragma once
 
 #include "search/bookmarks/types.hpp"
-
+#include "search/filtering_params.hpp"
 #include "search/mode.hpp"
 
 #include "geometry/point2d.hpp"
@@ -26,8 +26,6 @@ struct SearchParams
   static size_t constexpr kDefaultNumResultsEverywhere = 30;
   static size_t constexpr kDefaultNumResultsInViewport = 200;
   static size_t constexpr kPreResultsCount = 200;
-  static double constexpr kDefaultStreetSearchRadiusM = 8e4;
-  static double constexpr kDefaultVillageSearchRadiusM = 2e5;
 
   using TimeDurationT = base::Timer::DurationT;
   /// @todo Short timeouts lead to a non-working search on slow devices. Design a better solution.
@@ -73,10 +71,7 @@ struct SearchParams
   // Minimal distance between search results (by x,y axes in mercator), needed for filtering of viewport search results.
   m2::PointD m_minDistanceOnMapBetweenResults{0, 0};
 
-  // Street search radius from pivot or matched city center for everywhere search mode.
-  double m_streetSearchRadiusM = kDefaultStreetSearchRadiusM;
-  // Street search radius from pivot for everywhere search mode.
-  double m_villageSearchRadiusM = kDefaultVillageSearchRadiusM;
+  RecommendedFilteringParams m_filteringParams;
 
   bookmarks::GroupId m_bookmarksGroupId = bookmarks::kInvalidGroupId;
 

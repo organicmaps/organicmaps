@@ -1318,6 +1318,10 @@
 
 "type.amenity.driving_school" = "مدرسة قيادة";
 
+"type.amenity.music_school" = "ﻰﻘﻴﺳﻮﻣ ﺔﺳﺭﺪﻣ";
+
+"type.amenity.language_school" = "ﺔﻐﻟ ﺔﺳﺭﺪﻣ";
+
 "type.office.diplomatic" = "سفارة";
 
 "type.amenity.fast_food" = "وجبات سريعة";
@@ -1605,25 +1609,25 @@
 
 "type.cemetery.grave" = "ﺮﻴﻄﺧ";
 
-"type.craft" = "Craft";
+"type.craft" = "حرفة";
 
-"type.craft.beekeeper" = "Beekeeper";
+"type.craft.beekeeper" = "نحال";
 
-"type.craft.blacksmith" = "Blacksmith";
+"type.craft.blacksmith" = "حداد";
 
 "type.craft.brewery" = "مصنع جعة";
 
 "type.craft.carpenter" = "نجار";
 
-"type.craft.confectionery" = "Confectionery";
+"type.craft.confectionery" = "حلواني";
 
 "type.craft.electrician" = "كهربائي";
 
-"type.craft.electronics_repair" = "Electronics Repair";
+"type.craft.electronics_repair" = "إصلاح الإلكترونيات";
 
 "type.craft.gardener" = "مهندس مناظر";
 
-"type.craft.handicraft" = "Handicraft";
+"type.craft.handicraft" = "مشغولات يدوية";
 
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "تكييف";
@@ -1636,11 +1640,11 @@
 
 "type.craft.plumber" = "سمكري";
 
-"type.craft.sawmill" = "Sawmill";
+"type.craft.sawmill" = "منشرة";
 
 "type.craft.shoemaker" = "تصليح الاحذية";
 
-"type.craft.winery" = "Winery";
+"type.craft.winery" = "مصنع الخمرة";
 
 "type.craft.tailor" = "خياط";
 

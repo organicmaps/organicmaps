@@ -7,13 +7,14 @@
 
 #include <vector>
 
+#include <QtGui/QIcon>
 #include <QtGui/QPixmap>
 #include <QtWidgets/QWidget>
 
-class QTableWidget;
+class QCheckBox;
 class QLineEdit;
 class QPushButton;
-class QButtonGroup;
+class QTableWidget;
 class QTimer;
 
 namespace qt
@@ -27,8 +28,9 @@ class SearchPanel : public QWidget
   QLineEdit * m_pEditor;
   QPushButton * m_pClearButton;
   QTimer * m_pAnimationTimer;
-  QButtonGroup * m_pSearchModeButtons;
+  QCheckBox * m_isCategory;
 
+  QIcon m_clearIcon;
   QPixmap m_busyIcon;
 
   std::vector<search::Result> m_results;
@@ -43,9 +45,12 @@ class SearchPanel : public QWidget
 public:
   SearchPanel(DrawWidget * drawWidget, QWidget * parent);
 
+  static std::string GetCurrentInputLocale();
+
 private:
   virtual void hideEvent(QHideEvent *);
 
+  void RunSearch();
   void ClearResults();
 
   void StartBusyIndicator();
@@ -54,13 +59,13 @@ private:
 private slots:
   void OnSearchModeChanged(int mode);
   void OnSearchPanelItemClicked(int row, int column);
-  void OnSearchTextChanged(QString const &);
+  void OnSearchTextChanged(QString const & str);
   void OnEverywhereSearchResults(uint64_t timestamp, search::Results results);
 
   void OnAnimationTimer();
   void OnClearButton();
 
-  bool Try3dModeCmd(QString const & str);
-  bool TryTrafficSimplifiedColorsCmd(QString const & str);
+  bool Try3dModeCmd(std::string const & str);
+  bool TryTrafficSimplifiedColorsCmd(std::string const & str);
 };
 }  // namespace qt

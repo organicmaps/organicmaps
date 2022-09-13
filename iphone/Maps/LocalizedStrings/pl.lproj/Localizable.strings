@@ -1318,6 +1318,10 @@
 
 "type.amenity.driving_school" = "Szkoła nauki jazdy";
 
+"type.amenity.music_school" = "Szkoła Muzyczna";
+
+"type.amenity.language_school" = "Szkoła językowa";
+
 "type.office.diplomatic" = "Ambasada";
 
 "type.amenity.fast_food" = "Fast food";
@@ -1607,23 +1611,23 @@
 
 "type.craft" = "Rzemiosło";
 
-"type.craft.beekeeper" = "Beekeeper";
+"type.craft.beekeeper" = "Pszczelarz";
 
-"type.craft.blacksmith" = "Blacksmith";
+"type.craft.blacksmith" = "Kowal";
 
 "type.craft.brewery" = "Browar";
 
 "type.craft.carpenter" = "Stolarz";
 
-"type.craft.confectionery" = "Confectionery";
+"type.craft.confectionery" = "Cukiernik";
 
 "type.craft.electrician" = "Elektryk";
 
-"type.craft.electronics_repair" = "Electronics Repair";
+"type.craft.electronics_repair" = "Naprawa elektroniki";
 
 "type.craft.gardener" = "Ogrodnik";
 
-"type.craft.handicraft" = "Handicraft";
+"type.craft.handicraft" = "Rzemiosło artystyczne";
 
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Klimatyzacja";
@@ -1636,11 +1640,11 @@
 
 "type.craft.plumber" = "Hydraulik";
 
-"type.craft.sawmill" = "Sawmill";
+"type.craft.sawmill" = "Tartak";
 
 "type.craft.shoemaker" = "Szewc";
 
-"type.craft.winery" = "Winery";
+"type.craft.winery" = "Winiarnia";
 
 "type.craft.tailor" = "Krawiec";
 

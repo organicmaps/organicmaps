@@ -379,13 +379,25 @@ public:
     if (!ft)
       return {};
 
-    RankerResult res(*ft, center, m_ranker.m_params.m_pivot, std::move(name), country);
+    RankerResult res(*ft, center, std::move(name), country);
 
     RankingInfo info;
     InitRankingInfo(*ft, center, preResult, info);
 
     if (info.m_type == Model::TYPE_STREET)
+    {
       info.m_classifType.street = m_wayChecker.GetSearchRank(res.GetBestType());
+
+      /// @see Arbat_Address test.
+      // "2" is a NameScore::FULL_PREFIX for "2-й Обыденский переулок", which is *very* high,
+      // and suppresses building's rank, matched by house number.
+      if (info.m_nameScore > NameScore::SUBSTRING)
+      {
+        auto const & range = info.m_tokenRanges[info.m_type];
+        if (range.Size() == 1 && m_params.IsNumberTokens(range))
+          info.m_nameScore = NameScore::SUBSTRING;
+      }
+    }
 
     info.m_rank = NormalizeRank(info.m_rank, info.m_type, center, country,
                                 m_capitalChecker(*ft), !info.m_allTokensUsed);
@@ -490,7 +502,7 @@ private:
   void InitRankingInfo(FeatureType & ft, m2::PointD const & center, PreRankerResult const & res, RankingInfo & info)
   {
     auto const & preInfo = res.GetInfo();
-    auto const & pivot = m_ranker.m_params.m_accuratePivotCenter;
+    auto const & pivot = m_ranker.m_params.m_pivot;
 
     feature::TypesHolder featureTypes(ft);
 
@@ -506,10 +518,16 @@ private:
     info.m_categorialRequest = m_params.IsCategorialRequest();
     info.m_tokenRanges = preInfo.m_tokenRanges;
 
-    // We do not compare result name and request for categorial requests but we prefer named
-    // features.
+    size_t totalLength = 0;
+    for (size_t i = 0; i < m_params.GetNumTokens(); ++i)
+      totalLength += m_params.GetToken(i).GetOriginal().size();
+    // Avoid division by zero.
+    if (totalLength == 0)
+      totalLength = 1;
+
     if (m_params.IsCategorialRequest())
     {
+      // We do not compare result name and request for categorial requests but we prefer named features.
       info.m_hasName = ft.HasName();
       if (!info.m_hasName)
       {
@@ -585,14 +603,10 @@ private:
         }
       }
 
-      size_t totalLength = 0;
-      for (size_t i = 0; i < m_params.GetNumTokens(); ++i)
-        totalLength += m_params.GetToken(i).GetOriginal().size();
-
       info.m_nameScore = nameScore;
       info.m_errorsMade = errorsMade;
       info.m_isAltOrOldName = isAltOrOldName;
-      info.m_matchedFraction = (totalLength == 0) ? 1 : matchedLength / static_cast<float>(totalLength);
+      info.m_matchedFraction = matchedLength / static_cast<float>(totalLength);
 
       info.m_exactCountryOrCapital = info.m_errorsMade == ErrorsMade(0) && info.m_allTokensUsed &&
                                      info.m_nameScore == NameScore::FULL_MATCH &&
@@ -606,6 +620,19 @@ private:
                                         m_ranker.m_params.m_categoryLocales, m_ranker.m_categories);
 
     info.m_pureCats = categoriesInfo.IsPureCategories();
+    if (info.m_pureCats)
+    {
+      // Compare with previous values, in case if was assigned by street or locality.
+
+      info.m_nameScore = NameScore::SUBSTRING;
+      if (m_params.GetNumTokens() == preInfo.InnermostTokenRange().Size())
+        info.m_nameScore = NameScore::FULL_PREFIX;
+
+      info.m_matchedFraction = std::max(info.m_matchedFraction,
+                                        categoriesInfo.GetMatchedLength() / static_cast<float>(totalLength));
+      if (!info.m_errorsMade.IsValid())
+        info.m_errorsMade = ErrorsMade(0);
+    }
     info.m_falseCats = categoriesInfo.IsFalseCategories();
   }
 

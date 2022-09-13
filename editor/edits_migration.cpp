@@ -5,7 +5,7 @@
 #include "indexer/feature.hpp"
 #include "indexer/feature_source.hpp"
 
-#include "geometry/algorithm.hpp"
+#include "geometry/intersection_score.hpp"
 #include "geometry/mercator.hpp"
 
 #include "base/logging.hpp"
@@ -74,8 +74,9 @@ FeatureID MigrateWayOrRelatonFeatureIndex(
         {
           score = matcher::ScoreTriangulatedGeometries(geometry, ftGeometry);
         }
-        catch (matcher::NotAPolygonException & ex)
+        catch (geometry::NotAPolygonException & ex)
         {
+          LOG(LWARNING, (ex.Msg()));
           // Support migration for old application versions.
           // TODO(a): To remove it when version 8.0.x will no longer be supported.
           base::SortUnique(geometry);

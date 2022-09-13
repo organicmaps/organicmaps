@@ -31,14 +31,17 @@ CategoriesInfo::CategoriesInfo(feature::TypesHolder const & holder, TokenSlice c
 {
   QuerySlice slice(tokens);
   vector<TokenInfo> infos(slice.Size());
-  ForEachCategoryType(slice, locales, categories, [&holder, &infos](size_t i, uint32_t t)
+  ForEachCategoryType(slice, locales, categories, [&](size_t i, uint32_t t)
   {
     ASSERT_LESS(i, infos.size(), ());
     auto & info = infos[i];
 
     info.m_isCategoryToken = true;
-    if (holder.Has(t))
+    if (holder.HasWithSubclass(t))
+    {
+      m_matchedLength += slice.Get(i).size();
       info.m_inFeatureTypes = true;
+    }
   });
 
   // Note that m_inFeatureTypes implies m_isCategoryToken.

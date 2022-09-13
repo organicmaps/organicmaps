@@ -57,9 +57,13 @@ public class MapFragment extends BaseMwmFragment
   private static final int INVALID_POINTER_MASK = 0xFF;
   private static final int INVALID_TOUCH_ID = -1;
 
+  private int mCurrentCompassOffsetX;
+  private int mCurrentCompassOffsetY;
+  private int mBottomWidgetOffsetX;
+  private int mBottomWidgetOffsetY;
+
   private int mHeight;
   private int mWidth;
-  private int mBottomWidgetOffset;
   private boolean mRequireResize;
   private boolean mSurfaceCreated;
   private boolean mSurfaceAttached;
@@ -79,53 +83,75 @@ public class MapFragment extends BaseMwmFragment
     Context context = requireContext();
 
     nativeCleanWidgets();
-    setupBottomWidgetsOffset(mBottomWidgetOffset);
+    setupBottomWidgetsOffset(mBottomWidgetOffsetY, mBottomWidgetOffsetX);
 
     nativeSetupWidget(WIDGET_SCALE_FPS_LABEL,
                       UiUtils.dimen(context, R.dimen.margin_base),
                       UiUtils.dimen(context, R.dimen.margin_base),
                       ANCHOR_LEFT_TOP);
 
-    setupCompass(UiUtils.getCompassYOffset(requireContext()), false);
+    mCurrentCompassOffsetX = 0;
+    mCurrentCompassOffsetY = UiUtils.getCompassYOffset(requireContext());
+    setupCompass(mCurrentCompassOffsetY, mCurrentCompassOffsetX, false);
   }
 
-  void setupCompass(int offsetY, boolean forceRedraw)
+  /**
+   * Moves the map compass using the given offsets.
+   *
+   * @param offsetY Pixel offset from the top. -1 to keep the previous value.
+   * @param offsetX Pixel offset from the right.  -1 to keep the previous value.
+   * @param forceRedraw True to force the compass to redraw
+   */
+  void setupCompass(int offsetY, int offsetX, boolean forceRedraw)
   {
     Context context = requireContext();
+    int x = offsetX < 0 ? mCurrentCompassOffsetX : offsetX;
+    int y = offsetY < 0 ? mCurrentCompassOffsetY : offsetY;
     int navPadding = UiUtils.dimen(context, R.dimen.nav_frame_padding);
     int marginX = UiUtils.dimen(context, R.dimen.margin_compass) + navPadding;
     int marginY = UiUtils.dimen(context, R.dimen.margin_compass_top) + navPadding;
     nativeSetupWidget(WIDGET_COMPASS,
-                      mWidth - marginX,
-                      offsetY + marginY,
+                      mWidth - x - marginX,
+                      y + marginY,
                       ANCHOR_CENTER);
     if (forceRedraw && mSurfaceCreated)
       nativeApplyWidgets();
+    mCurrentCompassOffsetX = x;
+    mCurrentCompassOffsetY = y;
   }
 
-  void setupBottomWidgetsOffset(int offset)
+  /**
+   * Moves the ruler and copyright using the given offsets.
+   *
+   * @param offsetY Pixel offset from the bottom. -1 to keep the previous value.
+   * @param offsetX Pixel offset from the left.  -1 to keep the previous value.
+   */
+  void setupBottomWidgetsOffset(int offsetY, int offsetX)
   {
-    mBottomWidgetOffset = offset;
-    setupRuler(offset, true);
-    setupAttribution(offset, true);
+    int x = offsetX < 0 ? mBottomWidgetOffsetX : offsetX;
+    int y = offsetY < 0 ? mBottomWidgetOffsetY : offsetY;
+    setupRuler(y, x,true);
+    setupAttribution(y, x, true);
+    mBottomWidgetOffsetX = x;
+    mBottomWidgetOffsetY = y;
   }
 
-  void setupRuler(int offsetY, boolean forceRedraw)
+  private void setupRuler(int offsetY, int offsetX, boolean forceRedraw)
   {
     Context context = requireContext();
     nativeSetupWidget(WIDGET_RULER,
-                      UiUtils.dimen(context, R.dimen.margin_ruler),
+                      UiUtils.dimen(context, R.dimen.margin_ruler) + offsetX,
                       mHeight - UiUtils.dimen(context, R.dimen.margin_ruler) - offsetY,
                       ANCHOR_LEFT_BOTTOM);
     if (forceRedraw && mSurfaceCreated)
       nativeApplyWidgets();
   }
 
-  void setupAttribution(int offsetY, boolean forceRedraw)
+  private void setupAttribution(int offsetY, int offsetX, boolean forceRedraw)
   {
     Context context = requireContext();
     nativeSetupWidget(WIDGET_COPYRIGHT,
-                      UiUtils.dimen(context, R.dimen.margin_ruler),
+                      UiUtils.dimen(context, R.dimen.margin_ruler) + offsetX,
                       mHeight - UiUtils.dimen(context, R.dimen.margin_ruler) - offsetY,
                       ANCHOR_LEFT_BOTTOM);
     if (forceRedraw && mSurfaceCreated)

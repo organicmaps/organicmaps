@@ -363,7 +363,7 @@ UNIT_CLASS_TEST(ProcessorTest, DisableSuggests)
   }
 }
 
-UNIT_CLASS_TEST(ProcessorTest, TestRankingInfo)
+UNIT_CLASS_TEST(ProcessorTest, TestRankingInfo_Smoke)
 {
   TestCity sanFrancisco({1, 1}, "San Francisco", "en", 100 /* rank */);
   // Golden Gate Bridge-bridge is located in this test on the Golden
@@ -453,6 +453,51 @@ UNIT_CLASS_TEST(ProcessorTest, TestRankingInfo)
   }
 }
 
+UNIT_CLASS_TEST(ProcessorTest, TestRankingInfo_PureCategory)
+{
+  TestPOI cafe1({0.01, 0.01}, "Gelato", "en");
+  cafe1.SetTypes({{"amenity", "ice_cream"}});
+  TestPOI cafe2({0.02, 0.02}, "xxx", "en");
+  cafe2.SetTypes({{"amenity", "ice_cream"}});
+  TestPOI cafe3({0.03, 0.03}, "yyy", "en");
+  cafe3.SetTypes({{"amenity", "cafe"}, {"cuisine", "ice_cream"}});
+  TestPOI cafe4({0.04, 0.04}, "Ice Cream", "en");
+  cafe4.SetTypes({{"amenity", "ice_cream"}});
+
+  auto wonderlandId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
+    builder.Add(cafe1);
+    builder.Add(cafe2);
+    builder.Add(cafe3);
+    builder.Add(cafe4);
+  });
+
+  /// @todo We don't match cuisines if input query is category.
+  /// Good news that "ice cream (gelato)" is the only category like this now.
+  /// https://github.com/organicmaps/organicmaps/issues/2961
+  Rules const rules{ExactMatch(wonderlandId, cafe1),
+                    ExactMatch(wonderlandId, cafe2),
+                    ExactMatch(wonderlandId, cafe4)};
+
+  // Pure category results should be ordered by distance, not matter about name.
+  double constexpr rad = 1;
+  SetViewport({0 - rad, 0 - rad, 0 + rad, 0 + rad});  // center at {0, 0}
+  {
+    auto const request = MakeRequest("ice cream");
+    auto const & results = request->Results();
+    TEST(ResultsMatch(results, rules), ());
+    TEST(ResultsMatch({results.front()}, {ExactMatch(wonderlandId, cafe1)}), ());
+  }
+
+  SetViewport({0.05 - rad, 0.05 - rad, 0.05 + rad, 0.05 + rad});  // center at {0.05, 0.05}
+  {
+    auto const request = MakeRequest("gelato");
+    auto const & results = request->Results();
+    TEST(ResultsMatch(results, rules), ());
+    TEST(ResultsMatch({results.front()}, {ExactMatch(wonderlandId, cafe4)}), ());
+  }
+}
+
 UNIT_CLASS_TEST(ProcessorTest, TestRankingInfo_ErrorsMade)
 {
   TestCity chekhov({0, 0}, "Чеховъ Антонъ Павловичъ", "ru", 100 /* rank */);
@@ -495,7 +540,7 @@ UNIT_CLASS_TEST(ProcessorTest, TestRankingInfo_ErrorsMade)
   checkErrors("кафе лермнтовъ", ErrorsMade(1));
   // Full match.
   checkErrors("трактир лермонтов", ErrorsMade(1));
-  checkErrors("кафе", ErrorsMade());
+  checkErrors("кафе", ErrorsMade(0));
 
   checkErrors("Cafe Yesenina", ErrorsMade(0));
   checkErrors("Cafe Jesenina", ErrorsMade(1));
@@ -912,6 +957,7 @@ UNIT_CLASS_TEST(ProcessorTest, TestCategorialSearch)
   }
 }
 
+#ifdef DEBUG
 UNIT_CLASS_TEST(ProcessorTest, SearchDebug)
 {
   string const countryName = "Wonderland";
@@ -937,9 +983,10 @@ UNIT_CLASS_TEST(ProcessorTest, SearchDebug)
   auto const ruleCafe = ExactMatch(wonderlandId, cafe);
   auto const ruleHotel = ExactMatch(wonderlandId, hotel);
 
-  TEST(ResultsMatch("fid=0", {ruleCity, ruleCafe}), ());
-  TEST(ResultsMatch("fid=1 ", {ruleHotel}), ());
+  TEST(ResultsMatch("?fid=0", {ruleCity, ruleCafe}), ());
+  TEST(ResultsMatch("?fid=1 ", {ruleHotel}), ());
 }
+#endif
 
 UNIT_CLASS_TEST(ProcessorTest, SearchCoordinates)
 {
@@ -2526,9 +2573,8 @@ UNIT_CLASS_TEST(ProcessorTest, FilterStreetPredictions)
   SearchParams defaultParams;
   defaultParams.m_query = "Lenina";
   defaultParams.m_inputLocale = "en";
-  defaultParams.m_viewport = m2::RectD(-1.0, -1.0, 1.0, 1.0);
+  defaultParams.m_viewport = m2::RectD(-1.0, -1.0, 1.0, 1.0); // viewport center is {0, 0}
   defaultParams.m_mode = Mode::Everywhere;
-  defaultParams.m_streetSearchRadiusM = TestSearchRequest::kDefaultTestStreetSearchRadiusM;
 
   {
     Rules const rules = {ExactMatch(countryId, lenina0), ExactMatch(countryId, lenina1),
@@ -2539,63 +2585,27 @@ UNIT_CLASS_TEST(ProcessorTest, FilterStreetPredictions)
     TEST(ResultsMatch(request.Results(), rules), ());
   }
 
+  double const smallRadius = mercator::DistanceOnEarth({0, 0}, {1, 0}) / 2.0;
   {
-    Rules const rules = {ExactMatch(countryId, lenina0), ExactMatch(countryId, lenina1),
-                         ExactMatch(countryId, lenina2)};
-
     auto params = defaultParams;
-    params.m_streetSearchRadiusM =
-        mercator::DistanceOnEarth(params.m_viewport.Center(), {3.0, 0.0}) - 1.0;
+    params.m_filteringParams.m_maxStreetsCount = 2;
+    params.m_filteringParams.m_streetSearchRadiusM = smallRadius;
 
-    TestSearchRequest request(m_engine, params);
-    request.Run();
-    TEST(ResultsMatch(request.Results(), rules), ());
-  }
-
-  {
     Rules const rules = {ExactMatch(countryId, lenina0), ExactMatch(countryId, lenina1)};
 
-    auto params = defaultParams;
-    params.m_streetSearchRadiusM =
-        mercator::DistanceOnEarth(params.m_viewport.Center(), {2.0, 0.0}) - 1.0;
-
     TestSearchRequest request(m_engine, params);
     request.Run();
     TEST(ResultsMatch(request.Results(), rules), ());
   }
 
   {
-    Rules const rules = {ExactMatch(countryId, lenina0)};
-
     auto params = defaultParams;
-    params.m_streetSearchRadiusM =
-        mercator::DistanceOnEarth(params.m_viewport.Center(), {1.0, 0.0}) - 1.0;
-
-    TestSearchRequest request(m_engine, params);
-    request.Run();
-    TEST(ResultsMatch(request.Results(), rules), ());
-  }
-
-  {
-    Rules const rules = {ExactMatch(countryId, lenina0), ExactMatch(countryId, lenina3)};
-
-    auto params = defaultParams;
-    params.m_streetSearchRadiusM =
-        mercator::DistanceOnEarth(params.m_viewport.Center(), {1.0, 0.0}) - 1.0;
-    params.m_position = {3.0, 0.0};
-
-    TestSearchRequest request(m_engine, params);
-    request.Run();
-    TEST(ResultsMatch(request.Results(), rules), ());
-  }
-
-  {
-    Rules const rules = {ExactMatch(countryId, lenina0), ExactMatch(countryId, lenina3)};
-
-    auto params = defaultParams;
-    params.m_streetSearchRadiusM =
-        mercator::DistanceOnEarth(params.m_viewport.Center(), {1.0, 0.0}) - 1.0;
+    params.m_filteringParams.m_maxStreetsCount = 1;
+    params.m_filteringParams.m_streetSearchRadiusM = smallRadius;
     params.m_query = "SmallCity Lenina";
+
+    // One near with viewport center and one near with city center.
+    Rules const rules = {ExactMatch(countryId, lenina0), ExactMatch(countryId, lenina3)};
 
     TestSearchRequest request(m_engine, params);
     request.Run();
@@ -2632,7 +2642,7 @@ UNIT_CLASS_TEST(ProcessorTest, FilterVillages)
   defaultParams.m_inputLocale = "en";
   defaultParams.m_viewport = m2::RectD(-1.0, -1.0, 1.0, 1.0);
   defaultParams.m_mode = Mode::Everywhere;
-  defaultParams.m_villageSearchRadiusM = TestSearchRequest::kDefaultTestVillageSearchRadiusM;
+  defaultParams.m_filteringParams.m_villageSearchRadiusM = TestSearchRequest::kDefaultTestVillageSearchRadiusM;
 
   {
     Rules const rules = {ExactMatch(otherId, petrovskoe0), ExactMatch(otherId, petrovskoe1),
@@ -2648,7 +2658,7 @@ UNIT_CLASS_TEST(ProcessorTest, FilterVillages)
                          ExactMatch(otherId, petrovskoe2)};
 
     auto params = defaultParams;
-    params.m_villageSearchRadiusM =
+    params.m_filteringParams.m_villageSearchRadiusM =
         mercator::DistanceOnEarth(params.m_viewport.Center(), petrovskoeMoscow.GetCenter()) - 1.0;
 
     TestSearchRequest request(m_engine, params);
@@ -2660,7 +2670,7 @@ UNIT_CLASS_TEST(ProcessorTest, FilterVillages)
     Rules const rules = {ExactMatch(otherId, petrovskoe0), ExactMatch(otherId, petrovskoe1)};
 
     auto params = defaultParams;
-    params.m_villageSearchRadiusM =
+    params.m_filteringParams.m_villageSearchRadiusM =
         mercator::DistanceOnEarth(params.m_viewport.Center(), petrovskoe2.GetCenter()) - 1.0;
 
     TestSearchRequest request(m_engine, params);
@@ -2672,7 +2682,7 @@ UNIT_CLASS_TEST(ProcessorTest, FilterVillages)
     Rules const rules = {ExactMatch(otherId, petrovskoe0)};
 
     auto params = defaultParams;
-    params.m_villageSearchRadiusM =
+    params.m_filteringParams.m_villageSearchRadiusM =
         mercator::DistanceOnEarth(params.m_viewport.Center(), petrovskoe1.GetCenter()) - 1.0;
 
     TestSearchRequest request(m_engine, params);
@@ -2685,10 +2695,10 @@ UNIT_CLASS_TEST(ProcessorTest, FilterVillages)
 
     auto params = defaultParams;
     params.m_position = {2.0, 2.0};
-    params.m_villageSearchRadiusM =
+    params.m_filteringParams.m_villageSearchRadiusM =
         min(mercator::DistanceOnEarth(params.m_viewport.Center(), petrovskoe1.GetCenter()),
             mercator::DistanceOnEarth(*params.m_position, petrovskoe1.GetCenter()));
-    params.m_villageSearchRadiusM -= 1.0;
+    params.m_filteringParams.m_villageSearchRadiusM -= 1.0;
 
     TestSearchRequest request(m_engine, params);
     request.Run();
@@ -2699,7 +2709,7 @@ UNIT_CLASS_TEST(ProcessorTest, FilterVillages)
     Rules const rules = {ExactMatch(otherId, petrovskoe0), ExactMatch(moscowId, petrovskoeMoscow)};
 
     auto params = defaultParams;
-    params.m_villageSearchRadiusM =
+    params.m_filteringParams.m_villageSearchRadiusM =
         mercator::DistanceOnEarth(params.m_viewport.Center(), petrovskoe1.GetCenter()) - 1.0;
     params.m_query = "Petrovskoe Moscow Region";
 
@@ -3021,6 +3031,7 @@ UNIT_CLASS_TEST(ProcessorTest, TestRankingInfo_MultipleOldNames)
 }
 
 /// @todo We are not ready for this test yet.
+/// https://github.com/organicmaps/organicmaps/issues/2961
 /*
 UNIT_CLASS_TEST(ProcessorTest, BurgerStreet)
 {

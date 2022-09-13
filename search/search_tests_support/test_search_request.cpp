@@ -21,8 +21,8 @@ TestSearchRequest::TestSearchRequest(TestSearchEngine & engine, string const & q
   m_params.m_inputLocale = locale;
   m_params.m_viewport = viewport;
   m_params.m_mode = mode;
-  m_params.m_streetSearchRadiusM = kDefaultTestStreetSearchRadiusM;
-  m_params.m_villageSearchRadiusM = kDefaultTestVillageSearchRadiusM;
+  /// @todo Run tests with production constants.
+  m_params.m_filteringParams.m_villageSearchRadiusM = kDefaultTestVillageSearchRadiusM;
   m_params.m_useDebugInfo = true;
 
   SetUpCallbacks();
@@ -49,8 +49,8 @@ TestSearchRequest::TestSearchRequest(TestSearchEngine & engine, string const & q
   m_params.m_mode = mode;
   m_params.m_onStarted = onStarted;
   m_params.m_onResults = onResults;
-  m_params.m_streetSearchRadiusM = kDefaultTestStreetSearchRadiusM;
-  m_params.m_villageSearchRadiusM = kDefaultTestVillageSearchRadiusM;
+  /// @todo Run tests with production constants.
+  m_params.m_filteringParams.m_villageSearchRadiusM = kDefaultTestVillageSearchRadiusM;
   m_params.m_useDebugInfo = true;
 
   SetUpResultParams();

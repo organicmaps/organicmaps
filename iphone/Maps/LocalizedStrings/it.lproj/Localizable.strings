@@ -1318,6 +1318,10 @@
 
 "type.amenity.driving_school" = "Scuola guida";
 
+"type.amenity.music_school" = "Scuola di Musica";
+
+"type.amenity.language_school" = "Scuola di lingue";
+
 "type.office.diplomatic" = "Ambasciata";
 
 "type.amenity.fast_food" = "Fast food";
@@ -1615,7 +1619,7 @@
 
 "type.craft.carpenter" = "Falegname";
 
-"type.craft.confectionery" = "Confectionery";
+"type.craft.confectionery" = "Pasticciere";
 
 "type.craft.electrician" = "Elettricista";
 
@@ -1636,11 +1640,11 @@
 
 "type.craft.plumber" = "Idraulico";
 
-"type.craft.sawmill" = "Sawmill";
+"type.craft.sawmill" = "Segheria";
 
 "type.craft.shoemaker" = "Calzolaio";
 
-"type.craft.winery" = "Winery";
+"type.craft.winery" = "Casa vinicola";
 
 "type.craft.tailor" = "Sarto";
 
@@ -1893,7 +1897,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.living_street.tunnel" = "Tunnel";
 
-"type.highway.motorway" = "Via";
+"type.highway.motorway" = "Autostrada";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.motorway.bridge" = "Ponte";
@@ -1903,7 +1907,7 @@
 
 "type.highway.motorway_junction" = "Road Exit";
 
-"type.highway.motorway_link" = "Via";
+"type.highway.motorway_link" = "Autostrada";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.motorway_link.bridge" = "Ponte";
@@ -2101,7 +2105,7 @@
 
 "type.area_highway.living_street" = "Via";
 
-"type.area_highway.motorway" = "Via";
+"type.area_highway.motorway" = "Autostrada";
 
 "type.area_highway.path" = "Sentiero";
 

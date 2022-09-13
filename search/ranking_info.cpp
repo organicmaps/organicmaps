@@ -26,17 +26,20 @@ double constexpr kCategoriesPopularity = 0.05;
 double constexpr kCategoriesDistanceToPivot = -0.6874177;
 double constexpr kCategoriesRank = 1.0000000;
 double constexpr kCategoriesFalseCats = -1.0000000;
-double constexpr kCategoriesRefusedByFilter = -1.0000000;
 
 double constexpr kDistanceToPivot = -0.2123693;
-double constexpr kRank = 0.1065355;
+double constexpr kRank = 0.15;
 double constexpr kPopularity = 1.0000000;
-double constexpr kFalseCats = -0.4172461;
-double constexpr kErrorsMade = -0.05;
+
+// Decreased this value:
+// - On the one hand, when search for "eat", we'd prefer category types, rather than "eat" name.
+// - On the other hand, when search for "subway", do we usually prefer famous fast food or metro?
+double constexpr kFalseCats = -0.01;
+
+double constexpr kErrorsMade = -0.15;
 double constexpr kMatchedFraction = 0.1876736;
 double constexpr kAllTokensUsed = 0.0478513;
 double constexpr kExactCountryOrCapital = 0.1247733;
-double constexpr kRefusedByFilter = -1.0000000;
 double constexpr kCommonTokens = -0.05;
 
 double constexpr kNameScore[] = {
@@ -52,12 +55,12 @@ static_assert(std::size(kNameScore) == static_cast<size_t>(NameScore::COUNT));
 double constexpr kType[] = {
   0,          // POI
   0,          // Complex POI
-  0,          // Building
+  0.007,      // Building, to compensate max(kStreetType)
   0,          // Street
   0,          // Suburb
  -0.02,       // Unclassified
   0,          // Village
-  0.0073583,  // City
+  0.01,       // City
   0.0233254,  // State
   0.1679389,  // Country
 };
@@ -69,6 +72,7 @@ double constexpr kPoiType[] = {
   0.01 /* TransportLocal */,
   0.01 /* Eat */,
   0.01 /* Hotel */,
+  0.01 /* Shop */,
   0.01 /* Attraction */,
  -0.01 /* Service */,
   0 /* General */
@@ -94,8 +98,6 @@ static_assert(kRank >= 0, "");
 static_assert(kPopularity >= 0, "");
 static_assert(kErrorsMade <= 0, "");
 static_assert(kExactCountryOrCapital >= 0, "");
-static_assert(kCategoriesRefusedByFilter < 0, "");
-static_assert(kRefusedByFilter < 0, "");
 
 double TransformDistance(double distance)
 {
@@ -261,13 +263,13 @@ double RankingInfo::GetLinearModelRank() const
     result += kDistanceToPivot * distanceToPivot;
     result += kRank * rank;
     result += kPopularity * popularity;
-    result += m_falseCats * kFalseCats;
+    result += kFalseCats * (m_falseCats ? 1 : 0);
     result += kType[m_type];
 
     if (Model::IsPoi(m_type))
     {
       CHECK_LESS(m_classifType.poi, PoiType::Count, ());
-      result += kPoiType[base::Underlying(m_classifType.poi)];
+      result += kPoiType[base::Underlying(GetPoiType())];
     }
     else if (m_type == Model::TYPE_STREET)
     {
@@ -289,9 +291,10 @@ double RankingInfo::GetLinearModelRank() const
     result += kCategoriesDistanceToPivot * distanceToPivot;
     result += kCategoriesRank * rank;
     result += kCategoriesPopularity * popularity;
-    result += kCategoriesFalseCats * kFalseCats;
+    result += kCategoriesFalseCats * (m_falseCats ? 1 : 0);
     result += m_hasName * kHasName;
   }
+
   return result;
 }
 
@@ -302,29 +305,16 @@ double RankingInfo::GetLinearModelRank() const
 // errorsMade per token is supposed to be a good metric.
 double RankingInfo::GetErrorsMadePerToken() const
 {
-  size_t static const kMaxErrorsPerToken =
-      GetMaxErrorsForTokenLength(numeric_limits<size_t>::max());
   if (!m_errorsMade.IsValid())
-    return static_cast<double>(kMaxErrorsPerToken);
+    return GetMaxErrorsForTokenLength(numeric_limits<size_t>::max());
 
   CHECK_GREATER(m_numTokens, 0, ());
-  return static_cast<double>(m_errorsMade.m_errorsMade) / static_cast<double>(m_numTokens);
+  return m_errorsMade.m_errorsMade / static_cast<double>(m_numTokens);
 }
 
 NameScore RankingInfo::GetNameScore() const
 {
-  if (m_pureCats || m_falseCats)
-  {
-    // If the feature was matched only by categorial tokens, it's
-    // better for ranking to set name score to zero.  For example,
-    // when we're looking for a "cafe", cafes "Cafe Pushkin" and
-    // "Lermontov" both match to the request, but must be ranked in
-    // accordance to their distances to the user position or viewport,
-    // in spite of "Cafe Pushkin" has a non-zero name rank.
-    return NameScore::ZERO;
-  }
-
-  if (m_type == Model::TYPE_SUBPOI && m_nameScore == NameScore::FULL_PREFIX)
+  if (!m_pureCats && m_type == Model::TYPE_SUBPOI && m_nameScore == NameScore::FULL_PREFIX)
   {
     // It's better for ranking when POIs would be equal by name score. Some examples:
     // query="rewe", pois=["REWE", "REWE City", "REWE to Go"]
@@ -338,6 +328,12 @@ NameScore RankingInfo::GetNameScore() const
   return m_nameScore;
 }
 
+PoiType RankingInfo::GetPoiType() const
+{
+  // Do not increment score for category-only-matched results or subways will be _always_ on top otherwise.
+  return (m_pureCats ? PoiType::General : m_classifType.poi);
+}
+
 PoiType GetPoiType(feature::TypesHolder const & th)
 {
   using namespace ftypes;
@@ -346,6 +342,9 @@ PoiType GetPoiType(feature::TypesHolder const & th)
     return PoiType::Eat;
   if (IsHotelChecker::Instance()(th))
     return PoiType::Hotel;
+  if (IsShopChecker::Instance()(th))
+    return PoiType::Shop;
+
   if (IsRailwayStationChecker::Instance()(th) ||
       IsSubwayStationChecker::Instance()(th) ||
       IsAirportChecker::Instance()(th))
@@ -362,7 +361,7 @@ PoiType GetPoiType(feature::TypesHolder const & th)
   // short list here.
   auto static const attractionTypes =
       search::GetCategoryTypes("sights", "en", GetDefaultCategories());
-  if (base::AnyOf(attractionTypes, [&th](auto t) { return th.Has(t); }))
+  if (base::AnyOf(attractionTypes, [&th](auto t) { return th.HasWithSubclass(t); }))
     return PoiType::Attraction;
 
   if (IsServiceTypeChecker::Instance()(th))
@@ -379,6 +378,7 @@ string DebugPrint(PoiType type)
   case PoiType::TransportLocal: return "TransportLocal";
   case PoiType::Eat: return "Eat";
   case PoiType::Hotel: return "Hotel";
+  case PoiType::Shop: return "Shop";
   case PoiType::Attraction: return "Attraction";
   case PoiType::Service: return "Service";
   case PoiType::General: return "General";

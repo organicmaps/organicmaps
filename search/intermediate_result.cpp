@@ -156,13 +156,13 @@ std::string DebugPrint(PreRankerResult const & r)
 }
 
 // RankerResult ------------------------------------------------------------------------------------
-RankerResult::RankerResult(FeatureType & f, m2::PointD const & center, m2::PointD const & pivot,
+RankerResult::RankerResult(FeatureType & ft, m2::PointD const & center,
                            string displayName, string const & fileName)
-  : m_types(f)
+  : m_types(ft)
   , m_str(std::move(displayName))
-  , m_id(f.GetID())
+  , m_id(ft.GetID())
   , m_resultType(ftypes::IsBuildingChecker::Instance()(m_types) ? Type::Building : Type::Feature)
-  , m_geomType(f.GetGeomType())
+  , m_geomType(ft.GetGeomType())
 {
   ASSERT(m_id.IsValid(), ());
   ASSERT(!m_types.Empty(), ());
@@ -171,12 +171,12 @@ RankerResult::RankerResult(FeatureType & f, m2::PointD const & center, m2::Point
 
   m_region.SetParams(fileName, center);
 
-  FillDetails(f, m_details);
+  FillDetails(ft, m_details);
 }
 
-RankerResult::RankerResult(FeatureType & ft, m2::PointD const & pivot, std::string const & fileName)
+RankerResult::RankerResult(FeatureType & ft, std::string const & fileName)
   : RankerResult(ft, feature::GetCenter(ft, FeatureType::WORST_GEOMETRY),
-                 pivot, std::string(ft.GetReadableName()), fileName)
+                 std::string(ft.GetReadableName()), fileName)
 {
 }
 
@@ -281,7 +281,8 @@ void FillDetails(FeatureType & ft, Result::Details & details)
     }
   }
 
-  if (strings::to_uint(ft.GetMetadata(feature::Metadata::FMD_STARS), details.m_stars))
+  details.m_isHotel = ftypes::IsHotelChecker::Instance()(ft);
+  if (details.m_isHotel && strings::to_uint(ft.GetMetadata(feature::Metadata::FMD_STARS), details.m_stars))
     details.m_stars = std::min(details.m_stars, osm::MapObject::kMaxStarsCount);
   else
     details.m_stars = 0;

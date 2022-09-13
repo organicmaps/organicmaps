@@ -1318,6 +1318,10 @@
 
 "type.amenity.driving_school" = "Autósiskola";
 
+"type.amenity.music_school" = "Zeneiskola";
+
+"type.amenity.language_school" = "Nyelviskola";
+
 "type.office.diplomatic" = "Nagykövetség";
 
 "type.amenity.fast_food" = "Gyorsétterem";
@@ -1605,25 +1609,25 @@
 
 "type.cemetery.grave" = "Sír";
 
-"type.craft" = "Craft";
+"type.craft" = "Kézművesség";
 
-"type.craft.beekeeper" = "Beekeeper";
+"type.craft.beekeeper" = "Méhész";
 
-"type.craft.blacksmith" = "Blacksmith";
+"type.craft.blacksmith" = "Kovácsműhely";
 
 "type.craft.brewery" = "Sörfőzde";
 
 "type.craft.carpenter" = "Ács";
 
-"type.craft.confectionery" = "Confectionery";
+"type.craft.confectionery" = "Cukrászda";
 
 "type.craft.electrician" = "Villanyszerelő";
 
-"type.craft.electronics_repair" = "Electronics Repair";
+"type.craft.electronics_repair" = "Elektronikai javítás";
 
 "type.craft.gardener" = "Kertész";
 
-"type.craft.handicraft" = "Handicraft";
+"type.craft.handicraft" = "Kézművesség";
 
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Hűtés-fűtés szerelő";
@@ -1636,11 +1640,11 @@
 
 "type.craft.plumber" = "Vízvezeték-szerelő";
 
-"type.craft.sawmill" = "Sawmill";
+"type.craft.sawmill" = "Fűrészmalom";
 
 "type.craft.shoemaker" = "Cipész";
 
-"type.craft.winery" = "Winery";
+"type.craft.winery" = "Pincészet";
 
 "type.craft.tailor" = "Szabó";
 

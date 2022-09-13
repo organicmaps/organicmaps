@@ -9,10 +9,6 @@
 #include "search/ranking_info.hpp"
 #include "search/result.hpp"
 
-#include "storage/country_info_getter.hpp"
-#include "storage/storage.hpp"
-#include "storage/storage_defines.hpp"
-
 #include "indexer/classificator_loader.hpp"
 #include "indexer/data_source.hpp"
 
@@ -36,7 +32,6 @@ using namespace search::search_quality;
 using namespace search::tests_support;
 using namespace search;
 using namespace std;
-using namespace storage;
 
 DEFINE_int32(num_threads, 1, "Number of search engine threads");
 DEFINE_string(data_path, "", "Path to data directory (resources dir)");
@@ -104,11 +99,8 @@ int main(int argc, char * argv[])
   FrozenDataSource dataSource;
   InitDataSource(dataSource, "" /* mwmListPath */);
 
-  storage::Affiliations affiliations;
-  storage::CountryNameSynonyms countryNameSynonyms;
-  InitStorageData(affiliations, countryNameSynonyms);
-
-  auto engine = InitSearchEngine(dataSource, affiliations, "en" /* locale */, FLAGS_num_threads);
+  auto engine = InitSearchEngine(dataSource, "en" /* locale */, FLAGS_num_threads);
+  engine->InitAffiliations();
 
   vector<Sample> samples;
   {
