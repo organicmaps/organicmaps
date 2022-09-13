@@ -32,11 +32,12 @@ def file_uri_to_path(url : AnyStr) -> AnyStr:
     file_uri = urlparse(url)
     file_path = file_uri.path
 
-    #URI is somehting like "file://~/..."
+    # URI is something like "file://~/..."
     if file_uri.netloc == '~':
         file_path = f'~{file_uri.path}'
+        return os.path.expanduser(file_path)
     
-    return os.path.expanduser(file_path)
+    return file_path
 
 def is_executable(fpath: AnyStr) -> bool:
     return os.path.isfile(fpath) and os.access(fpath, os.X_OK)
