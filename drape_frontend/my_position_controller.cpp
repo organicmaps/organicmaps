@@ -7,21 +7,17 @@
 #include "drape_frontend/user_event_stream.hpp"
 #include "drape_frontend/visual_params.hpp"
 
-#include "indexer/scales.hpp"
-
 #include "geometry/mercator.hpp"
-
-#include "base/math.hpp"
 
 #include "platform/measurement_utils.hpp"
 
+#include "base/math.hpp"
 
 #include <algorithm>
 #include <array>
 #include <chrono>
 #include <string>
 #include <vector>
-#include <utility>
 
 namespace df
 {
@@ -433,18 +429,10 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
     m_isDirtyViewport = true;
   }
 
-  using namespace std::chrono;
-  auto const delta =
-    duration_cast<seconds>(system_clock::now().time_since_epoch()).count() - info.m_timestamp;
-  if (delta >= kMaxUpdateLocationInvervalSec)
-  {
-    m_positionIsObsolete = true;
-    m_autoScale2d = m_autoScale3d = kUnknownAutoZoom;
-  }
-  else
-  {
-    m_positionIsObsolete = false;
-  }
+  // Assume that every new position is fresh enough. We can't make some straightforward filtering here
+  // like comparing system_clock::now().time_since_epoch() and info.m_timestamp, because can't rely
+  // on valid time settings on endpoint device.
+  m_positionIsObsolete = false;
 
   if (!m_isPositionAssigned)
   {
