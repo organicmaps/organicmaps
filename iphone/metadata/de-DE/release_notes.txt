@@ -27,6 +27,3 @@ Lokalisierungen:
 • Übersetzungen für Niederländisch, Portugiesisch (Brasilien), Italienisch, Katalanisch, Türkisch und Weißrussisch hinzugefügt/korrigiert
 • Katalanisch TTS (Text-To-Speech) aktiviert
 • Einige Telegram- und Instagram-Links wurden lokalisiert
-
-
-Übersetzt mit www.DeepL.com/Translator (kostenlose Version)

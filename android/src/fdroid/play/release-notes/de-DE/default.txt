@@ -4,7 +4,7 @@
 • Schnellere, bessere Suche
 • Absturz beim Starten nach der Bearbeitung behoben
 • Lesezeichenlisten sind nun nach der letzten Änderungszeit sortiert
-• Fixierte Übersetzungen
+• Verbesserte Übersetzungen
 • Fahr-, Musik- und Sprachschulen, archäologische Stätten und Schlösser hinzugefügt
 • Andere Stile und Icons wurden verbessert
 …mehr: omaps.app/news
