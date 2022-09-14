@@ -2312,6 +2312,8 @@
 
 "type.leisure.garden" = "حديقة";
 
+"type.leisure.garden.residential" = "حديقة";
+
 "type.leisure.golf_course" = "ملعب جولف";
 
 "type.leisure.ice_rink" = "Ice Rink";

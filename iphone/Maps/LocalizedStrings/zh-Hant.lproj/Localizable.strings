@@ -2312,6 +2312,8 @@
 
 "type.leisure.garden" = "花園";
 
+"type.leisure.garden.residential" = "花園";
+
 "type.leisure.golf_course" = "高爾夫球場";
 
 "type.leisure.ice_rink" = "Ice Rink";

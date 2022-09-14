@@ -1210,6 +1210,7 @@
 	<string name="type.leisure.fitness_centre">Academia de ginástica</string>
 	<string name="type.leisure.fitness_station">Estação de fitness</string>
 	<string name="type.leisure.garden">Jardim</string>
+	<string name="type.leisure.garden.residential">Jardim residencial</string>
 	<string name="type.leisure.golf_course">Campo de golfe</string>
 	<string name="type.leisure.ice_rink">Rinque de patinação</string>
 	<string name="type.leisure.landscape_reserve">Reserva natural</string>

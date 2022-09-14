@@ -1239,6 +1239,7 @@
 	<string name="type.leisure.fitness_centre">Centre fitness</string>
 	<string name="type.leisure.fitness_station">Station de fitness</string>
 	<string name="type.leisure.garden">Jardin</string>
+	<string name="type.leisure.garden.residential">Jardin</string>
 	<string name="type.leisure.golf_course">Terrain de golf</string>
 	<string name="type.leisure.ice_rink">Patinoire</string>
 	<string name="type.leisure.nature_reserve">Réserve naturelle</string>

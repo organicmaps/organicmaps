@@ -2312,6 +2312,8 @@
 
 "type.leisure.garden" = "Bahçe";
 
+"type.leisure.garden.residential" = "Konut Bahçesi";
+
 "type.leisure.golf_course" = "Golf Sahası";
 
 "type.leisure.ice_rink" = "Buz Pateni Pisti";

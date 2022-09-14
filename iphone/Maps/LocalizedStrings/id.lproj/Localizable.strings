@@ -2312,6 +2312,8 @@
 
 "type.leisure.garden" = "Situs arkeologi";
 
+"type.leisure.garden.residential" = "Situs arkeologi";
+
 "type.leisure.golf_course" = "Lapangan golf";
 
 "type.leisure.ice_rink" = "Ice Rink";

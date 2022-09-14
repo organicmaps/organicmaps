@@ -2312,6 +2312,8 @@
 
 "type.leisure.garden" = "Kert";
 
+"type.leisure.garden.residential" = "Kert";
+
 "type.leisure.golf_course" = "Golfpálya";
 
 "type.leisure.ice_rink" = "Ice Rink";

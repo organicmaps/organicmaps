@@ -2312,6 +2312,8 @@
 
 "type.leisure.garden" = "Garden";
 
+"type.leisure.garden.residential" = "Garden";
+
 "type.leisure.golf_course" = "Golf Course";
 
 "type.leisure.ice_rink" = "Ice Rink";

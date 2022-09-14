@@ -1033,6 +1033,7 @@
 	<string name="type.leisure.fitness_centre">باشگاه بدنسازی</string>
 	<string name="type.leisure.fitness_station">پارک سلامت</string>
 	<string name="type.leisure.garden">گردشگری</string>
+	<string name="type.leisure.garden.residential">گردشگری</string>
 	<string name="type.leisure.golf_course">زمین گلف</string>
 	<string name="type.leisure.park">پارک</string>
 	<string name="type.leisure.park.no.access">پارک</string>

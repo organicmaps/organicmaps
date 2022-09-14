@@ -1118,6 +1118,7 @@
 	<string name="type.leisure.fitness_centre">Κέντρο γυμναστικής</string>
 	<string name="type.leisure.fitness_station">Γυμναστήριο</string>
 	<string name="type.leisure.garden">Κήπος αναψυχής</string>
+	<string name="type.leisure.garden.residential">Κήπος αναψυχής</string>
 	<string name="type.leisure.golf_course">Γήπεδο γκολφ</string>
 	<string name="type.leisure.nature_reserve">Φυσικό απόθεμα</string>
 	<string name="type.leisure.park">Πάρκο</string>

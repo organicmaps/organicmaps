@@ -1188,6 +1188,7 @@
 	<string name="type.leisure.fitness_centre">フィットネスセンター、ジム</string>
 	<string name="type.leisure.fitness_station">フィットネスステーション</string>
 	<string name="type.leisure.garden">庭園</string>
+	<string name="type.leisure.garden.residential">庭園</string>
 	<string name="type.leisure.golf_course">ゴルフコース</string>
 	<string name="type.leisure.ice_rink">アイスリンク</string>
 	<string name="type.leisure.landscape_reserve">自然保護区</string>

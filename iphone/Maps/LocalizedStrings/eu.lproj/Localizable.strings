@@ -2312,6 +2312,8 @@
 
 "type.leisure.garden" = "Lorategi";
 
+"type.leisure.garden.residential" = "Lorategi";
+
 "type.leisure.golf_course" = "Golf kurtsoa";
 
 "type.leisure.ice_rink" = "Ice Rink";

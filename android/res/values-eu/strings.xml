@@ -1185,6 +1185,7 @@
 	<string name="type.leisure.fitness_centre">Fitness zentroa</string>
 	<string name="type.leisure.fitness_station">Gimnasioa</string>
 	<string name="type.leisure.garden">Lorategi</string>
+	<string name="type.leisure.garden.residential">Lorategi</string>
 	<string name="type.leisure.golf_course">Golf kurtsoa</string>
 	<string name="type.leisure.nature_reserve">Erreserbatutako lurraldea</string>
 	<string name="type.leisure.park">Parkea</string>

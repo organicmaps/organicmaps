@@ -1148,6 +1148,7 @@
 	<string name="type.leisure.fitness_centre">Centro benessere</string>
 	<string name="type.leisure.fitness_station">Centro fitness</string>
 	<string name="type.leisure.garden">Giardino</string>
+	<string name="type.leisure.garden.residential">Giardino</string>
 	<string name="type.leisure.golf_course">Campo da golf</string>
 	<string name="type.leisure.nature_reserve">Riserva</string>
 	<string name="type.leisure.park">Parco</string>

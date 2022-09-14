@@ -2312,6 +2312,8 @@
 
 "type.leisure.garden" = "Điểm khảo cổ";
 
+"type.leisure.garden.residential" = "Điểm khảo cổ";
+
 "type.leisure.golf_course" = "Sân gôn";
 
 "type.leisure.ice_rink" = "Ice Rink";

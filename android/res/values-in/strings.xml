@@ -1111,6 +1111,7 @@
 	<string name="type.leisure.fitness_centre">Pusat kebugaran</string>
 	<string name="type.leisure.fitness_station">Stasiun Kebugaran</string>
 	<string name="type.leisure.garden">Situs arkeologi</string>
+	<string name="type.leisure.garden.residential">Situs arkeologi</string>
 	<string name="type.leisure.golf_course">Lapangan golf</string>
 	<string name="type.leisure.nature_reserve">Cagar Alam</string>
 	<string name="type.leisure.park">Taman</string>

@@ -1121,6 +1121,7 @@
 	<string name="type.leisure.fitness_centre">ฟิตเนสเซ็นเตอร์</string>
 	<string name="type.leisure.fitness_station">ศูนย์ฟิตเนส</string>
 	<string name="type.leisure.garden">สวน</string>
+	<string name="type.leisure.garden.residential">สวน</string>
 	<string name="type.leisure.golf_course">สนามกอล์ฟ</string>
 	<string name="type.leisure.nature_reserve">เขตอนุรักษ์ธรรมชาติ</string>
 	<string name="type.leisure.park">สวนสาธารณะ</string>
