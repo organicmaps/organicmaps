@@ -1,1 +1,3 @@
-../en-US/release_notes.txt
+• Novos dados de setembro
+• Melhoria na busca de endereços
+• Correções de erros
