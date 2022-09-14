@@ -22,6 +22,10 @@
     <item name="borderWidth">0dp</item>
   </style>
 
+  <style name="MwmWidget.MapButton.Zoom">
+    <item name="maxImageSize">34dp</item>
+  </style>
+
   <style name="MwmWidget.MapButton.Search">
     <item name="fabCustomSize">38dp</item>
   </style>
