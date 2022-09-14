@@ -17,8 +17,8 @@
     <item name="hoveredFocusedTranslationZ">0dp</item>
     <item name="pressedTranslationZ">0dp</item>
     <item name="android:tint">?iconTint</item>
-    <item name="fabCustomSize">48dp</item>
-    <item name="maxImageSize">28dp</item>
+    <item name="fabCustomSize">@dimen/map_button_size</item>
+    <item name="maxImageSize">@dimen/map_button_icon_size</item>
     <item name="borderWidth">0dp</item>
   </style>
 
