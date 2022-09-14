@@ -89,6 +89,9 @@
   <dimen name="elevation_profile_height">108dp</dimen>
   <dimen name="elevation_profile_half_height">54dp</dimen>
   <dimen name="elevation_profile_dot_levels_margin">3dp</dimen>
+  <dimen name="map_button_size">48dp</dimen>
+  <dimen name="map_button_icon_size">28dp</dimen>
+  <dimen name="map_button_arrow_icon_size">34dp</dimen>
 
   <!-- routing layout -->
   <dimen name="routing_info_height">48dp</dimen>
