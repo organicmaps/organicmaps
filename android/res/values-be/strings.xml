@@ -718,6 +718,9 @@
 
 	<!-- SECTION: Types -->
 	<string name="type.amenity.bicycle_parking">Велапаркоўка</string>
+	<string name="type.amenity.driving_school">Аўташкола</string>
+	<string name="type.amenity.music_school">Музычная школа</string>
+	<string name="type.amenity.language_school">Моўная школа</string>
 	<string name="type.amenity.fire_station">Пажарная частка</string>
 	<string name="type.amenity.fuel">АЗС</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
@@ -768,12 +771,26 @@
 	<string name="type.barrier.lift_gate">Шлагбаўм</string>
 	<string name="type.barrier.swing_gate">Шлагбаўм</string>
 	<string name="type.cemetery.grave">Магіла</string>
+	<string name="type.craft">Рамяство</string>
 	<string name="type.craft.beekeeper">Пчаляр</string>
 	<string name="type.craft.blacksmith">Кузня</string>
 	<string name="type.craft.brewery">Крафтавы бровар</string>
+	<string name="type.craft.carpenter">Цясляр</string>
+	<string name="type.craft.confectionery">Кандытар</string>
+	<string name="type.craft.electrician">Электрык</string>
+	<string name="type.craft.electronics_repair">Рамонт электронікі</string>
+	<string name="type.craft.gardener">Садоўнік</string>
+	<string name="type.craft.handicraft">Рамесніцтва</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Ацяпленне, вентыляцыя і кандыцыянаванне</string>
 	<string name="type.craft.metal_construction">Металаканструкцыі</string>
+	<string name="type.craft.painter">Мастак</string>
+	<string name="type.craft.photographer">Фатограф</string>
+	<string name="type.craft.plumber">Вадаправодчык</string>
+	<string name="type.craft.sawmill">Лесапільня</string>
+	<string name="type.craft.shoemaker">Шавец</string>
+	<string name="type.craft.winery">Вінакурня</string>
+	<string name="type.craft.tailor">Кравец</string>
 	<string name="type.cuisine.bubble_tea">Чай з бурбалкамі</string>
 	<string name="type.emergency.defibrillator">Дэфібрылятар</string>
 	<string name="type.emergency.fire_hydrant">Пажарны гідрант</string>

@@ -45,7 +45,9 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
                CategoryListCallback,
                OnItemClickListener<BookmarkCategory>,
                OnItemMoreClickListener<BookmarkCategory>,
-               OnItemLongClickListener<BookmarkCategory>, BookmarkManager.BookmarksSharingListener
+               OnItemLongClickListener<BookmarkCategory>,
+               BookmarkManager.BookmarksSharingListener,
+               MenuBottomSheetFragment.MenuBottomSheetInterface
 
 {
   private static final String TAG = BookmarkCategoriesFragment.class.getSimpleName();
@@ -54,6 +56,8 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
   static final int REQ_CODE_IMPORT_DIRECTORY = 103;
 
   private static final int MAX_CATEGORY_NAME_LENGTH = 60;
+
+  public static final String BOOKMARKS_CATEGORIES_MENU_ID = "BOOKMARKS_CATEGORIES_BOTTOM_SHEET";
 
   @Nullable
   private BookmarkCategory mSelectedCategory;
@@ -152,23 +156,36 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
   protected final void showBottomMenu(@NonNull BookmarkCategory item)
   {
     mSelectedCategory = item;
-    new MenuBottomSheetFragment(item.getName(), getMenuItems(item))
-            .show(getParentFragmentManager(), "bookmarkCategoriesBottomSheet");
+    MenuBottomSheetFragment.newInstance(BOOKMARKS_CATEGORIES_MENU_ID, item.getName())
+            .show(getChildFragmentManager(), BOOKMARKS_CATEGORIES_MENU_ID);
   }
 
-  private ArrayList<MenuBottomSheetItem> getMenuItems(@NonNull BookmarkCategory item)
+  @Override
+  @Nullable
+  public ArrayList<MenuBottomSheetItem> getMenuBottomSheetItems(String id)
   {
     ArrayList<MenuBottomSheetItem> items = new ArrayList<>();
-    items.add(new MenuBottomSheetItem(R.string.list_settings, R.drawable.ic_settings, () -> onSettingsActionSelected(item)));
-    items.add(new MenuBottomSheetItem(
-            item.isVisible() ? R.string.hide : R.string.show,
-            item.isVisible() ? R.drawable.ic_hide : R.drawable.ic_show,
-            () -> onShowActionSelected(item)));
-    items.add(new MenuBottomSheetItem(R.string.export_file, R.drawable.ic_share, () -> onShareActionSelected(item)));
-    // Disallow deleting the last category
-    if (getAdapter().getBookmarkCategories().size() > 1)
-      items.add(new MenuBottomSheetItem(R.string.delete, R.drawable.ic_delete, () -> onDeleteActionSelected(item)));
-
+    if (mSelectedCategory != null)
+    {
+      items.add(new MenuBottomSheetItem(
+          R.string.list_settings,
+          R.drawable.ic_settings,
+          () -> onSettingsActionSelected(mSelectedCategory)));
+      items.add(new MenuBottomSheetItem(
+          mSelectedCategory.isVisible() ? R.string.hide : R.string.show,
+          mSelectedCategory.isVisible() ? R.drawable.ic_hide : R.drawable.ic_show,
+          () -> onShowActionSelected(mSelectedCategory)));
+      items.add(new MenuBottomSheetItem(
+          R.string.export_file,
+          R.drawable.ic_share,
+          () -> onShareActionSelected(mSelectedCategory)));
+      // Disallow deleting the last category
+      if (getAdapter().getBookmarkCategories().size() > 1)
+        items.add(new MenuBottomSheetItem(
+            R.string.delete,
+            R.drawable.ic_delete,
+            () -> onDeleteActionSelected(mSelectedCategory)));
+    }
     return items;
   }
 

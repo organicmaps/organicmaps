@@ -1318,6 +1318,10 @@
 
 "type.amenity.driving_school" = "Køreskole";
 
+"type.amenity.music_school" = "Musikskolen";
+
+"type.amenity.language_school" = "Sprogskole";
+
 "type.office.diplomatic" = "Ambassade";
 
 "type.amenity.fast_food" = "Fastfood";
@@ -1605,25 +1609,25 @@
 
 "type.cemetery.grave" = "Grav";
 
-"type.craft" = "Craft";
+"type.craft" = "Håndværk";
 
-"type.craft.beekeeper" = "Beekeeper";
+"type.craft.beekeeper" = "Biavler";
 
-"type.craft.blacksmith" = "Blacksmith";
+"type.craft.blacksmith" = "Smed";
 
 "type.craft.brewery" = "Bryggeri";
 
 "type.craft.carpenter" = "Tømrer";
 
-"type.craft.confectionery" = "Confectionery";
+"type.craft.confectionery" = "Konfekture";
 
 "type.craft.electrician" = "Elektriker";
 
-"type.craft.electronics_repair" = "Electronics Repair";
+"type.craft.electronics_repair" = "Reparation af elektronik";
 
 "type.craft.gardener" = "Gartner";
 
-"type.craft.handicraft" = "Handicraft";
+"type.craft.handicraft" = "Kunsthåndværk";
 
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Blikkenslager";
@@ -1636,11 +1640,11 @@
 
 "type.craft.plumber" = "VVS-mand";
 
-"type.craft.sawmill" = "Sawmill";
+"type.craft.sawmill" = "Savværk";
 
 "type.craft.shoemaker" = "Skomager";
 
-"type.craft.winery" = "Winery";
+"type.craft.winery" = "Vingård";
 
 "type.craft.tailor" = "Skrædder";
 

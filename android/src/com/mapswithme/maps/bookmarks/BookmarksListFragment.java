@@ -53,13 +53,17 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
                BookmarkManager.BookmarksSortingListener,
                BookmarkManager.BookmarksLoadingListener,
                NativeBookmarkSearchListener,
-               ChooseBookmarksSortingTypeFragment.ChooseSortingTypeListener
+               ChooseBookmarksSortingTypeFragment.ChooseSortingTypeListener,
+               MenuBottomSheetFragment.MenuBottomSheetInterface
 {
   public static final String TAG = BookmarksListFragment.class.getSimpleName();
   public static final String EXTRA_CATEGORY = "bookmark_category";
   public static final String EXTRA_BUNDLE = "bookmark_bundle";
   private static final int INDEX_BOOKMARKS_COLLECTION_ADAPTER = 0;
   private static final int INDEX_BOOKMARKS_LIST_ADAPTER = 1;
+  private static final String BOOKMARKS_MENU_ID = "BOOKMARKS_MENU_BOTTOM_SHEET";
+  private static final String TRACK_MENU_ID = "TRACK_MENU_BOTTOM_SHEET";
+  private static final String OPTIONS_MENU_ID = "OPTIONS_MENU_BOTTOM_SHEET";
 
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
@@ -616,14 +620,14 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
 
       case BookmarkListAdapter.TYPE_BOOKMARK:
         final BookmarkInfo bookmark = (BookmarkInfo) adapter.getItem(mSelectedPosition);
-        new MenuBottomSheetFragment(bookmark.getName(), getBookmarkMenuItems())
-                .show(getParentFragmentManager(), "bookmarkBottomSheet");
+        MenuBottomSheetFragment.newInstance(BOOKMARKS_MENU_ID, bookmark.getName())
+                .show(getChildFragmentManager(), BOOKMARKS_MENU_ID);
         break;
 
       case BookmarkListAdapter.TYPE_TRACK:
         final Track track = (Track) adapter.getItem(mSelectedPosition);
-        new MenuBottomSheetFragment(track.getName(), getTrackMenuItems(track))
-            .show(getParentFragmentManager(), "trackBottomSheet");
+        MenuBottomSheetFragment.newInstance(TRACK_MENU_ID, track.getName())
+            .show(getChildFragmentManager(), TRACK_MENU_ID);
         break;
     }
   }
@@ -669,8 +673,8 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
 
     if (item.getItemId() == R.id.bookmarks_more)
     {
-      new MenuBottomSheetFragment(mCategoryDataSource.getData().getName(), getOptionsMenuItems())
-              .show(getParentFragmentManager(), "optionsBottomSheet");
+      MenuBottomSheetFragment.newInstance(OPTIONS_MENU_ID, mCategoryDataSource.getData().getName())
+              .show(getChildFragmentManager(), OPTIONS_MENU_ID);
       return true;
     }
 
@@ -811,5 +815,21 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     View loadingPlaceholder = root.findViewById(R.id.placeholder_loading);
     UiUtils.showIf(!isShowLoadingPlaceholder, root, R.id.show_on_map_fab);
     UiUtils.showIf(isShowLoadingPlaceholder, loadingPlaceholder);
+  }
+
+  @Override
+  @Nullable
+  public ArrayList<MenuBottomSheetItem> getMenuBottomSheetItems(String id)
+  {
+    if (id.equals(BOOKMARKS_MENU_ID))
+      return getBookmarkMenuItems();
+    if (id.equals(TRACK_MENU_ID))
+    {
+      final Track track = (Track) getBookmarkListAdapter().getItem(mSelectedPosition);
+      return getTrackMenuItems(track);
+    }
+    if (id.equals(OPTIONS_MENU_ID))
+      return getOptionsMenuItems();
+    return null;
   }
 }

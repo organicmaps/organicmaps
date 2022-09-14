@@ -701,6 +701,8 @@
 	<string name="type.amenity.doctors">개인병원</string>
 	<string name="type.amenity.drinking_water">음수대</string>
 	<string name="type.amenity.driving_school">운전학원</string>
+	<string name="type.amenity.music_school">음악 학교</string>
+	<string name="type.amenity.language_school">언어 학교</string>
 	<string name="type.office.diplomatic">대사관</string>
 	<string name="type.amenity.fast_food">패스트 푸드</string>
 	<string name="type.amenity.ferry_terminal">페리</string>
@@ -799,17 +801,25 @@
 	<string name="type.building.has_parts">건물</string>
 	<string name="type.building.train_station">기차역</string>
 	<string name="type.cemetery.grave">무덤</string>
+	<string name="type.craft">공예</string>
+	<string name="type.craft.beekeeper">양봉가</string>
+	<string name="type.craft.blacksmith">대장장이</string>
 	<string name="type.craft.brewery">양조장</string>
 	<string name="type.craft.carpenter">목수</string>
+	<string name="type.craft.confectionery">과자 장수</string>
 	<string name="type.craft.electrician">전기기술자</string>
+	<string name="type.craft.electronics_repair">전자제품 수리</string>
 	<string name="type.craft.gardener">조경사</string>
+	<string name="type.craft.handicraft">수예</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">냉난방기</string>
 	<string name="type.craft.metal_construction">금속공</string>
 	<string name="type.craft.painter">페인트공</string>
 	<string name="type.craft.photographer">사진작가</string>
 	<string name="type.craft.plumber">배관공</string>
+	<string name="type.craft.sawmill">제재소</string>
 	<string name="type.craft.shoemaker">구두수선</string>
+	<string name="type.craft.winery">포도주 양조장</string>
 	<string name="type.craft.tailor">양복점</string>
 	<string name="type.cuisine.african">아프리카식 음식</string>
 	<string name="type.cuisine.american">미국식 음식</string>

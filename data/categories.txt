@@ -8073,272 +8073,675 @@ mr:दूरसंचार कंपनी
 
 craft-beekeeper
 en:Beekeeper
-ru:Пчеловод
+ar:نحال
+be:Пчаляр
+bg:Пчелар
+cs:Včelař
+da:Biavler
+de:Imker
+el:Μελισσοκόμος
 es:Apicultor
+eu:Erlezaina
+fa:زنبوردار
+fi:Mehiläishoitaja
+fr:Apiculteur
+he:כוורן
+hu:Méhész
+id:Peternak lebah
+it:Apicoltore
+ja:養蜂家
+ko:양봉가
+mr:मधमाश्या पाळणारा
+nb:Birøkter
+nl:Imker
+pl:Pszczelarz
+pt:Apicultor
+ro:Apicultor
+ru:Пчеловод
+sk:Včelár
+sv:Biodlare
+sw:Mfugaji nyuki
+th:คนเลี้ยงผึ้ง
+tr:Arıcı
+uk:Бджоляр
+vi:Người nuôi ong
+zh-Hans:蜂农
+zh-Hant:蜂農
 
 craft-blacksmith
 en:Blacksmith
-ru:Кузнец
+ar:حداد
+be:Кузня
+bg:Ковачница
+cs:Kovář
+da:Smed
+de:Schmied
+el:Σιδηρουργός
 es:Herrero
+eu:Errementari
+fa:آهنگر
+fi:Seppä
+fr:Forgeron
+he:נַפָּח
+hu:Kovácsműhely
+id:Pandai Besi
+it:Fabbro
+ja:鍛冶屋
+ko:대장장이
+mr:लोहार
+nb:Smed
+nl:Smid
+pl:Kowal
+pt:Ferreiro
+ro:Fierar
+ru:Кузница|Кузнец
+sk:Kováč
+sv:Smedja
+sw:Mhunzi
+th:ช่างตีเหล็ก
+tr:Demirci
+uk:Кузня
+vi:Thợ rèn
+zh-Hans:铁匠
+zh-Hant:鐵匠
 
 craft-brewery
 en:Craft brewery|4Brewery|brew house|beer|beer bar|craft beer
-ru:5Пивоварня|пивзавод|производство пива|пивоваренный завод
-bg:пива|5пововарна
 ar:مصنع جعة
+be:Крафтавы бровар
+bg:пива|5пововарна
 cs:5Pivovar
 da:Bryggeri
-nl:Brouwerij|bier|ambachtelijk bier|brouwhuis
+de:4Brauerei|Brauhaus|Hausbrauerei|Bier|Bierausschank|Hausbräu
+el:Ζυθοποιείο
+es:Fábrica de cerveza|6cervecera
+eu:5Garagardotegia
+fa:کارخانه ابجوسازی
 fi:Panimo
 fr:Brasserie artisanale|Brasseur
-de:Brauerei|Brauhaus|Hausbrauerei|Bier|Bierausschank|Hausbräu
+he:מבשלה
 hu:Sörfőzde|sör
 id:Toko minuman
 it:4Birrificio
 ja:醸造所
 ko:전통 양조장|양조장
+mr:दारूभट्टी|आसवानी
 nb:Bryggeri
+nl:Brouwerij|bier|ambachtelijk bier|brouwhuis
 pl:Browar|piwo
-pt:6Cervejaria|Cervejeira
 pt-BR:6Cervejaria
+pt:6Cervejaria|Cervejeira
 ro:Berărie
-es:Fábrica de cerveza|6cervecera
-eu:5Garagardotegia
+ru:5Пивоварня|пивзавод|производство пива|пивоваренный завод
+sk:5Pivovar
 sv:Bryggeri
+sw:Kiwanda cha pombe
 th:โรงเบียร์|โรงผลิตเบียร์
 tr:Bira fabrikası
 uk:5Пивоварня|броварня
 vi:Nhà máy bia
 zh-Hans:酿酒厂
 zh-Hant:釀酒廠
-el:Ζυθοποιείο
-sk:5Pivovar
-fa:کارخانه ابجوسازی
-mr:दारूभट्टी|आसवानी
 
 craft-carpenter
 en:4Carpenter
-ru:4Столяр|столярная мастерская
-bg:4Дърводелство|дървар|
 ar:نجار
+be:Цясляр
+bg:4Дърводелство|дървар|
 cs:Truhlář
 da:Tømrer
-nl:4Timmerman|houtbewerker
+de:4Zimmermann
+el:Ξυλουργός
+es:5Carpintero
+eu:5Arotza
+fa:نجار
 fi:Puuseppä
 fr:Menuisier|charpentier
-de:4Zimmermann
+he:נגר
 hu:Ács
 id:Tukang kayu
 it:Falegname
 ja:大工
 ko:목수
+mr:सुतार|कार्पेंटर
 nb:Snekker
+nl:4Timmerman|houtbewerker
 pl:4Stolarz|cieśla
 pt:5Carpinteiro
-pt-BR:5Carpinteiro
 ro:Tâmplar
-es:5Carpintero
-eu:5Arotza
+ru:4Столяр|столярная мастерская
+sk:Tesár
 sv:Snickare
+sw:Seremala
 th:ช่างไม้
 tr:Marangoz
 uk:4Столяр|столярна майстерня
 vi:Thợ mộc
-zh-Hans:木工
+zh-Hans:木工|木匠
 zh-Hant:木工
-el:Ξυλουργός
-sk:Tesár
-fa:نجار
-mr:सुतार|कार्पेंटर
+
+craft-confectionery
+en:Confectionery
+ar:حلواني
+be:Кандытар
+bg:Сладкарски изделия
+cs:Cukrářské výrobky
+da:Konfekture
+de:Konditor
+el:Ζαχαροπλάστης
+es:Confitería
+eu:Gozogilea
+fa:قنادی
+fi:Kondiittori
+fr:Confiseur
+he:קוֹנדִיטוֹר
+hu:Cukrászda
+id:Penganan
+it:Pasticciere
+ja:菓子職人
+ko:과자 장수
+mr:हलवाई
+nb:Konditor
+nl:Banketbakkerij
+pl:Cukiernik
+pt:Confeitaria
+ro:Cofetar
+ru:Кондитер
+sk:Cukráreň
+sv:Konditor
+sw:Confectioner
+th:ลูกกวาด
+tr:Şekerlemeci
+uk:Кондитер
+vi:Người làm bánh kẹo
+zh-Hans:糖果商
+zh-Hant:糖果商
 
 craft-electrician
 en:4Electrician
-ru:4Электрик
-bg:4Електричар
 ar:كهربائي
+be:Электрык
+bg:4Електричар
 cs:4Elektrikář
 da:4Elektriker
-nl:4Elektricien
+de:4Elektriker
+el:Ηλεκτρολόγος
+es:4Electricista
+eu:4Elektrizista
+fa:برق کار
 fi:5Sähkömies
 fr:4Électricien
-de:4Elektriker
+he:חשמלאי
 hu:Villanyszerelő
 id:Tukang listrik
 it:4Elettricista
 ja:電気技師
 ko:전기기술자
+mr:इलेक्ट्रिशियन|विद्युत कामगार
 nb:4Elektriker
+nl:4Elektricien
 pl:4Elektryk
 pt:4Eletricista
-pt-BR:4Eletricista
 ro:4Electrician
-es:4Electricista
-eu:4Elektrizista
+ru:4Электрик
+sk:4Elektrikár
 sv:4Elektriker
+sw:Fundi umeme
 th:ช่างไฟฟ้า
 tr:4Elektrikçi
 uk:4Електрик
 vi:Thợ điện
 zh-Hans:电工
 zh-Hant:電工
-el:Ηλεκτρολόγος
-sk:4Elektrikár
-fa:برق کار
-mr:इलेक्ट्रिशियन|विद्युत कामगार
 
 craft-electronics_repair
 en:Electronics repair
+ar:إصلاح الإلكترونيات
+be:Рамонт электронікі
+bg:Ремонт на електроника
+cs:Opravy elektroniky
+da:Reparation af elektronik
+de:4Elektrogerätereparatur
+el:Επισκευή ηλεκτρονικών
+es:Reparación de aparatos electrónicos
+eu:Elektronika Konponketa
+fa:تعمیرات الکترونیک
+fi:Elektroniikan korjaus
+fr:Réparation d'appareils électroniques
+he:תיקון אלקטרוניקה
+hu:Elektronikai javítás
+id:Perbaikan Elektronik
+it:Riparazioni elettroniche
+ja:電子機器修理
+ko:전자제품 수리
+mr:इलेक्ट्रॉनिक्स दुरुस्ती
+nb:Elektronikk reparasjon
+nl:Electronica-reparatie
+pl:Naprawa elektroniki
+pt:Reparação electrónica
+pt-BR:Reparo de eletrônicos
+ro:Reparații electronice
 ru:Ремонт электроники
+sk:Oprava elektroniky
+sv:Reparation av elektronik
+sw:Urekebishaji wa Elektroniki
+th:ซ่อมเครื่องใช้ไฟฟ้า
+tr:Elektronik Tamircisi
+uk:Ремонт електроніки
+vi:Sửa chữa điện tử
+zh-Hans:电子产品维修
+zh-Hant:電子產品維修
+
+craft-gardener
+en:Gardener
+ar:مهندس مناظر
+be:Садоўнік
+bg:Градинар
+cs:Zahradník
+da:Gartner
+de:Landschaftsgärtner|Gärtnerei
+el:Κηπουρός
+es:Paisajista
+eu:Paisaia
+fa:باغبان
+fi:Puutarhuri
+fr:Paysagiste
+he:גנן
+hu:Kertész
+id:Tukang kebun
+it:Giardiniere
+ja:造園家
+ko:조경사
+mr:माळी
+nb:Anleggsgartner
+nl:Tuinarchitect
+pl:Ogrodnik
+pt:Jardineiro
+ro:Peisagist
+ru:Садовник
+sk:Záhradníctvo
+sv:Trädgårdsmästare
+sw:Mtunza bustani
+th:คนจัดสวน
+tr:Bahçe Düzenleyici
+uk:Садівник
+vi:Người thiết kế và xây dựng cảnh quan
+zh-Hans:园艺工
+zh-Hant:園藝師
 
 craft-handicraft
 en:Handicraft
-ru:Декоратор
+ar:مشغولات يدوية
+be:Рамесніцтва
+bg:Занаят
+cs:Ruční práce
+da:Kunsthåndværk
+de:Kunsthandwerk
+el:Χειροτεχνία
+es:Artesanía
+eu:Eskulangintza
+fa:صنایع دستی
+fi:Käsityö
+fr:Artisanat
+he:אומנות
+hu:Kézművesség
+id:Kriya
+it:Artigiano
+ja:手芸
+ko:수예
+mr:हस्तकला
+nb:Kunsthåndverk
+nl:Handwerk
+pl:Rzemiosło artystyczne
+pt:Artesanato
+ro:Tehnici de lucru manual
+ru:Ремесленная мастерская|Декоратор
+sk:Ručné práce
+sv:Konsthantverk
+sw:Kazi za mikono
+th:หัตถกรรม
+tr:El İşi
+uk:Народні художні промисли
+vi:Thủ công mỹ nghệ
+zh-Hans:手工艺
+zh-Hant:手工藝
+
+craft-hvac
+en:HVAC
+ar:تكييف
+be:Ацяпленне, вентыляцыя і кандыцыянаванне
+bg:Отопление, вентилация и климатизация
+cs:HVAC
+da:Blikkenslager
+de:Heizung, Lüftung und Klimatisierung
+el:Ψυκτικός
+es:Aire acondicionado
+eu:Aire girotua
+fa:گرمایش و تهویه‌هوا
+fi:Ilmastointilaite
+fr:Chauffage, ventilation et climatisation
+he:חימום, אוורור ומיזוג אוויר
+hu:Hűtés-fűtés szerelő
+id:HVAC
+it:Impianti HVAC
+ja:冷暖房空調
+ko:냉난방기
+nb:Klimaanlegg
+nl:Airconditioning
+pl:Klimatyzacja
+pt:Instalador de ar-condicionado
+pt-BR:Aquecimento, Ventilação e Ar Condicionado
+ro:Încălzire, ventilație și aer condiționat
+ru:Отопление, вентиляция и кондиционирование
+sk:Vzduchotechnika
+sv:Vvs
+sw:Kiyoyozi
+th:ระบบปรับอากาศ
+tr:Klimacı
+uk:Опалення, вентиляція та кондиціювання повітря
+vi:Điều hòa nhiệt độ
+zh-Hans:暖通工程师
+zh-Hant:空調設備
 
 craft-metal_construction
 en:5Metal Worker
-ru:5Металлоконструкции|кузнец
+ar:عامل معادن
 be:5Металаканструкцыі
 bg:5Метални конструкции|металургия|ковач|метал|занаят
-ar:عامل معادن
 cs:Kovodílna
 da:5Metalarbejder
-nl:5Metaalarbeider
+de:Schlosser
+el:5Μεταλλουργός
+es:Trabajador del metal
+eu:Metalgintzako langilea
+fa:اهن کار
 fi:5Metallimies
 fr:5Métallo|métallurgiste
-de:Schlosser
+he:עובד מתכת
 hu:Lakatos|szerelő
 id:Tukang besi
 it:Fabbro
 ja:金属工
 ko:철공사|금속공
+mr:मेटल वर्कर
 nb:5Metallarbeider
+nl:5Metaalarbeider
 pl:Kowal|obróbka metali
-pt:Serralheiro mecânico|Metalúrgico
 pt-BR:Serralheiro|metalúrgico
+pt:Serralheiro mecânico|Metalúrgico
 ro:5Metalurgist
-es:Trabajador del metal
-eu:Metalgintzako langilea
+ru:5Металлоконструкции|кузнец
+sk:Kovorobotník|kovospracovanie
 sv:5Metallarbetare
+sw:Mfanyikazi wa chuma
 th:ช่างเหล็ก
 tr:Dökümcü|metal işleri
 uk:5Металоконструкції|Кування металу|ковальня
 vi:Nhà kim khí
 zh-Hans:金属制造工
 zh-Hant:鐵工
-el:5Μεταλλουργός
-sk:Kovorobotník|kovospracovanie
-fa:اهن کار
-mr:मेटल वर्कर
+
+en:Painter
+ar:رسام
+be:Мастак
+bg:Художник
+cs:Malíř
+da:Maler
+de:Maler
+el:Μπογιατζής
+es:Pintor
+eu:Margolaria
+fa:نقاش
+fi:Maalari
+fr:Peintre
+he:צייר
+hu:Festő
+id:Tukang cat
+it:Imbianchino
+ja:塗装工
+ko:페인트공
+mr:चित्रकार
+nb:Maler
+nl:Schilder
+pl:Malarz
+pt:Pintor
+ro:Pictor
+ru:Маляр
+sk:Maliar natierač
+sv:Målare
+sw:Mchoraji
+th:ช่างทาสี
+tr:Boyacı
+uk:Маляр
+vi:Họa sỹ
+zh-Hans:油漆匠
+zh-Hant:油漆工
 
 craft-photographer
 en:4Photographer|photography Studio
-ru:4Фотограф|фотоателье|фотостудия
-bg:4фотограф|албум|снимка|студио
 ar:مصور فوتوغرافي|استوديو تصوير
+be:Фатограф
+bg:4фотограф|албум|снимка|студио
 cs:4Fotograf|fotografické studio
 da:4Fotograf|studio
-nl:4Fotograaf|fotografie studio
+de:4Fotograf|Fotostudio
+el:Φωτογράφος|Στούντιο φωτογραφίας
+es:4Fotógrafo|estudio de fotografía
+eu:4Argazkilaria|argazki estudioa
+fa:عکاس
 fi:Valokuvaaja
 fr:4Photographe|studio photographique
-de:4Fotograf|Fotostudio
+he:צלם
 hu:Fényképész|fényképész stúdió
 id:Juru foto
 it:4Fotografo|studio di fotografia
 ja:写真家|写真撮影スタジオ
 ko:사진작가|사진가|사진 스튜디오
+mr:छायाचित्रकार|फोटोग्राफर
 nb:4Fotograf|fotostudio
+nl:4Fotograaf|fotografie studio
 pl:Studio fotograficzne|3fotograf
 pt:4Fotógrafo|estúdio de fotografia
-pt-BR:4Fotógrafo|estúdio de fotografia
 ro:4Fotograf|studio de fotografie
-es:4Fotógrafo|estudio de fotografía
-eu:4Argazkilaria|argazki estudioa
+ru:4Фотограф|фотоателье|фотостудия
+sk:4Fotograf|fotoateliér
 sv:4Fotograf|fotostudio
+sw:Mpiga picha
 th:ช่างภาพ|สตูดิโอถ่ายภาพ
 tr:Fotoğraf stüdyosu|4Fotoğrafçı
 uk:4Фотограф|фотостудія
 vi:Thợ chụp ảnh
 zh-Hans:摄影师
 zh-Hant:攝影師
-el:Φωτογράφος|Στούντιο φωτογραφίας
-sk:4Fotograf|fotoateliér
-fa:عکاس
-mr:छायाचित्रकार|फोटोग्राफर
+
+craft-plumber
+en:Plumber
+ar:سمكري
+be:Вадаправодчык
+bg:Водопроводчик
+cs:Instalatér
+da:VVS-mand
+de:Installateur
+el:Υδραυλικός
+es:Fontanero
+eu:Iturgina
+fa:لوله کش
+fi:Putkimies
+fr:Plombier
+he:שרברב
+hu:Vízvezeték-szerelő
+id:Tukang pipa
+it:Idraulico
+ja:配管工
+ko:배관공
+mr:नळकामगार
+nb:Rørlegger
+nl:Loodgieter
+pl:Hydraulik
+pt:Picheleiro
+pt-BR:Encanador
+ro:Instalator
+ru:Сантехник
+sk:Klampiarstvo
+sv:Vvs-montör
+sw:Fundi bomba
+th:ช่างประปา
+tr:Tesisatçı
+uk:Сантехнік
+vi:Thợ đường ống
+zh-Hans:管道工
+zh-Hant:水管工人
+
+craft-sawmill
+en:Sawmill
+ar:منشرة
+be:Лесапільня
+bg:Дъскорезница
+cs:Pila
+da:Savværk
+de:Sägewerk
+el:Πριστήριο
+es:Serrería
+eu:Zerrategi
+fa:کارخانه چوب‌بری
+fi:Saha
+fr:Scierie
+he:מנסרה
+hu:Fűrészmalom
+id:Penggergajian kayu
+it:Segheria
+ja:製材所
+ko:제재소
+mr:सुमेल
+nb:Sagbruk
+nl:Zagerij
+pl:Tartak
+pt:Serraria
+ro:Fabrica de cherestea
+ru:Лесопилка
+sk:Píla
+sv:Sågverk
+sw:Sumel
+th:ซูเมล
+tr:Kereste Fabrikası
+uk:Лісопильня
+vi:Sumel
+zh-Hans:锯木厂
+zh-Hant:鋸木廠
 
 craft-shoemaker
 en:4Shoe Repair|shoe maker
-ru:4Ремонт обуви|обувь|4обувная мастерская
-bg:ремонт|обувки|майстор
 ar:تصليح الاحذية
+be:Шавец
+bg:ремонт|обувки|майстор
 cs:Opravna obuvi
 da:Skomager|skoreparation
-nl:Schoenmaker|schoenmakerij
+de:Schuhreparatur|4Schuhmacher|Schuster
+el:Υποδηματοποιός|τσαγκάρης
+es:5Zapatero|zapatería
+eu:5Zapatari
+fa:کفاش
 fi:Suutari
 fr:Cordonnier
-de:Schuhreparatur|4Schuhmacher|Schuster
+he:סנדלר
 hu:Cipész
 id:Tukang sepatu
 it:Calzolaio|Riparazione di calzature
 ja:靴修理
 ko:구두수선
+mr:चांभार
 nb:Skoreparasjon
+nl:Schoenmaker|schoenmakerij
 pl:Szewc|naprawa butów|obuwie
-pt:5Sapateiro
 pt-BR:5Sapateiro
+pt:5Sapateiro
 ro:Reparații încălțăminte
-es:5Zapatero|zapatería
-eu:5Zapatari
+ru:4Ремонт обуви|обувь|4обувная мастерская
+sk:Oprava obuvy
 sv:Skomakare
+sw:Mtengeneza viatu
 th:ช่างซ่อมรองเท้า
 tr:Ayakkabı tamircisi
 uk:4Ремонт взуття|взуття
 vi:Sửa giày
 zh-Hans:修鞋匠
 zh-Hant:修鞋工
-el:Υποδηματοποιός|τσαγκάρης
-sk:Oprava obuvy
-fa:کفاش
-mr:चांभार
 
 craft-winery
 en:4Winery|Wine
-ru:4Винодельня|Вино
+ar:مصنع الخمرة
+be:Вінакурня
+bg:Винарна
+cs:Vinařství
+da:Vingård
+de:4Weingut
+el:Οινοποιείο
 es:4Bodega|Vino
+eu:Upategi
+fa:شراب‌خانه
+fi:Viinitila
+fr:Chai
+he:יקב
+hu:Pincészet
+id:Kilang Anggur
+it:Casa vinicola
+ja:ワイナリー
+ko:포도주 양조장
+mr:वाइनरी
+nb:Vingård
+nl:Wijnhandel
+pl:Winiarnia
+pt:Adega
+pt-BR:Vinícola
+ro:Vinărie
+ru:4Винодельня|Вино
+sk:Vinárstvo
+sv:Vineri
+sw:Mvinyo
+th:โรงกลั่นเหล้าองุ่น
+tr:Şaraphane
+uk:Виноробний завод
+vi:Nhà máy rượu
+zh-Hans:酒庄
+zh-Hant:酒莊
 
 craft-tailor
 en:4Tailor|clothes alteration|alterations
-ru:4Ателье|портной|4ремонт одежды|швейная мастерская|5пошив одежды
-bg:шивач|4ателие|ремонт|дрехи|майстор
 ar:خياط|ترزي
+be:Кравец
+bg:шивач|4ателие|ремонт|дрехи|майстор
 cs:Krejčí
 da:Skrædder
-nl:Kleermaker|kledingreparatie
+de:4Schneider
+el:Ράφτης|ράπτης
+es:Sastre|sastrería
+eu:Jostun|jantzi
+fa:خیاطی
 fi:Räätäli
 fr:5Tailleur
-de:Schneider
+he:חייט
 hu:Szabó
 id:Tukang jahit
 it:Sarto
 ja:仕立て屋
 ko:양복점|재단사|정장맞춤
+mr:शिंपी|टेलर
 nb:Skredder
+nl:Kleermaker|kledingreparatie
 pl:Krawiec
-pt:Alfaiate
 pt-BR:Alfaiate|costureiro|conserto de roupas
+pt:Alfaiate
 ro:Croitor
-es:Sastre|sastrería
-eu:Jostun|jantzi
+ru:4Ателье|портной|4ремонт одежды|швейная мастерская|5пошив одежды
+sk:Krajčírstvo
 sv:Skräddare
+sw:Mshonaji nguo
 th:ช่างตัดเสื้อ
 tr:Terzi
 uk:4Ательє|4Ремонт одягу|швейна майстерня
 vi:Thợ may
 zh-Hans:裁缝
 zh-Hant:裁縫師
-el:Ράφτης|ράπτης
-sk:Krajčírstvo
-fa:خیاطی
-mr:शिंपी|टेलर
 
 area:highway-footway|area:highway-pedestrian|area:highway-steps|place-square
 en:Square
@@ -10823,9 +11226,9 @@ zh-Hant:啤酒花園
 
 amenity-driving_school
 en:4Driving School
-ru:4Автошкола|курсы вождения
-bg:4Автошкола|шофьорски курсове
 ar:مدرسة قيادة
+be:Аўташкола
+bg:4Автошкола|шофьорски курсове
 cs:4Autoškola
 da:Køreskole
 de:Fahrschule
@@ -10844,6 +11247,7 @@ nl:Rijschool
 pl:Szkoła jazdy
 pt:Escola de condução
 pt-BR:4Autoescola|CFC
+ru:4Автошкола|курсы вождения
 ro:Școală de șoferi
 sk:4Autoškola
 sv:Körskola
@@ -10856,6 +11260,78 @@ zh-Hans:驾校
 zh-Hant:駕訓班
 fa:اموزشگاه رانندگی
 mr:चालकशाळा|ड्रायव्हिंग स्कूल
+
+amenity-music_school
+en:Music School
+ar:ﻰﻘﻴﺳﻮﻣ ﺔﺳﺭﺪﻣ
+be:Музычная школа
+bg:Музикално училище
+cs:Hudební škola
+da:Musikskolen
+de:Musikschule
+el:Μουσική Σχολή
+es:Escuela de música
+eu:Musika Eskola
+fa:ﯽﻘﯿﺳﻮﻣ ﻩﺎﮕﺷﺯﻮﻣﺁ
+fi:Musiikkikoulu
+fr:École de musique
+he:הקיזומל רפס תיב
+hu:Zeneiskola
+id:Sekolah musik
+it:Scuola di Musica
+ja:音楽学校
+ko:음악 학교
+nb:Musikkskole
+nl:Muziekschool
+pl:Szkoła Muzyczna
+pt:Escola de música
+ro:Scoala de Muzica
+ru:Музыкальная школа
+sk:Hudobná škola
+sv:Musikskola
+sw:Shule ya Muziki
+th:โรงเรียนดนตรี
+tr:Müzik Okulu
+uk:Музична школа ім
+vi:Trường âm nhạc
+zh-Hans:音乐学校
+zh-Hant:音樂學校
+
+amenity-language_school
+en:Language School
+ar:ﺔﻐﻟ ﺔﺳﺭﺪﻣ
+be:Моўная школа
+bg:Езиково училище
+cs:Jazyková škola
+da:Sprogskole
+de:Sprachschule
+el:Σχολή Γλωσσών
+es:Escuela de idiomas
+eu:Hizkuntza Eskola
+fa:ﻥﺎﺑﺯ ﻪﺳﺭﺪﻣ
+fi:Kielikoulu
+fr:École de langue
+he:תופשל רפס תיב
+hu:Nyelviskola
+id:Sekolah bahasa
+it:Scuola di lingue
+ja:語学学校
+ko:언어 학교
+nb:Språkskole
+nl:Taalschool
+pl:Szkoła językowa
+pt:Escola de idiomas
+ro:Școala de limbi străine
+ru:Языковая школа
+sk:Jazyková škola
+sv:Språkskola
+sw:Shule ya Lugha
+th:โรงเรียนภาษา
+tr:Dil Okulu
+uk:Мовна школа
+vi:Ngôn ngữ Trường học
+zh-Hans:语言学校
+zh-Hant:語言學校
 
 amenity-ice_cream
 en:3Ice Cream|Gelato

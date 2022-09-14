@@ -877,19 +877,11 @@
 	<string name="type.building.train_station">Estação de trem</string>
 	<string name="type.building.warehouse">Armazém</string>
 	<string name="type.cemetery.grave">Túmulo</string>
-	<string name="type.craft">Ofícios</string>
-	<string name="type.craft.brewery">Cervejaria artesanal</string>
-	<string name="type.craft.carpenter">Carpinteiro</string>
-	<string name="type.craft.electrician">Eletricista</string>
-	<string name="type.craft.gardener">Jardineiro</string>
+	<string name="type.craft.electronics_repair">Reparo de eletrônicos</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
-	<string name="type.craft.hvac">Ar-condicionado</string>
-	<string name="type.craft.metal_construction">Serralheiro metálico</string>
-	<string name="type.craft.painter">Pintor</string>
-	<string name="type.craft.photographer">Fotógrafo</string>
+	<string name="type.craft.hvac">Aquecimento, Ventilação e Ar Condicionado</string>
 	<string name="type.craft.plumber">Encanador</string>
-	<string name="type.craft.shoemaker">Sapateiro</string>
-	<string name="type.craft.tailor">Alfaiate</string>
+	<string name="type.craft.winery">Vinícola</string>
 	<string name="type.cuisine.african">Cozinha africana</string>
 	<string name="type.cuisine.american">Cozinha americana</string>
 	<string name="type.cuisine.arab">Cozinha árabe</string>

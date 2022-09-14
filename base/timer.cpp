@@ -22,6 +22,8 @@ namespace base
 // static
 double Timer::LocalTime()
 {
+  /// @todo duration_cast<seconds>(system_clock::now().time_since_epoch()).count() ?
+
 #ifdef OMIM_OS_WINDOWS_NATIVE
   FILETIME ft;
   GetSystemTimeAsFileTime(&ft);

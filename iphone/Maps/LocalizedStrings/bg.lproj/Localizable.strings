@@ -1316,7 +1316,11 @@
 
 "type.amenity.drinking_water" = "Drinking Water";
 
-"type.amenity.driving_school" = "Driving School";
+"type.amenity.driving_school" = "Автошкола";
+
+"type.amenity.music_school" = "Музикално училище";
+
+"type.amenity.language_school" = "Езиково училище";
 
 "type.office.diplomatic" = "Embassy";
 
@@ -1605,44 +1609,44 @@
 
 "type.cemetery.grave" = "Гроб";
 
-"type.craft" = "Craft";
+"type.craft" = "Занаяти";
 
-"type.craft.beekeeper" = "Beekeeper";
+"type.craft.beekeeper" = "Пчелар";
 
-"type.craft.blacksmith" = "Blacksmith";
+"type.craft.blacksmith" = "Ковачница";
 
-"type.craft.brewery" = "Craft Brewery";
+"type.craft.brewery" = "Пивоварна";
 
-"type.craft.carpenter" = "Carpenter";
+"type.craft.carpenter" = "Марангоз";
 
-"type.craft.confectionery" = "Confectionery";
+"type.craft.confectionery" = "Сладкарски изделия";
 
-"type.craft.electrician" = "Electrician";
+"type.craft.electrician" = "Електротехник";
 
-"type.craft.electronics_repair" = "Electronics Repair";
+"type.craft.electronics_repair" = "Ремонт на електроника";
 
-"type.craft.gardener" = "Gardener";
+"type.craft.gardener" = "Градинар";
 
-"type.craft.handicraft" = "Handicraft";
+"type.craft.handicraft" = "Занаят";
 
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Отопление, вентилация и климатизация";
 
 "type.craft.metal_construction" = "Метални конструкции";
 
-"type.craft.painter" = "Painter";
+"type.craft.painter" = "Художник";
 
-"type.craft.photographer" = "Photographer";
+"type.craft.photographer" = "Фотограф";
 
-"type.craft.plumber" = "Plumber";
+"type.craft.plumber" = "Водопроводчик";
 
-"type.craft.sawmill" = "Sawmill";
+"type.craft.sawmill" = "Дъскорезница";
 
-"type.craft.shoemaker" = "Shoe Repair";
+"type.craft.shoemaker" = "Обущар";
 
-"type.craft.winery" = "Winery";
+"type.craft.winery" = "Винарна";
 
-"type.craft.tailor" = "Tailor";
+"type.craft.tailor" = "Шивач";
 
 "type.cuisine.african" = "African";
 

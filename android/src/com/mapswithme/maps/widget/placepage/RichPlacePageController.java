@@ -20,8 +20,10 @@ import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.LocationListener;
 import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.bottomsheet.MenuBottomSheetItem;
 import com.mapswithme.util.log.Logger;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class RichPlacePageController implements PlacePageController, LocationListener,
@@ -142,6 +144,13 @@ public class RichPlacePageController implements PlacePageController, LocationLis
   public int getPlacePageWidth()
   {
     return mPlacePage.getWidth();
+  }
+
+  @Override
+  @Nullable
+  public ArrayList<MenuBottomSheetItem> getMenuBottomSheetItems()
+  {
+    return mPlacePage.getMenuBottomSheetItems();
   }
 
   @Override

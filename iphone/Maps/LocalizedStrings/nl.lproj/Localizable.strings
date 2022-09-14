@@ -1318,6 +1318,10 @@
 
 "type.amenity.driving_school" = "Rijschool";
 
+"type.amenity.music_school" = "Muziekschool";
+
+"type.amenity.language_school" = "Taalschool";
+
 "type.office.diplomatic" = "Ambassade";
 
 "type.amenity.fast_food" = "Fast food";

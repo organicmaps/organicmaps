@@ -702,6 +702,8 @@
 	<string name="type.amenity.doctors">Lægekontor</string>
 	<string name="type.amenity.drinking_water">Vand</string>
 	<string name="type.amenity.driving_school">Køreskole</string>
+	<string name="type.amenity.music_school">Musikskolen</string>
+	<string name="type.amenity.language_school">Sprogskole</string>
 	<string name="type.office.diplomatic">Ambassade</string>
 	<string name="type.amenity.fast_food">Fastfood</string>
 	<string name="type.amenity.ferry_terminal">Færge</string>
@@ -794,17 +796,25 @@
 	<string name="type.building.has_parts">Bygning</string>
 	<string name="type.building.train_station">Togstation</string>
 	<string name="type.cemetery.grave">Grav</string>
+	<string name="type.craft">Håndværk</string>
+	<string name="type.craft.beekeeper">Biavler</string>
+	<string name="type.craft.blacksmith">Smed</string>
 	<string name="type.craft.brewery">Bryggeri</string>
 	<string name="type.craft.carpenter">Tømrer</string>
+	<string name="type.craft.confectionery">Konfekture</string>
 	<string name="type.craft.electrician">Elektriker</string>
+	<string name="type.craft.electronics_repair">Reparation af elektronik</string>
 	<string name="type.craft.gardener">Gartner</string>
+	<string name="type.craft.handicraft">Kunsthåndværk</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Blikkenslager</string>
 	<string name="type.craft.metal_construction">Metalarbejder</string>
 	<string name="type.craft.painter">Maler</string>
 	<string name="type.craft.photographer">Fotograf</string>
 	<string name="type.craft.plumber">VVS-mand</string>
+	<string name="type.craft.sawmill">Savværk</string>
 	<string name="type.craft.shoemaker">Skomager</string>
+	<string name="type.craft.winery">Vingård</string>
 	<string name="type.craft.tailor">Skrædder</string>
 	<string name="type.cuisine.african">Afrikansk</string>
 	<string name="type.cuisine.american">Amerikansk</string>

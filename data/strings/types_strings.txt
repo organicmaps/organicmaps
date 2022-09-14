@@ -1292,6 +1292,8 @@
   [type.amenity.driving_school]
     en = Driving School
     ar = مدرسة قيادة
+    be = Аўташкола
+    bg = Автошкола
     cs = Autoškola
     da = Køreskole
     de = Fahrschule
@@ -1322,6 +1324,78 @@
     vi = Trường lái xe
     zh-Hans = 驾校
     zh-Hant = 駕訓班
+
+  [type.amenity.music_school]
+    en = Music School
+    ar = ﻰﻘﻴﺳﻮﻣ ﺔﺳﺭﺪﻣ
+    be = Музычная школа
+    bg = Музикално училище
+    cs = Hudební škola
+    da = Musikskolen
+    de = Musikschule
+    el = Μουσική Σχολή
+    es = Escuela de música
+    eu = Musika Eskola
+    fa = ﯽﻘﯿﺳﻮﻣ ﻩﺎﮕﺷﺯﻮﻣﺁ
+    fi = Musiikkikoulu
+    fr = École de musique
+    he = הקיזומל רפס תיב
+    hu = Zeneiskola
+    id = Sekolah musik
+    it = Scuola di Musica
+    ja = 音楽学校
+    ko = 음악 학교
+    nb = Musikkskole
+    nl = Muziekschool
+    pl = Szkoła Muzyczna
+    pt = Escola de música
+    ro = Scoala de Muzica
+    ru = Музыкальная школа
+    sk = Hudobná škola
+    sv = Musikskola
+    sw = Shule ya Muziki
+    th = โรงเรียนดนตรี
+    tr = Müzik Okulu
+    uk = Музична школа ім
+    vi = Trường âm nhạc
+    zh-Hans = 音乐学校
+    zh-Hant = 音樂學校
+
+  [type.amenity.language_school]
+    en = Language School
+    ar = ﺔﻐﻟ ﺔﺳﺭﺪﻣ
+    be = Моўная школа
+    bg = Езиково училище
+    cs = Jazyková škola
+    da = Sprogskole
+    de = Sprachschule
+    el = Σχολή Γλωσσών
+    es = Escuela de idiomas
+    eu = Hizkuntza Eskola
+    fa = ﻥﺎﺑﺯ ﻪﺳﺭﺪﻣ
+    fi = Kielikoulu
+    fr = École de langue
+    he = תופשל רפס תיב
+    hu = Nyelviskola
+    id = Sekolah bahasa
+    it = Scuola di lingue
+    ja = 語学学校
+    ko = 언어 학교
+    nb = Språkskole
+    nl = Taalschool
+    pl = Szkoła językowa
+    pt = Escola de idiomas
+    ro = Școala de limbi străine
+    ru = Языковая школа
+    sk = Jazyková škola
+    sv = Språkskola
+    sw = Shule ya Lugha
+    th = โรงเรียนภาษา
+    tr = Dil Okulu
+    uk = Мовна школа
+    vi = Ngôn ngữ Trường học
+    zh-Hans = 语言学校
+    zh-Hant = 語言學校
 
   [type.office.diplomatic]
     en = Embassy
@@ -4983,46 +5057,120 @@
 
   [type.craft]
     en = Craft
+    ar = حرفة
+    be = Рамяство
+    bg = Занаяти
+    cs = Řemeslo
+    da = Håndværk
+    de = Handwerk
+    el = Τεχνική
     es = Gremios
+    eu = Artisautza
+    fa = صنعت‌گری
+    fi = Käsityö
     fr = Artisanat
+    he = מְלָאכָה
+    hu = Kézművesség
+    id = Kerajinan
     it = Artigianato
     ja = 工房
+    ko = 공예
     mr = हस्तकला
+    nb = Håndverk
     nl = Ambacht
     pl = Rzemiosło
     pt = Ofícios
-    pt-BR = Ofícios
+    ro = Meșteșuguri
     ru = Мастерская
+    sk = Remeslo
+    sv = Hantverk
+    sw = Ufundi
+    th = งานฝีมือ
     tr = Zanaat
     uk = Майстерня
+    vi = Thủ công
     zh-Hans = 工艺作坊
+    zh-Hant = 工藝作坊
 
   [type.craft.beekeeper]
     en = Beekeeper
+    ar = نحال
     be = Пчаляр
+    bg = Пчелар
+    cs = Včelař
+    da = Biavler
+    de = Imker
+    el = Μελισσοκόμος
     es = Apicultor
+    eu = Erlezaina
+    fa = زنبوردار
+    fi = Mehiläishoitaja
     fr = Apiculteur
+    he = כוורן
+    hu = Méhész
+    id = Peternak lebah
     it = Apicoltore
+    ja = 養蜂家
+    ko = 양봉가
+    mr = मधमाश्या पाळणारा
+    nb = Birøkter
     nl = Imker
+    pl = Pszczelarz
+    pt = Apicultor
+    ro = Apicultor
     ru = Пчеловод
+    sk = Včelár
+    sv = Biodlare
+    sw = Mfugaji nyuki
+    th = คนเลี้ยงผึ้ง
     tr = Arıcı
     uk = Бджоляр
+    vi = Người nuôi ong
+    zh-Hans = 蜂农
+    zh-Hant = 蜂農
 
   [type.craft.blacksmith]
     en = Blacksmith
+    ar = حداد
     be = Кузня
+    bg = Ковачница
+    cs = Kovář
+    da = Smed
+    de = Schmied
+    el = Σιδηρουργός
     es = Herrero
+    eu = Errementari
+    fa = آهنگر
+    fi = Seppä
     fr = Forgeron
+    he = נַפָּח
+    hu = Kovácsműhely
+    id = Pandai Besi
     it = Fabbro
+    ja = 鍛冶屋
+    ko = 대장장이
+    mr = लोहार
+    nb = Smed
     nl = Smid
+    pl = Kowal
+    pt = Ferreiro
+    ro = Fierar
     ru = Кузница
+    sk = Kováč
+    sv = Smedja
+    sw = Mhunzi
+    th = ช่างตีเหล็ก
     tr = Demirci
     uk = Кузня
+    vi = Thợ rèn
+    zh-Hans = 铁匠
+    zh-Hant = 鐵匠
 
   [type.craft.brewery]
     en = Craft Brewery
     ar = مصنع جعة
     be = Крафтавы бровар
+    bg = Пивоварна
     cs = Pivovar
     da = Bryggeri
     de = Brauerei
@@ -5032,6 +5180,7 @@
     fa = کارخانه ابجوسازی
     fi = Panimo
     fr = Brasserie artisanale
+    he = מבשלה
     hu = Sörfőzde
     id = Toko minuman
     it = Birrificio
@@ -5042,11 +5191,11 @@
     nl = Brouwerij
     pl = Browar
     pt = Cervejaria artesanal
-    pt-BR = Cervejaria artesanal
     ro = Berărie
     ru = Крафтовая пивоварня
     sk = Pivovar
     sv = Bryggeri
+    sw = Kiwanda cha pombe
     th = โรงเบียร์
     tr = Bira Fabrikası
     uk = Крафтова пивоварня
@@ -5057,6 +5206,8 @@
   [type.craft.carpenter]
     en = Carpenter
     ar = نجار
+    be = Цясляр
+    bg = Марангоз
     cs = Truhlář
     da = Tømrer
     de = Zimmermann
@@ -5066,6 +5217,7 @@
     fa = نجار
     fi = Puuseppä
     fr = Charpentier
+    he = נגר
     hu = Ács
     id = Tukang kayu
     it = Falegname
@@ -5076,11 +5228,11 @@
     nl = Timmerman
     pl = Stolarz
     pt = Carpinteiro
-    pt-BR = Carpinteiro
     ro = Tâmplar
     ru = Столяр
     sk = Tesár
     sv = Snickare
+    sw = Seremala
     th = ช่างไม้
     tr = Marangoz
     uk = Столяр
@@ -5090,14 +5242,46 @@
 
   [type.craft.confectionery]
     en = Confectionery
+    ar = حلواني
+    be = Кандытар
+    bg = Сладкарски изделия
+    cs = Cukrářské výrobky
+    da = Konfekture
+    de = Konditor
+    el = Ζαχαροπλάστης
     es = Confitería
+    eu = Gozogilea
+    fa = قنادی
+    fi = Kondiittori
     fr = Confiseur
+    he = קוֹנדִיטוֹר
+    hu = Cukrászda
+    id = Penganan
+    it = Pasticciere
+    ja = 菓子職人
+    ko = 과자 장수
+    mr = हलवाई
+    nb = Konditor
     nl = Banketbakkerij
+    pl = Cukiernik
+    pt = Confeitaria
+    ro = Cofetar
     ru = Кондитер
+    sk = Cukráreň
+    sv = Konditor
+    sw = Confectioner
+    th = ลูกกวาด
+    tr = Şekerlemeci
+    uk = Кондитер
+    vi = Người làm bánh kẹo
+    zh-Hans = 糖果商
+    zh-Hant = 糖果商
 
   [type.craft.electrician]
     en = Electrician
     ar = كهربائي
+    be = Электрык
+    bg = Електротехник
     cs = Elektrikář
     da = Elektriker
     de = Elektriker
@@ -5107,6 +5291,7 @@
     fa = برق کار
     fi = Sähkömies
     fr = Électricien
+    he = חשמלאי
     hu = Villanyszerelő
     id = Tukang listrik
     it = Elettricista
@@ -5117,10 +5302,11 @@
     nl = Elektricien
     pl = Elektryk
     pt = Eletricista
-    pt-BR = Eletricista
+    ro = Electrician
     ru = Электрик
     sk = Elektrikár
     sv = Elektriker
+    sw = Fundi umeme
     th = ช่างไฟฟ้า
     tr = Elektrikçi
     uk = Електрик
@@ -5130,16 +5316,47 @@
 
   [type.craft.electronics_repair]
     en = Electronics Repair
+    ar = إصلاح الإلكترونيات
+    be = Рамонт электронікі
+    bg = Ремонт на електроника
+    cs = Opravy elektroniky
+    da = Reparation af elektronik
+    de = Elektrogerätereparatur
+    el = Επισκευή ηλεκτρονικών
     es = Reparación de aparatos electrónicos
+    eu = Elektronika Konponketa
+    fa = تعمیرات الکترونیک
+    fi = Elektroniikan korjaus
     fr = Réparation d'appareils électroniques
+    he = תיקון אלקטרוניקה
+    hu = Elektronikai javítás
+    id = Perbaikan Elektronik
     it = Riparazioni elettroniche
+    ja = 電子機器修理
+    ko = 전자제품 수리
+    mr = इलेक्ट्रॉनिक्स दुरुस्ती
+    nb = Elektronikk reparasjon
     nl = Electronica-reparatie
+    pl = Naprawa elektroniki
+    pt = Reparação electrónica
+    pt-BR = Reparo de eletrônicos
+    ro = Reparații electronice
     ru = Ремонт электроники
+    sk = Oprava elektroniky
+    sv = Reparation av elektronik
+    sw = Urekebishaji wa Elektroniki
+    th = ซ่อมเครื่องใช้ไฟฟ้า
     tr = Elektronik Tamircisi
+    uk = Ремонт електроніки
+    vi = Sửa chữa điện tử
+    zh-Hans = 电子产品维修
+    zh-Hant = 電子產品維修
 
   [type.craft.gardener]
     en = Gardener
     ar = مهندس مناظر
+    be = Садоўнік
+    bg = Градинар
     cs = Zahradník
     da = Gartner
     de = Landschaftsgärtner
@@ -5149,6 +5366,7 @@
     fa = باغبان
     fi = Puutarhuri
     fr = Paysagiste
+    he = גנן
     hu = Kertész
     id = Tukang kebun
     it = Giardiniere
@@ -5159,11 +5377,11 @@
     nl = Tuinarchitect
     pl = Ogrodnik
     pt = Jardineiro
-    pt-BR = Jardineiro
     ro = Peisagist
     ru = Садовник
     sk = Záhradníctvo
     sv = Trädgårdsmästare
+    sw = Mtunza bustani
     th = คนจัดสวน
     tr = Bahçe Düzenleyici
     uk = Садівник
@@ -5173,11 +5391,40 @@
 
   [type.craft.handicraft]
     en = Handicraft
+    ar = مشغولات يدوية
+    be = Рамесніцтва
+    bg = Занаят
+    cs = Ruční práce
+    da = Kunsthåndværk
+    de = Kunsthandwerk
+    el = Χειροτεχνία
     es = Artesanía
+    eu = Eskulangintza
+    fa = صنایع دستی
+    fi = Käsityö
+    fr = Artisanat
+    he = אומנות
+    hu = Kézművesség
+    id = Kriya
     it = Artigiano
+    ja = 手芸
+    ko = 수예
+    mr = हस्तकला
+    nb = Kunsthåndverk
     nl = Handwerk
+    pl = Rzemiosło artystyczne
+    pt = Artesanato
+    ro = Tehnici de lucru manual
     ru = Ремесленная мастерская
+    sk = Ručné práce
+    sv = Konsthantverk
+    sw = Kazi za mikono
+    th = หัตถกรรม
     tr = El İşi
+    uk = Народні художні промисли
+    vi = Thủ công mỹ nghệ
+    zh-Hans = 手工艺
+    zh-Hant = 手工藝
 
   [type.craft.hvac]
     comment = Heating, Ventilation, and Air Conditioning
@@ -5187,13 +5434,16 @@
     bg = Отопление, вентилация и климатизация
     cs = HVAC
     da = Blikkenslager
-    de = Heizung
+    de = Heizung, Lüftung und Klimatisierung
     el = Ψυκτικός
     es = Aire acondicionado
     eu = Aire girotua
+    fa = گرمایش و تهویه‌هوا
     fi = Ilmastointilaite
     fr = Chauffage, ventilation et climatisation
+    he = חימום, אוורור ומיזוג אוויר
     hu = Hűtés-fűtés szerelő
+    id = HVAC
     it = Impianti HVAC
     ja = 冷暖房空調
     ko = 냉난방기
@@ -5201,10 +5451,12 @@
     nl = Airconditioning
     pl = Klimatyzacja
     pt = Instalador de ar-condicionado
-    pt-BR = Ar-condicionado
+    pt-BR = Aquecimento, Ventilação e Ar Condicionado
+    ro = Încălzire, ventilație și aer condiționat
     ru = Отопление, вентиляция и кондиционирование
     sk = Vzduchotechnika
     sv = Vvs
+    sw = Kiyoyozi
     th = ระบบปรับอากาศ
     tr = Klimacı
     uk = Опалення, вентиляція та кондиціювання повітря
@@ -5226,6 +5478,7 @@
     fa = اهن کار
     fi = Metallimies
     fr = Métallo
+    he = עובד מתכת
     hu = Lakatos
     id = Tukang besi
     it = Fabbro
@@ -5236,11 +5489,11 @@
     nl = Metaalarbeider
     pl = Ślusarz, obrabiacz metalu
     pt = Serralheiro metálico
-    pt-BR = Serralheiro metálico
     ro = Metalurgist
     ru = Металлоконструкции
     sk = Kovorobotník
     sv = Metallarbetare
+    sw = Mfanyikazi wa chuma
     th = ช่างเหล็ก
     tr = Dökümcü
     uk = Металоконструкції
@@ -5251,6 +5504,8 @@
   [type.craft.painter]
     en = Painter
     ar = رسام
+    be = Мастак
+    bg = Художник
     cs = Malíř
     da = Maler
     de = Maler
@@ -5260,6 +5515,7 @@
     fa = نقاش
     fi = Maalari
     fr = Peintre
+    he = צייר
     hu = Festő
     id = Tukang cat
     it = Imbianchino
@@ -5270,11 +5526,11 @@
     nl = Schilder
     pl = Malarz
     pt = Pintor
-    pt-BR = Pintor
     ro = Pictor
     ru = Маляр
     sk = Maliar natierač
     sv = Målare
+    sw = Mchoraji
     th = ช่างทาสี
     tr = Boyacı
     uk = Маляр
@@ -5285,6 +5541,8 @@
   [type.craft.photographer]
     en = Photographer
     ar = مصور فوتوغرافي
+    be = Фатограф
+    bg = Фотограф
     cs = Fotograf
     da = Fotograf
     de = Fotograf
@@ -5294,6 +5552,7 @@
     fa = عکاس
     fi = Valokuvaaja
     fr = Photographe
+    he = צלם
     hu = Fényképész
     id = Juru foto
     it = Fotografo
@@ -5304,11 +5563,11 @@
     nl = Fotograaf
     pl = Studio fotograficzne
     pt = Fotógrafo
-    pt-BR = Fotógrafo
     ro = Fotograf
     ru = Фотограф
     sk = Fotograf
     sv = Fotograf
+    sw = Mpiga picha
     th = ช่างภาพ
     tr = Fotoğraf Stüdyosu
     uk = Фотограф
@@ -5319,6 +5578,8 @@
   [type.craft.plumber]
     en = Plumber
     ar = سمكري
+    be = Вадаправодчык
+    bg = Водопроводчик
     cs = Instalatér
     da = VVS-mand
     de = Installateur
@@ -5328,6 +5589,7 @@
     fa = لوله کش
     fi = Putkimies
     fr = Plombier
+    he = שרברב
     hu = Vízvezeték-szerelő
     id = Tukang pipa
     it = Idraulico
@@ -5343,6 +5605,7 @@
     ru = Сантехник
     sk = Klampiarstvo
     sv = Vvs-montör
+    sw = Fundi bomba
     th = ช่างประปา
     tr = Tesisatçı
     uk = Сантехнік
@@ -5352,14 +5615,46 @@
 
   [type.craft.sawmill]
     en = Sawmill
+    ar = منشرة
+    be = Лесапільня
+    bg = Дъскорезница
+    cs = Pila
+    da = Savværk
+    de = Sägewerk
+    el = Πριστήριο
     es = Serrería
+    eu = Zerrategi
+    fa = کارخانه چوب‌بری
+    fi = Saha
     fr = Scierie
+    he = מנסרה
+    hu = Fűrészmalom
+    id = Penggergajian kayu
+    it = Segheria
+    ja = 製材所
+    ko = 제재소
+    mr = सुमेल
+    nb = Sagbruk
     nl = Zagerij
+    pl = Tartak
+    pt = Serraria
+    ro = Fabrica de cherestea
     ru = Лесопилка
+    sk = Píla
+    sv = Sågverk
+    sw = Sumel
+    th = ซูเมล
+    tr = Kereste Fabrikası
+    uk = Лісопильня
+    vi = Sumel
+    zh-Hans = 锯木厂
+    zh-Hant = 鋸木廠
 
   [type.craft.shoemaker]
     en = Shoe Repair
     ar = تصليح الاحذية
+    be = Шавец
+    bg = Обущар
     cs = Opravna obuvi
     da = Skomager
     de = Schuhmacher
@@ -5369,6 +5664,7 @@
     fa = کفاش
     fi = Suutari
     fr = Cordonnier
+    he = סנדלר
     hu = Cipész
     id = Tukang sepatu
     it = Calzolaio
@@ -5379,11 +5675,11 @@
     nl = Schoenmaker
     pl = Szewc
     pt = Sapateiro
-    pt-BR = Sapateiro
     ro = Reparații încălțăminte
     ru = Ремонт обуви
     sk = Oprava obuvy
     sv = Skomakare
+    sw = Mtengeneza viatu
     th = ช่างซ่อมรองเท้า
     tr = Ayakkabı Tamircisi
     uk = Ремонт взуття
@@ -5393,14 +5689,47 @@
 
   [type.craft.winery]
     en = Winery
+    ar = مصنع الخمرة
+    be = Вінакурня
+    bg = Винарна
+    cs = Vinařství
+    da = Vingård
+    de = Weingut
+    el = Οινοποιείο
     es = Bodega
+    eu = Upategi
+    fa = شراب‌خانه
+    fi = Viinitila
     fr = Chai
+    he = יקב
+    hu = Pincészet
+    id = Kilang Anggur
+    it = Casa vinicola
+    ja = ワイナリー
+    ko = 포도주 양조장
+    mr = वाइनरी
+    nb = Vingård
     nl = Wijnhandel
+    pl = Winiarnia
+    pt = Adega
+    pt-BR = Vinícola
+    ro = Vinărie
     ru = Винодельня
+    sk = Vinárstvo
+    sv = Vineri
+    sw = Mvinyo
+    th = โรงกลั่นเหล้าองุ่น
+    tr = Şaraphane
+    uk = Виноробний завод
+    vi = Nhà máy rượu
+    zh-Hans = 酒庄
+    zh-Hant = 酒莊
 
   [type.craft.tailor]
     en = Tailor
     ar = خياط
+    be = Кравец
+    bg = Шивач
     cs = Krejčí
     da = Skrædder
     de = Schneider
@@ -5410,6 +5739,7 @@
     fa = خیاطی
     fi = Räätäli
     fr = Tailleur
+    he = חייט
     hu = Szabó
     id = Tukang jahit
     it = Sarto
@@ -5420,11 +5750,11 @@
     nl = Kleermaker
     pl = Krawiec
     pt = Alfaiate
-    pt-BR = Alfaiate
     ro = Croitor
     ru = Ателье
     sk = Krajčírstvo
     sv = Skräddare
+    sw = Mshonaji nguo
     th = ช่างตัดเสื้อ
     tr = Terzi
     uk = Ательє

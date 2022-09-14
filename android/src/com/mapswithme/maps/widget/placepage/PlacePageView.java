@@ -65,6 +65,7 @@ import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
+import com.mapswithme.util.bottomsheet.MenuBottomSheetItem;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.Logger;
 
@@ -1633,6 +1634,12 @@ public class PlacePageView extends NestedScrollViewClickFixed
   int getPreviewHeight()
   {
     return mPreview.getHeight();
+  }
+
+  @Nullable
+  public ArrayList<MenuBottomSheetItem> getMenuBottomSheetItems()
+  {
+    return mButtons.getMenuBottomSheetItems();
   }
 
   private class EditBookmarkClickListener implements OnClickListener

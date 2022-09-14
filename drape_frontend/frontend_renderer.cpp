@@ -16,14 +16,12 @@
 
 #include "shaders/programs.hpp"
 
+#include "drape/constants.hpp"
 #include "drape/drape_global.hpp"
 #include "drape/framebuffer.hpp"
 #include "drape/support_manager.hpp"
-#include "drape/utils/glyph_usage_tracker.hpp"
-#include "drape/utils/gpu_mem_tracker.hpp"
 #include "drape/utils/projection.hpp"
 
-#include "indexer/classificator_loader.hpp"
 #include "indexer/drawing_rules.hpp"
 #include "indexer/map_style_reader.hpp"
 #include "indexer/scales.hpp"
@@ -47,10 +45,11 @@
 #include <thread>
 #include <utility>
 
-using namespace std::placeholders;
 
 namespace df
 {
+using namespace std::placeholders;
+
 namespace
 {
 float constexpr kIsometryAngle = static_cast<float>(math::pi) * 76.0f / 180.0f;
@@ -812,11 +811,11 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::Type::OnEnterBackground:
-    {
-      m_myPositionController->OnEnterBackground();
-      break;
-    }
+//  case Message::Type::OnEnterBackground:
+//    {
+//      m_myPositionController->OnEnterBackground();
+//      break;
+//    }
 
   case Message::Type::SetAddNewPlaceMode:
     {
@@ -2522,6 +2521,11 @@ void FrontendRenderer::ChangeModelView(double autoScale, m2::PointD const & user
   AddUserEvent(make_unique_dp<FollowAndRotateEvent>(userPos, pxZero, azimuth, autoScale, parallelAnimCreator));
 }
 
+void FrontendRenderer::OnEnterBackground()
+{
+  m_myPositionController->OnEnterBackground();
+}
+
 ScreenBase const & FrontendRenderer::ProcessEvents(bool & modelViewChanged, bool & viewportChanged)
 {
   ScreenBase const & modelView = m_userEventStream.ProcessEvents(modelViewChanged, viewportChanged);
@@ -2608,11 +2612,6 @@ void FrontendRenderer::OnCacheRouteArrows(dp::DrapeID subrouteIndex, std::vector
   m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                             make_unique_dp<CacheSubrouteArrowsMessage>(subrouteIndex, borders, m_lastRecacheRouteId),
                             MessagePriority::Normal);
-}
-
-drape_ptr<ScenarioManager> const & FrontendRenderer::GetScenarioManager() const
-{
-  return m_scenarioManager;
 }
 
 void FrontendRenderer::CollectShowOverlaysEvents()

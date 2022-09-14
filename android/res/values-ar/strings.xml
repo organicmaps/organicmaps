@@ -753,6 +753,8 @@
 	<string name="type.amenity.doctors">طبيب</string>
 	<string name="type.amenity.drinking_water">مياه شرب</string>
 	<string name="type.amenity.driving_school">مدرسة قيادة</string>
+	<string name="type.amenity.music_school">ﻰﻘﻴﺳﻮﻣ ﺔﺳﺭﺪﻣ</string>
+	<string name="type.amenity.language_school">ﺔﻐﻟ ﺔﺳﺭﺪﻣ</string>
 	<string name="type.office.diplomatic">سفارة</string>
 	<string name="type.amenity.fast_food">وجبات سريعة</string>
 	<string name="type.amenity.ferry_terminal">محطة عبّارات</string>
@@ -851,17 +853,25 @@
 	<string name="type.building.has_parts">مبنى</string>
 	<string name="type.building.train_station">محطة سكك حديدية</string>
 	<string name="type.cemetery.grave">ﺮﻴﻄﺧ</string>
+	<string name="type.craft">حرفة</string>
+	<string name="type.craft.beekeeper">نحال</string>
+	<string name="type.craft.blacksmith">حداد</string>
 	<string name="type.craft.brewery">مصنع جعة</string>
 	<string name="type.craft.carpenter">نجار</string>
+	<string name="type.craft.confectionery">حلواني</string>
 	<string name="type.craft.electrician">كهربائي</string>
+	<string name="type.craft.electronics_repair">إصلاح الإلكترونيات</string>
 	<string name="type.craft.gardener">مهندس مناظر</string>
+	<string name="type.craft.handicraft">مشغولات يدوية</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">تكييف</string>
 	<string name="type.craft.metal_construction">عامل معادن</string>
 	<string name="type.craft.painter">رسام</string>
 	<string name="type.craft.photographer">مصور فوتوغرافي</string>
 	<string name="type.craft.plumber">سمكري</string>
+	<string name="type.craft.sawmill">منشرة</string>
 	<string name="type.craft.shoemaker">تصليح الاحذية</string>
+	<string name="type.craft.winery">مصنع الخمرة</string>
 	<string name="type.craft.tailor">خياط</string>
 	<string name="type.cuisine.african">مطبخ أفريقي</string>
 	<string name="type.cuisine.american">مطبخ أمريكي</string>

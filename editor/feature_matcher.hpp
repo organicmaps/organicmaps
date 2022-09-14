@@ -2,16 +2,12 @@
 
 #include "editor/xml_feature.hpp"
 
-#include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
-
-#include "base/exception.hpp"
 
 #include <vector>
 
 namespace matcher
 {
-DECLARE_EXCEPTION(NotAPolygonException, RootException);
 /// Returns a node from OSM closest to the latLon, or an empty node if none is close enough.
 pugi::xml_node GetBestOsmNode(pugi::xml_document const & osmResponse, ms::LatLon const & latLon);
 /// Returns a way from osm with similar geometry or empty node if can't find such way.

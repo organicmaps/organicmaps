@@ -1318,6 +1318,10 @@
 
 "type.amenity.driving_school" = "Körskola";
 
+"type.amenity.music_school" = "Musikskola";
+
+"type.amenity.language_school" = "Språkskola";
+
 "type.office.diplomatic" = "Ambassad";
 
 "type.amenity.fast_food" = "Snabbmat";
@@ -1605,25 +1609,25 @@
 
 "type.cemetery.grave" = "Grav";
 
-"type.craft" = "Craft";
+"type.craft" = "Hantverk";
 
-"type.craft.beekeeper" = "Beekeeper";
+"type.craft.beekeeper" = "Biodlare";
 
-"type.craft.blacksmith" = "Blacksmith";
+"type.craft.blacksmith" = "Smedja";
 
 "type.craft.brewery" = "Bryggeri";
 
 "type.craft.carpenter" = "Snickare";
 
-"type.craft.confectionery" = "Confectionery";
+"type.craft.confectionery" = "Konditor";
 
 "type.craft.electrician" = "Elektriker";
 
-"type.craft.electronics_repair" = "Electronics Repair";
+"type.craft.electronics_repair" = "Reparation av elektronik";
 
 "type.craft.gardener" = "Trädgårdsmästare";
 
-"type.craft.handicraft" = "Handicraft";
+"type.craft.handicraft" = "Konsthantverk";
 
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Vvs";
@@ -1636,11 +1640,11 @@
 
 "type.craft.plumber" = "Vvs-montör";
 
-"type.craft.sawmill" = "Sawmill";
+"type.craft.sawmill" = "Sågverk";
 
 "type.craft.shoemaker" = "Skomakare";
 
-"type.craft.winery" = "Winery";
+"type.craft.winery" = "Vineri";
 
 "type.craft.tailor" = "Skräddare";
 

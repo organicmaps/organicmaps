@@ -43,7 +43,6 @@
     <attr name="primaryButtonBackground" format="reference" />
     <attr name="circleAccent" format="reference" />
     <attr name="menuBackground" format="color" />
-    <attr name="mapButtonBackground" format="color" />
     <attr name="myPositionButtonAnimation" format="reference" />
     <attr name="wheelPendingAnimation" format="reference" />
     <attr name="trafficLoadingAnimation" format="reference" />

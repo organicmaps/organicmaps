@@ -1318,6 +1318,10 @@
 
 "type.amenity.driving_school" = "Școală de șoferi";
 
+"type.amenity.music_school" = "Scoala de Muzica";
+
+"type.amenity.language_school" = "Școala de limbi străine";
+
 "type.office.diplomatic" = "Ambasadă";
 
 "type.amenity.fast_food" = "Fast food";
@@ -1605,28 +1609,28 @@
 
 "type.cemetery.grave" = "Mormânt";
 
-"type.craft" = "Craft";
+"type.craft" = "Meșteșuguri";
 
-"type.craft.beekeeper" = "Beekeeper";
+"type.craft.beekeeper" = "Apicultor";
 
-"type.craft.blacksmith" = "Blacksmith";
+"type.craft.blacksmith" = "Fierar";
 
 "type.craft.brewery" = "Berărie";
 
 "type.craft.carpenter" = "Tâmplar";
 
-"type.craft.confectionery" = "Confectionery";
+"type.craft.confectionery" = "Cofetar";
 
 "type.craft.electrician" = "Electrician";
 
-"type.craft.electronics_repair" = "Electronics Repair";
+"type.craft.electronics_repair" = "Reparații electronice";
 
 "type.craft.gardener" = "Peisagist";
 
-"type.craft.handicraft" = "Handicraft";
+"type.craft.handicraft" = "Tehnici de lucru manual";
 
 /* Heating, Ventilation, and Air Conditioning */
-"type.craft.hvac" = "HVAC";
+"type.craft.hvac" = "Încălzire, ventilație și aer condiționat";
 
 "type.craft.metal_construction" = "Metalurgist";
 
@@ -1636,11 +1640,11 @@
 
 "type.craft.plumber" = "Instalator";
 
-"type.craft.sawmill" = "Sawmill";
+"type.craft.sawmill" = "Fabrica de cherestea";
 
 "type.craft.shoemaker" = "Reparații încălțăminte";
 
-"type.craft.winery" = "Winery";
+"type.craft.winery" = "Vinărie";
 
 "type.craft.tailor" = "Croitor";
 

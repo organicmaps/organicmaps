@@ -3909,7 +3909,25 @@ cont {
 cont {
   name: "amenity-driving_school"
   element {
+    scale: 17
+    symbol {
+      name: "driving_school-m"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "driving_school-m"
+      priority: 16000
+    }
+  }
+  element {
     scale: 19
+    symbol {
+      name: "driving_school-m"
+      priority: 16000
+    }
     caption {
       primary {
         height: 10
@@ -4931,6 +4949,38 @@ cont {
   }
 }
 cont {
+  name: "amenity-language_school"
+  element {
+    scale: 17
+    symbol {
+      name: "language_school-m"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "language_school-m"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "language_school-m"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15300
+    }
+  }
+}
+cont {
   name: "amenity-library"
   element {
     scale: 18
@@ -5120,6 +5170,38 @@ cont {
         color: 4473924
         offset_y: 1
         is_optional: true
+      }
+      priority: 15300
+    }
+  }
+}
+cont {
+  name: "amenity-music_school"
+  element {
+    scale: 17
+    symbol {
+      name: "music_school-m"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "music_school-m"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "music_school-m"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
       }
       priority: 15300
     }

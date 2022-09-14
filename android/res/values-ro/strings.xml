@@ -727,6 +727,8 @@
 	<string name="type.amenity.courthouse">Judecătorie</string>
 	<string name="type.amenity.drinking_water">Apă de băut</string>
 	<string name="type.amenity.driving_school">Școală de șoferi</string>
+	<string name="type.amenity.music_school">Scoala de Muzica</string>
+	<string name="type.amenity.language_school">Școala de limbi străine</string>
 	<string name="type.office.diplomatic">Ambasadă</string>
 	<string name="type.amenity.fast_food">Fast food</string>
 	<string name="type.amenity.ferry_terminal">Feribot</string>
@@ -821,14 +823,25 @@
 	<string name="type.building.has_parts">Clădire</string>
 	<string name="type.building.train_station">Feroviar</string>
 	<string name="type.cemetery.grave">Mormânt</string>
+	<string name="type.craft">Meșteșuguri</string>
+	<string name="type.craft.beekeeper">Apicultor</string>
+	<string name="type.craft.blacksmith">Fierar</string>
 	<string name="type.craft.brewery">Berărie</string>
 	<string name="type.craft.carpenter">Tâmplar</string>
+	<string name="type.craft.confectionery">Cofetar</string>
+	<string name="type.craft.electrician">Electrician</string>
+	<string name="type.craft.electronics_repair">Reparații electronice</string>
 	<string name="type.craft.gardener">Peisagist</string>
+	<string name="type.craft.handicraft">Tehnici de lucru manual</string>
+	<!-- Heating, Ventilation, and Air Conditioning -->
+	<string name="type.craft.hvac">Încălzire, ventilație și aer condiționat</string>
 	<string name="type.craft.metal_construction">Metalurgist</string>
 	<string name="type.craft.painter">Pictor</string>
 	<string name="type.craft.photographer">Fotograf</string>
 	<string name="type.craft.plumber">Instalator</string>
+	<string name="type.craft.sawmill">Fabrica de cherestea</string>
 	<string name="type.craft.shoemaker">Reparații încălțăminte</string>
+	<string name="type.craft.winery">Vinărie</string>
 	<string name="type.craft.tailor">Croitor</string>
 	<string name="type.cuisine.african">Bucătărie african</string>
 	<string name="type.cuisine.american">Bucătărie american</string>
