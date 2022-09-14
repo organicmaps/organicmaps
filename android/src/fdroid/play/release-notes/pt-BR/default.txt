@@ -1,0 +1,6 @@
+• Novos dados de setembro
+• Novos botões na interface principal
+• Melhoria na busca de endereços
+• Tela de login OSM totalmente remodelada
+• Correções de erros
+…e mais, disponível em organicmaps.app/news
