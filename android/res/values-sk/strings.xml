@@ -1114,6 +1114,7 @@
 	<string name="type.leisure.fitness_centre">Fitnescentrum</string>
 	<string name="type.leisure.fitness_station">Fitness</string>
 	<string name="type.leisure.garden">Záhrada</string>
+	<string name="type.leisure.garden.residential">Záhrada</string>
 	<string name="type.leisure.golf_course">Golf</string>
 	<string name="type.leisure.nature_reserve">Rezervácia</string>
 	<string name="type.leisure.park">Park</string>

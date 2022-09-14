@@ -1137,6 +1137,7 @@
 	<string name="type.leisure.fitness_centre">Centru fitness</string>
 	<string name="type.leisure.fitness_station">Sală de fitness</string>
 	<string name="type.leisure.garden">Sit arheologic</string>
+	<string name="type.leisure.garden.residential">Sit arheologic</string>
 	<string name="type.leisure.golf_course">Teren de golf</string>
 	<string name="type.leisure.nature_reserve">Rezervație naturală</string>
 	<string name="type.leisure.park">Parc</string>

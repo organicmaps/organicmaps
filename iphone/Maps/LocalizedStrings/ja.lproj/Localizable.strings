@@ -2312,6 +2312,8 @@
 
 "type.leisure.garden" = "庭園";
 
+"type.leisure.garden.residential" = "庭園";
+
 "type.leisure.golf_course" = "ゴルフコース";
 
 "type.leisure.ice_rink" = "アイスリンク";

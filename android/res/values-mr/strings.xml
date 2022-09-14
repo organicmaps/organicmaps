@@ -1154,6 +1154,7 @@
 	<string name="type.leisure.dog_park">कुत्र्याचे क्षेत्र</string>
 	<string name="type.leisure.fitness_centre">व्यायामशाळा</string>
 	<string name="type.leisure.garden">बाग</string>
+	<string name="type.leisure.garden.residential">बाग</string>
 	<string name="type.leisure.golf_course">गोल्फचे मैदान</string>
 	<string name="type.leisure.ice_rink">हिम क्रीडा क्षेत्र</string>
 	<string name="type.leisure.nature_reserve">संरक्षित निसर्गक्षेत्र</string>

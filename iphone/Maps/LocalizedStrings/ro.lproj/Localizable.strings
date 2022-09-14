@@ -2312,6 +2312,8 @@
 
 "type.leisure.garden" = "Sit arheologic";
 
+"type.leisure.garden.residential" = "Sit arheologic";
+
 "type.leisure.golf_course" = "Teren de golf";
 
 "type.leisure.ice_rink" = "Ice Rink";

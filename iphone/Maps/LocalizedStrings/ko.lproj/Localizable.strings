@@ -2312,6 +2312,8 @@
 
 "type.leisure.garden" = "정원";
 
+"type.leisure.garden.residential" = "정원";
+
 "type.leisure.golf_course" = "골프장";
 
 "type.leisure.ice_rink" = "Ice Rink";

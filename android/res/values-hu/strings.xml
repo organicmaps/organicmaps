@@ -1116,6 +1116,7 @@
 	<string name="type.leisure.fitness_centre">Fitnesz-terem</string>
 	<string name="type.leisure.fitness_station">Fitness állomás</string>
 	<string name="type.leisure.garden">Kert</string>
+	<string name="type.leisure.garden.residential">Kert</string>
 	<string name="type.leisure.golf_course">Golfpálya</string>
 	<string name="type.leisure.nature_reserve">Védett terület</string>
 	<string name="type.leisure.park">Park</string>

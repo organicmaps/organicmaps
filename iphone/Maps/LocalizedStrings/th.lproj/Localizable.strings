@@ -2312,6 +2312,8 @@
 
 "type.leisure.garden" = "สวน";
 
+"type.leisure.garden.residential" = "สวน";
+
 "type.leisure.golf_course" = "สนามกอล์ฟ";
 
 "type.leisure.ice_rink" = "Ice Rink";

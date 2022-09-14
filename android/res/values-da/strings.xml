@@ -1110,6 +1110,7 @@
 	<string name="type.leisure.fitness_centre">Trænings- og motionscenter</string>
 	<string name="type.leisure.fitness_station">Fitness-station</string>
 	<string name="type.leisure.garden">Have</string>
+	<string name="type.leisure.garden.residential">Have</string>
 	<string name="type.leisure.golf_course">Golf</string>
 	<string name="type.leisure.nature_reserve">Reservat</string>
 	<string name="type.leisure.park">Park</string>

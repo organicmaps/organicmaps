@@ -1161,6 +1161,7 @@
 	<string name="type.leisure.fitness_centre">健身中心</string>
 	<string name="type.leisure.fitness_station">健身房</string>
 	<string name="type.leisure.garden">花園</string>
+	<string name="type.leisure.garden.residential">花園</string>
 	<string name="type.leisure.golf_course">高爾夫球場</string>
 	<string name="type.leisure.nature_reserve">自然保護區</string>
 	<string name="type.leisure.park">公園</string>

@@ -1255,6 +1255,7 @@
 	<string name="type.leisure.fitness_centre">Фітнес-зал</string>
 	<string name="type.leisure.fitness_station">Спортивні знаряддя</string>
 	<string name="type.leisure.garden">Садок</string>
+	<string name="type.leisure.garden.residential">Частный сад</string>
 	<string name="type.leisure.golf_course">Майданчик для гольфу</string>
 	<string name="type.leisure.ice_rink">Каток</string>
 	<string name="type.leisure.landscape_reserve">Ландшафтний заповідник</string>

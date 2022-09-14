@@ -2312,6 +2312,8 @@
 
 "type.leisure.garden" = "Садок";
 
+"type.leisure.garden.residential" = "Частный сад";
+
 "type.leisure.golf_course" = "Майданчик для гольфу";
 
 "type.leisure.ice_rink" = "Каток";

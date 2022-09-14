@@ -1117,6 +1117,7 @@
 	<string name="type.leisure.fitness_centre">Fitness</string>
 	<string name="type.leisure.fitness_station">Posilovna</string>
 	<string name="type.leisure.garden">Zahrada</string>
+	<string name="type.leisure.garden.residential">Zahrada</string>
 	<string name="type.leisure.golf_course">Golf</string>
 	<string name="type.leisure.nature_reserve">Rezervace</string>
 	<string name="type.leisure.park">Park</string>

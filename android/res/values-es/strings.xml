@@ -1209,6 +1209,7 @@
 	<string name="type.leisure.fitness_centre">Centro de fitness</string>
 	<string name="type.leisure.fitness_station">Gimnasio</string>
 	<string name="type.leisure.garden">Jardín</string>
+	<string name="type.leisure.garden.residential">Jardín</string>
 	<string name="type.leisure.golf_course">Campo de golf</string>
 	<string name="type.leisure.nature_reserve">Territorio reservado</string>
 	<string name="type.leisure.park">Parque</string>

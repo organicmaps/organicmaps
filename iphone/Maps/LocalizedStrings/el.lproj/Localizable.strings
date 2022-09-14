@@ -2312,6 +2312,8 @@
 
 "type.leisure.garden" = "Κήπος αναψυχής";
 
+"type.leisure.garden.residential" = "Κήπος αναψυχής";
+
 "type.leisure.golf_course" = "Γήπεδο γκολφ";
 
 "type.leisure.ice_rink" = "Ice Rink";
