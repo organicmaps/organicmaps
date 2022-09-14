@@ -7,11 +7,11 @@
   android:orientation="vertical">
   <com.google.android.material.floatingactionbutton.FloatingActionButton
     android:id="@+id/nav_zoom_in"
-    style="@style/MwmWidget.MapButton"
+    style="@style/MwmWidget.MapButton.Zoom"
     android:src="@drawable/ic_plus"
     android:layout_marginBottom="@dimen/margin_half"/>
   <com.google.android.material.floatingactionbutton.FloatingActionButton
     android:id="@+id/nav_zoom_out"
-    style="@style/MwmWidget.MapButton"
+    style="@style/MwmWidget.MapButton.Zoom"
     android:src="@drawable/ic_minus" />
 </LinearLayout>
