@@ -1,5 +1,5 @@
 • Novos dados OSM de 12/09
-• Remoção de barra inferior para melhor experiência e visibilidade do mapa
+• Melhoria na experiência e visibilidade do mapa
 • Melhoria na página de login e perfil do OSM
 • Busca mais rápida e precisa
 • Corrigido erro ao iniciar o app depois de uma edição
