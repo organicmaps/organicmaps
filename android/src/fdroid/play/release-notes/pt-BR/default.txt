@@ -1,6 +1,11 @@
-• Novos dados de setembro
-• Novos botões na interface principal
-• Melhoria na busca de endereços
-• Tela de login OSM totalmente remodelada
-• Correções de erros
+• Novos dados OSM de 12 de setembro
+• Remoção de barra inferior para melhor experiência e visibilidade do mapa
+• Melhoria na página de login e perfil do OSM
+• Busca mais rápida e precisa
+• Corrigido erro ao iniciar o app depois de uma edição
+• Lista de favoritos agora está ordenada por última modificação
+• Correção de traduções em holandês, português-Brasil, italiano, catalão, turco e bielorusso
+• Adição de conversão de texto em fala (TTS) para catalão
+• Adição de suporte às escolas de condução, música e idiomas, além de sítios arqueológicos e castelos
+• Melhoria em estilos e ícones
 …e mais, disponível em organicmaps.app/news
