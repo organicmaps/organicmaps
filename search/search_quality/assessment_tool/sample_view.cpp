@@ -1,6 +1,9 @@
-#include "search/search_quality/assessment_tool/sample_view.hpp"
+#include "sample_view.hpp"
 
-#include "qt/qt_common/helpers.hpp"
+#include "helpers.hpp"
+#include "result_view.hpp"
+#include "results_view.hpp"
+
 #include "qt/qt_common/spinner.hpp"
 
 #include "map/bookmark_manager.hpp"
@@ -8,12 +11,7 @@
 #include "map/search_mark.hpp"
 
 #include "search/result.hpp"
-#include "search/search_quality/assessment_tool/helpers.hpp"
-#include "search/search_quality/assessment_tool/result_view.hpp"
-#include "search/search_quality/assessment_tool/results_view.hpp"
 #include "search/search_quality/sample.hpp"
-
-#include "platform/location.hpp"
 
 #include <QtGui/QStandardItem>
 #include <QtGui/QStandardItemModel>
@@ -242,10 +240,11 @@ void SampleView::OnSearchCompleted()
   m_markAllAsIrrelevant->setEnabled(resultsAvailable);
 }
 
-void SampleView::AddFoundResults(SearchResultsIterT begin, SearchResultsIterT end)
+void SampleView::AddFoundResults(search::Results const & results)
 {
-  for (auto it = begin; it != end; ++it)
-    m_foundResults->Add(*it /* result */);
+  /// @todo Should clear previous m_foundResults.
+  for (auto const & res : results)
+    m_foundResults->Add(res);
 }
 
 void SampleView::ShowNonFoundResults(std::vector<search::Sample::Result> const & results,
@@ -266,9 +265,10 @@ void SampleView::ShowNonFoundResults(std::vector<search::Sample::Result> const &
     m_nonFoundResultsBox->show();
 }
 
-void SampleView::ShowFoundResultsMarks(SearchResultsIterT begin, SearchResultsIterT end)
+void SampleView::ShowFoundResultsMarks(search::Results const & results)
 {
-  m_framework.FillSearchResultsMarks(begin, end, false);
+  /// @todo Should clear previous _found_ results marks, but keep _nonfound_ if any.
+  m_framework.FillSearchResultsMarks(false /* clear */, results);
 }
 
 void SampleView::ShowNonFoundResultsMarks(std::vector<search::Sample::Result> const & results,
