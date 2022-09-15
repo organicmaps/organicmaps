@@ -1116,6 +1116,7 @@
 	<string name="type.leisure.fitness_centre">Phòng Tập</string>
 	<string name="type.leisure.fitness_station">Trạm tập thể hình</string>
 	<string name="type.leisure.garden">Điểm khảo cổ</string>
+	<string name="type.leisure.garden.residential">Điểm khảo cổ</string>
 	<string name="type.leisure.golf_course">Sân gôn</string>
 	<string name="type.leisure.nature_reserve">Giữ chỗ</string>
 	<string name="type.leisure.park">Công viên</string>

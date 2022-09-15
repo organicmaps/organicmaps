@@ -1130,6 +1130,7 @@
 	<string name="type.leisure.fitness_centre">Kuntosali</string>
 	<string name="type.leisure.fitness_station">Kuntokeskus</string>
 	<string name="type.leisure.garden">Puutarha</string>
+	<string name="type.leisure.garden.residential">Puutarha</string>
 	<string name="type.leisure.golf_course">Golf-rata</string>
 	<string name="type.leisure.nature_reserve">Luonnonsuojelualue</string>
 	<string name="type.leisure.park">Puisto</string>

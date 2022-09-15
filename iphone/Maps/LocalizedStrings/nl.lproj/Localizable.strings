@@ -2312,6 +2312,8 @@
 
 "type.leisure.garden" = "Tuin";
 
+"type.leisure.garden.residential" = "Tuin";
+
 "type.leisure.golf_course" = "Golfbaan";
 
 "type.leisure.ice_rink" = "Schaatsbaan";

@@ -2312,6 +2312,8 @@
 
 "type.leisure.garden" = "Trädgård";
 
+"type.leisure.garden.residential" = "Trädgård";
+
 "type.leisure.golf_course" = "Golfbana";
 
 "type.leisure.ice_rink" = "Ice Rink";

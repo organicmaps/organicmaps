@@ -2312,6 +2312,8 @@
 
 "type.leisure.garden" = "Puutarha";
 
+"type.leisure.garden.residential" = "Puutarha";
+
 "type.leisure.golf_course" = "Golf-rata";
 
 "type.leisure.ice_rink" = "Ice Rink";

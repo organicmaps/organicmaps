@@ -247,12 +247,11 @@ UNIT_TEST(Russia_Moscow_PankratevskiPerBolshaySuharedskazPloschad_TurnTest)
   std::vector<turns::TurnItem> t;
   route.GetTurnsForTesting(t);
 
-  integration::TestTurnCount(route, 5 /* expectedTurnCount */);
+  integration::TestTurnCount(route, 3 /* expectedTurnCount */);
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnRight);
-  integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnLeft);
-  integration::GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnRight);
-  integration::GetNthTurn(route, 3).TestValid().TestDirection(CarDirection::TurnSlightLeft);
-  integration::GetNthTurn(route, 4).TestValid().TestDirection(CarDirection::TurnSharpLeft);
+  integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnSlightLeft);
+  /// @todo UTurnLeft
+  integration::GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnSharpLeft);
 }
 
 UNIT_TEST(Russia_Moscow_MKADPutilkovskeShosse_TurnTest)

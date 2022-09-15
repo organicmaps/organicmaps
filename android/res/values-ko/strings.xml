@@ -1117,6 +1117,7 @@
 	<string name="type.leisure.fitness_centre">피트니스센터</string>
 	<string name="type.leisure.fitness_station">피트니스 스테이션</string>
 	<string name="type.leisure.garden">정원</string>
+	<string name="type.leisure.garden.residential">정원</string>
 	<string name="type.leisure.golf_course">골프장</string>
 	<string name="type.leisure.nature_reserve">천연보호구역</string>
 	<string name="type.leisure.park">공원</string>

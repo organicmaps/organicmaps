@@ -1251,6 +1251,7 @@
 	<string name="type.leisure.fitness_centre">Fitnessstudio</string>
 	<string name="type.leisure.fitness_station">Fitnessstation</string>
 	<string name="type.leisure.garden">Garten</string>
+	<string name="type.leisure.garden.residential">Garten</string>
 	<string name="type.leisure.golf_course">Golfplatz</string>
 	<string name="type.leisure.ice_rink">Eislaufplatz</string>
 	<string name="type.leisure.marina">Jachthafen</string>

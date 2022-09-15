@@ -9,6 +9,7 @@ import android.util.SparseArray;
 import android.view.View;
 
 import androidx.annotation.AttrRes;
+import androidx.annotation.DimenRes;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
@@ -47,9 +48,16 @@ public class MyPositionButton
   {
     mMode = mode;
     Drawable image = mIcons.get(mode);
-    @AttrRes int colorAttr =
-        mode == LocationState.FOLLOW || mode == LocationState.FOLLOW_AND_ROTATE || mode == LocationState.PENDING_POSITION
-        ? R.attr.colorAccent : R.attr.iconTint;
+    @AttrRes int colorAttr = R.attr.iconTint;
+    @DimenRes int sizeDimen = R.dimen.map_button_icon_size;
+    if (mode == LocationState.FOLLOW || mode == LocationState.FOLLOW_AND_ROTATE || mode == LocationState.PENDING_POSITION)
+    {
+      colorAttr = R.attr.colorAccent;
+      if (mode == LocationState.PENDING_POSITION)
+        sizeDimen = R.dimen.map_button_size;
+      else
+        sizeDimen = R.dimen.map_button_arrow_icon_size;
+    }
     Resources resources = mButton.getResources();
     Context context = mButton.getContext();
     if (image == null)
@@ -78,6 +86,7 @@ public class MyPositionButton
     }
 
     mButton.setImageDrawable(image);
+    mButton.setMaxImageSize((int) resources.getDimension(sizeDimen));
     ImageViewCompat.setImageTintList(mButton, ColorStateList.valueOf(ThemeUtils.getColor(context, colorAttr)));
     updatePadding(mode);
 

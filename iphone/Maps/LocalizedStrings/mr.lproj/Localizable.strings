@@ -2312,6 +2312,8 @@
 
 "type.leisure.garden" = "बाग";
 
+"type.leisure.garden.residential" = "बाग";
+
 "type.leisure.golf_course" = "गोल्फचे मैदान";
 
 "type.leisure.ice_rink" = "हिम क्रीडा क्षेत्र";

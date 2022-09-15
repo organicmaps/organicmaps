@@ -2312,6 +2312,8 @@
 
 "type.leisure.garden" = "Garten";
 
+"type.leisure.garden.residential" = "Garten";
+
 "type.leisure.golf_course" = "Golfplatz";
 
 "type.leisure.ice_rink" = "Eislaufplatz";

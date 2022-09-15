@@ -1198,6 +1198,7 @@
 	<string name="type.leisure.fitness_centre">مركز للياقة البدنية، نادي رياضي</string>
 	<string name="type.leisure.fitness_station">مركز لياقة</string>
 	<string name="type.leisure.garden">حديقة</string>
+	<string name="type.leisure.garden.residential">حديقة</string>
 	<string name="type.leisure.golf_course">ملعب جولف</string>
 	<string name="type.leisure.nature_reserve">محمية طبيعية</string>
 	<string name="type.leisure.park">موقف سيارات</string>

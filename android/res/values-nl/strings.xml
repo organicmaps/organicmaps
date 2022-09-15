@@ -1266,6 +1266,7 @@
 	<string name="type.leisure.fitness_centre">Fitnesscentrum</string>
 	<string name="type.leisure.fitness_station">Fitness-Station</string>
 	<string name="type.leisure.garden">Tuin</string>
+	<string name="type.leisure.garden.residential">Tuin</string>
 	<string name="type.leisure.golf_course">Golfbaan</string>
 	<string name="type.leisure.ice_rink">Schaatsbaan</string>
 	<string name="type.leisure.landscape_reserve">Landschapsreservaat</string>

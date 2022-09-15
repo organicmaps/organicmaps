@@ -1109,6 +1109,7 @@
 	<string name="type.leisure.fitness_centre">Gym</string>
 	<string name="type.leisure.fitness_station">Fitnesstation</string>
 	<string name="type.leisure.garden">Trädgård</string>
+	<string name="type.leisure.garden.residential">Trädgård</string>
 	<string name="type.leisure.golf_course">Golfbana</string>
 	<string name="type.leisure.nature_reserve">Naturreservat</string>
 	<string name="type.leisure.park">Parken</string>

@@ -1273,6 +1273,7 @@
 	<string name="type.leisure.fitness_centre">Fitness Merkezi</string>
 	<string name="type.leisure.fitness_station">Fitness Salonu</string>
 	<string name="type.leisure.garden">Bahçe</string>
+	<string name="type.leisure.garden.residential">Konut Bahçesi</string>
 	<string name="type.leisure.golf_course">Golf Sahası</string>
 	<string name="type.leisure.ice_rink">Buz Pateni Pisti</string>
 	<string name="type.leisure.landscape_reserve">Peyzaj Rezervi</string>
