@@ -24,7 +24,7 @@ Styles and icons:
 • Fixed vending=fuel icon
 
 Localizations:
-• Added missing translations for craft=*
+• Added missing translations for craft=* and residential gardens
 • Added/fixed Dutch, Portuguese (Brazil), Italian, Catalan, Turkish, Belarusian translations
 • Enabled Catalan TTS (Text-To-Speech)
 • Localized some Telegram and Instagram links
