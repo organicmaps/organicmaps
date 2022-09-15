@@ -4,5 +4,6 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
   android:id="@+id/menu_button"
   style="@style/MwmWidget.MapButton.Square"
+  app:maxImageSize="35dp"
   app:shapeAppearanceOverlay="@style/MwmWidget.MapButton.Square"
   android:src="@drawable/ic_menu_open" />
