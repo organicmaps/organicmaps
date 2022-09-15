@@ -15,7 +15,7 @@ Search:
 • Improved German category search
 
 Styles and icons:
-• Added driving_school, music_school, language_school, archaeological_site,
+• Added driving_school, music_school, language_school, archaeological_site, craft-painter
 • Removed backgrounds from historic cemetery icons
 • Added different castle types: castrum, fortified_church, fortress, hillfort, kremlin, manor, palace & shiro
 • Increased visibility of education & some sports
