@@ -20,7 +20,7 @@ Estilos e ícones:
 • Pistas de corridas melhores exibidas
 • Correção do ícone de vending=fuel
 Localização:
-• Adição de traduções inexistentes para etiqueta craft=*
+• Adição de traduções inexistentes para jardins residenciais e etiqueta craft=*
 • Adição/correção de traduções em holandês, português brasileiro, italiano, catalão, turco e bielorusso
 • Adição de conversão de texto em fala (TTS) para catalão
 • Adição de algums links de Telegram e Instagram localizados
