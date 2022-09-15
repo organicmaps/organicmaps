@@ -1,20 +1,13 @@
 #pragma once
+#include "context.hpp"
+#include "edits.hpp"
+#include "model.hpp"
+#include "search_request_runner.hpp"
+#include "view.hpp"
 
-#include "search/engine.hpp"
 #include "search/feature_loader.hpp"
-#include "search/search_quality/assessment_tool/context.hpp"
-#include "search/search_quality/assessment_tool/edits.hpp"
-#include "search/search_quality/assessment_tool/model.hpp"
-#include "search/search_quality/assessment_tool/search_request_runner.hpp"
-#include "search/search_quality/assessment_tool/view.hpp"
-#include "search/search_quality/sample.hpp"
 
 #include "base/thread_checker.hpp"
-
-#include <cstddef>
-#include <cstdint>
-#include <memory>
-#include <vector>
 
 class Framework;
 class DataSource;
@@ -73,7 +66,6 @@ private:
   std::string m_path;
 
   int m_selectedSample = kInvalidIndex;
-  size_t m_numShownResults = 0;
 
   SearchRequestRunner m_runner;
 

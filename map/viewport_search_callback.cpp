@@ -45,6 +45,9 @@ void ViewportSearchCallback::operator()(Results const & results)
     if (delegate.IsViewportSearchActive() &&
         (results.IsEndedNormal() || (!results.IsEndMarker() && results.GetCount() != 0)))
     {
+      /// @todo This code relies on fact that results order is *NOT* changing with every new batch.
+      /// I can't say for sure is it true or not, but very optimistic :)
+      /// Much easier to clear previous marks and make new ones.
       delegate.ShowViewportSearchResults(results.begin() + lastResultsSize, results.end(), firstCall);
     }
 

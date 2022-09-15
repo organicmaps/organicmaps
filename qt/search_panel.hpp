@@ -33,7 +33,7 @@ class SearchPanel : public QWidget
   QIcon m_clearIcon;
   QPixmap m_busyIcon;
 
-  std::vector<search::Result> m_results;
+  search::Results m_results;
 
   search::Mode m_mode;
   uint64_t m_timestamp;
@@ -51,6 +51,7 @@ private:
   virtual void hideEvent(QHideEvent *);
 
   void RunSearch();
+  void ClearTable();
   void ClearResults();
 
   void StartBusyIndicator();
