@@ -1,11 +1,10 @@
-• Yeni harita verileri (16 Ağustos)
-• Uzun rotalar artık eskisinden çok daha hızlı hesaplanıyor
-• Arama iyileştirildi, artık çok daha iyi ve daha hızlı!
-• mwm (harita) dosya boyutları azaltıldı
-• Aranan bazı nesnelerin haritada gösterilmemesi sorunu düzeltildi
-• Askeri alan ve sınırların görünürlüğü iyileştirildi
-• Engelli park yerleri eklendi
-• Farklı spor simgeleri eklendi
-• Çiftlik avlusu eklendi
-• Eksik çeviriler eklendi
-…dahası: organicmaps.app/news
+• Yeni OSM haritaları verileri 12 Eylül itibariyle
+• Daha iyi UX ve harita görünürlüğü için alt araç çubuğu kaldırıldı
+• Geliştirilmiş OSM giriş sayfası ve OSM profili
+• Daha hızlı, daha iyi arama
+• Düzenlemeden sonra başlangıçta oluşan çökme düzeltildi
+• Yer imi listeleri artık son değiştirilme zamanına göre sıralanıyor
+• Bazı çeviriler iyileştirildi
+• Sürüş, müzik ve dil okulları, arkeolojik_site, kaleler eklendi
+• Diğer stiller ve simgeler geliştirildi
+…daha fazlası: omaps.app/news

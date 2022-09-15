@@ -1,46 +1,29 @@
-Highlights:
-• Neue Daten vom 16. August
-• Längere Routen werden schneller berechnet
-• Die Suche sollte jetzt viel besser und schneller funktionieren
-• Reduzierte Größe der mwm-Dateien
-• Wiederhergestellte WunderLINQ-Unterstützung (ja, wir haben eine API! Siehe omaps.app/api)
+• Neue OSM-Kartendaten ab dem 12. September
+• Absturz beim Starten nach dem Bearbeiten einiger OSM-Objekte behoben
+• Lesezeichenlisten werden nun nach der letzten Änderungszeit sortiert
+• Verbesserte Anzeige des nächsten Straßennamens in der Wegbeschreibung
+• Überall wird die gleiche Systemschrift verwendet
+• Verwenden Sie die Standard-Mail-App unter iOS 14, um einen Fehler zu melden
+• Aktivierte katalanische Übersetzungen
 
-Benutzeroberfläche:
-• Vereinheitlichtes Layout von Orts-Seite und Editor UI
-• Ersetzte Höhendifferenz zu Aufstieg und Abstieg
-• Anzeige der POI-Ebene auf der Orts-Seite
-• Social Media Kanäle werden auf der Ortsseite und im Editor angezeigt
-• Anzeige von "Öffnet in"/"Schließt in" auf der Ort-Seite
-• Animation für seitliche Schaltflächen korrigiert
+Suche:
+• Anzeige von Funktionen im Ansichtsfenster oben in den Suchergebnissen
+• Erhebliche Beschleunigung einiger Suchszenarien
+• Verbessertes Kategorie-Ranking und Adressensuche.
+• Das Symbol für hervorgehobene Hotelsuchergebnisse auf der Karte wurde korrigiert
+• Verbesserte deutsche Kategoriesuche
 
-Navigation:
-• Verbesserte Anzeige der Geschwindigkeitsbegrenzung für CarPlay (rot bei Geschwindigkeitsüberschreitung)
-• Feste Kreisverkehrsnummer
-• Verbesserte Sichtbarkeit der nächsten Straße
+Stile und Icons:
+• Fahrschule, Musikschule, Sprachschule, archäologische Stätte hinzugefügt,
+• Die Hintergründe von historischen Friedhofssymbolen wurden entfernt
+• Verschiedene Schlosstypen hinzugefügt: castrum, fortified_church, fortress, hillfort, kremlin, manor, palace & shiro
+• Erhöhte Sichtbarkeit von Bildung und einigen Sportarten
+• Getrennte Möbel- und Küchentypen
+• Besser aussehende Freizeit=Bahn
+• Verkaufs=Brennstoff-Symbol repariert
 
-Verbesserungen bei der Suche:
-• Problem behoben, bei dem einige gefundene Objekte nicht auf der Karte hervorgehoben wurden
-• Gängige Synonyme für die Straßensuche wie Parkway, Path, Line, Walk, Trail, etc. wurden entfernt.
-• Die Koordinatensuche wurde korrigiert, wenn die Anfrage einen Zeilenumbruch enthält
-• Ignorieren nicht relevanter Suchergebnisse für Koordinaten
-• Bessere Suche nach Hauptstädten
-• 'Notfall' als letzte Wahl des Merkmalstyps behandeln
-• Synonyme für die Straßensuche in Cathalan hinzugefügt
-• Richtiges Filtern gleicher Straßen in den Suchergebnissen
-
-Kartenstile:
-• Verbesserte Sichtbarkeit von militärischen Gebieten und Grenzen
-• Behindertenparkplätze anzeigen
-• Symbol für Hausgärten nicht einzeichnen
-• Bauernhof gerendert
-• Parkplateinfahrt (parking_entrance) hinzufügen
-• Spielplatz- und Internetcafé-Symbol hinzufügen
-• Second Hand Laden (second_hand) und Sozialkaufhaus (charity) hinzufügen
-• Hinzufügen von Tischtennis, Volleyball, Beachvolleyball, Skateboard, Schach, Padel, Handball, Futsal, Hockey, Badminton, Pelota
-• Hintergrundkreise aus den Icons entfernt
-
-Übersetzungen:
-• Arabische Übersetzungen und TTS-Texte aktualisiert
-• Fehlende Übersetzungen für place=* hinzugefügt
-• Weißrussische Übersetzungen von Ländern
-• Fehlende türkische Übersetzungen hinzugefügt
+Lokalisierungen:
+• Fehlende Übersetzungen für craft=* hinzugefügt
+• Übersetzungen für Niederländisch, Portugiesisch (Brasilien), Italienisch, Katalanisch, Türkisch und Weißrussisch hinzugefügt/korrigiert
+• Katalanisch TTS (Text-To-Speech) aktiviert
+• Einige Telegram- und Instagram-Links wurden lokalisiert

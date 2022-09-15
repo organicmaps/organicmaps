@@ -1,9 +1,10 @@
-• neue Kartendaten vom 16. August
-• längere Routen werden nun deutlich schneller berechnet
-• die Suchfunktion ist nun zuverlässiger und schneller
-• reduzierter Speicherplatzverbrauch der Offlinekarten
-• Fehler, dass manche Suchergebnisse nicht auf der Karte angezeigt wurden, wurde behoben
-• verbesserte Darstellung von Militärgebieten und Grenzen
-• barrierefreie Parkplätze werden nun auf der Karte angezeigt
-• verschiedene Icons für Sportarten hinzugefügt
-meht unter omaps.app/news
+• Neue OSM-Kartendaten ab dem 12. September
+• Entfernte untere Symbolleiste für bessere UX und Sichtbarkeit der Karte
+• Verbesserte OSM-Anmeldeseite und OSM-Profil
+• Schnellere, bessere Suche
+• Absturz beim Starten nach der Bearbeitung behoben
+• Lesezeichenlisten sind nun nach der letzten Änderungszeit sortiert
+• Verbesserte Übersetzungen
+• Fahr-, Musik- und Sprachschulen, archäologische Stätten und Schlösser hinzugefügt
+• Andere Stile und Icons wurden verbessert
+…mehr: omaps.app/news

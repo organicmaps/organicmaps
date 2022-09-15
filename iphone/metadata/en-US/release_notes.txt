@@ -1,46 +1,30 @@
-Highlights:
-• New data as of August 16
-• Longer routes are calculated faster
-• Search should work way better and faster now
-• Reduced size of mwm files
-• Restored WunderLINQ support (yes, we have an API! Check omaps.app/api)
+• New OSM maps data as of September 12
+• Fixed crash on startup after editing some OSM objects
+• Bookmark lists are now sorted by recently modified time
+• Fixed annoying "Continue detecting location" dialog when returning to OM
+• Improved displaying of the next street name directions
+• Use the same system font everywhere
+• Use the default mail app on iOS 14 to report a bug
+• Enabled Catalan translations
 
-User Interface:
-• Unified Place Page and Editor UI layout
-• Replaced altitude difference to ascent and descent
-• Show POI level in Place Page
-• Social media contacts are displayed in Place Page and Editor
-• Show "Opens in"/"Closes in" in Place Page
-• Fixed animation for side buttons
+Search:
+• Show features in the viewport at the top of search results
+• Significantly speedup some search scenarios
+• Improved category ranking & address search.
+• Fixed highlighted hotel search results icon on the map
+• Improved German category search
 
-Navigation:
-• Improved speed limit displaying for CarPlay (red for overspeed)
-• Fixed roundabout number
-• Increased visibility of next street
+Styles and icons:
+• Added driving_school, music_school, language_school, archaeological_site, craft-painter
+• Removed backgrounds from historic cemetery icons
+• Added different castle types: castrum, fortified_church, fortress, hillfort, kremlin, manor, palace & shiro
+• Increased visibility of education & some sports
+• Separated furniture & kitchen types
+• Better looking leisure=track
+• Fixed vending=fuel icon
 
-Search improvements:
-• Fixed issue when some found objects were not highlighted on the map
-• Removed common street search synonyms like parkway, path, line, walk, trail, etc.
-• Fixed coordinates search if query contains newline
-• Ignore non-relevant search results for coordinates
-• Better search for capitails
-• Treat 'emergency' as last-choice feature type
-• Added Cathalan street search synonyms
-• Properly filter equal streets in search results
-
-Map styles:
-• Improved visibility of military areas and boundaries
-• Show disabled parking spaces
-• Do not draw icon for residential gardens
-• Render farm yard
-• Add parking_entrance
-• Add playground and internet cafe icon
-• Add second_hand and charity
-• Add table_tennis, volleyball, beachvolleyball, skateboard, chess, padel, handball, futsal, hockey, badminton, pelota
-• Removed background circles from icons
-
-Translations:
-• Updated Arabic translations and TTS texts
-• Added missing translations for place=*
-• Belarusian translations of countries
-• Added missing Turkish translations
+Localizations:
+• Added missing translations for craft=* and residential gardens
+• Added/fixed Dutch, Portuguese (Brazil), Italian, Catalan, Turkish, Belarusian translations
+• Enabled Catalan TTS (Text-To-Speech)
+• Localized some Telegram and Instagram links

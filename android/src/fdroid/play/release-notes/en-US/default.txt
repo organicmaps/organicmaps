@@ -1,12 +1,11 @@
-• New data as of August 16
-• Longer routes are calculated way faster than before
-• Search should work way better and faster now, many improvements!
-• Reduced size of mwm files
-• Fixed issue when some found objects were not highlighted on the map
-• Improved visibility of military areas and boundaries
-• Show disabled parking spaces
-• Added different sports icons
-• Render farm yard
-• Updated Arabic translations and TTS texts
-• Belarusian translations of countries
-…more: organicmaps.app/news
+• New OSM maps data as of September 12
+• Removed bottom toolbar for better UX & map visibility
+• Improved OSM login page & OSM profile
+• Faster, better search
+• Fixed crash on startup after editing
+• Bookmark lists are now sorted by recently modified time
+• Fixed nl, pt-BR, it, ca, tr, be translations
+• Enabled Catalan TTS (Text-To-Speech)
+• Added driving-, music- and language schools, archaeological_site, castles
+• Improved other styles and icons
+…more: omaps.app/news

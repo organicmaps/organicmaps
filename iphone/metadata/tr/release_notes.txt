@@ -1,43 +1,29 @@
-Öne Çıkanlar:
-• Yeni harita verileri (16 Ağustos)
-• Uzun rotalar artık daha hızlı hesaplanıyor
-• Arama artık daha iyi ve daha hızlı
-• mwm (harita) dosya boyutları azaltıldı
-• WunderLINQ desteği geri geldi (evet, API hizmetimiz mevcut! omaps.app/api adresini ziyaret edin)
+• Yeni OSM haritaları verileri 12 Eylül itibariyle
+• Bazı OSM nesnelerini düzenledikten sonra başlangıçta oluşan çökme düzeltildi
+• Yer imi listeleri artık son değiştirilme zamanına göre sıralanıyor
+• Bir sonraki sokak adı talimatlarının daha iyi görüntülenmesi
+• Her yerde aynı sistem yazı tipini kullanın
+• Bir hatayı bildirmek için iOS 14'te varsayılan posta uygulamasını kullanın
+• Katalanca çevirileri etkinleştirildi
 
-Kullanıcı Arayüzü:
-• Birleşik Mekan Sayfası ve Düzenleyici Arayüzü düzeni
-• Yükseklik farkı, iniş ve çıkış olarak değiştirildi
-• Mekan Sayfasında POI (İÇN) seviyesi gösteriliyor
-• Sosyal medya bağlantıları Mekan Sayfası ve Düzenleyicide gösteriliyor
-• Mekan Sayfasında "süre sonra açılıyor/kapanıyor" gösteriliyor
-• Kenardaki butonlar için animasyonlar düzeltildi
+Arama yapın:
+• Arama sonuçlarının üst kısmındaki görünüm alanında özellikleri gösterin
+• Bazı arama senaryolarını önemli ölçüde hızlandırır
+• Kategori sıralaması ve adres araması iyileştirildi.
+• Harita üzerinde vurgulanan otel arama sonuçları simgesi düzeltildi
+• Geliştirilmiş Almanca kategori araması
 
-Navigasyon:
-• CarPlay için geliştirilmiş hız sınırı görüntüleme (aşırı hızlı için kırmızı)
-• Kavşak numaraları düzeltildi
-• Bir sonraki sokağın görünürlüğü arttırıldı
+Stiller ve simgeler:
+• Sürücü_okulu, müzik_okulu, dil_okulu, arkeolojik_site eklendi,
+• Tarihi mezarlık simgelerinden arka planlar kaldırıldı
+• Farklı kale türleri eklendi: castrum, fortified_church, fortress, hillfort, kremlin, manor, palace & shiro
+• Eğitim ve bazı spor dallarının görünürlüğünün artması
+• Ayrılmış mobilya ve mutfak tipleri
+• Daha iyi görünümlü eğlence=track
+• Otomat=yakıt simgesi düzeltildi
 
-Arama İyileştirmeleri:
-• Aranan bazı nesnelerin haritada vurgulanmaması sorunu düzeltildi
-• Park yolu, yol, hat, yürüyüş yolu, patika vb. gibi yaygın sokak arama eş anlamlıları kaldırıldı.
-• Arama sorgusunda yeni satır içeren koordinat aramaları düzeltildi
-• Koordinatlar için alakasız arama sonuçları kaldırıldı
-• Başkentler için daha iyi arama
-• 'Acil' kategorisi son seçenek özellik türü olarak hesaplanıyor
-• Artık arama sonuçlarında aynı seviyedeki caddeleri uygun şekilde filtreleniyor
-
-Harita Stili:
-• Askeri alan ve sınırların görünürlüğü iyileştirildi
-• Engelli park yerleri eklendi
-• Artık konut bahçeleri için simge gösterilmiyor
-• Çiftlik avlusu eklendi
-• parking_entrance eklendi
-• Oyun alanı ve internet kafe simgesi eklendi
-• second_hand ve hayır kurumları eklendi
-• table_tennis, volleyball, beachvolleyball, skateboard, chess, padel, handball, futsal, hockey, badminton, pelota eklendi
-• Simgelerden arka plan daireleri kaldırıldı
-
-Çeviriler:
-• place=* için eksik çeviriler eklendi
-• Eksik Türkçe çeviriler eklendi
+Yerelleştirmeler:
+• craft=* için eksik çeviriler eklendi
+• Hollandaca, Portekizce (Brezilya), İtalyanca, Katalanca, Türkçe, Belarusça çeviriler eklendi/düzeltildi
+• Etkin Katalanca TTS (Metin Okuma)
+• Bazı Telegram ve Instagram bağlantıları yerelleştirildi
