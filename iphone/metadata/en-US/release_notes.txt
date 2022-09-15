@@ -1,6 +1,7 @@
 • New OSM maps data as of September 12
 • Fixed crash on startup after editing some OSM objects
 • Bookmark lists are now sorted by recently modified time
+• Fixed annoying "Continue detecting location" dialog when returning to OM
 • Improved displaying of the next street name directions
 • Use the same system font everywhere
 • Use the default mail app on iOS 14 to report a bug
