@@ -1,1 +1,29 @@
-../en-US/release_notes.txt
+• Novos dados OSM de 12 de setembro
+• Corrigido erro ao iniciar o app depois de uma edição no OSM
+• Lista de favoritos agora está ordenada por última modificação
+• Exibição aprimorada do nome da rua seguinte na navegação
+• Uso da mesma fonte do sistema em todos os lugares
+• Uso do aplicativo de e-mail padrão no iOS 14 para relatar um erro
+• Habilitado o idioma catalão
+
+Busca:
+• Na busca, os resultados encontrados são mostrados na parte superior
+• Busca significamente mais rápida em alguns casos
+• Melhoria na classificação de categorias e busca de endereços
+• Correção do ícone de resultados de pesquisa de hotéis em destaque no mapa
+• Melhoria na busca de categorias em alemão
+
+Estilos e ícones:
+• Adição de suporte aos sítios arqueológicos e às escolas de condução, música e idiomas
+• Remoção dos fundos de ícones de cemitérios históricos
+• Adição de diferentes tipos de castelo
+• Melhoria na visibilidade de educação e alguns esportes
+• Separação dos tipos de móveis e cozinha
+• Pistas de corridas melhores exibidas
+• Correção do ícone de vending=fuel
+
+Localização:
+• Adição de traduções inexistentes para jardins residenciais e etiqueta craft=*
+• Adição/correção de traduções em holandês, português brasileiro, italiano, catalão, turco e bielorusso
+• Adição de conversão de texto em fala (TTS) para catalão
+• Adição de algums links de Telegram e Instagram localizados
