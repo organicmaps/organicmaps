@@ -12,18 +12,96 @@ os.chdir(os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", ".."))
 
 # https://support.google.com/googleplay/android-developer/answer/9844778?visit_id=637740303439369859-3116807078&rd=1#zippy=%2Cview-list-of-available-languages
 GPLAY_LOCALES = [
-    "af", "am", "ar", "hy-AM", "az-AZ", "eu-ES", "be", "bn-BD", "bg", "my-MM",
-    "ca", "zh-HK", "zh-CN", "zh-TW", "hr", "cs-CZ", "da-DK", "nl-NL", "en-AU",
-    "en-CA", "en-IN", "en-SG", "en-GB", "en-US", "et", "fil", "fi-FI", "fr-FR",
-    "fr-CA", "gl-ES", "ka-GE", "de-DE", "el-GR", "iw-IL", "hi-IN", "hu-HU",
-    "is-IS", "id", "it-IT", "ja-JP", "kn-IN", "km-KH", "ko-KR", "ky-KG",
-    "lo-LA", "lv", "lt", "mk-MK", "ms", "ml-IN", "mr-IN", "mn-MN", "ne-NP",
-    "no-NO", "fa", "pl-PL", "pt-BR", "pt-PT", "ro", "rm", "ru-RU", "sr",
-    "si-LK", "sk", "sl", "es-419", "es-ES", "es-US", "sw", "sv-SE", "ta-IN",
-    "te-IN", "th", "tr-TR", "uk", "vi", "zu",
+    "af",    # Afrikaans
+    "sq",    # Albanian
+    "am",    # Amharic
+    "ar",    # Arabic
+    "hy-AM", # Armenian
+    "az-AZ", # Azerbaijani
+    "bn-BD", # Bangla
+    "eu-ES", # Basque
+    "be",    # Belarusian
+    "bg",    # Bulgarian
+    "my-MM", # Burmese
+    "ca",    # Catalan
+    "zh-HK", # Chinese (Hong Kong)
+    "zh-CN", # Chinese (Simplified)
+    "zh-TW", # Chinese (Traditional)
+    "hr",    # Croatian
+    "cs-CZ", # Czech
+    "da-DK", # Danish
+    "nl-NL", # Dutch
+    "en-IN", # English
+    "en-SG", # English
+    "en-ZA", # English
+    "en-AU", # English (Australia)
+    "en-CA", # English (Canada)
+    "en-GB", # English (United Kingdom)
+    "en-US", # English (United States)
+    "et",    # Estonian
+    "fil",   # Filipino
+    "fi-FI", # Finnish
+    "fr-CA", # French (Canada)
+    "fr-FR", # French (France)
+    "gl-ES", # Galician
+    "ka-GE", # Georgian
+    "de-DE", # German
+    "el-GR", # Greek
+    "gu",    # Gujarati
+    "iw-IL", # Hebrew
+    "hi-IN", # Hindi
+    "hu-HU", # Hungarian
+    "is-IS", # Icelandic
+    "id",    # Indonesian
+    "it-IT", # Italian
+    "ja-JP", # Japanese
+    "kn-IN", # Kannada
+    "kk",    # Kazakh
+    "km-KH", # Khmer
+    "ko-KR", # Korean
+    "ky-KG", # Kyrgyz
+    "lo-LA", # Lao
+    "lv",    # Latvian
+    "lt",    # Lithuanian
+    "mk-MK", # Macedonian
+    "ms",    # Malay
+    "ms-MY", # Malay (Malaysia)
+    "ml-IN", # Malayalam
+    "mr-IN", # Marathi
+    "mn-MN", # Mongolian
+    "ne-NP", # Nepali
+    "no-NO", # Norwegian
+    "fa",    # Persian
+    "fa-AE", # Persian
+    "fa-AF", # Persian
+    "fa-IR", # Persian
+    "pl-PL", # Polish
+    "pt-BR", # Portuguese (Brazil)
+    "pt-PT", # Portuguese (Portugal)
+    "pa",    # Punjabi
+    "ro",    # Romanian
+    "rm",    # Romansh
+    "ru-RU", # Russian
+    "sr",    # Serbian
+    "si-LK", # Sinhala
+    "sk",    # Slovak
+    "sl",    # Slovenian
+    "es-419", # Spanish (Latin America)
+    "es-ES", # Spanish (Spain)
+    "es-US", # Spanish (United States)
+    "sw",    # Swahili
+    "sv-SE", # Swedish
+    "ta-IN", # Tamil
+    "te-IN", # Telugu
+    "th",    # Thai
+    "tr-TR", # Turkish
+    "uk",    # Ukrainian
+    "ur",    # Urdu
+    "vi",    # Vietnamese
+    "zu",    # Zulu
 ]
 
-# From a Fastline error message
+# From a Fastline error message and https://help.apple.com/app-store-connect/#/dev997f9cf7c
 APPSTORE_LOCALES = [
     "ar-SA", "ca", "cs", "da", "de-DE", "el", "en-AU", "en-CA",
     "en-GB", "en-US", "es-ES", "es-MX", "fi", "fr-CA", "fr-FR",
