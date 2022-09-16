@@ -2,9 +2,10 @@
 • Removed bottom toolbar for better UX & map visibility
 • Improved OSM login page & OSM profile
 • Faster, better search
+• Fixed wrong elevation in some area
 • Fixed crash on startup after editing
 • Bookmark lists are now sorted by recently modified time
-• Fixed nl, pt-BR, it, ca, tr, be translations
+• Fixed some translations
 • Enabled Catalan TTS (Text-To-Speech)
 • Added driving-, music- and language schools, archaeological_site, castles
 • Improved other styles and icons
