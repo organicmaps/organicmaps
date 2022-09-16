@@ -303,8 +303,10 @@ extern "C"
     search::ViewportSearchParams vparams{
         jni::ToNativeString(env, bytes),
         jni::ToNativeString(env, lang),
-        {},   // default timeout
-        static_cast<bool>(isCategory)
+        {},  // Default timeout
+        static_cast<bool>(isCategory),
+        {},  // Empty m_onStarted callback
+        {},  // Empty m_onCompleted callback
     };
 
     // TODO (@alexzatsepin): set up vparams.m_onCompleted here and use
