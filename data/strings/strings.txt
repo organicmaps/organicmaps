@@ -5316,7 +5316,7 @@
     sv = Donera
     sw = Changia
     th = บริจาค
-    tr = Bağış yapmak
+    tr = Bağış Yapın
     uk = Пожертвувати
     vi = Quyên tặng
     zh-Hans = 捐
