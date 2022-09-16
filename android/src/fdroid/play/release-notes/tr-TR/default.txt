@@ -1,10 +1,11 @@
-• Yeni OSM haritaları verileri 12 Eylül itibariyle
-• Daha iyi UX ve harita görünürlüğü için alt araç çubuğu kaldırıldı
+• Yeni OSM harita verileri (12 Eylül)
+• Türkçe Telegram ve Instagram bağlantıları eklendi
+• Daha iyi arayüz ve harita görünümü için alt araç çubuğu kaldırıldı
 • Geliştirilmiş OSM giriş sayfası ve OSM profili
 • Daha hızlı, daha iyi arama
-• Düzenlemeden sonra başlangıçta oluşan çökme düzeltildi
-• Yer imi listeleri artık son değiştirilme zamanına göre sıralanıyor
-• Bazı çeviriler iyileştirildi
-• Sürüş, müzik ve dil okulları, arkeolojik_site, kaleler eklendi
+• Düzenlemeden sonra oluşan çökme düzeltildi
+• Yer imi listeleri artık son düzenlenmeye göre sıralanıyor
+• Çeviriler iyileştirildi
+• Sürüş, müzik ve dil okulları, arkeolojik site, kaleler eklendi
 • Diğer stiller ve simgeler geliştirildi
-…daha fazlası: omaps.app/news
+…dahası: omaps.app/news

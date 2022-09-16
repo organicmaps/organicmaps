@@ -6,43 +6,43 @@
 <b>Vaše zpětná vazba a pětihvězdičková hodnocení jsou pro nás tou nejlepší motivací!</b>
 
 Klíčové funkce: - V případě, že se vám podařilo získat informace, které vám pomohou s výběrem nejvhodnějšího produktu, můžete si vybrat z následujících možností:
-- Zdarma, open-source, bez reklam, bez sledování.
-- Podrobné offline mapy s místy, která na mapách Google neexistují, díky komunitě <b>OpenStreetMap</b>.
-- Cyklistické trasy, turistické stezky a pěší trasy
-- Obrysové linie, výškové profily, vrcholy a svahy
-- Pěší, cyklistická a EXPERIMENTÁLNÍ automobilová navigace turn-by-turn s hlasovým naváděním
-- Rychlé offline vyhledávání
-- Export a import záložek ve formátech KML/KMZ (GPX se chystá brzy).
-- Tmavý režim pro ochranu vašich očí
+• Zdarma, open-source, bez reklam, bez sledování.
+• Podrobné offline mapy s místy, která na mapách Google neexistují, díky komunitě <b>OpenStreetMap</b>.
+• Cyklistické trasy, turistické stezky a pěší trasy
+• Obrysové linie, výškové profily, vrcholy a svahy
+• Pěší, cyklistická a EXPERIMENTÁLNÍ automobilová navigace turn-by-turn s hlasovým naváděním
+• Rychlé offline vyhledávání
+• Export a import záložek ve formátech KML/KMZ (GPX se chystá brzy).
+• Tmavý režim pro ochranu vašich očí
 
 V Organic Maps zatím není k dispozici Android Auto, veřejná doprava, satelitní mapy a další skvělé funkce <i></i>. Ale s <i>vaší pomocí a podporou</i> můžeme tento svět krok za krokem vylepšovat.
 
 Mapy Organic Maps jsou <b>čisté a organické, vyrobené s láskou</b>:
 
-- Bleskově rychlé offline zážitky
-- Respektuje vaše soukromí
-- Šetří vaši baterii
-- Žádné nečekané poplatky za mobilní data
-- Jednoduché používání, obsahuje pouze nejdůležitější funkce
+• Bleskově rychlé offline zážitky
+• Respektuje vaše soukromí
+• Šetří vaši baterii
+• Žádné nečekané poplatky za mobilní data
+• Jednoduché používání, obsahuje pouze nejdůležitější funkce
 
 Bez sledovacích zařízení a dalších špatných věcí:
 
-- Žádné reklamy
-- Žádné sledování
-- Žádné shromažďování dat
-- Žádné telefonování domů
-- Žádná obtěžující registrace
-- Žádné povinné výukové programy
-- Žádný hlučný e-mailový spam
-- Žádná push oznámení
-- Žádný crapware
-- N̶o̶ ̶p̶e̶s̶t̶i̶c̶i̶d̶e̶s̶ Čistě ekologické produkty
+• Žádné reklamy
+• Žádné sledování
+• Žádné shromažďování dat
+• Žádné telefonování domů
+• Žádná obtěžující registrace
+• Žádné povinné výukové programy
+• Žádný hlučný e-mailový spam
+• Žádná push oznámení
+• Žádný crapware
+• N̶o̶ ̶p̶e̶s̶t̶i̶c̶i̶d̶e̶s̶ Čistě ekologické produkty
 
 V Organic Maps věříme, že <b>soukromí je základním lidským právem</b>:
 
-- Organic Maps je nezávislý komunitní projekt s otevřeným zdrojovým kódem.
-- Chráníme soukromí před zvědavýma očima Big Tech'.
-- Zůstaňte v bezpečí, ať jste kdekoli
+• Organic Maps je nezávislý komunitní projekt s otevřeným zdrojovým kódem.
+• Chráníme soukromí před zvědavýma očima Big Tech'.
+• Zůstaňte v bezpečí, ať jste kdekoli
 
 Podle zprávy Exodus Privacy Report se zde nachází nula sledovacích zařízení a jen minimálně vyžadovaná oprávnění.
 
