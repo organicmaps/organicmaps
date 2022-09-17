@@ -20,18 +20,30 @@ if (APPLE AND NOT ("${CMAKE_SYSTEM_NAME}" STREQUAL Android))
   set(CMAKE_OBJCXX_FLAGS -fobjc-arc)
 endif()
 
-message("Using compiler ${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VERSION}")
+message(STATUS "Using compiler ${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VERSION}")
 
 option(UNITY_DISABLE "Disable unity build" OFF)
-
-if (NOT UNITY_DISABLE)
-  message("Using unity builds, pass -DUNITY_DISABLE=ON to disable it.")
+if (NOT UNITY_DISABLE AND NOT DEFINED ENV{UNITY_DISABLE})
   set(CMAKE_UNITY_BUILD ON)
   set(CMAKE_UNITY_BUILD_BATCH_SIZE 50)
+  message(STATUS "Using Unity Build with batch ${CMAKE_UNITY_BUILD_BATCH_SIZE}, export UNITY_DISABLE=1 or use -DUNITY_DISABLE=ON to disable it.")
 endif()
 
-if (NOT (DEFINED ENV{COLORS_DISABLE}) AND CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
-  message("export COLORS_DISABLE=1 to disable colored compiler output.")
+option(CCACHE_DISABLE "Disable ccache" OFF)
+if (NOT CCACHE_DISABLE AND NOT DEFINED ENV{CCACHE_DISABLE})
+  find_program(CCACHE_PROGRAM ccache HINTS /usr/local/bin/)
+  if (CCACHE_PROGRAM)
+    message(STATUS "Using ccache, export CCACHE_DISABLE=1 or use -DCCACHE_DISABLE=ON to disable it.")
+    set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE "${CCACHE_PROGRAM}")
+    set_property(GLOBAL PROPERTY RULE_LAUNCH_LINK "${CCACHE_PROGRAM}")
+    set(CMAKE_C_COMPILER_LAUNCHER   "${CCACHE_PROGRAM}")
+    set(CMAKE_CXX_COMPILER_LAUNCHER "${CCACHE_PROGRAM}")
+  endif()
+endif()
+
+option(COLORS_DISABLE "Disable colored compiler output" OFF)
+if (NOT DEFINED ENV{COLORS_DISABLE} AND CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+  message(STATUS "export COLORS_DISABLE=1 or use -DCOLORS_DISABLE=ON to disable colored compiler output.")
   add_compile_options($<$<CXX_COMPILER_ID:GNU>:-fdiagnostics-color=always> $<$<CXX_COMPILER_ID:Clang,AppleClang>:-fcolor-diagnostics>)
   add_link_options($<$<CXX_COMPILER_ID:GNU>:-fdiagnostics-color=always> $<$<CXX_COMPILER_ID:Clang,AppleClang>:-fcolor-diagnostics>)
 endif()
@@ -98,7 +110,7 @@ else()
   message(FATAL_ERROR "Unknown build type: " ${CMAKE_BUILD_TYPE})
 endif()
 
-message("Build type: " ${CMAKE_BUILD_TYPE})
+message(STATUS "Build type: " ${CMAKE_BUILD_TYPE})
 # End of setting build type
 
 # Options
@@ -106,7 +118,7 @@ message("Build type: " ${CMAKE_BUILD_TYPE})
 # Call `make package` after cmake to build design tool.
 option(BUILD_DESIGNER "Build application as design tool" OFF)
 if (BUILD_DESIGNER)
-  message("Designer tool building is enabled")
+  message(STATUS "Designer tool building is enabled")
   add_definitions(-DBUILD_DESIGNER)
 endif()
 
@@ -121,7 +133,7 @@ option(USE_PCH "Use precompiled headers" OFF)
 option(NJOBS "Number of parallel processes" OFF)
 
 if (NJOBS)
-  message("Number of parallel processes: ${NJOBS}")
+  message(STATUS "Number of parallel processes: ${NJOBS}")
   set(CMAKE_JOB_POOLS custom=${NJOBS})
   set(CMAKE_JOB_POOL_COMPILE custom)
   set(CMAKE_JOB_POOL_LINK custom)
@@ -146,11 +158,11 @@ if (PLATFORM_LINUX)
 endif()
 
 if (USE_ASAN)
-  message("Address Sanitizer is enabled")
+  message(STATUS "Address Sanitizer is enabled")
 endif()
 
 if (USE_TSAN)
-  message("Thread Sanitizer is enabled")
+  message(STATUS "Thread Sanitizer is enabled")
 endif()
 
 if (USE_ASAN AND USE_TSAN)
@@ -158,16 +170,16 @@ if (USE_ASAN AND USE_TSAN)
 endif()
 
 if (USE_LIBFUZZER)
-  message("LibFuzzer is enabled")
+  message(STATUS "LibFuzzer is enabled")
 endif()
 
 if (USE_PPROF)
-  message("Google Profiler is enabled")
+  message(STATUS "Google Profiler is enabled")
   add_definitions(-DUSE_PPROF)
 endif()
 
 if (USE_HEAPPROF)
-  message("Heap Profiler is enabled")
+  message(STATUS "Heap Profiler is enabled")
 endif()
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
@@ -175,17 +187,6 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 # Set environment variables
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
 set(LIBRARY_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
-
-if (NOT (DEFINED ENV{CCACHE_DISABLE}))
-  find_program(CCACHE_PROGRAM ccache HINTS /usr/local/bin/)
-  if (CCACHE_PROGRAM)
-    message("Using ccache, export CCACHE_DISABLE=1 to disable it.")
-    set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE "${CCACHE_PROGRAM}")
-    set_property(GLOBAL PROPERTY RULE_LAUNCH_LINK "${CCACHE_PROGRAM}")
-    set(CMAKE_C_COMPILER_LAUNCHER   "${CCACHE_PROGRAM}")
-    set(CMAKE_CXX_COMPILER_LAUNCHER "${CCACHE_PROGRAM}")
-  endif()
-endif()
 
 if (PLATFORM_LINUX OR PLATFORM_ANDROID)
   find_program(LLD_FOUND ld.lld)
@@ -272,7 +273,7 @@ if (USE_LIBFUZZER)
 endif()
 
 if (USE_PCH)
-  message("Precompiled headers are ON")
+  message(STATUS "Precompiled headers are ON")
   set(OMIM_PCH_TARGET_NAME "omim_pch")
   add_precompiled_headers(
     ${OMIM_ROOT}/precompiled_headers.hpp
@@ -333,7 +334,7 @@ add_compile_options(
 
 find_package(Python3 COMPONENTS Interpreter)
 if (Python3_Interpreter_FOUND)
-  message("Found python to use in qt/, shaders/ and 3party/: ${Python3_EXECUTABLE}")
+  message(STATUS "Found python to use in qt/, shaders/ and 3party/: ${Python3_EXECUTABLE}")
 else()
   message(FATAL_ERROR "Could not find python3 to use in qt/, shaders/ and 3party/.")
 endif()
