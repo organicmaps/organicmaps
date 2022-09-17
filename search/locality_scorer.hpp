@@ -2,12 +2,7 @@
 
 #include "search/cbv.hpp"
 #include "search/geocoder_locality.hpp"
-#include "search/ranking_utils.hpp"
 
-#include "base/string_utils.hpp"
-
-#include <cstddef>
-#include <cstdint>
 #include <limits>
 #include <optional>
 #include <string>
@@ -23,8 +18,6 @@ struct BaseContext;
 class LocalityScorer
 {
 public:
-  static size_t const kDefaultReadLimit;
-
   class Delegate
   {
   public:
@@ -48,7 +41,7 @@ public:
 private:
   struct ExLocality
   {
-    ExLocality(Locality const & locality, double queryNorm, uint8_t rank);
+    ExLocality(Locality && locality, double queryNorm, uint8_t rank);
 
     uint32_t GetId() const { return m_locality.m_featureId; }
 
@@ -77,7 +70,7 @@ private:
   // elements with the same similarity and matched range size prefers localities from already
   // matched regions, then the closest one (by distance to pivot), rest of elements are sorted by
   // rank.
-  void LeaveTopBySimilarityAndOther(size_t limit, std::vector<ExLocality> & els) const;
+  void GroupBySimilarityAndOther(std::vector<ExLocality> & els) const;
 
   void GetDocVecs(uint32_t localityId, std::vector<DocVec> & dvs) const;
   double GetSimilarity(QueryVec & qv, IdfMap & docIdfs, std::vector<DocVec> & dvs) const;
