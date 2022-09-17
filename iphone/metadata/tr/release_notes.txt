@@ -1,29 +1,26 @@
-• Yeni OSM haritaları verileri 12 Eylül itibariyle
-• Bazı OSM nesnelerini düzenledikten sonra başlangıçta oluşan çökme düzeltildi
+• Yeni OSM haritaları verileri (12 Eylül)
+• Türkçe Telegram ve Instagram hesap bağlantıları yardım sayfasına eklendi
+• Bazı OSM nesnelerini düzenledikten sonra başlangıçta oluşan çökme sorunu düzeltildi
 • Yer imi listeleri artık son değiştirilme zamanına göre sıralanıyor
-• Bir sonraki sokak adı talimatlarının daha iyi görüntülenmesi
-• Her yerde aynı sistem yazı tipini kullanın
-• Bir hatayı bildirmek için iOS 14'te varsayılan posta uygulamasını kullanın
-• Katalanca çevirileri etkinleştirildi
+• Bir sonraki sokak adını içeren yönergeler daha iyi görüntüleniyor
+• Her yerde aynı sistem yazı tipi kullanılıyor
+• Bir hatayı bildirmek için iOS 14'te artık varsayılan posta uygulamasını kullanılıyor
 
-Arama yapın:
-• Arama sonuçlarının üst kısmındaki görünüm alanında özellikleri gösterin
-• Bazı arama senaryolarını önemli ölçüde hızlandırır
-• Kategori sıralaması ve adres araması iyileştirildi.
+Arama:
+• Arama sonuçlarının üst kısmındaki alanda özellikler gösteriliyor
+• Bazı arama sorguları önemli ölçüde hızlandırıldı
+• Kategori sıralaması ve adres araması iyileştirildi
 • Harita üzerinde vurgulanan otel arama sonuçları simgesi düzeltildi
-• Geliştirilmiş Almanca kategori araması
 
 Stiller ve simgeler:
-• Sürücü_okulu, müzik_okulu, dil_okulu, arkeolojik_site eklendi,
-• Tarihi mezarlık simgelerinden arka planlar kaldırıldı
+• Sürücü okulu, müzik okulu, dil okulu, arkeolojik site eklendi
+• Tarihi mezarlık simgelerindeki arka plan kaldırıldı
 • Farklı kale türleri eklendi: castrum, fortified_church, fortress, hillfort, kremlin, manor, palace & shiro
-• Eğitim ve bazı spor dallarının görünürlüğünün artması
+• Eğitim ve bazı spor dallarının görünürlüğü arttırıldı
 • Ayrılmış mobilya ve mutfak tipleri
-• Daha iyi görünümlü eğlence=track
-• Otomat=yakıt simgesi düzeltildi
+• Daha iyi görünümlü leisure=track
+• vending=fuel simgesi düzeltildi
 
-Yerelleştirmeler:
+Çeviriler:
 • craft=* için eksik çeviriler eklendi
-• Hollandaca, Portekizce (Brezilya), İtalyanca, Katalanca, Türkçe, Belarusça çeviriler eklendi/düzeltildi
-• Etkin Katalanca TTS (Metin Okuma)
-• Bazı Telegram ve Instagram bağlantıları yerelleştirildi
+• Bazı çeviriler eklendi/düzeltildi
