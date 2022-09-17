@@ -40,26 +40,24 @@ public:
   // Returns the squared (euclidean) distance from the segment to |p|.
   double SquaredDistanceToPoint(Point const & p) const
   {
-    Point const diff = p - m_p0;
-    m2::PointD const diffD(diff);
-    double const t = DotProduct(m_d, diffD);
+    m2::PointD const diff(p - m_p0);
+    double const t = DotProduct(m_d, diff);
 
     if (t <= 0)
-      return diffD.SquaredLength();
+      return diff.SquaredLength();
 
     if (t >= m_length)
       return (p - m_p1).SquaredLength();
 
     // Closest point is between |m_p0| and |m_p1|.
-    return base::Pow2(CrossProduct(diffD, m_d));
+    return base::Pow2(CrossProduct(diff, m_d));
   }
 
   // Returns the point of the segment that is closest to |p|.
   m2::PointD ClosestPointTo(Point const & p) const
   {
-    Point const diff = p - m_p0;
-    m2::PointD const diffD(diff);
-    double const t = DotProduct(m_d, diffD);
+    m2::PointD const diff(p - m_p0);
+    double const t = DotProduct(m_d, diff);
 
     if (t <= 0)
       return m_p0;
@@ -84,14 +82,19 @@ private:
 // when looking at a call site whether x should be the first or the last parameter to the fuction.
 // For readability, consider creating a parametrized segment and using its methods instead
 // of using this functor.
-template <typename Point>
 struct SquaredDistanceFromSegmentToPoint
 {
-  // Returns squared distance from the segment [a, b] to the point x.
-  double operator()(Point const & a, Point const & b, Point const & x) const
+  /// @return Squared distance from the segment [a, b] to the point x.
+  double operator()(m2::PointD const & a, m2::PointD const & b, m2::PointD const & x) const
   {
-    ParametrizedSegment<Point> segment(a, b);
+    ParametrizedSegment<m2::PointD> segment(a, b);
     return segment.SquaredDistanceToPoint(x);
+  }
+
+  template <class PointT>
+  double operator()(PointT const & a, PointT const & b, PointT const & x) const
+  {
+    return this->operator()(m2::PointD(a), m2::PointD(b), m2::PointD(x));
   }
 };
 }  // namespace m2

@@ -292,7 +292,7 @@ private:
     }
     else
     {
-      feature::SimplifyPoints(m2::SquaredDistanceFromSegmentToPoint<m2::PointD>(), level, in, out);
+      feature::SimplifyPoints(m2::SquaredDistanceFromSegmentToPoint(), level, in, out);
     }
   }
 

@@ -1,21 +1,13 @@
 #pragma once
 
-#include "geometry/point2d.hpp"
-
-#include "base/base.hpp"
-#include "base/logging.hpp"
-#include "base/stl_helpers.hpp"
+#include "geometry/parametrized_segment.hpp"
 
 #include <algorithm>
 #include <cstdint>
 #include <iterator>
-#include <utility>
 #include <vector>
 
 // Polyline simplification algorithms.
-//
-// SimplifyXXX() should be used to simplify polyline for a given epsilon.
-// (!) They do not include the last point to the simplification, the calling side should do it.
 
 namespace simpl
 {
@@ -25,12 +17,10 @@ template <typename DistanceFn, typename Iter>
 std::pair<double, Iter> MaxDistance(Iter first, Iter last, DistanceFn & distFn)
 {
   std::pair<double, Iter> res(0.0, last);
-  if (std::distance(first, last) <= 1)
-    return res;
 
   for (Iter i = first + 1; i != last; ++i)
   {
-    double const d = distFn(m2::PointD(*first), m2::PointD(*last), m2::PointD(*i));
+    double const d = distFn(*first, *last, *i);
     if (res.first < d)
     {
       res.first = d;
@@ -45,16 +35,17 @@ std::pair<double, Iter> MaxDistance(Iter first, Iter last, DistanceFn & distFn)
 template <typename DistanceFn, typename Iter, typename Out>
 void SimplifyDP(Iter first, Iter last, double epsilon, DistanceFn & distFn, Out & out)
 {
-  std::pair<double, Iter> maxDist = MaxDistance(first, last, distFn);
-  if (maxDist.second == last || maxDist.first < epsilon)
+  if (first != last)
   {
-    out(*last);
+    auto const maxDist = MaxDistance(first, last, distFn);
+    if (maxDist.first >= epsilon)
+    {
+      simpl::SimplifyDP(first, maxDist.second, epsilon, distFn, out);
+      simpl::SimplifyDP(maxDist.second, last, epsilon, distFn, out);
+      return;
+    }
   }
-  else
-  {
-    simpl::SimplifyDP(first, maxDist.second, epsilon, distFn, out);
-    simpl::SimplifyDP(maxDist.second, last, epsilon, distFn, out);
-  }
+  out(*last);
 }
 //@}
 
@@ -143,10 +134,7 @@ public:
     size_t count;
     while ((count = m_vec.size()) >= 2)
     {
-      auto const a = m2::PointD(m_vec[count - 2]);
-      auto const b = m2::PointD(p);
-      auto const c = m2::PointD(m_vec[count - 1]);
-      if (m_distFn(a, b, c) < m_eps)
+      if (m_distFn(m_vec[count - 2], p, m_vec[count - 1]) < m_eps)
         m_vec.pop_back();
       else
         break;
@@ -160,3 +148,11 @@ private:
   std::vector<Point> & m_vec;
   double m_eps;
 };
+
+template <class IterT, class PointT>
+void SimplifyDefault(IterT beg, IterT end, double squareEps, std::vector<PointT> & out)
+{
+  m2::SquaredDistanceFromSegmentToPoint distFn;
+  SimplifyNearOptimal(20 /* maxFalseLookAhead */, beg, end, squareEps, distFn,
+                      AccumulateSkipSmallTrg(distFn, out, squareEps));
+}
