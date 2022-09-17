@@ -98,7 +98,7 @@ ar:طعام|متجر|بقالية
 cs:Potraviny|Jídlo|Obchod
 da:Dagligvarer|Mad|Butik
 nl:Boodschappen|Kruidenierswinkels|Eten|Winkel
-fi:Tuotteet|Ruoka|Kauppa
+fi:Elintarvikkeet|Ruoka|Kauppa
 fr:Les courses|Nourriture|Magasin
 de:6Lebensmittel|Essen|Geschäft|Laden
 hu:Élelmiszer|Ennivaló|Bolt|Üzlet
