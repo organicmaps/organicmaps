@@ -41,7 +41,7 @@ bool Ge0Parser::Parse(string const & url, Result & result)
   // Alternative format (differs only in the prefix):
   // http://omaps.app/ZCoordba64/Name
 
-  for (string const & prefix : {"ge0://", "om://",
+  for (std::string_view prefix : {"ge0://", "om://",
       "http://omaps.app/", "https://omaps.app/",
       "http://ge0.me/", "https://ge0.me/"})
   {
