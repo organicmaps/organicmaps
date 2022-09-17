@@ -81,7 +81,7 @@ public:
       return std::numeric_limits<double>::max();
     }
 
-    return m2::SquaredDistanceFromSegmentToPoint<m2::PointD>()(a, b, p);
+    return m2::SquaredDistanceFromSegmentToPoint()(a, b, p);
   }
 
   double GetEpsilon() const { return m_eps; }
