@@ -586,6 +586,7 @@ bool StartsWith(IterT1 beg, IterT1 end, IterT2 begPrefix, IterT2 endPrefix)
 
 bool StartsWith(UniString const & s, UniString const & p);
 bool StartsWith(std::string const & s1, char const * s2);
+bool StartsWith(std::string const & s1, std::string_view s2);
 bool StartsWith(std::string const & s, std::string::value_type c);
 bool StartsWith(std::string const & s1, std::string const & s2);
 
