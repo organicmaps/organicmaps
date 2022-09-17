@@ -19,9 +19,6 @@ struct RecommendedFilteringParams
   // Max number of street cadidates. Streets count can be greater, if they are all inside m_streetSearchRadiusM area.
   size_t m_maxStreetsCount = 100;
   /// @}
-
-  // Villages search radius.
-  double m_villageSearchRadiusM = 200000;
 };
 
 } // namespace search

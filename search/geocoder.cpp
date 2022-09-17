@@ -54,10 +54,13 @@ using namespace strings;
 
 namespace
 {
+/// @todo Move this constants into RecommendedFilteringParams?
+
 size_t constexpr kMaxNumCities = 10;
 size_t constexpr kMaxNumStates = 10;
 size_t constexpr kMaxNumVillages = 5;
 size_t constexpr kMaxNumCountries = 10;
+
 double constexpr kMaxViewportRadiusM = 50.0 * 1000;
 double constexpr kMaxPostcodeRadiusM = 1000;
 double constexpr kMaxSuburbRadiusM = 2000;
@@ -736,7 +739,7 @@ void Geocoder::CacheWorldLocalities()
 
 void Geocoder::FillLocalitiesTable(BaseContext const & ctx)
 {
-  auto addRegionMaps = [&](FeatureType & ft, Locality const & l, Region::Type type)
+  auto addRegionMaps = [this](FeatureType & ft, Locality && l, Region::Type type)
   {
     if (ft.GetGeomType() != feature::GeomType::Point)
       return;
@@ -745,14 +748,13 @@ void Geocoder::FillLocalitiesTable(BaseContext const & ctx)
     if (!GetAffiliationName(ft, affiliation))
       return;
 
-    Region region(l, type);
+    Region region(std::move(l), type);
     region.m_center = ft.GetCenter();
 
-    region.m_defaultName = ft.GetName(StringUtf8Multilang::kDefaultCode);
-    LOG(LDEBUG, ("Region =", region.m_defaultName));
+    LOG(LDEBUG, ("Region =", ft.GetName(StringUtf8Multilang::kDefaultCode)));
 
     m_infoGetter.GetMatchedRegions(affiliation, region.m_ids);
-    m_regions[type][l.m_tokenRange].push_back(std::move(region));
+    m_regions[type][region.m_tokenRange].push_back(std::move(region));
   };
 
   vector<Locality> preLocalities;
@@ -768,7 +770,7 @@ void Geocoder::FillLocalitiesTable(BaseContext const & ctx)
       continue;
     }
 
-    addRegionMaps(*ft, l, Region::TYPE_COUNTRY);
+    addRegionMaps(*ft, std::move(l), Region::TYPE_COUNTRY);
   }
 
   filter = m_localitiesCaches.m_states.Get(*m_context);
@@ -782,7 +784,7 @@ void Geocoder::FillLocalitiesTable(BaseContext const & ctx)
       continue;
     }
 
-    addRegionMaps(*ft, l, Region::TYPE_STATE);
+    addRegionMaps(*ft, std::move(l), Region::TYPE_STATE);
   }
 
   filter = m_localitiesCaches.m_citiesTownsOrVillages.Get(*m_context);
@@ -798,7 +800,7 @@ void Geocoder::FillLocalitiesTable(BaseContext const & ctx)
 
     if (ft->GetGeomType() == feature::GeomType::Point)
     {
-      City city(l, Model::TYPE_CITY);
+      City city(std::move(l), Model::TYPE_CITY);
 
       CitiesBoundariesTable::Boundaries boundaries;
       bool haveBoundary = false;
@@ -817,14 +819,11 @@ void Geocoder::FillLocalitiesTable(BaseContext const & ctx)
         city.m_rect = mercator::RectByCenterXYAndSizeInMeters(center, radius);
       }
 
-#ifdef DEBUG
-      city.m_defaultName = ft->GetName(StringUtf8Multilang::kDefaultCode);
-      LOG(LINFO,
-          ("City =", city.m_defaultName, "rect =", city.m_rect,
+      LOG(LDEBUG,
+          ("City =", ft->GetName(StringUtf8Multilang::kDefaultCode), "rect =", city.m_rect,
            "rect source:", haveBoundary ? "table" : "population",
            "sizeX =", mercator::DistanceOnEarth(city.m_rect.LeftTop(), city.m_rect.RightTop()),
            "sizeY =", mercator::DistanceOnEarth(city.m_rect.LeftTop(), city.m_rect.LeftBottom())));
-#endif
 
       m_cities[city.m_tokenRange].push_back(std::move(city));
     }
@@ -834,9 +833,7 @@ void Geocoder::FillLocalitiesTable(BaseContext const & ctx)
 void Geocoder::FillVillageLocalities(BaseContext const & ctx)
 {
   vector<Locality> preLocalities;
-  FillLocalityCandidates(ctx, ctx.m_villages /* filter */, kMaxNumVillages, preLocalities);
-
-  size_t numVillages = 0;
+  FillLocalityCandidates(ctx, ctx.m_villages, kMaxNumVillages, preLocalities);
 
   for (auto & l : preLocalities)
   {
@@ -848,14 +845,19 @@ void Geocoder::FillVillageLocalities(BaseContext const & ctx)
       continue;
 
     m2::PointD center;
-    // m_context->GetCenter is faster but may not work for editor created features.
     if (!m_context->GetCenter(l.m_featureId, center))
-      center = feature::GetCenter(*ft);
+    {
+      // In general, we don't have centers for newly created features, but editor doesn't support localities now.
+      ASSERT(false, (l.m_featureId, "Village feature without table's center"));
+      continue;
+    }
 
     vector<m2::PointD> pivotPoints = {m_params.m_pivot.Center()};
     if (m_params.m_position)
       pivotPoints.push_back(*m_params.m_position);
 
+    // Always grab top kMaxNumVillages, despite of the distance.
+    /*
     if (!m_context->GetType().m_containsMatchedState &&
         all_of(pivotPoints.begin(), pivotPoints.end(), [&](auto const & p) {
           return mercator::DistanceOnEarth(center, p) > m_params.m_filteringParams.m_villageSearchRadiusM;
@@ -863,22 +865,17 @@ void Geocoder::FillVillageLocalities(BaseContext const & ctx)
     {
       continue;
     }
+    */
 
-    ++numVillages;
-    City village(l, Model::TYPE_VILLAGE);
+    City village(std::move(l), Model::TYPE_VILLAGE);
 
     auto const population = ftypes::GetPopulation(*ft);
     auto const radius = ftypes::GetRadiusByPopulation(population);
     village.m_rect = mercator::RectByCenterXYAndSizeInMeters(center, radius);
 
-#ifdef DEBUG
-    village.m_defaultName = ft->GetName(StringUtf8Multilang::kDefaultCode);
-    LOG(LDEBUG, ("Village =", village.m_defaultName, "radius =", radius));
-#endif
+    LOG(LDEBUG, ("Village =", ft->GetName(StringUtf8Multilang::kDefaultCode), "radius =", radius));
 
     m_cities[village.m_tokenRange].push_back(std::move(village));
-    if (numVillages >= kMaxNumVillages)
-      break;
   }
 }
 
@@ -1289,6 +1286,11 @@ void Geocoder::CentersFilter::ProcessStreets(std::vector<uint32_t> & streets, Ge
         minDist = std::min(minDist, ftCenter.SquaredLength(c));
       loadedStreets.emplace_back(minDist, ftCenter, fid);
     }
+    else
+    {
+      // In general, we don't have centers for newly created features, but editor doesn't support streets now.
+      ASSERT(false, ("Street feature without table's center"));
+    }
   }
 
   // Sort by distance.
@@ -1305,7 +1307,7 @@ void Geocoder::CentersFilter::ProcessStreets(std::vector<uint32_t> & streets, Ge
   }
 
   // Find the first (after m_maxStreetsCount) street that is out of the rect's bounds
-  size_t count = geocoder.m_params.m_filteringParams.m_maxStreetsCount;
+  size_t count = std::min(loadedStreets.size(), geocoder.m_params.m_filteringParams.m_maxStreetsCount);
   for (; count < loadedStreets.size(); ++count)
   {
     bool const outside = std::all_of(rects.begin(), rects.end(),

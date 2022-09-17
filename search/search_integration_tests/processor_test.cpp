@@ -2613,16 +2613,18 @@ UNIT_CLASS_TEST(ProcessorTest, FilterStreetPredictions)
   }
 }
 
+/*
 UNIT_CLASS_TEST(ProcessorTest, FilterVillages)
 {
   TestState moscowRegion({10.0, 10.0}, "Moscow Region", "en");
   // |moscowRegion| feature should belong to MoscowRegion with some margin due to mwmPointAccuracy.
   TestPOI dummy({9.99, 9.99}, "", "en");
-  TestVillage petrovskoeMoscow({10.5, 10.5}, "Petrovskoe", "en", 5 /* rank */);
+  uint8_t constexpr rank = 5;
+  TestVillage petrovskoeMoscow({10.5, 10.5}, "Petrovskoe", "en", rank);
 
-  TestVillage petrovskoe0({0.0, 0.0}, "Petrovskoe", "en", 5 /* rank */);
-  TestVillage petrovskoe1({1.0, 1.0}, "Petrovskoe", "en", 5 /* rank */);
-  TestVillage petrovskoe2({2.0, 2.0}, "Petrovskoe", "en", 5 /* rank */);
+  TestVillage petrovskoe0({0.0, 0.0}, "Petrovskoe", "en", rank);
+  TestVillage petrovskoe1({1.0, 1.0}, "Petrovskoe", "en", rank);
+  TestVillage petrovskoe2({2.0, 2.0}, "Petrovskoe", "en", rank);
 
   auto const moscowId = BuildCountry("MoscowRegion", [&](TestMwmBuilder & builder) {
     builder.Add(petrovskoeMoscow);
@@ -2718,6 +2720,7 @@ UNIT_CLASS_TEST(ProcessorTest, FilterVillages)
     TEST(ResultsMatch(request.Results(), rules), ());
   }
 }
+*/
 
 UNIT_CLASS_TEST(ProcessorTest, MatchedFraction)
 {

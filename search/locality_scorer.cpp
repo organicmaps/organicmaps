@@ -16,7 +16,6 @@
 #include <algorithm>
 #include <sstream>
 #include <unordered_set>
-#include <utility>
 
 namespace search
 {
@@ -68,12 +67,12 @@ private:
 };
 }  // namespace
 
-// static
-size_t const LocalityScorer::kDefaultReadLimit = 100;
+// Used as a default (minimun) number of candidates for futher processing (read FeatureType).
+size_t constexpr kDefaultReadLimit = 100;
 
 // LocalityScorer::ExLocality ----------------------------------------------------------------------
-LocalityScorer::ExLocality::ExLocality(Locality const & locality, double queryNorm, uint8_t rank)
-  : m_locality(locality), m_queryNorm(queryNorm), m_rank(rank)
+LocalityScorer::ExLocality::ExLocality(Locality && locality, double queryNorm, uint8_t rank)
+  : m_locality(std::move(locality)), m_queryNorm(queryNorm), m_rank(rank)
 {
 }
 
@@ -172,7 +171,7 @@ void LocalityScorer::LeaveTopLocalities(IdfMap & idfs, size_t limit, vector<Loca
   {
     auto const queryNorm = locality.m_queryVec.Norm();
     auto const rank = m_delegate.GetRank(locality.m_featureId);
-    els.emplace_back(locality, queryNorm, rank);
+    els.emplace_back(std::move(locality), queryNorm, rank);
   }
 
   // We don't want to read too many names for localities, so this is
@@ -212,20 +211,25 @@ void LocalityScorer::LeaveTopLocalities(IdfMap & idfs, size_t limit, vector<Loca
     }
   }
 
-  LeaveTopBySimilarityAndOther(limit, els);
-  ASSERT_LESS_OR_EQUAL(els.size(), limit, ());
+  GroupBySimilarityAndOther(els);
 
   localities.clear();
   localities.reserve(els.size());
-  for (auto const & el : els)
-    localities.push_back(el.m_locality);
-  ASSERT_LESS_OR_EQUAL(localities.size(), limit, ());
+
+  unordered_set<uint32_t> seen;
+  for (auto it = els.begin(); it != els.end() && localities.size() < limit; ++it)
+  {
+    if (seen.insert(it->GetId()).second)
+      localities.push_back(std::move(it->m_locality));
+  }
+  ASSERT_EQUAL(seen.size(), localities.size(), ());
 }
 
 void LocalityScorer::LeaveTopByExactMatchNormAndRank(size_t limitUniqueIds,
                                                      vector<ExLocality> & els) const
 {
-  sort(els.begin(), els.end(), [](ExLocality const & lhs, ExLocality const & rhs) {
+  sort(els.begin(), els.end(), [](ExLocality const & lhs, ExLocality const & rhs)
+  {
     if (lhs.m_locality.m_exactMatch != rhs.m_locality.m_exactMatch)
       return lhs.m_locality.m_exactMatch;
     auto const ln = lhs.m_queryNorm;
@@ -235,17 +239,21 @@ void LocalityScorer::LeaveTopByExactMatchNormAndRank(size_t limitUniqueIds,
     return lhs.m_rank > rhs.m_rank;
   });
 
+  // This logic with additional filtering set makes sense when _equal_ localities by GetId()
+  // have _different_ primary compare params (m_exactMatch, m_queryNorm, m_rank).
+  // It's possible when same locality was matched by different tokens.
   unordered_set<uint32_t> seen;
-  for (size_t i = 0; i < els.size() && seen.size() < limitUniqueIds; ++i)
-    seen.insert(els[i].GetId());
-  ASSERT_LESS_OR_EQUAL(seen.size(), limitUniqueIds, ());
+  auto it = els.begin();
+  for (; it != els.end() && seen.size() < limitUniqueIds; ++it)
+    seen.insert(it->GetId());
 
-  base::EraseIf(els, [&](ExLocality const & el) { return seen.find(el.GetId()) == seen.cend(); });
+  els.erase(it, els.end());
 }
 
-void LocalityScorer::LeaveTopBySimilarityAndOther(size_t limit, vector<ExLocality> & els) const
+void LocalityScorer::GroupBySimilarityAndOther(vector<ExLocality> & els) const
 {
-  sort(els.begin(), els.end(), [](ExLocality const & lhs, ExLocality const & rhs) {
+  sort(els.begin(), els.end(), [](ExLocality const & lhs, ExLocality const & rhs)
+  {
     if (lhs.m_similarity != rhs.m_similarity)
       return lhs.m_similarity > rhs.m_similarity;
     if (lhs.m_locality.m_tokenRange.Size() != rhs.m_locality.m_tokenRange.Size())
@@ -257,11 +265,13 @@ void LocalityScorer::LeaveTopBySimilarityAndOther(size_t limit, vector<ExLocalit
     return lhs.m_locality.m_featureId < rhs.m_locality.m_featureId;
   });
 
-  auto lessDistance = [](ExLocality const & lhs, ExLocality const & rhs) {
+  auto const lessDistance = [](ExLocality const & lhs, ExLocality const & rhs)
+  {
     return lhs.m_distanceToPivot < rhs.m_distanceToPivot;
   };
 
-  auto const compareSimilaritySizeAndRegion = [](ExLocality const & lhs, ExLocality const & rhs) {
+  auto const compareSimilaritySizeAndRegion = [](ExLocality const & lhs, ExLocality const & rhs)
+  {
     if (lhs.m_similarity != rhs.m_similarity)
       return lhs.m_similarity > rhs.m_similarity;
     if (lhs.m_locality.m_tokenRange.Size() != rhs.m_locality.m_tokenRange.Size())
@@ -290,18 +300,7 @@ void LocalityScorer::LeaveTopBySimilarityAndOther(size_t limit, vector<ExLocalit
     begin = range.second;
   }
 
-  unordered_set<uint32_t> seen;
-
-  els.clear();
-  els.reserve(limit);
-  for (size_t i = 0; i < tmp.size() && els.size() < limit; ++i)
-  {
-    auto const id = tmp[i].GetId();
-    if (seen.insert(id).second)
-    {
-      els.emplace_back(move(tmp[i]));
-    }
-  }
+  els.swap(tmp);
 }
 
 void LocalityScorer::GetDocVecs(uint32_t localityId, vector<DocVec> & dvs) const
