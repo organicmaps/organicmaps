@@ -41,6 +41,7 @@ using GroupIdSet = std::set<MarkGroupId>;
 
 MarkGroupId constexpr kInvalidMarkGroupId = std::numeric_limits<MarkGroupId>::max();
 MarkId constexpr kInvalidMarkId = std::numeric_limits<MarkId>::max();
+MarkId constexpr kDebugMarkId = kInvalidMarkId - 1;
 TrackId constexpr kInvalidTrackId = std::numeric_limits<TrackId>::max();
 CompilationId constexpr kInvalidCompilationId = std::numeric_limits<CompilationId>::max();
 

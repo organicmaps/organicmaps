@@ -36,6 +36,8 @@ struct TileKey
 
   uint64_t GetHashValue(BatcherBucket bucket) const;
 
+  std::string Coord2String() const;
+
   int m_x;
   int m_y;
   uint8_t m_zoomLevel;
