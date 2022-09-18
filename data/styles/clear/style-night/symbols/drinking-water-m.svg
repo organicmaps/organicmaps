@@ -1,8 +1,8 @@
 <svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <title>drinking-water-m</title>
-    <g transform="translate(.153846)" fill="none" fill-rule="evenodd" opacity=".6">
-        <g fill-rule="nonzero">
-            <path d="m11.846154 22.5c-3.766851 0-7.269231-3.230769-7.269231-7.269231 0-4.083369 5.519237-11.397508 7.269231-13.730769 1.750011 2.3332615 7.269231 9.6474 7.269231 13.730769 0 4.038462-3.502364 7.269231-7.269231 7.269231z" fill="#14a0c2" style="stroke-width:1.5"/>
-        </g>
-    </g>
+ <title>drinking-water-m</title>
+ <g transform="translate(.15385)" fill="none" fill-rule="evenodd" opacity=".6">
+  <g fill-rule="nonzero">
+   <path d="m11.846 22.5c-3.7669 0-7.2692-3.2308-7.2692-7.2692 0-4.0834 5.5192-11.398 7.2692-13.731 1.75 2.3333 7.2692 9.6474 7.2692 13.731 0 4.0385-3.5024 7.2692-7.2692 7.2692z" fill="#14a0c2" stroke-width="1.5"/>
+  </g>
+ </g>
 </svg>

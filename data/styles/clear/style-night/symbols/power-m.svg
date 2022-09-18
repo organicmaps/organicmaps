@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>power-m</title>
-    <g id="Page-2:-Night" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.6">
-        <g id="power-m" fill-rule="nonzero">
-            <circle id="Oval" fill="#FFFFFF" cx="12" cy="12" r="12"></circle>
-            <circle id="Oval" fill="#717065" cx="12" cy="12" r="11"></circle>
-            <path d="M11.1081612,19 L10.3303834,19 L11.1081612,13.5555556 L8.385939,13.5555556 C7.93482789,13.5555556 7.94260567,13.3066667 8.09038345,13.0422222 C8.23816122,12.7777778 8.12927233,12.98 8.14482789,12.9488889 C9.14816122,11.1755556 10.6570501,8.53111111 12.6637168,5 L13.4414946,5 L12.6637168,10.4444444 L15.385939,10.4444444 C15.7670501,10.4444444 15.8214946,10.7011111 15.7514946,10.8411111 L15.6970501,10.9577778 C12.6326057,16.3166667 11.1081612,19 11.1081612,19 Z" id="Path" fill="#FFFFFF"></path>
-        </g>
-    </g>
+<svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+ <title>power-m</title>
+ <g id="Page-2:-Night" fill="none" fill-rule="evenodd" opacity=".6">
+  <g id="power-m" fill-rule="nonzero">
+   <circle id="Oval" cx="12" cy="12" r="12" fill="#fff"/>
+   <circle id="Oval" cx="12" cy="12" r="11" fill="#717065"/>
+   <path id="Path" d="m11.108 19h-0.77778l0.77778-5.4444h-2.7222c-0.45111 0-0.44333-0.24889-0.29556-0.51333 0.14778-0.26444 0.038889-0.062222 0.054444-0.093333 1.0033-1.7733 2.5122-4.4178 4.5189-7.9489h0.77778l-0.77778 5.4444h2.7222c0.38111 0 0.43556 0.25667 0.36556 0.39667l-0.054444 0.11667c-3.0644 5.3589-4.5889 8.0422-4.5889 8.0422z" fill="#fff"/>
+  </g>
+ </g>
 </svg>

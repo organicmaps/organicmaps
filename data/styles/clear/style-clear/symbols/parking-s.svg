@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="12px" height="12px" viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>parking-s</title>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="parking-s" fill-rule="nonzero">
-            <rect id="Rectangle" fill="#FFFFFF" opacity="0.6" x="0" y="0" width="12" height="12" rx="1.5"></rect>
-            <rect id="Rectangle" fill="#2E89B0" x="1" y="1" width="10" height="10" rx="1"></rect>
-            <path d="M6.0776,6.1354 C6.51206,6.1354 6.83715,6.0504 7.05286,5.8802 C7.26857,5.707 7.37643,5.4564 7.37643,5.1283 C7.37643,4.7971 7.28533,4.5525 7.10299,4.3945 C6.92373,4.2365 6.64118,4.1576 6.25533,4.1575 L5.41276,4.1575 L5.41276,6.1354 L6.0776,6.1354 Z M8.02838,6.7233 C7.58176,7.1031 6.94526,7.293 6.11888,7.293 L5.41276,7.293 L5.41276,10 L4,10 L4,3 L6.22825,3 C7.03641,3 7.65012,3.1747 8.0694,3.5241 C8.4917,3.8704 8.70286,4.3885 8.70286,5.0781 C8.70286,5.7951 8.47803,6.3435 8.02838,6.7233 Z" id="Shape" fill="#FFFFFF"></path>
-        </g>
-    </g>
+<svg version="1.1" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
+ <title>parking-s</title>
+ <g fill="none" fill-rule="evenodd">
+  <g id="parking-s" fill-rule="nonzero">
+   <rect id="Rectangle" width="12" height="12" rx="1.5" fill="#fff" opacity=".6"/>
+   <rect id="Rectangle" x="1" y="1" width="10" height="10" rx="1" fill="#2E89B0"/>
+   <path id="Shape" d="m6.0776 6.1354c0.43446 0 0.75955-0.085 0.97526-0.2552 0.21571-0.1732 0.32357-0.4238 0.32357-0.7519 0-0.3312-0.0911-0.5758-0.27344-0.7338-0.17926-0.158-0.46181-0.2369-0.84766-0.237h-0.84257v1.9779h0.66484zm1.9508 0.5879c-0.44662 0.3798-1.0831 0.5697-1.9095 0.5697h-0.70612v2.707h-1.4128v-7h2.2282c0.80816 0 1.4219 0.1747 1.8412 0.5241 0.4223 0.3463 0.63346 0.8644 0.63346 1.554 0 0.717-0.22483 1.2654-0.67448 1.6452z" fill="#fff"/>
+  </g>
+ </g>
 </svg>

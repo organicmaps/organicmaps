@@ -1,66 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg
-   width="24px"
-   height="24px"
-   viewBox="0 0 24 24"
-   version="1.1"
-   id="svg14"
-   sodipodi:docname="america-football-m.svg"
-   inkscape:version="1.2 (dc2aedaf03, 2022-05-15)"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg">
-  <defs
-     id="defs18" />
-  <sodipodi:namedview
-     id="namedview16"
-     pagecolor="#ffffff"
-     bordercolor="#000000"
-     borderopacity="0.25"
-     inkscape:showpageshadow="2"
-     inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="0"
-     inkscape:deskcolor="#d1d1d1"
-     showgrid="false"
-     inkscape:zoom="31.5"
-     inkscape:cx="12.095238"
-     inkscape:cy="12"
-     inkscape:window-width="1920"
-     inkscape:window-height="1011"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
-     inkscape:window-maximized="1"
-     inkscape:current-layer="Group" />
-  <title
-     id="title2">america-football-m</title>
-  <g
-     id="Page-1"
-     stroke="none"
-     stroke-width="1"
-     fill="none"
-     fill-rule="evenodd">
-    <g
-       id="america-football-m"
-       fill-rule="nonzero">
-      <g
-         id="Group"
-         transform="translate(6.000000, 9.607143)"
-         fill="none">
-        <path
-           d="m -3,2.392857 c 0.5665179,1.40625 1.4544644,2.6517857 2.57142855,3.6401786 V -1.2473216 C -1.5455356,-0.25892872 -2.4334821,0.98660698 -3,2.392857 Z"
-           id="Path"
-           fill="#717065" />
-        <path
-           d="M 15,2.392857 C 14.433482,0.98660698 13.545536,-0.25892872 12.428571,-1.2473216 V 6.0330356 C 13.545536,5.0446426 14.433482,3.799107 15,2.392857 Z"
-           id="path8"
-           fill="#717065" />
-        <path
-           d="m 12,5.935045 c -1.892411,0 -3.65625,0.5383929 -5.1428571,1.4665179 v 3.1058031 0.851786 1.285714 1.104911 2.848662 C 8.34375,17.526563 10.107589,18.064955 12,18.064955 c 1.892411,0 3.65625,-0.538392 5.142856,-1.466517 V 13.749777 12.644866 11.359152 10.507366 7.4015629 C 15.65625,6.4734379 13.892411,5.935045 12,5.935045 Z m 3.857143,5.424107 v 1.285714 1.285715 h -1.285714 v -1.285715 h -1.928572 v 1.285715 H 11.357143 V 12.644866 H 9.4285715 v 1.285715 H 8.1428571 v -1.285715 -1.285714 -1.285714 h 1.2857144 v 1.285714 h 1.9285715 v -1.285714 h 1.285714 v 1.285714 h 1.928572 v -1.285714 h 1.285715 z"
-           id="Shape"
-           fill="#717065"
-           transform="translate(-6,-9.607143)" />
-      </g>
-    </g>
+<svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+ <title>america-football-m</title>
+ <g fill="none" fill-rule="evenodd">
+  <g id="america-football-m" fill-rule="nonzero">
+   <g id="Group" transform="translate(6 9.6071)" fill="#717065">
+    <path id="Path" d="m-3 2.3929c0.56652 1.4062 1.4545 2.6518 2.5714 3.6402v-7.2804c-1.117 0.98839-2.0049 2.2339-2.5714 3.6402z"/>
+    <path d="m15 2.3929c-0.56652-1.4063-1.4545-2.6518-2.5714-3.6402v7.2804c1.117-0.98839 2.0049-2.2339 2.5714-3.6402z"/>
+    <path id="Shape" transform="translate(-6 -9.6071)" d="m12 5.935c-1.8924 0-3.6562 0.53839-5.1429 1.4665v9.1969c1.4866 0.92812 3.2504 1.4665 5.1429 1.4665s3.6562-0.53839 5.1429-1.4665v-9.1969c-1.4866-0.92812-3.2504-1.4665-5.1429-1.4665zm3.8571 5.4241v2.5714h-1.2857v-1.2857h-1.9286v1.2857h-1.2857v-1.2857h-1.9286v1.2857h-1.2857v-3.8571h1.2857v1.2857h1.9286v-1.2857h1.2857v1.2857h1.9286v-1.2857h1.2857z"/>
+   </g>
   </g>
+ </g>
 </svg>

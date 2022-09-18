@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>tram-m</title>
-    <g id="Page-2:-Night" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.6">
-        <g id="tram-m" fill-rule="nonzero">
-            <rect id="Rectangle" fill="#FFFFFF" x="0" y="0" width="24" height="24" rx="2.5"></rect>
-            <rect id="Rectangle" fill="#2F6499" x="1" y="1" width="22" height="22" rx="2"></rect>
-            <path d="M16.8,15.458 L16.8,9.55 C16.8,7.597 14.973,7.17 12.593,7.107 L13.125,6.05 L15.4,6.05 L15.4,5 L8.4,5 L8.4,6.05 L11.725,6.05 L11.193,7.114 C9.002,7.177 7,7.611 7,9.55 L7,15.458 C7,16.473 7.833,17.32 8.813,17.537 L7.7,18.65 L7.7,19 L9.261,19 L10.661,17.6 L13.3,17.6 L14.7,19 L16.1,19 L16.1,18.65 L15.05,17.6 L14.994,17.6 C16.177,17.6 16.8,16.641 16.8,15.458 Z M11.9,16.55 C11.319,16.55 10.85,16.081 10.85,15.5 C10.85,14.919 11.319,14.45 11.9,14.45 C12.481,14.45 12.95,14.919 12.95,15.5 C12.95,16.081 12.481,16.55 11.9,16.55 Z M15.4,13.4 L8.4,13.4 L8.4,9.9 L15.4,9.9 L15.4,13.4 Z" id="Shape" fill="#FFFFFF"></path>
-        </g>
-    </g>
+<svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+ <title>tram-m</title>
+ <g id="Page-2:-Night" fill="none" fill-rule="evenodd" opacity=".6">
+  <g id="tram-m" fill-rule="nonzero">
+   <rect id="Rectangle" width="24" height="24" rx="2.5" fill="#fff"/>
+   <rect id="Rectangle" x="1" y="1" width="22" height="22" rx="2" fill="#2F6499"/>
+   <path id="Shape" d="m16.8 15.458v-5.908c0-1.953-1.827-2.38-4.207-2.443l0.532-1.057h2.275v-1.05h-7v1.05h3.325l-0.532 1.064c-2.191 0.063-4.193 0.497-4.193 2.436v5.908c0 1.015 0.833 1.862 1.813 2.079l-1.113 1.113v0.35h1.561l1.4-1.4h2.639l1.4 1.4h1.4v-0.35l-1.05-1.05h-0.056c1.183 0 1.806-0.959 1.806-2.142zm-4.9 1.092c-0.581 0-1.05-0.469-1.05-1.05s0.469-1.05 1.05-1.05 1.05 0.469 1.05 1.05-0.469 1.05-1.05 1.05zm3.5-3.15h-7v-3.5h7v3.5z" fill="#fff"/>
+  </g>
+ </g>
 </svg>

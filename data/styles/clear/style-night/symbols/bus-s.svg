@@ -1,20 +1,19 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>bus-s</title>
-    <g id="Page-2:-Night" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.6">
-        <g id="bus-s">
-            <rect id="Rectangle" fill="#FFFFFF" fill-rule="nonzero" x="0" y="0" width="16" height="16" rx="2.5"></rect>
-            <rect id="Rectangle" fill="#2F6499" fill-rule="nonzero" x="0.666666667" y="0.666666667" width="14.6666667" height="14.6666667" rx="2"></rect>
-            <g id="bus" transform="translate(2.666667, 2.666667)">
-                <polygon id="Path" points="0 0 10.6666667 0 10.6666667 10.6666667 0 10.6666667"></polygon>
-                <circle id="Oval" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" cx="2.66666667" cy="7.55555556" r="1"></circle>
-                <circle id="Oval" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" cx="8" cy="7.55555556" r="1"></circle>
-                <path d="M1.77777778,7.55555556 L0.888888889,7.55555556 L0.888888889,2.66666667 C0.888888889,2.42120678 1.08787344,2.22222222 1.33333333,2.22222222 L7.55555556,2.22222222 C8.782855,2.22222222 9.77777778,3.61511411 9.77777778,5.33333333 L9.77777778,7.55555556 L8.88888889,7.55555556 M7.11111111,7.55555556 L3.55555556,7.55555556" id="Shape" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round"></path>
-                <polyline id="Path" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" points="7.11111111 2.22222222 7.77777778 5.33333333 9.77777778 5.33333333"></polyline>
-                <line x1="0.888888889" y1="4.44444444" x2="7.55555556" y2="4.44444444" id="Path" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round"></line>
-                <line x1="3.11111111" y1="2.22222222" x2="3.11111111" y2="4.44444444" id="Path" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round"></line>
-                <line x1="5.33333333" y1="2.22222222" x2="5.33333333" y2="4.44444444" id="Path" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round"></line>
-            </g>
-        </g>
-    </g>
+<svg version="1.1" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+ <title>bus-s</title>
+ <g id="Page-2:-Night" fill="none" fill-rule="evenodd" opacity=".6">
+  <g id="bus-s">
+   <rect id="Rectangle" width="16" height="16" rx="2.5" fill="#fff" fill-rule="nonzero"/>
+   <rect id="Rectangle" x=".66667" y=".66667" width="14.667" height="14.667" rx="2" fill="#2F6499" fill-rule="nonzero"/>
+   <g id="bus" transform="translate(2.6667 2.6667)">
+    <polygon id="Path" points="0 0 10.667 0 10.667 10.667 0 10.667"/>
+    <circle id="Oval" cx="2.6667" cy="7.5556" r="1" stroke="#fff" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle id="Oval" cx="8" cy="7.5556" r="1" stroke="#fff" stroke-linecap="round" stroke-linejoin="round"/>
+    <path id="Shape" d="m1.7778 7.5556h-0.88889v-4.8889c0-0.24546 0.19898-0.44444 0.44444-0.44444h6.2222c1.2273 0 2.2222 1.3929 2.2222 3.1111v2.2222h-0.88889m-1.7778 0h-3.5556" stroke="#fff" stroke-linecap="round" stroke-linejoin="round"/>
+    <polyline id="Path" points="7.1111 2.2222 7.7778 5.3333 9.7778 5.3333" stroke="#fff" stroke-linecap="round" stroke-linejoin="round"/>
+    <line id="Path" x1=".88889" x2="7.5556" y1="4.4444" y2="4.4444" stroke="#fff" stroke-linecap="round" stroke-linejoin="round"/>
+    <line id="Path" x1="3.1111" x2="3.1111" y1="2.2222" y2="4.4444" stroke="#fff" stroke-linecap="round" stroke-linejoin="round"/>
+    <line id="Path" x1="5.3333" x2="5.3333" y1="2.2222" y2="4.4444" stroke="#fff" stroke-linecap="round" stroke-linejoin="round"/>
+   </g>
+  </g>
+ </g>
 </svg>

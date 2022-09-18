@@ -1,52 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg
-   width="16"
-   height="16"
-   viewBox="0 0 16 16"
-   version="1.1"
-   id="svg10"
-   sodipodi:docname="monument-s.svg"
-   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg">
-  <defs
-     id="defs14" />
-  <sodipodi:namedview
-     id="namedview12"
-     pagecolor="#ffffff"
-     bordercolor="#000000"
-     borderopacity="0.25"
-     inkscape:showpageshadow="2"
-     inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="0"
-     inkscape:deskcolor="#d1d1d1"
-     showgrid="false"
-     inkscape:zoom="64.1875"
-     inkscape:cx="8.0077897"
-     inkscape:cy="8.0077897"
-     inkscape:window-width="1920"
-     inkscape:window-height="2072"
-     inkscape:window-x="20"
-     inkscape:window-y="20"
-     inkscape:window-maximized="0"
-     inkscape:current-layer="svg10" />
-  <title
-     id="title2">monument-s</title>
-  <g
-     id="Page-1"
-     stroke="none"
-     stroke-width="1"
-     fill="none"
-     fill-rule="evenodd">
-    <g
-       id="monument-s"
-       fill-rule="nonzero">
-      <path
-         d="M 12.125021,12.499993 H 3.8749795 c -0.2071883,0 -0.3750017,0.167814 -0.3750017,0.375002 v 0.750004 C 3.4999779,13.832187 3.6677912,14 3.8749795,14 h 8.2500415 c 0.207188,0 0.375001,-0.167813 0.375001,-0.375001 v -0.750004 c 0,-0.207188 -0.167813,-0.375002 -0.375001,-0.375002 z M 10.27673,4.3610468 C 10.259566,4.1887964 10.183292,4.0278018 10.060869,3.9054195 L 8.2650795,2.1098638 c -0.1464852,-0.146485 -0.3839082,-0.146485 -0.5303934,0 L 5.9393649,3.9054195 C 5.8169421,4.0278017 5.7406682,4.1887964 5.7235044,4.3610468 L 4.9999852,11.74999 H 11.000014 Z M 9.1250052,9.1999769 c 0,0.1500008 -0.15,0.3000016 -0.3000011,0.3000016 H 7.1749959 c -0.1500007,0 -0.3000014,-0.1500008 -0.3000014,-0.3000016 V 8.2999726 c 0,-0.1500008 0.1500007,-0.3000016 0.3000014,-0.3000016 h 1.6500082 c 0.1500011,0 0.3000011,0.1500008 0.3000011,0.3000016 z"
-         id="Shape"
-         style="opacity:0.6;fill:#717065;fill-opacity:1" />
-    </g>
+<svg version="1.1" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+ <title>monument-s</title>
+ <g fill="none" fill-rule="evenodd">
+  <g id="monument-s" fill-rule="nonzero">
+   <path id="Shape" d="m12.125 12.5h-8.25c-0.20719 0-0.375 0.16781-0.375 0.375v0.75c1e-7 0.20719 0.16781 0.375 0.375 0.375h8.25c0.20719 0 0.375-0.16781 0.375-0.375v-0.75c0-0.20719-0.16781-0.375-0.375-0.375zm-1.8483-8.1389c-0.017164-0.17225-0.093438-0.33324-0.21586-0.45563l-1.7958-1.7956c-0.14649-0.14648-0.38391-0.14648-0.53039 0l-1.7953 1.7956c-0.12242 0.12238-0.1987 0.28338-0.21586 0.45563l-0.72352 7.3889h6zm-1.1517 4.8389c0 0.15-0.15 0.3-0.3 0.3h-1.65c-0.15 0-0.3-0.15-0.3-0.3v-0.9c0-0.15 0.15-0.3 0.3-0.3h1.65c0.15 0 0.3 0.15 0.3 0.3z" fill="#717065" opacity=".6"/>
   </g>
+ </g>
 </svg>

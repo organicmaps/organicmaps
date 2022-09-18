@@ -1,8 +1,8 @@
-<svg width="18" height="18" viewBox="0 0 18 18">
-  <g fill="none">
-    <polygon fill="#FFF" points="0 0 0 18 18 18 18 0" opacity=".6"/>
-    <polygon fill="#FFF" points="1 1 1 17 17 17 17 1"/>
-    <polygon fill="#FFF" points="16 2 16 10 14 10 14 4 10.4 7.6 9 9 7.6 7.6 4 4 4 10 2 10 2 2 5 2 9 6.1 13 2"/>
-    <path fill="#1565C0" d="M2,2 L5,2 L9,6.1 L13,2 L16,2 L16,10 L14,10 L14,4 L10.4,7.6 L9,9 L7.6,7.6 L4,4 L4,10 L2,10 L2,2 Z M9,16 L2,12 L6,12 L9,13.9 L12,12 L16,12 L9,16 Z"/>
-  </g>
+<svg viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+ <g>
+  <polygon points="0 0 0 18 18 18 18 0" fill="#FFF" opacity=".6"/>
+  <polygon points="1 1 1 17 17 17 17 1" fill="#FFF"/>
+  <polygon points="16 2 16 10 14 10 14 4 10.4 7.6 9 9 7.6 7.6 4 4 4 10 2 10 2 2 5 2 9 6.1 13 2" fill="#FFF"/>
+  <path d="m2 2h3l4 4.1 4-4.1h3v8h-2v-6l-5 5-5-5v6h-2v-8zm7 14-7-4h4l3 1.9 3-1.9h4l-7 4z" fill="#1565C0"/>
+ </g>
 </svg>

@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="18px" height="16px" viewBox="0 0 18 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>transfer_arrow</title>
-    <g id="Page-2:-Night" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.6">
-        <g id="transfer_arrow" fill-rule="nonzero">
-            <polygon id="Path" fill-opacity="0.6" fill="#FFFFFF" points="10.301 6.146 10.301 0.879 17.719 8.297 10.301 15.715 10.301 10.447 0 10.447 0 6.146"></polygon>
-            <polygon id="Path" fill="#444444" points="15.598 8.297 11.801 12.094 11.801 8.947 1.5 8.947 1.5 7.646 11.801 7.646 11.801 4.5"></polygon>
-        </g>
-    </g>
+<svg version="1.1" viewBox="0 0 18 16" xmlns="http://www.w3.org/2000/svg">
+ <title>transfer_arrow</title>
+ <g id="Page-2:-Night" fill="none" fill-rule="evenodd" opacity=".6">
+  <g id="transfer_arrow" fill-rule="nonzero">
+   <polygon id="Path" points="10.301 6.146 10.301 0.879 17.719 8.297 10.301 15.715 10.301 10.447 0 10.447 0 6.146" fill="#fff" fill-opacity=".6"/>
+   <polygon id="Path" points="15.598 8.297 11.801 12.094 11.801 8.947 1.5 8.947 1.5 7.646 11.801 7.646 11.801 4.5" fill="#444"/>
+  </g>
+ </g>
 </svg>

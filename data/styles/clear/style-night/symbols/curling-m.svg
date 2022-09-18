@@ -1,74 +1,15 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg
-   width="24"
-   height="24"
-   viewBox="0 0 24 24"
-   version="1.1"
-   id="svg2884"
-   sodipodi:docname="curling-m.svg"
-   inkscape:version="1.2 (dc2aedaf03, 2022-05-15)"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg">
-  <defs
-     id="defs2888" />
-  <sodipodi:namedview
-     id="namedview2886"
-     pagecolor="#ffffff"
-     bordercolor="#000000"
-     borderopacity="0.25"
-     inkscape:showpageshadow="2"
-     inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="0"
-     inkscape:deskcolor="#d1d1d1"
-     showgrid="false"
-     inkscape:zoom="31.5"
-     inkscape:cx="11.777778"
-     inkscape:cy="12"
-     inkscape:window-width="1920"
-     inkscape:window-height="1011"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
-     inkscape:window-maximized="1"
-     inkscape:current-layer="svg2884" />
-  <title
-     id="title2869">curling-m</title>
-  <g
-     id="Page-1"
-     stroke="none"
-     stroke-width="1"
-     fill="none"
-     fill-rule="evenodd"
-     inkscape:label="Page-2:-Night">
-    <g
-       id="curling-m"
-       fill-rule="nonzero">
-      <g
-         id="curling"
-         transform="translate(5,6)"
-         fill="#ffffff">
-        <g
-           id="g3374"
-           transform="matrix(1.2857119,0,0,1.2857119,0.5714238,-1.9277349)">
-          <path
-             d="M -1.9008787,7.8066559 C -1.961441,8.0714422 -2,8.3441325 -2,8.62697 c 0,0.2828374 0.038559,0.5555278 0.099121,0.8203141 h 13.801785 c 0.06056,-0.2647863 0.09912,-0.5374767 0.09912,-0.8203141 0,-0.2828375 -0.03866,-0.5555278 -0.09912,-0.8203141 z"
-             id="Path"
-             style="opacity:0.6;fill:#ffffff;fill-opacity:1" />
-          <path
-             d="M 1.3086002,4.9652502 C 0.04362886,5.1079507 -1.0500164,5.8930169 -1.5979606,6.9863418 H 11.598095 C 11.050044,5.8930169 9.9563985,5.1079507 8.6914271,4.9652502 V 3.2949283 H 2.5390714 c -0.6795363,0 -1.2304712,0.5509349 -1.2304712,1.2304712 z"
-             id="path2875"
-             style="opacity:0.6;fill:#ffffff;fill-opacity:1" />
-          <path
-             d="m -1.5979606,10.267598 c 0.60647696,1.210177 1.87326413,2.050785 3.3167179,2.050785 h 6.5625128 c 1.4434537,0 2.7102409,-0.840608 3.3167179,-2.050785 z"
-             id="path2877"
-             style="opacity:0.6;fill:#ffffff;fill-opacity:1" />
-          <path
-             d="m 1.3086002,0.42382895 c 0,0.67953625 0.5509349,1.23047115 1.2304712,1.23047115 h 3.6914134 c 0.4530954,0 0.8203141,0.3672188 0.8203141,0.8203141 h 1.6406282 v -0.410157 c 0,-1.13263165 -0.9181536,-2.0507853 -2.0507852,-2.0507853 H 1.7187573 c -0.2265477,0 -0.4101571,0.18360938 -0.4101571,0.41015705 z"
-             id="path2879"
-             style="opacity:0.6;fill:#ffffff;fill-opacity:1" />
-        </g>
-      </g>
+<svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+ <title>curling-m</title>
+ <g fill="none" fill-rule="evenodd">
+  <g id="curling-m" fill-rule="nonzero">
+   <g id="curling" transform="translate(5,6)" fill="#fff">
+    <g transform="matrix(1.2857 0 0 1.2857 .57142 -1.9277)" fill="#fff">
+     <path id="Path" d="m-1.9009 7.8067c-0.060562 0.26479-0.099121 0.53748-0.099121 0.82031 0 0.28284 0.038559 0.55553 0.099121 0.82031h13.802c0.06056-0.26479 0.09912-0.53748 0.09912-0.82031 0-0.28284-0.03866-0.55553-0.09912-0.82031z" opacity=".6"/>
+     <path d="m1.3086 4.9653c-1.265 0.1427-2.3586 0.92777-2.9066 2.0211h13.196c-0.54805-1.0933-1.6417-1.8784-2.9067-2.0211v-1.6703h-6.1524c-0.67954 0-1.2305 0.55093-1.2305 1.2305z" opacity=".6"/>
+     <path d="m-1.598 10.268c0.60648 1.2102 1.8733 2.0508 3.3167 2.0508h6.5625c1.4435 0 2.7102-0.84061 3.3167-2.0508z" opacity=".6"/>
+     <path d="m1.3086 0.42383c0 0.67954 0.55093 1.2305 1.2305 1.2305h3.6914c0.4531 0 0.82031 0.36722 0.82031 0.82031h1.6406v-0.41016c0-1.1326-0.91815-2.0508-2.0508-2.0508h-4.9219c-0.22655 0-0.41016 0.18361-0.41016 0.41016z" opacity=".6"/>
     </g>
+   </g>
   </g>
+ </g>
 </svg>
