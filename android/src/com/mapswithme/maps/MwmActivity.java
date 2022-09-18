@@ -25,7 +25,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -422,8 +421,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (savedInstanceState == null && RoutingController.get().hasSavedRoute())
       addTask(new Factory.RestoreRouteTask());
-
-    updateViewsInsets();
   }
 
   private void updateViewsInsets()
@@ -1045,6 +1042,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mNavigationController.onActivityResumed(this);
     mMapButtonsController.onResume();
     mPlacePageController.onActivityResumed(this);
+
+    updateViewsInsets();
   }
 
   @Override
