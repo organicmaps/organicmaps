@@ -9,7 +9,7 @@
 
 #include "drape/texture_manager.hpp"
 
-#include "indexer/map_style_reader.hpp"
+#include "geometry/point3d.hpp"
 
 #include <array>
 
@@ -62,8 +62,17 @@ void SelectionShape::Hide()
   m_selectionGeometry.clear();
 }
 
-bool SelectionShape::IsVisible(ScreenBase const & screen, m2::PointD & pxPos) const
+bool SelectionShape::SelectionShape::IsVisible() const
 {
+  auto const state = m_animation.GetState();
+  return (state == ShowHideAnimation::STATE_VISIBLE || state == ShowHideAnimation::STATE_SHOW_DIRECTION);
+}
+
+std::optional<m2::PointD> SelectionShape::GetPixelPosition(ScreenBase const & screen, int zoomLevel) const
+{
+  if (!IsVisible())
+    return {};
+
   m2::PointD pos = m_position;
   double posZ = m_positionZ;
   if (!m_selectionGeometry.empty())
@@ -73,22 +82,15 @@ bool SelectionShape::IsVisible(ScreenBase const & screen, m2::PointD & pxPos) co
   }
 
   m2::PointD const pt = screen.GtoP(pos);
-  ShowHideAnimation::EState state = m_animation.GetState();
-
-  if ((state == ShowHideAnimation::STATE_VISIBLE || state == ShowHideAnimation::STATE_SHOW_DIRECTION) &&
-      !screen.IsReverseProjection3d(pt))
-  {
-    pxPos = screen.PtoP3d(pt, -posZ);
-    return true;
-  }
-  return false;
+  if (!screen.IsReverseProjection3d(pt))
+    return screen.PtoP3d(pt, -posZ);
+  return {};
 }
 
 void SelectionShape::Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
                             ScreenBase const & screen, int zoomLevel, FrameValues const & frameValues)
 {
-  ShowHideAnimation::EState state = m_animation.GetState();
-  if (state != ShowHideAnimation::STATE_VISIBLE && state != ShowHideAnimation::STATE_SHOW_DIRECTION)
+  if (!IsVisible())
     return;
 
   if (m_selectionGeometry.empty())
@@ -96,8 +98,7 @@ void SelectionShape::Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::P
     gpu::ShapesProgramParams params;
     frameValues.SetTo(params);
     TileKey const key = GetTileKeyByPoint(m_position, ClipTileZoomByMaxDataZoom(zoomLevel));
-    math::Matrix<float, 4, 4> mv = key.GetTileBasedModelView(screen);
-    params.m_modelView = glsl::make_mat4(mv.m_data);
+    params.m_modelView = glsl::make_mat4(key.GetTileBasedModelView(screen).m_data);
 
     m2::PointD const pos = MapShape::ConvertToLocal(m_position, key.GetGlobalRect().Center(), kShapeCoordScalar);
     params.m_position = glsl::vec3(pos.x, pos.y, -m_positionZ);
