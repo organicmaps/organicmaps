@@ -1,7 +1,7 @@
-<svg width="21" height="15" viewBox="0 0 21 15">
-  <g fill="none" transform="translate(-1 -4)">
-    <polygon fill="#FFF" points="4.075 4.075 16.803 6.197 18.925 18.925 6.197 16.803" opacity=".4" transform="rotate(-45 11.5 11.5)"/>
-    <path fill="#941818" d="M2,11.5 L11.5,5 L21,11.5 L11.5,18 L2,11.5 Z M5.96446609,11.5 L11.5,15.0355339 L17.0355339,11.5 L11.5,7.96446609 L5.96446609,11.5 Z"/>
-    <rect width="11" height="3" x="6" y="10" fill="#021C40"/>
-  </g>
+<svg viewBox="0 0 21 15" xmlns="http://www.w3.org/2000/svg">
+ <g transform="translate(-1 -4)">
+  <polygon transform="rotate(-45 11.5 11.5)" points="4.075 4.075 16.803 6.197 18.925 18.925 6.197 16.803" fill="#FFF" opacity=".4"/>
+  <path d="m2 11.5 9.5-6.5 9.5 6.5-9.5 6.5-9.5-6.5zm3.9645 0 5.5355 3.5355 5.5355-3.5355-5.5355-3.5355-5.5355 3.5355z" fill="#941818"/>
+  <rect x="6" y="10" width="11" height="3" fill="#021C40"/>
+ </g>
 </svg>

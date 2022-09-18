@@ -1,9 +1,9 @@
-<svg width="18" height="18" viewBox="0 0 18 18">
-  <g fill="none">
-    <path fill="#FFF" d="M9,0 C4,0 0,4 0,9 C0,14 4,18 9,18 C14,18 18,14 18,9 C18,4 14,0 9,0 Z" opacity=".6"/>
-    <path fill="#0D47A1" d="M9,1 C4.6,1 1,4.6 1,9 C1,13.4 4.6,17 9,17 C13.4,17 17,13.4 17,9 C17,4.6 13.4,1 9,1 Z"/>
-    <g fill="#FFF" transform="translate(4 4)">
-      <path d="M0,0 L2.5,0 L3,0.8 L5,4.1 L7,0.8 L7.5,0 L10,0 L10,10 L7,10 L7,4.9 L5,8.1 L3,4.9 L3,10 L0,10 L0,0 Z"/>
-    </g>
+<svg viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+ <g>
+  <path d="m9 0c-5 0-9 4-9 9s4 9 9 9 9-4 9-9-4-9-9-9z" fill="#FFF" opacity=".6"/>
+  <path d="m9 1c-4.4 0-8 3.6-8 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8z" fill="#0D47A1"/>
+  <g transform="translate(4 4)" fill="#FFF">
+   <path d="m0 0h2.5l0.5 0.8 2 3.3 2-3.3 0.5-0.8h2.5v10h-3v-5.1l-2 3.2-2-3.2v5.1h-3v-10z"/>
   </g>
+ </g>
 </svg>

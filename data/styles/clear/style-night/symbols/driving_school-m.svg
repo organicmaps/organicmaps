@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="24px" height="24px" version="1.1" viewBox="0 0 24 24" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+<svg version="1.1" viewBox="0 0 24 24" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
  <g opacity=".6">
   <circle cx="12" cy="12" r="12" fill="#fff" opacity="1"/>
   <circle cx="12" cy="12" r="11" fill="#717065"/>

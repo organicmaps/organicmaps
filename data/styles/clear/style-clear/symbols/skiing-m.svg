@@ -1,52 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg
-   width="24px"
-   height="24px"
-   viewBox="0 0 24 24"
-   version="1.1"
-   id="svg10"
-   sodipodi:docname="skiing-m.svg"
-   inkscape:version="1.2 (dc2aedaf03, 2022-05-15)"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg">
-  <defs
-     id="defs14" />
-  <sodipodi:namedview
-     id="namedview12"
-     pagecolor="#ffffff"
-     bordercolor="#000000"
-     borderopacity="0.25"
-     inkscape:showpageshadow="2"
-     inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="0"
-     inkscape:deskcolor="#d1d1d1"
-     showgrid="false"
-     inkscape:zoom="31.5"
-     inkscape:cx="12.047619"
-     inkscape:cy="12"
-     inkscape:window-width="1920"
-     inkscape:window-height="1003"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
-     inkscape:window-maximized="1"
-     inkscape:current-layer="svg10" />
-  <title
-     id="title2">skiing-m</title>
-  <g
-     id="Page-1"
-     stroke="none"
-     stroke-width="1"
-     fill="none"
-     fill-rule="evenodd">
-    <g
-       id="skiing-m"
-       fill-rule="nonzero">
-      <path
-         d="m 17.85,4.5750005 c 0,0.99 -0.81,1.7999999 -1.8,1.7999999 -0.99,0 -1.800001,-0.8099999 -1.800001,-1.7999999 0,-0.9900001 0.810001,-1.8 1.800001,-1.8 0.99,0 1.8,0.8099999 1.8,1.8 z M 15.402,19.335 l 0.683999,0.243 c 0.558001,0.188999 1.143,0.297 1.764001,0.297 0.755999,0 1.485,-0.162 2.142,-0.450001 L 21,20.442 c -0.945001,0.494999 -2.016,0.783 -3.15,0.783 -0.774,0 -1.512,-0.126001 -2.205,-0.369 L 3,16.248 3.45,14.979001 9.6599997,17.237999 11.208,13.242001 7.9949998,9.8850005 c -0.801,-0.846 -0.603,-2.2230001 0.4050001,-2.8080002 L 11.532,5.2680004 c 0.99,-0.5759999 2.268,-0.09 2.618999,0.999 l 0.297,0.972 C 14.844,8.5170005 15.78,9.5520005 16.994999,10.064999 l 0.468,-1.4399985 1.287001,0.414 L 17.742,12.144 C 15.537,11.784 13.709999,10.281 12.9,8.2560005 l -2.277,1.304999 2.727,3.1140005 -1.998,5.184 2.781,1.008 1.889999,-5.796 v 0 0 c 0.414001,0.162 0.846,0.278999 1.296001,0.369 z"
-         id="Shape"
-         fill="#717065" />
-    </g>
+<svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+ <title>skiing-m</title>
+ <g fill="none" fill-rule="evenodd">
+  <g id="skiing-m" fill-rule="nonzero">
+   <path id="Shape" d="m17.85 4.575c0 0.99-0.81 1.8-1.8 1.8s-1.8-0.81-1.8-1.8c0-0.99 0.81-1.8 1.8-1.8s1.8 0.81 1.8 1.8zm-2.448 14.76 0.684 0.243c0.558 0.189 1.143 0.297 1.764 0.297 0.756 0 1.485-0.162 2.142-0.45l1.008 1.017c-0.945 0.495-2.016 0.783-3.15 0.783-0.774 0-1.512-0.126-2.205-0.369l-12.645-4.608 0.45-1.269 6.21 2.259 1.548-3.996-3.213-3.357c-0.801-0.846-0.603-2.223 0.405-2.808l3.132-1.809c0.99-0.576 2.268-0.09 2.619 0.999l0.297 0.972c0.396 1.278 1.332 2.313 2.547 2.826l0.468-1.44 1.287 0.414-1.008 3.105c-2.205-0.36-4.032-1.863-4.842-3.888l-2.277 1.305 2.727 3.114-1.998 5.184 2.781 1.008 1.89-5.796c0.414 0.162 0.846 0.279 1.296 0.369z" fill="#717065"/>
   </g>
+ </g>
 </svg>

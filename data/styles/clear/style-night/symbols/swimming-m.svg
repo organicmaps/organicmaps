@@ -1,54 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg
-   width="24"
-   height="24"
-   viewBox="0 0 24 24"
-   version="1.1"
-   id="svg10"
-   sodipodi:docname="swimming-m.svg"
-   inkscape:version="1.2 (dc2aedaf03, 2022-05-15)"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg">
-  <defs
-     id="defs14" />
-  <sodipodi:namedview
-     id="namedview12"
-     pagecolor="#ffffff"
-     bordercolor="#000000"
-     borderopacity="0.25"
-     inkscape:showpageshadow="2"
-     inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="0"
-     inkscape:deskcolor="#d1d1d1"
-     showgrid="false"
-     inkscape:zoom="31.5"
-     inkscape:cx="12.063492"
-     inkscape:cy="12"
-     inkscape:window-width="1920"
-     inkscape:window-height="1011"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
-     inkscape:window-maximized="1"
-     inkscape:current-layer="svg10" />
-  <title
-     id="title2">swimming-m</title>
-  <g
-     id="Page-1"
-     stroke="none"
-     stroke-width="1"
-     fill="none"
-     fill-rule="evenodd"
-     inkscape:label="Page-2:-Night">
-    <g
-       id="swimming-m"
-       fill-rule="nonzero">
-      <path
-         d="m 15.115385,4.5 c -0.158165,0 -0.433842,0.0768 -0.5625,0.1504 l -3.98077,2.25008 C 10.039689,7.1916799 9.8315538,8.10384 10.182692,8.6504 l 1.211539,1.9 -5.1490387,3.45008 2.7692308,1.3 L 12,13.900481 14.985577,15.30048 16.153846,13.900481 12.5625,8.3504 l 3.028847,-1.8 c 0.601975,-0.34784 0.58162,-0.94432 0.51923,-1.3 -0.05912,-0.33712 -0.445473,-0.74992 -0.995192,-0.74992 z m 2.423077,3.7999999 c -1.147058,0 -2.076924,1.0745601 -2.076924,2.3999991 0,1.325441 0.929866,2.4 2.076924,2.4 1.147056,0 2.076922,-1.074559 2.076922,-2.4 0,-1.325439 -0.929866,-2.3999991 -2.076922,-2.3999991 z M 12,15.5 9.2307693,17.1 5.7692308,15.6 3,17.1 v 2.4 L 5.7692308,17.899999 9.2307693,19.5 12,17.8 14.769231,19.5 17.538462,17.8 21,19.5 v -2.4 l -3.461538,-1.6 -2.769231,1.6 z"
-         id="Shape"
-         fill="#FFFFFF"
-         style="opacity:0.6;fill:#ffffff;fill-opacity:1;stroke-width:1.5" />
-    </g>
+<svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+ <title>swimming-m</title>
+ <g fill="none" fill-rule="evenodd">
+  <g id="swimming-m" fill-rule="nonzero">
+   <path id="Shape" d="m15.115 4.5c-0.15816 0-0.43384 0.0768-0.5625 0.1504l-3.9808 2.2501c-0.53243 0.2912-0.74056 1.2034-0.38942 1.7499l1.2115 1.9-5.149 3.4501 2.7692 1.3 2.9856-1.4 2.9856 1.4 1.1683-1.4-3.5913-5.5501 3.0288-1.8c0.60198-0.34784 0.58162-0.94432 0.51923-1.3-0.05912-0.33712-0.44547-0.74992-0.99519-0.74992zm2.4231 3.8c-1.1471 0-2.0769 1.0746-2.0769 2.4 0 1.3254 0.92987 2.4 2.0769 2.4 1.1471 0 2.0769-1.0746 2.0769-2.4 0-1.3254-0.92987-2.4-2.0769-2.4zm-5.5385 7.2-2.7692 1.6-3.4615-1.5-2.7692 1.5v2.4l2.7692-1.6 3.4615 1.6 2.7692-1.7 2.7692 1.7 2.7692-1.7 3.4615 1.7v-2.4l-3.4615-1.6-2.7692 1.6z" fill="#fff" opacity=".6" stroke-width="1.5"/>
   </g>
+ </g>
 </svg>

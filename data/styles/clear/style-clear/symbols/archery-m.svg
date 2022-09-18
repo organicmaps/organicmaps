@@ -1,52 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg
-   width="24"
-   height="24"
-   viewBox="0 0 24 24"
-   version="1.1"
-   id="svg10"
-   sodipodi:docname="archery-m.svg"
-   inkscape:version="1.2 (dc2aedaf03, 2022-05-15)"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg">
-  <defs
-     id="defs14" />
-  <sodipodi:namedview
-     id="namedview12"
-     pagecolor="#ffffff"
-     bordercolor="#000000"
-     borderopacity="0.25"
-     inkscape:showpageshadow="2"
-     inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="0"
-     inkscape:deskcolor="#d1d1d1"
-     showgrid="false"
-     inkscape:zoom="31.5"
-     inkscape:cx="12.047619"
-     inkscape:cy="12"
-     inkscape:window-width="1920"
-     inkscape:window-height="1003"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
-     inkscape:window-maximized="1"
-     inkscape:current-layer="svg10" />
-  <title
-     id="title2">archery-m</title>
-  <g
-     id="Page-1"
-     stroke="none"
-     stroke-width="1"
-     fill="none"
-     fill-rule="evenodd">
-    <g
-       id="archery-m"
-       fill-rule="nonzero">
-      <path
-         d="m 12,3 c -4.970565,0 -9,4.02948 -9,9 0,4.97052 4.029435,9 9,9 4.97052,0 9,-4.02948 9,-9 0,-4.97052 -4.02948,-9 -9,-9 z m 0,1.8 c 3.97647,0 7.2,3.22353 7.2,7.2 0,3.97647 -3.22353,7.2 -7.2,7.2 C 8.023548,19.2 4.8,15.97647 4.8,12 4.8,8.02353 8.023548,4.8 12,4.8 Z m 0,1.8 c -2.982339,0 -5.4,2.41767 -5.4,5.4 0,2.98233 2.417661,5.4 5.4,5.4 2.98233,0 5.4,-2.41767 5.4,-5.4 0,-2.98233 -2.41767,-5.4 -5.4,-5.4 z m 0,1.8 c 1.98819,0 3.6,1.61181 3.6,3.6 0,1.98819 -1.61181,3.6 -3.6,3.6 -1.988226,0 -3.6,-1.61181 -3.6,-3.6 0,-1.98819 1.611774,-3.6 3.6,-3.6 z m 0,1.8 c -0.99414,0 -1.8,0.80586 -1.8,1.8 0,0.99414 0.80586,1.8 1.8,1.8 0.99414,0 1.8,-0.80586 1.8,-1.8 0,-0.99414 -0.80586,-1.8 -1.8,-1.8 z"
-         id="Shape"
-         fill="#717065" />
-    </g>
+<svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+ <title>archery-m</title>
+ <g fill="none" fill-rule="evenodd">
+  <g id="archery-m" fill-rule="nonzero">
+   <path id="Shape" d="m12 3c-4.9706 0-9 4.0295-9 9s4.0294 9 9 9c4.9705 0 9-4.0295 9-9s-4.0295-9-9-9zm0 1.8c3.9765 0 7.2 3.2235 7.2 7.2s-3.2235 7.2-7.2 7.2c-3.9765 0-7.2-3.2235-7.2-7.2s3.2235-7.2 7.2-7.2zm0 1.8c-2.9823 0-5.4 2.4177-5.4 5.4s2.4177 5.4 5.4 5.4c2.9823 0 5.4-2.4177 5.4-5.4s-2.4177-5.4-5.4-5.4zm0 1.8c1.9882 0 3.6 1.6118 3.6 3.6s-1.6118 3.6-3.6 3.6c-1.9882 0-3.6-1.6118-3.6-3.6s1.6118-3.6 3.6-3.6zm0 1.8c-0.99414 0-1.8 0.80586-1.8 1.8s0.80586 1.8 1.8 1.8 1.8-0.80586 1.8-1.8-0.80586-1.8-1.8-1.8z" fill="#717065"/>
   </g>
+ </g>
 </svg>

@@ -1,111 +1,27 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg
-   width="20px"
-   height="20px"
-   viewBox="0 0 20 20"
-   version="1.1"
-   id="svg10"
-   sodipodi:docname="parking_entrance-m.svg"
-   inkscape:version="1.2.1 (9c6d41e, 2022-07-14)"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:dc="http://purl.org/dc/elements/1.1/">
-  <defs
-     id="defs14" />
-  <sodipodi:namedview
-     id="namedview12"
-     pagecolor="#ffffff"
-     bordercolor="#000000"
-     borderopacity="0.25"
-     inkscape:showpageshadow="2"
-     inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="0"
-     inkscape:deskcolor="#d1d1d1"
-     showgrid="false"
-     inkscape:zoom="12.8375"
-     inkscape:cx="8.5296981"
-     inkscape:cy="-0.19474197"
-     inkscape:window-width="1390"
-     inkscape:window-height="1205"
-     inkscape:window-x="0"
-     inkscape:window-y="25"
-     inkscape:window-maximized="0"
-     inkscape:current-layer="svg10" />
-  <title
-     id="title2">parking_entrance-m</title>
-  <g
-     id="Page-2:-Night"
-     stroke="none"
-     stroke-width="1"
-     fill="none"
-     fill-rule="evenodd"
-     opacity="0.6">
-    <g
-       id="parking_entrance-m"
-       fill-rule="nonzero">
-      <rect
-         id="Rectangle"
-         fill="#FFFFFF"
-         x="0"
-         y="0"
-         width="20"
-         height="20"
-         rx="2.5" />
-      <rect
-         id="rect5"
-         fill="#2E89B0"
-         x="1"
-         y="1"
-         width="18"
-         height="18"
-         rx="2" />
-    </g>
+<svg version="1.1" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+ <title>parking_entrance-m</title>
+ <g id="Page-2:-Night" fill="none" fill-rule="evenodd" opacity=".6">
+  <g id="parking_entrance-m" fill-rule="nonzero">
+   <rect id="Rectangle" width="20" height="20" rx="2.5" fill="#fff"/>
+   <rect x="1" y="1" width="18" height="18" rx="2" fill="#2E89B0"/>
   </g>
-  <metadata
-     id="metadata16">
-    <rdf:RDF>
-      <cc:Work
-         rdf:about="">
-        <dc:title>parking_entrance-m</dc:title>
-      </cc:Work>
-    </rdf:RDF>
-  </metadata>
-  <g
-     id="g15162"
-     transform="translate(-1.2463487,-1.0905551)">
-    <path
-       d="m 7,6 v 9 h 2 v -3.20625 h 0.6597851 c 1.0685069,0 1.9007509,-0.2466 2.4782239,-0.75933 C 12.719396,10.52169 13,9.78054 13,8.8125 13,7.88145 12.73792,7.17072 12.191883,6.70317 11.649769,6.23148 10.839411,6.00009 9.7944712,6 Z m 2,1.575 h 0.7136595 c 0.4988945,0 0.8457165,0.09621 1.0774885,0.30942 0.235694,0.2133 0.350184,0.5373 0.350184,0.98433 0,0.44298 -0.125152,0.77868 -0.404058,1.0125 -0.278923,0.22968 -0.704307,0.36567 -1.2660494,0.36567 H 9 Z"
-       id="Shape"
-       fill="#ffffff" />
-    <g
-       id="path299-4"
-       transform="translate(-1.25e-4,-2.19e-4)">
-      <path
-         style="color:#000000;fill:#ffffff;stroke-width:1.76522;stroke-linejoin:round;-inkscape-stroke:none"
-         d="m 10.204,15.22922 h 5.066938"
-         id="path7766" />
-      <path
-         style="color:#000000;fill:#ffffff;stroke-linejoin:round;-inkscape-stroke:none"
-         d="m 10.203125,14.345703 v 1.765625 h 5.068359 v -1.765625 z"
-         id="path7768" />
-      <g
-         id="g7756">
-        <g
-           id="path7758">
-          <path
-             style="color:#000000;fill:#ffffff;fill-rule:evenodd;stroke-width:0.377643pt;-inkscape-stroke:none"
-             d="m 17.183887,15.22922 -2.867766,2.150824 v -4.301648 z"
-             id="path7762" />
-          <path
-             style="color:#000000;fill:#ffffff;fill-rule:evenodd;-inkscape-stroke:none"
-             d="m 14.064453,12.574219 v 5.308593 l 3.539063,-2.654296 -0.269532,-0.201172 z m 0.503906,1.007812 2.197266,1.646485 -2.197266,1.646484 z"
-             id="path7764" />
-        </g>
-      </g>
-    </g>
+ </g>
+ <metadata>
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:title>parking_entrance-m</dc:title>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <g transform="translate(-1.2463 -1.0906)">
+  <path id="Shape" d="m7 6v9h2v-3.2062h0.65979c1.0685 0 1.9008-0.2466 2.4782-0.75933 0.58139-0.51273 0.86199-1.2539 0.86199-2.2219 0-0.93105-0.26208-1.6418-0.80812-2.1093-0.54211-0.47169-1.3525-0.70308-2.3974-0.70317zm2 1.575h0.71366c0.49889 0 0.84572 0.09621 1.0775 0.30942 0.23569 0.2133 0.35018 0.5373 0.35018 0.98433 0 0.44298-0.12515 0.77868-0.40406 1.0125-0.27892 0.22968-0.70431 0.36567-1.266 0.36567h-0.47122z" fill="#fff"/>
+  <g transform="translate(-1.25e-4,-2.19e-4)">
+   <path d="m10.204 15.229h5.0669" color="#000000" fill="#fff" stroke-linejoin="round" stroke-width="1.7652" style="-inkscape-stroke:none"/>
+   <path d="m10.203 14.346v1.7656h5.0684v-1.7656z" color="#000000" fill="#fff" stroke-linejoin="round" style="-inkscape-stroke:none"/>
+   <g fill="#fff" fill-rule="evenodd">
+    <path d="m17.184 15.229-2.8678 2.1508v-4.3016z" color="#000000" stroke-width=".37764pt" style="-inkscape-stroke:none"/>
+    <path d="m14.064 12.574v5.3086l3.5391-2.6543-0.26953-0.20117zm0.50391 1.0078 2.1973 1.6465-2.1973 1.6465z" color="#000000" style="-inkscape-stroke:none"/>
+   </g>
   </g>
+ </g>
 </svg>

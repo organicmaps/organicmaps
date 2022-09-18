@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>copyshop-m</title>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="copyshop-m" fill-rule="nonzero">
-            <circle id="Oval" fill="#FFFFFF" opacity="0.6" cx="12" cy="12" r="12"></circle>
-            <circle id="Oval" fill="#8C5F93" cx="12" cy="12" r="11"></circle>
-            <path d="M14.4,17.6 L7.4,17.6 L7.4,8.5 C7.4,8.115 7.085,7.8 6.7,7.8 L6.7,7.8 C6.315,7.8 6,8.115 6,8.5 L6,17.6 C6,18.37 6.63,19 7.4,19 L14.4,19 C14.785,19 15.1,18.685 15.1,18.3 L15.1,18.3 C15.1,17.915 14.785,17.6 14.4,17.6 Z M17.9,14.8 L17.9,6.4 C17.9,5.63 17.27,5 16.5,5 L10.2,5 C9.43,5 8.8,5.63 8.8,6.4 L8.8,14.8 C8.8,15.57 9.43,16.2 10.2,16.2 L16.5,16.2 C17.27,16.2 17.9,15.57 17.9,14.8 Z M16.5,14.8 L10.2,14.8 L10.2,6.4 L16.5,6.4 L16.5,14.8 Z" id="Shape" fill="#FFFFFF"></path>
-        </g>
-    </g>
+<svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+ <title>copyshop-m</title>
+ <g fill="none" fill-rule="evenodd">
+  <g id="copyshop-m" fill-rule="nonzero">
+   <circle id="Oval" cx="12" cy="12" r="12" fill="#fff" opacity=".6"/>
+   <circle id="Oval" cx="12" cy="12" r="11" fill="#8C5F93"/>
+   <path id="Shape" d="m14.4 17.6h-7v-9.1c0-0.385-0.315-0.7-0.7-0.7s-0.7 0.315-0.7 0.7v9.1c0 0.77 0.63 1.4 1.4 1.4h7c0.385 0 0.7-0.315 0.7-0.7s-0.315-0.7-0.7-0.7zm3.5-2.8v-8.4c0-0.77-0.63-1.4-1.4-1.4h-6.3c-0.77 0-1.4 0.63-1.4 1.4v8.4c0 0.77 0.63 1.4 1.4 1.4h6.3c0.77 0 1.4-0.63 1.4-1.4zm-1.4 0h-6.3v-8.4h6.3v8.4z" fill="#fff"/>
+  </g>
+ </g>
 </svg>

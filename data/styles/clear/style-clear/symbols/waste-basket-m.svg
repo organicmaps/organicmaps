@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>waste-basket-m</title>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="nonzero">
-        <g id="waste-basket-m" fill="#717065">
-            <path d="M7.71428571,17.4285714 C7.71428571,18.2142857 8.35714286,18.8571429 9.14285714,18.8571429 L14.8571429,18.8571429 C15.6428571,18.8571429 16.2857143,18.2142857 16.2857143,17.4285714 L16.2857143,8.85714286 L7.71428571,8.85714286 L7.71428571,17.4285714 Z M17,6.71428571 L14.5,6.71428571 L13.7857143,6 L10.2142857,6 L9.5,6.71428571 L7,6.71428571 L7,8.14285714 L17,8.14285714 L17,6.71428571 Z"></path>
-        </g>
-    </g>
+<svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+ <title>waste-basket-m</title>
+ <g fill="none">
+  <g id="waste-basket-m" fill="#717065">
+   <path d="m7.7143 17.429c0 0.78571 0.64286 1.4286 1.4286 1.4286h5.7143c0.78571 0 1.4286-0.64286 1.4286-1.4286v-8.5714h-8.5714v8.5714zm9.2857-10.714h-2.5l-0.71429-0.71429h-3.5714l-0.71429 0.71429h-2.5v1.4286h10v-1.4286z"/>
+  </g>
+ </g>
 </svg>

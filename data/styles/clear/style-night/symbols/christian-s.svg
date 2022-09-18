@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>christian-s</title>
-    <g id="Page-2:-Night" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.6">
-        <g id="christian-s" fill-rule="nonzero">
-            <circle id="Oval" fill="#FFFFFF" cx="8" cy="8" r="8"></circle>
-            <circle id="Oval" fill="#7F5933" cx="8" cy="8" r="7"></circle>
-            <polygon id="Path" fill="#FFFFFF" points="9.00146484 5 9.00146484 3 7.00146484 3 7.00146484 5 5 5 5 6.93016793 7.00146484 6.95346233 7.00146484 13 9.00146484 13 9.00146484 6.97673969 11 7 11 5"></polygon>
-        </g>
-    </g>
+<svg version="1.1" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+ <title>christian-s</title>
+ <g id="Page-2:-Night" fill="none" fill-rule="evenodd" opacity=".6">
+  <g id="christian-s" fill-rule="nonzero">
+   <circle id="Oval" cx="8" cy="8" r="8" fill="#fff"/>
+   <circle id="Oval" cx="8" cy="8" r="7" fill="#7F5933"/>
+   <polygon id="Path" points="9.0015 5 9.0015 3 7.0015 3 7.0015 5 5 5 5 6.9302 7.0015 6.9535 7.0015 13 9.0015 13 9.0015 6.9767 11 7 11 5" fill="#fff"/>
+  </g>
+ </g>
 </svg>

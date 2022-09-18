@@ -1,65 +1,15 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg
-   width="20px"
-   height="20px"
-   viewBox="0 0 20 20"
-   version="1.1"
-   id="svg10"
-   sodipodi:docname="parking-disabled-m.svg"
-   inkscape:version="1.2.1 (9c6d41e, 2022-07-14)"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:dc="http://purl.org/dc/elements/1.1/">
-  <defs
-     id="defs14" />
-  <sodipodi:namedview
-     id="namedview12"
-     pagecolor="#ffffff"
-     bordercolor="#000000"
-     borderopacity="0.25"
-     inkscape:showpageshadow="2"
-     inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="0"
-     inkscape:deskcolor="#d1d1d1"
-     showgrid="false"
-     inkscape:zoom="18.154967"
-     inkscape:cx="-4.7645363"
-     inkscape:cy="7.1881155"
-     inkscape:window-width="1390"
-     inkscape:window-height="1205"
-     inkscape:window-x="0"
-     inkscape:window-y="25"
-     inkscape:window-maximized="0"
-     inkscape:current-layer="parking-disabled-m" />
-  <title
-     id="title2">parking-disabled-m</title>
-  <g
-     id="Page-2:-Night"
-     stroke="none"
-     stroke-width="1"
-     fill="none"
-     fill-rule="evenodd"
-     opacity="0.6">
-    <g
-       id="parking-disabled-m"
-       fill-rule="nonzero">
-      <path
-         d="m 10.031841,5.95628 q -0.477606,0 -0.819889,-0.342283 Q 8.869668,5.271714 8.869668,4.79411 q 0,-0.477606 0.342284,-0.819889 0.342283,-0.342283 0.819889,-0.342283 0.477604,0 0.819888,0.342283 0.342283,0.342283 0.342283,0.819889 0,0.477604 -0.342283,0.819887 -0.342284,0.342283 -0.819888,0.342283 z m 3.406913,10.411782 V 13.04075 h -3.406913 q -0.477606,0 -0.811929,-0.334324 Q 8.885589,12.372103 8.885589,11.894498 V 7.96222 q 0,-0.477605 0.334323,-0.811928 0.334323,-0.334324 0.811929,-0.334324 0.366163,0 0.620886,0.143282 0.254722,0.143282 0.604965,0.557206 0.668647,0.780088 1.464655,1.305453 0.796008,0.525365 1.735297,0.557205 v 0.955209 q -0.811927,0 -1.671616,-0.398004 Q 11.92634,9.538315 11.130332,8.869668 v 2.913389 h 2.117381 q 0.477604,0 0.811927,0.334324 0.334323,0.334323 0.334323,0.811928 v 3.438753 z m -4.776047,0 q -1.321373,0 -2.220863,-0.899489 -0.899488,-0.899488 -0.899488,-2.220861 0,-1.082571 0.788048,-1.99798 0.788048,-0.915409 2.077579,-1.058691 v 0.97113 q -0.859688,0.0796 -1.377092,0.708447 -0.517405,0.628846 -0.517405,1.377094 0,0.923369 0.612925,1.544254 0.612927,0.620887 1.536296,0.620887 0.748247,0 1.385053,-0.517405 0.636807,-0.517405 0.700488,-1.377093 h 0.971129 q -0.127361,1.273611 -1.05073,2.061659 -0.92337,0.788048 -2.00594,0.788048 z"
-         id="path876"
-         style="fill:#2e89b0;fill-opacity:1;stroke-width:0.318403" />
-    </g>
+<svg version="1.1" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+ <title>parking-disabled-m</title>
+ <g id="Page-2:-Night" fill="none" fill-rule="evenodd" opacity=".6">
+  <g id="parking-disabled-m" fill-rule="nonzero">
+   <path d="m10.032 5.9563q-0.47761 0-0.81989-0.34228-0.34228-0.34228-0.34228-0.81989 0-0.47761 0.34228-0.81989 0.34228-0.34228 0.81989-0.34228 0.4776 0 0.81989 0.34228 0.34228 0.34228 0.34228 0.81989 0 0.4776-0.34228 0.81989-0.34228 0.34228-0.81989 0.34228zm3.4069 10.412v-3.3273h-3.4069q-0.47761 0-0.81193-0.33432-0.33432-0.33432-0.33432-0.81193v-3.9323q0-0.4776 0.33432-0.81193 0.33432-0.33432 0.81193-0.33432 0.36616 0 0.62089 0.14328 0.25472 0.14328 0.60496 0.55721 0.66865 0.78009 1.4647 1.3055t1.7353 0.5572v0.95521q-0.81193 0-1.6716-0.398-0.85969-0.398-1.6557-1.0667v2.9134h2.1174q0.4776 0 0.81193 0.33432 0.33432 0.33432 0.33432 0.81193v3.4388zm-4.776 0q-1.3214 0-2.2209-0.89949-0.89949-0.89949-0.89949-2.2209 0-1.0826 0.78805-1.998t2.0776-1.0587v0.97113q-0.85969 0.0796-1.3771 0.70845-0.5174 0.62885-0.5174 1.3771 0 0.92337 0.61292 1.5443 0.61293 0.62089 1.5363 0.62089 0.74825 0 1.3851-0.5174 0.63681-0.5174 0.70049-1.3771h0.97113q-0.12736 1.2736-1.0507 2.0617-0.92337 0.78805-2.0059 0.78805z" fill="#2e89b0" stroke-width=".3184"/>
   </g>
-  <metadata
-     id="metadata16">
-    <rdf:RDF>
-      <cc:Work
-         rdf:about="">
-        <dc:title>parking-disabled-m</dc:title>
-      </cc:Work>
-    </rdf:RDF>
-  </metadata>
+ </g>
+ <metadata>
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:title>parking-disabled-m</dc:title>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
 </svg>

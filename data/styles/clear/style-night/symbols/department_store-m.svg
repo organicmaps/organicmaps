@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>department_store-m</title>
-    <g id="Page-2:-Night" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.6">
-        <g id="department_store-m" fill-rule="nonzero">
-            <circle id="Oval" fill="#FFFFFF" cx="12" cy="12" r="12"></circle>
-            <circle id="Oval" fill="#8C5F93" cx="12" cy="12" r="11"></circle>
-            <path d="M10.6363636,6.31973333 L11.0127273,5.93333333 L12.9872727,5.93333333 L13.3636364,6.31973333 L13.3636364,7.8 L14.2727273,7.8 L14.2727273,5.54693333 L13.74,5 L10.26,5 L9.72727273,5.54693333 L9.72727273,7.8 L10.6363636,7.8 L10.6363636,6.31973333 Z M14.2727273,9.66666667 L14.2727273,12.8530667 L13.74,13.4 L10.26,13.4 L9.72727273,12.8530667 L9.72727273,9.66666667 L7,9.66666667 L7,17.1333333 C7,18.1637333 7.81454545,19 8.81818182,19 L15.1818182,19 C16.1854545,19 17,18.1637333 17,17.1333333 L17,9.66666667 L14.2727273,9.66666667 Z M10.6363636,12.0802667 L11.0127273,12.4666667 L12.9872727,12.4666667 L13.3636364,12.0802667 L13.3636364,9.66666667 L10.6363636,9.66666667 L10.6363636,12.0802667 Z" id="Shape" fill="#FFFFFF"></path>
-        </g>
-    </g>
+<svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+ <title>department_store-m</title>
+ <g id="Page-2:-Night" fill="none" fill-rule="evenodd" opacity=".6">
+  <g id="department_store-m" fill-rule="nonzero">
+   <circle id="Oval" cx="12" cy="12" r="12" fill="#fff"/>
+   <circle id="Oval" cx="12" cy="12" r="11" fill="#8C5F93"/>
+   <path id="Shape" d="m10.636 6.3197 0.37636-0.3864h1.9745l0.37636 0.3864v1.4803h0.90909v-2.2531l-0.53273-0.54693h-3.48l-0.53273 0.54693v2.2531h0.90909v-1.4803zm3.6364 3.3469v3.1864l-0.53273 0.54693h-3.48l-0.53273-0.54693v-3.1864h-2.7273v7.4667c0 1.0304 0.81455 1.8667 1.8182 1.8667h6.3636c1.0036 0 1.8182-0.83627 1.8182-1.8667v-7.4667h-2.7273zm-3.6364 2.4136 0.37636 0.3864h1.9745l0.37636-0.3864v-2.4136h-2.7273v2.4136z" fill="#fff"/>
+  </g>
+ </g>
 </svg>

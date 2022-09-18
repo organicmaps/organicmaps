@@ -1,6 +1,6 @@
-<svg width="12" height="12" viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-  <g fill="none" fill-rule="evenodd">
-    <polygon fill="#EED" fill-opacity=".65" points="6 9.486 2.292 12 3.42 7.515 0 4.584 4.405 4.326 6 0 7.595 4.326 12 4.584 8.58 7.515 9.708 12"/>
-    <polygon fill="#000003" fill-opacity=".8" points="6 8.905 2.91 11 3.85 7.262 1 4.82 4.671 4.605 6 1 7.329 4.605 11 4.82 8.15 7.262 9.09 11"/>
-  </g>
+<svg version="1.1" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
+ <g fill-rule="evenodd">
+  <polygon points="6 9.486 2.292 12 3.42 7.515 0 4.584 4.405 4.326 6 0 7.595 4.326 12 4.584 8.58 7.515 9.708 12" fill="#EED" fill-opacity=".65"/>
+  <polygon points="6 8.905 2.91 11 3.85 7.262 1 4.82 4.671 4.605 6 1 7.329 4.605 11 4.82 8.15 7.262 9.09 11" fill="#000003" fill-opacity=".8"/>
+ </g>
 </svg>

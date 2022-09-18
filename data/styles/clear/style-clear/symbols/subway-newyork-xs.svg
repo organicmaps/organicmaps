@@ -1,7 +1,7 @@
-<svg width="12" height="12" viewBox="0 0 12 12">
-  <g fill="none" fill-rule="evenodd">
-    <rect width="12" height="12" fill="#FFF" opacity=".6" rx="6"/>
-    <rect width="10" height="10" x="1" y="1" fill="#3C3E38" rx="5"/>
-    <rect width="4" height="4" x="4" y="4" fill="#FFF" rx="1"/>
-  </g>
+<svg viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
+ <g fill-rule="evenodd">
+  <rect width="12" height="12" rx="6" fill="#FFF" opacity=".6"/>
+  <rect x="1" y="1" width="10" height="10" rx="5" fill="#3C3E38"/>
+  <rect x="4" y="4" width="4" height="4" rx="1" fill="#FFF"/>
+ </g>
 </svg>

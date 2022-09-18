@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>clothes-m</title>
-    <g id="Page-2:-Night" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.6">
-        <g id="clothes-m">
-            <circle id="Oval" fill="#FFFFFF" fill-rule="nonzero" cx="12" cy="12" r="12"></circle>
-            <circle id="Oval" fill="#8C5F93" fill-rule="nonzero" cx="12" cy="12" r="11"></circle>
-            <path d="M14,7 L18,8.33333333 L18,11.6666667 L16,11.6666667 L16,17 C16,17.3681898 15.7015232,17.6666667 15.3333333,17.6666667 L8.66666667,17.6666667 C8.29847683,17.6666667 8,17.3681898 8,17 L8,11.6666667 L6,11.6666667 L6,8.33333333 L10,7 C10,8.1045695 10.8954305,9 12,9 C13.1045695,9 14,8.1045695 14,7" id="Path" fill="#FFFFFF" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round"></path>
-        </g>
-    </g>
+<svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+ <title>clothes-m</title>
+ <g id="Page-2:-Night" fill="none" fill-rule="evenodd" opacity=".6">
+  <g id="clothes-m">
+   <circle id="Oval" cx="12" cy="12" r="12" fill="#fff" fill-rule="nonzero"/>
+   <circle id="Oval" cx="12" cy="12" r="11" fill="#8C5F93" fill-rule="nonzero"/>
+   <path id="Path" d="m14 7 4 1.3333v3.3333h-2v5.3333c0 0.36819-0.29848 0.66667-0.66667 0.66667h-6.6667c-0.36819 0-0.66667-0.29848-0.66667-0.66667v-5.3333h-2v-3.3333l4-1.3333c0 1.1046 0.89543 2 2 2s2-0.89543 2-2" fill="#fff" stroke="#fff" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+ </g>
 </svg>

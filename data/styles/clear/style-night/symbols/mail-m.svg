@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>mail-m</title>
-    <g id="Page-2:-Night" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.6">
-        <g id="mail-m" fill-rule="nonzero">
-            <circle id="Oval" fill="#FFFFFF" cx="12" cy="12" r="12"></circle>
-            <circle id="Oval" fill="#717065" cx="12" cy="12" r="11"></circle>
-            <path d="M17.6,6 L6.4,6 C5.63,6 5.007,6.63 5.007,7.4 L5,15.8 C5,16.57 5.63,17.2 6.4,17.2 L17.6,17.2 C18.37,17.2 19,16.57 19,15.8 L19,7.4 C19,6.63 18.37,6 17.6,6 Z M17.32,8.975 L12.371,12.069 C12.147,12.209 11.853,12.209 11.629,12.069 L6.68,8.975 C6.505,8.863 6.4,8.674 6.4,8.471 C6.4,8.002 6.911,7.722 7.31,7.967 L12,10.9 L16.69,7.967 C17.089,7.722 17.6,8.002 17.6,8.471 C17.6,8.674 17.495,8.863 17.32,8.975 Z" id="Shape" fill="#FFFFFF"></path>
-        </g>
-    </g>
+<svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+ <title>mail-m</title>
+ <g id="Page-2:-Night" fill="none" fill-rule="evenodd" opacity=".6">
+  <g id="mail-m" fill-rule="nonzero">
+   <circle id="Oval" cx="12" cy="12" r="12" fill="#fff"/>
+   <circle id="Oval" cx="12" cy="12" r="11" fill="#717065"/>
+   <path id="Shape" d="m17.6 6h-11.2c-0.77 0-1.393 0.63-1.393 1.4l-7e-3 8.4c0 0.77 0.63 1.4 1.4 1.4h11.2c0.77 0 1.4-0.63 1.4-1.4v-8.4c0-0.77-0.63-1.4-1.4-1.4zm-0.28 2.975-4.949 3.094c-0.224 0.14-0.518 0.14-0.742 0l-4.949-3.094c-0.175-0.112-0.28-0.301-0.28-0.504 0-0.469 0.511-0.749 0.91-0.504l4.69 2.933 4.69-2.933c0.399-0.245 0.91 0.035 0.91 0.504 0 0.203-0.105 0.392-0.28 0.504z" fill="#fff"/>
+  </g>
+ </g>
 </svg>

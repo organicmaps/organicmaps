@@ -1,42 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg
-   width="24"
-   height="24"
-   viewBox="0 0 24 24"
-   version="1.1"
-   id="svg10"
-   sodipodi:docname="wayside_shrine-m.svg"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg">
-  <defs
-     id="defs14" />
-  <sodipodi:namedview
-     id="namedview12"
-     pagecolor="#ffffff"
-     bordercolor="#000000"
-     borderopacity="0.25"
-     inkscape:showpageshadow="2"
-     inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="0"
-     inkscape:deskcolor="#d1d1d1"
-     showgrid="false" />
-  <title
-     id="title2">wayside_shrine-m</title>
-  <g
-     id="Page-1"
-     stroke="none"
-     stroke-width="1"
-     fill="none"
-     fill-rule="evenodd">
-    <g
-       id="wayside_shrine-m"
-       fill-rule="nonzero">
-      <path
-         d="m 11.999413,3 -7.7136985,7.878 1.329867,1.3572 6.3850065,-6.5208 6.383831,6.5208 1.329867,-1.3572 z M 17.23312,13.482 V 21 h -2.349588 v -4.2 c 0,-1.6572 -1.314593,-3 -2.936986,-3 -1.62239,0 -2.9369845,1.3428 -2.9369845,3 V 21 H 6.6599734 V 13.5684 L 11.990014,8.2452 Z"
-         id="Shape"
-         fill="#7f5933" />
-    </g>
+<svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+ <title>wayside_shrine-m</title>
+ <g fill="none" fill-rule="evenodd">
+  <g id="wayside_shrine-m" fill-rule="nonzero">
+   <path id="Shape" d="m11.999 3-7.7137 7.878 1.3299 1.3572 6.385-6.5208 6.3838 6.5208 1.3299-1.3572zm5.2337 10.482v7.518h-2.3496v-4.2c0-1.6572-1.3146-3-2.937-3-1.6224 0-2.937 1.3428-2.937 3v4.2h-2.3496v-7.4316l5.33-5.3232z" fill="#7f5933"/>
   </g>
+ </g>
 </svg>

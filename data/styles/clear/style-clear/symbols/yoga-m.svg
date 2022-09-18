@@ -1,49 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg
-   enable-background="new 0 0 24 24"
-   height="24"
-   viewBox="0 0 24 24"
-   width="24"
-   fill="#000000"
-   version="1.1"
-   id="svg14"
-   sodipodi:docname="self_improvement_black_24dp.svg"
-   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg">
-  <defs
-     id="defs18" />
-  <sodipodi:namedview
-     id="namedview16"
-     pagecolor="#ffffff"
-     bordercolor="#000000"
-     borderopacity="0.25"
-     inkscape:showpageshadow="2"
-     inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="0"
-     inkscape:deskcolor="#d1d1d1"
-     showgrid="false"
-     inkscape:zoom="32.291667"
-     inkscape:cx="11.984516"
-     inkscape:cy="12.030968"
-     inkscape:window-width="1920"
-     inkscape:window-height="979"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
-     inkscape:window-maximized="1"
-     inkscape:current-layer="svg14" />
-  <g
-     id="g12"
-     style="fill:#717065;fill-opacity:1">
-    <g
-       id="g10"
-       style="fill:#717065;fill-opacity:1">
-      <path
-         id="circle6"
-         style="fill:#717065;fill-opacity:1"
-         d="m 12,4 a 2,2 0 0 0 -2,2 2,2 0 0 0 2,2 2,2 0 0 0 2,-2 2,2 0 0 0 -2,-2 z m -0.519531,5 c -0.59,0 -1.151251,0.2607036 -1.5312502,0.7207031 L 8.609375,11.320312 C 7.1593765,13.040311 5.2399978,14 3,14 v 2 c 2.7699972,0 5.1900018,-1.170002 7,-3.25 V 15 L 6.1191406,16.550781 C 5.4491413,16.820781 5,17.480938 5,18.210938 5,19.200937 5.7990635,20 6.7890625,20 H 9 V 19.5 C 9,18.120001 10.120001,17 11.5,17 h 3 c 0.28,0 0.5,0.22 0.5,0.5 0,0.28 -0.22,0.5 -0.5,0.5 h -3 C 10.670001,18 10,18.670001 10,19.5 V 20 h 7.210938 C 18.200937,20 19,19.200937 19,18.210938 c 0,-0.73 -0.449141,-1.390157 -1.119141,-1.660157 L 14,15 v -2.25 c 1.809998,2.079998 4.230003,3.25 7,3.25 v -2 c -2.239998,0 -4.159611,-0.959689 -5.599609,-2.679688 L 14.060547,9.7207031 C 13.680547,9.2607036 13.119296,9 12.529297,9 Z" />
-    </g>
+<svg enable-background="new 0 0 24 24" fill="#000000" version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+ <g fill="#717065">
+  <g fill="#717065">
+   <path d="m12 4a2 2 0 0 0-2 2 2 2 0 0 0 2 2 2 2 0 0 0 2-2 2 2 0 0 0-2-2zm-0.51953 5c-0.59 0-1.1513 0.2607-1.5313 0.7207l-1.3398 1.5996c-1.45 1.72-3.3694 2.6797-5.6094 2.6797v2c2.77 0 5.19-1.17 7-3.25v2.25l-3.8809 1.5508c-0.67 0.27-1.1191 0.93016-1.1191 1.6602 0 0.99 0.79906 1.7891 1.7891 1.7891h2.2109v-0.5c0-1.38 1.12-2.5 2.5-2.5h3c0.28 0 0.5 0.22 0.5 0.5s-0.22 0.5-0.5 0.5h-3c-0.83 0-1.5 0.67-1.5 1.5v0.5h7.2109c0.99 0 1.7891-0.79906 1.7891-1.7891 0-0.73-0.44914-1.3902-1.1191-1.6602l-3.8809-1.5508v-2.25c1.81 2.08 4.23 3.25 7 3.25v-2c-2.24 0-4.1596-0.95969-5.5996-2.6797l-1.3398-1.5996c-0.38-0.46-0.94125-0.7207-1.5312-0.7207z" fill="#717065"/>
   </g>
+ </g>
 </svg>

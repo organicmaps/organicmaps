@@ -1,10 +1,10 @@
-<svg width="24" height="24" viewBox="0 0 24 24">
-  <g fill="none">
-    <polygon fill="#FFF" points="24 0 0 0 0 24 24 24" opacity=".6"/>
-    <rect width="22" height="22" x="1" y="1" fill="#F8F9FA"/>
-    <g transform="translate(4 3)">
-      <polygon fill="#F50000" points="13.4 0 8 8.3 2.9 0 0 0 0 12 3 12 3 7.2 6.8 12 9.3 12 13 7.2 13 12 16 12 16 0"/>
-      <path fill="#1A237E" d="M7.3,13 L9.6,13 L13,14.1147541 L13,13 L16,13 L16,15 L13,15 L12,15 L8.25,13.4042553 L4.5,15 L3,15 L0,15 L0,13 L3,13 L3,14.2459016 L6.8,13 L7.3,13 Z M17,18 L13,18 L13,16 L17,16 L17,18 Z M0,16 L4,16 L4,18 L0,18 L0,16 Z M6,16 L10,16 L10,18 L6,18 L6,16 Z"/>
-    </g>
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+ <g fill="none">
+  <polygon points="24 0 0 0 0 24 24 24" fill="#FFF" opacity=".6"/>
+  <rect x="1" y="1" width="22" height="22" fill="#F8F9FA"/>
+  <g transform="translate(4 3)">
+   <polygon points="13.4 0 8 8.3 2.9 0 0 0 0 12 3 12 3 7.2 6.8 12 9.3 12 13 7.2 13 12 16 12 16 0" fill="#F50000"/>
+   <path d="m7.3 13h2.3l3.4 1.1148v-1.1148h3v2h-3-1l-3.75-1.5957-3.75 1.5957h-1.5-3v-2h3v1.2459l3.8-1.2459h0.5zm9.7 5h-4v-2h4v2zm-17-2h4v2h-4v-2zm6 0h4v2h-4v-2z" fill="#1A237E"/>
   </g>
+ </g>
 </svg>
