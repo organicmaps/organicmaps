@@ -3,8 +3,6 @@
 #include "drape_frontend/shape_view_params.hpp"
 #include "drape_frontend/tile_utils.hpp"
 
-#include "indexer/scales.hpp"
-
 #include "geometry/mercator.hpp"
 
 #include <sstream>
@@ -149,12 +147,18 @@ math::Matrix<float, 4, 4> TileKey::GetTileBasedModelView(ScreenBase const & scre
   return screen.GetModelView(GetGlobalRect().Center(), kShapeCoordScalar);
 }
 
+std::string TileKey::Coord2String() const
+{
+  using namespace strings;
+  return to_string(m_x) + ' ' + to_string(m_y) + ' ' + to_string(int(m_zoomLevel));
+}
+
 std::string DebugPrint(TileKey const & key)
 {
   std::ostringstream out;
-  out << "[x = " << key.m_x << ", y = " << key.m_y << ", zoomLevel = "
+  out << "{ x = " << key.m_x << ", y = " << key.m_y << ", zoomLevel = "
       << (int)key.m_zoomLevel << ", gen = " << key.m_generation
-      << ", user marks gen = " << key.m_userMarksGeneration << "]";
+      << ", user marks gen = " << key.m_userMarksGeneration << " }";
   return out.str();
 }
 }  // namespace df
