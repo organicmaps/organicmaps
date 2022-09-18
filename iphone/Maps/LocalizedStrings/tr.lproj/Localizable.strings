@@ -590,7 +590,7 @@
 
 "no_osm_account" = "OpenStreetMap hesabınız yok mu?";
 
-"register_at_openstreetmap" = "Kaydol";
+"register_at_openstreetmap" = "OpenStreetMap'e kaydol";
 
 "password_8_chars_min" = "Şifre (en az 8 karakter)";
 
@@ -680,7 +680,7 @@
 
 "message_invalid_feature_position" = "Buraya bir nesne konumlandırılamıyor";
 
-"login_to_make_edits_visible" = "Diğer kullanıcıların yaptığınız değişiklikleri görebilmesi için oturum açın";
+"login_to_make_edits_visible" = "Diğer kullanıcıların yaptığınız değişiklikleri görebilmesi için OpenStreetMap.org'da oturum açın.";
 
 /* Error dialog no space */
 "migration_no_space_message" = "İndirmek için daha fazla alana ihtiyacınız var. Lütfen gereksiz verileri silin.";
@@ -813,7 +813,7 @@
 /* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "Herhangi bir kişisel bilgi girmediğinizden emin olun.";
 
-"editor_share_to_all_dialog_message_2" = "OpenStreetMap editörleri değişiklikleri kontrol edecek ve soruları olursa sizinle iletişime geçecektir.";
+"editor_share_to_all_dialog_message_2" = "OpenStreetMap editörleri değişikliklerinizi kontrol edecek ve bir soruları olursa sizinle iletişime geçecekler.";
 
 "navigation_stop_button" = "dur";
 
