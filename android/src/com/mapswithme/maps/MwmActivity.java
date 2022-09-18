@@ -426,14 +426,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void updateViewsInsets()
   {
-    findViewById(R.id.map_ui_container).setOnApplyWindowInsetsListener(this::setViewInsets);
-    findViewById(R.id.pp_buttons_layout).setOnApplyWindowInsetsListener(this::setViewInsets);
-    findViewById(R.id.toolbar).setOnApplyWindowInsetsListener(this::setViewInsets);
-    findViewById(R.id.menu_frame).setOnApplyWindowInsetsListener(this::setViewInsets);
-    findViewById(R.id.routing_plan_frame).findViewById(R.id.toolbar)
-                                         .setOnApplyWindowInsetsListener(this::setViewInsetsSides);
-
-    findViewById(R.id.map_fragment_container).setOnApplyWindowInsetsListener((view, windowInsets) -> {
+    findViewById(R.id.map_ui_container).setOnApplyWindowInsetsListener((view, windowInsets) -> {
+      setViewInsets(findViewById(R.id.map_ui_container), windowInsets);
+      setViewInsets(findViewById(R.id.pp_buttons_layout), windowInsets);
+      setViewInsets(findViewById(R.id.toolbar), windowInsets);
+      setViewInsets(findViewById(R.id.menu_frame), windowInsets);
+      setViewInsetsSides(findViewById(R.id.routing_plan_frame).findViewById(R.id.toolbar), windowInsets);
       navBarHeight = windowInsets.getSystemWindowInsetBottom();
       adjustCompass(-1, windowInsets.getSystemWindowInsetRight());
       adjustBottomWidgets(windowInsets.getSystemWindowInsetLeft());
@@ -441,18 +439,16 @@ public class MwmActivity extends BaseMwmFragmentActivity
     });
   }
 
-  private WindowInsets setViewInsets(View view, WindowInsets windowInsets)
+  private void setViewInsets(View view, WindowInsets windowInsets)
   {
     view.setPadding(windowInsets.getSystemWindowInsetLeft(), view.getPaddingTop(),
                     windowInsets.getSystemWindowInsetRight(), windowInsets.getSystemWindowInsetBottom());
-    return windowInsets;
   }
 
-  private WindowInsets setViewInsetsSides(View view, WindowInsets windowInsets)
+  private void setViewInsetsSides(View view, WindowInsets windowInsets)
   {
     view.setPadding(windowInsets.getSystemWindowInsetLeft(), view.getPaddingTop(),
                     windowInsets.getSystemWindowInsetRight(), view.getPaddingBottom());
-    return windowInsets;
   }
 
   private int getDownloadMapsCounter()
