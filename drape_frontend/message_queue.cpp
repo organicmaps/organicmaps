@@ -25,18 +25,17 @@ drape_ptr<Message> MessageQueue::PopMessage(bool waitForMessage)
     m_isWaiting = false;
   }
 
-  if (m_messages.empty() && m_lowPriorityMessages.empty())
-    return nullptr;
-
+  drape_ptr<Message> msg;
   if (!m_messages.empty())
   {
-    drape_ptr<Message> msg = std::move(m_messages.front().first);
+    msg = std::move(m_messages.front().first);
     m_messages.pop_front();
-    return msg;
   }
-
-  drape_ptr<Message> msg = std::move(m_lowPriorityMessages.front());
-  m_lowPriorityMessages.pop_front();
+  else if (!m_lowPriorityMessages.empty())
+  {
+    msg = std::move(m_lowPriorityMessages.front());
+    m_lowPriorityMessages.pop_front();
+  }
   return msg;
 }
 

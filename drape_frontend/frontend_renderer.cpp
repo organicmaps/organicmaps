@@ -1321,7 +1321,7 @@ void FrontendRenderer::ProcessSelection(ref_ptr<SelectObjectMessage> msg)
   if (msg->IsDismiss())
   {
     m_selectionShape->Hide();
-    if (!m_myPositionController->IsModeChangeViewport() && m_selectionTrackInfo.has_value())
+    if (!m_myPositionController->IsModeChangeViewport() && m_selectionTrackInfo)
     {
       AddUserEvent(make_unique_dp<SetAnyRectEvent>(m_selectionTrackInfo->m_startRect,
                                                    true /* isAnim */, false /* fitInViewport */,
@@ -1334,8 +1334,8 @@ void FrontendRenderer::ProcessSelection(ref_ptr<SelectObjectMessage> msg)
     double offsetZ = 0.0;
     ScreenBase modelView;
     m_userEventStream.GetTargetScreen(modelView);
-    if (modelView.isPerspective() &&
-        msg->GetSelectedObject() != SelectionShape::ESelectedObject::OBJECT_TRACK)
+
+    if (modelView.isPerspective() && msg->GetSelectedObject() != SelectionShape::ESelectedObject::OBJECT_TRACK)
     {
       dp::TOverlayContainer selectResult;
       if (m_overlayTree->IsNeedUpdate())
@@ -1344,15 +1344,16 @@ void FrontendRenderer::ProcessSelection(ref_ptr<SelectObjectMessage> msg)
       for (ref_ptr<dp::OverlayHandle> const & handle : selectResult)
         offsetZ = std::max(offsetZ, handle->GetPivotZ());
     }
+
     if (msg->IsSelectionShapeVisible())
       m_selectionShape->Show(msg->GetSelectedObject(), msg->GetPosition(), offsetZ, msg->IsAnim());
     else
       m_selectionShape->Hide();
+
     if (!m_myPositionController->IsModeChangeViewport())
     {
-      m2::PointD startPosition;
-      if (m_selectionShape->IsVisible(modelView, startPosition))
-        m_selectionTrackInfo = SelectionTrackInfo(modelView.GlobalRect(), startPosition);
+      if (auto const startPosition = m_selectionShape->GetPixelPosition(modelView, m_currentZoomLevel))
+        m_selectionTrackInfo = SelectionTrackInfo(modelView.GlobalRect(), *startPosition);
     }
 
     if (msg->IsGeometrySelectionAllowed())
@@ -2134,13 +2135,13 @@ bool FrontendRenderer::OnNewVisibleViewport(m2::RectD const & oldViewport, m2::R
   ScreenBase targetScreen;
   AnimationSystem::Instance().GetTargetScreen(screen, targetScreen);
 
-  m2::PointD pos;
-  m2::PointD targetPos;
-  if (!m_selectionShape->IsVisible(screen, pos) || !m_selectionShape->IsVisible(targetScreen, targetPos))
+  auto const pos = m_selectionShape->GetPixelPosition(screen, m_currentZoomLevel);
+  auto const targetPos = m_selectionShape->GetPixelPosition(targetScreen, m_currentZoomLevel);
+  if (!pos || !targetPos)
     return false;
 
-  m2::RectD rect(pos, pos);
-  m2::RectD targetRect(targetPos, targetPos);
+  m2::RectD rect(*pos, *pos);
+  m2::RectD targetRect(*targetPos, *targetPos);
   if (m_selectionShape->HasSelectionGeometry())
   {
     auto r = m_selectionShape->GetSelectionGeometryBoundingBox();
@@ -2184,29 +2185,29 @@ bool FrontendRenderer::OnNewVisibleViewport(m2::RectD const & oldViewport, m2::R
     // try to rollback part of that scrolling to return the map to its original position.
     if (rect.minX() < newViewport.minX() || m_selectionTrackInfo->m_snapSides.x < 0)
     {
-      pOffset.x = std::max(m_selectionTrackInfo->m_startPos.x - pos.x, newViewport.minX() - rect.minX());
+      pOffset.x = std::max(m_selectionTrackInfo->m_startPos.x - pos->x, newViewport.minX() - rect.minX());
       m_selectionTrackInfo->m_snapSides.x = -1;
     }
     else if (rect.maxX() > newViewport.maxX() || m_selectionTrackInfo->m_snapSides.x > 0)
     {
-      pOffset.x = std::min(m_selectionTrackInfo->m_startPos.x - pos.x, newViewport.maxX() - rect.maxX());
+      pOffset.x = std::min(m_selectionTrackInfo->m_startPos.x - pos->x, newViewport.maxX() - rect.maxX());
       m_selectionTrackInfo->m_snapSides.x = 1;
     }
 
     if (rect.minY() < newViewport.minY() || m_selectionTrackInfo->m_snapSides.y < 0)
     {
-      pOffset.y = std::max(m_selectionTrackInfo->m_startPos.y - pos.y, newViewport.minY() - rect.minY());
+      pOffset.y = std::max(m_selectionTrackInfo->m_startPos.y - pos->y, newViewport.minY() - rect.minY());
       m_selectionTrackInfo->m_snapSides.y = -1;
     }
     else if (rect.maxY() > newViewport.maxY() || m_selectionTrackInfo->m_snapSides.y > 0)
     {
-      pOffset.y = std::min(m_selectionTrackInfo->m_startPos.y - pos.y, newViewport.maxY() - rect.maxY());
+      pOffset.y = std::min(m_selectionTrackInfo->m_startPos.y - pos->y, newViewport.maxY() - rect.maxY());
       m_selectionTrackInfo->m_snapSides.y = 1;
     }
   }
 
   double const ptZ = m_selectionShape->GetPositionZ();
-  gOffset = screen.PtoG(screen.P3dtoP(pos + pOffset, ptZ)) - screen.PtoG(screen.P3dtoP(pos, ptZ));
+  gOffset = screen.PtoG(screen.P3dtoP(*pos + pOffset, ptZ)) - screen.PtoG(screen.P3dtoP(*pos, ptZ));
   return true;
 }
 
