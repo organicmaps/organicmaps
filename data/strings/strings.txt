@@ -10707,7 +10707,7 @@
     sk = Zaregistrovať sa
     sv = Registrera
     th = ลงทะเบียน
-    tr = Kaydol
+    tr = OpenStreetMap'e kaydol
     uk = Зареєструватися
     vi = Đăng ký
     zh-Hans = 注册
@@ -10859,7 +10859,7 @@
     sv = Logga in på OpenStreetMap
     sw = Ingia kwa OpenStreetMap
     th = เข้าสู่ระบบ OpenStreetMap
-    tr = OpenStreetMap'e giriş yapın
+    tr = OpenStreetMap'e giriş yap
     uk = Увійдіть до OpenStreetMap
     vi = Đăng nhập vào OpenStreetMap
     zh-Hans = 登录 OpenStreetMap
@@ -12689,7 +12689,7 @@
     sv = All kartdata kommer från OpenStreetMap-projektet. Det är som Wikipedia för kartor där du kan lägga till eller redigera platser, och de blir tillgängliga för miljontals användare över hela världen.
     sw = Data yote ya ramani inatoka kwa mradi wa OpenStreetMap. Ni kama Wikipedia ya ramani ambapo unaweza kuongeza au kuhariri maeneo, na yanapatikana kwa mamilioni ya watumiaji duniani kote.
     th = ข้อมูลแผนที่ทั้งหมดมาจากโครงการ OpenStreetMap เหมือนกับวิกิพีเดียสำหรับแผนที่ที่คุณสามารถเพิ่มหรือแก้ไขสถานที่ได้ และพวกเขาพร้อมให้ผู้ใช้หลายล้านคนทั่วโลกใช้งานได้
-    tr = Tüm harita verileri OpenStreetMap projesinden gelir. Yer ekleyebileceğiniz veya düzenleyebileceğiniz haritalar için Wikipedia gibidir ve bunlar tüm dünyada milyonlarca kullanıcı tarafından kullanılabilir hale gelir.
+    tr = Tüm harita verileri OpenStreetMap projesinden geliyor. Bu proje Vikipedi'nin harita sürümü gibidir, yer ekleyerek veya düzenleyerek tüm dünyadaki milyonlarca kullanıcı gibi bu harita verilerinin gelişmesine katkıda bulunabilirsiniz.
     uk = Усі картографічні дані надходять із проекту OpenStreetMap. Це як Wikipedia для карт, де ви можете додавати або редагувати місця, і вони стають доступними для мільйонів користувачів у всьому світі.
     vi = Tất cả dữ liệu bản đồ đến từ dự án OpenStreetMap. Nó giống như Wikipedia dành cho bản đồ nơi bạn có thể thêm hoặc chỉnh sửa các địa điểm và chúng có sẵn cho hàng triệu người dùng trên khắp Thế giới.
     zh-Hans = 所有地图数据均来自 OpenStreetMap 项目。它就像 Wikipedia 中的地图，您可以在其中添加或编辑地点，并且它们可供全球数百万用户使用。
@@ -12727,7 +12727,7 @@
     sk = Prihláste sa, aby mohli ostatní užívatelia vidieť Vami vykonané zmeny.
     sv = Logga in så att andra användare kan se de ändringar du gjort.
     th = ล็อกอินเพื่อให้ผู้ใช้คนอื่นสามารถเห็นการเปลี่ยนแปลงของคุณได้
-    tr = Diğer kullanıcıların yaptığınız değişiklikleri görebilmesi için oturum açın
+    tr = Diğer kullanıcıların yaptığınız değişiklikleri görebilmesi için OpenStreetMap.org'da oturum açın.
     uk = Увійдіть у OpenStreetMap.org, щоб ваші зміни побачили інші користувачі.
     vi = Đăng nhập để người dùng khác có thể nhìn thấy những thay đổi bạn đã thực hiện.
     zh-Hans = 登录，让其他用户能看到您所作出的修改。
@@ -15185,7 +15185,7 @@
     sv = OpenStreetMap-redigerare kommer att kontrollera ändringarna och kontakta dig om de har några frågor.
     sw = Wahariri wa OpenStreetMap watakagua mabadiliko na kuwasiliana nawe ikiwa wana maswali yoyote.
     th = ผู้แก้ไข OpenStreetMap จะตรวจสอบการเปลี่ยนแปลงและติดต่อคุณหากมีคำถามใดๆ
-    tr = OpenStreetMap editörleri değişiklikleri kontrol edecek ve soruları olursa sizinle iletişime geçecektir.
+    tr = OpenStreetMap editörleri değişikliklerinizi kontrol edecek ve bir soruları olursa sizinle iletişime geçecekler.
     uk = Редактори OpenStreetMap перевірять зміни та зв’яжуться з вами, якщо у них виникнуть запитання.
     vi = Các biên tập viên của OpenStreetMap sẽ kiểm tra các thay đổi và liên hệ với bạn nếu họ có bất kỳ câu hỏi nào.
     zh-Hans = OpenStreetMap 编辑人员将检查更改并在有任何问题时与您联系。
