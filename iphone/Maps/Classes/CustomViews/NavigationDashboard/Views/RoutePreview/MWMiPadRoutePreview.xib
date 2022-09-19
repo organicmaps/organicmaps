@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -74,7 +74,7 @@
                             </connections>
                         </button>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sXu-tl-a0m" userLabel="Buttons Box">
-                            <rect key="frame" x="52" y="4" width="244" height="40"/>
+                            <rect key="frame" x="62" y="4" width="196" height="40"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jDl-pu-eov">
                                     <rect key="frame" x="6" y="0.0" width="40" height="40"/>
@@ -109,32 +109,20 @@
                                         <constraint firstAttribute="width" secondItem="yiM-fM-sSS" secondAttribute="height" multiplier="1:1" id="1N1-y5-Mwc"/>
                                     </constraints>
                                 </view>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f6i-lw-K3R" userLabel="Taxi">
-                                    <rect key="frame" x="198" y="0.0" width="40" height="40"/>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    <accessibility key="accessibilityConfiguration" identifier="routeTaxi"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" secondItem="f6i-lw-K3R" secondAttribute="height" multiplier="1:1" id="iex-7v-w3k"/>
-                                    </constraints>
-                                </view>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="trailing" secondItem="yiM-fM-sSS" secondAttribute="trailing" priority="750" constant="6" id="5D1-qi-hgK"/>
                                 <constraint firstItem="VhE-hA-Leo" firstAttribute="leading" secondItem="jDl-pu-eov" secondAttribute="trailing" constant="8" id="7Gp-G4-bFf"/>
-                                <constraint firstItem="f6i-lw-K3R" firstAttribute="top" secondItem="sXu-tl-a0m" secondAttribute="top" id="BWr-hr-pwo"/>
-                                <constraint firstAttribute="trailing" secondItem="f6i-lw-K3R" secondAttribute="trailing" constant="6" id="Cd3-ev-uFS"/>
                                 <constraint firstItem="Eu3-bT-Dom" firstAttribute="top" secondItem="sXu-tl-a0m" secondAttribute="top" id="EzA-7U-VtV"/>
                                 <constraint firstAttribute="bottom" secondItem="jDl-pu-eov" secondAttribute="bottom" id="GaQ-fH-vHQ"/>
                                 <constraint firstAttribute="bottom" secondItem="Eu3-bT-Dom" secondAttribute="bottom" id="TKM-OQ-dSV"/>
-                                <constraint firstItem="f6i-lw-K3R" firstAttribute="leading" secondItem="yiM-fM-sSS" secondAttribute="trailing" constant="8" id="Zs5-bj-AR6"/>
                                 <constraint firstItem="Eu3-bT-Dom" firstAttribute="leading" secondItem="VhE-hA-Leo" secondAttribute="trailing" constant="8" id="a29-bx-wGD"/>
                                 <constraint firstItem="jDl-pu-eov" firstAttribute="leading" secondItem="sXu-tl-a0m" secondAttribute="leading" constant="6" id="kNf-mc-JqH"/>
                                 <constraint firstAttribute="bottom" secondItem="yiM-fM-sSS" secondAttribute="bottom" id="mYY-Hb-4eW"/>
                                 <constraint firstItem="yiM-fM-sSS" firstAttribute="leading" secondItem="Eu3-bT-Dom" secondAttribute="trailing" constant="8" id="obj-Bs-U8h"/>
                                 <constraint firstItem="yiM-fM-sSS" firstAttribute="top" secondItem="sXu-tl-a0m" secondAttribute="top" id="pRA-lu-I23"/>
                                 <constraint firstItem="VhE-hA-Leo" firstAttribute="top" secondItem="sXu-tl-a0m" secondAttribute="top" id="pt4-Mg-zye"/>
-                                <constraint firstAttribute="bottom" secondItem="f6i-lw-K3R" secondAttribute="bottom" id="qTV-BL-cX4"/>
                                 <constraint firstAttribute="bottom" secondItem="VhE-hA-Leo" secondAttribute="bottom" id="scR-oW-NgF"/>
                                 <constraint firstItem="jDl-pu-eov" firstAttribute="top" secondItem="sXu-tl-a0m" secondAttribute="top" id="sf1-S5-kmZ"/>
                             </constraints>
@@ -353,13 +341,13 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <collectionView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" alwaysBounceHorizontal="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" dataMode="none" prefetchingEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Ey-lL-uzF" customClass="TransportTransitStepsCollectionView" customModule="OMaps" customModuleProvider="target">
+                        <collectionView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" alwaysBounceHorizontal="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" dataMode="none" prefetchingEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Ey-lL-uzF" customClass="TransportTransitStepsCollectionView" customModule="Organic_Maps" customModuleProvider="target">
                             <rect key="frame" x="16" y="44" width="288" height="20"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="4NI-xp-o3L"/>
                             </constraints>
-                            <collectionViewLayout key="collectionViewLayout" id="PJv-Hi-Xu3" customClass="TransportTransitFlowLayout" customModule="OMaps" customModuleProvider="target"/>
+                            <collectionViewLayout key="collectionViewLayout" id="PJv-Hi-Xu3" customClass="TransportTransitFlowLayout" customModule="Organic_Maps" customModuleProvider="target"/>
                         </collectionView>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -448,7 +436,6 @@
                 <outlet property="drivingOptionsButton" destination="Opi-yT-xIZ" id="tMG-Af-HEo"/>
                 <outlet property="pedestrian" destination="VhE-hA-Leo" id="R3O-th-Jw0"/>
                 <outlet property="publicTransport" destination="Eu3-bT-Dom" id="XNh-uW-Kog"/>
-                <outlet property="taxi" destination="f6i-lw-K3R" id="s0G-le-Kbz"/>
                 <outlet property="vehicle" destination="jDl-pu-eov" id="awM-KI-2xO"/>
             </connections>
             <point key="canvasLocation" x="448" y="573.46326836581716"/>

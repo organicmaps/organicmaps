@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -68,7 +68,7 @@
                             </connections>
                         </button>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oQc-l8-sZH" userLabel="Buttons Box">
-                            <rect key="frame" x="52" y="4" width="244" height="40"/>
+                            <rect key="frame" x="62" y="4" width="196" height="40"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cZF-Ha-2tB">
                                     <rect key="frame" x="6" y="0.0" width="40" height="40"/>
@@ -105,21 +105,12 @@
                                         <constraint firstAttribute="width" secondItem="FuO-c6-y9C" secondAttribute="height" multiplier="1:1" id="2Fj-re-jjm"/>
                                     </constraints>
                                 </view>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="15Q-ZN-NzE" userLabel="Taxi">
-                                    <rect key="frame" x="198" y="0.0" width="40" height="40"/>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    <accessibility key="accessibilityConfiguration" identifier="routeTaxi"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" secondItem="15Q-ZN-NzE" secondAttribute="height" multiplier="1:1" id="8os-Sl-i57"/>
-                                    </constraints>
-                                </view>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="bottom" secondItem="6D3-QF-6wm" secondAttribute="bottom" id="6FS-Pq-Ued"/>
                                 <constraint firstItem="FuO-c6-y9C" firstAttribute="top" secondItem="oQc-l8-sZH" secondAttribute="top" id="A7a-5f-vcS"/>
                                 <constraint firstAttribute="bottom" secondItem="cZF-Ha-2tB" secondAttribute="bottom" id="CUK-cL-Kgn"/>
-                                <constraint firstAttribute="bottom" secondItem="15Q-ZN-NzE" secondAttribute="bottom" id="D1r-cA-jTR"/>
                                 <constraint firstItem="cZF-Ha-2tB" firstAttribute="top" secondItem="oQc-l8-sZH" secondAttribute="top" id="Gph-Eh-TU4"/>
                                 <constraint firstItem="yIt-eq-pV5" firstAttribute="top" secondItem="oQc-l8-sZH" secondAttribute="top" id="K1X-SP-LcQ"/>
                                 <constraint firstItem="cZF-Ha-2tB" firstAttribute="leading" secondItem="oQc-l8-sZH" secondAttribute="leading" constant="6" id="MjU-UA-Kax"/>
@@ -130,14 +121,9 @@
                                 <constraint firstItem="FuO-c6-y9C" firstAttribute="leading" secondItem="yIt-eq-pV5" secondAttribute="trailing" constant="8" id="SZW-Df-ewG">
                                     <variation key="heightClass=compact" constant="16"/>
                                 </constraint>
-                                <constraint firstAttribute="trailing" secondItem="15Q-ZN-NzE" secondAttribute="trailing" constant="6" id="WHK-N0-dCc"/>
-                                <constraint firstItem="15Q-ZN-NzE" firstAttribute="leading" secondItem="FuO-c6-y9C" secondAttribute="trailing" constant="8" id="Wve-9m-8zL">
-                                    <variation key="heightClass=compact" constant="16"/>
-                                </constraint>
                                 <constraint firstAttribute="bottom" secondItem="FuO-c6-y9C" secondAttribute="bottom" id="cFg-em-TQM"/>
                                 <constraint firstAttribute="bottom" secondItem="yIt-eq-pV5" secondAttribute="bottom" id="f1O-ox-6s4"/>
                                 <constraint firstItem="6D3-QF-6wm" firstAttribute="top" secondItem="oQc-l8-sZH" secondAttribute="top" id="heq-kc-Kpz"/>
-                                <constraint firstItem="15Q-ZN-NzE" firstAttribute="top" secondItem="oQc-l8-sZH" secondAttribute="top" id="my7-I5-Qu3"/>
                                 <constraint firstItem="6D3-QF-6wm" firstAttribute="leading" secondItem="cZF-Ha-2tB" secondAttribute="trailing" constant="8" id="ogb-pD-gIt">
                                     <variation key="heightClass=compact" constant="16"/>
                                 </constraint>
@@ -228,7 +214,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="results" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sjQ-Sc-mtN">
-                            <rect key="frame" x="16" y="14" width="50.5" height="20"/>
+                            <rect key="frame" x="16" y="14" width="51" height="20"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
@@ -406,13 +392,13 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <collectionView userInteractionEnabled="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" alwaysBounceHorizontal="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" dataMode="none" prefetchingEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RVh-LF-kSn" customClass="TransportTransitStepsCollectionView" customModule="OMaps" customModuleProvider="target">
+                <collectionView userInteractionEnabled="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" alwaysBounceHorizontal="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" dataMode="none" prefetchingEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RVh-LF-kSn" customClass="TransportTransitStepsCollectionView" customModule="Organic_Maps" customModuleProvider="target">
                     <rect key="frame" x="16" y="44" width="288" height="20"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="eGu-Mr-auv"/>
                     </constraints>
-                    <collectionViewLayout key="collectionViewLayout" id="d3P-nT-IFD" customClass="TransportTransitFlowLayout" customModule="OMaps" customModuleProvider="target"/>
+                    <collectionViewLayout key="collectionViewLayout" id="d3P-nT-IFD" customClass="TransportTransitFlowLayout" customModule="Organic_Maps" customModuleProvider="target"/>
                 </collectionView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="YJK-Xe-9oN"/>
