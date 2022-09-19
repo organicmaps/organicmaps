@@ -24,15 +24,12 @@
 
 #include "base/thread_checker.hpp"
 
-#include "std/target_os.hpp"
-
 #include <chrono>
 #include <functional>
 #include <map>
 #include <memory>
 #include <mutex>
 #include <string>
-#include <utility>
 #include <vector>
 
 namespace storage
@@ -266,32 +263,40 @@ public:
   /// false otherwise.
   bool HasRouteAltitude() const;
 
+  struct DistanceAltitude
+  {
+    std::vector<double> m_distances;
+    geometry::Altitudes m_altitudes;
+
+    size_t GetSize() const
+    {
+      ASSERT_EQUAL(m_distances.size(), m_altitudes.size(), ());
+      return m_distances.size();
+    }
+
+    // Default altitudeDeviation ~ sqrt(2).
+    void Simplify(double altitudeDeviation = 1.415);
+
+    /// \brief Generates 4 bytes per point image (RGBA) and put the data to |imageRGBAData|.
+    /// \param width is width of chart shall be generated in pixels.
+    /// \param height is height of chart shall be generated in pixels.
+    /// \param imageRGBAData is bits of result image in RGBA.
+    /// \returns If there is valid route info and the chart was generated returns true
+    /// and false otherwise. If the method returns true it is guaranteed that the size of
+    /// |imageRGBAData| is not zero.
+    bool GenerateRouteAltitudeChart(uint32_t width, uint32_t height, std::vector<uint8_t> & imageRGBAData) const;
+
+    /// \param totalAscent is total ascent of the route in meters.
+    /// \param totalDescent is total descent of the route in meters.
+    void CalculateAscentDescent(uint32_t & totalAscentM, uint32_t & totalDescentM) const;
+
+    friend std::string DebugPrint(DistanceAltitude const & da);
+  };
+
   /// \brief Fills altitude of current route points and distance in meters form the beginning
   /// of the route point based on the route in RoutingSession.
-  bool GetRouteAltitudesAndDistancesM(std::vector<double> & routePointDistanceM,
-                                      geometry::Altitudes & altitudes) const;
-
-  /// \brief Generates 4 bytes per point image (RGBA) and put the data to |imageRGBAData|.
-  /// \param width is width of chart shall be generated in pixels.
-  /// \param height is height of chart shall be generated in pixels.
-  /// \param altitudes route points altitude.
-  /// \param routePointDistanceM distance in meters from route beginning to route points.
-  /// \param imageRGBAData is bits of result image in RGBA.
-  /// \param totalAscent is total ascent of the route in altitudeUnits.
-  /// \param totalDescent is total descent of the route in altitudeUnits.
-  /// \param altitudeUnits is units (meters or feet) which is used to pass min and max altitudes.
-  /// \returns If there is valid route info and the chart was generated returns true
-  /// and false otherwise. If the method returns true it is guaranteed that the size of
-  /// |imageRGBAData| is not zero.
-  /// \note If HasRouteAltitude() method returns true, GenerateRouteAltitudeChart(...)
-  /// could return false if route was deleted or rebuilt between the calls.
-  bool GenerateRouteAltitudeChart(uint32_t width, uint32_t height,
-                                  geometry::Altitudes const & altitudes,
-                                  std::vector<double> const & routePointDistanceM,
-                                  std::vector<uint8_t> & imageRGBAData, 
-                                  uint32_t & totalAscent,
-                                  uint32_t & totalDescent,
-                                  measurement_utils::Units & altitudeUnits) const;
+  /// \return False if current route is invalid or doesn't have altitudes.
+  bool GetRouteAltitudesAndDistancesM(DistanceAltitude & da) const;
 
   uint32_t OpenRoutePointsTransaction();
   void ApplyRoutePointsTransaction(uint32_t transactionId);

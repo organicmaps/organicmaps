@@ -1217,27 +1217,32 @@ Java_com_mapswithme_maps_Framework_nativeGetRouteFollowingInfo(JNIEnv * env, jcl
 JNIEXPORT jintArray JNICALL
 Java_com_mapswithme_maps_Framework_nativeGenerateRouteAltitudeChartBits(JNIEnv * env, jclass, jint width, jint height, jobject routeAltitudeLimits)
 {
-  ::Framework * fr = frm();
-  ASSERT(fr, ());
-
-  geometry::Altitudes altitudes;
-  vector<double> routePointDistanceM;
-  if (!fr->GetRoutingManager().GetRouteAltitudesAndDistancesM(routePointDistanceM, altitudes))
+  RoutingManager::DistanceAltitude altitudes;
+  if (!frm()->GetRoutingManager().GetRouteAltitudesAndDistancesM(altitudes))
   {
     LOG(LWARNING, ("Can't get distance to route points and altitude."));
     return nullptr;
   }
 
+  altitudes.Simplify();
+
   vector<uint8_t> imageRGBAData;
-  uint32_t totalAscent = 0;
-  uint32_t totalDescent = 0;
-  measurement_utils::Units units = measurement_utils::Units::Metric;
-  if (!fr->GetRoutingManager().GenerateRouteAltitudeChart(
-        width, height, altitudes, routePointDistanceM, imageRGBAData,
-        totalAscent, totalDescent, units))
+  if (!altitudes.GenerateRouteAltitudeChart(width, height, imageRGBAData))
   {
     LOG(LWARNING, ("Can't generate route altitude image."));
     return nullptr;
+  }
+
+  uint32_t totalAscent, totalDescent;
+  altitudes.CalculateAscentDescent(totalAscent, totalDescent);
+
+  // Android platform code has specific result string formatting, so make conversion here.
+  using namespace measurement_utils;
+  auto units = Units::Metric;
+  if (settings::Get(settings::kMeasurementUnits, units) && units == Units::Imperial)
+  {
+    totalAscent = measurement_utils::MetersToFeet(totalAscent);
+    totalDescent = measurement_utils::MetersToFeet(totalDescent);
   }
 
   // Passing route limits.
@@ -1254,7 +1259,7 @@ Java_com_mapswithme_maps_Framework_nativeGenerateRouteAltitudeChartBits(JNIEnv *
 
   static jfieldID const isMetricUnitsField = env->GetFieldID(routeAltitudeLimitsClass, "isMetricUnits", "Z");
   ASSERT(isMetricUnitsField, ());
-  env->SetBooleanField(routeAltitudeLimits, isMetricUnitsField, units == measurement_utils::Units::Metric);
+  env->SetBooleanField(routeAltitudeLimits, isMetricUnitsField, units == Units::Metric);
 
   size_t const imageRGBADataSize = imageRGBAData.size();
   ASSERT_NOT_EQUAL(imageRGBADataSize, 0, ("GenerateRouteAltitudeChart returns true but the vector with altitude image bits is empty."));
