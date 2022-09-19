@@ -1,6 +1,5 @@
 #pragma once
 
-#include "indexer/feature_altitude.hpp"
 #include "indexer/map_style.hpp"
 
 #include "geometry/point2d.hpp"
@@ -11,7 +10,6 @@
 
 namespace maps
 {
-
 uint32_t constexpr kAltitudeChartBPP = 4;
 
 void ScaleChartData(std::vector<double> & chartData, double scale);

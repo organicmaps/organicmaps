@@ -799,9 +799,14 @@ bool RoutingSession::GetRouteAltitudesAndDistancesM(vector<double> & routeSegDis
   if (!m_route->IsValid() || !m_route->HaveAltitudes())
     return false;
 
-  routeSegDistanceM = m_route->GetSegDistanceMeters();
-  geometry::Altitudes altitudes;
+  auto const & distances = m_route->GetSegDistanceMeters();
+  routeSegDistanceM.reserve(distances.size() + 1);
+  routeSegDistanceM.push_back(0);
+  routeSegDistanceM.insert(routeSegDistanceM.end(), distances.begin(), distances.end());
+
   m_route->GetAltitudes(routeAltitudesM);
+
+  ASSERT_EQUAL(routeSegDistanceM.size(), routeAltitudesM.size(), ());
   return true;
 }
 
