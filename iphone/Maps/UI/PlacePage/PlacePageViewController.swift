@@ -69,6 +69,15 @@ final class PlacePageScrollView: UIScrollView {
     actionBarContainerView.layer.cornerRadius = 10
     actionBarContainerView.layer.masksToBounds = true
     actionBarContainerView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+
+    if let header = layout.header {
+      // TODO: workaround. Custom spacing isn't working if visibility of any arranged subview
+      // changes after setting custom spacing. 20ms was chosen to be late enough to happen
+      // after subview visibility changes and soon enough to avoid noticable lag.
+      DispatchQueue.main.asyncAfter(deadline: .now() + 0.020) {
+        self.stackView.setCustomSpacing(0, after: header.view)
+      }
+    }
   }
 
   override func viewDidLayoutSubviews() {
@@ -195,11 +204,6 @@ extension PlacePageViewController: PlacePageViewProtocol {
 
   func addHeader(_ headerViewController: UIViewController) {
     addToStack(headerViewController)
-    // TODO: workaround. Custom spacing isn't working if visibility of any arranged subview
-    // changes after setting custom spacing
-    DispatchQueue.main.async {
-      self.stackView.setCustomSpacing(0, after: headerViewController.view)
-    }
   }
 
   func addToStack(_ viewController: UIViewController) {
