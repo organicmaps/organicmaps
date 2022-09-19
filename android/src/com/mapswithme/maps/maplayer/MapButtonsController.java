@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.OptIn;
 import androidx.fragment.app.Fragment;
+
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.badge.BadgeUtils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -67,24 +68,24 @@ public class MapButtonsController extends Fragment
     mInnerLeftButtonsFrame = mFrame.findViewById(R.id.map_buttons_inner_left);
     mInnerRightButtonsFrame = mFrame.findViewById(R.id.map_buttons_inner_right);
     mBottomButtonsFrame = mFrame.findViewById(R.id.map_buttons_bottom);
-    View zoomFrame = mFrame.findViewById(R.id.zoom_buttons_container);
+    final View zoomFrame = mFrame.findViewById(R.id.zoom_buttons_container);
     mFrame.findViewById(R.id.nav_zoom_in)
           .setOnClickListener((v) -> mMapButtonClickListener.onClick(MapButtons.zoomIn));
     mFrame.findViewById(R.id.nav_zoom_out)
           .setOnClickListener((v) -> mMapButtonClickListener.onClick(MapButtons.zoomOut));
-    View bookmarksButton = mFrame.findViewById(R.id.btn_bookmarks);
+    final View bookmarksButton = mFrame.findViewById(R.id.btn_bookmarks);
     bookmarksButton.setOnClickListener((v) -> mMapButtonClickListener.onClick(MapButtons.bookmarks));
-    View myPosition = mFrame.findViewById(R.id.my_position);
+    final View myPosition = mFrame.findViewById(R.id.my_position);
     mNavMyPosition = new MyPositionButton(myPosition, mMyPositionMode, (v) -> mMapButtonClickListener.onClick(MapButtons.myPosition));
 
     // Some buttons do not exist in navigation mode
-    FloatingActionButton layersButton = mFrame.findViewById(R.id.layers_button);
+    final FloatingActionButton layersButton = mFrame.findViewById(R.id.layers_button);
     if (layersButton != null)
     {
       mToggleMapLayerController = new MapLayersController(layersButton,
                                                           () -> mMapButtonClickListener.onClick(MapButtons.toggleMapLayer), requireActivity());
     }
-    View menuButton = mFrame.findViewById(R.id.menu_button);
+    final View menuButton = mFrame.findViewById(R.id.menu_button);
     if (menuButton != null)
     {
       menuButton.setOnClickListener((v) -> mMapButtonClickListener.onClick(MapButtons.menu));
@@ -97,12 +98,12 @@ public class MapButtonsController extends Fragment
         }
       });
     }
-    View helpButton = mFrame.findViewById(R.id.help_button);
+    final View helpButton = mFrame.findViewById(R.id.help_button);
     if (helpButton != null)
       helpButton.setOnClickListener((v) -> mMapButtonClickListener.onClick(MapButtons.help));
 
     mSearchWheel = new SearchWheel(mFrame, (v) -> mMapButtonClickListener.onClick(MapButtons.search), mOnSearchCanceledListener);
-    View searchButton = mFrame.findViewById(R.id.btn_search);
+    final View searchButton = mFrame.findViewById(R.id.btn_search);
 
     // Used to get the maximum height the buttons will evolve in
     mFrame.addOnLayoutChangeListener(new MapButtonsController.ContentViewLayoutChangeListener(mFrame));
@@ -146,7 +147,8 @@ public class MapButtonsController extends Fragment
 
   public void showButton(boolean show, MapButtonsController.MapButtons button)
   {
-    View buttonView = mButtonsMap.get(button);
+    // TODO(AB): Why do we need this check? Isn't it better to crash and fix the wrong logic ASAP?
+    final View buttonView = mButtonsMap.get(button);
     if (buttonView == null)
       return;
     switch (button)
@@ -178,8 +180,8 @@ public class MapButtonsController extends Fragment
   @OptIn(markerClass = com.google.android.material.badge.ExperimentalBadgeUtils.class)
   public void updateMenuBadge()
   {
-    View menuButton = mButtonsMap.get(MapButtons.menu);
-    Context context = getContext();
+    final View menuButton = mButtonsMap.get(MapButtons.menu);
+    final Context context = getContext();
     if (menuButton == null || context == null)
       return;
     final UpdateInfo info = MapManager.nativeGetUpdateInfo(null);
@@ -248,9 +250,7 @@ public class MapButtonsController extends Fragment
   public float getBottomButtonsHeight()
   {
     if (mBottomButtonsFrame != null && mFrame != null && UiUtils.isVisible(mFrame))
-    {
       return mBottomButtonsFrame.getMeasuredHeight();
-    }
     else
       return 0;
   }
