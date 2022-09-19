@@ -410,6 +410,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     boolean isLaunchByDeepLink = getIntent().getBooleanExtra(EXTRA_LAUNCH_BY_DEEP_LINK, false);
     initViews(isLaunchByDeepLink);
+    updateViewsInsets();
 
     boolean isConsumed = savedInstanceState == null && processIntent(getIntent());
     boolean isFirstLaunch = Counters.isFirstLaunch(this);
@@ -1042,8 +1043,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mNavigationController.onActivityResumed(this);
     mMapButtonsController.onResume();
     mPlacePageController.onActivityResumed(this);
-
-    updateViewsInsets();
   }
 
   @Override
