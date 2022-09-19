@@ -226,6 +226,8 @@
 	<string name="duration_12_hours">12 часов</string>
 	<string name="duration_1_day">1 сутки</string>
 	<string name="search_show_on_map">Посмотреть на карте</string>
+	<!-- Menu button -->
+	<string name="menu">Меню</string>
 	<!-- Text in menu -->
 	<string name="website">Вебсайт</string>
 	<!-- Text in About menu, opens Organic Maps news website -->

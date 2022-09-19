@@ -209,6 +209,8 @@
 	<string name="duration_12_hours">12 godzin</string>
 	<string name="duration_1_day">1 dzień</string>
 	<string name="search_show_on_map">Wyświetl na mapie</string>
+	<!-- Menu button -->
+	<string name="menu">Menu</string>
 	<!-- Text in menu -->
 	<string name="website">Strona internetowa</string>
 	<!-- Text in About menu, opens Organic Maps news website -->
