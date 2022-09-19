@@ -29,6 +29,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
 import com.mapswithme.maps.Framework.PlacePageActivationListener;
 import com.mapswithme.maps.api.Const;
 import com.mapswithme.maps.background.AppBackgroundTracker;
@@ -1651,6 +1652,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onLocationUpdated(@NonNull Location location)
   {
+    if (mLocationErrorDialog != null && mLocationErrorDialog.isShowing())
+      mLocationErrorDialog.dismiss();
+
     if (!RoutingController.get().isNavigating())
       return;
 
@@ -1681,6 +1685,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     AlertDialog.Builder builder = new AlertDialog.Builder(this)
         .setTitle(R.string.enable_location_services)
         .setMessage(R.string.location_is_disabled_long_text)
+        .setOnDismissListener(dialog -> mLocationErrorDialog = null)
         .setOnCancelListener(dialog -> mLocationErrorDialogAnnoying = true)
         .setNegativeButton(R.string.close, (dialog, which) -> mLocationErrorDialogAnnoying = true);
     final Intent intent = Utils.makeSystemLocationSettingIntent(this);
@@ -1697,38 +1702,33 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onLocationNotFound()
   {
-    showLocationNotFoundDialog();
+    if (mLocationErrorDialogAnnoying || (mLocationErrorDialog != null && mLocationErrorDialog.isShowing()))
+      return;
+
+    final String message = String.format("%s\n\n%s", getString(R.string.current_location_unknown_message),
+        getString(R.string.current_location_unknown_title));
+    mLocationErrorDialog = new AlertDialog.Builder(this)
+        .setMessage(message)
+        .setOnDismissListener(dialog -> mLocationErrorDialog = null)
+        .setNegativeButton(R.string.current_location_unknown_stop_button, (dialog, which) ->
+        {
+          LocationHelper.INSTANCE.setStopLocationUpdateByUser(true);
+          LocationHelper.INSTANCE.stop();
+        })
+        .setPositiveButton(R.string.current_location_unknown_continue_button, (dialog, which) ->
+        {
+          if (!LocationHelper.INSTANCE.isActive())
+            LocationHelper.INSTANCE.start();
+          LocationHelper.INSTANCE.switchToNextMode();
+          // TODO(AB): Leads to inconsistent UX: dialog won't appear later if user cancels and starts location search again.
+          mLocationErrorDialogAnnoying = true;
+        })
+        .show();
   }
 
   @Override
   public void onRoutingFinish()
   {
-  }
-
-  private void showLocationNotFoundDialog()
-  {
-    String message = String.format("%s\n\n%s", getString(R.string.current_location_unknown_message),
-                                   getString(R.string.current_location_unknown_title));
-
-    DialogInterface.OnClickListener stopClickListener = (dialog, which) ->
-    {
-      LocationHelper.INSTANCE.setStopLocationUpdateByUser(true);
-      LocationHelper.INSTANCE.stop();
-    };
-
-    DialogInterface.OnClickListener continueClickListener = (dialog, which) ->
-    {
-      if (!LocationHelper.INSTANCE.isActive())
-        LocationHelper.INSTANCE.start();
-      LocationHelper.INSTANCE.switchToNextMode();
-    };
-
-    new AlertDialog.Builder(this)
-        .setMessage(message)
-        .setNegativeButton(R.string.current_location_unknown_stop_button, stopClickListener)
-        .setPositiveButton(R.string.current_location_unknown_continue_button, continueClickListener)
-        .setCancelable(false)
-        .show();
   }
 
   @Override

@@ -151,7 +151,6 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   private final LocationState.LocationPendingTimeoutListener mLocationPendingTimeoutListener = () -> {
     if (mActive)
     {
-      stop();
       if (PermissionsUtils.isLocationGranted(mContext) && LocationUtils.areLocationServicesTurnedOn(mContext))
         notifyLocationNotFound();
     }
