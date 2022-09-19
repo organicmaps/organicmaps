@@ -4993,6 +4993,14 @@
     zh-Hans = 在地图上查看
     zh-Hant = 在地圖上查看
 
+  [menu]
+    comment = Menu button
+    tags = android
+    en = Menu
+    pl = Menu
+    ru = Меню
+    uk = Меню
+
   [website]
     comment = Text in menu
     tags = android,ios
