@@ -26,8 +26,7 @@ buildscript {
   ext.googleFirebaseServicesEnabled = project.hasProperty('firebase') ?: googleFirebaseServicesDefault
 
   dependencies {
-    classpath 'com.android.tools:r8:3.3.28'
-    classpath 'com.android.tools.build:gradle:7.2.1'
+    classpath 'com.android.tools.build:gradle:7.3.0'
 
     if (googleMobileServicesEnabled) {
       println("Building with Google Mobile Services")
