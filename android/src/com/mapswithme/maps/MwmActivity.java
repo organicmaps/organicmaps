@@ -1725,6 +1725,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
           if (!LocationHelper.INSTANCE.isActive())
             LocationHelper.INSTANCE.start();
           LocationHelper.INSTANCE.switchToNextMode();
+          // TODO(AB): Leads to inconsistent UX: dialog won't appear later if user cancels and starts location search again.
           mLocationErrorDialogAnnoying = true;
         })
         .show();
