@@ -1,5 +1,7 @@
 package com.mapswithme.maps;
 
+import static com.mapswithme.maps.widget.placepage.PlacePageButtons.PLACEPAGE_MORE_MENU_ID;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
@@ -13,7 +15,6 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewTreeObserver;
 import android.view.WindowInsets;
 import android.view.WindowManager;
@@ -103,8 +104,6 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Stack;
 
-import static com.mapswithme.maps.widget.placepage.PlacePageButtons.PLACEPAGE_MORE_MENU_ID;
-
 public class MwmActivity extends BaseMwmFragmentActivity
     implements PlacePageActivationListener,
                View.OnTouchListener,
@@ -160,7 +159,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     NONE,
     EDITOR,
     API
-  };
+  }
   @NonNull
   private PointChooserMode mPointChooserMode = PointChooserMode.NONE;
 
@@ -1435,7 +1434,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void showRoutePlan(boolean show, @Nullable Runnable completionListener)
   {
-    Context context = getApplicationContext();
     if (show)
     {
       if (mIsTabletLayout)
@@ -1448,7 +1446,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
             fragment.restoreRoutingPanelState(mSavedForTabletState);
         }
         showAddStartOrFinishFrame(RoutingController.get(), false);
-        int width = UiUtils.dimen(context, R.dimen.panel_width);
       }
       else
       {
@@ -1865,21 +1862,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void showBookmarkCategoryOnMap(long categoryId)
   {
     BookmarkManager.INSTANCE.showBookmarkCategoryOnMap(categoryId);
-  }
-
-  private class CurrentPositionClickListener implements OnClickListener
-  {
-    @Override
-    public void onClick(View v)
-    {
-      if (!PermissionsUtils.isFineLocationGranted(getApplicationContext()))
-      {
-        PermissionsUtils.requestLocationPermission(MwmActivity.this, REQ_CODE_LOCATION_PERMISSION_ON_CLICK);
-        return;
-      }
-
-      myPositionClick();
-    }
   }
 
   private class ToolbarLayoutChangeListener implements ViewTreeObserver.OnGlobalLayoutListener
