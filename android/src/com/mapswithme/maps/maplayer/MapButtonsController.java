@@ -88,6 +88,7 @@ public class MapButtonsController extends Fragment
     if (menuButton != null)
     {
       menuButton.setOnClickListener((v) -> mMapButtonClickListener.onClick(MapButtons.menu));
+      // This hack is needed to show the badge on the initial startup. For some reason, updateMenuBadge does not work from onResume() there.
       menuButton.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
         @Override
         public void onGlobalLayout() {
@@ -292,6 +293,7 @@ public class MapButtonsController extends Fragment
   {
     super.onResume();
     mSearchWheel.onResume();
+    updateMenuBadge();
   }
 
   public void resetSearch()
