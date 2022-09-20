@@ -140,6 +140,12 @@ Java_com_mapswithme_maps_MapFragment_nativeSetupWidget(
 }
 
 JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_MapFragment_nativeSetupMyPosition(JNIEnv * env, jclass clazz, int offsetY)
+{
+  g_framework->UpdateMyPositionRoutingOffset(offsetY);
+}
+
+JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_MapFragment_nativeApplyWidgets(JNIEnv * env, jclass clazz)
 {
   g_framework->ApplyWidgets();

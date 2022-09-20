@@ -27,6 +27,7 @@ import com.mapswithme.maps.base.MediaPlayerWrapper;
 import com.mapswithme.maps.maplayer.MapButtonsController;
 import com.mapswithme.maps.maplayer.traffic.TrafficManager;
 import com.mapswithme.maps.sound.TtsPlayer;
+import com.mapswithme.maps.widget.menu.MainMenu;
 import com.mapswithme.maps.widget.menu.NavMenu;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
@@ -80,10 +81,11 @@ public class NavigationController implements Application.ActivityLifecycleCallba
     }
   };
 
-  public NavigationController(AppCompatActivity activity, @NonNull MapButtonsController mapButtonsController, View.OnClickListener onSettingsClickListener)
+  public NavigationController(AppCompatActivity activity, @NonNull MapButtonsController mapButtonsController, View.OnClickListener onSettingsClickListener,
+                              NavMenu.OnMenuSizeChangedListener onMenuSizeChangedListener)
   {
     mFrame = activity.findViewById(R.id.navigation_frame);
-    mNavMenu = new NavMenu(activity, this);
+    mNavMenu = new NavMenu(activity, this, onMenuSizeChangedListener);
     mOnSettingsClickListener = onSettingsClickListener;
     mMapButtonsController = mapButtonsController;
 

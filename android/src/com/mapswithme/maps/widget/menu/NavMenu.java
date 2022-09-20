@@ -50,10 +50,19 @@ public class NavMenu
 
   private int currentPeekHeight = 0;
 
-  public NavMenu(AppCompatActivity activity, NavMenuListener navMenuListener)
+
+  public interface OnMenuSizeChangedListener
+  {
+    void OnMenuSizeChange();
+  }
+
+  private final OnMenuSizeChangedListener mOnMenuSizeChangedListener;
+
+  public NavMenu(AppCompatActivity activity, NavMenuListener navMenuListener, OnMenuSizeChangedListener onMenuSizeChangedListener)
   {
     mActivity = activity;
     mNavMenuListener = navMenuListener;
+    mOnMenuSizeChangedListener = onMenuSizeChangedListener;
     View mBottomFrame = mActivity.findViewById(R.id.nav_bottom_frame);
     mHeaderFrame = mBottomFrame.findViewById(R.id.line_frame);
     mHeaderFrame.setOnClickListener(v -> toggleNavMenu());
@@ -76,6 +85,8 @@ public class NavMenu
         {
           mBottomSheetBackground.setVisibility(View.VISIBLE);
         }
+
+        mOnMenuSizeChangedListener.OnMenuSizeChange();
       }
 
       @Override

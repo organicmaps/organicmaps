@@ -132,6 +132,8 @@ public class MapFragment extends BaseMwmFragment
     int y = offsetY < 0 ? mBottomWidgetOffsetY : offsetY;
     setupRuler(y, x,true);
     setupAttribution(y, x, true);
+    Logger.w("TEST", "nativeSetupMyPosition: " + offsetY);
+    nativeSetupMyPosition(offsetY);
     mBottomWidgetOffsetX = x;
     mBottomWidgetOffsetY = y;
   }
@@ -420,6 +422,7 @@ public class MapFragment extends BaseMwmFragment
   private static native void nativeResumeSurfaceRendering();
   private static native void nativeSurfaceChanged(Surface surface, int w, int h);
   private static native void nativeOnTouch(int actionType, int id1, float x1, float y1, int id2, float x2, float y2, int maskedPointer);
+  private static native void nativeSetupMyPosition(int offsetY);
   private static native void nativeSetupWidget(int widget, float x, float y, int anchor);
   private static native void nativeApplyWidgets();
   private static native void nativeCleanWidgets();

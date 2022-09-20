@@ -478,7 +478,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       removeCurrentFragment(false);
     }
 
-    mNavigationController = new NavigationController(this, mMapButtonsController, v -> onSettingsOptionSelected());
+    mNavigationController = new NavigationController(this, mMapButtonsController, v -> onSettingsOptionSelected(), this::adjustBottomWidgets);
     //TrafficManager.INSTANCE.attach(mNavigationController);
 
     initMainMenu();
@@ -1267,12 +1267,16 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     int mapButtonsHeight = 0;
     int mainMenuHeight = 0;
+    int navButtonSheetHeight = 0;
     if (mMapButtonsController != null)
       mapButtonsHeight = (int) mMapButtonsController.getBottomButtonsHeight() + navBarHeight;
     if (mMainMenu != null)
       mainMenuHeight = mMainMenu.getMenuHeight();
+    final View navButtonSheet = findViewById(R.id.line_frame);
+    if (navButtonSheet != null)
+      navButtonSheetHeight = navButtonSheet.getHeight();
 
-    int y = Math.max(Math.max(mapButtonsHeight, mainMenuHeight), navBarHeight);
+    int y = Math.max(Math.max(Math.max(mapButtonsHeight, mainMenuHeight), navBarHeight), navButtonSheetHeight);
 
     mMapFragment.setupBottomWidgetsOffset(y, offsetX);
   }
