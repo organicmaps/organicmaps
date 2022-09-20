@@ -24,46 +24,15 @@ class PlacePageUtils
       // Because of the post(), this lambda is called after the car.SurfaceRenderer.onStableAreaChanged() and breaks the visibleRect configuration
       if (DisplayManager.from(placePageView.getContext()).isCarDisplayUsed())
         return;
-      View coordinatorLayout = (ViewGroup) placePageView.getParent();
-      int viewPortWidth = coordinatorLayout.getWidth();
+      final View coordinatorLayout = (ViewGroup) placePageView.getParent();
+      final int viewPortWidth = coordinatorLayout.getWidth();
       int viewPortHeight = coordinatorLayout.getHeight();
       Rect sheetRect = new Rect();
       placePageView.getGlobalVisibleRect(sheetRect);
-      if (sheetRect.top < viewportMinHeight)
-        return;
 
-      if (sheetRect.top >= viewPortHeight)
-      {
-        Framework.nativeSetVisibleRect(0, 0, viewPortWidth, viewPortHeight);
-        return;
-      }
       viewPortHeight -= sheetRect.height();
-      Framework.nativeSetVisibleRect(0, 0, viewPortWidth, viewPortHeight);
-    });
-  }
-
-  static void moveViewPortRight(@NonNull View bootomSheet, int viewportMinWidth)
-  {
-    bootomSheet.post(() -> {
-      View coordinatorLayout = (ViewGroup) bootomSheet.getParent();
-      int viewPortWidth = coordinatorLayout.getWidth();
-      int viewPortHeight = coordinatorLayout.getHeight();
-      Rect sheetRect = new Rect();
-      bootomSheet.getGlobalVisibleRect(sheetRect);
-      if ((viewPortWidth - sheetRect.right) < viewportMinWidth)
-      {
-        Framework.nativeSetVisibleRect((viewPortWidth - viewportMinWidth), 0, viewPortWidth,
-                                       viewPortHeight);
-        return;
-      }
-
-      if (sheetRect.top >= viewPortHeight)
-      {
+      if (viewPortHeight >= viewportMinHeight)
         Framework.nativeSetVisibleRect(0, 0, viewPortWidth, viewPortHeight);
-        return;
-      }
-
-      Framework.nativeSetVisibleRect(sheetRect.right, 0, viewPortWidth, viewPortHeight);
     });
   }
 

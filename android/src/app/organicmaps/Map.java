@@ -87,7 +87,7 @@ public final class Map
    * @param offsetY     Pixel offset from the right.  -1 to keep the previous value.
    * @param forceRedraw True to force the compass to redraw
    */
-  public void setupCompass(final Context context, int offsetX, int offsetY, boolean forceRedraw)
+  public void updateCompassOffset(final Context context, int offsetX, int offsetY, boolean forceRedraw)
   {
     final int x = offsetX < 0 ? mCurrentCompassOffsetX : offsetX;
     final int y = offsetY < 0 ? mCurrentCompassOffsetY : offsetY;
@@ -113,14 +113,25 @@ public final class Map
    * @param offsetX Pixel offset from the left.  -1 to keep the previous value.
    * @param offsetY Pixel offset from the bottom. -1 to keep the previous value.
    */
-  public void setupBottomWidgetsOffset(final Context context, int offsetX, int offsetY)
+  public void updateBottomWidgetsOffset(final Context context, int offsetX, int offsetY)
   {
     final int x = offsetX < 0 ? mBottomWidgetOffsetX : offsetX;
     final int y = offsetY < 0 ? mBottomWidgetOffsetY : offsetY;
-    setupRuler(context, x, y);
-    setupAttribution(context, x, y);
+    updateRulerOffset(context, x, y);
+    updateAttributionOffset(context, x, y);
     mBottomWidgetOffsetX = x;
     mBottomWidgetOffsetY = y;
+  }
+
+  /**
+   * Moves my position arrow to the given offset.
+   *
+   * @param context Context.
+   * @param offsetY Pixel offset from the bottom.
+   */
+  public void updateMyPositionRoutingOffset(final Context context, int offsetY)
+  {
+    nativeUpdateMyPositionRoutingOffset(offsetY);
   }
 
   public void onSurfaceCreated(final Context context, final Surface surface, Rect surfaceFrame, int surfaceDpi)
@@ -312,15 +323,15 @@ public final class Map
     mWidth = width;
 
     nativeCleanWidgets();
-    setupBottomWidgetsOffset(context, mBottomWidgetOffsetX, mBottomWidgetOffsetY);
+    updateBottomWidgetsOffset(context, mBottomWidgetOffsetX, mBottomWidgetOffsetY);
     nativeSetupWidget(WIDGET_SCALE_FPS_LABEL, UiUtils.dimen(context, R.dimen.margin_base), UiUtils.dimen(context, R.dimen.margin_base), ANCHOR_LEFT_TOP);
 
     // Don't show compass on car display
     if (mDisplayType == DisplayType.Device)
-      setupCompass(context, mCurrentCompassOffsetX, mCurrentCompassOffsetY, false);
+      updateCompassOffset(context, mCurrentCompassOffsetX, mCurrentCompassOffsetY, false);
   }
 
-  private void setupRuler(final Context context, int offsetX, int offsetY)
+  private void updateRulerOffset(final Context context, int offsetX, int offsetY)
   {
     nativeSetupWidget(WIDGET_RULER,
         UiUtils.dimen(context, R.dimen.margin_ruler) + offsetX,
@@ -330,7 +341,7 @@ public final class Map
       nativeApplyWidgets();
   }
 
-  private void setupAttribution(final Context context, int offsetX, int offsetY)
+  private void updateAttributionOffset(final Context context, int offsetX, int offsetY)
   {
     nativeSetupWidget(WIDGET_COPYRIGHT,
         UiUtils.dimen(context, R.dimen.margin_ruler) + offsetX,
@@ -367,6 +378,7 @@ public final class Map
   // Widgets
   private static native void nativeApplyWidgets();
   private static native void nativeCleanWidgets();
+  private static native void nativeUpdateMyPositionRoutingOffset(int offsetY);
   private static native void nativeSetupWidget(int widget, float x, float y, int anchor);
   private static native void nativeCompassUpdated(double north, boolean forceRedraw);
 

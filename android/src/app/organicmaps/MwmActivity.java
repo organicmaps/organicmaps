@@ -464,11 +464,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
       // For the first loading, set compass top margin to status bar size
       // The top inset will be then be updated by the routing controller
       if (mCurrentWindowInsets == null)
-        adjustCompass(windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).top, windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).right);
+        updateCompassOffset(windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).top, windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).right);
       else
-        adjustCompass(-1, windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).right);
+        updateCompassOffset(-1, windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).right);
       refreshLightStatusBar();
-      adjustBottomWidgets(windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).left);
+      updateBottomWidgetsOffset(windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).left);
       mCurrentWindowInsets = windowInsets;
       return windowInsets;
     });
@@ -502,7 +502,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       removeCurrentFragment(false);
     }
 
-    mNavigationController = new NavigationController(this, mMapButtonsController, v -> onSettingsOptionSelected());
+    mNavigationController = new NavigationController(this, mMapButtonsController, v -> onSettingsOptionSelected(), this::updateBottomWidgetsOffset);
     //TrafficManager.INSTANCE.attach(mNavigationController);
 
     initMainMenu();
@@ -676,7 +676,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
           this::onMapButtonClick,
           (v) -> closeSearchToolbar(true, true),
           mPlacePageController,
-          this::adjustBottomWidgets);
+          this::updateBottomWidgetsOffset);
 
 
       FragmentTransaction transaction = getSupportFragmentManager()
@@ -861,7 +861,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void initMainMenu()
   {
-    mMainMenu = new MainMenu(findViewById(R.id.menu_frame), this::adjustBottomWidgets);
+    mMainMenu = new MainMenu(findViewById(R.id.menu_frame), this::updateBottomWidgetsOffset);
 
     if (mIsTabletLayout)
     {
@@ -1260,43 +1260,46 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
   }
 
-  void adjustCompass(int offsetY)
+  void updateCompassOffset(int offsetY)
   {
-    adjustCompass(offsetY, -1);
+    updateCompassOffset(offsetY, -1);
   }
 
-  void adjustCompass(int offsetY, int offsetX)
+  void updateCompassOffset(int offsetY, int offsetX)
   {
     if (mMapFragment == null || !mMapFragment.isAdded())
       return;
 
-    mMapFragment.adjustCompass(offsetX, offsetY);
+    mMapFragment.updateCompassOffset(offsetX, offsetY);
 
     final double north = LocationHelper.INSTANCE.getSavedNorth();
     if (!Double.isNaN(north))
       Map.onCompassUpdated(north, true);
   }
 
-  public void adjustBottomWidgets()
+  public void updateBottomWidgetsOffset()
   {
-    adjustBottomWidgets(-1);
+    updateBottomWidgetsOffset(-1);
   }
 
-  public void adjustBottomWidgets(int offsetX)
+  public void updateBottomWidgetsOffset(int offsetX)
   {
     if (mMapFragment == null || !mMapFragment.isAdded())
       return;
 
-    int mapButtonsHeight = 0;
-    int mainMenuHeight = 0;
+    int offsetY = mNavBarHeight;
     if (mMapButtonsController != null)
-      mapButtonsHeight = (int) mMapButtonsController.getBottomButtonsHeight() + mNavBarHeight;
+      offsetY = Math.max(offsetY, (int) mMapButtonsController.getBottomButtonsHeight() + mNavBarHeight);
     if (mMainMenu != null)
-      mainMenuHeight = mMainMenu.getMenuHeight();
+      offsetY = Math.max(offsetY, mMainMenu.getMenuHeight());
 
-    final int y = Math.max(Math.max(mapButtonsHeight, mainMenuHeight), mNavBarHeight);
+    final View navBottomSheetLineFrame = findViewById(R.id.line_frame);
+    final View navBottomSheetNavBar = findViewById(R.id.nav_bottom_sheet_nav_bar);
+    if (navBottomSheetLineFrame != null)
+      offsetY = Math.max(offsetY, navBottomSheetLineFrame.getHeight() + navBottomSheetNavBar.getHeight());
 
-    mMapFragment.adjustBottomWidgets(offsetX, y);
+    mMapFragment.updateBottomWidgetsOffset(offsetX, offsetY);
+    mMapFragment.updateMyPositionRoutingOffset(offsetY);
   }
 
   @Override
@@ -1510,7 +1513,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       @Override
       public boolean run(@NonNull MwmActivity target)
       {
-        adjustCompass(offsetY);
+        updateCompassOffset(offsetY);
         return true;
       }
     });
