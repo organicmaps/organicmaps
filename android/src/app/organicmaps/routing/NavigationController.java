@@ -106,10 +106,11 @@ public class NavigationController implements Application.ActivityLifecycleCallba
     mLanes.setNestedScrollingEnabled(false);
   }
 
-  public NavigationController(AppCompatActivity activity, @NonNull MapButtonsController mapButtonsController, View.OnClickListener onSettingsClickListener)
+  public NavigationController(AppCompatActivity activity, @NonNull MapButtonsController mapButtonsController,
+                              View.OnClickListener onSettingsClickListener, NavMenu.OnMenuSizeChangedListener onMenuSizeChangedListener)
   {
     mFrame = activity.findViewById(R.id.navigation_frame);
-    mNavMenu = new NavMenu(activity, this);
+    mNavMenu = new NavMenu(activity, this, onMenuSizeChangedListener);
     mOnSettingsClickListener = onSettingsClickListener;
     mMapButtonsController = mapButtonsController;
 

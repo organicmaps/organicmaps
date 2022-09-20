@@ -37,7 +37,7 @@ int const kMaxScaleZoomLevel = 16;
 int const kDefaultAutoZoom = 16;
 double const kUnknownAutoZoom = -1.0;
 
-int GetZoomLevel(ScreenBase const & screen)
+inline int GetZoomLevel(ScreenBase const & screen)
 {
   return static_cast<int>(df::GetZoomLevel(screen.GetScale()));
 }
@@ -48,6 +48,11 @@ int GetZoomLevel(ScreenBase const & screen, m2::PointD const & position, double 
   m2::PointD const size(errorRadius, errorRadius);
   s.SetFromRect(m2::AnyRectD(position, ang::Angle<double>(screen.GetAngle()), m2::RectD(position - size, position + size)));
   return GetZoomLevel(s);
+}
+
+inline double GetVisualScale()
+{
+  return df::VisualParams::Instance().GetVisualScale();
 }
 
 // Calculate zoom value in meters per pixel
@@ -82,7 +87,7 @@ double CalculateZoomBySpeed(double speedMpS, bool isPerspectiveAllowed)
     if (scales[i].first >= speedKmpH)
       break;
 
-  double const vs = df::VisualParams::Instance().GetVisualScale();
+  double const vs = GetVisualScale();
 
   if (i == 0)
     return scales.front().second / vs;
@@ -130,7 +135,7 @@ MyPositionController::MyPositionController(Params && params, ref_ptr<DrapeNotifi
   , m_autoScale3d(m_autoScale2d)
   , m_lastGPSBearingTimer(false)
   , m_lastLocationTimestamp(0.0)
-  , m_positionRoutingOffsetY(kPositionRoutingOffsetY)
+  , m_positionRoutingOffsetY(kPositionRoutingOffsetY * GetVisualScale())
   , m_isDirtyViewport(false)
   , m_isDirtyAutoZoom(false)
   , m_isPendingAnimation(false)
@@ -144,11 +149,6 @@ MyPositionController::MyPositionController(Params && params, ref_ptr<DrapeNotifi
   , m_blockAutoZoomNotifyId(DrapeNotifier::kInvalidId)
   , m_updateLocationNotifyId(DrapeNotifier::kInvalidId)
 {
-#ifdef OMIM_OS_ANDROID
-  /// @todo Hotfix for Android. Suppose that additional offset is needed for system buttons toolbar.
-  m_positionRoutingOffsetY += Arrow3d::GetMaxBottomSize();
-#endif
-
   using namespace location;
 
   m_mode = PendingPosition;
@@ -188,10 +188,10 @@ void MyPositionController::OnUpdateScreen(ScreenBase const & screen)
 {
   m_pixelRect = screen.PixelRectIn3d();
   if (m_visiblePixelRect.IsEmptyInterior())
-    m_visiblePixelRect = m_pixelRect;
+    SetVisibleViewport(m_pixelRect);
 }
 
-void MyPositionController::SetVisibleViewport(const m2::RectD &rect)
+void MyPositionController::SetVisibleViewport(m2::RectD const & rect)
 {
   m_visiblePixelRect = rect;
 }
@@ -767,14 +767,13 @@ m2::PointD MyPositionController::GetRotationPixelCenter() const
 
 m2::PointD MyPositionController::GetRoutingRotationPixelCenter() const
 {
-  return {m_visiblePixelRect.Center().x,
-          m_visiblePixelRect.maxY() - m_positionRoutingOffsetY * VisualParams::Instance().GetVisualScale()};
+  return { m_visiblePixelRect.Center().x, m_visiblePixelRect.maxY() - m_positionRoutingOffsetY };
 }
 
 void MyPositionController::UpdateRoutingOffsetY(bool useDefault, int offsetY)
 {
-  /// @todo This function is called on CarPlay only for now.
-  m_positionRoutingOffsetY = useDefault ? kPositionRoutingOffsetY : offsetY + Arrow3d::GetMaxBottomSize();
+  double const vs = GetVisualScale();
+  m_positionRoutingOffsetY = useDefault ? kPositionRoutingOffsetY * vs : offsetY + Arrow3d::GetMaxBottomSize() * vs;
 }
 
 m2::PointD MyPositionController::GetDrawablePosition()

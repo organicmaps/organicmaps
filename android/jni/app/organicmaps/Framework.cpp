@@ -668,6 +668,11 @@ void Framework::SetupWidget(gui::EWidget widget, float x, float y, dp::Anchor an
   m_guiPositions[widget] = gui::Position(m2::PointF(x, y), anchor);
 }
 
+void Framework::UpdateMyPositionRoutingOffset(int offsetY)
+{
+  NativeFramework()->UpdateMyPositionRoutingOffset(false, offsetY);
+}
+
 void Framework::ApplyWidgets()
 {
   gui::TWidgetsLayoutInfo layout;

@@ -180,6 +180,7 @@ namespace android
     void SetChoosePositionMode(bool isChoosePositionMode, bool isBusiness, bool hasPosition, m2::PointD const & position);
     bool GetChoosePositionMode();
 
+    void UpdateMyPositionRoutingOffset(int offsetY);
     void SetupWidget(gui::EWidget widget, float x, float y, dp::Anchor anchor);
     void ApplyWidgets();
     void CleanWidgets();

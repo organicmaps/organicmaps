@@ -23,14 +23,19 @@ public class MapFragment extends BaseMwmFragment implements View.OnTouchListener
   private static final String TAG = MapFragment.class.getSimpleName();
   private final Map mMap = new Map();
 
-  public void adjustCompass(int offsetX, int offsetY)
+  public void updateCompassOffset(int offsetX, int offsetY)
   {
-    mMap.setupCompass(requireContext(), offsetX, offsetY, true);
+    mMap.updateCompassOffset(requireContext(), offsetX, offsetY, true);
   }
 
-  public void adjustBottomWidgets(int offsetX, int offsetY)
+  public void updateBottomWidgetsOffset(int offsetX, int offsetY)
   {
-    mMap.setupBottomWidgetsOffset(requireContext(), offsetX, offsetY);
+    mMap.updateBottomWidgetsOffset(requireContext(), offsetX, offsetY);
+  }
+
+  public void updateMyPositionRoutingOffset(int offsetY)
+  {
+    mMap.updateMyPositionRoutingOffset(requireContext(), offsetY);
   }
 
   public void destroySurface()
