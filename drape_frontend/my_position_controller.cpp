@@ -130,7 +130,7 @@ MyPositionController::MyPositionController(Params && params, ref_ptr<DrapeNotifi
   , m_autoScale3d(m_autoScale2d)
   , m_lastGPSBearingTimer(false)
   , m_lastLocationTimestamp(0.0)
-  , m_positionRoutingOffsetY(kPositionRoutingOffsetY)
+  , m_positionRoutingOffsetY(kPositionRoutingOffsetY + Arrow3d::GetMaxBottomSize())
   , m_isDirtyViewport(false)
   , m_isDirtyAutoZoom(false)
   , m_isPendingAnimation(false)
