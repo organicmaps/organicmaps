@@ -97,6 +97,12 @@ Java_app_organicmaps_Map_nativeResumeSurfaceRendering(JNIEnv *, jclass)
 }
 
 JNIEXPORT void JNICALL
+Java_app_organicmaps_Map_nativeUpdateMyPositionRoutingOffset(JNIEnv * env, jclass clazz, int offsetY)
+{
+  g_framework->UpdateMyPositionRoutingOffset(offsetY);
+}
+
+JNIEXPORT void JNICALL
 Java_app_organicmaps_Map_nativeApplyWidgets(JNIEnv *, jclass)
 {
   g_framework->ApplyWidgets();
