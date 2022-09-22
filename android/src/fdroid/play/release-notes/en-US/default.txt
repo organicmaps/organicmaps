@@ -2,7 +2,7 @@
 • Removed bottom toolbar for better UX & map visibility
 • Improved OSM login page & OSM profile
 • Faster, better search
-• Fixed wrong elevation in some area
+• Fixed wrong elevation in some areas
 • Fixed crash on startup after editing
 • Bookmark lists are now sorted by recently modified time
 • Fixed some translations
