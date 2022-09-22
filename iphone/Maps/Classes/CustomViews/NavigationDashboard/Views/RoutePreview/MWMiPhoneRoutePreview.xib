@@ -105,12 +105,21 @@
                                         <constraint firstAttribute="width" secondItem="FuO-c6-y9C" secondAttribute="height" multiplier="1:1" id="2Fj-re-jjm"/>
                                     </constraints>
                                 </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="15Q-ZN-NzE" userLabel="Helicopter">
+                                    <rect key="frame" x="198" y="0.0" width="40" height="40"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <accessibility key="accessibilityConfiguration" identifier="routeHelicopter"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" secondItem="15Q-ZN-NzE" secondAttribute="height" multiplier="1:1" id="8os-Sl-i57"/>
+                                    </constraints>
+                                </view>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="bottom" secondItem="6D3-QF-6wm" secondAttribute="bottom" id="6FS-Pq-Ued"/>
                                 <constraint firstItem="FuO-c6-y9C" firstAttribute="top" secondItem="oQc-l8-sZH" secondAttribute="top" id="A7a-5f-vcS"/>
                                 <constraint firstAttribute="bottom" secondItem="cZF-Ha-2tB" secondAttribute="bottom" id="CUK-cL-Kgn"/>
+                                <constraint firstAttribute="bottom" secondItem="15Q-ZN-NzE" secondAttribute="bottom" id="D1r-cA-jTR"/>
                                 <constraint firstItem="cZF-Ha-2tB" firstAttribute="top" secondItem="oQc-l8-sZH" secondAttribute="top" id="Gph-Eh-TU4"/>
                                 <constraint firstItem="yIt-eq-pV5" firstAttribute="top" secondItem="oQc-l8-sZH" secondAttribute="top" id="K1X-SP-LcQ"/>
                                 <constraint firstItem="cZF-Ha-2tB" firstAttribute="leading" secondItem="oQc-l8-sZH" secondAttribute="leading" constant="6" id="MjU-UA-Kax"/>
@@ -121,13 +130,23 @@
                                 <constraint firstItem="FuO-c6-y9C" firstAttribute="leading" secondItem="yIt-eq-pV5" secondAttribute="trailing" constant="8" id="SZW-Df-ewG">
                                     <variation key="heightClass=compact" constant="16"/>
                                 </constraint>
+                                <constraint firstAttribute="trailing" secondItem="15Q-ZN-NzE" secondAttribute="trailing" constant="6" id="WHK-N0-dCc"/>
+                                <constraint firstItem="15Q-ZN-NzE" firstAttribute="leading" secondItem="FuO-c6-y9C" secondAttribute="trailing" constant="8" id="Wve-9m-8zL">
+                                    <variation key="heightClass=compact" constant="16"/>
+                                </constraint>
                                 <constraint firstAttribute="bottom" secondItem="FuO-c6-y9C" secondAttribute="bottom" id="cFg-em-TQM"/>
                                 <constraint firstAttribute="bottom" secondItem="yIt-eq-pV5" secondAttribute="bottom" id="f1O-ox-6s4"/>
                                 <constraint firstItem="6D3-QF-6wm" firstAttribute="top" secondItem="oQc-l8-sZH" secondAttribute="top" id="heq-kc-Kpz"/>
+                                <constraint firstItem="15Q-ZN-NzE" firstAttribute="top" secondItem="oQc-l8-sZH" secondAttribute="top" id="my7-I5-Qu3"/>
                                 <constraint firstItem="6D3-QF-6wm" firstAttribute="leading" secondItem="cZF-Ha-2tB" secondAttribute="trailing" constant="8" id="ogb-pD-gIt">
                                     <variation key="heightClass=compact" constant="16"/>
                                 </constraint>
                             </constraints>
+                            <variation key="default">
+                                <mask key="subviews">
+                                    <exclude reference="15Q-ZN-NzE"/>
+                                </mask>
+                            </variation>
                         </view>
                     </subviews>
                     <color key="backgroundColor" red="0.12156862745098039" green="0.59999999999999998" blue="0.32156862745098036" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
