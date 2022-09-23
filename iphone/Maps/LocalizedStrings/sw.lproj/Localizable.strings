@@ -1362,21 +1362,21 @@
 
 "type.amenity.nursing_home" = "Nursing Home";
 
-"type.amenity.parking" = "Parking";
+"type.amenity.parking" = "Maegesho";
 
-"type.amenity.parking.fee" = "Parking";
+"type.amenity.parking.fee" = "Maegesho ya Kulipwa";
 
-"type.amenity.parking.multi.storey" = "Parking";
+"type.amenity.parking.multi.storey" = "Maegesho ya Hifadhi nyingi";
 
-"type.amenity.parking.no.access" = "Parking";
+"type.amenity.parking.no.access" = "Maegesho ya Kibinafsi";
+
+"type.amenity.parking.permissive" = "Maegesho ya Kibinafsi";
+
+"type.amenity.parking.private" = "Maegesho ya Kibinafsi";
 
 "type.amenity.parking.park_and_ride" = "Parking";
 
-"type.amenity.parking.permissive" = "Parking";
-
-"type.amenity.parking.private" = "Parking";
-
-"type.amenity.parking.underground" = "Parking";
+"type.amenity.parking.underground" = "Maegesho ya chini ya ardhi";
 
 "type.amenity.parking_entrance.private" = "Mlango wa maegesho";
 

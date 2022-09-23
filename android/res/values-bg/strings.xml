@@ -648,6 +648,13 @@
 	<string name="type.amenity.driving_school">Автошкола</string>
 	<string name="type.amenity.music_school">Музикално училище</string>
 	<string name="type.amenity.language_school">Езиково училище</string>
+	<string name="type.amenity.parking">Паркинг</string>
+	<string name="type.amenity.parking.fee">Платен паркинг</string>
+	<string name="type.amenity.parking.multi.storey">Многоетажен паркинг</string>
+	<string name="type.amenity.parking.no.access">Частен паркинг</string>
+	<string name="type.amenity.parking.permissive">Частен паркинг</string>
+	<string name="type.amenity.parking.private">Частен паркинг</string>
+	<string name="type.amenity.parking.underground">Подземен паркинг</string>
 	<string name="type.amenity.parking_entrance.private">Вход за паркинг</string>
 	<string name="type.amenity.parking_entrance.permissive">Вход за паркинг</string>
 	<string name="type.amenity.parking_entrance">Вход за паркинг</string>

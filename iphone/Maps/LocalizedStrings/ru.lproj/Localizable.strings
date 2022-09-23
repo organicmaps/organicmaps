@@ -1364,19 +1364,19 @@
 
 "type.amenity.parking" = "Парковка";
 
-"type.amenity.parking.fee" = "Парковка";
+"type.amenity.parking.fee" = "Платная парковка";
 
-"type.amenity.parking.multi.storey" = "Парковка";
+"type.amenity.parking.multi.storey" = "Многоэтажная парковка";
 
-"type.amenity.parking.no.access" = "Парковка";
+"type.amenity.parking.no.access" = "Частная парковка";
+
+"type.amenity.parking.permissive" = "Частная парковка";
+
+"type.amenity.parking.private" = "Частная парковка";
 
 "type.amenity.parking.park_and_ride" = "Парковка";
 
-"type.amenity.parking.permissive" = "Парковка";
-
-"type.amenity.parking.private" = "Парковка";
-
-"type.amenity.parking.underground" = "Парковка";
+"type.amenity.parking.underground" = "Подземный паркинг";
 
 "type.amenity.parking_entrance.private" = "Въезд на парковку";
 

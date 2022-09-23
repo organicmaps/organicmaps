@@ -1366,17 +1366,17 @@
 
 "type.amenity.parking.fee" = "Betaald parkeren";
 
-"type.amenity.parking.multi.storey" = "Parkeerplaats";
+"type.amenity.parking.multi.storey" = "Parkeren met meerdere verdiepingen";
 
 "type.amenity.parking.no.access" = "Privé parkeerplaats";
 
-"type.amenity.parking.park_and_ride" = "Parkeerplaats";
-
-"type.amenity.parking.permissive" = "Parkeerplaats";
+"type.amenity.parking.permissive" = "Privé parkeerplaats";
 
 "type.amenity.parking.private" = "Privé parkeerplaats";
 
-"type.amenity.parking.underground" = "Ondergrondse parkeerplaats";
+"type.amenity.parking.park_and_ride" = "Parkeerplaats P+R";
+
+"type.amenity.parking.underground" = "Ondergrondse parking";
 
 "type.amenity.parking_entrance.private" = "Parkeeringang";
 

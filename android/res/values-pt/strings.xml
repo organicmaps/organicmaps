@@ -758,12 +758,12 @@
 	<string name="type.amenity.nightclub">Discoteca</string>
 	<string name="type.amenity.nursing_home">Lar de idosos</string>
 	<string name="type.amenity.parking">Estacionamento</string>
-	<string name="type.amenity.parking.fee">Estacionamento</string>
-	<string name="type.amenity.parking.multi.storey">Estacionamento</string>
-	<string name="type.amenity.parking.no.access">Estacionamento</string>
-	<string name="type.amenity.parking.park_and_ride">Estacionamento</string>
-	<string name="type.amenity.parking.permissive">Estacionamento</string>
+	<string name="type.amenity.parking.fee">Estacionamento pago</string>
+	<string name="type.amenity.parking.multi.storey">Estacionamento de vários andares</string>
+	<string name="type.amenity.parking.no.access">Estacionamento privado</string>
+	<string name="type.amenity.parking.permissive">Estacionamento privado</string>
 	<string name="type.amenity.parking.private">Estacionamento privado</string>
+	<string name="type.amenity.parking.park_and_ride">Parque de estacionamento dissuasor</string>
 	<string name="type.amenity.parking.underground">Estacionamento subterrâneo</string>
 	<string name="type.amenity.parking_entrance.private">Entrada do estacionamento</string>
 	<string name="type.amenity.parking_entrance.permissive">Entrada do estacionamento</string>

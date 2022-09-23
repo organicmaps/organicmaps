@@ -1364,17 +1364,17 @@
 
 "type.amenity.parking" = "Parkplatz";
 
-"type.amenity.parking.fee" = "Parkplatz";
+"type.amenity.parking.fee" = "Kostenpflichtiger Parkplatz";
 
 "type.amenity.parking.multi.storey" = "Parkhaus";
 
-"type.amenity.parking.no.access" = "Parkplatz";
+"type.amenity.parking.no.access" = "Privatparkplatz";
+
+"type.amenity.parking.permissive" = "Privatparkplatz";
+
+"type.amenity.parking.private" = "Privatparkplatz";
 
 "type.amenity.parking.park_and_ride" = "P+R-Parkplatz";
-
-"type.amenity.parking.permissive" = "Parkplatz";
-
-"type.amenity.parking.private" = "Parkplatz";
 
 "type.amenity.parking.underground" = "Tiefgarage";
 

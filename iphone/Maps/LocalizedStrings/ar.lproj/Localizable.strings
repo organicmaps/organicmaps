@@ -1364,19 +1364,19 @@
 
 "type.amenity.parking" = "موقف سيارات";
 
-"type.amenity.parking.fee" = "موقف سيارات";
+"type.amenity.parking.fee" = "ﺮﺟﻷ﻿ﺍ ﺔﻋﻮﻓﺪﻣ ﺕﺍﺭﺎﻴﺳ ﻒﻗﺍﻮﻣ";
 
-"type.amenity.parking.multi.storey" = "موقف سيارات";
+"type.amenity.parking.multi.storey" = "ﻖﺑﺍﻮﻄﻟﺍ ﺓﺩﺪﻌﺘﻣ ﻒﻗﺍﻮﻣ";
 
-"type.amenity.parking.no.access" = "موقف سيارات";
+"type.amenity.parking.no.access" = "ﺹﺎﺧ ﻒﻗﻮﻣ";
+
+"type.amenity.parking.permissive" = "ﺹﺎﺧ ﻒﻗﻮﻣ";
+
+"type.amenity.parking.private" = "ﺹﺎﺧ ﻒﻗﻮﻣ";
 
 "type.amenity.parking.park_and_ride" = "موقف سيارات";
 
-"type.amenity.parking.permissive" = "موقف سيارات";
-
-"type.amenity.parking.private" = "موقف سيارات";
-
-"type.amenity.parking.underground" = "موقف سيارات";
+"type.amenity.parking.underground" = "ﺽﺭﻻ﻿ﺍ ﺖﺤﺗ ﻒﻗﻮﻣ";
 
 "type.amenity.parking_entrance.private" = "ﺕﺍﺭﺎﻴﺴﻟﺍ ﻑﻮﻗﻭ ﻞﺧﺪﻣ";
 

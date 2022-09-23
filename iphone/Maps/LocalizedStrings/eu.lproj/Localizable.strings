@@ -1364,19 +1364,19 @@
 
 "type.amenity.parking" = "Aparkalekua";
 
-"type.amenity.parking.fee" = "Aparkalekua";
+"type.amenity.parking.fee" = "Ordaindutako aparkalekua";
 
-"type.amenity.parking.multi.storey" = "Aparkalekua";
+"type.amenity.parking.multi.storey" = "Solairu anitzeko aparkalekua";
 
-"type.amenity.parking.no.access" = "Aparkalekua";
+"type.amenity.parking.no.access" = "Aparkaleku pribatua";
+
+"type.amenity.parking.permissive" = "Aparkaleku pribatua";
+
+"type.amenity.parking.private" = "Aparkaleku pribatua";
 
 "type.amenity.parking.park_and_ride" = "Aparkalekua";
 
-"type.amenity.parking.permissive" = "Aparkalekua";
-
-"type.amenity.parking.private" = "Aparkalekua";
-
-"type.amenity.parking.underground" = "Aparkalekua";
+"type.amenity.parking.underground" = "Lurpeko Aparkalekua";
 
 "type.amenity.parking_entrance.private" = "Aparkalekuaren sarrera";
 

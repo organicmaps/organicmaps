@@ -1364,19 +1364,19 @@
 
 "type.amenity.parking" = "वाहनतळ";
 
-"type.amenity.parking.fee" = "वाहनतळ";
+"type.amenity.parking.fee" = "Paid Parking";
 
-"type.amenity.parking.multi.storey" = "वाहनतळ";
+"type.amenity.parking.multi.storey" = "Multi Storey Parking";
 
-"type.amenity.parking.no.access" = "वाहनतळ";
+"type.amenity.parking.no.access" = "Private Parking";
+
+"type.amenity.parking.permissive" = "Private Parking";
+
+"type.amenity.parking.private" = "Private Parking";
 
 "type.amenity.parking.park_and_ride" = "वाहनतळ";
 
-"type.amenity.parking.permissive" = "वाहनतळ";
-
-"type.amenity.parking.private" = "वाहनतळ";
-
-"type.amenity.parking.underground" = "वाहनतळ";
+"type.amenity.parking.underground" = "Underground Parking";
 
 "type.amenity.parking_entrance.private" = "Parking entrance";
 

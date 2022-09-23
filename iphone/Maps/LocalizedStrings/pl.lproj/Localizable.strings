@@ -1364,17 +1364,17 @@
 
 "type.amenity.parking" = "Parking";
 
-"type.amenity.parking.fee" = "Parking płatny";
+"type.amenity.parking.fee" = "Płatny";
 
 "type.amenity.parking.multi.storey" = "Parking wielopoziomowy";
 
-"type.amenity.parking.no.access" = "Parking";
+"type.amenity.parking.no.access" = "Parking prywatny";
 
-"type.amenity.parking.park_and_ride" = "Parking \"Parkuj i Jedź\"";
-
-"type.amenity.parking.permissive" = "Parking ograniczony";
+"type.amenity.parking.permissive" = "Parking prywatny";
 
 "type.amenity.parking.private" = "Parking prywatny";
+
+"type.amenity.parking.park_and_ride" = "Parking \"Parkuj i Jedź\"";
 
 "type.amenity.parking.underground" = "Parking podziemny";
 

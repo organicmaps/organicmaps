@@ -1364,19 +1364,19 @@
 
 "type.amenity.parking" = "Parcare";
 
-"type.amenity.parking.fee" = "Parcare";
+"type.amenity.parking.fee" = "Parcare cu plată";
 
-"type.amenity.parking.multi.storey" = "Parcare";
+"type.amenity.parking.multi.storey" = "Parcare cu mai multe etaje";
 
-"type.amenity.parking.no.access" = "Parcare";
+"type.amenity.parking.no.access" = "Parcare privată";
+
+"type.amenity.parking.permissive" = "Parcare privată";
+
+"type.amenity.parking.private" = "Parcare privată";
 
 "type.amenity.parking.park_and_ride" = "Parcare";
 
-"type.amenity.parking.permissive" = "Parcare";
-
-"type.amenity.parking.private" = "Parcare";
-
-"type.amenity.parking.underground" = "Parcare";
+"type.amenity.parking.underground" = "Parcare subterană";
 
 "type.amenity.parking_entrance.private" = "Intrare parcare";
 

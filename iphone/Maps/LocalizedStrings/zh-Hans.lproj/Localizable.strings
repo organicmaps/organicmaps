@@ -1364,19 +1364,19 @@
 
 "type.amenity.parking" = "停车场";
 
-"type.amenity.parking.fee" = "停车场";
+"type.amenity.parking.fee" = "付费停车";
 
-"type.amenity.parking.multi.storey" = "停车场";
+"type.amenity.parking.multi.storey" = "多层停车场";
 
-"type.amenity.parking.no.access" = "停车场";
+"type.amenity.parking.no.access" = "私人停车场";
+
+"type.amenity.parking.permissive" = "私人停车场";
+
+"type.amenity.parking.private" = "私人停车场";
 
 "type.amenity.parking.park_and_ride" = "停车场";
 
-"type.amenity.parking.permissive" = "停车场";
-
-"type.amenity.parking.private" = "停车场";
-
-"type.amenity.parking.underground" = "停车场";
+"type.amenity.parking.underground" = "地下停车场";
 
 "type.amenity.parking_entrance.private" = "停车场入口";
 
