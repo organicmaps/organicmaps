@@ -1364,19 +1364,19 @@
 
 "type.amenity.parking" = "ที่จอดรถ";
 
-"type.amenity.parking.fee" = "ที่จอดรถ";
+"type.amenity.parking.fee" = "ที่จอดรถแบบเสียค่าบริการ";
 
-"type.amenity.parking.multi.storey" = "ที่จอดรถ";
+"type.amenity.parking.multi.storey" = "ที่จอดรถหลายชั้น";
 
-"type.amenity.parking.no.access" = "ที่จอดรถ";
+"type.amenity.parking.no.access" = "ที่จอดรถส่วนตัว";
+
+"type.amenity.parking.permissive" = "ที่จอดรถส่วนตัว";
+
+"type.amenity.parking.private" = "ที่จอดรถส่วนตัว";
 
 "type.amenity.parking.park_and_ride" = "ที่จอดรถ";
 
-"type.amenity.parking.permissive" = "ที่จอดรถ";
-
-"type.amenity.parking.private" = "ที่จอดรถ";
-
-"type.amenity.parking.underground" = "ที่จอดรถ";
+"type.amenity.parking.underground" = "ที่จอดรถใต้ดิน";
 
 "type.amenity.parking_entrance.private" = "ทางเข้าที่จอดรถ";
 

@@ -1364,19 +1364,19 @@
 
 "type.amenity.parking" = "Parkering";
 
-"type.amenity.parking.fee" = "Parkering";
+"type.amenity.parking.fee" = "Betald parkering";
 
-"type.amenity.parking.multi.storey" = "Parkering";
+"type.amenity.parking.multi.storey" = "Flervånings parkering";
 
-"type.amenity.parking.no.access" = "Parkering";
+"type.amenity.parking.no.access" = "Privat parkering";
+
+"type.amenity.parking.permissive" = "Privat parkering";
+
+"type.amenity.parking.private" = "Privat parkering";
 
 "type.amenity.parking.park_and_ride" = "Parkering";
 
-"type.amenity.parking.permissive" = "Parkering";
-
-"type.amenity.parking.private" = "Parkering";
-
-"type.amenity.parking.underground" = "Parkering";
+"type.amenity.parking.underground" = "Underjordisk parkering";
 
 "type.amenity.parking_entrance.private" = "Parkering entré";
 

@@ -1364,19 +1364,19 @@
 
 "type.amenity.parking" = "駐車場";
 
-"type.amenity.parking.fee" = "駐車場";
+"type.amenity.parking.fee" = "有料駐車場";
 
-"type.amenity.parking.multi.storey" = "駐車場";
+"type.amenity.parking.multi.storey" = "立体駐車場";
 
-"type.amenity.parking.no.access" = "駐車場";
+"type.amenity.parking.no.access" = "専用駐車場";
+
+"type.amenity.parking.permissive" = "専用駐車場";
+
+"type.amenity.parking.private" = "専用駐車場";
 
 "type.amenity.parking.park_and_ride" = "駐車場";
 
-"type.amenity.parking.permissive" = "駐車場";
-
-"type.amenity.parking.private" = "駐車場";
-
-"type.amenity.parking.underground" = "駐車場";
+"type.amenity.parking.underground" = "地下駐車場";
 
 "type.amenity.parking_entrance.private" = "駐車場入口";
 

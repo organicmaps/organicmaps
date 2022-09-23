@@ -786,12 +786,12 @@
 	<string name="type.amenity.nightclub">Nachtclub</string>
 	<string name="type.amenity.nursing_home">Pflegeheim</string>
 	<string name="type.amenity.parking">Parkplatz</string>
-	<string name="type.amenity.parking.fee">Parkplatz</string>
+	<string name="type.amenity.parking.fee">Kostenpflichtiger Parkplatz</string>
 	<string name="type.amenity.parking.multi.storey">Parkhaus</string>
-	<string name="type.amenity.parking.no.access">Parkplatz</string>
+	<string name="type.amenity.parking.no.access">Privatparkplatz</string>
+	<string name="type.amenity.parking.permissive">Privatparkplatz</string>
+	<string name="type.amenity.parking.private">Privatparkplatz</string>
 	<string name="type.amenity.parking.park_and_ride">P+R-Parkplatz</string>
-	<string name="type.amenity.parking.permissive">Parkplatz</string>
-	<string name="type.amenity.parking.private">Parkplatz</string>
 	<string name="type.amenity.parking.underground">Tiefgarage</string>
 	<string name="type.amenity.parking_entrance.private">Parkplatzeinfahrt</string>
 	<string name="type.amenity.parking_entrance.permissive">Parkplatzeinfahrt</string>

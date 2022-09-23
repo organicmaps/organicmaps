@@ -1364,19 +1364,19 @@
 
 "type.amenity.parking" = "주차";
 
-"type.amenity.parking.fee" = "주차";
+"type.amenity.parking.fee" = "유료 주차장";
 
-"type.amenity.parking.multi.storey" = "주차";
+"type.amenity.parking.multi.storey" = "다층 주차장";
 
-"type.amenity.parking.no.access" = "주차";
+"type.amenity.parking.no.access" = "전용 주차장";
+
+"type.amenity.parking.permissive" = "전용 주차장";
+
+"type.amenity.parking.private" = "전용 주차장";
 
 "type.amenity.parking.park_and_ride" = "주차";
 
-"type.amenity.parking.permissive" = "주차";
-
-"type.amenity.parking.private" = "주차";
-
-"type.amenity.parking.underground" = "주차";
+"type.amenity.parking.underground" = "지하주차장";
 
 "type.amenity.parking_entrance.private" = "주차장 입구";
 

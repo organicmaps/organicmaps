@@ -234,6 +234,13 @@
 	<string name="type.amenity.bicycle_repair_station">Cykelreparationsstation</string>
 	<string name="type.amenity.music_school">Shule ya Muziki</string>
 	<string name="type.amenity.language_school">Shule ya Lugha</string>
+	<string name="type.amenity.parking">Maegesho</string>
+	<string name="type.amenity.parking.fee">Maegesho ya Kulipwa</string>
+	<string name="type.amenity.parking.multi.storey">Maegesho ya Hifadhi nyingi</string>
+	<string name="type.amenity.parking.no.access">Maegesho ya Kibinafsi</string>
+	<string name="type.amenity.parking.permissive">Maegesho ya Kibinafsi</string>
+	<string name="type.amenity.parking.private">Maegesho ya Kibinafsi</string>
+	<string name="type.amenity.parking.underground">Maegesho ya chini ya ardhi</string>
 	<string name="type.amenity.parking_entrance.private">Mlango wa maegesho</string>
 	<string name="type.amenity.parking_entrance.permissive">Mlango wa maegesho</string>
 	<string name="type.amenity.parking_entrance">Mlango wa maegesho</string>

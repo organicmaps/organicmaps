@@ -1364,19 +1364,19 @@
 
 "type.amenity.parking" = "Parkir";
 
-"type.amenity.parking.fee" = "Parkir";
+"type.amenity.parking.fee" = "Parkir Berbayar";
 
-"type.amenity.parking.multi.storey" = "Parkir";
+"type.amenity.parking.multi.storey" = "Parkir Bertingkat";
 
-"type.amenity.parking.no.access" = "Parkir";
+"type.amenity.parking.no.access" = "Parkir pribadi";
+
+"type.amenity.parking.permissive" = "Parkir pribadi";
+
+"type.amenity.parking.private" = "Parkir pribadi";
 
 "type.amenity.parking.park_and_ride" = "Parkir";
 
-"type.amenity.parking.permissive" = "Parkir";
-
-"type.amenity.parking.private" = "Parkir";
-
-"type.amenity.parking.underground" = "Parkir";
+"type.amenity.parking.underground" = "Parkir bawah tanah";
 
 "type.amenity.parking_entrance.private" = "Pintu masuk parkir";
 

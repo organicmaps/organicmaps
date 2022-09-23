@@ -1364,19 +1364,19 @@
 
 "type.amenity.parking" = "Parkoló";
 
-"type.amenity.parking.fee" = "Parkoló";
+"type.amenity.parking.fee" = "Fizetős parkolás";
 
-"type.amenity.parking.multi.storey" = "Parkoló";
+"type.amenity.parking.multi.storey" = "Többszintes parkoló";
 
-"type.amenity.parking.no.access" = "Parkoló";
+"type.amenity.parking.no.access" = "Saját parkoló";
+
+"type.amenity.parking.permissive" = "Saját parkoló";
+
+"type.amenity.parking.private" = "Saját parkoló";
 
 "type.amenity.parking.park_and_ride" = "Parkoló";
 
-"type.amenity.parking.permissive" = "Parkoló";
-
-"type.amenity.parking.private" = "Parkoló";
-
-"type.amenity.parking.underground" = "Parkoló";
+"type.amenity.parking.underground" = "Mélygarázs";
 
 "type.amenity.parking_entrance.private" = "Parkoló bejárata";
 

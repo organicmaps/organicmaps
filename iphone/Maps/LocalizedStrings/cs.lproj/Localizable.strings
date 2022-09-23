@@ -1364,19 +1364,19 @@
 
 "type.amenity.parking" = "Parkoviště";
 
-"type.amenity.parking.fee" = "Parkoviště";
+"type.amenity.parking.fee" = "Placené parkoviště";
 
-"type.amenity.parking.multi.storey" = "Parkoviště";
+"type.amenity.parking.multi.storey" = "Vícepodlažní parkoviště";
 
-"type.amenity.parking.no.access" = "Parkoviště";
+"type.amenity.parking.no.access" = "Soukromé parkoviště";
+
+"type.amenity.parking.permissive" = "Soukromé parkoviště";
+
+"type.amenity.parking.private" = "Soukromé parkoviště";
 
 "type.amenity.parking.park_and_ride" = "Parkoviště";
 
-"type.amenity.parking.permissive" = "Parkoviště";
-
-"type.amenity.parking.private" = "Parkoviště";
-
-"type.amenity.parking.underground" = "Parkoviště";
+"type.amenity.parking.underground" = "Podzemní parkoviště";
 
 "type.amenity.parking_entrance.private" = "Vjezd na parkoviště";
 

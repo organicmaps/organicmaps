@@ -757,11 +757,13 @@
 	<string name="type.amenity.motorcycle_parking">Parking motocyklowy</string>
 	<string name="type.amenity.nightclub">Klub nocny</string>
 	<string name="type.amenity.nursing_home">Dom opieki</string>
-	<string name="type.amenity.parking.fee">Parking płatny</string>
+	<string name="type.amenity.parking">Parking</string>
+	<string name="type.amenity.parking.fee">Płatny</string>
 	<string name="type.amenity.parking.multi.storey">Parking wielopoziomowy</string>
-	<string name="type.amenity.parking.park_and_ride">Parking \"Parkuj i Jedź\"</string>
-	<string name="type.amenity.parking.permissive">Parking ograniczony</string>
+	<string name="type.amenity.parking.no.access">Parking prywatny</string>
+	<string name="type.amenity.parking.permissive">Parking prywatny</string>
 	<string name="type.amenity.parking.private">Parking prywatny</string>
+	<string name="type.amenity.parking.park_and_ride">Parking \"Parkuj i Jedź\"</string>
 	<string name="type.amenity.parking.underground">Parking podziemny</string>
 	<string name="type.amenity.parking_entrance.private">Wejście na parking</string>
 	<string name="type.amenity.parking_entrance.permissive">Wejście na parking</string>

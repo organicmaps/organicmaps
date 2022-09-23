@@ -1364,19 +1364,19 @@
 
 "type.amenity.parking" = "đỗ xe";
 
-"type.amenity.parking.fee" = "đỗ xe";
+"type.amenity.parking.fee" = "Đậu xe trả phí";
 
-"type.amenity.parking.multi.storey" = "đỗ xe";
+"type.amenity.parking.multi.storey" = "Bãi đậu xe nhiều tầng";
 
-"type.amenity.parking.no.access" = "đỗ xe";
+"type.amenity.parking.no.access" = "Bãi đậu xe tư nhân";
+
+"type.amenity.parking.permissive" = "Bãi đậu xe tư nhân";
+
+"type.amenity.parking.private" = "Bãi đậu xe tư nhân";
 
 "type.amenity.parking.park_and_ride" = "đỗ xe";
 
-"type.amenity.parking.permissive" = "đỗ xe";
-
-"type.amenity.parking.private" = "đỗ xe";
-
-"type.amenity.parking.underground" = "đỗ xe";
+"type.amenity.parking.underground" = "Bãi đậu xe ngầm";
 
 "type.amenity.parking_entrance.private" = "Lối vào bãi đậu xe";
 

@@ -235,6 +235,13 @@
 	<!-- SECTION: Types -->
 	<string name="type.amenity.music_school">הקיזומל רפס תיב</string>
 	<string name="type.amenity.language_school">תופשל רפס תיב</string>
+	<string name="type.amenity.parking">היָנָחֲ</string>
+	<string name="type.amenity.parking.fee">םולשתב הינח</string>
+	<string name="type.amenity.parking.multi.storey">תומוק בר הינח</string>
+	<string name="type.amenity.parking.no.access">תיטרפ הינח</string>
+	<string name="type.amenity.parking.permissive">תיטרפ הינח</string>
+	<string name="type.amenity.parking.private">תיטרפ הינח</string>
+	<string name="type.amenity.parking.underground">תיעקרק - תת הינח</string>
 	<string name="type.amenity.parking_entrance.private">הינחל הסינכ</string>
 	<string name="type.amenity.parking_entrance.permissive">הינחל הסינכ</string>
 	<string name="type.amenity.parking_entrance">הינחל הסינכ</string>

@@ -1364,19 +1364,19 @@
 
 "type.amenity.parking" = "Parkkipaikka";
 
-"type.amenity.parking.fee" = "Parkkipaikka";
+"type.amenity.parking.fee" = "Maksullinen pysäköinti";
 
-"type.amenity.parking.multi.storey" = "Parkkipaikka";
+"type.amenity.parking.multi.storey" = "Monikerroksinen pysäköinti";
 
-"type.amenity.parking.no.access" = "Parkkipaikka";
+"type.amenity.parking.no.access" = "Yksityinen pysäköinti";
+
+"type.amenity.parking.permissive" = "Yksityinen pysäköinti";
+
+"type.amenity.parking.private" = "Yksityinen pysäköinti";
 
 "type.amenity.parking.park_and_ride" = "Parkkipaikka";
 
-"type.amenity.parking.permissive" = "Parkkipaikka";
-
-"type.amenity.parking.private" = "Parkkipaikka";
-
-"type.amenity.parking.underground" = "Parkkipaikka";
+"type.amenity.parking.underground" = "Maanalainen pysäköinti";
 
 "type.amenity.parking_entrance.private" = "Pysäköinti sisäänkäynti";
 

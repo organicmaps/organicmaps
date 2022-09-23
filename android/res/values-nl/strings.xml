@@ -787,12 +787,12 @@
 	<string name="type.amenity.nursing_home">Bejaardentehuis</string>
 	<string name="type.amenity.parking">Parkeerplaats</string>
 	<string name="type.amenity.parking.fee">Betaald parkeren</string>
-	<string name="type.amenity.parking.multi.storey">Parkeerplaats</string>
+	<string name="type.amenity.parking.multi.storey">Parkeren met meerdere verdiepingen</string>
 	<string name="type.amenity.parking.no.access">Privé parkeerplaats</string>
-	<string name="type.amenity.parking.park_and_ride">Parkeerplaats</string>
-	<string name="type.amenity.parking.permissive">Parkeerplaats</string>
+	<string name="type.amenity.parking.permissive">Privé parkeerplaats</string>
 	<string name="type.amenity.parking.private">Privé parkeerplaats</string>
-	<string name="type.amenity.parking.underground">Ondergrondse parkeerplaats</string>
+	<string name="type.amenity.parking.park_and_ride">Parkeerplaats P+R</string>
+	<string name="type.amenity.parking.underground">Ondergrondse parking</string>
 	<string name="type.amenity.parking_entrance.private">Parkeeringang</string>
 	<string name="type.amenity.parking_entrance.permissive">Parkeeringang</string>
 	<string name="type.amenity.parking_entrance">Parkeeringang</string>

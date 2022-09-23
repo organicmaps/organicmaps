@@ -728,6 +728,13 @@
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.amenity.grave_yard.christian">Хрысціянскія могілкі</string>
 	<string name="type.amenity.ice_cream">Марозіва</string>
+	<string name="type.amenity.parking">Паркоўка</string>
+	<string name="type.amenity.parking.fee">Платная паркоўка</string>
+	<string name="type.amenity.parking.multi.storey">Шматпавярховая паркоўка</string>
+	<string name="type.amenity.parking.no.access">Прыватная паркоўка</string>
+	<string name="type.amenity.parking.permissive">Прыватная паркоўка</string>
+	<string name="type.amenity.parking.private">Прыватная паркоўка</string>
+	<string name="type.amenity.parking.underground">Падземны паркінг</string>
 	<string name="type.amenity.parking_entrance.private">Уваход на паркоўку</string>
 	<string name="type.amenity.parking_entrance.permissive">Уваход на паркоўку</string>
 	<string name="type.amenity.parking_entrance">Уваход на паркоўку</string>

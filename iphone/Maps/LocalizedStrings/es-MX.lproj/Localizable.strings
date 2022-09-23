@@ -1364,19 +1364,19 @@
 
 "type.amenity.parking" = "Aparcamiento";
 
-"type.amenity.parking.fee" = "Aparcamiento";
+"type.amenity.parking.fee" = "Aparcamiento de pago";
 
-"type.amenity.parking.multi.storey" = "Aparcamiento";
+"type.amenity.parking.multi.storey" = "Aparcamiento de varios pisos";
 
-"type.amenity.parking.no.access" = "Aparcamiento";
+"type.amenity.parking.no.access" = "Aparcamiento privado";
+
+"type.amenity.parking.permissive" = "Aparcamiento privado";
+
+"type.amenity.parking.private" = "Aparcamiento privado";
 
 "type.amenity.parking.park_and_ride" = "Aparcamiento";
 
-"type.amenity.parking.permissive" = "Aparcamiento";
-
-"type.amenity.parking.private" = "Aparcamiento";
-
-"type.amenity.parking.underground" = "Aparcamiento";
+"type.amenity.parking.underground" = "Aparcamiento subterráneo";
 
 "type.amenity.parking_entrance.private" = "Entrada al aparcamiento";
 

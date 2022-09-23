@@ -1364,19 +1364,19 @@
 
 "type.amenity.parking" = "Otopark";
 
-"type.amenity.parking.fee" = "Otopark";
+"type.amenity.parking.fee" = "Ücretli Otopark";
 
-"type.amenity.parking.multi.storey" = "Otopark";
+"type.amenity.parking.multi.storey" = "Çok Katlı Otopark";
 
-"type.amenity.parking.no.access" = "Otopark";
+"type.amenity.parking.no.access" = "Özel Otopark";
+
+"type.amenity.parking.permissive" = "Özel Otopark";
+
+"type.amenity.parking.private" = "Özel Otopark";
 
 "type.amenity.parking.park_and_ride" = "Otopark";
 
-"type.amenity.parking.permissive" = "Otopark";
-
-"type.amenity.parking.private" = "Otopark";
-
-"type.amenity.parking.underground" = "Otopark";
+"type.amenity.parking.underground" = "Yeraltı otoparkı";
 
 "type.amenity.parking_entrance.private" = "Otopark girişi";
 

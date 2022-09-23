@@ -1362,21 +1362,21 @@
 
 "type.amenity.nursing_home" = "Nursing Home";
 
-"type.amenity.parking" = "Parking";
+"type.amenity.parking" = "Паркинг";
 
-"type.amenity.parking.fee" = "Parking";
+"type.amenity.parking.fee" = "Платен паркинг";
 
-"type.amenity.parking.multi.storey" = "Parking";
+"type.amenity.parking.multi.storey" = "Многоетажен паркинг";
 
-"type.amenity.parking.no.access" = "Parking";
+"type.amenity.parking.no.access" = "Частен паркинг";
+
+"type.amenity.parking.permissive" = "Частен паркинг";
+
+"type.amenity.parking.private" = "Частен паркинг";
 
 "type.amenity.parking.park_and_ride" = "Parking";
 
-"type.amenity.parking.permissive" = "Parking";
-
-"type.amenity.parking.private" = "Parking";
-
-"type.amenity.parking.underground" = "Parking";
+"type.amenity.parking.underground" = "Подземен паркинг";
 
 "type.amenity.parking_entrance.private" = "Вход за паркинг";
 
