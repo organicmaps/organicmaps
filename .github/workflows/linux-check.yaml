@@ -35,7 +35,7 @@ jobs:
           sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc
 
       - name: Checkout sources
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Parallel submodules checkout
         shell: bash
@@ -85,7 +85,7 @@ jobs:
           sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc
 
       - name: Checkout sources
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Parallel submodules checkout
         shell: bash
@@ -121,7 +121,7 @@ jobs:
         run: ninja
 
       - name: Checkout world_feed_integration_tests_data
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: omapsapp/world_feed_integration_tests_data
           path: data/world_feed_integration_tests_data
@@ -162,7 +162,7 @@ jobs:
       fail-fast: false
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Install appstream validator
         shell: bash
