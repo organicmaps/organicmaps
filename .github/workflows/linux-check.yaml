@@ -36,6 +36,8 @@ jobs:
 
       - name: Checkout sources
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 100 # enough to get all commits for the current day
 
       - name: Parallel submodules checkout
         shell: bash
@@ -48,8 +50,7 @@ jobs:
           sudo apt install -y \
               ninja-build \
               qtbase5-dev \
-              libqt5svg5-dev \
-              clang-tools-11
+              libqt5svg5-dev
 
       - name: Configure
         shell: bash
@@ -58,8 +59,8 @@ jobs:
       - name: CMake
         shell: bash
         env:
-          CC: clang-12
-          CXX: clang++-12
+          CC: clang-14
+          CXX: clang++-14
         # -g1 should slightly reduce build time.
         run: |
           cmake . -B build -G Ninja -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS=-g1 -DUNITY_DISABLE=ON
@@ -75,7 +76,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        compiler: [{ CXX: g++-10, CC: gcc-10 }, { CXX: clang++-12, CC: clang-12 }]
+        compiler: [{ CXX: g++-11, CC: gcc-11 }, { CXX: clang++-14, CC: clang-14 }]
         CMAKE_BUILD_TYPE: [Debug, RelWithDebInfo]
 
     steps:
