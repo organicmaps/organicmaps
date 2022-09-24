@@ -42,7 +42,7 @@ jobs:
 
       - name: Parallel submodules checkout
         shell: bash
-        run: git submodule update --init --recursive --jobs=4
+        run: git submodule update --depth 1 --init --recursive --jobs=$(($(sysctl -n hw.logicalcpu) * 20))
 
       - name: Configure
         shell: bash
