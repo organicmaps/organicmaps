@@ -44,7 +44,7 @@ jobs:
           fetch-depth: 100 # enough to get all commits for the current day
 
       - name: Parallel submodules checkout
-        run: git submodule update --init --recursive --jobs=4
+        run: git submodule update --depth 1 --init --recursive --jobs=$(($(sysctl -n hw.logicalcpu) * 20))
 
       - name: Checkout private keys
         uses: actions/checkout@v3
