@@ -262,7 +262,7 @@
 "website" = "Webseite";
 
 /* Text in About menu, opens Organic Maps news website */
-"news" = "Nachrichten";
+"news" = "News";
 
 /* Text in menu */
 "github" = "GitHub";
