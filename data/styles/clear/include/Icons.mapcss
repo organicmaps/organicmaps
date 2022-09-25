@@ -21,6 +21,7 @@
  5.4 Religion
  5.5 Others
 6.SHOP
+ 6.1 Craft
 7.CAR
  7.1 Parking
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -2617,6 +2618,12 @@ area|z17-[shop=newsagent]
 node|z17-[shop=fabric],
 area|z17-[shop=fabric]
 {icon-image: shop-m.svg;}
+
+/* 6.1 Craft */
+
+node|z17-[craft=plumber],
+area|z17-[craft=plumber]
+{icon-image:plumber-m.svg;}
 
 /* 7. CAR */
 
