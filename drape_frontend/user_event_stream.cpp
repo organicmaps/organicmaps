@@ -11,16 +11,11 @@
 #include "drape_frontend/screen_operations.hpp"
 #include "drape_frontend/visual_params.hpp"
 
-#include "indexer/scales.hpp"
-
 #include "platform/platform.hpp"
 
-#include "base/logging.hpp"
 #include "base/macros.hpp"
 
-#include <chrono>
 #include <cmath>
-#include <cstdint>
 
 #ifdef DEBUG
 #define TEST_CALL(action) if (m_testFn) m_testFn(action)
@@ -28,11 +23,11 @@
 #define TEST_CALL(action)
 #endif
 
-using namespace std;
-using std::chrono::milliseconds;
 
 namespace df
 {
+using namespace std;
+
 namespace
 {
 uint64_t const kDoubleTapPauseMs = 250;
@@ -147,8 +142,7 @@ UserEventStream::UserEventStream()
 
 void UserEventStream::AddEvent(drape_ptr<UserEvent> && event)
 {
-  std::lock_guard<std::mutex> guard(m_lock);
-  UNUSED_VALUE(guard);
+  std::lock_guard guard(m_lock);
   m_events.emplace_back(move(event));
 }
 
@@ -156,8 +150,7 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChanged, bool 
 {
   TEventsList events;
   {
-    std::lock_guard<std::mutex> guard(m_lock);
-    UNUSED_VALUE(guard);
+    std::lock_guard guard(m_lock);
     swap(m_events, events);
   }
 
