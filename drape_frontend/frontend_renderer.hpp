@@ -341,6 +341,22 @@ private:
   ScreenBase m_lastReadedModelView;
   TTilesCollection m_notFinishedTiles;
 
+  bool IsValidCurrentZoom() const
+  {
+    /// @todo Well, this function was introduced to ASSERT m_currentZoomLevel != -1.
+    /// Can't say for sure is it right or wrong, but also can't garantee with post-messages order.
+
+    // In some cases RenderScene, UpdateContextDependentResources can be called before the rendering of
+    // the first frame. m_currentZoomLevel will be equal to -1, before ResolveZoomLevel call.
+    return m_currentZoomLevel >= 0;
+  }
+
+  int GetCurrentZoom() const
+  {
+    ASSERT(IsValidCurrentZoom(), ());
+    return m_currentZoomLevel;
+  }
+
   int m_currentZoomLevel = -1;
 
   ref_ptr<RequestedTiles> m_requestedTiles;
