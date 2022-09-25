@@ -5042,7 +5042,7 @@
     ca = Notícies
     cs = Zprávy
     da = Nyheder
-    de = Nachrichten
+    de = News
     el = Νέα
     es = Noticias
     fa = ﺭﺎﺒﺧﺍ
