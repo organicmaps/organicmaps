@@ -224,7 +224,7 @@
 	<!-- Text in menu -->
 	<string name="website">Webseite</string>
 	<!-- Text in About menu, opens Organic Maps news website -->
-	<string name="news">Nachrichten</string>
+	<string name="news">News</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">Feedback</string>
 	<!-- Text in menu -->
