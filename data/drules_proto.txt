@@ -12588,9 +12588,16 @@ cont {
 cont {
   name: "craft-plumber"
   element {
+    scale: 17
+    symbol {
+      name: "plumber-m"
+      priority: 16000
+    }
+  }
+  element {
     scale: 18
     symbol {
-      name: "hand-m"
+      name: "plumber-m"
       priority: 16603
     }
     caption {
@@ -12606,7 +12613,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "hand-m"
+      name: "plumber-m"
       priority: 16603
     }
     caption {
