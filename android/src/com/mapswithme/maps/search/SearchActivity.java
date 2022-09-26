@@ -46,16 +46,4 @@ public class SearchActivity extends BaseMwmFragmentActivity
   {
     return SearchFragment.class;
   }
-
-  @Override
-  protected boolean useTransparentStatusBar()
-  {
-    return false;
-  }
-
-  @Override
-  protected boolean useColorStatusBar()
-  {
-    return true;
-  }
 }

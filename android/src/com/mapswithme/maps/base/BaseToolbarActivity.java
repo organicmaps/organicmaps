@@ -28,7 +28,6 @@ public abstract class BaseToolbarActivity extends BaseMwmFragmentActivity
     Toolbar toolbar = getToolbar();
     if (toolbar != null)
     {
-      UiUtils.extendViewWithStatusBar(toolbar);
       int title = getToolbarTitle();
       if (title == 0)
         toolbar.setTitle(getTitle());

@@ -300,6 +300,12 @@ public class RoutingPlanController extends ToolbarController
     return frameHeight - extraOppositeOffset;
   }
 
+  @Override
+  protected boolean useExtendedToolbar()
+  {
+    return true;
+  }
+
   private class SelfTerminatedDrivingOptionsLayoutListener implements View.OnLayoutChangeListener
   {
     @Override

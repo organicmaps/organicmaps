@@ -101,11 +101,6 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
     if (layoutId != 0)
       setContentView(layoutId);
 
-    if (useTransparentStatusBar())
-      UiUtils.setupStatusBar(this);
-    if (useColorStatusBar())
-      UiUtils.setupColorStatusBar(this, getStatusBarColor());
-
     // Use full-screen on Kindle Fire only
     if (Utils.isAmazonDevice())
     {
@@ -130,16 +125,6 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
 
     throw new IllegalArgumentException("Attempt to apply unsupported theme: "
                                        + Config.getCurrentUiTheme(context));
-  }
-
-  protected boolean useColorStatusBar()
-  {
-    return false;
-  }
-
-  protected boolean useTransparentStatusBar()
-  {
-    return true;
   }
 
   @CallSuper

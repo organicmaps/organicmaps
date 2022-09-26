@@ -44,7 +44,7 @@ public class ToolbarController implements Detachable<Activity>
 
   protected boolean useExtendedToolbar()
   {
-    return true;
+    return false;
   }
 
   @IdRes

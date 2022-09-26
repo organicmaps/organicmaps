@@ -79,12 +79,6 @@ public class SearchFragment extends BaseMwmFragment
     }
 
     @Override
-    protected boolean useExtendedToolbar()
-    {
-      return false;
-    }
-
-    @Override
     protected void onTextChanged(String query)
     {
       if (!isAdded())
