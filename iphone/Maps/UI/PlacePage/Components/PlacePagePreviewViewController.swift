@@ -136,8 +136,8 @@ final class PlacePagePreviewViewController: UIViewController {
     let now = time_t(Date().timeIntervalSince1970);
     
     let hourFormatter = DateFormatter();
-    hourFormatter.locale = Locale.current;
-    hourFormatter.timeStyle = .short;
+    hourFormatter.locale = Locale.current
+    hourFormatter.timeStyle = .short
     
     switch placePagePreviewData.schedule.state {
     case .allDay:
