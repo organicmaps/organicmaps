@@ -12,7 +12,6 @@ import android.os.IBinder;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -87,13 +86,6 @@ public class NavigationController implements Application.ActivityLifecycleCallba
     mOnSettingsClickListener = onSettingsClickListener;
     mMapButtonsController = mapButtonsController;
 
-    // Show a blank view below the navbar to hide the menu content
-    mFrame.findViewById(R.id.nav_bottom_sheet_nav_bar).setOnApplyWindowInsetsListener((view, windowInsets) -> {
-      view.getLayoutParams().height = windowInsets.getSystemWindowInsetBottom();
-      view.getLayoutParams().width = mFrame.findViewById(R.id.nav_bottom_sheet).getWidth();
-      return windowInsets;
-    });
-
     // Top frame
     View topFrame = mFrame.findViewById(R.id.nav_top_frame);
     View turnFrame = topFrame.findViewById(R.id.nav_next_turn_frame);
@@ -112,11 +104,20 @@ public class NavigationController implements Application.ActivityLifecycleCallba
 
     mStreetFrame = topFrame.findViewById(R.id.street_frame);
     mNextStreet = mStreetFrame.findViewById(R.id.street);
-    View shadow = topFrame.findViewById(R.id.shadow_top);
-    UiUtils.hide(shadow);
 
-    UiUtils.extendViewWithStatusBar(mStreetFrame);
-    UiUtils.extendViewMarginWithStatusBar(turnFrame);
+    // Show a blank view below the navbar to hide the menu content
+    final View navigationBarBackground = mFrame.findViewById(R.id.nav_bottom_sheet_nav_bar);
+    final View nextTurnContainer = mFrame.findViewById(R.id.nav_next_turn_container);
+    mStreetFrame.setOnApplyWindowInsetsListener((v, windowInsets) -> {
+      UiUtils.extendViewWithStatusBar(v, windowInsets);
+      nextTurnContainer.setPadding(windowInsets.getSystemWindowInsetLeft(), nextTurnContainer.getPaddingTop(),
+                                   nextTurnContainer.getPaddingRight(), nextTurnContainer.getPaddingBottom());
+      navigationBarBackground.getLayoutParams().height = windowInsets.getSystemWindowInsetBottom();
+      // The gesture navigation bar stays at the bottom in landscape
+      // We need to add a background only above the nav menu
+      navigationBarBackground.getLayoutParams().width = mFrame.findViewById(R.id.nav_bottom_sheet).getWidth();
+      return windowInsets;
+    });
 
     final Application app = (Application) mFrame.getContext().getApplicationContext();
     mSpeedCamSignalCompletionListener = new CameraWarningSignalCompletionListener(app);

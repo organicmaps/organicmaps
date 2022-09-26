@@ -120,6 +120,12 @@ public class MapButtonsController extends Fragment
       mButtonsMap.put(MapButtons.menu, menuButton);
     if (helpButton != null)
       mButtonsMap.put(MapButtons.help, helpButton);
+
+    mFrame.setOnApplyWindowInsetsListener((view, windowInsets) -> {
+      UiUtils.setViewInsetsPadding(view, windowInsets);
+      return windowInsets;
+    });
+
     return mFrame;
   }
 

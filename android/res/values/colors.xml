@@ -81,6 +81,7 @@
   <color name="bg_menu_night">#CC2D3237</color>
 
   <color name="bg_statusbar">#004120</color>
+  <color name="bg_statusbar_translucent">#66000000</color>
   <color name="bg_statusbar_night">#121417</color>
 
   <!-- Buttons -->

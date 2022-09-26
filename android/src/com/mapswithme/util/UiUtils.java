@@ -11,6 +11,7 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.net.Uri;
+import android.os.Build;
 import android.text.Html;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
@@ -22,27 +23,28 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.Window;
-import android.view.WindowManager;
+import android.view.WindowInsets;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.AnyRes;
 import androidx.annotation.AttrRes;
 import androidx.annotation.ColorInt;
-import androidx.annotation.ColorRes;
 import androidx.annotation.DimenRes;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.google.android.material.textfield.TextInputLayout;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
+
+import java.util.Objects;
 
 public final class UiUtils
 {
@@ -52,12 +54,6 @@ public final class UiUtils
   public static final String PHRASE_SEPARATOR = " • ";
   public static final String WIDE_PHRASE_SEPARATOR = "  •  ";
   public static final String APPROXIMATE_SYMBOL = "~";
-
-  public static void addStatusBarOffset(@NonNull View view)
-  {
-    ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
-    params.setMargins(0, UiUtils.getStatusBarHeight(view.getContext()), 0, 0);
-  }
 
   public static void bringViewToFrontOf(@NonNull View frontView, @NonNull View backView)
   {
@@ -364,75 +360,73 @@ public final class UiUtils
     return viewRect.contains(x, y);
   }
 
-  public static int getStatusBarHeight(@NonNull Context context)
+  public static void setupTransparentStatusBar(@NonNull Activity activity)
   {
-    int result = 0;
-    Resources res = context.getResources();
-    // TODO: find a better way of getting system status bar height
-    // https://github.com/organicmaps/organicmaps/issues/3611
-    @SuppressLint({"DiscouragedApi", "InternalInsetResource"})
-    int resourceId = res.getIdentifier("status_bar_height", "dimen", "android");
-    if (resourceId > 0)
-      result = res.getDimensionPixelSize(resourceId);
-
-    return result;
+    final Window window = activity.getWindow();
+    window.getDecorView().setFitsSystemWindows(false);
+    window.setStatusBarColor(Color.TRANSPARENT);
   }
 
-  public static void extendViewWithStatusBar(@NonNull View view)
+  public static void setLightStatusBar(@NonNull Activity activity, boolean isLight)
   {
-    int statusBarHeight = getStatusBarHeight(view.getContext());
-    ViewGroup.LayoutParams lp = view.getLayoutParams();
-    if (lp.height == ViewGroup.LayoutParams.WRAP_CONTENT)
+    final Window window = activity.getWindow();
+    final View decorView = window.getDecorView();
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
     {
-      extendViewPaddingTop(view, statusBarHeight);
-      return;
+      WindowInsetsControllerCompat wic = WindowCompat.getInsetsController(window, decorView);
+      // It should not be possible for Window insets controller to be null
+      Objects.requireNonNull(wic).setAppearanceLightStatusBars(isLight);
     }
-
-    lp.height += statusBarHeight;
-    view.setLayoutParams(lp);
-    extendViewPaddingTop(view, statusBarHeight);
+    else
+    {
+      @ColorInt final int color = isLight
+                                  ? ResourcesCompat.getColor(activity.getResources(), R.color.bg_statusbar_translucent, null)
+                                  : Color.TRANSPARENT;
+      window.setStatusBarColor(color);
+    }
   }
 
-  public static void extendViewPaddingWithStatusBar(@NonNull View view)
+  public static void extendViewWithStatusBar(@NonNull View view, WindowInsets windowInsets)
   {
-    int statusBarHeight = getStatusBarHeight(view.getContext());
-    extendViewPaddingTop(view, statusBarHeight);
+    final int height = windowInsets.getSystemWindowInsetTop();
+    final ViewGroup.LayoutParams lp = view.getLayoutParams();
+    // Extend the height only when necessary
+    if (lp.height != ViewGroup.LayoutParams.WRAP_CONTENT && view.getPaddingTop() < height)
+    {
+      lp.height += height;
+      view.setLayoutParams(lp);
+    }
+    setViewInsetsPaddingNoBottom(view, windowInsets);
   }
 
-  private static void extendViewPaddingTop(@NonNull View view, int statusBarHeight)
+  public static void setViewInsetsPadding(View view, WindowInsets windowInsets)
   {
-    view.setPadding(view.getPaddingLeft(), view.getPaddingTop() + statusBarHeight,
-                    view.getPaddingRight(), view.getPaddingBottom());
+    view.setPadding(windowInsets.getSystemWindowInsetLeft(), windowInsets.getSystemWindowInsetTop(),
+                    windowInsets.getSystemWindowInsetRight(), windowInsets.getSystemWindowInsetBottom());
   }
 
-  public static void extendViewMarginWithStatusBar(@NonNull View view)
+  public static void setViewInsetsPaddingNoTop(View view, WindowInsets windowInsets)
   {
-    int statusBarHeight = getStatusBarHeight(view.getContext());
-    ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
-    int margin = lp.getMarginStart();
-    lp.setMargins(margin, margin + statusBarHeight, margin, margin);
-    view.setLayoutParams(lp);
+    view.setPadding(windowInsets.getSystemWindowInsetLeft(), view.getPaddingTop(),
+                    windowInsets.getSystemWindowInsetRight(), windowInsets.getSystemWindowInsetBottom());
   }
 
-  public static void setupStatusBar(@NonNull Activity activity)
+  public static void setViewInsetsPaddingSides(View view, WindowInsets windowInsets)
   {
-    activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-
-    View statusBarTintView = new View(activity);
-    FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, getStatusBarHeight(activity));
-    params.gravity = Gravity.TOP;
-    statusBarTintView.setLayoutParams(params);
-    statusBarTintView.setBackgroundColor(DEFAULT_TINT_COLOR);
-    statusBarTintView.setVisibility(View.VISIBLE);
-    ViewGroup decorViewGroup = (ViewGroup) activity.getWindow().getDecorView();
-    decorViewGroup.addView(statusBarTintView);
+    view.setPadding(windowInsets.getSystemWindowInsetLeft(), view.getPaddingTop(),
+                    windowInsets.getSystemWindowInsetRight(), view.getPaddingBottom());
   }
 
-  public static void setupColorStatusBar(@NonNull Activity activity, @ColorRes int statusBarColor)
+  public static void setViewInsetsPaddingBottom(View view, WindowInsets windowInsets)
   {
-    Window window = activity.getWindow();
-    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-    window.setStatusBarColor(ContextCompat.getColor(activity, statusBarColor));
+    view.setPadding(view.getPaddingLeft(), view.getPaddingTop(),
+                    view.getPaddingRight(), windowInsets.getSystemWindowInsetBottom());
+  }
+
+  public static void setViewInsetsPaddingNoBottom(View view, WindowInsets windowInsets)
+  {
+    view.setPadding(windowInsets.getSystemWindowInsetLeft(), windowInsets.getSystemWindowInsetTop(),
+                    windowInsets.getSystemWindowInsetRight(), view.getPaddingBottom());
   }
 
   public static void setupNavigationIcon(@NonNull Toolbar toolbar,
@@ -460,11 +454,6 @@ public final class UiUtils
   {
     toolbar.setNavigationIcon(null);
     toolbar.setNavigationOnClickListener(null);
-  }
-
-  public static int getCompassYOffset(@NonNull Context context)
-  {
-    return getStatusBarHeight(context);
   }
 
   @AnyRes

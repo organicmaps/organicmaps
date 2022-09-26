@@ -1,7 +1,5 @@
 package com.mapswithme.maps;
 
-import static com.mapswithme.maps.widget.placepage.PlacePageButtons.PLACEPAGE_MORE_MENU_ID;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -13,7 +11,6 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.view.WindowInsets;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -29,7 +26,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentFactory;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
 import com.mapswithme.maps.Framework.PlacePageActivationListener;
 import com.mapswithme.maps.api.Const;
 import com.mapswithme.maps.background.AppBackgroundTracker;
@@ -101,6 +97,8 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Stack;
 
+import static com.mapswithme.maps.widget.placepage.PlacePageButtons.PLACEPAGE_MORE_MENU_ID;
+
 public class MwmActivity extends BaseMwmFragmentActivity
     implements PlacePageActivationListener,
                View.OnTouchListener,
@@ -149,6 +147,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private MapFragment mMapFragment;
 
   private View mPointChooser;
+  private Toolbar mPointChooserToolbar;
   enum PointChooserMode
   {
     NONE,
@@ -188,6 +187,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private String mDonatesUrl;
 
   private int navBarHeight;
+
+  private WindowInsets mCurrentWindowInsets;
 
   public interface LeftAnimationTrackListener
   {
@@ -378,6 +379,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
     setContentView(R.layout.activity_map);
+    UiUtils.setupTransparentStatusBar(this);
 
     mPlacePageController = PlacePageFactory.createCompositePlacePageController(
         this, this);
@@ -386,8 +388,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     mSearchController = new FloatingSearchToolbarController(this, this);
     mSearchController.getToolbar()
-                     .getViewTreeObserver()
-                     .addOnGlobalLayoutListener(new ToolbarLayoutChangeListener());
+                     .getViewTreeObserver();
 
     boolean isLaunchByDeepLink = getIntent().getBooleanExtra(EXTRA_LAUNCH_BY_DEEP_LINK, false);
     initViews(isLaunchByDeepLink);
@@ -405,31 +406,32 @@ public class MwmActivity extends BaseMwmFragmentActivity
       addTask(new Factory.RestoreRouteTask());
   }
 
+  private void refreshLightStatusBar()
+  {
+    UiUtils.setLightStatusBar(this, !(
+        ThemeUtils.isNightTheme(this)
+        || RoutingController.get().isPlanning()
+        || Framework.nativeIsInChoosePositionMode()
+    ));
+  }
+
   private void updateViewsInsets()
   {
-    findViewById(R.id.map_ui_container).setOnApplyWindowInsetsListener((view, windowInsets) -> {
-      setViewInsets(findViewById(R.id.map_ui_container), windowInsets);
-      setViewInsets(findViewById(R.id.pp_buttons_layout), windowInsets);
-      setViewInsets(findViewById(R.id.toolbar), windowInsets);
-      setViewInsets(findViewById(R.id.menu_frame), windowInsets);
-      setViewInsetsSides(findViewById(R.id.routing_plan_frame).findViewById(R.id.toolbar), windowInsets);
+    mPointChooser.setOnApplyWindowInsetsListener((view, windowInsets) -> {
+      UiUtils.setViewInsetsPaddingBottom(mPointChooser, windowInsets);
+      UiUtils.extendViewWithStatusBar(mPointChooserToolbar, windowInsets);
+
       navBarHeight = windowInsets.getSystemWindowInsetBottom();
-      adjustCompass(-1, windowInsets.getSystemWindowInsetRight());
+      // For the first loading, set compass top margin to status bar size
+      if (mCurrentWindowInsets == null)
+        adjustCompass(windowInsets.getSystemWindowInsetTop(), windowInsets.getSystemWindowInsetRight());
+      else
+        adjustCompass(-1, windowInsets.getSystemWindowInsetRight());
+      refreshLightStatusBar();
       adjustBottomWidgets(windowInsets.getSystemWindowInsetLeft());
+      mCurrentWindowInsets = windowInsets;
       return windowInsets;
     });
-  }
-
-  private void setViewInsets(View view, WindowInsets windowInsets)
-  {
-    view.setPadding(windowInsets.getSystemWindowInsetLeft(), view.getPaddingTop(),
-                    windowInsets.getSystemWindowInsetRight(), windowInsets.getSystemWindowInsetBottom());
-  }
-
-  private void setViewInsetsSides(View view, WindowInsets windowInsets)
-  {
-    view.setPadding(windowInsets.getSystemWindowInsetLeft(), view.getPaddingTop(),
-                    windowInsets.getSystemWindowInsetRight(), view.getPaddingBottom());
   }
 
   private int getDownloadMapsCounter()
@@ -473,10 +475,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (mPointChooser == null)
       return;
 
-    final Toolbar toolbar = mPointChooser.findViewById(R.id.toolbar_point_chooser);
-    UiUtils.extendViewWithStatusBar(toolbar);
-    UiUtils.showHomeUpButton(toolbar);
-    toolbar.setNavigationOnClickListener(v -> {
+    mPointChooserToolbar = mPointChooser.findViewById(R.id.toolbar_point_chooser);
+    UiUtils.showHomeUpButton(mPointChooserToolbar);
+    mPointChooserToolbar.setNavigationOnClickListener(v -> {
       closePositionChooser();
       if (mPointChooserMode == PointChooserMode.API)
         finish();
@@ -562,6 +563,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     UiUtils.show(mPointChooser);
     setFullscreen(true);
     Framework.nativeTurnOnChoosePositionMode(isBusiness, applyPosition);
+    refreshLightStatusBar();
   }
 
   private void hidePositionChooser()
@@ -572,6 +574,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (mPointChooserMode == PointChooserMode.API)
       finish();
     mPointChooserMode = PointChooserMode.NONE;
+    refreshLightStatusBar();
   }
 
   private void initMap(boolean isLaunchByDeepLink)
@@ -1003,6 +1006,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mNavigationController.onActivityResumed(this);
     mMapButtonsController.onResume();
     mPlacePageController.onActivityResumed(this);
+    refreshLightStatusBar();
   }
 
   @Override
@@ -1390,9 +1394,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onRoutingPlanStartAnimate(boolean show)
   {
-    int totalHeight = calcFloatingViewsOffset();
-    adjustCompassAndTraffic(!show ? UiUtils.getStatusBarHeight(getApplicationContext())
-                                  : totalHeight);
+    int offset = mCurrentWindowInsets.getSystemWindowInsetTop();
+    if (show && mRoutingPlanInplaceController != null)
+    {
+      final int height = mRoutingPlanInplaceController.calcHeight();
+      if (height != 0)
+        offset = height;
+    }
+    adjustCompassAndTraffic(offset);
   }
 
   @Override
@@ -1422,7 +1431,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       if (mIsTabletLayout)
       {
-        adjustCompassAndTraffic(UiUtils.getStatusBarHeight(getApplicationContext()));
+        adjustCompassAndTraffic(mCurrentWindowInsets.getSystemWindowInsetTop());
       }
       else
       {
@@ -1449,16 +1458,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
         return true;
       }
     });
-  }
-
-  private int calcFloatingViewsOffset()
-  {
-    int offset;
-    if (mRoutingPlanInplaceController == null
-        || (offset = mRoutingPlanInplaceController.calcHeight()) == 0)
-      return UiUtils.getStatusBarHeight(this);
-
-    return offset;
   }
 
   @Override
@@ -1506,6 +1505,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mRoutingPlanInplaceController.hideDrivingOptionsView();
     mNavigationController.stop(this);
     initNavigationButtons(MapButtonsController.LayoutMode.regular);
+    refreshLightStatusBar();
   }
 
   @Override
@@ -1515,6 +1515,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     ThemeSwitcher.INSTANCE.restart(isMapRendererActive());
     mNavigationController.start(this);
     initNavigationButtons(MapButtonsController.LayoutMode.navigation);
+    refreshLightStatusBar();
   }
 
   @Override
@@ -1522,6 +1523,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     closeFloatingToolbarsAndPanels(true);
     initNavigationButtons(MapButtonsController.LayoutMode.regular);
+    refreshLightStatusBar();
   }
 
   @Override
@@ -1529,6 +1531,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     closeFloatingToolbarsAndPanels(true);
     initNavigationButtons(MapButtonsController.LayoutMode.planning);
+    refreshLightStatusBar();
   }
 
   @Override
@@ -1538,6 +1541,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     ThemeSwitcher.INSTANCE.restart(isMapRendererActive());
     mNavigationController.stop(this);
     initNavigationButtons(MapButtonsController.LayoutMode.planning);
+    refreshLightStatusBar();
   }
 
   @Override
@@ -1748,20 +1752,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void showBookmarkCategoryOnMap(long categoryId)
   {
     BookmarkManager.INSTANCE.showBookmarkCategoryOnMap(categoryId);
-  }
-
-  private class ToolbarLayoutChangeListener implements ViewTreeObserver.OnGlobalLayoutListener
-  {
-    @Override
-    public void onGlobalLayout()
-    {
-      mSearchController.getToolbar().getViewTreeObserver()
-                       .removeOnGlobalLayoutListener(this);
-
-      adjustCompassAndTraffic(UiUtils.isVisible(mSearchController.getToolbar())
-                              ? calcFloatingViewsOffset()
-                              : UiUtils.getStatusBarHeight(getApplicationContext()));
-    }
   }
 
   public void onAddPlaceOptionSelected()

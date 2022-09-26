@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.location.LocationHelper;
@@ -54,8 +53,8 @@ public class NavMenu
   {
     mActivity = activity;
     mNavMenuListener = navMenuListener;
-    View mBottomFrame = mActivity.findViewById(R.id.nav_bottom_frame);
-    mHeaderFrame = mBottomFrame.findViewById(R.id.line_frame);
+    final View bottomFrame = mActivity.findViewById(R.id.nav_bottom_frame);
+    mHeaderFrame = bottomFrame.findViewById(R.id.line_frame);
     mHeaderFrame.setOnClickListener(v -> toggleNavMenu());
     mHeaderFrame.addOnLayoutChangeListener((view, i, i1, i2, i3, i4, i5, i6, i7) -> setPeekHeight());
     mNavBottomSheetBehavior = BottomSheetBehavior.from(mActivity.findViewById(R.id.nav_bottom_sheet));
@@ -86,24 +85,24 @@ public class NavMenu
     });
 
     // Bottom frame
-    mSpeedViewContainer = mBottomFrame.findViewById(R.id.speed_view_container);
-    mSpeedValue = mBottomFrame.findViewById(R.id.speed_value);
-    mSpeedUnits = mBottomFrame.findViewById(R.id.speed_dimen);
-    mTimeHourValue = mBottomFrame.findViewById(R.id.time_hour_value);
-    mTimeHourUnits = mBottomFrame.findViewById(R.id.time_hour_dimen);
-    mTimeMinuteValue = mBottomFrame.findViewById(R.id.time_minute_value);
-    mTimeMinuteUnits = mBottomFrame.findViewById(R.id.time_minute_dimen);
-    mTimeEstimate = mBottomFrame.findViewById(R.id.time_estimate);
-    mDistanceValue = mBottomFrame.findViewById(R.id.distance_value);
-    mDistanceUnits = mBottomFrame.findViewById(R.id.distance_dimen);
-    mRouteProgress = mBottomFrame.findViewById(R.id.navigation_progress);
+    mSpeedViewContainer = bottomFrame.findViewById(R.id.speed_view_container);
+    mSpeedValue = bottomFrame.findViewById(R.id.speed_value);
+    mSpeedUnits = bottomFrame.findViewById(R.id.speed_dimen);
+    mTimeHourValue = bottomFrame.findViewById(R.id.time_hour_value);
+    mTimeHourUnits = bottomFrame.findViewById(R.id.time_hour_dimen);
+    mTimeMinuteValue = bottomFrame.findViewById(R.id.time_minute_value);
+    mTimeMinuteUnits = bottomFrame.findViewById(R.id.time_minute_dimen);
+    mTimeEstimate = bottomFrame.findViewById(R.id.time_estimate);
+    mDistanceValue = bottomFrame.findViewById(R.id.distance_value);
+    mDistanceUnits = bottomFrame.findViewById(R.id.distance_dimen);
+    mRouteProgress = bottomFrame.findViewById(R.id.navigation_progress);
 
     // Bottom frame buttons
-    ImageView mSettings = mBottomFrame.findViewById(R.id.settings);
+    ImageView mSettings = bottomFrame.findViewById(R.id.settings);
     mSettings.setOnClickListener(v -> onSettingsClicked());
-    mTts = mBottomFrame.findViewById(R.id.tts_volume);
+    mTts = bottomFrame.findViewById(R.id.tts_volume);
     mTts.setOnClickListener(v -> onTtsClicked());
-    Button stop = mBottomFrame.findViewById(R.id.stop);
+    Button stop = bottomFrame.findViewById(R.id.stop);
     stop.setOnClickListener(v -> onStopClicked());
     UiUtils.updateRedButton(stop);
 

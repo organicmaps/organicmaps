@@ -26,8 +26,8 @@ public class TrafficButton
     mButton = trafficBtn;
     mLoadingAnim = getLoadingAnim(trafficBtn);
 
-    RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) trafficBtn.getLayoutParams();
-    params.setMargins(0, UiUtils.getStatusBarHeight(trafficBtn.getContext()), 0, 0);
+    // RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) trafficBtn.getLayoutParams();
+    // params.setMargins(0, UiUtils.getStatusBarHeight(trafficBtn.getContext()), 0, 0);
   }
 
   @NonNull
