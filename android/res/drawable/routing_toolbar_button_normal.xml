@@ -3,5 +3,5 @@
        android:shape="oval"
        android:height="40dp"
        android:width="40dp">
-  <solid android:color="@color/bg_statusbar"/>
+  <solid android:color="@color/bg_primary_dark"/>
 </shape>

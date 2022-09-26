@@ -70,7 +70,6 @@ public class SplashActivity extends AppCompatActivity implements BaseActivity
     mBaseDelegate.onCreate();
     UiThread.cancelDelayedTasks(mInitCoreDelayedTask);
     Counters.initCounters(this);
-    UiUtils.setupStatusBar(this);
     setContentView(R.layout.activity_splash);
   }
 

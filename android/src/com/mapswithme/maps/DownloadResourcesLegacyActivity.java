@@ -16,6 +16,7 @@ import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
+import androidx.annotation.StyleRes;
 import androidx.appcompat.app.AlertDialog;
 
 import com.mapswithme.maps.api.ParsedMwmRequest;
@@ -468,6 +469,13 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
           onTryAgainClicked();
         })
         .show();
+  }
+
+  @Override
+  @StyleRes
+  public int getThemeResourceId(@NonNull String theme)
+  {
+    return R.style.MwmTheme_DownloadResourcesLegacy;
   }
 
   private static native int nativeGetBytesToDownload();

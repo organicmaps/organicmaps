@@ -20,9 +20,6 @@ public class BookmarksToolbarController extends SearchToolbarController
   }
 
   @Override
-  protected boolean useExtendedToolbar() { return false; }
-
-  @Override
   protected boolean alwaysShowClearButton()
   {
     return true;
