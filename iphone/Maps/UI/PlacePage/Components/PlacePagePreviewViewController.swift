@@ -135,7 +135,7 @@ final class PlacePagePreviewViewController: UIViewController {
   private func configSchedule() {
     let now = time_t(Date().timeIntervalSince1970);
     
-    let hourFormatter = DateFormatter();
+    let hourFormatter = DateFormatter()
     hourFormatter.locale = Locale.current
     hourFormatter.timeStyle = .short
     
