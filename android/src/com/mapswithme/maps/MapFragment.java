@@ -90,8 +90,6 @@ public class MapFragment extends BaseMwmFragment
                       UiUtils.dimen(context, R.dimen.margin_base),
                       ANCHOR_LEFT_TOP);
 
-    mCurrentCompassOffsetX = 0;
-    mCurrentCompassOffsetY = UiUtils.getCompassYOffset(requireContext());
     setupCompass(mCurrentCompassOffsetY, mCurrentCompassOffsetX, false);
   }
 
@@ -287,6 +285,10 @@ public class MapFragment extends BaseMwmFragment
   public void onCreate(Bundle b)
   {
     super.onCreate(b);
+    mCurrentCompassOffsetX = 0;
+    mCurrentCompassOffsetY = 0;
+    mBottomWidgetOffsetX = 0;
+    mBottomWidgetOffsetY = 0;
     setRetainInstance(true);
     Bundle args = getArguments();
     if (args != null)

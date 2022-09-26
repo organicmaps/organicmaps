@@ -7,6 +7,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowInsets;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -132,6 +133,12 @@ public class RichPlacePageController implements PlacePageController, LocationLis
     mPlacePage.initButtons(buttons);
     UiUtils.bringViewToFrontOf(mButtonsLayout, mPlacePage);
     LocationHelper.INSTANCE.addListener(this);
+
+    mButtonsLayout.setOnApplyWindowInsetsListener((view, windowInsets) -> {
+      UiUtils.setViewInsetsPaddingNoTop(mButtonsLayout, windowInsets);
+      return windowInsets;
+    });
+    mPlacePage.requestApplyInsets();
   }
 
   public int getPlacePageWidth()

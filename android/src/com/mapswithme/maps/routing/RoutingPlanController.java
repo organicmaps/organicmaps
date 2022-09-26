@@ -104,6 +104,11 @@ public class RoutingPlanController extends ToolbarController
     mDriverOptionsLayoutListener = new SelfTerminatedDrivingOptionsLayoutListener();
     mAnimToggle = MwmApplication.from(activity.getApplicationContext())
                                 .getResources().getInteger(R.integer.anim_default);
+
+    mFrame.setOnApplyWindowInsetsListener((view, windowInsets) -> {
+      UiUtils.setViewInsetsPaddingNoTop(activity.findViewById(R.id.menu_frame), windowInsets);
+      return windowInsets;
+    });
   }
 
   @NonNull

@@ -222,6 +222,11 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
       else
         MapManager.nativeDownload(mCurrentCountry.id);
     }));
+
+    mFrame.setOnApplyWindowInsetsListener((view, windowInsets) -> {
+      UiUtils.setViewInsetsPadding(view, windowInsets);
+      return windowInsets;
+    });
   }
 
   @Override
