@@ -12,7 +12,6 @@
 #include "base/timer.hpp"
 
 #include <array>
-#include <bitset>
 #include <functional>
 #include <list>
 #include <memory>
@@ -314,9 +313,7 @@ private:
 class SetAutoPerspectiveEvent : public UserEvent
 {
 public:
-  explicit SetAutoPerspectiveEvent(bool isAutoPerspective)
-    : m_isAutoPerspective(isAutoPerspective)
-  {}
+  explicit SetAutoPerspectiveEvent(bool isAutoPerspective);
 
   EventType GetType() const override { return UserEvent::EventType::AutoPerspective; }
 

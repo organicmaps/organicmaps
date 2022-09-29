@@ -63,6 +63,8 @@ void ReadManager::Start()
   if (m_pool != nullptr)
     return;
 
+  LOG(LDEBUG, ("!VNG!"));
+
   ASSERT_EQUAL(m_counter, 0, ());
 
   m_pool = make_unique_dp<base::thread_pool::routine::ThreadPool>(kReadingThreadsCount,
@@ -73,7 +75,10 @@ void ReadManager::Stop()
 {
   InvalidateAll();
   if (m_pool != nullptr)
+  {
+    LOG(LDEBUG, ("!VNG!"));
     m_pool->Stop();
+  }
   m_pool.reset();
 }
 
@@ -117,7 +122,11 @@ void ReadManager::OnTaskFinished(threads::IRoutine * task)
                                 make_unique_dp<FinishTileReadMessage>(std::move(tiles),
                                                                       true /* forceUpdateUserMarks */),
                                 MessagePriority::Normal);
+
+      LOG(LDEBUG, ("!VNG! Finished tile", m_counter, key));
     }
+    else
+      LOG(LDEBUG, ("!VNG! Cancelled tile", m_counter, key));
   }
 
   t->Reset();
@@ -133,7 +142,10 @@ void ReadManager::UpdateCoverage(ScreenBase const & screen, bool have3dBuildings
   m_modeChanged |= (m_have3dBuildings != have3dBuildings);
   m_have3dBuildings = have3dBuildings;
 
-  if (m_modeChanged || forceUpdate || MustDropAllTiles(screen))
+  bool const init = m_modeChanged || forceUpdate || MustDropAllTiles(screen);
+  LOG(LDEBUG, ("!VNG!", init));
+
+  if (init)
   {
     m_modeChanged = false;
 
@@ -231,6 +243,8 @@ void ReadManager::PushTaskBackForTileKey(TileKey const & tileKey,
                                          ref_ptr<MetalineManager> metalineMng)
 {
   ASSERT(m_pool != nullptr, ());
+  LOG(LDEBUG, ("!VNG!", tileKey));
+
   auto context = make_unique_dp<EngineContext>(TileKey(tileKey, m_generationCounter,
                                                        m_userMarksGenerationCounter),
                                                m_commutator, texMng, metalineMng,
@@ -311,6 +325,8 @@ void ReadManager::IncreaseCounter(size_t value)
 
   ASSERT_GREATER_OR_EQUAL(m_counter, 0, ());
   m_counter += value;
+
+  LOG(LDEBUG, ("!VNG!", m_counter));
 }
 
 void ReadManager::Allow3dBuildings(bool allow3dBuildings)

@@ -1,10 +1,11 @@
-#include "drape_frontend/gui/drape_gui.hpp"
-
 #include "drape_frontend/backend_renderer.hpp"
+
 #include "drape_frontend/batchers_pool.hpp"
 #include "drape_frontend/circles_pack_shape.hpp"
 #include "drape_frontend/drape_api_builder.hpp"
+#ifdef DRAPE_MEASURER_BENCHMARK
 #include "drape_frontend/drape_measurer.hpp"
+#endif
 #include "drape_frontend/map_shape.hpp"
 #include "drape_frontend/message_subclasses.hpp"
 #include "drape_frontend/metaline_manager.hpp"
@@ -17,8 +18,6 @@
 #include "drape/support_manager.hpp"
 #include "drape/texture_manager.hpp"
 
-#include "indexer/scales.hpp"
-
 #include "platform/platform.hpp"
 
 #include "base/logging.hpp"
@@ -26,10 +25,10 @@
 #include <algorithm>
 #include <utility>
 
-using namespace std::placeholders;
-
 namespace df
 {
+using namespace std::placeholders;
+
 BackendRenderer::BackendRenderer(Params && params)
   : BaseRenderer(ThreadsCommutator::ResourceUploadThread, params)
   , m_model(params.m_model)
@@ -120,7 +119,8 @@ void BackendRenderer::RecacheChoosePositionMark()
 
 void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
 {
-  switch (message->GetType())
+  auto const type = message->GetType();
+  switch (type)
   {
   case Message::Type::UpdateReadManager:
     {
@@ -210,6 +210,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
     {
       TOverlaysRenderData overlays;
       overlays.swap(m_overlays);
+      LOG(LDEBUG, ("!VNG!", type, overlays.size()));
       m_commutator->PostMessage(ThreadsCommutator::RenderThread,
                                 make_unique_dp<FlushOverlaysMessage>(std::move(overlays)),
                                 MessagePriority::Normal);
@@ -682,7 +683,7 @@ void BackendRenderer::Routine::Do()
     m_renderer.IterateRenderLoop();
   m_renderer.ReleaseResources();
 }
-  
+
 void BackendRenderer::RenderFrame()
 {
   CHECK(m_context != nullptr, ());

@@ -263,7 +263,8 @@ void FrontendRenderer::UpdateCanBeDeletedStatus()
 
 void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 {
-  switch (message->GetType())
+  auto const type = message->GetType();
+  switch (type)
   {
   case Message::Type::FlushTile:
     {
@@ -283,6 +284,9 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     {
       ref_ptr<FlushOverlaysMessage> msg = message;
       TOverlaysRenderData renderData = msg->AcceptRenderData();
+      if (!renderData.empty())
+        LOG(LDEBUG, ("!VNG!", type, renderData.size()));
+
       for (auto & overlayRenderData : renderData)
       {
         if (overlayRenderData.m_tileKey.m_zoomLevel == GetCurrentZoom() &&
@@ -519,8 +523,12 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       if (subrouteData->m_recacheId < 0)
         subrouteData->m_recacheId = m_lastRecacheRouteId;
 
+      LOG(LDEBUG, ("!VNG!", type, subrouteData->m_recacheId));
       if (!CheckRouteRecaching(make_ref(subrouteData)))
+      {
+        LOG(LDEBUG, ("!VNG! Failed recaching check"));
         break;
+      }
 
       m_routeRenderer->ClearObsoleteData(m_lastRecacheRouteId);
 
@@ -531,11 +539,14 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       m_routeRenderer->PrepareRouteArrows(m_userEventStream.GetCurrentScreen(),
                                           std::bind(&FrontendRenderer::OnPrepareRouteArrows, this, _1, _2));
 
-      if (m_pendingFollowRoute != nullptr)
+      if (m_pendingFollowRoute)
       {
+        LOG(LDEBUG, ("!VNG! Resume pending FollowRoute"));
+
         FollowRoute(m_pendingFollowRoute->m_preferredZoomLevel,
                     m_pendingFollowRoute->m_preferredZoomLevelIn3d,
                     m_pendingFollowRoute->m_enableAutoZoom, m_pendingFollowRoute->m_isArrowGlued);
+
         m_pendingFollowRoute.reset();
       }
       break;
@@ -609,6 +620,8 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       // receive FollowRoute message before FlushSubroute message, so we need to postpone its processing.
       if (m_routeRenderer->GetSubroutes().empty())
       {
+        LOG(LDEBUG, ("!VNG! Make pending FollowRoute"));
+
         m_pendingFollowRoute = std::make_unique<FollowRouteData>(
             msg->GetPreferredZoomLevel(), msg->GetPreferredZoomLevelIn3d(), msg->EnableAutoZoom(),
             msg->IsArrowGlued());
@@ -1067,6 +1080,8 @@ void FrontendRenderer::UpdateContextDependentResources()
 
   for (auto const & subroute : m_routeRenderer->GetSubroutes())
   {
+    LOG(LDEBUG, ("!VNG!", subroute.m_subrouteId, m_lastRecacheRouteId, GetCurrentZoom()));
+
     auto msg = make_unique_dp<AddSubrouteMessage>(subroute.m_subrouteId,
                                                   subroute.m_subroute,
                                                   m_lastRecacheRouteId);
@@ -1098,6 +1113,9 @@ void FrontendRenderer::UpdateContextDependentResources()
 void FrontendRenderer::FollowRoute(int preferredZoomLevel, int preferredZoomLevelIn3d,
                                    bool enableAutoZoom, bool isArrowGlued)
 {
+  LOG(LDEBUG, ("!VNG!", preferredZoomLevel, preferredZoomLevelIn3d, enableAutoZoom, isArrowGlued,
+               m_enablePerspectiveInNavigation));
+
   m_myPositionController->ActivateRouting(
       !m_enablePerspectiveInNavigation ? preferredZoomLevel : preferredZoomLevelIn3d,
       enableAutoZoom, isArrowGlued);

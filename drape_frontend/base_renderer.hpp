@@ -2,7 +2,6 @@
 
 #include "drape_frontend/message_acceptor.hpp"
 #include "drape_frontend/threads_commutator.hpp"
-#include "drape_frontend/tile_utils.hpp"
 
 #include "drape/graphics_context_factory.hpp"
 #include "drape/texture_manager.hpp"
@@ -44,7 +43,7 @@ public:
   BaseRenderer(ThreadsCommutator::ThreadName name, Params const & params);
 
   bool CanReceiveMessages();
-  
+
   void IterateRenderLoop();
 
   void SetRenderingEnabled(ref_ptr<dp::GraphicsContextFactory> contextFactory);
@@ -65,9 +64,9 @@ protected:
   void CreateContext();
 
   void CheckRenderingEnabled();
-  
+
   virtual std::unique_ptr<threads::IRoutine> CreateRoutine() = 0;
-  
+
   virtual void RenderFrame() = 0;
 
   virtual void OnContextCreate() = 0;
@@ -78,7 +77,7 @@ protected:
 
 private:
   using TCompletionHandler = std::function<void()>;
-  
+
   void IterateRenderLoopImpl();
 
   threads::Thread m_selfThread;

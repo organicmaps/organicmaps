@@ -131,6 +131,12 @@ void TouchEvent::Swap()
   SetSecondMaskedPointer(swapIndex(GetSecondMaskedPointer()));
 }
 
+SetAutoPerspectiveEvent::SetAutoPerspectiveEvent(bool isAutoPerspective)
+  : m_isAutoPerspective(isAutoPerspective)
+{
+  LOG(LDEBUG, ("!VNG!", isAutoPerspective));
+}
+
 UserEventStream::UserEventStream()
   : m_state(STATE_EMPTY)
   , m_animationSystem(AnimationSystem::Instance())

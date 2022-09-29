@@ -18,6 +18,8 @@ void RouteBuilder::Build(ref_ptr<dp::GraphicsContext> context, dp::DrapeID subro
                          SubrouteConstPtr subroute, ref_ptr<dp::TextureManager> textures,
                          int recacheId)
 {
+  LOG(LDEBUG, ("!VNG!", subrouteId, recacheId));
+
   RouteCacheData cacheData;
   cacheData.m_polyline = subroute->m_polyline;
   cacheData.m_baseDepthIndex = subroute->m_baseDepthIndex;
