@@ -3473,7 +3473,7 @@
     es = Refugio
     eu = Aterpea
     fa = پناهگاه
-    fi = Turvapaikka
+    fi = Katos
     fr = Abri
     hu = Menedék
     id = Tempat penampungan
