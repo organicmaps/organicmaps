@@ -107,6 +107,29 @@
   </screenshots>
 
   <releases>
+   <release version="2022.09.22-3" date="2022-09-22">
+     <description>
+       <ul>
+         <li>New OSM maps data as of September 12</li>
+         <li>Fixed wrong elevation data between -1,-1 and 1,1 latitudes and longitudes</li>
+         <li>Fixed crash on startup after editing some OSM objects</li>
+         <li>Bookmark lists are now sorted by recently modified time (sorting by name is planned!)</li>
+         <li>Improved displaying of the next street name directions</li>
+         <li>Show features in the viewport at the top of search results</li>
+         <li>Significantly speedup some search scenarios</li>
+         <li>Improved category ranking &amp; address search.</li>
+         <li>Fixed highlighted hotel search results icon on the map</li>
+         <li>Improved German category search</li>
+         <li>Added driving_school, music_school, language_school, archaeological_site, craft-painter</li>
+         <li>Removed backgrounds from historic cemetery icons</li>
+         <li>Added different castle types: castrum, fortified_church, fortress, hillfort, kremlin, manor, palace &amp; shiro</li>
+         <li>Increased visibility of education &amp; some sports</li>
+         <li>Separated furniture &amp; kitchen types</li>
+         <li>Better looking leisure=track</li>
+         <li>Fixed vending=fuel icon</li>
+       </ul>
+     </description>
+   </release>
    <release version="2022.08.23-5" date="2022-08-23">
      <description>
        <ul>
