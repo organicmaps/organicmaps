@@ -517,6 +517,7 @@ ar:منشآت للمنازل المتنقلة
 be:Для аўтадамоў|5Аўтадом|5Трэйлер|5Караван|Дом на колах
 fr:3Aménagements pour camping-car|caravane|mobile home
 es:Caravanas|Autocaravanas
+pl:Kamper
 ru:Для автодомов|5Автодом|5Трейлер|Дом на колёсах
 ro:Pentru rulote|3Rulotă|RV
 tr:4Karavan Tesisleri
