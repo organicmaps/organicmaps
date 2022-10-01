@@ -15,11 +15,10 @@ import android.view.View;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.Dimension;
-import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
-
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.widget.recycler.MultilineLayoutManager;
 import com.mapswithme.util.ThemeUtils;
@@ -61,12 +60,6 @@ public class TransitStepView extends View implements MultilineLayoutManager.Sque
     init(attrs);
   }
 
-  public TransitStepView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes)
-  {
-    super(context, attrs, defStyleAttr, defStyleRes);
-    init(attrs);
-  }
-
   private void init(@Nullable AttributeSet attrs)
   {
     mBackgroundCornerRadius = getResources().getDimensionPixelSize(R.dimen.routing_transit_step_corner_radius);
@@ -86,12 +79,17 @@ public class TransitStepView extends View implements MultilineLayoutManager.Sque
   public void setTransitStepInfo(@NonNull TransitStepInfo info)
   {
     mStepType = info.getType();
-    mDrawable = getResources().getDrawable(mStepType == TransitStepType.INTERMEDIATE_POINT
-                                           ? getIntermediatePointDrawableId(info.getIntermediateIndex())
-                                           : mStepType.getDrawable());
-    mDrawable = DrawableCompat.wrap(mDrawable);
     mBackgroundPaint.setColor(getBackgroundColor(getContext(), info));
-    mText = info.getNumber();
+    if (mStepType == TransitStepType.INTERMEDIATE_POINT)
+    {
+      mDrawable = null;
+      mText = String.valueOf(info.getIntermediateIndex() + 1);
+    }
+    else
+    {
+      mDrawable = ResourcesCompat.getDrawable(getResources(), mStepType.getDrawable(), null);
+      mText = info.getNumber();
+    }
     invalidate();
     requestLayout();
   }
@@ -104,32 +102,17 @@ public class TransitStepView extends View implements MultilineLayoutManager.Sque
       case PEDESTRIAN:
         return ThemeUtils.getColor(context, R.attr.transitPedestrianBackground);
       case INTERMEDIATE_POINT:
-        return Color.TRANSPARENT;
+        return ThemeUtils.getColor(context, R.attr.colorPrimary);
       default:
         return info.getColor();
     }
-  }
-
-  @DrawableRes
-  private static int getIntermediatePointDrawableId(int index)
-  {
-    switch (index)
-    {
-      case 0:
-        return R.drawable.ic_24px_route_point_a;
-      case 1:
-        return R.drawable.ic_24px_route_point_b;
-      case 2:
-        return R.drawable.ic_24px_route_point_c;
-    }
-    throw new AssertionError("Unknown intermediate point index: " + index);
   }
 
   @Override
   protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
   {
     int height = getDefaultSize(getSuggestedMinimumHeight(), MeasureSpec.UNSPECIFIED);
-    int width = getPaddingLeft();
+    int width = getPaddingLeft() + getPaddingRight();
     if (mDrawable != null)
     {
       calculateDrawableBounds(height, mDrawable);
@@ -139,12 +122,19 @@ public class TransitStepView extends View implements MultilineLayoutManager.Sque
     if (!TextUtils.isEmpty(mText))
     {
       mTextPaint.getTextBounds(mText, 0, mText.length(), mTextBounds);
-      width += (mDrawable != null ? getPaddingLeft() : 0) + mTextPaint.measureText(mText);
       if (height == 0)
         height = getPaddingTop() + mTextBounds.height() + getPaddingBottom();
-    }
+      final int computedTextWidth = (int) ((mDrawable != null ? getPaddingLeft() : 0) + mTextPaint.measureText(mText));
 
-    width += getPaddingRight();
+      if (mStepType == TransitStepType.INTERMEDIATE_POINT)
+      {
+        // Make the background a round/pill shape for intermediate points to mimic the map icons
+        width = Math.max(width + computedTextWidth, height);
+        mBackgroundCornerRadius = width / 2;
+      }
+      else
+        width += computedTextWidth;
+    }
     mBackgroundBounds.set(0, 0, width, height);
     setMeasuredDimension(width, height);
   }
@@ -186,7 +176,7 @@ public class TransitStepView extends View implements MultilineLayoutManager.Sque
   @Override
   protected void onDraw(Canvas canvas)
   {
-    if (getBackground() == null && mDrawable != null)
+    if (getBackground() == null)
     {
       canvas.drawRoundRect(mBackgroundBounds, mBackgroundCornerRadius, mBackgroundCornerRadius,
                            mBackgroundPaint);
@@ -197,9 +187,10 @@ public class TransitStepView extends View implements MultilineLayoutManager.Sque
 
     if (!TextUtils.isEmpty(mText))
     {
-      int yPos = (int) ((canvas.getHeight() / 2) - ((mTextPaint.descent() + mTextPaint.ascent()) / 2)) ;
-      int xPos = mDrawable != null ? mDrawable.getBounds().right + getPaddingLeft()
-                                   : getPaddingLeft();
+      int yPos = (int) ((getHeight() / 2) - ((mTextPaint.descent() + mTextPaint.ascent()) / 2)) ;
+      int xPos = mDrawable != null
+                 ? mDrawable.getBounds().right + getPaddingLeft()
+                 : (int) ((getWidth() - mTextPaint.measureText(mText)) / 2);
       canvas.drawText(mText, xPos, yPos, mTextPaint);
     }
   }
@@ -211,11 +202,6 @@ public class TransitStepView extends View implements MultilineLayoutManager.Sque
     {
       drawable.mutate();
       DrawableCompat.setTint(drawable, ThemeUtils.getColor(context, R.attr.iconTint));
-    }
-    else if (type == TransitStepType.INTERMEDIATE_POINT)
-    {
-      drawable.mutate();
-      DrawableCompat.setTint(drawable, getResources().getColor(R.color.routing_intermediate_point));
     }
     drawable.setBounds(mDrawableBounds);
     drawable.draw(canvas);

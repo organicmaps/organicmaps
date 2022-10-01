@@ -121,7 +121,6 @@
   <color name="routing_button_activated_tint">@color/bg_statusbar</color>
   <color name="routing_button_activated_tint_night">@color/bg_statusbar_night</color>
   <color name="routing_button_pressed_tint">#80FFFFFF</color>
-  <color name="routing_intermediate_point">#43A047</color>
 
   <!-- Editor -->
   <color name="bg_editor_light">#FFF2F6F6</color>
