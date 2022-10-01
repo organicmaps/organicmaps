@@ -7,7 +7,7 @@ import com.mapswithme.maps.R;
 public enum TransitStepType
 {
   // A specific icon for different intermediate points is calculated dynamically in TransitStepView.
-  INTERMEDIATE_POINT(R.drawable.ic_24px_route_point_a),
+  INTERMEDIATE_POINT(R.drawable.ic_20px_route_planning_walk),
   PEDESTRIAN(R.drawable.ic_20px_route_planning_walk),
   SUBWAY(R.drawable.ic_20px_route_planning_metro),
   TRAIN(R.drawable.ic_20px_route_planning_train),
