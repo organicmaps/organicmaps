@@ -6897,7 +6897,7 @@
     zh-Hans = 日本菜
     zh-Hant = 日本料理
     
-      [type.cuisine.juice]
+  [type.cuisine.juice]
     en = Juice
     es = Zumo
     zh-Hant = 果汁
