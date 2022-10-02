@@ -69,32 +69,42 @@ apply plugin: 'ru.cian.huawei-publish-gradle-plugin'
 dependencies {
   // Google Mobile Services
   if (googleMobileServicesEnabled) {
-    implementation 'com.google.android.gms:play-services-location:19.0.1'
+    implementation 'com.google.android.gms:play-services-location:20.0.0'
   }
 
   // Google Firebase Services
   if (googleFirebaseServicesEnabled) {
-    implementation 'com.google.firebase:firebase-crashlytics:18.2.6'
-    implementation 'com.google.firebase:firebase-crashlytics-ndk:18.2.6'
+    // Import the BoM for the Firebase platform
+    implementation platform('com.google.firebase:firebase-bom:30.5.0')
+    // Add the dependencies for the Crashlytics and Analytics libraries
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation 'com.google.firebase:firebase-crashlytics'
+    implementation 'com.google.firebase:firebase-crashlytics-ndk'
   }
 
-  implementation 'androidx.annotation:annotation:1.3.0'
-  implementation 'androidx.appcompat:appcompat:1.4.2'
+  implementation 'androidx.annotation:annotation:1.5.0'
+  implementation 'androidx.appcompat:appcompat:1.5.1'
   implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-  implementation 'androidx.fragment:fragment:1.4.1'
+  implementation 'androidx.fragment:fragment:1.5.3'
+  // Lifecycle is added as a workaround for duplicate classes error caused by some outdated dependency:
+  // > A failure occurred while executing com.android.build.gradle.internal.tasks.CheckDuplicatesRunnable
+  //   > Duplicate class androidx.lifecycle.ViewModelLazy found in modules jetified-lifecycle-viewmodel-ktx-2.3.1-runtime (androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1) and lifecycle-viewmodel-2.5.1-runtime (androidx.lifecycle:lifecycle-viewmodel:2.5.1)
+  //     Duplicate class androidx.lifecycle.ViewTreeViewModelKt found in modules jetified-lifecycle-viewmodel-ktx-2.3.1-runtime (androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1) and lifecycle-viewmodel-2.5.1-runtime (androidx.lifecycle:lifecycle-viewmodel:2.5.1)
+  implementation 'androidx.lifecycle:lifecycle-viewmodel:2.5.1'
+  implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
   implementation 'androidx.preference:preference:1.2.0'
   implementation 'androidx.recyclerview:recyclerview:1.2.1'
   implementation 'androidx.work:work-runtime:2.7.1'
-  implementation 'com.google.android.material:material:1.7.0-alpha02'
-  implementation 'com.google.code.gson:gson:2.9.0'
+  implementation 'com.google.android.material:material:1.8.0-alpha01'
+  implementation 'com.google.code.gson:gson:2.9.1'
   implementation 'com.timehop.stickyheadersrecyclerview:library:0.4.3@aar'
   implementation 'com.github.devnullorthrow:MPAndroidChart:3.2.0-alpha'
   implementation 'net.jcip:jcip-annotations:1.0'
 
   // Test Dependencies
   testImplementation 'junit:junit:4.13.2'
-  testImplementation 'org.mockito:mockito-core:4.6.0'
-  testImplementation 'org.mockito:mockito-inline:4.6.0'
+  testImplementation 'org.mockito:mockito-core:4.8.0'
+  testImplementation 'org.mockito:mockito-inline:4.8.0'
 }
 
 def run(cmd) {
@@ -113,7 +123,7 @@ def getVersion() {
   def bash = isWindows ? 'C:\\Program Files\\Git\\bin\\bash.exe' : 'bash'
   def versionCode = Integer.parseInt(run([bash, '../tools/unix/version.sh', 'android_code']).trim())
   def versionName = run([bash, '../tools/unix/version.sh', 'android_name']).trim()
-  return new groovy.lang.Tuple2(versionCode, versionName)
+  return new Tuple2(versionCode, versionName)
 }
 
 def getCommitMessage() {
@@ -138,10 +148,10 @@ android {
   defaultConfig {
     // Default package name is taken from the manifest and should be app.organicmaps
     def ver = getVersion()
-    println('Version: ' + ver.second)
-    println('VersionCode: ' + ver.first)
-    versionCode = ver.first
-    versionName = ver.second
+    versionCode = ver.V1
+    versionName = ver.V2
+    println('Version: ' + versionName)
+    println('VersionCode: ' + versionCode)
     minSdkVersion propMinSdkVersion.toInteger()
     targetSdkVersion propTargetSdkVersion.toInteger()
     applicationId project.ext.appId
@@ -220,7 +230,7 @@ android {
     res.srcDirs = ['tests/resources']
   }
 
-  flavorDimensions "default"
+  flavorDimensions 'default'
 
   productFlavors {
     // 01 is a historical artefact, sorry.
@@ -373,7 +383,7 @@ android {
 
   externalNativeBuild {
     cmake {
-      version "3.18.0+"
+      version "3.22.1+"
       buildStagingDirectory "./nativeOutputs"
       path "../CMakeLists.txt"
     }
