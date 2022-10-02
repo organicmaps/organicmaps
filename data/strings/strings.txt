@@ -3785,7 +3785,7 @@
 
   [version]
     comment = Prints version number in About dialog
-    tags = android,ios
+    tags = ios
     en = Version: %@
     ar = الاصدار: %@
     be = Версія: %@
@@ -5114,7 +5114,7 @@
 
   [vk]
     comment = Text in the editor
-    tags = android
+    tags = android,ios
     en = VK
 
   [editor_line_social_network]
@@ -5131,7 +5131,7 @@
 
   [feedback]
     comment = Settings: Send feedback button and dialog title
-    tags = android,ios
+    tags = android
     en = Feedback
     ar = إرسال التعليقات
     be = Водгук
@@ -10440,6 +10440,7 @@
     zh-Hant = 今天
 
   [opens_tomorrow_at]
+    tags = ios
     en = Opens tomorrow at %@
     be = Адкрыццё заўтра ў %@
     ca = Obre demà a les %@
@@ -10456,6 +10457,7 @@
     uk = Відкриття завтра о %@
 
   [opens_dayoftheweek_at]
+    tags = ios
     en = Opens %1$@ at %2$@
     be = Адкрыццё ў %1$@ у %2$@
     ca = Obre el %1$@ a les %2$@
@@ -10472,6 +10474,7 @@
     uk = Відчиняється в %1$@ о %2$@
 
   [opens_at]
+    tags = ios
     en = Opens at %@
     be = Адкрыццё ў %@
     ca = Obre a les %@
@@ -10488,6 +10491,7 @@
     uk = Відкриття о %@
 
   [opens_in]
+    tags = android,ios
     en = Opens in %@
     ar = يفتح بعد %@
     be = Адчыняецца праз %@
@@ -10505,6 +10509,7 @@
     uk = Відкривається через %@
 
   [closes_at]
+    tags = ios
     en = Closes at %@
     be = Зачыняецца ў %@
     ca = Tanca a les %@
@@ -10521,6 +10526,7 @@
     uk = Закривається о %@
 
   [closes_in]
+    tags = android,ios
     en = Closes in %@
     ar = يغلق في غضون %@
     be = Зачыняецца праз %@
@@ -11071,7 +11077,7 @@
     zh-Hant = 上次上傳
 
   [thank_you]
-    tags = android,ios
+    tags = ios
     en = Thank You
     ar = شكراً لك
     be = Дзякуй
@@ -14223,46 +14229,6 @@
     zh-Hans = 更多
     zh-Hant = 更多
 
-  [placepage_more_reviews_button]
-    tags = android
-    en = More Reviews
-    ar = المزيد من المراجعات
-    be = Больш водгукаў
-    bg = Още отзиви
-    ca = Més comentaris
-    cs = Více recenzí
-    da = Flere anmeldelser
-    de = Mehr Feedbacks
-    el = Περισσότερα σχόλια
-    es = Más comentarios
-    es-MX = Más comentarios
-    eu = Iruzkin gehiago
-    fa = نقدهای دیگر
-    fi = Lisää arvosteluja
-    fr = Plus d'avis
-    hu = További vélemények
-    id = Ulasan Lainnya
-    it = Altre recensioni
-    ja = レビューを更に表示
-    ko = 더 많은 리뷰
-    mr = अधिक समीक्षणे
-    nb = Flere anmeldelser
-    nl = Meer reacties
-    pl = Więcej opinii
-    pt = Mais comentários
-    pt-BR = Mais avaliações
-    ro = Mai multe recenzii
-    ru = Ещё отзывы
-    sk = Ďalšie recenzie
-    sv = Fler recensioner
-    sw = Maoni Zaidi
-    th = รีวิวอื่น ๆ
-    tr = Diğer Yorumlar
-    uk = Ще відгуки
-    vi = Thêm nhận xét
-    zh-Hans = 更多评论
-    zh-Hant = 更多評論
-
   [book_button]
     tags = ios
     en = Book
@@ -15557,7 +15523,7 @@
 
   [search_in_table]
     comment = A noun - a button name used to show search results in list form
-    tags = android,ios
+    tags = ios
     en = List
     ar = قائمة
     be = Спіс
@@ -16131,7 +16097,7 @@
 
   [feedback_general]
     comment = Settings: "Send general feedback" button
-    tags = android,ios
+    tags = android
     en = General Feedback
     ar = تعقيب عام
     be = Агульны водгук
