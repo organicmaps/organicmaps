@@ -153,8 +153,6 @@
 	<string name="copied_to_clipboard">کپی در کلیپ برد :%1$s</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">انجام شد</string>
-	<!-- Prints version number in About dialog -->
-	<string name="version">ورژن: %s</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">OpenStreetMap: %s ﯼﺎﻫ ﻩﺩﺍﺩ</string>
 	<!-- Confirmation in downloading countries dialog -->
@@ -382,7 +380,6 @@
 	<string name="password">رمز عبور</string>
 	<string name="forgot_password">رمز عبور خود را فراموش کردید؟</string>
 	<string name="logout">خروج از حساب</string>
-	<string name="thank_you">متشکریم</string>
 	<string name="edit_place">ویرایش مکان</string>
 	<string name="add_language">افزودن یک زبان</string>
 	<string name="street">خیابان</string>
@@ -457,7 +454,6 @@
 	<string name="minute">دقیقه</string>
 	<string name="placepage_place_description">توضیحات</string>
 	<string name="placepage_more_button">بیشتر</string>
-	<string name="placepage_more_reviews_button">نقدهای دیگر</string>
 	<string name="placepage_call_button">تماس</string>
 	<string name="placepage_edit_bookmark_button">ویرایش نشانه ها</string>
 	<string name="editor_comment_hint">اظهار نظر</string>
@@ -482,8 +478,6 @@
 	<string name="accept">موافقم</string>
 	<!-- For the first routing -->
 	<string name="decline">کاهش</string>
-	<!-- A noun - a button name used to show search results in list form -->
-	<string name="search_in_table">لیست</string>
 	<string name="mobile_data_dialog">از دیتای موبایل برای نمایش اطلاعات بیشتر استفاده شود؟</string>
 	<string name="mobile_data_option_always">همیشه استفاده کن</string>
 	<string name="mobile_data_option_today">فقط امروز</string>

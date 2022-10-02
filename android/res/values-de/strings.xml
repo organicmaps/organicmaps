@@ -179,8 +179,6 @@
 	<string name="copied_to_clipboard">In die Zwischenablage kopiert: %1$s</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">Fertig</string>
-	<!-- Prints version number in About dialog -->
-	<string name="version">Version: %s</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">OpenStreetMap-Daten: %s</string>
 	<!-- Confirmation in downloading countries dialog -->
@@ -397,11 +395,7 @@
 	<string name="day_off_today">Heute geschlossen</string>
 	<string name="day_off">Geschlossen</string>
 	<string name="today">Heute</string>
-	<string name="opens_tomorrow_at">Öffnet morgen um %s</string>
-	<string name="opens_dayoftheweek_at">Öffnet %1$s um %2$s</string>
-	<string name="opens_at">Öffnet um %s</string>
 	<string name="opens_in">Öffnet in %s</string>
-	<string name="closes_at">Schließt um %s</string>
 	<string name="closes_in">Schließt in %s</string>
 	<string name="closed">Geschlossen</string>
 	<string name="edit_opening_hours">Geschäftszeiten bearbeiten</string>
@@ -412,7 +406,6 @@
 	<string name="password">Passwort</string>
 	<string name="forgot_password">Passwort vergessen?</string>
 	<string name="logout">Abmelden</string>
-	<string name="thank_you">Danke</string>
 	<string name="edit_place">Eintrag bearbeiten</string>
 	<string name="add_language">Eine Sprache hinzufügen</string>
 	<string name="street">Straße</string>
@@ -488,7 +481,6 @@
 	<string name="minute">min</string>
 	<string name="placepage_place_description">Beschreibung</string>
 	<string name="placepage_more_button">Mehr</string>
-	<string name="placepage_more_reviews_button">Mehr Feedbacks</string>
 	<string name="placepage_call_button">Anruf</string>
 	<string name="placepage_edit_bookmark_button">Lesezeichen bearbeiten</string>
 	<string name="editor_comment_hint">Kommentar…</string>
@@ -520,8 +512,6 @@
 	<string name="accept">Annehmen</string>
 	<!-- For the first routing -->
 	<string name="decline">Ablehnen</string>
-	<!-- A noun - a button name used to show search results in list form -->
-	<string name="search_in_table">Liste</string>
 	<string name="mobile_data_dialog">Mobiles Internet verwenden, um genauere Informationen anzuzeigen?</string>
 	<string name="mobile_data_option_always">Immer verwenden</string>
 	<string name="mobile_data_option_today">Nur heute</string>

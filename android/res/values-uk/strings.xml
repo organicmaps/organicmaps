@@ -179,8 +179,6 @@
 	<string name="copied_to_clipboard">Скопіювати в буфер обміну: %1$s</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">Готово</string>
-	<!-- Prints version number in About dialog -->
-	<string name="version">Версія: %s</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">Дані OpenStreetMap: %s</string>
 	<!-- Confirmation in downloading countries dialog -->
@@ -395,11 +393,7 @@
 	<string name="day_off_today">Сьогодні зачинено</string>
 	<string name="day_off">Зачинено</string>
 	<string name="today">Сьогодні</string>
-	<string name="opens_tomorrow_at">Відкриття завтра о %s</string>
-	<string name="opens_dayoftheweek_at">Відчиняється в %1$s о %2$s</string>
-	<string name="opens_at">Відкриття о %s</string>
 	<string name="opens_in">Відкривається через %s</string>
-	<string name="closes_at">Закривається о %s</string>
 	<string name="closes_in">Зачиняється через %s</string>
 	<string name="closed">Зачинено</string>
 	<string name="edit_opening_hours">Редагувати години роботи</string>
@@ -410,7 +404,6 @@
 	<string name="password">Пароль</string>
 	<string name="forgot_password">Забули пароль?</string>
 	<string name="logout">Вийти</string>
-	<string name="thank_you">Дякуємо</string>
 	<string name="edit_place">Редагувати місце</string>
 	<string name="add_language">Додати мову</string>
 	<string name="street">Вулиця</string>
@@ -485,7 +478,6 @@
 	<string name="minute">хв</string>
 	<string name="placepage_place_description">Опис</string>
 	<string name="placepage_more_button">Ще</string>
-	<string name="placepage_more_reviews_button">Ще відгуки</string>
 	<string name="placepage_call_button">Подзвонити</string>
 	<string name="placepage_edit_bookmark_button">Редагувати мiтку</string>
 	<string name="editor_comment_hint">Коментар…</string>
@@ -517,8 +509,6 @@
 	<string name="accept">Прийняти</string>
 	<!-- For the first routing -->
 	<string name="decline">Відхилити</string>
-	<!-- A noun - a button name used to show search results in list form -->
-	<string name="search_in_table">Список</string>
 	<string name="mobile_data_dialog">Використовувати мобільні дані для перегляду докладної інформації?</string>
 	<string name="mobile_data_option_always">Завжди</string>
 	<string name="mobile_data_option_today">Тільки сьогодні</string>

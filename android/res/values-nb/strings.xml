@@ -166,8 +166,6 @@
 	<string name="copied_to_clipboard">Kopiert til utklippstavlen: %1$s</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">Ferdig</string>
-	<!-- Prints version number in About dialog -->
-	<string name="version">Versjon: %s</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">OpenStreetMap-data: %s</string>
 	<!-- Confirmation in downloading countries dialog -->
@@ -389,7 +387,6 @@
 	<string name="password">Passord</string>
 	<string name="forgot_password">Glemt passordet?</string>
 	<string name="logout">Logg ut</string>
-	<string name="thank_you">Takk skal du ha</string>
 	<string name="edit_place">Rediger stedet</string>
 	<string name="add_language">Legg til et språk</string>
 	<string name="street">Gate</string>
@@ -460,7 +457,6 @@
 	<string name="minute">min</string>
 	<string name="placepage_place_description">Beskrivelse</string>
 	<string name="placepage_more_button">Mer</string>
-	<string name="placepage_more_reviews_button">Flere anmeldelser</string>
 	<string name="placepage_call_button">Ring</string>
 	<string name="placepage_edit_bookmark_button">Rediger bokmerke</string>
 	<string name="editor_comment_hint">Kommentar…</string>
@@ -485,8 +481,6 @@
 	<string name="accept">Godta</string>
 	<!-- For the first routing -->
 	<string name="decline">Avvis</string>
-	<!-- A noun - a button name used to show search results in list form -->
-	<string name="search_in_table">Liste</string>
 	<string name="mobile_data_dialog">Bruke mobilt Internett til å vise detaljert informasjon?</string>
 	<string name="mobile_data_option_always">Bruk alltid</string>
 	<string name="mobile_data_option_today">Bare i dag</string>

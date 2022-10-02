@@ -182,8 +182,6 @@
 	<string name="copied_to_clipboard">تم النسخ الى الحافظة: %1$s</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">تم</string>
-	<!-- Prints version number in About dialog -->
-	<string name="version">الاصدار: %s</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">بيانات خريطة الشارع المفتوحة: %s</string>
 	<!-- Confirmation in downloading countries dialog -->
@@ -415,7 +413,6 @@
 	<string name="password">كلمة المرور</string>
 	<string name="forgot_password">هل نسيت كلمة المرور؟</string>
 	<string name="logout">تسجيل الخروج</string>
-	<string name="thank_you">شكراً لك</string>
 	<string name="edit_place">تعديل المكان</string>
 	<string name="add_language">إضافة لغة</string>
 	<string name="street">الشارع</string>
@@ -491,7 +488,6 @@
 	<string name="minute">د</string>
 	<string name="placepage_place_description">الوصف</string>
 	<string name="placepage_more_button">المزيد</string>
-	<string name="placepage_more_reviews_button">المزيد من المراجعات</string>
 	<string name="placepage_call_button">اتصال</string>
 	<string name="placepage_edit_bookmark_button">تحرير العلامة المرجعية</string>
 	<string name="editor_comment_hint">تعليق…</string>
@@ -523,8 +519,6 @@
 	<string name="accept">قبول</string>
 	<!-- For the first routing -->
 	<string name="decline">رفض</string>
-	<!-- A noun - a button name used to show search results in list form -->
-	<string name="search_in_table">قائمة</string>
 	<string name="mobile_data_dialog">استخدام بيانات الجوال لإظهار المعلومات التفصيلية؟</string>
 	<string name="mobile_data_option_always">استخدام دائمًا</string>
 	<string name="mobile_data_option_today">اليوم فقط</string>

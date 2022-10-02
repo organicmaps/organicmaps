@@ -164,8 +164,6 @@
 	<string name="copied_to_clipboard">클립보드에 복사됨: %1$s</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">완료</string>
-	<!-- Prints version number in About dialog -->
-	<string name="version">버전: %s</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">OpenStreetMap 데이터: %s</string>
 	<!-- Confirmation in downloading countries dialog -->
@@ -387,7 +385,6 @@
 	<string name="password">암호</string>
 	<string name="forgot_password">암호를 잊으 셨나요?</string>
 	<string name="logout">로그 아웃</string>
-	<string name="thank_you">고맙습니다.</string>
 	<string name="edit_place">장소 편집</string>
 	<string name="add_language">언어 추가</string>
 	<string name="street">거리</string>
@@ -460,7 +457,6 @@
 	<string name="minute">min</string>
 	<string name="placepage_place_description">설명</string>
 	<string name="placepage_more_button">자세히</string>
-	<string name="placepage_more_reviews_button">더 많은 리뷰</string>
 	<string name="placepage_call_button">전화</string>
 	<string name="placepage_edit_bookmark_button">즐겨찾기 편집</string>
 	<string name="editor_comment_hint">설명…</string>
@@ -485,8 +481,6 @@
 	<string name="accept">동의</string>
 	<!-- For the first routing -->
 	<string name="decline">거부</string>
-	<!-- A noun - a button name used to show search results in list form -->
-	<string name="search_in_table">목록</string>
 	<string name="mobile_data_dialog">모바일 인터넷을 사용하여 자세한 정보를 표시하시겠습니까?</string>
 	<string name="mobile_data_option_always">항상 사용</string>
 	<string name="mobile_data_option_today">오늘만</string>

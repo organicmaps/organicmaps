@@ -282,11 +282,11 @@
 /* Text in menu */
 "instagram" = "Instagram";
 
+/* Text in the editor */
+"vk" = "VK";
+
 /* Text in menu */
 "openstreetmap" = "開放街圖";
-
-/* Settings: Send feedback button and dialog title */
-"feedback" = "意見反應";
 
 /* Text in menu */
 "rate_the_app" = "為該應用程式評分";
@@ -867,9 +867,6 @@
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "無法使用交通資訊";
-
-/* Settings: "Send general feedback" button */
-"feedback_general" = "一般反應";
 
 "on" = "開";
 

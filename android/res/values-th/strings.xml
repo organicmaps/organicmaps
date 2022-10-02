@@ -166,8 +166,6 @@
 	<string name="copied_to_clipboard">คัดลอกไปยังคลิปบอร์ด: %1$s</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">เสร็จแล้ว</string>
-	<!-- Prints version number in About dialog -->
-	<string name="version">เวอร์ชัน: %s</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">ข้อมูล OpenStreetMap: %s</string>
 	<!-- Confirmation in downloading countries dialog -->
@@ -389,7 +387,6 @@
 	<string name="password">รหัสผ่าน</string>
 	<string name="forgot_password">ลืมรหัสผ่าน?</string>
 	<string name="logout">ออกจากระบบ</string>
-	<string name="thank_you">ขอบพระคุณ</string>
 	<string name="edit_place">แก้ไขสถานที่</string>
 	<string name="add_language">เพิ่มภาษา</string>
 	<string name="street">ถนน</string>
@@ -462,7 +459,6 @@
 	<string name="minute">น.</string>
 	<string name="placepage_place_description">คำอธิบาย</string>
 	<string name="placepage_more_button">เพิ่มเติม</string>
-	<string name="placepage_more_reviews_button">รีวิวอื่น ๆ</string>
 	<string name="placepage_call_button">โทร</string>
 	<string name="placepage_edit_bookmark_button">แก้ไข Bookmark</string>
 	<string name="editor_comment_hint">ข้อคิดเห็น</string>
@@ -487,8 +483,6 @@
 	<string name="accept">ยอมรับ</string>
 	<!-- For the first routing -->
 	<string name="decline">ปฏิเสธ</string>
-	<!-- A noun - a button name used to show search results in list form -->
-	<string name="search_in_table">รายการ</string>
 	<string name="mobile_data_dialog">ใช้อินเทอร์เน็ตมือถือแสดงข้อมูลโดยรายละเอียดหรือไม่?</string>
 	<string name="mobile_data_option_always">ใช้เสมอ</string>
 	<string name="mobile_data_option_today">วันนี้เท่านั้น</string>

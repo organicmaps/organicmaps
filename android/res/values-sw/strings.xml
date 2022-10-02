@@ -22,8 +22,6 @@
 	<string name="hospital">Hospitali</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
 	<string name="water">Maji</string>
-	<!-- Prints version number in About dialog -->
-	<string name="version">Toleo: %s</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">Data ya OpenStreetMap: %s</string>
 	<!-- Text in About menu, opens Organic Maps news website -->
@@ -62,7 +60,6 @@
 	<string name="level">Ghorofa</string>
 	<string name="osm_presentation">Data yote ya ramani inatoka kwa mradi wa OpenStreetMap. Ni kama Wikipedia ya ramani ambapo unaweza kuongeza au kuhariri maeneo, na yanapatikana kwa mamilioni ya watumiaji duniani kote.</string>
 	<string name="editor_other_info">Tuma ujumbe kwenye vihariri vya OSM</string>
-	<string name="placepage_more_reviews_button">Maoni Zaidi</string>
 	<string name="editor_share_to_all_dialog_message_2">Wahariri wa OpenStreetMap watakagua mabadiliko na kuwasiliana nawe ikiwa wana maswali yoyote.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps ni programu huria na ya chanzo huria ya ramani za nje ya mtandao. Hakuna matangazo. Hakuna ufuatiliaji. Ukiona hitilafu kwenye ramani, tafadhali irekebishe katika OpenStreetMap. Mradi huu umeundwa na wapendaji katika wakati wetu wa bure, kwa hivyo tunahitaji maoni na usaidizi wako.</string>

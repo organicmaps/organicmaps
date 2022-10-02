@@ -166,8 +166,6 @@
 	<string name="copied_to_clipboard">Telah Disalin ke Papan Klip: %1$s</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">Selesai</string>
-	<!-- Prints version number in About dialog -->
-	<string name="version">Versi: %s</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">Data OpenStreetMap: %s</string>
 	<!-- Confirmation in downloading countries dialog -->
@@ -387,7 +385,6 @@
 	<string name="password">Kata sandi</string>
 	<string name="forgot_password">Lupa kata sandi?</string>
 	<string name="logout">Keluar</string>
-	<string name="thank_you">Terima kasih</string>
 	<string name="edit_place">Sunting tempat</string>
 	<string name="add_language">Tambahkan bahasa</string>
 	<string name="street">Jalan</string>
@@ -460,7 +457,6 @@
 	<string name="minute">mnt</string>
 	<string name="placepage_place_description">Deskripsi</string>
 	<string name="placepage_more_button">Lainnya</string>
-	<string name="placepage_more_reviews_button">Ulasan Lainnya</string>
 	<string name="placepage_call_button">Hubungi</string>
 	<string name="placepage_edit_bookmark_button">Edit Bookmark</string>
 	<string name="editor_comment_hint">Komentar…</string>
@@ -485,8 +481,6 @@
 	<string name="accept">Terima</string>
 	<!-- For the first routing -->
 	<string name="decline">Tolak</string>
-	<!-- A noun - a button name used to show search results in list form -->
-	<string name="search_in_table">Daftar</string>
 	<string name="mobile_data_dialog">Gunakan internet seluler untuk memperlihatkan informasi terperinci?</string>
 	<string name="mobile_data_option_always">Selalu Gunakan</string>
 	<string name="mobile_data_option_today">Hanya Hari Ini</string>

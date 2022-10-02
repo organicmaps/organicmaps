@@ -182,8 +182,6 @@
 	<string name="copied_to_clipboard">Copied to clipboard: %1$s</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">Done</string>
-	<!-- Prints version number in About dialog -->
-	<string name="version">Version: %s</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">OpenStreetMap data: %s</string>
 	<!-- Confirmation in downloading countries dialog -->
@@ -420,11 +418,7 @@
 	<string name="day_off_today">Closed today</string>
 	<string name="day_off">Closed</string>
 	<string name="today">Today</string>
-	<string name="opens_tomorrow_at">Opens tomorrow at %s</string>
-	<string name="opens_dayoftheweek_at">Opens %1$s at %2$s</string>
-	<string name="opens_at">Opens at %s</string>
 	<string name="opens_in">Opens in %s</string>
-	<string name="closes_at">Closes at %s</string>
 	<string name="closes_in">Closes in %s</string>
 	<string name="closed">Closed</string>
 	<string name="edit_opening_hours">Edit business hours</string>
@@ -435,7 +429,6 @@
 	<string name="password">Password</string>
 	<string name="forgot_password">Forgot your password?</string>
 	<string name="logout">Log Out</string>
-	<string name="thank_you">Thank You</string>
 	<string name="edit_place">Edit Place</string>
 	<string name="add_language">Add a language</string>
 	<string name="street">Street</string>
@@ -511,7 +504,6 @@
 	<string name="minute">min</string>
 	<string name="placepage_place_description">Description</string>
 	<string name="placepage_more_button">More</string>
-	<string name="placepage_more_reviews_button">More Reviews</string>
 	<string name="placepage_call_button">Call</string>
 	<string name="placepage_edit_bookmark_button">Edit Bookmark</string>
 	<string name="editor_comment_hint">Comment…</string>
@@ -543,8 +535,6 @@
 	<string name="accept">Accept</string>
 	<!-- For the first routing -->
 	<string name="decline">Decline</string>
-	<!-- A noun - a button name used to show search results in list form -->
-	<string name="search_in_table">List</string>
 	<string name="mobile_data_dialog">Use mobile internet to show detailed information?</string>
 	<string name="mobile_data_option_always">Use Always</string>
 	<string name="mobile_data_option_today">Only Today</string>

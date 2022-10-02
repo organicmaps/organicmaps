@@ -164,8 +164,6 @@
 	<string name="copied_to_clipboard">A vágólapra másolva: %1$s</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">Kész</string>
-	<!-- Prints version number in About dialog -->
-	<string name="version">Verzió: %s</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">OpenStreetMap adatok: %s</string>
 	<!-- Confirmation in downloading countries dialog -->
@@ -387,7 +385,6 @@
 	<string name="password">Jelszó</string>
 	<string name="forgot_password">Elfelejtett jelszó?</string>
 	<string name="logout">Kijelentkezés</string>
-	<string name="thank_you">Köszönjük</string>
 	<string name="edit_place">Hely szerkesztése</string>
 	<string name="add_language">Nyelv hozzáadása</string>
 	<string name="street">Utca</string>
@@ -460,7 +457,6 @@
 	<string name="minute">p</string>
 	<string name="placepage_place_description">Leírás</string>
 	<string name="placepage_more_button">Még</string>
-	<string name="placepage_more_reviews_button">További vélemények</string>
 	<string name="placepage_call_button">Hívás</string>
 	<string name="placepage_edit_bookmark_button">Könyvjelző szerkesztése</string>
 	<string name="editor_comment_hint">Megjegyzés…</string>
@@ -485,8 +481,6 @@
 	<string name="accept">Elfogadja</string>
 	<!-- For the first routing -->
 	<string name="decline">Elutasítja</string>
-	<!-- A noun - a button name used to show search results in list form -->
-	<string name="search_in_table">Lista</string>
 	<string name="mobile_data_dialog">Részletes információk megjelenítése a mobil internet segítségével?</string>
 	<string name="mobile_data_option_always">Mindig használja</string>
 	<string name="mobile_data_option_today">Csak ma</string>

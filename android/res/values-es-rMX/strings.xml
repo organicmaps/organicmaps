@@ -43,7 +43,6 @@
 
 	<!-- SECTION: Strings for downloading map from search -->
 	<string name="editor_other_info">Enviar nota a los editores de OSM</string>
-	<string name="placepage_more_reviews_button">Más comentarios</string>
 	<string name="transliteration_title">Transliteración al alfabeto latino</string>
 	<string name="dialog_error_storage_title">Problema de acceso al almacenamiento</string>
 	<string name="dialog_error_storage_message">El almacenamiento externo no está disponible. Es posible que se haya quitado o dañado la tarjeta SD, o que el sistema de archivos solo permita la lectura. Revíselo y escríbanos a support\@organicmaps.app</string>

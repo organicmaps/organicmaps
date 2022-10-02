@@ -182,8 +182,6 @@
 	<string name="copied_to_clipboard">Скопировано в буфер обмена: %1$s</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">Готово</string>
-	<!-- Prints version number in About dialog -->
-	<string name="version">Версия: %s</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">Данные OpenStreetMap: %s</string>
 	<!-- Confirmation in downloading countries dialog -->
@@ -402,11 +400,7 @@
 	<string name="day_off_today">Сегодня закрыто</string>
 	<string name="day_off">Закрыто</string>
 	<string name="today">Сегодня</string>
-	<string name="opens_tomorrow_at">Откроется завтра в %s</string>
-	<string name="opens_dayoftheweek_at">Открывается в %1$s в %2$s</string>
-	<string name="opens_at">Открывается в %s</string>
 	<string name="opens_in">Открывается через %s</string>
-	<string name="closes_at">Закрывается в %s</string>
 	<string name="closes_in">Закроется через %s</string>
 	<string name="closed">Закрыто</string>
 	<string name="edit_opening_hours">Редактировать время работы</string>
@@ -417,7 +411,6 @@
 	<string name="password">Пароль</string>
 	<string name="forgot_password">Забыли пароль?</string>
 	<string name="logout">Выйти</string>
-	<string name="thank_you">Спасибо</string>
 	<string name="edit_place">Редактировать место</string>
 	<string name="add_language">Добавить язык</string>
 	<string name="street">Улица</string>
@@ -493,7 +486,6 @@
 	<string name="minute">мин</string>
 	<string name="placepage_place_description">Описание</string>
 	<string name="placepage_more_button">Ещё</string>
-	<string name="placepage_more_reviews_button">Ещё отзывы</string>
 	<string name="placepage_call_button">Позвонить</string>
 	<string name="placepage_edit_bookmark_button">Редактировать метку</string>
 	<string name="editor_comment_hint">Коментарий…</string>
@@ -525,8 +517,6 @@
 	<string name="accept">Принять</string>
 	<!-- For the first routing -->
 	<string name="decline">Отклонить</string>
-	<!-- A noun - a button name used to show search results in list form -->
-	<string name="search_in_table">Список</string>
 	<string name="mobile_data_dialog">Загружать дополнительную информацию через мобильный интернет?</string>
 	<string name="mobile_data_option_always">Всегда</string>
 	<string name="mobile_data_option_today">Только сегодня</string>

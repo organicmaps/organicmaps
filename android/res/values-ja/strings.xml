@@ -162,8 +162,6 @@
 	<string name="copied_to_clipboard">クリップボードにコピーしました: %1$s</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">完了</string>
-	<!-- Prints version number in About dialog -->
-	<string name="version">バージョン： %s</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">OpenStreetMapデータ：%s</string>
 	<!-- Confirmation in downloading countries dialog -->
@@ -385,7 +383,6 @@
 	<string name="password">パスワード</string>
 	<string name="forgot_password">パスワードをお忘れですか？</string>
 	<string name="logout">ログアウト</string>
-	<string name="thank_you">ありがとうございます</string>
 	<string name="edit_place">場所を編集</string>
 	<string name="add_language">言語を追加</string>
 	<string name="street">通り</string>
@@ -458,7 +455,6 @@
 	<string name="minute">分</string>
 	<string name="placepage_place_description">説明</string>
 	<string name="placepage_more_button">さらに詳しく</string>
-	<string name="placepage_more_reviews_button">レビューを更に表示</string>
 	<string name="placepage_call_button">コール</string>
 	<string name="placepage_edit_bookmark_button">ブックマークを編集</string>
 	<string name="editor_comment_hint">コメント…</string>
@@ -483,8 +479,6 @@
 	<string name="accept">了解</string>
 	<!-- For the first routing -->
 	<string name="decline">拒否</string>
-	<!-- A noun - a button name used to show search results in list form -->
-	<string name="search_in_table">一覧</string>
 	<string name="mobile_data_dialog">モバイルインターネットを使用して詳細な情報を表示しますか？</string>
 	<string name="mobile_data_option_always">常に使用</string>
 	<string name="mobile_data_option_today">今日だけ</string>

@@ -165,8 +165,6 @@
 	<string name="copied_to_clipboard">Αντιγράφηκε στο Πρόχειρο: %1$s</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">Ολοκληρώθηκε</string>
-	<!-- Prints version number in About dialog -->
-	<string name="version">Έκδοση: %s</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">Δεδομένα OpenStreetMap: %s</string>
 	<!-- Confirmation in downloading countries dialog -->
@@ -390,7 +388,6 @@
 	<string name="password">Κωδικός πρόσβασης</string>
 	<string name="forgot_password">Ξαχάσατε τον κωδικό πρόσβασης;</string>
 	<string name="logout">Αποσύνδεση</string>
-	<string name="thank_you">Σας ευχαριστούμε</string>
 	<string name="edit_place">Επεξεργασία μέρους</string>
 	<string name="add_language">Προσθήκη γλώσσας</string>
 	<string name="street">Οδός</string>
@@ -454,7 +451,6 @@
 	<string name="current_location_unknown_continue_button">Συνέχεια</string>
 	<string name="current_location_unknown_stop_button">Στοπ</string>
 	<string name="placepage_more_button">Περισσότερα</string>
-	<string name="placepage_more_reviews_button">Περισσότερα σχόλια</string>
 	<string name="placepage_call_button">Κλήση</string>
 	<string name="placepage_edit_bookmark_button">Επεξεργασία αγαπημένου</string>
 	<string name="editor_comment_hint">Σχόλιο…</string>
@@ -479,8 +475,6 @@
 	<string name="accept">Συμφωνώ</string>
 	<!-- For the first routing -->
 	<string name="decline">Διαφωνώ</string>
-	<!-- A noun - a button name used to show search results in list form -->
-	<string name="search_in_table">Λίστα</string>
 	<string name="mobile_data_dialog">Θέλετε να χρησιμοποιήσετε το δίκτυο κινητής τηλεφωνίας για να εμφανίσετε αναλυτικές πληροφορίες;</string>
 	<string name="mobile_data_option_always">Να χρησιμοποιείται πάντα</string>
 	<string name="mobile_data_option_today">Μόνο σήμερα</string>

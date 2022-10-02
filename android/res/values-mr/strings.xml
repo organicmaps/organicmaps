@@ -163,8 +163,6 @@
 	<string name="copied_to_clipboard">क्लिपबोर्डावर कॉपी केले: %1$s</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">झाले</string>
-	<!-- Prints version number in About dialog -->
-	<string name="version">आवृत्ती: %s</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">OpenStreetMap डेटा: %s</string>
 	<!-- Confirmation in downloading countries dialog -->
@@ -389,7 +387,6 @@
 	<string name="password">पासवर्ड</string>
 	<string name="forgot_password">पासवर्ड विसरलात?</string>
 	<string name="logout">लॉग आऊट</string>
-	<string name="thank_you">आभारी</string>
 	<string name="edit_place">ठिकाण संपादित करा</string>
 	<string name="add_language">भाषा जोडा</string>
 	<string name="street">रस्ता</string>
@@ -464,7 +461,6 @@
 	<string name="minute">मिनिट</string>
 	<string name="placepage_place_description">वर्णन</string>
 	<string name="placepage_more_button">अधिक</string>
-	<string name="placepage_more_reviews_button">अधिक समीक्षणे</string>
 	<string name="placepage_call_button">फोन करा</string>
 	<string name="placepage_edit_bookmark_button">खूणपत्र संपादित करा</string>
 	<string name="editor_comment_hint">टिप्पणी</string>
@@ -493,8 +489,6 @@
 	<string name="accept">स्वीकारा</string>
 	<!-- For the first routing -->
 	<string name="decline">नाकारा</string>
-	<!-- A noun - a button name used to show search results in list form -->
-	<string name="search_in_table">यादी</string>
 	<string name="mobile_data_dialog">तपशीलवार माहिती दाखवण्यासाठी मोबाईल इंटरनेट वापरायचे?</string>
 	<string name="mobile_data_option_always">नेहमी वापरा</string>
 	<string name="mobile_data_option_today">फक्त आज</string>

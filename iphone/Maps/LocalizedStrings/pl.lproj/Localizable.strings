@@ -153,7 +153,7 @@
 "water" = "Woda";
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
-"rv" = "RV Facilities";
+"rv" = "Kamper";
 
 "share_bookmarks_email_body" = "Cześć!\n\nZałączam moje zakładki z aplikacji Organic Maps. Proszę otwórz je jeżeli masz zaintalowane Organic Maps. Lub, jeżeli nie masz, pobierz aplikację na swoje urządzenie iOS/Android za pomocą tego linka: https://omaps.app/get?kmz\n\nMiłego podróżowania z Organic Maps!";
 
@@ -282,11 +282,11 @@
 /* Text in menu */
 "instagram" = "Instagram";
 
+/* Text in the editor */
+"vk" = "VK";
+
 /* Text in menu */
 "openstreetmap" = "OpenStreetMap";
-
-/* Settings: Send feedback button and dialog title */
-"feedback" = "Opinia";
 
 /* Text in menu */
 "rate_the_app" = "Oceń aplikację";
@@ -572,17 +572,17 @@
 
 "today" = "Dzisiaj";
 
-"opens_tomorrow_at" = "Opens tomorrow at %@";
+"opens_tomorrow_at" = "Otwarcie jutro o %@";
 
-"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
+"opens_dayoftheweek_at" = "Otwarcie %1$@ o %2$@";
 
-"opens_at" = "Opens at %@";
+"opens_at" = "Otwarcie o %@";
 
-"opens_in" = "Opens in %@";
+"opens_in" = "Otwarcie za %@";
 
-"closes_at" = "Closes at %@";
+"closes_at" = "Zamknięcie o %@";
 
-"closes_in" = "Closes in %@";
+"closes_in" = "Zamknięcie za %@";
 
 "closed" = "Zamknięte";
 
@@ -867,9 +867,6 @@
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Dane o ruchu są niedostępne";
-
-/* Settings: "Send general feedback" button */
-"feedback_general" = "Ogólne uwagi";
 
 "on" = "Wł.";
 
