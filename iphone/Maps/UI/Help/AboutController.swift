@@ -114,7 +114,7 @@ final class AboutController: MWMViewController, UITableViewDataSource, UITableVi
 
   // MARK: - UITableView data source
 
-  // Update didSelect... delegate after modifying this list.
+  // Update didSelect... delegate and tools/python/clean_strings_txt.py after modifying this list.
   private let labels = [
     ["news", "faq", "report_a_bug", "how_to_support_us", "rate_the_app"],
     ["telegram", "github", "website", "email", "facebook", "twitter", "instagram", "matrix", "openstreetmap"],

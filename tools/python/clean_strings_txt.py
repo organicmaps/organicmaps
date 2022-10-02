@@ -23,7 +23,7 @@ CORE_RE = re.compile(r'GetLocalizedString\("(.*?)"\)')
 
 # max 2 matches in L(). Tried to make ()+ group, but no luck ..
 IOS_RE = re.compile(r'L\(.*?"(\w+)".*?(?:"(\w+)")?\)')
-IOS_NS_RE = re.compile(r'NSLocalizedString\(\s*?"(\w+)"')
+IOS_NS_RE = re.compile(r'NSLocalizedString\(\s*?@?"(\w+)"')
 IOS_XML_RE = re.compile(r'value=\"(.*?)\"')
 
 ANDROID_JAVA_RE = re.compile(r'R\.string\.([\w_]*)')
@@ -34,12 +34,14 @@ IOS_CANDIDATES_RE = re.compile(r'(.*?):[^L\(]@"([a-z0-9_]*?)"')
 
 HARDCODED_CATEGORIES = None
 
-HARDCODED_COLORS = [
+HARDCODED_STRINGS = [
     # titleForBookmarkColor
     "red", "blue", "purple", "yellow", "pink", "brown", "green", "orange", "deep_purple", "light_blue",
     "cyan", "teal", "lime", "deep_orange", "gray", "blue_gray",
-    # Used in About
-    "matrix"
+    # Used in About in iphone/Maps/UI/Help/AboutController.swift
+    "news", "faq", "report_a_bug", "how_to_support_us", "rate_the_app",
+    "telegram", "github", "website", "email", "facebook", "twitter", "instagram", "matrix", "openstreetmap",
+    "privacy_policy", "terms_of_use", "copyright",
 ]
 
 
@@ -110,7 +112,7 @@ def grep_ios_candidates():
 
 def get_hardcoded():
     ret = parenthesize(HARDCODED_CATEGORIES)
-    ret.update(parenthesize(HARDCODED_COLORS))
+    ret.update(parenthesize(HARDCODED_STRINGS))
     logging.info("Hardcoded colors and categories: {0}".format(len(ret)))
     return ret
 
