@@ -142,8 +142,6 @@
 	<string name="copied_to_clipboard">הועתקו לזכרון זמני %1$s</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">בוצע</string>
-	<!-- Prints version number in About dialog -->
-	<string name="version">%s וורסיה</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">OpenStreetMap: %s ינותנ</string>
 	<!-- Confirmation in downloading countries dialog -->

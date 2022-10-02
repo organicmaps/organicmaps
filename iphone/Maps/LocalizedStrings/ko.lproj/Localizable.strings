@@ -282,11 +282,11 @@
 /* Text in menu */
 "instagram" = "Instagram";
 
+/* Text in the editor */
+"vk" = "VK";
+
 /* Text in menu */
 "openstreetmap" = "OpenStreetMap";
-
-/* Settings: Send feedback button and dialog title */
-"feedback" = "피드백";
 
 /* Text in menu */
 "rate_the_app" = "앱 평가";
@@ -867,9 +867,6 @@
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "교통 데이터를 사용할 수 없습니다";
-
-/* Settings: "Send general feedback" button */
-"feedback_general" = "일반 피드백";
 
 "on" = "켜기";
 

@@ -165,8 +165,6 @@
 	<string name="copied_to_clipboard">Copiado para a área de transferência: %1$s</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">Feito</string>
-	<!-- Prints version number in About dialog -->
-	<string name="version">Versão: %s</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">Dados do OpenStreetMap: %s</string>
 	<!-- Confirmation in downloading countries dialog -->
@@ -385,10 +383,6 @@
 	<string name="day_off_today">Fechado hoje</string>
 	<string name="day_off">Fechado</string>
 	<string name="today">Hoje</string>
-	<string name="opens_tomorrow_at">Abre amanhã às %s</string>
-	<string name="opens_dayoftheweek_at">Abre %1$s às %2$s</string>
-	<string name="opens_at">Abre às %s</string>
-	<string name="closes_at">Encerra às %s</string>
 	<string name="closed">Fechado</string>
 	<string name="edit_opening_hours">Editar horário de funcionamento</string>
 	<string name="no_osm_account">Não tem uma conta no OpenStreetMap?</string>
@@ -398,7 +392,6 @@
 	<string name="password">Palavra-chave</string>
 	<string name="forgot_password">Esqueceu-se da palavra-chave?</string>
 	<string name="logout">Terminar sessão</string>
-	<string name="thank_you">Obrigado</string>
 	<string name="edit_place">Editar o local</string>
 	<string name="add_language">Adicionar um idioma</string>
 	<string name="street">Rua</string>
@@ -471,7 +464,6 @@
 	<string name="minute">min</string>
 	<string name="placepage_place_description">Descrição</string>
 	<string name="placepage_more_button">Mais</string>
-	<string name="placepage_more_reviews_button">Mais comentários</string>
 	<string name="placepage_call_button">Telefonar</string>
 	<string name="placepage_edit_bookmark_button">Editar favorito</string>
 	<string name="editor_comment_hint">Comentário…</string>
@@ -496,8 +488,6 @@
 	<string name="accept">Aceitar</string>
 	<!-- For the first routing -->
 	<string name="decline">Recusar</string>
-	<!-- A noun - a button name used to show search results in list form -->
-	<string name="search_in_table">Lista</string>
 	<string name="mobile_data_dialog">Utilizar os dados móveis para mostrar informações detalhadas?</string>
 	<string name="mobile_data_option_always">Utilizar sempre</string>
 	<string name="mobile_data_option_today">Apenas hoje</string>

@@ -282,11 +282,11 @@
 /* Text in menu */
 "instagram" = "Instagram";
 
+/* Text in the editor */
+"vk" = "VK";
+
 /* Text in menu */
 "openstreetmap" = "OpenStreetMap";
-
-/* Settings: Send feedback button and dialog title */
-"feedback" = "अभिप्राय";
 
 /* Text in menu */
 "rate_the_app" = "ऍप मानांकित करा";
@@ -867,9 +867,6 @@
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "वाहतूक माहिती उपलब्ध नाही";
-
-/* Settings: "Send general feedback" button */
-"feedback_general" = "सामान्य अभिप्राय";
 
 "on" = "चालू";
 

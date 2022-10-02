@@ -167,8 +167,6 @@
 	<string name="copied_to_clipboard">Copiado al portapapeles: %1$s</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">Hecho</string>
-	<!-- Prints version number in About dialog -->
-	<string name="version">Versión: %s</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">Datos de OpenStreetMap: %s</string>
 	<!-- Confirmation in downloading countries dialog -->
@@ -385,11 +383,7 @@
 	<string name="day_off_today">Día libre hoy</string>
 	<string name="day_off">Día libre</string>
 	<string name="today">Hoy</string>
-	<string name="opens_tomorrow_at">Abre mañana a las %s</string>
-	<string name="opens_dayoftheweek_at">Abre el %1$s a las %2$s</string>
-	<string name="opens_at">Abre a las %s</string>
 	<string name="opens_in">Abre en %s</string>
-	<string name="closes_at">Cierra a las %s</string>
 	<string name="closes_in">Cierra en %s</string>
 	<string name="closed">Cerrado</string>
 	<string name="edit_opening_hours">Editar los horarios de apertura</string>
@@ -400,7 +394,6 @@
 	<string name="password">Contraseña</string>
 	<string name="forgot_password">¿Has olvidado tu contraseña?</string>
 	<string name="logout">Cerrar sesión</string>
-	<string name="thank_you">Gracias</string>
 	<string name="edit_place">Editar el lugar</string>
 	<string name="add_language">Añadir un idioma</string>
 	<string name="street">Calle</string>
@@ -475,7 +468,6 @@
 	<string name="minute">min</string>
 	<string name="placepage_place_description">Descripción</string>
 	<string name="placepage_more_button">Más</string>
-	<string name="placepage_more_reviews_button">Más comentarios</string>
 	<string name="placepage_call_button">Llamar</string>
 	<string name="placepage_edit_bookmark_button">Editar marcador</string>
 	<string name="editor_comment_hint">Comentario…</string>
@@ -504,8 +496,6 @@
 	<string name="accept">Aceptar</string>
 	<!-- For the first routing -->
 	<string name="decline">Declinar</string>
-	<!-- A noun - a button name used to show search results in list form -->
-	<string name="search_in_table">Lista</string>
 	<string name="mobile_data_dialog">¿Usar Internet móvil para mostrar información detallada?</string>
 	<string name="mobile_data_option_always">Usar siempre</string>
 	<string name="mobile_data_option_today">Solo hoy</string>

@@ -166,8 +166,6 @@
 	<string name="copied_to_clipboard">Kopioitu leikepöydälle: %1$s</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">Valmis</string>
-	<!-- Prints version number in About dialog -->
-	<string name="version">Versio: %s</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">OpenStreetMap-tiedot: %s</string>
 	<!-- Confirmation in downloading countries dialog -->
@@ -393,7 +391,6 @@
 	<string name="password">Salasana</string>
 	<string name="forgot_password">Unohtuiko salasana?</string>
 	<string name="logout">Kirjaudu ulos</string>
-	<string name="thank_you">Kiitos</string>
 	<string name="edit_place">Muokkaa kohdetta</string>
 	<string name="add_language">Lisää kieli</string>
 	<string name="street">Katu</string>
@@ -466,7 +463,6 @@
 	<string name="minute">min</string>
 	<string name="placepage_place_description">Kuvaus</string>
 	<string name="placepage_more_button">Lisää</string>
-	<string name="placepage_more_reviews_button">Lisää arvosteluja</string>
 	<string name="placepage_call_button">Soita</string>
 	<string name="placepage_edit_bookmark_button">Muokkaa kirjanmerkkiä</string>
 	<string name="editor_comment_hint">Kommentti…</string>
@@ -491,8 +487,6 @@
 	<string name="accept">Hyväksy</string>
 	<!-- For the first routing -->
 	<string name="decline">Hylkää</string>
-	<!-- A noun - a button name used to show search results in list form -->
-	<string name="search_in_table">Luettelo</string>
 	<string name="mobile_data_dialog">Näytetäänkö lisätiedot mobiili-internetillä?</string>
 	<string name="mobile_data_option_always">Käytä aina</string>
 	<string name="mobile_data_option_today">Vain tänään</string>
@@ -782,7 +776,7 @@
 	<string name="type.recycling.small_appliances">Kodinkonejäte</string>
 	<string name="type.amenity.restaurant">Ravintola</string>
 	<string name="type.amenity.school">Koulu</string>
-	<string name="type.amenity.shelter">Turvapaikka</string>
+	<string name="type.amenity.shelter">Katos</string>
 	<string name="type.amenity.shower">Suihku</string>
 	<string name="type.amenity.taxi">Taksi</string>
 	<string name="type.amenity.telephone">Puhelin</string>

@@ -164,8 +164,6 @@
 	<string name="copied_to_clipboard">Skopírované do schránky: %1$s</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">Hotovo</string>
-	<!-- Prints version number in About dialog -->
-	<string name="version">Verzia: %s</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">Údaje OpenStreetMap: %s</string>
 	<!-- Confirmation in downloading countries dialog -->
@@ -385,7 +383,6 @@
 	<string name="password">Heslo</string>
 	<string name="forgot_password">Zabudli ste heslo?</string>
 	<string name="logout">Odhlásiť sa</string>
-	<string name="thank_you">Ďakujeme Vám</string>
 	<string name="edit_place">Upraviť miesto</string>
 	<string name="add_language">Pridať jazyk</string>
 	<string name="street">Ulica</string>
@@ -458,7 +455,6 @@
 	<string name="minute">min</string>
 	<string name="placepage_place_description">Popis</string>
 	<string name="placepage_more_button">Viac</string>
-	<string name="placepage_more_reviews_button">Ďalšie recenzie</string>
 	<string name="placepage_call_button">Zavolať</string>
 	<string name="placepage_edit_bookmark_button">Upraviť záložku</string>
 	<string name="editor_comment_hint">Poznámka…</string>
@@ -483,8 +479,6 @@
 	<string name="accept">Prijať</string>
 	<!-- For the first routing -->
 	<string name="decline">Odmietnuť</string>
-	<!-- A noun - a button name used to show search results in list form -->
-	<string name="search_in_table">Zoznam</string>
 	<string name="mobile_data_dialog">Použiť mobilný internet na zobrazenie podrobnejších informácií?</string>
 	<string name="mobile_data_option_always">Vždy použiť</string>
 	<string name="mobile_data_option_today">Iba dnes</string>

@@ -78,8 +78,20 @@
 	<string name="maps_storage_summary">Określa położenie przechowywania pobranych map</string>
 	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
 	<string name="maps_storage_downloaded">Mapy</string>
+	<!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
+	<string name="maps_storage_internal">Wewnętrzna pamięć prywatna</string>
+	<!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
+	<string name="maps_storage_shared">Wewnętrzna pamięć współdzielona</string>
+	<!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
+	<string name="maps_storage_removable">Karta SD</string>
+	<!-- Generic external storage type in Maps Storage settings -->
+	<string name="maps_storage_external">Zewnętrzna pamięć współdzielona</string>
+	<!-- Free space out of total storage size in Maps Storage settings, e.g. "300 MB free of 2 GB" -->
+	<string name="maps_storage_free_size">%1$s wolne z %2$s</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Przenieść mapy?</string>
+	<!-- Error moving map files from one storage to another -->
+	<string name="move_maps_error">Błąd przenoszenia plików map</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
 	<string name="wait_several_minutes">To może zająć kilka minut.\nProszę czekać…</string>
 	<!-- Measurement units title in settings activity -->
@@ -130,6 +142,8 @@
 	<string name="recycling">Recykling</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
 	<string name="water">Woda</string>
+	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
+	<string name="rv">Kamper</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Notatki</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -165,8 +179,6 @@
 	<string name="copied_to_clipboard">Skopiowano do schowka: %1$s</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">Gotowe</string>
-	<!-- Prints version number in About dialog -->
-	<string name="version">Wersja: %s</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">Dane OpenStreetMap: %s</string>
 	<!-- Confirmation in downloading countries dialog -->
@@ -347,6 +359,8 @@
 	<string name="search_history_title">Historia wyszukiwania</string>
 	<string name="search_history_text">Uzyskaj szybki dostęp do ostatniego hasła wyszukiwania.</string>
 	<string name="clear_search">Wyczyść historię wyszukiwania</string>
+	<!-- Place Page link to Wikipedia article (if map object has it). -->
+	<string name="read_in_wikipedia">Wikipedia</string>
 	<string name="p2p_your_location">Twoja lokalizacja</string>
 	<string name="p2p_start">Start</string>
 	<string name="p2p_from_here">Z</string>
@@ -383,6 +397,8 @@
 	<string name="day_off_today">Dziś nieczynne</string>
 	<string name="day_off">Nieczynne</string>
 	<string name="today">Dzisiaj</string>
+	<string name="opens_in">Otwarcie za %s</string>
+	<string name="closes_in">Zamknięcie za %s</string>
 	<string name="closed">Zamknięte</string>
 	<string name="edit_opening_hours">Edytuj godziny otwarcia</string>
 	<string name="no_osm_account">Nie masz konta w OpenStreetMap?</string>
@@ -392,7 +408,6 @@
 	<string name="password">Hasło</string>
 	<string name="forgot_password">Nie pamiętasz hasła?</string>
 	<string name="logout">Wyloguj</string>
-	<string name="thank_you">Dziękujemy</string>
 	<string name="edit_place">Edytuj miejsce</string>
 	<string name="add_language">Dodaj język</string>
 	<string name="street">Ulica</string>
@@ -401,6 +416,8 @@
 	<string name="details">Szczegóły</string>
 	<!-- Text field to enter non-existing street name, below list of known streets around -->
 	<string name="add_street">Dodaj ulicę</string>
+	<!-- Error to display when a new street name is not entered in the New street dialog -->
+	<string name="empty_street_name_error">Proszę wpisz nazwę ulicy</string>
 	<string name="choose_language">Wybierz język</string>
 	<string name="choose_street">Wybierz ulicę</string>
 	<string name="postal_code">Kod pocztowy</string>
@@ -466,7 +483,6 @@
 	<string name="minute">min</string>
 	<string name="placepage_place_description">Opis</string>
 	<string name="placepage_more_button">Więcej</string>
-	<string name="placepage_more_reviews_button">Więcej opinii</string>
 	<string name="placepage_call_button">Zadzwoń</string>
 	<string name="placepage_edit_bookmark_button">Edytuj zakładkę</string>
 	<string name="editor_comment_hint">Komentarz…</string>
@@ -475,6 +491,8 @@
 	<string name="editor_remove_place_message">Usunąć dodane miejsce?</string>
 	<string name="editor_remove_place_button">Usuń</string>
 	<string name="editor_place_doesnt_exist">Takie miejsce nie istnieje</string>
+	<!-- Error message for "Place doesn't exist" dialog when comment is empty -->
+	<string name="delete_place_empty_comment_error">Proszę opisz powód usunięcia miejsca</string>
 	<!-- Phone number error message -->
 	<string name="error_enter_correct_phone">Wprowadź poprawny numer telefonu</string>
 	<string name="error_enter_correct_web">Wpisz prawidłowy adres strony internetowej</string>
@@ -483,6 +501,7 @@
 	<string name="error_enter_correct_instagram_page">Wprowadź poprawny link lub nazwę konta na Instagramie</string>
 	<string name="error_enter_correct_twitter_page">Wprowadź poprawny adres lub nazwę konta na Twitterze</string>
 	<string name="error_enter_correct_vk_page">Wprowadź poprawny adres lub nazwę konta na VK</string>
+	<string name="error_enter_correct_line_page">Wpisz prawidłowy url LINE lub LINE ID</string>
 	<string name="placepage_add_place_button">Dodaj miejsce do mapy</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Czy chcesz wysłać je wszystkim użytkownikom?</string>
@@ -495,8 +514,6 @@
 	<string name="accept">Zaakceptuj</string>
 	<!-- For the first routing -->
 	<string name="decline">Odrzuć</string>
-	<!-- A noun - a button name used to show search results in list form -->
-	<string name="search_in_table">Lista</string>
 	<string name="mobile_data_dialog">Wykorzystać internet mobilny, aby wyświetlić dane szczegółowe?</string>
 	<string name="mobile_data_option_always">Stosuj zawsze</string>
 	<string name="mobile_data_option_today">Tylko dzisiaj</string>
@@ -676,6 +693,10 @@
 	<string name="elevation_profile_time">Trasa:</string>
 	<string name="isolines_toast_zooms_1_10">Powiększ mapę, aby zobaczyć izolinie</string>
 	<string name="download_map_title">Pobierz mapę świata</string>
+	<!-- Used in DownloadResources startup screen -->
+	<string name="disk_error">Nie udało się stworzyć folderu i przenieść plików do pamięci wewnętrznej lub karty SD</string>
+	<!-- Used in DownloadResources startup screen -->
+	<string name="disk_error_title">Błąd pamięci</string>
 	<!-- Used in DownloadResources startup screen -->
 	<string name="connection_failure">Błąd połączenia</string>
 	<!-- Used in DownloadResources startup screen -->

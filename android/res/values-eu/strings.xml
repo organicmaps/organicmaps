@@ -167,8 +167,6 @@
 	<string name="copied_to_clipboard">Arbelean kopiatu da: %1$s</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">Eginda</string>
-	<!-- Prints version number in About dialog -->
-	<string name="version">Bertsioa: %s</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">OpenStreetMap datuak: %s</string>
 	<!-- Confirmation in downloading countries dialog -->
@@ -383,11 +381,7 @@
 	<string name="day_off_today">Gaur atseden eguna</string>
 	<string name="day_off">Egun librea</string>
 	<string name="today">Gaur</string>
-	<string name="opens_tomorrow_at">Bihar %sean irekiko da</string>
-	<string name="opens_dayoftheweek_at">%1$sean %2$sean irekiko da</string>
-	<string name="opens_at">%sean irekiko da</string>
 	<string name="opens_in">%s barru irekitzen da</string>
-	<string name="closes_at">%sean itxiko da</string>
 	<string name="closes_in">%s barru ixten da</string>
 	<string name="closed">Itxita</string>
 	<string name="edit_opening_hours">Editatu ordutegia</string>
@@ -398,7 +392,6 @@
 	<string name="password">Pasahitza</string>
 	<string name="forgot_password">Pasahitza ahaztu al duzu?</string>
 	<string name="logout">Saioa itxi</string>
-	<string name="thank_you">Eskerrik asko</string>
 	<string name="edit_place">Editatu tokia</string>
 	<string name="add_language">Gehitu hizkuntza bat</string>
 	<string name="street">Kalea</string>
@@ -473,7 +466,6 @@
 	<string name="minute">min</string>
 	<string name="placepage_place_description">Deskribapena</string>
 	<string name="placepage_more_button">Gainera</string>
-	<string name="placepage_more_reviews_button">Iruzkin gehiago</string>
 	<string name="placepage_call_button">Deitzeko</string>
 	<string name="placepage_edit_bookmark_button">Editatu laster-marka</string>
 	<string name="editor_comment_hint">Iruzkina…</string>
@@ -502,8 +494,6 @@
 	<string name="accept">Onartzeko</string>
 	<!-- For the first routing -->
 	<string name="decline">Gainbehera</string>
-	<!-- A noun - a button name used to show search results in list form -->
-	<string name="search_in_table">Prest</string>
 	<string name="mobile_data_dialog">Internet mugikorra erabili informazio zehatza bistaratzeko?</string>
 	<string name="mobile_data_option_always">Beti erabili</string>
 	<string name="mobile_data_option_today">Gaur bakarrik</string>

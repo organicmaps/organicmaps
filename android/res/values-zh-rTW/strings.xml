@@ -165,8 +165,6 @@
 	<string name="copied_to_clipboard">已複製到剪貼簿：%1$s</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">完成</string>
-	<!-- Prints version number in About dialog -->
-	<string name="version">版本： %s</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">OpenStreetMap 數據：%s</string>
 	<!-- Confirmation in downloading countries dialog -->
@@ -400,7 +398,6 @@
 	<string name="password">密碼</string>
 	<string name="forgot_password">忘記密碼</string>
 	<string name="logout">登出</string>
-	<string name="thank_you">謝謝您</string>
 	<string name="edit_place">編輯地點</string>
 	<string name="add_language">新增語言</string>
 	<string name="street">街道</string>
@@ -474,7 +471,6 @@
 	<string name="minute">分鐘</string>
 	<string name="placepage_place_description">說明</string>
 	<string name="placepage_more_button">更多</string>
-	<string name="placepage_more_reviews_button">更多評論</string>
 	<string name="placepage_call_button">呼叫</string>
 	<string name="placepage_edit_bookmark_button">編輯書籤</string>
 	<string name="editor_comment_hint">註解…</string>
@@ -503,8 +499,6 @@
 	<string name="accept">接受</string>
 	<!-- For the first routing -->
 	<string name="decline">拒絕</string>
-	<!-- A noun - a button name used to show search results in list form -->
-	<string name="search_in_table">清單</string>
 	<string name="mobile_data_dialog">使用手機網路顯示詳細資訊？</string>
 	<string name="mobile_data_option_always">一律使用</string>
 	<string name="mobile_data_option_today">僅限今天</string>

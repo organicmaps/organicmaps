@@ -164,8 +164,6 @@
 	<string name="copied_to_clipboard">Đã sao chép vào Bảng tạm: %1$s</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">Xong</string>
-	<!-- Prints version number in About dialog -->
-	<string name="version">Phiên bản: %s</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">Dữ liệu OpenStreetMap: %s</string>
 	<!-- Confirmation in downloading countries dialog -->
@@ -387,7 +385,6 @@
 	<string name="password">Mật khẩu</string>
 	<string name="forgot_password">Quên mật khẩu?</string>
 	<string name="logout">Đăng xuất</string>
-	<string name="thank_you">Cảm ơn bạn</string>
 	<string name="edit_place">Chỉnh sửa địa điểm</string>
 	<string name="add_language">Thêm ngôn ngữ</string>
 	<string name="street">Đường</string>
@@ -460,7 +457,6 @@
 	<string name="minute">phút</string>
 	<string name="placepage_place_description">Mô tả</string>
 	<string name="placepage_more_button">Bổ sung</string>
-	<string name="placepage_more_reviews_button">Thêm nhận xét</string>
 	<string name="placepage_call_button">Gọi</string>
 	<string name="placepage_edit_bookmark_button">Sửa Dấu Trang</string>
 	<string name="editor_comment_hint">Nhận xét…</string>
@@ -485,8 +481,6 @@
 	<string name="accept">Chấp nhận</string>
 	<!-- For the first routing -->
 	<string name="decline">Từ chối</string>
-	<!-- A noun - a button name used to show search results in list form -->
-	<string name="search_in_table">Danh sách</string>
 	<string name="mobile_data_dialog">Sử dụng mạng Internet di động để hiển thị thông tin chi tiết?</string>
 	<string name="mobile_data_option_always">Luôn Sử dụng</string>
 	<string name="mobile_data_option_today">Chỉ Hôm nay</string>

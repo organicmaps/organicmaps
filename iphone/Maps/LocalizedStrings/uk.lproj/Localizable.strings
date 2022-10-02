@@ -282,11 +282,11 @@
 /* Text in menu */
 "instagram" = "Instagram";
 
+/* Text in the editor */
+"vk" = "VK";
+
 /* Text in menu */
 "openstreetmap" = "OpenStreetMap";
-
-/* Settings: Send feedback button and dialog title */
-"feedback" = "Відгук";
 
 /* Text in menu */
 "rate_the_app" = "Оцінити застосунок";
@@ -867,9 +867,6 @@
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Дані про трафік недоступні";
-
-/* Settings: "Send general feedback" button */
-"feedback_general" = "Загальний відгук";
 
 "on" = "Увімкн.";
 

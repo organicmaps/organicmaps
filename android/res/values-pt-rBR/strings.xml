@@ -177,8 +177,6 @@
 	<string name="copied_to_clipboard">Copiado para a área de transferência: %1$s</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">Feito</string>
-	<!-- Prints version number in About dialog -->
-	<string name="version">Versão: %s</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">Dados do OpenStreetMap: %s</string>
 	<!-- Confirmation in downloading countries dialog -->
@@ -401,7 +399,6 @@
 	<string name="password">Senha</string>
 	<string name="forgot_password">Esqueceu sua senha?</string>
 	<string name="logout">Encerrar sessão</string>
-	<string name="thank_you">Obrigado</string>
 	<string name="edit_place">Editar o local</string>
 	<string name="add_language">Adicionar um idioma</string>
 	<string name="street">Rua</string>
@@ -475,7 +472,6 @@
 	<string name="minute">min</string>
 	<string name="placepage_place_description">Descrição</string>
 	<string name="placepage_more_button">Mais</string>
-	<string name="placepage_more_reviews_button">Mais avaliações</string>
 	<string name="placepage_call_button">Ligar</string>
 	<string name="placepage_edit_bookmark_button">Editar favorito</string>
 	<string name="editor_comment_hint">Comentar…</string>
@@ -502,8 +498,6 @@
 	<string name="accept">Aceitar</string>
 	<!-- For the first routing -->
 	<string name="decline">Declinar</string>
-	<!-- A noun - a button name used to show search results in list form -->
-	<string name="search_in_table">Lista</string>
 	<string name="mobile_data_dialog">Utilizar a internet móvel para mostrar informações detalhadas?</string>
 	<string name="mobile_data_option_always">Utilizar sempre</string>
 	<string name="mobile_data_option_today">Apenas hoje</string>

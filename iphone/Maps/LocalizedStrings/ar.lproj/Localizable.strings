@@ -282,11 +282,11 @@
 /* Text in menu */
 "instagram" = "Instagram";
 
+/* Text in the editor */
+"vk" = "VK";
+
 /* Text in menu */
 "openstreetmap" = "خريطة الشارع المفتوحة";
-
-/* Settings: Send feedback button and dialog title */
-"feedback" = "إرسال التعليقات";
 
 /* Text in menu */
 "rate_the_app" = "قيّم التطبيق";
@@ -867,9 +867,6 @@
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "البيانات المرورية غير متاحة";
-
-/* Settings: "Send general feedback" button */
-"feedback_general" = "تعقيب عام";
 
 "on" = "تشغيل";
 

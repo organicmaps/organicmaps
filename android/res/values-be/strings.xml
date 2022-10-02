@@ -180,8 +180,6 @@
 	<string name="copied_to_clipboard">Скапіравана ў буфер абмена: %1$s</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">Гатова</string>
-	<!-- Prints version number in About dialog -->
-	<string name="version">Версія: %s</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">Дадзеныя OpenStreetMap: %s</string>
 	<!-- Confirmation in downloading countries dialog -->
@@ -400,11 +398,7 @@
 	<string name="day_off_today">Сёння зачынена</string>
 	<string name="day_off">Зачынена</string>
 	<string name="today">Сёння</string>
-	<string name="opens_tomorrow_at">Адкрыццё заўтра ў %s</string>
-	<string name="opens_dayoftheweek_at">Адкрыццё ў %1$s у %2$s</string>
-	<string name="opens_at">Адкрыццё ў %s</string>
 	<string name="opens_in">Адчыняецца праз %s</string>
-	<string name="closes_at">Зачыняецца ў %s</string>
 	<string name="closes_in">Зачыняецца праз %s</string>
 	<string name="closed">Зачынена</string>
 	<string name="edit_opening_hours">Правіць часы працы</string>
@@ -415,7 +409,6 @@
 	<string name="password">Пароль</string>
 	<string name="forgot_password">Забылі пароль?</string>
 	<string name="logout">Выйсці</string>
-	<string name="thank_you">Дзякуй</string>
 	<string name="edit_place">Правіць месца</string>
 	<string name="add_language">Дадаць мову</string>
 	<string name="street">Вуліца</string>
@@ -490,7 +483,6 @@
 	<string name="minute">хв</string>
 	<string name="placepage_place_description">Апісанне</string>
 	<string name="placepage_more_button">Яшчэ</string>
-	<string name="placepage_more_reviews_button">Больш водгукаў</string>
 	<string name="placepage_call_button">Патэлефанаваць</string>
 	<string name="placepage_edit_bookmark_button">Правіць закладку</string>
 	<string name="editor_comment_hint">Каментар…</string>
@@ -518,8 +510,6 @@
 	<string name="accept">Прыняць</string>
 	<!-- For the first routing -->
 	<string name="decline">Адхіліць</string>
-	<!-- A noun - a button name used to show search results in list form -->
-	<string name="search_in_table">Спіс</string>
 	<string name="mobile_data_dialog">Ужываць мабільны інтэрнэт для паказу больш падрабязнай інфармацыі?</string>
 	<string name="mobile_data_option_always">Заўсёды</string>
 	<string name="mobile_data_option_today">Толькі сёння</string>

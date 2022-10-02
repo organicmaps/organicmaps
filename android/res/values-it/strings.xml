@@ -165,8 +165,6 @@
 	<string name="copied_to_clipboard">Copiato in appunti: %1$s</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">Fatto</string>
-	<!-- Prints version number in About dialog -->
-	<string name="version">Versione: %s</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">Dati OpenStreetMap: %s</string>
 	<!-- Confirmation in downloading countries dialog -->
@@ -383,11 +381,7 @@
 	<string name="day_off_today">Oggi chiuso</string>
 	<string name="day_off">Chiuso</string>
 	<string name="today">Oggi</string>
-	<string name="opens_tomorrow_at">Apre domani alle %s</string>
-	<string name="opens_dayoftheweek_at">Apre %1$s alle %2$s</string>
-	<string name="opens_at">Apre alle %s</string>
 	<string name="opens_in">Apre tra %s</string>
-	<string name="closes_at">Chiude alle %s</string>
 	<string name="closes_in">Chiude tra %s</string>
 	<string name="closed">Chiuso</string>
 	<string name="edit_opening_hours">Modifica orari di apertura</string>
@@ -398,7 +392,6 @@
 	<string name="password">Password</string>
 	<string name="forgot_password">Hai dimenticato la password?</string>
 	<string name="logout">Esci</string>
-	<string name="thank_you">Grazie</string>
 	<string name="edit_place">Modifica il luogo</string>
 	<string name="add_language">Aggiungi una lingua</string>
 	<string name="street">Via</string>
@@ -471,7 +464,6 @@
 	<string name="minute">min</string>
 	<string name="placepage_place_description">Descrizione</string>
 	<string name="placepage_more_button">Di più</string>
-	<string name="placepage_more_reviews_button">Altre recensioni</string>
 	<string name="placepage_call_button">Chiama</string>
 	<string name="placepage_edit_bookmark_button">Modifica luogo preferito</string>
 	<string name="editor_comment_hint">Commento…</string>
@@ -503,8 +495,6 @@
 	<string name="accept">Accetta</string>
 	<!-- For the first routing -->
 	<string name="decline">Rifiuta</string>
-	<!-- A noun - a button name used to show search results in list form -->
-	<string name="search_in_table">Elenco</string>
 	<string name="mobile_data_dialog">Usare l\'Internet mobile per mostrare le informazioni dettagliate?</string>
 	<string name="mobile_data_option_always">Usa sempre</string>
 	<string name="mobile_data_option_today">Solo oggi</string>

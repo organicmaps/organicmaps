@@ -167,8 +167,6 @@
 	<string name="copied_to_clipboard">Копирано в клипборда: %1$s</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">Готово</string>
-	<!-- Prints version number in About dialog -->
-	<string name="version">Версия: %s</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">Данни на OpenStreetMap: %s</string>
 	<!-- Confirmation in downloading countries dialog -->
@@ -378,7 +376,6 @@
 	<string name="password">Парола</string>
 	<string name="forgot_password">Забравили сте паролата си?</string>
 	<string name="logout">Изход</string>
-	<string name="thank_you">Благодаря</string>
 	<string name="edit_place">Редакция на място</string>
 	<string name="add_language">Добавяне на език</string>
 	<string name="street">Улица</string>
@@ -451,7 +448,6 @@
 	<string name="minute">мин</string>
 	<string name="placepage_place_description">Описание</string>
 	<string name="placepage_more_button">Още</string>
-	<string name="placepage_more_reviews_button">Още отзиви</string>
 	<string name="placepage_call_button">Обаждане</string>
 	<string name="placepage_edit_bookmark_button">Редакция на отметка</string>
 	<string name="editor_comment_hint">Коментиране…</string>
@@ -476,8 +472,6 @@
 	<string name="accept">Приемане</string>
 	<!-- For the first routing -->
 	<string name="decline">Отказване</string>
-	<!-- A noun - a button name used to show search results in list form -->
-	<string name="search_in_table">Списък</string>
 	<string name="mobile_data_dialog">Използване на мобилни данни за подробна информация?</string>
 	<string name="mobile_data_option_always">Винаги</string>
 	<string name="mobile_data_option_today">Само днес</string>

@@ -282,11 +282,11 @@
 /* Text in menu */
 "instagram" = "Instagram";
 
+/* Text in the editor */
+"vk" = "VK";
+
 /* Text in menu */
 "openstreetmap" = "OpenStreetMap";
-
-/* Settings: Send feedback button and dialog title */
-"feedback" = "Σχόλια";
 
 /* Text in menu */
 "rate_the_app" = "Βαθμολογήστε την εφαρμογή";
@@ -867,9 +867,6 @@
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Οι πληροφορίες για την κίνηση δεν είναι διαθέσιμες";
-
-/* Settings: "Send general feedback" button */
-"feedback_general" = "Γενικό σχόλιο";
 
 "on" = "Ενεργ.";
 

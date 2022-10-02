@@ -282,11 +282,11 @@
 /* Text in menu */
 "instagram" = "Instagram";
 
+/* Text in the editor */
+"vk" = "VK";
+
 /* Text in menu */
 "openstreetmap" = "OpenStreetMap";
-
-/* Settings: Send feedback button and dialog title */
-"feedback" = "بازخورد";
 
 /* Text in menu */
 "rate_the_app" = "امتیاز به این اپلیکیشن";
@@ -867,9 +867,6 @@
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "اطلاعات ترافیکی موجود نیست";
-
-/* Settings: "Send general feedback" button */
-"feedback_general" = "\"تنظیمات: دکمه \"ارسال بازخورد کلی";
 
 "on" = "روشن";
 

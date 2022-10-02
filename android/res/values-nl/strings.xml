@@ -179,8 +179,6 @@
 	<string name="copied_to_clipboard">Naar het klembord gekopieerd: %1$s</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">Klaar</string>
-	<!-- Prints version number in About dialog -->
-	<string name="version">Versie: %s</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">OpenStreetMap-gegevens: %s</string>
 	<!-- Confirmation in downloading countries dialog -->
@@ -397,11 +395,7 @@
 	<string name="day_off_today">Vrije dag vandaag</string>
 	<string name="day_off">Vrije dag</string>
 	<string name="today">Vandaag</string>
-	<string name="opens_tomorrow_at">Opent morgen om %s</string>
-	<string name="opens_dayoftheweek_at">Opent %1$s om %2$s</string>
-	<string name="opens_at">Opent om %s</string>
 	<string name="opens_in">Opent over %s</string>
-	<string name="closes_at">Sluit om %s</string>
 	<string name="closes_in">Sluit over %s</string>
 	<string name="closed">Gesloten</string>
 	<string name="edit_opening_hours">Openingsuren bewerken</string>
@@ -412,7 +406,6 @@
 	<string name="password">Wachtwoord</string>
 	<string name="forgot_password">Wachtwoord vergeten?</string>
 	<string name="logout">Uitloggen</string>
-	<string name="thank_you">Dank je wel</string>
 	<string name="edit_place">De locatie bewerken</string>
 	<string name="add_language">Een taal toevoegen</string>
 	<string name="street">Straat</string>
@@ -488,7 +481,6 @@
 	<string name="minute">min</string>
 	<string name="placepage_place_description">Beschrijving</string>
 	<string name="placepage_more_button">Meer</string>
-	<string name="placepage_more_reviews_button">Meer reacties</string>
 	<string name="placepage_call_button">Bellen</string>
 	<string name="placepage_edit_bookmark_button">Bladwijzer bewerken</string>
 	<string name="editor_comment_hint">Reactie…</string>
@@ -520,8 +512,6 @@
 	<string name="accept">Aanvaarden</string>
 	<!-- For the first routing -->
 	<string name="decline">Weigeren</string>
-	<!-- A noun - a button name used to show search results in list form -->
-	<string name="search_in_table">Lijst</string>
 	<string name="mobile_data_dialog">Mobiel internet gebruiken om gedetailleerde informatie weer te geven?</string>
 	<string name="mobile_data_option_always">Altijd Gebruiken</string>
 	<string name="mobile_data_option_today">Enkel Vandaag</string>

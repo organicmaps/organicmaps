@@ -282,11 +282,11 @@
 /* Text in menu */
 "instagram" = "Instagram";
 
+/* Text in the editor */
+"vk" = "VK";
+
 /* Text in menu */
 "openstreetmap" = "OpenStreetMap";
-
-/* Settings: Send feedback button and dialog title */
-"feedback" = "Umpan balik";
 
 /* Text in menu */
 "rate_the_app" = "Beri nilai aplikasi";
@@ -867,9 +867,6 @@
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Data lalu lintas tidak tersedia";
-
-/* Settings: "Send general feedback" button */
-"feedback_general" = "Umpan Balik Umum";
 
 "on" = "On";
 

@@ -181,8 +181,6 @@
 	<string name="copied_to_clipboard">Panoya kopyalandı: %1$s</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">Bitti</string>
-	<!-- Prints version number in About dialog -->
-	<string name="version">Sürüm: %s</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">OpenStreetMap verileri: %s</string>
 	<!-- Confirmation in downloading countries dialog -->
@@ -401,11 +399,7 @@
 	<string name="day_off_today">Bugün kapalı</string>
 	<string name="day_off">Kapalı</string>
 	<string name="today">Bugün</string>
-	<string name="opens_tomorrow_at">Açılış yarın %s</string>
-	<string name="opens_dayoftheweek_at">Açılış %1$s %2$s</string>
-	<string name="opens_at">Açılış %s</string>
 	<string name="opens_in">%s sonra açılıyor</string>
-	<string name="closes_at">Kapanış %s</string>
 	<string name="closes_in">%s sonra kapanıyor</string>
 	<string name="closed">Kapalı</string>
 	<string name="edit_opening_hours">Çalışma saatlerini düzenle</string>
@@ -416,7 +410,6 @@
 	<string name="password">Şifre</string>
 	<string name="forgot_password">Şifreni mi unuttun?</string>
 	<string name="logout">Oturumu kapat</string>
-	<string name="thank_you">Teşekkür ederiz</string>
 	<string name="edit_place">Yeri Düzenle</string>
 	<string name="add_language">Bir dil ekle</string>
 	<string name="street">Sokak</string>
@@ -492,7 +485,6 @@
 	<string name="minute">dk</string>
 	<string name="placepage_place_description">Açıklama</string>
 	<string name="placepage_more_button">Diğer</string>
-	<string name="placepage_more_reviews_button">Diğer Yorumlar</string>
 	<string name="placepage_call_button">Ara</string>
 	<string name="placepage_edit_bookmark_button">Yer İmini Düzenle</string>
 	<string name="editor_comment_hint">Yorum…</string>
@@ -524,8 +516,6 @@
 	<string name="accept">Kabul et</string>
 	<!-- For the first routing -->
 	<string name="decline">Reddet</string>
-	<!-- A noun - a button name used to show search results in list form -->
-	<string name="search_in_table">Liste</string>
 	<string name="mobile_data_dialog">Ayrıntılı bilgileri görüntülemek için mobil internet kullanılsın mı?</string>
 	<string name="mobile_data_option_always">Her Zaman Kullan</string>
 	<string name="mobile_data_option_today">Sadece Bugün</string>

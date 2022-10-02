@@ -167,8 +167,6 @@
 	<string name="copied_to_clipboard">Copiat în notițe: %1$s</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">Gata</string>
-	<!-- Prints version number in About dialog -->
-	<string name="version">Versiune: %s</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">Date OpenStreetMap: %s</string>
 	<!-- Confirmation in downloading countries dialog -->
@@ -396,7 +394,6 @@
 	<string name="password">Parola</string>
 	<string name="forgot_password">Ai uitat parola?</string>
 	<string name="logout">Deconectare</string>
-	<string name="thank_you">Mulțumesc</string>
 	<string name="edit_place">Modifică locul</string>
 	<string name="add_language">Adaugă o limbă</string>
 	<string name="street">Stradă</string>
@@ -469,7 +466,6 @@
 	<string name="minute">min</string>
 	<string name="placepage_place_description">Descriere</string>
 	<string name="placepage_more_button">Mai mult</string>
-	<string name="placepage_more_reviews_button">Mai multe recenzii</string>
 	<string name="placepage_call_button">Apelează</string>
 	<string name="placepage_edit_bookmark_button">Modifică locul preferat</string>
 	<string name="editor_comment_hint">Comentariu…</string>
@@ -501,8 +497,6 @@
 	<string name="accept">Acceptă</string>
 	<!-- For the first routing -->
 	<string name="decline">Refuză</string>
-	<!-- A noun - a button name used to show search results in list form -->
-	<string name="search_in_table">Listă</string>
 	<string name="mobile_data_dialog">Folosești internetul mobil pentru a vedea informaţii detaliate?</string>
 	<string name="mobile_data_option_always">Folosește mereu</string>
 	<string name="mobile_data_option_today">Doar astăzi</string>
