@@ -77,7 +77,7 @@ You need a Linux or a Mac machine to build a desktop version of Organic Maps.
 
 Ensure that you have at least 20GB of free space.
 
-Install Cmake (**3.18.1** minimum), Boost, Qt 5 and other dependencies.
+Install Cmake (**3.22.1** minimum), Boost, Qt 5 and other dependencies.
 
 Installing *ccache* can speed up active development.
 
@@ -244,11 +244,11 @@ Install Android SDK and NDK:
 
 - Run the Android Studio.
 - Open "SDK Manager" (under "More Actions" in a welcome screen or a three-dot menu in a list of recent projects screen or "Tools" top menu item in an open project).
-- Select "Android 12.0 (S) / API Level 31" SDK.
+- Select "Android 13.0 (T) / API Level 33" SDK.
 - Switch to "SDK Tools" tab.
 - Check "Show Package Details" checkbox.
 - Select "NDK (Side by side)" version **25.1.8937393**.
-- Select "CMake" version **3.18.1**.
+- Select "CMake" version **3.22.1**.
 - Click "Apply" and wait for downloads and installation to finish.
 - In the left pane menu select "Appearance & Behavior > System Settings > Memory Settings".
 - Set "IDE max heap size" to 2048Mb or more (otherwise the Studio might get stuck on "Updating indexes" when opening the project).
@@ -312,13 +312,13 @@ First configure `PATH` to prefer `cmake` from Android SDK/NDK instead of one ins
 _Linux:_
 
 ```bash
-export PATH=$HOME/Android/Sdk/cmake/3.18.1/bin:$PATH
+export PATH=$HOME/Android/Sdk/cmake/3.22.1/bin:$PATH
 ```
 
 _macOS:_
 
 ```bash
-export PATH=$HOME/Library/Android/Sdk/cmake/3.18.1/bin:$PATH
+export PATH=$HOME/Library/Android/Sdk/cmake/3.22.1/bin:$PATH
 ```
 
 Check if you have a system-wide Java runtime environment (JRE) installed:
@@ -388,8 +388,8 @@ To add any of those options to in-studio builds list them in "Command-line Optio
 You can install
 [Android SDK](https://developer.android.com/sdk/index.html) and
 [NDK](https://developer.android.com/tools/sdk/ndk/index.html) without
-Android Studio. Please make sure that SDK for API Level 31,
-NDK version **24.0.8215888** and CMake version **3.18.1** are installed.
+Android Studio. Please make sure that SDK for API Level 33,
+NDK version **25.1.8937393** and CMake version **3.22.1** are installed.
 
 If you are low on RAM, disk space or traffic there are ways to reduce system requirements:
 - in Android Studio enable "File > Power Save Mode";
