@@ -31,7 +31,12 @@ target_compile_definitions(${PROJECT_NAME}
   PRIVATE GTEST_DONT_DEFINE_TEST WITH_GL_MOCK
 )
 
-add_subdirectory(../../3party/googletest ${CMAKE_CURRENT_BINARY_DIR}/googletest)
+find_package(GTest "1.12.0")
+if (${GTest_FOUND})
+  message(STATUS "The build will rely on the system provided GoogleTest version")
+else()
+  add_subdirectory(../../3party/googletest ${CMAKE_CURRENT_BINARY_DIR}/googletest)
+endif()
 
 target_link_libraries(${PROJECT_NAME}
   qt_tstfrm
