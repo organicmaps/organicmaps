@@ -146,6 +146,12 @@
                                 <mask key="subviews">
                                     <exclude reference="15Q-ZN-NzE"/>
                                 </mask>
+                                <mask key="constraints">
+                                    <exclude reference="D1r-cA-jTR"/>
+                                    <exclude reference="WHK-N0-dCc"/>
+                                    <exclude reference="Wve-9m-8zL"/>
+                                    <exclude reference="my7-I5-Qu3"/>
+                                </mask>
                             </variation>
                         </view>
                     </subviews>
@@ -192,6 +198,7 @@
                 <outlet property="contentView" destination="WqK-Yb-PmP" id="4ph-Dm-EFr"/>
                 <outlet property="drivingOptionHeightConstraint" destination="Oxx-fO-ZLa" id="JOa-ih-oHZ"/>
                 <outlet property="drivingOptionsButton" destination="ZXA-Og-q2I" id="IZf-0l-IIV"/>
+                <outlet property="helicopter" destination="15Q-ZN-NzE" id="Hel-ic-Opt"/>
                 <outlet property="pedestrian" destination="6D3-QF-6wm" id="bdh-zx-9LW"/>
                 <outlet property="publicTransport" destination="yIt-eq-pV5" id="yIX-eM-Hrs"/>
                 <outlet property="vehicle" destination="cZF-Ha-2tB" id="QP3-tU-nfO"/>

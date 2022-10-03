@@ -43,6 +43,7 @@ enum class RouterType
   Pedestrian,   /// For A star pedestrian routing.
   Bicycle,      /// For A star bicycle routing.
   Transit,      /// For A star pedestrian + transit routing.
+  Helicopter,   /// Placeholder for helicopter routing
   Count         /// Number of router types.
 };
 

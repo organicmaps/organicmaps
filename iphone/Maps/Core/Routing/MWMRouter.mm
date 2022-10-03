@@ -58,6 +58,7 @@ char const *kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeIm
       return NO;
     case MWMRouterTypePedestrian:
     case MWMRouterTypeBicycle:
+    case MWMRouterTypeHelicopter:
       return GetFramework().GetRoutingManager().HasRouteAltitude();
   }
 }
