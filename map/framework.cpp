@@ -1520,8 +1520,10 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
   OnSize(params.m_surfaceWidth, params.m_surfaceHeight);
 
   Allow3dMode(allow3d, allow3dBuildings);
+
   LoadViewport();
 
+  /// @todo Have doubts that this call below is actually needed.
   SetVisibleViewport(m2::RectD(0, 0, params.m_surfaceWidth, params.m_surfaceHeight));
 
   if (m_connectToGpsTrack)

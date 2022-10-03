@@ -378,8 +378,7 @@ public class Framework
     public static native void nativeSetPowerManagerFacility(int facilityType, boolean state);
   public static native int nativeGetPowerManagerScheme();
   public static native void nativeSetPowerManagerScheme(int schemeType);
-  public static native void nativeSetViewportCenter(double lat, double lon, int zoom,
-                                                    boolean isAnim);
+  public static native void nativeSetViewportCenter(double lat, double lon, int zoom);
   public static native void nativeStopLocationFollow();
 
   public static native void nativeSetSearchViewport(double lat, double lon, int zoom);
