@@ -16683,37 +16683,331 @@
     zh-Hans = 地铁车站
     zh-Hant = 地鐵車站
 
+  [type.railway.station.subway.adana]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.algiers]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.almaty]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.amsterdam]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.ankara]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.athens]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.baku]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.bangkok]
+    ref = type.railway.station.subway
+
   [type.railway.station.subway.barcelona]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.beijing]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.bengalore]
     ref = type.railway.station.subway
 
   [type.railway.station.subway.berlin]
     ref = type.railway.station.subway
 
+  [type.railway.station.subway.brasilia]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.brescia]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.brussels]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.bucharest]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.budapest]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.buenos_aires]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.bursa]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.cairo]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.caracas]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.catania]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.changchun]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.chengdu]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.chicago]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.chongqing]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.dalian]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.delhi]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.dnepro]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.dubai]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.ekb]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.fukuoka]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.glasgow]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.guangzhou]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.hamburg]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.helsinki]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.hiroshima]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.isfahan]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.istanbul]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.izmir]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.kazan]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.kharkiv]
+    ref = type.railway.station.subway
+
   [type.railway.station.subway.kiev]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.kobe]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.kolkata]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.kunming]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.kyoto]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.la]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.lausanne]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.lille]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.lima]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.lisboa]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.lisbon]
     ref = type.railway.station.subway
 
   [type.railway.station.subway.london]
     ref = type.railway.station.subway
 
+  [type.railway.station.subway.lyon]
+    ref = type.railway.station.subway
+
   [type.railway.station.subway.madrid]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.malaga]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.manila]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.maracaibo]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.mashhad]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.mecca]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.medellin]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.mexico]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.milan]
     ref = type.railway.station.subway
 
   [type.railway.station.subway.minsk]
     ref = type.railway.station.subway
 
+  [type.railway.station.subway.montreal]
+    ref = type.railway.station.subway
+
   [type.railway.station.subway.moscow]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.munchen]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.nagoya]
     ref = type.railway.station.subway
 
   [type.railway.station.subway.newyork]
     ref = type.railway.station.subway
 
+  [type.railway.station.subway.nnov]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.novosibirsk]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.osaka]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.oslo]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.palma]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.panama]
+    ref = type.railway.station.subway
+
   [type.railway.station.subway.paris]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.philadelphia]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.pyongyang]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.rennes]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.rio]
     ref = type.railway.station.subway
 
   [type.railway.station.subway.roma]
     ref = type.railway.station.subway
 
+  [type.railway.station.subway.rotterdam]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.samara]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.santiago]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.santo_domingo]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.saopaulo]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.sapporo]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.sendai]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.sf]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.shanghai]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.shiraz]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.sofia]
+    ref = type.railway.station.subway
+
   [type.railway.station.subway.spb]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.stockholm]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.tabriz]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.taipei]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.taoyuan]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.tashkent]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.tbilisi]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.tianjin]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.tokyo]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.valencia]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.vienna]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.warszawa]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.washington]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.wuhan]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.yerevan]
+    ref = type.railway.station.subway
+
+  [type.railway.station.subway.yokohama]
     ref = type.railway.station.subway
 
   [type.railway.subway]
@@ -16788,38 +17082,332 @@
     zh-Hans = 地铁入口
     zh-Hant = 地鐵入口
 
-  [type.railway.subway_entrance.barcelona]
-    ref = type.railway.subway_entrance
+   [type.railway.subway_entrance.adana]
+     ref = type.railway.subway_entrance
 
-  [type.railway.subway_entrance.berlin]
-    ref = type.railway.subway_entrance
+   [type.railway.subway_entrance.algiers]
+     ref = type.railway.subway_entrance
 
-  [type.railway.subway_entrance.kiev]
-    ref = type.railway.subway_entrance
+   [type.railway.subway_entrance.almaty]
+     ref = type.railway.subway_entrance
 
-  [type.railway.subway_entrance.london]
-    ref = type.railway.subway_entrance
+   [type.railway.subway_entrance.amsterdam]
+     ref = type.railway.subway_entrance
 
-  [type.railway.subway_entrance.madrid]
-    ref = type.railway.subway_entrance
+   [type.railway.subway_entrance.ankara]
+     ref = type.railway.subway_entrance
 
-  [type.railway.subway_entrance.minsk]
-    ref = type.railway.subway_entrance
+   [type.railway.subway_entrance.athens]
+     ref = type.railway.subway_entrance
 
-  [type.railway.subway_entrance.moscow]
-    ref = type.railway.subway_entrance
+   [type.railway.subway_entrance.baku]
+     ref = type.railway.subway_entrance
 
-  [type.railway.subway_entrance.newyork]
-    ref = type.railway.subway_entrance
+   [type.railway.subway_entrance.bangkok]
+     ref = type.railway.subway_entrance
 
-  [type.railway.subway_entrance.paris]
-    ref = type.railway.subway_entrance
+   [type.railway.subway_entrance.barcelona]
+     ref = type.railway.subway_entrance
 
-  [type.railway.subway_entrance.roma]
-    ref = type.railway.subway_entrance
+   [type.railway.subway_entrance.beijing]
+     ref = type.railway.subway_entrance
 
-  [type.railway.subway_entrance.spb]
-    ref = type.railway.subway_entrance
+   [type.railway.subway_entrance.bengalore]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.berlin]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.brasilia]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.brescia]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.brussels]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.bucharest]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.budapest]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.buenos_aires]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.bursa]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.cairo]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.caracas]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.catania]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.changchun]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.chengdu]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.chicago]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.chongqing]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.dalian]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.delhi]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.dnepro]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.dubai]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.ekb]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.fukuoka]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.glasgow]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.guangzhou]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.hamburg]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.helsinki]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.hiroshima]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.isfahan]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.istanbul]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.izmir]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.kazan]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.kharkiv]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.kiev]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.kobe]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.kolkata]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.kunming]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.kyoto]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.la]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.lausanne]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.lille]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.lima]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.lisboa]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.lisbon]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.london]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.lyon]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.madrid]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.malaga]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.manila]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.maracaibo]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.mashhad]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.mecca]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.medellin]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.mexico]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.milan]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.minsk]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.montreal]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.moscow]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.munchen]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.nagoya]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.newyork]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.nnov]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.novosibirsk]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.osaka]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.oslo]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.palma]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.panama]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.paris]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.philadelphia]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.pyongyang]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.rennes]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.rio]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.roma]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.rotterdam]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.samara]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.santiago]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.santo_domingo]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.saopaulo]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.sapporo]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.sendai]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.sf]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.shanghai]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.shiraz]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.sofia]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.spb]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.stockholm]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.tabriz]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.taipei]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.taoyuan]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.tashkent]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.tbilisi]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.tianjin]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.tokyo]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.valencia]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.vienna]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.warszawa]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.washington]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.wuhan]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.yerevan]
+     ref = type.railway.subway_entrance
+
+   [type.railway.subway_entrance.yokohama]
+     ref = type.railway.subway_entrance
 
   [type.railway.tram]
     en = Tram Line

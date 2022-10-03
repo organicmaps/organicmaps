@@ -86,11 +86,11 @@ node|z17[railway=subway_entrance][city=beijing] {icon-image: subway-beijing-s.sv
 node|z18-[railway=subway_entrance][city=beijing] {icon-image: subway-beijing-m.svg;}
 
 /* Berlin Subway Station*/
-node|z13[railway=station][transport=subway][city=berlin] {icon-image: subway-berlin-s.svg;icon-min-distance: 1;}
-node|z14[railway=station][transport=subway][city=berlin] {icon-image: subway-berlin-s.svg;}
-node|z15-16[railway=station][transport=subway][city=berlin] {icon-image: subway-berlin-m.svg;}
-node|z17-[railway=station][transport=subway][city=berlin] {icon-image: subway-berlin-m.svg;}
-node|z17-[railway=subway_entrance][city=berlin] {icon-image: subway-berlin-s.svg;}
+node|z13[railway=station][transport=subway][city=berlin] {icon-image: subway-ubahn-s.svg;icon-min-distance: 1;}
+node|z14[railway=station][transport=subway][city=berlin] {icon-image: subway-ubahn-s.svg;}
+node|z15-16[railway=station][transport=subway][city=berlin] {icon-image: subway-ubahn-m.svg;}
+node|z17-[railway=station][transport=subway][city=berlin] {icon-image: subway-ubahn-m.svg;}
+node|z17-[railway=subway_entrance][city=berlin] {icon-image: subway-ubahn-s.svg;}
 
 /* Bengaluru Subway Station*/
 node|z13[railway=station][transport=subway][city=bengalore] {icon-image: subway-bengaluru-s.svg;icon-min-distance: 1;}
@@ -281,12 +281,12 @@ node|z17[railway=subway_entrance][city=guangzhou] {icon-image: subway-guangzhou-
 node|z18-[railway=subway_entrance][city=guangzhou] {icon-image: subway-guangzhou-m.svg;}
 
 /* Hamburg Subway Station */
-node|z13[railway=station][transport=subway][city=hamburg] {icon-image: subway-hamburg-s.svg;icon-min-distance: 1;}
-node|z14[railway=station][transport=subway][city=hamburg] {icon-image: subway-hamburg-s.svg;}
-node|z15-16[railway=station][transport=subway][city=hamburg] {icon-image: subway-hamburg-m.svg;}
-node|z17-[railway=station][transport=subway][city=hamburg] {icon-image: subway-hamburg-m.svg;}
-node|z17[railway=subway_entrance][city=hamburg] {icon-image: subway-hamburg-s.svg;}
-node|z18-[railway=subway_entrance][city=hamburg] {icon-image: subway-hamburg-m.svg;}
+node|z13[railway=station][transport=subway][city=hamburg] {icon-image: subway-ubahn-s.svg;icon-min-distance: 1;}
+node|z14[railway=station][transport=subway][city=hamburg] {icon-image: subway-ubahn-s.svg;}
+node|z15-16[railway=station][transport=subway][city=hamburg] {icon-image: subway-ubahn-m.svg;}
+node|z17-[railway=station][transport=subway][city=hamburg] {icon-image: subway-ubahn-m.svg;}
+node|z17[railway=subway_entrance][city=hamburg] {icon-image: subway-ubahn-s.svg;}
+node|z18-[railway=subway_entrance][city=hamburg] {icon-image: subway-ubahn-m.svg;}
 
 /* Helsinki Subway Station */
 node|z13[railway=station][transport=subway][city=helsinki] {icon-image: subway-helsinki-s.svg;icon-min-distance: 1;}
@@ -575,12 +575,12 @@ node|z17[railway=subway_entrance][city=montreal] {icon-image: subway-montreal-s.
 node|z18-[railway=subway_entrance][city=montreal] {icon-image: subway-montreal-m.svg;}
 
 /* Munchen Subway Station */
-node|z13[railway=station][transport=subway][city=munchen] {icon-image: subway-munchen-s.svg;icon-min-distance: 1;}
-node|z14[railway=station][transport=subway][city=munchen] {icon-image: subway-munchen-s.svg;}
-node|z15-16[railway=station][transport=subway][city=munchen] {icon-image: subway-munchen-m.svg;}
-node|z17-[railway=station][transport=subway][city=munchen] {icon-image: subway-munchen-m.svg;}
-node|z17[railway=subway_entrance][city=munchen] {icon-image: subway-munchen-s.svg;}
-node|z18-[railway=subway_entrance][city=munchen] {icon-image: subway-munchen-m.svg;}
+node|z13[railway=station][transport=subway][city=munchen] {icon-image: subway-ubahn-s.svg;icon-min-distance: 1;}
+node|z14[railway=station][transport=subway][city=munchen] {icon-image: subway-ubahn-s.svg;}
+node|z15-16[railway=station][transport=subway][city=munchen] {icon-image: subway-ubahn-m.svg;}
+node|z17-[railway=station][transport=subway][city=munchen] {icon-image: subway-ubahn-m.svg;}
+node|z17[railway=subway_entrance][city=munchen] {icon-image: subway-ubahn-s.svg;}
+node|z18-[railway=subway_entrance][city=munchen] {icon-image: subway-ubahn-m.svg;}
 
 /* Nagoya Subway Station */
 node|z13[railway=station][transport=subway][city=nagoya] {icon-image: subway-nagoya-s.svg;icon-min-distance: 1;}
