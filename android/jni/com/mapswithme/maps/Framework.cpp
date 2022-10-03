@@ -1784,12 +1784,10 @@ Java_com_mapswithme_maps_Framework_nativeSetPowerManagerScheme(JNIEnv *, jclass,
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_Framework_nativeSetViewportCenter(JNIEnv *, jclass, jdouble lat,
-                                                           jdouble lon, jint zoom, jboolean isAnim)
+Java_com_mapswithme_maps_Framework_nativeSetViewportCenter(JNIEnv *, jclass, jdouble lat, jdouble lon, jint zoom)
 {
-  auto const center = mercator::FromLatLon(static_cast<double>(lat),
-                                           static_cast<double>(lon));
-  frm()->SetViewportCenter(center, static_cast<int>(zoom), static_cast<bool>(isAnim));
+  // isAnim = true because of previous nativeTurnOnChoosePositionMode animations.
+  frm()->SetViewportCenter(mercator::FromLatLon(lat, lon), static_cast<int>(zoom), true /* isAnim */);
 }
 
 JNIEXPORT void JNICALL

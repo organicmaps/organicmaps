@@ -832,11 +832,14 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
         }
         else
         {
-          m2::PointD const pt = msg->HasPosition()? msg->GetPosition() :
+          // Exact position for POI or screen's center for Add place on map.
+          m2::PointD const pt = msg->HasPosition() ? msg->GetPosition() :
                                 m_userEventStream.GetCurrentScreen().GlobalRect().Center();
+
           int zoom = kDoNotChangeZoom;
           if (GetCurrentZoom() < scales::GetAddNewPlaceScale())
             zoom = scales::GetAddNewPlaceScale();
+
           AddUserEvent(make_unique_dp<SetCenterEvent>(pt, zoom, true /* isAnim */, false /* trackVisibleViewport */,
                                                       nullptr /* parallelAnimCreator */));
         }
