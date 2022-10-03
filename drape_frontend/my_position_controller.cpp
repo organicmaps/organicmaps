@@ -147,13 +147,13 @@ MyPositionController::MyPositionController(Params && params, ref_ptr<DrapeNotifi
   using namespace location;
 
   m_mode = PendingPosition;
-  if (m_hints.m_isFirstLaunch)
-  {
-    m_desiredInitMode = Follow;
-  }
-  else if (m_hints.m_isLaunchByDeepLink)
+  if (m_hints.m_isLaunchByDeepLink)
   {
     m_desiredInitMode = NotFollow;
+  }
+  else if (m_hints.m_isFirstLaunch)
+  {
+    m_desiredInitMode = Follow;
   }
   else if (params.m_timeInBackground >= kMaxTimeInBackgroundSec)
   {
