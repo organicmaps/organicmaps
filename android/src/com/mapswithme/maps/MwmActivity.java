@@ -219,6 +219,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
     checkMeasurementSystem();
 
     LocationHelper.INSTANCE.attach(this);
+
+    if (!Config.isScreenSleepEnabled()) {
+      Utils.keepScreenOn(true, getWindow());
+    }
   }
 
   @Override
@@ -1096,6 +1100,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     MwmApplication.backgroundTracker(getActivity()).removeListener(this);
     IsolinesManager.from(getApplicationContext()).detach();
     mSearchController.detach();
+    Utils.keepScreenOn(false, getWindow());
   }
 
   @CallSuper
