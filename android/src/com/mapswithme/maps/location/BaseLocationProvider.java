@@ -11,7 +11,7 @@ abstract class BaseLocationProvider
   interface Listener
   {
     void onLocationChanged(@NonNull Location location);
-    void onLocationDenied();
+    void onLocationDenied(@Nullable PendingIntent pendingIntent);
     void onLocationDisabled();
   }
 

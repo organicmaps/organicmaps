@@ -7,6 +7,8 @@ import android.os.Looper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationAvailability;
 import com.google.android.gms.location.LocationCallback;
@@ -14,6 +16,7 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.location.SettingsClient;
 import com.mapswithme.util.log.Logger;
 
@@ -87,6 +90,25 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
       Logger.d(TAG, "Service is available");
       mFusedLocationClient.requestLocationUpdates(locationRequest, mCallback, Looper.myLooper());
     }).addOnFailureListener(e -> {
+      try
+      {
+        int statusCode = ((ApiException) e).getStatusCode();
+        if (statusCode == LocationSettingsStatusCodes.RESOLUTION_REQUIRED)
+        {
+          // Location settings are not satisfied, but this can
+          // be fixed by showing the user a dialog
+          Logger.w(TAG, "Resolution is required");
+          ResolvableApiException resolvable = (ResolvableApiException) e;
+          mListener.onLocationDenied(resolvable.getResolution());
+          return;
+        }
+      }
+      catch (ClassCastException ex)
+      {
+        // Ignore, should be an impossible error.
+        // https://developers.google.com/android/reference/com/google/android/gms/location/SettingsClient
+        Logger.e(TAG, "An error that should be impossible: " + ex);
+      }
       Logger.e(TAG, "Service is not available: " + e);
       mListener.onLocationDisabled();
     });

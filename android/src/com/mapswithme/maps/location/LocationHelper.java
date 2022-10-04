@@ -1,5 +1,6 @@
 package com.mapswithme.maps.location;
 
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -268,12 +269,12 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   }
 
   @Override
-  public void onLocationDenied()
+  public void onLocationDenied(@Nullable PendingIntent pendingIntent)
   {
     mSavedLocation = null;
     nativeOnLocationError(ERROR_DENIED);
     if (mUiCallback != null)
-      mUiCallback.onLocationDenied();
+      mUiCallback.onLocationDenied(pendingIntent);
   }
 
   @Override
@@ -427,7 +428,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     if (!PermissionsUtils.isLocationGranted(mContext))
     {
       Logger.w(TAG, "Dynamic permissions ACCESS_COARSE_LOCATION and/or ACCESS_FINE_LOCATION are granted");
-      onLocationDenied();
+      onLocationDenied(null);
       return;
     }
     Logger.i(TAG, "start(): interval = " + mInterval + " provider = '" + mLocationProvider + "' mInFirstRun = " + mInFirstRun);
@@ -578,7 +579,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   {
     void onLocationUpdated(@NonNull Location location);
     void onCompassUpdated(@NonNull CompassData compass);
-    void onLocationDenied();
+    void onLocationDenied(@Nullable PendingIntent pendingIntent);
     void onLocationDisabled();
     void onLocationNotFound();
     void onRoutingFinish();

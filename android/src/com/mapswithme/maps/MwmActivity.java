@@ -5,6 +5,7 @@ import static com.mapswithme.maps.widget.placepage.PlacePageButtons.PLACEPAGE_MO
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,6 +21,9 @@ import android.view.WindowInsets;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.IntentSenderRequest;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -202,6 +206,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private String mDonatesUrl;
 
   private int navBarHeight;
+
+  private ActivityResultLauncher<IntentSenderRequest> mLocationResolutionHandler =
+      registerForActivityResult(new ActivityResultContracts.StartIntentSenderForResult(),
+          result -> onLocationResolutionResult(result.getResultCode()));
 
   public interface LeftAnimationTrackListener
   {
@@ -956,6 +964,16 @@ public class MwmActivity extends BaseMwmFragmentActivity
       myPositionClick();
   }
 
+  protected void onLocationResolutionResult(int resultCode)
+  {
+    if (resultCode != Activity.RESULT_OK)
+    {
+      LocationHelper.INSTANCE.onLocationDisabled();
+      return;
+    }
+    LocationHelper.INSTANCE.restart();
+  }
+
   private void onIsolinesStateChanged(@NonNull IsolinesState type)
   {
     if (type != IsolinesState.EXPIREDDATA)
@@ -1681,8 +1699,16 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  public void onLocationDenied()
+  public void onLocationDenied(@Nullable PendingIntent pendingIntent)
   {
+    if (pendingIntent != null)
+    {
+      IntentSenderRequest intentSenderRequest = new IntentSenderRequest.Builder(pendingIntent.getIntentSender())
+          .build();
+      mLocationResolutionHandler.launch(intentSenderRequest);
+      return;
+    }
+
     PermissionsUtils.requestLocationPermission(this, REQ_CODE_LOCATION_PERMISSION);
   }
 
