@@ -306,10 +306,6 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     nativeOnLocationError(errCode);
     if (mUiCallback != null)
       mUiCallback.onLocationError(errCode);
-
-    for (LocationListener listener : mListeners)
-      listener.onLocationError(errCode);
-    mListeners.finishIterate();
   }
 
   private void notifyMyPositionModeChanged(int newMode)

@@ -311,12 +311,6 @@ public class RichPlacePageController implements PlacePageController, LocationLis
   }
 
   @Override
-  public void onLocationError(int errorCode)
-  {
-    // Do nothing by default.
-  }
-
-  @Override
   public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int
       oldTop, int oldRight, int oldBottom)
   {

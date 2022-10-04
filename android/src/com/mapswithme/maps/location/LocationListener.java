@@ -11,12 +11,8 @@ public interface LocationListener
 
     @Override
     public void onCompassUpdated(long time, double north) {}
-
-    @Override
-    public void onLocationError(int errorCode) {}
   }
 
   void onLocationUpdated(Location location);
   void onCompassUpdated(long time, double north);
-  void onLocationError(int errorCode);
 }
