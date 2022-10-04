@@ -277,10 +277,13 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChanged, bool 
     m_animationSystem.UpdateLastScreen(GetCurrentScreen());
 
   modelViewChanged = m_modelViewChanged;
-
-  double const kEps = 1e-5;
-  viewportChanged |= !m2::IsEqualSize(prevPixelRect, GetCurrentScreen().PixelRect(), kEps, kEps);
   m_modelViewChanged = false;
+
+  if (!viewportChanged)
+  {
+    double constexpr kEps = 1e-5;
+    viewportChanged = !m2::IsEqualSize(prevPixelRect, GetCurrentScreen().PixelRect(), kEps, kEps);
+  }
 
   return m_navigator.Screen();
 }

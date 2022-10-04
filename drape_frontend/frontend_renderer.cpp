@@ -1738,16 +1738,16 @@ void FrontendRenderer::RenderFrame()
   auto & scaleFpsHelper = gui::DrapeGui::Instance().GetScaleFpsHelper();
   m_frameData.m_timer.Reset();
 
-  ScreenBase const & modelView = ProcessEvents(m_frameData.m_modelViewChanged,
-                                               m_frameData.m_viewportChanged);
-  if (m_frameData.m_viewportChanged || m_needRestoreSize)
+  bool modelViewChanged, viewportChanged;
+  ScreenBase const & modelView = ProcessEvents(modelViewChanged, viewportChanged);
+  if (viewportChanged || m_needRestoreSize)
     OnResize(modelView);
 
   if (!m_context->BeginRendering())
     return;
 
   // Check for a frame is active.
-  bool isActiveFrame = m_frameData.m_modelViewChanged || m_frameData.m_viewportChanged;
+  bool isActiveFrame = modelViewChanged || viewportChanged;
 
   if (isActiveFrame)
     PrepareScene(modelView);
@@ -1781,7 +1781,7 @@ void FrontendRenderer::RenderFrame()
   isActiveFrame = true;
 #endif
 
-  if (m_frameData.m_modelViewChanged || hasForceUpdate)
+  if (modelViewChanged || hasForceUpdate)
     UpdateScene(modelView);
 
   InterpolationHolder::Instance().Advance(m_frameData.m_frameTime);

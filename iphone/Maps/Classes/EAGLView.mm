@@ -195,8 +195,7 @@ double getExactDPI(double contentScaleFactor)
   {
     m_lastViewSize = self.frame;
     CGSize const objcSize = [self pixelSize];
-    m2::PointU const s = m2::PointU(static_cast<uint32_t>(objcSize.width), static_cast<uint32_t>(objcSize.height));
-    GetFramework().OnSize(s.x, s.y);
+    GetFramework().OnSize(static_cast<int>(objcSize.width), static_cast<int>(objcSize.height));
     [self.widgetsManager resize:objcSize];
   }
   [super layoutSubviews];
