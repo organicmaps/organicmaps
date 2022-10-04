@@ -61,6 +61,7 @@ import com.mapswithme.maps.intent.Factory;
 import com.mapswithme.maps.intent.MapTask;
 import com.mapswithme.maps.location.CompassData;
 import com.mapswithme.maps.location.LocationHelper;
+import com.mapswithme.maps.location.LocationState;
 import com.mapswithme.maps.maplayer.MapButtonsController;
 import com.mapswithme.maps.maplayer.Mode;
 import com.mapswithme.maps.maplayer.ToggleMapLayerFragment;
@@ -99,6 +100,7 @@ import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.bottomsheet.MenuBottomSheetFragment;
 import com.mapswithme.util.bottomsheet.MenuBottomSheetItem;
+import com.mapswithme.util.log.Logger;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -111,6 +113,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
                CustomNavigateUpListener,
                RoutingController.Container,
                LocationHelper.UiCallback,
+               LocationState.ModeChangeListener,
                RoutingPlanInplaceController.RoutingPlanListener,
                RoutingBottomMenuListener,
                BookmarkManager.BookmarksLoadingListener,
@@ -122,6 +125,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
                MenuBottomSheetFragment.MenuBottomSheetInterfaceWithHeader,
                ToggleMapLayerFragment.LayerItemClickListener
 {
+  private static final String TAG = MwmActivity.class.getSimpleName();
+
   public static final String EXTRA_TASK = "map_task";
   public static final String EXTRA_LAUNCH_BY_DEEP_LINK = "launch_by_deep_link";
   public static final String EXTRA_BACK_URL = "backurl";
@@ -219,7 +224,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     checkMeasurementSystem();
 
     LocationHelper.INSTANCE.attach(this);
-
+    onMyPositionModeChanged(LocationHelper.INSTANCE.getMyPositionMode());
+    LocationState.nativeSetListener(this);
     if (!Config.isScreenSleepEnabled()) {
       Utils.keepScreenOn(true, getWindow());
     }
@@ -1645,6 +1651,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onMyPositionModeChanged(int newMode)
   {
+    Logger.d(TAG, "onMyPositionModeChanged mode = " + LocationState.nameOf(newMode));
+
     mMapButtonsController.updateNavMyPositionButton(newMode);
     RoutingController controller = RoutingController.get();
     if (controller.isPlanning())

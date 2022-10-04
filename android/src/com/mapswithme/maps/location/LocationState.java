@@ -8,7 +8,7 @@ import java.lang.annotation.RetentionPolicy;
 
 public final class LocationState
 {
-  interface ModeChangeListener
+  public interface ModeChangeListener
   {
     @SuppressWarnings("unused")
     void onMyPositionModeChanged(int newMode);
@@ -35,7 +35,7 @@ public final class LocationState
   @Value
   static native int nativeGetMode();
 
-  static native void nativeSetListener(ModeChangeListener listener);
+  public static native void nativeSetListener(ModeChangeListener listener);
   static native void nativeRemoveListener();
 
   static native void nativeSetLocationPendingTimeoutListener(
@@ -57,7 +57,7 @@ public final class LocationState
     return (mode > NOT_FOLLOW_NO_POSITION);
   }
 
-  static String nameOf(@Value int mode)
+  public static String nameOf(@Value int mode)
   {
     switch (mode)
     {

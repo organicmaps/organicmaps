@@ -75,21 +75,6 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   private boolean mLocationUpdateStoppedByUser;
 
   @SuppressWarnings("FieldCanBeLocal")
-  private final LocationState.ModeChangeListener mMyPositionModeListener =
-      new LocationState.ModeChangeListener()
-  {
-    @Override
-    public void onMyPositionModeChanged(int newMode)
-    {
-      notifyMyPositionModeChanged(newMode);
-      Logger.d(TAG, "onMyPositionModeChanged mode = " + LocationState.nameOf(newMode));
-
-      if (mUiCallback == null)
-        Logger.d(TAG, "UI is not ready to listen my position changes, i.e. it's not attached yet.");
-    }
-  };
-
-  @SuppressWarnings("FieldCanBeLocal")
   private final LocationState.LocationPendingTimeoutListener mLocationPendingTimeoutListener = () -> {
     if (mActive)
     {
@@ -104,7 +89,6 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     mContext = context;
     mSensorHelper = new SensorHelper(context);
     mLocationProvider = LocationProviderFactory.getProvider(mContext, this);
-    LocationState.nativeSetListener(mMyPositionModeListener);
     LocationState.nativeSetLocationPendingTimeoutListener(mLocationPendingTimeoutListener);
     MwmApplication.backgroundTracker(context).addListener(this);
   }
@@ -308,14 +292,6 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
       mUiCallback.onLocationError(errCode);
   }
 
-  private void notifyMyPositionModeChanged(int newMode)
-  {
-    Logger.d(TAG, "notifyMyPositionModeChanged(): " + LocationState.nameOf(newMode));
-
-    if (mUiCallback != null)
-      mUiCallback.onMyPositionModeChanged(newMode);
-  }
-
   private void notifyLocationNotFound()
   {
     Logger.d(TAG, "notifyLocationNotFound()");
@@ -510,7 +486,6 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
 
     mUiCallback = callback;
 
-    mUiCallback.onMyPositionModeChanged(getMyPositionMode());
     if (mCompassData != null)
       mUiCallback.onCompassUpdated(mCompassData);
 
@@ -597,7 +572,6 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
 
   public interface UiCallback
   {
-    void onMyPositionModeChanged(int newMode);
     void onLocationUpdated(@NonNull Location location);
     void onCompassUpdated(@NonNull CompassData compass);
     void onLocationError(int errorCode);
