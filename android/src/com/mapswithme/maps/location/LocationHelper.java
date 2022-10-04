@@ -54,64 +54,6 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   private final GPSCheck mReceiver = new GPSCheck();
   private boolean mReceiverRegistered;
 
-  @NonNull
-  private final LocationListener mCoreLocationListener = new LocationListener()
-  {
-    @Override
-    public void onLocationUpdated(Location location)
-    {
-      // If we are still in the first run mode, i.e. user is staying on the first run screens,
-      // not on the map, we mustn't post location update to the core. Only this preserving allows us
-      // to play nice zoom animation once a user will leave first screens and will see a map.
-      if (mInFirstRun)
-      {
-        Logger.d(TAG, "Location update is obtained and must be ignored, because the app is in a first run mode");
-        return;
-      }
-
-      nativeLocationUpdated(location.getTime(),
-                            location.getLatitude(),
-                            location.getLongitude(),
-                            location.getAccuracy(),
-                            location.getAltitude(),
-                            location.getSpeed(),
-                            location.getBearing());
-
-      if (mUiCallback != null)
-        mUiCallback.onLocationUpdated(location);
-    }
-
-    @Override
-    public void onCompassUpdated(long time, double north)
-    {
-      if (mCompassData == null)
-        mCompassData = new CompassData();
-
-      mCompassData.update(mContext, north);
-
-      if (mUiCallback != null)
-        mUiCallback.onCompassUpdated(mCompassData);
-    }
-
-
-    @Override
-    public void onLocationError(int errorCode)
-    {
-      Logger.d(TAG, "onLocationError errorCode = " + errorCode +
-               ", current state = " + LocationState.nameOf(getMyPositionMode()));
-      mSavedLocation = null;
-      nativeOnLocationError(errorCode);
-      if (mUiCallback != null)
-        mUiCallback.onLocationError(errorCode);
-    }
-
-    @Override
-    public String toString()
-    {
-      return "LocationHelper.mCoreLocationListener";
-    }
-  };
-
   private static final String TAG = LocationHelper.class.getSimpleName();
   @NonNull
   private final Listeners<LocationListener> mListeners = new Listeners<>();
@@ -165,7 +107,6 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     LocationState.nativeSetListener(mMyPositionModeListener);
     LocationState.nativeSetLocationPendingTimeoutListener(mLocationPendingTimeoutListener);
     MwmApplication.backgroundTracker(context).addListener(this);
-    addListener(mCoreLocationListener);
   }
 
   @Override
@@ -263,6 +204,13 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
 
   void notifyCompassUpdated(long time, double north)
   {
+    if (mCompassData == null)
+      mCompassData = new CompassData();
+
+    mCompassData.update(mContext, north);
+    if (mUiCallback != null)
+      mUiCallback.onCompassUpdated(mCompassData);
+
     for (LocationListener listener : mListeners)
       listener.onCompassUpdated(time, north);
     mListeners.finishIterate();
@@ -276,6 +224,26 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     for (LocationListener listener : mListeners)
       listener.onLocationUpdated(mSavedLocation);
     mListeners.finishIterate();
+
+    // If we are still in the first run mode, i.e. user is staying on the first run screens,
+    // not on the map, we mustn't post location update to the core. Only this preserving allows us
+    // to play nice zoom animation once a user will leave first screens and will see a map.
+    if (mInFirstRun)
+    {
+      Logger.d(TAG, "Location update is obtained and must be ignored, because the app is in a first run mode");
+      return;
+    }
+
+    nativeLocationUpdated(mSavedLocation.getTime(),
+        mSavedLocation.getLatitude(),
+        mSavedLocation.getLongitude(),
+        mSavedLocation.getAccuracy(),
+        mSavedLocation.getAltitude(),
+        mSavedLocation.getSpeed(),
+        mSavedLocation.getBearing());
+
+    if (mUiCallback != null)
+      mUiCallback.onLocationUpdated(mSavedLocation);
 
     // TODO: consider to create callback mechanism to transfer 'ROUTE_IS_FINISHED' event from
     // the core to the platform code (https://jira.mail.ru/browse/MAPSME-3675),
@@ -320,7 +288,8 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   @Override
   public void onLocationError(int errCode)
   {
-    Logger.d(TAG, "onLocationError(): " + errCode);
+    Logger.d(TAG, "onLocationError errorCode = " + errCode +
+        ", current state = " + LocationState.nameOf(getMyPositionMode()));
     if (errCode == ERROR_NOT_SUPPORTED &&
         LocationUtils.areLocationServicesTurnedOn(mContext) &&
         !(mLocationProvider instanceof AndroidNativeProvider))
@@ -332,6 +301,11 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
       restart();
       return;
     }
+
+    mSavedLocation = null;
+    nativeOnLocationError(errCode);
+    if (mUiCallback != null)
+      mUiCallback.onLocationError(errCode);
 
     for (LocationListener listener : mListeners)
       listener.onLocationError(errCode);
@@ -453,9 +427,6 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   }
 
   /**
-   * Adds the {@link #mCoreLocationListener} to listen location updates and notify UI.
-   * Notifies about {@link #ERROR_DENIED} if there are no enabled location providers.
-   * Calculates minimum time interval for location updates.
    * Starts polling location updates.
    */
   public void start()
@@ -491,8 +462,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   }
 
   /**
-   * Stops the polling location updates, i.e. removes the {@link #mCoreLocationListener} and stops
-   * the current active provider.
+   * Stops the polling location updates.
    */
   public void stop()
   {
@@ -556,7 +526,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     {
       Logger.d(TAG, "attach() provider '" + mLocationProvider + "' is active, just add the listener");
       if (mSavedLocation != null)
-        mCoreLocationListener.onLocationUpdated(mSavedLocation);
+        notifyLocationUpdated();
     }
     else
     {
