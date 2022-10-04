@@ -32,6 +32,6 @@ fi
 
 if [[ $package == *p* ]]
 then 
-    echo "uninstlling $PRO"
+    echo "uninstalling $PRO"
     adb $ID uninstall $PRO
 fi
