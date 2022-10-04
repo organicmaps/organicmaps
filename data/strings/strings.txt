@@ -18723,6 +18723,7 @@
   [button_layer_subway]
     tags = android,ios
     en = Subway
+    en-GB = Metro
     ar = مترو الانفاق
     be = Метро
     bg = Метро
@@ -18803,6 +18804,7 @@
   [subway_data_unavailable]
     tags = android,ios
     en = Subway map is unavailable
+    en-GB = Metro map is unavailable
     ar = خريطة مترو الانفاق غير متوفرة
     be = Мапа метро недасягальная
     bg = Картата на метрото не е налична
@@ -23081,6 +23083,7 @@
   [transit_not_found]
     tags = android,ios
     en = Subway navigation in this region is not available yet
+    en-GB = Metro navigation in this region is not available yet
     ar = التنقل باستخدام مترو الأنفاق في هذه المنطقة غير متاح حتى الآن
     be = Навігацыі па метро для гэтага рэгіёна пакуль няма
     bg = Навигацията за метро все още не е налична в региона
@@ -23121,6 +23124,7 @@
   [dialog_pedestrian_route_is_long_header]
     tags = android,ios
     en = Subway route is not found
+    en-GB = Metro route is not found
     ar = لم يتم العثور على مترو الانفاق
     be = Маршрут на метро не знойдзены
     bg = Не е открит маршрут за метро
@@ -23161,6 +23165,7 @@
   [dialog_pedestrian_route_is_long_message]
     tags = android,ios
     en = Please choose a start or end point closer to a subway station
+    en-GB = Please choose a start or end point closer to a metro station
     ar = يرجى اختيار نقطة بداية أو نهاية أقرب لمحطة مترو الأنفاق
     be = Выберыце пункт адпраўлення альбо прызначэння бліжэй да станцыі метро
     bg = Моля, изберете начална или крайна точка по-близо до метростанция
