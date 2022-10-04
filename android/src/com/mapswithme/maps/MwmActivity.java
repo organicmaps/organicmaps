@@ -1681,14 +1681,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  public void onLocationError(int errorCode)
+  public void onLocationDenied()
   {
-    if (errorCode == LocationHelper.ERROR_DENIED)
-    {
-      PermissionsUtils.requestLocationPermission(MwmActivity.this, REQ_CODE_LOCATION_PERMISSION);
-      return;
-    }
+    PermissionsUtils.requestLocationPermission(this, REQ_CODE_LOCATION_PERMISSION);
+  }
 
+  @Override
+  public void onLocationDisabled()
+  {
     if (mLocationErrorDialogAnnoying || (mLocationErrorDialog != null && mLocationErrorDialog.isShowing()))
       return;
 
