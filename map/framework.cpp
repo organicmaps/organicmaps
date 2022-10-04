@@ -1011,6 +1011,7 @@ void Framework::OnSize(int w, int h)
 {
   if (m_drapeEngine != nullptr)
     m_drapeEngine->Resize(std::max(w, 2), std::max(h, 2));
+  m_visibleViewport = m2::RectD(0, 0, w, h);
 }
 
 namespace
@@ -1522,9 +1523,6 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
   Allow3dMode(allow3d, allow3dBuildings);
 
   LoadViewport();
-
-  /// @todo Have doubts that this call below is actually needed.
-  SetVisibleViewport(m2::RectD(0, 0, params.m_surfaceWidth, params.m_surfaceHeight));
 
   if (m_connectToGpsTrack)
     GpsTracker::Instance().Connect(bind(&Framework::OnUpdateGpsTrackPointsCallback, this, _1, _2));

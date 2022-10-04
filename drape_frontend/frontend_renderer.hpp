@@ -433,8 +433,6 @@ private:
   {
     base::Timer m_timer;
     double m_frameTime = 0.0;
-    bool m_modelViewChanged = true;
-    bool m_viewportChanged = true;
     uint32_t m_inactiveFramesCounter = 0;
     bool m_forceFullRedrawNextFrame = false;
 #ifdef SHOW_FRAMES_STATS
