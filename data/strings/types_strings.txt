@@ -16763,7 +16763,7 @@
     zh-Hans = 铁路要素
 
   [type.railway.abandoned]
-    en = Abandoned railway
+    en = Abandoned Railway
     de = Ehemalige Eisenbahnstrecke
     fr = Chemin de fer abandonné
     ja = 廃線
@@ -16776,7 +16776,7 @@
     zh-Hans = 铁路遗迹
 
   [type.railway.abandoned.bridge]
-    en = Abandoned railway
+    en = Abandoned Railway Bridge
     de = Ehemalige Eisenbahnbrücke
     fr = Chemin de fer abandonné
     ja = 廃線(橋)
@@ -16789,7 +16789,7 @@
     zh-Hans = 铁路遗迹
 
   [type.railway.abandoned.tunnel]
-    en = Abandoned Railway
+    en = Abandoned Railway Tunnel
     de = Ehemaliger Eisenbahntunnel
     fr = Chemin de fer abandonné
     ja = 廃線(トンネル)
@@ -16802,7 +16802,7 @@
     zh-Hans = 铁路遗迹
 
   [type.railway.construction]
-    en = Railway's Construction
+    en = Railway Construction
     de = Eisenbahnstrecke im Bau
     fr = Chemin de fer en construction
     it = Binari in costruzione
@@ -16857,7 +16857,7 @@
     zh-Hans = 缆索铁路轨道
 
   [type.railway.funicular.bridge]
-    en = Funicular
+    en = Funicular Bridge
     de = Standseilbahnbrücke
     fr = Funiculaire
     ja = ケーブルカー(橋)
@@ -16871,7 +16871,7 @@
     zh-Hans = 缆索铁路轨道
 
   [type.railway.funicular.tunnel]
-    en = Funicular
+    en = Funicular Tunnel
     de = Standseilbahntunnel
     fr = Funiculaire
     ja = ケーブルカー(トンネル)
@@ -16943,7 +16943,7 @@
     zh-Hans = 轻轨轨道
 
   [type.railway.light_rail.bridge]
-    en = Light Rail
+    en = Light Rail Bridge
     de = Stadtbahnbrücke
     ja = ライトレール(橋)
     nl = Lightrail-brug
@@ -16955,7 +16955,7 @@
     zh-Hans = 轻轨轨道
 
   [type.railway.light_rail.tunnel]
-    en = Light Rail
+    en = Light Rail Tunnel
     de = Stadtbahntunnel
     ja = ライトレール(トンネル)
     nl = Lightrail-tunnel
@@ -17003,7 +17003,7 @@
     zh-Hant = 單軌軌道
 
   [type.railway.monorail.bridge]
-    en = Monorail
+    en = Monorail Bridge
     de = Einschienenbahnbrücke
     fr = Monorail
     ja = モノレール(橋)
@@ -17018,7 +17018,7 @@
     zh-Hant = 單軌軌道
 
   [type.railway.monorail.tunnel]
-    en = Monorail
+    en = Monorail Tunnel
     de = Einschienenbahntunnel
     fr = Monorail
     ja = モノレール(トンネル)
@@ -17047,7 +17047,7 @@
     zh-Hans = 窄轨铁路轨道
 
   [type.railway.narrow_gauge.bridge]
-    en = Narrow Gauge Rail
+    en = Narrow Gauge Rail Bridge
     de = Schmalspurbahnbrücke
     ja = 狭軌鉄道(橋)
     mr = अरुंदमापी रेल्वे
@@ -17060,7 +17060,7 @@
     zh-Hans = 窄轨铁路轨道
 
   [type.railway.narrow_gauge.tunnel]
-    en = Narrow Gauge Rail
+    en = Narrow Gauge Rail Tunnel
     de = Schmalspurbahntunnel
     ja = ja = 狭軌鉄道(トンネル)
     mr = अरुंदमापी रेल्वे
@@ -17102,7 +17102,7 @@
     uk = Законсервована залізниця
 
   [type.railway.preserved.bridge]
-    en = Preserved Rail
+    en = Preserved Rail Bridge
     de = Museumsbahnbrücke
     ja = 保存鉄道(橋)
     nl = Museumspoorbaanbrug
@@ -17113,7 +17113,7 @@
     uk = Законсервована залізниця
 
   [type.railway.preserved.tunnel]
-    en = Preserved Rail
+    en = Preserved Rail Tunnel
     de = Museumsbahntunnel
     ja = 保存鉄道(トンネル)
     nl = Museumspoorbaantunnel
@@ -17160,7 +17160,7 @@
     zh-Hant = 鐵路軌道
 
   [type.railway.rail.bridge]
-    en = Railway
+    en = Railway Bridge
     de = S-Bahn-Brücke
     fr = Chemin de fer
     ja = 鉄道(橋)
@@ -17189,7 +17189,7 @@
     zh-Hant = 鐵路軌道
 
   [type.railway.rail.tunnel]
-    en = Railway
+    en = Railway Tunnel
     de = S-Bahn-Tunnel
     fr = Chemin de fer
     ja = 鉄道(鉄道)
@@ -17226,7 +17226,7 @@
     uk = Гілка залізниці
 
   [type.railway.siding.bridge]
-    en = Siding Rail
+    en = Siding Rail Bridge
     de = Ausweich-/Überholgleis
     ja = 側線(橋)
     nl = Nevenspoor-brug
@@ -17237,7 +17237,7 @@
     uk = Гілка залізниці
 
   [type.railway.siding.tunnel]
-    en = Siding Rail
+    en = Siding Rail Tunnel
     de = Ausweich-/Überholgleis
     ja = 側線(トンネル)
     nl = Nevenspoor-tunnel
@@ -17259,7 +17259,7 @@
     uk = Під'їздна залізниця
 
   [type.railway.spur.bridge]
-    en = Spur Rail
+    en = Spur Rail Bridge
     de = Anschlussgleis
     ja = 引き込み線(橋)
     nl = Zijspoor-brug
@@ -17270,7 +17270,7 @@
     uk = Під'їздна залізниця
 
   [type.railway.spur.tunnel]
-    en = Spur Rail
+    en = Spur Rail Tunnel
     de = Anschlussgleis
     ja = 引き込み線(トンネル)
     nl = Zijspoor-tunnel
@@ -17328,6 +17328,7 @@
 
   [type.railway.station.subway]
     en = Subway
+    en-GB = Metro
     ar = محطة مترو
     cs = Metro
     da = Metro
@@ -17518,6 +17519,8 @@
 
   [type.railway.station.subway.london]
     ref = type.railway.station.subway
+    en = Underground Station
+    en-GB = Underground Station
 
   [type.railway.station.subway.lyon]
     ref = type.railway.station.subway
@@ -17686,6 +17689,7 @@
 
   [type.railway.subway]
     en = Subway Line
+    en-GB = Metro Line
     de = U-Bahn
     fr = Ligne de métro
     it = Binari della metrò
@@ -17698,7 +17702,8 @@
     uk = Лінія метро
 
   [type.railway.subway.bridge]
-    en = Subway Line
+    en = Subway Line Bridge
+    en-GB = Metro Line Bridge
     de = U-Bahn-Brücke
     fr = Voie de métro
     mr = भुयारी मार्गिका
@@ -17710,7 +17715,8 @@
     uk = Лінія метро
 
   [type.railway.subway.tunnel]
-    en = Subway Line
+    en = Subway Line Tunnel
+    en-GB = Metro Line Tunnel
     de = U-Bahn-Tunnel
     fr = Voie de métro
     mr = भुयारी मार्गिका
@@ -17723,6 +17729,7 @@
 
   [type.railway.subway_entrance]
     en = Subway Entrance
+    en-GB = Metro Entrance
     ar = مدخل المترو
     cs = Vchod do podchodu
     da = Indgang til undergrundsbane
@@ -17915,6 +17922,8 @@
 
   [type.railway.subway_entrance.london]
     ref = type.railway.subway_entrance
+    en = Underground Station Entrance
+    en-GB = Underground Station Entrance
 
   [type.railway.subway_entrance.lyon]
     ref = type.railway.subway_entrance
@@ -18098,7 +18107,7 @@
     zh-Hant = 電車軌道
 
   [type.railway.tram.bridge]
-    en = Tram Line
+    en = Tram Line Bridge
     de = Straßenbahnbrücke
     fr = Voie de tramway
     ja = トラム(橋)
@@ -18113,7 +18122,7 @@
     zh-Hant = 電車軌道
 
   [type.railway.tram.tunnel]
-    en = Tram Line
+    en = Tram Line Tunnel
     de = Straßenbahntunnel
     fr = Voie de tramway
     ja = トラム(トンネル)
@@ -18175,7 +18184,7 @@
     zh-Hans = 铁路货场
 
   [type.railway.yard.bridge]
-    en = Railway Yard
+    en = Railway Yard Bridge
     de = Abstellgleis
     ja = ヤード(橋)
     mr = रेल्वे आवार
@@ -18188,7 +18197,7 @@
     zh-Hans = 铁路货场
 
   [type.railway.yard.tunnel]
-    en = Railway Yard
+    en = Railway Yard Tunnel
     de = Abstellgleis
     ja = ヤード(トンネル)
     mr = रेल्वे आवार
