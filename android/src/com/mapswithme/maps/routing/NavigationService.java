@@ -69,12 +69,6 @@ public class NavigationService extends Service
         updateNotification(routingInfo);
       }
     }
-
-    @Override
-    public void onLocationError(int errorCode)
-    {
-      Logger.e(TAG, "onLocationError() errorCode: " + errorCode);
-    }
   };
 
   public class LocalBinder extends Binder

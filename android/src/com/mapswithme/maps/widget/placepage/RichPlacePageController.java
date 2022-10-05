@@ -258,12 +258,6 @@ public class RichPlacePageController implements PlacePageController, LocationLis
   }
 
   @Override
-  public void onLocationError(int errorCode)
-  {
-    // Do nothing by default.
-  }
-
-  @Override
   public void onSave(@NonNull Bundle outState)
   {
     outState.putParcelable(PlacePageUtils.EXTRA_PLACE_PAGE_DATA, mPlacePage.getMapObject());
