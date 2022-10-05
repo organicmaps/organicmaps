@@ -6,6 +6,7 @@ import android.os.Looper;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationAvailability;
 import com.google.android.gms.location.LocationCallback;
@@ -15,8 +16,6 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.SettingsClient;
 import com.mapswithme.util.log.Logger;
-
-import static com.mapswithme.maps.location.LocationHelper.ERROR_NOT_SUPPORTED;
 
 class GoogleFusedLocationProvider extends BaseLocationProvider
 {
@@ -44,7 +43,6 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
     {
       if (!availability.isLocationAvailable()) {
         Logger.w(TAG, "isLocationAvailable returned false");
-        //mListener.onLocationError(ERROR_GPS_OFF);
       }
     }
   }
@@ -90,7 +88,7 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
       mFusedLocationClient.requestLocationUpdates(locationRequest, mCallback, Looper.myLooper());
     }).addOnFailureListener(e -> {
       Logger.e(TAG, "Service is not available: " + e);
-      mListener.onLocationError(ERROR_NOT_SUPPORTED);
+      mListener.onLocationDisabled();
     });
 
     // onLocationResult() may not always be called regularly, however the device location is known.

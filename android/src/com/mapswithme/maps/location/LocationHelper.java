@@ -31,10 +31,10 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
 
   // These constants should correspond to values defined in platform/location.hpp
   // Leave 0-value as no any error.
-  public static final int ERROR_NOT_SUPPORTED = 1;
-  public static final int ERROR_DENIED = 2;
-  public static final int ERROR_GPS_OFF = 3;
-  public static final int ERROR_UNKNOWN = 0;
+  //private static final int ERROR_UNKNOWN = 0;
+  //private static final int ERROR_NOT_SUPPORTED = 1;
+  private static final int ERROR_DENIED = 2;
+  private static final int ERROR_GPS_OFF = 3;
 
   private static final long INTERVAL_FOLLOW_AND_ROTATE_MS = 3000;
   private static final long INTERVAL_FOLLOW_MS = 1000;
@@ -286,12 +286,18 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   }
 
   @Override
-  public void onLocationError(int errCode)
+  public void onLocationDenied()
   {
-    Logger.d(TAG, "onLocationError errorCode = " + errCode +
-        ", current state = " + LocationState.nameOf(getMyPositionMode()));
-    if (errCode == ERROR_NOT_SUPPORTED &&
-        LocationUtils.areLocationServicesTurnedOn(mContext) &&
+    mSavedLocation = null;
+    nativeOnLocationError(ERROR_DENIED);
+    if (mUiCallback != null)
+      mUiCallback.onLocationDenied();
+  }
+
+  @Override
+  public void onLocationDisabled()
+  {
+    if (LocationUtils.areLocationServicesTurnedOn(mContext) &&
         !(mLocationProvider instanceof AndroidNativeProvider))
     {
       // If location service is enabled, try to downgrade to the native provider first
@@ -303,9 +309,9 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     }
 
     mSavedLocation = null;
-    nativeOnLocationError(errCode);
+    nativeOnLocationError(ERROR_GPS_OFF);
     if (mUiCallback != null)
-      mUiCallback.onLocationError(errCode);
+      mUiCallback.onLocationDisabled();
   }
 
   private void notifyMyPositionModeChanged(int newMode)
@@ -437,7 +443,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     {
       Logger.d(TAG, "Location updates are stopped by the user manually, so skip provider start"
                + " until the user starts it manually.");
-      onLocationError(ERROR_GPS_OFF);
+      onLocationDisabled();
       return;
     }
 
@@ -447,7 +453,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     if (!PermissionsUtils.isLocationGranted(mContext))
     {
       Logger.w(TAG, "Dynamic permissions ACCESS_COARSE_LOCATION and/or ACCESS_FINE_LOCATION are granted");
-      onLocationError(ERROR_DENIED);
+      onLocationDenied();
       return;
     }
     Logger.i(TAG, "start(): interval = " + mInterval + " provider = '" + mLocationProvider + "' mInFirstRun = " + mInFirstRun);
@@ -606,7 +612,8 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     void onMyPositionModeChanged(int newMode);
     void onLocationUpdated(@NonNull Location location);
     void onCompassUpdated(@NonNull CompassData compass);
-    void onLocationError(int errorCode);
+    void onLocationDenied();
+    void onLocationDisabled();
     void onLocationNotFound();
     void onRoutingFinish();
   }

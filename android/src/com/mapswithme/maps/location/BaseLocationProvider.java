@@ -1,15 +1,18 @@
 package com.mapswithme.maps.location;
 
+import android.app.PendingIntent;
 import android.location.Location;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 abstract class BaseLocationProvider
 {
   interface Listener
   {
     void onLocationChanged(@NonNull Location location);
-    void onLocationError(int errorCode);
+    void onLocationDenied();
+    void onLocationDisabled();
   }
 
   @NonNull
