@@ -29,7 +29,7 @@ class AndroidNativeProvider extends BaseLocationProvider
       Logger.d(TAG, "Disabled location provider: " + provider);
       mProviderCount--;
       if (mProviderCount < MIN_PROVIDER_COUNT)
-        mListener.onLocationError(LocationHelper.ERROR_GPS_OFF);
+        mListener.onLocationDisabled();
     }
 
     @Override
@@ -78,7 +78,7 @@ class AndroidNativeProvider extends BaseLocationProvider
     mProviderCount = providers.size();
     if (mProviderCount < MIN_PROVIDER_COUNT)
     {
-      mListener.onLocationError(LocationHelper.ERROR_GPS_OFF);
+      mListener.onLocationDisabled();
     }
 
     for (String provider : providers)
