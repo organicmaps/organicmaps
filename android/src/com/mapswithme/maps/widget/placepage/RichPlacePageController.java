@@ -1,7 +1,5 @@
 package com.mapswithme.maps.widget.placepage;
 
-import android.animation.Animator;
-import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.res.Resources;
@@ -31,7 +29,6 @@ public class RichPlacePageController implements PlacePageController, LocationLis
   private static final String TAG = RichPlacePageController.class.getSimpleName();
 
   private static final float PREVIEW_PLUS_RATIO = 0.45f;
-  private static final int ANIM_CHANGE_PEEK_HEIGHT_MS = 100;
   @SuppressWarnings("NullableProblems")
   @NonNull
   private BottomSheetBehavior<View> mPlacePageBehavior;
@@ -42,7 +39,6 @@ public class RichPlacePageController implements PlacePageController, LocationLis
   @NonNull
   private PlacePageView mPlacePage;
   private int mViewportMinHeight;
-  private boolean mPeekHeightAnimating;
   @NonNull
   private final SlideListener mSlideListener;
   @Nullable
@@ -190,12 +186,6 @@ public class RichPlacePageController implements PlacePageController, LocationLis
 
   private void setPeekHeight()
   {
-    if (mPeekHeightAnimating)
-    {
-      Logger.d(TAG, "Peek animation in progress, ignore.");
-      return;
-    }
-
     final int peekHeight = calculatePeekHeight();
     if (peekHeight == mPlacePageBehavior.getPeekHeight())
       return;
@@ -208,49 +198,8 @@ public class RichPlacePageController implements PlacePageController, LocationLis
       return;
     }
 
-    if (PlacePageUtils.isCollapsedState(currentState) && mPlacePageBehavior.getPeekHeight() > 0)
-    {
-      setPeekHeightAnimatedly(peekHeight);
-      return;
-    }
-
-    mPlacePageBehavior.setPeekHeight(peekHeight);
-  }
-
-  private void setPeekHeightAnimatedly(int peekHeight)
-  {
-    int delta = peekHeight - mPlacePageBehavior.getPeekHeight();
-    ObjectAnimator animator = ObjectAnimator.ofFloat(mPlacePage, "translationY", -delta);
-    animator.setDuration(ANIM_CHANGE_PEEK_HEIGHT_MS);
-    animator.addListener(new UiUtils.SimpleAnimatorListener()
-    {
-      @Override
-      public void onAnimationStart(Animator animation)
-      {
-        mPeekHeightAnimating = true;
-        mPlacePage.setScrollable(false);
-        mPlacePageBehavior.setDraggable(false);
-      }
-
-      @Override
-      public void onAnimationEnd(Animator animation)
-      {
-        mPlacePage.setTranslationY(0);
-        mPeekHeightAnimating = false;
-        mPlacePage.setScrollable(true);
-        mPlacePageBehavior.setDraggable(true);
-        mPlacePageBehavior.setPeekHeight(peekHeight);
-        PlacePageUtils.moveViewportUp(mPlacePage, mViewportMinHeight);
-      }
-    });
-    animator.addUpdateListener(animation -> onUpdateTranslation());
-
-    animator.start();
-  }
-
-  private void onUpdateTranslation()
-  {
-    mSlideListener.onPlacePageSlide((int) (mPlacePage.getTop() + mPlacePage.getTranslationY()));
+    final boolean shouldAnimate = PlacePageUtils.isCollapsedState(currentState) && mPlacePageBehavior.getPeekHeight() > 0;
+    mPlacePageBehavior.setPeekHeight(peekHeight, shouldAnimate);
   }
 
   private int calculatePeekHeight()
