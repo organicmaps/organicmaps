@@ -30,7 +30,6 @@ public class RichPlacePageController implements PlacePageController, LocationLis
 {
   private static final String TAG = RichPlacePageController.class.getSimpleName();
 
-  private static final float ANCHOR_RATIO = 0.3f;
   private static final float PREVIEW_PLUS_RATIO = 0.45f;
   private static final int ANIM_CHANGE_PEEK_HEIGHT_MS = 100;
   @SuppressWarnings("NullableProblems")
@@ -269,7 +268,7 @@ public class RichPlacePageController implements PlacePageController, LocationLis
       {
         View parent = (View) mPlacePage.getParent();
         int promoPeekHeight = (int) (parent.getHeight() * PREVIEW_PLUS_RATIO);
-        return promoPeekHeight <= organicPeekHeight ? organicPeekHeight : promoPeekHeight;
+        return Math.max(promoPeekHeight, organicPeekHeight);
       }
     }
 
@@ -338,12 +337,10 @@ public class RichPlacePageController implements PlacePageController, LocationLis
 
     @BottomSheetBehavior.State
     int state = mPlacePageBehavior.getState();
-    mPlacePage.setMapObject(object, (isSameObject) -> {
-      restorePlacePageState(object, state);
-    });
+    mPlacePage.setMapObject(object, (isSameObject) -> restorePlacePageState(state));
   }
 
-  private void restorePlacePageState(@NonNull MapObject object, @BottomSheetBehavior.State int state)
+  private void restorePlacePageState(@BottomSheetBehavior.State int state)
   {
     mPlacePage.post(() -> {
       mPlacePageBehavior.setState(state);
