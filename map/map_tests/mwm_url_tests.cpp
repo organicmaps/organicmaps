@@ -61,6 +61,7 @@ public:
 
   vector<RoutePoint> GetRoutePoints() const { return m_api.GetRoutePoints(); }
   url_scheme::SearchRequest const & GetSearchRequest() const { return m_api.GetSearchRequest(); }
+  ms::LatLon GetCenterLatLon() const { return m_api.GetCenterLatLon(); }
   string const & GetGlobalBackUrl() const { return m_api.GetGlobalBackUrl(); }
   int GetApiVersion() const { return m_api.GetApiVersion(); }
 
@@ -146,16 +147,17 @@ UNIT_TEST(RouteApiSmoke)
 
 UNIT_TEST(SearchApiSmoke)
 {
-  string const urlString = "mapsme://search?query=fff&cll=1,1&locale=ru&map";
+  string const urlString = "mapsme://search?query=fff&cll=1,2&locale=ru&map";
   TEST(url::Url(urlString).IsValid(), ());
 
   ApiTest test(urlString);
   TEST(test.IsValid(), ());
 
   auto const & request = test.GetSearchRequest();
+  ms::LatLon latlon = test.GetCenterLatLon();
   TEST_EQUAL(request.m_query, "fff", ());
-  TEST_EQUAL(request.m_centerLat, 1, ());
-  TEST_EQUAL(request.m_centerLon, 1, ());
+  TEST_EQUAL(latlon.m_lat, 1, ());
+  TEST_EQUAL(latlon.m_lon, 2, ());
   TEST_EQUAL(request.m_locale, "ru", ());
   TEST(request.m_isSearchOnMap, ());
 }

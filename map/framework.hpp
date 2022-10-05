@@ -560,6 +560,7 @@ public:
   ParsedRoutingData GetParsedRoutingData() const;
   url_scheme::SearchRequest GetParsedSearchRequest() const;
   std::string const & GetParsedAppName() const;
+  ms::LatLon GetParsedCenterLatLon() const;
 
   using FeatureMatcher = std::function<bool(FeatureType & ft)>;
 
