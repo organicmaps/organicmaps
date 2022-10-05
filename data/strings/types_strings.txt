@@ -16670,8 +16670,8 @@
     nb = T-bane
     nl = Metrostation
     pl = Metro
-    pt = Estação de metropolitano
-    pt-BR = Estação do metrô
+    pt = Estação de metro
+    pt-BR = Estação de metrô
     ro = Metrou
     ru = Метро
     sk = Metro
@@ -17068,8 +17068,8 @@
     nb = T-bane inngang
     nl = Metro ingang
     pl = Wejście do metra
-    pt = Entrada de metropolitano
-    pt-BR = Entrada de metrô
+    pt = Entrada do metro
+    pt-BR = Entrada do metrô
     ro = Intrare în metro
     ru = Вход в метро
     sk = Vstup do metra
