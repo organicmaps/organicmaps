@@ -26,9 +26,7 @@ import com.mapswithme.util.log.Logger;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class RichPlacePageController implements PlacePageController, LocationListener,
-                                                View.OnLayoutChangeListener,
-                                                Closable
+public class RichPlacePageController implements PlacePageController, LocationListener, Closable
 {
   private static final String TAG = RichPlacePageController.class.getSimpleName();
 
@@ -130,7 +128,6 @@ public class RichPlacePageController implements PlacePageController, LocationLis
     GestureDetectorCompat gestureDetector = new GestureDetectorCompat(activity, ppGestureListener);
     mPlacePage.addPlacePageGestureListener(ppGestureListener);
     mPlacePage.setOnTouchListener((v, event) -> gestureDetector.onTouchEvent(event));
-    mPlacePage.addOnLayoutChangeListener(this);
     mPlacePage.addClosable(this);
     mPlacePage.setRoutingModeListener(mRoutingModeListener);
 
@@ -244,6 +241,7 @@ public class RichPlacePageController implements PlacePageController, LocationLis
         mPlacePage.setScrollable(true);
         mPlacePageBehavior.setDraggable(true);
         mPlacePageBehavior.setPeekHeight(peekHeight);
+        PlacePageUtils.moveViewportUp(mPlacePage, mViewportMinHeight);
       }
     });
     animator.addUpdateListener(animation -> onUpdateTranslation());
@@ -314,24 +312,6 @@ public class RichPlacePageController implements PlacePageController, LocationLis
   public void onLocationError(int errorCode)
   {
     // Do nothing by default.
-  }
-
-  @Override
-  public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int
-      oldTop, int oldRight, int oldBottom)
-  {
-    if (mPlacePageBehavior.getPeekHeight() == 0)
-    {
-      Logger.d(TAG, "Layout change ignored, peek height not calculated yet");
-      return;
-    }
-
-    mPlacePage.post(this::setPeekHeight);
-
-    if (PlacePageUtils.isHiddenState(mPlacePageBehavior.getState()))
-      return;
-
-    PlacePageUtils.moveViewportUp(mPlacePage, mViewportMinHeight);
   }
 
   @Override
