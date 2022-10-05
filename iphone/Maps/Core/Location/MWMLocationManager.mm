@@ -319,9 +319,12 @@ void setShowLocationAlert(BOOL needShow) {
     {
     case MWMRouterTypeVehicle: manager.geoMode = GeoMode::VehicleRouting; break;
     case MWMRouterTypePublicTransport:
-    case MWMRouterTypeHelicopter:
     case MWMRouterTypePedestrian: manager.geoMode = GeoMode::PedestrianRouting; break;
     case MWMRouterTypeBicycle: manager.geoMode = GeoMode::BicycleRouting; break;
+
+    // FIXME: this should probably be corrected when implementing helicopter routing.
+    case MWMRouterTypeHelicopter:
+        break;
     }
   }
   else
