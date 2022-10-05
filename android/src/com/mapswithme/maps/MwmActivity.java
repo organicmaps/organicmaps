@@ -4,7 +4,6 @@ import static com.mapswithme.maps.widget.placepage.PlacePageButtons.PLACEPAGE_MO
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -25,6 +24,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -92,7 +92,7 @@ import com.mapswithme.maps.widget.placepage.PlacePageFactory;
 import com.mapswithme.maps.widget.placepage.RoutingModeListener;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.Counters;
-import com.mapswithme.util.PermissionsUtils;
+import com.mapswithme.util.LocationUtils;
 import com.mapswithme.util.SharingUtils;
 import com.mapswithme.util.ThemeSwitcher;
 import com.mapswithme.util.ThemeUtils;
@@ -136,8 +136,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private static final String EXTRA_LOCATION_DIALOG_IS_ANNOYING = "LOCATION_DIALOG_IS_ANNOYING";
   private static final String EXTRA_CURRENT_LAYOUT_MODE = "CURRENT_LAYOUT_MODE";
-  private static final int REQ_CODE_LOCATION_PERMISSION = 1;
-  private static final int REQ_CODE_LOCATION_PERMISSION_ON_CLICK = 2;
   public static final int REQ_CODE_ERROR_DRIVING_OPTIONS_DIALOG = 5;
   public static final int REQ_CODE_DRIVING_OPTIONS = 6;
   private static final int REQ_CODE_ISOLINES_ERROR = 8;
@@ -183,10 +181,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @NonNull
   private FloatingSearchToolbarController mSearchController;
 
-  private boolean mLocationErrorDialogAnnoying = false;
-  @Nullable
-  private Dialog mLocationErrorDialog;
-
   private boolean mRestoreRoutingPlanFragmentNeeded;
   @Nullable
   private Bundle mSavedForTabletState;
@@ -218,8 +212,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void onRenderingCreated()
   {
     checkMeasurementSystem();
-
-    LocationHelper.INSTANCE.attach(this);
   }
 
   @Override
@@ -232,14 +224,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void onRenderingInitializationFinished()
   {
     runTasks();
-  }
-
-  private void myPositionClick()
-  {
-    mLocationErrorDialogAnnoying = false;
-    LocationHelper.INSTANCE.setStopLocationUpdateByUser(false);
-    LocationHelper.INSTANCE.switchToNextMode();
-    LocationHelper.INSTANCE.restart();
   }
 
   private void runTasks()
@@ -385,7 +369,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     super.onSafeCreate(savedInstanceState);
     if (savedInstanceState != null)
     {
-      mLocationErrorDialogAnnoying = savedInstanceState.getBoolean(EXTRA_LOCATION_DIALOG_IS_ANNOYING);
+      LocationHelper.INSTANCE.setLocationErrorDialogAnnoying(savedInstanceState.getBoolean(EXTRA_LOCATION_DIALOG_IS_ANNOYING));
       mCurrentLayoutMode = MapButtonsController.LayoutMode.values()[savedInstanceState.getInt(EXTRA_CURRENT_LAYOUT_MODE)];
     }
     else
@@ -657,12 +641,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
         MapFragment.nativeScaleMinus();
         break;
       case myPosition:
-        if (!PermissionsUtils.isFineLocationGranted(getApplicationContext()))
-        {
-          PermissionsUtils.requestLocationPermission(MwmActivity.this, REQ_CODE_LOCATION_PERMISSION_ON_CLICK);
-          return;
-        }
-        myPositionClick();
+        LocationHelper.INSTANCE.switchToNextMode();
+        if (!LocationUtils.isFineLocationGranted(getApplicationContext()))
+          LocationHelper.INSTANCE.requestPermissions();
         break;
       case toggleMapLayer:
         toggleMapLayerBottomSheet();
@@ -810,8 +791,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void startLocationToPoint(final @Nullable MapObject endPoint)
   {
     closeFloatingPanels();
-    if (!PermissionsUtils.isFineLocationGranted(MwmActivity.this))
-      PermissionsUtils.requestLocationPermission(MwmActivity.this, REQ_CODE_LOCATION_PERMISSION);
+    if (!LocationUtils.isFineLocationGranted(getApplicationContext()))
+      LocationHelper.INSTANCE.requestPermissions();
 
     MapObject startPoint = LocationHelper.INSTANCE.getMyPosition();
     RoutingController.get().prepare(startPoint, endPoint);
@@ -854,7 +835,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mNavigationController.onActivitySaveInstanceState(this, outState);
 
     RoutingController.get().onSaveState();
-    outState.putBoolean(EXTRA_LOCATION_DIALOG_IS_ANNOYING, mLocationErrorDialogAnnoying);
+    outState.putBoolean(EXTRA_LOCATION_DIALOG_IS_ANNOYING, LocationHelper.INSTANCE.isLocationErrorDialogAnnoying());
     outState.putInt(EXTRA_CURRENT_LAYOUT_MODE, mCurrentLayoutMode.ordinal());
 
     if (!isChangingConfigurations())
@@ -929,25 +910,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     closePlacePage();
     RoutingOptions.addOption(roadType);
     rebuildLastRouteInternal();
-  }
-
-  @Override
-  public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                         @NonNull int[] grantResults)
-  {
-    super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    if (requestCode != REQ_CODE_LOCATION_PERMISSION && requestCode != REQ_CODE_LOCATION_PERMISSION_ON_CLICK)
-      return;
-
-    if (!PermissionsUtils.isLocationGranted(this))
-    {
-      Utils.showSnackbar(requireActivity(), findViewById(R.id.coordinator), findViewById(R.id.menu_frame),
-                         R.string.location_is_disabled_long_text);
-      return;
-    }
-
-    if (requestCode == REQ_CODE_LOCATION_PERMISSION_ON_CLICK)
-      myPositionClick();
   }
 
   private void onIsolinesStateChanged(@NonNull IsolinesState type)
@@ -1081,8 +1043,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     BookmarkManager.INSTANCE.addLoadingListener(this);
     RoutingController.get().attach(this);
     IsolinesManager.from(getApplicationContext()).attach(this::onIsolinesStateChanged);
-    if (MapFragment.nativeIsEngineCreated())
-      LocationHelper.INSTANCE.attach(this);
+    LocationHelper.INSTANCE.attach(this);
     mPlacePageController.onActivityStarted(this);
     mSearchController.attach(this);
     MwmApplication.backgroundTracker(requireActivity()).addListener(this);
@@ -1282,7 +1243,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  public FragmentActivity requireActivity()
+  @NonNull
+  public AppCompatActivity requireActivity()
   {
     return this;
   }
@@ -1653,9 +1615,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onLocationUpdated(@NonNull Location location)
   {
-    if (mLocationErrorDialog != null && mLocationErrorDialog.isShowing())
-      mLocationErrorDialog.dismiss();
-
     if (!RoutingController.get().isNavigating())
       return;
 
@@ -1674,57 +1633,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onLocationDenied()
   {
-    PermissionsUtils.requestLocationPermission(this, REQ_CODE_LOCATION_PERMISSION);
-  }
-
-  @Override
-  public void onLocationDisabled()
-  {
-    if (mLocationErrorDialogAnnoying || (mLocationErrorDialog != null && mLocationErrorDialog.isShowing()))
-      return;
-
-    AlertDialog.Builder builder = new AlertDialog.Builder(this)
-        .setTitle(R.string.enable_location_services)
-        .setMessage(R.string.location_is_disabled_long_text)
-        .setOnDismissListener(dialog -> mLocationErrorDialog = null)
-        .setOnCancelListener(dialog -> mLocationErrorDialogAnnoying = true)
-        .setNegativeButton(R.string.close, (dialog, which) -> mLocationErrorDialogAnnoying = true);
-    final Intent intent = Utils.makeSystemLocationSettingIntent(this);
-    if (intent != null)
-    {
-      intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-      intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-      intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
-      builder.setPositiveButton(R.string.connection_settings, (dialog, which) -> startActivity(intent));
-    }
-    mLocationErrorDialog = builder.show();
-  }
-
-  @Override
-  public void onLocationNotFound()
-  {
-    if (mLocationErrorDialogAnnoying || (mLocationErrorDialog != null && mLocationErrorDialog.isShowing()))
-      return;
-
-    final String message = String.format("%s\n\n%s", getString(R.string.current_location_unknown_message),
-        getString(R.string.current_location_unknown_title));
-    mLocationErrorDialog = new AlertDialog.Builder(this)
-        .setMessage(message)
-        .setOnDismissListener(dialog -> mLocationErrorDialog = null)
-        .setNegativeButton(R.string.current_location_unknown_stop_button, (dialog, which) ->
-        {
-          LocationHelper.INSTANCE.setStopLocationUpdateByUser(true);
-          LocationHelper.INSTANCE.stop();
-        })
-        .setPositiveButton(R.string.current_location_unknown_continue_button, (dialog, which) ->
-        {
-          if (!LocationHelper.INSTANCE.isActive())
-            LocationHelper.INSTANCE.start();
-          LocationHelper.INSTANCE.switchToNextMode();
-          // TODO(AB): Leads to inconsistent UX: dialog won't appear later if user cancels and starts location search again.
-          mLocationErrorDialogAnnoying = true;
-        })
-        .show();
+    Utils.showSnackbar(this, findViewById(R.id.coordinator), findViewById(R.id.menu_frame),
+                       R.string.location_is_disabled_long_text);
   }
 
   @Override

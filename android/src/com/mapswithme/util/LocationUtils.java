@@ -1,6 +1,10 @@
 package com.mapswithme.util;
 
+import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
@@ -8,6 +12,7 @@ import android.provider.Settings;
 import android.view.Surface;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 
 public class LocationUtils
 {
@@ -109,5 +114,15 @@ public class LocationUtils
       e.printStackTrace();
       return false;
     }
+  }
+
+  public static boolean isFineLocationGranted(@NonNull Context context)
+  {
+    return ContextCompat.checkSelfPermission(context, ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+  }
+
+  public static boolean isLocationGranted(@NonNull Context context)
+  {
+    return isFineLocationGranted(context) || ContextCompat.checkSelfPermission(context, ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
   }
 }
