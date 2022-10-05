@@ -1835,6 +1835,11 @@ std::string const & Framework::GetParsedAppName() const
   return m_parsedMapApi.GetAppName();
 }
 
+ms::LatLon Framework::GetParsedCenterLatLon() const
+{
+  return m_parsedMapApi.GetCenterLatLon();
+}
+
 FeatureID Framework::GetFeatureAtPoint(m2::PointD const & mercator,
                                        FeatureMatcher && matcher /* = nullptr */) const
 {

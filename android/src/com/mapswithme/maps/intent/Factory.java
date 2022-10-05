@@ -234,23 +234,33 @@ public class Factory
                                                                     to.mName, "", to.mLat, to.mLon), true);
           return true;
         case ParsingResult.TYPE_SEARCH:
+        {
           final ParsedSearchRequest request = Framework.nativeGetParsedSearchRequest();
-          if (request.mLat != 0.0 || request.mLon != 0.0)
+          final double[] latlon = Framework.nativeGetParsedCenterLatLon();
+          if (latlon[0] != 0.0 || latlon[1] != 0.0)
           {
             Framework.nativeStopLocationFollow();
-            Framework.nativeSetViewportCenter(request.mLat, request.mLon, SEARCH_IN_VIEWPORT_ZOOM,
-                                              false);
+            Framework.nativeSetViewportCenter(latlon[0], latlon[1], SEARCH_IN_VIEWPORT_ZOOM, false);
             // We need to update viewport for search api manually because of drape engine
             // will not notify subscribers when search activity is shown.
             if (!request.mIsSearchOnMap)
-              Framework.nativeSetSearchViewport(request.mLat, request.mLon, SEARCH_IN_VIEWPORT_ZOOM);
+              Framework.nativeSetSearchViewport(latlon[0], latlon[1], SEARCH_IN_VIEWPORT_ZOOM);
           }
           SearchActivity.start(target, request.mQuery, request.mLocale, request.mIsSearchOnMap);
           return true;
+        }
         case ParsingResult.TYPE_CROSSHAIR:
+        {
           final String appName = Framework.nativeGetParsedAppName();
+          final double[] latlon = Framework.nativeGetParsedCenterLatLon();
+          if (latlon[0] != 0.0 || latlon[1] != 0.0)
+          {
+            Framework.nativeStopLocationFollow();
+            Framework.nativeSetViewportCenter(latlon[0], latlon[1], SEARCH_IN_VIEWPORT_ZOOM, false);
+          }
           target.showPositionChooserForAPI(appName);
           return true;
+        }
       }
 
       return false;

@@ -203,6 +203,8 @@ public class Framework
   public static native ParsedRoutingData nativeGetParsedRoutingData();
   public static native ParsedSearchRequest nativeGetParsedSearchRequest();
   public static native String nativeGetParsedAppName();
+  @Size(2)
+  public static native double[] nativeGetParsedCenterLatLon();
 
   public static native void nativeDeactivatePopup();
 
