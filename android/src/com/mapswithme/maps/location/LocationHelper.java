@@ -1,17 +1,26 @@
 package com.mapswithme.maps.location;
 
-import android.app.Activity;
+import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.location.Location;
 import android.location.LocationManager;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.UiThread;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
+import com.mapswithme.maps.R;
 import com.mapswithme.maps.background.AppBackgroundTracker;
 import com.mapswithme.maps.base.Initializable;
 import com.mapswithme.maps.bookmarks.data.FeatureId;
@@ -21,7 +30,6 @@ import com.mapswithme.util.Config;
 import com.mapswithme.util.Listeners;
 import com.mapswithme.util.LocationUtils;
 import com.mapswithme.util.NetworkPolicy;
-import com.mapswithme.util.PermissionsUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 
@@ -73,6 +81,11 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   private boolean mInFirstRun;
   private boolean mActive;
   private boolean mLocationUpdateStoppedByUser;
+  private boolean mLocationErrorDialogAnnoying;
+  @Nullable
+  private Dialog mLocationErrorDialog;
+  @Nullable
+  ActivityResultLauncher<String[]> mPermissionRequest;
 
   @SuppressWarnings("FieldCanBeLocal")
   private final LocationState.ModeChangeListener mMyPositionModeListener =
@@ -93,8 +106,8 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   private final LocationState.LocationPendingTimeoutListener mLocationPendingTimeoutListener = () -> {
     if (mActive)
     {
-      if (PermissionsUtils.isLocationGranted(mContext) && LocationUtils.areLocationServicesTurnedOn(mContext))
-        notifyLocationNotFound();
+      if (LocationUtils.isLocationGranted(mContext) && LocationUtils.areLocationServicesTurnedOn(mContext))
+        onLocationNotFound();
     }
   };
 
@@ -158,15 +171,21 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     return mActive;
   }
 
-  public void setStopLocationUpdateByUser(boolean isStopped)
+  private void setStopLocationUpdateByUser(boolean isStopped)
   {
     Logger.d(TAG, "Set stop location update by user: " + isStopped);
     mLocationUpdateStoppedByUser = isStopped;
   }
 
-  private boolean isLocationUpdateStoppedByUser()
+  public boolean isLocationErrorDialogAnnoying()
   {
-    return mLocationUpdateStoppedByUser;
+    return mLocationErrorDialogAnnoying;
+  }
+
+  public void setLocationErrorDialogAnnoying(boolean isAnnoying)
+  {
+    Logger.d(TAG, "Set stop location error dialog is annoying: " + isAnnoying);
+    mLocationErrorDialogAnnoying = isAnnoying;
   }
 
   @Override
@@ -221,6 +240,9 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     if (mSavedLocation == null)
       throw new IllegalStateException("No saved location");
 
+    if (mLocationErrorDialog != null && mLocationErrorDialog.isShowing())
+      mLocationErrorDialog.dismiss();
+
     for (LocationListener listener : mListeners)
       listener.onLocationUpdated(mSavedLocation);
     mListeners.finishIterate();
@@ -262,7 +284,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   @Override
   public void onLocationChanged(@NonNull Location location)
   {
-    Logger.d(TAG, "onLocationChanged, location = " + location);
+    Logger.d(TAG, "location = " + location);
 
     if (!LocationUtils.isAccuracySatisfied(location))
     {
@@ -286,17 +308,11 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   }
 
   @Override
-  public void onLocationDenied()
-  {
-    mSavedLocation = null;
-    nativeOnLocationError(ERROR_DENIED);
-    if (mUiCallback != null)
-      mUiCallback.onLocationDenied();
-  }
-
-  @Override
+  @UiThread
   public void onLocationDisabled()
   {
+    Logger.d(TAG, "");
+
     if (LocationUtils.areLocationServicesTurnedOn(mContext) &&
         !(mLocationProvider instanceof AndroidNativeProvider))
     {
@@ -310,8 +326,53 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
 
     mSavedLocation = null;
     nativeOnLocationError(ERROR_GPS_OFF);
-    if (mUiCallback != null)
-      mUiCallback.onLocationDisabled();
+
+    if (mLocationErrorDialogAnnoying || (mLocationErrorDialog != null && mLocationErrorDialog.isShowing()))
+      return;
+
+    AlertDialog.Builder builder = new AlertDialog.Builder(mContext)
+        .setTitle(R.string.enable_location_services)
+        .setMessage(R.string.location_is_disabled_long_text)
+        .setOnDismissListener(dialog -> mLocationErrorDialog = null)
+        .setOnCancelListener(dialog -> setLocationErrorDialogAnnoying(true))
+        .setNegativeButton(R.string.close, (dialog, which) -> setLocationErrorDialogAnnoying(true));
+    final Intent intent = Utils.makeSystemLocationSettingIntent(mContext);
+    if (intent != null)
+    {
+      intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+      intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+      intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+      builder.setPositiveButton(R.string.connection_settings, (dialog, which) -> mContext.startActivity(intent));
+    }
+    mLocationErrorDialog = builder.show();
+  }
+
+  @UiThread
+  private void onLocationNotFound()
+  {
+    Logger.d(TAG, "");
+
+    if (mLocationErrorDialogAnnoying || (mLocationErrorDialog != null && mLocationErrorDialog.isShowing()))
+      return;
+
+    final String message = String.format("%s\n\n%s", mContext.getString(R.string.current_location_unknown_message),
+        mContext.getString(R.string.current_location_unknown_title));
+    mLocationErrorDialog = new AlertDialog.Builder(mContext)
+        .setMessage(message)
+        .setOnDismissListener(dialog -> mLocationErrorDialog = null)
+        .setNegativeButton(R.string.current_location_unknown_stop_button, (dialog, which) ->
+        {
+          setStopLocationUpdateByUser(true);
+          stop();
+        })
+        .setPositiveButton(R.string.current_location_unknown_continue_button, (dialog, which) ->
+        {
+          if (!isActive())
+            start();
+          switchToNextMode();
+          setLocationErrorDialogAnnoying(true);
+        })
+        .show();
   }
 
   private void notifyMyPositionModeChanged(int newMode)
@@ -320,13 +381,6 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
 
     if (mUiCallback != null)
       mUiCallback.onMyPositionModeChanged(newMode);
-  }
-
-  private void notifyLocationNotFound()
-  {
-    Logger.d(TAG, "notifyLocationNotFound()");
-    if (mUiCallback != null)
-      mUiCallback.onLocationNotFound();
   }
 
   /**
@@ -439,21 +493,24 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
       return;
     }
 
-    if (isLocationUpdateStoppedByUser())
+    if (mLocationUpdateStoppedByUser)
     {
       Logger.d(TAG, "Location updates are stopped by the user manually, so skip provider start"
                + " until the user starts it manually.");
-      onLocationDisabled();
+      nativeOnLocationError(ERROR_GPS_OFF);
       return;
     }
 
     long oldInterval = mInterval;
     Logger.d(TAG, "Old time interval (ms): " + oldInterval);
     calcLocationUpdatesInterval();
-    if (!PermissionsUtils.isLocationGranted(mContext))
+    if (!LocationUtils.isLocationGranted(mContext))
     {
       Logger.w(TAG, "Dynamic permissions ACCESS_COARSE_LOCATION and/or ACCESS_FINE_LOCATION are granted");
-      onLocationDenied();
+      mSavedLocation = null;
+      nativeOnLocationError(ERROR_DENIED);
+      if (mUiCallback != null)
+        requestPermissions();
       return;
     }
     Logger.i(TAG, "start(): interval = " + mInterval + " provider = '" + mLocationProvider + "' mInFirstRun = " + mInFirstRun);
@@ -516,6 +573,10 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
 
     mUiCallback = callback;
 
+    mPermissionRequest = mUiCallback.requireActivity()
+        .registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(),
+            result -> onRequestPermissionsResult());
+
     if (!Config.isScreenSleepEnabled()) {
       Utils.keepScreenOn(true, mUiCallback.requireActivity().getWindow());
     }
@@ -551,7 +612,42 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     }
 
     Utils.keepScreenOn(false, mUiCallback.requireActivity().getWindow());
+    mPermissionRequest.unregister();
+    mPermissionRequest = null;
     mUiCallback = null;
+  }
+
+  @UiThread
+  public void requestPermissions()
+  {
+    if (mUiCallback == null)
+      throw new IllegalStateException("Not attached");
+
+    Logger.d(TAG, "");
+
+    mPermissionRequest.launch(new String[]{
+        ACCESS_COARSE_LOCATION,
+        ACCESS_FINE_LOCATION
+    });
+  }
+
+  @UiThread
+  private void onRequestPermissionsResult()
+  {
+    if (!LocationUtils.isLocationGranted(mContext))
+    {
+      Logger.w(TAG, "Permissions have not been granted");
+      mSavedLocation = null;
+      nativeOnLocationError(ERROR_DENIED);
+      if (mUiCallback != null)
+        mUiCallback.onLocationDenied();
+      return;
+    }
+
+    Logger.i(TAG, "Permissions have been granted");
+    setLocationErrorDialogAnnoying(false);
+    setStopLocationUpdateByUser(false);
+    restart();
   }
 
   @UiThread
@@ -608,13 +704,12 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
 
   public interface UiCallback
   {
-    Activity requireActivity();
+    @NonNull
+    AppCompatActivity requireActivity();
     void onMyPositionModeChanged(int newMode);
     void onLocationUpdated(@NonNull Location location);
     void onCompassUpdated(@NonNull CompassData compass);
     void onLocationDenied();
-    void onLocationDisabled();
-    void onLocationNotFound();
     void onRoutingFinish();
   }
 }

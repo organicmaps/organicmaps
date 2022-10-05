@@ -5,13 +5,15 @@ import android.location.Location;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.UiThread;
 
 abstract class BaseLocationProvider
 {
   interface Listener
   {
+    @UiThread
     void onLocationChanged(@NonNull Location location);
-    void onLocationDenied();
+    @UiThread
     void onLocationDisabled();
   }
 

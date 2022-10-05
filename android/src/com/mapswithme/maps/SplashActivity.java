@@ -1,5 +1,8 @@
 package com.mapswithme.maps;
 
+import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -11,15 +14,14 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
-import com.mapswithme.maps.api.Const;
-import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.base.BaseActivity;
 import com.mapswithme.maps.base.BaseActivityDelegate;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.Counters;
-import com.mapswithme.util.PermissionsUtils;
+import com.mapswithme.util.LocationUtils;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.concurrency.UiThread;
@@ -94,9 +96,12 @@ public class SplashActivity extends AppCompatActivity implements BaseActivity
     mBaseDelegate.onResume();
     if (mCanceled)
       return;
-    if (!Config.isLocationRequested() && !PermissionsUtils.isLocationGranted(this))
+    if (!Config.isLocationRequested() && !LocationUtils.isLocationGranted(this))
     {
-      PermissionsUtils.requestLocationPermission(SplashActivity.this, REQUEST_PERMISSIONS);
+      ActivityCompat.requestPermissions(this, new String[]{
+          ACCESS_COARSE_LOCATION,
+          ACCESS_FINE_LOCATION
+      }, REQUEST_PERMISSIONS);
       return;
     }
 
@@ -167,7 +172,7 @@ public class SplashActivity extends AppCompatActivity implements BaseActivity
       return;
     }
 
-    if (Counters.isFirstLaunch(this) && PermissionsUtils.isLocationGranted(this))
+    if (Counters.isFirstLaunch(this) && LocationUtils.isLocationGranted(this))
     {
       LocationHelper.INSTANCE.onEnteredIntoFirstRun();
       if (!LocationHelper.INSTANCE.isActive())

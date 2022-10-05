@@ -408,7 +408,7 @@ public class MapFragment extends BaseMwmFragment
   static native void nativeScalePlus();
   static native void nativeScaleMinus();
   public static native boolean nativeShowMapForUrl(String url);
-  static native boolean nativeIsEngineCreated();
+  public static native boolean nativeIsEngineCreated();
   static native boolean nativeDestroySurfaceOnDetach();
   private static native boolean nativeCreateEngine(Surface surface, int density,
                                                    boolean firstLaunch,
