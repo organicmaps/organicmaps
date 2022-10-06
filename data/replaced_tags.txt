@@ -72,6 +72,7 @@ man_made=quay : man_made=pier
 natural=marsh     : natural=wetland, wetland=marsh
 natural=waterfall : waterway=waterfall
 natural=forest    : natural=wood
+natural=shrubbery : natural=scrub
 cliff=yes         : natural=cliff
 
 office=notary : office=lawyer
