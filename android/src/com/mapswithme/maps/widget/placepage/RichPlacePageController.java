@@ -125,6 +125,7 @@ public class RichPlacePageController implements PlacePageController, LocationLis
     mPlacePage.setOnTouchListener((v, event) -> gestureDetector.onTouchEvent(event));
     mPlacePage.addClosable(this);
     mPlacePage.setRoutingModeListener(mRoutingModeListener);
+    mPlacePage.setOnPlacePageContentChangeListener(this::setPeekHeight);
 
     mButtonsLayout = activity.findViewById(R.id.pp_buttons_layout);
     ViewGroup buttons = mButtonsLayout.findViewById(R.id.container);

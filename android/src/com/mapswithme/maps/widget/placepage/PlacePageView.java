@@ -193,6 +193,8 @@ public class PlacePageView extends NestedScrollViewClickFixed
   private CountryItem mCurrentCountry;
   private boolean mScrollable = true;
 
+  private OnPlacePageContentChangeListener mOnPlacePageContentChangeListener;
+
   private final MapManager.StorageCallback mStorageCallback = new MapManager.StorageCallback()
   {
     @Override
@@ -1650,6 +1652,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
 
     setMapObject(updatedBookmark, null);
     refreshViews();
+    mOnPlacePageContentChangeListener.OnPlacePageContentChange();
   }
 
   int getPreviewHeight()
@@ -1680,5 +1683,15 @@ public class PlacePageView extends NestedScrollViewClickFixed
                                         getActivity().getSupportFragmentManager(),
                                         PlacePageView.this);
     }
+  }
+
+  public void setOnPlacePageContentChangeListener(OnPlacePageContentChangeListener onPlacePageContentChangeListener)
+  {
+    mOnPlacePageContentChangeListener = onPlacePageContentChangeListener;
+  }
+
+  interface OnPlacePageContentChangeListener
+  {
+    void OnPlacePageContentChange();
   }
 }
