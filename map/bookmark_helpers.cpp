@@ -211,11 +211,13 @@ std::string GetFileExt(std::string const & filePath)
   return strings::MakeLowerCase(base::GetFileExtension(filePath));
 }
 
-bool IsBadCharForPath(char c)
+bool IsBadCharForPath(strings::UniChar c)
 {
-  for (char illegalChar : {':', '/', '\\', '<', '>', '\"', '|', '?', '*'})
+  if (c < ' ')
+    return true;
+  for (strings::UniChar const illegalChar : {':', '/', '\\', '<', '>', '\"', '|', '?', '*'})
   {
-    if (c < ' ' || illegalChar == c)
+    if (illegalChar == c)
       return true;
   }
 
@@ -228,14 +230,18 @@ std::string GetBookmarksDirectory()
   return base::JoinPath(GetPlatform().SettingsDir(), "bookmarks");
 }
 
-std::string RemoveInvalidSymbols(std::string name)
+std::string RemoveInvalidSymbols(std::string const & name)
 {
-  // Remove not allowed symbols.
-  name.erase(std::remove_if(name.begin(), name.end(), [](char c)
+  strings::UniString filtered;
+  filtered.reserve(name.size());
+  auto it = name.begin();
+  while (it != name.end())
   {
-    return IsBadCharForPath(c);
-  }), name.end());
-  return name;
+    auto const c = ::utf8::unchecked::next(it);
+    if (!IsBadCharForPath(c))
+      filtered.push_back(c);
+  }
+  return strings::ToUtf8(filtered);
 }
 
 std::string GenerateUniqueFileName(const std::string & path, std::string name, std::string const & ext)
@@ -251,9 +257,9 @@ std::string GenerateUniqueFileName(const std::string & path, std::string name, s
   return base::JoinPath(path, name + suffix + ext);
 }
 
-std::string GenerateValidAndUniqueFilePathForKML(std::string fileName)
+std::string GenerateValidAndUniqueFilePathForKML(std::string const & fileName)
 {
-  std::string filePath = RemoveInvalidSymbols(std::move(fileName));
+  std::string filePath = RemoveInvalidSymbols(fileName);
   if (filePath.empty())
     filePath = kDefaultBookmarksFileName;
 

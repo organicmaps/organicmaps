@@ -482,8 +482,8 @@ UNIT_TEST(Bookmarks_AddressInfo)
 
 UNIT_TEST(Bookmarks_IllegalFileName)
 {
-  vector<string> const arrIllegal = {"?", "?|", "\"x", "|x:", "x<>y", "xy*"};
-  vector<string> const arrLegal =   {"",  "",   "x",   "x",   "xy",   "xy"};
+  vector<string> const arrIllegal = {"?", "?|", "ч\"x", "|x:", "x<>y", "xy*地圖"};
+  vector<string> const arrLegal =   {"",  "",   "чx",   "x",   "xy",   "xy地圖"};
 
   for (size_t i = 0; i < arrIllegal.size(); ++i)
     TEST_EQUAL(arrLegal[i], RemoveInvalidSymbols(arrIllegal[i]), ());
