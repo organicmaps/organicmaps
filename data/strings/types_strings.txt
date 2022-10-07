@@ -12075,6 +12075,43 @@
     zh-Hans = 健身驿站
     zh-Hant = 健身房
 
+  [type.leisure.dance]
+    en = Dance Hall
+    ar = ﺺﻗﺮﻟﺍ ﺔﻟﺎﺻ
+    be = Танцавальная зала
+    bg = Зала за танци
+    cs = Taneční hala
+    da = Dansesal
+    de = Tanzsaal
+    el = Αίθουσα χορού
+    es = Salón de baile
+    eu = Dantza Aretoa
+    fa = ﺺﻗﺭ ﻦﻟﺎﺳ
+    fi = Tanssisali
+    fr = Salle de danse
+    he = םידוקיר םלוא
+    hu = Táncterem
+    id = Lantai dansa
+    it = Sala da ballo
+    ja = ダンスホール
+    ko = "댄스홀"
+    nb = Dansesal
+    nl = Danszaal
+    pl = Sala taneczna
+    pt = Salão de dança
+    pt-BR = Salão de dança
+    ro = Sala de dans
+    ru = Танцпол
+    sk = Tanečná hala
+    sv = Danshall
+    sw = Ukumbi wa Ngoma
+    th = แดนซ์ฮอลล์
+    tr = Dans salonu
+    uk = Танцювальний зал
+    vi = Vũ trường
+    zh-Hans = 舞厅
+    zh-Hant = 舞廳
+
   [type.leisure.garden]
     en = Garden
     ar = حديقة

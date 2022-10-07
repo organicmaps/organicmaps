@@ -90,6 +90,8 @@ power=transformer : power=substation
 
 organic=limited : organic=yes
 
+amenity=dancing_school : leisure=dance
+
 wifi=yes : internet_access=wlan
 wifi=free : internet_access=wlan
 wifi=no : internet_access=no
