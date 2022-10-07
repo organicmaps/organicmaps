@@ -198,7 +198,7 @@ railway|crossing;197;
 boundary|national_park;198;
 natural|wood|deciduous;[natural=wood][wood=deciduous],[natural=wood][leaf_type=deciduous],[natural=wood][leaf_cycle=deciduous];x;name;int_name;199;landuse|forest|deciduous
 waterway|dam;200;
-deprecated|deprecated;201;x
+amenity|charging_station|motorcar;[amenity=charging_station][motorcar?];;name;int_name;201;
 leisure|golf_course;202;
 highway|service|bridge;[highway=service][bridge?];;name;int_name;203;
 power|minor_line;204;
