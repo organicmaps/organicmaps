@@ -16681,7 +16681,7 @@
     uk = Метро
     vi = Ngầm
     zh-Hans = 地铁车站
-    zh-Hant = 地鐵車站
+    zh-Hant = 捷運站
 
   [type.railway.station.subway.adana]
     ref = type.railway.station.subway
@@ -17079,7 +17079,7 @@
     tr = Metro Girişi
     uk = Вхід до метро
     vi = Lỗi vào Metro
-    zh-Hans = 地铁入口
+    zh-Hans = 地铁出入口
     zh-Hant = 地鐵入口
 
    [type.railway.subway_entrance.adana]
