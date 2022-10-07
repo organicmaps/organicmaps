@@ -810,17 +810,115 @@ world  +
             light_rail  -
             monorail  -
             subway  +
+                adana  -
+                algiers  -
+                almaty  -
+                amsterdam  -
+                ankara  -
+                athens  -
+                baku  -
+                bangkok  -
                 barcelona  -
+                beijing  -
+                bengalore  -
                 berlin  -
+                brasilia  -
+                brescia  -
+                brussels  -
+                bucharest  -
+                budapest  -
+                buenos_aires  -
+                bursa  -
+                cairo  -
+                caracas  -
+                catania  -
+                changchun  -
+                chengdu  -
+                chicago  -
+                chongqing  -
+                dalian  -
+                delhi  -
+                dnepro  -
+                dubai  -
+                ekb  -
+                fukuoka  -
+                glasgow  -
+                guangzhou  -
+                hamburg  -
+                helsinki  -
+                hiroshima  -
+                isfahan  -
+                istanbul  -
+                izmir  -
+                kazan  -
+                kharkiv  -
                 kiev  -
+                kobe  -
+                kolkata  -
+                kunming  -
+                kyoto  -
+                la  -
+                lausanne  -
+                lille  -
+                lima  -
+                lisboa  -
+                lisbon  -
                 london  -
+                lyon  -
                 madrid  -
+                malaga  -
+                manila  -
+                maracaibo  -
+                mashhad  -
+                mecca  -
+                medellin  -
+                mexico  -
+                milan  -
                 minsk  -
+                montreal  -
                 moscow  -
+                munchen  -
+                nagoya  -
                 newyork  -
+                nnov  -
+                novosibirsk  -
+                osaka  -
+                oslo  -
+                palma  -
+                panama  -
                 paris  -
+                philadelphia  -
+                pyongyang  -
+                rennes  -
+                rio  -
                 roma  -
+                rotterdam  -
+                samara  -
+                santiago  -
+                santo_domingo  -
+                saopaulo  -
+                sapporo  -
+                sendai  -
+                sf  -
+                shanghai  -
+                shiraz  -
+                sofia  -
                 spb  -
+                stockholm  -
+                tabriz  -
+                taipei  -
+                taoyuan  -
+                tashkent  -
+                tbilisi  -
+                tianjin  -
+                tokyo  -
+                valencia  -
+                vienna  -
+                warszawa  -
+                washington  -
+                wuhan  -
+                yerevan  -
+                yokohama  -
                 {}
             {}
         subway  +
@@ -828,17 +926,115 @@ world  +
             tunnel  -
             {}
         subway_entrance  +
+            adana  -
+            algiers  -
+            almaty  -
+            amsterdam  -
+            ankara  -
+            athens  -
+            baku  -
+            bangkok  -
             barcelona  -
+            beijing  -
+            bengalore  -
             berlin  -
+            brasilia  -
+            brescia  -
+            brussels  -
+            bucharest  -
+            budapest  -
+            buenos_aires  -
+            bursa  -
+            cairo  -
+            caracas  -
+            catania  -
+            changchun  -
+            chengdu  -
+            chicago  -
+            chongqing  -
+            dalian  -
+            delhi  -
+            dnepro  -
+            dubai  -
+            ekb  -
+            fukuoka  -
+            glasgow  -
+            guangzhou  -
+            hamburg  -
+            helsinki  -
+            hiroshima  -
+            isfahan  -
+            istanbul  -
+            izmir  -
+            kazan  -
+            kharkiv  -
             kiev  -
+            kobe  -
+            kolkata  -
+            kunming  -
+            kyoto  -
+            la  -
+            lausanne  -
+            lille  -
+            lima  -
+            lisboa  -
+            lisbon  -
             london  -
+            lyon  -
             madrid  -
+            malaga  -
+            manila  -
+            maracaibo  -
+            mashhad  -
+            mecca  -
+            medellin  -
+            mexico  -
+            milan  -
             minsk  -
+            montreal  -
             moscow  -
+            munchen  -
+            nagoya  -
             newyork  -
+            nnov  -
+            novosibirsk  -
+            osaka  -
+            oslo  -
+            palma  -
+            panama  -
             paris  -
+            philadelphia  -
+            pyongyang  -
+            rennes  -
+            rio  -
             roma  -
+            rotterdam  -
+            samara  -
+            santiago  -
+            santo_domingo  -
+            saopaulo  -
+            sapporo  -
+            sendai  -
+            sf  -
+            shanghai  -
+            shiraz  -
+            sofia  -
             spb  -
+            stockholm  -
+            tabriz  -
+            taipei  -
+            taoyuan  -
+            tashkent  -
+            tbilisi  -
+            tianjin  -
+            tokyo  -
+            valencia  -
+            vienna  -
+            warszawa  -
+            washington  -
+            wuhan  -
+            yerevan  -
+            yokohama  -
             {}
         tram  +
             bridge  -
