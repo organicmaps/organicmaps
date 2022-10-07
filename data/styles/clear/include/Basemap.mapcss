@@ -179,7 +179,6 @@ line[barrier=retaining_wall],
 area[building],
 area[building:part],
 area[landuse=garages],
-area[building=train_station],
 {z-index: 150;}
 
 area[aeroway=terminal]
@@ -670,13 +669,11 @@ line|z19-[man_made=cutline],
 area|z14[building],
 area|z14[waterway=dam],
 area|z14[landuse=garages],
-area|z14[building=train_station],
 {fill-color: @building;fill-opacity: 0.5;casing-width: 0;}
 
 area|z15[building],
 area|z15[waterway=dam],
 area|z15[landuse=garages],
-area|z15[building=train_station],
 {fill-color: @building;fill-opacity: 0.6;casing-width: 0;}
 
 area|z14-15[aeroway=terminal],
@@ -684,7 +681,6 @@ area|z16[building],
 area|z16[building:part],
 area|z16[waterway=dam],
 area|z16[landuse=garages],
-area|z16[building=train_station],
 {fill-color: @building;fill-opacity: 0.8;casing-width: 1;casing-color: @building_border;}
 
 area|z16[aeroway=terminal],
@@ -692,7 +688,6 @@ area|z17[building],
 area|z17[building:part],
 area|z17[waterway=dam],
 area|z17[landuse=garages],
-area|z17[building=train_station],
 {fill-color: @building_dark;casing-width: 1;casing-color: @building_dark_border;}
 
 area|z17-[aeroway=terminal],
@@ -700,7 +695,6 @@ area|z18-[building],
 area|z18-[building:part],
 area|z18-[waterway=dam],
 area|z18-[landuse=garages],
-area|z18-[building=train_station],
 {fill-color: @building_dark;casing-width: 1;casing-color: @building_dark_border;}
 
 
