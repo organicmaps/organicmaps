@@ -2689,27 +2689,223 @@
 
 "type.railway.station.subway" = "Metrostation";
 
-"type.railway.station.subway.barcelona" = "Metro";
+"type.railway.station.subway.adana" = "Metrostation";
 
-"type.railway.station.subway.berlin" = "Metro";
+"type.railway.station.subway.algiers" = "Metrostation";
 
-"type.railway.station.subway.kiev" = "Metro";
+"type.railway.station.subway.almaty" = "Metrostation";
 
-"type.railway.station.subway.london" = "Metro";
+"type.railway.station.subway.amsterdam" = "Metrostation";
 
-"type.railway.station.subway.madrid" = "Metro";
+"type.railway.station.subway.ankara" = "Metrostation";
 
-"type.railway.station.subway.minsk" = "Metro";
+"type.railway.station.subway.athens" = "Metrostation";
 
-"type.railway.station.subway.moscow" = "Metro";
+"type.railway.station.subway.baku" = "Metrostation";
 
-"type.railway.station.subway.newyork" = "Metro";
+"type.railway.station.subway.bangkok" = "Metrostation";
 
-"type.railway.station.subway.paris" = "Metro";
+"type.railway.station.subway.barcelona" = "Metrostation";
 
-"type.railway.station.subway.roma" = "Metro";
+"type.railway.station.subway.beijing" = "Metrostation";
 
-"type.railway.station.subway.spb" = "Metro";
+"type.railway.station.subway.bengalore" = "Metrostation";
+
+"type.railway.station.subway.berlin" = "Metrostation";
+
+"type.railway.station.subway.brasilia" = "Metrostation";
+
+"type.railway.station.subway.brescia" = "Metrostation";
+
+"type.railway.station.subway.brussels" = "Metrostation";
+
+"type.railway.station.subway.bucharest" = "Metrostation";
+
+"type.railway.station.subway.budapest" = "Metrostation";
+
+"type.railway.station.subway.buenos_aires" = "Metrostation";
+
+"type.railway.station.subway.bursa" = "Metrostation";
+
+"type.railway.station.subway.cairo" = "Metrostation";
+
+"type.railway.station.subway.caracas" = "Metrostation";
+
+"type.railway.station.subway.catania" = "Metrostation";
+
+"type.railway.station.subway.changchun" = "Metrostation";
+
+"type.railway.station.subway.chengdu" = "Metrostation";
+
+"type.railway.station.subway.chicago" = "Metrostation";
+
+"type.railway.station.subway.chongqing" = "Metrostation";
+
+"type.railway.station.subway.dalian" = "Metrostation";
+
+"type.railway.station.subway.delhi" = "Metrostation";
+
+"type.railway.station.subway.dnepro" = "Metrostation";
+
+"type.railway.station.subway.dubai" = "Metrostation";
+
+"type.railway.station.subway.ekb" = "Metrostation";
+
+"type.railway.station.subway.fukuoka" = "Metrostation";
+
+"type.railway.station.subway.glasgow" = "Metrostation";
+
+"type.railway.station.subway.guangzhou" = "Metrostation";
+
+"type.railway.station.subway.hamburg" = "Metrostation";
+
+"type.railway.station.subway.helsinki" = "Metrostation";
+
+"type.railway.station.subway.hiroshima" = "Metrostation";
+
+"type.railway.station.subway.isfahan" = "Metrostation";
+
+"type.railway.station.subway.istanbul" = "Metrostation";
+
+"type.railway.station.subway.izmir" = "Metrostation";
+
+"type.railway.station.subway.kazan" = "Metrostation";
+
+"type.railway.station.subway.kharkiv" = "Metrostation";
+
+"type.railway.station.subway.kiev" = "Metrostation";
+
+"type.railway.station.subway.kobe" = "Metrostation";
+
+"type.railway.station.subway.kolkata" = "Metrostation";
+
+"type.railway.station.subway.kunming" = "Metrostation";
+
+"type.railway.station.subway.kyoto" = "Metrostation";
+
+"type.railway.station.subway.la" = "Metrostation";
+
+"type.railway.station.subway.lausanne" = "Metrostation";
+
+"type.railway.station.subway.lille" = "Metrostation";
+
+"type.railway.station.subway.lima" = "Metrostation";
+
+"type.railway.station.subway.lisboa" = "Metrostation";
+
+"type.railway.station.subway.lisbon" = "Metrostation";
+
+"type.railway.station.subway.london" = "Metrostation";
+
+"type.railway.station.subway.lyon" = "Metrostation";
+
+"type.railway.station.subway.madrid" = "Metrostation";
+
+"type.railway.station.subway.malaga" = "Metrostation";
+
+"type.railway.station.subway.manila" = "Metrostation";
+
+"type.railway.station.subway.maracaibo" = "Metrostation";
+
+"type.railway.station.subway.mashhad" = "Metrostation";
+
+"type.railway.station.subway.mecca" = "Metrostation";
+
+"type.railway.station.subway.medellin" = "Metrostation";
+
+"type.railway.station.subway.mexico" = "Metrostation";
+
+"type.railway.station.subway.milan" = "Metrostation";
+
+"type.railway.station.subway.minsk" = "Metrostation";
+
+"type.railway.station.subway.montreal" = "Metrostation";
+
+"type.railway.station.subway.moscow" = "Metrostation";
+
+"type.railway.station.subway.munchen" = "Metrostation";
+
+"type.railway.station.subway.nagoya" = "Metrostation";
+
+"type.railway.station.subway.newyork" = "Metrostation";
+
+"type.railway.station.subway.nnov" = "Metrostation";
+
+"type.railway.station.subway.novosibirsk" = "Metrostation";
+
+"type.railway.station.subway.osaka" = "Metrostation";
+
+"type.railway.station.subway.oslo" = "Metrostation";
+
+"type.railway.station.subway.palma" = "Metrostation";
+
+"type.railway.station.subway.panama" = "Metrostation";
+
+"type.railway.station.subway.paris" = "Metrostation";
+
+"type.railway.station.subway.philadelphia" = "Metrostation";
+
+"type.railway.station.subway.pyongyang" = "Metrostation";
+
+"type.railway.station.subway.rennes" = "Metrostation";
+
+"type.railway.station.subway.rio" = "Metrostation";
+
+"type.railway.station.subway.roma" = "Metrostation";
+
+"type.railway.station.subway.rotterdam" = "Metrostation";
+
+"type.railway.station.subway.samara" = "Metrostation";
+
+"type.railway.station.subway.santiago" = "Metrostation";
+
+"type.railway.station.subway.santo_domingo" = "Metrostation";
+
+"type.railway.station.subway.saopaulo" = "Metrostation";
+
+"type.railway.station.subway.sapporo" = "Metrostation";
+
+"type.railway.station.subway.sendai" = "Metrostation";
+
+"type.railway.station.subway.sf" = "Metrostation";
+
+"type.railway.station.subway.shanghai" = "Metrostation";
+
+"type.railway.station.subway.shiraz" = "Metrostation";
+
+"type.railway.station.subway.sofia" = "Metrostation";
+
+"type.railway.station.subway.spb" = "Metrostation";
+
+"type.railway.station.subway.stockholm" = "Metrostation";
+
+"type.railway.station.subway.tabriz" = "Metrostation";
+
+"type.railway.station.subway.taipei" = "Metrostation";
+
+"type.railway.station.subway.taoyuan" = "Metrostation";
+
+"type.railway.station.subway.tashkent" = "Metrostation";
+
+"type.railway.station.subway.tbilisi" = "Metrostation";
+
+"type.railway.station.subway.tianjin" = "Metrostation";
+
+"type.railway.station.subway.tokyo" = "Metrostation";
+
+"type.railway.station.subway.valencia" = "Metrostation";
+
+"type.railway.station.subway.vienna" = "Metrostation";
+
+"type.railway.station.subway.warszawa" = "Metrostation";
+
+"type.railway.station.subway.washington" = "Metrostation";
+
+"type.railway.station.subway.wuhan" = "Metrostation";
+
+"type.railway.station.subway.yerevan" = "Metrostation";
+
+"type.railway.station.subway.yokohama" = "Metrostation";
 
 "type.railway.subway" = "Metro";
 
@@ -2719,27 +2915,223 @@
 
 "type.railway.subway_entrance" = "Metro ingang";
 
-"type.railway.subway_entrance.barcelona" = "Metro";
+"type.railway.subway_entrance.adana" = "Metro ingang";
 
-"type.railway.subway_entrance.berlin" = "Metro";
+"type.railway.subway_entrance.algiers" = "Metro ingang";
 
-"type.railway.subway_entrance.kiev" = "Metro";
+"type.railway.subway_entrance.almaty" = "Metro ingang";
 
-"type.railway.subway_entrance.london" = "Metro";
+"type.railway.subway_entrance.amsterdam" = "Metro ingang";
 
-"type.railway.subway_entrance.madrid" = "Metro";
+"type.railway.subway_entrance.ankara" = "Metro ingang";
 
-"type.railway.subway_entrance.minsk" = "Metro";
+"type.railway.subway_entrance.athens" = "Metro ingang";
 
-"type.railway.subway_entrance.moscow" = "Metro";
+"type.railway.subway_entrance.baku" = "Metro ingang";
 
-"type.railway.subway_entrance.newyork" = "Metro";
+"type.railway.subway_entrance.bangkok" = "Metro ingang";
 
-"type.railway.subway_entrance.paris" = "Metro";
+"type.railway.subway_entrance.barcelona" = "Metro ingang";
 
-"type.railway.subway_entrance.roma" = "Metro";
+"type.railway.subway_entrance.beijing" = "Metro ingang";
 
-"type.railway.subway_entrance.spb" = "Metro";
+"type.railway.subway_entrance.bengalore" = "Metro ingang";
+
+"type.railway.subway_entrance.berlin" = "Metro ingang";
+
+"type.railway.subway_entrance.brasilia" = "Metro ingang";
+
+"type.railway.subway_entrance.brescia" = "Metro ingang";
+
+"type.railway.subway_entrance.brussels" = "Metro ingang";
+
+"type.railway.subway_entrance.bucharest" = "Metro ingang";
+
+"type.railway.subway_entrance.budapest" = "Metro ingang";
+
+"type.railway.subway_entrance.buenos_aires" = "Metro ingang";
+
+"type.railway.subway_entrance.bursa" = "Metro ingang";
+
+"type.railway.subway_entrance.cairo" = "Metro ingang";
+
+"type.railway.subway_entrance.caracas" = "Metro ingang";
+
+"type.railway.subway_entrance.catania" = "Metro ingang";
+
+"type.railway.subway_entrance.changchun" = "Metro ingang";
+
+"type.railway.subway_entrance.chengdu" = "Metro ingang";
+
+"type.railway.subway_entrance.chicago" = "Metro ingang";
+
+"type.railway.subway_entrance.chongqing" = "Metro ingang";
+
+"type.railway.subway_entrance.dalian" = "Metro ingang";
+
+"type.railway.subway_entrance.delhi" = "Metro ingang";
+
+"type.railway.subway_entrance.dnepro" = "Metro ingang";
+
+"type.railway.subway_entrance.dubai" = "Metro ingang";
+
+"type.railway.subway_entrance.ekb" = "Metro ingang";
+
+"type.railway.subway_entrance.fukuoka" = "Metro ingang";
+
+"type.railway.subway_entrance.glasgow" = "Metro ingang";
+
+"type.railway.subway_entrance.guangzhou" = "Metro ingang";
+
+"type.railway.subway_entrance.hamburg" = "Metro ingang";
+
+"type.railway.subway_entrance.helsinki" = "Metro ingang";
+
+"type.railway.subway_entrance.hiroshima" = "Metro ingang";
+
+"type.railway.subway_entrance.isfahan" = "Metro ingang";
+
+"type.railway.subway_entrance.istanbul" = "Metro ingang";
+
+"type.railway.subway_entrance.izmir" = "Metro ingang";
+
+"type.railway.subway_entrance.kazan" = "Metro ingang";
+
+"type.railway.subway_entrance.kharkiv" = "Metro ingang";
+
+"type.railway.subway_entrance.kiev" = "Metro ingang";
+
+"type.railway.subway_entrance.kobe" = "Metro ingang";
+
+"type.railway.subway_entrance.kolkata" = "Metro ingang";
+
+"type.railway.subway_entrance.kunming" = "Metro ingang";
+
+"type.railway.subway_entrance.kyoto" = "Metro ingang";
+
+"type.railway.subway_entrance.la" = "Metro ingang";
+
+"type.railway.subway_entrance.lausanne" = "Metro ingang";
+
+"type.railway.subway_entrance.lille" = "Metro ingang";
+
+"type.railway.subway_entrance.lima" = "Metro ingang";
+
+"type.railway.subway_entrance.lisboa" = "Metro ingang";
+
+"type.railway.subway_entrance.lisbon" = "Metro ingang";
+
+"type.railway.subway_entrance.london" = "Metro ingang";
+
+"type.railway.subway_entrance.lyon" = "Metro ingang";
+
+"type.railway.subway_entrance.madrid" = "Metro ingang";
+
+"type.railway.subway_entrance.malaga" = "Metro ingang";
+
+"type.railway.subway_entrance.manila" = "Metro ingang";
+
+"type.railway.subway_entrance.maracaibo" = "Metro ingang";
+
+"type.railway.subway_entrance.mashhad" = "Metro ingang";
+
+"type.railway.subway_entrance.mecca" = "Metro ingang";
+
+"type.railway.subway_entrance.medellin" = "Metro ingang";
+
+"type.railway.subway_entrance.mexico" = "Metro ingang";
+
+"type.railway.subway_entrance.milan" = "Metro ingang";
+
+"type.railway.subway_entrance.minsk" = "Metro ingang";
+
+"type.railway.subway_entrance.montreal" = "Metro ingang";
+
+"type.railway.subway_entrance.moscow" = "Metro ingang";
+
+"type.railway.subway_entrance.munchen" = "Metro ingang";
+
+"type.railway.subway_entrance.nagoya" = "Metro ingang";
+
+"type.railway.subway_entrance.newyork" = "Metro ingang";
+
+"type.railway.subway_entrance.nnov" = "Metro ingang";
+
+"type.railway.subway_entrance.novosibirsk" = "Metro ingang";
+
+"type.railway.subway_entrance.osaka" = "Metro ingang";
+
+"type.railway.subway_entrance.oslo" = "Metro ingang";
+
+"type.railway.subway_entrance.palma" = "Metro ingang";
+
+"type.railway.subway_entrance.panama" = "Metro ingang";
+
+"type.railway.subway_entrance.paris" = "Metro ingang";
+
+"type.railway.subway_entrance.philadelphia" = "Metro ingang";
+
+"type.railway.subway_entrance.pyongyang" = "Metro ingang";
+
+"type.railway.subway_entrance.rennes" = "Metro ingang";
+
+"type.railway.subway_entrance.rio" = "Metro ingang";
+
+"type.railway.subway_entrance.roma" = "Metro ingang";
+
+"type.railway.subway_entrance.rotterdam" = "Metro ingang";
+
+"type.railway.subway_entrance.samara" = "Metro ingang";
+
+"type.railway.subway_entrance.santiago" = "Metro ingang";
+
+"type.railway.subway_entrance.santo_domingo" = "Metro ingang";
+
+"type.railway.subway_entrance.saopaulo" = "Metro ingang";
+
+"type.railway.subway_entrance.sapporo" = "Metro ingang";
+
+"type.railway.subway_entrance.sendai" = "Metro ingang";
+
+"type.railway.subway_entrance.sf" = "Metro ingang";
+
+"type.railway.subway_entrance.shanghai" = "Metro ingang";
+
+"type.railway.subway_entrance.shiraz" = "Metro ingang";
+
+"type.railway.subway_entrance.sofia" = "Metro ingang";
+
+"type.railway.subway_entrance.spb" = "Metro ingang";
+
+"type.railway.subway_entrance.stockholm" = "Metro ingang";
+
+"type.railway.subway_entrance.tabriz" = "Metro ingang";
+
+"type.railway.subway_entrance.taipei" = "Metro ingang";
+
+"type.railway.subway_entrance.taoyuan" = "Metro ingang";
+
+"type.railway.subway_entrance.tashkent" = "Metro ingang";
+
+"type.railway.subway_entrance.tbilisi" = "Metro ingang";
+
+"type.railway.subway_entrance.tianjin" = "Metro ingang";
+
+"type.railway.subway_entrance.tokyo" = "Metro ingang";
+
+"type.railway.subway_entrance.valencia" = "Metro ingang";
+
+"type.railway.subway_entrance.vienna" = "Metro ingang";
+
+"type.railway.subway_entrance.warszawa" = "Metro ingang";
+
+"type.railway.subway_entrance.washington" = "Metro ingang";
+
+"type.railway.subway_entrance.wuhan" = "Metro ingang";
+
+"type.railway.subway_entrance.yerevan" = "Metro ingang";
+
+"type.railway.subway_entrance.yokohama" = "Metro ingang";
 
 "type.railway.tram" = "Tram";
 

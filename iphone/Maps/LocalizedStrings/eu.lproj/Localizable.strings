@@ -2689,27 +2689,223 @@
 
 "type.railway.station.subway" = "Metroa";
 
+"type.railway.station.subway.adana" = "Metroa";
+
+"type.railway.station.subway.algiers" = "Metroa";
+
+"type.railway.station.subway.almaty" = "Metroa";
+
+"type.railway.station.subway.amsterdam" = "Metroa";
+
+"type.railway.station.subway.ankara" = "Metroa";
+
+"type.railway.station.subway.athens" = "Metroa";
+
+"type.railway.station.subway.baku" = "Metroa";
+
+"type.railway.station.subway.bangkok" = "Metroa";
+
 "type.railway.station.subway.barcelona" = "Metroa";
+
+"type.railway.station.subway.beijing" = "Metroa";
+
+"type.railway.station.subway.bengalore" = "Metroa";
 
 "type.railway.station.subway.berlin" = "Metroa";
 
+"type.railway.station.subway.brasilia" = "Metroa";
+
+"type.railway.station.subway.brescia" = "Metroa";
+
+"type.railway.station.subway.brussels" = "Metroa";
+
+"type.railway.station.subway.bucharest" = "Metroa";
+
+"type.railway.station.subway.budapest" = "Metroa";
+
+"type.railway.station.subway.buenos_aires" = "Metroa";
+
+"type.railway.station.subway.bursa" = "Metroa";
+
+"type.railway.station.subway.cairo" = "Metroa";
+
+"type.railway.station.subway.caracas" = "Metroa";
+
+"type.railway.station.subway.catania" = "Metroa";
+
+"type.railway.station.subway.changchun" = "Metroa";
+
+"type.railway.station.subway.chengdu" = "Metroa";
+
+"type.railway.station.subway.chicago" = "Metroa";
+
+"type.railway.station.subway.chongqing" = "Metroa";
+
+"type.railway.station.subway.dalian" = "Metroa";
+
+"type.railway.station.subway.delhi" = "Metroa";
+
+"type.railway.station.subway.dnepro" = "Metroa";
+
+"type.railway.station.subway.dubai" = "Metroa";
+
+"type.railway.station.subway.ekb" = "Metroa";
+
+"type.railway.station.subway.fukuoka" = "Metroa";
+
+"type.railway.station.subway.glasgow" = "Metroa";
+
+"type.railway.station.subway.guangzhou" = "Metroa";
+
+"type.railway.station.subway.hamburg" = "Metroa";
+
+"type.railway.station.subway.helsinki" = "Metroa";
+
+"type.railway.station.subway.hiroshima" = "Metroa";
+
+"type.railway.station.subway.isfahan" = "Metroa";
+
+"type.railway.station.subway.istanbul" = "Metroa";
+
+"type.railway.station.subway.izmir" = "Metroa";
+
+"type.railway.station.subway.kazan" = "Metroa";
+
+"type.railway.station.subway.kharkiv" = "Metroa";
+
 "type.railway.station.subway.kiev" = "Metroa";
+
+"type.railway.station.subway.kobe" = "Metroa";
+
+"type.railway.station.subway.kolkata" = "Metroa";
+
+"type.railway.station.subway.kunming" = "Metroa";
+
+"type.railway.station.subway.kyoto" = "Metroa";
+
+"type.railway.station.subway.la" = "Metroa";
+
+"type.railway.station.subway.lausanne" = "Metroa";
+
+"type.railway.station.subway.lille" = "Metroa";
+
+"type.railway.station.subway.lima" = "Metroa";
+
+"type.railway.station.subway.lisboa" = "Metroa";
+
+"type.railway.station.subway.lisbon" = "Metroa";
 
 "type.railway.station.subway.london" = "Metroa";
 
+"type.railway.station.subway.lyon" = "Metroa";
+
 "type.railway.station.subway.madrid" = "Metroa";
+
+"type.railway.station.subway.malaga" = "Metroa";
+
+"type.railway.station.subway.manila" = "Metroa";
+
+"type.railway.station.subway.maracaibo" = "Metroa";
+
+"type.railway.station.subway.mashhad" = "Metroa";
+
+"type.railway.station.subway.mecca" = "Metroa";
+
+"type.railway.station.subway.medellin" = "Metroa";
+
+"type.railway.station.subway.mexico" = "Metroa";
+
+"type.railway.station.subway.milan" = "Metroa";
 
 "type.railway.station.subway.minsk" = "Metroa";
 
+"type.railway.station.subway.montreal" = "Metroa";
+
 "type.railway.station.subway.moscow" = "Metroa";
+
+"type.railway.station.subway.munchen" = "Metroa";
+
+"type.railway.station.subway.nagoya" = "Metroa";
 
 "type.railway.station.subway.newyork" = "Metroa";
 
+"type.railway.station.subway.nnov" = "Metroa";
+
+"type.railway.station.subway.novosibirsk" = "Metroa";
+
+"type.railway.station.subway.osaka" = "Metroa";
+
+"type.railway.station.subway.oslo" = "Metroa";
+
+"type.railway.station.subway.palma" = "Metroa";
+
+"type.railway.station.subway.panama" = "Metroa";
+
 "type.railway.station.subway.paris" = "Metroa";
+
+"type.railway.station.subway.philadelphia" = "Metroa";
+
+"type.railway.station.subway.pyongyang" = "Metroa";
+
+"type.railway.station.subway.rennes" = "Metroa";
+
+"type.railway.station.subway.rio" = "Metroa";
 
 "type.railway.station.subway.roma" = "Metroa";
 
+"type.railway.station.subway.rotterdam" = "Metroa";
+
+"type.railway.station.subway.samara" = "Metroa";
+
+"type.railway.station.subway.santiago" = "Metroa";
+
+"type.railway.station.subway.santo_domingo" = "Metroa";
+
+"type.railway.station.subway.saopaulo" = "Metroa";
+
+"type.railway.station.subway.sapporo" = "Metroa";
+
+"type.railway.station.subway.sendai" = "Metroa";
+
+"type.railway.station.subway.sf" = "Metroa";
+
+"type.railway.station.subway.shanghai" = "Metroa";
+
+"type.railway.station.subway.shiraz" = "Metroa";
+
+"type.railway.station.subway.sofia" = "Metroa";
+
 "type.railway.station.subway.spb" = "Metroa";
+
+"type.railway.station.subway.stockholm" = "Metroa";
+
+"type.railway.station.subway.tabriz" = "Metroa";
+
+"type.railway.station.subway.taipei" = "Metroa";
+
+"type.railway.station.subway.taoyuan" = "Metroa";
+
+"type.railway.station.subway.tashkent" = "Metroa";
+
+"type.railway.station.subway.tbilisi" = "Metroa";
+
+"type.railway.station.subway.tianjin" = "Metroa";
+
+"type.railway.station.subway.tokyo" = "Metroa";
+
+"type.railway.station.subway.valencia" = "Metroa";
+
+"type.railway.station.subway.vienna" = "Metroa";
+
+"type.railway.station.subway.warszawa" = "Metroa";
+
+"type.railway.station.subway.washington" = "Metroa";
+
+"type.railway.station.subway.wuhan" = "Metroa";
+
+"type.railway.station.subway.yerevan" = "Metroa";
+
+"type.railway.station.subway.yokohama" = "Metroa";
 
 "type.railway.subway" = "Subway Line";
 
@@ -2719,27 +2915,223 @@
 
 "type.railway.subway_entrance" = "Metroko sarrera";
 
-"type.railway.subway_entrance.barcelona" = "Metroa";
+"type.railway.subway_entrance.adana" = "Metroko sarrera";
 
-"type.railway.subway_entrance.berlin" = "Metroa";
+"type.railway.subway_entrance.algiers" = "Metroko sarrera";
 
-"type.railway.subway_entrance.kiev" = "Metroa";
+"type.railway.subway_entrance.almaty" = "Metroko sarrera";
 
-"type.railway.subway_entrance.london" = "Metroa";
+"type.railway.subway_entrance.amsterdam" = "Metroko sarrera";
 
-"type.railway.subway_entrance.madrid" = "Metroa";
+"type.railway.subway_entrance.ankara" = "Metroko sarrera";
 
-"type.railway.subway_entrance.minsk" = "Metroa";
+"type.railway.subway_entrance.athens" = "Metroko sarrera";
 
-"type.railway.subway_entrance.moscow" = "Metroa";
+"type.railway.subway_entrance.baku" = "Metroko sarrera";
 
-"type.railway.subway_entrance.newyork" = "Metroa";
+"type.railway.subway_entrance.bangkok" = "Metroko sarrera";
 
-"type.railway.subway_entrance.paris" = "Metroa";
+"type.railway.subway_entrance.barcelona" = "Metroko sarrera";
 
-"type.railway.subway_entrance.roma" = "Metroa";
+"type.railway.subway_entrance.beijing" = "Metroko sarrera";
 
-"type.railway.subway_entrance.spb" = "Metroa";
+"type.railway.subway_entrance.bengalore" = "Metroko sarrera";
+
+"type.railway.subway_entrance.berlin" = "Metroko sarrera";
+
+"type.railway.subway_entrance.brasilia" = "Metroko sarrera";
+
+"type.railway.subway_entrance.brescia" = "Metroko sarrera";
+
+"type.railway.subway_entrance.brussels" = "Metroko sarrera";
+
+"type.railway.subway_entrance.bucharest" = "Metroko sarrera";
+
+"type.railway.subway_entrance.budapest" = "Metroko sarrera";
+
+"type.railway.subway_entrance.buenos_aires" = "Metroko sarrera";
+
+"type.railway.subway_entrance.bursa" = "Metroko sarrera";
+
+"type.railway.subway_entrance.cairo" = "Metroko sarrera";
+
+"type.railway.subway_entrance.caracas" = "Metroko sarrera";
+
+"type.railway.subway_entrance.catania" = "Metroko sarrera";
+
+"type.railway.subway_entrance.changchun" = "Metroko sarrera";
+
+"type.railway.subway_entrance.chengdu" = "Metroko sarrera";
+
+"type.railway.subway_entrance.chicago" = "Metroko sarrera";
+
+"type.railway.subway_entrance.chongqing" = "Metroko sarrera";
+
+"type.railway.subway_entrance.dalian" = "Metroko sarrera";
+
+"type.railway.subway_entrance.delhi" = "Metroko sarrera";
+
+"type.railway.subway_entrance.dnepro" = "Metroko sarrera";
+
+"type.railway.subway_entrance.dubai" = "Metroko sarrera";
+
+"type.railway.subway_entrance.ekb" = "Metroko sarrera";
+
+"type.railway.subway_entrance.fukuoka" = "Metroko sarrera";
+
+"type.railway.subway_entrance.glasgow" = "Metroko sarrera";
+
+"type.railway.subway_entrance.guangzhou" = "Metroko sarrera";
+
+"type.railway.subway_entrance.hamburg" = "Metroko sarrera";
+
+"type.railway.subway_entrance.helsinki" = "Metroko sarrera";
+
+"type.railway.subway_entrance.hiroshima" = "Metroko sarrera";
+
+"type.railway.subway_entrance.isfahan" = "Metroko sarrera";
+
+"type.railway.subway_entrance.istanbul" = "Metroko sarrera";
+
+"type.railway.subway_entrance.izmir" = "Metroko sarrera";
+
+"type.railway.subway_entrance.kazan" = "Metroko sarrera";
+
+"type.railway.subway_entrance.kharkiv" = "Metroko sarrera";
+
+"type.railway.subway_entrance.kiev" = "Metroko sarrera";
+
+"type.railway.subway_entrance.kobe" = "Metroko sarrera";
+
+"type.railway.subway_entrance.kolkata" = "Metroko sarrera";
+
+"type.railway.subway_entrance.kunming" = "Metroko sarrera";
+
+"type.railway.subway_entrance.kyoto" = "Metroko sarrera";
+
+"type.railway.subway_entrance.la" = "Metroko sarrera";
+
+"type.railway.subway_entrance.lausanne" = "Metroko sarrera";
+
+"type.railway.subway_entrance.lille" = "Metroko sarrera";
+
+"type.railway.subway_entrance.lima" = "Metroko sarrera";
+
+"type.railway.subway_entrance.lisboa" = "Metroko sarrera";
+
+"type.railway.subway_entrance.lisbon" = "Metroko sarrera";
+
+"type.railway.subway_entrance.london" = "Metroko sarrera";
+
+"type.railway.subway_entrance.lyon" = "Metroko sarrera";
+
+"type.railway.subway_entrance.madrid" = "Metroko sarrera";
+
+"type.railway.subway_entrance.malaga" = "Metroko sarrera";
+
+"type.railway.subway_entrance.manila" = "Metroko sarrera";
+
+"type.railway.subway_entrance.maracaibo" = "Metroko sarrera";
+
+"type.railway.subway_entrance.mashhad" = "Metroko sarrera";
+
+"type.railway.subway_entrance.mecca" = "Metroko sarrera";
+
+"type.railway.subway_entrance.medellin" = "Metroko sarrera";
+
+"type.railway.subway_entrance.mexico" = "Metroko sarrera";
+
+"type.railway.subway_entrance.milan" = "Metroko sarrera";
+
+"type.railway.subway_entrance.minsk" = "Metroko sarrera";
+
+"type.railway.subway_entrance.montreal" = "Metroko sarrera";
+
+"type.railway.subway_entrance.moscow" = "Metroko sarrera";
+
+"type.railway.subway_entrance.munchen" = "Metroko sarrera";
+
+"type.railway.subway_entrance.nagoya" = "Metroko sarrera";
+
+"type.railway.subway_entrance.newyork" = "Metroko sarrera";
+
+"type.railway.subway_entrance.nnov" = "Metroko sarrera";
+
+"type.railway.subway_entrance.novosibirsk" = "Metroko sarrera";
+
+"type.railway.subway_entrance.osaka" = "Metroko sarrera";
+
+"type.railway.subway_entrance.oslo" = "Metroko sarrera";
+
+"type.railway.subway_entrance.palma" = "Metroko sarrera";
+
+"type.railway.subway_entrance.panama" = "Metroko sarrera";
+
+"type.railway.subway_entrance.paris" = "Metroko sarrera";
+
+"type.railway.subway_entrance.philadelphia" = "Metroko sarrera";
+
+"type.railway.subway_entrance.pyongyang" = "Metroko sarrera";
+
+"type.railway.subway_entrance.rennes" = "Metroko sarrera";
+
+"type.railway.subway_entrance.rio" = "Metroko sarrera";
+
+"type.railway.subway_entrance.roma" = "Metroko sarrera";
+
+"type.railway.subway_entrance.rotterdam" = "Metroko sarrera";
+
+"type.railway.subway_entrance.samara" = "Metroko sarrera";
+
+"type.railway.subway_entrance.santiago" = "Metroko sarrera";
+
+"type.railway.subway_entrance.santo_domingo" = "Metroko sarrera";
+
+"type.railway.subway_entrance.saopaulo" = "Metroko sarrera";
+
+"type.railway.subway_entrance.sapporo" = "Metroko sarrera";
+
+"type.railway.subway_entrance.sendai" = "Metroko sarrera";
+
+"type.railway.subway_entrance.sf" = "Metroko sarrera";
+
+"type.railway.subway_entrance.shanghai" = "Metroko sarrera";
+
+"type.railway.subway_entrance.shiraz" = "Metroko sarrera";
+
+"type.railway.subway_entrance.sofia" = "Metroko sarrera";
+
+"type.railway.subway_entrance.spb" = "Metroko sarrera";
+
+"type.railway.subway_entrance.stockholm" = "Metroko sarrera";
+
+"type.railway.subway_entrance.tabriz" = "Metroko sarrera";
+
+"type.railway.subway_entrance.taipei" = "Metroko sarrera";
+
+"type.railway.subway_entrance.taoyuan" = "Metroko sarrera";
+
+"type.railway.subway_entrance.tashkent" = "Metroko sarrera";
+
+"type.railway.subway_entrance.tbilisi" = "Metroko sarrera";
+
+"type.railway.subway_entrance.tianjin" = "Metroko sarrera";
+
+"type.railway.subway_entrance.tokyo" = "Metroko sarrera";
+
+"type.railway.subway_entrance.valencia" = "Metroko sarrera";
+
+"type.railway.subway_entrance.vienna" = "Metroko sarrera";
+
+"type.railway.subway_entrance.warszawa" = "Metroko sarrera";
+
+"type.railway.subway_entrance.washington" = "Metroko sarrera";
+
+"type.railway.subway_entrance.wuhan" = "Metroko sarrera";
+
+"type.railway.subway_entrance.yerevan" = "Metroko sarrera";
+
+"type.railway.subway_entrance.yokohama" = "Metroko sarrera";
 
 "type.railway.tram" = "Tram Line";
 

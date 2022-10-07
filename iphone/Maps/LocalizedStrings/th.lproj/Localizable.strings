@@ -2689,27 +2689,223 @@
 
 "type.railway.station.subway" = "รถไฟ";
 
+"type.railway.station.subway.adana" = "รถไฟ";
+
+"type.railway.station.subway.algiers" = "รถไฟ";
+
+"type.railway.station.subway.almaty" = "รถไฟ";
+
+"type.railway.station.subway.amsterdam" = "รถไฟ";
+
+"type.railway.station.subway.ankara" = "รถไฟ";
+
+"type.railway.station.subway.athens" = "รถไฟ";
+
+"type.railway.station.subway.baku" = "รถไฟ";
+
+"type.railway.station.subway.bangkok" = "รถไฟ";
+
 "type.railway.station.subway.barcelona" = "รถไฟ";
+
+"type.railway.station.subway.beijing" = "รถไฟ";
+
+"type.railway.station.subway.bengalore" = "รถไฟ";
 
 "type.railway.station.subway.berlin" = "รถไฟ";
 
+"type.railway.station.subway.brasilia" = "รถไฟ";
+
+"type.railway.station.subway.brescia" = "รถไฟ";
+
+"type.railway.station.subway.brussels" = "รถไฟ";
+
+"type.railway.station.subway.bucharest" = "รถไฟ";
+
+"type.railway.station.subway.budapest" = "รถไฟ";
+
+"type.railway.station.subway.buenos_aires" = "รถไฟ";
+
+"type.railway.station.subway.bursa" = "รถไฟ";
+
+"type.railway.station.subway.cairo" = "รถไฟ";
+
+"type.railway.station.subway.caracas" = "รถไฟ";
+
+"type.railway.station.subway.catania" = "รถไฟ";
+
+"type.railway.station.subway.changchun" = "รถไฟ";
+
+"type.railway.station.subway.chengdu" = "รถไฟ";
+
+"type.railway.station.subway.chicago" = "รถไฟ";
+
+"type.railway.station.subway.chongqing" = "รถไฟ";
+
+"type.railway.station.subway.dalian" = "รถไฟ";
+
+"type.railway.station.subway.delhi" = "รถไฟ";
+
+"type.railway.station.subway.dnepro" = "รถไฟ";
+
+"type.railway.station.subway.dubai" = "รถไฟ";
+
+"type.railway.station.subway.ekb" = "รถไฟ";
+
+"type.railway.station.subway.fukuoka" = "รถไฟ";
+
+"type.railway.station.subway.glasgow" = "รถไฟ";
+
+"type.railway.station.subway.guangzhou" = "รถไฟ";
+
+"type.railway.station.subway.hamburg" = "รถไฟ";
+
+"type.railway.station.subway.helsinki" = "รถไฟ";
+
+"type.railway.station.subway.hiroshima" = "รถไฟ";
+
+"type.railway.station.subway.isfahan" = "รถไฟ";
+
+"type.railway.station.subway.istanbul" = "รถไฟ";
+
+"type.railway.station.subway.izmir" = "รถไฟ";
+
+"type.railway.station.subway.kazan" = "รถไฟ";
+
+"type.railway.station.subway.kharkiv" = "รถไฟ";
+
 "type.railway.station.subway.kiev" = "รถไฟ";
+
+"type.railway.station.subway.kobe" = "รถไฟ";
+
+"type.railway.station.subway.kolkata" = "รถไฟ";
+
+"type.railway.station.subway.kunming" = "รถไฟ";
+
+"type.railway.station.subway.kyoto" = "รถไฟ";
+
+"type.railway.station.subway.la" = "รถไฟ";
+
+"type.railway.station.subway.lausanne" = "รถไฟ";
+
+"type.railway.station.subway.lille" = "รถไฟ";
+
+"type.railway.station.subway.lima" = "รถไฟ";
+
+"type.railway.station.subway.lisboa" = "รถไฟ";
+
+"type.railway.station.subway.lisbon" = "รถไฟ";
 
 "type.railway.station.subway.london" = "รถไฟ";
 
+"type.railway.station.subway.lyon" = "รถไฟ";
+
 "type.railway.station.subway.madrid" = "รถไฟ";
+
+"type.railway.station.subway.malaga" = "รถไฟ";
+
+"type.railway.station.subway.manila" = "รถไฟ";
+
+"type.railway.station.subway.maracaibo" = "รถไฟ";
+
+"type.railway.station.subway.mashhad" = "รถไฟ";
+
+"type.railway.station.subway.mecca" = "รถไฟ";
+
+"type.railway.station.subway.medellin" = "รถไฟ";
+
+"type.railway.station.subway.mexico" = "รถไฟ";
+
+"type.railway.station.subway.milan" = "รถไฟ";
 
 "type.railway.station.subway.minsk" = "รถไฟ";
 
+"type.railway.station.subway.montreal" = "รถไฟ";
+
 "type.railway.station.subway.moscow" = "รถไฟ";
+
+"type.railway.station.subway.munchen" = "รถไฟ";
+
+"type.railway.station.subway.nagoya" = "รถไฟ";
 
 "type.railway.station.subway.newyork" = "รถไฟ";
 
+"type.railway.station.subway.nnov" = "รถไฟ";
+
+"type.railway.station.subway.novosibirsk" = "รถไฟ";
+
+"type.railway.station.subway.osaka" = "รถไฟ";
+
+"type.railway.station.subway.oslo" = "รถไฟ";
+
+"type.railway.station.subway.palma" = "รถไฟ";
+
+"type.railway.station.subway.panama" = "รถไฟ";
+
 "type.railway.station.subway.paris" = "รถไฟ";
+
+"type.railway.station.subway.philadelphia" = "รถไฟ";
+
+"type.railway.station.subway.pyongyang" = "รถไฟ";
+
+"type.railway.station.subway.rennes" = "รถไฟ";
+
+"type.railway.station.subway.rio" = "รถไฟ";
 
 "type.railway.station.subway.roma" = "รถไฟ";
 
+"type.railway.station.subway.rotterdam" = "รถไฟ";
+
+"type.railway.station.subway.samara" = "รถไฟ";
+
+"type.railway.station.subway.santiago" = "รถไฟ";
+
+"type.railway.station.subway.santo_domingo" = "รถไฟ";
+
+"type.railway.station.subway.saopaulo" = "รถไฟ";
+
+"type.railway.station.subway.sapporo" = "รถไฟ";
+
+"type.railway.station.subway.sendai" = "รถไฟ";
+
+"type.railway.station.subway.sf" = "รถไฟ";
+
+"type.railway.station.subway.shanghai" = "รถไฟ";
+
+"type.railway.station.subway.shiraz" = "รถไฟ";
+
+"type.railway.station.subway.sofia" = "รถไฟ";
+
 "type.railway.station.subway.spb" = "รถไฟ";
+
+"type.railway.station.subway.stockholm" = "รถไฟ";
+
+"type.railway.station.subway.tabriz" = "รถไฟ";
+
+"type.railway.station.subway.taipei" = "รถไฟ";
+
+"type.railway.station.subway.taoyuan" = "รถไฟ";
+
+"type.railway.station.subway.tashkent" = "รถไฟ";
+
+"type.railway.station.subway.tbilisi" = "รถไฟ";
+
+"type.railway.station.subway.tianjin" = "รถไฟ";
+
+"type.railway.station.subway.tokyo" = "รถไฟ";
+
+"type.railway.station.subway.valencia" = "รถไฟ";
+
+"type.railway.station.subway.vienna" = "รถไฟ";
+
+"type.railway.station.subway.warszawa" = "รถไฟ";
+
+"type.railway.station.subway.washington" = "รถไฟ";
+
+"type.railway.station.subway.wuhan" = "รถไฟ";
+
+"type.railway.station.subway.yerevan" = "รถไฟ";
+
+"type.railway.station.subway.yokohama" = "รถไฟ";
 
 "type.railway.subway" = "Subway Line";
 
@@ -2719,27 +2915,223 @@
 
 "type.railway.subway_entrance" = "ทางเข้ารถไฟใต้ดิน";
 
-"type.railway.subway_entrance.barcelona" = "รถไฟ";
+"type.railway.subway_entrance.adana" = "ทางเข้ารถไฟใต้ดิน";
 
-"type.railway.subway_entrance.berlin" = "รถไฟ";
+"type.railway.subway_entrance.algiers" = "ทางเข้ารถไฟใต้ดิน";
 
-"type.railway.subway_entrance.kiev" = "รถไฟ";
+"type.railway.subway_entrance.almaty" = "ทางเข้ารถไฟใต้ดิน";
 
-"type.railway.subway_entrance.london" = "รถไฟ";
+"type.railway.subway_entrance.amsterdam" = "ทางเข้ารถไฟใต้ดิน";
 
-"type.railway.subway_entrance.madrid" = "รถไฟ";
+"type.railway.subway_entrance.ankara" = "ทางเข้ารถไฟใต้ดิน";
 
-"type.railway.subway_entrance.minsk" = "รถไฟ";
+"type.railway.subway_entrance.athens" = "ทางเข้ารถไฟใต้ดิน";
 
-"type.railway.subway_entrance.moscow" = "รถไฟ";
+"type.railway.subway_entrance.baku" = "ทางเข้ารถไฟใต้ดิน";
 
-"type.railway.subway_entrance.newyork" = "รถไฟ";
+"type.railway.subway_entrance.bangkok" = "ทางเข้ารถไฟใต้ดิน";
 
-"type.railway.subway_entrance.paris" = "รถไฟ";
+"type.railway.subway_entrance.barcelona" = "ทางเข้ารถไฟใต้ดิน";
 
-"type.railway.subway_entrance.roma" = "รถไฟ";
+"type.railway.subway_entrance.beijing" = "ทางเข้ารถไฟใต้ดิน";
 
-"type.railway.subway_entrance.spb" = "รถไฟ";
+"type.railway.subway_entrance.bengalore" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.berlin" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.brasilia" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.brescia" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.brussels" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.bucharest" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.budapest" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.buenos_aires" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.bursa" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.cairo" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.caracas" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.catania" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.changchun" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.chengdu" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.chicago" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.chongqing" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.dalian" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.delhi" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.dnepro" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.dubai" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.ekb" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.fukuoka" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.glasgow" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.guangzhou" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.hamburg" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.helsinki" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.hiroshima" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.isfahan" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.istanbul" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.izmir" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.kazan" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.kharkiv" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.kiev" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.kobe" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.kolkata" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.kunming" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.kyoto" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.la" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.lausanne" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.lille" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.lima" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.lisboa" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.lisbon" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.london" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.lyon" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.madrid" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.malaga" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.manila" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.maracaibo" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.mashhad" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.mecca" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.medellin" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.mexico" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.milan" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.minsk" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.montreal" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.moscow" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.munchen" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.nagoya" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.newyork" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.nnov" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.novosibirsk" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.osaka" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.oslo" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.palma" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.panama" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.paris" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.philadelphia" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.pyongyang" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.rennes" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.rio" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.roma" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.rotterdam" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.samara" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.santiago" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.santo_domingo" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.saopaulo" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.sapporo" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.sendai" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.sf" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.shanghai" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.shiraz" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.sofia" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.spb" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.stockholm" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.tabriz" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.taipei" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.taoyuan" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.tashkent" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.tbilisi" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.tianjin" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.tokyo" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.valencia" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.vienna" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.warszawa" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.washington" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.wuhan" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.yerevan" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.yokohama" = "ทางเข้ารถไฟใต้ดิน";
 
 "type.railway.tram" = "Tram Line";
 

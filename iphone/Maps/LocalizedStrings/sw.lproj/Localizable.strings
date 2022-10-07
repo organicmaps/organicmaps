@@ -2689,27 +2689,223 @@
 
 "type.railway.station.subway" = "Subway";
 
+"type.railway.station.subway.adana" = "Subway";
+
+"type.railway.station.subway.algiers" = "Subway";
+
+"type.railway.station.subway.almaty" = "Subway";
+
+"type.railway.station.subway.amsterdam" = "Subway";
+
+"type.railway.station.subway.ankara" = "Subway";
+
+"type.railway.station.subway.athens" = "Subway";
+
+"type.railway.station.subway.baku" = "Subway";
+
+"type.railway.station.subway.bangkok" = "Subway";
+
 "type.railway.station.subway.barcelona" = "Subway";
+
+"type.railway.station.subway.beijing" = "Subway";
+
+"type.railway.station.subway.bengalore" = "Subway";
 
 "type.railway.station.subway.berlin" = "Subway";
 
+"type.railway.station.subway.brasilia" = "Subway";
+
+"type.railway.station.subway.brescia" = "Subway";
+
+"type.railway.station.subway.brussels" = "Subway";
+
+"type.railway.station.subway.bucharest" = "Subway";
+
+"type.railway.station.subway.budapest" = "Subway";
+
+"type.railway.station.subway.buenos_aires" = "Subway";
+
+"type.railway.station.subway.bursa" = "Subway";
+
+"type.railway.station.subway.cairo" = "Subway";
+
+"type.railway.station.subway.caracas" = "Subway";
+
+"type.railway.station.subway.catania" = "Subway";
+
+"type.railway.station.subway.changchun" = "Subway";
+
+"type.railway.station.subway.chengdu" = "Subway";
+
+"type.railway.station.subway.chicago" = "Subway";
+
+"type.railway.station.subway.chongqing" = "Subway";
+
+"type.railway.station.subway.dalian" = "Subway";
+
+"type.railway.station.subway.delhi" = "Subway";
+
+"type.railway.station.subway.dnepro" = "Subway";
+
+"type.railway.station.subway.dubai" = "Subway";
+
+"type.railway.station.subway.ekb" = "Subway";
+
+"type.railway.station.subway.fukuoka" = "Subway";
+
+"type.railway.station.subway.glasgow" = "Subway";
+
+"type.railway.station.subway.guangzhou" = "Subway";
+
+"type.railway.station.subway.hamburg" = "Subway";
+
+"type.railway.station.subway.helsinki" = "Subway";
+
+"type.railway.station.subway.hiroshima" = "Subway";
+
+"type.railway.station.subway.isfahan" = "Subway";
+
+"type.railway.station.subway.istanbul" = "Subway";
+
+"type.railway.station.subway.izmir" = "Subway";
+
+"type.railway.station.subway.kazan" = "Subway";
+
+"type.railway.station.subway.kharkiv" = "Subway";
+
 "type.railway.station.subway.kiev" = "Subway";
+
+"type.railway.station.subway.kobe" = "Subway";
+
+"type.railway.station.subway.kolkata" = "Subway";
+
+"type.railway.station.subway.kunming" = "Subway";
+
+"type.railway.station.subway.kyoto" = "Subway";
+
+"type.railway.station.subway.la" = "Subway";
+
+"type.railway.station.subway.lausanne" = "Subway";
+
+"type.railway.station.subway.lille" = "Subway";
+
+"type.railway.station.subway.lima" = "Subway";
+
+"type.railway.station.subway.lisboa" = "Subway";
+
+"type.railway.station.subway.lisbon" = "Subway";
 
 "type.railway.station.subway.london" = "Subway";
 
+"type.railway.station.subway.lyon" = "Subway";
+
 "type.railway.station.subway.madrid" = "Subway";
+
+"type.railway.station.subway.malaga" = "Subway";
+
+"type.railway.station.subway.manila" = "Subway";
+
+"type.railway.station.subway.maracaibo" = "Subway";
+
+"type.railway.station.subway.mashhad" = "Subway";
+
+"type.railway.station.subway.mecca" = "Subway";
+
+"type.railway.station.subway.medellin" = "Subway";
+
+"type.railway.station.subway.mexico" = "Subway";
+
+"type.railway.station.subway.milan" = "Subway";
 
 "type.railway.station.subway.minsk" = "Subway";
 
+"type.railway.station.subway.montreal" = "Subway";
+
 "type.railway.station.subway.moscow" = "Subway";
+
+"type.railway.station.subway.munchen" = "Subway";
+
+"type.railway.station.subway.nagoya" = "Subway";
 
 "type.railway.station.subway.newyork" = "Subway";
 
+"type.railway.station.subway.nnov" = "Subway";
+
+"type.railway.station.subway.novosibirsk" = "Subway";
+
+"type.railway.station.subway.osaka" = "Subway";
+
+"type.railway.station.subway.oslo" = "Subway";
+
+"type.railway.station.subway.palma" = "Subway";
+
+"type.railway.station.subway.panama" = "Subway";
+
 "type.railway.station.subway.paris" = "Subway";
+
+"type.railway.station.subway.philadelphia" = "Subway";
+
+"type.railway.station.subway.pyongyang" = "Subway";
+
+"type.railway.station.subway.rennes" = "Subway";
+
+"type.railway.station.subway.rio" = "Subway";
 
 "type.railway.station.subway.roma" = "Subway";
 
+"type.railway.station.subway.rotterdam" = "Subway";
+
+"type.railway.station.subway.samara" = "Subway";
+
+"type.railway.station.subway.santiago" = "Subway";
+
+"type.railway.station.subway.santo_domingo" = "Subway";
+
+"type.railway.station.subway.saopaulo" = "Subway";
+
+"type.railway.station.subway.sapporo" = "Subway";
+
+"type.railway.station.subway.sendai" = "Subway";
+
+"type.railway.station.subway.sf" = "Subway";
+
+"type.railway.station.subway.shanghai" = "Subway";
+
+"type.railway.station.subway.shiraz" = "Subway";
+
+"type.railway.station.subway.sofia" = "Subway";
+
 "type.railway.station.subway.spb" = "Subway";
+
+"type.railway.station.subway.stockholm" = "Subway";
+
+"type.railway.station.subway.tabriz" = "Subway";
+
+"type.railway.station.subway.taipei" = "Subway";
+
+"type.railway.station.subway.taoyuan" = "Subway";
+
+"type.railway.station.subway.tashkent" = "Subway";
+
+"type.railway.station.subway.tbilisi" = "Subway";
+
+"type.railway.station.subway.tianjin" = "Subway";
+
+"type.railway.station.subway.tokyo" = "Subway";
+
+"type.railway.station.subway.valencia" = "Subway";
+
+"type.railway.station.subway.vienna" = "Subway";
+
+"type.railway.station.subway.warszawa" = "Subway";
+
+"type.railway.station.subway.washington" = "Subway";
+
+"type.railway.station.subway.wuhan" = "Subway";
+
+"type.railway.station.subway.yerevan" = "Subway";
+
+"type.railway.station.subway.yokohama" = "Subway";
 
 "type.railway.subway" = "Subway Line";
 
@@ -2719,27 +2915,223 @@
 
 "type.railway.subway_entrance" = "Lango la kuingilia stesheni ya reli";
 
-"type.railway.subway_entrance.barcelona" = "Subway";
+"type.railway.subway_entrance.adana" = "Lango la kuingilia stesheni ya reli";
 
-"type.railway.subway_entrance.berlin" = "Subway";
+"type.railway.subway_entrance.algiers" = "Lango la kuingilia stesheni ya reli";
 
-"type.railway.subway_entrance.kiev" = "Subway";
+"type.railway.subway_entrance.almaty" = "Lango la kuingilia stesheni ya reli";
 
-"type.railway.subway_entrance.london" = "Subway";
+"type.railway.subway_entrance.amsterdam" = "Lango la kuingilia stesheni ya reli";
 
-"type.railway.subway_entrance.madrid" = "Subway";
+"type.railway.subway_entrance.ankara" = "Lango la kuingilia stesheni ya reli";
 
-"type.railway.subway_entrance.minsk" = "Subway";
+"type.railway.subway_entrance.athens" = "Lango la kuingilia stesheni ya reli";
 
-"type.railway.subway_entrance.moscow" = "Subway";
+"type.railway.subway_entrance.baku" = "Lango la kuingilia stesheni ya reli";
 
-"type.railway.subway_entrance.newyork" = "Subway";
+"type.railway.subway_entrance.bangkok" = "Lango la kuingilia stesheni ya reli";
 
-"type.railway.subway_entrance.paris" = "Subway";
+"type.railway.subway_entrance.barcelona" = "Lango la kuingilia stesheni ya reli";
 
-"type.railway.subway_entrance.roma" = "Subway";
+"type.railway.subway_entrance.beijing" = "Lango la kuingilia stesheni ya reli";
 
-"type.railway.subway_entrance.spb" = "Subway";
+"type.railway.subway_entrance.bengalore" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.berlin" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.brasilia" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.brescia" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.brussels" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.bucharest" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.budapest" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.buenos_aires" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.bursa" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.cairo" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.caracas" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.catania" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.changchun" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.chengdu" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.chicago" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.chongqing" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.dalian" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.delhi" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.dnepro" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.dubai" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.ekb" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.fukuoka" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.glasgow" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.guangzhou" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.hamburg" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.helsinki" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.hiroshima" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.isfahan" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.istanbul" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.izmir" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.kazan" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.kharkiv" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.kiev" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.kobe" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.kolkata" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.kunming" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.kyoto" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.la" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.lausanne" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.lille" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.lima" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.lisboa" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.lisbon" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.london" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.lyon" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.madrid" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.malaga" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.manila" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.maracaibo" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.mashhad" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.mecca" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.medellin" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.mexico" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.milan" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.minsk" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.montreal" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.moscow" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.munchen" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.nagoya" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.newyork" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.nnov" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.novosibirsk" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.osaka" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.oslo" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.palma" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.panama" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.paris" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.philadelphia" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.pyongyang" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.rennes" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.rio" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.roma" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.rotterdam" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.samara" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.santiago" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.santo_domingo" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.saopaulo" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.sapporo" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.sendai" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.sf" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.shanghai" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.shiraz" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.sofia" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.spb" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.stockholm" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.tabriz" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.taipei" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.taoyuan" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.tashkent" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.tbilisi" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.tianjin" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.tokyo" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.valencia" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.vienna" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.warszawa" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.washington" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.wuhan" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.yerevan" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.yokohama" = "Lango la kuingilia stesheni ya reli";
 
 "type.railway.tram" = "Tram Line";
 
