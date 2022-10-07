@@ -33,7 +33,7 @@ target_compile_definitions(${PROJECT_NAME}
 
 find_package(GTest "1.12.0")
 if (${GTest_FOUND})
-  message(STATUS "The build will rely on the system provided GoogleTest version")
+  message(STATUS "Using the system GoogleTest ${GTest_VERSION}")
 else()
   add_subdirectory(../../3party/googletest ${CMAKE_CURRENT_BINARY_DIR}/googletest)
 endif()
