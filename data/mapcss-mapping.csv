@@ -744,9 +744,9 @@ sport|yoga;743;
 amenity|parking_entrance;[amenity=parking_entrance];;name;int_name;744;
 amenity|parking_entrance|private;[amenity=parking_entrance][access=private];;name;int_name;745;
 amenity|parking_entrance|permissive;[amenity=parking_entrance][access=permissive];;name;int_name;746;
-deprecated|deprecated;747;x
-deprecated|deprecated;748;x
-deprecated|deprecated;749;x
+barrier|cattle_grid;747;
+barrier|ditch;748;
+barrier|kissing_gate;749;
 deprecated|deprecated;750;x
 deprecated|deprecated;751;x
 deprecated|deprecated;752;x

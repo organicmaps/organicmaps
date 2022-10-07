@@ -131,6 +131,7 @@ line[waterway=stream],
 line[waterway=canal],
 line[natural=strait],
 line[waterway=ditch],
+line[barrier=ditch],
 line[waterway=drain],
 {z-index: 50;}
 
@@ -443,6 +444,7 @@ node|z16-[waterway=lock_gate],
 {icon-image: dot-m.svg;}
 
 line|z17-[waterway=ditch],
+line|z17-[barrier=ditch],
 line|z17-[waterway=drain],
 {width: 1.8;opacity: 1;color: @river;dashes: 0.9,0.9;}
 
