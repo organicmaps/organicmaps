@@ -2689,27 +2689,223 @@
 
 "type.railway.station.subway" = "T-bane";
 
+"type.railway.station.subway.adana" = "T-bane";
+
+"type.railway.station.subway.algiers" = "T-bane";
+
+"type.railway.station.subway.almaty" = "T-bane";
+
+"type.railway.station.subway.amsterdam" = "T-bane";
+
+"type.railway.station.subway.ankara" = "T-bane";
+
+"type.railway.station.subway.athens" = "T-bane";
+
+"type.railway.station.subway.baku" = "T-bane";
+
+"type.railway.station.subway.bangkok" = "T-bane";
+
 "type.railway.station.subway.barcelona" = "T-bane";
+
+"type.railway.station.subway.beijing" = "T-bane";
+
+"type.railway.station.subway.bengalore" = "T-bane";
 
 "type.railway.station.subway.berlin" = "T-bane";
 
+"type.railway.station.subway.brasilia" = "T-bane";
+
+"type.railway.station.subway.brescia" = "T-bane";
+
+"type.railway.station.subway.brussels" = "T-bane";
+
+"type.railway.station.subway.bucharest" = "T-bane";
+
+"type.railway.station.subway.budapest" = "T-bane";
+
+"type.railway.station.subway.buenos_aires" = "T-bane";
+
+"type.railway.station.subway.bursa" = "T-bane";
+
+"type.railway.station.subway.cairo" = "T-bane";
+
+"type.railway.station.subway.caracas" = "T-bane";
+
+"type.railway.station.subway.catania" = "T-bane";
+
+"type.railway.station.subway.changchun" = "T-bane";
+
+"type.railway.station.subway.chengdu" = "T-bane";
+
+"type.railway.station.subway.chicago" = "T-bane";
+
+"type.railway.station.subway.chongqing" = "T-bane";
+
+"type.railway.station.subway.dalian" = "T-bane";
+
+"type.railway.station.subway.delhi" = "T-bane";
+
+"type.railway.station.subway.dnepro" = "T-bane";
+
+"type.railway.station.subway.dubai" = "T-bane";
+
+"type.railway.station.subway.ekb" = "T-bane";
+
+"type.railway.station.subway.fukuoka" = "T-bane";
+
+"type.railway.station.subway.glasgow" = "T-bane";
+
+"type.railway.station.subway.guangzhou" = "T-bane";
+
+"type.railway.station.subway.hamburg" = "T-bane";
+
+"type.railway.station.subway.helsinki" = "T-bane";
+
+"type.railway.station.subway.hiroshima" = "T-bane";
+
+"type.railway.station.subway.isfahan" = "T-bane";
+
+"type.railway.station.subway.istanbul" = "T-bane";
+
+"type.railway.station.subway.izmir" = "T-bane";
+
+"type.railway.station.subway.kazan" = "T-bane";
+
+"type.railway.station.subway.kharkiv" = "T-bane";
+
 "type.railway.station.subway.kiev" = "T-bane";
+
+"type.railway.station.subway.kobe" = "T-bane";
+
+"type.railway.station.subway.kolkata" = "T-bane";
+
+"type.railway.station.subway.kunming" = "T-bane";
+
+"type.railway.station.subway.kyoto" = "T-bane";
+
+"type.railway.station.subway.la" = "T-bane";
+
+"type.railway.station.subway.lausanne" = "T-bane";
+
+"type.railway.station.subway.lille" = "T-bane";
+
+"type.railway.station.subway.lima" = "T-bane";
+
+"type.railway.station.subway.lisboa" = "T-bane";
+
+"type.railway.station.subway.lisbon" = "T-bane";
 
 "type.railway.station.subway.london" = "T-bane";
 
+"type.railway.station.subway.lyon" = "T-bane";
+
 "type.railway.station.subway.madrid" = "T-bane";
+
+"type.railway.station.subway.malaga" = "T-bane";
+
+"type.railway.station.subway.manila" = "T-bane";
+
+"type.railway.station.subway.maracaibo" = "T-bane";
+
+"type.railway.station.subway.mashhad" = "T-bane";
+
+"type.railway.station.subway.mecca" = "T-bane";
+
+"type.railway.station.subway.medellin" = "T-bane";
+
+"type.railway.station.subway.mexico" = "T-bane";
+
+"type.railway.station.subway.milan" = "T-bane";
 
 "type.railway.station.subway.minsk" = "T-bane";
 
+"type.railway.station.subway.montreal" = "T-bane";
+
 "type.railway.station.subway.moscow" = "T-bane";
+
+"type.railway.station.subway.munchen" = "T-bane";
+
+"type.railway.station.subway.nagoya" = "T-bane";
 
 "type.railway.station.subway.newyork" = "T-bane";
 
+"type.railway.station.subway.nnov" = "T-bane";
+
+"type.railway.station.subway.novosibirsk" = "T-bane";
+
+"type.railway.station.subway.osaka" = "T-bane";
+
+"type.railway.station.subway.oslo" = "T-bane";
+
+"type.railway.station.subway.palma" = "T-bane";
+
+"type.railway.station.subway.panama" = "T-bane";
+
 "type.railway.station.subway.paris" = "T-bane";
+
+"type.railway.station.subway.philadelphia" = "T-bane";
+
+"type.railway.station.subway.pyongyang" = "T-bane";
+
+"type.railway.station.subway.rennes" = "T-bane";
+
+"type.railway.station.subway.rio" = "T-bane";
 
 "type.railway.station.subway.roma" = "T-bane";
 
+"type.railway.station.subway.rotterdam" = "T-bane";
+
+"type.railway.station.subway.samara" = "T-bane";
+
+"type.railway.station.subway.santiago" = "T-bane";
+
+"type.railway.station.subway.santo_domingo" = "T-bane";
+
+"type.railway.station.subway.saopaulo" = "T-bane";
+
+"type.railway.station.subway.sapporo" = "T-bane";
+
+"type.railway.station.subway.sendai" = "T-bane";
+
+"type.railway.station.subway.sf" = "T-bane";
+
+"type.railway.station.subway.shanghai" = "T-bane";
+
+"type.railway.station.subway.shiraz" = "T-bane";
+
+"type.railway.station.subway.sofia" = "T-bane";
+
 "type.railway.station.subway.spb" = "T-bane";
+
+"type.railway.station.subway.stockholm" = "T-bane";
+
+"type.railway.station.subway.tabriz" = "T-bane";
+
+"type.railway.station.subway.taipei" = "T-bane";
+
+"type.railway.station.subway.taoyuan" = "T-bane";
+
+"type.railway.station.subway.tashkent" = "T-bane";
+
+"type.railway.station.subway.tbilisi" = "T-bane";
+
+"type.railway.station.subway.tianjin" = "T-bane";
+
+"type.railway.station.subway.tokyo" = "T-bane";
+
+"type.railway.station.subway.valencia" = "T-bane";
+
+"type.railway.station.subway.vienna" = "T-bane";
+
+"type.railway.station.subway.warszawa" = "T-bane";
+
+"type.railway.station.subway.washington" = "T-bane";
+
+"type.railway.station.subway.wuhan" = "T-bane";
+
+"type.railway.station.subway.yerevan" = "T-bane";
+
+"type.railway.station.subway.yokohama" = "T-bane";
 
 "type.railway.subway" = "Subway Line";
 
@@ -2719,27 +2915,223 @@
 
 "type.railway.subway_entrance" = "T-bane inngang";
 
-"type.railway.subway_entrance.barcelona" = "T-bane";
+"type.railway.subway_entrance.adana" = "T-bane inngang";
 
-"type.railway.subway_entrance.berlin" = "T-bane";
+"type.railway.subway_entrance.algiers" = "T-bane inngang";
 
-"type.railway.subway_entrance.kiev" = "T-bane";
+"type.railway.subway_entrance.almaty" = "T-bane inngang";
 
-"type.railway.subway_entrance.london" = "T-bane";
+"type.railway.subway_entrance.amsterdam" = "T-bane inngang";
 
-"type.railway.subway_entrance.madrid" = "T-bane";
+"type.railway.subway_entrance.ankara" = "T-bane inngang";
 
-"type.railway.subway_entrance.minsk" = "T-bane";
+"type.railway.subway_entrance.athens" = "T-bane inngang";
 
-"type.railway.subway_entrance.moscow" = "T-bane";
+"type.railway.subway_entrance.baku" = "T-bane inngang";
 
-"type.railway.subway_entrance.newyork" = "T-bane";
+"type.railway.subway_entrance.bangkok" = "T-bane inngang";
 
-"type.railway.subway_entrance.paris" = "T-bane";
+"type.railway.subway_entrance.barcelona" = "T-bane inngang";
 
-"type.railway.subway_entrance.roma" = "T-bane";
+"type.railway.subway_entrance.beijing" = "T-bane inngang";
 
-"type.railway.subway_entrance.spb" = "T-bane";
+"type.railway.subway_entrance.bengalore" = "T-bane inngang";
+
+"type.railway.subway_entrance.berlin" = "T-bane inngang";
+
+"type.railway.subway_entrance.brasilia" = "T-bane inngang";
+
+"type.railway.subway_entrance.brescia" = "T-bane inngang";
+
+"type.railway.subway_entrance.brussels" = "T-bane inngang";
+
+"type.railway.subway_entrance.bucharest" = "T-bane inngang";
+
+"type.railway.subway_entrance.budapest" = "T-bane inngang";
+
+"type.railway.subway_entrance.buenos_aires" = "T-bane inngang";
+
+"type.railway.subway_entrance.bursa" = "T-bane inngang";
+
+"type.railway.subway_entrance.cairo" = "T-bane inngang";
+
+"type.railway.subway_entrance.caracas" = "T-bane inngang";
+
+"type.railway.subway_entrance.catania" = "T-bane inngang";
+
+"type.railway.subway_entrance.changchun" = "T-bane inngang";
+
+"type.railway.subway_entrance.chengdu" = "T-bane inngang";
+
+"type.railway.subway_entrance.chicago" = "T-bane inngang";
+
+"type.railway.subway_entrance.chongqing" = "T-bane inngang";
+
+"type.railway.subway_entrance.dalian" = "T-bane inngang";
+
+"type.railway.subway_entrance.delhi" = "T-bane inngang";
+
+"type.railway.subway_entrance.dnepro" = "T-bane inngang";
+
+"type.railway.subway_entrance.dubai" = "T-bane inngang";
+
+"type.railway.subway_entrance.ekb" = "T-bane inngang";
+
+"type.railway.subway_entrance.fukuoka" = "T-bane inngang";
+
+"type.railway.subway_entrance.glasgow" = "T-bane inngang";
+
+"type.railway.subway_entrance.guangzhou" = "T-bane inngang";
+
+"type.railway.subway_entrance.hamburg" = "T-bane inngang";
+
+"type.railway.subway_entrance.helsinki" = "T-bane inngang";
+
+"type.railway.subway_entrance.hiroshima" = "T-bane inngang";
+
+"type.railway.subway_entrance.isfahan" = "T-bane inngang";
+
+"type.railway.subway_entrance.istanbul" = "T-bane inngang";
+
+"type.railway.subway_entrance.izmir" = "T-bane inngang";
+
+"type.railway.subway_entrance.kazan" = "T-bane inngang";
+
+"type.railway.subway_entrance.kharkiv" = "T-bane inngang";
+
+"type.railway.subway_entrance.kiev" = "T-bane inngang";
+
+"type.railway.subway_entrance.kobe" = "T-bane inngang";
+
+"type.railway.subway_entrance.kolkata" = "T-bane inngang";
+
+"type.railway.subway_entrance.kunming" = "T-bane inngang";
+
+"type.railway.subway_entrance.kyoto" = "T-bane inngang";
+
+"type.railway.subway_entrance.la" = "T-bane inngang";
+
+"type.railway.subway_entrance.lausanne" = "T-bane inngang";
+
+"type.railway.subway_entrance.lille" = "T-bane inngang";
+
+"type.railway.subway_entrance.lima" = "T-bane inngang";
+
+"type.railway.subway_entrance.lisboa" = "T-bane inngang";
+
+"type.railway.subway_entrance.lisbon" = "T-bane inngang";
+
+"type.railway.subway_entrance.london" = "T-bane inngang";
+
+"type.railway.subway_entrance.lyon" = "T-bane inngang";
+
+"type.railway.subway_entrance.madrid" = "T-bane inngang";
+
+"type.railway.subway_entrance.malaga" = "T-bane inngang";
+
+"type.railway.subway_entrance.manila" = "T-bane inngang";
+
+"type.railway.subway_entrance.maracaibo" = "T-bane inngang";
+
+"type.railway.subway_entrance.mashhad" = "T-bane inngang";
+
+"type.railway.subway_entrance.mecca" = "T-bane inngang";
+
+"type.railway.subway_entrance.medellin" = "T-bane inngang";
+
+"type.railway.subway_entrance.mexico" = "T-bane inngang";
+
+"type.railway.subway_entrance.milan" = "T-bane inngang";
+
+"type.railway.subway_entrance.minsk" = "T-bane inngang";
+
+"type.railway.subway_entrance.montreal" = "T-bane inngang";
+
+"type.railway.subway_entrance.moscow" = "T-bane inngang";
+
+"type.railway.subway_entrance.munchen" = "T-bane inngang";
+
+"type.railway.subway_entrance.nagoya" = "T-bane inngang";
+
+"type.railway.subway_entrance.newyork" = "T-bane inngang";
+
+"type.railway.subway_entrance.nnov" = "T-bane inngang";
+
+"type.railway.subway_entrance.novosibirsk" = "T-bane inngang";
+
+"type.railway.subway_entrance.osaka" = "T-bane inngang";
+
+"type.railway.subway_entrance.oslo" = "T-bane inngang";
+
+"type.railway.subway_entrance.palma" = "T-bane inngang";
+
+"type.railway.subway_entrance.panama" = "T-bane inngang";
+
+"type.railway.subway_entrance.paris" = "T-bane inngang";
+
+"type.railway.subway_entrance.philadelphia" = "T-bane inngang";
+
+"type.railway.subway_entrance.pyongyang" = "T-bane inngang";
+
+"type.railway.subway_entrance.rennes" = "T-bane inngang";
+
+"type.railway.subway_entrance.rio" = "T-bane inngang";
+
+"type.railway.subway_entrance.roma" = "T-bane inngang";
+
+"type.railway.subway_entrance.rotterdam" = "T-bane inngang";
+
+"type.railway.subway_entrance.samara" = "T-bane inngang";
+
+"type.railway.subway_entrance.santiago" = "T-bane inngang";
+
+"type.railway.subway_entrance.santo_domingo" = "T-bane inngang";
+
+"type.railway.subway_entrance.saopaulo" = "T-bane inngang";
+
+"type.railway.subway_entrance.sapporo" = "T-bane inngang";
+
+"type.railway.subway_entrance.sendai" = "T-bane inngang";
+
+"type.railway.subway_entrance.sf" = "T-bane inngang";
+
+"type.railway.subway_entrance.shanghai" = "T-bane inngang";
+
+"type.railway.subway_entrance.shiraz" = "T-bane inngang";
+
+"type.railway.subway_entrance.sofia" = "T-bane inngang";
+
+"type.railway.subway_entrance.spb" = "T-bane inngang";
+
+"type.railway.subway_entrance.stockholm" = "T-bane inngang";
+
+"type.railway.subway_entrance.tabriz" = "T-bane inngang";
+
+"type.railway.subway_entrance.taipei" = "T-bane inngang";
+
+"type.railway.subway_entrance.taoyuan" = "T-bane inngang";
+
+"type.railway.subway_entrance.tashkent" = "T-bane inngang";
+
+"type.railway.subway_entrance.tbilisi" = "T-bane inngang";
+
+"type.railway.subway_entrance.tianjin" = "T-bane inngang";
+
+"type.railway.subway_entrance.tokyo" = "T-bane inngang";
+
+"type.railway.subway_entrance.valencia" = "T-bane inngang";
+
+"type.railway.subway_entrance.vienna" = "T-bane inngang";
+
+"type.railway.subway_entrance.warszawa" = "T-bane inngang";
+
+"type.railway.subway_entrance.washington" = "T-bane inngang";
+
+"type.railway.subway_entrance.wuhan" = "T-bane inngang";
+
+"type.railway.subway_entrance.yerevan" = "T-bane inngang";
+
+"type.railway.subway_entrance.yokohama" = "T-bane inngang";
 
 "type.railway.tram" = "Tram Line";
 

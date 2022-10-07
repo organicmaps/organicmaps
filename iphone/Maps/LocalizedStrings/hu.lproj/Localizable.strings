@@ -2689,27 +2689,223 @@
 
 "type.railway.station.subway" = "Földalatti";
 
+"type.railway.station.subway.adana" = "Földalatti";
+
+"type.railway.station.subway.algiers" = "Földalatti";
+
+"type.railway.station.subway.almaty" = "Földalatti";
+
+"type.railway.station.subway.amsterdam" = "Földalatti";
+
+"type.railway.station.subway.ankara" = "Földalatti";
+
+"type.railway.station.subway.athens" = "Földalatti";
+
+"type.railway.station.subway.baku" = "Földalatti";
+
+"type.railway.station.subway.bangkok" = "Földalatti";
+
 "type.railway.station.subway.barcelona" = "Földalatti";
+
+"type.railway.station.subway.beijing" = "Földalatti";
+
+"type.railway.station.subway.bengalore" = "Földalatti";
 
 "type.railway.station.subway.berlin" = "Földalatti";
 
+"type.railway.station.subway.brasilia" = "Földalatti";
+
+"type.railway.station.subway.brescia" = "Földalatti";
+
+"type.railway.station.subway.brussels" = "Földalatti";
+
+"type.railway.station.subway.bucharest" = "Földalatti";
+
+"type.railway.station.subway.budapest" = "Földalatti";
+
+"type.railway.station.subway.buenos_aires" = "Földalatti";
+
+"type.railway.station.subway.bursa" = "Földalatti";
+
+"type.railway.station.subway.cairo" = "Földalatti";
+
+"type.railway.station.subway.caracas" = "Földalatti";
+
+"type.railway.station.subway.catania" = "Földalatti";
+
+"type.railway.station.subway.changchun" = "Földalatti";
+
+"type.railway.station.subway.chengdu" = "Földalatti";
+
+"type.railway.station.subway.chicago" = "Földalatti";
+
+"type.railway.station.subway.chongqing" = "Földalatti";
+
+"type.railway.station.subway.dalian" = "Földalatti";
+
+"type.railway.station.subway.delhi" = "Földalatti";
+
+"type.railway.station.subway.dnepro" = "Földalatti";
+
+"type.railway.station.subway.dubai" = "Földalatti";
+
+"type.railway.station.subway.ekb" = "Földalatti";
+
+"type.railway.station.subway.fukuoka" = "Földalatti";
+
+"type.railway.station.subway.glasgow" = "Földalatti";
+
+"type.railway.station.subway.guangzhou" = "Földalatti";
+
+"type.railway.station.subway.hamburg" = "Földalatti";
+
+"type.railway.station.subway.helsinki" = "Földalatti";
+
+"type.railway.station.subway.hiroshima" = "Földalatti";
+
+"type.railway.station.subway.isfahan" = "Földalatti";
+
+"type.railway.station.subway.istanbul" = "Földalatti";
+
+"type.railway.station.subway.izmir" = "Földalatti";
+
+"type.railway.station.subway.kazan" = "Földalatti";
+
+"type.railway.station.subway.kharkiv" = "Földalatti";
+
 "type.railway.station.subway.kiev" = "Földalatti";
+
+"type.railway.station.subway.kobe" = "Földalatti";
+
+"type.railway.station.subway.kolkata" = "Földalatti";
+
+"type.railway.station.subway.kunming" = "Földalatti";
+
+"type.railway.station.subway.kyoto" = "Földalatti";
+
+"type.railway.station.subway.la" = "Földalatti";
+
+"type.railway.station.subway.lausanne" = "Földalatti";
+
+"type.railway.station.subway.lille" = "Földalatti";
+
+"type.railway.station.subway.lima" = "Földalatti";
+
+"type.railway.station.subway.lisboa" = "Földalatti";
+
+"type.railway.station.subway.lisbon" = "Földalatti";
 
 "type.railway.station.subway.london" = "Földalatti";
 
+"type.railway.station.subway.lyon" = "Földalatti";
+
 "type.railway.station.subway.madrid" = "Földalatti";
+
+"type.railway.station.subway.malaga" = "Földalatti";
+
+"type.railway.station.subway.manila" = "Földalatti";
+
+"type.railway.station.subway.maracaibo" = "Földalatti";
+
+"type.railway.station.subway.mashhad" = "Földalatti";
+
+"type.railway.station.subway.mecca" = "Földalatti";
+
+"type.railway.station.subway.medellin" = "Földalatti";
+
+"type.railway.station.subway.mexico" = "Földalatti";
+
+"type.railway.station.subway.milan" = "Földalatti";
 
 "type.railway.station.subway.minsk" = "Földalatti";
 
+"type.railway.station.subway.montreal" = "Földalatti";
+
 "type.railway.station.subway.moscow" = "Földalatti";
+
+"type.railway.station.subway.munchen" = "Földalatti";
+
+"type.railway.station.subway.nagoya" = "Földalatti";
 
 "type.railway.station.subway.newyork" = "Földalatti";
 
+"type.railway.station.subway.nnov" = "Földalatti";
+
+"type.railway.station.subway.novosibirsk" = "Földalatti";
+
+"type.railway.station.subway.osaka" = "Földalatti";
+
+"type.railway.station.subway.oslo" = "Földalatti";
+
+"type.railway.station.subway.palma" = "Földalatti";
+
+"type.railway.station.subway.panama" = "Földalatti";
+
 "type.railway.station.subway.paris" = "Földalatti";
+
+"type.railway.station.subway.philadelphia" = "Földalatti";
+
+"type.railway.station.subway.pyongyang" = "Földalatti";
+
+"type.railway.station.subway.rennes" = "Földalatti";
+
+"type.railway.station.subway.rio" = "Földalatti";
 
 "type.railway.station.subway.roma" = "Földalatti";
 
+"type.railway.station.subway.rotterdam" = "Földalatti";
+
+"type.railway.station.subway.samara" = "Földalatti";
+
+"type.railway.station.subway.santiago" = "Földalatti";
+
+"type.railway.station.subway.santo_domingo" = "Földalatti";
+
+"type.railway.station.subway.saopaulo" = "Földalatti";
+
+"type.railway.station.subway.sapporo" = "Földalatti";
+
+"type.railway.station.subway.sendai" = "Földalatti";
+
+"type.railway.station.subway.sf" = "Földalatti";
+
+"type.railway.station.subway.shanghai" = "Földalatti";
+
+"type.railway.station.subway.shiraz" = "Földalatti";
+
+"type.railway.station.subway.sofia" = "Földalatti";
+
 "type.railway.station.subway.spb" = "Földalatti";
+
+"type.railway.station.subway.stockholm" = "Földalatti";
+
+"type.railway.station.subway.tabriz" = "Földalatti";
+
+"type.railway.station.subway.taipei" = "Földalatti";
+
+"type.railway.station.subway.taoyuan" = "Földalatti";
+
+"type.railway.station.subway.tashkent" = "Földalatti";
+
+"type.railway.station.subway.tbilisi" = "Földalatti";
+
+"type.railway.station.subway.tianjin" = "Földalatti";
+
+"type.railway.station.subway.tokyo" = "Földalatti";
+
+"type.railway.station.subway.valencia" = "Földalatti";
+
+"type.railway.station.subway.vienna" = "Földalatti";
+
+"type.railway.station.subway.warszawa" = "Földalatti";
+
+"type.railway.station.subway.washington" = "Földalatti";
+
+"type.railway.station.subway.wuhan" = "Földalatti";
+
+"type.railway.station.subway.yerevan" = "Földalatti";
+
+"type.railway.station.subway.yokohama" = "Földalatti";
 
 "type.railway.subway" = "Subway Line";
 
@@ -2719,27 +2915,223 @@
 
 "type.railway.subway_entrance" = "Földalatti bejárat";
 
-"type.railway.subway_entrance.barcelona" = "Földalatti";
+"type.railway.subway_entrance.adana" = "Földalatti bejárat";
 
-"type.railway.subway_entrance.berlin" = "Földalatti";
+"type.railway.subway_entrance.algiers" = "Földalatti bejárat";
 
-"type.railway.subway_entrance.kiev" = "Földalatti";
+"type.railway.subway_entrance.almaty" = "Földalatti bejárat";
 
-"type.railway.subway_entrance.london" = "Földalatti";
+"type.railway.subway_entrance.amsterdam" = "Földalatti bejárat";
 
-"type.railway.subway_entrance.madrid" = "Földalatti";
+"type.railway.subway_entrance.ankara" = "Földalatti bejárat";
 
-"type.railway.subway_entrance.minsk" = "Földalatti";
+"type.railway.subway_entrance.athens" = "Földalatti bejárat";
 
-"type.railway.subway_entrance.moscow" = "Földalatti";
+"type.railway.subway_entrance.baku" = "Földalatti bejárat";
 
-"type.railway.subway_entrance.newyork" = "Földalatti";
+"type.railway.subway_entrance.bangkok" = "Földalatti bejárat";
 
-"type.railway.subway_entrance.paris" = "Földalatti";
+"type.railway.subway_entrance.barcelona" = "Földalatti bejárat";
 
-"type.railway.subway_entrance.roma" = "Földalatti";
+"type.railway.subway_entrance.beijing" = "Földalatti bejárat";
 
-"type.railway.subway_entrance.spb" = "Földalatti";
+"type.railway.subway_entrance.bengalore" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.berlin" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.brasilia" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.brescia" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.brussels" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.bucharest" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.budapest" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.buenos_aires" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.bursa" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.cairo" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.caracas" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.catania" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.changchun" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.chengdu" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.chicago" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.chongqing" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.dalian" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.delhi" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.dnepro" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.dubai" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.ekb" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.fukuoka" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.glasgow" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.guangzhou" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.hamburg" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.helsinki" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.hiroshima" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.isfahan" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.istanbul" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.izmir" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.kazan" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.kharkiv" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.kiev" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.kobe" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.kolkata" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.kunming" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.kyoto" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.la" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.lausanne" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.lille" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.lima" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.lisboa" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.lisbon" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.london" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.lyon" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.madrid" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.malaga" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.manila" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.maracaibo" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.mashhad" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.mecca" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.medellin" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.mexico" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.milan" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.minsk" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.montreal" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.moscow" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.munchen" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.nagoya" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.newyork" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.nnov" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.novosibirsk" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.osaka" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.oslo" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.palma" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.panama" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.paris" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.philadelphia" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.pyongyang" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.rennes" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.rio" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.roma" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.rotterdam" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.samara" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.santiago" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.santo_domingo" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.saopaulo" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.sapporo" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.sendai" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.sf" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.shanghai" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.shiraz" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.sofia" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.spb" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.stockholm" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.tabriz" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.taipei" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.taoyuan" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.tashkent" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.tbilisi" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.tianjin" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.tokyo" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.valencia" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.vienna" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.warszawa" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.washington" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.wuhan" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.yerevan" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.yokohama" = "Földalatti bejárat";
 
 "type.railway.tram" = "Tram Line";
 

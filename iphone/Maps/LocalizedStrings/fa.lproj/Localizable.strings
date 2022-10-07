@@ -2689,27 +2689,223 @@
 
 "type.railway.station.subway" = "حمل و نقل";
 
+"type.railway.station.subway.adana" = "حمل و نقل";
+
+"type.railway.station.subway.algiers" = "حمل و نقل";
+
+"type.railway.station.subway.almaty" = "حمل و نقل";
+
+"type.railway.station.subway.amsterdam" = "حمل و نقل";
+
+"type.railway.station.subway.ankara" = "حمل و نقل";
+
+"type.railway.station.subway.athens" = "حمل و نقل";
+
+"type.railway.station.subway.baku" = "حمل و نقل";
+
+"type.railway.station.subway.bangkok" = "حمل و نقل";
+
 "type.railway.station.subway.barcelona" = "حمل و نقل";
+
+"type.railway.station.subway.beijing" = "حمل و نقل";
+
+"type.railway.station.subway.bengalore" = "حمل و نقل";
 
 "type.railway.station.subway.berlin" = "حمل و نقل";
 
+"type.railway.station.subway.brasilia" = "حمل و نقل";
+
+"type.railway.station.subway.brescia" = "حمل و نقل";
+
+"type.railway.station.subway.brussels" = "حمل و نقل";
+
+"type.railway.station.subway.bucharest" = "حمل و نقل";
+
+"type.railway.station.subway.budapest" = "حمل و نقل";
+
+"type.railway.station.subway.buenos_aires" = "حمل و نقل";
+
+"type.railway.station.subway.bursa" = "حمل و نقل";
+
+"type.railway.station.subway.cairo" = "حمل و نقل";
+
+"type.railway.station.subway.caracas" = "حمل و نقل";
+
+"type.railway.station.subway.catania" = "حمل و نقل";
+
+"type.railway.station.subway.changchun" = "حمل و نقل";
+
+"type.railway.station.subway.chengdu" = "حمل و نقل";
+
+"type.railway.station.subway.chicago" = "حمل و نقل";
+
+"type.railway.station.subway.chongqing" = "حمل و نقل";
+
+"type.railway.station.subway.dalian" = "حمل و نقل";
+
+"type.railway.station.subway.delhi" = "حمل و نقل";
+
+"type.railway.station.subway.dnepro" = "حمل و نقل";
+
+"type.railway.station.subway.dubai" = "حمل و نقل";
+
+"type.railway.station.subway.ekb" = "حمل و نقل";
+
+"type.railway.station.subway.fukuoka" = "حمل و نقل";
+
+"type.railway.station.subway.glasgow" = "حمل و نقل";
+
+"type.railway.station.subway.guangzhou" = "حمل و نقل";
+
+"type.railway.station.subway.hamburg" = "حمل و نقل";
+
+"type.railway.station.subway.helsinki" = "حمل و نقل";
+
+"type.railway.station.subway.hiroshima" = "حمل و نقل";
+
+"type.railway.station.subway.isfahan" = "حمل و نقل";
+
+"type.railway.station.subway.istanbul" = "حمل و نقل";
+
+"type.railway.station.subway.izmir" = "حمل و نقل";
+
+"type.railway.station.subway.kazan" = "حمل و نقل";
+
+"type.railway.station.subway.kharkiv" = "حمل و نقل";
+
 "type.railway.station.subway.kiev" = "حمل و نقل";
+
+"type.railway.station.subway.kobe" = "حمل و نقل";
+
+"type.railway.station.subway.kolkata" = "حمل و نقل";
+
+"type.railway.station.subway.kunming" = "حمل و نقل";
+
+"type.railway.station.subway.kyoto" = "حمل و نقل";
+
+"type.railway.station.subway.la" = "حمل و نقل";
+
+"type.railway.station.subway.lausanne" = "حمل و نقل";
+
+"type.railway.station.subway.lille" = "حمل و نقل";
+
+"type.railway.station.subway.lima" = "حمل و نقل";
+
+"type.railway.station.subway.lisboa" = "حمل و نقل";
+
+"type.railway.station.subway.lisbon" = "حمل و نقل";
 
 "type.railway.station.subway.london" = "حمل و نقل";
 
+"type.railway.station.subway.lyon" = "حمل و نقل";
+
 "type.railway.station.subway.madrid" = "حمل و نقل";
+
+"type.railway.station.subway.malaga" = "حمل و نقل";
+
+"type.railway.station.subway.manila" = "حمل و نقل";
+
+"type.railway.station.subway.maracaibo" = "حمل و نقل";
+
+"type.railway.station.subway.mashhad" = "حمل و نقل";
+
+"type.railway.station.subway.mecca" = "حمل و نقل";
+
+"type.railway.station.subway.medellin" = "حمل و نقل";
+
+"type.railway.station.subway.mexico" = "حمل و نقل";
+
+"type.railway.station.subway.milan" = "حمل و نقل";
 
 "type.railway.station.subway.minsk" = "حمل و نقل";
 
+"type.railway.station.subway.montreal" = "حمل و نقل";
+
 "type.railway.station.subway.moscow" = "حمل و نقل";
+
+"type.railway.station.subway.munchen" = "حمل و نقل";
+
+"type.railway.station.subway.nagoya" = "حمل و نقل";
 
 "type.railway.station.subway.newyork" = "حمل و نقل";
 
+"type.railway.station.subway.nnov" = "حمل و نقل";
+
+"type.railway.station.subway.novosibirsk" = "حمل و نقل";
+
+"type.railway.station.subway.osaka" = "حمل و نقل";
+
+"type.railway.station.subway.oslo" = "حمل و نقل";
+
+"type.railway.station.subway.palma" = "حمل و نقل";
+
+"type.railway.station.subway.panama" = "حمل و نقل";
+
 "type.railway.station.subway.paris" = "حمل و نقل";
+
+"type.railway.station.subway.philadelphia" = "حمل و نقل";
+
+"type.railway.station.subway.pyongyang" = "حمل و نقل";
+
+"type.railway.station.subway.rennes" = "حمل و نقل";
+
+"type.railway.station.subway.rio" = "حمل و نقل";
 
 "type.railway.station.subway.roma" = "حمل و نقل";
 
+"type.railway.station.subway.rotterdam" = "حمل و نقل";
+
+"type.railway.station.subway.samara" = "حمل و نقل";
+
+"type.railway.station.subway.santiago" = "حمل و نقل";
+
+"type.railway.station.subway.santo_domingo" = "حمل و نقل";
+
+"type.railway.station.subway.saopaulo" = "حمل و نقل";
+
+"type.railway.station.subway.sapporo" = "حمل و نقل";
+
+"type.railway.station.subway.sendai" = "حمل و نقل";
+
+"type.railway.station.subway.sf" = "حمل و نقل";
+
+"type.railway.station.subway.shanghai" = "حمل و نقل";
+
+"type.railway.station.subway.shiraz" = "حمل و نقل";
+
+"type.railway.station.subway.sofia" = "حمل و نقل";
+
 "type.railway.station.subway.spb" = "حمل و نقل";
+
+"type.railway.station.subway.stockholm" = "حمل و نقل";
+
+"type.railway.station.subway.tabriz" = "حمل و نقل";
+
+"type.railway.station.subway.taipei" = "حمل و نقل";
+
+"type.railway.station.subway.taoyuan" = "حمل و نقل";
+
+"type.railway.station.subway.tashkent" = "حمل و نقل";
+
+"type.railway.station.subway.tbilisi" = "حمل و نقل";
+
+"type.railway.station.subway.tianjin" = "حمل و نقل";
+
+"type.railway.station.subway.tokyo" = "حمل و نقل";
+
+"type.railway.station.subway.valencia" = "حمل و نقل";
+
+"type.railway.station.subway.vienna" = "حمل و نقل";
+
+"type.railway.station.subway.warszawa" = "حمل و نقل";
+
+"type.railway.station.subway.washington" = "حمل و نقل";
+
+"type.railway.station.subway.wuhan" = "حمل و نقل";
+
+"type.railway.station.subway.yerevan" = "حمل و نقل";
+
+"type.railway.station.subway.yokohama" = "حمل و نقل";
 
 "type.railway.subway" = "Subway Line";
 
@@ -2719,27 +2915,223 @@
 
 "type.railway.subway_entrance" = "ورودی مترو";
 
-"type.railway.subway_entrance.barcelona" = "حمل و نقل";
+"type.railway.subway_entrance.adana" = "ورودی مترو";
 
-"type.railway.subway_entrance.berlin" = "حمل و نقل";
+"type.railway.subway_entrance.algiers" = "ورودی مترو";
 
-"type.railway.subway_entrance.kiev" = "حمل و نقل";
+"type.railway.subway_entrance.almaty" = "ورودی مترو";
 
-"type.railway.subway_entrance.london" = "حمل و نقل";
+"type.railway.subway_entrance.amsterdam" = "ورودی مترو";
 
-"type.railway.subway_entrance.madrid" = "حمل و نقل";
+"type.railway.subway_entrance.ankara" = "ورودی مترو";
 
-"type.railway.subway_entrance.minsk" = "حمل و نقل";
+"type.railway.subway_entrance.athens" = "ورودی مترو";
 
-"type.railway.subway_entrance.moscow" = "حمل و نقل";
+"type.railway.subway_entrance.baku" = "ورودی مترو";
 
-"type.railway.subway_entrance.newyork" = "حمل و نقل";
+"type.railway.subway_entrance.bangkok" = "ورودی مترو";
 
-"type.railway.subway_entrance.paris" = "حمل و نقل";
+"type.railway.subway_entrance.barcelona" = "ورودی مترو";
 
-"type.railway.subway_entrance.roma" = "حمل و نقل";
+"type.railway.subway_entrance.beijing" = "ورودی مترو";
 
-"type.railway.subway_entrance.spb" = "حمل و نقل";
+"type.railway.subway_entrance.bengalore" = "ورودی مترو";
+
+"type.railway.subway_entrance.berlin" = "ورودی مترو";
+
+"type.railway.subway_entrance.brasilia" = "ورودی مترو";
+
+"type.railway.subway_entrance.brescia" = "ورودی مترو";
+
+"type.railway.subway_entrance.brussels" = "ورودی مترو";
+
+"type.railway.subway_entrance.bucharest" = "ورودی مترو";
+
+"type.railway.subway_entrance.budapest" = "ورودی مترو";
+
+"type.railway.subway_entrance.buenos_aires" = "ورودی مترو";
+
+"type.railway.subway_entrance.bursa" = "ورودی مترو";
+
+"type.railway.subway_entrance.cairo" = "ورودی مترو";
+
+"type.railway.subway_entrance.caracas" = "ورودی مترو";
+
+"type.railway.subway_entrance.catania" = "ورودی مترو";
+
+"type.railway.subway_entrance.changchun" = "ورودی مترو";
+
+"type.railway.subway_entrance.chengdu" = "ورودی مترو";
+
+"type.railway.subway_entrance.chicago" = "ورودی مترو";
+
+"type.railway.subway_entrance.chongqing" = "ورودی مترو";
+
+"type.railway.subway_entrance.dalian" = "ورودی مترو";
+
+"type.railway.subway_entrance.delhi" = "ورودی مترو";
+
+"type.railway.subway_entrance.dnepro" = "ورودی مترو";
+
+"type.railway.subway_entrance.dubai" = "ورودی مترو";
+
+"type.railway.subway_entrance.ekb" = "ورودی مترو";
+
+"type.railway.subway_entrance.fukuoka" = "ورودی مترو";
+
+"type.railway.subway_entrance.glasgow" = "ورودی مترو";
+
+"type.railway.subway_entrance.guangzhou" = "ورودی مترو";
+
+"type.railway.subway_entrance.hamburg" = "ورودی مترو";
+
+"type.railway.subway_entrance.helsinki" = "ورودی مترو";
+
+"type.railway.subway_entrance.hiroshima" = "ورودی مترو";
+
+"type.railway.subway_entrance.isfahan" = "ورودی مترو";
+
+"type.railway.subway_entrance.istanbul" = "ورودی مترو";
+
+"type.railway.subway_entrance.izmir" = "ورودی مترو";
+
+"type.railway.subway_entrance.kazan" = "ورودی مترو";
+
+"type.railway.subway_entrance.kharkiv" = "ورودی مترو";
+
+"type.railway.subway_entrance.kiev" = "ورودی مترو";
+
+"type.railway.subway_entrance.kobe" = "ورودی مترو";
+
+"type.railway.subway_entrance.kolkata" = "ورودی مترو";
+
+"type.railway.subway_entrance.kunming" = "ورودی مترو";
+
+"type.railway.subway_entrance.kyoto" = "ورودی مترو";
+
+"type.railway.subway_entrance.la" = "ورودی مترو";
+
+"type.railway.subway_entrance.lausanne" = "ورودی مترو";
+
+"type.railway.subway_entrance.lille" = "ورودی مترو";
+
+"type.railway.subway_entrance.lima" = "ورودی مترو";
+
+"type.railway.subway_entrance.lisboa" = "ورودی مترو";
+
+"type.railway.subway_entrance.lisbon" = "ورودی مترو";
+
+"type.railway.subway_entrance.london" = "ورودی مترو";
+
+"type.railway.subway_entrance.lyon" = "ورودی مترو";
+
+"type.railway.subway_entrance.madrid" = "ورودی مترو";
+
+"type.railway.subway_entrance.malaga" = "ورودی مترو";
+
+"type.railway.subway_entrance.manila" = "ورودی مترو";
+
+"type.railway.subway_entrance.maracaibo" = "ورودی مترو";
+
+"type.railway.subway_entrance.mashhad" = "ورودی مترو";
+
+"type.railway.subway_entrance.mecca" = "ورودی مترو";
+
+"type.railway.subway_entrance.medellin" = "ورودی مترو";
+
+"type.railway.subway_entrance.mexico" = "ورودی مترو";
+
+"type.railway.subway_entrance.milan" = "ورودی مترو";
+
+"type.railway.subway_entrance.minsk" = "ورودی مترو";
+
+"type.railway.subway_entrance.montreal" = "ورودی مترو";
+
+"type.railway.subway_entrance.moscow" = "ورودی مترو";
+
+"type.railway.subway_entrance.munchen" = "ورودی مترو";
+
+"type.railway.subway_entrance.nagoya" = "ورودی مترو";
+
+"type.railway.subway_entrance.newyork" = "ورودی مترو";
+
+"type.railway.subway_entrance.nnov" = "ورودی مترو";
+
+"type.railway.subway_entrance.novosibirsk" = "ورودی مترو";
+
+"type.railway.subway_entrance.osaka" = "ورودی مترو";
+
+"type.railway.subway_entrance.oslo" = "ورودی مترو";
+
+"type.railway.subway_entrance.palma" = "ورودی مترو";
+
+"type.railway.subway_entrance.panama" = "ورودی مترو";
+
+"type.railway.subway_entrance.paris" = "ورودی مترو";
+
+"type.railway.subway_entrance.philadelphia" = "ورودی مترو";
+
+"type.railway.subway_entrance.pyongyang" = "ورودی مترو";
+
+"type.railway.subway_entrance.rennes" = "ورودی مترو";
+
+"type.railway.subway_entrance.rio" = "ورودی مترو";
+
+"type.railway.subway_entrance.roma" = "ورودی مترو";
+
+"type.railway.subway_entrance.rotterdam" = "ورودی مترو";
+
+"type.railway.subway_entrance.samara" = "ورودی مترو";
+
+"type.railway.subway_entrance.santiago" = "ورودی مترو";
+
+"type.railway.subway_entrance.santo_domingo" = "ورودی مترو";
+
+"type.railway.subway_entrance.saopaulo" = "ورودی مترو";
+
+"type.railway.subway_entrance.sapporo" = "ورودی مترو";
+
+"type.railway.subway_entrance.sendai" = "ورودی مترو";
+
+"type.railway.subway_entrance.sf" = "ورودی مترو";
+
+"type.railway.subway_entrance.shanghai" = "ورودی مترو";
+
+"type.railway.subway_entrance.shiraz" = "ورودی مترو";
+
+"type.railway.subway_entrance.sofia" = "ورودی مترو";
+
+"type.railway.subway_entrance.spb" = "ورودی مترو";
+
+"type.railway.subway_entrance.stockholm" = "ورودی مترو";
+
+"type.railway.subway_entrance.tabriz" = "ورودی مترو";
+
+"type.railway.subway_entrance.taipei" = "ورودی مترو";
+
+"type.railway.subway_entrance.taoyuan" = "ورودی مترو";
+
+"type.railway.subway_entrance.tashkent" = "ورودی مترو";
+
+"type.railway.subway_entrance.tbilisi" = "ورودی مترو";
+
+"type.railway.subway_entrance.tianjin" = "ورودی مترو";
+
+"type.railway.subway_entrance.tokyo" = "ورودی مترو";
+
+"type.railway.subway_entrance.valencia" = "ورودی مترو";
+
+"type.railway.subway_entrance.vienna" = "ورودی مترو";
+
+"type.railway.subway_entrance.warszawa" = "ورودی مترو";
+
+"type.railway.subway_entrance.washington" = "ورودی مترو";
+
+"type.railway.subway_entrance.wuhan" = "ورودی مترو";
+
+"type.railway.subway_entrance.yerevan" = "ورودی مترو";
+
+"type.railway.subway_entrance.yokohama" = "ورودی مترو";
 
 "type.railway.tram" = "Tram Line";
 

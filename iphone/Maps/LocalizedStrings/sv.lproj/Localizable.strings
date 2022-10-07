@@ -2689,27 +2689,223 @@
 
 "type.railway.station.subway" = "Tunnelbana";
 
+"type.railway.station.subway.adana" = "Tunnelbana";
+
+"type.railway.station.subway.algiers" = "Tunnelbana";
+
+"type.railway.station.subway.almaty" = "Tunnelbana";
+
+"type.railway.station.subway.amsterdam" = "Tunnelbana";
+
+"type.railway.station.subway.ankara" = "Tunnelbana";
+
+"type.railway.station.subway.athens" = "Tunnelbana";
+
+"type.railway.station.subway.baku" = "Tunnelbana";
+
+"type.railway.station.subway.bangkok" = "Tunnelbana";
+
 "type.railway.station.subway.barcelona" = "Tunnelbana";
+
+"type.railway.station.subway.beijing" = "Tunnelbana";
+
+"type.railway.station.subway.bengalore" = "Tunnelbana";
 
 "type.railway.station.subway.berlin" = "Tunnelbana";
 
+"type.railway.station.subway.brasilia" = "Tunnelbana";
+
+"type.railway.station.subway.brescia" = "Tunnelbana";
+
+"type.railway.station.subway.brussels" = "Tunnelbana";
+
+"type.railway.station.subway.bucharest" = "Tunnelbana";
+
+"type.railway.station.subway.budapest" = "Tunnelbana";
+
+"type.railway.station.subway.buenos_aires" = "Tunnelbana";
+
+"type.railway.station.subway.bursa" = "Tunnelbana";
+
+"type.railway.station.subway.cairo" = "Tunnelbana";
+
+"type.railway.station.subway.caracas" = "Tunnelbana";
+
+"type.railway.station.subway.catania" = "Tunnelbana";
+
+"type.railway.station.subway.changchun" = "Tunnelbana";
+
+"type.railway.station.subway.chengdu" = "Tunnelbana";
+
+"type.railway.station.subway.chicago" = "Tunnelbana";
+
+"type.railway.station.subway.chongqing" = "Tunnelbana";
+
+"type.railway.station.subway.dalian" = "Tunnelbana";
+
+"type.railway.station.subway.delhi" = "Tunnelbana";
+
+"type.railway.station.subway.dnepro" = "Tunnelbana";
+
+"type.railway.station.subway.dubai" = "Tunnelbana";
+
+"type.railway.station.subway.ekb" = "Tunnelbana";
+
+"type.railway.station.subway.fukuoka" = "Tunnelbana";
+
+"type.railway.station.subway.glasgow" = "Tunnelbana";
+
+"type.railway.station.subway.guangzhou" = "Tunnelbana";
+
+"type.railway.station.subway.hamburg" = "Tunnelbana";
+
+"type.railway.station.subway.helsinki" = "Tunnelbana";
+
+"type.railway.station.subway.hiroshima" = "Tunnelbana";
+
+"type.railway.station.subway.isfahan" = "Tunnelbana";
+
+"type.railway.station.subway.istanbul" = "Tunnelbana";
+
+"type.railway.station.subway.izmir" = "Tunnelbana";
+
+"type.railway.station.subway.kazan" = "Tunnelbana";
+
+"type.railway.station.subway.kharkiv" = "Tunnelbana";
+
 "type.railway.station.subway.kiev" = "Tunnelbana";
+
+"type.railway.station.subway.kobe" = "Tunnelbana";
+
+"type.railway.station.subway.kolkata" = "Tunnelbana";
+
+"type.railway.station.subway.kunming" = "Tunnelbana";
+
+"type.railway.station.subway.kyoto" = "Tunnelbana";
+
+"type.railway.station.subway.la" = "Tunnelbana";
+
+"type.railway.station.subway.lausanne" = "Tunnelbana";
+
+"type.railway.station.subway.lille" = "Tunnelbana";
+
+"type.railway.station.subway.lima" = "Tunnelbana";
+
+"type.railway.station.subway.lisboa" = "Tunnelbana";
+
+"type.railway.station.subway.lisbon" = "Tunnelbana";
 
 "type.railway.station.subway.london" = "Tunnelbana";
 
+"type.railway.station.subway.lyon" = "Tunnelbana";
+
 "type.railway.station.subway.madrid" = "Tunnelbana";
+
+"type.railway.station.subway.malaga" = "Tunnelbana";
+
+"type.railway.station.subway.manila" = "Tunnelbana";
+
+"type.railway.station.subway.maracaibo" = "Tunnelbana";
+
+"type.railway.station.subway.mashhad" = "Tunnelbana";
+
+"type.railway.station.subway.mecca" = "Tunnelbana";
+
+"type.railway.station.subway.medellin" = "Tunnelbana";
+
+"type.railway.station.subway.mexico" = "Tunnelbana";
+
+"type.railway.station.subway.milan" = "Tunnelbana";
 
 "type.railway.station.subway.minsk" = "Tunnelbana";
 
+"type.railway.station.subway.montreal" = "Tunnelbana";
+
 "type.railway.station.subway.moscow" = "Tunnelbana";
+
+"type.railway.station.subway.munchen" = "Tunnelbana";
+
+"type.railway.station.subway.nagoya" = "Tunnelbana";
 
 "type.railway.station.subway.newyork" = "Tunnelbana";
 
+"type.railway.station.subway.nnov" = "Tunnelbana";
+
+"type.railway.station.subway.novosibirsk" = "Tunnelbana";
+
+"type.railway.station.subway.osaka" = "Tunnelbana";
+
+"type.railway.station.subway.oslo" = "Tunnelbana";
+
+"type.railway.station.subway.palma" = "Tunnelbana";
+
+"type.railway.station.subway.panama" = "Tunnelbana";
+
 "type.railway.station.subway.paris" = "Tunnelbana";
+
+"type.railway.station.subway.philadelphia" = "Tunnelbana";
+
+"type.railway.station.subway.pyongyang" = "Tunnelbana";
+
+"type.railway.station.subway.rennes" = "Tunnelbana";
+
+"type.railway.station.subway.rio" = "Tunnelbana";
 
 "type.railway.station.subway.roma" = "Tunnelbana";
 
+"type.railway.station.subway.rotterdam" = "Tunnelbana";
+
+"type.railway.station.subway.samara" = "Tunnelbana";
+
+"type.railway.station.subway.santiago" = "Tunnelbana";
+
+"type.railway.station.subway.santo_domingo" = "Tunnelbana";
+
+"type.railway.station.subway.saopaulo" = "Tunnelbana";
+
+"type.railway.station.subway.sapporo" = "Tunnelbana";
+
+"type.railway.station.subway.sendai" = "Tunnelbana";
+
+"type.railway.station.subway.sf" = "Tunnelbana";
+
+"type.railway.station.subway.shanghai" = "Tunnelbana";
+
+"type.railway.station.subway.shiraz" = "Tunnelbana";
+
+"type.railway.station.subway.sofia" = "Tunnelbana";
+
 "type.railway.station.subway.spb" = "Tunnelbana";
+
+"type.railway.station.subway.stockholm" = "Tunnelbana";
+
+"type.railway.station.subway.tabriz" = "Tunnelbana";
+
+"type.railway.station.subway.taipei" = "Tunnelbana";
+
+"type.railway.station.subway.taoyuan" = "Tunnelbana";
+
+"type.railway.station.subway.tashkent" = "Tunnelbana";
+
+"type.railway.station.subway.tbilisi" = "Tunnelbana";
+
+"type.railway.station.subway.tianjin" = "Tunnelbana";
+
+"type.railway.station.subway.tokyo" = "Tunnelbana";
+
+"type.railway.station.subway.valencia" = "Tunnelbana";
+
+"type.railway.station.subway.vienna" = "Tunnelbana";
+
+"type.railway.station.subway.warszawa" = "Tunnelbana";
+
+"type.railway.station.subway.washington" = "Tunnelbana";
+
+"type.railway.station.subway.wuhan" = "Tunnelbana";
+
+"type.railway.station.subway.yerevan" = "Tunnelbana";
+
+"type.railway.station.subway.yokohama" = "Tunnelbana";
 
 "type.railway.subway" = "Subway Line";
 
@@ -2719,27 +2915,223 @@
 
 "type.railway.subway_entrance" = "Tunnelbana entré";
 
-"type.railway.subway_entrance.barcelona" = "Tunnelbana";
+"type.railway.subway_entrance.adana" = "Tunnelbana entré";
 
-"type.railway.subway_entrance.berlin" = "Tunnelbana";
+"type.railway.subway_entrance.algiers" = "Tunnelbana entré";
 
-"type.railway.subway_entrance.kiev" = "Tunnelbana";
+"type.railway.subway_entrance.almaty" = "Tunnelbana entré";
 
-"type.railway.subway_entrance.london" = "Tunnelbana";
+"type.railway.subway_entrance.amsterdam" = "Tunnelbana entré";
 
-"type.railway.subway_entrance.madrid" = "Tunnelbana";
+"type.railway.subway_entrance.ankara" = "Tunnelbana entré";
 
-"type.railway.subway_entrance.minsk" = "Tunnelbana";
+"type.railway.subway_entrance.athens" = "Tunnelbana entré";
 
-"type.railway.subway_entrance.moscow" = "Tunnelbana";
+"type.railway.subway_entrance.baku" = "Tunnelbana entré";
 
-"type.railway.subway_entrance.newyork" = "Tunnelbana";
+"type.railway.subway_entrance.bangkok" = "Tunnelbana entré";
 
-"type.railway.subway_entrance.paris" = "Tunnelbana";
+"type.railway.subway_entrance.barcelona" = "Tunnelbana entré";
 
-"type.railway.subway_entrance.roma" = "Tunnelbana";
+"type.railway.subway_entrance.beijing" = "Tunnelbana entré";
 
-"type.railway.subway_entrance.spb" = "Tunnelbana";
+"type.railway.subway_entrance.bengalore" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.berlin" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.brasilia" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.brescia" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.brussels" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.bucharest" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.budapest" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.buenos_aires" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.bursa" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.cairo" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.caracas" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.catania" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.changchun" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.chengdu" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.chicago" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.chongqing" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.dalian" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.delhi" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.dnepro" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.dubai" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.ekb" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.fukuoka" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.glasgow" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.guangzhou" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.hamburg" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.helsinki" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.hiroshima" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.isfahan" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.istanbul" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.izmir" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.kazan" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.kharkiv" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.kiev" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.kobe" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.kolkata" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.kunming" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.kyoto" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.la" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.lausanne" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.lille" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.lima" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.lisboa" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.lisbon" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.london" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.lyon" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.madrid" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.malaga" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.manila" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.maracaibo" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.mashhad" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.mecca" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.medellin" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.mexico" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.milan" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.minsk" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.montreal" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.moscow" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.munchen" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.nagoya" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.newyork" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.nnov" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.novosibirsk" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.osaka" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.oslo" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.palma" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.panama" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.paris" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.philadelphia" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.pyongyang" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.rennes" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.rio" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.roma" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.rotterdam" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.samara" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.santiago" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.santo_domingo" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.saopaulo" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.sapporo" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.sendai" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.sf" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.shanghai" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.shiraz" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.sofia" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.spb" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.stockholm" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.tabriz" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.taipei" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.taoyuan" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.tashkent" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.tbilisi" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.tianjin" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.tokyo" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.valencia" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.vienna" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.warszawa" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.washington" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.wuhan" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.yerevan" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.yokohama" = "Tunnelbana entré";
 
 "type.railway.tram" = "Tram Line";
 
