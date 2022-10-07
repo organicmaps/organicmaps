@@ -4297,6 +4297,42 @@
     tr = Bisiklet Bariyeri
     uk = Велосипедна перешкода
 
+  [type.barrier.ditch]
+    en = Moat
+    ar = ﻕﺪﻨﺧ
+    be = Роў
+    bg = Ров
+    cs = Hradní příkop
+    da = Voldgrav
+    de = Graben
+    el = Τάφρος
+    es = Foso
+    eu = Lubanarroa
+    fa = ﻕﺪﻨﺧ
+    fi = Vallihauta
+    fr = Fossé
+    he = ןגֵמָ תלַעָתְ
+    hu = Várárok
+    id = Parit
+    it = Fossato
+    ja = 堀
+    ko = "해자 외호"
+    nb = Vollgrav
+    nl = Gracht
+    pl = Rów
+    pt = Fosso
+    ro = Şanţ
+    ru = Ров
+    sk = Priekopa
+    sv = Vallgrav
+    sw = Moti
+    th = คูเมือง
+    tr = Hendek
+    uk = Рів
+    vi = Hào nước
+    zh-Hans = 沟渠
+    zh-Hant = 護城河
+
   [type.barrier.entrance]
     en = Entrance
     ar = مدخل الحاجز
@@ -4397,6 +4433,13 @@
     ru = Живая изгородь
     tr = Çit
     zh-Hans = 树篱
+
+  [type.barrier.kissing_gate]
+    ref = type.barrier.gate
+    en = Kissing Gate
+    nl = Voetgangershek
+    pt = Quebra-corpo
+    pt-BR = Quebra-corpo
 
   [type.barrier.lift_gate]
     en = Lift Gate
@@ -23264,18 +23307,7 @@
     zh-Hans = 水沟
 
   [type.waterway.ditch.tunnel]
-    en = Ditch
-    de = Graben
-    fr = Fossé
-    ja = 排水路(トンネル)
-    mr = खंदक
-    nl = Duiker
-    pt = Vala
-    pt-BR = Vala
-    ru = Канава
-    tr = Hendek
-    uk = Канава
-    zh-Hans = 水沟
+    ref = type.waterway.ditch
 
   [type.waterway.dock]
     en = Waterway Dock
@@ -23306,17 +23338,7 @@
     zh-Hans = 渠
 
   [type.waterway.drain.tunnel]
-    en = Drain
-    de = Abfluss
-    ja = 用水路
-    mr = नाला
-    nl = Afvoer tunnel
-    pt = Valeta de drenagem
-    pt-BR = Valeta de drenagem
-    ru = Водоотвод
-    tr = Lağım
-    uk = Водовiдвiд
-    zh-Hans = 渠
+    ref = type.waterway.drain
 
   [type.waterway.lock_gate]
     en = Lock Gate
@@ -23387,39 +23409,7 @@
     zh-Hant = 河流
 
   [type.waterway.river.tunnel]
-    en = River
-    ar = نهر
-    be = Рака
-    cs = Řeka
-    da = Flod
-    de = Fluss
-    el = Ποταμός
-    es = Río
-    eu = Ibai
-    fa = رودخانه
-    fi = Joki
-    fr = Rivière
-    hu = Folyó
-    id = Sungai
-    it = Fiume
-    ja = 河川
-    ko = 강
-    mr = नदी
-    nb = Elv
-    nl = Rivier
-    pl = Tunel rzeki
-    pt = Rio
-    pt-BR = Rio
-    ro = Râu
-    ru = Река
-    sk = Rieka
-    sv = Flod
-    th = แม่น้ำ
-    tr = Nehir
-    uk = Річка
-    vi = Sông
-    zh-Hans = 河流
-    zh-Hant = 河流
+    ref = type.waterway.river
 
   [type.waterway.riverbank]
     en = River
@@ -23562,39 +23552,7 @@
     zh-Hant = 溪
 
   [type.waterway.stream.tunnel]
-    en = River
-    ar = نهر
-    be = Рака
-    cs = Řeka
-    da = Flod
-    de = Bach
-    el = Ποταμός
-    es = Río
-    eu = Ibai
-    fa = رودخانه
-    fi = Joki
-    fr = Ruisseau
-    hu = Folyó
-    id = Sungai
-    it = Fiume
-    ja = 小川
-    ko = 강
-    mr = नदी
-    nb = Elv
-    nl = Beek
-    pl = Rzeka
-    pt = Ribeiro
-    pt-BR = Ribeiro
-    ro = Râu
-    ru = Река
-    sk = Rieka
-    sv = Flod
-    th = แม่น้ำ
-    tr = Nehir
-    uk = Річка
-    vi = Sông
-    zh-Hans = 溪
-    zh-Hant = 溪
+    ref = type.waterway.stream
 
   [type.waterway.waterfall]
     en = Waterfall
