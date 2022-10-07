@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/nav_top_frame"
   android:layout_width="match_parent"
@@ -56,7 +57,7 @@
           android:theme="?navigationTheme"
           android:layout_width="@dimen/nav_next_turn_sign"
           android:layout_height="@dimen/nav_next_turn_sign"
-          android:tint="?iconTint"
+          app:tint="?iconTint"
           tools:background="#400000FF"/>
 
         <TextView
@@ -96,7 +97,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:tint="?iconTint"
+        app:tint="?iconTint"
         tools:src="@drawable/ic_then_left_sharp"/>
     </FrameLayout>
   </RelativeLayout>

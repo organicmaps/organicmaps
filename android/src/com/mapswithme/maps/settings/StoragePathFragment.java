@@ -73,7 +73,7 @@ public class StoragePathFragment extends BaseSettingsFragment
   {
     final long dirSize = StorageUtils.getDirSizeRecursively(new File(Framework.nativeGetWritableDir()),
                                                             StoragePathManager.MOVABLE_FILES_FILTER);
-    mHeader.setText(getString(R.string.maps_storage_downloaded) + ": " + Formatter.formatShortFileSize(getActivity(), dirSize));
+    mHeader.setText(getString(R.string.maps_storage_downloaded) + ": " + Formatter.formatShortFileSize(requireActivity(), dirSize));
     mAdapter.update(dirSize);
   }
 

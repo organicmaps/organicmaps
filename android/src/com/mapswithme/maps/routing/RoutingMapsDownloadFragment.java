@@ -8,7 +8,8 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentFactory;
+import androidx.fragment.app.FragmentManager;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.downloader.CountryItem;
@@ -173,12 +174,12 @@ public class RoutingMapsDownloadFragment extends BaseRoutingErrorDialogFragment
     }
   }
 
-  public static RoutingMapsDownloadFragment create(@NonNull Context context, String[] missingMaps)
+  public static RoutingMapsDownloadFragment create(@NonNull FragmentFactory factory, @NonNull Context context, String[] missingMaps)
   {
     Bundle args = new Bundle();
     args.putStringArray(EXTRA_MISSING_MAPS, missingMaps);
-    RoutingMapsDownloadFragment res = (RoutingMapsDownloadFragment) Fragment
-        .instantiate(context, RoutingMapsDownloadFragment.class.getName());
+    final RoutingMapsDownloadFragment res = (RoutingMapsDownloadFragment)
+        factory.instantiate(context.getClassLoader(), RoutingMapsDownloadFragment.class.getName());
     res.setArguments(args);
     return res;
   }

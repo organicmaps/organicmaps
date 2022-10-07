@@ -37,7 +37,7 @@ public abstract class BaseMwmRecyclerFragment<T extends RecyclerView.Adapter> ex
 
   @NonNull
   private final View.OnClickListener mNavigationClickListener
-      = view -> Utils.navigateToParent(getActivity());
+      = view -> Utils.navigateToParent(requireActivity());
 
   @NonNull
   protected abstract T createAdapter();

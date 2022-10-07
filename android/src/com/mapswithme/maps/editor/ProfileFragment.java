@@ -74,7 +74,7 @@ public class ProfileFragment extends BaseMwmToolbarFragment
     }
     else
     {
-      Intent intent = new Intent(getContext(), OsmLoginActivity.class);
+      Intent intent = new Intent(requireContext(), OsmLoginActivity.class);
       intent.putExtra("redirectToProfile", true);
       startActivity(intent);
       requireActivity().finish();

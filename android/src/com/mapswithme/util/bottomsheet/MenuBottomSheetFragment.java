@@ -113,7 +113,7 @@ public class MenuBottomSheetFragment extends BottomSheetDialogFragment
       bottomSheetInterface = (MenuBottomSheetInterface) parentFragment;
     else
     {
-      Activity parentActivity = getActivity();
+      Activity parentActivity = requireActivity();
       if (parentActivity instanceof MenuBottomSheetInterfaceWithHeader)
         bottomSheetInterfaceWithHeader  = (MenuBottomSheetInterfaceWithHeader) parentActivity;
       else if (parentActivity instanceof MenuBottomSheetInterface)

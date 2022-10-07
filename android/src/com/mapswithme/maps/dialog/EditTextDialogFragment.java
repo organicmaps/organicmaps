@@ -89,7 +89,7 @@ public class EditTextDialogFragment extends BaseMwmDialogFragment
     args.putString(ARG_NEGATIVE_BUTTON, negativeBtn == null ? null : negativeBtn.toUpperCase());
     args.putString(ARG_HINT, hint);
     args.putInt(ARG_TEXT_LENGTH_LIMIT, textLimit);
-    final EditTextDialogFragment fragment = (EditTextDialogFragment) Fragment.instantiate(parent.getActivity(), EditTextDialogFragment.class.getName());
+    final EditTextDialogFragment fragment = (EditTextDialogFragment) Fragment.instantiate(parent.requireActivity(), EditTextDialogFragment.class.getName());
     fragment.setArguments(args);
     fragment.show(parent.getChildFragmentManager(), EditTextDialogFragment.class.getName());
     fragment.mInputValidator = inputValidator;
@@ -119,7 +119,7 @@ public class EditTextDialogFragment extends BaseMwmDialogFragment
       negativeButtonText = args.getString(ARG_NEGATIVE_BUTTON);
     }
 
-    AlertDialog editTextDialog = new AlertDialog.Builder(getActivity())
+    AlertDialog editTextDialog = new AlertDialog.Builder(requireActivity())
         .setView(buildView())
         .setNegativeButton(negativeButtonText, null)
         .setPositiveButton(positiveButtonText, (dialog, which) -> {
@@ -131,7 +131,7 @@ public class EditTextDialogFragment extends BaseMwmDialogFragment
     // Wait till alert is shown to get mPositiveButton.
     editTextDialog.setOnShowListener((dialog) -> {
       mPositiveButton = editTextDialog.getButton(DialogInterface.BUTTON_POSITIVE);
-      this.validateInput(getActivity(), mInitialText);
+      this.validateInput(requireActivity(), mInitialText);
     });
 
 
@@ -141,7 +141,7 @@ public class EditTextDialogFragment extends BaseMwmDialogFragment
       @Override
       public void onTextChanged(CharSequence s, int start, int before, int count)
       {
-        EditTextDialogFragment.this.validateInput(getActivity(), s.toString());
+        EditTextDialogFragment.this.validateInput(requireActivity(), s.toString());
       }
     });
 
@@ -171,7 +171,7 @@ public class EditTextDialogFragment extends BaseMwmDialogFragment
 
   private View buildView()
   {
-    @SuppressLint("InflateParams") final View root = getActivity().getLayoutInflater().inflate(R.layout.dialog_edit_text, null);
+    @SuppressLint("InflateParams") final View root = requireActivity().getLayoutInflater().inflate(R.layout.dialog_edit_text, null);
     mEtInputLayout = root.findViewById(R.id.et__input_layout);
     mEtInput = mEtInputLayout.findViewById(R.id.et__input);
     mEtInput.setHint(TextUtils.isEmpty(mHint) ? getString(R.string.name) : mHint);

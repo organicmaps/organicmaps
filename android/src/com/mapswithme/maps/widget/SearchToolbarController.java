@@ -38,7 +38,7 @@ public class SearchToolbarController extends ToolbarController implements View.O
   private final View mClear;
   @NonNull
   private final View mVoiceInput;
-  private final boolean mVoiceInputSupported = InputUtils.isVoiceInputSupported(getActivity());
+  private final boolean mVoiceInputSupported = InputUtils.isVoiceInputSupported(requireActivity());
   @NonNull
   private final TextWatcher mTextWatcher = new StringUtils.SimpleTextWatcher()
   {

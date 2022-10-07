@@ -14,8 +14,8 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.graphics.drawable.DrawableWrapper;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 
 import com.mapswithme.maps.R;
@@ -72,7 +72,7 @@ public class WheelProgressView extends AppCompatImageView
 
     typedArray.recycle();
 
-    mPendingDrawable = (AnimationDrawable) getResources().getDrawable(ThemeUtils.getResource(getContext(), R.attr.wheelPendingAnimation));
+    mPendingDrawable = (AnimationDrawable) ResourcesCompat.getDrawable(getResources(), ThemeUtils.getResource(context, R.attr.wheelPendingAnimation), context.getTheme());
     Graphics.tint(mPendingDrawable, progressColor);
 
     mBgPaint = new Paint();
@@ -91,7 +91,7 @@ public class WheelProgressView extends AppCompatImageView
   @NonNull
   private static Drawable makeCenterDrawable(@NonNull Context context)
   {
-    Drawable normalDrawable = context.getResources().getDrawable(R.drawable.ic_close_spinner);
+    Drawable normalDrawable = ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_close_spinner, context.getTheme());
     Drawable wrapped = DrawableCompat.wrap(normalDrawable);
     DrawableCompat.setTint(wrapped.mutate(), ThemeUtils.getColor(context, R.attr.iconTint));
     return normalDrawable;
@@ -122,11 +122,9 @@ public class WheelProgressView extends AppCompatImageView
     mCenter.set(left + width / 2, top + height / 2);
     mProgressRect.set(mCenter.x - mRadius, mCenter.y - mRadius, mCenter.x + mRadius, mCenter.y + mRadius);
 
-    Drawable d = ((mCenterDrawable instanceof DrawableWrapper) ? ((DrawableWrapper) mCenterDrawable)
-        .getWrappedDrawable() : mCenterDrawable);
-    if (d instanceof BitmapDrawable)
+    if (mCenterDrawable instanceof BitmapDrawable)
     {
-      Bitmap bmp = ((BitmapDrawable)d).getBitmap();
+      Bitmap bmp = ((BitmapDrawable)mCenterDrawable).getBitmap();
       int halfw = bmp.getWidth() / 2;
       int halfh = bmp.getHeight() / 2;
       mCenterDrawable.setBounds(mCenter.x - halfw, mCenter.y - halfh, mCenter.x + halfw, mCenter.y + halfh);

@@ -66,7 +66,7 @@ public class ChooseBookmarkCategoryAdapter extends BaseBookmarkCategoryAdapter<C
         if (holder.getItemViewType() == VIEW_TYPE_ADD_NEW)
           mListener.onCategoryCreate();
         else
-          mListener.onCategorySet(holder.getAdapterPosition());
+          mListener.onCategorySet(holder.getBindingAdapterPosition());
       }
     });
 

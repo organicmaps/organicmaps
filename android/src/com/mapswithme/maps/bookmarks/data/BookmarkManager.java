@@ -423,7 +423,9 @@ public enum BookmarkManager
       {
         if (cursor != null && cursor.moveToFirst())
         {
-          filename = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+          final int columnIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+          if (columnIndex >= 0)
+            filename = cursor.getString(columnIndex);
         }
       }
     }

@@ -21,7 +21,7 @@ class BottomPanel
     @Override
     public void onClick(View v)
     {
-      MapManager.warn3gAndDownload(mFragment.getActivity(), mFragment.getCurrentRoot(), null);
+      MapManager.warn3gAndDownload(mFragment.requireActivity(), mFragment.getCurrentRoot(), null);
     }
   };
 
@@ -31,7 +31,7 @@ class BottomPanel
     public void onClick(View v)
     {
       final String country = mFragment.getCurrentRoot();
-      MapManager.warnOn3gUpdate(mFragment.getActivity(), country, new Runnable()
+      MapManager.warnOn3gUpdate(mFragment.requireActivity(), country, new Runnable()
       {
         @Override
         public void run()

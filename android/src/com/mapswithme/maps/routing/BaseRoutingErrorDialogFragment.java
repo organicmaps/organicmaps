@@ -58,7 +58,7 @@ abstract class BaseRoutingErrorDialogFragment extends BaseMwmDialogFragment
   public Dialog onCreateDialog(Bundle savedInstanceState)
   {
     parseArguments();
-    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
+    AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity())
                                                  .setCancelable(true)
                                                  .setNegativeButton(android.R.string.cancel, null);
     beforeDialogCreated(builder);
@@ -102,7 +102,7 @@ abstract class BaseRoutingErrorDialogFragment extends BaseMwmDialogFragment
   View buildSingleMapView(CountryItem map)
   {
     @SuppressLint("InflateParams")
-    final View countryView = View.inflate(getActivity(), R.layout.dialog_missed_map, null);
+    final View countryView = View.inflate(requireActivity(), R.layout.dialog_missed_map, null);
     ((TextView) countryView.findViewById(R.id.tv__title)).setText(map.name);
 
     final TextView szView = countryView.findViewById(R.id.tv__size);
@@ -117,7 +117,7 @@ abstract class BaseRoutingErrorDialogFragment extends BaseMwmDialogFragment
   View buildMultipleMapView()
   {
     @SuppressLint("InflateParams")
-    final View countriesView = View.inflate(getActivity(), R.layout.dialog_missed_maps, null);
+    final View countriesView = View.inflate(requireActivity(), R.layout.dialog_missed_maps, null);
 
     final ExpandableListView listView = countriesView.findViewById(R.id.items_frame);
     if (mMissingMaps.isEmpty())
@@ -175,7 +175,7 @@ abstract class BaseRoutingErrorDialogFragment extends BaseMwmDialogFragment
     List<List<Map<String, String>>> children = new ArrayList<>();
     children.add(countries);
 
-    return new DisabledChildSimpleExpandableListAdapter(getActivity(),
+    return new DisabledChildSimpleExpandableListAdapter(requireActivity(),
                                                         groups,
                                                         R.layout.item_missed_map_group,
                                                         R.layout.item_missed_map,

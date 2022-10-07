@@ -30,7 +30,7 @@ public abstract class BaseBookmarkCategoryAdapter<V extends RecyclerView.ViewHol
   }
 
   @NonNull
-  protected Context getContext()
+  protected Context requireContext()
   {
     return mContext;
   }

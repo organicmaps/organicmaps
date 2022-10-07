@@ -65,7 +65,7 @@ public class LocationUtils
 
   public static boolean isFromFusedProvider(@NonNull Location location)
   {
-    return LocationManager.FUSED_PROVIDER.equals(location.getProvider());
+    return "fused".equals(location.getProvider());
   }
 
   public static boolean isAccuracySatisfied(@NonNull Location location)

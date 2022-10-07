@@ -40,7 +40,7 @@ public class CopyrightFragment extends BaseMwmFragment implements OnBackPressLis
   {
     if (!mDelegate.onBackPressed())
     {
-      ((HelpActivity) getActivity()).stackFragment(HelpFragment.class, getString(R.string.help), null);
+      ((HelpActivity) requireActivity()).stackFragment(HelpFragment.class, getString(R.string.help), null);
     }
 
     return true;

@@ -669,7 +669,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
   DownloaderAdapter(DownloaderFragment fragment)
   {
-    mActivity = fragment.getActivity();
+    mActivity = fragment.requireActivity();
     mFragment = fragment;
     mRecycler = mFragment.getRecyclerView();
     mHeadersDecoration = new StickyRecyclerHeadersDecoration(this);

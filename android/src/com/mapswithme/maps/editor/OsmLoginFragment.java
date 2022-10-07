@@ -110,7 +110,7 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
     final boolean redirectToProfile = extras.getBoolean("redirectToProfile", false);
     if (redirectToProfile)
     {
-      startActivity(new Intent(getContext(), ProfileActivity.class));
+      startActivity(new Intent(requireContext(), ProfileActivity.class));
       requireActivity().finish();
     }
   }

@@ -174,8 +174,8 @@ public final class MapManager
     new AlertDialog.Builder(activity)
         .setMessage(String.format("%1$s\n\n%2$s", activity.getString(R.string.download_over_mobile_header),
                                                   activity.getString(R.string.download_over_mobile_message)))
-        .setNegativeButton(android.R.string.no, null)
-        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener()
+        .setNegativeButton(android.R.string.cancel, null)
+        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener()
         {
           @Override
           public void onClick(DialogInterface dlg, int which)

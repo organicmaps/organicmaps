@@ -91,7 +91,7 @@ public class TimetableContainerFragment extends BaseMwmFragment implements OnBac
   {
     super.onViewCreated(view, savedInstanceState);
 
-    Activity activity = getActivity();
+    Activity activity = requireActivity();
     if (activity != null)
       activity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
@@ -147,7 +147,7 @@ public class TimetableContainerFragment extends BaseMwmFragment implements OnBac
 
     if (filledTimetables != null && !OpeningHours.nativeIsTimetableStringValid(filledTimetables))
     {
-      FragmentActivity activity = getActivity();
+      FragmentActivity activity = requireActivity();
       if (activity == null)
         return;
 
@@ -175,7 +175,7 @@ public class TimetableContainerFragment extends BaseMwmFragment implements OnBac
     mSwitchMode.setText(mMode.getSwitchButtonLabel());
 
     if (mFragments[mMode.ordinal()] == null)
-      mFragments[mMode.ordinal()] = Fragment.instantiate(getActivity(), mMode.getFragmentClassname());
+      mFragments[mMode.ordinal()] = Fragment.instantiate(requireActivity(), mMode.getFragmentClassname());
     Fragment fragment = mFragments[mMode.ordinal()];
     getChildFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
     mMode.setTimetableChangedListener(fragment, this);

@@ -37,14 +37,14 @@ abstract class BaseXmlSettingsFragment extends PreferenceFragmentCompat
 
     int color;
     if (ThemeUtils.isDefaultTheme(requireContext()))
-      color = ContextCompat.getColor(getContext(), R.color.bg_cards);
+      color = ContextCompat.getColor(requireContext(), R.color.bg_cards);
     else
-      color = ContextCompat.getColor(getContext(), R.color.bg_cards_night);
+      color = ContextCompat.getColor(requireContext(), R.color.bg_cards_night);
     view.setBackgroundColor(color);
   }
 
   protected SettingsActivity getSettingsActivity()
   {
-    return (SettingsActivity) getActivity();
+    return (SettingsActivity) requireActivity();
   }
 }

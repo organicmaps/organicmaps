@@ -3,11 +3,11 @@ package com.mapswithme.maps.widget;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatImageView;
 
-public class ArrowView extends ImageView
+public class ArrowView extends AppCompatImageView
 {
   private float mWidth;
   private float mHeight;

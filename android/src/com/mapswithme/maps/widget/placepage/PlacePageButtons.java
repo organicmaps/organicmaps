@@ -329,7 +329,7 @@ public final class PlacePageButtons
   private void showPopup()
   {
     MenuBottomSheetFragment.newInstance(PLACEPAGE_MORE_MENU_ID)
-        .show(mPlacePage.getActivity().getSupportFragmentManager(), PLACEPAGE_MORE_MENU_ID);
+        .show(mPlacePage.requireActivity().getSupportFragmentManager(), PLACEPAGE_MORE_MENU_ID);
   }
 
   private View createButton(@NonNull final List<PlacePageButton> items,

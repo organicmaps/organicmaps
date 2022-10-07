@@ -6,6 +6,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.DocumentsContract;
 import android.view.View;
@@ -99,7 +100,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
     if (rw == null) return;
 
     rw.setNestedScrollingEnabled(false);
-    RecyclerView.ItemDecoration decor = new DividerItemDecorationWithPadding(getContext());
+    RecyclerView.ItemDecoration decor = new DividerItemDecorationWithPadding(requireContext());
     rw.addItemDecoration(decor);
     mCategoriesAdapterObserver = new CategoriesAdapterObserver(this);
     BookmarkManager.INSTANCE.addCategoriesUpdatesListener(mCategoriesAdapterObserver);
@@ -241,7 +242,8 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
     // http://stackoverflow.com/a/31334967/1615876
     intent.putExtra("android.content.extra.SHOW_ADVANCED", true);
 
-    intent.putExtra(DocumentsContract.EXTRA_EXCLUDE_SELF, true);
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+      intent.putExtra(DocumentsContract.EXTRA_EXCLUDE_SELF, true);
     startActivityForResult(intent, REQ_CODE_IMPORT_DIRECTORY);
   }
 
@@ -292,7 +294,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
       if (data == null)
         throw new AssertionError("Data is null");
 
-      final Context context = getActivity();
+      final Context context = requireActivity();
       final Uri rootUri = data.getData();
       final ProgressDialog dialog = DialogUtils.createModalProgressDialog(context, R.string.wait_several_minutes);
       dialog.show();

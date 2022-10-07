@@ -26,6 +26,28 @@ on:
       - xcode/**
 
 jobs:
+  lint:
+    name: Android Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+
+      - name: Parallel submodules checkout
+        shell: bash
+        run: git submodule update --depth 1 --init --recursive --jobs=$(($(nproc) * 20))
+
+      - name: Configure in Open Source mode
+        shell: bash
+        run: ./configure.sh
+
+      - name: Lint
+        shell: bash
+        working-directory: android
+        run: gradle lint
+
   android-check:
     name: Build Android Debug
     runs-on: ubuntu-latest

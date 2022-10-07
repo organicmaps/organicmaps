@@ -272,7 +272,7 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
 
     private void setBackground()
     {
-      final Context context = mSearchFragment.getActivity();
+      final Context context = mSearchFragment.requireActivity();
       final int itemBg = ThemeUtils.getResource(context, R.attr.clickableBackground);
       mFrame.setBackgroundResource(itemBg);
     }

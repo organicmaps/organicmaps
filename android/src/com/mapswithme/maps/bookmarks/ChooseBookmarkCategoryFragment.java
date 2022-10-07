@@ -46,7 +46,7 @@ public class ChooseBookmarkCategoryFragment extends BaseMwmDialogFragment
   {
     View root = inflater.inflate(R.layout.choose_bookmark_category_fragment, container, false);
     mRecycler = root.findViewById(R.id.recycler);
-    mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
+    mRecycler.setLayoutManager(new LinearLayoutManager(requireActivity()));
     return root;
   }
 
@@ -58,7 +58,7 @@ public class ChooseBookmarkCategoryFragment extends BaseMwmDialogFragment
     final Bundle args = getArguments();
     final int catPosition = args.getInt(CATEGORY_POSITION, 0);
     List<BookmarkCategory> items = BookmarkManager.INSTANCE.getCategories();
-    mAdapter = new ChooseBookmarkCategoryAdapter(getActivity(), catPosition, items);
+    mAdapter = new ChooseBookmarkCategoryAdapter(requireActivity(), catPosition, items);
     mAdapter.setListener(this);
     mRecycler.setAdapter(mAdapter);
   }

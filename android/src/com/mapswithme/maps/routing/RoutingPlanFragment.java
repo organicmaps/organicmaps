@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentActivity;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
@@ -22,15 +23,15 @@ public class RoutingPlanFragment extends BaseMwmFragment
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
   {
+    final FragmentActivity activity = requireActivity();
     View res = inflater.inflate(R.layout.fragment_routing, container, false);
     RoutingBottomMenuListener listener = null;
-    if (getActivity() instanceof RoutingBottomMenuListener)
-      listener = (RoutingBottomMenuListener) getActivity();
-
+    if (activity instanceof RoutingBottomMenuListener)
+      listener = (RoutingBottomMenuListener) activity;
 
     RoutingPlanInplaceController.RoutingPlanListener planListener =
-        (RoutingPlanInplaceController.RoutingPlanListener) requireActivity();
-    mPlanController = new RoutingPlanController(res, getActivity(), planListener, listener);
+        (RoutingPlanInplaceController.RoutingPlanListener) activity;
+    mPlanController = new RoutingPlanController(res, activity, planListener, listener);
     return res;
   }
 

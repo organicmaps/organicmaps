@@ -23,7 +23,7 @@ public class StackedButtonDialogFragment extends DialogFragment
   @Override
   public Dialog onCreateDialog(Bundle savedInstanceState)
   {
-    return new StackedButtonsDialog.Builder(getContext())
+    return new StackedButtonsDialog.Builder(requireContext())
         .setTitle(R.string.mobile_data_dialog)
         .setMessage(R.string.mobile_data_description)
         .setCancelable(false)

@@ -35,7 +35,7 @@ public class BookmarkCategorySettingsActivity extends BaseMwmFragmentActivity
   public static void startForResult(@NonNull Fragment fragment,
                                            @NonNull BookmarkCategory category)
   {
-    android.content.Intent intent = new Intent(fragment.getActivity(), BookmarkCategorySettingsActivity.class)
+    android.content.Intent intent = new Intent(fragment.requireActivity(), BookmarkCategorySettingsActivity.class)
         .putExtra(EXTRA_BOOKMARK_CATEGORY, category);
     fragment.startActivityForResult(intent, REQUEST_CODE);
   }

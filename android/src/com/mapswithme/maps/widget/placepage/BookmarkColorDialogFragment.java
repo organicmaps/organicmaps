@@ -40,7 +40,7 @@ public class BookmarkColorDialogFragment extends BaseMwmDialogFragment
     if (getArguments() != null)
       mIconColor = getArguments().getInt(ICON_TYPE);
 
-    return new AlertDialog.Builder(getActivity())
+    return new AlertDialog.Builder(requireActivity())
                           .setView(buildView())
                           .setTitle(R.string.bookmark_color)
                           .setNegativeButton(getString(R.string.cancel), null)
@@ -55,10 +55,10 @@ public class BookmarkColorDialogFragment extends BaseMwmDialogFragment
   private View buildView()
   {
     final List<Icon> icons = BookmarkManager.ICONS;
-    final IconsAdapter adapter = new IconsAdapter(getActivity(), icons);
+    final IconsAdapter adapter = new IconsAdapter(requireActivity(), icons);
     adapter.chooseItem(mIconColor);
 
-    final GridView gView = (GridView) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_color_grid, null);
+    final GridView gView = (GridView) LayoutInflater.from(requireActivity()).inflate(R.layout.fragment_color_grid, null);
     gView.setAdapter(adapter);
     gView.setOnItemClickListener(new AdapterView.OnItemClickListener()
     {

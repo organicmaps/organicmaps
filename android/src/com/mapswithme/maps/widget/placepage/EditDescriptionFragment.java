@@ -1,5 +1,6 @@
 package com.mapswithme.maps.widget.placepage;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -62,7 +63,12 @@ public class EditDescriptionFragment extends BaseMwmDialogFragment
     {
       final String descriptionNoSimpleTags = StringUtils.removeEditTextHtmlTags(description);
       if (!StringUtils.nativeIsHtml(descriptionNoSimpleTags))
-        description = Html.fromHtml(description).toString();
+      {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+          description = Html.fromHtml(description, Html.FROM_HTML_MODE_LEGACY).toString();
+        else
+          description = Html.fromHtml(description).toString();
+      }
     }
 
     mEtDescription = view.findViewById(R.id.et__description);

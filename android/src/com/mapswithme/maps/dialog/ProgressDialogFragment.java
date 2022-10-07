@@ -64,7 +64,7 @@ public class ProgressDialogFragment extends DialogFragment
   public void onCreate(@Nullable Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
-    Bundle args = Objects.requireNonNull(getArguments());
+    Bundle args = requireArguments();
     setRetainInstance(args.getBoolean(ARG_RETAIN_INSTANCE, true));
     setCancelable(args.getBoolean(ARG_CANCELABLE, false));
   }
@@ -75,7 +75,7 @@ public class ProgressDialogFragment extends DialogFragment
       Bundle savedInstanceState)
   {
     View view = inflater.inflate(R.layout.indeterminated_progress_dialog, container, false);
-    Bundle args = Objects.requireNonNull(getArguments());
+    Bundle args = requireArguments();
     TextView messageView = view.findViewById(R.id.message);
     messageView.setText(args.getString(ARG_MESSAGE));
     return view;

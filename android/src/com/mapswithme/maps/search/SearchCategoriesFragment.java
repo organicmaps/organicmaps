@@ -42,7 +42,7 @@ public class SearchCategoriesFragment extends BaseMwmRecyclerFragment<Categories
   public void onSearchCategorySelected(String category)
   {
     if (!passCategory(getParentFragment(), category))
-      passCategory(getActivity(), category);
+      passCategory(requireActivity(), category);
   }
 
   private static boolean passCategory(Object listener, String category)

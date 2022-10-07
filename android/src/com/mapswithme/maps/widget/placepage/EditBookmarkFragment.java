@@ -170,7 +170,7 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
     args.putInt(ChooseBookmarkCategoryFragment.CATEGORY_POSITION, index);
     String className = ChooseBookmarkCategoryFragment.class.getName();
     ChooseBookmarkCategoryFragment frag =
-        (ChooseBookmarkCategoryFragment) Fragment.instantiate(getActivity(), className, args);
+        (ChooseBookmarkCategoryFragment) Fragment.instantiate(requireActivity(), className, args);
     frag.show(getChildFragmentManager(), null);
   }
 
@@ -182,7 +182,7 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
     final Bundle args = new Bundle();
     args.putInt(BookmarkColorDialogFragment.ICON_TYPE, mIcon.getColor());
     final BookmarkColorDialogFragment dialogFragment = (BookmarkColorDialogFragment) BookmarkColorDialogFragment.
-        instantiate(getActivity(), BookmarkColorDialogFragment.class.getName(), args);
+        instantiate(requireActivity(), BookmarkColorDialogFragment.class.getName(), args);
 
     dialogFragment.setOnColorSetListener(new BookmarkColorDialogFragment.OnBookmarkColorChangeListener()
     {
@@ -200,7 +200,7 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
       }
     });
 
-    dialogFragment.show(getActivity().getSupportFragmentManager(), null);
+    dialogFragment.show(requireActivity().getSupportFragmentManager(), null);
   }
 
   private void refreshColorMarker()
@@ -211,7 +211,7 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
                                                     R.dimen.track_circle_size,
                                                     R.drawable.ic_bookmark_none,
                                                     R.dimen.bookmark_icon_size,
-                                                    getContext().getResources());
+                                                    requireContext().getResources());
       mIvColor.setImageDrawable(circle);
     }
   }
