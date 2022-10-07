@@ -30,8 +30,8 @@
           android:layout_centerVertical="true"
           android:layout_marginEnd="@dimen/margin_half_plus"
           android:layout_marginStart="@dimen/margin_quarter"
-          android:tint="?iconTint"
-          tools:src="@drawable/ic_operator"/>
+          tools:src="@drawable/ic_operator"
+          app:tint="?iconTint" />
 
         <TextView
           android:id="@+id/title"

@@ -21,6 +21,8 @@ import com.mapswithme.util.Graphics;
 import com.mapswithme.util.Utils;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class HelpFragment extends BaseMwmFragment implements View.OnClickListener
 {
@@ -37,10 +39,13 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
   // Converts 220131 to locale-dependent date (e.g. 31 January 2022),
   private String localDate(long v)
   {
-    final SimpleDateFormat format = new SimpleDateFormat("yyMMdd");
+    final Locale locale = getResources().getConfiguration().locale;
+    final SimpleDateFormat format = new SimpleDateFormat("yyMMdd", locale);
     final String strVersion = String.valueOf(v);
     try {
-      final java.util.Date date = format.parse(strVersion);
+      final Date date = format.parse(strVersion);
+      if (date == null)
+        return strVersion;
       return java.text.DateFormat.getDateInstance().format(date);
     } catch (java.text.ParseException e) {
       e.printStackTrace();
@@ -96,7 +101,7 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
 
   private void openLink(@NonNull String link)
   {
-    Utils.openUrl(getActivity(), link);
+    Utils.openUrl(requireActivity(), link);
   }
 
   private void onPrivacyPolicyClick()
@@ -118,7 +123,7 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
     else if (id == R.id.news)
       openLink(Constants.Url.NEWS);
     else if (id == R.id.email)
-      Utils.sendTo(getContext(), BuildConfig.SUPPORT_MAIL, "Organic Maps");
+      Utils.sendTo(requireContext(), BuildConfig.SUPPORT_MAIL, "Organic Maps");
     else if (id == R.id.github)
       openLink(Constants.Url.GITHUB);
     else if (id == R.id.telegram)
@@ -126,7 +131,7 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
     else if (id == R.id.instagram)
       openLink(getString(R.string.instagram_url));
     else if (id == R.id.facebook)
-      Utils.showFacebookPage(getActivity());
+      Utils.showFacebookPage(requireActivity());
     else if (id == R.id.twitter)
       openLink(Constants.Url.TWITTER);
     else if (id == R.id.matrix)
@@ -134,16 +139,16 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
     else if (id == R.id.openstreetmap)
       openLink(Constants.Url.OSM_ABOUT);
     else if (id == R.id.faq)
-      ((HelpActivity) getActivity()).stackFragment(FaqFragment.class, getString(R.string.faq), null);
+      ((HelpActivity) requireActivity()).stackFragment(FaqFragment.class, getString(R.string.faq), null);
     else if (id == R.id.report)
-      Utils.sendBugReport(getActivity(), "");
+      Utils.sendBugReport(requireActivity(), "");
     else if (id == R.id.support_us)
       openLink(Constants.Url.SUPPORT_US);
     else if (id == R.id.donate)
       openLink(mDonateUrl);
     else if (id == R.id.rate)
-      Utils.openAppInMarket(getActivity(), BuildConfig.REVIEW_URL);
+      Utils.openAppInMarket(requireActivity(), BuildConfig.REVIEW_URL);
     else if (id == R.id.copyright)
-      ((HelpActivity) getActivity()).stackFragment(CopyrightFragment.class, getString(R.string.copyright), null);
+      ((HelpActivity) requireActivity()).stackFragment(CopyrightFragment.class, getString(R.string.copyright), null);
   }
 }

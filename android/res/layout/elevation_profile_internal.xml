@@ -49,8 +49,8 @@
       <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:tint="?elevationProfilePropIconTint"
-        app:srcCompat="@drawable/ic_ascent" />
+        app:srcCompat="@drawable/ic_ascent"
+        app:tint="?elevationProfilePropIconTint" />
       <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -79,8 +79,8 @@
       <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:tint="?elevationProfilePropIconTint"
-        app:srcCompat="@drawable/ic_descent" />
+        app:srcCompat="@drawable/ic_descent"
+        app:tint="?elevationProfilePropIconTint" />
       <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -109,8 +109,8 @@
       <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:tint="?elevationProfilePropIconTint"
-        app:srcCompat="@drawable/ic_maxalt" />
+        app:srcCompat="@drawable/ic_maxalt"
+        app:tint="?elevationProfilePropIconTint" />
       <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -138,8 +138,8 @@
       <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:tint="?elevationProfilePropIconTint"
-        app:srcCompat="@drawable/ic_minalt" />
+        app:srcCompat="@drawable/ic_minalt"
+        app:tint="?elevationProfilePropIconTint" />
       <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

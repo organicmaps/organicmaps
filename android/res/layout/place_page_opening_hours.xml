@@ -14,7 +14,7 @@
     android:layout_marginEnd="@dimen/margin_base"
     android:layout_marginTop="@dimen/margin_quarter"
     android:src="@drawable/ic_operating_hours"
-    android:tint="?iconTint"/>
+    app:tint="?iconTint"/>
 
   <TextView
     android:id="@+id/oh_today_label"

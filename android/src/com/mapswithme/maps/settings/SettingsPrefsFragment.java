@@ -222,14 +222,8 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
 
   private boolean isOnTtsScreen()
   {
-    String ttsScreenKey = getActivity().getString(R.string.pref_tts_screen);
+    String ttsScreenKey = requireActivity().getString(R.string.pref_tts_screen);
     return mPreferenceScreen.getKey() != null && mPreferenceScreen.getKey().equals(ttsScreenKey);
-  }
-
-  @Override
-  public Fragment getCallbackFragment()
-  {
-    return this;
   }
 
   @Override
@@ -347,11 +341,11 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
   {
     if (preference.getKey() != null && preference.getKey().equals(getString(R.string.pref_osm_profile)))
     {
-      startActivity(new Intent(getActivity(), ProfileActivity.class));
+      startActivity(new Intent(requireActivity(), ProfileActivity.class));
     }
     else if (preference.getKey() != null && preference.getKey().equals(getString(R.string.pref_help)))
     {
-      startActivity(new Intent(getActivity(), HelpActivity.class));
+      startActivity(new Intent(requireActivity(), HelpActivity.class));
     }
     return super.onPreferenceTreeClick(preference);
   }
@@ -361,21 +355,16 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     if (mLangInfoLink != null)
     {
       Spannable link = new SpannableString(getString(R.string.prefs_languages_information_off_link));
-      link.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(),
-                                                                  UiUtils.getStyledResourceId(getContext(), R.attr.colorAccent))),
+      link.setSpan(new ForegroundColorSpan(ContextCompat.getColor(requireContext(),
+                                                                  UiUtils.getStyledResourceId(requireContext(), R.attr.colorAccent))),
                    0, link.length(), 0);
       mLangInfoLink.setSummary(link);
-      String TTS_INFO_LINK = getActivity().getString(R.string.tts_info_link);
-      mLangInfoLink.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
-      {
-        @Override
-        public boolean onPreferenceClick(Preference preference)
-        {
-          final Intent intent = new Intent(Intent.ACTION_VIEW);
-          intent.setData(Uri.parse(TTS_INFO_LINK));
-          getContext().startActivity(intent);
-          return false;
-        }
+      String TTS_INFO_LINK = requireActivity().getString(R.string.tts_info_link);
+      mLangInfoLink.setOnPreferenceClickListener(preference -> {
+        final Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(TTS_INFO_LINK));
+        requireContext().startActivity(intent);
+        return false;
       });
       removePreference(getString(R.string.pref_navigation), mLangInfoLink);
     }
@@ -530,7 +519,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     if (pref == null)
       return false;
 
-    if (!LocationProviderFactory.isGoogleLocationAvailable(getActivity().getApplicationContext()))
+    if (!LocationProviderFactory.isGoogleLocationAvailable(requireActivity().getApplicationContext()))
     {
       removePreference(getString(R.string.pref_subtittle_opt_out), pref);
       return false;
@@ -649,7 +638,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     ThemeSwitcher.INSTANCE.restart(false);
     ListPreference mapStyleModeList = (ListPreference) pref;
 
-    ThemeMode mode = ThemeMode.getInstance(getContext().getApplicationContext(), themeName);
+    ThemeMode mode = ThemeMode.getInstance(requireContext().getApplicationContext(), themeName);
     CharSequence summary = mapStyleModeList.getEntries()[mode.ordinal()];
     mapStyleModeList.setSummary(summary);
     return true;
@@ -704,7 +693,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
       public boolean onPreferenceClick(Preference preference)
       {
         if (MapManager.nativeIsDownloading())
-          new AlertDialog.Builder(getActivity())
+          new AlertDialog.Builder(requireActivity())
               .setTitle(getString(R.string.downloading_is_active))
               .setMessage(getString(R.string.cant_change_this_setting))
               .setPositiveButton(getString(R.string.ok), null)
@@ -752,8 +741,10 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
         {
           boolean newVal = (Boolean) newValue;
           if (isScreenSleepEnabled != newVal)
+          {
             Config.setScreenSleepEnabled(newVal);
-            Utils.keepScreenOn(!newVal, getActivity().getWindow());
+            Utils.keepScreenOn(!newVal, requireActivity().getWindow());
+          }
           return true;
         });
   }
@@ -774,7 +765,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
               if (isShowOnLockScreenEnabled != newVal)
               {
                 Config.setShowOnLockScreenEnabled(newVal);
-                Utils.showOnLockScreen(newVal, getActivity());
+                Utils.showOnLockScreen(newVal, requireActivity());
               }
               return true;
             });

@@ -64,7 +64,7 @@ public class FaqFragment extends BaseMwmFragment
     };
 
     TextView feedback = root.findViewById(R.id.feedback);
-    feedback.setOnClickListener(v -> new AlertDialog.Builder(getActivity())
+    feedback.setOnClickListener(v -> new AlertDialog.Builder(requireActivity())
         .setTitle(R.string.feedback)
         .setNegativeButton(R.string.cancel, null)
         .setItems(new CharSequence[] { getString(R.string.feedback_general),

@@ -126,7 +126,7 @@ class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetableAdapter
   {
     final Timetable data = mItems.get(position);
     mPickingPosition = position;
-    HoursMinutesPickerFragment.pick(mFragment.getActivity(), mFragment.getChildFragmentManager(),
+    HoursMinutesPickerFragment.pick(mFragment.requireActivity(), mFragment.getChildFragmentManager(),
                                     data.workingTimespan.start, data.workingTimespan.end,
                                     tab, id);
   }

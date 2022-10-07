@@ -55,7 +55,7 @@ public class RoutingController implements Initializable<Void>
 
   public interface Container
   {
-    FragmentActivity getActivity();
+    FragmentActivity requireActivity();
     void showSearch();
     void showRoutePlan(boolean show, @Nullable Runnable completionListener);
     void showNavigation(boolean show);
@@ -336,7 +336,7 @@ public class RoutingController implements Initializable<Void>
     if (mContainer == null)
       return;
 
-    FragmentActivity activity = mContainer.getActivity();
+    FragmentActivity activity = mContainer.requireActivity();
     StringBuilder builder = new StringBuilder();
     for (int resId : new int[] { R.string.dialog_routing_disclaimer_priority, R.string.dialog_routing_disclaimer_precision,
                                  R.string.dialog_routing_disclaimer_recommendations, R.string.dialog_routing_disclaimer_borders,
@@ -542,12 +542,12 @@ public class RoutingController implements Initializable<Void>
     if (mContainer == null)
       return;
 
-    final AlertDialog.Builder builder = new AlertDialog.Builder(mContainer.getActivity())
+    final AlertDialog.Builder builder = new AlertDialog.Builder(mContainer.requireActivity())
                                                        .setMessage(R.string.p2p_reroute_from_current)
                                                        .setCancelable(false)
                                                        .setNegativeButton(R.string.cancel, null);
 
-    TextView titleView = (TextView)View.inflate(mContainer.getActivity(), R.layout.dialog_suggest_reroute_title, null);
+    TextView titleView = (TextView)View.inflate(mContainer.requireActivity(), R.layout.dialog_suggest_reroute_title, null);
     titleView.setText(R.string.p2p_only_from_current);
     builder.setCustomTitle(titleView);
 

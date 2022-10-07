@@ -204,7 +204,7 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
     switch (v.getId())
     {
     case R.id.btn__download_map:
-      MapManager.warn3gAndDownload(getActivity(), mCurrentCountry.id, new Runnable()
+      MapManager.warn3gAndDownload(requireActivity(), mCurrentCountry.id, new Runnable()
       {
         @Override
         public void run()
@@ -215,7 +215,7 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
       break;
 
     case R.id.btn__select_map:
-      BaseMwmFragmentActivity activity = Utils.castTo(getActivity());
+      BaseMwmFragmentActivity activity = Utils.castTo(requireActivity());
       activity.replaceFragment(DownloaderFragment.class, null, null);
       break;
 

@@ -15,7 +15,9 @@ import androidx.annotation.StyleRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentFactory;
 import androidx.fragment.app.FragmentManager;
+
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.SplashActivity;
@@ -314,11 +316,14 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
     Fragment potentialInstance = getSupportFragmentManager().findFragmentByTag(name);
     if (potentialInstance == null)
     {
-      final Fragment fragment = Fragment.instantiate(this, name, args);
-      getSupportFragmentManager().beginTransaction()
-                                 .replace(resId, fragment, name)
-                                 .commitAllowingStateLoss();
-      getSupportFragmentManager().executePendingTransactions();
+      final FragmentManager manager = getSupportFragmentManager();
+      final FragmentFactory factory = manager.getFragmentFactory();
+      final Fragment fragment = factory.instantiate(getClassLoader(), name);
+      fragment.setArguments(args);
+      manager.beginTransaction()
+          .replace(resId, fragment, name)
+          .commitAllowingStateLoss();
+      manager.executePendingTransactions();
       if (completionListener != null)
         completionListener.run();
     }

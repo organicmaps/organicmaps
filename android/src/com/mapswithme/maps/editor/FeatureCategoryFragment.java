@@ -43,7 +43,7 @@ public class FeatureCategoryFragment extends BaseMwmRecyclerFragment<FeatureCate
 
     if (getArguments() != null && getArguments().containsKey(FeatureCategoryActivity.EXTRA_FEATURE_CATEGORY))
       mSelectedCategory = getArguments().getParcelable(FeatureCategoryActivity.EXTRA_FEATURE_CATEGORY);
-    mToolbarController = new SearchToolbarController(view, getActivity())
+    mToolbarController = new SearchToolbarController(view, requireActivity())
     {
       @Override
       protected void onTextChanged(String query)
@@ -84,7 +84,7 @@ public class FeatureCategoryFragment extends BaseMwmRecyclerFragment<FeatureCate
 
     for (int i = 0; i < creatableTypes.length; ++i)
     {
-      String localizedType = Utils.getLocalizedFeatureType(getContext(), creatableTypes[i]);
+      String localizedType = Utils.getLocalizedFeatureType(requireContext(), creatableTypes[i]);
       categories[i] = new FeatureCategory(creatableTypes[i], localizedType);
     }
 
@@ -96,8 +96,8 @@ public class FeatureCategoryFragment extends BaseMwmRecyclerFragment<FeatureCate
 
   public void selectCategory(FeatureCategory category)
   {
-    if (getActivity() instanceof FeatureCategoryListener)
-      ((FeatureCategoryListener) getActivity()).onFeatureCategorySelected(category);
+    if (requireActivity() instanceof FeatureCategoryListener)
+      ((FeatureCategoryListener) requireActivity()).onFeatureCategorySelected(category);
     else if (getParentFragment() instanceof FeatureCategoryListener)
       ((FeatureCategoryListener) getParentFragment()).onFeatureCategorySelected(category);
   }

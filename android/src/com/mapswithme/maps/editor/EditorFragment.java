@@ -157,7 +157,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
     initViews(view);
 
-    mCategory.setText(Utils.getLocalizedFeatureType(getContext(), Editor.nativeGetCategory()));
+    mCategory.setText(Utils.getLocalizedFeatureType(requireContext(), Editor.nativeGetCategory()));
     final LocalizedStreet street = Editor.nativeGetStreet();
     mStreet.setText(street.defaultName);
 
@@ -352,7 +352,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
     mNamesView = view.findViewById(R.id.recycler);
     mNamesView.setNestedScrollingEnabled(false);
-    mNamesView.setLayoutManager(new LinearLayoutManager(getActivity()));
+    mNamesView.setLayoutManager(new LinearLayoutManager(requireActivity()));
     mNamesAdapter = new MultilanguageAdapter(mParent);
     mNamesView.setAdapter(mNamesAdapter);
     mNamesAdapter.registerAdapterDataObserver(mNamesObserver);
@@ -572,7 +572,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mNamesCaption.setCompoundDrawablesRelativeWithIntrinsicBounds(
       null,
       null,
-      Graphics.tint(getActivity(), arrowResourceId, R.attr.iconTint),
+      Graphics.tint(requireActivity(), arrowResourceId, R.attr.iconTint),
       null);
   }
 
@@ -649,7 +649,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
       message = R.string.editor_reset_edits_message;
     }
 
-    new AlertDialog.Builder(getActivity()).setTitle(message)
+    new AlertDialog.Builder(requireActivity()).setTitle(message)
                                           .setPositiveButton(getString(title).toUpperCase(), new DialogInterface.OnClickListener()
                                           {
                                             @Override

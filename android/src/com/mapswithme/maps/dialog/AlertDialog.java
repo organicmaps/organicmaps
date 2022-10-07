@@ -105,10 +105,10 @@ public class AlertDialog extends BaseMwmDialogFragment
     if (mTargetCallback != null)
       return;
 
-    if (!(getActivity() instanceof AlertDialogCallback))
+    if (!(requireActivity() instanceof AlertDialogCallback))
       return;
 
-    mTargetCallback = (AlertDialogCallback) getActivity();
+    mTargetCallback = (AlertDialogCallback) requireActivity();
   }
 
   @Override
@@ -404,7 +404,7 @@ public class AlertDialog extends BaseMwmDialogFragment
       int positiveButtonId = args.getInt(ARG_POSITIVE_BUTTON_ID);
       int negativeButtonId = args.getInt(ARG_NEGATIVE_BUTTON_ID);
       androidx.appcompat.app.AlertDialog.Builder builder =
-          DialogUtils.buildAlertDialog(instance.getContext(), titleId, messageId);
+          DialogUtils.buildAlertDialog(instance.requireContext(), titleId, messageId);
       builder.setPositiveButton(positiveButtonId,
                                 (dialog, which) -> instance.onPositiveClicked(which));
       if (negativeButtonId != INVALID_ID)
@@ -421,8 +421,8 @@ public class AlertDialog extends BaseMwmDialogFragment
     @Override
     public Dialog createView(@NonNull AlertDialog fragment, @NonNull Bundle args)
     {
-      AppCompatDialog appCompatDialog = new AppCompatDialog(fragment.getContext());
-      LayoutInflater inflater = LayoutInflater.from(fragment.getContext());
+      AppCompatDialog appCompatDialog = new AppCompatDialog(fragment.requireContext());
+      LayoutInflater inflater = LayoutInflater.from(fragment.requireContext());
       View root = inflater.inflate(fragment.getLayoutId(), null, false);
 
       TextView declineBtn = root.findViewById(R.id.decline_btn);

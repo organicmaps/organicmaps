@@ -136,6 +136,9 @@ project.ext.appId = 'app.organicmaps'
 project.ext.appName = 'Organic Maps'
 
 android {
+  // https://github.com/organicmaps/organicmaps/issues/3553
+  namespace 'com.mapswithme.maps'
+
   buildFeatures {
     dataBinding = true
   }
@@ -283,9 +286,13 @@ android {
     universalApk true
   }
 
-  // TODO: Fix a lot of lint errors in our code
   lint {
-    abortOnError false
+    disable 'MissingTranslation'
+    // https://github.com/organicmaps/organicmaps/issues/3551
+    disable 'MissingQuantity'
+    // https://github.com/organicmaps/organicmaps/issues/3550
+    disable 'ByteOrderMark'
+    abortOnError true
   }
 
   gradle.projectsEvaluated {
@@ -412,6 +419,10 @@ android {
         'lib/**/libVkLayer_unique_objects.so',
     ]
   }
+}
+
+tasks.withType(JavaCompile) {
+  options.compilerArgs << '-Xlint:unchecked' << '-Xlint:deprecation'
 }
 
 android.buildTypes.all { buildType ->

@@ -188,7 +188,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
       editMapObject();
       break;
     default:
-      Utils.navigateToParent(getActivity());
+      Utils.navigateToParent(requireActivity());
     }
     return true;
   }
@@ -207,7 +207,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
     Bundle args = new Bundle();
     if (focusToLastName)
       args.putInt(EditorFragment.LAST_INDEX_OF_NAMES_ARRAY, sNames.size() - 1);
-    final Fragment editorFragment = Fragment.instantiate(getActivity(), EditorFragment.class.getName(), args);
+    final Fragment editorFragment = Fragment.instantiate(requireActivity(), EditorFragment.class.getName(), args);
     getChildFragmentManager().beginTransaction()
                              .replace(R.id.fragment_container, editorFragment, EditorFragment.class.getName())
                              .commit();
@@ -255,7 +255,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
     mMode = newMode;
     getToolbarController().setTitle(toolbarTitle);
     showSearchControls(showSearch);
-    final Fragment fragment = Fragment.instantiate(getActivity(), fragmentClass.getName(), args);
+    final Fragment fragment = Fragment.instantiate(requireActivity(), fragmentClass.getName(), args);
     getChildFragmentManager().beginTransaction()
                              .replace(R.id.fragment_container, fragment, fragmentClass.getName())
                              .commit();
@@ -266,7 +266,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
     if (!mIsNewObject)
       return;
 
-    final Activity host = getActivity();
+    final Activity host = requireActivity();
     host.finish();
     startActivity(new Intent(host, FeatureCategoryActivity.class));
   }
@@ -356,7 +356,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
 
   private void processNoFeatures()
   {
-    DialogUtils.showAlertDialog(getActivity(), R.string.downloader_no_space_title);
+    DialogUtils.showAlertDialog(requireActivity(), R.string.downloader_no_space_title);
   }
 
   private void processEditedFeatures()
@@ -364,7 +364,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
     Context context = requireContext();
     if (OsmOAuth.isAuthorized(context) || !ConnectionState.INSTANCE.isConnected())
     {
-      Utils.navigateToParent(getActivity());
+      Utils.navigateToParent(requireActivity());
       return;
     }
 
@@ -373,7 +373,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
 
   private void showLoginDialog()
   {
-    startActivity(new Intent(getContext(), OsmLoginActivity.class));
+    startActivity(new Intent(requireContext(), OsmLoginActivity.class));
     requireActivity().finish();
   }
 
@@ -388,7 +388,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
 
   private void showMistakeDialog(@StringRes int resId)
   {
-    new AlertDialog.Builder(getActivity())
+    new AlertDialog.Builder(requireActivity())
         .setMessage(resId)
         .setPositiveButton(android.R.string.ok, null)
         .show();
@@ -396,7 +396,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
 
   private void showNoobDialog()
   {
-    new AlertDialog.Builder(getActivity())
+    new AlertDialog.Builder(requireActivity())
       .setTitle(R.string.editor_share_to_all_dialog_title)
       .setMessage(getString(R.string.editor_share_to_all_dialog_message_1)
         + " " + getString(R.string.editor_share_to_all_dialog_message_2))

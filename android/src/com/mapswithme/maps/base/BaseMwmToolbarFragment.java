@@ -23,7 +23,7 @@ public class BaseMwmToolbarFragment extends BaseAsyncOperationFragment
   @NonNull
   protected ToolbarController onCreateToolbarController(@NonNull View root)
   {
-    return new ToolbarController(root, getActivity());
+    return new ToolbarController(root, requireActivity());
   }
 
   @NonNull

@@ -34,8 +34,8 @@ public class ToggleMapLayerFragment extends Fragment
   {
     View mRoot = inflater.inflate(R.layout.fragment_toggle_map_layer, container, false);
 
-    if (getActivity() instanceof LayerItemClickListener)
-      mLayerItemClickListener = ((LayerItemClickListener) getActivity());
+    if (requireActivity() instanceof LayerItemClickListener)
+      mLayerItemClickListener = ((LayerItemClickListener) requireActivity());
 
     initRecycler(mRoot);
     return mRoot;

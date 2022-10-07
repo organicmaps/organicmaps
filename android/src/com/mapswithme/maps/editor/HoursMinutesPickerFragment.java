@@ -79,7 +79,7 @@ public class HoursMinutesPickerFragment extends BaseMwmDialogFragment
     final int theme = ThemeUtils.isNightTheme(requireContext()) ?
                       R.style.MwmMain_DialogFragment_TimePicker_Night :
                       R.style.MwmMain_DialogFragment_TimePicker;
-    final AlertDialog dialog = new AlertDialog.Builder(getActivity(), theme)
+    final AlertDialog dialog = new AlertDialog.Builder(requireActivity(), theme)
                                    .setView(root)
                                    .setNegativeButton(android.R.string.cancel, null)
                                    .setPositiveButton(android.R.string.ok, null)
@@ -123,12 +123,12 @@ public class HoursMinutesPickerFragment extends BaseMwmDialogFragment
 
   private View createView()
   {
-    final LayoutInflater inflater = LayoutInflater.from(getActivity());
+    final LayoutInflater inflater = LayoutInflater.from(requireActivity());
     @SuppressLint("InflateParams")
     final View root = inflater.inflate(R.layout.fragment_timetable_picker, null);
 
     mPicker = root.findViewById(R.id.picker);
-    mPicker.setIs24HourView(DateFormat.is24HourFormat(getActivity()));
+    mPicker.setIs24HourView(DateFormat.is24HourFormat(requireActivity()));
 
     int id = getResources().getIdentifier("hours", "id", "android");
     if (id != 0)

@@ -28,6 +28,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentFactory;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -299,7 +300,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   public void showHelp()
   {
-    Intent intent = new Intent(getActivity(), HelpActivity.class);
+    Intent intent = new Intent(requireActivity(), HelpActivity.class);
     startActivity(intent);
   }
 
@@ -590,13 +591,16 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void initMap(boolean isLaunchByDeepLink)
   {
-    mMapFragment = (MapFragment) getSupportFragmentManager().findFragmentByTag(MapFragment.class.getName());
+    final FragmentManager manager = getSupportFragmentManager();
+    mMapFragment = (MapFragment) manager.findFragmentByTag(MapFragment.class.getName());
     if (mMapFragment == null)
     {
       Bundle args = new Bundle();
       args.putBoolean(MapFragment.ARG_LAUNCH_BY_DEEP_LINK, isLaunchByDeepLink);
-      mMapFragment = (MapFragment) MapFragment.instantiate(this, MapFragment.class.getName(), args);
-      getSupportFragmentManager()
+      final FragmentFactory factory = manager.getFragmentFactory();
+      mMapFragment = (MapFragment) factory.instantiate(getClassLoader(), MapFragment.class.getName());
+      mMapFragment.setArguments(args);
+      manager
           .beginTransaction()
           .replace(R.id.map_fragment_container, mMapFragment, MapFragment.class.getName())
           .commit();
@@ -937,7 +941,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (!PermissionsUtils.isLocationGranted(this))
     {
-      Utils.showSnackbar(getActivity(), findViewById(R.id.coordinator), findViewById(R.id.menu_frame),
+      Utils.showSnackbar(requireActivity(), findViewById(R.id.coordinator), findViewById(R.id.menu_frame),
                          R.string.location_is_disabled_long_text);
       return;
     }
@@ -1081,7 +1085,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       LocationHelper.INSTANCE.attach(this);
     mPlacePageController.onActivityStarted(this);
     mSearchController.attach(this);
-    MwmApplication.backgroundTracker(getActivity()).addListener(this);
+    MwmApplication.backgroundTracker(requireActivity()).addListener(this);
   }
 
   @Override
@@ -1093,7 +1097,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     LocationHelper.INSTANCE.detach(!isFinishing());
     RoutingController.get().detach();
     mPlacePageController.onActivityStopped(this);
-    MwmApplication.backgroundTracker(getActivity()).removeListener(this);
+    MwmApplication.backgroundTracker(requireActivity()).removeListener(this);
     IsolinesManager.from(getApplicationContext()).detach();
     mSearchController.detach();
   }
@@ -1278,7 +1282,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  public FragmentActivity getActivity()
+  public FragmentActivity requireActivity()
   {
     return this;
   }
@@ -1615,8 +1619,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onCommonBuildError(int lastResultCode, @NonNull String[] lastMissingMaps)
   {
-    RoutingErrorDialogFragment fragment = RoutingErrorDialogFragment.create(getApplicationContext(),
-                                                                            lastResultCode, lastMissingMaps);
+    RoutingErrorDialogFragment fragment = RoutingErrorDialogFragment.create(getSupportFragmentManager().getFragmentFactory(),
+                                                                            getApplicationContext(), lastResultCode, lastMissingMaps);
     fragment.show(getSupportFragmentManager(), RoutingErrorDialogFragment.class.getSimpleName());
   }
 
@@ -1898,9 +1902,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   public void onSettingsOptionSelected()
   {
-    Intent intent = new Intent(getActivity(), SettingsActivity.class);
+    Intent intent = new Intent(requireActivity(), SettingsActivity.class);
     closeFloatingPanels();
-    getActivity().startActivity(intent);
+    requireActivity().startActivity(intent);
   }
 
   public void onShareLocationOptionSelected()

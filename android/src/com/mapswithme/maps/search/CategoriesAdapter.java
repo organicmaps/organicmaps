@@ -49,12 +49,12 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
     if (fragment instanceof CategoriesUiListener)
       mListener = (CategoriesUiListener) fragment;
     mResources = fragment.getResources();
-    mInflater = LayoutInflater.from(fragment.getActivity());
+    mInflater = LayoutInflater.from(fragment.requireActivity());
   }
 
   void updateCategories(@NonNull Fragment fragment)
   {
-    final Activity activity = fragment.getActivity();
+    final Activity activity = fragment.requireActivity();
     final String packageName = activity.getPackageName();
 
     final String[] keys = getAllCategories();

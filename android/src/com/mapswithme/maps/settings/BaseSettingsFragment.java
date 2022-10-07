@@ -71,6 +71,6 @@ abstract class BaseSettingsFragment extends BaseMwmFragment
 
   protected SettingsActivity getSettingsActivity()
   {
-    return (SettingsActivity) getActivity();
+    return (SettingsActivity) requireActivity();
   }
 }

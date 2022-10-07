@@ -115,7 +115,7 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment<DownloaderAdapte
   public void onCreate(@Nullable Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
-    getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+    requireActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
   }
 
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
@@ -144,7 +144,7 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment<DownloaderAdapte
     }
 
     mBottomPanel = new BottomPanel(this, view);
-    mToolbarController = new DownloaderToolbarController(view, getActivity(), this);
+    mToolbarController = new DownloaderToolbarController(view, requireActivity(), this);
 
     update();
   }

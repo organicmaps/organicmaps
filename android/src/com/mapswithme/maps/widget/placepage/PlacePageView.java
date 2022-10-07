@@ -234,7 +234,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
     @Override
     public void onClick(View v)
     {
-      MapManager.warn3gAndDownload(getActivity(), mCurrentCountry.id, null);
+      MapManager.warn3gAndDownload(requireActivity(), mCurrentCountry.id, null);
     }
   };
 
@@ -542,7 +542,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
     if (mMapObject == null)
     {
       Logger.e(TAG, "A mwm request cannot be handled, mMapObject is null!");
-      getActivity().finish();
+      requireActivity().finish();
       return;
     }
 
@@ -555,10 +555,10 @@ public class PlacePageView extends NestedScrollViewClickFixed
           .putExtra(Const.EXTRA_POINT_NAME, mMapObject.getTitle())
           .putExtra(Const.EXTRA_POINT_ID, mMapObject.getApiId())
           .putExtra(Const.EXTRA_ZOOM_LEVEL, Framework.nativeGetDrawScale());
-      getActivity().setResult(Activity.RESULT_OK, result);
+      requireActivity().setResult(Activity.RESULT_OK, result);
       ParsedMwmRequest.setCurrentRequest(null);
     }
-    getActivity().finish();
+    requireActivity().finish();
   }
 
   private void onRouteFromBtnClicked()
@@ -584,7 +584,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
     }
     else
     {
-      getActivity().startLocationToPoint(getMapObject());
+      requireActivity().startLocationToPoint(getMapObject());
     }
   }
 
@@ -1317,12 +1317,12 @@ public class PlacePageView extends NestedScrollViewClickFixed
 
   private void addOrganisation()
   {
-    getActivity().showPositionChooserForEditor(true, false);
+    requireActivity().showPositionChooserForEditor(true, false);
   }
 
   private void addPlace()
   {
-    getActivity().showPositionChooserForEditor(false, true);
+    requireActivity().showPositionChooserForEditor(false, true);
   }
 
   /// @todo
@@ -1350,7 +1350,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
           Logger.e(TAG, "Cannot start editor, map object is null!");
           break;
         }
-        getActivity().showEditor();
+        requireActivity().showEditor();
         break;
       case R.id.ll__add_organisation:
         addOrganisation();
@@ -1420,10 +1420,10 @@ public class PlacePageView extends NestedScrollViewClickFixed
 
   private void showBigDirection()
   {
-    final DirectionFragment fragment = (DirectionFragment) Fragment.instantiate(getActivity(), DirectionFragment.class
+    final DirectionFragment fragment = (DirectionFragment) Fragment.instantiate(requireActivity(), DirectionFragment.class
         .getName(), null);
     fragment.setMapObject(mMapObject);
-    fragment.show(getActivity().getSupportFragmentManager(), null);
+    fragment.show(requireActivity().getSupportFragmentManager(), null);
   }
 
   /// @todo Unify urls processing (fb, twitter, instagram, ...).
@@ -1636,7 +1636,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
     UiUtils.hide(mDownloaderInfo);
   }
 
-  MwmActivity getActivity()
+  MwmActivity requireActivity()
   {
     return (MwmActivity) getContext();
   }
@@ -1676,8 +1676,8 @@ public class PlacePageView extends NestedScrollViewClickFixed
       Bookmark bookmark = (Bookmark) mMapObject;
       EditBookmarkFragment.editBookmark(bookmark.getCategoryId(),
                                         bookmark.getBookmarkId(),
-                                        getActivity(),
-                                        getActivity().getSupportFragmentManager(),
+                                        requireActivity(),
+                                        requireActivity().getSupportFragmentManager(),
                                         PlacePageView.this);
     }
   }

@@ -415,8 +415,8 @@ public class SearchFragment extends BaseMwmFragment
 
     mToolbarController.deactivate();
 
-    if (getActivity() instanceof SearchActivity)
-      Utils.navigateToParent(getActivity());
+    if (requireActivity() instanceof SearchActivity)
+      Utils.navigateToParent(requireActivity());
   }
 
   void showAllResultsOnMap()
@@ -435,7 +435,7 @@ public class SearchFragment extends BaseMwmFragment
         mLastQueryTimestamp, false /* isMapAndTable */);
 
     SearchEngine.INSTANCE.setQuery(query);
-    Utils.navigateToParent(getActivity());
+    Utils.navigateToParent(requireActivity());
   }
 
   private void onSearchEnd()
@@ -461,7 +461,7 @@ public class SearchFragment extends BaseMwmFragment
   private boolean isTabletSearch()
   {
     // TODO @yunitsky Implement more elegant solution.
-    return getActivity() instanceof MwmActivity;
+    return requireActivity() instanceof MwmActivity;
   }
 
   private void runSearch()
@@ -540,7 +540,7 @@ public class SearchFragment extends BaseMwmFragment
       return true;
     }
 
-    boolean isSearchActivity = getActivity() instanceof SearchActivity;
+    boolean isSearchActivity = requireActivity() instanceof SearchActivity;
     mToolbarController.deactivate();
     if (RoutingController.get().isWaitingPoiPick())
     {

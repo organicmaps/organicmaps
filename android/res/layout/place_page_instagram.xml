@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/ll__place_instagram"
   style="@style/PlacePageItemFrame"
@@ -12,7 +13,7 @@
     android:id="@+id/iv__place_instagram"
     style="@style/PlacePageMetadataIcon"
     android:src="@drawable/ic_instagram_white"
-    android:tint="?colorAccent"/>
+    app:tint="?colorAccent"/>
 
   <TextView
     android:id="@+id/tv__place_instagram_page"
