@@ -939,10 +939,12 @@ area|z18-[shop=car_repair]
 
 node|z12-[amenity=fuel],
 area|z12-[amenity=fuel],
-node|z14-[amenity=charging_station],
-area|z14-[amenity=charging_station],
+node|z14-[amenity=charging_station][motorcar?],
+area|z14-[amenity=charging_station][motorcar?],
 node|z15-[amenity=sanitary_dump_station],
 area|z15-[amenity=sanitary_dump_station],
+node|z16-[amenity=charging_station],
+area|z16-[amenity=charging_station],
 node|z16-[amenity=parking],
 area|z16-[amenity=parking],
 node|z17-[amenity=car_wash],
@@ -975,11 +977,11 @@ node|z18-[amenity=fuel],
 area|z18-[amenity=fuel]
 {icon-image: fuel-m.svg;font-size: 14.5;}
 
-node|z14[amenity=charging_station],
-area|z14[amenity=charging_station]
+node|z14[amenity=charging_station][motorcar?],
+area|z14[amenity=charging_station][motorcar?],
 {icon-image: charging-station-m.svg;text-offset: 1;font-size: 12.25;-x-me-text-priority:15500;icon-min-distance: 20;}
-node|z15[amenity=charging_station],
-area|z15[amenity=charging_station]
+node|z15[amenity=charging_station][motorcar?],
+area|z15[amenity=charging_station][motorcar?],
 {icon-image: charging-station-m.svg;-x-me-text-priority:15500;icon-min-distance: 20;font-size: 12.5;}
 node|z16[amenity=charging_station],
 area|z16[amenity=charging_station]
