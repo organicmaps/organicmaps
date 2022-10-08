@@ -1400,7 +1400,7 @@ railway|station|subway|lausanne;[railway=station][transport=subway][city=lausann
 railway|station|subway|lille;[railway=station][transport=subway][city=lille],[railway=station][station=subway][city=lille];;name;int_name;1402;
 railway|station|subway|lima;[railway=station][transport=subway][city=lima],[railway=station][station=subway][city=lima];;name;int_name;1403;
 railway|station|subway|lisboa;[railway=station][transport=subway][city=lisboa],[railway=station][station=subway][city=lisboa];;name;int_name;1404;
-railway|station|subway|lisbon;[railway=station][transport=subway][city=lisbon],[railway=station][station=subway][city=lisbon];;name;int_name;1405;
+deprecated|deprecated;1405;x
 railway|station|subway|lyon;[railway=station][transport=subway][city=lyon],[railway=station][station=subway][city=lyon];;name;int_name;1406;
 railway|station|subway|malaga;[railway=station][transport=subway][city=malaga],[railway=station][station=subway][city=malaga];;name;int_name;1407;
 railway|station|subway|manila;[railway=station][transport=subway][city=manila],[railway=station][station=subway][city=manila];;name;int_name;1408;
@@ -1497,7 +1497,7 @@ railway|subway_entrance|lausanne;[railway=subway_entrance][city=lausanne];;name;
 railway|subway_entrance|lille;[railway=subway_entrance][city=lille];;name;int_name;1499;
 railway|subway_entrance|lima;[railway=subway_entrance][city=lima];;name;int_name;1500;
 railway|subway_entrance|lisboa;[railway=subway_entrance][city=lisboa];;name;int_name;1501;
-railway|subway_entrance|lisbon;[railway=subway_entrance][city=lisbon];;name;int_name;1502;
+deprecated|deprecated;1502;x
 railway|subway_entrance|lyon;[railway=subway_entrance][city=lyon];;name;int_name;1503;
 railway|subway_entrance|malaga;[railway=subway_entrance][city=malaga];;name;int_name;1504;
 railway|subway_entrance|manila;[railway=subway_entrance][city=manila];;name;int_name;1505;
