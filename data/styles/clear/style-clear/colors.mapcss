@@ -43,6 +43,7 @@
 @wetland: #c9ddd6;
 @beach: #FCEC7E;
 @barerock: #EDE5DC;
+@desert: #EEE5B2;
 
 /*3.2 Vegetation*/
 
