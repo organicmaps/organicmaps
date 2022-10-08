@@ -13766,6 +13766,33 @@
     zh-Hans = 海岸线
     zh-Hant = 海岸線
 
+  [type.natural.desert]
+    en = Desert
+    ar = ءﺍﺮﺤﺻ
+    be = Пустыня
+    bg = Пустинен
+    cs = Poušť
+    da = Ørken
+    de = Wüste
+    el = Ερημος
+    es = Desierto
+    eu = Basamortua
+    fa = ﺮﯾﻮﮐ
+    fi = Aavikko
+    fr = Désert
+    he = רבָּדמִ
+    hu = Sivatag
+    id = Gurun
+    it = Deserto
+    ja = 荒野
+    ko = 사막
+    nb = Ørken
+    nl = Woestijn
+    pl = Pustynia
+    pt = Deserto
+    ru = Пустыня
+    uk = Пустиня
+
   [type.natural.geyser]
     en = Geyser
     ar = نبع ماء حار

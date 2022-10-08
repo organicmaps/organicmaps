@@ -1219,7 +1219,7 @@ railway|subway_entrance|warszawa;[railway=subway_entrance][city=warszawa];;name;
 deprecated|deprecated;1221;x
 deprecated|deprecated;1222;x
 deprecated|deprecated;1223;x
-deprecated|deprecated;1224;x
+natural|desert;[natural=desert],[natural=sand][desert=erg];;name;int_name;1224;
 natural|water|tunnel;[natural=water][tunnel?];;name;int_name;1225;
 place|square;1226;
 tourism|artwork|architecture;[tourism=artwork][artwork_type=architecture],[tourism=artwork][type=architecture];;name;int_name;1227;

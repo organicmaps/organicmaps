@@ -7,7 +7,7 @@
   3.2 Region
   3.3 Military
 4.VEGETATION
-5.BEACH & GLACIER
+5.BEACH, GLACIER, DESERT, etc.
 6.WATER
   6.1 Area water(lake,pond etc.)
   6.2 Line water(river,canal etc.)
@@ -39,6 +39,7 @@ area[place=islet]
 
 area[natural=glacier],
 area[natural=beach],
+area[natural=desert],
 area[leisure=beach_resort],
 area[aeroway=airport][aerodrome=international],
 area[aeroway=aerodrome][aerodrome=international],
@@ -263,7 +264,7 @@ line|z10-[boundary=military]
 
 area|z10-[landuse=forest],
 area|z10-[leisure=park],
-area|z10-[leisure=garden],
+area|z12-[leisure=garden],
 area|z12-[landuse=grass],
 area|z12-[natural=grassland],
 area|z12-[leisure=golf_course],
@@ -349,10 +350,11 @@ area|z16-[leisure=garden]
 area|z12-[natural=bare_rock],
 {fill-color: @barerock;}
 
-/* 5.BEACH & GLACIER */
+/* 5.BEACH, GLACIER, DESERT, etc. */
 
 area|z0-[natural=glacier],
 area|z10-[natural=beach],
+area|z0-[natural=desert],
 area|z10-[leisure=beach_resort],
 {fill-position: background;	fill-opacity: 1;}
 
@@ -362,6 +364,9 @@ area|z0-[natural=glacier]
 area|z10-[natural=beach],
 area|z10-[leisure=beach_resort],
 {fill-color: @beach;}
+
+area|z0-[natural=desert],
+{fill-color: @desert;}
 
 /* 6.WATER */
 
