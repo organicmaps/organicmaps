@@ -46,4 +46,4 @@
 	url = https://github.com/lemire/fast_double_parser.git
 [submodule "3party/pugixml/pugixml"]
 	path = 3party/pugixml/pugixml
-	url = https://github.com/organicmaps/pugixml.git
+	url = https://github.com/zeux/pugixml.git
