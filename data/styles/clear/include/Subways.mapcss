@@ -417,14 +417,6 @@ node|z17-[railway=station][transport=subway][city=lisboa] {icon-image: subway-li
 node|z17[railway=subway_entrance][city=lisboa] {icon-image: subway-lisboa-s.svg;text-optional: true;}
 node|z18-[railway=subway_entrance][city=lisboa] {icon-image: subway-lisboa-m.svg;text-optional: true;}
 
-/* Lisbon Subway Station */
-node|z13[railway=station][transport=subway][city=lisbon] {icon-image: subway-lisboa-s.svg;icon-min-distance: 1;}
-node|z14[railway=station][transport=subway][city=lisbon] {icon-image: subway-lisboa-s.svg;}
-node|z15-16[railway=station][transport=subway][city=lisbon] {icon-image: subway-lisboa-m.svg;}
-node|z17-[railway=station][transport=subway][city=lisbon] {icon-image: subway-lisboa-m.svg;text-optional: true;}
-node|z17[railway=subway_entrance][city=lisbon] {icon-image: subway-lisboa-s.svg;text-optional: true;text-optional: true;}
-node|z18-[railway=subway_entrance][city=lisbon] {icon-image: subway-lisboa-m.svg;}
-
 /* London Subway Station */
 node|z13[railway=station][transport=subway][city=london] {icon-image: subway-london-s.svg;icon-min-distance: 1;}
 node|z14[railway=station][transport=subway][city=london] {icon-image: subway-london-s.svg;}
