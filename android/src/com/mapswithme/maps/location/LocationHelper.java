@@ -9,7 +9,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.IntentSender;
 import android.location.Location;
 import android.location.LocationManager;
 
@@ -23,6 +22,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.mapswithme.maps.Framework;
+import com.mapswithme.maps.MapFragment;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.background.AppBackgroundTracker;
@@ -165,7 +165,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
 
   public void switchToNextMode()
   {
-    Logger.d(TAG, "switchToNextMode()");
+    Logger.d(TAG);
     LocationState.nativeSwitchToNextMode();
   }
 
@@ -179,7 +179,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
 
   private void setStopLocationUpdateByUser(boolean isStopped)
   {
-    Logger.d(TAG, "Set stop location update by user: " + isStopped);
+    Logger.d(TAG, "isStopped = " + isStopped);
     mLocationUpdateStoppedByUser = isStopped;
   }
 
@@ -190,7 +190,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
 
   public void setLocationErrorDialogAnnoying(boolean isAnnoying)
   {
-    Logger.d(TAG, "Set stop location error dialog is annoying: " + isAnnoying);
+    Logger.d(TAG, "isAnnoying = " + isAnnoying);
     mLocationErrorDialogAnnoying = isAnnoying;
   }
 
@@ -317,7 +317,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   @UiThread
   public void onLocationResolutionRequired(@Nullable PendingIntent pendingIntent)
   {
-    Logger.d(TAG, "");
+    Logger.d(TAG);
 
     if (mResolutionRequest == null) {
       onLocationDisabled();
@@ -333,7 +333,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   @UiThread
   public void onLocationDisabled()
   {
-    Logger.d(TAG, "");
+    Logger.d(TAG);
 
     if (LocationUtils.areLocationServicesTurnedOn(mContext) &&
         !(mLocationProvider instanceof AndroidNativeProvider))
@@ -372,15 +372,14 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   @UiThread
   private void onLocationNotFound()
   {
-    Logger.d(TAG, "");
+    Logger.d(TAG);
 
     if (mLocationErrorDialogAnnoying || (mLocationErrorDialog != null && mLocationErrorDialog.isShowing()))
       return;
 
-    final String message = String.format("%s\n\n%s", mContext.getString(R.string.current_location_unknown_message),
-        mContext.getString(R.string.current_location_unknown_title));
     mLocationErrorDialog = new AlertDialog.Builder(mContext)
-        .setMessage(message)
+        .setTitle(R.string.current_location_unknown_title)
+        .setMessage(R.string.current_location_unknown_message)
         .setOnDismissListener(dialog -> mLocationErrorDialog = null)
         .setNegativeButton(R.string.current_location_unknown_stop_button, (dialog, which) ->
         {
@@ -399,7 +398,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
 
   private void notifyMyPositionModeChanged(int newMode)
   {
-    Logger.d(TAG, "notifyMyPositionModeChanged(): " + LocationState.nameOf(newMode));
+    Logger.d(TAG, "newMode=" + LocationState.nameOf(newMode));
 
     if (mUiCallback != null)
       mUiCallback.onMyPositionModeChanged(newMode);
@@ -413,8 +412,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   @UiThread
   public void addListener(@NonNull LocationListener listener)
   {
-    Logger.d(TAG, "addListener(): " + listener);
-    Logger.d(TAG, " - listener count was: " + mListeners.getSize());
+    Logger.d(TAG, "listener: " + listener + " count was: " + mListeners.getSize());
 
     mListeners.register(listener);
     if (mSavedLocation != null)
@@ -428,14 +426,13 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
    */
   public void removeListener(@NonNull LocationListener listener)
   {
-    Logger.d(TAG, "removeListener(), listener: " + listener);
-    Logger.d(TAG, " - listener count was: " + mListeners.getSize());
+    Logger.d(TAG, "listener: " + listener + " count was: " + mListeners.getSize());
     mListeners.unregister(listener);
   }
 
   private void calcLocationUpdatesInterval()
   {
-    Logger.d(TAG, "calcLocationUpdatesInterval()");
+    Logger.d(TAG);
     if (RoutingController.get().isNavigating())
     {
       Logger.d(TAG, "calcLocationUpdatesInterval(), it's navigation mode");
@@ -500,6 +497,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
 
   private void initialStart()
   {
+    Logger.d(TAG);
     if (LocationState.nativeGetMode() != LocationState.NOT_FOLLOW_NO_POSITION)
       start();
   }
@@ -509,6 +507,8 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
    */
   public void start()
   {
+    Logger.d(TAG);
+
     if (mActive)
     {
       Logger.w(TAG, "Provider '" + mLocationProvider + "' is already started");
@@ -528,7 +528,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     calcLocationUpdatesInterval();
     if (!LocationUtils.isLocationGranted(mContext))
     {
-      Logger.w(TAG, "Dynamic permissions ACCESS_COARSE_LOCATION and/or ACCESS_FINE_LOCATION are granted");
+      Logger.w(TAG, "Dynamic permissions ACCESS_COARSE_LOCATION and/or ACCESS_FINE_LOCATION are not granted");
       mSavedLocation = null;
       nativeOnLocationError(ERROR_DENIED);
       if (mUiCallback != null)
@@ -547,7 +547,8 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
    */
   public void stop()
   {
-    Logger.i(TAG, "stop()");
+    Logger.d(TAG);
+
     if (!mActive)
     {
       Logger.w(TAG, "Provider '" + mLocationProvider + "' is already stopped");
@@ -585,7 +586,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   @UiThread
   public void attach(@NonNull UiCallback callback)
   {
-    Logger.d(TAG, "attach() callback = " + callback);
+    Logger.d(TAG, "callback = " + callback);
 
     if (mUiCallback != null)
     {
@@ -626,9 +627,9 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
    * Detach UI from helper.
    */
   @UiThread
-  public void detach(boolean delayed)
+  public void detach()
   {
-    Logger.d(TAG, "detach(), delayed: " + delayed);
+    Logger.d(TAG, "callback = " + mUiCallback);
 
     if (mUiCallback == null)
     {
@@ -647,10 +648,10 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   @UiThread
   public void requestPermissions()
   {
+    Logger.d(TAG);
+
     if (mUiCallback == null)
       throw new IllegalStateException("Not attached");
-
-    Logger.d(TAG, "");
 
     mPermissionRequest.launch(new String[]{
         ACCESS_COARSE_LOCATION,
@@ -698,14 +699,14 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   @UiThread
   public void onEnteredIntoFirstRun()
   {
-    Logger.i(TAG, "onEnteredIntoFirstRun");
+    Logger.i(TAG);
     mInFirstRun = true;
   }
 
   @UiThread
   public void onExitFromFirstRun()
   {
-    Logger.i(TAG, "onExitFromFirstRun");
+    Logger.i(TAG);
     if (!mInFirstRun)
       throw new AssertionError("Must be called only after 'onEnteredIntoFirstRun' method!");
 
