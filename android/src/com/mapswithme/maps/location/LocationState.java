@@ -10,13 +10,11 @@ public final class LocationState
 {
   interface ModeChangeListener
   {
-    @SuppressWarnings("unused")
     void onMyPositionModeChanged(int newMode);
   }
 
-  interface LocationPendingTimeoutListener
+  interface PendingTimeoutListener
   {
-    @SuppressWarnings("unused")
     void onLocationPendingTimeout();
   }
 
@@ -35,11 +33,10 @@ public final class LocationState
   @Value
   static native int nativeGetMode();
 
-  static native void nativeSetListener(ModeChangeListener listener);
+  static native void nativeSetListener(@NonNull ModeChangeListener listener);
   static native void nativeRemoveListener();
 
-  static native void nativeSetLocationPendingTimeoutListener(
-      @NonNull LocationPendingTimeoutListener listener);
+  static native void nativeSetLocationPendingTimeoutListener(@NonNull PendingTimeoutListener listener);
   static native void nativeRemoveLocationPendingTimeoutListener();
 
   private LocationState() {}
