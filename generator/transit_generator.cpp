@@ -200,15 +200,16 @@ void ProcessGraph(string const & mwmPath, CountryId const & countryId,
 void BuildTransit(string const & mwmDir, CountryId const & countryId,
                   string const & osmIdToFeatureIdsPath, string const & transitDir)
 {
-  LOG(LINFO, ("Building transit section for", countryId, "mwmDir:", mwmDir));
-  Platform::FilesList graphFiles;
-  Platform::GetFilesByExt(base::AddSlashIfNeeded(transitDir), TRANSIT_FILE_EXTENSION, graphFiles);
-
   string const mwmPath = GetMwmPath(mwmDir, countryId);
+  LOG(LINFO, ("Building transit section for", mwmPath));
+
   OsmIdToFeatureIdsMap mapping;
   FillOsmIdToFeatureIdsMap(osmIdToFeatureIdsPath, mapping);
   vector<m2::RegionD> mwmBorders;
   LoadBorders(mwmDir, countryId, mwmBorders);
+
+  Platform::FilesList graphFiles;
+  Platform::GetFilesByExt(base::AddSlashIfNeeded(transitDir), TRANSIT_FILE_EXTENSION, graphFiles);
 
   GraphData jointData;
   for (auto const & fileName : graphFiles)

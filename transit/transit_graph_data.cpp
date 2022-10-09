@@ -14,8 +14,11 @@
 
 #include "defines.hpp"
 
+namespace routing
+{
+namespace transit
+{
 using namespace routing;
-using namespace routing::transit;
 using namespace std;
 
 namespace
@@ -32,6 +35,24 @@ struct SortVisitor
   void operator()(Cont & c, char const * /* name */) const
   {
     sort(c.begin(), c.end());
+
+    auto const end = c.end();
+    auto const it = unique(c.begin(), end, [](auto const & l, auto const & r)
+    {
+      if (l == r)
+      {
+        // Print _right_ element as next equal entry.
+        LOG(LINFO, ("Duplicating entry:", r));
+        return true;
+      }
+      return false;
+    });
+
+    if (it != end)
+    {
+      LOG(LINFO, ("Will be deleted", std::distance(it, end), "elements"));
+      c.erase(it, end);
+    }
   }
 };
 
@@ -132,10 +153,7 @@ void ReadItems(uint32_t start, uint32_t end, string const & name, NonOwningReade
 }
 }  // namespace
 
-namespace routing
-{
-namespace transit
-{
+
 // DeserializerFromJson ---------------------------------------------------------------------------
 DeserializerFromJson::DeserializerFromJson(json_struct_t * node,
                                            OsmIdToFeatureIdsMap const & osmIdToFeatureIds)
@@ -309,13 +327,13 @@ void GraphData::DeserializeForCrossMwm(Reader & reader)
 
 void GraphData::AppendTo(GraphData const & rhs)
 {
-  ::Append(rhs.m_stops, m_stops);
-  ::Append(rhs.m_gates, m_gates);
-  ::Append(rhs.m_edges, m_edges);
-  ::Append(rhs.m_transfers, m_transfers);
-  ::Append(rhs.m_lines, m_lines);
-  ::Append(rhs.m_shapes, m_shapes);
-  ::Append(rhs.m_networks, m_networks);
+  Append(rhs.m_stops, m_stops);
+  Append(rhs.m_gates, m_gates);
+  Append(rhs.m_edges, m_edges);
+  Append(rhs.m_transfers, m_transfers);
+  Append(rhs.m_lines, m_lines);
+  Append(rhs.m_shapes, m_shapes);
+  Append(rhs.m_networks, m_networks);
 }
 
 void GraphData::Clear()
