@@ -22,7 +22,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.mapswithme.maps.Framework;
-import com.mapswithme.maps.MapFragment;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.background.AppBackgroundTracker;
@@ -85,37 +84,13 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   private boolean mInFirstRun;
   private boolean mActive;
   private boolean mLocationUpdateStoppedByUser;
-  private boolean mLocationErrorDialogAnnoying;
+  private boolean mErrorDialogAnnoying;
   @Nullable
-  private Dialog mLocationErrorDialog;
+  private Dialog mErrorDialog;
   @Nullable
   private ActivityResultLauncher<String[]> mPermissionRequest;
   @Nullable
   private ActivityResultLauncher<IntentSenderRequest> mResolutionRequest;
-
-  @SuppressWarnings("FieldCanBeLocal")
-  private final LocationState.ModeChangeListener mMyPositionModeListener =
-      new LocationState.ModeChangeListener()
-  {
-    @Override
-    public void onMyPositionModeChanged(int newMode)
-    {
-      notifyMyPositionModeChanged(newMode);
-      Logger.d(TAG, "onMyPositionModeChanged mode = " + LocationState.nameOf(newMode));
-
-      if (mUiCallback == null)
-        Logger.d(TAG, "UI is not ready to listen my position changes, i.e. it's not attached yet.");
-    }
-  };
-
-  @SuppressWarnings("FieldCanBeLocal")
-  private final LocationState.LocationPendingTimeoutListener mLocationPendingTimeoutListener = () -> {
-    if (mActive)
-    {
-      if (LocationUtils.isLocationGranted(mContext) && LocationUtils.areLocationServicesTurnedOn(mContext))
-        onLocationNotFound();
-    }
-  };
 
   @Override
   public void initialize(@NonNull Context context)
@@ -123,8 +98,6 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     mContext = context;
     mSensorHelper = new SensorHelper(context);
     mLocationProvider = LocationProviderFactory.getProvider(mContext, this);
-    LocationState.nativeSetListener(mMyPositionModeListener);
-    LocationState.nativeSetLocationPendingTimeoutListener(mLocationPendingTimeoutListener);
     MwmApplication.backgroundTracker(context).addListener(this);
   }
 
@@ -185,13 +158,13 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
 
   public boolean isLocationErrorDialogAnnoying()
   {
-    return mLocationErrorDialogAnnoying;
+    return mErrorDialogAnnoying;
   }
 
   public void setLocationErrorDialogAnnoying(boolean isAnnoying)
   {
     Logger.d(TAG, "isAnnoying = " + isAnnoying);
-    mLocationErrorDialogAnnoying = isAnnoying;
+    mErrorDialogAnnoying = isAnnoying;
   }
 
   @Override
@@ -246,8 +219,8 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     if (mSavedLocation == null)
       throw new IllegalStateException("No saved location");
 
-    if (mLocationErrorDialog != null && mLocationErrorDialog.isShowing())
-      mLocationErrorDialog.dismiss();
+    if (mErrorDialog != null && mErrorDialog.isShowing())
+      mErrorDialog.dismiss();
 
     for (LocationListener listener : mListeners)
       listener.onLocationUpdated(mSavedLocation);
@@ -333,7 +306,8 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   @UiThread
   public void onLocationDisabled()
   {
-    Logger.d(TAG);
+    Logger.d(TAG, "provider = " + mLocationProvider + " permissions = " + LocationUtils.isLocationGranted(mContext) +
+        " settings = " + LocationUtils.areLocationServicesTurnedOn(mContext) + " isAnnoying = " + mErrorDialogAnnoying);
 
     if (LocationUtils.areLocationServicesTurnedOn(mContext) &&
         !(mLocationProvider instanceof AndroidNativeProvider))
@@ -349,13 +323,13 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     mSavedLocation = null;
     nativeOnLocationError(ERROR_GPS_OFF);
 
-    if (mLocationErrorDialogAnnoying || (mLocationErrorDialog != null && mLocationErrorDialog.isShowing()))
+    if (mErrorDialogAnnoying || (mErrorDialog != null && mErrorDialog.isShowing()))
       return;
 
     AlertDialog.Builder builder = new AlertDialog.Builder(mContext)
         .setTitle(R.string.enable_location_services)
         .setMessage(R.string.location_is_disabled_long_text)
-        .setOnDismissListener(dialog -> mLocationErrorDialog = null)
+        .setOnDismissListener(dialog -> mErrorDialog = null)
         .setOnCancelListener(dialog -> setLocationErrorDialogAnnoying(true))
         .setNegativeButton(R.string.close, (dialog, which) -> setLocationErrorDialogAnnoying(true));
     final Intent intent = Utils.makeSystemLocationSettingIntent(mContext);
@@ -366,21 +340,25 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
       intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
       builder.setPositiveButton(R.string.connection_settings, (dialog, which) -> mContext.startActivity(intent));
     }
-    mLocationErrorDialog = builder.show();
+    mErrorDialog = builder.show();
   }
 
   @UiThread
-  private void onLocationNotFound()
+  private void onLocationPendingTimeout()
   {
-    Logger.d(TAG);
+    Logger.d(TAG, "active = " + mActive + " permissions = " + LocationUtils.isLocationGranted(mContext) +
+        " settings = " + LocationUtils.areLocationServicesTurnedOn(mContext) + " isAnnoying = " + mErrorDialogAnnoying);
 
-    if (mLocationErrorDialogAnnoying || (mLocationErrorDialog != null && mLocationErrorDialog.isShowing()))
+    if (!mActive || !LocationUtils.isLocationGranted(mContext) || !LocationUtils.areLocationServicesTurnedOn(mContext))
       return;
 
-    mLocationErrorDialog = new AlertDialog.Builder(mContext)
+    if (mErrorDialogAnnoying || (mErrorDialog != null && mErrorDialog.isShowing()))
+      return;
+
+    mErrorDialog = new AlertDialog.Builder(mContext)
         .setTitle(R.string.current_location_unknown_title)
         .setMessage(R.string.current_location_unknown_message)
-        .setOnDismissListener(dialog -> mLocationErrorDialog = null)
+        .setOnDismissListener(dialog -> mErrorDialog = null)
         .setNegativeButton(R.string.current_location_unknown_stop_button, (dialog, which) ->
         {
           setStopLocationUpdateByUser(true);
@@ -394,14 +372,6 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
           setLocationErrorDialogAnnoying(true);
         })
         .show();
-  }
-
-  private void notifyMyPositionModeChanged(int newMode)
-  {
-    Logger.d(TAG, "newMode=" + LocationState.nameOf(newMode));
-
-    if (mUiCallback != null)
-      mUiCallback.onMyPositionModeChanged(newMode);
   }
 
   /**
@@ -607,6 +577,8 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
       Utils.keepScreenOn(true, mUiCallback.requireActivity().getWindow());
     }
 
+    LocationState.nativeSetLocationPendingTimeoutListener(this::onLocationPendingTimeout);
+    LocationState.nativeSetListener(mUiCallback);
     mUiCallback.onMyPositionModeChanged(getMyPositionMode());
     if (mCompassData != null)
       mUiCallback.onCompassUpdated(mCompassData);
@@ -638,6 +610,8 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     }
 
     Utils.keepScreenOn(false, mUiCallback.requireActivity().getWindow());
+    LocationState.nativeRemoveLocationPendingTimeoutListener();
+    LocationState.nativeRemoveListener();
     mPermissionRequest.unregister();
     mPermissionRequest = null;
     mResolutionRequest.unregister();
@@ -742,11 +716,10 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   private static native void nativeLocationUpdated(long time, double lat, double lon, float accuracy,
                                                    double altitude, float speed, float bearing);
 
-  public interface UiCallback
+  public interface UiCallback extends LocationState.ModeChangeListener
   {
     @NonNull
     AppCompatActivity requireActivity();
-    void onMyPositionModeChanged(int newMode);
     void onLocationUpdated(@NonNull Location location);
     void onCompassUpdated(@NonNull CompassData compass);
     void onLocationDenied();
