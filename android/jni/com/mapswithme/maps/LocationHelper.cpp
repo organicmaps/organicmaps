@@ -6,6 +6,7 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_location_LocationHelper_nativeOnLocationError(JNIEnv * env, jclass clazz, int errorCode)
   {
+    ASSERT(g_framework, ());
     g_framework->OnLocationError(errorCode);
   }
 
@@ -14,6 +15,7 @@ extern "C"
                                                                          jdouble lat, jdouble lon, jfloat accuracy,
                                                                          jdouble altitude, jfloat speed, jfloat bearing)
   {
+    ASSERT(g_framework, ());
     location::GpsInfo info;
     info.m_source = location::EAndroidNative;
 
@@ -36,8 +38,7 @@ extern "C"
     if (speed > 0.0)
       info.m_speedMpS = speed;
 
-    if (g_framework)
-      g_framework->OnLocationUpdated(info);
+    g_framework->OnLocationUpdated(info);
     GpsTracker::Instance().OnLocationUpdated(info);
   }
 }

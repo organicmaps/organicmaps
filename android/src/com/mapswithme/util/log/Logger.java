@@ -23,6 +23,11 @@ public final class Logger
   private static final String CORE_TAG = "OMcore";
   private static final String FILENAME = "app.log";
 
+  public static void v(String tag)
+  {
+    log(Log.VERBOSE, tag, "", null);
+  }
+
   public static void v(String tag, String msg)
   {
     log(Log.VERBOSE, tag, msg, null);
@@ -33,6 +38,11 @@ public final class Logger
     log(Log.VERBOSE, tag, msg, tr);
   }
 
+  public static void d(String tag)
+  {
+    log(Log.DEBUG, tag, "", null);
+  }
+
   public static void d(String tag, String msg)
   {
     log(Log.DEBUG, tag, msg, null);
@@ -41,6 +51,11 @@ public final class Logger
   public static void d(String tag, String msg, Throwable tr)
   {
     log(Log.DEBUG, tag, msg, tr);
+  }
+
+  public static void i(String tag)
+  {
+    log(Log.INFO, tag, "", null);
   }
 
   public static void i(String tag, String msg)

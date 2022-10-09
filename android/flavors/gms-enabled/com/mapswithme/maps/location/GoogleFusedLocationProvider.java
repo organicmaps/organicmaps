@@ -5,7 +5,6 @@ import android.location.Location;
 import android.os.Looper;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.ResolvableApiException;
@@ -50,7 +49,6 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
     }
   }
 
-  @Nullable
   private final GoogleLocationCallback mCallback = new GoogleLocationCallback();
 
   private boolean mActive = false;
@@ -67,9 +65,7 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
   @Override
   public void start(long interval)
   {
-    Logger.d(TAG, "start()");
-    if (mActive)
-      throw new IllegalStateException("Already subscribed");
+    Logger.d(TAG);
     mActive = true;
 
     final LocationRequest locationRequest = LocationRequest.create();
@@ -125,7 +121,7 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
   @Override
   protected void stop()
   {
-    Logger.d(TAG, "stop()");
+    Logger.d(TAG);
     mFusedLocationClient.removeLocationUpdates(mCallback);
     mActive = false;
   }

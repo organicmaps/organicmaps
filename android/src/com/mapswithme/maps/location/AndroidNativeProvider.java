@@ -69,7 +69,7 @@ class AndroidNativeProvider extends BaseLocationProvider
   @Override
   public void start(long interval)
   {
-    Logger.d(TAG, "start()");
+    Logger.d(TAG);
     if (mActive)
       throw new IllegalStateException("Already started");
     mActive = true;
@@ -99,7 +99,7 @@ class AndroidNativeProvider extends BaseLocationProvider
   @Override
   public void stop()
   {
-    Logger.d(TAG, "stop()");
+    Logger.d(TAG);
     mLocationManager.removeUpdates(mNativeLocationListener);
     mActive = false;
   }
