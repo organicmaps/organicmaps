@@ -12026,7 +12026,7 @@
     sk = Fitness
     sv = Fitnesstation
     th = ศูนย์ฟิตเนส
-    tr = Fitness Salonu
+    tr = Açık Hava Spor Alanı
     uk = Спортивні знаряддя
     vi = Trạm tập thể hình
     zh-Hans = 健身驿站
