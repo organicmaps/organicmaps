@@ -191,7 +191,7 @@ using Observers = NSHashTable<Observer>;
     else
       [MWMRouter setTurnNotificationsLocale:@(twineLang.c_str())];
   } else {
-    LOG(LERROR,
+    LOG(LWARNING,
         ("The UI language and English are not available for TTS. MWMTextToSpeech is invalid."));
   }
 }
