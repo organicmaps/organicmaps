@@ -11,7 +11,6 @@
 #include "routing/routing_helpers.hpp"
 
 #include "indexer/dat_section_header.hpp"
-#include "indexer/feature_algo.hpp"
 #include "indexer/feature_impl.hpp"
 #include "indexer/feature_processor.hpp"
 #include "indexer/scales.hpp"
@@ -155,17 +154,27 @@ public:
     {
     bool const isLine = fb.IsLine();
     bool const isArea = fb.IsArea();
-    CHECK(!isLine || !isArea, ("A feature can't have both points and triangles geometries:", fb.GetMostGenericOsmId()));
+    CHECK(!isLine || !isArea, (fb.GetMostGenericOsmId()));
 
     int const scalesStart = static_cast<int>(m_header.GetScalesCount()) - 1;
     for (int i = scalesStart; i >= 0; --i)
     {
-      int const level = m_header.GetScale(i);
+      int level = m_header.GetScale(i);
       // TODO : re-checks geom limit rect size via IsDrawableForIndexGeometryOnly() which was checked already in CalculateMidPoints.
       if (fb.IsDrawableInRange(scales::PatchMinDrawableScale(i > 0 ? m_header.GetScale(i - 1) + 1 : 0),
                                scales::PatchMaxDrawableScale(level)))
       {
         bool const isCoast = fb.IsCoastCell();
+        // Increment zoom level for coastline polygons (check and simplification)
+        // for better visual quality in the first geometry batch or whole WorldCoasts.
+        if (isCoast)
+        {
+          if (level <= scales::GetUpperWorldScale())
+            ++level;
+          if (i == 0)
+            ++level;
+        }
+
         m2::RectD const rect = fb.GetLimitRect();
 
         // Simplify and serialize geometry.
@@ -215,11 +224,10 @@ public:
 
             SimplifyPoints(level, isCoast, rect, *iH, simplified.back());
 
-            // Increment level check for coastline polygons for the first scale level.
-            // This is used for better coastlines quality.
-            if (scales::IsGoodOutlineForLevel((isCoast && i == 0) ? level + 1 : level, simplified.back()))
+            if (scales::IsGoodOutlineForLevel(level, simplified.back()))
             {
               // At this point we don't need last point equal to first.
+              CHECK_GREATER(simplified.back().size(), 0, ());
               simplified.back().pop_back();
             }
             else
@@ -281,15 +289,10 @@ private:
   static void SimplifyPoints(int level, bool isCoast, m2::RectD const & rect, Points const & in, Points & out)
   {
     if (isCoast)
-    {
-      DistanceToSegmentWithRectBounds fn(rect);
-      feature::SimplifyPoints(fn, level, in, out);
-    }
+      feature::SimplifyPoints(DistanceToSegmentWithRectBounds(rect), level, in, out);
     else
-    {
       feature::SimplifyPoints(m2::SquaredDistanceFromSegmentToPoint(), level, in, out);
     }
-  }
 
   std::string m_filename;
 
