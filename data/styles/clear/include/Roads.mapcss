@@ -264,14 +264,6 @@ line[aerialway=rope_tow],
 line[power=line]
 {z-index: 2000;}
 
-line[piste:lift],
-line[piste:lift=j-bar],
-line[piste:lift=magic_carpet],
-line[piste:lift=platter],
-line[piste:lift=rope_tow],
-line[piste:lift=t-bar]
-{z-index: 6888;}
-
 line[highway]
 {casing-width: 0;}
 
@@ -1218,12 +1210,6 @@ line|z15-[railway=funicular],
 
 /* 10.PISTE 12-22 ZOOM */
 
-line|z12-[piste:lift],
-line|z12-[piste:lift=j-bar],
-line|z12-[piste:lift=magic_carpet],
-line|z12-[piste:lift=platter],
-line|z12-[piste:lift=rope_tow],
-line|z12-[piste:lift=t-bar],
 line|z12-[aerialway=cable_car],
 line|z12-[aerialway=chair_lift],
 line|z12-[aerialway=gondola],
@@ -1245,29 +1231,6 @@ line|z12-[aerialway=magic_carpet]::dash,
 line|z12-[aerialway=platter]::dash,
 line|z12-[aerialway=rope_tow]::dash,
 {color: @aerialway;opacity: 1;}
-
-/* 10.1 Lift 12-22 ZOOM */
-
-line|z12-14[piste:lift=j-bar],
-line|z12-14[piste:lift=magic_carpet],
-line|z12-14[piste:lift=platter],
-line|z12-14[piste:lift=rope_tow],
-line|z12-14[piste:lift=t-bar],
-{width: 1;}
-line|z15-[piste:lift],
-line|z15-[piste:lift=j-bar],
-line|z15-[piste:lift=magic_carpet],
-line|z15-[piste:lift=platter],
-line|z15-[piste:lift=rope_tow],
-line|z15-[piste:lift=t-bar]
-{width: 1.6;}
-line|z17-[piste:lift],
-line|z17-[piste:lift=j-bar],
-line|z17-[piste:lift=magic_carpet],
-line|z17-[piste:lift=platter],
-line|z17-[piste:lift=rope_tow],
-line|z17-[piste:lift=t-bar]
-{width: 2;}
 
 /* 10.2 Aerialway 12-22 ZOOM */
 
