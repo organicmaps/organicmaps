@@ -438,7 +438,7 @@ deprecated|deprecated;437;x
 deprecated|deprecated;438;x
 deprecated|deprecated;439;x
 deprecated|deprecated;440;x
-piste:lift|t-bar;441;
+aerialway|t-bar;441;
 deprecated|deprecated;442;x
 deprecated|deprecated;443;x
 highway|path|difficult_alpine_hiking;[highway=path][sac_scale=difficult_alpine_hiking];;name;int_name;444;
@@ -474,7 +474,7 @@ deprecated|deprecated;473;x
 natural|grassland;474;
 deprecated|deprecated;475;x
 deprecated|deprecated;476;x
-piste:lift|platter;477;
+aerialway|platter;477;
 deprecated|deprecated;478;x
 deprecated|deprecated;479;x
 railway|preserved|tunnel;[railway=preserved][tunnel?];;name;int_name;480;
@@ -572,7 +572,7 @@ deprecated|deprecated;571;x
 deprecated|deprecated;572;x
 deprecated|deprecated;573;x
 deprecated|deprecated;574;x
-piste:lift|rope_tow;575;
+aerialway|rope_tow;575;
 natural|pond;576;natural|water|pond
 deprecated|deprecated;577;x
 highway|secondary_link|tunnel;[highway=secondary_link][tunnel?];;name;int_name;578;
@@ -605,7 +605,7 @@ boundary|administrative|nation;[boundary=administrative][border_type=nation];;na
 deprecated|deprecated;605;x
 deprecated|deprecated;606;x
 deprecated|deprecated;607;x
-piste:lift|magic_carpet;608;
+aerialway|magic_carpet;608;
 deprecated|deprecated;609;x
 deprecated|deprecated;610;x
 deprecated|deprecated;611;x
@@ -616,7 +616,7 @@ deprecated|deprecated;615;x
 deprecated|deprecated;616;x
 deprecated|deprecated;617;x
 deprecated|deprecated;618;x
-piste:lift|j-bar;619;
+aerialway|j-bar;619;
 deprecated|deprecated;620;x
 deprecated|deprecated;621;x
 deprecated|deprecated;622;x

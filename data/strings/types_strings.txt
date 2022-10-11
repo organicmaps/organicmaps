@@ -23787,19 +23787,7 @@
     zh-Hans = 配备残疾人专用
     zh-Hant = 配備殘疾人專用
 
-  [type.piste_lift]
-    comment = en.wikipedia.org/wiki/Surface_lift
-    en = Surface Lift
-    de = Lift
-    fr = Téléski
-    nl = Sleeplift
-    pt = Telesqui
-    pt-BR = Telesqui
-    ru = Бугельный подъёмник
-    tr = Kayak Teleferiği
-    uk = Бугельний витяг
-
-  [type.piste_lift.j.bar]
+  [type.aerialway.j.bar]
     en = J-bar Lift
     de = Schlepplift
     fr = Téléski
@@ -23810,7 +23798,7 @@
     tr = Kayak Teleferiği
     uk = Бугельний витяг
 
-  [type.piste_lift.magic_carpet]
+  [type.aerialway.magic_carpet]
     en = Magic Carpet
     de = Laufband
     fr = Tapis roulant
@@ -23821,7 +23809,7 @@
     tr = Kayak Teleferiği
     uk = Стрiчковий конвеєр
 
-  [type.piste_lift.platter]
+  [type.aerialway.platter]
     en = Platter Lift
     de = Tellerlift
     nl = Sleeplift
@@ -23831,7 +23819,7 @@
     tr = Tabak Asansörü
     uk = Бугельний витяг
 
-  [type.piste_lift.rope_tow]
+  [type.aerialway.rope_tow]
     en = Rope Tow
     de = Seillift
     nl = Touwlift
@@ -23841,7 +23829,7 @@
     tr = Çekme Halatı
     uk = Бугельний витяг
 
-  [type.piste_lift.t.bar]
+  [type.aerialway.t.bar]
     en = T-bar Lift
     de = T-Bügel-Lift
     nl = Sleeplift (T-beugel)

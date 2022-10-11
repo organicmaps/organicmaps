@@ -137,3 +137,9 @@ recycling:paper_packaging=yes   : recycling:paper=yes
 recycling:newspaper=yes         : recycling:paper=yes
 recycling:magazines=yes         : recycling:paper=yes
 recycling:beverage_cartons=yes  : recycling:cartons=yes
+
+piste:lift=platter : aerialway=platter
+piste:lift=t-bar : aerialway=t-bar
+piste:lift=j-bar : aerialway=j-bar
+piste:lift=rope_tow : aerialway=rope_tow
+piste:lift=magic_carpet : aerialway=magic_carpet
