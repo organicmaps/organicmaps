@@ -94,8 +94,9 @@
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
 
-        <data android:scheme="http" android:host="ge0.me"/>
+        <data android:scheme="http"/>
         <data android:scheme="https"/>
+        <data android:host="ge0.me"/>
       </intent-filter>
 
       <intent-filter android:autoVerify="@bool/autoVerify">
@@ -104,8 +105,9 @@
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
 
-        <data android:scheme="http" android:host="omaps.app"/>
+        <data android:scheme="http"/>
         <data android:scheme="https"/>
+        <data android:host="omaps.app"/>
       </intent-filter>
 
       <intent-filter>
@@ -558,24 +560,10 @@
         <data android:scheme="https"/>
 
         <!-- #map=$zoom/$lat/$lon -->
-        <data android:host="www.openstreetmap.org" android:path="/"/>
-        <data android:host="www.openstreetmap.org" android:pathPrefix="/search"/>
-        <data android:host="openstreetmap.org" android:path="/"/>
-        <data android:host="openstreetmap.org" android:pathPrefix="/search"/>
-      </intent-filter>
-
-      <intent-filter>
-        <action android:name="android.intent.action.VIEW"/>
-
-        <category android:name="android.intent.category.DEFAULT"/>
-        <category android:name="android.intent.category.BROWSABLE"/>
-
-        <data
-          android:host="lead"
-          android:scheme="mapsme"/>
-        <data
-          android:host="lead"
-          android:scheme="mapswithme"/>
+        <data android:host="openstreetmap.org"/>
+        <data android:host="www.openstreetmap.org"/>
+        <data android:path="/"/>
+        <data android:path="/search"/>
       </intent-filter>
 
       <intent-filter>
