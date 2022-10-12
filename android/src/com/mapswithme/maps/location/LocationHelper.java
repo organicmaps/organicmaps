@@ -2,6 +2,7 @@ package com.mapswithme.maps.location;
 
 import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+import static com.mapswithme.util.concurrency.UiThread.runLater;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -247,16 +248,19 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
       mUiCallback.onLocationUpdated(mSavedLocation);
 
     // TODO: consider to create callback mechanism to transfer 'ROUTE_IS_FINISHED' event from
-    // the core to the platform code (https://jira.mail.ru/browse/MAPSME-3675),
+    // the core to the platform code (https://github.com/organicmaps/organicmaps/issues/3589),
     // because calling the native method 'nativeIsRouteFinished'
     // too often can result in poor UI performance.
     if (RoutingController.get().isNavigating() && Framework.nativeIsRouteFinished())
     {
       Logger.d(TAG, "End point is reached");
-      restart();
       if (mUiCallback != null)
         mUiCallback.onRoutingFinish();
       RoutingController.get().cancel();
+
+      // Break onLocationChanged() -> start() -> onLocationChanged() -> start() loop.
+      // https://github.com/organicmaps/organicmaps/issues/3588
+      runLater(this::restart);
     }
   }
 
