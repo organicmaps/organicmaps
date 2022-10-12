@@ -106,8 +106,6 @@ public class NavMenu
     Button stop = mBottomFrame.findViewById(R.id.stop);
     stop.setOnClickListener(v -> onStopClicked());
     UiUtils.updateRedButton(stop);
-
-    hideNavBottomSheet();
   }
 
   private void onStopClicked()
@@ -152,11 +150,6 @@ public class NavMenu
   public void expandNavBottomSheet()
   {
     mNavBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-  }
-
-  public void hideNavBottomSheet()
-  {
-    mNavBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
   }
 
   public int getBottomSheetState()

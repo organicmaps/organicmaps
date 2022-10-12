@@ -233,8 +233,6 @@ public class NavigationController implements Application.ActivityLifecycleCallba
   {
     if (show && !UiUtils.isVisible(mFrame))
       collapseNavMenu();
-    else if (!show && UiUtils.isVisible(mFrame))
-      mNavMenu.hideNavBottomSheet();
     UiUtils.showIf(show, mFrame);
   }
 
@@ -368,7 +366,6 @@ public class NavigationController implements Application.ActivityLifecycleCallba
   @Override
   public void onStopClicked()
   {
-    mNavMenu.hideNavBottomSheet();
     RoutingController.get().cancel();
   }
 
