@@ -575,7 +575,7 @@ char const *kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeIm
 }
 
 + (BOOL)hasActiveDrivingOptions {
-  return [MWMRoutingOptions new].hasOptions && self.type == MWMRouterTypeVehicle;
+  return [MWMRoutingOptions new].hasOptions;
 }
 
 + (void)avoidRoadTypeAndRebuild:(MWMRoadType)type {

@@ -216,8 +216,7 @@ public class RoutingController implements Initializable<Void>
 
   private boolean isDrivingOptionsBuildError()
   {
-    return !ResultCodesHelper.isMoreMapsNeeded(mLastResultCode) && isVehicleRouterType()
-           && RoutingOptions.hasAnyOptions();
+    return !ResultCodesHelper.isMoreMapsNeeded(mLastResultCode) && RoutingOptions.hasAnyOptions();
   }
 
   private void setState(State newState)
