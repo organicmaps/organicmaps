@@ -323,22 +323,23 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     mSavedLocation = null;
     nativeOnLocationError(ERROR_GPS_OFF);
 
-    if (mErrorDialogAnnoying || (mErrorDialog != null && mErrorDialog.isShowing()))
+    if (mUiCallback == null || mErrorDialogAnnoying || (mErrorDialog != null && mErrorDialog.isShowing()))
       return;
 
-    AlertDialog.Builder builder = new AlertDialog.Builder(mContext)
+    final AppCompatActivity activity = mUiCallback.requireActivity();
+    AlertDialog.Builder builder = new AlertDialog.Builder(activity)
         .setTitle(R.string.enable_location_services)
         .setMessage(R.string.location_is_disabled_long_text)
         .setOnDismissListener(dialog -> mErrorDialog = null)
         .setOnCancelListener(dialog -> setLocationErrorDialogAnnoying(true))
         .setNegativeButton(R.string.close, (dialog, which) -> setLocationErrorDialogAnnoying(true));
-    final Intent intent = Utils.makeSystemLocationSettingIntent(mContext);
+    final Intent intent = Utils.makeSystemLocationSettingIntent(activity);
     if (intent != null)
     {
       intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
       intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
       intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
-      builder.setPositiveButton(R.string.connection_settings, (dialog, which) -> mContext.startActivity(intent));
+      builder.setPositiveButton(R.string.connection_settings, (dialog, which) -> activity.startActivity(intent));
     }
     mErrorDialog = builder.show();
   }
@@ -352,10 +353,11 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     if (!mActive || !LocationUtils.isLocationGranted(mContext) || !LocationUtils.areLocationServicesTurnedOn(mContext))
       return;
 
-    if (mErrorDialogAnnoying || (mErrorDialog != null && mErrorDialog.isShowing()))
+    if (mUiCallback == null || mErrorDialogAnnoying || (mErrorDialog != null && mErrorDialog.isShowing()))
       return;
 
-    mErrorDialog = new AlertDialog.Builder(mContext)
+    final AppCompatActivity activity = mUiCallback.requireActivity();
+    mErrorDialog = new AlertDialog.Builder(activity)
         .setTitle(R.string.current_location_unknown_title)
         .setMessage(R.string.current_location_unknown_message)
         .setOnDismissListener(dialog -> mErrorDialog = null)
