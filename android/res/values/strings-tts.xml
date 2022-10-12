@@ -18,6 +18,7 @@
                 translatable="false">
     <item>en</item>
     <item>ru</item>
+    <item>ca</item>
     <item>cs</item>
     <item>da</item>
     <item>de</item>
@@ -51,6 +52,7 @@
                 translatable="false">
     <item>English</item>
     <item>Русский</item>
+    <item>Català</item>
     <item>Čeština</item>
     <item>Dansk</item>
     <item>Deutsch</item>
