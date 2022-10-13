@@ -9,6 +9,7 @@ import androidx.annotation.DimenRes;
 import androidx.annotation.Dimension;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mapswithme.maps.R;
@@ -25,7 +26,7 @@ public class DividerItemDecorationWithPadding extends RecyclerView.ItemDecoratio
 
   public DividerItemDecorationWithPadding(@NonNull Context context)
   {
-    mDivider = Objects.requireNonNull(context.getDrawable(R.drawable.divider_base));
+    mDivider = Objects.requireNonNull(AppCompatResources.getDrawable(context, R.drawable.divider_base));
     mStartMargin =  context.getResources().getDimensionPixelSize(R.dimen.margin_quadruple_plus_half);
   }
 
