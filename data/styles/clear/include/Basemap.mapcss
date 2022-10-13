@@ -262,7 +262,7 @@ line|z10-[boundary=military]
 
 /* 4.VEGETATION */
 
-area|z10-[landuse=forest],
+area|z0-[landuse=forest],
 area|z10-[leisure=park],
 area|z12-[leisure=garden],
 area|z12-[landuse=grass],
@@ -280,7 +280,7 @@ area|z12-[landuse=village_green],
 area|z12-[landuse=field],
 {fill-position: background; fill-opacity: 1;}
 
-area|z10[landuse=forest],
+area|z0-[landuse=forest],
 area|z14-[landuse=grass],
 area|z14-[natural=grassland],
 area|z14-[leisure=golf_course],
