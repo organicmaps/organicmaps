@@ -642,7 +642,7 @@
 	<string name="month_ago_sorttype">Um mês atrás</string>
 	<string name="moremonth_ago_sorttype">Mais de um mês atrás</string>
 	<string name="moreyear_ago_sorttype">Mais de um ano atrás</string>
-	<string name="near_me_sorttype">Proximo de mim</string>
+	<string name="near_me_sorttype">Próximo de mim</string>
 	<string name="others_sorttype">Outros</string>
 
 	<!-- SECTION: Bookmark types used for sorting -->
@@ -795,7 +795,7 @@
 	<string name="type.recycling.glass_bottles">Garrafas de vidro</string>
 	<string name="type.recycling.paper">Lixo de papel</string>
 	<string name="type.recycling.plastic">Lixo plástico</string>
-	<string name="type.recycling.plastic_bottles">Garrafas plasticas</string>
+	<string name="type.recycling.plastic_bottles">Garrafas plásticas</string>
 	<string name="type.recycling.scrap_metal">Ferro velho</string>
 	<string name="type.recycling.small_appliances">Lixo eletrônico</string>
 	<string name="type.amenity.restaurant">Restaurante</string>
@@ -1611,7 +1611,7 @@
 	<string name="type.shop.travel_agency">Agência de viagem</string>
 	<string name="type.shop.tyres">Loja de pneus</string>
 	<string name="type.shop.variety_store">Loja 1,99</string>
-	<string name="type.shop.video">Video locadora</string>
+	<string name="type.shop.video">Vídeo locadora</string>
 	<string name="type.shop.video_games">Loja de jogos eletrônicos</string>
 	<string name="type.shop.wine">Loja de vinhos</string>
 	<string name="type.shop.antiques">Antiguidades</string>

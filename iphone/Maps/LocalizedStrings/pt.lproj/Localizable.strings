@@ -1009,7 +1009,7 @@
 
 "unable_to_calc_alert_title" = "Não foi possível calcular a rota";
 
-"unable_to_calc_alert_subtitle" = "Infelizmente não não foi possível criar o percurso com as opções selecionadas. Altere as opções e tente novamente";
+"unable_to_calc_alert_subtitle" = "Infelizmente não foi possível criar o percurso com as opções selecionadas. Altere as opções e tente novamente";
 
 "define_to_avoid_btn" = "Definir as estradas a evitar";
 
@@ -3207,7 +3207,7 @@
 
 "type.shop.dry_cleaning" = "Lavagem a seco";
 
-"type.shop.electronics" = "Loja de eletrónica de consumo";
+"type.shop.electronics" = "Loja de electrónica de consumo";
 
 "type.shop.erotic" = "Loja de artigos eróticos";
 

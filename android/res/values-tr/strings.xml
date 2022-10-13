@@ -825,7 +825,7 @@
 	<string name="type.recycling.batteries">Piller</string>
 	<string name="type.recycling.clothes">Kıyafet</string>
 	<string name="type.recycling.glass_bottles">Cam Şişeler</string>
-	<string name="type.recycling.paper">Kağıt Atıklar</string>
+	<string name="type.recycling.paper">Kâğıt Atıklar</string>
 	<string name="type.recycling.plastic">Plastik Atıklar</string>
 	<string name="type.recycling.plastic_bottles">Plastik Şişeler</string>
 	<string name="type.recycling.scrap_metal">Hurda Metaller</string>
@@ -1261,7 +1261,7 @@
 	<string name="type.leisure.common">Kamu Alanı</string>
 	<string name="type.leisure.dog_park">Köpek Alanı</string>
 	<string name="type.leisure.fitness_centre">Fitness Merkezi</string>
-	<string name="type.leisure.fitness_station">Fitness Salonu</string>
+	<string name="type.leisure.fitness_station">Açık Hava Spor Alanı</string>
 	<string name="type.leisure.garden">Bahçe</string>
 	<string name="type.leisure.garden.residential">Konut Bahçesi</string>
 	<string name="type.leisure.golf_course">Golf Sahası</string>

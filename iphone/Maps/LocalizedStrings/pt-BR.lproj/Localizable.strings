@@ -1113,7 +1113,7 @@
 
 "moreyear_ago_sorttype" = "Mais de um ano atrás";
 
-"near_me_sorttype" = "Proximo de mim";
+"near_me_sorttype" = "Próximo de mim";
 
 "others_sorttype" = "Outros";
 
@@ -1442,7 +1442,7 @@
 
 "type.recycling.plastic" = "Lixo plástico";
 
-"type.recycling.plastic_bottles" = "Garrafas plasticas";
+"type.recycling.plastic_bottles" = "Garrafas plásticas";
 
 "type.recycling.scrap_metal" = "Ferro velho";
 
@@ -3299,7 +3299,7 @@
 
 "type.shop.variety_store" = "Loja 1,99";
 
-"type.shop.video" = "Video locadora";
+"type.shop.video" = "Vídeo locadora";
 
 "type.shop.video_games" = "Loja de jogos eletrônicos";
 

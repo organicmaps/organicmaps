@@ -599,7 +599,7 @@
 	<string name="avoid_ferry">Ferry</string>
 	<string name="avoid_motorways">Autoestradas</string>
 	<string name="unable_to_calc_alert_title">Não foi possível calcular a rota</string>
-	<string name="unable_to_calc_alert_subtitle">Infelizmente não não foi possível criar o percurso com as opções selecionadas. Altere as opções e tente novamente</string>
+	<string name="unable_to_calc_alert_subtitle">Infelizmente não foi possível criar o percurso com as opções selecionadas. Altere as opções e tente novamente</string>
 	<string name="define_to_avoid_btn">Definir as estradas a evitar</string>
 	<string name="change_driving_options_btn">Configurações de direção ativadas</string>
 	<string name="toll_road">Estrada com portagem</string>
@@ -1647,7 +1647,7 @@
 	<string name="type.shop.department_store">Grande armazém</string>
 	<string name="type.shop.doityourself">Loja de ferramentas e materiais de bricolage</string>
 	<string name="type.shop.dry_cleaning">Lavagem a seco</string>
-	<string name="type.shop.electronics">Loja de eletrónica de consumo</string>
+	<string name="type.shop.electronics">Loja de electrónica de consumo</string>
 	<string name="type.shop.erotic">Loja de artigos eróticos</string>
 	<string name="type.shop.fabric">Loja de tecidos</string>
 	<string name="type.shop.farm">Loja de comida agrícola</string>
