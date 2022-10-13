@@ -11986,7 +11986,7 @@
     ja = 設定をチェックし、デバイスがインターネットに接続されているか確認してください。
     ko = 설정을 확인하고 장치가 인터넷에 연결되어 있는지 확인하십시오.
     mr = कृपया तुमचे सेटिंग तपासा आणि तुमचे उपकरण इंटरनेटशी जोडले असल्याची खात्री करा.
-    nb = Kontroller innstillingene dine og sørg for at enheten din er koblet til internett.
+    nb = Kontroller innstillingene dine og sørg for at enheten din er koblet til Internett.
     nl = Controleer je instellingen en zorg ervoor dat het apparaat is verbonden met het internet.
     pl = Sprawdź swoje ustawienia i upewnij się, że urządzenie ma połączenie z Internetem.
     pt = Por favor, verifique as suas opções e certifique-se que o dispositivo está ligado à Internet.
@@ -20280,7 +20280,7 @@
     nb = Dessverre kunne vi ikke finne en rute sannsynligvis på grunn av dine definerte alternativer. Vennligst endre innstillingene og prøv igjen
     nl = Helaas konden we geen route opbouwen met de gekozen opties. Wijzig de instellingen en probeer het opnieuw
     pl = Niestety, nie udało nam się zbudować trasy, która posiada obrane opcje. Zmień ustawienia i spróbuj ponownie
-    pt = Infelizmente não não foi possível criar o percurso com as opções selecionadas. Altere as opções e tente novamente
+    pt = Infelizmente não foi possível criar o percurso com as opções selecionadas. Altere as opções e tente novamente
     pt-BR = Infelizmente, não conseguimos encontrar uma rota, provavelmente por causa das opções escolhidas. Por favor, altere as configurações e tente novamente
     ro = Din păcate, nu putem elabora un traseu cu opțiunile alese. Modifică-le și încearcă din nou.
     ru = К сожалению, мы не смогли построить маршрут с выбранными опциями. Измените настройки и повторите попытку
@@ -21338,7 +21338,7 @@
 
   [ok]
     tags = android,ios
-    en = Ok
+    en = OK
     ar = موافق
     be = Ок
     bg = Ок
@@ -22351,7 +22351,7 @@
     nl = Naast mij
     pl = Obok mnie
     pt = Perto de mim
-    pt-BR = Proximo de mim
+    pt-BR = Próximo de mim
     ro = Lângă mine
     ru = Рядом со мной
     sk = Blízko mňa
