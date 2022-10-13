@@ -845,10 +845,12 @@
 	<string name="type.barrier.border_control">Contrôle aux frontières</string>
 	<string name="type.barrier.chain">Chaîne</string>
 	<string name="type.barrier.city_wall">Muraille</string>
+	<string name="type.barrier.ditch">Fossé</string>
 	<string name="type.barrier.entrance">Entrée</string>
 	<string name="type.barrier.fence">Clôture</string>
 	<string name="type.barrier.gate">Porte</string>
 	<string name="type.barrier.hedge">Haie</string>
+	<string name="type.barrier.kissing_gate">Porte</string>
 	<string name="type.barrier.lift_gate">Barrière levante</string>
 	<string name="type.barrier.retaining_wall">Mur de soutènement</string>
 	<string name="type.barrier.stile">Échalier</string>
@@ -1228,6 +1230,7 @@
 	<string name="type.leisure.dog_park">Parc canin</string>
 	<string name="type.leisure.fitness_centre">Centre fitness</string>
 	<string name="type.leisure.fitness_station">Station de fitness</string>
+	<string name="type.leisure.dance">Salle de danse</string>
 	<string name="type.leisure.garden">Jardin</string>
 	<string name="type.leisure.garden.residential">Jardin</string>
 	<string name="type.leisure.golf_course">Terrain de golf</string>
@@ -1279,6 +1282,7 @@
 	<string name="type.natural.earth_bank">Falaise</string>
 	<string name="type.man_made.embankment">Talus</string>
 	<string name="type.natural.coastline">Littoral</string>
+	<string name="type.natural.desert">Désert</string>
 	<string name="type.natural.geyser">Geyser</string>
 	<string name="type.natural.glacier">Glacier</string>
 	<string name="type.natural.grassland">Pelouse</string>
@@ -1427,7 +1431,6 @@
 	<string name="type.railway.station.subway.lille">Station de métro</string>
 	<string name="type.railway.station.subway.lima">Station de métro</string>
 	<string name="type.railway.station.subway.lisboa">Station de métro</string>
-	<string name="type.railway.station.subway.lisbon">Station de métro</string>
 	<string name="type.railway.station.subway.london">Station de métro</string>
 	<string name="type.railway.station.subway.lyon">Station de métro</string>
 	<string name="type.railway.station.subway.madrid">Station de métro</string>
@@ -1778,10 +1781,8 @@
 	<string name="type.wheelchair.limited">Partiellement équipé pour l\'usage des fauteuils roulants</string>
 	<string name="type.wheelchair.no">Non équipé pour l\'usage des fauteuils roulants</string>
 	<string name="type.wheelchair.yes">Équipé pour l\'usage des fauteuils roulants</string>
-	<!-- en.wikipedia.org/wiki/Surface_lift -->
-	<string name="type.piste_lift">Téléski</string>
-	<string name="type.piste_lift.j.bar">Téléski</string>
-	<string name="type.piste_lift.magic_carpet">Tapis roulant</string>
+	<string name="type.aerialway.j.bar">Téléski</string>
+	<string name="type.aerialway.magic_carpet">Tapis roulant</string>
 	<string name="type.piste_type.downhill">Piste de ski alpin</string>
 	<string name="type.piste_type.downhill.advanced">Piste de ski alpin</string>
 	<string name="type.piste_type.downhill.easy">Piste de ski alpin</string>

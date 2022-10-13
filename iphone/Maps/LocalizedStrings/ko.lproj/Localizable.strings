@@ -1530,6 +1530,8 @@
 
 "type.barrier.cycle_barrier" = "Cycle Barrier";
 
+"type.barrier.ditch" = "\"해자 외호\"";
+
 "type.barrier.entrance" = "입구";
 
 "type.barrier.fence" = "Fence";
@@ -1537,6 +1539,8 @@
 "type.barrier.gate" = "게이트";
 
 "type.barrier.hedge" = "Hedge";
+
+"type.barrier.kissing_gate" = "게이트";
 
 "type.barrier.lift_gate" = "차량차단기";
 
@@ -2307,6 +2311,8 @@
 
 "type.leisure.fitness_station" = "피트니스 스테이션";
 
+"type.leisure.dance" = "\"댄스홀\"";
+
 "type.leisure.garden" = "정원";
 
 "type.leisure.garden.residential" = "정원";
@@ -2436,6 +2442,8 @@
 "type.man_made.embankment" = "둑";
 
 "type.natural.coastline" = "연안";
+
+"type.natural.desert" = "사막";
 
 "type.natural.geyser" = "간헐천";
 
@@ -2792,8 +2800,6 @@
 "type.railway.station.subway.lima" = "지하철";
 
 "type.railway.station.subway.lisboa" = "지하철";
-
-"type.railway.station.subway.lisbon" = "지하철";
 
 "type.railway.station.subway.london" = "지하철";
 
@@ -3534,18 +3540,15 @@
 
 "type.wheelchair.yes" = "휠체어 접근 가능";
 
-/* en.wikipedia.org/wiki/Surface_lift */
-"type.piste_lift" = "Surface Lift";
+"type.aerialway.j.bar" = "J-bar Lift";
 
-"type.piste_lift.j.bar" = "J-bar Lift";
+"type.aerialway.magic_carpet" = "Magic Carpet";
 
-"type.piste_lift.magic_carpet" = "Magic Carpet";
+"type.aerialway.platter" = "Platter Lift";
 
-"type.piste_lift.platter" = "Platter Lift";
+"type.aerialway.rope_tow" = "Rope Tow";
 
-"type.piste_lift.rope_tow" = "Rope Tow";
-
-"type.piste_lift.t.bar" = "T-bar Lift";
+"type.aerialway.t.bar" = "T-bar Lift";
 
 "type.piste_type" = "Piste Type";
 

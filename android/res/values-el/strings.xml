@@ -782,8 +782,10 @@
 	<string name="type.barrier.block">Εμπόδιο</string>
 	<string name="type.barrier.bollard">Πυλώνας</string>
 	<string name="type.barrier.border_control">Έλεγχος συνόρων</string>
+	<string name="type.barrier.ditch">Τάφρος</string>
 	<string name="type.barrier.entrance">Είσοδος</string>
 	<string name="type.barrier.gate">Πύλη</string>
+	<string name="type.barrier.kissing_gate">Πύλη</string>
 	<string name="type.barrier.lift_gate">Ανυψούμενη μπάρα</string>
 	<string name="type.barrier.stile">Τουρνικέ</string>
 	<string name="type.barrier.swing_gate">Ανυψούμενη μπάρα</string>
@@ -1111,6 +1113,7 @@
 	<string name="type.leisure.dog_park">Περιοχή για βόλτα σκύλων</string>
 	<string name="type.leisure.fitness_centre">Κέντρο γυμναστικής</string>
 	<string name="type.leisure.fitness_station">Γυμναστήριο</string>
+	<string name="type.leisure.dance">Αίθουσα χορού</string>
 	<string name="type.leisure.garden">Κήπος αναψυχής</string>
 	<string name="type.leisure.garden.residential">Κήπος αναψυχής</string>
 	<string name="type.leisure.golf_course">Γήπεδο γκολφ</string>
@@ -1152,6 +1155,7 @@
 	<string name="type.natural.earth_bank">Γκρεμός</string>
 	<string name="type.man_made.embankment">Ανάχωμα</string>
 	<string name="type.natural.coastline">Ακτή</string>
+	<string name="type.natural.desert">Ερημος</string>
 	<string name="type.natural.geyser">Θερμοπίδακας</string>
 	<string name="type.natural.glacier">Παγετώνας</string>
 	<string name="type.natural.grassland">Βοσκότοποι</string>
@@ -1282,7 +1286,6 @@
 	<string name="type.railway.station.subway.lille">Μετρό</string>
 	<string name="type.railway.station.subway.lima">Μετρό</string>
 	<string name="type.railway.station.subway.lisboa">Μετρό</string>
-	<string name="type.railway.station.subway.lisbon">Μετρό</string>
 	<string name="type.railway.station.subway.london">Μετρό</string>
 	<string name="type.railway.station.subway.lyon">Μετρό</string>
 	<string name="type.railway.station.subway.madrid">Μετρό</string>

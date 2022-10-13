@@ -817,8 +817,10 @@
 	<string name="type.barrier.block">街區</string>
 	<string name="type.barrier.bollard">柱</string>
 	<string name="type.barrier.border_control">邊境管制</string>
+	<string name="type.barrier.ditch">護城河</string>
 	<string name="type.barrier.entrance">入口</string>
 	<string name="type.barrier.gate">大門</string>
+	<string name="type.barrier.kissing_gate">大門</string>
 	<string name="type.barrier.lift_gate">遮斷機</string>
 	<string name="type.barrier.stile">梯磴</string>
 	<string name="type.barrier.swing_gate">遮斷機</string>
@@ -1154,6 +1156,7 @@
 	<string name="type.leisure.dog_park">遛狗區</string>
 	<string name="type.leisure.fitness_centre">健身中心</string>
 	<string name="type.leisure.fitness_station">健身房</string>
+	<string name="type.leisure.dance">舞廳</string>
 	<string name="type.leisure.garden">花園</string>
 	<string name="type.leisure.garden.residential">花園</string>
 	<string name="type.leisure.golf_course">高爾夫球場</string>
@@ -1329,7 +1332,6 @@
 	<string name="type.railway.station.subway.lille">捷運站</string>
 	<string name="type.railway.station.subway.lima">捷運站</string>
 	<string name="type.railway.station.subway.lisboa">捷運站</string>
-	<string name="type.railway.station.subway.lisbon">捷運站</string>
 	<string name="type.railway.station.subway.london">捷運站</string>
 	<string name="type.railway.station.subway.lyon">捷運站</string>
 	<string name="type.railway.station.subway.madrid">捷運站</string>

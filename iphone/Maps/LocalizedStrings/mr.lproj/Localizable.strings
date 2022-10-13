@@ -1530,6 +1530,8 @@
 
 "type.barrier.cycle_barrier" = "सायकल अडथळा";
 
+"type.barrier.ditch" = "Moat";
+
 "type.barrier.entrance" = "प्रवेशद्वार";
 
 "type.barrier.fence" = "कुंपण";
@@ -1537,6 +1539,8 @@
 "type.barrier.gate" = "दार";
 
 "type.barrier.hedge" = "झुडुपांचे कुंपण";
+
+"type.barrier.kissing_gate" = "दार";
 
 "type.barrier.lift_gate" = "लिफ्ट दार";
 
@@ -2307,6 +2311,8 @@
 
 "type.leisure.fitness_station" = "Fitness Station";
 
+"type.leisure.dance" = "Dance Hall";
+
 "type.leisure.garden" = "बाग";
 
 "type.leisure.garden.residential" = "बाग";
@@ -2436,6 +2442,8 @@
 "type.man_made.embankment" = "तटबंदी";
 
 "type.natural.coastline" = "किनारपट्टी";
+
+"type.natural.desert" = "Desert";
 
 "type.natural.geyser" = "गिझर";
 
@@ -2792,8 +2800,6 @@
 "type.railway.station.subway.lima" = "भुयारी मार्ग";
 
 "type.railway.station.subway.lisboa" = "भुयारी मार्ग";
-
-"type.railway.station.subway.lisbon" = "भुयारी मार्ग";
 
 "type.railway.station.subway.london" = "भुयारी मार्ग";
 
@@ -3534,18 +3540,15 @@
 
 "type.wheelchair.yes" = "चाकखुर्चीसाठी प्रवेश";
 
-/* en.wikipedia.org/wiki/Surface_lift */
-"type.piste_lift" = "Surface Lift";
+"type.aerialway.j.bar" = "J-bar Lift";
 
-"type.piste_lift.j.bar" = "J-bar Lift";
+"type.aerialway.magic_carpet" = "Magic Carpet";
 
-"type.piste_lift.magic_carpet" = "Magic Carpet";
+"type.aerialway.platter" = "Platter Lift";
 
-"type.piste_lift.platter" = "Platter Lift";
+"type.aerialway.rope_tow" = "Rope Tow";
 
-"type.piste_lift.rope_tow" = "Rope Tow";
-
-"type.piste_lift.t.bar" = "T-bar Lift";
+"type.aerialway.t.bar" = "T-bar Lift";
 
 "type.piste_type" = "Piste Type";
 

@@ -804,8 +804,10 @@
 	<string name="type.barrier.block">Bloc</string>
 	<string name="type.barrier.bollard">Stâlp</string>
 	<string name="type.barrier.border_control">Control vamal</string>
+	<string name="type.barrier.ditch">Şanţ</string>
 	<string name="type.barrier.entrance">Intrare</string>
 	<string name="type.barrier.gate">Poartă</string>
+	<string name="type.barrier.kissing_gate">Poartă</string>
 	<string name="type.barrier.lift_gate">Barieră cu braț</string>
 	<string name="type.barrier.stile">Barieră</string>
 	<string name="type.barrier.swing_gate">Barieră cu braț</string>
@@ -1130,6 +1132,7 @@
 	<string name="type.leisure.dog_park">Loc de plimbare a câinilor</string>
 	<string name="type.leisure.fitness_centre">Centru fitness</string>
 	<string name="type.leisure.fitness_station">Sală de fitness</string>
+	<string name="type.leisure.dance">Sala de dans</string>
 	<string name="type.leisure.garden">Sit arheologic</string>
 	<string name="type.leisure.garden.residential">Sit arheologic</string>
 	<string name="type.leisure.golf_course">Teren de golf</string>
@@ -1300,7 +1303,6 @@
 	<string name="type.railway.station.subway.lille">Metrou</string>
 	<string name="type.railway.station.subway.lima">Metrou</string>
 	<string name="type.railway.station.subway.lisboa">Metrou</string>
-	<string name="type.railway.station.subway.lisbon">Metrou</string>
 	<string name="type.railway.station.subway.london">Metrou</string>
 	<string name="type.railway.station.subway.lyon">Metrou</string>
 	<string name="type.railway.station.subway.madrid">Metrou</string>

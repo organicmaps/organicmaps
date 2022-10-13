@@ -1530,6 +1530,8 @@
 
 "type.barrier.cycle_barrier" = "Велосипедна перешкода";
 
+"type.barrier.ditch" = "Рів";
+
 "type.barrier.entrance" = "Прохід";
 
 "type.barrier.fence" = "Огорожа";
@@ -1537,6 +1539,8 @@
 "type.barrier.gate" = "Ворота";
 
 "type.barrier.hedge" = "Hedge";
+
+"type.barrier.kissing_gate" = "Ворота";
 
 "type.barrier.lift_gate" = "Шлагбаум";
 
@@ -2307,6 +2311,8 @@
 
 "type.leisure.fitness_station" = "Спортивні знаряддя";
 
+"type.leisure.dance" = "Танцювальний зал";
+
 "type.leisure.garden" = "Садок";
 
 "type.leisure.garden.residential" = "Частный сад";
@@ -2436,6 +2442,8 @@
 "type.man_made.embankment" = "Насип";
 
 "type.natural.coastline" = "Берегова лiнiя";
+
+"type.natural.desert" = "Пустиня";
 
 "type.natural.geyser" = "Гейзер";
 
@@ -2792,8 +2800,6 @@
 "type.railway.station.subway.lima" = "Метро";
 
 "type.railway.station.subway.lisboa" = "Метро";
-
-"type.railway.station.subway.lisbon" = "Метро";
 
 "type.railway.station.subway.london" = "Метро";
 
@@ -3534,18 +3540,15 @@
 
 "type.wheelchair.yes" = "Обладнано для інвалідів";
 
-/* en.wikipedia.org/wiki/Surface_lift */
-"type.piste_lift" = "Бугельний витяг";
+"type.aerialway.j.bar" = "Бугельний витяг";
 
-"type.piste_lift.j.bar" = "Бугельний витяг";
+"type.aerialway.magic_carpet" = "Стрiчковий конвеєр";
 
-"type.piste_lift.magic_carpet" = "Стрiчковий конвеєр";
+"type.aerialway.platter" = "Бугельний витяг";
 
-"type.piste_lift.platter" = "Бугельний витяг";
+"type.aerialway.rope_tow" = "Бугельний витяг";
 
-"type.piste_lift.rope_tow" = "Бугельний витяг";
-
-"type.piste_lift.t.bar" = "Бугельний витяг";
+"type.aerialway.t.bar" = "Бугельний витяг";
 
 "type.piste_type" = "Тип траси";
 

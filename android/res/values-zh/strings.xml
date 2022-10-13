@@ -810,10 +810,12 @@
 	<string name="type.barrier.bollard">护柱</string>
 	<string name="type.barrier.border_control">边境检查站</string>
 	<string name="type.barrier.city_wall">城墙</string>
+	<string name="type.barrier.ditch">沟渠</string>
 	<string name="type.barrier.entrance">入口</string>
 	<string name="type.barrier.fence">篱笆</string>
 	<string name="type.barrier.gate">门</string>
 	<string name="type.barrier.hedge">树篱</string>
+	<string name="type.barrier.kissing_gate">门</string>
 	<string name="type.barrier.lift_gate">道闸</string>
 	<string name="type.barrier.retaining_wall">挡土墙</string>
 	<string name="type.barrier.stile">台阶</string>
@@ -1202,6 +1204,7 @@
 	<string name="type.leisure.dog_park">遛狗区</string>
 	<string name="type.leisure.fitness_centre">健身中心</string>
 	<string name="type.leisure.fitness_station">健身驿站</string>
+	<string name="type.leisure.dance">舞厅</string>
 	<string name="type.leisure.garden">花园</string>
 	<string name="type.leisure.garden.residential">居民区花园</string>
 	<string name="type.leisure.golf_course">高尔夫球场</string>
@@ -1413,7 +1416,6 @@
 	<string name="type.railway.station.subway.lille">地铁车站</string>
 	<string name="type.railway.station.subway.lima">地铁车站</string>
 	<string name="type.railway.station.subway.lisboa">地铁车站</string>
-	<string name="type.railway.station.subway.lisbon">地铁车站</string>
 	<string name="type.railway.station.subway.london">地铁车站</string>
 	<string name="type.railway.station.subway.lyon">地铁车站</string>
 	<string name="type.railway.station.subway.madrid">地铁车站</string>

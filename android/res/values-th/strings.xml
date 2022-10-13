@@ -785,8 +785,10 @@
 	<string name="type.barrier.block">บล็อก</string>
 	<string name="type.barrier.bollard">เสา</string>
 	<string name="type.barrier.border_control">ด่านตรวจคนเข้าเมือง</string>
+	<string name="type.barrier.ditch">คูเมือง</string>
 	<string name="type.barrier.entrance">ทางเข้า</string>
 	<string name="type.barrier.gate">ประตู</string>
+	<string name="type.barrier.kissing_gate">ประตู</string>
 	<string name="type.barrier.lift_gate">ไม้กั้น</string>
 	<string name="type.barrier.stile">บันไดข้าม</string>
 	<string name="type.barrier.swing_gate">ไม้กั้น</string>
@@ -1114,6 +1116,7 @@
 	<string name="type.leisure.dog_park">สถานที่พาสุนัขเดินเล่น</string>
 	<string name="type.leisure.fitness_centre">ฟิตเนสเซ็นเตอร์</string>
 	<string name="type.leisure.fitness_station">ศูนย์ฟิตเนส</string>
+	<string name="type.leisure.dance">แดนซ์ฮอลล์</string>
 	<string name="type.leisure.garden">สวน</string>
 	<string name="type.leisure.garden.residential">สวน</string>
 	<string name="type.leisure.golf_course">สนามกอล์ฟ</string>
@@ -1284,7 +1287,6 @@
 	<string name="type.railway.station.subway.lille">รถไฟ</string>
 	<string name="type.railway.station.subway.lima">รถไฟ</string>
 	<string name="type.railway.station.subway.lisboa">รถไฟ</string>
-	<string name="type.railway.station.subway.lisbon">รถไฟ</string>
 	<string name="type.railway.station.subway.london">รถไฟ</string>
 	<string name="type.railway.station.subway.lyon">รถไฟ</string>
 	<string name="type.railway.station.subway.madrid">รถไฟ</string>

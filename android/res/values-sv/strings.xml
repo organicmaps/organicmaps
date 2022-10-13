@@ -778,8 +778,10 @@
 	<string name="type.barrier.block">Blockering</string>
 	<string name="type.barrier.bollard">Stolpe</string>
 	<string name="type.barrier.border_control">Gränskontroll</string>
+	<string name="type.barrier.ditch">Vallgrav</string>
 	<string name="type.barrier.entrance">Ingång</string>
 	<string name="type.barrier.gate">Grind</string>
+	<string name="type.barrier.kissing_gate">Grind</string>
 	<string name="type.barrier.lift_gate">Bom</string>
 	<string name="type.barrier.stile">Stätta</string>
 	<string name="type.barrier.swing_gate">Bom</string>
@@ -1102,6 +1104,7 @@
 	<string name="type.leisure.dog_park">Hundparken</string>
 	<string name="type.leisure.fitness_centre">Gym</string>
 	<string name="type.leisure.fitness_station">Fitnesstation</string>
+	<string name="type.leisure.dance">Danshall</string>
 	<string name="type.leisure.garden">Trädgård</string>
 	<string name="type.leisure.garden.residential">Trädgård</string>
 	<string name="type.leisure.golf_course">Golfbana</string>
@@ -1271,7 +1274,6 @@
 	<string name="type.railway.station.subway.lille">Tunnelbana</string>
 	<string name="type.railway.station.subway.lima">Tunnelbana</string>
 	<string name="type.railway.station.subway.lisboa">Tunnelbana</string>
-	<string name="type.railway.station.subway.lisbon">Tunnelbana</string>
 	<string name="type.railway.station.subway.london">Tunnelbana</string>
 	<string name="type.railway.station.subway.lyon">Tunnelbana</string>
 	<string name="type.railway.station.subway.madrid">Tunnelbana</string>

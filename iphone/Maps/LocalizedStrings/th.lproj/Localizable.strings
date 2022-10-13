@@ -1530,6 +1530,8 @@
 
 "type.barrier.cycle_barrier" = "Cycle Barrier";
 
+"type.barrier.ditch" = "คูเมือง";
+
 "type.barrier.entrance" = "ทางเข้า";
 
 "type.barrier.fence" = "Fence";
@@ -1537,6 +1539,8 @@
 "type.barrier.gate" = "ประตู";
 
 "type.barrier.hedge" = "Hedge";
+
+"type.barrier.kissing_gate" = "ประตู";
 
 "type.barrier.lift_gate" = "ไม้กั้น";
 
@@ -2307,6 +2311,8 @@
 
 "type.leisure.fitness_station" = "ศูนย์ฟิตเนส";
 
+"type.leisure.dance" = "แดนซ์ฮอลล์";
+
 "type.leisure.garden" = "สวน";
 
 "type.leisure.garden.residential" = "สวน";
@@ -2436,6 +2442,8 @@
 "type.man_made.embankment" = "เขื่อน";
 
 "type.natural.coastline" = "ชายฝั่ง";
+
+"type.natural.desert" = "Desert";
 
 "type.natural.geyser" = "นำ้พุร้อน";
 
@@ -2792,8 +2800,6 @@
 "type.railway.station.subway.lima" = "รถไฟ";
 
 "type.railway.station.subway.lisboa" = "รถไฟ";
-
-"type.railway.station.subway.lisbon" = "รถไฟ";
 
 "type.railway.station.subway.london" = "รถไฟ";
 
@@ -3534,18 +3540,15 @@
 
 "type.wheelchair.yes" = "พื้นใช้รถเข็นสำหรับผู้ป่วย/ผู้สูงอายุได้";
 
-/* en.wikipedia.org/wiki/Surface_lift */
-"type.piste_lift" = "Surface Lift";
+"type.aerialway.j.bar" = "J-bar Lift";
 
-"type.piste_lift.j.bar" = "J-bar Lift";
+"type.aerialway.magic_carpet" = "Magic Carpet";
 
-"type.piste_lift.magic_carpet" = "Magic Carpet";
+"type.aerialway.platter" = "Platter Lift";
 
-"type.piste_lift.platter" = "Platter Lift";
+"type.aerialway.rope_tow" = "Rope Tow";
 
-"type.piste_lift.rope_tow" = "Rope Tow";
-
-"type.piste_lift.t.bar" = "T-bar Lift";
+"type.aerialway.t.bar" = "T-bar Lift";
 
 "type.piste_type" = "Piste Type";
 

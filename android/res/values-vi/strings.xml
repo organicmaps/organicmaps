@@ -782,8 +782,10 @@
 	<string name="type.barrier.block">Khối</string>
 	<string name="type.barrier.bollard">Trụ</string>
 	<string name="type.barrier.border_control">Biên Phòng</string>
+	<string name="type.barrier.ditch">Hào nước</string>
 	<string name="type.barrier.entrance">Lối vào</string>
 	<string name="type.barrier.gate">Cổng</string>
+	<string name="type.barrier.kissing_gate">Cổng</string>
 	<string name="type.barrier.lift_gate">Thanh Chắn</string>
 	<string name="type.barrier.stile">Trụ chắn</string>
 	<string name="type.barrier.swing_gate">Thanh Chắn</string>
@@ -1109,6 +1111,7 @@
 	<string name="type.leisure.dog_park">Nơi cho chó đi dạo</string>
 	<string name="type.leisure.fitness_centre">Phòng Tập</string>
 	<string name="type.leisure.fitness_station">Trạm tập thể hình</string>
+	<string name="type.leisure.dance">Vũ trường</string>
 	<string name="type.leisure.garden">Điểm khảo cổ</string>
 	<string name="type.leisure.garden.residential">Điểm khảo cổ</string>
 	<string name="type.leisure.golf_course">Sân gôn</string>
@@ -1279,7 +1282,6 @@
 	<string name="type.railway.station.subway.lille">Ngầm</string>
 	<string name="type.railway.station.subway.lima">Ngầm</string>
 	<string name="type.railway.station.subway.lisboa">Ngầm</string>
-	<string name="type.railway.station.subway.lisbon">Ngầm</string>
 	<string name="type.railway.station.subway.london">Ngầm</string>
 	<string name="type.railway.station.subway.lyon">Ngầm</string>
 	<string name="type.railway.station.subway.madrid">Ngầm</string>

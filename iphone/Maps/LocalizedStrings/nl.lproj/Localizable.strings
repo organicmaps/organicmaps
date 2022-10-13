@@ -1530,6 +1530,8 @@
 
 "type.barrier.cycle_barrier" = "Fietsbarrière";
 
+"type.barrier.ditch" = "Gracht";
+
 "type.barrier.entrance" = "Ingang";
 
 "type.barrier.fence" = "Hek";
@@ -1537,6 +1539,8 @@
 "type.barrier.gate" = "Poort";
 
 "type.barrier.hedge" = "Heg";
+
+"type.barrier.kissing_gate" = "Voetgangershek";
 
 "type.barrier.lift_gate" = "Slagboom";
 
@@ -2307,6 +2311,8 @@
 
 "type.leisure.fitness_station" = "Fitness-Station";
 
+"type.leisure.dance" = "Danszaal";
+
 "type.leisure.garden" = "Tuin";
 
 "type.leisure.garden.residential" = "Tuin";
@@ -2436,6 +2442,8 @@
 "type.man_made.embankment" = "Baanlichaam";
 
 "type.natural.coastline" = "Kustlijn";
+
+"type.natural.desert" = "Woestijn";
 
 "type.natural.geyser" = "Geiser";
 
@@ -2792,8 +2800,6 @@
 "type.railway.station.subway.lima" = "Metrostation";
 
 "type.railway.station.subway.lisboa" = "Metrostation";
-
-"type.railway.station.subway.lisbon" = "Metrostation";
 
 "type.railway.station.subway.london" = "Metrostation";
 
@@ -3498,13 +3504,13 @@
 
 "type.waterway.ditch" = "Sloot";
 
-"type.waterway.ditch.tunnel" = "Duiker";
+"type.waterway.ditch.tunnel" = "Sloot";
 
 "type.waterway.dock" = "Dok";
 
 "type.waterway.drain" = "Afvoer";
 
-"type.waterway.drain.tunnel" = "Afvoer tunnel";
+"type.waterway.drain.tunnel" = "Afvoer";
 
 "type.waterway.lock_gate" = "Sluisdeur";
 
@@ -3534,18 +3540,15 @@
 
 "type.wheelchair.yes" = "Uitgerust voor gehandicapten";
 
-/* en.wikipedia.org/wiki/Surface_lift */
-"type.piste_lift" = "Sleeplift";
+"type.aerialway.j.bar" = "Sleeplift (J)";
 
-"type.piste_lift.j.bar" = "Sleeplift (J)";
+"type.aerialway.magic_carpet" = "Loopband";
 
-"type.piste_lift.magic_carpet" = "Loopband";
+"type.aerialway.platter" = "Sleeplift";
 
-"type.piste_lift.platter" = "Sleeplift";
+"type.aerialway.rope_tow" = "Touwlift";
 
-"type.piste_lift.rope_tow" = "Touwlift";
-
-"type.piste_lift.t.bar" = "Sleeplift (T-beugel)";
+"type.aerialway.t.bar" = "Sleeplift (T-beugel)";
 
 "type.piste_type" = "Pistesoort";
 

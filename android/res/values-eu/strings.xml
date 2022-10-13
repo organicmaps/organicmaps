@@ -820,10 +820,12 @@
 	<string name="type.barrier.chain">Katea</string>
 	<string name="type.barrier.city_wall">Horma</string>
 	<string name="type.barrier.cycle_barrier">Bizikleta-hesia</string>
+	<string name="type.barrier.ditch">Lubanarroa</string>
 	<string name="type.barrier.entrance">Sarrera</string>
 	<string name="type.barrier.fence">Hesia</string>
 	<string name="type.barrier.gate">Ate</string>
 	<string name="type.barrier.hedge">Estaldura</string>
+	<string name="type.barrier.kissing_gate">Ate</string>
 	<string name="type.barrier.lift_gate">Hesia</string>
 	<string name="type.barrier.retaining_wall">Euste-horma</string>
 	<string name="type.barrier.stile">Urratsa</string>
@@ -1174,6 +1176,7 @@
 	<string name="type.leisure.dog_park">Txakur parkea</string>
 	<string name="type.leisure.fitness_centre">Fitness zentroa</string>
 	<string name="type.leisure.fitness_station">Gimnasioa</string>
+	<string name="type.leisure.dance">Dantza Aretoa</string>
 	<string name="type.leisure.garden">Lorategi</string>
 	<string name="type.leisure.garden.residential">Lorategi</string>
 	<string name="type.leisure.golf_course">Golf kurtsoa</string>
@@ -1214,6 +1217,7 @@
 	<string name="type.natural.earth_bank">Labarra</string>
 	<string name="type.man_made.embankment">Lubeta</string>
 	<string name="type.natural.coastline">Itsasertz</string>
+	<string name="type.natural.desert">Basamortua</string>
 	<string name="type.natural.geyser">Geyser</string>
 	<string name="type.natural.glacier">Glaziarra</string>
 	<string name="type.natural.grassland">Belartza</string>
@@ -1347,7 +1351,6 @@
 	<string name="type.railway.station.subway.lille">Metroa</string>
 	<string name="type.railway.station.subway.lima">Metroa</string>
 	<string name="type.railway.station.subway.lisboa">Metroa</string>
-	<string name="type.railway.station.subway.lisbon">Metroa</string>
 	<string name="type.railway.station.subway.london">Metroa</string>
 	<string name="type.railway.station.subway.lyon">Metroa</string>
 	<string name="type.railway.station.subway.madrid">Metroa</string>

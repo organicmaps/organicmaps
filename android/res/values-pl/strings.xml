@@ -849,10 +849,12 @@
 	<string name="type.barrier.border_control">Kontrola graniczna</string>
 	<string name="type.barrier.city_wall">Mur miejski</string>
 	<string name="type.barrier.cycle_barrier">Bariera rowerowa</string>
+	<string name="type.barrier.ditch">Rów</string>
 	<string name="type.barrier.entrance">Wejście</string>
 	<string name="type.barrier.fence">Płot</string>
 	<string name="type.barrier.gate">Brama</string>
 	<string name="type.barrier.hedge">Żywopłot</string>
+	<string name="type.barrier.kissing_gate">Brama</string>
 	<string name="type.barrier.lift_gate">Szlaban</string>
 	<string name="type.barrier.retaining_wall">Mur oporowy</string>
 	<string name="type.barrier.stile">Przełaz</string>
@@ -1238,6 +1240,7 @@
 	<string name="type.leisure.dog_park">Miejsce na spacer z psem</string>
 	<string name="type.leisure.fitness_centre">Centrum fitness</string>
 	<string name="type.leisure.fitness_station">Stacja fitness</string>
+	<string name="type.leisure.dance">Sala taneczna</string>
 	<string name="type.leisure.garden">Ogród</string>
 	<string name="type.leisure.garden.residential">Ogród przydomowy</string>
 	<string name="type.leisure.golf_course">Kurs golfowy</string>
@@ -1291,6 +1294,7 @@
 	<string name="type.natural.earth_bank">Żleb</string>
 	<string name="type.man_made.embankment">Nasyp</string>
 	<string name="type.natural.coastline">Linia brzegowa</string>
+	<string name="type.natural.desert">Pustynia</string>
 	<string name="type.natural.geyser">Gejzer</string>
 	<string name="type.natural.glacier">Lodowiec</string>
 	<string name="type.natural.grassland">Formacje trawiaste</string>
@@ -1429,7 +1433,6 @@
 	<string name="type.railway.station.subway.lille">Metro</string>
 	<string name="type.railway.station.subway.lima">Metro</string>
 	<string name="type.railway.station.subway.lisboa">Metro</string>
-	<string name="type.railway.station.subway.lisbon">Metro</string>
 	<string name="type.railway.station.subway.london">Metro</string>
 	<string name="type.railway.station.subway.lyon">Metro</string>
 	<string name="type.railway.station.subway.madrid">Metro</string>
@@ -1763,12 +1766,12 @@
 	<string name="type.waterway.canal.tunnel">Kanał</string>
 	<string name="type.waterway.lock_gate">Wrota śluzy</string>
 	<string name="type.waterway.river">Rzeka</string>
-	<string name="type.waterway.river.tunnel">Tunel rzeki</string>
+	<string name="type.waterway.river.tunnel">Rzeka</string>
 	<string name="type.waterway.riverbank">Koryto rzeki</string>
 	<string name="type.waterway.stream">Ciek rzeki</string>
 	<string name="type.waterway.stream.ephemeral">Rzeka</string>
 	<string name="type.waterway.stream.intermittent">Rzeka</string>
-	<string name="type.waterway.stream.tunnel">Rzeka</string>
+	<string name="type.waterway.stream.tunnel">Ciek rzeki</string>
 	<string name="type.waterway.waterfall">Wodospad</string>
 	<string name="type.wheelchair.limited">Częściowo wyposażono dla osób niepełnosprawnych</string>
 	<string name="type.wheelchair.no">Nie wyposażono dla osób niepełnosprawnych</string>

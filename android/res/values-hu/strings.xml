@@ -782,8 +782,10 @@
 	<string name="type.barrier.block">Blokk</string>
 	<string name="type.barrier.bollard">Oszlop</string>
 	<string name="type.barrier.border_control">Határállomás</string>
+	<string name="type.barrier.ditch">Várárok</string>
 	<string name="type.barrier.entrance">Bejárat</string>
 	<string name="type.barrier.gate">Kapu</string>
+	<string name="type.barrier.kissing_gate">Kapu</string>
 	<string name="type.barrier.lift_gate">Sorompó</string>
 	<string name="type.barrier.stile">Átjáró</string>
 	<string name="type.barrier.swing_gate">Sorompó</string>
@@ -1109,6 +1111,7 @@
 	<string name="type.leisure.dog_park">Kutyás terület</string>
 	<string name="type.leisure.fitness_centre">Fitnesz-terem</string>
 	<string name="type.leisure.fitness_station">Fitness állomás</string>
+	<string name="type.leisure.dance">Táncterem</string>
 	<string name="type.leisure.garden">Kert</string>
 	<string name="type.leisure.garden.residential">Kert</string>
 	<string name="type.leisure.golf_course">Golfpálya</string>
@@ -1148,6 +1151,7 @@
 	<string name="type.natural.earth_bank">Szikla</string>
 	<string name="type.man_made.embankment">Töltés</string>
 	<string name="type.natural.coastline">Tengerpart</string>
+	<string name="type.natural.desert">Sivatag</string>
 	<string name="type.natural.geyser">Gejzír</string>
 	<string name="type.natural.glacier">Gleccser</string>
 	<string name="type.natural.grassland">Füves puszta</string>
@@ -1278,7 +1282,6 @@
 	<string name="type.railway.station.subway.lille">Földalatti</string>
 	<string name="type.railway.station.subway.lima">Földalatti</string>
 	<string name="type.railway.station.subway.lisboa">Földalatti</string>
-	<string name="type.railway.station.subway.lisbon">Földalatti</string>
 	<string name="type.railway.station.subway.london">Földalatti</string>
 	<string name="type.railway.station.subway.lyon">Földalatti</string>
 	<string name="type.railway.station.subway.madrid">Földalatti</string>

@@ -1530,6 +1530,8 @@
 
 "type.barrier.cycle_barrier" = "Umlaufschranke";
 
+"type.barrier.ditch" = "Graben";
+
 "type.barrier.entrance" = "Durchgang";
 
 "type.barrier.fence" = "Zaun";
@@ -1537,6 +1539,8 @@
 "type.barrier.gate" = "Tor";
 
 "type.barrier.hedge" = "Hecke";
+
+"type.barrier.kissing_gate" = "Tor";
 
 "type.barrier.lift_gate" = "Schranke";
 
@@ -2307,6 +2311,8 @@
 
 "type.leisure.fitness_station" = "Fitnessstation";
 
+"type.leisure.dance" = "Tanzsaal";
+
 "type.leisure.garden" = "Garten";
 
 "type.leisure.garden.residential" = "Garten";
@@ -2436,6 +2442,8 @@
 "type.man_made.embankment" = "Damm";
 
 "type.natural.coastline" = "Küste";
+
+"type.natural.desert" = "Wüste";
 
 "type.natural.geyser" = "Geysir";
 
@@ -2792,8 +2800,6 @@
 "type.railway.station.subway.lima" = "U-Bahnstation";
 
 "type.railway.station.subway.lisboa" = "U-Bahnstation";
-
-"type.railway.station.subway.lisbon" = "U-Bahnstation";
 
 "type.railway.station.subway.london" = "U-Bahnstation";
 
@@ -3534,18 +3540,15 @@
 
 "type.wheelchair.yes" = "Vollständiger Zugang für Rollstühle";
 
-/* en.wikipedia.org/wiki/Surface_lift */
-"type.piste_lift" = "Lift";
+"type.aerialway.j.bar" = "Schlepplift";
 
-"type.piste_lift.j.bar" = "Schlepplift";
+"type.aerialway.magic_carpet" = "Laufband";
 
-"type.piste_lift.magic_carpet" = "Laufband";
+"type.aerialway.platter" = "Tellerlift";
 
-"type.piste_lift.platter" = "Tellerlift";
+"type.aerialway.rope_tow" = "Seillift";
 
-"type.piste_lift.rope_tow" = "Seillift";
-
-"type.piste_lift.t.bar" = "T-Bügel-Lift";
+"type.aerialway.t.bar" = "T-Bügel-Lift";
 
 "type.piste_type" = "Pistentyp";
 

@@ -780,8 +780,10 @@
 	<string name="type.barrier.block">Blok</string>
 	<string name="type.barrier.bollard">Pilier</string>
 	<string name="type.barrier.border_control">Hraničná kontrola</string>
+	<string name="type.barrier.ditch">Priekopa</string>
 	<string name="type.barrier.entrance">Vstup</string>
 	<string name="type.barrier.gate">Brána</string>
+	<string name="type.barrier.kissing_gate">Brána</string>
 	<string name="type.barrier.lift_gate">Závora</string>
 	<string name="type.barrier.stile">Turniket</string>
 	<string name="type.barrier.swing_gate">Závora</string>
@@ -1107,6 +1109,7 @@
 	<string name="type.leisure.dog_park">Oblasť pre psov</string>
 	<string name="type.leisure.fitness_centre">Fitnescentrum</string>
 	<string name="type.leisure.fitness_station">Fitness</string>
+	<string name="type.leisure.dance">Tanečná hala</string>
 	<string name="type.leisure.garden">Záhrada</string>
 	<string name="type.leisure.garden.residential">Záhrada</string>
 	<string name="type.leisure.golf_course">Golf</string>
@@ -1276,7 +1279,6 @@
 	<string name="type.railway.station.subway.lille">Metro</string>
 	<string name="type.railway.station.subway.lima">Metro</string>
 	<string name="type.railway.station.subway.lisboa">Metro</string>
-	<string name="type.railway.station.subway.lisbon">Metro</string>
 	<string name="type.railway.station.subway.london">Metro</string>
 	<string name="type.railway.station.subway.lyon">Metro</string>
 	<string name="type.railway.station.subway.madrid">Metro</string>
