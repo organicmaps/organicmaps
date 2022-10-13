@@ -21114,6 +21114,75 @@ cont {
 cont {
   name: "landuse-forest"
   element {
+    area {
+      color: 13031851
+      priority: -15906
+    }
+  }
+  element {
+    scale: 1
+    area {
+      color: 13031851
+      priority: -15906
+    }
+  }
+  element {
+    scale: 2
+    area {
+      color: 13031851
+      priority: -15906
+    }
+  }
+  element {
+    scale: 3
+    area {
+      color: 13031851
+      priority: -15906
+    }
+  }
+  element {
+    scale: 4
+    area {
+      color: 13031851
+      priority: -15906
+    }
+  }
+  element {
+    scale: 5
+    area {
+      color: 13031851
+      priority: -15906
+    }
+  }
+  element {
+    scale: 6
+    area {
+      color: 13031851
+      priority: -15906
+    }
+  }
+  element {
+    scale: 7
+    area {
+      color: 13031851
+      priority: -15906
+    }
+  }
+  element {
+    scale: 8
+    area {
+      color: 13031851
+      priority: -15906
+    }
+  }
+  element {
+    scale: 9
+    area {
+      color: 13031851
+      priority: -15906
+    }
+  }
+  element {
     scale: 10
     area {
       color: 13031851
@@ -21378,6 +21447,75 @@ cont {
 }
 cont {
   name: "landuse-forest-coniferous"
+  element {
+    area {
+      color: 13031851
+      priority: -15906
+    }
+  }
+  element {
+    scale: 1
+    area {
+      color: 13031851
+      priority: -15906
+    }
+  }
+  element {
+    scale: 2
+    area {
+      color: 13031851
+      priority: -15906
+    }
+  }
+  element {
+    scale: 3
+    area {
+      color: 13031851
+      priority: -15906
+    }
+  }
+  element {
+    scale: 4
+    area {
+      color: 13031851
+      priority: -15906
+    }
+  }
+  element {
+    scale: 5
+    area {
+      color: 13031851
+      priority: -15906
+    }
+  }
+  element {
+    scale: 6
+    area {
+      color: 13031851
+      priority: -15906
+    }
+  }
+  element {
+    scale: 7
+    area {
+      color: 13031851
+      priority: -15906
+    }
+  }
+  element {
+    scale: 8
+    area {
+      color: 13031851
+      priority: -15906
+    }
+  }
+  element {
+    scale: 9
+    area {
+      color: 13031851
+      priority: -15906
+    }
+  }
   element {
     scale: 10
     area {
@@ -21644,6 +21782,75 @@ cont {
 cont {
   name: "landuse-forest-deciduous"
   element {
+    area {
+      color: 13031851
+      priority: -15906
+    }
+  }
+  element {
+    scale: 1
+    area {
+      color: 13031851
+      priority: -15906
+    }
+  }
+  element {
+    scale: 2
+    area {
+      color: 13031851
+      priority: -15906
+    }
+  }
+  element {
+    scale: 3
+    area {
+      color: 13031851
+      priority: -15906
+    }
+  }
+  element {
+    scale: 4
+    area {
+      color: 13031851
+      priority: -15906
+    }
+  }
+  element {
+    scale: 5
+    area {
+      color: 13031851
+      priority: -15906
+    }
+  }
+  element {
+    scale: 6
+    area {
+      color: 13031851
+      priority: -15906
+    }
+  }
+  element {
+    scale: 7
+    area {
+      color: 13031851
+      priority: -15906
+    }
+  }
+  element {
+    scale: 8
+    area {
+      color: 13031851
+      priority: -15906
+    }
+  }
+  element {
+    scale: 9
+    area {
+      color: 13031851
+      priority: -15906
+    }
+  }
+  element {
     scale: 10
     area {
       color: 13031851
@@ -21908,6 +22115,75 @@ cont {
 }
 cont {
   name: "landuse-forest-mixed"
+  element {
+    area {
+      color: 13031851
+      priority: -15906
+    }
+  }
+  element {
+    scale: 1
+    area {
+      color: 13031851
+      priority: -15906
+    }
+  }
+  element {
+    scale: 2
+    area {
+      color: 13031851
+      priority: -15906
+    }
+  }
+  element {
+    scale: 3
+    area {
+      color: 13031851
+      priority: -15906
+    }
+  }
+  element {
+    scale: 4
+    area {
+      color: 13031851
+      priority: -15906
+    }
+  }
+  element {
+    scale: 5
+    area {
+      color: 13031851
+      priority: -15906
+    }
+  }
+  element {
+    scale: 6
+    area {
+      color: 13031851
+      priority: -15906
+    }
+  }
+  element {
+    scale: 7
+    area {
+      color: 13031851
+      priority: -15906
+    }
+  }
+  element {
+    scale: 8
+    area {
+      color: 13031851
+      priority: -15906
+    }
+  }
+  element {
+    scale: 9
+    area {
+      color: 13031851
+      priority: -15906
+    }
+  }
   element {
     scale: 10
     area {
