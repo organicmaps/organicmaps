@@ -665,7 +665,7 @@
 	<string name="yes_available">Yes</string>
 	<!-- E.g. "WiFi:No" -->
 	<string name="no_available">No</string>
-	<string name="ok">Ok</string>
+	<string name="ok">OK</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Sort…</string>
 	<!-- Android, title, max 20-22 symbols -->

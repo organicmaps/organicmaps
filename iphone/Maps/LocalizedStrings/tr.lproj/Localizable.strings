@@ -1438,7 +1438,7 @@
 
 "type.recycling.glass_bottles" = "Cam Şişeler";
 
-"type.recycling.paper" = "Kağıt Atıklar";
+"type.recycling.paper" = "Kâğıt Atıklar";
 
 "type.recycling.plastic" = "Plastik Atıklar";
 
@@ -2305,7 +2305,7 @@
 
 "type.leisure.fitness_centre" = "Fitness Merkezi";
 
-"type.leisure.fitness_station" = "Fitness Salonu";
+"type.leisure.fitness_station" = "Açık Hava Spor Alanı";
 
 "type.leisure.garden" = "Bahçe";
 

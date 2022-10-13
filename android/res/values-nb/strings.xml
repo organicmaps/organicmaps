@@ -407,7 +407,7 @@
 	<string name="downloader_update_maps">Oppdater kart</string>
 	<string name="downloader_mwm_migration_dialog">For å opprette en reiserute må du oppdatere alle kartene og deretter planlegge reiseruten på nytt.</string>
 	<string name="downloader_search_field_hint">Finn kartet</string>
-	<string name="common_check_internet_connection_dialog">Kontroller innstillingene dine og sørg for at enheten din er koblet til internett.</string>
+	<string name="common_check_internet_connection_dialog">Kontroller innstillingene dine og sørg for at enheten din er koblet til Internett.</string>
 	<string name="downloader_no_space_title">Ikke nok plass</string>
 	<string name="downloader_no_space_message">Fjern unødvendig data</string>
 	<string name="editor_login_error_dialog">Innloggingsfeil.</string>
