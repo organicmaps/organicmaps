@@ -43,9 +43,12 @@ class WikiDescriptionViewController: UIViewController {
       }
 
       DispatchQueue.main.async {
+	// descriptionTextView and moreButton are hidden by default
+        self.descriptionTextView.isHidden = false
         if attributedString.length > 500 {
           self.descriptionTextView.attributedText = attributedString.attributedSubstring(from: NSRange(location: 0,
                                                                                                        length: 500))
+          self.moreButton.isHidden = false
         } else {
           self.descriptionTextView.attributedText = attributedString
         }
