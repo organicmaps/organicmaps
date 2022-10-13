@@ -17,9 +17,12 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.DimenRes;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.graphics.drawable.DrawableCompat;
 
 import com.mapswithme.maps.R;
+
+import java.util.Objects;
 
 public final class Graphics
 {
@@ -43,8 +46,9 @@ public final class Graphics
   @NonNull
   public static Drawable drawCircleAndImage(int color, @DimenRes int sizeResId,
                                             @DrawableRes int imageResId, @DimenRes int sizeImgResId,
-                                            @NonNull Resources res)
+                                            @NonNull Context context)
   {
+    final Resources res = context.getResources();
     final int size = res.getDimensionPixelSize(sizeResId);
     final Bitmap bmp = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
 
@@ -56,7 +60,7 @@ public final class Graphics
     final float radius = size / 2.0f;
     c.drawCircle(radius, radius, radius, paint);
 
-    Drawable imgD = res.getDrawable(imageResId);
+    Drawable imgD = Objects.requireNonNull(AppCompatResources.getDrawable(context, imageResId));
     imgD.mutate();
     final int sizeImg = res.getDimensionPixelSize(sizeImgResId);
     int offset = (size - sizeImg) / 2;
@@ -97,7 +101,7 @@ public final class Graphics
   public static Drawable tint(Context context, @DrawableRes int resId, @AttrRes int tintAttr)
   {
     //noinspection deprecation
-    return tint(context, context.getResources().getDrawable(resId), tintAttr);
+    return tint(context, AppCompatResources.getDrawable(context, resId), tintAttr);
   }
 
   public static Drawable tint(Context context, Drawable drawable)

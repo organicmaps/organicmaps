@@ -211,7 +211,7 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
                                                     R.dimen.track_circle_size,
                                                     R.drawable.ic_bookmark_none,
                                                     R.dimen.bookmark_icon_size,
-                                                    requireContext().getResources());
+                                                    requireContext());
       mIvColor.setImageDrawable(circle);
     }
   }

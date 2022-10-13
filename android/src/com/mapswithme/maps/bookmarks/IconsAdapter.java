@@ -46,7 +46,7 @@ public class IconsAdapter extends ArrayAdapter<Icon>
                                            R.dimen.track_circle_size,
                                            R.drawable.ic_bookmark_none,
                                            R.dimen.bookmark_icon_size,
-                                           getContext().getResources());
+                                           getContext());
 
     }
     else

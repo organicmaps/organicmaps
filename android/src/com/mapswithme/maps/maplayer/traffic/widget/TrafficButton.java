@@ -9,10 +9,13 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.res.ResourcesCompat;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
+
+import java.util.Objects;
 
 public class TrafficButton
 {
@@ -36,7 +39,7 @@ public class TrafficButton
     Context context = trafficBtn.getContext();
     Resources res = context.getResources();
     final int animResId = ThemeUtils.getResource(context, R.attr.trafficLoadingAnimation);
-    return (AnimationDrawable) res.getDrawable(animResId, context.getTheme());
+    return (AnimationDrawable) Objects.requireNonNull(ResourcesCompat.getDrawable(res, animResId, context.getTheme()));
   }
 
   void turnOff()

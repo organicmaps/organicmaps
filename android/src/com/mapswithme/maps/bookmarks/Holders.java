@@ -361,7 +361,7 @@ public class Holders
                                                     R.dimen.track_circle_size,
                                                     bookmark.getIcon().getResId(),
                                                     R.dimen.bookmark_icon_size,
-                                                    mIcon.getContext().getResources());
+                                                    mIcon.getContext());
       mIcon.setImageDrawable(circle);
     }
   }

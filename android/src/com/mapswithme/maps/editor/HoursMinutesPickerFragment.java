@@ -16,6 +16,7 @@ import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.StyleRes;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -142,7 +143,7 @@ public class HoursMinutesPickerFragment extends BaseMwmDialogFragment
     TextView tabView = (TextView) inflater.inflate(R.layout.tab_timepicker, mTabs, false);
     // TODO @yunik add translations
     tabView.setText("From");
-    final ColorStateList textColor = getResources().getColorStateList(
+    final ColorStateList textColor = AppCompatResources.getColorStateList(requireContext(),
         ThemeUtils.isNightTheme(requireContext()) ? R.color.accent_color_selector_night
                                                   : R.color.accent_color_selector);
     tabView.setTextColor(textColor);
