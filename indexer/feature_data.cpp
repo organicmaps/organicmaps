@@ -2,7 +2,6 @@
 
 #include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"
-#include "indexer/feature_impl.hpp"
 #include "indexer/ftypes_matcher.hpp"
 
 #include "base/assert.hpp"
@@ -347,7 +346,7 @@ bool FeatureParams::AddHouseNumber(string houseNumber)
     ++i;
   houseNumber.erase(0, i);
 
-  if (any_of(houseNumber.cbegin(), houseNumber.cend(), IsDigit))
+  if (any_of(houseNumber.cbegin(), houseNumber.cend(), &strings::IsASCIIDigit))
   {
     house.Set(houseNumber);
     return true;
