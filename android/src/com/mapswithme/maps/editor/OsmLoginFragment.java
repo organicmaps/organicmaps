@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.Size;
 import androidx.appcompat.app.AlertDialog;
+
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmToolbarFragment;
 import com.mapswithme.util.Constants;
@@ -98,9 +99,10 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
 
   private void onAuthFail()
   {
-    new AlertDialog.Builder(requireActivity()).setTitle(R.string.editor_login_error_dialog)
-                                              .setPositiveButton(android.R.string.ok, null)
-                                              .show();
+    new AlertDialog.Builder(requireActivity(), R.style.MwmTheme_AlertDialog)
+        .setTitle(R.string.editor_login_error_dialog)
+        .setPositiveButton(R.string.ok, null)
+        .show();
   }
 
   private void onAuthSuccess(@Size(2) String[] auth, String username)

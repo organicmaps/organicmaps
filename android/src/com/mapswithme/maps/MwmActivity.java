@@ -5,7 +5,6 @@ import static com.mapswithme.maps.widget.placepage.PlacePageButtons.PLACEPAGE_MO
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
 import android.net.Uri;
@@ -27,7 +26,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentFactory;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -45,8 +43,6 @@ import com.mapswithme.maps.bookmarks.data.BookmarkInfo;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.bookmarks.data.Track;
-import com.mapswithme.maps.dialog.AlertDialogCallback;
-import com.mapswithme.maps.dialog.DialogUtils;
 import com.mapswithme.maps.downloader.DownloaderActivity;
 import com.mapswithme.maps.downloader.DownloaderFragment;
 import com.mapswithme.maps.downloader.MapManager;
@@ -117,7 +113,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
                BookmarkManager.BookmarksLoadingListener,
                FloatingSearchToolbarController.SearchToolbarListener,
                PlacePageController.SlideListener,
-               AlertDialogCallback, RoutingModeListener,
+               RoutingModeListener,
                AppBackgroundTracker.OnTransitionListener,
                NoConnectionListener,
                MenuBottomSheetFragment.MenuBottomSheetInterfaceWithHeader,
@@ -323,10 +319,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
     }
 
-    new AlertDialog.Builder(MwmActivity.this)
+    new AlertDialog.Builder(MwmActivity.this, R.style.MwmTheme_AlertDialog)
         .setMessage(R.string.unknown_current_position)
         .setCancelable(true)
-        .setPositiveButton(android.R.string.ok, null)
+        .setPositiveButton(R.string.ok, null)
         .show();
   }
 
@@ -445,11 +441,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onNoConnectionError()
   {
-    DialogInterface.OnClickListener listener = (dialog, which) -> {
-    };
-    DialogUtils.showAlertDialog(this, R.string.common_check_internet_connection_dialog_title,
-                                R.string.common_check_internet_connection_dialog,
-                                R.string.ok, listener);
+    new AlertDialog.Builder(this, R.style.MwmTheme_AlertDialog)
+        .setTitle(R.string.common_check_internet_connection_dialog_title)
+        .setMessage(R.string.common_check_internet_connection_dialog)
+        .setPositiveButton(R.string.ok, null)
+        .show();
   }
 
   private void initViews(boolean isLaunchByDeeplink)
@@ -503,7 +499,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
             if (Framework.nativeIsDownloadedMapAtScreenCenter())
               startActivity(new Intent(MwmActivity.this, FeatureCategoryActivity.class));
             else
-              DialogUtils.showAlertDialog(MwmActivity.this, R.string.message_invalid_feature_position);
+            {
+                new AlertDialog.Builder(this, R.style.MwmTheme_AlertDialog)
+                    .setTitle(R.string.message_invalid_feature_position)
+                    .setPositiveButton(R.string.ok, null)
+                    .show();
+            }
             break;
           case NONE:
             throw new IllegalStateException("Unexpected mPositionChooserMode");
@@ -920,15 +921,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
     }
 
-    com.mapswithme.maps.dialog.AlertDialog dialog = new com.mapswithme.maps.dialog.AlertDialog.Builder()
-        .setTitleId(R.string.downloader_update_maps)
-        .setMessageId(R.string.isolines_activation_error_dialog)
-        .setPositiveBtnId(R.string.ok)
-        .setNegativeBtnId(R.string.cancel)
-        .setFragManagerStrategyType(com.mapswithme.maps.dialog.AlertDialog.FragManagerStrategyType.ACTIVITY_FRAGMENT_MANAGER)
-        .setReqCode(REQ_CODE_ISOLINES_ERROR)
-        .build();
-    dialog.show(this, ISOLINES_ERROR_DIALOG_TAG);
+    new AlertDialog.Builder(this, R.style.MwmTheme_AlertDialog)
+        .setTitle(R.string.downloader_update_maps)
+        .setMessage(R.string.isolines_activation_error_dialog)
+        .setPositiveButton(R.string.ok, (dialog, which) -> startActivity(new Intent(this, DownloaderActivity.class)))
+        .setNegativeButton(R.string.cancel, null)
+        .show();
   }
 
   @Override
@@ -1589,17 +1587,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onDrivingOptionsBuildError()
   {
-    com.mapswithme.maps.dialog.AlertDialog dialog =
-        new com.mapswithme.maps.dialog.AlertDialog.Builder()
-            .setTitleId(R.string.unable_to_calc_alert_title)
-            .setMessageId(R.string.unable_to_calc_alert_subtitle)
-            .setPositiveBtnId(R.string.settings)
-            .setNegativeBtnId(R.string.cancel)
-            .setReqCode(REQ_CODE_ERROR_DRIVING_OPTIONS_DIALOG)
-            .setFragManagerStrategyType(com.mapswithme.maps.dialog.AlertDialog
-                                            .FragManagerStrategyType.ACTIVITY_FRAGMENT_MANAGER)
-            .build();
-    dialog.show(this, ERROR_DRIVING_OPTIONS_DIALOG_TAG);
+    new AlertDialog.Builder(this, R.style.MwmTheme_AlertDialog)
+        .setTitle(R.string.unable_to_calc_alert_title)
+        .setMessage(R.string.unable_to_calc_alert_subtitle)
+        .setPositiveButton(R.string.settings, (dialog, which) -> DrivingOptionsActivity.start(this))
+        .setNegativeButton(R.string.cancel, null)
+        .show();
   }
 
 
@@ -1677,27 +1670,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   @Override
   public void onBookmarksLoadingFinished()
-  {
-    // Do nothing
-  }
-
-  @Override
-  public void onAlertDialogPositiveClick(int requestCode, int which)
-  {
-    if (requestCode == REQ_CODE_ERROR_DRIVING_OPTIONS_DIALOG)
-      DrivingOptionsActivity.start(this);
-    else if (requestCode == REQ_CODE_ISOLINES_ERROR)
-      startActivity(new Intent(this, DownloaderActivity.class));
-  }
-
-  @Override
-  public void onAlertDialogNegativeClick(int requestCode, int which)
-  {
-    // Do nothing
-  }
-
-  @Override
-  public void onAlertDialogCancel(int requestCode)
   {
     // Do nothing
   }

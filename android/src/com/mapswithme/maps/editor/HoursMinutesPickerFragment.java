@@ -75,36 +75,30 @@ public class HoursMinutesPickerFragment extends BaseMwmDialogFragment
     //noinspection ConstantConditions
     mTabs.getTabAt(mSelectedTab).select();
 
-    @StyleRes
-    final int theme = ThemeUtils.isNightTheme(requireContext()) ?
-                      R.style.MwmMain_DialogFragment_TimePicker_Night :
-                      R.style.MwmMain_DialogFragment_TimePicker;
+    @StyleRes final int theme = ThemeUtils.isNightTheme(requireContext()) ?
+        R.style.MwmMain_DialogFragment_TimePicker_Night :
+        R.style.MwmMain_DialogFragment_TimePicker;
     final AlertDialog dialog = new AlertDialog.Builder(requireActivity(), theme)
-                                   .setView(root)
-                                   .setNegativeButton(android.R.string.cancel, null)
-                                   .setPositiveButton(android.R.string.ok, null)
-                                   .setCancelable(true)
-                                   .create();
+        .setView(root)
+        .setNegativeButton(R.string.cancel, null)
+        .setPositiveButton(R.string.ok, null)
+        .setCancelable(true)
+        .create();
 
     dialog.setOnShowListener(dialogInterface -> {
       mOkButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
-      mOkButton.setOnClickListener(new View.OnClickListener()
-      {
-        @Override
-        public void onClick(View v)
+      mOkButton.setOnClickListener(v -> {
+        if (mSelectedTab == TAB_FROM)
         {
-          if (mSelectedTab == TAB_FROM)
-          {
-            //noinspection ConstantConditions
-            mTabs.getTabAt(TAB_TO).select();
-            return;
-          }
-
-          saveHoursMinutes();
-          dismiss();
-          if (getParentFragment() instanceof OnPickListener)
-            ((OnPickListener) getParentFragment()).onHoursMinutesPicked(mFrom, mTo, mId);
+          //noinspection ConstantConditions
+          mTabs.getTabAt(TAB_TO).select();
+          return;
         }
+
+        saveHoursMinutes();
+        dismiss();
+        if (getParentFragment() instanceof OnPickListener)
+          ((OnPickListener) getParentFragment()).onHoursMinutesPicked(mFrom, mTo, mId);
       });
       refreshPicker();
     });

@@ -2,7 +2,6 @@ package com.mapswithme.maps.maplayer.traffic.widget;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.DialogInterface;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -111,26 +110,12 @@ public class TrafficButtonController implements TrafficManager.TrafficCallback
     if (mDialog != null && mDialog.isShowing())
       return;
 
-    AlertDialog.Builder builder = new AlertDialog.Builder(mActivity)
+    mDialog = new AlertDialog.Builder(mActivity, R.style.MwmTheme_AlertDialog)
         .setMessage(R.string.common_check_internet_connection_dialog)
-        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener()
-        {
-          @Override
-          public void onClick(DialogInterface dialog, int which)
-          {
-            TrafficManager.INSTANCE.setEnabled(false);
-          }
-        })
+        .setPositiveButton(R.string.ok, (dialog, which) -> TrafficManager.INSTANCE.setEnabled(false))
         .setCancelable(true)
-        .setOnCancelListener(new DialogInterface.OnCancelListener()
-        {
-          @Override
-          public void onCancel(DialogInterface dialog)
-          {
-            TrafficManager.INSTANCE.setEnabled(false);
-          }
-        });
-    mDialog = builder.show();
+        .setOnCancelListener(dialog -> TrafficManager.INSTANCE.setEnabled(false))
+        .show();
   }
 
   public void destroy()

@@ -16,11 +16,10 @@ import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
+import androidx.appcompat.app.AlertDialog;
 
 import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
-import com.mapswithme.maps.dialog.AlertDialog;
-import com.mapswithme.maps.dialog.AlertDialogCallback;
 import com.mapswithme.maps.downloader.CountryItem;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.intent.Factory;
@@ -38,12 +37,9 @@ import com.mapswithme.util.log.Logger;
 import java.util.List;
 
 @SuppressLint("StringFormatMatches")
-public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity implements AlertDialogCallback
+public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
 {
   private static final String TAG = DownloadResourcesLegacyActivity.class.getSimpleName();
-
-  private static final String ERROR_LOADING_DIALOG_TAG = "error_loading_dialog";
-  private static final int ERROR_LOADING_DIALOG_REQ_CODE = 234;
 
   private static final int REQ_CODE_API_RESULT = 10;
 
@@ -342,40 +338,6 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity imp
     showMap();
   }
 
-  private static @StringRes int getErrorMessage(int res)
-  {
-    switch (res)
-    {
-    case ERR_NOT_ENOUGH_FREE_SPACE:
-      return R.string.not_enough_free_space_on_sdcard;
-    case ERR_STORAGE_DISCONNECTED:
-      return R.string.disconnect_usb_cable;
-    case ERR_DOWNLOAD_ERROR:
-      return (ConnectionState.INSTANCE.isConnected() ? R.string.download_has_failed
-                                            : R.string.common_check_internet_connection_dialog);
-    default:
-      assert(res == ERR_DISK_ERROR);
-      return R.string.disk_error;
-    }
-  }
-
-  @StringRes
-  private static int getErrorTitle(int res)
-  {
-    switch (res)
-    {
-      case ERR_NOT_ENOUGH_FREE_SPACE:
-        return R.string.routing_not_enough_space;
-      case ERR_STORAGE_DISCONNECTED:
-        return R.string.disconnect_usb_cable_title;
-      case ERR_DOWNLOAD_ERROR:
-        return R.string.connection_failure;
-      default:
-        assert(res == ERR_DISK_ERROR);
-        return R.string.disk_error_title;
-    }
-  }
-
   public void showMap()
   {
     if (!mAreResourcesDownloaded)
@@ -470,33 +432,42 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity imp
 
   private void showErrorDialog(int result)
   {
-    AlertDialog dialog = new AlertDialog.Builder()
-        .setTitleId(getErrorTitle(result))
-        .setMessageId(getErrorMessage(result))
-        .setPositiveBtnId(R.string.try_again)
-        .setReqCode(ERROR_LOADING_DIALOG_REQ_CODE)
-        .setFragManagerStrategyType(AlertDialog.FragManagerStrategyType.ACTIVITY_FRAGMENT_MANAGER)
-        .build();
-    dialog.show(this, ERROR_LOADING_DIALOG_TAG);
-  }
+    @StringRes final int titleId;
+    @StringRes final int messageId;
 
-  @Override
-  public void onAlertDialogPositiveClick(int requestCode, int which)
-  {
-    setAction(TRY_AGAIN);
-    onTryAgainClicked();
-  }
+    switch (result)
+    {
+    case ERR_NOT_ENOUGH_FREE_SPACE:
+      titleId = R.string.routing_not_enough_space;
+      messageId = R.string.not_enough_free_space_on_sdcard;
+      break;
+    case ERR_STORAGE_DISCONNECTED:
+      titleId = R.string.disconnect_usb_cable_title;
+      messageId = R.string.disconnect_usb_cable;
+      break;
+    case ERR_DOWNLOAD_ERROR:
+      titleId = R.string.connection_failure;
+      messageId = (ConnectionState.INSTANCE.isConnected() ? R.string.download_has_failed
+          : R.string.common_check_internet_connection_dialog);
+      break;
+    case ERR_DISK_ERROR:
+      titleId = R.string.disk_error_title;
+      messageId = R.string.disk_error;
+      break;
+    default:
+      throw new AssertionError("Unexpected result code = " + result);
+    }
 
-  @Override
-  public void onAlertDialogNegativeClick(int requestCode, int which)
-  {
-    // no op
-  }
-
-  @Override
-  public void onAlertDialogCancel(int requestCode)
-  {
-    setAction(PAUSE);
+    new AlertDialog.Builder(this, R.style.MwmTheme_AlertDialog)
+        .setTitle(titleId)
+        .setMessage(messageId)
+        .setCancelable(true)
+        .setOnCancelListener((dialog) -> setAction(PAUSE))
+        .setPositiveButton(R.string.try_again, (dialog, which) -> {
+          setAction(TRY_AGAIN);
+          onTryAgainClicked();
+        })
+        .show();
   }
 
   private static native int nativeGetBytesToDownload();

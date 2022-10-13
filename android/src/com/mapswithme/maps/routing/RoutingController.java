@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.util.Pair;
 import androidx.fragment.app.FragmentActivity;
+
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
@@ -342,20 +343,16 @@ public class RoutingController implements Initializable<Void>
                                  R.string.dialog_routing_disclaimer_beware })
       builder.append(MwmApplication.from(activity.getApplicationContext()).getString(resId)).append("\n\n");
 
-    new AlertDialog.Builder(activity)
+    new AlertDialog.Builder(activity, R.style.MwmTheme_AlertDialog)
         .setTitle(R.string.dialog_routing_disclaimer_title)
         .setMessage(builder.toString())
         .setCancelable(false)
         .setNegativeButton(R.string.decline, null)
-        .setPositiveButton(R.string.accept, new DialogInterface.OnClickListener()
-        {
-          @Override
-          public void onClick(DialogInterface dlg, int which)
-          {
-            Config.acceptRoutingDisclaimer();
-            prepare(startPoint, endPoint, fromApi);
-          }
-        }).show();
+        .setPositiveButton(R.string.accept, (dlg, which) -> {
+          Config.acceptRoutingDisclaimer();
+          prepare(startPoint, endPoint, fromApi);
+        })
+        .show();
   }
 
   public void restoreRoute()
@@ -542,9 +539,9 @@ public class RoutingController implements Initializable<Void>
       return;
 
     final AlertDialog.Builder builder = new AlertDialog.Builder(mContainer.requireActivity())
-                                                       .setMessage(R.string.p2p_reroute_from_current)
-                                                       .setCancelable(false)
-                                                       .setNegativeButton(R.string.cancel, null);
+        .setMessage(R.string.p2p_reroute_from_current)
+        .setCancelable(false)
+        .setNegativeButton(R.string.cancel, null);
 
     TextView titleView = (TextView)View.inflate(mContainer.requireActivity(), R.layout.dialog_suggest_reroute_title, null);
     titleView.setText(R.string.p2p_only_from_current);

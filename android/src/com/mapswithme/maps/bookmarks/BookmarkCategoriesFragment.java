@@ -25,7 +25,6 @@ import com.mapswithme.maps.base.DataChangedListener;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.BookmarkSharingResult;
-import com.mapswithme.maps.dialog.DialogUtils;
 import com.mapswithme.maps.dialog.EditTextDialogFragment;
 import com.mapswithme.maps.widget.PlaceholderView;
 import com.mapswithme.maps.widget.recycler.DividerItemDecorationWithPadding;
@@ -296,7 +295,11 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
 
       final Context context = requireActivity();
       final Uri rootUri = data.getData();
-      final ProgressDialog dialog = DialogUtils.createModalProgressDialog(context, R.string.wait_several_minutes);
+      final ProgressDialog dialog = new ProgressDialog(context, R.style.MwmTheme_AlertDialog);
+      dialog.setMessage(getString(R.string.wait_several_minutes));
+      dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+      dialog.setIndeterminate(true);
+      dialog.setCancelable(false);
       dialog.show();
       Logger.d(TAG, "Importing bookmarks from " + rootUri);
       MwmApplication app = MwmApplication.from(context);

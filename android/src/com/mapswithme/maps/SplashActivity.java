@@ -5,7 +5,6 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -133,20 +132,12 @@ public class SplashActivity extends AppCompatActivity implements BaseActivity
   private void showFatalErrorDialog(@StringRes int titleId, @StringRes int messageId)
   {
     mCanceled = true;
-    AlertDialog dialog = new AlertDialog.Builder(this)
+    new AlertDialog.Builder(this, R.style.MwmTheme_AlertDialog)
         .setTitle(titleId)
         .setMessage(messageId)
-        .setNegativeButton(R.string.ok, new DialogInterface.OnClickListener()
-        {
-          @Override
-          public void onClick(DialogInterface dialog, int which)
-          {
-            SplashActivity.this.finish();
-          }
-        })
+        .setNegativeButton(R.string.ok, (dialog, which) -> SplashActivity.this.finish())
         .setCancelable(false)
-        .create();
-    dialog.show();
+        .show();
   }
 
   @Override

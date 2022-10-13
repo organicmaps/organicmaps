@@ -11,10 +11,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.OnBackPressListener;
-import com.mapswithme.maps.dialog.DialogUtils;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.StorageUtils;
 import com.mapswithme.util.Utils;
@@ -93,7 +93,7 @@ public class StoragePathFragment extends BaseSettingsFragment
     final String oldPath = storages.get(currentIndex).mPath;
     final String newPath = storages.get(newIndex).mPath;
 
-    new AlertDialog.Builder(requireActivity())
+    new AlertDialog.Builder(requireActivity(), R.style.MwmTheme_AlertDialog)
         .setCancelable(false)
         .setTitle(R.string.move_maps)
         .setPositiveButton(R.string.ok, (dlg, which) -> moveStorage(newPath, oldPath))
@@ -107,7 +107,11 @@ public class StoragePathFragment extends BaseSettingsFragment
    */
   private void moveStorage(@NonNull final String newPath, @NonNull final String oldPath)
   {
-    final ProgressDialog dialog = DialogUtils.createModalProgressDialog(requireActivity(), R.string.wait_several_minutes);
+    final ProgressDialog dialog = new ProgressDialog(requireActivity(), R.style.MwmTheme_AlertDialog);
+    dialog.setMessage(getString(R.string.wait_several_minutes));
+    dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+    dialog.setIndeterminate(true);
+    dialog.setCancelable(false);
     dialog.show();
 
     ThreadPool.getStorage().execute(() -> {
@@ -119,10 +123,10 @@ public class StoragePathFragment extends BaseSettingsFragment
 
         if (!result)
         {
-          new AlertDialog.Builder(requireActivity())
+          new AlertDialog.Builder(requireActivity(), R.style.MwmTheme_AlertDialog)
               .setTitle(R.string.move_maps_error)
               .setPositiveButton(R.string.report_a_bug,
-                                 (dlg, which) -> Utils.sendBugReport(requireActivity(), "Error moving map files"))
+                  (dlg, which) -> Utils.sendBugReport(requireActivity(), "Error moving map files"))
               .show();
         }
         Framework.nativeChangeWritableDir(newPath);
