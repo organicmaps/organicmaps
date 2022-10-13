@@ -1530,6 +1530,8 @@
 
 "type.barrier.cycle_barrier" = "Bisiklet Bariyeri";
 
+"type.barrier.ditch" = "Hendek";
+
 "type.barrier.entrance" = "Giriş";
 
 "type.barrier.fence" = "Çit";
@@ -1537,6 +1539,8 @@
 "type.barrier.gate" = "Geçit";
 
 "type.barrier.hedge" = "Çit";
+
+"type.barrier.kissing_gate" = "Geçit";
 
 "type.barrier.lift_gate" = "Asansör Kapısı";
 
@@ -2307,6 +2311,8 @@
 
 "type.leisure.fitness_station" = "Açık Hava Spor Alanı";
 
+"type.leisure.dance" = "Dans salonu";
+
 "type.leisure.garden" = "Bahçe";
 
 "type.leisure.garden.residential" = "Konut Bahçesi";
@@ -2436,6 +2442,8 @@
 "type.man_made.embankment" = "Set";
 
 "type.natural.coastline" = "Kıyı Şeridi";
+
+"type.natural.desert" = "Desert";
 
 "type.natural.geyser" = "Gayzer";
 
@@ -2792,8 +2800,6 @@
 "type.railway.station.subway.lima" = "Metro";
 
 "type.railway.station.subway.lisboa" = "Metro";
-
-"type.railway.station.subway.lisbon" = "Metro";
 
 "type.railway.station.subway.london" = "Metro";
 
@@ -3534,18 +3540,15 @@
 
 "type.wheelchair.yes" = "Tekerlekli sandalye erişimi var";
 
-/* en.wikipedia.org/wiki/Surface_lift */
-"type.piste_lift" = "Kayak Teleferiği";
+"type.aerialway.j.bar" = "Kayak Teleferiği";
 
-"type.piste_lift.j.bar" = "Kayak Teleferiği";
+"type.aerialway.magic_carpet" = "Kayak Teleferiği";
 
-"type.piste_lift.magic_carpet" = "Kayak Teleferiği";
+"type.aerialway.platter" = "Tabak Asansörü";
 
-"type.piste_lift.platter" = "Tabak Asansörü";
+"type.aerialway.rope_tow" = "Çekme Halatı";
 
-"type.piste_lift.rope_tow" = "Çekme Halatı";
-
-"type.piste_lift.t.bar" = "T-bar Lift";
+"type.aerialway.t.bar" = "T-bar Lift";
 
 "type.piste_type" = "Kayakçı Taşıyıcı";
 

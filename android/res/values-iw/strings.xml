@@ -247,6 +247,7 @@
 
 	<!-- SECTION: Types: Recycling -->
 	<string name="type.recycling.batteries">תוללוס</string>
+	<string name="type.barrier.ditch">ןגֵמָ תלַעָתְ</string>
 	<string name="type.cemetery.grave">רבק</string>
 	<string name="type.craft">מְלָאכָה</string>
 	<string name="type.craft.beekeeper">כוורן</string>
@@ -459,6 +460,7 @@
 	<string name="type.historic.castle.stately">שאטו</string>
 	<string name="type.historic.city_gate">שער העיר</string>
 	<string name="type.landuse.basin">אגן מים</string>
+	<string name="type.leisure.dance">םידוקיר םלוא</string>
 	<string name="type.leisure.picnic_table">קינקיפ ןחלוש</string>
 	<string name="type.natural">טבע</string>
 	<string name="type.natural.bare_rock">סלע חשוף</string>
@@ -472,6 +474,7 @@
 	<string name="type.natural.earth_bank">צוּק</string>
 	<string name="type.man_made.embankment">סוֹלְלָה</string>
 	<string name="type.natural.coastline">חוף</string>
+	<string name="type.natural.desert">רבָּדמִ</string>
 	<string name="type.natural.geyser">גייזר</string>
 	<string name="type.natural.glacier">קרחון</string>
 	<string name="type.natural.grassland">ערבה</string>

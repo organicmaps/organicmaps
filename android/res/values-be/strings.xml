@@ -765,6 +765,7 @@
 	<string name="type.amenity.waste_transfer_station">Станцыя перавалкі адходаў</string>
 	<string name="type.amenity.water_point">Вада для аўтадомаў</string>
 	<string name="type.barrier.chain">Ланцуг</string>
+	<string name="type.barrier.ditch">Роў</string>
 	<string name="type.barrier.lift_gate">Шлагбаўм</string>
 	<string name="type.barrier.swing_gate">Шлагбаўм</string>
 	<string name="type.cemetery.grave">Магіла</string>
@@ -903,6 +904,7 @@
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery.christian">Хрысціянскія могілкі</string>
 	<string name="type.landuse.education">Адукацыйныя ўстановы</string>
+	<string name="type.leisure.dance">Танцавальная зала</string>
 	<string name="type.leisure.garden.residential">Частный сад</string>
 	<string name="type.leisure.marina">Прычал</string>
 	<string name="type.leisure.picnic_table">Стол для пікніка</string>
@@ -928,6 +930,7 @@
 	<string name="type.natural.earth_bank">Абрыў</string>
 	<string name="type.man_made.embankment">Насып</string>
 	<string name="type.natural.coastline">Узбярэжжа</string>
+	<string name="type.natural.desert">Пустыня</string>
 	<string name="type.natural.geyser">Гейзер</string>
 	<string name="type.natural.glacier">Ледавік</string>
 	<string name="type.natural.grassland">Луг</string>

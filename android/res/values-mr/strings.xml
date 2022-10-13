@@ -822,6 +822,7 @@
 	<string name="type.barrier.fence">कुंपण</string>
 	<string name="type.barrier.gate">दार</string>
 	<string name="type.barrier.hedge">झुडुपांचे कुंपण</string>
+	<string name="type.barrier.kissing_gate">दार</string>
 	<string name="type.barrier.lift_gate">लिफ्ट दार</string>
 	<string name="type.barrier.retaining_wall">संधारक भिंत</string>
 	<string name="type.barrier.swing_gate">झुलते दार</string>
@@ -1353,7 +1354,6 @@
 	<string name="type.railway.station.subway.lille">भुयारी मार्ग</string>
 	<string name="type.railway.station.subway.lima">भुयारी मार्ग</string>
 	<string name="type.railway.station.subway.lisboa">भुयारी मार्ग</string>
-	<string name="type.railway.station.subway.lisbon">भुयारी मार्ग</string>
 	<string name="type.railway.station.subway.london">भुयारी मार्ग</string>
 	<string name="type.railway.station.subway.lyon">भुयारी मार्ग</string>
 	<string name="type.railway.station.subway.madrid">भुयारी मार्ग</string>

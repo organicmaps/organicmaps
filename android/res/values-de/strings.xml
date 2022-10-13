@@ -859,10 +859,12 @@
 	<string name="type.barrier.chain">Kette</string>
 	<string name="type.barrier.city_wall">Stadtmauer</string>
 	<string name="type.barrier.cycle_barrier">Umlaufschranke</string>
+	<string name="type.barrier.ditch">Graben</string>
 	<string name="type.barrier.entrance">Durchgang</string>
 	<string name="type.barrier.fence">Zaun</string>
 	<string name="type.barrier.gate">Tor</string>
 	<string name="type.barrier.hedge">Hecke</string>
+	<string name="type.barrier.kissing_gate">Tor</string>
 	<string name="type.barrier.lift_gate">Schranke</string>
 	<string name="type.barrier.retaining_wall">Stützmauer</string>
 	<string name="type.barrier.stile">Zaunübertritt</string>
@@ -1240,6 +1242,7 @@
 	<string name="type.leisure.dog_park">Hundeauslauffläche</string>
 	<string name="type.leisure.fitness_centre">Fitnessstudio</string>
 	<string name="type.leisure.fitness_station">Fitnessstation</string>
+	<string name="type.leisure.dance">Tanzsaal</string>
 	<string name="type.leisure.garden">Garten</string>
 	<string name="type.leisure.garden.residential">Garten</string>
 	<string name="type.leisure.golf_course">Golfplatz</string>
@@ -1296,6 +1299,7 @@
 	<string name="type.natural.earth_bank">Steilabhang</string>
 	<string name="type.man_made.embankment">Damm</string>
 	<string name="type.natural.coastline">Küste</string>
+	<string name="type.natural.desert">Wüste</string>
 	<string name="type.natural.geyser">Geysir</string>
 	<string name="type.natural.glacier">Gletscher</string>
 	<string name="type.natural.grassland">Grasland</string>
@@ -1467,7 +1471,6 @@
 	<string name="type.railway.station.subway.lille">U-Bahnstation</string>
 	<string name="type.railway.station.subway.lima">U-Bahnstation</string>
 	<string name="type.railway.station.subway.lisboa">U-Bahnstation</string>
-	<string name="type.railway.station.subway.lisbon">U-Bahnstation</string>
 	<string name="type.railway.station.subway.london">U-Bahnstation</string>
 	<string name="type.railway.station.subway.lyon">U-Bahnstation</string>
 	<string name="type.railway.station.subway.madrid">U-Bahnstation</string>
@@ -1836,13 +1839,11 @@
 	<string name="type.wheelchair.limited">Eingeschränkter Rollstuhlzugang</string>
 	<string name="type.wheelchair.no">Kein Rollstuhlzugang</string>
 	<string name="type.wheelchair.yes">Vollständiger Zugang für Rollstühle</string>
-	<!-- en.wikipedia.org/wiki/Surface_lift -->
-	<string name="type.piste_lift">Lift</string>
-	<string name="type.piste_lift.j.bar">Schlepplift</string>
-	<string name="type.piste_lift.magic_carpet">Laufband</string>
-	<string name="type.piste_lift.platter">Tellerlift</string>
-	<string name="type.piste_lift.rope_tow">Seillift</string>
-	<string name="type.piste_lift.t.bar">T-Bügel-Lift</string>
+	<string name="type.aerialway.j.bar">Schlepplift</string>
+	<string name="type.aerialway.magic_carpet">Laufband</string>
+	<string name="type.aerialway.platter">Tellerlift</string>
+	<string name="type.aerialway.rope_tow">Seillift</string>
+	<string name="type.aerialway.t.bar">T-Bügel-Lift</string>
 	<string name="type.piste_type">Pistentyp</string>
 	<string name="type.piste_type.downhill">Abfahrt</string>
 	<string name="type.piste_type.downhill.advanced">Schwierige Abfahrt</string>

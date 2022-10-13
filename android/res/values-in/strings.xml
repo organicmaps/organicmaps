@@ -777,8 +777,10 @@
 	<string name="type.barrier.block">Blok</string>
 	<string name="type.barrier.bollard">Pilar</string>
 	<string name="type.barrier.border_control">Gerbang perbatasan</string>
+	<string name="type.barrier.ditch">Parit</string>
 	<string name="type.barrier.entrance">Pintu masuk</string>
 	<string name="type.barrier.gate">Gerbang</string>
+	<string name="type.barrier.kissing_gate">Gerbang</string>
 	<string name="type.barrier.lift_gate">Polisi tidur</string>
 	<string name="type.barrier.stile">Undakan</string>
 	<string name="type.barrier.swing_gate">Polisi tidur</string>
@@ -1104,6 +1106,7 @@
 	<string name="type.leisure.dog_park">Area untuk anjing</string>
 	<string name="type.leisure.fitness_centre">Pusat kebugaran</string>
 	<string name="type.leisure.fitness_station">Stasiun Kebugaran</string>
+	<string name="type.leisure.dance">Lantai dansa</string>
 	<string name="type.leisure.garden">Situs arkeologi</string>
 	<string name="type.leisure.garden.residential">Situs arkeologi</string>
 	<string name="type.leisure.golf_course">Lapangan golf</string>
@@ -1143,6 +1146,7 @@
 	<string name="type.natural.earth_bank">Jurang</string>
 	<string name="type.man_made.embankment">Tanggul</string>
 	<string name="type.natural.coastline">Pesisir</string>
+	<string name="type.natural.desert">Gurun</string>
 	<string name="type.natural.geyser">Geiser</string>
 	<string name="type.natural.glacier">Gletser</string>
 	<string name="type.natural.grassland">Padang rumput</string>
@@ -1273,7 +1277,6 @@
 	<string name="type.railway.station.subway.lille">Stasiun bawah tanah</string>
 	<string name="type.railway.station.subway.lima">Stasiun bawah tanah</string>
 	<string name="type.railway.station.subway.lisboa">Stasiun bawah tanah</string>
-	<string name="type.railway.station.subway.lisbon">Stasiun bawah tanah</string>
 	<string name="type.railway.station.subway.london">Stasiun bawah tanah</string>
 	<string name="type.railway.station.subway.lyon">Stasiun bawah tanah</string>
 	<string name="type.railway.station.subway.madrid">Stasiun bawah tanah</string>

@@ -1530,6 +1530,8 @@
 
 "type.barrier.cycle_barrier" = "Cycle Barrier";
 
+"type.barrier.ditch" = "Voldgrav";
+
 "type.barrier.entrance" = "Gennemgang";
 
 "type.barrier.fence" = "Fence";
@@ -1537,6 +1539,8 @@
 "type.barrier.gate" = "Port";
 
 "type.barrier.hedge" = "Hedge";
+
+"type.barrier.kissing_gate" = "Port";
 
 "type.barrier.lift_gate" = "Bom";
 
@@ -2307,6 +2311,8 @@
 
 "type.leisure.fitness_station" = "Fitness-station";
 
+"type.leisure.dance" = "Dansesal";
+
 "type.leisure.garden" = "Have";
 
 "type.leisure.garden.residential" = "Have";
@@ -2436,6 +2442,8 @@
 "type.man_made.embankment" = "Dæmning";
 
 "type.natural.coastline" = "Kyst";
+
+"type.natural.desert" = "Ørken";
 
 "type.natural.geyser" = "Gejser";
 
@@ -2792,8 +2800,6 @@
 "type.railway.station.subway.lima" = "Metro";
 
 "type.railway.station.subway.lisboa" = "Metro";
-
-"type.railway.station.subway.lisbon" = "Metro";
 
 "type.railway.station.subway.london" = "Metro";
 
@@ -3534,18 +3540,15 @@
 
 "type.wheelchair.yes" = "Fuld tilgængelighed for kørestol";
 
-/* en.wikipedia.org/wiki/Surface_lift */
-"type.piste_lift" = "Surface Lift";
+"type.aerialway.j.bar" = "J-bar Lift";
 
-"type.piste_lift.j.bar" = "J-bar Lift";
+"type.aerialway.magic_carpet" = "Magic Carpet";
 
-"type.piste_lift.magic_carpet" = "Magic Carpet";
+"type.aerialway.platter" = "Platter Lift";
 
-"type.piste_lift.platter" = "Platter Lift";
+"type.aerialway.rope_tow" = "Rope Tow";
 
-"type.piste_lift.rope_tow" = "Rope Tow";
-
-"type.piste_lift.t.bar" = "T-bar Lift";
+"type.aerialway.t.bar" = "T-bar Lift";
 
 "type.piste_type" = "Piste Type";
 

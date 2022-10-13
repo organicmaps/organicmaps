@@ -834,8 +834,10 @@
 	<string name="type.barrier.block">حاجز</string>
 	<string name="type.barrier.bollard">عمود حاجز قصير</string>
 	<string name="type.barrier.border_control">أمن الحدود</string>
+	<string name="type.barrier.ditch">ﻕﺪﻨﺧ</string>
 	<string name="type.barrier.entrance">مدخل الحاجز</string>
 	<string name="type.barrier.gate">بوابة</string>
+	<string name="type.barrier.kissing_gate">بوابة</string>
 	<string name="type.barrier.lift_gate">حاجز بوابة</string>
 	<string name="type.barrier.stile">ممر عبور</string>
 	<string name="type.barrier.swing_gate">حاجز بوابة</string>
@@ -1191,6 +1193,7 @@
 	<string name="type.leisure.dog_park">منطقة كلاب</string>
 	<string name="type.leisure.fitness_centre">مركز للياقة البدنية، نادي رياضي</string>
 	<string name="type.leisure.fitness_station">مركز لياقة</string>
+	<string name="type.leisure.dance">ﺺﻗﺮﻟﺍ ﺔﻟﺎﺻ</string>
 	<string name="type.leisure.garden">حديقة</string>
 	<string name="type.leisure.garden.residential">حديقة</string>
 	<string name="type.leisure.golf_course">ملعب جولف</string>
@@ -1236,6 +1239,7 @@
 	<string name="type.natural.earth_bank">بنك الأرض</string>
 	<string name="type.man_made.embankment">سد</string>
 	<string name="type.natural.coastline">ساحل</string>
+	<string name="type.natural.desert">ءﺍﺮﺤﺻ</string>
 	<string name="type.natural.geyser">نبع ماء حار</string>
 	<string name="type.natural.glacier">كتلة جليدية</string>
 	<string name="type.natural.grassland">أرض عشبية</string>
@@ -1366,7 +1370,6 @@
 	<string name="type.railway.station.subway.lille">محطة مترو</string>
 	<string name="type.railway.station.subway.lima">محطة مترو</string>
 	<string name="type.railway.station.subway.lisboa">محطة مترو</string>
-	<string name="type.railway.station.subway.lisbon">محطة مترو</string>
 	<string name="type.railway.station.subway.london">محطة مترو</string>
 	<string name="type.railway.station.subway.lyon">محطة مترو</string>
 	<string name="type.railway.station.subway.madrid">محطة مترو</string>

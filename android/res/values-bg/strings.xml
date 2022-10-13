@@ -656,6 +656,7 @@
 
 	<!-- SECTION: Types: Recycling -->
 	<string name="type.recycling.batteries">Батерии</string>
+	<string name="type.barrier.ditch">Ров</string>
 	<string name="type.cemetery.grave">Гроб</string>
 	<string name="type.craft">Занаяти</string>
 	<string name="type.craft.beekeeper">Пчелар</string>
@@ -784,6 +785,7 @@
 	<string name="type.historic.castle.stately">Замък</string>
 	<string name="type.historic.city_gate">Градска порта</string>
 	<string name="type.landuse.basin">Резервоар</string>
+	<string name="type.leisure.dance">Зала за танци</string>
 	<string name="type.leisure.picnic_table">Маса за пикник</string>
 	<string name="type.sport.climbing">Катерене</string>
 	<string name="type.sport.yoga">Йога</string>
@@ -801,6 +803,7 @@
 	<string name="type.natural.earth_bank">Скала</string>
 	<string name="type.man_made.embankment">Насип</string>
 	<string name="type.natural.coastline">Крайбрежие</string>
+	<string name="type.natural.desert">Пустинен</string>
 	<string name="type.natural.geyser">Гейзер</string>
 	<string name="type.natural.glacier">Ледник</string>
 	<string name="type.natural.grassland">Пасища</string>

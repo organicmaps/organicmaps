@@ -1530,6 +1530,8 @@
 
 "type.barrier.cycle_barrier" = "Cycle Barrier";
 
+"type.barrier.ditch" = "Hào nước";
+
 "type.barrier.entrance" = "Lối vào";
 
 "type.barrier.fence" = "Fence";
@@ -1537,6 +1539,8 @@
 "type.barrier.gate" = "Cổng";
 
 "type.barrier.hedge" = "Hedge";
+
+"type.barrier.kissing_gate" = "Cổng";
 
 "type.barrier.lift_gate" = "Thanh Chắn";
 
@@ -2307,6 +2311,8 @@
 
 "type.leisure.fitness_station" = "Trạm tập thể hình";
 
+"type.leisure.dance" = "Vũ trường";
+
 "type.leisure.garden" = "Điểm khảo cổ";
 
 "type.leisure.garden.residential" = "Điểm khảo cổ";
@@ -2436,6 +2442,8 @@
 "type.man_made.embankment" = "Kè";
 
 "type.natural.coastline" = "Bờ biển";
+
+"type.natural.desert" = "Desert";
 
 "type.natural.geyser" = "Suối nước nóng";
 
@@ -2792,8 +2800,6 @@
 "type.railway.station.subway.lima" = "Ngầm";
 
 "type.railway.station.subway.lisboa" = "Ngầm";
-
-"type.railway.station.subway.lisbon" = "Ngầm";
 
 "type.railway.station.subway.london" = "Ngầm";
 
@@ -3534,18 +3540,15 @@
 
 "type.wheelchair.yes" = "Được trang bị cho người khuyết tật";
 
-/* en.wikipedia.org/wiki/Surface_lift */
-"type.piste_lift" = "Surface Lift";
+"type.aerialway.j.bar" = "J-bar Lift";
 
-"type.piste_lift.j.bar" = "J-bar Lift";
+"type.aerialway.magic_carpet" = "Magic Carpet";
 
-"type.piste_lift.magic_carpet" = "Magic Carpet";
+"type.aerialway.platter" = "Platter Lift";
 
-"type.piste_lift.platter" = "Platter Lift";
+"type.aerialway.rope_tow" = "Rope Tow";
 
-"type.piste_lift.rope_tow" = "Rope Tow";
-
-"type.piste_lift.t.bar" = "T-bar Lift";
+"type.aerialway.t.bar" = "T-bar Lift";
 
 "type.piste_type" = "Piste Type";
 

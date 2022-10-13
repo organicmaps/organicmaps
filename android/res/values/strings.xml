@@ -896,10 +896,12 @@
 	<string name="type.barrier.chain">Chain</string>
 	<string name="type.barrier.city_wall">City Wall</string>
 	<string name="type.barrier.cycle_barrier">Cycle Barrier</string>
+	<string name="type.barrier.ditch">Moat</string>
 	<string name="type.barrier.entrance">Entrance</string>
 	<string name="type.barrier.fence">Fence</string>
 	<string name="type.barrier.gate">Gate</string>
 	<string name="type.barrier.hedge">Hedge</string>
+	<string name="type.barrier.kissing_gate">Kissing Gate</string>
 	<string name="type.barrier.lift_gate">Lift Gate</string>
 	<string name="type.barrier.retaining_wall">Retaining Wall</string>
 	<string name="type.barrier.stile">Stile</string>
@@ -1309,6 +1311,7 @@
 	<string name="type.leisure.dog_park">Dog Area</string>
 	<string name="type.leisure.fitness_centre">Fitness Centre</string>
 	<string name="type.leisure.fitness_station">Fitness Station</string>
+	<string name="type.leisure.dance">Dance Hall</string>
 	<string name="type.leisure.garden">Garden</string>
 	<string name="type.leisure.garden.residential">Residential Garden</string>
 	<string name="type.leisure.golf_course">Golf Course</string>
@@ -1374,6 +1377,7 @@
 	<string name="type.natural.earth_bank">Earth Bank</string>
 	<string name="type.man_made.embankment">Embankment</string>
 	<string name="type.natural.coastline">Coastline</string>
+	<string name="type.natural.desert">Desert</string>
 	<string name="type.natural.geyser">Geyser</string>
 	<string name="type.natural.glacier">Glacier</string>
 	<string name="type.natural.grassland">Grassland</string>
@@ -1552,7 +1556,6 @@
 	<string name="type.railway.station.subway.lille">Subway</string>
 	<string name="type.railway.station.subway.lima">Subway</string>
 	<string name="type.railway.station.subway.lisboa">Subway</string>
-	<string name="type.railway.station.subway.lisbon">Subway</string>
 	<string name="type.railway.station.subway.london">Subway</string>
 	<string name="type.railway.station.subway.lyon">Subway</string>
 	<string name="type.railway.station.subway.madrid">Subway</string>
@@ -1923,13 +1926,11 @@
 	<string name="type.wheelchair.limited">Limited Wheelchair Access</string>
 	<string name="type.wheelchair.no">No Wheelchair Access</string>
 	<string name="type.wheelchair.yes">Full Wheelchair Access</string>
-	<!-- en.wikipedia.org/wiki/Surface_lift -->
-	<string name="type.piste_lift">Surface Lift</string>
-	<string name="type.piste_lift.j.bar">J-bar Lift</string>
-	<string name="type.piste_lift.magic_carpet">Magic Carpet</string>
-	<string name="type.piste_lift.platter">Platter Lift</string>
-	<string name="type.piste_lift.rope_tow">Rope Tow</string>
-	<string name="type.piste_lift.t.bar">T-bar Lift</string>
+	<string name="type.aerialway.j.bar">J-bar Lift</string>
+	<string name="type.aerialway.magic_carpet">Magic Carpet</string>
+	<string name="type.aerialway.platter">Platter Lift</string>
+	<string name="type.aerialway.rope_tow">Rope Tow</string>
+	<string name="type.aerialway.t.bar">T-bar Lift</string>
 	<string name="type.piste_type">Piste Type</string>
 	<string name="type.piste_type.downhill">Downhill Ski Run</string>
 	<string name="type.piste_type.downhill.advanced">Downhill Ski Run</string>

@@ -795,8 +795,10 @@
 	<string name="type.barrier.block">Este</string>
 	<string name="type.barrier.bollard">Tolppa</string>
 	<string name="type.barrier.border_control">Rajavalvonta</string>
+	<string name="type.barrier.ditch">Vallihauta</string>
 	<string name="type.barrier.entrance">Sisäänkäynti</string>
 	<string name="type.barrier.gate">Portti</string>
+	<string name="type.barrier.kissing_gate">Portti</string>
 	<string name="type.barrier.lift_gate">Puomi</string>
 	<string name="type.barrier.stile">Portaat</string>
 	<string name="type.barrier.swing_gate">Puomi</string>
@@ -1123,6 +1125,7 @@
 	<string name="type.leisure.dog_park">Koirien ulkoilupaikka</string>
 	<string name="type.leisure.fitness_centre">Kuntosali</string>
 	<string name="type.leisure.fitness_station">Kuntokeskus</string>
+	<string name="type.leisure.dance">Tanssisali</string>
 	<string name="type.leisure.garden">Puutarha</string>
 	<string name="type.leisure.garden.residential">Puutarha</string>
 	<string name="type.leisure.golf_course">Golf-rata</string>
@@ -1163,6 +1166,7 @@
 	<string name="type.natural.earth_bank">Kallio</string>
 	<string name="type.man_made.embankment">Pengerrys</string>
 	<string name="type.natural.coastline">Rannikko</string>
+	<string name="type.natural.desert">Aavikko</string>
 	<string name="type.natural.geyser">Geysir</string>
 	<string name="type.natural.glacier">Jäätikkö</string>
 	<string name="type.natural.grassland">Nurmi</string>
@@ -1293,7 +1297,6 @@
 	<string name="type.railway.station.subway.lille">Metro</string>
 	<string name="type.railway.station.subway.lima">Metro</string>
 	<string name="type.railway.station.subway.lisboa">Metro</string>
-	<string name="type.railway.station.subway.lisbon">Metro</string>
 	<string name="type.railway.station.subway.london">Metro</string>
 	<string name="type.railway.station.subway.lyon">Metro</string>
 	<string name="type.railway.station.subway.madrid">Metro</string>
@@ -1631,6 +1634,7 @@
 	<string name="type.waterway.canal.tunnel">Kanaali</string>
 	<string name="type.waterway.dam">Pato</string>
 	<string name="type.waterway.ditch">Oja</string>
+	<string name="type.waterway.ditch.tunnel">Oja</string>
 	<string name="type.waterway.dock">Telakka</string>
 	<string name="type.waterway.lock_gate">Kanavasulku</string>
 	<string name="type.waterway.river">Joki</string>

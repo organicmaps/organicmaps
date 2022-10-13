@@ -778,8 +778,10 @@
 	<string name="type.barrier.block">Blokering</string>
 	<string name="type.barrier.bollard">Søjle</string>
 	<string name="type.barrier.border_control">Grænsekontrol</string>
+	<string name="type.barrier.ditch">Voldgrav</string>
 	<string name="type.barrier.entrance">Gennemgang</string>
 	<string name="type.barrier.gate">Port</string>
+	<string name="type.barrier.kissing_gate">Port</string>
 	<string name="type.barrier.lift_gate">Bom</string>
 	<string name="type.barrier.stile">Gærdebro</string>
 	<string name="type.barrier.swing_gate">Bom</string>
@@ -1103,6 +1105,7 @@
 	<string name="type.leisure.dog_park">Hundepark</string>
 	<string name="type.leisure.fitness_centre">Trænings- og motionscenter</string>
 	<string name="type.leisure.fitness_station">Fitness-station</string>
+	<string name="type.leisure.dance">Dansesal</string>
 	<string name="type.leisure.garden">Have</string>
 	<string name="type.leisure.garden.residential">Have</string>
 	<string name="type.leisure.golf_course">Golf</string>
@@ -1141,6 +1144,7 @@
 	<string name="type.natural.earth_bank">Jordbanken</string>
 	<string name="type.man_made.embankment">Dæmning</string>
 	<string name="type.natural.coastline">Kyst</string>
+	<string name="type.natural.desert">Ørken</string>
 	<string name="type.natural.geyser">Gejser</string>
 	<string name="type.natural.glacier">Gletsjer</string>
 	<string name="type.natural.grassland">Græsslette</string>
@@ -1271,7 +1275,6 @@
 	<string name="type.railway.station.subway.lille">Metro</string>
 	<string name="type.railway.station.subway.lima">Metro</string>
 	<string name="type.railway.station.subway.lisboa">Metro</string>
-	<string name="type.railway.station.subway.lisbon">Metro</string>
 	<string name="type.railway.station.subway.london">Metro</string>
 	<string name="type.railway.station.subway.lyon">Metro</string>
 	<string name="type.railway.station.subway.madrid">Metro</string>

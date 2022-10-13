@@ -782,8 +782,10 @@
 	<string name="type.barrier.block">블록</string>
 	<string name="type.barrier.bollard">기둥</string>
 	<string name="type.barrier.border_control">국경통제소</string>
+	<string name="type.barrier.ditch">\"해자 외호\"</string>
 	<string name="type.barrier.entrance">입구</string>
 	<string name="type.barrier.gate">게이트</string>
+	<string name="type.barrier.kissing_gate">게이트</string>
 	<string name="type.barrier.lift_gate">차량차단기</string>
 	<string name="type.barrier.stile">디딤대</string>
 	<string name="type.barrier.swing_gate">차량차단기</string>
@@ -1110,6 +1112,7 @@
 	<string name="type.leisure.dog_park">애완견 지역</string>
 	<string name="type.leisure.fitness_centre">피트니스센터</string>
 	<string name="type.leisure.fitness_station">피트니스 스테이션</string>
+	<string name="type.leisure.dance">\"댄스홀\"</string>
 	<string name="type.leisure.garden">정원</string>
 	<string name="type.leisure.garden.residential">정원</string>
 	<string name="type.leisure.golf_course">골프장</string>
@@ -1150,6 +1153,7 @@
 	<string name="type.natural.earth_bank">낭떠러지</string>
 	<string name="type.man_made.embankment">둑</string>
 	<string name="type.natural.coastline">연안</string>
+	<string name="type.natural.desert">사막</string>
 	<string name="type.natural.geyser">간헐천</string>
 	<string name="type.natural.glacier">빙하</string>
 	<string name="type.natural.grassland">초원</string>
@@ -1280,7 +1284,6 @@
 	<string name="type.railway.station.subway.lille">지하철</string>
 	<string name="type.railway.station.subway.lima">지하철</string>
 	<string name="type.railway.station.subway.lisboa">지하철</string>
-	<string name="type.railway.station.subway.lisbon">지하철</string>
 	<string name="type.railway.station.subway.london">지하철</string>
 	<string name="type.railway.station.subway.lyon">지하철</string>
 	<string name="type.railway.station.subway.madrid">지하철</string>

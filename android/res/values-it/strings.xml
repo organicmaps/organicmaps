@@ -811,8 +811,10 @@
 	<string name="type.barrier.block">Blocco</string>
 	<string name="type.barrier.bollard">Pilastro</string>
 	<string name="type.barrier.border_control">Controllo di frontiera</string>
+	<string name="type.barrier.ditch">Fossato</string>
 	<string name="type.barrier.entrance">Ingresso</string>
 	<string name="type.barrier.gate">Cancello</string>
+	<string name="type.barrier.kissing_gate">Cancello</string>
 	<string name="type.barrier.lift_gate">Barriera ferroviaria</string>
 	<string name="type.barrier.stile">Scaletta per recinzioni</string>
 	<string name="type.barrier.swing_gate">Barriera ferroviaria</string>
@@ -1137,6 +1139,7 @@
 	<string name="type.leisure.dog_park">Area sgambamento cani</string>
 	<string name="type.leisure.fitness_centre">Centro benessere</string>
 	<string name="type.leisure.fitness_station">Centro fitness</string>
+	<string name="type.leisure.dance">Sala da ballo</string>
 	<string name="type.leisure.garden">Giardino</string>
 	<string name="type.leisure.garden.residential">Giardino</string>
 	<string name="type.leisure.golf_course">Campo da golf</string>
@@ -1177,6 +1180,7 @@
 	<string name="type.natural.earth_bank">Scogliera</string>
 	<string name="type.man_made.embankment">Rilevato</string>
 	<string name="type.natural.coastline">Costa</string>
+	<string name="type.natural.desert">Deserto</string>
 	<string name="type.natural.geyser">Geyser</string>
 	<string name="type.natural.glacier">Ghiacciaio</string>
 	<string name="type.natural.grassland">Prateria</string>
@@ -1309,7 +1313,6 @@
 	<string name="type.railway.station.subway.lille">Metrò</string>
 	<string name="type.railway.station.subway.lima">Metrò</string>
 	<string name="type.railway.station.subway.lisboa">Metrò</string>
-	<string name="type.railway.station.subway.lisbon">Metrò</string>
 	<string name="type.railway.station.subway.london">Metrò</string>
 	<string name="type.railway.station.subway.lyon">Metrò</string>
 	<string name="type.railway.station.subway.madrid">Metrò</string>

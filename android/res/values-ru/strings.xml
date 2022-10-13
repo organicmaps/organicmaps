@@ -880,10 +880,12 @@
 	<string name="type.barrier.chain">Цепь</string>
 	<string name="type.barrier.city_wall">Городская стена</string>
 	<string name="type.barrier.cycle_barrier">Велосипедный барьер</string>
+	<string name="type.barrier.ditch">Ров</string>
 	<string name="type.barrier.entrance">Проход</string>
 	<string name="type.barrier.fence">Забор</string>
 	<string name="type.barrier.gate">Ворота</string>
 	<string name="type.barrier.hedge">Живая изгородь</string>
+	<string name="type.barrier.kissing_gate">Ворота</string>
 	<string name="type.barrier.lift_gate">Шлагбаум</string>
 	<string name="type.barrier.retaining_wall">Поддерживающая стена</string>
 	<string name="type.barrier.stile">Перелаз</string>
@@ -1278,6 +1280,7 @@
 	<string name="type.leisure.dog_park">Место для выгула собак</string>
 	<string name="type.leisure.fitness_centre">Фитнес-клуб</string>
 	<string name="type.leisure.fitness_station">Спортивные снаряды</string>
+	<string name="type.leisure.dance">Танцпол</string>
 	<string name="type.leisure.garden">Сад</string>
 	<string name="type.leisure.garden.residential">Частный сад</string>
 	<string name="type.leisure.golf_course">Площадка для гольфа</string>
@@ -1341,6 +1344,7 @@
 	<string name="type.natural.earth_bank">Обрыв</string>
 	<string name="type.man_made.embankment">Насыпь</string>
 	<string name="type.natural.coastline">Береговая линия</string>
+	<string name="type.natural.desert">Пустыня</string>
 	<string name="type.natural.geyser">Гейзер</string>
 	<string name="type.natural.glacier">Ледник</string>
 	<string name="type.natural.grassland">Луг</string>
@@ -1519,7 +1523,6 @@
 	<string name="type.railway.station.subway.lille">Метро</string>
 	<string name="type.railway.station.subway.lima">Метро</string>
 	<string name="type.railway.station.subway.lisboa">Метро</string>
-	<string name="type.railway.station.subway.lisbon">Метро</string>
 	<string name="type.railway.station.subway.london">Метро</string>
 	<string name="type.railway.station.subway.lyon">Метро</string>
 	<string name="type.railway.station.subway.madrid">Метро</string>
@@ -1890,13 +1893,11 @@
 	<string name="type.wheelchair.limited">Частично оборудовано для инвалидов</string>
 	<string name="type.wheelchair.no">Не оборудовано для инвалидов</string>
 	<string name="type.wheelchair.yes">Оборудовано для инвалидов</string>
-	<!-- en.wikipedia.org/wiki/Surface_lift -->
-	<string name="type.piste_lift">Бугельный подъёмник</string>
-	<string name="type.piste_lift.j.bar">Бугельный подъёмник</string>
-	<string name="type.piste_lift.magic_carpet">Ленточный конвейер</string>
-	<string name="type.piste_lift.platter">Бугельный подъёмник</string>
-	<string name="type.piste_lift.rope_tow">Бугельный подъёмник</string>
-	<string name="type.piste_lift.t.bar">Бугельный подъёмник</string>
+	<string name="type.aerialway.j.bar">Бугельный подъёмник</string>
+	<string name="type.aerialway.magic_carpet">Ленточный конвейер</string>
+	<string name="type.aerialway.platter">Бугельный подъёмник</string>
+	<string name="type.aerialway.rope_tow">Бугельный подъёмник</string>
+	<string name="type.aerialway.t.bar">Бугельный подъёмник</string>
 	<string name="type.piste_type">Тип трассы</string>
 	<string name="type.piste_type.downhill">Горнолыжная трасса</string>
 	<string name="type.piste_type.downhill.advanced">Продвинутая горнолыжная трасса</string>

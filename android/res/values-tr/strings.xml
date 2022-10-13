@@ -866,10 +866,12 @@
 	<string name="type.barrier.chain">Zincir</string>
 	<string name="type.barrier.city_wall">Şehir Duvarı</string>
 	<string name="type.barrier.cycle_barrier">Bisiklet Bariyeri</string>
+	<string name="type.barrier.ditch">Hendek</string>
 	<string name="type.barrier.entrance">Giriş</string>
 	<string name="type.barrier.fence">Çit</string>
 	<string name="type.barrier.gate">Geçit</string>
 	<string name="type.barrier.hedge">Çit</string>
+	<string name="type.barrier.kissing_gate">Geçit</string>
 	<string name="type.barrier.lift_gate">Asansör Kapısı</string>
 	<string name="type.barrier.retaining_wall">İstinat duvarı</string>
 	<string name="type.barrier.stile">Çit Merdiveni</string>
@@ -1262,6 +1264,7 @@
 	<string name="type.leisure.dog_park">Köpek Alanı</string>
 	<string name="type.leisure.fitness_centre">Fitness Merkezi</string>
 	<string name="type.leisure.fitness_station">Açık Hava Spor Alanı</string>
+	<string name="type.leisure.dance">Dans salonu</string>
 	<string name="type.leisure.garden">Bahçe</string>
 	<string name="type.leisure.garden.residential">Konut Bahçesi</string>
 	<string name="type.leisure.golf_course">Golf Sahası</string>
@@ -1495,7 +1498,6 @@
 	<string name="type.railway.station.subway.lille">Metro</string>
 	<string name="type.railway.station.subway.lima">Metro</string>
 	<string name="type.railway.station.subway.lisboa">Metro</string>
-	<string name="type.railway.station.subway.lisbon">Metro</string>
 	<string name="type.railway.station.subway.london">Metro</string>
 	<string name="type.railway.station.subway.lyon">Metro</string>
 	<string name="type.railway.station.subway.madrid">Metro</string>
@@ -1866,12 +1868,10 @@
 	<string name="type.wheelchair.limited">Sınırlı tekerlekli sandalye erişimi</string>
 	<string name="type.wheelchair.no">Tekerlekli sandalye erişimi yok</string>
 	<string name="type.wheelchair.yes">Tekerlekli sandalye erişimi var</string>
-	<!-- en.wikipedia.org/wiki/Surface_lift -->
-	<string name="type.piste_lift">Kayak Teleferiği</string>
-	<string name="type.piste_lift.j.bar">Kayak Teleferiği</string>
-	<string name="type.piste_lift.magic_carpet">Kayak Teleferiği</string>
-	<string name="type.piste_lift.platter">Tabak Asansörü</string>
-	<string name="type.piste_lift.rope_tow">Çekme Halatı</string>
+	<string name="type.aerialway.j.bar">Kayak Teleferiği</string>
+	<string name="type.aerialway.magic_carpet">Kayak Teleferiği</string>
+	<string name="type.aerialway.platter">Tabak Asansörü</string>
+	<string name="type.aerialway.rope_tow">Çekme Halatı</string>
 	<string name="type.piste_type">Kayakçı Taşıyıcı</string>
 	<string name="type.piste_type.downhill">Yokuş Aşağı Kayak Pisti</string>
 	<string name="type.piste_type.downhill.advanced">Gelişmiş kayak pisti</string>

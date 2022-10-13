@@ -779,8 +779,10 @@
 	<string name="type.barrier.block">Blokk</string>
 	<string name="type.barrier.bollard">Pullert</string>
 	<string name="type.barrier.border_control">Grensekontroll</string>
+	<string name="type.barrier.ditch">Vollgrav</string>
 	<string name="type.barrier.entrance">Inngangspassasje</string>
 	<string name="type.barrier.gate">Port</string>
+	<string name="type.barrier.kissing_gate">Port</string>
 	<string name="type.barrier.lift_gate">Bom</string>
 	<string name="type.barrier.stile">Sperre</string>
 	<string name="type.barrier.swing_gate">Bom</string>
@@ -1105,6 +1107,7 @@
 	<string name="type.leisure.dog_park">Hundeområde</string>
 	<string name="type.leisure.fitness_centre">Treningssenter</string>
 	<string name="type.leisure.fitness_station">Treningssenter</string>
+	<string name="type.leisure.dance">Dansesal</string>
 	<string name="type.leisure.garden">Hage</string>
 	<string name="type.leisure.garden.residential">Hage</string>
 	<string name="type.leisure.golf_course">Golfbane</string>
@@ -1144,6 +1147,7 @@
 	<string name="type.natural.earth_bank">Klippe</string>
 	<string name="type.man_made.embankment">Fylling</string>
 	<string name="type.natural.coastline">Kyst</string>
+	<string name="type.natural.desert">Ørken</string>
 	<string name="type.natural.geyser">Gaysir</string>
 	<string name="type.natural.glacier">Isbre</string>
 	<string name="type.natural.grassland">Sletteland</string>
@@ -1274,7 +1278,6 @@
 	<string name="type.railway.station.subway.lille">T-bane</string>
 	<string name="type.railway.station.subway.lima">T-bane</string>
 	<string name="type.railway.station.subway.lisboa">T-bane</string>
-	<string name="type.railway.station.subway.lisbon">T-bane</string>
 	<string name="type.railway.station.subway.london">T-bane</string>
 	<string name="type.railway.station.subway.lyon">T-bane</string>
 	<string name="type.railway.station.subway.madrid">T-bane</string>

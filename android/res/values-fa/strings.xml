@@ -783,8 +783,10 @@
 	<string name="type.barrier.block">بلوک</string>
 	<string name="type.barrier.bollard">ستون</string>
 	<string name="type.barrier.border_control">کنترل مرزی</string>
+	<string name="type.barrier.ditch">ﻕﺪﻨﺧ</string>
 	<string name="type.barrier.entrance">ورودی</string>
 	<string name="type.barrier.gate">ورودی</string>
+	<string name="type.barrier.kissing_gate">ورودی</string>
 	<string name="type.barrier.lift_gate">اسانسور</string>
 	<string name="type.barrier.stile">پلکان</string>
 	<string name="type.barrier.swing_gate">اسانسور</string>
@@ -1026,6 +1028,7 @@
 	<string name="type.leisure.dog_park">محدوده مخصوص سگ</string>
 	<string name="type.leisure.fitness_centre">باشگاه بدنسازی</string>
 	<string name="type.leisure.fitness_station">پارک سلامت</string>
+	<string name="type.leisure.dance">ﺺﻗﺭ ﻦﻟﺎﺳ</string>
 	<string name="type.leisure.garden">گردشگری</string>
 	<string name="type.leisure.garden.residential">گردشگری</string>
 	<string name="type.leisure.golf_course">زمین گلف</string>
@@ -1064,6 +1067,7 @@
 	<string name="type.natural.earth_bank">صخره</string>
 	<string name="type.man_made.embankment">خاک‌ریز</string>
 	<string name="type.natural.coastline">کناره</string>
+	<string name="type.natural.desert">ﺮﯾﻮﮐ</string>
 	<string name="type.natural.geyser">چشمه آب گرم</string>
 	<string name="type.natural.glacier">یخچال طبیعی</string>
 	<string name="type.natural.grassland">علفزار</string>
@@ -1193,7 +1197,6 @@
 	<string name="type.railway.station.subway.lille">حمل و نقل</string>
 	<string name="type.railway.station.subway.lima">حمل و نقل</string>
 	<string name="type.railway.station.subway.lisboa">حمل و نقل</string>
-	<string name="type.railway.station.subway.lisbon">حمل و نقل</string>
 	<string name="type.railway.station.subway.london">حمل و نقل</string>
 	<string name="type.railway.station.subway.lyon">حمل و نقل</string>
 	<string name="type.railway.station.subway.madrid">حمل و نقل</string>

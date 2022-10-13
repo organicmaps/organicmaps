@@ -783,8 +783,10 @@
 	<string name="type.barrier.block">Blok</string>
 	<string name="type.barrier.bollard">Pilíř</string>
 	<string name="type.barrier.border_control">Pohraniční kontrola</string>
+	<string name="type.barrier.ditch">Hradní příkop</string>
 	<string name="type.barrier.entrance">Vstup</string>
 	<string name="type.barrier.gate">Brána</string>
+	<string name="type.barrier.kissing_gate">Brána</string>
 	<string name="type.barrier.lift_gate">Závora</string>
 	<string name="type.barrier.stile">Sloupek</string>
 	<string name="type.barrier.swing_gate">Závora</string>
@@ -1110,6 +1112,7 @@
 	<string name="type.leisure.dog_park">Místo pro psy</string>
 	<string name="type.leisure.fitness_centre">Fitness</string>
 	<string name="type.leisure.fitness_station">Posilovna</string>
+	<string name="type.leisure.dance">Taneční hala</string>
 	<string name="type.leisure.garden">Zahrada</string>
 	<string name="type.leisure.garden.residential">Zahrada</string>
 	<string name="type.leisure.golf_course">Golf</string>
@@ -1150,6 +1153,7 @@
 	<string name="type.natural.earth_bank">Útes</string>
 	<string name="type.man_made.embankment">Násyp</string>
 	<string name="type.natural.coastline">Pobřeží</string>
+	<string name="type.natural.desert">Poušť</string>
 	<string name="type.natural.geyser">Gejzír</string>
 	<string name="type.natural.glacier">Ledovec</string>
 	<string name="type.natural.grassland">Louky a pastviny</string>
@@ -1280,7 +1284,6 @@
 	<string name="type.railway.station.subway.lille">Metro</string>
 	<string name="type.railway.station.subway.lima">Metro</string>
 	<string name="type.railway.station.subway.lisboa">Metro</string>
-	<string name="type.railway.station.subway.lisbon">Metro</string>
 	<string name="type.railway.station.subway.london">Metro</string>
 	<string name="type.railway.station.subway.lyon">Metro</string>
 	<string name="type.railway.station.subway.madrid">Metro</string>

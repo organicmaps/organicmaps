@@ -251,6 +251,7 @@
 	<!-- SECTION: Types: Recycling -->
 	<string name="type.recycling.batteries">Betri</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">Mashine ya kuuzia tiketi za usafiri wa umma</string>
+	<string name="type.barrier.ditch">Moti</string>
 	<string name="type.boundary.national_park">Hifadhi ya taifa</string>
 	<string name="type.cemetery.grave">Kaburi</string>
 	<string name="type.craft">Ufundi</string>
@@ -387,6 +388,7 @@
 	<string name="type.landuse.landfill">Shamba la Taka</string>
 	<string name="type.landuse.railway">Eneo la njia ya reli</string>
 	<string name="type.leisure.dog_park">Eneo la mbwa</string>
+	<string name="type.leisure.dance">Ukumbi wa Ngoma</string>
 	<string name="type.leisure.nature_reserve">Hifadhi</string>
 	<string name="type.leisure.park">Hifadhi</string>
 	<string name="type.leisure.park.no.access">Hifadhi</string>

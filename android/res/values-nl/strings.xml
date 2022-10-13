@@ -861,10 +861,12 @@
 	<string name="type.barrier.chain">Ketting</string>
 	<string name="type.barrier.city_wall">Stadsmuur</string>
 	<string name="type.barrier.cycle_barrier">Fietsbarrière</string>
+	<string name="type.barrier.ditch">Gracht</string>
 	<string name="type.barrier.entrance">Ingang</string>
 	<string name="type.barrier.fence">Hek</string>
 	<string name="type.barrier.gate">Poort</string>
 	<string name="type.barrier.hedge">Heg</string>
+	<string name="type.barrier.kissing_gate">Voetgangershek</string>
 	<string name="type.barrier.lift_gate">Slagboom</string>
 	<string name="type.barrier.retaining_wall">Keermuur</string>
 	<string name="type.barrier.stile">Tourniquet</string>
@@ -1255,6 +1257,7 @@
 	<string name="type.leisure.dog_park">Hondenuitlaatplek</string>
 	<string name="type.leisure.fitness_centre">Fitnesscentrum</string>
 	<string name="type.leisure.fitness_station">Fitness-Station</string>
+	<string name="type.leisure.dance">Danszaal</string>
 	<string name="type.leisure.garden">Tuin</string>
 	<string name="type.leisure.garden.residential">Tuin</string>
 	<string name="type.leisure.golf_course">Golfbaan</string>
@@ -1318,6 +1321,7 @@
 	<string name="type.natural.earth_bank">Klif</string>
 	<string name="type.man_made.embankment">Baanlichaam</string>
 	<string name="type.natural.coastline">Kustlijn</string>
+	<string name="type.natural.desert">Woestijn</string>
 	<string name="type.natural.geyser">Geiser</string>
 	<string name="type.natural.glacier">Gletsjer</string>
 	<string name="type.natural.grassland">Grasland</string>
@@ -1493,7 +1497,6 @@
 	<string name="type.railway.station.subway.lille">Metrostation</string>
 	<string name="type.railway.station.subway.lima">Metrostation</string>
 	<string name="type.railway.station.subway.lisboa">Metrostation</string>
-	<string name="type.railway.station.subway.lisbon">Metrostation</string>
 	<string name="type.railway.station.subway.london">Metrostation</string>
 	<string name="type.railway.station.subway.lyon">Metrostation</string>
 	<string name="type.railway.station.subway.madrid">Metrostation</string>
@@ -1840,10 +1843,10 @@
 	<string name="type.waterway.canal.tunnel">Kanaal</string>
 	<string name="type.waterway.dam">Dam</string>
 	<string name="type.waterway.ditch">Sloot</string>
-	<string name="type.waterway.ditch.tunnel">Duiker</string>
+	<string name="type.waterway.ditch.tunnel">Sloot</string>
 	<string name="type.waterway.dock">Dok</string>
 	<string name="type.waterway.drain">Afvoer</string>
-	<string name="type.waterway.drain.tunnel">Afvoer tunnel</string>
+	<string name="type.waterway.drain.tunnel">Afvoer</string>
 	<string name="type.waterway.lock_gate">Sluisdeur</string>
 	<string name="type.waterway.river">Rivier</string>
 	<string name="type.waterway.river.tunnel">Rivier</string>
@@ -1858,13 +1861,11 @@
 	<string name="type.wheelchair.limited">Gedeeltelijk uitgerust voor gehandicapten</string>
 	<string name="type.wheelchair.no">Niet uitgerust voor gehandicapten</string>
 	<string name="type.wheelchair.yes">Uitgerust voor gehandicapten</string>
-	<!-- en.wikipedia.org/wiki/Surface_lift -->
-	<string name="type.piste_lift">Sleeplift</string>
-	<string name="type.piste_lift.j.bar">Sleeplift (J)</string>
-	<string name="type.piste_lift.magic_carpet">Loopband</string>
-	<string name="type.piste_lift.platter">Sleeplift</string>
-	<string name="type.piste_lift.rope_tow">Touwlift</string>
-	<string name="type.piste_lift.t.bar">Sleeplift (T-beugel)</string>
+	<string name="type.aerialway.j.bar">Sleeplift (J)</string>
+	<string name="type.aerialway.magic_carpet">Loopband</string>
+	<string name="type.aerialway.platter">Sleeplift</string>
+	<string name="type.aerialway.rope_tow">Touwlift</string>
+	<string name="type.aerialway.t.bar">Sleeplift (T-beugel)</string>
 	<string name="type.piste_type">Pistesoort</string>
 	<string name="type.piste_type.downhill">Ski-afdaling</string>
 	<string name="type.piste_type.downhill.advanced">Moeilijke afdaling</string>
