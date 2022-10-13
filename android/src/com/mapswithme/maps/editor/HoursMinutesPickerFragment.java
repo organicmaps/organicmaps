@@ -129,7 +129,7 @@ public class HoursMinutesPickerFragment extends BaseMwmDialogFragment
 
     mPicker = root.findViewById(R.id.picker);
     mPicker.setIs24HourView(DateFormat.is24HourFormat(requireActivity()));
-
+    @SuppressLint("DiscouragedApi")
     int id = getResources().getIdentifier("hours", "id", "android");
     if (id != 0)
     {
