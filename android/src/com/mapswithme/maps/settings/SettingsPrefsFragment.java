@@ -693,15 +693,17 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
       public boolean onPreferenceClick(Preference preference)
       {
         if (MapManager.nativeIsDownloading())
-          new AlertDialog.Builder(requireActivity())
-              .setTitle(getString(R.string.downloading_is_active))
-              .setMessage(getString(R.string.cant_change_this_setting))
-              .setPositiveButton(getString(R.string.ok), null)
+        {
+          new AlertDialog.Builder(requireActivity(), R.style.MwmTheme_AlertDialog)
+              .setTitle(R.string.downloading_is_active)
+              .setMessage(R.string.cant_change_this_setting)
+              .setPositiveButton(R.string.ok, null)
               .show();
+        }
         else
-//          getSettingsActivity().switchToFragment(StoragePathFragment.class, R.string.maps_storage);
-          getSettingsActivity().stackFragment(StoragePathFragment.class,
-                                                getString(R.string.maps_storage), null);
+        {
+          getSettingsActivity().stackFragment(StoragePathFragment.class, getString(R.string.maps_storage), null);
+        }
 
         return true;
       }

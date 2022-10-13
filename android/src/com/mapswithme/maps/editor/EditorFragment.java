@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.TextUtils;
-import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -636,8 +635,8 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
   private void rollback(@Editor.FeatureStatus int status)
   {
-    int title;
-    int message;
+    @StringRes final int title;
+    @StringRes final int message;
     if (status == Editor.CREATED)
     {
       title = R.string.editor_remove_place_button;
@@ -649,19 +648,15 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
       message = R.string.editor_reset_edits_message;
     }
 
-    new AlertDialog.Builder(requireActivity()).setTitle(message)
-                                          .setPositiveButton(getString(title).toUpperCase(), new DialogInterface.OnClickListener()
-                                          {
-                                            @Override
-                                            public void onClick(DialogInterface dialog, int which)
-                                            {
-                                              Editor.nativeRollbackMapObject();
-                                              Framework.nativePokeSearchInViewport();
-                                              mParent.onBackPressed();
-                                            }
-                                          })
-                                          .setNegativeButton(getString(R.string.cancel).toUpperCase(), null)
-                                          .show();
+    new AlertDialog.Builder(requireActivity(), R.style.MwmTheme_AlertDialog)
+        .setTitle(message)
+        .setPositiveButton(title, (dialog, which) -> {
+          Editor.nativeRollbackMapObject();
+          Framework.nativePokeSearchInViewport();
+          mParent.onBackPressed();
+        })
+        .setNegativeButton(R.string.cancel, null)
+        .show();
   }
 
   private void placeDoesntExist()

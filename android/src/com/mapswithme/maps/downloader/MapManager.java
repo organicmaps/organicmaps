@@ -89,30 +89,20 @@ public final class MapManager
       throw new IllegalArgumentException("Given error can not be displayed: " + errorData.errorCode);
     }
 
-    AlertDialog dlg = new AlertDialog.Builder(activity)
-                                     .setTitle(R.string.country_status_download_failed)
-                                     .setMessage(text)
-                                     .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener()
-                                     {
-                                       @Override
-                                       public void onClick(DialogInterface dialog, int which)
-                                       {
-                                         sCurrentErrorDialog = null;
-                                         if (dialogClickListener != null)
-                                           dialogClickListener.invoke(false);
-                                       }
-                                     })
-                                     .setPositiveButton(R.string.downloader_retry, new DialogInterface.OnClickListener()
-                                     {
-                                       @Override
-                                       public void onClick(DialogInterface dialog, int which)
-                                       {
-                                         Application app = activity.getApplication();
-                                         RetryFailedDownloadConfirmationListener listener
-                                             = new ExpandRetryConfirmationListener(app, dialogClickListener);
-                                         warn3gAndRetry(activity, errorData.countryId, listener);
-                                       }
-                                     }).create();
+    final AlertDialog dlg = new AlertDialog.Builder(activity, R.style.MwmTheme_AlertDialog)
+        .setTitle(R.string.country_status_download_failed)
+        .setMessage(text)
+        .setNegativeButton(R.string.cancel, (dialog, which) -> {
+          sCurrentErrorDialog = null;
+          if (dialogClickListener != null)
+            dialogClickListener.invoke(false);
+        })
+        .setPositiveButton(R.string.downloader_retry, (dialog, which) -> {
+          Application app = activity.getApplication();
+          RetryFailedDownloadConfirmationListener listener
+              = new ExpandRetryConfirmationListener(app, dialogClickListener);
+          warn3gAndRetry(activity, errorData.countryId, listener);
+        }).create();
     dlg.setCanceledOnTouchOutside(false);
     dlg.show();
     sCurrentErrorDialog = new WeakReference<>(dlg);
@@ -120,7 +110,7 @@ public final class MapManager
 
   private static void notifyNoSpaceInternal(Activity activity)
   {
-    new AlertDialog.Builder(activity)
+    new AlertDialog.Builder(activity, R.style.MwmTheme_AlertDialog)
         .setTitle(R.string.downloader_no_space_title)
         .setMessage(R.string.downloader_no_space_message)
         .setPositiveButton(android.R.string.ok, null)
@@ -171,18 +161,13 @@ public final class MapManager
       return false;
     }
 
-    new AlertDialog.Builder(activity)
-        .setMessage(String.format("%1$s\n\n%2$s", activity.getString(R.string.download_over_mobile_header),
-                                                  activity.getString(R.string.download_over_mobile_message)))
-        .setNegativeButton(android.R.string.cancel, null)
-        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener()
-        {
-          @Override
-          public void onClick(DialogInterface dlg, int which)
-          {
-            nativeEnableDownloadOn3g();
-            onAcceptListener.run();
-          }
+    new AlertDialog.Builder(activity, R.style.MwmTheme_AlertDialog)
+        .setTitle(R.string.download_over_mobile_header)
+        .setMessage(R.string.download_over_mobile_message)
+        .setNegativeButton(R.string.cancel, null)
+        .setPositiveButton(R.string.ok, (dlg, which) -> {
+          nativeEnableDownloadOn3g();
+          onAcceptListener.run();
         }).show();
 
     return true;

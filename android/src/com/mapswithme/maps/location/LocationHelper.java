@@ -331,7 +331,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
       return;
 
     final AppCompatActivity activity = mUiCallback.requireActivity();
-    AlertDialog.Builder builder = new AlertDialog.Builder(activity)
+    AlertDialog.Builder builder = new AlertDialog.Builder(activity, R.style.MwmTheme_AlertDialog)
         .setTitle(R.string.enable_location_services)
         .setMessage(R.string.location_is_disabled_long_text)
         .setOnDismissListener(dialog -> mErrorDialog = null)
@@ -361,7 +361,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
       return;
 
     final AppCompatActivity activity = mUiCallback.requireActivity();
-    mErrorDialog = new AlertDialog.Builder(activity)
+    mErrorDialog = new AlertDialog.Builder(activity, R.style.MwmTheme_AlertDialog)
         .setTitle(R.string.current_location_unknown_title)
         .setMessage(R.string.current_location_unknown_message)
         .setOnDismissListener(dialog -> mErrorDialog = null)

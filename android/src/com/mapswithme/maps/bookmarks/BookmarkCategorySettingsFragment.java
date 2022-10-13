@@ -13,12 +13,12 @@ import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmToolbarFragment;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
-import com.mapswithme.maps.dialog.DialogUtils;
 
 import java.util.Objects;
 
@@ -114,15 +114,21 @@ public class BookmarkCategorySettingsFragment extends BaseMwmToolbarFragment
   {
     if (TextUtils.isEmpty(name))
     {
-      DialogUtils.showAlertDialog(requireContext(), R.string.bookmarks_error_title_empty_list_name,
-                                  R.string.bookmarks_error_message_empty_list_name);
+      new AlertDialog.Builder(requireActivity(), R.style.MwmTheme_AlertDialog)
+          .setTitle(R.string.bookmarks_error_title_empty_list_name)
+          .setMessage(R.string.bookmarks_error_message_empty_list_name)
+          .setPositiveButton(R.string.ok, null)
+          .show();
       return false;
     }
 
     if (BookmarkManager.INSTANCE.isUsedCategoryName(name) && !TextUtils.equals(name, mCategory.getName()))
     {
-      DialogUtils.showAlertDialog(requireContext(), R.string.bookmarks_error_title_list_name_already_taken,
-                                  R.string.bookmarks_error_message_list_name_already_taken);
+      new AlertDialog.Builder(requireActivity(), R.style.MwmTheme_AlertDialog)
+          .setTitle(R.string.bookmarks_error_title_list_name_already_taken)
+          .setMessage(R.string.bookmarks_error_message_list_name_already_taken)
+          .setPositiveButton(R.string.ok, null)
+          .show();
       return false;
     }
     return true;

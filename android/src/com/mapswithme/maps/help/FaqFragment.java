@@ -64,12 +64,12 @@ public class FaqFragment extends BaseMwmFragment
     };
 
     TextView feedback = root.findViewById(R.id.feedback);
-    feedback.setOnClickListener(v -> new AlertDialog.Builder(requireActivity())
+    feedback.setOnClickListener(v -> new AlertDialog.Builder(requireActivity(), R.style.MwmTheme_AlertDialog)
         .setTitle(R.string.feedback)
         .setNegativeButton(R.string.cancel, null)
-        .setItems(new CharSequence[] { getString(R.string.feedback_general),
-                                       getString(R.string.report_a_bug) },
-                  mDialogClickListener).show());
+        .setItems(new CharSequence[]{getString(R.string.feedback_general), getString(R.string.report_a_bug)},
+            mDialogClickListener)
+        .show());
 
     return root;
   }

@@ -100,10 +100,10 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
   {
     if (RoutingController.get().isNavigating())
     {
-      new AlertDialog.Builder(adapter.mActivity)
+      new AlertDialog.Builder(adapter.mActivity, R.style.MwmTheme_AlertDialog)
           .setTitle(R.string.downloader_delete_map)
           .setMessage(R.string.downloader_delete_map_while_routing_dialog)
-          .setPositiveButton(android.R.string.ok, null)
+          .setPositiveButton(R.string.ok, null)
           .show();
       return;
     }
@@ -114,11 +114,12 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       return;
     }
 
-    new AlertDialog.Builder(adapter.mActivity)
+    new AlertDialog.Builder(adapter.mActivity, R.style.MwmTheme_AlertDialog)
         .setTitle(R.string.downloader_delete_map)
         .setMessage(R.string.downloader_delete_map_dialog)
-        .setNegativeButton(android.R.string.no, null)
-        .setPositiveButton(android.R.string.yes, (dialog, which) -> deleteNode(item, adapter)).show();
+        .setNegativeButton(R.string.cancel, null)
+        .setPositiveButton(R.string.ok, (dialog, which) -> deleteNode(item, adapter))
+        .show();
   }
 
   private void onCancelActionSelected(CountryItem item, DownloaderAdapter adapter)

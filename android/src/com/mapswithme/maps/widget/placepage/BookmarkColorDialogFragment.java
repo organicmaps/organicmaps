@@ -40,11 +40,11 @@ public class BookmarkColorDialogFragment extends BaseMwmDialogFragment
     if (getArguments() != null)
       mIconColor = getArguments().getInt(ICON_TYPE);
 
-    return new AlertDialog.Builder(requireActivity())
-                          .setView(buildView())
-                          .setTitle(R.string.bookmark_color)
-                          .setNegativeButton(getString(R.string.cancel), null)
-                          .create();
+    return new AlertDialog.Builder(requireActivity(), R.style.MwmTheme_AlertDialog)
+        .setView(buildView())
+        .setTitle(R.string.bookmark_color)
+        .setNegativeButton(R.string.cancel, null)
+        .create();
   }
 
   public void setOnColorSetListener(OnBookmarkColorChangeListener listener)

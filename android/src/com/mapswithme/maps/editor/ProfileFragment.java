@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmToolbarFragment;
 import com.mapswithme.util.Constants;
@@ -83,15 +84,14 @@ public class ProfileFragment extends BaseMwmToolbarFragment
 
   private void logout()
   {
-    new AlertDialog.Builder(requireContext())
+    new AlertDialog.Builder(requireContext(), R.style.MwmTheme_AlertDialog)
         .setMessage(R.string.are_you_sure)
-        .setPositiveButton(android.R.string.ok, (dialog, which) ->
+        .setPositiveButton(R.string.ok, (dialog, which) ->
         {
           OsmOAuth.clearAuthorization(requireContext());
           refreshViews();
         })
-        .setNegativeButton(android.R.string.no, null)
-        .create()
+        .setNegativeButton(R.string.no, null)
         .show();
   }
 

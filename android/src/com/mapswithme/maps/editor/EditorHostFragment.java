@@ -2,7 +2,6 @@ package com.mapswithme.maps.editor;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -21,7 +20,6 @@ import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmToolbarFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
-import com.mapswithme.maps.dialog.DialogUtils;
 import com.mapswithme.maps.editor.data.Language;
 import com.mapswithme.maps.editor.data.LocalizedName;
 import com.mapswithme.maps.editor.data.LocalizedStreet;
@@ -356,7 +354,10 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
 
   private void processNoFeatures()
   {
-    DialogUtils.showAlertDialog(requireActivity(), R.string.downloader_no_space_title);
+    new AlertDialog.Builder(requireActivity(), R.style.MwmTheme_AlertDialog)
+        .setTitle(R.string.downloader_no_space_title)
+        .setPositiveButton(R.string.ok, null)
+        .show();
   }
 
   private void processEditedFeatures()
@@ -388,32 +389,27 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
 
   private void showMistakeDialog(@StringRes int resId)
   {
-    new AlertDialog.Builder(requireActivity())
+    new AlertDialog.Builder(requireActivity(), R.style.MwmTheme_AlertDialog)
         .setMessage(resId)
-        .setPositiveButton(android.R.string.ok, null)
+        .setPositiveButton(R.string.ok, null)
         .show();
   }
 
   private void showNoobDialog()
   {
-    new AlertDialog.Builder(requireActivity())
-      .setTitle(R.string.editor_share_to_all_dialog_title)
-      .setMessage(getString(R.string.editor_share_to_all_dialog_message_1)
-        + " " + getString(R.string.editor_share_to_all_dialog_message_2))
-      .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener()
-      {
-        @Override
-        public void onClick(DialogInterface dlg, int which)
-        {
+    new AlertDialog.Builder(requireActivity(), R.style.MwmTheme_AlertDialog)
+        .setTitle(R.string.editor_share_to_all_dialog_title)
+        .setMessage(getString(R.string.editor_share_to_all_dialog_message_1)
+            + " " + getString(R.string.editor_share_to_all_dialog_message_2))
+        .setPositiveButton(android.R.string.ok, (dlg, which) -> {
           MwmApplication.prefs(requireContext()).edit()
-                        .putBoolean(NOOB_ALERT_SHOWN, true)
-                        .apply();
+              .putBoolean(NOOB_ALERT_SHOWN, true)
+              .apply();
           saveNote();
           saveMapObjectEdits();
-        }
-      })
-      .setNegativeButton(android.R.string.cancel, null)
-      .show();
+        })
+        .setNegativeButton(android.R.string.cancel, null)
+        .show();
   }
 
   public void setStreet(LocalizedStreet street)

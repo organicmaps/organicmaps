@@ -1,7 +1,6 @@
 package com.mapswithme.maps;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -16,6 +15,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.util.Config;
@@ -160,17 +160,11 @@ public class MapFragment extends BaseMwmFragment
 
   private void reportUnsupported()
   {
-    new AlertDialog.Builder(requireActivity())
-        .setMessage(getString(R.string.unsupported_phone))
+    new AlertDialog.Builder(requireActivity(), R.style.MwmTheme_AlertDialog)
+        .setMessage(R.string.unsupported_phone)
         .setCancelable(false)
-        .setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener()
-        {
-          @Override
-          public void onClick(DialogInterface dlg, int which)
-          {
-            requireActivity().moveTaskToBack(true);
-          }
-        }).show();
+        .setPositiveButton(R.string.close, (dlg, which) -> requireActivity().moveTaskToBack(true))
+        .show();
   }
 
   @Override
