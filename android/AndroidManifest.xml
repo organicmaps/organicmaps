@@ -68,7 +68,6 @@
       android:name="com.mapswithme.maps.SplashActivity"
       android:exported="true">
 
-      <!-- standard "geo" scheme -->
       <intent-filter>
         <action android:name="android.intent.action.VIEW"/>
 
@@ -76,14 +75,6 @@
         <category android:name="android.intent.category.BROWSABLE"/>
 
         <data android:scheme="geo"/>
-      </intent-filter>
-
-      <intent-filter>
-        <action android:name="android.intent.action.VIEW"/>
-
-        <category android:name="android.intent.category.DEFAULT"/>
-        <category android:name="android.intent.category.BROWSABLE"/>
-
         <data android:scheme="ge0"/>
         <data android:scheme="om"/>
       </intent-filter>
@@ -593,13 +584,8 @@
       <intent-filter>
         <action android:name="android.intent.action.SEND"/>
         <category android:name="android.intent.category.DEFAULT"/>
-        <data android:mimeType="application/vnd.google-earth.kmz"/>
-      </intent-filter>
-
-      <intent-filter>
-        <action android:name="android.intent.action.SEND"/>
-        <category android:name="android.intent.category.DEFAULT"/>
         <data android:mimeType="application/vnd.google-earth.kml+xml"/>
+        <data android:mimeType="application/vnd.google-earth.kmz"/>
       </intent-filter>
 
       <intent-filter>
@@ -618,35 +604,13 @@
         <data android:pathPattern=".*\\..*\\..*\\.kmz" />
         <data android:pathPattern=".*\\..*\\..*\\..*\\.kmz" />
         <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\.kmz" />
-      </intent-filter>
-
-      <intent-filter>
-        <action android:name="android.intent.action.VIEW" />
-        <category android:name="android.intent.category.DEFAULT" />
-        <category android:name="android.intent.category.BROWSABLE" />
-        <data android:scheme="content"/>
-        <data android:scheme="file"/>
-        <data android:scheme="data"/>
-        <data android:host="*"/>
-        <data android:mimeType="*/*"/>
         <data android:pathPattern="*.kml"/>
         <data android:pathPattern=".*\\.kml" />
         <data android:pathPattern=".*\\..*\\.kml" />
         <data android:pathPattern=".*\\..*\\..*\\.kml" />
         <data android:pathPattern=".*\\..*\\..*\\..*\\.kml" />
         <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\.kml" />
-      </intent-filter>
-
-      <!-- Old MAPS.ME binary format //-->
-      <intent-filter>
-        <action android:name="android.intent.action.VIEW"/>
-        <category android:name="android.intent.category.DEFAULT"/>
-        <category android:name="android.intent.category.BROWSABLE"/>
-        <data android:scheme="content"/>
-        <data android:scheme="file"/>
-        <data android:scheme="data"/>
-        <data android:host="*"/>
-        <data android:mimeType="*/*"/>
+        <!-- Old MAPS.ME binary format //-->
         <data android:pathPattern="*.kmb"/>
         <data android:pathPattern=".*\\.kmb" />
         <data android:pathPattern=".*\\..*\\.kmb" />
