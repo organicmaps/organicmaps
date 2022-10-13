@@ -4,8 +4,13 @@ world  +
         chair_lift  -
         drag_lift  -
         gondola  -
+        j-bar  -
+        magic_carpet  -
         mixed_lift  -
+        platter  -
+        rope_tow  -
         station  -
+        t-bar  -
         {}
     aeroway  +
         aerodrome  +
@@ -37,7 +42,9 @@ world  +
         car_sharing  -
         car_wash  -
         casino  -
-        charging_station  -
+        charging_station  +
+            motorcar  -
+            {}
         childcare  -
         cinema  -
         clinic  -
@@ -163,13 +170,16 @@ world  +
         block  -
         bollard  -
         border_control  -
+        cattle_grid  -
         chain  -
         city_wall  -
         cycle_barrier  -
+        ditch  -
         entrance  -
         fence  -
         gate  -
         hedge  -
+        kissing_gate  -
         lift_gate  -
         retaining_wall  -
         stile  -
@@ -570,6 +580,7 @@ world  +
     leisure  +
         beach_resort  -
         common  -
+        dance  -
         dog_park  -
         fitness_centre  -
         fitness_station  -
@@ -643,6 +654,7 @@ world  +
         cave_entrance  -
         cliff  -
         coastline  -
+        desert  -
         earth_bank  -
         geyser  -
         glacier  -
@@ -687,13 +699,6 @@ world  +
     organic  +
         only  -
         yes  -
-        {}
-    piste:lift  +
-        j-bar  -
-        magic_carpet  -
-        platter  -
-        rope_tow  -
-        t-bar  -
         {}
     piste:type  +
         downhill  +
@@ -862,7 +867,6 @@ world  +
                 lille  -
                 lima  -
                 lisboa  -
-                lisbon  -
                 london  -
                 lyon  -
                 madrid  -
@@ -978,7 +982,6 @@ world  +
             lille  -
             lima  -
             lisboa  -
-            lisbon  -
             london  -
             lyon  -
             madrid  -
