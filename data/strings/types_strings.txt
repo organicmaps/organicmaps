@@ -3178,7 +3178,7 @@
     sk = Papierový odpad
     sv = Returpapper
     th = ขยะกระดาษ
-    tr = Kağıt Atıklar
+    tr = Kâğıt Atıklar
     uk = Папір
     vi = Giấy phế liệu
     zh-Hans = 废纸
@@ -3242,7 +3242,7 @@
     nl = Plastic flessen
     pl = Zbieranie plastikowych butelek
     pt = Garrafas de plástico
-    pt-BR = Garrafas plasticas
+    pt-BR = Garrafas plásticas
     ro = Sticle de plastic
     ru = Пластиковые бутылки
     sk = Plastové fľaše
@@ -18474,7 +18474,7 @@
     nb = Elektronikk forhandler
     nl = Elektronicazaak
     pl = Sklep ze sprzętem elektronicznym
-    pt = Loja de eletrónica de consumo
+    pt = Loja de electrónica de consumo
     pt-BR = Loja de eletrônicos
     ro = Electronice
     ru = Электротехника
@@ -20042,7 +20042,7 @@
     nl = Videowinkel
     pl = Wypożyczalnia wideo
     pt = Vídeoclube
-    pt-BR = Video locadora
+    pt-BR = Vídeo locadora
     ro = Magazin video
     ru = Магазин видео
     sk = Predajňa s videami
