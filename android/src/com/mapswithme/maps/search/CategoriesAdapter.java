@@ -1,5 +1,6 @@
 package com.mapswithme.maps.search;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
@@ -95,6 +96,7 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
     return allCategories;
   }
 
+  @SuppressLint("DiscouragedApi")
   @StringRes
   private static int getStringResIdByKey(@NonNull Resources resources, @NonNull String packageName,
                                          @NonNull String key)
@@ -102,6 +104,7 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
     return resources.getIdentifier(key, "string", packageName);
   }
 
+  @SuppressLint("DiscouragedApi")
   @DrawableRes
   private static int getDrawableResIdByKey(@NonNull Context context,
                                            @NonNull String packageName,

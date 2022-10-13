@@ -1,6 +1,7 @@
 package com.mapswithme.util;
 
 import android.animation.Animator;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -367,6 +368,9 @@ public final class UiUtils
   {
     int result = 0;
     Resources res = context.getResources();
+    // TODO: find a better way of getting system status bar height
+    // https://github.com/organicmaps/organicmaps/issues/3611
+    @SuppressLint({"DiscouragedApi", "InternalInsetResource"})
     int resourceId = res.getIdentifier("status_bar_height", "dimen", "android");
     if (resourceId > 0)
       result = res.getDimensionPixelSize(resourceId);

@@ -1,5 +1,6 @@
 package com.mapswithme.util;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.ClipData;
@@ -577,6 +578,7 @@ public class Utils
   }
 
   @StringRes
+  @SuppressLint("DiscouragedApi")
   public static int getStringIdByKey(@NonNull Context context, @NonNull String key)
   {
     try
