@@ -10,10 +10,8 @@
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
 
-#include <cstdint>
 #include <map>
 #include <string>
-#include <utility>
 #include <vector>
 
 class FeatureType;
@@ -32,7 +30,7 @@ public:
   bool Matches(FeatureType & feature) const;
   void SetPostcode(std::string const & postcode) { m_postcode = postcode; }
   uint64_t GetId() const { return m_id; }
-//  StringUtf8Multilang const & GetNames() const { return m_names; }
+
   std::string_view GetName(std::string_view lang) const
   {
     std::string_view res;
@@ -61,8 +59,8 @@ protected:
   TestFeature(StringUtf8Multilang const & name);
   TestFeature(m2::PointD const & center, std::string const & name, std::string const & lang);
   TestFeature(m2::PointD const & center, StringUtf8Multilang const & name);
-  TestFeature(std::vector<m2::PointD> const & boundary, std::string const & name,
-              std::string const & lang);
+  TestFeature(m2::RectD const & boundary, std::string const & name, std::string const & lang);
+  TestFeature(std::vector<m2::PointD> const & boundary, std::string const & name, std::string const & lang);
 
   uint64_t const m_id;
   m2::PointD const m_center;
@@ -153,9 +151,6 @@ public:
   // TestFeature overrides:
   void Serialize(feature::FeatureBuilder & fb) const override;
   std::string ToDebugString() const override;
-
-private:
-  m2::RectD m_rect;
 };
 
 class TestPOI : public TestFeature
@@ -205,21 +200,20 @@ public:
                std::string const & lang);
   TestBuilding(m2::PointD const & center, std::string const & name, std::string const & houseNumber,
                std::string_view street, std::string const & lang);
-  TestBuilding(std::vector<m2::PointD> const & boundary, std::string const & name,
-               std::string const & houseNumber, std::string_view street,
-               std::string const & lang);
+  TestBuilding(m2::RectD const & boundary, std::string const & name, std::string const & houseNumber,
+               std::string_view street, std::string const & lang);
 
   // TestFeature overrides:
   void Serialize(feature::FeatureBuilder & fb) const override;
   std::string ToDebugString() const override;
 
-  void AddType(std::vector<std::string> const & path) { m_types.push_back(path); }
+  void AddType(uint32_t type) { m_types.push_back(type); }
 
 private:
   std::string const m_houseNumber;
   std::string const m_streetName;
 
-  std::vector<std::vector<std::string>> m_types;
+  std::vector<uint32_t> m_types;
 };
 
 class TestPark : public TestFeature

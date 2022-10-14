@@ -628,6 +628,7 @@ private:
       if (m_params.GetNumTokens() == preInfo.InnermostTokenRange().Size())
         info.m_nameScore = NameScore::FULL_PREFIX;
 
+      ASSERT_LESS_OR_EQUAL(categoriesInfo.GetMatchedLength(), totalLength, (featureTypes));
       info.m_matchedFraction = std::max(info.m_matchedFraction,
                                         categoriesInfo.GetMatchedLength() / static_cast<float>(totalLength));
       if (!info.m_errorsMade.IsValid())
