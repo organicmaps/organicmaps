@@ -4893,6 +4893,7 @@
     ar = يتيح لك هذا الخيار تسجيل مسار السفر لفترة معينة وعرضه على الخريطة. الرجاء ملاحظة: يؤدي تنشيط هذه الوظيفة إلى زيادة استهلاك البطارية. سوف تتم إزالة المسار تلقائيًا من الخريطة بعد انتهاء الفاصل الزمني.
     be = Гэтая функцыя дазваляе запісваць сцежку за некаторы прамежак часу і бачыць яе на мапе. Увага: уключэнне гэтай функцыі павялічвае выкарыстанне батарэі. Сцежка будзе аўтаматычка выдалена з мапы калі прамежак часу скончыцца.
     bg = Тази опция ви позволява да запишете изминатия път за определен период и да го видите на картата. Моля, обърнете внимание: активирането на тази функция води до повишено използване на батерията.
+    ca = Aquesta opció et permet registrar el recorregut recorregut durant un període determinat i veure'l al mapa. Tingues en compte: l'activació d'aquesta funció provoca un augment de l'ús de la bateria. La pista s'eliminarà automàticament del mapa un cop expiri l'interval de temps.
     cs = To vám umožňuje zaznamenávat ujetou cestu po určitou dobu a vidět ji na mapě. Poznámka: aktivace této funkce způsobuje zvýšenou spotřebu baterie. Trať bude automaticky odebrána z mapy poté, co vyprší časový interval.
     da = Det giver dig mulighed at optage en rejsterute for en bestemt periode og se den på kortet. Bemærk: aktivering af denne funktion forårsager øget batteriforbrug. Sporet vil blive fjernet automatisk fra kortet efter at tidsintervallet er udløbet.
     de = So können Sie die zurückgelegte Strecke für einen bestimmten Zeitraum aufzeichnen und auf der Karte sehen. Hinweis: Die Aktivierung dieser Funktion führt zu erhöhtem Batterieverbrauch. Die Aufzeichnung wird nach Ablauf des Zeitintervalls automatisch von der Karte entfernt.
@@ -4968,6 +4969,7 @@
     ar = مشاهدة على الخريطة
     be = Паглядзець на мапе
     bg = Преглед на картата
+    ca = Veure al mapa
     cs = Zobrazit na mapě
     da = Vis på kortet
     de = Auf der Karte ansehen
@@ -5004,6 +5006,7 @@
     comment = Menu button
     tags = android
     en = Menu
+    ca = Menú
     pl = Menu
     ru = Меню
     uk = Меню
@@ -12692,6 +12695,7 @@
     ar = .ﻢﻟﺎﻌﻟﺍ ءﺎﺤﻧﺃ ﻊﻴﻤﺟ ﻲﻓ ﻦﻴﻣﺪﺨﺘﺴﻤﻟﺍ ﻦﻴﻳﻼﻤﻟ ﺔﺣﺎﺘﻣ ﺢﺒﺼﺗﻭ ، ﺎﻬﻠﻳﺪﻌﺗ ﻭﺃ ﻦﻛﺎﻣﻷﺍ ﺔﻓﺎﺿﺇ
     be = Усе дадзеныя карты паходзяць з праекта OpenStreetMap. Гэта як Wikipedia для карт, дзе вы можаце дадаваць або рэдагаваць месцы, і яны становяцца даступнымі для мільёнаў карыстальнікаў па ўсім свеце.
     bg = Всички картографски данни идват от проекта OpenStreetMap. Това е като Wikipedia за карти, където можете да добавяте или редактирате места и те стават достъпни за милиони потребители по целия свят.
+    ca = Totes les dades cartogràfiques provenen del projecte OpenStreetMap. És com la Viquipèdia per als mapes on podeu afegir o editar llocs, i estan disponibles per a milions d'usuaris de tot el món.
     cs = Všechna mapová data pocházejí z projektu OpenStreetMap. Je to jako Wikipedie s mapami, kde můžete přidávat nebo upravovat místa a jsou dostupné milionům uživatelů po celém světě.
     da = Alle kortdata kommer fra OpenStreetMap-projektet. Det er ligesom Wikipedia for kort, hvor du kan tilføje eller redigere steder, og de bliver tilgængelige for millioner af brugere over hele verden.
     de = Alle Kartendaten stammen aus dem OpenStreetMap-Projekt. Es ist wie Wikipedia für Karten, wo Sie Orte hinzufügen oder bearbeiten können, und sie werden Millionen von Benutzern auf der ganzen Welt zur Verfügung gestellt.
@@ -16582,6 +16586,7 @@
     ar = إدارة المسار
     be = Кіраваць маршрутам
     bg = Управление на маршрут
+    ca = Gestionar la ruta
     cs = Spravovat trasu
     da = Administrer rute
     de = Route verwalten
@@ -18239,6 +18244,7 @@
     ar = حدث خطأ غير معروف
     be = Адбылася невядомая памылка
     bg = Възникна неизвестна грешка
+    ca = S'ha produït un error desconegut
     cs = Nastala neznámá chyba
     da = Der opstod en ukendt fejl
     de = Ein unbekannter Fehler ist aufgetreten
