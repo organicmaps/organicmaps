@@ -39,8 +39,7 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
   // Converts 220131 to locale-dependent date (e.g. 31 January 2022),
   private String localDate(long v)
   {
-    final Locale locale = getResources().getConfiguration().locale;
-    final SimpleDateFormat format = new SimpleDateFormat("yyMMdd", locale);
+    final SimpleDateFormat format = new SimpleDateFormat("yyMMdd", Locale.getDefault());
     final String strVersion = String.valueOf(v);
     try {
       final Date date = format.parse(strVersion);

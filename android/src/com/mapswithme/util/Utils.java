@@ -752,13 +752,6 @@ public class Utils
     return dateFormat.format(calendar.getTime());
   }
 
-  @NonNull
-  public static String fixCaseInString(@NonNull String string)
-  {
-    char firstChar = string.charAt(0);
-    return firstChar + string.substring(1).toLowerCase();
-  }
-
   private static class SupportInfoWithLogsCallback implements LogsManager.OnZipCompletedListener
   {
     @NonNull

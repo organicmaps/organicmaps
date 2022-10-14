@@ -5,6 +5,8 @@ import android.text.TextUtils;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.mapswithme.util.StringUtils;
+
 /**
  * Class representing a single item in countries hierarchy.
  * Fields are filled by native code.
@@ -161,7 +163,7 @@ public final class CountryItem implements Comparable<CountryItem>
            ", totalSize: " + totalSize +
            ", childCount: " + childCount +
            ", totalChildCount: " + totalChildCount +
-           ", progress: " + String.format("%.2f", progress) +
+           ", progress: " + StringUtils.formatUsingUsLocale("%.2f", progress) +
            "% }";
   }
 }

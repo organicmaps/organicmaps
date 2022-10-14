@@ -22,7 +22,6 @@ import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 
 import java.util.List;
-import java.util.Locale;
 
 public class CountrySuggestFragment extends BaseMwmFragment implements View.OnClickListener
 {
@@ -138,7 +137,7 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
     if (mCurrentCountry == null || !isAdded())
       return;
 
-    mBtnDownloadMap.setText(String.format(Locale.US, "%1$s (%2$s)",
+    mBtnDownloadMap.setText(StringUtils.formatUsingUsLocale("%1$s (%2$s)",
                                           getString(R.string.downloader_download_map),
                                           StringUtils.getFileSizeString(requireContext(), mCurrentCountry.totalSize)));
   }
@@ -193,7 +192,8 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
 
   private void updateProgress()
   {
-    String text = String.format(Locale.US, "%1$s %2$.2f%%", getString(R.string.downloader_downloading), mDownloadingCountry.progress);
+    String text = StringUtils.formatUsingUsLocale("%1$s %2$.2f%%", getString(R.string.downloader_downloading),
+      mDownloadingCountry.progress);
     mTvProgress.setText(text);
     mWpvDownloadProgress.setProgress(Math.round(mDownloadingCountry.progress));
   }

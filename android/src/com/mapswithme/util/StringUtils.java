@@ -66,19 +66,36 @@ public class StringUtils
       if (value == 0)
         value = 1;
 
-      return String.format(Locale.US, "%1$d %2$s", value,
-                           MwmApplication.from(context).getString(R.string.mb));
+      return formatUsingUsLocale("%1$d %2$s", value, MwmApplication.from(context).getString(R.string.mb));
     }
 
     float value = ((float) size / Constants.GB);
-    return String.format(Locale.US, "%1$.1f %2$s", value,
-                         MwmApplication.from(context).getString(R.string.gb));
+    return formatUsingUsLocale("%1$.1f %2$s", value, MwmApplication.from(context).getString(R.string.gb));
   }
 
   public static boolean isRtl()
   {
     Locale defLocale = Locale.getDefault();
     return Character.getDirectionality(defLocale.getDisplayName(defLocale).charAt(0)) == Character.DIRECTIONALITY_RIGHT_TO_LEFT;
+  }
+
+  @NonNull
+  public static String fixCaseInString(@NonNull String string)
+  {
+    char firstChar = string.charAt(0);
+    return firstChar + toLowerCase(string.substring(1));
+  }
+
+  @NonNull
+  public static String toLowerCase(@NonNull String string)
+  {
+    return string.toLowerCase(Locale.getDefault());
+  }
+
+  @NonNull
+  public static String toUpperCase(@NonNull String string)
+  {
+    return string.toUpperCase(Locale.getDefault());
   }
 
   public static class SimpleTextWatcher implements TextWatcher

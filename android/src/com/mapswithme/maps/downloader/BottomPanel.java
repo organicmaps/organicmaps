@@ -8,8 +8,6 @@ import com.mapswithme.maps.R;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 
-import java.util.Locale;
-
 class BottomPanel
 {
   private final DownloaderFragment mFragment;
@@ -72,7 +70,7 @@ class BottomPanel
 
   private void setUpdateAllState(UpdateInfo info)
   {
-    mButton.setText(String.format(Locale.US, "%s (%s)", mFragment.getString(R.string.downloader_update_all_button),
+    mButton.setText(StringUtils.formatUsingUsLocale("%s (%s)", mFragment.getString(R.string.downloader_update_all_button),
                                   StringUtils.getFileSizeString(mFragment.requireContext(), info.totalSize)));
     mButton.setOnClickListener(mUpdateListener);
   }
