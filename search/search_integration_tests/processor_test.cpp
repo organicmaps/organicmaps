@@ -127,8 +127,8 @@ UNIT_CLASS_TEST(ProcessorTest, Smoke)
 
   TestBuilding feynmanHouse({10, 10}, "Feynman house", "1 unit 1", feynmanStreet.GetName("en"), "en");
   TestBuilding bohrHouse({10, 10}, "Bohr house", "1 unit 1", bohrStreet1.GetName("en"), "en");
-  TestBuilding hilbertHouse({{10.0005, 10.0005}, {10.0006, 10.0005}, {10.0006, 10.0006}, {10.0005, 10.0006}},
-      "Hilbert house", "1 unit 2", bohrStreet1.GetName("en"), "en");
+  TestBuilding hilbertHouse({10.0005, 10.0005, 10.0006, 10.0006},
+                            "Hilbert house", "1 unit 2", bohrStreet1.GetName("en"), "en");
   TestBuilding descartesHouse({10, 10}, "Descartes house", "2", "en");
   TestBuilding bornHouse({14.999, 15}, "Born house", "8", firstAprilStreet.GetName("en"), "en");
 
@@ -3165,6 +3165,35 @@ UNIT_CLASS_TEST(ProcessorTest, PoiStreetCity_FancyMatch)
   TEST(ResultsMatch({results[0]}, {ExactMatch(countryId, moloStreet)}), ());
   TEST(ResultsMatch({results[1]}, {ExactMatch(countryId, moloBusStop)}), ());
   TEST(ResultsMatch({results[2]}, {ExactMatch(countryId, minskStreet)}), ());
+}
+
+UNIT_CLASS_TEST(ProcessorTest, ComplexPoi_Rank)
+{
+  auto const & cl = classif();
+
+  TestBuilding landuse({-1, -1, 1, 1}, "Telekom", "5", "xxx", "de");
+  landuse.AddType(cl.GetTypeByPath({"landuse", "commercial"}));
+  TestPOI poiInMall({0, 0}, "yyy", "de");
+  poiInMall.SetType(cl.GetTypeByPath({"shop", "clothes"}));
+  TestPOI telekom({2, 2}, "Telekom shop", "de");
+  telekom.SetType(cl.GetTypeByPath({"shop", "mobile_phone"}));
+
+  auto countryId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
+    builder.Add(landuse);
+    builder.Add(poiInMall);
+    builder.Add(telekom);
+  });
+
+  SetViewport({-0.5, -0.5, 0.5, 0.5});
+
+  auto request = MakeRequest("Telekom shop");
+  auto const & results = request->Results();
+
+  TEST_EQUAL(results.size(), 2, ());
+
+  TEST(ResultsMatch({results[0]}, {ExactMatch(countryId, telekom)}), ());
+  TEST(ResultsMatch({results[1]}, {ExactMatch(countryId, poiInMall)}), ());
 }
 
 } // namespace processor_test

@@ -34,6 +34,11 @@ uint64_t GenUniqueId()
   static atomic<uint64_t> id;
   return id.fetch_add(1);
 }
+
+vector<m2::PointD> MakePoly(m2::RectD const & rect)
+{
+  return { rect.LeftBottom(), rect.RightBottom(), rect.RightTop(), rect.LeftTop(), rect.LeftBottom() };
+}
 }  // namespace
 
 // TestFeature -------------------------------------------------------------------------------------
@@ -68,6 +73,11 @@ TestFeature::TestFeature(m2::PointD const & center, StringUtf8Multilang const & 
   : m_id(GenUniqueId()), m_center(center), m_type(Type::Point), m_names(name)
 {
   Init();
+}
+
+TestFeature::TestFeature(m2::RectD const & boundary, std::string const & name, std::string const & lang)
+  : TestFeature(MakePoly(boundary), name, lang)
+{
 }
 
 TestFeature::TestFeature(vector<m2::PointD> const & boundary, string const & name, string const & lang)
@@ -279,7 +289,7 @@ string TestStreet::ToDebugString() const
 
 // TestSquare --------------------------------------------------------------------------------------
 TestSquare::TestSquare(m2::RectD const & rect, string const & name, string const & lang)
-  : TestFeature(name, lang), m_rect(rect)
+  : TestFeature(rect, name, lang)
 {
 }
 
@@ -289,19 +299,12 @@ void TestSquare::Serialize(FeatureBuilder & fb) const
 
   auto const & classificator = classif();
   fb.SetType(classificator.GetTypeByPath({"place", "square"}));
-
-  fb.AddPoint(m_rect.LeftBottom());
-  fb.AddPoint(m_rect.RightBottom());
-  fb.AddPoint(m_rect.RightTop());
-  fb.AddPoint(m_rect.LeftTop());
-  fb.AddPoint(m_rect.LeftBottom());
-  fb.SetArea();
 }
 
 string TestSquare::ToDebugString() const
 {
   ostringstream os;
-  os << "TestSquare [" << DebugPrint(m_names) << ", " << m_rect << "]";
+  os << "TestSquare [" << DebugPrint(m_names) << "]";
   return os.str();
 }
 
@@ -418,7 +421,7 @@ TestBuilding::TestBuilding(m2::PointD const & center, string const & name,
 {
 }
 
-TestBuilding::TestBuilding(vector<m2::PointD> const & boundary, string const & name,
+TestBuilding::TestBuilding(m2::RectD const & boundary, string const & name,
                            string const & houseNumber, string_view street, string const & lang)
   : TestFeature(boundary, name, lang)
   , m_houseNumber(houseNumber)
@@ -435,10 +438,9 @@ void TestBuilding::Serialize(FeatureBuilder & fb) const
   if (!m_streetName.empty())
     params.AddStreet(m_streetName);
 
-  auto const & classificator = classif();
-  fb.AddType(classificator.GetTypeByPath({"building"}));
-  for (auto const & type : m_types)
-    fb.AddType(classificator.GetTypeByPath(type));
+  fb.AddType(classif().GetTypeByPath({"building"}));
+  for (uint32_t const type : m_types)
+    fb.AddType(type);
 }
 
 string TestBuilding::ToDebugString() const
