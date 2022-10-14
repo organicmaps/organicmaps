@@ -292,6 +292,9 @@ public:
   }
 
 private:
+  /// @todo Print most common street tokens for each country on generator stage (OSM ground truth)
+  /// and compare with these synonyms.
+  /// For example, I have doubts about: 'gaten', 'granden', 'vagen', XXXen nordic synonyms.
   StreetsSynonymsHolder()
   {
     char const * affics[] =
@@ -329,7 +332,7 @@ private:
       "ulice", "ul", "náměstí", "nám", "nábřeží", "nábr",
 
       // Danish - Dansk
-      "plads", "alle", "gade",
+      "plads", "alle", "gade", "vej", "parkvej",
 
       // Dutch - Nederlands
       "laan", "ln.", "straat", "steenweg", "stwg", "st",
@@ -362,7 +365,7 @@ private:
       "मार्ग", "marg",
 
       // Norwegian - Norsk
-      "vei", "veien", "vn", "gaten", "gata", "gt", "plass", "plassen", "sving", "svingen", "sv",
+      "vei", "veien", "vn", "gate", "gaten", "gt", "plass", "plassen", "sving", "svingen", "sv",
 
       // Polish - Polski
       "aleja", "aleje", "aleji", "alejach", "aleją", "plac", "placu", "placem", "ulica", "ulicy",
@@ -380,7 +383,7 @@ private:
       "avenida", "avd", "avda", "bulevar", "bulev", "calle", "calleja", "cllja", "callejón", "callej", "cjon", "callejuela", "cjla", "callizo", "cllzo", "calzada", "czada", "costera", "coste", "plza", "pza", "plazoleta", "pzta", "plazuela", "plzla", "tránsito", "trans", "transversal", "trval", "trasera", "tras", "travesía", "trva", "paseo", "plaça",
 
       // Swedish - Svenska
-      "väg", "vägen", "gatan", "gränd", "gränden", "stig", "stigen", "plats", "platsen",
+      "väg", "vägen", "gata", "gatan", "gränd", "gränden", "stig", "stigen", "plats", "platsen", "allé",
 
       // Turkish - Türkçe
       "sokak", "sk.", "sok", "sokağı", "cadde", "cad", "cd", "caddesi", "bulvar", "bulvarı", "blv.",
