@@ -141,10 +141,7 @@ abstract class BaseRoutingErrorDialogFragment extends BaseMwmDialogFragment
         final int width = listView.getWidth();
         final int indicatorWidth = UiUtils.dimen(requireContext(), R.dimen.margin_quadruple);
         listView.setIndicatorBounds(width - indicatorWidth, width);
-        if (Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.JELLY_BEAN_MR2)
-          listView.setIndicatorBounds(width - indicatorWidth, width);
-        else
-          listView.setIndicatorBoundsRelative(width - indicatorWidth, width);
+        listView.setIndicatorBoundsRelative(width - indicatorWidth, width);
       }
     });
 

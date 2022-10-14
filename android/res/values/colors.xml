@@ -82,8 +82,6 @@
   <color name="bg_statusbar_night">#14181C</color>
 
   <!-- Buttons -->
-  <color name="button">@color/button_normal</color>
-  <color name="button_night">@color/button_normal_night</color>
   <color name="button_normal">#00000000</color>
   <color name="button_normal_night">#00000000</color>
   <color name="button_pressed">#66999999</color>
@@ -95,8 +93,6 @@
   <color name="button_text_disabled">#42000000</color>
   <color name="button_text_disabled_night">#4CFFFFFF</color>
 
-  <color name="button_accent">@color/button_accent_normal</color>
-  <color name="button_accent_night">@color/button_accent_normal_night</color>
   <color name="button_accent_normal">@color/base_accent</color>
   <color name="button_accent_normal_night">@color/base_accent_night</color>
   <color name="button_accent_pressed">#FF1C85D6</color>
