@@ -1,5 +1,6 @@
 #pragma once
 
+#include "routing/routing_options.hpp"
 #include "routing/segment.hpp"
 #include "routing/vehicle_mask.hpp"
 
@@ -28,9 +29,21 @@ public:
     ETA
   };
 
+  static std::string const kRoutingStrategySettings;
+
+  enum class Strategy
+  {
+    Fastest,
+    Shortest,
+    FewerTurns
+  };
+
   EdgeEstimator(double maxWeightSpeedKMpH, SpeedKMpH const & offroadSpeedKMpH,
                 DataSource * dataSourcePtr = nullptr, std::shared_ptr<NumMwmIds> numMwmIds = nullptr);
   virtual ~EdgeEstimator() = default;
+
+  static Strategy LoadRoutingStrategyFromSettings();
+  static void SaveRoutingStrategyToSettings(Strategy strategy);
 
   double CalcHeuristic(ms::LatLon const & from, ms::LatLon const & to) const;
   // Estimates time in seconds it takes to go from point |from| to point |to| along a leap (fake)
@@ -46,9 +59,16 @@ public:
   // Estimates time in seconds it takes to go from point |from| to point |to| along direct fake edge.
   double CalcOffroad(ms::LatLon const & from, ms::LatLon const & to, Purpose purpose) const;
 
+  RoutingOptions GetAvoidRoutingOptions() const;
+  void SetAvoidRoutingOptions(RoutingOptions::RoadType options);
+
+  Strategy GetStrategy() const;
+  void SetStrategy(Strategy strategy);
+
   virtual double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road,
                                    Purpose purpose) const = 0;
   virtual double GetUTurnPenalty(Purpose purpose) const = 0;
+  virtual double GetTurnPenalty(Purpose purpose) const = 0;
   virtual double GetFerryLandingPenalty(Purpose purpose) const = 0;
 
   static std::shared_ptr<EdgeEstimator> Create(VehicleType vehicleType, double maxWeighSpeedKMpH,
@@ -66,6 +86,8 @@ public:
 private:
   double const m_maxWeightSpeedMpS;
   SpeedKMpH const m_offroadSpeedKMpH;
+  RoutingOptions m_avoidRoutingOptions;
+  Strategy m_strategy;
 
   //DataSource * m_dataSourcePtr;
   //std::shared_ptr<NumMwmIds> m_numMwmIds;

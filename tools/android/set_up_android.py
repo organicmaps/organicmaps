@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/local/bin/python
 import os, sys, shutil, collections
 from optparse import OptionParser
 

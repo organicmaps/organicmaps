@@ -1,4 +1,5 @@
 #include "routing/async_router.hpp"
+#include "routing/routing_options.hpp"
 
 #include "geometry/mercator.hpp"
 
@@ -343,6 +344,12 @@ void AsyncRouter::CalculateRoute()
 
     if (absentRegionsFinder)
       absentRegionsFinder->GenerateAbsentRegions(checkpoints, delegateProxy->GetDelegate());
+
+    RoutingOptions const routingOptions = RoutingOptions::LoadCarOptionsFromSettings();
+    router->SetEstimatorOptions(routingOptions.GetOptions());
+
+    EdgeEstimator::Strategy routingStrategy = EdgeEstimator::LoadRoutingStrategyFromSettings();
+    router->SetEstimatorStrategy(routingStrategy);
 
     // Run basic request.
     code = router->CalculateRoute(checkpoints, startDirection, adjustToPrevRoute,

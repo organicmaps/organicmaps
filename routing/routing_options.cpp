@@ -55,6 +55,11 @@ bool RoutingOptions::Has(RoutingOptions::Road type) const
   return (m_options & static_cast<RoadType>(type)) != 0;
 }
 
+void RoutingOptions::SetOptions(RoadType options)
+{
+  m_options = options;
+}
+
 // RoutingOptionsClassifier ---------------------------------------------------------------------------
 
 RoutingOptionsClassifier::RoutingOptionsClassifier()

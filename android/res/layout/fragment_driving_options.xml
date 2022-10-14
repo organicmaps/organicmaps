@@ -110,4 +110,46 @@
       android:layout_width="wrap_content"
       android:layout_height="match_parent"/>
   </LinearLayout>
+  <View
+      android:layout_width="match_parent"
+      android:layout_height="3dp"
+      android:background="@android:color/darker_gray"/>
+  <TextView
+      android:text="@string/driving_options_subheader2"
+      android:textAppearance="?android:attr/textAppearance"
+      android:textColor="?colorAccent"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_vertical"
+      android:layout_marginTop="@dimen/margin_half_double_plus"
+      android:paddingEnd="@dimen/margin_base"
+      android:paddingStart="@dimen/margin_base"/>
+  <RadioGroup
+      android:id="@+id/routing_strategy_types"
+      android:orientation="vertical"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/margin_base">
+    <RadioButton
+        android:id="@+id/use_strategy_fastest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_half_plus"
+        android:checked="true"
+        android:text="@string/use_strategy_fastest"/>
+    <RadioButton
+        android:id="@+id/use_strategy_shortest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_half_plus"
+        android:checked="false"
+        android:text="@string/use_strategy_shortest"/>
+    <RadioButton
+        android:id="@+id/use_strategy_fewerTurns"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_half_plus"
+        android:checked="false"
+        android:text="@string/use_strategy_fewerTurns"/>
+  </RadioGroup>
 </LinearLayout>
