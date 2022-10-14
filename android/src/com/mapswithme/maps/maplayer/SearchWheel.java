@@ -19,6 +19,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.search.SearchEngine;
 import com.mapswithme.util.Graphics;
+import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.concurrency.UiThread;
 
@@ -90,10 +91,10 @@ public class SearchWheel implements View.OnClickListener
     @Nullable
     public static SearchOption fromSearchQuery(@NonNull String query, @NonNull Context context)
     {
-      final String normalizedQuery = query.trim().toLowerCase();
+      final String normalizedQuery = StringUtils.toLowerCase(query.trim());
       for (SearchOption searchOption : SearchOption.values())
       {
-        final String searchOptionQuery = context.getString(searchOption.mQueryId).trim().toLowerCase();
+        final String searchOptionQuery = StringUtils.toLowerCase(context.getString(searchOption.mQueryId).trim());
         if (searchOptionQuery.equals(normalizedQuery))
           return searchOption;
       }

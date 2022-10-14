@@ -28,6 +28,7 @@ import com.mapswithme.maps.search.SearchActivity;
 import com.mapswithme.maps.search.SearchEngine;
 import com.mapswithme.util.KeyValue;
 import com.mapswithme.util.StorageUtils;
+import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.concurrency.ThreadPool;
 
@@ -95,7 +96,7 @@ public class Factory
         return null;
       if (uri.getHost() == null)
         return null;
-      final String host = uri.getHost().toLowerCase();
+      final String host = StringUtils.toLowerCase(uri.getHost());
       if (!host.contains("google") && !host.contains("2gis") && !host.contains("openstreetmap"))
         return null;
       return new OpenHttpMapsUrlTask(uri.toString());

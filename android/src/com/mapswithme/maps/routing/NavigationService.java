@@ -1,5 +1,7 @@
 package com.mapswithme.maps.routing;
 
+import static androidx.core.app.NotificationCompat.Builder;
+
 import android.app.ActivityManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -17,16 +19,16 @@ import android.widget.RemoteViews;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
+
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.LocationListener;
 import com.mapswithme.maps.sound.TtsPlayer;
+import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
-
-import static androidx.core.app.NotificationCompat.Builder;
 
 public class NavigationService extends Service
 {
@@ -34,7 +36,7 @@ public class NavigationService extends Service
 
   public static final String PACKAGE_NAME = NavigationService.class.getPackage().getName();
   public static final String PACKAGE_NAME_WITH_SERVICE_NAME = PACKAGE_NAME + "." +
-                                                              NavigationService.class.getSimpleName().toLowerCase();
+      StringUtils.toLowerCase(NavigationService.class.getSimpleName());
   private static final String EXTRA_STOP_SERVICE = PACKAGE_NAME_WITH_SERVICE_NAME + "finish";
 
   private static final String CHANNEL_ID = "LOCATION_CHANNEL";
@@ -214,7 +216,7 @@ public class NavigationService extends Service
     final String[] turnNotifications = Framework.nativeGenerateNotifications();
     if (turnNotifications != null)
     {
-      mNavigationText = Utils.fixCaseInString(turnNotifications[0]);
+      mNavigationText = StringUtils.fixCaseInString(turnNotifications[0]);
       TtsPlayer.INSTANCE.playTurnNotifications(getApplicationContext(), turnNotifications);
     }
     mRemoteViews.setTextViewText(R.id.navigation_text, mNavigationText);

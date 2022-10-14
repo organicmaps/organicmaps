@@ -21,7 +21,6 @@ import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 
 import java.util.List;
-import java.util.Locale;
 
 public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
 {
@@ -141,7 +140,8 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
         {
           mProgress.setPending(false);
           mProgress.setProgress(Math.round(mCurrentCountry.progress));
-          sizeText = String.format(Locale.US, "%1$s %2$.2f%%", mActivity.getString(R.string.downloader_downloading), mCurrentCountry.progress);
+          sizeText = StringUtils.formatUsingUsLocale("%1$s %2$.2f%%",
+              mActivity.getString(R.string.downloader_downloading), mCurrentCountry.progress);
         }
         else
         {

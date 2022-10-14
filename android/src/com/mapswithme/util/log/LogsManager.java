@@ -17,6 +17,8 @@ import androidx.annotation.Nullable;
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
+import com.mapswithme.util.StringUtils;
+
 import net.jcip.annotations.ThreadSafe;
 
 import java.io.File;
@@ -235,7 +237,7 @@ public final class LogsManager
       sb.append(", security patch level: ").append(Build.VERSION.SECURITY_PATCH);
     sb.append(", os.version: " + System.getProperty("os.version", "N/A"))
       .append("\nDevice: ");
-    if (!Build.MODEL.toLowerCase().startsWith(Build.MANUFACTURER.toLowerCase()))
+    if (!StringUtils.toLowerCase(Build.MODEL).startsWith(StringUtils.toLowerCase(Build.MANUFACTURER)))
       sb.append(Build.MANUFACTURER).append(' ');
     sb.append(Build.MODEL).append(" (").append(Build.DEVICE).append(')');
     sb.append("\nSupported ABIs:");

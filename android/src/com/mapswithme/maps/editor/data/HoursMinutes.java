@@ -5,6 +5,8 @@ import android.os.Parcelable;
 
 import androidx.annotation.IntRange;
 
+import com.mapswithme.util.StringUtils;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -35,13 +37,13 @@ public class HoursMinutes implements Parcelable
   public String toString()
   {
     if (m24HourFormat)
-      return String.format(Locale.US, "%02d:%02d", hours, minutes);
+      return StringUtils.formatUsingUsLocale("%02d:%02d", hours, minutes);
 
     Calendar calendar = new GregorianCalendar();
     calendar.set(Calendar.HOUR_OF_DAY, (int)hours);
     calendar.set(Calendar.MINUTE, (int)minutes);
 
-    SimpleDateFormat fmt12 = new SimpleDateFormat("hh:mm a");
+    SimpleDateFormat fmt12 = new SimpleDateFormat("hh:mm a", Locale.getDefault());
 
     return fmt12.format(calendar.getTime());
   }

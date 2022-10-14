@@ -43,6 +43,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.InflaterInputStream;
@@ -157,7 +158,8 @@ public final class HttpClient
           if (header.getKey() == null || header.getValue() == null)
             continue;
 
-          p.headers.add(new KeyValue(header.getKey().toLowerCase(), TextUtils.join(", ", header.getValue())));
+          p.headers.add(new KeyValue(StringUtils.toLowerCase(header.getKey()), TextUtils.join(", ",
+              header.getValue())));
         }
       }
       else

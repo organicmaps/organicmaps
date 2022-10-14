@@ -487,7 +487,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
         String searchResultName = mItem.searchResultName;
         if (!TextUtils.isEmpty(searchResultName))
         {
-          found = searchResultName.toLowerCase();
+          found = StringUtils.toLowerCase(searchResultName);
           SpannableStringBuilder builder = new SpannableStringBuilder(searchResultName);
           int start = found.indexOf(mSearchQuery);
           int end = start + mSearchQuery.length();
@@ -590,7 +590,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
         headerId = CountryItem.CATEGORY_AVAILABLE * HEADER_ADS_OFFSET + ci.name.charAt(0);
 
         if (headerId != prevHeader)
-          mHeaders.put(headerId, ci.name.substring(0, 1).toUpperCase());
+          mHeaders.put(headerId, StringUtils.toUpperCase(ci.name.substring(0, 1)));
 
         prev = ci.category;
       }
@@ -626,7 +626,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
   void setSearchResultsMode(@NonNull Collection<CountryItem> results, String query)
   {
     mSearchResultsMode = true;
-    mSearchQuery = query.toLowerCase();
+    mSearchQuery = StringUtils.toLowerCase(query);
 
     mItems.clear();
     mItems.addAll(results);

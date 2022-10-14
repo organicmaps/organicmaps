@@ -967,8 +967,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
     }
 
     // Show whole week time table.
-    Locale locale = getResources().getConfiguration().locale;
-    int firstDayOfWeek = Calendar.getInstance(locale).getFirstDayOfWeek();
+    int firstDayOfWeek = Calendar.getInstance(Locale.getDefault()).getFirstDayOfWeek();
     mOpeningHoursAdapter.setTimetables(timetables, firstDayOfWeek);
     UiUtils.show(mFullWeekOpeningHours);
 
@@ -1593,7 +1592,8 @@ public class PlacePageView extends NestedScrollViewClickFixed
 
     StringBuilder sb = new StringBuilder(StringUtils.getFileSizeString(getContext(), country.totalSize));
     if (country.isExpandable())
-      sb.append(String.format(Locale.US, "  •  %s: %d", getContext().getString(R.string.downloader_status_maps), country.totalChildCount));
+      sb.append(StringUtils.formatUsingUsLocale("  •  %s: %d", getContext().getString(R.string.downloader_status_maps),
+          country.totalChildCount));
 
     mDownloaderInfo.setText(sb.toString());
   }
