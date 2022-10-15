@@ -610,7 +610,7 @@ UNIT_TEST(Germany_FrankfurtAirport2_TurnTest)
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   mercator::FromLatLon(50.03249, 8.50814), {0., 0.},
-                                  mercator::FromLatLon(50.02079, 8.49445));
+                                  mercator::FromLatLon(50.01504, 8.49585));
 
   Route const & route = *routeResult.first;
   RouterResultCode const result = routeResult.second;
@@ -635,14 +635,10 @@ UNIT_TEST(Russia_Kubinka_TurnTest)
 
   TEST_EQUAL(result, RouterResultCode::NoError, ());
 
-  Route const & route = *routeResult.first;
-  integration::TestTurnCount(route, 5);
-
-  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnLeft);
-  integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnSlightLeft);
-  integration::GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnLeft);
-  integration::GetNthTurn(route, 3).TestValid().TestDirection(CarDirection::TurnLeft);
-  integration::GetNthTurn(route, 4).TestValid().TestDirection(CarDirection::TurnLeft);
+  /// @todo Not sure, do we need or not turn instruction here:
+  /// https://www.openstreetmap.org/#map=19/55.5888881/36.8823392
+  integration::TestTurns(*routeResult.first, { CarDirection::TurnLeft, /* CarDirection::TurnSlightLeft, */
+                                               CarDirection::TurnLeft, CarDirection::TurnLeft, CarDirection::TurnLeft });
 }
 
 // Test on absence of unnecessary turn.
