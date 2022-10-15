@@ -12,7 +12,7 @@
   <FrameLayout
     android:id="@+id/street_frame"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/nav_street_height"
+    android:layout_height="@dimen/nav_next_turn_sign"
     android:elevation="@dimen/nav_elevation"
     app:layout_constraintTop_toTopOf="parent"
     android:background="?cardBackground">
@@ -25,6 +25,7 @@
       android:maxLines="2"
       android:layout_gravity="center_vertical"
       android:gravity="center"
+      android:textSize="@dimen/select_color_circle_size"
       tools:text="Sample street name.\nLong looooooooong!!!!"/>
   </FrameLayout>
 
