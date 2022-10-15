@@ -6,6 +6,7 @@
     el = Τελεφερίκ
     es = Transporte aéreo
     eu = Aire Garraioa
+    fi = Köysirata
     fr = Transport par câble aérien
     ja = 索道
     mr = हवाई मार्ग
@@ -25,6 +26,7 @@
     el = Τελεφερίκ
     es = Teleférico
     eu = Teleferikoa
+    fi = Kabiinihissi
     fr = Téléphérique
     ja = ロープウェイ
     mr = हवाई मार्ग
@@ -44,6 +46,7 @@
     el = Τελεφερίκ
     es = Telesilla
     eu = Teleaulkia
+    fi = Tuolihissi
     fr = Télésiège
     ja = チェアリフト
     mr = हवाई मार्ग
@@ -62,6 +65,7 @@
     el = Τελεφερίκ
     es = Telesquí
     eu = Eski-igogailua
+    fi = Kapulahissi
     fr = Téléski
     ja = 牽引リフト
     mr = हवाई मार्ग
@@ -81,6 +85,7 @@
     el = Τελεφερίκ
     es = Telecabina
     eu = Telekondola
+    fi = Gondolihissi
     fr = Télécabine
     ja = ゴンドラ
     mr = हवाई मार्ग
@@ -100,6 +105,7 @@
     el = Τελεφερίκ
     es = Telecabina/telesilla
     eu = Telekondola/teleaulkia
+    fi = Köysirata
     ja = 混合リフト
     mr = हवाई मार्ग
     nl = Gecombineerde kabelbaan
@@ -250,6 +256,7 @@
     en = Gate
     es = Puerta de embarque
     eu = Ontziratzeko atea
+    fi = Portti
     fr = Porte d'embarquement
     ja = 搭乗口
     mr = दार
@@ -299,6 +306,7 @@
     de = Start-/Landebahn
     es = Pista de despegue
     eu = Pista
+    fi = Kiitorata
     fr = Piste d'aviation
     ja = 滑走路
     mr = धावपट्टी
@@ -334,6 +342,7 @@
     de = Terminal
     es = Terminal
     eu = Terminala
+    fi = Terminaali
     ja = 空港ターミナルビル
     mr = टर्मिनल
     pl = Terminal lotniskowy
@@ -1098,6 +1107,7 @@
     es = Colegio
     eu = Unibertsitatea
     fa = دانشگاه
+    fi = Korkeakoulu
     fr = Enseignement post-secondaire
     hu = Kollégium
     id = Kampus
@@ -2170,7 +2180,7 @@
     es = Aparcamiento
     eu = Aparkalekua
     fa = پارکینگ
-    fi = Parkkipaikka
+    fi = Liityntäpysäköinti
     fr = Parking relais
     hu = Parkoló
     id = Parkir
@@ -2248,7 +2258,7 @@
     es = Entrada al aparcamiento
     eu = Aparkalekuaren sarrera
     fa = ﮓﻨﯿﮐﺭﺎﭘ ﯼﺩﻭﺭﻭ
-    fi = Pysäköinti sisäänkäynti
+    fi = Pysäköinnin sisäänkäynti
     fr = Entrée du stationnement
     he = הינחל הסינכ
     hu = Parkoló bejárata
@@ -2893,6 +2903,7 @@
     de = Gefängnis
     es = Prisión
     eu = Kartzela
+    fi = Vankila
     ja = 刑務所
     mr = तुरुंग
     nl = Gevangenis
@@ -3730,6 +3741,7 @@
     de = Verkaufsautomat
     es = Máquina expendedora
     eu = Makina saltzailea
+    fi = Myyntiautomaatti
     fr = Distributeur automatique
     ja = 自動販売機
     mr = विक्रीयंत्र
@@ -3783,6 +3795,7 @@
     de = Kaffeeautomat
     es = Máquina expendedora de café
     eu = Kafea saltzeko makina
+    fi = Kahviautomaatti
     fr = Distributeur de café
     it = Distributore di caffè
     mr = कॉफी विक्रीयंत्र
@@ -3796,6 +3809,7 @@
     de = Kondomautomat
     es = Máquina expendedora de condones
     eu = Kondoiak saltzeko makina
+    fi = Kondomiautomaatti
     fr = Distributeur de préservatifs
     it = Distributore di profilattici
     mr = कंडोम विक्रीयंत्र
@@ -3844,6 +3858,7 @@
     de = Essensautomat
     es = Máquina expendedora de comida
     eu = Janaria saltzeko makina
+    fi = Ruoka-automaatti
     fr = Distributeur d'aliments
     it = Distributore di alimenti
     mr = अन्न विक्रीयंत्र
@@ -3857,6 +3872,7 @@
     de = Zeitungsautomat
     es = Máquina expendedora de periódicos
     eu = Egunkariak saltzeko makina
+    fi = Sanomalehtiautomaatti
     fr = Distributeur de journaux
     it = Distributore di giornali
     mr = वृत्तपत्र विक्रीयंत्र
@@ -3942,6 +3958,7 @@
     de = Süßigkeitenautomat
     es = Máquina expendedora de dulces
     eu = Gozokiak saltzeko makina
+    fi = Karkkiautomaatti
     fr = Distributeur de bonbons
     it = Distributore di dolciumi
     mr = मिठाई विक्रीयंत्र
@@ -3980,6 +3997,7 @@
     be = Паліўная калонка
     de = Tankautomat
     es = Maquina expendedora de combustible
+    fi = Bensa-automaatti
     mr = इंधन विक्रीयंत्र
     nl = Tankautomaat
     ru = Топливная колонка
@@ -4258,6 +4276,7 @@
     de = Kette
     es = Cadena
     eu = Katea
+    fi = Ketju
     fr = Chaîne
     mr = साखळी
     nl = Ketting
@@ -4270,6 +4289,7 @@
     de = Stadtmauer
     es = Muralla
     eu = Horma
+    fi = Kaupunginmuuri
     fr = Muraille
     ja = 城壁
     mr = शहराची भिंत
@@ -4287,6 +4307,7 @@
     de = Umlaufschranke
     es = Barrera para bicicletas
     eu = Bizikleta-hesia
+    fi = Polkupyöräeste
     ja = バリカー
     mr = सायकल अडथळा
     nl = Fietsbarrière
@@ -4372,6 +4393,7 @@
     de = Zaun
     es = Valla
     eu = Hesia
+    fi = Aita
     fr = Clôture
     ja = フェンス
     mr = कुंपण
@@ -4423,6 +4445,7 @@
     de = Hecke
     es = Seto
     eu = Estaldura
+    fi = Pensasaita
     fr = Haie
     ja = 生垣
     mr = झुडुपांचे कुंपण
@@ -4452,7 +4475,7 @@
     es = Barrera
     eu = Hesia
     fa = اسانسور
-    fi = Puomi
+    fi = Nostopuomi
     fr = Barrière levante
     hu = Sorompó
     id = Polisi tidur
@@ -4536,7 +4559,7 @@
     es = Barrera
     eu = Hesia
     fa = اسانسور
-    fi = Puomi
+    fi = Kääntöpuomi
     fr = Barrière tournante
     hu = Sorompó
     id = Polisi tidur
@@ -4599,6 +4622,7 @@
     de = Mauer
     es = Muro
     eu = Horma
+    fi = Muuri
     fr = Mur
     ja = 壁
     mr = भिंत
@@ -4616,6 +4640,7 @@
     de = Grenze
     es = Frontera
     eu = Muga
+    fi = Raja
     fr = Frontière
     ja = 境界線
     mr = सीमा
@@ -4633,6 +4658,7 @@
     de = Verwaltungsgrenze
     es = Frontera administrativa
     eu = Muga administratiboa
+    fi = Hallinnollinen raja
     fr = Frontière administrative
     ja = 行政境界
     mr = प्रशासकीय सीमा
@@ -4688,6 +4714,7 @@
     en = City Boundary
     es = Frontera de ciudad
     eu = Hiriko muga
+    fi = Kaupunginraja
     fr = Frontière de la ville
     mr = शहराची सीमा
     nl = Stadsgrens
@@ -4703,6 +4730,7 @@
     en = National Border
     es = Frontera de país
     eu = Herrialdeko muga
+    fi = Valtakunnanraja
     fr = Frontière nationale
     mr = राष्ट्रीय सीमा
     nl = Landsgrens
@@ -4718,6 +4746,7 @@
     en = County Boundary
     es = Frontera de condado
     eu = Eskualdeko muga
+    fi = Maakunnanraja
     fr = Frontière du comté
     mr = परगणा सीमा
     nl = Provinciegrens
@@ -4733,6 +4762,7 @@
     en = Municipality Boundary
     es = Frontera de municipio
     eu = Udalerriko muga
+    fi = Kunnanraja
     fr = Frontière de la municipalité
     mr = नगरपालिकेची सीमा
     nl = Gemeentegrens
@@ -4770,6 +4800,7 @@
     en = State Boundary
     es = Frontera de estado
     eu = Estatuko muga
+    fi = Osavaltion raja
     mr = राज्य सीमा
     nl = Staatsgrens
     pl = Granica województwa
@@ -4999,6 +5030,7 @@
     en = Warehouse
     es = Almacén
     eu = Denda
+    fi = Varasto
     fr = Entrepôt
     mr = वखार
     nl = Magazijn
@@ -23835,6 +23867,7 @@
   [type.aerialway.platter]
     en = Platter Lift
     de = Tellerlift
+    fi = Sompahissi
     nl = Sleeplift
     pt = Telesqui de disco
     pt-BR = Telesqui de disco
@@ -23845,6 +23878,7 @@
   [type.aerialway.rope_tow]
     en = Rope Tow
     de = Seillift
+    fi = Naruhissi
     nl = Touwlift
     pt = Telesqui de corda
     pt-BR = Telesqui de corda
@@ -23855,6 +23889,7 @@
   [type.aerialway.t.bar]
     en = T-bar Lift
     de = T-Bügel-Lift
+    fi = Ankkurihissi
     nl = Sleeplift (T-beugel)
     pt = Telesqui de barra em T
     pt-BR = Telesqui de barra em T
@@ -23956,6 +23991,7 @@
   [type.piste_type.sled]
     en = Sledding Piste
     de = Rodelbahn
+    fi = Kelkkarata
     fr = Piste de luge
     nl = Sleebaan
     pt = Pista para trenós
