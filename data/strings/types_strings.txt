@@ -8,6 +8,7 @@
     eu = Aire Garraioa
     fi = Köysirata
     fr = Transport par câble aérien
+    it = Impianto a fune
     ja = 索道
     mr = हवाई मार्ग
     nl = Kabelbaan
@@ -21,13 +22,14 @@
     zh-Hant = 纜車要素
 
   [type.aerialway.cable_car]
-    en = Aerialway
+    en = Cable car
     de = Pendelbahn
     el = Τελεφερίκ
     es = Teleférico
     eu = Teleferikoa
     fi = Kabiinihissi
     fr = Téléphérique
+    it = Teleferica
     ja = ロープウェイ
     mr = हवाई मार्ग
     nl = Cabinelift
@@ -41,13 +43,14 @@
     zh-Hant = 纜車
 
   [type.aerialway.chair_lift]
-    en = Aerialway
+    en = Chair lift
     de = Sessellift
     el = Τελεφερίκ
     es = Telesilla
     eu = Teleaulkia
     fi = Tuolihissi
     fr = Télésiège
+    it = Seggiovia
     ja = チェアリフト
     mr = हवाई मार्ग
     nl = Stoeltjeslift
@@ -60,13 +63,14 @@
     zh-Hans = 登山吊椅
 
   [type.aerialway.drag_lift]
-    en = Aerialway
+    en = Drag lift
     de = Schlepplift
     el = Τελεφερίκ
     es = Telesquí
     eu = Eski-igogailua
     fi = Kapulahissi
     fr = Téléski
+    it = Ski-lift
     ja = 牽引リフト
     mr = हवाई मार्ग
     nl = Sleeplift
@@ -80,13 +84,14 @@
     zh-Hant = 纜車要素
 
   [type.aerialway.gondola]
-    en = Aerialway
+    en = Gondola
     de = Gondelbahn
     el = Τελεφερίκ
     es = Telecabina
     eu = Telekondola
     fi = Gondolihissi
     fr = Télécabine
+    it = Cabinovia
     ja = ゴンドラ
     mr = हवाई मार्ग
     nl = Gondelbaan
@@ -100,12 +105,13 @@
     zh-Hant = 循環式索道
 
   [type.aerialway.mixed_lift]
-    en = Aerialway
+    en = Mixed lift
     de = Kombibahn
     el = Τελεφερίκ
     es = Telecabina/telesilla
     eu = Telekondola/teleaulkia
     fi = Köysirata
+    it = Impianto misto
     ja = 混合リフト
     mr = हवाई मार्ग
     nl = Gecombineerde kabelbaan
@@ -131,7 +137,7 @@
     fr = Remontées mécaniques
     hu = Felvonóállomás
     id = Stasiun kereta gantung
-    it = Funivia
+    it = Stazione
     ja = ケーブルカー駅
     ko = 케이블카 역
     mr = हवाई स्थानक
@@ -158,7 +164,7 @@
     eu = Aire azpiegitura
     ja = 空路
     mr = हवाई आधार संरचना
-    nl = Luchtvaartinfrastructuurfv
+    nl = Luchtvaartinfrastructuur
     pt = Via aérea
     pt-BR = Via aérea
     ru = Аэрокосмическая инфраструктура
@@ -308,6 +314,7 @@
     eu = Pista
     fi = Kiitorata
     fr = Piste d'aviation
+    it = Pista
     ja = 滑走路
     mr = धावपट्टी
     nl = Startbaan
@@ -326,6 +333,7 @@
     es = Pista de rodaje
     eu = Taxiway
     fr = Taxiway
+    it = Pista di rullaggio
     ja = 誘導路
     nl = Taxibaan
     pl = Droga kołowania
@@ -343,6 +351,7 @@
     es = Terminal
     eu = Terminala
     fi = Terminaali
+    it = Terminal
     ja = 空港ターミナルビル
     mr = टर्मिनल
     pl = Terminal lotniskowy
@@ -369,7 +378,7 @@
     fr = Objets d'infrastructure
     hu = Infrastruktúra
     id = Ruang berfasilitas
-    it = Opera infrastrutturale
+    it = Servize
     ja = アメニティー
     ko = 생활 편의시설
     mr = सुविधा
@@ -490,6 +499,7 @@
     fa = میکده
     fi = Baari
     hu = Bár
+    it = Bar
     ja = 居酒屋
     ko = 바
     mr = बार
@@ -518,7 +528,7 @@
     fr = Terrain de pique-nique
     hu = Piknikező hely
     id = Lokasi piknik
-    it = Picnic
+    it = Grill pubblico
     ja = ピクニック
     ko = 소풍 사이트
     mr = सहलीचे ठिकाण
@@ -1045,6 +1055,7 @@
     fr = Cinéma
     hu = Mozi
     id = Bioskop
+    it = Cinema
     ja = 映画館
     ko = 영화관
     mr = चित्रपटगृह
@@ -1549,6 +1560,7 @@
     es = Zona de comidas
     eu = Jantokia
     fr = Aire de restauration
+    it = Area ristorazione
     ja = フードコート
     mr = जेवायचे ठिकाण
     pl = Sekcja gastronomiczna
@@ -1669,6 +1681,7 @@
     ref = type.amenity.grave_yard
     en = Christian Graveyard
     be = Хрысціянскія могілкі
+    it = Cimitero cristiano
     ja = キリスト教墓地
     mr = ख्रिश्चन स्मशानभूमी
     nl = Christelijk kerkhof
@@ -1762,7 +1775,7 @@
     fr = Stand de crème glacée
     hu = Fagylaltárus
     id = Kios Es Krim
-    it = Chiosco gelati
+    it = Gelateria
     ja = アイスクリーム屋
     ko = 아이스크림 스탠드
     mr = आईसक्रीम
@@ -1796,6 +1809,7 @@
     fr = Cybercafé
     hu = Internet kávézó
     id = Kafe Internet
+    it = Cybercaffè
     ja = インターネットカフェ
     ko = 인터넷 카페
     mr = इंटरनेट कॅफे
@@ -1963,7 +1977,7 @@
     fr = Discothèque
     hu = Éjszakai mulató
     id = Kelab malam
-    it = Night club
+    it = Locale notturno
     ja = ナイトクラブ
     ko = 나이트 클럽
     mr = नाईट क्लब
@@ -2540,7 +2554,7 @@
     fr = Lieu de culte
     hu = Templom
     id = Tempat ibadah
-    it = Tempio
+    it = Luogo di culto
     ja = 礼拝
     ko = 예배 장소
     mr = धार्मिक ठिकाण
@@ -2842,7 +2856,7 @@
     fr = Boîte aux lettres
     hu = Levelesláda
     id = Kotak pos
-    it = Casella
+    it = Casella della posta
     ja = 郵便ポスト
     ko = 우편함
     mr = टपालपेटी
@@ -2904,6 +2918,7 @@
     es = Prisión
     eu = Kartzela
     fi = Vankila
+    it = Prigione
     ja = 刑務所
     mr = तुरुंग
     nl = Gevangenis
@@ -3189,7 +3204,7 @@
     sk = Papierový odpad
     sv = Returpapper
     th = ขยะกระดาษ
-    tr = Kâğıt Atıklar
+    tr = Kağıt Atıklar
     uk = Папір
     vi = Giấy phế liệu
     zh-Hans = 废纸
@@ -3253,7 +3268,7 @@
     nl = Plastic flessen
     pl = Zbieranie plastikowych butelek
     pt = Garrafas de plástico
-    pt-BR = Garrafas plásticas
+    pt-BR = Garrafas plasticas
     ro = Sticle de plastic
     ru = Пластиковые бутылки
     sk = Plastové fľaše
@@ -3343,6 +3358,7 @@
     es = Cartón
     eu = Kartoia
     fr = Carton
+    it = Cartone
     mr = पुठ्ठा
     nl = Karton
     ru = Картон
@@ -3356,6 +3372,7 @@
     es = Latas
     eu = Latak
     fr = Emballages métalliques
+    it = Lattine
     mr = कॅन
     nl = Blikafval
     ru = Жестяные и алюминиевые банки
@@ -3369,6 +3386,7 @@
     es = Calzado
     eu = Oinetakoak
     fr = Chaussures
+    it = Scarpe
     mr = पादत्राणे
     nl = Schoenen
     ru = Обувь
@@ -3382,13 +3400,14 @@
     es = Orgánico
     eu = Organikoa
     fr = Déchets organiques
+    it = Umido
     nl = GFT afval
     ru = Органика / Пищевые отходы
     tr = Yeşil/Organik Atık
     uk = Органіка / Харчові відходи
 
   [type.recycling.cartons]
-    en = Bewerage Cartons
+    en = Beverage Cartons
     be = Тэтрапак і аналагі
     de = Getränkekarton
     es = Cartones de bebida
@@ -3435,7 +3454,7 @@
     de = VE-Station
     es = Estación de vaciado para caravanas
     fr = Station de vidange
-    it = Camper service
+    it = Area servizi camper
     nl = Caravantoilet cassette-leegpunt
     ru = Слив для туалетов транспортных средств
     tr = Tank Boşaltma İstasyonu
@@ -3551,6 +3570,7 @@
     fa = تاکسی
     fi = Taksi
     id = Taksi
+    it = Taxi
     ja = タクシー
     ko = 택시
     mr = टॅक्सी
@@ -3743,6 +3763,7 @@
     eu = Makina saltzailea
     fi = Myyntiautomaatti
     fr = Distributeur automatique
+    it = Macchinetta
     ja = 自動販売機
     mr = विक्रीयंत्र
     nl = Automaat
@@ -3986,6 +4007,7 @@
     es = Taquilla de paquetes
     eu = Paketeen aldagela
     fr = Consigne automatique pour colis
+    it = Punto di ritiro
     mr = पार्सल लॉकर
     nl = Pakketjeskluis
     ru = Почтомат
@@ -4111,6 +4133,7 @@
     be = Станцыя перавалкі адходаў
     de = Müllumladestation
     es = Estación de transferencia de residuos
+    it = Centro trasferimento rifiuti
     mr = कचरा हस्तांतरण केंद्र
     nl = Overslagstation voor afval
     ru = Станция перевалки отходов
@@ -4157,6 +4180,7 @@
     es = Barrera
     eu = Hesia
     fr = Barrière
+    it = Barriera
     ja = 障害物
     mr = अडथळा
     nl = Barrière
@@ -4278,6 +4302,7 @@
     eu = Katea
     fi = Ketju
     fr = Chaîne
+    it = Catena
     mr = साखळी
     nl = Ketting
     ru = Цепь
@@ -4291,6 +4316,7 @@
     eu = Horma
     fi = Kaupunginmuuri
     fr = Muraille
+    it = Mura Cittadine
     ja = 城壁
     mr = शहराची भिंत
     nl = Stadsmuur
@@ -4308,6 +4334,7 @@
     es = Barrera para bicicletas
     eu = Bizikleta-hesia
     fi = Polkupyöräeste
+    it = Barriera per biciclette
     ja = バリカー
     mr = सायकल अडथळा
     nl = Fietsbarrière
@@ -4395,6 +4422,7 @@
     eu = Hesia
     fi = Aita
     fr = Clôture
+    it = Steccato
     ja = フェンス
     mr = कुंपण
     nl = Hek
@@ -4447,6 +4475,7 @@
     eu = Estaldura
     fi = Pensasaita
     fr = Haie
+    it = Siepe
     ja = 生垣
     mr = झुडुपांचे कुंपण
     nl = Heg
@@ -4624,6 +4653,7 @@
     eu = Horma
     fi = Muuri
     fr = Mur
+    it = Muro
     ja = 壁
     mr = भिंत
     nl = Muur
@@ -4642,6 +4672,7 @@
     eu = Muga
     fi = Raja
     fr = Frontière
+    it = Confine
     ja = 境界線
     mr = सीमा
     nl = Grens
@@ -4660,6 +4691,7 @@
     eu = Muga administratiboa
     fi = Hallinnollinen raja
     fr = Frontière administrative
+    it = Confine amministrativo
     ja = 行政境界
     mr = प्रशासकीय सीमा
     nl = Administratieve grens
@@ -4716,6 +4748,7 @@
     eu = Hiriko muga
     fi = Kaupunginraja
     fr = Frontière de la ville
+    it = Confine cittadino
     mr = शहराची सीमा
     nl = Stadsgrens
     pl = Granica miasta
@@ -4732,6 +4765,7 @@
     eu = Herrialdeko muga
     fi = Valtakunnanraja
     fr = Frontière nationale
+    it = Confine nazionale
     mr = राष्ट्रीय सीमा
     nl = Landsgrens
     pl = Granica państwa
@@ -4764,6 +4798,7 @@
     eu = Udalerriko muga
     fi = Kunnanraja
     fr = Frontière de la municipalité
+    it = Confini municipale
     mr = नगरपालिकेची सीमा
     nl = Gemeentegrens
     pl = Granica gminy
@@ -4777,6 +4812,7 @@
     ref = type.boundary.administrative.country
     es = Frontera de nación
     eu = Nazio muga
+    it = Confine nazionale
     nl = Natiegrens
     pt = Fronteira de nação
     pt-BR = Fronteira de nação
@@ -4786,6 +4822,7 @@
     es = Frontera de región
     eu = Eskualdeko muga
     fr = Frontière régionale
+    it = Confine regionale
     mr = प्रादेशिक सीमा
     nl = Regiogrens
     pl = Granica regionu
@@ -4801,6 +4838,7 @@
     es = Frontera de estado
     eu = Estatuko muga
     fi = Osavaltion raja
+    it = Confine statale
     mr = राज्य सीमा
     nl = Staatsgrens
     pl = Granica województwa
@@ -4940,6 +4978,7 @@
     fi = Autotalli
     hu = Garázs
     id = Garasi
+    it = Garage
     ja = 車庫
     ko = 차고
     mr = गराज
@@ -5032,6 +5071,7 @@
     eu = Denda
     fi = Varasto
     fr = Entrepôt
+    it = Magazzino
     mr = वखार
     nl = Magazijn
     pt = Armazém
@@ -5058,7 +5098,7 @@
     he = רבק
     hu = Sír
     id = Kuburan
-    it = La tomba
+    it = Tomba
     ja = 墓
     ko = 무덤
     nb = Grav
@@ -5504,7 +5544,7 @@
     he = עובד מתכת
     hu = Lakatos
     id = Tukang besi
-    it = Fabbro
+    it = Metalmeccanico
     ja = 金属工
     ko = 금속공
     mr = धातू कामगार
@@ -8628,6 +8668,7 @@
     ar = طوارئ
     de = Notfall
     fr = Urgence
+    it = Emergenza
     mr = आणीबाणी
     nl = Noodgeval
     pl = Ratunkowe
@@ -8818,6 +8859,7 @@
     en = Highway
     ar = طريق السريع
     de = Straße
+    it = Via
     ja = 道路
     mr = महामार्ग
     nl = Straat
@@ -8833,6 +8875,7 @@
     en = Bridle Path
     de = Reitweg
     fr = Chemin pour cavalier
+    it = sentiero per cavalli
     ja = 馬道
     nl = Ruiterpad
     pl = Droga dla koni
@@ -8937,6 +8980,7 @@
     es = Ciclovía
     eu = Bizikletabidea
     fr = Piste cyclable
+    it = Pista ciclabile
     ja = 自転車道
     mr = सायकल वाट
     nl = Fietspad
@@ -8975,6 +9019,7 @@
     es = Ascensor
     eu = Igogailua
     fr = Ascenseur
+    it = Ascensore
     mr = उद्वाहक(लिफ्ट)
     nl = Lift
     pt-BR = Elevador
@@ -9268,6 +9313,7 @@
     ref = type.highway.motorway
     en = Motorway Ramp
     de = Autobahnauffahrt
+    it = Svincolo autostradale
     mr = महामार्ग उतार
     nl = Snelwegoprit
     pt = Ligação a autoestrada
@@ -9359,6 +9405,7 @@
   [type.highway.path.hiking]
     ref = type.highway.path
     de = Wanderweg
+    it = Sentiero
     nl = Wandelpad
     pt-BR = Caminho pedonal
 
@@ -9398,7 +9445,7 @@
     fr = Rue piétonne
     hu = Utca
     id = Jalan
-    it = Via
+    it = Strada pedonale
     ja = ストリート
     ko = 거리
     mr = पादचारी मार्ग
@@ -9421,6 +9468,7 @@
   [type.highway.pedestrian.area]
     ref = type.highway.pedestrian
     en = Pedestrian Zone
+    it = Area pedonale
     mr = पादचारी झोन
     ru = Пешеходная зона
     tr = Yaya Alanı
@@ -9460,7 +9508,7 @@
     fr = Rue
     hu = Utca
     id = Jalan
-    it = Via
+    it = Strada
     ja = ストリート
     ko = 거리
     mr = प्राथमिक मार्ग
@@ -9492,6 +9540,7 @@
   [type.highway.primary_link]
     ref = type.highway.primary
     en = Primary Road Ramp
+    it = Strada
     mr = प्राथमिक मार्ग उतार
     pt-BR = Saída de rodovia
     ru = Съезд с шоссе
@@ -9745,7 +9794,7 @@
     fr = Rue
     hu = Utca
     id = Jalan
-    it = Via
+    it = Strada
     ja = ストリート
     ko = 거리
     mr = दुय्यम मार्ग
@@ -9777,6 +9826,7 @@
   [type.highway.secondary_link]
     ref = type.highway.secondary
     en = Secondary Road Ramp
+    it = Strada
     mr = दुय्यम मार्ग उतार
     pt-BR = Saída de rodovia
     ru = Съезд с автодороги
@@ -9929,7 +9979,7 @@
     fr = Escaliers
     hu = Ösvény
     id = Jalur
-    it = Sentiero
+    it = Scale
     ja = 歩道
     ko = 길
     mr = पायऱ्या
@@ -10133,7 +10183,7 @@
     fr = Voie rapide
     hu = Utca
     id = Jalan
-    it = Via
+    it = Strada
     ja = ストリート
     ko = 거리
     mr = राष्ट्रीय महामार्ग
@@ -10296,6 +10346,7 @@
     en = Historic
     ar = مكان تاريخي
     de = Historisches Objekt
+    it = Oggetto storico
     ja = 史跡
     mr = ऐतिहासिक
     nl = Historisch object
@@ -10349,6 +10400,7 @@
     ar = ساحة معركة تاريخية
     de = Schlachtfeld
     fr = Champ de bataille
+    it = Campo di battaglia
     ja = 古戦場
     mr = रणांगण
     nl = Slagveld
@@ -10826,6 +10878,7 @@
     ar = جدار المدينة
     de = Stadtmauer
     fr = Muraille
+    it = Mura cittadine
     ja = 歴史的な城壁
     mr = शहराची भिंत
     nl = Stadsmuur
@@ -10843,6 +10896,7 @@
     ar = قلعة
     de = Festung
     fr = Fort militaire
+    it = Fortezza
     ja = 歴史的な要塞
     mr = दुर्ग
     nl = Fort
@@ -10935,7 +10989,7 @@
     ko = 기념비
     mr = शिल्प
     nb = Minnesmerke
-    nl = Beeldhouwwerk
+    nl = Sculptuur
     pl = Rzeźba
     pt = Escultura memorial
     pt-BR = Escultura memorial
@@ -10962,7 +11016,7 @@
     fr = Mémorial
     hu = Emlékmű
     id = Tugu peringatan
-    it = Memoriale
+    it = Statua memoriale
     ja = 塑像
     ko = 기념비
     mr = पुतळा
@@ -11058,7 +11112,7 @@
     fr = Navire
     hu = Túrizmus
     id = Pemandangan
-    it = Turistico
+    it = Nave storica
     ja = 退役船
     ko = 배
     mr = जहाज
@@ -11092,7 +11146,7 @@
     fr = Tombe historique
     hu = Túrizmus
     id = Pemandangan
-    it = Turistico
+    it = Tomba
     ja = 墓
     ko = 무덤
     mr = थडगे
@@ -11117,6 +11171,7 @@
     ar = صليب مسيحي
     de = Wegkreuz
     fr = Croix
+    it = Crocifisso
     ja = 歴史的な十字架
     mr = ख्रिश्चन क्रॉस
     nl = Kruis
@@ -11134,9 +11189,10 @@
     ar = ضريح
     de = Bildstock
     fr = Oratoire
+    it = Edicola votiva
     ja = 歴史的な祠
     mr = देवस्थान
-    nl = Altaar
+    nl = Kruisbeeld
     pl = Kapliczka przydrożna
     pt = Alminhas
     pt-BR = Alminhas
@@ -11224,6 +11280,7 @@
   [type.junction]
     en = Junction
     ar = تقاطع
+    it = Incrocio
     ja = 交差点
     mr = जंक्शन
     nl = Kruispunt
@@ -11242,6 +11299,7 @@
     es = Rotonda
     eu = Biribilgunea
     fr = Rond-point
+    it = Rotonda
     ja = ラウンドアバウト
     mr = गोलमार्ग
     nl = Rotonde
@@ -11337,11 +11395,13 @@
     comment = In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship.
     ref = type.amenity.grave_yard
     en = Cemetery
+    it = Cimitero
     nl = Begraafplaats
 
   [type.landuse.cemetery.christian]
     ref = type.amenity.grave_yard.christian
     en = Christian Cemetery
+    it = Cimitero cristiano
     nl = Christelijke begraafplaats
 
   [type.landuse.churchyard]
@@ -11384,6 +11444,7 @@
     ar = منطقة تجارية
     de = Gewerbegebiet
     fr = Zone commerciale
+    it = Area commerciale
     ja = 商業用地
     mr = व्यावसायिक क्षेत्र
     nl = Commercieel gebied
@@ -11400,6 +11461,7 @@
     ar = منطقة بناء
     de = Baustelle
     fr = Chantier de construction
+    it = Cantiere
     ja = 建設工事中
     mr = बांधकाम
     nl = Bouwplaats
@@ -11479,6 +11541,7 @@
     en = Farmyard
     de = Landwirtschaftlich genutzte Fläche
     fr = Ferme
+    it = Fattoria
     ja = 農地
     nl = Boerenerf
     pl = Obejście gospodarskie
@@ -11551,7 +11614,7 @@
     fr = Forêt de conifères
     hu = Erdő
     id = Hutan
-    it = Foresta
+    it = Foresta di conifere
     ja = 森林
     ko = 숲
     mr = शंकुमंत जंगल
@@ -11585,7 +11648,7 @@
     fr = Forêt de feuillus
     hu = Erdő
     id = Hutan
-    it = Foresta
+    it = Foresta de cidua
     ja = 森林
     ko = 숲
     mr = पानझडी जंगल
@@ -11619,7 +11682,7 @@
     fr = Forêt
     hu = Erdő
     id = Hutan
-    it = Foresta
+    it = Foresta mista
     ja = 森林
     ko = 숲
     mr = मिश्र वन
@@ -11642,6 +11705,7 @@
   [type.landuse.garages]
     en = Garages
     de = Garagen
+    it = Garage
     ja = ガレージ
     mr = गराज
     nl = Garages
@@ -11723,6 +11787,7 @@
     ar = منطقة صناعية
     de = Industriegebiet
     fr = Zone industrielle
+    it = Zona industriale
     ja = 工業用地
     mr = औद्योगिक जमीन
     nl = Industrieterrein
@@ -11774,6 +11839,7 @@
     en = Meadow
     de = Wiese
     fr = Prairie
+    it = Radura
     ja = 牧草地
     mr = कुरण
     nl = Weiland
@@ -11790,6 +11856,7 @@
     ar = منطقة عسكرية
     de = Militärgebiet
     fr = Terrain militaire
+    it = Area militare
     ja = 軍用地
     mr = लष्करी क्षेत्र
     nl = Militair terrein
@@ -11806,6 +11873,7 @@
     ar = بستان
     de = Obstplantage
     fr = Vergers
+    it = Frutteto
     ja = 果樹園
     mr = फळबागा
     nl = Boomgaard
@@ -11821,6 +11889,7 @@
     en = Quarry
     de = Steinbruch
     fr = Carrières
+    it = Cava
     ja = 採石場
     mr = खाण
     nl = Steengroeve
@@ -11871,6 +11940,7 @@
   [type.landuse.recreation_ground]
     en = Recreation Ground
     de = Erholungsgebiet
+    it = Area divertimento
     ja = レクリエーション
     mr = मनोरंजन मैदान
     nl = Recreatiezone
@@ -11920,6 +11990,7 @@
     ar = منطقة سكنية
     de = Wohngebiet
     fr = Zone résidentielle
+    it = Area residentiale
     ja = 住宅地
     mr = निवासी जमीन
     nl = Woonwijk
@@ -11936,6 +12007,7 @@
     ar = منطقة متاجر
     de = Einzelhandelsgebiet
     fr = Zone commerciale
+    it = Area commerciale
     ja = 小売店エリア
     mr = किरकोळ जमीन
     nl = Detailhandel
@@ -11952,6 +12024,7 @@
     ar = مستنقع
     de = Saline
     fr = Marais salant
+    it = Salina
     ja = 塩田
     mr = तलाव
     nl = Zoutpoel
@@ -11980,6 +12053,7 @@
     ar = حقل عنب
     de = Weinberg
     fr = Vignes
+    it = Vigne
     ja = ブドウ園
     mr = द्राक्षमळा
     nl = Wijngaard
@@ -11994,6 +12068,7 @@
   [type.leisure]
     en = Leisure
     de = Freizeit
+    it = Tempo libero
     ja = レジャー
     mr = अवकाश
     nl = Ontspanning
@@ -12244,6 +12319,7 @@
     en = Ice Rink
     de = Eislaufplatz
     fr = Patinoire
+    it = Pista di pattinaggio
     ja = アイスリンク
     mr = हिम क्रीडा क्षेत्र
     nl = Schaatsbaan
@@ -12270,6 +12346,7 @@
     en = Marina
     be = Прычал
     de = Jachthafen
+    it = Porto turistico
     ja = マリーナ
     nl = Jachthaven
     pt = Marina
@@ -12293,7 +12370,7 @@
     fr = Réserve naturelle
     hu = Védett terület
     id = Cagar Alam
-    it = Riserva
+    it = Riserva naturale
     ja = 自然保護区
     ko = 천연보호구역
     mr = संरक्षित निसर्गक्षेत्र
@@ -12437,7 +12514,7 @@
     fr = Parc
     hu = Park
     id = Taman
-    it = Parco
+    it = Parco privato
     ja = 公園
     ko = 공원
     mr = उद्यान
@@ -12615,6 +12692,7 @@
     en = Slipway
     de = Bootsrampe
     fr = Cale de lancement
+    it = Scivolo per navi
     ja = スリップウェイ
     nl = Scheepshelling
     pl = Pochylnia
@@ -12802,12 +12880,14 @@
   [type.leisure.swimming_pool.private]
     ref = type.leisure.swimming_pool
     ar = مسبح خاص
+    it = Piscina privata
     nl = Privé zwembad
 
   [type.leisure.track]
     en = Track
     de = Laufbahn
     fr = Piste de course
+    it = Pista da corsa
     ja = トラック
     mr = ट्रॅक
     nl = Parcours
@@ -12864,6 +12944,7 @@
   [type.man_made]
     en = Man Made
     de = künstliche Anlage
+    it = Stabilimento balneare
     ja = 構造物
     mr = मानवनिर्मित
     nl = Kunstmatige constructies
@@ -12878,6 +12959,7 @@
     en = Breakwater
     de = Wellenbrecher
     fr = Brise-lames
+    it = Frangiflutti
     ja = 防波堤
     nl = Golfbreker
     pl = Falochron
@@ -12953,6 +13035,7 @@
     de = Vermessungspunkt
     el = Γεωδαιτικό σημείο
     fr = Borne géodésique
+    it = Punto geodetico
     ja = 測量標
     mr = सर्वेक्षण बिंदू
     nl = Meetpunt
@@ -12965,6 +13048,7 @@
     ar = سارية علم
     be = Флагшток
     fr = Mât de drapeau
+    it = Alza bandiera
     mr = ध्वजस्तंभ
     nl = Vlaggenpaal
     ru = Флагшток
@@ -13020,6 +13104,7 @@
     ar = رصيف بحري
     de = Anlegestelle
     fr = Jetée
+    it = Molo
     ja = 桟橋
     mr = धक्का
     nl = Pier
@@ -13033,6 +13118,7 @@
 
   [type.man_made.pipeline]
     en = Pipeline
+    it = Condotto
     ja = パイプライン
     mr = नळमार्ग
     nl = Pijpleiding
@@ -13061,6 +13147,7 @@
     ar = صومعة
     be = Сілас
     de = Silo
+    it = Silo
     mr = पेव(धान्यसाठा)
     nl = Silo
     pt-BR = Silo
@@ -13073,6 +13160,7 @@
     be = Рэзервуар
     de = Speichertank
     fr = Réservoir
+    it = Cisterna
     mr = साठवण टाकी
     nl = Opslagtank
     pt-BR = Tanque de armazenagem
@@ -13149,9 +13237,10 @@
     zh-Hant = 塔
 
   [type.man_made.wastewater_plant]
-    en = Wastewater Plant
+    en = Wastewater treatment plant
     de = Kläranlage
     fr = Station d'épuration
+    it = Impianto di trattamento delle acque reflue
     ja = 下水処理場
     mr = सांडपाणी संयंत्र(प्लांट)
     nl = Waterzuiveringsinstallatie
@@ -13302,6 +13391,7 @@
   [type.man_made.works]
     en = Industrial Works
     de = Fabrik
+    it = Fabbrica
     ja = 工場
     mr = औद्योगिक कामे
     nl = Fabriek
@@ -13322,6 +13412,7 @@
     en = Military
     ar = جيش
     de = Militärisches Objekt
+    it = Forze armate
     ja = 軍事
     mr = लष्करी
     nl = Militair
@@ -13342,6 +13433,7 @@
     eu = Bunkerra
     fa = پناهگاه
     fi = Bunkkeri
+    it = Bunker
     ja = 掩蔽壕
     ko = 벙커
     mr = बंकर
@@ -14886,6 +14978,7 @@
 
   [type.noexit]
     en = Dead End
+    it = Strada senza uscita
     ja = 行き止まり
     mr = रस्ता बंद
     nl = Doodlopende weg
@@ -15867,7 +15960,7 @@
     he = מדינה
     hu = Állam
     id = Negara bagian
-    it = Provincia
+    it = Stato
     ja = 州
     ko = 주
     mr = राज्य
@@ -16002,6 +16095,7 @@
   [type.power]
     en = Power
     de = Energie
+    it = Elettricità
     ja = 電力
     mr = शक्ती
     nl = Electriciteit
@@ -16015,6 +16109,7 @@
   [type.power.generator]
     en = Generator
     de = Generator
+    it = Generatore
     ja = 発電機
     mr = जनित्र(जनरेटर)
     pt = Gerador de energia
@@ -16027,6 +16122,7 @@
   [type.power.line]
     en = Power Line
     de = Hochspannungs-Freileitung
+    it = Cavo elettrico
     ja = 電力線
     mr = विद्युत तार
     nl = Hoogspanningsleiding
@@ -16055,6 +16151,7 @@
   [type.power.minor_line]
     en = Minor Power Line
     de = Nieder-/Mittelspannungsfreileitung
+    it = Cavo elettrico
     ja = 低圧電力線
     mr = किरकोळ विद्युत तार
     nl = Laag-/middelspanningsleiding
@@ -16160,7 +16257,7 @@
     fr = Poteau électrique
     hu = Villanyoszlop
     id = Menara listrik
-    it = Palo elettrico
+    it = Pilone elettrico
     ja = 電柱
     ko = 전봇대
     mr = विद्युत मनोरा
@@ -16182,6 +16279,7 @@
 
   [type.psurface]
     en = psurface
+    it = Superficie
     nl = Wegdek
     ru = Поверхность
 
@@ -16210,6 +16308,7 @@
     de = Öffentlicher Verkehr
     es = Transporte público
     eu = Garraio publikoa
+    it = Trasporto pubblico
     ja = 公共交通機関
     mr = सार्वजनिक वाहतूक
     nl = Openbaar vervoer
@@ -16237,6 +16336,7 @@
     en = Railway
     de = Eisenbahn
     fr = Chemin de fer
+    it = Ferrovia
     ja = 鉄道
     mr = रेल्वे
     nl = Spoorweg
@@ -16291,6 +16391,7 @@
     en = Railway's Construction
     de = Eisenbahnstrecke im Bau
     fr = Chemin de fer en construction
+    it = Binari in costruzione
     ja = 建設中の鉄道
     mr = रेल्वेचे बांधकाम
     nl = Treinspoor in aanbouw
@@ -16418,6 +16519,7 @@
   [type.railway.light_rail]
     en = Light Rail
     de = Stadtbahn
+    it = Metropolitana
     ja = ライトレール
     nl = Lightrail
     pt = Metropolitano de superfície
@@ -16620,7 +16722,7 @@
     fr = Chemin de fer
     hu = Vasút
     id = Kereta api
-    it = Ferrovia
+    it = Binari
     ja = 鉄道
     ko = 철로
     mr = रेल्वे
@@ -16821,7 +16923,7 @@
     fr = Station de métro
     hu = Földalatti
     id = Stasiun bawah tanah
-    it = Metrò
+    it = Stazione della metrò
     ja = 地下鉄
     ko = 지하철
     mr = भुयारी मार्ग
@@ -16997,6 +17099,9 @@
   [type.railway.station.subway.lisboa]
     ref = type.railway.station.subway
 
+  [type.railway.station.subway.lisbon]
+    ref = type.railway.station.subway
+
   [type.railway.station.subway.london]
     ref = type.railway.station.subway
 
@@ -17169,6 +17274,7 @@
     en = Subway Line
     de = U-Bahn
     fr = Ligne de métro
+    it = Binari della metrò
     mr = भुयारी मार्गिका
     nl = Metro
     pt = Metropolitano
@@ -17568,6 +17674,7 @@
     en = Tram Line
     de = Straßenbahn
     fr = Voie de tramway
+    it = Binari del tram
     ja = トラム
     mr = ट्राम मार्गिका
     nl = Tram
@@ -17685,6 +17792,7 @@
   [type.route]
     en = route
     de = Route
+    it = Percorso
     ja = ルート
     mr = मार्ग
     pt = Rota
@@ -17698,6 +17806,7 @@
     en = Ferry
     de = Fähre
     fr = Trajet de ferry
+    it = Traghetto
     ja = フェリー航路
     mr = होडी
     nl = Veerboot
@@ -17765,7 +17874,7 @@
     fr = Magasin de vins et spiritueux
     hu = Italbolt
     id = Toko alkohol
-    it = Enoteca
+    it = Negozio di alcolici
     ja = 酒屋
     ko = 주류 샵
     mr = दारूचे दुकान
@@ -18212,7 +18321,7 @@
     fr = Chocolatier
     hu = Bolt
     id = Toko
-    it = Negozio
+    it = Choccolateria
     ja = チョコレート屋
     ko = 가게
     mr = दुकान
@@ -18280,7 +18389,7 @@
     fr = Boutique de cafés
     hu = Bolt
     id = Toko
-    it = Negozio
+    it = Negozio di caffè
     ja = コーヒー屋
     ko = 가게
     mr = दुकान
@@ -18630,7 +18739,7 @@
     nb = Elektronikk forhandler
     nl = Elektronicazaak
     pl = Sklep ze sprzętem elektronicznym
-    pt = Loja de electrónica de consumo
+    pt = Loja de eletrónica de consumo
     pt-BR = Loja de eletrônicos
     ro = Electronice
     ru = Электротехника
@@ -18690,7 +18799,7 @@
     fr = Magasin de tissus
     hu = Bolt
     id = Toko
-    it = Negozio
+    it = Merceria
     ja = 生地屋
     ko = 가게
     mr = दुकान
@@ -19034,7 +19143,7 @@
     fr = Quincaillerie
     he = ןיינב ירמוחל תונח
     hu = Hardver üzlet
-    it = Negozio hardware
+    it = Ferramenta
     ja = ホームセンター
     nl = IJzerwaren
     pl = Sklep z narzędziami
@@ -19269,7 +19378,7 @@
     fi = Ostoskeskus
     fr = Centre commercial
     hu = A pláza
-    it = Il centro commerciale
+    it = Centro commerciale
     ja = モール
     ko = 몰
     mr = मॉल
@@ -19280,7 +19389,7 @@
     pt-BR = Shopping center
     ro = Mall
     ru = Торговый центр
-    sk = The Mall
+    sk = Mall
     sv = Galleria
     th = เดอะมอลล์
     tr = Alışveriş Merkezi
@@ -19440,7 +19549,7 @@
     fr = Disquaire
     hu = Bolt
     id = Toko
-    it = Negozio
+    it = Negozio di Dischi
     ja = CDショップ
     ko = 가게
     mr = दुकान
@@ -19474,7 +19583,7 @@
     fr = Magasin d'instruments de musique
     hu = Bolt
     id = Toko
-    it = Negozio
+    it = Negozio di strumenti
     ja = 楽器店
     ko = 가게
     mr = दुकान
@@ -19985,7 +20094,7 @@
     fr = Boutique de thés
     hu = Bolt
     id = Toko
-    it = Negozio
+    it = Negozio di tè
     ja = 茶販売店
     ko = 가게
     mr = दुकान
@@ -20198,7 +20307,7 @@
     nl = Videowinkel
     pl = Wypożyczalnia wideo
     pt = Vídeoclube
-    pt-BR = Vídeo locadora
+    pt-BR = Video locadora
     ro = Magazin video
     ru = Магазин видео
     sk = Predajňa s videami
@@ -20261,7 +20370,7 @@
     fr = Caviste
     hu = Szeszesital-üzlet
     id = Toko anggur
-    it = Negozio di alcolici
+    it = Enoteca
     ja = ワイン店
     ko = 와인 샵
     mr = वाईन विक्रेता
@@ -20372,11 +20481,11 @@
     he = םידליל תונח
     hu = Gyermekbolt
     id = Toko anak-anak
-    it = Negozio per bambini
+    it = Negozio per neonati
     ja = キッズストア
     ko = 어린이 가게
     nb = Barnebutikk
-    nl = Kinderwinkel
+    nl = Babyspullenwinkel
     pl = Sklep dla dzieci
     pt = Loja infantil
     pt-BR = Loja infantil
@@ -21001,7 +21110,7 @@
     he = קבָּטַ
     hu = Dohány
     id = Tembakau
-    it = Tabacco
+    it = Tabaccheria
     ja = タバコ
     ko = 담배
     nb = Tobakk
@@ -21075,7 +21184,7 @@
     he = םינועש
     hu = Órák
     id = Jam tangan
-    it = Orologi
+    it = Orologeria
     ja = 時計
     ko = 시계
     nb = Klokker
@@ -22345,6 +22454,7 @@
     es = Turismo
     eu = Turismoa
     fi = Turismi
+    it = Turismo
     ja = 観光
     mr = पर्यटन
     nl = Tourisme
@@ -22369,7 +22479,7 @@
     fr = Refuge de montagne
     hu = Hegyi menedék
     id = Penginapan di pegunungan
-    it = Hotel di montagna
+    it = Rifugio
     ja = 山小屋
     ko = 고산 오두막
     nb = Fjellstue
@@ -22402,7 +22512,7 @@
     fr = Appart'hôtel
     hu = Apartmanok
     id = Apartemen
-    it = Residence
+    it = Appartamento
     ja = アパート
     ko = 아파트
     mr = सदनिका
@@ -22436,7 +22546,7 @@
     fr = Œuvre
     hu = Szobor
     id = Pariwisata
-    it = Opere d'arte
+    it = Opera d'arte
     ja = 芸術
     ko = 작품
     mr = कलाकृती
@@ -22470,7 +22580,7 @@
     fr = Œuvre
     hu = Szobor
     id = Pariwisata
-    it = Opere d'arte
+    it = Opera d'arte
     ja = 建築
     ko = 작품
     mr = कलाकृती
@@ -22504,7 +22614,7 @@
     fr = Œuvre
     hu = Szobor
     id = Pariwisata
-    it = Opere d'arte
+    it = Dipinto
     ja = 絵画
     ko = 작품
     mr = कलाकृती
@@ -22538,12 +22648,12 @@
     fr = Œuvre
     hu = Szobor
     id = Pariwisata
-    it = Opere d'arte
+    it = Scultura
     ja = 彫刻
     ko = 작품
     mr = कलाकृती
     nb = Kunstverk
-    nl = Beeldhouwwerk
+    nl = Kunstwerk
     pl = Rzeźba
     pt = Escultura
     pt-BR = Escultura
@@ -22572,7 +22682,7 @@
     fr = Œuvre
     hu = Szobor
     id = Pariwisata
-    it = Opere d'arte
+    it = Statua
     ja = 像
     ko = 작품
     mr = कलाकृती
@@ -22627,8 +22737,10 @@
 
   [type.tourism.attraction.animal]
     ref = type.tourism.attraction
+    en = Animal enclosure
+    it = Recinto
     ja = 動物
-    nl = Dierenattractie
+    nl = Dierenverblijf
     pl = Atrakcje zwierzęce
 
   [type.tourism.attraction.specified]
@@ -22708,6 +22820,7 @@
     fi = Alppimaja
     fr = Meublé de tourisme
     hu = Turistaház
+    it = Chalet
     ja = シャレー
     ko = 별장
     nl = Vakantiehuis
@@ -22739,7 +22852,7 @@
     fr = Galerie d'art
     hu = Túrizmus
     id = Pemandangan
-    it = Turistico
+    it = Galleria
     ja = 美術館
     ko = 갤러리
     mr = वीथि
@@ -22773,7 +22886,7 @@
     fr = Maison d'hôtes
     hu = Vendégház
     id = Wisma tamu
-    it = Guest house
+    it = Casa degli Ospiti
     ja = ゲストハウス
     ko = 게스트하우스
     mr = अतिथीगृह
@@ -22829,7 +22942,7 @@
     fi = Hotelli
     fr = Hôtel
     hu = Szálloda
-    it = Hôtel
+    it = Hotel
     ja = ホテル
     ko = 호텔
     mr = मुक्कामगृह
@@ -23041,6 +23154,7 @@
     el = Μοτέλ
     fa = هتل
     fi = Motelli
+    it = Motel
     ja = モーテル
     ko = 모텔
     nb = Motell
@@ -23099,7 +23213,7 @@
     fr = Terrain de pique-nique
     hu = Piknikező hely
     id = Lokasi piknik
-    it = Picnic
+    it = Area picnic
     ja = ピクニック場
     ko = 피크닉 장소
     mr = सहलीचे ठिकाण
@@ -23130,6 +23244,7 @@
     fr = Complexe touristique
     hu = Resort hotel
     id = Sanggraloka
+    it = Resort
     ja = リゾート
     ko = 리조트
     mr = रिसॉर्ट
@@ -23163,7 +23278,7 @@
     fr = Parc d'attractions
     hu = Túrizmus
     id = Pemandangan
-    it = Turistico
+    it = Parco divertimenti
     ja = テーマパーク
     ko = 테마 파크
     mr = थीम पार्क
@@ -23197,7 +23312,7 @@
     fr = Belvédère
     hu = Kilátó
     id = Titik pandang
-    it = Panorama
+    it = Punto panoramico
     ja = 観光スポット
     ko = 관점
     mr = दृष्टिस्थान
@@ -23260,6 +23375,7 @@
     fi = Eläintarha
     hu = Állatkert
     id = Kebun binatang
+    it = Giardino zoologico
     ja = 動物園
     ko = 동물원
     mr = प्राणीसंग्रहालय
@@ -23281,6 +23397,7 @@
   [type.traffic_calming]
     en = Traffic Calming
     de = Verkehrsberuhigung
+    it = Rallentatore della velocità
     ja = 交通静穏化
     nl = Snelheidsmatigende maatregel
     pl = Uspokojenie ruchu drogowego
@@ -23295,6 +23412,7 @@
     de = kurze Bodenwelle
     fi = Hidastetöyssy
     fr = Ralentisseur
+    it = Dosso
     ja = スピードバンプ
     mr = वाहतूक गतिरोधक
     nl = Verkeersdrempel
@@ -23309,6 +23427,7 @@
     en = Traffic Hump
     de = lange Bodenwelle
     fr = Ralentisseur
+    it = Dosso
     ja = スピードハンプ
     nl = Verkeersheuvel
     pl = Długi próg zwalniający
@@ -23397,6 +23516,7 @@
     de = Staudamm
     fi = Pato
     fr = Barrage
+    it = Diga
     ja = ダム
     mr = धरण
     nl = Dam
@@ -23412,6 +23532,7 @@
     de = Graben
     fi = Oja
     fr = Fossé
+    it = Fosso
     ja = 排水路
     mr = खंदक
     nl = Sloot
@@ -23430,6 +23551,7 @@
     de = Dock
     fi = Telakka
     fr = Cale
+    it = Darsena
     ja = ドック
     mr = जलमार्ग गोद
     nl = Dok
@@ -23443,6 +23565,7 @@
   [type.waterway.drain]
     en = Drain
     de = Abfluss
+    it = Canale di scolo
     ja = 用水路
     mr = नाला
     nl = Afvoer
@@ -23577,7 +23700,7 @@
     fr = Ruisseau
     hu = Folyó
     id = Sungai
-    it = Fiume
+    it = Torrente
     ja = 小川
     ko = 강
     mr = नदी
@@ -23612,7 +23735,7 @@
     fr = Ruisseau
     hu = Folyó
     id = Sungai
-    it = Fiume
+    it = Torrente
     ja = 小川
     ko = 강
     mr = नदी
@@ -23647,7 +23770,7 @@
     fr = Ruisseau
     hu = Folyó
     id = Sungai
-    it = Fiume
+    it = Torrente
     ja = 小川
     ko = 강
     mr = नदी
@@ -23724,6 +23847,7 @@
     es = Silla de ruedas
     eu = Gurpil-aulkia
     fi = Rullatuoli
+    it = Sedia a rotelle
     ja = 車椅子
     mr = चाकखुर्ची
     nl = Rolstoel
@@ -23993,6 +24117,7 @@
     de = Rodelbahn
     fi = Kelkkarata
     fr = Piste de luge
+    it = Pista per slitte
     nl = Sleebaan
     pt = Pista para trenós
     pt-BR = Pista para trenós
