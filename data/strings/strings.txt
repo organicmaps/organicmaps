@@ -24412,7 +24412,6 @@
     en = https://t.me/OrganicMapsApp
     be = https://t.me/OrganicMapsRu
     fa = https://t.me/OrganicMapsIR
-    nl = https://t.me/OrganicMapsNL
     ru = https://t.me/OrganicMapsRu
     tr = https://t.me/OrganicMapsTR
 
