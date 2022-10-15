@@ -8919,6 +8919,7 @@
   [type.highway.cycleway.bridge]
     ref = type.highway.road.bridge
     ja = 自転車道(橋)
+    nl = Fietsbrug
     pl = Most drogowy dla rowerów
     pt-BR = Ponte para ciclistas
 
@@ -8930,6 +8931,7 @@
   [type.highway.cycleway.tunnel]
     ref = type.highway.road.tunnel
     ja = 自転車道(トンネル)
+    nl = Fietstunnel
     pl = Tunel drogowy dla rowerów
     pt-BR = Túnel para ciclistas
 
@@ -8985,6 +8987,7 @@
   [type.highway.footway.alpine_hiking]
     ref = type.highway.path
     de = Alpinwanderweg
+    nl = Alpine wandelpad
     pl = Ścieżka wspinaczkowa
     pt = Caminho pedonal
     pt-BR = Caminho pedonal
@@ -8995,6 +8998,7 @@
     en = Pedestrian Zone
     ar = منطقة مشاة
     mr = पादचारी झोन
+    nl = Voetgangerszone
     pl = Obszar chodnika
     pt-BR = Área de pedestres
     ru = Пешеходная зона
@@ -9006,6 +9010,7 @@
     en = Pedestrian Bridge
     ar = جسر للمشاة
     mr = पादचारी पूल
+    nl = Voetgangersbrug
     pl = Most dla pieszych
     pt-BR = Ponte para pedestres
     ru = Пешеходный мост
@@ -9013,6 +9018,7 @@
   [type.highway.footway.demanding_alpine_hiking]
     ref = type.highway.path
     de = Anspruchsvoller Alpinwanderweg
+    nl = Uitdagend alpine bergklimpad
     pt = Caminho pedonal
     pt-BR = Caminho pedonal difícil
     zh-Hans = 步行道路
@@ -9020,6 +9026,7 @@
   [type.highway.footway.demanding_mountain_hiking]
     ref = type.highway.path
     de = Anspruchsvoller Bergwanderweg
+    nl = Uitdagend bergwandelpad
     pt = Caminho pedonal
     pt-BR = Caminho pedonal difícil
     zh-Hans = 步行道路
@@ -9027,6 +9034,7 @@
   [type.highway.footway.difficult_alpine_hiking]
     ref = type.highway.path
     de = Schwieriger Alpinwanderweg
+    nl = Moeilijk alpine bergklimpad
     pt = Caminho pedonal
     pt-BR = Caminho pedonal difícil
     zh-Hans = 步行道路
@@ -9034,6 +9042,7 @@
   [type.highway.footway.hiking]
     ref = type.highway.path
     de = Wanderweg
+    nl = Wandelpad
     pt = Caminho pedonal
     pt-BR = Caminho pedonal
     zh-Hans = 步行道路
@@ -9228,6 +9237,7 @@
     en = Motorway Ramp
     de = Autobahnauffahrt
     mr = महामार्ग उतार
+    nl = Snelwegoprit
     pt = Ligação a autoestrada
     pt-BR = Acesso a rodovia
     ru = Съезд с автомагистрали
@@ -9279,6 +9289,7 @@
   [type.highway.path.alpine_hiking]
     ref = type.highway.path
     de = Alpinwanderweg
+    nl = Alpine wandelpad
     pl = Ścieżka wspinaczkowa
     pt-BR = Caminho pedonal
 
@@ -9288,6 +9299,7 @@
     ar = مسار للمشاة والدراجات معاً
     de = Radweg
     mr = सायकल आणि पाऊलवाट
+    nl = Fietspad
     pl = Ścieżka dla rowerów
     pt-BR = Caminho para ciclistas
     ru = Велопешеходная дорожка
@@ -9315,12 +9327,14 @@
   [type.highway.path.hiking]
     ref = type.highway.path
     de = Wanderweg
+    nl = Wandelpad
     pt-BR = Caminho pedonal
 
   [type.highway.path.horse]
     ref = type.highway.path
     en = Bridle Path
     de = Reitweg
+    nl = Ruiterpad
     pt-BR = Caminho para cavaleiros
     ru = Конная тропа
     tr = Atlı Yolu
@@ -10224,6 +10238,7 @@
   [type.area_highway.steps]
     ref = type.highway.steps
     fi = Portaat
+    nl = Trappen
     pt-BR = Travessia
 
   [type.area_highway.track]
@@ -12150,6 +12165,7 @@
     ref = type.leisure.garden
     en = Residential Garden
     be = Частный сад
+    nl = Tuin
     pl = Ogród przydomowy
     pt = Jardim residencial
     pt-BR = Jardim residencial
@@ -16083,6 +16099,7 @@
     ko = 변전소
     mr = विद्युत सबस्टेशन
     nb = Trafo
+    nl = Transformatorstation
     pl = Podstacja
     pt = Subestação elétrica
     pt-BR = Subestação elétrica
@@ -16323,6 +16340,7 @@
   [type.railway.halt]
     ref = type.railway.station
     de = Haltepunkt
+    nl = Station
     pl = Przystanek kolejowy
     pt = Apeadeiro
     pt-BR = Ponto de parada
@@ -16611,6 +16629,7 @@
     de = S-Bahn
     ja = 鉄道
     mr = रेल्वे
+    nl = Spoorweg
     pt = Ferrovia
     pt-BR = Ferrovia
     ru = Железная дорога
@@ -17886,6 +17905,7 @@
     it = Centro scommesse
     ja = ブックメーカー
     ko = 마권판매소
+    nl = Boekbinder
     pl = Bukmacher
     pt = Casa de apostas
     pt-BR = Casa de apostas
@@ -22576,6 +22596,7 @@
   [type.tourism.attraction.animal]
     ref = type.tourism.attraction
     ja = 動物
+    nl = Dierenattractie
     pl = Atrakcje zwierzęce
 
   [type.tourism.attraction.specified]
@@ -22657,6 +22678,7 @@
     hu = Turistaház
     ja = シャレー
     ko = 별장
+    nl = Vakantiehuis
     pl = Domek letniskowy
     pt = Chalé
     pt-BR = Chalé
@@ -22754,6 +22776,7 @@
     ko = 호스텔
     mr = छात्रालय
     nb = Vandrerhjem
+    nl = Herberg
     pt = Hostel
     pt-BR = Hostel
     ru = Хостел
