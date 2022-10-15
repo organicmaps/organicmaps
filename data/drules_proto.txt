@@ -13296,9 +13296,16 @@ cont {
 cont {
   name: "craft-beekeeper"
   element {
+    scale: 17
+    symbol {
+      name: "beekeeper-m"
+      priority: 16000
+    }
+  }
+  element {
     scale: 18
     symbol {
-      name: "hand-m"
+      name: "beekeeper-m"
       priority: 16609
     }
     caption {
@@ -13314,7 +13321,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "hand-m"
+      name: "beekeeper-m"
       priority: 16609
     }
     caption {
@@ -13331,9 +13338,16 @@ cont {
 cont {
   name: "craft-blacksmith"
   element {
+    scale: 17
+    symbol {
+      name: "blacksmith-m"
+      priority: 16000
+    }
+  }
+  element {
     scale: 18
     symbol {
-      name: "hand-m"
+      name: "blacksmith-m"
       priority: 16609
     }
     caption {
@@ -13349,7 +13363,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "hand-m"
+      name: "blacksmith-m"
       priority: 16609
     }
     caption {
@@ -13436,9 +13450,16 @@ cont {
 cont {
   name: "craft-confectionery"
   element {
+    scale: 17
+    symbol {
+      name: "sweets-m"
+      priority: 16000
+    }
+  }
+  element {
     scale: 18
     symbol {
-      name: "hand-m"
+      name: "sweets-m"
       priority: 16609
     }
     caption {
@@ -13454,7 +13475,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "hand-m"
+      name: "sweets-m"
       priority: 16609
     }
     caption {
@@ -13471,9 +13492,16 @@ cont {
 cont {
   name: "craft-electrician"
   element {
+    scale: 17
+    symbol {
+      name: "electrician-m"
+      priority: 16000
+    }
+  }
+  element {
     scale: 18
     symbol {
-      name: "hand-m"
+      name: "electrician-m"
       priority: 16609
     }
     caption {
@@ -13489,7 +13517,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "hand-m"
+      name: "electrician-m"
       priority: 16609
     }
     caption {
@@ -13506,9 +13534,16 @@ cont {
 cont {
   name: "craft-electronics_repair"
   element {
+    scale: 17
+    symbol {
+      name: "electrician-m"
+      priority: 16000
+    }
+  }
+  element {
     scale: 18
     symbol {
-      name: "hand-m"
+      name: "electrician-m"
       priority: 16609
     }
     caption {
@@ -13524,7 +13559,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "hand-m"
+      name: "electrician-m"
       priority: 16609
     }
     caption {
@@ -13541,9 +13576,16 @@ cont {
 cont {
   name: "craft-gardener"
   element {
+    scale: 17
+    symbol {
+      name: "florist-m"
+      priority: 16000
+    }
+  }
+  element {
     scale: 18
     symbol {
-      name: "hand-m"
+      name: "florist-m"
       priority: 16609
     }
     caption {
@@ -13559,7 +13601,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "hand-m"
+      name: "florist-m"
       priority: 16609
     }
     caption {
@@ -13681,9 +13723,16 @@ cont {
 cont {
   name: "craft-painter"
   element {
+    scale: 17
+    symbol {
+      name: "painter-m"
+      priority: 16000
+    }
+  }
+  element {
     scale: 18
     symbol {
-      name: "hand-m"
+      name: "painter-m"
       priority: 16609
     }
     caption {
@@ -13699,7 +13748,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "hand-m"
+      name: "painter-m"
       priority: 16609
     }
     caption {
@@ -13716,9 +13765,16 @@ cont {
 cont {
   name: "craft-photographer"
   element {
+    scale: 17
+    symbol {
+      name: "photo-shop-m"
+      priority: 16000
+    }
+  }
+  element {
     scale: 18
     symbol {
-      name: "hand-m"
+      name: "photo-shop-m"
       priority: 16609
     }
     caption {
@@ -13734,7 +13790,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "hand-m"
+      name: "photo-shop-m"
       priority: 16609
     }
     caption {
@@ -13828,9 +13884,16 @@ cont {
 cont {
   name: "craft-shoemaker"
   element {
+    scale: 17
+    symbol {
+      name: "shoes-m"
+      priority: 16000
+    }
+  }
+  element {
     scale: 18
     symbol {
-      name: "hand-m"
+      name: "shoes-m"
       priority: 16609
     }
     caption {
@@ -13846,7 +13909,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "hand-m"
+      name: "shoes-m"
       priority: 16609
     }
     caption {
