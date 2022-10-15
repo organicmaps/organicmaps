@@ -20935,6 +20935,7 @@
     ca = sí
     fa = بلی
     he = כן
+    nl = ja
     ru = Есть
     tr = Var
 
@@ -20944,6 +20945,7 @@
     ref = no
     be = Няма
     ca = no
+    nl = nee
     tr = Yok
 
   [trip_finished]
@@ -24410,6 +24412,7 @@
     en = https://t.me/OrganicMapsApp
     be = https://t.me/OrganicMapsRu
     fa = https://t.me/OrganicMapsIR
+    nl = https://t.me/OrganicMapsNL
     ru = https://t.me/OrganicMapsRu
     tr = https://t.me/OrganicMapsTR
 
