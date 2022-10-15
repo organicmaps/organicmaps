@@ -2613,18 +2613,30 @@ area|z17-[craft=beekeeper]
 node|z17-[craft=blacksmith],
 area|z17-[craft=blacksmith]
 {icon-image:blacksmith-m.svg;}
+node|z17-[craft=confectionery],
+area|z17-[craft=confectionery]
+{icon-image:sweets-m.svg;}
 node|z17-[craft=electrician],
 area|z17-[craft=electrician]
 {icon-image:electrician-m.svg;}
 node|z17-[craft=electronics_repair],
 area|z17-[craft=electronics_repair]
 {icon-image:electrician-m.svg;}
+node|z17-[craft=gardener],
+area|z17-[craft=gardener]
+{icon-image:florist-m.svg;}
 node|z17-[craft=painter],
 area|z17-[craft=painter]
 {icon-image:painter-m.svg;}
+node|z17-[craft=photographer],
+area|z17-[craft=photographer]
+{icon-image:photo-shop-m.svg;}
 node|z17-[craft=plumber],
 area|z17-[craft=plumber]
 {icon-image:plumber-m.svg;}
+node|z17-[craft=shoemaker],
+area|z17-[craft=shoemaker]
+{icon-image:shoes-m.svg;}
 
 /* 7. CAR */
 
