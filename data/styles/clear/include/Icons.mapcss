@@ -2607,6 +2607,21 @@ area|z17-[shop=fabric]
 
 /* 6.1 Craft */
 
+node|z17-[craft=beekeeper],
+area|z17-[craft=beekeeper]
+{icon-image:beekeeper-m.svg;}
+node|z17-[craft=blacksmith],
+area|z17-[craft=blacksmith]
+{icon-image:blacksmith-m.svg;}
+node|z17-[craft=electrician],
+area|z17-[craft=electrician]
+{icon-image:electrician-m.svg;}
+node|z17-[craft=electronics_repair],
+area|z17-[craft=electronics_repair]
+{icon-image:electrician-m.svg;}
+node|z17-[craft=painter],
+area|z17-[craft=painter]
+{icon-image:painter-m.svg;}
 node|z17-[craft=plumber],
 area|z17-[craft=plumber]
 {icon-image:plumber-m.svg;}
