@@ -10,7 +10,7 @@
   android:minHeight="@dimen/height_item_oneline"
   android:paddingStart="@dimen/margin_base_plus"
   android:paddingEnd="@dimen/margin_base_plus">
-  <com.mapswithme.maps.widget.WheelProgressView
+  <app.organicmaps.widget.WheelProgressView
     android:id="@+id/wheel_progress"
     android:layout_width="@dimen/downloader_status_size"
     android:layout_height="@dimen/downloader_status_size"

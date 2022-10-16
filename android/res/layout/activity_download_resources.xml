@@ -6,7 +6,7 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:background="?cardBackground">
-  <com.mapswithme.maps.widget.HeightLimitedFrameLayout
+  <app.organicmaps.widget.HeightLimitedFrameLayout
     android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -38,7 +38,7 @@
         android:textColor="?android:textColorSecondary"
         tools:text="@string/download_resources" />
     </LinearLayout>
-  </com.mapswithme.maps.widget.HeightLimitedFrameLayout>
+  </app.organicmaps.widget.HeightLimitedFrameLayout>
   <include
     android:id="@+id/button_container"
     layout="@layout/button_with_progress"

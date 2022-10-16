@@ -51,7 +51,7 @@
       android:paddingBottom="@dimen/margin_base"
       android:visibility="invisible" />
   </RelativeLayout>
-  <com.mapswithme.maps.widget.placepage.PlacePageView
+  <app.organicmaps.widget.placepage.PlacePageView
     android:id="@+id/placepage"
     style="?attr/bottomSheetStyle"
     android:layout_width="match_parent"

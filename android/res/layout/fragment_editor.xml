@@ -271,7 +271,7 @@
           android:layout_height="32dp"
           android:text="@string/editor_other_info"
           android:textAppearance="@style/MwmTextAppearance.Body2"/>
-        <com.mapswithme.maps.widget.CustomTextInputLayout
+        <app.organicmaps.widget.CustomTextInputLayout
           android:id="@+id/custom_input"
           style="@style/MwmWidget.Editor.CustomTextInput"
           android:gravity="center_vertical"
@@ -282,7 +282,7 @@
             style="@style/MwmWidget.Editor.FieldLayout.EditText"
             android:inputType="textMultiLine"
             android:hint="@string/editor_detailed_description_hint"/>
-        </com.mapswithme.maps.widget.CustomTextInputLayout>
+        </app.organicmaps.widget.CustomTextInputLayout>
         <TextView
           android:layout_width="match_parent"
           android:layout_height="wrap_content"

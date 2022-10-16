@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.mapswithme.maps.widget.HeightLimitedFrameLayout
+<app.organicmaps.widget.HeightLimitedFrameLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:wheel="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
@@ -110,7 +110,7 @@
       android:textAppearance="@style/MwmTextAppearance.Body2"
       tools:text="1024%"/>
 
-    <com.mapswithme.maps.widget.WheelProgressView
+    <app.organicmaps.widget.WheelProgressView
       android:id="@+id/wpv__download_progress"
       android:layout_width="@dimen/downloader_status_size"
       android:layout_height="@dimen/downloader_status_size"
@@ -119,4 +119,4 @@
       wheel:wheelSecondaryColor="?dividerHorizontal"
       wheel:wheelThickness="@dimen/margin_eighth"/>
   </LinearLayout>
-</com.mapswithme.maps.widget.HeightLimitedFrameLayout>
+</app.organicmaps.widget.HeightLimitedFrameLayout>

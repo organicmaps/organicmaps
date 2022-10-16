@@ -1,7 +1,7 @@
 #!/bin/bash
 
-LITE=com.mapswithme.maps
-PRO=com.mapswithme.maps.pro 
+LITE=app.organicmaps
+PRO=app.organicmaps.pro
 
 package=lp
 serial=

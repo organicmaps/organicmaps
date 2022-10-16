@@ -36,7 +36,7 @@
     app:tint="?android:textColorPrimaryInverse"
     android:src="@drawable/ic_plus"/>
 
-  <com.mapswithme.maps.widget.PlaceholderView
+  <app.organicmaps.widget.PlaceholderView
     android:id="@+id/placeholder"
     android:layout_width="match_parent"
     android:layout_height="match_parent"

@@ -41,7 +41,7 @@
             android:layout_centerInParent="true"
             android:orientation="horizontal">
 
-          <com.mapswithme.maps.widget.RoutingToolbarButton
+          <app.organicmaps.widget.RoutingToolbarButton
               android:id="@+id/vehicle"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
@@ -49,7 +49,7 @@
               tools:button="@drawable/ic_car"
               tools:buttonTint="?colorAccent" />
 
-          <com.mapswithme.maps.widget.RoutingToolbarButton
+          <app.organicmaps.widget.RoutingToolbarButton
               android:id="@+id/pedestrian"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
@@ -58,7 +58,7 @@
               tools:button="@drawable/ic_pedestrian"
               tools:buttonTint="?iconTintLight" />
 
-          <com.mapswithme.maps.widget.RoutingToolbarButton
+          <app.organicmaps.widget.RoutingToolbarButton
               android:id="@+id/transit"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
@@ -66,7 +66,7 @@
               tools:button="@drawable/ic_transit"
               tools:buttonTint="?iconTintLight" />
 
-          <com.mapswithme.maps.widget.RoutingToolbarButton
+          <app.organicmaps.widget.RoutingToolbarButton
               android:id="@+id/bicycle"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
@@ -84,7 +84,7 @@
           android:orientation="horizontal"
           tools:background="#80FF0000">
 
-          <com.mapswithme.maps.widget.WheelProgressView
+          <app.organicmaps.widget.WheelProgressView
             android:id="@+id/progress_vehicle"
             style="@style/MwmWidget.ProgressWheel.RoutingPlan"
             android:layout_marginStart="@dimen/routing_selector_wheel_margin"
@@ -92,7 +92,7 @@
             android:layout_marginBottom="@dimen/routing_selector_wheel_margin"
             tools:visibility="visible"/>
 
-          <com.mapswithme.maps.widget.WheelProgressView
+          <app.organicmaps.widget.WheelProgressView
             android:id="@+id/progress_pedestrian"
             style="@style/MwmWidget.ProgressWheel.RoutingPlan"
             android:layout_marginTop="@dimen/routing_selector_wheel_margin"
@@ -100,14 +100,14 @@
             android:layout_marginStart="12dp"
             android:layout_marginEnd="12dp"/>
 
-          <com.mapswithme.maps.widget.WheelProgressView
+          <app.organicmaps.widget.WheelProgressView
             android:id="@+id/progress_transit"
             style="@style/MwmWidget.ProgressWheel.RoutingPlan"
             android:layout_marginTop="@dimen/routing_selector_wheel_margin"
             android:layout_marginBottom="@dimen/routing_selector_wheel_margin"
             android:layout_marginEnd="12dp"/>
 
-          <com.mapswithme.maps.widget.WheelProgressView
+          <app.organicmaps.widget.WheelProgressView
             android:id="@+id/progress_bicycle"
             style="@style/MwmWidget.ProgressWheel.RoutingPlan"
             android:layout_marginTop="@dimen/routing_selector_wheel_margin"

@@ -50,7 +50,7 @@
         android:layout_marginTop="@dimen/nav_next_turn_top"
         android:layout_marginBottom="@dimen/nav_next_turn_space"
         android:layout_gravity="center_horizontal">
-        <com.mapswithme.maps.widget.ArrowView
+        <app.organicmaps.widget.ArrowView
           android:id="@+id/turn"
           android:theme="?navigationTheme"
           android:layout_width="@dimen/nav_next_turn_sign"
