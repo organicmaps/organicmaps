@@ -64,7 +64,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_half">
-        <com.mapswithme.maps.widget.CustomTextInputLayout
+        <app.organicmaps.widget.CustomTextInputLayout
           android:id="@+id/osm_username_container"
           style="@style/MwmWidget.Editor.CustomTextInput"
           android:layout_width="0dp"
@@ -78,8 +78,8 @@
             style="@style/MwmWidget.Editor.FieldLayout.EditText"
             android:autofillHints="emailAddress"
             android:hint="@string/email_or_username" />
-        </com.mapswithme.maps.widget.CustomTextInputLayout>
-        <com.mapswithme.maps.widget.CustomTextInputLayout
+        </app.organicmaps.widget.CustomTextInputLayout>
+        <app.organicmaps.widget.CustomTextInputLayout
           android:id="@+id/osm_password_container"
           style="@style/MwmWidget.Editor.CustomTextInput"
           android:layout_width="0dp"
@@ -93,7 +93,7 @@
             android:autofillHints="password"
             android:hint="@string/password"
             android:inputType="textPassword" />
-        </com.mapswithme.maps.widget.CustomTextInputLayout>
+        </app.organicmaps.widget.CustomTextInputLayout>
       </androidx.constraintlayout.widget.ConstraintLayout>
       <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

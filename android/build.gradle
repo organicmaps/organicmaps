@@ -136,8 +136,7 @@ project.ext.appId = 'app.organicmaps'
 project.ext.appName = 'Organic Maps'
 
 android {
-  // https://github.com/organicmaps/organicmaps/issues/3553
-  namespace 'com.mapswithme.maps'
+  namespace 'app.organicmaps'
 
   buildFeatures {
     dataBinding = true
@@ -305,7 +304,7 @@ android {
     android.applicationVariants.all { variant ->
       def task = variant.name.capitalize()
       project.task(type: Exec, "run${task}", dependsOn: "install${task}") {
-        commandLine android.getAdbExe(), 'shell', 'am', 'start', '-n', "${applicationId}/com.mapswithme.maps.SplashActivity"
+        commandLine android.getAdbExe(), 'shell', 'am', 'start', '-n', "${applicationId}/app.organicmaps.SplashActivity"
       }
     }
   }

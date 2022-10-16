@@ -6,7 +6,7 @@
              android:layout_height="match_parent">
   <include layout="@layout/recycler_default"/>
 
-  <com.mapswithme.maps.widget.PlaceholderView
+  <app.organicmaps.widget.PlaceholderView
     android:id="@+id/placeholder"
     android:layout_width="match_parent"
     android:layout_height="match_parent"

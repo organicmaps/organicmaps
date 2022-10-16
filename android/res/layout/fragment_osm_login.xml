@@ -60,7 +60,7 @@
         android:text="@string/login_to_make_edits_visible"
         android:textAppearance="@style/MwmTextAppearance.Body2"
         android:textColor="?android:textColorPrimary" />
-      <com.mapswithme.maps.widget.CustomTextInputLayout
+      <app.organicmaps.widget.CustomTextInputLayout
         style="@style/MwmWidget.Editor.CustomTextInput"
         android:layout_marginTop="@dimen/margin_half"
         android:textColorHint="?android:textColorSecondary">
@@ -69,8 +69,8 @@
           style="@style/MwmWidget.Editor.FieldLayout.EditText"
           android:autofillHints="emailAddress"
           android:hint="@string/email_or_username" />
-      </com.mapswithme.maps.widget.CustomTextInputLayout>
-      <com.mapswithme.maps.widget.CustomTextInputLayout
+      </app.organicmaps.widget.CustomTextInputLayout>
+      <app.organicmaps.widget.CustomTextInputLayout
         style="@style/MwmWidget.Editor.CustomTextInput"
         android:layout_marginTop="@dimen/margin_base"
         android:textColorHint="?android:textColorSecondary">
@@ -80,7 +80,7 @@
           android:autofillHints="password"
           android:hint="@string/password"
           android:inputType="textPassword" />
-      </com.mapswithme.maps.widget.CustomTextInputLayout>
+      </app.organicmaps.widget.CustomTextInputLayout>
       <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

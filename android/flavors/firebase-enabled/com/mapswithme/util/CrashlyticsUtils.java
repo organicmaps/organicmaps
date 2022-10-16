@@ -1,12 +1,12 @@
-package com.mapswithme.util;
+package app.organicmaps.util;
 
 import android.content.Context;
 import android.util.Log;
 
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
-import com.mapswithme.maps.MwmApplication;
-import com.mapswithme.maps.base.Initializable;
-import com.mapswithme.util.log.Logger;
+import app.organicmaps.MwmApplication;
+import app.organicmaps.base.Initializable;
+import app.organicmaps.util.log.Logger;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

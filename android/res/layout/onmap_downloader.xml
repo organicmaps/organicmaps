@@ -54,7 +54,7 @@
         style="@style/MwmWidget.Button.Primary"
         android:layout_width="180dp"
         android:visibility="gone"/>
-      <com.mapswithme.maps.widget.WheelProgressView
+      <app.organicmaps.widget.WheelProgressView
         android:id="@+id/wheel_downloader_progress"
         android:layout_width="@dimen/downloader_status_size"
         android:layout_height="@dimen/downloader_status_size"
