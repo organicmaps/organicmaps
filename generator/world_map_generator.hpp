@@ -3,10 +3,6 @@
 #include "generator/feature_maker_base.hpp"
 #include "generator/feature_merger.hpp"
 #include "generator/filter_world.hpp"
-#include "generator/generate_info.hpp"
-#include "generator/popular_places_section_builder.hpp"
-
-#include "search/utils.hpp"
 
 #include "indexer/classificator.hpp"
 #include "indexer/scales.hpp"
@@ -18,7 +14,6 @@
 #include "base/logging.hpp"
 
 #include <algorithm>
-#include <cstdint>
 #include <map>
 #include <sstream>
 #include <string>
@@ -55,13 +50,11 @@ class WorldMapGenerator
       LOG_SHORT(LINFO, ("World types:", ss.str()));
     }
 
-    /// This function is called after merging linear features.
+    // This functor is called by m_merger after merging linear features.
     void operator()(feature::FeatureBuilder const & fb) override
     {
-      // Do additional check for suitable size of feature, because
-      // same check in NeedPushToWorld() applies to areas only.
-      if (NeedPushToWorld(fb) &&
-          scales::IsGoodForLevel(scales::GetUpperWorldScale(), fb.GetLimitRect()))
+      // Skip small ways. This check is enough, because classifier types check was made in m_typesCorrector.
+      if (scales::IsGoodForLevel(scales::GetUpperWorldScale(), fb.GetLimitRect()))
         PushSure(fb);
     }
 
@@ -126,25 +119,28 @@ public:
     if (!m_boundaryChecker.IsBoundaries(fb))
     {
       // Save original feature iff we need to force push it before PushFeature(fb) modifies fb.
-      auto originalFeature = forcePushToWorld ? fb : feature::FeatureBuilder();
+      feature::FeatureBuilder originalFeature;
+      if (forcePushToWorld)
+        originalFeature = fb;
 
-      if (PushFeature(fb) || !forcePushToWorld)
-        return;
-
-      // We push Point with all the same tags, names and center instead of GEOM_WAY/Area
+      if (!PushFeature(fb) && forcePushToWorld)
+      {
+        // We push Point with all the same tags, names and center instead of Line/Area,
       // because we do not need geometry for invisible features (just search index and placepage
       // data) and want to avoid size checks applied to areas.
       if (originalFeature.GetGeomType() != feature::GeomType::Point)
         generator::TransformToPoint(originalFeature);
 
       m_worldBucket.PushSure(originalFeature);
-      return;
     }
-
+    }
+    else
+    {
     std::vector<feature::FeatureBuilder> boundaryParts;
     m_boundaryChecker.ProcessBoundary(fb, boundaryParts);
     for (auto & f : boundaryParts)
       PushFeature(f);
+  }
   }
 
   bool PushFeature(feature::FeatureBuilder & fb)
@@ -160,10 +156,9 @@ public:
     }
     case feature::GeomType::Area:
     {
-      // This constant is set according to size statistics.
-      // Added approx 4Mb of data to the World.mwm
+      /// @todo Initial area threshold to push area objects into World.mwm
       auto const & geometry = fb.GetOuterGeometry();
-      if (GetPolygonArea(geometry.begin(), geometry.end()) < 0.01)
+      if (GetPolygonArea(geometry.begin(), geometry.end()) < 0.0025)
         return false;
     }
     default:
