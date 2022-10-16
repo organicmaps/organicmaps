@@ -3,8 +3,7 @@
   <!-- Font names -->
   <string name="robotoLight" translatable="false">sans-serif-light</string>
   <string name="robotoRegular" translatable="false">sans-serif</string>
-  <!--  roboto medium (android 5.0)-->
-  <string name="robotoMedium" translatable="false">sans-serif</string>
+  <string name="robotoMedium" translatable="false">sans-serif-medium</string>
 
   <!--  Prefs -->
   <string name="pref_munits" translatable="false">MeasurementUnits</string>

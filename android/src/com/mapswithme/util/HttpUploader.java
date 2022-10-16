@@ -120,16 +120,7 @@ public final class HttpUploader extends AbstractHttpUploader
 
   private static void setStreamingMode(@NonNull HttpURLConnection connection, long bodyLength)
   {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
-    {
-      connection.setFixedLengthStreamingMode(bodyLength);
-      return;
-    }
-
-    if (bodyLength <= Integer.MAX_VALUE)
-      connection.setFixedLengthStreamingMode((int) bodyLength);
-    else
-      connection.setChunkedStreamingMode(BUFFER);
+    connection.setFixedLengthStreamingMode(bodyLength);
   }
 
   @NonNull

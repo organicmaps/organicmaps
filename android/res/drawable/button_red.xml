@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-  <item android:drawable="@drawable/button_red_pressed"
-        android:state_pressed="true"/>
-
-  <item android:drawable="@drawable/button_red_normal"
-        android:state_enabled="true"/>
-
-  <item android:drawable="@drawable/button_red_disabled"/>
-</selector>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+        android:color="@color/button_pressed">
+  <item>
+    <shape android:shape="rectangle">
+      <solid android:color="@color/button_red"/>
+      <corners android:radius="2dp"/>
+    </shape>
+  </item>
+</ripple>
