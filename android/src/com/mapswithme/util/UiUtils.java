@@ -38,6 +38,7 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.textfield.TextInputLayout;
@@ -358,6 +359,20 @@ public final class UiUtils
     Rect viewRect = new Rect(viewX, viewY, viewX + width, viewY + height);
 
     return viewRect.contains(x, y);
+  }
+
+  public static void setFullscreen(@NonNull Activity activity, boolean fullscreen)
+  {
+    final Window window = activity.getWindow();
+    final View decorView = window.getDecorView();
+    WindowInsetsControllerCompat wic = Objects.requireNonNull(WindowCompat.getInsetsController(window, decorView));
+    if (fullscreen)
+    {
+      wic.hide(WindowInsetsCompat.Type.systemBars());
+      wic.setSystemBarsBehavior(WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
+    }
+    else
+      wic.show(WindowInsetsCompat.Type.systemBars());
   }
 
   public static void setupTransparentStatusBar(@NonNull Activity activity)
