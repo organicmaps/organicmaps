@@ -130,6 +130,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private static final String EXTRA_LOCATION_DIALOG_IS_ANNOYING = "LOCATION_DIALOG_IS_ANNOYING";
   private static final String EXTRA_CURRENT_LAYOUT_MODE = "CURRENT_LAYOUT_MODE";
+  private static final String EXTRA_IS_FULLSCREEN = "IS_FULLSCREEN";
   public static final int REQ_CODE_ERROR_DRIVING_OPTIONS_DIALOG = 5;
   public static final int REQ_CODE_DRIVING_OPTIONS = 6;
   private static final int REQ_CODE_ISOLINES_ERROR = 8;
@@ -186,7 +187,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private String mDonatesUrl;
 
-  private int navBarHeight;
+  private int mNavBarHeight;
 
   private WindowInsets mCurrentWindowInsets;
 
@@ -368,6 +369,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       LocationHelper.INSTANCE.setLocationErrorDialogAnnoying(savedInstanceState.getBoolean(EXTRA_LOCATION_DIALOG_IS_ANNOYING));
       mCurrentLayoutMode = MapButtonsController.LayoutMode.values()[savedInstanceState.getInt(EXTRA_CURRENT_LAYOUT_MODE)];
+      mIsFullscreen = savedInstanceState.getBoolean(EXTRA_IS_FULLSCREEN);
     }
     else
     {
@@ -421,7 +423,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       UiUtils.setViewInsetsPaddingBottom(mPointChooser, windowInsets);
       UiUtils.extendViewWithStatusBar(mPointChooserToolbar, windowInsets);
 
-      navBarHeight = windowInsets.getSystemWindowInsetBottom();
+      mNavBarHeight = mIsFullscreen ? 0 : windowInsets.getSystemWindowInsetBottom();
       // For the first loading, set compass top margin to status bar size
       if (mCurrentWindowInsets == null)
         adjustCompass(windowInsets.getSystemWindowInsetTop(), windowInsets.getSystemWindowInsetRight());
@@ -561,7 +563,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mPointChooserMode = mode;
     closeFloatingToolbarsAndPanels(false);
     UiUtils.show(mPointChooser);
-    setFullscreen(true);
+    mMapButtonsController.showMapButtons(false);
     Framework.nativeTurnOnChoosePositionMode(isBusiness, applyPosition);
     refreshLightStatusBar();
   }
@@ -570,7 +572,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     UiUtils.hide(mPointChooser);
     Framework.nativeTurnOffChoosePositionMode();
-    setFullscreen(false);
+    mMapButtonsController.showMapButtons(true);
     if (mPointChooserMode == PointChooserMode.API)
       finish();
     mPointChooserMode = PointChooserMode.NONE;
@@ -841,6 +843,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     RoutingController.get().onSaveState();
     outState.putBoolean(EXTRA_LOCATION_DIALOG_IS_ANNOYING, LocationHelper.INSTANCE.isLocationErrorDialogAnnoying());
     outState.putInt(EXTRA_CURRENT_LAYOUT_MODE, mCurrentLayoutMode.ordinal());
+    outState.putBoolean(EXTRA_IS_FULLSCREEN, mIsFullscreen);
 
     if (!isChangingConfigurations())
       RoutingController.get().saveRoute();
@@ -995,10 +998,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     super.onResume();
     refreshSearchToolbar();
+    setFullscreen(mIsFullscreen);
     if (Framework.nativeIsInChoosePositionMode())
     {
       UiUtils.show(mPointChooser);
-      setFullscreen(true);
+      mMapButtonsController.showMapButtons(false);
     }
     if (mOnmapDownloader != null)
       mOnmapDownloader.onResume();
@@ -1182,6 +1186,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     mIsFullscreen = isFullscreen;
     mMapButtonsController.showMapButtons(!isFullscreen);
+    UiUtils.setFullscreen(this, isFullscreen);
   }
 
   @Override
@@ -1235,11 +1240,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
     int mapButtonsHeight = 0;
     int mainMenuHeight = 0;
     if (mMapButtonsController != null)
-      mapButtonsHeight = (int) mMapButtonsController.getBottomButtonsHeight() + navBarHeight;
+      mapButtonsHeight = (int) mMapButtonsController.getBottomButtonsHeight() + mNavBarHeight;
     if (mMainMenu != null)
       mainMenuHeight = mMainMenu.getMenuHeight();
 
-    int y = Math.max(Math.max(mapButtonsHeight, mainMenuHeight), navBarHeight);
+    final int y = Math.max(Math.max(mapButtonsHeight, mainMenuHeight), mNavBarHeight);
 
     mMapFragment.setupBottomWidgetsOffset(y, offsetX);
   }
