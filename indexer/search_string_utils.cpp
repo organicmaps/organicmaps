@@ -292,9 +292,8 @@ public:
   }
 
 private:
-  /// @todo Print most common street tokens for each country on generator stage (OSM ground truth)
-  /// and compare with these synonyms.
-  /// For example, I have doubts about: 'gaten', 'granden', 'vagen', XXXen nordic synonyms.
+  /// @todo Print most common street tokens for each country on generator stage
+  /// (OSM ground truth) and compare with these synonyms.
   StreetsSynonymsHolder()
   {
     char const * affics[] =
@@ -365,7 +364,8 @@ private:
       "मार्ग", "marg",
 
       // Norwegian - Norsk
-      "vei", "veien", "vn", "gate", "gaten", "gt", "plass", "plassen", "sving", "svingen", "sv",
+      // Details here: https://github.com/organicmaps/organicmaps/issues/3616
+      "vei", "veien", "veg", "vegen", "vn", "gata", "gate", "gaten", "gt", "plass", "plassen", "sving", "sv", "allé",
 
       // Polish - Polski
       "aleja", "aleje", "aleji", "alejach", "aleją", "plac", "placu", "placem", "ulica", "ulicy",
