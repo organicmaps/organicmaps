@@ -3169,14 +3169,12 @@ UNIT_CLASS_TEST(ProcessorTest, PoiStreetCity_FancyMatch)
 
 UNIT_CLASS_TEST(ProcessorTest, ComplexPoi_Rank)
 {
-  auto const & cl = classif();
-
   TestBuilding landuse({-1, -1, 1, 1}, "Telekom", "5", "xxx", "de");
-  landuse.AddType(cl.GetTypeByPath({"landuse", "commercial"}));
+  landuse.AddType(classif().GetTypeByPath({"landuse", "commercial"}));
   TestPOI poiInMall({0, 0}, "yyy", "de");
-  poiInMall.SetType(cl.GetTypeByPath({"shop", "clothes"}));
+  poiInMall.SetTypes({{"shop", "clothes"}});
   TestPOI telekom({2, 2}, "Telekom shop", "de");
-  telekom.SetType(cl.GetTypeByPath({"shop", "mobile_phone"}));
+  telekom.SetTypes({{"shop", "mobile_phone"}});
 
   auto countryId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
   {

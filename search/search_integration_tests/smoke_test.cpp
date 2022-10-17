@@ -12,6 +12,7 @@
 
 #include "indexer/classificator.hpp"
 #include "indexer/feature_meta.hpp"
+#include "indexer/feature_visibility.hpp"
 
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
@@ -156,7 +157,7 @@ UNIT_CLASS_TEST(SmokeTest, TypesSkipperTest)
   auto const & cl = classif();
   for (auto const & path : arr)
   {
-    feature::TypesHolder types;
+    TypesHolder types;
     types.Add(cl.GetTypeByPath(path));
 
     TEST(!skipper.SkipAlways(types), (path));
@@ -226,28 +227,32 @@ UNIT_CLASS_TEST(SmokeTest, CategoriesTest)
 
   auto const & holder = GetDefaultCategories();
 
+  uint32_t const cafeType = cl.GetTypeByPath({"amenity", "cafe"});
+
   auto testCategory = [&](uint32_t type, CategoriesHolder::Category const &)
   {
-    if (invisibleTypes.find(type) != invisibleTypes.end())
+    if (invisibleTypes.count(type) > 0)
       return;
 
     bool categoryIsSearchable = true;
-    if (notSupportedTypes.find(type) != notSupportedTypes.end())
+    if (notSupportedTypes.count(type) > 0)
       categoryIsSearchable = false;
 
     string const countryName = "Wonderland";
 
     TestPOI poi(m2::PointD(1.0, 1.0), "poi", "en");
-    poi.SetType(type);
+    if (IsCategoryNondrawableType(type))
+      poi.SetTypes({type, cafeType});
+    else
+      poi.SetTypes({type});
 
     auto id = BuildMwm(countryName, DataHeader::MapType::Country,
                        [&](TestMwmBuilder & builder) { builder.AddSafe(poi); });
 
-    {
-      Rules rules = {ExactMatch(id, poi)};
-      auto const query = holder.GetReadableFeatureType(type, CategoriesHolder::kEnglishCode);
-      TEST(CategoryMatch(query, categoryIsSearchable ? rules : Rules{}), (query));
-    }
+    Rules rules = {ExactMatch(id, poi)};
+    auto const query = holder.GetReadableFeatureType(type, CategoriesHolder::kEnglishCode);
+    TEST(CategoryMatch(query, categoryIsSearchable ? rules : Rules{}), (query));
+
     DeregisterMap(countryName);
   };
 
