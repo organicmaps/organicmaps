@@ -18,6 +18,7 @@ namespace feature
 {
   class TypesHolder;
 
+  bool IsCategoryNondrawableType(uint32_t type);
   bool IsUsefulType(uint32_t type);
   bool IsDrawableForIndex(FeatureType & ft, int level);
   bool IsDrawableForIndex(TypesHolder const & types, m2::RectD limitRect, int level);

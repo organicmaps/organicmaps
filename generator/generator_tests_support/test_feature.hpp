@@ -171,7 +171,7 @@ public:
   void SetHouseNumber(std::string const & houseNumber) { m_houseNumber = houseNumber; }
   void SetStreetName(std::string_view name) { m_streetName = name; }
 
-  void SetType(uint32_t type) { m_types.assign(1 /* count */, type); }
+  void SetTypes(std::initializer_list<uint32_t> const & types) { m_types.assign(types); }
   void SetTypes(std::initializer_list<base::StringIL> const & types);
 
 protected:

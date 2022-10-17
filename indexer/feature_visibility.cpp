@@ -114,9 +114,6 @@ namespace
     return false;
   }
 
-  /// Warning: Geometry of features with always existing types will be indexed in mwm on all
-  /// zoom levels. If you add an always existing type to drawing types, the displacement of icons
-  /// may work not correctly.
   bool TypeAlwaysExists(uint32_t type, GeomType g = GeomType::Undefined)
   {
     auto const & cl = classif();
@@ -189,6 +186,11 @@ namespace
   /// @}
 }  // namespace
 
+bool IsCategoryNondrawableType(uint32_t type)
+{
+  return TypeAlwaysExists(type);
+}
+
 bool IsUsefulType(uint32_t type)
 {
   return IsUsefulNondrawableType(type) || classif().GetObject(type)->IsDrawableAny();
@@ -241,7 +243,9 @@ bool IsDrawableForIndexClassifOnly(TypesHolder const & types, int level)
   Classificator const & c = classif();
   for (uint32_t t : types)
   {
-    if (TypeAlwaysExists(t) || c.GetObject(t)->IsDrawable(level))
+    // By VNG: TypeAlwaysExists check was removed. These kind of types (internet, recycling, fee, access, etc)
+    // should NOT influence on draw priority and index visibility. Some fancy logic may be broken ..
+    if (c.GetObject(t)->IsDrawable(level))
       return true;
   }
 
