@@ -1,14 +1,10 @@
 #include "drape/overlay_handle.hpp"
 
-#include "drape/constants.hpp"
-
 #include "base/macros.hpp"
 
 #include "base/internal/message.hpp"
-#include "base/logging.hpp"
 
 #include <algorithm>
-#include <ios>
 #include <sstream>
 
 namespace dp
@@ -231,22 +227,23 @@ std::string SquareHandle::GetOverlayDebugInfo()
 }
 #endif
 
+/// @param[in] minZoomLevel Minimum visible zoom level (less is better)
+/// @param[in] rank         Rank of the feature (bigger is better)
+/// @param[in] depth        Manual priority from styles (bigger is better)
 uint64_t CalculateOverlayPriority(int minZoomLevel, uint8_t rank, float depth)
 {
-  // Overlay priority consider the following:
-  // - Minimum visible zoom level (the less the better);
-  // - Manual priority from styles (equals to the depth);
-  // - Rank of the feature (the more the better);
-  // [1 byte - zoom][4 bytes - priority][1 byte - rank][2 bytes - 0xFFFF].
-  uint8_t const minZoom = 0xFF - static_cast<uint8_t>(std::max(minZoomLevel, 0));
+  // Even if minZoomLevel < 0 (-1 is not visible), we will get more consistent |minZoom| value (less is worse).
+  ASSERT_GREATER_OR_EQUAL(minZoomLevel, 0, ());
+  uint8_t const minZoom = 0xFF - static_cast<uint8_t>(minZoomLevel);
 
-  float const kMinDepth = -100000.0f;
-  float const kMaxDepth = 100000.0f;
+  float constexpr kMinDepth = -100000.0f;
+  float constexpr kMaxDepth = 100000.0f;
   float const d = base::Clamp(depth, kMinDepth, kMaxDepth) - kMinDepth;
-  auto const priority = static_cast<uint32_t>(d);
 
+  // Pack into uint64_t priority value (bigger is better).
+  // [1 byte - zoom][4 bytes - priority][1 byte - rank][2 bytes - 0xFFFF].
   return (static_cast<uint64_t>(minZoom) << 56) |
-         (static_cast<uint64_t>(priority) << 24) |
+         (static_cast<uint64_t>(d) << 24) |
          (static_cast<uint64_t>(rank) << 16) |
          static_cast<uint64_t>(0xFFFF);
 }
