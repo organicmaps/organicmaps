@@ -1882,14 +1882,12 @@ void FrontendRenderer::BuildOverlayTree(ScreenBase const & modelView)
 void FrontendRenderer::PrepareBucket(dp::RenderState const & state, drape_ptr<dp::RenderBucket> & bucket)
 {
   CHECK(m_context != nullptr, ());
-  auto program = m_gpuProgramManager->GetProgram(state.GetProgram<gpu::Program>());
-  auto program3d = m_gpuProgramManager->GetProgram(state.GetProgram3d<gpu::Program>());
-  bool const isPerspective = m_userEventStream.GetCurrentScreen().isPerspective();
-  if (isPerspective)
-    program3d->Bind();
-  else
-    program->Bind();
-  bucket->GetBuffer()->Build(m_context, isPerspective ? program3d : program);
+
+  auto program = m_gpuProgramManager->GetProgram(m_userEventStream.GetCurrentScreen().isPerspective() ?
+          state.GetProgram3d<gpu::Program>() : state.GetProgram<gpu::Program>());
+
+  program->Bind();
+  bucket->GetBuffer()->Build(m_context, program);
 }
 
 void FrontendRenderer::RenderSingleGroup(ref_ptr<dp::GraphicsContext> context,
