@@ -187,7 +187,8 @@ public class MapButtonsController extends Fragment
   public void updateMenuBadge()
   {
     final View menuButton = mButtonsMap.get(MapButtons.menu);
-    final Context context = requireContext();
+    final Context context = getContext();
+    // Sometimes the global layout listener fires when the fragment is not attached to a context
     if (menuButton == null || context == null)
       return;
     final UpdateInfo info = MapManager.nativeGetUpdateInfo(null);
