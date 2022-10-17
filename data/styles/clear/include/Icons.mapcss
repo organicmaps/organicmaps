@@ -730,9 +730,7 @@ node|z14-[amenity=bus_station]::int_name,
 area|z14-[amenity=bus_station]::int_name
 {text: int_name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 0.9;text-halo-color: @label_halo_light;text-position: center;text-optional: true;}
 
-area|z10-[aeroway=airport],
 area|z10-[aeroway=aerodrome],
-node|z10-[aeroway=airport],
 node|z10-[aeroway=aerodrome],
 node|z15-[aerialway=station],
 node|z15-[aerialway=cable_car],
@@ -747,9 +745,7 @@ node|z15-[aerialway=platter],
 node|z15-[aerialway=rope_tow],
 node|z16-[amenity=ferry_terminal]
 {text: name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 0.7;text-halo-color: @label_halo_light;text-position: center;text-optional: true;}
-area|z12-[aeroway=airport]::int_name,
 area|z12-[aeroway=aerodrome]::int_name,
-node|z12-[aeroway=airport]::int_name,
 node|z12-[aeroway=aerodrome]::int_name,
 {text: int_name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 0.7;text-halo-color: @label_halo_light;text-position: center;text-optional: true;}
 
@@ -901,32 +897,25 @@ node|z17-[amenity=ferry_terminal]
 
 /* 3.6 Airport */
 
-area|z10[aeroway=airport][aerodrome=international],
+/* Manually define priority to avoid city names displacement */
+area|z7-9[aeroway=aerodrome][aerodrome=international],
+node|z7-9[aeroway=aerodrome][aerodrome=international],
+{ icon-image: airport-s.svg; -x-me-icon-priority: 10000 }
+
 area|z10[aeroway=aerodrome][aerodrome=international],
-node|z10[aeroway=airport][aerodrome=international],
-node|z10[aeroway=aerodrome][aerodrome=international]
+node|z10[aeroway=aerodrome][aerodrome=international],
 {icon-image: airport-s.svg;text-offset: 1;font-size: 10;fill-opacity: 1;text-optional: true;}
-area|z11-13[aeroway=airport][aerodrome=international],
 area|z11-13[aeroway=aerodrome][aerodrome=international],
-node|z11-13[aeroway=airport][aerodrome=international],
 node|z11-13[aeroway=aerodrome][aerodrome=international],
-area|z12-13[aeroway=airport][aerodrome=international],
-node|z12-13[aeroway=airport][aerodrome=international],
 area|z12-13[aeroway=aerodrome][aerodrome=international],
 node|z12-13[aeroway=aerodrome][aerodrome=international]
 {icon-image: airport-m.svg;text-offset: 1;font-size: 11;-x-me-icon-priority: 3100;text-optional: true;}
-area|z12-13[aeroway=airport]::int_name,
-node|z12-13[aeroway=airport]::int_name,
 area|z12-13[aeroway=aerodrome]::int_name,
 node|z12-13[aeroway=aerodrome]::int_name,
 {font-size: 10;text-optional: true;}
-area|z14-[aeroway=airport],
-node|z14-[aeroway=airport],
 area|z14-[aeroway=aerodrome],
 node|z14-[aeroway=aerodrome]
 {icon-image: airport-m.svg;text-offset: 1;font-size: 12;text-optional: true;}
-area|z14-[aeroway=airport]::int_name,
-node|z14-[aeroway=airport]::int_name,
 area|z14-[aeroway=aerodrome]::int_name,
 node|z14-[aeroway=aerodrome]::int_name,
 {font-size: 11;text-optional: true;}
