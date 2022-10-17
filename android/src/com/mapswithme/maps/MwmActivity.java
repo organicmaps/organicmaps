@@ -1004,7 +1004,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
       mOnmapDownloader.onResume();
 
     mNavigationController.onActivityResumed(this);
-    mMapButtonsController.onResume();
     mPlacePageController.onActivityResumed(this);
     refreshLightStatusBar();
   }
