@@ -1526,7 +1526,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
     {
       Utils.copyTextToClipboard(ctx, items.get(0));
       Utils.showSnackbarAbove(mDetails,
-                              getRootView().findViewById(R.id.menu_frame),
+                              getRootView().findViewById(R.id.pp_buttons_layout),
                               ctx.getString(R.string.copied_to_clipboard, items.get(0)));
     }
     else
@@ -1542,7 +1542,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
         final int id = item.getItemId();
         Utils.copyTextToClipboard(ctx, items.get(id));
         Utils.showSnackbarAbove(mDetails,
-                                getRootView().findViewById(R.id.menu_frame),
+                                getRootView().findViewById(R.id.pp_buttons_layout),
                                 ctx.getString(R.string.copied_to_clipboard, items.get(id)));
         return true;
       });
