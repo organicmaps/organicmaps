@@ -80,20 +80,8 @@ node[shop=car_repair][service=tyres],
 area[shop=car_repair][service=tyres],
 {z-index: 2832;}
 
-node[historic=boundary_stone],
-area[historic=boundary_stone],
-node[historic=wayside_cross],
-area[historic=wayside_cross],
-node[historic=ship],
-area[historic=ship],
-node[historic=tomb],
-area[historic=tomb],
-node[historic=ruins],
-area[historic=ruins],
-node[historic=wayside_shrine],
-area[historic=wayside_shrine],
-node[historic=archaeological_site],
-area[historic=archaeological_site],
+node[historic],
+area[historic],
 node[amenity=arts_centre],
 area[amenity=arts_centre]
 {z-index: 2868;}
