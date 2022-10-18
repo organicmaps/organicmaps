@@ -288,9 +288,8 @@ public class SearchFragment extends BaseMwmFragment
     updateResultsPlaceholder();
 
     if (mInitialQuery != null)
-    {
-      setQuery(mInitialQuery);
-    }
+      setQuery(mInitialQuery, false);
+
     mToolbarController.activate();
 
     SearchEngine.INSTANCE.addListener(this);
@@ -344,7 +343,7 @@ public class SearchFragment extends BaseMwmFragment
 
   private String getQuery() { return mToolbarController.getQuery(); }
   private boolean isCategory() { return mToolbarController.isCategory(); }
-  void setQuery(String text) { mToolbarController.setQuery(text); }
+  void setQuery(String text, boolean isCategory) { mToolbarController.setQuery(text, isCategory); }
 
   private void readArguments()
   {

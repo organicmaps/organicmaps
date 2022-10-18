@@ -25,9 +25,6 @@ import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 
-import static com.mapswithme.maps.search.SearchResult.TYPE_RESULT;
-import static com.mapswithme.maps.search.SearchResult.TYPE_SUGGEST;
-
 class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHolder>
 {
   private final SearchFragment mSearchFragment;
@@ -123,7 +120,7 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
     @Override
     void processClick(SearchResult result, int order)
     {
-      mSearchFragment.setQuery(result.suggestion);
+      mSearchFragment.setQuery(result.suggestion, result.type == SearchResult.TYPE_PURE_SUGGEST);
     }
   }
 
@@ -296,10 +293,11 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
 
     switch (viewType)
     {
-      case TYPE_SUGGEST:
+      case SearchResult.TYPE_SUGGEST:
+      case SearchResult.TYPE_PURE_SUGGEST:
         return new SuggestViewHolder(inflater.inflate(R.layout.item_search_suggest, parent, false));
 
-      case TYPE_RESULT:
+      case SearchResult.TYPE_RESULT:
         return new ResultViewHolder(inflater.inflate(R.layout.item_search_result, parent, false));
 
       default:

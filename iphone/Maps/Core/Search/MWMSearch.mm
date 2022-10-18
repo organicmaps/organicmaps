@@ -174,14 +174,6 @@ using Observers = NSHashTable<Observer>;
   return [MWMSearch manager]->m_productInfo[index];
 }
 
-+ (BOOL)isFeatureAt:(NSUInteger)index in:(std::vector<FeatureID> const &)array {
-  auto const &result = [self resultWithContainerIndex:index];
-  if (result.GetResultType() != search::Result::Type::Feature)
-    return NO;
-  auto const &resultFeatureID = result.GetFeatureID();
-  return std::binary_search(array.begin(), array.end(), resultFeatureID);
-}
-
 + (MWMSearchItemType)resultTypeWithRow:(NSUInteger)row {
   auto itemsIndex = [MWMSearch manager].itemsIndex;
   return [itemsIndex resultTypeWithRow:row];
