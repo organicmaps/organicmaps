@@ -10,8 +10,9 @@ import com.mapswithme.maps.bookmarks.data.FeatureId;
 @SuppressWarnings("unused")
 public class SearchResult implements PopularityProvider
 {
-  public static final int TYPE_SUGGEST = 0;
-  public static final int TYPE_RESULT = 1;
+  public static final int TYPE_PURE_SUGGEST = 0;
+  public static final int TYPE_SUGGEST = 1;
+  public static final int TYPE_RESULT = 2;
 
   // Values should match osm::YesNoUnknown enum.
   public static final int OPEN_NOW_UNKNOWN = 0;
@@ -81,7 +82,11 @@ public class SearchResult implements PopularityProvider
     this.stars = 0;
     this.isHotel = false;
     this.description = null;
-    this.type = TYPE_SUGGEST;
+    // Looks like a hack, but it's fine. Otherwise, should make one more ctor and JNI code bloat.
+    if (lat == 0 && lon == 0)
+      this.type = TYPE_PURE_SUGGEST;
+    else
+      this.type = TYPE_SUGGEST;
     this.highlightRanges = highlightRanges;
     mPopularity = Popularity.defaultInstance();
   }

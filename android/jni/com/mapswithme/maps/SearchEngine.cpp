@@ -82,34 +82,26 @@ jobject ToJavaResult(Result const & result, search::ProductInfo const & productI
   env->ReleaseIntArrayElements(ranges.get(), rawArr, 0);
 
   ms::LatLon ll = ms::LatLon::Zero();
-  string distance;
-  double distanceInMeters = 0.0;
-
   if (result.HasPoint())
-  {
-    auto const center = result.GetFeatureCenter();
-    ll = mercator::ToLatLon(center);
-    if (hasPosition)
-    {
-      distanceInMeters = ms::DistanceOnEarth(lat, lon,
-                                             mercator::YToLat(center.y),
-                                             mercator::XToLon(center.x));
-      distance = measurement_utils::FormatDistance(distanceInMeters);
-    }
-  }
-
-  bool popularityHasHigherPriority = PopularityHasHigherPriority(hasPosition, distanceInMeters);
+    ll = mercator::ToLatLon(result.GetFeatureCenter());
 
   if (result.IsSuggest())
   {
     jni::TScopedLocalRef name(env, jni::ToJavaString(env, result.GetString()));
     jni::TScopedLocalRef suggest(env, jni::ToJavaString(env, result.GetSuggestionString()));
-    jobject ret = env->NewObject(g_resultClass, g_suggestConstructor, name.get(), suggest.get(), ll.m_lat, ll.m_lon, ranges.get());
-    ASSERT(ret, ());
-    return ret;
+    return env->NewObject(g_resultClass, g_suggestConstructor, name.get(), suggest.get(), ll.m_lat, ll.m_lon, ranges.get());
   }
 
-  auto const isFeature = result.GetResultType() == Result::Type::Feature;
+  string distance;
+  double distanceInMeters = 0.0;
+  if (result.HasPoint() && hasPosition)
+  {
+    distanceInMeters = ms::DistanceOnEarth(lat, lon, ll.m_lat, ll.m_lon);
+    distance = measurement_utils::FormatDistance(distanceInMeters);
+  }
+
+  bool const popularityHasHigherPriority = PopularityHasHigherPriority(hasPosition, distanceInMeters);
+  bool const isFeature = result.GetResultType() == Result::Type::Feature;
   jni::TScopedLocalRef featureId(env, usermark_helper::CreateFeatureId(env, isFeature ?
                                                                             result.GetFeatureID() :
                                                                             kEmptyFeatureId));
@@ -137,12 +129,9 @@ jobject ToJavaResult(Result const & result, search::ProductInfo const & productI
                                                       g_popularityConstructor,
                                                       /// @todo Restore when popularity will be available
                                                       0/*static_cast<jint>(result.GetRankingInfo().m_popularity)*/));
-  jobject ret =
-      env->NewObject(g_resultClass, g_resultConstructor, name.get(), desc.get(), ll.m_lat, ll.m_lon,
-                     ranges.get(), result.IsHotel(), result.GetStarsCount(), popularity.get());
-  ASSERT(ret, ());
 
-  return ret;
+  return env->NewObject(g_resultClass, g_resultConstructor, name.get(), desc.get(), ll.m_lat, ll.m_lon,
+                        ranges.get(), result.IsHotel(), result.GetStarsCount(), popularity.get());
 }
 
 jobjectArray BuildSearchResults(vector<search::ProductInfo> const & productInfo,
