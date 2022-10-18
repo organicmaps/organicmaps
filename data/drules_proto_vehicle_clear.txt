@@ -250,6 +250,27 @@ cont {
 cont {
   name: "aeroway-aerodrome-international"
   element {
+    scale: 7
+    symbol {
+      name: "airport-s"
+      priority: 10000
+    }
+  }
+  element {
+    scale: 8
+    symbol {
+      name: "airport-s"
+      priority: 10000
+    }
+  }
+  element {
+    scale: 9
+    symbol {
+      name: "airport-s"
+      priority: 10000
+    }
+  }
+  element {
     scale: 10
     area {
       color: 14209512
@@ -19756,7 +19777,7 @@ cont {
     lines {
       width: 2.0
       color: 13092543
-      priority: 1517
+      priority: 1764
       cap: BUTTCAP
     }
   }
@@ -19765,7 +19786,7 @@ cont {
     lines {
       width: 2.8
       color: 13092543
-      priority: 1517
+      priority: 1764
     }
   }
   element {
@@ -19779,7 +19800,7 @@ cont {
         dd: 1.5
         dd: 3.0
       }
-      priority: 1517
+      priority: 1764
     }
   }
   element {
@@ -19793,7 +19814,7 @@ cont {
         dd: 1.9
         dd: 4.0
       }
-      priority: 1517
+      priority: 1764
     }
   }
   element {
@@ -19807,7 +19828,7 @@ cont {
         dd: 2.5
         dd: 6.0
       }
-      priority: 1517
+      priority: 1764
     }
   }
 }

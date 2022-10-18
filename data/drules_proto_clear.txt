@@ -2685,6 +2685,27 @@ cont {
 cont {
   name: "aeroway-aerodrome-international"
   element {
+    scale: 7
+    symbol {
+      name: "airport-s"
+      priority: 10000
+    }
+  }
+  element {
+    scale: 8
+    symbol {
+      name: "airport-s"
+      priority: 10000
+    }
+  }
+  element {
+    scale: 9
+    symbol {
+      name: "airport-s"
+      priority: 10000
+    }
+  }
+  element {
     scale: 10
     area {
       color: 13942770
@@ -32563,7 +32584,7 @@ cont {
     scale: 13
     symbol {
       name: "remains-s"
-      priority: 16000
+      priority: 16600
       min_distance: 12
     }
     caption {
@@ -32573,14 +32594,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15000
+      priority: 15600
     }
   }
   element {
     scale: 14
     symbol {
       name: "remains-s"
-      priority: 16000
+      priority: 16600
       min_distance: 12
     }
     caption {
@@ -32590,14 +32611,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15000
+      priority: 15600
     }
   }
   element {
     scale: 15
     symbol {
       name: "remains-m"
-      priority: 16000
+      priority: 16600
       min_distance: 24
     }
     caption {
@@ -32607,14 +32628,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15000
+      priority: 15600
     }
   }
   element {
     scale: 16
     symbol {
       name: "remains-m"
-      priority: 16000
+      priority: 16600
       min_distance: 12
     }
     caption {
@@ -32624,14 +32645,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15000
+      priority: 15600
     }
   }
   element {
     scale: 17
     symbol {
       name: "remains-m"
-      priority: 16000
+      priority: 16600
       min_distance: 12
     }
     caption {
@@ -32641,14 +32662,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15000
+      priority: 15600
     }
   }
   element {
     scale: 18
     symbol {
       name: "remains-m"
-      priority: 16000
+      priority: 16600
       min_distance: 12
     }
     caption {
@@ -32658,14 +32679,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15000
+      priority: 15600
     }
   }
   element {
     scale: 19
     symbol {
       name: "remains-m"
-      priority: 16000
+      priority: 16600
       min_distance: 12
     }
     caption {
@@ -32675,7 +32696,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15000
+      priority: 15600
     }
   }
 }
@@ -32686,7 +32707,7 @@ cont {
     lines {
       width: 2.0
       color: 12763315
-      priority: 1466
+      priority: 1600
       cap: BUTTCAP
     }
   }
@@ -32695,7 +32716,7 @@ cont {
     lines {
       width: 2.8
       color: 12763315
-      priority: 1466
+      priority: 1600
       cap: BUTTCAP
     }
   }
@@ -32710,7 +32731,7 @@ cont {
         dd: 1.5
         dd: 3.0
       }
-      priority: 1466
+      priority: 1600
     }
   }
   element {
@@ -32724,7 +32745,7 @@ cont {
         dd: 1.9
         dd: 4.0
       }
-      priority: 1466
+      priority: 1600
     }
   }
   element {
@@ -32738,7 +32759,7 @@ cont {
         dd: 2.5
         dd: 6.0
       }
-      priority: 1466
+      priority: 1600
     }
   }
   element {
@@ -32752,7 +32773,7 @@ cont {
         dd: 3.0
         dd: 8.0
       }
-      priority: 1466
+      priority: 1600
     }
   }
 }
@@ -33326,7 +33347,7 @@ cont {
     scale: 17
     symbol {
       name: "remains-m"
-      priority: 16000
+      priority: 16609
     }
     caption {
       primary {
@@ -33335,7 +33356,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15000
+      priority: 15609
     }
     apply_if: "name"
   }
@@ -33343,7 +33364,7 @@ cont {
     scale: 18
     symbol {
       name: "remains-m"
-      priority: 16000
+      priority: 16609
     }
     caption {
       primary {
@@ -33352,7 +33373,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15000
+      priority: 15609
     }
     apply_if: "name"
   }
@@ -33360,7 +33381,7 @@ cont {
     scale: 19
     symbol {
       name: "remains-m"
-      priority: 16000
+      priority: 16609
     }
     caption {
       primary {
@@ -33369,7 +33390,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15000
+      priority: 15609
     }
     apply_if: "name"
   }
@@ -33377,7 +33398,7 @@ cont {
     scale: 19
     symbol {
       name: "remains-m"
-      priority: 16000
+      priority: 16609
     }
     caption {
       primary {
@@ -33386,7 +33407,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15000
+      priority: 15609
     }
     apply_if: "!name"
   }
