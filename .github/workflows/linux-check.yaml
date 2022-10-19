@@ -76,7 +76,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        compiler: [{ CXX: g++-11, CC: gcc-11 }, { CXX: clang++-14, CC: clang-14 }]
+        compiler: [{ CXX: g++-12, CC: gcc-12 }, { CXX: clang++-14, CC: clang-14 }]
         CMAKE_BUILD_TYPE: [Debug, RelWithDebInfo]
 
     steps:
