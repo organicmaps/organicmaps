@@ -74,54 +74,50 @@ private:
   void Init();
 };
 
-class TestCountry : public TestFeature
+class TestPlace : public TestFeature
+{
+public:
+  TestPlace(m2::PointD const & center, std::string const & name, std::string const & lang,
+            uint32_t type, uint8_t rank = 0);
+  TestPlace(m2::PointD const & center, StringUtf8Multilang const & name,
+            uint32_t type, uint8_t rank);
+  TestPlace(std::vector<m2::PointD> const & boundary, std::string const & name, std::string const & lang,
+            uint32_t type, uint8_t rank);
+
+  // TestFeature overrides:
+  void Serialize(feature::FeatureBuilder & fb) const override;
+  std::string ToDebugString() const override;
+
+protected:
+  uint32_t const m_type;
+  uint8_t const m_rank;
+};
+
+class TestCountry : public TestPlace
 {
 public:
   TestCountry(m2::PointD const & center, std::string const & name, std::string const & lang);
-
-  // TestFeature overrides:
-  void Serialize(feature::FeatureBuilder & fb) const override;
-  std::string ToDebugString() const override;
 };
 
-class TestState : public TestFeature
+class TestState : public TestPlace
 {
 public:
   TestState(m2::PointD const & center, std::string const & name, std::string const & lang);
-
-  // TestFeature overrides:
-  void Serialize(feature::FeatureBuilder & fb) const override;
-  std::string ToDebugString() const override;
 };
 
-class TestCity : public TestFeature
+class TestCity : public TestPlace
 {
+  static uint32_t GetCityType();
 public:
-  TestCity(m2::PointD const & center, std::string const & name, std::string const & lang,
-           uint8_t rank);
+  TestCity(m2::PointD const & center, std::string const & name, std::string const & lang, uint8_t rank);
   TestCity(m2::PointD const & center, StringUtf8Multilang const & name, uint8_t rank);
-  TestCity(std::vector<m2::PointD> const & boundary, std::string const & name,
-           std::string const & lang, uint8_t rank);
-
-  // TestFeature overrides:
-  void Serialize(feature::FeatureBuilder & fb) const override;
-  std::string ToDebugString() const override;
-
-private:
-  uint8_t const m_rank;
+  TestCity(std::vector<m2::PointD> const & boundary, std::string const & name, std::string const & lang, uint8_t rank);
 };
 
-class TestVillage : public TestFeature
+class TestVillage : public TestPlace
 {
 public:
   TestVillage(m2::PointD const & center, std::string const & name, std::string const & lang, uint8_t rank);
-
-  // TestFeature overrides:
-  void Serialize(feature::FeatureBuilder & fb) const override;
-  std::string ToDebugString() const override;
-
-private:
-  uint8_t const m_rank;
 };
 
 class TestStreet : public TestFeature
