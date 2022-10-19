@@ -80,10 +80,7 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 @property(nonatomic) BOOL skipForceTouch;
 
 @property(strong, nonatomic) IBOutlet NSLayoutConstraint *visibleAreaBottom;
-@property(strong, nonatomic) IBOutlet NSLayoutConstraint *visibleAreaKeyboard;
-@property(strong, nonatomic) IBOutlet NSLayoutConstraint *placePageAreaKeyboard;
 @property(strong, nonatomic) IBOutlet NSLayoutConstraint *sideButtonsAreaBottom;
-@property(strong, nonatomic) IBOutlet NSLayoutConstraint *sideButtonsAreaKeyboard;
 @property(strong, nonatomic) IBOutlet UIImageView *carplayPlaceholderLogo;
 @property(strong, nonatomic) BookmarksCoordinator * bookmarksCoordinator;
 

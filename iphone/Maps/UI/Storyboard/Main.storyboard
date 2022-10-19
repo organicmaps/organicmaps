@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Wns-nH-AQU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Wns-nH-AQU">
     <device id="retina6_1" orientation="landscape" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -275,13 +275,10 @@
                         <outlet property="carplayPlaceholderLogo" destination="Tqh-46-Yrm" id="S7m-Df-UPv"/>
                         <outlet property="controlsView" destination="rL1-9E-4b7" id="sfV-7X-WlR"/>
                         <outlet property="mapView" destination="aPn-pa-nCx" id="tCi-LW-1ll"/>
-                        <outlet property="placePageAreaKeyboard" destination="PFs-sL-oVA" id="O3P-ia-ZlX"/>
                         <outlet property="placePageContainer" destination="rbx-Oj-jeo" id="aFM-qm-QHB"/>
                         <outlet property="searchViewContainer" destination="jio-3T-E6G" id="Rjn-UE-zFx"/>
                         <outlet property="sideButtonsAreaBottom" destination="VfU-Zk-8IU" id="MvP-Ki-4wP"/>
-                        <outlet property="sideButtonsAreaKeyboard" destination="SDX-4J-Jz5" id="kv9-zX-hbD"/>
                         <outlet property="visibleAreaBottom" destination="OE7-Qb-J0v" id="isp-aT-LtA"/>
-                        <outlet property="visibleAreaKeyboard" destination="YUs-MJ-9w8" id="UJP-KT-2uK"/>
                         <segue destination="Lfa-Zp-orR" kind="custom" identifier="Map2EditorSegue" customClass="MWMSegue" id="OEF-kR-jKi"/>
                         <segue destination="QlF-CJ-cEG" kind="custom" identifier="MapToCategorySelectorSegue" customClass="MWMSegue" id="4Cc-99-mlN"/>
                         <segue destination="5Wc-fy-NOW" kind="custom" identifier="Map2OsmLogin" customClass="MWMSegue" id="7YC-t5-0WN"/>
