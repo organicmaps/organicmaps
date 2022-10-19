@@ -33,6 +33,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.widget.NestedScrollViewClickFixed;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
@@ -1421,10 +1422,11 @@ public class PlacePageView extends NestedScrollViewClickFixed
 
   private void showBigDirection()
   {
-    final DirectionFragment fragment = (DirectionFragment) Fragment.instantiate(requireActivity(), DirectionFragment.class
-        .getName(), null);
+    final FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+    final DirectionFragment fragment = (DirectionFragment) fragmentManager.getFragmentFactory()
+      .instantiate(getContext().getClassLoader(), DirectionFragment.class.getName());
     fragment.setMapObject(mMapObject);
-    fragment.show(requireActivity().getSupportFragmentManager(), null);
+    fragment.show(fragmentManager, null);
   }
 
   /// @todo Unify urls processing (fb, twitter, instagram, ...).

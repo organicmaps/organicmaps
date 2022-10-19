@@ -174,8 +174,10 @@ public class TimetableContainerFragment extends BaseMwmFragment implements OnBac
     mMode = mode;
     mSwitchMode.setText(mMode.getSwitchButtonLabel());
 
-    if (mFragments[mMode.ordinal()] == null)
-      mFragments[mMode.ordinal()] = Fragment.instantiate(requireActivity(), mMode.getFragmentClassname());
+    if (mFragments[mMode.ordinal()] == null) {
+      mFragments[mMode.ordinal()] = requireActivity().getSupportFragmentManager().getFragmentFactory()
+        .instantiate(requireActivity().getClassLoader(), mMode.getFragmentClassname());
+    }
     Fragment fragment = mFragments[mMode.ordinal()];
     getChildFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
     mMode.setTimetableChangedListener(fragment, this);

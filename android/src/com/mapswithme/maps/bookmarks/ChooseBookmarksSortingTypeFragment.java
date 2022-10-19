@@ -41,8 +41,9 @@ public class ChooseBookmarksSortingTypeFragment extends BaseMwmDialogFragment
     args.putIntArray(EXTRA_SORTING_TYPES, availableTypes);
     args.putInt(EXTRA_CURRENT_SORT_TYPE, currentType);
     String name = ChooseBookmarksSortingTypeFragment.class.getName();
-    final ChooseBookmarksSortingTypeFragment fragment =
-        (ChooseBookmarksSortingTypeFragment) Fragment.instantiate(context, name, args);
+    final ChooseBookmarksSortingTypeFragment fragment = (ChooseBookmarksSortingTypeFragment) manager
+      .getFragmentFactory()
+      .instantiate(context.getClassLoader(), name);
     fragment.setArguments(args);
     fragment.show(manager, name);
   }
