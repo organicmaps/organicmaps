@@ -30,19 +30,14 @@
 #include "platform/platform_tests_support/scoped_dir.hpp"
 #include "platform/platform_tests_support/scoped_file.hpp"
 
-#include "coding/reader.hpp"
-#include "coding/writer.hpp"
-
 #include "geometry/point2d.hpp"
 
 #include "base/file_name_utils.hpp"
 #include "base/geo_object_id.hpp"
-#include "base/logging.hpp"
 #include "base/scope_guard.hpp"
 
 #include <algorithm>
 #include <cstdint>
-#include <fstream>
 #include <map>
 #include <string>
 #include <vector>
@@ -56,9 +51,8 @@ using namespace platform::tests_support;
 using namespace platform;
 using namespace routing;
 using namespace routing_builder;
-using namespace std;
 
-using Features = vector<vector<m2::PointD>>;
+using Features = std::vector<std::vector<m2::PointD>>;
 
 // Directory name for creating test mwm and temporary files.
 string const kTestDir = "maxspeeds_generation_test";
