@@ -15,9 +15,6 @@
 #include "platform/local_country_file.hpp"
 #include "platform/platform.hpp"
 
-#include "coding/files_container.hpp"
-#include "coding/reader.hpp"
-
 #include "base/assert.hpp"
 #include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
@@ -38,7 +35,6 @@ using namespace coding;
 using namespace platform::tests_support;
 using namespace platform;
 using namespace routing;
-using namespace std;
 
 // Directory name for creating test mwm and temporary files.
 string const kTestDir = "city_roads_generation_test";
@@ -81,7 +77,7 @@ void TestCityRoadsBuilding(vector<uint32_t> && cityRoadFeatureIds)
   // Adding city_roads section to mwm.
   string const mwmFullPath = base::JoinPath(writableDir, mwmRelativePath);
   vector<uint32_t> originalCityRoadFeatureIds = cityRoadFeatureIds;
-  routing_builder::SerializeCityRoads(mwmFullPath, move(cityRoadFeatureIds));
+  routing_builder::SerializeCityRoads(mwmFullPath, std::move(cityRoadFeatureIds));
 
   auto const cityRoads = LoadCityRoads(country);
   TEST(cityRoads, ());

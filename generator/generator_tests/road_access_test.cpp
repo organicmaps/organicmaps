@@ -211,8 +211,8 @@ UNIT_TEST(RoadAccessWriter_Merge)
                                                   OsmElement::EntityType::Node);
 
   auto c1 = make_shared<RoadAccessWriter>(filename);
-  auto c2 = c1->Clone();
-  auto c3 = c1->Clone();
+  auto c2 = c1->Clone(nullptr);
+  auto c3 = c1->Clone(nullptr);
 
   c1->CollectFeature(MakeFbForTest(p1), p1);
   c2->CollectFeature(MakeFbForTest(p2), p2);
@@ -343,8 +343,8 @@ UNIT_TEST(RoadAccessWriter_ConditionalMerge)
       OsmElement::EntityType::Way, {30, 31, 32, 33});
 
   auto c1 = make_shared<RoadAccessWriter>(filename);
-  auto c2 = c1->Clone();
-  auto c3 = c1->Clone();
+  auto c2 = c1->Clone(nullptr);
+  auto c3 = c1->Clone(nullptr);
 
   c1->CollectFeature(MakeFbForTest(w1), w1);
   c2->CollectFeature(MakeFbForTest(w2), w2);

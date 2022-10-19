@@ -19,8 +19,7 @@
 
 namespace editor
 {
-using namespace std;
-
+using std::string_view;
 namespace
 {
 constexpr char const * kTimestamp = "timestamp";
@@ -133,13 +132,13 @@ bool XMLFeature::operator==(XMLFeature const & other) const
   return ToOSMString() == other.ToOSMString();
 }
 
-vector<XMLFeature> XMLFeature::FromOSM(string const & osmXml)
+std::vector<XMLFeature> XMLFeature::FromOSM(string const & osmXml)
 {
   pugi::xml_document doc;
   if (doc.load_string(osmXml.data()).status != pugi::status_ok)
     MYTHROW(editor::InvalidXML, ("Not valid XML:", osmXml));
 
-  vector<XMLFeature> features;
+  std::vector<XMLFeature> features;
   for (auto const & n : doc.child("osm").children())
   {
     if (StringToType(n.name()) != Type::Unknown)
@@ -152,17 +151,17 @@ XMLFeature::Type XMLFeature::GetType() const { return StringToType(GetRootNode()
 
 string XMLFeature::GetTypeString() const { return GetRootNode().name(); }
 
-void XMLFeature::Save(ostream & ost) const { m_document.save(ost, "  "); }
+void XMLFeature::Save(std::ostream & ost) const { m_document.save(ost, "  "); }
 
 string XMLFeature::ToOSMString() const
 {
-  ostringstream ost;
+  std::ostringstream ost;
   // Ugly way to wrap into <osm>..</osm> tags.
   // Unfortunately, pugi xml library doesn't allow to insert documents into other documents.
-  ost << "<?xml version=\"1.0\"?>" << endl;
-  ost << "<osm>" << endl;
+  ost << "<?xml version=\"1.0\"?>\n";
+  ost << "<osm>\n";
   m_document.save(ost, "  ", pugi::format_no_declaration | pugi::format_indent);
-  ost << "</osm>" << endl;
+  ost << "</osm>\n";
   return ost.str();
 }
 
@@ -223,11 +222,11 @@ void XMLFeature::SetCenter(m2::PointD const & mercatorCenter)
   SetCenter(mercator::ToLatLon(mercatorCenter));
 }
 
-vector<m2::PointD> XMLFeature::GetGeometry() const
+std::vector<m2::PointD> XMLFeature::GetGeometry() const
 {
   ASSERT_NOT_EQUAL(GetType(), Type::Unknown, ());
   ASSERT_NOT_EQUAL(GetType(), Type::Node, ());
-  vector<m2::PointD> geometry;
+  std::vector<m2::PointD> geometry;
   for (auto const & xCenter : GetRootNode().select_nodes("nd"))
   {
     ASSERT(xCenter.node(), ("no nd attribute."));
@@ -611,7 +610,7 @@ bool FromXML(XMLFeature const & xml, osm::EditableMapObject & object)
 
 string DebugPrint(XMLFeature const & feature)
 {
-  ostringstream ost;
+  std::ostringstream ost;
   feature.Save(ost);
   return ost.str();
 }

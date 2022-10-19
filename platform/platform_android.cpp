@@ -163,12 +163,14 @@ void Platform::GetFilesByRegExp(string const & directory, string const & regexp,
     pl::EnumerateFilesByRegExp(directory, regexp, res);
 }
 
-int Platform::VideoMemoryLimit() const
+// static
+int Platform::VideoMemoryLimit()
 {
   return 10 * 1024 * 1024;
 }
 
-int Platform::PreCachingDepth() const
+// static
+int Platform::PreCachingDepth()
 {
   return 3;
 }

@@ -13,8 +13,6 @@
 
 namespace search
 {
-using namespace std;
-
 StreetVicinityLoader::StreetVicinityLoader(int scale, double offsetMeters)
   : m_context(nullptr), m_scale(scale), m_offsetMeters(offsetMeters), m_cache("Streets")
 {
@@ -56,7 +54,7 @@ void StreetVicinityLoader::LoadStreet(uint32_t featureId, Street & street)
   if (!isStreet && !isSquareOrSuburb)
     return;
 
-  vector<m2::PointD> points;
+  std::vector<m2::PointD> points;
   if (feature->GetGeomType() == feature::GeomType::Area)
   {
     points = feature->GetTrianglesAsPoints(FeatureType::BEST_GEOMETRY);

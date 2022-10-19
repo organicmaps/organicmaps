@@ -118,8 +118,10 @@ std::unique_ptr<ModelReader> Platform::GetReader(std::string const & file, std::
                                       READER_CHUNK_LOG_COUNT);
 }
 
-int Platform::VideoMemoryLimit() const { return 8 * 1024 * 1024; }
-int Platform::PreCachingDepth() const { return 2; }
+// static
+int Platform::VideoMemoryLimit() { return 8 * 1024 * 1024; }
+// static
+int Platform::PreCachingDepth() { return 2; }
 
 std::string Platform::GetMemoryInfo() const
 {

@@ -5,12 +5,9 @@
 
 #include <algorithm>
 #include <functional>
-#include <sstream>
 
 namespace search
 {
-using namespace std;
-
 namespace
 {
 size_t CeilPow2Minus1(size_t n)
@@ -48,9 +45,9 @@ void SegmentTree::FindSegment(size_t index, Segment const & segment, Fn && fn)
   if (root.m_segment == segment)
     fn(root);
   else if (segment < root.m_segment)
-    FindSegment(LeftChild(index), segment, forward<Fn>(fn));
+    FindSegment(LeftChild(index), segment, std::forward<Fn>(fn));
   else
-    FindSegment(RightChild(index), segment, forward<Fn>(fn));
+    FindSegment(RightChild(index), segment, std::forward<Fn>(fn));
   Update(index);
 }
 

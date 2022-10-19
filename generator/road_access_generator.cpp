@@ -8,7 +8,6 @@
 #include "routing/road_access_serialization.hpp"
 #include "routing/routing_helpers.hpp"
 
-#include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_data.hpp"
 #include "indexer/features_vector.hpp"
@@ -38,7 +37,7 @@ namespace routing_builder
 using namespace feature;
 using namespace routing;
 using namespace generator;
-using namespace std;
+using std::string;
 
 using TagMapping = RoadAccessTagProcessor::TagMapping;
 using ConditionalTagsList = RoadAccessTagProcessor::ConditionalTagsList;
@@ -257,7 +256,7 @@ bool ParseRoadAccess(string const & roadAccessPath, OsmIdToFeatureIds const & os
   }
 
   for (size_t i = 0; i < static_cast<size_t>(VehicleType::Count); ++i)
-    roadAccessByVehicleType[i].SetAccess(move(featureType[i]), move(pointType[i]));
+    roadAccessByVehicleType[i].SetAccess(std::move(featureType[i]), std::move(pointType[i]));
 
   return true;
 }
@@ -273,7 +272,7 @@ void ParseRoadAccessConditional(
     return;
   }
 
-  size_t constexpr kVehicleCount = static_cast<size_t>(VehicleType::Count);
+  auto constexpr kVehicleCount = static_cast<size_t>(VehicleType::Count);
   CHECK_EQUAL(kVehicleCount, roadAccessByVehicleType.size(), ());
   array<RoadAccess::WayToAccessConditional, kVehicleCount> wayToAccessConditional;
   // TODO point is not supported yet.
@@ -326,7 +325,7 @@ void ParseRoadAccessConditional(
       if (!openingHours.IsValid())
         continue;
 
-      conditional.Insert(roadAccessType, move(openingHours));
+      conditional.Insert(roadAccessType, std::move(openingHours));
     }
 
     if (conditional.IsEmpty())
@@ -339,13 +338,13 @@ void ParseRoadAccessConditional(
     CHECK(!osmIdToFeatureIds.empty(), ());
     uint32_t const featureId = it->second.front();
 
-    wayToAccessConditional[static_cast<size_t>(vehicleType)].emplace(featureId, move(conditional));
+    wayToAccessConditional[static_cast<size_t>(vehicleType)].emplace(featureId, std::move(conditional));
   }
 
   for (size_t i = 0; i < roadAccessByVehicleType.size(); ++i)
   {
-    roadAccessByVehicleType[i].SetAccessConditional(move(wayToAccessConditional[i]),
-                                                    move(pointToAccessConditional[i]));
+    roadAccessByVehicleType[i].SetAccessConditional(std::move(wayToAccessConditional[i]),
+                                                    std::move(pointToAccessConditional[i]));
   }
 }
 
@@ -397,11 +396,10 @@ optional<pair<string, string>> GetTagValueConditionalAccess(
 // etc.
 string GetVehicleTypeForAccessConditional(string const & accessConditionalTag)
 {
-  auto const pos = accessConditionalTag.find(":");
+  auto const pos = accessConditionalTag.find(':');
   CHECK_NOT_EQUAL(pos, string::npos, (accessConditionalTag));
 
-  string result(accessConditionalTag.begin(), accessConditionalTag.begin() + pos);
-  return result;
+  return {accessConditionalTag.begin(), accessConditionalTag.begin() + pos};
 }
 
 // RoadAccessTagProcessor --------------------------------------------------------------------------
@@ -496,17 +494,17 @@ void RoadAccessTagProcessor::ProcessConditional(OsmElement const & elem)
   for (auto & access : accesses)
   {
     if (access.m_accessType != RoadAccess::Type::Count)
-      m_wayToAccessConditional[elem.m_id].emplace_back(move(access));
+      m_wayToAccessConditional[elem.m_id].emplace_back(std::move(access));
   }
 }
 
-void RoadAccessTagProcessor::WriteWayToAccess(ostream & stream)
+void RoadAccessTagProcessor::WriteWayToAccess(std::ostream & stream)
 {
   // All feature tags.
   for (auto const & i : m_wayToAccess)
   {
     stream << ToString(m_vehicleType) << " " << ToString(i.second) << " " << i.first << " "
-           << 0 /* wildcard segment Idx */ << endl;
+           << 0 /* wildcard segment Idx */ << std::endl;
   }
 }
 
@@ -522,7 +520,7 @@ void RoadAccessTagProcessor::WriteWayToAccessConditional(std::ostream & stream)
       replace_copy(cbegin(access.m_openingHours), cend(access.m_openingHours), back_inserter(oh), '\t', ' ');
       stream << ToString(access.m_accessType) << '\t' << oh << '\t';
     }
-    stream << endl;
+    stream << std::endl;
   }
 }
 
@@ -546,7 +544,7 @@ void RoadAccessTagProcessor::WriteBarrierTags(ostream & stream, uint64_t id,
     RoadAccess::Type const roadAccessType = it->second;
     // idx == 0 used as wildcard segment Idx, for nodes we store |pointIdx + 1| instead of |pointIdx|.
     stream << ToString(m_vehicleType) << " " << ToString(roadAccessType) << " " << id << " "
-           << pointIdx + 1 << endl;
+           << pointIdx + 1 << std::endl;
   }
 }
 
@@ -578,10 +576,10 @@ RoadAccessWriter::~RoadAccessWriter()
   CHECK(Platform::RemoveFileIfExists(m_waysFilename), ());
 }
 
-shared_ptr<generator::CollectorInterface> RoadAccessWriter::Clone(
-    shared_ptr<generator::cache::IntermediateDataReaderInterface> const &) const
+std::shared_ptr<generator::CollectorInterface> RoadAccessWriter::Clone(
+    std::shared_ptr<generator::cache::IntermediateDataReaderInterface> const &) const
 {
-  return make_shared<RoadAccessWriter>(GetFilename());
+  return std::make_shared<RoadAccessWriter>(GetFilename());
 }
 
 void RoadAccessWriter::CollectFeature(FeatureBuilder const & fb, OsmElement const & elem)
@@ -741,7 +739,7 @@ vector<AccessConditional> AccessConditionalTagParser::ParseAccessConditionalTag(
     if (!substrOp)
     {
       auto openingHours = std::string(value.begin() + pos, value.end());
-      access.m_openingHours = TrimAndDropAroundParentheses(move(openingHours));
+      access.m_openingHours = TrimAndDropAroundParentheses(std::move(openingHours));
       pos = value.size();
     }
     else
@@ -755,7 +753,7 @@ vector<AccessConditional> AccessConditionalTagParser::ParseAccessConditionalTag(
       {
         // This is 1) case.
         auto openingHours = std::string(value.begin() + pos, value.begin() + newPos);
-        access.m_openingHours = TrimAndDropAroundParentheses(move(openingHours));
+        access.m_openingHours = TrimAndDropAroundParentheses(std::move(openingHours));
         pos = newPos;
         ++pos;  // skip ';'
       }
@@ -763,20 +761,21 @@ vector<AccessConditional> AccessConditionalTagParser::ParseAccessConditionalTag(
       {
         // This is 2) case.
         auto openingHours = std::string(value.begin() + pos, value.end());
-        access.m_openingHours = TrimAndDropAroundParentheses(move(openingHours));
+        access.m_openingHours = TrimAndDropAroundParentheses(std::move(openingHours));
         pos = value.size();
       }
     }
 
-    accessConditionals.emplace_back(move(access));
+    accessConditionals.emplace_back(std::move(access));
   }
 
   return accessConditionals;
 }
 
+// static
 optional<pair<size_t, string>> AccessConditionalTagParser::ReadUntilSymbol(string const & input,
                                                                            size_t startPos,
-                                                                           char symbol) const
+                                                                           char symbol)
 {
   string result;
   while (startPos < input.size() && input[startPos] != symbol)
@@ -804,7 +803,8 @@ RoadAccess::Type AccessConditionalTagParser::GetAccessByVehicleAndStringValue(
   return RoadAccess::Type::Count;
 }
 
-string AccessConditionalTagParser::TrimAndDropAroundParentheses(string input) const
+// static
+string AccessConditionalTagParser::TrimAndDropAroundParentheses(string input)
 {
   strings::Trim(input);
 

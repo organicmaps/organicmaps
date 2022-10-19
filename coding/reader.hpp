@@ -23,7 +23,7 @@ public:
   DECLARE_EXCEPTION(ReadException, Exception);
   DECLARE_EXCEPTION(TooManyFilesException, Exception);
 
-  virtual ~Reader() {}
+  virtual ~Reader() = default;
   virtual uint64_t Size() const = 0;
   virtual void Read(uint64_t pos, void * p, size_t size) const = 0;
   virtual std::unique_ptr<Reader> CreateSubReader(uint64_t pos, uint64_t size) const = 0;
@@ -71,7 +71,7 @@ public:
 private:
   bool GoodPosAndSize(uint64_t pos, uint64_t size) const
   {
-    // In case of 32 bit system, when sizeof(size_t) == 4.
+    // In case of 32-bit system, when sizeof(size_t) == 4.
     return (pos + size <= Size() && size <= std::numeric_limits<size_t>::max());
   }
 
@@ -95,7 +95,7 @@ private:
 using MemReader = MemReaderTemplate<false>;
 using MemReaderWithExceptions = MemReaderTemplate<true>;
 
-// Reader wrapper to hold the pointer to a polymorfic reader.
+// Reader wrapper to hold the pointer to a polymorphic reader.
 // Common use: ReaderSource<ReaderPtr<Reader> >.
 // Note! It takes the ownership of Reader.
 template <class TReader>
@@ -106,7 +106,7 @@ protected:
 
 public:
   template <typename TReaderDerived>
-  ReaderPtr(std::unique_ptr<TReaderDerived> p) : m_p(move(p))
+  ReaderPtr(std::unique_ptr<TReaderDerived> p) : m_p(std::move(p))
   {
   }
 
@@ -136,9 +136,9 @@ class ModelReader : public Reader
   std::string m_name;
 
 public:
-  ModelReader(std::string const & name) : m_name(name) {}
+  explicit ModelReader(std::string const & name) : m_name(name) {}
 
-  virtual std::unique_ptr<Reader> CreateSubReader(uint64_t pos, uint64_t size) const override = 0;
+  std::unique_ptr<Reader> CreateSubReader(uint64_t pos, uint64_t size) const override = 0;
 
   std::string const & GetName() const { return m_name; }
 };
@@ -150,7 +150,7 @@ class ModelReaderPtr : public ReaderPtr<ModelReader>
 
 public:
   template <typename TReaderDerived>
-  ModelReaderPtr(std::unique_ptr<TReaderDerived> p) : TBase(move(p))
+  ModelReaderPtr(std::unique_ptr<TReaderDerived> p) : TBase(std::move(p))
   {
   }
 
@@ -248,7 +248,7 @@ public:
 
   /// @todo We can avoid calling virtual Reader::SubReader and creating unique_ptr here
   /// by simply making "ReaderSource ReaderSource::SubSource(pos, end)" and storing "ReaderSource::m_end"
-  /// like I did in NonOwningReaderSource. Unfortunatelly, it needs a lot of efforts in refactoring.
+  /// like I did in NonOwningReaderSource. Unfortunately, it needs a lot of efforts in refactoring.
   /// @{
   TReader SubReader(uint64_t size)
   {
@@ -291,7 +291,7 @@ template <typename TPrimitive, class TReader>
 inline TPrimitive ReadPrimitiveFromPos(TReader const & reader, uint64_t pos)
 {
 #ifndef OMIM_OS_LINUX
-  static_assert(std::is_trivially_copyable<TPrimitive>::value, "");
+  static_assert(std::is_trivially_copyable<TPrimitive>::value);
 #endif
   TPrimitive primitive;
   ReadFromPos(reader, pos, &primitive, sizeof(primitive));
@@ -302,7 +302,7 @@ template <typename TPrimitive, class TSource>
 TPrimitive ReadPrimitiveFromSource(TSource & source)
 {
 #ifndef OMIM_OS_LINUX
-  static_assert(std::is_trivially_copyable<TPrimitive>::value, "");
+  static_assert(std::is_trivially_copyable<TPrimitive>::value);
 #endif
   TPrimitive primitive;
   source.Read(&primitive, sizeof(primitive));
