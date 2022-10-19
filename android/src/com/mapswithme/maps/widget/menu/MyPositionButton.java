@@ -69,6 +69,8 @@ public class MyPositionButton
           drawableRes = ThemeUtils.getResource(context, R.attr.myPositionButtonAnimation);
           break;
         case LocationState.NOT_FOLLOW_NO_POSITION:
+          drawableRes = R.drawable.ic_location_off;
+          break;
         case LocationState.NOT_FOLLOW:
           drawableRes = R.drawable.ic_not_follow;
           break;
