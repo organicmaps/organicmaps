@@ -98,16 +98,17 @@ UNIT_TEST(NameScore_Smoke)
 
 UNIT_TEST(NameScore_SubstringVsErrors)
 {
+  string const query = "Simon";
+
+  RankingInfo info;
+  info.m_type = Model::TYPE_SUBPOI;
+  info.m_tokenRanges[Model::TYPE_SUBPOI] = {0, 1};
+  info.m_numTokens = 1;
+  info.m_allTokensUsed = true;
+  info.m_exactMatch = false;
+  info.m_exactCountryOrCapital = false;
+
   {
-    string const query = "Simon";
-
-    RankingInfo info;
-    info.m_tokenRanges[Model::TYPE_SUBPOI] = {0, 1};
-    info.m_numTokens = 1;
-    info.m_allTokensUsed = true;
-    info.m_exactMatch = false;
-    info.m_exactCountryOrCapital = false;
-
     RankingInfo poi1 = info;
     AssignRankingInfo(GetScore("Symon Budny and Vasil Tsiapinski", query), poi1, query.size());
     TEST_EQUAL(poi1.m_nameScore, NameScore::FULL_PREFIX, ());
@@ -118,7 +119,7 @@ UNIT_TEST(NameScore_SubstringVsErrors)
     TEST_EQUAL(poi2.m_nameScore, NameScore::SUBSTRING, ());
     TEST_EQUAL(poi2.m_errorsMade, ErrorsMade(0), ());
 
-    TEST_LESS(poi1.GetLinearModelRank(), poi2.GetLinearModelRank(), ());
+    TEST_LESS(poi1.GetLinearModelRank(), poi2.GetLinearModelRank(), (poi1, poi2));
   }
 }
 
@@ -146,7 +147,7 @@ UNIT_TEST(RankingInfo_PreferCountry)
   country.m_type = Model::TYPE_COUNTRY;
 
   // Country should be preferred even if cafe is much closer to viewport center.
-  TEST_LESS(cafe.GetLinearModelRank(), country.GetLinearModelRank(), ());
+  TEST_LESS(cafe.GetLinearModelRank(), country.GetLinearModelRank(), (cafe, country));
 }
 
 UNIT_TEST(RankingInfo_PrefixVsFull)
@@ -158,6 +159,7 @@ UNIT_TEST(RankingInfo_PrefixVsFull)
   info.m_exactMatch = false;
   info.m_exactCountryOrCapital = false;
   info.m_distanceToPivot = 1000;
+  info.m_type = Model::TYPE_SUBPOI;
   info.m_tokenRanges[Model::TYPE_SUBPOI] = TokenRange(0, 2);
 
   {
@@ -171,7 +173,7 @@ UNIT_TEST(RankingInfo_PrefixVsFull)
     prefix.m_nameScore = NameScore::PREFIX;
     prefix.m_errorsMade = ErrorsMade(0);
 
-    TEST_LESS(full.GetLinearModelRank(), prefix.GetLinearModelRank(), ());
+    TEST_LESS(full.GetLinearModelRank(), prefix.GetLinearModelRank(), (full, prefix));
   }
 }
 
