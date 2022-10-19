@@ -153,100 +153,72 @@ void TestFeature::Serialize(FeatureBuilder & fb) const
   }
 }
 
-// TestCountry -------------------------------------------------------------------------------------
-TestCountry::TestCountry(m2::PointD const & center, string const & name, string const & lang)
-  : TestFeature(center, name, lang)
+// TestPlace -------------------------------------------------------------------------------------
+TestPlace::TestPlace(m2::PointD const & center, string const & name, string const & lang,
+                     uint32_t type, uint8_t rank /* = 0 */)
+  : TestFeature(center, name, lang), m_type(type), m_rank(rank)
 {
 }
 
-void TestCountry::Serialize(FeatureBuilder & fb) const
+TestPlace::TestPlace(m2::PointD const & center, StringUtf8Multilang const & name,
+                     uint32_t type, uint8_t rank)
+  : TestFeature(center, name), m_type(type), m_rank(rank)
+{
+}
+
+TestPlace::TestPlace(std::vector<m2::PointD> const & boundary, std::string const & name, std::string const & lang,
+                     uint32_t type, uint8_t rank)
+  : TestFeature(boundary, name, lang), m_type(type), m_rank(rank)
+{
+}
+
+void TestPlace::Serialize(FeatureBuilder & fb) const
 {
   TestFeature::Serialize(fb);
-  auto const & classificator = classif();
-  fb.AddType(classificator.GetTypeByPath({"place", "country"}));
+  fb.AddType(m_type);
 }
 
-string TestCountry::ToDebugString() const
+string TestPlace::ToDebugString() const
 {
   ostringstream os;
-  os << "TestCountry [" << DebugPrint(m_names) << ", " << DebugPrint(m_center) << "]";
+  os << "TestPlace { " << DebugPrint(m_names) << ", " << DebugPrint(m_center) << ", "
+     << classif().GetReadableObjectName(m_type) << ", " << int(m_rank) << " }";
   return os.str();
 }
 
-// TestState -------------------------------------------------------------------------------------
+TestCountry::TestCountry(m2::PointD const & center, std::string const & name, std::string const & lang)
+  : TestPlace(center, name, lang, classif().GetTypeByPath({"place", "country"}))
+{
+}
+
 TestState::TestState(m2::PointD const & center, string const & name, string const & lang)
-  : TestFeature(center, name, lang)
+  : TestPlace(center, name, lang, classif().GetTypeByPath({"place", "state"}))
 {
 }
 
-void TestState::Serialize(FeatureBuilder & fb) const
+uint32_t TestCity::GetCityType()
 {
-  TestFeature::Serialize(fb);
-  auto const & classificator = classif();
-  fb.AddType(classificator.GetTypeByPath({"place", "state"}));
+  return classif().GetTypeByPath({"place", "city"});
 }
 
-string TestState::ToDebugString() const
-{
-  ostringstream os;
-  os << "TestState [" << DebugPrint(m_names) << ", " << DebugPrint(m_center) << "]";
-  return os.str();
-}
-
-// TestCity ----------------------------------------------------------------------------------------
-TestCity::TestCity(m2::PointD const & center, string const & name, string const & lang,
-                   uint8_t rank)
-  : TestFeature(center, name, lang), m_rank(rank)
+TestCity::TestCity(m2::PointD const & center, string const & name, string const & lang, uint8_t rank)
+  : TestPlace(center, name, lang, GetCityType(), rank)
 {
 }
 
 TestCity::TestCity(m2::PointD const & center, StringUtf8Multilang const & name, uint8_t rank)
-  : TestFeature(center, name), m_rank(rank)
+  : TestPlace(center, name, GetCityType(), rank)
 {
 }
 
-TestCity::TestCity(vector<m2::PointD> const & boundary, string const & name, string const & lang,
-                   uint8_t rank)
-  : TestFeature(boundary, name, lang), m_rank(rank)
+TestCity::TestCity(vector<m2::PointD> const & boundary, string const & name, string const & lang, uint8_t rank)
+  : TestPlace(boundary, name, lang, GetCityType(), rank)
 {
 }
 
-void TestCity::Serialize(FeatureBuilder & fb) const
+TestVillage::TestVillage(m2::PointD const & center, string const & name, string const & lang, uint8_t rank)
+  : TestPlace(center, name, lang, classif().GetTypeByPath({"place", "village"}), rank)
 {
-  TestFeature::Serialize(fb);
-  auto const & classificator = classif();
-  fb.AddType(classificator.GetTypeByPath({"place", "city"}));
-  fb.SetRank(m_rank);
-}
-
-string TestCity::ToDebugString() const
-{
-  ostringstream os;
-  os << "TestCity [" << DebugPrint(m_names) << ", " << DebugPrint(m_center) << "]";
-  return os.str();
-}
-
-// TestVillage
-// ----------------------------------------------------------------------------------------
-TestVillage::TestVillage(m2::PointD const & center, string const & name, string const & lang,
-                         uint8_t rank)
-  : TestFeature(center, name, lang), m_rank(rank)
-{
-}
-
-void TestVillage::Serialize(FeatureBuilder & fb) const
-{
-  TestFeature::Serialize(fb);
-  auto const & classificator = classif();
-  fb.AddType(classificator.GetTypeByPath({"place", "village"}));
-  fb.SetRank(m_rank);
-}
-
-string TestVillage::ToDebugString() const
-{
-  ostringstream os;
-  os << "TestVillage [" << DebugPrint(m_names) << ", " << DebugPrint(m_center) << "]";
-  return os.str();
 }
 
 // TestStreet --------------------------------------------------------------------------------------

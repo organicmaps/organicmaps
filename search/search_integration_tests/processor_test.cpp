@@ -3194,4 +3194,17 @@ UNIT_CLASS_TEST(ProcessorTest, ComplexPoi_Rank)
   TEST(ResultsMatch({results[1]}, {ExactMatch(countryId, poiInMall)}), ());
 }
 
+UNIT_CLASS_TEST(ProcessorTest, Place_Region)
+{
+  TestPlace region({1, 1}, "Carthage", "en", classif().GetTypeByPath({"place", "region"}));
+
+  auto const worldId = BuildWorld([&](TestMwmBuilder & builder)
+  {
+    builder.Add(region);
+  });
+
+  Rules rules{ExactMatch(worldId, region)};
+  TEST(ResultsMatch("carth", rules, "en"), ());
+}
+
 } // namespace processor_test

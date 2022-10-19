@@ -62,12 +62,12 @@ namespace
   class IsDrawableRulesChecker
   {
     int m_scale;
-    GeomType m_gt;
+    GeomType m_geomType;
     bool m_arr[3];
 
   public:
-    IsDrawableRulesChecker(int scale, GeomType gt, int rules)
-      : m_scale(scale), m_gt(gt)
+    IsDrawableRulesChecker(int scale, GeomType geomType, int rules)
+      : m_scale(scale), m_geomType(geomType)
     {
       m_arr[0] = rules & RULE_CAPTION;
       m_arr[1] = rules & RULE_PATH_TEXT;
@@ -77,7 +77,7 @@ namespace
     bool operator() (ClassifObject const * p) const
     {
       drule::KeysT keys;
-      p->GetSuitable(m_scale, m_gt, keys);
+      p->GetSuitable(m_scale, m_geomType, keys);
 
       for (auto const & k : keys)
       {
@@ -99,28 +99,35 @@ namespace
   /// The functions names and set of types looks strange now and definitely should be revised.
   /// @{
 
-  bool IsUsefulStandaloneType(uint32_t type, GeomType g = GeomType::Undefined)
+  /// These types will be included in geometry index for the corresponding scale (World or Country).
+  /// Needed for search and routing algorithms.
+  int GetNondrawableStandaloneIndexScale(uint32_t type, GeomType geomType = GeomType::Undefined)
   {
     auto const & cl = classif();
 
     static uint32_t const shuttle = cl.GetTypeByPath({"route", "shuttle_train"});
-    if ((g == GeomType::Line || g == GeomType::Undefined) && type == shuttle)
-      return true;
+    if ((geomType == GeomType::Line || geomType == GeomType::Undefined) && type == shuttle)
+      return scales::GetUpperScale();
 
     static uint32_t const region = cl.GetTypeByPath({"place", "region"});
-    if ((g == GeomType::Point || g == GeomType::Undefined) && type == region)
-      return true;
+    if ((geomType == GeomType::Point || geomType == GeomType::Undefined) && type == region)
+      return scales::GetUpperWorldScale();
 
-    return false;
+    return -1;
   }
 
-  bool TypeAlwaysExists(uint32_t type, GeomType g = GeomType::Undefined)
+  bool IsUsefulStandaloneType(uint32_t type, GeomType geomType = GeomType::Undefined)
+  {
+    return GetNondrawableStandaloneIndexScale(type, geomType) >= 0;
+  }
+
+  bool TypeAlwaysExists(uint32_t type, GeomType geomType = GeomType::Undefined)
   {
     auto const & cl = classif();
     if (!cl.IsTypeValid(type))
       return false;
 
-    if (IsUsefulStandaloneType(type, g))
+    if (IsUsefulStandaloneType(type, geomType))
       return true;
 
     static uint32_t const internet = cl.GetTypeByPath({"internet_access"});
@@ -129,7 +136,7 @@ namespace
     uint8_t const typeLevel = ftype::GetLevel(type);
     ftype::TruncValue(type, 1);
 
-    if (g != GeomType::Line)
+    if (geomType != GeomType::Line)
     {
       if (type == internet)
         return true;
@@ -149,13 +156,13 @@ namespace
     return (type == complexEntry);
   }
 
-  bool IsUsefulNondrawableType(uint32_t type, GeomType g = GeomType::Undefined)
+  bool IsUsefulNondrawableType(uint32_t type, GeomType geomType = GeomType::Undefined)
   {
     auto const & cl = classif();
     if (!cl.IsTypeValid(type))
       return false;
 
-    if (TypeAlwaysExists(type, g))
+    if (TypeAlwaysExists(type, geomType))
       return true;
 
     // Exclude generic 1-arity types like [wheelchair].
@@ -167,11 +174,11 @@ namespace
     static uint32_t const psurface = cl.GetTypeByPath({"psurface"});
 
     /// @todo "roundabout" type itself has caption drawing rules (for point junctions?).
-    if ((g == GeomType::Line || g == GeomType::Undefined) && type == roundabout)
+    if ((geomType == GeomType::Line || geomType == GeomType::Undefined) && type == roundabout)
       return true;
 
     ftype::TruncValue(type, 1);
-    if (g == GeomType::Line || g == GeomType::Undefined)
+    if (geomType == GeomType::Line || geomType == GeomType::Undefined)
     {
       if (type == hwtag || type == psurface)
         return true;
@@ -243,9 +250,10 @@ bool IsDrawableForIndexClassifOnly(TypesHolder const & types, int level)
   Classificator const & c = classif();
   for (uint32_t t : types)
   {
-    // By VNG: TypeAlwaysExists check was removed. These kind of types (internet, recycling, fee, access, etc)
-    // should NOT influence on draw priority and index visibility. Some fancy logic may be broken ..
     if (c.GetObject(t)->IsDrawable(level))
+      return true;
+
+    if (level == GetNondrawableStandaloneIndexScale(t))
       return true;
   }
 
