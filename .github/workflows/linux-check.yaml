@@ -97,10 +97,11 @@ jobs:
         run: |
           sudo apt update -y
           sudo apt install -y \
+              g++-12 \
+              gcc-12 \
               ninja-build \
               qtbase5-dev \
-              libqt5svg5-dev \
-              clang-tools-11
+              libqt5svg5-dev
 
       - name: Configure
         shell: bash
