@@ -91,12 +91,6 @@ bool IsSupportedLangCode(int8_t langCode)
 }
 }  // namespace
 
-int8_t constexpr StringUtf8Multilang::kUnsupportedLanguageCode;
-int8_t constexpr StringUtf8Multilang::kDefaultCode;
-int8_t constexpr StringUtf8Multilang::kEnglishCode;
-int8_t constexpr StringUtf8Multilang::kInternationalCode;
-char constexpr StringUtf8Multilang::kReservedLang[9 /* strlen("reserved") + 1 */];
-
 // static
 StringUtf8Multilang::Languages const & StringUtf8Multilang::GetSupportedLanguages()
 {

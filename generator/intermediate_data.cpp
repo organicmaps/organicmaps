@@ -66,7 +66,7 @@ public:
   uint64_t GetNumProcessedPoints() const override { return m_numProcessedPoints; }
 
 private:
-  uint64_t m_numProcessedPoints;
+  uint64_t m_numProcessedPoints{0};
 };
 
 // RawFilePointStorageMmapReader -------------------------------------------------------------------

@@ -56,7 +56,7 @@ namespace routing_builder
 using namespace feature;
 using namespace platform;
 using namespace routing;
-using namespace std;
+using std::string, std::vector;
 
 class VehicleMaskBuilder final
 {
@@ -100,9 +100,9 @@ private:
     return mask;
   }
 
-  shared_ptr<VehicleModelInterface> const m_pedestrianModel;
-  shared_ptr<VehicleModelInterface> const m_bicycleModel;
-  shared_ptr<VehicleModelInterface> const m_carModel;
+  std::shared_ptr<VehicleModelInterface> const m_pedestrianModel;
+  std::shared_ptr<VehicleModelInterface> const m_bicycleModel;
+  std::shared_ptr<VehicleModelInterface> const m_carModel;
 };
 
 class Processor final
@@ -116,8 +116,8 @@ public:
 
   void ProcessAllFeatures(string const & filename)
   {
-    namespace pl = std::placeholders;
-    ForEachFeature(filename, bind(&Processor::ProcessFeature, this, pl::_1, pl::_2));
+    using namespace std::placeholders;
+    ForEachFeature(filename, bind(&Processor::ProcessFeature, this, _1, _2));
   }
 
   void BuildGraph(IndexGraph & graph) const
@@ -133,7 +133,7 @@ public:
     graph.Import(joints);
   }
 
-  unordered_map<uint32_t, VehicleMask> const & GetMasks() const { return m_masks; }
+  std::unordered_map<uint32_t, VehicleMask> const & GetMasks() const { return m_masks; }
 
 private:
   void ProcessFeature(FeatureType & f, uint32_t id)
@@ -153,8 +153,8 @@ private:
   }
 
   VehicleMaskBuilder const m_maskBuilder;
-  unordered_map<uint64_t, Joint> m_posToJoint;
-  unordered_map<uint32_t, VehicleMask> m_masks;
+  std::unordered_map<uint64_t, Joint> m_posToJoint;
+  std::unordered_map<uint32_t, VehicleMask> m_masks;
 };
 
 class IndexGraphWrapper final

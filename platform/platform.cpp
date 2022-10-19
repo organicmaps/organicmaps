@@ -13,23 +13,21 @@
 
 #include "private.h"
 
-#include <errno.h>
-
-using namespace std;
+#include <cerrno>
 
 namespace
 {
 string RandomString(size_t length)
 {
-  static string const kCharset =
+  static std::string_view constexpr kCharset =
       "0123456789"
       "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
       "abcdefghijklmnopqrstuvwxyz";
-  random_device rd;
-  mt19937 gen(rd());
-  uniform_int_distribution<size_t> dis(0, kCharset.size() - 1);
-  string str(length, 0);
-  generate_n(str.begin(), length, [&]() {
+  std::random_device rd;
+  std::mt19937 gen(rd());
+  std::uniform_int_distribution<size_t> dis(0, kCharset.size() - 1);
+  std::string str(length, 0);
+  std::generate_n(str.begin(), length, [&]() {
     return kCharset[dis(gen)];
   });
   return str;
@@ -166,12 +164,14 @@ string Platform::ReadPathForFile(string const & file, string searchScope) const
       "\nw: ", m_writableDir, "\nr: ", m_resourcesDir, "\ns: ", m_settingsDir));
 }
 
-string Platform::MetaServerUrl() const
+// static
+string Platform::MetaServerUrl()
 {
   return METASERVER_URL;
 }
 
-string Platform::DefaultUrlsJSON() const
+// static
+string Platform::DefaultUrlsJSON()
 {
   return DEFAULT_URLS_JSON;
 }

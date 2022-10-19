@@ -22,14 +22,11 @@
 
 namespace collector_boundary_postcode_tests
 {
-using namespace generator_tests;
-using namespace generator;
-using namespace feature;
-using namespace std;
+//using namespace generator_tests;
+//using namespace generator;
+//using namespace feature;
 
-using BoundariesCollector = RoutingCityBoundariesCollector;
-
-string const kDumpFileName = "dump.bin";
+static string const kDumpFileName = "dump.bin";
 
 // 0--1- 2
 // |  |  |
@@ -87,8 +84,8 @@ class IntermediateDataReaderTest : public cache::IntermediateDataReaderInterface
 OsmElement MakePostcodeAreaRelation(uint64_t id, string postcode, uint64_t wayId)
 {
   auto postcodeAreaRelation =
-      MakeOsmElement(id, {{"boundary", "postal_code"}, {"postal_code", postcode}},
-                     OsmElement::EntityType::Relation);
+      generator_tests::MakeOsmElement(id, {{"boundary", "postal_code"}, {"postal_code", postcode}},
+                                      OsmElement::EntityType::Relation);
   postcodeAreaRelation.AddMember(wayId, OsmElement::EntityType::Way, "outer");
   return postcodeAreaRelation;
 }
@@ -114,7 +111,7 @@ unordered_map<string, vector<m2::PointD>> Read(string const & dumpFilename)
     utils::ReadString(src, postcode);
     vector<m2::PointD> geometry;
     rw::ReadVectorOfPOD(src, geometry);
-    result.emplace(move(postcode), move(geometry));
+    result.emplace(std::move(postcode), std::move(geometry));
   }
 
   return result;
@@ -164,7 +161,7 @@ void Check(string const & dumpFilename)
 
 UNIT_TEST(CollectorBoundaryPostcode_1)
 {
-  SCOPE_GUARD(rmDump, bind(Platform::RemoveFileIfExists, cref(kDumpFileName)));
+  SCOPE_GUARD(rmDump, std::bind(Platform::RemoveFileIfExists, cref(kDumpFileName)));
 
   auto cache = make_shared<IntermediateDataReaderTest>();
   auto collector = make_shared<BoundaryPostcodeCollector>(kDumpFileName, cache);
@@ -181,7 +178,7 @@ UNIT_TEST(CollectorBoundaryPostcode_1)
 
 UNIT_TEST(CollectorBoundaryPostcode_2)
 {
-  SCOPE_GUARD(rmDump, bind(Platform::RemoveFileIfExists, cref(kDumpFileName)));
+  SCOPE_GUARD(rmDump, std::bind(Platform::RemoveFileIfExists, cref(kDumpFileName)));
 
   auto cache = make_shared<IntermediateDataReaderTest>();
   auto collector1 = make_shared<BoundaryPostcodeCollector>(kDumpFileName, cache);

@@ -7,24 +7,17 @@
 
 #include "base/logging.hpp"
 
-#include "std/target_os.hpp"
-
-#include <algorithm>
 #include <future>
 #include <memory>
 #include <regex>
-#include <string>
 
 #include <QtCore/QCoreApplication>
 #include <QtCore/QDir>
-#include <QtCore/QFileInfo>
 #include <QtCore/QLocale>
 
-using namespace std;
-
-unique_ptr<ModelReader> Platform::GetReader(string const & file, string searchScope) const
+std::unique_ptr<ModelReader> Platform::GetReader(std::string const & file, std::string searchScope) const
 {
-  return make_unique<FileReader>(ReadPathForFile(file, move(searchScope)),
+  return std::make_unique<FileReader>(ReadPathForFile(file, std::move(searchScope)),
                                  READER_CHUNK_LOG_SIZE, READER_CHUNK_LOG_COUNT);
 }
 
@@ -55,18 +48,20 @@ void Platform::GetFilesByRegExp(string const & directory, string const & regexp,
   }
 }
 
-int Platform::PreCachingDepth() const
+// static
+int Platform::PreCachingDepth()
 {
   return 3;
 }
 
-int Platform::VideoMemoryLimit() const
+// static
+int Platform::VideoMemoryLimit()
 {
   return 20 * 1024 * 1024;
 }
 
 // static
-Platform::EError Platform::MkDir(string const & dirName)
+Platform::EError Platform::MkDir(std::string const & dirName)
 {
   if (QDir().exists(dirName.c_str()))
     return Platform::ERR_FILE_ALREADY_EXISTS;
