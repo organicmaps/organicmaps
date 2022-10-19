@@ -115,7 +115,7 @@ UNIT_TEST(CellID_CheckRectPoints)
   for (size_t i = 0; i < count; ++i)
   {
     Id const cell = Id::FromBitsAndLevel(i, level);
-    pair<uint32_t, uint32_t> const xy = cell.XY();
+    std::pair<uint32_t, uint32_t> const xy = cell.XY();
     uint32_t const r = 2*cell.Radius();
     uint32_t const bound = (1 << level) * r;
 

@@ -14,8 +14,6 @@
 
 namespace generator
 {
-using namespace std;
-
 template <typename Dataset>
 class ProcessorBooking : public FeatureProcessorInterface
 {
@@ -27,7 +25,7 @@ public:
   }
 
   // FeatureProcessorInterface overrides:
-  virtual std::shared_ptr<FeatureProcessorInterface> Clone() const override
+  std::shared_ptr<FeatureProcessorInterface> Clone() const override
   {
     CHECK(false, ());
     return {};

@@ -8,30 +8,24 @@
 
 #include "testing/testing.hpp"
 
-#include "generator/generate_info.hpp"
-#include "generator/intermediate_data.hpp"
 #include "generator/intermediate_elements.hpp"
 
 #include "coding/reader.hpp"
 #include "coding/writer.hpp"
 
-#include "defines.hpp"
-
 #include <cstdint>
 #include <string>
-#include <utility>
 #include <vector>
 
 namespace intermediate_data_test
 {
 using namespace generator;
-using namespace std;
 
 UNIT_TEST(Intermediate_Data_empty_way_element_save_load_test)
 {
   WayElement e1(1 /* fake osm id */);
 
-  using TBuffer = vector<uint8_t>;
+  using TBuffer = std::vector<uint8_t>;
   TBuffer buffer;
   MemWriter<TBuffer> w(buffer);
 
@@ -48,13 +42,13 @@ UNIT_TEST(Intermediate_Data_empty_way_element_save_load_test)
 
 UNIT_TEST(Intermediate_Data_way_element_save_load_test)
 {
-  vector<uint64_t> testData = {0, 1, 2, 3, 0xFFFFFFFF, 0xFFFFFFFFFFFFFFFF};
+  std::vector<uint64_t> testData = {0, 1, 2, 3, 0xFFFFFFFF, 0xFFFFFFFFFFFFFFFF};
 
   WayElement e1(1 /* fake osm id */);
 
   e1.m_nodes = testData;
 
-  using TBuffer = vector<uint8_t>;
+  using TBuffer = std::vector<uint8_t>;
   TBuffer buffer;
   MemWriter<TBuffer> w(buffer);
 
@@ -86,7 +80,7 @@ UNIT_TEST(Intermediate_Data_relation_element_save_load_test)
   e1.m_tags.emplace("key3", "value3");
   e1.m_tags.emplace("key4", "value4");
 
-  using TBuffer = vector<uint8_t>;
+  using TBuffer = std::vector<uint8_t>;
   TBuffer buffer;
   MemWriter<TBuffer> w(buffer);
 

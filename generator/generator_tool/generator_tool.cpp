@@ -202,7 +202,7 @@ DEFINE_bool(verbose, false, "Provide more detailed output.");
 MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
 {
   using namespace generator;
-  using namespace std;
+  using std::string;
 
   CHECK(IsLittleEndian(), ("Only little-endian architectures are supported."));
 
@@ -306,12 +306,12 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
   }
 
   // Load mwm tree only if we need it
-  unique_ptr<storage::CountryParentGetter> countryParentGetter;
+  std::unique_ptr<storage::CountryParentGetter> countryParentGetter;
   if (FLAGS_make_routing_index || FLAGS_make_cross_mwm || FLAGS_make_transit_cross_mwm ||
       FLAGS_make_transit_cross_mwm_experimental || !FLAGS_uk_postcodes_dataset.empty() ||
       !FLAGS_us_postcodes_dataset.empty())
   {
-    countryParentGetter = make_unique<storage::CountryParentGetter>();
+    countryParentGetter = std::make_unique<storage::CountryParentGetter>();
   }
 
   if (!FLAGS_dump_wikipedia_urls.empty())

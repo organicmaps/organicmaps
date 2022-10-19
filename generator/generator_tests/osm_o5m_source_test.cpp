@@ -11,12 +11,12 @@
 
 namespace osm_o5m_source_test
 {
-using namespace std;
+using std::begin, std::end, std::pair, std::string, std::vector;
 
 UNIT_TEST(OSM_O5M_Source_Node_read_test)
 {
   string data(begin(node2_o5m_data), end(node2_o5m_data));
-  stringstream ss(data);
+  std::stringstream ss(data);
 
   osm::O5MSource dataset([&ss](uint8_t * buffer, size_t size)
   {
@@ -49,14 +49,14 @@ UNIT_TEST(OSM_O5M_Source_Node_read_test)
 UNIT_TEST(OSM_O5M_Source_Way_read_test)
 {
   string data(begin(way_o5m_data), end(way_o5m_data));
-  stringstream ss(data);
+  std::stringstream ss(data);
 
   osm::O5MSource dataset([&ss](uint8_t * buffer, size_t size)
   {
     return ss.read(reinterpret_cast<char *>(buffer), size).gcount();
   }, 10 /* buffer size */);
 
-  set<int64_t> nodes;
+  std::set<int64_t> nodes;
 
   vector<pair<string, string>> const validTags = {
       {"name", "Yukon River"}, {"name:ru", "Юкон"}, {"waterway", "river"}};
@@ -102,15 +102,15 @@ UNIT_TEST(OSM_O5M_Source_Way_read_test)
 UNIT_TEST(OSM_O5M_Source_Relation_read_test)
 {
   string data(begin(relation_o5m_data), end(relation_o5m_data));
-  stringstream ss(data);
+  std::stringstream ss(data);
 
   osm::O5MSource dataset([&ss](uint8_t * buffer, size_t size)
   {
     return ss.read(reinterpret_cast<char *>(buffer), size).gcount();
   }, 10 /* buffer size */);
 
-  set<int64_t> nodes;
-  set<int64_t> entities;
+  std::set<int64_t> nodes;
+  std::set<int64_t> entities;
 
   vector<pair<string, string>> const validNodeTags = {
     {"name", "Whitehorse"}

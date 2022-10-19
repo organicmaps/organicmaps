@@ -87,7 +87,7 @@ public:
     classificator::Load();
   }
 
-  static bool Test(string const & osmSourceXML, set<pair<uint64_t, uint64_t>> const & trueAnswers)
+  static bool Test(string const & osmSourceXML, std::set<pair<uint64_t, uint64_t>> const & trueAnswers)
   {
     Platform & platform = GetPlatform();
     WritableDirChanger writableDirChanger(kTestDir);
@@ -110,7 +110,7 @@ public:
     // Test load this data from cached file.
     auto collector = std::make_shared<CameraCollector>(genInfo.GetIntermediateFileName(CAMERAS_TO_WAYS_FILENAME));
     generator::cache::IntermediateDataObjectsCache objectsCache;
-    auto cache = make_shared<generator::cache::IntermediateData>(objectsCache, genInfo);
+    auto cache = std::make_shared<generator::cache::IntermediateData>(objectsCache, genInfo);
     auto processor = CreateProcessor(ProcessorType::Noop);
     auto translator = std::make_shared<TranslatorForTest>(processor, cache);
     translator->SetCollector(collector);

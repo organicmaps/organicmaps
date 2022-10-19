@@ -12,5 +12,5 @@ namespace ftype
 {
 /// Get the types, name and layer for feature with the tree of tags.
 void GetNameAndType(OsmElement * p, FeatureBuilderParams & params,
-                    std::function<bool(uint32_t)> filterType = feature::IsUsefulType);
+                    std::function<bool(uint32_t)> const & filterType = feature::IsUsefulType);
 }
