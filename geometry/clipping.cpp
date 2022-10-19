@@ -4,11 +4,9 @@
 
 #include <algorithm>
 
-using namespace std;
-
 namespace m2
 {
-using AddPolygonPoint = function<void(m2::PointD const &)>;
+using AddPolygonPoint = std::function<void(m2::PointD const &)>;
 
 int GetRectSideIndex(int code)
 {
@@ -21,7 +19,7 @@ int GetRectSideIndex(int code)
   return 3;
 }
 
-void InsertCorners(vector<m2::PointD> const & corners, m2::PointD const & p1, m2::PointD const & p2,
+void InsertCorners(std::vector<m2::PointD> const & corners, m2::PointD const & p1, m2::PointD const & p2,
                    m2::PointD const & p3, AddPolygonPoint const & addPolygonPoint, int code1,
                    int code2)
 {
@@ -32,7 +30,7 @@ void InsertCorners(vector<m2::PointD> const & corners, m2::PointD const & p1, m2
   {
     if (!IsPointInsideTriangle(corners[endCornerInd], p1, p2, p3))
       return;
-    swap(cornerInd, endCornerInd);
+    std::swap(cornerInd, endCornerInd);
   }
 
   while (cornerInd != endCornerInd)
@@ -42,7 +40,7 @@ void InsertCorners(vector<m2::PointD> const & corners, m2::PointD const & p1, m2
   }
 }
 
-bool IntersectEdge(m2::RectD const & rect, vector<m2::PointD> const & corners,
+bool IntersectEdge(m2::RectD const & rect, std::vector<m2::PointD> const & corners,
                    m2::PointD const & pp1, m2::PointD const & pp2, m2::PointD const & pp3,
                    AddPolygonPoint const & addPolygonPoint, int prevClipCode, int nextClipCode,
                    int & firstClipCode, int & lastClipCode)
@@ -83,14 +81,14 @@ void ClipTriangleByRect(m2::RectD const & rect, m2::PointD const & p1, m2::Point
     return;
   }
 
-  const double kEps = 1e-8;
-  vector<m2::PointD> poligon;
-  auto const addPolygonPoint = [&poligon, kEps](m2::PointD const & pt) {
-    if (poligon.empty() || !poligon.back().EqualDxDy(pt, kEps))
-      poligon.push_back(pt);
+  double constexpr kEps = 1e-8;
+  std::vector<m2::PointD> polygon;
+  auto const addPolygonPoint = [&polygon](m2::PointD const & pt) {
+    if (polygon.empty() || !polygon.back().EqualDxDy(pt, kEps))
+      polygon.push_back(pt);
   };
 
-  vector<m2::PointD> const corners = {rect.LeftTop(), rect.RightTop(), rect.RightBottom(),
+  std::vector<m2::PointD> const corners = {rect.LeftTop(), rect.RightTop(), rect.RightBottom(),
                                       rect.LeftBottom()};
 
   int firstClipCode[3];
@@ -122,20 +120,20 @@ void ClipTriangleByRect(m2::RectD const & rect, m2::PointD const & p1, m2::Point
   if (intersectCount == 1 && intersected[2])
     InsertCorners(corners, p1, p2, p3, addPolygonPoint, lastClipCode[2], firstClipCode[2]);
 
-  if (!poligon.empty() && poligon.back().EqualDxDy(poligon[0], kEps))
-    poligon.pop_back();
+  if (!polygon.empty() && polygon.back().EqualDxDy(polygon[0], kEps))
+    polygon.pop_back();
 
-  if (poligon.size() < 3)
+  if (polygon.size() < 3)
     return;
 
-  for (size_t i = 0; i < poligon.size() - 2; ++i)
-    resultIterator(poligon[0], poligon[i + 1], poligon[i + 2]);
+  for (size_t i = 0; i < polygon.size() - 2; ++i)
+    resultIterator(polygon[0], polygon[i + 1], polygon[i + 2]);
 }
 
 std::vector<m2::SharedSpline> ClipPathByRectImpl(m2::RectD const & rect,
                                                  std::vector<m2::PointD> const & path)
 {
-  vector<m2::SharedSpline> result;
+  std::vector<m2::SharedSpline> result;
 
   if (path.size() < 2)
     return result;
@@ -199,7 +197,7 @@ RectCase GetRectCase(m2::RectD const & rect, std::vector<m2::PointD> const & pat
   return RectCase::Outside;
 }
 
-vector<m2::SharedSpline> ClipSplineByRect(m2::RectD const & rect, m2::SharedSpline const & spline)
+std::vector<m2::SharedSpline> ClipSplineByRect(m2::RectD const & rect, m2::SharedSpline const & spline)
 {
   switch (GetRectCase(rect, spline->GetPath()))
   {

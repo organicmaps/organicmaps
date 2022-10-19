@@ -2,8 +2,8 @@
 
 #include "geometry/point3d.hpp"
 
-using namespace std;
-
+namespace point3d_tests
+{
 UNIT_TEST(Point3d_DotProduct)
 {
   m3::Point<int> p1(1, 4, 3);
@@ -96,5 +96,5 @@ UNIT_TEST(Point3d_RotateXYZ)
 
   auto const north = rotatedFirst.RotateAroundY(-angleDegree);
   TEST_ALMOST_EQUAL_ABS(north, m3::PointD(0.0, 0.0, std::sqrt(3.0)), 1e-10, ());
-
 }
+}  // namespace point3d_tests
