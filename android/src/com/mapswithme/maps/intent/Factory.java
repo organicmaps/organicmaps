@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import com.mapswithme.maps.DownloadResourcesLegacyActivity;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MapFragment;
@@ -376,12 +377,14 @@ public class Factory
     @Override
     public boolean run(@NonNull MwmActivity target)
     {
-      Fragment f = target.getSupportFragmentManager().findFragmentByTag(mDialogName);
+      final FragmentManager fragmentManager = target.getSupportFragmentManager();
+      Fragment f = fragmentManager.findFragmentByTag(mDialogName);
       if (f != null)
         return true;
 
-      final DialogFragment fragment = (DialogFragment) Fragment.instantiate(target, mDialogName);
-      fragment.show(target.getSupportFragmentManager(), mDialogName);
+      final DialogFragment fragment = (DialogFragment) fragmentManager.getFragmentFactory()
+        .instantiate(target.getClassLoader(), mDialogName);
+      fragment.show(fragmentManager, mDialogName);
       return true;
     }
 
