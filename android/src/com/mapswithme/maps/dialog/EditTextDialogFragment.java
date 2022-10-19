@@ -18,6 +18,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import com.google.android.material.textfield.TextInputLayout;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
@@ -89,9 +90,11 @@ public class EditTextDialogFragment extends BaseMwmDialogFragment
     args.putString(ARG_NEGATIVE_BUTTON, negativeBtn == null ? null : negativeBtn);
     args.putString(ARG_HINT, hint);
     args.putInt(ARG_TEXT_LENGTH_LIMIT, textLimit);
-    final EditTextDialogFragment fragment = (EditTextDialogFragment) Fragment.instantiate(parent.requireActivity(), EditTextDialogFragment.class.getName());
+    FragmentManager fragmentManager = parent.getChildFragmentManager();
+    final EditTextDialogFragment fragment = (EditTextDialogFragment) fragmentManager.getFragmentFactory()
+      .instantiate(parent.requireActivity().getClassLoader(), EditTextDialogFragment.class.getName());
     fragment.setArguments(args);
-    fragment.show(parent.getChildFragmentManager(), EditTextDialogFragment.class.getName());
+    fragment.show(fragmentManager, EditTextDialogFragment.class.getName());
     fragment.mInputValidator = inputValidator;
 
     return fragment;

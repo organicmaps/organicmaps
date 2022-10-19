@@ -16,6 +16,7 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import androidx.fragment.app.FragmentManager;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmToolbarFragment;
@@ -205,10 +206,13 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
     Bundle args = new Bundle();
     if (focusToLastName)
       args.putInt(EditorFragment.LAST_INDEX_OF_NAMES_ARRAY, sNames.size() - 1);
-    final Fragment editorFragment = Fragment.instantiate(requireActivity(), EditorFragment.class.getName(), args);
-    getChildFragmentManager().beginTransaction()
-                             .replace(R.id.fragment_container, editorFragment, EditorFragment.class.getName())
-                             .commit();
+    FragmentManager fragmentManager = getChildFragmentManager();
+    final Fragment editorFragment = fragmentManager.getFragmentFactory()
+      .instantiate(requireActivity().getClassLoader(), EditorFragment.class.getName());
+    editorFragment.setArguments(args);
+    fragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, editorFragment, EditorFragment.class.getName())
+                        .commit();
   }
 
   protected void editTimetable()
@@ -253,7 +257,9 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
     mMode = newMode;
     getToolbarController().setTitle(toolbarTitle);
     showSearchControls(showSearch);
-    final Fragment fragment = Fragment.instantiate(requireActivity(), fragmentClass.getName(), args);
+    FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+    final Fragment fragment = fragmentManager.getFragmentFactory().instantiate(requireActivity().getClassLoader(), fragmentClass.getName());
+    fragment.setArguments(args);
     getChildFragmentManager().beginTransaction()
                              .replace(R.id.fragment_container, fragment, fragmentClass.getName())
                              .commit();

@@ -194,7 +194,7 @@ public class SearchFragment extends BaseMwmFragment
 
     if (fragment == null || fragment.isDetached() || fragment.isRemoving())
     {
-      fragment = Fragment.instantiate(requireActivity(), fragmentName, null);
+      fragment = fm.getFragmentFactory().instantiate(requireActivity().getClassLoader(), fragmentName);
       fm.beginTransaction()
         .add(R.id.download_suggest_frame, fragment, fragmentName)
         .commit();
