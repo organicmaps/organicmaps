@@ -3,10 +3,8 @@
 #include "routing_common/maxspeed_conversion.hpp"
 
 #include "base/small_map.hpp"
-#include "base/stl_helpers.hpp"
 
 #include <array>
-#include <cstdint>
 #include <functional>
 #include <initializer_list>
 #include <limits>
@@ -15,7 +13,6 @@
 #include <sstream>
 #include <string>
 #include <unordered_map>
-#include <utility>
 #include <vector>
 
 class Classificator;
@@ -201,13 +198,6 @@ struct HighwayBasedInfo
 class VehicleModelInterface
 {
 public:
-  enum class RoadAvailability
-  {
-    NotAvailable,
-    Available,
-    Unknown,
-  };
-
   virtual ~VehicleModelInterface() = default;
 
   /// @return Allowed weight and ETA speed in KMpH.
@@ -258,7 +248,7 @@ class VehicleModel : public VehicleModelInterface
 public:
   struct FeatureTypeLimits
   {
-    std::vector<std::string> m_type;
+    HighwayType m_type;
     bool m_isPassThroughAllowed;      // pass through this road type is allowed
   };
 
@@ -275,7 +265,7 @@ public:
   };
 
   using AdditionalRoadsList = std::initializer_list<AdditionalRoad>;
-  using LimitsInitList = std::initializer_list<FeatureTypeLimits>;
+  using LimitsInitList = std::vector<FeatureTypeLimits>;
   using SurfaceInitList = std::initializer_list<FeatureTypeSurface>;
 
   VehicleModel(Classificator const & classif, LimitsInitList const & featureTypeLimits,
@@ -295,9 +285,7 @@ public:
 public:
   /// @returns true if |m_highwayTypes| or |m_addRoadTypes| contains |type| and false otherwise.
   bool IsRoadType(uint32_t type) const;
-
-  template <class TList>
-  bool HasRoadType(TList const & types) const
+  template <class TList> bool HasRoadType(TList const & types) const
   {
     for (uint32_t t : types)
     {
@@ -325,8 +313,8 @@ public:
   bool HasPassThroughType(feature::TypesHolder const & types) const;
 
 protected:
-  /// @returns a special restriction which is set to the feature.
-  virtual RoadAvailability GetRoadAvailability(feature::TypesHolder const & types) const;
+  uint32_t m_yesType, m_noType;
+  bool IsRoadImpl(feature::TypesHolder const & types) const;
 
   void AddAdditionalRoadTypes(Classificator const & classif, AdditionalRoadsList const & roads);
 
@@ -383,7 +371,6 @@ protected:
 
 HighwayBasedFactors GetOneFactorsForBicycleAndPedestrianModel();
 
-std::string DebugPrint(VehicleModelInterface::RoadAvailability const l);
 std::string DebugPrint(SpeedKMpH const & speed);
 std::string DebugPrint(SpeedFactor const & speedFactor);
 std::string DebugPrint(InOutCitySpeedKMpH const & speed);

@@ -28,25 +28,30 @@ HighwayBasedSpeeds const kDefaultSpeeds = {
                         SpeedKMpH(50.0 /* weight */, 60.0 /* eta */) /* out city */)},
     {HighwayType::HighwayService,
      InOutCitySpeedKMpH(SpeedKMpH(47.0 /* weight */, 36.0 /* eta */) /* in city */,
-                        SpeedKMpH(50.0 /* weight */, 40.0 /* eta */) /* out city */)}};
+                        SpeedKMpH(50.0 /* weight */, 40.0 /* eta */) /* out city */)}
+};
 
 HighwayBasedFactors const kDefaultFactors = {
     {HighwayType::HighwayTrunk, InOutCityFactor(1.0)},
     {HighwayType::HighwayPrimary, InOutCityFactor(1.0)},
     {HighwayType::HighwaySecondary, InOutCityFactor(1.0)},
-    {HighwayType::HighwayResidential, InOutCityFactor(0.5)}};
+    {HighwayType::HighwayResidential, InOutCityFactor(0.5)}
+};
 
-VehicleModel::LimitsInitList const kTestLimits = {{{"highway", "trunk"}, true},
-                                                   {{"highway", "primary"}, true},
-                                                   {{"highway", "secondary"}, true},
-                                                   {{"highway", "residential"}, true},
-                                                   {{"highway", "service"}, false}};
+VehicleModel::LimitsInitList const kTestLimits = {
+  {HighwayType::HighwayTrunk, true},
+  {HighwayType::HighwayPrimary, true},
+  {HighwayType::HighwaySecondary, true},
+  {HighwayType::HighwayResidential, true},
+  {HighwayType::HighwayService, false}
+};
 
 VehicleModel::SurfaceInitList const kCarSurface = {
     {{"psurface", "paved_good"}, {0.8 /* weightFactor */, 0.9 /* etaFactor */}},
     {{"psurface", "paved_bad"}, {0.4, 0.5}},
     {{"psurface", "unpaved_good"}, {0.6, 0.8}},
-    {{"psurface", "unpaved_bad"}, {0.2, 0.2}}};
+    {{"psurface", "unpaved_bad"}, {0.2, 0.2}}
+};
 
 class VehicleModelTest
 {

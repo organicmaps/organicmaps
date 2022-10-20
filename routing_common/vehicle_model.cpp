@@ -5,9 +5,6 @@
 #include "indexer/ftypes_matcher.hpp"
 
 #include "base/assert.hpp"
-#include "base/checked_cast.hpp"
-#include "base/macros.hpp"
-#include "base/math.hpp"
 
 #include <algorithm>
 #include <sstream>
@@ -54,14 +51,17 @@ VehicleModel::VehicleModel(Classificator const & classif, LimitsInitList const &
   m_roadTypes.Reserve(featureTypeLimits.size());
   for (auto const & v : featureTypeLimits)
   {
-    auto const clType = classif.GetTypeByPath(v.m_type);
-    auto const hwType = static_cast<HighwayType>(classif.GetIndexForType(clType));
-    auto const * speed = info.m_speeds.Find(hwType);
-    ASSERT(speed, ("Can't found speed for", hwType));
+    auto const * speed = info.m_speeds.Find(v.m_type);
+    ASSERT(speed, ("Can't found speed for", v.m_type));
 
-    /// @todo Consider using not only highway class speed but max_speed * max_speed_factor.
-    m_maxModelSpeed = Max(m_maxModelSpeed, *speed);
-    m_roadTypes.Insert(clType, v.m_isPassThroughAllowed);
+    if (v.m_type != HighwayType::RouteFerry && v.m_type != HighwayType::RailwayRailMotorVehicle &&
+        v.m_type != HighwayType::RouteShuttleTrain)
+    {
+      /// @todo Consider using not only highway class speed but max_speed * max_speed_factor.
+      m_maxModelSpeed = Max(m_maxModelSpeed, *speed);
+    }
+
+    m_roadTypes.Insert(classif.GetTypeForIndex(static_cast<uint32_t>(v.m_type)), v.m_isPassThroughAllowed);
   }
   m_roadTypes.FinishBuilding();
 
@@ -101,12 +101,7 @@ uint32_t VehicleModel::PrepareToMatchType(uint32_t type) const
 SpeedKMpH VehicleModel::GetSpeed(FeatureType & f, SpeedParams const & speedParams) const
 {
   feature::TypesHolder const types(f);
-
-  RoadAvailability const restriction = GetRoadAvailability(types);
-  if (restriction == RoadAvailability::NotAvailable || !HasRoadType(types))
-    return {};
-
-  return GetTypeSpeed(types, speedParams);
+  return IsRoadImpl(types) ? GetTypeSpeed(types, speedParams) : SpeedKMpH();
 }
 
 std::optional<HighwayType> VehicleModel::GetHighwayType(FeatureType & f) const
@@ -119,9 +114,6 @@ std::optional<HighwayType> VehicleModel::GetHighwayType(FeatureType & f) const
     auto const ret = GetHighwayType(t);
     if (ret)
       return *ret;
-
-    if (m_addRoadTypes.Find(t))
-      return static_cast<HighwayType>(classif().GetIndexForType(t));
   }
 
   // For example Denmark has "No track" profile (see kCarOptionsDenmark), but tracks exist in MWM.
@@ -249,14 +241,7 @@ bool VehicleModel::HasOneWayType(feature::TypesHolder const & types) const
 
 bool VehicleModel::IsRoad(FeatureType & f) const
 {
-  if (f.GetGeomType() != feature::GeomType::Line)
-    return false;
-
-  feature::TypesHolder const types(f);
-
-  if (GetRoadAvailability(types) == RoadAvailability::NotAvailable)
-    return false;
-  return HasRoadType(types);
+  return f.GetGeomType() == feature::GeomType::Line && IsRoadImpl(feature::TypesHolder(f));
 }
 
 bool VehicleModel::IsPassThroughAllowed(FeatureType & f) const
@@ -288,9 +273,18 @@ bool VehicleModel::IsRoadType(uint32_t type) const
   return m_addRoadTypes.Find(type) || m_roadTypes.Find(type);
 }
 
-VehicleModelInterface::RoadAvailability VehicleModel::GetRoadAvailability(feature::TypesHolder const &) const
+bool VehicleModel::IsRoadImpl(feature::TypesHolder const & types) const
 {
-  return RoadAvailability::Unknown;
+  for (uint32_t const t : types)
+  {
+    // Assume that Yes and No are not possible at the same time. Return first flag, otherwise.
+    if (t == m_yesType)
+      return true;
+    if (t == m_noType)
+      return false;
+  }
+
+  return HasRoadType(types);
 }
 
 VehicleModelFactory::VehicleModelFactory(
@@ -355,18 +349,6 @@ HighwayBasedFactors GetOneFactorsForBicycleAndPedestrianModel()
       {HighwayType::ManMadePier, InOutCityFactor(1.0)},
       {HighwayType::RouteFerry, InOutCityFactor(1.0)},
   };
-}
-
-string DebugPrint(VehicleModelInterface::RoadAvailability const l)
-{
-  switch (l)
-  {
-  case VehicleModelInterface::RoadAvailability::Available: return "Available";
-  case VehicleModelInterface::RoadAvailability::NotAvailable: return "NotAvailable";
-  case VehicleModelInterface::RoadAvailability::Unknown: return "Unknown";
-  }
-
-  UNREACHABLE();
 }
 
 string DebugPrint(SpeedKMpH const & speed)
