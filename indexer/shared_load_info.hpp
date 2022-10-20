@@ -18,8 +18,8 @@ public:
   SharedLoadInfo(FilesContainerR const & cont, DataHeader const & header);
 
   Reader GetDataReader() const;
-  Reader GetGeometryReader(int ind) const;
-  Reader GetTrianglesReader(int ind) const;
+  Reader GetGeometryReader(size_t ind) const;
+  Reader GetTrianglesReader(size_t ind) const;
 
   serial::GeometryCodingParams const & GetDefGeometryCodingParams() const
   {

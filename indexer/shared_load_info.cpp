@@ -16,12 +16,12 @@ SharedLoadInfo::Reader SharedLoadInfo::GetDataReader() const
   return m_cont.GetReader(FEATURES_FILE_TAG);
 }
 
-SharedLoadInfo::Reader SharedLoadInfo::GetGeometryReader(int ind) const
+SharedLoadInfo::Reader SharedLoadInfo::GetGeometryReader(size_t ind) const
 {
   return m_cont.GetReader(GetTagForIndex(GEOMETRY_FILE_TAG, ind));
 }
 
-SharedLoadInfo::Reader SharedLoadInfo::GetTrianglesReader(int ind) const
+SharedLoadInfo::Reader SharedLoadInfo::GetTrianglesReader(size_t ind) const
 {
   return m_cont.GetReader(GetTagForIndex(TRIANGLE_FILE_TAG, ind));
 }

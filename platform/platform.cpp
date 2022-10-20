@@ -17,7 +17,7 @@
 
 namespace
 {
-string RandomString(size_t length)
+std::string RandomString(size_t length)
 {
   static std::string_view constexpr kCharset =
       "0123456789"
@@ -33,12 +33,12 @@ string RandomString(size_t length)
   return str;
 }
 
-bool IsSpecialDirName(string const & dirName)
+bool IsSpecialDirName(std::string const & dirName)
 {
   return dirName == "." || dirName == "..";
 }
 
-bool GetFileTypeChecked(string const & path, Platform::EFileType & type)
+bool GetFileTypeChecked(std::string const & path, Platform::EFileType & type)
 {
   Platform::EError const ret = Platform::GetFileType(path, type);
   if (ret != Platform::ERR_OK)
@@ -77,7 +77,7 @@ Platform::EError Platform::ErrnoToError()
 }
 
 // static
-bool Platform::RmDirRecursively(string const & dirName)
+bool Platform::RmDirRecursively(std::string const & dirName)
 {
   if (dirName.empty() || IsSpecialDirName(dirName))
     return false;
@@ -86,9 +86,9 @@ bool Platform::RmDirRecursively(string const & dirName)
 
   FilesList allFiles;
   GetFilesByRegExp(dirName, ".*", allFiles);
-  for (string const & file : allFiles)
+  for (std::string const & file : allFiles)
   {
-    string const path = base::JoinPath(dirName, file);
+    std::string const path = base::JoinPath(dirName, file);
 
     EFileType type;
     if (GetFileType(path, type) != ERR_OK)
@@ -112,7 +112,7 @@ bool Platform::RmDirRecursively(string const & dirName)
   return res;
 }
 
-void Platform::SetSettingsDir(string const & path)
+void Platform::SetSettingsDir(std::string const & path)
 {
   m_settingsDir = base::AddSlashIfNeeded(path);
 }
@@ -127,12 +127,12 @@ std::string Platform::WritablePathForFile(std::string const & file) const
   return base::JoinPath(WritableDir(), file);
 }
 
-string Platform::ReadPathForFile(string const & file, string searchScope) const
+std::string Platform::ReadPathForFile(std::string const & file, std::string searchScope) const
 {
   if (searchScope.empty())
     searchScope = "wrf";
 
-  string fullPath;
+  std::string fullPath;
   for (size_t i = 0; i < searchScope.size(); ++i)
   {
     switch (searchScope[i])
@@ -165,29 +165,29 @@ string Platform::ReadPathForFile(string const & file, string searchScope) const
 }
 
 // static
-string Platform::MetaServerUrl()
+std::string Platform::MetaServerUrl()
 {
   return METASERVER_URL;
 }
 
 // static
-string Platform::DefaultUrlsJSON()
+std::string Platform::DefaultUrlsJSON()
 {
   return DEFAULT_URLS_JSON;
 }
 
-bool Platform::RemoveFileIfExists(string const & filePath)
+bool Platform::RemoveFileIfExists(std::string const & filePath)
 {
   return IsFileExistsByFullPath(filePath) ? base::DeleteFileX(filePath) : true;
 }
 
-string Platform::TmpPathForFile() const
+std::string Platform::TmpPathForFile() const
 {
   size_t constexpr kNameLen = 32;
   return base::JoinPath(TmpDir(), RandomString(kNameLen));
 }
 
-string Platform::TmpPathForFile(string const & prefix, string const & suffix) const
+std::string Platform::TmpPathForFile(std::string const & prefix, std::string const & suffix) const
 {
   size_t constexpr kRandomLen = 8;
   return base::JoinPath(TmpDir(), prefix + RandomString(kRandomLen) + suffix);
@@ -216,7 +216,7 @@ void Platform::GetFontNames(FilesList & res) const
   LOG(LINFO, ("Available font files:", (res)));
 }
 
-void Platform::GetFilesByExt(string const & directory, string const & ext, FilesList & outFiles)
+void Platform::GetFilesByExt(std::string const & directory, std::string const & ext, FilesList & outFiles)
 {
   // Transform extension mask to regexp (.mwm -> \.mwm$)
   ASSERT ( !ext.empty(), () );
@@ -226,12 +226,12 @@ void Platform::GetFilesByExt(string const & directory, string const & ext, Files
 }
 
 // static
-void Platform::GetFilesByType(string const & directory, unsigned typeMask,
+void Platform::GetFilesByType(std::string const & directory, unsigned typeMask,
                               TFilesWithType & outFiles)
 {
   FilesList allFiles;
   GetFilesByRegExp(directory, ".*", allFiles);
-  for (string const & file : allFiles)
+  for (auto const & file : allFiles)
   {
     EFileType type;
     if (GetFileType(base::JoinPath(directory, file), type) != ERR_OK)
@@ -242,7 +242,7 @@ void Platform::GetFilesByType(string const & directory, unsigned typeMask,
 }
 
 // static
-bool Platform::IsDirectory(string const & path)
+bool Platform::IsDirectory(std::string const & path)
 {
   EFileType fileType;
   if (GetFileType(path, fileType) != ERR_OK)
@@ -251,7 +251,7 @@ bool Platform::IsDirectory(string const & path)
 }
 
 // static
-void Platform::GetFilesRecursively(string const & directory, FilesList & filesList)
+void Platform::GetFilesRecursively(std::string const & directory, FilesList & filesList)
 {
   TFilesWithType files;
 
@@ -277,18 +277,18 @@ void Platform::GetFilesRecursively(string const & directory, FilesList & filesLi
   }
 }
 
-void Platform::SetWritableDirForTests(string const & path)
+void Platform::SetWritableDirForTests(std::string const & path)
 {
   m_writableDir = base::AddSlashIfNeeded(path);
 }
 
-void Platform::SetResourceDir(string const & path)
+void Platform::SetResourceDir(std::string const & path)
 {
   m_resourcesDir = base::AddSlashIfNeeded(path);
 }
 
 // static
-bool Platform::MkDirChecked(string const & dirName)
+bool Platform::MkDirChecked(std::string const & dirName)
 {
   Platform::EError const ret = MkDir(dirName);
   switch (ret)
@@ -311,14 +311,14 @@ bool Platform::MkDirChecked(string const & dirName)
 }
 
 // static
-bool Platform::MkDirRecursively(string const & dirName)
+bool Platform::MkDirRecursively(std::string const & dirName)
 {
-  string::value_type const sep[] = { base::GetNativeSeparator(), 0};
-  string path = strings::StartsWith(dirName, sep) ? sep : ".";
+  std::string::value_type const sep[] = { base::GetNativeSeparator(), 0};
+  std::string path = strings::StartsWith(dirName, sep) ? sep : ".";
   auto const tokens = strings::Tokenize(dirName, sep);
   for (auto const & t : tokens)
   {
-    path = base::JoinPath(path, string(t));
+    path = base::JoinPath(path, std::string{t});
     if (!IsFileExistsByFullPath(path))
     {
       auto const ret = MkDir(path);
@@ -341,7 +341,7 @@ bool Platform::MkDirRecursively(string const & dirName)
 
 unsigned Platform::CpuCores() const
 {
-  unsigned const cores = thread::hardware_concurrency();
+  unsigned const cores = std::thread::hardware_concurrency();
   return cores > 0 ? cores : 1;
 }
 
@@ -365,9 +365,9 @@ void Platform::RunThreads()
   ASSERT(!m_fileThread || m_fileThread->IsShutDown(), ());
   ASSERT(!m_backgroundThread || m_backgroundThread->IsShutDown(), ());
 
-  m_networkThread = make_unique<base::thread_pool::delayed::ThreadPool>();
-  m_fileThread = make_unique<base::thread_pool::delayed::ThreadPool>();
-  m_backgroundThread = make_unique<base::thread_pool::delayed::ThreadPool>();
+  m_networkThread = std::make_unique<base::thread_pool::delayed::ThreadPool>();
+  m_fileThread = std::make_unique<base::thread_pool::delayed::ThreadPool>();
+  m_backgroundThread = std::make_unique<base::thread_pool::delayed::ThreadPool>();
 }
 
 void Platform::SetGuiThread(std::unique_ptr<base::TaskLoop> guiThread)
@@ -387,7 +387,7 @@ void Platform::CancelTask(Thread thread, base::TaskLoop::TaskId id)
   }
 }
 
-string DebugPrint(Platform::EError err)
+std::string DebugPrint(Platform::EError err)
 {
   switch (err)
   {
@@ -408,7 +408,7 @@ string DebugPrint(Platform::EError err)
   UNREACHABLE();
 }
 
-string DebugPrint(Platform::ChargingStatus status)
+std::string DebugPrint(Platform::ChargingStatus status)
 {
   switch (status)
   {

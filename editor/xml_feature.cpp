@@ -19,7 +19,8 @@
 
 namespace editor
 {
-using std::string_view;
+using std::string, std::string_view;
+
 namespace
 {
 constexpr char const * kTimestamp = "timestamp";
@@ -37,7 +38,7 @@ constexpr char const * kRelationType = "relation";
 
 pugi::xml_node FindTag(pugi::xml_document const & document, string_view k)
 {
-  std::string key = "//tag[@k='";
+  string key = "//tag[@k='";
   key.append(k).append("']");
   return document.select_node(key.data()).node();
 }
@@ -237,6 +238,7 @@ std::vector<m2::PointD> XMLFeature::GetGeometry() const
 
 string XMLFeature::GetName(string const & lang) const
 {
+  using std::string;
   ASSERT_EQUAL(string(kDefaultLang),
                string(StringUtf8Multilang::GetLangByCode(StringUtf8Multilang::kDefaultCode)), ());
   ASSERT_EQUAL(string(kIntlLang),
@@ -283,7 +285,7 @@ void XMLFeature::SetName(string_view lang, string_view name)
   }
   else
   {
-    std::string key = kDefaultName;
+    string key = kDefaultName;
     key.append(":").append(lang);
     SetTagValue(key, name);
   }
@@ -560,7 +562,7 @@ bool FromXML(XMLFeature const & xml, osm::EditableMapObject & object)
   Classificator const & cl = classif();
   xml.ForEachTag([&](string_view k, string_view v)
   {
-    if (object.UpdateMetadataValue(k, std::string(v)))
+    if (object.UpdateMetadataValue(k, string(v)))
       return;
 
     // Cuisines are already processed before this loop.

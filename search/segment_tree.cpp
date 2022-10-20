@@ -19,7 +19,7 @@ size_t CeilPow2Minus1(size_t n)
 }
 }  // namespace
 
-SegmentTree::SegmentTree(vector<Segment> const & segments) : m_tree(CeilPow2Minus1(segments.size()))
+SegmentTree::SegmentTree(std::vector<Segment> const & segments) : m_tree(CeilPow2Minus1(segments.size()))
 {
   ASSERT(is_sorted(segments.begin(), segments.end()), ());
   BuildTree(0 /* index */, segments, 0 /* left */, m_tree.size() /* right */);
@@ -51,7 +51,7 @@ void SegmentTree::FindSegment(size_t index, Segment const & segment, Fn && fn)
   Update(index);
 }
 
-void SegmentTree::BuildTree(size_t index, vector<Segment> const & segments, size_t left,
+void SegmentTree::BuildTree(size_t index, std::vector<Segment> const & segments, size_t left,
                             size_t right)
 {
   ASSERT_LESS_OR_EQUAL(left, right, ());
@@ -84,7 +84,7 @@ void SegmentTree::Update(size_t index)
   {
     if (!Exists(c))
       continue;
-    node.m_to = max(node.m_to, m_tree[c].m_to);
+    node.m_to = std::max(node.m_to, m_tree[c].m_to);
   }
 }
 }  // namespace search

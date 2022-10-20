@@ -72,6 +72,6 @@ void StreetVicinityLoader::LoadStreet(uint32_t featureId, Street & street)
   auto const & intervals = coveringGetter.Get<RectId::DEPTH_LEVELS>(m_scale);
   m_context->ForEachIndex(intervals, m_scale, base::MakeBackInsertFunctor(street.m_features));
 
-  street.m_calculator = make_unique<ProjectionOnStreetCalculator>(points);
+  street.m_calculator = std::make_unique<ProjectionOnStreetCalculator>(points);
 }
 }  // namespace search
