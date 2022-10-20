@@ -37,7 +37,7 @@ using namespace pugi;
 using feature::GeomType;
 using feature::Metadata;
 using editor::XMLFeature;
-using std::move, std::make_shared;
+using std::move, std::make_shared, std::string;
 
 namespace
 {
@@ -57,13 +57,13 @@ constexpr char const * kMatchedFeatureIsEmpty = "Matched feature has no tags";
 
 struct XmlSection
 {
-  XmlSection(FeatureStatus status, std::string const & sectionName)
+  XmlSection(FeatureStatus status, string const & sectionName)
     : m_status(status), m_sectionName(sectionName)
   {
   }
 
   FeatureStatus m_status = FeatureStatus::Untouched;
-  std::string m_sectionName;
+  string m_sectionName;
 };
 
 std::array<XmlSection, 4> const kXmlSections = {{{FeatureStatus::Deleted, kDeleteSection},
@@ -100,7 +100,7 @@ struct LogHelper
   MwmSet::MwmId const & m_mwmId;
 };
 
-bool NeedsUpload(std::string const & uploadStatus)
+bool NeedsUpload(string const & uploadStatus)
 {
   return uploadStatus != kUploaded && uploadStatus != kDeletedFromOSMServer &&
          uploadStatus != kMatchedFeatureIsEmpty;

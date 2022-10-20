@@ -40,7 +40,7 @@ void ForEachOfTypesInRect(DataSource const & dataSource, std::vector<uint32_t> c
   base::Cancellable const cancellable;
   CategoriesCache cache(types, cancellable);
   auto pivotRectsCache = PivotRectsCache(1 /* maxNumEntries */, cancellable,
-                                         max(pivot.SizeX(), pivot.SizeY()) /* maxRadiusMeters */);
+                                         std::max(pivot.SizeX(), pivot.SizeY()) /* maxRadiusMeters */);
 
   for (auto const & info : infos)
   {
