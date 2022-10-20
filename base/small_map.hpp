@@ -33,6 +33,8 @@ public:
     return nullptr;
   }
 
+  size_t size() const { return m_map.size(); }
+
 protected:
   /// @todo buffer_vector is not suitable now, because Key/Value is not default constructible.
   std::vector<ValueType> m_map;

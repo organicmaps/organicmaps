@@ -93,11 +93,8 @@ public:
   {
     auto const & cl = classif();
 
-    for (auto const & road : CarModel::GetAdditionalRoads())
-      m_hwtags.push_back(cl.GetTypeByPath(road.m_type));
-
     for (auto const & speed : CarModel::GetOptions())
-      m_hwtags.push_back(cl.GetTypeByPath(speed.m_type));
+      m_hwtags.push_back(cl.GetTypeForIndex(static_cast<uint32_t>(speed.m_type)));
 
     for (auto const & surface : CarModel::GetSurfaces())
       m_surfaceTags.push_back(cl.GetTypeByPath(surface.m_type));
