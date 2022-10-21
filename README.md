@@ -115,7 +115,8 @@ See [GOVERNANCE](docs/GOVERNANCE.md).
 
 ## Contributing
 
-See [CONTRIBUTING](docs/CONTRIBUTING.md) and read everything in the [docs folder](docs/) of the repository.
+If you want to build the project, check [docs/INSTALL.md](docs/INSTALL.md). If you want to help the project,
+see [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md) and read everything in the [docs folder](docs/) of the repository.
 
 ## Beta
 
