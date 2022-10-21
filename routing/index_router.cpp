@@ -1685,10 +1685,10 @@ RouterResultCode IndexRouter::RedressRoute(vector<Segment> const & segments,
     auto & segment = routeSegment.GetSegment();
     routeSegment.SetTransitInfo(worldGraph.GetTransitInfo(segment));
 
+    routeSegment.SetRoadTypes(starter.GetRoutingOptions(segment));
+
     if (m_vehicleType == VehicleType::Car)
     {
-      routeSegment.SetRoadTypes(starter.GetRoutingOptions(segment));
-
       if (segment.IsRealSegment())
       {
         if (!AreSpeedCamerasProhibited(segment.GetMwmId()))

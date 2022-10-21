@@ -572,16 +572,18 @@ void RoutingManager::CollectRoadWarnings(vector<routing::RouteSegment> const & s
 {
   auto const isWarnedType = [](RoutingOptions::Road roadType)
   {
-    return roadType == RoutingOptions::Road::Toll || roadType == RoutingOptions::Road::Ferry ||
-      roadType == RoutingOptions::Road::Dirty;
+    return (roadType == RoutingOptions::Road::Toll || roadType == RoutingOptions::Road::Ferry ||
+            roadType == RoutingOptions::Road::Dirty);
   };
+
+  bool const isCarRouter = (m_currentRouterType == RouterType::Vehicle);
 
   double currentDistance = baseDistance;
   double startDistance = baseDistance;
   RoutingOptions::Road lastType = RoutingOptions::Road::Usual;
   for (size_t i = 0; i < segments.size(); ++i)
   {
-    auto const currentType = ChooseMainRoutingOptionRoad(segments[i].GetRoadTypes());
+    auto const currentType = ChooseMainRoutingOptionRoad(segments[i].GetRoadTypes(), isCarRouter);
     if (currentType != lastType)
     {
       if (isWarnedType(lastType))
@@ -648,7 +650,7 @@ bool RoutingManager::InsertRoute(Route const & route)
 
   RoadWarningsCollection roadWarnings;
 
-  auto const isTransitRoute = m_currentRouterType == RouterType::Transit;
+  bool const isTransitRoute = (m_currentRouterType == RouterType::Transit);
   shared_ptr<TransitRouteDisplay> transitRouteDisplay;
   if (isTransitRoute)
   {
@@ -678,8 +680,6 @@ bool RoutingManager::InsertRoute(Route const & route)
           subroute->AddStyle(df::SubrouteStyle(df::kRouteColor, df::kRouteOutlineColor));
           FillTrafficForRendering(segments, subroute->m_traffic);
           FillTurnsDistancesForRendering(segments, subroute->m_baseDistance, subroute->m_turns);
-          if (m_currentRouterType == RouterType::Vehicle)
-            CollectRoadWarnings(segments, startPt, subroute->m_baseDistance, getMwmId, roadWarnings);
           break;
         }
       case RouterType::Transit:
@@ -705,6 +705,8 @@ bool RoutingManager::InsertRoute(Route const & route)
       default: CHECK(false, ("Unknown router type"));
     }
 
+    CollectRoadWarnings(segments, startPt, subroute->m_baseDistance, getMwmId, roadWarnings);
+
     auto const subrouteId = m_drapeEngine.SafeCallWithResult(&df::DrapeEngine::AddSubroute,
                                                              df::SubrouteConstPtr(subroute.release()));
 
@@ -727,12 +729,11 @@ bool RoutingManager::InsertRoute(Route const & route)
     });
   }
 
-  if (!roadWarnings.empty())
-  {
+  bool const hasWarnings = !roadWarnings.empty();
+  if (hasWarnings && m_currentRouterType == RouterType::Vehicle)
     CreateRoadWarningMarks(move(roadWarnings));
-    return true;
-  }
-  return false;
+
+  return hasWarnings;
 }
 
 void RoutingManager::FollowRoute()

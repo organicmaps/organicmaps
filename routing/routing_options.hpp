@@ -1,9 +1,10 @@
 #pragma once
 
+#include "base/small_map.hpp"
+
 #include <optional>
 #include <string>
 #include <type_traits>
-#include <unordered_map>
 
 namespace routing
 {
@@ -50,10 +51,10 @@ public:
   static RoutingOptionsClassifier const & Instance();
 
 private:
-  std::unordered_map<uint32_t, RoutingOptions::Road> m_data;
+  base::SmallMap<uint32_t, RoutingOptions::Road> m_data;
 };
 
-RoutingOptions::Road ChooseMainRoutingOptionRoad(RoutingOptions options);
+RoutingOptions::Road ChooseMainRoutingOptionRoad(RoutingOptions options, bool isCarRouter);
 
 std::string DebugPrint(RoutingOptions const & routingOptions);
 std::string DebugPrint(RoutingOptions::Road type);
