@@ -13,7 +13,6 @@ DECLARE_EXCEPTION(CorruptedMwmFile, RootException);
 
 namespace version
 {
-// Add new types to the corresponding list in generator/pygen/pygen.cpp.
 enum class Format
 {
   unknownFormat = -1,
