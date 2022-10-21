@@ -319,7 +319,7 @@ private:
       "allee", "alley", "autoroute", "aut", "bypass", "byway", /*"carrefour", "carref",*/ "côte", "expressway", "freeway", "fwy", "pky", "pkwy",
       /// @todo Do not use next _common search_ (e.g. 'park' is a prefix of 'parkway') tokens as generic street synonyms.
       /// Should reconsider streets matching logic to get this synonyms back.
-      //"line", "link", "loop", "parkway", "path", "pathway", "route", "trail", "walk",
+      //"line", "link", "loop", "parkway", "parkvej", "path", "pathway", "route", "trail", "walk"
 
       // Catalan language (Barcelona, Valencia, ...)
       "avinguda", "carrer", /*"rambla", "ronda",*/ "passeig", "passatge", "travessera",
@@ -331,7 +331,7 @@ private:
       "ulice", "ul", "náměstí", "nám", "nábřeží", "nábr",
 
       // Danish - Dansk
-      "plads", "alle", "gade", "vej", "parkvej",
+      "plads", "alle", "gade", "vej",
 
       // Dutch - Nederlands
       "laan", "ln.", "straat", "steenweg", "stwg", "st",
