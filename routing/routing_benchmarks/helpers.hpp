@@ -1,12 +1,10 @@
 #pragma once
 
-#include "routing/index_router.hpp"
 #include "routing/road_graph.hpp"
 #include "routing/route.hpp"
 #include "routing/router.hpp"
 #include "routing/vehicle_mask.hpp"
 
-#include "routing_common/maxspeed_conversion.hpp"
 #include "routing_common/num_mwm_id.hpp"
 #include "routing_common/vehicle_model.hpp"
 
@@ -21,7 +19,6 @@
 #include <memory>
 #include <set>
 #include <string>
-#include <utility>
 #include <vector>
 
 class RoutingTest

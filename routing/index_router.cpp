@@ -1685,7 +1685,8 @@ RouterResultCode IndexRouter::RedressRoute(vector<Segment> const & segments,
     auto & segment = routeSegment.GetSegment();
     routeSegment.SetTransitInfo(worldGraph.GetTransitInfo(segment));
 
-    routeSegment.SetRoadTypes(starter.GetRoutingOptions(segment));
+    if (!m_guides.IsActive())
+      routeSegment.SetRoadTypes(starter.GetRoutingOptions(segment));
 
     if (m_vehicleType == VehicleType::Car)
     {

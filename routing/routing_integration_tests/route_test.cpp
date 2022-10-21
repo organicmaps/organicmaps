@@ -378,7 +378,7 @@ using namespace std;
     integration::TestRouteTime(route, 19053.0);
   }
 
-  // Test on roads with tag route=shuttle_train
+  // Test on roads with tag route=shuttle_train. This train has defined maxspeed=100.
   UNIT_TEST(GermanyShuttleTrainTest)
   {
     TRouteResult const routeResult =
@@ -390,7 +390,8 @@ using namespace std;
 
     CHECK(routeResult.first, ());
     Route const & route = *routeResult.first;
-    integration::TestRouteTime(route, 6210.24);
+    integration::TestRouteLength(route, 44116.7);
+    integration::TestRouteTime(route, 2509.81);
   }
 
   UNIT_TEST(TolyattiFeatureThatCrossSeveralMwmsTest)

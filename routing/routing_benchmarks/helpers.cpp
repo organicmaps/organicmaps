@@ -2,7 +2,6 @@
 
 #include "testing/testing.hpp"
 
-#include "routing/base/astar_algorithm.hpp"
 #include "routing/features_road_graph.hpp"
 #include "routing/router_delegate.hpp"
 
@@ -142,7 +141,7 @@ unique_ptr<routing::IRouter> RoutingTest::CreateRouter(string const & name)
 void RoutingTest::GetNearestEdges(m2::PointD const & pt,
                                   vector<pair<routing::Edge, geometry::PointWithAltitude>> & edges)
 {
-  MwmDataSource dataSource(m_dataSource, nullptr /* numMwmIDs */);
+  routing::MwmDataSource dataSource(m_dataSource, nullptr /* numMwmIDs */);
   routing::FeaturesRoadGraph graph(dataSource, m_mode, CreateModelFactory());
   graph.FindClosestEdges(mercator::RectByCenterXYAndSizeInMeters(
                              pt, routing::FeaturesRoadGraph::kClosestEdgesRadiusM),
