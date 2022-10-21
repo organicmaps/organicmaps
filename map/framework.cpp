@@ -1011,7 +1011,11 @@ void Framework::OnSize(int w, int h)
 {
   if (m_drapeEngine != nullptr)
     m_drapeEngine->Resize(std::max(w, 2), std::max(h, 2));
-  m_visibleViewport = m2::RectD(0, 0, w, h);
+
+  /// @todo Expected that DrapeEngine::Resize does all the work, but nope ..
+  /// - Strange, but seems like iOS works fine without it.
+  /// - Test Android screen orientation and position mark in map and navigation modes.
+  SetVisibleViewport(m2::RectD(0, 0, w, h));
 }
 
 namespace
