@@ -24,17 +24,15 @@ public class DefaultBottomSheetCallback extends BottomSheetBehavior.BottomSheetC
   {
     Logger.d(TAG, "State change, new = " + PlacePageUtils.toString(newState));
     if (PlacePageUtils.isSettlingState(newState) || PlacePageUtils.isDraggingState(newState))
-    {
       return;
-    }
+
+    mSheetChangedListener.onSheetSlideFinish();
 
     if (PlacePageUtils.isHiddenState(newState))
     {
       mSheetChangedListener.onSheetHidden();
       return;
     }
-
-    mSheetChangedListener.onSheetDirectionIconChange();
 
     if (isExpandedState(newState))
     {
@@ -49,10 +47,5 @@ public class DefaultBottomSheetCallback extends BottomSheetBehavior.BottomSheetC
   public void onSlide(@NonNull View bottomSheet, float slideOffset)
   {
     mSheetChangedListener.onSheetSliding(bottomSheet.getTop());
-
-    if (slideOffset < 0)
-      return;
-
-    mSheetChangedListener.onSheetSlideFinish();
   }
 }
