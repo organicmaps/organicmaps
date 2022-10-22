@@ -2628,6 +2628,9 @@ area|z17-[craft=sawmill]
 node|z17-[craft=shoemaker],
 area|z17-[craft=shoemaker]
 {icon-image:shoes-m.svg;}
+node|z17-[craft=tailor],
+area|z17-[craft=tailor]
+{icon-image:clothes-m.svg;}
 
 /* 7. CAR */
 
