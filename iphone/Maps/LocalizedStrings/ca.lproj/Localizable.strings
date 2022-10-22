@@ -252,11 +252,11 @@
 
 "duration_1_day" = "1 dia";
 
-"recent_track_help_text" = "This option allows you to record traveled path for a certain period and see it on the map. Please note: activation of this function causes increased battery usage. The track will be removed automatically from the map after the time interval will expire.";
+"recent_track_help_text" = "Aquesta opció et permet registrar el recorregut recorregut durant un període determinat i veure'l al mapa. Tingues en compte: l'activació d'aquesta funció provoca un augment de l'ús de la bateria. La pista s'eliminarà automàticament del mapa un cop expiri l'interval de temps.";
 
 "placepage_distance" = "Distància";
 
-"search_show_on_map" = "View on map";
+"search_show_on_map" = "Veure al mapa";
 
 /* Text in menu */
 "website" = "Lloc web";
@@ -880,7 +880,7 @@
 
 "routing_add_finish_point" = "Afegeiu la destinació per a planificar la ruta";
 
-"planning_route_manage_route" = "Manage Route";
+"planning_route_manage_route" = "Gestionar la ruta";
 
 "button_plan" = "Planifica";
 
@@ -939,7 +939,7 @@
 
 "bookmarks_restore_title" = "Voleu recuperar aquesta versió?";
 
-"error_system_message" = "An unknown error occurred";
+"error_system_message" = "S'ha produït un error desconegut";
 
 "restore" = "Restaura";
 
@@ -1225,15 +1225,15 @@
 
 "type.aerialway" = "Aerialway";
 
-"type.aerialway.cable_car" = "Aerialway";
+"type.aerialway.cable_car" = "Cable car";
 
-"type.aerialway.chair_lift" = "Aerialway";
+"type.aerialway.chair_lift" = "Chair lift";
 
-"type.aerialway.drag_lift" = "Aerialway";
+"type.aerialway.drag_lift" = "Drag lift";
 
-"type.aerialway.gondola" = "Aerialway";
+"type.aerialway.gondola" = "Gondola";
 
-"type.aerialway.mixed_lift" = "Aerialway";
+"type.aerialway.mixed_lift" = "Mixed lift";
 
 "type.aerialway.station" = "Aerialway Station";
 
@@ -1456,7 +1456,7 @@
 
 "type.recycling.green_waste" = "Green/Organic Waste";
 
-"type.recycling.cartons" = "Bewerage Cartons";
+"type.recycling.cartons" = "Beverage Cartons";
 
 "type.amenity.restaurant" = "Restaurant";
 
@@ -2397,7 +2397,7 @@
 
 "type.man_made.tower" = "Tower";
 
-"type.man_made.wastewater_plant" = "Wastewater Plant";
+"type.man_made.wastewater_plant" = "Wastewater treatment plant";
 
 "type.man_made.water_tap" = "Water Tap";
 
@@ -3024,8 +3024,6 @@
 "type.railway.subway_entrance.lima" = "Subway Entrance";
 
 "type.railway.subway_entrance.lisboa" = "Subway Entrance";
-
-"type.railway.subway_entrance.lisbon" = "Subway Entrance";
 
 "type.railway.subway_entrance.london" = "Subway Entrance";
 

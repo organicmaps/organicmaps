@@ -1456,7 +1456,7 @@
 
 "type.recycling.green_waste" = "Green/Organic Waste";
 
-"type.recycling.cartons" = "Bewerage Cartons";
+"type.recycling.cartons" = "Beverage Cartons";
 
 "type.amenity.restaurant" = "レストラン";
 
@@ -3024,8 +3024,6 @@
 "type.railway.subway_entrance.lima" = "地下鉄入り口";
 
 "type.railway.subway_entrance.lisboa" = "地下鉄入り口";
-
-"type.railway.subway_entrance.lisbon" = "地下鉄入り口";
 
 "type.railway.subway_entrance.london" = "地下鉄入り口";
 

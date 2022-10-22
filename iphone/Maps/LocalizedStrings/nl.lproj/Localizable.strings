@@ -1046,10 +1046,10 @@
 "no" = "Nee";
 
 /* E.g. "WiFi:Yes" */
-"yes_available" = "Ja";
+"yes_available" = "ja";
 
 /* E.g. "WiFi:No" */
-"no_available" = "Nee";
+"no_available" = "nee";
 
 "trip_finished" = "U bent aangekomen!";
 
@@ -1237,7 +1237,7 @@
 
 "type.aerialway.station" = "Kabelwagenstation";
 
-"type.aeroway" = "Luchtvaartinfrastructuurfv";
+"type.aeroway" = "Luchtvaartinfrastructuur";
 
 "type.aeroway.aerodrome" = "Vliegveld";
 
@@ -1855,31 +1855,31 @@
 "type.highway.cycleway" = "Fietspad";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.cycleway.bridge" = "Brug";
+"type.highway.cycleway.bridge" = "Fietsbrug";
 
 "type.highway.cycleway.permissive" = "Fietspad";
 
 /* These translations are used for all type.highway.*.tunnel. */
-"type.highway.cycleway.tunnel" = "Tunnel";
+"type.highway.cycleway.tunnel" = "Fietstunnel";
 
 "type.highway.elevator" = "Lift";
 
 "type.highway.footway" = "Voetpad";
 
-"type.highway.footway.alpine_hiking" = "Pad";
+"type.highway.footway.alpine_hiking" = "Alpine wandelpad";
 
-"type.highway.footway.area" = "Voetpad";
+"type.highway.footway.area" = "Voetgangerszone";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.footway.bridge" = "Brug";
+"type.highway.footway.bridge" = "Voetgangersbrug";
 
-"type.highway.footway.demanding_alpine_hiking" = "Pad";
+"type.highway.footway.demanding_alpine_hiking" = "Uitdagend alpine bergklimpad";
 
-"type.highway.footway.demanding_mountain_hiking" = "Pad";
+"type.highway.footway.demanding_mountain_hiking" = "Uitdagend bergwandelpad";
 
-"type.highway.footway.difficult_alpine_hiking" = "Pad";
+"type.highway.footway.difficult_alpine_hiking" = "Moeilijk alpine bergklimpad";
 
-"type.highway.footway.hiking" = "Pad";
+"type.highway.footway.hiking" = "Wandelpad";
 
 "type.highway.footway.mountain_hiking" = "Bergpad";
 
@@ -1908,7 +1908,7 @@
 
 "type.highway.motorway_junction" = "Afrit";
 
-"type.highway.motorway_link" = "Snelweg";
+"type.highway.motorway_link" = "Snelwegoprit";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.motorway_link.bridge" = "Brug";
@@ -1918,9 +1918,9 @@
 
 "type.highway.path" = "Pad";
 
-"type.highway.path.alpine_hiking" = "Pad";
+"type.highway.path.alpine_hiking" = "Alpine wandelpad";
 
-"type.highway.path.bicycle" = "Pad";
+"type.highway.path.bicycle" = "Fietspad";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "Brug";
@@ -1931,9 +1931,9 @@
 
 "type.highway.path.difficult_alpine_hiking" = "Pad";
 
-"type.highway.path.hiking" = "Pad";
+"type.highway.path.hiking" = "Wandelpad";
 
-"type.highway.path.horse" = "Pad";
+"type.highway.path.horse" = "Ruiterpad";
 
 "type.highway.path.mountain_hiking" = "Bergpad";
 
@@ -2122,7 +2122,7 @@
 
 "type.area_highway.tertiary" = "Tertiaire weg";
 
-"type.area_highway.steps" = "Trap";
+"type.area_highway.steps" = "Trappen";
 
 "type.area_highway.track" = "Straat";
 
@@ -2177,7 +2177,7 @@
 
 "type.historic.memorial.plaque" = "Plaquette";
 
-"type.historic.memorial.sculpture" = "Beeldhouwwerk";
+"type.historic.memorial.sculpture" = "Sculptuur";
 
 "type.historic.memorial.statue" = "Standbeeld";
 
@@ -2191,7 +2191,7 @@
 
 "type.historic.wayside_cross" = "Kruis";
 
-"type.historic.wayside_shrine" = "Altaar";
+"type.historic.wayside_shrine" = "Kruisbeeld";
 
 "type.hwtag" = "hwtag";
 
@@ -2599,7 +2599,7 @@
 
 "type.power.station" = "Transformatorstation";
 
-"type.power.substation" = "Substation";
+"type.power.substation" = "Transformatorstation";
 
 "type.power.tower" = "Elektriciteitsmast";
 
@@ -2671,7 +2671,7 @@
 
 "type.railway.rail.bridge" = "Treinspoorbrug";
 
-"type.railway.rail.motor_vehicle" = "Railway";
+"type.railway.rail.motor_vehicle" = "Spoorweg";
 
 "type.railway.rail.tunnel" = "Spoortunnel";
 
@@ -3025,8 +3025,6 @@
 
 "type.railway.subway_entrance.lisboa" = "Metro ingang";
 
-"type.railway.subway_entrance.lisbon" = "Metro ingang";
-
 "type.railway.subway_entrance.london" = "Metro ingang";
 
 "type.railway.subway_entrance.lyon" = "Metro ingang";
@@ -3171,7 +3169,7 @@
 
 "type.shop.bicycle" = "Fietsenwinkel";
 
-"type.shop.bookmaker" = "Bookmaker";
+"type.shop.bookmaker" = "Boekbinder";
 
 "type.shop.books" = "Boekenwinkel";
 
@@ -3315,7 +3313,7 @@
 
 "type.shop.art" = "Kunstwinkel";
 
-"type.shop.baby_goods" = "Kinderwinkel";
+"type.shop.baby_goods" = "Babyspullenwinkel";
 
 "type.shop.bag" = "Tassenwinkel";
 
@@ -3438,13 +3436,13 @@
 
 "type.tourism.artwork.painting" = "Schilderij";
 
-"type.tourism.artwork.sculpture" = "Beeldhouwwerk";
+"type.tourism.artwork.sculpture" = "Kunstwerk";
 
 "type.tourism.artwork.statue" = "Standbeeld";
 
 "type.tourism.attraction" = "Attractie";
 
-"type.tourism.attraction.animal" = "Attractie";
+"type.tourism.attraction.animal" = "Dierenverblijf";
 
 "type.tourism.attraction.specified" = "Attractie";
 
@@ -3452,13 +3450,13 @@
 
 "type.tourism.caravan_site" = "Caravan site";
 
-"type.tourism.chalet" = "Chalet";
+"type.tourism.chalet" = "Vakantiehuis";
 
 "type.tourism.gallery" = "Galerij";
 
 "type.tourism.guest_house" = "Gasthuis";
 
-"type.tourism.hostel" = "Hostel";
+"type.tourism.hostel" = "Herberg";
 
 "type.tourism.hotel" = "Hotel";
 

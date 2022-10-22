@@ -742,11 +742,11 @@
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway">Aerialway</string>
-	<string name="type.aerialway.cable_car">Aerialway</string>
-	<string name="type.aerialway.chair_lift">Aerialway</string>
-	<string name="type.aerialway.drag_lift">Aerialway</string>
-	<string name="type.aerialway.gondola">Aerialway</string>
-	<string name="type.aerialway.mixed_lift">Aerialway</string>
+	<string name="type.aerialway.cable_car">Cable car</string>
+	<string name="type.aerialway.chair_lift">Chair lift</string>
+	<string name="type.aerialway.drag_lift">Drag lift</string>
+	<string name="type.aerialway.gondola">Gondola</string>
+	<string name="type.aerialway.mixed_lift">Mixed lift</string>
 	<string name="type.aerialway.station">Aerialway Station</string>
 	<string name="type.aeroway">Airspace Infrastructure</string>
 	<string name="type.aeroway.aerodrome">Airport</string>
@@ -859,7 +859,7 @@
 	<string name="type.recycling.cans">Cans</string>
 	<string name="type.recycling.shoes">Shoes</string>
 	<string name="type.recycling.green_waste">Green/Organic Waste</string>
-	<string name="type.recycling.cartons">Bewerage Cartons</string>
+	<string name="type.recycling.cartons">Beverage Cartons</string>
 	<string name="type.amenity.restaurant">Restaurant</string>
 	<string name="type.amenity.sanitary_dump_station">Holding Tank Dump Station</string>
 	<string name="type.amenity.school">School</string>
@@ -1354,7 +1354,7 @@
 	<string name="type.man_made.storage_tank">Storage Tank</string>
 	<string name="type.man_made.surveillance">Surveillance Camera</string>
 	<string name="type.man_made.tower">Tower</string>
-	<string name="type.man_made.wastewater_plant">Wastewater Plant</string>
+	<string name="type.man_made.wastewater_plant">Wastewater treatment plant</string>
 	<string name="type.man_made.water_tap">Water Tap</string>
 	<string name="type.man_made.water_tower">Water Tower</string>
 	<string name="type.man_made.water_well">Water Well</string>
@@ -1668,7 +1668,6 @@
 	<string name="type.railway.subway_entrance.lille">Subway Entrance</string>
 	<string name="type.railway.subway_entrance.lima">Subway Entrance</string>
 	<string name="type.railway.subway_entrance.lisboa">Subway Entrance</string>
-	<string name="type.railway.subway_entrance.lisbon">Subway Entrance</string>
 	<string name="type.railway.subway_entrance.london">Subway Entrance</string>
 	<string name="type.railway.subway_entrance.lyon">Subway Entrance</string>
 	<string name="type.railway.subway_entrance.madrid">Subway Entrance</string>
@@ -1878,7 +1877,7 @@
 	<string name="type.tourism.artwork.sculpture">Artwork</string>
 	<string name="type.tourism.artwork.statue">Artwork</string>
 	<string name="type.tourism.attraction">Attraction</string>
-	<string name="type.tourism.attraction.animal">Attraction</string>
+	<string name="type.tourism.attraction.animal">Animal enclosure</string>
 	<string name="type.tourism.attraction.specified">Attraction</string>
 	<string name="type.tourism.camp_site">Camping</string>
 	<string name="type.tourism.caravan_site">RV Park</string>

@@ -1223,17 +1223,17 @@
 
 /********** Types **********/
 
-"type.aerialway" = "Aerialway";
+"type.aerialway" = "Köysirata";
 
-"type.aerialway.cable_car" = "Aerialway";
+"type.aerialway.cable_car" = "Kabiinihissi";
 
-"type.aerialway.chair_lift" = "Aerialway";
+"type.aerialway.chair_lift" = "Tuolihissi";
 
-"type.aerialway.drag_lift" = "Aerialway";
+"type.aerialway.drag_lift" = "Kapulahissi";
 
-"type.aerialway.gondola" = "Aerialway";
+"type.aerialway.gondola" = "Gondolihissi";
 
-"type.aerialway.mixed_lift" = "Aerialway";
+"type.aerialway.mixed_lift" = "Köysirata";
 
 "type.aerialway.station" = "Köysirata-asema";
 
@@ -1245,15 +1245,15 @@
 
 "type.aeroway.apron" = "Apron";
 
-"type.aeroway.gate" = "Gate";
+"type.aeroway.gate" = "Portti";
 
 "type.aeroway.helipad" = "Helikopterialusta";
 
-"type.aeroway.runway" = "Runway";
+"type.aeroway.runway" = "Kiitorata";
 
 "type.aeroway.taxiway" = "Taxiway";
 
-"type.aeroway.terminal" = "Terminal";
+"type.aeroway.terminal" = "Terminaali";
 
 "type.amenity" = "Infrastruktuurikohteet";
 
@@ -1301,7 +1301,7 @@
 
 "type.amenity.clinic" = "Klinikka";
 
-"type.amenity.college" = "College";
+"type.amenity.college" = "Korkeakoulu";
 
 "type.amenity.community_centre" = "Monitoimitalo";
 
@@ -1371,15 +1371,15 @@
 
 "type.amenity.parking.private" = "Yksityinen pysäköinti";
 
-"type.amenity.parking.park_and_ride" = "Parkkipaikka";
+"type.amenity.parking.park_and_ride" = "Liityntäpysäköinti";
 
 "type.amenity.parking.underground" = "Maanalainen pysäköinti";
 
-"type.amenity.parking_entrance.private" = "Pysäköinti sisäänkäynti";
+"type.amenity.parking_entrance.private" = "Pysäköinnin sisäänkäynti";
 
-"type.amenity.parking_entrance.permissive" = "Pysäköinti sisäänkäynti";
+"type.amenity.parking_entrance.permissive" = "Pysäköinnin sisäänkäynti";
 
-"type.amenity.parking_entrance" = "Pysäköinti sisäänkäynti";
+"type.amenity.parking_entrance" = "Pysäköinnin sisäänkäynti";
 
 "type.amenity.parking_space" = "Parkkipaikka";
 
@@ -1417,7 +1417,7 @@
 
 "type.amenity.post_office" = "Postitoimisto";
 
-"type.amenity.prison" = "Prison";
+"type.amenity.prison" = "Vankila";
 
 "type.amenity.pub" = "Pubi";
 
@@ -1456,7 +1456,7 @@
 
 "type.recycling.green_waste" = "Green/Organic Waste";
 
-"type.recycling.cartons" = "Bewerage Cartons";
+"type.recycling.cartons" = "Beverage Cartons";
 
 "type.amenity.restaurant" = "Ravintola";
 
@@ -1480,31 +1480,31 @@
 
 "type.amenity.university" = "Yliopisto";
 
-"type.amenity.vending_machine" = "Vending Machine";
+"type.amenity.vending_machine" = "Myyntiautomaatti";
 
 "type.amenity.vending_machine.cigarettes" = "Savukeautomaatti";
 
-"type.amenity.vending_machine.coffee" = "Coffee Dispenser";
+"type.amenity.vending_machine.coffee" = "Kahviautomaatti";
 
-"type.amenity.vending_machine.condoms" = "Condoms Dispenser";
+"type.amenity.vending_machine.condoms" = "Kondomiautomaatti";
 
 "type.amenity.vending_machine.drinks" = "Juoma-automaatti";
 
-"type.amenity.vending_machine.food" = "Food Dispenser";
+"type.amenity.vending_machine.food" = "Ruoka-automaatti";
 
-"type.amenity.vending_machine.newspapers" = "Newspapers Dispenser";
+"type.amenity.vending_machine.newspapers" = "Sanomalehtiautomaatti";
 
 "type.amenity.vending_machine.parking_tickets" = "Pysäköintimaksuautomaatti";
 
 "type.amenity.vending_machine.public_transport_tickets" = "Julkisen liikenteen lippuautomaatti";
 
-"type.amenity.vending_machine.sweets" = "Sweets Dispenser";
+"type.amenity.vending_machine.sweets" = "Karkkiautomaatti";
 
 "type.amenity.vending_machine.excrement_bags" = "Excrement Bags Dispenser";
 
 "type.amenity.parcel_locker" = "Parcel Locker";
 
-"type.amenity.vending_machine.fuel" = "Fuel Dispenser";
+"type.amenity.vending_machine.fuel" = "Bensa-automaatti";
 
 "type.amenity.veterinary" = "Eläinlääkäri";
 
@@ -1524,73 +1524,73 @@
 
 "type.barrier.border_control" = "Rajavalvonta";
 
-"type.barrier.chain" = "Chain";
+"type.barrier.chain" = "Ketju";
 
-"type.barrier.city_wall" = "City Wall";
+"type.barrier.city_wall" = "Kaupunginmuuri";
 
-"type.barrier.cycle_barrier" = "Cycle Barrier";
+"type.barrier.cycle_barrier" = "Polkupyöräeste";
 
 "type.barrier.ditch" = "Vallihauta";
 
 "type.barrier.entrance" = "Sisäänkäynti";
 
-"type.barrier.fence" = "Fence";
+"type.barrier.fence" = "Aita";
 
 "type.barrier.gate" = "Portti";
 
-"type.barrier.hedge" = "Hedge";
+"type.barrier.hedge" = "Pensasaita";
 
 "type.barrier.kissing_gate" = "Portti";
 
-"type.barrier.lift_gate" = "Puomi";
+"type.barrier.lift_gate" = "Nostopuomi";
 
 "type.barrier.retaining_wall" = "Retaining Wall";
 
 "type.barrier.stile" = "Portaat";
 
-"type.barrier.swing_gate" = "Puomi";
+"type.barrier.swing_gate" = "Kääntöpuomi";
 
 "type.barrier.toll_booth" = "Tietulliasema";
 
-"type.barrier.wall" = "Wall";
+"type.barrier.wall" = "Muuri";
 
-"type.boundary" = "Boundary";
+"type.boundary" = "Raja";
 
-"type.boundary.administrative" = "Administrative Boundary";
+"type.boundary.administrative" = "Hallinnollinen raja";
 
-"type.boundary.administrative.10" = "Administrative Boundary";
+"type.boundary.administrative.10" = "Hallinnollinen raja";
 
-"type.boundary.administrative.11" = "Administrative Boundary";
+"type.boundary.administrative.11" = "Hallinnollinen raja";
 
-"type.boundary.administrative.2" = "National Border";
+"type.boundary.administrative.2" = "Valtakunnanraja";
 
-"type.boundary.administrative.3" = "Administrative Boundary";
+"type.boundary.administrative.3" = "Hallinnollinen raja";
 
-"type.boundary.administrative.4" = "Administrative Boundary";
+"type.boundary.administrative.4" = "Hallinnollinen raja";
 
-"type.boundary.administrative.5" = "Administrative Boundary";
+"type.boundary.administrative.5" = "Hallinnollinen raja";
 
-"type.boundary.administrative.6" = "Administrative Boundary";
+"type.boundary.administrative.6" = "Hallinnollinen raja";
 
-"type.boundary.administrative.7" = "Administrative Boundary";
+"type.boundary.administrative.7" = "Hallinnollinen raja";
 
-"type.boundary.administrative.8" = "Administrative Boundary";
+"type.boundary.administrative.8" = "Hallinnollinen raja";
 
-"type.boundary.administrative.9" = "Administrative Boundary";
+"type.boundary.administrative.9" = "Hallinnollinen raja";
 
-"type.boundary.administrative.city" = "City Boundary";
+"type.boundary.administrative.city" = "Kaupunginraja";
 
-"type.boundary.administrative.country" = "National Border";
+"type.boundary.administrative.country" = "Valtakunnanraja";
 
-"type.boundary.administrative.county" = "County Boundary";
+"type.boundary.administrative.county" = "Maakunnanraja";
 
-"type.boundary.administrative.municipality" = "Municipality Boundary";
+"type.boundary.administrative.municipality" = "Kunnanraja";
 
-"type.boundary.administrative.nation" = "National Border";
+"type.boundary.administrative.nation" = "Valtakunnanraja";
 
 "type.boundary.administrative.region" = "Regional Boundary";
 
-"type.boundary.administrative.state" = "State Boundary";
+"type.boundary.administrative.state" = "Osavaltion raja";
 
 "type.boundary.administrative.suburb" = "Suburb Boundary";
 
@@ -1606,7 +1606,7 @@
 
 "type.building.train_station" = "Rautatieasema";
 
-"type.building.warehouse" = "Warehouse";
+"type.building.warehouse" = "Varasto";
 
 "type.cemetery.grave" = "Hauta";
 
@@ -2397,7 +2397,7 @@
 
 "type.man_made.tower" = "Torni";
 
-"type.man_made.wastewater_plant" = "Wastewater Plant";
+"type.man_made.wastewater_plant" = "Wastewater treatment plant";
 
 "type.man_made.water_tap" = "Vesihana";
 
@@ -3025,8 +3025,6 @@
 
 "type.railway.subway_entrance.lisboa" = "Metron sisäänkäynti";
 
-"type.railway.subway_entrance.lisbon" = "Metron sisäänkäynti";
-
 "type.railway.subway_entrance.london" = "Metron sisäänkäynti";
 
 "type.railway.subway_entrance.lyon" = "Metron sisäänkäynti";
@@ -3544,11 +3542,11 @@
 
 "type.aerialway.magic_carpet" = "Magic Carpet";
 
-"type.aerialway.platter" = "Platter Lift";
+"type.aerialway.platter" = "Sompahissi";
 
-"type.aerialway.rope_tow" = "Rope Tow";
+"type.aerialway.rope_tow" = "Naruhissi";
 
-"type.aerialway.t.bar" = "T-bar Lift";
+"type.aerialway.t.bar" = "Ankkurihissi";
 
 "type.piste_type" = "Piste Type";
 
@@ -3568,7 +3566,7 @@
 
 "type.piste_type.nordic" = "Latu";
 
-"type.piste_type.sled" = "Sledding Piste";
+"type.piste_type.sled" = "Kelkkarata";
 
 "type.building_part" = "Rakennus";
 
