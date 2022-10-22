@@ -3010,8 +3010,8 @@
     nb = Hei, se merket mitt på Organic Maps-kartet
     nl = Hey, kijk naar mijn pin op Organic Maps!
     pl = Obejrzyj mój znacznik na mapie w Organic Maps
-    pt = Veja o meu marcador no mapa do Organic Maps.
-    pt-BR = Veja o meu marcador no mapa do Organic Maps.
+    pt = Vê meu marcador no mapa do Organic Maps!
+    pt-BR = Veja meu marcador no mapa do Organic Maps!
     ro = Poți vedea locul meu preferat pe harta Organic Maps!
     ru = Координаты в Organic Maps
     sk = Pozri na moju značku na mape Organic Maps
@@ -3028,6 +3028,8 @@
     tags = android,ios
     en = %1$@ on Organic Maps
     be = %1$@ ў Organic Maps
+    pt = en = %1$@ no Organic Maps
+    pt-BR = %1$@ no Organic Maps
     ru = %1$@ на картах Organic Maps
     uk = %1$@ на мапах Organic Maps
 
@@ -3054,8 +3056,8 @@
     nb = Hei, se posisjonen min på Organic Maps-kartet
     nl = Hey, kijk naar mijn huidige locatie op Organic Maps
     pl = Zobacz moją aktualną lokalizację na mapie przy użyciu Organic Maps
-    pt = Veja a minha localização atual no mapa Organic Maps
-    pt-BR = Veja a minha localização atual no mapa Organic Maps
+    pt = Vê no mapa a minha localização atual no Organic Maps!
+    pt-BR = Veja no mapa a minha localização atual no Organic Maps!
     ro = Poți vedea poziția mea pe harta Organic Maps
     ru = Я в этом месте на картах Organic Maps
     sk = Pozrite si moju aktuálnu polohu na mape Organic Maps
@@ -3202,7 +3204,7 @@
     nl = Info
     pl = Informacje
     pt = Informação
-    pt-BR = Info
+    pt-BR = Informação
     ro = Info
     ru = Информация
     sk = Viacej informácií
