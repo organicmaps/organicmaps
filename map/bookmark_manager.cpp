@@ -1966,7 +1966,7 @@ void BookmarkManager::NotifyAboutFinishAsyncLoading(KMLDataCollectionPtr && coll
   {
     if (!collection->empty())
     {
-      CreateCategories(std::move(*collection));
+      CreateCategories(std::move(*collection), true /* autoSave */);
     }
     else if (!m_loadBookmarksFinished)
     {
@@ -2415,7 +2415,7 @@ void BookmarkManager::UpdateLastModifiedTime(KMLDataCollection & collection)
     c->m_categoryData.m_lastModified = kml::TimestampClock::now();
 }
 
-void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool autoSave)
+void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool autoSave /* = false */)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   kml::GroupIdSet loadedGroups;
@@ -2456,8 +2456,9 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool
 
     UserMarkIdStorage::Instance().EnableSaving(false);
 
-    bool const saveAfterCreation = autoSave && (categoryData.m_id == kml::kInvalidMarkGroupId);
-    auto const groupId = CreateBookmarkCategory(std::move(categoryData), saveAfterCreation);
+    // Set autoSave = false now to avoid useless saving in NotifyChanges().
+    // autoSave flag will be assigned in the end of this function.
+    auto const groupId = CreateBookmarkCategory(std::move(categoryData), false /* autoSave */);
     loadedGroups.insert(groupId);
     auto * group = GetBmCategory(groupId);
     group->SetFileName(fileName);

@@ -366,7 +366,7 @@ public:
 
   static void UpdateLastModifiedTime(KMLDataCollection & collection);
   // Used for LoadBookmarks() and unit tests only. Does *not* update last modified time.
-  void CreateCategories(KMLDataCollection && dataCollection, bool autoSave = true);
+  void CreateCategories(KMLDataCollection && dataCollection, bool autoSave = false);
 
   static std::string GetTracksSortedBlockName();
   static std::string GetOthersSortedBlockName();
