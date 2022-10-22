@@ -1456,7 +1456,7 @@
 
 "type.recycling.green_waste" = "Green/Organic Waste";
 
-"type.recycling.cartons" = "Bewerage Cartons";
+"type.recycling.cartons" = "Beverage Cartons";
 
 "type.amenity.restaurant" = "Restaurante";
 
@@ -1502,7 +1502,7 @@
 
 "type.amenity.vending_machine.excrement_bags" = "Excrement Bags Dispenser";
 
-"type.amenity.parcel_locker" = "Parcel Locker";
+"type.amenity.parcel_locker" = "Cacifo";
 
 "type.amenity.vending_machine.fuel" = "Fuel Dispenser";
 
@@ -3025,8 +3025,6 @@
 
 "type.railway.subway_entrance.lisboa" = "Entrada do metro";
 
-"type.railway.subway_entrance.lisbon" = "Entrada do metro";
-
 "type.railway.subway_entrance.london" = "Entrada do metro";
 
 "type.railway.subway_entrance.lyon" = "Entrada do metro";
@@ -3213,7 +3211,7 @@
 
 "type.shop.dry_cleaning" = "Lavagem a seco";
 
-"type.shop.electronics" = "Loja de electrónica de consumo";
+"type.shop.electronics" = "Loja de eletrónica de consumo";
 
 "type.shop.erotic" = "Loja de artigos eróticos";
 

@@ -1428,9 +1428,9 @@
 
 "type.amenity.recycling.centre" = "Centro de reciclagem";
 
-"type.amenity.recycling" = "Recipiente de reciclagem";
+"type.amenity.recycling" = "Contêiner de reciclagem";
 
-"type.amenity.recycling.container" = "Recipiente de reciclagem";
+"type.amenity.recycling.container" = "Contêiner de reciclagem";
 
 "type.recycling.batteries" = "Baterias";
 
@@ -1438,29 +1438,29 @@
 
 "type.recycling.glass_bottles" = "Garrafas de vidro";
 
-"type.recycling.paper" = "Lixo de papel";
+"type.recycling.paper" = "Papel";
 
-"type.recycling.plastic" = "Lixo plástico";
+"type.recycling.plastic" = "Plástico";
 
 "type.recycling.plastic_bottles" = "Garrafas plásticas";
 
-"type.recycling.scrap_metal" = "Ferro velho";
+"type.recycling.scrap_metal" = "Sucata";
 
-"type.recycling.small_appliances" = "Lixo eletrônico";
+"type.recycling.small_appliances" = "Eletrônicos";
 
-"type.recycling.cardboard" = "Cardboard";
+"type.recycling.cardboard" = "Papelão";
 
-"type.recycling.cans" = "Cans";
+"type.recycling.cans" = "Latas";
 
-"type.recycling.shoes" = "Shoes";
+"type.recycling.shoes" = "Sapatos";
 
-"type.recycling.green_waste" = "Green/Organic Waste";
+"type.recycling.green_waste" = "Lixo verde/orgânico";
 
-"type.recycling.cartons" = "Bewerage Cartons";
+"type.recycling.cartons" = "Caixa de bebidas";
 
 "type.amenity.restaurant" = "Restaurante";
 
-"type.amenity.sanitary_dump_station" = "Holding Tank Dump Station";
+"type.amenity.sanitary_dump_station" = "Estação de despejo de esgotos";
 
 "type.amenity.school" = "Escola";
 
@@ -1484,27 +1484,27 @@
 
 "type.amenity.vending_machine.cigarettes" = "Máquina de venda de cigarros";
 
-"type.amenity.vending_machine.coffee" = "Coffee Dispenser";
+"type.amenity.vending_machine.coffee" = "Máquina de café";
 
-"type.amenity.vending_machine.condoms" = "Condoms Dispenser";
+"type.amenity.vending_machine.condoms" = "Máquina de venda de preservativos";
 
 "type.amenity.vending_machine.drinks" = "Máquina de venda de bebidas";
 
-"type.amenity.vending_machine.food" = "Food Dispenser";
+"type.amenity.vending_machine.food" = "Máquina de venda de comidas";
 
-"type.amenity.vending_machine.newspapers" = "Newspapers Dispenser";
+"type.amenity.vending_machine.newspapers" = "Máquina de venda de jornais";
 
-"type.amenity.vending_machine.parking_tickets" = "Máquina venda de tíquetes de estacionamento";
+"type.amenity.vending_machine.parking_tickets" = "Máquina de venda de tíquetes de estacionamento";
 
-"type.amenity.vending_machine.public_transport_tickets" = "Máquinas automáticas de venda de passagens de transporte público";
+"type.amenity.vending_machine.public_transport_tickets" = "Máquina de venda de passagens de transporte público";
 
-"type.amenity.vending_machine.sweets" = "Sweets Dispenser";
+"type.amenity.vending_machine.sweets" = "Máquina de venda de doces";
 
-"type.amenity.vending_machine.excrement_bags" = "Excrement Bags Dispenser";
+"type.amenity.vending_machine.excrement_bags" = "Saquinhos de lixo";
 
-"type.amenity.parcel_locker" = "Parcel Locker";
+"type.amenity.parcel_locker" = "Armário de encomendas";
 
-"type.amenity.vending_machine.fuel" = "Fuel Dispenser";
+"type.amenity.vending_machine.fuel" = "Bomba de combustível";
 
 "type.amenity.veterinary" = "Veterinário";
 
@@ -1512,7 +1512,7 @@
 
 "type.amenity.waste_disposal" = "Depósito de lixo";
 
-"type.amenity.waste_transfer_station" = "Waste Transfer Station";
+"type.amenity.waste_transfer_station" = "Estação de transferência de resíduos";
 
 "type.amenity.water_point" = "Ponto de água";
 
@@ -1520,7 +1520,7 @@
 
 "type.barrier.block" = "Bloco";
 
-"type.barrier.bollard" = "Pilar";
+"type.barrier.bollard" = "Pilarete";
 
 "type.barrier.border_control" = "Controle de fronteira";
 
@@ -3025,8 +3025,6 @@
 
 "type.railway.subway_entrance.lisboa" = "Entrada do metrô";
 
-"type.railway.subway_entrance.lisbon" = "Entrada do metrô";
-
 "type.railway.subway_entrance.london" = "Entrada do metrô";
 
 "type.railway.subway_entrance.lyon" = "Entrada do metrô";
@@ -3157,11 +3155,11 @@
 
 "type.route.ferry" = "Rota de balsa";
 
-"type.route.shuttle_train" = "Rota de trem vaivem";
+"type.route.shuttle_train" = "Rota de trem vaivém";
 
 "type.shop" = "Loja";
 
-"type.shop.alcohol" = "Loja de bebidas alcoolicas";
+"type.shop.alcohol" = "Loja de bebidas alcoólicas";
 
 "type.shop.bakery" = "Padaria";
 
@@ -3209,7 +3207,7 @@
 
 "type.shop.department_store" = "Loja de departamentos";
 
-"type.shop.doityourself" = "Loja de ferramentas e materiais de bricolage";
+"type.shop.doityourself" = "Loja de ferramentas e materiais de bricolagem";
 
 "type.shop.dry_cleaning" = "Lavagem a seco";
 
@@ -3271,7 +3269,7 @@
 
 "type.shop.outdoor" = "Artigos de atividades ao ar livre";
 
-"type.shop.pastry" = "Pastelaria";
+"type.shop.pastry" = "Confeitaria";
 
 "type.shop.pawnbroker" = "Casa de penhores";
 
@@ -3305,7 +3303,7 @@
 
 "type.shop.variety_store" = "Loja 1,99";
 
-"type.shop.video" = "Vídeo locadora";
+"type.shop.video" = "Videolocadora";
 
 "type.shop.video_games" = "Loja de jogos eletrônicos";
 
@@ -3325,7 +3323,7 @@
 
 "type.shop.cheese" = "Loja de queijos";
 
-"type.shop.craft" = "Artes e Ofícios";
+"type.shop.craft" = "Artes e ofícios";
 
 "type.shop.dairy" = "Lacticínios";
 
@@ -3333,7 +3331,7 @@
 
 "type.shop.fishing" = "Loja de pesca";
 
-"type.shop.interior_decoration" = "Decorações de Interiores";
+"type.shop.interior_decoration" = "Decoração de interiores";
 
 "type.shop.lottery" = "Bilhete de loteria";
 
@@ -3347,7 +3345,7 @@
 
 "type.shop.sewing" = "Materiais de costura";
 
-"type.shop.storage_rental" = "Aluguel de Armazenamento";
+"type.shop.storage_rental" = "Aluguel de armazenamento";
 
 "type.shop.tobacco" = "Tabaco";
 
@@ -3389,7 +3387,7 @@
 
 "type.sport.handball" = "Handebol";
 
-"type.sport.multi" = "Vários desportos";
+"type.sport.multi" = "Poliesportivo";
 
 /* Used to tag a scuba diving site. */
 "type.sport.scuba_diving" = "Mergulho autônomo";

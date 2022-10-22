@@ -1456,7 +1456,7 @@
 
 "type.recycling.green_waste" = "Green/Organic Waste";
 
-"type.recycling.cartons" = "Bewerage Cartons";
+"type.recycling.cartons" = "Beverage Cartons";
 
 "type.amenity.restaurant" = "Restauracja";
 
@@ -3024,8 +3024,6 @@
 "type.railway.subway_entrance.lima" = "Wejście do metra";
 
 "type.railway.subway_entrance.lisboa" = "Wejście do metra";
-
-"type.railway.subway_entrance.lisbon" = "Wejście do metra";
 
 "type.railway.subway_entrance.london" = "Wejście do metra";
 

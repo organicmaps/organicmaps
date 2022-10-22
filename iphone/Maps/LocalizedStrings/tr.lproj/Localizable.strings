@@ -1438,7 +1438,7 @@
 
 "type.recycling.glass_bottles" = "Cam Şişeler";
 
-"type.recycling.paper" = "Kâğıt Atıklar";
+"type.recycling.paper" = "Kağıt Atıklar";
 
 "type.recycling.plastic" = "Plastik Atıklar";
 
@@ -3024,8 +3024,6 @@
 "type.railway.subway_entrance.lima" = "Metro Girişi";
 
 "type.railway.subway_entrance.lisboa" = "Metro Girişi";
-
-"type.railway.subway_entrance.lisbon" = "Metro Girişi";
 
 "type.railway.subway_entrance.london" = "Metro Girişi";
 

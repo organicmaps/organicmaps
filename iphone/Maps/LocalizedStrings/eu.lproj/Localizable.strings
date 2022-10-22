@@ -2397,7 +2397,7 @@
 
 "type.man_made.tower" = "Dorrea";
 
-"type.man_made.wastewater_plant" = "Wastewater Plant";
+"type.man_made.wastewater_plant" = "Wastewater treatment plant";
 
 "type.man_made.water_tap" = "Ura hartzea";
 
@@ -3024,8 +3024,6 @@
 "type.railway.subway_entrance.lima" = "Metroko sarrera";
 
 "type.railway.subway_entrance.lisboa" = "Metroko sarrera";
-
-"type.railway.subway_entrance.lisbon" = "Metroko sarrera";
 
 "type.railway.subway_entrance.london" = "Metroko sarrera";
 

@@ -1227,7 +1227,7 @@
 
 "type.aerialway.cable_car" = "纜車";
 
-"type.aerialway.chair_lift" = "Aerialway";
+"type.aerialway.chair_lift" = "Chair lift";
 
 "type.aerialway.drag_lift" = "纜車要素";
 
@@ -1456,7 +1456,7 @@
 
 "type.recycling.green_waste" = "Green/Organic Waste";
 
-"type.recycling.cartons" = "Bewerage Cartons";
+"type.recycling.cartons" = "Beverage Cartons";
 
 "type.amenity.restaurant" = "餐廳";
 
@@ -2397,7 +2397,7 @@
 
 "type.man_made.tower" = "塔";
 
-"type.man_made.wastewater_plant" = "Wastewater Plant";
+"type.man_made.wastewater_plant" = "Wastewater treatment plant";
 
 "type.man_made.water_tap" = "水龍頭";
 
@@ -3024,8 +3024,6 @@
 "type.railway.subway_entrance.lima" = "地鐵入口";
 
 "type.railway.subway_entrance.lisboa" = "地鐵入口";
-
-"type.railway.subway_entrance.lisbon" = "地鐵入口";
 
 "type.railway.subway_entrance.london" = "地鐵入口";
 

@@ -2397,7 +2397,7 @@
 
 "type.man_made.tower" = "Torre";
 
-"type.man_made.wastewater_plant" = "Wastewater Plant";
+"type.man_made.wastewater_plant" = "Wastewater treatment plant";
 
 "type.man_made.water_tap" = "Toma de agua";
 
@@ -3024,8 +3024,6 @@
 "type.railway.subway_entrance.lima" = "Entrada de metro";
 
 "type.railway.subway_entrance.lisboa" = "Entrada de metro";
-
-"type.railway.subway_entrance.lisbon" = "Entrada de metro";
 
 "type.railway.subway_entrance.london" = "Entrada de metro";
 

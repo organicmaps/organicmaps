@@ -807,6 +807,7 @@
 	<string name="type.amenity.vending_machine.drinks">Máquina de venda de bebidas</string>
 	<string name="type.amenity.vending_machine.parking_tickets">Máquina venda de bilhetes de estacionamento</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">Máquina venda de bilhetes de transporte público</string>
+	<string name="type.amenity.parcel_locker">Cacifo</string>
 	<string name="type.amenity.veterinary">Veterinário</string>
 	<string name="type.amenity.waste_basket">Caixote do lixo</string>
 	<string name="type.amenity.waste_disposal">Contentor do lixo</string>
@@ -1557,7 +1558,6 @@
 	<string name="type.railway.subway_entrance.lille">Entrada do metro</string>
 	<string name="type.railway.subway_entrance.lima">Entrada do metro</string>
 	<string name="type.railway.subway_entrance.lisboa">Entrada do metro</string>
-	<string name="type.railway.subway_entrance.lisbon">Entrada do metro</string>
 	<string name="type.railway.subway_entrance.london">Entrada do metro</string>
 	<string name="type.railway.subway_entrance.lyon">Entrada do metro</string>
 	<string name="type.railway.subway_entrance.madrid">Entrada do metro</string>
@@ -1650,7 +1650,7 @@
 	<string name="type.shop.department_store">Grande armazém</string>
 	<string name="type.shop.doityourself">Loja de ferramentas e materiais de bricolage</string>
 	<string name="type.shop.dry_cleaning">Lavagem a seco</string>
-	<string name="type.shop.electronics">Loja de electrónica de consumo</string>
+	<string name="type.shop.electronics">Loja de eletrónica de consumo</string>
 	<string name="type.shop.erotic">Loja de artigos eróticos</string>
 	<string name="type.shop.fabric">Loja de tecidos</string>
 	<string name="type.shop.farm">Loja de comida agrícola</string>

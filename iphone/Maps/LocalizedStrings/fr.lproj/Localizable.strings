@@ -1233,7 +1233,7 @@
 
 "type.aerialway.gondola" = "Télécabine";
 
-"type.aerialway.mixed_lift" = "Aerialway";
+"type.aerialway.mixed_lift" = "Mixed lift";
 
 "type.aerialway.station" = "Remontées mécaniques";
 
@@ -3024,8 +3024,6 @@
 "type.railway.subway_entrance.lima" = "Entrée du métro";
 
 "type.railway.subway_entrance.lisboa" = "Entrée du métro";
-
-"type.railway.subway_entrance.lisbon" = "Entrée du métro";
 
 "type.railway.subway_entrance.london" = "Entrée du métro";
 

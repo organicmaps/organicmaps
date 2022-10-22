@@ -1456,7 +1456,7 @@
 
 "type.recycling.green_waste" = "Green/Organic Waste";
 
-"type.recycling.cartons" = "Bewerage Cartons";
+"type.recycling.cartons" = "Beverage Cartons";
 
 "type.amenity.restaurant" = "Εστιατόριο";
 
@@ -2397,7 +2397,7 @@
 
 "type.man_made.tower" = "Πύργος";
 
-"type.man_made.wastewater_plant" = "Wastewater Plant";
+"type.man_made.wastewater_plant" = "Wastewater treatment plant";
 
 "type.man_made.water_tap" = "Βρύση νερού";
 
@@ -3024,8 +3024,6 @@
 "type.railway.subway_entrance.lima" = "Είσοδος μετρό";
 
 "type.railway.subway_entrance.lisboa" = "Είσοδος μετρό";
-
-"type.railway.subway_entrance.lisbon" = "Είσοδος μετρό";
 
 "type.railway.subway_entrance.london" = "Είσοδος μετρό";
 

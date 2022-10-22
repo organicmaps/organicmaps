@@ -1388,7 +1388,6 @@
 	<string name="type.railway.subway_entrance.lille">Vstup do metra</string>
 	<string name="type.railway.subway_entrance.lima">Vstup do metra</string>
 	<string name="type.railway.subway_entrance.lisboa">Vstup do metra</string>
-	<string name="type.railway.subway_entrance.lisbon">Vstup do metra</string>
 	<string name="type.railway.subway_entrance.london">Vstup do metra</string>
 	<string name="type.railway.subway_entrance.lyon">Vstup do metra</string>
 	<string name="type.railway.subway_entrance.madrid">Vstup do metra</string>
@@ -1490,7 +1489,7 @@
 	<string name="type.shop.jewelry">Klenotníctvo</string>
 	<string name="type.shop.kitchen">Kuchynský obchod</string>
 	<string name="type.shop.laundry">Práčovňa</string>
-	<string name="type.shop.mall">The Mall</string>
+	<string name="type.shop.mall">Mall</string>
 	<string name="type.shop.massage">Masážny salón</string>
 	<string name="type.shop.mobile_phone">Mobilné telefóny</string>
 	<string name="type.shop.money_lender">Obchod</string>

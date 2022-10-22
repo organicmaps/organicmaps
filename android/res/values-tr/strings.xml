@@ -825,7 +825,7 @@
 	<string name="type.recycling.batteries">Piller</string>
 	<string name="type.recycling.clothes">Kıyafet</string>
 	<string name="type.recycling.glass_bottles">Cam Şişeler</string>
-	<string name="type.recycling.paper">Kâğıt Atıklar</string>
+	<string name="type.recycling.paper">Kağıt Atıklar</string>
 	<string name="type.recycling.plastic">Plastik Atıklar</string>
 	<string name="type.recycling.plastic_bottles">Plastik Şişeler</string>
 	<string name="type.recycling.scrap_metal">Hurda Metaller</string>
@@ -1610,7 +1610,6 @@
 	<string name="type.railway.subway_entrance.lille">Metro Girişi</string>
 	<string name="type.railway.subway_entrance.lima">Metro Girişi</string>
 	<string name="type.railway.subway_entrance.lisboa">Metro Girişi</string>
-	<string name="type.railway.subway_entrance.lisbon">Metro Girişi</string>
 	<string name="type.railway.subway_entrance.london">Metro Girişi</string>
 	<string name="type.railway.subway_entrance.lyon">Metro Girişi</string>
 	<string name="type.railway.subway_entrance.madrid">Metro Girişi</string>
