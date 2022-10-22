@@ -17091,9 +17091,6 @@
   [type.railway.station.subway.lisboa]
     ref = type.railway.station.subway
 
-  [type.railway.station.subway.lisbon]
-    ref = type.railway.station.subway
-
   [type.railway.station.subway.london]
     ref = type.railway.station.subway
 
@@ -17489,9 +17486,6 @@
     ref = type.railway.subway_entrance
 
   [type.railway.subway_entrance.lisboa]
-    ref = type.railway.subway_entrance
-
-  [type.railway.subway_entrance.lisbon]
     ref = type.railway.subway_entrance
 
   [type.railway.subway_entrance.london]
