@@ -199,7 +199,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ImportKML)
   kmlDataCollection.emplace_back(""/* filePath */,
                                  LoadKmlData(MemReader(kmlString, strlen(kmlString)), KmlFileType::Text));
   TEST(kmlDataCollection.back().second, ());
-  bmManager.CreateCategories(std::move(kmlDataCollection), false /* autoSave */);
+  bmManager.CreateCategories(std::move(kmlDataCollection));
   TEST_EQUAL(bmManager.GetBmGroupsIdList().size(), 1, ());
 
   auto const groupId = bmManager.GetBmGroupsIdList().front();
@@ -225,7 +225,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ExportKML)
   BookmarkManager::KMLDataCollection kmlDataCollection1;
   kmlDataCollection1.emplace_back("",
                                   LoadKmlData(MemReader(kmlString, strlen(kmlString)), KmlFileType::Text));
-  bmManager.CreateCategories(std::move(kmlDataCollection1), false /* autoSave */);
+  bmManager.CreateCategories(std::move(kmlDataCollection1));
   TEST_EQUAL(bmManager.GetBmGroupsIdList().size(), 1, ());
 
   auto const groupId1 = bmManager.GetBmGroupsIdList().front();
@@ -253,7 +253,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ExportKML)
   kmlDataCollection2.emplace_back("", LoadKmlData(FileReader(fileName), GetActiveKmlFileType()));
   TEST(kmlDataCollection2.back().second, ());
 
-  bmManager.CreateCategories(std::move(kmlDataCollection2), false /* autoSave */);
+  bmManager.CreateCategories(std::move(kmlDataCollection2));
   TEST_EQUAL(bmManager.GetBmGroupsIdList().size(), 1, ());
 
   auto const groupId2 = bmManager.GetBmGroupsIdList().front();
@@ -960,7 +960,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_InnerFolder)
 
   kmlDataCollection.emplace_back("" /* filePath */,
                                  LoadKmlData(MemReader(kmlString2, strlen(kmlString2)), KmlFileType::Text));
-  bmManager.CreateCategories(std::move(kmlDataCollection), false /* autoSave */);
+  bmManager.CreateCategories(std::move(kmlDataCollection));
   auto const & groupIds = bmManager.GetBmGroupsIdList();
   TEST_EQUAL(groupIds.size(), 1, ());
   TEST_EQUAL(bmManager.GetUserMarkIds(groupIds.front()).size(), 1, ());
@@ -1030,7 +1030,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_SpecialXMLNames)
   BookmarkManager::KMLDataCollection kmlDataCollection1;
   kmlDataCollection1.emplace_back("" /* filePath */,
                                  LoadKmlData(MemReader(kmlString3, strlen(kmlString3)), KmlFileType::Text));
-  bmManager.CreateCategories(std::move(kmlDataCollection1), false /* autoSave */);
+  bmManager.CreateCategories(std::move(kmlDataCollection1));
 
   auto const & groupIds = bmManager.GetBmGroupsIdList();
   TEST_EQUAL(groupIds.size(), 1, ());
@@ -1055,14 +1055,14 @@ UNIT_CLASS_TEST(Runner, Bookmarks_SpecialXMLNames)
 
   BookmarkManager::KMLDataCollection kmlDataCollection2;
   kmlDataCollection2.emplace_back("" /* filePath */, LoadKmlFile(fileNameTmp, GetActiveKmlFileType()));
-  bmManager.CreateCategories(std::move(kmlDataCollection2), false /* autoSave */);
+  bmManager.CreateCategories(std::move(kmlDataCollection2));
 
   BookmarkManager::KMLDataCollection kmlDataCollection3;
   kmlDataCollection3.emplace_back("" /* filePath */,
                                   LoadKmlData(MemReader(kmlString3, strlen(kmlString3)), KmlFileType::Text));
 
   bmManager.UpdateLastModifiedTime(kmlDataCollection3);
-  bmManager.CreateCategories(std::move(kmlDataCollection3), false /* autoSave */);
+  bmManager.CreateCategories(std::move(kmlDataCollection3));
 
   TEST_EQUAL(bmManager.GetBmGroupsIdList().size(), 2, ());
   auto const catId2 = bmManager.GetBmGroupsIdList().back();
@@ -1092,7 +1092,7 @@ UNIT_CLASS_TEST(Runner, TrackParsingTest_1)
   kmlDataCollection.emplace_back(kmlFile, LoadKmlFile(kmlFile, KmlFileType::Text));
   TEST(kmlDataCollection.back().second, ("KML can't be loaded"));
 
-  bmManager.CreateCategories(std::move(kmlDataCollection), false /* autoSave */);
+  bmManager.CreateCategories(std::move(kmlDataCollection));
   TEST_EQUAL(bmManager.GetBmGroupsIdList().size(), 1, ());
 
   auto catId = bmManager.GetBmGroupsIdList().front();
@@ -1129,7 +1129,7 @@ UNIT_CLASS_TEST(Runner, TrackParsingTest_2)
   kmlDataCollection.emplace_back(kmlFile, LoadKmlFile(kmlFile, KmlFileType::Text));
 
   TEST(kmlDataCollection.back().second, ("KML can't be loaded"));
-  bmManager.CreateCategories(std::move(kmlDataCollection), false /* autoSave */);
+  bmManager.CreateCategories(std::move(kmlDataCollection));
   TEST_EQUAL(bmManager.GetBmGroupsIdList().size(), 1, ());
 
   auto catId = bmManager.GetBmGroupsIdList().front();
