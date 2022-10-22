@@ -17,7 +17,6 @@ import androidx.core.widget.ImageViewCompat;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.location.LocationState;
-import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 
@@ -29,15 +28,11 @@ public class MyPositionButton
   private final FloatingActionButton mButton;
   private static final SparseArray<Drawable> mIcons = new SparseArray<>(); // Location mode -> Button icon
 
-  private int mMode;
-  private final boolean mVisible;
-
   private final int mFollowPaddingShift;
 
   public MyPositionButton(@NonNull View button, int myPositionMode, @NonNull View.OnClickListener listener)
   {
     mButton = (FloatingActionButton) button;
-    mVisible = UiUtils.isVisible(mButton);
     mButton.setOnClickListener(listener);
     mIcons.clear();
     mFollowPaddingShift = (int) (FOLLOW_SHIFT * button.getResources().getDisplayMetrics().density);
@@ -46,7 +41,6 @@ public class MyPositionButton
 
   public void update(int mode)
   {
-    mMode = mode;
     Drawable image = mIcons.get(mode);
     @AttrRes int colorAttr = R.attr.iconTint;
     @DimenRes int sizeDimen = R.dimen.map_button_icon_size;
@@ -94,8 +88,6 @@ public class MyPositionButton
 
     if (image instanceof AnimationDrawable)
       ((AnimationDrawable) image).start();
-
-    UiUtils.visibleIf(!shouldBeHidden(), mButton);
   }
 
   private void updatePadding(int mode)
@@ -104,13 +96,6 @@ public class MyPositionButton
       mButton.setPadding(0, mFollowPaddingShift, mFollowPaddingShift, 0);
     else
       mButton.setPadding(0, 0, 0, 0);
-  }
-
-  private boolean shouldBeHidden()
-  {
-    return (mMode == LocationState.FOLLOW_AND_ROTATE
-            && (RoutingController.get().isPlanning()))
-           || !mVisible;
   }
 
   public void showButton(boolean show)
