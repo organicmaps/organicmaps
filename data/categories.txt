@@ -116,7 +116,7 @@ es:Alimentación|Productos|Comer|Tienda
 eu:Produktuak|Jan|Denda
 sv:Produkter|Mat|Butik|Affär
 th:ซื้อของกินของใช้|อาหาร|ร้านค้า
-tr:4Market|Bakkal|Yiyecek
+tr:3Market|Bakkal|Yiyecek
 uk:4Продукти|Їжа|Крамниця|4магазин
 vi:Cửa hàng tạp hóa|ẩm thực|Cửa hàng
 zh-Hans:食品|食物|商店
@@ -155,7 +155,7 @@ es:5Transporte
 eu:5Garraioa
 sv:5Transport
 th:การขนส่ง
-tr:Ulaşım
+tr:4Ulaşım
 uk:5Транспорт
 vi:Giao thông
 zh-Hans:交通
@@ -232,7 +232,7 @@ es:5Aparcamiento
 eu:5Aparkalekua
 sv:4Parkering
 th:ที่จอดรถ
-tr:4Otopark
+tr:3Otopark
 uk:4Парковка
 vi:đỗ xe
 zh-Hans:停车
@@ -660,7 +660,7 @@ eu:Hondakinen birziklapena|Hondakinak ezabatzea|Material birziklagarriak|Zabor b
 es-MX:Reciclaje|Reciclaje de desechos|Eliminación de desechos|Materiales reciclables|Recogida separada de basura|Clasificación de desechos|Reutilización
 sv:Återvinning av avfall|Avfallsbehandling|Återvinningsbart avfall|Separat sopinsamling|Sopsortering|Återanvändning
 th:การรีไซเคิล|การใช้ประโยชน์จากขยะ|รีไซเคิลได้|ที่รวบรวมขยะแยกประเภท|การแยกขยะ|รียูส
-tr:4Geri dönüşüm|4Atık kullanımı|Geri dönüştürülebilir nesneler|Ayrı çöp toplama|Atık ayırma|Yeniden kullanım
+tr:4Geri dönüşüm|4Atık kullanımı|4Geri dönüştürülebilir nesneler|4Ayrı çöp toplama|4Atık ayırma|5Yeniden kullanım
 uk:5Переробка відходів|Утилізація відходів|5Прийом вторсировини|5Здати вторсировину|5Роздільний збір сміття|Сортування сміття|Повторне використання
 vi:Tái chế rác thải|Sử dụng rác thải|Tái chế|Thu gom rác riêng|Phân loại rác|Sử dụng lại
 el:Ανακύκλωση|Ανακύκλωση απορριμμάτων|Ανακυκλώσιμα|Ξεχωριστή συλλογή απορριμμάτων|Διαλογή απορριμμάτων|Επαναχρησιμοποίηση
