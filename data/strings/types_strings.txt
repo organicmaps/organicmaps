@@ -3052,7 +3052,7 @@
     nl = Recycling container
     pl = Pojemnik do recyklingu
     pt = Contentor de reciclagem
-    pt-BR = Recipiente de reciclagem
+    pt-BR = Contêiner de reciclagem
     ro = Containere pentru reciclare
     ru = Контейнер для вторсырья
     sk = Recyklačný odpad
@@ -3198,7 +3198,7 @@
     nl = Papierafval
     pl = Makulatura
     pt = Papel
-    pt-BR = Lixo de papel
+    pt-BR = Papel
     ro = Deșeuri de hârtie
     ru = Бумага
     sk = Papierový odpad
@@ -3233,7 +3233,7 @@
     nl = Plastic afval
     pl = Śmieci z plastiku
     pt = Plásticos
-    pt-BR = Lixo plástico
+    pt-BR = Plástico
     ro = Deșeuri de plastic
     ru = Пластик
     sk = Plastový odpad
@@ -3268,7 +3268,7 @@
     nl = Plastic flessen
     pl = Zbieranie plastikowych butelek
     pt = Garrafas de plástico
-    pt-BR = Garrafas plasticas
+    pt-BR = Garrafas plásticas
     ro = Sticle de plastic
     ru = Пластиковые бутылки
     sk = Plastové fľaše
@@ -3304,7 +3304,7 @@
     nl = Schroot
     pl = Złom
     pt = Sucata
-    pt-BR = Ferro velho
+    pt-BR = Sucata
     ro = Resturi de metal
     ru = Металлолом
     sk = Kovový šrot
@@ -3339,7 +3339,7 @@
     nl = Elektronisch afval
     pl = Odpady elektryczne
     pt = Pequenos eletrodomésticos
-    pt-BR = Lixo eletrônico
+    pt-BR = Eletrônicos
     ro = Deșeuri electrice
     ru = Электроотходы
     sk = Elektronický odpad
@@ -3361,6 +3361,7 @@
     it = Cartone
     mr = पुठ्ठा
     nl = Karton
+    pt-BR = Papelão
     ru = Картон
     tr = Karton
     uk = Картон
@@ -3375,6 +3376,7 @@
     it = Lattine
     mr = कॅन
     nl = Blikafval
+    pt-BR = Latas
     ru = Жестяные и алюминиевые банки
     tr = Teneke ve alüminyum kutular
     uk = Бляшані та алюмінієві банки
@@ -3389,6 +3391,7 @@
     it = Scarpe
     mr = पादत्राणे
     nl = Schoenen
+    pt-BR = Sapatos
     ru = Обувь
     tr = Ayakkabılar
     uk = Взуття
@@ -3402,6 +3405,7 @@
     fr = Déchets organiques
     it = Umido
     nl = GFT afval
+    pt-BR = Lixo verde/orgânico
     ru = Органика / Пищевые отходы
     tr = Yeşil/Organik Atık
     uk = Органіка / Харчові відходи
@@ -3415,6 +3419,7 @@
     fr = Briques alimentaires
     mr = पेय कार्टन
     nl = Drankverpakkingen
+    pt-BR = Caixa de bebidas
     ru = Тетрапак и аналоги
     tr = İçecek Kartonları
     uk = Тетрапак та аналоги
@@ -3456,6 +3461,7 @@
     fr = Station de vidange
     it = Area servizi camper
     nl = Caravantoilet cassette-leegpunt
+    pt-BR = Estação de despejo de esgotos
     ru = Слив для туалетов транспортных средств
     tr = Tank Boşaltma İstasyonu
     uk = Злив для туалетів транспортних засобів
@@ -3821,6 +3827,7 @@
     it = Distributore di caffè
     mr = कॉफी विक्रीयंत्र
     nl = Koffieautomaat
+    pt-BR = Máquina de café
     ru = Кофейный автомат
     uk = Кавовий автомат
 
@@ -3835,6 +3842,7 @@
     it = Distributore di profilattici
     mr = कंडोम विक्रीयंत्र
     nl = Condoomautomaat
+    pt-BR = Máquina de venda de preservativos
     ru = Автомат с презервативами
     uk = Автомат з презервативами
 
@@ -3884,6 +3892,7 @@
     it = Distributore di alimenti
     mr = अन्न विक्रीयंत्र
     nl = Etenswarenautomaat
+    pt-BR = Máquina de venda de comidas
     ru = Автомат с едой
     uk = Автомат з їжею
 
@@ -3898,6 +3907,7 @@
     it = Distributore di giornali
     mr = वृत्तपत्र विक्रीयंत्र
     nl = Krantenautomaat
+    pt-BR = Máquina de venda de jornais
     ru = Газетный автомат
     uk = Газетний автомат
 
@@ -3924,7 +3934,7 @@
     nl = Betaalautomaat parkeerplaats
     pl = Parkometr
     pt = Máquina venda de bilhetes de estacionamento
-    pt-BR = Máquina venda de tíquetes de estacionamento
+    pt-BR = Máquina de venda de tíquetes de estacionamento
     ro = Parcomat
     ru = Паркомат
     sk = Automat na výdaj parkovacích lístkov
@@ -3960,7 +3970,7 @@
     nl = Kaartjesautomaat voor openbaar vervoer
     pl = Automat biletowy do transportu publicznego
     pt = Máquina venda de bilhetes de transporte público
-    pt-BR = Máquinas automáticas de venda de passagens de transporte público
+    pt-BR = Máquina de venda de passagens de transporte público
     ro = Automat de vânzare a biletelor pentru transportul public
     ru = Автомат по продаже билетов
     sk = Predajný automat na lístky verejnej dopravy
@@ -3984,6 +3994,7 @@
     it = Distributore di dolciumi
     mr = मिठाई विक्रीयंत्र
     nl = Snoepautomaat
+    pt-BR = Máquina de venda de doces
     ru = Автомат со сладостями
     uk = Автомат із солодощами
 
@@ -3996,6 +4007,7 @@
     fr = Distributeur de sacs à excréments
     mr = मलमूत्र पिशव्या विक्रीयंत्र
     nl = Hondenpoepzakjesdispenser
+    pt-BR = Saquinhos de lixo
     ru = Пакеты для экскрементов
     tr = Dışkı Torbası Dağıtıcı
     uk = Мішки для екскрементів
@@ -4010,6 +4022,8 @@
     it = Punto di ritiro
     mr = पार्सल लॉकर
     nl = Pakketjeskluis
+    pt = Cacifo
+    pt-BR = Armário de encomendas
     ru = Почтомат
     tr = Kilitlenebilen Kutu Dolaplar
     uk = Поштомат
@@ -4022,6 +4036,7 @@
     fi = Bensa-automaatti
     mr = इंधन विक्रीयंत्र
     nl = Tankautomaat
+    pt-BR = Bomba de combustível
     ru = Топливная колонка
     tr = Yakıt Dağıtıcı
     uk = Паливна колонка
@@ -4136,6 +4151,7 @@
     it = Centro trasferimento rifiuti
     mr = कचरा हस्तांतरण केंद्र
     nl = Overslagstation voor afval
+    pt-BR = Estação de transferência de resíduos
     ru = Станция перевалки отходов
     tr = Atık Transfer İstasyonu
     uk = Станція передачі сміття
@@ -4248,7 +4264,7 @@
     nl = Pilaar
     pl = Słupek
     pt = Pilarete
-    pt-BR = Pilar
+    pt-BR = Pilarete
     ro = Stâlp
     ru = Столбик
     sk = Pilier
@@ -17808,7 +17824,7 @@
     de = Shuttlezug
     nl = Shuttle-trein
     pt = Rota de comboio vaivem
-    pt-BR = Rota de trem vaivem
+    pt-BR = Rota de trem vaivém
     ru = Челночная линия
     tr = Servis Treni
 
@@ -17868,7 +17884,7 @@
     nl = Slijterij
     pl = Sklep monopolowy
     pt = Loja de bebidas alcoolicas
-    pt-BR = Loja de bebidas alcoolicas
+    pt-BR = Loja de bebidas alcoólicas
     ro = Băuturi alcoolice
     ru = Магазин алкоголя
     sk = Liehoviny
@@ -18658,7 +18674,7 @@
     nl = IJzerhandel
     pl = Sklep narzędziowy
     pt = Loja de ferramentas e materiais de bricolage
-    pt-BR = Loja de ferramentas e materiais de bricolage
+    pt-BR = Loja de ferramentas e materiais de bricolagem
     ro = Magazin de bricolaj
     ru = Хозяйственный
     sk = Železiarstvo
@@ -19715,7 +19731,7 @@
     nl = Banketbakker
     pl = Ciasto
     pt = Pastelaria
-    pt-BR = Pastelaria
+    pt-BR = Confeitaria
     ro = Patiserie
     ru = Выпечка
     sk = Pečivo
@@ -20292,7 +20308,7 @@
     nl = Videowinkel
     pl = Wypożyczalnia wideo
     pt = Vídeoclube
-    pt-BR = Video locadora
+    pt-BR = Videolocadora
     ro = Magazin video
     ru = Магазин видео
     sk = Predajňa s videami
@@ -20658,7 +20674,7 @@
     nl = Kunst en ambacht
     pl = Sztuka i rzemiosło
     pt = Artes e Ofícios
-    pt-BR = Artes e Ofícios
+    pt-BR = Artes e ofícios
     ro = Arte și Meserii
     ru = Искусства и ремесла
     sk = Umenie a remeslá
@@ -20806,7 +20822,7 @@
     nl = Interieurdecoraties
     pl = Dekoracje wnętrz
     pt = Decorações de Interiores
-    pt-BR = Decorações de Interiores
+    pt-BR = Decoração de interiores
     ro = Decoratiuni interioare
     ru = Украшения для интерьера
     sk = Interiérové dekorácie
@@ -21065,7 +21081,7 @@
     nl = Opslag verhuur
     pl = Wynajem magazynu
     pt = Aluguel de Armazenamento
-    pt-BR = Aluguel de Armazenamento
+    pt-BR = Aluguel de armazenamento
     ro = Închiriere depozitare
     ru = Аренда склада
     sk = Prenájom skladu
@@ -21826,7 +21842,7 @@
     nl = Diverse sporten
     pl = Różne sporty
     pt = Vários desportos
-    pt-BR = Vários desportos
+    pt-BR = Poliesportivo
     ro = Sporturi Diverse
     ru = Различные виды спорта
     sk = Rôzne športy
