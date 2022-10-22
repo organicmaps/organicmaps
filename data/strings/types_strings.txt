@@ -4812,7 +4812,6 @@
     ref = type.boundary.administrative.country
     es = Frontera de nación
     eu = Nazio muga
-    it = Confine nazionale
     nl = Natiegrens
     pt = Fronteira de nação
     pt-BR = Fronteira de nação
@@ -9405,7 +9404,6 @@
   [type.highway.path.hiking]
     ref = type.highway.path
     de = Wanderweg
-    it = Sentiero
     nl = Wandelpad
     pt-BR = Caminho pedonal
 
@@ -9540,7 +9538,6 @@
   [type.highway.primary_link]
     ref = type.highway.primary
     en = Primary Road Ramp
-    it = Strada
     mr = प्राथमिक मार्ग उतार
     pt-BR = Saída de rodovia
     ru = Съезд с шоссе
@@ -9826,7 +9823,6 @@
   [type.highway.secondary_link]
     ref = type.highway.secondary
     en = Secondary Road Ramp
-    it = Strada
     mr = दुय्यम मार्ग उतार
     pt-BR = Saída de rodovia
     ru = Съезд с автодороги
@@ -11395,13 +11391,11 @@
     comment = In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship.
     ref = type.amenity.grave_yard
     en = Cemetery
-    it = Cimitero
     nl = Begraafplaats
 
   [type.landuse.cemetery.christian]
     ref = type.amenity.grave_yard.christian
     en = Christian Cemetery
-    it = Cimitero cristiano
     nl = Christelijke begraafplaats
 
   [type.landuse.churchyard]
@@ -12272,7 +12266,6 @@
     ref = type.leisure.garden
     en = Residential Garden
     be = Частный сад
-    nl = Tuin
     pl = Ogród przydomowy
     pt = Jardim residencial
     pt-BR = Jardim residencial
@@ -16473,7 +16466,6 @@
   [type.railway.halt]
     ref = type.railway.station
     de = Haltepunkt
-    nl = Station
     pl = Przystanek kolejowy
     pt = Apeadeiro
     pt-BR = Ponto de parada
@@ -19143,7 +19135,6 @@
     fr = Quincaillerie
     he = ןיינב ירמוחל תונח
     hu = Hardver üzlet
-    it = Ferramenta
     ja = ホームセンター
     nl = IJzerwaren
     pl = Sklep z narzędziami
