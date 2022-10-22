@@ -53,12 +53,6 @@ public class SimplePlacePageController implements PlacePageController
         }
 
         @Override
-        public void onSheetDirectionIconChange()
-        {
-          // No op.
-        }
-
-        @Override
         public void onSheetDetailsOpened()
         {
           if (UiUtils.isLandscape(mApplication))
