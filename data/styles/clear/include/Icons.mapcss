@@ -2598,6 +2598,9 @@ area|z17-[craft=beekeeper]
 node|z17-[craft=blacksmith],
 area|z17-[craft=blacksmith]
 {icon-image:blacksmith-m.svg;}
+node|z17-[craft=carpenter],
+area|z17-[craft=carpenter]
+{icon-image:carpenter-m.svg;}
 node|z17-[craft=confectionery],
 area|z17-[craft=confectionery]
 {icon-image:sweets-m.svg;}
@@ -2619,6 +2622,9 @@ area|z17-[craft=photographer]
 node|z17-[craft=plumber],
 area|z17-[craft=plumber]
 {icon-image:plumber-m.svg;}
+node|z17-[craft=sawmill],
+area|z17-[craft=sawmill]
+{icon-image:sawmill-m.svg;}
 node|z17-[craft=shoemaker],
 area|z17-[craft=shoemaker]
 {icon-image:shoes-m.svg;}
