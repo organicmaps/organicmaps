@@ -924,11 +924,6 @@ void Framework::ShowAll()
                                      false /* useVisibleViewport */);
 }
 
-m2::PointD Framework::GetPixelCenter() const
-{
-  return m_currentModelView.PixelRectIn3d().Center();
-}
-
 m2::PointD Framework::GetVisiblePixelCenter() const
 {
   return m_visibleViewport.Center();
@@ -1380,20 +1375,19 @@ void Framework::FillSearchResultsMarks(SearchResultsIterT beg, SearchResultsIter
       continue;
 
     auto * mark = editSession.CreateUserMark<SearchMarkPoint>(r.GetFeatureCenter());
-    auto const isFeature = r.GetResultType() == search::Result::Type::Feature;
-    if (isFeature)
-      mark->SetFoundFeature(r.GetFeatureID());
-
     mark->SetMatchedName(r.GetString());
 
-    if (isFeature)
+    if (r.GetResultType() == search::Result::Type::Feature)
     {
+      auto const fID = r.GetFeatureID();
+      mark->SetFoundFeature(fID);
+
       if (r.m_details.m_isHotel)
         mark->SetHotelType();
       else
         mark->SetFromType(r.GetFeatureType());
-      mark->SetVisited(m_searchMarks.IsVisited(mark->GetFeatureID()));
-      mark->SetSelected(m_searchMarks.IsSelected(mark->GetFeatureID()));
+      mark->SetVisited(m_searchMarks.IsVisited(fID));
+      mark->SetSelected(m_searchMarks.IsSelected(fID));
     }
   }
 }
@@ -1984,10 +1978,9 @@ void Framework::ActivateMapSelection()
                                 bi.m_needAnimationOnSelection, bi.m_isGeometrySelectionAllowed, true);
   }
 
+  ASSERT(m_onPlacePageOpen, ());
   if (m_onPlacePageOpen)
     m_onPlacePageOpen();
-  else
-    LOG(LWARNING, ("m_onPlacePageOpen has not been set up."));
 }
 
 void Framework::DeactivateMapSelection(bool notifyUI)

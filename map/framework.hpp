@@ -488,7 +488,6 @@ public:
   /// Show all model by it's world rect.
   void ShowAll();
 
-  m2::PointD GetPixelCenter() const;
   m2::PointD GetVisiblePixelCenter() const;
 
   m2::PointD const & GetViewportCenter() const;
