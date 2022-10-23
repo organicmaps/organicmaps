@@ -2598,6 +2598,9 @@ area|z17-[craft=beekeeper]
 node|z17-[craft=blacksmith],
 area|z17-[craft=blacksmith]
 {icon-image:blacksmith-m.svg;}
+node|z17-[craft=brewery],
+area|z17-[craft=brewery]
+{icon-image:brewery-m.svg;}
 node|z17-[craft=carpenter],
 area|z17-[craft=carpenter]
 {icon-image:carpenter-m.svg;}
