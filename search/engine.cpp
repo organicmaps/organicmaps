@@ -8,19 +8,16 @@
 #include "indexer/search_string_utils.hpp"
 
 #include "base/scope_guard.hpp"
-#include "base/stl_helpers.hpp"
 #include "base/timer.hpp"
 
 #include <algorithm>
-#include <cstdint>
-#include <functional>
 #include <map>
 #include <vector>
 
-using namespace std;
-
 namespace search
 {
+using namespace std;
+
 namespace
 {
 class InitSuggestions
@@ -284,7 +281,7 @@ void Engine::PostMessage(Args &&... args)
 
 void Engine::DoSearch(SearchParams params, shared_ptr<ProcessorHandle> handle, Processor & processor)
 {
-  LOG(LINFO, ("Search started."));
+  LOG(LINFO, ("Search started:", params.m_mode));
   base::Timer timer;
   SCOPE_GUARD(printDuration, [&timer]()
   {
