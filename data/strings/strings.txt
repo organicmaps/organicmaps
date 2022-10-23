@@ -3453,7 +3453,7 @@
     mr = मी आता इथे आहे %1$@ किंवा %2$@ Organic Maps डाउनलोड करा: https://omaps.app/get
     nb = Hei, se posisjonen min på Organic Maps! %1$@ eller %2$@ Har du ikke offline-kart? Last dem ned her: https://omaps.app/get
     nl = Hey, kijk naar mijn huidige locatie op Organic Maps! %1$@ of %2$@ Heeft u geen offline-kaarten? Download ze hier: https://omaps.app/get
-    pl = Zobacz gdzie jestem. Link %1$@ lub %2$@
+    pl = Hej, spójrz na moją aktualną lokalizację w Organic Maps! %1$@ lub %2$@ Nie masz map offline? Pobierz tutaj: https://omaps.app/get
     pt = Veja onde estou agora. Abra a hiperligação: %1$@ ou %2$@ Não tem um mapa offline instalado? Descarregue em https://omaps.app/get
     pt-BR = Veja onde estou agora. Abra o link: %1$@ ou %2$@ Não tem mapas offline instalados? Baixe aqui: https://omaps.app/get
     ro = Poți vedea poziția mea pe harta Organic Maps! %1$@ sau %2$@ Nu ai descărcat aplicația? O poți descărca de aici: https://omaps.app/get
@@ -3492,7 +3492,7 @@
     mr = Organic Maps द्वारे एक खूणपत्र पाठवत आहे!
     nb = Hei, se merket mitt på Organic Maps-kartet
     nl = Hey, kijk naar mijn pin op Organic Maps!
-    pl = Obejrzyj mój znacznik na mapie w Organic Maps
+    pl = Hej, spójrz na mój znacznik w Organic Maps! 
     pt = Veja o meu marcador no mapa do Organic Maps.
     pt-BR = Veja o meu marcador no mapa do Organic Maps.
     ro = Poți vedea locul meu preferat pe harta Organic Maps!
@@ -5325,7 +5325,7 @@
     ko = 기부
     nb = Donere
     nl = Doneren
-    pl = Podarować
+    pl = Wspomóż
     pt = Doar
     pt-BR = Doar
     ro = Donează
@@ -9177,7 +9177,7 @@
     mr = पासून मार्ग
     nb = Fra
     nl = Van
-    pl = Z
+    pl = Trasa od
     pt = De
     pt-BR = De
     ro = De la
@@ -9215,7 +9215,7 @@
     mr = पर्यंतचा मार्ग
     nb = Rute til
     nl = Route naar
-    pl = Droga do
+    pl = Trasa do
     pt = Itinerário para
     pt-BR = Para
     ro = La
@@ -12713,7 +12713,7 @@
     ko = 모든 지도 데이터는 OpenStreetMap 프로젝트에서 가져옵니다. ""장소를 추가하거나 편집할 수 있는 지도용 Wikipedia와 같으며 전 세계 수백만 사용자가 사용할 수 있습니다.
     nb = Alle kartdata kommer fra OpenStreetMap-prosjektet. Det er som Wikipedia for kart hvor du kan legge til eller redigere steder, og de blir tilgjengelige for millioner av brukere over hele verden.
     nl = Alle kaartgegevens komen uit het OpenStreetMap-project. Het is als Wikipedia voor kaarten waar je plaatsen kunt toevoegen of bewerken, en ze worden beschikbaar voor miljoenen gebruikers over de hele wereld.
-    pl = Wszystkie dane mapy pochodzą z projektu OpenStreetMap. Przypomina Wikipedię z mapami, w których można dodawać lub edytować miejsca, a stają się one dostępne dla milionów użytkowników na całym świecie.
+    pl = Wszystkie dane mapy pochodzą z projektu OpenStreetMap. Jest jak Wikipedia, tylko dla map. Możesz dodawać lub edytować miejsca i staną się dostępne milionom użytkowników na całym świecie.
     pt = Todos os dados cartográficos provêm do projecto OpenStreetMap. É como a Wikipedia para mapas onde se podem adicionar ou editar locais, e estes ficam disponíveis para milhões de utilizadores em todo o mundo.
     pt-BR = Todos os dados do mapa são provenientes do projeto OpenStreetMap. É como a Wikipedia para mapas onde você pode adicionar ou editar lugares, e eles ficam disponíveis para milhões de usuários em todo o mundo.
     ro = Toate datele hărții provin din proiectul OpenStreetMap. Este ca Wikipedia pentru hărți în care puteți adăuga sau edita locuri și acestea devin disponibile pentru milioane de utilizatori din întreaga lume.
@@ -15402,7 +15402,7 @@
     mr = Organic Maps हे एक विनामूल्य, जलद व ऑफलाईन नकाशांचे ऍप आहे जिथे जाहिरातीही नसतात व तुम्ही माहिती देखील गोळा केला जात नाही. हे नकाशे OpenStreetMap ह्या जनयोगदान प्रकल्पावर आधारित असल्याने नकाशातील त्रुट्या सुधारणे, नवीन ठिकाण जोडणे हे आपण स्वतः करू शकता. Organic Maps हा काही उत्साही लोकांनी त्यांच्या ऐत्यावेळात निर्माण केलेला मुक्त स्त्रोत स्वरूपाचा प्रकल्प आहे. तुमचा पाठिंबा व अभिप्राय बहुमोल आहे.
     nb = Organic Maps er en gratis og åpen kildekode-app for offline kart. Ingen annonser. Ingen sporing. Hvis du ser en feil på kartet, må du rette den i OpenStreetMap. Prosjektet er laget av entusiaster på fritiden vår, så vi trenger din tilbakemelding og støtte.
     nl = Organic Maps is een gratis en open-source offline kaartentoepassing. Geen advertenties. Geen volgen. Als je een fout op de kaart ziet, corrigeer deze dan in OpenStreetMap. Het project is gemaakt door enthousiastelingen in onze vrije tijd, dus we hebben uw feedback en ondersteuning nodig.
-    pl = Organic Maps to bezpłatna aplikacja do map offline typu open source. Bez reklam. Bez śledzenia. Jeśli zobaczysz błąd na mapie, napraw go w OpenStreetMap. Projekt jest tworzony przez entuzjastów w czasie wolnym, dlatego potrzebujemy Twojej opinii i wsparcia.
+    pl = Organic Maps to bezpłatna aplikacja do map offline typu open source. Bez reklam. Bez śledzenia. Jeśli zobaczysz błąd na mapie, popraw go w OpenStreetMap. Projekt jest tworzony przez entuzjastów w czasie wolnym, dlatego potrzebujemy Twojej opinii i wsparcia.
     pt = Organic Maps é uma aplicação gratuita e de código aberto de mapas offline. Sem anúncios. Sem seguimento. Se vir um erro no mapa, por favor repare-o em OpenStreetMap. O projecto é criado por entusiastas no nosso tempo livre, por isso precisamos do seu feedback e apoio.
     pt-BR = Organic Maps é um aplicativo gratuito e de código aberto de mapas offline. Sem anúncios. Sem rastreamento. Se você vir um erro no mapa, por favor, corrija em OpenStreetMap. O projeto é criado por entusiastas em seu tempo livre, então precisamos de seu feedback e suporte.
     ro = Organic Maps este o aplicație rapidă și gratuită fără reclame și urmărire. Hărțile sunt bazate pe datele OpenStreetMap.org oferite de utilizatori, de aceea chiar și tu poți corecta erorile și adăuga obiecte noi pe hartă. Organic Maps este un proiect creat de entuziaști în timpul lor liber. Părerea și sprijinul tău sunt foarte importante pentru noi
@@ -15596,7 +15596,7 @@
     mr = तपशीलवार माहिती दाखवण्यासाठी मोबाईल इंटरनेट वापरायचे?
     nb = Bruke mobilt Internett til å vise detaljert informasjon?
     nl = Mobiel internet gebruiken om gedetailleerde informatie weer te geven?
-    pl = Wykorzystać internet mobilny, aby wyświetlić dane szczegółowe?
+    pl = Wykorzystać dane mobilne, aby wyświetlić dane szczegółowe?
     pt = Utilizar os dados móveis para mostrar informações detalhadas?
     pt-BR = Utilizar a internet móvel para mostrar informações detalhadas?
     ro = Folosești internetul mobil pentru a vedea informaţii detaliate?
@@ -15748,7 +15748,7 @@
     mr = मोबाइल इंटरनेट
     nb = Mobilt Internett
     nl = Mobiel Internet
-    pl = Internet mobilny
+    pl = Dane mobilne
     pt = Dados móveis
     pt-BR = Internet Móvel
     ro = Internet mobil
@@ -15787,7 +15787,7 @@
     mr = नकाशा अद्यतन सूचना तसेच ठिकाणे व खूणपत्रांबद्दल तपशीलवार माहिती प्रदर्शित करण्यासाठी मोबाइल इंटरनेट आवश्यक आहे.
     nb = Mobilt Internett er nødvendig for å vise detaljert informasjon om steder, for eksempel fotografier, priser og anmeldelser.
     nl = Mobiel internet is vereist voor het weergeven van gedetailleerde informatie over plaatsen, zoals foto's, prijzen en beoordelingen.
-    pl = Do wyświetlania danych szczegółowych o miejscach (np. zdjęcia, ceny i recenzje) wymagany jest internet mobilny.
+    pl = Dane mobilne są wymagane do powiadomień o aktualizacji map i wyświetlania dokładniejszych informacji o miejscach i zakładkach.
     pt = Para visualizar informações detalhadas sobre os locais, tais como fotografias, preços e avaliações, é necessário acesso à internet móvel.
     pt-BR = Para visualizar informações detalhadas sobre os locais, tais como fotos, preços e análises, é necessário acesso à internet móvel.
     ro = Internetul mobil este necesar pentru a afișa informaţii detaliate despre locuri generale și cele preferate.
@@ -16093,7 +16093,7 @@
     mr = लॉग चालू करा
     nb = Aktiver loggføring
     nl = Logboekregistratie inschakelen
-    pl = Włącz logowanie
+    pl = Włącz zbieranie danych
     pt = Ativar o histórico
     pt-BR = Ativar o histórico
     ro = Activează jurnalizarea
@@ -16326,7 +16326,7 @@
     mr = अधिक माहितीसाठी कृपया ही मार्गदर्शिका पहा.
     nb = Les denne veiledningen for mer informasjon.
     nl = Gelieve deze handleiding te lezen voor meer informatie.
-    pl = Aby uzyskać więcej informacji, sprawdź ten poradnik.
+    pl = Aby uzyskać więcej informacji, spójrz na ten poradnik.
     pt = Para obter mais informações, consulte este guia.
     pt-BR = Para obter mais informações, consulte este guia.
     ro = Consultă acest ghid pentru informații suplimentare.
@@ -19484,7 +19484,7 @@
     mr = स्वयं
     nb = Auto
     nl = Auto
-    pl = Auto
+    pl = Automatycznie
     pt = Automático
     pt-BR = Automático
     ro = Auto
@@ -19685,7 +19685,7 @@
     mr = स्वयं - वेगमर्यादा ओलांडण्याचा धोका असल्यास वेगकॅमबद्दल चेतावणी द्या\nनेहमी - नेहमी वेगकॅमबद्दल चेतावणी द्या\nकधीही नाही - वेगकॅमबद्दल कधीही चेतावणी देऊ नका
     nb = Auto - Advarsel om fartskamera hvis det er fare for å overskride fartsgrensen\nAlltid - Advar alltid om farskameraer\nAldri - Advar aldri om fartskameraer
     nl = Auto - Waarschuw voor speedcams als er een risico bestaat dat de snelheidslimiet wordt overschreden\nAltijd - Waarschuw altijd voor flitspalen\nNooit - Waarschuw nooit over flitspalen
-    pl = Auto – Ostrzegać o kamerach, jeśli istnieje ryzyko przekroczenia ograniczenia prędkości\nZawsze – Zawsze ostrzegaj o kamerach\nNigdy – Nigdy nie ostrzegaj o kamerach
+    pl = Automatycznie – Ostrzegaj o fotoradarach, jeśli istnieje ryzyko przekroczenia ograniczenia prędkości\nZawsze – Zawsze ostrzegaj o fotoradarach\nNigdy – Nigdy nie ostrzegaj o fotoradarach
     pt = Automático - avisa sobre os radares de velocidade se houver risco de exceder o limite de velocidade\nSempre - avisa sempre sobre os radares\nNunca - nunca avisar sobre os radares
     pt-BR = Automático - Avisar sobre radar se houver risco de ultrapassar o limite de velocidade\nSempre - Sempre avisar sobre radares\nNunca - Nunca avisar sobre radares
     ro = Auto - Avertizează cu privire la radare dacă există riscul depășirii limitei de viteză\nMereu - Avertizează mereu cu privire la radare\nNiciodată - Nu avertiza niciodată cu privire la radare
@@ -19845,7 +19845,7 @@
     mr = स्वयंचलित
     nb = Automatisk
     nl = Auto
-    pl = Auto
+    pl = Automatycznie
     pt = Automático
     pt-BR = Automático
     ro = Automat
@@ -19925,7 +19925,7 @@
     mr = निदान करण्याकरिता हा पर्याय लॉगिंग चालू करतो. ह्याने ऍपच्या समस्यांचे निवारण करणे आम्हाला उपयुक्त ठरू शकते. तुमच्या समस्येबद्दल तपशीलवार नोंदी रेकॉर्ड करण्यासाठी आणि आम्हाला पाठवण्यासाठी हा पर्याय तात्पुरता चालू करा.
     nb = Alternativet slår på logging for diagnostiske formål. Det kan være nyttig for våre supportpersonale som feilsøker problemer med appen. Aktiver dette alternativet bare på forespørsel fra Organic Maps-brukerstøtte.
     nl = Deze optie is ingeschakeld voor logboekregistraties voor diagnostische doeleinden. Het helpt bij het identificeren van problemen met de applicatie. Schakel de optie alleen in op verzoek van Organic Maps-ondersteuning.
-    pl = Ta opcja zostaje włączona do logowania działań w celach diagnostycznych. Pomaga to zespołowi zidentyfikować problemy z aplikacją. Włączaj opcję tylko na żądanie wsparcia technicznego Organic Maps.
+    pl = Ta opcja zostaje włączona do zbierania danych działań w celach diagnostycznych. Pomaga to zespołowi zidentyfikować problemy z aplikacją. Włączaj opcję tylko na żądanie wsparcia technicznego Organic Maps.
     pt = Esta opção ativa o registo das ações para diagnóstico. Pode ser útil para os programadores descobrirem o problema na aplicação. Ative esta opção apenas a pedido dos programadores do Organic Maps.
     pt-BR = A opção ativa logging para realizar diagnósticos. Pode ser útil para nossa equipe de suporte que estão solucionando problemas com o aplicativo. Ative esta opção apenas ao ser solicitado pelo suporte do Organic Maps.
     ro = Opțiunea activează jurnalizarea în scopuri de diagnosticare. Aceasta poate fi utilă echipei noastre pentru a rezolva problemele cu aplicația. Activează temporar această opțiune pentru a înregistra și a ne trimite jurnale detaliate despre problema ta.
@@ -20005,7 +20005,7 @@
     mr = मार्गशोधी पर्याय
     nb = Kjørealternativer
     nl = Route instellingen
-    pl = Ustawienia objazdu
+    pl = Ustawienia nawigacji
     pt = Configurações de direção
     pt-BR = Opções de direção
     ro = Opțiuni de ocolire
@@ -23994,7 +23994,7 @@
     mr = स्क्रीनचे निद्रा कार्य चालू करा
     nb = La skjermen sove
     nl = Laat het scherm slapen
-    pl = Pozwól ekranowi spać
+    pl = Pozwól na wygaszanie ekranu
     pt = Permitir que o ecrã desligue
     pt-BR = Permitir que a tela hiberne
     ro = Permite ecranului să se stingă
@@ -24034,7 +24034,7 @@
     mr = चालू केल्यास निष्क्रियतेच्या कालावधीनंतर स्क्रीनला झोपण्याची परवानगी दिली जाईल.
     nb = Når den er aktivert, får skjermen lov til å sove etter en periode med inaktivitet.
     nl = Indien ingeschakeld, mag het scherm slapen na een periode van inactiviteit.
-    pl = Po włączeniu ekran będzie mógł spać po okresie bezczynności.
+    pl = Po włączeniu tej funkcji ekran będzie będzię mógł się wygasić po okresie bezczynności.
     pt = Quando ativado, o ecrá poderá desligar-se após um período de inatividade.
     pt-BR = Quando ativada, a tela poderá hibernar após um período de inatividade.
     ro = Când este activat, ecranul se va stinge după o perioadă de inactivitate.
@@ -24079,7 +24079,7 @@
     it = Quando è abilitata, non è necessario sbloccare il dispositivo ogni volta mentre l'app è in esecuzione.
     mr = चालू असल्यास, ऍप चालू असताना प्रत्येक वेळी तुम्हाला तुमचे उपकरण अनलॉक करण्याची आवश्यकता नाही.
     nl = Indien ingeschakeld, hoeft het scherm niet te worden ontgrendeld wanneer de app actief is.
-    pl = Po włączeniu nie musisz odblokowywać urządzenia za każdym razem, gdy aplikacja jest uruchomiona.
+    pl = Po włączeniu tej funkcji nie będziesz musieć odblokowywać urządzenia za każdym razem, gdy aplikacja jest uruchomiona.
     pt-BR = Quando ativado, você não precisará debloquear seu dispositivo toda vez que o aplicativo estiver funcionando
     ro = Când este activată, nu trebuie să deblochezi telefonul de fiecare dată când aplicația este în funcțiune.
     ru = Если эта функция включена, вам не нужно каждый раз разблокировать устройство во время работы приложения.
@@ -24281,7 +24281,7 @@
     it = Elimina percorso
     mr = ट्रॅक पुसून टाका
     nl = Verwijder traject
-    pl = Usuwanie trasy
+    pl = Usuń trasę
     pt-BR = Apagar rota
     ro = Elimină traseul
     ru = Удалить трек
