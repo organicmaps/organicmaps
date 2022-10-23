@@ -869,6 +869,8 @@ void Ranker::LoadCountriesTree() { m_regionInfoGetter.LoadCountriesTree(); }
 
 void Ranker::MakeRankerResults()
 {
+  bool const isViewportMode = m_geocoderParams.m_mode == Mode::Viewport;
+
   RankerResultMaker maker(*this, m_dataSource, m_infoGetter, m_reverseGeocoder, m_geocoderParams);
   for (auto const & r : m_preRankerResults)
   {
@@ -876,17 +878,10 @@ void Ranker::MakeRankerResults()
     if (!p)
       continue;
 
-    if (m_geocoderParams.m_mode == Mode::Viewport &&
-        !m_geocoderParams.m_pivot.IsPointInside(p->GetCenter()))
-    {
-      continue;
-    }
+    ASSERT(!isViewportMode || m_geocoderParams.m_pivot.IsPointInside(p->GetCenter()), (r));
 
-    /// @todo Do not filter "equal" results by distance in Mode::Viewport mode.
-    /// Strange when (for example bus stops) not all results are highlighted.
-    /// @todo Is it ok to make duplication check for O(N) here?
-    /// Especially when we make RemoveDuplicatingLinear later.
-    if (!ResultExists(*p, m_tentativeResults, m_params.m_minDistanceBetweenResultsM))
+    /// @todo Is it ok to make duplication check for O(N) here? Especially when we make RemoveDuplicatingLinear later.
+    if (isViewportMode || !ResultExists(*p, m_tentativeResults, m_params.m_minDistanceBetweenResultsM))
       m_tentativeResults.push_back(move(*p));
   };
 

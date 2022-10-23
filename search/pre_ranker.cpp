@@ -246,16 +246,15 @@ void PreRanker::FilterForViewportSearch()
   {
     auto const & info = result.GetInfo();
 
-    // Interesting, is it possible when there is no center for a search result?
     ASSERT(info.m_centerLoaded, (result.GetId()));
-    if (!info.m_centerLoaded || !m_params.m_viewport.IsPointInside(info.m_center))
+    if (!m_params.m_viewport.IsPointInside(info.m_center))
       return true;
 
     /// @todo Make some upper bound like for regular search, but not to erase partially matched results?
     return result.GetMatchedTokensNumber() + 1 < m_params.m_numQueryTokens;
   });
 
-  /// @todo Comment next statements to discard viewport filtering (displacement) at all.
+  // By VNG: Comment next statements to discard viewport filtering (displacement) for Debug purpose.
   SweepNearbyResults(m_params.m_minDistanceOnMapBetweenResults, m_prevEmit, m_results);
 
   for (auto const & result : m_results)
