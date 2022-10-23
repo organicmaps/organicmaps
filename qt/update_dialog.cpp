@@ -224,7 +224,7 @@ namespace qt
 
   void UpdateDialog::OnLocaleTextChanged(QString const & text)
   {
-    m_locale.assign(text.toUtf8().constData());
+    m_locale.assign(text.toStdString());
     strings::Trim(m_locale);
 
     RefillTree();
@@ -232,7 +232,7 @@ namespace qt
 
   void UpdateDialog::OnQueryTextChanged(QString const & text)
   {
-    m_query.assign(text.toUtf8().constData());
+    m_query.assign(text.toStdString());
 
     RefillTree();
   }
@@ -497,7 +497,7 @@ namespace qt
 
   CountryId UpdateDialog::GetCountryIdByTreeItem(QTreeWidgetItem * item)
   {
-    return item->data(KColumnIndexCountry, Qt::UserRole).toString().toUtf8().constData();
+    return item->data(KColumnIndexCountry, Qt::UserRole).toString().toStdString();
   }
 
   void UpdateDialog::OnCountryChanged(CountryId const & countryId)

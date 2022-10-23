@@ -21,7 +21,7 @@ std::unique_ptr<ModelReader> Platform::GetReader(std::string const & file, std::
                                  READER_CHUNK_LOG_SIZE, READER_CHUNK_LOG_COUNT);
 }
 
-bool Platform::GetFileSizeByName(string const & fileName, uint64_t & size) const
+bool Platform::GetFileSizeByName(std::string const & fileName, uint64_t & size) const
 {
   try
   {
@@ -33,18 +33,18 @@ bool Platform::GetFileSizeByName(string const & fileName, uint64_t & size) const
   }
 }
 
-void Platform::GetFilesByRegExp(string const & directory, string const & regexp, FilesList & outFiles)
+void Platform::GetFilesByRegExp(std::string const & directory, std::string const & regexp, FilesList & outFiles)
 {
-  regex exp(regexp);
+  std::regex exp(regexp);
 
   QDir dir(QString::fromUtf8(directory.c_str()));
   int const count = dir.count();
 
   for (int i = 0; i < count; ++i)
   {
-    string const name = dir[i].toUtf8().data();
-    if (regex_search(name.begin(), name.end(), exp))
-      outFiles.push_back(name);
+    std::string name = dir[i].toStdString();
+    if (std::regex_search(name.begin(), name.end(), exp))
+      outFiles.push_back(std::move(name));
   }
 }
 
