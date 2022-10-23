@@ -14,6 +14,9 @@
   <style name="MwmTextAppearance.Title">
     <item name="android:textSize">@dimen/text_size_title</item>
     <item name="android:textColor">?android:textColorPrimary</item>
+  </style>
+
+  <style name="MwmTextAppearance.Title.Splash">
     <item name="android:textStyle">bold</item>
   </style>
 

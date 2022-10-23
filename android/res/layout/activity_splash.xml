@@ -29,7 +29,7 @@
         android:layout_marginBottom="@dimen/margin_eighth"
         android:text="@string/app_name"
         android:gravity="center_horizontal"
-        android:textAppearance="@style/MwmTextAppearance.Title" />
+        android:textAppearance="@style/MwmTextAppearance.Title.Splash" />
 
     <TextView
         android:id="@+id/tv__splash_subtitle"
