@@ -3492,7 +3492,7 @@
     mr = Organic Maps द्वारे एक खूणपत्र पाठवत आहे!
     nb = Hei, se merket mitt på Organic Maps-kartet
     nl = Hey, kijk naar mijn pin op Organic Maps!
-    pl = Hej, spójrz na mój znacznik w Organic Maps! 
+    pl = Hej, spójrz na mój znacznik w Organic Maps!
     pt = Veja o meu marcador no mapa do Organic Maps.
     pt-BR = Veja o meu marcador no mapa do Organic Maps.
     ro = Poți vedea locul meu preferat pe harta Organic Maps!

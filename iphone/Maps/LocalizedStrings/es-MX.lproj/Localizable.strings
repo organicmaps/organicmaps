@@ -1365,9 +1365,9 @@
 
 "type.amenity.parking.multi.storey" = "Aparcamiento de varios pisos";
 
-"type.amenity.parking.no.access" = "Aparcamiento privado";
+"type.amenity.parking.no.access" = "Private Parking";
 
-"type.amenity.parking.permissive" = "Aparcamiento privado";
+"type.amenity.parking.permissive" = "Private Parking";
 
 "type.amenity.parking.private" = "Aparcamiento privado";
 
@@ -1375,9 +1375,9 @@
 
 "type.amenity.parking.underground" = "Aparcamiento subterráneo";
 
-"type.amenity.parking_entrance.private" = "Entrada al aparcamiento";
+"type.amenity.parking_entrance.private" = "Parking entrance";
 
-"type.amenity.parking_entrance.permissive" = "Entrada al aparcamiento";
+"type.amenity.parking_entrance.permissive" = "Parking entrance";
 
 "type.amenity.parking_entrance" = "Entrada al aparcamiento";
 
@@ -1562,7 +1562,7 @@
 
 "type.boundary.administrative.11" = "Frontera administrativa";
 
-"type.boundary.administrative.2" = "Frontera de país";
+"type.boundary.administrative.2" = "National Border";
 
 "type.boundary.administrative.3" = "Frontera administrativa";
 
@@ -1866,22 +1866,22 @@
 
 "type.highway.footway" = "Camino";
 
-"type.highway.footway.alpine_hiking" = "Camino";
+"type.highway.footway.alpine_hiking" = "Path";
 
 "type.highway.footway.area" = "Camino";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "Puente";
 
-"type.highway.footway.demanding_alpine_hiking" = "Camino";
+"type.highway.footway.demanding_alpine_hiking" = "Path";
 
-"type.highway.footway.demanding_mountain_hiking" = "Camino";
+"type.highway.footway.demanding_mountain_hiking" = "Path";
 
-"type.highway.footway.difficult_alpine_hiking" = "Camino";
+"type.highway.footway.difficult_alpine_hiking" = "Path";
 
-"type.highway.footway.hiking" = "Camino";
+"type.highway.footway.hiking" = "Path";
 
-"type.highway.footway.mountain_hiking" = "Camino";
+"type.highway.footway.mountain_hiking" = "Path";
 
 "type.highway.footway.permissive" = "Camino";
 
@@ -2637,7 +2637,7 @@
 
 "type.railway.funicular.tunnel" = "Funicular";
 
-"type.railway.halt" = "Estación de tren";
+"type.railway.halt" = "Train Station";
 
 "type.railway.level_crossing" = "Cruce de ferrocarril";
 
