@@ -3008,7 +3008,7 @@
     ja = Organic Mapsでピン情報を確認
     ko = Organic Maps 지도에서 내 핀 보기
     nb = Hei, se merket mitt på Organic Maps-kartet
-    nl = Hey, kijk naar mijn pin op Organic Maps!
+    nl = Een locatie op Organic Maps
     pl = Obejrzyj mój znacznik na mapie w Organic Maps
     pt = Vê meu marcador no mapa do Organic Maps!
     pt-BR = Veja meu marcador no mapa do Organic Maps!
@@ -3032,6 +3032,7 @@
     pt-BR = %1$@ no Organic Maps
     ru = %1$@ на картах Organic Maps
     uk = %1$@ на мапах Organic Maps
+    nl = %1$@ op Organic Maps
 
   [share_my_position]
     comment = Text preceding shared "my position" coordinates
@@ -3054,7 +3055,7 @@
     ja = Organic Mapsで現在地を確認
     ko = Organic Maps 지도에서 제 현재 위치를 살펴 보시기 바랍니다
     nb = Hei, se posisjonen min på Organic Maps-kartet
-    nl = Hey, kijk naar mijn huidige locatie op Organic Maps
+    nl = Ik ben hier op Organic Maps
     pl = Zobacz moją aktualną lokalizację na mapie przy użyciu Organic Maps
     pt = Vê no mapa a minha localização atual no Organic Maps!
     pt-BR = Veja no mapa a minha localização atual no Organic Maps!
