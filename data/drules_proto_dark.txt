@@ -13170,9 +13170,16 @@ cont {
 cont {
   name: "craft-brewery"
   element {
+    scale: 17
+    symbol {
+      name: "brewery-m"
+      priority: 16000
+    }
+  }
+  element {
     scale: 18
     symbol {
-      name: "hand-m"
+      name: "brewery-m"
       priority: 16609
     }
     caption {
@@ -13188,7 +13195,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "hand-m"
+      name: "brewery-m"
       priority: 16609
     }
     caption {
@@ -13205,9 +13212,16 @@ cont {
 cont {
   name: "craft-carpenter"
   element {
+    scale: 17
+    symbol {
+      name: "carpenter-m"
+      priority: 16000
+    }
+  }
+  element {
     scale: 18
     symbol {
-      name: "hand-m"
+      name: "carpenter-m"
       priority: 16609
     }
     caption {
@@ -13223,7 +13237,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "hand-m"
+      name: "carpenter-m"
       priority: 16609
     }
     caption {
@@ -13639,9 +13653,16 @@ cont {
 cont {
   name: "craft-sawmill"
   element {
+    scale: 17
+    symbol {
+      name: "sawmill-m"
+      priority: 16000
+    }
+  }
+  element {
     scale: 18
     symbol {
-      name: "hand-m"
+      name: "sawmill-m"
       priority: 16609
     }
     caption {
@@ -13657,7 +13678,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "hand-m"
+      name: "sawmill-m"
       priority: 16609
     }
     caption {
@@ -13716,9 +13737,16 @@ cont {
 cont {
   name: "craft-tailor"
   element {
+    scale: 17
+    symbol {
+      name: "clothes-m"
+      priority: 16000
+    }
+  }
+  element {
     scale: 18
     symbol {
-      name: "hand-m"
+      name: "clothes-m"
       priority: 16609
     }
     caption {
@@ -13734,7 +13762,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "hand-m"
+      name: "clothes-m"
       priority: 16609
     }
     caption {
