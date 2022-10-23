@@ -130,7 +130,7 @@ MyPositionController::MyPositionController(Params && params, ref_ptr<DrapeNotifi
   , m_autoScale3d(m_autoScale2d)
   , m_lastGPSBearingTimer(false)
   , m_lastLocationTimestamp(0.0)
-  , m_positionRoutingOffsetY(kPositionRoutingOffsetY + Arrow3d::GetMaxBottomSize())
+  , m_positionRoutingOffsetY(kPositionRoutingOffsetY)
   , m_isDirtyViewport(false)
   , m_isDirtyAutoZoom(false)
   , m_isPendingAnimation(false)
@@ -144,6 +144,11 @@ MyPositionController::MyPositionController(Params && params, ref_ptr<DrapeNotifi
   , m_blockAutoZoomNotifyId(DrapeNotifier::kInvalidId)
   , m_updateLocationNotifyId(DrapeNotifier::kInvalidId)
 {
+#ifdef OMIM_OS_ANDROID
+  /// @todo Hotfix for Android. Suppose that additional offset is needed for system buttons toolbar.
+  m_positionRoutingOffsetY += Arrow3d::GetMaxBottomSize();
+#endif
+
   using namespace location;
 
   m_mode = PendingPosition;
@@ -585,6 +590,8 @@ void MyPositionController::Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<
     if (!IsModeChangeViewport())
       m_isPendingAnimation = false;
 
+    /// @todo Put under !m_hints.m_screenshotMode?
+    /// Why do we have 6 modifiers (and 6 variables inside), if better to make 1 function m_shape->Render(Params)?
     m_shape->SetPositionObsolete(m_positionIsObsolete);
     m_shape->SetPosition(m2::PointF(GetDrawablePosition()));
     m_shape->SetAzimuth(static_cast<float>(GetDrawableAzimut()));
@@ -769,6 +776,7 @@ m2::PointD MyPositionController::GetRoutingRotationPixelCenter() const
 
 void MyPositionController::UpdateRoutingOffsetY(bool useDefault, int offsetY)
 {
+  /// @todo This function is called on CarPlay only for now.
   m_positionRoutingOffsetY = useDefault ? kPositionRoutingOffsetY : offsetY + Arrow3d::GetMaxBottomSize();
 }
 
