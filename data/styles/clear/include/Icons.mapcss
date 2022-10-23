@@ -806,9 +806,9 @@ node|z17-[railway=station][transport=subway]::int_name
 {text-offset: 1;font-size: 11;text-halo-opacity: 0.9;text-optional: true;} /*check*/
 
 node|z17-[railway=subway_entrance]
-{icon-image: subway-entrance-m.svg;text-offset: 1;font-size: 13;text-halo-opacity: 0.9;text-optional: true;}
+{icon-image: subway-entrance-s.svg;text-offset: 1;font-size: 10;text-halo-opacity: 0.9;text-optional: true;}
 node|z17-[railway=subway_entrance]::int_name
-{text-offset: 1;font-size: 11;text-halo-opacity: 0.9;text-optional: true;} /*check*/
+{text-offset: 1;font-size: 8;text-halo-opacity: 0.9;text-optional: true;} /*check*/
 
 node|z17-[highway=elevator],
 area|z17-[highway=elevator],
