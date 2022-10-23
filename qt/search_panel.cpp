@@ -233,8 +233,6 @@ void SearchPanel::OnSearchTextChanged(QString const & str)
   }
 
   bool const isCategory = m_isCategory->isChecked();
-
-  bool started = false;
   auto const timestamp = ++m_timestamp;
 
   using namespace search;
@@ -250,7 +248,8 @@ void SearchPanel::OnSearchTextChanged(QString const & str)
       }
     };
 
-    started = m_pDrawWidget->GetFramework().GetSearchAPI().SearchEverywhere(std::move(params));
+    if (m_pDrawWidget->GetFramework().GetSearchAPI().SearchEverywhere(std::move(params)))
+      StartBusyIndicator();
   }
   else if (m_mode == Mode::Viewport)
   {
@@ -258,7 +257,10 @@ void SearchPanel::OnSearchTextChanged(QString const & str)
     {
       normalized, GetCurrentInputLocale(), {} /* timeout */, isCategory,
       // m_onStarted
-      {},
+      [this]()
+      {
+        StartBusyIndicator();
+      },
       // m_onCompleted
       [this](search::Results results)
       {
@@ -273,11 +275,8 @@ void SearchPanel::OnSearchTextChanged(QString const & str)
       }
     };
 
-    started = m_pDrawWidget->GetFramework().GetSearchAPI().SearchInViewport(std::move(params));
+    m_pDrawWidget->GetFramework().GetSearchAPI().SearchInViewport(std::move(params));
   }
-
-  if (started)
-    StartBusyIndicator();
 }
 
 void SearchPanel::OnSearchModeChanged(int mode)
