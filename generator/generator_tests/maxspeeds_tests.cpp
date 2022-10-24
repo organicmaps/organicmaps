@@ -51,6 +51,7 @@ using namespace platform::tests_support;
 using namespace platform;
 using namespace routing;
 using namespace routing_builder;
+using std::string;
 
 using Features = std::vector<std::vector<m2::PointD>>;
 

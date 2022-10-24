@@ -19,8 +19,6 @@
 
 namespace intermediate_data_test
 {
-using namespace generator;
-
 UNIT_TEST(Intermediate_Data_empty_way_element_save_load_test)
 {
   WayElement e1(1 /* fake osm id */);

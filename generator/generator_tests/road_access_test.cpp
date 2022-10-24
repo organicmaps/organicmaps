@@ -37,7 +37,7 @@ using namespace platform::tests_support;
 using namespace platform;
 using namespace routing;
 using namespace routing_builder;
-using std::fstream, std::ifstream, std::make_pair;
+using std::fstream, std::ifstream, std::make_pair, std::string;
 
 string const kTestDir = "road_access_generation_test";
 string const kTestMwm = "test";
@@ -245,7 +245,7 @@ UNIT_TEST(RoadAccessCoditionalParse)
   AccessConditionalTagParser parser;
 
   using ConditionalVector = std::vector<AccessConditional>;
-  std::vector<pair<string, ConditionalVector>> tests = {
+  std::vector<std::pair<string, ConditionalVector>> const tests = {
       {"no @ Mo-Su",
        {{RoadAccess::Type::No, "Mo-Su"}}},
 

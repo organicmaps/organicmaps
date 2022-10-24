@@ -22,9 +22,6 @@
 
 namespace collector_boundary_postcode_tests
 {
-//using namespace generator_tests;
-//using namespace generator;
-//using namespace feature;
 using std::string, std::vector, std::unordered_map;
 
 static string const kDumpFileName = "dump.bin";
@@ -56,7 +53,7 @@ unordered_map<uint64_t, WayElement> const kWays = {
     {3, WayElement{3, kPolygon3}},
     {4, WayElement{4, kPolygon4}}};
 
-class IntermediateDataReaderTest : public cache::IntermediateDataReaderInterface
+class IntermediateDataReaderTest : public generator::cache::IntermediateDataReaderInterface
 {
   // IntermediateDataReaderBase overrides:
   bool GetNode(uint64_t id, double & lat, double & lon) const override
@@ -165,7 +162,7 @@ UNIT_TEST(CollectorBoundaryPostcode_1)
   SCOPE_GUARD(rmDump, std::bind(Platform::RemoveFileIfExists, cref(kDumpFileName)));
 
   auto cache = std::make_shared<IntermediateDataReaderTest>();
-  auto collector = std::make_shared<BoundaryPostcodeCollector>(kDumpFileName, cache);
+  auto collector = std::make_shared<generator::BoundaryPostcodeCollector>(kDumpFileName, cache);
   collector->Collect(postcodeAreaRelation1);
   collector->Collect(postcodeAreaRelation2);
   collector->Collect(postcodeAreaRelation3);
@@ -182,7 +179,7 @@ UNIT_TEST(CollectorBoundaryPostcode_2)
   SCOPE_GUARD(rmDump, std::bind(Platform::RemoveFileIfExists, cref(kDumpFileName)));
 
   auto cache = std::make_shared<IntermediateDataReaderTest>();
-  auto collector1 = std::make_shared<BoundaryPostcodeCollector>(kDumpFileName, cache);
+  auto collector1 = std::make_shared<generator::BoundaryPostcodeCollector>(kDumpFileName, cache);
   auto collector2 = collector1->Clone();
 
   collector1->Collect(postcodeAreaRelation1);
