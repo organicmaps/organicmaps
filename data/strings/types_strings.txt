@@ -3461,6 +3461,7 @@
     fr = Station de vidange
     it = Area servizi camper
     nl = Caravantoilet cassette-leegpunt
+    pl = Miejsce opróżniania toalety dla kamperów
     pt-BR = Estação de despejo de esgotos
     ru = Слив для туалетов транспортных средств
     tr = Tank Boşaltma İstasyonu
@@ -4151,6 +4152,7 @@
     it = Centro trasferimento rifiuti
     mr = कचरा हस्तांतरण केंद्र
     nl = Overslagstation voor afval
+    pl = Stacja przeładunku odpadów
     pt-BR = Estação de transferência de resíduos
     ru = Станция перевалки отходов
     tr = Atık Transfer İstasyonu
@@ -11065,6 +11067,7 @@
     ko = 기념탑
     mr = स्मारक
     nl = Monument
+    pl = Monument
     pt = Monumento
     pt-BR = Monumento
     ru = Памятник
@@ -11492,6 +11495,7 @@
     it = Strutture didattiche
     mr = शैक्षणिक सुविधा
     nl = Educatieve voorzieningen
+    pl = Placówki oświatowe
     pt-BR = Instituições educacionais
     ru = Образовательные учреждения
     uk = Освітній заклади
