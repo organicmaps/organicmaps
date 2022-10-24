@@ -173,7 +173,7 @@
 "unknown_current_position" = "Nie określono jeszcze aktualnego położenia";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Obejrzyj mój znacznik na mapie w Organic Maps";
+"bookmark_share_email_subject" = "Hej, spójrz na mój znacznik w Organic Maps!";
 
 /* Subject for emailed position */
 "my_position_share_email_subject" = "Zobacz moją aktualną lokalizację na mapie przy użyciu Organic Maps";
@@ -517,9 +517,9 @@
 
 "p2p_start" = "Start";
 
-"p2p_from_here" = "Z";
+"p2p_from_here" = "Trasa od";
 
-"p2p_to_here" = "Droga do";
+"p2p_to_here" = "Trasa do";
 
 "p2p_only_from_current" = "Nawigacja jest dostępna tylko od twojej bieżącej lokalizacji.";
 
@@ -828,7 +828,7 @@
 "recent_track_background_dialog_message" = "Organic Maps używa w tle geolokalizacji w celu rejestrowania niedawno przebytej trasy.";
 
 /* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Organic Maps to bezpłatna aplikacja do map offline typu open source. Bez reklam. Bez śledzenia. Jeśli zobaczysz błąd na mapie, napraw go w OpenStreetMap. Projekt jest tworzony przez entuzjastów w czasie wolnym, dlatego potrzebujemy Twojej opinii i wsparcia.";
+"about_description" = "Organic Maps to bezpłatna aplikacja do map offline typu open source. Bez reklam. Bez śledzenia. Jeśli zobaczysz błąd na mapie, popraw go w OpenStreetMap. Projekt jest tworzony przez entuzjastów w czasie wolnym, dlatego potrzebujemy Twojej opinii i wsparcia.";
 
 "general_settings" = "Ustawienia ogólne";
 
@@ -841,7 +841,7 @@
 /* A noun - a button name used to show search results in list form */
 "search_in_table" = "Lista";
 
-"mobile_data_dialog" = "Wykorzystać internet mobilny, aby wyświetlić dane szczegółowe?";
+"mobile_data_dialog" = "Wykorzystać dane mobilne, aby wyświetlić dane szczegółowe?";
 
 "mobile_data_option_always" = "Stosuj zawsze";
 
@@ -849,10 +849,10 @@
 
 "mobile_data_option_not_today" = "Nie stosuj dzisiaj";
 
-"mobile_data" = "Internet mobilny";
+"mobile_data" = "Dane mobilne";
 
 /* NOTE to translators: please synchronize your translation with the English one. */
-"mobile_data_description" = "Do wyświetlania danych szczegółowych o miejscach (np. zdjęcia, ceny i recenzje) wymagany jest internet mobilny.";
+"mobile_data_description" = "Dane mobilne są wymagane do powiadomień o aktualizacji map i wyświetlania dokładniejszych informacji o miejscach i zakładkach.";
 
 "mobile_data_option_never" = "Nigdy nie stosuj";
 
@@ -975,7 +975,7 @@
 
 "speedcams_alert_title" = "Fotoradary";
 
-"speedcam_option_auto" = "Auto";
+"speedcam_option_auto" = "Automatycznie";
 
 "speedcam_option_always" = "Zawsze";
 
@@ -983,7 +983,7 @@
 
 "place_description_title" = "Opis miejsca";
 
-"speedcams_notice_message" = "Auto – Ostrzegać o kamerach, jeśli istnieje ryzyko przekroczenia ograniczenia prędkości\nZawsze – Zawsze ostrzegaj o kamerach\nNigdy – Nigdy nie ostrzegaj o kamerach";
+"speedcams_notice_message" = "Automatycznie – Ostrzegaj o fotoradarach, jeśli istnieje ryzyko przekroczenia ograniczenia prędkości\nZawsze – Zawsze ostrzegaj o fotoradarach\nNigdy – Nigdy nie ostrzegaj o fotoradarach";
 
 "power_managment_title" = "Tryb oszczędzania energii";
 
@@ -991,11 +991,11 @@
 
 "power_managment_setting_never" = "Nigdy";
 
-"power_managment_setting_auto" = "Auto";
+"power_managment_setting_auto" = "Automatycznie";
 
 "power_managment_setting_manual_max" = "Maksymalna oszczędność energii";
 
-"driving_options_title" = "Ustawienia objazdu";
+"driving_options_title" = "Ustawienia nawigacji";
 
 "driving_options_subheader" = "Unikaj na każdej trasie";
 
@@ -1203,7 +1203,7 @@
 "whats_new_auto_update_button_later" = "Zaktualizuj ręcznie później";
 
 /* Delete track button on track edit screen */
-"placepage_delete_track_button" = "Usuwanie trasy";
+"placepage_delete_track_button" = "Usuń trasę";
 
 /* Placeholder for track name input on track edit screen */
 "placepage_track_name_hint" = "Nazwa trasy";
@@ -1460,7 +1460,7 @@
 
 "type.amenity.restaurant" = "Restauracja";
 
-"type.amenity.sanitary_dump_station" = "Holding Tank Dump Station";
+"type.amenity.sanitary_dump_station" = "Miejsce opróżniania toalety dla kamperów";
 
 "type.amenity.school" = "Szkoła";
 
@@ -1512,7 +1512,7 @@
 
 "type.amenity.waste_disposal" = "Wysypisko śmieci";
 
-"type.amenity.waste_transfer_station" = "Waste Transfer Station";
+"type.amenity.waste_transfer_station" = "Stacja przeładunku odpadów";
 
 "type.amenity.water_point" = "Ujęcie wody";
 
@@ -2247,7 +2247,7 @@
 
 "type.landuse.construction" = "Teren budowy";
 
-"type.landuse.education" = "Educational Facilities";
+"type.landuse.education" = "Placówki oświatowe";
 
 "type.landuse.farm" = "Gospodarstwo rolne";
 
