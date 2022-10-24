@@ -553,7 +553,7 @@ FeatureType::GeomStat FeatureType::GetOuterTrianglesStats()
   ASSERT(!m_parsed.m_triangles, ("Triangles had been parsed already!"));
   CHECK(m_loadInfo, ());
   int const scalesCount = m_loadInfo->GetScalesCount();
-  ASSERT_LESS_OR_EQUAL(scalesCount, DataHeader::kMaxScalesCount, ("MWM has too many geometry scales!"));
+  ASSERT_LESS_OR_EQUAL(scalesCount, static_cast<int const>(DataHeader::kMaxScalesCount), ("MWM has too many geometry scales!"));
   FeatureType::GeomStat res;
 
   auto const headerGeomType = static_cast<HeaderGeomType>(Header(m_data) & HEADER_MASK_GEOMTYPE);
@@ -561,7 +561,7 @@ FeatureType::GeomStat FeatureType::GetOuterTrianglesStats()
   {
     if (m_triangles.empty())
     {
-      for (size_t ind = 0; ind < scalesCount; ++ind)
+      for (int ind = 0; ind < scalesCount; ++ind)
       {
         if (m_offsets.m_trg[ind] != kInvalidOffset)
         {
