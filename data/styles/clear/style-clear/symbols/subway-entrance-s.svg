@@ -1,7 +1,5 @@
-<svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
- <g fill-rule="evenodd">
-  <circle cx="8" cy="8" r="8" fill="#FFF" opacity=".6"/>
-  <circle cx="8.059" cy="8.059" r="7.059" fill="#3C3E38"/>
-  <path d="m9.2857 8.4564v-3.4564h-2.5714v3.4564h-1.7143l3 3.5436 3-3.5436h-1.7143z" fill="#FFF"/>
- </g>
+<svg version="1.1" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+    <g transform="matrix(1.7715053,0,0,1.7715053,-6.1720421,-7.3003378)">
+        <path d="M 9.2857,8.4564 V 5 H 6.7143 V 8.4564 H 5 L 8,12 11,8.4564 Z" fill="none" stroke="#717065"/>
+    </g>
 </svg>
