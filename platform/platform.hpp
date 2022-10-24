@@ -250,9 +250,10 @@ public:
 
   void GetFontNames(FilesList & res) const;
 
-  static int VideoMemoryLimit() ;
-
-  static int PreCachingDepth() ;
+  // TODO: Optimize for each platform/device.
+  int VideoMemoryLimit() const;
+  // TODO: Optimize for each platform/device.
+  int PreCachingDepth() const;
 
   std::string DeviceName() const;
 

@@ -98,7 +98,7 @@ struct SearchTokensCollector
     vec_to_sort vecToSort(doClass.m_stats.begin(), doClass.m_stats.end());
     sort(vecToSort.begin(), vecToSort.end(), &SortFunc<stats_elem_type>);
 
-    for (auto & el : vecToSort)
+    for (auto const & el : vecToSort)
     {
       cout << el.second << " ";
       for (uint32_t i : el.first)
@@ -157,7 +157,7 @@ struct SearchTokensCollector
     {
       cout << "Language code: " << StringUtf8Multilang::GetLangByCode(langCode) << endl;
 
-      for (auto & el : v)
+      for (auto const & el : v)
       {
         if (el.second.first <= MIN_OCCURRENCE)
           break;
@@ -171,7 +171,7 @@ struct SearchTokensCollector
   {
     PrefixesCollector doClass;
     feature::ForEachFeature(fPath, doClass);
-    for (auto & [langCode, container] : doClass.m_stats)
+    for (auto const & [langCode, container] : doClass.m_stats)
       Print(langCode, container);
   }
 

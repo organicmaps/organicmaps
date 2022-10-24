@@ -138,8 +138,6 @@ class ModelReader : public Reader
 public:
   explicit ModelReader(std::string const & name) : m_name(name) {}
 
-  std::unique_ptr<Reader> CreateSubReader(uint64_t pos, uint64_t size) const override = 0;
-
   std::string const & GetName() const { return m_name; }
 };
 
