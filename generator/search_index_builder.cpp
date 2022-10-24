@@ -440,7 +440,8 @@ void BuildAddressTable(FilesContainerR & container, std::string const & addressD
   std::mutex resMutex;
 
   // Thread working function.
-  auto const fn = [&](uint32_t threadIdx) {
+  auto const fn = [&](uint32_t threadIdx)
+  {
     auto const fc = static_cast<uint64_t>(featuresCount);
     auto const beg = static_cast<uint32_t>(fc * threadIdx / threadsCount);
     auto const end = static_cast<uint32_t>(fc * (threadIdx + 1) / threadsCount);

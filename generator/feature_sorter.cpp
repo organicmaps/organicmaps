@@ -117,7 +117,8 @@ public:
     }
 
     // File Writer finalization function with adding section to the main mwm file.
-    auto const finalizeFn = [this](std::unique_ptr<TmpFile> && w, std::string const & tag) {
+    auto const finalizeFn = [this](std::unique_ptr<TmpFile> && w, std::string const & tag)
+    {
       w->Flush();
       FilesContainerW writer(m_filename, FileWriter::OP_WRITE_EXISTING);
       writer.Write(w->GetName(), tag);

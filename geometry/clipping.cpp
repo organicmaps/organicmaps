@@ -81,9 +81,10 @@ void ClipTriangleByRect(m2::RectD const & rect, m2::PointD const & p1, m2::Point
     return;
   }
 
-  double constexpr kEps = 1e-8;
+  static double constexpr kEps = 1e-8;
   std::vector<m2::PointD> polygon;
-  auto const addPolygonPoint = [&polygon](m2::PointD const & pt) {
+  auto const addPolygonPoint = [&polygon](m2::PointD const & pt)
+  {
     if (polygon.empty() || !polygon.back().EqualDxDy(pt, kEps))
       polygon.push_back(pt);
   };

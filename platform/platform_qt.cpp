@@ -48,17 +48,9 @@ void Platform::GetFilesByRegExp(std::string const & directory, std::string const
   }
 }
 
-// static
-int Platform::PreCachingDepth()
-{
-  return 3;
-}
+int Platform::PreCachingDepth() const { return 3; }
 
-// static
-int Platform::VideoMemoryLimit()
-{
-  return 20 * 1024 * 1024;
-}
+int Platform::VideoMemoryLimit() const { return 20 * 1024 * 1024; }
 
 // static
 Platform::EError Platform::MkDir(std::string const & dirName)
