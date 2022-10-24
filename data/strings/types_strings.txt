@@ -2157,6 +2157,7 @@
     de = Privatparkplatz
     el = Ιδιωτικός χώρος στάθμευσης
     es = Aparcamiento privado
+    es-MX = Aparcamiento privado
     eu = Aparkaleku pribatua
     fa = ﯽﺻﺎﺼﺘﺧﺍ ﮓﻨﯿﮐﺭﺎﭘ
     fi = Yksityinen pysäköinti
@@ -2270,6 +2271,7 @@
     de = Parkplatzeinfahrt
     el = Είσοδος στάθμευσης
     es = Entrada al aparcamiento
+    es-MX = Entrada al aparcamiento
     eu = Aparkalekuaren sarrera
     fa = ﮓﻨﯿﮐﺭﺎﭘ ﯼﺩﻭﺭﻭ
     fi = Pysäköinnin sisäänkäynti
@@ -4780,6 +4782,7 @@
   [type.boundary.administrative.country]
     en = National Border
     es = Frontera de país
+    es-MX = Frontera de país
     eu = Herrialdeko muga
     fi = Valtakunnanraja
     fr = Frontière nationale
@@ -9052,6 +9055,7 @@
     de = Fußweg
     el = Διαδρομή
     es = Camino
+    es-MX = Camino
     eu = Bidea
     fa = مسیر
     fi = Polku
@@ -16884,6 +16888,7 @@
     de = Bahnhof
     el = Σιδηροδρομικός σταθμός
     es = Estación de tren
+    es-MX = Estación de tren
     eu = Tren geltokian
     fa = ایستگاه قطار
     fi = Rautatieasema
