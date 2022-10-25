@@ -31,8 +31,8 @@ target_compile_definitions(${PROJECT_NAME}
   PRIVATE GTEST_DONT_DEFINE_TEST WITH_GL_MOCK
 )
 
-find_package(GTest "1.12.0")
-if (NOT ${GTest_FOUND})
+find_package(GTest)
+if (NOT ${GTest_FOUND} OR ("${GTest_VERSION}" VERSION_LESS "1.12.0"))
   message(STATUS "Using the GoogleTest from submodule: ${CMAKE_CURRENT_BINARY_DIR}/googletest")
   add_subdirectory(../../3party/googletest ${CMAKE_CURRENT_BINARY_DIR}/googletest)
 endif()
