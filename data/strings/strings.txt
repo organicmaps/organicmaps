@@ -16425,6 +16425,7 @@
     zh-Hant = 瞭解更多資訊
 
   [core_exit]
+    comment = Subway exits for public transport marks on the map
     tags = android,ios
     en = Exit
     ar = خروج
@@ -16433,13 +16434,13 @@
     ca = Surt
     cs = Ukončit
     da = Afslut
-    de = Beenden
+    de = Ausgang
     el = Έξοδος
     es = Salir
     eu = Utzi
     fa = خروج
     fi = Poistu
-    fr = Quitter
+    fr = Sortie
     hu = Kilépés
     id = Keluar
     it = Uscita
@@ -16447,10 +16448,10 @@
     ko = 끝내기
     mr = बाहेर पडा
     nb = Avslutt
-    nl = Verlaten
-    pl = Wyjdź
-    pt = Sair
-    pt-BR = Sair
+    nl = Uitgang
+    pl = Wyjście
+    pt = Saída
+    pt-BR = Saída
     ro = Ieșire
     ru = Выход
     sk = Ukončiť
