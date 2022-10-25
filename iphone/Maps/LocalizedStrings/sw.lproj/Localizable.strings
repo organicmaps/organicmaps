@@ -874,6 +874,7 @@
 
 "transliteration_title" = "Tafsiri kwa lugha ya Kilatini";
 
+/* Subway exits for public transport marks on the map */
 "core_exit" = "Toka";
 
 "routing_add_start_point" = "Ongeza eneo la kuanzia ili kupanga njia ya kufuata";

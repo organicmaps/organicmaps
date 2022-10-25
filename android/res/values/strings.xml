@@ -561,6 +561,7 @@
 	<string name="prefs_languages_information_off_link">For more information please check this guide.</string>
 	<string name="transliteration_title">Transliteration into Latin</string>
 	<string name="learn_more">Learn more</string>
+	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">Exit</string>
 	<string name="routing_add_start_point">Add a starting point to plan a route</string>
 	<string name="routing_add_finish_point">Add a destination to plan a route</string>

@@ -533,7 +533,8 @@
 	<string name="prefs_languages_information_off_link">Pour plus d’informations, veuillez consulter ce guide.</string>
 	<string name="transliteration_title">Translittération en latin</string>
 	<string name="learn_more">En savoir plus</string>
-	<string name="core_exit">Quitter</string>
+	<!-- Subway exits for public transport marks on the map -->
+	<string name="core_exit">Sortie</string>
 	<string name="routing_add_start_point">Ajouter un point de départ pour planifier un itinéraire</string>
 	<string name="routing_add_finish_point">Ajouter un point d\'arrivée pour planifier un itinéraire</string>
 	<string name="button_exit">Quitter</string>

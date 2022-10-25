@@ -499,6 +499,7 @@
 	<string name="prefs_languages_information_off_link">Για περισσότερες πληροφορίες δείτε αυτό τον οδηγό.</string>
 	<string name="transliteration_title">Μεταγραφή στα Λατινικά</string>
 	<string name="learn_more">Μάθετε περισσότερα</string>
+	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">Έξοδος</string>
 	<string name="routing_add_start_point">Προσθέστε αφετηρία για να σχεδιάσετε μια διαδρομή</string>
 	<string name="routing_add_finish_point">Προσθέστε τελικό προορισμό, για να σχεδιάσετε μια διαδρομή</string>

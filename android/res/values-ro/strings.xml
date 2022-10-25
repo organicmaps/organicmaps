@@ -521,6 +521,7 @@
 	<string name="prefs_languages_information_off_link">Consultă acest ghid pentru informații suplimentare.</string>
 	<string name="transliteration_title">Transcrie în alfabet latin</string>
 	<string name="learn_more">Mai multe</string>
+	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">Ieșire</string>
 	<string name="routing_add_start_point">Adaugă un punct de plecare pentru a planifica un traseu</string>
 	<string name="routing_add_finish_point">Adaugă un punct de sosire pentru a planifica un traseu</string>

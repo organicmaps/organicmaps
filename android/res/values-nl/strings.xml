@@ -536,7 +536,8 @@
 	<string name="prefs_languages_information_off_link">Gelieve deze handleiding te lezen voor meer informatie.</string>
 	<string name="transliteration_title">Transliteratie in het Latijn</string>
 	<string name="learn_more">Meer informatie</string>
-	<string name="core_exit">Verlaten</string>
+	<!-- Subway exits for public transport marks on the map -->
+	<string name="core_exit">Uitgang</string>
 	<string name="routing_add_start_point">Voeg beginpunt toe om een route te plannen</string>
 	<string name="routing_add_finish_point">Voeg eindpunt toe om een route te plannen</string>
 	<string name="button_exit">Verlaten</string>

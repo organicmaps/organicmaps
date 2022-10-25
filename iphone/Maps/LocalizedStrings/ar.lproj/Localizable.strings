@@ -874,6 +874,7 @@
 
 "transliteration_title" = "كتابة جميع الاسماء بالحروف اللاتينية بشكل حرفي";
 
+/* Subway exits for public transport marks on the map */
 "core_exit" = "خروج";
 
 "routing_add_start_point" = "أضف نقطة البداية لتخطيط المسار";

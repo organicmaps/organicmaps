@@ -543,6 +543,7 @@
 	<string name="prefs_languages_information_off_link">لمزيد من المعلومات الرجاء مراجعة هذا الدليل.</string>
 	<string name="transliteration_title">كتابة جميع الاسماء بالحروف اللاتينية بشكل حرفي</string>
 	<string name="learn_more">معرفة المزيد</string>
+	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">خروج</string>
 	<string name="routing_add_start_point">أضف نقطة البداية لتخطيط المسار</string>
 	<string name="routing_add_finish_point">أضف النهاية لتخطيط المسار</string>

@@ -874,6 +874,7 @@
 
 "transliteration_title" = "Transliterasi ke dalam bahasa Latin";
 
+/* Subway exits for public transport marks on the map */
 "core_exit" = "Keluar";
 
 "routing_add_start_point" = "Tambahkan titik awal untuk merencanakan rute";

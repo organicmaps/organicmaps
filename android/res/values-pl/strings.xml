@@ -540,7 +540,8 @@
 	<string name="prefs_languages_information_off_link">Aby uzyskać więcej informacji, spójrz na ten poradnik.</string>
 	<string name="transliteration_title">Transkrypcja na alfabet łaciński</string>
 	<string name="learn_more">Dowiedz się więcej</string>
-	<string name="core_exit">Wyjdź</string>
+	<!-- Subway exits for public transport marks on the map -->
+	<string name="core_exit">Wyjście</string>
 	<string name="routing_add_start_point">Aby zaplanować trasę, dodaj punkt początkowy</string>
 	<string name="routing_add_finish_point">Aby zaplanować trasę, dodaj punkt końcowy</string>
 	<string name="button_exit">Wyjdź</string>

@@ -874,6 +874,7 @@
 
 "transliteration_title" = "Translitteration til latinsk";
 
+/* Subway exits for public transport marks on the map */
 "core_exit" = "Afslut";
 
 "routing_add_start_point" = "Tilføj startpunkt for at planlægge en rute";

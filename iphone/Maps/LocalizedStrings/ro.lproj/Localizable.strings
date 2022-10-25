@@ -874,6 +874,7 @@
 
 "transliteration_title" = "Transcrie în alfabet latin";
 
+/* Subway exits for public transport marks on the map */
 "core_exit" = "Ieșire";
 
 "routing_add_start_point" = "Adaugă un punct de plecare pentru a planifica un traseu";

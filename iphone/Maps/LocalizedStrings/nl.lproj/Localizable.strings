@@ -874,7 +874,8 @@
 
 "transliteration_title" = "Transliteratie in het Latijn";
 
-"core_exit" = "Verlaten";
+/* Subway exits for public transport marks on the map */
+"core_exit" = "Uitgang";
 
 "routing_add_start_point" = "Voeg beginpunt toe om een route te plannen";
 

@@ -874,6 +874,7 @@
 
 "transliteration_title" = "การทับศัพท์เป็นภาษาละติน";
 
+/* Subway exits for public transport marks on the map */
 "core_exit" = "ออก";
 
 "routing_add_start_point" = "เพิ่มจุดเริ่มต้นเพื่อวางแผนเส้นทาง";

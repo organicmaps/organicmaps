@@ -507,6 +507,7 @@
 	<string name="prefs_languages_information_off_link">Více informací najdete v tomto návodu.</string>
 	<string name="transliteration_title">Přepis do latinky</string>
 	<string name="learn_more">Zjistit více</string>
+	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">Ukončit</string>
 	<string name="routing_add_start_point">Zadejte výchozí bod pro plánování trasy</string>
 	<string name="routing_add_finish_point">Zadejte cílový bod pro plánování trasy</string>

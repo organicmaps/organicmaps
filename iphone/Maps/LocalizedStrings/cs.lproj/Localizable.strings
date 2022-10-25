@@ -874,6 +874,7 @@
 
 "transliteration_title" = "Přepis do latinky";
 
+/* Subway exits for public transport marks on the map */
 "core_exit" = "Ukončit";
 
 "routing_add_start_point" = "Zadejte výchozí bod pro plánování trasy";

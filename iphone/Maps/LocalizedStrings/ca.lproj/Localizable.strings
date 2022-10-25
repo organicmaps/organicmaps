@@ -874,6 +874,7 @@
 
 "transliteration_title" = "Translitertació a l'alfabet llatí";
 
+/* Subway exits for public transport marks on the map */
 "core_exit" = "Surt";
 
 "routing_add_start_point" = "Afegiu un punt inical per a planificar una ruta";

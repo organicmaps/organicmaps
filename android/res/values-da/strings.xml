@@ -507,6 +507,7 @@
 	<string name="prefs_languages_information_off_link">Se denne vejledning for flere oplysninger.</string>
 	<string name="transliteration_title">Translitteration til latinsk</string>
 	<string name="learn_more">Flere oplysninger</string>
+	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">Afslut</string>
 	<string name="routing_add_start_point">Tilføj startpunkt for at planlægge en rute</string>
 	<string name="routing_add_finish_point">Tilføj slutpunkt for at planlægge en rute</string>

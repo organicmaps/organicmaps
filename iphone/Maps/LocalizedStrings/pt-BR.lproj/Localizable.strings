@@ -874,7 +874,8 @@
 
 "transliteration_title" = "Transliteração para alfabeto latino";
 
-"core_exit" = "Sair";
+/* Subway exits for public transport marks on the map */
+"core_exit" = "Saída";
 
 "routing_add_start_point" = "Adicionar ponto de partida para planejar uma rota";
 

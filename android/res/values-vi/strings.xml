@@ -505,6 +505,7 @@
 	<string name="prefs_languages_information_off_link">Để biết thêm thông tin, vui lòng kiểm tra bài hướng dẫn này.</string>
 	<string name="transliteration_title">Chuyển ngữ sang chữ Latinh</string>
 	<string name="learn_more">Tìm hiểu thêm</string>
+	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">Lối ra</string>
 	<string name="routing_add_start_point">Bổ sung điểm bắt đầu để lập kế hoạch lộ trình</string>
 	<string name="routing_add_finish_point">Bổ sung điểm kết thúc để lập kế hoạch lộ trình</string>

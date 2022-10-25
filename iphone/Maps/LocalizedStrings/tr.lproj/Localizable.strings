@@ -874,6 +874,7 @@
 
 "transliteration_title" = "Latin harf çevirisi";
 
+/* Subway exits for public transport marks on the map */
 "core_exit" = "Çık";
 
 "routing_add_start_point" = "Rotayı planlamak için bir başlangıç noktası ekleyin";

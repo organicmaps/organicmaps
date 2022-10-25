@@ -503,6 +503,7 @@
 	<string name="prefs_languages_information_off_link">詳細については、このガイドをご確認ください。</string>
 	<string name="transliteration_title">ラテン文字への字訳</string>
 	<string name="learn_more">詳細情報</string>
+	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">終了</string>
 	<string name="routing_add_start_point">ルートを計画するには出発地点を追加してください</string>
 	<string name="routing_add_finish_point">ルートを計画するには到着地点を追加してください</string>

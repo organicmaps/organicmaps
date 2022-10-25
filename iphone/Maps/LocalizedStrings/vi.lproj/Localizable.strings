@@ -874,6 +874,7 @@
 
 "transliteration_title" = "Chuyển ngữ sang chữ Latinh";
 
+/* Subway exits for public transport marks on the map */
 "core_exit" = "Lối ra";
 
 "routing_add_start_point" = "Bổ sung điểm bắt đầu để lập kế hoạch lộ trình";

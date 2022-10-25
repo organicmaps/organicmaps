@@ -874,6 +874,7 @@
 
 "transliteration_title" = "Latinezko transliterazioa";
 
+/* Subway exits for public transport marks on the map */
 "core_exit" = "Utzi";
 
 "routing_add_start_point" = "Bilatu ibilbide-planaren iturria";

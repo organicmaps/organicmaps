@@ -72,6 +72,7 @@
 	<string name="prefs_languages_information_off_link">Kwa maelezo zaidi tafadhali tazama mwongozo huu.</string>
 	<string name="transliteration_title">Tafsiri kwa lugha ya Kilatini</string>
 	<string name="learn_more">Jua mengi zaidi</string>
+	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">Toka</string>
 	<string name="routing_add_start_point">Ongeza eneo la kuanzia ili kupanga njia ya kufuata</string>
 	<string name="routing_add_finish_point">Ongeza eneo la kumalizia ili kupanga njia ya kufuata</string>

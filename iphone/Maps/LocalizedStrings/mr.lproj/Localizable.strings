@@ -874,6 +874,7 @@
 
 "transliteration_title" = "लॅटिनमध्ये (इंग्रजीची अक्षरे) लिप्यंतरण";
 
+/* Subway exits for public transport marks on the map */
 "core_exit" = "बाहेर पडा";
 
 "routing_add_start_point" = "मार्ग नियोजित करण्यासाठी प्रारंभ बिंदू जोडा";
