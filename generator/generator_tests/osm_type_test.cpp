@@ -2258,6 +2258,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_ComplexTypesSmoke)
     {{"highway", "footway", "mountain_hiking"}, {{"highway", "footway"}, {"sac_scale", "mountain_hiking"}}},
     {{"highway", "footway", "permissive"}, {{"highway", "footway"}, {"access", "permissive"}}},
     {{"highway", "footway", "tunnel"}, {{"highway", "footway"}, {"tunnel", "any_value"}}},
+    {{"highway", "footway", "tunnel"}, {{"highway", "footway"}, {"location", "underground"}}},
     {{"highway", "living_street", "bridge"}, {{"highway", "living_street"}, {"bridge", "any_value"}}},
     {{"highway", "living_street", "tunnel"}, {{"highway", "living_street"}, {"tunnel", "any_value"}}},
     {{"highway", "motorway", "bridge"}, {{"highway", "motorway"}, {"bridge", "any_value"}}},
