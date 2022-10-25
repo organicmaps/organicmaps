@@ -511,6 +511,7 @@
 	<string name="prefs_languages_information_off_link">Lisätietoja saat tästä oppaasta.</string>
 	<string name="transliteration_title">Translitterointi latinaksi</string>
 	<string name="learn_more">Lisätietoja</string>
+	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">Poistu</string>
 	<string name="routing_add_start_point">Lisää alkupiste reitin suunnittelua varten</string>
 	<string name="routing_add_finish_point">Lisää määränpää reitin suunnittelua varten</string>

@@ -507,6 +507,7 @@
 	<string name="prefs_languages_information_off_link">สำหรับข้อมูลเพิ่มเติม กรุณาเข้าชมคำแนะนำนี้</string>
 	<string name="transliteration_title">การทับศัพท์เป็นภาษาละติน</string>
 	<string name="learn_more">ศึกษาเพิ่มเติม</string>
+	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">ออก</string>
 	<string name="routing_add_start_point">เพิ่มจุดเริ่มต้นเพื่อวางแผนเส้นทาง</string>
 	<string name="routing_add_finish_point">เพิ่มจุดสิ้นสุดเพื่อวางแผนเส้นทาง</string>

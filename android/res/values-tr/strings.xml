@@ -540,6 +540,7 @@
 	<string name="prefs_languages_information_off_link">Daha fazla bilgi için lütfen bu kılavuzu inceleyin.</string>
 	<string name="transliteration_title">Latin harf çevirisi</string>
 	<string name="learn_more">Daha fazla bilgi edinin</string>
+	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">Çık</string>
 	<string name="routing_add_start_point">Rotayı planlamak için bir başlangıç noktası ekleyin</string>
 	<string name="routing_add_finish_point">Rotayı planlamak için bir varış noktası ekleyin</string>

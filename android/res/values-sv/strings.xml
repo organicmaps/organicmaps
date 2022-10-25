@@ -503,6 +503,7 @@
 	<string name="prefs_languages_information_off_link">Kolla in den här guiden för mer information.</string>
 	<string name="transliteration_title">Transkribering till latin</string>
 	<string name="learn_more">Läs mer</string>
+	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">Avsluta</string>
 	<string name="routing_add_start_point">Lägg till startpunkt för att planera en rutt</string>
 	<string name="routing_add_finish_point">Lägg till slutpunkt för att planera en rutt</string>

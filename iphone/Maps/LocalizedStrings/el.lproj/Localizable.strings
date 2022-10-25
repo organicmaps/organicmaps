@@ -874,6 +874,7 @@
 
 "transliteration_title" = "Μεταγραφή στα Λατινικά";
 
+/* Subway exits for public transport marks on the map */
 "core_exit" = "Έξοδος";
 
 "routing_add_start_point" = "Προσθέστε αφετηρία για να σχεδιάσετε μια διαδρομή";

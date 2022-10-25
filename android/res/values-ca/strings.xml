@@ -539,6 +539,7 @@
 	<string name="prefs_languages_information_off_link">Per a més informació, vegeu aquesta guia.</string>
 	<string name="transliteration_title">Translitertació a l\'alfabet llatí</string>
 	<string name="learn_more">Més informació</string>
+	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">Surt</string>
 	<string name="routing_add_start_point">Afegiu un punt inical per a planificar una ruta</string>
 	<string name="routing_add_finish_point">Afegeiu la destinació per a planificar la ruta</string>

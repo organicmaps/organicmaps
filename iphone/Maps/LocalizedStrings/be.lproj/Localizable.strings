@@ -874,6 +874,7 @@
 
 "transliteration_title" = "Транслітарацыя лацінкай";
 
+/* Subway exits for public transport marks on the map */
 "core_exit" = "Выхад";
 
 "routing_add_start_point" = "Дадайце пункт адпраўлення каб пракласці маршрут";

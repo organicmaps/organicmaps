@@ -505,6 +505,7 @@
 	<string name="prefs_languages_information_off_link">További tájékoztatást találhat még ebben az útmutatóban.</string>
 	<string name="transliteration_title">Átírás latin nyelvre</string>
 	<string name="learn_more">Tudjon meg többet</string>
+	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">Kilépés</string>
 	<string name="routing_add_start_point">Adjon hozzá kiindulási pontot az útvonal megtervezéséhez</string>
 	<string name="routing_add_finish_point">Adjon hozzá végpontot az útvonal tervezéséhez</string>

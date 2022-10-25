@@ -874,6 +874,7 @@
 
 "transliteration_title" = "라틴어로 음역";
 
+/* Subway exits for public transport marks on the map */
 "core_exit" = "끝내기";
 
 "routing_add_start_point" = "경로 계획을 세우기 위한 시작 지점을 추가하세요";

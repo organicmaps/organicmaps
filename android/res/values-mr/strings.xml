@@ -513,6 +513,7 @@
 	<string name="prefs_languages_information_off_link">अधिक माहितीसाठी कृपया ही मार्गदर्शिका पहा.</string>
 	<string name="transliteration_title">लॅटिनमध्ये (इंग्रजीची अक्षरे) लिप्यंतरण</string>
 	<string name="learn_more">अधिक जाणून घ्या</string>
+	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">बाहेर पडा</string>
 	<string name="routing_add_start_point">मार्ग नियोजित करण्यासाठी प्रारंभ बिंदू जोडा</string>
 	<string name="routing_add_finish_point">मार्ग नियोजित करण्यासाठी इष्टस्थान जोडा</string>

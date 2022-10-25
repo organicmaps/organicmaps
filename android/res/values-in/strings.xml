@@ -505,6 +505,7 @@
 	<string name="prefs_languages_information_off_link">Untuk informasi selengkapnya, bacalah panduan ini.</string>
 	<string name="transliteration_title">Transliterasi ke dalam bahasa Latin</string>
 	<string name="learn_more">Pelajari selengkapnya</string>
+	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">Keluar</string>
 	<string name="routing_add_start_point">Tambahkan titik awal untuk merencanakan rute</string>
 	<string name="routing_add_finish_point">Tambahkan titik akhir untuk merencanakan rute</string>

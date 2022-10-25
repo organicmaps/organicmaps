@@ -874,6 +874,7 @@
 
 "transliteration_title" = "Átírás latin nyelvre";
 
+/* Subway exits for public transport marks on the map */
 "core_exit" = "Kilépés";
 
 "routing_add_start_point" = "Adjon hozzá kiindulási pontot az útvonal megtervezéséhez";

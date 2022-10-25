@@ -515,6 +515,7 @@
 	<string name="prefs_languages_information_off_link">如需了解更多信息，请查阅此指南。</string>
 	<string name="transliteration_title">直译成拉丁文</string>
 	<string name="learn_more">了解更多</string>
+	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">退出</string>
 	<string name="routing_add_start_point">添加起点以规划路线</string>
 	<string name="routing_add_finish_point">添加终点以规划路线</string>

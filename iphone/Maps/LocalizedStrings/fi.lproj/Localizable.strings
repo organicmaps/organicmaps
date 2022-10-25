@@ -874,6 +874,7 @@
 
 "transliteration_title" = "Translitterointi latinaksi";
 
+/* Subway exits for public transport marks on the map */
 "core_exit" = "Poistu";
 
 "routing_add_start_point" = "Lisää alkupiste reitin suunnittelua varten";

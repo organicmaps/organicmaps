@@ -543,6 +543,7 @@
 	<string name="prefs_languages_information_off_link">Более подробная информация — в этом руководстве.</string>
 	<string name="transliteration_title">Латинская транслитерация</string>
 	<string name="learn_more">Узнать больше</string>
+	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">Выход</string>
 	<string name="routing_add_start_point">Добавьте стартовую точку, чтобы построить маршрут</string>
 	<string name="routing_add_finish_point">Добавьте конечную точку, чтобы построить маршрут</string>

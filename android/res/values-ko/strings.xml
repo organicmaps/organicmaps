@@ -505,6 +505,7 @@
 	<string name="prefs_languages_information_off_link">자세한 내용을 보려면 이 가이드를 확인하세요.</string>
 	<string name="transliteration_title">라틴어로 음역</string>
 	<string name="learn_more">자세히 알아보기</string>
+	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">끝내기</string>
 	<string name="routing_add_start_point">경로 계획을 세우기 위한 시작 지점을 추가하세요</string>
 	<string name="routing_add_finish_point">경로 계획을 세우기 위한 끝 지점을 추가하세요</string>

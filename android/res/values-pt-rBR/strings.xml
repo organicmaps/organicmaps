@@ -521,7 +521,8 @@
 	<string name="prefs_languages_information_off_link">Para obter mais informações, consulte este guia.</string>
 	<string name="transliteration_title">Transliteração para alfabeto latino</string>
 	<string name="learn_more">Saber mais</string>
-	<string name="core_exit">Sair</string>
+	<!-- Subway exits for public transport marks on the map -->
+	<string name="core_exit">Saída</string>
 	<string name="routing_add_start_point">Adicionar ponto de partida para planejar uma rota</string>
 	<string name="routing_add_finish_point">Adicionar ponto final da viagem para planejar uma rota</string>
 	<string name="button_exit">Sair</string>

@@ -874,6 +874,7 @@
 
 "transliteration_title" = "Trascrizione in latino";
 
+/* Subway exits for public transport marks on the map */
 "core_exit" = "Uscita";
 
 "routing_add_start_point" = "Aggiungi un punto di partenza per pianificare un percorso";

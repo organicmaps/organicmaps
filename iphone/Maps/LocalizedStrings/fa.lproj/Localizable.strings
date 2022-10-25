@@ -874,6 +874,7 @@
 
 "transliteration_title" = "ترجمه به لاتین";
 
+/* Subway exits for public transport marks on the map */
 "core_exit" = "خروج";
 
 "routing_add_start_point" = "یک نقطه شروع برای برنامه ریزی یک مسیر اضافه کنید";

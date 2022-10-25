@@ -874,6 +874,7 @@
 
 "transliteration_title" = "Латинская транслитерация";
 
+/* Subway exits for public transport marks on the map */
 "core_exit" = "Выход";
 
 "routing_add_start_point" = "Добавьте стартовую точку, чтобы построить маршрут";

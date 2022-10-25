@@ -874,6 +874,7 @@
 
 "transliteration_title" = "ラテン文字への字訳";
 
+/* Subway exits for public transport marks on the map */
 "core_exit" = "終了";
 
 "routing_add_start_point" = "ルートを計画するには出発地点を追加してください";

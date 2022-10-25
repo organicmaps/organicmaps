@@ -496,6 +496,7 @@
 	<string name="prefs_languages_information_off_link">За повече информация вижте това ръководство.</string>
 	<string name="transliteration_title">Латинска транслитерация</string>
 	<string name="learn_more">Научете повече</string>
+	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">Изход</string>
 	<string name="routing_add_start_point">Добавяне на начална точка за планиране на маршрут</string>
 	<string name="routing_add_finish_point">Добавяне на крайна точка за планиране на маршрут</string>

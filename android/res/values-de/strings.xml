@@ -536,7 +536,8 @@
 	<string name="prefs_languages_information_off_link">Weitere Informationen finden Sie in dieser Anleitung.</string>
 	<string name="transliteration_title">Transliteration ins Lateinische</string>
 	<string name="learn_more">Weitere Informationen</string>
-	<string name="core_exit">Beenden</string>
+	<!-- Subway exits for public transport marks on the map -->
+	<string name="core_exit">Ausgang</string>
 	<string name="routing_add_start_point">Fügen Sie einen Startpunkt hinzu, um eine Route zu planen</string>
 	<string name="routing_add_finish_point">Fügen Sie ein Ziel hinzu, um eine Route zu planen</string>
 	<string name="button_exit">Beenden</string>

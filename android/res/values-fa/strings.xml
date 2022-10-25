@@ -502,6 +502,7 @@
 	<string name="prefs_languages_information_off_link">برای اطلاعات بیشتر لطفا این راهنما را بررسی کنید.</string>
 	<string name="transliteration_title">ترجمه به لاتین</string>
 	<string name="learn_more">بیشتر بدانید</string>
+	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">خروج</string>
 	<string name="routing_add_start_point">یک نقطه شروع برای برنامه ریزی یک مسیر اضافه کنید</string>
 	<string name="routing_add_finish_point">یک مقصد برای برنامه ریزی یک مسیر اضافه کنید</string>

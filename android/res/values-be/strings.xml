@@ -534,6 +534,7 @@
 	<string name="prefs_languages_information_off_link">Больш падрабязная інфармацыя знаходзіцца ў гэтым кіраўніцтве.</string>
 	<string name="transliteration_title">Транслітарацыя лацінкай</string>
 	<string name="learn_more">Даведацца больш</string>
+	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">Выхад</string>
 	<string name="routing_add_start_point">Дадайце пункт адпраўлення каб пракласці маршрут</string>
 	<string name="routing_add_finish_point">Дадайце пункт прызначэння каб пракласці маршрут</string>
