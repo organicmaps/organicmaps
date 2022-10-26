@@ -164,14 +164,12 @@ std::string Platform::ReadPathForFile(std::string const & file, std::string sear
       "\nw: ", m_writableDir, "\nr: ", m_resourcesDir, "\ns: ", m_settingsDir));
 }
 
-// static
-std::string Platform::MetaServerUrl()
+std::string Platform::MetaServerUrl() const
 {
   return METASERVER_URL;
 }
 
-// static
-std::string Platform::DefaultUrlsJSON()
+std::string Platform::DefaultUrlsJSON() const
 {
   return DEFAULT_URLS_JSON;
 }
