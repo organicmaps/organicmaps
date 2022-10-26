@@ -16,8 +16,10 @@
     android:clipChildren="false"
     android:layout_gravity="center"
     android:gravity="center_horizontal"
-    android:background="?cardFrame"
+    android:backgroundTint="?menuBackground"
+    android:background="@drawable/onmap_downloader_background"
     tools:ignore="UselessParent">
+
     <TextView
       android:id="@+id/downloader_parent"
       android:layout_width="wrap_content"
@@ -65,16 +67,5 @@
         android:visibility="visible"
         tools:visibility="visible"/>
     </FrameLayout>
-
-    <View
-      android:id="@+id/onmap_downloader_divider"
-      android:layout_width="match_parent"
-      android:layout_marginTop="@dimen/margin_half_plus"
-      android:layout_height="@dimen/divider_height"
-      android:background="?android:listDivider"/>
-    <FrameLayout
-      android:id="@+id/banner_frame"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content" />
   </LinearLayout>
 </ScrollView>
