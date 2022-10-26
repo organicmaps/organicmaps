@@ -266,12 +266,10 @@ public:
   int32_t IntVersion() const;
 
   /// @return url for clients to download maps
-  //@{
-  static std::string MetaServerUrl() ;
-  //@}
+  std::string MetaServerUrl() const;
 
   /// @return JSON-encoded list of urls if metaserver is unreachable
-  static std::string DefaultUrlsJSON() ;
+  std::string DefaultUrlsJSON() const;
 
   bool IsTablet() const { return m_isTablet; }
 
