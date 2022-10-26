@@ -647,7 +647,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
         MapFragment.nativeScaleMinus();
         break;
       case myPosition:
-        LocationHelper.INSTANCE.switchToNextMode();
+        /// @todo Is calls order important here? Should we call onLocationButtonClicked on else branch?
+        LocationHelper.INSTANCE.onLocationButtonClicked();
         if (!LocationUtils.isFineLocationGranted(getApplicationContext()))
           LocationHelper.INSTANCE.requestPermissions();
         break;

@@ -137,9 +137,12 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   @Nullable
   public Location getSavedLocation() { return mSavedLocation; }
 
-  public void switchToNextMode()
+  public void onLocationButtonClicked()
   {
     Logger.d(TAG);
+    // Ensure that we actually request locations. We don't have turn-off mode, so this call is ok.
+    if (!mActive)
+      start();
     LocationState.nativeSwitchToNextMode();
   }
 
@@ -354,7 +357,12 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     Logger.d(TAG, "active = " + mActive + " permissions = " + LocationUtils.isLocationGranted(mContext) +
         " settings = " + LocationUtils.areLocationServicesTurnedOn(mContext) + " isAnnoying = " + mErrorDialogAnnoying);
 
-    if (!mActive || !LocationUtils.isLocationGranted(mContext) || !LocationUtils.areLocationServicesTurnedOn(mContext))
+    if (!mActive)
+      return;
+
+    /// @todo Should we stop current location request (before returns below)?
+
+    if (!LocationUtils.isLocationGranted(mContext) || !LocationUtils.areLocationServicesTurnedOn(mContext))
       return;
 
     if (mUiCallback == null || mErrorDialogAnnoying || (mErrorDialog != null && mErrorDialog.isShowing()))
@@ -372,9 +380,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
         })
         .setPositiveButton(R.string.current_location_unknown_continue_button, (dialog, which) ->
         {
-          if (!isActive())
-            start();
-          switchToNextMode();
+          onLocationButtonClicked();
           setLocationErrorDialogAnnoying(true);
         })
         .show();
@@ -579,9 +585,8 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
         .registerForActivityResult(new ActivityResultContracts.StartIntentSenderForResult(),
             result -> onLocationResolutionResult(result.getResultCode()));
 
-    if (!Config.isScreenSleepEnabled()) {
+    if (!Config.isScreenSleepEnabled())
       Utils.keepScreenOn(true, mUiCallback.requireActivity().getWindow());
-    }
 
     LocationState.nativeSetLocationPendingTimeoutListener(this::onLocationPendingTimeout);
     LocationState.nativeSetListener(mUiCallback);
