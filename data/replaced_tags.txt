@@ -30,8 +30,9 @@ bench=yes : amenity=bench
 shelter=yes : amenity=shelter
 toilets=yes : amenity=toilets
 restaurant=yes : amenity=restaurant
-
 ice_cream=yes : amenity=ice_cream
+
+sauna=yes : leisure=sauna
 
 shop=ice_cream : amenity=ice_cream
 shop=e-cigarette : shop=tobacco
