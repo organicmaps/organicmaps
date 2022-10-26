@@ -1,22 +1,113 @@
-<svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
- <title>chimney-m</title>
- <g id="Page-2:-Night" fill="none" fill-rule="evenodd" opacity=".6">
-  <g id="chimney-m" fill="#fff" fill-rule="nonzero">
-   <circle id="Oval" cx="12" cy="12" r="12" fill="#fff"/>
-   <circle id="Oval" cx="12" cy="12" r="11" fill="#717065"/>
-   <g id="chimney" transform="translate(8 6)">
-    <polygon id="Path" points="0.70588 9.5294 3.5294 9.5294 3.5294 10.235 0.70588 10.235"/>
-    <polygon id="Path" points="0.70588 10.941 2.1176 10.941 2.1176 12 0.70588 12"/>
-    <polygon id="Path" points="0.70588 7.7647 2.4706 7.7647 2.4706 8.8235 0.70588 8.8235"/>
-    <polygon id="Path" points="2.8235 10.941 5.6471 10.941 5.6471 12 2.8235 12"/>
-    <polygon id="Path" points="3.1765 7.7647 5.6471 7.7647 5.6471 8.8235 3.1765 8.8235"/>
-    <polygon id="Path" points="4.2353 9.5294 5.6471 9.5294 5.6471 10.235 4.2353 10.235"/>
-    <polygon id="Path" points="2.4706 0.35294 3.1765 0.35294 3.1765 1.0588 2.4706 1.0588"/>
-    <polygon id="Path" points="0.70588 1.4118 1.4118 1.4118 1.4118 2.1176 0.70588 2.1176"/>
-    <polygon id="Path" points="1.0588 3.1765 1.7647 3.1765 1.7647 3.8824 1.0588 3.8824"/>
-    <polygon id="Path" points="0 5.6471 0 7.0588 3.1765 7.0588 6.3529 7.0588 6.3529 5.6471 3.1765 5.6471"/>
-    <path id="Path" d="m9.5294 0.35294c-0.50616 0-0.97668 0.15233-1.3685 0.41348-0.31812-0.4628-0.85104-0.76642-1.4551-0.76642-0.97461 0-1.7647 0.79009-1.7647 1.7647 0 0.024588 8.7059e-4 0.048965 0.0018588 0.073294-0.50353 0.17718-0.86459 0.65671-0.86459 1.2208 0 0.024565 8.2353e-4 0.048965 0.0021882 0.073176-0.46864 0.16475-0.81376 0.59141-0.85958 1.1044-0.014847-4.7059e-4 -0.029624-0.0011294-0.044588-0.0011294-0.52247 0-0.97831 0.28402-1.2224 0.70588h3.7088c0.090094-0.17668 0.14106-0.37659 0.14106-0.58824 0-0.024565-8.2353e-4 -0.048965-0.0021882-0.073176 0.35713-0.12555 0.64238-0.4032 0.77826-0.75532 0.041624 0.0029412 0.083506 0.0049647 0.12588 0.0049647 0.15181 0 0.29913-0.0192 0.43972-0.055247 0.2856 1.0488 1.2446 1.82 2.3838 1.82 1.3645 0 2.4706-1.1061 2.4706-2.4706s-1.1061-2.4706-2.4706-2.4706z"/>
-   </g>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="24"
+   height="24"
+   viewBox="0 0 24 24"
+   version="1.1"
+   id="svg14713"
+   sodipodi:docname="chimney-m-dark.svg"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <defs
+     id="defs14717" />
+  <sodipodi:namedview
+     id="namedview14715"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     showgrid="false"
+     inkscape:zoom="32.583334"
+     inkscape:cx="8.9156008"
+     inkscape:cy="10.526854"
+     inkscape:window-width="1920"
+     inkscape:window-height="1011"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg14713" />
+  <title
+     id="title14684">chimney-m</title>
+  <g
+     id="Page-1"
+     stroke="none"
+     stroke-width="1"
+     fill="none"
+     fill-rule="evenodd"
+     style="fill:#ffffff;fill-opacity:1;opacity:0.6"
+     transform="matrix(1.3436877,0,0,1.3436877,-3.6630472,-4.1242524)">
+    <g
+       id="chimney-m"
+       fill="#FFFFFF"
+       fill-rule="nonzero"
+       style="fill:#ffffff;fill-opacity:1">
+      <g
+         id="chimney"
+         transform="translate(8,6)"
+         style="fill:#ffffff;fill-opacity:1">
+        <polygon
+           id="Path"
+           points="3.5294118,10.235294 0.70588235,10.235294 0.70588235,9.5294118 3.5294118,9.5294118 "
+           style="fill:#ffffff;fill-opacity:1" />
+        <polygon
+           id="polygon14690"
+           points="2.1176471,12 0.70588235,12 0.70588235,10.941176 2.1176471,10.941176 "
+           style="fill:#ffffff;fill-opacity:1" />
+        <polygon
+           id="polygon14692"
+           points="2.4705882,8.8235294 0.70588235,8.8235294 0.70588235,7.7647059 2.4705882,7.7647059 "
+           style="fill:#ffffff;fill-opacity:1" />
+        <polygon
+           id="polygon14694"
+           points="5.6470588,12 2.8235294,12 2.8235294,10.941176 5.6470588,10.941176 "
+           style="fill:#ffffff;fill-opacity:1" />
+        <polygon
+           id="polygon14696"
+           points="5.6470588,8.8235294 3.1764706,8.8235294 3.1764706,7.7647059 5.6470588,7.7647059 "
+           style="fill:#ffffff;fill-opacity:1" />
+        <polygon
+           id="polygon14698"
+           points="5.6470588,10.235294 4.2352941,10.235294 4.2352941,9.5294118 5.6470588,9.5294118 "
+           style="fill:#ffffff;fill-opacity:1" />
+        <polygon
+           id="polygon14700"
+           points="3.1764706,1.0588235 2.4705882,1.0588235 2.4705882,0.35294118 3.1764706,0.35294118 "
+           style="fill:#ffffff;fill-opacity:1" />
+        <polygon
+           id="polygon14702"
+           points="1.4117647,2.1176471 0.70588235,2.1176471 0.70588235,1.4117647 1.4117647,1.4117647 "
+           style="fill:#ffffff;fill-opacity:1" />
+        <polygon
+           id="polygon14704"
+           points="1.7647059,3.8823529 1.0588235,3.8823529 1.0588235,3.1764706 1.7647059,3.1764706 "
+           style="fill:#ffffff;fill-opacity:1" />
+        <polygon
+           id="polygon14706"
+           points="6.3529412,5.6470588 3.1764706,5.6470588 0,5.6470588 0,7.0588235 3.1764706,7.0588235 6.3529412,7.0588235 "
+           style="fill:#ffffff;fill-opacity:1" />
+        <path
+           d="m 9.5294118,0.35294118 c -0.5061647,0 -0.9766824,0.15232941 -1.3684706,0.41348235 C 7.8428235,0.30362353 7.3099059,0 6.7058824,0 5.7312706,0 4.9411765,0.79009412 4.9411765,1.7647059 c 0,0.024588 8.706e-4,0.048965 0.00186,0.073294 -0.5035294,0.1771765 -0.8645882,0.6567059 -0.8645882,1.2208235 0,0.024565 8.235e-4,0.048965 0.00219,0.073177 C 3.612,3.2967529 3.2668706,3.7234118 3.2210588,4.2364235 c -0.014847,-4.706e-4 -0.029624,-0.00113 -0.044588,-0.00113 -0.5224706,0 -0.9783059,0.2840235 -1.2224235,0.7058824 h 3.7088 c 0.090094,-0.1766824 0.1410588,-0.3765883 0.1410588,-0.5882353 0,-0.024565 -8.235e-4,-0.048965 -0.00219,-0.073176 0.3571295,-0.1255529 0.6423765,-0.4032 0.7782589,-0.7553176 0.041624,0.00294 0.083506,0.00496 0.1258823,0.00496 0.1518118,0 0.2991294,-0.0192 0.4397177,-0.055247 0.2856,1.0487765 1.2445647,1.8199529 2.3838353,1.8199529 C 10.893882,5.2941176 12,4.188 12,2.8235294 12,1.4590588 10.893882,0.35294118 9.5294118,0.35294118 Z"
+           id="path14708"
+           style="fill:#ffffff;fill-opacity:1" />
+      </g>
+    </g>
   </g>
- </g>
+  <metadata
+     id="metadata8150">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>chimney-m</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
 </svg>
