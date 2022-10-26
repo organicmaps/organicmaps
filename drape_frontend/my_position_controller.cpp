@@ -169,7 +169,7 @@ MyPositionController::MyPositionController(Params && params, ref_ptr<DrapeNotifi
     m_desiredInitMode = params.m_initMode;
 
     // Do not start position if we ended previous session without it.
-    if (!params.m_isRoutingActive && m_desiredInitMode == NotFollowNoPosition)
+    if (!m_isInRouting && m_desiredInitMode == NotFollowNoPosition)
       m_mode = NotFollowNoPosition;
   }
 
@@ -685,8 +685,6 @@ void MyPositionController::OnEnterForeground(double backgroundTime)
 
 void MyPositionController::OnEnterBackground()
 {
-  if (!m_isInRouting && !df::IsModeChangeViewport(m_mode))
-    ChangeMode(location::NotFollowNoPosition);
 }
 
 void MyPositionController::OnCompassTapped()
