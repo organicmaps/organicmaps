@@ -758,4 +758,13 @@ using namespace std;
         mercator::FromLatLon(48.4101446, 11.5892265), {0., 0.},
         mercator::FromLatLon(45.7662964, 10.8111554), 427135);
   }
+
+  // https://github.com/organicmaps/organicmaps/issues/3363
+  UNIT_TEST(Belarus_UseP27_PastawyBraslaw)
+  {
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetVehicleComponents(VehicleType::Car),
+        mercator::FromLatLon(55.1187744, 26.8460319), {0., 0.},
+        mercator::FromLatLon(55.6190911, 27.0938092), 86239.8);
+  }
 } // namespace route_test

@@ -555,9 +555,15 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Surface)
   TestSurfaceTypes("asphalt", "bad", "", "paved_bad");
   TestSurfaceTypes("asphalt", "", "0", "paved_bad");
 
-  TestSurfaceTypes("fine_gravel", "", "", "paved_bad");
-  TestSurfaceTypes("fine_gravel", "intermediate", "", "paved_bad");
+  TestSurfaceTypes("cobblestone", "good", "", "paved_good");
   TestSurfaceTypes("cobblestone", "", "", "paved_bad");
+  TestSurfaceTypes("cobblestone", "intermediate", "", "paved_bad");
+
+  TestSurfaceTypes("compacted", "", "", "unpaved_good");
+  TestSurfaceTypes("fine_gravel", "", "", "unpaved_good");
+  TestSurfaceTypes("fine_gravel", "intermediate", "", "unpaved_good");
+  TestSurfaceTypes("pebblestone", "bad", "", "unpaved_good");      // Hack in DetermineSurface.
+  TestSurfaceTypes("pebblestone", "horrible", "", "unpaved_bad");
 
   // We definitely should store more than 4 surface options.
   // Gravel (widely used tag) always goes to unpaved_bad which is strange sometimes.
@@ -574,7 +580,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Surface)
   TestSurfaceTypes("wood", "", "", "paved_bad");
   TestSurfaceTypes("wood", "good", "", "paved_good");
   TestSurfaceTypes("wood", "", "3", "paved_good");
-  TestSurfaceTypes("pebblestone", "", "4", "paved_good");
+  TestSurfaceTypes("pebblestone", "", "4", "unpaved_good");
   TestSurfaceTypes("unpaved", "", "", "unpaved_good");
   TestSurfaceTypes("mud", "", "", "unpaved_bad");
 

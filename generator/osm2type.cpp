@@ -468,18 +468,15 @@ string DetermineSurface(OsmElement * p)
   if (!isHighway || (surface.empty() && smoothness.empty()))
     return {};
 
-  // According to this:
-  // https://wiki.openstreetmap.org/wiki/Tag:surface=compacted
-  // Surfaces by quality: asphalt, concrete, paving stones, compacted.
+  // According to https://wiki.openstreetmap.org/wiki/Key:surface
   static base::StringIL pavedSurfaces = {
-      "asphalt",  "cobblestone",    "cobblestone:flattened", "chipseal", "compacted",
-      "concrete", "concrete:lanes", "concrete:plates", "fine_gravel", "metal",
-      "paved", "paving_stones", "pebblestone", "sett", "unhewn_cobblestone", "wood"
+      "asphalt",  "cobblestone", "chipseal", "concrete", "concrete:lanes", "concrete:plates",
+      "metal", "paved", "paving_stones", "sett", "unhewn_cobblestone", "wood"
   };
 
   static base::StringIL badSurfaces = {
-      "cobblestone", "dirt", "earth", "fine_gravel",  "grass", "gravel", "ground", "metal",
-      "mud", "pebblestone", "sand", "sett", "snow", "unhewn_cobblestone", "wood", "woodchips"
+      "cobblestone", "dirt", "earth", "grass", "gravel", "ground", "metal", "mud",
+      "pebblestone", "sand", "sett", "snow", "unhewn_cobblestone", "wood", "woodchips"
   };
 
   static base::StringIL badSmoothness = {
