@@ -15,19 +15,20 @@ HighwayBasedFactors const kHighwayBasedFactors = {
     // {highway class : InOutCityFactor(in city, out city)}
     {HighwayType::HighwayLivingStreet, InOutCityFactor(0.75)},
     {HighwayType::HighwayMotorway, InOutCityFactor(0.90, 0.94)},
-    {HighwayType::HighwayMotorwayLink, InOutCityFactor(0.90, 0.94)},
+    // See XXX_KeepMotorway integration tests.
+    {HighwayType::HighwayMotorwayLink, InOutCityFactor(0.70, 0.74)},  // 0.20 less
     {HighwayType::HighwayPrimary, InOutCityFactor(0.86, 0.89)},
-    {HighwayType::HighwayPrimaryLink, InOutCityFactor(0.86, 0.89)},
+    {HighwayType::HighwayPrimaryLink, InOutCityFactor(0.76, 0.79)},   // 0.10 less
     {HighwayType::HighwayResidential, InOutCityFactor(0.75)},
     {HighwayType::HighwayRoad, InOutCityFactor(0.95)},
     {HighwayType::HighwaySecondary, InOutCityFactor(0.84, 0.82)},
-    {HighwayType::HighwaySecondaryLink, InOutCityFactor(0.84, 0.82)},
+    {HighwayType::HighwaySecondaryLink, InOutCityFactor(0.74, 0.72)}, // 0.10 less
     {HighwayType::HighwayService, InOutCityFactor(0.80)},
     {HighwayType::HighwayTertiary, InOutCityFactor(0.82, 0.76)},
-    {HighwayType::HighwayTertiaryLink, InOutCityFactor(0.82, 0.76)},
+    {HighwayType::HighwayTertiaryLink, InOutCityFactor(0.72, 0.66)},  // 0.10 less
     {HighwayType::HighwayTrack, InOutCityFactor(1.0)},
     {HighwayType::HighwayTrunk, InOutCityFactor(0.90, 0.91)},
-    {HighwayType::HighwayTrunkLink, InOutCityFactor(0.77, 0.81)},
+    {HighwayType::HighwayTrunkLink, InOutCityFactor(0.75, 0.76)},     // 0.15 less
     {HighwayType::HighwayUnclassified, InOutCityFactor(0.80)},
     {HighwayType::ManMadePier, InOutCityFactor(0.90)},
     {HighwayType::RailwayRailMotorVehicle, InOutCityFactor(0.90)},
