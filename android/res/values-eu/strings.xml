@@ -519,7 +519,7 @@
 	<string name="transliteration_title">Latinezko transliterazioa</string>
 	<string name="learn_more">Irakurri gehiago</string>
 	<!-- Subway exits for public transport marks on the map -->
-	<string name="core_exit">Utzi</string>
+	<string name="core_exit">Irteera</string>
 	<string name="routing_add_start_point">Bilatu ibilbide-planaren iturria</string>
 	<string name="routing_add_finish_point">Bilatu ibilbide-planaren helmuga</string>
 	<string name="button_exit">Utzi</string>
