@@ -344,8 +344,6 @@ area[leisure=nature_reserve]
 
 node[tourism=artwork],
 area[tourism=artwork],
-node[historic=memorial][memorial=plaque],
-area[historic=memorial][memorial=plaque],
 node[tourism=attraction][attraction=animal],
 area[tourism=attraction][attraction=animal],
 {z-index: 2760;}
@@ -385,6 +383,12 @@ node|z17-[tourism=artwork][artwork_type=sculpture],
 area|z17-[tourism=artwork][artwork_type=sculpture]
 {z-index: 2800;}
 
+/* Decrease _plaque_ priority from defaults */
+node[historic=memorial][memorial=plaque],
+area[historic=memorial][memorial=plaque],
+node[historic=memorial][memorial=stolperstein],
+area[historic=memorial][memorial=stolperstein],
+{z-index: 2760;}
 
 /* OSM Hotel */
 
@@ -448,6 +452,8 @@ node|z17-[tourism=artwork][artwork_type=statue],
 area|z17-[tourism=artwork][artwork_type=statue],
 node|z18-[historic=memorial][memorial=plaque],
 area|z18-[historic=memorial][memorial=plaque],
+node|z19-[historic=memorial][memorial=stolperstein],
+area|z19-[historic=memorial][memorial=stolperstein],
 node|z18-[tourism=artwork][artwork_type=painting],
 area|z18-[tourism=artwork][artwork_type=painting]
 {z-index: 2880;}
@@ -1010,6 +1016,10 @@ node|z17-[historic=wayside_shrine],
 area|z17-[historic=wayside_shrine],
 node|z17-[historic=archaeological_site],
 area|z17-[historic=archaeological_site],
+node|z17-[historic=gallows],
+area|z17-[historic=gallows],
+node|z17-[historic=pillory],
+area|z17-[historic=pillory],
 node|z17-[amenity=arts_centre],
 area|z17-[amenity=arts_centre],
 {text: name;text-offset: 1;font-size: 10;text-color: @poi_label;text-optional: true;}
@@ -1060,12 +1070,23 @@ node|z16-[historic=memorial],
 area|z16-[historic=memorial],
 {icon-image: monument-m.svg;icon-min-distance: 12;}
 
-node|z15-[historic=memorial][memorial=plaque],
-area|z15-[historic=memorial][memorial=plaque],
+/* Zero previous params to redefine below */
+node|z15-17[historic=memorial][memorial=plaque],
+area|z15-17[historic=memorial][memorial=plaque],
+node|z15-18[historic=memorial][memorial=stolperstein],
+area|z15-18[historic=memorial][memorial=stolperstein],
+node|z15-16[historic=memorial][memorial=cross],
+area|z15-16[historic=memorial][memorial=cross],
 {icon-image: zero-icon.svg;text: none;}
+
 node|z18-[historic=memorial][memorial=plaque],
-area|z18-[historic=memorial][memorial=plaque]
-{icon-image: plaque.svg;icon-min-distance: 12;}
+area|z18-[historic=memorial][memorial=plaque],
+node|z19-[historic=memorial][memorial=stolperstein],
+area|z19-[historic=memorial][memorial=stolperstein],
+{icon-image: plaque.svg;}
+node|z17-[historic=memorial][memorial=cross],
+area|z17-[historic=memorial][memorial=cross],
+{icon-image: cross-m.svg;icon-min-distance: 12;}
 
 node|z13-14[historic=city_gate],
 area|z13-14[historic=city_gate]
@@ -1126,35 +1147,24 @@ node|z16-[tourism=information][information=guidepost]
 node|z16-[tourism=information][information=map]
 {icon-image: map.svg;text-offset: 1;icon-min-distance: 10;}
 
-
-node|z16[historic=boundary_stone],
-area|z16[historic=boundary_stone],
-node|z16[historic=wayside_cross],
-area|z16[historic=wayside_cross]
+node|z16-[historic=boundary_stone],
+area|z16-[historic=boundary_stone],
+node|z16-[historic=gallows],
+area|z16-[historic=gallows],
+node|z16-[historic=pillory],
+area|z16-[historic=pillory],
 {icon-image: monument-m.svg;font-size: 11;icon-min-distance: 8;}
-node|z16[historic=ship],
-area|z16[historic=ship]
+node|z16-[historic=wayside_cross],
+area|z16-[historic=wayside_cross],
+{icon-image: cross-m.svg;font-size: 11;icon-min-distance: 8;}
+node|z16-[historic=ship],
+area|z16-[historic=ship],
 {icon-image: historic-ship-m.svg;font-size: 11;icon-min-distance: 8;}
-node|z16[historic=tomb],
-area|z16[historic=tomb]
+node|z16-[historic=tomb],
+area|z16-[historic=tomb],
 {icon-image: tomb-m.svg;font-size: 11;icon-min-distance: 8;}
-node|z16[historic=wayside_shrine],
-area|z16[historic=wayside_shrine]
-{icon-image: wayside_shrine-m.svg;font-size: 11;icon-min-distance: 8;}
-
-node|z17-[historic=boundary_stone],
-area|z17-[historic=boundary_stone],
-node|z17-[historic=wayside_cross],
-area|z17-[historic=wayside_cross]
-{icon-image: monument-m.svg;font-size: 11;icon-min-distance: 8;}
-node|z17-[historic=ship],
-area|z17-[historic=ship]
-{icon-image: historic-ship-m.svg;font-size: 11;icon-min-distance: 8;}
-node|z17-[historic=tomb],
-area|z17-[historic=tomb]
-{icon-image: tomb-m.svg;font-size: 11;icon-min-distance: 8;}
-node|z17-[historic=wayside_shrine],
-area|z17-[historic=wayside_shrine]
+node|z16-[historic=wayside_shrine],
+area|z16-[historic=wayside_shrine],
 {icon-image: wayside_shrine-m.svg;font-size: 11;icon-min-distance: 8;}
 
 node|z15[tourism=artwork],
