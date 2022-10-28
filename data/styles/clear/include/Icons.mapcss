@@ -615,41 +615,41 @@ node|z11[boundary=national_park],
 area|z11[boundary=national_park],
 node|z11[leisure=nature_reserve],
 area|z11[leisure=nature_reserve]
-{icon-image: nparkf-s.svg;icon-min-distance: 20;}
+{icon-image: nparkf-outline-s.svg;icon-min-distance: 20;}
 node|z12-13[boundary=national_park],
 area|z12-13[boundary=national_park],
 node|z12-13[boundary=national_park],
 area|z12-13[boundary=national_park],
 node|z12-13[leisure=nature_reserve],
 area|z12-13[leisure=nature_reserve]
-{icon-image: nparkf-s.svg;text-offset: 1;font-size: 10;icon-min-distance: 12;}
+{icon-image: nparkf-outline-s.svg;text-offset: 1;font-size: 10;icon-min-distance: 12;}
 node|z14[boundary=national_park],
 area|z14[boundary=national_park],
 node|z14[boundary=national_park],
 area|z14[boundary=national_park],
 node|z14[leisure=nature_reserve],
 area|z14[leisure=nature_reserve]
-{icon-image: nparkf-s.svg;text-offset: 1;font-size: 11;}
+{icon-image: nparkf-outline-s.svg;text-offset: 1;font-size: 11;}
 node|z15-[boundary=national_park],
 area|z15-[boundary=national_park],
 node|z15-[boundary=national_park],
 area|z15-[boundary=national_park],
 node|z15-[leisure=nature_reserve],
 area|z15-[leisure=nature_reserve]
-{icon-image: nparkf-m.svg;text-offset: 1;font-size: 12;text-halo-opacity: 0.9;}
+{icon-image: nparkf-outline-m.svg;text-offset: 1;font-size: 12;text-halo-opacity: 0.9;}
 
 node|z12-[landuse=forest][name],
 area|z12-[landuse=forest][name]
 {text: name;text-color: @park_label;text-halo-opacity: 0.8;text-halo-color: @label_halo_light;text-halo-radius:0.5;}
 node|z13[landuse=forest][name],
 area|z13[landuse=forest][name]
-{icon-image: nparkf-s.svg;text-offset: 1;font-size: 10;icon-min-distance: 12;}
+{icon-image: nparkf-outline-s.svg;text-offset: 1;font-size: 10;icon-min-distance: 12;}
 node|z14[landuse=forest][name],
 area|z14[landuse=forest][name]
-{icon-image: nparkf-s.svg;text-offset: 1;font-size: 11;}
+{icon-image: nparkf-outline-s.svg;text-offset: 1;font-size: 11;}
 node|z15-[landuse=forest][name],
 area|z15-[landuse=forest][name]
-{icon-image: nparkf-m.svg;text-offset: 1;font-size: 12;text-halo-opacity: 0.9;}
+{icon-image: nparkf-outline-m.svg;text-offset: 1;font-size: 12;text-halo-opacity: 0.9;}
 
 node|z12-[landuse=forest][!name],
 area|z12-[landuse=forest][!name]
@@ -1487,7 +1487,6 @@ node|z17-[aeroway=gate],
 area|z17-[aeroway=gate],
 node|z17-[sport],
 area|z17-[sport],
-node|z17-[leisure],
 node|z18-[amenity=post_box],
 area|z18-[amenity=post_box],
 node|z18-[emergency=fire_hydrant],
