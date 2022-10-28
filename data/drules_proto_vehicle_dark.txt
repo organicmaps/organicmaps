@@ -4984,7 +4984,7 @@ cont {
   element {
     scale: 12
     symbol {
-      name: "nparkf-s"
+      name: "nparkf-outline-s"
       priority: 16682
       min_distance: 12
     }
@@ -5001,7 +5001,7 @@ cont {
   element {
     scale: 13
     symbol {
-      name: "nparkf-s"
+      name: "nparkf-outline-s"
       priority: 16682
       min_distance: 12
     }
@@ -5018,7 +5018,7 @@ cont {
   element {
     scale: 14
     symbol {
-      name: "nparkf-m"
+      name: "nparkf-outline-m"
       priority: 16682
     }
     caption {
@@ -5034,7 +5034,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "nparkf-m"
+      name: "nparkf-outline-m"
       priority: 16682
     }
     caption {
@@ -5050,7 +5050,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "nparkf-m"
+      name: "nparkf-outline-m"
       priority: 16682
     }
     caption {
@@ -5066,7 +5066,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "nparkf-m"
+      name: "nparkf-outline-m"
       priority: 16682
     }
     caption {
@@ -5082,7 +5082,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "nparkf-m"
+      name: "nparkf-outline-m"
       priority: 16682
     }
     caption {
@@ -5098,7 +5098,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "nparkf-m"
+      name: "nparkf-outline-m"
       priority: 16682
     }
     caption {
@@ -21479,7 +21479,7 @@ cont {
       priority: -15906
     }
     symbol {
-      name: "nparkf-s"
+      name: "nparkf-outline-s"
       priority: 16094
       min_distance: 12
     }
@@ -21509,7 +21509,7 @@ cont {
       priority: -15906
     }
     symbol {
-      name: "nparkf-s"
+      name: "nparkf-outline-s"
       priority: 16094
       min_distance: 12
     }
@@ -21539,7 +21539,7 @@ cont {
       priority: -15906
     }
     symbol {
-      name: "nparkf-m"
+      name: "nparkf-outline-m"
       priority: 16094
       min_distance: 10
     }
@@ -21569,7 +21569,7 @@ cont {
       priority: -15906
     }
     symbol {
-      name: "nparkf-m"
+      name: "nparkf-outline-m"
       priority: 16094
       min_distance: 10
     }
@@ -21599,7 +21599,7 @@ cont {
       priority: -15906
     }
     symbol {
-      name: "nparkf-m"
+      name: "nparkf-outline-m"
       priority: 16094
       min_distance: 10
     }
@@ -21629,7 +21629,7 @@ cont {
       priority: -15906
     }
     symbol {
-      name: "nparkf-m"
+      name: "nparkf-outline-m"
       priority: 16094
       min_distance: 10
     }
@@ -21659,7 +21659,7 @@ cont {
       priority: -15906
     }
     symbol {
-      name: "nparkf-m"
+      name: "nparkf-outline-m"
       priority: 16094
       min_distance: 10
     }
@@ -21693,7 +21693,7 @@ cont {
       priority: -15906
     }
     symbol {
-      name: "nparkf-m"
+      name: "nparkf-outline-m"
       priority: 16094
       min_distance: 10
     }
@@ -21744,7 +21744,7 @@ cont {
       priority: -15906
     }
     symbol {
-      name: "nparkf-s"
+      name: "nparkf-outline-s"
       priority: 16094
       min_distance: 12
     }
@@ -21774,7 +21774,7 @@ cont {
       priority: -15906
     }
     symbol {
-      name: "nparkf-s"
+      name: "nparkf-outline-s"
       priority: 16094
       min_distance: 12
     }
@@ -21804,7 +21804,7 @@ cont {
       priority: -15906
     }
     symbol {
-      name: "nparkf-m"
+      name: "nparkf-outline-m"
       priority: 16094
       min_distance: 10
     }
@@ -21834,7 +21834,7 @@ cont {
       priority: -15906
     }
     symbol {
-      name: "nparkf-m"
+      name: "nparkf-outline-m"
       priority: 16094
       min_distance: 10
     }
@@ -21864,7 +21864,7 @@ cont {
       priority: -15906
     }
     symbol {
-      name: "nparkf-m"
+      name: "nparkf-outline-m"
       priority: 16094
       min_distance: 10
     }
@@ -21894,7 +21894,7 @@ cont {
       priority: -15906
     }
     symbol {
-      name: "nparkf-m"
+      name: "nparkf-outline-m"
       priority: 16094
       min_distance: 10
     }
@@ -21924,7 +21924,7 @@ cont {
       priority: -15906
     }
     symbol {
-      name: "nparkf-m"
+      name: "nparkf-outline-m"
       priority: 16094
       min_distance: 10
     }
@@ -21958,7 +21958,7 @@ cont {
       priority: -15906
     }
     symbol {
-      name: "nparkf-m"
+      name: "nparkf-outline-m"
       priority: 16094
       min_distance: 10
     }
@@ -22009,7 +22009,7 @@ cont {
       priority: -15906
     }
     symbol {
-      name: "nparkf-s"
+      name: "nparkf-outline-s"
       priority: 16094
       min_distance: 12
     }
@@ -22039,7 +22039,7 @@ cont {
       priority: -15906
     }
     symbol {
-      name: "nparkf-s"
+      name: "nparkf-outline-s"
       priority: 16094
       min_distance: 12
     }
@@ -22069,7 +22069,7 @@ cont {
       priority: -15906
     }
     symbol {
-      name: "nparkf-m"
+      name: "nparkf-outline-m"
       priority: 16094
       min_distance: 10
     }
@@ -22099,7 +22099,7 @@ cont {
       priority: -15906
     }
     symbol {
-      name: "nparkf-m"
+      name: "nparkf-outline-m"
       priority: 16094
       min_distance: 10
     }
@@ -22129,7 +22129,7 @@ cont {
       priority: -15906
     }
     symbol {
-      name: "nparkf-m"
+      name: "nparkf-outline-m"
       priority: 16094
       min_distance: 10
     }
@@ -22159,7 +22159,7 @@ cont {
       priority: -15906
     }
     symbol {
-      name: "nparkf-m"
+      name: "nparkf-outline-m"
       priority: 16094
       min_distance: 10
     }
@@ -22189,7 +22189,7 @@ cont {
       priority: -15906
     }
     symbol {
-      name: "nparkf-m"
+      name: "nparkf-outline-m"
       priority: 16094
       min_distance: 10
     }
@@ -22223,7 +22223,7 @@ cont {
       priority: -15906
     }
     symbol {
-      name: "nparkf-m"
+      name: "nparkf-outline-m"
       priority: 16094
       min_distance: 10
     }
@@ -22274,7 +22274,7 @@ cont {
       priority: -15906
     }
     symbol {
-      name: "nparkf-s"
+      name: "nparkf-outline-s"
       priority: 16094
       min_distance: 12
     }
@@ -22304,7 +22304,7 @@ cont {
       priority: -15906
     }
     symbol {
-      name: "nparkf-s"
+      name: "nparkf-outline-s"
       priority: 16094
       min_distance: 12
     }
@@ -22334,7 +22334,7 @@ cont {
       priority: -15906
     }
     symbol {
-      name: "nparkf-m"
+      name: "nparkf-outline-m"
       priority: 16094
       min_distance: 10
     }
@@ -22364,7 +22364,7 @@ cont {
       priority: -15906
     }
     symbol {
-      name: "nparkf-m"
+      name: "nparkf-outline-m"
       priority: 16094
       min_distance: 10
     }
@@ -22394,7 +22394,7 @@ cont {
       priority: -15906
     }
     symbol {
-      name: "nparkf-m"
+      name: "nparkf-outline-m"
       priority: 16094
       min_distance: 10
     }
@@ -22424,7 +22424,7 @@ cont {
       priority: -15906
     }
     symbol {
-      name: "nparkf-m"
+      name: "nparkf-outline-m"
       priority: 16094
       min_distance: 10
     }
@@ -22454,7 +22454,7 @@ cont {
       priority: -15906
     }
     symbol {
-      name: "nparkf-m"
+      name: "nparkf-outline-m"
       priority: 16094
       min_distance: 10
     }
@@ -22488,7 +22488,7 @@ cont {
       priority: -15906
     }
     symbol {
-      name: "nparkf-m"
+      name: "nparkf-outline-m"
       priority: 16094
       min_distance: 10
     }
@@ -23746,7 +23746,7 @@ cont {
       priority: -15318
     }
     symbol {
-      name: "nparkf-s"
+      name: "nparkf-outline-s"
       priority: 16682
       min_distance: 12
     }
@@ -23767,7 +23767,7 @@ cont {
       priority: -15318
     }
     symbol {
-      name: "nparkf-s"
+      name: "nparkf-outline-s"
       priority: 16682
       min_distance: 12
     }
@@ -23788,7 +23788,7 @@ cont {
       priority: -15318
     }
     symbol {
-      name: "nparkf-m"
+      name: "nparkf-outline-m"
       priority: 16682
     }
     caption {
@@ -23808,7 +23808,7 @@ cont {
       priority: -15318
     }
     symbol {
-      name: "nparkf-m"
+      name: "nparkf-outline-m"
       priority: 16682
     }
     caption {
@@ -23828,7 +23828,7 @@ cont {
       priority: -15318
     }
     symbol {
-      name: "nparkf-m"
+      name: "nparkf-outline-m"
       priority: 16682
     }
     caption {
@@ -23848,7 +23848,7 @@ cont {
       priority: -15318
     }
     symbol {
-      name: "nparkf-m"
+      name: "nparkf-outline-m"
       priority: 16682
     }
     caption {
@@ -23868,7 +23868,7 @@ cont {
       priority: -15318
     }
     symbol {
-      name: "nparkf-m"
+      name: "nparkf-outline-m"
       priority: 16682
     }
     caption {
@@ -23888,7 +23888,7 @@ cont {
       priority: -15318
     }
     symbol {
-      name: "nparkf-m"
+      name: "nparkf-outline-m"
       priority: 16682
     }
     caption {
@@ -23939,7 +23939,7 @@ cont {
       priority: -15895
     }
     symbol {
-      name: "park-m"
+      name: "park-outline-m"
       priority: 16105
       min_distance: 10
     }
@@ -23969,7 +23969,7 @@ cont {
       priority: -15895
     }
     symbol {
-      name: "park-m"
+      name: "park-outline-m"
       priority: 16105
       min_distance: 10
     }
@@ -23999,7 +23999,7 @@ cont {
       priority: -15895
     }
     symbol {
-      name: "park-m"
+      name: "park-outline-m"
       priority: 16105
       min_distance: 10
     }
@@ -24029,7 +24029,7 @@ cont {
       priority: -15895
     }
     symbol {
-      name: "park-m"
+      name: "park-outline-m"
       priority: 16105
       min_distance: 10
     }
@@ -24059,7 +24059,7 @@ cont {
       priority: -15895
     }
     symbol {
-      name: "park-m"
+      name: "park-outline-m"
       priority: 16105
       min_distance: 10
     }
@@ -24093,7 +24093,7 @@ cont {
       priority: -15895
     }
     symbol {
-      name: "park-m"
+      name: "park-outline-m"
       priority: 16105
       min_distance: 10
     }
@@ -24158,7 +24158,7 @@ cont {
       priority: -15895
     }
     symbol {
-      name: "park-m"
+      name: "park-outline-m"
       priority: 16105
       min_distance: 10
     }
@@ -24188,7 +24188,7 @@ cont {
       priority: -15895
     }
     symbol {
-      name: "park-m"
+      name: "park-outline-m"
       priority: 16105
       min_distance: 10
     }
@@ -24218,7 +24218,7 @@ cont {
       priority: -15895
     }
     symbol {
-      name: "park-m"
+      name: "park-outline-m"
       priority: 16105
       min_distance: 10
     }
@@ -24248,7 +24248,7 @@ cont {
       priority: -15895
     }
     symbol {
-      name: "park-m"
+      name: "park-outline-m"
       priority: 16105
       min_distance: 10
     }
@@ -24278,7 +24278,7 @@ cont {
       priority: -15895
     }
     symbol {
-      name: "park-m"
+      name: "park-outline-m"
       priority: 16105
       min_distance: 10
     }
@@ -24312,7 +24312,7 @@ cont {
       priority: -15895
     }
     symbol {
-      name: "park-m"
+      name: "park-outline-m"
       priority: 16105
       min_distance: 10
     }
@@ -24377,7 +24377,7 @@ cont {
       priority: -15895
     }
     symbol {
-      name: "park-m"
+      name: "park-outline-m"
       priority: 16105
       min_distance: 10
     }
@@ -24407,7 +24407,7 @@ cont {
       priority: -15895
     }
     symbol {
-      name: "park-m"
+      name: "park-outline-m"
       priority: 16105
       min_distance: 10
     }
@@ -24437,7 +24437,7 @@ cont {
       priority: -15895
     }
     symbol {
-      name: "park-m"
+      name: "park-outline-m"
       priority: 16105
       min_distance: 10
     }
@@ -24467,7 +24467,7 @@ cont {
       priority: -15895
     }
     symbol {
-      name: "park-m"
+      name: "park-outline-m"
       priority: 16105
       min_distance: 10
     }
@@ -24497,7 +24497,7 @@ cont {
       priority: -15895
     }
     symbol {
-      name: "park-m"
+      name: "park-outline-m"
       priority: 16105
       min_distance: 10
     }
@@ -24531,7 +24531,7 @@ cont {
       priority: -15895
     }
     symbol {
-      name: "park-m"
+      name: "park-outline-m"
       priority: 16105
       min_distance: 10
     }
@@ -24596,7 +24596,7 @@ cont {
       priority: -15895
     }
     symbol {
-      name: "park-m"
+      name: "park-outline-m"
       priority: 16105
       min_distance: 10
     }
@@ -24626,7 +24626,7 @@ cont {
       priority: -15895
     }
     symbol {
-      name: "park-m"
+      name: "park-outline-m"
       priority: 16105
       min_distance: 10
     }
@@ -24656,7 +24656,7 @@ cont {
       priority: -15895
     }
     symbol {
-      name: "park-m"
+      name: "park-outline-m"
       priority: 16105
       min_distance: 10
     }
@@ -24686,7 +24686,7 @@ cont {
       priority: -15895
     }
     symbol {
-      name: "park-m"
+      name: "park-outline-m"
       priority: 16105
       min_distance: 10
     }
@@ -24716,7 +24716,7 @@ cont {
       priority: -15895
     }
     symbol {
-      name: "park-m"
+      name: "park-outline-m"
       priority: 16105
       min_distance: 10
     }
@@ -24750,7 +24750,7 @@ cont {
       priority: -15895
     }
     symbol {
-      name: "park-m"
+      name: "park-outline-m"
       priority: 16105
       min_distance: 10
     }
