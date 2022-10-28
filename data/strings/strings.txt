@@ -16436,8 +16436,8 @@
     da = Afslut
     de = Ausgang
     el = Έξοδος
-    es = Salir
-    eu = Utzi
+    es = Salida
+    eu = Irteera
     fa = خروج
     fi = Poistu
     fr = Sortie
