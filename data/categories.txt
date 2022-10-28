@@ -3063,6 +3063,43 @@ uk:Форт
 zh-Hans:历史要塞
 zh-Hant:歷史要塞
 
+historic-gallows|@tourism
+en:Gallows
+ar:مشنقة
+be:Шыбеніца
+bg:Бесилка
+cs:Šibenice
+da:Galge
+de:3Galgen
+el:Αγχόνη
+es:Horca
+eu:Urkamendi
+fa:چوبه دار
+fi:Sappeja
+fr:Potence
+he:גרדום
+hu:Akasztófa
+id:Tiang gantungan
+it:Forca
+ja:絞首台
+ko:교수대
+mr:फाशी
+nb:Galge
+nl:Galg
+pl:Szubienica
+pt:Forca
+pt-BR:Galo
+ro:Spânzurătoare
+ru:Виселица
+sk:Šibenica
+sv:Galge
+sw:Kunyongea
+tr:Darağacı
+uk:Шибениця
+vi:Giá treo cổ
+zh-Hans:绞架
+zh-Hant:絞架
+
 historic-memorial|@tourism
 en:4Memorial|monument|U+1F5FC|U+1F5FD|U+1F5FF
 ru:4Памятник|4мемориал
@@ -3099,6 +3136,156 @@ sk:4Pomník|pamiatka|atrakcia|zaujímavosť
 sw:Makumbusho|kumbukumbu ya kihistoria|kivutio|utalii
 fa:یادبود تاریخی
 
+historic-memorial-cross
+en:Memorial cross
+ar:الصليب التذكاري
+be:Памятны крыж
+bg:Мемориален кръст
+cs:Pamětní kříž
+da:Mindesmærkekors
+de:Gedenkkreuz
+el:Σταυρός μνήμης
+es:Cruz conmemorativa
+eu:Oroimenezko gurutzea
+fa:صلیب یادبود
+fi:Muistoristi
+fr:Croix commémorative
+he:צלב זיכרון
+hu:Emlékkereszt
+id:Salib peringatan
+it:Croce commemorativa
+ja:メモリアルクロス
+ko:기념 십자가
+mr:मेमोरियल क्रॉस
+nb:Minnekors
+nl:Herdenkingskruis
+pl:Krzyż pomnikowy
+pt:Cruz memorial
+pt-BR:Cruz de memorial
+ro:Cruce comemorativă
+ru:Памятный крест
+sk:Pamätný kríž
+sv:Kors till minne
+sw:Msalaba wa kumbukumbu
+th:อนุสรณ์สถานข้าม
+tr:Anıt haç
+uk:Пам'ятний хрест
+vi:Thánh giá tưởng niệm
+zh-Hans:纪念十字架
+zh-Hant:紀念十字架
+
+historic-memorial-plaque
+en:Commemorative plaque
+ar:لوحة تذكارية
+be:Памятная дошка
+bg:Паметна плоча
+cs:Pomník
+da:Mindesmærke
+de:3Gedenktafel
+el:Μνημείο
+es:Placa conmemorativa
+eu:Oroitzapenezko plaka
+fa:گردشگری
+fi:Muistomerkki
+fr:Plaque commémorative
+he:לוחית זיכרון
+hu:Emlékmű
+id:Tugu peringatan
+it:Memoriale
+ja:銘板
+ko:기념비
+mr:फलक
+nb:Minnesmerke
+nl:Gedenkplaat
+pl:Tablica pamiątkowa
+pt:Placa comemorativa
+pt-BR:Placa comemorativa
+ro:Comemorare
+ru:Памятная доска
+sk:Pomník
+sv:Minnesmärke
+sw:Plaque
+th:ที่ระลึก
+tr:Hatıra Plaketi
+uk:Дошка пам'яті
+vi:Đài tưởng niệm
+zh-Hans:纪念牌匾
+zh-Hant:紀念牌匾
+
+historic-memorial-stolperstein
+en:Stolperstein
+ar:حجر عثرة
+be:Камяні спатыкнення
+bg:Cпънка
+cs:Stolperstein
+da:Stolpersten
+de:3Stolperstein
+el:Λίθοι Μνήμης
+es:Stolperstein
+eu:Stolperstein
+fa:سنگ مانع
+fi:Kompastuskivet
+fr:Stolperstein
+he:אבן נגף
+hu:Botlatókő
+id:Stolperstein
+it:Pietre d'inciampo
+ja:ストルパーシュタイン
+ko:장애물
+mr:अडथळा
+nb:Snublesteiner
+nl:Stolperstein
+pl:Kamień pamięci
+pt:Stolperstein
+ro:Blocaj de poticnire
+ru:Камни преткновения
+sk:Kameň úrazu
+sv:Snubbelsten
+sw:Kikwazo
+th:อุปสรรค์
+tr:Tökezleyen Taşlar
+uk:Камені спотикання
+vi:Vấp ngã
+zh-Hans:绊脚石
+zh-Hant:絆腳石
+
+historic-memorial-war_memorial|@tourism
+en:War memorial
+ar:نصب حرب
+be:Ваенны мемарыял
+bg:Военен паметник
+cs:Válečný památník
+da:Krigsmindesmærke
+de:Kriegerdenkmal
+el:Μνημείο του Αγνώστου Στρατιώτη
+es:Monumento a la guerra
+eu:Gerra memoriala
+fa:رزم‌یاد
+fi:Sotamuistomerkki
+fr:Monument aux morts
+he:אנדרטת מלחמה
+hu:Háborús emlékmű
+id:Tugu peringatan perang
+it:Monumento ai caduti
+ja:戦争記念施設
+ko:전쟁기념관
+mr:युद्ध स्मारक
+nb:Krigsminnesmerke
+nl:Oorlogsmonument
+pl:Pomnik wojenny
+pt:Memorial de guerra
+ro:Memorial de război
+ru:Военный мемориал
+sk:Vojnový pamätník
+sv:Krigsmonument
+sw:Kumbukumbu ya vita
+th:อนุสรณ์สถานสงคราม
+tr:Savaş anıtı
+uk:Військовий меморіал
+vi:Đài tưởng niệm chiến tranh
+zh-Hans:战争纪念建筑
+zh-Hant:戰爭紀念建築
+
 historic-monument|@tourism
 en:4Monument|U+1F5FD|U+1F5FF
 ru:4Монумент
@@ -3134,6 +3321,43 @@ el:Μνημείο|θέαμα|τουρισμός|αξιοθέατα
 sk:Zaujímavosť|pomník|pamiatka
 sw:Makumbusho|kivutio|utalii
 fa:بنای تاریخی
+
+historic-pillory|@tourism
+en:Pillory
+ar:مشهرة
+be:Пазорны слуп
+bg:Позорен стълб
+cs:Pranýř
+da:Kag
+de:Pranger
+el:Κύφωνας
+es:Picota
+eu:Urkabe
+fa:تخته‌بند
+fi:Häpeäpaalu
+fr:Pilori
+he:עמוד הקלון
+hu:Pellengér
+id:Pilar
+it:Gogna
+ja:さらし台
+ko:칼
+mr:पिलोरी
+nb:Pilry
+nl:Schandpaal
+pl:Pręgierz
+pt:Pelourinho
+ro:Stâlpul infamiei
+ru:Позорный столб
+sk:Pranier
+sv:Skampåle
+sw:Pillory
+th:ประจาน
+tr:Boyunduruk
+uk:Ганебний стовп
+vi:Thuốc viên
+zh-Hans:刑柱
+zh-Hant:刑柱
 
 historic-ruins|@tourism
 en:3Ruins|U+1F5FF

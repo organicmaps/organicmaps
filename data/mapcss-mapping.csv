@@ -889,11 +889,11 @@ railway|subway|green;[railway=subway][colour=green];x;name;int_name;889;railway|
 railway|subway|brown;[railway=subway][colour=brown];x;name;int_name;890;railway|subway|tunnel
 railway|subway|yellow;[railway=subway][colour=yellow];x;name;int_name;891;railway|subway|tunnel
 railway|subway|purple;[railway=subway][colour=purple];x;name;int_name;892;railway|subway|tunnel
-deprecated|deprecated;893;x
-deprecated|deprecated;894;x
-deprecated|deprecated;895;x
-deprecated|deprecated;896;x
-deprecated|deprecated;897;x
+historic|memorial|stolperstein;[historic=memorial][memorial=stolperstein],[historic=memorial][memorial:type=stolperstein];;name;int_name;893;
+historic|memorial|war_memorial;[historic=memorial][memorial=war_memorial],[historic=memorial][memorial:type=war_memorial];;name;int_name;894;
+historic|memorial|cross;[historic=memorial][memorial=cross];;name;int_name;895;
+historic|gallows;[historic=gallows];;name;int_name;896;
+historic|pillory;[historic=pillory];;name;int_name;897;
 deprecated|deprecated;898;x
 deprecated|deprecated;899;x
 railway|subway|darkgreen;[railway=subway][colour=darkgreen];x;name;int_name;900;railway|subway|tunnel

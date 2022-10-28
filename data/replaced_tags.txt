@@ -112,7 +112,21 @@ ruins=yes : historic=ruins
 historic=cannon : historic=memorial
 historic=technical_monument : historic=memorial
 historic=shield : historic=memorial
-historic=war_memorial : historic=memorial
+
+memorial=blue_plaque : memorial=plaque
+memorial=stele : memorial=sculpture
+memorial=obelisk : memorial=sculpture
+memorial=stone : memorial=sculpture
+memorial=bust : memorial=statue
+memorial=person : memorial=statue
+memorial:type=plate : memorial:type=plaque
+
+artwork_type=mural : artwork_type=painting
+artwork_type=mural_painting : artwork_type=painting
+artwork_type=graffiti : artwork_type=painting
+artwork_type=stone : artwork_type=sculpture
+artwork_type=installation : artwork_type=sculpture
+artwork_type=bust : artwork_type=statue
 
 place=allotments : place=neighbourhood
 
