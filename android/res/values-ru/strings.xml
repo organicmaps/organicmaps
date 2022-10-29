@@ -1224,11 +1224,16 @@
 	<string name="type.historic.city_gate">Городские ворота</string>
 	<string name="type.historic.citywalls">Городская стена</string>
 	<string name="type.historic.fort">Форт</string>
+	<string name="type.historic.gallows">Виселица</string>
 	<string name="type.historic.memorial">Мемориал</string>
+	<string name="type.historic.memorial.cross">Памятный крест</string>
 	<string name="type.historic.memorial.plaque">Памятная доска</string>
 	<string name="type.historic.memorial.sculpture">Скульптура</string>
 	<string name="type.historic.memorial.statue">Статуя</string>
+	<string name="type.historic.memorial.stolperstein">Камни преткновения</string>
+	<string name="type.historic.memorial.war_memorial">Военный мемориал</string>
 	<string name="type.historic.monument">Памятник</string>
+	<string name="type.historic.pillory">Позорный столб</string>
 	<string name="type.historic.ruins">Руины</string>
 	<string name="type.historic.ship">Корабль</string>
 	<string name="type.historic.tomb">Гробница</string>

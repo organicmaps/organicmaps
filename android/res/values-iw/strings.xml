@@ -459,6 +459,12 @@
 	<string name="type.historic.castle.shiro">טירה יפנית</string>
 	<string name="type.historic.castle.stately">שאטו</string>
 	<string name="type.historic.city_gate">שער העיר</string>
+	<string name="type.historic.gallows">גרדום</string>
+	<string name="type.historic.memorial.cross">צלב זיכרון</string>
+	<string name="type.historic.memorial.plaque">לוחית זיכרון</string>
+	<string name="type.historic.memorial.stolperstein">אבן נגף</string>
+	<string name="type.historic.memorial.war_memorial">אנדרטת מלחמה</string>
+	<string name="type.historic.pillory">עמוד הקלון</string>
 	<string name="type.landuse.basin">אגן מים</string>
 	<string name="type.leisure.dance">םידוקיר םלוא</string>
 	<string name="type.leisure.picnic_table">קינקיפ ןחלוש</string>

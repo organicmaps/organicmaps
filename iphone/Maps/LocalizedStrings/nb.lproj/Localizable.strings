@@ -2174,7 +2174,11 @@
 
 "type.historic.fort" = "Fort";
 
+"type.historic.gallows" = "Galge";
+
 "type.historic.memorial" = "Minnesmerke";
+
+"type.historic.memorial.cross" = "Minnekors";
 
 "type.historic.memorial.plaque" = "Minnesmerke";
 
@@ -2182,7 +2186,13 @@
 
 "type.historic.memorial.statue" = "Minnesmerke";
 
+"type.historic.memorial.stolperstein" = "Snublesteiner";
+
+"type.historic.memorial.war_memorial" = "Krigsminnesmerke";
+
 "type.historic.monument" = "Monument";
+
+"type.historic.pillory" = "Pilry";
 
 "type.historic.ruins" = "Ruiner";
 

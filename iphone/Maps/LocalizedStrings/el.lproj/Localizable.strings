@@ -2174,7 +2174,11 @@
 
 "type.historic.fort" = "Fort";
 
+"type.historic.gallows" = "Αγχόνη";
+
 "type.historic.memorial" = "Μνημείο";
+
+"type.historic.memorial.cross" = "Σταυρός μνήμης";
 
 "type.historic.memorial.plaque" = "Μνημείο";
 
@@ -2182,7 +2186,13 @@
 
 "type.historic.memorial.statue" = "Μνημείο";
 
+"type.historic.memorial.stolperstein" = "Λίθοι Μνήμης";
+
+"type.historic.memorial.war_memorial" = "Μνημείο του Αγνώστου Στρατιώτη";
+
 "type.historic.monument" = "Μνημείο";
+
+"type.historic.pillory" = "Κύφωνας";
 
 "type.historic.ruins" = "Ερείπια";
 

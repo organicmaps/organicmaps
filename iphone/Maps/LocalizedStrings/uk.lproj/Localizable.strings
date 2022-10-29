@@ -2174,7 +2174,11 @@
 
 "type.historic.fort" = "Форт";
 
+"type.historic.gallows" = "Шибениця";
+
 "type.historic.memorial" = "Меморіал";
+
+"type.historic.memorial.cross" = "Пам'ятний хрест";
 
 "type.historic.memorial.plaque" = "Дошка пам'яті";
 
@@ -2182,7 +2186,13 @@
 
 "type.historic.memorial.statue" = "Статуя";
 
+"type.historic.memorial.stolperstein" = "Камені спотикання";
+
+"type.historic.memorial.war_memorial" = "Військовий меморіал";
+
 "type.historic.monument" = "Пам'ятник";
+
+"type.historic.pillory" = "Ганебний стовп";
 
 "type.historic.ruins" = "Руїни";
 

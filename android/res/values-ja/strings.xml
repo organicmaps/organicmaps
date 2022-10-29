@@ -1129,11 +1129,16 @@
 	<string name="type.historic.city_gate">城門</string>
 	<string name="type.historic.citywalls">歴史的な城壁</string>
 	<string name="type.historic.fort">歴史的な要塞</string>
+	<string name="type.historic.gallows">絞首台</string>
 	<string name="type.historic.memorial">記念碑</string>
+	<string name="type.historic.memorial.cross">メモリアルクロス</string>
 	<string name="type.historic.memorial.plaque">銘板</string>
 	<string name="type.historic.memorial.sculpture">彫刻</string>
 	<string name="type.historic.memorial.statue">塑像</string>
+	<string name="type.historic.memorial.stolperstein">ストルパーシュタイン</string>
+	<string name="type.historic.memorial.war_memorial">戦争記念施設</string>
 	<string name="type.historic.monument">記念碑</string>
+	<string name="type.historic.pillory">さらし台</string>
 	<string name="type.historic.ruins">古跡</string>
 	<string name="type.historic.ship">退役船</string>
 	<string name="type.historic.tomb">墓</string>

@@ -899,6 +899,12 @@
 	<string name="type.historic.castle.shiro">Японскі замак</string>
 	<string name="type.historic.castle.stately">Замак</string>
 	<string name="type.historic.city_gate">Гарадская брама</string>
+	<string name="type.historic.gallows">Шыбеніца</string>
+	<string name="type.historic.memorial.cross">Памятны крыж</string>
+	<string name="type.historic.memorial.plaque">Памятная дошка</string>
+	<string name="type.historic.memorial.stolperstein">Камяні спатыкнення</string>
+	<string name="type.historic.memorial.war_memorial">Ваенны мемарыял</string>
+	<string name="type.historic.pillory">Пазорны слуп</string>
 	<string name="type.landuse.basin">Рэзервуар</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery">Могілкі</string>

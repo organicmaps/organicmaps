@@ -2174,7 +2174,11 @@
 
 "type.historic.fort" = "Fort";
 
+"type.historic.gallows" = "Akasztófa";
+
 "type.historic.memorial" = "Emlékmű";
+
+"type.historic.memorial.cross" = "Emlékkereszt";
 
 "type.historic.memorial.plaque" = "Emlékmű";
 
@@ -2182,7 +2186,13 @@
 
 "type.historic.memorial.statue" = "Emlékmű";
 
+"type.historic.memorial.stolperstein" = "Botlatókő";
+
+"type.historic.memorial.war_memorial" = "Háborús emlékmű";
+
 "type.historic.monument" = "Műemlék";
+
+"type.historic.pillory" = "Pellengér";
 
 "type.historic.ruins" = "Romok";
 

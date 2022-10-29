@@ -1177,7 +1177,13 @@
 	<string name="type.historic.castle.shiro">Castillo japonés</string>
 	<string name="type.historic.castle.stately">Castillo</string>
 	<string name="type.historic.city_gate">Puerta de la ciudad</string>
+	<string name="type.historic.gallows">Horca</string>
+	<string name="type.historic.memorial.cross">Cruz conmemorativa</string>
+	<string name="type.historic.memorial.plaque">Placa conmemorativa</string>
+	<string name="type.historic.memorial.stolperstein">Stolperstein</string>
+	<string name="type.historic.memorial.war_memorial">Monumento a la guerra</string>
 	<string name="type.historic.monument">Monumento</string>
+	<string name="type.historic.pillory">Picota</string>
 	<string name="type.historic.ruins">Ruinas</string>
 	<string name="type.historic.ship">Turismo</string>
 	<string name="type.historic.tomb">Turismo</string>

@@ -1001,11 +1001,16 @@
 	<string name="type.historic.castle.shiro">قلعه ژاپنی</string>
 	<string name="type.historic.castle.stately">گردشگری</string>
 	<string name="type.historic.city_gate">دروازه شهر</string>
+	<string name="type.historic.gallows">چوبه دار</string>
 	<string name="type.historic.memorial">گردشگری</string>
+	<string name="type.historic.memorial.cross">صلیب یادبود</string>
 	<string name="type.historic.memorial.plaque">گردشگری</string>
 	<string name="type.historic.memorial.sculpture">گردشگری</string>
 	<string name="type.historic.memorial.statue">گردشگری</string>
+	<string name="type.historic.memorial.stolperstein">سنگ مانع</string>
+	<string name="type.historic.memorial.war_memorial">رزم‌یاد</string>
 	<string name="type.historic.monument">گردشگری</string>
+	<string name="type.historic.pillory">تخته‌بند</string>
 	<string name="type.historic.ruins">گردشگری</string>
 	<string name="type.historic.ship">گردشگری</string>
 	<string name="type.historic.tomb">گردشگری</string>

@@ -2174,7 +2174,11 @@
 
 "type.historic.fort" = "Fort";
 
+"type.historic.gallows" = "Tiang gantungan";
+
 "type.historic.memorial" = "Tugu peringatan";
+
+"type.historic.memorial.cross" = "Salib peringatan";
 
 "type.historic.memorial.plaque" = "Tugu peringatan";
 
@@ -2182,7 +2186,13 @@
 
 "type.historic.memorial.statue" = "Tugu peringatan";
 
+"type.historic.memorial.stolperstein" = "Stolperstein";
+
+"type.historic.memorial.war_memorial" = "Tugu peringatan perang";
+
 "type.historic.monument" = "Monumen";
+
+"type.historic.pillory" = "Pilar";
 
 "type.historic.ruins" = "Reruntuhan";
 

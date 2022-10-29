@@ -1085,11 +1085,16 @@
 	<string name="type.historic.castle.shiro">일본의 성</string>
 	<string name="type.historic.castle.stately">성</string>
 	<string name="type.historic.city_gate">성문</string>
+	<string name="type.historic.gallows">교수대</string>
 	<string name="type.historic.memorial">기념비</string>
+	<string name="type.historic.memorial.cross">기념 십자가</string>
 	<string name="type.historic.memorial.plaque">기념비</string>
 	<string name="type.historic.memorial.sculpture">기념비</string>
 	<string name="type.historic.memorial.statue">기념비</string>
+	<string name="type.historic.memorial.stolperstein">장애물</string>
+	<string name="type.historic.memorial.war_memorial">전쟁기념관</string>
 	<string name="type.historic.monument">기념탑</string>
+	<string name="type.historic.pillory">칼</string>
 	<string name="type.historic.ruins">유적</string>
 	<string name="type.historic.ship">배</string>
 	<string name="type.historic.tomb">무덤</string>

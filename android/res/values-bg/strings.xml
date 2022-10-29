@@ -785,6 +785,12 @@
 	<string name="type.historic.castle.shiro">Японски замък</string>
 	<string name="type.historic.castle.stately">Замък</string>
 	<string name="type.historic.city_gate">Градска порта</string>
+	<string name="type.historic.gallows">Бесилка</string>
+	<string name="type.historic.memorial.cross">Мемориален кръст</string>
+	<string name="type.historic.memorial.plaque">Паметна плоча</string>
+	<string name="type.historic.memorial.stolperstein">Cпънка</string>
+	<string name="type.historic.memorial.war_memorial">Военен паметник</string>
+	<string name="type.historic.pillory">Позорен стълб</string>
 	<string name="type.landuse.basin">Резервоар</string>
 	<string name="type.leisure.dance">Зала за танци</string>
 	<string name="type.leisure.picnic_table">Маса за пикник</string>

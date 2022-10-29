@@ -2174,7 +2174,11 @@
 
 "type.historic.fort" = "Fort";
 
+"type.historic.gallows" = "Gallows";
+
 "type.historic.memorial" = "ที่ระลึก";
+
+"type.historic.memorial.cross" = "อนุสรณ์สถานข้าม";
 
 "type.historic.memorial.plaque" = "ที่ระลึก";
 
@@ -2182,7 +2186,13 @@
 
 "type.historic.memorial.statue" = "ที่ระลึก";
 
+"type.historic.memorial.stolperstein" = "อุปสรรค์";
+
+"type.historic.memorial.war_memorial" = "อนุสรณ์สถานสงคราม";
+
 "type.historic.monument" = "อนุสาวรีย์";
+
+"type.historic.pillory" = "ประจาน";
 
 "type.historic.ruins" = "ซากปรักหักพัง";
 

@@ -2174,15 +2174,25 @@
 
 "type.historic.fort" = "Fort";
 
+"type.historic.gallows" = "Kunyongea";
+
 "type.historic.memorial" = "Memorial";
 
-"type.historic.memorial.plaque" = "Commemorative plaque";
+"type.historic.memorial.cross" = "Msalaba wa kumbukumbu";
+
+"type.historic.memorial.plaque" = "Plaque";
 
 "type.historic.memorial.sculpture" = "Sculpture";
 
 "type.historic.memorial.statue" = "Statue";
 
+"type.historic.memorial.stolperstein" = "Kikwazo";
+
+"type.historic.memorial.war_memorial" = "Kumbukumbu ya vita";
+
 "type.historic.monument" = "Monument";
+
+"type.historic.pillory" = "Pillory";
 
 "type.historic.ruins" = "Ruins";
 

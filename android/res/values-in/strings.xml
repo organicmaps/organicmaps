@@ -1081,11 +1081,16 @@
 	<string name="type.historic.castle.shiro">Istana Jepang</string>
 	<string name="type.historic.castle.stately">Kastel</string>
 	<string name="type.historic.city_gate">Gerbang kota</string>
+	<string name="type.historic.gallows">Tiang gantungan</string>
 	<string name="type.historic.memorial">Tugu peringatan</string>
+	<string name="type.historic.memorial.cross">Salib peringatan</string>
 	<string name="type.historic.memorial.plaque">Tugu peringatan</string>
 	<string name="type.historic.memorial.sculpture">Tugu peringatan</string>
 	<string name="type.historic.memorial.statue">Tugu peringatan</string>
+	<string name="type.historic.memorial.stolperstein">Stolperstein</string>
+	<string name="type.historic.memorial.war_memorial">Tugu peringatan perang</string>
 	<string name="type.historic.monument">Monumen</string>
+	<string name="type.historic.pillory">Pilar</string>
 	<string name="type.historic.ruins">Reruntuhan</string>
 	<string name="type.historic.ship">Pemandangan</string>
 	<string name="type.historic.tomb">Pemandangan</string>

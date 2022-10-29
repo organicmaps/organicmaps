@@ -1081,10 +1081,15 @@
 	<string name="type.historic.castle.shiro">Japansk slot</string>
 	<string name="type.historic.castle.stately">Slot</string>
 	<string name="type.historic.city_gate">Byport</string>
+	<string name="type.historic.gallows">Galge</string>
 	<string name="type.historic.memorial">Mindesmærke</string>
+	<string name="type.historic.memorial.cross">Mindesmærkekors</string>
 	<string name="type.historic.memorial.plaque">Mindesmærke</string>
 	<string name="type.historic.memorial.sculpture">Mindesmærke</string>
 	<string name="type.historic.memorial.statue">Mindesmærke</string>
+	<string name="type.historic.memorial.stolperstein">Stolpersten</string>
+	<string name="type.historic.memorial.war_memorial">Krigsmindesmærke</string>
+	<string name="type.historic.pillory">Kag</string>
 	<string name="type.historic.ruins">Ruiner</string>
 	<string name="type.historic.ship">Turisme</string>
 	<string name="type.historic.tomb">Turisme</string>

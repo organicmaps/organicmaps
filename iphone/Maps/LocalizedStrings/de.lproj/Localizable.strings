@@ -2174,7 +2174,11 @@
 
 "type.historic.fort" = "Festung";
 
+"type.historic.gallows" = "Galgen";
+
 "type.historic.memorial" = "Denkmal";
+
+"type.historic.memorial.cross" = "Gedenkkreuz";
 
 "type.historic.memorial.plaque" = "Gedenktafel";
 
@@ -2182,7 +2186,13 @@
 
 "type.historic.memorial.statue" = "Statue";
 
+"type.historic.memorial.stolperstein" = "Stolperstein";
+
+"type.historic.memorial.war_memorial" = "Kriegerdenkmal";
+
 "type.historic.monument" = "Monument";
+
+"type.historic.pillory" = "Pranger";
 
 "type.historic.ruins" = "Ruine";
 

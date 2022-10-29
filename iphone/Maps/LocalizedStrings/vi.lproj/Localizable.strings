@@ -2174,7 +2174,11 @@
 
 "type.historic.fort" = "Fort";
 
+"type.historic.gallows" = "Giá treo cổ";
+
 "type.historic.memorial" = "Đài tưởng niệm";
+
+"type.historic.memorial.cross" = "Thánh giá tưởng niệm";
 
 "type.historic.memorial.plaque" = "Đài tưởng niệm";
 
@@ -2182,7 +2186,13 @@
 
 "type.historic.memorial.statue" = "Đài tưởng niệm";
 
+"type.historic.memorial.stolperstein" = "Vấp ngã";
+
+"type.historic.memorial.war_memorial" = "Đài tưởng niệm chiến tranh";
+
 "type.historic.monument" = "Tượng đài";
+
+"type.historic.pillory" = "Thuốc viên";
 
 "type.historic.ruins" = "Phế tích";
 

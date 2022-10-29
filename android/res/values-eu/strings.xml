@@ -1154,7 +1154,13 @@
 	<string name="type.historic.castle.shiro">Japoniar gaztelu</string>
 	<string name="type.historic.castle.stately">Gaztelua</string>
 	<string name="type.historic.city_gate">Portale</string>
+	<string name="type.historic.gallows">Urkamendi</string>
+	<string name="type.historic.memorial.cross">Oroimenezko gurutzea</string>
+	<string name="type.historic.memorial.plaque">Oroitzapenezko plaka</string>
+	<string name="type.historic.memorial.stolperstein">Stolperstein</string>
+	<string name="type.historic.memorial.war_memorial">Gerra memoriala</string>
 	<string name="type.historic.monument">Monumentua</string>
+	<string name="type.historic.pillory">Urkabe</string>
 	<string name="type.historic.ruins">Hondakinak</string>
 	<string name="type.historic.ship">Turismoa</string>
 	<string name="type.historic.tomb">Turismoa</string>

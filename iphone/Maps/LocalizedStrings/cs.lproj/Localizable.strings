@@ -2174,7 +2174,11 @@
 
 "type.historic.fort" = "Fort";
 
+"type.historic.gallows" = "Šibenice";
+
 "type.historic.memorial" = "Pomník";
+
+"type.historic.memorial.cross" = "Pamětní kříž";
 
 "type.historic.memorial.plaque" = "Pomník";
 
@@ -2182,7 +2186,13 @@
 
 "type.historic.memorial.statue" = "Pomník";
 
+"type.historic.memorial.stolperstein" = "Stolperstein";
+
+"type.historic.memorial.war_memorial" = "Válečný památník";
+
 "type.historic.monument" = "Zajímavost";
+
+"type.historic.pillory" = "Pranýř";
 
 "type.historic.ruins" = "Ruiny";
 

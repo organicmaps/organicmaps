@@ -1080,10 +1080,15 @@
 	<string name="type.historic.castle.shiro">Japanskt slott</string>
 	<string name="type.historic.castle.stately">Slott</string>
 	<string name="type.historic.city_gate">Stadsport</string>
+	<string name="type.historic.gallows">Galge</string>
 	<string name="type.historic.memorial">Minnesmärke</string>
+	<string name="type.historic.memorial.cross">Kors till minne</string>
 	<string name="type.historic.memorial.plaque">Minnesmärke</string>
 	<string name="type.historic.memorial.sculpture">Minnesmärke</string>
 	<string name="type.historic.memorial.statue">Minnesmärke</string>
+	<string name="type.historic.memorial.stolperstein">Snubbelsten</string>
+	<string name="type.historic.memorial.war_memorial">Krigsmonument</string>
+	<string name="type.historic.pillory">Skampåle</string>
 	<string name="type.historic.ruins">Ruiner</string>
 	<string name="type.historic.ship">Attraktion</string>
 	<string name="type.historic.tomb">Attraktion</string>

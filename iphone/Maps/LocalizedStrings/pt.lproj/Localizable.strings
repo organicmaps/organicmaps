@@ -2174,7 +2174,11 @@
 
 "type.historic.fort" = "Forte histórico";
 
+"type.historic.gallows" = "Forca";
+
 "type.historic.memorial" = "Memorial";
+
+"type.historic.memorial.cross" = "Cruz memorial";
 
 "type.historic.memorial.plaque" = "Placa comemorativa";
 
@@ -2182,7 +2186,13 @@
 
 "type.historic.memorial.statue" = "Estátua memorial";
 
+"type.historic.memorial.stolperstein" = "Stolperstein";
+
+"type.historic.memorial.war_memorial" = "Memorial de guerra";
+
 "type.historic.monument" = "Monumento";
+
+"type.historic.pillory" = "Pelourinho";
 
 "type.historic.ruins" = "Ruínas";
 

@@ -1090,10 +1090,14 @@
 	<string name="type.historic.castle.stately">ปราสาท</string>
 	<string name="type.historic.city_gate">ประตูเมือง</string>
 	<string name="type.historic.memorial">ที่ระลึก</string>
+	<string name="type.historic.memorial.cross">อนุสรณ์สถานข้าม</string>
 	<string name="type.historic.memorial.plaque">ที่ระลึก</string>
 	<string name="type.historic.memorial.sculpture">ที่ระลึก</string>
 	<string name="type.historic.memorial.statue">ที่ระลึก</string>
+	<string name="type.historic.memorial.stolperstein">อุปสรรค์</string>
+	<string name="type.historic.memorial.war_memorial">อนุสรณ์สถานสงคราม</string>
 	<string name="type.historic.monument">อนุสาวรีย์</string>
+	<string name="type.historic.pillory">ประจาน</string>
 	<string name="type.historic.ruins">ซากปรักหักพัง</string>
 	<string name="type.historic.ship">สถานที่ท่องเที่ยว</string>
 	<string name="type.historic.tomb">สถานที่ท่องเที่ยว</string>

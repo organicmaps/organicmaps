@@ -2174,7 +2174,11 @@
 
 "type.historic.fort" = "Fort";
 
+"type.historic.gallows" = "Spânzurătoare";
+
 "type.historic.memorial" = "Comemorare";
+
+"type.historic.memorial.cross" = "Cruce comemorativă";
 
 "type.historic.memorial.plaque" = "Comemorare";
 
@@ -2182,7 +2186,13 @@
 
 "type.historic.memorial.statue" = "Comemorare";
 
+"type.historic.memorial.stolperstein" = "Blocaj de poticnire";
+
+"type.historic.memorial.war_memorial" = "Memorial de război";
+
 "type.historic.monument" = "Monument";
+
+"type.historic.pillory" = "Stâlpul infamiei";
 
 "type.historic.ruins" = "Ruine";
 

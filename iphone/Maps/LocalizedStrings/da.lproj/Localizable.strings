@@ -2174,7 +2174,11 @@
 
 "type.historic.fort" = "Fort";
 
+"type.historic.gallows" = "Galge";
+
 "type.historic.memorial" = "Mindesmærke";
+
+"type.historic.memorial.cross" = "Mindesmærkekors";
 
 "type.historic.memorial.plaque" = "Mindesmærke";
 
@@ -2182,7 +2186,13 @@
 
 "type.historic.memorial.statue" = "Mindesmærke";
 
+"type.historic.memorial.stolperstein" = "Stolpersten";
+
+"type.historic.memorial.war_memorial" = "Krigsmindesmærke";
+
 "type.historic.monument" = "Monument";
+
+"type.historic.pillory" = "Kag";
 
 "type.historic.ruins" = "Ruiner";
 

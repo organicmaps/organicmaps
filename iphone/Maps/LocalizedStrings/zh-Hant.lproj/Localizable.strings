@@ -2174,7 +2174,11 @@
 
 "type.historic.fort" = "歷史要塞";
 
+"type.historic.gallows" = "絞架";
+
 "type.historic.memorial" = "紀念館";
+
+"type.historic.memorial.cross" = "紀念十字架";
 
 "type.historic.memorial.plaque" = "紀念牌匾";
 
@@ -2182,7 +2186,13 @@
 
 "type.historic.memorial.statue" = "塑像";
 
+"type.historic.memorial.stolperstein" = "絆腳石";
+
+"type.historic.memorial.war_memorial" = "戰爭紀念建築";
+
 "type.historic.monument" = "紀念碑";
+
+"type.historic.pillory" = "刑柱";
 
 "type.historic.ruins" = "廢墟";
 

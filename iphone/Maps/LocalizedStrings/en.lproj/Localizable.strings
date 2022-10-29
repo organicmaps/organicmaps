@@ -2174,7 +2174,11 @@
 
 "type.historic.fort" = "Fort";
 
+"type.historic.gallows" = "Gallows";
+
 "type.historic.memorial" = "Memorial";
+
+"type.historic.memorial.cross" = "Memorial cross";
 
 "type.historic.memorial.plaque" = "Commemorative plaque";
 
@@ -2182,7 +2186,13 @@
 
 "type.historic.memorial.statue" = "Statue";
 
+"type.historic.memorial.stolperstein" = "Stolperstein";
+
+"type.historic.memorial.war_memorial" = "War memorial";
+
 "type.historic.monument" = "Monument";
+
+"type.historic.pillory" = "Pillory";
 
 "type.historic.ruins" = "Ruins";
 

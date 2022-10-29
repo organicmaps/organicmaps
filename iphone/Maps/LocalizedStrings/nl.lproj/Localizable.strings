@@ -2174,15 +2174,25 @@
 
 "type.historic.fort" = "Fort";
 
+"type.historic.gallows" = "Galg";
+
 "type.historic.memorial" = "Gedenkteken";
 
-"type.historic.memorial.plaque" = "Plaquette";
+"type.historic.memorial.cross" = "Herdenkingskruis";
+
+"type.historic.memorial.plaque" = "Gedenkplaat";
 
 "type.historic.memorial.sculpture" = "Sculptuur";
 
 "type.historic.memorial.statue" = "Standbeeld";
 
+"type.historic.memorial.stolperstein" = "Stolperstein";
+
+"type.historic.memorial.war_memorial" = "Oorlogsmonument";
+
 "type.historic.monument" = "Monument";
+
+"type.historic.pillory" = "Schandpaal";
 
 "type.historic.ruins" = "Ruïne";
 
