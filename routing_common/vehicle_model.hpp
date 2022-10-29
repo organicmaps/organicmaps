@@ -2,6 +2,8 @@
 
 #include "routing_common/maxspeed_conversion.hpp"
 
+#include "indexer/feature_data.hpp"
+
 #include "base/small_map.hpp"
 
 #include <array>
@@ -16,8 +18,6 @@
 
 class Classificator;
 class FeatureType;
-
-namespace feature { class TypesHolder; }
 
 namespace routing
 {
@@ -276,9 +276,15 @@ public:
   VehicleModel(Classificator const & classif, LimitsInitList const & featureTypeLimits,
                SurfaceInitList const & featureTypeSurface, HighwayBasedInfo const & info);
 
+  virtual SpeedKMpH GetTypeSpeed(feature::TypesHolder const & types, SpeedParams const & params) const = 0;
+
   /// @name VehicleModelInterface overrides.
   /// @{
-  SpeedKMpH GetSpeed(FeatureType & f, SpeedParams const & speedParams) const override;
+  SpeedKMpH GetSpeed(FeatureType & f, SpeedParams const & speedParams) const override
+  {
+    return GetTypeSpeed(feature::TypesHolder(f), speedParams);
+  }
+
   std::optional<HighwayType> GetHighwayType(FeatureType & f) const override;
   double GetMaxWeightSpeed() const override;
   bool IsOneWay(FeatureType & f) const override;
@@ -300,8 +306,6 @@ public:
     return false;
   }
 
-  SpeedKMpH GetTypeSpeed(feature::TypesHolder const & types, SpeedParams const & params) const;
-
   bool EqualsForTests(VehicleModel const & rhs) const
   {
     return (m_roadTypes == rhs.m_roadTypes) && (m_addRoadTypes == rhs.m_addRoadTypes) &&
@@ -321,11 +325,11 @@ protected:
   uint32_t m_yesType, m_noType;
   bool IsRoadImpl(feature::TypesHolder const & types) const;
 
+  SpeedKMpH GetTypeSpeedImpl(feature::TypesHolder const & types, SpeedParams const & params, bool isCar) const;
+
   void AddAdditionalRoadTypes(Classificator const & classif, AdditionalRoadsList const & roads);
 
   uint32_t PrepareToMatchType(uint32_t type) const;
-
-  SpeedKMpH GetSpeedWihtoutMaxspeed(FeatureType & f, SpeedParams params) const;
 
   /// \brief Maximum within all the speed limits set in a model (car model, bicycle model and so on).
   /// Do not mix with maxspeed value tag, which defines maximum legal speed on a feature.

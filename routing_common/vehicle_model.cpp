@@ -78,12 +78,6 @@ uint32_t VehicleModel::PrepareToMatchType(uint32_t type) const
   return type;
 }
 
-SpeedKMpH VehicleModel::GetSpeed(FeatureType & f, SpeedParams const & speedParams) const
-{
-  feature::TypesHolder const types(f);
-  return IsRoadImpl(types) ? GetTypeSpeed(types, speedParams) : SpeedKMpH();
-}
-
 std::optional<HighwayType> VehicleModel::GetHighwayType(FeatureType & f) const
 {
   feature::TypesHolder const types(f);
@@ -138,7 +132,7 @@ void VehicleModel::GetAdditionalRoadSpeed(uint32_t type, bool isCityRoad,
   }
 }
 
-SpeedKMpH VehicleModel::GetTypeSpeed(feature::TypesHolder const & types, SpeedParams const & params) const
+SpeedKMpH VehicleModel::GetTypeSpeedImpl(feature::TypesHolder const & types, SpeedParams const & params, bool isCar) const
 {
   bool const isCityRoad = params.m_inCity;
   optional<HighwayType> hwType;
@@ -158,14 +152,15 @@ SpeedKMpH VehicleModel::GetTypeSpeed(feature::TypesHolder const & types, SpeedPa
   SpeedKMpH speed;
   if (hwType)
   {
-    if (params.m_maxspeed.IsValid())
+    if (isCar && params.m_maxspeed.IsValid())
     {
       MaxspeedType const s = params.m_maxspeed.GetSpeedKmPH(params.m_forward);
       ASSERT(s != kInvalidSpeed, (*hwType, params.m_forward, params.m_maxspeed));
       speed = {static_cast<double>(s)};
     }
-    else if (additionalRoadSpeed)
+    else if (!isCar && additionalRoadSpeed)
     {
+      // Take additional speed for bicycle and pedestrian only. Car should take highway speed first.
       speed = *additionalRoadSpeed;
     }
     else
@@ -194,20 +189,12 @@ SpeedKMpH VehicleModel::GetTypeSpeed(feature::TypesHolder const & types, SpeedPa
   else
   {
     ASSERT(additionalRoadSpeed, ());
-    speed = *additionalRoadSpeed;
+    if (additionalRoadSpeed)
+      speed = *additionalRoadSpeed;
   }
 
   ASSERT(!(m_maxModelSpeed < speed), (speed, m_maxModelSpeed));
   return speed * surfaceFactor;
-}
-
-SpeedKMpH VehicleModel::GetSpeedWihtoutMaxspeed(FeatureType & f, SpeedParams params) const
-{
-  // This function used for bicyle and pedestring GetSpeed implementation, so saved speeds are not applyable here.
-  params.m_maxspeed = {};
-  params.m_defSpeedKmPH = kInvalidSpeed;
-
-  return VehicleModel::GetSpeed(f, params);
 }
 
 bool VehicleModel::IsOneWay(FeatureType & f) const
