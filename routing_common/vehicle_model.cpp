@@ -21,24 +21,9 @@ WeightAndETA Pick(WeightAndETA const & lhs, WeightAndETA const & rhs)
   return {F(lhs.m_weight, rhs.m_weight), F(lhs.m_eta, rhs.m_eta)};
 };
 
-InOutCitySpeedKMpH Max(InOutCitySpeedKMpH const & lhs, InOutCitySpeedKMpH const & rhs)
+SpeedKMpH Max(SpeedKMpH const & lhs, InOutCitySpeedKMpH const & rhs)
 {
-  return {Pick<max>(lhs.m_inCity, rhs.m_inCity), Pick<max>(lhs.m_outCity, rhs.m_outCity)};
-}
-
-/// @todo This function is used to to get key to fetch speed factor from model,
-/// but we assign factors for links too. @see kHighwayBasedFactors.
-HighwayType GetHighwayTypeKey(HighwayType type)
-{
-  switch (type)
-  {
-  case HighwayType::HighwayMotorwayLink: return HighwayType::HighwayMotorway;
-  case HighwayType::HighwayTrunkLink: return HighwayType::HighwayTrunk;
-  case HighwayType::HighwayPrimaryLink: return HighwayType::HighwayPrimary;
-  case HighwayType::HighwaySecondaryLink: return HighwayType::HighwaySecondary;
-  case HighwayType::HighwayTertiaryLink: return HighwayType::HighwayTertiary;
-  default: return type;
-  }
+  return Pick<max>(lhs, Pick<max>(rhs.m_inCity, rhs.m_outCity));
 }
 }  // namespace
 
@@ -54,12 +39,7 @@ VehicleModel::VehicleModel(Classificator const & classif, LimitsInitList const &
     auto const * speed = info.m_speeds.Find(v.m_type);
     ASSERT(speed, ("Can't found speed for", v.m_type));
 
-    if (v.m_type != HighwayType::RouteFerry && v.m_type != HighwayType::RailwayRailMotorVehicle &&
-        v.m_type != HighwayType::RouteShuttleTrain)
-    {
-      /// @todo Consider using not only highway class speed but max_speed * max_speed_factor.
-      m_maxModelSpeed = Max(m_maxModelSpeed, *speed);
-    }
+    m_maxModelSpeed = Max(m_maxModelSpeed, *speed);
 
     m_roadTypes.Insert(classif.GetTypeForIndex(static_cast<uint32_t>(v.m_type)), v.m_isPassThroughAllowed);
   }
@@ -122,7 +102,7 @@ std::optional<HighwayType> VehicleModel::GetHighwayType(FeatureType & f) const
 
 double VehicleModel::GetMaxWeightSpeed() const
 {
-  return max(m_maxModelSpeed.m_inCity.m_weight, m_maxModelSpeed.m_outCity.m_weight);
+  return m_maxModelSpeed.m_weight;
 }
 
 optional<HighwayType> VehicleModel::GetHighwayType(uint32_t type) const
@@ -204,7 +184,7 @@ SpeedKMpH VehicleModel::GetTypeSpeed(feature::TypesHolder const & types, SpeedPa
       }
     }
 
-    auto const typeKey = GetHighwayTypeKey(*hwType);
+    auto const typeKey = *hwType;
     auto const * factor = m_highwayBasedInfo.m_factors.Find(typeKey);
     ASSERT(factor, ("Key:", typeKey, "is not found."));
     auto const & f = factor->GetFactor(isCityRoad);
@@ -217,7 +197,8 @@ SpeedKMpH VehicleModel::GetTypeSpeed(feature::TypesHolder const & types, SpeedPa
     speed = *additionalRoadSpeed;
   }
 
-  return Pick<min>(speed, m_maxModelSpeed.GetSpeed(isCityRoad)) * surfaceFactor;
+  ASSERT(!(m_maxModelSpeed < speed), (speed, m_maxModelSpeed));
+  return speed * surfaceFactor;
 }
 
 SpeedKMpH VehicleModel::GetSpeedWihtoutMaxspeed(FeatureType & f, SpeedParams params) const

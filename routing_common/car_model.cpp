@@ -112,8 +112,14 @@ CarModel::CarModel(VehicleModel::LimitsInitList const & roadLimits)
   ASSERT_EQUAL(kHighwayBasedSpeeds.size(), kHighwayBasedFactors.size(), ());
   ASSERT_EQUAL(kHighwayBasedSpeeds.size(), car_model::kDefaultOptions.size(), ());
 
-  m_noType = classif().GetTypeByPath({"hwtag", "nocar"});
-  m_yesType = classif().GetTypeByPath({"hwtag", "yescar"});
+  auto const & cl = classif();
+  m_noType = cl.GetTypeByPath({"hwtag", "nocar"});
+  m_yesType = cl.GetTypeByPath({"hwtag", "yescar"});
+
+  // Set max possible (reasonable) car speed. See EdgeEstimator::CalcHeuristic.
+  SpeedKMpH constexpr kMaxCarSpeedKMpH(200.0);
+  CHECK_LESS(m_maxModelSpeed, kMaxCarSpeedKMpH, ());
+  m_maxModelSpeed = kMaxCarSpeedKMpH;
 }
 
 SpeedKMpH const & CarModel::GetOffroadSpeed() const { return car_model::kSpeedOffroadKMpH; }

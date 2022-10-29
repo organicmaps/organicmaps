@@ -48,7 +48,7 @@ HighwayBasedSpeeds const kDefaultSpeeds = {
     {HighwayType::HighwayPedestrian, InOutCitySpeedKMpH(SpeedKMpH(5.0))},
     {HighwayType::HighwayFootway, InOutCitySpeedKMpH(SpeedKMpH(5.0))},
     {HighwayType::ManMadePier, InOutCitySpeedKMpH(SpeedKMpH(5.0))},
-    /// @todo Set the same speed as a ferry for bicycle. At the same time, a car ferry has {10, 10}.
+    /// @todo A car ferry has {10, 10}. Weight = 3 is 60% from reasonable 5 max speed.
     {HighwayType::RouteFerry, InOutCitySpeedKMpH(SpeedKMpH(3.0, 20.0))},
 };
 
@@ -135,15 +135,23 @@ PedestrianModel::PedestrianModel(VehicleModel::LimitsInitList const & speedLimit
   : VehicleModel(classif(), speedLimits, pedestrian_model::kPedestrianSurface,
                 {pedestrian_model::kDefaultSpeeds, pedestrian_model::kDefaultFactors})
 {
+  using namespace pedestrian_model;
+
   // No bridleway and cycleway in default.
-  ASSERT_EQUAL(pedestrian_model::kDefaultOptions.size(), pedestrian_model::kDefaultSpeeds.size() - 2, ());
+  ASSERT_EQUAL(kDefaultOptions.size(), kDefaultSpeeds.size() - 2, ());
 
   std::vector<std::string> hwtagYesFoot = {"hwtag", "yesfoot"};
+  auto const & cl = classif();
 
-  m_noType = classif().GetTypeByPath({ "hwtag", "nofoot" });
-  m_yesType = classif().GetTypeByPath(hwtagYesFoot);
+  m_noType = cl.GetTypeByPath({ "hwtag", "nofoot" });
+  m_yesType = cl.GetTypeByPath(hwtagYesFoot);
 
-  AddAdditionalRoadTypes(classif(), {{ std::move(hwtagYesFoot), m_maxModelSpeed }});
+  AddAdditionalRoadTypes(cl, {{ std::move(hwtagYesFoot), kDefaultSpeeds.Get(HighwayType::HighwayFootway) }});
+
+  // Update max pedestrian speed with possible ferry transfer. See EdgeEstimator::CalcHeuristic.
+  SpeedKMpH constexpr kMaxPedestrianSpeedKMpH(25.0);
+  CHECK_LESS(m_maxModelSpeed, kMaxPedestrianSpeedKMpH, ());
+  m_maxModelSpeed = kMaxPedestrianSpeedKMpH;
 }
 
 SpeedKMpH PedestrianModel::GetSpeed(FeatureType & f, SpeedParams const & speedParams) const
