@@ -253,43 +253,44 @@ public class SearchWheel implements View.OnClickListener
   @Override
   public void onClick(View v)
   {
-    switch (v.getId())
+    final int id = v.getId();
+    if (id == R.id.btn_search)
+      onSearchButtonClick(v);
+    else if (id == R.id.touch_interceptor)
+      toggleSearchLayout();
+    else if (id == R.id.search_fuel ||
+        id == R.id.search_parking ||
+        id == R.id.search_eat ||
+        id == R.id.search_food ||
+        id == R.id.search_atm)
+      startSearch(SearchOption.fromResId(id));
+  }
+
+  private void onSearchButtonClick(View v)
+  {
+    if (!RoutingController.get().isNavigating())
     {
-    case R.id.btn_search:
-      if (!RoutingController.get().isNavigating())
-      {
-        if (TextUtils.isEmpty(SearchEngine.INSTANCE.getQuery()))
-          showSearchInParent();
-        else
-          mOnSearchCanceledListener.onClick(v);
-        return;
-      }
-
-      if (mCurrentOption != null || !TextUtils.isEmpty(SearchEngine.INSTANCE.getQuery()))
-      {
-        mOnSearchCanceledListener.onClick(v);
-        refreshSearchVisibility();
-        return;
-      }
-
-      if (mIsExpanded)
-      {
+      if (TextUtils.isEmpty(SearchEngine.INSTANCE.getQuery()))
         showSearchInParent();
-        return;
-      }
-
-      toggleSearchLayout();
-      break;
-    case R.id.touch_interceptor:
-      toggleSearchLayout();
-      break;
-    case R.id.search_fuel:
-    case R.id.search_parking:
-    case R.id.search_eat:
-    case R.id.search_food:
-    case R.id.search_atm:
-      startSearch(SearchOption.fromResId(v.getId()));
+      else
+        mOnSearchCanceledListener.onClick(v);
+      return;
     }
+
+    if (mCurrentOption != null || !TextUtils.isEmpty(SearchEngine.INSTANCE.getQuery()))
+    {
+      mOnSearchCanceledListener.onClick(v);
+      refreshSearchVisibility();
+      return;
+    }
+
+    if (mIsExpanded)
+    {
+      showSearchInParent();
+      return;
+    }
+
+    toggleSearchLayout();
   }
 
   private void showSearchInParent()

@@ -91,11 +91,8 @@ public class AdvancedTimetableFragment extends BaseMwmFragment
   @Override
   public void onClick(View v)
   {
-    switch (v.getId())
-    {
-    case R.id.examples:
+    if (v.getId() == R.id.examples)
       showExample(!mIsExampleShown);
-    }
   }
 
   @Nullable

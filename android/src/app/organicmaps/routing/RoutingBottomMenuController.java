@@ -383,20 +383,14 @@ final class RoutingBottomMenuController implements View.OnClickListener
   @Override
   public void onClick(View v)
   {
-    switch (v.getId())
+    final int id = v.getId();
+    if (id == R.id.btn__my_position_use && mListener != null)
+      mListener.onUseMyPositionAsStart();
+    else if (id == R.id.btn__search_point && mListener != null)
     {
-      case R.id.btn__my_position_use:
-        if (mListener != null)
-          mListener.onUseMyPositionAsStart();
-        break;
-      case R.id.btn__search_point:
-        if (mListener != null)
-        {
-          @RoutePointInfo.RouteMarkType
-          int pointType = (Integer) mActionMessage.getTag();
-          mListener.onSearchRoutePoint(pointType);
-        }
-        break;
+      @RoutePointInfo.RouteMarkType
+      int pointType = (Integer) mActionMessage.getTag();
+      mListener.onSearchRoutePoint(pointType);
     }
   }
 }

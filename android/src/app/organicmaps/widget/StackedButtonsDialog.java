@@ -82,23 +82,24 @@ public class StackedButtonsDialog extends AppCompatDialog implements View.OnClic
   @Override
   public void onClick(View v)
   {
-    switch (v.getId())
+    final int id = v.getId();
+    if (id == R.id.btn__positive)
     {
-      case R.id.btn__positive:
-        if (mPositiveListener != null)
-          mPositiveListener.onClick(this, DialogInterface.BUTTON_POSITIVE);
-        dismiss();
-        break;
-      case R.id.btn__neutral:
-        if (mNeutralListener != null)
-          mNeutralListener.onClick(this, DialogInterface.BUTTON_NEUTRAL);
-        dismiss();
-        break;
-      case R.id.btn__negative:
-        if (mNegativeListener != null)
-          mNegativeListener.onClick(this, DialogInterface.BUTTON_NEGATIVE);
-        dismiss();
-        break;
+      if (mPositiveListener != null)
+        mPositiveListener.onClick(this, DialogInterface.BUTTON_POSITIVE);
+      dismiss();
+    }
+    else if (id == R.id.btn__neutral)
+    {
+      if (mNeutralListener != null)
+        mNeutralListener.onClick(this, DialogInterface.BUTTON_NEUTRAL);
+      dismiss();
+    }
+    else if (id == R.id.btn__negative)
+    {
+      if (mNegativeListener != null)
+        mNegativeListener.onClick(this, DialogInterface.BUTTON_NEGATIVE);
+      dismiss();
     }
   }
 
