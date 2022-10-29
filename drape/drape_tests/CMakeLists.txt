@@ -33,8 +33,8 @@ target_compile_definitions(${PROJECT_NAME}
 
 find_package(GTest)
 if (NOT ${GTest_FOUND} OR ("${GTest_VERSION}" VERSION_LESS "1.12.0"))
-  message(STATUS "Using the GoogleTest from submodule: ${CMAKE_CURRENT_BINARY_DIR}/googletest")
-  add_subdirectory(../../3party/googletest ${CMAKE_CURRENT_BINARY_DIR}/googletest)
+  message(STATUS "Using the GoogleTest from submodule: ${CMAKE_CURRENT_LIST_DIR}/../../googletest")
+  add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/../../3party/googletest ${CMAKE_CURRENT_BINARY_DIR}/googletest)
 endif()
 
 target_link_libraries(${PROJECT_NAME}
