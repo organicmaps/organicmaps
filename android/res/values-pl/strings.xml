@@ -1192,11 +1192,16 @@
 	<string name="type.historic.city_gate">Brama miejska</string>
 	<string name="type.historic.citywalls">Historyczne mury miasta</string>
 	<string name="type.historic.fort">Historyczny fort</string>
+	<string name="type.historic.gallows">Szubienica</string>
 	<string name="type.historic.memorial">Pomnik</string>
+	<string name="type.historic.memorial.cross">Krzyż pomnikowy</string>
 	<string name="type.historic.memorial.plaque">Tablica pamiątkowa</string>
 	<string name="type.historic.memorial.sculpture">Rzeźba</string>
 	<string name="type.historic.memorial.statue">Pomnik</string>
+	<string name="type.historic.memorial.stolperstein">Kamień pamięci</string>
+	<string name="type.historic.memorial.war_memorial">Pomnik wojenny</string>
 	<string name="type.historic.monument">Monument</string>
+	<string name="type.historic.pillory">Pręgierz</string>
 	<string name="type.historic.ruins">Ruiny</string>
 	<string name="type.historic.ship">Okręt</string>
 	<string name="type.historic.tomb">Grobowiec</string>

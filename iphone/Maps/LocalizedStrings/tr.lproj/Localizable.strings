@@ -2174,7 +2174,11 @@
 
 "type.historic.fort" = "Hisar";
 
+"type.historic.gallows" = "Darağacı";
+
 "type.historic.memorial" = "Abide";
+
+"type.historic.memorial.cross" = "Anıt haç";
 
 "type.historic.memorial.plaque" = "Hatıra Plaketi";
 
@@ -2182,7 +2186,13 @@
 
 "type.historic.memorial.statue" = "Heykel";
 
+"type.historic.memorial.stolperstein" = "Tökezleyen Taşlar";
+
+"type.historic.memorial.war_memorial" = "Savaş anıtı";
+
 "type.historic.monument" = "Anıt";
+
+"type.historic.pillory" = "Boyunduruk";
 
 "type.historic.ruins" = "Harabeler";
 

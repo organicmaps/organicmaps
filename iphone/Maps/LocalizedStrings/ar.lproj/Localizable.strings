@@ -2174,7 +2174,11 @@
 
 "type.historic.fort" = "قلعة";
 
+"type.historic.gallows" = "مشنقة";
+
 "type.historic.memorial" = "نصب تذكاري";
+
+"type.historic.memorial.cross" = "الصليب التذكاري";
 
 "type.historic.memorial.plaque" = "لوحة تذكارية";
 
@@ -2182,7 +2186,13 @@
 
 "type.historic.memorial.statue" = "تمثال تذكاري";
 
+"type.historic.memorial.stolperstein" = "حجر عثرة";
+
+"type.historic.memorial.war_memorial" = "نصب حرب";
+
 "type.historic.monument" = "صرح";
+
+"type.historic.pillory" = "مشهرة";
 
 "type.historic.ruins" = "آثار";
 

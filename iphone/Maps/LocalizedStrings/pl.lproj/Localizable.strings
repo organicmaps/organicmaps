@@ -2174,7 +2174,11 @@
 
 "type.historic.fort" = "Historyczny fort";
 
+"type.historic.gallows" = "Szubienica";
+
 "type.historic.memorial" = "Pomnik";
+
+"type.historic.memorial.cross" = "Krzyż pomnikowy";
 
 "type.historic.memorial.plaque" = "Tablica pamiątkowa";
 
@@ -2182,7 +2186,13 @@
 
 "type.historic.memorial.statue" = "Pomnik";
 
+"type.historic.memorial.stolperstein" = "Kamień pamięci";
+
+"type.historic.memorial.war_memorial" = "Pomnik wojenny";
+
 "type.historic.monument" = "Monument";
+
+"type.historic.pillory" = "Pręgierz";
 
 "type.historic.ruins" = "Ruiny";
 

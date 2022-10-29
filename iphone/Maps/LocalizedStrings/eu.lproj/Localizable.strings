@@ -2174,15 +2174,25 @@
 
 "type.historic.fort" = "Fort";
 
+"type.historic.gallows" = "Urkamendi";
+
 "type.historic.memorial" = "Memorial";
 
-"type.historic.memorial.plaque" = "Commemorative plaque";
+"type.historic.memorial.cross" = "Oroimenezko gurutzea";
+
+"type.historic.memorial.plaque" = "Oroitzapenezko plaka";
 
 "type.historic.memorial.sculpture" = "Sculpture";
 
 "type.historic.memorial.statue" = "Statue";
 
+"type.historic.memorial.stolperstein" = "Stolperstein";
+
+"type.historic.memorial.war_memorial" = "Gerra memoriala";
+
 "type.historic.monument" = "Monumentua";
+
+"type.historic.pillory" = "Urkabe";
 
 "type.historic.ruins" = "Hondakinak";
 

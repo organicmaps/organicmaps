@@ -1192,11 +1192,16 @@
 	<string name="type.historic.city_gate">Міська брама</string>
 	<string name="type.historic.citywalls">Міська стіна</string>
 	<string name="type.historic.fort">Форт</string>
+	<string name="type.historic.gallows">Шибениця</string>
 	<string name="type.historic.memorial">Меморіал</string>
+	<string name="type.historic.memorial.cross">Пам\'ятний хрест</string>
 	<string name="type.historic.memorial.plaque">Дошка пам\'яті</string>
 	<string name="type.historic.memorial.sculpture">Скульптура</string>
 	<string name="type.historic.memorial.statue">Статуя</string>
+	<string name="type.historic.memorial.stolperstein">Камені спотикання</string>
+	<string name="type.historic.memorial.war_memorial">Військовий меморіал</string>
 	<string name="type.historic.monument">Пам\'ятник</string>
+	<string name="type.historic.pillory">Ганебний стовп</string>
 	<string name="type.historic.ruins">Руїни</string>
 	<string name="type.historic.ship">Корабель</string>
 	<string name="type.historic.tomb">Гробниця</string>

@@ -1152,11 +1152,16 @@
 	<string name="type.historic.city_gate">城门</string>
 	<string name="type.historic.citywalls">历史城墙</string>
 	<string name="type.historic.fort">历史要塞</string>
+	<string name="type.historic.gallows">绞架</string>
 	<string name="type.historic.memorial">纪念物</string>
+	<string name="type.historic.memorial.cross">纪念十字架</string>
 	<string name="type.historic.memorial.plaque">纪念牌匾</string>
 	<string name="type.historic.memorial.sculpture">雕塑</string>
 	<string name="type.historic.memorial.statue">塑像</string>
+	<string name="type.historic.memorial.stolperstein">绊脚石</string>
+	<string name="type.historic.memorial.war_memorial">战争纪念建筑</string>
 	<string name="type.historic.monument">纪念堂</string>
+	<string name="type.historic.pillory">刑柱</string>
 	<string name="type.historic.ruins">废墟</string>
 	<string name="type.historic.ship">历史船</string>
 	<string name="type.historic.tomb">陵墓</string>

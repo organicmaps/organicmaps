@@ -2174,15 +2174,25 @@
 
 "type.historic.fort" = "Fort";
 
+"type.historic.gallows" = "גרדום";
+
 "type.historic.memorial" = "Memorial";
 
-"type.historic.memorial.plaque" = "Commemorative plaque";
+"type.historic.memorial.cross" = "צלב זיכרון";
+
+"type.historic.memorial.plaque" = "לוחית זיכרון";
 
 "type.historic.memorial.sculpture" = "Sculpture";
 
 "type.historic.memorial.statue" = "Statue";
 
+"type.historic.memorial.stolperstein" = "אבן נגף";
+
+"type.historic.memorial.war_memorial" = "אנדרטת מלחמה";
+
 "type.historic.monument" = "Monument";
+
+"type.historic.pillory" = "עמוד הקלון";
 
 "type.historic.ruins" = "Ruins";
 

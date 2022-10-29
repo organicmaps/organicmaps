@@ -1086,11 +1086,16 @@
 	<string name="type.historic.castle.shiro">Ιαπωνικό κάστρο</string>
 	<string name="type.historic.castle.stately">Κάστρο</string>
 	<string name="type.historic.city_gate">Πύλη της πόλης</string>
+	<string name="type.historic.gallows">Αγχόνη</string>
 	<string name="type.historic.memorial">Μνημείο</string>
+	<string name="type.historic.memorial.cross">Σταυρός μνήμης</string>
 	<string name="type.historic.memorial.plaque">Μνημείο</string>
 	<string name="type.historic.memorial.sculpture">Μνημείο</string>
 	<string name="type.historic.memorial.statue">Μνημείο</string>
+	<string name="type.historic.memorial.stolperstein">Λίθοι Μνήμης</string>
+	<string name="type.historic.memorial.war_memorial">Μνημείο του Αγνώστου Στρατιώτη</string>
 	<string name="type.historic.monument">Μνημείο</string>
+	<string name="type.historic.pillory">Κύφωνας</string>
 	<string name="type.historic.ruins">Ερείπια</string>
 	<string name="type.historic.ship">Αξιοθέατο</string>
 	<string name="type.historic.tomb">Αξιοθέατο</string>

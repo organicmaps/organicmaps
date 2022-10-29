@@ -1083,10 +1083,15 @@
 	<string name="type.historic.castle.shiro">Japanske borger</string>
 	<string name="type.historic.castle.stately">Slott</string>
 	<string name="type.historic.city_gate">Byport</string>
+	<string name="type.historic.gallows">Galge</string>
 	<string name="type.historic.memorial">Minnesmerke</string>
+	<string name="type.historic.memorial.cross">Minnekors</string>
 	<string name="type.historic.memorial.plaque">Minnesmerke</string>
 	<string name="type.historic.memorial.sculpture">Minnesmerke</string>
 	<string name="type.historic.memorial.statue">Minnesmerke</string>
+	<string name="type.historic.memorial.stolperstein">Snublesteiner</string>
+	<string name="type.historic.memorial.war_memorial">Krigsminnesmerke</string>
+	<string name="type.historic.pillory">Pilry</string>
 	<string name="type.historic.ruins">Ruiner</string>
 	<string name="type.historic.ship">Severdigheter</string>
 	<string name="type.historic.tomb">Severdigheter</string>

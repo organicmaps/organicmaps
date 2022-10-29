@@ -2174,7 +2174,11 @@
 
 "type.historic.fort" = "Fort";
 
+"type.historic.gallows" = "چوبه دار";
+
 "type.historic.memorial" = "گردشگری";
+
+"type.historic.memorial.cross" = "صلیب یادبود";
 
 "type.historic.memorial.plaque" = "گردشگری";
 
@@ -2182,7 +2186,13 @@
 
 "type.historic.memorial.statue" = "گردشگری";
 
+"type.historic.memorial.stolperstein" = "سنگ مانع";
+
+"type.historic.memorial.war_memorial" = "رزم‌یاد";
+
 "type.historic.monument" = "گردشگری";
+
+"type.historic.pillory" = "تخته‌بند";
 
 "type.historic.ruins" = "گردشگری";
 

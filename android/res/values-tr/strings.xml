@@ -1209,11 +1209,16 @@
 	<string name="type.historic.city_gate">Şehir kapısı</string>
 	<string name="type.historic.citywalls">Şehir Duvarı</string>
 	<string name="type.historic.fort">Hisar</string>
+	<string name="type.historic.gallows">Darağacı</string>
 	<string name="type.historic.memorial">Abide</string>
+	<string name="type.historic.memorial.cross">Anıt haç</string>
 	<string name="type.historic.memorial.plaque">Hatıra Plaketi</string>
 	<string name="type.historic.memorial.sculpture">Heykel</string>
 	<string name="type.historic.memorial.statue">Heykel</string>
+	<string name="type.historic.memorial.stolperstein">Tökezleyen Taşlar</string>
+	<string name="type.historic.memorial.war_memorial">Savaş anıtı</string>
 	<string name="type.historic.monument">Anıt</string>
+	<string name="type.historic.pillory">Boyunduruk</string>
 	<string name="type.historic.ruins">Harabeler</string>
 	<string name="type.historic.ship">Görülecek yerler</string>
 	<string name="type.historic.tomb">Türbe</string>

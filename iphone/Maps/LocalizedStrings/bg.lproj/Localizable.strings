@@ -2174,15 +2174,25 @@
 
 "type.historic.fort" = "Fort";
 
+"type.historic.gallows" = "Бесилка";
+
 "type.historic.memorial" = "Memorial";
 
-"type.historic.memorial.plaque" = "Commemorative plaque";
+"type.historic.memorial.cross" = "Мемориален кръст";
+
+"type.historic.memorial.plaque" = "Паметна плоча";
 
 "type.historic.memorial.sculpture" = "Sculpture";
 
 "type.historic.memorial.statue" = "Statue";
 
+"type.historic.memorial.stolperstein" = "Cпънка";
+
+"type.historic.memorial.war_memorial" = "Военен паметник";
+
 "type.historic.monument" = "Monument";
+
+"type.historic.pillory" = "Позорен стълб";
 
 "type.historic.ruins" = "Ruins";
 

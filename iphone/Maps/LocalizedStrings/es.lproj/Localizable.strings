@@ -2174,15 +2174,25 @@
 
 "type.historic.fort" = "Fort";
 
+"type.historic.gallows" = "Horca";
+
 "type.historic.memorial" = "Memorial";
 
-"type.historic.memorial.plaque" = "Commemorative plaque";
+"type.historic.memorial.cross" = "Cruz conmemorativa";
+
+"type.historic.memorial.plaque" = "Placa conmemorativa";
 
 "type.historic.memorial.sculpture" = "Sculpture";
 
 "type.historic.memorial.statue" = "Statue";
 
+"type.historic.memorial.stolperstein" = "Stolperstein";
+
+"type.historic.memorial.war_memorial" = "Monumento a la guerra";
+
 "type.historic.monument" = "Monumento";
+
+"type.historic.pillory" = "Picota";
 
 "type.historic.ruins" = "Ruinas";
 

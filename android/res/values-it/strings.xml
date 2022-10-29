@@ -1174,11 +1174,16 @@
 	<string name="type.historic.city_gate">Porta cittadina</string>
 	<string name="type.historic.citywalls">Mura cittadine</string>
 	<string name="type.historic.fort">Fortezza</string>
+	<string name="type.historic.gallows">Forca</string>
 	<string name="type.historic.memorial">Memoriale</string>
+	<string name="type.historic.memorial.cross">Croce commemorativa</string>
 	<string name="type.historic.memorial.plaque">Memoriale</string>
 	<string name="type.historic.memorial.sculpture">Memoriale</string>
 	<string name="type.historic.memorial.statue">Statua memoriale</string>
+	<string name="type.historic.memorial.stolperstein">Pietre d\'inciampo</string>
+	<string name="type.historic.memorial.war_memorial">Monumento ai caduti</string>
 	<string name="type.historic.monument">Monumento</string>
+	<string name="type.historic.pillory">Gogna</string>
 	<string name="type.historic.ruins">Rovine</string>
 	<string name="type.historic.ship">Nave storica</string>
 	<string name="type.historic.tomb">Tomba</string>

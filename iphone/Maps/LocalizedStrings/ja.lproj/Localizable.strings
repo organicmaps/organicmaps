@@ -2174,7 +2174,11 @@
 
 "type.historic.fort" = "歴史的な要塞";
 
+"type.historic.gallows" = "絞首台";
+
 "type.historic.memorial" = "記念碑";
+
+"type.historic.memorial.cross" = "メモリアルクロス";
 
 "type.historic.memorial.plaque" = "銘板";
 
@@ -2182,7 +2186,13 @@
 
 "type.historic.memorial.statue" = "塑像";
 
+"type.historic.memorial.stolperstein" = "ストルパーシュタイン";
+
+"type.historic.memorial.war_memorial" = "戦争記念施設";
+
 "type.historic.monument" = "記念碑";
+
+"type.historic.pillory" = "さらし台";
 
 "type.historic.ruins" = "古跡";
 

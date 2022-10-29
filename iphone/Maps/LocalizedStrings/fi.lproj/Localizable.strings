@@ -2174,7 +2174,11 @@
 
 "type.historic.fort" = "Fort";
 
+"type.historic.gallows" = "Sappeja";
+
 "type.historic.memorial" = "Muistomerkki";
+
+"type.historic.memorial.cross" = "Muistoristi";
 
 "type.historic.memorial.plaque" = "Muistomerkki";
 
@@ -2182,7 +2186,13 @@
 
 "type.historic.memorial.statue" = "Muistomerkki";
 
+"type.historic.memorial.stolperstein" = "Kompastuskivet";
+
+"type.historic.memorial.war_memorial" = "Sotamuistomerkki";
+
 "type.historic.monument" = "Monumentti";
+
+"type.historic.pillory" = "Häpeäpaalu";
 
 "type.historic.ruins" = "Rauniot";
 

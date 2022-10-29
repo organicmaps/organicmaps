@@ -2174,7 +2174,11 @@
 
 "type.historic.fort" = "Fortezza";
 
+"type.historic.gallows" = "Forca";
+
 "type.historic.memorial" = "Memoriale";
+
+"type.historic.memorial.cross" = "Croce commemorativa";
 
 "type.historic.memorial.plaque" = "Memoriale";
 
@@ -2182,7 +2186,13 @@
 
 "type.historic.memorial.statue" = "Statua memoriale";
 
+"type.historic.memorial.stolperstein" = "Pietre d'inciampo";
+
+"type.historic.memorial.war_memorial" = "Monumento ai caduti";
+
 "type.historic.monument" = "Monumento";
+
+"type.historic.pillory" = "Gogna";
 
 "type.historic.ruins" = "Rovine";
 

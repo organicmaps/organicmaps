@@ -2174,7 +2174,11 @@
 
 "type.historic.fort" = "Fort";
 
+"type.historic.gallows" = "Galge";
+
 "type.historic.memorial" = "Minnesmärke";
+
+"type.historic.memorial.cross" = "Kors till minne";
 
 "type.historic.memorial.plaque" = "Minnesmärke";
 
@@ -2182,7 +2186,13 @@
 
 "type.historic.memorial.statue" = "Minnesmärke";
 
+"type.historic.memorial.stolperstein" = "Snubbelsten";
+
+"type.historic.memorial.war_memorial" = "Krigsmonument";
+
 "type.historic.monument" = "Monument";
+
+"type.historic.pillory" = "Skampåle";
 
 "type.historic.ruins" = "Ruiner";
 

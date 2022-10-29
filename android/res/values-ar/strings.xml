@@ -1149,11 +1149,16 @@
 	<string name="type.historic.city_gate">بوابة مدينة</string>
 	<string name="type.historic.citywalls">جدار المدينة</string>
 	<string name="type.historic.fort">قلعة</string>
+	<string name="type.historic.gallows">مشنقة</string>
 	<string name="type.historic.memorial">نصب تذكاري</string>
+	<string name="type.historic.memorial.cross">الصليب التذكاري</string>
 	<string name="type.historic.memorial.plaque">لوحة تذكارية</string>
 	<string name="type.historic.memorial.sculpture">منحوتة تذكارية</string>
 	<string name="type.historic.memorial.statue">تمثال تذكاري</string>
+	<string name="type.historic.memorial.stolperstein">حجر عثرة</string>
+	<string name="type.historic.memorial.war_memorial">نصب حرب</string>
 	<string name="type.historic.monument">صرح</string>
+	<string name="type.historic.pillory">مشهرة</string>
 	<string name="type.historic.ruins">آثار</string>
 	<string name="type.historic.ship">سفينة تاريخية</string>
 	<string name="type.historic.tomb">قبر</string>

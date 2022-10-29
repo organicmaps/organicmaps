@@ -2174,15 +2174,25 @@
 
 "type.historic.fort" = "Fort";
 
+"type.historic.gallows" = "Шыбеніца";
+
 "type.historic.memorial" = "Memorial";
 
-"type.historic.memorial.plaque" = "Commemorative plaque";
+"type.historic.memorial.cross" = "Памятны крыж";
+
+"type.historic.memorial.plaque" = "Памятная дошка";
 
 "type.historic.memorial.sculpture" = "Sculpture";
 
 "type.historic.memorial.statue" = "Statue";
 
+"type.historic.memorial.stolperstein" = "Камяні спатыкнення";
+
+"type.historic.memorial.war_memorial" = "Ваенны мемарыял";
+
 "type.historic.monument" = "Monument";
+
+"type.historic.pillory" = "Пазорны слуп";
 
 "type.historic.ruins" = "Ruins";
 

@@ -2174,7 +2174,11 @@
 
 "type.historic.fort" = "Форт";
 
+"type.historic.gallows" = "Виселица";
+
 "type.historic.memorial" = "Мемориал";
+
+"type.historic.memorial.cross" = "Памятный крест";
 
 "type.historic.memorial.plaque" = "Памятная доска";
 
@@ -2182,7 +2186,13 @@
 
 "type.historic.memorial.statue" = "Статуя";
 
+"type.historic.memorial.stolperstein" = "Камни преткновения";
+
+"type.historic.memorial.war_memorial" = "Военный мемориал";
+
 "type.historic.monument" = "Памятник";
+
+"type.historic.pillory" = "Позорный столб";
 
 "type.historic.ruins" = "Руины";
 

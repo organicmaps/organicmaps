@@ -2174,7 +2174,11 @@
 
 "type.historic.fort" = "Fort";
 
+"type.historic.gallows" = "Šibenica";
+
 "type.historic.memorial" = "Pomník";
+
+"type.historic.memorial.cross" = "Pamätný kríž";
 
 "type.historic.memorial.plaque" = "Pomník";
 
@@ -2182,7 +2186,13 @@
 
 "type.historic.memorial.statue" = "Pomník";
 
+"type.historic.memorial.stolperstein" = "Kameň úrazu";
+
+"type.historic.memorial.war_memorial" = "Vojnový pamätník";
+
 "type.historic.monument" = "Zaujímavosť";
+
+"type.historic.pillory" = "Pranier";
 
 "type.historic.ruins" = "Zrúcanina";
 

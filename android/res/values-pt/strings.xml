@@ -1160,11 +1160,16 @@
 	<string name="type.historic.city_gate">Portas da cidade</string>
 	<string name="type.historic.citywalls">Muralha de cidade</string>
 	<string name="type.historic.fort">Forte histórico</string>
+	<string name="type.historic.gallows">Forca</string>
 	<string name="type.historic.memorial">Memorial</string>
+	<string name="type.historic.memorial.cross">Cruz memorial</string>
 	<string name="type.historic.memorial.plaque">Placa comemorativa</string>
 	<string name="type.historic.memorial.sculpture">Escultura memorial</string>
 	<string name="type.historic.memorial.statue">Estátua memorial</string>
+	<string name="type.historic.memorial.stolperstein">Stolperstein</string>
+	<string name="type.historic.memorial.war_memorial">Memorial de guerra</string>
 	<string name="type.historic.monument">Monumento</string>
+	<string name="type.historic.pillory">Pelourinho</string>
 	<string name="type.historic.ruins">Ruínas</string>
 	<string name="type.historic.ship">Barco histórico</string>
 	<string name="type.historic.tomb">Túmulo</string>

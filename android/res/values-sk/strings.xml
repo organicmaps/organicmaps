@@ -1084,11 +1084,16 @@
 	<string name="type.historic.castle.shiro">Japonský hrad</string>
 	<string name="type.historic.castle.stately">Zámok</string>
 	<string name="type.historic.city_gate">Mestská brána</string>
+	<string name="type.historic.gallows">Šibenica</string>
 	<string name="type.historic.memorial">Pomník</string>
+	<string name="type.historic.memorial.cross">Pamätný kríž</string>
 	<string name="type.historic.memorial.plaque">Pomník</string>
 	<string name="type.historic.memorial.sculpture">Pomník</string>
 	<string name="type.historic.memorial.statue">Pomník</string>
+	<string name="type.historic.memorial.stolperstein">Kameň úrazu</string>
+	<string name="type.historic.memorial.war_memorial">Vojnový pamätník</string>
 	<string name="type.historic.monument">Zaujímavosť</string>
+	<string name="type.historic.pillory">Pranier</string>
 	<string name="type.historic.ruins">Zrúcanina</string>
 	<string name="type.historic.ship">Pamätihodnosť</string>
 	<string name="type.historic.tomb">Pamätihodnosť</string>

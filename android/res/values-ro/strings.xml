@@ -1108,10 +1108,15 @@
 	<string name="type.historic.castle.shiro">Castelul japonez</string>
 	<string name="type.historic.castle.stately">Castel</string>
 	<string name="type.historic.city_gate">Poarta orașului</string>
+	<string name="type.historic.gallows">Spânzurătoare</string>
 	<string name="type.historic.memorial">Comemorare</string>
+	<string name="type.historic.memorial.cross">Cruce comemorativă</string>
 	<string name="type.historic.memorial.plaque">Comemorare</string>
 	<string name="type.historic.memorial.sculpture">Comemorare</string>
 	<string name="type.historic.memorial.statue">Comemorare</string>
+	<string name="type.historic.memorial.stolperstein">Blocaj de poticnire</string>
+	<string name="type.historic.memorial.war_memorial">Memorial de război</string>
+	<string name="type.historic.pillory">Stâlpul infamiei</string>
 	<string name="type.historic.ruins">Ruine</string>
 	<string name="type.historic.ship">Obiective turistice</string>
 	<string name="type.historic.tomb">Obiective turistice</string>

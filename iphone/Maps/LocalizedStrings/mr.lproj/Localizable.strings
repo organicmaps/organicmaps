@@ -2174,15 +2174,25 @@
 
 "type.historic.fort" = "दुर्ग";
 
+"type.historic.gallows" = "फाशी";
+
 "type.historic.memorial" = "स्मारक";
 
-"type.historic.memorial.plaque" = "Commemorative plaque";
+"type.historic.memorial.cross" = "मेमोरियल क्रॉस";
+
+"type.historic.memorial.plaque" = "फलक";
 
 "type.historic.memorial.sculpture" = "शिल्प";
 
 "type.historic.memorial.statue" = "पुतळा";
 
+"type.historic.memorial.stolperstein" = "अडथळा";
+
+"type.historic.memorial.war_memorial" = "युद्ध स्मारक";
+
 "type.historic.monument" = "स्मारक";
+
+"type.historic.pillory" = "पिलोरी";
 
 "type.historic.ruins" = "अवशेष";
 

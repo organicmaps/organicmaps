@@ -1086,11 +1086,16 @@
 	<string name="type.historic.castle.shiro">Japán várkastélyai</string>
 	<string name="type.historic.castle.stately">Kastély</string>
 	<string name="type.historic.city_gate">Városi kapu</string>
+	<string name="type.historic.gallows">Akasztófa</string>
 	<string name="type.historic.memorial">Emlékmű</string>
+	<string name="type.historic.memorial.cross">Emlékkereszt</string>
 	<string name="type.historic.memorial.plaque">Emlékmű</string>
 	<string name="type.historic.memorial.sculpture">Emlékmű</string>
 	<string name="type.historic.memorial.statue">Emlékmű</string>
+	<string name="type.historic.memorial.stolperstein">Botlatókő</string>
+	<string name="type.historic.memorial.war_memorial">Háborús emlékmű</string>
 	<string name="type.historic.monument">Műemlék</string>
+	<string name="type.historic.pillory">Pellengér</string>
 	<string name="type.historic.ruins">Romok</string>
 	<string name="type.historic.ship">Túrizmus</string>
 	<string name="type.historic.tomb">Túrizmus</string>

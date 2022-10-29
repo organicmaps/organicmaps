@@ -2174,7 +2174,11 @@
 
 "type.historic.fort" = "Fort";
 
+"type.historic.gallows" = "교수대";
+
 "type.historic.memorial" = "기념비";
+
+"type.historic.memorial.cross" = "기념 십자가";
 
 "type.historic.memorial.plaque" = "기념비";
 
@@ -2182,7 +2186,13 @@
 
 "type.historic.memorial.statue" = "기념비";
 
+"type.historic.memorial.stolperstein" = "장애물";
+
+"type.historic.memorial.war_memorial" = "전쟁기념관";
+
 "type.historic.monument" = "기념탑";
+
+"type.historic.pillory" = "칼";
 
 "type.historic.ruins" = "유적";
 

@@ -1153,7 +1153,9 @@
 	<string name="type.historic.boundary_stone">Marco fronteiriço</string>
 	<string name="type.historic.citywalls">Muralha de cidade</string>
 	<string name="type.historic.fort">Forte histórico</string>
+	<string name="type.historic.gallows">Galo</string>
 	<string name="type.historic.memorial">Memorial</string>
+	<string name="type.historic.memorial.cross">Cruz de memorial</string>
 	<string name="type.historic.memorial.plaque">Placa comemorativa</string>
 	<string name="type.historic.memorial.sculpture">Escultura memorial</string>
 	<string name="type.historic.memorial.statue">Estátua memorial</string>

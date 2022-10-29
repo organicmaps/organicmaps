@@ -382,6 +382,12 @@
 	<string name="type.historic.castle.shiro">Ngome ya Kijapani</string>
 	<string name="type.historic.castle.stately">Ngome</string>
 	<string name="type.historic.city_gate">Lango la jiji</string>
+	<string name="type.historic.gallows">Kunyongea</string>
+	<string name="type.historic.memorial.cross">Msalaba wa kumbukumbu</string>
+	<string name="type.historic.memorial.plaque">Plaque</string>
+	<string name="type.historic.memorial.stolperstein">Kikwazo</string>
+	<string name="type.historic.memorial.war_memorial">Kumbukumbu ya vita</string>
+	<string name="type.historic.pillory">Pillory</string>
 	<string name="type.landuse.basin">Bonde la Maji</string>
 	<string name="type.landuse.churchyard">Sehemu ya kanisa</string>
 	<string name="type.landuse.farmland">Shamba</string>

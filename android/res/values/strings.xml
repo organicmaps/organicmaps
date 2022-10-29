@@ -1242,11 +1242,16 @@
 	<string name="type.historic.city_gate">City gate</string>
 	<string name="type.historic.citywalls">City Wall</string>
 	<string name="type.historic.fort">Fort</string>
+	<string name="type.historic.gallows">Gallows</string>
 	<string name="type.historic.memorial">Memorial</string>
+	<string name="type.historic.memorial.cross">Memorial cross</string>
 	<string name="type.historic.memorial.plaque">Commemorative plaque</string>
 	<string name="type.historic.memorial.sculpture">Sculpture</string>
 	<string name="type.historic.memorial.statue">Statue</string>
+	<string name="type.historic.memorial.stolperstein">Stolperstein</string>
+	<string name="type.historic.memorial.war_memorial">War memorial</string>
 	<string name="type.historic.monument">Monument</string>
+	<string name="type.historic.pillory">Pillory</string>
 	<string name="type.historic.ruins">Ruins</string>
 	<string name="type.historic.ship">Ship</string>
 	<string name="type.historic.tomb">Tomb</string>

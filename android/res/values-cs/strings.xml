@@ -1087,11 +1087,16 @@
 	<string name="type.historic.castle.shiro">Japonský hrad</string>
 	<string name="type.historic.castle.stately">Zámek</string>
 	<string name="type.historic.city_gate">Městská brána</string>
+	<string name="type.historic.gallows">Šibenice</string>
 	<string name="type.historic.memorial">Pomník</string>
+	<string name="type.historic.memorial.cross">Pamětní kříž</string>
 	<string name="type.historic.memorial.plaque">Pomník</string>
 	<string name="type.historic.memorial.sculpture">Pomník</string>
 	<string name="type.historic.memorial.statue">Pomník</string>
+	<string name="type.historic.memorial.stolperstein">Stolperstein</string>
+	<string name="type.historic.memorial.war_memorial">Válečný památník</string>
 	<string name="type.historic.monument">Zajímavost</string>
+	<string name="type.historic.pillory">Pranýř</string>
 	<string name="type.historic.ruins">Ruiny</string>
 	<string name="type.historic.ship">Pamětihodnost</string>
 	<string name="type.historic.tomb">Pamětihodnost</string>
