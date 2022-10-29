@@ -20257,6 +20257,73 @@ cont {
   }
 }
 cont {
+  name: "historic-gallows"
+  element {
+    scale: 16
+    symbol {
+      name: "monument-m"
+      priority: 16764
+      min_distance: 8
+    }
+    caption {
+      primary {
+        height: 11
+        color: 6710886
+        offset_y: 1
+      }
+      priority: 15764
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "monument-m"
+      priority: 16764
+      min_distance: 8
+    }
+    caption {
+      primary {
+        height: 11
+        color: 6710886
+        offset_y: 1
+      }
+      priority: 15764
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "monument-m"
+      priority: 16764
+      min_distance: 8
+    }
+    caption {
+      primary {
+        height: 11
+        color: 6710886
+        offset_y: 1
+      }
+      priority: 15764
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "monument-m"
+      priority: 16764
+      min_distance: 8
+    }
+    caption {
+      primary {
+        height: 11
+        color: 6710886
+        offset_y: 1
+      }
+      priority: 15764
+    }
+  }
+}
+cont {
   name: "historic-memorial"
   element {
     scale: 15
@@ -20340,6 +20407,73 @@ cont {
   }
 }
 cont {
+  name: "historic-memorial-cross"
+  element {
+    scale: 15
+    symbol {
+      name: "zero-icon"
+      priority: 16788
+      min_distance: 24
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "zero-icon"
+      priority: 16788
+      min_distance: 12
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "cross-m"
+      priority: 16788
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 10
+        color: 6710886
+        offset_y: 1
+      }
+      priority: 15788
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "cross-m"
+      priority: 16788
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 10
+        color: 6710886
+        offset_y: 1
+      }
+      priority: 15788
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "cross-m"
+      priority: 16788
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 10
+        color: 6710886
+        offset_y: 1
+      }
+      priority: 15788
+    }
+  }
+}
+cont {
   name: "historic-memorial-plaque"
   element {
     scale: 15
@@ -20368,7 +20502,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "plaque"
+      name: "zero-icon"
       priority: 16788
       min_distance: 12
     }
@@ -20376,7 +20510,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "plaque"
+      name: "zero-icon"
       priority: 16788
       min_distance: 12
     }
@@ -20467,6 +20601,132 @@ cont {
 }
 cont {
   name: "historic-memorial-statue"
+  element {
+    scale: 15
+    symbol {
+      name: "monument-m"
+      priority: 16788
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 6710886
+        offset_y: 1
+      }
+      priority: 15788
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "monument-m"
+      priority: 16788
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 10
+        color: 6710886
+        offset_y: 1
+      }
+      priority: 15788
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "monument-m"
+      priority: 16788
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 10
+        color: 6710886
+        offset_y: 1
+      }
+      priority: 15788
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "monument-m"
+      priority: 16788
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 10
+        color: 6710886
+        offset_y: 1
+      }
+      priority: 15788
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "monument-m"
+      priority: 16788
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 10
+        color: 6710886
+        offset_y: 1
+      }
+      priority: 15788
+    }
+  }
+}
+cont {
+  name: "historic-memorial-stolperstein"
+  element {
+    scale: 15
+    symbol {
+      name: "zero-icon"
+      priority: 16788
+      min_distance: 24
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "zero-icon"
+      priority: 16788
+      min_distance: 12
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "zero-icon"
+      priority: 16788
+      min_distance: 12
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "zero-icon"
+      priority: 16788
+      min_distance: 12
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "zero-icon"
+      priority: 16788
+      min_distance: 12
+    }
+  }
+}
+cont {
+  name: "historic-memorial-war_memorial"
   element {
     scale: 15
     symbol {
@@ -20642,6 +20902,73 @@ cont {
         offset_y: 1
       }
       priority: 15788
+    }
+  }
+}
+cont {
+  name: "historic-pillory"
+  element {
+    scale: 16
+    symbol {
+      name: "monument-m"
+      priority: 16764
+      min_distance: 8
+    }
+    caption {
+      primary {
+        height: 11
+        color: 6710886
+        offset_y: 1
+      }
+      priority: 15764
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "monument-m"
+      priority: 16764
+      min_distance: 8
+    }
+    caption {
+      primary {
+        height: 11
+        color: 6710886
+        offset_y: 1
+      }
+      priority: 15764
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "monument-m"
+      priority: 16764
+      min_distance: 8
+    }
+    caption {
+      primary {
+        height: 11
+        color: 6710886
+        offset_y: 1
+      }
+      priority: 15764
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "monument-m"
+      priority: 16764
+      min_distance: 8
+    }
+    caption {
+      primary {
+        height: 11
+        color: 6710886
+        offset_y: 1
+      }
+      priority: 15764
     }
   }
 }

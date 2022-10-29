@@ -496,12 +496,17 @@ world  +
         city_gate  -
         citywalls  -
         fort  -
+        gallows  -
         memorial  +
+            cross  -
             plaque  -
             sculpture  -
             statue  -
+            stolperstein  -
+            war_memorial  -
             {}
         monument  -
+        pillory  -
         ruins  -
         ship  -
         tomb  -
