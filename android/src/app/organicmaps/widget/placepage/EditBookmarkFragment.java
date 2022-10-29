@@ -150,15 +150,11 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
   @Override
   public void onClick(View v)
   {
-    switch (v.getId())
-    {
-    case R.id.iv__bookmark_color:
+    final int id = v.getId();
+    if (id == R.id.iv__bookmark_color)
       selectBookmarkColor();
-      break;
-    case R.id.tv__bookmark_set:
+    else if (id == R.id.tv__bookmark_set)
       selectBookmarkSet();
-      break;
-    }
   }
 
   private void selectBookmarkSet()

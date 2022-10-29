@@ -199,20 +199,13 @@ public class SearchToolbarController extends ToolbarController implements View.O
   @Override
   public void onClick(View v)
   {
-    switch (v.getId())
-    {
-    case R.id.clear:
+    final int id = v.getId();
+    if (id == R.id.clear)
       onClearClick();
-      break;
-
-    case R.id.query:
+    else if (id == R.id.query)
       onQueryClick(getQuery());
-      break;
-
-    case R.id.voice_input:
+    else if (id == R.id.voice_input)
       onVoiceInputClick();
-      break;
-    }
   }
 
   public void showSearchControls(boolean show)
