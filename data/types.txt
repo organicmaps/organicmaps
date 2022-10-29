@@ -890,11 +890,11 @@ railway|subway|tunnel
 railway|subway|tunnel
 railway|subway|tunnel
 railway|subway|tunnel
-mapswithme
-mapswithme
-mapswithme
-mapswithme
-mapswithme
+*historic|memorial|stolperstein
+*historic|memorial|war_memorial
+*historic|memorial|cross
+*historic|gallows
+*historic|pillory
 mapswithme
 mapswithme
 railway|subway|tunnel
