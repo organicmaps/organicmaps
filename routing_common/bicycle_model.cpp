@@ -213,9 +213,9 @@ bool BicycleModel::IsBicycleOnedir(feature::TypesHolder const & types) const
   return types.Has(m_onedirBicycleType);
 }
 
-SpeedKMpH BicycleModel::GetSpeed(FeatureType & f, SpeedParams const & speedParams) const
+SpeedKMpH BicycleModel::GetTypeSpeed(feature::TypesHolder const & types, SpeedParams const & speedParams) const
 {
-  return VehicleModel::GetSpeedWihtoutMaxspeed(f, speedParams);
+  return GetTypeSpeedImpl(types, speedParams, false /* isCar */);
 }
 
 bool BicycleModel::IsOneWay(FeatureType & f) const

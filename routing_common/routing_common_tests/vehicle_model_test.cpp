@@ -86,6 +86,11 @@ public:
   {
   }
 
+  SpeedKMpH GetTypeSpeed(feature::TypesHolder const & types, SpeedParams const & params) const override
+  {
+    return GetTypeSpeedImpl(types, params, true /* isCar */);
+  }
+
   // We are not going to use offroad routing in these tests.
   SpeedKMpH const & GetOffroadSpeed() const override
   {

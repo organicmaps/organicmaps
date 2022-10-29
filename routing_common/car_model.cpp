@@ -112,14 +112,24 @@ CarModel::CarModel(VehicleModel::LimitsInitList const & roadLimits)
   ASSERT_EQUAL(kHighwayBasedSpeeds.size(), kHighwayBasedFactors.size(), ());
   ASSERT_EQUAL(kHighwayBasedSpeeds.size(), car_model::kDefaultOptions.size(), ());
 
+  std::vector<std::string> hwtagYesCar = {"hwtag", "yescar"};
   auto const & cl = classif();
+
   m_noType = cl.GetTypeByPath({"hwtag", "nocar"});
-  m_yesType = cl.GetTypeByPath({"hwtag", "yescar"});
+  m_yesType = cl.GetTypeByPath(hwtagYesCar);
+
+  // Set small track speed if highway is not in kHighwayBasedSpeeds (path, pedestrian), but marked as yescar.
+  AddAdditionalRoadTypes(cl, {{ std::move(hwtagYesCar), kHighwayBasedSpeeds.Get(HighwayType::HighwayTrack) }});
 
   // Set max possible (reasonable) car speed. See EdgeEstimator::CalcHeuristic.
   SpeedKMpH constexpr kMaxCarSpeedKMpH(200.0);
   CHECK_LESS(m_maxModelSpeed, kMaxCarSpeedKMpH, ());
   m_maxModelSpeed = kMaxCarSpeedKMpH;
+}
+
+SpeedKMpH CarModel::GetTypeSpeed(feature::TypesHolder const & types, SpeedParams const & speedParams) const
+{
+  return GetTypeSpeedImpl(types, speedParams, true /* isCar */);
 }
 
 SpeedKMpH const & CarModel::GetOffroadSpeed() const { return car_model::kSpeedOffroadKMpH; }

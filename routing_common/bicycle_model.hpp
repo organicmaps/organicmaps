@@ -13,7 +13,7 @@ public:
   BicycleModel(VehicleModel::LimitsInitList const & limits, HighwayBasedSpeeds const & speeds);
 
   /// VehicleModelInterface overrides:
-  SpeedKMpH GetSpeed(FeatureType & f, SpeedParams const & speedParams) const override;
+  SpeedKMpH GetTypeSpeed(feature::TypesHolder const & types, SpeedParams const & speedParams) const override;
   bool IsOneWay(FeatureType & f) const override;
   SpeedKMpH const & GetOffroadSpeed() const override;
 
