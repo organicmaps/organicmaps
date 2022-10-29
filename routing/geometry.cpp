@@ -25,6 +25,7 @@ double CalcFerryDurationHours(string_view durationHours, double roadLenKm)
   // Look for more info: https://confluence.mail.ru/display/MAPSME/Ferries
   // Shortly: the coefs were received from statistic about ferries with durations in OSM.
   double constexpr kIntercept = 0.2490726747447476;
+  /// @todo This constant means that average ferry speed is 1/0.02 = 50km/h OMG!
   double constexpr kSlope = 0.02078913;
 
   if (durationHours.empty())
@@ -205,16 +206,26 @@ void RoadGeometry::Load(VehicleModelInterface const & vehicleModel, FeatureType 
   }
   m_distances.resize(count - 1, -1);
 
+  /// @todo Take out this logic into VehicleModel::GetSpeed to include
+  /// RouteShuttleTrain and RailwayRailMotorVehicle for bicycle and pedestrian.
   if (m_routingOptions.Has(RoutingOptions::Road::Ferry))
   {
+    /// @todo Also process "interval" OSM tag (without additional boarding penalties).
+    // https://github.com/organicmaps/organicmaps/issues/3695
+
     auto const roadLenKm = GetRoadLengthM() / 1000.0;
     double const durationH = CalcFerryDurationHours(feature.GetMetadata(feature::Metadata::FMD_DURATION), roadLenKm);
     CHECK(!base::AlmostEqualAbs(durationH, 0.0, 1e-5), (durationH));
 
     if (roadLenKm != 0.0)
     {
-      m_forwardSpeed = m_backwardSpeed =
-          SpeedKMpH(std::min(vehicleModel.GetMaxWeightSpeed(), roadLenKm / durationH));
+      double const speed = roadLenKm / durationH;
+      /// @todo Can fire now if you transit through some fast ferry. Can do one of the following:
+      /// - Remove assert, but update A* algo heuristic somehow;
+      /// - Reconsider ferry defaults;
+      /// - Make _very big_ bicycle/pedestrian maxspeed;
+      ASSERT_LESS_OR_EQUAL(speed, vehicleModel.GetMaxWeightSpeed(), (roadLenKm, durationH));
+      m_forwardSpeed = m_backwardSpeed = SpeedKMpH(speed);
     }
   }
 

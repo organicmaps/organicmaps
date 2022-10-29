@@ -10,7 +10,6 @@
 #include <limits>
 #include <memory>
 #include <optional>
-#include <sstream>
 #include <string>
 #include <unordered_map>
 #include <vector>
@@ -98,6 +97,11 @@ struct SpeedKMpH
     return m_weight == rhs.m_weight && m_eta == rhs.m_eta;
   }
   bool operator!=(SpeedKMpH const & rhs) const { return !(*this == rhs); }
+
+  bool operator<(SpeedKMpH const & rhs) const
+  {
+    return m_weight < rhs.m_weight && m_eta < rhs.m_eta;
+  }
 
   bool IsValid() const { return m_weight > 0 && m_eta > 0; }
 
@@ -208,8 +212,9 @@ public:
 
   virtual std::optional<HighwayType> GetHighwayType(FeatureType & f) const = 0;
 
-  /// @return Maximum model weight speed.
-  /// All speeds which the model returns must be less than or equal to this speed.
+  /// @return Maximum model weight speed (km/h).
+  /// All speeds which the model returns must be less or equal to this speed.
+  /// @see EdgeEstimator::CalcHeuristic.
   virtual double GetMaxWeightSpeed() const = 0;
 
   /// @return Offroad speed in KMpH for vehicle. This speed should be used for non-feature routing
@@ -324,7 +329,7 @@ protected:
 
   /// \brief Maximum within all the speed limits set in a model (car model, bicycle model and so on).
   /// Do not mix with maxspeed value tag, which defines maximum legal speed on a feature.
-  InOutCitySpeedKMpH m_maxModelSpeed;
+  SpeedKMpH m_maxModelSpeed;
 
 private:
   std::optional<HighwayType> GetHighwayType(uint32_t type) const;

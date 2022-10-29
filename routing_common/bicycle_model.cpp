@@ -53,7 +53,8 @@ HighwayBasedSpeeds const kDefaultSpeeds = {
     {HighwayType::HighwayPedestrian, InOutCitySpeedKMpH(kSpeedDismountKMpH)},
     {HighwayType::HighwayFootway, InOutCitySpeedKMpH(kSpeedDismountKMpH)},
     {HighwayType::ManMadePier, InOutCitySpeedKMpH(kSpeedOnFootwayKMpH)},
-    {HighwayType::RouteFerry, InOutCitySpeedKMpH(SpeedKMpH(3.0, 20.0))},
+    /// @todo A car ferry has {10, 10}. Weight = 9 is 60% from reasonable 15 average speed.
+    {HighwayType::RouteFerry, InOutCitySpeedKMpH(SpeedKMpH(9.0, 20.0))},
 };
 
 // Default, no bridleway.
@@ -184,8 +185,10 @@ BicycleModel::BicycleModel(VehicleModel::LimitsInitList const & limits)
 BicycleModel::BicycleModel(VehicleModel::LimitsInitList const & limits, HighwayBasedSpeeds const & speeds)
   : VehicleModel(classif(), limits, bicycle_model::kBicycleSurface, {speeds, bicycle_model::kDefaultFactors})
 {
+  using namespace bicycle_model;
+
   // No bridleway in default.
-  ASSERT_EQUAL(bicycle_model::kDefaultOptions.size(), bicycle_model::kDefaultSpeeds.size() - 1, ());
+  ASSERT_EQUAL(kDefaultOptions.size(), kDefaultSpeeds.size() - 1, ());
 
   std::vector<std::string> hwtagYesBicycle = {"hwtag", "yesbicycle"};
 
@@ -196,10 +199,8 @@ BicycleModel::BicycleModel(VehicleModel::LimitsInitList const & limits, HighwayB
   m_onedirBicycleType = cl.GetTypeByPath({"hwtag", "onedir_bicycle"});
 
   // Assign 90% of max cycleway speed for bicycle=yes to keep choosing most preferred cycleway.
-  double const factor = 0.9;
-  AddAdditionalRoadTypes(cl, {
-      {std::move(hwtagYesBicycle), {m_maxModelSpeed.m_inCity * factor, m_maxModelSpeed.m_outCity * factor}}
-  });
+  auto const yesSpeed = kDefaultSpeeds.Get(HighwayType::HighwayCycleway).m_inCity * 0.9;
+  AddAdditionalRoadTypes(cl, {{ std::move(hwtagYesBicycle), InOutCitySpeedKMpH(yesSpeed) }});
 }
 
 bool BicycleModel::IsBicycleBidir(feature::TypesHolder const & types) const
