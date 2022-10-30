@@ -31,7 +31,7 @@ Frei von Trackern und sonstigem schädlichen Inhalt:
 • Keine Werbung
 • Kein Tracking
 • Keine Datensammlung
-• Kein ungewolltes anfunken von externen Servern
+• Keine automatische Datenübertragung
 • Keine lästige Registrierung
 • Keine obligatorischen Tutorials
 • Kein lästiger E-Mail-Spam
