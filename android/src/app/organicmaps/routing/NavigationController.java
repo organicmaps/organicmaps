@@ -215,7 +215,9 @@ public class NavigationController implements Application.ActivityLifecycleCallba
   private void updateStreetView(@NonNull RoutingInfo info)
   {
     boolean hasStreet = !TextUtils.isEmpty(info.nextStreet);
-    UiUtils.showIf(hasStreet, mStreetFrame);
+    // Sic: don't use UiUtils.showIf() here because View.GONE breaks layout
+    // https://github.com/organicmaps/organicmaps/issues/3732
+    UiUtils.visibleIf(hasStreet, mStreetFrame);
     if (!TextUtils.isEmpty(info.nextStreet))
       mNextStreet.setText(info.nextStreet);
   }
