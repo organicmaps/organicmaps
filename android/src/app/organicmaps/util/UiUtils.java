@@ -387,9 +387,10 @@ public final class UiUtils
     final View decorView = window.getDecorView();
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
     {
-      WindowInsetsControllerCompat wic = WindowCompat.getInsetsController(window, decorView);
       // It should not be possible for Window insets controller to be null
-      Objects.requireNonNull(wic).setAppearanceLightStatusBars(isLight);
+      WindowInsetsControllerCompat wic = Objects.requireNonNull(WindowCompat.getInsetsController(window, decorView));
+      if (wic.isAppearanceLightStatusBars() != isLight)
+        wic.setAppearanceLightStatusBars(isLight);
     }
     else
     {
