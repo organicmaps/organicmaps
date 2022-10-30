@@ -2970,16 +2970,19 @@ fa:ابشار
 
 historic-archaeological_site|@tourism
 en:4Archaeological Site
-ru:3Археологический памятник|раскопки|археологические раскопки
-bg:3Археологически сайт|Архелогически разкопки|разкопки
-be:3Археалагічны помнік
 ar:موقع أثري|أماكن جذابة|سياحة|مناظر
+be:3Археалагічны помнік
+bg:3Археологически сайт|Архелогически разкопки|разкопки
 cs:Vykopávky|zajímavost
 da:3Arkæologisk sted
-nl:4Archeologische site|opgravingen|attractie
+de:Ausgrabungen|4Ausgrabungsstätte|4Archäologische Stätte
+el:Αρχαιολογικός χώρος|θέαμα|τουρισμός|αξιοθέατα
+es:Yacimiento arqueológico
+eu:Aztarnategi arkeologikoa
+fa:سایت باستان شناسی
 fi:3Arkeologinen kohde
 fr:Site archéologique
-de:Ausgrabungen|Ausgrabungsstätte
+he:אתר ארכיאולוגי
 hu:Ásatás
 id:Situs arkeologi
 it:Sito archeologico
@@ -2987,23 +2990,95 @@ ja:1考古遺跡|発掘|発掘現場|考古学|遺跡
 ko:유적지|고고학적 유적지|발굴
 mr:पुरातत्व स्थळ
 nb:3Arkeologisk område
+nl:4Archeologische site|opgravingen|attractie
 pl:5Odkrywka archeologiczna|wykopaliska
-pt:Sítio arqueológico
 pt-BR:Sítio arqueológico|atração
+pt:Sítio arqueológico
 ro:Sit arheologic
-es:Yacimiento arqueológico
-eu:Aztarnategi arkeologikoa
+ru:3Археологический памятник|раскопки|археологические раскопки
+sk:Vykopávky
 sv:3Arkeologisk plats|fornminne
+sw:Machimbo ya kihistoria|kivutio|utalii
 th:โบราณสถาน|แหล่งท่องเที่ยว|การท่องเที่ยว
 tr:3Arkeolojik alan|Kazı alanı|Sit alanı|ören yeri
 uk:Пам'ятка археології|Розкопки|історична пам'ятка
 vi:Điểm khảo cổ
 zh-Hans:考古遗址|旅游|景点
 zh-Hant:1考古遺址|考古|遺址|古蹟|歷史|旅遊景點
-el:Αρχαιολογικός χώρος|θέαμα|τουρισμός|αξιοθέατα
-sk:Vykopávky
-sw:Machimbo ya kihistoria|kivutio|utalii
-fa:سایت باستان شناسی
+
+historic-battlefield
+en:Battlefield
+ar:ساحة معركة تاريخية
+be:Поле бітвы
+bg:Бойно поле
+cs:Bojiště
+da:Slagmark
+de:4Schlachtfeld
+el:Πεδίο μάχης
+es:Campo de batalla
+eu:Gudu zelai
+fa:میدان جنگ
+fi:Taistelukenttä
+fr:Champ de bataille
+he:שדה קרב
+hu:Csatatér
+id:Medan Perang
+it:Campo di battaglia
+ja:古戦場
+ko:전장터
+mr:रणांगण
+nb:Slagmarken
+nl:Slagveld
+pl:Miejsce historycznej bitwy
+pt:Campo de batalha
+ro:Câmpul de luptă
+ru:Поле боя
+sk:Bojisko
+sv:Stridsområde
+sw:Uwanja wa vita
+th:สนามรบ
+tr:Harp Meydanı
+uk:Поле битви
+vi:Chiến trường
+zh-Hans:古战场
+zh-Hant:古戰場
+
+historic-boundary_stone
+en:Boundary Stone
+ar:حجر لتحديد الحدود
+be:Межавы камень
+bg:Граничен камък
+cs:Hraniční kámen
+da:Grænsesten
+de:4Grenzstein|4Markstein
+el:Οριακή πέτρα
+es:Hito fronterizo
+eu:Zedarri
+fa:نشانگر مرز
+fi:Rajamerkki
+fr:Borne frontière
+he:אבן גבול
+hu:Határkő
+id:Batu pembatas
+it:Cippo di confine
+ja:境界標
+ko:경계석
+mr:सीमेचा दगड
+nb:Grensemerke
+nl:Grenssteen
+pl:Historyczny kamień graniczny
+pt:Marco fronteiriço
+ro:Piatră de hotar
+ru:Пограничный камень
+sk:Hraničný kameň
+sv:Gränsmärke
+sw:Jiwe la mpaka
+th:ขอบหิน
+tr:Sınır Taşı
+uk:Прикордонний камінь
+vi:Đá ranh giới
+zh-Hans:界碑
+zh-Hant:界碑
 
 historic-castle|@tourism
 en:4Castle|4Palace|4Fortress|U+1F3EF|U+1F3F0|U+1F451|U+1F478|Hillfort|Kremlin|Manor house
@@ -3049,7 +3124,7 @@ be:Гарадская брама
 bg:Градска порта
 cs:Městská brána
 da:Byport
-de:Stadttor
+de:4Stadttor
 el:Πύλη της πόλης
 es:Puerta de la ciudad
 eu:Portale
@@ -3079,20 +3154,77 @@ vi:Cổng thành
 zh-Hans:城门
 zh-Hant:城門
 
+historic-citywalls|@tourism
+en:City Wall
+ar:جدار المدينة
+be:Гарадскі вал
+bg:Градска стена
+cs:Městská zeď
+da:Bymur
+de:Stadtmauer
+el:Τείχος της πόλης
+es:Muro de la ciudad
+eu:Hiri harresia
+fa:دیوار شهر
+fi:Kaupungin muuri
+fr:Mur de la ville
+he:חומת העיר
+hu:Városi fal
+id:Tembok Kota
+it:Muro della città
+ja:城壁
+ko:도시의 벽
+mr:शहराची भिंत
+nb:Bymurer
+nl:Stadsmuur
+pl:Mur miejski
+pt:Muralha
+ro:Zidurile orașului
+ru:Городская стена
+sk:Mestský múr
+sv:Stadsmur
+sw:Ukuta wa jiji
+th:กำแพงเมือง
+tr:Şehir Duvarı
+uk:Міська стіна
+vi:Tường thành
+zh-Hans:城墙
+zh-Hant:城牆
+
 historic-fort|@tourism
 en:Fort
 ar:قلعة
-de:Festung
+be:Форт
+bg:Форт
+cs:Fort
+da:Fort
+de:Fort
+el:Φορτ
+es:Fuerte
+eu:Gotorlekua
+fa:دژ
+fi:Fort
 fr:Fort militaire
+he:מִבצָר
+hu:Fort
+id:Benteng
 it:Fortezza
 ja:歴史的な要塞
+ko:요새
 mr:दुर्ग
+nb:Fort
+nl:Fort
 pl:Historyczny fort
-pt:Forte histórico
-pt-BR:Forte histórico
+pt:Forte
+ro:Fort
 ru:Форт
+sk:Fort
+sv:Fort
+sw:Ngome
+th:ป้อม
 tr:Hisar
 uk:Форт
+vi:Pháo đài
 zh-Hans:历史要塞
 zh-Hant:歷史要塞
 
@@ -3135,15 +3267,19 @@ zh-Hant:絞架
 
 historic-memorial|@tourism
 en:4Memorial|monument|U+1F5FC|U+1F5FD|U+1F5FF
-ru:4Памятник|4мемориал
-bg:4Паметник|4мемориал
 ar:نصب تذكاري|معالم|آثار|أماكن جذابة|سياحة
+be:Мемарыял
+bg:4Паметник|4мемориал
 cs:4Pomník|památka|zajímavost
 da:Mindesmærke|mindesten
-nl:Gedenkteken|monument|attractie
+de:Denkmal|Gedenkstätte
+el:Μνημείο|θέαμα|τουρισμός|αξιοθέατα
+es:4Memorial
+eu:4Oroigarria
+fa:یادبود تاریخی
 fi:3Muistomerkki
 fr:4Mémorial|monument|attraction
-de:Denkmal|Gedenkstätte
+he:אתר הנצחה
 hu:3Emlékmű|Monumentális emlékmű
 id:3Tugu peringatan
 it:4Memoriale|monumento
@@ -3151,23 +3287,20 @@ ja:追悼|1記念碑|追悼碑
 ko:기념비|기념관|추모관
 mr:स्मारक
 nb:3Minnesmerke
+nl:Gedenkteken|monument|attractie
 pl:3Pomnik|Miejsce pamięci
 pt:4Memorial|monumento
-pt-BR:4Memorial|monumento
 ro:3Comemorare
-es:4Memorial
-eu:4Oroigarria
+ru:4Памятник|4мемориал
+sk:4Pomník|pamiatka|atrakcia|zaujímavosť
 sv:3Minnesmärke|monument
+sw:Makumbusho|kumbukumbu ya kihistoria|kivutio|utalii
 th:ที่ระลึก
 tr:Anıt|abide
 uk:4Меморіал|монумент|пам'ятка|статуя|4пам'ятник
 vi:3Đài tưởng niệm
 zh-Hans:纪念馆|景点
 zh-Hant:紀念館|1紀念碑|紀念館|旅遊景點
-el:Μνημείο|θέαμα|τουρισμός|αξιοθέατα
-sk:4Pomník|pamiatka|atrakcia|zaujímavosť
-sw:Makumbusho|kumbukumbu ya kihistoria|kivutio|utalii
-fa:یادبود تاریخی
 
 historic-memorial-cross
 en:Memorial cross
@@ -3176,7 +3309,7 @@ be:Памятны крыж
 bg:Мемориален кръст
 cs:Pamětní kříž
 da:Mindesmærkekors
-de:Gedenkkreuz
+de:3Gedenkkreuz
 el:Σταυρός μνήμης
 es:Cruz conmemorativa
 eu:Oroimenezko gurutzea
@@ -3245,6 +3378,80 @@ vi:Đài tưởng niệm
 zh-Hans:纪念牌匾
 zh-Hant:紀念牌匾
 
+historic-memorial-sculpture|@tourism
+en:Sculpture
+ar:منحوتة تذكارية
+be:Скульптура
+bg:Скулптура
+cs:Pomník
+da:Mindesmærke
+de:4Skulptur
+el:Μνημείο
+es:Escultura
+eu:Eskultura
+fa:گردشگری
+fi:Muistomerkki
+fr:Sculpture
+he:פֶּסֶל
+hu:Emlékmű
+id:Tugu peringatan
+it:Scultura
+ja:彫刻
+ko:기념비
+mr:शिल्प
+nb:Minnesmerke
+nl:Sculptuur
+pl:Rzeźba
+pt:Escultura
+ro:Comemorare
+ru:Скульптура
+sk:Pomník
+sv:Minnesmärke
+sw:Uchongaji
+th:ที่ระลึก
+tr:Heykel
+uk:Скульптура
+vi:Đài tưởng niệm
+zh-Hans:雕塑
+zh-Hant:雕塑
+
+historic-memorial-statue|@tourism
+en:Statue
+ar:تمثال تذكاري
+be:Статуя
+bg:Статуя
+cs:Pomník
+da:Mindesmærke
+de:4Statue
+el:Μνημείο
+es:Estatua
+eu:Estatua
+fa:گردشگری
+fi:Muistomerkki
+fr:Mémorial
+he:פסל
+hu:Emlékmű
+id:Tugu peringatan
+it:Statua memoriale
+ja:塑像
+ko:기념비
+mr:पुतळा
+nb:Minnesmerke
+nl:Standbeeld
+pl:Pomnik
+pt:Estátua
+ro:Comemorare
+ru:Статуя
+sk:Pomník
+sv:Minnesmärke
+sw:Sanamu
+th:ที่ระลึก
+tr:Heykel
+uk:Статуя
+vi:Đài tưởng niệm
+zh-Hans:塑像
+zh-Hant:塑像
+
 historic-memorial-stolperstein
 en:Stolperstein
 ar:حجر عثرة
@@ -3289,7 +3496,7 @@ be:Ваенны мемарыял
 bg:Военен паметник
 cs:Válečný památník
 da:Krigsmindesmærke
-de:Kriegerdenkmal
+de:4Kriegerdenkmal|Kriegsdenkmal
 el:Μνημείο του Αγνώστου Στρατιώτη
 es:Monumento a la guerra
 eu:Gerra memoriala
@@ -3321,15 +3528,19 @@ zh-Hant:戰爭紀念建築
 
 historic-monument|@tourism
 en:4Monument|U+1F5FD|U+1F5FF
-ru:4Монумент
-bg:4монумент|паметник
 ar:صرح|معالم|سياحة|مناظر
+be:4Помнік
+bg:4монумент|паметник
 cs:Zajímavost|pomník|památka
 da:4Monument
-nl:4Monument|attractie
+de:4Monument
+el:Μνημείο|θέαμα|τουρισμός|αξιοθέατα
+es:4Monumento
+eu:4Monumentua
+fa:بنای تاریخی
 fi:4Monumentti
 fr:4Monument|attraction
-de:4Monument|Denkmal
+he:מונומנט
 hu:4Monumentális emlékmű
 id:4Monumen
 it:4Monumento
@@ -3337,23 +3548,20 @@ ja:1記念碑
 ko:기념비|기념탑
 mr:स्मारक
 nb:4Monument
+nl:4Monument|attractie
 pl:3Monument
 pt:4Monumento
-pt-BR:4Monumento
 ro:4Monument
-es:4Monumento
-eu:4Monumentua
+ru:4Монумент
+sk:Zaujímavosť|pomník|pamiatka
 sv:4Monument
+sw:Makumbusho|kivutio|utalii
 th:3อนุสาวรีย์|การท่องเที่ยว
 tr:Abide
 uk:Пам'ятник|4монумент
 vi:Tượng đài
 zh-Hans:纪念碑|景点
 zh-Hant:1紀念碑|紀念塔|紀念館|旅遊景點
-el:Μνημείο|θέαμα|τουρισμός|αξιοθέατα
-sk:Zaujímavosť|pomník|pamiatka
-sw:Makumbusho|kivutio|utalii
-fa:بنای تاریخی
 
 historic-pillory|@tourism
 en:Pillory
@@ -3394,15 +3602,19 @@ zh-Hant:刑柱
 
 historic-ruins|@tourism
 en:3Ruins|U+1F5FF
-ru:3Руины|развалины
-bg:3Руини|съборетини|останки|развалини
 ar:آثار|أماكن جذابة|مناظر|سياحة
+be:Руіны
+bg:3Руини|съборетини|останки|развалини
 cs:3Ruiny|zřícenina
 da:3Ruiner
-nl:3Ruïne|attractie
+de:3Ruinen
+el:Ερείπια|χαλάσματα|θέαμα|τουρισμός|αξιοθέατα
+es:3Ruinas
+eu:3Hondakinak
+fa:خرابه های تاریخی
 fi:Rauniot
 fr:3Ruines|attraction
-de:3Ruinen
+he:חורבות
 hu:Romok
 id:Reruntuhan
 it:Rovine
@@ -3410,53 +3622,168 @@ ja:1古跡|古蹟|廃墟|城址|城跡
 ko:1유적
 mr:अवशेष
 nb:3Ruiner
+nl:3Ruïne|attractie
 pl:3Ruiny
 pt:3Ruínas
-pt-BR:3Ruínas
 ro:3Ruine
-es:3Ruinas
-eu:3Hondakinak
+ru:3Руины|развалины
+sk:Zrúcanina|ruiny
 sv:3Ruiner
+sw:Maeneo ya kale|jengo la kale|chakavu
 th:ซากปรักหักพัง|การท่องเที่ยว
 tr:Harabeler
 uk:3Руїни|розвалини
 vi:Phế tích
 zh-Hans:废墟|景点
 zh-Hant:1廢墟|古蹟|遺址|旅遊景點
-el:Ερείπια|χαλάσματα|θέαμα|τουρισμός|αξιοθέατα
-sk:Zrúcanina|ruiny
-sw:Maeneo ya kale|jengo la kale|chakavu
-fa:خرابه های تاریخی
 
 historic-ship|@tourism
 en:Ship|boat
-ru:Корабль|судно|лодка
-bg:Кораб|лодка|туризъм
+ar:سفينة تاريخية
+be:Судна
+bg:Кораб|лодка
+cs:Pamětihodnost
+de:4Schiff|Boot
+el:Αξιοθέατο
 es:Barco|Navío
+eu:Turismoa
+fa:گردشگری
+fi:Nähtävyydet
 fr:Bâteau|navire
-nl:Schip|boot
+he:אונייה
+hu:Túrizmus
+id:Pemandangan
+it:Nave storica
+ja:退役船
 ko:배|보트
 mr:जहाज
+nb:Severdigheter
+nl:Schip|boot
 pl:Łódź|okręt
 pt:2Barco|2Navio
-pt-BR:2Barco|2Navio
+ro:Navă
+ru:Корабль|судно|лодка
+sk:Pamätihodnosť
+sv:Fartyg
+sw:Meli
+th:สถานที่ท่องเที่ยว
 tr:Gemi|Tekne|Bot
-de:Schiff|Boot
+uk:Корабель
+vi:Diểm tham quan
+zh-Hans:历史船
+zh-Hant:歷史船
+
 
 historic-tomb|@tourism
 en:Tomb|grave|memorial
-ru:4Гробница|3склеп|захоронение|могила|кладбище
+ar:قبر
+be:Склеп|магіла
 bg:4Гробница|гробище|могила|погребани
+cs:Pamětihodnost
+da:Grav
+de:Grab
+el:Αξιοθέατο
 es:Tumba|Sepultura
+eu:Ehorztoki
+fa:گردشگری
+fi:Nähtävyydet
 fr:Tombe
-nl:Tombe|graf|gedenkteken
+he:קֶבֶר
+hu:Sír
+id:Pemandangan
+it:Tomba
+ja:墓
 ko:무덤|묘지
 mr:थडगे
+nb:Severdigheter
+nl:Tombe|graf|gedenkteken
 pl:Grób|grobowiec
 pt:Túmulo|2Sepultura|memorial
-pt-BR:Túmulo|2Sepultura|memorial
+ro:Mormânt
+ru:4Гробница|3склеп|захоронение|могила|кладбище
+sk:Pamätihodnosť
+sv:Grav
+sw:Kaburi
+th:สถานที่ท่องเที่ยว
 tr:Türbe|mezar|lahit|kabir
-de:Grab|Gedenkstätte
+uk:Гробниця
+vi:Diểm tham quan
+zh-Hans:陵墓
+zh-Hant:陵墓
+
+historic-wayside_cross|@tourism
+en:Wayside cross
+ar:صليب مسيحي
+be:Прыдарожны крыж
+bg:Крайпътен кръст
+cs:Přícestný kříž
+da:Kors ved vejsiden
+de:4Wegkreuz|4Flurkreuz
+el:Σταυρός στην άκρη του δρόμου
+es:Cruz de término
+eu:Bideko gurutze
+fa:صلیب کنار راه
+fi:Tienvarren risti
+fr:Croix de chemin
+he:צלב בצד הדרך
+hu:Útszéli kereszt
+id:Salib di pinggir jalan
+it:Crocifisso
+ja:歴史的な十字架
+ko:길가의 십자가
+mr:ख्रिश्चन क्रॉस
+nb:Veikantkors
+nl:Wegkruis
+pl:Krzyż przydrożny
+pt:Cruzeiro
+ro:Troiță
+ru:Христианский крест
+sk:Prícestný kríž
+sv:Korset vid vägkanten
+sw:Msalaba wa njiani
+th:ทางข้าม
+tr:Hıristiyan Haçı
+uk:Християнський хрест
+vi:Đường chéo
+zh-Hans:路旁十字架
+zh-Hant:路旁十字架
+
+historic-wayside_shrine|@tourism
+en:Wayside shrine
+ar:ضريح
+be:Прыдарожная святыня
+bg:Крайпътно светилище
+cs:Drobná sakrální památka
+da:Skrin ved vejsiden
+de:4Bildstock|4Marterl|4Wegstock|4Helgenstöckli
+el:Εικονοστάσιο στην άκρη του δρόμου
+es:Peto de ánimas
+eu:Bide bazterreko baseliza
+fa:حرم کنار راه
+fi:Tienvarren pyhäkkö
+fr:Oratoire
+he:מקדש בצד הדרך
+hu:Útmenti szentély
+id:Kuil di pinggir jalan
+it:Edicola votiva
+ja:歴史的な祠
+ko:길가의 신사
+mr:देवस्थान
+nb:Helligdom ved veikanten
+nl:Kruisbeeld
+pl:Kapliczka przydrożna
+pt:Alminhas
+ro:Altarul de la marginea drumului
+ru:Святыня
+sk:Svätyňa pri ceste
+sv:Helgedom vid vägkanten
+sw:Kaburi la njia
+th:ศาลเจ้าข้างทาง
+tr:Tapınak
+uk:Святиня
+vi:Đền thờ
+zh-Hans:路旁神龛
+zh-Hant:路旁神龕
 
 leisure-dog_park
 en:3Dog area|Dog park
