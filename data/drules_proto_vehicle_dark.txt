@@ -14304,6 +14304,87 @@ cont {
   }
 }
 cont {
+  name: "highway-steps"
+  element {
+    scale: 18
+    lines {
+      width: 1.5
+      color: 2828327
+      dashdot {
+        dd: 5.0
+        dd: 2.0
+      }
+      priority: 1541
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 2.0
+      color: 2828327
+      dashdot {
+        dd: 5.0
+        dd: 2.0
+      }
+      priority: 1541
+    }
+  }
+}
+cont {
+  name: "highway-steps-bridge"
+  element {
+    scale: 18
+    lines {
+      width: 1.5
+      color: 2828327
+      dashdot {
+        dd: 5.0
+        dd: 2.0
+      }
+      priority: 1541
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 2.0
+      color: 2828327
+      dashdot {
+        dd: 5.0
+        dd: 2.0
+      }
+      priority: 1541
+    }
+  }
+}
+cont {
+  name: "highway-steps-tunnel"
+  element {
+    scale: 18
+    lines {
+      width: 1.5
+      color: 2828327
+      dashdot {
+        dd: 5.0
+        dd: 2.0
+      }
+      priority: 1541
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 2.0
+      color: 2828327
+      dashdot {
+        dd: 5.0
+        dd: 2.0
+      }
+      priority: 1541
+    }
+  }
+}
+cont {
   name: "highway-tertiary"
   element {
     scale: 11
