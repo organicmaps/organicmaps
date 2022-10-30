@@ -1978,7 +1978,8 @@ void Framework::ActivateMapSelection()
                                 bi.m_needAnimationOnSelection, bi.m_isGeometrySelectionAllowed, true);
   }
 
-  ASSERT(m_onPlacePageOpen, ());
+  /// @todo Current android logic is strange (see SetPlacePageListeners comments), so skip assert.
+  //ASSERT(m_onPlacePageOpen, ());
   if (m_onPlacePageOpen)
     m_onPlacePageOpen();
 }
