@@ -642,7 +642,7 @@ cs:Recyklace|Využití odpadu|Recyklovatelné|Oddělený sběr odpadků|Třídě
 da:Genbrug|Affaldsudnyttelse|Genanvendelig|Separate dagrenovationer|Affaldssortering
 nl:Recycling|Afvalgebruik|Recyclebaar materiaal|Gescheiden afvalinzameling|Afval sorteren|Hergebruik
 fi:Jätteiden kierrätys|Jätteiden hyötykäyttö|Kierrätyskelpoinen jäte|Jätelajittelu|Jätteiden lajittelu|Hyötykäyttö
-fr:Traitement des déchets|Recyclage des déchets|Dépôt de matières recyclables|Tri de déchets|Tri des déchets|Réutilisation
+fr:4Recyclage|Traitement des déchets|Dépôt de matières recyclables|Tri de déchets|Tri des déchets|Réutilisation
 de:Recycling|Abfallverwertung|Recyclebares Material|Getrennte Müllsammlung|Müllsortierung|Wiederverwendung
 hu:Újrahasznosítás|Hulladékhasznosítás|Újrahasznosítható|Elkülönített hulladékgyűjtés|Hulladék válogatás|Újrafelhasználás
 id:Mendaur ulang|Pemanfaatan limbah|Dapat didaur ulang|Pemisahan pengumpulan sampah|Pemilahan limbah|Penggunaan kembali
@@ -884,10 +884,10 @@ ru:3Булочная|3пекарня
 bg:3Пекарна
 ar:مخبز|متجر
 cs:3Pekárna|Pekařství
-da:2Bager|bageri
+da:3Bager|bageri
 nl:3Bakkerij
 fi:3Leipomo
-fr:3Boulangerie
+fr:3Boulangerie|3Pâtisserie|pain
 de:3Bäckerei|Bäckerladen|Bäcker
 hu:3Pékség
 id:Toko roti|Roti
@@ -1026,7 +1026,38 @@ fa:بقالی
 
 shop-deli|@food
 en:4Delicatessen
+ar:أطعمة مبردة
+be:Дэлікатэсы
+bg:Деликатеси
+cs:Lahůdky
+da:Delikatessebutik
+de:Feinkostgeschäft
+el:Εκλεκτά τρόφιμα
+es:Delicatesen
+eu:Delitua
+fi:Herkkukauppa
+fr:4Épicerie fine
+he:מעדנייה
+hu:Csemege
+id:Toko makanan jadi
+it:Gastronomia
+ja:デリ
+ko:델리
+nb:Delikatessebutikk
+nl:Delicatessenwinkel
+pl:Delikatesy
+pt:Iguarias regionais
+pt-BR:Iguarias regionais
+ro:Deli
 ru:4Деликатесы
+sk:Delikatesy
+sv:Delikatessbutik
+th:อาหารพิเศษ
+tr:Şarküteri
+uk:Делікатеси
+vi:Món ăn ngon
+zh-Hans:熟食店
+zh-Hant:熟食店
 
 shop-farm|@food
 en:Farm food
@@ -1069,6 +1100,7 @@ fa:فروشگاه تجهیزات باغبانی
 
 shop-grocery|@food
 en:Grocery
+fr:Épicerie
 ru:Бакалея
 
 shop-health_food|@food
@@ -1229,13 +1261,13 @@ es:Tienda de cocina
 eu:Sukalde-denda
 fa:ﻪﻧﺎﺧﺰﭙﺷﺁ ﻩﺎﮕﺷﻭﺮﻓ
 fi:Keittiökauppa
-fr:Magasin de cuisine
+fr:Magasin de cuisine|cuisiniste
 he:םיחבטמ תונח
 hu:Konyhabolt
 id:Toko Dapur
 it:Negozio di cucina
 ja:キッチンストア
-ko:"주방용품점"
+ko:주방용품점
 nb:Kjøkkenbutikk
 nl:Keukenwinkel
 pl:Sklep kuchenny
@@ -1299,7 +1331,7 @@ cs:Knihkupectví
 da:Boghandel|boghandler|boglade
 nl:Boekenwinkel|boekwinkel
 fi:Kirjakauppa
-fr:4Librairie
+fr:4Librairie|livre|bouquiniste
 de:Büchergeschäft|4Buchhandlung|Buchladen
 hu:Könyvesbolt
 id:Toko buku
@@ -2004,6 +2036,7 @@ shop-caravan|@rv
 en:2RV dealership|4Caravan dealership|Motorhome dealership
 be:Продаж аўтадамоў
 es:Venta de caravanas|Venta de autocaravanas
+fr:Concessionnaire de caravanes et camping-cars
 ru:Продажа автодомов
 tr:Karavan galerisi
 uk:Продаж автобудинків
@@ -2020,7 +2053,7 @@ cs:Obchod s auty
 da:Bilforhandler
 nl:Autohandelaar
 fi:Autokauppa
-fr:Réparation auto|voitures|auto
+fr:Réparation auto|voitures|auto|concessionnaire
 de:4Autohaus
 hu:Autókereskedés|Autószalon|Kocsi
 id:Toko mobil
@@ -2056,7 +2089,7 @@ cs:3Cyklistický obchod|jízdní kolo|3kolo
 da:3Cykelforretning|cykelhandler|cykler
 nl:4Fietsenwinkel
 fi:3Polkupyöräliike
-fr:4Magasin de vélos|vélo|bicyclette
+fr:4Magasin de vélos|vélociste|bicyclette
 de:3Fahrradladen|Fahrrad|Velo
 hu:4Kerékpárüzlet|Kerékpár
 id:3Toko sepeda
@@ -4557,7 +4590,7 @@ cs:Recyklační středisko
 da:Genbrugsplads
 nl:Milieustraat|recycling centrum|milieupark|gemeentewerf
 fi:Kierrätyskeskus
-fr:Centre de recyclage
+fr:Centre de recyclage|Déchetterie|Déchèterie
 de:4Recyclinghof|Recyclingzentrum
 hu:Hulladékudvar|Újrahasznosító központ|hulladékgyűjtő központ
 id:TPA
@@ -10498,8 +10531,40 @@ mr:सीफूड शॉप
 
 shop-second_hand
 en:4Second Hand|Thrift shop|Flea market
-it:Negozio dell'usato|Mercatino delle pulci
+ar:ﺔﻠﻤﻌﺘﺴﻣ ﺕﺍﻭﺩﺍ ﺮﺠﺘﻣ
+be:Сэканд-хэнд
+bg:Магазин втора употреба
+cs:Obchod z druhé ruky
+da:Genbrugsbutik
+de:Second-Hand-Laden
+el:Κατάστημα μεταχειρισμένων
+es:Tienda de segunda mano
+eu:Bigarren eskuko denda
+fa:ﻡﻭﺩ ﺖﺳﺩ ﻩﺎﮕﺷﻭﺮﻓ
+fi:Second Hand Store
+fr:Boutique d'objets d'occasion
+he:היינש די תונח
+hu:Second Hand Store
+id:Toko Barang bekas
+it:Negozio di articoli usati|Negozio dell'usato|Mercatino delle pulci
+ja:古物商
+ko:중고 판매점
+nb:Bruktbutikk
+nl:Tweedehandswinkel
+pl:Sklep z używaną ręką
+pt:Loja de segunda mão
+pt-BR:Loja de segunda mão
+ro:Magazin second-hand
 ru:4Подержанные товары
+sk:Obchod z druhej ruky
+sv:Andrahandsaffär
+sw:Duka la Mitumba
+th:ร้านขายของมือสอง
+tr:İkinci El Mağazası
+uk:Секонд-хенд
+vi:Cửa hàng bán đồ đã qua sử dụng
+zh-Hans:二手店
+zh-Hant:二手店
 
 shop-charity
 en:4Charity Shop
@@ -12222,7 +12287,7 @@ el:4Τατουάζ|δερματοστιξία
 es:4Tatuajes
 eu:4Tatuajeak
 fi:4Tatuointiliike
-fr:Salon de tatouage
+fr:Salon de tatouage|tatoueur
 hu:4Tetováló szalon
 id:Tempat Tato
 it:Studio tatuaggi
@@ -12688,3 +12753,830 @@ uk:Місце проведення подій
 vi:Địa điểm tổ chức sự kiện
 zh-Hans:活动场所
 zh-Hant:活動場所
+
+shop-chocolate|@food
+en:Chocolate Shop
+be:Шакалад
+de:Schokoladengeschäft
+es:Tienda de chocolate
+fr:Chocolatier
+it:Choccolateria
+ja:チョコレート屋
+nl:Chocolaterie
+pl:Sklep z czekoladą
+pt:Loja de chocolates
+pt-BR:Loja de chocolates
+ru:Шоколад
+
+shop-coffee|@food
+en:Cofee store
+be:Кава
+de:Kaffeegeschäft
+fr:Boutique de cafés
+it:Negozio di caffè
+ja:コーヒー屋
+nl:Koffiewinkel
+pl:Sklep z kawą
+pt:Loja de café
+pt-BR:Loja de café
+ru:Кофе
+
+shop-fabric
+en:Fabric shop
+de:Textilgeschäft
+fr:Magasin de tissus
+it:Merceria
+nl:Stoffenwinkel
+pt:Loja de tecidos
+pt-BR:Loja de aviamentos
+
+shop-money_lender
+en:Money lender
+be:Ліхвяр
+de:Geldverleiher
+pl:ożyczkodawca
+pt:Prestamista
+pt-BR:Prestamista
+ru:Ростовщик
+
+shop-music
+en:Record store|vinyl
+be:Музыка
+de:Musikgeschäft
+es:Disquería|Tienda de discos
+fr:Disquaire|vinyle|CD
+it:Negozio di Dischi
+ja:CDショップ
+nl:Muziekwinkel
+pl:Sklep muzyczny
+pt:Loja de música
+pt-BR:Loja de música
+ru:Музыка
+
+shop-musical_instrument
+en:Musical instruments
+be:Музычныя інструменты
+de:4Musikinstrumenteladen|Musikhaus
+fr:Magasin d'instruments de musique
+it:Negozio di strumenti
+ja:楽器店
+nl:Muziekinstrumentenwinkel
+pl:Sklep z instrumentami muzycznymi
+pt:Loja de instrumentos musicais
+pt-BR:Loja de instrumentos musicais
+ru:Музыкальные инструменты
+
+shop-tea
+en:Tea store
+be:Гарбата
+es:Tienda de té
+de:Teegeschäft
+fr:Boutique de thés
+it:Negozio di tè
+ja:茶販売店
+nl:Theewinkel
+pl:Sklep z herbatą
+pt:Loja de chás
+pt-BR:Loja de chás
+ru:Чай
+zh-Hans:茶叶商店
+
+shop-antiques
+en:Antiques
+ar:ﻒﺤﺘﻟﺍ
+be:Антыкварыят
+bg:Антики
+cs:Starožitnosti
+da:Antikviteter
+de:Antiquitäten
+el:Αντίκες
+es:Antigüedades
+eu:Antigoalekoak
+fa:ﺕﺎﺟ ﻪﻘﯿﺘﻋ
+fi:Antiikkia
+fr:Antiquités
+he:תוֹקיתִעַ
+hu:Régiségek
+id:Barang antik
+it:Oggetti d'antiquariato
+ja:骨董品
+ko:고물
+nb:Antikviteter
+nl:Antiekhandel
+pl:Antyki
+pt:Antiguidades
+pt-BR:Antiguidades
+ro:Antichități
+ru:Антиквариат
+sk:Starožitnosti
+sv:Antikviteter
+sw:Mambo ya kale
+th:ของเก่า
+tr:Antikalar
+uk:Антикваріат
+vi:Đồ cổ
+zh-Hans:古董
+zh-Hant:古董
+
+shop-art
+en:Arts Shop
+ar:ﻥﻮﻨﻔﻟﺍ ﺮﺠﺘﻣ
+be:Крама мастацтваў
+bg:Магазин за изкуства
+cs:Obchod s uměním
+da:Kunstbutik
+de:Kunstgeschäft
+el:Κατάστημα Τεχνών
+es:Tienda de artes
+eu:Arte Denda
+fa:ﺮﻨﻫ ﻩﺎﮕﺷﻭﺮﻓ
+fi:Taidekauppa
+fr:Boutique d'art
+he:תויונמוא תונח
+hu:Művészeti Bolt
+id:Toko Seni
+it:Negozio d'arte
+ja:アートショップ
+ko:아트샵
+nb:Kunstbutikk
+nl:Kunstwinkel
+pl:Sklep artystyczny
+pt:Loja de artes
+pt-BR:Loja de artes
+ro:Magazin de arte
+ru:Художественный магазин
+sk:Obchod s umením
+sv:Konstaffär
+sw:Duka la Sanaa
+th:ร้านศิลปะ
+tr:Sanat Mağazası
+uk:Магазин мистецтв
+vi:Cửa hàng nghệ thuật
+zh-Hans:艺术商店
+zh-Hant:藝術商店
+
+shop-baby_goods
+en:Baby Goods
+ar:ﻝﺎﻔﻃﻸﻟ ﺮﺠﺘﻣ
+be:Дзіцячая крама
+bg:Детски магазин
+cs:Dětský obchod
+da:Børnebutik
+de:Kinderladen|4Babybedarf
+el:Παιδικό κατάστημα
+es:Tienda de niños
+eu:Haurrentzako denda
+fa:ﻥﺎﮐﺩﻮﮐ ﻩﺎﮕﺷﻭﺮﻓ
+fi:Lasten kauppa
+fr:Magasin de puériculture|bébé
+he:םידליל תונח
+hu:Gyermekbolt
+id:Toko anak-anak
+it:Negozio per neonati
+ja:キッズストア
+ko:어린이 가게
+nb:Barnebutikk
+nl:Babyspullenwinkel
+pl:Sklep dla dzieci
+pt:Loja infantil
+pt-BR:Loja infantil
+ro:Magazin pentru copii
+ru:Детский магазин
+sk:Obchod pre deti
+sv:Barnbutik
+sw:Duka la watoto
+th:ร้านขายของสำหรับเด็ก
+tr:Çocuk mağazası
+uk:Дитячий магазин
+vi:Cửa hàng trẻ em
+zh-Hans:儿童商店
+zh-Hant:兒童商店
+
+shop-bag
+en:Bags Store
+ar:ﺐﺋﺎﻘﺤﻟﺍ ﺮﺠﺘﻣ
+be:Крама сумак
+bg:Магазин за чанти
+cs:Obchod s taškami
+da:Tasker butik
+de:Taschen Shop
+el:Κατάστημα τσαντών
+es:Tienda de bolsos
+eu:Poltsen Denda
+fa:ﻒﯿﮐ ﻩﺎﮕﺷﻭﺮﻓ
+fi:Laukkukauppa
+fr:Magasin de sacs
+he:םיקית תונח
+hu:Táskák bolt
+id:Toko Tas
+it:Negozio di borse
+ja:バッグストア
+ko:가방 판매점
+nb:Veskerbutikk
+nl:Tassenwinkel
+pl:Sklep z torbami
+pt:Loja de bolsas
+pt-BR:Loja de bolsas
+ro:Magazin de genti
+ru:Магазин сумок
+sk:Obchod s taškami
+sv:Väskor butik
+sw:Hifadhi ya Mifuko
+th:ร้านกระเป๋า
+tr:Çanta Mağazası
+uk:Магазин сумок
+vi:Cửa hàng túi xách
+zh-Hans:箱包店
+zh-Hant:箱包店
+
+shop-cheese|@food
+en:Cheese Store
+ar:ﻦﺒﺠﻟﺍ ﺮﺠﺘﻣ
+be:Сырны магазін
+bg:Магазин за сирене
+cs:Prodejna sýrů
+da:Ostebutik
+de:3Käseladen
+el:Τυροκομείο
+es:Tienda de queso
+eu:Gazta Denda
+fa:ﺮﯿﻨﭘ ﻩﺎﮕﺷﻭﺮﻓ
+fi:Juustokauppa
+fr:Fromagerie
+he:תוניבג תונח
+hu:Sajtbolt
+id:Toko Keju
+it:Negozio di formaggi
+ja:チーズ店
+ko:치즈 가게
+nb:Ostebutikk
+nl:Kaaswinkel
+pl:Sklep z serami
+pt:Loja de queijos
+pt-BR:Loja de queijos
+ro:Magazin de branzeturi
+ru:Магазин сыра
+sk:Predajňa syrov
+sv:Ostaffär
+sw:Duka la Jibini
+th:ร้านชีส
+tr:Peynir Dükkanı
+uk:Магазин сиру
+vi:Cửa hàng pho mát
+zh-Hans:奶酪店
+zh-Hant:奶酪店c
+
+shop-dairy|@food
+en:Dairy Products
+ar:ﻥﺎﺒﻟﻷﺍ ﺕﺎﺠﺘﻨﻣ
+be:Малочныя прадукты
+bg:Млечни продукти
+cs:Mléčné výrobky
+da:Mejeriprodukter
+de:Milchprodukte
+el:Γαλακτοκομικά προϊόντα
+es:Productos lácteos
+eu:Esnekiak
+fa:ﯽﻨﺒﻟ ﺕﻻﻮﺼﺤﻣ
+fi:Maitotuotteet
+fr:Crémerie|Produits laitiers
+he:בלח ירצומ
+hu:Tejtermékek
+id:Produk susu
+it:Latticini
+ja:乳製品
+ko:유제품
+nb:Meieriprodukter
+nl:Zuivelproducten
+pl:Nabiał
+pt:Lacticínios
+pt-BR:Lacticínios
+ro:Lactate
+ru:Молочные продукты
+sk:Mliečne výrobky
+sv:Mejeriprodukter
+sw:Bidhaa za Maziwa
+th:ผลิตภัณฑ์นม
+tr:Süt Ürünleri
+uk:Молочні продукти
+vi:Sản phẩm từ sữa
+zh-Hans:乳制品
+zh-Hant:乳製品
+
+shop-electrical
+en:Electrical Store
+ar:ﺔﻴﺋﺎﺑﺮﻬﻜﻟﺍ ﺕﺍﻭﺩﻷﺍ ﺮﺠﺘﻣ
+be:Крама электратэхнікі
+bg:Електрически магазин
+cs:Elektro obchod
+da:El-butik
+de:Elektrogeschäft
+el:Μαγαζί ηλεκτρικών ειδών
+es:Tienda de electricidad
+eu:Elektrizitate Denda
+fa:ﯽﮑﯾﺮﺘﮑﻟﺍ ﻡﺯﺍﻮﻟ ﻩﺯﺎﻐﻣ
+fi:Sähköliike
+fr:Magasin de fournitures et d'appareils électriques
+he:למשח תונח
+hu:Elektronikai üzlet
+id:Toko elektronik
+it:Negozio di articoli elettrici
+ja:電気店
+ko:전기용품점
+nb:Elektronisk butikk
+nl:Witgoed winkel
+pl:Sklep elektryczny
+pt:Loja de materiais elétricos
+pt-BR:Loja de materiais elétricos
+ro:Magazin de electronice
+ru:Магазин электротоваров
+sk:Predajňa elektro
+sv:Elektronik affär
+sw:Duka la Umeme
+th:ร้านขายเครื่องใช้ไฟฟ้า
+tr:Elektirikli eşya dükkanı
+uk:Магазин електротехніки
+vi:Cửa hàng điện tử
+zh-Hans:电器商城
+zh-Hant:電器商城
+
+shop-fishing
+en:Fishing Store
+ar:ﺪﻴﺻ ﺮﺠﺘﻣ
+be:Рыбалоўны магазін
+bg:Риболовен магазин
+cs:Rybářský obchod
+da:Fiskeri butik
+de:Angelgeschäft
+el:Κατάστημα ψαρέματος
+es:Tienda de pesca
+eu:Arrantza Denda
+fa:ﯼﺮﯿﮕﯿﻫﺎﻣ ﻩﺎﮕﺷﻭﺮﻓ
+fi:Kalastuskauppa
+fr:Magasin de pêche
+he:גייד תונח
+hu:Horgászbolt
+id:Toko Memancing
+it:Negozio di pesca
+ja:フィッシングストア
+ko:낚시점
+nb:Fiskebutikk
+nl:Viswinkel
+pl:Sklep wędkarski
+pt:Loja de pesca
+pt-BR:Loja de pesca
+ro:Magazin de pescuit
+ru:Рыболовный магазин
+sk:Rybársky obchod
+sv:Fiskeaffär
+sw:Duka la Uvuvi
+th:ร้านตกปลา
+tr:Balıkçı Dükkanı
+uk:Рибальський магазин
+vi:Cửa hàng câu cá
+zh-Hans:钓鱼店
+zh-Hant:釣魚店
+
+shop-interior_decoration
+en:Interior Decorations
+ar:ﺔﻴﻠﺧﺍﺩ ﺕﺍﺭﻮﻜﻳﺩ
+be:Ўпрыгажэнні інтэр'еру
+bg:Вътрешни декорации
+cs:Interiérové dekorace
+da:Indvendige dekorationer
+de:Innendekorationen
+el:Διακοσμήσεις εσωτερικών χώρων
+es:Decoraciones interiores
+eu:Barruko Apaingarriak
+fa:ﯽﻠﺧﺍﺩ ﻥﻮﯿﺳﺍﺭﻮﮐﺩ
+fi:Sisustuskoristeet
+fr:Décorations intérieures
+he:םינפ יטושיק
+hu:Belső dekorációk
+id:Dekorasi Interior
+it:Decorazioni per interni
+ja:室内装飾
+ko:실내 장식
+nb:Interiørdekorasjoner
+nl:Interieurdecoraties
+pl:Dekoracje wnętrz
+pt:Decorações de Interiores
+pt-BR:Decorações de Interiores
+ro:Decoratiuni interioare
+ru:Украшения для интерьера
+sk:Interiérové dekorácie
+sv:Inredningsdekorationer
+sw:Mapambo ya Ndani
+th:ตกแต่งภายใน
+tr:İç Dekorasyon
+uk:Внутрішнє оздоблення
+vi:Đồ trang trí nội thất
+zh-Hans:室内装饰
+zh-Hant:室內裝飾
+
+shop-lottery
+en:Lottery Tickets
+ar:ﺐﻴﺼﻧﺎﻴﻟﺍ ﺮﻛﺍﺬﺗ
+be:Латарэйныя білеты
+bg:Лотарийни билети
+cs:Loterijní lístky
+da:Lotterikuponer
+de:Lotteriescheine
+el:Λαχεία
+es:Boletos de lotería
+eu:Loteria Sarrerak
+fa:ﯽﯾﺎﻣﺯﺁ ﺖﺨﺑ ﻂﯿﻠﺑ
+fi:Lottoliput
+fr:Tickets de loterie
+he:הלרגה יסיטרכ
+hu:Sorsjegyek
+id:Tiket Lotere
+it:Biglietti della lotteria
+ja:宝くじ
+ko:복권
+nb:Lotteribilletter
+nl:Loten
+pl:Bilety na loterię
+pt:Bilhete de loteria
+pt-BR:Bilhete de loteria
+ro:Bilete la loterie
+ru:Лотерейные билеты
+sk:Lístky do lotérie
+sv:Lotter
+sw:Tikiti za Bahati nasibu
+th:สลากกินแบ่ง
+tr:Piyango bileti
+uk:Лотерейні квитки
+vi:Vé xổ số kiến thiết
+zh-Hans:彩票
+zh-Hant:彩票
+
+shop-medical_supply
+en:Medical Supplies
+ar:ﺔﻴﺒﻄﻟﺍ ﺕﺍﺩﺍﺪﻣﻹﺍ
+be:Медыцынскія прыналежнасці
+bg:Медицински изделия
+cs:Zdravotní zásoby
+da:Medicinske forsyninger
+de:Medizinische Versorgung
+el:Ιατρικά Είδη
+es:Suministros médicos
+eu:Medikuntza-hornidura
+fa:ﯽﮑﺷﺰﭘ ﻡﺯﺍﻮﻟ
+fi:Lääketieteellisiä tarvikkeita
+fr:Materiel médical
+he:יאופר דויצ
+hu:Orvosi eszközök
+id:Suplai medis
+it:Forniture mediche
+ja:医療用品
+ko:의료용품
+nb:Medisinsk utstyr
+nl:Medische benodigdheden
+pl:Produkty medyczne
+pt:Suprimentos médicos
+pt-BR:Suprimentos médicos
+ro:Consumabile medicale
+ru:Медикаменты
+sk:Zdravotnícky materiál
+sv:Medicinska förnödenheter
+sw:Vifaa vya Matibabu
+th:เวชภัณฑ์
+tr:Tıbbi malzemeler
+uk:Медичні товари
+vi:Vật tư y tế
+zh-Hans:医疗用品
+zh-Hant:醫療用品
+
+shop-nutrition_supplements
+en:Nutrition Supplements
+ar:ﺔﻴﺋﺍﺬﻏ ﺕﻼﻤﻜﻣ
+be:Харчовыя дабаўкі
+bg:Хранителни добавки
+cs:Doplňky výživy
+da:Kosttilskud
+de:Nahrungsergänzungsmittel
+el:Συμπληρώματα Διατροφής
+es:Suplementos Nutricionales
+eu:Nutrizio osagarriak
+fa:ﯽﯾﺍﺬﻏ ﯼﺎﻫ ﻞﻤﮑﻣ
+fi:Ravintolisät
+fr:Suppléments nutritionnels
+he:הנוזת יפסות
+hu:Táplálékkiegészítők
+id:Suplemen Nutrisi
+it:Integratori Alimentari
+ja:栄養補助食品
+ko:영양 보조제
+nb:Kosttilskudd
+nl:Voedingssupplementen
+pl:Suplementy diety
+pt:Suplementos nutricionais
+pt-BR:Suplementos nutricionais
+ro:Suplimente nutritive
+ru:Пищевые добавки
+sk:Výživové doplnky
+sv:Kosttillskott
+sw:Virutubisho vya Lishe
+th:อาหารเสริม
+tr:Besin Takviyeleri
+uk:Харчові добавки
+vi:Bổ sung dinh dưỡng
+zh-Hans:营养补充剂
+zh-Hant:營養補充劑
+
+shop-paint
+en:Paints
+ar:ﺕﺎﻧﺎﻫﺪﻟﺍ
+be:Фарбы
+bg:Бои
+cs:Barvy
+da:Maling
+de:Farben
+el:Βαφές
+es:Pinturas
+eu:Margoak
+fa:ﺪﻨﮐ ﯽﻣ ﮓﻧﺭ
+fi:Maalit
+fr:Magasin de peinture
+he:םיעבצ
+hu:Festékek
+id:Cat
+it:Vernici
+ja:塗料
+ko:그림 물감
+nb:Maling
+nl:Verfwinkel
+pl:Malatura
+pt:Tintas
+pt-BR:Tintas
+ro:Vopsele
+ru:Краски
+sk:Farby
+sv:Färger
+sw:Rangi
+th:สี
+tr:Boyalar
+uk:Фарби
+vi:Sơn
+zh-Hans:油漆
+zh-Hant:油漆
+
+shop-perfumery
+en:Perfumery
+ar:ﺭﻮﻄﻌﻟﺍ
+be:Парфумерыя
+bg:Парфюмерия
+cs:Parfumerie
+da:Parfumeri
+de:Parfümerie
+el:Αρωματοποιία
+es:Perfumería
+eu:Lurringintza
+fa:ﯼﺯﺎﺳﺮﻄﻋ
+fi:Hajuvedet
+fr:Parfumerie
+he:תמַשְׂבָּ
+hu:Illatszerek
+id:Wewangian
+it:Profumeria
+ja:香水
+ko:향료 제조업
+nb:Parfymeri
+nl:Parfumerie
+pl:Perfumeria
+pt:Perfumaria
+pt-BR:Perfumaria
+ro:Parfumerie
+ru:Парфюмерия
+sk:Parfuméria
+sv:Parfymer
+sw:Perfumery
+th:น้ำหอม
+tr:Parfümeri
+uk:Парфумерія
+vi:Nước hoa
+zh-Hans:香水
+zh-Hant:香水
+
+shop-sewing
+en:Sewing Supplies
+ar:ﺔﻃﺎﻴﺨﻟﺍ ﺕﺍﺪﻌﻣ
+be:Швейныя прыналежнасці
+bg:Шивашки консумативи
+cs:Šicí potřeby
+da:Syudstyr
+de:Nähzubehör
+el:Είδη Ραπτικής
+es:Materiales de costura
+eu:Josteko hornigaiak
+fa:ﯽﻃﺎﯿﺧ ﻡﺯﺍﻮﻟ
+fi:Ompelutarvikkeet
+fr:Mercerie|Couture
+he:הריפת דויצ
+hu:Varrás kellékek
+id:Perlengkapan Jahit
+it:Forniture per il cucito
+ja:ミシン用品
+ko:재봉용품
+nb:Syutstyr
+nl:Naaibenodigdheden
+pl:Przybory do szycia
+pt:Materiais de costura
+pt-BR:Materiais de costura
+ro:Rechizite de cusut
+ru:Швейные принадлежности
+sk:Šijacie potreby
+sv:Sytillbehör
+sw:Vifaa vya kushona
+th:อุปกรณ์เย็บผ้า
+tr:Dikiş malzemeleri
+uk:Швейні приладдя
+vi:Nguồn cung cấp may
+zh-Hans:缝纫用品
+zh-Hant:縫紉用品
+
+shop-storage_rental
+en:Storage Rental
+ar:ﻦﻳﺰﺨﺘﻟﺍ ﺕﺍﺪﺣﻭ ﺮﻴﺟﺄﺗ
+be:Арэнда сховішчаў
+bg:Склад под наем
+cs:Pronájem skladu
+da:Lagerudlejning
+de:Speichermiete
+el:Ενοικίαση αποθηκευτικού χώρου
+es:Alquiler de almacenamiento
+eu:Biltegiratzeko alokairua
+fa:ﺭﺎﺒﻧﺍ ﻩﺭﺎﺟﺍ
+fi:Varastoinnin vuokraus
+fr:Location de stockage
+he:ןוסחא תרכשה
+hu:Tárhely bérlés
+id:Sewa Penyimpanan
+it:Noleggio deposito
+ja:ストレージレンタル
+ko:스토리지 렌탈
+nb:Utleie av lager
+nl:Opslag verhuur
+pl:Wynajem magazynu
+pt:Aluguel de Armazenamento
+pt-BR:Aluguel de Armazenamento
+ro:Închiriere depozitare
+ru:Аренда склада
+sk:Prenájom skladu
+sv:Uthyrning av förråd
+sw:Kukodisha Hifadhi
+th:ค่าเช่าห้องเก็บของ
+tr:Depolama Kiralama
+uk:Оренда сховища
+vi:Cho thuê kho lưu trữ
+zh-Hans:存储租赁
+zh-Hant:存儲租賃
+
+shop-tobacco
+en:Tobacco
+ar:ﻎﺒﺗ
+be:Тытунь
+bg:Тютюн
+cs:Tabák
+da:Tobak
+de:Tabak
+el:Καπνός
+es:Tabaco
+eu:Tabakoa
+fa:ﻮﮐﺎﺒﻨﺗ
+fi:Tupakka
+fr:Bureau de tabac
+he:קבָּטַ
+hu:Dohány
+id:Tembakau
+it:Tabaccheria
+ja:タバコ
+ko:담배
+nb:Tobakk
+nl:Tabakszaak
+pl:Tytoń
+pt:Tabaco
+pt-BR:Tabaco
+ro:Tutun
+ru:Табак
+sk:Tabak
+sv:Tobak
+sw:Tumbaku
+th:ยาสูบ
+tr:Tütün
+uk:Тютюн
+vi:Thuốc lá
+zh-Hans:烟草
+zh-Hant:煙草
+
+shop-trade
+en:Trades Supplies
+ar:ﺔﻳﺭﺎﺠﺘﻟﺍ ﺕﺍﺪﻳﺭﻮﺘﻟﺍ
+be:Гандлёвая прыналежнасць
+bg:Търговия с консумативи
+cs:Obchod se zásobami
+da:Handler forsyninger
+de:Handelsbedarf
+el:Εμπόριο Προμήθειες
+es:Suministros comerciales
+eu:Lanbideen hornidurak
+fa:ﻡﺯﺍﻮﻟ ﺕﺭﺎﺠﺗ
+fi:Kauppa tarvikkeita
+fr:Grossiste
+he:הקפסאב רחוס
+hu:Kellékekkel kereskedik
+id:Perlengkapan Perdagangan
+it:Forniture commerciali
+ja:貿易用品
+ko:거래 용품
+nb:Handler rekvisita
+nl:Handelsbenodigdheden
+pl:Zaopatrzenie handlowe
+pt:Comércio de suprimentos
+pt-BR:Comércio de suprimentos
+ro:Comerțuri Rechizite
+ru:Торговые поставки
+sk:Živnostenské potreby
+sv:Handlar förnödenheter
+sw:Ugavi wa Biashara
+th:อุปกรณ์การค้า
+tr:Esnaf Malzemeleri
+uk:Торгівля припасами
+vi:Nguồn cung cấp Giao dịch
+zh-Hans:贸易用品
+zh-Hant:貿易用品
+
+shop-watches
+en:Watches
+ar:ﺕﺎﻋﺎﺳ
+be:Гадзіннік
+bg:Часовници
+cs:Hodinky
+da:Ure
+de:Uhren
+el:Ρολόγια
+es:Relojes
+eu:Erlojuak
+fa:ﺖﻋﺎﺳ
+fi:Kellot
+fr:Montres
+he:םינועש
+hu:Órák
+id:Jam tangan
+it:Orologeria
+ja:時計
+ko:시계
+nb:Klokker
+nl:Horlogezaak
+pl:Zegarki
+pt:Relógios
+pt-BR:Relógios
+ro:Priveste
+ru:Часы
+sk:Hodinky
+sv:Klockor
+sw:Saa
+th:นาฬิกา
+tr:Saatler
+uk:Годинники
+vi:Xem
+zh-Hans:手表
+zh-Hant:手錶
+
+shop-wholesale
+en:Wholesale Store
+ar:ﺔﻠﻤﺠﻟﺎﺑ ﺔﻴﺋﺍﺬﻐﻟﺍ ﺩﺍﻮﻤﻟﺍ ﺓﺭﺎﺠﺗ
+be:Аптовая крама
+bg:Магазин на едро
+cs:Velkoobchodní prodejna
+da:Engros butik
+de:Großhandelsgeschäft
+el:Κατάστημα χονδρικής
+es:Almacén al por mayor
+eu:Handizkako denda
+fa:ﯽﺷﻭﺮﻓ ﻩﺪﻤﻋ ﻩﺎﮕﺷﻭﺮﻓ
+fi:Tukkukauppa
+fr:Magasin de gros
+he:תיאנוטיס תונח
+hu:Nagykereskedelmi üzlet
+id:Toko Grosir
+it:Negozio all'ingrosso
+ja:問屋
+ko:도매점
+nb:Engrosbutikk
+nl:Groothandel
+pl:Hurtownia
+pt:Loja de atacado
+pt-BR:Loja de atacado
+ro:Magazin cu ridicata
+ru:Оптовый магазин
+sk:Veľkoobchod
+sv:Grossistbutik
+sw:Duka la Jumla
+th:ร้านขายส่ง
+tr:Toptan satış mağazası
+uk:Оптовий магазин
+vi:Cửa hàng bán buôn
+zh-Hans:批发店
+zh-Hant:批髮店
