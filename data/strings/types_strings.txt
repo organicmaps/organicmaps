@@ -6625,6 +6625,8 @@
   [type.cuisine.deli]
     en = Deli
     ar = أطعمة مبردة
+    be = Дэлікатэсы
+    bg = Деликатеси
     cs = Lahůdky
     da = Deli
     de = Delikatessen
@@ -18512,8 +18514,9 @@
     zh-Hant = 藥妝店
 
   [type.shop.chocolate]
-    en = Shop
+    en = Chocolate Shop
     ar = متجر
+    be = Крама шакалада
     cs = Obchod
     da = Butik
     de = Schokoladengeschäft
@@ -18535,7 +18538,7 @@
     pt = Loja de chocolates
     pt-BR = Loja de chocolates
     ro = Magazin
-    ru = Магазин
+    ru = Магазин шоколада
     sk = Obchod
     sv = Butik
     th = ร้านค้า
@@ -18580,8 +18583,9 @@
     zh-Hant = 買衣服
 
   [type.shop.coffee]
-    en = Shop
+    en = Coffee Store
     ar = متجر
+    be = Крама кавы
     cs = Obchod
     da = Butik
     de = Kaffeegeschäft
@@ -18603,7 +18607,7 @@
     pt = Loja de café
     pt-BR = Loja de café
     ro = Magazin
-    ru = Магазин
+    ru = Магазин кофе
     sk = Obchod
     sv = Butik
     th = ร้านค้า
@@ -18990,7 +18994,7 @@
     zh-Hant = 情趣用品店
 
   [type.shop.fabric]
-    en = Shop
+    en = Fabric Shop
     ar = متجر
     cs = Obchod
     da = Butik
@@ -19671,8 +19675,9 @@
     zh-Hant = 手機專賣店
 
   [type.shop.money_lender]
-    en = Shop
+    en = Money Lender
     ar = متجر
+    be = Ліхвяр
     cs = Obchod
     da = Butik
     de = Geldverleiher
@@ -19694,7 +19699,7 @@
     pt = Prestamista
     pt-BR = Prestamista
     ro = Magazin
-    ru = Магазин
+    ru = Ростовщик
     sk = Obchod
     sv = Butik
     th = ร้านค้า
@@ -19739,13 +19744,14 @@
     zh-Hant = 機車行
 
   [type.shop.music]
-    en = Shop
+    en = Record Store
     ar = متجر
+    be = Музычная крама
     cs = Obchod
     da = Butik
     de = Musikgeschäft
     el = Κατάστημα
-    es = Tienda
+    es = Disquería
     eu = Denda
     fa = فروشگاه
     fi = Kauppa
@@ -19762,7 +19768,7 @@
     pt = Loja de música
     pt-BR = Loja de música
     ro = Magazin
-    ru = Магазин
+    ru = Музыкальный магазин
     sk = Obchod
     sv = Butik
     th = ร้านค้า
@@ -19773,8 +19779,9 @@
     zh-Hant = 購物
 
   [type.shop.musical_instrument]
-    en = Shop
+    en = Musical Instruments
     ar = متجر
+    be = Музычныя інструменты
     cs = Obchod
     da = Butik
     de = Musikinstrumenteladen
@@ -19796,7 +19803,7 @@
     pt = Loja de instrumentos musicais
     pt-BR = Loja de instrumentos musicais
     ro = Magazin
-    ru = Магазин
+    ru = Музыкальные инструменты
     sk = Obchod
     sv = Butik
     th = ร้านค้า
@@ -20284,8 +20291,9 @@
     zh-Hant = 刺青店
 
   [type.shop.tea]
-    en = Shop
+    en = Tea Store
     ar = متجر
+    be = Крама гарбаты
     cs = Obchod
     da = Butik
     de = Teegeschäft
@@ -20307,7 +20315,7 @@
     pt = Loja de chás
     pt-BR = Loja de chás
     ro = Magazin
-    ru = Магазин
+    ru = Чайный магазин
     sk = Obchod
     sv = Butik
     th = ร้านค้า
@@ -20674,13 +20682,13 @@
     bg = Детски магазин
     cs = Dětský obchod
     da = Børnebutik
-    de = Kinderladen
+    de = Babybedarf
     el = Παιδικό κατάστημα
     es = Tienda de niños
     eu = Haurrentzako denda
     fa = ﻥﺎﮐﺩﻮﮐ ﻩﺎﮕﺷﻭﺮﻓ
     fi = Lasten kauppa
-    fr = Magasin pour enfants
+    fr = Magasin de puériculture
     he = םידליל תונח
     hu = Gyermekbolt
     id = Toko anak-anak
@@ -20902,7 +20910,7 @@
     eu = Esnekiak
     fa = ﯽﻨﺒﻟ ﺕﻻﻮﺼﺤﻣ
     fi = Maitotuotteet
-    fr = Les produits laitiers
+    fr = Crémerie
     he = בלח ירצומ
     hu = Tejtermékek
     id = Produk susu
@@ -20939,7 +20947,7 @@
     eu = Elektrizitate Denda
     fa = ﯽﮑﯾﺮﺘﮑﻟﺍ ﻡﺯﺍﻮﻟ ﻩﺯﺎﻐﻣ
     fi = Sähköliike
-    fr = Store électrique
+    fr = Magasin de fournitures et d'appareils électriques
     he = למשח תונח
     hu = Elektronikai üzlet
     id = Toko elektronik
@@ -21161,7 +21169,7 @@
     eu = Margoak
     fa = ﺪﻨﮐ ﯽﻣ ﮓﻧﺭ
     fi = Maalit
-    fr = Des peintures
+    fr = Magasin de peinture
     he = םיעבצ
     hu = Festékek
     id = Cat
@@ -21235,7 +21243,7 @@
     eu = Josteko hornigaiak
     fa = ﯽﻃﺎﯿﺧ ﻡﺯﺍﻮﻟ
     fi = Ompelutarvikkeet
-    fr = Matériel de couture
+    fr = Mercerie
     he = הריפת דויצ
     hu = Varrás kellékek
     id = Perlengkapan Jahit
@@ -21309,7 +21317,7 @@
     eu = Tabakoa
     fa = ﻮﮐﺎﺒﻨﺗ
     fi = Tupakka
-    fr = Le tabac
+    fr = Bureau de tabac
     he = קבָּטַ
     hu = Dohány
     id = Tembakau
@@ -21346,7 +21354,7 @@
     eu = Lanbideen hornidurak
     fa = ﻡﺯﺍﻮﻟ ﺕﺭﺎﺠﺗ
     fi = Kauppa tarvikkeita
-    fr = Fournitures de métiers
+    fr = Grossiste
     he = הקפסאב רחוס
     hu = Kellékekkel kereskedik
     id = Perlengkapan Perdagangan
