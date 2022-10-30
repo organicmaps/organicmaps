@@ -1,11 +1,14 @@
-• Novos dados OSM de 12/09
-• Melhoria na experiência e visibilidade do mapa
-• Melhoria na página de login e perfil do OSM
-• Busca mais rápida e precisa
-• Corrigido erro ao iniciar o app depois de uma edição
-• Lista de favoritos ordenada por última modificação
-• Novas traduções: nl, pt-BR, it, ca, tr, be
-• Adição de TTS para catalão
-• Suporte aos sítios arqueológicos e castelos, e às escolas de condução, música e idiomas
-• Melhoria em estilos e ícones
+• Novos dados OSM de 19/10
+• Melhoria na detecção de localização
+• Melhor tela cheia em toque no espaço vazio
+• Melhorias de desempenho e UI
+• Correção de erros
+• Mudar idioma do app em Android 13+
+• Crosshair API agora suporta argumentos "cll=lat,lon" para centralizar o mapa
+• Gráfico suave de elevação
+• TTS catalão
+• Melhoria na busca no mapa e em vilas
+• Suporte a ofício e artefatos históricos
+• Novos ícones de metrô para várias cidades
+• Novas traduções
 …mais: omaps.app/news

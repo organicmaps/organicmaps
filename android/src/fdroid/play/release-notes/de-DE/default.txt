@@ -1,10 +1,12 @@
-• Neue OSM-Kartendaten ab dem 12. September
-• Entfernte untere Symbolleiste für bessere UX und Sichtbarkeit der Karte
-• Verbesserte OSM-Anmeldeseite und OSM-Profil
-• Schnellere, bessere Suche
-• Absturz beim Starten nach der Bearbeitung behoben
-• Lesezeichenlisten sind nun nach der letzten Änderungszeit sortiert
-• Verbesserte Übersetzungen
-• Fahr-, Musik- und Sprachschulen, archäologische Stätten und Schlösser hinzugefügt
-• Andere Stile und Icons wurden verbessert
+• Neue OSM-Daten ab dem 29. Oktober
+• Verbesserte Standorterkennung
+• Bessere Vollbilddarstellung beim Tippen auf leeren Raum
+• Viele UI- und Leistungsverbesserungen
+• Behebung von Abstürzen
+• Ändern der App-Sprache unter Android 13+
+• Glatte Straßenhöhenkarte
+• Anzeige von "zu vermeidenden Straßen" für Fußgänger, Radfahrer und U-Bahnen
+• Katalanisch TTS
+• Verbesserte Suche auf der Karte und in den Dörfern
+• Neue Metrosymbole, Handwerks- und historische Typen
 …mehr: omaps.app/news
