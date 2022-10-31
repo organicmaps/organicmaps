@@ -679,6 +679,7 @@
 	<string name="type.craft.shoemaker">Обущар</string>
 	<string name="type.craft.winery">Винарна</string>
 	<string name="type.craft.tailor">Шивач</string>
+	<string name="type.cuisine.deli">Деликатеси</string>
 	<string name="type.healthcare.laboratory">Медицинска лаборатория</string>
 
 	<!-- SECTION: Types: Roads -->

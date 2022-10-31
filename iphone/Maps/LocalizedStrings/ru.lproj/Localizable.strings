@@ -3198,11 +3198,11 @@
 
 "type.shop.chemist" = "Бытовая химия";
 
-"type.shop.chocolate" = "Магазин";
+"type.shop.chocolate" = "Магазин шоколада";
 
 "type.shop.clothes" = "Магазин одежды";
 
-"type.shop.coffee" = "Магазин";
+"type.shop.coffee" = "Магазин кофе";
 
 "type.shop.computer" = "Компьютерный магазин";
 
@@ -3266,13 +3266,13 @@
 
 "type.shop.mobile_phone" = "Мобильные телефоны";
 
-"type.shop.money_lender" = "Магазин";
+"type.shop.money_lender" = "Ростовщик";
 
 "type.shop.motorcycle" = "Магазин мотоциклов";
 
-"type.shop.music" = "Магазин";
+"type.shop.music" = "Музыкальный магазин";
 
-"type.shop.musical_instrument" = "Магазин";
+"type.shop.musical_instrument" = "Музыкальные инструменты";
 
 "type.shop.newsagent" = "Газетный киоск";
 
@@ -3302,7 +3302,7 @@
 
 "type.shop.tattoo" = "Тату-салон";
 
-"type.shop.tea" = "Магазин";
+"type.shop.tea" = "Чайный магазин";
 
 "type.shop.ticket" = "Билетная касса";
 

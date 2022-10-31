@@ -1755,9 +1755,9 @@
 	<string name="type.shop.car_repair.tyres">Tyre Repair</string>
 	<string name="type.shop.caravan">RV Dealership</string>
 	<string name="type.shop.chemist">Chemist Shop</string>
-	<string name="type.shop.chocolate">Shop</string>
+	<string name="type.shop.chocolate">Chocolate Shop</string>
 	<string name="type.shop.clothes">Clothes Shop</string>
-	<string name="type.shop.coffee">Shop</string>
+	<string name="type.shop.coffee">Coffee Store</string>
 	<string name="type.shop.computer">Computer Store</string>
 	<string name="type.shop.confectionery">Sweets</string>
 	<string name="type.shop.convenience">Convenience Store</string>
@@ -1769,7 +1769,7 @@
 	<string name="type.shop.dry_cleaning">Dry Cleaning</string>
 	<string name="type.shop.electronics">Electronics</string>
 	<string name="type.shop.erotic">Erotic Shop</string>
-	<string name="type.shop.fabric">Shop</string>
+	<string name="type.shop.fabric">Fabric Shop</string>
 	<string name="type.shop.farm">Farm Food Shop</string>
 	<string name="type.shop.florist">Florist’s</string>
 	<string name="type.shop.funeral_directors">Funeral Directors</string>
@@ -1789,10 +1789,10 @@
 	<string name="type.shop.mall">Mall</string>
 	<string name="type.shop.massage">Massage Salon</string>
 	<string name="type.shop.mobile_phone">Cell Phones</string>
-	<string name="type.shop.money_lender">Shop</string>
+	<string name="type.shop.money_lender">Money Lender</string>
 	<string name="type.shop.motorcycle">Motorcycle Shop</string>
-	<string name="type.shop.music">Shop</string>
-	<string name="type.shop.musical_instrument">Shop</string>
+	<string name="type.shop.music">Record Store</string>
+	<string name="type.shop.musical_instrument">Musical Instruments</string>
 	<string name="type.shop.newsagent">Newspaper Stand</string>
 	<string name="type.shop.optician">Optician’s</string>
 	<string name="type.shop.outdoor">Outdoor Equipment</string>
@@ -1807,7 +1807,7 @@
 	<string name="type.shop.stationery">Stationery Shop</string>
 	<string name="type.shop.supermarket">Supermarket</string>
 	<string name="type.shop.tattoo">Tattoo Parlour</string>
-	<string name="type.shop.tea">Shop</string>
+	<string name="type.shop.tea">Tea Store</string>
 	<string name="type.shop.ticket">Ticket Shop</string>
 	<string name="type.shop.toys">Toy Store</string>
 	<string name="type.shop.travel_agency">Travel Agency</string>

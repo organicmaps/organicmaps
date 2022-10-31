@@ -1722,9 +1722,9 @@
 	<string name="type.shop.car_repair.tyres">Шиномонтаж</string>
 	<string name="type.shop.caravan">Продажа автодомов</string>
 	<string name="type.shop.chemist">Бытовая химия</string>
-	<string name="type.shop.chocolate">Магазин</string>
+	<string name="type.shop.chocolate">Магазин шоколада</string>
 	<string name="type.shop.clothes">Магазин одежды</string>
-	<string name="type.shop.coffee">Магазин</string>
+	<string name="type.shop.coffee">Магазин кофе</string>
 	<string name="type.shop.computer">Компьютерный магазин</string>
 	<string name="type.shop.confectionery">Кондитерская</string>
 	<string name="type.shop.convenience">Продуктовый магазин</string>
@@ -1756,10 +1756,10 @@
 	<string name="type.shop.mall">Торговый центр</string>
 	<string name="type.shop.massage">Массажный салон</string>
 	<string name="type.shop.mobile_phone">Мобильные телефоны</string>
-	<string name="type.shop.money_lender">Магазин</string>
+	<string name="type.shop.money_lender">Ростовщик</string>
 	<string name="type.shop.motorcycle">Магазин мотоциклов</string>
-	<string name="type.shop.music">Магазин</string>
-	<string name="type.shop.musical_instrument">Магазин</string>
+	<string name="type.shop.music">Музыкальный магазин</string>
+	<string name="type.shop.musical_instrument">Музыкальные инструменты</string>
 	<string name="type.shop.newsagent">Газетный киоск</string>
 	<string name="type.shop.optician">Оптика</string>
 	<string name="type.shop.outdoor">Магазин снаряжения</string>
@@ -1774,7 +1774,7 @@
 	<string name="type.shop.stationery">Канцелярский магазин</string>
 	<string name="type.shop.supermarket">Супермаркет</string>
 	<string name="type.shop.tattoo">Тату-салон</string>
-	<string name="type.shop.tea">Магазин</string>
+	<string name="type.shop.tea">Чайный магазин</string>
 	<string name="type.shop.ticket">Билетная касса</string>
 	<string name="type.shop.toys">Магазин игрушек</string>
 	<string name="type.shop.travel_agency">Турагентство</string>

@@ -3324,7 +3324,7 @@
 
 "type.shop.art" = "Boutique d'art";
 
-"type.shop.baby_goods" = "Magasin pour enfants";
+"type.shop.baby_goods" = "Magasin de puériculture";
 
 "type.shop.bag" = "Magasin de sacs";
 
@@ -3336,9 +3336,9 @@
 
 "type.shop.craft" = "L'artisanat";
 
-"type.shop.dairy" = "Les produits laitiers";
+"type.shop.dairy" = "Crémerie";
 
-"type.shop.electrical" = "Store électrique";
+"type.shop.electrical" = "Magasin de fournitures et d'appareils électriques";
 
 "type.shop.fishing" = "Magasin de pêche";
 
@@ -3350,17 +3350,17 @@
 
 "type.shop.nutrition_supplements" = "Suppléments nutritionnels";
 
-"type.shop.paint" = "Des peintures";
+"type.shop.paint" = "Magasin de peinture";
 
 "type.shop.perfumery" = "Parfumerie";
 
-"type.shop.sewing" = "Matériel de couture";
+"type.shop.sewing" = "Mercerie";
 
 "type.shop.storage_rental" = "Location de stockage";
 
-"type.shop.tobacco" = "Le tabac";
+"type.shop.tobacco" = "Bureau de tabac";
 
-"type.shop.trade" = "Fournitures de métiers";
+"type.shop.trade" = "Grossiste";
 
 "type.shop.watches" = "Montres";
 

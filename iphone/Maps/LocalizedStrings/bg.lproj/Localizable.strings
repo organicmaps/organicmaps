@@ -1698,7 +1698,7 @@
 
 "type.cuisine.curry" = "Curry";
 
-"type.cuisine.deli" = "Deli";
+"type.cuisine.deli" = "Деликатеси";
 
 "type.cuisine.diner" = "Diner";
 
@@ -3198,11 +3198,11 @@
 
 "type.shop.chemist" = "Chemist Shop";
 
-"type.shop.chocolate" = "Shop";
+"type.shop.chocolate" = "Chocolate Shop";
 
 "type.shop.clothes" = "Clothes Shop";
 
-"type.shop.coffee" = "Shop";
+"type.shop.coffee" = "Coffee Store";
 
 "type.shop.computer" = "Computer Store";
 
@@ -3226,7 +3226,7 @@
 
 "type.shop.erotic" = "Erotic Shop";
 
-"type.shop.fabric" = "Shop";
+"type.shop.fabric" = "Fabric Shop";
 
 "type.shop.farm" = "Магазин за селскостопански храни";
 
@@ -3266,13 +3266,13 @@
 
 "type.shop.mobile_phone" = "Cell Phones";
 
-"type.shop.money_lender" = "Shop";
+"type.shop.money_lender" = "Money Lender";
 
 "type.shop.motorcycle" = "Motorcycle Shop";
 
-"type.shop.music" = "Shop";
+"type.shop.music" = "Record Store";
 
-"type.shop.musical_instrument" = "Shop";
+"type.shop.musical_instrument" = "Musical Instruments";
 
 "type.shop.newsagent" = "Newspaper Stand";
 
@@ -3302,7 +3302,7 @@
 
 "type.shop.tattoo" = "Tattoo Parlour";
 
-"type.shop.tea" = "Shop";
+"type.shop.tea" = "Tea Store";
 
 "type.shop.ticket" = "Ticket Shop";
 
