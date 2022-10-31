@@ -338,6 +338,8 @@ android {
       ndk.debugSymbolLevel = 'none'
 
       if (googleFirebaseServicesEnabled) {
+        // Keep debug symbols for test lab.
+        ndk.debugSymbolLevel = 'symbol_table'
         firebaseCrashlytics {
           nativeSymbolUploadEnabled true
         }
