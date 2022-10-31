@@ -19,6 +19,7 @@ import app.organicmaps.location.LocationHelper;
 import app.organicmaps.location.LocationListener;
 import app.organicmaps.widget.ArrowView;
 import app.organicmaps.util.UiUtils;
+import app.organicmaps.util.Utils;
 
 public class DirectionFragment extends BaseMwmDialogFragment
                             implements LocationListener
@@ -48,7 +49,7 @@ public class DirectionFragment extends BaseMwmDialogFragment
     });
     initViews(root);
     if (savedInstanceState != null)
-      setMapObject(savedInstanceState.getParcelable(EXTRA_MAP_OBJECT));
+      setMapObject(Utils.getParcelable(savedInstanceState, EXTRA_MAP_OBJECT, MapObject.class));
 
     return root;
   }

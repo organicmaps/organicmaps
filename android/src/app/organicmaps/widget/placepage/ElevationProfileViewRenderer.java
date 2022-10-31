@@ -15,6 +15,7 @@ import app.organicmaps.R;
 import app.organicmaps.bookmarks.data.ElevationInfo;
 import app.organicmaps.routing.RoutingController;
 import app.organicmaps.util.UiUtils;
+import app.organicmaps.util.Utils;
 
 import java.util.Objects;
 
@@ -140,7 +141,7 @@ public class ElevationProfileViewRenderer implements PlacePageViewRenderer<Place
   @Override
   public void onRestore(@NonNull Bundle inState)
   {
-    mElevationInfo = inState.getParcelable(PlacePageUtils.EXTRA_PLACE_PAGE_DATA);
+    mElevationInfo = Utils.getParcelable(inState, PlacePageUtils.EXTRA_PLACE_PAGE_DATA, ElevationInfo.class);
     if (mElevationInfo != null)
       render(mElevationInfo);
   }
