@@ -42,6 +42,7 @@ import app.organicmaps.widget.recycler.DividerItemDecorationWithPadding;
 import app.organicmaps.util.CrashlyticsUtils;
 import app.organicmaps.util.SharingUtils;
 import app.organicmaps.util.UiUtils;
+import app.organicmaps.util.Utils;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
 
@@ -112,7 +113,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     Bundle args = getArguments();
     BookmarkCategory category;
     if (args == null || (args.getBundle(EXTRA_BUNDLE) == null) ||
-        ((category = args.getBundle(EXTRA_BUNDLE).getParcelable(EXTRA_CATEGORY))) == null)
+        ((category = Utils.getParcelable(args.getBundle(EXTRA_BUNDLE), EXTRA_CATEGORY, BookmarkCategory.class))) == null)
       throw new IllegalArgumentException("Category not exist in bundle");
 
     return category;

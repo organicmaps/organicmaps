@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
+import app.organicmaps.util.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -156,7 +157,7 @@ class PlacePageControllerComposite implements PlacePageController
   @Override
   public void onRestore(@NonNull Bundle inState)
   {
-    PlacePageData data = inState.getParcelable(PlacePageUtils.EXTRA_PLACE_PAGE_DATA);
+    PlacePageData data = Utils.getParcelable(inState, PlacePageUtils.EXTRA_PLACE_PAGE_DATA, PlacePageData.class);
     if (data != null)
     {
       PlacePageController controller = findControllerFor(data);

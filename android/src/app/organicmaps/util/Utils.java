@@ -10,6 +10,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.provider.Settings;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -809,5 +810,21 @@ public class Utils
         }
       });
     }
+  }
+
+  @Nullable
+  public static <T> T getParcelable(Bundle args, String key, Class<T> clazz)
+  {
+    args.setClassLoader(clazz.getClassLoader());
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
+      return args.getParcelable(key, clazz);
+    return getParcelableOld(args, key);
+  }
+
+  @SuppressWarnings({"deprecation", "unchecked"})
+  @Nullable
+  private static <T> T getParcelableOld(Bundle args, String key)
+  {
+    return (T) args.getParcelable(key);
   }
 }

@@ -19,6 +19,7 @@ import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmToolbarFragment;
 import app.organicmaps.bookmarks.data.BookmarkCategory;
 import app.organicmaps.bookmarks.data.BookmarkManager;
+import app.organicmaps.util.Utils;
 
 import java.util.Objects;
 
@@ -42,10 +43,10 @@ public class BookmarkCategorySettingsFragment extends BaseMwmToolbarFragment
   public void onCreate(@Nullable Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
-    Bundle args = getArguments();
+    final Bundle args = getArguments();
     if (args == null)
-      throw new IllegalArgumentException("Args must be not null");
-    mCategory = Objects.requireNonNull(args.getParcelable(BookmarkCategorySettingsActivity.EXTRA_BOOKMARK_CATEGORY));
+      throw new IllegalArgumentException("Args must not be null");
+    mCategory = Objects.requireNonNull(Utils.getParcelable(args, BookmarkCategorySettingsActivity.EXTRA_BOOKMARK_CATEGORY, BookmarkCategory.class));
   }
 
   @Nullable

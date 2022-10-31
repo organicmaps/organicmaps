@@ -41,8 +41,9 @@ public class FeatureCategoryFragment extends BaseMwmRecyclerFragment<FeatureCate
   {
     super.onViewCreated(view, savedInstanceState);
 
-    if (getArguments() != null && getArguments().containsKey(FeatureCategoryActivity.EXTRA_FEATURE_CATEGORY))
-      mSelectedCategory = getArguments().getParcelable(FeatureCategoryActivity.EXTRA_FEATURE_CATEGORY);
+    final Bundle args = getArguments();
+    if (args != null && args.containsKey(FeatureCategoryActivity.EXTRA_FEATURE_CATEGORY))
+      mSelectedCategory = Utils.getParcelable(args, FeatureCategoryActivity.EXTRA_FEATURE_CATEGORY, FeatureCategory.class);
     mToolbarController = new SearchToolbarController(view, requireActivity())
     {
       @Override

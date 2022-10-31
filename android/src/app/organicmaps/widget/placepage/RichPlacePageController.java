@@ -18,6 +18,7 @@ import app.organicmaps.bookmarks.data.MapObject;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.location.LocationListener;
 import app.organicmaps.util.UiUtils;
+import app.organicmaps.util.Utils;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
 import app.organicmaps.util.log.Logger;
 
@@ -275,7 +276,7 @@ public class RichPlacePageController implements PlacePageController, LocationLis
       return;
     }
 
-    MapObject object = inState.getParcelable(PlacePageUtils.EXTRA_PLACE_PAGE_DATA);
+    MapObject object = Utils.getParcelable(inState, PlacePageUtils.EXTRA_PLACE_PAGE_DATA, MapObject.class);
     if (object == null)
       return;
 

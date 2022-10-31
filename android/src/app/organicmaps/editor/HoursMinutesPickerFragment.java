@@ -17,7 +17,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.StyleRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.content.res.AppCompatResources;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.tabs.TabLayout;
@@ -26,6 +25,7 @@ import app.organicmaps.base.BaseMwmDialogFragment;
 import app.organicmaps.editor.data.HoursMinutes;
 import app.organicmaps.util.DateUtils;
 import app.organicmaps.util.ThemeUtils;
+import app.organicmaps.util.Utils;
 
 public class HoursMinutesPickerFragment extends BaseMwmDialogFragment
 {
@@ -112,8 +112,10 @@ public class HoursMinutesPickerFragment extends BaseMwmDialogFragment
   private void readArgs()
   {
     final Bundle args = getArguments();
-    mFrom = args.getParcelable(EXTRA_FROM);
-    mTo = args.getParcelable(EXTRA_TO);
+    if (args == null)
+      throw new IllegalArgumentException("Args must not be null");
+    mFrom = Utils.getParcelable(args, EXTRA_FROM, HoursMinutes.class);
+    mTo = Utils.getParcelable(args, EXTRA_TO, HoursMinutes.class);
     mSelectedTab = args.getInt(EXTRA_SELECT_FIRST);
     mId = args.getInt(EXTRA_ID);
   }
