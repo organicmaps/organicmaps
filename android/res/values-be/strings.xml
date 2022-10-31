@@ -791,6 +791,7 @@
 	<string name="type.craft.winery">Вінакурня</string>
 	<string name="type.craft.tailor">Кравец</string>
 	<string name="type.cuisine.bubble_tea">Чай з бурбалкамі</string>
+	<string name="type.cuisine.deli">Дэлікатэсы</string>
 	<string name="type.emergency.defibrillator">Дэфібрылятар</string>
 	<string name="type.emergency.fire_hydrant">Пажарны гідрант</string>
 	<string name="type.healthcare.laboratory">Медыцынская лабараторыя</string>
@@ -1003,6 +1004,8 @@
 	<string name="type.railway.platform">Чыгуначная платформа</string>
 	<string name="type.shop.beverages">Напоі</string>
 	<string name="type.shop.caravan">Продаж аўтадамоў</string>
+	<string name="type.shop.chocolate">Крама шакалада</string>
+	<string name="type.shop.coffee">Крама кавы</string>
 	<string name="type.shop.cosmetics">Касметыка</string>
 	<string name="type.shop.deli">Дэлікатэсная крама</string>
 	<string name="type.shop.farm">Сельскагаспадарчыя прадукты</string>
@@ -1012,8 +1015,12 @@
 	<string name="type.shop.health_food">Крама здаровай ежы</string>
 	<string name="type.shop.houseware">Крама посуду</string>
 	<string name="type.shop.kitchen">Крама для кухні</string>
+	<string name="type.shop.money_lender">Ліхвяр</string>
+	<string name="type.shop.music">Музычная крама</string>
+	<string name="type.shop.musical_instrument">Музычныя інструменты</string>
 	<string name="type.shop.pastry">Кандытарскія вырабы</string>
 	<string name="type.shop.second_hand">Крама сэканд-хэнд</string>
+	<string name="type.shop.tea">Крама гарбаты</string>
 	<string name="type.shop.antiques">Антыкварыят</string>
 	<string name="type.shop.art">Крама мастацтваў</string>
 	<string name="type.shop.baby_goods">Дзіцячая крама</string>
