@@ -21,9 +21,9 @@ jobs:
           DIRS="android base drape drape_frontend editor ge0 map platform routing search shaders storage traffic transit"
           if [ '${{ github.event_name }}' != 'schedule' ] || 
              [ $(git rev-list --count --since="24 hours" HEAD $DIRS) -gt 0 ]; then
-            echo "::set-output name=updated::true"
+            echo "name=updated::true" >> $GITHUB_OUTPUT
           else
-            echo "::set-output name=updated::"
+            echo "name=updated::" >> $GITHUB_OUTPUT
           fi
     outputs:
       updated: ${{ steps.check.outputs.updated }}
@@ -73,16 +73,26 @@ jobs:
         run: |
           cmake --version
           ninja --version
-          gradle -Parm64 -Parm32 -Pfirebase assembleGoogleDebug
+          gradle -Pfirebase assembleGoogleDebug uploadCrashlyticsSymbolFileGoogleDebug
 
       - name: Run monkey
         run: |
           gcloud auth activate-service-account --key-file android/firebase-test-lab.json
           gcloud config set project omapsapp
           gcloud firebase test android run --app ./android/build/outputs/apk/google/debug/OrganicMaps-*-google-debug.apk \
-            --device model=redfin,version=30 \
+            --device model=panther,version=33 \
+            --device model=bluejay,version=32 \
+            --device model=b2q,version=31 \
+            --device model=f2q,version=30 \
             --device model=a10,version=29 \
-            --device model=dipper,version=28 \
-            --device model=OnePlus3T,version=26 \
-            --device model=flo,version=21,orientation=landscape \
+            --device model=Pixel2.arm,version=30 \
+            --device model=MediumPhone.arm,version=29 \
+            --device model=MediumPhone.arm,version=28 \
+            --device model=MediumPhone.arm,version=27 \
+            --device model=Pixel2.arm,version=26,orientation=landscape \
+            --device model=Nexus6,version=25 \
+            --device model=NexusLowRes,version=24 \
+            --device model=NexusLowRes,version=23,orientation=landscape \
+            --device model=Nexus6,version=22 \
+            --device model=Nexus7,version=21 \
             --timeout 15m
