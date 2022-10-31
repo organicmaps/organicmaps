@@ -10190,7 +10190,7 @@
     zh-Hant = 紅綠燈
 
   [type.highway.trunk]
-    en = National Highway
+    en = Trunk Road
     ar = شارع وطني
     cs = Ulice
     da = Gade
@@ -10233,7 +10233,7 @@
 
   [type.highway.trunk_link]
     ref = type.highway.trunk
-    en = National Highway Ramp
+    en = Trunk Road Ramp
     mr = राष्ट्रीय महामार्ग उतार
     pt-BR = Saída de rodovia
     ru = Съезд с трассы
