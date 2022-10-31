@@ -81,7 +81,6 @@ area[leisure=garden]
 area[landuse=farmland],
 area[landuse=farmyard],
 area[landuse=allotments],
-area[natural=scrub],
 area[natural=bare_rock],
 area[landuse=orchard],
 area[landuse=vineyard],
@@ -123,6 +122,9 @@ area[natural=grassland],
 area[leisure=golf_course],
 area[natural=heath]
 {z-index: 46;}
+
+area[natural=scrub]
+{z-index: 47;}
 
 line[waterway=river],
 line[waterway=riverbank],
@@ -284,7 +286,6 @@ area|z14-[natural=grassland],
 area|z14-[leisure=golf_course],
 area|z14-[natural=heath],
 area|z14-[landuse=allotments],
-area|z14-[natural=scrub],
 area|z14-[landuse=orchard],
 area|z14-[landuse=vineyard],
 area|z14-[landuse=meadow],
@@ -308,7 +309,6 @@ area|z12-13[natural=grassland],
 area|z12-13[leisure=golf_course],
 area|z12-13[natural=heath],
 area|z12-13[landuse=allotments],
-area|z12-13[natural=scrub],
 area|z12-13[landuse=orchard],
 area|z12-13[landuse=vineyard],
 area|z12-13[landuse=meadow],
@@ -332,17 +332,20 @@ area|z12-[landuse=military]
 
 area|z14[landuse=forest],
 area|z14[leisure=park],
-area|z14[leisure=garden]
+area|z14[leisure=garden],
+area|z14[natural=scrub]
 {fill-color: @green4;}
 
 area|z15[landuse=forest],
 area|z15[leisure=park],
-area|z15[leisure=garden]
+area|z15[leisure=garden],
+area|z15[natural=scrub]
 {fill-color: @green5;}
 
 area|z16-[landuse=forest],
 area|z16-[leisure=park],
-area|z16-[leisure=garden]
+area|z16-[leisure=garden],
+area|z16-[natural=scrub]
 {fill-color: @forest;}
 
 area|z12-[natural=bare_rock],
