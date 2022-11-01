@@ -3253,7 +3253,6 @@ nb:Galge
 nl:Galg
 pl:Szubienica
 pt:Forca
-pt-BR:Galo
 ro:Spânzurătoare
 ru:Виселица
 sk:Šibenica
@@ -3327,7 +3326,6 @@ nb:Minnekors
 nl:Herdenkingskruis
 pl:Krzyż pomnikowy
 pt:Cruz memorial
-pt-BR:Cruz de memorial
 ro:Cruce comemorativă
 ru:Памятный крест
 sk:Pamätný kríž
