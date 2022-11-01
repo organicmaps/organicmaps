@@ -52,6 +52,8 @@ class InfoItemViewController: UIViewController {
 protocol PlacePageInfoViewControllerDelegate: AnyObject {
   func didPressCall()
   func didPressWebsite()
+  func didPressWikipedia()
+  func didPressWikimediaCommons()
   func didPressFacebook()
   func didPressInstagram()
   func didPressTwitter()
@@ -75,6 +77,8 @@ class PlacePageInfoViewController: UIViewController {
   private var rawOpeningHoursView: InfoItemViewController?
   private var phoneView: InfoItemViewController?
   private var websiteView: InfoItemViewController?
+  private var wikipediaView: InfoItemViewController?
+  private var wikimediaCommonsView: InfoItemViewController?
   private var emailView: InfoItemViewController?
   private var facebookView: InfoItemViewController?
   private var instagramView: InfoItemViewController?
@@ -132,6 +136,18 @@ class PlacePageInfoViewController: UIViewController {
     if let website = placePageInfoData.website {
       websiteView = createInfoItem(website, icon: UIImage(named: "ic_placepage_website"), style: .link) { [weak self] in
         self?.delegate?.didPressWebsite()
+      }
+    }
+    
+    if let wikipedia = placePageInfoData.wikipedia {
+      wikipediaView = createInfoItem(L("read_in_wikipedia"), icon: UIImage(named: "ic_placepage_wiki"), style: .link) { [weak self] in
+        self?.delegate?.didPressWikipedia()
+      }
+    }
+    
+    if let wikimediaCommons = placePageInfoData.wikimediaCommons {
+      wikimediaCommonsView = createInfoItem(L("wikimedia_commons"), icon: UIImage(named: "ic_placepage_wikimedia_commons"), style: .link) { [weak self] in
+        self?.delegate?.didPressWikimediaCommons()
       }
     }
 
