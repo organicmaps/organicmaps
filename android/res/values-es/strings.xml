@@ -347,6 +347,8 @@
 	<string name="search_history_title">Historial de búsquedas</string>
 	<string name="search_history_text">Ver búsquedas recientes.</string>
 	<string name="clear_search">Eliminar el historial de búsqueda</string>
+	<!-- Place Page link to Wikipedia article (if map object has it). -->
+	<string name="read_in_wikipedia">Wikipedia</string>
 	<string name="p2p_your_location">Tu ubicación</string>
 	<string name="p2p_start">Empezar</string>
 	<string name="p2p_from_here">Desde</string>

@@ -513,6 +513,12 @@
 
 "clear_search" = "清除历史搜索";
 
+/* Place Page link to Wikipedia article (if map object has it). */
+"read_in_wikipedia" = "维基百科";
+
+/* Place Page link to Wikimedia Commons. */
+"wikimedia_commons" = "Wikimedia Commons";
+
 "p2p_your_location" = "您的位置";
 
 "p2p_start" = "开始";
