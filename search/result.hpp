@@ -73,15 +73,11 @@ public:
   // Min distance to search result when popularity label has a higher priority (in meters).
   static auto constexpr kPopularityHighPriorityMinDistance = 50000.0;
 
-  // For Type::Feature.
-  Result(FeatureID const & id, m2::PointD const & pt, std::string && str,
-         std::string && address, uint32_t featureType, Details && meta);
+  Result(m2::PointD const & pt, std::string const & name) : m_center(pt), m_str(name) {}
+  void FromFeature(FeatureID const & id, uint32_t featureType, Details const & details);
 
-  // For Type::LatLon.
-  Result(m2::PointD const & pt, std::string && latlon, std::string && address);
-
-  // For Type::Postcode.
-  Result(m2::PointD const & pt, std::string && postcode);
+  void SetAddress(std::string && address) { m_address = std::move(address); }
+  void SetType(Result::Type type) { m_resultType = type; }
 
   // For Type::PureSuggest.
   Result(std::string str, std::string && suggest);

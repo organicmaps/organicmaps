@@ -129,9 +129,7 @@ void PreRanker::FillMissingFieldsInPreResults()
       }
       else
       {
-        /// @todo We always should have centers table for features (except newly created) or I miss something?
-        ASSERT(false, ("Centers table is missing?"));
-
+        // Possible when search while MWM is reloading or updating (!IsAlive).
         if (!pivotFeaturesInitialized)
         {
           m_pivotFeatures.SetPosition(m_params.m_accuratePivotCenter, m_params.m_scale);

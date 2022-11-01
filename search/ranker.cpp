@@ -446,7 +446,10 @@ private:
   {
     auto ft = loader.GetFeatureByIndex(id.m_index);
     if (ft)
+    {
+      ASSERT(id.IsValid(), ());
       ft->SetID(id);
+    }
     return ft;
   }
 
@@ -708,45 +711,32 @@ void Ranker::Finish(bool cancelled)
   m_emitter.Finish(cancelled);
 }
 
-Result Ranker::MakeResult(RankerResult rankerResult, bool needAddress, bool needHighlighting) const
+Result Ranker::MakeResult(RankerResult const & rankerResult, bool needAddress, bool needHighlighting) const
 {
-  // todo(@m) Used because Result does not have a default constructor. Factor out?
-  auto mk = [&](RankerResult & r) -> Result
+  Result res(rankerResult.GetCenter(), rankerResult.m_str);
+
+  if (needAddress)
   {
-    string address;
-    if (needAddress)
-    {
-      address = GetLocalizedRegionInfoForResult(rankerResult);
+    string address = GetLocalizedRegionInfoForResult(rankerResult);
 
-      // Format full address only for suitable results.
-      if (ftypes::IsAddressObjectChecker::Instance()(rankerResult.GetTypes()))
-      {
-        address = FormatFullAddress(
-              LazyAddressGetter(m_reverseGeocoder, rankerResult.GetCenter()).GetNearbyAddress(), address);
-      }
-    }
+    // Format full address only for suitable results.
+    if (ftypes::IsAddressObjectChecker::Instance()(rankerResult.GetTypes()))
+      address = FormatFullAddress(LazyAddressGetter(m_reverseGeocoder, rankerResult.GetCenter()).GetNearbyAddress(), address);
 
-    string & name = rankerResult.m_str;
+    res.SetAddress(std::move(address));
+  }
 
-    switch (r.GetResultType())
-    {
-    case RankerResult::Type::Feature:
-    case RankerResult::Type::Building:
-    {
-      auto const type = rankerResult.GetBestType(&m_params.m_preferredTypes);
-      return Result(r.GetID(), r.GetCenter(), move(name), move(address), type, move(r.m_details));
-    }
-    case RankerResult::Type::LatLon: return Result(r.GetCenter(), move(name), move(address));
-    case RankerResult::Type::Postcode: return Result(r.GetCenter(), move(name));
-    }
-    ASSERT(false, ("Bad RankerResult type:", static_cast<size_t>(r.GetResultType())));
-    UNREACHABLE();
-  };
+  switch (rankerResult.GetResultType())
+  {
+  case RankerResult::Type::Feature:
+  case RankerResult::Type::Building:
+    res.FromFeature(rankerResult.GetID(), rankerResult.GetBestType(&m_params.m_preferredTypes), rankerResult.m_details);
+    break;
+  case RankerResult::Type::LatLon: res.SetType(Result::Type::LatLon); break;
+  case RankerResult::Type::Postcode: res.SetType(Result::Type::Postcode); break;
+  }
 
-  auto res = mk(rankerResult);
-
-  if (needAddress &&
-      ftypes::IsLocalityChecker::Instance().GetType(rankerResult.GetTypes()) == ftypes::LocalityType::None)
+  if (needAddress && ftypes::IsLocalityChecker::Instance().GetType(rankerResult.GetTypes()) == ftypes::LocalityType::None)
   {
     m_localities.GetLocality(res.GetFeatureCenter(), [&](LocalityItem const & item)
     {
@@ -829,11 +819,14 @@ void Ranker::UpdateResults(bool lastUpdate)
     if (count >= m_params.m_limit)
       break;
 
-    auto & rankerResult = m_tentativeResults[i];
-    if (!m_params.m_viewportSearch)
-      LOG(LDEBUG, (rankerResult));
+    auto const & rankerResult = m_tentativeResults[i];
 
-    Result result = MakeResult(move(rankerResult), m_params.m_needAddress, m_params.m_needHighlighting);
+    // Uncomment for debug purpose.
+    //if (!m_params.m_viewportSearch)
+    //  LOG(LDEBUG, (rankerResult));
+
+    // Don't make move here in case of BailIfCancelled() throw. Objects in m_tentativeResults should remain valid.
+    Result result = MakeResult(rankerResult, m_params.m_needAddress, m_params.m_needHighlighting);
 
     if (m_params.m_viewportSearch)
     {
