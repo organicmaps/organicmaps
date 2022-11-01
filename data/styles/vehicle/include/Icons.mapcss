@@ -99,6 +99,8 @@ node[historic=city_gate],
 area[historic=city_gate],
 node[historic=memorial],
 area[historic=memorial],
+node[historic=battlefield],
+area[historic=battlefield],
 node[tourism=theme_park],
 area[tourism=theme_park]
 {z-index: 2872;}
@@ -382,6 +384,8 @@ area|z15-[amenity=community_centre],
 node|z15-[tourism=viewpoint],
 node|z15-[historic=memorial],
 area|z15-[historic=memorial],
+node|z15-[historic=battlefield],
+area|z15-[historic=battlefield],
 node|z15-[tourism=gallery],
 area|z15-[tourism=gallery],
 node|z15-[tourism=artwork],
@@ -445,11 +449,15 @@ node|z15[historic=monument],
 area|z15[historic=monument],
 node|z15[historic=memorial],
 area|z15[historic=memorial],
+node|z15[historic=battlefield],
+area|z15[historic=battlefield],
 {icon-image: monument-m.svg;icon-min-distance: 24;}
 node|z16-[historic=monument],
 area|z16-[historic=monument],
 node|z16-[historic=memorial],
 area|z16-[historic=memorial],
+node|z16-[historic=battlefield],
+area|z16-[historic=battlefield],
 {icon-image: monument-m.svg;icon-min-distance: 12;}
 
 /* Zero previous params to redefine below */

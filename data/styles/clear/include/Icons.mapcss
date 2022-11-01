@@ -379,6 +379,8 @@ node[historic=monument],
 area[historic=monument],
 node[historic=memorial],
 area[historic=memorial],
+node[historic=battlefield],
+area[historic=battlefield],
 node|z17-[tourism=artwork][artwork_type=sculpture],
 area|z17-[tourism=artwork][artwork_type=sculpture]
 {z-index: 2800;}
@@ -998,6 +1000,8 @@ area|z14-[amenity=community_centre],
 node|z14-[tourism=viewpoint],
 node|z15-[historic=memorial],
 area|z15-[historic=memorial],
+node|z15-[historic=battlefield],
+area|z15-[historic=battlefield],
 node|z15-[tourism=gallery],
 area|z15-[tourism=gallery],
 node|z15-[tourism=artwork],
@@ -1063,11 +1067,15 @@ node|z15[historic=monument],
 area|z15[historic=monument],
 node|z15[historic=memorial],
 area|z15[historic=memorial],
+node|z15[historic=battlefield],
+area|z15[historic=battlefield],
 {icon-image: monument-m.svg;icon-min-distance: 24;}
 node|z16-[historic=monument],
 area|z16-[historic=monument],
 node|z16-[historic=memorial],
 area|z16-[historic=memorial],
+node|z16-[historic=battlefield],
+area|z16-[historic=battlefield],
 {icon-image: monument-m.svg;icon-min-distance: 12;}
 
 /* Zero previous params to redefine below */
