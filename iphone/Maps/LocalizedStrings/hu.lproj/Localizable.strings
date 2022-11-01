@@ -221,7 +221,7 @@
 "pref_map_style_auto" = "Automatikus";
 
 /* Settings «Map» category: «Perspective view» title */
-"pref_map_3d_title" = "Távlati kép";
+"pref_map_3d_title" = "Perspektivikus nézet";
 
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "3D-s épületek";
@@ -230,7 +230,7 @@
 "pref_tts_enable_title" = "Hangutasítások";
 
 /* Settings «Route» category: «Tts language» title */
-"pref_tts_language_title" = "A hang nyelve";
+"pref_tts_language_title" = "A hangutasítások nyelve";
 
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Egyéb";
@@ -238,7 +238,7 @@
 /* Settings «Map» category: «Record track» title */
 "pref_track_record_title" = "Legutolsó útvonal";
 
-"pref_map_auto_zoom" = "Auto-zoom";
+"pref_map_auto_zoom" = "Automatikus nagyítás";
 
 "duration_disabled" = "Kikapcsolva";
 
@@ -298,13 +298,13 @@
 "faq" = "Kérdések és válaszok";
 
 /* Button in the main Help dialog */
-"how_to_support_us" = "Hogyan támogat minket?";
+"how_to_support_us" = "Hogyan támogathatsz minket?";
 
 /* Button in the main Help dialog */
 "copyright" = "Szerzői jog";
 
 /* Text in menu + Button in the main Help dialog */
-"report_a_bug" = "Hibabejelentés";
+"report_a_bug" = "Hiba jelentése";
 
 /* Alert text */
 "email_error_body" = "Az email kliens nincs beállítva. Kérjük, konfiguráld vagy próbálj meg valamilyen más módon kapcsolatba lépni velünk a %@ email címen keresztül.";
@@ -834,15 +834,15 @@
 "recent_track_background_dialog_message" = "A Organic Maps a geopozíciód használatával a háttérben rögzíti a legutóbb megtett utad.";
 
 /* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Az Organic Maps egy ingyenes, nyílt forráskódú offline térképalkalmazás. Nincsenek hirdetések. Nincs nyomkövetés. Ha hibát lát a térképen, javítsa ki az OpenStreetMap segítségével. A projektet a lelkesek készítik szabadidőnkben, ezért szükségünk van az Ön visszajelzésére és támogatására.";
+"about_description" = "Az Organic Maps egy gyors és ingyenes offline térképalkalmazás hirdetések és nyomkövetés nélkül. A térképek az OpenStreetMap.org közösség által fenntartott adatain alapulnak, így a térképen megtalálható hibákat te is javíthatod, és adhatsz hozzá új helyeket. Az Organic Maps egy nyílt forráskódú projekt, amelyet lelkes fejlesztők hoztak létre szabadidejükben. Visszajelzéseidet és támogatásodat nagyra értékeljük!";
 
 "general_settings" = "Általános beállítások";
 
 /* For the first routing */
-"accept" = "Elfogadja";
+"accept" = "Elfogad";
 
 /* For the first routing */
-"decline" = "Elutasítja";
+"decline" = "Elutasít";
 
 /* A noun - a button name used to show search results in list form */
 "search_in_table" = "Lista";
@@ -1002,13 +1002,13 @@
 
 "power_managment_setting_manual_max" = "Maximális energiatakarékosság";
 
-"driving_options_title" = "Vezetési lehetőségek";
+"driving_options_title" = "Útvonaltervezési lehetőségek";
 
 "driving_options_subheader" = "Elkerülés minden útvonalon";
 
-"avoid_tolls" = "Fizetős utak";
+"avoid_tolls" = "Díjköteles utak";
 
-"avoid_unpaved" = "Kövezetlen utak";
+"avoid_unpaved" = "Burkolatlan utak";
 
 "avoid_ferry" = "Kompátkelők";
 
@@ -1020,17 +1020,17 @@
 
 "define_to_avoid_btn" = "Elkerülendő utak meghatározása";
 
-"change_driving_options_btn" = "Vezetési lehetőségek bekapcsolva";
+"change_driving_options_btn" = "Útvonaltervezési lehetőségek bekapcsolva";
 
-"toll_road" = "Fizetős utak";
+"toll_road" = "Díjköteles utak";
 
-"unpaved_road" = "Kövezetlen utak";
+"unpaved_road" = "Burkolatlan utak";
 
 "ferry_crossing" = "Kompátkelők";
 
-"avoid_toll_roads_placepage" = "Fizetős utak elkerülése";
+"avoid_toll_roads_placepage" = "Díjköteles utak elkerülése";
 
-"avoid_unpaved_roads_placepage" = "Kövezetlen utak elkerülése";
+"avoid_unpaved_roads_placepage" = "Burkolatlan utak elkerülése";
 
 "avoid_ferry_crossing_placepage" = "Kompátkelők elkerülése";
 
@@ -3330,7 +3330,7 @@
 
 "type.shop.art" = "Művészeti Bolt";
 
-"type.shop.baby_goods" = "Gyermekbolt";
+"type.shop.baby_goods" = "Bababolt";
 
 "type.shop.bag" = "Táskák bolt";
 
@@ -3350,7 +3350,7 @@
 
 "type.shop.interior_decoration" = "Belső dekorációk";
 
-"type.shop.lottery" = "Sorsjegyek";
+"type.shop.lottery" = "Lottózó";
 
 "type.shop.medical_supply" = "Orvosi eszközök";
 
