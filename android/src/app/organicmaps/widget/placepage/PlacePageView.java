@@ -887,7 +887,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
     String url = mapObject.getMetadata(Metadata.MetadataType.FMD_URL);
     refreshMetadataOrHide(TextUtils.isEmpty(website) ? url : website, mWebsite, mTvWebsite);
     String wikimedia_commons = mapObject.getMetadata(Metadata.MetadataType.FMD_WIKIMEDIA_COMMONS);
-    String wikimedia_commons_text =  TextUtils.isEmpty(wikimedia_commons) ? "" : "WIKIMEDIA COMMONS";
+    String wikimedia_commons_text =  TextUtils.isEmpty(wikimedia_commons) ? "" : getResources().getString(R.string.wikimedia_commons);
     refreshMetadataOrHide(wikimedia_commons_text, mWikimedia, mTvWikimedia);
     refreshPhoneNumberList(mapObject.getMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER));
     refreshMetadataOrHide(mapObject.getMetadata(Metadata.MetadataType.FMD_EMAIL), mEmail, mTvEmail);
