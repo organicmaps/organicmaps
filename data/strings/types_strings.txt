@@ -20841,7 +20841,7 @@
     fi = Lasten kauppa
     fr = Magasin de puériculture
     he = םידליל תונח
-    hu = Gyermekbolt
+    hu = Bababolt
     id = Toko anak-anak
     it = Negozio per neonati
     ja = キッズストア
@@ -21211,7 +21211,7 @@
     fi = Lottoliput
     fr = Tickets de loterie
     he = הלרגה יסיטרכ
-    hu = Sorsjegyek
+    hu = Lottózó
     id = Tiket Lotere
     it = Biglietti della lotteria
     ja = 宝くじ
