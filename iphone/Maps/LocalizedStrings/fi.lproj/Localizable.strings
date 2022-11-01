@@ -1533,7 +1533,7 @@
 
 "type.barrier.chain" = "Ketju";
 
-"type.barrier.city_wall" = "Kaupunginmuuri";
+"type.barrier.city_wall" = "Kaupungin muuri";
 
 "type.barrier.cycle_barrier" = "Polkupyöräeste";
 
@@ -2144,13 +2144,13 @@
 
 /********** Types: Historic **********/
 
-"type.historic" = "Historic";
+"type.historic" = "Historiallinen esine";
 
 "type.historic.archaeological_site" = "Arkeologinen kohde";
 
-"type.historic.battlefield" = "Battlefield";
+"type.historic.battlefield" = "Taistelukenttä";
 
-"type.historic.boundary_stone" = "Boundary Stone";
+"type.historic.boundary_stone" = "Rajamerkki";
 
 "type.historic.castle" = "Linna";
 
@@ -2176,7 +2176,7 @@
 
 "type.historic.city_gate" = "Kaupungin portti";
 
-"type.historic.citywalls" = "City Wall";
+"type.historic.citywalls" = "Kaupungin muuri";
 
 "type.historic.fort" = "Fort";
 
@@ -2206,9 +2206,9 @@
 
 "type.historic.tomb" = "Nähtävyydet";
 
-"type.historic.wayside_cross" = "Christian Cross";
+"type.historic.wayside_cross" = "Tienvarren risti";
 
-"type.historic.wayside_shrine" = "Shrine";
+"type.historic.wayside_shrine" = "Tienvarren pyhäkkö";
 
 "type.hwtag" = "hwtag";
 

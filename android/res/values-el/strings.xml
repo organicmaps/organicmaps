@@ -783,6 +783,7 @@
 	<string name="type.barrier.block">Εμπόδιο</string>
 	<string name="type.barrier.bollard">Πυλώνας</string>
 	<string name="type.barrier.border_control">Έλεγχος συνόρων</string>
+	<string name="type.barrier.city_wall">Τείχος της πόλης</string>
 	<string name="type.barrier.ditch">Τάφρος</string>
 	<string name="type.barrier.entrance">Είσοδος</string>
 	<string name="type.barrier.gate">Πύλη</string>
@@ -1073,7 +1074,10 @@
 	<string name="type.area_highway.unclassified">Οδός</string>
 
 	<!-- SECTION: Types: Historic -->
+	<string name="type.historic">Ιστορικό αντικείμενο</string>
 	<string name="type.historic.archaeological_site">Αρχαιολογικός χώρος</string>
+	<string name="type.historic.battlefield">Πεδίο μάχης</string>
+	<string name="type.historic.boundary_stone">Οριακή πέτρα</string>
 	<string name="type.historic.castle">Κάστρο</string>
 	<string name="type.historic.castle.castrum">Ρωμαϊκό κάστρο</string>
 	<string name="type.historic.castle.defensive">Κάστρο</string>
@@ -1086,6 +1090,8 @@
 	<string name="type.historic.castle.shiro">Ιαπωνικό κάστρο</string>
 	<string name="type.historic.castle.stately">Κάστρο</string>
 	<string name="type.historic.city_gate">Πύλη της πόλης</string>
+	<string name="type.historic.citywalls">Τείχος της πόλης</string>
+	<string name="type.historic.fort">Φορτ</string>
 	<string name="type.historic.gallows">Αγχόνη</string>
 	<string name="type.historic.memorial">Μνημείο</string>
 	<string name="type.historic.memorial.cross">Σταυρός μνήμης</string>
@@ -1099,6 +1105,8 @@
 	<string name="type.historic.ruins">Ερείπια</string>
 	<string name="type.historic.ship">Αξιοθέατο</string>
 	<string name="type.historic.tomb">Αξιοθέατο</string>
+	<string name="type.historic.wayside_cross">Σταυρός στην άκρη του δρόμου</string>
+	<string name="type.historic.wayside_shrine">Εικονοστάσιο στην άκρη του δρόμου</string>
 	<string name="type.internet_access">Ίντερνετ</string>
 	<string name="type.internet_access.wlan">Ίντερνετ</string>
 	<string name="type.landuse.basin">Μια λεκάνη νερού</string>

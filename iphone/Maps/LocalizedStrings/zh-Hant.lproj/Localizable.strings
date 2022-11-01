@@ -1533,7 +1533,7 @@
 
 "type.barrier.chain" = "Chain";
 
-"type.barrier.city_wall" = "City Wall";
+"type.barrier.city_wall" = "城牆";
 
 "type.barrier.cycle_barrier" = "Cycle Barrier";
 
@@ -2176,7 +2176,7 @@
 
 "type.historic.city_gate" = "城門";
 
-"type.historic.citywalls" = "歷史城牆";
+"type.historic.citywalls" = "城牆";
 
 "type.historic.fort" = "歷史要塞";
 

@@ -1191,12 +1191,12 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">Tunnel</string>
 	<string name="type.highway.traffic_signals">Traffic Lights</string>
-	<string name="type.highway.trunk">National Highway</string>
+	<string name="type.highway.trunk">Trunk Road</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.trunk.bridge">Bridge</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.trunk.tunnel">Tunnel</string>
-	<string name="type.highway.trunk_link">National Highway Ramp</string>
+	<string name="type.highway.trunk_link">Trunk Road Ramp</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.trunk_link.bridge">Bridge</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
@@ -1220,13 +1220,13 @@
 	<string name="type.area_highway.tertiary">Tertiary Road</string>
 	<string name="type.area_highway.steps">Stairs</string>
 	<string name="type.area_highway.track">Track</string>
-	<string name="type.area_highway.trunk">National Highway</string>
+	<string name="type.area_highway.trunk">Trunk Road</string>
 	<string name="type.area_highway.unclassified">Minor Road</string>
 	<string name="type.highway.world_level">highway-world_level</string>
 	<string name="type.highway.world_towns_level">highway-world_towns_level</string>
 
 	<!-- SECTION: Types: Historic -->
-	<string name="type.historic">Historic</string>
+	<string name="type.historic">Historic object</string>
 	<string name="type.historic.archaeological_site">Archaeological Site</string>
 	<string name="type.historic.battlefield">Battlefield</string>
 	<string name="type.historic.boundary_stone">Boundary Stone</string>
@@ -1257,8 +1257,8 @@
 	<string name="type.historic.ruins">Ruins</string>
 	<string name="type.historic.ship">Ship</string>
 	<string name="type.historic.tomb">Tomb</string>
-	<string name="type.historic.wayside_cross">Christian Cross</string>
-	<string name="type.historic.wayside_shrine">Shrine</string>
+	<string name="type.historic.wayside_cross">Wayside cross</string>
+	<string name="type.historic.wayside_shrine">Wayside shrine</string>
 	<string name="type.hwtag">hwtag</string>
 	<string name="type.hwtag.bidir_bicycle">hwtag-bidir_bicycle</string>
 	<string name="type.hwtag.onedir_bicycle">hwtag-onedir_bicycle</string>

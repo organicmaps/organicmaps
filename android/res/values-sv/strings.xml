@@ -779,6 +779,7 @@
 	<string name="type.barrier.block">Blockering</string>
 	<string name="type.barrier.bollard">Stolpe</string>
 	<string name="type.barrier.border_control">Gränskontroll</string>
+	<string name="type.barrier.city_wall">Stadsmur</string>
 	<string name="type.barrier.ditch">Vallgrav</string>
 	<string name="type.barrier.entrance">Ingång</string>
 	<string name="type.barrier.gate">Grind</string>
@@ -1067,7 +1068,10 @@
 	<string name="type.area_highway.unclassified">Gata</string>
 
 	<!-- SECTION: Types: Historic -->
+	<string name="type.historic">Historiskt objekt</string>
 	<string name="type.historic.archaeological_site">Arkeologisk plats</string>
+	<string name="type.historic.battlefield">Stridsområde</string>
+	<string name="type.historic.boundary_stone">Gränsmärke</string>
 	<string name="type.historic.castle">Borg</string>
 	<string name="type.historic.castle.castrum">Castrum</string>
 	<string name="type.historic.castle.defensive">Borg</string>
@@ -1080,6 +1084,8 @@
 	<string name="type.historic.castle.shiro">Japanskt slott</string>
 	<string name="type.historic.castle.stately">Slott</string>
 	<string name="type.historic.city_gate">Stadsport</string>
+	<string name="type.historic.citywalls">Stadsmur</string>
+	<string name="type.historic.fort">Fort</string>
 	<string name="type.historic.gallows">Galge</string>
 	<string name="type.historic.memorial">Minnesmärke</string>
 	<string name="type.historic.memorial.cross">Kors till minne</string>
@@ -1088,10 +1094,13 @@
 	<string name="type.historic.memorial.statue">Minnesmärke</string>
 	<string name="type.historic.memorial.stolperstein">Snubbelsten</string>
 	<string name="type.historic.memorial.war_memorial">Krigsmonument</string>
+	<string name="type.historic.monument">Minnesmärke</string>
 	<string name="type.historic.pillory">Skampåle</string>
 	<string name="type.historic.ruins">Ruiner</string>
-	<string name="type.historic.ship">Attraktion</string>
-	<string name="type.historic.tomb">Attraktion</string>
+	<string name="type.historic.ship">Fartyg</string>
+	<string name="type.historic.tomb">Grav</string>
+	<string name="type.historic.wayside_cross">Korset vid vägkanten</string>
+	<string name="type.historic.wayside_shrine">Helgedom vid vägkanten</string>
 	<string name="type.landuse.basin">Vattenbassäng</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery">Begravningsplats</string>

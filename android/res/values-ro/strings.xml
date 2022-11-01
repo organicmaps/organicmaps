@@ -805,6 +805,7 @@
 	<string name="type.barrier.block">Bloc</string>
 	<string name="type.barrier.bollard">Stâlp</string>
 	<string name="type.barrier.border_control">Control vamal</string>
+	<string name="type.barrier.city_wall">Zidurile orașului</string>
 	<string name="type.barrier.ditch">Şanţ</string>
 	<string name="type.barrier.entrance">Intrare</string>
 	<string name="type.barrier.gate">Poartă</string>
@@ -1095,7 +1096,10 @@
 	<string name="type.area_highway.unclassified">Stradă</string>
 
 	<!-- SECTION: Types: Historic -->
+	<string name="type.historic">Obiect istoric</string>
 	<string name="type.historic.archaeological_site">Sit arheologic</string>
+	<string name="type.historic.battlefield">Câmpul de luptă</string>
+	<string name="type.historic.boundary_stone">Piatră de hotar</string>
 	<string name="type.historic.castle">Castel</string>
 	<string name="type.historic.castle.castrum">Castru</string>
 	<string name="type.historic.castle.defensive">Castel</string>
@@ -1108,6 +1112,8 @@
 	<string name="type.historic.castle.shiro">Castelul japonez</string>
 	<string name="type.historic.castle.stately">Castel</string>
 	<string name="type.historic.city_gate">Poarta orașului</string>
+	<string name="type.historic.citywalls">Zidurile orașului</string>
+	<string name="type.historic.fort">Fort</string>
 	<string name="type.historic.gallows">Spânzurătoare</string>
 	<string name="type.historic.memorial">Comemorare</string>
 	<string name="type.historic.memorial.cross">Cruce comemorativă</string>
@@ -1116,10 +1122,13 @@
 	<string name="type.historic.memorial.statue">Comemorare</string>
 	<string name="type.historic.memorial.stolperstein">Blocaj de poticnire</string>
 	<string name="type.historic.memorial.war_memorial">Memorial de război</string>
+	<string name="type.historic.monument">Monument</string>
 	<string name="type.historic.pillory">Stâlpul infamiei</string>
 	<string name="type.historic.ruins">Ruine</string>
-	<string name="type.historic.ship">Obiective turistice</string>
-	<string name="type.historic.tomb">Obiective turistice</string>
+	<string name="type.historic.ship">Navă</string>
+	<string name="type.historic.tomb">Mormânt</string>
+	<string name="type.historic.wayside_cross">Troiță</string>
+	<string name="type.historic.wayside_shrine">Altarul de la marginea drumului</string>
 	<string name="type.landuse.basin">Bazin de apă</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery">Cimitir</string>

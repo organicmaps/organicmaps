@@ -786,6 +786,7 @@
 	<string name="type.barrier.block">บล็อก</string>
 	<string name="type.barrier.bollard">เสา</string>
 	<string name="type.barrier.border_control">ด่านตรวจคนเข้าเมือง</string>
+	<string name="type.barrier.city_wall">กำแพงเมือง</string>
 	<string name="type.barrier.ditch">คูเมือง</string>
 	<string name="type.barrier.entrance">ทางเข้า</string>
 	<string name="type.barrier.gate">ประตู</string>
@@ -1076,7 +1077,10 @@
 	<string name="type.area_highway.unclassified">ถนน</string>
 
 	<!-- SECTION: Types: Historic -->
+	<string name="type.historic">วัตถุประวัติศาสตร์</string>
 	<string name="type.historic.archaeological_site">โบราณสถาน</string>
+	<string name="type.historic.battlefield">สนามรบ</string>
+	<string name="type.historic.boundary_stone">ขอบหิน</string>
 	<string name="type.historic.castle">ปราสาท</string>
 	<string name="type.historic.castle.castrum">ป้อมโรมัน</string>
 	<string name="type.historic.castle.defensive">ปราสาท</string>
@@ -1089,6 +1093,8 @@
 	<string name="type.historic.castle.shiro">ปราสาทญี่ปุ่น</string>
 	<string name="type.historic.castle.stately">ปราสาท</string>
 	<string name="type.historic.city_gate">ประตูเมือง</string>
+	<string name="type.historic.citywalls">กำแพงเมือง</string>
+	<string name="type.historic.fort">ป้อม</string>
 	<string name="type.historic.memorial">ที่ระลึก</string>
 	<string name="type.historic.memorial.cross">อนุสรณ์สถานข้าม</string>
 	<string name="type.historic.memorial.plaque">ที่ระลึก</string>
@@ -1101,6 +1107,8 @@
 	<string name="type.historic.ruins">ซากปรักหักพัง</string>
 	<string name="type.historic.ship">สถานที่ท่องเที่ยว</string>
 	<string name="type.historic.tomb">สถานที่ท่องเที่ยว</string>
+	<string name="type.historic.wayside_cross">ทางข้าม</string>
+	<string name="type.historic.wayside_shrine">ศาลเจ้าข้างทาง</string>
 	<string name="type.internet_access">อินเทอร์เน็ต</string>
 	<string name="type.internet_access.wlan">อินเทอร์เน็ต</string>
 	<string name="type.landuse.basin">อ่างน้ำ</string>

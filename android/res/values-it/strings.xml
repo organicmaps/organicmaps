@@ -836,7 +836,7 @@
 	<string name="type.barrier.bollard">Pilastro</string>
 	<string name="type.barrier.border_control">Controllo di frontiera</string>
 	<string name="type.barrier.chain">Catena</string>
-	<string name="type.barrier.city_wall">Mura Cittadine</string>
+	<string name="type.barrier.city_wall">Muro della città</string>
 	<string name="type.barrier.cycle_barrier">Barriera per biciclette</string>
 	<string name="type.barrier.ditch">Fossato</string>
 	<string name="type.barrier.entrance">Ingresso</string>
@@ -1160,6 +1160,7 @@
 	<string name="type.historic">Oggetto storico</string>
 	<string name="type.historic.archaeological_site">Sito archeologico</string>
 	<string name="type.historic.battlefield">Campo di battaglia</string>
+	<string name="type.historic.boundary_stone">Cippo di confine</string>
 	<string name="type.historic.castle">Castello</string>
 	<string name="type.historic.castle.castrum">Castra</string>
 	<string name="type.historic.castle.defensive">Castello</string>
@@ -1172,13 +1173,13 @@
 	<string name="type.historic.castle.shiro">Castello giapponese</string>
 	<string name="type.historic.castle.stately">Castello</string>
 	<string name="type.historic.city_gate">Porta cittadina</string>
-	<string name="type.historic.citywalls">Mura cittadine</string>
+	<string name="type.historic.citywalls">Muro della città</string>
 	<string name="type.historic.fort">Fortezza</string>
 	<string name="type.historic.gallows">Forca</string>
 	<string name="type.historic.memorial">Memoriale</string>
 	<string name="type.historic.memorial.cross">Croce commemorativa</string>
 	<string name="type.historic.memorial.plaque">Memoriale</string>
-	<string name="type.historic.memorial.sculpture">Memoriale</string>
+	<string name="type.historic.memorial.sculpture">Scultura</string>
 	<string name="type.historic.memorial.statue">Statua memoriale</string>
 	<string name="type.historic.memorial.stolperstein">Pietre d\'inciampo</string>
 	<string name="type.historic.memorial.war_memorial">Monumento ai caduti</string>

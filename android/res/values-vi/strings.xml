@@ -783,6 +783,7 @@
 	<string name="type.barrier.block">Khối</string>
 	<string name="type.barrier.bollard">Trụ</string>
 	<string name="type.barrier.border_control">Biên Phòng</string>
+	<string name="type.barrier.city_wall">Tường thành</string>
 	<string name="type.barrier.ditch">Hào nước</string>
 	<string name="type.barrier.entrance">Lối vào</string>
 	<string name="type.barrier.gate">Cổng</string>
@@ -1073,7 +1074,10 @@
 	<string name="type.area_highway.unclassified">Phố</string>
 
 	<!-- SECTION: Types: Historic -->
+	<string name="type.historic">Đối tượng lịch sử</string>
 	<string name="type.historic.archaeological_site">Điểm khảo cổ</string>
+	<string name="type.historic.battlefield">Chiến trường</string>
+	<string name="type.historic.boundary_stone">Đá ranh giới</string>
 	<string name="type.historic.castle">Lâu đài</string>
 	<string name="type.historic.castle.castrum">Pháo đài La mã</string>
 	<string name="type.historic.castle.defensive">Lâu đài</string>
@@ -1086,6 +1090,8 @@
 	<string name="type.historic.castle.shiro">Lâu đài nhật bản</string>
 	<string name="type.historic.castle.stately">Pháo đài</string>
 	<string name="type.historic.city_gate">Cổng thành</string>
+	<string name="type.historic.citywalls">Tường thành</string>
+	<string name="type.historic.fort">Pháo đài</string>
 	<string name="type.historic.gallows">Giá treo cổ</string>
 	<string name="type.historic.memorial">Đài tưởng niệm</string>
 	<string name="type.historic.memorial.cross">Thánh giá tưởng niệm</string>
@@ -1099,6 +1105,8 @@
 	<string name="type.historic.ruins">Phế tích</string>
 	<string name="type.historic.ship">Diểm tham quan</string>
 	<string name="type.historic.tomb">Diểm tham quan</string>
+	<string name="type.historic.wayside_cross">Đường chéo</string>
+	<string name="type.historic.wayside_shrine">Đền thờ</string>
 	<string name="type.landuse.basin">Một chậu nước</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery">Bãi tha ma</string>

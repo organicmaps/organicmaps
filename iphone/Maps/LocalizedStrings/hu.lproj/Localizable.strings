@@ -1533,7 +1533,7 @@
 
 "type.barrier.chain" = "Chain";
 
-"type.barrier.city_wall" = "City Wall";
+"type.barrier.city_wall" = "Városi fal";
 
 "type.barrier.cycle_barrier" = "Cycle Barrier";
 
@@ -2144,13 +2144,13 @@
 
 /********** Types: Historic **********/
 
-"type.historic" = "Historic";
+"type.historic" = "Történelmi tárgy";
 
 "type.historic.archaeological_site" = "Ásatás";
 
-"type.historic.battlefield" = "Battlefield";
+"type.historic.battlefield" = "Csatatér";
 
-"type.historic.boundary_stone" = "Boundary Stone";
+"type.historic.boundary_stone" = "Határkő";
 
 "type.historic.castle" = "Kastély";
 
@@ -2176,7 +2176,7 @@
 
 "type.historic.city_gate" = "Városi kapu";
 
-"type.historic.citywalls" = "City Wall";
+"type.historic.citywalls" = "Városi fal";
 
 "type.historic.fort" = "Fort";
 
@@ -2204,11 +2204,11 @@
 
 "type.historic.ship" = "Túrizmus";
 
-"type.historic.tomb" = "Túrizmus";
+"type.historic.tomb" = "Sír";
 
-"type.historic.wayside_cross" = "Christian Cross";
+"type.historic.wayside_cross" = "Útszéli kereszt";
 
-"type.historic.wayside_shrine" = "Shrine";
+"type.historic.wayside_shrine" = "Útmenti szentély";
 
 "type.hwtag" = "hwtag";
 

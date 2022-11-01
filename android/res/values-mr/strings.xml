@@ -1077,6 +1077,7 @@
 	<string name="type.historic">ऐतिहासिक</string>
 	<string name="type.historic.archaeological_site">पुरातत्व स्थळ</string>
 	<string name="type.historic.battlefield">रणांगण</string>
+	<string name="type.historic.boundary_stone">सीमेचा दगड</string>
 	<string name="type.historic.castle">गढी</string>
 	<string name="type.historic.castle.castrum">रोमन किल्ला</string>
 	<string name="type.historic.castle.defensive">गढी</string>

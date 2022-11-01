@@ -817,7 +817,7 @@
 	<string name="type.barrier.block">Bloco</string>
 	<string name="type.barrier.bollard">Pilarete</string>
 	<string name="type.barrier.border_control">Controlo de fronteira</string>
-	<string name="type.barrier.city_wall">Muralha de cidade</string>
+	<string name="type.barrier.city_wall">Muralha</string>
 	<string name="type.barrier.cycle_barrier">Barreira de bicicletas</string>
 	<string name="type.barrier.ditch">Fosso</string>
 	<string name="type.barrier.entrance">Entrada</string>
@@ -1142,7 +1142,7 @@
 	<string name="type.area_highway.unclassified">Estrada sem classificação</string>
 
 	<!-- SECTION: Types: Historic -->
-	<string name="type.historic">Histórico</string>
+	<string name="type.historic">Objeto histórico</string>
 	<string name="type.historic.archaeological_site">Sítio arqueológico</string>
 	<string name="type.historic.battlefield">Campo de batalha</string>
 	<string name="type.historic.boundary_stone">Marco fronteiriço</string>
@@ -1158,20 +1158,20 @@
 	<string name="type.historic.castle.shiro">Castelo japonês</string>
 	<string name="type.historic.castle.stately">Château</string>
 	<string name="type.historic.city_gate">Portas da cidade</string>
-	<string name="type.historic.citywalls">Muralha de cidade</string>
-	<string name="type.historic.fort">Forte histórico</string>
+	<string name="type.historic.citywalls">Muralha</string>
+	<string name="type.historic.fort">Forte</string>
 	<string name="type.historic.gallows">Forca</string>
 	<string name="type.historic.memorial">Memorial</string>
 	<string name="type.historic.memorial.cross">Cruz memorial</string>
 	<string name="type.historic.memorial.plaque">Placa comemorativa</string>
-	<string name="type.historic.memorial.sculpture">Escultura memorial</string>
-	<string name="type.historic.memorial.statue">Estátua memorial</string>
+	<string name="type.historic.memorial.sculpture">Escultura</string>
+	<string name="type.historic.memorial.statue">Estátua</string>
 	<string name="type.historic.memorial.stolperstein">Stolperstein</string>
 	<string name="type.historic.memorial.war_memorial">Memorial de guerra</string>
 	<string name="type.historic.monument">Monumento</string>
 	<string name="type.historic.pillory">Pelourinho</string>
 	<string name="type.historic.ruins">Ruínas</string>
-	<string name="type.historic.ship">Barco histórico</string>
+	<string name="type.historic.ship">Barco</string>
 	<string name="type.historic.tomb">Túmulo</string>
 	<string name="type.historic.wayside_cross">Cruzeiro</string>
 	<string name="type.historic.wayside_shrine">Alminhas</string>

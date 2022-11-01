@@ -780,6 +780,7 @@
 	<string name="type.barrier.block">Blokk</string>
 	<string name="type.barrier.bollard">Pullert</string>
 	<string name="type.barrier.border_control">Grensekontroll</string>
+	<string name="type.barrier.city_wall">Bymurer</string>
 	<string name="type.barrier.ditch">Vollgrav</string>
 	<string name="type.barrier.entrance">Inngangspassasje</string>
 	<string name="type.barrier.gate">Port</string>
@@ -1070,7 +1071,10 @@
 	<string name="type.area_highway.unclassified">Gate</string>
 
 	<!-- SECTION: Types: Historic -->
+	<string name="type.historic">Historisk gjenstand</string>
 	<string name="type.historic.archaeological_site">Arkeologisk område</string>
+	<string name="type.historic.battlefield">Slagmarken</string>
+	<string name="type.historic.boundary_stone">Grensemerke</string>
 	<string name="type.historic.castle">Borg</string>
 	<string name="type.historic.castle.castrum">Romersk fort</string>
 	<string name="type.historic.castle.defensive">Borg</string>
@@ -1083,6 +1087,8 @@
 	<string name="type.historic.castle.shiro">Japanske borger</string>
 	<string name="type.historic.castle.stately">Slott</string>
 	<string name="type.historic.city_gate">Byport</string>
+	<string name="type.historic.citywalls">Bymurer</string>
+	<string name="type.historic.fort">Fort</string>
 	<string name="type.historic.gallows">Galge</string>
 	<string name="type.historic.memorial">Minnesmerke</string>
 	<string name="type.historic.memorial.cross">Minnekors</string>
@@ -1095,6 +1101,8 @@
 	<string name="type.historic.ruins">Ruiner</string>
 	<string name="type.historic.ship">Severdigheter</string>
 	<string name="type.historic.tomb">Severdigheter</string>
+	<string name="type.historic.wayside_cross">Veikantkors</string>
+	<string name="type.historic.wayside_shrine">Helligdom ved veikanten</string>
 	<string name="type.landuse.basin">Vannvask</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery">Gravplass</string>

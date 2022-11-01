@@ -1150,7 +1150,7 @@
 	<string name="type.historic.castle.shiro">城</string>
 	<string name="type.historic.castle.stately">法式城堡</string>
 	<string name="type.historic.city_gate">城门</string>
-	<string name="type.historic.citywalls">历史城墙</string>
+	<string name="type.historic.citywalls">城墙</string>
 	<string name="type.historic.fort">历史要塞</string>
 	<string name="type.historic.gallows">绞架</string>
 	<string name="type.historic.memorial">纪念物</string>

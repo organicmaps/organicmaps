@@ -1533,7 +1533,7 @@
 
 "type.barrier.chain" = "Chain";
 
-"type.barrier.city_wall" = "City Wall";
+"type.barrier.city_wall" = "Τείχος της πόλης";
 
 "type.barrier.cycle_barrier" = "Cycle Barrier";
 
@@ -2144,13 +2144,13 @@
 
 /********** Types: Historic **********/
 
-"type.historic" = "Historic";
+"type.historic" = "Ιστορικό αντικείμενο";
 
 "type.historic.archaeological_site" = "Αρχαιολογικός χώρος";
 
-"type.historic.battlefield" = "Battlefield";
+"type.historic.battlefield" = "Πεδίο μάχης";
 
-"type.historic.boundary_stone" = "Boundary Stone";
+"type.historic.boundary_stone" = "Οριακή πέτρα";
 
 "type.historic.castle" = "Κάστρο";
 
@@ -2176,9 +2176,9 @@
 
 "type.historic.city_gate" = "Πύλη της πόλης";
 
-"type.historic.citywalls" = "City Wall";
+"type.historic.citywalls" = "Τείχος της πόλης";
 
-"type.historic.fort" = "Fort";
+"type.historic.fort" = "Φορτ";
 
 "type.historic.gallows" = "Αγχόνη";
 
@@ -2206,9 +2206,9 @@
 
 "type.historic.tomb" = "Αξιοθέατο";
 
-"type.historic.wayside_cross" = "Christian Cross";
+"type.historic.wayside_cross" = "Σταυρός στην άκρη του δρόμου";
 
-"type.historic.wayside_shrine" = "Shrine";
+"type.historic.wayside_shrine" = "Εικονοστάσιο στην άκρη του δρόμου";
 
 "type.hwtag" = "hwtag";
 

@@ -1533,7 +1533,7 @@
 
 "type.barrier.chain" = "Chain";
 
-"type.barrier.city_wall" = "City Wall";
+"type.barrier.city_wall" = "חומת העיר";
 
 "type.barrier.cycle_barrier" = "Cycle Barrier";
 
@@ -2081,7 +2081,7 @@
 
 "type.highway.traffic_signals" = "Traffic Lights";
 
-"type.highway.trunk" = "National Highway";
+"type.highway.trunk" = "Trunk Road";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.trunk.bridge" = "לְגַשֵׁר";
@@ -2089,7 +2089,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.trunk.tunnel" = "מִנהָרָה";
 
-"type.highway.trunk_link" = "National Highway";
+"type.highway.trunk_link" = "Trunk Road";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.trunk_link.bridge" = "לְגַשֵׁר";
@@ -2133,7 +2133,7 @@
 
 "type.area_highway.track" = "Track";
 
-"type.area_highway.trunk" = "National Highway";
+"type.area_highway.trunk" = "Trunk Road";
 
 "type.area_highway.unclassified" = "Minor Road";
 
@@ -2144,13 +2144,13 @@
 
 /********** Types: Historic **********/
 
-"type.historic" = "Historic";
+"type.historic" = "חפץ היסטורי";
 
-"type.historic.archaeological_site" = "Archaeological Site";
+"type.historic.archaeological_site" = "אתר ארכיאולוגי";
 
-"type.historic.battlefield" = "Battlefield";
+"type.historic.battlefield" = "שדה קרב";
 
-"type.historic.boundary_stone" = "Boundary Stone";
+"type.historic.boundary_stone" = "אבן גבול";
 
 "type.historic.castle" = "טירה";
 
@@ -2176,39 +2176,39 @@
 
 "type.historic.city_gate" = "שער העיר";
 
-"type.historic.citywalls" = "City Wall";
+"type.historic.citywalls" = "חומת העיר";
 
-"type.historic.fort" = "Fort";
+"type.historic.fort" = "מִבצָר";
 
 "type.historic.gallows" = "גרדום";
 
-"type.historic.memorial" = "Memorial";
+"type.historic.memorial" = "אתר הנצחה";
 
 "type.historic.memorial.cross" = "צלב זיכרון";
 
 "type.historic.memorial.plaque" = "לוחית זיכרון";
 
-"type.historic.memorial.sculpture" = "Sculpture";
+"type.historic.memorial.sculpture" = "פֶּסֶל";
 
-"type.historic.memorial.statue" = "Statue";
+"type.historic.memorial.statue" = "פסל";
 
 "type.historic.memorial.stolperstein" = "אבן נגף";
 
 "type.historic.memorial.war_memorial" = "אנדרטת מלחמה";
 
-"type.historic.monument" = "Monument";
+"type.historic.monument" = "מונומנט";
 
 "type.historic.pillory" = "עמוד הקלון";
 
-"type.historic.ruins" = "Ruins";
+"type.historic.ruins" = "חורבות";
 
-"type.historic.ship" = "Ship";
+"type.historic.ship" = "אונייה";
 
-"type.historic.tomb" = "Tomb";
+"type.historic.tomb" = "קֶבֶר";
 
-"type.historic.wayside_cross" = "Christian Cross";
+"type.historic.wayside_cross" = "צלב בצד הדרך";
 
-"type.historic.wayside_shrine" = "Shrine";
+"type.historic.wayside_shrine" = "מקדש בצד הדרך";
 
 "type.hwtag" = "hwtag";
 

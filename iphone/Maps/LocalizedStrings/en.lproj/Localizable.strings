@@ -2081,7 +2081,7 @@
 
 "type.highway.traffic_signals" = "Traffic Lights";
 
-"type.highway.trunk" = "National Highway";
+"type.highway.trunk" = "Trunk Road";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.trunk.bridge" = "Bridge";
@@ -2089,7 +2089,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.trunk.tunnel" = "Tunnel";
 
-"type.highway.trunk_link" = "National Highway Ramp";
+"type.highway.trunk_link" = "Trunk Road Ramp";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.trunk_link.bridge" = "Bridge";
@@ -2133,7 +2133,7 @@
 
 "type.area_highway.track" = "Track";
 
-"type.area_highway.trunk" = "National Highway";
+"type.area_highway.trunk" = "Trunk Road";
 
 "type.area_highway.unclassified" = "Minor Road";
 
@@ -2144,7 +2144,7 @@
 
 /********** Types: Historic **********/
 
-"type.historic" = "Historic";
+"type.historic" = "Historic object";
 
 "type.historic.archaeological_site" = "Archaeological Site";
 
@@ -2206,9 +2206,9 @@
 
 "type.historic.tomb" = "Tomb";
 
-"type.historic.wayside_cross" = "Christian Cross";
+"type.historic.wayside_cross" = "Wayside cross";
 
-"type.historic.wayside_shrine" = "Shrine";
+"type.historic.wayside_shrine" = "Wayside shrine";
 
 "type.hwtag" = "hwtag";
 

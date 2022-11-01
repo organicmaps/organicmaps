@@ -1533,7 +1533,7 @@
 
 "type.barrier.chain" = "Ланцуг";
 
-"type.barrier.city_wall" = "City Wall";
+"type.barrier.city_wall" = "Гарадскі вал";
 
 "type.barrier.cycle_barrier" = "Cycle Barrier";
 
@@ -2081,7 +2081,7 @@
 
 "type.highway.traffic_signals" = "Traffic Lights";
 
-"type.highway.trunk" = "National Highway";
+"type.highway.trunk" = "Trunk Road";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.trunk.bridge" = "Мост";
@@ -2089,7 +2089,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.trunk.tunnel" = "Тунэль";
 
-"type.highway.trunk_link" = "National Highway";
+"type.highway.trunk_link" = "Trunk Road";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.trunk_link.bridge" = "Мост";
@@ -2133,7 +2133,7 @@
 
 "type.area_highway.track" = "Track";
 
-"type.area_highway.trunk" = "National Highway";
+"type.area_highway.trunk" = "Trunk Road";
 
 "type.area_highway.unclassified" = "Minor Road";
 
@@ -2144,13 +2144,13 @@
 
 /********** Types: Historic **********/
 
-"type.historic" = "Historic";
+"type.historic" = "Гістарычны аб'ект";
 
 "type.historic.archaeological_site" = "Археалагічны помнік";
 
-"type.historic.battlefield" = "Battlefield";
+"type.historic.battlefield" = "Поле бітвы";
 
-"type.historic.boundary_stone" = "Boundary Stone";
+"type.historic.boundary_stone" = "Межавы камень";
 
 "type.historic.castle" = "Замак";
 
@@ -2176,39 +2176,39 @@
 
 "type.historic.city_gate" = "Гарадская брама";
 
-"type.historic.citywalls" = "City Wall";
+"type.historic.citywalls" = "Гарадскі вал";
 
-"type.historic.fort" = "Fort";
+"type.historic.fort" = "Форт";
 
 "type.historic.gallows" = "Шыбеніца";
 
-"type.historic.memorial" = "Memorial";
+"type.historic.memorial" = "Мемарыял";
 
 "type.historic.memorial.cross" = "Памятны крыж";
 
 "type.historic.memorial.plaque" = "Памятная дошка";
 
-"type.historic.memorial.sculpture" = "Sculpture";
+"type.historic.memorial.sculpture" = "Скульптура";
 
-"type.historic.memorial.statue" = "Statue";
+"type.historic.memorial.statue" = "Статуя";
 
 "type.historic.memorial.stolperstein" = "Камяні спатыкнення";
 
 "type.historic.memorial.war_memorial" = "Ваенны мемарыял";
 
-"type.historic.monument" = "Monument";
+"type.historic.monument" = "Помнік";
 
 "type.historic.pillory" = "Пазорны слуп";
 
-"type.historic.ruins" = "Ruins";
+"type.historic.ruins" = "Руіны";
 
-"type.historic.ship" = "Ship";
+"type.historic.ship" = "Судна";
 
-"type.historic.tomb" = "Tomb";
+"type.historic.tomb" = "Магіла";
 
-"type.historic.wayside_cross" = "Christian Cross";
+"type.historic.wayside_cross" = "Прыдарожны крыж";
 
-"type.historic.wayside_shrine" = "Shrine";
+"type.historic.wayside_shrine" = "Прыдарожная святыня";
 
 "type.hwtag" = "hwtag";
 

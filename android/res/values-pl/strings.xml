@@ -1190,7 +1190,7 @@
 	<string name="type.historic.castle.shiro">Japoński zamek</string>
 	<string name="type.historic.castle.stately">Zamek</string>
 	<string name="type.historic.city_gate">Brama miejska</string>
-	<string name="type.historic.citywalls">Historyczne mury miasta</string>
+	<string name="type.historic.citywalls">Mur miejski</string>
 	<string name="type.historic.fort">Historyczny fort</string>
 	<string name="type.historic.gallows">Szubienica</string>
 	<string name="type.historic.memorial">Pomnik</string>

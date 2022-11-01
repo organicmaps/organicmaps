@@ -1190,7 +1190,7 @@
 	<string name="type.historic.castle.stately">Schloss</string>
 	<string name="type.historic.city_gate">Stadttor</string>
 	<string name="type.historic.citywalls">Stadtmauer</string>
-	<string name="type.historic.fort">Festung</string>
+	<string name="type.historic.fort">Fort</string>
 	<string name="type.historic.gallows">Galgen</string>
 	<string name="type.historic.memorial">Denkmal</string>
 	<string name="type.historic.memorial.cross">Gedenkkreuz</string>
@@ -1199,6 +1199,7 @@
 	<string name="type.historic.memorial.statue">Statue</string>
 	<string name="type.historic.memorial.stolperstein">Stolperstein</string>
 	<string name="type.historic.memorial.war_memorial">Kriegerdenkmal</string>
+	<string name="type.historic.monument">Monument</string>
 	<string name="type.historic.pillory">Pranger</string>
 	<string name="type.historic.ruins">Ruine</string>
 	<string name="type.historic.ship">Schiff</string>
