@@ -1533,7 +1533,7 @@
 
 "type.barrier.chain" = "Cadena";
 
-"type.barrier.city_wall" = "Muralla";
+"type.barrier.city_wall" = "Muro de la ciudad";
 
 "type.barrier.cycle_barrier" = "Barrera para bicicletas";
 
@@ -2144,13 +2144,13 @@
 
 /********** Types: Historic **********/
 
-"type.historic" = "Historic";
+"type.historic" = "Objeto histórico";
 
 "type.historic.archaeological_site" = "Yacimiento arqueológico";
 
-"type.historic.battlefield" = "Battlefield";
+"type.historic.battlefield" = "Campo de batalla";
 
-"type.historic.boundary_stone" = "Boundary Stone";
+"type.historic.boundary_stone" = "Hito fronterizo";
 
 "type.historic.castle" = "Castillo";
 
@@ -2176,21 +2176,21 @@
 
 "type.historic.city_gate" = "Puerta de la ciudad";
 
-"type.historic.citywalls" = "City Wall";
+"type.historic.citywalls" = "Muro de la ciudad";
 
-"type.historic.fort" = "Fort";
+"type.historic.fort" = "Fuerte";
 
 "type.historic.gallows" = "Horca";
 
-"type.historic.memorial" = "Memorial";
+"type.historic.memorial" = "Monumento conmemorativo";
 
 "type.historic.memorial.cross" = "Cruz conmemorativa";
 
 "type.historic.memorial.plaque" = "Placa conmemorativa";
 
-"type.historic.memorial.sculpture" = "Sculpture";
+"type.historic.memorial.sculpture" = "Escultura";
 
-"type.historic.memorial.statue" = "Statue";
+"type.historic.memorial.statue" = "Estatua";
 
 "type.historic.memorial.stolperstein" = "Stolperstein";
 
@@ -2204,11 +2204,11 @@
 
 "type.historic.ship" = "Turismo";
 
-"type.historic.tomb" = "Turismo";
+"type.historic.tomb" = "Tumba";
 
-"type.historic.wayside_cross" = "Christian Cross";
+"type.historic.wayside_cross" = "Cruz de término";
 
-"type.historic.wayside_shrine" = "Shrine";
+"type.historic.wayside_shrine" = "Peto de ánimas";
 
 "type.hwtag" = "hwtag";
 

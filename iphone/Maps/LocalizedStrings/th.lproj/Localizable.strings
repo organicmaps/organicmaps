@@ -1533,7 +1533,7 @@
 
 "type.barrier.chain" = "Chain";
 
-"type.barrier.city_wall" = "City Wall";
+"type.barrier.city_wall" = "กำแพงเมือง";
 
 "type.barrier.cycle_barrier" = "Cycle Barrier";
 
@@ -2144,13 +2144,13 @@
 
 /********** Types: Historic **********/
 
-"type.historic" = "Historic";
+"type.historic" = "วัตถุประวัติศาสตร์";
 
 "type.historic.archaeological_site" = "โบราณสถาน";
 
-"type.historic.battlefield" = "Battlefield";
+"type.historic.battlefield" = "สนามรบ";
 
-"type.historic.boundary_stone" = "Boundary Stone";
+"type.historic.boundary_stone" = "ขอบหิน";
 
 "type.historic.castle" = "ปราสาท";
 
@@ -2176,9 +2176,9 @@
 
 "type.historic.city_gate" = "ประตูเมือง";
 
-"type.historic.citywalls" = "City Wall";
+"type.historic.citywalls" = "กำแพงเมือง";
 
-"type.historic.fort" = "Fort";
+"type.historic.fort" = "ป้อม";
 
 "type.historic.gallows" = "Gallows";
 
@@ -2206,9 +2206,9 @@
 
 "type.historic.tomb" = "สถานที่ท่องเที่ยว";
 
-"type.historic.wayside_cross" = "Christian Cross";
+"type.historic.wayside_cross" = "ทางข้าม";
 
-"type.historic.wayside_shrine" = "Shrine";
+"type.historic.wayside_shrine" = "ศาลเจ้าข้างทาง";
 
 "type.hwtag" = "hwtag";
 

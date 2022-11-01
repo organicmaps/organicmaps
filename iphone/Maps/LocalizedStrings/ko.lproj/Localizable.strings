@@ -1533,7 +1533,7 @@
 
 "type.barrier.chain" = "Chain";
 
-"type.barrier.city_wall" = "City Wall";
+"type.barrier.city_wall" = "도시의 벽";
 
 "type.barrier.cycle_barrier" = "Cycle Barrier";
 
@@ -2144,13 +2144,13 @@
 
 /********** Types: Historic **********/
 
-"type.historic" = "Historic";
+"type.historic" = "역사적 물건";
 
 "type.historic.archaeological_site" = "발굴";
 
-"type.historic.battlefield" = "Battlefield";
+"type.historic.battlefield" = "전장터";
 
-"type.historic.boundary_stone" = "Boundary Stone";
+"type.historic.boundary_stone" = "경계석";
 
 "type.historic.castle" = "성";
 
@@ -2176,9 +2176,9 @@
 
 "type.historic.city_gate" = "성문";
 
-"type.historic.citywalls" = "City Wall";
+"type.historic.citywalls" = "도시의 벽";
 
-"type.historic.fort" = "Fort";
+"type.historic.fort" = "요새";
 
 "type.historic.gallows" = "교수대";
 
@@ -2206,9 +2206,9 @@
 
 "type.historic.tomb" = "무덤";
 
-"type.historic.wayside_cross" = "Christian Cross";
+"type.historic.wayside_cross" = "길가의 십자가";
 
-"type.historic.wayside_shrine" = "Shrine";
+"type.historic.wayside_shrine" = "길가의 신사";
 
 "type.hwtag" = "hwtag";
 

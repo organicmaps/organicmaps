@@ -784,6 +784,7 @@
 	<string name="type.barrier.block">Blok</string>
 	<string name="type.barrier.bollard">Pilíř</string>
 	<string name="type.barrier.border_control">Pohraniční kontrola</string>
+	<string name="type.barrier.city_wall">Městská zeď</string>
 	<string name="type.barrier.ditch">Hradní příkop</string>
 	<string name="type.barrier.entrance">Vstup</string>
 	<string name="type.barrier.gate">Brána</string>
@@ -1074,7 +1075,10 @@
 	<string name="type.area_highway.unclassified">Ulice</string>
 
 	<!-- SECTION: Types: Historic -->
+	<string name="type.historic">Historický objekt</string>
 	<string name="type.historic.archaeological_site">Vykopávky</string>
+	<string name="type.historic.battlefield">Bojiště</string>
+	<string name="type.historic.boundary_stone">Hraniční kámen</string>
 	<string name="type.historic.castle">Hrad</string>
 	<string name="type.historic.castle.castrum">Castrum</string>
 	<string name="type.historic.castle.defensive">Hrad</string>
@@ -1087,6 +1091,8 @@
 	<string name="type.historic.castle.shiro">Japonský hrad</string>
 	<string name="type.historic.castle.stately">Zámek</string>
 	<string name="type.historic.city_gate">Městská brána</string>
+	<string name="type.historic.citywalls">Městská zeď</string>
+	<string name="type.historic.fort">Fort</string>
 	<string name="type.historic.gallows">Šibenice</string>
 	<string name="type.historic.memorial">Pomník</string>
 	<string name="type.historic.memorial.cross">Pamětní kříž</string>
@@ -1100,6 +1106,8 @@
 	<string name="type.historic.ruins">Ruiny</string>
 	<string name="type.historic.ship">Pamětihodnost</string>
 	<string name="type.historic.tomb">Pamětihodnost</string>
+	<string name="type.historic.wayside_cross">Přícestný kříž</string>
+	<string name="type.historic.wayside_shrine">Drobná sakrální památka</string>
 	<string name="type.landuse.basin">Vodní nádrž</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery">Hřbitov</string>

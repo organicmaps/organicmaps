@@ -778,6 +778,7 @@
 	<string name="type.barrier.block">Blok</string>
 	<string name="type.barrier.bollard">Pilar</string>
 	<string name="type.barrier.border_control">Gerbang perbatasan</string>
+	<string name="type.barrier.city_wall">Tembok Kota</string>
 	<string name="type.barrier.ditch">Parit</string>
 	<string name="type.barrier.entrance">Pintu masuk</string>
 	<string name="type.barrier.gate">Gerbang</string>
@@ -1068,7 +1069,10 @@
 	<string name="type.area_highway.unclassified">Jalan</string>
 
 	<!-- SECTION: Types: Historic -->
+	<string name="type.historic">Objek bersejarah</string>
 	<string name="type.historic.archaeological_site">Situs arkeologi</string>
+	<string name="type.historic.battlefield">Medan Perang</string>
+	<string name="type.historic.boundary_stone">Batu pembatas</string>
 	<string name="type.historic.castle">Kastel</string>
 	<string name="type.historic.castle.castrum">Benteng Romawi</string>
 	<string name="type.historic.castle.defensive">Kastel</string>
@@ -1081,6 +1085,8 @@
 	<string name="type.historic.castle.shiro">Istana Jepang</string>
 	<string name="type.historic.castle.stately">Kastel</string>
 	<string name="type.historic.city_gate">Gerbang kota</string>
+	<string name="type.historic.citywalls">Tembok Kota</string>
+	<string name="type.historic.fort">Benteng</string>
 	<string name="type.historic.gallows">Tiang gantungan</string>
 	<string name="type.historic.memorial">Tugu peringatan</string>
 	<string name="type.historic.memorial.cross">Salib peringatan</string>
@@ -1094,6 +1100,8 @@
 	<string name="type.historic.ruins">Reruntuhan</string>
 	<string name="type.historic.ship">Pemandangan</string>
 	<string name="type.historic.tomb">Pemandangan</string>
+	<string name="type.historic.wayside_cross">Salib di pinggir jalan</string>
+	<string name="type.historic.wayside_shrine">Kuil di pinggir jalan</string>
 	<string name="type.landuse.basin">Sebuah baskom air</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery">Pemakaman</string>

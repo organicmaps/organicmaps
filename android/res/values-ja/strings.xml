@@ -1127,7 +1127,7 @@
 	<string name="type.historic.castle.shiro">日本の城</string>
 	<string name="type.historic.castle.stately">城</string>
 	<string name="type.historic.city_gate">城門</string>
-	<string name="type.historic.citywalls">歴史的な城壁</string>
+	<string name="type.historic.citywalls">城壁</string>
 	<string name="type.historic.fort">歴史的な要塞</string>
 	<string name="type.historic.gallows">絞首台</string>
 	<string name="type.historic.memorial">記念碑</string>

@@ -1533,7 +1533,7 @@
 
 "type.barrier.chain" = "Katea";
 
-"type.barrier.city_wall" = "Horma";
+"type.barrier.city_wall" = "Hiri harresia";
 
 "type.barrier.cycle_barrier" = "Bizikleta-hesia";
 
@@ -2144,13 +2144,13 @@
 
 /********** Types: Historic **********/
 
-"type.historic" = "Historic";
+"type.historic" = "Objektu historikoa";
 
 "type.historic.archaeological_site" = "Aztarnategi arkeologikoa";
 
-"type.historic.battlefield" = "Battlefield";
+"type.historic.battlefield" = "Gudu zelai";
 
-"type.historic.boundary_stone" = "Boundary Stone";
+"type.historic.boundary_stone" = "Zedarri";
 
 "type.historic.castle" = "Gaztelu";
 
@@ -2176,9 +2176,9 @@
 
 "type.historic.city_gate" = "Portale";
 
-"type.historic.citywalls" = "City Wall";
+"type.historic.citywalls" = "Hiri harresia";
 
-"type.historic.fort" = "Fort";
+"type.historic.fort" = "Gotorlekua";
 
 "type.historic.gallows" = "Urkamendi";
 
@@ -2188,9 +2188,9 @@
 
 "type.historic.memorial.plaque" = "Oroitzapenezko plaka";
 
-"type.historic.memorial.sculpture" = "Sculpture";
+"type.historic.memorial.sculpture" = "Eskultura";
 
-"type.historic.memorial.statue" = "Statue";
+"type.historic.memorial.statue" = "Estatua";
 
 "type.historic.memorial.stolperstein" = "Stolperstein";
 
@@ -2204,11 +2204,11 @@
 
 "type.historic.ship" = "Turismoa";
 
-"type.historic.tomb" = "Turismoa";
+"type.historic.tomb" = "Ehorztoki";
 
-"type.historic.wayside_cross" = "Christian Cross";
+"type.historic.wayside_cross" = "Bideko gurutze";
 
-"type.historic.wayside_shrine" = "Shrine";
+"type.historic.wayside_shrine" = "Bide bazterreko baseliza";
 
 "type.hwtag" = "hwtag";
 

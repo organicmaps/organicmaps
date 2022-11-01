@@ -1533,7 +1533,7 @@
 
 "type.barrier.chain" = "Chain";
 
-"type.barrier.city_wall" = "City Wall";
+"type.barrier.city_wall" = "جدار المدينة";
 
 "type.barrier.cycle_barrier" = "Cycle Barrier";
 

@@ -835,6 +835,7 @@
 	<string name="type.barrier.block">حاجز</string>
 	<string name="type.barrier.bollard">عمود حاجز قصير</string>
 	<string name="type.barrier.border_control">أمن الحدود</string>
+	<string name="type.barrier.city_wall">جدار المدينة</string>
 	<string name="type.barrier.ditch">ﻕﺪﻨﺧ</string>
 	<string name="type.barrier.entrance">مدخل الحاجز</string>
 	<string name="type.barrier.gate">بوابة</string>

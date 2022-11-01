@@ -1533,7 +1533,7 @@
 
 "type.barrier.chain" = "Chaîne";
 
-"type.barrier.city_wall" = "Muraille";
+"type.barrier.city_wall" = "Mur de la ville";
 
 "type.barrier.cycle_barrier" = "Cycle Barrier";
 
@@ -2144,7 +2144,7 @@
 
 /********** Types: Historic **********/
 
-"type.historic" = "Historic";
+"type.historic" = "Objet historique";
 
 "type.historic.archaeological_site" = "Site archéologique";
 
@@ -2176,7 +2176,7 @@
 
 "type.historic.city_gate" = "Porte de ville";
 
-"type.historic.citywalls" = "Muraille";
+"type.historic.citywalls" = "Mur de la ville";
 
 "type.historic.fort" = "Fort militaire";
 
@@ -2188,7 +2188,7 @@
 
 "type.historic.memorial.plaque" = "Plaque commémorative";
 
-"type.historic.memorial.sculpture" = "Mémorial";
+"type.historic.memorial.sculpture" = "Sculpture";
 
 "type.historic.memorial.statue" = "Mémorial";
 
@@ -2206,7 +2206,7 @@
 
 "type.historic.tomb" = "Tombe historique";
 
-"type.historic.wayside_cross" = "Croix";
+"type.historic.wayside_cross" = "Croix de chemin";
 
 "type.historic.wayside_shrine" = "Oratoire";
 

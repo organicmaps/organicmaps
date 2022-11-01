@@ -1533,7 +1533,7 @@
 
 "type.barrier.chain" = "Catena";
 
-"type.barrier.city_wall" = "Mura Cittadine";
+"type.barrier.city_wall" = "Muro della città";
 
 "type.barrier.cycle_barrier" = "Barriera per biciclette";
 
@@ -2150,7 +2150,7 @@
 
 "type.historic.battlefield" = "Campo di battaglia";
 
-"type.historic.boundary_stone" = "Boundary Stone";
+"type.historic.boundary_stone" = "Cippo di confine";
 
 "type.historic.castle" = "Castello";
 
@@ -2176,7 +2176,7 @@
 
 "type.historic.city_gate" = "Porta cittadina";
 
-"type.historic.citywalls" = "Mura cittadine";
+"type.historic.citywalls" = "Muro della città";
 
 "type.historic.fort" = "Fortezza";
 
@@ -2188,7 +2188,7 @@
 
 "type.historic.memorial.plaque" = "Memoriale";
 
-"type.historic.memorial.sculpture" = "Memoriale";
+"type.historic.memorial.sculpture" = "Scultura";
 
 "type.historic.memorial.statue" = "Statua memoriale";
 

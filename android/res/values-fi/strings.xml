@@ -815,7 +815,7 @@
 	<string name="type.barrier.bollard">Tolppa</string>
 	<string name="type.barrier.border_control">Rajavalvonta</string>
 	<string name="type.barrier.chain">Ketju</string>
-	<string name="type.barrier.city_wall">Kaupunginmuuri</string>
+	<string name="type.barrier.city_wall">Kaupungin muuri</string>
 	<string name="type.barrier.cycle_barrier">Polkupyöräeste</string>
 	<string name="type.barrier.ditch">Vallihauta</string>
 	<string name="type.barrier.entrance">Sisäänkäynti</string>
@@ -1130,7 +1130,10 @@
 	<string name="type.area_highway.unclassified">Katu</string>
 
 	<!-- SECTION: Types: Historic -->
+	<string name="type.historic">Historiallinen esine</string>
 	<string name="type.historic.archaeological_site">Arkeologinen kohde</string>
+	<string name="type.historic.battlefield">Taistelukenttä</string>
+	<string name="type.historic.boundary_stone">Rajamerkki</string>
 	<string name="type.historic.castle">Linna</string>
 	<string name="type.historic.castle.castrum">Castra</string>
 	<string name="type.historic.castle.defensive">Linna</string>
@@ -1143,6 +1146,8 @@
 	<string name="type.historic.castle.shiro">Japanilainen linna</string>
 	<string name="type.historic.castle.stately">Linna</string>
 	<string name="type.historic.city_gate">Kaupungin portti</string>
+	<string name="type.historic.citywalls">Kaupungin muuri</string>
+	<string name="type.historic.fort">Fort</string>
 	<string name="type.historic.gallows">Sappeja</string>
 	<string name="type.historic.memorial">Muistomerkki</string>
 	<string name="type.historic.memorial.cross">Muistoristi</string>
@@ -1156,6 +1161,8 @@
 	<string name="type.historic.ruins">Rauniot</string>
 	<string name="type.historic.ship">Nähtävyydet</string>
 	<string name="type.historic.tomb">Nähtävyydet</string>
+	<string name="type.historic.wayside_cross">Tienvarren risti</string>
+	<string name="type.historic.wayside_shrine">Tienvarren pyhäkkö</string>
 	<string name="type.landuse.basin">Vesisäiliö</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery">Hautausmaa</string>

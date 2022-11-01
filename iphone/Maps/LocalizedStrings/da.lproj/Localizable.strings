@@ -1533,7 +1533,7 @@
 
 "type.barrier.chain" = "Chain";
 
-"type.barrier.city_wall" = "City Wall";
+"type.barrier.city_wall" = "Bymur";
 
 "type.barrier.cycle_barrier" = "Cycle Barrier";
 
@@ -2144,13 +2144,13 @@
 
 /********** Types: Historic **********/
 
-"type.historic" = "Historic";
+"type.historic" = "Historisk objekt";
 
 "type.historic.archaeological_site" = "Arkæologisk sted";
 
-"type.historic.battlefield" = "Battlefield";
+"type.historic.battlefield" = "Slagmark";
 
-"type.historic.boundary_stone" = "Boundary Stone";
+"type.historic.boundary_stone" = "Grænsesten";
 
 "type.historic.castle" = "Slot";
 
@@ -2176,7 +2176,7 @@
 
 "type.historic.city_gate" = "Byport";
 
-"type.historic.citywalls" = "City Wall";
+"type.historic.citywalls" = "Bymur";
 
 "type.historic.fort" = "Fort";
 
@@ -2204,11 +2204,11 @@
 
 "type.historic.ship" = "Turisme";
 
-"type.historic.tomb" = "Turisme";
+"type.historic.tomb" = "Grav";
 
-"type.historic.wayside_cross" = "Christian Cross";
+"type.historic.wayside_cross" = "Kors ved vejsiden";
 
-"type.historic.wayside_shrine" = "Shrine";
+"type.historic.wayside_shrine" = "Skrin ved vejsiden";
 
 "type.hwtag" = "hwtag";
 

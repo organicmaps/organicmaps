@@ -784,6 +784,7 @@
 	<string name="type.barrier.block">بلوک</string>
 	<string name="type.barrier.bollard">ستون</string>
 	<string name="type.barrier.border_control">کنترل مرزی</string>
+	<string name="type.barrier.city_wall">دیوار شهر</string>
 	<string name="type.barrier.ditch">ﻕﺪﻨﺧ</string>
 	<string name="type.barrier.entrance">ورودی</string>
 	<string name="type.barrier.gate">ورودی</string>
@@ -988,7 +989,10 @@
 	<string name="type.area_highway.unclassified">جاده</string>
 
 	<!-- SECTION: Types: Historic -->
+	<string name="type.historic">شیء تاریخی</string>
 	<string name="type.historic.archaeological_site">گردشگری</string>
+	<string name="type.historic.battlefield">میدان جنگ</string>
+	<string name="type.historic.boundary_stone">نشانگر مرز</string>
 	<string name="type.historic.castle">قلعه</string>
 	<string name="type.historic.castle.castrum">قلعه رومی</string>
 	<string name="type.historic.castle.defensive">قلعه</string>
@@ -1001,6 +1005,8 @@
 	<string name="type.historic.castle.shiro">قلعه ژاپنی</string>
 	<string name="type.historic.castle.stately">گردشگری</string>
 	<string name="type.historic.city_gate">دروازه شهر</string>
+	<string name="type.historic.citywalls">دیوار شهر</string>
+	<string name="type.historic.fort">دژ</string>
 	<string name="type.historic.gallows">چوبه دار</string>
 	<string name="type.historic.memorial">گردشگری</string>
 	<string name="type.historic.memorial.cross">صلیب یادبود</string>
@@ -1014,6 +1020,8 @@
 	<string name="type.historic.ruins">گردشگری</string>
 	<string name="type.historic.ship">گردشگری</string>
 	<string name="type.historic.tomb">گردشگری</string>
+	<string name="type.historic.wayside_cross">صلیب کنار راه</string>
+	<string name="type.historic.wayside_shrine">حرم کنار راه</string>
 	<string name="type.internet_access">وای فای</string>
 	<string name="type.internet_access.wlan">وای فای</string>
 	<string name="type.landuse.basin">حوضه آب</string>

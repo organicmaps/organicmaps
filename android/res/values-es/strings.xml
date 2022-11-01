@@ -844,7 +844,7 @@
 	<string name="type.barrier.bollard">Bolardo</string>
 	<string name="type.barrier.border_control">Control de fronteras</string>
 	<string name="type.barrier.chain">Cadena</string>
-	<string name="type.barrier.city_wall">Muralla</string>
+	<string name="type.barrier.city_wall">Muro de la ciudad</string>
 	<string name="type.barrier.cycle_barrier">Barrera para bicicletas</string>
 	<string name="type.barrier.ditch">Foso</string>
 	<string name="type.barrier.entrance">Entrada</string>
@@ -1166,7 +1166,10 @@
 	<string name="type.area_highway.unclassified">Calle</string>
 
 	<!-- SECTION: Types: Historic -->
+	<string name="type.historic">Objeto histórico</string>
 	<string name="type.historic.archaeological_site">Yacimiento arqueológico</string>
+	<string name="type.historic.battlefield">Campo de batalla</string>
+	<string name="type.historic.boundary_stone">Hito fronterizo</string>
 	<string name="type.historic.castle">Castillo</string>
 	<string name="type.historic.castle.castrum">Castrum</string>
 	<string name="type.historic.castle.defensive">Castillo</string>
@@ -1179,16 +1182,23 @@
 	<string name="type.historic.castle.shiro">Castillo japonés</string>
 	<string name="type.historic.castle.stately">Castillo</string>
 	<string name="type.historic.city_gate">Puerta de la ciudad</string>
+	<string name="type.historic.citywalls">Muro de la ciudad</string>
+	<string name="type.historic.fort">Fuerte</string>
 	<string name="type.historic.gallows">Horca</string>
+	<string name="type.historic.memorial">Monumento conmemorativo</string>
 	<string name="type.historic.memorial.cross">Cruz conmemorativa</string>
 	<string name="type.historic.memorial.plaque">Placa conmemorativa</string>
+	<string name="type.historic.memorial.sculpture">Escultura</string>
+	<string name="type.historic.memorial.statue">Estatua</string>
 	<string name="type.historic.memorial.stolperstein">Stolperstein</string>
 	<string name="type.historic.memorial.war_memorial">Monumento a la guerra</string>
 	<string name="type.historic.monument">Monumento</string>
 	<string name="type.historic.pillory">Picota</string>
 	<string name="type.historic.ruins">Ruinas</string>
 	<string name="type.historic.ship">Turismo</string>
-	<string name="type.historic.tomb">Turismo</string>
+	<string name="type.historic.tomb">Tumba</string>
+	<string name="type.historic.wayside_cross">Cruz de término</string>
+	<string name="type.historic.wayside_shrine">Peto de ánimas</string>
 	<string name="type.junction.roundabout">Rotonda</string>
 	<string name="type.landuse.basin">Cuenca</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->

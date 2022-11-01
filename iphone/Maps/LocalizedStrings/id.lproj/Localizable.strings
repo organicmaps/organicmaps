@@ -1533,7 +1533,7 @@
 
 "type.barrier.chain" = "Chain";
 
-"type.barrier.city_wall" = "City Wall";
+"type.barrier.city_wall" = "Tembok Kota";
 
 "type.barrier.cycle_barrier" = "Cycle Barrier";
 
@@ -2144,13 +2144,13 @@
 
 /********** Types: Historic **********/
 
-"type.historic" = "Historic";
+"type.historic" = "Objek bersejarah";
 
 "type.historic.archaeological_site" = "Situs arkeologi";
 
-"type.historic.battlefield" = "Battlefield";
+"type.historic.battlefield" = "Medan Perang";
 
-"type.historic.boundary_stone" = "Boundary Stone";
+"type.historic.boundary_stone" = "Batu pembatas";
 
 "type.historic.castle" = "Kastel";
 
@@ -2176,9 +2176,9 @@
 
 "type.historic.city_gate" = "Gerbang kota";
 
-"type.historic.citywalls" = "City Wall";
+"type.historic.citywalls" = "Tembok Kota";
 
-"type.historic.fort" = "Fort";
+"type.historic.fort" = "Benteng";
 
 "type.historic.gallows" = "Tiang gantungan";
 
@@ -2206,9 +2206,9 @@
 
 "type.historic.tomb" = "Pemandangan";
 
-"type.historic.wayside_cross" = "Christian Cross";
+"type.historic.wayside_cross" = "Salib di pinggir jalan";
 
-"type.historic.wayside_shrine" = "Shrine";
+"type.historic.wayside_shrine" = "Kuil di pinggir jalan";
 
 "type.hwtag" = "hwtag";
 

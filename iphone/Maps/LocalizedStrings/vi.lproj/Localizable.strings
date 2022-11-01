@@ -1533,7 +1533,7 @@
 
 "type.barrier.chain" = "Chain";
 
-"type.barrier.city_wall" = "City Wall";
+"type.barrier.city_wall" = "Tường thành";
 
 "type.barrier.cycle_barrier" = "Cycle Barrier";
 
@@ -2144,13 +2144,13 @@
 
 /********** Types: Historic **********/
 
-"type.historic" = "Historic";
+"type.historic" = "Đối tượng lịch sử";
 
 "type.historic.archaeological_site" = "Điểm khảo cổ";
 
-"type.historic.battlefield" = "Battlefield";
+"type.historic.battlefield" = "Chiến trường";
 
-"type.historic.boundary_stone" = "Boundary Stone";
+"type.historic.boundary_stone" = "Đá ranh giới";
 
 "type.historic.castle" = "Lâu đài";
 
@@ -2176,9 +2176,9 @@
 
 "type.historic.city_gate" = "Cổng thành";
 
-"type.historic.citywalls" = "City Wall";
+"type.historic.citywalls" = "Tường thành";
 
-"type.historic.fort" = "Fort";
+"type.historic.fort" = "Pháo đài";
 
 "type.historic.gallows" = "Giá treo cổ";
 
@@ -2206,9 +2206,9 @@
 
 "type.historic.tomb" = "Diểm tham quan";
 
-"type.historic.wayside_cross" = "Christian Cross";
+"type.historic.wayside_cross" = "Đường chéo";
 
-"type.historic.wayside_shrine" = "Shrine";
+"type.historic.wayside_shrine" = "Đền thờ";
 
 "type.hwtag" = "hwtag";
 

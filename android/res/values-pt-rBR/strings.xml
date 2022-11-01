@@ -837,7 +837,6 @@
 	<string name="type.barrier.block">Bloco</string>
 	<string name="type.barrier.bollard">Pilarete</string>
 	<string name="type.barrier.border_control">Controle de fronteira</string>
-	<string name="type.barrier.city_wall">Muralha de cidade</string>
 	<string name="type.barrier.cycle_barrier">Barreira de bicicletas</string>
 	<string name="type.barrier.entrance">Entrada</string>
 	<string name="type.barrier.fence">Cerca</string>
@@ -1147,24 +1146,8 @@
 	<string name="type.area_highway.unclassified">Estrada sem classificação</string>
 
 	<!-- SECTION: Types: Historic -->
-	<string name="type.historic">Histórico</string>
-	<string name="type.historic.archaeological_site">Sítio arqueológico</string>
-	<string name="type.historic.battlefield">Campo de batalha</string>
-	<string name="type.historic.boundary_stone">Marco fronteiriço</string>
-	<string name="type.historic.citywalls">Muralha de cidade</string>
-	<string name="type.historic.fort">Forte histórico</string>
 	<string name="type.historic.gallows">Galo</string>
-	<string name="type.historic.memorial">Memorial</string>
 	<string name="type.historic.memorial.cross">Cruz de memorial</string>
-	<string name="type.historic.memorial.plaque">Placa comemorativa</string>
-	<string name="type.historic.memorial.sculpture">Escultura memorial</string>
-	<string name="type.historic.memorial.statue">Estátua memorial</string>
-	<string name="type.historic.monument">Monumento</string>
-	<string name="type.historic.ruins">Ruínas</string>
-	<string name="type.historic.ship">Barco histórico</string>
-	<string name="type.historic.tomb">Túmulo</string>
-	<string name="type.historic.wayside_cross">Cruzeiro</string>
-	<string name="type.historic.wayside_shrine">Alminhas</string>
 	<string name="type.internet_access">Internet</string>
 	<string name="type.internet_access.wlan">Internet</string>
 	<string name="type.junction">Cruzamento</string>

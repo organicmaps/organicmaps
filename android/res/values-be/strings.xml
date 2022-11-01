@@ -766,6 +766,7 @@
 	<string name="type.amenity.waste_transfer_station">Станцыя перавалкі адходаў</string>
 	<string name="type.amenity.water_point">Вада для аўтадомаў</string>
 	<string name="type.barrier.chain">Ланцуг</string>
+	<string name="type.barrier.city_wall">Гарадскі вал</string>
 	<string name="type.barrier.ditch">Роў</string>
 	<string name="type.barrier.lift_gate">Шлагбаўм</string>
 	<string name="type.barrier.swing_gate">Шлагбаўм</string>
@@ -887,7 +888,10 @@
 	<string name="type.highway.unclassified.tunnel">Тунэль</string>
 
 	<!-- SECTION: Types: Historic -->
+	<string name="type.historic">Гістарычны аб\'ект</string>
 	<string name="type.historic.archaeological_site">Археалагічны помнік</string>
+	<string name="type.historic.battlefield">Поле бітвы</string>
+	<string name="type.historic.boundary_stone">Межавы камень</string>
 	<string name="type.historic.castle">Замак</string>
 	<string name="type.historic.castle.castrum">Каструм</string>
 	<string name="type.historic.castle.defensive">Замак</string>
@@ -900,12 +904,23 @@
 	<string name="type.historic.castle.shiro">Японскі замак</string>
 	<string name="type.historic.castle.stately">Замак</string>
 	<string name="type.historic.city_gate">Гарадская брама</string>
+	<string name="type.historic.citywalls">Гарадскі вал</string>
+	<string name="type.historic.fort">Форт</string>
 	<string name="type.historic.gallows">Шыбеніца</string>
+	<string name="type.historic.memorial">Мемарыял</string>
 	<string name="type.historic.memorial.cross">Памятны крыж</string>
 	<string name="type.historic.memorial.plaque">Памятная дошка</string>
+	<string name="type.historic.memorial.sculpture">Скульптура</string>
+	<string name="type.historic.memorial.statue">Статуя</string>
 	<string name="type.historic.memorial.stolperstein">Камяні спатыкнення</string>
 	<string name="type.historic.memorial.war_memorial">Ваенны мемарыял</string>
+	<string name="type.historic.monument">Помнік</string>
 	<string name="type.historic.pillory">Пазорны слуп</string>
+	<string name="type.historic.ruins">Руіны</string>
+	<string name="type.historic.ship">Судна</string>
+	<string name="type.historic.tomb">Магіла</string>
+	<string name="type.historic.wayside_cross">Прыдарожны крыж</string>
+	<string name="type.historic.wayside_shrine">Прыдарожная святыня</string>
 	<string name="type.landuse.basin">Рэзервуар</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery">Могілкі</string>

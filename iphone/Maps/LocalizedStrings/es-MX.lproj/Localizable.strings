@@ -1533,7 +1533,7 @@
 
 "type.barrier.chain" = "Cadena";
 
-"type.barrier.city_wall" = "Muralla";
+"type.barrier.city_wall" = "City Wall";
 
 "type.barrier.cycle_barrier" = "Barrera para bicicletas";
 
@@ -1873,22 +1873,22 @@
 
 "type.highway.footway" = "Camino";
 
-"type.highway.footway.alpine_hiking" = "Camino";
+"type.highway.footway.alpine_hiking" = "Path";
 
 "type.highway.footway.area" = "Camino";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "Puente";
 
-"type.highway.footway.demanding_alpine_hiking" = "Camino";
+"type.highway.footway.demanding_alpine_hiking" = "Path";
 
-"type.highway.footway.demanding_mountain_hiking" = "Camino";
+"type.highway.footway.demanding_mountain_hiking" = "Path";
 
-"type.highway.footway.difficult_alpine_hiking" = "Camino";
+"type.highway.footway.difficult_alpine_hiking" = "Path";
 
-"type.highway.footway.hiking" = "Camino";
+"type.highway.footway.hiking" = "Path";
 
-"type.highway.footway.mountain_hiking" = "Camino";
+"type.highway.footway.mountain_hiking" = "Path";
 
 "type.highway.footway.permissive" = "Camino";
 
@@ -2144,13 +2144,13 @@
 
 /********** Types: Historic **********/
 
-"type.historic" = "Historic";
+"type.historic" = "Objeto histórico";
 
 "type.historic.archaeological_site" = "Yacimiento arqueológico";
 
-"type.historic.battlefield" = "Battlefield";
+"type.historic.battlefield" = "Campo de batalla";
 
-"type.historic.boundary_stone" = "Boundary Stone";
+"type.historic.boundary_stone" = "Hito fronterizo";
 
 "type.historic.castle" = "Castillo";
 
@@ -2176,21 +2176,21 @@
 
 "type.historic.city_gate" = "Puerta de la ciudad";
 
-"type.historic.citywalls" = "City Wall";
+"type.historic.citywalls" = "Muro de la ciudad";
 
-"type.historic.fort" = "Fort";
+"type.historic.fort" = "Fuerte";
 
 "type.historic.gallows" = "Horca";
 
-"type.historic.memorial" = "Memorial";
+"type.historic.memorial" = "Monumento conmemorativo";
 
 "type.historic.memorial.cross" = "Cruz conmemorativa";
 
 "type.historic.memorial.plaque" = "Placa conmemorativa";
 
-"type.historic.memorial.sculpture" = "Sculpture";
+"type.historic.memorial.sculpture" = "Escultura";
 
-"type.historic.memorial.statue" = "Statue";
+"type.historic.memorial.statue" = "Estatua";
 
 "type.historic.memorial.stolperstein" = "Stolperstein";
 
@@ -2204,11 +2204,11 @@
 
 "type.historic.ship" = "Turismo";
 
-"type.historic.tomb" = "Turismo";
+"type.historic.tomb" = "Tumba";
 
-"type.historic.wayside_cross" = "Christian Cross";
+"type.historic.wayside_cross" = "Cruz de término";
 
-"type.historic.wayside_shrine" = "Shrine";
+"type.historic.wayside_shrine" = "Peto de ánimas";
 
 "type.hwtag" = "hwtag";
 

@@ -657,6 +657,7 @@
 
 	<!-- SECTION: Types: Recycling -->
 	<string name="type.recycling.batteries">Батерии</string>
+	<string name="type.barrier.city_wall">Градска стена</string>
 	<string name="type.barrier.ditch">Ров</string>
 	<string name="type.cemetery.grave">Гроб</string>
 	<string name="type.craft">Занаяти</string>
@@ -773,7 +774,10 @@
 	<string name="type.highway.unclassified.tunnel">Тунел</string>
 
 	<!-- SECTION: Types: Historic -->
+	<string name="type.historic">Исторически обект</string>
 	<string name="type.historic.archaeological_site">Археологически сайт</string>
+	<string name="type.historic.battlefield">Бойно поле</string>
+	<string name="type.historic.boundary_stone">Граничен камък</string>
 	<string name="type.historic.castle">Замък</string>
 	<string name="type.historic.castle.castrum">Каструм</string>
 	<string name="type.historic.castle.defensive">Замък</string>
@@ -786,12 +790,23 @@
 	<string name="type.historic.castle.shiro">Японски замък</string>
 	<string name="type.historic.castle.stately">Замък</string>
 	<string name="type.historic.city_gate">Градска порта</string>
+	<string name="type.historic.citywalls">Градска стена</string>
+	<string name="type.historic.fort">Форт</string>
 	<string name="type.historic.gallows">Бесилка</string>
+	<string name="type.historic.memorial">Мемориал</string>
 	<string name="type.historic.memorial.cross">Мемориален кръст</string>
 	<string name="type.historic.memorial.plaque">Паметна плоча</string>
+	<string name="type.historic.memorial.sculpture">Скулптура</string>
+	<string name="type.historic.memorial.statue">Статуя</string>
 	<string name="type.historic.memorial.stolperstein">Cпънка</string>
 	<string name="type.historic.memorial.war_memorial">Военен паметник</string>
+	<string name="type.historic.monument">Паметник</string>
 	<string name="type.historic.pillory">Позорен стълб</string>
+	<string name="type.historic.ruins">Развалина</string>
+	<string name="type.historic.ship">Кораб</string>
+	<string name="type.historic.tomb">Гробница</string>
+	<string name="type.historic.wayside_cross">Крайпътен кръст</string>
+	<string name="type.historic.wayside_shrine">Крайпътно светилище</string>
 	<string name="type.landuse.basin">Резервоар</string>
 	<string name="type.leisure.dance">Зала за танци</string>
 	<string name="type.leisure.picnic_table">Маса за пикник</string>

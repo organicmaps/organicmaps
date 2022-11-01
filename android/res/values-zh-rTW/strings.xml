@@ -818,6 +818,7 @@
 	<string name="type.barrier.block">街區</string>
 	<string name="type.barrier.bollard">柱</string>
 	<string name="type.barrier.border_control">邊境管制</string>
+	<string name="type.barrier.city_wall">城牆</string>
 	<string name="type.barrier.ditch">護城河</string>
 	<string name="type.barrier.entrance">入口</string>
 	<string name="type.barrier.gate">大門</string>
@@ -1125,7 +1126,7 @@
 	<string name="type.historic.castle.shiro">城</string>
 	<string name="type.historic.castle.stately">法式城堡</string>
 	<string name="type.historic.city_gate">城門</string>
-	<string name="type.historic.citywalls">歷史城牆</string>
+	<string name="type.historic.citywalls">城牆</string>
 	<string name="type.historic.fort">歷史要塞</string>
 	<string name="type.historic.gallows">絞架</string>
 	<string name="type.historic.memorial">紀念館</string>

@@ -1533,7 +1533,7 @@
 
 "type.barrier.chain" = "Chain";
 
-"type.barrier.city_wall" = "Muralha de cidade";
+"type.barrier.city_wall" = "City Wall";
 
 "type.barrier.cycle_barrier" = "Barreira de bicicletas";
 
@@ -2144,7 +2144,7 @@
 
 /********** Types: Historic **********/
 
-"type.historic" = "Histórico";
+"type.historic" = "Objeto histórico";
 
 "type.historic.archaeological_site" = "Sítio arqueológico";
 
@@ -2176,9 +2176,9 @@
 
 "type.historic.city_gate" = "Portas da cidade";
 
-"type.historic.citywalls" = "Muralha de cidade";
+"type.historic.citywalls" = "Muralha";
 
-"type.historic.fort" = "Forte histórico";
+"type.historic.fort" = "Forte";
 
 "type.historic.gallows" = "Galo";
 
@@ -2188,9 +2188,9 @@
 
 "type.historic.memorial.plaque" = "Placa comemorativa";
 
-"type.historic.memorial.sculpture" = "Escultura memorial";
+"type.historic.memorial.sculpture" = "Escultura";
 
-"type.historic.memorial.statue" = "Estátua memorial";
+"type.historic.memorial.statue" = "Estátua";
 
 "type.historic.memorial.stolperstein" = "Stolperstein";
 
@@ -2202,7 +2202,7 @@
 
 "type.historic.ruins" = "Ruínas";
 
-"type.historic.ship" = "Barco histórico";
+"type.historic.ship" = "Barco";
 
 "type.historic.tomb" = "Túmulo";
 

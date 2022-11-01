@@ -1533,7 +1533,7 @@
 
 "type.barrier.chain" = "Chain";
 
-"type.barrier.city_wall" = "City Wall";
+"type.barrier.city_wall" = "Městská zeď";
 
 "type.barrier.cycle_barrier" = "Cycle Barrier";
 
@@ -2144,13 +2144,13 @@
 
 /********** Types: Historic **********/
 
-"type.historic" = "Historic";
+"type.historic" = "Historický objekt";
 
 "type.historic.archaeological_site" = "Vykopávky";
 
-"type.historic.battlefield" = "Battlefield";
+"type.historic.battlefield" = "Bojiště";
 
-"type.historic.boundary_stone" = "Boundary Stone";
+"type.historic.boundary_stone" = "Hraniční kámen";
 
 "type.historic.castle" = "Hrad";
 
@@ -2176,7 +2176,7 @@
 
 "type.historic.city_gate" = "Městská brána";
 
-"type.historic.citywalls" = "City Wall";
+"type.historic.citywalls" = "Městská zeď";
 
 "type.historic.fort" = "Fort";
 
@@ -2206,9 +2206,9 @@
 
 "type.historic.tomb" = "Pamětihodnost";
 
-"type.historic.wayside_cross" = "Christian Cross";
+"type.historic.wayside_cross" = "Přícestný kříž";
 
-"type.historic.wayside_shrine" = "Shrine";
+"type.historic.wayside_shrine" = "Drobná sakrální památka";
 
 "type.hwtag" = "hwtag";
 

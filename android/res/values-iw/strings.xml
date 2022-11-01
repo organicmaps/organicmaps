@@ -247,6 +247,7 @@
 
 	<!-- SECTION: Types: Recycling -->
 	<string name="type.recycling.batteries">תוללוס</string>
+	<string name="type.barrier.city_wall">חומת העיר</string>
 	<string name="type.barrier.ditch">ןגֵמָ תלַעָתְ</string>
 	<string name="type.cemetery.grave">רבק</string>
 	<string name="type.craft">מְלָאכָה</string>
@@ -447,6 +448,10 @@
 	<string name="type.highway.unclassified.tunnel">מִנהָרָה</string>
 
 	<!-- SECTION: Types: Historic -->
+	<string name="type.historic">חפץ היסטורי</string>
+	<string name="type.historic.archaeological_site">אתר ארכיאולוגי</string>
+	<string name="type.historic.battlefield">שדה קרב</string>
+	<string name="type.historic.boundary_stone">אבן גבול</string>
 	<string name="type.historic.castle">טירה</string>
 	<string name="type.historic.castle.castrum">קסטרום</string>
 	<string name="type.historic.castle.defensive">טירה</string>
@@ -459,12 +464,23 @@
 	<string name="type.historic.castle.shiro">טירה יפנית</string>
 	<string name="type.historic.castle.stately">שאטו</string>
 	<string name="type.historic.city_gate">שער העיר</string>
+	<string name="type.historic.citywalls">חומת העיר</string>
+	<string name="type.historic.fort">מִבצָר</string>
 	<string name="type.historic.gallows">גרדום</string>
+	<string name="type.historic.memorial">אתר הנצחה</string>
 	<string name="type.historic.memorial.cross">צלב זיכרון</string>
 	<string name="type.historic.memorial.plaque">לוחית זיכרון</string>
+	<string name="type.historic.memorial.sculpture">פֶּסֶל</string>
+	<string name="type.historic.memorial.statue">פסל</string>
 	<string name="type.historic.memorial.stolperstein">אבן נגף</string>
 	<string name="type.historic.memorial.war_memorial">אנדרטת מלחמה</string>
+	<string name="type.historic.monument">מונומנט</string>
 	<string name="type.historic.pillory">עמוד הקלון</string>
+	<string name="type.historic.ruins">חורבות</string>
+	<string name="type.historic.ship">אונייה</string>
+	<string name="type.historic.tomb">קֶבֶר</string>
+	<string name="type.historic.wayside_cross">צלב בצד הדרך</string>
+	<string name="type.historic.wayside_shrine">מקדש בצד הדרך</string>
 	<string name="type.landuse.basin">אגן מים</string>
 	<string name="type.leisure.dance">םידוקיר םלוא</string>
 	<string name="type.leisure.picnic_table">קינקיפ ןחלוש</string>

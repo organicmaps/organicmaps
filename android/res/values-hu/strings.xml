@@ -783,6 +783,7 @@
 	<string name="type.barrier.block">Blokk</string>
 	<string name="type.barrier.bollard">Oszlop</string>
 	<string name="type.barrier.border_control">Határállomás</string>
+	<string name="type.barrier.city_wall">Városi fal</string>
 	<string name="type.barrier.ditch">Várárok</string>
 	<string name="type.barrier.entrance">Bejárat</string>
 	<string name="type.barrier.gate">Kapu</string>
@@ -1073,7 +1074,10 @@
 	<string name="type.area_highway.unclassified">Utca</string>
 
 	<!-- SECTION: Types: Historic -->
+	<string name="type.historic">Történelmi tárgy</string>
 	<string name="type.historic.archaeological_site">Ásatás</string>
+	<string name="type.historic.battlefield">Csatatér</string>
+	<string name="type.historic.boundary_stone">Határkő</string>
 	<string name="type.historic.castle">Kastély</string>
 	<string name="type.historic.castle.castrum">Castrum</string>
 	<string name="type.historic.castle.defensive">Kastély</string>
@@ -1086,6 +1090,8 @@
 	<string name="type.historic.castle.shiro">Japán várkastélyai</string>
 	<string name="type.historic.castle.stately">Kastély</string>
 	<string name="type.historic.city_gate">Városi kapu</string>
+	<string name="type.historic.citywalls">Városi fal</string>
+	<string name="type.historic.fort">Fort</string>
 	<string name="type.historic.gallows">Akasztófa</string>
 	<string name="type.historic.memorial">Emlékmű</string>
 	<string name="type.historic.memorial.cross">Emlékkereszt</string>
@@ -1098,7 +1104,9 @@
 	<string name="type.historic.pillory">Pellengér</string>
 	<string name="type.historic.ruins">Romok</string>
 	<string name="type.historic.ship">Túrizmus</string>
-	<string name="type.historic.tomb">Túrizmus</string>
+	<string name="type.historic.tomb">Sír</string>
+	<string name="type.historic.wayside_cross">Útszéli kereszt</string>
+	<string name="type.historic.wayside_shrine">Útmenti szentély</string>
 	<string name="type.landuse.basin">Vízgyűjtő</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery">Temető</string>

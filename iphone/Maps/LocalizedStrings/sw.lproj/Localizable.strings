@@ -1533,7 +1533,7 @@
 
 "type.barrier.chain" = "Chain";
 
-"type.barrier.city_wall" = "City Wall";
+"type.barrier.city_wall" = "Ukuta wa jiji";
 
 "type.barrier.cycle_barrier" = "Cycle Barrier";
 
@@ -2081,7 +2081,7 @@
 
 "type.highway.traffic_signals" = "Traffic Lights";
 
-"type.highway.trunk" = "National Highway";
+"type.highway.trunk" = "Trunk Road";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.trunk.bridge" = "Daraja";
@@ -2089,7 +2089,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.trunk.tunnel" = "Mtaro";
 
-"type.highway.trunk_link" = "National Highway";
+"type.highway.trunk_link" = "Trunk Road";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.trunk_link.bridge" = "Daraja";
@@ -2133,7 +2133,7 @@
 
 "type.area_highway.track" = "Track";
 
-"type.area_highway.trunk" = "National Highway";
+"type.area_highway.trunk" = "Trunk Road";
 
 "type.area_highway.unclassified" = "Minor Road";
 
@@ -2144,13 +2144,13 @@
 
 /********** Types: Historic **********/
 
-"type.historic" = "Historic";
+"type.historic" = "Kitu cha kihistoria";
 
-"type.historic.archaeological_site" = "Archaeological Site";
+"type.historic.archaeological_site" = "Tovuti ya Akiolojia";
 
-"type.historic.battlefield" = "Battlefield";
+"type.historic.battlefield" = "Uwanja wa vita";
 
-"type.historic.boundary_stone" = "Boundary Stone";
+"type.historic.boundary_stone" = "Jiwe la mpaka";
 
 "type.historic.castle" = "Ngome";
 
@@ -2176,39 +2176,39 @@
 
 "type.historic.city_gate" = "Lango la jiji";
 
-"type.historic.citywalls" = "City Wall";
+"type.historic.citywalls" = "Ukuta wa jiji";
 
-"type.historic.fort" = "Fort";
+"type.historic.fort" = "Ngome";
 
 "type.historic.gallows" = "Kunyongea";
 
-"type.historic.memorial" = "Memorial";
+"type.historic.memorial" = "Ukumbusho";
 
 "type.historic.memorial.cross" = "Msalaba wa kumbukumbu";
 
 "type.historic.memorial.plaque" = "Plaque";
 
-"type.historic.memorial.sculpture" = "Sculpture";
+"type.historic.memorial.sculpture" = "Uchongaji";
 
-"type.historic.memorial.statue" = "Statue";
+"type.historic.memorial.statue" = "Sanamu";
 
 "type.historic.memorial.stolperstein" = "Kikwazo";
 
 "type.historic.memorial.war_memorial" = "Kumbukumbu ya vita";
 
-"type.historic.monument" = "Monument";
+"type.historic.monument" = "Mnara";
 
 "type.historic.pillory" = "Pillory";
 
-"type.historic.ruins" = "Ruins";
+"type.historic.ruins" = "Gofu";
 
-"type.historic.ship" = "Ship";
+"type.historic.ship" = "Meli";
 
-"type.historic.tomb" = "Tomb";
+"type.historic.tomb" = "Kaburi";
 
-"type.historic.wayside_cross" = "Christian Cross";
+"type.historic.wayside_cross" = "Msalaba wa njiani";
 
-"type.historic.wayside_shrine" = "Shrine";
+"type.historic.wayside_shrine" = "Kaburi la njia";
 
 "type.hwtag" = "hwtag";
 
