@@ -4365,7 +4365,7 @@
     fa = نمای چشم انداز
     fi = Perspektiivinäkymä
     fr = Vue en perspective
-    hu = Távlati kép
+    hu = Perspektivikus nézet
     id = Pandangan perspektif
     it = Vista in prospettiva
     ja = パースペクティブ表示
@@ -4482,7 +4482,7 @@
     fa = زبان صوت
     fi = Äänen kieli
     fr = Langue vocale
-    hu = A hang nyelve
+    hu = A hangutasítások nyelve
     id = Bahasa Suara
     it = Lingua per la voce
     ja = 音声言語
@@ -4637,7 +4637,7 @@
     fa = بزرگ نمایی خودکار
     fi = Automaattinen zoomaus
     fr = Zoom automatique
-    hu = Auto-zoom
+    hu = Automatikus nagyítás
     id = Perbesar otomatis
     it = Zoom automatico
     ja = 自動ズーム
@@ -5318,7 +5318,7 @@
     fi = Lahjoittaa
     fr = Faire un don
     he = םוֹרתְלִ
-    hu = Adományoz
+    hu = Adományozni
     id = Menyumbangkan
     it = Donare
     ja = 寄付
@@ -5358,7 +5358,7 @@
     fi = Kuinka tukea meitä?
     fr = Comment nous soutenir?
     he = כיצד לתמוך בנו?
-    hu = Hogyan támogat minket?
+    hu = Hogyan támogathatsz minket?
     id = Bagaimana cara mendukung kami?
     it = Come sostenerci?
     ja = どのように私たちを支持する方法？
@@ -5438,7 +5438,7 @@
     fi = Ilmoita virheestä
     fr = Signaler un bug
     he = דווחו על באג
-    hu = Hibabejelentés
+    hu = Hiba jelentése
     id = Laporkan gangguan
     it = Segnala un errore
     ja = バグを報告
@@ -15400,7 +15400,7 @@
     fi = Organic Maps on ilmainen ja avoimen lähdekoodin offline-karttasovellus. Ei mainoksia. Ei seurantaa. Jos näet virheen kartalla, korjaa se OpenStreetMapissa. Hankkeen ovat luoneet harrastajat vapaa-ajallamme, joten tarvitsemme palautettasi ja tukeasi.
     fr = Organic Maps est une application de cartographie hors ligne gratuite et open source. Pas de pubs. Pas de localisation. Si vous voyez une erreur sur la carte, veuillez la corriger dans OpenStreetMap. Le projet est créé par des passionnés pendant notre temps libre, nous avons donc besoin de vos commentaires et de votre soutien.
     he = Organic Maps היא אפליקציית מפות לא מקוונות בחינם ובקוד פתוח. ללא פרסומות. אין מעקב. אם אתה רואה שגיאה במפה, אנא תקן אותה ב-OpenStreetMap. הפרויקט נוצר על ידי חובבים בזמננו הפנוי, אז אנו זקוקים למשוב ולתמיכה שלכם.
-    hu = Az Organic Maps egy ingyenes, nyílt forráskódú offline térképalkalmazás. Nincsenek hirdetések. Nincs nyomkövetés. Ha hibát lát a térképen, javítsa ki az OpenStreetMap segítségével. A projektet a lelkesek készítik szabadidőnkben, ezért szükségünk van az Ön visszajelzésére és támogatására.
+    hu = Az Organic Maps egy gyors és ingyenes offline térképalkalmazás hirdetések és nyomkövetés nélkül. A térképek az OpenStreetMap.org közösség által fenntartott adatain alapulnak, így a térképen megtalálható hibákat te is javíthatod, és adhatsz hozzá új helyeket. Az Organic Maps egy nyílt forráskódú projekt, amelyet lelkes fejlesztők hoztak létre szabadidejükben. Visszajelzéseidet és támogatásodat nagyra értékeljük!
     id = Organic Maps adalah aplikasi peta offline sumber terbuka dan gratis. Tanpa iklan. Tidak ada pelacakan. Jika Anda melihat kesalahan pada peta, harap perbaiki di OpenStreetMap. Proyek ini dibuat oleh para penggemar di waktu luang kami, jadi kami membutuhkan masukan dan dukungan Anda.
     it = Organic Maps è un'applicazione gratuita e open-source di mappe offline. Nessuna pubblicità. Nessun tracciamento. Se vedi un errore sulla mappa, correggilo in OpenStreetMap. Il progetto è creato da appassionati nel nostro tempo libero, quindi abbiamo bisogno del vostro parere e sostegno.
     ja = Organic Mapsは、無料のオープンソースのオフラインマップアプリケーションです。広告なし。全く追跡しません。地図上にエラーが表示された場合は、OpenStreetMapで修正してください。プロジェクトは私たちの自由な時間に愛好家によって作成されているため、フィードバックとサポートが必要です。
@@ -15478,7 +15478,7 @@
     fa = موافقم
     fi = Hyväksy
     fr = Accepter
-    hu = Elfogadja
+    hu = Elfogad
     id = Terima
     it = Accetta
     ja = 了解
@@ -15517,7 +15517,7 @@
     fa = کاهش
     fi = Hylkää
     fr = Refuser
-    hu = Elutasítja
+    hu = Elutasít
     id = Tolak
     it = Rifiuta
     ja = 拒否
@@ -20004,7 +20004,7 @@
     fa = گزینه های رانندگی
     fi = Kiertotien asetukset
     fr = Paramètres des itinéraires
-    hu = Vezetési lehetőségek
+    hu = Útvonaltervezési lehetőségek
     id = Pilihan berkendara
     it = Impostazioni di deviazione
     ja = 運転オプション
@@ -20084,7 +20084,7 @@
     fa = جاده های دارای عوارض
     fi = Maksulliset tiet
     fr = Routes à péage
-    hu = Fizetős utak
+    hu = Díjköteles utak
     id = Jalan tol
     it = Strade a pedaggio
     ja = 有料道路
@@ -20124,7 +20124,7 @@
     fa = جاده های آسفالت نشده
     fi = Päällystämättömät tiet
     fr = Routes non revêtues
-    hu = Kövezetlen utak
+    hu = Burkolatlan utak
     id = Jalan tanah
     it = Strade non asfaltate
     ja = 未舗装道路
@@ -20364,7 +20364,7 @@
     fa = گزینه های مسیریابی فعال شد
     fi = Kiertotien asetukset on päällä
     fr = Paramètres d'itinéraire activées
-    hu = Vezetési lehetőségek bekapcsolva
+    hu = Útvonaltervezési lehetőségek bekapcsolva
     id = Opsi perutean diaktifkan
     it = Opzioni di deviazione abilitate
     ja = 運転オプションはアクティブです
@@ -20403,7 +20403,7 @@
     fa = جاده دارای عوارض
     fi = Maksullinen tie
     fr = Route à péage
-    hu = Fizetős utak
+    hu = Díjköteles utak
     id = Jalan tol
     it = Strada a pedaggio
     ja = 有料道路
@@ -20442,7 +20442,7 @@
     fa = جاده آسفالت نشده
     fi = Päällystämätön tie
     fr = Routes non revêtues
-    hu = Kövezetlen utak
+    hu = Burkolatlan utak
     id = Jalan tanah
     it = Strada non asfaltata
     ja = 未舗装道路
@@ -20521,7 +20521,7 @@
     fa = اجتناب از جاده های دارای عوارض
     fi = Vältä maksullisia teitä
     fr = Éviter les routes à péage
-    hu = Fizetős utak elkerülése
+    hu = Díjköteles utak elkerülése
     id = Hindari jalan tol
     it = Evitare strade a pedaggio
     ja = 有料道路を回避
@@ -20561,7 +20561,7 @@
     fa = اجتناب از جاده های آسفالت نشده
     fi = Vältä maanteitä
     fr = Éviter les routes non revêtues
-    hu = Kövezetlen utak elkerülése
+    hu = Burkolatlan utak elkerülése
     id = Hindari jalan tanah
     it = Evitare le strade non asfaltate
     ja = 未舗装道路を回避
@@ -24064,6 +24064,7 @@
     ca = Mostra en la pantalla de bloqueig
     de = Auf dem Sperrbildschirm anzeigen
     fr = Afficher sur l'écran de verrouillage
+    hu = Megjelenítés a zárolt képernyőn
     it = Mostra sulla schermata di blocco
     mr = लॉक पटलावर (स्क्रीनवर) दाखवा
     nl = Toon op vergrendelscherm
@@ -24083,6 +24084,7 @@
     ca = Si està activa, no cal desblocar l'aparell cada vegada mentre l'aplicació està funcionant.
     de = Wenn aktiviert, muss das Gerät nicht jedes Mal entsperrt werden, wenn die App ausgeführt wird.
     fr = Lorsqu'il est activé, vous n'avez pas besoin de déverrouiller votre appareil à chaque fois quand l'application fonctionne.
+    hu = Ha engedélyezve van, nem kell minden alkalommal feloldanod a telefonod, amíg az alkalmazás fut.
     it = Quando è abilitata, non è necessario sbloccare il dispositivo ogni volta mentre l'app è in esecuzione.
     mr = चालू असल्यास, ऍप चालू असताना प्रत्येक वेळी तुम्हाला तुमचे उपकरण अनलॉक करण्याची आवश्यकता नाही.
     nl = Indien ingeschakeld, hoeft het scherm niet te worden ontgrendeld wanneer de app actief is.

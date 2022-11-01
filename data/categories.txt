@@ -13255,7 +13255,7 @@ fa:ﻥﺎﮐﺩﻮﮐ ﻩﺎﮕﺷﻭﺮﻓ
 fi:Lasten kauppa
 fr:Magasin de puériculture|bébé
 he:םידליל תונח
-hu:Gyermekbolt
+hu:Gyermekbolt|Bababolt
 id:Toko anak-anak
 it:Negozio per neonati
 ja:キッズストア
@@ -13514,7 +13514,7 @@ fa:ﯽﯾﺎﻣﺯﺁ ﺖﺨﺑ ﻂﯿﻠﺑ
 fi:Lottoliput
 fr:Tickets de loterie
 he:הלרגה יסיטרכ
-hu:Sorsjegyek
+hu:Sorsjegyek|Lottózó
 id:Tiket Lotere
 it:Biglietti della lotteria
 ja:宝くじ
