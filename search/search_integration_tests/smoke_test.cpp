@@ -208,7 +208,10 @@ UNIT_CLASS_TEST(SmokeTest, CategoriesTest)
       {"man_made", "water_well"},
       {"natural", "glacier"},
       {"natural", "water", "pond"},
-      {"natural", "tree"}
+      {"natural", "tree"},
+
+      /// @todo Not a point feature. Should rewrite test.
+      {"historic", "citywalls"},
   };
   set<uint32_t> invisibleTypes;
   for (auto const & tags : invisibleAsPointTags)
@@ -240,7 +243,7 @@ UNIT_CLASS_TEST(SmokeTest, CategoriesTest)
 
     string const countryName = "Wonderland";
 
-    TestPOI poi(m2::PointD(1.0, 1.0), "poi", "en");
+    TestPOI poi({1.0, 1.0}, "poi", "en");
     if (IsCategoryNondrawableType(type))
       poi.SetTypes({type, cafeType});
     else
@@ -251,7 +254,7 @@ UNIT_CLASS_TEST(SmokeTest, CategoriesTest)
 
     Rules rules = {ExactMatch(id, poi)};
     auto const query = holder.GetReadableFeatureType(type, CategoriesHolder::kEnglishCode);
-    TEST(CategoryMatch(query, categoryIsSearchable ? rules : Rules{}), (query));
+    TEST(CategoryMatch(query, categoryIsSearchable ? rules : Rules{}), (query, cl.GetReadableObjectName(type)));
 
     DeregisterMap(countryName);
   };
