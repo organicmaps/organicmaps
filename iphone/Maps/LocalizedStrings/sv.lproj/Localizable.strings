@@ -513,6 +513,12 @@
 
 "clear_search" = "Rensa sökhistorik";
 
+/* Place Page link to Wikipedia article (if map object has it). */
+"read_in_wikipedia" = "Wikipedia";
+
+/* Place Page link to Wikimedia Commons. */
+"wikimedia_commons" = "Wikimedia Commons";
+
 "p2p_your_location" = "Din plats";
 
 "p2p_start" = "Start";

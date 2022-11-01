@@ -513,6 +513,12 @@
 
 "clear_search" = "Effacer l'historique de recherche";
 
+/* Place Page link to Wikipedia article (if map object has it). */
+"read_in_wikipedia" = "Wikipédia";
+
+/* Place Page link to Wikimedia Commons. */
+"wikimedia_commons" = "Wikimedia Commons";
+
 "p2p_your_location" = "Votre emplacement";
 
 "p2p_start" = "Démarrer";

@@ -384,6 +384,8 @@
 	<string name="clear_search">Clear Search History</string>
 	<!-- Place Page link to Wikipedia article (if map object has it). -->
 	<string name="read_in_wikipedia">Wikipedia</string>
+	<!-- Place Page link to Wikimedia Commons. -->
+	<string name="wikimedia_commons">Wikimedia Commons</string>
 	<string name="p2p_your_location">Your Location</string>
 	<string name="p2p_start">Start</string>
 	<string name="p2p_from_here">Route from</string>

@@ -513,6 +513,12 @@
 
 "clear_search" = "検索履歴を消去";
 
+/* Place Page link to Wikipedia article (if map object has it). */
+"read_in_wikipedia" = "Wikipedia";
+
+/* Place Page link to Wikimedia Commons. */
+"wikimedia_commons" = "Wikimedia Commons";
+
 "p2p_your_location" = "現在位置";
 
 "p2p_start" = "開始";
