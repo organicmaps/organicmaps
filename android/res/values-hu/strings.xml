@@ -185,16 +185,16 @@
 	<!-- «Map style» entry value -->
 	<string name="pref_map_style_auto">Automatikus</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
-	<string name="pref_map_3d_title">Távlati kép</string>
+	<string name="pref_map_3d_title">Perspektivikus nézet</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
 	<string name="pref_map_3d_buildings_title">3D-s épületek</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Hangutasítások</string>
 	<!-- Settings «Route» category: «Tts language» title -->
-	<string name="pref_tts_language_title">A hang nyelve</string>
+	<string name="pref_tts_language_title">A hangutasítások nyelve</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Nem áll rendelkezésre</string>
-	<string name="pref_map_auto_zoom">Auto-zoom</string>
+	<string name="pref_map_auto_zoom">Automatikus nagyítás</string>
 	<string name="duration_disabled">Kikapcsolva</string>
 	<string name="duration_1_hour">1 óra</string>
 	<string name="duration_2_hours">2 óra</string>
@@ -215,13 +215,13 @@
 	<!-- Button in the main Help dialog -->
 	<string name="faq">Kérdések és válaszok</string>
 	<!-- Button in the main menu -->
-	<string name="donate">Adományoz</string>
+	<string name="donate">Adományozni</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">Hogyan támogat minket?</string>
+	<string name="how_to_support_us">Hogyan támogathatsz minket?</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">Szerzői jog</string>
 	<!-- Text in menu + Button in the main Help dialog -->
-	<string name="report_a_bug">Hibabejelentés</string>
+	<string name="report_a_bug">Hiba jelentése</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Mindegyik frissítése</string>
 	<!-- Cancel all button text -->
@@ -476,11 +476,11 @@
 	<string name="editor_share_to_all_dialog_message_1">Győződj meg arról, hogy nem adsz meg semmilyen személyes információt.</string>
 	<string name="editor_share_to_all_dialog_message_2">Az OpenStreetMap szerkesztői ellenőrzik a változásokat, és felveszik Önnel a kapcsolatot, ha kérdéseik vannak.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
-	<string name="about_description">Az Organic Maps egy ingyenes, nyílt forráskódú offline térképalkalmazás. Nincsenek hirdetések. Nincs nyomkövetés. Ha hibát lát a térképen, javítsa ki az OpenStreetMap segítségével. A projektet a lelkesek készítik szabadidőnkben, ezért szükségünk van az Ön visszajelzésére és támogatására.</string>
+	<string name="about_description">Az Organic Maps egy gyors és ingyenes offline térképalkalmazás hirdetések és nyomkövetés nélkül. A térképek az OpenStreetMap.org közösség által fenntartott adatain alapulnak, így a térképen megtalálható hibákat te is javíthatod, és adhatsz hozzá új helyeket. Az Organic Maps egy nyílt forráskódú projekt, amelyet lelkes fejlesztők hoztak létre szabadidejükben. Visszajelzéseidet és támogatásodat nagyra értékeljük!</string>
 	<!-- For the first routing -->
-	<string name="accept">Elfogadja</string>
+	<string name="accept">Elfogad</string>
 	<!-- For the first routing -->
-	<string name="decline">Elutasítja</string>
+	<string name="decline">Elutasít</string>
 	<string name="mobile_data_dialog">Részletes információk megjelenítése a mobil internet segítségével?</string>
 	<string name="mobile_data_option_always">Mindig használja</string>
 	<string name="mobile_data_option_today">Csak ma</string>
@@ -581,21 +581,21 @@
 	<string name="power_managment_setting_manual_max">Maximális energiatakarékosság</string>
 	<string name="enable_logging_warning_message">Az opció bekapcsolja a diagnosztikai célú naplózást. Hasznos lehet a support csapatunknak, akik elhárítják az alkalmazás hibáit. Csak a Organic Maps support kérésére kapcsold be ezt az opciót.</string>
 	<string name="access_rules_author_only">Online szerkesztés</string>
-	<string name="driving_options_title">Vezetési lehetőségek</string>
+	<string name="driving_options_title">Útvonaltervezési lehetőségek</string>
 	<string name="driving_options_subheader">Elkerülés minden útvonalon</string>
-	<string name="avoid_tolls">Fizetős utak</string>
-	<string name="avoid_unpaved">Kövezetlen utak</string>
+	<string name="avoid_tolls">Díjköteles utak</string>
+	<string name="avoid_unpaved">Burkolatlan utak</string>
 	<string name="avoid_ferry">Kompátkelők</string>
 	<string name="avoid_motorways">Autópályák</string>
 	<string name="unable_to_calc_alert_title">Nem lehet útvonalat számítani</string>
 	<string name="unable_to_calc_alert_subtitle">Sajnos nem találunk útvonalat, valószínűleg az általad meghatározott lehetőségek miatt. Kérjük változtass a beállításokon és próbáld újra</string>
 	<string name="define_to_avoid_btn">Elkerülendő utak meghatározása</string>
-	<string name="change_driving_options_btn">Vezetési lehetőségek bekapcsolva</string>
-	<string name="toll_road">Fizetős utak</string>
-	<string name="unpaved_road">Kövezetlen utak</string>
+	<string name="change_driving_options_btn">Útvonaltervezési lehetőségek bekapcsolva</string>
+	<string name="toll_road">Díjköteles utak</string>
+	<string name="unpaved_road">Burkolatlan utak</string>
 	<string name="ferry_crossing">Kompátkelők</string>
-	<string name="avoid_toll_roads_placepage">Fizetős utak elkerülése</string>
-	<string name="avoid_unpaved_roads_placepage">Kövezetlen utak elkerülése</string>
+	<string name="avoid_toll_roads_placepage">Díjköteles utak elkerülése</string>
+	<string name="avoid_unpaved_roads_placepage">Burkolatlan utak elkerülése</string>
 	<string name="avoid_ferry_crossing_placepage">Kompátkelők elkerülése</string>
 	<!-- A generic "Yes" button in dialogs -->
 	<string name="yes">Igen</string>
@@ -660,6 +660,10 @@
 	<string name="enable_screen_sleep">Hagyja aludni a képernyőt</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Ha engedélyezve van, akkor a képernyő inaktivitás után alszik.</string>
+	<!-- A preference title; keep short! -->
+	<string name="enable_show_on_lock_screen">Megjelenítés a zárolt képernyőn</string>
+	<!-- Description in preferences -->
+	<string name="enable_show_on_lock_screen_description">Ha engedélyezve van, nem kell minden alkalommal feloldanod a telefonod, amíg az alkalmazás fut.</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">Térképadatok az OpenStreetMapből</string>
 
@@ -1539,7 +1543,7 @@
 	<string name="type.shop.wine">Szeszesital-üzlet</string>
 	<string name="type.shop.antiques">Régiségek</string>
 	<string name="type.shop.art">Művészeti Bolt</string>
-	<string name="type.shop.baby_goods">Gyermekbolt</string>
+	<string name="type.shop.baby_goods">Bababolt</string>
 	<string name="type.shop.bag">Táskák bolt</string>
 	<string name="type.shop.boutique">Butik</string>
 	<string name="type.shop.charity">Jótékonysági Bolt</string>
@@ -1549,7 +1553,7 @@
 	<string name="type.shop.electrical">Elektronikai üzlet</string>
 	<string name="type.shop.fishing">Horgászbolt</string>
 	<string name="type.shop.interior_decoration">Belső dekorációk</string>
-	<string name="type.shop.lottery">Sorsjegyek</string>
+	<string name="type.shop.lottery">Lottózó</string>
 	<string name="type.shop.medical_supply">Orvosi eszközök</string>
 	<string name="type.shop.nutrition_supplements">Táplálékkiegészítők</string>
 	<string name="type.shop.paint">Festékek</string>
