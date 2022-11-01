@@ -9057,12 +9057,13 @@
 
   [read_in_wikipedia]
     comment = Place Page link to Wikipedia article (if map object has it).
-    tags = android
+    tags = android,ios
     en = Wikipedia
     ar = ويكيبيديا
     be = Вікіпедыя
     ca = Viquipèdia
     el = Wikipedia
+    es = Wikipedia
     fa = ویکی پدیا
     fr = Wikipédia
     it = Wikipedia
@@ -9076,6 +9077,11 @@
     uk = Вікіпедія
     zh-Hans = 维基百科
     zh-Hant = 維基百科
+
+  [wikimedia_commons]
+    comment = Place Page link to Wikimedia Commons.
+    tags = android,ios
+    en = Wikimedia Commons
 
   [p2p_your_location]
     tags = android,ios

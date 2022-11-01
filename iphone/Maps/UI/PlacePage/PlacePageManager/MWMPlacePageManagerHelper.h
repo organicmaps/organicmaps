@@ -8,6 +8,8 @@
 + (void)addBusiness;
 + (void)addPlace:(CLLocationCoordinate2D)coordinate;
 + (void)openWebsite:(PlacePageData *)data;
++ (void)openWikipedia:(PlacePageData *)data;
++ (void)openWikimediaCommons:(PlacePageData *)data;
 + (void)openEmail:(PlacePageData *)data;
 + (void)openFacebook:(PlacePageData *)data;
 + (void)openInstagram:(PlacePageData *)data;

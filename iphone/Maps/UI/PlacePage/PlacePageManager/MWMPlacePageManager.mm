@@ -229,6 +229,14 @@ using namespace storage;
   [self.ownerViewController openUrl:data.infoData.website];
 }
 
+- (void)openWikipedia:(PlacePageData *)data {
+  [self.ownerViewController openUrl:data.infoData.wikipedia];
+}
+
+- (void)openWikimediaCommons:(PlacePageData *)data {
+  [self.ownerViewController openUrl:data.infoData.wikimediaCommons];
+}
+
 - (void)openFacebook:(PlacePageData *)data {
   [self.ownerViewController openUrl:[NSString stringWithFormat:@"https://m.facebook.com/%@", data.infoData.facebook]];
 }
