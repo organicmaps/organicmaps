@@ -16,6 +16,8 @@
 
   <TextView
     android:id="@+id/tv__place_wikimedia"
-    style="@style/PlacePageMetadataText.Button"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textAppearance="@style/MwmTextAppearance.PlacePage.Accent"
     android:text="osm.org"/>
 </LinearLayout>
