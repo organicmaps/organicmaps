@@ -3,7 +3,7 @@ protocol PlacePageHeaderViewProtocol: AnyObject {
   var isExpandViewHidden: Bool { get set }
   var isShadowViewHidden: Bool { get set }
 
-  func setTitle(_ title: String)
+  func setTitle(_ title: String?, secondaryTitle: String?)
 }
 
 class PlacePageHeaderViewController: UIViewController {
@@ -50,7 +50,33 @@ extension PlacePageHeaderViewController: PlacePageHeaderViewProtocol {
     }
   }
 
-  func setTitle(_ title: String) {
-    titleLabel?.text = title
+  func setTitle(_ title: String?, secondaryTitle: String?) {
+    guard let title else {
+      titleLabel?.attributedText = nil
+      return
+    }
+
+    let titleAttributes: [NSAttributedString.Key: Any] = [
+      .font: StyleManager.shared.theme!.fonts.medium20,
+      .foregroundColor: UIColor.blackPrimaryText()
+    ]
+
+    let attributedText = NSMutableAttributedString(string: title, attributes: titleAttributes)
+
+    guard let secondaryTitle else {
+      titleLabel?.attributedText = attributedText
+      return
+    }
+
+    let paragraphStyle = NSMutableParagraphStyle()
+    paragraphStyle.paragraphSpacingBefore = 2
+    let secondaryTitleAttributes: [NSAttributedString.Key: Any] = [
+      .font: StyleManager.shared.theme!.fonts.medium16,
+      .foregroundColor: UIColor.blackPrimaryText(),
+      .paragraphStyle: paragraphStyle
+    ]
+
+    attributedText.append(NSAttributedString(string: "\n" + secondaryTitle, attributes: secondaryTitleAttributes))
+    titleLabel?.attributedText = attributedText
   }
 }
