@@ -184,8 +184,9 @@ extension PlacePageCommonLayout {
       isBookmark = true
     }
     if let title = placePageData.previewData.title {
-      header?.setTitle(title)
-      placePageNavigationViewController.setTitle(title)
+      let secondaryTitle = placePageData.previewData.secondaryTitle
+      header?.setTitle(title, secondaryTitle: secondaryTitle)
+      placePageNavigationViewController.setTitle(title, secondaryTitle: secondaryTitle)
     }
     self.presenter?.layoutIfNeeded()
     UIView.animate(withDuration: kDefaultAnimationDuration) { [unowned self] in

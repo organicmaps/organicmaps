@@ -56,9 +56,17 @@ void Info::SetFromFeatureType(FeatureType & ft)
   {
     m_uiTitle = GetBookmarkName();
 
-    auto const secondaryTitle = m_customName.empty() ? m_primaryFeatureName : m_customName;
+    std::string secondaryTitle;
+
+    if (!m_customName.empty())
+      secondaryTitle = m_customName;
+    else if (!out.secondary.empty())
+      secondaryTitle = out.secondary;
+    else
+      secondaryTitle = m_primaryFeatureName;
+
     if (m_uiTitle != secondaryTitle)
-      m_uiSecondaryTitle = secondaryTitle;
+      m_uiSecondaryTitle = std::move(secondaryTitle);
 
     m_uiSubtitle = FormatSubtitle(true /* withType */);
     m_uiAddress = m_address;
