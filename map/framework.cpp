@@ -2689,10 +2689,13 @@ bool Framework::ParseEditorDebugCommand(search::SearchParams const & params)
         return true;
       }
 
-      feature::TypesHolder const types(*ft);
-      results.AddResultNoChecks(search::Result(fid, feature::GetCenter(*ft), string(ft->GetReadableName()),
-                                               move(edit.second), types.GetBestType(), {}));
+      search::Result res(feature::GetCenter(*ft), string(ft->GetReadableName()));
+      res.SetAddress(move(edit.second));
+      res.FromFeature(fid, feature::TypesHolder(*ft).GetBestType(), {});
+
+      results.AddResultNoChecks(std::move(res));
     }
+
     params.m_onResults(results);
 
     results.SetEndMarker(false /* isCancelled */);

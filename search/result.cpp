@@ -15,27 +15,14 @@ namespace search
 {
 using namespace std;
 
-// Result ------------------------------------------------------------------------------------------
-Result::Result(FeatureID const & id, m2::PointD const & pt, string && str,
-               string && address, uint32_t featureType, Details && details)
-  : m_resultType(Type::Feature)
-  , m_id(id)
-  , m_center(pt)
-  , m_str(move(str))
-  , m_address(move(address))
-  , m_featureType(featureType)
-  , m_details(move(details))
+void Result::FromFeature(FeatureID const & id, uint32_t featureType, Details const & details)
 {
-}
+  m_id = id;
+  ASSERT(m_id.IsValid(), ());
 
-Result::Result(m2::PointD const & pt, string && latlon, string && address)
-  : m_resultType(Type::LatLon), m_center(pt), m_str(move(latlon)), m_address(move(address))
-{
-}
-
-Result::Result(m2::PointD const & pt, string && postcode)
-  : m_resultType(Type::Postcode), m_center(pt), m_str(move(postcode))
-{
+  m_featureType = featureType;
+  m_details = details;
+  m_resultType = Type::Feature;
 }
 
 Result::Result(string str, string && suggest)
