@@ -36,3 +36,5 @@
 -dontwarn androidx.**
 -keep class androidx.** { *; }
 -keep interface androidx.** { *; }
+
+-dontwarn javax.lang.model.element.Modifier
