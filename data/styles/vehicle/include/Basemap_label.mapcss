@@ -95,8 +95,6 @@ node[place=ocean],
 node[place=sea]
 {z-index: 3000;}
 
-area[landuse=reservoir],
-area[natural=water],
 line[waterway=river],
 line[waterway=riverbank],
 line[waterway=canal],
@@ -465,7 +463,10 @@ node|z16-[natural=wetland],
 area|z16-[natural=wetland],
 {text:name;text-color: @water_label;}
 
-
+/* Don't want to break current logic, but there are several strange moments here:
+- removing NODE rule "node|z14-[natural=water][bbox_area>=1000000]" breaks other rules.
+- z14-[natural=water], bbox_area=[1000000-4000000] range can stay without captions (see rules below).
+ */
 
 /*6.1 Area water(ocean,sea,lake,pond etc.)*/
 

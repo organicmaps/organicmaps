@@ -233,6 +233,13 @@ UNIT_TEST(Classificator_AreaPriority)
     // 3
     {"natural", "water"}, {"natural", "water", "lake"}, {"landuse", "basin"}, {"waterway", "riverbank"}
   }, {1, 2, 7, 4}, drule::area);
+
+  CheckPriority({
+    // 0
+    {"natural", "water"}, {"landuse", "reservoir"},
+    // 1
+    {"man_made", "pier"}, {"man_made", "breakwater"}, {"waterway", "dam"},
+  }, {2, 3}, drule::area);
 }
 
 UNIT_TEST(Classificator_PoiPriority)
