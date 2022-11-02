@@ -604,7 +604,7 @@ area|z15-[amenity=parking]
 
 area|z12-[man_made=pier],
 area|z12-[man_made=breakwater],
-{fill-position: background; fill-opacity: 1; fill-color: @background;casing-color: @background;}
+{fill-color: @background;}
 
 line|z14-[man_made=pier],
 line|z14-[man_made=breakwater],
