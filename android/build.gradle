@@ -83,9 +83,9 @@ dependencies {
   }
 
   implementation 'androidx.annotation:annotation:1.5.0'
-  implementation 'androidx.appcompat:appcompat:1.6.0-rc01'
+  implementation 'androidx.appcompat:appcompat:1.7.0-alpha01'
   implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-  implementation 'androidx.fragment:fragment:1.5.3'
+  implementation 'androidx.fragment:fragment:1.5.4'
   // Lifecycle is added as a workaround for duplicate classes error caused by some outdated dependency:
   // > A failure occurred while executing com.android.build.gradle.internal.tasks.CheckDuplicatesRunnable
   //   > Duplicate class androidx.lifecycle.ViewModelLazy found in modules jetified-lifecycle-viewmodel-ktx-2.3.1-runtime (androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1) and lifecycle-viewmodel-2.5.1-runtime (androidx.lifecycle:lifecycle-viewmodel:2.5.1)
@@ -95,16 +95,16 @@ dependencies {
   implementation 'androidx.preference:preference:1.2.0'
   implementation 'androidx.recyclerview:recyclerview:1.2.1'
   implementation 'androidx.work:work-runtime:2.7.1'
-  implementation 'com.google.android.material:material:1.8.0-alpha01'
-  implementation 'com.google.code.gson:gson:2.9.1'
+  implementation 'com.google.android.material:material:1.8.0-alpha02'
+  implementation 'com.google.code.gson:gson:2.10'
   implementation 'com.timehop.stickyheadersrecyclerview:library:0.4.3@aar'
   implementation 'com.github.devnullorthrow:MPAndroidChart:3.2.0-alpha'
   implementation 'net.jcip:jcip-annotations:1.0'
 
   // Test Dependencies
   testImplementation 'junit:junit:4.13.2'
-  testImplementation 'org.mockito:mockito-core:4.8.0'
-  testImplementation 'org.mockito:mockito-inline:4.8.0'
+  testImplementation 'org.mockito:mockito-core:4.8.1'
+  testImplementation 'org.mockito:mockito-inline:4.8.1'
 }
 
 def run(cmd) {
