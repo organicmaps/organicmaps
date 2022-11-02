@@ -1,13 +1,12 @@
-• OSM'nin 29 Ekim tarihli yeni verileri
+• Yeni OSM harita verileri (29 Ekim) 
 • Geliştirilmiş konum algılama
-• Boş alan dokunuşunda daha iyi tam ekran
-• Birçok kullanıcı arayüzü ve performans iyileştirmesi
-• Çökmeleri düzeltin
-• Android 13+'da uygulama dilini değiştirme
-• Düzgün yol irtifaları tablosu
-• Yürüme, bisiklet, metro için "kaçınılması gereken yolları" gösterin
-• Katalanca TTS
+• Boş bir yere dokununca daha iyi tam ekran
+• Birçok arayüz ve performans iyileştirmesi
+• Çökmeler düzeltildi
+• Android 13+'te uygulama dilini değiştirme
+• Daha iyi yol yükseklik tablosu
+• Yürüme, bisiklet, metro için "kaçınılacak yollar" seçeneği eklendi
 • Geliştirilmiş harita üzerinde ve köylerde arama
-• Yeni zanaat ve tarihi türler
+• Yeni zanaat ve tarih türleri eklendi
 • Birçok şehir için yeni metro simgeleri
 …dahası: omaps.app/news
