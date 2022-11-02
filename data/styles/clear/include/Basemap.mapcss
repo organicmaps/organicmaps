@@ -691,6 +691,9 @@ area|z18-[waterway=dam],
 area|z18-[landuse=garages],
 {fill-color: @building_dark;casing-width: 1;casing-color: @building_dark_border;}
 
+area|z14-[waterway=dam],
+{fill-position: background;}
+
 
 /* 8.3 Barriers, cliffs */
 
