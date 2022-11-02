@@ -41741,13 +41741,13 @@ cont {
   element {
     scale: 12
     area {
-      priority: -15510
+      priority: 1491
     }
   }
   element {
     scale: 13
     area {
-      priority: -15510
+      priority: 1491
     }
   }
   element {
@@ -41758,7 +41758,7 @@ cont {
       cap: BUTTCAP
     }
     area {
-      priority: -15510
+      priority: 1491
     }
   }
   element {
@@ -41769,7 +41769,7 @@ cont {
       cap: BUTTCAP
     }
     area {
-      priority: -15510
+      priority: 1491
     }
   }
   element {
@@ -41779,7 +41779,7 @@ cont {
       priority: 1490
     }
     area {
-      priority: -15510
+      priority: 1491
     }
   }
   element {
@@ -42170,13 +42170,13 @@ cont {
   element {
     scale: 12
     area {
-      priority: -15510
+      priority: 1491
     }
   }
   element {
     scale: 13
     area {
-      priority: -15510
+      priority: 1491
     }
   }
   element {
@@ -42187,7 +42187,7 @@ cont {
       cap: BUTTCAP
     }
     area {
-      priority: -15510
+      priority: 1491
     }
   }
   element {
@@ -42198,7 +42198,7 @@ cont {
       cap: BUTTCAP
     }
     area {
-      priority: -15510
+      priority: 1491
     }
   }
   element {
@@ -42208,7 +42208,7 @@ cont {
       priority: 1490
     }
     area {
-      priority: -15510
+      priority: 1491
     }
   }
   element {
