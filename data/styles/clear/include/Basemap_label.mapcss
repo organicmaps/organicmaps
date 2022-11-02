@@ -102,8 +102,6 @@ node[place=ocean],
 node[place=sea]
 {z-index: 3000;}
 
-area[landuse=reservoir],
-area[natural=water],
 line[waterway=river],
 line[waterway=riverbank],
 line[waterway=stream],
