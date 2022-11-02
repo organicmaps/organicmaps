@@ -451,23 +451,25 @@ node|z17-[landuse=residential]::int_name,
 
 /* 5.1 Vegetation */
 
-/* Moved from AMENITY Icons.mapcss to declare generic caption styles first. */
+/* Moved from AMENITY Icons.mapcss to declare generic caption styles first.
+   ToDo: Don't declare node rule here. Styles below will be broken otherwise?!
 node|z17-[leisure],
+*/
 area|z17-[leisure],
 {text: name;text-color: @poi_label;text-offset: 1;font-size: 10;}
 
 area|z14-[leisure=park][name],
 area|z14-[landuse=forest][name],
 area|z16-[leisure=garden][garden:type!=residential][name]
-{text: name;text-color: @park_label;text-halo-color: @halo_park_label;text-halo-radius: 0.5;text-halo-opacity: 0.8;icon-min-distance: 10;}
-area|z14-[leisure=park][name]::int_name,
-area|z14-[landuse=forest][name]::int_name,
+{text: name;text-color: @park_label;text-halo-color: @halo_park_label;text-halo-radius: 0.5;text-halo-opacity: 0.8;icon-min-distance: 8;text-offset: 1;font-size: 10;}
+area|z16-[leisure=park][name]::int_name,
+area|z16-[landuse=forest][name]::int_name,
 area|z16-[leisure=garden][garden:type!=residential][name]::int_name
-{text: int_name;text-color: @park_label;text-halo-color: @halo_park_label;text-halo-radius: 0.5;text-halo-opacity: 0.8;}
+{text: int_name;text-color: @park_label;text-halo-color: @halo_park_label;text-halo-radius: 0.5;text-halo-opacity: 0.8;text-offset: 1;font-size: 10;}
 
 /*
   If we define [name] styles, we should also define at least empty [!name] stub.
-  Looks strange, but needed for current styles generator.
+  ToDo: Looks strange, but needed for current styles generator.
 */
 area|z14-[leisure=park][!name],
 area|z14-[landuse=forest][!name],
@@ -475,51 +477,38 @@ area|z16-[leisure=garden][!name],
 {}
 
 area|z14-[landuse=forest][name]
-{icon-image: nparkf-outline-s.svg;text-offset: 1;font-size: 10;}
+{icon-image: nparkf-outline-s.svg;}
 area|z14-[leisure=park][name]
-{icon-image: park-outline-s.svg;text-offset: 1;font-size: 10;}
-area|z14-[leisure=park][name]::int_name,
-area|z14-[landuse=forest][name]::int_name
-{text-offset: 1;}
+{icon-image: park-outline-s.svg;}
 
 area|z15-[landuse=forest][name]
-{icon-image: nparkf-outline-m.svg;text-offset: 1;font-size: 11;}
-area|z15-[leisure=park][name],
-{icon-image: park-outline-m.svg;text-offset: 1;font-size: 11;}
-area|z15-17[leisure=park][name]::int_name,
-area|z15-17[landuse=forest][name]::int_name,
-{text-offset: 1;font-size: 10;}
-
-area|z16[landuse=forest][name]
-{icon-image: nparkf-outline-m.svg;text-offset: 1;font-size: 11;}
-area|z16[leisure=park][name]
-{icon-image: park-outline-m.svg;text-offset: 1;font-size: 11;}
-area|z16[leisure=garden][garden:type!=residential][name]
+{icon-image: nparkf-outline-m.svg;font-size: 11;}
+area|z15-[leisure=park][name]
+{icon-image: park-outline-m.svg;font-size: 11;}
+area|z16-[leisure=garden][garden:type!=residential][name]
 {icon-image: garden-outline-m.svg;text-offset: 1;font-size: 11;}
 
-area|z17[landuse=forest][name]
-{icon-image: nparkf-outline-m.svg;text-offset: 1;font-size: 12;}
-area|z17[leisure=park][name]
-{icon-image: park-outline-m.svg;text-offset: 1;font-size: 12;}
-area|z17[leisure=garden][garden:type!=residential][name]
-{icon-image: garden-outline-m.svg;text-offset: 1;font-size: 12;}
+area|z17[landuse=forest][name],
+area|z17[leisure=park][name],
+area|z17[leisure=garden][garden:type!=residential][name],
+{font-size: 12;}
 
-area|z18-[landuse=forest][name]
-{icon-image: nparkf-outline-m.svg;text-offset: 1;font-size: 13;}
+area|z18-[landuse=forest][name],
+area|z18-[leisure=park][name],
+area|z18-[leisure=garden][garden:type!=residential][name],
+{font-size: 13;}
+area|z18-[leisure=park][name]::int_name,
+area|z18-[leisure=garden][name]::int_name,
+area|z18-[leisure=forest][name]::int_name,
+{font-size: 11;}
+
 area|z18-[landuse=forest][!name]
-{icon-image: nparkf-m.svg;}
-area|z18-[leisure=park][name]
-{icon-image: park-outline-m.svg;text-offset: 1;font-size: 13;}
+{text: none; icon-image: nparkf-m.svg;}
 area|z18-[leisure=park][!name]
-{icon-image: park-m.svg;}
-area|z18-[leisure=garden][garden:type!=residential][name]
-{icon-image: garden-outline-m.svg;text-offset: 1;font-size: 13;}
+{text: none; icon-image: park-m.svg;}
 area|z18-[leisure=garden][garden:type!=residential][!name]
-{icon-image: garden-m.svg;}
-area|z18-[leisure=park]::int_name,
-area|z18-[leisure=garden]::int_name,
-area|z18-[leisure=forest]::int_name
-{text-offset: 1;font-size: 11;}
+{text: none; icon-image: garden-m.svg;}
+
 
 area|z15-[landuse=farmland],
 area|z15-[landuse=farmyard],
