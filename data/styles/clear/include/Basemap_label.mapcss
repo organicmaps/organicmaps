@@ -58,13 +58,10 @@ node[place=continent]
 {z-index: 999;}
 
 node[place=country],
-area[man_made=pier],
-area[man_made=breakwater],
 line[man_made=pier],
 line[man_made=breakwater],
 node[man_made=pier],
 node[man_made=breakwater],
-area[waterway=dam],
 line[waterway=dam],
 line[waterway=weir],
 node[waterway=weir],
