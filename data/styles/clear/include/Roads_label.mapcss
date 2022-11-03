@@ -67,7 +67,9 @@ line[route=hiking],
 line[highway=footway]
 {z-index: 600;}
 
-line[highway=service]
+line[highway=service],
+line[highway=service][service=busway],
+line[highway=busway],
 {z-index: 650;}
 
 line[highway=pedestrian],
@@ -382,6 +384,8 @@ line|z14-[highway=road],
 line|z14-[highway=living_street],
 line|z14-[highway=pedestrian],
 line|z16-[highway=service],
+line|z16-[highway=service][service=busway],
+line|z16-[highway=busway],
 {text: name;text-color: @label_medium;text-halo-opacity: 0.8;text-halo-radius: 1;text-halo-color: @label_halo_medium;}
 
 line|z13[highway=unclassified]
@@ -401,12 +405,16 @@ line|z16-17[highway=living_street],
 {font-size: 12;text-halo-color: @label_halo_light;}
 line|z16-17[highway=pedestrian],
 line|z16-17[highway=service],
+line|z16-17[highway=service][service=busway],
+line|z16-17[highway=busway],
 line|z16-17[highway=road],
 {font-size: 10;text-halo-color: @label_halo_light;}
 line|z18-[highway=unclassified],
 line|z18-[highway=living_street],
 line|z18-[highway=pedestrian],
 line|z18-[highway=service],
+line|z18-[highway=service][service=busway],
+line|z18-[highway=busway],
 line|z18-[highway=road],
 {font-size: 12;text-halo-opacity: 1;text-halo-color: @label_halo_light;}
 

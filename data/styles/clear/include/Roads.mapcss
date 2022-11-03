@@ -172,7 +172,9 @@ line[route=hiking],
 line[highway=footway]
 {z-index: 600;}
 
-line[highway=service]
+line[highway=service],
+line[highway=service][service=busway],
+line[highway=busway],
 {z-index: 650;}
 
 line[highway=pedestrian],
@@ -704,6 +706,8 @@ line|z12-[highway=living_street],
 line|z12-[aeroway=runway],
 line|z14-[aeroway=taxiway],
 line|z15-[highway=service],
+line|z15-[highway=service][service=busway],
+line|z15-[highway=busway],
 {color: @unclassified; opacity: 1;}
 line|z16-[highway=unclassified][tunnel?],
 line|z16-[highway=living_street][tunnel?],
@@ -773,17 +777,27 @@ line|z18-[highway=unclassified][bridge?]::bridgeblack,
 
 /* 7.4 Service 15-22 ZOOM */
 
-line|z15[highway=service]
+line|z15[highway=service],
+line|z15[highway=service][service=busway],
+line|z15[highway=busway],
 {width: 1.2;}
 line|z15-16[highway=service][service=driveway]
 {width: 0;}
-line|z16[highway=service]
+line|z16[highway=service],
+line|z16[highway=service][service=busway],
+line|z16[highway=busway],
 {width: 1.6;}
-line|z17[highway=service]
+line|z17[highway=service],
+line|z17[highway=service][service=busway],
+line|z17[highway=busway],
 {width: 2;}
-line|z18[highway=service]
+line|z18[highway=service],
+line|z18[highway=service][service=busway],
+line|z18[highway=busway],
 {width: 3;}
-line|z19-[highway=service]
+line|z19-[highway=service],
+line|z19-[highway=service][service=busway],
+line|z19-[highway=busway],
 {width: 4;}
 
 /* 8.OTHERS ROADS 13-22 ZOOM */
