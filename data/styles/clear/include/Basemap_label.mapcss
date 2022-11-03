@@ -113,10 +113,10 @@ line[waterway],
 {text-position: center;fill-position: background;}
 
 node|z1-2[place=continent],
-node|z10-[place=archipelago],
-area|z10-[place=archipelago],
-node|z10-[place=island],
-area|z10-[place=island],
+node|z9-[place=archipelago],
+area|z9-[place=archipelago],
+node|z9-[place=island],
+area|z9-[place=island],
 node|z14-[natural=cape],
 area|z14-[natural=cape],
 node|z14-[place=islet],
@@ -126,10 +126,10 @@ area|z14-[place=islet],
 node|z1-2[place=continent]
 {font-size: 12;text-color: @country_label;max-width: 5;-x-me-text-priority:16000;}
 
-node|z10-[place=archipelago],
-area|z10-[place=archipelago],
-node|z10-[place=island],
-area|z10-[place=island]
+node|z9-[place=archipelago],
+area|z9-[place=archipelago],
+node|z9-[place=island],
+area|z9-[place=island],
 {font-size: 8;text-color: @district_label;}
 
 node|z12-[place=archipelago],
