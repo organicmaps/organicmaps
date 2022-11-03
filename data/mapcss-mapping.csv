@@ -854,10 +854,10 @@ deprecated|deprecated;853;x
 deprecated|deprecated;854;x
 deprecated|deprecated;855;x
 mapswithme|grid;856;
-deprecated|deprecated;857;x
-deprecated|deprecated;858;x
-deprecated|deprecated;859;x
-deprecated|deprecated;860;x
+highway|service|busway;[highway=service][service=busway];;name;int_name;857;
+highway|busway;858;
+highway|busway|bridge;[highway=busway][bridge?];;name;int_name;859;
+highway|busway|tunnel;[highway=busway][tunnel?];;name;int_name;860;
 natural|salt_pond;861;landuse|salt_pond
 deprecated|deprecated;862;x
 deprecated|deprecated;863;x
