@@ -107,6 +107,52 @@
   </screenshots>
 
   <releases>
+   <release version="2022.11.02-2" date="2022-11-02">
+     <description>
+       <p>Highlights:</p>
+         <ul>
+           <li>New OSM maps data as of October 29</li>
+           <li>Fixed search indicator in Viewport mode</li>
+           <li>Fixed search table update, now old results are always replaced by new ones</li>
+           <li>Minor performance improvements</li>
+         </ul>
+       <p>Routing and Navigation:</p>
+         <ul>
+           <li>Dump corrupted KMLs to the log on startup</li>
+           <li>Show "Roads to avoid" options and warnings on the route also for walking, cycling, and metro routes</li>
+           <li>Fixed some routing issues, including wrong routing via highway exits/links</li>
+           <li>Enable Catalan TTS</li>
+           <li>Show speed camera on tap</li>
+         </ul>
+       <p>Search:</p>
+         <ul>
+           <li>Show all found results on the map screen</li>
+           <li>Improved villages search</li>
+           <li>Show only matched categories if they were selected from the list, not names</li>
+	   <li>Fixed street synonyms for nordic languages</li>
+         </ul>
+       <p>Styles:</p>
+         <ul>
+           <li>Use regional metro/subway icons for entrances and stations</li>
+           <li>Added brewery, plumber, tailor, carpenter, sawmill, beekeeper, blacksmith, electrician, painter, and other craft icons</li>
+           <li>Added natural=shrubbery, natural=desert, leisure=dance, amenity=charging_station-motorcar, and more barrier types</li>
+           <li>Draw international airport icon on z7-9</li>
+           <li>Draw metro for major cities starting from z12</li>
+           <li>Do not draw railway station icon for building=train_station</li>
+           <li>Updated icons for garden, park, forest, national park, nature reserve, power, chimney</li>
+           <li>Add historic battlefield, gallows, pillory, memorial cross, stolperstein and war_memorial</li>
+           <li>Fixed historic=* priority</li>
+           <li>Support sauna=yes tags</li>
+           <li>Better colors for natural=scrub</li>
+           <li>Draw entrance icon instead of a dot</li>
+         </ul>
+       <p>Translations:</p>
+         <ul>
+           <li>Use larger, more geographically significant names for Oregon maps in Downloader</li>
+           <li>Updated Catalan, Chinese, Dutch, Finnish, German, Hungarian, Italian, Polish, Portuguese (European and Brazilian), Turkish translations</li>
+         </ul>
+     </description>
+   </release>
    <release version="2022.09.22-3" date="2022-09-22">
      <description>
        <ul>
