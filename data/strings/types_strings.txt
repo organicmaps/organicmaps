@@ -23104,6 +23104,7 @@
     ja = 動物
     nl = Dierenverblijf
     pl = Atrakcje zwierzęce
+    tr = Hayvanat bahçesi
 
   [type.tourism.attraction.specified]
     ref = type.tourism.attraction
@@ -23766,7 +23767,7 @@
     pt = Redutor de velocidade
     pt-BR = Redutor de velocidade
     ru = Лежачий полицейский
-    tr = Hız Kesici (Tümsek)
+    tr = Hız Kesici (Kasis)
     uk = Лежачий полiцейський
 
   [type.traffic_calming.bump]
@@ -23782,7 +23783,7 @@
     pt = Lomba
     pt-BR = Quebra-molas
     ru = Лежачий полицейский
-    tr = Hız Kesici (Tümsek)
+    tr = Hız Kesici (Kasis)
     uk = Лежачий полiцейський
 
   [type.traffic_calming.hump]
@@ -23796,7 +23797,7 @@
     pt = Lomba longa
     pt-BR = Quebra-molas longa
     ru = Лежачий полицейский
-    tr = Hız Kesici (Tümsek)
+    tr = Hız Kesici (Kasis)
     uk = Лежачий полiцейський
 
   [type.waterway]
@@ -23968,7 +23969,7 @@
     sk = Stavidlo
     sv = Slussport
     th = ประตูระบายน้ำ
-    tr = Kilit Kapısı
+    tr = Eklüz Kapağı
     uk = Шлюз
     vi = Cổng Khóa
     zh-Hans = 闸门
@@ -24380,6 +24381,7 @@
     pt = Telesqui de barra em T
     pt-BR = Telesqui de barra em T
     ru = Бугельный подъёмник
+    tr = Kayakçı teleferiği
     uk = Бугельний витяг
 
   [type.piste_type]
