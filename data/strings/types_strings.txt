@@ -19451,7 +19451,7 @@
     sv = Livsmedel
     sw = Chakula cha mboga
     th = ร้านขายของชำ
-    tr = Bakkal
+    tr = Market
     uk = Бакалія
     vi = Cửa hàng tạp hóa
     zh-Hans = 杂货店
