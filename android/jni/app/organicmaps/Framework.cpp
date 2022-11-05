@@ -471,6 +471,16 @@ void Framework::ShowNode(CountryId const & idx, bool zoomToDownloadButton)
   }
 }
 
+void Framework::Scale(double factor, m2::PointD const & pxPoint, bool isAnim)
+{
+  m_work.Scale(factor, pxPoint, isAnim);
+}
+
+void Framework::Move(double factorX, double factorY, bool isAnim)
+{
+  m_work.Move(factorX, factorY, isAnim);
+}
+
 void Framework::Touch(int action, Finger const & f1, Finger const & f2, uint8_t maskedPointer)
 {
   MultiTouchAction eventType = static_cast<MultiTouchAction>(action);

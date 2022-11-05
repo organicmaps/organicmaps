@@ -32,7 +32,7 @@ set(SRC
   app/organicmaps/isolines/IsolinesManager.cpp
   app/organicmaps/LocationHelper.cpp
   app/organicmaps/LocationState.cpp
-  app/organicmaps/MapFragment.cpp
+  app/organicmaps/Map.cpp
   app/organicmaps/MapManager.cpp
   app/organicmaps/MwmApplication.cpp
   app/organicmaps/routing/RoutingOptions.cpp

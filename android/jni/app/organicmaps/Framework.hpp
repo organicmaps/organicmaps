@@ -127,6 +127,10 @@ namespace android
       float m_x, m_y;
     };
 
+    void Scale(double factor, m2::PointD const & pxPoint, bool isAnim);
+
+    void Move(double factorX, double factorY, bool isAnim);
+
     void Touch(int action, Finger const & f1, Finger const & f2, uint8_t maskedPointer);
 
     bool Search(search::EverywhereSearchParams const & params);

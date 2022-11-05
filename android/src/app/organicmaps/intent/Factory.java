@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import app.organicmaps.DownloadResourcesLegacyActivity;
 import app.organicmaps.Framework;
+import app.organicmaps.Map;
 import app.organicmaps.MapFragment;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.MwmApplication;
@@ -182,7 +183,7 @@ public class Factory
     @Override
     public boolean run(@NonNull MwmActivity target)
     {
-      return MapFragment.nativeShowMapForUrl(getUrl());
+      return Map.showMapForUrl(getUrl());
     }
   }
 
@@ -203,7 +204,7 @@ public class Factory
 
       // TODO: Kernel recognizes "mapsme://", "mwm://" and "mapswithme://" schemas only!!!
       if (result.getUrlType() == ParsingResult.TYPE_INCORRECT)
-        return MapFragment.nativeShowMapForUrl(getUrl());
+        return Map.showMapForUrl(getUrl());
 
       if (!result.isSuccess())
         return false;
@@ -223,7 +224,7 @@ public class Factory
           return false;
 
         case ParsingResult.TYPE_MAP:
-          return MapFragment.nativeShowMapForUrl(getUrl());
+          return Map.showMapForUrl(getUrl());
 
         case ParsingResult.TYPE_ROUTE:
           final ParsedRoutingData data = Framework.nativeGetParsedRoutingData();
