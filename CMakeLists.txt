@@ -315,7 +315,11 @@ if (NOT WITH_SYSTEM_PROVIDED_3PARTY)
   add_subdirectory(3party/jansson/jansson/)
   target_include_directories(jansson INTERFACE "${PROJECT_BINARY_DIR}/3party/jansson/jansson/include")
 
+  # Add pugixml library.
   add_subdirectory(3party/pugixml)
+
+  # Add protobuf library.
+  add_subdirectory(${OMIM_ROOT}/3party/protobuf)
 endif()
 
 add_subdirectory(3party/agg)
