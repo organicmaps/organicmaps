@@ -585,7 +585,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (mMapFragment == null)
     {
       Bundle args = new Bundle();
-      args.putBoolean(MapFragment.ARG_LAUNCH_BY_DEEP_LINK, isLaunchByDeepLink);
+      args.putBoolean(Map.ARG_LAUNCH_BY_DEEP_LINK, isLaunchByDeepLink);
       final FragmentFactory factory = manager.getFragmentFactory();
       mMapFragment = (MapFragment) factory.instantiate(getClassLoader(), MapFragment.class.getName());
       mMapFragment.setArguments(args);
@@ -640,10 +640,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
     switch (button)
     {
       case zoomIn:
-        MapFragment.nativeScalePlus();
+        Map.zoomIn();
         break;
       case zoomOut:
-        MapFragment.nativeScaleMinus();
+        Map.zoomOut();
         break;
       case myPosition:
         /// @todo Is calls order important here? Should we call onLocationButtonClicked on else branch?
@@ -981,7 +981,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private boolean isMapRendererActive()
   {
-    return mMapFragment != null && MapFragment.nativeIsEngineCreated()
+    return mMapFragment != null && Map.isEngineCreated()
            && mMapFragment.isContextCreated();
   }
 
@@ -1219,11 +1219,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (mMapFragment == null || !mMapFragment.isAdded())
       return;
 
-    mMapFragment.setupCompass(offsetY, offsetX, true);
+    mMapFragment.adjustCompass(offsetX, offsetY);
 
     CompassData compass = LocationHelper.INSTANCE.getCompassData();
     if (compass != null)
-      MapFragment.nativeCompassUpdated(compass.getNorth(), true);
+      Map.onCompassUpdated(compass.getNorth(), true);
   }
 
   public void adjustBottomWidgets()
@@ -1245,7 +1245,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     final int y = Math.max(Math.max(mapButtonsHeight, mainMenuHeight), mNavBarHeight);
 
-    mMapFragment.setupBottomWidgetsOffset(y, offsetX);
+    mMapFragment.adjustBottomWidgets(offsetX, y);
   }
 
   @Override
@@ -1627,7 +1627,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onCompassUpdated(@NonNull CompassData compass)
   {
-    MapFragment.nativeCompassUpdated(compass.getNorth(), false);
+    Map.onCompassUpdated(compass.getNorth(), false);
     mNavigationController.updateNorth();
   }
 
@@ -1715,10 +1715,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
     switch (keyCode)
     {
       case KeyEvent.KEYCODE_DPAD_DOWN:
-        MapFragment.nativeScaleMinus();
+        Map.zoomOut();
         return true;
       case KeyEvent.KEYCODE_DPAD_UP:
-        MapFragment.nativeScalePlus();
+        Map.zoomIn();
         return true;
       case KeyEvent.KEYCODE_ESCAPE:
         Intent currIntent = getIntent();
