@@ -20,6 +20,7 @@
   pt = Abecásia
   ro = Abhazia
   es = Abjasia
+  et = Abhaasia
   eu = Abkhazia
   sv = Abchazien
   th = อับฮาเซีย
@@ -54,6 +55,7 @@
   pt = Afeganistão
   ro = Afganistan
   es = Afganistán
+  et = Afganistan
   eu = Afganistan
   sv = Afghanistan
   th = ประเทศอัฟกานิสถาน
@@ -89,6 +91,7 @@
   pt = Alabama
   ro = Alabama
   es = Alabama
+  et = Alabama
   eu = Alabama
   sv = Alabama
   th = รัฐแอละแบมา
@@ -123,6 +126,7 @@
   pt = Albânia
   ro = Albania
   es = Albania
+  et = Albaania
   eu = Albaniarra
   sv = Albanien
   th = ประเทศแอลเบเนีย
@@ -158,6 +162,7 @@
   pt = Argélia
   ro = Algeria
   es = Argelia
+  et = Alžeeria
   eu = Aljeria
   sv = Algeriet
   th = ประเทศแอลจีเรีย
@@ -193,6 +198,7 @@
   pt = Argélia — Centro
   ro = Algeria — Centru
   es = Argelia — Centro
+  et = Alžeeria - Keskosa
   sv = Algeriet — Central
   th = ประเทศแอลจีเรีย — กลาง
   tr = Cezayir — Merkez
@@ -226,6 +232,7 @@
   pt = Argélia — Norte
   ro = Algeria — Nord
   es = Argelia — Norte
+  et = Alžeeria - Põhi
   sv = Algeriet — Nord
   th = ประเทศแอลจีเรีย — เหนือ
   tr = Cezayir — Kuzey
@@ -259,6 +266,7 @@
   pt = Andorra
   ro = Andorra
   es = Andorra
+  et = Andorra
   eu = Andorra
   sv = Andorra
   th = ประเทศอันดอร์รา
@@ -293,6 +301,7 @@
   pt = Angola
   ro = Angola
   es = Angola
+  et = Angola
   eu = Angola
   sv = Angola
   th = ประเทศแองโกลา
@@ -328,6 +337,7 @@
   pt = Anguilla
   ro = Anguilla
   es = Anguila
+  et = Anguilla
   eu = Aingira
   sv = Anguilla
   th = แองกวิลลา
@@ -362,6 +372,7 @@
   pt = Antártica
   ro = Antarctida
   es = Antártida
+  et = Antarktika
   eu = Antartika
   sv = Antarktis
   th = ทวีปแอนตาร์กติกา
@@ -397,6 +408,7 @@
   pt = Antígua e Barbuda
   ro = Antigua și Barbuda
   es = Antigua y Barbuda
+  et = Antigua ja Barbuda
   eu = Zaharrak eta bizardunak
   sv = Antigua och Barbuda
   th = ประเทศแอนติกาและบาร์บูดา
@@ -431,6 +443,7 @@
   pt = Argentina
   ro = Argentina
   es = Argentina
+  et = Argentiina
   eu = Argentina
   sv = Argentina
   th = อาร์เจนตินา
@@ -466,6 +479,7 @@
   pt = Buenos Aires — Norte
   ro = Provincia Buenos Aires — Nord
   es = Buenos Aires — Norte
+  et = Buenos Aires - Põhi
   sv = Buenos Aires — Nord
   th = รัฐบัวโนสไอเรส — เหนือ
   tr = Buenos Aires Eyaleti — Kuzey
@@ -499,6 +513,7 @@
   pt = Buenos Aires — Sul
   ro = Provincia Buenos Aires — Sud
   es = Buenos Aires — Sur
+  et = Buenos Aires - Lõuna
   sv = Buenos Aires — Syd
   th = รัฐบัวโนสไอเรส — ใต้
   tr = Buenos Aires Eyaleti — Güney
@@ -532,6 +547,7 @@
   pt = Cuyo
   ro = Cuyo
   es = Cuyo
+  et = Cuyo
   sv = Cuyo
   th = คูโย
   tr = Cuyo
@@ -565,6 +581,7 @@
   pt = Mesopotâmia argentina
   ro = Mesopotamia
   es = Mesopotamia argentina
+  et = Mesopotaamia
   sv = Mesopotamien
   th = เมโสโปเตเมีย
   tr = Mezopotamya
@@ -598,6 +615,7 @@
   pt = Noroeste argentino
   ro = Argentina de Nord-Vest
   es = Noroeste argentino
+  et = Loode-Argentiina
   sv = Argentina nordväst
   th = ตะวันตกเฉียงเหนือของอาร์เจนตินา
   tr = Kuzeybatı Arjantin
@@ -631,6 +649,7 @@
   pt = Pampas
   ro = Pampas
   es = Región pampeana
+  et = Pampa
   sv = Pampas
   th = ปัมปัส
   tr = Pampa
@@ -664,6 +683,7 @@
   pt = Patagónia
   ro = Patagonia
   es = Patagonia
+  et = Patagoonia
   sv = Patagonien
   th = ปาตาโกเนีย
   tr = Patagonya
@@ -697,6 +717,7 @@
   pt = Arizona
   ro = Arizona
   es = Arizona
+  et = Arizona
   eu = Arizona
   sv = Arizona
   th = รัฐแอริโซนา
@@ -731,6 +752,7 @@
   pt = Arménia
   ro = Armenia
   es = Armenia
+  et = Armeenia
   eu = Armenia
   sv = Armenien
   th = ประเทศอาร์มีเนีย
@@ -766,6 +788,7 @@
   pt = Austrália
   ro = Australia
   es = Australia
+  et = Austraalia
   eu = Australia
   sv = Australien
   th = ประเทศออสเตรเลีย
@@ -801,6 +824,7 @@
   pt = Melbourne
   ro = Melbourne
   es = Melbourne
+  et = Melbourne
   sv = Melbourne
   th = เมลเบิร์น
   tr = Melbourne
@@ -834,6 +858,7 @@
   pt = Nova Gales do Sul
   ro = Noul Wales de Sud
   es = Nueva Gales del Sur
+  et = Uus Lõuna-Wales
   sv = New South Wales
   th = รัฐนิวเซาท์เวลส์
   tr = Yeni Güney Galler
@@ -867,6 +892,7 @@
   pt = Território do Norte
   ro = Teritoriul de Nord
   es = Territorio del Norte
+  et = Põhjaterritoorium
   sv = Northern Territory
   th = นอร์เทิร์นเทร์ริทอรี
   tr = Kuzey Toprakları
@@ -890,6 +916,7 @@
   fi = Queensland
   fr = Queensland
   de = Queensland
+  et = Queensland
   hu = Queensland
   id = Queensland
   it = Queensland
@@ -933,6 +960,7 @@
   pt = Austrália Meridional
   ro = Australia de Sud
   es = Australia Meridional
+  et = Lõuna-Austraalia
   sv = South Australia
   th = รัฐเซาท์ออสเตรเลีย
   tr = Güney Avustralya
@@ -966,6 +994,7 @@
   pt = Tasmânia
   ro = Tasmania
   es = Tasmania
+  et = Tasmaania
   sv = Tasmanien
   th = รัฐแทสเมเนีย
   tr = Tasmanya
@@ -999,6 +1028,7 @@
   pt = Vitória
   ro = Victoria
   es = Victoria
+  et = Victoria
   sv = Victoria
   th = รัฐวิกตอเรีย
   tr = Victoria
@@ -1032,6 +1062,7 @@
   pt = Austrália Ocidental
   ro = Australia de Vest
   es = Australia Occidental
+  et = Lääne-Austraalia
   sv = Western Australia
   th = รัฐเวสเทิร์นออสเตรเลีย
   tr = Batı Avustralya
@@ -1065,6 +1096,7 @@
   pt = Áustria
   ro = Austria
   es = Austria
+  et = Austria
   eu = Austria
   sv = Österrike
   th = ประเทศออสเตรีย
@@ -1100,6 +1132,7 @@
   pt = Burgenland
   ro = Burgenland
   es = Burgenland
+  et = Burgenland
   sv = Burgenland
   th = รัฐบูร์เกนลันด์
   tr = Burgenland
@@ -1133,6 +1166,7 @@
   pt = Caríntia
   ro = Carintia
   es = Carintia
+  et = Kärnten
   sv = Kärnten
   th = รัฐคารินเทีย
   tr = Karintiya
@@ -1166,6 +1200,7 @@
   pt = Baixa Áustria — Oeste
   ro = Austria Inferioară — Vest
   es = Baja Austria — Oeste
+  et = Alam-Austria - Lääs
   sv = Niederösterreich — Väst
   th = รัฐโลว์เออร์ออสเตรีย — ตะวันตก
   tr = Aşağı Avusturya — Batı
@@ -1199,6 +1234,7 @@
   pt = Viena
   ro = Viena
   es = Viena
+  et = Viin
   sv = Wien
   th = เวียนนา
   tr = Viyana
@@ -1232,6 +1268,7 @@
   pt = Salzburgo
   ro = Salzburg
   es = Salzburgo
+  et = Salzburg
   sv = Salzburg
   th = รัฐซาลซ์บูร์ก
   tr = Salzburg
@@ -1265,6 +1302,7 @@
   pt = Estíria
   ro = Stiria
   es = Estiria
+  et = Steiermark
   sv = Steiermark
   th = รัฐสติเรีย
   tr = Steiermark
@@ -1298,6 +1336,7 @@
   pt = Tirol
   ro = Tirol
   es = Tirol
+  et = Tirool
   sv = Tyrolen
   th = รัฐทิโรล
   tr = Tirol
@@ -1331,6 +1370,7 @@
   pt = Alta Áustria
   ro = Austria Superioară
   es = Alta Austria
+  et = Ülem-Austria
   sv = Oberösterreich
   th = รัฐอัปเปอร์ออสเตรีย
   tr = Yukarı Avusturya
@@ -1364,6 +1404,7 @@
   pt = Vorarlberg
   ro = Vorarlberg
   es = Vorarlberg
+  et = Vorarlberg
   sv = Vorarlberg
   th = รัฐโฟราร์ลแบร์ก
   tr = Vorarlberg
@@ -1397,6 +1438,7 @@
   pt = Azerbaijão
   ro = Azerbaidjan
   es = Azerbaiyán
+  et = Aserbaidžaan
   eu = Azerbaijango
   sv = Azerbajdzjan
   th = ประเทศอาเซอร์ไบจาน
@@ -1432,6 +1474,7 @@
   pt = Azerbaijão
   ro = Azerbaidjan
   es = Azerbaiyán
+  et = Aserbaidžaan
   eu = Azerbaijango
   sv = Azerbajdzjan
   th = ประเทศอาเซอร์ไบจาน
@@ -1466,6 +1509,7 @@
   pt = Bahrein
   ro = Bahrain
   es = Baréin
+  et = Bahrein
   eu = Bahrain
   sv = Bahrain
   th = ประเทศบาห์เรน
@@ -1502,6 +1546,7 @@
   ro = Bangladesh
   es = Bangladés
   eu = Bangladesh
+  et = Bangladesh
   sv = Bangladesh
   th = ประเทศบังกลาเทศ
   tr = Bangladeş
@@ -1536,6 +1581,7 @@
   pt = Barbados
   ro = Barbados
   es = Barbados
+  et = Barbados
   eu = Barbados
   sv = Barbados
   th = ประเทศบาร์เบโดส
@@ -1571,6 +1617,7 @@
   pt = Bielorrússia
   ro = Belarus
   es = Bielorrusia
+  et = Valgevene
   eu = Bielorrusia
   sv = Vitryssland
   th = ประเทศเบลารุส
@@ -1606,6 +1653,7 @@
   pt = Brest
   ro = Regiunea Brest
   es = Provincia de Brest
+  et = Bresti piirkond
   sv = Brests voblast
   th = ภูมิภาคเบรสท์
   tr = Brest Voblastı
@@ -1639,6 +1687,7 @@
   pt = Voblast de Homiel
   ro = Regiunea Gomel
   es = Provincia de Gómel
+  et = Gomeli piirkond
   sv = Homels voblast
   th = ภูมิภาคโกเมล
   tr = Homyel Voblastı
@@ -1672,6 +1721,7 @@
   pt = Hrodna
   ro = Regiunea Hrodna
   es = Provincia de Grodno
+  et = Grodno piirkond
   sv = Hrodnas voblast
   th = ภูมิภาคกรอดโน
   tr = Hrodna Voblastı
@@ -1705,6 +1755,7 @@
   pt = Voblast de Mahilou
   ro = Regiunea Moghilău
   es = Provincia de Maguilov
+  et = Mogilevi piirkond
   sv = Mahiljoŭs voblast
   th = ภูมิภาคโมลิเกฟ
   tr = Mahilyov Voblastı
@@ -1738,6 +1789,7 @@
   pt = Voblast de Minsk
   ro = Regiunea Minsk
   es = Provincia de Minsk
+  et = Minski piirkond
   sv = Minsks voblast
   th = ภูมิภาคมิสก์
   tr = Minsk Voblastı
@@ -1771,6 +1823,7 @@
   pt = Voblast de Viciebsk
   ro = Regiunea Vițebsk
   es = Provincia de Vítebsk
+  et = Vitebski piirkond
   sv = Vitsebsks voblast
   th = ภูมิภาควีเซียบสค์
   tr = Vitsebsk Voblastı
@@ -1804,6 +1857,7 @@
   pt = Bélgica
   ro = Belgia
   es = Bélgica
+  et = Belgia
   eu = Belgika
   sv = Belgien
   th = ประเทศเบลเยียม
@@ -1839,6 +1893,7 @@
   pt = Antuérpia
   ro = Anvers
   es = Provincia de Amberes
+  et = Antwerpeni provints
   sv = Antwerpen
   th = มณฑลแอนต์เวิร์ป
   tr = Anvers
@@ -1872,6 +1927,7 @@
   pt = Flandres Oriental
   ro = Flandra de Est
   es = Provincia de Flandes Oriental
+  et = Ida-Flandria provints
   sv = Östflandern
   th = จังหวัดฟลานเดอร์ตะวันออก
   tr = Doğu Flandre
@@ -1905,6 +1961,7 @@
   pt = Brabante Flamengo
   ro = Brabantul Flamand
   es = Brabante Flamenco
+  et = Flaami Brabanti provints
   sv = Flamländska Brabant
   th = มณฑลเฟลมิชบราบันต์
   tr = Flaman Brabant
@@ -1938,6 +1995,7 @@
   pt = Hainaut
   ro = Hainaut
   es = Provincia de Henao
+  et = Hainaut provints
   sv = Hainaut
   th = มณฑลแอโน
   tr = Hainaut
@@ -1971,6 +2029,7 @@
   pt = Liège
   ro = Liège
   es = Provincia de Lieja
+  et = Liège'i provints
   sv = Liège
   th = มณฑลลีแยฌ
   tr = Liège
@@ -2004,6 +2063,7 @@
   pt = Limburgo
   ro = Limburg
   es = Limburgo
+  et = Limburgi provints
   sv = Limburg
   th = มณฑลลิมเบิร์ก
   tr = Limburg
@@ -2037,6 +2097,7 @@
   pt = Luxemburgo
   ro = Luxemburg
   es = Provincia de Luxemburgo
+  et = Luksemburgi provints
   sv = Luxemburg
   th = มณฑลลักเซมเบิร์ก
   tr = Lüksemburg, Belçika
@@ -2070,6 +2131,7 @@
   pt = Namur
   ro = Namur
   es = Provincia de Namur
+  et = Namuri provints
   sv = Namur
   th = มณฑลนามูร์
   tr = Namur
@@ -2103,6 +2165,7 @@
   pt = Brabante Valão
   ro = Brabantul Valon
   es = Provincia del Brabante Valón
+  et = Valloonia Brabanti provints
   sv = Vallonska Brabant
   th = มณฑลวัลลูนบราบันต์
   tr = Valon Brabant
@@ -2136,6 +2199,7 @@
   pt = Flandres Ocidental
   ro = Flandra de Vest
   es = Provincia de Flandes Occidental
+  et = Lääne-Flandria provints
   sv = Västflandern
   th = จังหวัดฟลานเดอร์ตะวันตก
   tr = Batı Flandre
@@ -2169,6 +2233,7 @@
   pt = Belize
   ro = Belize
   es = Belice
+  et = Belize
   eu = Belize
   sv = Belize
   th = ประเทศเบลีซ
@@ -2203,6 +2268,7 @@
   pt = Benim
   ro = Benin
   es = Benín
+  et = Benin
   eu = Benin
   sv = Benin
   th = ประเทศเบนิน
@@ -2237,6 +2303,7 @@
   pt = Bermudas
   ro = Insulele Bermude
   es = Bermudas
+  et = Bermuda
   eu = Bermudak
   sv = Bermuda
   th = เบอร์มิวดา
@@ -2272,6 +2339,7 @@
   pt = Butão
   ro = Bhutan
   es = Bután
+  et = Bhutan
   eu = Bhutan
   sv = Bhutan
   th = ประเทศภูฏาน
@@ -2307,6 +2375,7 @@
   pt = Bolívia
   ro = Bolivia
   es = Bolivia
+  et = Boliivia
   eu = Bolivia
   sv = Bolivia
   th = ประเทศโบลิเวีย
@@ -2344,6 +2413,7 @@
   ro = Bolivia – Nord
   es = Bolivia – Norte
   es-MX = Bolivia – Norte
+  et = Boliivia - Põhi
   sv = Bolivia – Nord
   th = โบลิเวีย – ตอนเหนือ
   tr = Bolivya – Kuzey
@@ -2380,6 +2450,7 @@
   ro = Bolivia – Sud
   es = Bolivia – Sur
   es-MX = Bolivia – Sur
+  et = Boliivia - Lõuna
   sv = Bolivia – Söder
   th = โบลิเวีย – ตอนใต้
   tr = Bolivya – Güney
@@ -2415,6 +2486,7 @@
   ro = Bosnia și Herțegovina
   es = Bosnia y Herzegovina
   eu = Bosnia eta Herzegovina
+  et = Bosnia ja Hertsegoviina
   sv = Bosnien och Hercegovina
   th = ประเทศบอสเนียและเฮอร์เซโกวีนา
   tr = Bosna-Hersek
@@ -2449,6 +2521,7 @@
   pt = Distrito de Brčko
   ro = Districtul Brčko
   es = Distrito de Brčko
+  et = Brčko piirkond
   sv = Brčko
   th = เขตเบิตช์โค
   tr = Brçko Bölgesi
@@ -2482,6 +2555,7 @@
   pt = Federação da Bósnia e Herzegovina
   ro = Federația Bosniei și Herțegovinei
   es = Federación de Bosnia y Herzegovina
+  et = Bosnia ja Hertsegoviina Föderatsioon
   sv = Federationen Bosnien och Hercegovina
   th = สหพันธรัฐบอสเนียและเฮอร์เซโกวีนา
   tr = Bosna-Hersek Federasyonu
@@ -2515,6 +2589,7 @@
   pt = República Sérvia
   ro = Republika Srpska
   es = República Srpska
+  et = Serbia vabariik
   sv = Republika Srpska
   th = สาธารณรัฐเซิร์ปสกา
   tr = Sırp Cumhuriyeti
@@ -2549,6 +2624,7 @@
   ro = Botswana
   es = Botsuana
   eu = Botswana
+  et = Botswana
   sv = Botswana
   th = ประเทศบอตสวานา
   tr = Botsvana
@@ -2583,6 +2659,7 @@
   pt = Brasil
   ro = Brazilia
   es = Brasil
+  et = Brasiilia
   eu = Brasil
   sv = Brasilien
   th = ประเทศบราซิล
@@ -2618,6 +2695,7 @@
   pt = Bahia
   ro = Bahia
   es = Bahía
+  et = Bahia
   sv = Bahia
   th = รัฐบาเยีย
   tr = Bahia
@@ -2651,6 +2729,7 @@
   pt = Goiás
   ro = Goiás
   es = Goiás
+  et = Goiás
   sv = Goiás
   th = รัฐโกยาส
   tr = Goiás
@@ -2684,6 +2763,7 @@
   pt = Mato Grosso
   ro = Mato Grosso
   es = Mato Grosso
+  et = Mato Grosso
   sv = Mato Grosso
   th = รัฐมาตูโกรสซู
   tr = Mato Grosso
@@ -2717,6 +2797,7 @@
   pt = Mato Grosso do Sul
   ro = Mato Grosso do Sul
   es = Mato Grosso del Sur
+  et = Mato Grosso do Sul
   sv = Mato Grosso do Sul
   th = รัฐมาตูโกรสซูโดซูล
   tr = Mato Grosso do Sul
@@ -2750,6 +2831,7 @@
   pt = Região Norte do Brasil
   ro = Regiunea de Nord, Brazilia
   es = Región Norte de Brasil
+  et = Põhjapiirkond, Brasiilia
   sv = Norra regionen, Brasilien
   th = ภูมิภาคเหนือ บราซิล
   tr = Kuzey Bölgesi, Brezilya
@@ -2783,6 +2865,7 @@
   pt = Região Nordeste do Brasil
   ro = Regiunea de Nord-Est
   es = Región Nordeste de Brasil
+  et = Kirdepiirkond
   sv = Nordöstra regionen
   th = ภูมิภาคตะวันออกเฉียงเหนือ
   tr = Kuzeydoğu Bölgesi
@@ -2816,6 +2899,7 @@
   pt = Paraíba
   ro = Paraíba
   es = Paraíba
+  et = Paraíba
   sv = Paraíba
   th = รัฐปาราอีบา
   tr = Paraíba
@@ -2849,6 +2933,7 @@
   pt = Paraná
   ro = Paraná
   es = Paraná
+  et = Paraná
   sv = Paraná
   th = รัฐปารานา
   tr = Paraná
@@ -2882,6 +2967,7 @@
   pt = Rio Grande do Norte
   ro = Rio Grande do Norte
   es = Río Grande del Norte
+  et = Rio Grande do Norte
   sv = Rio Grande do Norte
   th = รัฐรีโอกรันดีโดนอร์เต
   tr = Rio Grande do Norte
@@ -2915,6 +3001,7 @@
   pt = Santa Catarina
   ro = Santa Catarina
   es = Santa Catarina
+  et = Santa Catarina
   sv = Santa Catarina
   th = รัฐซันตากาตารีนา
   tr = Santa Catarina
@@ -2948,6 +3035,7 @@
   pt = Região Sul do Brasil
   ro = Brazilia de Sud
   es = Región Sur de Brasil
+  et = Lõuna-Brasiilia
   sv = Södra Brasilien
   th = บราซิลใต้
   tr = Güney Brezilya
@@ -2981,6 +3069,7 @@
   pt = Espírito Santo
   ro = Espírito Santo
   es = Espírito Santo
+  et = Espírito Santo
   sv = Espírito Santo
   th = รัฐเอสปีรีตูซานตู
   tr = Espírito Santo
@@ -3014,6 +3103,7 @@
   pt = Minas Gerais — Contagem
   ro = Minas Gerais — Contagem
   es = Minas Gerais — Contagem
+  et = Minas Gerais — Contagem
   sv = Minas Gerais — Contagem
   th = มีนัสเชไรส์ — คอนทาเจม
   tr = Minas Gerais — Contagem
@@ -3047,6 +3137,7 @@
   pt = Minas Gerais — Norte
   ro = Minas Gerais — Nord
   es = Minas Gerais — Norte
+  et = Minas Gerais - Põhi
   sv = Minas Gerais — Nord
   th = รัฐมีนัสเชไรส์ — เหนือ
   tr = Minas Gerais — Kuzey
@@ -3080,6 +3171,7 @@
   pt = Rio de Janeiro
   ro = Rio de Janeiro
   es = Río de Janeiro
+  et = Rio de Janeiro
   sv = Rio de Janeiro
   th = รัฐรีโอเดจาเนโร
   tr = Rio de Janeiro
@@ -3113,6 +3205,7 @@
   pt = São Paulo — Campinas
   ro = São Paulo — Campinas
   es = São Paulo — Campinas
+  et = São Paulo — Campinas
   sv = São Paulo — Campinas
   th = ซาวเปาโล — แคมปินาส
   tr = São Paulo — Campinas
@@ -3146,6 +3239,7 @@
   pt = São Paulo — Santos
   ro = São Paulo — Santos, São Paulo
   es = São Paulo — Santos
+  et = São Paulo — Santos
   sv = São Paulo — Santos, São Paulo
   th = รัฐเซาเปาลู — ซังตูส
   tr = São Paulo — Santos
@@ -3179,6 +3273,7 @@
   pt = São Paulo — Ribeirão Preto
   ro = São Paulo — Ribeirão Preto
   es = São Paulo — Ribeirão Preto
+  et = São Paulo — Ribeirão Preto
   sv = São Paulo — Ribeirão Preto
   th = ซาวเปาโล — ริเบราว เพรโต
   tr = São Paulo — Ribeirão Preto
@@ -3212,6 +3307,7 @@
   pt = Território Britânico do Oceano Índico
   ro = Teritoriul Britanic din Oceanul Indian
   es = Territorio Británico del Océano Índico
+  et = Briti India ookeani territoorium
   eu = Britainia Handiko Indiako Ozeanoko Lurraldea
   sv = Brittiska territoriet i Indiska oceanen
   th = บริติชอินเดียนโอเชียนเทร์ริทอรี
@@ -3246,6 +3342,7 @@
   pt = Ilhas Virgens Britânicas
   ro = Insulele Virgine Britanice
   es = Islas Vírgenes Británicas
+  et = Briti Neitsisaared
   eu = Britainiar Birjina Uharteak
   sv = Brittiska Jungfruöarna
   th = หมู่เกาะบริติชเวอร์จิน
@@ -3280,6 +3377,7 @@
   pt = Brunei
   ro = Brunei
   es = Brunéi
+  et = Brunei
   eu = Brunei
   sv = Brunei
   th = ประเทศบรูไน
@@ -3315,6 +3413,7 @@
   pt = Bulgária
   ro = Bulgaria
   es = Bulgaria
+  et = Bulgaaria
   eu = Bulgaria
   sv = Bulgarien
   th = ประเทศบัลแกเรีย
@@ -3350,6 +3449,7 @@
   pt = Burkina Faso
   ro = Burkina Faso
   es = Burkina Faso
+  et = Burkina Faso
   eu = Burkina Faso
   sv = Burkina Faso
   th = ประเทศบูร์กินาฟาโซ
@@ -3384,6 +3484,7 @@
   pt = Burundi
   ro = Burundi
   es = Burundi
+  et = Burundi
   eu = Burundi
   sv = Burundi
   th = ประเทศบุรุนดี
@@ -3419,6 +3520,7 @@
   pt = Califórnia
   ro = California
   es = California
+  et = Kalifornia
   eu = Kalifornia
   sv = Kalifornien
   th = รัฐแคลิฟอร์เนีย
@@ -3453,6 +3555,7 @@
   pt = Camboja
   ro = Cambodgia
   es = Camboya
+  et = Kambodža
   eu = Kanbodia
   sv = Kambodja
   th = ประเทศกัมพูชา
@@ -3488,6 +3591,7 @@
   pt = Camarões
   ro = Camerun
   es = Camerún
+  et = Kamerun
   eu = Kamerun
   sv = Kamerun
   th = ประเทศแคเมอรูน
@@ -3523,6 +3627,7 @@
   pt = Camarões — Centro
   ro = Camerun — Centru
   es = Camerún — Centro
+  et = Kamerun - Keskosa
   sv = Kamerun — Central
   th = ประเทศแคเมอรูน — กลาง
   tr = Kamerun — Merkez
@@ -3556,6 +3661,7 @@
   pt = Camarões — Oeste
   ro = Camerun — Vest
   es = Camerún — Oeste
+  et = Kamerun - Lääs
   sv = Kamerun — Väst
   th = ประเทศแคเมอรูน — ตะวันตก
   tr = Kamerun — Batı
@@ -3589,6 +3695,7 @@
   pt = Campo de gelo do sul da Patagónia
   ro = Campo de Hielo Sur
   es = Campo de hielo Patagónico Sur
+  et = Lõuna-Patagoonia jääväli
   eu = Hego Patagoniako Izotz Eremua
   sv = Södra patagoniska isfältet
   th = ลานน้ำแข็งพาตาโกเนียนใต้
@@ -3623,6 +3730,7 @@
   pt = Canadá
   ro = Canada
   es = Canadá
+  et = Kanada
   eu = Kanada
   sv = Kanada
   th = ประเทศแคนาดา
@@ -3658,6 +3766,7 @@
   pt = Alberta
   ro = Alberta
   es = Alberta
+  et = Alberta
   sv = Alberta
   th = รัฐแอลเบอร์ตา
   tr = Alberta
@@ -3691,6 +3800,7 @@
   pt = Edmonton
   ro = Edmonton
   es = Edmonton
+  et = Edmonton
   sv = Edmonton
   th = เอดมันตัน
   tr = Edmonton
@@ -3724,6 +3834,7 @@
   pt = Alberta — Norte
   ro = Alberta — Nord
   es = Alberta — Norte
+  et = Alberta - Põhi
   sv = Alberta — Nord
   th = รัฐแอลเบอร์ตา — เหนือ
   tr = Alberta — Kuzey
@@ -3757,6 +3868,7 @@
   pt = Alberta — Sul
   ro = Alberta — Sud
   es = Alberta — Sur
+  et = Alberta - Lõuna
   sv = Alberta — Syd
   th = รัฐแอลเบอร์ตา — ใต้
   tr = Alberta — Güney
@@ -3790,6 +3902,7 @@
   pt = Colúmbia Britânica
   ro = Columbia Britanică
   es = Columbia Británica
+  et = Briti Kolumbia
   sv = British Columbia
   th = รัฐบริติชโคลัมเบีย
   tr = Britanya Kolumbiyası
@@ -3823,6 +3936,7 @@
   pt = Colúmbia Britânica — Centro
   ro = Columbia Britanică — Centru
   es = Columbia Británica — Centro
+  et = Briti Kolumbia - Keskosa
   sv = British Columbia — Central
   th = รัฐบริติชโคลัมเบีย — กลาง
   tr = Britanya Kolumbiyası — Merkez
@@ -3856,6 +3970,7 @@
   pt = Colúmbia Britânica — Leste
   ro = Columbia Britanică — Est
   es = Columbia Británica — Este
+  et = Briti Kolumbia - Ida
   sv = British Columbia — Öst
   th = รัฐบริติชโคลัมเบีย — ตะวันออก
   tr = Britanya Kolumbiyası — Doğu
@@ -3889,6 +4004,7 @@
   pt = Ilha Vancouver
   ro = Insula Vancouver
   es = Isla de Vancouver
+  et = Vancouveri saar
   sv = Vancouver Island
   th = เกาะแวนคูเวอร์
   tr = Vancouver Adası
@@ -3922,6 +4038,7 @@
   pt = Colúmbia Britânica — Oeste
   ro = Columbia Britanică — Vest
   es = Columbia Británica — Oeste
+  et = Briti Kolumbia - Lääs
   sv = British Columbia — Väst
   th = รัฐบริติชโคลัมเบีย — ตะวันตก
   tr = Britanya Kolumbiyası — Batı
@@ -3955,6 +4072,7 @@
   pt = Colúmbia Britânica — Norte
   ro = Columbia Britanică — Nord
   es = Columbia Británica — Norte
+  et = Briti Kolumbia - Põhi
   sv = British Columbia — Nord
   th = รัฐบริติชโคลัมเบีย — เหนือ
   tr = Britanya Kolumbiyası — Kuzey
@@ -3988,6 +4106,7 @@
   pt = Kelowna
   ro = Kelowna
   es = Kelowna
+  et = Kelowna
   sv = Kelowna
   th = เคโลนา
   tr = Kelowna, Britanya Kolumbiyası
@@ -4021,6 +4140,7 @@
   pt = Vancouver
   ro = Vancouver
   es = Vancouver
+  et = Vancouver
   sv = Vancouver
   th = แวนคูเวอร์
   tr = Vancouver
@@ -4054,6 +4174,7 @@
   pt = Labrador
   ro = Labrador
   es = Labrador
+  et = Labrador
   sv = Labrador
   th = ลาบราดอร์
   tr = Labrador
@@ -4087,6 +4208,7 @@
   pt = Labrador — Norte
   ro = Labrador - Nord
   es = Labrador — Norte
+  et = Labrador - Põhi
   sv = Labrador — Nord
   th = ลาบราดอร์ — เหนือ
   tr = Labrador — Kuzey
@@ -4120,6 +4242,7 @@
   pt = Labrador — Sul
   ro = Labrador - Sud
   es = Labrador — Sur
+  et = Labrador - Lõuna
   sv = Labrador — Syd
   th = ลาบราดอร์ — ใต้
   tr = Labrador — Güzen
@@ -4153,6 +4276,7 @@
   pt = Labrador — Oeste
   ro = Labrador - Vest
   es = Labrador — Oeste
+  et = Labrador - Lääs
   sv = Labrador — Väst
   th = ลาบราดอร์ — ตะวันตก
   tr = Labrador — Batı
@@ -4186,6 +4310,7 @@
   pt = Manitoba
   ro = Manitoba
   es = Manitoba
+  et = Manitoba
   sv = Manitoba
   th = รัฐแมนิโทบา
   tr = Manitoba
@@ -4219,6 +4344,7 @@
   pt = Manitoba — Norte
   ro = Manitoba — Nord
   es = Manitoba — Norte
+  et = Manitoba — Põhi
   sv = Manitoba — Nord
   th = รัฐแมนิโทบา — เหนือ
   tr = Manitoba — Kuzey
@@ -4252,6 +4378,7 @@
   pt = Manitoba — Oeste
   ro = Manitoba — Vest
   es = Manitoba — Oeste
+  et = Manitoba — Lääs
   sv = Manitoba — Väst
   th = รัฐแมนิโทบา — ตะวันตก
   tr = Manitoba — Batı
@@ -4285,6 +4412,7 @@
   pt = Brandon
   ro = Brandon
   es = Brandon
+  et = Brandon
   sv = Brandon
   th = แบรนดอน
   tr = Brandon
@@ -4318,6 +4446,7 @@
   pt = Winnipeg
   ro = Winnipeg
   es = Winnipeg
+  et = Winnipeg
   sv = Winnipeg
   th = วินนิเพก
   tr = Winnipeg
@@ -4351,6 +4480,7 @@
   pt = Nova Brunswick
   ro = Noul Brunswick
   es = Nuevo Brunswick
+  et = New Brunswick
   sv = New Brunswick
   th = รัฐนิวบรันสวิก
   tr = New Brunswick
@@ -4384,6 +4514,7 @@
   pt = Terra Nova
   ro = Terranova
   es = Isla de Terranova
+  et = Newfoundland
   sv = Newfoundland
   th = เกาะนิวฟันด์แลนด์
   tr = Newfoundland
@@ -4417,6 +4548,7 @@
   pt = Terra Nova — Leste
   ro = Terranova — Est
   es = Isla de Terranova — Este
+  et = Newfoundland — Ida
   sv = Newfoundland — Öst
   th = เกาะนิวฟันด์แลนด์ — ตะวันออก
   tr = Newfoundland — Doğu
@@ -4450,6 +4582,7 @@
   pt = Terra Nova — Norte
   ro = Terranova — Nord
   es = Isla de Terranova — Norte
+  et = Newfoundland — Põhi
   sv = Newfoundland — Nord
   th = เกาะนิวฟันด์แลนด์ — เหนือ
   tr = Newfoundland — Kuzey
@@ -4483,6 +4616,7 @@
   pt = Terra Nova — Sul
   ro = Terranova — Sud
   es = Isla de Terranova — Sur
+  et = Newfoundland — Lõuna
   sv = Newfoundland — Syd
   th = เกาะนิวฟันด์แลนด์ — ใต้
   tr = Newfoundland — Güney
@@ -4516,6 +4650,7 @@
   pt = Terra Nova — Oeste
   ro = Terranova — Vest
   es = Isla de Terranova — Oeste
+  et = Newfoundland — Lääs
   sv = Newfoundland — Väst
   th = เกาะนิวฟันด์แลนด์ — ตะวันตก
   tr = Newfoundland — Batı
@@ -4549,6 +4684,7 @@
   pt = Territórios do Noroeste
   ro = Teritoriile de Nordvest
   es = Territorios del Noroeste
+  et = Loodeterritooriumid
   sv = Northwest Territories
   th = นอร์ทเวสต์เทร์ริทอรีส์
   tr = Kuzeybatı Toprakları
@@ -4582,6 +4718,7 @@
   pt = Territórios do Noroeste — Leste
   ro = Teritoriile de Nordvest — Est
   es = Territorios del Noroeste — Este
+  et = Loodeterritooriumid - Ida
   sv = Northwest Territories — Öst
   th = นอร์ทเวสต์เทร์ริทอรีส์ — ตะวันออก
   tr = Kuzeybatı Toprakları — Doğu
@@ -4615,6 +4752,7 @@
   pt = Territórios do Noroeste — Norte
   ro = Teritoriile de Nordvest — Nord
   es = Territorios del Noroeste — Norte
+  et = Loodeterritooriumid - Põhi
   sv = Northwest Territories — Nord
   th = นอร์ทเวสต์เทร์ริทอรีส์ — เหนือ
   tr = Kuzeybatı Toprakları — Kuzey
@@ -4648,6 +4786,7 @@
   pt = Yellowknife
   ro = Yellowknife
   es = Yellowknife
+  et = Yellowknife
   sv = Yellowknife
   th = เยลโลวไนฟ์
   tr = Yellowknife
@@ -4681,6 +4820,7 @@
   pt = Nova Escócia
   ro = Noua Scoție
   es = Nueva Escocia
+  et = Nova Scotia
   sv = Nova Scotia
   th = รัฐโนวาสโกเชีย
   tr = Yeni İskoçya
@@ -4714,6 +4854,7 @@
   pt = Halifax
   ro = Halifax
   es = Halifax
+  et = Halifax
   sv = Halifax
   th = ฮาลิแฟกซ์
   tr = Halifax
@@ -4747,6 +4888,7 @@
   pt = Sydney
   ro = Sydney
   es = Sydney
+  et = Sydney
   sv = Sydney
   th = ซิดนีย์
   tr = Sidney
@@ -4780,6 +4922,7 @@
   pt = Nunavut
   ro = Nunavut
   es = Nunavut
+  et = Nunavut
   sv = Nunavut
   th = นูนาวุต
   tr = Nunavut
@@ -4813,6 +4956,7 @@
   pt = Nunavut — Norte
   ro = Nunavut — Nord
   es = Nunavut — Norte
+  et = Nunavut - Põhi
   sv = Nunavut — Nord
   th = นูนาวุต — เหนือ
   tr = Nunavut — Kuzey
@@ -4846,6 +4990,7 @@
   pt = Nunavut — Sul
   ro = Nunavut — Sud
   es = Nunavut — Sur
+  et = Nunavut - Lõuna
   sv = Nunavut — Syd
   th = นูนาวุต — ใต้
   tr = Nunavut — Güney
@@ -4880,6 +5025,7 @@
   pt = Ontário
   ro = Ontario
   es = Ontario
+  et = Ontario
   sv = Ontario
   th = รัฐออนแทรีโอ
   tr = Ontario
@@ -4913,6 +5059,7 @@
   pt = Barrie
   ro = Barrie
   es = Barrie
+  et = Barrie
   sv = Barrie
   th = แบรรีย์
   tr = Barrie
@@ -4946,6 +5093,7 @@
   pt = Kingston
   ro = Kingston
   es = Kingston
+  et = Kingston
   sv = Kingston
   th = คิงสตัน
   tr = Kingston
@@ -4979,6 +5127,7 @@
   pt = London
   ro = Londra
   es = London
+  et = London
   sv = London
   th = ลอนดอน
   tr = London
@@ -5012,6 +5161,7 @@
   pt = Timmins
   ro = Timmins
   es = Timmins
+  et = Timmins
   sv = Timmins
   th = ทิมมินส์
   tr = Timmins
@@ -5045,6 +5195,7 @@
   pt = Moose Factory
   ro = Moose Factory
   es = Moose Factory
+  et = Moose Factory
   sv = Moose Factory
   th = มูส แฟกตอรี
   tr = Moose Factory
@@ -5078,6 +5229,7 @@
   pt = Sudbury
   ro = Greater Sudbury
   es = Gran Sudbury
+  et = Greater Sudbury
   sv = Greater Sudbury
   th = เกรตเตอร์ ซัดบูรี
   tr = Greater Sudbury
@@ -5111,6 +5263,7 @@
   pt = North Bay
   ro = North Bay
   es = North Bay
+  et = North Bay
   sv = North Bay
   th = อ่าวเหนือ
   tr = North Bay
