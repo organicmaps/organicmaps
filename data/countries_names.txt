@@ -2589,7 +2589,7 @@
   pt = República Sérvia
   ro = Republika Srpska
   es = República Srpska
-  et = Serbia vabariik
+  et = Serbia Vabariik
   sv = Republika Srpska
   th = สาธารณรัฐเซิร์ปสกา
   tr = Sırp Cumhuriyeti
@@ -5297,6 +5297,7 @@
   pt = Sault Ste. Marie
   ro = Sault Sainte Marie
   es = Sault Ste. Marie
+  et = Sault Ste. Marie
   sv = Sault Ste. Marie
   th = ซูเซนต์มารี
   tr = Sault Ste. Marie
@@ -5330,6 +5331,7 @@
   pt = Wawa
   ro = Wawa
   es = Wawa
+  et = Wawa
   sv = Wawa
   th = วาวา
   tr = Wawa
@@ -5363,6 +5365,7 @@
   pt = Thunder Bay
   ro = Thunder Bay
   es = Thunder Bay
+  et = Thunder Bay
   sv = Thunder Bay
   th = ธันเดอร์เบย์
   tr = Thunder Bay
@@ -5396,6 +5399,7 @@
   pt = Ontário — Norte
   ro = Ontario — Nord
   es = Ontario — Norte
+  et = Ontario - Põhi
   sv = Ontario — Nord
   th = รัฐออนแทรีโอ — เหนือ
   tr = Ontario — Kuzey
@@ -5429,6 +5433,7 @@
   pt = Toronto
   ro = Toronto
   es = Toronto
+  et = Toronto
   sv = Toronto
   th = โทรอนโต
   tr = Toronto
@@ -5462,6 +5467,7 @@
   pt = Ilha do Príncipe Eduardo
   ro = Insula Prințului Edward
   es = Isla del Príncipe Eduardo
+  et = Prints Edwardi saar
   sv = Prince Edward Island
   th = รัฐปรินซ์เอ็ดเวิร์ดไอแลนด์
   tr = Prens Edward Adası
@@ -5495,6 +5501,7 @@
   pt = Quebec
   ro = Provincia Québec
   es = Quebec
+  et = Quebec
   sv = Québec
   th = รัฐควิเบก
   tr = Québec
@@ -5528,6 +5535,7 @@
   pt = Quebec
   ro = Québec
   es = Quebec
+  et = Quebec
   sv = Québec
   th = ควิเบก
   tr = Québec
@@ -5561,6 +5569,7 @@
   pt = Quebec — Norte
   ro = Provincia Québec — Nord
   es = Quebec — Norte
+  et = Quebec - Põhi
   sv = Québec — Nord
   th = รัฐควิเบก — เหนือ
   tr = Québec — Kuzey
@@ -5594,6 +5603,7 @@
   pt = Montreal
   ro = Montréal
   es = Montreal
+  et = Montreal
   sv = Montréal
   th = มอนทรีออล
   tr = Montreal
@@ -5627,6 +5637,7 @@
   pt = Sept-Îles
   ro = Sept-Îles
   es = Sept-Îles
+  et = Sept-Îles
   sv = Sept-Îles
   th = เซอิล
   tr = Sept-Îles
@@ -5660,6 +5671,7 @@
   pt = Rimouski
   ro = Rimouski
   es = Rimouski
+  et = Rimouski
   sv = Rimouski
   th = ริมูสกี
   tr = Rimouski
@@ -5693,6 +5705,7 @@
   pt = Saguenay
   ro = Saguenay
   es = Saguenay
+  et = Saguenay
   sv = Saguenay
   th = ซากีเนย์
   tr = Saguenay
@@ -5726,6 +5739,7 @@
   pt = Chibougamau
   ro = Chibougamau
   es = Chibougamau
+  et = Chibougamau
   sv = Chibougamau
   th = ชิโบกาเมา
   tr = Chibougamau
@@ -5759,6 +5773,7 @@
   pt = Rouyn-Noranda
   ro = Rouyn-Noranda
   es = Rouyn-Noranda
+  et = Rouyn-Noranda
   sv = Rouyn-Noranda
   th = โรน-นอรันดา
   tr = Rouyn-Noranda
@@ -5792,6 +5807,7 @@
   pt = Saskatchewan
   ro = Saskatchewan
   es = Saskatchewan
+  et = Saskatchewan
   sv = Saskatchewan
   th = รัฐซัสแคตเชวัน
   tr = Saskatchewan
@@ -5825,6 +5841,7 @@
   pt = Saskatchewan — Norte
   ro = Saskatchewan — Nord
   es = Saskatchewan — Norte
+  et = Saskatchewan — Põhi
   sv = Saskatchewan — Nord
   th = รัฐซัสแคตเชวัน — เหนือ
   tr = Saskatchewan — Kuzey
@@ -5858,6 +5875,7 @@
   pt = Saskatchewan — Sul
   ro = Saskatchewan — Sud
   es = Saskatchewan — Sur
+  et = Saskatchewan — Lõuna
   sv = Saskatchewan — Syd
   th = รัฐซัสแคตเชวัน — ใต้
   tr = Saskatchewan — Güney
@@ -5891,6 +5909,7 @@
   pt = Yukon
   ro = Yukon
   es = Yukón
+  et = Yukon
   sv = Yukon
   th = ยูคอน
   tr = Yukon
@@ -5924,6 +5943,7 @@
   pt = Yukon — Norte
   ro = Yukon — Nord
   es = Yukón — Norte
+  et = Yukon - Põhi
   sv = Yukon — Nord
   th = ยูคอน — เหนือ
   tr = Yukon — Kuzey
@@ -5957,6 +5977,7 @@
   pt = Whitehorse
   ro = Whitehorse, Yukon
   es = Whitehorse
+  et = Whitehorse
   sv = Whitehorse
   th = ไวท์ฮอร์ส
   tr = Whitehorse
@@ -5990,6 +6011,7 @@
   pt = Cabo Verde
   ro = Republica Capului Verde
   es = Cabo Verde
+  et = Roheneemesaared
   eu = Cabo Verde
   sv = Kap Verde
   th = ประเทศกาบูเวร์ดี
@@ -6024,6 +6046,7 @@
   pt = Pequenas Antilhas
   ro = Antilele Mici
   es = Antillas Menores
+  et = Väikesed Antillid
   eu = Antilla Txikiak
   sv = Små Antillerna
   th = เลสเซอร์แอนทิลลีส
@@ -6059,6 +6082,7 @@
   pt-BR = Aruba, Curação and Países Baixos Caribenhos
   ro = Aruba, Curacao și Caraibe Olanda
   es = Aruba, Curazao y las Antillas Neerlandesas
+  et = Aruba, Curaçao ja Kariibi mere piirkonna Holland
   eu = Aruba, Curacao eta Herbehereetako Antillak
   es-MX = Aruba, Curazao y las Antillas Holandesas
   sv = Aruba, Curaçao och Karibiska Nederländerna
@@ -6095,6 +6119,7 @@
   pt = Ilhas Cayman
   ro = Insulele Cayman
   es = Islas Caimán
+  et = Kaimani saared
   eu = Kaiman Uharteak
   sv = Caymanöarna
   th = หมู่เกาะเคย์แมน
@@ -6129,6 +6154,7 @@
   pt = República Centro-Africana
   ro = Republica Centrafricană
   es = República Centroafricana
+  et = Kesk-Aafrika Vabariik
   eu = Afrika Erdiko Errepublika
   sv = Centralafrikanska republiken
   th = สาธารณรัฐแอฟริกากลาง
@@ -6163,6 +6189,7 @@
   pt = Região da Anatólia Central
   ro = Regiunea Anatolia Centrală
   es = Región de Anatolia Central
+  et = Kesk-Anatoolia piirkond
   eu = Erdialdeko Anatolia eskualdea
   sv = Centrala Anatolien
   th = ภูมิภาคแอนาโตเลียกลาง
@@ -6197,6 +6224,7 @@
   pt = Chade
   ro = Ciad
   es = Chad
+  et = Tšaad
   eu = Txad
   sv = Tchad
   th = ประเทศชาด
@@ -6232,6 +6260,7 @@
   pt = Chile
   ro = Chile
   es = Chile
+  et = Tšiili
   eu = Txile
   sv = Chile
   th = ประเทศชิลี
@@ -6267,6 +6296,7 @@
   pt = Chile — Norte
   ro = Chile — Nord
   es = Chile — Norte
+  et = Tšiili - Põhi
   sv = Chile — Nord
   th = ประเทศชิลี — เหนือ
   tr = Şili — Kuzey
@@ -6300,6 +6330,7 @@
   pt = Chile — Sul
   ro = Chile — Sud
   es = Chile — Sur
+  et = Tšiili - Lõuna
   sv = Chile — Syd
   th = ประเทศชิลี — ใต้
   tr = Şili — Güney
@@ -6333,6 +6364,7 @@
   pt = Anhui
   ro = Anhui
   es = Anhui
+  et = Anhui
   sv = Anhui
   th = มณฑลอานฮุย
   tr = Anhui
@@ -6366,6 +6398,7 @@
   pt = Chongqing
   ro = Chongqing
   es = Chongqing
+  et = Chongqing
   sv = Chongqing
   th = ฉงชิ่ง
   tr = Çongçing
@@ -6399,6 +6432,7 @@
   pt = Fujian
   ro = Fujian
   es = Fujian
+  et = Fujian
   sv = Fujian
   th = มณฑลฝูเจี้ยน
   tr = Fujian
@@ -6432,6 +6466,7 @@
   pt = Gansu
   ro = Gansu
   es = Gansu
+  et = Gansu
   sv = Gansu
   th = มณฑลกานซู
   tr = Kansu
@@ -6465,6 +6500,7 @@
   pt = Guangdong
   ro = Guangdong
   es = Provincia de Cantón
+  et = Guangdong
   sv = Guangdong
   th = มณฑลกวางตุ้ง
   tr = Guangdong
@@ -6498,6 +6534,7 @@
   pt = Guangxi
   ro = Guangxi
   es = Guangxi
+  et = Guangxi
   sv = Guangxi
   th = เขตปกครองตนเองกว่างซีจ้วง
   tr = Guangxi Zhuang Özerk Bölgesi
@@ -6531,6 +6568,7 @@
   pt = Guizhou
   ro = Guizhou
   es = Guizhou
+  et = Guizhou
   sv = Guizhou
   th = มณฑลกุ้ยโจว
   tr = Guizhou
@@ -6564,6 +6602,7 @@
   pt = Hebei
   ro = Hebei
   es = Hebei
+  et = Hebei
   sv = Hebei
   th = มณฑลเหอเป่ย์
   tr = Hebei
@@ -6597,6 +6636,7 @@
   pt = Heilongjiang
   ro = Heilongjiang
   es = Heilongjiang
+  et = Heilongjiang
   sv = Heilongjiang
   th = มณฑลเฮย์หลงเจียง
   tr = Heilongjiang
@@ -6630,6 +6670,7 @@
   pt = Henan
   ro = Henan
   es = Henan
+  et = Henan
   sv = Henan
   th = มณฑลเหอหนาน
   tr = Henan
@@ -6663,6 +6704,7 @@
   pt = Hubei
   ro = Hubei
   es = Hubei
+  et = Hubei
   sv = Hubei
   th = มณฑลหูเป่ย์
   tr = Hubei
@@ -6696,6 +6738,7 @@
   pt = Hunan
   ro = Hunan
   es = Hunan
+  et = Hunan
   sv = Hunan
   th = มณฑลหูหนาน
   tr = Hunan
@@ -6729,6 +6772,7 @@
   pt = Mongólia Interior
   ro = Mongolia Interioară
   es = Mongolia Interior
+  et = Sise-Mongoolia
   sv = Inre Mongoliet
   th = เขตปกครองตนเองมองโกเลียใน
   tr = İç Moğolistan
@@ -6762,6 +6806,7 @@
   pt = Jiangsu
   ro = Jiangsu
   es = Jiangsu
+  et = Jiangsu
   sv = Jiangsu
   th = มณฑลเจียงซู
   tr = Jiangsu
@@ -6795,6 +6840,7 @@
   pt = Jiangxi
   ro = Jiangxi
   es = Jiangxi
+  et = Jiangxi
   sv = Jiangxi
   th = มณฑลเจียงซี
   tr = Jiangxi
@@ -6828,6 +6874,7 @@
   pt = Jilin
   ro = Jilin
   es = Jilin
+  et = Jilin
   sv = Jilin
   th = มณฑลจี๋หลิน
   tr = Jilin
@@ -6861,6 +6908,7 @@
   pt = Liaoning
   ro = Liaoning
   es = Liaoning
+  et = Liaoning
   sv = Liaoning
   th = มณฑลเหลียวหนิง
   tr = Liaoning
@@ -6894,6 +6942,7 @@
   pt = Ningxia
   ro = Ningxia
   es = Ningxia
+  et = Ningxia
   sv = Ningxia
   th = เขตปกครองตนเองหนิงเซี่ยหุย
   tr = Ningxia Huizu Özerk Bölgesi
@@ -6927,6 +6976,7 @@
   pt = Qinghai
   ro = Qinghai
   es = Qinghai
+  et = Qinghai
   sv = Qinghai
   th = มณฑลชิงไห่
   tr = Çinghay
@@ -6960,6 +7010,7 @@
   pt = Shaanxi
   ro = Shaanxi
   es = Shaanxi
+  et = Shaanxi
   sv = Shaanxi
   th = มณฑลส่านซี
   tr = Şensi
@@ -6993,6 +7044,7 @@
   pt = Shandong
   ro = Shandong
   es = Shandong
+  et = Shandong
   sv = Shandong
   th = มณฑลซานตง
   tr = Şantung
@@ -7026,6 +7078,7 @@
   pt = Xangai
   ro = Shanghai
   es = Shanghái
+  et = Shanghái
   sv = Shanghai
   th = เซี่ยงไฮ้
   tr = Şanghay
@@ -7059,6 +7112,7 @@
   pt = Shanxi
   ro = Shanxi
   es = Shanxi
+  et = Shanxi
   sv = Shanxi
   th = มณฑลซานซี
   tr = Şansi
@@ -7092,6 +7146,7 @@
   pt = Sichuan
   ro = Sichuan
   es = Sichuan
+  et = Sichuan
   sv = Sichuan
   th = มณฑลเสฉวน
   tr = Siçuan
@@ -7125,6 +7180,7 @@
   pt = Região Autônoma do Tibete
   ro = Regiunea autonomă Tibet
   es = Tíbet
+  et = Tiibeti autonoomne piirkond
   sv = Autonoma regionen Tibet
   th = เขตปกครองตนเองทิเบต
   tr = Tibet Özerk Bölgesi
@@ -7158,6 +7214,7 @@
   pt = Xinjiang
   ro = Xinjiang
   es = Sinkiang
+  et = Xinjiangi uiguuri autonoomne piirkond
   sv = Xinjiang
   th = เขตปกครองตนเองซินเจียงอุยกูร์
   tr = Sincan Uygur Özerk Bölgesi
@@ -7191,6 +7248,7 @@
   pt = Yunnan
   ro = Yunnan
   es = Yunnan
+  et = Yunnan
   sv = Yunnan
   th = มณฑลยูนนาน
   tr = Yünnan
@@ -7224,6 +7282,7 @@
   pt = Zhejiang
   ro = Zhejiang
   es = Zhejiang
+  et = Zhejiang
   sv = Zhejiang
   th = มณฑลเจ้อเจียง
   tr = Zhejiang
@@ -7257,6 +7316,7 @@
   pt = Colômbia
   ro = Columbia
   es = Colombia
+  et = Kolumbia
   eu = Kolonbia
   sv = Colombia
   th = ประเทศโคลอมเบีย
