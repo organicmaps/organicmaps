@@ -221,9 +221,9 @@ public class NavMenu
     double currentSpeedMps = Double.parseDouble(speedAndUnits.first);
     String speedIndicator = String.format("%.0f", currentSpeedMps);
 
-    double speedLimit = convertMpsIntoUnits(info.speedLimit, speedAndUnits.second);
-    if (speedLimit > 0.0)
+    if (info.speedLimit > 0.0)
     {
+      double speedLimit = convertMpsIntoUnits(info.speedLimit, speedAndUnits.second);
       speedIndicator += String.format("/%.0f", speedLimit);
     }
 
