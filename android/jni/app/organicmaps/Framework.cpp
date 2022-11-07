@@ -1185,7 +1185,7 @@ Java_app_organicmaps_Framework_nativeGetRouteFollowingInfo(JNIEnv * env, jclass)
                             "(Ljava/lang/String;Ljava/lang/String;"
                             "Ljava/lang/String;Ljava/lang/String;"
                             "Ljava/lang/String;Ljava/lang/String;DIIIII"
-                            "[Lapp/organicmaps/routing/SingleLaneInfo;ZZ)V");
+                            "[Lapp/organicmaps/routing/SingleLaneInfo;ZZD)V");
 
   vector<routing::FollowingInfo::SingleLaneInfoClient> const & lanes = info.m_lanes;
   jobjectArray jLanes = nullptr;
@@ -1221,7 +1221,8 @@ Java_app_organicmaps_Framework_nativeGetRouteFollowingInfo(JNIEnv * env, jclass)
       jni::ToJavaString(env, info.m_turnUnitsSuffix), jni::ToJavaString(env, info.m_sourceName),
       jni::ToJavaString(env, info.m_displayedStreetName), info.m_completionPercent, info.m_turn,
       info.m_nextTurn, info.m_pedestrianTurn, info.m_exitNum, info.m_time, jLanes,
-      static_cast<jboolean>(isSpeedCamLimitExceeded), static_cast<jboolean>(shouldPlaySignal));
+      static_cast<jboolean>(isSpeedCamLimitExceeded), static_cast<jboolean>(shouldPlaySignal),
+      info.m_speedLimitMps);
   ASSERT(result, (jni::DescribeException()));
   return result;
 }

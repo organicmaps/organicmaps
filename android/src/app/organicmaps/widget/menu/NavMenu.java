@@ -208,9 +208,47 @@ public class NavMenu
 
     Pair<String, String> speedAndUnits = StringUtils.nativeFormatSpeedAndUnits(last.getSpeed());
 
+    // (temporarily) show the speed limit together with the current speed.
+    String speedIndicator = formatSpeed(speedAndUnits, info);
+    mSpeedValue.setText(speedIndicator);
+
     mSpeedUnits.setText(speedAndUnits.second);
-    mSpeedValue.setText(speedAndUnits.first);
     mSpeedViewContainer.setActivated(info.isSpeedLimitExceeded());
+  }
+
+  private String formatSpeed(Pair<String, String> speedAndUnits, RoutingInfo info)
+  {
+    double currentSpeedMps = Double.parseDouble(speedAndUnits.first);
+    String speedIndicator = String.format("%.0f", currentSpeedMps);
+
+    double speedLimit = convertMpsIntoUnits(info.speedLimit, speedAndUnits.second);
+    if (speedLimit > 0.0)
+    {
+      speedIndicator += String.format("/%.0f", speedLimit);
+    }
+
+    return speedIndicator;
+  }
+
+  private double convertMpsIntoUnits(double speedInMps, String units)
+  {
+    double result;
+
+    switch (units)
+    {
+    case "km/h":
+      // 1 m/s = 3600s/1000m = 3.6 km/h
+      result = speedInMps * 3.6;
+      break;
+    case "mph":
+      // 1 m/s = 2.2369 mph
+      result = speedInMps * 2.2369;
+      break;
+    default:
+      // should throw an exception. Use km/h as a workaround.
+      result = speedInMps * 3.6;
+    }
+    return result;
   }
 
   public void update(@NonNull RoutingInfo info)

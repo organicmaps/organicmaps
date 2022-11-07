@@ -13,7 +13,7 @@
     android:id="@+id/speed_view_container"
     android:layout_width="0dp"
     android:layout_height="match_parent"
-    android:layout_weight="1"
+    android:layout_weight="1.2"
     android:background="@drawable/speed_cams_bg"
     android:gravity="center"
     android:minWidth="@dimen/nav_numbers_side_min_width"
@@ -28,7 +28,7 @@
       android:includeFontPadding="false"
       android:lines="1"
       android:textAppearance="@style/MwmTextAppearance.NavMenu.Number"
-      tools:text="999" />
+      tools:text="999/999" />
 
     <!-- Speed -->
     <TextView
@@ -48,7 +48,7 @@
   <RelativeLayout
     android:layout_width="0dp"
     android:layout_height="match_parent"
-    android:layout_weight="1.5"
+    android:layout_weight="1.2"
     android:gravity="center"
     android:minWidth="@dimen/nav_numbers_side_min_width"
     android:paddingStart="@dimen/nav_numbers_margin"
