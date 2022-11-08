@@ -825,6 +825,7 @@
 	<string name="type.emergency.phone">تلفن اضطراری</string>
 	<string name="type.entrance">ورودی</string>
 	<string name="type.healthcare.laboratory">ﯽﮑﺷﺰﭘ ﻩﺎﮕﺸﯾﺎﻣﺯﺁ</string>
+	<string name="type.healthcare.physiotherapist">فیزیوتراپیست</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->

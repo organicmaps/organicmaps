@@ -1840,6 +1840,8 @@
 
 "type.healthcare.laboratory" = "醫學實驗室";
 
+"type.healthcare.physiotherapist" = "物理治療師";
+
 
 /********** Types: Roads **********/
 

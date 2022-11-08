@@ -973,6 +973,7 @@
 	<string name="type.emergency.phone">Telefone de emergência</string>
 	<string name="type.entrance">Entrada</string>
 	<string name="type.healthcare.laboratory">Laboratório médico</string>
+	<string name="type.healthcare.physiotherapist">Fisioterapeuta</string>
 
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway">Rodovia</string>

@@ -1840,6 +1840,8 @@
 
 "type.healthcare.laboratory" = "Orvosi laboratórium";
 
+"type.healthcare.physiotherapist" = "Fizioterapeuta";
+
 
 /********** Types: Roads **********/
 

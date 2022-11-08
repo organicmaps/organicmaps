@@ -1840,6 +1840,8 @@
 
 "type.healthcare.laboratory" = "의료 연구실";
 
+"type.healthcare.physiotherapist" = "물리치료사";
+
 
 /********** Types: Roads **********/
 

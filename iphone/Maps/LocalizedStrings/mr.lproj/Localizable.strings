@@ -1840,6 +1840,8 @@
 
 "type.healthcare.laboratory" = "वैद्यकीय प्रयोगशाळा";
 
+"type.healthcare.physiotherapist" = "फिजिओथेरपिस्ट";
+
 
 /********** Types: Roads **********/
 

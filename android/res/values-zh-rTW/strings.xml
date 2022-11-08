@@ -944,6 +944,7 @@
 	<string name="type.emergency.phone">緊急電話</string>
 	<string name="type.entrance">入口</string>
 	<string name="type.healthcare.laboratory">醫學實驗室</string>
+	<string name="type.healthcare.physiotherapist">物理治療師</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->

@@ -1001,6 +1001,7 @@
 	<string name="type.emergency.phone">Аварійний телефон</string>
 	<string name="type.entrance">Вхід</string>
 	<string name="type.healthcare.laboratory">Медична лабораторія</string>
+	<string name="type.healthcare.physiotherapist">Фізіотерапевт</string>
 
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway">Дорога</string>

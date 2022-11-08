@@ -904,6 +904,7 @@
 	<string name="type.emergency.phone">Nødtelefon</string>
 	<string name="type.entrance">Indgang</string>
 	<string name="type.healthcare.laboratory">Medicinsk laboratorium</string>
+	<string name="type.healthcare.physiotherapist">Fysioterapeut</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->

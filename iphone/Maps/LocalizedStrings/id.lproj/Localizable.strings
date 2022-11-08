@@ -1840,6 +1840,8 @@
 
 "type.healthcare.laboratory" = "Laboratorium medis";
 
+"type.healthcare.physiotherapist" = "Fisioterapis";
+
 
 /********** Types: Roads **********/
 
