@@ -1893,7 +1893,7 @@
   pt = Antuérpia
   ro = Anvers
   es = Provincia de Amberes
-  et = Antwerpeni provints
+  et = Antwerpeni maakond
   sv = Antwerpen
   th = มณฑลแอนต์เวิร์ป
   tr = Anvers
@@ -1927,7 +1927,7 @@
   pt = Flandres Oriental
   ro = Flandra de Est
   es = Provincia de Flandes Oriental
-  et = Ida-Flandria provints
+  et = Ida-Flandria maakond
   sv = Östflandern
   th = จังหวัดฟลานเดอร์ตะวันออก
   tr = Doğu Flandre
@@ -1961,7 +1961,7 @@
   pt = Brabante Flamengo
   ro = Brabantul Flamand
   es = Brabante Flamenco
-  et = Flaami Brabanti provints
+  et = Flaami Brabanti maakond
   sv = Flamländska Brabant
   th = มณฑลเฟลมิชบราบันต์
   tr = Flaman Brabant
@@ -1995,7 +1995,7 @@
   pt = Hainaut
   ro = Hainaut
   es = Provincia de Henao
-  et = Hainaut provints
+  et = Hainaut maakond
   sv = Hainaut
   th = มณฑลแอโน
   tr = Hainaut
@@ -2029,7 +2029,7 @@
   pt = Liège
   ro = Liège
   es = Provincia de Lieja
-  et = Liège'i provints
+  et = Liège'i maakond
   sv = Liège
   th = มณฑลลีแยฌ
   tr = Liège
@@ -2063,7 +2063,7 @@
   pt = Limburgo
   ro = Limburg
   es = Limburgo
-  et = Limburgi provints
+  et = Limburgi maakond
   sv = Limburg
   th = มณฑลลิมเบิร์ก
   tr = Limburg
@@ -2097,7 +2097,7 @@
   pt = Luxemburgo
   ro = Luxemburg
   es = Provincia de Luxemburgo
-  et = Luksemburgi provints
+  et = Luksemburgi maakond
   sv = Luxemburg
   th = มณฑลลักเซมเบิร์ก
   tr = Lüksemburg, Belçika
@@ -2131,7 +2131,7 @@
   pt = Namur
   ro = Namur
   es = Provincia de Namur
-  et = Namuri provints
+  et = Namuri maakond
   sv = Namur
   th = มณฑลนามูร์
   tr = Namur
@@ -2165,7 +2165,7 @@
   pt = Brabante Valão
   ro = Brabantul Valon
   es = Provincia del Brabante Valón
-  et = Valloonia Brabanti provints
+  et = Valloonia Brabanti maakond
   sv = Vallonska Brabant
   th = มณฑลวัลลูนบราบันต์
   tr = Valon Brabant
@@ -2199,7 +2199,7 @@
   pt = Flandres Ocidental
   ro = Flandra de Vest
   es = Provincia de Flandes Occidental
-  et = Lääne-Flandria provints
+  et = Lääne-Flandria maakond
   sv = Västflandern
   th = จังหวัดฟลานเดอร์ตะวันตก
   tr = Batı Flandre
@@ -7352,6 +7352,7 @@
   pt = Colômbia — Leste
   ro = Columbia — Est
   es = Colombia — Este
+  et = Kolumbia - Ida
   sv = Colombia — Öst
   th = ประเทศโคลอมเบีย — ตะวันออก
   tr = Kolombiya — Doğu
@@ -7385,6 +7386,7 @@
   pt = Colômbia — Norte
   ro = Columbia — Nord
   es = Colombia — Norte
+  et = Kolumbia - Põhi
   sv = Colombia — Nord
   th = ประเทศโคลอมเบีย — เหนือ
   tr = Kolombiya — Kuzey
@@ -7418,6 +7420,7 @@
   pt = Colômbia — Oeste
   ro = Columbia — Vest
   es = Colombia — Oeste
+  et = Kolumbia - Lääs
   sv = Colombia — Väst
   th = ประเทศโคลอมเบีย — ตะวันตก
   tr = Kolombiya — Batı
@@ -7451,6 +7454,7 @@
   pt = Colorado
   ro = Colorado
   es = Colorado
+  et = Colorado
   eu = Colorado
   sv = Colorado
   th = รัฐโคโลราโด
@@ -7485,6 +7489,7 @@
   pt = Comores
   ro = Comore
   es = Comoras
+  et = Komoorid
   eu = Komoreak
   sv = Komorerna
   th = ประเทศคอโมโรส
@@ -7519,6 +7524,7 @@
   pt = Congo
   ro = Republica Congo
   es = República del Congo
+  et = Kongo Vabariik
   eu = Kongoko Errepublika
   sv = Kongo-Brazzaville
   th = สาธารณรัฐคองโก
@@ -7553,6 +7559,7 @@
   pt = República Democrática do Congo
   ro = Republica Democrată Congo
   es = República Democrática del Congo
+  et = Kongo Demokraatlik Vabariik
   eu = Kongoko Errepublika Demokratikoa
   sv = Kongo-Kinshasa
   th = สาธารณรัฐประชาธิปไตยคองโก
@@ -7587,6 +7594,7 @@
   pt = Ilhas Cook
   ro = Insulele Cook
   es = Islas Cook
+  et = Cooki saared
   eu = Cook uharteak
   sv = Cooköarna
   th = หมู่เกาะคุก
@@ -7621,6 +7629,7 @@
   pt = Costa Rica
   ro = Costa Rica
   es = Costa Rica
+  et = Costa Rica
   eu = Costa Rica
   sv = Costa Rica
   th = ประเทศคอสตาริกา
@@ -7656,6 +7665,7 @@
   pt = Costa do Marfim
   ro = Coasta de Fildeș
   es = Costa de Marfil
+  et = Elevandiluurannik
   eu = Boli Kosta
   sv = Elfenbenskusten
   th = ประเทศโกตดิวัวร์
@@ -7690,6 +7700,7 @@
   pt = Crimeia
   ro = Crimeea
   es = península de Crimea
+  et = Krimmi poolsaar
   eu = Krimen penintsula
   sv = Krim
   th = คาบสมุทรไครเมีย
@@ -7725,6 +7736,7 @@
   pt = Croácia
   ro = Croația
   es = Croacia
+  et = Horvaatia
   eu = Kroazia
   sv = Kroatien
   th = ประเทศโครเอเชีย
@@ -7760,6 +7772,7 @@
   pt = Cuba
   ro = Cuba
   es = Cuba
+  et = Kuuba
   eu = Kuba
   sv = Kuba
   th = ประเทศคิวบา
@@ -7795,6 +7808,7 @@
   pt = Chipre
   ro = Cipru
   es = Chipre
+  et = Küpros
   eu = Zipre
   sv = Cypern
   th = ประเทศไซปรัส
@@ -7830,6 +7844,7 @@
   pt = República Checa
   ro = Cehia
   es = República Checa
+  et = Tšehhi Vabariik
   eu = Txekiar Errepublika
   sv = Tjeckien
   th = สาธารณรัฐเช็ก
@@ -7865,6 +7880,7 @@
   pt = Morávia do Sul
   ro = Regiunea Moravia de Sud
   es = Región de Moravia Meridional
+  et = Lõuna-Moravi piirkond
   sv = Södra Mähren
   th = ภูมิภาคโมราเวียนใต้
   tr = Güney Moravya ili
@@ -7898,6 +7914,7 @@
   pt = Vysočina
   ro = Regiunea Vysočina
   es = Región de Vysočina
+  et = Vysočina piirkond
   sv = Vysočina
   th = ภูมิภาควิซอชินา
   tr = Vysočina Bölgesi
@@ -7931,6 +7948,7 @@
   pt = Boêmia do Sul
   ro = Regiunea Boemia de Sud
   es = Región de Bohemia Meridional
+  et = Lõuna-Böömimaa piirkond
   sv = Södra Böhmen
   th = ภูมิภาคโบฮีเมียนใต้
   tr = Güney Bohemya ili
@@ -7964,6 +7982,7 @@
   pt = Plzeň
   ro = Regiunea Plzeň
   es = Región de Pilsen
+  et = Pilseni piirkond
   sv = Plzeň
   th = ภูมิภาคพัลเซน
   tr = Plzeň Bölgesi
@@ -7997,6 +8016,7 @@
   pt = Karlovy Vary
   ro = Regiunea Karlovy Vary
   es = Región de Karlovy Vary
+  et = Karlovy Vary piirkond
   sv = Karlovy Vary
   th = ภูมิภาคาร์โลวีแวรี
   tr = Karlovy Vary ili
@@ -8030,6 +8050,7 @@
   pt = Morávia-Silésia
   ro = Regiunea Moravia-Silezia
   es = Región de Moravia-Silesia
+  et = Moraavia-Sileesia piirkond
   sv = Mähren-Schlesien
   th = ภูมิภาคโมราเวียน-ซิเลเซียน
   tr = Moravian-Silesian Bölgesi
@@ -8063,6 +8084,7 @@
   pt = Olomouc
   ro = Regiunea Olomouc
   es = Región de Olomouc
+  et = Olomouci piirkond
   sv = Olomouc
   th = ภูมิภาคโอโลโมก
   tr = Olomouc Bölgesi
@@ -8096,6 +8118,7 @@
   pt = Praga
   ro = Praga
   es = Praga
+  et = Praha
   sv = Prag
   th = ปราก
   tr = Prag
@@ -8129,6 +8152,7 @@
   pt = Hradec Králové
   ro = Regiunea Hradec Králové
   es = Región de Hradec Králové
+  et = Hradec Králové piirkond
   sv = Hradec Králové
   th = ภูมิภาคฮราเดก คราโลวี
   tr = Hradec Králové ili
@@ -8162,6 +8186,7 @@
   pt = Liberec
   ro = Regiunea Liberec
   es = Región de Liberec
+  et = Libereci piirkond
   sv = Liberec
   th = ภูมิภาคลิเบอเรก
   tr = Liberec Bölgesi
@@ -8195,6 +8220,7 @@
   pt = Pardubice
   ro = Regiunea Pardubice
   es = Región de Pardubice
+  et = Pardubice piirkond
   sv = Pardubice
   th = ภูมิภาคพาร์ดูไบซ์
   tr = Pardubice Bölgesi
@@ -8228,6 +8254,7 @@
   pt = Boêmia Central — Leste
   ro = Regiunea Boemia Centrală — Est
   es = Bohemia Central — Este
+  et = Kesk-Böömimaa piirkond – Ida
   sv = Mellersta Böhmen — Öst
   th = ภูมิภาคโบฮีเมียนกลาง — ตะวันออก
   tr = Orta Çek Bölgesi — Doğu
@@ -8261,6 +8288,7 @@
   pt = Boêmia Central — Oeste
   ro = Regiunea Boemia Centrală — Vest
   es = Bohemia Central — Oeste
+  et = Kesk-Böömimaa piirkond – Lääs
   sv = Mellersta Böhmen — Väst
   th = ภูมิภาคโบฮีเมียนกลาง — ตะวันตก
   tr = Orta Çek Bölgesi — Batı
@@ -8294,6 +8322,7 @@
   pt = Ústí nad Labem
   ro = Regiunea Ústí nad Labem
   es = Región de Ústí nad Labem
+  et = Ústí nad Labemi piirkond
   sv = Ústí nad Labem
   th = ภูมิภาคอูซชิ นาด ลาเบม
   tr = Ústí nad Labem Bölgesi
@@ -8327,6 +8356,7 @@
   pt = Zlín
   ro = Regiunea Zlín
   es = Región de Zlín
+  et = Zlini piirkond
   sv = Zlín
   th = ภูมิภาคซิน
   tr = Zlín Bölgesi
@@ -8360,6 +8390,7 @@
   pt = Dinamarca
   ro = Danemarca
   es = Dinamarca
+  et = Taani
   eu = Danimarka
   sv = Danmark
   th = ประเทศเดนมาร์ก
@@ -8395,6 +8426,7 @@
   pt = Região da Capital
   ro = Regiunea Hovedstaden
   es = Región Capital
+  et = Taani pealinna piirkond
   sv = Region Hovedstaden
   th = ภูมิภาคกลางของเดนมาร์ก
   tr = Danimarka Başkent Bölgesi
@@ -8428,6 +8460,7 @@
   pt = Jutlândia Central
   ro = Regiunea Midtjylland
   es = Jutlandia Central
+  et = Kesk-Taani piirkond
   sv = Region Mittjylland
   th = ภูมิภาคเดนมาร์กกลาง
   tr = Merkezi Danimarka Bölgesi
@@ -8461,6 +8494,7 @@
   pt = Jutlândia do Norte
   ro = Regiunea Nordjylland
   es = Jutlandia Septentrional
+  et = Põhja-Taani piirkond
   sv = Region Nordjylland
   th = ภูมิภาคเดนมาร์กเหนือ
   tr = Kuzey Danimarka Bölgesi
@@ -8494,6 +8528,7 @@
   pt = Zelândia
   ro = Regiunea Sjælland
   es = Región de Selandia
+  et = Själlandi piirkond
   sv = Region Själland
   th = ภูมิภาคซีย์แลนด์
   tr = Zealand Bölgesi
@@ -8527,6 +8562,7 @@
   pt = Dinamarca do Sul
   ro = Regiunea Syddanmark
   es = Dinamarca Meridional
+  et = Lõuna-Taani piirkond
   sv = Region Syddanmark
   th = ภูมิภาคใต้ของเดนมาร์ก
   tr = Güney Danimarka Bölgesi
@@ -8560,6 +8596,7 @@
   pt = Djibouti
   ro = Djibouti
   es = Yibuti
+  et = Djibouti
   eu = Djibouti
   sv = Djibouti
   th = ประเทศจิบูตี
@@ -8595,6 +8632,7 @@
   pt = Dominica
   ro = Dominica
   es = Dominica
+  et = Dominica
   eu = Dominika
   sv = Dominica
   th = ประเทศดอมินีกา
@@ -8630,6 +8668,7 @@
   pt = República Dominicana
   ro = Republica Dominicană
   es = República Dominicana
+  et = Dominikaani Vabariik
   eu = Dominikar Errepublika
   sv = Dominikanska republiken
   th = สาธารณรัฐโดมินิกัน
@@ -8664,6 +8703,7 @@
   pt = Timor-Leste
   ro = Timorul de Est
   es = Timor Oriental
+  et = Ida-Timor
   eu = Ekialdeko Timor
   sv = Östtimor
   th = ประเทศติมอร์-เลสเต
@@ -8698,6 +8738,7 @@
   pt = Equador
   ro = Ecuador
   es = Ecuador
+  et = Ecuador
   eu = Ekuador
   sv = Ecuador
   th = ประเทศเอกวาดอร์
@@ -8733,6 +8774,7 @@
   pt = Egito
   ro = Egipt
   es = Egipto
+  et = Egiptus
   eu = Egipto
   sv = Egypten
   th = ประเทศอียิปต์
@@ -8768,6 +8810,7 @@
   pt = El Salvador
   ro = El Salvador
   es = El Salvador
+  et = El Salvador
   eu = Salbatzailea
   sv = El Salvador
   th = ประเทศเอลซัลวาดอร์
@@ -8802,6 +8845,7 @@
   pt = Guiné Equatorial
   ro = Guineea Ecuatorială
   es = Guinea Ecuatorial
+  et = Ekvatoriaal-Guinea
   eu = Ekuatore Ginea
   sv = Ekvatorialguinea
   th = ประเทศอิเควทอเรียลกินี
@@ -8836,6 +8880,7 @@
   pt = Eritreia
   ro = Eritreea
   es = Eritrea
+  et = Eritrea
   eu = Eritrea
   sv = Eritrea
   th = ประเทศเอริเทรีย
@@ -8870,6 +8915,7 @@
   pt = Estónia
   ro = Estonia
   es = Estonia
+  et = Eesti
   eu = Estonia
   sv = Estland
   th = ประเทศเอสโตเนีย
@@ -8905,6 +8951,7 @@
   pt = Estónia — Leste
   ro = Estonia — Est
   es = Estonia — Este
+  et = Eesti - Ida
   sv = Estland — Öst
   th = ประเทศเอสโตเนีย — ตะวันออก
   tr = Estonya — Doğu
@@ -8938,6 +8985,7 @@
   pt = Estónia — Oeste
   ro = Estonia — Vest
   es = Estonia — Oeste
+  et = Eesti - Lääs
   sv = Estland — Väst
   th = ประเทศเอสโตเนีย — ตะวันตก
   tr = Estonya — Batı
@@ -8971,6 +9019,7 @@
   pt = Etiópia
   ro = Etiopia
   es = Etiopía
+  et = Etioopia
   eu = Etiopia
   sv = Etiopien
   th = ประเทศเอธิโอเปีย
@@ -9006,6 +9055,7 @@
   pt = Ilhas Malvinas
   ro = Insulele Falkland
   es = Islas Malvinas
+  et = Falklandi saared
   eu = Falkland uharteak
   sv = Falklandsöarna
   th = หมู่เกาะฟอล์กแลนด์
@@ -9040,6 +9090,7 @@
   pt = Ilhas Feroe
   ro = Insulele Feroe
   es = Islas Feroe
+  et = Fääri saared
   eu = Faroe uharteak
   sv = Färöarna
   th = หมู่เกาะแฟโร
@@ -9074,6 +9125,7 @@
   pt = Micronésia
   ro = Micronezia
   es = Micronesia
+  et = Mikroneesia
   eu = Mikronesia
   sv = Mikronesien
   th = ประเทศไมโครนีเซีย
@@ -9108,6 +9160,7 @@
   pt = Fiji
   ro = Fiji
   es = Fiyi
+  et = Fidži
   eu = Fiji
   sv = Fiji
   th = ประเทศฟิจิ
@@ -9142,6 +9195,7 @@
   pt = Finlândia
   ro = Finlanda
   es = Finlandia
+  et = Soome
   eu = Finlandia
   sv = Finland
   th = ประเทศฟินแลนด์
@@ -9177,6 +9231,7 @@
   pt = Finlândia Oriental
   ro = Finlanda de Est
   es = Finlandia Oriental
+  et = Ida-Soome
   sv = Östra Finlands län
   th = จังหวัดทางตะวันออกของฟินแลนด์
   tr = Doğu Finlandiya İli
@@ -9210,6 +9265,7 @@
   pt = Norte da Finlândia
   ro = Finlanda de Nord
   es = Norte de Finlandia
+  et = Põhja-Soome
   sv = Norra Finland
   th = ฟินแลนด์เหนือ
   tr = Kuzey Finlandiya
@@ -9243,6 +9299,7 @@
   pt = Finlândia Meridional — Helsínquia
   ro = Finlanda de Sud — Helsinki
   es = Finlandia Meridional — Helsinki
+  et = Lõuna-Soome - Helsingi
   sv = Södra Finlands län — Helsingfors
   th = จังหวัดทางใต้ของฟินแลนด์ — เฮลซินกิ
   tr = Güney Finlandiya İli — Helsinki
@@ -9276,6 +9333,7 @@
   pt = Finlândia Meridional — Lappeenranta
   ro = Finlanda de Sud — Lappeenranta
   es = Finlandia Meridional — Lappeenranta
+  et = Lõuna-Soome - Lappeenranta
   sv = Södra Finlands län — Villmanstrand
   th = จังหวัดทางใต้ของฟินแลนด์ — แลปพีนรันดา
   tr = Güney Finlandiya İli — Lappeenranta
@@ -9309,6 +9367,7 @@
   pt = Finlândia Própria
   ro = Finlanda Propriu-Zisă
   es = Finlandia Propia
+  et = Edela-Soome
   sv = Egentliga Finland
   th = ตะวันตกเฉียงใต้ของฟินแลนด์
   tr = Güneybatı Finlandiya
@@ -9342,6 +9401,7 @@
   pt = Finlândia Ocidental
   ro = Finlanda de Vest
   es = Finlandia Occidental
+  et = Lääne-Soome
   sv = Västra Finlands län
   th = จังหวัดทางตะวันตกของฟินแลนด์
   tr = Batı Finlandiya İli
@@ -9375,6 +9435,7 @@
   pt = Flórida
   ro = Florida
   es = Florida
+  et = Florida
   eu = Florida
   sv = Florida
   th = รัฐฟลอริดา
@@ -9409,6 +9470,7 @@
   pt = França
   ro = Franța
   es = Francia
+  et = Prantsusmaa
   eu = Frantzia
   sv = Frankrike
   th = ประเทศฝรั่งเศส
@@ -9444,6 +9506,7 @@
   pt = Alsácia
   ro = Alsacia
   es = Alsacia
+  et = Alsace
   sv = Alsace
   th = แคว้นอาลซัส
   tr = Alsas
@@ -9477,6 +9540,7 @@
   pt = Baixo Reno
   ro = Bas-Rhin
   es = Bajo Rin
+  et = Alam-Rein
   sv = Bas-Rhin
   th = จังหวัดบา-แร็ง
   tr = Bas-Rhin
@@ -9510,6 +9574,7 @@
   pt = Alto Reno
   ro = Haut-Rhin
   es = Alto Rin
+  et = Ülem-Rein
   sv = Haut-Rhin
   th = จังหวัดโอ-แร็ง
   tr = Haut-Rhin
@@ -9543,6 +9608,7 @@
   pt = Aquitânia
   ro = Aquitania
   es = Aquitania
+  et = Akvitaania
   sv = Aquitaine
   th = แคว้นอากีแตน
   tr = Akitanya
@@ -9576,6 +9642,7 @@
   pt = Dordonha
   ro = Dordogne
   es = Dordoña
+  et = Dordogne
   sv = Dordogne
   th = จังหวัดดอร์ดอญ
   tr = Dordogne
@@ -9609,6 +9676,7 @@
   pt = Gironda
   ro = Gironde
   es = Gironda
+  et = Gironde
   sv = Gironde
   th = จังหวัดฌีรงด์
   tr = Gironde
@@ -9642,6 +9710,7 @@
   pt = Landes
   ro = Landes
   es = Landas
+  et = Landes
   sv = Landes
   th = จังหวัดล็องด์
   tr = Landes
@@ -9675,6 +9744,7 @@
   pt = Lot e Garona
   ro = Lot-et-Garonne
   es = Lot y Garona
+  et = Lot-et-Garonne
   sv = Lot-et-Garonne
   th = จังหวัดลอเตการอน
   tr = Lot-et-Garonne
@@ -9708,6 +9778,7 @@
   pt = Pirineus Atlânticos
   ro = Pyrénées-Atlantiques
   es = Pirineos Atlánticos
+  et = Atlandi-Püreneed
   sv = Pyrénées-Atlantiques
   th = จังหวัดปีเรเน-อัตล็องติก
   tr = Pyrénées-Atlantiques
@@ -9741,6 +9812,7 @@
   pt = Auvérnia
   ro = Auvergne
   es = Auvernia
+  et = Auvergne
   sv = Auvergne
   th = แคว้นโอแวร์ญ
   tr = Auvergne
@@ -9774,6 +9846,7 @@
   pt = Allier
   ro = Allier
   es = Allier
+  et = Allier
   sv = Allier
   th = จังหวัดอาลีเย
   tr = Allier
@@ -9807,6 +9880,7 @@
   pt = Cantal
   ro = Cantal
   es = Cantal
+  et = Cantal
   sv = Cantal
   th = จังหวัดก็องตาล
   tr = Cantal
@@ -9840,6 +9914,7 @@
   pt = Haute-Loire
   ro = Haute-Loire
   es = Alto Loira
+  et = Ülem-Loire
   sv = Haute-Loire
   th = จังหวัดโอต-ลัวร์
   tr = Haute-Loire
@@ -9873,6 +9948,7 @@
   pt = Puy-de-Dôme
   ro = Puy-de-Dôme
   es = Puy-de-Dôme
+  et = Puy-de-Dôme
   sv = Puy-de-Dôme
   th = จังหวัดปุย-เดอ-โดม
   tr = Puy-de-Dôme
@@ -9906,6 +9982,7 @@
   pt = Bretanha
   ro = Bretania
   es = Bretaña
+  et = Bretagne
   sv = Bretagne
   th = บริตานี
   tr = Bretonya
@@ -9939,6 +10016,7 @@
   pt = Côtes-d'Armor
   ro = Côtes-d'Armor
   es = Côtes-d'Armor
+  et = Côtes-d'Armor
   sv = Côtes-d'Armor
   th = จังหวัดโกต-ดาร์มอร์
   tr = Côtes-d'Armor
@@ -9972,6 +10050,7 @@
   pt = Finistère
   ro = Finistère
   es = Finisterre
+  et = Finistère
   sv = Finistère
   th = จังหวัดฟีนิสแตร์
   tr = Finistère
@@ -10005,6 +10084,7 @@
   pt = Ille-et-Vilaine
   ro = Ille-et-Vilaine
   es = Ille y Vilaine
+  et = Ille-et-Vilaine
   sv = Ille-et-Vilaine
   th = จังหวัดอีเลวีแลน
   tr = Ille-et-Vilaine
@@ -10038,6 +10118,7 @@
   pt = Morbihan
   ro = Morbihan
   es = Morbihan
+  et = Morbihan
   sv = Morbihan
   th = จังหวัดมอร์บีอ็อง
   tr = Morbihan
@@ -10071,6 +10152,7 @@
   pt = Borgonha
   ro = Burgundia
   es = Borgoña
+  et = Burgundia
   sv = Bourgogne
   th = แคว้นบูร์กอญ
   tr = Burgonya
@@ -10104,6 +10186,7 @@
   pt = Côte-d'Or
   ro = Côte-d'Or
   es = Côte-d'Or
+  et = Côte-d'Or
   sv = Côte-d’Or
   th = จังหวัดโกต-ดอร์
   tr = Côte-d'Or
@@ -10137,6 +10220,7 @@
   pt = Nièvre
   ro = Nièvre
   es = Nièvre
+  et = Nièvre
   sv = Nièvre
   th = จังหวัดเนียฟวร์
   tr = Nièvre
@@ -10170,6 +10254,7 @@
   pt = Saône-et-Loire
   ro = Saône-et-Loire
   es = Saona y Loira
+  et = Saône-et-Loire
   sv = Saône-et-Loire
   th = จังหวัดโซเนลัวร์
   tr = Saône-et-Loire
@@ -10203,6 +10288,7 @@
   pt = Yonne
   ro = Yonne
   es = Yonne
+  et = Yonne
   sv = Yonne
   th = จังหวัดอียอน
   tr = Yonne
@@ -10236,6 +10322,7 @@
   pt = Centro-Vale do Loire
   ro = Centru
   es = Centro
+  et = Kesk-Loire'i org
   sv = Centre
   th = แคว้นซ็องทร์
   tr = Merkez
@@ -10269,6 +10356,7 @@
   pt = Cher
   ro = Cher
   es = Cher
+  et = Cher
   sv = Cher
   th = จังหวัดแชร์
   tr = Cher, Fransa
@@ -10302,6 +10390,7 @@
   pt = Eure-et-Loir
   ro = Eure-et-Loir
   es = Eure y Loir
+  et = Eure-et-Loir
   sv = Eure-et-Loir
   th = จังหวัดเออเรลัวร์
   tr = Eure-et-Loir
@@ -10335,6 +10424,7 @@
   pt = Indre
   ro = Indre
   es = Indre
+  et = Indre
   sv = Indre
   th = จังหวัดแอ็งดร์
   tr = Indre
@@ -10368,6 +10458,7 @@
   pt = Indre-et-Loire
   ro = Indre-et-Loire
   es = Indre y Loira
+  et = Indre-et-Loire
   sv = Indre-et-Loire
   th = จังหวัดแอ็งเดรลัวร์
   tr = Indre-et-Loire
@@ -10401,6 +10492,7 @@
   pt = Loir-et-Cher
   ro = Loir-et-Cher
   es = Loir y Cher
+  et = Loir-et-Cher
   sv = Loir-et-Cher
   th = จังหวัดลัวเรแชร์
   tr = Loir-et-Cher
@@ -10434,6 +10526,7 @@
   pt = Loiret
   ro = Loiret
   es = Loiret
+  et = Loiret
   sv = Loiret
   th = จังหวัดลัวแร
   tr = Loiret
@@ -10467,6 +10560,7 @@
   pt = Champanha-Ardenas
   ro = Champagne-Ardenne
   es = Champaña-Ardenas
+  et = Champagne-Ardenne
   sv = Champagne-Ardenne
   th = แคว้นช็องปาญาร์แดน
   tr = Champagne-Ardenne
@@ -10500,6 +10594,7 @@
   pt = Córsega
   ro = Corsica
   es = Córcega
+  et = Korsika
   sv = Korsika
   th = คอร์ซิกา
   tr = Korsika
@@ -10533,6 +10628,7 @@
   pt = Franco-Condado
   ro = Franche-Comté
   es = Franco Condado
+  et = Franche-Comté
   sv = Franche-Comté
   th = แคว้นฟร็องช์-กงเต
   tr = Franche-Comté
@@ -10566,6 +10662,7 @@
   pt = Guiana Francesa
   ro = Guyana Franceză
   es = Guayana Francesa
+  et = Prantsuse Guajaana
   sv = Franska Guyana
   th = เฟรนช์เกียนา
   tr = Fransız Guyanası
@@ -10599,6 +10696,7 @@
   pt = Ilha de França
   ro = Île-de-France
   es = Isla de Francia
+  et = Île-de-France
   sv = Île-de-France
   th = แคว้นอีล-เดอ-ฟร็องส์
   tr = Île-de-France (bölge)
@@ -10632,6 +10730,7 @@
   pt = Essonne
   ro = Essonne
   es = Essonne
+  et = Essonne
   sv = Essonne
   th = จังหวัดเอซอน
   tr = Essonne
@@ -10665,6 +10764,7 @@
   pt = Altos do Sena
   ro = Hauts-de-Seine
   es = Altos del Sena
+  et = Hauts-de-Seine
   sv = Hauts-de-Seine
   th = จังหวัดโอดแซน
   tr = Hauts-de-Seine
@@ -10698,6 +10798,7 @@
   pt = Paris
   ro = Paris
   es = París
+  et = Pariis
   sv = Paris
   th = ปารีส
   tr = Paris
@@ -10731,6 +10832,7 @@
   pt = Seine-Saint-Denis
   ro = Seine-Saint-Denis
   es = Sena-Saint Denis
+  et = Seine-Saint-Denis
   sv = Seine-Saint-Denis
   th = จังหวัดแซน-แซ็ง-เดอนี
   tr = Seine-Saint-Denis
@@ -10764,6 +10866,7 @@
   pt = Sena e Marne
   ro = Seine-et-Marne
   es = Sena y Marne
+  et = Seine-et-Marne
   sv = Seine-et-Marne
   th = จังหวัดแซเนมาร์น
   tr = Seine-et-Marne
@@ -10797,6 +10900,7 @@
   pt = Val-d'Oise
   ro = Val-d'Oise
   es = Valle del Oise
+  et = Val-d'Oise
   sv = Val-d'Oise
   th = จังหวัดวาล-ดวซ
   tr = Val-d'Oise
@@ -10830,6 +10934,7 @@
   pt = Val-de-Marne
   ro = Val-de-Marne
   es = Valle del Marne
+  et = Val-de-Marne
   sv = Val-de-Marne
   th = จังหวัดวาล-เดอ-มาร์น
   tr = Val-de-Marne
@@ -10863,6 +10968,7 @@
   pt = Yvelines
   ro = Yvelines
   es = Yvelines
+  et = Yvelines
   sv = Yvelines
   th = จังหวัดอีฟว์ลีน
   tr = Yvelines
@@ -10896,6 +11002,7 @@
   pt = Languedoque-Rossilhão
   ro = Languedoc-Roussillon
   es = Languedoc-Rosellón
+  et = Languedoc-Roussillon
   sv = Languedoc-Roussillon
   th = แคว้นล็องก์ด็อก-รูซียง
   tr = Languedoc-Roussillon
@@ -10929,6 +11036,7 @@
   pt = Aude
   ro = Aude
   es = Aude
+  et = Aude
   sv = Aude
   th = จังหวัดโอด
   tr = Aude
@@ -10962,6 +11070,7 @@
   pt = Gard
   ro = Gard
   es = Gard
+  et = Gard
   sv = Gard
   th = จังหวัดการ์
   tr = Gard
@@ -10995,6 +11104,7 @@
   pt = Hérault
   ro = Hérault
   es = Hérault
+  et = Hérault
   sv = Hérault
   th = จังหวัดเอโร
   tr = Hérault, Fransa
@@ -11028,6 +11138,7 @@
   pt = Lozère
   ro = Lozère
   es = Lozère
+  et = Lozère
   sv = Lozère
   th = จังหวัดลอแซร์
   tr = Lozère
@@ -11061,6 +11172,7 @@
   pt = Pirineus Orientais
   ro = Pyrénées-Orientales
   es = Pirineos Orientales
+  et = Pyrénées-Orientales
   sv = Pyrénées-Orientales
   th = จังหวัดปีเรเน-ออรีย็องตาล
   tr = Pyrénées-Orientales
@@ -11094,6 +11206,7 @@
   pt = Limusino
   ro = Limousin
   es = Lemosín
+  et = Limousin
   sv = Limousin
   th = แคว้นลีมูแซ็ง
   tr = Limousin
@@ -11127,6 +11240,7 @@
   pt = Lorena
   ro = Lorena
   es = Lorena
+  et = Lorraine
   sv = Lorraine
   th = แคว้นลอแรน
   tr = Lorraine
@@ -11160,6 +11274,7 @@
   pt = Meurthe-et-Moselle
   ro = Meurthe-et-Moselle
   es = Meurthe y Mosela
+  et = Meurthe-et-Moselle
   sv = Meurthe-et-Moselle
   th = จังหวัดเมอร์เตมอแซล
   tr = Meurthe-et-Moselle
@@ -11193,6 +11308,7 @@
   pt = Meuse
   ro = Meuse
   es = Mosa
+  et = Meuse
   sv = Meuse
   th = จังหวัดเมิซ
   tr = Meuse
@@ -11226,6 +11342,7 @@
   pt = Mosela
   ro = Moselle
   es = Mosela
+  et = Moselle
   sv = Moselle
   th = จังหวัดมอแซล
   tr = Moselle
@@ -11259,6 +11376,7 @@
   pt = Vosges
   ro = Vosges
   es = Vosgos
+  et = Vosges
   sv = Vosges
   th = จังหวัดโวฌ
   tr = Vosges
@@ -11292,6 +11410,7 @@
   pt = Baixa Normandia
   ro = Normandia de Jos
   es = Baja Normandía
+  et = Alam-Normandia
   sv = Basse-Normandie
   th = แคว้นบัส-นอร์ม็องดี
   tr = Aşağı Normandiya
@@ -11325,6 +11444,7 @@
   pt = Calvados
   ro = Calvados
   es = Calvados
+  et = Calvados
   sv = Calvados
   th = จังหวัดกาลวาโดส
   tr = Calvados
@@ -11358,6 +11478,7 @@
   pt = Mancha
   ro = Manche
   es = Mancha
+  et = Manche
   sv = Manche
   th = จังหวัดม็องช์
   tr = Manche
@@ -11391,6 +11512,7 @@
   pt = Orne
   ro = Orne
   es = Orne
+  et = Orne
   sv = Orne
   th = จังหวัดออร์น
   tr = Orne
@@ -11424,6 +11546,7 @@
   pt = Midi-Pirinéus
   ro = Midi-Pirinei
   es = Mediodía-Pirineos
+  et = Midi-Pyrénées
   sv = Midi-Pyrénées
   th = แคว้นมีดี-ปีเรเน
   tr = Midi-Pyrénées
@@ -11457,6 +11580,7 @@
   pt = Ariège
   ro = Ariège
   es = Ariège
+  et = Ariège
   sv = Ariège
   th = จังหวัดอาเรียฌ
   tr = Ariège
@@ -11490,6 +11614,7 @@
   pt = Aveyron
   ro = Aveyron
   es = Aveyron
+  et = Aveyron
   sv = Aveyron
   th = จังหวัดอาแวรง
   tr = Aveyron
@@ -11523,6 +11648,7 @@
   pt = Gers
   ro = Gers
   es = Gers
+  et = Gers
   sv = Gers
   th = จังหวัดแฌร์
   tr = Gers
@@ -11556,6 +11682,7 @@
   pt = Alta Garona
   ro = Haute-Garonne
   es = Alto Garona
+  et = Ülem-Garonne
   sv = Haute-Garonne
   th = จังหวัดโอต-การอน
   tr = Haute-Garonne
@@ -11589,6 +11716,7 @@
   pt = Altos Pirenéus
   ro = Hautes-Pyrénées
   es = Altos Pirineos
+  et = Ülem-Püreneed
   sv = Hautes-Pyrénées
   th = จังหวัดโอต-ปีเรเน
   tr = Hautes-Pyrénées
@@ -11622,6 +11750,7 @@
   pt = Lot
   ro = Lot
   es = Lot
+  et = Lot
   sv = Lot
   th = จังหวัดล็อต
   tr = Lot
@@ -11655,6 +11784,7 @@
   pt = Tarn
   ro = Tarn
   es = Tarn
+  et = Tarn
   sv = Tarn
   th = จังหวัดตาร์น
   tr = Tarn
@@ -11688,6 +11818,7 @@
   pt = Tarn-et-Garonne
   ro = Tarn-et-Garonne
   es = Tarn y Garona
+  et = Tarn-et-Garonne
   sv = Tarn-et-Garonne
   th = จังหวัดตาร์เนการอน
   tr = Tarn-et-Garonne
@@ -11721,6 +11852,7 @@
   pt = Nova Caledónia
   ro = Noua Caledonie
   es = Nueva Caledonia
+  et = Uus-Kaledoonia
   sv = Nya Kaledonien
   th = นิวแคลิโดเนีย
   tr = Yeni Kaledonya
@@ -11754,6 +11886,7 @@
   pt = Nord-Pas-de-Calais
   ro = Nord-Pas-de-Calais
   es = Norte-Paso de Calais
+  et = Nord-Pas-de-Calais
   sv = Nord-Pas-de-Calais
   th = แคว้นนอร์-ปาดกาแล
   tr = Nord-Pas-de-Calais
@@ -11787,6 +11920,7 @@
   pt = Lille
   ro = Lille
   es = Lille
+  et = Lille
   sv = Lille
   th = ลีล
   tr = Lille
@@ -11820,6 +11954,7 @@
   pt = Norte (departamento)
   ro = Nord
   es = Norte
+  et = Nord
   sv = Nord
   th = จังหวัดนอร์
   tr = Nord, Fransa
@@ -11853,6 +11988,7 @@
   pt = Pas-de-Calais
   ro = Pas-de-Calais
   es = Paso de Calais
+  et = Pas-de-Calais
   sv = Pas-de-Calais
   th = จังหวัดปาดกาแล
   tr = Pas-de-Calais
@@ -11886,6 +12022,7 @@
   pt = País do Loire
   ro = Pays de la Loire
   es = Países del Loira
+  et = Pays de la Loire
   sv = Pays de la Loire
   th = แคว้นเปอีเดอลาลัวร์
   tr = Pays de la Loire
@@ -11919,6 +12056,7 @@
   pt = Loire-Atlantique
   ro = Loire-Atlantique
   es = Loira Atlántico
+  et = Loire-Atlantique
   sv = Loire-Atlantique
   th = จังหวัดลัวรัตล็องติก
   tr = Loire-Atlantique
@@ -11952,6 +12090,7 @@
   pt = Maine-et-Loire
   ro = Maine-et-Loire
   es = Maine y Loira
+  et = Maine-et-Loire
   sv = Maine-et-Loire
   th = จังหวัดแมเนลัวร์
   tr = Maine-et-Loire
@@ -11985,6 +12124,7 @@
   pt = Mayenne
   ro = Mayenne
   es = Mayenne
+  et = Mayenne
   sv = Mayenne
   th = จังหวัดมาแยน
   tr = Mayenne
@@ -12018,6 +12158,7 @@
   pt = Sarthe
   ro = Sarthe
   es = Sarthe
+  et = Sarthe
   sv = Sarthe
   th = จังหวัดซาร์ต
   tr = Sarthe
@@ -12051,6 +12192,7 @@
   pt = Vendeia
   ro = Vendée
   es = Vandea
+  et = Vendée
   sv = Vendée
   th = จังหวัดว็องเด
   tr = Vendée
@@ -12084,6 +12226,7 @@
   pt = Picardia
   ro = Picardia
   es = Picardía
+  et = Pikardia
   sv = Picardie
   th = แคว้นปีการ์ดี
   tr = Picardie
@@ -12117,6 +12260,7 @@
   pt = Aisne
   ro = Aisne
   es = Aisne
+  et = Aisne
   sv = Aisne
   th = จังหวัดแอน
   tr = Aisne
@@ -12150,6 +12294,7 @@
   pt = Oise
   ro = Oise
   es = Oise
+  et = Oise
   sv = Oise
   th = จังหวัดอวซ
   tr = Oise
@@ -12183,6 +12328,7 @@
   pt = Somme
   ro = Somme
   es = Somme
+  et = Somme
   sv = Somme
   th = จังหวัดซอม
   tr = Somme
@@ -12216,6 +12362,7 @@
   pt = Poitou-Charentes
   ro = Poitou-Charentes
   es = Poitou-Charentes
+  et = Poitou-Charentes
   sv = Poitou-Charentes
   th = แคว้นปัวตู-ชาร็องต์
   tr = Poitou-Charentes
@@ -12249,6 +12396,7 @@
   pt = Charente
   ro = Charente
   es = Charente
+  et = Charente
   sv = Charente
   th = จังหวัดชาร็องต์
   tr = Charente
@@ -12282,6 +12430,7 @@
   pt = Charente-Maritime
   ro = Charente-Maritime
   es = Charente Marítimo
+  et = Charente-Maritime
   sv = Charente-Maritime
   th = จังหวัดชาร็องต์-มารีตีม
   tr = Charente-Maritime
@@ -12315,6 +12464,7 @@
   pt = Deux-Sèvres
   ro = Deux-Sèvres
   es = Deux-Sèvres
+  et = Deux-Sèvres
   sv = Deux-Sèvres
   th = จังหวัดเดอ-แซฟวร์
   tr = Deux-Sèvres
@@ -12348,6 +12498,7 @@
   pt = Vienne
   ro = Vienne
   es = Vienne
+  et = Vienne
   sv = Vienne
   th = จังหวัดเวียน
   tr = Vienne
@@ -12381,6 +12532,7 @@
   pt = Provença-Alpes-Costa Azul
   ro = Provența-Alpi-Coasta de Azur
   es = Provenza-Alpes-Costa Azul
+  et = Provence-Alpes-Côte d'Azur
   sv = Provence-Alpes-Côte d'Azur
   th = แคว้นพรอว็องซาลป์โกตดาซูร์
   tr = Provence-Alpes-Côte d'Azur
@@ -12414,6 +12566,7 @@
   pt = Alpes da Alta Provença
   ro = Alpes-de-Haute-Provence
   es = Alpes de Alta Provenza
+  et = Alpes-de-Haute-Provence
   sv = Alpes-de-Haute-Provence
   th = จังหวัดอาลป์-เดอ-โอต-พรอว็องส์
   tr = Alpes-de-Haute-Provence
@@ -12447,6 +12600,7 @@
   pt = Bocas do Ródano
   ro = Bouches-du-Rhône
   es = Bocas del Ródano
+  et = Bouches-du-Rhône
   sv = Bouches-du-Rhône
   th = จังหวัดบุช-ดูว์-โรน
   tr = Bouches-du-Rhône
@@ -12480,6 +12634,7 @@
   pt = Altos Alpes
   ro = Hautes-Alpes
   es = Altos Alpes
+  et = Hautes-Alpes
   sv = Hautes-Alpes
   th = จังหวัดโอตซาลป์
   tr = Hautes-Alpes
@@ -12513,6 +12668,7 @@
   pt = Alpes Marítimos
   ro = Alpes-Maritimes
   es = Alpes Marítimos
+  et = Alpes-Maritimes
   sv = Alpes-Maritimes
   th = จังหวัดอาลป์-มารีตีม
   tr = Alpes-Maritimes
@@ -12546,6 +12702,7 @@
   pt = Var
   ro = Var
   es = Var
+  et = Var
   sv = Var
   th = จังหวัดวาร์
   tr = Var
@@ -12579,6 +12736,7 @@
   pt = Vaucluse
   ro = Vaucluse
   es = Vaucluse
+  et = Vaucluse
   sv = Vaucluse
   th = จังหวัดโวกลูซ
   tr = Vaucluse
@@ -12612,6 +12770,7 @@
   pt = Ródano-Alpes
   ro = Ron-Alpi
   es = Ródano-Alpes
+  et = Rhône-Alpes
   sv = Rhône-Alpes
   th = แคว้นโรนาลป์
   tr = Rhône-Alpes
@@ -12645,6 +12804,7 @@
   pt = Ain
   ro = Ain
   es = Ain
+  et = Ain
   sv = Ain
   th = จังหวัดแอ็ง
   tr = Ain
@@ -12678,6 +12838,7 @@
   pt = Ardèche
   ro = Ardèche
   es = Ardéche
+  et = Ardèche
   sv = Ardèche
   th = จังหวัดอาร์แด็ช
   tr = Ardèche
@@ -12711,6 +12872,7 @@
   pt = Drôme
   ro = Drôme
   es = Drôme
+  et = Drôme
   sv = Drôme
   th = จังหวัดโดรม
   tr = Drôme
@@ -12744,6 +12906,7 @@
   pt = Alta Saboia
   ro = Haute-Savoie
   es = Alta Saboya
+  et = Haute-Savoie
   sv = Haute-Savoie
   th = จังหวัดโอต-ซาวัว
   tr = Haute-Savoie
@@ -12777,6 +12940,7 @@
   pt = Isère
   ro = Isère
   es = Isère
+  et = Isère
   sv = Isère
   th = จังหวัดอีแซร์
   tr = Isère
@@ -12810,6 +12974,7 @@
   pt = Loire
   ro = Loire
   es = Loira
+  et = Loire
   sv = Loire
   th = จังหวัดลัวร์
   tr = Loire
@@ -12843,6 +13008,7 @@
   pt = Ródano
   ro = Rhône
   es = Ródano
+  et = Rhône
   sv = Rhône
   th = จังหวัดโรน
   tr = Rhône
@@ -12876,6 +13042,7 @@
   pt = Saboia
   ro = Savoie
   es = Saboya
+  et = Savoie
   sv = Savoie
   th = จังหวัดซาวัว
   tr = Savoie
@@ -12909,6 +13076,7 @@
   pt = Terras Austrais e Antárticas Francesas
   ro = Teritoriile australe și antarctice franceze
   es = Tierras Australes y Antárticas Francesas
+  et = Prantsuse lõuna- ja Antarktika maad
   sv = Franska sydterritorierna
   th = เฟรนช์เซาเทิร์นและแอนตาร์กติกแลนส์
   tr = Fransız Güney ve Antarktika Toprakları
@@ -12942,6 +13110,7 @@
   pt = Alta Normandia
   ro = Normandia de Sus
   es = Alta Normandía
+  et = Ülem-Normandia
   sv = Haute-Normandie
   th = แคว้นโอต-นอร์ม็องดี
   tr = Yukarı Normandiya
@@ -12975,6 +13144,7 @@
   pt = Polinésia Francesa
   ro = Polinezia Franceză
   es = Polinesia Francesa
+  et = Prantsuse Polüneesia
   eu = Polinesia frantsesa
   sv = Franska Polynesien
   th = เฟรนช์โปลินีเซีย
@@ -13009,6 +13179,7 @@
   pt = Gabão
   ro = Gabon
   es = Gabón
+  et = Gabon
   eu = Gabon
   sv = Gabon
   th = ประเทศกาบอง
@@ -13043,6 +13214,7 @@
   pt = Geórgia
   ro = Georgia
   es = Georgia
+  et = Gruusia
   eu = Georgia
   sv = Georgien
   th = ประเทศจอร์เจีย
@@ -13077,6 +13249,7 @@
   pt = Geórgia
   ro = Georgia
   es = Georgia
+  et = Gruusia
   eu = Georgia
   sv = Georgien
   th = ประเทศจอร์เจีย
@@ -13111,6 +13284,7 @@
   pt = Alemanha
   ro = Germania
   es = Alemania
+  et = Saksamaa
   eu = Alemania
   sv = Tyskland
   th = ประเทศเยอรมนี
@@ -13146,6 +13320,7 @@
   pt = Baden-Württemberg
   ro = Baden-Württemberg
   es = Baden-Wurtemberg
+  et = Baden-Württemberg
   sv = Baden-Württemberg
   th = รัฐบาเดิน-เวือร์ทเทมแบร์ก
   tr = Baden-Württemberg
@@ -13179,6 +13354,7 @@
   pt = Freiburg im Breisgau
   ro = Freiburg im Breisgau
   es = Friburgo de Brisgovia
+  et = Freiburg im Breisgau
   sv = Freiburg im Breisgau
   th = ไฟรบูร์กอิมไบรส์เกา
   tr = Freiburg im Breisgau
@@ -13212,6 +13388,7 @@
   pt = Karlsruhe
   ro = Regiunea administrativă Karlsruhe
   es = Región de Karlsruhe
+  et = Karlsruhe
   sv = Karlsruheregionen
   th = ภูมิภาครัฐบาลคาร์ลูช
   tr = Regierungsbezirk Karlsruhe
@@ -13245,6 +13422,7 @@
   pt = Estugarda — Heilbronn
   ro = Regiunea administrativă Stuttgart — Heilbronn
   es = Región Administrativa de Stuttgart — Heilbronn
+  et = Stuttgart — Heilbronn
   sv = Stuttgartregionen — Heilbronn
   th = ภูมิภาครัฐบาลชตุทท์การ์ท — เฮลบรอน
   tr = Regierungsbezirk Stuttgart — Heilbronn
@@ -13278,6 +13456,7 @@
   pt = Estugarda — Estugarda
   ro = Regiunea administrativă Stuttgart — Stuttgart
   es = Región Administrativa de Stuttgart — Stuttgart
+  et = Stuttgart — Stuttgart
   sv = Stuttgartregiionen — Stuttgart
   th = ภูมิภาครัฐบาลชตุทท์การ์ท — ชตุทท์การ์ท
   tr = Regierungsbezirk Stuttgart — Stuttgart
@@ -13311,6 +13490,7 @@
   pt = Tubinga
   ro = Regiunea administrativă Tübingen
   es = Región de Tubinga
+  et = Tübingen
   sv = Tübingen
   th = ทีบิเงน
   tr = Regierungsbezirk Tübingen
@@ -13344,6 +13524,7 @@
   pt = Berlim
   ro = Berlin
   es = Berlín
+  et = Berliin
   sv = Berlin
   th = เบอร์ลิน
   tr = Berlin
@@ -13377,6 +13558,7 @@
   pt = Brandemburgo — Norte
   ro = Brandenburg — Nord
   es = Brandeburgo — Norte
+  et = Brandenburg — Põhi
   sv = Brandenburg — Nord
   th = รัฐบรันเดนบูร์ก — เหนือ
   tr = Brandenburg — Kuzey
@@ -13410,6 +13592,7 @@
   pt = Brandemburgo — Sul
   ro = Brandenburg — Sud
   es = Brandeburgo — Sur
+  et = Brandenburg — Lõuna
   sv = Brandenburg — Syd
   th = รัฐบรันเดนบูร์ก — ใต้
   tr = Brandenburg — Güney
@@ -13443,6 +13626,7 @@
   pt = Baviera
   ro = Bavaria
   es = Baviera
+  et = Baieri
   sv = Bayern
   th = รัฐบาวาเรีย
   tr = Bavyera
@@ -13476,6 +13660,7 @@
   pt = Baixa Baviera
   ro = Niederbayern
   es = Niederbayern
+  et = Alam-Baieri
   sv = Niederbayern
   th = โลว์เออร์บาวาเรีย
   tr = Niederbayern
@@ -13509,6 +13694,7 @@
   pt = Baixa Francónia
   ro = Franconia Inferioară
   es = Baja Franconia
+  et = Alam-Frangoonia
   sv = Unterfranken
   th = แฟรงโคเนียใต้
   tr = Aşağı Franconia
@@ -13542,6 +13728,7 @@
   pt = Média Francónia
   ro = Franconia Mijlocie
   es = Franconia Media
+  et = Kesk-Frangoonia
   sv = Mittelfranken
   th = แฟรงโคเนียกลาง
   tr = Orta Franconia
@@ -13575,6 +13762,7 @@
   pt = Suábia
   ro = Suabia
   es = Suabia
+  et = Švaabimaa
   sv = Schwaben
   th = สวาเบีย
   tr = Svabya
@@ -13608,6 +13796,7 @@
   pt = Alta Baviera — Leste
   ro = Oberbayern — Est
   es = Alta Baviera — Este
+  et = Ülem-Baieri - Ida
   sv = Oberbayern — Öst
   th = อัปเปอร์บาวาเรีย — ตะวันออก
   tr = Oberbayern — Doğu
@@ -13641,6 +13830,7 @@
   pt = Alta Baviera — Ingolstadt
   ro = Oberbayern — Ingolstadt
   es = Alta Baviera — Ingolstadt
+  et = Ülem-Baieri - Ingolstadt
   sv = Oberbayern — Ingolstadt
   th = อัปเปอร์บาวาเรีย — อิงโกลชตัดท์
   tr = Oberbayern — Ingolstadt
@@ -13674,6 +13864,7 @@
   pt = Alta Baviera — Munique
   ro = Oberbayern — München
   es = Alta Baviera — Múnich
+  et = Ülem-Baieri - München
   sv = Oberbayern — München
   th = อัปเปอร์บาวาเรีย — มิวนิก
   tr = Oberbayern — Münih
@@ -13707,6 +13898,7 @@
   pt = Alta Francónia
   ro = Franconia Superioară
   es = Alta Franconia
+  et = Ülem-Frangoonia
   sv = Oberfranken
   th = แฟรงโคเนียเหนือ
   tr = Yukarı Franconia
@@ -13740,6 +13932,7 @@
   pt = Alto Palatinado
   ro = Palatinatul Superior
   es = Alto Palatinado
+  et = Ülem-Pfalz
   sv = Oberpfalz
   th = พาลาทิเนตเหนือ
   tr = Yukarı Palatina
@@ -13773,6 +13966,7 @@
   pt = Hamburgo
   ro = Hamburg
   es = Hamburgo
+  et = Hamburg
   sv = Hamburg
   th = ฮัมบูร์ก
   tr = Hamburg
@@ -13806,6 +14000,7 @@
   pt = Hesse
   ro = Hessa
   es = Hesse
+  et = Hesse
   sv = Hessen
   th = รัฐเฮสเซิน
   tr = Hessen
@@ -13839,6 +14034,7 @@
   pt = Darmstadt
   ro = Darmstadt
   es = Darmstadt
+  et = Darmstadt
   sv = Regierungsbezirk Darmstadt
   th = ภูมิภาครัฐบาลแดมสตาต
   tr = Regierungsbezirk Darmstadt
@@ -13872,6 +14068,7 @@
   pt = Gießen
   ro = Gießen
   es = Región de Gießen
+  et = Giessen
   sv = Regierungsbezirk Gießen
   th = ภูมิภาครัฐบาลกิซเซน
   tr = Regierungsbezirk Gießen
@@ -13905,6 +14102,7 @@
   pt = Kassel
   ro = Kassel
   es = Región de Kassel
+  et = Kassel
   sv = Regierungsbezirk Kassel
   th = ภูมิภาครัฐบาล คาซเซล
   tr = Regierungsbezirk Kassel
@@ -13938,6 +14136,7 @@
   pt = Baixa Saxônia
   ro = Saxonia Inferioară
   es = Baja Sajonia
+  et = Alam-Saksimaa
   sv = Niedersachsen
   th = รัฐโลว์เออร์แซกโซนี
   tr = Aşağı Saksonya
@@ -13971,6 +14170,7 @@
   pt = Bremen
   ro = Brema
   es = Bremen
+  et = Bremen
   sv = Bremen
   th = รัฐเบรเมิน
   tr = Bremen
@@ -14004,6 +14204,7 @@
   pt = Lüneburg
   ro = Lüneburg
   es = Luneburgo
+  et = Lüneburg
   sv = Lüneburg
   th = ลิเนอร์เบิร์ก
   tr = Lüneburg
@@ -14037,6 +14238,7 @@
   pt = Hanover
   ro = Hanovra
   es = Hannover
+  et = Hannover
   sv = Hannover
   th = ฮันโนเวอร์
   tr = Hannover
@@ -14070,6 +14272,7 @@
   pt = Oldemburgo
   ro = Oldenburg
   es = Oldenburgo
+  et = Oldenburg
   sv = Oldenburg
   th = โอเดนเบิร์ก
   tr = Oldenburg
@@ -14103,6 +14306,7 @@
   pt = Mecklemburgo-Pomerânia Ocidental
   ro = Mecklenburg - Pomerania Inferioară
   es = Mecklemburgo-Pomerania Occidental
+  et = Mecklenburg-Vorpommern
   sv = Mecklenburg-Vorpommern
   th = รัฐเมคเลนบูร์ก-ฟอร์พอมเมิร์น
   tr = Mecklenburg-Vorpommern
@@ -14136,6 +14340,7 @@
   pt = Renânia do Norte-Vestfália
   ro = Renania de Nord-Westfalia
   es = Renania del Norte-Westfalia
+  et = Nordrhein-Westfalen
   sv = Nordrhein-Westfalen
   th = รัฐนอร์ดไรน์-เวสท์ฟาเลิน
   tr = Kuzey Ren-Vestfalya
@@ -14169,6 +14374,7 @@
   pt = Arnsberg — Arnsberg
   ro = Arnsberg — Arnsberg
   es = Arnsberg — Arnsberg
+  et = Arnsberg — Arnsberg
   sv = Arnsberg — Arnsberg
   th = ภูมิภาครัฐบาลอันส์เบิร์ก — อันส์เบิร์ก
   tr = Arnsberg — Arnsberg
@@ -14202,6 +14408,7 @@
   pt = Arnsberg — Dortmund
   ro = Arnsberg — Dortmund
   es = Arnsberg — Dortmund
+  et = Arnsberg — Dortmund
   sv = Arnsberg — Dortmund
   th = ภูมิภาครัฐบาลอันส์เบิร์ก — ดอร์ทมุนด์
   tr = Arnsberg — Dortmund
@@ -14235,6 +14442,7 @@
   pt = Detmold
   ro = Detmold
   es = Detmold
+  et = Detmold
   sv = Detmold
   th = ภูมิภาครัฐบาลเดทโมล์ด
   tr = Detmold
@@ -14268,6 +14476,7 @@
   pt = Düsseldorf — Düsseldorf
   ro = Düsseldorf — Düsseldorf
   es = Düsseldorf — Düsseldorf
+  et = Düsseldorf — Düsseldorf
   sv = Düsseldorf — Düsseldorf
   th = ภูมิภาครัฐบาลดัซเซลดอร์ฟ — ดัซเซลดอร์ฟ
   tr = Düsseldorf — Düsseldorf
@@ -14301,6 +14510,7 @@
   pt = Düsseldorf — Mülheim
   ro = Düsseldorf — Mülheim an der Ruhr
   es = Düsseldorf — Mülheim an der Ruhr
+  et = Düsseldorf — Mülheim an der Ruhr
   sv = Düsseldorf — Mülheim an der Ruhr
   th = ภูมิภาครัฐบาลดัซเซลดอร์ฟ — มิลเลียม อัน เดอร์ เรอร์
   tr = Düsseldorf — Mülheim an der Ruhr
@@ -14334,6 +14544,7 @@
   pt = Düsseldorf — Wesel
   ro = Düsseldorf — Wesel
   es = Düsseldorf — Wesel
+  et = Düsseldorf — Wesel
   sv = Düsseldorf — Wesel
   th = ภูมิภาครัฐบาลดัซเซลดอร์ฟ — วีเซล
   tr = Düsseldorf — Wesel
@@ -14367,6 +14578,7 @@
   pt = Colônia — Aquisgrano
   ro = Köln — Aachen
   es = Colonia — Aquisgrán
+  et = Köln — Aachen
   sv = Köln — Aachen
   th = ภูมิภาครัฐบาลโคโลน — อาเชน
   tr = Köln — Aachen
@@ -14400,6 +14612,7 @@
   pt = Colônia — Colônia
   ro = Köln — Köln
   es = Colonia — Colonia
+  et = Köln — Köln
   sv = Köln — Köln
   th = ภูมิภาครัฐบาลโคโลน — โคโลน
   tr = Köln — Köln
@@ -14433,6 +14646,7 @@
   pt = Münster — Münster
   ro = Münster — Münster
   es = Münster — Münster
+  et = Münster — Münster
   sv = Münster — Münster
   th = ภูมิภาครัฐบาลมุนสเตอร์ — มุนสเตอร์
   tr = Münster — Münster, Vestfalya
@@ -14466,6 +14680,7 @@
   pt = Münster — Recklinghausen
   ro = Münster — Recklinghausen
   es = Münster — Recklinghausen
+  et = Münster — Recklinghausen
   sv = Münster — Recklinghausen
   th = ภูมิภาครัฐบาลมุนสเตอร์ — เร็กลิงเฮาเซน
   tr = Münster — Recklinghausen
@@ -14499,6 +14714,7 @@
   pt = Renânia-Palatinado — Coblença
   ro = Renania-Palatinat — Koblenz
   es = Renania-Palatinado — Coblenza
+  et = Rheinland-Pfalz – Koblenz
   sv = Rheinland-Pfalz — Koblenz
   th = ไรน์แลนด์-พาลาติเนต — โคเบลนซ์
   tr = Renanya-Palatina — Koblenz
@@ -14532,6 +14748,7 @@
   pt = Renânia-Palatinado — Mainz
   ro = Renania-Palatinat — Mainz
   es = Renania-Palatinado — Maguncia
+  et = Rheinland-Pfalz – Mainz
   sv = Rheinland-Pfalz — Mainz
   th = รัฐไรน์ลันด์-พฟัลซ์ — ไมนซ์
   tr = Renanya-Palatina — Mainz
@@ -14565,6 +14782,7 @@
   pt = Sarre
   ro = Saarland
   es = Sarre
+  et = Saarland
   sv = Saarland
   th = รัฐซาร์ลันด์
   tr = Saarland
@@ -14598,6 +14816,7 @@
   pt = Saxônia-Anhalt
   ro = Saxonia-Anhalt
   es = Sajonia-Anhalt
+  et = Saksimaa-Anhalt
   sv = Sachsen-Anhalt
   th = รัฐแซกโซนี-อันฮัลต์
   tr = Saksonya-Anhalt
@@ -14631,6 +14850,7 @@
   pt = Saxônia — Dresden
   ro = Saxonia — Dresda
   es = Sajonia — Dresde
+  et = Saksimaa - Dresden
   sv = Sachsen — Dresden
   th = รัฐซัคเซิน — เดรสเดิน
   tr = Saksonya — Dresden
@@ -14664,6 +14884,7 @@
   pt = Saxônia — Leipzig
   ro = Saxonia — Leipzig
   es = Sajonia — Leipzig
+  et = Saksimaa - Leipzig
   sv = Sachsen — Leipzig
   th = รัฐซัคเซิน — ไลพ์ซิก
   tr = Saksonya — Leipzig
@@ -14697,6 +14918,7 @@
   pt = Schleswig-Holstein
   ro = Schleswig-Holstein
   es = Schleswig-Holstein
+  et = Schleswig-Holstein
   sv = Schleswig-Holstein
   th = รัฐชเลสวิก-โฮลชไตน์
   tr = Schleswig-Holstein
@@ -14730,6 +14952,7 @@
   pt = Turíngia
   ro = Turingia
   es = Turingia
+  et = Tüüringi
   sv = Thüringen
   th = รัฐเทือริงเงิน
   tr = Türingiya
@@ -14763,6 +14986,7 @@
   pt = Gana
   ro = Ghana
   es = Ghana
+  et = Ghana
   eu = Ghana
   sv = Ghana
   th = ประเทศกานา
@@ -14798,6 +15022,7 @@
   pt = Gibraltar
   ro = Gibraltar
   es = Gibraltar
+  et = Gibraltar
   eu = Gibraltar
   sv = Gibraltar
   th = ยิบรอลตาร์
@@ -14833,6 +15058,7 @@
   pt = Grécia
   ro = Grecia
   es = Grecia
+  et = Kreeka
   eu = Grezia
   sv = Grekland
   th = ประเทศกรีซ
@@ -14868,6 +15094,7 @@
   pt = Egeu
   ro = Regiunea Egeea
   es = Egeo
+  et = Egeuse
   sv = Egeiska havsregionen
   th = แอเจียน
   tr = Ege
@@ -14901,6 +15128,7 @@
   pt = Ática
   ro = Regiunea Atica
   es = Ática
+  et = Atika
   sv = Attica-regionen
   th = แอตติกา
   tr = Attika
@@ -14934,6 +15162,7 @@
   pt = Creta
   ro = Regiunea Creta
   es = Creta
+  et = Kreeta
   sv = Kretaregionen
   th = ครีต
   tr = Girit
@@ -14967,6 +15196,7 @@
   pt = Épiro e Macedônia Ocidental
   ro = Regiunea Epirul și Macedonia de Vest
   es = Oeste de Macedonia y Epiro
+  et = Epeiros ja Lääne-Makedoonia
   sv = Epirus och Västmakedonien
   th = อีพิรุสและมาซิโดเนียตะวันตก
   tr = Epir ve Batı Makedonya
@@ -15000,6 +15230,7 @@
   pt = Macedônia e Trácia
   ro = Regiunea Macedonia și Tracia
   es = Macedonia y Tracia
+  et = Makedoonia ja Traakia
   sv = Makedonien och Thrakien
   th = มาซิโดเนียและเทรซ
   tr = Makedonya ve Trakya
@@ -15033,6 +15264,7 @@
   pt = Tessália e Grécia Central
   ro = Regiunea Tesalia și Grecia Centrală
   es = Centro de Grecia y Tesalia
+  et = Tessaalia ja Kesk-Kreeka
   sv = Thessalien och centrala Grekland
   th = เทซซาลีและกรีซกลาง
   tr = Teselya ve Merkez Yunanistan
@@ -15066,6 +15298,7 @@
   pt = Peloponeso
   ro = Regiunea Peloponesul
   es = Peloponeso
+  et = Peloponnesos
   sv = Peloponnesos-regionen
   th = เพโลปอนนีส
   tr = Mora Yarımadası
@@ -15099,6 +15332,7 @@
   pt = Gronelândia
   ro = Groenlanda
   es = Groenlandia
+  et = Gröönimaa
   eu = Groenlandia
   sv = Grönland
   th = กรีนแลนด์
@@ -15134,6 +15368,7 @@
   pt = Granada
   ro = Grenada
   es = Granada
+  et = Grenada
   eu = Granada
   sv = Grenada
   th = ประเทศเกรเนดา
@@ -15168,6 +15403,7 @@
   pt = Guadalupe
   ro = Guadelupa
   es = Guadalupe
+  et = Guadeloupe
   eu = Guadalupe
   sv = Guadeloupe
   th = กัวเดอลุป
@@ -15202,6 +15438,7 @@
   pt = Guatemala
   ro = Guatemala
   es = Guatemala
+  et = Guatemala
   eu = Guatemala
   sv = Guatemala
   th = ประเทศกัวเตมาลา
@@ -15236,6 +15473,7 @@
   pt = Guernsey
   ro = Guernsey
   es = Guernsey
+  et = Guernsey
   eu = Guernsey
   sv = Guernsey
   th = เกิร์นซีย์
@@ -15270,6 +15508,7 @@
   pt = Guiné
   ro = Guineea
   es = Guinea
+  et = Guinea
   eu = Ginea
   sv = Guinea
   th = ประเทศกินี
@@ -15304,6 +15543,7 @@
   pt = Guiné-Bissau
   ro = Guineea-Bissau
   es = Guinea-Bisáu
+  et = Guinea-Bissau
   eu = Ginea-Bissau
   sv = Guinea-Bissau
   th = ประเทศกินี-บิสเซา
@@ -15338,6 +15578,7 @@
   pt = Guiana
   ro = Guyana
   es = Guyana
+  et = Guyana
   eu = Guyana
   sv = Guyana
   th = ประเทศกายอานา
@@ -15373,6 +15614,7 @@
   pt = Haiti
   ro = Haiti
   es = Haití
+  et = Haiti
   eu = Haiti
   sv = Haiti
   th = ประเทศเฮติ
@@ -15408,6 +15650,7 @@
   pt = Honduras
   ro = Honduras
   es = Honduras
+  et = Honduras
   eu = Honduras
   sv = Honduras
   th = ประเทศฮอนดูรัส
@@ -15443,6 +15686,7 @@
   pt = Hungria
   ro = Ungaria
   es = Hungría
+  et = Ungari
   eu = Hungaria
   sv = Ungern
   th = ประเทศฮังการี
@@ -15478,6 +15722,7 @@
   pt = Hungria Central
   ro = Ungaria Centrală
   es = Közép-Magyarország
+  et = Kesk-Ungari
   sv = Mellersta Ungern
   th = ฮังการีกลาง
   tr = Orta Macaristan
@@ -15511,6 +15756,7 @@
   pt = Hungria — Leste
   ro = Ungaria — Est
   es = Hungría — Este
+  et = Ungari - Ida
   sv = Ungern — Öst
   th = ประเทศฮังการี — ตะวันออก
   tr = Macaristan — Doğu
@@ -15544,6 +15790,7 @@
   pt = Hungria — Oeste
   ro = Ungaria — Vest
   es = Hungría — Oeste
+  et = Ungari - Lääs
   sv = Ungern — Väst
   th = ประเทศฮังการี — ตะวันตก
   tr = Macaristan — Batı
@@ -15577,6 +15824,7 @@
   pt = Islândia
   ro = Islanda
   es = Islandia
+  et = Island
   eu = Islandia
   sv = Island
   th = ประเทศไอซ์แลนด์
@@ -15612,6 +15860,7 @@
   pt = Illinois
   ro = Illinois
   es = Illinois
+  et = Illinois
   eu = Illinois
   sv = Illinois
   th = รัฐอิลลินอยส์
@@ -15646,6 +15895,7 @@
   pt = Índia
   ro = India
   es = India
+  et = India
   eu = India
   sv = Indien
   th = ประเทศอินเดีย
@@ -15681,6 +15931,7 @@
   pt = Andamão e Nicobar
   ro = Insulele Andaman și Nicobar
   es = Islas Andamán y Nicobar
+  et = Andamani ja Nicobari saared
   sv = Andamanerna och Nikobarerna
   th = หมู่เกาะอันดามันและนิโคบาร์
   tr = Andaman ve Nikobar adaları
@@ -15715,6 +15966,7 @@
   pt = Andhra Pradesh
   ro = Andhra Pradesh
   es = Andhra Pradesh
+  et = Andhra Pradesh
   sv = Andhra Pradesh
   th = รัฐอานธรประเทศ
   tr = Andhra Pradeş
@@ -15749,6 +16001,7 @@
   pt = Arunachal Pradesh
   ro = Arunachal Pradesh
   es = Arunachal Pradesh
+  et = Arunachal Pradesh
   sv = Arunachal Pradesh
   th = รัฐอรุณาจัลประเทศ
   tr = Arunaçhal Pradesh
@@ -15783,6 +16036,7 @@
   pt = Assam
   ro = Assam
   es = Assam
+  et = Assam
   sv = Assam
   th = รัฐอัสสัม
   tr = Assam
@@ -15817,6 +16071,7 @@
   pt = Bihar
   ro = Bihar
   es = Bihar
+  et = Bihar
   sv = Bihar
   th = รัฐพิหาร
   tr = Bihar
@@ -15851,6 +16106,7 @@
   pt = Chandigarh
   ro = Chandigarh
   es = Chandigarh
+  et = Chandigarh
   sv = Chandigarh
   th = จัณฑีครห์
   tr = Çhandigarh
@@ -15885,6 +16141,7 @@
   pt = Chhattisgarh
   ro = Chhattisgarh
   es = Chhattisgarh
+  et = Chhattisgarh
   sv = Chhattisgarh
   th = รัฐฉัตติสครห์
   tr = Chhattisgarh
@@ -15919,6 +16176,7 @@
   pt = Deli
   ro = Delhi
   es = Delhi
+  et = Delhi
   sv = Delhi
   th = เดลี
   tr = Delhi
@@ -15953,6 +16211,7 @@
   pt = Goa
   ro = Goa
   es = Goa
+  et = Goa
   sv = Goa
   th = รัฐกัว
   tr = Goa
@@ -15987,6 +16246,7 @@
   pt = Gujarate
   ro = Gujarat
   es = Guyarat
+  et = Gujarat
   sv = Gujarat
   th = รัฐคุชราต
   tr = Gucerat
@@ -16021,6 +16281,7 @@
   pt = Haryana
   ro = Haryana
   es = Haryana
+  et = Haryana
   sv = Haryana
   th = รัฐหรยาณา
   tr = Haryana
@@ -16055,6 +16316,7 @@
   pt = Himachal Pradesh
   ro = Himachal Pradesh
   es = Himachal Pradesh
+  et = Himachal Pradesh
   sv = Himachal Pradesh
   th = รัฐหิมาจัลประเทศ
   tr = Himaçhal Pradeş
@@ -16089,6 +16351,7 @@
   pt = Jammu e Caxemira
   ro = Jammu și Cașmir
   es = Jammu y Cachemira
+  et = Jammu ja Kashmir
   sv = Jammu och Kashmir
   th = รัฐชัมมูและกัศมีร์
   tr = Cemmu ve Keşmir
@@ -16123,6 +16386,7 @@
   pt = Jharkhand
   ro = Jharkhand
   es = Jharkhand
+  et = Jharkhand
   sv = Jharkhand
   th = รัฐฌารขัณฑ์
   tr = Jharkhand
@@ -16157,6 +16421,7 @@
   pt = Karnataka
   ro = Karnataka
   es = Karnataka
+  et = Karnataka
   sv = Karnataka
   th = รัฐกรณาฏกะ
   tr = Karnataka
@@ -16191,6 +16456,7 @@
   pt = Kerala
   ro = Kerala
   es = Kerala
+  et = Kerala
   sv = Kerala
   th = รัฐเกรละ
   tr = Kerala
@@ -16225,6 +16491,7 @@
   pt = Laquedivas
   ro = Lakshadweep
   es = Laquedivas
+  et = Lakshadweep
   sv = Lakshadweep
   th = ลักษทวีป
   tr = Lakşadvip Adaları
@@ -16259,6 +16526,7 @@
   pt = Madhya Pradesh
   ro = Madhya Pradesh
   es = Madhya Pradesh
+  et = Madhya Pradesh
   sv = Madhya Pradesh
   th = รัฐมัธยประเทศ
   tr = Madhya Pradesh
@@ -16293,6 +16561,7 @@
   pt = Maharashtra
   ro = Maharashtra
   es = Maharastra
+  et = Maharashtra
   sv = Maharashtra
   th = รัฐมหาราษฏระ
   tr = Maharaştra
@@ -16327,6 +16596,7 @@
   pt = Manipur
   ro = Manipur
   es = Manipur
+  et = Manipur
   sv = Manipur
   th = รัฐมณีปุระ
   tr = Manipur
@@ -16361,6 +16631,7 @@
   pt = Meghalaya
   ro = Meghalaya
   es = Megalaya
+  et = Meghalaya
   sv = Meghalaya
   th = รัฐเมฆาลัย
   tr = Meghalaya
@@ -16395,6 +16666,7 @@
   pt = Mizoram
   ro = Mizoram
   es = Mizorán
+  et = Mizoram
   sv = Mizoram
   th = รัฐมิโซรัม
   tr = Mizoram
@@ -16429,6 +16701,7 @@
   pt = Nagaland
   ro = Nagaland
   es = Nagaland
+  et = Nagaland
   sv = Nagaland
   th = รัฐนาคาแลนด์
   tr = Nagaland
@@ -16463,6 +16736,7 @@
   pt = Orissa
   ro = Orissa
   es = Orissa
+  et = Odisha
   sv = Orissa
   th = รัฐโอริสสา
   tr = Orissa
@@ -16497,6 +16771,7 @@
   pt = Punjab
   ro = Punjab
   es = Punyab
+  et = Punjab
   sv = Punjab
   th = รัฐปัญจาบ
   tr = Pencap
@@ -16531,6 +16806,7 @@
   pt = Rajastão
   ro = Rajasthan
   es = Rajastán
+  et = Rajasthan
   sv = Rajasthan
   th = รัฐราชสถาน
   tr = Racasthan
@@ -16565,6 +16841,7 @@
   pt = Siquim
   ro = Sikkim
   es = Sikkim
+  et = Sikkim
   sv = Sikkim
   th = รัฐสิกขิม
   tr = Sikkim
@@ -16599,6 +16876,7 @@
   pt = Tamil Nadu
   ro = Tamil Nadu
   es = Tamil Nadu
+  et = Tamil Nadu
   sv = Tamil Nadu
   th = รัฐทมิฬนาฑู
   tr = Tamil Nadu
@@ -16633,6 +16911,7 @@
   pt = Telangana
   ro = Telangana
   es = Telingana
+  et = Telangana
   sv = Telangana
   th = รัฐเตลันกานา
   tr = Telangana
@@ -16667,6 +16946,7 @@
   pt = Tripura
   ro = Tripura
   es = Tripura
+  et = Tripura
   sv = Tripura
   th = รัฐตริปุระ
   tr = Tripura
@@ -16701,6 +16981,7 @@
   pt = Uttar Pradesh
   ro = Uttar Pradesh
   es = Uttar Pradesh
+  et = Uttar Pradesh
   sv = Uttar Pradesh
   th = รัฐอุตตรประเทศ
   tr = Uttar Pradeş
@@ -16735,6 +17016,7 @@
   pt = Uttarakhand
   ro = Uttarakhand
   es = Uttarakhand
+  et = Uttarakhand
   sv = Uttarakhand
   th = รัฐอุตตราขัณฑ์
   tr = Uttarakhand
@@ -16769,6 +17051,7 @@
   pt = Bengala Ocidental
   ro = Bengalul de Vest
   es = Bengala Occidental
+  et = Lääne-Bengal
   sv = Västbengalen
   th = รัฐเบงกอลตะวันตก
   tr = Batı Bengal
@@ -16803,6 +17086,7 @@
   pt = Indiana
   ro = Indiana
   es = Indiana
+  et = Indiana
   eu = Indiana
   sv = Indiana
   th = รัฐอินดีแอนา
@@ -16837,6 +17121,7 @@
   pt = Indonésia
   ro = Indonezia
   es = Indonesia
+  et = Indoneesia
   eu = Indonesia
   sv = Indonesien
   th = ประเทศอินโดนีเซีย
@@ -16872,6 +17157,7 @@
   pt = Celebes, Kalimantan
   ro = Sulawesi, Kalimantan
   es = Célebes, Kalimantan
+  et = Sulawesi, Kalimantan
   sv = Sulawesi, Kalimantan
   th = สุลาเวสี กะลิมันตัน
   tr = Sulawesi, Kalimantan
@@ -16905,6 +17191,7 @@
   pt = Indonésia — Leste
   ro = Indonezia — Est
   es = Indonesia — Este
+  et = Indoneesia - Ida
   sv = Indonesien — Öst
   th = ประเทศอินโดนีเซีย — ตะวันออก
   tr = Endonezya — Doğu
@@ -16938,6 +17225,7 @@
   pt = Java Ocidental
   ro = Provincia Java de Vest
   es = Java Occidental
+  et = Lääne-Jaava maakond
   sv = Jawa Barat
   th = จังหวัดชวาตะวันตก
   tr = Batı Cava
@@ -16971,6 +17259,7 @@
   pt = Java Central
   ro = Provincia Java Centrală
   es = Java Central
+  et = Kesk-Jaava maakond
   sv = Jawa Tengah
   th = จังหวัดชวากลาง
   tr = Orta Cava
@@ -17004,6 +17293,7 @@
   pt = Java Oriental
   ro = Provincia Java de Est
   es = Java Oriental
+  et = Ida-Jaava maakond
   sv = Jawa Timur
   th = จังหวัดจาวาตะวันออก
   tr = Doğu Cava
@@ -17037,6 +17327,7 @@
   pt = Pequenas Ilhas da Sonda
   ro = Insulele Lesser Sunda
   es = Islas menores de la Sonda
+  et = Väikesed Sunda saared
   sv = Små Sundaöarna
   th = หมู่เกาะซุนดาน้อย
   tr = Küçük Sunda Adaları
@@ -17070,6 +17361,7 @@
   pt = Sumatra
   ro = Sumatra
   es = Sumatra
+  et = Sumatra
   sv = Sumatra
   th = เกาะสุมาตรา
   tr = Sumatra
@@ -17103,6 +17395,7 @@
   pt = Iowa
   ro = Iowa
   es = Iowa
+  et = Iowa
   eu = Iowa
   sv = Iowa
   th = รัฐไอโอวา
@@ -17137,6 +17430,7 @@
   pt = Irão
   ro = Iran
   es = Irán
+  et = Iraan
   eu = Iran
   sv = Iran
   th = ประเทศอิหร่าน
@@ -17172,6 +17466,7 @@
   pt = Irão — Norte
   ro = Iran — Nord
   es = Irán — Norte
+  et = Iraan - Põhi
   sv = Iran — Nord
   th = ประเทศอิหร่าน — เหนือ
   tr = İran — Kuzey
@@ -17205,6 +17500,7 @@
   pt = Irão — Sul
   ro = Iran — Sud
   es = Irán — Sur
+  et = Iraan - Lõuna
   sv = Iran — Syd
   th = ประเทศอิหร่าน — ใต้
   tr = İran — Güney
@@ -17238,6 +17534,7 @@
   pt = Iraque
   ro = Irak
   es = Irak
+  et = Iraak
   eu = Irak
   sv = Irak
   th = ประเทศอิรัก
@@ -17273,6 +17570,7 @@
   pt = República da Irlanda
   ro = Irlanda
   es = Irlanda
+  et = Iirimaa
   eu = Irlanda
   sv = Irland
   th = ประเทศไอร์แลนด์
@@ -17308,6 +17606,7 @@
   pt = Connacht
   ro = Connacht
   es = Connacht
+  et = Connacht
   sv = Connacht
   th = คอนนัก
   tr = Connacht
@@ -17341,6 +17640,7 @@
   pt = Leinster
   ro = Leinster
   es = Leinster
+  et = Leinster
   sv = Leinster
   th = ไลน์สเตอร์
   tr = Leinster
@@ -17374,6 +17674,7 @@
   pt = Munster
   ro = Munster
   es = Munster
+  et = Munster
   sv = Munster
   th = มุนสเตอร์
   tr = Munster
@@ -17407,6 +17708,7 @@
   pt = Ulster
   ro = Ulster
   es = Úlster
+  et = Ulster
   sv = Ulster
   th = อัลสเตอร์
   tr = Ulster
@@ -17440,8 +17742,9 @@
   pt = Ilha de Man
   ro = Insula Man
   es = Isla de Man
+  et = Isle of Man
   eu = Man uhartea
-  sv = Isle of Man
+  sv = Mani saar
   th = เกาะแมน
   tr = Man Adası
   uk = Мен
@@ -17474,6 +17777,7 @@
   pt = Israel
   ro = Israel
   es = Israel
+  et = Iisrael
   eu = Israel
   sv = Israel
   th = ประเทศอิสราเอล
@@ -17509,6 +17813,7 @@
   pt = Israel
   ro = Israel
   es = Israel
+  et = Iisrael
   eu = Israel
   sv = Israel
   th = ประเทศอิสราเอล
@@ -17543,6 +17848,7 @@
   pt = Itália
   ro = Italia
   es = Italia
+  et = Itaalia
   eu = Italia
   sv = Italien
   th = ประเทศอิตาลี
@@ -17578,6 +17884,7 @@
   pt = Abruzos
   ro = Abruzzo
   es = Abruzos
+  et = Abruzzo
   sv = Abruzzo
   th = แคว้นอาบรุซโซ
   tr = Abruzzo
@@ -17611,6 +17918,7 @@
   pt = Vale de Aosta
   ro = Valle d'Aosta
   es = Valle de Aosta
+  et = Aosta org
   sv = Aostadalen
   th = แคว้นปกครองตนเองวัลเลดาออสตา
   tr = Aosta Vadisi
@@ -17644,6 +17952,7 @@
   pt = Apúlia
   ro = Apulia
   es = Apulia
+  et = Apulia
   sv = Apulien
   th = แคว้นปูลยา
   tr = Puglia
@@ -17677,6 +17986,7 @@
   pt = Basilicata
   ro = Basilicata
   es = Basilicata
+  et = Basilicata
   sv = Basilicata
   th = แคว้นบาซีลีกาตา
   tr = Basilicata
@@ -17710,6 +18020,7 @@
   pt = Calábria
   ro = Calabria
   es = Calabria
+  et = Calabria
   sv = Kalabrien
   th = แคว้นกาลาเบรีย
   tr = Calabria
@@ -17743,6 +18054,7 @@
   pt = Campânia
   ro = Campania
   es = Campania
+  et = Campania
   sv = Kampanien
   th = แคว้นกัมปาเนีย
   tr = Campania
@@ -17776,6 +18088,7 @@
   pt = Emília-Romanha
   ro = Emilia-Romagna
   es = Emilia-Romaña
+  et = Emilia-Romagna
   sv = Emilia-Romagna
   th = แคว้นเอมีเลีย-โรมัญญา
   tr = Emilia-Romagna
@@ -17809,6 +18122,7 @@
   pt = Bolonha
   ro = Provincia Bologna
   es = Bolonia
+  et = Bologna maakond
   sv = Bologna
   th = จังหวัดโบโลนา
   tr = Bologna ili
@@ -17842,6 +18156,7 @@
   pt = Ferrara
   ro = Provincia Ferrara
   es = Ferrara
+  et = Ferrara maakond
   sv = Ferrara
   th = จังหวัดเฟอร์รารา
   tr = Ferrara ili
@@ -17875,6 +18190,7 @@
   pt = Forlì-Cesena
   ro = Provincia Forlì-Cesena
   es = Forlì-Cesena
+  et = Forlì-Cesena maakond
   sv = Forlì-Cesena
   th = จังหวัดฟอร์ซี-เซเซนา
   tr = Forli-Cesena ili
@@ -17908,6 +18224,7 @@
   pt = Módena
   ro = Provincia Modena
   es = Módena
+  et = Modena maakond
   sv = Modena
   th = จังหวัดโมเดนา
   tr = Modena ili
@@ -17941,6 +18258,7 @@
   pt = Parma
   ro = Provincia Parma
   es = Parma
+  et = Parma maakond
   sv = Parma
   th = จังหวัดพาร์มา
   tr = Parma ili
@@ -17974,6 +18292,7 @@
   pt = Placência
   ro = Provincia Piacenza
   es = Piacenza
+  et = Piacenza maakond
   sv = Piacenza
   th = จังหวัดพิอาเซนซา
   tr = Piacenza ili
@@ -18007,6 +18326,7 @@
   pt = Ravena
   ro = Provincia Ravenna
   es = Rávena
+  et = Ravenna maakond
   sv = Ravenna
   th = จังหวัดราเวนนา
   tr = Ravenna ili
@@ -18040,6 +18360,7 @@
   pt = Reggio Emilia
   ro = Provincia Reggio Emilia
   es = Reggio Emilia
+  et = Reggio Emilia maakond
   sv = Reggio Emilia
   th = จังหวัดเรกกิโอ เอมิเลีย
   tr = Reggio Emilia ili
@@ -18073,6 +18394,7 @@
   pt = Rimini
   ro = Provincia Rimini
   es = Rímini
+  et = Rimini maakond
   sv = Rimini
   th = จังหวัดริมินิ
   tr = Rimini ili
@@ -18106,6 +18428,7 @@
   pt = Friul-Veneza Júlia
   ro = Friuli-Veneția Giulia
   es = Friuli-Venecia Julia
+  et = Friuli–Venezia Giulia
   sv = Friuli-Venezia Giulia
   th = แคว้นปกครองตนเองฟรีอูลี-เวเนเซียจูเลีย
   tr = Friuli-Venezia Giulia
@@ -18139,6 +18462,7 @@
   pt = Gorizia
   ro = Provincia Gorizia
   es = Gorizia
+  et = Gorizia maakond
   sv = Gorizia
   th = จังหวัดกอริเซีย
   tr = Gorizia ili
@@ -18172,6 +18496,7 @@
   pt = Pordenone
   ro = Provincia Pordenone
   es = Pordenone
+  et = Pordenone maakond
   sv = Pordenone
   th = จังหวัดพอร์เดโนเน
   tr = Pordenone ili
@@ -18205,6 +18530,7 @@
   pt = Trieste
   ro = Provincia Trieste
   es = Trieste
+  et = Trieste maakond
   sv = Trieste
   th = จังหวัดทริสที
   tr = Trieste ili
@@ -18238,6 +18564,7 @@
   pt = Udine
   ro = Provincia Udine
   es = Udine
+  et = Udine maakond
   sv = Udine
   th = จังหวัดอูดีน
   tr = Udine ili
@@ -18271,6 +18598,7 @@
   pt = Lácio
   ro = Lazio
   es = Lacio
+  et = Lazio
   sv = Lazio
   th = แคว้นลาซีโอ
   tr = Lazio
@@ -18304,6 +18632,7 @@
   pt = Ligúria
   ro = Liguria
   es = Liguria
+  et = Liguria
   sv = Ligurien
   th = แคว้นลิกูเรีย
   tr = Ligurya
@@ -18337,6 +18666,7 @@
   pt = Lombardia
   ro = Lombardia
   es = Lombardía
+  et = Lombardia
   sv = Lombardiet
   th = แคว้นลอมบาร์เดีย
   tr = Lombardiya
@@ -18370,6 +18700,7 @@
   pt = Bérgamo
   ro = Provincia Bergamo
   es = Bérgamo
+  et = Bergamo maakond
   sv = Bergamo
   th = จังหวัดเบอร์กาโม
   tr = Bergamo ili
@@ -18403,6 +18734,7 @@
   pt = Bréscia
   ro = Provincia Brescia
   es = Brescia
+  et = Brescia maakond
   sv = Brescia
   th = จังหวัดเบรเซีย
   tr = Brescia ili
@@ -18436,6 +18768,7 @@
   pt = Como
   ro = Provincia Como
   es = Como
+  et = Como maakond
   sv = Como
   th = จังหวัดโคโม
   tr = Como ili
@@ -18469,6 +18802,7 @@
   pt = Cremona
   ro = Provincia Cremona
   es = Cremona
+  et = Cremona maakond
   sv = Cremona
   th = จังหวัดครีโมนา
   tr = Cremona ili
@@ -18502,6 +18836,7 @@
   pt = Lecco
   ro = Provincia Lecco
   es = Lecco
+  et = Lecco maakond
   sv = Lecco
   th = จังหวัดเลคโค
   tr = Lecco ili
@@ -18535,6 +18870,7 @@
   pt = Lodi
   ro = Provincia Lodi
   es = Lodi
+  et = Lodi maakond
   sv = Lodi
   th = จังหวัดโลดี
   tr = Lodi ili
@@ -18568,6 +18904,7 @@
   pt = Mântua (província)
   ro = Provincia Mantova
   es = Mantua
+  et = Mantua maakond
   sv = Mantova
   th = จังหวัดมาตูอา
   tr = Mantova ili
@@ -18601,6 +18938,7 @@
   pt = Milão
   ro = Provincia Milano
   es = Milán
+  et = Milano maakond
   sv = Milano
   th = จังหวัดมิลาน
   tr = Milano ili
@@ -18634,6 +18972,7 @@
   pt = Província de Monza e Brianza
   ro = Provincia Monza-Brianza
   es = Monza y Brianza
+  et = Monza ja Brianza maakond
   sv = Monza e Brianza
   th = จังหวัดมอนซาและบริอันซา
   tr = Monza ve Brianza ili
@@ -18667,6 +19006,7 @@
   pt = Pavia
   ro = Provincia Pavia
   es = Pavía
+  et = Pavia maakond
   sv = Pavia
   th = จังหวัดพาเวีย
   tr = Pavia ili
@@ -18700,6 +19040,7 @@
   pt = Sondrio
   ro = Provincia Sondrio
   es = Sondrio
+  et = Sondrio maakond
   sv = Sondrio
   th = จังหวัดซอนดริโอ
   tr = Sondrio ili
@@ -18733,6 +19074,7 @@
   pt = Varese
   ro = Provincia Varese
   es = Varese
+  et = Varese maakond
   sv = Varese
   th = จังหวัดวาราซี
   tr = Varese ili
@@ -18766,6 +19108,7 @@
   pt = Marcas
   ro = Marche
   es = Marcas
+  et = Marche
   sv = Marche
   th = แคว้นมาร์เก
   tr = Marche
@@ -18799,6 +19142,7 @@
   pt = Molise
   ro = Molise
   es = Molise
+  et = Molise
   sv = Molise
   th = แคว้นโมลีเซ
   tr = Molise
@@ -18832,6 +19176,7 @@
   pt = Piemonte
   ro = Piemont
   es = Piamonte
+  et = Piedmont
   sv = Piemonte
   th = แคว้นปีเอมอนเต
   tr = Piyemonte
@@ -18865,6 +19210,7 @@
   pt = Alexandria (província)
   ro = Provincia Alessandria
   es = Alessandria
+  et = Alessandria maakond
   sv = Alessandria
   th = จังหวัดอเลสซันเดรีย
   tr = Alessandria ili
@@ -18898,6 +19244,7 @@
   pt = Asti
   ro = Provincia Asti
   es = Asti
+  et = Asti maakond
   sv = Asti
   th = จังหวัดแอสตี
   tr = Asti ili
@@ -18931,6 +19278,7 @@
   pt = Biella
   ro = Provincia Biella
   es = Biella
+  et = Biella maakond
   sv = Biella
   th = จังหวัดบิเอลลา
   tr = Biella ili
@@ -18964,6 +19312,7 @@
   pt = Cuneo
   ro = Provincia Cuneo
   es = Cuneo
+  et = Cuneo maakond
   sv = Cuneo
   th = จังหวัดคูเนโน
   tr = Cuneo ili
@@ -18997,6 +19346,7 @@
   pt = Novara
   ro = Provincia Novara
   es = Novara
+  et = Novara maakond
   sv = Novara
   th = จังหวัดโนวารา
   tr = Novara ili
@@ -19030,6 +19380,7 @@
   pt = Turim
   ro = Provincia Torino
   es = Turín
+  et = Torino maakond
   sv = Torino
   th = จังหวัดตูริน
   tr = Torino ili
@@ -19063,6 +19414,7 @@
   pt = Verbano Cusio Ossola
   ro = Provincia Verbano-Cusio-Ossola
   es = Verbano-Cusio-Ossola
+  et = Verbano-Cusio-Ossola
   sv = Verbano Cusio Ossola
   th = เวอร์บาโน-คูซิโอ-ออสโซลา
   tr = Verbano-Cusio-Ossola ili
@@ -19096,6 +19448,7 @@
   pt = Vercelli
   ro = Provincia Vercelli
   es = Vercelli
+  et = Vercelli maakond
   sv = Vercelli
   th = จังหวัดเวอร์เซลลี
   tr = Vercelli ili
@@ -19129,6 +19482,7 @@
   pt = Sardenha
   ro = Sardinia
   es = Cerdeña
+  et = Sardiinia
   sv = Sardinien
   th = แคว้นปกครองตนเองซาร์ดิเนีย
   tr = Sardinya
@@ -19162,6 +19516,7 @@
   pt = Sicília
   ro = Sicilia
   es = Sicilia
+  et = Sitsiilia
   sv = Sicilien
   th = แคว้นปกครองตนเองซิซิลี
   tr = Sicilya
@@ -19195,6 +19550,7 @@
   pt = Trentino-Alto Ádige
   ro = Trentino-Tirolul de Sud
   es = Trentino-Alto Adigio
+  et = Trentino-Lõuna-Tirool
   sv = Trentino-Alto Adige
   th = แคว้นปกครองตนเองเตรนตีโน-อัลโตอาดีเจ
   tr = Trentino-Alto Adige
@@ -19228,6 +19584,7 @@
   pt = Toscana — Grosseto
   ro = Toscana — Provincia Grosseto
   es = Toscana — Grosseto
+  et = Toscana - Grosseto maakond
   sv = Toscana — Grosseto
   th = ทัสคานี — จังหวัดกรอสเซโต
   tr = Toskana — Grosseto ili
@@ -19261,6 +19618,7 @@
   pt = Toscana — Massa-Carrara
   ro = Toscana — Provincia Massa-Carrara
   es = Toscana — Massa y Carrara
+  et = Toscana - Massa ja Carrara maakond
   sv = Toscana — Massa-Carrara
   th = ทัสคานี — จังหวัดมัสซาและคาร์รารา
   tr = Toskana — Massa ve Carrara ili
@@ -19294,6 +19652,7 @@
   pt = Úmbria
   ro = Umbria
   es = Umbría
+  et = Umbria
   sv = Umbrien
   th = แคว้นอุมเบรีย
   tr = Umbria
@@ -19327,6 +19686,7 @@
   pt = Véneto
   ro = Veneto
   es = Véneto
+  et = Veneto
   sv = Veneto
   th = แคว้นเวเนโต
   tr = Veneto
@@ -19360,6 +19720,7 @@
   pt = Belluno
   ro = Provincia Belluno
   es = Belluno
+  et = Belluno maakond
   sv = Belluno
   th = จังหวัดเบลลูโน
   tr = Belluno ili
@@ -19393,6 +19754,7 @@
   pt = Pádua
   ro = Provincia Padova
   es = Padua
+  et = Padua maakond
   sv = Padova
   th = จังหวัดพาดูอา
   tr = Padova ili
@@ -19426,6 +19788,7 @@
   pt = Rovigo
   ro = Provincia Rovigo
   es = Rovigo
+  et = Rovigo maakond
   sv = Rovigo
   th = จังหวัดโรวิโก
   tr = Rovigo ili
@@ -19459,6 +19822,7 @@
   pt = Treviso
   ro = Provincia Treviso
   es = Treviso
+  et = Treviso maakond
   sv = Treviso
   th = จังหวัดเทรวิโซ
   tr = Treviso ili
@@ -19492,6 +19856,7 @@
   pt = Veneza
   ro = Provincia Veneția
   es = Venecia
+  et = Veneetsia maakond
   sv = Venedig
   th = จังหวัดเวนิส
   tr = Venezia ili
@@ -19525,6 +19890,7 @@
   pt = Verona
   ro = Provincia Verona
   es = Verona
+  et = Verona maakond
   sv = Verona
   th = จังหวัดเวโรนา
   tr = Verona ili
@@ -19558,6 +19924,7 @@
   pt = Vicenza
   ro = Provincia Vicenza
   es = Vicenza
+  et = Vicenza maakond
   sv = Vicenza
   th = จังหวัดวิเซนซา
   tr = Vicenza ili
@@ -19591,6 +19958,7 @@
   pt = Jamaica
   ro = Jamaica
   es = Jamaica
+  et = Jamaica
   eu = Jamaika
   sv = Jamaica
   th = ประเทศจาเมกา
@@ -19626,6 +19994,7 @@
   pt = Japão
   ro = Japonia
   es = Japón
+  et = Jaapan
   eu = Japonia
   sv = Japan
   th = ประเทศญี่ปุ่น
@@ -19661,6 +20030,7 @@
   pt = Região de Chubu
   ro = Regiunea Chūbu
   es = Región de Chūbu
+  et = Chūbu piirkond
   sv = Chubu
   th = ชูบุ
   tr = Chūbu
@@ -19695,6 +20065,7 @@
   pt = Aichi
   ro = Prefectura Aichi
   es = Prefectura de Aichi
+  et = Aichi prefektuur
   sv = Aichi prefektur
   th = จังหวัดไอชิ
   tr = Aichi Vilayeti
@@ -19729,6 +20100,7 @@
   pt = Fukui
   ro = Prefectura Fukui
   es = Prefectura de Fukui
+  et = Fukui prefektuur
   sv = Fukui prefektur
   th = จังหวัดฟุกุอิ
   tr = Fukui Vilayeti
@@ -19763,6 +20135,7 @@
   pt = Gifu
   ro = Prefectura Gifu
   es = Prefectura de Gifu
+  et = Gifu prefektuur
   sv = Gifu prefektur
   th = จังหวัดกิฟุ
   tr = Gifu Vilayeti
@@ -19796,6 +20169,7 @@
   pt = Ishikawa
   ro = Prefectura Ishikawa
   es = Prefectura de Ishikawa
+  et = Ishikawa prefektuur
   sv = Ishikawa prefektur
   th = จังหวัดอิชิกะวะ
   tr = Ishikawa Vilayeti
@@ -19829,6 +20203,7 @@
   pt = Nagano
   ro = Prefectura Nagano
   es = Prefectura de Nagano
+  et = Nagano prefektuur
   sv = Nagano prefektur
   th = จังหวัดนะงะโนะ
   tr = Nagano Vilayeti
@@ -19863,6 +20238,7 @@
   pt = Niigata
   ro = Prefectura Niigata
   es = Prefectura de Niigata
+  et = Niigata prefektuur
   sv = Niigata prefektur
   th = จังหวัดนีงะตะ
   tr = Niigata Vilayeti
@@ -19897,6 +20273,7 @@
   pt = Shizuoka
   ro = Prefectura Shizuoka
   es = Prefectura de Shizuoka
+  et = Shizuoka prefektuur
   sv = Shizuoka prefektur
   th = จังหวัดชิซุโอะกะ
   tr = Shizuoka Vilayeti
@@ -19931,6 +20308,7 @@
   pt = Toyama
   ro = Prefectura Toyama
   es = Prefectura de Toyama
+  et = Toyama prefektuur
   sv = Toyama prefektur
   th = จังหวัดโทะยะมะ
   tr = Toyama Vilayeti
@@ -19964,6 +20342,7 @@
   pt = Yamanashi
   ro = Prefectura Yamanashi
   es = Prefectura de Yamanashi
+  et = Yamanashi prefektuur
   sv = Yamanashi prefektur
   th = จังหวัดยะมะนะชิ
   tr = Yamanashi Vilayeti
@@ -19998,6 +20377,7 @@
   pt = Região de Chugoku
   ro = Regiunea Chūgoku
   es = Región de Chūgoku
+  et = Chūgoku piirkond
   sv = Chugoku
   th = ชูโงะกุ
   tr = Chūgoku
@@ -20032,6 +20412,7 @@
   pt = Província de Hiroshima
   ro = Prefectura Hiroshima
   es = Prefectura de Hiroshima
+  et = Hiroshima prefektuur
   sv = Hiroshima prefektur
   th = จังหวัดฮิโระชิมะ
   tr = Hiroshima Vilayeti
@@ -20066,6 +20447,7 @@
   pt = Okayama
   ro = Prefectura Okayama
   es = Prefectura de Okayama
+  et = Okayama prefektuur
   sv = Okayama prefektur
   th = จังหวัดโอะกะยะมะ
   tr = Okayama Vilayeti
@@ -20100,6 +20482,7 @@
   pt = Shimane
   ro = Prefectura Shimane
   es = Prefectura de Shimane
+  et = Shimane prefektuur
   sv = Shimane prefektur
   th = จังหวัดชิมะเนะ
   tr = Shimane Vilayeti
@@ -20134,6 +20517,7 @@
   pt = Tottori
   ro = Prefectura Tottori
   es = Prefectura de Tottori
+  et = Tottori prefektuur
   sv = Tottori prefektur
   th = จังหวัดทตโตะริ
   tr = Tottori Vilayeti
@@ -20168,6 +20552,7 @@
   pt = Yamaguchi
   ro = Prefectura Yamaguchi
   es = Prefectura de Yamaguchi
+  et = Yamaguchi prefektuur
   sv = Yamaguchi prefektur
   th = จังหวัดยะมะงุชิ
   tr = Yamaguchi Vilayeti
@@ -20202,6 +20587,7 @@
   pt = Hokkaido
   ro = Insula Hokkaidō
   es = Hokkaidō
+  et = Hokkaido
   sv = Hokkaido
   th = จังหวัดฮกไกโด
   tr = Hokkaidō
@@ -20236,6 +20622,7 @@
   pt = Hokkaido — Leste
   ro = Insula Hokkaidō — Est
   es = Hokkaidō — Este
+  et = Hokkaido - Ida
   sv = Hokkaido — Öst
   th = จังหวัดฮกไกโด — ตะวันออก
   tr = Hokkaidō — Doğu
@@ -20269,6 +20656,7 @@
   pt = Hokkaido — Norte
   ro = Insula Hokkaidō — Nord
   es = Hokkaidō — Norte
+  et = Hokkaido - Põhi
   sv = Hokkaido — Nord
   th = จังหวัดฮกไกโด — เหนือ
   tr = Hokkaidō — Kuzey
@@ -20302,6 +20690,7 @@
   pt = Hokkaido — Oeste
   ro = Insula Hokkaidō — Vest
   es = Hokkaidō — Oeste
+  et = Hokkaido - Lääs
   sv = Hokkaido — Väst
   th = จังหวัดฮกไกโด — ตะวันตก
   tr = Hokkaidō — Batı
@@ -20335,6 +20724,7 @@
   pt = Região de Kanto
   ro = Regiunea Kantō
   es = Región de Kantō
+  et = Kanto piirkond
   sv = Kanto
   th = คันโต
   tr = Kantō
@@ -20369,6 +20759,7 @@
   pt = Chiba
   ro = Prefectura Chiba
   es = Chiba
+  et = Chiba prefektuur
   sv = Chiba prefektur
   th = จังหวัดชิบะ
   tr = Chiba ili
@@ -20403,6 +20794,7 @@
   pt = Gunma
   ro = Prefectura Gunma
   es = Prefectura de Gunma
+  et = Gunma prefektuur
   sv = Gunma prefektur
   th = จังหวัดกุมมะ
   tr = Gunma Vilayeti
@@ -20436,6 +20828,7 @@
   pt = Ibaraki
   ro = Prefectura Ibaraki
   es = Prefectura de Ibaraki
+  et = Ibaraki prefektuur
   sv = Ibaraki prefektur
   th = จังหวัดอิบะระกิ
   tr = Ibaraki
@@ -20469,6 +20862,7 @@
   pt = Kanagawa
   ro = Prefectura Kanagawa
   es = Prefectura de Kanagawa
+  et = Kanagawa prefektuur
   sv = Kanagawa prefektur
   th = จังหวัดคะนะงะวะ
   tr = Kanagawa ili
@@ -20503,6 +20897,7 @@
   pt = Saitama
   ro = Prefectura Saitama
   es = Prefectura de Saitama
+  et = Saitama prefektuur
   sv = Saitama prefektur
   th = จังหวัดไซตะมะ
   tr = Saitama ili
@@ -20537,6 +20932,7 @@
   pt = Tochigi
   ro = Prefectura Tochigi
   es = Prefectura de Tochigi
+  et = Tochigi prefektuur
   sv = Tochigi prefektur
   th = จังหวัดโทะชิงิ
   tr = Tochigi Vilayeti
@@ -20571,6 +20967,7 @@
   pt = Tóquio
   ro = Tokio
   es = Tokio
+  et = Tokyo prefektuur
   sv = Tokyo prefektur
   th = โตเกียว
   tr = Tokyo
@@ -20605,6 +21002,7 @@
   pt = Região de Kansai
   ro = Regiunea Kansai
   es = Región de Kinki
+  et = Kansai piirkond
   sv = Kansai
   th = คันไซ
   tr = Kansai
@@ -20638,6 +21036,7 @@
   pt = Mie
   ro = Prefectura Mie
   es = Prefectura de Mie
+  et = Mie prefektuur
   sv = Mie prefektur
   th = จังหวัดมิเอะ
   tr = Mie ili
@@ -20671,6 +21070,7 @@
   pt = Nara
   ro = Prefectura Nara
   es = Prefectura de Nara
+  et = Nara prefektuur
   sv = Nara prefektur
   th = จังหวัดนะระ
   tr = Nara Vilayeti
@@ -20705,6 +21105,7 @@
   pt = Osaka
   ro = Prefectura Osaka
   es = Prefectura de Osaka
+  et = Osaka prefektuur
   sv = Osaka prefektur
   th = จังหวัดโอซะกะ
   tr = Osaka ili
@@ -20739,6 +21140,7 @@
   pt = Wakayama
   ro = Prefectura Wakayama
   es = Prefectura de Wakayama
+  et = Wakayama prefektuur
   sv = Wakayama prefektur
   th = จังหวัดวะกะยะมะ
   tr = Wakayama Vilayeti
@@ -20773,6 +21175,7 @@
   pt = Kyushu
   ro = Kyūshū
   es = Kyūshū
+  et = Kyushu
   sv = Kyushu
   th = เกาะคีวชู
   tr = Kyūshū
@@ -20807,6 +21210,7 @@
   pt = Fukuoka
   ro = Prefectura Fukuoka
   es = Prefectura de Fukuoka
+  et = Fukuoka prefektuur
   sv = Fukuoka prefektur
   th = จังหวัดฟุกุโอะกะ
   tr = Fukuoka Vilayeti
@@ -20841,6 +21245,7 @@
   pt = Kagoshima
   ro = Prefectura Kagoshima
   es = Kagoshima
+  et = Kagoshima prefektuur
   sv = Kagoshima prefektur
   th = จังหวัดคะโงะชิมะ
   tr = Kagoşima ili
@@ -20875,6 +21280,7 @@
   pt = Kumamoto
   ro = Prefectura Kumamoto
   es = Prefectura de Kumamoto
+  et = Kumamoto prefektuur
   sv = Kumamoto prefektur
   th = จังหวัดคุมะโมะโตะ
   tr = Kumamoto Vilayeti
@@ -20909,6 +21315,7 @@
   pt = Miyazaki
   ro = Prefectura Miyazaki
   es = Prefectura de Miyazaki
+  et = Miyazaki prefektuur
   sv = Miyazaki prefektur
   th = จังหวัดมิยะซะกิ
   tr = Miyazaki Vilayeti
@@ -20943,6 +21350,7 @@
   pt = Nagasaki
   ro = Prefectura Nagasaki
   es = Prefectura de Nagasaki
+  et = Nagasaki prefektuur
   sv = Nagasaki prefektur
   th = จังหวัดนะงะซะกิ
   tr = Nagasaki Vilayeti
@@ -20977,6 +21385,7 @@
   pt = Oita
   ro = Prefectura Ōita
   es = Prefectura de Ōita
+  et = Oita prefektuur
   sv = Oita prefektur
   th = จังหวัดโออิตะ
   tr = Ōita Vilayeti
@@ -21010,6 +21419,7 @@
   pt = Okinawa
   ro = Prefectura Okinawa
   es = Prefectura de Okinawa
+  et = Okinawa prefektuur
   sv = Okinawa prefektur
   th = จังหวัดโอะกินะวะ
   tr = Okinawa
@@ -21044,6 +21454,7 @@
   pt = Saga
   ro = Prefectura Saga
   es = Prefectura de Saga
+  et = Saga prefektuur
   sv = Saga prefektur
   th = จังหวัดซะงะ
   tr = Saga Vilayeti
@@ -21077,6 +21488,7 @@
   pt = Shikoku
   ro = Shikoku
   es = Shikoku
+  et = Shikoku
   sv = Shikoku
   th = เกาะชิโกะกุ
   tr = Shikoku
@@ -21110,6 +21522,7 @@
   pt = Ehime
   ro = Prefectura Ehime
   es = Prefectura de Ehime
+  et = Ehime prefektuur
   sv = Ehime prefektur
   th = จังหวัดเอะฮิเมะ
   tr = Ehime Vilayeti
@@ -21143,6 +21556,7 @@
   pt = Kagawa
   ro = Prefectura Kagawa
   es = Prefectura de Kagawa
+  et = Kagawa prefektuur
   sv = Kagawa prefektur
   th = จังหวัดคะงะวะ
   tr = Kagawa Vilayeti
@@ -21176,6 +21590,7 @@
   pt = Kochi
   ro = Prefectura Kōchi
   es = Prefectura de Kōchi
+  et = Kochi prefektuur
   sv = Kochi prefektur
   th = จังหวัดโคชิ
   tr = Kōchi Vilayeti
