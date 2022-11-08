@@ -14006,6 +14006,56 @@ cont {
   }
 }
 cont {
+  name: "healthcare-physiotherapist"
+  element {
+    scale: 17
+    symbol {
+      name: "physiotherapist-m"
+      priority: 16669
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15669
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "physiotherapist-m"
+      priority: 16669
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15669
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "physiotherapist-m"
+      priority: 16669
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15669
+    }
+  }
+}
+cont {
   name: "highway-bridleway"
   element {
     scale: 14
