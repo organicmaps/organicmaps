@@ -285,9 +285,6 @@ public class SearchFragment extends BaseMwmFragment
     updateFrames();
     updateResultsPlaceholder();
 
-    if (mInitialQuery != null)
-      setQuery(mInitialQuery, false);
-
     mToolbarController.activate();
 
     SearchEngine.INSTANCE.addListener(this);
@@ -312,6 +309,10 @@ public class SearchFragment extends BaseMwmFragment
   {
     super.onResume();
     LocationHelper.INSTANCE.addListener(mLocationListener);
+    if (mInitialQuery != null) {
+      setQuery(mInitialQuery, false);
+      mInitialQuery = null;
+    }
   }
 
   @Override
