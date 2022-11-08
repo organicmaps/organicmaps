@@ -836,7 +836,7 @@ es:3Restaurante|3café
 eu:3Jatetxea|3Kafetegia
 sv:3Restaurang|3café
 th:3ร้านอาหาร
-tr:2Restoran|3kafeterya|2lokanta|2kafe
+tr:3Restoran|3kafeterya|3lokanta|3kafe
 uk:3Ресторан|3кафе
 vi:Quán ăn|cà phê
 zh-Hans:1餐厅|咖啡馆|食物
@@ -904,7 +904,7 @@ es:3Panadería
 eu:3Okindegia
 sv:3Bageri
 th:3เบเกอรี่
-tr:2Fırın
+tr:3Fırın
 uk:3Пекарня
 vi:Hiệu bánh
 zh-Hans:1面包店|商店
@@ -1706,7 +1706,7 @@ es:3Supermercado
 eu:3Supermerkatua
 sv:3Stormarknad|dagligvaruhandel
 th:3ซูเปอร์มาร์เก็ต
-tr:2Süpermarket|3market
+tr:3Süpermarket|3market
 uk:3Супермаркет|3універсам
 vi:Siêu thị
 zh-Hans:超市|商店
@@ -8472,7 +8472,7 @@ es:Zona de caravanas|zona de camping
 eu:Karabana gunea|kanpalekua
 sv:4Husvagnsplats
 th:4ขบวนนักเดินทาง
-tr:4Karavan alanı|karavan parkı
+tr:4Karavan alanı|3karavan parkı
 uk:4Автокемпінг|4кемпінг для автобудинків|4стоянка для автобудинків
 vi:Khu lễ hội hóa trang
 zh-Hans:房车宿营地
