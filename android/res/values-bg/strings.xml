@@ -682,6 +682,7 @@
 	<string name="type.craft.tailor">Шивач</string>
 	<string name="type.cuisine.deli">Деликатеси</string>
 	<string name="type.healthcare.laboratory">Медицинска лаборатория</string>
+	<string name="type.healthcare.physiotherapist">Физиотерапевт</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->

@@ -1000,6 +1000,7 @@
 	<string name="type.emergency.phone">Notruftelefon</string>
 	<string name="type.entrance">Eingang</string>
 	<string name="type.healthcare.laboratory">Medizinisches Labor</string>
+	<string name="type.healthcare.physiotherapist">Physiotherapeut</string>
 
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway">Straße</string>

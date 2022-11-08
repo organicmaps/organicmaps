@@ -903,6 +903,7 @@
 	<string name="type.emergency.phone">Nödtelefon</string>
 	<string name="type.entrance">Entré</string>
 	<string name="type.healthcare.laboratory">Medicinskt laboratorium</string>
+	<string name="type.healthcare.physiotherapist">Fysioterapeut</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->

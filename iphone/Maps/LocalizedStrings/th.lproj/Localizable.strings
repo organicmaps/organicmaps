@@ -1840,6 +1840,8 @@
 
 "type.healthcare.laboratory" = "ห้องปฏิบัติการทางการแพทย์";
 
+"type.healthcare.physiotherapist" = "นักกายภาพบำบัด";
+
 
 /********** Types: Roads **********/
 

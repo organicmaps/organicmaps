@@ -1840,6 +1840,8 @@
 
 "type.healthcare.laboratory" = "医療研究所";
 
+"type.healthcare.physiotherapist" = "理学療法士";
+
 
 /********** Types: Roads **********/
 

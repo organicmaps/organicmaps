@@ -909,6 +909,7 @@
 	<string name="type.emergency.phone">Τηλέφωνο έκτακτης ανάγκης</string>
 	<string name="type.entrance">Είσοδος</string>
 	<string name="type.healthcare.laboratory">Ιατρικό Εργαστήριο</string>
+	<string name="type.healthcare.physiotherapist">Φυσικοθεραπευτής</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->

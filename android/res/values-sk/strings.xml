@@ -907,6 +907,7 @@
 	<string name="type.emergency.phone">Tiesňového volania</string>
 	<string name="type.entrance">Vstup</string>
 	<string name="type.healthcare.laboratory">Lekárske laboratórium</string>
+	<string name="type.healthcare.physiotherapist">Fyzioterapeut</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->

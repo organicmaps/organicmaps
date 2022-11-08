@@ -1051,6 +1051,7 @@
 	<string name="type.emergency.phone">Emergency Phone</string>
 	<string name="type.entrance">Entrance</string>
 	<string name="type.healthcare.laboratory">Medical Laboratory</string>
+	<string name="type.healthcare.physiotherapist">Physiotherapist</string>
 
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway">Highway</string>

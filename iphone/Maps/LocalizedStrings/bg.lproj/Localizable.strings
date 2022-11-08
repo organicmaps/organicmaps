@@ -1840,6 +1840,8 @@
 
 "type.healthcare.laboratory" = "Медицинска лаборатория";
 
+"type.healthcare.physiotherapist" = "Физиотерапевт";
+
 
 /********** Types: Roads **********/
 

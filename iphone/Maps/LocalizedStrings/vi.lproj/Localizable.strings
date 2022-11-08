@@ -1840,6 +1840,8 @@
 
 "type.healthcare.laboratory" = "Phòng thí nghiệm y tế";
 
+"type.healthcare.physiotherapist" = "Nhà vật lý trị liệu";
+
 
 /********** Types: Roads **********/
 

@@ -910,6 +910,7 @@
 	<string name="type.emergency.phone">Tísňového volání</string>
 	<string name="type.entrance">Vchod</string>
 	<string name="type.healthcare.laboratory">Lékařská laboratoř</string>
+	<string name="type.healthcare.physiotherapist">Fyzioterapeut</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->

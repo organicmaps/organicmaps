@@ -1840,6 +1840,8 @@
 
 "type.healthcare.laboratory" = "مختبر طبي";
 
+"type.healthcare.physiotherapist" = "اخصائي علاج طبيعي";
+
 
 /********** Types: Roads **********/
 

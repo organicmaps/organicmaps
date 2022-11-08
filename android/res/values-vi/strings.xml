@@ -909,6 +909,7 @@
 	<string name="type.emergency.phone">Điện thoại khẩn cấp</string>
 	<string name="type.entrance">Lối vào</string>
 	<string name="type.healthcare.laboratory">Phòng thí nghiệm y tế</string>
+	<string name="type.healthcare.physiotherapist">Nhà vật lý trị liệu</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->

@@ -912,6 +912,7 @@
 	<string name="type.emergency.phone">โทรศัพท์ฉุกเฉิน</string>
 	<string name="type.entrance">ทางเข้า</string>
 	<string name="type.healthcare.laboratory">ห้องปฏิบัติการทางการแพทย์</string>
+	<string name="type.healthcare.physiotherapist">นักกายภาพบำบัด</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->
