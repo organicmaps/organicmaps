@@ -309,6 +309,8 @@ node[amenity=doctors],
 area[amenity=doctors],
 node[healthcare=laboratory],
 area[healthcare=laboratory],
+node[healthcare=physiotherapist],
+area[healthcare=physiotherapist],
 node[leisure=swimming_pool],
 area[leisure=swimming_pool],
 area[aeroway=heliport],
@@ -1455,6 +1457,8 @@ node|z17-[amenity=doctors],
 area|z17-[amenity=doctors],
 node|z17-[healthcare=laboratory],
 area|z17-[healthcare=laboratory],
+node|z17-[healthcare=physiotherapist],
+area|z17-[healthcare=physiotherapist],
 node|z17-[amenity=dentist],
 area|z17-[amenity=dentist],
 node|z17-[amenity=casino],
@@ -1606,6 +1610,12 @@ area|z17[amenity=dentist]
 node|z18-[amenity=dentist],
 area|z18-[amenity=dentist]
 {icon-image: dentist-m.svg;font-size: 11;text-optional: true;}
+node|z17[healthcare=physiotherapist],
+area|z17[healthcare=physiotherapist]
+{icon-image: physiotherapist-m.svg;}
+node|z18-[healthcare=physiotherapist],
+area|z18-[healthcare=physiotherapist]
+{icon-image: physiotherapist-m.svg;font-size: 11;text-optional: true;}
 
 node|z16-[amenity=veterinary],
 area|z16-[amenity=veterinary]
