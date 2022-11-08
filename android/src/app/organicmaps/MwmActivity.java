@@ -288,10 +288,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   public void showSearch(String query)
   {
+    closeSearchToolbar(false, true);
     if (mIsTabletLayout)
     {
-      closeSearchToolbar(false, false);
-
       final Bundle args = new Bundle();
       args.putString(SearchActivity.EXTRA_QUERY, query);
       replaceFragment(SearchFragment.class, args, null);
