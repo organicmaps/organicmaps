@@ -410,7 +410,7 @@ railway|monorail;409;
 deprecated|deprecated;410;x
 deprecated|deprecated;411;x
 leisure|park|private;[leisure=park][access=private];;name;int_name;412;
-deprecated|deprecated;413;x
+healthcare|physiotherapist;413;
 noexit;[noexit?];;name;int_name;414;
 healthcare|laboratory;415;
 highway|motorway|tunnel;[highway=motorway][tunnel?];;name;int_name;416;

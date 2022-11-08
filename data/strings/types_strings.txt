@@ -8859,6 +8859,45 @@
     zh-Hans = 医学实验室
     zh-Hant = 醫學實驗室
 
+  [type.healthcare.physiotherapist]
+    en = Physiotherapist
+    ar = اخصائي علاج طبيعي
+    be = Фізіятэрапеўт
+    bg = Физиотерапевт
+    cs = Fyzioterapeut
+    da = Fysioterapeut
+    de = Physiotherapeut
+    el = Φυσικοθεραπευτής
+    es = Fisioterapeuta
+    et = Füsioterapeut
+    eu = Fisioterapeuta
+    fa = فیزیوتراپیست
+    fi = Fysioterapeutti
+    fr = Physiothérapeute
+    he = פיזיותרפיסט
+    hu = Fizioterapeuta
+    id = Fisioterapis
+    it = Fisioterapista
+    ja = 理学療法士
+    ko = 물리치료사
+    mr = फिजिओथेरपिस्ट
+    nb = Fysioterapeut
+    nl = Fysiotherapeut
+    pl = Fizjoterapeuta
+    pt = Fisioterapeuta
+    pt-BR = Fisioterapeuta
+    ro = Fizioterapeut
+    ru = Физиотерапевт
+    sk = Fyzioterapeut
+    sv = Fysioterapeut
+    sw = Mtaalamu wa Physiotherapist
+    th = นักกายภาพบำบัด
+    tr = Fizyoterapist
+    uk = Фізіотерапевт
+    vi = Nhà vật lý trị liệu
+    zh-Hans = 物理治疗师
+    zh-Hant = 物理治療師
+
 [[Types: Roads]]
 
   [type.highway]
