@@ -1,0 +1,38 @@
+- Részletes offline térképek más térképeken meg nem található helyekkel
+- Kerékpárutak, turistautak és gyalogos ösvények
+- Szintvonalak, magassági profilok, csúcsok és lejtők
+- Részletes gyalogos, kerékpáros és autós navigáció hangutasítással
+- Gyors offline keresés
+- Minden szükséges hely könyvjelzőbe helyezése, KML/KMZ importálása és megosztása (GPX tervben)
+- Éjszakai üzemmód szemünk védelméért
+
+Az Organic Maps tiszta és organikus, szeretettel készült:
+
+- Tiszteletben tartja a magánéletét
+- Kíméli az akkumulátort
+- Nem generál váratlan mobiladat-forgalmat
+
+Az Organic Maps mentes a nyomkövetőktől és egyéb vackoktól:
+
+- Reklám nélkül
+- Nyomkövetés nélkül
+- Adatgyűjtés nélkül
+- Hazatelefonálás nélkül
+- Bosszantó regisztráció nélkül
+- Kötelező oktatóprogram nélkül
+- Zajos e-mail spam nélkül
+- Push értesítések nélkül
+- Crapware nélkül
+- Növényvédő szer nélkül
+
+Az Organic Mapsnél hiszünk abban, hogy a magánélet alapvető emberi jog:
+
+- Az Organic Maps egy független közösség által irányított projekt.
+- A kód nyílt forráskódú
+- A térképek adatai az OpenStreetMap-ről származnak, amely szintén közösségi projekt.
+- Védjük magánéletét a Big Tech kíváncsi szemeitől.
+- Maradjon biztonságban, bárhol is van
+
+Utasítsa el a megfigyelést, fogadja el a szabadságát, és támogassa a közösséget.
+
+Próbálja ki az Organic Maps-et!
