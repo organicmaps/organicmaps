@@ -24729,6 +24729,7 @@
   pt = Sul da Holanda — Brielle
   ro = Olanda de Sud — Brielle
   es = Holanda Meridional — Brielle
+  et = Lõuna-Holland - Brielle
   sv = Zuid-Holland — Brielle
   th = ฮอลแลนด์ใต้ — บริเอล
   tr = Güney Hollanda — Brielle
@@ -24762,6 +24763,7 @@
   pt = Holanda do Sul — Haia
   ro = Olanda de Sud — Haga
   es = Holanda Meridional — La Haya
+  et = Lõuna-Holland - Haag
   sv = Zuid-Holland — Haag
   th = จังหวัดเซาท์ฮอลแลนด์ — เดอะเฮก
   tr = Güney Hollanda — Lahey
@@ -24795,6 +24797,7 @@
   pt = Holanda do Sul — Leida
   ro = Olanda de Sud — Leiden
   es = Holanda Meridional — Leiden
+  et = Lõuna-Holland - Leiden
   sv = Zuid-Holland — Leiden
   th = จังหวัดเซาท์ฮอลแลนด์ — ไลเดิน
   tr = Güney Hollanda — Leiden
@@ -24828,6 +24831,7 @@
   pt = Holanda do Sul — Roterdão
   ro = Olanda de Sud — Rotterdam
   es = Holanda Meridional — Róterdam
+  et = Lõuna-Holland - Rotterdam
   sv = Zuid-Holland — Rotterdam
   th = จังหวัดเซาท์ฮอลแลนด์ — รอตเทอร์ดาม
   tr = Güney Hollanda — Rotterdam
@@ -24861,6 +24865,7 @@
   pt = Utrecht — Amersfoort
   ro = Utrecht — Amersfoort
   es = Provincia de Utrecht — Amersfoort
+  et = Utrecht — Amersfoort
   sv = Utrecht — Amersfoort
   th = จังหวัดยูเทรกต์ — อาเมอร์สโฟร์ต
   tr = Utrecht — Amersfoort
@@ -24894,6 +24899,7 @@
   pt = Utrecht — Utrecht
   ro = Utrecht — Utrecht
   es = Provincia de Utrecht — Utrecht
+  et = Utrecht — Utrecht
   sv = Utrecht — Utrecht
   th = จังหวัดยูเทรกต์ — ยูเทรกต์
   tr = Utrecht — Utrecht
@@ -24927,6 +24933,7 @@
   pt = Zelândia
   ro = Zeelanda
   es = Zelanda
+  et = Zeeland
   sv = Zeeland
   th = จังหวัดเซลันด์
   tr = Zelanda
@@ -24960,6 +24967,7 @@
   pt = Nova Jérsei
   ro = New Jersey
   es = Nueva Jersey
+  et = New Jersey
   eu = New Jersey
   sv = New Jersey
   th = รัฐนิวเจอร์ซีย์
@@ -24994,6 +25002,7 @@
   pt = Nova Iorque
   ro = New York
   es = Nueva York
+  et = New York
   eu = New York
   sv = New York
   th = รัฐนิวยอร์ก
@@ -25028,6 +25037,7 @@
   pt = Nova Zelândia
   ro = Noua Zeelandă
   es = Nueva Zelanda
+  et = Uus-Meremaa
   eu = Zelanda Berria
   sv = Nya Zeeland
   th = ประเทศนิวซีแลนด์
@@ -25063,6 +25073,7 @@
   pt = Norte — Auckland
   ro = Nord — Auckland
   es = Norte — Auckland
+  et = Põhi - Auckland
   sv = Nord — Auckland
   th = เหนือ — ออกแลนด์
   tr = Kuzey — Auckland
@@ -25096,6 +25107,7 @@
   pt = Norte — Wellington
   ro = Nord — Wellington
   es = Norte — Wellington
+  et = Põhi - Wellington
   sv = Nord — Wellington
   th = เหนือ — เวลลิงตัน
   tr = Kuzey — Wellington
@@ -25129,6 +25141,7 @@
   pt = Sul — Canterbury
   ro = Regiunea Canterbury - Sud
   es = Sur — Canterbury
+  et = Lõuna - Canterbury piirkond
   sv = Syd — Canterbury, Nya Zeeland
   th = ใต้ — ภูมิภาคแคนเทอร์เบอรรี
   tr = Güney — Canterbury Bölgesi
@@ -25162,6 +25175,7 @@
   pt = Sul — Região Sul
   ro = Regiunea Southland - Sud
   es = Sur — Southland
+  et = Lõuna - Southland
   sv = Syd — Southland
   th = ใต้ — ภูมิภาคเซาต์แลนด์
   tr = Güney — Southland Bölgesi
@@ -25195,6 +25209,7 @@
   pt = Nicarágua
   ro = Nicaragua
   es = Nicaragua
+  et = Nicaragua
   eu = Nikaragua
   sv = Nicaragua
   th = ประเทศนิการากัว
@@ -25229,6 +25244,7 @@
   pt = Níger
   ro = Niger
   es = Níger
+  et = Niger
   eu = Niger
   sv = Niger
   th = ประเทศไนเจอร์
@@ -25263,6 +25279,7 @@
   pt = Nigéria
   ro = Nigeria
   es = Nigeria
+  et = Nigeeria
   eu = Nigeria
   sv = Nigeria
   th = ประเทศไนจีเรีย
@@ -25298,6 +25315,7 @@
   pt = Niue
   ro = Niue
   es = Niue
+  et = Niue
   eu = Niue
   sv = Niue
   th = นีอูเอ
@@ -25332,6 +25350,7 @@
   pt = Carolina do Norte
   ro = Carolina de Nord
   es = Carolina del Norte
+  et = Põhja-Carolina
   eu = Ipar Carolina
   sv = North Carolina
   th = รัฐนอร์ทแคโรไลนา
@@ -25366,6 +25385,7 @@
   pt = Dakota do Norte
   ro = Dakota de Nord
   es = Dakota del Norte
+  et = Põhja-Dakota
   eu = Ipar Dakota
   sv = North Dakota
   th = รัฐนอร์ทดาโคตา
@@ -25400,6 +25420,7 @@
   pt = Coreia do Norte
   ro = Coreea de Nord
   es = Corea del Norte
+  et = Põhja-Korea
   eu = Iparraldeko Korea
   sv = Nordkorea
   th = ประเทศเกาหลีเหนือ
@@ -25435,6 +25456,7 @@
   pt = Noruega
   ro = Norvegia
   es = Noruega
+  et = Norra
   eu = Norvegia
   sv = Norge
   th = ประเทศนอร์เวย์
@@ -25470,6 +25492,7 @@
   pt = Ilha Bouvet
   ro = Insula Bouvet
   es = Isla Bouvet
+  et = Bouvet' saar
   sv = Bouvetön
   th = เกาะบูเว
   tr = Bouvet Adası
@@ -25503,6 +25526,7 @@
   pt = Oslo
   ro = Oslo
   es = Oslo
+  et = Oslo
   sv = Oslo
   th = ออสโล
   tr = Oslo
@@ -25536,6 +25560,7 @@
   pt = Hedmark
   ro = Hedmark
   es = Hedmark
+  et = Hedmark
   sv = Hedmark fylke
   th = เฮดมาร์ก
   tr = Hedmark
@@ -25569,6 +25594,7 @@
   pt = Jan Mayen
   ro = Insula Jan Mayen
   es = Jan Mayen
+  et = Jan Mayen
   sv = Jan Mayen
   th = ยานไมเอน
   tr = Jan Mayen
@@ -25602,6 +25628,7 @@
   pt = Nord-Norge
   ro = Nord-Norge
   es = Nord-Norge
+  et = Põhja-Norra
   sv = Nordnorge
   th = นอร์เวย์เหนือ
   tr = Kuzey Norveç
@@ -25635,6 +25662,7 @@
   pt = Oppland
   ro = Oppland
   es = Oppland
+  et = Oppland
   sv = Oppland fylke
   th = ออปแลนด์
   tr = Oppland
@@ -25668,6 +25696,7 @@
   pt = Sørlandet
   ro = Sørlandet
   es = Sørlandet
+  et = Lõuna-Norra
   sv = Sørlandet
   th = นอร์เวย์ใต้
   tr = Güney Norveç
@@ -25701,6 +25730,7 @@
   pt = Svalbard
   ro = Svalbard
   es = Svalbard
+  et = Svalbard
   sv = Svalbard
   th = สฟาลบาร์
   tr = Svalbard
@@ -25734,6 +25764,7 @@
   pt = Trøndelag
   ro = Trøndelag
   es = Trøndelag
+  et = Trøndelag
   sv = Trøndelag
   th = ทรอนเดอลาก
   tr = Trøndelag
@@ -25767,6 +25798,7 @@
   pt = Vestlandet
   ro = Vestlandet
   es = Vestlandet
+  et = Lääne-Norra
   sv = Vestlandet
   th = นอร์เวย์ตะวันตก
   tr = Batı Norveç
@@ -25800,6 +25832,7 @@
   pt = Ohio
   ro = Ohio
   es = Ohio
+  et = Ohio
   eu = Ohio
   sv = Ohio
   th = รัฐโอไฮโอ
@@ -25834,6 +25867,7 @@
   pt = Oklahoma
   ro = Oklahoma
   es = Oklahoma
+  et = Oklahoma
   eu = Oklahoma
   sv = Oklahoma
   th = รัฐโอคลาโฮมา
