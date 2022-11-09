@@ -32,11 +32,18 @@ public:
     if (m_numRead == 0)
       return false;
 
+    auto errCount = 0;
     if (m_parser.ParseBuffer(static_cast<uint32_t>(m_numRead), false) == XML_STATUS_ERROR)
-      MYTHROW(XmlParseError, (m_parser.GetErrorMessage()));
+    {
+      auto const errCharIndex = m_parser.GetCurrentByteIndex();
+      memmove(buffer + errCharIndex, buffer + errCharIndex + 1, m_numRead - errCharIndex - 1);
+      if (m_parser.ParseBuffer(static_cast<uint32_t>(--m_numRead), false) == XML_STATUS_ERROR)
+        MYTHROW(XmlParseError, (m_parser.GetErrorMessage()));
+      ++errCount;
+    }
 
     m_res += m_numRead;
-    return m_numRead == kBufferSize;
+    return m_numRead == kBufferSize - errCount;
   }
 
 private:

@@ -122,13 +122,26 @@ public:
     m_charData.append(data, length);
   }
 
-  std::string GetErrorMessage()
+  bool IsRecoverableError() const
   {
-    if (XML_GetErrorCode(m_parser.get()) == XML_ERROR_NONE)
+    auto const err = XML_GetErrorCode(m_parser.get());
+    return err == XML_ERROR_INVALID_TOKEN || err == XML_ERROR_PARTIAL_CHAR;
+  }
+  
+  // If called after the error, returns the index of the failed byte.
+  XML_Index GetCurrentByteIndex() const
+  {
+    return XML_GetCurrentByteIndex(m_parser.get());
+  }
+  
+  std::string GetErrorMessage() const
+  {
+    auto const err = XML_GetErrorCode(m_parser.get());
+    if (err == XML_ERROR_NONE)
       return {};
 
     std::stringstream s;
-    s << "XML parse error at line " << XML_GetCurrentLineNumber(m_parser.get())
+    s << "XML parse error [" << XML_ErrorString(err) << "] at line " << XML_GetCurrentLineNumber(m_parser.get())
       << " and byte " << XML_GetCurrentByteIndex(m_parser.get());
     return s.str();
   }
