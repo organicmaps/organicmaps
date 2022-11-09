@@ -2,7 +2,8 @@
 • Bisiklet yolları, yürüyüş parkurları ve yürüyüş yolları
 • Eş yükselti çizgileri, yükseklik profilleri, tepeler ve eğimler
 • Sesli yönergelerle adım adım yürüyüş, bisiklet ve araç navigasyonu
-• Harita ve yer imlerinde hızlı çevrimdışı arama
+• Hızlı çevrimdışı arama
+• İhtiyacınız olanları yer imlerine ekleyin, KML/KMZ'yi içe aktarın ve paylaşın (GPX desteği de planlanıyor)
 • Gözlerinizi korumak için karanlık mod
 
 Organic Maps, sevgiyle yapılmış saf ve organiktir:
@@ -11,7 +12,7 @@ Organic Maps, sevgiyle yapılmış saf ve organiktir:
 • Pilinizi korur
 • Beklenmeyen mobil veri ücretleri yok
 
-İzleyicilerden ve diğer kötü şeylerden arınmış:
+Organic Maps, izleyici ve diğer kötü şeylerden arınmıştır:
 
 • Reklam yok
 • İzleme yok
