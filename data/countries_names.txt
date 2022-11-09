@@ -21624,6 +21624,7 @@
   pt = Quioto
   ro = Prefectura Kyoto
   es = Prefectura de Kioto
+  et = Kyoto prefektuur
   sv = Kyoto prefektur
   th = จังหวัดเคียวโตะ
   tr = Kyōto Vilayeti
@@ -21658,6 +21659,7 @@
   pt = Tokushima
   ro = Prefectura Tokushima
   es = Prefectura de Tokushima
+  et = Tokushima prefektuur
   sv = Tokushima prefektur
   th = จังหวัดโทะกุชิมะ
   tr = Tokushima Vilayeti
@@ -21691,6 +21693,7 @@
   pt = Região de Tohoku
   ro = Regiunea Tōhoku
   es = Región de Tōhoku
+  et = Tohoku piirkond
   sv = Tohoku
   th = โทโฮะกุ
   tr = Tōhoku
@@ -21725,6 +21728,7 @@
   pt = Akita
   ro = Prefectura Akita
   es = Akita
+  et = Akita prefektuur
   sv = Akita prefektur
   th = จังหวัดอะกิตะ
   tr = Akita
@@ -21759,6 +21763,7 @@
   pt = Aomori
   ro = Prefectura Aomori
   es = Prefectura de Aomori
+  et = Aomori prefektuur
   sv = Aomori prefektur
   th = จังหวัดอะโอะโมะริ
   tr = Aomori Vilayeti
@@ -21792,6 +21797,7 @@
   pt = Fukushima
   ro = Prefectura Fukushima
   es = Prefectura de Fukushima
+  et = Fukushima prefektuur
   sv = Fukushima-prefekturen
   th = จังหวัดฟุกุชิมะ
   tr = Fukushima Vilayeti
@@ -21826,6 +21832,7 @@
   pt = Iwate
   ro = Prefectura Iwate
   es = Prefectura de Iwate
+  et = Iwate prefektuur
   sv = Iwate
   th = จังหวัดอิวะเตะ
   tr = Iwate
@@ -21859,6 +21866,7 @@
   pt = Miyagi
   ro = Prefectura Miyagi
   es = Miyagi
+  et = Miyagi prefektuur
   sv = Miyagi prefektur
   th = จังหวัดมิยะงิ
   tr = Miyagi Vilayeti
@@ -21892,6 +21900,7 @@
   pt = Yamagata
   ro = Prefectura Yamagata
   es = Prefectura de Yamagata
+  et = Yamagata prefektuur
   sv = Yamagata prefektur
   th = จังหวัดยะมะงะตะ
   tr = Yamagata Vilayeti
@@ -21925,6 +21934,7 @@
   pt = Jersey
   ro = Insula Jersey
   es = Jersey
+  et = Jersey
   eu = Jertsea
   sv = Jersey
   th = เจอร์ซีย์
@@ -21959,6 +21969,7 @@
   pt = Jerusalém
   ro = Ierusalim
   es = Jerusalén
+  et = Jeruusalemm
   eu = Jerusalem
   sv = Jerusalem
   th = เยรูซาเลม
@@ -21993,6 +22004,7 @@
   pt = Jordânia
   ro = Iordania
   es = Jordania
+  et = Jordaania
   eu = Jordania
   sv = Jordanien
   th = ประเทศจอร์แดน
@@ -22028,6 +22040,7 @@
   pt = Kansas
   ro = Kansas
   es = Kansas
+  et = Kansas
   eu = Kansas
   sv = Kansas
   th = รัฐแคนซัส
@@ -22062,6 +22075,7 @@
   pt = Cazaquistão
   ro = Kazahstan
   es = Kazajistán
+  et = Kasahstan
   eu = Kazakhstan
   sv = Kazakstan
   th = ประเทศคาซัคสถาน
@@ -22097,6 +22111,7 @@
   pt = Kentucky
   ro = Kentucky
   es = Kentucky
+  et = Kentucky
   eu = Kentucky
   sv = Kentucky
   th = รัฐเคนทักกี
@@ -22131,6 +22146,7 @@
   pt = Quénia
   ro = Kenya
   es = Kenia
+  et = Keenia
   eu = Kenya
   sv = Kenya
   th = ประเทศเคนยา
@@ -22166,6 +22182,7 @@
   pt = Lesoto
   ro = Lesotho
   es = Lesoto
+  et = Lesotho
   eu = Lesotho
   sv = Lesotho
   th = ประเทศเลโซโท
@@ -22200,6 +22217,7 @@
   pt = Kiribati
   ro = Kiribati
   es = Kiribati
+  et = Kiribati
   eu = Kiribati
   sv = Kiribati
   th = ประเทศคิริบาส
@@ -22234,6 +22252,7 @@
   pt = Kuwait
   ro = Kuweit
   es = Kuwait
+  et = Kuveit
   eu = Kuwait
   sv = Kuwait
   th = ประเทศคูเวต
@@ -22269,6 +22288,7 @@
   pt = Quirguistão
   ro = Kirghiztan
   es = Kirguistán
+  et = Kõrgõzstan
   eu = Kirgizistan
   sv = Kirgizistan
   th = ประเทศคีร์กีซสถาน
@@ -22303,6 +22323,7 @@
   pt = Laos
   ro = Laos
   es = Laos
+  et = Laos
   eu = Laos
   sv = Laos
   th = ประเทศลาว
@@ -22337,6 +22358,7 @@
   pt = Letónia
   ro = Letonia
   es = Letonia
+  et = Läti
   eu = Letonian
   sv = Lettland
   th = ประเทศลัตเวีย
@@ -22371,6 +22393,7 @@
   pt = Líbano
   ro = Liban
   es = Líbano
+  et = Liibanon
   eu = Libano
   sv = Libanon
   th = ประเทศเลบานอน
@@ -22406,6 +22429,7 @@
   pt = Libéria
   ro = Liberia
   es = Liberia
+  et = Libeeria
   eu = Liberia
   sv = Liberia
   th = ประเทศไลบีเรีย
@@ -22441,6 +22465,7 @@
   pt = Líbia
   ro = Libia
   es = Libia
+  et = Liibüa
   eu = Libia
   sv = Libyen
   th = ประเทศลิเบีย
@@ -22476,6 +22501,7 @@
   pt = Liechtenstein
   ro = Liechtenstein
   es = Liechtenstein
+  et = Liechtenstein
   eu = Liechtenstein
   sv = Liechtenstein
   th = ประเทศลิกเตนสไตน์
@@ -22511,6 +22537,7 @@
   pt = Lituânia
   ro = Lituania
   es = Lituania
+  et = Leedu
   eu = Lituania
   sv = Litauen
   th = ประเทศลิทัวเนีย
@@ -22547,6 +22574,7 @@
   ro = Louisiana
   es = Luisiana
   eu = Louisiana
+  et = Louisiana
   sv = Louisiana
   th = รัฐลุยเซียนา
   tr = Louisiana
@@ -22580,6 +22608,7 @@
   pt = Luxemburgo
   ro = Luxemburg
   es = Luxemburgo
+  et = Luksemburg
   eu = Luxenburgo
   sv = Luxemburg
   th = ประเทศลักเซมเบิร์ก
@@ -22615,6 +22644,7 @@
   pt = República da Macedónia
   ro = Republica Macedonia
   es = República de Macedonia
+  et = Makedoonia
   eu = Mazedoniako Errepublika
   sv = Makedonien
   th = ประเทศมาซิโดเนีย
@@ -22650,6 +22680,7 @@
   pt = Madagáscar
   ro = Madagascar
   es = Madagascar
+  et = Madagaskar
   eu = Madagaskar
   sv = Madagaskar
   th = ประเทศมาดากัสการ์
@@ -22685,6 +22716,7 @@
   pt = Malawi
   ro = Malawi
   es = Malaui
+  et = Malawi
   eu = Malawi
   sv = Malawi
   th = ประเทศมาลาวี
@@ -22719,6 +22751,7 @@
   pt = Malásia
   ro = Malaezia
   es = Malasia
+  et = Malaisia
   eu = Malaysia
   sv = Malaysia
   th = ประเทศมาเลเซีย
@@ -22754,6 +22787,7 @@
   pt = Maldivas
   ro = Maldive
   es = Maldivas
+  et = Maldiivid
   eu = Maldibak
   sv = Maldiverna
   th = ประเทศมัลดีฟส์
@@ -22789,6 +22823,7 @@
   pt = Mali
   ro = Mali
   es = Malí
+  et = Mali
   eu = Mali
   sv = Mali
   th = ประเทศมาลี
@@ -22824,6 +22859,7 @@
   pt = Malta
   ro = Malta
   es = Malta
+  et = Malta
   eu = Malta
   sv = Malta
   th = ประเทศมอลตา
@@ -22859,6 +22895,7 @@
   pt = Ilhas Marshall
   ro = Insulele Marshall
   es = Islas Marshall
+  et = Marshalli saared
   eu = Marshall Uharteak
   sv = Marshallöarna
   th = สาธารณรัฐหมู่เกาะมาร์แชลล์
@@ -22893,6 +22930,7 @@
   pt = Martinica
   ro = Martinica
   es = Martinica
+  et = Martinique
   eu = Martinika
   sv = Martinique
   th = มาร์ตีนิก
@@ -22927,6 +22965,7 @@
   pt = Maryland
   ro = Maryland
   es = Maryland
+  et = Maryland
   eu = Maryland
   sv = Maryland
   th = รัฐแมริแลนด์
@@ -22961,6 +23000,7 @@
   pt = Massachusetts
   ro = Massachusetts
   es = Massachusetts
+  et = Massachusetts
   eu = Massachusetts
   sv = Massachusetts
   th = รัฐแมสซาชูเซตส์
@@ -22995,6 +23035,7 @@
   pt = Mauritânia
   ro = Mauritania
   es = Mauritania
+  et = Mauritaania
   eu = Mauritania
   sv = Mauretanien
   th = ประเทศมอริเตเนีย
@@ -23029,6 +23070,7 @@
   pt = Maurícia
   ro = Mauritius
   es = Mauricio
+  et = Mauritius
   eu = Mauricio
   sv = Mauritius
   th = ประเทศมอริเชียส
@@ -23064,6 +23106,7 @@
   pt = México
   ro = Mexic
   es = México
+  et = Mehhiko
   eu = Mexiko
   sv = Mexiko
   th = ประเทศเม็กซิโก
@@ -23099,6 +23142,7 @@
   pt = Baja California
   ro = Baja California
   es = Baja California
+  et = Baja California
   sv = Baja California
   th = รัฐบาฮากาลิฟอร์เนีย
   tr = Aşağı Kaliforniya
@@ -23132,6 +23176,7 @@
   pt = Nuevo León
   ro = Nuevo León
   es = Nuevo León
+  et = Nuevo León
   sv = Nuevo León
   th = รัฐนวยโวเลออง
   tr = Nuevo León
@@ -23165,6 +23210,7 @@
   pt = Nayarit
   ro = Nayarit
   es = Nayarit
+  et = Nayarit
   sv = Nayarit
   th = รัฐนายาริต
   tr = Nayarit
@@ -23198,6 +23244,7 @@
   pt = México — Leste
   ro = Mexic — Est
   es = México — Este
+  et = Mehhiko - Ida
   sv = Mexiko — Öst
   th = ประเทศเม็กซิโก — ตะวันออก
   tr = Meksika — Doğu
@@ -23231,6 +23278,7 @@
   pt = Cidade do México
   ro = Ciudad de México
   es = Ciudad de México
+  et = Mexico City
   sv = Mexico City
   th = เม็กซิโกซิตี
   tr = Meksika
@@ -23264,6 +23312,7 @@
   pt = México — Norte
   ro = Mexic — Nord
   es = México — Norte
+  et = Mehhiko - Põhi
   sv = Mexiko — Nord
   th = ประเทศเม็กซิโก — เหนือ
   tr = Meksika — Kuzey
@@ -23297,6 +23346,7 @@
   pt = México — Sul
   ro = Mexic — Sud
   es = México — Sur
+  et = Mehhiko - Lõuna
   sv = Mexiko — Syd
   th = ประเทศเม็กซิโก — ใต้
   tr = Meksika — Güney
@@ -23330,6 +23380,7 @@
   pt = Michigan
   ro = Michigan
   es = Míchigan
+  et = Michigan
   eu = Michigan
   sv = Michigan
   th = รัฐมิชิแกน
@@ -23364,6 +23415,7 @@
   pt = Minnesota
   ro = Minnesota
   es = Minnesota
+  et = Minnesota
   eu = Minnesota
   sv = Minnesota
   th = รัฐมินนิโซตา
@@ -23398,6 +23450,7 @@
   pt = Missouri
   ro = Missouri
   es = Misuri
+  et = Missouri
   eu = Missouri
   sv = Missouri
   th = รัฐมิสซูรี
@@ -23432,6 +23485,7 @@
   pt = Moldávia
   ro = Republica Moldova
   es = Moldavia
+  et = Moldova
   eu = Moldova
   sv = Moldavien
   th = ประเทศมอลโดวา
@@ -23467,6 +23521,7 @@
   pt = Mónaco
   ro = Monaco
   es = Mónaco
+  et = Monaco
   eu = Monako
   sv = Monaco
   th = ประเทศโมนาโก
@@ -23502,6 +23557,7 @@
   pt = Mongólia
   ro = Mongolia
   es = Mongolia
+  et = Mongoolia
   eu = Mongolia
   sv = Mongoliet
   th = ประเทศมองโกเลีย
@@ -23537,6 +23593,7 @@
   pt = Montenegro
   ro = Muntenegru
   es = Montenegro
+  et = Montenegro
   eu = Montenegro
   sv = Montenegro
   th = ประเทศมอนเตเนโกร
@@ -23571,6 +23628,7 @@
   pt = Montserrat
   ro = Montserrat
   es = Montserrat
+  et = Montserrat
   eu = Montserrat
   sv = Montserrat
   th = มอนต์เซอร์รัต
@@ -23605,6 +23663,7 @@
   pt = Marrocos
   ro = Maroc
   es = Marruecos
+  et = Maroko
   eu = Maroko
   sv = Marocko
   th = ประเทศโมร็อกโก
@@ -23640,6 +23699,7 @@
   pt = Doukkala-Abda
   ro = Regiunea Doukkala-Abda
   es = Dukala-Abda
+  et = Doukkala-Abda
   sv = Doukala-Abda
   th = ดูกกาลา-แอบดา
   tr = Doukkala-Abda
@@ -23673,6 +23733,7 @@
   pt = Rabat-Salé-Zemmour-Zaer
   ro = Regiunea Rabat-Salé-Zemmour-Zaer
   es = Rabat-Salé-Zemur-Zaer
+  et = Rabat-Salé-Zemmour-Zaer
   sv = Rabat-Salé-Zemmour-Zaēr
   th = ราบัด-เซล-เซมมัวร์-แซร์
   tr = Rabat-Salé-Zemmour-Zaer
@@ -23706,6 +23767,7 @@
   pt = Marrocos — Sul
   ro = Maroc — Sud
   es = Marruecos — Sur
+  et = Maroko - Lõuna
   sv = Marocko — Syd
   th = ประเทศโมร็อกโก — ใต้
   tr = Fas — Güney
@@ -23739,6 +23801,7 @@
   pt = Saara Ocidental
   ro = Sahara Occidentală
   es = Sahara Occidental
+  et = Lääne-Sahara
   sv = Västsahara
   th = เวสเทิร์นสะฮารา
   tr = Batı Sahra
@@ -23772,6 +23835,7 @@
   pt = Moçambique
   ro = Mozambic
   es = Mozambique
+  et = Mosambiik
   eu = Mozambike
   sv = Moçambique
   th = ประเทศโมซัมบิก
@@ -23806,6 +23870,7 @@
   pt = Myanmar
   ro = Birmania
   es = Birmania
+  et = Myanmar
   eu = Birmania
   sv = Burma
   th = ประเทศพม่า
@@ -23841,6 +23906,7 @@
   pt = Nagorno-Karabakh
   ro = Nagorno-Karabah
   es = Nagorno Karabaj
+  et = Nagorno-Karabakh
   eu = Nagorno-Karabakh
   sv = Nagorno-Karabach
   th = นากอร์โน-คาราบัค
@@ -23875,6 +23941,7 @@
   pt = Namíbia
   ro = Namibia
   es = Namibia
+  et = Namiibia
   eu = Namibia
   sv = Namibia
   th = ประเทศนามิเบีย
@@ -23910,6 +23977,7 @@
   pt = Nauru
   ro = Nauru
   es = Nauru
+  et = Nauru
   eu = Nauru
   sv = Nauru
   th = ประเทศนาอูรู
@@ -23944,6 +24012,7 @@
   pt = Nepal
   ro = Nepal
   es = Nepal
+  et = Nepal
   eu = Nepal
   sv = Nepal
   th = ประเทศเนปาล
@@ -23979,6 +24048,7 @@
   pt = Nepal — Leste
   ro = Nepal — Est
   es = Nepal — Este
+  et = Nepal - Ida
   sv = Nepal — Öst
   th = ประเทศเนปาล — ตะวันออก
   tr = Nepal — Doğu
@@ -24012,6 +24082,7 @@
   pt = Nepal — Oeste
   ro = Nepal — Vest
   es = Nepal — Oeste
+  et = Nepal - Lääs
   sv = Nepal — Väst
   th = ประเทศเนปาล — ตะวันตก
   tr = Nepal — Batı
@@ -24045,6 +24116,7 @@
   pt = Países Baixos
   ro = Olanda
   es = Países Bajos
+  et = Holland
   eu = Herbehereak
   sv = Nederländerna
   th = ประเทศเนเธอร์แลนด์
@@ -24079,6 +24151,7 @@
   pt = Drente
   ro = Drenthe
   es = Drente
+  et = Drenthe
   sv = Drenthe
   th = จังหวัดเดรนเทอ
   tr = Drenthe
@@ -24112,6 +24185,7 @@
   pt = Flevolândia
   ro = Flevoland
   es = Flevolanda
+  et = Flevoland
   sv = Flevoland
   th = จังหวัดเฟลโฟลันด์
   tr = Flevoland
@@ -24145,6 +24219,7 @@
   pt = Frísia
   ro = Provincia Frizia
   es = Frisia
+  et = Friisimaa
   sv = Friesland
   th = จังหวัดฟรีสลันด์
   tr = Frizya
@@ -24178,6 +24253,7 @@
   pt = Guéldria — Nimegue
   ro = Gelderland — Nijmegen
   es = Güeldres — Nimega
+  et = Gelderland — Nijmegen
   sv = Gelderland — Nijmegen
   th = จังหวัดเกลเดอร์ลันด์ — ไนเมเคิน
   tr = Gelderland — Nijmegen
@@ -24211,6 +24287,7 @@
   pt = Guéldria — Apeldoorn
   ro = Gelderland — Apeldoorn
   es = Güeldres — Apeldoorn
+  et = Gelderland — Apeldoorn
   sv = Gelderland — Apeldoorn
   th = จังหวัดเกลเดอร์ลันด์ — อาเพลโดร์น
   tr = Gelderland — Apeldoorn
@@ -24244,6 +24321,7 @@
   pt = Guéldria — Zutphen
   ro = Gelderland — Zutphen
   es = Güeldres — Zutphen
+  et = Gelderland — Zutphen
   sv = Gelderland — Zutphen
   th = เกลเดอร์แลนด์ — ซิตเฟน
   tr = Gelderland — Zutphen
@@ -24277,6 +24355,7 @@
   pt = Groninga
   ro = Groningen
   es = Provincia de Groninga
+  et = Groningen
   sv = Groningen
   th = จังหวัดโกรนิงเงิน
   tr = Groningen
@@ -24310,6 +24389,7 @@
   pt = Limburgo
   ro = Limburg
   es = Limburgo
+  et = Limburg
   sv = Limburg
   th = จังหวัดลิมบูร์ก
   tr = Limburg, Hollanda
@@ -24343,6 +24423,7 @@
   pt = Brabante do Norte — Eindhoven
   ro = Brabantul de Nord — Eindhoven
   es = Brabante Septentrional — Eindhoven
+  et = Põhja-Brabant - Eindhoven
   sv = Noord-Brabant — Eindhoven
   th = จังหวัดนอร์ทบราแบนต์ — ไอนด์โฮเวน
   tr = Kuzey Brabant — Eindhoven
@@ -24376,6 +24457,7 @@
   pt = Brabante do Norte — Roosendaal
   ro = Brabantul de Nord — Roosendaal
   es = Brabante Septentrional — Roosendaal
+  et = Põhja-Brabant — Roosendaal
   sv = Noord-Brabant — Roosendaal
   th = จังหวัดนอร์ทบราแบนต์ — โรเซนดาล
   tr = Kuzey Brabant — Roosendaal
@@ -24409,6 +24491,7 @@
   pt = Brabante do Norte — Tilburgo
   ro = Brabantul de Nord — Tilburg
   es = Brabante Septentrional — Tilburgo
+  et = Põhja-Brabant — Tilburg
   sv = Noord-Brabant — Tilburg
   th = จังหวัดนอร์ทบราแบนต์ — ติลบืร์ค
   tr = Kuzey Brabant — Tilburg
@@ -24442,6 +24525,7 @@
   pt = Norte de Brabant — Uden
   ro = Brabantul de Nord — Uden
   es = Brabante Septentrional — Uden
+  et = Põhja-Brabant — Uden
   sv = Noord-Brabant — Uden
   th = บราบันต์เหนือ — อูเดน
   tr = Kuzey Brabant — Uden
@@ -24475,6 +24559,7 @@
   pt = Holanda do Norte — Alkmaar
   ro = Olanda de Nord — Alkmaar
   es = Holanda Septentrional — Alkmaar
+  et = Põhja-Holland - Alkmaar
   sv = Noord-Holland — Alkmaar
   th = ฮอลแลนด์เหนือ — อัลค์มาร์
   tr = Kuzey Hollanda — Alkmaar
@@ -24508,6 +24593,7 @@
   pt = Holanda do Norte — Amesterdão
   ro = Olanda de Nord — Amsterdam
   es = Holanda Septentrional — Ámsterdam
+  et = Põhja-Holland - Amsterdam
   sv = Noord-Holland — Amsterdam
   th = จังหวัดนอร์ทฮอลแลนด์ — อัมสเตอร์ดัม
   tr = Kuzey Hollanda — Amsterdam
@@ -24541,6 +24627,7 @@
   pt = Norte da Holanda — Zaanstad
   ro = Olanda de Nord — Zaanstad
   es = Holanda Septentrional — Zaanstad
+  et = Põhja-Holland - Zaanstad
   sv = Noord-Holland — Zaanstad
   th = จังหวัดนอร์ทฮอลแลนด์ — ซานสตัด
   tr = Kuzey Hollanda — Zaanstad
@@ -24574,6 +24661,7 @@
   pt = Overissel — Enschede
   ro = Overijssel — Enschede
   es = Overijssel — Enschede
+  et = Overijssel — Enschede
   sv = Overijssel — Enschede
   th = จังหวัดโอเฟอไรส์เซิล — แอ็นสเคอเด
   tr = Overijssel — Enschede
@@ -24607,6 +24695,7 @@
   pt = Overissel — Zwolle
   ro = Overijssel — Zwolle
   es = Overijssel — Zwolle
+  et = Overijssel — Zwolle
   sv = Overijssel — Zwolle
   th = จังหวัดโอเฟอไรส์เซิล — ซโวลเลอ
   tr = Overijssel — Zwolle
