@@ -27971,6 +27971,7 @@
   pt = Buriácia
   ro = Buriația
   es = Buriatia
+  et = Burjaadi Vabariik
   sv = Burjatien
   th = สาธารณรัฐเบอร์ยัต
   tr = Buryatya
@@ -28004,6 +28005,7 @@
   pt = Chechênia
   ro = Cecenia
   es = Chechenia
+  et = Tšetšeenia Vabariik
   sv = Tjetjenien
   th = สาธารณรัฐเชเชน
   tr = Çeçenistan
@@ -28037,6 +28039,7 @@
   pt = Oblast de Cheliabinsk
   ro = Regiunea Celiabinsk
   es = Cheliábinsk
+  et = Tšeljabinski oblast
   sv = Tjeljabinsk oblast
   th = แคว้นปกครองตนเองเชลินอาบินสก์
   tr = Çelyabinsk Oblastı
@@ -28070,6 +28073,7 @@
   pt = Chukotka
   ro = Districtul autonom Ciukotka
   es = Chukotka
+  et = Tšukotka autonoomne ringkond
   sv = Tjuktjien
   th = เขตปกครองตนเองชูโคตกา
   tr = Çukotka Özerk Okrugu
@@ -28103,6 +28107,7 @@
   pt = Chuváchia
   ro = Ciuvașia
   es = Chuvasia
+  et = Tšuvassi Vabariik
   sv = Tjuvasjien
   th = สาธารณรัฐชูวาช
   tr = Çuvaşistan
@@ -28136,6 +28141,7 @@
   pt = Inguchétia
   ro = Ingușetia
   es = Ingusetia
+  et = Inguššia Vabariik
   sv = Ingusjien
   th = สาธารณรัฐอินกูเชเทีย
   tr = İnguşetya
@@ -28169,6 +28175,7 @@
   pt = Oblast de Irkutsk
   ro = Regiunea Irkutsk
   es = Irkutsk
+  et = Irkutski oblast
   sv = Irkutsk oblast
   th = แคว้นปกครองตนเองเออร์คุตสก์
   tr = İrkutsk Oblastı
@@ -28202,6 +28209,7 @@
   pt = Oblast de Ivanovo
   ro = Regiunea Ivanovo
   es = Óblast de Ivánovo
+  et = Ivanovo oblast
   sv = Ivanovo oblast
   th = แคว้นปกครองตนเองอิวาโนโว
   tr = İvanovo Oblastı
@@ -28235,6 +28243,7 @@
   pt = Oblast Autônomo Judaico
   ro = Regiunea Autonomă Evreiască
   es = Óblast Autónomo Hebreo
+  et = Juudi autonoomne oblast
   sv = Judiska autonoma länet
   th = แคว้นปกครองตนเองชาวยิว
   tr = Yahudi Özerk Oblastı
@@ -28268,6 +28277,7 @@
   pt = Cabárdia-Balcária
   ro = Cabardino-Balcaria
   es = Kabardia-Balkaria
+  et = Kabardino-Balkari Vabariik
   sv = Kabardinien-Balkarien
   th = สาธารณรัฐคาบาร์ดิโน-บัลการ์
   tr = Kabardino-Balkarya
@@ -28301,6 +28311,7 @@
   pt = Oblast de Kaliningrado
   ro = Regiunea Kaliningrad
   es = Óblast de Kaliningrado
+  et = Kaliningradi oblast
   sv = Kaliningrad oblast
   th = คาลินินกราดโอบลาสต์
   tr = Kaliningrad Oblastı
@@ -28334,6 +28345,7 @@
   pt = Oblast de Kaluga
   ro = Regiunea Kaluga
   es = Kaluga
+  et = Kaluga oblast
   sv = Kaluga oblast
   th = แคว้นปกครองตนเองคาลูกา
   tr = Kaluga Oblastı
