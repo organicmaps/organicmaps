@@ -25902,6 +25902,7 @@
   pt = Omã
   ro = Oman
   es = Omán
+  et = Omaan
   eu = Oman
   sv = Oman
   th = ประเทศโอมาน
@@ -25937,6 +25938,7 @@
   pt = Oregon
   ro = Oregon
   es = Oregón
+  et = Oregon
   eu = Oregon
   sv = Oregon
   th = รัฐออริกอน
@@ -25971,6 +25973,7 @@
   pt = Paquistão
   ro = Pakistan
   es = Pakistán
+  et = Pakistan
   eu = Pakistan
   sv = Pakistan
   th = ประเทศปากีสถาน
@@ -26006,6 +26009,7 @@
   pt = Palau
   ro = Palau
   es = Palaos
+  et = Palau
   eu = Palau
   sv = Palau
   th = ประเทศปาเลา
@@ -26040,6 +26044,7 @@
   pt = Territórios Palestinianos
   ro = Teritoriile Palestiniene
   es = Territorios Palestinos
+  et = Palestiina alad
   eu = Palestinako lurraldeak
   sv = Palestinska territorier
   th = รัฐปาเลสไตน์
@@ -26074,6 +26079,7 @@
   pt = Territórios Palestinianos
   ro = Teritoriile Palestiniene
   es = Territorios Palestinos
+  et = Palestiina alad
   eu = Palestinako lurraldeak
   sv = Palestinska territorier
   th = รัฐปาเลสไตน์
@@ -26108,6 +26114,7 @@
   pt = Panamá
   ro = Panama
   es = Panamá
+  et = Panama
   eu = Panama
   sv = Panama
   th = ประเทศปานามา
@@ -26142,6 +26149,7 @@
   pt = Papua-Nova Guiné
   ro = Papua Noua Guinee
   es = Papúa Nueva Guinea
+  et = Paapua Uus-Guinea
   eu = Papua Ginea Berria
   sv = Papua Nya Guinea
   th = ประเทศปาปัวนิวกินี
@@ -26177,6 +26185,7 @@
   pt = Paraguai
   ro = Paraguay
   es = Paraguay
+  et = Paraguay
   eu = Paraguai
   sv = Paraguay
   th = ประเทศปารากวัย
@@ -26212,6 +26221,7 @@
   pt = Pensilvânia
   ro = Pennsylvania
   es = Pensilvania
+  et = Pennsylvania
   eu = Pennsylvania
   sv = Pennsylvania
   th = รัฐเพนซิลเวเนีย
@@ -26246,6 +26256,7 @@
   pt = China
   ro = China
   es = China
+  et = Hiina
   eu = Txina
   sv = Kina
   th = ประเทศจีน
@@ -26281,6 +26292,7 @@
   pt = Peru
   ro = Peru
   es = Perú
+  et = Peruu
   eu = Peru
   sv = Peru
   th = ประเทศเปรู
@@ -26316,6 +26328,7 @@
   pt = Peru — Norte
   ro = Peru — Nord
   es = Perú — Norte
+  et = Peruu - Põhi
   sv = Peru — Nord
   th = ประเทศเปรู — เหนือ
   tr = Peru — Kuzey
@@ -26349,6 +26362,7 @@
   pt = Peru — Sul
   ro = Peru — Sud
   es = Perú — Sur
+  et = Peruu - Lõuna
   sv = Peru — Syd
   th = ประเทศเปรู — ใต้
   tr = Peru — Güney
@@ -26382,6 +26396,7 @@
   pt = Filipinas
   ro = Filipine
   es = Filipinas
+  et = Filipiinid
   eu = Filipinak
   sv = Filippinerna
   th = ประเทศฟิลิปปินส์
@@ -26417,6 +26432,7 @@
   pt = Grande Manila
   ro = Metro Manila
   es = Gran Manila
+  et = Metro Manila
   sv = Metro Manila
   th = เมโทรมะนิลา
   tr = Metro Manila
@@ -26450,6 +26466,7 @@
   pt = Luzon — Norte
   ro = Luzon — Nord
   es = Luzón — Norte
+  et = Luzon - Põhi
   sv = Luzon — Nord
   th = เกาะลูซอน — เหนือ
   tr = Luzon — Kuzey
@@ -26483,6 +26500,7 @@
   pt = Luzon — Sul
   ro = Luzon — Sud
   es = Luzón — Sur
+  et = Luzon - Lõuna
   sv = Luzon — Syd
   th = เกาะลูซอน — ใต้
   tr = Luzon — Güney
@@ -26516,6 +26534,7 @@
   pt = Mindanau
   ro = Mindanao
   es = Mindanao
+  et = Mindanao
   sv = Mindanao
   th = มินดาเนา
   tr = Mindanao
@@ -26549,6 +26568,7 @@
   pt = Visayas
   ro = Visayas
   es = Bisayas
+  et = Visayas
   sv = Visayaöarna
   th = วิซายาส
   tr = Visayas
@@ -26582,6 +26602,7 @@
   pt = Ilhas Pitcairn
   ro = Insulele Pitcairn
   es = Islas Pitcairn
+  et = Pitcairn
   eu = Pitcairn uharteak
   sv = Pitcairnöarna
   th = หมู่เกาะพิตแคร์น
@@ -26616,6 +26637,7 @@
   pt = Polónia
   ro = Polonia
   es = Polonia
+  et = Poola
   eu = Polonia
   sv = Polen
   th = ประเทศโปแลนด์
@@ -26651,6 +26673,7 @@
   pt = Voivodia da Grande Polônia
   ro = Voievodatul Polonia Mare
   es = Voivodato de Gran Polonia
+  et = Suur-Poola vojevoodkond
   sv = Storpolens vojvodskap
   th = เขตการปกครองพิเศษเกรตเตอร์โปแลนด์
   tr = Büyük Polonya Voyvodalığı
@@ -26684,6 +26707,7 @@
   pt = Voivodia da Cujávia-Pomerânia
   ro = Voievodatul Cuiavia și Pomerania
   es = Cuyavia y Pomerania
+  et = Kuyavia-Pommeri vojevoodkond
   sv = Kujavien-Pommerns vojvodskap
   th = เขตการปกครองพิเศษคูยาเวียน-โพเมราเนียน
   tr = Kuyavian-Pomeranian Voyvodalığı
@@ -26717,6 +26741,7 @@
   pt = Voivodia da Pequena Polónia
   ro = Voievodatul Polonia Mică
   es = Voivodato de Pequeña Polonia
+  et = Väike-Poola vojevoodkond
   sv = Lillpolens vojvodskap
   th = เขตการปกครองพิเศษเลสเซอร์โปแลนด์
   tr = Küçük Polonya Voyvodalığı
@@ -26750,6 +26775,7 @@
   pt = Voivodia de Łódź
   ro = Voievodatul Łódź
   es = Voivodato de Łódź
+  et = Łódźi vojevoodkond
   sv = Łódź vojvodskap
   th = เขตการปกครองพิเศษวูช
   tr = Łódź Voyvodalığı
@@ -26783,6 +26809,7 @@
   pt = Voivodia da Baixa Silésia
   ro = Voievodatul Silezia Inferioară
   es = Baja Silesia
+  et = Alam-Sileesia vojevoodkond
   sv = Nedre Schlesiens vojvodskap
   th = จังหวัดดอลนือชล็องสก์
   tr = Aşağı Silezya Voyvodalığı
@@ -26816,6 +26843,7 @@
   pt = Voivodia de Lublin
   ro = Voievodatul Lublin
   es = Lublin
+  et = Lublini vojevoodkond
   sv = Lublins vojvodskap
   th = เขตการปกครองพิเศษลูบลิน
   tr = Lublin Voyvodalığı
@@ -26849,6 +26877,7 @@
   pt = Voivodia da Lubúsquia
   ro = Voievodatul Lubusz
   es = Voivodato de Lubusz
+  et = Lubuszi vojevoodkond
   sv = Lubusz vojvodskap
   th = เขตการปกครองพิเศษลูบัส
   tr = Lubusz Voyvodalığı
@@ -26882,6 +26911,7 @@
   pt = Voivodia da Mazóvia
   ro = Voievodatul Mazovia
   es = Voivodato de Mazovia
+  et = Masoovia vojevoodkond
   sv = Masoviens vojvodskap
   th = เขตการปกครองพิเศษมาโซเวียน
   tr = Mazovya Voyvodalığı
@@ -26915,6 +26945,7 @@
   pt = Voivodia de Opole
   ro = Voievodatul Opole
   es = Opole
+  et = Opole vojevoodkond
   sv = Opole vojvodskap
   th = เขตการปกครองพิเศษโอโปเล
   tr = Opole Voyvodalığı
@@ -26948,6 +26979,7 @@
   pt = Voivodia da Podláquia
   ro = Voievodatul Podlasia
   es = Voivodato de Podlaquia
+  et = Podlaskie vojevoodkond
   sv = Podlasiens vojvodskap
   th = เขตการปกครองพิเศษพอดลาสกี
   tr = Podlaskie Voyvodalığı
@@ -26981,6 +27013,7 @@
   pt = Voivodia da Pomerânia
   ro = Voievodatul Pomerania
   es = Voivodato de Pomerania
+  et = Pommeri vojevoodkond
   sv = Pommerns vojvodskap
   th = จังหวัดปอมอแช
   tr = Pomeranya Voyvodalığı
@@ -27014,6 +27047,7 @@
   pt = Voivodia da Silésia
   ro = Voievodatul Silezia
   es = Voivodato de Silesia
+  et = Sileesia vojevoodkond
   sv = Schlesiens vojvodskap
   th = เขตการปกครองพิเศษซิเลเซียน
   tr = Silezya Voyvodalığı
@@ -27047,6 +27081,7 @@
   pt = Voivodia da Subcarpácia
   ro = Voievodatul Subcarpatia
   es = Voivodato de Subcarpacia
+  et = Podkarpackie vojevoodkond
   sv = Nedre Karpaternas vojvodskap
   th = เขตการปกครองพิเศษพอดคาพาคี
   tr = Alt Karpatya Voyvodalığı
@@ -27080,6 +27115,7 @@
   pt = Voivodia de Santa Cruz
   ro = Voievodatul Sfintei Cruci
   es = Voivodato de Santa Cruz
+  et = Świętokrzyskie vojevoodkond
   sv = Święty Krzyż vojvodskap
   th = เขตการปกครองพิเศษชวินโตคริสกี
   tr = Świętokrzyskie Voyvodalığı
@@ -27113,6 +27149,7 @@
   pt = Voivodia da Vármia-Masúria
   ro = Voievodatul Varmia și Mazuria
   es = Voivodato de Varmia y Masuria
+  et = Warmia-Masuuria vojevoodkond
   sv = Ermland-Masuriens vojvodskap
   th = เขตการปกครองพิเศษวอร์เมียน-มาซูเรียน
   tr = Warmian-Masurian VoivoVoyvodalığıeship
@@ -27146,6 +27183,7 @@
   pt = Voivodia da Pomerânia Ocidental
   ro = Voievodatul Pomerania Occidentală
   es = Voivodato de Pomerania Occidental
+  et = Lääne-Pommeri vojevoodkond
   sv = Västpommerns vojvodskap
   th = เขตการปกครองพิเศษโพเมราเนียนตะวันตก
   tr = Batı Pomeranya Voyvodalığı
@@ -27179,6 +27217,7 @@
   pt = Portugal
   ro = Portugalia
   es = Portugal
+  et = Portugal
   eu = Portugal
   sv = Portugal
   th = ประเทศโปรตุเกส
@@ -27214,6 +27253,7 @@
   pt = Portugal — Norte
   ro = Portugalia — Nord
   es = Portugal — Norte
+  et = Portugal - Põhi
   sv = Portugal — Nord
   th = ประเทศโปรตุเกส — เหนือ
   tr = Portekiz — Kuzey
@@ -27247,6 +27287,7 @@
   pt = Portugal — Sul
   ro = Portugalia — Sud
   es = Portugal — Sur
+  et = Portugal - Põhi
   sv = Portugal — Syd
   th = ประเทศโปรตุเกส — ใต้
   tr = Portekiz — Güney
@@ -27280,6 +27321,7 @@
   pt = Catar
   ro = Qatar
   es = Catar
+  et = Katar
   eu = Dastamena
   sv = Qatar
   th = ประเทศกาตาร์
@@ -27315,6 +27357,7 @@
   pt = Kosovo
   ro = Kosovo
   es = Kosovo
+  et = Kosovo
   eu = Kosovo
   sv = Kosovo
   th = ประเทศคอซอวอ
@@ -27349,6 +27392,7 @@
   pt = Roménia
   ro = România
   es = Rumania
+  et = Rumeenia
   eu = Errumania
   sv = Rumänien
   th = ประเทศโรมาเนีย
@@ -27383,6 +27427,7 @@
   pt = Centro
   ro = Regiunea de dezvoltare Centru
   es = Centro
+  et = Kesk-Rumeenia
   sv = Central
   th = เซนทรู
   tr = Centru
@@ -27416,6 +27461,7 @@
   pt = Nordeste
   ro = Regiunea de dezvoltare Nord-Est
   es = Nordeste
+  et = Kirde-Rumeenia
   sv = Nordost
   th = นอร์ดอีสต์
   tr = Nord-Est
@@ -27449,6 +27495,7 @@
   pt = Noroeste
   ro = Regiunea de dezvoltare Nord-Vest
   es = Nord-Vest
+  et = Loode-Rumeenia
   sv = Nordväst
   th = นอร์ดเวสต์
   tr = Nord-Vest
@@ -27482,6 +27529,7 @@
   pt = Sul
   ro = Regiunea de dezvoltare Sud
   es = Sur
+  et = Lõuna-Rumeenia
   sv = Syd
   th = เซาต์
   tr = Sud
@@ -27515,6 +27563,7 @@
   pt = Sudeste
   ro = Regiunea de dezvoltare Sud-Est
   es = Sureste
+  et = Kagu-Rumeenia
   sv = Sydost
   th = เซาต์อีสต์
   tr = Sud-Est
@@ -27548,6 +27597,7 @@
   pt = Sudoeste
   ro = Regiunea de dezvoltare Sud-Vest
   es = Sud-Vest
+  et = Edela-Rumeenia
   sv = Sydväst
   th = เซาต์เวสต์
   tr = Sud-Vest
@@ -27581,6 +27631,7 @@
   pt = Oeste
   ro = Regiunea de dezvoltare Vest
   es = Vest
+  et = Lääne-Rumeenia
   sv = Väst
   th = เวสต์
   tr = Vest
@@ -27614,6 +27665,7 @@
   pt = Krai de Altai
   ro = Ținutul Altai
   es = Krai de Altái
+  et = Altai krai
   sv = Altaj kraj
   th = อัลไต ไคร
   tr = Altay Krayı
@@ -27647,6 +27699,7 @@
   pt = Altai (república)
   ro = Republica Altai
   es = Altái
+  et = Altai Vabariik
   sv = Altajrepubliken
   th = สาธารณรัฐอัลไต
   tr = Altay Cumhuriyeti
@@ -27680,6 +27733,7 @@
   pt = Oblast de Amur
   ro = Regiunea Amur
   es = Amur
+  et = Amuuri oblast
   sv = Amur oblast
   th = แคว้นปกครองตนเองอาเมอร์
   tr = Amur Oblastı
@@ -27713,6 +27767,7 @@
   pt = Oblast de Arkhangelsk — Centro
   ro = Regiunea Arhanghelsk — Centru
   es = Óblast de Arjánguelsk — Centro
+  et = Arhangelski oblast - keskosa
   sv = Archangelsk oblast — Central
   th = แคว้นปกครองตนเองอาฮันเจล — กลาง
   tr = Arhangelsk Oblastı — Merkez
@@ -27746,6 +27801,7 @@
   pt = Oblast de Arkhangelsk — Norte
   ro = Regiunea Arhanghelsk — Nord
   es = Óblast de Arjánguelsk — Norte
+  et = Arhangelski oblast - Põhi
   sv = Archangelsk oblast — Nord
   th = แคว้นปกครองตนเองอาฮันเจล— เหนือ
   tr = Arhangelsk Oblastı — Kuzey
@@ -27779,6 +27835,7 @@
   pt = Oblast de Astracã
   ro = Regiunea Astrahan
   es = Astracán
+  et = Astrahani oblast
   sv = Astrachan oblast
   th = แคว้นปกครองตนเองแอสตราคาน
   tr = Astrahan Oblastı
@@ -27812,6 +27869,7 @@
   pt = Bascortostão
   ro = Bașchiria
   es = Bashkortostán
+  et = Baškortostani Vabariik
   sv = Basjkirien
   th = สาธารณรัฐบาชคอร์โตสตาน
   tr = Başkurdistan
@@ -27845,6 +27903,7 @@
   pt = Oblast de Belgorod
   ro = Regiunea Belgorod
   es = Óblast de Bélgorod
+  et = Belgorodi oblast
   sv = Belgorod oblast
   th = เบลโกรอดโอบลาสต์
   tr = Belgorod Oblastı
@@ -27878,6 +27937,7 @@
   pt = Oblast de Briansk
   ro = Regiunea Briansk
   es = Óblast de Briansk
+  et = Brjanski oblast
   sv = Brjansk oblast
   th = แคว้นปกครองตนเองบริอันสก์
   tr = Bryansk Oblastı
