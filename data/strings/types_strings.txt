@@ -5,6 +5,7 @@
     de = Seilbahn
     el = Τελεφερίκ
     es = Transporte aéreo
+    et = Õhutee
     eu = Aire Garraioa
     fi = Köysirata
     fr = Transport par câble aérien
@@ -26,6 +27,7 @@
     de = Pendelbahn
     el = Τελεφερίκ
     es = Teleférico
+    et = Tramm
     eu = Teleferikoa
     fi = Kabiinihissi
     fr = Téléphérique
@@ -47,6 +49,7 @@
     de = Sessellift
     el = Τελεφερίκ
     es = Telesilla
+    et = Tooltõstuk
     eu = Teleaulkia
     fi = Tuolihissi
     fr = Télésiège
@@ -67,6 +70,7 @@
     de = Schlepplift
     el = Τελεφερίκ
     es = Telesquí
+    et = Lohistitõstuk
     eu = Eski-igogailua
     fi = Kapulahissi
     fr = Téléski
@@ -88,6 +92,7 @@
     de = Gondelbahn
     el = Τελεφερίκ
     es = Telecabina
+    et = Gondel
     eu = Telekondola
     fi = Gondolihissi
     fr = Télécabine
@@ -109,6 +114,7 @@
     de = Kombibahn
     el = Τελεφερίκ
     es = Telecabina/telesilla
+    et = Segatõstuk
     eu = Telekondola/teleaulkia
     fi = Köysirata
     it = Impianto misto
@@ -132,6 +138,7 @@
     de = Liftstation
     el = Σταθμός τελεφερίκ
     es = Estación de teleférico
+    et = Õhutee jaam
     eu = Teleferiko geltokia
     fi = Köysirata-asema
     fr = Remontées mécaniques
@@ -161,6 +168,7 @@
     en = Airspace Infrastructure
     de = Luftverkehr
     es = Infraestructura aérea
+    et = Õhuruumi infrastruktuur
     eu = Aire azpiegitura
     ja = 空路
     mr = हवाई आधार संरचना
@@ -181,6 +189,7 @@
     de = Flugplatz
     el = Αεροδρόμιο
     es = Aeropuerto
+    et = Lennujaam
     eu = Aireportua
     fa = فرودگاه
     fi = Lentokenttä
@@ -215,6 +224,7 @@
     de = Flughafen
     el = Αεροδρόμιο
     es = Aeropuerto
+    et = Rahvusvaheline lennujaam
     eu = Aireportua
     fa = فرودگاه
     fi = Lentokenttä
@@ -245,6 +255,7 @@
     en = Apron
     de = Vorfeld
     es = Plataforma
+    et = Platvorm
     eu = Plataforma
     fr = Aire de stationnement pour aéronefs
     ja = エプロン
@@ -261,6 +272,7 @@
   [type.aeroway.gate]
     en = Gate
     es = Puerta de embarque
+    et = Värav
     eu = Ontziratzeko atea
     fi = Portti
     fr = Porte d'embarquement
@@ -282,6 +294,7 @@
     de = Hubschrauberlandeplatz
     el = Ελικοδρόμιο
     es = Helipuerto
+    et = Heliväljak
     eu = Heliportua
     fa = پد فرود بالگرد
     fi = Helikopterialusta
@@ -311,6 +324,7 @@
     en = Runway
     de = Start-/Landebahn
     es = Pista de despegue
+    et = Lennurada
     eu = Pista
     fi = Kiitorata
     fr = Piste d'aviation
@@ -331,6 +345,7 @@
     en = Taxiway
     de = Rollweg
     es = Pista de rodaje
+    et = Ruleerimistee
     eu = Taxiway
     fr = Taxiway
     it = Pista di rullaggio
@@ -349,6 +364,7 @@
     en = Terminal
     de = Terminal
     es = Terminal
+    et = Terminal
     eu = Terminala
     fi = Terminaali
     it = Terminal
@@ -371,6 +387,7 @@
     de = Infrastrukturobjekte
     el = Εγκαταστάσεις υποδομής
     es = Infraestructura
+    et = Infrastruktuur
     es-MX = Infraestructura
     eu = Azpiegiturak
     fa = زیر ساخت
@@ -408,6 +425,7 @@
     el = Κέντρο καλών τεχνών
     es = Centro de arte
     es-MX = Centro de artes
+    et = Kunstikeskus
     eu = Arte galeria
     fa = مرکز هنری
     fi = Taidekeskus
@@ -442,6 +460,7 @@
     da = Hæveautomat
     de = Geldautomat
     es = Cajero
+    et = Pangaautomaat
     eu = Kutxazain automatikoa
     fa = خودپرداز
     fi = Pankkiautomaatti
@@ -469,6 +488,7 @@
     cs = Banka
     el = Τράπεζα
     es = Banco
+    et = Pank
     eu = Bankua
     fa = بانک
     fi = Pankki
@@ -495,6 +515,7 @@
     ar = حانة
     el = Μπαρ
     es = Bar
+    et = Baar
     eu = Taberna
     fa = میکده
     fi = Baari
@@ -522,6 +543,7 @@
     de = Picknickplatz
     el = Χώρος εκδρομής
     es = Picnic
+    et = Piknikuala
     eu = Piknika
     fa = مکان پیک نیک
     fi = Piknikpaikat
@@ -556,6 +578,7 @@
     de = Parkbank
     el = Παγκάκι
     es = Banco
+    et = Pink
     eu = Bankua
     fa = سَکو
     fi = Penkki
@@ -591,6 +614,7 @@
     de = Fahrradständer
     el = Χώρος στάθμευσης ποδηλάτων
     es = Aparcamiento de bicis
+    et = Jalgrattaparkla
     eu = Bizikleta aparkalekua
     fa = پارکینگ دوچرخه
     fi = Polkupyöräpysäköinti
@@ -625,6 +649,7 @@
     de = Fahrradverleih
     el = Ενοικιάσεις ποδηλάτων
     es = Alquiler de bicicletas
+    et = Jalgrattarent
     eu = Bizikleta alokairua
     fa = مکان اجاره دوچرخه
     fi = Polkupyöränvuokraus
@@ -658,6 +683,7 @@
     da = Cykelreparationsstation
     de = Fahrrad-Reparaturstation
     es = Estación de reparación de bicicletas
+    et = Jalgrattaparandusjaam
     fa = ایستگاه تعمیر دوچرخه
     fi = Polkupyörän korjausasema
     fr = Station de réparation de vélos
@@ -685,6 +711,7 @@
     cs = Hospoda se zahrádkou
     el = Μπυραρία
     es = Biergarten
+    et = Õlleaed
     fa = غذا
     hu = Sörkert
     ja = ビアガーデン
@@ -713,6 +740,7 @@
     de = Bordell
     el = Πορνείο
     es = Burdel
+    et = Bordell
     eu = Bordela
     fa = فاحشه خانه
     fi = Bordelli
@@ -747,6 +775,7 @@
     de = Geldwechselstelle
     el = Συνάλλαγμα
     es = Cambio de divisas
+    et = Valuutavahetus
     eu = Moneta-trukea
     fa = صرافی
     fi = Rahanvaihto
@@ -781,6 +810,7 @@
     de = Busbahnhof
     el = Σταθμός λεωφορείων
     es = Estación de autobuses
+    et = Bussijaam
     eu = Autobus geltokia
     fa = حمل و نقل
     fi = Linja-autoasema
@@ -815,6 +845,7 @@
     de = Café
     el = Καφετέρια
     es = Café
+    et = Kohvik
     eu = Kafea
     fa = کافه
     fi = Kahvila
@@ -849,6 +880,7 @@
     de = Autoverleih
     el = Ενοικίαση αυτοκινήτου
     es = Coche de alquiler
+    et = Autorent
     eu = Alokairuko autoa
     fa = مکان اجاره ماشین
     fi = Autovuokraamo
@@ -882,6 +914,7 @@
     da = Delebiler
     de = Carsharing
     el = Παραχώρηση αυτοκινήτου
+    et = Autojagamine
     es = Compartir coche
     eu = Partekatu autoa
     fi = Autojen yhteiskäyttö
@@ -914,6 +947,7 @@
     de = Autowäsche
     el = Καθαρισμός αυτοκινήτων
     es = Lavado de coches
+    et = Autopesula
     eu = Kotxe garbiketa
     fa = کارواش
     fi = Autopesula
@@ -947,6 +981,7 @@
     de = Kasino
     el = Καζίνο
     es = Casino
+    et = Kasiino
     eu = Kasinoa
     fa = قمارخانه
     fi = Kasino
@@ -981,6 +1016,7 @@
     de = Ladestation
     el = Σταθμός φόρτισης
     es = Estación de carga
+    et = Laadimisjaam
     eu = Kargatzeko geltokia
     fa = ایستگاه شارژ
     fi = Latausasema
@@ -1015,6 +1051,7 @@
     de = Kindertagesstätte
     el = Βρεφικός σταθμός
     es = Guardería
+    et = Lasteaed
     eu = Haurtzaindegia
     fa = شیرخوارگاه
     fi = Päivähoito
@@ -1049,6 +1086,7 @@
     de = Kino
     el = Κινηματογράφος
     es = Cine
+    et = Kino
     eu = Filmak
     fa = سرگرمی
     fi = Elokuvateatteri
@@ -1082,6 +1120,7 @@
     de = Klinik
     el = Κλινική
     es = Clínica
+    et = Kliinik
     eu = Klinika
     fa = کلینیک
     fi = Klinikka
@@ -1116,6 +1155,7 @@
     de = Hochschule
     el = Κολέγιο
     es = Colegio
+    et = Kolledž
     eu = Unibertsitatea
     fa = دانشگاه
     fi = Korkeakoulu
@@ -1150,6 +1190,7 @@
     de = Bürgerhaus
     el = Κέντρο κοινότητας
     es = Centro comunitario
+    et = Kogukonnakeskus
     eu = Komunitate Zentroa
     fa = مرکزاجتماعی
     fi = Monitoimitalo
@@ -1184,6 +1225,7 @@
     de = Justizgebäude
     el = Δικαστικό μέγαρο
     es = Juzgado
+    et = Kohtumaja
     eu = Auzitegia
     fa = دادگاه
     fi = Oikeustalo
@@ -1218,6 +1260,7 @@
     de = Zahnarzt
     el = Οδοντίατρος
     es = Dentista
+    et = Hambaarst
     eu = Dentista
     fa = دندان پزشکی
     fi = Hammaslääkäri
@@ -1251,6 +1294,7 @@
     de = Arztpraxis
     el = Γιατροί
     es = Consulta del médico
+    et = Arst
     eu = Kontsulta medikoa
     fa = کلینیک
     fi = Lääkärin vastaanotto
@@ -1284,6 +1328,7 @@
     de = Trinkwasser
     el = Πόσιμο νερό
     es = Agua potable
+    et = Joogivesi
     eu = Ur edangarria
     fa = اب اشامیدنی
     fi = Juomavesi
@@ -1320,6 +1365,7 @@
     de = Fahrschule
     el = Σχολή οδήγησης
     es = Autoescuela
+    et = Autokool
     eu = Autoeskola
     fa = اموزشگاه رانندگی
     fi = Autokoulu
@@ -1356,6 +1402,7 @@
     de = Musikschule
     el = Μουσική Σχολή
     es = Escuela de música
+    et = Muusikakool
     eu = Musika Eskola
     fa = ﯽﻘﯿﺳﻮﻣ ﻩﺎﮕﺷﺯﻮﻣﺁ
     fi = Musiikkikoulu
@@ -1392,6 +1439,7 @@
     de = Sprachschule
     el = Σχολή Γλωσσών
     es = Escuela de idiomas
+    et = Keeltekool
     eu = Hizkuntza Eskola
     fa = ﻥﺎﺑﺯ ﻪﺳﺭﺪﻣ
     fi = Kielikoulu
@@ -1426,6 +1474,7 @@
     de = Botschaft
     el = Πρεσβεία
     es = Embajada
+    et = Saatkond
     eu = Enbaxada
     fa = سفارت
     fi = Suurlähetystö
@@ -1460,6 +1509,7 @@
     de = Fast-Food
     el = Ταχυφαγίο
     es = Comida rápida
+    et = Kiirtoit
     eu = Janari azkarra
     fa = فست فود
     fi = Pikaruokala
@@ -1494,6 +1544,7 @@
     de = Fähre
     el = Πορθμείο
     es = Transbordador
+    et = Praam
     eu = Espazio-ontzia
     fa = حمل و نقل
     fi = Lautta
@@ -1529,6 +1580,7 @@
     de = Feuerwehr
     el = Σταθμός πυρόσβεσης
     es = Parque de bomberos
+    et = Tuletõrjejaam
     eu = Suhiltzaileen parkea
     fa = ایستگاه اتش نشانی
     fi = Paloasema
@@ -1558,6 +1610,7 @@
   [type.amenity.food_court]
     en = Food Court
     es = Zona de comidas
+    et = Toiduväljak
     eu = Jantokia
     fr = Aire de restauration
     it = Area ristorazione
@@ -1579,6 +1632,7 @@
     de = Springbrunnen
     el = Συντριβάνι
     es = Fuente
+    et = Purskkaev
     eu = Iturria
     fa = فواره
     fi = Suihkulähde
@@ -1615,6 +1669,7 @@
     de = Tankstelle
     el = Βενζινάδικο
     es = Gasolinera
+    et = Tankla
     eu = Erregai-geltokia
     fa = سوخت
     fi = Huoltoasema
@@ -1651,6 +1706,7 @@
     de = Friedhof
     el = Νεκροταφείο
     es = Cementerio
+    et = Surnuaed
     eu = Hilerria
     fa = قبرستان
     fi = Hautausmaa
@@ -1680,6 +1736,7 @@
   [type.amenity.grave_yard.christian]
     ref = type.amenity.grave_yard
     en = Christian Graveyard
+    et = Kristlik surnuaed
     be = Хрысціянскія могілкі
     it = Cimitero cristiano
     ja = キリスト教墓地
@@ -1701,6 +1758,7 @@
     de = Krankenhaus
     el = Νοσοκομείο
     es = Hospital
+    et = Haigla
     eu = Ospitalea
     fa = بیمارستان
     fi = Sairaala
@@ -1735,6 +1793,7 @@
     de = Hochsitz
     el = Βάση σκόπευσης
     es = Galería de caza
+    et = Jahipidamise koht
     eu = Ehiza galeria
     fa = شکارگاه
     fi = Metsästyspaikka
@@ -1769,6 +1828,7 @@
     de = Eisstand
     el = Παγωτατζίδικο
     es = Heladería
+    et = Jäätis
     eu = Izozki-denda
     fa = غذا
     fi = Jäätelökioski
@@ -1803,6 +1863,7 @@
     de = Internetcafé
     el = Καφετέρια με Ίντερνετ
     es = Cibercafé
+    et = Internetikohvik
     eu = Cyberkafea
     fa = کافی نت
     fi = Internetkahvila
@@ -1835,6 +1896,7 @@
     da = Børnehave
     el = Νηπιαγωγείο
     es = Guardería
+    et = Lasteaed
     eu = Haurtzaindegia
     fa = مهدکودک
     fi = Päiväkoti
@@ -1869,6 +1931,7 @@
     de = Bibliothek
     el = Βιβλιοθήκη
     es = Biblioteca
+    et = Raamatukogu
     eu = Liburutegia
     fa = کتابخانه
     fi = Kirjasto
@@ -1903,6 +1966,7 @@
     de = Marktplatz
     el = Αγορά
     es = Mercado
+    et = Turg
     eu = Merkatua
     fa = فروشگاه
     fi = Kauppatori
