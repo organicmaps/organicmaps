@@ -28379,6 +28379,7 @@
   pt = Krai de Kamtchatka
   ro = Ținutul Kamceatka
   es = Kamchatka
+  et = Kamtšatka krai
   sv = Kamtjatka kraj
   th = เขตปกครองแคมชัดกา
   tr = Kamçatka Krayı
@@ -28412,6 +28413,7 @@
   pt = Carachai-Circássia
   ro = Karaciai-Cerchezia
   es = Karacháyevo-Cherkesia
+  et = Karatšai-Tšerkessi Vabariik
   sv = Karatjajen-Tjerkessien
   th = สาธารณรัฐคาราไช-เชอร์เคส
   tr = Karaçay-Çerkesya
@@ -28445,6 +28447,7 @@
   pt = Oblast de Kemerovo
   ro = Regiunea Kemerovo
   es = Kémerovo
+  et = Kemerovo oblast
   sv = Kemerovo oblast
   th = แคว้นปกครองตนเองเคเมโรโว
   tr = Kemerovo Oblastı
@@ -28478,6 +28481,7 @@
   pt = Krai de Khabarovsk
   ro = Ținutul Habarovsk
   es = Jabárovsk
+  et = Habarovski krai
   sv = Chabarovsk kraj
   th = เขตปกครองคาบาโรฟสก์
   tr = Habarovsk Krayı
@@ -28511,6 +28515,7 @@
   pt = Cacássia
   ro = Hacasia
   es = Jakasia
+  et = Hakassia Vabariik
   sv = Chakassien
   th = สาธารณรัฐคาคาเซีย
   tr = Hakasya
@@ -28544,6 +28549,7 @@
   pt = Oblast de Kirov
   ro = Regiunea Kirov
   es = Kírov
+  et = Kirovi oblast
   sv = Kirov oblast
   th = แคว้นปกครองตนเองคิรอฟ
   tr = Kirov Oblastı
@@ -28577,6 +28583,7 @@
   pt = República de Komi
   ro = Republica Komi
   es = Komi
+  et = Komi Vabariik
   sv = Komi
   th = สาธารณรัฐโคมิ
   tr = Komi Cumhuriyeti
@@ -28610,6 +28617,7 @@
   pt = Oblast de Kostroma
   ro = Regiunea Kostroma
   es = Óblast de Kostromá
+  et = Kostroma oblast
   sv = Kostroma oblast
   th = แคว้นปกครองตนเองคอสโตรมา
   tr = Kostroma Oblastı
@@ -28643,6 +28651,7 @@
   pt = Krai de Krasnodar — Norte
   ro = Ținutul Krasnodar — Nord
   es = Krai de Krasnodar — Norte
+  et = Krasnodari krai - Põhi
   sv = Krasnodar kraj — Nord
   th = เขตปกครองคราสโนดาร์ — เหนือ
   tr = Krasnodar Krayı — Kuzey
@@ -28676,6 +28685,7 @@
   pt = Krai de Krasnodar, Adiguésia
   ro = Ținutul Krasnodar, Adîgheia
   es = Krai de Krasnodar, Adigueya
+  et = Krasnodari krai, Adygea Vabariik
   sv = Krasnodar kraj, Adygeiska republiken
   th = เขตปกครองคราสโนดาร์ สาธารณรัฐอดีเกีย
   tr = Krasnodar Krayı, Adıge Cumhuriyeti
@@ -28709,6 +28719,7 @@
   pt = Krai de Krasnoiarsk
   ro = Ținutul Krasnoiarsk
   es = Krasnoyarsk
+  et = Krasnojarsk krai
   sv = Krasnojarsk kraj
   th = สาธารณรัฐคราสโนยาสก์
   tr = Krasnoyarsk Krayı
@@ -28742,6 +28753,7 @@
   pt = Oblast de Kurgan
   ro = Regiunea Kurgan
   es = Kurgán
+  et = Kurgani oblast
   sv = Kurgan oblast
   th = แคว้นปกครองตนเองเคอร์กัน
   tr = Kurgan Oblastı
@@ -28775,6 +28787,7 @@
   pt = Oblast de Kursk
   ro = Regiunea Kursk
   es = óblast de Kursk
+  et = Kurski oblast
   sv = Kursk oblast
   th = แคว้นปกครองตนเองเคิรสก์
   tr = Kursk Oblastı
@@ -28808,6 +28821,7 @@
   pt = Oblast de Leningrado — Norte
   ro = Regiunea Leningrad — Nord
   es = Óblast de Leningrado — Norte
+  et = Leningradi oblast - Põhi
   sv = Leningrad oblast — Nord
   th = แคว้นปกครองตนเองเลนินแกรด — เหนือ
   tr = Leningrad eyaleti — Kuzey
@@ -28841,6 +28855,7 @@
   pt = Oblast de Leningrado — Sul
   ro = Regiunea Leningrad — Sud
   es = Óblast de Leningrado — Sur
+  et = Leningradi oblast - Lõuna
   sv = Leningrad oblast — Syd
   th = แคว้นปกครองตนเองเลนินแกรด — ใต้
   tr = Leningrad eyaleti — Güney
@@ -28874,6 +28889,7 @@
   pt = Oblast de Lipetsk
   ro = Regiunea Lipețk
   es = Óblast de Lípetsk
+  et = Libetski oblast
   sv = Lipetsk oblast
   th = แคว้นปกครองตนเองลิเปตสก์
   tr = Lipetsk Oblastı
@@ -28907,6 +28923,7 @@
   pt = Oblast de Magadan
   ro = Regiunea Magadan
   es = Magadán
+  et = Magadani oblast
   sv = Magadan oblast
   th = แคว้นปกครองตนเองมาดาดาน
   tr = Magadan Oblastı
@@ -28940,6 +28957,7 @@
   pt = Mari El
   ro = Mari El
   es = Mari-El
+  et = Mari El Vabariik
   sv = Marij El
   th = สาธารณรัฐมาริ เอล
   tr = Mari El
@@ -28973,6 +28991,7 @@
   pt = Moscovo
   ro = Moscova
   es = Moscú
+  et = Moskva
   sv = Moskva
   th = มอสโก
   tr = Moskova
@@ -29006,6 +29025,7 @@
   pt = Oblast de Moscou
   ro = Regiunea Moscova
   es = Óblast de Moscú
+  et = Moskva oblast
   sv = Moskva oblast
   th = แคว้นปกครองตนเองมอสโกว
   tr = Moskova Oblastı
@@ -29039,6 +29059,7 @@
   pt = Oblast de Murmansk
   ro = Regiunea Murmansk
   es = Óblast de Múrmansk
+  et = Murmanski oblast
   sv = Murmansk oblast
   th = แคว้นปกครองตนเองเมอร์มันสก์
   tr = Murmansk Oblastı
@@ -29072,6 +29093,7 @@
   pt = Nenetsia
   ro = Districtul autonom Neneția
   es = Nenetsia
+  et = Neenetsi autonoomne ringkond
   sv = Nentsien
   th = เขตปกครองตนเองเนเนต
   tr = Nenets Özerk Okrugu
@@ -29105,6 +29127,7 @@
   pt = Oblast de Níjni Novgorod
   ro = Regiunea Nijni Novgorod
   es = Óblast de Nizhni Nóvgorod
+  et = Nižni Novgorodi oblast
   sv = Nizjnij Novgorod oblast
   th = แคว้นปกครองตนเองนิสนีย์ นอฟโกรอด
   tr = Nijniy Novgorod Oblastı
@@ -29138,6 +29161,7 @@
   pt = Ossétia do Norte-Alânia
   ro = Osetia de Nord
   es = Osetia del Norte - Alania
+  et = Põhja-Osseetia-Alania Vabariik
   sv = Nordossetien
   th = สาธารณรัฐออสเซเทีย-อะลาเนียเหนือ
   tr = Kuzey Osetya-Alanya
@@ -29171,6 +29195,7 @@
   pt = Oblast de Novgorod
   ro = Regiunea Novgorod
   es = Óblast de Nóvgorod
+  et = Novgorodi oblast
   sv = Novgorod oblast
   th = แคว้นปกครองตนเองนอฟโกรอด
   tr = Novgorod Oblastı
@@ -29204,6 +29229,7 @@
   pt = Oblast de Novosibirsk
   ro = Regiunea Novosibirsk
   es = Novosibirsk
+  et = Novosibirski oblast
   sv = Novosibirsk oblast
   th = โนโวซีบีสค์โอบลาสต์
   tr = Novosibirsk Oblastı
@@ -29237,6 +29263,7 @@
   pt = Oblast de Omsk
   ro = Regiunea Omsk
   es = Omsk
+  et = Omski oblast
   sv = Omsk oblast
   th = แคว้นปกครองตนเองออมสก์
   tr = Omsk Oblastı
@@ -29270,6 +29297,7 @@
   pt = Oblast de Oremburgo
   ro = Regiunea Orenburg
   es = Óblast de Oremburgo
+  et = Orenburgi oblast
   sv = Orenburg oblast
   th = แคว้นปกครองตนเองโอเรนเบิร์ก
   tr = Orenburg Oblastı
@@ -29303,6 +29331,7 @@
   pt = Oblast de Oriol
   ro = Regiunea Oriol
   es = Oriol
+  et = Oryoli oblast
   sv = Orjol oblast
   th = แคว้นปกครองตนเองออร์โยล
   tr = Oryol Oblastı
@@ -29336,6 +29365,7 @@
   pt = Oblast de Penza
   ro = Regiunea Penza
   es = Óblast de Penza
+  et = Penza oblast
   sv = Penza oblast
   th = แคว้นปกครองตนเองเพนซา
   tr = Penza Oblastı
@@ -29369,6 +29399,7 @@
   pt = Krai de Perm
   ro = Ținutul Perm
   es = Perm
+  et = Permi krai
   sv = Perm kraj
   th = เขตปกครองเพิร์ม
   tr = Perm Krayı
@@ -29402,6 +29433,7 @@
   pt = Krai do Litoral
   ro = Ținutul Primorie
   es = Primorie
+  et = Primorski krai
   sv = Primorje kraj
   th = เขตปกครองพริมอร์สกี
   tr = Primorskiy Krayı
@@ -29435,6 +29467,7 @@
   pt = Oblast de Pskov
   ro = Regiunea Pskov
   es = Óblast de Pskov
+  et = Pihkva oblast
   sv = Pskov oblast
   th = แคว้นปกครองตนเองพัสคอฟ
   tr = Pskov Oblastı
@@ -29468,6 +29501,7 @@
   pt = Daguestão
   ro = Daghestan
   es = Daguestán
+  et = Dagestani Vabariik
   sv = Dagestan
   th = สาธารณรัฐดาเกสถาน
   tr = Dağıstan
@@ -29501,6 +29535,7 @@
   pt = Calmúquia
   ro = Calmîchia
   es = Kalmukia
+  et = Kalmõkkia Vabariik
   sv = Kalmuckien
   th = สาธารณรัฐคัลมืยคียา
   tr = Kalmukya
@@ -29534,6 +29569,7 @@
   pt = República da Carélia
   ro = Republica Carelia
   es = República de Carelia
+  et = Karjala Vabariik
   sv = Karelska republiken
   th = สาธารณรัฐคาเรลียา
   tr = Karelya Cumhuriyeti
@@ -29567,6 +29603,7 @@
   pt = Mordóvia
   ro = Mordovia
   es = Mordovia
+  et = Mordva Vabariik
   sv = Mordvinien
   th = สาธารณรัฐมอร์โดเวีย
   tr = Mordovya
@@ -29600,6 +29637,7 @@
   pt = Oblast de Rostov
   ro = Regiunea Rostov
   es = Rostov
+  et = Rostovi oblast
   sv = Rostov oblast
   th = แคว้นปกครองตนเองรอสตอฟ
   tr = Rostov Oblastı
@@ -29633,6 +29671,7 @@
   pt = Oblast de Riazan
   ro = Regiunea Riazan
   es = Óblast de Riazán
+  et = Rjazani oblast
   sv = Rjazan oblast
   th = แคว้นปกครองตนเองรยาซัน
   tr = Ryazan Oblastı
@@ -29666,6 +29705,7 @@
   pt = São Petersburgo
   ro = Sankt Petersburg
   es = San Petersburgo
+  et = Peterburi
   sv = Sankt Petersburg
   th = เซนต์ปีเตอร์สเบิร์ก
   tr = Sankt Petersburg
@@ -29699,6 +29739,7 @@
   pt = Iacútia
   ro = Iacuția
   es = Sajá
+  et = Sakha Vabariik
   sv = Sacha
   th = สาธารณรัฐซาฮา
   tr = Yakutistan
@@ -29732,6 +29773,7 @@
   pt = Oblast de Sacalina
   ro = Regiunea Sahalin
   es = Sajalín
+  et = Sahhalini oblast
   sv = Sachalin oblast
   th = แคว้นปกครองตนเองซาคาลิน
   tr = Sahalin Oblastı
@@ -29765,6 +29807,7 @@
   pt = Oblast de Samara
   ro = Regiunea Samara
   es = Óblast de Samara
+  et = Samara oblast
   sv = Samara oblast
   th = แคว้นปกครองตนเองซามารา
   tr = Samara Oblastı
@@ -29798,6 +29841,7 @@
   pt = Oblast de Saratov
   ro = Regiunea Saratov
   es = Óblast de Sarátov
+  et = Saratovi oblast
   sv = Saratov oblast
   th = แคว้นปกครองตนเองซาราทอฟ
   tr = Saratov Oblastı
@@ -29831,6 +29875,7 @@
   pt = Oblast de Smolensk
   ro = Regiunea Smolensk
   es = Smolensk
+  et = Smolenski oblast
   sv = Smolensk oblast
   th = แคว้นปกครองตนเองสโมเลนสก์
   tr = Smolensk Oblastı
@@ -29864,6 +29909,7 @@
   pt = Krai de Stavropol
   ro = Ținutul Stavropol
   es = Stávropol
+  et = Stavropoli krai
   sv = Stavropol kraj
   th = แคว้นปกครองตนเองสตาฟโรพอล
   tr = Stavropol Krayı
@@ -29897,6 +29943,7 @@
   pt = Oblast de Sverdlovsk
   ro = Regiunea Sverdlovsk
   es = Sverdlovsk
+  et = Sverdlovski oblast
   sv = Sverdlovsk oblast
   th = แคว้นปกครองตนเองสเวอร์ดอฟสก์
   tr = Sverdlovsk Oblastı
@@ -29930,6 +29977,7 @@
   pt = Oblast de Tambov
   ro = Regiunea Tambov
   es = Tambov
+  et = Tambovi oblast
   sv = Tambov oblast
   th = แคว้นปกครองตนเองทัมบอฟ
   tr = Tambov Oblastı
@@ -29963,6 +30011,7 @@
   pt = Tartaristão
   ro = Tatarstan
   es = Tartaristán
+  et = Tatarstani Vabariik
   sv = Tatarstan
   th = สาธารณรัฐตาตาร์สถาน
   tr = Tataristan
@@ -29996,6 +30045,7 @@
   pt = Oblast de Tomsk
   ro = Regiunea Tomsk
   es = Tomsk
+  et = Tomski oblast
   sv = Tomsk oblast
   th = แคว้นปกครองตนเองทอมสก์
   tr = Tomsk Oblastı
@@ -30029,6 +30079,7 @@
   pt = Oblast de Tula
   ro = Regiunea Tula
   es = Óblast de Tula
+  et = Tula oblast
   sv = Tula oblast
   th = แคว้นปกครองตนเองทูลา
   tr = Tula Oblastı
@@ -30062,6 +30113,7 @@
   pt = Tuva
   ro = Tuva
   es = Tuvá
+  et = Tuva Vabariik
   sv = Tuva
   th = สาธารณรัฐทูวา
   tr = Tuva Cumhuriyeti
@@ -30095,6 +30147,7 @@
   pt = Oblast de Tver
   ro = Regiunea Tver
   es = Óblast de Tver
+  et = Tveri oblast
   sv = Tver oblast
   th = แคว้นปกครองตนเองเทวอร์
   tr = Tver Oblastı
@@ -30128,6 +30181,7 @@
   pt = Oblast de Tiumen
   ro = Regiunea Tiumen
   es = Tiumén
+  et = Tjumeni oblast
   sv = Tiumen oblast
   th = ทยูเมน
   tr = Tümen Oblastı
@@ -30161,6 +30215,7 @@
   pt = Udmúrtia
   ro = Udmurtia
   es = Udmurtia
+  et = Udmurdi Vabariik
   sv = Udmurtien
   th = สาธารณรัฐอุดเมิร์ต
   tr = Udmurtya
@@ -30194,6 +30249,7 @@
   pt = Oblast de Ulianovsk
   ro = Regiunea Ulianovsk
   es = Uliánovsk
+  et = Uljanovski oblast
   sv = Uljanovsk oblast
   th = แคว้นปกครองตนเองอูไลนอฟสก์
   tr = Ulyanovsk Oblastı
@@ -30227,6 +30283,7 @@
   pt = Oblast de Vladimir
   ro = Regiunea Vladimir
   es = Óblast de Vladímir
+  et = Vladimiri oblast
   sv = Vladimir oblast
   th = แคว้นปกครองตนเองวลาดิเมีย
   tr = Vladimir Oblastı
@@ -30260,6 +30317,7 @@
   pt = Oblast de Volgogrado
   ro = Regiunea Volgograd
   es = Volgogrado
+  et = Volgogradi oblast
   sv = Volgograd oblast
   th = แคว้นปกครองตนเองวอลโกกราด
   tr = Volgograd Oblastı
@@ -30293,6 +30351,7 @@
   pt = Oblast de Vologda
   ro = Regiunea Vologda
   es = Oblast Vologda
+  et = Vologda oblast
   sv = Vologda oblast
   th = แคว้นปกครองตนเองโวโลกดา
   tr = Vologda Oblastı
@@ -30326,6 +30385,7 @@
   pt = Oblast de Voronej
   ro = Regiunea Voronej
   es = Óblast de Vorónezh
+  et = Voroneži oblast
   sv = Voronezj oblast
   th = แคว้นปกครองตนเองโวโรเนช
   tr = Voronej Oblastı
@@ -30359,6 +30419,7 @@
   pt = Iamália
   ro = Districtul autonom Iamalia-Neneția
   es = Yamalia-Nenetsia
+  et = Jamalo-Neenetsi autonoomne üksus
   sv = Jamalo-Nentsien
   th = เขตปกครองตนเองยามาโล-เนเนต
   tr = Yamalo-Nenets Özerk Okrugu
@@ -30392,6 +30453,7 @@
   pt = Oblast de Iaroslavl
   ro = Regiunea Iaroslavl
   es = Óblast de Yaroslavl
+  et = Jaroslavli oblast
   sv = Jaroslavl oblast
   th = แคว้นปกครองตนเองยาโรสลาฟ
   tr = Yaroslavl Oblastı
@@ -30425,6 +30487,7 @@
   pt = Khantia-Mansia
   ro = Districtul autonom Hantî-Mansi
   es = Janti-Mansi
+  et = Hanti-Mansi autonoomne üksus
   sv = Chantien-Mansien
   th = เขตปกครองตนเองคานที-มานซี
   tr = Hantı-Mansi Özerk Okrugu
@@ -30458,6 +30521,7 @@
   pt = Krai de Zabaykalsky
   ro = Regiunea Transbaikal
   es = Zabaikalie
+  et = Trans-Baikali krai
   sv = Zabajkalskij kraj
   th = เขตปกครองซาบายคาลสกี
   tr = Zabaykalskiy Krayı
@@ -30491,6 +30555,7 @@
   pt = Rússia
   ro = Rusia
   es = Rusia
+  et = Venemaa
   eu = Errusia
   sv = Ryssland
   th = ประเทศรัสเซีย
@@ -30526,6 +30591,7 @@
   pt = Ruanda
   ro = Rwanda
   es = Ruanda
+  et = Ruanda
   eu = Ruanda
   sv = Rwanda
   th = ประเทศรวันดา
@@ -30562,6 +30628,7 @@
   ro = Republica Arabă Democrată Saharawi
   es = República Árabe Saharaui Democrática
   eu = Saharako Errepublika Arabiar Demokratikoa
+  et = Sahara Araabia Demokraatlik Vabariik
   sv = Sahariska arabiska demokratiska republiken
   th = สาธารณรัฐประชาธิปไตยอาหรับซาห์ราวี
   tr = Sahra Demokratik Arap Cumhuriyeti
@@ -30595,6 +30662,7 @@
   pt = Coletividade de São Bartolomeu
   ro = Saint Barthélemy
   es = San Bartolomé
+  et = Saint-Barthélemy
   eu = San Bartolome
   sv = Saint-Barthélemy
   th = แซ็ง-บาร์เตเลมี
@@ -30629,6 +30697,7 @@
   pt = Santa Helena, Ascensão e Tristão da Cunha
   ro = Sfânta Elena, Ascension și Tristan da Cunha
   es = Santa Elena, Ascensión y Tristán de Acuña
+  et = Santa Helena, Ascension ja Tristan da Cunha
   eu = Santa Helena, Ascension eta Tristan da Cunha
   sv = Sankta Helena, Ascension och Tristan da Cunha
   th = เซนต์เฮเลนา อัสเซนชัน และตริสตันดากูนยา
@@ -30663,6 +30732,7 @@
   pt = São Cristóvão e Nevis
   ro = Sfântul Cristofor și Nevis
   es = San Cristóbal y Nieves
+  et = Saint Kitts ja Nevis
   eu = Saint Kitts eta Nevis
   sv = Saint Kitts och Nevis
   th = ประเทศเซนต์คิตส์และเนวิส
@@ -30697,6 +30767,7 @@
   pt = Santa Lúcia
   ro = Sfânta Lucia
   es = Santa Lucía
+  et = Santa Lucia
   eu = Santa Luzia
   sv = Saint Lucia
   th = ประเทศเซนต์ลูเซีย
@@ -30731,6 +30802,7 @@
   pt = São Martinho
   ro = Saint Martin
   es = San Martín
+  et = Saint-Martin
   eu = San Martin
   sv = Saint Martin
   th = เซนต์มาร์ติน
@@ -30765,6 +30837,7 @@
   pt = São Vicente e Granadinas
   ro = Sfântul Vicențiu și Grenadine
   es = San Vicente y las Granadinas
+  et = Saint Vincent ja Grenadiinid
   eu = San Bizente eta Grenadinak
   sv = Saint Vincent och Grenadinerna
   th = ประเทศเซนต์วินเซนต์และเกรนาดีนส์
@@ -30799,6 +30872,7 @@
   pt = Samoa
   ro = Samoa
   es = Samoa
+  et = Samoa
   eu = Samoa
   sv = Samoa
   th = ประเทศซามัว
@@ -30833,6 +30907,7 @@
   pt = San Marino
   ro = San Marino
   es = San Marino
+  et = San Marino
   eu = San Marino
   sv = San Marino
   th = ประเทศซานมารีโน
@@ -30867,6 +30942,7 @@
   pt = São Tomé e Príncipe
   ro = São Tomé și Príncipe
   es = Santo Tomé y Príncipe
+  et = São Tome ja Principe
   eu = Sao Tome eta Principe
   sv = São Tomé och Príncipe
   th = ประเทศเซาตูเมและปรินซิปี
@@ -30901,6 +30977,7 @@
   pt = Arábia Saudita
   ro = Arabia Saudită
   es = Arabia Saudita
+  et = Saudi Araabia
   eu = Saudi Arabia
   sv = Saudiarabien
   th = ประเทศซาอุดีอาระเบีย
@@ -30936,6 +31013,7 @@
   pt = Senegal
   ro = Senegal
   es = Senegal
+  et = Senegal
   eu = Senegal
   sv = Senegal
   th = ประเทศเซเนกัล
@@ -30971,6 +31049,7 @@
   pt = Sérvia
   ro = Serbia
   es = Serbia
+  et = Serbia
   eu = Serbiarra
   sv = Serbien
   th = ประเทศเซอร์เบีย
@@ -31006,6 +31085,7 @@
   pt = Seychelles
   ro = Seychelles
   es = Seychelles
+  et = Seišellid
   eu = Seychelles
   sv = Seychellerna
   th = ประเทศเซเชลส์
@@ -31041,6 +31121,7 @@
   pt = Serra Leoa
   ro = Sierra Leone
   es = Sierra Leona
+  et = Sierra Leone
   eu = Sierra Leona
   sv = Sierra Leone
   th = ประเทศเซียร์ราลีโอน
@@ -31076,6 +31157,7 @@
   pt = Singapura
   ro = Singapore
   es = Singapur
+  et = Singapur
   eu = Singapur
   sv = Singapore
   th = ประเทศสิงคโปร์
@@ -31111,6 +31193,7 @@
   pt = Eslováquia
   ro = Slovacia
   es = Eslovaquia
+  et = Slovakkia
   eu = Eslovakia
   sv = Slovakien
   th = ประเทศสโลวาเกีย
@@ -31146,6 +31229,7 @@
   pt = Banská Bystrica
   ro = Regiunea Banská Bystrica
   es = Región de Banská Bystrica
+  et = Banská Bystrica piirkond
   sv = Banská Bystrica
   th = ภูมิภาคบันสกา บิสทริกา
   tr = Banská Bystrica Bölgesi
@@ -31179,6 +31263,7 @@
   pt = Bratislava
   ro = Regiunea Bratislava
   es = Región de Bratislava
+  et = Bratislava piirkond
   sv = Bratislava
   th = ภูมิภาคบราทิสลาวา
   tr = Bratislava Bölgesi
@@ -31212,6 +31297,7 @@
   pt = Košice
   ro = Regiunea Košice
   es = Región de Košice
+  et = Košice piirkond
   sv = Košice
   th = ภูมิภาคโคซิเซ
   tr = Košice Bölgesi
@@ -31245,6 +31331,7 @@
   pt = Nitra
   ro = Regiunea Nitra
   es = Región de Nitra
+  et = Nitra piirkond
   sv = Nitra
   th = ภูมิภาคนิตรา
   tr = Nitra Bölgesi
@@ -31278,6 +31365,7 @@
   pt = Prešov
   ro = Regiunea Prešov
   es = Región de Prešov
+  et = Prešovi piirkond
   sv = Prešov
   th = ภูมิภาคเพรโช
   tr = Prešov Bölgesi
@@ -31311,6 +31399,7 @@
   pt = Trenčín
   ro = Regiunea Trenčín
   es = Región de Trenčín
+  et = Trenčíni piirkond
   sv = Trenčín
   th = ภูมิภาคเทรนจิน
   tr = Trenčín Bölgesi
@@ -31344,6 +31433,7 @@
   pt = Trnava
   ro = Regiunea Trnava
   es = Región de Trnava
+  et = Trnava piirkond
   sv = Trnava
   th = ภูมิภาคทรนาวา
   tr = Trnava Bölgesi
@@ -31377,6 +31467,7 @@
   pt = Žilina
   ro = Regiunea Žilina
   es = Región de Žilina
+  et = Žilina piirkond
   sv = Žilina
   th = ภูมิภาคซิลินา
   tr = Žilina Bölgesi
@@ -31410,6 +31501,7 @@
   pt = Eslovénia
   ro = Slovenia
   es = Eslovenia
+  et = Sloveenia
   eu = Eslovenia
   sv = Slovenien
   th = ประเทศสโลวีเนีย
@@ -31445,6 +31537,7 @@
   pt = Ilhas Salomão
   ro = Insulele Solomon
   es = Islas Salomón
+  et = Saalomoni saared
   eu = Salomon Uharteak
   sv = Salomonöarna
   th = หมู่เกาะโซโลมอน
@@ -31480,6 +31573,7 @@
   pt = Somália
   ro = Somalia
   es = Somalia
+  et = Somaalia
   eu = Somalia
   sv = Somalia
   th = ประเทศโซมาเลีย
@@ -31515,6 +31609,7 @@
   pt = África do Sul
   ro = Africa de Sud
   es = Sudáfrica
+  et = Lõuna-Aafrika
   eu = Hegoafrika
   sv = Sydafrika
   th = ประเทศแอฟริกาใต้
@@ -31550,6 +31645,7 @@
   pt = Cabo Oriental
   ro = Provincia Eastern Cape
   es = Provincia Oriental del Cabo
+  et = Eastern Cape
   sv = Östra Kapprovinsen
   th = อีสเทิร์นเคป
   tr = Doğu Kap
@@ -31583,6 +31679,7 @@
   pt = Estado Livre
   ro = Provincia Free State
   es = Provincia del Estado Libre
+  et = Free State
   sv = Fristatsprovinsen
   th = ฟรีเสตท
   tr = Özgür Devlet
@@ -31616,6 +31713,7 @@
   pt = Gauteng
   ro = Provincia Gauteng
   es = Gauteng
+  et = Gauteng
   sv = Gauteng
   th = เฮาเทง
   tr = Gauteng
@@ -31649,6 +31747,7 @@
   pt = KwaZulu-Natal
   ro = Provincia KwaZulu-Natal
   es = KwaZulu-Natal
+  et = KwaZulu-Natal
   sv = KwaZulu-Natal
   th = ควาซูลู-นาทาล
   tr = KwaZulu-Natal
@@ -31682,6 +31781,7 @@
   pt = Limpopo
   ro = Provincia Limpopo
   es = Provincia de Limpopo
+  et = Limpopo
   sv = Limpopoprovinsen
   th = ลิมโปโป
   tr = Limpopo
@@ -31715,6 +31815,7 @@
   pt = Mpumalanga
   ro = Provincia Mpumalanga
   es = Mpumalanga
+  et = Mpumalanga
   sv = Mpumalanga
   th = มปูมาลังกา
   tr = Mpumalanga
@@ -31748,6 +31849,7 @@
   pt = Noroeste
   ro = Provincia North West
   es = Provincia del Noroeste
+  et = North West
   sv = Nordvästprovinsen
   th = นอร์ธเวสต์
   tr = Kuzeybatı
@@ -31781,6 +31883,7 @@
   pt = Cabo Setentrional
   ro = Provincia Northern Cape
   es = Provincia Septentrional del Cabo
+  et = Northern Cape
   sv = Norra Kapprovinsen
   th = นอร์ธเทิร์นเคป
   tr = Kuzey Kap
@@ -31814,6 +31917,7 @@
   pt = Cabo Ocidental
   ro = Provincia Western Cape
   es = Provincia Occidental del Cabo
+  et = Western Cape
   sv = Västra Kapprovinsen
   th = เวสเทริ์นเคป
   tr = Batı Kap
@@ -31847,6 +31951,7 @@
   pt = Carolina do Sul
   ro = Carolina de Sud
   es = Carolina del Sur
+  et = Lõuna-Carolina
   eu = Hego Carolina
   sv = South Carolina
   th = รัฐเซาท์แคโรไลนา
@@ -31880,6 +31985,7 @@
   pt = Ilhas Geórgia do Sul e Sandwich do Sul
   ro = Georgia de Sud și Insulele Sandwich de Sud
   es = Islas Georgias del Sur y Sándwich del Sur
+  et = Lõuna-Georgia ja Lõuna-Sandwichi saared
   eu = Hego Georgia eta Hego Sandwich uharteak
   sv = Sydgeorgien och Sydsandwichöarna
   th = เกาะเซาท์จอร์เจียและหมู่เกาะเซาท์แซนด์วิช
@@ -31913,6 +32019,7 @@
   pt = Coreia do Sul
   ro = Coreea de Sud
   es = Corea del Sur
+  et = Lõuna-Korea
   eu = Hego Korea
   sv = Sydkorea
   th = ประเทศเกาหลีใต้
@@ -31947,6 +32054,7 @@
   pt = Coreia do Sul — Norte
   ro = Coreea de Sud — Nord
   es = Corea del Sur — Norte
+  et = Lõuna-Korea - Põhi
   sv = Sydkorea — Nord
   th = ประเทศเกาหลีใต้ — เหนือ
   tr = Güney Kore — Kuzey
@@ -31979,6 +32087,7 @@
   pt = Coreia do Sul — Sul
   ro = Coreea de Sud — Sud
   es = Corea del Sur — Sur
+  et = Lõuna-Korea - Lõuna
   sv = Sydkorea — Syd
   th = ประเทศเกาหลีใต้ — ใต้
   tr = Güney Kore — Güney
@@ -32011,6 +32120,7 @@
   pt = Ossétia do Sul
   ro = Osetia de Sud
   es = Osetia del Sur
+  et = Lõuna-Osseetia
   eu = Hego Osetia
   sv = Sydossetien
   th = เซาท์ออสซีเชีย
@@ -32044,6 +32154,7 @@
   pt = Sudão do Sul
   ro = Sudanul de Sud
   es = Sudán del Sur
+  et = Lõuna-Sudaan
   eu = Hego Sudan
   sv = Sydsudan
   th = ประเทศเซาท์ซูดาน
@@ -32077,6 +32188,7 @@
   pt = Espanha
   ro = Spania
   es = España
+  et = Hispaania
   eu = Espainia
   sv = Spanien
   th = ประเทศสเปน
@@ -32111,6 +32223,7 @@
   pt = Andaluzia
   ro = Andaluzia
   es = Andalucía
+  et = Andaluusia
   eu = Andaluzia
   sv = Andalusien
   th = แคว้นอันดาลูซีอา
@@ -32144,6 +32257,7 @@
   pt = Aragão
   ro = Aragon
   es = Aragón
+  et = Aragon
   eu = Aragoi
   sv = Aragonien
   th = แคว้นอารากอง
@@ -32177,6 +32291,7 @@
   pt = Baleares
   ro = Insulele Baleare
   es = Islas Baleares
+  et = Baleaari saared
   eu = Balear Uharteak
   sv = Balearerna
   th = หมู่เกาะแบลีแอริก
@@ -32210,6 +32325,7 @@
   pt = Comunidade autónoma do País Basco
   ro = Țara Bascilor
   es = País Vasco
+  et = Baskimaa
   eu = Euskadi
   sv = Regionen Baskien
   th = แคว้นบาสก์
@@ -32243,6 +32359,7 @@
   pt = Canárias
   ro = Insulele Canare
   es = Canarias
+  et = Kanaari saared
   eu = Kanariar Uharteak
   sv = Kanarieöarna
   th = หมู่เกาะคะเนรี
@@ -32276,6 +32393,7 @@
   pt = Cantábria
   ro = Cantabria
   es = Cantabria
+  et = Cantabria
   eu = Kantabria
   sv = Kantabrien
   th = แคว้นกันตาเบรีย
@@ -32309,6 +32427,7 @@
   pt = Castela e Leão
   ro = Castilia și León
   es = Castilla y León
+  et = Kastiilia ja León
   eu = Gaztela eta Leon
   sv = Kastilien och León
   th = แคว้นคาสตีลและเลออน
@@ -32342,6 +32461,7 @@
   pt = Castela-Mancha
   ro = Castilia-La Mancha
   es = Castilla-La Mancha
+  et = Castile-La Mancha
   eu = Gaztela-Mantxa
   sv = Kastilien-La Mancha
   th = แคว้นคาสตีล-ลามันชา
@@ -32375,6 +32495,7 @@
   pt = Barcelona
   ro = Provincia Barcelona
   es = Provincia de Barcelona
+  et = Barcelona maakond
   eu = Bartzelonako probintzia
   sv = Barcelona
   th = จังหวัดบาร์เซโลนา
@@ -32408,6 +32529,7 @@
   pt = Girona
   ro = Provincia Girona
   es = Provincia de Gerona
+  et = Girona maakond
   eu = Gironako probintzia
   sv = Girona
   th = จังหวัดกิโรนา
@@ -32441,6 +32563,7 @@
   pt = Província de Lérida
   ro = Provincia Lleida
   es = Provincia de Lérida
+  et = Lleida maakond
   eu = Lleidako probintzia
   sv = Lleida
   th = จังหวัดเลดา
@@ -32474,6 +32597,7 @@
   pt = Tarragona
   ro = Provincia Tarragona
   es = Provincia de Tarragona
+  et = Tarragona maakond
   eu = Tarragonako probintzia
   sv = Tarragona
   th = จังหวัดทาร์ราโกนา
@@ -32507,6 +32631,7 @@
   pt = Ceuta
   ro = Ceuta
   es = Ceuta
+  et = Ceuta
   eu = Ceuta
   sv = Ceuta
   th = เซวตา
@@ -32540,6 +32665,7 @@
   pt = Comunidade autónoma de Madrid
   ro = Madrid
   es = Comunidad de Madrid
+  et = Madridi kogukond
   eu = Madrilgo Erkidegoa
   sv = Madrid
   th = แคว้นมาดริด
@@ -32573,6 +32699,7 @@
   pt = Navarra
   ro = Navarra
   es = Navarra
+  et = Navarra
   eu = Nafarroa
   sv = Navarra
   th = แคว้นนาวาร์
@@ -32606,6 +32733,7 @@
   pt = Estremadura (Espanha)
   ro = Extremadura
   es = Extremadura
+  et = Extremadura
   eu = Estremadura
   sv = Extremadura
   th = แคว้นเอกซ์เตรมาดูรา
@@ -32639,6 +32767,7 @@
   pt = Galiza
   ro = Galicia
   es = Galicia
+  et = Galicia
   eu = Galizia
   sv = Galicien
   th = แคว้นกาลิเซีย
@@ -32672,6 +32801,7 @@
   pt = La Rioja
   ro = La Rioja
   es = La Rioja
+  et = La Rioja
   eu = Errioxa
   sv = La Rioja
   th = แคว้นลารีโอคา
@@ -32705,6 +32835,7 @@
   pt = Melilla
   ro = Melilla
   es = Melilla
+  et = Melilla
   eu = Melilla
   sv = Melilla
   th = เมลียา
@@ -32738,6 +32869,7 @@
   pt = Astúrias
   ro = Asturia
   es = Principado de Asturias
+  et = Astuuria
   eu = Asturiasko Printzerria
   sv = Asturien
   th = แคว้นอัสตูเรียส
@@ -32771,6 +32903,7 @@
   pt = Região de Múrcia
   ro = Murcia
   es = Región de Murcia
+  et = Murcia piirkond
   eu = Murtziako Eskualdea
   sv = Murcia
   th = แคว้นมูร์เซีย
@@ -32804,6 +32937,7 @@
   pt = Comunidade Valenciana
   ro = Comunitatea Valenciană
   es = Comunidad Valenciana
+  et = Valencia
   eu = Valentziako Erkidegoa
   sv = Valencia
   th = แคว้นบาเลนเซีย
@@ -32837,6 +32971,7 @@
   pt = Sri Lanka
   ro = Sri Lanka
   es = Sri Lanka
+  et = Sri Lanka
   eu = Sri Lanka
   sv = Sri Lanka
   th = ประเทศศรีลังกา
@@ -32871,6 +33006,7 @@
   pt = Sudão
   ro = Sudan
   es = Sudán
+  et = Sudaan
   eu = Sudan
   sv = Sudan
   th = ประเทศซูดาน
@@ -32905,6 +33041,7 @@
   pt = Suriname
   ro = Surinam
   es = Surinam
+  et = Suriname
   eu = Surinam
   sv = Surinam
   th = ประเทศซูรินาม
@@ -32939,6 +33076,7 @@
   pt-BR = Essuatíni
   ro = Eswatini
   es = Esuatini
+  et = Eswatini
   eu = Eswatini
   es-MX = Esuatini
   sv = Eswatini
@@ -32974,6 +33112,7 @@
   pt = Suécia
   ro = Suedia
   es = Suecia
+  et = Rootsi
   eu = Suedia
   sv = Sverige
   th = ประเทศสวีเดน
@@ -33008,6 +33147,7 @@
   pt = Bergslagen
   ro = Bergslagen
   es = Bergslagen
+  et = Bergslagen
   sv = Bergslagen
   th = เบอร์สลาเกน
   tr = Bergslagen
@@ -33040,6 +33180,7 @@
   pt = Mälardalen
   ro = Mälardalen
   es = Mälardalen
+  et = Pealinna piirkond
   sv = Mälardalen
   th = มาลาร์ดาเลน
   tr = Mälardalen
@@ -33072,6 +33213,7 @@
   pt = Mellannorrland
   ro = Mellannorrland
   es = Mellannorrland
+  et = Keskn-Norland
   sv = Mellannorrland
   th = เมลานอร์แลนด์
   tr = Mellannorrland
@@ -33104,6 +33246,7 @@
   pt = Norra Sverige
   ro = Norra Sverige
   es = Norra Sverige
+  et = Põhja-Rootsi
   sv = Norra Sverige
   th = นอร์แลนด์
   tr = Norra Sverige
@@ -33136,6 +33279,7 @@
   pt = Ostra Götaland
   ro = Ostra Götaland
   es = Ostra Götaland
+  et = Ida-Götaland
   sv = Östergötland
   th = ออสตราโนตาลัน
   tr = Ostra Götaland
@@ -33168,6 +33312,7 @@
   pt = Södra Götaland
   ro = Södra Götaland
   es = Södra Götaland
+  et = Lõuna-Götaland
   sv = Södra Götaland
   th = โซดราโนตาลัน
   tr = Södra Götaland
@@ -33200,6 +33345,7 @@
   pt = Västra Götaland
   ro = Västra Götaland
   es = Västra Götaland
+  et = Lääne-Götaland
   sv = Västergötland
   th = วาสตราโนตาลัน
   tr = Västra Götaland
@@ -33232,6 +33378,7 @@
   pt = Suíça
   ro = Elveția
   es = Suiza
+  et = Šveits
   eu = Suitza
   sv = Schweiz
   th = ประเทศสวิตเซอร์แลนด์
@@ -33266,6 +33413,7 @@
   pt = Suíça Central
   ro = Elveția Centrală
   es = Suiza Central
+  et = Kesk-Šveits
   sv = Centralschweiz
   th = สวิตเซอร์แลนด์กลาง
   tr = Orta İsviçre
@@ -33298,6 +33446,7 @@
   pt = Suíça Ocidental
   ro = Elveția de Est
   es = Suiza oriental
+  et = Ida-Šveits
   sv = Östra Schweiz
   th = สวิตเซอร์แลนด์ตะวันออก
   tr = Doğu İsviçre
@@ -33330,6 +33479,7 @@
   pt = Espaço Mittelland
   ro = Spațiul Mittelland
   es = Mittelland
+  et = Espace Mittelland
   sv = Schweizer Mittelland
   th = เอสเปส มิตเตลลัน
   tr = Espace Mittelland
@@ -33362,6 +33512,7 @@
   pt = Região Lemánica
   ro = Regiunea lacul Geneva
   es = Región del lago Lemán
+  et = Genfi järve piirkond
   sv = Genèvesjöregionen
   th = พื้นที่ทะเลสาบเจนีวา
   tr = Lake Geneva bölgesi
@@ -33394,6 +33545,7 @@
   pt = Noroeste da Suíça
   ro = Elveția de Nord-Vest
   es = Suiza Nor-Occidental
+  et = Loode-Šveits
   sv = Nordvästra Schweiz
   th = สวิตเซอร์แลนด์ตะวันตกเฉียงเหนือ
   tr = Kuzeybatı İsviçre
@@ -33426,6 +33578,7 @@
   pt = Ticino
   ro = Cantonul Ticino
   es = Tesino
+  et = Ticino
   sv = Ticino
   th = รัฐทีชีโน
   tr = Ticino
@@ -33458,6 +33611,7 @@
   pt = Área Metropolitana de Zurique
   ro = Zona metropolitană Zurich
   es = Área metropolitana de Zurich
+  et = Zürich
   sv = Zürich storstadsområde
   th = มหานครซูริก
   tr = Zürih metropolitan bölgesi
@@ -33490,6 +33644,7 @@
   pt = Síria
   ro = Siria
   es = Siria
+  et = Süüria
   eu = Siria
   sv = Syrien
   th = ประเทศซีเรีย
@@ -33524,6 +33679,7 @@
   pt = República da China
   ro = Taiwan
   es = República de China
+  et = Taiwan
   eu = Txinako Errepublika
   sv = Taiwan
   th = ประเทศไต้หวัน
@@ -33558,6 +33714,7 @@
   pt = Tajiquistão
   ro = Tadjikistan
   es = Tayikistán
+  et = Tadžikistan
   eu = Tadjikistan
   sv = Tadzjikistan
   th = ประเทศทาจิกิสถาน
@@ -33592,6 +33749,7 @@
   pt = Tanzânia
   ro = Tanzania
   es = Tanzania
+  et = Tansaania
   eu = Tanzania
   sv = Tanzania
   th = ประเทศแทนซาเนีย
@@ -33626,6 +33784,7 @@
   pt = Tennessee
   ro = Tennessee
   es = Tennessee
+  et = Tennessee
   eu = Tennessee
   sv = Tennessee
   th = รัฐเทนเนสซี
@@ -33659,6 +33818,7 @@
   pt = Texas
   ro = Texas
   es = Texas
+  et = Texas
   eu = Texas
   sv = Texas
   th = รัฐเทกซัส
@@ -33692,6 +33852,7 @@
   pt = Tailândia
   ro = Thailanda
   es = Tailandia
+  et = Tai
   eu = Thailandia
   sv = Thailand
   th = ประเทศไทย
@@ -33726,6 +33887,7 @@
   pt = Tailândia — Norte
   ro = Thailanda — Nord
   es = Tailandia — Norte
+  et = Tai - Põhi
   sv = Thailand — Nord
   th = ประเทศไทย — เหนือ
   tr = Tayland — Kuzey
@@ -33758,6 +33920,7 @@
   pt = Tailândia — Sul
   ro = Thailanda — Sud
   es = Tailandia — Sur
+  et = Tai - Lõuna
   sv = Thailand — Syd
   th = ประเทศไทย — ใต้
   tr = Tayland — Güney
@@ -33790,6 +33953,7 @@
   pt = Bahamas
   ro = Bahamas
   es = Bahamas
+  et = Bahama saared
   eu = Bahamak
   sv = Bahamas
   th = ประเทศบาฮามาส
@@ -33823,6 +33987,7 @@
   pt = Gâmbia
   ro = Gambia
   es = Gambia
+  et = Gambia
   eu = Gambia
   sv = Gambia
   th = ประเทศแกมเบีย
@@ -33856,6 +34021,7 @@
   pt = Togo
   ro = Togo
   es = Togo
+  et = Togo
   eu = Joan
   sv = Togo
   th = ประเทศโตโก
@@ -33889,6 +34055,7 @@
   pt = Tokelau
   ro = Tokelau
   es = Tokelau
+  et = Tokelau
   eu = Tokelau
   sv = Tokelau
   th = โตเกเลา
@@ -33922,6 +34089,7 @@
   pt = Tonga
   ro = Tonga
   es = Tonga
+  et = Tonga
   eu = Tonga
   sv = Tonga
   th = ประเทศตองกา
@@ -33955,6 +34123,7 @@
   pt = Trinidad e Tobago
   ro = Trinidad și Tobago
   es = Trinidad y Tobago
+  et = Trinidad ja Tobago
   eu = Trinidad eta Tobago
   sv = Trinidad och Tobago
   th = ประเทศตรินิแดดและโตเบโก
@@ -33989,6 +34158,7 @@
   pt = Tunísia
   ro = Tunisia
   es = Túnez
+  et = Tuneesia
   eu = Tunisia
   sv = Tunisien
   th = ประเทศตูนิเซีย
@@ -34022,6 +34192,7 @@
   pt = Turquia
   ro = Turcia
   es = Turquía
+  et = Türgi
   eu = Turkia
   sv = Turkiet
   th = ประเทศตุรกี
@@ -34056,6 +34227,7 @@
   pt = Região do Egeu
   ro = Regiunea Egeeană
   es = Región del Egeo
+  et = Egeuse mere piirkond
   sv = Egeiska regionen
   th = ภูมิภาคแอเกียน
   tr = Ege Bölgesi
@@ -34088,6 +34260,7 @@
   pt = Região do Mar Negro
   ro = Regiunea Mării Negre
   es = Región del Mar Negro
+  et = Musta mere piirkond
   sv = Svarta havsregionen
   th = ภูมิภาคแบล็กซี
   tr = Karadeniz Bölgesi
@@ -34120,6 +34293,7 @@
   pt = Região da Anatólia Oriental
   ro = Regiunea Anatolia de Est
   es = Región de Anatolia Oriental
+  et = Ida-Anatoolia piirkond
   sv = Östanatolien
   th = ภูมิภาคแอนาโตเลียตะวันออก
   tr = Doğu Anadolu Bölgesi
@@ -34152,6 +34326,7 @@
   pt = Região de Mármara
   ro = Regiunea Marmara
   es = Región del Mármara
+  et = Marmara piirkond
   sv = Marmara-regionen
   th = ภูมิภาคมาร์มารา
   tr = Marmara Bölgesi
@@ -34184,6 +34359,7 @@
   pt = Região do Mediterrâneo
   ro = Regiunea Mediteraneană
   es = Región del Mediterráneo
+  et = Vahemere piirkond
   sv = Medelhavsregionen
   th = ภูมิภาคเมดิเตอร์เรเนียน
   tr = Akdeniz Bölgesi
@@ -34216,6 +34392,7 @@
   pt = Região do Sudeste da Anatólia
   ro = Regiunea Anatolia de Sud-Est
   es = Región del Sureste de Anatolia
+  et = Kagu-Anatoolia piirkond
   sv = Sydöstra Anatolien
   th = ภูมิภาคแอนาโตเลียตะวันออกเฉียงใต้
   tr = Güneydoğu Anadolu Bölgesi
@@ -34248,6 +34425,7 @@
   pt = Turquemenistão
   ro = Turkmenistan
   es = Turkmenistán
+  et = Türkmenistan
   eu = Turkmenistan
   sv = Turkmenistan
   th = ประเทศเติร์กเมนิสถาน
@@ -34282,6 +34460,7 @@
   pt = Turks e Caicos
   ro = Insulele Turks și Caicos
   es = Islas Turcas y Caicos
+  et = Turksi ja Caicose saared
   eu = Turks eta Caicos uharteak
   sv = Turks- och Caicosöarna
   th = หมู่เกาะเติกส์และหมู่เกาะเคคอส
@@ -34315,6 +34494,7 @@
   pt = Tuvalu
   ro = Tuvalu
   es = Tuvalu
+  et = Tuvalu
   eu = Tuvaluarra
   sv = Tuvalu
   th = ประเทศตูวาลู
@@ -34348,6 +34528,7 @@
   pt = Midlands Orientais
   ro = East Midlands
   es = Midlands del Este
+  et = Ida-Midlands
   sv = East Midlands
   th = อีสต์มิดแลนส์
   tr = East Midlands
@@ -34380,6 +34561,7 @@
   pt = Leste da Inglaterra — Essex
   ro = East of England — Essex
   es = Este de Inglaterra — Essex
+  et = Ida-Inglismaa - Essex
   sv = Östra England — Essex
   th = อีสต์ออฟอิงแลนด์ — เอสเซกซ์
   tr = Doğu İngiltere — Essex
@@ -34412,6 +34594,7 @@
   pt = Leste da Inglaterra — Norfolk
   ro = East of England — Norfolk
   es = Este de Inglaterra — Norfolk
+  et = Ida-Inglismaa - Norfolk
   sv = Östra England — Norfolk
   th = อีสต์ออฟอิงแลนด์ — นอร์ฟอล์ก
   tr = Doğu İngiltere — Norfolk
@@ -34444,6 +34627,7 @@
   pt = Grande Londres
   ro = Londra Mare
   es = Gran Londres
+  et = Suur-London
   sv = Storlondon
   th = เกรเทอร์ลอนดอน
   tr = Büyük Londra Bölgesi
@@ -34476,6 +34660,7 @@
   pt = Nordeste da Inglaterra
   ro = North East England
   es = Nordeste de Inglaterra
+  et = Kirde-Inglismaa
   sv = Nordöstra England
   th = นอร์ทอีสต์อิงแลนด์
   tr = Kuzey Doğu İngiltere
@@ -34508,6 +34693,7 @@
   pt = Noroeste da Inglaterra
   ro = North West England
   es = Noroeste de Inglaterra
+  et = Loode-Inglismaa
   sv = Nordvästra England
   th = นอร์ทเวสต์อิงแลนด์
   tr = Kuzey-Batı İngiltere
@@ -34540,6 +34726,7 @@
   pt = Sudeste da Inglaterra — Brighton
   ro = South East England — Brighton
   es = Sudeste de Inglaterra — Brighton
+  et = Kagu-Inglismaa - Brighton
   sv = Sydöstra England — Brighton
   th = เซาท์อีสต์อิงแลนด์ — ไบรตัน
   tr = Güney Doğu İngiltere — Brighton
@@ -34572,6 +34759,7 @@
   pt = Sudeste da Inglaterra — Oxford
   ro = South East England — Oxford
   es = Sudeste de Inglaterra — Oxford
+  et = Kagu-Inglismaa - Oxford
   sv = Sydöstra England — Oxford
   th = เซาท์อีสต์อิงแลนด์ — อ๊อกซฟอร์ด
   tr = Güney Doğu İngiltere — Oxford
@@ -34604,6 +34792,7 @@
   pt = Sudoeste da Inglaterra — Bristol
   ro = South West England — Bristol
   es = Sudoeste de Inglaterra — Brístol
+  et = Edela-Inglismaa - Bristol
   sv = Sydvästra England — Bristol
   th = เซาท์เวสต์อิงแลนด์ — บริสตอล
   tr = Güneybatı İngiltere — Bristol
@@ -34636,6 +34825,7 @@
   pt = Sudoeste da Inglaterra — Cornualha
   ro = South West England — Cornwall
   es = Sudoeste de Inglaterra — Cornualles
+  et = Edela-Inglismaa - Cornwall
   sv = Sydvästra England — Cornwall
   th = เซาท์เวสต์อิงแลนด์ — คอร์นวอลล์
   tr = Güneybatı İngiltere — Cornwall
@@ -34668,6 +34858,7 @@
   pt = Midlands Ocidentais
   ro = West Midlands
   es = Midlands del Oeste
+  et = Lääne-Midlands
   sv = West Midlands
   th = เวสต์มิดแลนส์
   tr = West Midlands
@@ -34680,7 +34871,7 @@
   sk = West Midlands
 
 [UK_England_Yorkshire and the Humber]
-  en = Yorkshire and the Humber
+      en = Yorkshire and the Humber
   ru = Йоркшир и Хамбер
   ar = يوركشاير وهامبر
   ca = Yorkshire and the Humber
@@ -34700,6 +34891,7 @@
   pt = Yorkshire e Humber
   ro = Yorkshire and the Humber
   es = Yorkshire y Humber
+  et = Yorkshire ja Humber
   sv = Yorkshire och Humber
   th = ยอร์กเชอร์และฮัมเบอร์
   tr = Yorkshire ve Humber
@@ -34732,6 +34924,7 @@
   pt = Irlanda do Norte
   ro = Irlanda de Nord
   es = Irlanda del Norte
+  et = Põhja-Iirimaa
   sv = Nordirland
   th = ไอร์แลนด์เหนือ
   tr = Kuzey İrlanda
@@ -34764,6 +34957,7 @@
   pt = Escócia — Norte
   ro = Scoția — Nord
   es = Escocia — Norte
+  et = Šotimaa - Põhi
   sv = Skottland — Nord
   th = ประเทศสกอตแลนด์ — เหนือ
   tr = İskoçya — Kuzey
@@ -34796,6 +34990,7 @@
   pt = Escócia — Sul
   ro = Scoția — Sud
   es = Escocia — Sur
+  et = Šotimaa - Lõuna
   sv = Skottland — Syd
   th = ประเทศสกอตแลนด์ — ใต้
   tr = İskoçya — Güney
@@ -34828,6 +35023,7 @@
   pt = País de Gales
   ro = Țara Galilor
   es = Gales
+  et = Wales
   sv = Wales
   th = ประเทศเวลส์
   tr = Galler
@@ -34860,6 +35056,7 @@
   pt = Birmingham
   ro = Birmingham
   es = Birmingham
+  et = Birmingham
   sv = Birmingham
   th = เบอร์มิงแฮม
   tr = Birmingham
@@ -34892,6 +35089,7 @@
   pt = Montgomery
   ro = Montgomery, Alabama
   es = Montgomery
+  et = Montgomery
   sv = Montgomery, Alabama
   th = มอนต์กอเมอรี
   tr = Montgomery, Alabama
@@ -34924,6 +35122,7 @@
   pt = Alasca
   ro = Alaska
   es = Alaska
+  et = Alaska
   sv = Alaska
   th = รัฐอะแลสกา
   tr = Alaska
@@ -34957,6 +35156,7 @@
   pt = Flagstaff
   ro = Flagstaff
   es = Flagstaff
+  et = Flagstaff
   sv = Flagstaff
   th = แฟลกสแตฟฟ์
   tr = Flagstaff
@@ -34989,6 +35189,7 @@
   pt = Phoenix
   ro = Phoenix
   es = Phoenix
+  et = Phoenix
   sv = Phoenix
   th = ฟีนิกซ์
   tr = Phoenix
@@ -35021,6 +35222,7 @@
   pt = Tucson
   ro = Tucson, Arizona
   es = Tucson
+  et = Tucson
   sv = Tucson
   th = ทูซอน
   tr = Tucson
@@ -35053,6 +35255,7 @@
   pt = Arkansas
   ro = Arkansas
   es = Arkansas
+  et = Arkansas
   sv = Arkansas
   th = รัฐอาร์คันซอ
   tr = Arkansas
@@ -35085,6 +35288,7 @@
   pt = Bakersfield
   ro = Bakersfield, California
   es = Bakersfield
+  et = Bakersfield
   sv = Bakersfield
   th = เบเกอร์ฟิลด์
   tr = Bakersfield, Kaliforniya
@@ -35117,6 +35321,7 @@
   pt = Lancaster
   ro = Lancaster
   es = Lancaster
+  et = Lancaster
   sv = Lancaster
   th = แลงคาสเตอร์
   tr = Lancaster
@@ -35149,6 +35354,7 @@
   pt = Chico
   ro = Chico
   es = Chico
+  et = Chico
   sv = Chico, Kalifornien
   th = ชิโค
   tr = Chico, Kaliforniya
@@ -35181,6 +35387,7 @@
   pt = Los Angeles
   ro = Los Angeles
   es = Los Ángeles
+  et = Los Angeles
   sv = Los Angeles
   th = ลอสแอนเจลิส
   tr = Los Angeles
@@ -35213,6 +35420,7 @@
   pt = Los Angeles — Norte
   ro = Los Angeles — Nord
   es = Los Ángeles — Norte
+  et = Los Angeles — Põhi
   sv = Los Angeles — Nord
   th = ลอสแอนเจลิส — เหนือ
   tr = Los Angeles — Kuzey
@@ -35245,6 +35453,7 @@
   pt = Redding
   ro = Redding
   es = Redding
+  et = Redding
   sv = Redding
   th = เรดดิง
   tr = Redding
@@ -35277,6 +35486,7 @@
   pt = Fresno
   ro = Fresno
   es = Fresno
+  et = Fresno
   sv = Fresno
   th = เฟรสโน
   tr = Fresno
@@ -35309,6 +35519,7 @@
   pt = Sacramento
   ro = Sacramento, California
   es = Sacramento
+  et = Sacramento
   sv = Sacramento
   th = แซคราเมนโต
   tr = Sacramento
@@ -35341,6 +35552,7 @@
   pt = Stockton
   ro = Stockton, California
   es = Stockton
+  et = Stockton
   sv = Stockton, Kalifornien
   th = สต็อกตัน
   tr = Stockton
@@ -35373,6 +35585,7 @@
   pt = San Diego
   ro = San Diego
   es = San Diego
+  et = San Diego
   sv = San Diego
   th = แซนดีเอโก
   tr = San Diego
@@ -35405,6 +35618,7 @@
   pt = São Francisco
   ro = San Francisco
   es = San Francisco
+  et = San Francisco
   sv = San Francisco
   th = ซานฟรานซิสโก
   tr = San Francisco
@@ -35437,6 +35651,7 @@
   pt = Santa Cruz
   ro = Santa Cruz
   es = Santa Cruz
+  et = Santa Cruz
   sv = Santa Cruz
   th = ซานตา ครูซ
   tr = Santa Cruz
@@ -35469,6 +35684,7 @@
   pt = Aspen
   ro = Aspen
   es = Aspen
+  et = Aspen
   sv = Aspen
   th = แอสเพน
   tr = Aspen
@@ -35501,6 +35717,7 @@
   pt = Denver
   ro = Denver
   es = Denver
+  et = Denver
   sv = Denver
   th = เดนเวอร์
   tr = Denver
@@ -35533,6 +35750,7 @@
   pt = Colorado — Sul
   ro = Colorado — Sud
   es = Colorado — Sur
+  et = Colorado — Lõuna
   sv = Colorado — Syd
   th = รัฐโคโลราโด — ใต้
   tr = Colorado — Güney
@@ -35565,6 +35783,7 @@
   pt = Connecticut
   ro = Connecticut
   es = Connecticut
+  et = Connecticut
   sv = Connecticut
   th = รัฐคอนเนตทิคัต
   tr = Connecticut
@@ -35597,6 +35816,7 @@
   pt = Delaware
   ro = Delaware
   es = Delaware
+  et = Delaware
   sv = Delaware
   th = รัฐเดลาแวร์
   tr = Delaware
@@ -35629,6 +35849,7 @@
   pt = Jacksonville
   ro = Jacksonville, Florida
   es = Jacksonville
+  et = Jacksonville
   sv = Jacksonville, Florida
   th = แจ็กสันวิลล์
   tr = Jacksonville
@@ -35661,6 +35882,7 @@
   pt = Miami
   ro = Miami
   es = Miami
+  et = Miami
   sv = Miami
   th = ไมแอมี
   tr = Miami
@@ -35693,6 +35915,7 @@
   pt = Orlando
   ro = Orlando, Florida
   es = Orlando
+  et = Orlando
   sv = Orlando, Florida
   th = ออร์แลนโด
   tr = Orlando, Florida
@@ -35725,6 +35948,7 @@
   pt = Tampa
   ro = Tampa, Florida
   es = Tampa
+  et = Tampa
   sv = Tampa
   th = แทมปา
   tr = Tampa, Florida
@@ -35757,6 +35981,7 @@
   pt = Geórgia
   ro = Georgia
   es = Georgia
+  et = Georgia
   sv = Georgia
   th = รัฐจอร์เจีย
   tr = Georgia
@@ -35789,6 +36014,7 @@
   pt = Atlanta
   ro = Atlanta
   es = Atlanta
+  et = Atlanta
   sv = Atlanta
   th = แอตแลนตา
   tr = Atlanta
