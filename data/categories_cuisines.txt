@@ -980,7 +980,7 @@ id:Masakan vegan|Masakan vegetarian
 it:Cucina vegana|Cucina vegetariana
 ja:ビーガン料理|ベジタリアン料理
 ko:비건 음식|채식주의자 음식
-nb:Veganermat|Vegetar mat
+nb:Vegansk|Vegetarisk|Vegetarretter
 pl:Kuchnia wegańska|Kuchnia wegetariańska
 pt:Vegana|vegetariana
 pt-BR:Vegana|vegetariana
@@ -1558,7 +1558,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # it:Gastronomia
 # ja:デリ
 # ko:델리
-# nb:Delimat
+# nb:Delikatesse
 # pl:Delikatesy
 # pt:Iguarias regionais|delicatesse
 # pt-BR:Iguarias regionais|delicatesse
