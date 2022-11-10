@@ -515,14 +515,38 @@ fa:خود پرداز
 en:2RV Facilities|4Caravan|Vanlife|5Campervan|5Motorhome
 ar:منشآت للمنازل المتنقلة
 be:Для аўтадамоў|5Аўтадом|5Трэйлер|5Караван|Дом на колах
-fr:3Aménagements pour camping-car|caravane|mobile home
+bg:За RV
+cs:Pro RV
+da:Til RV
+de:Einrichtungen für Wohnmobile|4Wohnmobile
+el:Για RV
 es:Caravanas|Autocaravanas
+eu:Karabanak
+fa:RV ﯼﺍﺮﺑ
+fi:RV tilat
+fr:Aménagements pour camping-car|4caravane|mobile home
+he:םינאוורק רובע
+hu:RV számára
+id:Untuk RV
+ja:RV用
+ko:RV용
+it:Per camper
+nb:Bobilanlegg
+nl:Caravan faciliteiten|4Caravans|5Campers
 pl:Kamper
-ru:Для автодомов|5Автодом|5Трейлер|Дом на колёсах
+pt:Para trailers
+pt-BR:Para trailers
 ro:Pentru rulote|3Rulotă|RV
+ru:Для автодомов|5Автодом|5Трейлер|Дом на колёсах
+sk:Pre RV
+sv:För husbil
+sw:Kwa RV
+th:สำหรับ RV
 tr:4Karavan Tesisleri
 uk:Для автобудинків|5Автодім|5Автобудинок|5Трейлер|5Караван|Будинок на колесах
-nl:4Caravan faciliteiten|4Caravans|5Campers
+vi:Đối với RV
+zh-Hans:房车用
+zh-Hant:房車用
 
 amenity-atm|@atm
 en:money|U+1F3E7|U+1F4B2|U+1F4B3|U+1F4B4|U+1F4B5|U+1F4B6|U+1F4B7
