@@ -516,11 +516,13 @@ en:2RV Facilities|4Caravan|Vanlife|5Campervan|5Motorhome
 ar:منشآت للمنازل المتنقلة
 be:Для аўтадамоў|5Аўтадом|5Трэйлер|5Караван|Дом на колах
 bg:За RV
+ca:Caravanes
 cs:Pro RV
 da:Til RV
 de:Einrichtungen für Wohnmobile|4Wohnmobile
 el:Για RV
 es:Caravanas|Autocaravanas
+et:Haagiselamud
 eu:Karabanak
 fa:RV ﯼﺍﺮﺑ
 fi:RV tilat
