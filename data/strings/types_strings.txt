@@ -10243,6 +10243,7 @@
   [type.highway.service.parking_aisle]
     ref = type.highway.service
     en = Parking Aisle
+    et = Parkla vahetee
     fr = Allée
     mr = पार्किंग गल्ली
     pl = Miejsca parkingowe
@@ -10257,12 +10258,14 @@
   [type.highway.service.tunnel]
     ref = type.highway.road.tunnel
     de = Straßentunnel
+    et = Tänava tunnel
     pl = Tunel drogowy
     pt-BR = Túnel rodoviário
 
   [type.highway.services]
     en = Service Area
     de = Raststätte
+    et = Teenindusala
     fr = Aire de service
     ja = サービスエリア
     mr = सेवा क्षेत्र
@@ -10284,6 +10287,7 @@
     de = Blitzer
     el = Κάμερα ταχύτητας
     es = Radar de velocidad
+    et = Kiiruskaamera
     eu = Abiadura kamera
     fa = دوربین سرعت سنج
     fi = Nopeusvalvontakamera
@@ -10318,6 +10322,7 @@
     de = Stufen
     el = Διαδρομή
     es = Camino
+    et = Trepp
     eu = Bidea
     fa = مسیر
     fi = Polku
@@ -10358,6 +10363,7 @@
     de = Straße
     el = Οδός
     es = Calle
+    et = Tänav
     eu = Kalea
     fa = جاده
     fi = Katu
@@ -10421,6 +10427,7 @@
     de = Straße
     el = Οδός
     es = Calle
+    et = Rada
     eu = Kalea
     fa = جاده
     fi = Katu
@@ -10488,6 +10495,7 @@
     de = Verkehrsampel
     el = Φανάρια κυκλοφορίας
     es = Semáforos
+    et = Valgusfoor
     eu = Semaforoak
     fa = چراغ راهنما
     fi = Liikennevalot
@@ -10522,6 +10530,7 @@
     de = Schnellstraße
     el = Οδός
     es = Calle
+    et = Magistraaltee
     eu = Kalea
     fa = جاده
     fi = Katu
@@ -10582,6 +10591,7 @@
     de = Straße
     el = Οδός
     es = Calle
+    et = Vähetähtis tee
     eu = Kalea
     fa = جاده
     fi = Katu
@@ -10622,12 +10632,14 @@
 
   [type.area_highway.cycleway]
     ref = type.highway.cycleway
+    et = Jalgrattatee
     fi = Pyörätie
     pt-BR = Caminho para ciclistas
 
   [type.area_highway.footway]
     ref = type.highway.footway
     de = Weg
+    et = Käigutee
     fi = Kävelytie
 
   [type.area_highway.living_street]
@@ -10644,6 +10656,7 @@
 
   [type.area_highway.pedestrian]
     ref = type.highway.pedestrian
+    et = Jalakäigutee
     fi = Kävelykatu
     pt-BR = Caminho pedonal
 
@@ -10664,6 +10677,7 @@
 
   [type.area_highway.steps]
     ref = type.highway.steps
+    et = Trepp
     fi = Portaat
     nl = Trappen
     pt-BR = Travessia
@@ -10697,6 +10711,7 @@
     de = Historisches Objekt
     el = Ιστορικό αντικείμενο
     es = Objeto histórico
+    et = Ajalooline objekt
     eu = Objektu historikoa
     fa = شیء تاریخی
     fi = Historiallinen esine
@@ -10734,6 +10749,7 @@
     de = Ausgrabungsstätte
     el = Αρχαιολογικός χώρος
     es = Yacimiento arqueológico
+    et = Arheoloogiline koht
     eu = Aztarnategi arkeologikoa
     fa = گردشگری
     fi = Arkeologinen kohde
@@ -10771,6 +10787,7 @@
     de = Schlachtfeld
     el = Πεδίο μάχης
     es = Campo de batalla
+    et = Lahinguväli
     eu = Gudu zelai
     fa = میدان جنگ
     fi = Taistelukenttä
@@ -10808,6 +10825,7 @@
     de = Grenzstein
     el = Οριακή πέτρα
     es = Hito fronterizo
+    et = Piirikivi
     eu = Zedarri
     fa = نشانگر مرز
     fi = Rajamerkki
@@ -10845,6 +10863,7 @@
     de = Burg
     el = Κάστρο
     es = Castillo
+    et = Loss
     eu = Gaztelu
     fa = قلعه
     fi = Linna
@@ -10882,6 +10901,7 @@
     de = Römisches Militärlager
     el = Ρωμαϊκό κάστρο
     es = Castrum
+    et = Rooma kindlus
     eu = Castrum
     fa = قلعه رومی
     fi = Castra
@@ -10919,6 +10939,7 @@
     de = Burg
     el = Κάστρο
     es = Castillo
+    et = Kindlus
     eu = Gaztelu
     fa = قلعه
     fi = Linna
@@ -10956,6 +10977,7 @@
     de = Wehrkirche
     el = Οχυρωμένη εκκλησία
     es = Iglesia fortificada
+    et = Kindlustatud kirik
     eu = Eliza-gotorleku
     fa = کلیسای مستحکم
     fi = Linnoitettu kirkko
@@ -10993,6 +11015,7 @@
     de = Festung
     el = Φρούριο
     es = Fortaleza
+    et = Kindlus
     eu = Gotorlekua
     fa = قلعه
     fi = Linnoitus
@@ -11030,6 +11053,7 @@
     de = Wallburg
     el = Φρούριο
     es = Castro
+    et = Linnus
     eu = Kastro
     fa = تپه‌قلعه
     fi = Linnavuori
@@ -11067,6 +11091,7 @@
     de = Kreml
     el = Κρεμλίνο
     es = Kremlin
+    et = Kreml
     eu = Kremlina
     fa = کرملین
     fi = Kreml
@@ -11104,6 +11129,7 @@
     de = Herrenhaus
     el = Αρχοντικό
     es = Casa solariega
+    et = Mõisahoone
     eu = Jauregitxo
     fa = خانه ارباب یا صاحب تیول
     fi = Kartano
@@ -11141,6 +11167,7 @@
     de = Palais
     el = Παλάτι
     es = Palacio
+    et = Palee
     eu = Jauregi
     fa = کاخ
     fi = Palatsi
@@ -11178,6 +11205,7 @@
     de = Japanische Burg
     el = Ιαπωνικό κάστρο
     es = Castillo japonés
+    et = Jaapani loss
     eu = Japoniar gaztelu
     fa = قلعه ژاپنی
     fi = Japanilainen linna
@@ -11215,6 +11243,7 @@
     de = Schloss
     el = Κάστρο
     es = Castillo
+    et = Loss
     eu = Gaztelua
     fa = گردشگری
     fi = Linna
@@ -11252,6 +11281,7 @@
     de = Stadttor
     el = Πύλη της πόλης
     es = Puerta de la ciudad
+    et = Linnavärav
     eu = Portale
     fa = دروازه شهر
     fi = Kaupungin portti
@@ -11289,6 +11319,7 @@
     de = Stadtmauer
     el = Τείχος της πόλης
     es = Muro de la ciudad
+    et = Linnamüür
     eu = Hiri harresia
     fa = دیوار شهر
     fi = Kaupungin muuri
@@ -11326,6 +11357,7 @@
     de = Fort
     el = Φορτ
     es = Fuerte
+    et = Kindlus
     eu = Gotorlekua
     fa = دژ
     fi = Fort
@@ -11363,6 +11395,7 @@
     de = Galgen
     el = Αγχόνη
     es = Horca
+    et = Võllas
     eu = Urkamendi
     fa = چوبه دار
     fi = Sappeja
@@ -11400,6 +11433,7 @@
     de = Denkmal
     el = Μνημείο
     es = Monumento conmemorativo
+    et = Memoriaal
     eu = Memorial
     fa = گردشگری
     fi = Muistomerkki
@@ -11437,6 +11471,7 @@
     de = Gedenkkreuz
     el = Σταυρός μνήμης
     es = Cruz conmemorativa
+    et = Mälestusrist
     eu = Oroimenezko gurutzea
     fa = صلیب یادبود
     fi = Muistoristi
@@ -11475,6 +11510,7 @@
     de = Gedenktafel
     el = Μνημείο
     es = Placa conmemorativa
+    et = Mälestusmärk
     eu = Oroitzapenezko plaka
     fa = گردشگری
     fi = Muistomerkki
@@ -11512,6 +11548,7 @@
     de = Skulptur
     el = Μνημείο
     es = Escultura
+    et = Skulptuur
     eu = Eskultura
     fa = گردشگری
     fi = Muistomerkki
@@ -11549,6 +11586,7 @@
     de = Statue
     el = Μνημείο
     es = Estatua
+    et = Kuju
     eu = Estatua
     fa = گردشگری
     fi = Muistomerkki
@@ -11586,6 +11624,7 @@
     de = Stolperstein
     el = Λίθοι Μνήμης
     es = Stolperstein
+    et = Komistuskivi
     eu = Stolperstein
     fa = سنگ مانع
     fi = Kompastuskivet
@@ -11623,6 +11662,7 @@
     de = Kriegerdenkmal
     el = Μνημείο του Αγνώστου Στρατιώτη
     es = Monumento a la guerra
+    et = Sõjamemoriaal
     eu = Gerra memoriala
     fa = رزم‌یاد
     fi = Sotamuistomerkki
@@ -11660,6 +11700,7 @@
     de = Monument
     el = Μνημείο
     es = Monumento
+    et = Monument
     eu = Monumentua
     fa = گردشگری
     fi = Monumentti
@@ -11696,6 +11737,7 @@
     de = Pranger
     el = Κύφωνας
     es = Picota
+    et = Häbipost
     eu = Urkabe
     fa = تخته‌بند
     fi = Häpeäpaalu
@@ -11733,6 +11775,7 @@
     de = Ruine
     el = Ερείπια
     es = Ruinas
+    et = Varemed
     eu = Hondakinak
     fa = گردشگری
     fi = Rauniot
@@ -11770,6 +11813,7 @@
     de = Schiff
     el = Αξιοθέατο
     es = Turismo
+    et = Laev
     eu = Turismoa
     fa = گردشگری
     fi = Nähtävyydet
@@ -11807,6 +11851,7 @@
     de = Grabstätte
     el = Αξιοθέατο
     es = Tumba
+    et = Haud
     eu = Ehorztoki
     fa = گردشگری
     fi = Nähtävyydet
@@ -11844,6 +11889,7 @@
     de = Wegkreuz
     el = Σταυρός στην άκρη του δρόμου
     es = Cruz de término
+    et = Teeäärne rist
     eu = Bideko gurutze
     fa = صلیب کنار راه
     fi = Tienvarren risti
@@ -11881,6 +11927,7 @@
     de = Bildstock
     el = Εικονοστάσιο στην άκρη του δρόμου
     es = Peto de ánimas
+    et = Teeäärne pühamu
     eu = Bide bazterreko baseliza
     fa = حرم کنار راه
     fi = Tienvarren pyhäkkö
@@ -11951,6 +11998,7 @@
     en = Internet
     ar = إنترنت
     el = Ίντερνετ
+    et = Internet
     fa = وای فای
     ja = インターネット
     ko = 인터넷
@@ -11969,6 +12017,7 @@
     en = Internet
     ar = إنترنت لا سلكي
     el = Ίντερνετ
+    et = Internet
     fa = وای فای
     ja = インターネット
     ko = 인터넷
@@ -11986,6 +12035,7 @@
   [type.junction]
     en = Junction
     ar = تقاطع
+    et = Ristmik
     it = Incrocio
     ja = 交差点
     mr = जंक्शन
@@ -12003,6 +12053,7 @@
     ar = دوّار
     de = Kreisverkehr
     es = Rotonda
+    et = Ringtee
     eu = Biribilgunea
     fr = Rond-point
     it = Rotonda
@@ -12020,6 +12071,7 @@
   [type.landuse]
     en = Landuse
     de = Landnutzung
+    et = Maakasutus
     ja = 土地利用
     mr = भूमी उपयोग
     nl = Landgebruik
@@ -12034,6 +12086,7 @@
   [type.landuse.allotments]
     en = Allotments
     de = Kleingarten
+    et = Peenrad
     fr = Jardins familiaux
     ja = 市民農園
     mr = वाटप
@@ -12056,6 +12109,7 @@
     de = Wasserbecken
     el = Μια λεκάνη νερού
     es = Cuenca
+    et = Bassein
     eu = Arroa
     fa = حوضه آب
     fi = Vesisäiliö
@@ -12087,6 +12141,7 @@
   [type.landuse.brownfield]
     en = Brownfield
     de = Brachfläche
+    et = Ehitusmaa
     fr = Friche industrielle
     ja = 再開発用地
     pl = Teren do zabudowy
@@ -12101,11 +12156,13 @@
     comment = In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship.
     ref = type.amenity.grave_yard
     en = Cemetery
+    et = Surnuaed
     nl = Begraafplaats
 
   [type.landuse.cemetery.christian]
     ref = type.amenity.grave_yard.christian
     en = Christian Cemetery
+    et = Kristlik surnuaed
     nl = Christelijke begraafplaats
 
   [type.landuse.churchyard]
@@ -12117,6 +12174,7 @@
     el = Αυλόγυρος εκκλησίας
     es = Camposanto
     es-MX = Camposanto
+    et = Kirikuõu
     eu = Hilerria
     fa = حیاط کلیسا
     fi = Kirkon piha
@@ -12147,6 +12205,7 @@
     en = Commercial Area
     ar = منطقة تجارية
     de = Gewerbegebiet
+    et = Kommertspiirkond
     fr = Zone commerciale
     it = Area commerciale
     ja = 商業用地
@@ -12164,6 +12223,7 @@
     en = Construction
     ar = منطقة بناء
     de = Baustelle
+    et = Ehitus
     fr = Chantier de construction
     it = Cantiere
     ja = 建設工事中
@@ -12182,6 +12242,7 @@
     ar = مؤسسات تعليمية
     be = Адукацыйныя ўстановы
     es = Instalaciones educativas
+    et = Haridusrajatised
     fr = Établissements éducatifs
     it = Strutture didattiche
     mr = शैक्षणिक सुविधा
@@ -12195,6 +12256,7 @@
     en = Farm
     ar = مزرعة
     de = Bauernhof
+    et = Talu
     ja = 農地
     mr = शेत
     nl = Boerderij
@@ -12215,6 +12277,7 @@
     el = Αγροτική γη
     es = Tierras agrícolas
     es-MX = Terreno agrícola
+    et = Talumaa
     eu = Nekazaritza-lurra
     fa = زمین کشاورزی
     fi = Maatalousmaa
@@ -12245,6 +12308,7 @@
   [type.landuse.farmyard]
     en = Farmyard
     de = Landwirtschaftlich genutzte Fläche
+    et = Taluõu
     fr = Ferme
     it = Fattoria
     ja = 農地
@@ -12261,6 +12325,7 @@
     en = Field
     ar = حقل
     de = Feld
+    et = Põld
     fr = Champ
     mr = क्षेत्र
     nl = Veld
@@ -12279,6 +12344,7 @@
     de = Wald
     el = Δάσος
     es = Bosque
+    et = Mets
     eu = Basoa
     fa = جنگل
     fi = Metsä
@@ -12313,6 +12379,7 @@
     de = Nadelwald
     el = Δάσος
     es = Bosque
+    et = Okaspuumets
     eu = Basoa
     fa = جنگل
     fi = Metsä
@@ -12347,6 +12414,7 @@
     de = Laubwald
     el = Δάσος
     es = Bosque
+    et = Heitlehine mets
     eu = Basoa
     fa = جنگل
     fi = Metsä
@@ -12381,6 +12449,7 @@
     de = Mischwald
     el = Δάσος
     es = Bosque
+    et = Segamets
     eu = Basoa
     fa = جنگل
     fi = Metsä
@@ -12410,6 +12479,7 @@
   [type.landuse.garages]
     en = Garages
     de = Garagen
+    et = Garaažid
     it = Garage
     ja = ガレージ
     mr = गराज
@@ -12431,6 +12501,7 @@
     el = Γκαζόν
     es = Césped
     es-MX = Césped
+    et = Muru
     eu = Belarra
     fa = چمن زار
     fi = Ruohikko
@@ -12462,6 +12533,7 @@
     en = Greenfield
     ar = مساحة خضراء
     de = Rohbauland
+    et = Ehituskrunt
     fr = Terrain vierge
     ja = 建設予定地
     mr = हरितक्षेत्र
@@ -12476,6 +12548,7 @@
   [type.landuse.greenhouse_horticulture]
     en = Greenhouse
     de = Gewächshaus-Fläche
+    et = Kasvuhoone
     fr = Culture sous serre
     ja = 温室栽培
     mr = हरितगृह
@@ -12491,6 +12564,7 @@
     en = Industrial Land
     ar = منطقة صناعية
     de = Industriegebiet
+    et = Tööstusmaa
     fr = Zone industrielle
     it = Zona industriale
     ja = 工業用地
@@ -12513,6 +12587,7 @@
     el = Σκουπιδότοπος
     es = Vertedero
     es-MX = Vertedero
+    et = Prügila
     eu = Iraulketa
     fa = دفن گاه زباله
     fi = Kaatopaikka
@@ -12543,6 +12618,7 @@
   [type.landuse.meadow]
     en = Meadow
     de = Wiese
+    et = Heinamaa
     fr = Prairie
     it = Radura
     ja = 牧草地
@@ -12560,6 +12636,7 @@
     en = Military Area
     ar = منطقة عسكرية
     de = Militärgebiet
+    et = Militaarala
     fr = Terrain militaire
     it = Area militare
     ja = 軍用地
@@ -12577,6 +12654,7 @@
     en = Orchard
     ar = بستان
     de = Obstplantage
+    et = Viljapuuaed
     fr = Vergers
     it = Frutteto
     ja = 果樹園
@@ -12593,6 +12671,7 @@
   [type.landuse.quarry]
     en = Quarry
     de = Steinbruch
+    et = Karjäär
     fr = Carrières
     it = Cava
     ja = 採石場
@@ -12615,6 +12694,7 @@
     el = Σιδηροδρομικές εγκαταστάσεις
     es = Instalaciones ferroviarias
     es-MX = Estructuras ferroviarias
+    et = Raudtee ruumid
     eu = Trenbide instalazioak
     fa = محدوده راه آهن
     fi = Rautatierakennukset
@@ -12645,6 +12725,7 @@
   [type.landuse.recreation_ground]
     en = Recreation Ground
     de = Erholungsgebiet
+    et = Puhkeväljak
     it = Area divertimento
     ja = レクリエーション
     mr = मनोरंजन मैदान
@@ -12665,6 +12746,7 @@
     de = Wasserfläche
     el = Νερό
     es = Cuenca
+    et = Vesi
     eu = Arroa
     fa = اب
     fi = Vesi
@@ -12694,6 +12776,7 @@
     en = Residential Land
     ar = منطقة سكنية
     de = Wohngebiet
+    et = Elamumaa
     fr = Zone résidentielle
     it = Area residentiale
     ja = 住宅地
@@ -12711,6 +12794,7 @@
     en = Retail Land
     ar = منطقة متاجر
     de = Einzelhandelsgebiet
+    et = Jaekaubandusmaa
     fr = Zone commerciale
     it = Area commerciale
     ja = 小売店エリア
@@ -12728,6 +12812,7 @@
     en = Pond
     ar = مستنقع
     de = Saline
+    et = Tiik
     fr = Marais salant
     it = Salina
     ja = 塩田
@@ -12743,6 +12828,7 @@
   [type.landuse.village_green]
     en = Land
     de = Dorfplatz
+    et = Maa
     ja = 村の中心
     mr = जमीन
     nl = Dorpspark
@@ -12757,6 +12843,7 @@
     en = Vineyard
     ar = حقل عنب
     de = Weinberg
+    et = Viinamarjaistandus
     fr = Vignes
     it = Vigne
     ja = ブドウ園
@@ -12773,6 +12860,7 @@
   [type.leisure]
     en = Leisure
     de = Freizeit
+    et = Lõõgastus
     it = Tempo libero
     ja = レジャー
     mr = अवकाश
@@ -12789,6 +12877,7 @@
     en = Public Land
     en-GB = Common Land
     de = öffentliche Grünfläche
+    et = Avalik maa
     ja = レジャー(共有地)
     mr = सार्वजनिक जमीन
     nl = Openbare grond
@@ -12808,6 +12897,7 @@
     el = Περιοχή για βόλτα σκύλων
     es = Parque para perros
     es-MX = Lugar para pasear al perro
+    et = Koerte ala
     eu = Txakur parkea
     fa = محدوده مخصوص سگ
     fi = Koirien ulkoilupaikka
@@ -12843,6 +12933,7 @@
     de = Fitnessstudio
     el = Κέντρο γυμναστικής
     es = Centro de fitness
+    et = Spordikeskus
     eu = Fitness zentroa
     fa = باشگاه بدنسازی
     fi = Kuntosali
@@ -12877,6 +12968,7 @@
     de = Fitnessstation
     el = Γυμναστήριο
     es = Gimnasio
+    et = Välivõimla
     eu = Gimnasioa
     fa = پارک سلامت
     fi = Kuntokeskus
@@ -12912,6 +13004,7 @@
     de = Tanzsaal
     el = Αίθουσα χορού
     es = Salón de baile
+    et = Tantsusaal
     eu = Dantza Aretoa
     fa = ﺺﻗﺭ ﻦﻟﺎﺳ
     fi = Tanssisali
@@ -12947,6 +13040,7 @@
     de = Garten
     el = Κήπος αναψυχής
     es = Jardín
+    et = Aed
     eu = Lorategi
     fa = گردشگری
     fi = Puutarha
@@ -12977,6 +13071,7 @@
     ref = type.leisure.garden
     en = Residential Garden
     be = Частный сад
+    et = Elamu aed
     pl = Ogród przydomowy
     pt = Jardim residencial
     pt-BR = Jardim residencial
@@ -12993,6 +13088,7 @@
     de = Golfplatz
     el = Γήπεδο γκολφ
     es = Campo de golf
+    et = Golfirada
     eu = Golf kurtsoa
     fa = زمین گلف
     fi = Golf-rata
@@ -13022,6 +13118,7 @@
   [type.leisure.ice_rink]
     en = Ice Rink
     de = Eislaufplatz
+    et = Liuväli
     fr = Patinoire
     it = Pista di pattinaggio
     ja = アイスリンク
@@ -13037,6 +13134,7 @@
 
   [type.leisure.landscape_reserve]
     en = Landscape Reserve
+    et = Maastikukaitseala
     ja = 自然保護区
     nl = Landschapsreservaat
     pl = Rezerwat krajobrazu
@@ -13050,6 +13148,7 @@
     en = Marina
     be = Прычал
     de = Jachthafen
+    et = Marina
     it = Porto turistico
     ja = マリーナ
     nl = Jachthaven
@@ -13069,6 +13168,7 @@
     el = Φυσικό απόθεμα
     es = Territorio reservado
     es-MX = Reserva
+    et = Looduskaitseala
     eu = Erreserbatutako lurraldea
     fi = Luonnonsuojelualue
     fr = Réserve naturelle
@@ -13104,6 +13204,7 @@
     el = Πάρκο
     es = Parque
     es-MX = Parque
+    et = Park
     eu = Parkea
     fa = پارک
     fi = Puisto
@@ -13140,6 +13241,7 @@
     el = Πάρκο
     es = Parque
     es-MX = Parque
+    et = Park
     eu = Parkea
     fa = پارک
     fi = Puisto
@@ -13176,6 +13278,7 @@
     el = Πάρκο
     es = Parque
     es-MX = Parque
+    et = Park
     eu = Parkea
     fa = پارک
     fi = Puisto
@@ -13212,6 +13315,7 @@
     el = Πάρκο
     es = Parque
     es-MX = Parque
+    et = Park
     eu = Parkea
     fa = پارک
     fi = Puisto
@@ -13249,6 +13353,7 @@
     de = Picknicktisch
     el = Τραπέζι πικ-νικ
     es = Mesa de picnic
+    et = Piknikulaud
     eu = Piknik mahaia
     fa = ﮏﯿﻨﮑﯿﭘ ﺰﯿﻣ
     fi = Piknik-pöytä
@@ -13285,6 +13390,7 @@
     de = Sportplatz
     el = Γήπεδο αθλοπαιδιών
     es = Complejo deportivo
+    et = Spordiväljak
     eu = Kiroldegia
     fa = زمین ورزشی
     fi = Urheilukenttä
@@ -13319,6 +13425,7 @@
     de = Spielplatz
     el = Παιδική χαρά
     es = Patio de recreo
+    et = Mänguväljak
     eu = Jolastokia
     fa = زمین بازی
     fi = Leikkikenttä
@@ -13348,6 +13455,7 @@
   [type.leisure.recreation_ground]
     en = Recreation Ground
     de = Freizeitgelände
+    et = Puhkeväljak
     mr = मनोरंजन मैदान
     nl = Recreatieterrein
     pl = Teren rekreacji
@@ -13366,6 +13474,7 @@
     el = Σάουνα
     es = Sauna
     es-MX = Sauna
+    et = Saun
     eu = Sauna
     fa = سونا
     fi = Sauna
@@ -13395,6 +13504,7 @@
   [type.leisure.slipway]
     en = Slipway
     de = Bootsrampe
+    et = Elling
     fr = Cale de lancement
     it = Scivolo per navi
     ja = スリップウェイ
@@ -13415,6 +13525,7 @@
     de = Sportzentrum
     el = Αθλητικό κέντρο
     es = Polideportivo
+    et = Spordikeskus
     eu = Kiroldegia
     fa = مرکزورزشی
     fi = Urheilukeskus
@@ -13451,6 +13562,7 @@
     de = Kletterhalle
     el = Κέντρο αναρρίχησης
     es = Centro de escalada
+    et = Ronimiskeskus
     eu = Eskalada zentroa
     fa = مرکز صعود
     fi = Kiipeilykeskus
@@ -13486,6 +13598,7 @@
     da = Yoga center
     el = Στούντιο γιόγκα
     es = Centro de yoga
+    et = Joogastuudio
     eu = Yoga zentroa
     fa = سالن یوگا
     fi = Joogastudio
@@ -13519,6 +13632,7 @@
     de = Stadion
     el = Γήπεδο
     es = Estadio
+    et = Staadion
     eu = Estadioa
     fa = استادیوم
     fi = Stadion
@@ -13555,6 +13669,7 @@
     de = Schwimmbecken
     el = Πισίνα
     es = Piscina
+    et = Ujumisbassein
     eu = Igerilekua
     fa = استخرشنا
     fi = Uima-allas
@@ -13584,12 +13699,14 @@
   [type.leisure.swimming_pool.private]
     ref = type.leisure.swimming_pool
     ar = مسبح خاص
+    et = Privaatne bassein
     it = Piscina privata
     nl = Privé zwembad
 
   [type.leisure.track]
     en = Track
     de = Laufbahn
+    et = Jooksurada
     fr = Piste de course
     it = Pista da corsa
     ja = トラック
@@ -13610,6 +13727,7 @@
     de = Aquapark
     el = Υδάτινο πάρκο
     es = Parque acuático
+    et = Veepark
     eu = Ur-parkea
     fa = گردشگری
     fi = Vesipuisto
@@ -13639,6 +13757,7 @@
   [type.leisure.beach_resort]
     en = Beach Resort
     ar = منتجع شاطئي
+    et = Rannakuurort
     mr = समुद्री रिसॉर्ट
     nl = Strandresort
     ru = Пляжный курорт
@@ -13648,6 +13767,7 @@
   [type.man_made]
     en = Man Made
     de = künstliche Anlage
+    et = Inimese loodud
     it = Stabilimento balneare
     ja = 構造物
     mr = मानवनिर्मित
@@ -13662,6 +13782,7 @@
   [type.man_made.breakwater]
     en = Breakwater
     de = Wellenbrecher
+    et = Lainemurdja
     fr = Brise-lames
     it = Frangiflutti
     ja = 防波堤
@@ -13677,6 +13798,7 @@
   [type.man_made.cairn]
     en = Cairn
     de = Steinhaufen
+    et = Karjäär
     ja = ケルン
     nl = Steengroeve
     pl = Kopiec
@@ -13694,6 +13816,7 @@
     de = Fabrikschornstein
     el = Καμινάδα εργοστασίου
     es = Chimenea de fábrica
+    et = Tehase korsten
     eu = Fabrikako tximinia
     fi = Tehtaan piippu
     fr = Cheminée d'usine
@@ -13722,6 +13845,7 @@
   [type.man_made.cutline]
     en = Cutline
     de = Schneise
+    et = Metsasiht
     fr = Layon
     ja = 森林の切れ目
     nl = Bospad
@@ -13738,6 +13862,7 @@
     be = Геадэзічны пункт
     de = Vermessungspunkt
     el = Γεωδαιτικό σημείο
+    et = Uuringupunkt
     fr = Borne géodésique
     it = Punto geodetico
     ja = 測量標
@@ -13751,6 +13876,7 @@
     en = Flagpole
     ar = سارية علم
     be = Флагшток
+    et = Lipumast
     fr = Mât de drapeau
     it = Alza bandiera
     mr = ध्वजस्तंभ
@@ -13767,6 +13893,7 @@
     de = Leuchtturm
     el = Φάρος
     es = Faro
+    et = Majakas
     eu = Itsasargia
     fa = گردشگری
     fi = Majakka
@@ -13796,6 +13923,7 @@
   [type.man_made.mast]
     en = Mast
     be = Мачта/вышка
+    et = Mast
     fr = Mât
     mr = डोलकाठी
     nl = Mast
@@ -13807,6 +13935,7 @@
     en = Pier
     ar = رصيف بحري
     de = Anlegestelle
+    et = Kai
     fr = Jetée
     it = Molo
     ja = 桟橋
@@ -13822,6 +13951,7 @@
 
   [type.man_made.pipeline]
     en = Pipeline
+    et = Torujuhe
     it = Condotto
     ja = パイプライン
     mr = नळमार्ग
@@ -13836,6 +13966,7 @@
 
   [type.man_made.pipeline.overground]
     en = Overground Pipeline
+    et = Maapealne torujuhe
     ja = 地表のパイプライン
     mr = जमिनीवरील नळमार्ग
     nl = Bovengrondse pijpleiding
@@ -13851,6 +13982,7 @@
     ar = صومعة
     be = Сілас
     de = Silo
+    et = Elevaator
     it = Silo
     mr = पेव(धान्यसाठा)
     nl = Silo
@@ -13863,6 +13995,7 @@
     en = Storage Tank
     be = Рэзервуар
     de = Speichertank
+    et = Mahuti
     fr = Réservoir
     it = Cisterna
     mr = साठवण टाकी
@@ -13880,6 +14013,7 @@
     de = Überwachungskamera
     el = Κάμερα παρακολούθησης
     es = Cámara de vigilancia
+    et = Jälgimiskaamera
     eu = Zaintza Kamera
     fa = دوربین نظارتی
     fi = Valvontakamera
@@ -13914,6 +14048,7 @@
     de = Turm
     el = Πύργος
     es = Torre
+    et = Torn
     eu = Dorrea
     fa = برج
     fi = Torni
@@ -13943,6 +14078,7 @@
   [type.man_made.wastewater_plant]
     en = Wastewater treatment plant
     de = Kläranlage
+    et = Reoveepuhasti
     fr = Station d'épuration
     it = Impianto di trattamento delle acque reflue
     ja = 下水処理場
@@ -13964,6 +14100,7 @@
     de = Wasserhahn
     el = Βρύση νερού
     es = Toma de agua
+    et = Veekraan
     eu = Ura hartzea
     fa = شیراب
     fi = Vesihana
@@ -13998,6 +14135,7 @@
     de = Wasserturm
     el = Υδατόπυργος
     es = Depósito de agua
+    et = Veetorn
     eu = Ur depositua
     fa = منبع اب
     fi = Vesitorni
@@ -14032,6 +14170,7 @@
     de = Brunnen
     el = Πηγάδι νερού
     es = Pozo
+    et = Vesiveski
     eu = Ur putzua
     fa = چاه اب
     fi = Kaivo
@@ -14066,6 +14205,7 @@
     de = Windmühle
     el = Ανεμόμυλος
     es = Molino
+    et = Tuuleveski
     eu = Haize-errota
     fa = توربین بادی
     fi = Tuulimylly
@@ -14095,6 +14235,7 @@
   [type.man_made.works]
     en = Industrial Works
     de = Fabrik
+    et = Vabrik
     it = Fabbrica
     ja = 工場
     mr = औद्योगिक कामे
@@ -14116,6 +14257,7 @@
     en = Military
     ar = جيش
     de = Militärisches Objekt
+    et = Militaarobjekt
     it = Forze armate
     ja = 軍事
     mr = लष्करी
@@ -14134,6 +14276,7 @@
     de = Bunker
     el = Στρατιωτική αποθήκη
     es = Búnker
+    et = Punker
     eu = Bunkerra
     fa = پناهگاه
     fi = Bunkkeri
@@ -14158,6 +14301,7 @@
     en = Mountain Pass
     be = Перавал
     de = Gebirgspass
+    et = Mäekuru
     fr = Col de montagne
     it = Passo
     mr = डोंगरवाट
@@ -14176,6 +14320,7 @@
     de = Natur
     el = Φύση
     es = Naturaleza
+    et = Loodus
     eu = Natura
     fa = طبیعت
     fi = Luonto
@@ -14213,6 +14358,7 @@
     de = Kahler Fels
     el = Γυμνός βράχος
     es = Roca desnuda
+    et = Paljas kivi
     eu = Harkaitz biluzi
     fa = سنگ برهنه
     fi = Paljas kallio
@@ -14250,6 +14396,7 @@
     de = Bucht
     el = Κόλπος
     es = Bahía
+    et = Laht
     eu = Badia
     fa = خلیج
     fi = Lahti
@@ -14287,6 +14434,7 @@
     de = Strand
     el = Παραλία
     es = Playa
+    et = Rand
     eu = Hondartza
     fa = ساحل
     fi = Ranta
@@ -14324,6 +14472,7 @@
     de = Sandstrand
     el = Αμμουδιά
     es = Playa de arena
+    et = Liivarand
     eu = Hondartza hondartza
     fa = ساحل شنی
     fi = Hiekkainen ranta
@@ -14361,6 +14510,7 @@
     de = Kiesstrand
     el = Παραλία Χαλίκι
     es = Playa de grava
+    et = Kruusarand
     eu = Legar Hondartza
     fa = ساحل شن
     fi = Soraranta
@@ -14398,6 +14548,7 @@
     de = Kap
     el = Ακρωτήρι
     es = Cabo
+    et = Neem
     eu = Lurmuturra
     fa = دماغه
     fi = Niemeke
@@ -14435,6 +14586,7 @@
     de = Höhle
     el = Σπήλαιο
     es = Cueva
+    et = Koobas
     eu = Haitzuloa
     fa = غار
     fi = Luola
@@ -14472,6 +14624,7 @@
     de = Klippe
     el = Γκρεμός
     es = Acantilado
+    et = Kalju
     eu = Labar
     fa = پرتگاه
     fi = Jyrkänne
@@ -14509,6 +14662,7 @@
     de = Steilabhang
     el = Γκρεμός
     es = Acantilado
+    et = Maa pank
     eu = Labarra
     fa = صخره
     fi = Kallio
@@ -14546,6 +14700,7 @@
     de = Damm
     el = Ανάχωμα
     es = Terraplén
+    et = Muldkeha
     eu = Lubeta
     fa = خاک‌ریز
     fi = Pengerrys
@@ -14583,6 +14738,7 @@
     de = Küste
     el = Ακτή
     es = Costa
+    et = Rannajoon
     eu = Itsasertz
     fa = کناره
     fi = Rannikko
@@ -14620,6 +14776,7 @@
     de = Wüste
     el = Ερημος
     es = Desierto
+    et = Kõrb
     eu = Basamortua
     fa = ﺮﯾﻮﮐ
     fi = Aavikko
@@ -14648,6 +14805,7 @@
     el = Θερμοπίδακας
     es = Geiser
     es-MX = Géiser
+    et = Geiser
     eu = Geyser
     fa = چشمه آب گرم
     fi = Geysir
@@ -14687,6 +14845,7 @@
     el = Παγετώνας
     es = Glaciar
     es-MX = Glaciar
+    et = Liustik
     eu = Glaziarra
     fa = یخچال طبیعی
     fi = Jäätikkö
@@ -14725,6 +14884,7 @@
     de = Grasland
     el = Βοσκότοποι
     es = Herbazal
+    et = Rohumaa
     eu = Belartza
     fa = علفزار
     fi = Nurmi
@@ -14762,6 +14922,7 @@
     de = Heide
     el = Ρείκι
     es = Brezal
+    et = Nurm
     eu = Zakardi
     fa = خلنگزار
     fi = Nummi
@@ -14799,6 +14960,7 @@
     de = Thermalquelle
     el = Ιαματικές πηγές
     es = Aguas termales
+    et = Kuumaveeallikas
     eu = Ur termal
     fa = چشمه آب‌گرم
     fi = Kuuma lähde
@@ -14836,6 +14998,7 @@
     de = See
     el = Λίμνη
     es = Lago
+    et = Järv
     eu = Lakua
     fa = دریاچه
     fi = Järvi
@@ -14873,6 +15036,7 @@
     de = Schleusenkammer
     el = Θάλαμος κλειδαριάς
     es = Cámara de bloqueo
+    et = Luku kamber
     eu = Sarraila Ganbera
     fa = ﻞﻔﻗ ﻕﺎﺗﺍ
     fi = Lukko kammio
@@ -14910,6 +15074,7 @@
     de = Teich
     el = Δεξαμενή
     es = Estanque
+    et = Tiik
     eu = Urmaela
     fa = تالاب
     fi = Lampi
@@ -14947,6 +15112,7 @@
     de = Reservoir
     el = Δεξαμενή
     es = Embalse
+    et = Veehoidla
     eu = Urtegia
     fa = مخزن
     fi = Säiliö
@@ -14984,6 +15150,7 @@
     de = Wasserbecken
     el = Μια λεκάνη νερού
     es = Cuenca
+    et = Bassein
     eu = Arroa
     fa = حوضه آب
     fi = Vesisäiliö
@@ -15021,6 +15188,7 @@
     de = Fluss
     el = Ποταμός
     es = Río
+    et = Jõgi
     eu = Ibai
     fa = رودخانه
     fi = Joki
@@ -15058,6 +15226,7 @@
     de = Land
     el = Στεριά
     es = Tierra
+    et = Maa
     eu = Lur lehor
     fa = خشکی
     fi = Maa
@@ -15095,6 +15264,7 @@
     de = Wiese
     el = Λιβάδι
     es = Prado
+    et = Heinamaa
     eu = Belardi
     fa = چمنزار
     fi = Niitty
@@ -15132,6 +15302,7 @@
     de = Garten
     el = Οπωρώνας
     es = Huerto frutal
+    et = Viljapuuaed
     eu = Baratzea
     fa = باغ میوه
     fi = Hedelmänviljely
@@ -15169,6 +15340,7 @@
     de = Gipfel
     el = Κορυφή
     es = Cima
+    et = Tipp
     eu = Goiena
     fa = قله
     fi = Huippu
@@ -15206,6 +15378,7 @@
     de = Bergsattel
     el = Σέλα Βουνού
     es = Silla de montaña
+    et = Mäesadul
     eu = Mendiko jarlekua
     fa = زین کوه
     fi = Vuoristo satula
@@ -15243,6 +15416,7 @@
     de = Fels
     el = Πέτρωμα
     es = Roca
+    et = Kivi
     eu = Arroka
     fa = سنگ
     fi = Kivi
@@ -15281,6 +15455,7 @@
     el = Θαμνώδες περιοχή
     es = Matorrales
     es-MX = Maleza
+    et = Võsa
     eu = Sastrakak
     fa = بوته زار
     fi = Tiheiköt
@@ -15318,6 +15493,7 @@
     de = Quelle
     el = Πηγή νερού
     es = Manantial
+    et = Allikas
     eu = Udaberria
     fa = چشمه
     fi = Lähde
@@ -15356,6 +15532,7 @@
     el = Πορθμός
     es = Estrecho
     es-MX = Estrecho
+    et = Väin
     eu = Estua
     fa = تنگه
     fi = Salmi
@@ -15393,6 +15570,7 @@
     de = Baum
     el = Δέντρο
     es = Árbol
+    et = Puu
     eu = Zuhaitza
     fa = درخت
     fi = Puu
@@ -15430,6 +15608,7 @@
     de = Allee
     el = Σειρά δέντρων
     es = Fila de árboles
+    et = Puude rida
     eu = Zuhaitz ilara
     fa = ردیف درخت
     fi = Puurivi
@@ -15467,6 +15646,7 @@
     de = Weinberg
     el = Αμπελώνας
     es = Viña
+    et = Viinamarjaistandus
     eu = Mahasti
     fa = تاکستان
     fi = Viinitila
@@ -15504,6 +15684,7 @@
     de = Vulkan
     el = Ηφαίστειο
     es = Volcán
+    et = Vulkaan
     eu = Sumendi
     fa = اتشفشان
     fi = Tulivuori
@@ -15541,6 +15722,7 @@
     de = Wasserfläche
     el = Σώμα νερού
     es = Cuerpo de agua
+    et = Veekogu
     eu = Ur-masa
     fa = پهنه آبی
     fi = Vesimuodostuma
@@ -15579,6 +15761,7 @@
     el = Υγρότοπος
     es = Terreno pantanoso
     es-MX = Tierra pantanosa
+    et = Märgala
     eu = Lur paduratsua
     fa = ناحیه تالابی
     fi = Suoperäinen seutu
@@ -15616,6 +15799,7 @@
     de = Moor
     el = Βάλτος
     es = Turbera
+    et = Raba
     eu = Zohikaztegi
     fa = خلاش
     fi = Suo
@@ -15653,6 +15837,7 @@
     de = Sumpf
     el = Έλος
     es = Ciénaga
+    et = Soo
     eu = Padura
     fa = مرداب
     fi = Marsh
@@ -15682,6 +15867,7 @@
 
   [type.noexit]
     en = Dead End
+    et = Tupiktee
     it = Strada senza uscita
     ja = 行き止まり
     mr = रस्ता बंद
@@ -15701,6 +15887,7 @@
     de = Büro
     el = Γραφείο
     es = Oficina
+    et = Kontor
     eu = Bulegoa
     fa = اداره
     fi = Toimisto
@@ -15735,6 +15922,7 @@
     de = Niederlassung
     el = Γραφείο επιχείρησης
     es = Oficina
+    et = Ettevõtte kontor
     eu = Bulegoa
     fa = دفتر شرکت
     fi = Yhtiön toimisto
@@ -15769,6 +15957,7 @@
     de = Immobilienmakler
     el = Κτηματομεσίτης
     es = Agente inmobiliario
+    et = Kinnisvara vahendaja
     eu = Higiezinen agentea
     fa = بنگاه معاملات ملکی
     fi = Kiinteistönvälittäjä
@@ -15803,6 +15992,7 @@
     de = Regierungsstelle
     el = Κυβερνητικό γραφείο
     es = Oficina gubernamental
+    et = Riigikantselei
     eu = Gobernu bulegoa
     fa = اداره دولتی
     fi = Viranomaistoimito
@@ -15837,6 +16027,7 @@
     de = Versicherungsbüro
     el = Ασφαλιστικό γραφείο
     es = Oficina de seguros
+    et = Kindlustusbüroo
     eu = Aseguru bulegoa
     fa = دفتر بیمه
     fi = Vakuutuslaitos
@@ -15871,6 +16062,7 @@
     de = Anwaltsbüro
     el = Δικηγόρος
     es = Despacho de abogados
+    et = Advokaat
     eu = Abokatu Bulegoa
     fa = دفتر وکالت
     fi = Lakitoimisto
@@ -15905,6 +16097,7 @@
     de = Nichtregierungsorganisation
     el = Γραφείο ΜΚΟ
     es = Sede de ONG
+    et = Valitsusväline organisatsioon
     eu = GKEen egoitza
     fa = دفتر سازمان خیریه
     fi = Valtioista riippumattoman järjestön toimisto
@@ -15941,6 +16134,7 @@
     de = Mobilfunkbetreiber
     el = Εταιρεία κινητής τηλεφωνίας
     es = Operadora de telefonía móvil
+    et = Telekommunikatsiooni ettevõte
     eu = Telefono mugikorren operadorea
     fa = اپراتور تلفن همراه
     fi = Matkapuhelinoperaattori
@@ -15972,6 +16166,7 @@
     be = Эка
     de = Bio
     es = Orgánico
+    et = Orgaaniline
     eu = Organikoa
     fr = Biologique
     it = Biologico
@@ -15995,6 +16190,7 @@
     de = Großstadt
     el = Πόλη
     es = Ciudad
+    et = Linn
     eu = Herria
     fa = شهر
     fi = Kaupunki
@@ -16032,6 +16228,7 @@
     de = Hauptstadt
     el = Πρωτεύουσα
     es = Capital
+    et = Pealinn
     eu = Hiriburu
     fa = پایتخت
     fi = Pääkaupunki
@@ -16099,6 +16296,7 @@
     de = Kontinent
     el = Ήπειρος
     es = Continente
+    et = Kontinent
     eu = Kontinentea
     fa = قاره
     fi = Maanosa
@@ -16136,6 +16334,7 @@
     de = Staat
     el = Χώρα
     es = País
+    et = Riik
     eu = Herrialdea
     fa = کشور
     fi = Maa
@@ -16173,6 +16372,7 @@
     de = Kreis
     el = Δήμος
     es = Municipio
+    et = Maakond
     eu = Udalerria
     fa = بخش
     fi = Lääni
@@ -16210,6 +16410,7 @@
     de = Bauernhof
     el = Αγρόκτημα
     es = Granja
+    et = Talu
     eu = Baserria
     fa = مزرعه
     fi = Maatila
@@ -16248,6 +16449,7 @@
     de = Weiler
     el = Χωριουδάκι
     es = Aldea
+    et = Külake
     eu = Herria
     fa = روستا
     fi = Pieni kylä
@@ -16286,6 +16488,7 @@
     de = Insel
     el = Νησί
     es = Isla
+    et = Saar
     eu = Uhartea
     fa = جزیره
     fi = Saari
@@ -16323,6 +16526,7 @@
     de = Kleine Insel
     el = Νησί
     es = Isla
+    et = Laid
     eu = Uhartea
     fa = جزیره
     fi = Saari
@@ -16360,6 +16564,7 @@
     de = Kleinstsiedlung
     el = Απομονωμένη κατοικία
     es = Vivienda aislada
+    et = Isoleeritud eluruum
     eu = Etxebizitza Isolatua
     fa = مسکن منزوی
     fi = Erillinen asunto
@@ -16397,6 +16602,7 @@
     de = Örtlichkeit
     el = Τοποθεσία
     es = Localidad
+    et = Paikkond
     eu = Kokapena
     fa = محله
     fi = Paikkakunta
@@ -16434,6 +16640,7 @@
     de = Stadtviertel
     el = Γειτονιά
     es = Vecindario
+    et = Naabruskond
     eu = Auzo
     fa = محله
     fi = Naapurusto
@@ -16472,6 +16679,7 @@
     de = Ozean
     el = Ωκεανός
     es = Océano
+    et = Ookean
     eu = Ozeanoa
     fa = اقیانوس
     fi = Valtameri
@@ -16509,6 +16717,7 @@
     de = Region
     el = Περιοχή
     es = Región
+    et = Piirkond
     eu = Eskualdea
     fa = منطقه
     fi = Alue
@@ -16546,6 +16755,7 @@
     de = Meer
     el = Θάλασσα
     es = Mar
+    et = Meri
     eu = Itsasoa
     fa = دریا
     fi = Meri
@@ -16583,6 +16793,7 @@
     de = Platz
     el = Πλατεία
     es = Plaza
+    et = Väljak
     eu = Plaza
     fa = میدان
     fi = Tori
@@ -16620,6 +16831,7 @@
     de = Bundesland
     el = Πολιτεία
     es = Estado
+    et = Provints
     eu = Baldintza
     fa = ایالت
     fi = Lääni
@@ -16657,6 +16869,7 @@
     de = Bundesstaat
     el = Πολιτεία
     es = Estado
+    et = Osariik
     eu = Baldintza
     fa = ایالت
     fi = Lääni
@@ -16694,6 +16907,7 @@
     de = Vorort
     el = Προάστιο
     es = Barrio
+    et = Äärelinn
     eu = Auzoa
     fa = حومه
     fi = Esikaupunki
@@ -16731,6 +16945,7 @@
     de = Kleinstadt
     el = Κωμόπολη
     es = Pueblo
+    et = Linn
     eu = Herria
     fa = شهر
     fi = Kaupunki
@@ -16768,6 +16983,7 @@
     de = Dorf
     el = Χωριό
     es = Pueblo
+    et = Küla
     eu = Herria
     fa = روستا
     fi = Kylä
@@ -16799,6 +17015,7 @@
   [type.power]
     en = Power
     de = Energie
+    et = Energia
     it = Elettricità
     ja = 電力
     mr = शक्ती
@@ -16813,6 +17030,7 @@
   [type.power.generator]
     en = Generator
     de = Generator
+    et = Generaator
     it = Generatore
     ja = 発電機
     mr = जनित्र(जनरेटर)
@@ -16826,6 +17044,7 @@
   [type.power.line]
     en = Power Line
     de = Hochspannungs-Freileitung
+    et = Elektriliin
     it = Cavo elettrico
     ja = 電力線
     mr = विद्युत तार
@@ -16841,6 +17060,7 @@
   [type.power.line.underground]
     en = Underground Power Line
     de = Unterirdische Hochpannungsleitung
+    et = Maa-alune elektriliin
     ja = 地下電力線
     mr = भूमिगत विद्युत तार
     nl = Ondergrondse hoogspanningsleiding
@@ -16855,6 +17075,7 @@
   [type.power.minor_line]
     en = Minor Power Line
     de = Nieder-/Mittelspannungsfreileitung
+    et = Madal-/Keskpinge elektriliin
     it = Cavo elettrico
     ja = 低圧電力線
     mr = किरकोळ विद्युत तार
@@ -16875,6 +17096,7 @@
     de = Nieder-/Mittelspannungsmast
     el = Πυλώνες μεταφοράς ρεύματος
     es = Poste eléctrico
+    et = Elektripost
     eu = Zutabe elektrikoa
     fa = برج قدرت
     fi = Sähköpylväs
@@ -16904,6 +17126,7 @@
   [type.power.station]
     en = Power Station
     de = Umspannwerk
+    et = Elektrijaam
     ja = 変電所
     mr = विद्युत घर
     nl = Transformatorstation
@@ -16922,6 +17145,7 @@
     de = Umspannwerk
     el = Υποσταθμός
     es = Subestación
+    et = Alajaam
     eu = Azpiestazioa
     fi = Muuntoasema
     fr = Poste électrique
@@ -16955,6 +17179,7 @@
     de = Hochspannungsmast
     el = Πυλώνες μεταφοράς ρεύματος
     es = Poste eléctrico
+    et = Elektripost
     eu = Zutabe elektrikoa
     fa = برج قدرت
     fi = Sähköpylväs
@@ -16983,6 +17208,7 @@
 
   [type.psurface]
     en = psurface
+    et = Pind
     it = Superficie
     nl = Wegdek
     ru = Поверхность
@@ -17011,6 +17237,7 @@
     en = Public Transport
     de = Öffentlicher Verkehr
     es = Transporte público
+    et = Ühistransport
     eu = Garraio publikoa
     it = Trasporto pubblico
     ja = 公共交通機関
@@ -17026,6 +17253,7 @@
 
   [type.public_transport.platform]
     en = Platform
+    et = Platvorm
     ja = 公共交通機関のプラットホーム
     mr = फलाट
     nl = Platform
@@ -17039,6 +17267,7 @@
   [type.railway]
     en = Railway
     de = Eisenbahn
+    et = Raudtee
     fr = Chemin de fer
     it = Ferrovia
     ja = 鉄道
@@ -17055,6 +17284,7 @@
   [type.railway.abandoned]
     en = Abandoned railway
     de = Ehemalige Eisenbahnstrecke
+    et = Mahajäetud raudtee
     fr = Chemin de fer abandonné
     ja = 廃線
     nl = Voormalig treinspoor
@@ -17068,6 +17298,7 @@
   [type.railway.abandoned.bridge]
     en = Abandoned railway
     de = Ehemalige Eisenbahnbrücke
+    et = Mahajäetud sild
     fr = Chemin de fer abandonné
     ja = 廃線(橋)
     nl = Voormalige spoorbrug
@@ -17081,6 +17312,7 @@
   [type.railway.abandoned.tunnel]
     en = Abandoned Railway
     de = Ehemaliger Eisenbahntunnel
+    et = Mahajäetud tunnel
     fr = Chemin de fer abandonné
     ja = 廃線(トンネル)
     nl = Voormalige spoortunnel
@@ -17094,6 +17326,7 @@
   [type.railway.construction]
     en = Railway's Construction
     de = Eisenbahnstrecke im Bau
+    et = Raudtee ehitus
     fr = Chemin de fer en construction
     it = Binari in costruzione
     ja = 建設中の鉄道
@@ -17109,6 +17342,7 @@
   [type.railway.crossing]
     en = Railway Crossing
     de = Bahnübergang
+    et = Raudtee ülesõit
     fr = Traversée de voie ferrée
     ja = 歩行者用踏切
     mr = रेल्वे ओलांडणी
@@ -17122,6 +17356,7 @@
   [type.railway.disused]
     en = Disused railway
     de = Stillgelegte Bahnstrecke
+    et = Kasutamata raudtee
     fr = Chemin de fer désaffecté
     ja = 休止線
     nl = Ongebruikt spoor
@@ -17135,6 +17370,7 @@
   [type.railway.funicular]
     en = Funicular
     de = Standseilbahn
+    et = Funikulöör
     fr = Funiculaire
     ja = ケーブルカー
     mr = हवाई रज्जुमार्ग
@@ -17149,6 +17385,7 @@
   [type.railway.funicular.bridge]
     en = Funicular
     de = Standseilbahnbrücke
+    et = Funikulöör
     fr = Funiculaire
     ja = ケーブルカー(橋)
     mr = हवाई रज्जुमार्ग
@@ -17163,6 +17400,7 @@
   [type.railway.funicular.tunnel]
     en = Funicular
     de = Standseilbahntunnel
+    et = Funikulöör
     fr = Funiculaire
     ja = ケーブルカー(トンネル)
     mr = हवाई रज्जुमार्ग
@@ -17177,6 +17415,7 @@
   [type.railway.halt]
     ref = type.railway.station
     de = Haltepunkt
+    et = Murdepunkt
     pl = Przystanek kolejowy
     pt = Apeadeiro
     pt-BR = Ponto de parada
@@ -17192,6 +17431,7 @@
     el = Σιδηροδρομική διέλευση
     es = Cruce de ferrocarril
     es-MX = Cruce de ferrocarril
+    et = Raudteeületuskoht
     eu = Trenbide-pasagunea
     fa = تقاطع راه آهن
     fi = Rautatien tasoristeys
@@ -17222,6 +17462,7 @@
   [type.railway.light_rail]
     en = Light Rail
     de = Stadtbahn
+    et = Kergrööbas
     it = Metropolitana
     ja = ライトレール
     nl = Lightrail
@@ -17235,6 +17476,7 @@
   [type.railway.light_rail.bridge]
     en = Light Rail
     de = Stadtbahnbrücke
+    et = Kergrööbas - sild
     ja = ライトレール(橋)
     nl = Lightrail-brug
     pt = Metropolitano de superfície
@@ -17247,6 +17489,7 @@
   [type.railway.light_rail.tunnel]
     en = Light Rail
     de = Stadtbahntunnel
+    et = Kergrööbas - tunnel
     ja = ライトレール(トンネル)
     nl = Lightrail-tunnel
     pt = Metropolitano de superfície
@@ -17265,6 +17508,7 @@
     el = Μονοαξονικός σιδηρόδρομος
     es = Tren de monorraíl
     es-MX = Monorraíl
+    et = Monorelss
     eu = Tren monoraila
     fa = مونوریل
     fi = Monorail (kohorata)
@@ -17295,6 +17539,7 @@
   [type.railway.monorail.bridge]
     en = Monorail
     de = Einschienenbahnbrücke
+    et = Monorelss - sild
     fr = Monorail
     ja = モノレール(橋)
     mr = एकरूळी
@@ -17310,6 +17555,7 @@
   [type.railway.monorail.tunnel]
     en = Monorail
     de = Einschienenbahntunnel
+    et = Monorelss - tunnel
     fr = Monorail
     ja = モノレール(トンネル)
     mr = एकरूळी
@@ -17325,6 +17571,7 @@
   [type.railway.narrow_gauge]
     en = Narrow Gauge Rail
     de = Schmalspurbahn
+    et = Kitsarööpmeline raudtee
     ja = 狭軌鉄道
     mr = अरुंदमापी रेल्वे
     nl = Smalspoorbaan
@@ -17338,6 +17585,7 @@
   [type.railway.narrow_gauge.bridge]
     en = Narrow Gauge Rail
     de = Schmalspurbahnbrücke
+    et = Kitsarööpmelise raudtee sild
     ja = 狭軌鉄道(橋)
     mr = अरुंदमापी रेल्वे
     nl = Smalspoorbrug
@@ -17351,6 +17599,7 @@
   [type.railway.narrow_gauge.tunnel]
     en = Narrow Gauge Rail
     de = Schmalspurbahntunnel
+    et = Kitsarööpmelise raudtee tunnel
     ja = ja = 狭軌鉄道(トンネル)
     mr = अरुंदमापी रेल्वे
     nl = Smalspoortunnel
@@ -17365,6 +17614,7 @@
     en = Railway Platform
     be = Чыгуначная платформа
     de = Bahnsteig
+    et = Raudteeplatvorm
     fr = Quai de gare
     ja = プラットホーム
     mr = रेल्वे फलाट
@@ -17379,6 +17629,7 @@
   [type.railway.preserved]
     en = Preserved Rail
     de = Museumsbahn
+    et = Muuseumiraudtee
     fr = Chemin de fer touristique
     ja = 保存鉄道
     nl = Museumspoorbaan
@@ -17391,6 +17642,7 @@
   [type.railway.preserved.bridge]
     en = Preserved Rail
     de = Museumsbahnbrücke
+    et = Muuseumiraudtee sild
     ja = 保存鉄道(橋)
     nl = Museumspoorbaanbrug
     pt = Ferrovia preservada
@@ -17402,6 +17654,7 @@
   [type.railway.preserved.tunnel]
     en = Preserved Rail
     de = Museumsbahntunnel
+    et = Muuseumiraudtee tunnel
     ja = 保存鉄道(トンネル)
     nl = Museumspoorbaantunnel
     pt = Ferrovia preservada
@@ -17419,6 +17672,7 @@
     el = Σιδηρόδρομος
     es = Ferrocarril
     es-MX = Línea de ferrocarril
+    et = Raudtee
     eu = Trenbidea
     fa = راه آهن
     fi = Rautatie
@@ -17449,6 +17703,7 @@
   [type.railway.rail.bridge]
     en = Railway
     de = S-Bahn-Brücke
+    et = Raudtee sild
     fr = Chemin de fer
     ja = 鉄道(橋)
     mr = रेल्वे
@@ -17464,6 +17719,7 @@
   [type.railway.rail.motor_vehicle]
     en = Railway
     de = S-Bahn
+    et = Raudtee
     ja = 鉄道
     mr = रेल्वे
     nl = Spoorweg
@@ -17478,6 +17734,7 @@
   [type.railway.rail.tunnel]
     en = Railway
     de = S-Bahn-Tunnel
+    et = Raudtee tunnel
     fr = Chemin de fer
     ja = 鉄道(鉄道)
     mr = रेल्वे
@@ -17493,6 +17750,7 @@
   [type.railway.razed]
     en = Razed Rail
     de = Stillgelegte Eisenbahnstrecke
+    et = Eemaldatud raudtee
     ja = 撤去済の鉄道
     nl = Verwijderde spoorbaan
     pt = Ferrovia removida
@@ -17504,6 +17762,7 @@
   [type.railway.siding]
     en = Siding Rail
     de = Ausweich-/Überholgleis
+    et = Raudtee haru
     ja = 側線
     nl = Nevenspoor
     pt = Desvio de ferrovia
@@ -17515,6 +17774,7 @@
   [type.railway.siding.bridge]
     en = Siding Rail
     de = Ausweich-/Überholgleis
+    et = Raudtee haru sild
     ja = 側線(橋)
     nl = Nevenspoor-brug
     pt = Desvio de ferrovia
@@ -17526,6 +17786,7 @@
   [type.railway.siding.tunnel]
     en = Siding Rail
     de = Ausweich-/Überholgleis
+    et = Raudtee haru tunnel
     ja = 側線(トンネル)
     nl = Nevenspoor-tunnel
     pt = Desvio de ferrovia
@@ -17537,6 +17798,7 @@
   [type.railway.spur]
     en = Spur Rail
     de = Anschlussgleis
+    et = Rööbastee
     ja = 引き込み線
     nl = Zijspoor
     pt = Ramal de ferrovia
@@ -17548,6 +17810,7 @@
   [type.railway.spur.bridge]
     en = Spur Rail
     de = Anschlussgleis
+    et = Rööbastee sild
     ja = 引き込み線(橋)
     nl = Zijspoor-brug
     pt = Ramal de ferrovia
@@ -17559,6 +17822,7 @@
   [type.railway.spur.tunnel]
     en = Spur Rail
     de = Anschlussgleis
+    et = Rööbastee tunnel
     ja = 引き込み線(トンネル)
     nl = Zijspoor-tunnel
     pt = Ramal de ferrovia
@@ -17576,6 +17840,7 @@
     el = Σιδηροδρομικός σταθμός
     es = Estación de tren
     es-MX = Estación de tren
+    et = Raudtee jaam
     eu = Tren geltokian
     fa = ایستگاه قطار
     fi = Rautatieasema
@@ -17621,6 +17886,7 @@
     de = U-Bahnstation
     el = Μετρό
     es = Metro
+    et = Metroo
     eu = Metroa
     fa = حمل و نقل
     fi = Metro
@@ -17974,6 +18240,7 @@
   [type.railway.subway]
     en = Subway Line
     de = U-Bahn
+    et = Metrooliin
     fr = Ligne de métro
     it = Binari della metrò
     mr = भुयारी मार्गिका
@@ -17987,6 +18254,7 @@
   [type.railway.subway.bridge]
     en = Subway Line
     de = U-Bahn-Brücke
+    et = Metrooliin - sild
     fr = Voie de métro
     mr = भुयारी मार्गिका
     nl = Metrobrug
@@ -17999,6 +18267,7 @@
   [type.railway.subway.tunnel]
     en = Subway Line
     de = U-Bahn-Tunnel
+    et = Metrooliin - tunnel
     fr = Voie de métro
     mr = भुयारी मार्गिका
     nl = Metrotunnel
@@ -18017,6 +18286,7 @@
     el = Είσοδος μετρό
     es = Entrada al metro
     es-MX = Entrada de metro
+    et = Metroo sissepääs
     eu = Metroko sarrera
     fa = ورودی مترو
     fi = Metron sisäänkäynti
@@ -18371,6 +18641,7 @@
   [type.railway.tram]
     en = Tram Line
     de = Straßenbahn
+    et = Trammiliin
     fr = Voie de tramway
     it = Binari del tram
     ja = トラム
@@ -18387,6 +18658,7 @@
   [type.railway.tram.bridge]
     en = Tram Line
     de = Straßenbahnbrücke
+    et = Trammiliini sild
     fr = Voie de tramway
     ja = トラム(橋)
     mr = ट्राम मार्गिका
@@ -18402,6 +18674,7 @@
   [type.railway.tram.tunnel]
     en = Tram Line
     de = Straßenbahntunnel
+    et = Trammiliini tunnel
     fr = Voie de tramway
     ja = トラム(トンネル)
     mr = ट्राम मार्गिका
@@ -18422,6 +18695,7 @@
     de = Straßenbahnhaltestelle
     el = Στάση τραμ
     es = Parada de tranvía
+    et = Trammipeatus
     eu = Tranbiaren geltokia
     fa = ایستگاه قطار
     fi = Raitiovaunupysäkki
@@ -18451,6 +18725,7 @@
   [type.railway.yard]
     en = Railway Yard
     de = Abstellgleis
+    et = Raudtee hoov
     ja = ヤード
     mr = रेल्वे आवार
     nl = Rangeerterrein
@@ -18464,6 +18739,7 @@
   [type.railway.yard.bridge]
     en = Railway Yard
     de = Abstellgleis
+    et = Raudtee hoovi sild
     ja = ヤード(橋)
     mr = रेल्वे आवार
     nl = Rangeerterrein brug
@@ -18477,6 +18753,7 @@
   [type.railway.yard.tunnel]
     en = Railway Yard
     de = Abstellgleis
+    et = Raudtee hoovi tunnel
     ja = ヤード(トンネル)
     mr = रेल्वे आवार
     nl = Rangeerterrein tunnel
@@ -18490,6 +18767,7 @@
   [type.route]
     en = route
     de = Route
+    et = Tee
     it = Percorso
     ja = ルート
     mr = मार्ग
@@ -18503,6 +18781,7 @@
   [type.route.ferry]
     en = Ferry
     de = Fähre
+    et = Praam
     fr = Trajet de ferry
     it = Traghetto
     ja = フェリー航路
@@ -18518,6 +18797,7 @@
   [type.route.shuttle_train]
     en = Shuttle Train
     de = Shuttlezug
+    et = Kiirrong
     nl = Shuttle-trein
     pt = Rota de comboio vaivem
     pt-BR = Rota de trem vaivém
@@ -18532,6 +18812,7 @@
     de = Geschäft
     el = Κατάστημα
     es = Tienda
+    et = Pood
     eu = Denda
     fa = فروشگاه
     fi = Kauppa
@@ -18566,6 +18847,7 @@
     de = Spirituosengeschäft
     el = Κάβα
     es = Licorería
+    et = Alkoholipood
     eu = Likore-denda
     fa = فروشگاه
     fi = Alkoholikauppa
@@ -18600,6 +18882,7 @@
     de = Bäckerei
     el = Αρτοποιείο
     es = Panadería
+    et = Pagar
     eu = Okindegia
     fa = فروشگاه
     fi = Leipomo
@@ -18634,6 +18917,7 @@
     de = Schönheitssalon
     el = Σαλόνι αισθητικής
     es = Centro de belleza
+    et = Ilupood
     eu = Apaindegia
     fa = سالن زیبایی
     fi = Kauneushoitola
@@ -18669,6 +18953,7 @@
     de = Getränke
     el = Οινοπνευματώδη
     es = Bebidas
+    et = Joogid
     eu = Edariak
     fa = فروشگاه
     fi = Juomat
@@ -18703,6 +18988,7 @@
     de = Fahrradladen
     el = Κατάστημα ποδηλάτων
     es = Tienda de bicicletas
+    et = Jalgrattapood
     eu = Bizikleta denda
     fa = فروشگاه
     fi = Polkupyöräliike
@@ -18736,6 +19022,7 @@
     de = Wettbüro
     el = Πράκτορας στοιχημάτων
     es = Casa de apuestas
+    et = Kihlveokontor
     eu = Apustu etxea
     fa = صحافی
     fi = Kustantaja
@@ -18766,6 +19053,7 @@
     de = Büchergeschäft
     el = Βιβλιοπωλείο
     es = Librería
+    et = Raamatupood
     eu = Liburudenda
     fa = فروشگاه
     fi = Kirjakauppa
@@ -18800,6 +19088,7 @@
     de = Metzgerei
     el = Κρεοπωλείο
     es = Carnicería
+    et = Lihunik
     eu = Harategia
     fa = فروشگاه
     fi = Lihakauppias
@@ -18834,6 +19123,7 @@
     de = Autohaus
     el = Αντιπροσωπεία αυτοκινήτων
     es = Venta de coches
+    et = Autopood
     eu = Autoen salmenta
     fa = فروشگاه
     fi = Autokauppa
@@ -18868,6 +19158,7 @@
     de = Autoteile
     el = Εξαρτήματα αυτοκινήτου
     es = Piezas de automóvil
+    et = Autovaruosad
     eu = Autoen piezak
     fa = فروشگاه
     fi = Auton osat
@@ -18902,6 +19193,7 @@
     de = Autowerkstatt
     el = Συνεργείο αυτοκινήτων
     es = Taller
+    et = Autoremonditöökoda
     eu = Tailerra
     fa = تعمیرگاه ماشین
     fi = Autokorjaamo
@@ -18936,6 +19228,7 @@
     de = Reifenservice
     el = Βουλκανιζατέρ
     es = Reparación de neumáticos
+    et = Rehviparandus
     eu = Pneumatikoen konponketa
     fa = اپاراتی
     fi = Rengashuolto
@@ -18965,6 +19258,7 @@
   [type.shop.caravan]
     en = RV Dealership
     be = Продаж аўтадамоў
+    et = Haagiselamute müük
     fr = Concessionnaire de caravanes et camping-cars
     nl = Caravan en camper verkoper
     ru = Продажа автодомов
@@ -18979,6 +19273,7 @@
     de = Drogerie
     el = Χημικά προϊόντα
     es = Droguería
+    et = Apteegipood
     eu = Botika
     fa = فروشگاه
     fi = Kosmetiikkamyymälä
@@ -19014,6 +19309,7 @@
     de = Schokoladengeschäft
     el = Κατάστημα
     es = Tienda
+    et = Šokolaadipood
     eu = Denda
     fa = فروشگاه
     fi = Kauppa
@@ -19048,6 +19344,7 @@
     de = Bekleidungsgeschäft
     el = Κατάστημα ρούχων
     es = Tienda de ropa
+    et = Rõivapood
     eu = Arropa denda
     fa = لباس فروشی
     fi = Vaatekauppa
@@ -19083,6 +19380,7 @@
     de = Kaffeegeschäft
     el = Κατάστημα
     es = Tienda
+    et = Kohvipood
     eu = Denda
     fa = فروشگاه
     fi = Kauppa
@@ -19117,6 +19415,7 @@
     de = Computergeschäft
     el = Κατάστημα πληροφορικής
     es = Tienda de informática
+    et = Arvutipood
     eu = Denda informatikoa
     fa = فروشگاه
     fi = Tietokonekauppa
@@ -19151,6 +19450,7 @@
     de = Süßwarengeschäft
     el = Γλυκά
     es = Confitería
+    et = Maiustused
     eu = Gozogintza
     fa = فروشگاه
     fi = Makeiskauppa
@@ -19185,6 +19485,7 @@
     de = Gemischtwarenladen
     el = Ψιλικατζίδικο
     es = Tienda de barrio
+    et = Lähikauplus
     eu = Auzoko denda
     fa = فروشگاه
     fi = Lähikauppa
@@ -19219,6 +19520,7 @@
     de = Kopierladen
     el = Φωτοτυπείο
     es = Centro de copiado
+    et = Koopiapood
     eu = Kopiatu zentroa
     fa = فروشگاه چاپ و تکثیر
     fi = Painotalo
@@ -19253,6 +19555,7 @@
     de = Kosmetikgeschäft
     el = Καλλυντικά
     es = Productos cosméticos
+    et = Kosmeetika
     eu = Produktu kosmetikoak
     fa = فروشگاه
     fi = Kosmetiikka
@@ -19289,6 +19592,7 @@
     de = Feinkostgeschäft
     el = Κατάστημα Delicatessen
     es = Tienda de delicatessen
+    et = Delikatessipood
     eu = Delicatesen Denda
     fa = ﯽﺷﻭﺮﻓ ﻪﯾﺬﻏﺍ ﻩﺎﮕﺷﻭﺮﻓ
     fi = Herkkukauppa
@@ -19324,6 +19628,7 @@
     de = Kaufhaus
     el = Πολυκατάστημα
     es = Grandes almacenes
+    et = Kaubamaja
     eu = Denda handiak
     fa = مرکز خرید
     fi = Tavaratalo
@@ -19358,6 +19663,7 @@
     de = Baumarkt
     el = Είδη κιγκαλερίας
     es = Ferretería
+    et = Tööriistapood
     eu = Burdindegia
     fa = فروشگاه
     fi = Rautakauppa
@@ -19392,6 +19698,7 @@
     de = Chemische Reinigung
     el = Στεγνό καθάρισμα
     es = Tintorería
+    et = Keemiline pesu
     eu = Garbigailua
     fa = خشک شویی
     fi = Kuivapesula
@@ -19426,6 +19733,7 @@
     de = Elektronik
     el = Ηλεκτρονικά
     es = Electrónica
+    et = Elektroonika
     eu = Elektronika
     fa = فروشگاه
     fi = Elektroniikka
@@ -19460,6 +19768,7 @@
     de = Erotikladen
     el = Κατάστημα ερωτικών ειδών
     es = Sex Shop
+    et = Erootikapood
     eu = Sexu denda
     fa = فروشگاه
     fi = Erotiikkaliike
@@ -19493,6 +19802,7 @@
     de = Textilgeschäft
     el = Κατάστημα
     es = Tienda
+    et = Vabrikupood
     eu = Denda
     fa = فروشگاه
     fi = Kauppa
@@ -19529,6 +19839,7 @@
     de = Hoflebensmittelladen
     el = Κατάστημα Αγροτικών Τροφίμων
     es = Tienda de alimentos de granja
+    et = Talutoitude pood
     eu = Baserriko Janari Denda
     fa = ﻪﻋﺭﺰﻣ ﯽﯾﺍﺬﻏ ﺩﺍﻮﻣ ﻩﺎﮕﺷﻭﺮﻓ
     fi = Maatilaruokakauppa
@@ -19564,6 +19875,7 @@
     de = Florist
     el = Ανθοπωλείο
     es = Floristería
+    et = Lillepood
     eu = Loradenda
     fa = فروشگاه
     fi = Floristi
@@ -19599,6 +19911,7 @@
     de = Bestattungsinstitut
     el = Γραφεία τελετών
     es = Funeraria
+    et = Matusekorraldajad
     eu = Tanatorioa
     fa = مسئول تشییع جنازه
     fi = Hautaustoimisto
@@ -19633,6 +19946,7 @@
     de = Möbelgeschäft
     el = Κατάστημα επίπλων
     es = Tienda de muebles
+    et = Mööblipood
     eu = Altzari denda
     fa = فروشگاه
     fi = Huonekalukauppa
@@ -19667,6 +19981,7 @@
     de = Gärtnerei
     el = Κατάστημα ειδών κήπου
     es = Vivero
+    et = Aianduspood
     eu = Haurtzaindegia
     fa = فروشگاه
     fi = Taimitarha
@@ -19701,6 +20016,7 @@
     de = Geschenkladen
     el = Είδη δώρου
     es = Tienda de regalos
+    et = Kingipood
     eu = Denda
     fa = فروشگاه
     fi = Lahjatavaraliike
@@ -19735,6 +20051,7 @@
     de = Gemüseladen
     el = Μανάβικο
     es = Frutería
+    et = Köögiviljapood
     eu = Fruta denda
     fa = فروشگاه
     fi = Vihanneskauppias
@@ -19771,6 +20088,7 @@
     de = Lebensmittelgeschäft
     el = Παντοπωλείο
     es = Tienda de comestibles
+    et = Toidukaubad
     eu = Janariak
     fa = ﺭﺎﺑﺭﺍﻮﺧ
     fi = Päivittäistavarakauppa
@@ -19806,6 +20124,7 @@
     de = Friseur
     el = Κομμωτής
     es = Peluquería
+    et = Juuksur
     eu = Barber-denda
     fa = ارایشگاه
     fi = Kampaamo
@@ -19839,6 +20158,7 @@
     bg = Магазин за хардуер
     el = Κατάστημα υλικού
     eu = Hardware denda
+    et = Isetegemise tööriistad
     fa = ﺭﺍﺰﻓﺍ ﺖﺨﺳ ﻩﺎﮕﺷﻭﺮﻓ
     fr = Quincaillerie
     he = ןיינב ירמוחל תונח
@@ -19868,6 +20188,7 @@
     de = Reformhaus
     el = Κατάστημα υγιεινής διατροφής
     es = Tienda de comida saludable
+    et = Tervisetoitude pood
     eu = Osasuneko Elikagaien Denda
     fa = ﯽﺘﺷﺍﺪﻬﺑ ﯽﯾﺍﺬﻏ ﺩﺍﻮﻣ ﻩﺎﮕﺷﻭﺮﻓ
     fi = Terveysruokakauppa
@@ -19906,6 +20227,7 @@
     de = Haushaltswarengeschäft
     el = Κατάστημα οικιακών ειδών
     es = Tienda de artículos para el hogar
+    et = Majatarbed
     eu = Etxeko tresneria denda
     fa = ﯽﮕﻧﺎﺧ ﻡﺯﺍﻮﻟ ﻩﺎﮕﺷﻭﺮﻓ
     fi = Taloustavarakauppa
@@ -19940,6 +20262,7 @@
     de = Juweliergeschäft
     el = Κοσμηματοπωλείο
     es = Joyería
+    et = Ehted
     eu = Bitxiak
     fa = طلا فروشی
     fi = Korukauppa
@@ -19971,6 +20294,7 @@
     ar = كشك
     el = Περίπτερο
     es = Quiosco
+    et = Kiosk
     eu = Kioskoa
     fa = دَکهِ
     fi = Kioski
@@ -20003,6 +20327,7 @@
     de = Küchengeschäft
     el = Κατάστημα κουζίνας
     es = Tienda de cocina
+    et = Köögipood
     eu = Sukalde-denda
     fa = ﻪﻧﺎﺧﺰﭙﺷﺁ ﻩﺎﮕﺷﻭﺮﻓ
     fi = Keittiökauppa
@@ -20038,6 +20363,7 @@
     de = Wäscherei
     el = Άπλυτα
     es = Lavandería
+    et = Pesu
     eu = Garbitegia
     fa = لباس شویی
     fi = Pesula
@@ -20072,6 +20398,7 @@
     de = Einkaufszentrum
     el = Εμπορικό κέντρο
     es = Centro comercial
+    et = Kaubanduskeskus
     eu = Merkataritza-gune
     fa = فروشگاه
     fi = Ostoskeskus
@@ -20105,6 +20432,7 @@
     de = Massagesalon
     el = Αίθουσα μασάζ
     es = Salón de masajes
+    et = Massaažisalong
     eu = Masaje gela
     fa = سالن ماساژ
     fi = Hierontahuone
@@ -20140,6 +20468,7 @@
     de = Handyladen
     el = Κινητή Τηλεφωνία
     es = Móviles
+    et = Mobiiltelefonid
     eu = Mugikorra
     fa = فروشگاه
     fi = Elektroniikkakauppa
@@ -20175,6 +20504,7 @@
     de = Geldverleiher
     el = Κατάστημα
     es = Tienda
+    et = Rahalaenutaja
     eu = Denda
     fa = فروشگاه
     fi = Kauppa
@@ -20209,6 +20539,7 @@
     de = Motorradladen
     el = Κατάστημα μοτοσυκλετών
     es = Tienda de motos
+    et = Mootorrattapood
     eu = Moto denda
     fa = فروشگاه
     fi = Moottoripyöräliike
@@ -20244,6 +20575,7 @@
     de = Musikgeschäft
     el = Κατάστημα
     es = Disquería
+    et = Plaadipood
     eu = Denda
     fa = فروشگاه
     fi = Kauppa
@@ -20279,6 +20611,7 @@
     de = Musikinstrumenteladen
     el = Κατάστημα
     es = Tienda
+    et = Muusikariistad
     eu = Denda
     fa = فروشگاه
     fi = Kauppa
@@ -20313,6 +20646,7 @@
     de = Zeitungsstand
     el = Εφημεριδοπώλης
     es = Puesto de venta de periódicos
+    et = Ajalehe stend
     eu = Kioskoa
     fa = فروشگاه
     fi = Lehtikioski
@@ -20347,6 +20681,7 @@
     de = Optiker
     el = Κατάστημα οπτικών
     es = Óptica
+    et = Optik
     eu = Optika
     fa = فروشگاه
     fi = Optikko
@@ -20381,6 +20716,7 @@
     de = Outdoor-Ausrüstung
     el = Εξοπλισμός υπαίθρου
     es = Equipamiento
+    et = Välisvarustus
     eu = Ekipamendua
     fa = فروشگاه
     fi = Ulkoiluvarusteet
@@ -20418,6 +20754,7 @@
     de = Gebäck
     el = Ζύμη
     es = Pastelería
+    et = Pagar
     eu = Gozogintza
     fa = ﯽﻨﯾﺮﯿﺷ
     fi = Leivonnainen
@@ -20453,6 +20790,7 @@
     de = Pfandleihe
     el = Ενεχυροδανειστήριο
     es = Casa de empeños
+    et = Pandimaja
     eu = Peoia
     fa = عتیقه فروشی
     fi = Panttilainaamo
@@ -20486,6 +20824,7 @@
     de = Tierhandlung
     el = Κατάστημα για κατοικίδια
     es = Tienda de mascotas
+    et = Lemmikloomapood
     eu = Animali denda
     fa = فروشگاه
     fi = Eläinkauppa
@@ -20520,6 +20859,7 @@
     de = Fotofachgeschäft
     el = Φωτογραφείο
     es = Artículos de fotografía
+    et = Fotopood
     eu = Argazkilaritza artikuluak
     fa = فروشگاه
     fi = Valokuvakauppa
@@ -20554,6 +20894,7 @@
     de = Fischhändler
     el = Κατάστημα με θαλασσινά
     es = Pescadería
+    et = Mereandide pood
     eu = Arrain-denda
     fa = فروشگاه
     fi = Kalakauppias
@@ -20590,6 +20931,7 @@
     de = Second-Hand-Laden
     el = Κατάστημα μεταχειρισμένων
     es = Tienda de segunda mano
+    et = Taaskasutus
     eu = Bigarren eskuko denda
     fa = ﻡﻭﺩ ﺖﺳﺩ ﻩﺎﮕﺷﻭﺮﻓ
     fi = Second Hand Store
@@ -20625,6 +20967,7 @@
     de = Schuhgeschäft
     el = Υποδηματοπωλείο
     es = Zapatería
+    et = Kingapood
     eu = Zapata-denda
     fa = فروشگاه
     fi = Kenkäkauppa
@@ -20659,6 +21002,7 @@
     de = Sportartikel
     el = Αθλητικά είδη
     es = Artículos de deporte
+    et = Sporditarbed
     eu = Kirol artikuluak
     fa = فروشگاه
     fi = Urheilukauppa
@@ -20693,6 +21037,7 @@
     de = Schreibwarenladen
     el = Κατάστημα γραφικής ύλης
     es = Papelería
+    et = Kontoritarbed
     eu = Papergintza
     fa = لوازم التحریر
     fi = Kirjoitustarvikekauppa
@@ -20726,6 +21071,7 @@
     de = Supermarkt
     el = Σούπερ μάρκετ
     es = Supermercado
+    et = Supermarket
     eu = Supermerkatua
     fa = فروشگاه
     fi = Supermarketti
@@ -20756,6 +21102,7 @@
     de = Tattoo-Studio
     el = Τατουάζ
     es = Tatuajes
+    et = Tätoveerimissalong
     eu = Tatuajeak
     fa = سالن خالکوبی
     fi = Tatuointiliike
@@ -20791,6 +21138,7 @@
     de = Teegeschäft
     el = Κατάστημα
     es = Tienda
+    et = Teepood
     eu = Denda
     fa = فروشگاه
     fi = Kauppa
@@ -20825,6 +21173,7 @@
     de = Fahrkartenschalter
     el = Κατάστημα πώλησης εισιτηρίων
     es = Venta de entradas
+    et = Piletipood
     eu = Sarreren salmenta
     fa = فروشگاه
     fi = Lippumyymälä
@@ -20859,6 +21208,7 @@
     de = Spielzeuggeschäft
     el = Κατάστημα παιχνιδιών
     es = Tienda de juguetes
+    et = Mänguasjapood
     eu = Jostailu denda
     fa = فروشگاه
     fi = Lelukauppa
@@ -20893,6 +21243,7 @@
     de = Reisebüro
     el = Ταξιδιωτικό γραφείο
     es = Agencia de viajes
+    et = Reisibüroo
     eu = Bidai agentzia
     fa = اژانس مسافرتی
     fi = Matkatoimisto
@@ -20927,6 +21278,7 @@
     de = Reifen-Shop
     el = Βουλκανιζατέρ
     es = Tienda de neumáticos
+    et = Rehvipood
     eu = Pneumatikoen denda
     fa = فروشگاه
     fi = Rengasliike
@@ -20961,6 +21313,7 @@
     de = Billigladen
     el = Παντοπωλείο
     es = Tienda de Variedades
+    et = Odavpood
     eu = Barietate Denda
     fa = فروشگاه
     fi = Halpakauppa
@@ -20996,6 +21349,7 @@
     el = Βίντεο Κλαμπ
     es = Tienda de vídeo
     es-MX = Tienda de vídeo
+    et = Videopood
     eu = Bideo-denda
     fa = فروشگاه رسانه‌های تصویری
     fi = Videokauppa
@@ -21032,6 +21386,7 @@
     el = Κατάστημα βιντεοπαιχνιδιών
     es = Tienda de videojuegos
     es-MX = Tienda de videojuegos
+    et = Videomängude pood
     eu = Bideo-jokoen denda
     fa = فروشگاه بازی‌های رایانه‌ای
     fi = Videopelikauppa
@@ -21067,6 +21422,7 @@
     de = Wein- und Spirituosengeschäft
     el = Οινοπωλείο
     es = Tienda de vinos
+    et = Veinipood
     eu = Ardo-denda
     fa = فروشگاه
     fi = Alkoholimyymälä
@@ -21103,6 +21459,7 @@
     de = Antiquitäten
     el = Αντίκες
     es = Antigüedades
+    et = Antikvariaat
     eu = Antigoalekoak
     fa = ﺕﺎﺟ ﻪﻘﯿﺘﻋ
     fi = Antiikkia
@@ -21140,6 +21497,7 @@
     de = Kunstgeschäft
     el = Κατάστημα Τεχνών
     es = Tienda de artes
+    et = Kunstipood
     eu = Arte Denda
     fa = ﺮﻨﻫ ﻩﺎﮕﺷﻭﺮﻓ
     fi = Taidekauppa
@@ -21177,6 +21535,7 @@
     de = Babybedarf
     el = Παιδικό κατάστημα
     es = Tienda de niños
+    et = Lastekaubad
     eu = Haurrentzako denda
     fa = ﻥﺎﮐﺩﻮﮐ ﻩﺎﮕﺷﻭﺮﻓ
     fi = Lasten kauppa
@@ -21214,6 +21573,7 @@
     de = Taschen Shop
     el = Κατάστημα τσαντών
     es = Tienda de bolsos
+    et = Kotipood
     eu = Poltsen Denda
     fa = ﻒﯿﮐ ﻩﺎﮕﺷﻭﺮﻓ
     fi = Laukkukauppa
@@ -21251,6 +21611,7 @@
     de = Boutique
     el = Μπουτίκ
     es = Boutique
+    et = Butiik
     eu = Boutique
     fa = ﮏﯿﺗﻮﺑ
     fi = Boutique
@@ -21288,6 +21649,7 @@
     de = Wohltätigkeitsladen
     el = Φιλανθρωπικό κατάστημα
     es = Tienda de caridad
+    et = Heategevuspood
     eu = Ongintzazko Denda
     fa = ﻪﯾﺮﯿﺧ ﻩﺎﮕﺷﻭﺮﻓ
     fi = Hyväntekeväisyysmyymälä
@@ -21325,6 +21687,7 @@
     de = Käseladen
     el = Τυροκομείο
     es = Tienda de queso
+    et = Juustupood
     eu = Gazta Denda
     fa = ﺮﯿﻨﭘ ﻩﺎﮕﺷﻭﺮﻓ
     fi = Juustokauppa
@@ -21362,6 +21725,7 @@
     de = Kunst und Handwerk
     el = Τέχνες και χειροτεχνήματα
     es = Artes y manualidades
+    et = Kunst ja käsitöö
     eu = Arteak eta Eskulanak
     fa = ﯽﺘﺳﺩ ﻊﯾﺎﻨﺻ ﻭ ﺮﻨﻫ
     fi = Käsityöt
@@ -21399,6 +21763,7 @@
     de = Milchprodukte
     el = Γαλακτοκομικά προϊόντα
     es = Productos lácteos
+    et = Piimatooted
     eu = Esnekiak
     fa = ﯽﻨﺒﻟ ﺕﻻﻮﺼﺤﻣ
     fi = Maitotuotteet
@@ -21436,6 +21801,7 @@
     de = Elektrogeschäft
     el = Μαγαζί ηλεκτρικών ειδών
     es = Tienda de electricidad
+    et = Elektritarvete pood
     eu = Elektrizitate Denda
     fa = ﯽﮑﯾﺮﺘﮑﻟﺍ ﻡﺯﺍﻮﻟ ﻩﺯﺎﻐﻣ
     fi = Sähköliike
@@ -21473,6 +21839,7 @@
     de = Angelgeschäft
     el = Κατάστημα ψαρέματος
     es = Tienda de pesca
+    et = Kalanduspood
     eu = Arrantza Denda
     fa = ﯼﺮﯿﮕﯿﻫﺎﻣ ﻩﺎﮕﺷﻭﺮﻓ
     fi = Kalastuskauppa
@@ -21510,6 +21877,7 @@
     de = Innendekorationen
     el = Διακοσμήσεις εσωτερικών χώρων
     es = Decoraciones interiores
+    et = Sisekujunduse kaunistused
     eu = Barruko Apaingarriak
     fa = ﯽﻠﺧﺍﺩ ﻥﻮﯿﺳﺍﺭﻮﮐﺩ
     fi = Sisustuskoristeet
@@ -21547,6 +21915,7 @@
     de = Lotteriescheine
     el = Λαχεία
     es = Boletos de lotería
+    et = Loteriipiletid
     eu = Loteria Sarrerak
     fa = ﯽﯾﺎﻣﺯﺁ ﺖﺨﺑ ﻂﯿﻠﺑ
     fi = Lottoliput
@@ -21584,6 +21953,7 @@
     de = Medizinische Versorgung
     el = Ιατρικά Είδη
     es = Suministros médicos
+    et = Meditsiinitarbed
     eu = Medikuntza-hornidura
     fa = ﯽﮑﺷﺰﭘ ﻡﺯﺍﻮﻟ
     fi = Lääketieteellisiä tarvikkeita
@@ -21621,6 +21991,7 @@
     de = Nahrungsergänzungsmittel
     el = Συμπληρώματα Διατροφής
     es = Suplementos Nutricionales
+    et = Toidulisandid
     eu = Nutrizio osagarriak
     fa = ﯽﯾﺍﺬﻏ ﯼﺎﻫ ﻞﻤﮑﻣ
     fi = Ravintolisät
@@ -21658,6 +22029,7 @@
     de = Farben
     el = Βαφές
     es = Pinturas
+    et = Värvid
     eu = Margoak
     fa = ﺪﻨﮐ ﯽﻣ ﮓﻧﺭ
     fi = Maalit
@@ -21695,6 +22067,7 @@
     de = Parfümerie
     el = Αρωματοποιία
     es = Perfumería
+    et = Parfümeeria
     eu = Lurringintza
     fa = ﯼﺯﺎﺳﺮﻄﻋ
     fi = Hajuvedet
@@ -21732,6 +22105,7 @@
     de = Nähzubehör
     el = Είδη Ραπτικής
     es = Materiales de costura
+    et = Õmblustarbed
     eu = Josteko hornigaiak
     fa = ﯽﻃﺎﯿﺧ ﻡﺯﺍﻮﻟ
     fi = Ompelutarvikkeet
@@ -21769,6 +22143,7 @@
     de = Speichermiete
     el = Ενοικίαση αποθηκευτικού χώρου
     es = Alquiler de almacenamiento
+    et = Ladustuse rent
     eu = Biltegiratzeko alokairua
     fa = ﺭﺎﺒﻧﺍ ﻩﺭﺎﺟﺍ
     fi = Varastoinnin vuokraus
@@ -21806,6 +22181,7 @@
     de = Tabak
     el = Καπνός
     es = Tabaco
+    et = Tubakas
     eu = Tabakoa
     fa = ﻮﮐﺎﺒﻨﺗ
     fi = Tupakka
@@ -21843,6 +22219,7 @@
     de = Handelsbedarf
     el = Εμπόριο Προμήθειες
     es = Suministros comerciales
+    et = Kaubandustarvikud
     eu = Lanbideen hornidurak
     fa = ﻡﺯﺍﻮﻟ ﺕﺭﺎﺠﺗ
     fi = Kauppa tarvikkeita
@@ -21880,6 +22257,7 @@
     de = Uhren
     el = Ρολόγια
     es = Relojes
+    et = Kellad
     eu = Erlojuak
     fa = ﺖﻋﺎﺳ
     fi = Kellot
@@ -21917,6 +22295,7 @@
     de = Großhandelsgeschäft
     el = Κατάστημα χονδρικής
     es = Almacén al por mayor
+    et = Hulgimüügi pood
     eu = Handizkako denda
     fa = ﯽﺷﻭﺮﻓ ﻩﺪﻤﻋ ﻩﺎﮕﺷﻭﺮﻓ
     fi = Tukkukauppa
@@ -21954,6 +22333,7 @@
     de = Sport
     el = Αθλητισμός
     es = Deporte
+    et = Sport
     eu = Kirola
     fa = ورزش
     fi = Urheilu
@@ -21992,6 +22372,7 @@
     de = American Football
     el = αμερικάνικο ποδόσφαιρο
     es = Fútbol americano
+    et = Ameerika jalgpall
     eu = Futbola
     fa = فوتبال آمریکایی
     fi = Amerikkalainen jalkapallo
@@ -22031,6 +22412,7 @@
     el = Τοξοβολία
     es = Tiro al arco
     es-MX = Tiro al arco
+    et = Vibulaskmine
     eu = Arku-tiroa
     fa = تیراندازی با کمان
     fi = Jousiammunta
@@ -22068,6 +22450,7 @@
     el = Στίβος
     es = Atletismo
     es-MX = Atletismo
+    et = Kergejõustik
     eu = Atletismoa
     fa = ورزش
     fi = Yleisurheilu
@@ -22105,6 +22488,7 @@
     de = Australian Football
     el = Αυστραλιανό ποδόσφαιρο
     es = Fútbol australiano
+    et = Austraalia jalgpall
     eu = Australiako futbol araua
     fa = فوتبال استرالیایی
     fi = Australialainen jalkapallo
@@ -22138,6 +22522,7 @@
     de = Baseball
     el = Μπέιζμπολ
     es = Béisbol
+    et = Pesapall
     eu = Beisbol
     fa = بیسبال
     fi = Baseball
@@ -22175,6 +22560,7 @@
     el = Μπάσκετ
     es = Baloncesto
     es-MX = Baloncesto
+    et = Korvpall
     eu = Saskibaloia
     fa = بسکتبال
     fi = Koripallo
@@ -22212,6 +22598,7 @@
     de = Beachvolleyball
     el = Μπιτς βόλεϊ
     es = Voleibol de playa
+    et = Rannavõrkpall
     eu = Hondartza-bolei
     fa = والیبال ساحلی
     fi = Rantalentopallo
@@ -22245,6 +22632,7 @@
     be = Боўлз
     de = Bowls
     es = Bolos sobre hierba
+    et = Murukeegel
     fa = لعبة البولينج
     fi = Nurmikeilailu
     fr = Boulingrin
@@ -22275,6 +22663,7 @@
     de = Schach
     el = Σκάκι
     es = Ajedrez
+    et = Male
     eu = Xake
     fa = شطرنج
     fi = Shakki
@@ -22309,6 +22698,7 @@
     cs = Kriket
     de = Cricket
     es = Críquet
+    et = Kriket
     eu = Kilkerra
     fa = کریکت
     fi = Kriketti
@@ -22341,6 +22731,7 @@
     el = Κέρλινγκ
     es = Curling
     es-MX = Curling
+    et = Kurling
     eu = Curling
     fa = کرلینگ
     fi = Curling
@@ -22379,6 +22770,7 @@
     el = Ιππασία
     es = Equitación
     es-MX = Deporte hípico
+    et = Ratsasport
     eu = Zaldi-lasterketa
     fa = ورزش های سوارکاری
     fi = Hevosurheilu
@@ -22417,6 +22809,7 @@
     el = Γκολφ
     es = Golf
     es-MX = Golf
+    et = Golf
     eu = Golfa
     fa = گلف
     fi = Golf
@@ -22453,6 +22846,7 @@
     de = Gymnastik
     el = Γυμναστική
     es = Gimnasia
+    et = Võimlemine
     eu = Gimnasia
     fa = ژیمناستیک
     fi = Voimistelu
@@ -22490,6 +22884,7 @@
     el = Τόπι
     es = Balonmano
     es-MX = Balonmano
+    et = Käsipall
     eu = Eskubaloia
     fa = هندبال
     fi = Käsipallo
@@ -22529,6 +22924,7 @@
     el = Διάφορα αθλήματα
     es = Varios deportes
     es-MX = Varios deportes
+    et = Erinevad spordialad
     eu = Hainbat kirol
     fa = ورزش های مختلف
     fi = Erilaisia urheilulajeja
@@ -22568,6 +22964,7 @@
     el = Κατάδυση
     es = Submarinismo
     es-MX = Submarinismo
+    et = Sukeldusmiskoht
     eu = Urpekaritza
     fa = غواصی
     fi = Sukellus
@@ -22605,6 +23002,7 @@
     el = Κυνήγι
     es = Tiroteo
     es-MX = Tiroteo
+    et = Laskmine
     eu = Tiroketa
     fa = ورزش تیراندازی
     fi = Ammunta
@@ -22642,6 +23040,7 @@
     de = Skateboarding
     el = Σκέιτμπορντινγκ
     es = Monopatinaje
+    et = Rulasõit
     eu = Skateboarding
     fa = اسکیت‌بردینگ
     fi = Rullalautailu
@@ -22679,6 +23078,7 @@
     el = Χιονοδρόμια
     es = Esquí
     es-MX = Esquí
+    et = Suusatamine
     eu = Eskia
     fa = اسکی
     fi = Hiihto
@@ -22716,6 +23116,7 @@
     el = Ποδόσφαιρο
     es = Fútbol
     es-MX = Fútbol
+    et = Jalgpall
     eu = Futbola
     fa = فوتبال
     fi = Jalkapallo
@@ -22753,6 +23154,7 @@
     de = Schwimmen
     el = Κολύμβηση
     es = Natación
+    et = Ujumine
     eu = Igeriketa
     fa = شنا
     fi = Uinti
@@ -22791,6 +23193,7 @@
     de = Tischtennis
     el = Επιτραπέζια αντισφαίριση
     es = Tenis de mesa
+    et = Lauatennis
     eu = Mahai-tenis
     fa = تنیس روی میز
     fi = Pöytätennis
@@ -22830,6 +23233,7 @@
     el = Γήπεδο τένις
     es = Cancha de tenis
     es-MX = Cancha de tenis
+    et = Tenniseväljak
     eu = Tenis kantxa
     fa = زمین تنیس
     fi = Tenniskenttä
@@ -22868,6 +23272,7 @@
     de = Volleyball
     el = Πετοσφαίριση
     es = Voleibol
+    et = Võrkpall
     eu = Boleibol
     fa = والیبال
     fi = Lentopallo
@@ -22905,6 +23310,7 @@
     de = Bowling
     el = Μπόουλινγκ
     es = Bowling
+    et = Bowling
     eu = Bowling
     fa = بولینگ
     fi = Keilailu
@@ -22945,6 +23351,7 @@
     de = Padel
     el = Padel
     es = Pádel
+    et = Padel
     eu = Padel
     fa = ﻝﺩﺎﭘ
     fi = Padel
@@ -22981,6 +23388,7 @@
     de = Futsal
     el = Futsal
     es = Futsal
+    et = Futsal
     eu = Areto-futbola
     fa = ﻝﺎﺴﺗﻮﻓ
     fi = Futsal
@@ -23017,6 +23425,7 @@
     de = Eishockey
     el = Χόκεϊ στον παγο
     es = Hockey sobre hielo
+    et = Jäähoki
     eu = Izotz hockey
     fa = ﺦﯾ ﯼﻭﺭ ﯽﮐﺎﻫ
     fi = Jääkiekko
@@ -23053,6 +23462,7 @@
     de = Feldhockey
     el = Χόκεϊ επί χόρτου
     es = Hockey sobre césped
+    et = Maahoki
     eu = Belar hockey
     fa = ﻦﻤﭼ ﯼﻭﺭ ﯽﮐﺎﻫ
     fi = Maahockey
@@ -23089,6 +23499,7 @@
     de = Badminton
     el = Αντιπτέριση
     es = Bádminton
+    et = Badminton
     eu = Badminton
     fa = ﻥﻮﺘﻨﯿﻣﺪﺑ
     fi = Sulkapallo
@@ -23125,6 +23536,7 @@
     de = Pelota Vasca
     el = Βασκική πελότα
     es = Pelota vasca
+    et = Baski pelota
     eu = Eusko pilota
     fa = ﯽﮑﺳﺎﺑ ﯼﺎﺗﻮﻠﭘ
     fi = Baskimaan pelota
@@ -23155,6 +23567,7 @@
     en = Tourism
     de = Tourismus
     es = Turismo
+    et = Turism
     eu = Turismoa
     fi = Turismi
     it = Turismo
@@ -23177,6 +23590,7 @@
     de = Berghütte
     el = Ορεινό καταφύγιο
     es = Cabaña
+    et = Mägimajutus
     eu = Kabina
     fi = Vuorimajoitus
     fr = Refuge de montagne
@@ -23209,6 +23623,7 @@
     de = Ferienwohnung
     el = Διαμερίσματα
     es = Apartamentos
+    et = Korterid
     eu = Apartamentuak
     fa = اپارتمان
     fi = Loma-asunnot
@@ -23243,6 +23658,7 @@
     de = Kunstwerk
     el = Έργα τέχνης
     es = Obras de arte
+    et = Kunstiteos
     eu = Artelanak
     fa = گردشگری
     fi = Taideteos
@@ -23277,6 +23693,7 @@
     de = Kunstwerk
     el = Έργα τέχνης
     es = Obras de arte
+    et = Kunstiteos - arhitektuur
     eu = Artelanak
     fa = گردشگری
     fi = Taideteos
@@ -23311,6 +23728,7 @@
     de = Gemälde
     el = Έργα τέχνης
     es = Obras de arte
+    et = Kunstiteos - maal
     eu = Artelanak
     fa = گردشگری
     fi = Taideteos
@@ -23345,6 +23763,7 @@
     de = Skulptur
     el = Έργα τέχνης
     es = Obras de arte
+    et = Kunstiteos - skulptuur
     eu = Artelanak
     fa = گردشگری
     fi = Taideteos
@@ -23379,6 +23798,7 @@
     de = Statue
     el = Έργα τέχνης
     es = Obras de arte
+    et = Kunstiteos - kuju
     eu = Artelanak
     fa = گردشگری
     fi = Taideteos
@@ -23413,6 +23833,7 @@
     de = Sehenswürdigkeit
     el = Αξιοθέατα
     es = Atracción turística
+    et = Turismiatraktsioon
     eu = Erakarpen turistikoa
     fa = گردشگری
     fi = Nähtävyys
@@ -23441,6 +23862,7 @@
   [type.tourism.attraction.animal]
     ref = type.tourism.attraction
     en = Animal enclosure
+    et = Loomade aedik
     it = Recinto
     ja = 動物
     nl = Dierenverblijf
@@ -23456,6 +23878,7 @@
     de = Zeltplatz
     el = Κάμπινγκ
     es = Campamento
+    et = Telkimine
     eu = Kanpalekua
     fa = محل چادر زنی
     fi = Retkeily
@@ -23487,6 +23910,7 @@
     de = Wohnwagenstellplatz
     el = Χώρος για τροχόσπιτα
     es = Zona de caravanas
+    et = Haagiselamute park
     eu = Karabana gunea
     fi = Asuntovaunupaikka
     fr = Aire de camping-car
@@ -23518,6 +23942,7 @@
     de = Ferienhaus
     el = Σαλέ
     es = Chalé
+    et = Suvila
     eu = Txaleta
     fa = هتل
     fi = Alppimaja
@@ -23549,6 +23974,7 @@
     de = Galerie
     el = Αξιοθέατο
     es = Turismo
+    et = Galerii
     eu = Turismoa
     fa = گالری
     fi = Nähtävyydet
@@ -23583,6 +24009,7 @@
     de = Gästehaus
     el = Ξενώνας
     es = Casa de huéspedes
+    et = Külalistemaja
     eu = Ostatua
     fa = هتل
     fi = Majatalo
@@ -23615,6 +24042,7 @@
     de = Herberge
     el = Πανδοχείο
     es = Albergue juvenil
+    et = Hostel
     eu = Gazteen aterpetxea
     fa = هتل
     fi = Hostelli
@@ -23641,6 +24069,7 @@
     ar = فندق
     de = Hotel
     el = Ξενοδοχείο
+    et = Hotell
     fa = هتل
     fi = Hotelli
     fr = Hôtel
@@ -23672,6 +24101,7 @@
     de = Touristeninformation
     el = Τουριστικές πληροφορίες
     es = Información
+    et = Turistiinfo
     eu = Informazioa
     fa = گردشگری
     fi = Turisti-informaatio
@@ -23710,6 +24140,7 @@
     de = Informationstafel
     el = Πίνακας πληροφοριών
     es = Tablón de información
+    et = Infotahvel
     eu = Informazio taula
     fa = گردشگری
     fi = Informaatio
@@ -23747,6 +24178,7 @@
     de = Wegweiser
     el = Οδηγός
     es = Poste indicador
+    et = Juhtpost
     eu = Gida postua
     fa = تابلو راهنما
     fi = Tienviitta
@@ -23785,6 +24217,7 @@
     de = Touristenkarte
     el = Τουριστικός χάρτης
     es = Mapa turístico
+    et = Turistikaart
     eu = Mapa turistikoa
     fa = گردشگری
     fi = Turistikartta
@@ -23822,6 +24255,7 @@
     de = Fremdenverkehrsamt
     el = Ενημέρωση τουριστών
     es = Oficina de turismo
+    et = Turismiinfo
     eu = Turismo bulegoa
     fa = گردشگری
     fi = Turistitoimisto
@@ -23855,6 +24289,7 @@
     ar = فندق رخيص
     de = Motel
     el = Μοτέλ
+    et = Motell
     fa = هتل
     fi = Motelli
     it = Motel
@@ -23879,6 +24314,7 @@
     de = Museum
     el = Μουσείο
     es = Museo
+    et = Muuseum
     eu = Museoa
     fa = گردشگری
     fi = Museo
@@ -23910,6 +24346,7 @@
     de = Picknickplatz
     el = Χώρος εκδρομής
     es = Picnic
+    et = Piknikukoht
     eu = Piknika
     fa = مکان پیک نیک
     fi = Piknikpaikat
@@ -23942,6 +24379,7 @@
     cs = Letovisko
     de = Resort
     el = Θέρετρο
+    et = Kuurort
     fa = هتل
     fi = Lomakohteet
     fr = Complexe touristique
@@ -23975,6 +24413,7 @@
     de = Freizeitpark
     el = Αξιοθέατο
     es = Parque de atracciones
+    et = Teemapark
     eu = Parke tematiko
     fa = گردشگری
     fi = Huvipuisto
@@ -24009,6 +24448,7 @@
     de = Aussichtspunkt
     el = Θέα
     es = Vista panorámica
+    et = Vaatluskoht
     eu = Bista panoramikoa
     fa = گردشگری
     fi = Näköalatasanne
@@ -24043,6 +24483,7 @@
     de = Waldhütte
     el = Καλύβα
     es = Cabaña
+    et = Loodusonn
     eu = Kabina
     fa = کلبه‌ی صحرایی
     fi = Autiotupa
@@ -24074,6 +24515,7 @@
     cs = zoologická zahrada
     de = Zoo
     el = Ζωολογικός κήπος
+    et = Loomaaed
     fa = گردشگری
     fi = Eläintarha
     hu = Állatkert
@@ -24100,6 +24542,7 @@
   [type.traffic_calming]
     en = Traffic Calming
     de = Verkehrsberuhigung
+    et = Liikluse rahustamine
     it = Rallentatore della velocità
     ja = 交通静穏化
     nl = Snelheidsmatigende maatregel
@@ -24113,6 +24556,7 @@
   [type.traffic_calming.bump]
     en = Traffic Bump
     de = kurze Bodenwelle
+    et = Liiklusee aeglustusmühk
     fi = Hidastetöyssy
     fr = Ralentisseur
     it = Dosso
@@ -24129,6 +24573,7 @@
   [type.traffic_calming.hump]
     en = Traffic Hump
     de = lange Bodenwelle
+    et = Liikluse aeglustussaar
     fr = Ralentisseur
     it = Dosso
     ja = スピードハンプ
@@ -24143,6 +24588,7 @@
   [type.waterway]
     en = Waterway
     de = Wasserweg
+    et = Veetee
     fi = Vesiväylä
     ja = 水域
     mr = जलमार्ग
@@ -24161,6 +24607,7 @@
     da = Kanal
     de = Kanal
     el = Κανάλι
+    et = Kanal
     fa = کانال اب
     fi = Kanaali
     hu = Csatorna
@@ -24191,6 +24638,7 @@
     da = Kanal
     de = Kanal
     el = Κανάλι
+    et = Kanal
     fa = کانال اب
     fi = Kanaali
     hu = Csatorna
@@ -24217,6 +24665,7 @@
   [type.waterway.dam]
     en = Dam
     de = Staudamm
+    et = Tamm
     fi = Pato
     fr = Barrage
     it = Diga
@@ -24233,6 +24682,7 @@
   [type.waterway.ditch]
     en = Ditch
     de = Graben
+    et = Kraav
     fi = Oja
     fr = Fossé
     it = Fosso
@@ -24253,6 +24703,7 @@
     en = Waterway Dock
     de = Dock
     fi = Telakka
+    et = Veetee dokk
     fr = Cale
     it = Darsena
     ja = ドック
@@ -24268,6 +24719,7 @@
   [type.waterway.drain]
     en = Drain
     de = Abfluss
+    et = Kuivenduskraav
     it = Canale di scolo
     ja = 用水路
     mr = नाला
@@ -24290,6 +24742,7 @@
     de = Schleusentor
     el = Φράγμα
     es = Compuerta
+    et = Lüüsi värav
     eu = Atea
     fi = Kanavasulku
     fr = Porte d'écluse
@@ -24324,6 +24777,7 @@
     de = Fluss
     el = Ποταμός
     es = Río
+    et = Jõgi
     eu = Ibai
     fa = رودخانه
     fi = Joki
@@ -24362,6 +24816,7 @@
     de = Flussufer
     el = Ποταμός
     es = Río
+    et = Jõgi
     eu = Ibai
     fa = رودخانه
     fi = Joki
@@ -24397,6 +24852,7 @@
     de = Bach
     el = Ποταμός
     es = Río
+    et = Oja
     eu = Ibai
     fa = رودخانه
     fi = Joki
@@ -24432,6 +24888,7 @@
     de = Bach
     el = Ποταμός
     es = Río
+    et = Jõgi
     eu = Ibai
     fa = رودخانه
     fi = Joki
@@ -24467,6 +24924,7 @@
     de = Bach
     el = Ποταμός
     es = Río
+    et = Jõgi
     eu = Ibai
     fa = رودخانه
     fi = Joki
@@ -24504,6 +24962,7 @@
     de = Wasserfall
     el = Καταρράκτης
     es = Cascada
+    et = Kosk
     eu = Ur-jauzia
     fa = گردشگری
     fi = Vesiputous
@@ -24533,6 +24992,7 @@
   [type.waterway.weir]
     en = Weir
     de = Wehr
+    et = Pais
     fr = Seuil
     ja = 堰
     mr = अल्प धरण
@@ -24548,6 +25008,7 @@
     en = Wheelchair
     de = Rollstuhl
     es = Silla de ruedas
+    et = Ratastool
     eu = Gurpil-aulkia
     fi = Rullatuoli
     it = Sedia a rotelle
@@ -24570,6 +25031,7 @@
     el = Μερικώς εξοπλισμένο για άτομα με ειδικές ανάγκες
     es = Parcialmente equipado para discapacitados
     es-MX = Parcialmente equipado para discapacitados
+    et = Piiratud ratastooliga ligipääs
     eu = Ezinduentzako partzialki hornitua
     fa = دسترسی محدود با صندلی چرخ دار
     fi = Osittain varustettu vammaisille
@@ -24606,6 +25068,7 @@
     el = Δεν υπάρχει πρόβλεψη για άτομα με ειδικές ανάγκες
     es = No equipado para discapacitados
     es-MX = No equipado para discapacitados
+    et = Puudub ratastooliga ligipääs
     eu = Ezinduentzako ekipatuta ez dago
     fa = بدون دسترسی با صندلی چرخ دار
     fi = Ei varustettu vammaisille
@@ -24642,6 +25105,7 @@
     el = Εξοπλισμένο για άτομα με ειδικές ανάγκες
     es = Equipado para discapacitados
     es-MX = Equipado para discapacitados
+    et = Täielik ratastooli ligipääs
     eu = Ezinduentzako hornitua
     fa = دسترسی کامل با صندلی چرخ دار
     fi = Varustettu vammaisille
@@ -24672,6 +25136,7 @@
   [type.aerialway.j.bar]
     en = J-bar Lift
     de = Schlepplift
+    et = Slepplift
     fr = Téléski
     nl = Sleeplift (J)
     pt = Telesqui de barra em J
@@ -24683,6 +25148,7 @@
   [type.aerialway.magic_carpet]
     en = Magic Carpet
     de = Laufband
+    et = Võluvaip
     fr = Tapis roulant
     nl = Loopband
     pt = Tapete deslizante
@@ -24694,6 +25160,7 @@
   [type.aerialway.platter]
     en = Platter Lift
     de = Tellerlift
+    et = Plaatlift
     fi = Sompahissi
     nl = Sleeplift
     pt = Telesqui de disco
@@ -24705,6 +25172,7 @@
   [type.aerialway.rope_tow]
     en = Rope Tow
     de = Seillift
+    et = Köislift
     fi = Naruhissi
     nl = Touwlift
     pt = Telesqui de corda
@@ -24716,6 +25184,7 @@
   [type.aerialway.t.bar]
     en = T-bar Lift
     de = T-Bügel-Lift
+    et = Ankurlift
     fi = Ankkurihissi
     nl = Sleeplift (T-beugel)
     pt = Telesqui de barra em T
@@ -24726,6 +25195,7 @@
   [type.piste_type]
     en = Piste Type
     de = Pistentyp
+    et = Punkti liik
     nl = Pistesoort
     pt = Tipo de pista
     pt-BR = Tipo de pista
@@ -24737,6 +25207,7 @@
     en = Downhill Ski Run
     de = Abfahrt
     fi = Laskettelurinne
+    et = Mäesuusarada
     fr = Piste de ski alpin
     nl = Ski-afdaling
     pt = Esqui alpino
@@ -24748,6 +25219,7 @@
   [type.piste_type.downhill.advanced]
     ref = type.piste_type.downhill
     de = Schwierige Abfahrt
+    et = Raske laskumine
     nl = Moeilijke afdaling
     pt = Esqui alpino avançado
     pt-BR = Esqui alpino avançado
@@ -24758,6 +25230,7 @@
   [type.piste_type.downhill.easy]
     ref = type.piste_type.downhill
     de = Leichte Abfahrt
+    et = Kerge laskumine
     nl = Makkelijke afdaling
     pt = Esqui alpino fácil
     pt-BR = Esqui alpino fácil
@@ -24768,6 +25241,7 @@
   [type.piste_type.downhill.expert]
     ref = type.piste_type.downhill
     de = Profi Abfahrt
+    et = Professionaalne laskumine
     nl = Afdaling voor experts
     pt = Esqui alpino avançado
     pt-BR = Esqui alpino avançado
@@ -24777,6 +25251,7 @@
 
   [type.piste_type.downhill.freeride]
     ref = type.piste_type.downhill
+    et = Tasuta mäesuusatamine
     pt = Esqui alpino livre
     pt-BR = Esqui alpino livre
     ru = Горнолыжная трасса для фрирайда
@@ -24786,6 +25261,7 @@
   [type.piste_type.downhill.intermediate]
     ref = type.piste_type.downhill
     de = Mittelschwere Abfahrt
+    et = Keskmise raskusastmega laskumine
     nl = Gemiddelde afdaling
     pt = Esqui alpino intermédio
     pt-BR = Esqui alpino intermédio
@@ -24796,6 +25272,7 @@
   [type.piste_type.downhill.novice]
     ref = type.piste_type.downhill
     de = Anfängerfreundliche Abfahrt
+    et = Algajasõbralik laskumine
     nl = Beginnersafdaling
     pt = Esqui alpino iniciante
     pt-BR = Esqui alpino iniciante
@@ -24806,6 +25283,7 @@
   [type.piste_type.nordic]
     en = Nordic Ski Trail
     de = Langlaufloipe
+    et = Murdmaa suusarada
     fi = Latu
     fr = Piste de ski de fond
     nl = Langlaufroute
@@ -24818,6 +25296,7 @@
   [type.piste_type.sled]
     en = Sledding Piste
     de = Rodelbahn
+    et = Kelgurada
     fi = Kelkkarata
     fr = Piste de luge
     it = Pista per slitte
@@ -24836,6 +25315,7 @@
     de = Gebäude
     el = Κτίριο
     es = Edificio
+    et = Hoone
     eu = Eraikin
     fa = ساختما
     fi = Rakennus
@@ -24872,6 +25352,7 @@
     de = Veranstaltungszentrum
     el = Κέντρο εκδηλώσεων
     es = Lugar de los eventos
+    et = Ürituste toimumiskoht
     eu = Ekitaldien Lekua
     fa = محل برگزاری رویدادها
     fi = Tapahtumapaikka
