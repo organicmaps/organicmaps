@@ -1258,7 +1258,8 @@ Java_app_organicmaps_Framework_nativeGenerateRouteAltitudeChartBits(JNIEnv * env
   }
 
   // Passing route limits.
-  jclass const routeAltitudeLimitsClass = env->GetObjectClass(routeAltitudeLimits);
+  // Do not use jni::GetGlobalClassRef, because this class is used only to init static fieldId vars.
+  static jclass const routeAltitudeLimitsClass = env->GetObjectClass(routeAltitudeLimits);
   ASSERT(routeAltitudeLimitsClass, ());
 
   static jfieldID const totalAscentField = env->GetFieldID(routeAltitudeLimitsClass, "totalAscent", "I");
@@ -1558,7 +1559,7 @@ Java_app_organicmaps_Framework_nativeGet3dMode(JNIEnv * env, jclass, jobject res
   bool buildings;
   g_framework->Get3dMode(enabled, buildings);
 
-  jclass const resultClass = env->GetObjectClass(result);
+  static jclass const resultClass = env->GetObjectClass(result);
 
   static jfieldID const enabledField = env->GetFieldID(resultClass, "enabled", "Z");
   env->SetBooleanField(result, enabledField, enabled);
