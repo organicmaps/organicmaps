@@ -130,6 +130,8 @@
 	<string name="recycling">재활용</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
 	<string name="water">물</string>
+	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
+	<string name="rv">RV용</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">메모</string>
 	<!-- Email Subject when sharing bookmark list -->
