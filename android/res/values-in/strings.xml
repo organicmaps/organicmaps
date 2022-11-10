@@ -132,6 +132,8 @@
 	<string name="recycling">Mendaur ulang</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
 	<string name="water">Air</string>
+	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
+	<string name="rv">Untuk RV</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Catatan</string>
 	<!-- Email Subject when sharing bookmark list -->

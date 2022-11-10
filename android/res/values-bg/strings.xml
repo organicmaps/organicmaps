@@ -133,6 +133,8 @@
 	<string name="recycling">Рециклиране</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
 	<string name="water">Вода</string>
+	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
+	<string name="rv">За RV</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Бележки</string>
 	<!-- Email Subject when sharing bookmark list -->

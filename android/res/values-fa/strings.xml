@@ -129,6 +129,8 @@
 	<string name="recycling">بازیافت</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
 	<string name="water">اب</string>
+	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
+	<string name="rv">RV ﯼﺍﺮﺑ</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">یادداشت ها</string>
 	<!-- message title of loading file -->
