@@ -17,7 +17,6 @@
 
 #include "base/file_name_utils.hpp"
 
-#include <iostream>
 #include <string>
 #include <vector>
 
@@ -759,6 +758,10 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Ferry)
   TEST(routing::BicycleModel::AllLimitsInstance().IsRoadType(ferryType), ());
   TEST(routing::CarModel::AllLimitsInstance().IsRoadType(ferryType), ());
 
+  auto const yesCar = GetType({"hwtag", "yescar"});
+  auto const noFoot = GetType({"hwtag", "nofoot"});
+  auto const yesBicycle = GetType({"hwtag", "yesbicycle"});
+
   {
     Tags const tags = {
       { "route", "ferry" },
@@ -774,14 +777,20 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Ferry)
   {
     Tags const tags = {
       { "route", "shuttle_train" },
+      { "bicycle", "yes" },
+      { "foot", "no" },
+      { "motorcar", "yes" },
     };
 
     auto const params = GetFeatureBuilderParams(tags);
 
-    TEST_EQUAL(params.m_types.size(), 1, (params));
+    TEST_EQUAL(params.m_types.size(), 4, (params));
     uint32_t const type = GetType({"route", "shuttle_train"});
     TEST(params.IsTypeExist(type), (params));
     TEST(routing::CarModel::AllLimitsInstance().IsRoadType(type), ());
+    TEST(params.IsTypeExist(yesBicycle), (params));
+    TEST(params.IsTypeExist(noFoot), (params));
+    TEST(params.IsTypeExist(yesCar), (params));
   }
 
   {
@@ -796,8 +805,8 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Ferry)
 
     TEST_EQUAL(params.m_types.size(), 4, (params));
     TEST(params.IsTypeExist(ferryType), (params));
-    TEST(params.IsTypeExist(GetType({"hwtag", "yescar"})), ());
-    TEST(params.IsTypeExist(GetType({"hwtag", "nofoot"})), ());
+    TEST(params.IsTypeExist(yesCar), ());
+    TEST(params.IsTypeExist(noFoot), ());
     TEST(params.IsTypeExist(GetType({"hwtag", "nobicycle"})), ());
   }
 
@@ -815,7 +824,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Ferry)
     // - Assume nocar for ferries by default, unless otherwise specified
     TEST_EQUAL(params.m_types.size(), 4, (params));
     TEST(params.IsTypeExist(GetType({"route", "ferry"})), ());
-    TEST(params.IsTypeExist(GetType({"hwtag", "yesbicycle"})), ());
+    TEST(params.IsTypeExist(yesBicycle), ());
     TEST(params.IsTypeExist(GetType({"hwtag", "yesfoot"})), ());
     TEST(params.IsTypeExist(GetType({"hwtag", "nocar"})), ());
   }
@@ -2296,7 +2305,6 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
     {"railway", "subway_entrance"},
     {"railway", "tram"},
     {"railway", "tram_stop"},
-    {"route", "shuttle_train"},
     {"shop", "alcohol"},
     {"shop", "bakery"},
     {"shop", "beauty"},
@@ -2437,6 +2445,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
 
   Tags const exTypes = {
       {"route", "ferry"},
+      {"route", "shuttle_train"},
   };
 
   for (auto const & type : exTypes)

@@ -267,6 +267,7 @@ public:
     Toll,
     BicycleOnedir,
     Ferry,
+    ShuttleTrain,
     Count
   };
 
@@ -303,6 +304,7 @@ public:
         {Toll,               {"hwtag", "toll"}},
         {BicycleOnedir,      {"hwtag", "onedir_bicycle"}},
         {Ferry,              {"route", "ferry"}},
+        {ShuttleTrain,       {"route", "shuttle_train"}},
     };
 
     m_types.resize(static_cast<size_t>(Count));
@@ -321,9 +323,10 @@ public:
     return t == Get(Highway);
   }
 
-  bool IsFerry(uint32_t t) const
+  bool IsTransporter(uint32_t t) const
   {
-    return t == Get(Ferry);
+    // Ferry and shuttle have the same processing logic now.
+    return t == Get(Ferry) || t == Get(ShuttleTrain);
   }
 
   bool IsRailwayStation(uint32_t t) const
@@ -963,7 +966,7 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
       highwayDone = true;
     }
 
-    if (!ferryDone && types.IsFerry(vType))
+    if (!ferryDone && types.IsTransporter(vType))
     {
       bool yesMotorFerry = false;
       bool noMotorFerry = false;
