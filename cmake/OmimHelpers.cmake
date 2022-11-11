@@ -99,6 +99,7 @@ function(omim_add_test_impl disable_platform_init executable)
     endif()
     # testingmain.cpp uses base::HighResTimer::ElapsedNano
     target_link_libraries(${executable} base)
+    add_test(NAME ${executable} COMMAND ${executable} WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
   endif()
 endfunction()
 

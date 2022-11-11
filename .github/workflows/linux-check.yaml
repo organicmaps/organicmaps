@@ -70,6 +70,11 @@ jobs:
         working-directory: build
         run: ninja
 
+      - name: CTest
+        shell: bash
+        working-directory: build
+        run: ctest -j$(nproc) --output-on-failure
+
   linux-matrix:
     name: Linux builds and tests
     runs-on: ubuntu-22.04

@@ -204,6 +204,7 @@ endif()
 
 if (NOT SKIP_TESTS)
   set(SKIP_TESTS FALSE)
+  enable_testing()
 endif()
 
 if (NOT PYTHON_VERSION)
