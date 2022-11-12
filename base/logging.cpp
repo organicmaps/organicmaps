@@ -12,13 +12,19 @@
 #include <mutex>
 #include <sstream>
 
-namespace
-{
-std::mutex g_logMutex;
-}  // namespace
-
 namespace base
 {
+namespace
+{
+using namespace std::literals;
+auto constexpr kDebug    = "DEBUG"sv;
+auto constexpr kInfo     = "INFO"sv;
+auto constexpr kWarning  = "WARN"sv;
+auto constexpr kError    = "ERROR"sv;
+auto constexpr kCritical = "CRIT"sv;
+
+std::mutex g_logMutex;
+
 std::string ToString(LogLevel level)
 {
   auto const & names = GetLogLevelNames();
@@ -57,9 +63,9 @@ LogHelper::LogHelper() : m_threadsCount(0)
   // This code highly depends on the fact that GetLogLevelNames()
   // always returns the same constant array of strings.
 
-  m_names = GetLogLevelNames();
-  for (size_t i = 0; i < m_lens.size(); ++i)
-    m_lens[i] = strlen(m_names[i]);
+  // m_names = GetLogLevelNames();
+  // for (size_t i = 0; i < m_lens.size(); ++i)
+  //   m_lens[i] = std::strlen(m_names[i]);
 }
 
 int LogHelper::GetThreadID()
@@ -72,10 +78,8 @@ int LogHelper::GetThreadID()
 
 void LogHelper::WriteProlog(std::ostream & s, LogLevel level)
 {
-  s << "LOG";
-
-  s << " TID(" << GetThreadID() << ")";
-  s << " " << m_names[level];
+  auto const strLevel = ToString(level);
+  s << strLevel << ' ' << GetThreadID() << ' ';
 
   double const sec = m_timer.ElapsedSeconds();
   s << " " << std::setfill(' ') << std::setw(static_cast<int>(16 - m_lens[level])) << sec << " ";
@@ -89,6 +93,7 @@ void LogMessageDefault(LogLevel level, SrcPoint const & srcPoint, std::string co
 
   std::ostringstream out;
   logger.WriteProlog(out, level);
+  out << DebugPrint(srcPoint) << msg << std::endl;
 
   out << DebugPrint(srcPoint) << msg << std::endl;
   std::cerr << out.str();

@@ -170,7 +170,7 @@ target_link_libraries(${PROJECT_NAME}
   coding
   base
   Freetype::Freetype
-  vulkan_wrapper
+  $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:vulkan_wrapper>
   stb_image
   sdf_image
   harfbuzz

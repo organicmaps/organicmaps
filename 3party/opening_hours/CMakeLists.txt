@@ -21,6 +21,10 @@ omim_add_library(${PROJECT_NAME} ${SRC})
 
 target_include_directories(${PROJECT_NAME} INTERFACE .)
 
+if (NOT PLATFORM_ANDROID AND NOT MSVC)
+  target_compile_options(${PROJECT_NAME} PRIVATE -Wno-deprecated-copy)
+endif()
+
 omim_add_test_subdirectory(opening_hours_tests)
 omim_add_test_subdirectory(opening_hours_integration_tests)
 omim_add_test_subdirectory(opening_hours_supported_features_tests)

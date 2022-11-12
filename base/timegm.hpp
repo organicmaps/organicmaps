@@ -12,9 +12,8 @@ bool IsLeapYear(int year);
 // Returns number of days for specified month and year.
 int DaysOfMonth(int year, int month);
 
-// For some reasons android doesn't have timegm function. The following
-// work around is provided.
-time_t TimeGM(std::tm const & tm);
+// Android has timegm from API 21. MSVC does not have it.
+time_t TimeGM(std::tm & tm);
 
 // Forms timestamp (number of seconds since 1.1.1970) from year/day/month, hour:min:sec
 // year - since 0, for example 2015

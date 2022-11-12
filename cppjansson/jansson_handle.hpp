@@ -6,7 +6,6 @@ struct json_t;
 
 namespace base
 {
-class JsonHandle
 {
   void IncRef();
   void DecRef();

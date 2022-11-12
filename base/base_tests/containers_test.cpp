@@ -2,11 +2,9 @@
 
 #include "base/limited_priority_queue.hpp"
 
-using namespace base;
-
 UNIT_TEST(LPQueue_Smoke)
 {
-  limited_priority_queue<int> q(3);
+  base::limited_priority_queue<int> q(3);
   TEST(q.empty(), ());
 
   q.push(5);

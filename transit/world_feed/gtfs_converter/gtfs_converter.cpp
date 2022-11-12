@@ -31,7 +31,7 @@ Platform::FilesList GetGtfsFeedsInDirectory(std::string const & path)
 {
   Platform::FilesList res;
   Platform::TFilesWithType gtfsList;
-  Platform::GetFilesByType(path, Platform::FILE_TYPE_DIRECTORY, gtfsList);
+  Platform::GetFilesByType(path, Platform::Directory, gtfsList);
 
   for (auto const & item : gtfsList)
   {
@@ -47,12 +47,12 @@ Platform::FilesList GetGtfsFeedsInDirectory(std::string const & path)
 void ExtendPath(std::string & path)
 {
   Platform::TFilesWithType csvFiles;
-  Platform::GetFilesByType(path, Platform::FILE_TYPE_REGULAR, csvFiles);
+  Platform::GetFilesByType(path, Platform::Regular, csvFiles);
   if (!csvFiles.empty())
     return;
 
   Platform::TFilesWithType subdirs;
-  Platform::GetFilesByType(path, Platform::FILE_TYPE_DIRECTORY, subdirs);
+  Platform::GetFilesByType(path, Platform::Directory, subdirs);
 
   // If there are more subdirectories then ".", ".." and directory with feed, the feed is most
   // likely corrupted.

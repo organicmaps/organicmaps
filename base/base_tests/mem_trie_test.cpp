@@ -8,11 +8,11 @@
 #include <utility>
 #include <vector>
 
+namespace mem_trie_test
+{
 using namespace base;
 using namespace std;
 
-namespace
-{
 using Key = string;
 using Value = int;
 using Trie = MemTrie<Key, VectorValues<Value>>;
@@ -188,4 +188,4 @@ UNIT_CLASS_TEST(MemTrieTest, ForEachInSubtree)
   TEST_EQUAL(GetContentsByPrefix("abra"), all, ());
   TEST_EQUAL(GetContentsByPrefix("abrau"), Data({{"abrau", 3}}), ());
 }
-}  // namespace
+}  // namespace mem_trie_test

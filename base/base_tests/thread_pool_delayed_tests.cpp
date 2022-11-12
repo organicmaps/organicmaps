@@ -7,13 +7,13 @@
 #include <future>
 #include <mutex>
 
+namespace thread_pool_delayed_tests
+{
 using namespace base;
 using namespace base::thread_pool::delayed;
 using namespace std::chrono;
 using namespace std;
 
-namespace
-{
 UNIT_TEST(ThreadPoolDelayed_Smoke)
 {
   {
@@ -245,4 +245,4 @@ UNIT_TEST(ThreadPoolDelayed_CancelDelayed)
 
   TEST_EQUAL(value, 2, ());
 }
-}  // namespace
+}  // namespace thread_pool_delayed_tests

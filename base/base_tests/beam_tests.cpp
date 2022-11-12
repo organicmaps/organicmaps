@@ -80,8 +80,8 @@ UNIT_TEST(Beam_Benchmark)
   for (uint64_t numResets = 0; numResets < 1000; numResets += 200)
   {
     LOG(LINFO, ("Resets =", numResets, "Capacity =", kCapacity, "Total events =", kNumEvents));
-    Benchmark<Beam>("Vector-based", numResets, kCapacity, kNumEvents);
-    Benchmark<HeapBeam>("Heap-based", numResets, kCapacity, kNumEvents);
+    Benchmark<base::Beam>("Vector-based", numResets, kCapacity, kNumEvents);
+    Benchmark<base::HeapBeam>("Heap-based", numResets, kCapacity, kNumEvents);
   }
 }
 }  // namespace beam_tests

@@ -106,11 +106,15 @@ if (NOT CMAKE_BUILD_TYPE)
 endif()
 
 # Global compile options for all configurations.
-add_compile_options(-ffast-math)
+#add_compile_options(-ffast-math)
+if (MSVC)
+  add_compile_definitions(_CRT_SECURE_NO_WARNINGS)
+  add_compile_options(/utf-8)
+endif (MSVC)
 
 # Built-in CMake configurations: Debug, Release, RelWithDebInfo, MinSizeRel
 if (${CMAKE_BUILD_TYPE} STREQUAL "Debug")
-  add_definitions(-DDEBUG -fno-omit-frame-pointer)
+  add_definitions(-DDEBUG)
 elseif (${CMAKE_BUILD_TYPE} MATCHES "Rel")
   add_definitions(-DRELEASE)
   add_compile_options(-Ofast)
@@ -252,10 +256,10 @@ if (NOT PLATFORM_IPHONE AND NOT PLATFORM_ANDROID)
   find_package(Qt6 COMPONENTS REQUIRED ${qt_components} PATHS $ENV{QT_PATH} /opt/homebrew/opt/qt@6 /usr/local/opt/qt@6 /usr/lib/x86_64-linux-gnu/qt6)
 endif()
 
-find_library(LIBZ NAMES z)
-if (LIBZ STREQUAL "LIBZ-NOTFOUND")
-  message(FATAL_ERROR "Failed to find libz library.")
-endif()
+#find_library(LIBZ NAMES z)
+#if (LIBZ STREQUAL "LIBZ-NOTFOUND")
+#  message(FATAL_ERROR "Failed to find libz library.")
+#endif()
 
 # To allow #include "base/file_name.hpp" in all sources.
 include_directories(${CMAKE_HOME_DIRECTORY})

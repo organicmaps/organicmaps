@@ -4,9 +4,12 @@
 #include "base/timer.hpp"
 
 #include <chrono>
+#ifndef OMIM_OS_WINDOWS_NATIVE
+#include <time.h>  // timegm is a non-POSIX, non-standard function.
+#endif
 
 // There are issues with this implementation due to absence
-// of time_t fromat specification. There are no guarantees
+// of time_t format specification. There are no guarantees
 // of its internal structure so we cannot rely on + or -.
 
 // It could be possible to substitute time_t with boost::ptime
@@ -15,7 +18,6 @@
 
 namespace
 {
-
 // Number of days elapsed since Jan 01 up to each month
 // (except for February in leap years).
 int const g_monoff[] = {
@@ -32,7 +34,6 @@ int LeapDaysCount(int y1, int y2)
 
 namespace base
 {
-
 int DaysOfMonth(int year, int month)
 {
   ASSERT_GREATER_OR_EQUAL(month, 1, ());
@@ -49,27 +50,13 @@ bool IsLeapYear(int year)
 }
 
 // Inspired by python's calendar.py
-time_t TimeGM(std::tm const & tm)
+time_t TimeGM(std::tm & tm)
 {
-  int year;
-  int days;
-  int hours;
-  int minutes;
-  int seconds;
-
-  year = 1900 + tm.tm_year;
-  days = 365 * (year - 1970) + LeapDaysCount(1970, year);
-  days += g_monoff[tm.tm_mon];
-
-  if (tm.tm_mon > 1 && IsLeapYear(year))
-    ++days;
-  days += tm.tm_mday - 1;
-
-  hours = days * 24 + tm.tm_hour;
-  minutes = hours * 60 + tm.tm_min;
-  seconds = minutes * 60 + tm.tm_sec;
-
-  return base::SecondsSinceEpochToTimeT(seconds);
+#ifdef OMIM_OS_WINDOWS_NATIVE
+  return _mkgmtime(&tm);
+#else
+  return timegm(&tm);
+#endif
 }
 
 time_t TimeGM(int year, int month, int day, int hour, int min, int sec)

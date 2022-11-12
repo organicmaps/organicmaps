@@ -191,6 +191,7 @@ target_link_libraries(${PROJECT_NAME}
   $<$<BOOL:${PLATFORM_DESKTOP}>:Qt6::Core>
   $<$<BOOL:${PLATFORM_LINUX}>:Qt6::Network>
   $<$<BOOL:${QT_POSITIONING}>:Qt6::Positioning>
+  $<$<BOOL:${PLATFORM_WIN}>:Qt6::Network>
   $<$<BOOL:${PLATFORM_MAC}>:-framework\ Foundation -framework\ SystemConfiguration -framework\ CoreLocation -framework\ CFNetwork>
 )
 

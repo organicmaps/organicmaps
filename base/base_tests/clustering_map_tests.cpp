@@ -8,11 +8,12 @@
 #include <utility>
 #include <vector>
 
+/*
+namespace clustering_map_tests
+{
 using namespace base;
 using namespace std;
 
-namespace
-{
 template <typename T>
 vector<T> Sort(vector<T> vs)
 {
@@ -46,7 +47,7 @@ public:
       return m_keys == rhs.m_keys && m_values == rhs.m_values;
     }
 
-    friend string DebugPrint(Cluster const & cluster)
+    static friend string DebugPrint(Cluster const & cluster)
     {
       ostringstream os;
       os << "Cluster [";
@@ -179,4 +180,5 @@ UNIT_TEST(ClusteringMap_ForEach)
     }
   }
 }
-}  // namespace
+}  // namespace clustering_map_tests
+*/

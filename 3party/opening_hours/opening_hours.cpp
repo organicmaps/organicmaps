@@ -104,19 +104,19 @@ constexpr bool IsChar(TNumber) noexcept
          std::is_same<char, TNumber>::value;
 };
 
-template <typename TNumber, typename std::enable_if<!IsChar(TNumber{}), void*>::type = nullptr>
-void PrintPaddedNumber(std::ostream & ost, TNumber const number, uint32_t const padding = 1)
+//template <typename TNumber, typename std::enable_if<!IsChar(TNumber{}), void*>::type = nullptr>
+void PrintPaddedNumber(std::ostream & ost, /*TNumber*/ uint64_t number, int padding)
 {
-  static_assert(std::is_integral<TNumber>::value, "number should be of integral type.");
+  //static_assert(std::is_integral<TNumber>::value, "number should be of integral type.");
   StreamFlagsKeeper keeper(ost);
   ost << std::setw(padding) << std::setfill('0') << number;
 }
 
-template <typename TNumber, typename std::enable_if<IsChar(TNumber{}), void*>::type = nullptr>
-void PrintPaddedNumber(std::ostream & ost, TNumber const number, uint32_t const padding = 1)
-{
-  PrintPaddedNumber(ost, static_cast<int32_t>(number), padding);
-}
+// template <typename TNumber, typename std::enable_if<IsChar(TNumber{}), void*>::type = nullptr>
+// void PrintPaddedNumber(std::ostream & ost, TNumber number, uint32_t padding)
+// {
+//   PrintPaddedNumber(ost, static_cast<int32_t>(number), padding);
+// }
 
 void PrintHoursMinutes(std::ostream & ost,
                        std::chrono::hours::rep hours,

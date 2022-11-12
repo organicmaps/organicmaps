@@ -6,7 +6,7 @@
 #include "base/thread.hpp"
 #include "base/timer.hpp"
 
-#include <array>
+//#include <array>
 #include <atomic>
 #include <map>
 #include <string>
@@ -21,7 +21,7 @@ enum LogLevel
   LERROR,
   LCRITICAL,
 
-  NUM_LOG_LEVELS
+//  NUM_LOG_LEVELS
 };
 
 class LogHelper
@@ -38,15 +38,15 @@ private:
   int m_threadsCount;
   std::map<threads::ThreadID, int> m_threadID;
 
-  base::Timer m_timer;
+  Timer m_timer;
 
-  std::array<char const *, NUM_LOG_LEVELS> m_names;
-  std::array<size_t, NUM_LOG_LEVELS> m_lens;
+  // std::array<std::string_view, NUM_LOG_LEVELS> m_names;
+  // std::array<size_t, NUM_LOG_LEVELS> m_lens;
 };
 
-std::string ToString(LogLevel level);
-bool FromString(std::string const & s, LogLevel & level);
-std::array<char const *, NUM_LOG_LEVELS> const & GetLogLevelNames();
+//std::string ToString(LogLevel level);
+//bool FromString(std::string const & s, LogLevel & level);
+//std::array<std::string_view, NUM_LOG_LEVELS> constexpr & GetLogLevelNames();
 
 using AtomicLogLevel = std::atomic<LogLevel>;
 using LogMessageFn = void (*)(LogLevel level, SrcPoint const &, std::string const &);
@@ -100,7 +100,7 @@ using ::base::LINFO;
 using ::base::LWARNING;
 using ::base::LERROR;
 using ::base::LCRITICAL;
-using ::base::NUM_LOG_LEVELS;
+//using ::base::NUM_LOG_LEVELS;
 
 // Logging macro.
 // Example usage: LOG(LINFO, (Calc(), m_Var, "Some string constant"));

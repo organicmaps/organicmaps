@@ -2,11 +2,11 @@
 
 #include "base/ref_counted.hpp"
 
-using namespace base;
-
-namespace
+namespace ref_counted_tests
 {
-struct Resource : public RefCounted
+using base::RefCountPtr;
+
+struct Resource : public base::RefCounted
 {
   explicit Resource(bool & destroyed) : m_destroyed(destroyed) { m_destroyed = false; }
 
@@ -80,4 +80,4 @@ UNIT_TEST(RefCounted_Smoke)
     TEST(destroyed, ());
   }
 }
-}  // namespace
+}  // namespace ref_counted_tests

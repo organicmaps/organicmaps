@@ -36,7 +36,7 @@ struct Progress
 
   static Progress constexpr Unknown()
   {
-    return {0, kUnknownTotalSize};
+    return Progress{0, kUnknownTotalSize};
   }
 
   bool IsUnknown() const

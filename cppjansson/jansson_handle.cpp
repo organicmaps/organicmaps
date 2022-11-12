@@ -4,13 +4,13 @@
 
 namespace base
 {
-void JsonHandle::IncRef()
+template <> void JsonHandle<json_t>::IncRef()
 {
   if (m_pJson)
     json_incref(m_pJson);
 }
 
-void JsonHandle::DecRef()
+template <> void JsonHandle<json_t>::DecRef()
 {
   if (m_pJson)
     json_decref(m_pJson);
