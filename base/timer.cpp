@@ -15,7 +15,11 @@
 #include <iomanip>  // std::get_time
 #include <sstream>
 
+#ifdef OMIM_OS_WINDOWS_NATIVE
+#include <windows.h>  // FILETIME, GetSystemTimeAsFileTime
+#else
 #include <sys/time.h>
+#endif  // OMIM_OS_WINDOWS_NATIVE
 
 namespace base
 {

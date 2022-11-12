@@ -1,8 +1,8 @@
 #pragma once
 
 #include "base/buffer_vector.hpp"
-#include "base/checked_cast.hpp"
-#include "base/stl_helpers.hpp"
+// #include "base/checked_cast.hpp"
+
 
 #include <algorithm>
 #include <charconv>
@@ -138,7 +138,7 @@ bool IsASCIILatin(UniChar c);
 
 inline std::string DebugPrint(UniString const & s) { return ToUtf8(s); }
 
-template <typename DelimFn, typename Iter> class TokenizeIteratorBase
+template <typename Iter> class TokenizeIteratorBase
 {
 public:
   using difference_type = std::ptrdiff_t;
@@ -147,11 +147,20 @@ public:
   // Hack to get buffer pointer from any iterator.
   // Deliberately made non-static to simplify the call like this->ToCharPtr.
   char const * ToCharPtr(char const * p) const { return p; }
-  template <class T> auto ToCharPtr(T const & i) const { return ToCharPtr(i.base()); }
+  #ifdef OMIM_OS_WINDOWS_NATIVE
+  char const * ToCharPtr(std::string::const_iterator it) const { return ToCharPtr(it); }
+  char const * ToCharPtr(std::string_view::iterator it) const { return ToCharPtr(it); }
+  #endif  // OMIM_OS_WINDOWS_NATIVE
+  // //template <typename T> char const * ToCharPtr(T const & i) const { return ToCharPtr(i.base()); }
+  // char const * ToCharPtr(utf8::unchecked::iterator<std::string_view> it) const { return ToCharPtr(it.base()); }
+  // char const * ToCharPtr(utf8::unchecked::iterator<std::string> it) const { return ToCharPtr(it.base()); }
+  // #else
+  template <typename T> char const * ToCharPtr(T const & it) const { return ToCharPtr(it.base()); }
+  
 };
 
 template <typename DelimFn, typename Iter, bool KeepEmptyTokens = false>
-class TokenizeIterator : public TokenizeIteratorBase<DelimFn, Iter>
+class TokenizeIterator : public TokenizeIteratorBase<Iter>
 {
 public:
   template <class InIterT> TokenizeIterator(InIterT beg, InIterT end, DelimFn const & delimFn)
@@ -163,8 +172,7 @@ public:
   std::string_view operator*() const
   {
     ASSERT(m_start != m_finish, ("Dereferencing of empty iterator."));
-
-    auto const baseI = this->ToCharPtr(m_start);
+    char const * baseI = this->ToCharPtr(m_start);
     return std::string_view(baseI, std::distance(baseI, this->ToCharPtr(m_end)));
   }
 
@@ -193,7 +201,7 @@ public:
 
   bool operator!=(TokenizeIterator const & rhs) const { return !(*this == rhs); }
 
-private:
+protected:
   void Move()
   {
     m_start = m_end;
@@ -225,7 +233,7 @@ private:
 
 /// Used in ParseCSVRow for the generator routine.
 template <typename DelimFn, typename Iter>
-class TokenizeIterator<DelimFn, Iter, true /* KeepEmptyTokens */> : public TokenizeIteratorBase<DelimFn, Iter>
+class TokenizeIterator<DelimFn, Iter, true /* KeepEmptyTokens */> : public TokenizeIteratorBase<Iter>
 {
 public:
   template <class InIterT> TokenizeIterator(InIterT beg, InIterT end, DelimFn const & delimFn)
@@ -238,7 +246,6 @@ public:
   std::string_view operator*() const
   {
     ASSERT(!m_finished, ("Dereferencing of empty iterator."));
-
     auto const baseI = this->ToCharPtr(m_start);
     return std::string_view(baseI, std::distance(baseI, this->ToCharPtr(m_end)));
   }
@@ -265,7 +272,7 @@ public:
 
   bool operator!=(TokenizeIterator const & rhs) const { return !(*this == rhs); }
 
-private:
+protected:
   void Move()
   {
     if (m_end == m_finish)
@@ -317,7 +324,8 @@ public:
   bool operator()(UniChar c) const;
 };
 
-template <class StringT> class SimpleTokenizer : public
+template <class StringT>
+class SimpleTokenizer : public
     TokenizeIterator<SimpleDelimiter, ::utf8::unchecked::iterator<typename StringT::const_iterator>, false /* KeepEmptyTokens */>
 {
   using BaseT = TokenizeIterator<SimpleDelimiter, ::utf8::unchecked::iterator<typename StringT::const_iterator>, false /* KeepEmptyTokens */>;
@@ -326,6 +334,12 @@ public:
     : BaseT(str.begin(), str.end(), delims)
   {
   }
+
+  // SimpleTokenizer & operator++()
+  // {
+  //   this->Move();
+  //   return *this;
+  // }
 };
 
 template <typename TFunctor>
@@ -334,8 +348,8 @@ void Tokenize(std::string_view str, char const * delims, TFunctor && f)
   SimpleTokenizer iter(str, delims);
   while (iter)
   {
-    f(*iter);
-    ++iter;
+    f(iter.operator*());
+    iter.operator++();
   }
 }
 
@@ -344,7 +358,7 @@ template <class ResultT = std::string_view>
 std::vector<ResultT> Tokenize(std::string_view str, char const * delims)
 {
   std::vector<ResultT> c;
-  Tokenize(str, delims, [&c](std::string_view v) { c.push_back(ResultT(v)); });
+  Tokenize(str, delims, [&c](std::string_view v) { c.emplace_back(v); });
   return c;
 }
 
@@ -360,14 +374,14 @@ UniChar LastUniChar(std::string const & s);
 namespace internal
 {
 template <typename T, typename = std::enable_if_t<std::is_signed<T>::value &&
-                                                  sizeof(T) < sizeof(long long)>>
+    (sizeof(T) < sizeof(long long))>>  // Parentheses for MSVC. 
 long IntConverter(char const * start, char ** stop, int base)
 {
   return std::strtol(start, stop, base);
 }
 
 template <typename T, typename = std::enable_if_t<std::is_unsigned<T>::value &&
-                                                  sizeof(T) < sizeof(unsigned long long)>>
+    (sizeof(T) < sizeof(unsigned long long))>>  // Parentheses for MSVC.
 unsigned long IntConverter(char const * start, char ** stop, int base)
 {
   return std::strtoul(start, stop, base);
@@ -378,7 +392,7 @@ template <typename T, typename = std::enable_if_t<std::is_signed<T>::value &&
 long long IntConverter(char const * start, char ** stop, int base)
 {
 #ifdef OMIM_OS_WINDOWS_NATIVE
-  return _strtoi64(start, &stop, base);
+  return _strtoi64(start, stop, base);
 #else
   return std::strtoll(start, stop, base);
 #endif
@@ -389,7 +403,7 @@ template <typename T, typename = std::enable_if_t<std::is_unsigned<T>::value &&
 unsigned long long IntConverter(char const * start, char ** stop, int base)
 {
 #ifdef OMIM_OS_WINDOWS_NATIVE
-  return _strtoui64(start, &stop, base);
+  return _strtoui64(start, stop, base);
 #else
   return std::strtoull(start, stop, base);
 #endif
@@ -518,9 +532,10 @@ namespace impl
 {
 template <typename T> bool from_sv(std::string_view sv, T & t)
 {
-  auto const res = std::from_chars(sv.begin(), sv.end(), t);
-  return (res.ec != std::errc::invalid_argument && res.ec != std::errc::result_out_of_range &&
-          res.ptr == sv.end());
+  auto const end = sv.data() + sv.size();
+  auto const res = std::from_chars(sv.data(), end, t);
+  return res.ec != std::errc::invalid_argument && res.ec != std::errc::result_out_of_range &&
+         res.ptr == end;
 }
 } // namespace impl
 

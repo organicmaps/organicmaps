@@ -146,7 +146,7 @@ build()
       "$CMAKE" "$CMAKE_GENERATOR" "$OMIM_PATH" -DCMAKE_BUILD_TYPE="$CONF" ${CMAKE_CONFIG:-}
     fi
     echo ""
-    $MAKE_COMMAND $OPT_TARGET
+    "$MAKE_COMMAND" $OPT_TARGET
     if [ -n "$OPT_TARGET" ] && [ -n "$OPT_LAUNCH_BINARY" ]; then
       for target in $OPT_TARGET; do
         "$DIRNAME/$target"
@@ -155,7 +155,7 @@ build()
   else
     "$CMAKE" "$CMAKE_GENERATOR" "$OMIM_PATH" -DCMAKE_BUILD_TYPE="$CONF" \
     -DBUILD_DESIGNER:bool=True ${CMAKE_CONFIG:-}
-    $MAKE_COMMAND package
+    "$MAKE_COMMAND" package
   fi
   if [ -n "$OPT_COMPILE_DATABASE" ]; then
     cp "$DIRNAME/compile_commands.json" "$OMIM_PATH"

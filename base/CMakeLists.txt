@@ -50,7 +50,6 @@ set(SRC
   normalize_unicode.cpp
   non_intersecting_intervals.hpp
   observer_list.hpp
-  optional_lock_guard.hpp
   pprof.cpp
   pprof.hpp
   random.cpp

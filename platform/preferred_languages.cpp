@@ -47,11 +47,11 @@ void GetSystemPreferred(std::vector<std::string> & languages)
   if (p && strlen(p))  // LANGUAGE can contain several values divided by ':'
     languages = strings::Tokenize<std::string>(p, ":");
   else if ((p = getenv("LC_ALL")))
-    languages.push_back(p);
+    languages.emplace_back(p);
   else if ((p = getenv("LC_MESSAGES")))
-    languages.push_back(p);
+    languages.emplace_back(p);
   else if ((p = getenv("LANG")))
-    languages.push_back(p);
+    languages.emplace_back(p);
 
 #if defined(OMIM_OS_MAC) || defined(OMIM_OS_IPHONE)
   else

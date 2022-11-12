@@ -166,7 +166,7 @@ int main(int argc, char * argv[])
 #endif
 
   base::ScopedLogLevelChanger const infoLogLevel(LINFO);
-#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX) || defined(OMIM_OS_IPHONE)
+#if !defined(OMIM_OS_ANDROID)
   base::SetLogMessageFn(base::LogMessageTests);
 #endif
 

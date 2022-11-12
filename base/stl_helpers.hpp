@@ -206,7 +206,7 @@ public:
   explicit IgnoreFirstArgument(Gn && gn) : m_fn(std::forward<Gn>(gn)) {}
 
   template <typename Arg, typename... Args>
-  std::result_of_t<Fn(Args &&...)> operator()(Arg &&, Args &&... args)
+  std::invoke_result_t<Fn, Args &&...> operator()(Arg &&, Args &&... args)
   {
     return m_fn(std::forward<Args>(args)...);
   }

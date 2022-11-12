@@ -6,6 +6,8 @@
 #include <algorithm>
 #include <vector>
 
+#include <iostream>
+
 namespace base
 {
 // A data structure to perform the beam search with.
@@ -52,10 +54,9 @@ public:
       return;
     }
 
-    if (m_entries.size() == m_capacity)
+    m_entries.emplace(it, key, value);
+    if (m_entries.size() > m_capacity)
       m_entries.pop_back();
-
-    m_entries.insert(it, Entry(key, value));
   }
 
   // Calls |fn| for all entries currently held in the beam.

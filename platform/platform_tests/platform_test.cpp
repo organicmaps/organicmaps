@@ -22,7 +22,7 @@
 
 namespace
 {
-char const * TEST_FILE_NAME = "some_temporary_unit_test_file.tmp";
+char constexpr kTestFileName[] = "some_temporary_unit_test_file.tmp";
 
 void CheckFilesPresence(std::string const & baseDir, unsigned typeMask,
                         std::initializer_list<std::pair<std::string, size_t>> const & files)
@@ -41,7 +41,7 @@ void CheckFilesPresence(std::string const & baseDir, unsigned typeMask,
 
 UNIT_TEST(WritableDir)
 {
-  std::string const path = GetPlatform().WritableDir() + TEST_FILE_NAME;
+  std::string const path = GetPlatform().WritableDir() + kTestFileName;
 
   try
   {
@@ -59,15 +59,15 @@ UNIT_TEST(WritableDir)
 UNIT_TEST(WritablePathForFile)
 {
   Platform & pl = GetPlatform();
-  std::string const p1 = base::JoinPath(pl.WritableDir(), TEST_FILE_NAME);
-  std::string const p2 = pl.WritablePathForFile(TEST_FILE_NAME);
+  std::string const p1 = base::JoinPath(pl.WritableDir(), kTestFileName);
+  std::string const p2 = pl.WritablePathForFile(kTestFileName);
   TEST_EQUAL(p1, p2, ());
 }
 
 UNIT_TEST(GetReader)
 {
-  char const * NON_EXISTING_FILE = "mgbwuerhsnmbui45efhdbn34.tmp";
-  char const * arr[] = {
+  char constexpr kNonExistingFile[] = "mgbwuerhsnmbui45efhdbn34.tmp";
+  char const * const arr[] = {
     "resources-mdpi_clear/symbols.sdf",
     "classificator.txt",
     "minsk-pass.mwm"
@@ -83,7 +83,7 @@ UNIT_TEST(GetReader)
   bool wasException = false;
   try
   {
-    ReaderPtr<Reader> r = p.GetReader(NON_EXISTING_FILE);
+    ReaderPtr<Reader> r = p.GetReader(kNonExistingFile);
   }
   catch (FileAbsentException const &)
   {
@@ -154,21 +154,21 @@ UNIT_TEST(GetFilesByType)
   TEST(Platform::IsFileExistsByFullPath(testFile), ());
   SCOPE_GUARD(removeTestFile, bind(FileWriter::DeleteFileX, testFile));
 
-  CheckFilesPresence(baseDir, Platform::FILE_TYPE_DIRECTORY,
+  CheckFilesPresence(baseDir, Platform::Directory,
   {{
      kTestDirBaseName, 1 /* present */
    },
    {
      kTestFileBaseName, 0 /* not present */
    }});
-  CheckFilesPresence(baseDir, Platform::FILE_TYPE_REGULAR,
+  CheckFilesPresence(baseDir, Platform::Regular,
   {{
      kTestDirBaseName, 0 /* not present */
    },
    {
      kTestFileBaseName, 1 /* present */
    }});
-  CheckFilesPresence(baseDir, Platform::FILE_TYPE_DIRECTORY | Platform::FILE_TYPE_REGULAR,
+  CheckFilesPresence(baseDir, Platform::Directory | Platform::Regular,
   {{
      kTestDirBaseName, 1 /* present */
    },
@@ -186,7 +186,7 @@ UNIT_TEST(GetFileSize)
 
   char const kContent[] = "HOHOHO";
   size_t const kSize = ARRAY_SIZE(kContent);
-  std::string const fileName = pl.WritablePathForFile(TEST_FILE_NAME);
+  std::string const fileName = pl.WritablePathForFile(kTestFileName);
   {
     FileWriter testFile(fileName);
     testFile.Write(kContent, kSize);
@@ -203,7 +203,7 @@ UNIT_TEST(GetFileSize)
     testFile.Write(kContent, kSize);
   }
   size = 0;
-  TEST(pl.GetFileSizeByName(TEST_FILE_NAME, size), ());
+  TEST(pl.GetFileSizeByName(kTestFileName, size), ());
   TEST_EQUAL(size, kSize, ());
 
   FileWriter::DeleteFileX(fileName);

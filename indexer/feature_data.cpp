@@ -333,7 +333,7 @@ bool FeatureParams::AddHouseNumber(string houseNumber)
   ASSERT_NOT_EQUAL(houseNumber.front(), ' ', ("Trim should be done by the caller."));
 
   // Negative house numbers are not supported.
-  if (houseNumber.front() == '-' || houseNumber.find(u8"－") == 0)
+  if (houseNumber.front() == '-' || houseNumber.find("－") == 0)
     return false;
 
   // Replace full-width digits, mostly in Japan, by ascii-ones.

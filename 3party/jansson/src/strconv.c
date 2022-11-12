@@ -1,21 +1,14 @@
-#include <assert.h>
-#include <errno.h>
-#include <stdio.h>
-#include <string.h>
-#include <math.h>
-#ifdef __MINGW32__
-#undef __NO_ISOCEXT /* ensure stdlib.h will declare prototypes for mingw own 'strtod' replacement, called '__strtod' */
-#endif
 #include "jansson_private.h"
 #include "strbuffer.h"
+#include <assert.h>
+#include <errno.h>
+#include <math.h>
+#include <stdio.h>
+#include <string.h>
 
 /* need jansson_private_config.h to get the correct snprintf */
 #ifdef HAVE_CONFIG_H
 #include <jansson_private_config.h>
-#endif
-
-#ifdef __MINGW32__
-#define strtod __strtod
 #endif
 
 #if JSON_HAVE_LOCALECONV
@@ -31,41 +24,38 @@
     this way. Multi-threaded programs should use uselocale() instead.
 */
 
-static void to_locale(strbuffer_t *strbuffer)
-{
+static void to_locale(strbuffer_t *strbuffer) {
     const char *point;
     char *pos;
 
     point = localeconv()->decimal_point;
-    if(*point == '.') {
+    if (*point == '.') {
         /* No conversion needed */
         return;
     }
 
     pos = strchr(strbuffer->value, '.');
-    if(pos)
+    if (pos)
         *pos = *point;
 }
 
-static void from_locale(char *buffer)
-{
+static void from_locale(char *buffer) {
     const char *point;
     char *pos;
 
     point = localeconv()->decimal_point;
-    if(*point == '.') {
+    if (*point == '.') {
         /* No conversion needed */
         return;
     }
 
     pos = strchr(buffer, *point);
-    if(pos)
+    if (pos)
         *pos = '.';
 }
 #endif
 
-int jsonp_strtod(strbuffer_t *strbuffer, double *out)
-{
+int jsonp_strtod(strbuffer_t *strbuffer, double *out) {
     double value;
     char *end;
 
@@ -77,7 +67,7 @@ int jsonp_strtod(strbuffer_t *strbuffer, double *out)
     value = strtod(strbuffer->value, &end);
     assert(end == strbuffer->value + strbuffer->length);
 
-    if((value == HUGE_VAL || value == -HUGE_VAL) && errno == ERANGE) {
+    if ((value == HUGE_VAL || value == -HUGE_VAL) && errno == ERANGE) {
         /* Overflow */
         return -1;
     }
@@ -86,8 +76,7 @@ int jsonp_strtod(strbuffer_t *strbuffer, double *out)
     return 0;
 }
 
-int jsonp_dtostr(char *buffer, size_t size, double value, int precision)
-{
+int jsonp_dtostr(char *buffer, size_t size, double value, int precision) {
     int ret;
     char *start, *end;
     size_t length;
@@ -96,11 +85,11 @@ int jsonp_dtostr(char *buffer, size_t size, double value, int precision)
         precision = 17;
 
     ret = snprintf(buffer, size, "%.*g", precision, value);
-    if(ret < 0)
+    if (ret < 0)
         return -1;
 
     length = (size_t)ret;
-    if(length >= size)
+    if (length >= size)
         return -1;
 
 #if JSON_HAVE_LOCALECONV
@@ -109,10 +98,8 @@ int jsonp_dtostr(char *buffer, size_t size, double value, int precision)
 
     /* Make sure there's a dot or 'e' in the output. Otherwise
        a real is converted to an integer when decoding */
-    if(strchr(buffer, '.') == NULL &&
-       strchr(buffer, 'e') == NULL)
-    {
-        if(length + 3 >= size) {
+    if (strchr(buffer, '.') == NULL && strchr(buffer, 'e') == NULL) {
+        if (length + 3 >= size) {
             /* No space to append ".0" */
             return -1;
         }
@@ -125,17 +112,17 @@ int jsonp_dtostr(char *buffer, size_t size, double value, int precision)
     /* Remove leading '+' from positive exponent. Also remove leading
        zeros from exponents (added by some printf() implementations) */
     start = strchr(buffer, 'e');
-    if(start) {
+    if (start) {
         start++;
         end = start + 1;
 
-        if(*start == '-')
+        if (*start == '-')
             start++;
 
-        while(*end == '0')
+        while (*end == '0')
             end++;
 
-        if(end != start) {
+        if (end != start) {
             memmove(start, end, length - (size_t)(end - buffer));
             length -= (size_t)(end - start);
         }

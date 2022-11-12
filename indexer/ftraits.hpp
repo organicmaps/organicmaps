@@ -24,6 +24,8 @@ template <typename Base, typename Value>
 class TraitsBase
 {
 public:
+  TraitsBase() = default;
+
   static std::optional<Value> GetValue(feature::TypesHolder const & types)
   {
     auto const & instance = Instance();
@@ -89,7 +91,7 @@ inline std::string DebugPrint(WheelchairAvailability wheelchair)
 
 class Wheelchair : public TraitsBase<Wheelchair, WheelchairAvailability>
 {
-  friend class TraitsBase;
+  template <typename Base, typename Value> friend class TraitsBase;
 
   using TypesInitializer = std::initializer_list<std::initializer_list<char const *>>;
 

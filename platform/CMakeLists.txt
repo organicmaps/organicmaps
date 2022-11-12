@@ -169,6 +169,7 @@ target_link_libraries(${PROJECT_NAME}
   coding
   $<$<BOOL:${PLATFORM_DESKTOP}>:Qt5::Core>
   $<$<BOOL:${PLATFORM_LINUX}>:Qt5::Network>
+  $<$<BOOL:${PLATFORM_WIN}>:Qt5::Network>
   $<$<BOOL:${PLATFORM_MAC}>:-framework\ Foundation -framework\ SystemConfiguration -framework\ CoreLocation -framework\ CFNetwork>
 )
 

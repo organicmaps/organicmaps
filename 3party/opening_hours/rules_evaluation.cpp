@@ -199,7 +199,11 @@ bool HasExtendedHours(osmoh::RuleSequence const & rule)
 std::tm MakeTimetuple(time_t const timestamp)
 {
   std::tm tm{};
+#ifdef _MSC_VER
+  localtime_s(&tm, &timestamp);
+#else
   localtime_r(&timestamp, &tm);
+#endif
   return tm;
 }
 } // namespace

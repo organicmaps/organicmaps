@@ -2,11 +2,11 @@
 
 #include "base/ref_counted.hpp"
 
-using namespace base;
-
-namespace
+namespace ref_counted_tests
 {
-struct Resource : public RefCounted
+using base::RefCountPtr;
+
+struct Resource : public base::RefCounted
 {
   explicit Resource(bool & destroyed) : m_destroyed(destroyed) { m_destroyed = false; }
 
@@ -64,10 +64,14 @@ UNIT_TEST(RefCounted_Smoke)
       TEST_EQUAL(2, a->NumRefs(), ());
       TEST(!destroyed, ());
 
+#ifdef __clang__
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wself-assign-overloaded"
+#endif __clang__
       a = a;
+#ifdef __clang__
 #pragma clang diagnostic pop
+#endif __clang__
 
       TEST_EQUAL(a.Get(), d.Get(), ());
       TEST_EQUAL(2, a->NumRefs(), ());
@@ -76,4 +80,4 @@ UNIT_TEST(RefCounted_Smoke)
     TEST(destroyed, ());
   }
 }
-}  // namespace
+}  // namespace ref_counted_tests

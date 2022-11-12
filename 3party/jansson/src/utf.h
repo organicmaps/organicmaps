@@ -12,18 +12,10 @@
 #include <jansson_private_config.h>
 #endif
 
-
-#ifdef _WIN32
-typedef int int32_t;
-#else /* !_WIN32 */
-/* Assume a standard environment */
-#include <inttypes.h>
-#endif /* _WIN32 */
-
-#ifdef HAVE_STDINT_H
+#include <stddef.h>
+//#ifdef HAVE_STDINT_H
 #include <stdint.h>
-#endif
-
+//#endif
 
 int utf8_encode(int32_t codepoint, char *buffer, size_t *size);
 

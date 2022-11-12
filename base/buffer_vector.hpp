@@ -5,18 +5,10 @@
 #include <algorithm>
 #include <cstring>       // for memcpy
 #include <iterator>
+#include <string>
 #include <type_traits>
 #include <utility>
 #include <vector>
-
-// Calls swap() function using argument dependant lookup.
-// // Do NOT override this function, but override swap() function instead!
-template <typename T> inline void Swap(T & a, T & b)
-{
-  using std::swap;
-  swap(a, b);
-}
-
 
 template <class T, size_t N> class buffer_vector
 {
@@ -282,9 +274,9 @@ public:
   void swap(buffer_vector & rhs)
   {
     m_dynamic.swap(rhs.m_dynamic);
-    Swap(m_size, rhs.m_size);
+    std::swap(m_size, rhs.m_size);
     for (size_t i = 0; i < N; ++i)
-      Swap(m_static[i], rhs.m_static[i]);
+      std::swap(m_static[i], rhs.m_static[i]);
   }
 
   /// By value to be consistent with m_vec.push_back(m_vec[0]).
@@ -358,7 +350,7 @@ public:
       if (pos != m_size)
       {
         for (size_t i = m_size - 1; i >= pos && i < m_size; --i)
-          Swap(m_static[i], m_static[i + n]);
+          std::swap(m_static[i], m_static[i + n]);
       }
 
       m_size += n;
@@ -397,7 +389,7 @@ public:
     auto const numToErase = std::distance(first, last);
     for (; first != end() - numToErase; ++first)
     {
-      Swap(*first, *(first + numToErase));
+      std::swap(*first, *(first + numToErase));
     }
     resize(std::distance(begin(), first));
   }

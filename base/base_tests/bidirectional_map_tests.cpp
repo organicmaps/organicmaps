@@ -7,6 +7,9 @@
 #include <string>
 #include <unordered_map>
 
+
+namespace bidirectional_map_tests
+{
 using namespace base;
 using namespace std;
 
@@ -94,3 +97,4 @@ UNIT_TEST(BidirectionalMap_Remove)
     TEST(m.IsEmpty(), ());
   }
 }
+}  // bidirectional_map_tests

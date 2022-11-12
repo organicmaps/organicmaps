@@ -8,10 +8,10 @@
 #include <utility>
 #include <vector>
 
-using namespace base;
-
 namespace stl_helpers_test
 {
+using namespace base;
+
 class Int
 {
 public:

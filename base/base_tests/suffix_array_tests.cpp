@@ -6,13 +6,13 @@
 #include <string>
 #include <vector>
 
+#define TEST_STR_EQUAL(X, Y, msg) TEST_EQUAL(string(X), string(Y), msg)
+
+namespace suffix_array_tests
+{
 using namespace base;
 using namespace std;
 
-#define TEST_STR_EQUAL(X, Y, msg) TEST_EQUAL(string(X), string(Y), msg)
-
-namespace
-{
 UNIT_TEST(Skew_Smoke) { Skew(0, nullptr /* s */, nullptr /* sa */); }
 
 UNIT_TEST(Skew_Simple)
@@ -85,4 +85,6 @@ UNIT_TEST(Skew_Classic)
   TEST_STR_EQUAL("ssippi", s + pos[9], ());
   TEST_STR_EQUAL("ssissippi", s + pos[10], ());
 }
-}  // namespace
+}  // namespace suffix_array_tests
+
+#undef TEST_STR_EQUAL

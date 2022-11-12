@@ -1,6 +1,7 @@
 #include "base/string_utils.hpp"
 
 #include "base/assert.hpp"
+#include "base/stl_helpers.hpp"
 
 #include "3party/fast_double_parser/include/fast_double_parser.h"
 
@@ -227,7 +228,7 @@ void Trim(std::string_view & sv)
   if (beg != sv.end())
   {
     auto const end = std::find_if(sv.crbegin(), sv.crend(), [](auto c) { return !std::isspace(c); }).base();
-    sv = std::string_view(beg, std::distance(beg, end));
+    sv = std::string_view(&*beg, std::distance(beg, end));
   }
   else
     sv = {};

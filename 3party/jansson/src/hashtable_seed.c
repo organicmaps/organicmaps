@@ -44,7 +44,6 @@
 
 #include "jansson.h"
 
-
 static uint32_t buf_to_uint32(char *data) {
     size_t i;
     uint32_t result = 0;
@@ -54,8 +53,6 @@ static uint32_t buf_to_uint32(char *data) {
 
     return result;
 }
-
-
 
 /* /dev/urandom */
 #if !defined(_WIN32) && defined(USE_URANDOM)
@@ -97,12 +94,13 @@ static int seed_from_urandom(uint32_t *seed) {
 #if defined(_WIN32) && defined(USE_WINDOWS_CRYPTOAPI)
 #include <wincrypt.h>
 
-typedef BOOL (WINAPI *CRYPTACQUIRECONTEXTA)(HCRYPTPROV *phProv, LPCSTR pszContainer, LPCSTR pszProvider, DWORD dwProvType, DWORD dwFlags);
-typedef BOOL (WINAPI *CRYPTGENRANDOM)(HCRYPTPROV hProv, DWORD dwLen, BYTE *pbBuffer);
-typedef BOOL (WINAPI *CRYPTRELEASECONTEXT)(HCRYPTPROV hProv, DWORD dwFlags);
+typedef BOOL(WINAPI *CRYPTACQUIRECONTEXTA)(HCRYPTPROV *phProv, LPCSTR pszContainer,
+                                           LPCSTR pszProvider, DWORD dwProvType,
+                                           DWORD dwFlags);
+typedef BOOL(WINAPI *CRYPTGENRANDOM)(HCRYPTPROV hProv, DWORD dwLen, BYTE *pbBuffer);
+typedef BOOL(WINAPI *CRYPTRELEASECONTEXT)(HCRYPTPROV hProv, DWORD dwFlags);
 
-static int seed_from_windows_cryptoapi(uint32_t *seed)
-{
+static int seed_from_windows_cryptoapi(uint32_t *seed) {
     HINSTANCE hAdvAPI32 = NULL;
     CRYPTACQUIRECONTEXTA pCryptAcquireContext = NULL;
     CRYPTGENRANDOM pCryptGenRandom = NULL;
@@ -112,10 +110,11 @@ static int seed_from_windows_cryptoapi(uint32_t *seed)
     int ok;
 
     hAdvAPI32 = GetModuleHandle(TEXT("advapi32.dll"));
-    if(hAdvAPI32 == NULL)
+    if (hAdvAPI32 == NULL)
         return 1;
 
-    pCryptAcquireContext = (CRYPTACQUIRECONTEXTA)GetProcAddress(hAdvAPI32, "CryptAcquireContextA");
+    pCryptAcquireContext =
+        (CRYPTACQUIRECONTEXTA)GetProcAddress(hAdvAPI32, "CryptAcquireContextA");
     if (!pCryptAcquireContext)
         return 1;
 
@@ -123,11 +122,13 @@ static int seed_from_windows_cryptoapi(uint32_t *seed)
     if (!pCryptGenRandom)
         return 1;
 
-    pCryptReleaseContext = (CRYPTRELEASECONTEXT)GetProcAddress(hAdvAPI32, "CryptReleaseContext");
+    pCryptReleaseContext =
+        (CRYPTRELEASECONTEXT)GetProcAddress(hAdvAPI32, "CryptReleaseContext");
     if (!pCryptReleaseContext)
         return 1;
 
-    if (!pCryptAcquireContext(&hCryptProv, NULL, NULL, PROV_RSA_FULL, CRYPT_VERIFYCONTEXT))
+    if (!pCryptAcquireContext(&hCryptProv, NULL, NULL, PROV_RSA_FULL,
+                              CRYPT_VERIFYCONTEXT))
         return 1;
 
     ok = pCryptGenRandom(hCryptProv, sizeof(uint32_t), data);
@@ -190,7 +191,6 @@ static uint32_t generate_seed() {
     return seed;
 }
 
-
 volatile uint32_t hashtable_seed = 0;
 
 #if defined(HAVE_ATOMIC_BUILTINS) && (defined(HAVE_SCHED_YIELD) || !defined(_WIN32))
@@ -212,7 +212,7 @@ void json_object_seed(size_t seed) {
 #ifdef HAVE_SCHED_YIELD
                 sched_yield();
 #endif
-            } while(__atomic_load_n(&hashtable_seed, __ATOMIC_ACQUIRE) == 0);
+            } while (__atomic_load_n(&hashtable_seed, __ATOMIC_ACQUIRE) == 0);
         }
     }
 }
@@ -239,7 +239,7 @@ void json_object_seed(size_t seed) {
                 sched_yield();
 #endif
             }
-        } while(hashtable_seed == 0);
+        } while (hashtable_seed == 0);
     }
 }
 #elif defined(_WIN32)

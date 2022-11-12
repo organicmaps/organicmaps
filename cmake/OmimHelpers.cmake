@@ -1,5 +1,9 @@
 # Flags for all
-set(OMIM_WARNING_FLAGS -Wall -Wextra -Wno-unused-parameter)
+if (MSVC)
+  set(OMIM_WARNING_FLAGS /W0)
+else()
+  set(OMIM_WARNING_FLAGS -Wall -Wextra -Wno-unused-parameter)
+endif()
 set(OMIM_INCLUDE_DIRS "${OMIM_ROOT}/3party/boost")
 
 # Function for setting target platform:

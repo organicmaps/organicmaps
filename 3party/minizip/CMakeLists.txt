@@ -22,3 +22,6 @@ target_compile_definitions(${PROJECT_NAME}
 )
 
 target_compile_options(${PROJECT_NAME} PRIVATE $<$<C_COMPILER_ID:Clang,AppleClang,GNU>:-Wno-unused-value>)
+
+target_link_libraries(${PROJECT_NAME} zlib)
+target_include_directories(${PROJECT_NAME} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}\\..\\zlib" src)
