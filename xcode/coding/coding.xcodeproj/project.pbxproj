@@ -660,7 +660,7 @@
 		675342131A3F586300A0A8C3 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1400;
+				LastUpgradeCheck = 1410;
 				TargetAttributes = {
 					3949168E1BAC3A5F002A8C4F = {
 						CreatedOnToolsVersion = 7.0;
@@ -807,8 +807,6 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(OMIM_ROOT)",
-					"$(BOOST_ROOT)",
 					"$(OMIM_ROOT)/3party/icu",
 					"$(OMIM_ROOT)/3party/icu/icu/icu4c/source/common",
 					"$(OMIM_ROOT)/3party/icu/icu/icu4c/source/i18n",
@@ -826,8 +824,6 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(OMIM_ROOT)",
-					"$(BOOST_ROOT)",
 					"$(OMIM_ROOT)/3party/icu",
 					"$(OMIM_ROOT)/3party/icu/icu/icu4c/source/common",
 					"$(OMIM_ROOT)/3party/icu/icu/icu4c/source/i18n",

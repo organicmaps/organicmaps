@@ -26,9 +26,9 @@
  * (the definition was used in the automake system) */
 
 /* Bring in the cmake-detected defines */
-#cmakedefine HAVE_STDINT_H 1
-#cmakedefine HAVE_INTTYPES_H 1
-#cmakedefine HAVE_SYS_TYPES_H 1
+#define HAVE_STDINT_H 1
+#define HAVE_INTTYPES_H 1
+#define HAVE_SYS_TYPES_H 1
 
 /* Include our standard type header for the integer typedef */
 
@@ -47,25 +47,25 @@
 #ifdef __cplusplus
 #define JSON_INLINE inline
 #else
-#define JSON_INLINE @JSON_INLINE@
+#define JSON_INLINE inline
 #endif
 
 
-#define json_int_t @JSON_INT_T@
-#define json_strtoint @JSON_STRTOINT@
-#define JSON_INTEGER_FORMAT @JSON_INTEGER_FORMAT@
+#define json_int_t long long
+#define json_strtoint strtoll
+#define JSON_INTEGER_FORMAT "lld"
 
 
 /* If locale.h and localeconv() are available, define to 1, otherwise to 0. */
-#define JSON_HAVE_LOCALECONV @JSON_HAVE_LOCALECONV@
+#define JSON_HAVE_LOCALECONV 1
 
 /* If __atomic builtins are available they will be used to manage
    reference counts of json_t. */
-#define JSON_HAVE_ATOMIC_BUILTINS @JSON_HAVE_ATOMIC_BUILTINS@
+#define JSON_HAVE_ATOMIC_BUILTINS 1
 
 /* If __atomic builtins are not available we try using __sync builtins
    to manage reference counts of json_t. */
-#define JSON_HAVE_SYNC_BUILTINS @JSON_HAVE_SYNC_BUILTINS@
+#define JSON_HAVE_SYNC_BUILTINS 1
 
 /* Maximum recursion depth for parsing JSON input.
    This limits the depth of e.g. array-within-array constructions. */

@@ -1,32 +1,17 @@
-project(jansson)
+set(JANSSON_EXAMPLES OFF)
+set(JANSSON_BUILD_DOCS OFF)
+set(JANSSON_WITHOUT_TESTS OFF)
+set(JANSSON_INSTALL OFF)
 
-include_directories(src ../../)
+add_subdirectory(jansson)
 
-set(
-  SRC
-  jansson_handle.cpp
-  jansson_handle.hpp
-  myjansson.cpp
-  myjansson.hpp
-  src/dump.c
-  src/error.c
-  src/hashtable.c
-  src/hashtable.h
-  src/hashtable_seed.c
-  src/jansson_config.h
-  src/jansson.h
-  src/jansson_private_config.h
-  src/jansson_private.h
-  src/load.c
-  src/lookup3.h
-  src/memory.c
-  src/pack_unpack.c
-  src/strbuffer.c
-  src/strbuffer.h
-  src/strconv.c
-  src/utf.c
-  src/utf.h
-  src/value.c
+target_sources(jansson
+  PRIVATE
+    jansson_handle.cpp
+    myjansson.cpp
+  PUBLIC
+    jansson_handle.hpp
+    myjansson.hpp
 )
 
-add_library(${PROJECT_NAME} ${SRC})
+target_include_directories(jansson PUBLIC jansson/src .)

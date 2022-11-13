@@ -1182,7 +1182,7 @@
 			isa = PBXProject;
 			attributes = {
 				DefaultBuildSystemTypeForWorkspace = Latest;
-				LastUpgradeCheck = 1400;
+				LastUpgradeCheck = 1410;
 				TargetAttributes = {
 					6753401A1A3F2A1B00A0A8C3 = {
 						CreatedOnToolsVersion = 6.1;
@@ -1363,7 +1363,6 @@
 					"$(OMIM_ROOT)/3party/gflags/src",
 					"$(QT_PATH)/include",
 					"$(OMIM_ROOT)/3party/glm",
-					"$(OMIM_ROOT)/3party/jansson/src",
 				);
 			};
 			name = Debug;
@@ -1377,7 +1376,6 @@
 					"$(OMIM_ROOT)/3party/gflags/src",
 					"$(QT_PATH)/include",
 					"$(OMIM_ROOT)/3party/glm",
-					"$(OMIM_ROOT)/3party/jansson/src",
 				);
 			};
 			name = Release;
