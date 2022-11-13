@@ -463,7 +463,7 @@
 		4566606620E254060085E8C1 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1400;
+				LastUpgradeCheck = 1410;
 				TargetAttributes = {
 					4566606D20E254060085E8C1 = {
 						CreatedOnToolsVersion = 9.4;
@@ -674,12 +674,9 @@
 			buildSettings = {
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(OMIM_ROOT)",
-					"$(BOOST_ROOT)",
 					"$(OMIM_ROOT)/3party/glm",
 					"$(OMIM_ROOT)/3party/Vulkan-Headers/include",
 					"$(OMIM_ROOT)/3party/vulkan_wrapper",
-					"$(OMIM_ROOT)/3party/jansson/src",
 				);
 			};
 			name = Debug;
@@ -690,12 +687,9 @@
 			buildSettings = {
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(OMIM_ROOT)",
-					"$(BOOST_ROOT)",
 					"$(OMIM_ROOT)/3party/glm",
 					"$(OMIM_ROOT)/3party/Vulkan-Headers/include",
 					"$(OMIM_ROOT)/3party/vulkan_wrapper",
-					"$(OMIM_ROOT)/3party/jansson/src",
 				);
 			};
 			name = Release;
@@ -720,8 +714,6 @@
 				FRAMEWORK_SEARCH_PATHS = "$(QT_PATH)/lib";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(OMIM_ROOT)",
-					"$(BOOST_ROOT)",
 					"$(OMIM_ROOT)/3party/glm",
 					"$(QT_PATH)/include",
 				);
@@ -735,8 +727,6 @@
 				FRAMEWORK_SEARCH_PATHS = "$(QT_PATH)/lib";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(OMIM_ROOT)",
-					"$(BOOST_ROOT)",
 					"$(OMIM_ROOT)/3party/glm",
 					"$(QT_PATH)/include",
 				);

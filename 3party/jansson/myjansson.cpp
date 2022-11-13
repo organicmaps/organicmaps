@@ -2,15 +2,14 @@
 
 #include <type_traits>
 
-using namespace std;
-
 namespace
 {
 template <typename T>
-string FromJSONToString(json_t const * root)
+std::string FromJSONToString(json_t const * root)
 {
   T result;
   FromJSON(root, result);
+  // TODO(AB): Is std::to_string faster?
   return strings::to_string(result);
 }
 }  // namespace
@@ -103,10 +102,10 @@ void FromJSON(json_t const * root, bool & result)
   result = json_is_true(root);
 }
 
-string FromJSONToString(json_t const * root)
+std::string FromJSONToString(json_t const * root)
 {
   if (json_is_string(root))
-    return FromJSONToString<string>(root);
+    return FromJSONToString<std::string>(root);
 
   if (json_is_integer(root))
     return FromJSONToString<json_int_t>(root);
@@ -122,7 +121,7 @@ string FromJSONToString(json_t const * root)
 
 namespace std
 {
-void FromJSON(json_t const * root, string & result)
+void FromJSON(json_t const * root, std::string & result)
 {
   if (!json_is_string(root))
     MYTHROW(base::Json::Exception, ("The field must contain a json string."));
@@ -134,7 +133,7 @@ namespace strings
 {
 void FromJSON(json_t const * root, UniString & result)
 {
-  string s;
+  std::string s;
   FromJSON(root, s);
   result = MakeUniString(s);
 }

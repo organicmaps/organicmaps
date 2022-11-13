@@ -11,7 +11,7 @@
 #include <string>
 #include <vector>
 
-#include "3party/jansson/src/jansson.h"
+#include <jansson.h>
 
 namespace base
 {
