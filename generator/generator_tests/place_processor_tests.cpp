@@ -20,10 +20,8 @@
 #include <utility>
 #include <vector>
 
-namespace
+namespace generator_tests
 {
-using namespace generator_tests;
-
 class IdGenerator
 {
 public:
@@ -126,10 +124,7 @@ void Test(std::vector<generator::PlaceProcessor::PlaceWithIds> value,
   Sort(expected);
   TEST_EQUAL(value, expected, ());
 }
-}  // namespace
 
-namespace generator_tests
-{
 class TestPlaceProcessor
 {
 public:
@@ -139,11 +134,6 @@ protected:
   Loader m_loader;
   feature::FeatureBuilder const kArea;
 };
-}  // namespace generator_tests
-
-namespace
-{
-using namespace generator_tests;
 
 UNIT_CLASS_TEST(TestPlaceProcessor, EmptyTest)
 {
@@ -1408,4 +1398,4 @@ UNIT_CLASS_TEST(TestPlaceProcessor, KuznetsovoNearbyHamletsTest)
             {{point3.GetMostGenericOsmId(), way3.GetMostGenericOsmId()}, 1 /* cluster size */}}),
        ());
 }
-}  // namespace
+}  // namespace generator_tests

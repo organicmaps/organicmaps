@@ -9,11 +9,8 @@
 
 namespace sample_test
 {
-using namespace search;
-using namespace std;
+using search::Sample;
 
-namespace
-{
 class SampleTest
 {
 public:
@@ -57,10 +54,9 @@ void SampleTest::Init()
 
   m_tula.m_query = strings::MakeUniString("tula");
   m_tula.m_locale = "en";
-  m_tula.m_pos = nullopt;
+  m_tula.m_pos = {};
   m_tula.m_viewport = {37.5064, 67.0476, 37.7799, 67.304};
 }
-}  // namespace
 
 UNIT_CLASS_TEST(SampleTest, Smoke)
 {
@@ -138,7 +134,7 @@ UNIT_CLASS_TEST(SampleTest, BadViewport)
 
 UNIT_CLASS_TEST(SampleTest, Arrays)
 {
-  string lines;
+  std::string lines;
   lines.append(
       R"({"query": "cuba", "locale": "en", "position": {"x": 37.618706, "y": 99.53730574302003}, "viewport": {"minx": 37.1336, "miny": 67.1349, "maxx": 38.0314, "maxy": 67.7348}, "results": [{"name": "Cuba", "relevancy": "relevant", "types": ["place-country"], "position": {"x": -80.832886, "y": 15.521132748163712}, "houseNumber": ""}], "related_queries": ["Patria o Muerte", "Cuba Libre"]})");
   lines.append("\n");
@@ -151,29 +147,29 @@ UNIT_CLASS_TEST(SampleTest, Arrays)
       R"({"query": "tula", "locale": "en", "viewport": {"minx": 37.5064, "miny": 67.0476, "maxx": 37.7799, "maxy": 67.304}})");
   lines.append("\n");
 
-  vector<Sample> samples;
+  std::vector<Sample> samples;
   TEST(Sample::DeserializeFromJSONLines(lines, samples), ());
 
-  vector<Sample> expected = {m_cuba, m_riga, m_tula};
+  std::vector<Sample> expected = {m_cuba, m_riga, m_tula};
 
-  sort(samples.begin(), samples.end());
-  sort(expected.begin(), expected.end());
+  std::sort(samples.begin(), samples.end());
+  std::sort(expected.begin(), expected.end());
 
   TEST_EQUAL(samples, expected, ());
 }
 
 UNIT_CLASS_TEST(SampleTest, SerDes)
 {
-  vector<Sample> expected = {m_cuba, m_riga, m_tula};
+  std::vector<Sample> expected = {m_cuba, m_riga, m_tula};
 
   std::string lines;
   Sample::SerializeToJSONLines(expected, lines);
 
-  vector<Sample> actual;
+  std::vector<Sample> actual;
   TEST(Sample::DeserializeFromJSONLines(lines, actual), ());
 
-  sort(expected.begin(), expected.end());
-  sort(actual.begin(), actual.end());
+  std::sort(expected.begin(), expected.end());
+  std::sort(actual.begin(), actual.end());
   TEST_EQUAL(expected, actual, ());
 }
 } // namespace sample_test

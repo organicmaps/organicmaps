@@ -220,13 +220,13 @@ public:
       {
         if (IsStopWord(token.m_value, token.m_prefix))
           break;
-        if (!m_matcher.Has(token.m_value, token.m_prefix))
+        if (!m_matcher.Has(token.m_value, token.m_prefix))  // fallthrough
           return false;
         // fallthrough
       }
       case Token::TYPE_LETTER:
       {
-        if (j == 0 && IsStopWord(token.m_value, token.m_prefix))
+        if (j == 0 && IsStopWord(token.m_value, token.m_prefix))  // fallthrough
           break;
         // fallthrough
       }

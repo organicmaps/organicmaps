@@ -21,22 +21,21 @@
 
 #include "defines.hpp"
 
+namespace feature_to_osm_tests
+{
 using namespace indexer;
-using namespace std;
 using namespace generator::tests_support;
 
-namespace
-{
-using Entries = vector<pair<uint32_t, base::GeoObjectId>>;
+using Entries = std::vector<std::pair<uint32_t, base::GeoObjectId>>;
 
 template <typename Cont>
 Entries GetEntries(Cont const & cont)
 {
   Entries res;
   cont.ForEachEntry([&res](uint32_t const fid, base::GeoObjectId const & gid) {
-    res.emplace_back(make_pair(fid, gid));
+    res.emplace_back(std::make_pair(fid, gid));
   });
-  sort(res.begin(), res.end());
+  std::sort(res.begin(), res.end());
   return res;
 };
 
@@ -45,7 +44,6 @@ class FeatureIdToGeoObjectIdTest : public TestWithCustomMwms
 public:
   DataSource const & GetDataSource() const { return m_dataSource; }
 };
-}  // namespace
 
 UNIT_CLASS_TEST(FeatureIdToGeoObjectIdTest, Smoke)
 {
@@ -63,7 +61,7 @@ UNIT_CLASS_TEST(FeatureIdToGeoObjectIdTest, Smoke)
   auto testWorldId = BuildWorld([&](TestMwmBuilder & builder) {});
   auto const testWorldPath = testWorldId.GetInfo()->GetLocalFile().GetPath(MapFileType::Map);
 
-  vector<uint8_t> buf;
+  std::vector<uint8_t> buf;
   {
     MemWriter<decltype(buf)> writer(buf);
     FeatureIdToGeoObjectIdSerDes::Serialize(writer, origM);
@@ -110,3 +108,4 @@ UNIT_CLASS_TEST(FeatureIdToGeoObjectIdTest, Smoke)
     TEST_EQUAL(entry.first, fid.m_index, ());
   }
 }
+}  // namespace feature_to_osm_tests

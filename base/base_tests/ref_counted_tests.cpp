@@ -64,10 +64,14 @@ UNIT_TEST(RefCounted_Smoke)
       TEST_EQUAL(2, a->NumRefs(), ());
       TEST(!destroyed, ());
 
+#ifdef __clang__
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wself-assign-overloaded"
+#endif  // #ifdef __clang__
       a = a;
+#ifdef __clang__
 #pragma clang diagnostic pop
+#endif  // #ifdef __clang__
 
       TEST_EQUAL(a.Get(), d.Get(), ());
       TEST_EQUAL(2, a->NumRefs(), ());

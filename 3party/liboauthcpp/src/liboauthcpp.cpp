@@ -235,8 +235,8 @@ void Client::generateNonceTimeStamp()
     // both values makes life easier because generating a signature is
     // idempotent -- otherwise using macros can cause double evaluation and
     // incorrect results because of repeated calls to rand().
-    sprintf( szRand, "%x", ((testingTimestamp != 0) ? testingNonce : rand()) );
-    sprintf( szTime, "%ld", ((testingTimestamp != 0) ? testingTimestamp : time( NULL )) );
+    snprintf( szRand, sizeof(szRand), "%x", ((testingTimestamp != 0) ? testingNonce : rand()) );
+    snprintf( szTime, sizeof(szTime), "%ld", ((testingTimestamp != 0) ? testingTimestamp : time( NULL )) );
 
     m_nonce.assign( szTime );
     m_nonce.append( szRand );

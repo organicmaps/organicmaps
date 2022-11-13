@@ -63,9 +63,7 @@ FreetypeError g_FT_Errors[] =
 
 namespace dp
 {
-namespace
-{
-int const kInvalidFont = -1;
+int constexpr kInvalidFont = -1;
 
 template <typename ToDo>
 void ParseUniBlocks(std::string const & uniBlocksFile, ToDo toDo)
@@ -297,7 +295,6 @@ private:
 
   std::set<std::pair<strings::UniChar, int>> m_readyGlyphs;
 };
-}  // namespace
 
 // Information about single unicode block.
 struct UnicodeBlock

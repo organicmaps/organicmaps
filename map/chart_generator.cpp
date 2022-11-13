@@ -56,8 +56,7 @@ agg::rgba8 GetLineColor(MapStyle mapStyle)
   switch (mapStyle)
   {
   case MapStyleCount:
-    LOG(LERROR, ("Wrong map style param."));
-    // No need break or return here.
+    LOG(LERROR, ("Wrong map style param."));  // fallthrough
   case MapStyleDark:
   case MapStyleVehicleDark:
     return agg::rgba8(255, 230, 140, 255);
