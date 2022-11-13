@@ -12,8 +12,8 @@
 int main(int argc, char** argv)
 {
   if (argc < 2) {
-    std::cout << "Converts kmb file to kml\n";
-    std::cout << "Usage: " << argv[0] << " path_to_kmb_file\n";
+    std::cout << "Converts kml file to kmb\n";
+    std::cout << "Usage: " << argv[0] << " path_to_kml_file\n";
     return 1;
   }
   // TODO: Why bookmarks serialization requires classifier?
@@ -24,31 +24,31 @@ int main(int argc, char** argv)
   try
   {
     FileReader reader(filePath);
-    kml::binary::DeserializerKml des(kmlData);
+    kml::DeserializerKml des(kmlData);
     des.Deserialize(reader);
   }
-  catch (kml::binary::DeserializerKml::DeserializeException const & ex)
+  catch (kml::DeserializerKml::DeserializeException const & ex)
   {
-    std::cerr << "Error reading kmb file " << filePath << ": " << ex.what() << std::endl;
+    std::cerr << "Error reading kml file " << filePath << ": " << ex.what() << std::endl;
     return 1;
   }
 
   try
   {
-    // Change extension to kml.
-    filePath[filePath.size() - 1] = 'l';
-    kml::SerializerKml ser(kmlData);
+    // Change extension to kmb.
+    filePath[filePath.size() - 1] = 'b';
+    kml::binary::SerializerKml ser(kmlData);
     FileWriter kmlFile(filePath);
     ser.Serialize(kmlFile);
   }
   catch (kml::SerializerKml::SerializeException const & ex)
   {
-    std::cerr << "Error encoding to kml file " << filePath << ": " << ex.what() << std::endl;
+    std::cerr << "Error encoding to kmb file " << filePath << ": " << ex.what() << std::endl;
     return 1;
   }
   catch (FileWriter::Exception const & ex)
   {
-    std::cerr << "Error writing to kml file " << filePath << ": " << ex.what() << std::endl;
+    std::cerr << "Error writing to kmb file " << filePath << ": " << ex.what() << std::endl;
     return 1;
   }
   return 0;
