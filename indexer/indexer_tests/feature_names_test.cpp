@@ -1,18 +1,14 @@
 #include "testing/testing.hpp"
 
-#include "indexer/data_source.hpp"
+#include "indexer/feature_meta.hpp"
 #include "indexer/feature_utils.hpp"
-#include "indexer/features_vector.hpp"
-#include "indexer/mwm_set.hpp"
 
-#include "platform/local_country_file.hpp"
-#include "platform/preferred_languages.hpp"
+#include "coding/string_utf8_multilang.hpp"
 
 #include <string>
 
 namespace feature_names_test
 {
-using namespace platform;
 using namespace std;
 
 using StrUtf8 = StringUtf8Multilang;
