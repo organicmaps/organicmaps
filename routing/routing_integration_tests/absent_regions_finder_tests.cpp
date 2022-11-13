@@ -19,10 +19,10 @@
 #include <set>
 #include <string>
 
+namespace absent_regions_finder_tests
+{
 using namespace routing;
 
-namespace
-{
 class TestAbsentRegionsFinder
 {
 public:
@@ -80,7 +80,6 @@ std::set<std::string> TestAbsentRegionsFinder::GetRegions(Checkpoints const & ch
 
   return regions;
 }
-} // namespace
 
 // From "Russia_Republic of Karelia_South" to "Russia_Krasnodar Krai".
 // https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=61.759%2C34.452%3B45.070%2C38.940#map=5/54.869/40.210
@@ -287,3 +286,4 @@ UNIT_CLASS_TEST(TestAbsentRegionsFinder, BC_Alberta)
 
   TestRegions(checkpoints, planRegions);
 }
+} // namespace absent_regions_finder_tests

@@ -25,6 +25,11 @@
 #include <utility>
 #include <vector>
 
+namespace storage_tests
+{
+struct UnitClass_StorageTest_DeleteCountry;
+}  // storage_tests
+
 namespace storage
 {
 struct CountryIdAndName
@@ -579,7 +584,7 @@ protected:
   void OnFinishDownloading();
 
 private:
-  friend struct UnitClass_StorageTest_DeleteCountry;
+  friend struct storage_tests::UnitClass_StorageTest_DeleteCountry;
 
   void SaveDownloadQueue();
   void RestoreDownloadQueue();

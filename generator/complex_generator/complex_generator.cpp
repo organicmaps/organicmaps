@@ -12,8 +12,7 @@
 //
 // $ python -m maps_generator --skip="coastline" --countries="Russia_Moscow"
 //
-// $ ./complex_generator --maps_build_path=path/to/maps_build \
-//   --user_resource_path=path/to/omim/data --output=output.txt
+// $ ./complex_generator --maps_build_path=path/to/maps_build --user_resource_path=path/to/omim/data --output=output.txt
 
 #include "generator/filter_complex.hpp"
 #include "generator/filter_interface.hpp"

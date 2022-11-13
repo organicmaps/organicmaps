@@ -10,7 +10,7 @@ omim_add_library(${PROJECT_NAME} ${SRC})
 target_compile_options(${PROJECT_NAME}
   PRIVATE
     $<$<CXX_COMPILER_ID:AppleClang,Clang>:-Wno-shorten-64-to-32>
-    -Wno-deprecated-declarations
+    $<$<CXX_COMPILER_ID:AppleClang,Clang>:-Wno-deprecated-declarations>
 )
 
 target_link_libraries(${PROJECT_NAME}
