@@ -3250,7 +3250,7 @@
 
 "type.shop.greengrocer" = "Manav";
 
-"type.shop.grocery" = "Bakkal";
+"type.shop.grocery" = "Market";
 
 "type.shop.hairdresser" = "Kuaför";
 
@@ -3461,7 +3461,7 @@
 
 "type.tourism.attraction" = "Görülecek Yerler";
 
-"type.tourism.attraction.animal" = "Görülecek Yerler";
+"type.tourism.attraction.animal" = "Hayvanat bahçesi";
 
 "type.tourism.attraction.specified" = "Görülecek Yerler";
 
@@ -3505,11 +3505,11 @@
 
 "type.tourism.zoo" = "Hayvanat Bahçesi";
 
-"type.traffic_calming" = "Hız Kesici (Tümsek)";
+"type.traffic_calming" = "Hız Kesici (Kasis)";
 
-"type.traffic_calming.bump" = "Hız Kesici (Tümsek)";
+"type.traffic_calming.bump" = "Hız Kesici (Kasis)";
 
-"type.traffic_calming.hump" = "Hız Kesici (Tümsek)";
+"type.traffic_calming.hump" = "Hız Kesici (Kasis)";
 
 "type.waterway" = "Su Yolu";
 
@@ -3529,7 +3529,7 @@
 
 "type.waterway.drain.tunnel" = "Lağım";
 
-"type.waterway.lock_gate" = "Kilit Kapısı";
+"type.waterway.lock_gate" = "Eklüz Kapağı";
 
 "type.waterway.river" = "Nehir";
 
@@ -3565,7 +3565,7 @@
 
 "type.aerialway.rope_tow" = "Çekme Halatı";
 
-"type.aerialway.t.bar" = "T-bar Lift";
+"type.aerialway.t.bar" = "Kayakçı teleferiği";
 
 "type.piste_type" = "Kayakçı Taşıyıcı";
 
