@@ -3039,8 +3039,8 @@
     de = Recycling
     el = Ανακύκλωση
     es = Reciclaje
-    et = Taaskasutus
     es-MX = Reciclaje
+    et = Taaskasutus
     eu = Birziklapena
     fa = بازیافت
     fi = Kierrätys
@@ -3080,8 +3080,8 @@
     de = Wasser
     el = Νερό
     es = Agua
-    et = Vesi
     es-MX = Agua
+    et = Vesi
     eu = Ura
     fa = اب
     fi = Vesi
@@ -13535,8 +13535,8 @@
     de = Notiz an OSM-Redakteure senden
     el = Σημείωμα στους συντάκτες του OSM
     es = Enviar nota a los editores de OSM
-    et = Saada märkus OSM muutjatele
     es-MX = Enviar nota a los editores de OSM
+    et = Saada märkus OSM muutjatele
     eu = Bidali oharra OSM editoreei
     fa = ارسال یادداشت به ویرایشکنندگان OSM
     fi = Lähetä muistilapun OSM-toimittajille
@@ -24931,8 +24931,8 @@
     ca = Nom de la traça
     de = Name der Strecke
     es = Nombre de la ruta
-    eu = Bide-izena
     et = Raja nimi
+    eu = Bide-izena
     fi = Reitin nimi
     fr = Nom de la route
     it = Nome percorso

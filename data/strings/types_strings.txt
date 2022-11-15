@@ -393,8 +393,8 @@
     de = Infrastrukturobjekte
     el = Εγκαταστάσεις υποδομής
     es = Infraestructura
-    et = Infrastruktuur
     es-MX = Infraestructura
+    et = Infrastruktuur
     eu = Azpiegiturak
     fa = زیر ساخت
     fi = Infrastruktuurikohteet
@@ -920,8 +920,8 @@
     da = Delebiler
     de = Carsharing
     el = Παραχώρηση αυτοκινήτου
-    et = Autojagamine
     es = Compartir coche
+    et = Autojagamine
     eu = Partekatu autoa
     fi = Autojen yhteiskäyttö
     fr = Station d'autopartage
@@ -1742,8 +1742,8 @@
   [type.amenity.grave_yard.christian]
     ref = type.amenity.grave_yard
     en = Christian Graveyard
-    et = Kristlik surnuaed
     be = Хрысціянскія могілкі
+    et = Kristlik surnuaed
     it = Cimitero cristiano
     ja = キリスト教墓地
     mr = ख्रिश्चन स्मशानभूमी
@@ -9438,8 +9438,8 @@
   [type.highway.footway.bridge]
     ref = type.highway.road.bridge
     en = Pedestrian Bridge
-    et = Jalakäijate sild
     ar = جسر للمشاة
+    et = Jalakäijate sild
     mr = पादचारी पूल
     nl = Voetgangersbrug
     pl = Most dla pieszych
@@ -9475,7 +9475,6 @@
   [type.highway.footway.hiking]
     ref = type.highway.path
     de = Wanderweg
-    et = Rada
     nl = Wandelpad
     pt = Caminho pedonal
     pt-BR = Caminho pedonal
@@ -9496,9 +9495,9 @@
   [type.highway.footway.tunnel]
     ref = type.highway.road.tunnel
     en = Pedestrian Tunnel
-    et = Jalakäijate tunnel
     ar = نفق للمشاة
     de = Fußgängertunnel
+    et = Jalakäijate tunnel
     mr = पादचारी बोगदा
     nl = Voetgangerstunnel
     pl = Tunel dla pieszych
@@ -9778,7 +9777,6 @@
   [type.highway.path.hiking]
     ref = type.highway.path
     de = Wanderweg
-    et = Rada
     nl = Wandelpad
     pt-BR = Caminho pedonal
 
@@ -9865,8 +9863,8 @@
   [type.highway.pedestrian.tunnel]
     ref = type.highway.road.tunnel
     en = Pedestrian Tunnel
-    et = Jalakäijate tunnel
     de = Fußgängertunnel
+    et = Jalakäijate tunnel
     mr = पादचारी बोगदा
     nl = Voetgangerstunnel
     pl = Tunel pasażu pieszego
@@ -10097,8 +10095,8 @@
     de = Brücke
     el = Γέφυρα
     es = Puente
-    et = Sild
     es-MX = Puente
+    et = Sild
     eu = Zubia
     fa = پل
     fi = Silta
@@ -10681,7 +10679,6 @@
 
   [type.area_highway.cycleway]
     ref = type.highway.cycleway
-    et = Jalgrattatee
     fi = Pyörätie
     pt-BR = Caminho para ciclistas
 
@@ -10726,7 +10723,6 @@
 
   [type.area_highway.steps]
     ref = type.highway.steps
-    et = Trepp
     fi = Portaat
     nl = Trappen
     pt-BR = Travessia
@@ -12205,13 +12201,11 @@
     comment = In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship.
     ref = type.amenity.grave_yard
     en = Cemetery
-    et = Surnuaed
     nl = Begraafplaats
 
   [type.landuse.cemetery.christian]
     ref = type.amenity.grave_yard.christian
     en = Christian Cemetery
-    et = Kristlik surnuaed
     nl = Christelijke begraafplaats
 
   [type.landuse.churchyard]
@@ -20220,8 +20214,8 @@
     be = Будаўнічы магазін
     bg = Магазин за хардуер
     el = Κατάστημα υλικού
-    eu = Hardware denda
     et = Isetegemise tööriistad
+    eu = Hardware denda
     fa = ﺭﺍﺰﻓﺍ ﺖﺨﺳ ﻩﺎﮕﺷﻭﺮﻓ
     fr = Quincaillerie
     he = ןיינב ירמוחל תונח
@@ -20817,7 +20811,6 @@
     de = Gebäck
     el = Ζύμη
     es = Pastelería
-    et = Pagar
     eu = Gozogintza
     fa = ﯽﻨﯾﺮﯿﺷ
     fi = Leivonnainen
@@ -24767,8 +24760,8 @@
   [type.waterway.dock]
     en = Waterway Dock
     de = Dock
-    fi = Telakka
     et = Veetee dokk
+    fi = Telakka
     fr = Cale
     it = Darsena
     ja = ドック
@@ -25272,8 +25265,8 @@
   [type.piste_type.downhill]
     en = Downhill Ski Run
     de = Abfahrt
-    fi = Laskettelurinne
     et = Mäesuusarada
+    fi = Laskettelurinne
     fr = Piste de ski alpin
     nl = Ski-afdaling
     pt = Esqui alpino
