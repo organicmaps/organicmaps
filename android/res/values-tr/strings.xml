@@ -1720,7 +1720,7 @@
 	<string name="type.shop.garden_centre">Bahçe Mağazası</string>
 	<string name="type.shop.gift">Hediyelik Eşya Mağazası</string>
 	<string name="type.shop.greengrocer">Manav</string>
-	<string name="type.shop.grocery">Bakkal</string>
+	<string name="type.shop.grocery">Market</string>
 	<string name="type.shop.hairdresser">Kuaför</string>
 	<string name="type.shop.hardware">Donanım mağazası</string>
 	<string name="type.shop.health_food">Sağlık Gıda Mağazası</string>
@@ -1826,7 +1826,7 @@
 	<string name="type.tourism.artwork.sculpture">Heykel</string>
 	<string name="type.tourism.artwork.statue">Heykel</string>
 	<string name="type.tourism.attraction">Görülecek Yerler</string>
-	<string name="type.tourism.attraction.animal">Görülecek Yerler</string>
+	<string name="type.tourism.attraction.animal">Hayvanat bahçesi</string>
 	<string name="type.tourism.attraction.specified">Görülecek Yerler</string>
 	<string name="type.tourism.camp_site">Kamp Alanı</string>
 	<string name="type.tourism.caravan_site">Karavan Parkı</string>
@@ -1848,9 +1848,9 @@
 	<string name="type.tourism.viewpoint">Manzara</string>
 	<string name="type.tourism.wilderness_hut">Vahşi Doğa Kulübesi</string>
 	<string name="type.tourism.zoo">Hayvanat Bahçesi</string>
-	<string name="type.traffic_calming">Hız Kesici (Tümsek)</string>
-	<string name="type.traffic_calming.bump">Hız Kesici (Tümsek)</string>
-	<string name="type.traffic_calming.hump">Hız Kesici (Tümsek)</string>
+	<string name="type.traffic_calming">Hız Kesici (Kasis)</string>
+	<string name="type.traffic_calming.bump">Hız Kesici (Kasis)</string>
+	<string name="type.traffic_calming.hump">Hız Kesici (Kasis)</string>
 	<string name="type.waterway">Su Yolu</string>
 	<string name="type.waterway.canal">Kanal</string>
 	<string name="type.waterway.canal.tunnel">Kanal</string>
@@ -1860,7 +1860,7 @@
 	<string name="type.waterway.dock">Rıhtım</string>
 	<string name="type.waterway.drain">Lağım</string>
 	<string name="type.waterway.drain.tunnel">Lağım</string>
-	<string name="type.waterway.lock_gate">Kilit Kapısı</string>
+	<string name="type.waterway.lock_gate">Eklüz Kapağı</string>
 	<string name="type.waterway.river">Nehir</string>
 	<string name="type.waterway.river.tunnel">Nehir</string>
 	<string name="type.waterway.riverbank">Nehir</string>
@@ -1878,6 +1878,7 @@
 	<string name="type.aerialway.magic_carpet">Kayak Teleferiği</string>
 	<string name="type.aerialway.platter">Tabak Asansörü</string>
 	<string name="type.aerialway.rope_tow">Çekme Halatı</string>
+	<string name="type.aerialway.t.bar">Kayakçı teleferiği</string>
 	<string name="type.piste_type">Kayakçı Taşıyıcı</string>
 	<string name="type.piste_type.downhill">Yokuş Aşağı Kayak Pisti</string>
 	<string name="type.piste_type.downhill.advanced">Gelişmiş kayak pisti</string>
