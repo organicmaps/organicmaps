@@ -76,8 +76,7 @@ final class BMCViewController: MWMViewController {
     viewModel.shareCategoryFile(at: index) {
       switch $0 {
       case let .success(url):
-        let shareController = ActivityViewController.share(for: url,
-                                                              message: L("share_bookmarks_email_body"))
+        let shareController = ActivityViewController.share(for: url, message: L("share_bookmarks_email_body"))
         { [weak self] _, _, _, _ in
           self?.viewModel?.finishShareCategory()
         }
