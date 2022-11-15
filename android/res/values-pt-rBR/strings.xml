@@ -163,18 +163,8 @@
 	<string name="cant_change_this_setting">Lamentamos, as configurações do armazenamento do mapa estão desativadas.</string>
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">O download do país está atualmente em progresso.</string>
-	<!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-	<string name="my_position_share_sms">Veja onde estou agora. Abra o link: %1$s ou %2$s Não tem mapas offline instalados? Baixe aqui: https://omaps.app/get</string>
-	<!-- Subject for emailed bookmark -->
-	<string name="bookmark_share_email_subject">Veja o meu marcador no mapa do Organic Maps.</string>
-	<!-- Subject for emailed position -->
-	<string name="my_position_share_email_subject">Veja no mapa a minha localização atual via Organic Maps!</string>
-	<!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-	<string name="my_position_share_email">Olá,\n\nEstou aqui agora: %1$s. Clique neste link %2$s ou neste %3$s para ver o local no mapa.\n\nObrigado.</string>
-	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
+	<!-- Location share button text and a title for the respective pop up menu with share options like Message, EMail, Facebook etc. -->
 	<string name="share">Compartilhar</string>
-	<!-- Share by email button text, also used in editor and About. -->
-	<string name="email">Email</string>
 	<!-- Text for message when used successfully copied something -->
 	<string name="copied_to_clipboard">Copiado para a área de transferência: %1$s</string>
 	<!-- Used for bookmark editing -->

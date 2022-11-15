@@ -172,13 +172,16 @@
 /* Warning message when doing search around current position */
 "unknown_current_position" = "Még nem határoztuk meg az aktuális helyzetét";
 
-/* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Nézze meg a Organic Maps jelzőmet";
+/* Subject for the emailed (shared) map point, poi or bookmark coordinates */
+"share_coords_subject_default" = "Koordináták az Organic Maps";
 
-/* Subject for emailed position */
-"my_position_share_email_subject" = "Nézze meg a helyzetemet a Organic Maps térképen!";
+/* Subject for the emailed (shared) map point, POI or bookmark where %1$@ is replaced by point's name or address */
+"share_coords_subject" = "%1$@ on Organic Maps";
 
-/* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
+/* A very short title for email and shared "my position" coordinate: https://omaps.app/XXXYYY/I_am_here */
+"share_my_position" = "Itt vagyok";
+
+/* Location share button text and a title for the respective pop up menu with share options like Message, EMail, Facebook etc. */
 "share" = "Megosztás";
 
 /* Share by email button text, also used in editor and About. */
@@ -827,9 +830,6 @@
 "recent_track_background_dialog_title" = "Megszakítod a legutóbb megtett utad rögzítését?";
 
 "off_recent_track_background_button" = "Megszakítás";
-
-/* For sharing via SMS and so on */
-"sharing_call_action_look" = "Tekintse meg";
 
 "recent_track_background_dialog_message" = "A Organic Maps a geopozíciód használatával a háttérben rögzíti a legutóbb megtett utad.";
 

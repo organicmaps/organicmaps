@@ -151,15 +151,11 @@
 	<string name="cant_change_this_setting">很抱歉，地圖儲存設定目前已停用。</string>
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">地圖下載中。</string>
-	<!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-	<string name="my_position_share_sms">嘿，在 Organic Maps 查看我的目前位置吧！ %1$s 或%2$s 沒安裝離線地圖？在此下載: https://omaps.app/get</string>
-	<!-- Subject for emailed bookmark -->
-	<string name="bookmark_share_email_subject">嘿，看看我在 Organic Maps 地圖上的圖釘！</string>
-	<!-- Subject for emailed position -->
-	<string name="my_position_share_email_subject">嗨，到 Organic Maps 地圖查看我的目前位置！</string>
-	<!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-	<string name="my_position_share_email">嗨，\n\n我現在在這：%1$s。點擊此連結 %2$s 或此連結 %3$s 來查看在地圖上的位置。\n\n謝謝。</string>
-	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
+	<!-- Subject for the emailed (shared) map point, poi or bookmark coordinates -->
+	<string name="share_coords_subject_default">Organic Maps 中的坐標</string>
+	<!-- A very short title for email and shared "my position" coordinate: https://omaps.app/XXXYYY/I_am_here -->
+	<string name="share_my_position">我在這裡</string>
+	<!-- Location share button text and a title for the respective pop up menu with share options like Message, EMail, Facebook etc. -->
 	<string name="share">分享</string>
 	<!-- Share by email button text, also used in editor and About. -->
 	<string name="email">電子郵件</string>

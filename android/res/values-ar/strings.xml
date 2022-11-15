@@ -166,15 +166,11 @@
 	<string name="cant_change_this_setting">نأسف، اعدادات تخزين الخرائط معطلة حالياً.</string>
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">جاري الآن تنزيل الخريطة</string>
-	<!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-	<string name="my_position_share_sms">مرحباً، تفقد الموقع الخاص بي على Organic Maps! %1$s أو %2$s. ليس لديك أي خرائط تعمل بدون الاتصال مع الانترنت مثبتة على جهازك؟ قم بتحميلها من هنا: https://omaps.app/get</string>
-	<!-- Subject for emailed bookmark -->
-	<string name="bookmark_share_email_subject">مرحباً، تفقد الدبوس الخاص بي على خريطة Organic Maps!</string>
-	<!-- Subject for emailed position -->
-	<string name="my_position_share_email_subject">مرحباً، تحقق من موقعي الحالي على خريطة Organic Maps!</string>
-	<!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-	<string name="my_position_share_email">ًمرحبا،\n\nأنا هنا الآن: %1$s. انقر على هذا الرابط %2$s أو ذلك الرابط %3$s لمشاهدة المكان على الخريطة.\n\nشكراً.</string>
-	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
+	<!-- Subject for the emailed (shared) map point, poi or bookmark coordinates -->
+	<string name="share_coords_subject_default">الإحداثيات في Organic Maps</string>
+	<!-- A very short title for email and shared "my position" coordinate: https://omaps.app/XXXYYY/I_am_here -->
+	<string name="share_my_position">ﺎﻨﻫ ﺎﻧﺃ</string>
+	<!-- Location share button text and a title for the respective pop up menu with share options like Message, EMail, Facebook etc. -->
 	<string name="share">مشاركة</string>
 	<!-- Share by email button text, also used in editor and About. -->
 	<string name="email">البريد الالكتروني</string>

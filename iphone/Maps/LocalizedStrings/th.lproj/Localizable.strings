@@ -172,13 +172,16 @@
 /* Warning message when doing search around current position */
 "unknown_current_position" = "ตำแหน่งที่ตั้งของคุณยังไม่ได้รับการกำหนด";
 
-/* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "เฮ้ ตรวจสอบหมุดของฉันที่ แผนที่ Organic Maps!";
+/* Subject for the emailed (shared) map point, poi or bookmark coordinates */
+"share_coords_subject_default" = "พิกัดใน Organic Maps";
 
-/* Subject for emailed position */
-"my_position_share_email_subject" = "นี่ มาดูตำแหน่งปัจจุบันของฉันที่แผนที่ Organic Maps สิ!";
+/* Subject for the emailed (shared) map point, POI or bookmark where %1$@ is replaced by point's name or address */
+"share_coords_subject" = "%1$@ on Organic Maps";
 
-/* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
+/* A very short title for email and shared "my position" coordinate: https://omaps.app/XXXYYY/I_am_here */
+"share_my_position" = "ฉันอยู่ที่นี่";
+
+/* Location share button text and a title for the respective pop up menu with share options like Message, EMail, Facebook etc. */
 "share" = "แชร์";
 
 /* Share by email button text, also used in editor and About. */
@@ -827,9 +830,6 @@
 "recent_track_background_dialog_title" = "ปิดการใช้งานการบันทึกเส้นทางที่คุณเดินทางเมื่อเร็ว ๆ นี้?";
 
 "off_recent_track_background_button" = "ปิดการใช้งาน";
-
-/* For sharing via SMS and so on */
-"sharing_call_action_look" = "ตรวจชม";
 
 "recent_track_background_dialog_message" = "Organic Maps ใช้ตำแหน่งทางภูมิศาสตร์ของคุณในพื้นหลังเพื่อบันทึกเส้นทางที่คุณเดินทางเมื่อเร็ว ๆ นี้";
 

@@ -172,13 +172,16 @@
 /* Warning message when doing search around current position */
 "unknown_current_position" = "Je locatie is nog niet vastgesteld";
 
-/* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Hey, kijk naar mijn pin op Organic Maps!";
+/* Subject for the emailed (shared) map point, poi or bookmark coordinates */
+"share_coords_subject_default" = "Coördinaten in Organic Maps";
 
-/* Subject for emailed position */
-"my_position_share_email_subject" = "Hey, kijk naar mijn huidige locatie op Organic Maps!";
+/* Subject for the emailed (shared) map point, POI or bookmark where %1$@ is replaced by point's name or address */
+"share_coords_subject" = "%1$@ on Organic Maps";
 
-/* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
+/* A very short title for email and shared "my position" coordinate: https://omaps.app/XXXYYY/I_am_here */
+"share_my_position" = "Ik ben hier";
+
+/* Location share button text and a title for the respective pop up menu with share options like Message, EMail, Facebook etc. */
 "share" = "Delen";
 
 /* Share by email button text, also used in editor and About. */
@@ -827,9 +830,6 @@
 "recent_track_background_dialog_title" = "Vastleggen van uw onlangs afgelegde route uitschakelen?";
 
 "off_recent_track_background_button" = "Uitschakelen";
-
-/* For sharing via SMS and so on */
-"sharing_call_action_look" = "Bekijk";
 
 "recent_track_background_dialog_message" = "Organic Maps gebruikt uw geografische positie op de achtergrond om uw onlangs afgelegde route vast te leggen.";
 

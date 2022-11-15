@@ -172,13 +172,16 @@
 /* Warning message when doing search around current position */
 "unknown_current_position" = "귀하의 위치를 아직 알아내지 못 했습니다";
 
-/* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Organic Maps 지도에서 내 핀 보기";
+/* Subject for the emailed (shared) map point, poi or bookmark coordinates */
+"share_coords_subject_default" = "Organic Maps 의 좌표";
 
-/* Subject for emailed position */
-"my_position_share_email_subject" = "Organic Maps 지도에서 제 현재 위치를 살펴 보시기 바랍니다";
+/* Subject for the emailed (shared) map point, POI or bookmark where %1$@ is replaced by point's name or address */
+"share_coords_subject" = "%1$@ on Organic Maps";
 
-/* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
+/* A very short title for email and shared "my position" coordinate: https://omaps.app/XXXYYY/I_am_here */
+"share_my_position" = "나는 여기있다";
+
+/* Location share button text and a title for the respective pop up menu with share options like Message, EMail, Facebook etc. */
 "share" = "공유";
 
 /* Share by email button text, also used in editor and About. */
@@ -827,9 +830,6 @@
 "recent_track_background_dialog_title" = "최근 여행한 경로 녹음을 비활성화하시겠습니까?";
 
 "off_recent_track_background_button" = "비활성화";
-
-/* For sharing via SMS and so on */
-"sharing_call_action_look" = "체크아웃";
 
 "recent_track_background_dialog_message" = "Organic Maps는 최근 여행한 경로를 녹음하기 위해 배경 화면에서 지역 위치 서비스를 사용합니다.";
 

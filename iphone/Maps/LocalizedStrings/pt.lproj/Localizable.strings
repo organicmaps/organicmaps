@@ -172,13 +172,16 @@
 /* Warning message when doing search around current position */
 "unknown_current_position" = "A sua localização ainda não foi determinada";
 
-/* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Veja o meu marcador no mapa do Organic Maps.";
+/* Subject for the emailed (shared) map point, poi or bookmark coordinates */
+"share_coords_subject_default" = "Coordenadas em Organic Maps";
 
-/* Subject for emailed position */
-"my_position_share_email_subject" = "Veja a minha localização atual no mapa Organic Maps!";
+/* Subject for the emailed (shared) map point, POI or bookmark where %1$@ is replaced by point's name or address */
+"share_coords_subject" = "%1$@ on Organic Maps";
 
-/* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
+/* A very short title for email and shared "my position" coordinate: https://omaps.app/XXXYYY/I_am_here */
+"share_my_position" = "Eu estou aqui";
+
+/* Location share button text and a title for the respective pop up menu with share options like Message, EMail, Facebook etc. */
 "share" = "Partilhar";
 
 /* Share by email button text, also used in editor and About. */
@@ -827,9 +830,6 @@
 "recent_track_background_dialog_title" = "Desativar gravação da sua rota recente?";
 
 "off_recent_track_background_button" = "Desativar";
-
-/* For sharing via SMS and so on */
-"sharing_call_action_look" = "Verificar";
 
 "recent_track_background_dialog_message" = "O Organic Maps usa a sua localização geográfica em segundo plano para gravar a sua rota recente.";
 

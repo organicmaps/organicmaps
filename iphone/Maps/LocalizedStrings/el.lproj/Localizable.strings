@@ -172,13 +172,16 @@
 /* Warning message when doing search around current position */
 "unknown_current_position" = "Η τοποθεσία σας δεν έχει καθοριστεί ακόμη";
 
-/* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Έλεγξε τις τοποθεσίες που έχω καρφιτσώσει στο Organic Maps!";
+/* Subject for the emailed (shared) map point, poi or bookmark coordinates */
+"share_coords_subject_default" = "Συντεταγμένες σε Organic Maps";
 
-/* Subject for emailed position */
-"my_position_share_email_subject" = "Έλεγξε την τρέχουσα τοποθεσία μου στο χάρτη Organic Maps!";
+/* Subject for the emailed (shared) map point, POI or bookmark where %1$@ is replaced by point's name or address */
+"share_coords_subject" = "%1$@ on Organic Maps";
 
-/* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
+/* A very short title for email and shared "my position" coordinate: https://omaps.app/XXXYYY/I_am_here */
+"share_my_position" = "Είμαι εδώ";
+
+/* Location share button text and a title for the respective pop up menu with share options like Message, EMail, Facebook etc. */
 "share" = "Κοινοποίηση";
 
 /* Share by email button text, also used in editor and About. */
@@ -827,9 +830,6 @@
 "recent_track_background_dialog_title" = "Θέλετε να απενεργοποιήσετε την καταγραφή της πρόσφατης διαδρομής σας;";
 
 "off_recent_track_background_button" = "Απενεργοποίηση";
-
-/* For sharing via SMS and so on */
-"sharing_call_action_look" = "Αναχώρηση";
 
 "recent_track_background_dialog_message" = "Το Organic Maps χρησιμοποιεί τη γεωγραφική σας τοποθεσία στο παρασκήνιο για την καταγραφή των πρόσφατων διαδρομών σας.";
 

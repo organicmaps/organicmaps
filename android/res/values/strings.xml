@@ -166,15 +166,13 @@
 	<string name="cant_change_this_setting">Sorry, Map Storage settings are currently disabled.</string>
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Map download is in progress now.</string>
-	<!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-	<string name="my_position_share_sms">Hey, check out my current location in Organic Maps! %1$s or %2$s Don\'t have offline maps? Download here: https://omaps.app/get</string>
-	<!-- Subject for emailed bookmark -->
-	<string name="bookmark_share_email_subject">Hey, check out my pin in Organic Maps!</string>
-	<!-- Subject for emailed position -->
-	<string name="my_position_share_email_subject">Hey, check out my current location on the Organic Maps map!</string>
-	<!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-	<string name="my_position_share_email">Hi,\n\nI\'m here now: %1$s. Click this link %2$s or this one %3$s to see the place on the map.\n\nThanks.</string>
-	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
+	<!-- Subject for the emailed (shared) map point, poi or bookmark coordinates -->
+	<string name="share_coords_subject_default">A place on Organic Maps</string>
+	<!-- Subject for the emailed (shared) map point, POI or bookmark where %1$@ is replaced by point's name or address -->
+	<string name="share_coords_subject">%1$s on Organic Maps</string>
+	<!-- A very short title for email and shared "my position" coordinate: https://omaps.app/XXXYYY/I_am_here -->
+	<string name="share_my_position">I am here</string>
+	<!-- Location share button text and a title for the respective pop up menu with share options like Message, EMail, Facebook etc. -->
 	<string name="share">Share</string>
 	<!-- Share by email button text, also used in editor and About. -->
 	<string name="email">Email</string>

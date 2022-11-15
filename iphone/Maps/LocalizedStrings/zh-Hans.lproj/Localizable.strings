@@ -172,13 +172,16 @@
 /* Warning message when doing search around current position */
 "unknown_current_position" = "您的位置尚未确定";
 
-/* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "嘿，在 Organic Maps 上查看我标注的图钉吧！";
+/* Subject for the emailed (shared) map point, poi or bookmark coordinates */
+"share_coords_subject_default" = "Organic Maps 中的坐标";
 
-/* Subject for emailed position */
-"my_position_share_email_subject" = "嗨，到 Organic Maps 查看我的当前位置！";
+/* Subject for the emailed (shared) map point, POI or bookmark where %1$@ is replaced by point's name or address */
+"share_coords_subject" = "%1$@ on Organic Maps";
 
-/* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
+/* A very short title for email and shared "my position" coordinate: https://omaps.app/XXXYYY/I_am_here */
+"share_my_position" = "我在这里";
+
+/* Location share button text and a title for the respective pop up menu with share options like Message, EMail, Facebook etc. */
 "share" = "分享";
 
 /* Share by email button text, also used in editor and About. */
@@ -827,9 +830,6 @@
 "recent_track_background_dialog_title" = "禁止记录您最近去过的路径？";
 
 "off_recent_track_background_button" = "禁用";
-
-/* For sharing via SMS and so on */
-"sharing_call_action_look" = "来看看";
 
 "recent_track_background_dialog_message" = "Organic Maps使用背景中的地理位置记录您最近去过的路径。";
 

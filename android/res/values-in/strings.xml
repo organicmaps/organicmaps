@@ -152,15 +152,11 @@
 	<string name="cant_change_this_setting">Maaf, pengaturan Penyimpanan Peta saat ini sedang non-aktif.</string>
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Pengunduhan negara sedang berjalan.</string>
-	<!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-	<string name="my_position_share_sms">Hei, lihat lokasiku saat ini di Organic Maps! %1$s atau %2$s belum memiliki peta offline? Unduh di sini: https://omaps.app/get</string>
-	<!-- Subject for emailed bookmark -->
-	<string name="bookmark_share_email_subject">Hei, lihat pinku di peta Organic Maps</string>
-	<!-- Subject for emailed position -->
-	<string name="my_position_share_email_subject">Hei, lihat lokasiku saat ini di peta Organic Maps!</string>
-	<!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-	<string name="my_position_share_email">Hai,\n\nSekarang saya ada di sini: %1$s. Klik tautan ini %2$s atau yang ini %3$s untuk melihat tempatnya di peta.\n\nTerima kasih.</string>
-	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
+	<!-- Subject for the emailed (shared) map point, poi or bookmark coordinates -->
+	<string name="share_coords_subject_default">Koordinat di Organic Maps</string>
+	<!-- A very short title for email and shared "my position" coordinate: https://omaps.app/XXXYYY/I_am_here -->
+	<string name="share_my_position">Saya disini</string>
+	<!-- Location share button text and a title for the respective pop up menu with share options like Message, EMail, Facebook etc. -->
 	<string name="share">Bagikan</string>
 	<!-- Share by email button text, also used in editor and About. -->
 	<string name="email">Surel</string>

@@ -172,13 +172,16 @@
 /* Warning message when doing search around current position */
 "unknown_current_position" = "Din position har inte bestämts ännu";
 
-/* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Hej, kolla på min pin på Organic Maps kartan";
+/* Subject for the emailed (shared) map point, poi or bookmark coordinates */
+"share_coords_subject_default" = "Koordinate v Organic Maps kartan";
 
-/* Subject for emailed position */
-"my_position_share_email_subject" = "Hej, kolla på min nuvarande position på Organic Maps kartan!";
+/* Subject for the emailed (shared) map point, POI or bookmark where %1$@ is replaced by point's name or address */
+"share_coords_subject" = "%1$@ on Organic Maps";
 
-/* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
+/* A very short title for email and shared "my position" coordinate: https://omaps.app/XXXYYY/I_am_here */
+"share_my_position" = "Jag är här";
+
+/* Location share button text and a title for the respective pop up menu with share options like Message, EMail, Facebook etc. */
 "share" = "Dela";
 
 /* Share by email button text, also used in editor and About. */
@@ -827,9 +830,6 @@
 "recent_track_background_dialog_title" = "Avaktivera inspelning av din senaste resta rutt?";
 
 "off_recent_track_background_button" = "Avaktivera";
-
-/* For sharing via SMS and so on */
-"sharing_call_action_look" = "Kolla in";
 
 "recent_track_background_dialog_message" = "Organic Maps använder din geografiska position i bakgrunden för att spela in din senaste resta rutt.";
 

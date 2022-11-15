@@ -172,13 +172,16 @@
 /* Warning message when doing search around current position */
 "unknown_current_position" = "Ваша месцазнаходжанне пакуль не вызначана";
 
-/* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Гэй, глядзі маю метку на Organic Maps!";
+/* Subject for the emailed (shared) map point, poi or bookmark coordinates */
+"share_coords_subject_default" = "Каардынаты ў Organic Maps";
 
-/* Subject for emailed position */
-"my_position_share_email_subject" = "Гэй, глядзі дзе я зараз на мапе Organic Maps!";
+/* Subject for the emailed (shared) map point, POI or bookmark where %1$@ is replaced by point's name or address */
+"share_coords_subject" = "%1$@ ў Organic Maps";
 
-/* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
+/* A very short title for email and shared "my position" coordinate: https://omaps.app/XXXYYY/I_am_here */
+"share_my_position" = "Я тут";
+
+/* Location share button text and a title for the respective pop up menu with share options like Message, EMail, Facebook etc. */
 "share" = "Падзяліцца";
 
 /* Share by email button text, also used in editor and About. */
@@ -827,9 +830,6 @@
 "recent_track_background_dialog_title" = "Выключыць запіс вашага нядаўна пройдзенага маршрута?";
 
 "off_recent_track_background_button" = "Выключыць";
-
-/* For sharing via SMS and so on */
-"sharing_call_action_look" = "Паглядзі";
 
 "recent_track_background_dialog_message" = "Organic Maps ужывае вашу геалакацыю ў фонавым рэжыме каб запісваць ваш нядаўна пройдзены маршрут.";
 

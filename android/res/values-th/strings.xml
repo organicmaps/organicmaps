@@ -152,15 +152,11 @@
 	<string name="cant_change_this_setting">ขออภัย ไม่มีการเปิดใช้งานการตั้งค่าพื้นที่จัดเก็บแผนที่ในปัจจุบัน</string>
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">กำลังดำเนินการดาวน์โหลดประเทศในตอนนี้</string>
-	<!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-	<string name="my_position_share_sms">เฮ้อ ตรวจสอบตำแหน่งที่ตั้งปัจจุบันของฉันที่ Organic Maps! %1$s หรือ %2$s ไม่มีการติดตั้งแผนที่แบบออฟไลน์? ดาวน์โหลดที่นี่: https://omaps.app/get</string>
-	<!-- Subject for emailed bookmark -->
-	<string name="bookmark_share_email_subject">เฮ้ ตรวจสอบหมุดของฉันที่ แผนที่ Organic Maps!</string>
-	<!-- Subject for emailed position -->
-	<string name="my_position_share_email_subject">นี่ มาดูตำแหน่งปัจจุบันของฉันที่แผนที่ Organic Maps สิ!</string>
-	<!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-	<string name="my_position_share_email">หวัดดี\n\nฉันอยู่ที่นี่ตอนนี้: %1$s. คลิกลิงก์นี้ %2$s หรือลิงก์นี้ %3$s เพื่อดูสถานที่บนแผนที่\n\nขอบคุณ</string>
-	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
+	<!-- Subject for the emailed (shared) map point, poi or bookmark coordinates -->
+	<string name="share_coords_subject_default">พิกัดใน Organic Maps</string>
+	<!-- A very short title for email and shared "my position" coordinate: https://omaps.app/XXXYYY/I_am_here -->
+	<string name="share_my_position">ฉันอยู่ที่นี่</string>
+	<!-- Location share button text and a title for the respective pop up menu with share options like Message, EMail, Facebook etc. -->
 	<string name="share">แชร์</string>
 	<!-- Share by email button text, also used in editor and About. -->
 	<string name="email">อีเมล</string>

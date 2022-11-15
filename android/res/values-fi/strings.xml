@@ -152,15 +152,11 @@
 	<string name="cant_change_this_setting">Valitettavasti karttatallennusasetukset ovat pois päältä.</string>
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Maata ladataan parhaillaan.</string>
-	<!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-	<string name="my_position_share_sms">Hei, katso sijaintini Organic Maps-sovelluksessa! %1$s tai %2$s Eikö sinulla ole vielä offline-karttoja? Lataa ne täältä: https://omaps.app/get</string>
-	<!-- Subject for emailed bookmark -->
-	<string name="bookmark_share_email_subject">Hei, katso merkintäni Organic Maps-kartalla</string>
-	<!-- Subject for emailed position -->
-	<string name="my_position_share_email_subject">Hei, kurkkaa tämänhetkinen sijaintini Organic Maps:n kartalla!</string>
-	<!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-	<string name="my_position_share_email">Hei,n\nOlen nyt täällä: %1$s. Klikkaa linkkiä %2$s tai %3$s nähdäksesi paikan kartalla. Kiitos.</string>
-	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
+	<!-- Subject for the emailed (shared) map point, poi or bookmark coordinates -->
+	<string name="share_coords_subject_default">Koordinaatit Organic Maps</string>
+	<!-- A very short title for email and shared "my position" coordinate: https://omaps.app/XXXYYY/I_am_here -->
+	<string name="share_my_position">Olen täällä</string>
+	<!-- Location share button text and a title for the respective pop up menu with share options like Message, EMail, Facebook etc. -->
 	<string name="share">Jaa</string>
 	<!-- Share by email button text, also used in editor and About. -->
 	<string name="email">Sähköposti</string>

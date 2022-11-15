@@ -130,15 +130,11 @@
 	<string name="cant_change_this_setting">. פעילה כרגע מצטערים, הגדרת \"שמירת מפה\" אינה</string>
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">הודת מפת המדינה מתבצעת כרגע.</string>
-	<!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-	<string name="my_position_share_sms">. אין ברשותך מפות לא מקוונות? הורד Organic Maps! %1$s or %2$s הי, בדוק את מיקומי הנוכחי ב. https://omaps.app/get הורד אותן מ:</string>
-	<!-- Subject for emailed bookmark -->
-	<string name="bookmark_share_email_subject">הי, בדוק את הסיכה שלי במפה של Organic Maps!</string>
-	<!-- Subject for emailed position -->
-	<string name="my_position_share_email_subject">היי, בדקו את המיקום הנוכחי שלי במפה של Organic Maps!</string>
-	<!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-	<string name="my_position_share_email">הי, n\nI\ אני כאן: %1$s. הקש על הלינק %2$s או על %3$s כדי לראות את המקום על המפה. \n\n תודה.</string>
-	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
+	<!-- Subject for the emailed (shared) map point, poi or bookmark coordinates -->
+	<string name="share_coords_subject_default">קואורדינטות ב Organic Maps</string>
+	<!-- A very short title for email and shared "my position" coordinate: https://omaps.app/XXXYYY/I_am_here -->
+	<string name="share_my_position">ןאכ ינא</string>
+	<!-- Location share button text and a title for the respective pop up menu with share options like Message, EMail, Facebook etc. -->
 	<string name="share">הפץ</string>
 	<!-- Text for message when used successfully copied something -->
 	<string name="copied_to_clipboard">הועתקו לזכרון זמני %1$s</string>
