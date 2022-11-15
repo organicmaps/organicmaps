@@ -54,7 +54,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        flavor: [WebDebug, FdroidBeta]
+        flavor: [WebNoCarDebug, WebCarDebug, FdroidNoCarBeta, FdroidCarBeta]
 
     steps:
       - name: Install build tools and dependencies

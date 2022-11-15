@@ -121,22 +121,22 @@ jobs:
         shell: bash
         working-directory: android
         run: |
-          gradle bundleGoogleRelease publishGoogleReleaseBundle
+          gradle bundleGoogleNoCarRelease publishGoogleNoCarReleaseBundle
         if: ${{ matrix.flavor == 'google' }}
 
       - name: Compile and upload to Huawei AppGallery
         shell: bash
         working-directory: android
         run: |
-          gradle bundleHuaweiRelease
-          gradle publishHuaweiAppGalleryHuaweiRelease
+          gradle bundleHuaweiNoCarRelease
+          gradle publishHuaweiAppGalleryHuaweiNoCarRelease
         if: ${{ matrix.flavor == 'huawei' }}
 
       - name: Compile universal APK
         shell: bash
         working-directory: android
         run: |
-          gradle assembleWebRelease
+          gradle assembleWebNoCarRelease
         if: ${{ matrix.flavor == 'web' }}
 
       - name: Prepare release notes

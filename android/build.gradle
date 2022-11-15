@@ -232,7 +232,7 @@ android {
     res.srcDirs = ['tests/resources']
   }
 
-  flavorDimensions 'default'
+  flavorDimensions 'default', 'car'
 
   productFlavors {
     // 01 is a historical artefact, sorry.
@@ -268,10 +268,31 @@ android {
       buildConfigField 'String', 'REVIEW_URL', '"appmarket://details?id=app.organicmaps"'
       android.sourceSets.huawei.assets.srcDirs = ['flavors/world-enabled']
     }
+
+    car {
+      dimension 'car'
+      minSdkVersion propAndroidAutoMinSdkVersion.toInteger()
+
+      android.sourceSets.car {
+        manifest.srcFile 'flavors/car/AndroidManifest.xml'
+        java.srcDirs = ['flavors/car/src']
+        res.srcDirs = ['flavors/car/res']
+      }
+
+      dependencies {
+        implementation 'androidx.car.app:app:1.3.0-beta01'
+        // Fix for app/organicmaps/util/FileUploadWorker.java:14: error: cannot access ListenableFuture
+        implementation 'com.google.guava:guava:29.0-android'
+      }
+    }
+
+    noCar {
+      dimension 'car'
+    }
   }
 
   playConfigs {
-    googleRelease {
+    googleNoCarRelease {
       enabled.set(true)
     }
   }

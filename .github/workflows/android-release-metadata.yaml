@@ -48,6 +48,6 @@ jobs:
 
       - name: Upload
         shell: bash
-        run: ./gradlew publishGoogleReleaseListing
+        run: ./gradlew publishGoogleNoCarReleaseListing
         working-directory: android
         timeout-minutes: 5
