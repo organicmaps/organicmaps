@@ -810,7 +810,7 @@ et:3Kohvik|3restoran
 eu:3Kafetegia|3Jatetxea
 sv:3Café|3restaurang
 th:3 คาเฟ่|ร้านอาหาร่
-tr:4Kafeterya|restoran|2Cafe|Bistro
+tr:4Kafeterya|kafe|restoran|2Cafe|Bistro
 uk:3Кафе|3ресторан|2їжа|2їсти
 vi:Cà phê|quán ăn
 zh-Hans:1咖啡馆่|餐厅|食物
@@ -847,7 +847,7 @@ et:4Kiirtoit|3restoran|3kohvik|kaasaost|rämpstoit
 eu:4Fast food|jatetxea|kafetegia
 sv:4Snabbmat|3restaurang|3café|takeaway
 th:1อาหารจานด่วน|ร้านอาหาร|คาเฟ่|นำกลับ
-tr:4Fast food|3restoran|3kafeterya
+tr:4Fast food|3restoran|3kafeterya|lokanta
 uk:3Фастфуд|3ресторан|3кафе|2їсти
 vi:Thức ăn nhanh|quán ăn
 zh-Hans:1快餐|餐厅|外卖|食物
@@ -883,7 +883,7 @@ et:3Restoran|3kohvik
 eu:3Jatetxea|3Kafetegia
 sv:3Restaurang|3café
 th:3ร้านอาหาร
-tr:3Restoran|3kafeterya
+tr:3Restoran|3kafeterya|3lokanta|3kafe
 uk:3Ресторан|3кафе
 vi:Quán ăn|cà phê
 zh-Hans:1餐厅|咖啡馆|食物
@@ -916,7 +916,7 @@ pt-BR:3Posto de combustível|3gasolina
 ro:3Benzinărie
 sv:3Bensinstation|3bränsle|2gas
 th:3ปั๊มน้ำมัน|เชื้อเพลิง
-tr:3Yakıt|3Benzin istasyonu|2gaz
+tr:3Yakıt|3Benzin istasyonu|2gaz|Benzinlik
 uk:азс|агзс|агнкс|бензоколонка|бензозаправка|4автозаправка|3заправка
 vi:Trạm xăng
 zh-Hans:1加油站|燃料
@@ -1028,7 +1028,7 @@ et:4Kosmeetika
 eu:4Produktu kosmetikoak
 sv:4Kosmetika
 th:เครื่องสำอาง
-tr:Bakım ürünleri|güzellik merkezi
+tr:4Bakım ürünleri|3güzellik merkezi|Kozmetik
 uk:4Косметика
 vi:Mỹ phẩm
 zh-Hans:化妝品|商店
@@ -1114,8 +1114,9 @@ zh-Hant:熟食店
 
 shop-farm|@food
 en:Farm food
-ru:Фермерская еда
 et:Talutoit
+ru:Фермерская еда
+tr:Çiftlik gıdaları
 
 shop-garden_centre
 en:4Garden Centre|U+1F3EC|U+1F3EA|U+1F3E1
@@ -1155,14 +1156,16 @@ fa:فروشگاه تجهیزات باغبانی
 
 shop-grocery|@food
 en:Grocery
+et:Toidukaubad
 fr:Épicerie
 ru:Бакалея
-et:Toidukaubad
+tr:Market
 
 shop-health_food|@food
 en:Health food
-ru:Здоровая еда
 et:Tervisetoit
+ru:Здоровая еда
+tr:Sağlıklı Gıda
 
 shop-mobile_phone
 en:4Cell Phones|4Mobile Phones|6smartphones|electronics store|U+1F3EC|U+1F3EA|U+1F4F1|U+1F4F2
@@ -1191,7 +1194,7 @@ et:4Mobiiltelefonid|Elektroonikapood
 eu:Sakelako telefonoak|Sakelako telefono denda|elektronika denda
 sv:4Mobilbutik|elektronikaffär
 th:ร้านขายโทรศัพท์มือถือ|ร้านขายอุปกรณ์อิเล็กโทรนิก
-tr:3Cep telefonu mağazası|3elektronik mağazası|telefon|cep telefonu
+tr:3Cep telefonu mağazası|3elektronik mağazası|telefon|cep telefonu|akıllı telefon
 uk:4Мобільні телефони|салон мобільного зв'язку|салон мобільних телефонів
 vi:Cửa hàng điện thoại di động|cửa hàng ĐTDĐ
 zh-Hans:手机商店|商店
@@ -1300,7 +1303,7 @@ et:Mööblipood
 eu:Altzari denda
 sv:4Möbelaffär
 th:ร้านเฟอร์นิเจอร์
-tr:4Mobilya mağazası
+tr:4Mobilya mağazası|eşya mağazası
 uk:Магазин меблів|4меблі
 vi:Cửa hàng nội thất
 zh-Hans:家具店|商店
@@ -1376,7 +1379,7 @@ et:Alkoholipood|4alkohol
 eu:4Likore-denda|likore
 sv:Spritaffär|4alkohol
 th:ร้านขายเหล้า
-tr:İçki dükkanı
+tr:İçki dükkanı|alkol
 uk:Винний магазин|крамниця спиртних напоїв|4алкоголь
 vi:Cửa hàng rượu|rượu
 zh-Hans:烈酒|商店
@@ -1412,7 +1415,7 @@ et:Raamatupood
 eu:4Liburudenda
 sv:Bokaffär
 th:ร้านหนังสือ
-tr:Kitapçı
+tr:3Kitapçı|3kitap mağazası|3kitaplar
 uk:3Книгарня
 vi:Hiệu sách
 zh-Hans:书店|商店
@@ -1448,7 +1451,7 @@ et:Kingapood
 eu:4Oinetako denda
 sv:Skobutik
 th:ร้านขายรองเท้า
-tr:Ayakkabı mağazası
+tr:Ayakkabı mağazası|Ayakkabıcı
 uk:Магазин взуття|3взуття
 vi:Cửa hàng giày
 zh-Hans:鞋店|商店
@@ -1485,7 +1488,7 @@ et:4Elektroonika
 eu:4Elektronika
 sv:4Elektronik|elektronikaffär
 th:ร้านขายอุปกรณ์อิเล็กทรอนิกส์
-tr:4Elektronik mağazası
+tr:4Elektronik mağazası|Teknoloji
 uk:Електротехніка|4Електроніка
 vi:Cửa hàng điện
 zh-Hans:电子产品|商店
@@ -1777,7 +1780,7 @@ et:3Supermarket
 eu:3Supermerkatua
 sv:3Stormarknad|dagligvaruhandel
 th:3ซูเปอร์มาร์เก็ต
-tr:3Süpermarket
+tr:3Süpermarket|3market
 uk:3Супермаркет|3універсам
 vi:Siêu thị
 zh-Hans:超市|商店
@@ -1853,7 +1856,7 @@ et:Kaubamaja
 eu:Denda handiak
 sv:Varuhus
 th:ห้างสรรพสินค้า
-tr:Alışveriş merkezi
+tr:Alışveriş merkezi|büyük mağaza|market|büyük market
 uk:4Універмаг
 vi:Cửa hàng bách hóa
 zh-Hans:百货商店|商店
@@ -2155,7 +2158,7 @@ et:Autopood
 eu:Autoen salmenta
 sv:Bilåterförsäljare
 th:ร้านค้ารถยนต์
-tr:Otomobil mağazası|Araba mağazası|Araba showroomu|Otomobil showroomu|Araba galerisi|Otomobil galerisi
+tr:Otomobil mağazası|Araba mağazası|Araba showroomu|Otomobil showroomu|Araba galerisi|Otomobil galerisi|Oto showroom|Otoshowroom
 uk:4Автосалон
 vi:Cửa hàng xe
 zh-Hans:车店|商店
@@ -2263,7 +2266,7 @@ et:Bussipeatus
 eu:Autobus geltokia
 sv:Busshållplats|3buss|hållplats
 th:ป้ายรถเมล์|รถเมล์|ขนส่ง
-tr:Otobüs durağı|3otobüs|3dolmuş
+tr:Otobüs durağı|3otobüs|3dolmuş|durak|dolmuş durağı
 uk:4Зупинка|5автобус|4тролейбус
 vi:3Bến xe buýt
 zh-Hans:1公交车站|公交车|运输|交通
@@ -2299,7 +2302,7 @@ et:Trammipeatus
 eu:Tranbiaren geltokia
 sv:Spårvagnshållplats|3spårvagn|hållplats
 th:ป้ายรถราง|ขนส่ง
-tr:3Tramvay durağı|Tramvay
+tr:3Tramvay durağı|Tramvay|durak
 uk:4Зупинка|4трамвай
 vi:Bến tàu điện
 zh-Hans:1电车站|运输|交通
@@ -2372,7 +2375,7 @@ et:Rongijaam
 eu:3Tren geltokia|3tren
 sv:3Tågstation|4järnväg|järnväg|3tåg|4station
 th:3สถานีรถไฟ|รถไฟ|สถานี|ขนส่ง
-tr:2Gar|3demiryolları|İstasyon|Tren
+tr:2Gar|3demiryolları|İstasyon|Tren|tren istasyonu
 uk:4Залізничний вокзал|3поїзд|залізниця|3станція
 vi:Đường tàu hỏa
 zh-Hans:1火车站ี|铁路ี|站ี|运输|交通
@@ -2669,7 +2672,7 @@ et:3Turisti-info
 eu:4Informazioa
 sv:4Turistinformation|4information
 th:4ข้อมูลการท่องเที่ยว|ข้อมูล
-tr:4Turist bilgileri|4Bilgi
+tr:4Turist bilgilendirme|4Bilgi
 uk:4Турінформація|3інформація
 vi:Thông tin du lịch
 zh-Hans:1旅游信息|信息|景点
@@ -3226,7 +3229,7 @@ sk:3Zámok|atrakcia|Hrad|Kastrum|Opevnený kostol|Pevnosť|Hradisko|Kremeľ|Kaš
 sv:Slott|Borg|Castrum|Försvarskyrka|Fästning|Fornborg|Kreml|Herrgård|Palats
 sw:Ngome|kivutio|utalii|Kanisa lililoimarishwa|Kremlin|Nyumba ya manor|Ikulu
 th:ปราสาท|การท่องเที่ยว|ป้อมโรมัน|โบสถ์เสริมความแข็งแกร่ง|ป้อม|ป้อมเนิน|เครมลิน|คฤหาสน์|วัง|ปราสาท
-tr:Kale|Saray|Müstahkem şato|Castra|Müstahkem şato|Müstahkem kilise|Tepe Kalesi|Kremlin|Malikane|Şato
+tr:Kale|Saray|şato|kule|Tepe Kalesi
 uk:3Замок|4фортеця|мури|Каструм|Фортеця|Городище|Кремль|Садиба|Палац|Шато
 vi:Pháo đài|Lâu đài|Pháo đài La mã|Nhà thờ kiên cố|Trang viên|Cung điện|
 zh-Hans:城堡|古罗马兵营|坚固的教堂|要塞|丘堡|克里姆林|庄园大屋|宮殿|法式城堡
@@ -3492,7 +3495,7 @@ sk:Pomník
 sv:Minnesmärke
 sw:Plaque
 th:ที่ระลึก
-tr:Hatıra Plaketi
+tr:Hatıra Plaketi|Anı plaketi
 uk:Дошка пам'яті
 vi:Đài tưởng niệm
 zh-Hans:纪念牌匾
@@ -3606,7 +3609,7 @@ sk:Kameň úrazu
 sv:Snubbelsten
 sw:Kikwazo
 th:อุปสรรค์
-tr:Tökezleyen Taşlar
+tr:Tökezleyen Taşlar|Stolperstein
 uk:Камені спотикання
 vi:Vấp ngã
 zh-Hans:绊脚石
@@ -3682,7 +3685,7 @@ sk:Zaujímavosť|pomník|pamiatka
 sv:4Monument
 sw:Makumbusho|kivutio|utalii
 th:3อนุสาวรีย์|การท่องเที่ยว
-tr:Abide
+tr:Abide|anıt
 uk:Пам'ятник|4монумент
 vi:Tượng đài
 zh-Hans:纪念碑|景点
@@ -3872,7 +3875,7 @@ sk:Prícestný kríž
 sv:Korset vid vägkanten
 sw:Msalaba wa njiani
 th:ทางข้าม
-tr:Hıristiyan Haçı
+tr:Yol kenarı haçı|Yol kenarında haç|yol üstü haç|yol üstünde haç
 uk:Християнський хрест
 vi:Đường chéo
 zh-Hans:路旁十字架
@@ -3910,7 +3913,7 @@ sk:Svätyňa pri ceste
 sv:Helgedom vid vägkanten
 sw:Kaburi la njia
 th:ศาลเจ้าข้างทาง
-tr:Tapınak
+tr:Yol üstünde türbe|yol üstü türbe|yol kenarı türbe|yol kenarında türbe
 uk:Святиня
 vi:Đền thờ
 zh-Hans:路旁神龛
@@ -4064,7 +4067,7 @@ nl:4Fiets reparatie
 pt:Conserto de bicicleta|4bicicleta
 pt-BR:Oficina de bicicletas|4bicicleta
 ru:4Велоремонт|велосипед|ремонт|ремонт велосипедов
-tr:4Bisiklet tamiri|4Bisiklet
+tr:4Bisiklet tamiri|4Bisiklet|Bisiklet tamircisi
 uk:4Велоремонт|велосипед|ремонт|ремонт велосипедів
 zh-Hans:1自行车修理
 zh-Hant:1自行車修理
@@ -4099,7 +4102,7 @@ sk:Zdieľanie automobilov
 sv:Samåkning
 sw:Kushiriki Gari
 th:การใช้รถร่วมกัน
-tr:Araç Paylaşımı|Araç kiralama
+tr:Araç Paylaşımı|ortak araç
 uk:3Каршерінг
 vi:Chia sẻ Xe
 zh-Hans:拼车点
@@ -4314,7 +4317,7 @@ et:Kasiino
 eu:Kasinoa
 sv:Kasino
 th:คาสิโน
-tr:Casino
+tr:Casino|Gazino|Kumarhane
 uk:Казино
 zh-Hans:赌场
 zh-Hant:賭場
@@ -4568,7 +4571,7 @@ pt-BR:3Hospital|3clínica|3médico|saúde|serviços de saúde|primeiros socorros
 ro:5ambulanță|medic|4doctor|diagnostică
 sv:klinik|3läkare
 th:3โรงพยาบาล|แพทย์
-tr:hastane|3klinik|doktor|sağlık merkezi|sağlık hizmetleri|ilk yardım
+tr:hastane|3klinik|doktor|sağlık merkezi|sağlık hizmetleri|ilk yardım|sağlık ocağı
 uk:клініка|3лікар|травмпункт
 zh-Hans:诊所|医生
 zh-Hant:醫生|診所|醫療|診療
@@ -5097,7 +5100,7 @@ et:Prügikast
 eu:Zaborrontzia
 sv:4Avfallscontainer|Soptunna|skräp|avfall
 th:ขยะ|ถังขยะ
-tr:Çöplük|Çöp
+tr:Çöplük|Çöp kutusu|çöp
 uk:4Сміттєвий контейнер|сміття|смітник
 vi:Xử lý chất thải|Rác
 zh-Hans:垃圾
@@ -5217,7 +5220,7 @@ sk:Batérie
 sv:Batterier
 sw:Betri
 th:แบตเตอรี่
-tr:3Piller|Atık Pil Toplama
+tr:3Piller|Atık Pil Toplama|Atık pil kutusu
 uk:5Прийом батарейок|Утилізація батарей|5Переробка батарей|5Здати батареї|4Збір батарейок|5Батарейки
 vi:Ắc quy
 zh-Hans:电池
@@ -5252,7 +5255,7 @@ es-MX:Ropa vieja|Reciclaje de cosas innecesarias
 et:Rõivaste taaskasutus
 sv:Gamla kläder|Överlämna onödiga saker
 th:เสื้อผ้าเก่า|รีไซเคิลเสื้อผ้าเก่า
-tr:4Eski kıyafetler|Eski kıyafetler geri dönüşümü|Kıyafet toplama kutusu
+tr:4Eski kıyafetler|Eski kıyafetler geri dönüşümü|Kıyafet toplama kutusu|giysi toplama kutusu
 uk:5Прийом одягу|Старий одяг|Здати непотрібні речі|Здати речі|5Здати одяг
 vi:Quần áo cũ|Chuyển giao những thứ không cần thiết
 el:Παλιά ρούχα|Ανακύκλωση παλαιών ρούχων
@@ -5529,7 +5532,7 @@ recycling-cartons|@recycling
 en:4Recycling of Bewerage Cartons|5Cartons Recycling|5Bewerage Cartons Recycling
 be:5Прыём тетрапака|5Здаць тетрапак|4Збор тетрапака|5Тетрапак
 ru:5Приём тетрапака|5Сдать тетрапак|4Сбор тетрапака|5Тетрапак
-tr:5Karton Kutu Geri Dönüşümü|4Tetrapak
+tr:5Karton Kutu Geri Dönüşümü|4Tetrapak|içecek kutusu geri dönüşümü
 uk:5Прийом тетрапака|5Здати тетрапак|4Збір тетрапака|5Тетрапак
 et:Tetrapakkide taaskasutus
 
@@ -5541,7 +5544,7 @@ fr:Station de vidange|4Vidange
 es:Estación de vaciado para caravanas
 it:4Camper service
 ru:4Слив нечистот|слив туалета|слив для туалета|нечистоты|канализация
-tr:6Karavan Çöplüğü
+tr:6Karavan Çöplüğü|Karavanlar için çöplük
 uk:4Злив нечистот|слив туалету|слив для туалету|нечистоти|каналізація
 et:Haagiselamute jäätmepunkt
 
@@ -5684,7 +5687,7 @@ et:WC
 eu:Komuna
 sv:3Toalett
 th:3ห้องน้ำ
-tr:3Tuvalet|WC
+tr:3Tuvalet|WC|Umumi tuvalet
 uk:3Туалет
 vi:Nhà vệ sinh
 zh-Hans:1厕所
@@ -5714,7 +5717,7 @@ es:3Baños|aseos|3lavabo|inodoro|baño|wc
 et:WC|tualett
 eu:3Komunak|3konketa
 sv:WC|toalett
-tr:WC|tuvalet
+tr:WC|tuvalet|umumi tuvalet
 zh-Hant:2洗手間|wc
 el:μπάνιο|χώρος ανάγκης|αποχωρητήριο|wc
 sk:3Toalety|wc
@@ -5857,7 +5860,7 @@ et:Linn
 eu:Herria
 sv:Stad|stad
 th:เมือง
-tr:Şehir|kasaba
+tr:Şehir|il|ilçe
 uk:Місто
 vi:Đất nước
 zh-Hans:城市
@@ -5894,7 +5897,7 @@ et:Linn
 eu:Herria
 sv:Stad|stad
 th:เมือง
-tr:Kasaba
+tr:Şehir|il|ilçe
 uk:Місто
 vi:Thành phố
 zh-Hans:镇
@@ -6152,7 +6155,7 @@ es:Aldea
 eu:Herria
 sv:By|by
 th:หมู่บ้านเล็ก ๆ|หมู่บ้าน
-tr:Mezra|köy
+tr:Mezra|köy|muhit
 uk:Поселення|селище|село
 vi:Quận
 zh-Hans:村庄
@@ -6373,7 +6376,7 @@ et:Tänav
 eu:Kalea
 sv:Gata|väg
 th:ถนน
-tr:Sokak|sk|sok
+tr:Sokak|sk|sok|cadde|cad|cd
 uk:Вулиця|провулок|проїзд|проспект|бульвар|вул
 vi:Phố
 zh-Hans:街头
@@ -6470,7 +6473,7 @@ et:Sadul
 fr:Col
 it:4Sella
 ru:4Седловина|5Перевал
-tr:Sele|eyer
+tr:Sırt|geçit
 uk:4Сідловина|5Перевал
 mr:खोगीर
 
@@ -6679,7 +6682,7 @@ et:Külalistemaja
 eu:Ostatua|gaztetxea|aterpea
 sv:Gästhus|vandrarhem
 th:3เกสท์เฮ้าส์|โรงแรม์|์โรงแรม
-tr:Misafir evi|pansiyon
+tr:Misafir evi|pansiyon|misafirhane
 uk:5Гостинний дім|хостел|постояльний двір
 vi:Nhà khách
 zh-Hans:1招待所์|์旅馆์|์旅社|旅店
@@ -6859,7 +6862,7 @@ et:4Staadion
 eu:5Estadioa|4kirola
 sv:4Stadion|4sport
 th:สนามกีฬา
-tr:4Stadyum
+tr:4Stadyum|arena
 uk:4Стадіон|4спорт
 vi:Sân vận động
 zh-Hans:体育场
@@ -7045,7 +7048,7 @@ et:4Ujumisbassein|sport
 eu:4Igerilekua|kirola
 sv:4Simbassäng|sport
 th:4สระว่ายน้ำ
-tr:2Yüzme havuzu|spor
+tr:2Yüzme havuzu|havuz|spor
 uk:4Басейн|спорт
 vi:Bể bơi
 zh-Hans:2游泳池|运动
@@ -7163,7 +7166,7 @@ pt:Atletismo
 pt-BR:Atletismo
 ro:Atletism
 ru:Лёгкая атлетика
-tr:Atletik
+tr:Atletik|Atletizm
 uk:Легка атлетика
 vi:Thế vận hội
 zh-Hans:竞技
@@ -7309,7 +7312,7 @@ sk:Plážový volejbal
 sv:Beachvolleyboll
 sw:Mpira wa wavu wa pwani
 th:วอลเลย์บอลชายหาด
-tr:Plaj voleybolu
+tr:Plaj voleybolu|sahil voleybolu
 uk:Пляжний волейбол
 vi:Bóng chuyền bãi biển
 zh-Hans:沙滩排球
@@ -7338,7 +7341,7 @@ pt:Lawn bowls
 pt-BR:Lawn bowls
 ru:Боулз
 sv:Bowls
-tr:Kuka Oynu
+tr:Kuka Oynu|Kuka oyunu
 uk:Боулз
 zh-Hans:草地滾球
 zh-Hant:草地滾球
@@ -7635,7 +7638,7 @@ sk:Potápanie
 sv:Dykning
 sw:Upigaji mbizi wa Scuba
 th:ดำน้ำลึก
-tr:Dalma
+tr:Dalış alanı|tüplü dalış alanı|dalış sahası|tüplü dalış sahası
 uk:Місце для дайвінгу
 vi:Môn lặn
 zh-Hans:水肺潜水
@@ -7674,7 +7677,7 @@ sk:Streľba
 sv:Skytte
 sw:Kupiga risasi
 th:ยิงปืน
-tr:Çekim
+tr:Atış sahası|atış alanı
 uk:Стрільба
 vi:Chụp
 zh-Hans:射击
@@ -7751,7 +7754,7 @@ sk:Lyžovanie
 sv:Skidåkning
 sw:Skii
 th:เล่นสกี
-tr:Kayak yapmak
+tr:Kayak|kayakçılık
 uk:Катання на лижах
 vi:Trượt tuyết
 zh-Hans:滑雪
@@ -7983,7 +7986,7 @@ sk:Kuželky|Bowling
 sv:Kägel|Bowling
 sw:Wkittles|Bowling
 th:Skittles|โบว์ลิ่ง
-tr:Skittles|Bowling
+tr:Bowling|Bovling
 uk:Кеглі|Боулінг
 vi:Nhảy nhót|Bowling
 zh-Hans:九柱戏|保龄球
@@ -8113,7 +8116,7 @@ et:4Saatkond
 eu:4Enbaxada
 sv:4Ambassad
 th:4สถานทูต
-tr:4Büyükelçilik
+tr:4Elçilik
 uk:4Посольство
 vi:Đại sứ quán
 zh-Hans:使馆
@@ -8277,7 +8280,7 @@ et:Allikas
 eu:Udaberria
 sv:Vattenkälla
 th:ฤดูใบไม้ผลิ
-tr:Pınar
+tr:Pınar|Kaynak
 uk:4Джерело
 vi:Suối
 zh-Hans:海湾
@@ -8356,7 +8359,7 @@ sk:Voda pre karavan
 sv:Vattenpost
 sw:Kituo cha Maji
 th:จุดเติมน้ำ
-tr:Su Noktası
+tr:Su Noktası|Karavanlar için su noktası
 uk:Заправка водою|вода для каравану|вода для автобудинку
 vi:Điểm cấp nước
 zh-Hans:取水点
@@ -8393,7 +8396,7 @@ sk:Vodovodný kohútik
 sv:Vattenkran
 sw:Bomba la Maji
 th:ก๊อกน้ำ
-tr:Çeşme Suyu|su musluğu
+tr:Çeşme Suyu|su musluğu|musluk|çeşme
 uk:5Водопровідний кран
 vi:Vòi nước
 zh-Hans:水龙头
@@ -8777,7 +8780,7 @@ et:Haagiselamute ala|matkamine
 eu:Karabana gunea|kanpalekua
 sv:4Husvagnsplats
 th:4ขบวนนักเดินทาง
-tr:4Karavan alanı
+tr:4Karavan alanı|3karavan parkı
 uk:4Автокемпінг|4кемпінг для автобудинків|4стоянка для автобудинків
 vi:Khu lễ hội hóa trang
 zh-Hans:房车宿营地
@@ -8811,7 +8814,7 @@ et:Kontor
 eu:Bulegoa
 sv:Kontor|företag
 th:สำนักงาน|บริษัท
-tr:Ofis|şirket
+tr:Ofis|şirket|iş yeri
 uk:Офіс
 vi:Văn phòng
 zh-Hans:办公室|公司
@@ -8922,7 +8925,7 @@ et:Advokaadibüroo
 eu:Abokatu bulego|abokatu bulego
 sv:4Advokatkontor
 th:สำนักงานทนายความ
-tr:4Avukatlık bürosu
+tr:4Avukatlık bürosu|avukat
 uk:3Адвокат|4нотаріус
 vi:Văn phòng luật sư
 zh-Hans:律师事务所
@@ -8958,7 +8961,7 @@ et:Mobiilside operaator
 eu:Telefono mugikorren operadorea
 sv:Mobiloperatör
 th:ผู้ให้บริการโทรศัพท์มือถือ
-tr:Cep telefonu operatörü
+tr:Cep telefonu operatörü|telekom
 uk:Телекомунікаційна компанія
 vi:Điều hành di động
 zh-Hans:移动运营商
@@ -9268,7 +9271,7 @@ sk:Záhradníctvo
 sv:Trädgårdsmästare
 sw:Mtunza bustani
 th:คนจัดสวน
-tr:Bahçe Düzenleyici
+tr:Bahçe Düzenleyici|Bahçeci|bahçıvan
 uk:Садівник
 vi:Người thiết kế và xây dựng cảnh quan
 zh-Hans:园艺工
@@ -9575,7 +9578,7 @@ sk:Oprava obuvy
 sv:Skomakare
 sw:Mtengeneza viatu
 th:ช่างซ่อมรองเท้า
-tr:Ayakkabı tamircisi
+tr:Ayakkabı tamircisi|kunduracı
 uk:4Ремонт взуття|взуття
 vi:Sửa giày
 zh-Hans:修鞋匠
@@ -9871,7 +9874,7 @@ et:Rand
 eu:Hondartza
 sv:Strand
 th:ชายหาด
-tr:Plaj
+tr:Plaj|sahil
 uk:Пляж
 vi:Bãi biển
 zh-Hans:海滩
@@ -9927,6 +9930,7 @@ fr:4Borne géodésique
 ja:測量標
 pl:4Znak geodezyjny
 ru:4Геодезический пункт|Геодезический знак|4тригонометрический пункт|пункт триангуляции|тригопункт|4триангулятор
+tr:4veri toplama istasyonu|4nirengi istasyonu|4jeodezik ölçüm noktası|4ölçüm istasyonu
 uk:4Геодезичний пункт
 mr:सर्वेक्षण बिंदू|सर्व्हे पॉइंट
 
@@ -9995,7 +9999,7 @@ et:4Koopiakeskus|trükikoda
 eu:4Kopiagailu denda|4inprimaketa|Kopia zentroa|Fotokopia zentroa
 sv:4Kopieringsbutik|4Tryckare
 th:ร้านถ่ายเอกสาร|เครื่องพิมพ์
-tr:4Kopyalama Merkezi|Yazıcı
+tr:4Kopyalama Merkezi|Yazıcı|copy center|copycenter
 uk:4Копіювальний центр|друк|поліграфія
 vi:Cửa hàng Copy|Máy in
 zh-Hans:复印店|打印机
@@ -10174,7 +10178,7 @@ et:Rehvipood|rehvid
 eu:Pneumatikoen denda
 sv:Däckaffär
 th:ร้านยาง
-tr:Tekerlekçi
+tr:Tekerlekçi|lastikçi
 uk:Магазин шин|3шини
 vi:Cửa hàng Lốp
 zh-Hans:轮胎店|商店
@@ -10210,7 +10214,7 @@ et:Autopesu
 eu:5Auto-garbiketa
 sv:Biltvätt
 th:ล้างรถ
-tr:Araba Yıkama
+tr:Araba Yıkama|oto yıkama
 uk:4Автомийна
 vi:Rửa Xe
 zh-Hans:洗车
@@ -10355,7 +10359,7 @@ et:4Jalgrattaparkla
 eu:Bizikleta aparkalekua
 sv:4Cykelparkering
 th:ที่จอดจักรยาน
-tr:4Bisiklet park etme
+tr:4Bisiklet park etme|bisiklet park
 uk:4Велопарковка|велостоянка
 vi:Chỗ Đậu Xe Đạp
 zh-Hans:自行车存放处
@@ -10726,7 +10730,7 @@ et:Kogukonna keskus
 eu:Komunitate Zentroa
 sv:Stadshus
 th:ศูนย์ชุมชน
-tr:İletişim Merkezi
+tr:Toplum Merkezi|Halkevi
 uk:Центр культури та дозвілля|3Дім культури
 vi:Trung Tâm Cộng Đồng
 zh-Hans:社区中心
@@ -10762,7 +10766,7 @@ et:Kohtumaja
 eu:Auzitegia
 sv:Domstol
 th:ศาล
-tr:Adliye|Mahkeme
+tr:Adliye|Mahkeme|adalet sarayı
 uk:Суд
 vi:Tòa án
 zh-Hans:法院
@@ -10819,6 +10823,7 @@ eu:3Kafea saltzeko makina|Kafea
 fr:Distributeur de café|Café
 it:Distributore automatico di caffè|Caffè
 ru:3Кофейный автомат|кофе|кофемат
+tr:4Kahve Dispenseri|Kahve Makinesi
 uk:3Кавовий автомат|кава
 mr:कॉफी विक्रीयंत्र
 
@@ -10832,6 +10837,7 @@ eu:4Kondoiak saltzeko makina|Preserbatiboak
 fr:Distributeur de préservatifs|Préservatifs
 it:Distributore di profilattici|Preservativi
 ru:Автомат с презервативами|5презервативы|5кондомат
+tr:5Prezervatif Dispenseri|Kondom dispenseri
 uk:Автомат з презервативами|5презервативи|5кондомат
 mr:कंडोम विक्रीयंत्र
 
@@ -10882,6 +10888,7 @@ eu:4Janaria saltzeko makina|Elikagaia|Askariak
 fr:Distributeur d'aliments|Aliments
 it:Distributore automatico di alimenti|Macchinetta automatica|Snack
 ru:Автомат с едой|5перекус|4снэки
+tr:Otomat|Yiyecek dispenseri|atıştırmalık
 uk:Автомат з їжею|5перекус|4снекі
 mr:अन्न विक्रीयंत्र
 
@@ -10915,7 +10922,7 @@ ro:4Parcomat
 sk:Automat na výdaj parkovacích lístkov
 sv:4Parkeringsautomat
 th:เครื่องชำระค่าที่จอดรถอัตโนมัติ
-tr:4Park Etme Biletleri|Park sayacı
+tr:4Park Etme Biletleri|Park sayacı|park bileti
 uk:4Паркомат|Оплата паркування
 vi:Máy trả tiền vé đậu xe
 zh-Hans:停车场付费机
@@ -10953,7 +10960,7 @@ sk:Predajný automat na lístky verejnej dopravy
 sv:Biljettautomat
 sw:Mashine ya kuuzia tiketi za usafiri wa umma
 th:เครื่องขายของหรือตั๋วขนส่งมวลชนอัตโนมัติ
-tr:Toplu taşıma biletleri için otomatlar
+tr:Toplu taşıma biletleri için otomatlar|toplu taşıma bileti|bilet
 uk:Автомат з продажу квитків
 vi:Máy bán vé phương tiện công cộng tự động
 zh-Hans:公共交通售票机
@@ -10970,6 +10977,7 @@ eu:4Egunkariak saltzeko makina|Egunkariak
 fr:Distributeur de journaux|Journaux
 it:Distributore automatico di giornali|Riviste
 ru:Газетный автомат|газетомат|3газеты|4пресса
+tr:4Gazete dispenseri|Gazetelik
 uk:Газетний автомат|газетомат|3газети|4преса
 mr:वर्तमानपत्र विक्रीयंत्र
 
@@ -10983,6 +10991,7 @@ eu:4Gozokiak saltzeko makina|Gozokiak
 fr:Distributeur de bonbons|Bonbons
 it:Distributore di dolci|Caramelle
 ru:Автомат со сладостями|4сладости|4конфеты
+tr:Tatlı dispenseri|şekerler
 uk:Автомат із солодощами|4солодощі|4цукерки
 mr:मिठाई विक्रीयंत्र
 
@@ -11004,7 +11013,7 @@ de:5Paketstation|Paket Abholstation|Paket SB|Paket Versandstation
 et:4Pakiautomaat
 fr:Consigne automatique pour colis|3locker
 ru:3Почтомат|Постамат|5Получение посылок
-tr:4koli dolabı
+tr:4kilitli dolap|4kitli dolap|kasa
 uk:3Поштомат|5Отримання посилок
 mr:पार्सल लॉकर
 
@@ -11224,7 +11233,7 @@ et:Mereandide pood|4kalaturg|4mereannid|kala
 eu:Arrain-denda
 sv:Fiskhandlare
 th:ร้านขายปลา
-tr:Deniz ürünleri mağazası
+tr:4Deniz ürünleri mağazası|3balıkçı
 uk:4Рибна крамниця
 vi:Người bán cá
 zh-Hans:鱼商
@@ -11337,7 +11346,7 @@ et:Piletimüük
 eu:Sarreren salmenta
 sv:Biljettkontor
 th:จุดจำหน่ายตั๋ว
-tr:Bilet
+tr:Biletçi|gişe
 uk:4Квиткова каса|квиток|театральна каса|квитковий центр|продаж квитків|бронювання квитків
 vi:Phòng vé
 zh-Hans:售票处
@@ -11373,7 +11382,7 @@ et:Alkoholipood
 eu:Ardo-denda|Ardoa
 sv:Vinhandel
 th:ร้านขายไวน์
-tr:Şarap mağazası
+tr:Şarap mağazası|şarapçı
 uk:4Винна крамниця
 vi:Rượu|Cửa hàng rượu
 zh-Hans:贩酒处
@@ -11553,7 +11562,7 @@ et:Köisraja jaam
 eu:Teleferiko geltokia
 sv:Linbanestation
 th:สถานีกระเช้าลอยฟ้า
-tr:Havayolu İstasyonu
+tr:Teleferik İstasyonu
 uk:Канатна дорога
 vi:Trạm Cáp Treo
 zh-Hans:缆车车站
@@ -11878,7 +11887,7 @@ et:4Vulkaan
 eu:4Sumendia
 sv:4Vulkan
 th:ภูเขาไฟ
-tr:4Volkan
+tr:4Volkan|Yanardağ
 uk:4Вулкан
 vi:Núi lửa
 zh-Hans:火山
@@ -11985,7 +11994,7 @@ et:Raamatuvahetus|raamaturiiul
 eu:Liburu-trukea|liburudenda
 sv:Bokskåp|bokutbyte
 th:ตู้หนังสือ สถานที่แลกเปลี่ยนหนังสือ
-tr:Kütüphane|Kitap Değişimi
+tr:Kitap Değişimi|Kitap paylaşma
 uk:4Книгообмін|обмін книгами
 vi:Kệ sách|Trao đổi sách
 zh-Hans:书架|书本交换
@@ -12057,7 +12066,7 @@ et:Lasketiir
 eu:Tiro eremua
 sv:Skjutbana
 th:สนามยิงปืน
-tr:Atış Poligonu
+tr:Poligon|Atış Poligonu|Atış menzili
 uk:Тир
 vi:Nơi bắn súng
 zh-Hans:射击域
@@ -12094,7 +12103,7 @@ et:Ujumine
 eu:Igeriketa zentroa
 sv:Simhall
 th:ศูนย์ว่ายน้ำ
-tr:Yüzme Merkezi
+tr:Yüzme
 uk:Плавання|басейн
 vi:Trung tâm Bơi lội
 zh-Hans:游泳中心
@@ -12318,7 +12327,7 @@ sk:Hudobná škola
 sv:Musikskola
 sw:Shule ya Muziki
 th:โรงเรียนดนตรี
-tr:Müzik Okulu
+tr:Müzik Okulu|Müzik kursu
 uk:Музична школа ім
 vi:Trường âm nhạc
 zh-Hans:音乐学校
@@ -12355,7 +12364,7 @@ sk:Jazyková škola
 sv:Språkskola
 sw:Shule ya Lugha
 th:โรงเรียนภาษา
-tr:Dil Okulu
+tr:Dil Okulu|Dil kursu
 uk:Мовна школа
 vi:Ngôn ngữ Trường học
 zh-Hans:语言学校
@@ -12428,7 +12437,7 @@ sk:3Internetová kaviareň
 sv:3Internetkafé
 sw:Mkahawa wa Intaneti
 th:อินเทอร์เน็ตคาเฟ่
-tr:3İnternet Cafe
+tr:3İnternet Cafe|3İnternet Kafe
 uk:3Інтернет-кафе
 vi:Quán Internet
 zh-Hans:网吧
@@ -12465,7 +12474,7 @@ sk:Parkovisko pre motocykle
 sv:4Motorcykelparkering
 sw:Uegeshaji Pikipiki
 th:ที่จอดรถมอเตอร์ไซค์
-tr:4Motosiklet Parkı
+tr:4Motosiklet Parkı|4Motorsiklet Parkı
 uk:Парковка для мотоциклів|4мотопарковка
 vi:Bãi đỗ xe máy
 zh-Hans:摩托车停车场
@@ -12689,7 +12698,7 @@ sk:4Požiarny hydrant
 sv:4Brandpost
 sw:Bomba la Kuzima Moto
 th:หัวจ่ายน้ำดับเพลิง
-tr:Yangın Söndürme Musluğu
+tr:Yangın Söndürme Musluğu|yangın musluğu
 uk:4Пожежний гідрант|гідрант
 vi:Vòi chữa cháy
 zh-Hans:消防栓
@@ -12764,7 +12773,7 @@ sk:Poisťovňa
 sv:Försäkringskontor
 sw:Ofisi ya Bima
 th:สำนักงานประกันภัย
-tr:Sigorta Acentası
+tr:Sigorta Acentesi
 uk:5Страхова компанія|Страховий агент
 vi:Văn phòng bảo hiểm
 zh-Hans:保险机构
@@ -12911,7 +12920,7 @@ sk:Obchod s motocyklami
 sv:4Motorcykelaffär
 sw:Duka la Pikipiki
 th:ร้านรถมอเตอร์ไซค์
-tr:4Motosiklet Dükkanı
+tr:4Motosiklet Dükkanı|4Motorsiklet dükkanı
 uk:Магазин мотоциклів|4мотоцикли
 vi:Cửa hàng xe máy
 zh-Hans:摩托车商店
@@ -13021,7 +13030,7 @@ sk:Papiernictvo
 sv:Pappershandel
 sw:Duka la Vitabu
 th:ร้านขายเครื่องเขียน
-tr:Kırtasiye Dükkanı
+tr:Kırtasiye Mağazası
 uk:Магазин канцелярських товарів|4Канцелярські товари
 vi:Cửa hàng văn phòng phẩm
 zh-Hans:文具店
@@ -13284,7 +13293,7 @@ sk:Národný park
 sv:Nationalpark
 sw:Hifadhi ya taifa
 th:อุทยานแห่งชาติ
-tr:Ulusal park
+tr:Ulusal park|Milli park|Millipark
 uk:Національний парк
 vi:Công viên quốc gia
 zh-Hans:国家公园
@@ -13321,7 +13330,7 @@ sk:Rezervácia
 sv:Naturreservat
 sw:Hifadhi
 th:เขตอนุรักษ์ธรรมชาติ
-tr:Doğal koruma alanı
+tr:Doğa koruma alanı
 uk:Заповідник
 vi:Giữ chỗ
 zh-Hans:野生动物园
@@ -13482,7 +13491,7 @@ ja:マリーナ
 pt:3Marina
 pt-BR:3Marina
 ru:4Причал|5пристань|3Марина
-tr:Yat Limanı
+tr:İskele|Marina|Rıhtım
 uk:5Пристань|3Марина
 zh-Hans:游艇码头
 
@@ -13519,7 +13528,7 @@ sk:Miesto konania podujatí
 sv:Evenemangslokal
 sw:Ukumbi wa Matukio
 th:สถานที่จัดงาน
-tr:Etkinlik mekanı
+tr:Etkinlik mekanı|etkinlik alanı
 uk:Місце проведення подій
 vi:Địa điểm tổ chức sự kiện
 zh-Hans:活动场所
@@ -13539,6 +13548,7 @@ pl:Sklep z czekoladą
 pt:Loja de chocolates
 pt-BR:Loja de chocolates
 ru:Шоколад
+tr:Çikolata mağazası
 
 shop-coffee|@food
 en:Cofee store
@@ -13553,6 +13563,7 @@ pl:Sklep z kawą
 pt:Loja de café
 pt-BR:Loja de café
 ru:Кофе
+tr:Kahve mağazası
 
 shop-fabric
 en:Fabric shop
@@ -13563,6 +13574,7 @@ it:Merceria
 nl:Stoffenwinkel
 pt:Loja de tecidos
 pt-BR:Loja de aviamentos
+tr:Kumaş mağazası|Tekstil mağazası
 
 shop-money_lender
 en:Money lender
@@ -13573,6 +13585,7 @@ pl:ożyczkodawca
 pt:Prestamista
 pt-BR:Prestamista
 ru:Ростовщик
+tr:Tefeci
 
 shop-music
 en:Record store|vinyl
@@ -13589,6 +13602,7 @@ pl:Sklep muzyczny
 pt:Loja de música
 pt-BR:Loja de música
 ru:Музыка
+tr:Plak mağazası
 
 shop-musical_instrument
 en:Musical instruments
@@ -13604,6 +13618,7 @@ pl:Sklep z instrumentami muzycznymi
 pt:Loja de instrumentos musicais
 pt-BR:Loja de instrumentos musicais
 ru:Музыкальные инструменты
+tr:Enstrüman Mağazası
 
 shop-tea
 en:Tea store
@@ -13620,6 +13635,7 @@ pl:Sklep z herbatą
 pt:Loja de chás
 pt-BR:Loja de chás
 ru:Чай
+tr:Çay mağazası
 zh-Hans:茶叶商店
 
 shop-antiques
@@ -13654,7 +13670,7 @@ sk:Starožitnosti
 sv:Antikviteter
 sw:Mambo ya kale
 th:ของเก่า
-tr:Antikalar
+tr:Antika
 uk:Антикваріат
 vi:Đồ cổ
 zh-Hans:古董
@@ -13768,7 +13784,7 @@ sk:Obchod s taškami
 sv:Väskor butik
 sw:Hifadhi ya Mifuko
 th:ร้านกระเป๋า
-tr:Çanta Mağazası
+tr:Çanta Mağazası|Çantacı
 uk:Магазин сумок
 vi:Cửa hàng túi xách
 zh-Hans:箱包店
@@ -13806,7 +13822,7 @@ sk:Predajňa syrov
 sv:Ostaffär
 sw:Duka la Jibini
 th:ร้านชีส
-tr:Peynir Dükkanı
+tr:Peynirci
 uk:Магазин сиру
 vi:Cửa hàng pho mát
 zh-Hans:奶酪店
@@ -13882,7 +13898,7 @@ sk:Predajňa elektro
 sv:Elektronik affär
 sw:Duka la Umeme
 th:ร้านขายเครื่องใช้ไฟฟ้า
-tr:Elektirikli eşya dükkanı
+tr:Elektronik eşya dükkanı|Elektronik mağazası
 uk:Магазин електротехніки
 vi:Cửa hàng điện tử
 zh-Hans:电器商城
@@ -13920,7 +13936,7 @@ sk:Rybársky obchod
 sv:Fiskeaffär
 sw:Duka la Uvuvi
 th:ร้านตกปลา
-tr:Balıkçı Dükkanı
+tr:Balıkçılık Dükkanı|Balıkçılık Mağazası|Balıkçılık
 uk:Рибальський магазин
 vi:Cửa hàng câu cá
 zh-Hans:钓鱼店
@@ -14034,7 +14050,7 @@ sk:Zdravotnícky materiál
 sv:Medicinska förnödenheter
 sw:Vifaa vya Matibabu
 th:เวชภัณฑ์
-tr:Tıbbi malzemeler
+tr:Tıbbi malzemeler|medikalci
 uk:Медичні товари
 vi:Vật tư y tế
 zh-Hans:医疗用品
@@ -14072,7 +14088,7 @@ sk:Výživové doplnky
 sv:Kosttillskott
 sw:Virutubisho vya Lishe
 th:อาหารเสริม
-tr:Besin Takviyeleri
+tr:Besin Takviyeleri|Takviye besin|takviye gıda|gıda takviyesi
 uk:Харчові добавки
 vi:Bổ sung dinh dưỡng
 zh-Hans:营养补充剂
@@ -14110,7 +14126,7 @@ sk:Farby
 sv:Färger
 sw:Rangi
 th:สี
-tr:Boyalar
+tr:Boya|boyacı
 uk:Фарби
 vi:Sơn
 zh-Hans:油漆
@@ -14148,7 +14164,7 @@ sk:Parfuméria
 sv:Parfymer
 sw:Perfumery
 th:น้ำหอม
-tr:Parfümeri
+tr:Parfümeri|parfümcü
 uk:Парфумерія
 vi:Nước hoa
 zh-Hans:香水
@@ -14262,7 +14278,7 @@ sk:Tabak
 sv:Tobak
 sw:Tumbaku
 th:ยาสูบ
-tr:Tütün
+tr:Tütüncü
 uk:Тютюн
 vi:Thuốc lá
 zh-Hans:烟草
@@ -14300,7 +14316,7 @@ sk:Živnostenské potreby
 sv:Handlar förnödenheter
 sw:Ugavi wa Biashara
 th:อุปกรณ์การค้า
-tr:Esnaf Malzemeleri
+tr:Esnaf Malzemeleri|İş yeri malzemeleri|Dükkan malzemeleri
 uk:Торгівля припасами
 vi:Nguồn cung cấp Giao dịch
 zh-Hans:贸易用品
@@ -14338,7 +14354,7 @@ sk:Hodinky
 sv:Klockor
 sw:Saa
 th:นาฬิกา
-tr:Saatler
+tr:Saatçi
 uk:Годинники
 vi:Xem
 zh-Hans:手表
@@ -14376,7 +14392,7 @@ sk:Veľkoobchod
 sv:Grossistbutik
 sw:Duka la Jumla
 th:ร้านขายส่ง
-tr:Toptan satış mağazası
+tr:Toptan satış mağazası|toptancı
 uk:Оптовий магазин
 vi:Cửa hàng bán buôn
 zh-Hans:批发店
