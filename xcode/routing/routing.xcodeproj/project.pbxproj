@@ -1065,7 +1065,7 @@
 		675343F01A3F640D00A0A8C3 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1400;
+				LastUpgradeCheck = 1410;
 				TargetAttributes = {
 					6742AD0D1C68A91B009CB89E = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -1351,10 +1351,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34F558351DBF2A2600A4FC11 /* common-debug.xcconfig */;
 			buildSettings = {
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(OMIM_ROOT)/3party/jansson/src",
-				);
 			};
 			name = Debug;
 		};
@@ -1362,10 +1358,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34F558361DBF2A2600A4FC11 /* common-release.xcconfig */;
 			buildSettings = {
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(OMIM_ROOT)/3party/jansson/src",
-				);
 			};
 			name = Release;
 		};

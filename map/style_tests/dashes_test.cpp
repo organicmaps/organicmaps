@@ -3,7 +3,7 @@
 
 #include "indexer/classificator_loader.hpp"
 #include "indexer/drawing_rules.hpp"
-#include "indexer/drules_struct.pb.h"
+#include "indexer/drules_include.hpp"
 
 namespace
 {

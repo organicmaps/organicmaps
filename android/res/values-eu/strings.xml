@@ -972,6 +972,7 @@
 	<string name="type.emergency.phone">Larrialdi zenbakia</string>
 	<string name="type.entrance">Sarrera</string>
 	<string name="type.healthcare.laboratory">Medikuntza laborategia</string>
+	<string name="type.healthcare.physiotherapist">Fisioterapeuta</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->

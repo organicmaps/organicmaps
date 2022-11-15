@@ -1500,7 +1500,7 @@
 		BBB165CF1E8275120058BF1E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1400;
+				LastUpgradeCheck = 1410;
 				TargetAttributes = {
 					BBB165D61E8275120058BF1E = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -1662,8 +1662,6 @@
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(OMIM_ROOT)",
-					"$(BOOST_ROOT)",
 					"$(OMIM_ROOT)/3party/icu",
 					"$(OMIM_ROOT)/3party/icu/icu/icu4c/source/common",
 					"$(OMIM_ROOT)/3party/icu/icu/icu4c/source/i18n",
@@ -1682,8 +1680,6 @@
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(OMIM_ROOT)",
-					"$(BOOST_ROOT)",
 					"$(OMIM_ROOT)/3party/icu",
 					"$(OMIM_ROOT)/3party/icu/icu/icu4c/source/common",
 					"$(OMIM_ROOT)/3party/icu/icu/icu4c/source/i18n",

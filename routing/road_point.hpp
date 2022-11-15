@@ -5,7 +5,7 @@
 #include <sstream>
 #include <string>
 
-#include <boost/container_hash/hash.hpp>
+#include "std/boost_container_hash.hpp"
 
 namespace routing
 {

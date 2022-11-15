@@ -15,16 +15,14 @@
 
 #include <fstream>
 
-using namespace std;
-
 namespace
 {
-string const kTransitColorFileName = "transit_colors.txt";
+std::string const kTransitColorFileName = "transit_colors.txt";
 
 class TransitColorsHolder
 {
 public:
-  dp::Color GetColor(string const & name) const
+  dp::Color GetColor(std::string const & name) const
   {
     auto const style = GetStyleReader().GetCurrentStyle();
     auto const isDarkStyle = style == MapStyle::MapStyleDark || style == MapStyle::MapStyleVehicleDark;
@@ -37,7 +35,7 @@ public:
 
   void Load()
   {
-    string data;
+    std::string data;
     try
     {
       ReaderPtr<Reader>(GetPlatform().GetReader(kTransitColorFileName)).ReadAsString(data);
@@ -66,7 +64,7 @@ public:
         ASSERT(name != nullptr, ());
         ASSERT(colorInfo != nullptr, ());
 
-        string strValue;
+        std::string strValue;
         FromJSONObject(colorInfo, "clear", strValue);
         m_clearColors[df::GetTransitColorName(name)] = ParseColor(strValue);
         FromJSONObject(colorInfo, "night", strValue);
@@ -82,10 +80,10 @@ public:
     }
   }
 
-  map<string, dp::Color> const & GetClearColors() const { return m_clearColors; }
+  std::map<std::string, dp::Color> const & GetClearColors() const { return m_clearColors; }
 
 private:
-  dp::Color ParseColor(string const & colorStr)
+  dp::Color ParseColor(std::string const & colorStr)
   {
     unsigned int color;
     if (strings::to_uint(colorStr, color, 16))
@@ -94,8 +92,8 @@ private:
     return dp::Color();
   }
 
-  map<string, dp::Color> m_clearColors;
-  map<string, dp::Color> m_nightColors;
+  std::map<std::string, dp::Color> m_clearColors;
+  std::map<std::string, dp::Color> m_nightColors;
 };
 
 TransitColorsHolder & TransitColors()
@@ -130,7 +128,7 @@ dp::Color GetColorConstant(ColorConstant const & constant)
   return ToDrapeColor(color);
 }
 
-map<string, dp::Color> const & GetTransitClearColors() { return TransitColors().GetClearColors(); }
+std::map<std::string, dp::Color> const & GetTransitClearColors() { return TransitColors().GetClearColors(); }
 
 void LoadTransitColors()
 {

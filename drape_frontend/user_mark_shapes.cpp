@@ -7,7 +7,6 @@
 #include "drape_frontend/shape_view_params.hpp"
 #include "drape_frontend/text_layout.hpp"
 #include "drape_frontend/text_shape.hpp"
-#include "drape_frontend/tile_utils.hpp"
 #include "drape_frontend/visual_params.hpp"
 
 #include "shaders/programs.hpp"
@@ -30,12 +29,11 @@ namespace df
 {
 namespace
 {
-std::array<double, 20> const kLineWidthZoomFactor =
+std::array<double, 20> constexpr kLineWidthZoomFactor =
 {
 // 1   2    3    4    5    6    7    8    9    10   11   12   13   14   15   16   17   18   19   20
   0.3, 0.3, 0.3, 0.4, 0.5, 0.6, 0.7, 0.7, 0.7, 0.7, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0
 };
-int const kLineSimplifyLevelEnd = 15;
 
 template <typename TCreateVector>
 void AlignFormingNormals(TCreateVector const & fn, dp::Anchor anchor, dp::Anchor first,
@@ -561,7 +559,7 @@ void CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
   CHECK_LESS(tileKey.m_zoomLevel - 1, static_cast<int>(kLineWidthZoomFactor.size()), ());
 
   double const vs = df::VisualParams::Instance().GetVisualScale();
-  bool const simplify = tileKey.m_zoomLevel <= kLineSimplifyLevelEnd;
+  bool const simplify = tileKey.m_zoomLevel <= 15;
 
   // This var is used only if simplify == true.
   double minSegmentSqrLength = 1.0;

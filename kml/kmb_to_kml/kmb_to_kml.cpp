@@ -9,7 +9,8 @@
 #include <iostream>
 
 
-int main(int argc, char** argv) {
+int main(int argc, char** argv)
+{
   if (argc < 2) {
     std::cout << "Converts kmb file to kml\n";
     std::cout << "Usage: " << argv[0] << " path_to_kmb_file\n";
@@ -20,26 +21,33 @@ int main(int argc, char** argv) {
 
   std::string filePath = argv[1];
   kml::FileData kmlData;
-  try {
+  try
+  {
     FileReader reader(filePath);
     kml::binary::DeserializerKml des(kmlData);
     des.Deserialize(reader);
-  } catch (kml::binary::DeserializerKml::DeserializeException const & ex) {
+  }
+  catch (kml::binary::DeserializerKml::DeserializeException const & ex)
+  {
     std::cerr << "Error reading kmb file " << filePath << ": " << ex.what() << std::endl;
     return 1;
   }
 
-  try {
+  try
+  {
     // Change extension to kml.
     filePath[filePath.size() - 1] = 'l';
     kml::SerializerKml ser(kmlData);
     FileWriter kmlFile(filePath);
     ser.Serialize(kmlFile);
-  } catch (kml::SerializerKml::SerializeException const & ex) {
+  }
+  catch (kml::SerializerKml::SerializeException const & ex)
+  {
     std::cerr << "Error encoding to kml file " << filePath << ": " << ex.what() << std::endl;
     return 1;
   }
-  catch (FileWriter::Exception const & ex) {
+  catch (FileWriter::Exception const & ex)
+  {
     std::cerr << "Error writing to kml file " << filePath << ": " << ex.what() << std::endl;
     return 1;
   }

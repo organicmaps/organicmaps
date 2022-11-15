@@ -133,6 +133,8 @@
 	<string name="recycling">Рециклиране</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
 	<string name="water">Вода</string>
+	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
+	<string name="rv">За RV</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Бележки</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -682,6 +684,7 @@
 	<string name="type.craft.tailor">Шивач</string>
 	<string name="type.cuisine.deli">Деликатеси</string>
 	<string name="type.healthcare.laboratory">Медицинска лаборатория</string>
+	<string name="type.healthcare.physiotherapist">Физиотерапевт</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->

@@ -904,6 +904,7 @@
 	<string name="type.emergency.phone">संकटकालीन फोन</string>
 	<string name="type.entrance">प्रवेशद्वार</string>
 	<string name="type.healthcare.laboratory">वैद्यकीय प्रयोगशाळा</string>
+	<string name="type.healthcare.physiotherapist">फिजिओथेरपिस्ट</string>
 
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway">महामार्ग</string>

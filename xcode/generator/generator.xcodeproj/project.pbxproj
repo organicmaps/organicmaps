@@ -17,6 +17,7 @@
 		67BC92E31D1A9ED800A4A378 /* test_feature.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67BC92D91D1A9E9800A4A378 /* test_feature.hpp */; };
 		67BC92E41D1A9ED800A4A378 /* test_mwm_builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67BC92DA1D1A9E9800A4A378 /* test_mwm_builder.cpp */; };
 		67BC92E51D1A9ED800A4A378 /* test_mwm_builder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67BC92DB1D1A9E9800A4A378 /* test_mwm_builder.hpp */; };
+		FAA6D8D32921189A00E8D50D /* water_boundary_checker.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FAA6D8D22921189A00E8D50D /* water_boundary_checker.hpp */; };
 		FACB775A26B90BEF00810C9C /* libgenerator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6753401B1A3F2A1B00A0A8C3 /* libgenerator.a */; };
 		FACB775E26B90C2600810C9C /* generator_tool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FACB775D26B90C2600810C9C /* generator_tool.cpp */; };
 		FACB776126B90C7200810C9C /* libindexer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB776026B90C7200810C9C /* libindexer.a */; };
@@ -313,6 +314,7 @@
 		67BC92D91D1A9E9800A4A378 /* test_feature.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = test_feature.hpp; sourceTree = "<group>"; };
 		67BC92DA1D1A9E9800A4A378 /* test_mwm_builder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = test_mwm_builder.cpp; sourceTree = "<group>"; };
 		67BC92DB1D1A9E9800A4A378 /* test_mwm_builder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = test_mwm_builder.hpp; sourceTree = "<group>"; };
+		FAA6D8D22921189A00E8D50D /* water_boundary_checker.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = water_boundary_checker.hpp; sourceTree = "<group>"; };
 		FACB775326B90BB800810C9C /* generator_tool */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = generator_tool; sourceTree = BUILT_PRODUCTS_DIR; };
 		FACB775D26B90C2600810C9C /* generator_tool.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = generator_tool.cpp; sourceTree = "<group>"; };
 		FACB776026B90C7200810C9C /* libindexer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libindexer.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -956,6 +958,7 @@
 				FACB79F626B913F300810C9C /* unpack_mwm.hpp */,
 				FACB799626B913F300810C9C /* utils.cpp */,
 				FACB7AAB26B913F300810C9C /* utils.hpp */,
+				FAA6D8D22921189A00E8D50D /* water_boundary_checker.hpp */,
 				FACB7AA526B913F300810C9C /* ways_merger.cpp */,
 				FACB799126B913F300810C9C /* ways_merger.hpp */,
 				FACB798826B913F300810C9C /* wiki_url_dumper.cpp */,
@@ -1051,6 +1054,7 @@
 				FACB7B0F26B913F400810C9C /* processor_booking.hpp in Headers */,
 				FACB7ADA26B913F400810C9C /* translator_interface.hpp in Headers */,
 				FACB7BFD26B913F400810C9C /* traffic_generator.hpp in Headers */,
+				FAA6D8D32921189A00E8D50D /* water_boundary_checker.hpp in Headers */,
 				FACB7AD826B913F400810C9C /* feature_maker_base.hpp in Headers */,
 				FACB7BEE26B913F400810C9C /* place_processor.hpp in Headers */,
 				FACB7BB426B913F400810C9C /* hierarchy.hpp in Headers */,
@@ -1178,7 +1182,7 @@
 			isa = PBXProject;
 			attributes = {
 				DefaultBuildSystemTypeForWorkspace = Latest;
-				LastUpgradeCheck = 1400;
+				LastUpgradeCheck = 1410;
 				TargetAttributes = {
 					6753401A1A3F2A1B00A0A8C3 = {
 						CreatedOnToolsVersion = 6.1;
@@ -1359,7 +1363,6 @@
 					"$(OMIM_ROOT)/3party/gflags/src",
 					"$(QT_PATH)/include",
 					"$(OMIM_ROOT)/3party/glm",
-					"$(OMIM_ROOT)/3party/jansson/src",
 				);
 			};
 			name = Debug;
@@ -1373,7 +1376,6 @@
 					"$(OMIM_ROOT)/3party/gflags/src",
 					"$(QT_PATH)/include",
 					"$(OMIM_ROOT)/3party/glm",
-					"$(OMIM_ROOT)/3party/jansson/src",
 				);
 			};
 			name = Release;

@@ -5,10 +5,8 @@
 #include "coding/url.hpp"
 
 #include "base/assert.hpp"
-#include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
-#include <iostream>
 #include <map>
 
 #include "private.h"
@@ -17,8 +15,8 @@
 
 namespace osm
 {
-using namespace std;
 using platform::HttpClient;
+using std::string;
 
 constexpr char const * kApiVersion = "/api/0.6";
 constexpr char const * kFacebookCallbackPart = "/auth/facebook_access_token/callback?access_token=";
@@ -33,17 +31,17 @@ string FindAuthenticityToken(string const & body)
 {
   auto pos = body.find("name=\"authenticity_token\"");
   if (pos == string::npos)
-    return string();
+    return {};
   string const kValue = "value=\"";
   auto start = body.find(kValue, pos);
   if (start == string::npos)
-    return string();
+    return {};
   start += kValue.length();
-  auto const end = body.find("\"", start);
+  auto const end = body.find('"', start);
   return end == string::npos ? string() : body.substr(start, end - start);
 }
 
-string BuildPostRequest(initializer_list<pair<string, string>> const & params)
+string BuildPostRequest(std::initializer_list<std::pair<string, string>> const & params)
 {
   string result;
   for (auto it = params.begin(); it != params.end(); ++it)
@@ -94,14 +92,14 @@ OsmOAuth OsmOAuth::DevServerAuth()
   constexpr char const * kOsmDevServer = "https://master.apis.dev.openstreetmap.org";
   constexpr char const * kOsmDevConsumerKey = "jOxkndim5PiuIlgsYxUH8H0broKt5qJM2enN5vF5";
   constexpr char const * kOsmDevConsumerSecret = "g3jTJz6CUws3c04MHdAhbUTmnNH16ls8XxurQEIc";
-  return OsmOAuth(kOsmDevConsumerKey, kOsmDevConsumerSecret, kOsmDevServer, kOsmDevServer);
+  return {kOsmDevConsumerKey, kOsmDevConsumerSecret, kOsmDevServer, kOsmDevServer};
 }
 // static
 OsmOAuth OsmOAuth::ProductionServerAuth()
 {
   constexpr char const * kOsmMainSiteURL = "https://www.openstreetmap.org";
   constexpr char const * kOsmApiURL = "https://api.openstreetmap.org";
-  return OsmOAuth(OSM_CONSUMER_KEY, OSM_CONSUMER_SECRET, kOsmMainSiteURL, kOsmApiURL);
+  return {OSM_CONSUMER_KEY, OSM_CONSUMER_SECRET, kOsmMainSiteURL, kOsmApiURL};
 }
 
 void OsmOAuth::SetKeySecret(KeySecret const & keySecret) { m_tokenKeySecret = keySecret; }
@@ -123,7 +121,7 @@ OsmOAuth::SessionID OsmOAuth::FetchSessionId(string const & subUrl, string const
   if (request.ErrorCode() != HTTP::OK)
     MYTHROW(FetchSessionIdError, (DebugPrint(request)));
 
-  SessionID const sid = { request.CombinedCookies(), FindAuthenticityToken(request.ServerResponse()) };
+  SessionID sid = { request.CombinedCookies(), FindAuthenticityToken(request.ServerResponse()) };
   if (sid.m_cookies.empty() || sid.m_token.empty())
     MYTHROW(FetchSessionIdError, ("Cookies and/or token are empty for request", DebugPrint(request)));
   return sid;
@@ -224,7 +222,7 @@ string OsmOAuth::SendAuthRequest(string const & requestTokenKey, SessionID const
   if (pos == string::npos)
     MYTHROW(SendAuthRequestError, ("oauth_verifier is not found", DebugPrint(request)));
 
-  auto const end = callbackURL.find("&", pos);
+  auto const end = callbackURL.find('&', pos);
   return callbackURL.substr(pos + vKey.length(), end == string::npos ? end : end - pos - vKey.length());
 }
 
@@ -272,7 +270,7 @@ KeySecret OsmOAuth::FinishAuthorization(RequestToken const & requestToken,
 // Given a web session id, fetches an OAuth access token.
 KeySecret OsmOAuth::FetchAccessToken(SessionID const & sid) const
 {
-  // Aquire a request token.
+  // Acquire a request token.
   RequestToken const requestToken = FetchRequestToken();
 
   // Faking a button press for access rights.
@@ -314,14 +312,14 @@ OsmOAuth::UrlRequestToken OsmOAuth::GetFacebookOAuthURL() const
 {
   RequestToken const requestToken = FetchRequestToken();
   string const url = m_baseUrl + kFacebookOAuthPart + requestToken.first;
-  return UrlRequestToken(url, requestToken);
+  return {url, requestToken};
 }
 
 OsmOAuth::UrlRequestToken OsmOAuth::GetGoogleOAuthURL() const
 {
   RequestToken const requestToken = FetchRequestToken();
   string const url = m_baseUrl + kGoogleOAuthPart + requestToken.first;
-  return UrlRequestToken(url, requestToken);
+  return {url, requestToken};
 }
 
 bool OsmOAuth::ResetPassword(string const & email) const
@@ -383,7 +381,7 @@ OsmOAuth::Response OsmOAuth::Request(string const & method, string const & httpM
   if (request.WasRedirected())
     MYTHROW(UnexpectedRedirect, ("Redirected to", request.UrlReceived(), "from", url));
 
-  return Response(request.ErrorCode(), request.ServerResponse());
+  return {request.ErrorCode(), request.ServerResponse()};
 }
 
 OsmOAuth::Response OsmOAuth::DirectRequest(string const & method, bool api) const
@@ -395,7 +393,7 @@ OsmOAuth::Response OsmOAuth::DirectRequest(string const & method, bool api) cons
   if (request.WasRedirected())
     MYTHROW(UnexpectedRedirect, ("Redirected to", request.UrlReceived(), "from", url));
 
-  return Response(request.ErrorCode(), request.ServerResponse());
+  return {request.ErrorCode(), request.ServerResponse()};
 }
 
 string DebugPrint(OsmOAuth::Response const & code)

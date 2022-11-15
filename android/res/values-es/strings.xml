@@ -997,6 +997,7 @@
 	<string name="type.emergency.phone">Teléfono de emergencia</string>
 	<string name="type.entrance">Entrada</string>
 	<string name="type.healthcare.laboratory">Laboratorio médico</string>
+	<string name="type.healthcare.physiotherapist">Fisioterapeuta</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->

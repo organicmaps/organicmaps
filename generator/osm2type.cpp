@@ -30,7 +30,7 @@
 
 namespace ftype
 {
-using namespace std;
+using std::function, std::string, std::vector;
 
 namespace
 {
@@ -38,7 +38,7 @@ template <typename ToDo>
 void ForEachTag(OsmElement * p, ToDo && toDo)
 {
   for (auto & e : p->m_tags)
-    toDo(move(e.m_key), move(e.m_value));
+    toDo(std::move(e.m_key), std::move(e.m_value));
 }
 
 class NamesExtractor
@@ -54,7 +54,7 @@ public:
 
   explicit NamesExtractor(FeatureBuilderParams & params) : m_params(params) {}
 
-  LangAction GetLangByKey(string const & k, string & lang)
+  static LangAction GetLangByKey(string const & k, string & lang)
   {
     strings::SimpleTokenizer token(k, "\t :");
     if (!token)
@@ -65,7 +65,7 @@ public:
     {
       lang = *token;
 
-      // Consider only pure int/alt/old name without :lang. Otherwise feature with several
+      // Consider only pure int/alt/old name without :lang. Otherwise, feature with several
       // alt_name:lang will receive random name based on tags enumeration order.
       // For old_name we support old_name:date.
       if (++token)
@@ -119,7 +119,7 @@ public:
     switch (GetLangByKey(k, lang))
     {
     case LangAction::Forbid: return;
-    case LangAction::Accept: m_names.emplace(move(lang), move(v)); break;
+    case LangAction::Accept: m_names.emplace(std::move(lang), std::move(v)); break;
     case LangAction::Replace: swap(m_names[lang], v); break;
     case LangAction::Append:
       auto & name = m_names[lang];
@@ -141,7 +141,7 @@ public:
   }
 
 private:
-  map<string, string> m_names;
+  std::map<string, string> m_names;
   FeatureBuilderParams & m_params;
 };
 
@@ -162,7 +162,7 @@ public:
   };
 
   template <typename Function = void()>
-  void ApplyRules(initializer_list<Rule<Function>> const & rules) const
+  void ApplyRules(std::initializer_list<Rule<Function>> const & rules) const
   {
     for (auto & e : m_element->m_tags)
     {
@@ -244,7 +244,7 @@ public:
   {
     Classificator const & c = classif();
 
-    static map<Type, vector<string>> const kTypeToName = {
+    static std::map<Type, vector<string>> const kTypeToName = {
         {Type::Entrance,           {"entrance"}},
         {Type::Highway,            {"highway"}},
         {Type::Address,            {"building", "address"}},
@@ -349,7 +349,7 @@ string MatchCity(OsmElement const * p)
 {
   // Get approx boundaries from: https://boundingbox.klokantech.com/
   // City name should be equal with railway-station-subway-CITY classifier types.
-  static map<string, m2::RectD> const cities = {
+  static std::map<string, m2::RectD> const cities = {
       {"algiers", {2.949538, 36.676777, 3.256914, 36.826518}},
       {"almaty", {76.7223358154, 43.1480920701, 77.123336792, 43.4299852362}},
       {"amsterdam", {4.65682983398, 52.232846171, 5.10040283203, 52.4886341706}},
@@ -486,13 +486,13 @@ string DetermineSurface(OsmElement * p)
 
   static base::StringIL goodSmoothness = { "excellent", "good" };
 
-  auto const Has = [](base::StringIL const & il, std::string const & v)
+  auto const Has = [](base::StringIL const & il, string const & v)
   {
     return base::IsExist(il, v);
   };
 
-  bool isPaved = false;
   bool isGood = true;
+  bool isPaved;
 
   if (!surface.empty())
     isPaved = Has(pavedSurfaces, surface);
@@ -633,7 +633,7 @@ void PreprocessElement(OsmElement * p)
   {
     strings::MakeLowerCaseInplace(aerodromeTypes);
     bool first = true;
-    for (auto type : strings::Tokenize<std::string>(aerodromeTypes, ",;"))
+    for (auto type : strings::Tokenize<string>(aerodromeTypes, ",;"))
     {
       strings::Trim(type);
 
@@ -693,7 +693,7 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
     {
       params.name.Clear();
       // If we have address (house name or number), we should assign valid type.
-      // There are a lot of features like this in Czech Republic.
+      // There are a lot of features like this in the Czech Republic.
       params.AddType(types.Get(CachedTypes::Type::Address));
     }
   }
@@ -713,9 +713,9 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
   // Get a copy of source types, because we will modify params in the loop;
   FeatureBuilderParams::Types const vTypes = params.m_types;
 
-  for (size_t i = 0; i < vTypes.size(); ++i)
+  for (uint32_t vType : vTypes)
   {
-    if (!highwayDone && types.IsHighway(vTypes[i]))
+    if (!highwayDone && types.IsHighway(vType))
     {
       bool addOneway = false;
       bool noOneway = false;
@@ -773,7 +773,7 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
       highwayDone = true;
     }
 
-    if (!ferryDone && types.IsFerry(vTypes[i]))
+    if (!ferryDone && types.IsFerry(vType))
     {
       bool yesMotorFerry = false;
       bool noMotorFerry = false;
@@ -815,7 +815,7 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
 
     /// @todo Probably, we can delete this processing because cities
     /// are matched by limit rect in MatchCity.
-    if (!subwayDone && types.IsSubwayStation(vTypes[i]))
+    if (!subwayDone && types.IsSubwayStation(vType))
     {
       TagProcessor(p).ApplyRules({
           {"network", "London Underground", [&params] { params.SetRwSubwayType("london"); }},
@@ -843,7 +843,7 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
       subwayDone = true;
     }
 
-    if (!subwayDone && !railwayDone && types.IsRailwayStation(vTypes[i]))
+    if (!subwayDone && !railwayDone && types.IsRailwayStation(vType))
     {
       TagProcessor(p).ApplyRules({
           {"network", "London Underground", [&params] { params.SetRwSubwayType("london"); }},
@@ -856,7 +856,7 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
 }  // namespace
 
 void GetNameAndType(OsmElement * p, FeatureBuilderParams & params,
-                    function<bool(uint32_t)> filterType)
+                    function<bool(uint32_t)> const & filterType)
 {
   // Stage1: Preprocess tags.
   PreprocessElement(p);

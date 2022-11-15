@@ -69,7 +69,7 @@ private:
   /// This function is called in worker thread
   void CalculateRoute();
   void ResetDelegate();
-  void LogCode(RouterResultCode code, double const elapsedSec);
+  static void LogCode(RouterResultCode code, double const elapsedSec);
 
   /// Blocks callbacks when routing has been cancelled
   class RouterDelegateProxy

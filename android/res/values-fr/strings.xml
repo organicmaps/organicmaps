@@ -995,6 +995,7 @@
 	<string name="type.emergency.phone">Téléphone d\'urgence</string>
 	<string name="type.entrance">Entrée</string>
 	<string name="type.healthcare.laboratory">Laboratoire médical</string>
+	<string name="type.healthcare.physiotherapist">Physiothérapeute</string>
 
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway.bridleway">Chemin pour cavalier</string>

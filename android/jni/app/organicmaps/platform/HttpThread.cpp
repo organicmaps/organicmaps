@@ -8,6 +8,7 @@ class HttpThread
 {
 private:
   jobject m_self;
+  jclass m_klass;
 
 public:
   HttpThread(std::string const & url,
@@ -18,8 +19,8 @@ public:
              std::string const & pb)
   {
     JNIEnv * env = jni::GetEnv();
-
     static jclass const klass = jni::GetGlobalClassRef(env, "app/organicmaps/downloader/ChunkTask");
+    m_klass = klass;
     // public ChunkTask(long httpCallbackID, String url, long beg, long end,
     //                  long expectedFileSize, byte[] postBody, String userAgent)
     static jmethodID const initMethodId = jni::GetConstructorID(env, klass, "(JLjava/lang/String;JJJ[B)V");
@@ -51,8 +52,8 @@ public:
   ~HttpThread()
   {
     JNIEnv * env = jni::GetEnv();
-    jmethodID methodId = jni::GetMethodID(env, m_self, "cancel", "(Z)Z");
-    env->CallBooleanMethod(m_self, methodId, false);
+    static jmethodID const cancelMethodId = env->GetMethodID(m_klass, "cancel", "(Z)Z");
+    env->CallBooleanMethod(m_self, cancelMethodId, false);
     env->DeleteGlobalRef(m_self);
   }
 };

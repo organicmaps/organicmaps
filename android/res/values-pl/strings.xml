@@ -1002,6 +1002,7 @@
 	<string name="type.emergency.phone">Telefon alarmowy</string>
 	<string name="type.entrance">Wejście</string>
 	<string name="type.healthcare.laboratory">Laboratorium Medyczne</string>
+	<string name="type.healthcare.physiotherapist">Fizjoterapeuta</string>
 
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway">Droga</string>

@@ -130,6 +130,8 @@
 	<string name="recycling">Tái chế rác thải</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
 	<string name="water">Nước</string>
+	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
+	<string name="rv">Đối với RV</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Ghi chú</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -909,6 +911,7 @@
 	<string name="type.emergency.phone">Điện thoại khẩn cấp</string>
 	<string name="type.entrance">Lối vào</string>
 	<string name="type.healthcare.laboratory">Phòng thí nghiệm y tế</string>
+	<string name="type.healthcare.physiotherapist">Nhà vật lý trị liệu</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->

@@ -50,18 +50,17 @@
 
 #include "defines.hpp"
 
+namespace storage_tests
+{
 using namespace platform::tests_support;
 using namespace platform;
 using namespace std::placeholders;
-using namespace std;
+using namespace storage;
+using std::make_unique, std::string, std::vector, std::unique_ptr;
 
-namespace storage
-{
+using LocalFilePtr = std::shared_ptr<LocalCountryFile>;
+
 string const kMapTestDir = "map-tests";
-
-namespace
-{
-using LocalFilePtr = shared_ptr<LocalCountryFile>;
 
 class DummyDownloadingPolicy : public DownloadingPolicy
 {
@@ -75,13 +74,12 @@ public:
   explicit SometimesFailingDownloadingPolicy(vector<uint64_t> const & failedRequests)
     : m_failedRequests(failedRequests)
   {
-    sort(m_failedRequests.begin(), m_failedRequests.end());
+    std::sort(m_failedRequests.begin(), m_failedRequests.end());
   }
 
   bool IsDownloadingAllowed() override
   {
-    auto const allowed =
-        !binary_search(m_failedRequests.begin(), m_failedRequests.end(), m_request);
+    bool const allowed = !std::binary_search(m_failedRequests.begin(), m_failedRequests.end(), m_request);
     ++m_request;
     return allowed;
   }
@@ -339,9 +337,8 @@ protected:
 
 // Checks following state transitions:
 // NotDownloaded -> Downloading -> OnDisk.
-unique_ptr<CountryDownloaderChecker> AbsentCountryDownloaderChecker(Storage & storage,
-                                                                    CountryId const & countryId,
-                                                                    MapFileType type)
+unique_ptr<CountryDownloaderChecker> AbsentCountryDownloaderChecker(
+    Storage & storage, CountryId const & countryId, MapFileType type)
 {
   return make_unique<CountryDownloaderChecker>(
       storage, countryId, type,
@@ -350,9 +347,8 @@ unique_ptr<CountryDownloaderChecker> AbsentCountryDownloaderChecker(Storage & st
 
 // Checks following state transitions:
 // NotDownloaded -> Downloading -> NotDownloaded.
-unique_ptr<CountryDownloaderChecker> CancelledCountryDownloaderChecker(Storage & storage,
-                                                                       CountryId const & countryId,
-                                                                       MapFileType type)
+unique_ptr<CountryDownloaderChecker> CancelledCountryDownloaderChecker(
+    Storage & storage, CountryId const & countryId, MapFileType type)
 {
   return make_unique<CountryDownloaderChecker>(
       storage, countryId, type,
@@ -366,8 +362,8 @@ public:
     : m_storage(storage), m_countryId(countryId), m_status(status), m_triggered(false)
   {
     m_slot = m_storage.Subscribe(
-        bind(&CountryStatusChecker::OnCountryStatusChanged, this, _1),
-        bind(&CountryStatusChecker::OnCountryDownloadingProgress, this, _1, _2));
+        std::bind(&CountryStatusChecker::OnCountryStatusChanged, this, _1),
+        std::bind(&CountryStatusChecker::OnCountryDownloadingProgress, this, _1, _2));
   }
 
   ~CountryStatusChecker()
@@ -406,8 +402,8 @@ public:
   FailedDownloadingWaiter(Storage & storage, CountryId const & countryId)
     : m_storage(storage), m_countryId(countryId), m_finished(false)
   {
-    m_slot = m_storage.Subscribe(bind(&FailedDownloadingWaiter::OnStatusChanged, this, _1),
-                                 bind(&FailedDownloadingWaiter::OnProgress, this, _1, _2));
+    m_slot = m_storage.Subscribe(std::bind(&FailedDownloadingWaiter::OnStatusChanged, this, _1),
+                                 std::bind(&FailedDownloadingWaiter::OnProgress, this, _1, _2));
   }
 
   ~FailedDownloadingWaiter()
@@ -418,7 +414,7 @@ public:
 
   void Wait()
   {
-    unique_lock<mutex> lock(m_mu);
+    std::unique_lock<std::mutex> lock(m_mu);
     m_cv.wait(lock, [this]()
     {
       return m_finished;
@@ -432,7 +428,7 @@ public:
     Status const status = m_storage.CountryStatusEx(countryId);
     if (status != Status::DownloadFailed)
       return;
-    lock_guard<mutex> lock(m_mu);
+    std::lock_guard<std::mutex> lock(m_mu);
     m_finished = true;
     m_cv.notify_one();
 
@@ -446,8 +442,8 @@ private:
   CountryId const m_countryId;
   int m_slot;
 
-  mutex m_mu;
-  condition_variable m_cv;
+  std::mutex m_mu;
+  std::condition_variable m_cv;
   bool m_finished;
 };
 
@@ -493,7 +489,6 @@ protected:
   TaskRunner runner;
   WritableDirChanger writableDirChanger;
 };
-}  // namespace
 
 UNIT_TEST(StorageTest_ParseIndexFile)
 {
@@ -1521,4 +1516,4 @@ UNIT_CLASS_TEST(StorageTest, MultipleMaps)
   // Unfortunately, whole country was not downloaded.
   TEST_EQUAL(storage.CountryStatusEx(nodeId), Status::NotDownloaded, ());
 }
-}  // namespace storage
+}  // namespace storage_tests

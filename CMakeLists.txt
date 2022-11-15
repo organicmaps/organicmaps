@@ -25,7 +25,11 @@ message(STATUS "Using compiler ${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VER
 option(UNITY_DISABLE "Disable unity build" OFF)
 if (NOT UNITY_DISABLE AND NOT DEFINED ENV{UNITY_DISABLE})
   set(CMAKE_UNITY_BUILD ON)
-  set(CMAKE_UNITY_BUILD_BATCH_SIZE 50)
+  if (DEFINED ENV{UNITY_BUILD_BATCH_SIZE})
+    set(CMAKE_UNITY_BUILD_BATCH_SIZE $ENV{UNITY_BUILD_BATCH_SIZE})
+  else()
+    set(CMAKE_UNITY_BUILD_BATCH_SIZE 50)
+  endif()
   message(STATUS "Using Unity Build with batch ${CMAKE_UNITY_BUILD_BATCH_SIZE}, export UNITY_DISABLE=1 or use -DUNITY_DISABLE=ON to disable it.")
 endif()
 
@@ -298,6 +302,7 @@ add_subdirectory(3party/agg)
 add_subdirectory(3party/bsdiff-courgette)
 
 add_subdirectory(3party/gflags)
+target_compile_options(gflags_nothreads_static PRIVATE $<$<CXX_COMPILER_ID:GNU>:-Wno-subobject-linkage>)
 # Not needed for the usual build process, but it fixes QtCreator editor,
 # that doesn't see gflags/gflags.h in binary dir (gflags has tricky cmake configuration).
 if (PLATFORM_DESKTOP)
@@ -325,12 +330,6 @@ add_subdirectory(3party/vulkan_wrapper)
 if (PLATFORM_DESKTOP)
   add_subdirectory(3party/libtess2)
 endif()
-
-# Only options related to warnings should be placed here.
-# Other options should be set before all add_subdirectory calls.
-add_compile_options(
-  "-Wall"
-)
 
 find_package(Python3 COMPONENTS Interpreter)
 if (Python3_Interpreter_FOUND)

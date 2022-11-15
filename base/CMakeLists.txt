@@ -1,8 +1,11 @@
 project(base)
 
 set(SRC
-  # Added to automatically recompile our sources if the submodule is updated.
+  # Our code will be recompiled on modification of these headers.
   ../3party/fast_double_parser/include/fast_double_parser.h
+  ../std/boost_container_hash.hpp
+  ../std/target_os.hpp
+  ../std/windows.hpp
   array_adapters.hpp
   assert.hpp
   atomic_shared_ptr.hpp

@@ -1,6 +1,8 @@
 #include "search/search_quality/helpers_json.hpp"
 
-using namespace std;
+namespace m2
+{
+using std::string;
 
 namespace
 {
@@ -11,8 +13,6 @@ void ParsePoint(json_t * root, m2::PointD & point)
 }
 }  // namespace
 
-namespace m2
-{
 void FromJSONObject(json_t * root, char const * field, RectD & rect)
 {
   json_t * r = base::GetJSONObligatoryField(root, field);
@@ -58,12 +58,12 @@ void FromJSONObject(json_t * root, string const & field, PointD & point)
   FromJSONObject(root, field.c_str(), point);
 }
 
-void FromJSONObjectOptional(json_t * root, char const * field, optional<PointD> & point)
+void FromJSONObjectOptional(json_t * root, char const * field, std::optional<PointD> & point)
 {
   json_t * p = base::GetJSONOptionalField(root, field);
   if (!p || base::JSONIsNull(p))
   {
-    point = nullopt;
+    point = std::nullopt;
     return;
   }
 
@@ -80,7 +80,7 @@ void ToJSONObject(json_t & root, char const * field, PointD const & point)
   json_object_set_new(&root, field, json.release());
 }
 
-void FromJSONObjectOptional(json_t * root, string const & field, optional<PointD> & point)
+void FromJSONObjectOptional(json_t * root, string const & field, std::optional<PointD> & point)
 {
   FromJSONObjectOptional(root, field.c_str(), point);
 }
@@ -90,7 +90,7 @@ void ToJSONObject(json_t & root, string const & field, PointD const & point)
   ToJSONObject(root, field.c_str(), point);
 }
 
-void ToJSONObject(json_t & root, char const * field, optional<PointD> const & point)
+void ToJSONObject(json_t & root, char const * field, std::optional<PointD> const & point)
 {
   if (point)
     ToJSONObject(root, field, *point);
@@ -98,7 +98,7 @@ void ToJSONObject(json_t & root, char const * field, optional<PointD> const & po
     ToJSONObject(root, field, base::NewJSONNull());
 }
 
-void ToJSONObject(json_t & root, string const & field, optional<PointD> const & point)
+void ToJSONObject(json_t & root, string const & field, std::optional<PointD> const & point)
 {
   ToJSONObject(root, field.c_str(), point);
 }

@@ -1,0 +1,1 @@
+utazás,navigáció,GPS,irányok,útvonal,túra,kerékpár,kerékpározás,openstreetmap,osm,nyomvonalak,nav

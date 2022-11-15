@@ -3,9 +3,12 @@
 #include "std/target_os.hpp"
 
 #include <ctime>
+#include <optional>
 #include <vector>
 
-namespace
+extern "C" location::LocationService * CreateAppleLocationService(location::LocationObserver &);
+
+namespace location
 {
 static double ApproxDistanceSquareInMeters(double lat1, double lon1, double lat2, double lon2)
 {
@@ -17,15 +20,12 @@ static double ApproxDistanceSquareInMeters(double lat1, double lon1, double lat2
 /// Chooses most accurate data from different position services
 class PositionFilter
 {
-  location::GpsInfo * m_prevLocation;
+  std::optional<location::GpsInfo> m_prevLocation;
 public:
-  PositionFilter() : m_prevLocation(NULL) {}
-  ~PositionFilter() { delete m_prevLocation; }
-
   /// @return true if location should be sent to observers
   bool Passes(location::GpsInfo const & newLocation)
   {
-    if (std::time(NULL) - newLocation.m_timestamp > 300.0)
+    if (std::time(nullptr) - newLocation.m_timestamp > 300.0)
       return false;
 
     bool passes = true;
@@ -43,16 +43,11 @@ public:
         passes = false;
     }
     else
-      m_prevLocation = new location::GpsInfo(newLocation);
+      m_prevLocation = newLocation;
     return passes;
   }
 };
-}  // namespace
 
-extern "C" location::LocationService * CreateAppleLocationService(location::LocationObserver &);
-
-namespace location
-{
   class DesktopLocationService : public LocationService, public LocationObserver
   {
     std::vector<LocationService *> m_services;

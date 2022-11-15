@@ -155,7 +155,7 @@ void ReadItems(uint32_t start, uint32_t end, string const & name, NonOwningReade
 
 
 // DeserializerFromJson ---------------------------------------------------------------------------
-DeserializerFromJson::DeserializerFromJson(json_struct_t * node,
+DeserializerFromJson::DeserializerFromJson(json_t * node,
                                            OsmIdToFeatureIdsMap const & osmIdToFeatureIds)
     : m_node(node), m_osmIdToFeatureIds(osmIdToFeatureIds)
 {

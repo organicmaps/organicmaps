@@ -7,28 +7,21 @@
 
 #include "base/logging.hpp"
 
-#include "std/target_os.hpp"
-
-#include <algorithm>
 #include <future>
 #include <memory>
 #include <regex>
-#include <string>
 
 #include <QtCore/QCoreApplication>
 #include <QtCore/QDir>
-#include <QtCore/QFileInfo>
 #include <QtCore/QLocale>
 
-using namespace std;
-
-unique_ptr<ModelReader> Platform::GetReader(string const & file, string searchScope) const
+std::unique_ptr<ModelReader> Platform::GetReader(std::string const & file, std::string searchScope) const
 {
-  return make_unique<FileReader>(ReadPathForFile(file, move(searchScope)),
+  return std::make_unique<FileReader>(ReadPathForFile(file, std::move(searchScope)),
                                  READER_CHUNK_LOG_SIZE, READER_CHUNK_LOG_COUNT);
 }
 
-bool Platform::GetFileSizeByName(string const & fileName, uint64_t & size) const
+bool Platform::GetFileSizeByName(std::string const & fileName, uint64_t & size) const
 {
   try
   {
@@ -40,33 +33,27 @@ bool Platform::GetFileSizeByName(string const & fileName, uint64_t & size) const
   }
 }
 
-void Platform::GetFilesByRegExp(string const & directory, string const & regexp, FilesList & outFiles)
+void Platform::GetFilesByRegExp(std::string const & directory, std::string const & regexp, FilesList & outFiles)
 {
-  regex exp(regexp);
+  std::regex exp(regexp);
 
   QDir dir(QString::fromUtf8(directory.c_str()));
   int const count = dir.count();
 
   for (int i = 0; i < count; ++i)
   {
-    string const name = dir[i].toUtf8().data();
-    if (regex_search(name.begin(), name.end(), exp))
-      outFiles.push_back(name);
+    std::string name = dir[i].toStdString();
+    if (std::regex_search(name.begin(), name.end(), exp))
+      outFiles.push_back(std::move(name));
   }
 }
 
-int Platform::PreCachingDepth() const
-{
-  return 3;
-}
+int Platform::PreCachingDepth() const { return 3; }
 
-int Platform::VideoMemoryLimit() const
-{
-  return 20 * 1024 * 1024;
-}
+int Platform::VideoMemoryLimit() const { return 20 * 1024 * 1024; }
 
 // static
-Platform::EError Platform::MkDir(string const & dirName)
+Platform::EError Platform::MkDir(std::string const & dirName)
 {
   if (QDir().exists(dirName.c_str()))
     return Platform::ERR_FILE_ALREADY_EXISTS;

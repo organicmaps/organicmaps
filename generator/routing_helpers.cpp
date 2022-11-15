@@ -2,18 +2,12 @@
 
 #include "generator/utils.hpp"
 
-#include "coding/file_reader.hpp"
-#include "coding/reader.hpp"
-
 #include "base/logging.hpp"
 
-using std::map;
-using std::string;
-
-namespace
+namespace routing
 {
 template <class ToDo>
-bool ForEachWayFromFile(string const & filename, ToDo && toDo)
+static bool ForEachWayFromFile(std::string const & filename, ToDo && toDo)
 {
   return generator::ForEachOsmId2FeatureId(
       filename, [&](auto const & compositeOsmId, auto featureId) {
@@ -22,17 +16,14 @@ bool ForEachWayFromFile(string const & filename, ToDo && toDo)
           toDo(featureId, osmId);
       });
 }
-}  // namespace
 
-namespace routing
-{
 void AddFeatureId(base::GeoObjectId osmId, uint32_t featureId,
                   OsmIdToFeatureIds & osmIdToFeatureIds)
 {
   osmIdToFeatureIds[osmId].push_back(featureId);
 }
 
-bool ParseWaysOsmIdToFeatureIdMapping(string const & osmIdsToFeatureIdPath,
+bool ParseWaysOsmIdToFeatureIdMapping(std::string const & osmIdsToFeatureIdPath,
                                       OsmIdToFeatureIds & osmIdToFeatureIds)
 {
   return ForEachWayFromFile(osmIdsToFeatureIdPath,
@@ -41,7 +32,7 @@ bool ParseWaysOsmIdToFeatureIdMapping(string const & osmIdsToFeatureIdPath,
                              });
 }
 
-bool ParseWaysFeatureIdToOsmIdMapping(string const & osmIdsToFeatureIdPath,
+bool ParseWaysFeatureIdToOsmIdMapping(std::string const & osmIdsToFeatureIdPath,
                                       FeatureIdToOsmId & featureIdToOsmId)
 {
   featureIdToOsmId.clear();

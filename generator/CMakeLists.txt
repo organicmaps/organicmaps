@@ -235,6 +235,7 @@ set(SRC
   ways_merger.hpp
   wiki_url_dumper.cpp
   wiki_url_dumper.hpp
+  water_boundary_checker.hpp
   world_map_generator.hpp
 )
 

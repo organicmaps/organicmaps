@@ -55,12 +55,6 @@ namespace feature
       m_scales.assign(arr, arr + N);
     }
 
-    inline void AddLanguage(int8_t i)
-    {
-      ASSERT_GREATER(i, 0, ());
-      m_langs.push_back(static_cast<uint8_t>(i));
-    }
-
     size_t GetScalesCount() const { return m_scales.size(); }
     int GetScale(size_t i) const { return static_cast<int>(m_scales[i]); }
     int GetLastScale() const { return m_scales.back(); }
@@ -84,6 +78,7 @@ namespace feature
     std::pair<int64_t, int64_t> m_bounds;
 
     buffer_vector<uint8_t, kMaxScalesCount> m_scales;
+    // Is not used now (see data/countries_meta.txt). Can be reused for something else.
     buffer_vector<uint8_t, 2> m_langs;
   };
 

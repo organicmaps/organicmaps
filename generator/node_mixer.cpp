@@ -3,11 +3,9 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
-using namespace std;
-
 namespace generator
 {
-void MixFakeNodes(istream & stream, function<void(OsmElement &)> processor)
+void MixFakeNodes(std::istream & stream, std::function<void(OsmElement &)> const & processor)
 {
   if (stream.fail())
     return;
@@ -24,8 +22,9 @@ void MixFakeNodes(istream & stream, function<void(OsmElement &)> processor)
   p.m_id = baseNodeId;
   p.m_type = OsmElement::EntityType::Node;
 
+  using std::string;
   string line;
-  while (getline(stream, line))
+  while (std::getline(stream, line))
   {
     if (line.empty())
     {

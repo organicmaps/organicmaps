@@ -19,10 +19,8 @@
 
 namespace features_dumper
 {
-using namespace std;
+using std::cout, std::endl, std::pair, std::string, std::vector;
 
-namespace
-{
 template <typename Value>
 struct SearchTokensCollector
 {
@@ -44,21 +42,20 @@ struct SearchTokensCollector
   {
     if (m_currentCount > 0)
       m_tokens.emplace_back(m_currentCount, m_currentS);
-    sort(m_tokens.begin(), m_tokens.end(), greater<pair<uint32_t, strings::UniString>>());
+    sort(m_tokens.begin(), m_tokens.end(), std::greater<pair<uint32_t, strings::UniString>>());
   }
 
   vector<pair<uint32_t, strings::UniString>> m_tokens;
   strings::UniString m_currentS;
   uint32_t m_currentCount;
 };
-}  // namespace
 
   class TypesCollector
   {
     vector<uint32_t> m_currFeatureTypes;
 
   public:
-    typedef map<vector<uint32_t>, size_t> value_type;
+    typedef std::map<vector<uint32_t>, size_t> value_type;
     value_type m_stats;
     size_t m_namesCount;
     size_t m_totalCount;
@@ -101,11 +98,11 @@ struct SearchTokensCollector
     vec_to_sort vecToSort(doClass.m_stats.begin(), doClass.m_stats.end());
     sort(vecToSort.begin(), vecToSort.end(), &SortFunc<stats_elem_type>);
 
-    for (vec_to_sort::iterator it = vecToSort.begin(); it != vecToSort.end(); ++it)
+    for (auto const & el : vecToSort)
     {
-      cout << it->second << " ";
-      for (size_t i = 0; i < it->first.size(); ++i)
-        cout << classif().GetFullObjectName(it->first[i]) << " ";
+      cout << el.second << " ";
+      for (uint32_t i : el.first)
+        cout << classif().GetFullObjectName(i) << " ";
       cout << endl;
     }
     cout << "Total features: " << doClass.m_totalCount << endl;
@@ -114,13 +111,13 @@ struct SearchTokensCollector
 
   ///////////////////////////////////////////////////////////////////
 
-  typedef map<int8_t, map<strings::UniString, pair<unsigned int, string> > > TokensContainerT;
+  typedef std::map<int8_t, std::map<strings::UniString, pair<unsigned int, string> > > TokensContainerT;
   class PrefixesCollector
   {
   public:
     TokensContainerT m_stats;
 
-    void operator()(int8_t langCode, string_view name)
+    void operator()(int8_t langCode, std::string_view name)
     {
       CHECK(!name.empty(), ("Feature name is empty"));
 
@@ -133,10 +130,9 @@ struct SearchTokensCollector
           s.append(tokens[numTokens].begin(), tokens[numTokens].end());
           s.push_back(' ');
         }
-        pair<TokensContainerT::mapped_type::iterator, bool> found =
-            m_stats[langCode].insert(make_pair(s, make_pair(1U, name)));
-        if (!found.second)
-          found.first->second.first++;
+        auto [iter, found] = m_stats[langCode].emplace(s, std::make_pair(1U, name));
+        if (!found)
+          iter->second.first++;
       }
     }
 
@@ -146,7 +142,7 @@ struct SearchTokensCollector
     }
   };
 
-  static size_t const MIN_OCCURRENCE = 3;
+  static size_t constexpr MIN_OCCURRENCE = 3;
 
   void Print(int8_t langCode, TokensContainerT::mapped_type const & container)
   {
@@ -154,19 +150,19 @@ struct SearchTokensCollector
     typedef vector<NameElemT> VecToSortT;
 
     VecToSortT v(container.begin(), container.end());
-    sort(v.begin(), v.end(), &SortFunc<NameElemT>);
+    std::sort(v.begin(), v.end(), &SortFunc<NameElemT>);
 
     // do not display prefixes with low occurrences
     if (v[0].second.first > MIN_OCCURRENCE)
     {
       cout << "Language code: " << StringUtf8Multilang::GetLangByCode(langCode) << endl;
 
-      for (VecToSortT::iterator it = v.begin(); it != v.end(); ++it)
+      for (auto const & el : v)
       {
-        if (it->second.first <= MIN_OCCURRENCE)
+        if (el.second.first <= MIN_OCCURRENCE)
           break;
-        cout << it->second.first << " " << strings::ToUtf8(it->first);
-        cout << " \"" << it->second.second << "\"" << endl;
+        cout << el.second.first << " " << strings::ToUtf8(el.first);
+        cout << " \"" << el.second.second << "\"" << endl;
       }
     }
   }
@@ -175,18 +171,15 @@ struct SearchTokensCollector
   {
     PrefixesCollector doClass;
     feature::ForEachFeature(fPath, doClass);
-    for (TokensContainerT::iterator it = doClass.m_stats.begin();
-         it != doClass.m_stats.end(); ++it)
-    {
-      Print(it->first, it->second);
-    }
+    for (auto const & [langCode, container] : doClass.m_stats)
+      Print(langCode, container);
   }
 
   void DumpSearchTokens(string const & fPath, size_t maxTokensToShow)
   {
     using Value = Uint64IndexValue;
 
-    FilesContainerR container(make_unique<FileReader>(fPath));
+    FilesContainerR container(std::make_unique<FileReader>(fPath));
     feature::DataHeader header(container);
 
     auto const trieRoot = trie::ReadTrie<ModelReaderPtr, ValueList<Value>>(
@@ -196,7 +189,7 @@ struct SearchTokensCollector
     trie::ForEachRef(*trieRoot, f, strings::UniString());
     f.Finish();
 
-    for (size_t i = 0; i < min(maxTokensToShow, f.m_tokens.size()); ++i)
+    for (size_t i = 0; i < std::min(maxTokensToShow, f.m_tokens.size()); ++i)
     {
       auto const & s = f.m_tokens[i].second;
       cout << f.m_tokens[i].first << " " << strings::ToUtf8(s) << endl;
@@ -209,7 +202,7 @@ struct SearchTokensCollector
 
     feature::ForEachFeature(fPath, [&](FeatureType & f, uint32_t)
     {
-      f.ForEachName([&](int8_t langCode, string_view name)
+      f.ForEachName([&](int8_t langCode, std::string_view name)
       {
         CHECK(!name.empty(), ("Feature name is empty"));
 

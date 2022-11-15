@@ -1,14 +1,9 @@
 #include "geometry/distance_on_sphere.hpp"
 
-#include "geometry/point3d.hpp"
-
-#include "base/assert.hpp"
 #include "base/math.hpp"
 
 #include <algorithm>
 #include <cmath>
-
-using namespace std;
 
 namespace ms
 {
@@ -19,7 +14,7 @@ double DistanceOnSphere(double lat1Deg, double lon1Deg, double lat2Deg, double l
   double const dlat = sin((lat2 - lat1) * 0.5);
   double const dlon = sin((base::DegToRad(lon2Deg) - base::DegToRad(lon1Deg)) * 0.5);
   double const y = dlat * dlat + dlon * dlon * cos(lat1) * cos(lat2);
-  return 2.0 * atan2(sqrt(y), sqrt(max(0.0, 1.0 - y)));
+  return 2.0 * atan2(sqrt(y), sqrt(std::max(0.0, 1.0 - y)));
 }
 
 double DistanceOnEarth(double lat1Deg, double lon1Deg, double lat2Deg, double lon2Deg)

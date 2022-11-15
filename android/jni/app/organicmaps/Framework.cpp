@@ -471,6 +471,16 @@ void Framework::ShowNode(CountryId const & idx, bool zoomToDownloadButton)
   }
 }
 
+void Framework::Scale(double factor, m2::PointD const & pxPoint, bool isAnim)
+{
+  m_work.Scale(factor, pxPoint, isAnim);
+}
+
+void Framework::Move(double factorX, double factorY, bool isAnim)
+{
+  m_work.Move(factorX, factorY, isAnim);
+}
+
 void Framework::Touch(int action, Finger const & f1, Finger const & f2, uint8_t maskedPointer)
 {
   MultiTouchAction eventType = static_cast<MultiTouchAction>(action);
@@ -1258,7 +1268,8 @@ Java_app_organicmaps_Framework_nativeGenerateRouteAltitudeChartBits(JNIEnv * env
   }
 
   // Passing route limits.
-  jclass const routeAltitudeLimitsClass = env->GetObjectClass(routeAltitudeLimits);
+  // Do not use jni::GetGlobalClassRef, because this class is used only to init static fieldId vars.
+  static jclass const routeAltitudeLimitsClass = env->GetObjectClass(routeAltitudeLimits);
   ASSERT(routeAltitudeLimitsClass, ());
 
   static jfieldID const totalAscentField = env->GetFieldID(routeAltitudeLimitsClass, "totalAscent", "I");
@@ -1558,7 +1569,7 @@ Java_app_organicmaps_Framework_nativeGet3dMode(JNIEnv * env, jclass, jobject res
   bool buildings;
   g_framework->Get3dMode(enabled, buildings);
 
-  jclass const resultClass = env->GetObjectClass(result);
+  static jclass const resultClass = env->GetObjectClass(result);
 
   static jfieldID const enabledField = env->GetFieldID(resultClass, "enabled", "Z");
   env->SetBooleanField(result, enabledField, enabled);

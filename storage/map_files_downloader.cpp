@@ -152,7 +152,8 @@ std::vector<std::string> MapFilesDownloader::MakeUrlList(std::string const & rel
 // static
 MetaConfig MapFilesDownloader::LoadMetaConfig()
 {
-  std::string const metaServerUrl = GetPlatform().MetaServerUrl();
+  Platform & pl = GetPlatform();
+  std::string const metaServerUrl = pl.MetaServerUrl();
   std::string httpResult;
 
   if (!metaServerUrl.empty())
@@ -167,7 +168,7 @@ MetaConfig MapFilesDownloader::LoadMetaConfig()
   std::optional<MetaConfig> metaConfig = downloader::ParseMetaConfig(httpResult);
   if (!metaConfig)
   {
-    metaConfig = downloader::ParseMetaConfig(GetPlatform().DefaultUrlsJSON());
+    metaConfig = downloader::ParseMetaConfig(pl.DefaultUrlsJSON());
     CHECK(metaConfig, ());
     LOG(LWARNING, ("Can't get meta configuration from request, using default servers:", metaConfig->m_serversList));
   }

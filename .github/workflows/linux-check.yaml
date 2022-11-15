@@ -76,7 +76,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        compiler: [{ CXX: g++-11, CC: gcc-11 }, { CXX: clang++-14, CC: clang-14 }]
+        compiler: [{ CXX: g++-12, CC: gcc-12 }, { CXX: clang++-14, CC: clang-14 }]
         CMAKE_BUILD_TYPE: [Debug, RelWithDebInfo]
 
     steps:
@@ -97,10 +97,11 @@ jobs:
         run: |
           sudo apt update -y
           sudo apt install -y \
+              g++-12 \
+              gcc-12 \
               ninja-build \
               qtbase5-dev \
-              libqt5svg5-dev \
-              clang-tools-11
+              libqt5svg5-dev
 
       - name: Configure
         shell: bash
