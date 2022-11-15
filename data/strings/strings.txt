@@ -13,6 +13,7 @@
     de = Zurück
     el = Πίσω
     es = Atrás
+    et = Tagasi
     eu = Atzera
     fa = بازگشت
     fi = Takaisin
@@ -53,6 +54,7 @@
     de = Abbrechen
     el = Άκυρο
     es = Cancelar
+    et = Tühista
     eu = Utzi
     fa = لغو
     fi = Peruuta
@@ -93,6 +95,7 @@
     de = Herunterladen abbrechen
     el = Ακύρωση λήψης
     es = Cancelar descarga
+    et = Tühista allalaadimine
     eu = Utzi deskargatzea
     fa = لغو دانلود
     fi = Peruuta lataus
@@ -133,6 +136,7 @@
     de = Löschen
     el = Διαγραφή
     es = Eliminar
+    et = Kustuta
     eu = Kendu
     fa = حذف
     fi = Poista
@@ -172,6 +176,7 @@
     de = Karten herunterladen
     el = Λήψη χαρτών
     es = Descargar mapas
+    et = Lae kaarte
     eu = Deskargatu mapak
     fa = دانلود نقشه ها
     fi = Lataa karttoja
@@ -212,6 +217,7 @@
     de = Herunterladen fehlgeschlagen. Antippen für einen neuen Versuch.
     el = Η λήψη απέτυχε. Αγγίξτε για να προσπαθήσετε ξανά.
     es = Error durante la descarga, iniciar otra vez
+    et = Allalaadimine ebaõnnestus. Puuduta uuesti proovimiseks.
     eu = Errore bat gertatu da deskargatzean, hasi berriro
     fa = دانلود ناموفق بود . برای تلاش مجدد لمس کنید
     fi = Lataus epäonnistui, yritä uudelleen koskettamalla
@@ -252,6 +258,7 @@
     de = Wird heruntergeladen…
     el = Λήψη…
     es = Descargando…
+    et = Allalaadimine…
     eu = Deskargatzen…
     fa = درحال دانلود
     fi = Ladataan…
@@ -293,6 +300,7 @@
     de = Kilometer
     el = Χιλιόμετρα
     es = Kilómetros
+    et = Kilomeetrid
     eu = Kilometroak
     fa = کیلومتر
     fi = Kilometrit
@@ -333,6 +341,7 @@
     de = Bericht abgeben
     el = Αφήστε μια κριτική
     es = Escribir una opinión
+    et = Jäta arvamus
     eu = Idatzi iritzia
     fa = نظر خود را بیان کنید
     fi = Jätä arviointi
@@ -401,6 +410,7 @@
     de = Meilen
     el = Μίλια
     es = Milla
+    et = Miilid
     eu = Milia
     fa = مایل
     fi = Mailit
@@ -441,6 +451,7 @@
     de = Mein Standort
     el = Η θέση μου
     es = Mi posición
+    et = Minu asukoht
     eu = Nire posizioa
     fa = مکان من
     fi = Sijaintini
@@ -481,6 +492,7 @@
     de = Später
     el = Αργότερα
     es = Luego
+    et = Hiljem
     eu = Geroago
     fa = بعداً
     fi = Myöhemmin
@@ -521,6 +533,7 @@
     de = Suche
     el = Αναζήτηση
     es = Buscar
+    et = Otsi
     eu = Bilatu
     fa = جست‌وجو
     fi = Haku
@@ -560,6 +573,7 @@
     de = Auf der Karte suchen
     el = Αναζήτηση χάρτη
     es = Buscar en el mapa
+    et = Otsi kaardilt
     eu = Bilatu mapan
     fa = جست‌وجوی نقشه
     fi = Hae kartalta
@@ -600,6 +614,7 @@
     de = Ja
     el = Ναι
     es = Sí
+    et = Jah
     eu = Bai
     fa = بله
     fi = Kyllä
@@ -640,6 +655,7 @@
     de = Ortungsdienste sind für dieses Gerät oder die App deaktiviert. Bitte aktivieren Sie diese in den Einstellungen.
     el = Οι υπηρεσίες εντοπισμού τοποθεσίας είναι προς το παρόν απενεργοποιημένες σε αυτή τη συσκευή ή για αυτή την εφαρμογή. Ενεργοποιήστε τις από τις Ρυθμίσεις.
     es = No se puede acceder a los servicios de localización. Por favor, activelo en los ajustes.
+    et = Seadme või rakenduse kõik asukohateenused on praegu välja lülitatud. Luba need Seadetes.
     eu = Ezin da kokapen-zerbitzuetara sartu. Mesedez, aktibatu ezarpenetan.
     fa = سرویس موقعیت مکانی شما غیر فعال است .لطفا جهت کارکرد صحیح نرم افزار ان را فعال کنید.
     fi = Laitteen tai sovelluksen kaikki sijaintipalvelut ovat tällä hetkellä poissa käytöstä. Ota ne käyttöön Asetukset-valikossa.
@@ -680,6 +696,7 @@
     de = Auf der Karte anzeigen
     el = Εμφάνιση στο χάρτη
     es = Mostrar en el mapa
+    et = Kuva kaardil
     eu = Mapan erakutsi
     fa = بر روی نقشه نمایش بده
     fi = Näytä kartalla
@@ -719,6 +736,7 @@
     de = Karte herunterladen
     el = Λήψη χάρτη
     es = Descargar mapa
+    et = Lae kaart alla
     eu = Deskargatu mapa
     fa = دانلود نقشه
     fi = Lataa kartta
@@ -759,6 +777,7 @@
     de = Herunterladen fehlgeschlagen
     el = Η λήψη απέτυχε
     es = Error durante la descarga
+    et = Allalaadimine ebaõnnestus
     eu = Errore bat deskargatzean
     fa = دانلود با شکست مواجه شد
     fi = Lataus epäonnistui
@@ -799,6 +818,7 @@
     de = Erneut versuchen
     el = Δοκιμάστε ξανά
     es = Intentar otra vez
+    et = Proovi uuesti
     eu = Saiatu berriro
     fa = تلاش مجدد
     fi = Yritä uudelleen
@@ -838,6 +858,7 @@
     de = Über Organic Maps
     el = Σχετικά με το Organic Maps
     es = Sobre Organic Maps
+    et = Organic Maps kohta
     eu = Organic Maps buruz
     fa = Organic Maps درباره‌ی
     fi = Tietoa Organic Maps:stä
@@ -877,6 +898,7 @@
     de = Verbindungseinstellungen
     el = Ρυθμίσεις σύνδεσης
     es = Ajustes de conexión
+    et = Ühenduse seaded
     eu = Konexio ezarpenak
     fa = تنظیمات اتصال
     fi = Yhteysasetukset
@@ -916,6 +938,7 @@
     de = Schließen
     el = Κλείσιμο
     es = Cerrar
+    et = Sulge
     eu = Itxi
     fa = بستن
     fi = Sulje
@@ -955,6 +978,7 @@
     de = Das Programm benötigt OpenGL, um zu funktionieren. Leider wird Ihr Gerät nicht unterstützt.
     el = Η εφαρμογή απαιτεί OpenGL με επιτάχυνση υλικού. Δυστυχώς, η συσκευή σας δεν το υποστηρίζει.
     es = La aplicación requiere OpenGL acelerado por hardware. Lamentablemente, su dispositivo no es compatible.
+    et = Rakendus vajab riistvaralist OpenGL tuge. Kahjuks Sinu seade ei ole toetatud.
     eu = Aplikazioak hardware-azeleratutako OpenGL behar du. Zoritxarrez, zure gailua ez da onartzen.
     fa = نیازمند است. متاسفانه دستگاه شما از ان پشتیبانی نمی کندOpenGLبرنامه برای اجرا به
     fi = Laitteistokiihdytetty OpenGL vaaditaan. Valitettavasti laitteesi ei ole tuettu.
@@ -994,6 +1018,7 @@
     de = Herunterladen
     el = Λήψη
     es = Descargar
+    et = Lae alla
     eu = Deskargatu
     fa = دانلود
     fi = Lataa
@@ -1034,6 +1059,7 @@
     de = Bitte USB-Kabel entfernen oder Speicherkarte einsetzen, um Organic Maps zu verwenden
     el = Αποσυνδέστε το καλώδιο USB ή τοποθετήστε την κάρτα μνήμης για να χρησιμοποιήσετε το Organic Maps
     es = Por favor desconectar el cable USB o insertar la memoria SD para usar Organic Maps
+    et = Organic Maps kasutamiseks palun ühenda USB kaabel lahti või sisesta mälukaart
     eu = Mesedez, deskonektatu USB kablea edo sartu SD memoria Organic Maps erabiltzeko
     fi = Irrota USB-kaapeli tai syötä muistikortti käyttääksesi Organic Maps -sovellusta
     fr = Veuillez débrancher le câble USB ou insérer la carte SD pour utiliser Organic Maps
@@ -1073,6 +1099,7 @@
     de = Bitte zuerst Speicherplatz auf SD-Karte/USB-Speicher freigeben, um die Anwendung zu nutzen
     el = Ελευθερώσετε  χώρο αποθήκευσης στην SD κάρτα/USB πρώτα προκειμένου να χρησιμοποιήσετε την εφαρμογή
     es = Por favor liberar espacio en la memoria SD/almacenamiento USB para usar la aplicación
+    et = Rakenduse kasutamiseks palun vabasta kõigepealt piisavalt ruumi mälukaardil/USB salvestusseadmel
     eu = Mesedez, egin lekua SD memorian/USB biltegian aplikazioa erabiltzeko
     fa = لطفا مقداری از فضای ذخیره سازی را آزاد نمایید
     fi = Vapauta ensin tilaa SD-kortilta/USB-massamuistilta käyttääksesi sovellusta
@@ -1112,6 +1139,7 @@
     de = Bevor Sie starten, laden Sie die allgemeine Weltkarte auf Ihr Gerät herunter.\nEs werden %@ Speicherplatz benötigt.
     el = Πριν ξεκινήσετε τη χρήση της εφαρμογής, επιτρέψτε μας να κατεβάσουμε το γενικό παγκόσμιο χάρτη στη συσκευή σας. \nIt θα χρησιμοποιήσει %@ αποθηκευτικού χώρου.
     es = Antes de comenzar, permite que descarguemos en tu dispositivo un mapamundi general.\nSe requieren %@ de datos.
+    et = Ennem rakenduse kasutamise alustamist luba meil laadida seadmesse alla maailma üldkaart.\nSee kasutab %@ mälumahtu.
     eu = Hasi baino lehen, utzi mundu-mapa orokor bat zure gailura deskargatzeko.\nDatuen %@ beharrezkoa da.
     fa = قبل از استفاده از اپلیکیشن, اجازه دهید تا ما نقشه جهانی را بر روی موبایل شما دانلود کنیم.\nمقدار %@ از حافظه شما اشغال می شود.
     fi = Ennen aloitusta laitteelle tulee ladata yleinen maailmankartta.\nSe tarvitsee yhteensä %@ dataa.
@@ -1151,6 +1179,7 @@
     de = Zur Karte
     el = Μετάβαση στο χάρτη
     es = Ir al mapa
+    et = Mine kaardile
     eu = Joan mapara
     fa = برو به نقشه
     fi = Siirry karttaan
@@ -1190,6 +1219,7 @@
     de = %@ wird heruntergeladen. Sie können jetzt\nzur Karte weitergehen.
     el = Λήψη %@. Μπορείτε τώρα να\nμεταβείτε στο χάρτη.
     es = Descargando %@. Puede ahora\nproceder al mapa
+    et = Allalaadimine %@. Võid nüüd\nkaardiga jätkata.
     eu = %@ deskargatzen. Orain mapara\n joan zaitezke.
     fa = درحال دانلود %@. شما اکنون می توانید\nبه نقشه بروید.
     fi = Ladataan %@. Voit nyt jatkaa kartalle.
@@ -1229,6 +1259,7 @@
     de = %@ herunterladen?
     el = Να γίνει λήψη %@;
     es = Descargar %@?
+    et = Laadida alla %@?
     eu = %@ deskargatu?
     fa = دانلود  %@?
     fi = Ladataanko %@?
@@ -1268,6 +1299,7 @@
     de = %@ aktualisieren?
     el = Να γίνει ενημέρωση %@;
     es = Actualizar %@?
+    et = Värskendada %@?
     eu = %@ eguneratzeko?
     fa = اپدیت %@?
     fi = Päivitetäänkö %@?
@@ -1308,6 +1340,7 @@
     de = Pause
     el = Παύση
     es = Pausar
+    et = Peata
     eu = Pausa
     fa = مکث
     fi = Pysäytä
@@ -1348,6 +1381,7 @@
     de = Fortfahren
     el = Συνέχεια
     es = Continuar
+    et = Jätka
     eu = Jarraitu
     fa = ادامه
     fi = Jatka
@@ -1388,6 +1422,7 @@
     de = %@ Herunterladen fehlgeschlagen
     el = η λήψη %@ απέτυχε
     es = %@ la descarga ha fallado
+    et = %@ allalaadimine ebaõnnestus
     eu = %@ deskargatu huts egin du
     fa = %@ دانلود با شکست مواجه شد
     fi = %@ lataus epäonnistui
@@ -1428,6 +1463,7 @@
     de = Neue Gruppe hinzufügen
     el = Προσθέστε νέο σύνολο
     es = Agregar un grupo nuevo
+    et = Lisa uus loetelu
     eu = Gehitu talde berri bat
     fa = اضافه کردن مجموعه جدید
     fi = Lisää uusi valikoima
@@ -1469,6 +1505,7 @@
     de = Lesezeichenfarbe
     el = Χρώμα αγαπημένου
     es = Color del marcador
+    et = Järjehoidja värv
     eu = Markatzailearen kolorea
     fa = رنگ نشانه
     fi = Kirjanmerkin väri
@@ -1509,6 +1546,7 @@
     de = Name des Lesezeichens
     el = Όνομα συνόλου αγαπημένων
     es = Nombre del grupo de marcadores
+    et = Järjehoidjate loetelu nimi
     eu = Markatzaile taldearen izena
     fi = Kirjanmerkkivalikoiman nimi
     fr = Nom du groupe de signets
@@ -1547,6 +1585,7 @@
     de = Lesezeichenmappe
     el = Σύνολα αγαπημένων
     es = Grupos de marcadores
+    et = Järjehoidjate loetelud
     eu = Markagailu taldeak
     fi = Kirjanmerkkivalikoimat
     fr = Groupes de signets
@@ -1586,6 +1625,7 @@
     de = Lesezeichen
     el = Αγαπημένα
     es = Marcadores
+    et = Järjehoidjad
     eu = Markagailuak
     fa = نشانه ها
     fi = Kirjanmerkit
@@ -1626,6 +1666,7 @@
     de = Meine Orte
     el = Οι τοποθεσίες μου
     es = Mis lugares
+    et = Minu kohad
     eu = Nire tokiak
     fa = مکان من
     fi = Paikkani
@@ -1666,6 +1707,7 @@
     de = Name
     el = Όνομα
     es = Nombre
+    et = Nimi
     eu = Izena
     fa = نام
     fi = Nimi
@@ -1706,6 +1748,7 @@
     de = Adresse
     el = Διεύθυνση
     es = Dirección
+    et = Aadress
     eu = Norabidea
     fa = ادرس
     fi = Osoite
@@ -1746,6 +1789,7 @@
     de = Liste
     el = Λίστα
     es = Lista
+    et = Loetelu
     eu = Zerrenda
     fa = لیست
     fi = Luettelo
@@ -1786,6 +1830,7 @@
     de = Einstellungen
     el = Ρυθμίσεις
     es = Configuración
+    et = Seaded
     eu = Ezarpenak
     fa = تنظیمات
     fi = Asetukset
@@ -1826,6 +1871,7 @@
     de = Karten speichern auf
     el = Αποθήκευση χαρτών στο
     es = Guardar mapas en
+    et = Salvesta kaardid asukohta
     eu = Mapak gordetzeko
     fa = ذخیره نقشه ها در
     fi = Tallenna kartat kohteeseen
@@ -1866,6 +1912,7 @@
     de = Wählen Sie den Speicherort für die heruntergeladenen Karten
     el = Επιλέξτε από που θα γίνει λήψη χαρτών
     es = Seleccione el lugar donde deben descargarse los mapas
+    et = Vali asukoht, kuhu kaardid tuleks alla laadida
     eu = Hautatu mapak non deskargatu behar diren
     fa = مسیری را که نقشه ها باید در ان دانلود شود را انتخاب کنید
     fi = Valitse karttojen latauskohde
@@ -1906,6 +1953,7 @@
     de = Karten
     el = Χάρτες
     es = Mapas
+    et = Kaardid
     eu = Mapak
     fa = نقشه ها
     fi = Kartat
@@ -1940,6 +1988,7 @@
     be = Унутранае прыватнае сховішча
     ca = Emmagatzematge privat intern
     de = Interner persönlicher Speicher
+    et = Sisemine privaatne salvestusruum
     fr = Stockage interne privé
     nl = Intern persoonlijk geheugen
     pl = Wewnętrzna pamięć prywatna
@@ -1956,6 +2005,7 @@
     be = Унутранае абагуленае сховішча
     ca = Emmagatzematge compartit intern
     de = Interner gemeinsamer Speicher
+    et = Sisemine jagatud salvestusruum
     fr = Stockage interne partagé
     nl = Intern gedeeld geheugen
     pl = Wewnętrzna pamięć współdzielona
@@ -1972,6 +2022,7 @@
     be = SD-карта
     ca = Targeta SD
     de = SD-Karte
+    et = SD-kaart
     fr = Carte SD
     nl = SD-kaart
     pl = Karta SD
@@ -1988,6 +2039,7 @@
     be = Знешняе абагульнае сховішча
     ca = Emmagatzematge compartit extern
     de = Externer gemeinsamer Speicher
+    et = Väline jagatud salvestusruum
     fr = Stockage externe partagé
     nl = Extern gedeeld geheugen
     pl = Zewnętrzna pamięć współdzielona
@@ -2004,6 +2056,7 @@
     be = %1$@ вольна з %2$@
     ca = %1$@ lliures de %2$@
     de = %1$@ frei von %2$@
+    et = %1$@ vaba ruumist %2$@
     fr = %1$@ libres sur %2$@
     nl = %1$@ beschikbaar van %2$@
     pl = %1$@ wolne z %2$@
@@ -2025,6 +2078,7 @@
     de = Karten verschieben?
     el = Να γίνει μετακίνηση χαρτών;
     es = ¿Mover mapas?
+    et = Teisaldada kaardid?
     eu = Mapak mugitu?
     fa = ایا نقشه ها جابه جا شود؟
     fi = Siirrä karttoja?
@@ -2059,6 +2113,7 @@
     ar = فشلت عملية نقل ملفات الخرائط
     ca = S'ha produït un error en moure els fitxers de mapes
     de = Fehler beim Verschieben der Karten
+    et = Kaardipaanide teisaldamine ebaõnnestus
     fr = Erreur lors du déplacement des cartes
     nl = Fout bij het verplaatsen van kaartbestanden
     pl = Błąd przenoszenia plików map
@@ -2079,6 +2134,7 @@
     de = Dies kann einige Minuten in Anspruch nehmen.\nBitte warten…
     el = Αυτό μπορεί να διαρκέσει αρκετά λεπτά. \nΠαρακαλώ περιμένετε…
     es = Esto podría tardar varios minutos.\nPor favor, espere…
+    et = See võib võtta mitu minutit.\nPalun oota…
     eu = Honek minutu batzuk iraun ditzake.\n Itxaron mesedez…
     fa = ممکن است چند دقیقه طول بکشد.\nلطفا صبر کنید…
     fi = Tämä voi kestää useita minuutteja.\nOdota hetki…
@@ -2119,6 +2175,7 @@
     de = Maßeinheiten
     el = Μονάδες μέτρησης
     es = Unidades de medida
+    et = Mõõtühikud
     eu = Neurketa-unitateak
     fa = واحد اندازه گیری
     fi = Mittayksiköt
@@ -2160,6 +2217,7 @@
     de = Wählen Sie zwischen Kilometern und Meilen
     el = Επιλέξετε ανάμεσα σε μίλια και χιλιόμετρα
     es = Elija entre millas y kilómetros
+    et = Vali miilide ja kilomeetrite vahel
     eu = Aukeratu mila eta kilometroen artean
     fa = بین مایل و کیلومتر انتخاب کنید
     fi = Valitse mailit tai kilometrit
@@ -2202,6 +2260,7 @@
     de = Essmöglichkeiten
     el = Πού να φάμε
     es = Dónde comer
+    et = Kus süüa
     eu = Non jan
     fa = کجا غذا بخوریم
     fi = Missä syödä
@@ -2242,6 +2301,7 @@
     de = Lebensmittel
     el = Παντοπωλεία
     es = Alimentación
+    et = Toidukaubad
     eu = Janariak
     fa = عطاری
     fi = Elintarvikkeet
@@ -2282,6 +2342,7 @@
     de = Verkehr
     el = Συγκοινωνία
     es = Transporte
+    et = Transport
     eu = Garraioa
     fa = حمل و نقل
     fi = Liikenne
@@ -2323,6 +2384,7 @@
     de = Tankstelle
     el = Βενζίνη
     es = Gasolinera
+    et = Tanklad
     eu = Erregai-geltokia
     fa = سوخت
     fi = Huoltoasema
@@ -2363,6 +2425,7 @@
     de = Parkplatz
     el = Χώρος στάθμευσης
     es = Aparcamiento
+    et = Parkla
     eu = Aparkalekua
     fa = پارکینگ
     fi = Parkkipaikka
@@ -2403,6 +2466,7 @@
     de = Shopping
     el = Ψώνια
     es = Compras
+    et = Poed
     eu = Erosketak
     fa = خرید کردن
     fi = Ostokset
@@ -2443,6 +2507,7 @@
     de = Hotel
     el = Ξενοδοχείο
     es = Hotel
+    et = Hotell
     eu = Hotela
     fa = هتل
     fi = Hotelli
@@ -2483,6 +2548,7 @@
     de = Sehenswürdigkeit
     el = Αξιοθέατα
     es = Turismo
+    et = Vaatamisväärsused
     eu = Turismoa
     fa = منظره
     fi = Nähtävyydet
@@ -2523,6 +2589,7 @@
     de = Unterhaltung
     el = Ψυχαγωγία
     es = Entretenimiento
+    et = Meelelahutus
     eu = Entretenimendua
     fa = سرگرمی
     fi = Viihde
@@ -2563,6 +2630,7 @@
     de = Geldautomat
     el = ATM
     es = Cajero automático
+    et = Pangaautomaat
     eu = Kutxazain automatikoa
     fa = خود پرداز
     fi = Pankkiautomaatti
@@ -2603,6 +2671,7 @@
     de = Nachtleben
     el = Νυχτερινή Ζωή
     es = Vida nocturna
+    et = Ööelu
     eu = Gaueko bizitza
     fa = تفریحات شبانه
     fi = Yöelämä
@@ -2643,6 +2712,7 @@
     de = Freizeit mit Kindern
     el = Οικογενειακές Διακοπές
     es = Ocio en familia
+    et = Perepuhkus
     eu = Familiako jarduerak
     fa = تعطیلات خانوادگی
     fi = Vapaa-aikaa lasten kanssa
@@ -2683,6 +2753,7 @@
     de = Bank
     el = Τράπεζα
     es = Banco
+    et = Pank
     eu = Bankua
     fa = بانک
     fi = Pankki
@@ -2723,6 +2794,7 @@
     de = Apotheke
     el = Φαρμακείο
     es = Farmacia
+    et = Apteek
     eu = Farmazia
     fa = داروخانه
     fi = Apteekki
@@ -2763,6 +2835,7 @@
     de = Krankenhaus
     el = Νοσοκομείο
     es = Hospital
+    et = Haigla
     eu = Ospitalea
     fa = بیمارستان
     fi = Sairaala
@@ -2804,6 +2877,7 @@
     de = Toilette
     el = Τουαλέτα
     es = Baños
+    et = Tualett
     eu = Komunak
     fa = توالت
     fi = WC
@@ -2844,6 +2918,7 @@
     de = Post
     el = Ταχυδρομείο
     es = Oficina de correos
+    et = Post
     eu = Posta bulegoa
     fa = صندوق پست
     fi = Posti
@@ -2884,6 +2959,7 @@
     de = Polizeistation
     el = Αστυνομία
     es = Policía
+    et = Politsei
     eu = Polizia
     fa = پلیس
     fi = Poliisi
@@ -2924,6 +3000,7 @@
     de = WLAN
     el = WiFi
     es = WiFi
+    et = WiFi
     eu = WiFi
     fa = وای فای
     fi = WiFi
@@ -2962,6 +3039,7 @@
     de = Recycling
     el = Ανακύκλωση
     es = Reciclaje
+    et = Taaskasutus
     es-MX = Reciclaje
     eu = Birziklapena
     fa = بازیافت
@@ -3002,6 +3080,7 @@
     de = Wasser
     el = Νερό
     es = Agua
+    et = Vesi
     es-MX = Agua
     eu = Ura
     fa = اب
@@ -3085,6 +3164,7 @@
     de = Notizen
     el = Σημειώσεις
     es = Notas
+    et = Märkmed
     eu = Notak
     fa = یادداشت ها
     fi = Muistiinpanot
@@ -3125,6 +3205,7 @@
     de = Organic Maps-Lesezeichen mit Ihnen geteilt
     el = Κοινοποιήθηκαν αγαπημένα Organic Maps με σας
     es = Marcapáginas de Organic Maps compartidos contigo
+    et = Organic Maps järjehoidjaid jagati Sinuga
     eu = Organic Maps markatzaileak zurekin partekatu dira
     fi = Jaetut Organic Maps-kirjanmerkit
     fr = Signets Organic Maps partagés
@@ -3159,6 +3240,7 @@
     ca = Hola!\n\nAdjunto els meus marcadors de l'aplicació Organic Maps. Obriu-los si teniu l'Organic Maps instal·lat. O, si no teniu l'aplicació, baixeu-la per al vostre aparell iOS o Android seguint aquest enllaç: https://omaps.app/get?kmz\n\nGaudiu viatjant amb l'Organic Maps!
     de = Hallo!\n\nIm Anhang sind meine Lesezeichen der Organic Maps App. Sie können sie mit Organic Maps öffnen. Wenn Sie die App nicht installiert haben, können Sie sie von https://omaps.app/get?kmz für iOS oder Android herunterladen.\n\nViel Spaß beim Reisen mit Organic Maps!
     es = Hola!\n\Adjunto mis marcadores de la aplicación Organic Maps. Por favor, ábrelos si tienes instalado Organic Maps. O, si no lo tienes, descarga la aplicación para tu dispositivo iOS o Android siguiendo este link: https://omaps.app/get?kmz\n¡Disfruta viajando con Organic Maps!
+    et = Tere!\nManuses on minu järjehoidjad rakendusest Organic Maps. Palun ava need kui Sul on Organic Maps paigaldatud. Või kui ei ole, lae rakendus alla oma iOS või Android seadmesse, järgides seda linki: https:omaps.appget?kmz\n\nNaudi reisimist Organic Maps-iga!
     eu = Kaixo!\nNire markatzaileak Mapak organikoak aplikaziotik erantsi ditut. Mesedez, ireki itzazu Organic Maps instalatuta baduzu. Edo, ez baduzu, deskargatu aplikazioa zure iOS edo Android gailurako esteka hau jarraituz: https://omaps.app/get?kmz\n\nGozatu bidaiatzen Organic Maps-ekin!
     fr = Bonjour !\n\nVous trouverez ci-joint mes signets de l'appli Organic Maps. Veuillez les ouvrir si vous avez installé Organic Maps. Si vous ne l'avez pas, téléchargez l'application pour votre appareil iOS ou Android en suivant ce lien : https://omaps.app/get?kmz\n\nBon voyage avec Organic Maps!
     it = Ciao!\n\nIn allegato ci sono i miei luoghi preferiti. Aprili se hai installato Organic Maps. Oppure, se non ce l'hai, scarica l'app per iOS o Android seguendo questo link: https://omaps.app/\n\nDivertiti a viaggiare con Organic Maps!
@@ -3185,6 +3267,7 @@
     de = Lesezeichen werden geladen
     el = Φόρτωση αγαπημένων
     es = Cargando favoritos
+    et = Järjehoidjate laadimine
     eu = Markatzaileak kargatzen
     fa = در حال بارگیری نشانه ها
     fi = Ladataan kirjanmerkkejä
@@ -3225,6 +3308,7 @@
     de = Lesezeichen erfolgreich geladen! Sie können diese nun auf Ihrer Karte oder im Lesezeichen-Manager anzeigen.
     el = Τα αγαπημένα φορτώθηκαν με επιτυχία! Μπορείτε να τα βρείτε στο χάρτη ή στην οθόνη Διαχείριση αγαπημένων.
     es = ¡Los favoritos se han cargado con éxito! Puedes encontrarlos en el mapa o en la pantalla de Gestión de favoritos.
+    et = Järjehoidjad edukalt laetud! Leiad need kaardil või järjehoidjate halduri ekraanil.
     eu = Gogokoak behar bezala kargatu dira! Mapan edo kudeatu gogokoak pantailan aurki ditzakezu.
     fa = نشانه ها با موفقیت بارگذاری شد!شما می توانید ان ها را در نقشه یا بخش مدیریت نشانه ها بیابید
     fi = Kirjanmerkkien lataaminen onnistui! Löydät ne joko kartalta tai kirjanmerkkien hallinnasta.
@@ -3265,6 +3349,7 @@
     de = Laden der Lesezeichen fehlgeschlagen. Die Datei könnte beschädigt oder defekt sein.
     el = Η μεταφόρτωση των αγαπημένων απέτυχε. Το αρχείο μπορεί να είναι κατεστραμμένο ή ελαττωματικό.
     es = La carga de favoritos ha fallado. El archivo puede estar corrupto o ser defectuoso.
+    et = Järjehoidjate laadimine ebaõnnestus. Fail võib olla vigane.
     eu = Ezin izan da gogokoak kargatu. Fitxategia hondatuta edo akastuna izan daiteke.
     fa = بارگذاری نشانه ها با شکست مواجح شد.ممکن است فایل اسیب دیده یا معیوب باشد
     fi = Kirjanmerkkien lähetys epäonnistui. Tiedosto saattaa olla vioittunut.
@@ -3305,6 +3390,7 @@
     de = Bearbeiten
     el = Επεξεργασία
     es = Editar
+    et = Muuda
     eu = Editatu
     fa = ویرایش
     fi = Muokkaa
@@ -3344,6 +3430,7 @@
     de = Ihr Standort konnte noch nicht ermittelt werden
     el = Η τοποθεσία σας δεν έχει καθοριστεί ακόμη
     es = Tu ubicación aún no ha sido determinada
+    et = Sinu asukoht ei ole veel määratud
     eu = Zure kokapena ez da oraindik zehaztu
     fa = مکان شما هنوز مشخص نشده است
     fi = Sijaintiasi ei ole vielä määritetty
@@ -3384,6 +3471,7 @@
     de = Leider sind die Einstellungen für die Kartenspeicherung deaktiviert.
     el = Λυπούμαστε, η αποθήκευση του χάρτη είναι προς το παρόν απενεργοποιημένη.
     es = Lo sentimos, la configuración del almacenamiento de mapas está desactivada.
+    et = Vabandust, kaardi salvestuse seaded on hetkel keelatud.
     eu = Barkatu, mapa biltegiratzeko ezarpena desgaituta dago.
     fa = متاسفانه,تنظیمات ذخیره سازی نقشه در حال حاظر غیر فعال است
     fi = Valitettavasti karttatallennusasetukset ovat pois päältä.
@@ -3424,6 +3512,7 @@
     de = Die Karte wird heruntergeladen.
     el = Λήψη χάρτη σε εξέλιξη.
     es = La descarga del mapa está en curso ahora.
+    et = Kaardi allalaadimine on hetkel käimas.
     eu = Mapak deskargatzen ari dira.
     fa = دانلود نقشه اکنون در حال انجام است
     fi = Maata ladataan parhaillaan.
@@ -3464,6 +3553,7 @@
     de = Hey, sieh dir meinen aktuellen Standort auf Organic Maps an! %1$@ oder %2$@ Keine Offline-Karten installiert? Hier herunterladen: https://omaps.app/get
     el = Έλεγξε την τρέχουσα τοποθεσία μου στο Organic Maps! %1$@ ή %2$@ στην περίπτωση που δεν έχεις εγκαταστήσει χάρτες εκτός σύνδεσης, μπορείς να τους κατεβάσεις εδώ: https://omaps.app/get
     es = Mira mi ubicación actual en Organic Maps!. %1$@ o %2$@ ¿No tienes mapas offline? Descarga aquí: https://omaps.app/get
+    et = Hei, vaata minu hetkeasukohta Organic Maps kaardil! %1$@ või %2$@ Võrguühenduseta kaardid puuduvad? Lae siit: https://omaps.app/get
     eu = Ikusi nire uneko kokapena Organic Maps-en! %1$@ edo %2$@ Ez al duzu lineaz kanpoko maparik? Deskargatu hemen: https://omaps.app/get
     fi = Hei, katso sijaintini Organic Maps-sovelluksessa! %1$@ tai %2$@ Eikö sinulla ole vielä offline-karttoja? Lataa ne täältä: https://omaps.app/get
     fr = Hé, regarde ma position actuelle sur Organic Maps ! %1$@ ou %2$@. Les cartes hors ligne ne sont pas installées ? Les télécharger ici : https://omaps.app/get
@@ -3503,6 +3593,7 @@
     de = Hey, sieh dir meine Stecknadel auf der Organic Maps-Karte an!
     el = Έλεγξε τις τοποθεσίες που έχω καρφιτσώσει στο Organic Maps!
     es = Mira mi marcador en el mapa de Organic Maps!
+    et = Hei, vaata minu asukoha märget Organic Maps kaardil!
     eu = Begiratu nire markatzailea Map organikoak mapan!
     fi = Hei, katso merkintäni Organic Maps-kartalla
     fr = Hé, regarde mon signet sur la carte Organic Maps !
@@ -3542,6 +3633,7 @@
     de = Hey, sieh dir meinen aktuellen Standort auf der Organic Maps-Karte an
     el = Έλεγξε την τρέχουσα τοποθεσία μου στο χάρτη Organic Maps!
     es = Mira mi ubicación actual en el mapa en Organic Maps!
+    et = Hei, vaata minu hetkeasukohta Organic Maps kaardil!
     eu = Ikusi nire uneko kokapena mapan Organic Maps-en!
     fi = Hei, kurkkaa tämänhetkinen sijaintini Organic Maps:n kartalla!
     fr = Hé, regarde ma position actuelle sur la carte Organic Maps !
@@ -3581,6 +3673,7 @@
     de = Hi,\n\nich bin gerade hier: %1$@. Klicke den Link %2$@ oder %3$@, um den Ort auf der Karte anzuzeigen.\n\nVielen Dank.
     el = Γεια,\n\nείμαι εδώ τώρα: %1$@. Κάνε κλικ σε αυτό το σύνδεσμο %2$@ ή σε αυτόν %3$@ για να δεις την τοποθεσία στο χάρτη.\n\nΕυχαριστώ.
     es = Hola:\n\nAhora estoy aquí: %1$@. Haz clic en este enlace %2$@ o esta %3$@ para verlo en el mapa.\n\nGracias.
+    et = Tere,\n\nOlen praegu siin: %1$@. Ava see link %2$@ või see %3$@, et näha seda kohta kaardil.\n\nAitäh.
     eu = Kaixo:\n\nOrain hemen nago: %1$@. Egin klik esteka honetan %2$@ edo %3$@ honetan mapan ikusteko.\n\nEskerrik asko.
     fi = Hei,n\nOlen nyt täällä: %1$@. Klikkaa linkkiä %2$@ tai %3$@ nähdäksesi paikan kartalla. Kiitos.
     fr = Bonjour,\n\nJe suis actuellement ici : %1$@. Clique sur ce lien %2$@ ou sur celui-ci %3$@ pour voir l'endroit sur la carte.\n\nMerci.
@@ -3620,6 +3713,7 @@
     de = Teilen
     el = Κοινοποίηση
     es = Compartir
+    et = Jaga
     eu = Partekatu
     fa = اشتراک گذاری
     fi = Jaa
@@ -3660,6 +3754,7 @@
     de = Email
     el = Email
     es = Email
+    et = E-post
     eu = Email
     fa = ایمیل
     fi = Sähköposti
@@ -3699,6 +3794,7 @@
     de = In die Zwischenablage kopiert: %1$@
     el = Αντιγράφηκε στο Πρόχειρο: %1$@
     es = Copiado al portapapeles: %1$@
+    et = Kopeeritud vahemällu: %1$@
     eu = Arbelean kopiatu da: %1$@
     fa = کپی در کلیپ برد :%1$@
     fi = Kopioitu leikepöydälle: %1$@
@@ -3739,6 +3835,7 @@
     de = Info
     el = Πληροφορίες
     es = Información
+    et = Teave
     eu = Informazioa
     fa = اطلاعات
     fi = Tietoa
@@ -3779,6 +3876,7 @@
     de = Fertig
     el = Ολοκληρώθηκε
     es = Hecho
+    et = Valmis
     eu = Eginda
     fa = انجام شد
     fi = Valmis
@@ -3819,6 +3917,7 @@
     de = Version: %@
     el = Έκδοση: %@
     es = Versión: %@
+    et = Versioon: %@
     eu = Bertsioa: %@
     fa = ورژن: %@
     fi = Versio: %@
@@ -3860,6 +3959,7 @@
     de = OpenStreetMap-Daten: %@
     el = Δεδομένα OpenStreetMap: %@
     es = Datos de OpenStreetMap: %@
+    et = OpenStreetMap andmed: %@
     eu = OpenStreetMap datuak: %@
     fa = OpenStreetMap: %@ ﯼﺎﻫ ﻩﺩﺍﺩ
     fi = OpenStreetMap-tiedot: %@
@@ -3901,6 +4001,7 @@
     de = Möchten Sie wirklich fortfahren?
     el = Θέλετε σίγουρα να συνεχίσετε?
     es = ¿Seguro que desea continuar?
+    et = Oled kindel, et soovid jätkata?
     eu = Ziur jarraitu nahi duzula?
     fa = برای ادامه کار مطمئن اید؟
     fi = Oletko varma että haluat jatkaa?
@@ -3941,6 +4042,7 @@
     de = Strecken
     el = Διαδρομές
     es = Rutas
+    et = Rajad
     eu = Ibilbideak
     fa = مسیر
     fi = Reitit
@@ -3981,6 +4083,7 @@
     de = Länge
     el = Μήκος
     es = Longitud
+    et = Pikkus
     eu = Luzera
     fa = طول
     fi = Pituus
@@ -4020,6 +4123,7 @@
     de = Meinen Standort teilen
     el = Κοινοποίηση της τοποθεσίας μου
     es = Compartir mi ubicación
+    et = Jaga minu asukohta
     eu = Partekatu nire kokapena
     fa = به اشتراک گذاری موقعیت مکانی من
     fi = Jaa sijaintini
@@ -4057,6 +4161,7 @@
     ca = Configuració general
     de = Allgemeine Einstellungen
     es = Ajustes generales
+    et = Üldseaded
     eu = Doikuntza orokorrak
     fa = تنظیمات عمومی
     fi = Yleiset asetukset
@@ -4083,6 +4188,7 @@
     ca = Informació
     de = Information
     es = Información
+    et = Teave
     eu = Informazioa
     fa = اطلاعات
     fi = Tietoja
@@ -4111,6 +4217,7 @@
     de = Navigation
     el = Πλοήγηση
     es = Navegación
+    et = Navigeerimine
     eu = Nabigazioa
     fa = مسیریابی
     fi = Navigaatio
@@ -4149,6 +4256,7 @@
     de = Zoom-Tasten
     el = Πλήκτρα μεγέθυνσης
     es = Botones de zoom
+    et = Zoomi nupud
     eu = Zoom botoiak
     fa = دکمه های درشت نمایی
     fi = Zoomauspainikkeet
@@ -4188,6 +4296,7 @@
     de = Auf dem Bildschirm anzeigen
     el = Εμφάνιση στο χάρτη
     es = Visualización en la pantalla
+    et = Kuva kaardil
     eu = Pantailan bistaratzea
     fa = نمایش بر روی نقشه
     fi = Näytä ruudulla
@@ -4228,6 +4337,7 @@
     de = Nachtmodus
     el = Νυχτερινή λειτουργία
     es = Modo nocturno
+    et = Öörežiim
     eu = Gaueko modua
     fa = حالت شب
     fi = Yötila
@@ -4267,6 +4377,7 @@
     de = Aus
     el = Απενεργ.
     es = Desactivado
+    et = Väljas
     eu = Desgaituta
     fa = خاموش
     fi = Pois päältä
@@ -4306,6 +4417,7 @@
     de = An
     el = Ενεργ.
     es = Activado
+    et = Sees
     eu = Aktibatuta
     fa = روشن
     fi = Päällä
@@ -4345,6 +4457,7 @@
     de = Auto
     el = Αυτόματα
     es = Automático
+    et = Automaatne
     eu = Automatikoa
     fa = خودکار
     fi = Automaattinen
@@ -4384,6 +4497,7 @@
     de = Perspektivische Ansicht
     el = Προβολή προοπτικής
     es = Vista en perspectiva
+    et = Perspektiivi vaade
     eu = Perspektiba ikuspegia
     fa = نمای چشم انداز
     fi = Perspektiivinäkymä
@@ -4423,6 +4537,7 @@
     de = 3D-Gebäude
     el = Τρισδιάστατα κτίρια
     es = Edificios en 3D
+    et = 3D hooned
     eu = 3D eraikinak
     fa = ساختمان های سه بعدی
     fi = 3D-rakennukset
@@ -4462,6 +4577,7 @@
     de = Sprachführung
     el = Φωνητικές οδηγίες
     es = Instrucciones de voz
+    et = Hääljuhised
     eu = Ahots argibideak
     fa = دستور العمل صوتی
     fi = Ääniohjeistukset
@@ -4501,6 +4617,7 @@
     de = Sprache für Sprachführung
     el = Γλώσσα φωνής
     es = Idioma de voz
+    et = Hääle keel
     eu = Ahots hizkuntza
     fa = زبان صوت
     fi = Äänen kieli
@@ -4540,6 +4657,7 @@
     de = Nicht verfügbar
     el = Δεν είναι διαθέσιμη
     es = No disponible
+    et = Ei ole saadaval
     eu = Ez dago erabilgarri
     fa = موجود نیست
     fi = Ei saatavilla
@@ -4579,6 +4697,7 @@
     de = Weitere
     el = Άλλα
     es = Otros
+    et = Muu
     eu = Beste batzuk
     fa = بیشتر
     fi = Muu
@@ -4618,6 +4737,7 @@
     de = Letzte Strecke
     el = Πρόσφατη διαδρομή
     es = Trayecto reciente
+    et = Hiljutine rada
     eu = Azken bidaia
     fa = مسیر اخیر
     fi = Viimeisin reitti
@@ -4656,6 +4776,7 @@
     de = Auto-Zoom
     el = Αυτόματη μεγέθυνση
     es = Zoom automático
+    et = Automaatne zoom
     eu = Zoom automatikoa
     fa = بزرگ نمایی خودکار
     fi = Automaattinen zoomaus
@@ -4694,6 +4815,7 @@
     de = Aus
     el = Απενεργ.
     es = Desactivada
+    et = Väljas
     eu = Desaktibatuta
     fa = خاموش
     fi = Pois päältä
@@ -4732,6 +4854,7 @@
     de = 1 Stunde
     el = 1 ώρα
     es = 1 hora
+    et = 1 tund
     eu = 1 ordu
     fa = 1 ساعت
     fi = 1 tunti
@@ -4770,6 +4893,7 @@
     de = 2 Stunden
     el = 2 ώρες
     es = 2 horas
+    et = 2 tundi
     eu = 2 ordu
     fa = 2 ساعت
     fi = 2 tuntia
@@ -4808,6 +4932,7 @@
     de = 6 Stunden
     el = 6 ώρες
     es = 6 horas
+    et = 6 tundi
     eu = 6 ordu
     fa = 6 ساعت
     fi = 6 tuntia
@@ -4846,6 +4971,7 @@
     de = 12 Stunden
     el = 12 ώρες
     es = 12 horas
+    et = 12 tundi
     eu = 12 ordu
     fa = 12 ساعت
     fi = 12 tuntia
@@ -4884,6 +5010,7 @@
     de = 1 Tag
     el = 1 ημέρα
     es = 1 día
+    et = 1 päev
     eu = 1 egun
     fa = 1 روز
     fi = 1 päivä
@@ -4922,6 +5049,7 @@
     de = So können Sie die zurückgelegte Strecke für einen bestimmten Zeitraum aufzeichnen und auf der Karte sehen. Hinweis: Die Aktivierung dieser Funktion führt zu erhöhtem Batterieverbrauch. Die Aufzeichnung wird nach Ablauf des Zeitintervalls automatisch von der Karte entfernt.
     el = Σας επιτρέπει να καταγράψετε τη διαδρομή που έχει διανυθεί για συγκεκριμένο χρονικό διάστημα και να την δείτε στο χάρτη. Λάβετε υπόψη: η ενεργοποίηση αυτής της λειτουργίας κάνει έντονη χρήση της μπαταρίας. Το τμήμα θα αφαιρεθεί αυτόματα από το χάρτη μετά τη λήξη του μεσοδιαστήματος.
     es = Permite registrar el recorrido realizado durante un determinado periodo de tiempo y verlo en el mapa. Tenga en cuenta que la activación de esta función aumenta el consumo de la batería. El registro del recorrido se eliminará automáticamente del mapa una vez vencido dicho periodo de tiempo.
+    et = See valik võimaldab salvestada läbitud tee teatud ajaks ja näha seda kaardil. Pange tähele: selle funktsiooni aktiveerimine suurendab aku kasutust. Rada eemaldatakse automaatselt kaardilt pärast ajaintervalli möödumist.
     eu = Denbora tarte jakin batean egindako ibilbidea erregistratu eta mapan ikusteko aukera ematen du. Kontuan izan funtzio hau aktibatzea bateriaren kontsumoa handitzen dela. Ibilbide-erregistroa automatikoki kenduko da mapatik denbora-tarte hori igaro ondoren.
     fa = با این قابلیت شما می توانید مسیری که می پیمایید را در یک دوره مشخص ضبط نماید و ان را بر روی نقشه ببینید.لطفا توجه نمایید:فعال سازی این قابلیت باعث افزایش مصرف باتری موبایل شما می شود.مسیر به طور خودکار بعد از مدت مشخص شده حذف خواهد شد
     fi = Toiminnon avulla voit tallentaa kuljetun reitin tietyltä ajalta ja nähdä sen kartalla: Huomautus: tämän toiminnon aktivoiminen lisää akun käyttöä. Reitti poistetaan kartalta automaattisesti ajanjakson päätyttyä.
@@ -4959,6 +5087,7 @@
     da = Afstand
     de = Entfernung
     es = Distancia
+    et = Kaugus
     eu = Distantzia
     fa = مسافت
     fi = Etäisyys
@@ -4998,6 +5127,7 @@
     de = Auf der Karte ansehen
     el = Προβολή στο χάρτη
     es = Ver en el mapa
+    et = Vaata kaardil
     eu = Ikusi mapan
     fa = مشاهده بر روی نقشه
     fi = Näytä kartalla
@@ -5047,6 +5177,7 @@
     de = Webseite
     el = Ιστότοπος
     es = Sitio web
+    et = Veebileht
     eu = Webgunea
     fa = وب سایت
     fi = Kotisivut
@@ -5086,6 +5217,7 @@
     de = News
     el = Νέα
     es = Noticias
+    et = Uudised
     fa = ﺭﺎﺒﺧﺍ
     fi = Uutiset
     fr = Nouvelles
@@ -5176,6 +5308,7 @@
     de = Feedback
     el = Σχόλια
     es = Comentarios
+    et = Tagasiside
     eu = Iruzkinak
     fa = بازخورد
     fi = Palaute
@@ -5215,6 +5348,7 @@
     de = Bewerten Sie die App
     el = Βαθμολογήστε την εφαρμογή
     es = Valora la aplicación
+    et = Hinda rakendust
     eu = Baloratu aplikazioa
     fa = امتیاز به این اپلیکیشن
     fi = Arvioi sovellus
@@ -5255,6 +5389,7 @@
     de = Hilfe
     el = Βοήθεια
     es = Ayuda
+    et = Abi
     eu = Laguntza
     fa = کمک
     fi = Ohje
@@ -5295,6 +5430,7 @@
     de = Fragen und Antworten
     el = Ερωτήσεις και απαντήσεις
     es = Preguntas frecuentes
+    et = Korduma kippuvad küsimused
     eu = Maiz galderak
     fa = ﺦﺳﺎﭘ ﻭ ﺶﺳﺮﭘ
     fi = Kysymykset ja vastaukset
@@ -5336,6 +5472,7 @@
     de = Spenden
     el = Προσφέρω
     es = Donar
+    et = Anneta
     eu = Dohaintza eman
     fa = ﺪﯿﻨﮐ ﺍﺪﻫﺍ
     fi = Lahjoittaa
@@ -5376,6 +5513,7 @@
     de = Wie unterstützen Sie uns?
     el = Πώς να μας υποστηρίξετε;
     es = ¿Cómo apoyarnos?
+    et = Kuidas meid toetada?
     eu = Nola lagundu diguzu?
     fa = چگونه از ما حمایت کنیم؟
     fi = Kuinka tukea meitä?
@@ -5416,6 +5554,7 @@
     de = Copyright
     el = Πνευματικά δικαιώματα
     es = Derechos de autor
+    et = Autoriõigused
     eu = Copyright
     fa = حق نشر و کپی رایت
     fi = Tekijänoikeudet
@@ -5456,6 +5595,7 @@
     de = Fehler melden
     el = Αναφορά σφάλματος
     es = Hay un error
+    et = Teata veast
     eu = Errore bat dago
     fa = گزارش خطا
     fi = Ilmoita virheestä
@@ -5496,6 +5636,7 @@
     de = Der Email-Client ist noch nicht eingerichtet worden. Konfigurieren Sie ihn bitte oder nutzen Sie eine andere Möglichkeit, uns unter %@ zu erreichen.
     el = Το πρόγραμμα-client ηλεκτρονικού ταχυδρομείου έχει δεν έχει ρυθμιστεί. Ρυθμίστε το ή χρησιμοποιήστε άλλο τρόπο να επικοινωνήσετε μαζί μας στη διεύθυνση %@
     es = No se ha configurado el cliente de correo electrónico. Por favor, configúralo o utiliza alguna otra forma de ponerte en contacto con nosotros en %@
+    et = E-posti klienti ei ole seadistatud. Palun seadistage see või kasutage mõnda muud võimalust meiega ühenduse võtmiseks aadressil %@
     eu = Posta elektronikoko bezeroa ez da konfiguratu. Mesedez, konfigura ezazu edo erabili beste moduren bat gurekin harremanetan jartzeko %@ helbidean
     fa = کلاینت ایمیل شما پیکربندی نشده است.لطفا ان را پیکربندی کنید یا از طریق دیگر با ما تماس بگیرید %@
     fi = Sähköpostisovellusta ei ole asetettu. Ole hyvä ja määritä sähköpostiasetukset tai ota meihin yhteyttä toista kautta osoitteessa %@
@@ -5536,6 +5677,7 @@
     de = Fehler beim Email-Versand
     el = Αποστολή σφάλματος αλληλογραφίας
     es = Error de envío de correo
+    et = Viga teate saatmisel
     eu = Errore bat mezua bidaltzean
     fa = خطا در ارسال ایمیل
     fi = Virhe lähetettäessä viestiä
@@ -5576,6 +5718,7 @@
     de = Kompass-Kalibrierung
     el = Βαθμονόμηση πυξίδας
     es = Calibración de la brújula
+    et = Kompassi kalibreerimine
     eu = Konpas kalibrazioa
     fa = تنظیم کردن قظب نما
     fi = Kompassin kalibrointi
@@ -5616,6 +5759,7 @@
     de = Alle aktualisieren
     el = Ενημέρωση όλων
     es = Actualizar todos
+    et = Värskenda kõik
     eu = Eguneratu guztiak
     fa = اپدیت همه
     fi = Päivitä kaikki
@@ -5655,6 +5799,7 @@
     de = Alle abbrechen
     el = Ακύρωση όλων
     es = Cancelar todo
+    et = Tühista kõik
     eu = Guztiak bertan behera utzi
     fa = لغو همه
     fi = Peruuta kaikki
@@ -5695,6 +5840,7 @@
     de = Heruntergeladen
     el = Έγινε λήψη
     es = Descargado
+    et = Alla laetud
     eu = Alta
     fa = دانلود شده
     fi = Ladatut
@@ -5733,6 +5879,7 @@
     de = Verfügbar
     el = Διαθέσιμη
     es = Disponible
+    et = Saadaval
     eu = Eskuragarri
     fa = موجود
     fi = Saatavilla
@@ -5772,6 +5919,7 @@
     de = In der Warteschlange
     el = στην ουρά
     es = En cola
+    et = Järjekorras
     eu = Ilaran
     fa = صف
     fi = Jonossa
@@ -5811,6 +5959,7 @@
     de = In meiner Nähe
     el = Κοντά μου
     es = Cerca de mí
+    et = Minu lähedal
     eu = Nigandik gertu
     fa = نزدیک من
     fi = Lähelläni
@@ -5850,6 +5999,7 @@
     de = Karten
     el = Χάρτες
     es = Mapas
+    et = Kaardid
     eu = Mapak
     fa = نقشه ها
     fi = Kartat
@@ -5888,6 +6038,7 @@
     de = Alle herunterladen
     el = Λήψη όλων
     es = Descargar todos
+    et = Lae kõik alla
     eu = Deskargatu guztiak
     fa = دانلود همه
     fi = Lataa kaikki
@@ -5926,6 +6077,7 @@
     de = Wird heruntergeladen:
     el = Λήψη:
     es = Descargando:
+    et = Allalaadimine:
     eu = Deskargatzen:
     fa = درحال دانلود:
     fi = Ladataan:
@@ -5963,6 +6115,7 @@
     de = Gefunden
     el = Βρέθηκαν
     es = Encontrado
+    et = Leitud
     eu = Aurkituta
     fa = یافت شد
     fi = Löytyi
@@ -6002,6 +6155,7 @@
     de = Aktualisieren
     el = Ενημέρωση
     es = Actualizar
+    et = Värskenda
     eu = Eguneratzeko
     fa = به روز رسانی
     fi = Päivitä
@@ -6042,6 +6196,7 @@
     de = Fehlgeschlagen
     el = Απέτυχε
     es = Fallo
+    et = Ebaõnnestus
     eu = Porrota
     fa = ناموفق
     fi = Epäonnistunut
@@ -6082,6 +6237,7 @@
     de = Zum Löschen der Karte bitte Navigation unterbrechen.
     el = Για να διαγράψετε το χάρτη, σταματήστε την πλοήγηση.
     es = Para eliminar el mapa, por favor, detén la navegación.
+    et = Kaardi kustutamiseks palun lõpeta navigeerimine.
     eu = Mapa kentzeko, utzi nabigazioa.
     fa = برای حذف نقشه لطفا مسیر یابی را متوقف کنید
     fi = Pysäytä navigointi poistaaksesi kartan.
@@ -6121,6 +6277,7 @@
     de = Es können nur Routen erstellt werden, die vollständig in einer einzigen Karte enthalten sind.
     el = Μπορούν να δημιουργηθούν μόνο διαδρομές που περιέχονται πλήρως μέσα σε ένα χάρτη σε μια ενιαία περιοχή.
     es = Sólo se pueden crear rutas que estén totalmente contenidas en un mapa de una sola región.
+    et = Luua saab ainult täielikult ühe regiooni kaardi piiridesse jäävaid marsruute.
     eu = Eskualde bakarreko mapa batean guztiz bilduta dauden ibilbideak soilik sor daitezke.
     fa = تنها مسیر هایی می توانند ایجاد شوند که به طور کامل در یک نقشه از یک منطقه واحد قرار داشته باشند.
     fi = Vain kokonaisuudessaan yhdelle kartalle mahtuvia reittejä voidaan luoda.
@@ -6161,6 +6318,7 @@
     de = Karte herunterladen
     el = Λήψη χάρτη
     es = Descargar el mapa
+    et = Lae kaart alla
     eu = Deskargatu mapa
     fa = دانلود نقشه
     fi = Lataa kartta
@@ -6201,6 +6359,7 @@
     de = Wiederholen
     el = Επανάληψη
     es = Reintentar
+    et = Proovi uuesti
     eu = Saiatu berriro
     fa = تلاش مجدد
     fi = Yritä uudelleen
@@ -6240,6 +6399,7 @@
     de = Karte löschen
     el = Διαγραφή χάρτη
     es = Eliminar mapa
+    et = Kustuta kaart
     eu = Mapa ezabatu
     fa = حذف نقشه
     fi = Poista kartta
@@ -6280,6 +6440,7 @@
     de = Karte aktualisieren
     el = Ενημέρωση χάρτη
     es = Actualizar mapa
+    et = Värskenda kaart
     eu = Eguneratu mapa
     fa = به روز رسانی نقشه
     fi = Päivitä kartta
@@ -6361,6 +6522,7 @@
     de = Nutzen Sie die Google Play-Dienste, um Ihren aktuellen Standort zu erhalten
     el = Χρησιμοποιήστε υπηρεσίες Google Play για να προσδιορίσετε την τρέχουσα τοποθεσία σας
     es = Usar los servicios de Google Play para obtener tu ubicación actual
+    et = Kasuta Google Play teenuseid oma hetkeasukoha määramiseks
     eu = Erabili Google Play zerbitzuak zure uneko kokapena lortzeko
     fa = استفاده از Google Play Services برای تعیین موقعیت کنونی شما
     fi = Käytä Google Play -palveluita sijaintisi selvittämiseksi
@@ -6400,6 +6562,7 @@
     de = Karten entlang der Route herunterladen
     el = Κατεβάστε όλους τους χάρτες για ολόκληρο το μήκος της διαδρομής σας
     es = Descargue todos los mapas de su ruta
+    et = Lae alla kõik kaardid oma marsruudil
     eu = Deskargatu zure ibilbidearen mapa guztiak
     fa = دانلود تمامی نقشه ها در طول مسیر تان
     fi = Lataa karttoja matkalla
@@ -6439,6 +6602,7 @@
     de = Zum Erstellen einer Route müssen alle Karten von Ihrem Standort bis zum Ziel heruntergeladen und aktualisiert worden sein.
     el = Για να δημιουργήσετε μια διαδρομή, πρέπει να κατεβάσετε και να ενημερώσετε όλους τους χάρτες από τη θέση σας στον προορισμό σας.
     es = Para crear una ruta es necesario descargar y actualizar todos los mapas de la ubicación de destino.
+    et = Marsruudi loomiseks on meil vaja alla laadida ja värskendada kõiki sinu lähte- ja sihtkoha vahele jäävaid kaarte.
     eu = Ibilbide bat sortzeko beharrezkoa da helmugako kokapenaren mapa guztiak deskargatu eta eguneratzea.
     fa = به منظور ایجاد مسیر ما نیاز داریم تا تمامی نقشه های شما از مبدا تا مقصد را به روز رسانی کنیم.
     fi = Reitin luominen vaatii karttojen lataamisen ja päivityksen oman sijaintisi ja kohteeen väliltä.
@@ -6477,6 +6641,7 @@
     de = Nicht genug Speicherplatz
     el = Δεν υπάρχει αρκετός χώρος
     es = No hay suficiente espacio
+    et = Ei ole piisavalt ruumi
     eu = Leku nahikoa ez
     fa = فضای کافی موجود نیست
     fi = Ei tarpeeksi tilaa
@@ -6516,6 +6681,7 @@
     de = Lesezeichen
     el = αγαπημένο
     es = marcador
+    et = järjehoidja
     eu = Markatzailea
     fa = نشانه ها
     fi = kirjanmerkki
@@ -6556,6 +6722,7 @@
     de = Aktivieren Sie bitte Ortungsdienste
     el = Ενεργοποιήστε τις υπηρεσίες εντοπισμού τοποθεσίας
     es = Por favor, active los servicios de localización
+    et = Palun luba asukohateenused
     eu = Mesedez, aktibatu kokapen zerbitzuak
     fa = لطفا موقعیت مکانی(GPS)خود را فعال کنید.
     fi = Ota sijaintipalvelut käyttöön
@@ -6594,6 +6761,7 @@
     de = Speichern
     el = Αποθήκευση
     es = Guardar
+    et = Salvesta
     eu = Gorde
     fa = ذخیره
     fi = Tallenna
@@ -6632,6 +6800,7 @@
     de = Ihre Beschreibungen (Text oder HTML)
     el = Οι περιγραφές σας (κείμενο ή html)
     es = Tus descripciones (texto o html)
+    et = Sinu kirjeldused (tekst või html)
     eu = Zure deskribapenak (testua edo html)
     fa = توضیحات شما (متن یا  (html
     fi = Kuvauksesi (teksti tai html)
@@ -6670,6 +6839,7 @@
     de = erstellen
     el = δημιουργήστε
     es = crear
+    et = loo
     eu = sortu
     fa = ایجاد
     fi = luo
@@ -6710,6 +6880,7 @@
     el = Κόκκινο
     es = Rojo
     es-MX = Rojo
+    et = Punane
     eu = Gorria
     fa = قرمز
     fi = Punainen
@@ -6750,6 +6921,7 @@
     el = Κίτρινο
     es = Amarillo
     es-MX = Amarillo
+    et = Kollane
     eu = Horia
     fa = زرد
     fi = Keltainen
@@ -6790,6 +6962,7 @@
     el = Μπλε
     es = Azul
     es-MX = Azul
+    et = Sinine
     eu = Urdina
     fa = ابی
     fi = Sininen
@@ -6830,6 +7003,7 @@
     el = Πράσινο
     es = Verde
     es-MX = Verde
+    et = Roheline
     eu = Berdea
     fa = سبز
     fi = Vihreä
@@ -6870,6 +7044,7 @@
     el = Μωβ
     es = Morado
     es-MX = Morado
+    et = Lilla
     eu = Morea
     fa = بنفش
     fi = Violetti
@@ -6910,6 +7085,7 @@
     el = Πορτοκαλί
     es = Naranja
     es-MX = Naranja
+    et = Oranž
     eu = Laranja
     fa = نارنجی
     fi = Oranssi
@@ -6950,6 +7126,7 @@
     el = Καφέ
     es = Marrón
     es-MX = Marrón
+    et = Pruun
     eu = Marroia
     fa = قهوای
     fi = Ruskea
@@ -6990,6 +7167,7 @@
     el = Ροζ
     es = Rosa
     es-MX = Rosa
+    et = Roosa
     eu = Arrosa
     fa = صورتی
     fi = Pinkki
@@ -7029,6 +7207,7 @@
     el = Βαθύ πορφυρό
     es = Morado oscuro
     es-MX = Morado oscuro
+    et = Tumelilla
     eu = More iluna
     fa = ارغوانی سیر
     fi = Tumman purppuranpunainen
@@ -7069,6 +7248,7 @@
     el = Γαλάζιο
     es = Azul Claro
     es-MX = Celeste
+    et = Helesinine
     eu = Urdin argia
     fa = آبی کمرنگ
     fi = Vaaleansininen
@@ -7109,6 +7289,7 @@
     el = Κυανό
     es = Cian
     es-MX = Cian
+    et = Siniroheline
     eu = Zian
     fa = فیروزه ای
     fi = Sinivihreä
@@ -7149,6 +7330,7 @@
     el = Σμαραγδένιο
     es = Verde azulado
     es-MX = Verde azulado
+    et = Smaragdroheline
     eu = Berde urdinxka
     fa = آبی سیر
     fi = Smaragdinvihreä
@@ -7189,6 +7371,7 @@
     el = Κιτρινοπράσινο
     es = Lima
     es-MX = Lima
+    et = Laimiroheline
     eu = Karea
     fa = زرد لیویی
     fi = Limen värinen
@@ -7229,6 +7412,7 @@
     el = Βαθύ πορτοκαλί
     es = Naranja oscuro
     es-MX = Naranja oscuro
+    et = Tumeoranž
     eu = Laranja iluna
     fa = نارنجی سیر
     fi = Tumman oranssi
@@ -7269,6 +7453,7 @@
     el = Γκρι
     es = Gris
     es-MX = Gris
+    et = Hall
     eu = Grisa
     fa = خاکستری
     fi = Harmaa
@@ -7309,6 +7494,7 @@
     el = Γκρίζο μπλε
     es = Gris azulado
     es-MX = Gris azulado
+    et = Hallikas-sinine
     eu = Gris urdinxka
     fa = خاکستری کبود
     fi = Harmaan sininen
@@ -7350,6 +7536,7 @@
     de = Wenn Sie der Route folgen, beachten Sie bitte:
     el = Όταν ακολουθείτε την διαδρομή, να θυμάστε:
     es = Al seguir la ruta, tenga en cuenta:
+    et = Marsruuti järgides palun pea meeles:
     eu = Ibilbidea jarraitzean, kontuan izan:
     fa = زمانی که مسیری را دنبال می کنید لطفا به یاد داشته باشید:
     fi = Muista seuraavat asiat seuratessasi reittiä:
@@ -7389,6 +7576,7 @@
     de = – Straßenverhältnisse, die Verkehrsordnung und Straßenschilder haben stets Vorrang vor Navigationsanweisungen;
     el = — Οι οδικές συνθήκες, ο κώδικας οδικής κυκλοφορίας και οι σημάνσεις στο δρόμο έχουν πάντα μεγαλύτερη προτεραιότητα από τις συμβουλές πλοήγησης,
     es = — Las condiciones de la ruta, las reglas de tráfico y las señales de carretera siempre tienen prioridad sobre las sugerencias de navegación;
+    et = - Teeolud, liikluseeskirjad ja liiklusmärgid omavad alati prioriteeti navigeerimisjuhiste üle;
     eu = — Ibilbideen baldintzek, zirkulazio arauek eta bide seinaleek lehentasuna dute beti nabigazio-iradokizunen gainetik;
     fa = —شرایط جاده قوانین راهنمایی و رانندگی و علائم جاده همیشه بر نکات مسیریابی اولویت دارند;
     fi = — Tien kunto, liikennesäännöt ja tiekyltit ovat aina tärkeämpiä kuin navigointilaitteen ohjeet;
@@ -7428,6 +7616,7 @@
     de = – Die Karte kann ungenau sein, und die vorgeschlagene Route ist möglicherweise nicht der optimale Weg, um das Ziel zu erreichen;
     el = — Ο Χάρτης μπορεί να είναι ανακριβής, και η προτεινόμενη διαδρομή μπορεί να μην είναι πάντα ο βέλτιστος τρόπος να φτάσετε στον προορισμό,
     es = — El mapa puede ser impreciso y sugerir una ruta que no siempre puede ser el mejor camino para llegar al destino;
+    et = - Kaart võib olla ebatäpne ja soovitatud marsruut ei pruugi alati olla kõige optimaalsem viis sihtkohta jõudmiseks;
     eu = — Mapa zehaztugabea izan daiteke eta helmugara iristeko biderik onena ez den ibilbide bat iradoki dezake;
     fa = —نقشه ممکن است اشتباه باشد و مسیر پیشنهادی همیشه بهترین مسیر برای رسید به مقصد شما نباشد;
     fi = — Kartta saattaa olla epätarkka, joten ehdotettu reitti ei välttämättä ole paras mahdollinen tapa päästä määränpäähän;
@@ -7467,6 +7656,7 @@
     de = — Die vorgeschlagenen Routen sind als Empfehlungen zu verstehen;
     el = — Οι προτεινόμενες διαδρομές πρέπει να ερμηνεύονται μόνο ως συστάσεις·
     es = — Las rutas sugeridas deben entenderse solo como recomendaciones;
+    et = - Soovitatud marsruute tuleks võtta just sellistena;
     eu = — Iradokitako ibilbideak gomendio gisa soilik ulertu behar dira;
     fa = —مسیر پیشنهادی باید فقط به عنوان یک توصیه دانست
     fi = — Ehdotettuja reittejä tulee pitää vain suosituksina;
@@ -7506,6 +7696,7 @@
     de = — Bitte seien Sie vorsichtig bei Routen in Grenzgebieten: die Routen, die unsere App erstellt, können manchmal Landesgrenzen in gesperrten Gebieten überschreiten;
     el = — Προσέχετε τις διαδρομές στις παραμεθόριες ζώνες: οι διαδρομές που δημιουργούνται από την εφαρμογή μας μπορεί μερικές φορές να διαπερνούν τα εθνικά σύνορα σε απαγορευμένες περιοχές.
     es = — Actúe con cautela en las rutas con zonas fronterizas: las rutas creadas por nuestra aplicación en ocasiones pueden atravesar las fronteras de países en lugares no autorizados;
+    et = - Olge piiritsoonides marsruutidega ettevaatlik: meie rakenduse loodud marsruudid võivad mõnikord ületada riigipiire volitamata kohtades.
     eu = — Kontuz ibili muga-eremuak dituzten ibilbideetan: gure aplikazioak sortutako ibilbideek batzuetan herrialdeen mugak zeharkatu ditzakete baimendu gabeko tokietan;
     fa = —در مسیرهایی که از مناطق مرزی میگذرد احتیاط کنید:مسیر هایی که بوسیله اپلیکیشن ما ایجاد می شود گاهی اوقات ممکن است مرز های کشور ها را رد کند که این در بعضی مناطق غیر مجاز است.
     fi = — Ole varovainen reittien suhteen raja-alueilla: sovelluksemme luomat reitit voivat toisinaan ylittää maiden rajoja luvattomissa paikoissa;
@@ -7544,6 +7735,7 @@
     de = Bitte fahren Sie aufmerksam und sicher!
     el = Να είστε πάντα σε εγρήγορση και να οδηγείτε με ασφάλεια στους δρόμους!
     es = ¡Manténgase alerta y seguro en las rutas!
+    et = Ole teel tähelepanelik ja liigu turvaliselt!
     eu = Egon adi eta seguru errepideetan!
     fa = لطفا هوشیار و ایمن در جاده بمانید!
     fi = Pysy tarkkana ja aja turvallisesti!
@@ -7583,6 +7775,7 @@
     de = GPS-Signal prüfen
     el = Ελέγξτε το σήμα GPS
     es = Verificar la señal del GPS
+    et = Kontrolli GPS signaali
     eu = Egiaztatu GPS seinalea
     fa = سیگنال GPS را چک کنید
     fi = Tarkista GPS-signaali
@@ -7622,6 +7815,7 @@
     de = Route kann nicht erstellt werden. Aktuelle GPS-Koordinaten konnten nicht ermittelt werden.
     el = Δεν είναι δυνατή η δημιουργία διαδρομής. Οι τρέχουσες συντεταγμένες GPS δεν μπορούν να προσδιοριστούν.
     es = No se puede crear la ruta. No se pudieron identificar las coordenadas actuales del GPS.
+    et = Marsruuti ei saa luua. GPS koordinaate ei õnnestu tuvastada.
     eu = Ezin da ibilbidea sortu. Ezin izan dira uneko GPS koordenatuak identifikatu.
     fa = ناتوان از ایجاد مسیر.موقعیت مکانی شما شناسایی نشد
     fi = Reittiä ei voi luoda. Tämänhetkisiä GPS-koordinaatteja ei löydy.
@@ -7661,6 +7855,7 @@
     de = Bitte prüfen Sie Ihr GPS-Signal. WLAN verbessert Ihre Standortgenauigkeit.
     el = Ελέγξτε το σήμα GPS. Η ενεργοποίηση του Wi-Fi θα βελτιώσει την ακρίβεια της τοποθεσίας σας.
     es = Verifique la señal del GPS. Activar Wi-Fi mejorará la precisión de su ubicación.
+    et = Palun kontrolli GPS signaali. WiFi lubamine parandab asukoha täpsust.
     eu = Egiaztatu GPS seinalea. Wi-Fi konexioa aktibatuz gero, zure kokapenaren zehaztasuna hobetuko da.
     fa = لطفا سیگنال GPS موبایتان راچک کنید.و WiFi موبایلتان را جهت دقت بیشتر در موقعیت یابی فعال کنید.
     fi = Tarkista GPS-signaali. Wi-Fi-signaalin käyttöönotto parantaa sijainnin tarkkuutta.
@@ -7700,6 +7895,7 @@
     de = Ortungsdienste aktivieren
     el = Ενεργοποιήστε τις υπηρεσίες εντοπισμού τοποθεσίας
     es = Activar servicios de ubicación
+    et = Luba asukoha teenused
     eu = Aktibatu kokapen zerbitzuak
     fa = فعال کردن سرویس موقعیت مکانی  (GPS)
     fi = Ota sijaintipalvelut käyttöön
@@ -7739,6 +7935,7 @@
     de = Aktuelle GPS-Koordinaten können nicht ermittelt werden. Aktivieren Sie Ortungsdienste, um die Route zu berechnen.
     el = Δεν είναι δυνατός ο εντοπισμός των τρεχουσών συντεταγμένων GPS. Ενεργοποιήστε τις υπηρεσίες εντοπισμού τοποθεσίας για τον υπολογισμό της διαδρομής.
     es = No se pueden encontrar las coordenadas del GPS. Active los servicios de ubicación para calcular la ruta.
+    et = Ei suuda praeguseid GPS koordinaate määrata. Marsruudi arvutamiseks luba asukoha teenused.
     eu = Ezin dira GPS koordenatuak aurkitu. Aktibatu kokapen zerbitzuak ibilbidea kalkulatzeko.
     fa = ناتوان از مشخص کردن موقعیت مکانی شما.لطفا سرویس موقعیت مکانی خود را فعال کنید.
     fi = Tämänhetkisiä GPS-koordinaatteja ei löydy. Ota sijaintipalvelut käyttöön reitin laskemista varten.
@@ -7778,6 +7975,7 @@
     de = Erforderliche Dateien herunterladen
     el = Κατεβάστε τα απαιτούμενα αρχεία
     es = Descargar archivos requeridos
+    et = Lae alla vajalikud failid
     eu = Deskargatu beharrezko fitxategiak
     fa = دانلود فایل های مورد نیاز
     fi = Lataa tarvittavat tiedostot
@@ -7817,6 +8015,7 @@
     de = Laden Sie alle Karten- und Routeninformationen für den geplanten Weg herunter und aktualisieren Sie sie, um die Route zu berechnen.
     el = Κατεβάσετε και να ενημερώσετε όλους τους χάρτες και τις πληροφορίες δρομολόγησης για όλη την απόσταση της προβαλλόμενης διαδρομής για τον υπολογισμό της.
     es = Descargue y actualice toda la información de mapas y rutas junto con el trayecto proyectado para calcular la ruta.
+    et = Marsruudi arvutamiseks lae alla ja värskenda kogu kavandatud teekonna kaart ja marsruuditeave.
     eu = Deskargatu eta eguneratu mapa eta ibilbideen informazio guztia aurreikusitako ibilbidearekin batera ibilbidea kalkulatzeko.
     fi = Lataa ja päivitä kaikki suunnitellun reitin kartta- ja reititystiedot, jotta reitin voi laskea.
     fr = Téléchargez et mettez à jour les informations de carte et d'itinéraire de votre trajet pour calculer l'itinéraire.
@@ -7855,6 +8054,7 @@
     de = Route kann nicht ermittelt werden
     el = Δε μπορεί να εντοπιστεί η διαδρομή
     es = Imposible de encontrar una ruta
+    et = Marsruuti ei õnnestu leida
     eu = Ezin da ibilbiderik aurkitu
     fa = ناتوان در تعیین مسیر
     fi = Reitin paikannus ei onnistu
@@ -7894,6 +8094,7 @@
     de = Route kann nicht erstellt werden.
     el = Δε μπορεί να δημιουργηθεί η διαδρομή.
     es = No se puede crear la ruta.
+    et = Marsruuti ei õnnestu luua.
     eu = Ezin da ibilbidea sortu.
     fa = ناتوان در ایجاد مسیر
     fi = Reitin luonti ei onnistu.
@@ -7933,6 +8134,7 @@
     de = Bitte passen Sie Ihren Startpunkt oder Ihr Ziel an.
     el = Ρυθμίστε το σημείο εκκίνησης ή τον προορισμό σας.
     es = Ajuste su punto de inicio o su destino.
+    et = Palun kohanda oma alguspunkti või sihtkohta.
     eu = Ezarri zure abiapuntua edo helmuga.
     fa = لطفا مبدا یا مقصد خود را تنظیم کنید.
     fi = Muuta aloituskohtaa tai määränpäätä.
@@ -7972,6 +8174,7 @@
     de = Startpunkt anpassen
     el = Ρυθμίστε το σημείο εκκίνησης
     es = Ajustar el punto de inicio
+    et = Kohanda alguspunkti
     eu = Ezarri abiapuntua
     fa = مبدا خود را تنظیم کنید
     fi = Muuta aloituskohtaa
@@ -8011,6 +8214,7 @@
     de = Route wurde nicht erstellt. Startpunkt kann nicht gefunden werden.
     el = Δεν δημιουργήθηκε διαδρομή. Δεν είναι δυνατός ο εντοπισμός του σημείου εκκίνησης.
     es = La ruta no se creó. No se pudo encontrar el punto de inicio.
+    et = Marsruuti ei loodud. Ei suuda määrata alguspunkti.
     eu = Ibilbidea ez da sortu. Abiapuntua ezin izan da aurkitu.
     fa = مسیر ایجاد نشد.ناتوان در تعیین نقطه شروع
     fi = Reittiä ei luotu. Aloituskohdan paikannus ei onnistu.
@@ -8050,6 +8254,7 @@
     de = Bitte wählen Sie einen Startpunkt in der Nähe einer Straße aus.
     el = Επιλέξτε σημείο εκκίνησης πιο κοντά σε ένα δρόμο.
     es = Seleccione un punto de inicio cercano a una carretera.
+    et = Palun vali alguspunkt teele lähemal.
     eu = Hautatu errepide batetik gertu abiapuntua.
     fa = لطفا نقطه شروع رانزدیک تر به جاده انتخاب کنید.
     fi = Valitse lähempänä tietä oleva aloituskohta.
@@ -8089,6 +8294,7 @@
     de = Ziel anpassen
     el = Ρύθμιση προορισμού
     es = Ajustar destino
+    et = Kohanda sihtkohta
     eu = Helmuga ezarri
     fa = تنظیم مقصد
     fi = Muuta määränpäätä
@@ -8128,6 +8334,7 @@
     de = Route wurde nicht erstellt. Ziel kann nicht gefunden werden.
     el = Δεν δημιουργήθηκε διαδρομή. Δεν είναι δυνατός ο εντοπισμός του προορισμού.
     es = La ruta no se creó. No se pudo encontrar el destino.
+    et = Marsruuti ei loodud. Ei suuda määrata sihtkohta.
     eu = Ibilbidea ez da sortu. Ezin izan da helmuga aurkitu.
     fa = مسیر ایجاد نشد.ناتوان در تعیین مقصد.
     fi = Reittiä ei luotu. Määränpään paikannus ei onnistu.
@@ -8167,6 +8374,7 @@
     de = Bitte wählen Sie einen Zielort in der Nähe einer Straße aus.
     el = Επιλέξτε ένα σημείο προορισμού πιο κοντά σε ένα δρόμο.
     es = Seleccione un punto de destino cercano a una carretera.
+    et = Palun vali sihtkoht teele lähemal.
     eu = Hautatu helmuga puntu bat errepide batetik gertu.
     fa = لطفا مقصد تعیین شده را نزدیک تر به جاده انتخاب نمایید.
     fi = Valitse lähempänä tietä oleva määränpää.
@@ -8206,6 +8414,7 @@
     de = Zwischenstopp kann nicht gefunden werden.
     el = Δεν είναι δυνατός ο εντοπισμός ενδιάμεσου σημείου.
     es = No se ha podido ubicar la parada intermedia.
+    et = Ei suuda määrata vahepunkti.
     eu = Ezin izan da tarteko geralekua kokatu.
     fa = ناتوان در تعیین نقطه میانی.
     fi = Välipisteen paikallistaminen ei onnistunut.
@@ -8244,6 +8453,7 @@
     de = Bitte passen Sie Ihren Zwischenstopp an.
     el = Ρυθμίστε το ενδιάμεσο σημείο.
     es = Por favor, ajuste la parada intermedia.
+    et = Palun kohanda vahepunkti.
     eu = Mesedez, egokitu tarteko geldialdia.
     fa = لطفا نقطه میانی را تنظیم کنید.
     fi = Siirrä välipistettä.
@@ -8283,6 +8493,7 @@
     de = Systemfehler
     el = Σφάλμα συστήματος
     es = Error del sistema
+    et = Süsteemi viga
     eu = Sistemaren errorea
     fa = خطای سیستم
     fi = Järjestelmävirhe
@@ -8322,6 +8533,7 @@
     de = Route kann wegen eines Anwendungsfehlers nicht erstellt werden.
     el = Δεν είναι δυνατή η δημιουργία διαδρομής εξαιτίας σφάλματος εφαρμογής.
     es = No se pudo crear la ruta debido a un error en la aplicación.
+    et = Marsruuti ei saa koostada rakenduse vea tõttu.
     eu = Ibilbidea ezin izan da sortu aplikazioaren errore baten ondorioz.
     fa = ناتوان در ایجاد مسیر به علت خطای برنامه.
     fi = Reittiä ei voi luoda sovellusvirheen vuoksi.
@@ -8361,6 +8573,7 @@
     de = Bitte versuchen Sie es erneut
     el = Προσπαθήστε ξανά
     es = Intentar nuevamente
+    et = Palun proovi uuesti
     eu = Saiatu berriro
     fa = لطفا دوباره تلاش کنید
     fi = Yritä uudelleen
@@ -8400,6 +8613,7 @@
     de = Nicht jetzt
     el = Όχι τώρα
     es = No ahora
+    et = Mitte praegu
     eu = Orain ez
     fa = اکنون خیر
     fi = Ei nyt
@@ -8439,6 +8653,7 @@
     de = Möchten Sie die Karte herunterladen und eine bessere Route erstellen, die mehr als eine Karte umfasst?
     el = Θέλετε να κατεβάσετε το χάρτη και να δημιουργήσετε μια πιο βέλτιστη διαδρομή που εκτείνονται σε περισσότερους από έναν χάρτη;
     es = ¿Desea descargar el mapa y crear una ruta mejor que abarque más de un mapa?
+    et = Kas sooviksid kaardi alla laadida ja luua optimaalsema rohkem kui ühte kaarti hõlmava marsruudi?
     eu = Mapa deskargatu eta mapa bat baino gehiago hartzen duen ibilbide hobe bat sortu nahi duzu?
     fa = ایا مایل به دانلود نقشه و ایجاد مسیر های بهینه بیشتری که نقشه های بیشتری را پوشش میدهد هستید؟
     fi = Haluatko ladata kartan ja luoda paremman reitin, joka ylettyy usealle kartalle?
@@ -8478,6 +8693,7 @@
     de = Laden Sie die Karte herunter, um eine bessere Route zu erstellen, die den Rand dieser Karte überschreitet.
     el = Κατεβάσετε επιπλέον χάρτες για να δημιουργήσετε μια καλύτερη διαδρομή που διασχίζει τα όρια αυτού του χάρτη.
     es = Descargue mapas adicionales para crear una ruta mejor que cruce los límites de este mapa.
+    et = Lae alla täiendavad kaardid, et luua parem, selle kaardi piire ületav marsruut.
     eu = Deskargatu mapa osagarriak mapa honen mugak gainditzen dituen ibilbide hobea sortzeko.
     fa = دانلود نقشه های اضافی برای ایجاد مسیری بهتر که حاشیه های این نقشه را رد می کند.
     fi = Lataa kartta ja luo parempi reitti, joka ylittää tämän kartan reunan.
@@ -8519,6 +8735,7 @@
     de = Um mit der Suche und dem Erstellen von Routen zu beginnen, laden Sie bitte die Karte herunter. Sie benötigen danach keine Internetverbindung mehr.
     el = Για να ξεκινήσετε την αναζήτηση και τη δημιουργία διαδρομών, κατεβάστε το χάρτη. Μετά από αυτό δεν θα χρειάζεστε πλέον σύνδεση στο Internet.
     es = Para empezar a buscar y crear rutas, descargue el mapa. Después de eso ya no necesitarás una conexión a Internet.
+    et = Marsruutide otsimise ja loomise alustamiseks lae kaart alla. Pärast seda ei ole Interneti-ühendus enam vajalik.
     eu = Ibilbideak bilatzen eta sortzen hasteko, deskargatu mapa. Horren ondoren, ez duzu Interneterako konexiorik beharko.
     fa = برای شروع جستوجو و مسیر یابی لطفا نقشه رادانلود کنید بعد از ان دیگر نیازی به اتصال به اینترنت ندارید و برنامه کاملا افلاین اجرا می شود.
     fi = Lataa kartta jotta voit käyttää hakua ja luoda reittejä. Tämän jälkeen et tarvitse enää Internet-yhteyttä.
@@ -8558,6 +8775,7 @@
     de = Karte auswählen
     el = Επιλέξτε χάρτη
     es = Seleccionar el mapa
+    et = Vali kaart
     eu = Hautatu mapa
     fa = انتخاب نقشه
     fi = Valitse kartta
@@ -8598,6 +8816,7 @@
     de = Anzeigen
     el = Εμφάνιση
     es = Mostrar
+    et = Kuva
     eu = Erakutsi
     fa = نمایش
     fi = Näytä
@@ -8637,6 +8856,7 @@
     de = Ausblenden
     el = Απόκρυψη
     es = Ocultar
+    et = Peida
     eu = Ezkutatu
     fa = مخفی کردن
     fi = Piilota
@@ -8676,6 +8896,7 @@
     de = Routenplanung fehlgeschlagen
     el = Ο σχεδιασμός διαδρομής απέτυχε
     es = Error al planificar la ruta
+    et = Marsruudi planeerimine ebaõnnestus
     eu = Ibilbidea planifikatzeko errorea
     fa = برنامه ریزی مسیر ناموفق
     fi = Reitin suunnittelu epäonnistui
@@ -8715,6 +8936,7 @@
     de = Ankunft: %s
     el = Άφιξη στις %s
     es = Llegada: %s
+    et = Saabumine: %s
     eu = Iritsiera: %s
     fa = ورود به: %s
     fi = Saavut: %s
@@ -8752,6 +8974,7 @@
     da = For at oprette en rute skal du hente og opdatere alle kort langs ruten.
     de = Zum Erstellen einer Route müssen Sie alle Karten herunterladen und aktualisieren, auf denen die Route liegt.
     es = Descargue y actualice todos los mapas a lo largo del camino proyectado para calcular la ruta.
+    et = Marsruudi arvutamiseks lae alla ja värskenda kõik kavandatud teekonnale jäävad kaardid.
     eu = Deskargatu eta eguneratu proiektatutako bideko mapa guztiak ibilbidea kalkulatzeko.
     fi = Lataa ja päivitä kaikki kartat reitin varrella luodaksesi reitin.
     fr = Pour créer un trajet, veuillez télécharger et mettre à jour toutes les cartes concernant ce trajet.
@@ -8789,6 +9012,7 @@
     de = Kategorien
     el = Κατηγορίες
     es = Categorías
+    et = Kategooriad
     eu = Kategoriak
     fa = دسته بندی ها
     fi = Luokat
@@ -8827,6 +9051,7 @@
     de = Verlauf
     el = Ιστορικό
     es = Historial
+    et = Ajalugu
     eu = Grabatu
     fa = تاریخچه
     fi = Historia
@@ -8865,6 +9090,7 @@
     de = Leider wurde nichts gefunden.
     el = Ωχ, δεν βρέθηκαν αποτελέσματα.
     es = Lo siento, no he encontrado nada.
+    et = Vabandust, tulemusi ei leitud.
     eu = Barkatu, ez dut ezer aurkitu.
     fa = متاسفانه چیزی پیدا نشد
     fi = Pahoittelut, hakutuloksia ei ole.
@@ -8903,6 +9129,7 @@
     de = Versuchen Sie bitte eine andere Suchanfrage.
     el = Δοκιμάστε να αλλάξετε τα κριτήρια αναζήτησής σας.
     es = Por favor, prueba con otra consulta.
+    et = Proovi muuta otsingutingimusi.
     eu = Mesedez, saiatu beste kontsulta bat.
     fa = با تغییر در معیار های جست و جو دوباره امتحان کنید
     fi = Yritä jotain toista hakusanaa.
@@ -8941,6 +9168,7 @@
     de = Suchverlauf
     el = Ιστορικό αναζήτησης
     es = Historial de búsquedas
+    et = Otsinguajalugu
     eu = Bilaketa-historia
     fa = سوابق جست وجو
     fi = Hakuhistoria
@@ -8979,6 +9207,7 @@
     de = Hier werden Ihre letzten Suchanfragen angezeigt.
     el = Προβολή πρόσφατων αναζητήσεων.
     es = Ver búsquedas recientes.
+    et = Vaata hiljutisi otsinguid.
     eu = Ikusi azken bilaketak.
     fa = مشاهده جست وجو های اخیر
     fi = Siirry nopeasti aikaisempaan hakuun.
@@ -9017,6 +9246,7 @@
     de = Suchverlauf löschen
     el = Εκκαθάριση ιστορικού αναζήτησης
     es = Eliminar el historial de búsqueda
+    et = Tühjenda otsinguajalugu
     eu = Ezabatu bilaketa-historia
     fa = پاک کردن سابقه جست وجو ها
     fi = Poista hakuhistoria
@@ -9052,6 +9282,7 @@
     ca = Viquipèdia
     el = Wikipedia
     es = Wikipedia
+    et = Vikipeedia
     fa = ویکی پدیا
     fr = Wikipédia
     it = Wikipedia
@@ -9083,6 +9314,7 @@
     de = Ihr Standort
     el = Η τοποθεσία σας
     es = Tu ubicación
+    et = Sinu asukoht
     eu = Zure kokapena
     fa = موقعیت شما
     fi = Sijaintisi
@@ -9121,6 +9353,7 @@
     de = Start
     el = Έναρξη
     es = Empezar
+    et = Alusta
     eu = Hasi
     fa = شروع
     fi = Aloita
@@ -9159,6 +9392,7 @@
     de = Von
     el = Διαδρομή από
     es = Desde
+    et = Marsruut lähtekohast
     eu = Hemendik
     fa = مسیر از
     fi = Lähtöpaikka
@@ -9197,6 +9431,7 @@
     de = Nach
     el = Διαδρομή στο
     es = Ruta hacia
+    et = Marsruut sihtkohta
     eu = Bidea hona
     fa = مسیر به
     fi = Reitin loppupiste
@@ -9235,6 +9470,7 @@
     de = Die Navigation ist nur von Ihrem aktuellen Standort verfügbar.
     el = Η πλοήγηση είναι διαθέσιμη μόνο από την τρέχουσα τοποθεσία σας.
     es = La navegación solo está disponible desde tu ubicación actual.
+    et = Navigeerimine on saadaval ainult Sinu praegusest asukohast.
     eu = Nabigazioa zure uneko kokapenetik soilik dago erabilgarri.
     fa = مسیر یابی فقط از موقعیت کنونی شما قابل انجام است.
     fi = Navigointi onnistuu vain nykyisestä sijainnistasi.
@@ -9273,6 +9509,7 @@
     de = Soll eine Route von Ihrem aktuellen Standort aus berechnet werden?
     el = Θέλετε να σχεδιάσουμε μια διαδρομή από την τρέχουσα θέση σας;
     es = ¿Quieres que planeemos un ruta desde tu ubicación actual?
+    et = Kas soovid, et planeeriksime marsruudi Sinu praegusest asukohast?
     eu = Zure uneko kokapenetik ibilbide bat antolatzea nahi duzu?
     fa = ایا می خواهید یک مسیر را از موقعیت فعلیتان برنامه ریزی کنیم؟
     fi = Haluatko valita vaihtoehtoisen reitin?
@@ -9312,6 +9549,7 @@
     de = Weiter
     el = Επόμενη
     es = Siguiente
+    et = Järgmine
     eu = Jarraian
     fa = بعدی
     fi = Seuraava
@@ -9350,6 +9588,7 @@
     de = Zeitplan hinzufügen
     el = Προσθέσετε χρονοδιάγραμμα
     es = Añadir horario
+    et = Lisa ajakava
     eu = Gehitu ordutegia
     fa = اضافه کردن برنامه ریزی
     fi = Lisää aikataulu
@@ -9388,6 +9627,7 @@
     de = Zeitplan löschen
     el = Διαγραφή χρονοδιαγράμματος
     es = Eliminar horario
+    et = Kustuta ajakava
     eu = Ezabatu ordutegia
     fa = حذف کردن برنامه ریزی
     fi = Poista aikataulu
@@ -9427,6 +9667,7 @@
     de = Ganztägig (24 Stunden)
     el = Όλη την ημέρα (24 ώρες)
     es = Todo el día (24 horas)
+    et = Kogu päev (24 tundi)
     eu = Egun osoa (24 ordu)
     fa = شبانه روزی (24 ساعته)
     fi = Kaikki päivät (24 tuntia)
@@ -9465,6 +9706,7 @@
     de = Geöffnet
     el = Άνοιγμα
     es = Abierto
+    et = Avatud
     eu = Ireki
     fa = باز
     fi = Avoinna
@@ -9503,6 +9745,7 @@
     de = Geschlossen
     el = Κλειστό
     es = Cerrado
+    et = Suletud
     eu = Itxita
     fa = بسته
     fi = Suljettu
@@ -9541,6 +9784,7 @@
     de = Schließzeiten hinzufügen
     el = Προσθήκη μη-εργάσιμων ωρών
     es = Añadir horas de cierre
+    et = Lisa suletud tunnid
     eu = Gehitu ixteko ordutegia
     fa = اضافه کردن ساعات غیر کاری
     fi = Lisää suljettuna tunnit
@@ -9579,6 +9823,7 @@
     de = Öffnungszeiten
     el = Εργάσιμες ώρες
     es = Horario de apertura
+    et = Tööaeg
     eu = Ordutegiak
     fa = ساعات کاری
     fi = Aukioloajat
@@ -9617,6 +9862,7 @@
     de = Erweiterter Modus
     el = Προηγμένη λειτουργία
     es = Modo avanzado
+    et = Täpsem režiim
     eu = Modu aurreratua
     fa = حالت پیشرفته
     fi = Edistynyt tila
@@ -9655,6 +9901,7 @@
     de = Einfachmodus
     el = Απλή λειτουργία
     es = Modo sencillo
+    et = Lihtne režiim
     eu = Modu erraza
     fa = حالت ساده
     fi = Yksinkertainen tila
@@ -9693,6 +9940,7 @@
     de = Schließzeiten
     el = Μη-εργάσιμες ώρες
     es = Horas de cierre
+    et = Suletud tunnid
     eu = Ixteko orduak
     fa = ساعات غیر کاری
     fi = Suljettuna tunnit
@@ -9731,6 +9979,7 @@
     de = Beispiele
     el = Παράδειγμα τιμών
     es = Valores de ejemplo
+    et = Näidisväärtused
     eu = Adibide-balioak
     fa = مقادیر پیش فرض
     fi = Esimerkkiarvot
@@ -9769,6 +10018,7 @@
     de = Fehler korrigieren
     el = Διόρθωση λάθους
     es = Corregir error
+    et = Paranda viga
     eu = Akats zuzena
     fa = تصحیح خطا
     fi = Korjaa virhe
@@ -9807,6 +10057,7 @@
     de = Position
     el = Τοποθεσία
     es = Ubicación
+    et = Asukoht
     eu = Kokapena
     fa = موقعیت
     fi = Sijainti
@@ -9845,6 +10096,7 @@
     de = Sie haben die Weltkarte geändert. Behalten Sie das nicht für sich! Erzählen Sie Ihren Freunden davon und bearbeiten Sie sie zusammen.
     el = Έχετε αλλάξει τον παγκόμιο χάρτη. Μην το κρατάτε για τον εαυτό σας! Πείτε το στους φίλους σας και κάντε τις αλλαγές μαζί.
     es = Has cambiado el mapa del mundo. No te lo guardes para ti. Díselo a tus amigos y edítenlo juntos.
+    et = Oled muutnud maailmakaarti. Ära hoia seda ainult enda teada! Rääki ka oma sõpradele ja muutke seda koos.
     eu = Munduko mapa aldatu duzu. Ez ezazu zeuretzat gorde. Esan zure lagunei eta editatu elkarrekin.
     fa = شما نقشه جهان را تغییر دادید.این افتخار را پیش خود نگه ندارید!به دوستانتان درموردش بگویید و با یکدیگر ویرایش کنید.
     fi = Olet muuttanut maailmankarttaa. Älä piilota tätä! Kerro ystävillesi ja muokatkaa sitä yhdessä.
@@ -9883,6 +10135,7 @@
     de = Mit Freunden teilen
     el = Μοιραστείτε με φίλους
     es = Compartir con amigos
+    et = Jaga oma sõpradega
     eu = Partekatu lagunekin
     fa = اشتراک گذاری با دوستان
     fi = Jaa kavereille
@@ -9921,6 +10174,7 @@
     de = Bitte beschreiben Sie das Problem detailliert, damit die OpenStreetMap-Gemeinschaft den Fehler beheben kann.
     el = Περιγράψτε το πρόβλημα αναλυτικά ώστε η Κοινότητα OpenStreetMap να διορθώσει το σφάλμα.
     es = Por favor, describe el problema en detalle para que la comunidad de OpenStreetMap pueda corregir el error.
+    et = Palun kirjelda probleemi üksikasjalikult, et OpenStreetMap kommuun saaks selle parandada.
     eu = Mesedez, deskribatu arazoa xehetasunez, OpenStreetMap komunitateak akatsa konpondu dezan.
     fa = لطفا مشکلتان را با جزئیات توضیح دهید بطوری که انجمن OSM بتوانند ان را برطرف کنند.
     fi = Kuvaile ongelmaa yksityiskohtaisesti, jotta OpenStreetMap-yhteisö voi korjata vian.
@@ -9959,6 +10213,7 @@
     de = Oder kümmern Sie sich selbst darum auf https://www.openstreetmap.org/
     el = Ή κάντε το μόνοι σας στη διεύθυνση https://www.openstreetmap.org/
     es = O hazlo tú mismo en https://www.openstreetmap.org/
+    et = Või tee seda ise aadressil https://www.openstreetmap.org/
     eu = Edo egin ezazu zeure burua https://www.openstreetmap.org/ helbidean
     fa = یا خودتان ان را انجام دهید در وبسایت https://www.openstreetmap.org/
     fi = Tai tee se itse osoitteessa https://www.openstreetmap.org/
@@ -9997,6 +10252,7 @@
     de = Senden
     el = Αποστολή
     es = Enviar
+    et = Saada
     eu = Bidali
     fa = ارسال
     fi = Lähetä
@@ -10035,6 +10291,7 @@
     de = Problem
     el = Πρόβλημα
     es = Problema
+    et = Probleem
     eu = Arazoa
     fa = مشکل
     fi = Ongelma
@@ -10073,6 +10330,7 @@
     de = Der Ort existiert nicht
     el = Η τοποθεσία δεν υπάρχει
     es = El lugar no existe
+    et = Kohta ei eksisteeri
     eu = Tokia ez da existitzen
     fa = مکان وجود ندارد
     fi = Paikkaa ei ole olemassa
@@ -10111,6 +10369,7 @@
     de = Wegen Wartung geschlossen
     el = Εκτός λειτουργίας για συντήρηση
     es = Сerrado por mantenimiento
+    et = Suletud hoolduseks
     eu = Mantentze-lanetarako itxita
     fa = به علت تعمییرات بسته است
     fi = Suljettu huoltoa varten
@@ -10149,6 +10408,7 @@
     de = Doppelter Ort
     el = Διπλότυπη τοποθεσία
     es = Lugar duplicado
+    et = Dubleeritud koht
     eu = Toki bikoiztua
     fa = مکان تکراری
     fi = Paikan kaksoiskappale
@@ -10187,6 +10447,7 @@
     de = Automatisch herunterladen
     el = Αυτόματη λήψη
     es = Descarga automática
+    et = Automaatne allalaadimine
     eu = Deskarga automatikoa
     fa = دانلود خودکار
     fi = Lataa automaattisesti
@@ -10226,6 +10487,7 @@
     de = Jetzt geschlossen
     el = Τώρα είναι κλειστό
     es = Cerrado ahora
+    et = Praegu suletud
     eu = Orain itxita
     fa = اکنون تعطیل است
     fi = Suljettu nyt
@@ -10265,6 +10527,7 @@
     de = Täglich
     el = Καθημερινά
     es = Diario
+    et = Iga päev
     eu = Egunero
     fa = روزانه
     fi = Päivittäin
@@ -10303,6 +10566,7 @@
     de = Tag und Nacht
     el = 24/7
     es = 24/7
+    et = 24/7
     eu = 24/7
     fa = شبانه روزی
     fi = Päivin ja öin
@@ -10342,6 +10606,7 @@
     de = Heute geschlossen
     el = Κλειστό σήμερα
     es = Día libre hoy
+    et = Täna suletud
     eu = Gaur atseden eguna
     fa = امروز تعطیل است
     fi = Suljettu tänään
@@ -10380,6 +10645,7 @@
     de = Geschlossen
     el = Κλειστό
     es = Día libre
+    et = Suletud
     eu = Egun librea
     fa = تعطیل است
     fi = Suljettu
@@ -10418,6 +10684,7 @@
     de = Heute
     el = Σήμερα
     es = Hoy
+    et = Täna
     eu = Gaur
     fa = امروز
     fi = Tänään
@@ -10451,6 +10718,7 @@
     ca = Obre demà a les %@
     de = Öffnet morgen um %@
     es = Abre mañana a las %@
+    et = Avatakse homme kell %@
     eu = Bihar %@ean irekiko da
     fr = Ouvre demain à %@
     it = Apre domani alle %@
@@ -10468,6 +10736,7 @@
     ca = Obre el %1$@ a les %2$@
     de = Öffnet %1$@ um %2$@
     es = Abre el %1$@ a las %2$@
+    et = Avatakse %1$@ kell %2$@
     eu = %1$@ean %2$@ean irekiko da
     fr = Ouvre le %1$@ à %2$@
     it = Apre %1$@ alle %2$@
@@ -10485,6 +10754,7 @@
     ca = Obre a les %@
     de = Öffnet um %@
     es = Abre a las %@
+    et = Avatakse kell %@
     eu = %@ean irekiko da
     fr = Ouvre à %@
     it = Apre alle %@
@@ -10503,6 +10773,7 @@
     ca = Obre en %@
     de = Öffnet in %@
     es = Abre en %@
+    et = Avatakse %@ jooksul
     eu = %@ barru irekitzen da
     fr = Ouvert dans %@
     it = Apre tra %@
@@ -10520,6 +10791,7 @@
     ca = Tanca a les %@
     de = Schließt um %@
     es = Cierra a las %@
+    et = Suletakse kell %@
     eu = %@ean itxiko da
     fr = Ferme à %@
     it = Chiude alle %@
@@ -10538,6 +10810,7 @@
     ca = Tanca en %@
     de = Schließt in %@
     es = Cierra en %@
+    et = Suletakse %@ jooksul
     eu = %@ barru ixten da
     fr = Fermé dans %@
     it = Chiude tra %@
@@ -10560,6 +10833,7 @@
     de = Geschlossen
     el = Κλειστό
     es = Cerrado
+    et = Suletud
     eu = Itxita
     fa = تعطیل
     fi = Suljettu
@@ -10598,6 +10872,7 @@
     de = Geschäftszeiten hinzufügen
     el = Προσθέστε ώρες λειτουργίας
     es = Añadir horarios de apertura
+    et = Lisa tööaeg
     eu = Gehitu ordutegia
     fa = اضافه کردن ساعت بازگشایی
     fi = Lisää aukioloajat
@@ -10636,6 +10911,7 @@
     de = Geschäftszeiten bearbeiten
     el = Επεξεργαστείτε τις ώρες λειτουργίας
     es = Editar los horarios de apertura
+    et = Muuda tööaega
     eu = Editatu ordutegia
     fa = ویرایش ساعت کاری
     fi = Muokkaa aukioloaikoja
@@ -10674,6 +10950,7 @@
     de = Kein Konto bei OpenStreetMap?
     el = Δεν έχετε λογαριασμό OpenStreetMap;
     es = ¿No tienes cuenta en OpenStreetMap?
+    et = Puudub OpenStreetMap konto?
     eu = Ez al duzu OpenStreetMap konturik?
     fa = ایا حساب OpenStreetMap ندارید؟
     fi = Eikö sinulla ole OpenStreetMap tiliä?
@@ -10712,6 +10989,7 @@
     de = Registrieren
     el = Εγγραφείτε στο OpenStreetMap
     es = Registrarse en OpenStreetMap
+    et = Registreeru
     eu = Eman izena OpenStreetMap
     fa = ثبت نام در OpenStreetMap
     fi = Rekisteröidy
@@ -10750,6 +11028,7 @@
     de = Passwort (mindestens 8 Zeichen)
     el = Κωδικός πρόσβασης (8 χαρακτήρες ελάχιστο)
     es = Contraseña (mínimo 8 caracteres)
+    et = Salasõna (vähemalt 8 märki)
     eu = Pasahitza (gutxienez 8 karaktere)
     fa = رمز عبور (حداقل 8 عدد یا حرف)
     fi = Salasana (vähintään 8 merkkiä)
@@ -10788,6 +11067,7 @@
     de = Ungültiger Benutzername oder Passwort.
     el = Μη έγκυρο όνομα χρήστη ή κωδικός πρόσβασης.
     es = Usuario o contraseña incorrectos.
+    et = Vigane kasutajanimi või salasõna.
     eu = Erabiltzaile-izena edo pasahitza okerra.
     fa = نام کاربری یا رمز عبور نامعتبر است.
     fi = Virheellinen käyttäjätunnus tai salasana
@@ -10826,6 +11106,7 @@
     de = Anmelden
     el = Σύνδεση
     es = Iniciar sesión
+    et = Logi sisse
     eu = Saioa hasi
     fa = ورود
     fi = Kirjaudu sisään
@@ -10863,6 +11144,7 @@
     de = Melden Sie sich bei OpenStreetMap an
     el = Συνδεθείτε στο OpenStreetMap
     es = Iniciar sesión en OpenStreetMap
+    et = Logi sisse OpenStreetMap-i
     eu = Hasi saioa OpenStreetMap-en
     fa = ﺪﯾﻮﺷ OpenStreetMap ﺩﺭﺍﻭ
     fi = Kirjaudu OpenStreetMapiin
@@ -10902,6 +11184,7 @@
     de = Passwort
     el = Κωδικός πρόσβασης
     es = Contraseña
+    et = Salasõna
     eu = Pasahitza
     fa = رمز عبور
     fi = Salasana
@@ -10940,6 +11223,7 @@
     de = Passwort vergessen?
     el = Ξαχάσατε τον κωδικό πρόσβασης;
     es = ¿Has olvidado tu contraseña?
+    et = Unustasid oma salasõna?
     eu = Pasahitza ahaztu al duzu?
     fa = رمز عبور خود را فراموش کردید؟
     fi = Unohtuiko salasana?
@@ -10978,6 +11262,7 @@
     de = OSM Konto
     el = `Λογαριασμός OSM  `
     es = Cuenta OSM
+    et = OSM konto
     eu = OSM kontua
     fa = حساب OSM
     fi = OSM-tili
@@ -11016,6 +11301,7 @@
     de = Abmelden
     el = Αποσύνδεση
     es = Cerrar sesión
+    et = Logi välja
     eu = Saioa itxi
     fa = خروج از حساب
     fi = Kirjaudu ulos
@@ -11055,6 +11341,7 @@
     de = Zuletzt hochgeladen
     el = Τελευταία μεταφόρτωση
     es = Última carga
+    et = Viimane üleslaadimine
     eu = Azken karga
     fa = اخرین بروزرسانی
     fi = Viimeisin lisäys
@@ -11093,6 +11380,7 @@
     de = Danke
     el = Σας ευχαριστούμε
     es = Gracias
+    et = Aitäh
     eu = Eskerrik asko
     fa = متشکریم
     fi = Kiitos
@@ -11131,6 +11419,7 @@
     de = Eintrag bearbeiten
     el = Επεξεργασία μέρους
     es = Editar el lugar
+    et = Muuda kohta
     eu = Editatu tokia
     fa = ویرایش مکان
     fi = Muokkaa kohdetta
@@ -11169,6 +11458,7 @@
     de = Name des Ortes
     el = Όνομα μέρους
     es = Nombre del lugar
+    et = Koha nimi
     eu = Tokiaren izena
     fa = نام مکان
     fi = Paikan nimi
@@ -11207,6 +11497,7 @@
     de = Eine Sprache hinzufügen
     el = Προσθήκη γλώσσας
     es = Añadir un idioma
+    et = Lisa keel
     eu = Gehitu hizkuntza bat
     fa = افزودن یک زبان
     fi = Lisää kieli
@@ -11245,6 +11536,7 @@
     de = Straße
     el = Οδός
     es = Calle
+    et = Tänav
     eu = Kalea
     fa = خیابان
     fi = Katu
@@ -11284,6 +11576,7 @@
     de = Hausnummer
     el = Αριθμός κτιρίου
     es = Número de casa
+    et = Majanumber
     eu = Etxe zenbakia
     fa = شماره ساختمان
     fi = Talon numero
@@ -11322,6 +11615,7 @@
     de = Einzelheiten
     el = Λεπτομέρειες
     es = Detalles
+    et = Üksikasjad
     eu = Xehetasunak
     fa = جزئیات
     fi = Lisätiedot
@@ -11361,6 +11655,7 @@
     de = Eine Straße hinzufügen
     el = Προσθέστε ένα δρόμο
     es = Añadir una calle
+    et = Lisa tänav
     eu = Gehitu kale bat
     fa = اضافه کردن خیابان
     fi = Lisää katu
@@ -11400,6 +11695,7 @@
     de = Geben Sie einen Straßennamen ein
     el = Εισαγάγετε ένα όνομα οδού
     es = Ingrese un nombre de calle
+    et = Palun sisesta tänava nimi
     eu = Sartu kale-izena
     fa = ﺪﯿﻨﮐ ﺩﺭﺍﻭ ﺍﺭ ﻥﺎﺑﺎﯿﺧ ﻡﺎﻧ
     it = Inserire il nome della via
@@ -11424,6 +11720,7 @@
     de = Eine Sprache wählen
     el = Επιλέξτε μια γλώσσα
     es = Elegir un idioma
+    et = Vali keel
     eu = Hizkuntza bat aukeratu
     fa = انتخاب یک زبان
     fi = Valitse kieli
@@ -11462,6 +11759,7 @@
     de = Eine Straße wählen
     el = Επιλέξτε μια οδό
     es = Elegir una calle
+    et = Vali tänav
     eu = Kale bat aukeratu
     fa = انتخاب یک خیابان
     fi = Valitse katu
@@ -11499,6 +11797,7 @@
     da = Postnummer
     de = Postleitzahl
     es = Código postal
+    et = Postiindeks
     eu = Posta kodea
     fa = کد پستی
     fi = Postinumero
@@ -11537,6 +11836,7 @@
     de = Küche
     el = Κουζίνα
     es = Cocina
+    et = Köök
     eu = Sukaldea
     fa = غذا خوری
     fi = Ruokalaji
@@ -11575,6 +11875,7 @@
     de = Küche auswählen
     el = Επιλέξτε κουζίνα
     es = Seleccionar cocina
+    et = Vali köök
     eu = Aukeratu sukaldea
     fa = انتخاب غذاخوری
     fi = Valitse ruokalaji
@@ -11614,6 +11915,7 @@
     de = Email oder Benutzername
     el = Email ή όνομα χρήστη
     es = Email ó usuario
+    et = E-post või kasutajanimi
     eu = Posta elektronikoa edo erabiltzailea
     fa = ایمیل یا نام کاربری
     fi = Sähköposti tai käyttäjätunnus
@@ -11652,6 +11954,7 @@
     de = Telefon
     el = Τηλέφωνο
     es = Teléfono
+    et = Telefon
     eu = Telefonoa
     fa = تلفن
     fi = Puhelinnumero
@@ -11684,6 +11987,7 @@
     ar = إضافة رقم هاتف
     ca = Afegeix un telèfon
     de = Telefon hinzufügen
+    et = Lisa telefon
     fr = Ajouter un numéro de téléphone
     it = Aggiungi numero
     mr = फोन जोडा
@@ -11706,6 +12010,7 @@
     de = Stockwerk
     el = Όροφος
     es = Piso
+    et = Korrus
     eu = Solairua
     fa = طبقه
     fi = Kerros
@@ -11745,6 +12050,7 @@
     de = Bitte beachten
     el = Λάβετε υπόψη
     es = Aviso
+    et = Tähelepanu
     eu = Abisua
     fa = لطفا توجه داشته باشد
     fi = Huomaathan, että
@@ -11783,6 +12089,7 @@
     de = Alle Kartenänderungen werden zusammen mit der Karte gelöscht.
     el = Όλες οι αλλαγές που έχετε κάνει στο χάρτη θα διαγραφούν μαζί με το χάρτη.
     es = Todos los cambios en los mapas se borrarán junto con el mapa.
+    et = Kõik Sinu kaardimuudatused kustutatakse koos kaardiga.
     eu = Maparen aldaketa guztiak maparekin batera ezabatuko dira.
     fa = تمام ویرایش های که بر روی نقشه انجام داده اید به همراه نقشه حذف شد.
     fi = Kaikki karttaan tehdyt muutokset poistetaan kartan mukana.
@@ -11821,6 +12128,7 @@
     de = Karten aktualisieren
     el = Ενημέρωση χαρτών
     es = Autodescarga de mapas
+    et = Värskenda kaarte
     eu = Mapak deskargatu automatikoki
     fa = بروزرسانی نقشه ها
     fi = Päivitä kartat
@@ -11859,6 +12167,7 @@
     de = Um eine Strecke zu erstellen, müssen Sie alle Karten aktualisieren und dann die Strecken erneut planen.
     el = Για να δημιουργήσετε μια διαδρομή, πρέπει να ενημερώσετε όλους τους χάρτες και στη συνέχεια να σχεδιάσετε τη διαδρομή ξανά.
     es = Para crear una ruta, es necesario actualizar todos los mapas y volver a planificar la ruta.
+    et = Marsruudi loomiseks tuleb värskendada kõiki kaarte ja seejärel planeerida marsruuti uuesti.
     eu = Ibilbide bat sortzeko, beharrezkoa da mapa guztiak eguneratzea eta ibilbidea berriro planifikatzea.
     fa = برای ایجاد مسیر شما نیازمند بروزرسانی تمامی  نقشه ها هستید سپس می توانید دوباره مسیرتان را برنامه ریزی کنید
     fi = Sinun täytyy päivittää kaikki kartat ja suunnitella reitti uudelleen luodaksesi uuden reitin.
@@ -11897,6 +12206,7 @@
     de = Karte finden
     el = Ανεύρεση χάρτη
     es = Buscar en el mapa
+    et = Leia kaart
     eu = Bilatu mapan
     fa = یافتن نقشه
     fi = Etsi kartta
@@ -11935,6 +12245,7 @@
     de = Fehler beim Herunterladen
     el = Σφάλμα λήψης
     es = Error de descarga
+    et = Allalaadimise viga
     eu = Deskargatzeko errorea
     fa = خطا در دانلود
     fi = Latausvirhe
@@ -11973,6 +12284,7 @@
     de = Bitte überprüfen Sie Ihre Einstellungen und stellen Sie sicher, dass Ihr Gerät mit dem Internet verbunden ist.
     el = Ελέγξτε τις ρυθμίσεις σας και βεβαιωθείτε ότι η συσκευή σας είναι συνδεδεμένη στο Internet.
     es = Por favor, verifica la configuración y asegúrate de que tu dispositivo está conectado a Internet.
+    et = Palun kontrolli seadeid ning seadme Interneti-ühendust.
     eu = Mesedez, egiaztatu ezarpenak eta ziurtatu zure gailua Internetera konektatuta dagoela.
     fa = لطفا تنظیمات خود را بازبینی کنید و مطمئن شوید که ابزار شما به اینترنت متصل است.
     fi = Tarkista asetuksesi ja varmista, että laitteesi on yhteydessä Internetiin.
@@ -12011,6 +12323,7 @@
     de = Nicht genug Speicherplatz
     el = Δεν υπάρχει αρκετός χώρος
     es = Sin espacio suficiente
+    et = Ei ole piisavalt ruumi
     eu = Leku nahikoa ez
     fa = فظای کافی موجود نیست
     fi = Ei tarpeeksi tilaa
@@ -12049,6 +12362,7 @@
     de = Bitte entfernen Sie unnötige Daten
     el = Διαγράψτε τυχόν μη απαραίτητα δεδομένα
     es = Por favor, elimina los datos innecesarios
+    et = Palun kustuta ebavajalikud andmed
     eu = Ezabatu beharrezkoak ez diren datuak
     fa = لطفا داده های غیر ضروری را از دستگاه خود حذف کنید
     fi = Poista tarpeeton data
@@ -12087,6 +12401,7 @@
     de = Login-Fehler.
     el = Σφάλμα σύνδεσης.
     es = Error de inicio de sesión.
+    et = Sisse logimise viga.
     eu = Saioa hasteko errorea.
     fa = خطای ورود
     fi = Kirjautumisvirhe.
@@ -12125,6 +12440,7 @@
     de = Bestätigte Änderungen der Karte
     el = Επαληθευμένες αλλαγές
     es = Cambios verificados
+    et = Kinnitatud muudatused
     eu = Egiaztatutako aldaketak
     fa = تغییرات تایید شد
     fi = Vahvistetut karttamuutokset
@@ -12163,6 +12479,7 @@
     de = Ziehen Sie die Karte, um den Standort des Objektes zu korrigieren.
     el = Σύρετε τον χάρτη για να επιλέξετε τη σωστή θέση του αντικειμένου.
     es = Arrastra el mapa para seleccionar la ubicación correcta del objeto.
+    et = Objekti õige asukoha valimiseks lohista kaarti.
     eu = Arrastatu mapa objektuaren kokapen zuzena hautatzeko.
     fa = برای انتخاب مکان صحیح شئی نقشه را بکشید.
     fi = Vedä karttaa valitaksesi kohteelle oikean sijainnin.
@@ -12201,6 +12518,7 @@
     de = Kategorie auswählen
     el = Επιλέξτε κατηγορία
     es = Seleccionar categoría
+    et = Vali kategooria
     eu = Hautatu kategoria
     fa = انتخاب دسته بندی
     fi = Valitse kategoria
@@ -12239,6 +12557,7 @@
     de = Beliebt
     el = Δημοφιλή
     es = Popular
+    et = Populaarne
     eu = Herrikoia
     fa = پرطرفدار
     fi = Suositut
@@ -12277,6 +12596,7 @@
     de = Alle Kategorien
     el = Όλες οι κατηγορίες
     es = Todas las categorías
+    et = Kõik kategooriad
     eu = Kategoria guztiak
     fa = همه دسته بندی ها
     fi = Kaikki kategoriat
@@ -12315,6 +12635,7 @@
     de = Wird bearbeitet
     el = Επεξεργασία
     es = Editar
+    et = Muutmine
     eu = Editatu
     fa = درحال ویرایش
     fi = Muokkaus
@@ -12353,6 +12674,7 @@
     de = Wird hinzugefügt
     el = Προσθήκη
     es = Añadir
+    et = Lisamine
     eu = Gehitu
     fa = درحال افزودن
     fi = Lisääminen
@@ -12391,6 +12713,7 @@
     de = Name des Ortes
     el = Το όνομα του τόπου
     es = Nombre del lugar
+    et = Koha nimi
     eu = Tokiaren izena
     fa = نام مکان
     fi = Paikan nimi
@@ -12429,6 +12752,7 @@
     de = Kategorie
     el = Κατηγορία
     es = Categoría
+    et = Kategooria
     eu = Kategoria
     fa = دسته بندی
     fi = Kategoria
@@ -12467,6 +12791,7 @@
     de = Detaillierte Beschreibung eines Problems
     el = Λεπτομερή περιγραφή του θέματος
     es = Descripción detallada del problema
+    et = Probleemi üksikasjalik kirjeldus
     eu = Arazoaren deskribapen zehatza
     fa = توضیح مفصل در مورد مشکل
     fi = Ongelman tarkka kuvaus
@@ -12505,6 +12830,7 @@
     de = Ein anderes Problem
     el = Διαφορετικό πρόβλημα
     es = Un problema diferente
+    et = Erinev probleem
     eu = Beste arazo bat
     fa = مشکلی دیگر
     fi = Eri ongelma
@@ -12543,6 +12869,7 @@
     de = Organisation hinzufügen
     el = Προσθήκη επιχείρησης
     es = Añadir organización
+    et = Lisa ettevõte
     eu = Negozioa gehitu
     fa = اضافه کردن یک تجارت
     fi = Lisää organisaatio
@@ -12581,6 +12908,7 @@
     de = Fügen Sie auf der Karte einen neuen Ort hinzu und bearbeiten Sie existierende Orte direkt in der App.
     el = Προσθέστε νέες τοποθεσίες στο χάρτη, και επεξεργαστείτε τις υπάρχουσες απευθείας από την εφαρμογή.
     es = Añadir lugares nuevos al mapa y editar los lugares actuales directamente desde la aplicación.
+    et = Lisa kaardile uusi kohti ja muuda olemasolevaid otse rakenduses.
     eu = Gehitu toki berriak mapan eta editatu uneko tokiak zuzenean aplikaziotik.
     fa = اضافه کردن مکان به نقشه و ویرایش ان مستقیما از طریق این اپلیکیشن.
     fi = Lisää karttaan uusia paikkoja ja muokkaa sovelluksessa olevia karttoja suoraan sovelluksessa.
@@ -12619,6 +12947,7 @@
     de = Standort wechseln
     el = Αλλαγή τοποθεσίας
     es = Cambiar ubicación
+    et = Muuda asukohta
     eu = Aldatu kokapena
     fa = تغییر موقعیت
     fi = Vaihda sijaintia
@@ -12657,6 +12986,7 @@
     de = Ein Objekt kann hier nicht positioniert werden
     el = Δε μπορεί να εντοπιστεί αντικείμενο εδώ
     es = No se puede ubicar ningún objeto aquí
+    et = Ükski objekt ei saa siin asuda
     eu = Hemen ezin da objekturik jarri
     fa = نمی توان شی ای در این مکان باشد
     fi = Kohdetta ei voida asettaa tänne
@@ -12695,6 +13025,7 @@
     de = Alle Kartendaten stammen aus dem OpenStreetMap-Projekt. Es ist wie Wikipedia für Karten, wo Sie Orte hinzufügen oder bearbeiten können, und sie werden Millionen von Benutzern auf der ganzen Welt zur Verfügung gestellt.
     el = Όλα τα δεδομένα χάρτη προέρχονται από το έργο OpenStreetMap. Μοιάζει με τη Wikipedia για χάρτες όπου μπορείτε να προσθέσετε ή να επεξεργαστείτε μέρη και γίνονται διαθέσιμα σε εκατομμύρια χρήστες σε όλο τον κόσμο.
     es = Todos los datos del mapa provienen del proyecto OpenStreetMap. Es como Wikipedia para mapas donde puedes agregar o editar lugares, y están disponibles para millones de usuarios en todo el mundo.
+    et = Kõik kaardiandmed pärinevad OpenStreetMapi projektist. See on nagu Vikipeedia kaartide jaoks, kus saate kohti lisada või muuta ja need muutuvad kättesaadavaks miljonitele kasutajatele üle kogu maailma.
     eu = Maparen datu guztiak OpenStreetMap proiektutik datoz. Tokiak gehitu edo edita ditzakezun mapetarako Wikipedia bezalakoa da, eta mundu osoko milioika erabiltzaileren eskura jartzen dira.
     fa = .ﺪﻧﺮﯿﮔu200cﯽﻣ ﺭﺍﺮﻗ ﺱﺮﺘﺳﺩ ﺭﺩ ﻥﺎﻬﺟ ﺮﺳﺍﺮﺳ ﺭﺩ ﺮﺑﺭﺎﮐ ﺎﻫu200cﻥﻮﯿﻠﯿﻣ ﯼﺍﺮﺑ ﺎﻫu200cﻥﺁ ﻭ
     fi = Kaikki karttatiedot tulevat OpenStreetMap-projektista. Se on kuin karttojen Wikipedia, jossa voit lisätä tai muokata paikkoja, ja ne ovat miljoonien käyttäjien saatavilla kaikkialla maailmassa.
@@ -12734,6 +13065,7 @@
     de = Melden Sie sich an, damit andere Benutzer Ihre Änderungen sehen können.
     el = Συνδεθείτε ώστε άλλοι χρήστες να μπορούν να δουν τις αλλαγές που έχετε κάνει
     es = Inicia sesión para que otros usuarios puedan ver los cambios que has efectuado.
+    et = Logi sisse OpenStreetMap.org keskkonda, et teised kasutajad näeksid Sinu tehtud muudatusi.
     eu = Hasi saioa beste erabiltzaileek zuk egindako aldaketak ikus ditzaten.
     fa = وارد شوید تا دیگر کاربران نیز بتوانند تغییرات ایجاد شده توسط شما را ببینند
     fi = Kirjaudu sisään jotta muut käyttäjät voivat nähdä tekemäsi muokkaukset.
@@ -12773,6 +13105,7 @@
     de = Zum Herunterladen benötigen Sie mehr Platz. Bitte löschen Sie unnötige Daten.
     el = Για να το κατεβάσετε, χρειάζεστε περισσότερο χώρο. Διαγράψτε τυχόν μη απαραίτητα δεδομένα.
     es = Necesitas más espacio para descargar. Por favor, elimina los datos innecesarios.
+    et = Alla laadimiseks vajad rohkem ruumi. Palun kustuta ebavajalikke andmeid.
     eu = Leku gehiago behar duzu deskargatzeko. Ezabatu beharrezkoak ez diren datuak.
     fa = برای دانلود,شما نیازمند فضای ذخیره سازی بیشتری هستید.لطفا داده های غیر ضروری خود را حذف کنید.
     fi = Tarvitset lisää tilaa ladataksesi. Poista tarpeeton data.
@@ -12811,6 +13144,7 @@
     de = Ich habe die Organic Maps-Karten verbessert
     el = Βελτίωσα τους χάρτες Organic Maps
     es = He mejorado los mapas de Organic Maps
+    et = Parandasin Organic Maps kaarte
     eu = Organic Maps mapak hobetu ditut
     fa = من نقشه های Organic Maps را بهبود بخشیدم
     fi = Paransin Organic Maps-karttoja
@@ -12850,6 +13184,7 @@
     de = %1$d von %2$d
     el = %1$d από %2$d
     es = %1$d de %2$d
+    et = %1$d/%2$d
     eu = %1$d/%2$d
     fa = %1$d  از  %2$d
     fi = %1$d/%2$d
@@ -12888,6 +13223,7 @@
     de = Über eine Mobilfunknetzverbindung herunterladen?
     el = Να γίνει λήψη μέσω δικτύου κινητής τηλεφωνίας;
     es = ¿Descargar con conexión de red móvil?
+    et = Lae mobiilivõrgu kaudu?
     eu = Deskargatu sare mugikorreko konexioarekin?
     fa = دانلود بر روی یک شبکه دیتای موبایل؟
     fi = Lataa käyttämällä puhelinverkkoyhteyttä?
@@ -12925,6 +13261,7 @@
     de = Das könnte mit einigen Tarifen oder beim Roaming sehr teuer werden.
     el = Αυτό μπορεί να είναι σημαντικά πιο ακριβό για μερικά πακέτα ή στην περίπτωση περιαγωγής
     es = Podría ser muy caro con ciertos planes o con itinerancia de datos.
+    et = See võib mõningate lepingute või roamingu korral olla märgatavalt kallim.
     eu = Oso garestia izan daiteke plan batzuekin edo datu-ibiltaritzarekin.
     fa = این کار می تواند برای شما در بعضی طرح ها و یا حالت رومینگ هزینه اضافی در بر داشته باشد.
     fi = Tämä vaihtoehto saattaa olla huomattavasti kalliimpi tietyillä sopimuksilla tai roaming-yhteydellä.
@@ -12962,6 +13299,7 @@
     de = Richtige Hausnummer eingeben
     el = Εισαγάγετε έναν έγκυρο αριθμό κτιρίου
     es = Introducir el número de domicilio correcto
+    et = Sisesta kehtiv majanumber
     eu = Sartu etxe-zenbaki zuzena
     fa = وارد کردن شماره ساختمان معتبر
     fi = Syötä oikea talon numero
@@ -13000,6 +13338,7 @@
     de = Anzahl der Etagen (maximal %d)
     el = Αριθμός ορόφων (μέγιστο %d)
     es = Número de plantas (máx. %d)
+    et = Korruste arv (maks. %d)
     eu = Solairu kopurua (gehienez %d)
     fa = تعداد طبقات ( حداکثر %d )
     fi = Kerrosten määrä (maks. %d)
@@ -13039,6 +13378,7 @@
     de = Das Gebäude kann nicht mehr als 25 Etagen haben
     el = Ο αριθμός των ορόφων δεν πρέπει να υπερβαίνει τους 25
     es = El número de plantas no debe superar 25
+    et = Korruste arv ei või olla üle 25
     eu = Landare kopurua ez da 25etik gorakoa izan behar
     fa = تعداد طبقات نباید بیش از 25 باشد
     fi = Muokkaa kerroksia, enintään 25 kerrosta
@@ -13077,6 +13417,7 @@
     de = Postleitzahl
     el = Ταχυδρομικός κώδικας
     es = Código postal
+    et = Postiindeks
     eu = Posta kodea
     fa = کدپستی
     fi = Postinumero
@@ -13115,6 +13456,7 @@
     de = Geben Sie die korrekte Postleitzahl ein
     el = Πληκτρολογήστε έναν έγκυρο ταχυδρομικό κώδικα
     es = Introduzca el código postal correcto
+    et = Sisesta korrektne postiindeks
     eu = Mesedez, idatzi posta-kode zuzena
     fa = یک کد پستی معتبر وارد کنید
     fi = Anna kelvollinen postinumero
@@ -13154,6 +13496,7 @@
     de = Unbekannter Ort
     el = Άγνωστο μέρος
     es = Lugar desconocido
+    et = Tundmatu koht
     eu = Toki ezezaguna
     fa = مکان ناشناس
     fi = Tuntematon paikka
@@ -13192,6 +13535,7 @@
     de = Notiz an OSM-Redakteure senden
     el = Σημείωμα στους συντάκτες του OSM
     es = Enviar nota a los editores de OSM
+    et = Saada märkus OSM muutjatele
     es-MX = Enviar nota a los editores de OSM
     eu = Bidali oharra OSM editoreei
     fa = ارسال یادداشت به ویرایشکنندگان OSM
@@ -13232,6 +13576,7 @@
     de = Ausführlicher Kommentar
     el = Αναλυτικό σχόλιο
     es = Comentario detallado
+    et = Üksikasjalik kommentaar
     eu = Iruzkin zehatza
     fa = اظهارنظر بیشتر
     fi = Yksityiskohtainen kommentti
@@ -13270,6 +13615,7 @@
     de = Ihre Änderungsvorschläge für die Karte werden an OpenStreetMap gesendet: Beschreiben Sie die Details der Objekte, die Sie in Organic Maps nicht bearbeiten können.
     el = Οι προτεινόμενες αλλαγές χάρτη θα σταλούν στην Κοινότητα του OpenStreetMap. Περιγράψτε τυχόν πρόσθετα στοιχεία που δεν μπορείτε να επεξεργαστείτε στο Organic Maps.
     es = Los cambios que ha sugerido se enviarán a la comunidad de OpenStreetMap. Describa los detalles que no pueden editarse en Organic Maps.
+    et = Teie soovitatud kaardimuudatused saadetakse OpenStreetMapi kogukonnale. Kirjeldage kõiki täiendavaid üksikasju, mida ei saa Organic Maps-is muuta.
     eu = Iradoki dituzun aldaketak OpenStreetMap komunitatean argitaratuko dira. Deskribatu mapa organikoetan editatu ezin diren xehetasunak.
     fa = شما یک سری تغییرات در نقشه را برای انجمن OpenStreetMap ارسال کردید.جزئیات اضافی را که نتوانستید در Organic Maps ویرایش کنید را برایشان بنویسید.
     fi = Ehdottamasi muutokset lähetetään OpenStreetMap-yhteisöön. Kuvaa tiedot, joita ei voi muokata Organic Maps:ssä.
@@ -13308,6 +13654,7 @@
     de = Mehr Informationen über OpenStreetMap
     el = Περισσότερα σχετικά με το OpenStreetMap
     es = Más acerca de OpenStreetMap
+    et = Rohkem OpenStreetMap kohta
     eu = OpenStreetMap-i buruzko informazio gehiago
     fa = در مورد OpenStreetMap بیشتر بدانید
     fi = Lisätietoja OpenStreetMap:ista
@@ -13346,6 +13693,7 @@
     de = Betreiber oder Eigentümer
     el = Ιδιοκτήτης
     es = Operador
+    et = Omanik
     eu = Eragilea
     fa = مالک
     fi = Operaattori
@@ -13384,6 +13732,7 @@
     de = Keine Karten geladen
     el = Δεν έχετε κατεβάσει χάρτες
     es = No ha descargado ningún mapa
+    et = Sa ei ole kaarte alla laadinud
     eu = Ez duzu maparik deskargatu
     fa = شما هیچ نقشه دانلود شده ای ندارید
     fi = Et ole ladannut yhtään karttaa
@@ -13422,6 +13771,7 @@
     de = Laden Sie die für die Suche nach Orten erforderlichen Karten und verwenden Sie die Navigation offline.
     el = Κατεβάστε χάρτες για να αναζητήσετε μια τοποθεσία και να χρησιμοποιήσετε την πλοήγησης χωρίς σύνδεση.
     es = Descargue mapas para encontrar la ubicación y navegar sin conexión.
+    et = Lae alla kaardid asukoha otsimiseks ja võrguühenduseta navigeerimise kasutamiseks.
     eu = Deskargatu mapak kokapena aurkitzeko eta lineaz kanpo nabigatzeko.
     fa = برای جست وجو یک مکان و استفاده از قابلیت ناوبری, نقشه ها را دانلود کنید.
     fi = Lataa kartattoja löytääksesi paikkoja ja navigoidaksesi offline-tilassa.
@@ -13461,6 +13811,7 @@
     de = Standortsuche fortsetzen?
     el = Να συνεχίσει να ανιχνεύεται η τρέχουσα θέση σας;
     es = ¿Continuar detectando su ubicación actual?
+    et = Jätka oma hetkeasukoha määramist?
     eu = Zure uneko kokapena detektatzen jarraitu nahi duzu?
     fa = ایا یافتن مکان تان را ادامه می دهید؟
     fi = Jatketaanko nykyisen sijaintisi havaitsemista?
@@ -13500,6 +13851,7 @@
     de = Standort nicht gefunden. Möglicherweise befinden Sie sich in einem Gebäude oder einem Tunnel.
     el = Η τρέχουσα τοποθεσία είναι άγνωστη. Ίσως είστε σε ένα κτίριο ή σε μια σήραγγα.
     es = La ubicación actual es desconocida. Quizá esté en un edificio o en un túnel.
+    et = Hetkeasukoht on teadmata. Võib-olla oled hoones sees või tunnelis.
     eu = Uneko kokapena ezezaguna da. Eraikin batean edo tunel batean egon daiteke.
     fa = مکان شما ناشناس مانده است.ممکن است شما داخل یک ساختمان یا تونل باشید.
     fi = Nykyistä sijaintiasi ei voitu määrittää. Kenties olet rakennuksessa tai tunnelissa.
@@ -13538,6 +13890,7 @@
     de = Fortsetzen
     el = Συνέχεια
     es = Continuar
+    et = Jätka
     eu = Jarraitu
     fa = ادامه
     fi = Jatka
@@ -13576,6 +13929,7 @@
     de = Anhalten
     el = Στοπ
     es = Detener
+    et = Lõpeta
     eu = Gelditu
     fa = توقف
     fi = Seis
@@ -13614,6 +13968,7 @@
     de = Standort nicht gefunden.
     el = Η τρέχουσα τοποθεσία είναι άγνωστη.
     es = La ubicación actual es desconocida.
+    et = Hetkeasukoht on teadmata.
     eu = Uneko kokapena ezezaguna da.
     fa = مکان فعلیتان ناشناس است.
     fi = Nykyinen sijainti on tuntematon.
@@ -13651,6 +14006,7 @@
     de = Bei der Standortsuche ist ein unbekannter Fehler aufgetreten. Prüfen Sie die Funktionstüchtigkeit Ihres Geräts und versuchen Sie es etwas später erneut.
     el = Παρουσιάστηκε σφάλμα κατά την αναζήτηση της τοποθεσίας σας. Ελέγξτε αν η συσκευή σας λειτουργεί κανονικά και δοκιμάστε ξανά αργότερα.
     es = Se ha producido un error al buscar su ubicación. Compruebe que su dispositivo funciona correctamente e inténtelo más tarde.
+    et = Teie asukoha otsimisel ilmnes viga. Kontrollige, kas teie seade töötab korralikult ja proovige hiljem uuesti.
     eu = Errore bat gertatu da zure kokapena bilatzean. Egiaztatu gailua behar bezala dabilela eta saiatu berriro geroago.
     fa = خطایی در هنگام جست وجوی مکان شمارخ داده است.بررسی کنیید دستگاهتان به درستی کار می کند و دوباره تلاش کنید.
     fi = Tapahtui virhe määritettäessä sijaintiasi. Tarkista laitteesi ja yritä myöhemmin uudelleen.
@@ -13689,6 +14045,7 @@
     de = Standort-Identifizierung ist deaktiviert
     el = Οι υπηρεσίες εντοπισμού τοποθεσίας είναι απενεργοποιημένες
     es = La identificación de la ubicación está desactivada
+    et = Asukohateenused on keelatud
     eu = Kokapenaren identifikazioa desaktibatuta dago
     fa = سرویس موقعیت مکانی شما غیرفعال است
     fi = Sijaintipalvelut on poistettu käytöstä
@@ -13728,6 +14085,7 @@
     de = Aktivieren Sie den Zugang zur Positionsbestimmung in den Geräteeinstellungen
     el = Ενεργοποίηση πρόσβασης γεωγραφικού εντοπισμού τοποθεσίας στις ρυθμίσεις της συσκευής
     es = Activa el acceso a la geolocalización en los ajustes del dispositivo
+    et = Luba seadme seadetes juurdepääs geograafilisele asukohale
     eu = Aktibatu geokokapenerako sarbidea gailuaren ezarpenetan
     fa = سرویس موقعیت مکانی خود را در بخش تنظیمات فعال کنید.
     fi = Schakel de toegang tot geolocaties in in de instellingen van het apparaat
@@ -13767,6 +14125,7 @@
     de = 1. Einstellungen öffnen
     el = 1. Ανοίξτε τις ρυθμίσεις
     es = 1. Abre los ajustes
+    et = 1. Ava seaded
     eu = 1. Ireki ezarpenak
     fa = 1. بازکردن تنظیمات
     fi = 1. Avaa asetukset
@@ -13806,6 +14165,7 @@
     de = 2. Auf Standort tippen
     el = 2. Πατήστε τοποθεσία
     es = 2. Pulsa "Ubicación"
+    et = 2. Puuduta "Asukoht"
     eu = 2. Sakatu "Kokapena"
     fi = 2. Tik op locatie
     fr = 2. Appuyer sur Localisation
@@ -13845,6 +14205,7 @@
     de = 3. Wählen Sie „Beim Verwenden der App“
     el = 3. Επιλέξτε ενώ χρησιμοποιείτε την εφαρμογή
     es = 3. Seleccionar al usar la aplicación
+    et = 3. Vali "Rakenduse kasutamise ajal"
     eu = 3. Hautatu aplikazioa erabiltzean
     fi = 3. Valitse sovellusta käytettäessä
     fr = 3. Sélectionner tout en utilisant l'app
@@ -13881,6 +14242,7 @@
     da = m
     de = m
     es = m
+    et = m
     eu = m
     fa = متر
     fi = m
@@ -13918,6 +14280,7 @@
     da = km
     de = km
     es = km
+    et = km
     eu = km
     fa = کیلومتر
     fi = km
@@ -13954,6 +14317,7 @@
     da = km/t
     de = km/h
     es = km/h
+    et = km/h
     eu = km/h
     fa = کیلومتربرساعت (km/h)
     fi = km/h
@@ -13991,6 +14355,7 @@
     da = mil
     de = mi
     es = mi
+    et = mi
     eu = ni
     fa = مایل
     fi = mi
@@ -14029,6 +14394,7 @@
     da = fod
     de = ft
     es = pie
+    et = jalga
     eu = oina
     fa = فوت
     fi = ft
@@ -14062,6 +14428,7 @@
     da = mph
     de = mph
     es = mph
+    et = mph
     eu = mph
     fa = مایل بر ساعت (mph)
     fi = mph
@@ -14099,6 +14466,7 @@
     da = time
     de = h
     es = h
+    et = h
     eu = h
     fa = ساعت
     fi = t
@@ -14134,6 +14502,7 @@
     da = min
     de = min
     es = min
+    et = min
     eu = min
     fa = دقیقه
     fi = min
@@ -14171,6 +14540,7 @@
     da = Beskrivelse
     de = Beschreibung
     es = Descripción
+    et = Kirjeldus
     eu = Deskribapena
     fa = توضیحات
     fi = Kuvaus
@@ -14209,6 +14579,7 @@
     de = Mehr
     el = Περισσότερα
     es = Más
+    et = Veel
     eu = Gainera
     fa = بیشتر
     fi = Lisää
@@ -14246,6 +14617,7 @@
     da = Book
     de = Buchen
     es = Reservar
+    et = Reserveeri
     eu = Erreserba
     fa = رزرو
     fi = Varaa
@@ -14284,6 +14656,7 @@
     de = Anruf
     el = Κλήση
     es = Llamar
+    et = Helista
     eu = Deitzeko
     fa = تماس
     fi = Soita
@@ -14322,6 +14695,7 @@
     de = Lesezeichen bearbeiten
     el = Επεξεργασία αγαπημένου
     es = Editar marcador
+    et = Muuda järjehoidjat
     eu = Editatu laster-marka
     fa = ویرایش نشانه ها
     fi = Muokkaa kirjanmerkkiä
@@ -14360,6 +14734,7 @@
     de = Name des Lesezeichens
     el = Όνομα αγαπημένου
     es = Nombre del marcador
+    et = Järjehoidja nimi
     eu = Laster-markaren izena
     fa = نام نشانه ها
     fi = Kirjanmerkin nimi
@@ -14397,6 +14772,7 @@
     de = Anmerkung
     el = Προσωπικές σημειώσεις
     es = Notas personales
+    et = Isiklikud märkmed
     eu = Ohar pertsonalak
     fa = یاداشت های شخصی
     fi = Henkilökohtaiset merkinnät
@@ -14434,6 +14810,7 @@
     de = Lesezeichen löschen
     el = Διαγραφή αγαπημένου
     es = Eliminar marcador
+    et = Kustuta järjehoidja
     eu = Ezabatu laster-marka
     fa = حذف نشانه
     fi = Poista kirjanmerkki
@@ -14472,6 +14849,7 @@
     de = Ihre Änderungsvorschläge wurden gesendet
     el = Οι προτεινόμενες αλλαγές σας έχουν σταλεί
     es = Se han enviado sus cambios sugeridos
+    et = Sinu soovitatud muudatused on saadetud
     eu = Iradokitako aldaketak bidali dira
     fa = تغییر پیشنهادی شما ارسال شد
     fi = Ehdottamasi muutokset on lähetetty
@@ -14510,6 +14888,7 @@
     de = Kommentar…
     el = Σχόλιο…
     es = Comentario…
+    et = Kommenteeri…
     eu = Iruzkina…
     fa = اظهار نظر
     fi = Kommentti…
@@ -14548,6 +14927,7 @@
     de = Alle lokalen Korrekturen verwerfen
     el = Απόρριψη όλων των τοπικών αλλαγών;
     es = ¿Restablecer todos los cambios locales?
+    et = Loobu kõigist kohalikest muudatustest?
     eu = Tokiko aldaketa guztiak berrezarri nahi dituzu?
     fa = ایا تغییرات محلی را نادیده می گیرید؟
     fi = Nollataanko kaikki paikalliset muutokset?
@@ -14586,6 +14966,7 @@
     de = Verwerfen
     el = Απόρριψη
     es = Restablecer
+    et = Loobu
     eu = Berreskuratu
     fa = نادیده گرفتن
     fi = Nollaa
@@ -14624,6 +15005,7 @@
     de = Hinzugefügtes Objekt löschen?
     el = Διαγραφή της τοποθεσίας που προστέθηκε;
     es = ¿Eliminar el lugar añadido?
+    et = Kustuta lisatud koht?
     eu = Gehitutako tokia ezabatu?
     fa = ایا مکان ثبت شده حذف شود؟
     fi = Poistetaanko lisätty paikka?
@@ -14662,6 +15044,7 @@
     de = Löschen
     el = Διαγραφή
     es = Eliminar
+    et = Kustuta
     eu = Kendu
     fa = حذف
     fi = Poista
@@ -14700,6 +15083,7 @@
     de = Dieser Ort existiert nicht
     el = Η τοποθεσία δεν υπάρχει
     es = El lugar no existe
+    et = Kohta ei eksisteeri
     eu = Tokia ez da existitzen
     fa = مکان وجود ندارد
     fi = Paikkaa ei ole olemassa
@@ -14734,6 +15118,7 @@
     be = Калі ласка, укажыце прычыну выдалення
     ca = Indiqueu per què esborreu el lloc
     de = Geben Sie bitte den Grund für die Löschung an
+    et = Palun märgi põhjus koha kustutamiseks
     it = Indicare il motivo dell' eliminazione del luogo
     mr = कृपया ठिकाण हटवण्याचे कारण सूचित करा
     nl = Graag de reden voor verwijdering aangeven
@@ -14756,6 +15141,7 @@
     de = …Mehr
     el = …περισσότερα
     es = …más
+    et = …veel
     eu = …gehi
     fa = بیشتر….
     fi = …Näytä
@@ -14795,6 +15181,7 @@
     de = Geben Sie eine gültige Telefonnummer ein
     el = Εισάγετε έναν έγκυρο αριθμό τηλεφώνου
     es = Introduce un número de teléfono correcto
+    et = Sisesta kehtiv telefoninumber
     eu = Mesedez, idatzi telefono-zenbaki zuzena
     fa = شماره تلفن معتبری وارد نمایید
     fi = Syötä kelvollinen puhelinnumero
@@ -14833,6 +15220,7 @@
     de = Geben Sie eine gültige Internetadresse ein
     el = Εισάγετε μια έγκυρη διεύθυνση ιστοτόπου
     es = Introduce una dirección web válida
+    et = Sisesta kehtiv veebiaadress
     eu = Mesedez, sartu baliozko web-helbide bat
     fa = ادرس وب معتبری وارد نمایید
     fi = Syötä kelvollinen verkko-osoite
@@ -14871,6 +15259,7 @@
     de = Geben Sie eine gültige Email-Adresse ein
     el = Εισάγετε ένα έγκυρο email
     es = Introduce un email válido
+    et = Sisesta kehtiv e-posti aadress
     eu = Sartu baliozko posta elektroniko bat
     fa = ایمیل معتبری وارد نمایید
     fi = Syötä kelvollinen sähköpostiosoite
@@ -14904,6 +15293,7 @@
     ca = Introduïu una adreça web de Facebook, un compte o un nom de pàgina vàlids
     de = Geben Sie eine gültige Facebook-Webadresse, ein Konto oder einen Seitennamen ein
     es = Introduce una dirección web, una cuenta o un nombre de página de Facebook válidos
+    et = Sisesta kehtiv Facebooki veebiaadress, konto või lehekülje nimi
     eu = Mesedez, idatzi baliozko Facebook-eko web-helbide, kontu edo orri-izena
     fr = Saisissez une adresse web, un compte ou un nom de page Facebook valide
     it = Inserisci un indirizzo web, un account o un nome di pagina Facebook valido
@@ -14923,6 +15313,7 @@
     ca = Introduïu una adreça web d'Instagram o un nom de compte vàlids
     de = Geben Sie eine gültige Instagram-Webadresse oder einen Kontonamen ein
     es = Introduce una dirección web o un nombre de cuenta de Instagram válidos
+    et = Sisesta kehtiv Instagrami veebiaadress või konto nimi
     eu = Sartu baliozko Instagram kontuaren izena edo web helbidea
     fr = Saisissez une adresse web, un nom de compte Instagram valide
     it = Inserisci un indirizzo web o un nome di account Instagram valido
@@ -14942,6 +15333,7 @@
     ca = Introduïu una adreça web de Twitter o un nom d'usuari vàlids
     de = Geben Sie eine gültige Twitter-Webadresse oder einen Benutzernamen ein
     es = Introduzca una dirección web o un nombre de usuario válido de Twitter
+    et = Sisesta kehtiv Twitteri veebiaadress või kasutajanimi
     eu = Sartu baliozko Twitter erabiltzaile-izena edo web-helbide bat
     fr = Saisissez une adresse web, un nom de compte Twitter valide
     it = Inserisci un indirizzo web o un nome utente Twitter valido
@@ -14961,6 +15353,7 @@
     ca = Introduïu una adreça web de VK o un nom de compte vàlids
     de = Geben Sie eine gültige VK-Webadresse oder einen Kontonamen ein
     es = Introduce una dirección web o un nombre de cuenta de VK válidos
+    et = Sisesta kehtiv VK veebiaadress või konto nimi
     eu = Mesedez, idatzi baliozko web helbide bat edo VK kontuaren izena
     fr = Saisissez une adresse web, un nom de compte VK valide
     it = Inserisci un indirizzo web o un nome di account VK valido
@@ -14979,6 +15372,7 @@
     be = Упішыце вэб-адрас LINE старонкі або LINE ID
     ca = Introduïu una adreça web de LINE o un ID LINE vàlids
     de = Geben Sie eine gültige LINE-Webadresse oder LINE ID ein
+    et = Sisesta kehtiv LINE veebiaadress või LINE ID
     it = Inserisca un indirizzo web LINE valido o un ID LINE
     nl = Voer een geldig LINE-webadres of een LINE ID in
     pl = Wpisz prawidłowy url LINE lub LINE ID
@@ -14999,6 +15393,7 @@
     de = Aktualisieren
     el = Ενημέρωση
     es = Actualizar
+    et = Värskenda
     eu = Eguneratzeko
     fa = بروزرسانی
     fi = Päivitä
@@ -15037,6 +15432,7 @@
     de = Einen Ort zur Karte hinzufügen
     el = Να προστεθεί η τοποθεσία στο χάρτη
     es = Añadir un lugar al mapa
+    et = Lisa koht kaardile
     eu = Gehitu toki bat mapan
     fa = اضافه کردن یک مکان به نقشه
     fi = Lisää paikka kartalle
@@ -15076,6 +15472,7 @@
     de = An alle Benutzer senden?
     el = Θέλετε να το στείλετε σε όλους τους χρήστες;
     es = ¿Quieres enviarlo a todos los usuarios?
+    et = Kas soovid saata selle kõigile kasutajatele?
     eu = Erabiltzaile guztiei bidali nahi diezu?
     fa = ایا می خواهید ان را برای دیگر کاربران ارسال کنید؟
     fi = Haluatko lähettää sen kaikille käyttäjille?
@@ -15115,6 +15512,7 @@
     de = Stellen Sie sicher, dass Sie keine persönlichen Daten eingegeben haben.
     el = Βεβαιωθείτε ότι δεν έχετε εισάγει προσωπικά δεδομένα.
     es = Asegúrate de que no has introducido ningún dato personal.
+    et = Palun kontrolli, et Sa ei sisestanud isiklikke andmeid.
     eu = Ziurtatu ez duzula datu pertsonalik sartu.
     fa = مطمئن شوید که هیچ اطلاعات شخصی وارد نکرده باشد.
     fi = Varmistat, ettet syöttänyt henkilökohtaisia tietojasi.
@@ -15153,6 +15551,7 @@
     de = OpenStreetMap-Redakteure werden die Änderungen prüfen und sich bei Fragen mit Ihnen in Verbindung setzen.
     el = Οι συντάκτες του OpenStreetMap θα ελέγξουν τις αλλαγές και θα επικοινωνήσουν μαζί σας εάν έχουν απορίες.
     es = Los editores de OpenStreetMap comprobarán los cambios y se pondrán en contacto contigo si tienen alguna pregunta.
+    et = OpenStreetMap muutjad kontrollivad muudatused üle ja võtavad küsimuste korral Sinuga ühendust.
     eu = OpenStreetMap editoreek aldaketak egiaztatuko dituzte eta zurekin harremanetan jarriko dira zalantzaren bat izanez gero.
     fa = .ﺖﻓﺮﮔ ﺪﻨﻫﺍﻮﺧ ﺱﺎﻤﺗ ﺎﻤﺷ ﺎﺑ ﻝﺍﻮﺳ ﻪﻧﻮﮔﺮﻫ ﻦﺘﺷﺍﺩ ﺕﺭﻮﺻ ﺭﺩ ﻭ ﻩﺩﺮﮐ ﯽﺳﺭﺮﺑ ﺍﺭ ﺕﺍﺮﯿﯿﻐﺗ Ope
     fi = OpenStreetMap-editorit tarkistavat muutokset ja ottavat sinuun yhteyttä, jos heillä on kysyttävää.
@@ -15190,6 +15589,7 @@
     da = stop
     de = Stopp
     es = parada
+    et = lõpeta
     eu = gelditu
     fa = توقف
     fi = lopeta
@@ -15229,6 +15629,7 @@
     de = Aufzeichnung Ihrer kürzlich gefahrenen Route deaktivieren?
     el = Θέλετε να απενεργοποιήσετε την καταγραφή της πρόσφατης διαδρομής σας;
     es = ¿Desactivar la grabación de su ruta recientemente recorrida?
+    et = Keela oma hiljuti läbitud marsruudi salvestamine?
     eu = Bidaiatutako azken ibilbidearen grabaketa desaktibatu nahi duzu?
     fa = غیرفعال سازی ذخیره مسیر اخیرا طی شده
     fi = Poistetaanko viimeisen matkareitin tallennus?
@@ -15267,6 +15668,7 @@
     de = Deaktivieren
     el = Απενεργοποίηση
     es = Deshabilitar
+    et = Keela
     eu = Desgaitzeko
     fa = غیرفعال
     fi = Poista
@@ -15306,6 +15708,7 @@
     de = Nachsehen
     el = Αναχώρηση
     es = Comprueba
+    et = Vaata järele
     eu = Egiaztatu
     fa = بررسی کنید
     fi = Tarkastele
@@ -15344,6 +15747,7 @@
     de = Organic Maps verwendet Ihre Geoposition im Hintergrund, um Ihre kürzlich gefahrene Route aufzunehmen.
     el = Το Organic Maps χρησιμοποιεί τη γεωγραφική σας τοποθεσία στο παρασκήνιο για την καταγραφή των πρόσφατων διαδρομών σας.
     es = Organic Maps usa tu geolocalización en segundo plano para registrar tu ruta recorrida recientemente.
+    et = Organic Maps kasutab Sinu geograafilist asukohta taustal Sinu hiljuti läbitud teekonna salvestamiseks.
     eu = Organic Maps-ek zure geokokapena erabiltzen du atzeko planoan egindako azken ibilbidea erregistratzeko.
     fa = Organic Maps  از اطلاعات موقعیت مکانی شما در پس ضمینه برای ذخیره مسیر هایی که اخیرا سفر کرده اید استفاده می کند.
     fi = MAPS.SE käyttää taustalla geosijaintia sinun viimeisen matkareitin tallentamiseksi.
@@ -15383,6 +15787,7 @@
     de = Organic Maps ist eine schnelle und kostenlose Offline-Karten-App ohne Werbung und Tracking. Die Karten basieren auf den Daten von OpenStreetMap.org, so dass Sie selbst Kartenfehler beheben und Orte hinzufügen können. Organic Maps ist ein Open-Source-Projekt, das von Enthusiasten in ihrer Freizeit entwickelt wird. Ihr Feedback und Ihre Unterstützung sind sehr willkommen!
     el = Οι Organic Maps είναι μια δωρεάν και ανοιχτού κώδικα εφαρμογή χαρτών εκτός σύνδεσης. Χωρίς διαφημίσεις. Χωρίς εντοπισμό. Εάν δείτε κάποιο σφάλμα στον χάρτη, διορθώστε το στο OpenStreetMap. Το έργο δημιουργείται από λάτρεις στον ελεύθερο χρόνο μας, επομένως χρειαζόμαστε τα σχόλια και την υποστήριξή σας.
     es = Organic Maps es una aplicación de mapas sin conexión gratuita y de código abierto. Sin anuncios. Sin seguimiento. Si ve un error en el mapa, corríjalo en OpenStreetMap. El proyecto está creado por entusiastas en nuestro tiempo libre, por lo que necesitamos tus comentarios y tu apoyo.
+    et = Organic Maps on kiire ja tasuta võrguühenduseta kaartide rakendus ilma reklaamide ja jälgimiseta. Kaardid põhinevad vabatahtlike loodud OpenStreetMap.org-i andmetel, nii et saate kaardistamise vigu parandada ja ise funktsioone lisada. Organic Maps on avatud lähtekoodiga projekt, mille on loonud entusiastid oma vabast ajast. Teie tagasiside ja toetus on väga teretulnud!
     eu = Organic Maps lineaz kanpoko mapa aplikazio doako eta irekia da. Iragarkirik ez. Ez dago jarraipenik. Mapan errore bat ikusten baduzu, konpondu OpenStreetMap-en. Proiektua zaleek sortu dute gure aisialdian, beraz, zure iritzia eta laguntza behar dugu.
     fa = Organic Maps یک برنامه نقشه آفلاین رایگان و منبع باز است. بدون تبلیغات بدون ردیابی اگر خطایی روی نقشه مشاهده کردید، لطفاً آن را در OpenStreetMap برطرف کنید. این پروژه توسط علاقه مندان در اوقات فراغت ما ایجاد می شود، بنابراین ما به بازخورد و پشتیبانی شما نیاز داریم.
     fi = Organic Maps on ilmainen ja avoimen lähdekoodin offline-karttasovellus. Ei mainoksia. Ei seurantaa. Jos näet virheen kartalla, korjaa se OpenStreetMapissa. Hankkeen ovat luoneet harrastajat vapaa-ajallamme, joten tarvitsemme palautettasi ja tukeasi.
@@ -15423,6 +15828,7 @@
     de = Allgemeine Einstellungen
     el = Γενικές ρυθμίσεις
     es = Ajustes generales
+    et = Üldseaded
     eu = Doikuntza orokorrak
     fa = تنظیمات عمومی
     fi = Yleiset asetukset
@@ -15462,6 +15868,7 @@
     de = Annehmen
     el = Συμφωνώ
     es = Aceptar
+    et = Nõustu
     eu = Onartzeko
     fa = موافقم
     fi = Hyväksy
@@ -15501,6 +15908,7 @@
     de = Ablehnen
     el = Διαφωνώ
     es = Declinar
+    et = Keeldu
     eu = Gainbehera
     fa = کاهش
     fi = Hylkää
@@ -15540,6 +15948,7 @@
     de = Liste
     el = Λίστα
     es = Lista
+    et = Loetelu
     eu = Prest
     fa = لیست
     fi = Luettelo
@@ -15578,6 +15987,7 @@
     de = Mobiles Internet verwenden, um genauere Informationen anzuzeigen?
     el = Θέλετε να χρησιμοποιήσετε το δίκτυο κινητής τηλεφωνίας για να εμφανίσετε αναλυτικές πληροφορίες;
     es = ¿Usar Internet móvil para mostrar información detallada?
+    et = Kasuta mobiilset internetti detailse teabe kuvamiseks?
     eu = Internet mugikorra erabili informazio zehatza bistaratzeko?
     fa = از دیتای موبایل برای نمایش اطلاعات بیشتر استفاده شود؟
     fi = Näytetäänkö lisätiedot mobiili-internetillä?
@@ -15616,6 +16026,7 @@
     de = Immer verwenden
     el = Να χρησιμοποιείται πάντα
     es = Usar siempre
+    et = Kasuta alati
     eu = Beti erabili
     fa = همیشه استفاده کن
     fi = Käytä aina
@@ -15654,6 +16065,7 @@
     de = Nur heute
     el = Μόνο σήμερα
     es = Solo hoy
+    et = Ainult täna
     eu = Gaur bakarrik
     fa = فقط امروز
     fi = Vain tänään
@@ -15692,6 +16104,7 @@
     de = Heute nicht verwenden
     el = Να μην χρησιμοποιηθεί σήμερα
     es = No usar hoy
+    et = Ära kasuta täna
     eu = Ez erabili gaur
     fa = امروز نه
     fi = Älä käytä tänään
@@ -15730,6 +16143,7 @@
     de = Mobiles Internet
     el = Ίντερνετ μέσω δικτύου κινητής
     es = Internet móvil
+    et = Mobiilne internet
     eu = Internet mugikorra
     fa = دیتای موبایل
     fi = Mobiili-internet
@@ -15769,6 +16183,7 @@
     de = Es wird mobiles Internet benötigt, um über Kartenaktualisierungen informiert zu werden und genauere Informationen über Orte anzuzeigen.
     el = Απαιτείται πρόσβαση στο Ίντερνετ μέσω δικτύου κινητής για την εμφάνιση αναλυτικών πληροφοριών για τις τοποθεσίες, όπως φωτογραφίες, τιμές και κριτικές.
     es = Se necesita Internet móvil para mostrar información detallada de los lugares, como fotografías, precios y reseñas.
+    et = Mobiilne internet on vajalik kaardi värskendamise märguannete jaoks ning kohtade ja järjehoidjate üksikasjaliku teabe kuvamiseks.
     eu = Internet mugikorra behar da tokiei buruzko informazio zehatza bistaratzeko, hala nola argazkiak, prezioak eta iritziak.
     fa = برای نمایش جزئیات مکان مانند تصاویر قیمت ها و بازخورد ها به اینترنت همراه نیاز است
     fi = Mobiili-internet vaaditaan paikkojen lisätietojen näyttämiseen, kuten valokuviin, hintoihin ja arvioihin.
@@ -15807,6 +16222,7 @@
     de = Nie verwenden
     el = Να μην χρησιμοποιείται ποτέ
     es = No usar nunca
+    et = Ära kasuta kunagi
     eu = Inoiz erabili
     fa = هرگز
     fi = Älä käytä koskaan
@@ -15845,6 +16261,7 @@
     de = Immer fragen
     el = Να γίνεται ερώτηση πάντα
     es = Preguntar siempre
+    et = Küsi alati
     eu = Beti galdetu
     fa = همیشه بپرس
     fi = Kysy aina
@@ -15883,6 +16300,7 @@
     de = Um Verkehrsdaten anzuzeigen, müssen die Karten aktualisiert werden.
     el = Για να εμφανίσετε πληροφορίες για την κίνηση, πρέπει να ενημερωθούν οι χάρτες.
     es = Para mostrar los datos de tráfico, deben actualizarse los mapas.
+    et = Liiklusinfo kuvamiseks tuleb kaardid värskendada.
     eu = Trafiko datuak bistaratzeko, mapak eguneratu behar dira.
     fa = برای نمایش ترافیک,نقشه می بایستی بروزرسانی شود.
     fi = Liikennetietojen näyttämiseksi kartat on päivitettävä.
@@ -15921,6 +16339,7 @@
     de = Schrift auf der Karte vergrößern
     el = Αύξηση μεγέθους γραμματοσειράς στο χάρτη
     es = Aumentar el tamaño de fuente en el mapa
+    et = Suurenda teksti suurust kaardil
     eu = Handitu letra-tamaina mapan
     fa = افزایش اندازه متن بر روی نقشه
     fi = Suurenna fonttikokoa kartalla
@@ -15959,6 +16378,7 @@
     de = Bitte aktualisieren Sie Organic Maps
     el = Κάντε ενημέρωση του Organic Maps
     es = Por favor, actualice Organic Maps
+    et = Palun uuenda Organic Maps
     eu = Mesedez, eguneratu Organic Maps
     fa = لطفا Organic Maps را بروزرسانی کنید
     fi = Päivitä Organic Maps
@@ -15998,6 +16418,7 @@
     de = Zum Anzeigen von Verkehrsdaten muss die Anwendung aktualisiert werden.
     el = Για να εμφανιστούν πληροφορίες για την κίνηση, πρέπει να γίνει ενημέρωση της εφαρμογής.
     es = Para mostrar los datos de tráfico, debe actualizar la aplicación.
+    et = Liiklusinfo kuvamiseks tuleb rakendust värskendada.
     eu = Trafiko datuak bistaratzeko, aplikazioa eguneratu behar duzu.
     fa = برای نمایش ترافیک باید اپلیکیشن را بروزرسانی کنید.
     fi = Liikennetietojen näyttämiseksi sovellus on päivitettävä.
@@ -16037,6 +16458,7 @@
     de = Verkehrsdaten sind nicht verfügbar
     el = Οι πληροφορίες για την κίνηση δεν είναι διαθέσιμες
     es = Los datos de tráfico no están disponibles
+    et = Liiklusinfo ei ole saadaval
     eu = Trafiko datuak ez daude eskuragarri
     fa = اطلاعات ترافیکی موجود نیست
     fi = Liikennetietoja ei ole saatavilla
@@ -16075,6 +16497,7 @@
     de = Protokollierung aktivieren
     el = Ενεργοποίηση δυνατότητας καταγραφής
     es = Habilitar historial
+    et = Luba logimine
     eu = Historia gaitu
     fa = ورود به سیستم را فعال کنید
     fi = Ota loki käyttöön
@@ -16114,6 +16537,7 @@
     de = Allgemeines Feedback
     el = Γενικό σχόλιο
     es = Opinión general
+    et = Üldine tagasiside
     eu = Iritzi orokorra
     fa = "تنظیمات: دکمه "ارسال بازخورد کلی
     fi = Yleinen palaute
@@ -16153,6 +16577,7 @@
     de = An
     el = Ενεργ.
     es = Act.
+    et = Sees
     eu = Ekin.
     fa = روشن
     fi = Käytössä
@@ -16192,6 +16617,7 @@
     de = Aus
     el = Απενεργ.
     es = Desact.
+    et = Väljas
     eu = Itzali
     fa = خاموش
     fi = Ei käytössä
@@ -16231,6 +16657,7 @@
     de = Wir verwenden Text-to-Speech-Systeme für Sprachanweisungen. Viele Android-Geräte nutzen Google-TTS, das Sie bei Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts) herunterladen oder aktualisieren können.
     el = Χρησιμοποιούμε σύστημα TTS για τις φωνητικές οδηγίες. Αρκετές συσκευές Android χρησιμοποιούν Google TTS, μπορείτε να το κατεβάσετε ή να το ενημερώσετε από το Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
     es = Utilizamos el sistema TTS para las instrucciones de voz. Muchos dispositivos de Android usan Google TTS. Puede descargar o actualizarlo desde Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
+    et = Hääljuhiste jaoks kasutame TTS süsteemi. Paljud Android-seadmed kasutavad Google'i TTS-i, saate selle alla laadida või värskendada teenusest Google Play (https:play.google.comstoreappsdetails?id=com.google.android.tts)
     eu = TTS sistema erabiltzen dugu ahots-argibideetarako. Android gailu askok Google TTS erabiltzen dute. Google Play-tik deskargatu edo egunera dezakezu (https://play.google.com/store/apps/details?idu003dcom.google.android.tts)
     fa = ما از TTS سیستم برای دستورالعمل های صوتی استفاده می کنیم. بسیاری از دستگاه های Android از Google TTS استفاده می کنند، شما می توانید آن را از Google Play دانلود کنید (https://play.google.com/store/apps/details؟id=com.google.android.tts)
     fi = Käytämme ääniohjeisiin tekstistä puheeksi -järjestelmää. Monet Android-laitteet käyttävät Googlen tekstistä puheeksi -sovellusta, jonka voit ladata tai päivittää Google Playssä (https://play.google.com/store/apps/details?id=com.google.android.tts)
@@ -16270,6 +16697,7 @@
     de = Für einige Sprachen müssen Sie einen anderen Sprachgenerator oder ein zusätzliches Sprachpaket aus dem App Store installieren (Google Play, Galaxy Store, App Gallery, FDroid). \nÖffnen Sie die Einstellungen Ihres Gerätes → Sprache und Eingabe → Sprache → Text-to-Speech-Ausgabe. Hier können Sie die Einstellungen für Sprachsynthese verwalten (beispielsweise ein Sprachpaket für die Offline-Verwendung herunterladen) und ein anderes Sprachausgabeprogramm auswählen.
     el = Για μερικές γλώσσες θα χρειαστεί να εγκαταστήσετε συνθεσάιζερ ομιλίας ή συμπληρωματικό πακέτο γλώσσας από το app store (Google Play, Galaxy Store, App Gallery, FDroid).\nΑνοίξτε τις Ρυθμίσεις της συσκευής σας → Γλώσσα και εισαγωγή → Ομιλία → Μετατροπή κειμένου σε ομιλία.\nΕδώ μπορείτε να διαχειριστείτε τις ρυθμίσεις της σύνθεσης ομιλίας (για παράδειγμα, μπορείτε να κατεβάσετε πακέτο γλώσσας για χρήση εκτός σύνδεσης) και να επιλέξετε άλλη μηχανή μετατροπής κειμένου σε ομιλία.
     es = Para algunos idiomas, debe instalar otro sintetizador de voz o un paquete de idioma adicional desde la tienda de aplicaciones (Google Play, Galaxy Store, App Gallery, FDroid). Abra los Ajustes de su dispositivo → Idioma e introducción → Voz → Opciones texto a voz. Aquí puede administrar la configuración de síntesis de voz (por ejemplo, descargar un paquete de idioma para poder usarlo sin conexión) o seleccionar otro motor de texto a voz.
+    et = Mõne keele puhul peate paigaldama kõnesüntesaatori või täiendava keelepaketi rakenduste poest (Google Play, Galaxy Store, App Gallery, FDroid).\nAvage oma seadme seaded → Keel ja sisend → Kõne → Tekst kõneks väljund .\nSiin saate hallata kõnesünteesi seadeid (näiteks alla laadida keelepaketti võrguühenduseta kasutamiseks) ja valida mõne muu teksti kõneks muutmise mootori.
     eu = Zenbait hizkuntzatan, beste ahots-sintetizadore bat edo hizkuntza-pakete gehigarri bat instalatu behar duzu aplikazio-dendatik (Google Play, Galaxy Store, App Gallery, FDroid). Ireki gailua Ezarpenak > Hizkuntza eta sarrera > Hizkera > Hizketarako testurako aukerak. Hemen ahots-sintesiaren ezarpenak kudea ditzakezu (adibidez, hizkuntza pakete bat deskargatu, konexiorik gabe erabiltzeko) edo testu-hizketarako beste motor bat hauta dezakezu.
     fa = برای بعضی از زبان ها، شما باید speech synthesizer یا یک بسته زبان دیگر را از فروشگاه برنامه (بازار Google Play، Galaxy Store) نصب کنید. \n تنظیمات دستگاه خود را باز کنید. → زبان و ورودی → گفتار → خروجی متن به گفتار. می توانید تنظیمات برای ترکیب گفتار (به عنوان مثال، بسته های زبان را برای استفاده آفلاین دانلود کنید) را مدیریت کنید و یک موتور دیگر متن به گفتار را انتخاب کنید.
     fi = Joidenkin kielien osalta sinun täytyy asentaa toinen puhesyntetisaattori tai lisäkielipaketti sovelluskaupasta (Google Play, Galaxy Store, App Gallery, FDroid). Avaa laitteen asetukset → Kieli ja syöttötapa → Puhe → Teksistä puheeksi -toisto. Täällä voit hallita puhesynteesin asetuksia (esimerkiksi ladata offline-tilassa käytettävän kielipaketin) ja valita toisen tekstistä puheeksi -moottorin.
@@ -16308,6 +16736,7 @@
     de = Weitere Informationen finden Sie in dieser Anleitung.
     el = Για περισσότερες πληροφορίες δείτε αυτό τον οδηγό.
     es = Para obtener más información, consulte esta guía.
+    et = Lisainfo saamiseks palun vaadake seda juhist.
     eu = Informazio gehiago lortzeko, ikusi gida hau.
     fa = برای اطلاعات بیشتر لطفا این راهنما را بررسی کنید.
     fi = Lisätietoja saat tästä oppaasta.
@@ -16348,6 +16777,7 @@
     el = Μεταγραφή στα Λατινικά
     es = Transliteración al latín
     es-MX = Transliteración al alfabeto latino
+    et = Transliteratsioon ladina keelde
     eu = Latinezko transliterazioa
     fa = ترجمه به لاتین
     fi = Translitterointi latinaksi
@@ -16390,6 +16820,7 @@
     de = Weitere Informationen
     el = Μάθετε περισσότερα
     es = Leer más
+    et = Lisateave
     eu = Irakurri gehiago
     fa = بیشتر بدانید
     fi = Lisätietoja
@@ -16430,6 +16861,7 @@
     de = Ausgang
     el = Έξοδος
     es = Salida
+    et = Välju
     eu = Irteera
     fa = خروج
     fi = Poistu
@@ -16469,6 +16901,7 @@
     de = Fügen Sie einen Startpunkt hinzu, um eine Route zu planen
     el = Προσθέστε αφετηρία για να σχεδιάσετε μια διαδρομή
     es = Buscar un origen para el plan de ruta
+    et = Marsruudi planeerimiseks lisa lähtepunkt
     eu = Bilatu ibilbide-planaren iturria
     fa = یک نقطه شروع برای برنامه ریزی یک مسیر اضافه کنید
     fi = Lisää alkupiste reitin suunnittelua varten
@@ -16508,6 +16941,7 @@
     de = Fügen Sie ein Ziel hinzu, um eine Route zu planen
     el = Προσθέστε τελικό προορισμό, για να σχεδιάσετε μια διαδρομή
     es = Buscar un destino para el plan de ruta
+    et = Marsruudi planeerimiseks lisa sihtkoht
     eu = Bilatu ibilbide-planaren helmuga
     fa = یک مقصد برای برنامه ریزی یک مسیر اضافه کنید
     fi = Lisää määränpää reitin suunnittelua varten
@@ -16547,6 +16981,7 @@
     de = Beenden
     el = Έξοδος
     es = Salir
+    et = Välju
     eu = Utzi
     fa = خروج
     fi = Poistu
@@ -16586,6 +17021,7 @@
     de = Route verwalten
     el = Διαχείριση διαδρομής
     es = Administrar ruta
+    et = Halda marsruuti
     eu = Ibilbidea kudeatu
     fa = مدیریت مسیر
     fi = Hallitse reittiä
@@ -16625,6 +17061,7 @@
     de = Planen
     el = Σχέδιο
     es = Planificar
+    et = Planeeri
     eu = Planifikatzeko
     fa = برنامه
     fi = Suunnittele
@@ -16664,6 +17101,7 @@
     de = Entfernen
     el = Κατάργηση
     es = Eliminar
+    et = Eemalda
     eu = Kendu
     fa = حذف
     fi = Poista
@@ -16703,6 +17141,7 @@
     de = Hierher ziehen zum Entfernen
     el = Σύρετε εδώ για κατάργηση
     es = Arrastre aquí para eliminar
+    et = Eemaldamiseks lohista siia
     eu = Arrastatu hona kentzeko
     fa = برای حذف اینجا بکشید
     fi = Vedä tähän poistaaksesi
@@ -16742,6 +17181,7 @@
     de = Zwischenstopp hinzufügen
     el = Προσθήκη στάσης
     es = Añadir parada
+    et = Lisa peatus
     eu = Gehitu stop
     fa = اضافه کردن توقف
     fi = Lisää pysähdys
@@ -16780,6 +17220,7 @@
     de = Starten von
     el = Έναρξη από
     es = Empezar desde
+    et = Alusta kohast
     eu = Hasi
     fa = شروع از
     fi = Aloita kohdasta
@@ -16819,6 +17260,7 @@
     de = Hoppla, es ist ein Fehler aufgetreten. Versuchen Sie erneut, sich anzumelden.
     el = Ωχ, παρουσιάστηκε σφάλμα. Προσπαθήστε να συνδεθείτε ξανά.
     es = Vaya, se ha producido un error. Intente iniciar sesión de nuevo.
+    et = Vabandust, tekkis viga. Proovi uuesti sisse logida.
     eu = Errore bat gertatu da. Mesedez, saiatu berriro saioa hasten.
     fa = اوه، یک خطا وجود داشت سعی کنید دوباره وارد سیستم شوید
     fi = Tapahtui virhe. Yritä kirjautua sisään uudelleen.
@@ -16859,6 +17301,7 @@
     el = Πρόβλημα πρόσβασης στον αποθηκευτικό χώρο
     es = Problema de acceso al almacenamiento
     es-MX = Problema de acceso al almacenamiento
+    et = Salvestusruumi ligipääsu probleem
     eu = Biltegiratze sarbidearen arazoa
     fa = مشکل دسترسی به ذخیره سازی
     fi = Ongelma tallennustilan käyttämisessä
@@ -16899,6 +17342,7 @@
     el = Ο εξωτερικός απθηκευτικός χώρος δεν είναι διαθέσιμος, πιθανότατα έχει αφαιρεθεί η κάρτα SD, είναι κατεστραμμένη ή το σύστημα αρχείων είναι μόνο για ανάγνωση. Ελέγξτε το και επικοινωνήστε μαζί μας στη διεύθυνση support@organicmaps.app
     es = El almacenamiento externo no está disponible; puede que se haya quitado o dañado la tarjeta SD, o el sistema de archivos solo permite lectura. Por favor, compruébelo ó escríbanos a support@organicmaps.app
     es-MX = El almacenamiento externo no está disponible. Es posible que se haya quitado o dañado la tarjeta SD, o que el sistema de archivos solo permita la lectura. Revíselo y escríbanos a support@organicmaps.app
+    et = Välismälu pole juurdepääsetav. SD-kaart võib olla eemaldatud, kahjustatud või failisüsteem on kirjutuskaitstud. Palun kontrollige oma SD-kaarti või võtke meiega ühendust aadressil support@organicmaps.app
     eu = Kanpoko biltegiratzea ez dago erabilgarri; Baliteke SD txartela kendu edo hondatuta egotea, edo fitxategi-sistema irakurtzeko soilik izatea. Mesedez, begiratu edo idatzi iezaguzu support@organicmaps.app helbidera
     fa = ذخیره سازی خارجی در دسترس نیست کارت SD ممکن است برداشته شده باشد، آسیب دیده باشد یا سیستم فایل فقط خواندنی باشد. لطفا کارت SD خود را بررسی کنید یا با ما در support@organicmaps.app تماس بگیرید
     fi = Ulkoinen tallennustila ei ole käytettävissä, SD-kortti on luultavasti poistettu tai vahingoittunut tai tiedostojärjestelmä on vain luku -tilassa. Tarkista ja ota yhteyttä osoitteeseen support@organicmaps.app
@@ -16939,6 +17383,7 @@
     el = Εξομείωση κακού αποθηκευτικού χώρου
     es = Emular almacenamiento dañado
     es-MX = Emular el almacenamiento dañado
+    et = Jäljenda vigast salvestusruumi
     eu = Emulatu kaltetutako biltegiratzea
     fa = شبیه سازی ذخیره سازی بد
     fi = Jäljittele virheellistä tallennustilaa
@@ -16979,6 +17424,7 @@
     el = Είσοδος
     es = Entrada
     es-MX = Entrada
+    et = Sissepääs
     eu = Sarrera
     fa = ورودی
     fi = Sisäänkäynti
@@ -17019,6 +17465,7 @@
     el = Εισάγετε ένα σωστό όνομα
     es = Por favor, introduzca el nombre correcto
     es-MX = Introduzca el nombre correcto
+    et = Palun sisesta korrektne nimi
     eu = Mesedez, idatzi izen zuzena
     fa = لطفا نام صحیح را وارد کنید
     fi = Anna oikea nimi
@@ -17059,6 +17506,7 @@
     el = Τόπος αγώνων
     es = Listas
     es-MX = Listas
+    et = Loetelud
     eu = Zerrendak
     fa = لیست ها
     fi = Listat
@@ -17100,6 +17548,7 @@
     el = Απόκρυψη όλων
     es = Ocultar todo
     es-MX = Ocultar todo
+    et = Peida kõik
     eu = Ezkutatu guztiak
     fa = پنهان کردن همه
     fi = Piilota kaikki
@@ -17140,6 +17589,7 @@
     el = Εμφάνιση όλων
     es = Mostrar todo
     es-MX = Mostrar todo
+    et = Kuva kõik
     eu = Erakutsi dena
     fa = نمایش همه
     fi = Näytä kaikki
@@ -17183,6 +17633,8 @@
     el = %d αγαπημένα
     es = %d marcadores
     es-MX = %d marcadores
+    et:one = %d järjehoidja
+    et:other = %d järjehoidjat
     eu = %d laster-marka
     fa:one = %d نشانه
     fa:other = %d نشانه‌ها
@@ -17233,6 +17685,7 @@
     el = Δημιουργία νέας λίστας
     es = Crear nueva lista
     es-MX = Crear lista nueva
+    et = Loo uus loetelu
     eu = Sortu zerrenda berria
     fa = ایجاد لیست جدید
     fi = Luo uusi luettelo
@@ -17270,6 +17723,7 @@
     ca = Importa marcadors
     de = Lesezeichen importieren
     es = Importar marcadores
+    et = Impordi järjehoidjad
     eu = Inportatu laster-markak
     fi = Tuo kirjamerkit
     fr = Importer des signets
@@ -17297,6 +17751,7 @@
     el = Απόκρυψη οθόνης
     es = Ocultar pantalla
     es-MX = Ocultar pantalla
+    et = Peida vaade
     eu = Pantaila ezkutatu
     fa = پنهان کردن صفحه
     fi = Piilota näyttö
@@ -17337,6 +17792,7 @@
     el = %s (%s από %s)
     es = %s (%s de %s)
     es-MX = %s (%s de %s)
+    et = %s (%s / %s)
     eu = %s (%s/%s)
     fa = %s (%s از %s)
     fi = %s (%s / %s)
@@ -17377,6 +17833,7 @@
     el = Λήψη %s…
     es = Descargando %s…
     es-MX = Descargando %s…
+    et = Allalaadimine %s…
     eu = %s deskargatzen…
     fa = در حال دانلود %s…
     fi = Ladataan %s…
@@ -17417,6 +17874,7 @@
     el = Εφαρμογή %s…
     es = Aplicando %s…
     es-MX = Aplicando %s…
+    et = %s rakendamine
     eu = %s aplikatzen…
     fa = اعمال %s…
     fi = %s otetaan käyttöön…
@@ -17457,6 +17915,7 @@
     el = Αδυναμία κοινής χρήσης λόγω σφάλματος εφαρμογής
     es = No se puede compartir debido a un error de la aplicación
     es-MX = No se puede compartir debido a un error de la aplicación
+    et = Rakenduse vea tõttu ei saanud jagada
     eu = Ezin izan da partekatu aplikazioaren errore baten ondorioz
     fa = با توجه به خطای برنامه، امکان اشتراک گذاری وجود ندارد
     fi = Ei voitu jakaa sovellusvirheen vuoksi
@@ -17497,6 +17956,7 @@
     el = Σφάλμα κοινής χρήσης
     es = Error al compartir
     es-MX = Error al compartir
+    et = Jagamise viga
     eu = Partekatzeak huts egin du
     fa = خطای اشتراک
     fi = Jakamisvirhe
@@ -17537,6 +17997,7 @@
     el = Αδύνατη η κοινή χρήση κενής λίστας
     es = No se puede compartir una lista vacía
     es-MX = No se puede compartir una lista vacía
+    et = Tühja loetelu ei saa jagada
     eu = Ezin da partekatu zerrenda hutsik
     fa = یک لیست خالی را نمی توان به اشتراک گذاشت
     fi = Tyhjää listaa ei voi jakaa
@@ -17577,6 +18038,7 @@
     el = Το όνομα δεν θα μπορούσε να είναι άδειο
     es = El nombre no puede estar vacío
     es-MX = El nombre no puede quedar vacío
+    et = Nimi ei saa olla tühi
     eu = Izena ezin da hutsik egon
     fa = نام نمیتواند خالی باشد
     fi = Nimi ei voinut olla tyhjä
@@ -17617,6 +18079,7 @@
     el = Εισαγάγετε το όνομα της λίστας
     es = Por favor ingrese el nombre de la lista
     es-MX = Escriba el nombre
+    et = Palun sisesta loetelu nimi
     eu = Mesedez, idatzi zerrendaren izena
     fa = لطفا نام لیست را وارد کنید
     fi = Anna luettelon nimi
@@ -17657,6 +18120,7 @@
     el = Νέα λίστα
     es = Lista nueva
     es-MX = Lista nueva
+    et = Uus loetelu
     eu = Zerrenda berria
     fa = لیست جدید
     fi = Uusi lista
@@ -17697,6 +18161,7 @@
     el = Αυτό το όνομα έχει ήδη ληφθεί
     es = Este nombre ya ha sido tomado
     es-MX = Este nombre ya está en uso
+    et = See nimi on juba kasutusel
     eu = Izen hau dagoeneko hartua da
     fa = این اسم قبلا انتخاب شده است
     fi = Nimi on jo käytössä
@@ -17737,6 +18202,7 @@
     el = Επιλέξτε άλλο όνομα
     es = Por favor elige otro nombre
     es-MX = Por favor elige otro nombre
+    et = Palun vali teine nimi
     eu = Mesedez, aukeratu beste izen bat
     fa = لطفا نام دیگری را انتخاب کنید
     fi = Valitse toinen nimi
@@ -17776,6 +18242,7 @@
     el = Αυτό το όνομα είναι πολύ μεγάλο
     es = Este nombre es demasiado largo
     es-MX = Este nombre es demasiado largo
+    et = See nimi on liiga pikk
     eu = Izen hau luzeegia da
     fa = این نام خیلی طولانی است
     fi = Tämä nimi on liian pitkä
@@ -17816,6 +18283,7 @@
     el = Παρακαλώ περιμένετε…
     es = Por favor espera…
     es-MX = Por favor, espere…
+    et = Palun oota…
     eu = Itxaron mesedez…
     fa = لطفا صبر کنید…
     fi = Odota…
@@ -17855,6 +18323,7 @@
     el = Τηλεφωνικό νούμερο
     es = Número de teléfono
     es-MX = Número de teléfono
+    et = Telefoni number
     eu = Telefono zenbakia
     fa = شماره تلفن
     fi = Puhelinnumero
@@ -17894,6 +18363,7 @@
     de = OpenStreetMap-Profil
     el = Προφίλ OpenStreetMap
     es = Perfil de OpenStreetMap
+    et = OpenStreetMap profiil
     eu = OpenStreetMap profila
     fa = OpenStreetMap نمایه
     fi = OpenStreetMap-profiili
@@ -17933,6 +18403,7 @@
     el = Εντοπίστηκαν νέα αρχεία
     es = Nuevos archivos detectados
     es-MX = Se detectaron archivos nuevos
+    et = Leitud uusi faile
     eu = Fitxategi berriak detektatu dira
     fa = فایل‌های جدید پیدا شد
     fi = Uusia tiedostoja havaittiin
@@ -17982,6 +18453,8 @@
     es-MX:other = Se han encontrado %d archivos. Los verás después de la conversión.
     es:one = Se encontró %d archivo. Lo verás después de la conversión.
     es:other = Se han encontrado %d archivos. Los verás después de la conversión.
+    et:one = %d fail leiti. Näed seda peale teisendamist.
+    et:other = %d faili leiti. Näed neid peale teisendamist.
     fa:one = %d فایل پیدا شد. بعد از تبدیل آن را می‌بینید.
     fa:other = %d فایل پیدا شد. بعد از تبدیل آن‌ها را می‌بینید.
     fi:one = %d tiedosto löydettiin. Näet sen muunnoksen jälkeen.
@@ -18045,6 +18518,7 @@
     el = Μετατρέπω
     es = Convertir
     es-MX = Convertir
+    et = Teisenda
     eu = Bihurtu
     fa = تبدیل
     fi = Muuntaa
@@ -18085,6 +18559,7 @@
     el = Λάθος
     es = Error
     es-MX = Error
+    et = Viga
     eu = Errorea
     fa = خطا
     fi = Virhe
@@ -18125,6 +18600,7 @@
     el = Ορισμένα αρχεία δεν μετατράπηκαν.
     es = Algunos archivos no fueron convertidos.
     es-MX = Algunos archivos no se convirtieron.
+    et = Mõningaid faile ei teisendatud.
     eu = Fitxategi batzuk ez dira bihurtu.
     fa = بعضی از فایل‌ها تبدیل نشد.
     fi = Joitakin tiedostoja ei muutettu.
@@ -18165,6 +18641,7 @@
     el = Επαναφορά αυτής της έκδοσης;
     es = ¿Restaurar esta versión?
     es-MX = ¿Está seguro que desea restaurar esta versión?
+    et = Taasta see versioon?
     eu = Bertsio hau berreskuratu nahi duzu?
     fa = این نسخه برگردد؟
     fi = Palauta tämä versio?
@@ -18205,6 +18682,7 @@
     el = Δεν υπάρχει σύνδεση στο διαδίκτυο
     es = Sin conexión a Internet
     es-MX = Sin conexión a Internet
+    et = Interneti ühendus puudub
     eu = Ez dago Interneteko konexiorik
     fa = اتصال اینترنتی برقرار نیست
     fi = Ei Internet-yhteyttä
@@ -18245,6 +18723,7 @@
     el = Συνέβη ένα άγνωστο σφάλμα
     es = Ocurrió un error desconocido
     es-MX = Ocurrió un error desconocido
+    et = Tekkis tundmatu viga
     eu = Errore ezezagun bat gertatu da
     fa = خطای ناشناخته‌ای رخ داد
     fi = Tuntematon virhe tapahtui
@@ -18285,6 +18764,7 @@
     el = Επαναφορά
     es = Restaurar
     es-MX = Restaurar
+    et = Taasta
     eu = Berreskuratu
     fa = بازیابی
     fi = Palauttaa
@@ -18332,6 +18812,8 @@
     es-MX = %d lugar
     es:one = %d objecto
     es:other = %d objectos
+    et:one = %d objekt
+    et:other = %d objekti
     fa:one = %d شیء
     fa:other = %d شیء
     fi = %d paikka
@@ -18385,6 +18867,8 @@
     es-MX = %d lugares
     es:one = %d lugar
     es:other = %d lugares
+    et:one = %d koht
+    et:other = %d kohta
     fa:one = %d مکان
     fa:other = %d مکان
     fi = %d paikat
@@ -18440,6 +18924,7 @@
     es-MX = %d rastreos
     es:one = %d ruta
     es:other = %d rutas
+    et = %d rada
     fa:one = %d رد
     fa:other = %d رد
     fi = %d radat
@@ -18487,6 +18972,7 @@
     el = Ρυθμίσεις διαδρομών
     es = Configuraciones de seguimiento
     es-MX = Configuraciones de rastreo
+    et = Asukoha määramise seaded
     eu = Jarraipen ezarpenak
     fa = تنظیمات ردیابی
     fi = Paikannusasetukset
@@ -18527,6 +19013,7 @@
     el = Αναφορά σφάλματος
     es = Informe de incidentes
     es-MX = Reporte de fallas
+    et = Krahhi raport
     eu = Gertakarien txostena
     fa = گزارش خرابی
     fi = Kaatumisraportti
@@ -18567,6 +19054,7 @@
     el = Μπορεί να χρησιμοποιήσουμε τα δεδομένα σας για να βελτιώσουμε την εμπειρία του Organic Maps. Οι αλλαγές θα ενεργοποιηθούν μετά την επανεκκίνηση της εφαρμογής.
     es = Puede que utilicemos vuestros datos para mejorar la experiencia de Organic Maps. Los cambios tendrán efecto después que reinicie la aplicación.
     es-MX = Puede que utilicemos sus datos para mejorar la experiencia de Organic Maps. Los cambios surtirán efecto después de que reinicie la aplicación.
+    et = õime kasutada teie andmeid Organic Maps kasutuskogemuse parandamiseks. Muudatused jõustuvad pärast rakenduse taaskäivitamist.
     eu = Zure datuak Organic Maps-en esperientzia hobetzeko erabil ditzakegu. Aldaketak aplikazioa berrabiarazi ondoren jarriko dira indarrean.
     fa = ما از داده‌های شما برای بهبود Organic Maps استفاده می‌کنیم. تغییرات پس از راه‌اندازی مجدد برنامه به‌کار می‌افتد.
     fi = Me saatamme käyttää tietojasi parantaaksemme Organic Maps kokemusta. Muutokset alkavat vaikuttamaan kun käynnistät sovelluksen uudestaan.
@@ -18607,6 +19095,7 @@
     el = Πολιτική απορρήτου
     es = Política de Privacidad
     es-MX = Política de Privacidad
+    et = Privaatsuspoliitika
     eu = Pribatutasun-politika
     fa = سیاست حریم خصوصی
     fi = Yksityisyyskäytäntö
@@ -18647,6 +19136,7 @@
     el = Όροι χρήσης
     es = Condiciones de uso
     es-MX = Términos de uso
+    et = Kasutustingimused
     eu = Erabilera baldintzak
     fa = شرایط استفاده
     fi = Käyttöehdot
@@ -18687,6 +19177,7 @@
     el = Κίνηση
     es = Tráfico
     es-MX = Tráfico
+    et = Liiklus
     eu = Trafikoa
     fa = ترافیک
     fi = Liikenne
@@ -18728,6 +19219,7 @@
     el = Μετρό
     es = Metro
     es-MX = Metro
+    et = Metroo
     eu = Metroa
     fa = مترو
     fi = Metro
@@ -18768,6 +19260,7 @@
     el = Επίπεδα του χάρτη
     es = Capas del mapa
     es-MX = Capas del mapa
+    et = Kaardikihid
     eu = Mapa geruzak
     fa = لایه های نقشه
     fi = Karttatasot
@@ -18809,6 +19302,7 @@
     el = Ο χάρτης μετρό δεν είναι διαθέσιμος
     es = El mapa del metro no está disponible
     es-MX = El mapa del metro no está disponible
+    et = Metroo kaart ei ole saadaval
     eu = Metroaren mapa ez dago erabilgarri
     fa = نقشه مترو موجود نیست
     fi = Metrokartta ei ole saatavilla
@@ -18849,6 +19343,7 @@
     el = Η λίστα είναι άδεια
     es = Esta lista está vacía
     es-MX = Esta lista está vacía
+    et = See loetelu on tühi
     eu = Zerrenda hau hutsik dago
     fa = این لیست خالی است
     fi = Lista on tyhjä
@@ -18889,6 +19384,7 @@
     el = Για να προσθέσετε σελιδοδείκτη, πατήστε ένα μέρος στο χάρτη και μετά πατήστε το αστεράκι
     es = Para agregar un marcador, toque un lugar en el mapa y después toque el ícono de estrella
     es-MX = Para añadir un marcador, toque un lugar en el mapa y después toque el ícono de estrella
+    et = Järjehoidja lisamiseks puuduta kohta kaardil ja seejärel puuduta tähekese ikooni
     eu = Pin bat gehitzeko, ukitu mapako toki bat eta, ondoren, ukitu izarraren ikonoa
     fa = برای افزودن یک نشانه، روی یک مکان روی نقشه ضربه بزنید و سپس روی نماد ستاره ضربه بزنید
     fi = Lisätäksesi kirjanmerkin, paina kartasta ja sitten paina tähden kuvaa
@@ -18929,6 +19425,7 @@
     el = …περισσότερα
     es = …más
     es-MX = …más
+    et = …veel
     eu = …gehi
     fa = بیشتر…
     fi = …lisää
@@ -18969,6 +19466,7 @@
     el = Συνέβη σφάλμα
     es = Se ha producido un error
     es-MX = Ocurrió un error
+    et = Tekkis viga
     eu = Akats bat gertatu da
     fa = خطایی رخ داد
     fi = Tapahtui virhe
@@ -19004,6 +19502,7 @@
     bg = Популярно
     ca = Popular
     de = Beliebt
+    et = Populaarne
     fa = مشهور
     fr = Populaire
     it = Popolare
@@ -19030,6 +19529,7 @@
     el = Αρχείο Εξαγωγής
     es = Exportar como archivo
     es-MX = Exportar archivo
+    et = Ekspordi fail
     eu = Esportatu fitxategi gisa
     fa = ارسال فایل
     fi = Viedä tiedosto
@@ -19070,6 +19570,7 @@
     el = Ρυθμίσεις Λίστας
     es = Configurar lista
     es-MX = Ajustes de lista
+    et = Loetelu seaded
     eu = Zerrenda konfiguratu
     fa = تنظیمات لیست
     fi = Listan asetukset
@@ -19110,6 +19611,7 @@
     el = Διαγραφή λίστας
     es = Eliminar lista
     es-MX = Eliminar lista
+    et = Kustuta loetelu
     eu = Zerrenda ezabatu
     fa = حذف لیست
     fi = Poista lista
@@ -19149,6 +19651,7 @@
     el = Κρύψε από τον χάρτη
     es = Ocultar en el mapa
     es-MX = Ocultar del mapa
+    et = Peida kaardil
     eu = Ezkutatu mapan
     fa = پنهان کردن از نقشه
     fi = Piilota kartalta
@@ -19189,6 +19692,7 @@
     el = Δημόσια πρόσβαση
     es = Acceso público
     es-MX = Acceso público
+    et = Avalik ligipääs
     eu = Sarbide publikoa
     fa = دسترسی عمومی
     fi = Julkinen pääsy
@@ -19229,6 +19733,7 @@
     el = Περιορισμένη πρόσβαση
     es = Acceso privado
     es-MX = Acceso limitado
+    et = Piiratud ligipääs
     eu = Sarbide pribatua
     fa = دسترسی محدود
     fi = Yksityinen pääsy
@@ -19269,6 +19774,7 @@
     el = Πληκτρολογήστε μια περιγραφή (κείμενο ή html)
     es = Agregue una descripción (texto o html)
     es-MX = Introduzca una descripción (texto o html)
+    et = Sisesta kirjeldus (tekst või html)
     eu = Gehitu deskribapen bat (testua edo html)
     fa = یک توضیح (متن یا html) تایپ نمایید
     fi = Lisää kuvaus (teksti tai html)
@@ -19309,6 +19815,7 @@
     el = Προσωπικός
     es = Privado
     es-MX = Privado
+    et = Privaatne
     eu = Pribatua
     fa = خصوصی
     fi = Henkilökohtainen
@@ -19349,6 +19856,7 @@
     el = Ένα σφάλμα συνέβη στο φόρτωμα των ετικετών, παρακαλώ ξαναπροσπαθήστε
     es = Durante la carga de las etiquetas, se produjo un error, por favor inténtelo de nuevo
     es-MX = Ocurrió un error al cargar las etiquetas, por favor intente de nuevo
+    et = Siltide laadimisel tekkis viga, palun proovi uuesti
     eu = Errore bat gertatu da etiketak kargatzean. Saiatu berriro
     fa = هنگام بارگذاری برچسب خطایی رخ داد، لطفا دوباره امتحان کنید
     fi = Tunnisteiden lataamisen aikana tapahtui virhe, yritä uudelleen
@@ -19388,6 +19896,7 @@
     el = Κατέβασμα
     es = Descargar
     es-MX = Descargar
+    et = Lae alla
     eu = Deskargatu
     fa = دانلود
     fi = Ladata
@@ -19428,6 +19937,7 @@
     el = Κάμερες Ταχύτητας
     es = Cámaras de velocidad
     es-MX = Cámaras de velocidad
+    et = Kiiruskaamerad
     eu = Abiadura kamerak
     fa = دوربین های سرعت
     fi = Nopeuskamerat
@@ -19468,6 +19978,7 @@
     el = Αυτόματο
     es = Auto
     es-MX = Automático
+    et = Automaatne
     eu = Kotxea
     fa = خودکار
     fi = Auto
@@ -19508,6 +20019,7 @@
     el = Πάντα
     es = Siempre
     es-MX = Siempre
+    et = Alati
     eu = Beti
     fa = همیشه
     fi = Aina
@@ -19548,6 +20060,7 @@
     el = Ποτέ
     es = Nunca
     es-MX = Nunca
+    et = Mitte kunagi
     eu = Inoiz ez
     fa = هرگز
     fi = Ei koskaan
@@ -19588,6 +20101,7 @@
     el = Περιγραφή μέρους
     es = Descripción del lugar
     es-MX = Descripción de lugares
+    et = Koha kirjeldus
     eu = Tokiaren deskribapena
     fa = توضیحات محل
     fi = Paikan kuvaus
@@ -19629,6 +20143,7 @@
     el = Κατέβασμα χαρτών
     es = Descargar mapas
     es-MX = Descargar mapas
+    et = Kaartide allalaadija
     eu = Deskargatu mapak
     fa = دانلود کننده نقشه
     fi = Karttojen lataaminen
@@ -19669,6 +20184,7 @@
     el = Αυτόματο- Να ειδοποιούμαι για κάμερες αν υπάρχει κίνδυνος να υπερβώ το όριο ταχύτητας\nΠάντα- Πάντα να ειδοποιούμαι για κάμερες\nΠοτέ- Ποτέ να μην ειδοποιούμαι για κάμερες
     es = Auto - advierte sobre las cámaras de velocidad si existe el riesgo de exceder el límite de velocidad\nSiempre - siempre alerta sobre las cámaras\nNunca - nunca advierte acerca de las cámaras
     es-MX = Automático - Aviso de las cámaras de velocidad si existe el riesgo de exceder el límite de velocidad\nSiempre - Siempre dar aviso de las cámaras de velocidad\nNunca - Nunca dar aviso de las cámaras de velocidad
+    et = Automaatne - kiiruskaamerate hoiatused, kui on oht ületada piirkiirust\nAlati - hoiata alati kiiruskaamerate eest\nMitte kunagi - ära kunagi hoiata kiiruskaamerate eest
     eu = Auto - abiadura-kamerei buruz ohartarazten du abiadura muga gainditzeko arriskua badago\nBeti - beti erne kamerei buruz\nInoiz - inoiz ez abisatu kamerari buruz
     fa = خودکار- در صورتی که خطر تجاوز از سرعت مجاز وجود داشت، نسبت به دوربین های کنترل سرعت هشدار دهد\nهمیشه-همیشه درباره دوربین های کنترل سرعت هشدار دهد\nهرگز-هرگز درباره دوربین های کنترل سرعت هشدار ندهد
     fi = Auto - Varoita nopeuskameroista, jos tuntuu siltä, että nopeusrajan ylitys on mahdollista\nAina - Varoita kameroista aina\nEi koskaan - älä koskaan varoita kameroista
@@ -19709,6 +20225,7 @@
     el = Λειτουργία εξοικονόμησης ενέργειας
     es = Modo de ahorro de energía
     es-MX = Modo de ahorro de energía
+    et = Energiasäästlik režiim
     eu = Energia aurrezteko modua
     fa = حالت ذخیره انرژی
     fi = Virransäästötila
@@ -19749,6 +20266,7 @@
     el = Εάν η λειτουργία εξοικονόμησης ενέργειας είναι ενεργοποιημένη, η εφαρμογή θα κλείνει τις λειτουργίες που καταναλώνουν ενέργεια ανάλογα με την τρέχουσα φόρτιση του τηλεφώνου
     es = Si el modo de ahorro de energía está activado, la aplicación desactivará las funciones que consumen energía, según la carga actual del teléfono
     es-MX = Si el modo de ahorro de energía está activado, la aplicación desactivará las funciones de ahorro de energía, en función de la carga actual del teléfono
+    et = Kui on valitud automaatrežiim, hakkab rakendus aku tühjendamise funktsioone olenevalt praegusest aku laetuse tasemest keelama
     eu = Energia aurrezteko modua aktibatuta badago, aplikazioak energia kontsumitzen duten funtzioak itzaliko ditu, telefonoaren uneko kargaren arabera.
     fa = هنگامی که حالت خودکار انتخاب شده‌باشد، برنامه با توجه میزان شارژ باتری شما، ویژگی‌های تخلیه کننده باتری را غیر فعال می‌کند
     fi = Kun olet valinnut automaattisen tilan, sovellus alkaa sammuttamaan virtaa vieviä ominaisuuksia riippuen kulloisestakin akun latauksesta
@@ -19789,6 +20307,7 @@
     el = Ποτέ
     es = Nunca
     es-MX = Nunca
+    et = Mitte kunagi
     eu = Inoiz ez
     fa = هرگز
     fi = Ei koskaan
@@ -19829,6 +20348,7 @@
     el = Αυτόματα
     es = Automático
     es-MX = Automático
+    et = Automaatne
     eu = Automatikoa
     fa = خودکار
     fi = Automaattinen
@@ -19869,6 +20389,7 @@
     el = Μέγιστη εξοικονόμηση ενέργειας
     es = Ahorro de energía máximo
     es-MX = Máximo ahorro de energía
+    et = Maksimaalne energiasääst
     eu = Energia-aurrezpen handiena
     fa = حداکثر ذخیره انرژی
     fi = Täysi virransäästö
@@ -19909,6 +20430,7 @@
     el = Αυτή η λειτουργία είναι ενεργοποιημένη για την καταγραφή ενεργειών για διαγνωστικούς σκοπούς. Αυτό βοηθά την ομάδα να εντοπίζει προβλήματα με την εφαρμογή. Να ενεργοποιείτε τη λειτουργία μόνο κατόπιν αιτήματος της υποστήριξης του Organic Maps.
     es = Esta opción está habilitada para las acciones de registro con fines de diagnóstico. Esto ayuda a nuestro equipo a identificar problemas con la aplicación. Habilite la opción solo a petición del apoyo de Organic Maps.
     es-MX = Esta opción está habilitada para las acciones de registro con fines de diagnóstico. Esto ayuda a nuestro equipo a identificar problemas con la aplicación. Habilite la opción solo a petición del apoyo de Organic Maps.
+    et = See valik lülitab sisse logimise diagnostilistel eesmärkidel. Meie meeskonnale võib olla abi rakendusega seotud probleemide tõrkeotsingul. Lubage see valik ajutiselt, et salvestada ja saata meile oma probleemi üksikasjalikud logid.
     eu = Aukera hau diagnostiko-helburuetarako erregistro-ekintzetarako gaituta dago. Honek gure taldeari aplikazioarekin arazoak identifikatzen laguntzen dio. Gaitu aukera Organic Maps laguntzari eskatuta soilik.
     fa = این گزینه ثبت گزارش را برای اهداف تشخیصی فعال می‌کند. برای کارکنان بخش پشتیبانی که مشکلات برنامه را عیب یابی می‌کنند، مفید باشد. این گزینه را تنها در صورت درخواست پشتیبانی Organic Maps فعال کنید.
     fi = Valinta ottaa käyttöön lokikirjaukset diagnostiikkaa varten. Se voi auttaa tukihenkilöstöämme, kun he korjaavat sovelluksen ongelmia. Ota tämä ominaisuus käyttöön vain, jos Organic Maps:n tuki pyytää.
@@ -19949,6 +20471,7 @@
     el = Επεξεργάζεται online
     es = Se edita en línea
     es-MX = Se edita en línea
+    et = Online muutmine
     eu = Sarean editatzen da
     fa = ویرایش آنلاین
     fi = Nettimuokkaus
@@ -19989,6 +20512,7 @@
     el = Ρυθμίσεις παράκαμψης
     es = Configuración de desvío
     es-MX = Ajustes de desvío
+    et = Marsruutimise valikud
     eu = Birbidali ezarpenak
     fa = گزینه های رانندگی
     fi = Kiertotien asetukset
@@ -20029,6 +20553,7 @@
     el = Αποφυγή σε κάθε διαδρομή
     es = Evitar en todas las rutas
     es-MX = Evitar en cada ruta
+    et = Väldi igal marsruudil
     eu = Ibilbide guztietan saihestu
     fa = اجتناب از تمامی مسیرها
     fi = Vältettävä kaikissa reiteissä
@@ -20069,6 +20594,7 @@
     el = Δρόμοι με διόδια
     es = Carreteras de pago
     es-MX = Carreteras de peaje
+    et = Tasulised teed
     eu = Ordainpeko errepideak
     fa = جاده های دارای عوارض
     fi = Maksulliset tiet
@@ -20109,6 +20635,7 @@
     el = Χωματόδρομοι
     es = Caminos sin pavimento
     es-MX = Caminos de tierra
+    et = Katteta teed
     eu = Asfaltatu gabeko errepideak
     fa = جاده های آسفالت نشده
     fi = Päällystämättömät tiet
@@ -20149,6 +20676,7 @@
     el = Πορθμεία
     es = Cruces de ferri
     es-MX = Cruces de ferri
+    et = Praamiületused
     eu = Ferry pasabideak
     fa = گذرگاه های جاده ای
     fi = Lauttaliikenne
@@ -20189,6 +20717,7 @@
     el = Αυτοκινητόδρομοι
     es = Autopistas
     es-MX = Autopistas
+    et = Kiirteed
     eu = Autobideak
     fa = بزرگراه ها
     fi = Valtatiet
@@ -20229,6 +20758,7 @@
     el = Δεν είναι δυνατή η δημιουργία διαδρομής
     es = No se puede construir una ruta
     es-MX = No se puede construir una ruta
+    et = Marsruudi arvutamine ei õnnestu
     eu = Ezin da ibilbiderik eraiki
     fa = امکان محاسبه مسیر نیست
     fi = Reittiä ei voi luoda
@@ -20269,6 +20799,7 @@
     el = Δυστυχώς, δεν μπορούσαμε να δημιουργήσουμε μια διαδρομή με τις καθορισμένες επιλογές. Αλλάξτε τις ρυθμίσεις και δοκιμάστε πάλι
     es = Desafortunadamente, no pudimos construir una ruta con las opciones seleccionadas. Cambia la configuración y vuelve a intentarlo
     es-MX = Desafortunadamente, no pudimos construir una ruta con las opciones seleccionadas. Cambie la configuración y vuelva a intentarlo
+    et = Kahjuks ei leidnud me marsruuti tõenäoliselt teie valitud võimaluste tõttu. Muutke seadeid ja proovige uuesti.
     eu = Zoritxarrez, ezin izan dugu aukeratutako aukerekin ibilbiderik egin. Aldatu ezarpenak eta saiatu berriro
     fa = متأسفانه، احتمالاً به دلیل گزینه های تعریف شده شما، مسیری پیدا نشد. لطفاً تنظیمات را تغییر داده و مجدد تلاش کنید
     fi = Valitettavasti emme voineet luoda reittiä valituilla vaihtoehdoilla. Vaihda asetuksia ja yritä uudelleen
@@ -20309,6 +20840,7 @@
     el = Ρύθμιση της διαδρομής παράκαμψης
     es = Personaliza la ruta de desvío
     es-MX = Configurar rutas de desvío
+    et = Määra välditavad teed
     eu = Pertsonalizatu saihesbidearen ibilbidea
     fa = جاده های لغو شده را تعریف نمایید
     fi = Muodosta kiertotietä
@@ -20349,6 +20881,7 @@
     el = Ρυθμίσεις δραστηριοποιούνται
     es = Configuración de desvío activada
     es-MX = Ajustes de desvío habilitados
+    et = Marsruutimise valikud lubatud
     eu = Birbidaltze ezarpena aktibatuta dago
     fa = گزینه های مسیریابی فعال شد
     fi = Kiertotien asetukset on päällä
@@ -20388,6 +20921,7 @@
     el = Δρόμος με διόδια
     es = Carretera con pago de peaje
     es-MX = Carretera de peaje
+    et = Tasuline tee
     eu = Bidesaria
     fa = جاده دارای عوارض
     fi = Maksullinen tie
@@ -20427,6 +20961,7 @@
     el = Χωματόδρομος
     es = Camino sin pavimento
     es-MX = Camino de tierra
+    et = Katteta tee
     eu = Asfaltatu gabeko errepidea
     fa = جاده آسفالت نشده
     fi = Päällystämätön tie
@@ -20466,6 +21001,7 @@
     el = Πορθμείο
     es = Cruce de ferri
     es-MX = Cruce de ferri
+    et = Praamiületus
     eu = Ferry zeharkaldia
     fa = گذرگاه جاده ای
     fi = Lauttaliikenne
@@ -20506,6 +21042,7 @@
     el = Αποφυγή των δρόμων με διόδια
     es = Evitar las carreteras con pago de peaje
     es-MX = Evitar las carreteras de peaje
+    et = Väldi tasulisi teid
     eu = Saihestu ordainpeko errepideak
     fa = اجتناب از جاده های دارای عوارض
     fi = Vältä maksullisia teitä
@@ -20546,6 +21083,7 @@
     el = Αποφυγή των χωματόδρομων
     es = Evitar los caminos sin pavimento
     es-MX = Evitar los caminos de tierra
+    et = Väldi katteta teid
     eu = Saihestu asfaltatu gabeko errepideak
     fa = اجتناب از جاده های آسفالت نشده
     fi = Vältä maanteitä
@@ -20586,6 +21124,7 @@
     el = Αποφυγή των πορθμείων
     es = Evitar ferries
     es-MX = Evitar los trasbordadores de ferri
+    et = Väldi praamiületusi
     eu = Ferryak saihestu
     fa = اجتناب از گذرگاه های کشتی
     fi = Vältä lautan käyttöä
@@ -20625,6 +21164,7 @@
     el = Πάμε
     es = Vamos
     es-MX = Vamos
+    et = Liigume
     eu = Zoaz
     fa = برویم
     fi = Mennään
@@ -20664,6 +21204,7 @@
     el = Προορισμός
     es = Objetivo
     es-MX = Objetivo
+    et = Sihtkoht
     eu = Helburua
     fa = مقصد
     fi = Kohde
@@ -20703,6 +21244,7 @@
     el = Επανατοποθέτηση
     es = Centrar
     es-MX = Centrar
+    et = Keskkoht
     eu = Zentroa
     fa = نشان دادن مجدد در مرکز
     fi = Kohdista
@@ -20742,6 +21284,7 @@
     el = Αποτελέσματα αναζήτησης
     es = Resultados de búsqueda
     es-MX = Resultados de la búsqueda
+    et = Otsingutulemused
     eu = Bilaketa-emaitzak
     fa = نتایج جستجو
     fi = Hakutulokset
@@ -20781,6 +21324,7 @@
     el = Μετά
     es = Después
     es-MX = Después
+    et = Seejärel
     eu = Gero
     fa = سپس
     fi = Sitten
@@ -20820,6 +21364,7 @@
     el = Θα θέλατε να τροποποιήσετε τη διαδρομή;
     es = ¿Quieres reconstruir la ruta?
     es-MX = ¿Quiere reconstruir la ruta?
+    et = Kas soovid marsruudi uuesti luua?
     eu = Ibilbidea berreraiki nahi duzu?
     fa = آیا می خواهید مسیر را دوباره ایجاد کنید?
     fi = Haluatko luoda reitin uudelleen?
@@ -20861,6 +21406,7 @@
     el = Ναι
     es = Sí
     es-MX = Sí
+    et = Jah
     eu = Bai
     fa = بله
     fi = Kyllä
@@ -20902,6 +21448,7 @@
     el = Όχι
     es = No
     es-MX = No
+    et = Ei
     eu = Ez
     fa = خیر
     fi = Ei
@@ -20935,6 +21482,7 @@
     ref = yes
     be = Ёсць
     ca = sí
+    et = jah
     fa = بلی
     he = כן
     nl = ja
@@ -20947,6 +21495,7 @@
     ref = no
     be = Няма
     ca = no
+    et = ei
     nl = nee
     tr = Yok
 
@@ -20962,6 +21511,7 @@
     el = Έχετε φτάσει!
     es = ¡Llegaste!
     es-MX = ¡Ya llegó!
+    et = Oled kohal!
     eu = Iritsi zara!
     fa = شما به مقصد رسیدید!
     fi = Olet saapunut!
@@ -21001,6 +21551,7 @@
     el = Το πληκτρολόγιο δεν είναι διαθέσιμο κατά τη διάρκεια οδήγησης
     es = Teclado no disponible durante el movimiento
     es-MX = El teclado no está disponible durante el movimiento
+    et = Klaviatuur ei ole sõidu ajal kasutatav
     eu = Teklatua ez dago erabilgarri mugimenduan zehar
     fa = صفحه کلید در هنگام رانندگی در دسترس نیست
     fi = Näppäimistö ei ole käytettävissä ajon aikana
@@ -21040,6 +21591,7 @@
     el = Δεν είναι δυνατή η δημιουργία διαδρομής από την τρέχουσα τοποθεσία σας
     es = No se puede construir la ruta desde la ubicación actual
     es-MX = No se puede construir una ruta desde la ubicación actual
+    et = Sinu praegusest asukohast ei õnnestu marsruuti luua
     eu = Ezin da ibilbidea eraiki uneko kokapenetik
     fa = امکان ایجاد مسیر از مکان فعلی شما نیست
     fi = Reittiä ei ole mahdollista luoda nykyisestä sijainnista
@@ -21079,6 +21631,7 @@
     el = Δεν είναι δυνατή η δημιουργία διαδρομής μέχρι τον προορισμό σας. Επιλέξτε ένα άλλο σημείο
     es = No se puede construir la ruta al punto final. Elige otra
     es-MX = No se puede construir una ruta hasta el punto final. Seleccione otra
+    et = Ei õnnestu luua marsruuti Sinu asukohta. Palun vali teine punkt
     eu = Ezin da sortu amaiera punturako ibilbidea. aukeratu beste bat
     fa = امکان ایجاد مسیر به مقصد شما نیست. لطفاً نقطه دیگری را انتخاب کنید
     fi = Reittiä ei ole mahdollista luoda loppupisteeseen. Valitse toinen
@@ -21118,6 +21671,7 @@
     el = Δεν υπάρχει σήμα GPS. Μετακινήστε σε μια ανοικτή τοποθεσία
     es = No hay señal GPS. Ve a una zona abierta
     es-MX = No hay señal de GPS. Vaya a una zona abierta
+    et = GPS signaal puudub. Palun liigu avaramasse kohta
     eu = Ez dago GPS seinalerik. Joan eremu ireki batera
     fa = سیگنال GPS وجود ندارد. لطفاً به فضای باز بروید
     fi = Ei ole GPS-signaalia. Siirry avaralle alueelle
@@ -21157,6 +21711,7 @@
     el = Δεν είναι δυνατή η δημιουργία διαδρομής. Επιλέξτε άλλα σημεία διαδρομής
     es = No se puede construir una ruta. Elige otros puntos de ruta
     es-MX = No se puede construir una ruta. Seleccione otros puntos de ruta
+    et = Marsruudi loomine ei õnnestu. Palun määra muud marsruudipunktid
     eu = Ezin da ibilbiderik eraiki. Aukeratu beste bide-puntu batzuk
     fa = امکان ایجاد مسیر نیست. لطفاً نقاط مسیر دیگری را مشخص کنید
     fi = Reittiä ei ole mahdollista luoda. Valitse muut reittipisteet
@@ -21196,6 +21751,7 @@
     el = Για να χτίσετε διαδρομή, κατεβάστε χάρτες που λείπουν στη συσκευή
     es = Para construir una ruta, descarga los mapas ausentes en tu dispositivo
     es-MX = Al construir ruta, descargue los mapas ausentes en su dispositivo
+    et = Marsruudi loomiseks lae puuduvad kaardid alla oma seadmesse
     eu = Ibilbide bat eraikitzeko, deskargatu falta diren mapak zure gailura
     fa = برای ایجاد مسیر، نقشه های ناقص را روی دستگاه خود را دانلود کنید
     fi = Luodaksesi reitin lataa puuttuvat kartat
@@ -21235,6 +21791,7 @@
     el = Παρουσιάστηκε σφάλμα. Κάντε επανεκκίνηση της εφαρμογής
     es = Ocurrió un error. Reinicia la aplicación
     es-MX = Ocurrió un error. Reinicie la aplicación
+    et = Tekkis viga. Palun taaskäivita rakendus
     eu = Akats bat gertatu da. Berrabiarazi aplikazioa
     fa = خطایی رخ داد. لطفاً برنامه را دوباره اجرا کنید
     fi = On tapahtunut virhe. Käynnistä sovellus uudelleen
@@ -21274,6 +21831,7 @@
     el = Η διαδρομή θα ξαναδημιουργηθεί από την τρέχουσα τοποθεσία σας
     es = La ruta se reconstruirá desde tu ubicación actual
     es-MX = La ruta se reconstruirá desde su ubicación actual
+    et = Marsruut luuakse uuesti sinu hetkeasukohast
     eu = Ibilbidea zure uneko kokapenetik berregin egingo da
     fa = مسیر از مکان فعلی شما بازسازی خواهد شد
     fi = Reitti luodaan nykyisestä sijainnista
@@ -21313,6 +21871,7 @@
     el = Η διαδρομή θα αντικατασταθεί με τη διαδρομή με αυτοκίνητο
     es = La ruta se cambiará a coche
     es-MX = La ruta se cambiará a en auto
+    et = See marsruut teisendatakse autoga läbitavaks
     eu = Ibilbidea autoz aldatuko da
     fa = مسیر به مسیر خودرویی تغییر خواهد کرد
     fi = Reitti muutetaan autoilijan reitiksi
@@ -21353,6 +21912,7 @@
     el = Καλώς
     es = Ok
     es-MX = Ok
+    et = Ok
     eu = Ok
     fa = موافقت کردن
     fi = Ok
@@ -21392,6 +21952,7 @@
     el = Χ/χωματόδρ.
     es = Sin carretera de tierra
     es-MX = Sin de grava
+    et = Väldi pinnasteid
     eu = Lurrezko biderik ez
     fa = بی جاده خاکی
     fi = Päällyste
@@ -21431,6 +21992,7 @@
     el = Χ/χωματόδρομους
     es = Evitar sin pavimentar
     es-MX = Sin de grava
+    et = Väldi katteta teid
     eu = Saihestu asfaltatu gabekoa
     fa = پرهیز از خاکی
     fi = Vain päällyste
@@ -21470,6 +22032,7 @@
     el = Χ/πορθμεία
     es = Sin ferri
     es-MX = Sin ferri
+    et = Väldi praame
     eu = Ferryrik ez
     fa = بدون بزرگراه
     fi = Ei lauttoja
@@ -21509,6 +22072,7 @@
     el = Χωρίς πορθμεία
     es = Sin ferri
     es-MX = Sin ferri
+    et = Väldi praame
     eu = Ferryrik ez
     fa = پرهیز از اتوبان
     fi = Ei lauttoja
@@ -21548,6 +22112,7 @@
     el = Χωρίς διόδια
     es = Sin peaje
     es-MX = Sin peaje
+    et = Väldi tasulisi teid
     eu = Bidesaria ez
     fa = بدون عوارضی
     fi = Ei maksua
@@ -21587,6 +22152,7 @@
     el = Χωρίς διόδια
     es = Sin peaje
     es-MX = Sin peaje
+    et = Väldi tasulisi teid
     eu = Bidesaria ez
     fa = اجتناب از عوارض
     fi = Ei maksua
@@ -21626,6 +22192,7 @@
     el = Κάμερες
     es = Cám.velocidad.
     es-MX = Cám.velocidad.
+    et = Kiiruskaamerad
     eu = Abiadura kamera.
     fa = دوربین سرعت
     fi = Nopeuskamera
@@ -21665,6 +22232,7 @@
     el = Πληροφ. γιαόρια
     es = Alerta velocidad.
     es-MX = Alerta velocidad.
+    et = Kiiruse hoiatused
     eu = Abiadura alerta.
     fa = هشدارهای سرعت
     fi = Nopeuskamerat
@@ -21704,6 +22272,7 @@
     el = Κάντε λήψη χαρτών στην εφαρμογή Organic Maps στη συσκευή σας
     es = Descargue los mapas en la aplicación Organic Maps en su dispositivo
     es-MX = Descargue mapas en la aplicación Organic Maps en su dispositivo
+    et = Palun lae alla kaardid oma seadme Organic Maps rakenduses
     eu = Deskargatu mapak zure gailuko Organic Maps aplikazioan
     fa = لطفا نقشه ها را در نرم افزار Organic Maps روی دستگاه خود دانلود کنید
     fi = Lataa kartat laitteesi Organic Maps-sovelluksessa
@@ -21743,6 +22312,7 @@
     el = %s έξοδος
     es = %s desviación
     es-MX = %s desviación
+    et = %s väljumine
     eu = %s desbideratzea
     fa = خروجی %s
     fi = Poistumisramppi %s
@@ -21784,6 +22354,7 @@
     el = Ταξινόμηση
     es = Ordenar…
     es-MX = Ordenar…
+    et = Sorteeri…
     eu = Agindu…
     fa = مرتب سازی…
     fi = Järjestä…
@@ -21825,6 +22396,7 @@
     el = Ταξινόμηση σελιδοδ/τών
     es = Ordenar marcadores
     es-MX = Ordenar marcadores
+    et = Sorteeri järjehoidjad
     eu = Ordenatu laster-markak
     fa = مرتب سازی نشانهها
     fi = Järjestä kirjanmerkit
@@ -21865,6 +22437,7 @@
     el = Ταξινόμηση κατά προεπιλογή
     es = Ordenar por defecto
     es-MX = Ordenar por defecto
+    et = Sorteeri vaikimisi
     eu = Ordenatu lehenespenez
     fa = مرتب سازی بر اساس پیش فرض
     fi = Järjestä: oletus
@@ -21904,6 +22477,7 @@
     el = Ταξινόμηση ανά τύπο
     es = Ordenar por tipo
     es-MX = Ordenar por tipo
+    et = Sorteeri liigiti
     eu = Motaren arabera ordenatu
     fa = مرتب سازی بر اساس نوع
     fi = Järjestä: tyyppi
@@ -21943,6 +22517,7 @@
     el = Ταξινόμηση κατά απόσταση
     es = Ordenar por distancia
     es-MX = Ordenar por distancia
+    et = Sorteeri kauguse järgi
     eu = Ordenatu distantziaren arabera
     fa = مرتب سازی بر اساس فاصله
     fi = Järjestä: etäisyys
@@ -21982,6 +22557,7 @@
     el = Ταξινόμηση κατά ημερομηνία
     es = Ordenar por fecha
     es-MX = Ordenar por fecha
+    et = Sorteeri kuupäeva järgi
     eu = Dataren arabera ordenatzeko
     fa = مرتب سازی بر اساس تاریخ
     fi = Järjestä: päivämäärä
@@ -22023,6 +22599,7 @@
     el = Προεπιλογή
     es = Por defecto
     es-MX = Por defecto
+    et = Vaikimisi
     eu = Lehenetsia
     fa = به صورت پیش فرض
     fi = Oletus
@@ -22064,6 +22641,7 @@
     el = Ανά τύπο
     es = Por tipo
     es-MX = Por tipo
+    et = Liigiti
     eu = Motaren arabera
     fa = بر اساس تاریخ
     fi = Tyyppi
@@ -22105,6 +22683,7 @@
     el = Κατά απόσταση
     es = Por distancia
     es-MX = Por distancia
+    et = Kauguse järgi
     eu = Distantziaz
     fa = بر اساس فاصله
     fi = Etäisyys
@@ -22146,6 +22725,7 @@
     el = Κατά ημερομηνία
     es = Por fecha
     es-MX = Por fecha
+    et = Kuupäeva järgi
     eu = Dataren arabera
     fa = بر اساس تاریخ
     fi = Päivämäärä
@@ -22185,6 +22765,7 @@
     el = Μια βδομάδα πριν
     es = Hace una semana
     es-MX = Hace una semana
+    et = Nädal tagasi
     eu = Duela aste bat
     fa = یک هفته قبل
     fi = Viikko sitten
@@ -22224,6 +22805,7 @@
     el = Ένας μήνας πριν
     es = Hace un mes
     es-MX = Hace un mes
+    et = Kuu tagasi
     eu = Duela hilabete bat
     fa = یک ماه قبل
     fi = Kuukausi sitten
@@ -22263,6 +22845,7 @@
     el = Περισσότερο από έναν μήνα πριν
     es = Hace más de un mes
     es-MX = Hace más de un mes
+    et = Üle kuu tagasi
     eu = Duela hilabete baino gehiago
     fa = بیش از یک ماه قبل
     fi = Yli kuukausi sitten
@@ -22302,6 +22885,7 @@
     el = Περισσότερο από ένα έτος πριν
     es = Hace más de un año
     es-MX = Hace más de un año
+    et = Üle aasta tagasi
     eu = Duela urtebete baino gehiago
     fa = بیش از یک سال قبل
     fi = Yli vuosi sitten
@@ -22341,6 +22925,7 @@
     el = Δίπλα μου
     es = Cerca de mí
     es-MX = Cerca a mí
+    et = Minu lähedal
     eu = Nigandik gertu
     fa = نزدیک من
     fi = Lähelläni
@@ -22380,6 +22965,7 @@
     el = Άλλα
     es = Otros
     es-MX = Otros
+    et = Muud
     eu = Beste batzuk
     fa = دیگران
     fi = Muut
@@ -22421,6 +23007,7 @@
     el = Εστίαση
     es = Comida
     es-MX = Comida
+    et = Toit
     eu = Janari
     fa = غذا
     fi = Ruoka
@@ -22460,6 +23047,7 @@
     el = Αξιοθέατα
     es = Sitios de interés
     es-MX = Sitios de interés
+    et = Vaatamisväärsused
     eu = Toki interesgarriak
     fa = مناظر
     fi = Nähtävyydet
@@ -22499,6 +23087,7 @@
     el = Μουσεία
     es = Museos
     es-MX = Museos
+    et = Muuseumid
     eu = Museoak
     fa = موزهها
     fi = Museot
@@ -22538,6 +23127,7 @@
     el = Πάρκα
     es = Parques
     es-MX = Parques
+    et = Pargid
     eu = Parkeak
     fa = پارکها
     fi = Puistot
@@ -22577,6 +23167,7 @@
     el = Κολύμβηση
     es = Natación
     es-MX = Natación
+    et = Ujumine
     eu = Igeriketa
     fa = شنا
     fi = Uiminen
@@ -22616,6 +23207,7 @@
     el = Βουνά
     es = Montañas
     es-MX = Montañas
+    et = Mäed
     eu = Mendiak
     fa = کوهها
     fi = Vuoret
@@ -22655,6 +23247,7 @@
     el = Ζώα
     es = Animales
     es-MX = Animales
+    et = Loomad
     eu = Animaliak
     fa = حیوانات
     fi = Eläimet
@@ -22694,6 +23287,7 @@
     el = Διαμονή
     es = Hoteles
     es-MX = Hoteles
+    et = Hotellid
     eu = Hotelak
     fa = هتلها
     fi = Hotellit
@@ -22733,6 +23327,7 @@
     el = Κτήρια
     es = Edificios
     es-MX = Edificios
+    et = Hooned
     eu = Eraikinak
     fa = ساختمانها
     fi = Rakennukset
@@ -22772,6 +23367,7 @@
     el = Χρήματα
     es = Dinero
     es-MX = Dinero
+    et = Raha
     eu = Dirua
     fa = پول
     fi = Raha
@@ -22811,6 +23407,7 @@
     el = Καταστήματα
     es = Tiendas
     es-MX = Comercio
+    et = Poed
     eu = Dendak
     fa = مراکز خرید
     fi = Kaupat
@@ -22850,6 +23447,7 @@
     el = Χώροι στάθμευσης
     es = Estacionamiento
     es-MX = Aparcamientos
+    et = Parkimine
     eu = Aparkaleku
     fa = پارکینگها
     fi = Pysäköinti
@@ -22889,6 +23487,7 @@
     el = Πρατήρια βενζίνης
     es = Gasolinera
     es-MX = Gasolinería
+    et = Tanklad
     eu = Erregai-geltokia
     fa = پمپ بنزین
     fi = Huoltoasemat
@@ -22928,6 +23527,7 @@
     el = Γιατρική βοήθεια
     es = Medicina
     es-MX = Medicina
+    et = Meditsiin
     eu = Medikuntza
     fa = پزشکی
     fi = Apteekki
@@ -22968,6 +23568,7 @@
     el = Αναζήτηση στη λίστα
     es = Buscar en la lista
     es-MX = Buscar en la lista
+    et = Otsi loetelus
     eu = Bilatu zerrendan
     fa = جستجو در لیست
     fi = Etsi listalta
@@ -23007,6 +23608,7 @@
     el = Άγιοι τόποι
     es = Lugares sagrados
     es-MX = Sitios religiosos
+    et = Religioossed kohad
     eu = Erlijio-guneak
     fa = اماکن مقدس
     fi = Pyhät paikat
@@ -23047,6 +23649,7 @@
     el = Επιλογή λίστας
     es = Seleccionar lista
     es-MX = Seleccionar lista
+    et = Vali loetelu
     eu = Hautatu zerrenda
     fa = انتخاب فهرست
     fi = Valitse luettelo
@@ -23088,6 +23691,7 @@
     el = Η πλοήγηση στο μετρό γι' αυτή την περιοχή δεν είναι ακόμα διαθέσιμη
     es = Navegación en Metro aún no disponible en esta región
     es-MX = Navegación por metro aún no disponible en esta región
+    et = Metroo navigeerimine selles piirkonnas pole veel saadaval
     eu = Metro-nabigazioa oraindik ez dago erabilgarri eskualde honetan
     fa = راهنمای مترو در این منطقه هنوز دردسترس نیست
     fi = Metron reittiohjeet eivät ole vielä saatavilla tällä alueella
@@ -23129,6 +23733,7 @@
     el = Η διαδρομή του μετρό δεν βρέθηκε
     es = Ruta de metro no encontrada
     es-MX = Ruta de metro no encontrada
+    et = Metroo marsruuti ei leidu
     eu = Ez da aurkitu metroko ibilbidea
     fa = مسیر مترو یافت نشد
     fi = Metroreittiä ei löytynyt
@@ -23170,6 +23775,7 @@
     el = Επιλέξτε το σημείο έναρξης ή τέλους διαδρομής πιο κοντά στο σταθμό του μετρό
     es = Elige el punto de inicio o fin de ruta más cercano al metro
     es-MX = Elija el punto de inicio o fin de ruta más cercano al metro
+    et = Palun vali metroojaamale lähemal asuv algus- või lõpp-punkt
     eu = Aukeratu metrotik hurbilen dagoen ibilbidearen hasiera edo amaiera puntua
     fa = لطفا نقطه آغاز و پایان نزدیک تری به ایستگاه مترو انتخاب کنید
     fi = Valitse reitin aloitus- tai loppupiste lähemmäksi metroasemaa
@@ -23210,6 +23816,7 @@
     el = Υψόμετρα
     es = Alturas
     es-MX = Alturas
+    et = Maastik
     eu = Altuerak
     fa = ایزومپ
     fi = Maasto
@@ -23250,6 +23857,7 @@
     el = Για να χρησιμοποιήσετε τοπογραφικά στρώματα, ενημερώστε ή κατεβάστε τον χάρτη της επιθυμητής περιοχής
     es = Para usar la altitud de relieve, actualiza o descarga el mapa del área deseada
     es-MX = Para usar la altitud de relieve, actualice o descargue el mapa del área deseada
+    et = Topograafilise kihi aktiveerimiseks ja kasutamiseks värskenda või lae alla piirkonna kaart
     eu = Erliebe-altuera erabiltzeko, eguneratu edo deskargatu nahi duzun eremuko mapa
     fa = برای فعال سازی و استفاده از لایه توپوگرافی نقشه منطقه را به روزرسانی یا دانلود کنید
     fi = Päivitä tai lataa haluamasi alueen kartta, voidaksesi käyttää korkeuskäyriä
@@ -23290,6 +23898,7 @@
     el = Τα τοπογραφικά στρώματα δεν είναι ακόμα διαθέσιμα σε αυτή την περιοχή
     es = La altitud de relieve aún no está disponible en esta región
     es-MX = La altitud de relieve no está aún disponible en esta región
+    et = Topograafiline kiht ei ole selles piirkonnas veel saadaval
     eu = Erliebearen altitudea oraindik ez dago eskuragarri eskualde honetan
     fa = لایه توپوگرافی هنوز برای این منطقه در دسترس نیست
     fi = Korkeuskäyrät eivät ole vielä saatavilla tällä alueella
@@ -23330,6 +23939,7 @@
     el = Επίπεδο δυσκολίας
     es = Nivel de dificultad
     es-MX = Nivel de dificultad
+    et = Raskusaste
     eu = Zailtasun maila
     fa = سطح دشواری
     fi = Vaikeustaso
@@ -23369,6 +23979,7 @@
     el = Εύκολο
     es = Fácil
     es-MX = Fácil
+    et = Lihtne
     eu = Erraza
     fa = آسان
     fi = Helppo
@@ -23408,6 +24019,7 @@
     el = Μέτριο
     es = Moderado
     es-MX = Moderado
+    et = Keskmine
     eu = Moderatua
     fa = متوسط
     fi = Kohtuullinen
@@ -23447,6 +24059,7 @@
     el = Δύσκολο
     es = Difícil
     es-MX = Difícil
+    et = Raske
     eu = Gogorra
     fa = دشوار
     fi = Vaikea
@@ -23487,6 +24100,7 @@
     el = Άνοδος
     es = Ascenso
     es-MX = Ascenso
+    et = Tõus
     eu = Igoera
     fa = بالا رفتن
     fi = Nousua
@@ -23527,6 +24141,7 @@
     el = Κάθοδος
     es = Descenso
     es-MX = Descenso
+    et = Langus
     eu = Gainbehera
     fa = پایین آمدن
     fi = Laskua
@@ -23567,6 +24182,7 @@
     el = Ελ. υψόμετρο
     es = Altura mínima
     es-MX = Altura mínima
+    et = Min. kõrgus
     eu = Gutxieneko altuera
     fa = کمینه ارتفاع
     fi = Min. korkeus
@@ -23607,6 +24223,7 @@
     el = Μέγ. υψόμετρο
     es = Altura máxima
     es-MX = Altura máxima
+    et = Maks. kõrgus
     eu = Gehieneko altuera
     fa = بیشینه ارتفاع
     fi = Maks. korkeus
@@ -23647,6 +24264,7 @@
     el = Δυσκολία
     es = Dificultad
     es-MX = Dificultad
+    et = Raskusaste
     eu = Zailtasuna
     fa = دشواری
     fi = Vaikeus
@@ -23687,6 +24305,7 @@
     el = Απόστ.:
     es = Distancia:
     es-MX = Distancia:
+    et = Kaugus:
     eu = Distantzia:
     fa = مسافت
     fi = Etäisyys:
@@ -23727,6 +24346,7 @@
     el = Διαρκ:
     es = Lapso:
     es-MX = Lapso:
+    et = Aeg:
     eu = Hutsunea:
     fa = زمان:
     fi = Aika:
@@ -23767,6 +24387,7 @@
     el = Μεγεθύνετε για να δείτε περιγράμματα
     es = Amplía el mapa para ver las isolíneas
     es-MX = Amplíe el mapa para ver las isolíneas
+    et = Isojoonte sirvimiseks suurenda kaarti
     eu = Handitu mapa isolineak ikusteko
     fa = برای بررسی خطوط تراز زوم کنید
     fi = Suurenna kartta nähdäksesi korkeuskäyrät
@@ -23806,6 +24427,7 @@
     el = Ενημέρωση
     es = Actualización
     es-MX = Actualización
+    et = Värskendamine
     eu = Eguneratu
     fa = در حال بروزرسانی
     fi = Päivitys
@@ -23845,6 +24467,7 @@
     el = Φόρτωση
     es = Cargando
     es-MX = Cargando
+    et = Allalaadimine
     eu = Kargatzen
     fa = در حال دانلود
     fi = Lataus
@@ -23881,6 +24504,7 @@
     ca = Baixa el mapa mundial
     de = Herunterladen der Weltkarte
     es = Descarga mapa mundial
+    et = Maailma kaardi allalaadimine
     eu = Deskargatu munduko mapa
     fi = Lataa maailmankartta
     fr = Télécharger la carte du monde
@@ -23901,6 +24525,7 @@
     ar = تعذر إنشاء المجلد ونقل الملفات على الذاكرة الداخلية للجهاز أو على بطاقة SD
     ca = No s'ha pogut crear la carpeta ni moure els fitxers a la memòria interna de l'aparell o targeta SD
     de = Ordner kann nicht erstellt und Dateien können nicht auf den Gerätespeicher oder die SD-Karte verschoben werden
+    et = Seadme sisemällu või mälukaardile ei saa kausta luua ja faile teisaldada
     fr = Impossible de créer un dossier et de déplacer des fichiers sur la mémoire interne de l'appareil ou sur la carte SD
     mr = उपकरणाच्या अंतर्गत मेमरी किंवा SD-card वर फोल्डर तयार करण्यात आणि फायली हलविण्यात अक्षम
     nl = Het lukt niet om een map aan te maken en bestanden naar het interne geheugen of een SD-kaart te verplaatsen
@@ -23916,6 +24541,7 @@
     ar = حدث خطأ في التخزين
     ca = Error de disc
     de = Speicherfehler
+    et = Salvestusseadme viga
     mr = डिस्क त्रुटी
     nl = Schijffout
     pl = Błąd pamięci
@@ -23933,6 +24559,7 @@
     ca = Error de connexió
     de = Verbindungsfehler
     es = Problema de conexión
+    et = Ühenduse viga
     eu = Konexio arazoa
     fi = Yhteysvirhe
     fr = Erreur de connexion
@@ -23955,6 +24582,7 @@
     ca = Desconnecteu el cable USB
     de = USB-Kabel trennen
     es = Desconecte el cable USB
+    et = Ühenda USB kaabel lahti
     eu = Deskonektatu USB kablea
     fi = Irrota USB-kaapeli
     fr = Déconnectez le câble USB
@@ -23980,6 +24608,7 @@
     de = Bildschirm schlafen lassen
     el = Αφήστε την οθόνη να κοιμηθεί
     es = Permitir que la pantalla duerma
+    et = Luba ekraanisäästja
     eu = Utzi pantailari lo egiten
     fa = اجازه دهید صفحه نمایش بخوابد
     fi = Salli näytön lepotila
@@ -24020,6 +24649,7 @@
     de = Wenn diese Option aktiviert ist, kann der Bildschirm nach einer gewissen Zeit der Inaktivität in den Ruhezustand versetzt werden.
     el = Όταν είναι ενεργοποιημένη, η οθόνη θα αφεθεί να κοιμηθεί μετά από περίοδο αδράνειας.
     es = Cuando está habilitado, la pantalla podrá dormir después de un período de inactividad.
+    et = Kui see on lubatud, lülitub ekraan pärast teatud tegevusetusperioodi magama.
     eu = Gaituta dagoenean, pantailak lo egin ahal izango du jarduerarik gabe egon ondoren.
     fa = درصورت فعال بودن ، بعد از یک دوره عدم فعالیت به صفحه اجازه خواب داده می شود.
     fi = Kun tämä asetus on käytössä, näyttö menee lepotilaan käyttämättömyyden jälkeen.
@@ -24055,6 +24685,7 @@
     be = Паказваць на экране блакіроўкі
     ca = Mostra en la pantalla de bloqueig
     de = Auf dem Sperrbildschirm anzeigen
+    et = Kuva lukustusekraanil
     fr = Afficher sur l'écran de verrouillage
     hu = Megjelenítés a zárolt képernyőn
     it = Mostra sulla schermata di blocco
@@ -24075,6 +24706,7 @@
     be = Калі ўключана, вам не трэба разблакіраваць прыладу кожны раз падчас працы дадатку.
     ca = Si està activa, no cal desblocar l'aparell cada vegada mentre l'aplicació està funcionant.
     de = Wenn aktiviert, muss das Gerät nicht jedes Mal entsperrt werden, wenn die App ausgeführt wird.
+    et = Kui lubatud, ei pea te seadet iga kord avama, kui rakendus töötab.
     fr = Lorsqu'il est activé, vous n'avez pas besoin de déverrouiller votre appareil à chaque fois quand l'application fonctionne.
     hu = Ha engedélyezve van, nem kell minden alkalommal feloldanod a telefonod, amíg az alkalmazás fut.
     it = Quando è abilitata, non è necessario sbloccare il dispositivo ogni volta mentre l'app è in esecuzione.
@@ -24101,6 +24733,7 @@
     el = Θα πρέπει να ενημερώστε τους χάρτες που έχετε κατεβάσει
     es = Actualice sus mapas descargados
     es-MX = Debe actualizar sus mapas descargados
+    et = Värskenda oma alla laetud kaarte
     eu = Eguneratu deskargatutako mapak
     fa = نقشه های دانلود شده خود را به روز کنید
     fi = Päivitä ladatut kartat
@@ -24145,6 +24778,7 @@
     el = Η ενημέρωση των χαρτών διατηρεί τις πληροφορίες των στοιχείων επικαιροποιημένες
     es = La actualización de mapas mantiene actualizada la información sobre objetos
     es-MX = Actualizar los mapas mantiene actualizada también la información acerca de los objetos
+    et = Kaartide värskendamine hoiab objektide info ajakohasena
     eu = Maparen freskatzeak objektuen informazioa eguneratuta mantentzen du
     fa = به روز رسانی نقشه ها اطلاعات مربوط به اشیا را به روز نگه می دارد
     fi = Karttojen päivittäminen pitää kohteita koskevat tiedot ajan tasalla
@@ -24189,6 +24823,7 @@
     el = Ενημέρωση (%s)
     es = Actualizar (%s)
     es-MX = Actualizar (%s)
+    et = Värskenda (%s)
     eu = Eguneratu (%s)
     fa = بروزرسانی (%s)
     fi = Päivitä (%s)
@@ -24233,6 +24868,7 @@
     el = Χειροκίνητη ενημέρωση αργότερα
     es = Actualizar más tarde de forma manual
     es-MX = Actualizar después manualmente
+    et = Värskenda hiljem käsitsi
     eu = Eguneratu geroago eskuz
     fa = بعدا به صورت دستی به روزرسانی کنید
     fi = Päivitä manuaalisesti myöhemmin
@@ -24272,6 +24908,7 @@
     ca = Esborra la traça
     de = Strecke löschen
     es = Borrar ruta
+    et = Kustuta rada
     eu = Ibilbide garbia
     fi = Poista reitti
     fr = Supprimer la route
@@ -24295,6 +24932,7 @@
     de = Name der Strecke
     es = Nombre de la ruta
     eu = Bide-izena
+    et = Raja nimi
     fi = Reitin nimi
     fr = Nom de la route
     it = Nome percorso
@@ -24316,6 +24954,7 @@
     ca = Mou
     de = verschieben
     es = Mover
+    et = Teisalda
     eu = Mugitu
     fi = Siirrä
     fr = Déplacer
@@ -24342,6 +24981,7 @@
     de = Strecke
     el = Τροχιά
     es = Ruta
+    et = Rada
     eu = Ibilbidea
     fa = مسیر
     fi = Reitti
@@ -24382,6 +25022,7 @@
     de = Kartendaten von OpenStreetMap
     el = Δεδομένα χάρτη από το OpenStreetMap
     es = Datos de mapas de OpenStreetMap
+    et = OpenStreetMap kaardiandmed
     eu = Maparen datuak OpenStreetMap-en
     fa = OpenStreetMap ﺯﺍ ﻪﺸﻘﻧ ﯼﺎﻫ ﻩﺩﺍﺩ
     fi = OpenStreetMapin karttatiedot
