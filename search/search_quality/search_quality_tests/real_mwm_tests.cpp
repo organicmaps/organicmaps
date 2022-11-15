@@ -227,7 +227,8 @@ UNIT_CLASS_TEST(MwmTestsFixture, NY_Subway)
   auto const & results = request->Results();
   TEST_GREATER(results.size(), kPopularPoiResultsCount, ());
 
-  Range const range(results, 0, 3);
+  // Fast food "Subways" should be the first despite of some "metro" subways are a bit closer ..
+  Range const range(results, 0, 2);
   EqualClassifType(range, GetClassifTypes({{"amenity", "fast_food"}}));
   double const dist = SortedByDistance(range, center);
   TEST_LESS(dist, 1000, ());
