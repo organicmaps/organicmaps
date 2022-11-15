@@ -17,8 +17,8 @@
 # will also match historic-memorial-statue, historic-memorial-plaque, etc.
 #
 # Syntax:
-# @   - indicates the beginning of the group of searh terms translations
-# :   - used to separate the name of the language and translated search synonims.
+# @   - indicates the beginning of the group of search terms translations
+# :   - used to separate the name of the language and translated search synonyms.
 # |   - used to separate several categories/groups or translated synonyms.
 # 1-9 - digits in front of a synonym indicate the number of symbols that need to be
 #       typed in a search query to make this synonym appear in the list of suggestions.
@@ -527,15 +527,40 @@ fa:خود پرداز
 en:2RV Facilities|4Caravan|Vanlife|5Campervan|5Motorhome
 ar:منشآت للمنازل المتنقلة
 be:Для аўтадамоў|5Аўтадом|5Трэйлер|5Караван|Дом на колах
-fr:3Aménagements pour camping-car|caravane|mobile home
+bg:За RV
+ca:Caravanes
+cs:Pro RV
+da:Til RV
+de:Einrichtungen für Wohnmobile|4Wohnmobile
+el:Για RV
 es:Caravanas|Autocaravanas
 et:Haagiselamud
+eu:Karabanak
+fa:RV ﯼﺍﺮﺑ
+fi:RV tilat
+fr:Aménagements pour camping-car|4caravane|mobile home
+he:םינאוורק רובע
+hu:RV számára
+id:Untuk RV
+ja:RV用
+ko:RV용
+it:Per camper
+nb:Bobilanlegg
+nl:Caravan faciliteiten|4Caravans|5Campers
 pl:Kamper
-ru:Для автодомов|5Автодом|5Трейлер|Дом на колёсах
+pt:Para trailers
+pt-BR:Para trailers
 ro:Pentru rulote|3Rulotă|RV
+ru:Для автодомов|5Автодом|5Трейлер|Дом на колёсах
+sk:Pre RV
+sv:För husbil
+sw:Kwa RV
+th:สำหรับ RV
 tr:4Karavan Tesisleri
 uk:Для автобудинків|5Автодім|5Автобудинок|5Трейлер|5Караван|Будинок на колесах
-nl:4Caravan faciliteiten|4Caravans|5Campers
+vi:Đối với RV
+zh-Hans:房车用
+zh-Hant:房車用
 
 amenity-atm|@atm
 en:money|U+1F3E7|U+1F4B2|U+1F4B3|U+1F4B4|U+1F4B5|U+1F4B6|U+1F4B7
@@ -918,7 +943,7 @@ it:3Panetteria|Panificio|Forno
 ja:1パン屋|ベーカリー|パン|軽食|持ち帰り
 ko:1베이커리|빵집
 mr:बेकरी|पाव
-nb:3Bakeri
+nb:3Bakeri|bakverk
 pl:4Piekarnia
 pt:3Padaria
 pt-BR:3Padaria|3panificadora
@@ -1780,7 +1805,7 @@ it:Centro commerciale
 ja:モール
 ko:몰|상점|쇼핑몰|쇼핑센터
 mr:मॉल
-nb:Kjøpesenteret
+nb:Kjøpesenter
 pl:Centrum handlowe
 pt:Centro comercia|3Shopping
 pt-BR:Shopping center
@@ -2000,7 +2025,7 @@ it:Negozio di giocattoli
 ja:おもちゃ屋|玩具店
 ko:장난감 가게|장난감점
 mr:खेळण्यांचे दुकान|खेळणीघर
-nb:Legebutikk
+nb:Leketøybutikk
 pl:Sklep z zabawkami|zabawki|dzieci
 pt:Loja de brinquedos|3brinquedos
 pt-BR:Loja de brinquedos
@@ -2193,6 +2218,7 @@ it:4Chiosco|Edicola|Giornalaio
 ja:1キオスク|売店
 ko:키오스크
 mr:टपरी|कियोस्क
+nb:Kiosk
 pl:3Kiosk|gazety|prasa
 pt:4Quiosque
 pt-BR:4Quiosque
@@ -2670,7 +2696,7 @@ it:3Picnic
 ja:1ピクニック|ピクニックサイト|ハイキング
 ko:피크닉 장소|피크닉
 mr:साहिलीचे ठिकाण|पिकनिक साइट
-nb:3Rasteplasser
+nb:3Rasteplass
 pl:4Pole piknikowe|plener|piknik
 pt:4Local de piqueniques|3Parque de merendas|3piqueniques
 pt-BR:4Local de piquenique|churrasqueira
@@ -3152,7 +3178,7 @@ it:Cippo di confine
 ja:境界標
 ko:경계석
 mr:सीमेचा दगड
-nb:Grensemerke
+nb:Grensestein
 nl:Grenssteen
 pl:Historyczny kamień graniczny
 pt:Marco fronteiriço
@@ -3266,7 +3292,7 @@ it:Muro della città
 ja:城壁
 ko:도시의 벽
 mr:शहराची भिंत
-nb:Bymurer
+nb:Bymur
 nl:Stadsmuur
 pl:Mur miejski
 pt:Muralha
@@ -3455,7 +3481,7 @@ it:Memoriale
 ja:銘板
 ko:기념비
 mr:फलक
-nb:Minnesmerke
+nb:Minneplakett
 nl:Gedenkplaat
 pl:Tablica pamiątkowa
 pt:Placa comemorativa
@@ -3494,7 +3520,7 @@ it:Scultura
 ja:彫刻
 ko:기념비
 mr:शिल्प
-nb:Minnesmerke
+nb:Skulptur
 nl:Sculptuur
 pl:Rzeźba
 pt:Escultura
@@ -3532,7 +3558,7 @@ it:Statua memoriale
 ja:塑像
 ko:기념비
 mr:पुतळा
-nb:Minnesmerke
+nb:Statue
 nl:Standbeeld
 pl:Pomnik
 pt:Estátua
@@ -3684,7 +3710,7 @@ it:Gogna
 ja:さらし台
 ko:칼
 mr:पिलोरी
-nb:Pilry
+nb:Gapestokk
 nl:Schandpaal
 pl:Pręgierz
 pt:Pelourinho
@@ -3759,7 +3785,7 @@ it:Nave storica
 ja:退役船
 ko:배|보트
 mr:जहाज
-nb:Severdigheter
+nb:Skip|båt
 nl:Schip|boot
 pl:Łódź|okręt
 pt:2Barco|2Navio
@@ -3798,7 +3824,7 @@ it:Tomba
 ja:墓
 ko:무덤|묘지
 mr:थडगे
-nb:Severdigheter
+nb:Grav
 nl:Tombe|graf|gedenkteken
 pl:Grób|grobowiec
 pt:Túmulo|2Sepultura|memorial
@@ -4063,7 +4089,7 @@ it:3Car Sharing
 ja:カーシェアリング
 ko:카 셰어링|카 쉐어링|자동차 공유|차 공유|카셰어링
 mr:कार पूल|कार शेअर
-nb:Kjøre sammen
+nb:3Bildeling
 nl:3Carpool|Carpoolen|Auto delen|Autodelen
 pl:Współdzielenie samochodów|Wypożyczanie samochodów|samochód
 pt:Partilha de carro
@@ -4696,6 +4722,44 @@ vi:Phòng thí nghiệm y tế
 zh-Hans:医学实验室
 zh-Hant:醫學實驗室
 
+healthcare-physiotherapist
+en:Physiotherapist
+ru:Физиотерапевт
+ar:اخصائي علاج طبيعي
+be:Фізіятэрапеўт
+bg:Физиотерапевт
+cs:Fyzioterapeut
+da:Fysioterapeut
+de:Physiotherapeut
+el:Φυσικοθεραπευτής
+es:Fisioterapeuta
+eu:Fisioterapeuta
+fa:فیزیوتراپیست
+fi:Fysioterapeutti
+fr:Physiothérapeute
+he:פיזיותרפיסט
+hu:Fizioterapeuta
+id:Fisioterapis
+it:Fisioterapista
+ja:理学療法士
+ko:물리치료사
+mr:फिजिओथेरपिस्ट
+nb:Fysioterapeut
+nl:Fysiotherapeut
+pl:Fizjoterapeuta
+pt:Fisioterapeuta
+pt-BR:Fisioterapeuta
+ro:Fizioterapeut
+sk:Fyzioterapeut
+sv:Fysioterapeut
+sw:Mtaalamu wa Physiotherapist
+th:นักกายภาพบำบัด
+tr:Fizyoterapist
+uk:Фізіотерапевт
+vi:Nhà vật lý trị liệu
+zh-Hans:物理治疗师
+zh-Hant:物理治療師
+
 amenity-hunting_stand
 en:Hunting Stand
 ru:Охотничья вышка
@@ -5023,7 +5087,7 @@ id:Sampah
 it:Spazzatura
 ja:ゴミ|ごみ|リサイクル|再利用|ダストボックス
 ko:쓰레기|휴지통
-nb:Søppel
+nb:4Søppeldunk|4søppel
 pl:Wysypisko|Śmieci|ponowne odtworzenie|odpady
 pt:Contentor do lixo|Caixote do lixo|lixo
 pt-BR:Depósito de lixo|lixo
@@ -5534,7 +5598,7 @@ id:Tempat penampungan
 it:Riparo
 ja:1避難所|シェルター
 ko:셸터|대피소
-nb:Tilfluktsrom
+nb:Ly
 pl:3Szopa|schronienie
 pt:Abrigo
 pt-BR:Abrigo
@@ -6152,7 +6216,7 @@ id:Wilayah
 it:Località|luogo|regione|area
 ja:1地域|僻地
 ko:장소|소재지
-nb:Lokalitet
+nb:Sted
 pl:Lokalne|region
 pt:Localidade
 pt-BR:Localidade
@@ -6262,7 +6326,7 @@ id:Jalur
 it:Sentiero|viottolo
 ja:1歩道|小道|小路|小径|階段|獣道|遊歩道|パス
 ko:길
-nb:Sti
+nb:Sti|Gangvei
 pl:3Ścieżka|dróżka|droga
 pt:Caminho|trilho
 pt-BR:Caminho|trilha
@@ -6299,7 +6363,7 @@ id:Jalan
 it:Via|strada|corso|vicolo
 ja:1ストリート|通り|道路|辻|筋
 ko:거리
-nb:Gate
+nb:Gate|vei|gågate
 pl:3Ulica|droga
 pt:Rua|rodovia|estrada|avenida
 pt-BR:Rua|rodovia|estrada|avenida
@@ -6335,7 +6399,7 @@ hu:4Kijárat|4csatlakozás
 id:Keluar
 ja:1ジャンクション|料金所|高速道路|インターチェンジ
 ko:고속도로 출구|출구|교차로
-nb:Utgang|kryss
+nb:3Avkjørsel|kryss
 pl:3Wyjazd|wyjście|zjazd
 pt:4Saída de autoestrada
 pt-BR:2Saída|3junção
@@ -6378,7 +6442,7 @@ id:Puncak
 it:Monte|montagna|cima|picco
 ja:1山頂|山|頂|頂上|峰
 ko:산|산악
-nb:Høydepunkt|fjell
+nb:Topp|fjell
 pl:3Góra|szczyt|wierzchołek
 pt:Pico|montanha|monte
 pt-BR:Pico|montanha
@@ -6464,7 +6528,7 @@ id:Hutan
 it:Foresta
 ja:1森林|森|林|人工林|自然林
 ko:숲
-nb:Skog
+nb:Skog|Barskog|Løvskog
 pl:Las
 pt:Floresta|mata
 pt-BR:Floresta|mata
@@ -6934,7 +6998,7 @@ id:Lapangan olahraga|lapangan
 it:Campo sportivo|campo|sport
 ja:1運動場|スポーツ|トラック|球場
 ko:운동장
-nb:4Sportssenter
+nb:4Idrettsplass|sport
 pl:Boisko sportowe|pole|boisko|sport
 pt:Campo de desporto|campo|desporto
 pt-BR:Campo de esportes|campo|quadra|esporte
@@ -8203,7 +8267,7 @@ id:Mata air
 it:Sorgente
 ja:泉|湧水|湧き水
 ko:샘
-nb:Vår
+nb:Kilde
 pl:Źródło
 pt:Nascente
 pt-BR:Nascente
@@ -8363,7 +8427,7 @@ id:Perairan
 ja:水地
 ko:수역
 nl:Waterlichaam
-nb:Vassmasse
+nb:Vann|Vannoverflate
 pl:Akwen
 pt:Corpo de água
 pt-BR:Corpo de água
@@ -8401,7 +8465,7 @@ it:Bacino d'acqua
 ja:水地|貯水所
 ko:저수지
 nl:Waterbassin
-nb:Vannvask
+nb:Basseng
 pl:Basen wodny|zbiornik
 pt:Reservatório
 pt-BR:Reservatório
@@ -8665,7 +8729,7 @@ id:5Perkemahan
 it:4Campeggio|campeggi|camping
 ja:1キャンプ場|キャンプ|キャンピング|バーベキュー|テント場
 ko:캠프|캠프장|캠핑을|캠핑|캠핑장|캠핑장소
-nb:Overnatting i bobiler
+nb:4Campingplass|telt
 pl:4Kamping|pole kempingowe
 pt:2Parque de campismo|4Campismo|5Acampamento|área de acampamento|local de acampamento
 pt-BR:4Local de acampamento|área de acampamento|4camping
@@ -9079,7 +9143,7 @@ it:Pasticciere
 ja:菓子職人
 ko:과자 장수
 mr:हलवाई
-nb:Konditor
+nb:Konditori
 nl:Banketbakkerij
 pl:Cukiernik
 pt:Confeitaria
@@ -9611,7 +9675,7 @@ id:Alun-alun
 it:Piazza
 ja:広場
 ko:광장
-nb:Plass
+nb:Torg|plass
 pl:Plac
 pt:Praça|Praceta|Largo
 pt-BR:Largo|praça|rua de pedestres|escadaria
@@ -10244,7 +10308,7 @@ id:Penitipan Anak|Perawatan Anak
 it:Asilo|cura dell'infanzia
 ja:託児所|保育園
 ko:보육|탁아소|유치원
-nb:Førskole|Barnehage
+nb:Daghjem|Barnehage
 pl:Opieka nad dzieckiem
 pt:Creche|jardim de infância|jardim infantil
 pt-BR:Creche|jardim de infância
@@ -10319,7 +10383,7 @@ id:Kotak sampah
 it:Contenitore per rifiuti
 ja:くずかご
 ko:쓰레기통
-nb:Søppelkasse
+nb:4Søppelbøtte|4Søppelkasse
 pl:Kosz na śmieci
 pt:Caixote do lixo
 pt-BR:Cesto de lixo|lixeira
@@ -10970,7 +11034,7 @@ id:Garasi
 it:Garage
 ja:車庫
 ko:차고
-nb:Verksted
+nb:Garasje
 pl:Garaż samochodowy
 pt:Garagem
 pt-BR:Garagem
@@ -11479,7 +11543,7 @@ id:Stasiun kereta gantung
 it:Impianto di risalita|funivia|stazione della funivia
 ja:ケーブルカー駅
 ko:케이블카 역|케이블카|케이블카역
-nb:Kabelbanestasjon
+nb:Taubanestasjon
 pl:Stacja kolejki linowej
 pt:Estação de teleférico|teleférico
 pt-BR:Estação de teleférico
@@ -12652,7 +12716,7 @@ id:Stasiun Kebugaran
 it:Centro fitness
 ja:フィットネスステーション
 ko:피트니스 스테이션
-nb:Treningssenter
+nb:Treningsstasjon
 nl:3Fitness-Station
 pl:Stacja fitness|Przyrządy do ćwiczeń
 pt:Estação de fitness|Máquina de exercícios pública
@@ -12947,7 +13011,7 @@ id:Toko Alat Tulis
 it:Cartoleria
 ja:文房具店
 ko:문방구
-nb:Bokhandel
+nb:5Kontorrekvisita|Bokhandel
 nl:Kantoorboekhandel
 pl:Artykuły papiernicze
 pt:Papelaria
@@ -13161,6 +13225,7 @@ et:3Galerii|muuseum
 eu:3Arte galeria|museoa
 fr:3Galerie d'art|musée d'art
 ko:갤러리|박물관
+nb:3Galleri|museum
 nl:3Galerij|museum
 pl:3Galeria|muzeum
 pt:3Galeria|museu
@@ -13181,6 +13246,7 @@ et:Teemapark|Lõbustuspark
 eu:Parke tematiko
 fi:Huvipuisto
 ko:테마 파크
+nb:Temapark|Fornøyelsespark
 nl:Pretpark|Attractiepark
 pl:Park tematyczny
 pt:Parque de diversões|parque temático
@@ -13208,7 +13274,7 @@ id:Taman Nasional
 it:Parco nazionale
 ja:国立公園
 ko:국립 공원
-nb:Nasonalpark
+nb:Nasjonalpark
 nl:Nationaal park
 pl:Park narodowy
 pt:Parque nacional
@@ -13245,7 +13311,7 @@ id:Cagar Alam
 it:Riserva
 ja:自然保護区
 ko:천연보호구역|자연보호지역
-nb:Reservat
+nb:Naturreservat
 nl:Natuurgebied|reservaat
 pl:Rezerwat przyrody
 pt:Reserva natural
@@ -13317,7 +13383,7 @@ id:3Geiser
 it:3Geyser
 ja:間欠泉
 ko:가이저|간헐천
-nb:3Gaysir
+nb:3Geysir
 nl:3Geiser
 pl:3Gejzer
 pt:3Géiser|Geiser
@@ -13517,6 +13583,7 @@ et:Plaadipood
 fr:Disquaire|vinyle|CD
 it:Negozio di Dischi
 ja:CDショップ
+nb:Platebutikk|vinyl
 nl:Muziekwinkel
 pl:Sklep muzyczny
 pt:Loja de música
@@ -13531,6 +13598,7 @@ et:Muusikariistad
 fr:Magasin d'instruments de musique
 it:Negozio di strumenti
 ja:楽器店
+nb:Musikkinstrumenter
 nl:Muziekinstrumentenwinkel
 pl:Sklep z instrumentami muzycznymi
 pt:Loja de instrumentos musicais
@@ -13546,6 +13614,7 @@ de:Teegeschäft
 fr:Boutique de thés
 it:Negozio di tè
 ja:茶販売店
+nb:Tebutikk
 nl:Theewinkel
 pl:Sklep z herbatą
 pt:Loja de chás
@@ -14144,7 +14213,7 @@ id:Sewa Penyimpanan
 it:Noleggio deposito
 ja:ストレージレンタル
 ko:스토리지 렌탈
-nb:Utleie av lager
+nb:Lagerutleie
 nl:Opslag verhuur
 pl:Wynajem magazynu
 pt:Aluguel de Armazenamento

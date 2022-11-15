@@ -27,7 +27,7 @@ esac
 
 # Note: default Google engine doesn't properly support European Portuguese (pt-PT)
 # and always produces Brazilian translations. Need to use Deepl.
-LANGUAGES=( en ar be bg cs da de el es eu fa 'fi' fr he hu id it ja ko nb nl pl pt-PT pt-BR ro ru sk sv sw th tr uk vi zh-CN zh-TW )
+LANGUAGES=( en ar be bg ca cs da de el es et eu fa 'fi' fr he hu id it ja ko mr nb nl pl pt pt-BR ro ru sk sv sw th tr uk vi zh-CN zh-TW )
 
 for lang in "${LANGUAGES[@]}"; do
   TRANSLATION=$(trans -b "$SRC:$lang" "$WORD" | sed 's/   *//')
@@ -39,5 +39,5 @@ for lang in "${LANGUAGES[@]}"; do
   esac
   echo "$lang${DELIM}$(tr '[:lower:]' '[:upper:]' <<< "${TRANSLATION:0:1}")${TRANSLATION:1}"
   # To avoid quota limits.
-  sleep 1
+  sleep 0.5
 done

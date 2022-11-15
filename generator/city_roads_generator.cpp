@@ -1,7 +1,6 @@
 #include "generator/city_roads_generator.hpp"
 
 #include "generator/cities_boundaries_checker.hpp"
-#include "generator/feature_builder.hpp"
 
 #include "routing/city_roads_serialization.hpp"
 #include "routing/routing_helpers.hpp"
@@ -24,8 +23,8 @@
 
 namespace routing_builder
 {
-using namespace generator;
-using namespace std;
+using generator::CitiesBoundariesChecker;
+using std::string, std::vector;
 
 void LoadCitiesBoundariesGeometry(string const & boundariesPath,
                                   CitiesBoundariesChecker::CitiesBoundaries & result)
@@ -98,7 +97,7 @@ void SerializeCityRoads(string const & dataPath, vector<uint32_t> && cityRoadFea
   FilesContainerW cont(dataPath, FileWriter::OP_WRITE_EXISTING);
   auto w = cont.GetWriter(CITY_ROADS_FILE_TAG);
 
-  routing::CityRoadsSerializer::Serialize(*w, move(cityRoadFeatureIds));
+  routing::CityRoadsSerializer::Serialize(*w, std::move(cityRoadFeatureIds));
 }
 
 bool BuildCityRoads(string const & mwmPath, string const & boundariesPath)

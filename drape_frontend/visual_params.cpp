@@ -1,7 +1,5 @@
 #include "drape_frontend/visual_params.hpp"
 
-#include "indexer/scales.hpp"
-
 #include "geometry/mercator.hpp"
 
 #include "base/assert.hpp"
@@ -338,25 +336,6 @@ void ExtractZoomFactors(ScreenBase const & s, double & zoom, int & index, float 
   lerpCoef = static_cast<float>(zoomLevel - zoom);
 }
 
-float InterpolateByZoomLevelsImpl(int index, float lerpCoef, float const * values,
-                                  size_t valuesSize)
-{
-  ASSERT_GREATER_OR_EQUAL(index, 0, ());
-  ASSERT_GREATER(valuesSize, scales::UPPER_STYLE_SCALE, ());
-  if (index < scales::UPPER_STYLE_SCALE)
-    return values[index] + lerpCoef * (values[index + 1] - values[index]);
-  return values[scales::UPPER_STYLE_SCALE];
-}
-
-m2::PointF InterpolateByZoomLevels(int index, float lerpCoef, std::vector<m2::PointF> const & values)
-{
-  ASSERT_GREATER_OR_EQUAL(index, 0, ());
-  ASSERT_GREATER(values.size(), scales::UPPER_STYLE_SCALE, ());
-  if (index < scales::UPPER_STYLE_SCALE)
-    return values[index] + (values[index + 1] - values[index]) * lerpCoef;
-  return values[scales::UPPER_STYLE_SCALE];
-}
-
 double GetNormalizedZoomLevel(double screenScale, int minZoom)
 {
   double const kMaxZoom = scales::GetUpperStyleScale() + 1.0;
@@ -380,4 +359,15 @@ double GetZoomLevel(double screenScale)
   auto const factor = mercator::Bounds::kRangeX / len;
   return base::Clamp(GetDrawTileScale(fabs(std::log2(factor))), 1.0, scales::GetUpperStyleScale() + 1.0);
 }
+
+float CalculateRadius(ScreenBase const & screen, ArrayView<float> const & zoom2radius)
+{
+  double zoom = 0.0;
+  int index = 0;
+  float lerpCoef = 0.0f;
+  ExtractZoomFactors(screen, zoom, index, lerpCoef);
+  float const radius = InterpolateByZoomLevels(index, lerpCoef, zoom2radius);
+  return radius * static_cast<float>(VisualParams::Instance().GetVisualScale());
+}
+
 }  // namespace df

@@ -1,4 +1,5 @@
 #pragma once
+#include "indexer/scales.hpp"
 
 #include "geometry/rect2d.hpp"
 #include "geometry/screenbase.hpp"
@@ -101,15 +102,41 @@ m2::RectD GetRectForDrawScale(double drawScale, m2::PointD const & center);
 uint32_t CalculateTileSize(uint32_t screenWidth, uint32_t screenHeight);
 
 void ExtractZoomFactors(ScreenBase const & s, double & zoom, int & index, float & lerpCoef);
-float InterpolateByZoomLevelsImpl(int index, float lerpCoef, float const * values,
-                                  size_t valuesSize);
-template <typename Array>
-inline float InterpolateByZoomLevels(int index, float lerpCoef, Array const & values)
+
+template <class T> class ArrayView
 {
-  return InterpolateByZoomLevelsImpl(index, lerpCoef, values.data(), values.size());
+  T const * m_arr;
+  size_t m_size;
+
+public:
+  using value_type = T;
+
+  template <class ArrayT> ArrayView(ArrayT const & arr) : m_arr(arr.data()), m_size(arr.size()) {}
+
+  ArrayView(ArrayView const &) = default;
+  ArrayView(ArrayView &&) = default;
+
+  size_t size() const { return m_size; }
+  T operator[](size_t i) const
+  {
+    ASSERT_LESS(i, m_size, ());
+    return m_arr[i];
+  }
+};
+
+template <class ArrayT> typename ArrayT::value_type
+InterpolateByZoomLevels(int index, float lerpCoef, ArrayT const & values)
+{
+  ASSERT_GREATER_OR_EQUAL(index, 0, ());
+  ASSERT_GREATER(values.size(), scales::UPPER_STYLE_SCALE, ());
+  if (index < scales::UPPER_STYLE_SCALE)
+    return values[index] + (values[index + 1] - values[index]) * lerpCoef;
+  return values[scales::UPPER_STYLE_SCALE];
 }
-m2::PointF InterpolateByZoomLevels(int index, float lerpCoef, std::vector<m2::PointF> const & values);
+
 double GetNormalizedZoomLevel(double screenScale, int minZoom = 1);
 double GetScreenScale(double zoomLevel);
 double GetZoomLevel(double screenScale);
+
+float CalculateRadius(ScreenBase const & screen, ArrayView<float> const & zoom2radius);
 }  // namespace df

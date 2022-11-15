@@ -163,15 +163,9 @@ void Platform::GetFilesByRegExp(string const & directory, string const & regexp,
     pl::EnumerateFilesByRegExp(directory, regexp, res);
 }
 
-int Platform::VideoMemoryLimit() const
-{
-  return 10 * 1024 * 1024;
-}
+int Platform::VideoMemoryLimit() const { return 10 * 1024 * 1024; }
 
-int Platform::PreCachingDepth() const
-{
-  return 3;
-}
+int Platform::PreCachingDepth() const { return 3; }
 
 bool Platform::GetFileSizeByName(string const & fileName, uint64_t & size) const
 {

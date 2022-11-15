@@ -110,6 +110,8 @@
 	<string name="police">משטרה</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
 	<string name="water">מים</string>
+	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
+	<string name="rv">םינאוורק רובע</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">הערות</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -356,6 +358,7 @@
 	<string name="type.cuisine.vegetarian">מטבח צמחוני</string>
 	<string name="type.cuisine.vietnamese">מטבח וייטנאמי</string>
 	<string name="type.healthcare.laboratory">תיאופר הדבעמ</string>
+	<string name="type.healthcare.physiotherapist">פיזיותרפיסט</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->

@@ -4,17 +4,15 @@
 
 #include "base/logging.hpp"
 #include "base/macros.hpp"
-#include "base/string_utils.hpp"
 #include "base/timer.hpp"
 
 #include <functional>
+#include <mutex>
 #include <utility>
-
-using namespace std;
-using namespace std::placeholders;
 
 namespace routing
 {
+using std::lock_guard, std::unique_lock;
 // ----------------------------------------------------------------------------------------------------------------------------
 
 AsyncRouter::RouterDelegateProxy::RouterDelegateProxy(ReadyCallbackOwnership const & onReady,
@@ -30,30 +28,30 @@ AsyncRouter::RouterDelegateProxy::RouterDelegateProxy(ReadyCallbackOwnership con
   , m_onProgress(onProgress)
 {
   m_delegate.Reset();
-  m_delegate.SetPointCheckCallback(bind(&RouterDelegateProxy::OnPointCheck, this, _1));
-  m_delegate.SetProgressCallback(bind(&RouterDelegateProxy::OnProgress, this, _1));
+  m_delegate.SetPointCheckCallback(std::bind(&RouterDelegateProxy::OnPointCheck, this, std::placeholders::_1));
+  m_delegate.SetProgressCallback(std::bind(&RouterDelegateProxy::OnProgress, this, std::placeholders::_1));
   m_delegate.SetTimeout(timeoutSec);
 }
 
-void AsyncRouter::RouterDelegateProxy::OnReady(shared_ptr<Route> route, RouterResultCode resultCode)
+void AsyncRouter::RouterDelegateProxy::OnReady(std::shared_ptr<Route> route, RouterResultCode resultCode)
 {
   if (!m_onReadyOwnership)
     return;
   {
-    lock_guard<mutex> l(m_guard);
+    lock_guard l(m_guard);
     if (m_delegate.IsCancelled())
       return;
   }
-  m_onReadyOwnership(move(route), resultCode);
+  m_onReadyOwnership(std::move(route), resultCode);
 }
 
 void AsyncRouter::RouterDelegateProxy::OnNeedMoreMaps(uint64_t routeId,
-                                                      set<string> const & absentCounties)
+                                                      std::set<std::string> const & absentCounties)
 {
   if (!m_onNeedMoreMaps)
     return;
   {
-    lock_guard<mutex> l(m_guard);
+    lock_guard l(m_guard);
     if (m_delegate.IsCancelled())
       return;
   }
@@ -65,7 +63,7 @@ void AsyncRouter::RouterDelegateProxy::OnRemoveRoute(RouterResultCode resultCode
   if (!m_onRemoveRoute)
     return;
   {
-    lock_guard<mutex> l(m_guard);
+    lock_guard l(m_guard);
     if (m_delegate.IsCancelled())
       return;
   }
@@ -74,7 +72,7 @@ void AsyncRouter::RouterDelegateProxy::OnRemoveRoute(RouterResultCode resultCode
 
 void AsyncRouter::RouterDelegateProxy::Cancel()
 {
-  lock_guard<mutex> l(m_guard);
+  lock_guard l(m_guard);
   m_delegate.Cancel();
 }
 
@@ -90,7 +88,7 @@ void AsyncRouter::RouterDelegateProxy::OnProgress(float progress)
   ProgressCallback onProgress = nullptr;
 
   {
-    lock_guard<mutex> l(m_guard);
+    lock_guard l(m_guard);
     if (!m_onProgress)
       return;
 
@@ -140,7 +138,7 @@ AsyncRouter::AsyncRouter(PointCheckCallback const & pointCheckCallback)
 AsyncRouter::~AsyncRouter()
 {
   {
-    unique_lock<mutex> ul(m_guard);
+    unique_lock ul(m_guard);
 
     ResetDelegate();
 
@@ -151,15 +149,15 @@ AsyncRouter::~AsyncRouter()
   m_thread.join();
 }
 
-void AsyncRouter::SetRouter(unique_ptr<IRouter> && router,
-                            unique_ptr<AbsentRegionsFinder> && finder)
+void AsyncRouter::SetRouter(std::unique_ptr<IRouter> && router,
+                            std::unique_ptr<AbsentRegionsFinder> && finder)
 {
-  unique_lock<mutex> ul(m_guard);
+  unique_lock ul(m_guard);
 
   ResetDelegate();
 
-  m_router = move(router);
-  m_absentRegionsFinder = move(finder);
+  m_router = std::move(router);
+  m_absentRegionsFinder = std::move(finder);
 }
 
 void AsyncRouter::CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & direction,
@@ -169,7 +167,7 @@ void AsyncRouter::CalculateRoute(Checkpoints const & checkpoints, m2::PointD con
                                  RemoveRouteCallback const & removeRouteCallback,
                                  ProgressCallback const & progressCallback, uint32_t timeoutSec)
 {
-  unique_lock<mutex> ul(m_guard);
+  unique_lock ul(m_guard);
 
   m_checkpoints = checkpoints;
   m_startDirection = direction;
@@ -178,7 +176,7 @@ void AsyncRouter::CalculateRoute(Checkpoints const & checkpoints, m2::PointD con
   ResetDelegate();
 
   m_delegateProxy =
-      make_shared<RouterDelegateProxy>(readyCallback, needMoreMapsCallback, removeRouteCallback,
+      std::make_shared<RouterDelegateProxy>(readyCallback, needMoreMapsCallback, removeRouteCallback,
                                        m_pointCheckCallback, progressCallback, timeoutSec);
 
   m_hasRequest = true;
@@ -187,13 +185,13 @@ void AsyncRouter::CalculateRoute(Checkpoints const & checkpoints, m2::PointD con
 
 void AsyncRouter::SetGuidesTracks(GuidesTracks && guides)
 {
-  unique_lock<mutex> ul(m_guard);
-  m_guides = move(guides);
+  unique_lock ul(m_guard);
+  m_guides = std::move(guides);
 }
 
 void AsyncRouter::ClearState()
 {
-  unique_lock<mutex> ul(m_guard);
+  unique_lock ul(m_guard);
 
   m_clearState = true;
   m_threadCondVar.notify_one();
@@ -201,6 +199,7 @@ void AsyncRouter::ClearState()
   ResetDelegate();
 }
 
+// static
 void AsyncRouter::LogCode(RouterResultCode code, double const elapsedSec)
 {
   switch (code)
@@ -275,7 +274,7 @@ void AsyncRouter::ThreadFunc()
   while (true)
   {
     {
-      unique_lock<mutex> ul(m_guard);
+      unique_lock ul(m_guard);
       m_threadCondVar.wait(ul, [this](){ return m_threadExit || m_hasRequest || m_clearState; });
 
       if (m_clearState && m_router)
@@ -298,16 +297,16 @@ void AsyncRouter::ThreadFunc()
 void AsyncRouter::CalculateRoute()
 {
   Checkpoints checkpoints;
-  shared_ptr<RouterDelegateProxy> delegateProxy;
+  std::shared_ptr<RouterDelegateProxy> delegateProxy;
   m2::PointD startDirection;
   bool adjustToPrevRoute = false;
-  shared_ptr<AbsentRegionsFinder> absentRegionsFinder;
-  shared_ptr<IRouter> router;
+  std::shared_ptr<AbsentRegionsFinder> absentRegionsFinder;
+  std::shared_ptr<IRouter> router;
   uint64_t routeId = 0;
-  string routerName;
+  std::string routerName;
 
   {
-    unique_lock<mutex> ul(m_guard);
+    unique_lock ul(m_guard);
 
     bool hasRequest = m_hasRequest;
     m_hasRequest = false;
@@ -326,11 +325,11 @@ void AsyncRouter::CalculateRoute()
     absentRegionsFinder = m_absentRegionsFinder;
     routeId = ++m_routeCounter;
     routerName = router->GetName();
-    router->SetGuides(move(m_guides));
+    router->SetGuides(std::move(m_guides));
     m_guides.clear();
   }
 
-  auto route = make_shared<Route>(router->GetName(), routeId);
+  auto route = std::make_shared<Route>(router->GetName(), routeId);
   RouterResultCode code;
 
   base::Timer timer;
@@ -374,7 +373,7 @@ void AsyncRouter::CalculateRoute()
 
   bool const needAbsentRegions = (code != RouterResultCode::Cancelled);
 
-  set<string> absent;
+  std::set<std::string> absent;
   if (absentRegionsFinder && needAbsentRegions)
     absentRegionsFinder->GetAbsentRegions(absent);
 

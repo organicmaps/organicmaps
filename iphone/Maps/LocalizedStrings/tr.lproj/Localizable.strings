@@ -1840,6 +1840,8 @@
 
 "type.healthcare.laboratory" = "Tıbbi Laboratuvar";
 
+"type.healthcare.physiotherapist" = "Fizyoterapist";
+
 
 /********** Types: Roads **********/
 

@@ -130,6 +130,8 @@
 	<string name="recycling">回收</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
 	<string name="water">水</string>
+	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
+	<string name="rv">房车用</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">注释</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -962,6 +964,7 @@
 	<string name="type.emergency.phone">紧急电话</string>
 	<string name="type.entrance">入口</string>
 	<string name="type.healthcare.laboratory">医学实验室</string>
+	<string name="type.healthcare.physiotherapist">物理治疗师</string>
 
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway">公路要素</string>

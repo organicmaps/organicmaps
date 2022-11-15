@@ -1,22 +1,22 @@
-‣ Unsere kostenlose App trackt Sie nicht, enthält keine Werbung und wird durch Ihre Spenden finanziert.
-‣ Sie wird laufend von unserem kleinen Team, in unserer Freizeit, mit unserem eigenen Geld und Spenden/Beiträgen unserer Nutzer, verbessert.
-‣ Wenn etwas auf der Karte falsch ist oder fehlt, korrigieren Sie es bitte in <b>OpenStreetMap</b> und sehen Sie Ihre Änderungen in zukünftigen Karten-Updates.
+‣ Unsere kostenlose App trackt niemanden, enthält keine Werbung und wird durch Ihre Spenden finanziert.
+‣ Laufende Weiterentwicklung durch unser kleines Team in unserer Freizeit mit unserem eigenen Geld und Spenden/Beiträgen unserer Nutzer.
+‣ Bei inkorrekten oder unvollstädigen Kartendaten können Sie diese in <b>OpenStreetMap</b> verbessern, und ihre Änderungen in zukünftigen Updates übernommen sehen.
 ‣ Sollte die Navigation oder die Suche nicht funktionieren, senden Sie uns bitte eine E-Mail. Wir antworten auf <i>JEDE</i> E-Mail und werden das Problem so schnell wie möglich beheben!
 
 <b>Ihr Feedback und Ihre 5-Sterne-Bewertungen sind die beste Motivation für uns!</b>
 
 Wichtigsten Eigenschaften:
-• Detaillierte Offline-Karten mit Orten, die dank OpenStreetMap.org auf anderen Karten nicht zu finden sind
+• Detaillierte Offline-Karten mit Orten von OpenStreetMap.org, die auf vielen anderen Karten nicht zu finden sind
 • Radwege, Wanderwege und Spazierwege
 • Höhenlinien, Höhenprofile, Gipfel und Steigungen
 • Navigation mit Abbiegehinweisen für Fußgänger, Radfahrer und Autos mit Sprachführung
 • Schnelle Offlinesuche auf der Karte und in den Lesezeichen
 • Import und Export von Lesezeichen in den Formaten KML/KMZ (GPX ist geplant)
 • Dunkles Design zum besseren Schutz Ihrer Augen
-• Länder und Regionen nehmen nicht viel Speicherplatz in Anspruch
+• Geringer Speicheranspruch durch effiziente Kartendaten
 • Kostenlos und Open-Source
 
-Es gibt noch kein Android Auto, keine öffentlichen Verkehrsmittel, keine Satellitenkarten und noch keine anderen coolen Funktionen in Organic Maps. Aber mit Ihrer Hilfe und Unterstützung können wir diese Welt Schritt für Schritt besser machen.
+Android Auto, ebenso wie öffentlichen Verkehrsmittel und Satellitenbildkarten werden noch nicht unterstützt. Aber mit Ihrer Hilfe und Unterstützung können wir diese Welt und unsere Karten Schritt für Schritt besser machen.
 
 Organic Maps ist <b>sauber, organisch und mit Liebe gemacht</b>:
 
@@ -31,7 +31,7 @@ Frei von Trackern und sonstigem schädlichen Inhalt:
 • Keine Werbung
 • Kein Tracking
 • Keine Datensammlung
-• Kein "Telefonieren nach Hause"
+• Keine automatische Datenübertragung
 • Keine lästige Registrierung
 • Keine obligatorischen Tutorials
 • Kein lästiger E-Mail-Spam
@@ -47,7 +47,7 @@ Wir bei Organic Maps glauben, dass <b>Privatsphäre ein grundlegendes Menschenre
 
 Keine Tracker und nur minimal erforderliche Berechtigungen sind laut dem Exodus-Datenschutzbericht vorhanden.
 
-Bitte besuchen Sie <b><i>organicmaps.app</i></b> Website für weitere Details und FAQ, oder kontaktieren Sie uns direkt unter @OrganicMapsApp in Telegram.
+Bitte besuchen Sie <b><i>organicmaps.app</i></b> Website für weitere Details und ein FAQ. Oder kontaktieren Sie uns direkt unter @OrganicMapsApp in Telegram.
 
-Lehnen Sie die Überwachung ab - ergreifen Sie Ihre Freiheit.
+Überwachung ablehnen - Freiheit wählen.
 <b>Testen Sie Organic Maps!</b>

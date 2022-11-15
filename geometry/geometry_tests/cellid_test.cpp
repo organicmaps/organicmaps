@@ -10,7 +10,7 @@
 
 namespace cellid_test
 {
-using namespace std;
+using std::make_pair, std::string, std::vector;
 
 UNIT_TEST(CellId_Parent)
 {
@@ -157,21 +157,21 @@ UNIT_TEST(CellId_SubTreeSize)
 UNIT_TEST(CellId_LessQueueOrder)
 {
   vector<string> v;
-  v.push_back("0");
-  v.push_back("1");
-  v.push_back("00");
-  v.push_back("00");
-  v.push_back("02");
-  v.push_back("002");
-  v.push_back("101");
+  v.emplace_back("0");
+  v.emplace_back("1");
+  v.emplace_back("00");
+  v.emplace_back("00");
+  v.emplace_back("02");
+  v.emplace_back("002");
+  v.emplace_back("101");
   vector<string> e = v;
   do
   {
     vector<m2::CellId<4>> tst, exp;
     for (size_t i = 0; i < v.size(); ++i)
     {
-      tst.push_back(m2::CellId<4>(e[i]));
-      exp.push_back(m2::CellId<4>(v[i]));
+      tst.emplace_back(e[i]);
+      exp.emplace_back(v[i]);
     }
     sort(tst.begin(), tst.end(), m2::CellId<4>::LessLevelOrder());
     TEST_EQUAL(tst, exp, ());
@@ -181,21 +181,21 @@ UNIT_TEST(CellId_LessQueueOrder)
 UNIT_TEST(CellId_LessStackOrder)
 {
   vector<string> v;
-  v.push_back("0");
-  v.push_back("00");
-  v.push_back("00");
-  v.push_back("002");
-  v.push_back("02");
-  v.push_back("1");
-  v.push_back("101");
+  v.emplace_back("0");
+  v.emplace_back("00");
+  v.emplace_back("00");
+  v.emplace_back("002");
+  v.emplace_back("02");
+  v.emplace_back("1");
+  v.emplace_back("101");
   vector<string> e = v;
   do
   {
     vector<m2::CellId<4>> tst, exp;
     for (size_t i = 0; i < v.size(); ++i)
     {
-      tst.push_back(m2::CellId<4>(e[i]));
-      exp.push_back(m2::CellId<4>(v[i]));
+      tst.emplace_back(e[i]);
+      exp.emplace_back(v[i]);
     }
     sort(tst.begin(), tst.end(), m2::CellId<4>::LessPreOrder());
     TEST_EQUAL(tst, exp, ());

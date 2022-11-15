@@ -6,13 +6,11 @@
 #include "generator/generator_tests/common.hpp"
 #include "generator/generator_tests_support/routing_helpers.hpp"
 #include "generator/generator_tests_support/test_mwm_builder.hpp"
-#include "generator/intermediate_data.hpp"
 #include "generator/maxspeeds_parser.hpp"
 #include "generator/metalines_builder.hpp"
 #include "generator/osm_source.hpp"
 #include "generator/processor_factory.hpp"
 #include "generator/raw_generator.hpp"
-#include "generator/translator_collection.hpp"
 #include "generator/translator_factory.hpp"
 
 #include "routing/speed_camera_ser_des.hpp"
@@ -32,8 +30,6 @@
 
 #include "coding/internal/file_data.hpp"
 
-#include "geometry/point2d.hpp"
-
 #include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 #include "base/macros.hpp"
@@ -44,9 +40,7 @@
 
 #include <algorithm>
 #include <cmath>
-#include <cstdint>
 #include <map>
-#include <set>
 #include <string>
 #include <utility>
 #include <vector>
@@ -59,7 +53,7 @@ using namespace measurement_utils;
 using namespace platform::tests_support;
 using namespace platform;
 using namespace routing;
-using namespace std;
+using std::string;
 
 // Directory name for creating test mwm and temporary files.
 string const kTestDir = "speed_camera_generation_test";
@@ -67,17 +61,14 @@ string const kTestDir = "speed_camera_generation_test";
 // Temporary mwm name for testing.
 string const kTestMwm = "test";
 
-string const kSpeedCameraDataFileName = "speedcamera_in_osm_ids.bin";
-string const kOsmIdsToFeatureIdsName = "osm_ids_to_feature_ids" OSM2FEATURE_FILE_EXTENSION;
-string const kIntermediateFileName = "intermediate_data";
 string const kOsmFileName = "town" OSM_DATA_FILE_EXTENSION;
 
 double constexpr kCoefEqualityEpsilon = 1e-5;
 
 // Pair of featureId and segmentId.
 using routing::SegmentCoord;
-using CameraMap = map<SegmentCoord, vector<RouteSegment::SpeedCamera>>;
-using CameraMapItem = pair<SegmentCoord, RouteSegment::SpeedCamera>;
+using CameraMap = std::map<SegmentCoord, std::vector<RouteSegment::SpeedCamera>>;
+using CameraMapItem = std::pair<SegmentCoord, RouteSegment::SpeedCamera>;
 
 CameraMap LoadSpeedCameraFromMwm(string const & mwmFullPath)
 {
@@ -100,9 +91,9 @@ CameraMap LoadSpeedCameraFromMwm(string const & mwmFullPath)
   }
 }
 
-vector<CameraMapItem> UnpackMapToVector(CameraMap const & cameraMap)
+std::vector<CameraMapItem> UnpackMapToVector(CameraMap const & cameraMap)
 {
-  vector<CameraMapItem> result;
+  std::vector<CameraMapItem> result;
   for (auto const & mapIter : cameraMap)
   {
     for (auto const & vectorIter : mapIter.second)
@@ -127,8 +118,8 @@ bool CheckCameraMapsEquality(CameraMap const & lhs, CameraMap const & rhs, doubl
 
   for (size_t i = 0; i < vectorL.size(); ++i)
   {
-    // Don not check feature id because of fake nodes. Data about them placed in ./data/
-    // It can differ on jenknins and local computer.
+    // Do not check feature id because of fake nodes. Data about them placed in ./data/
+    // It can differ on Jenkins and local computer.
     if (!(vectorL[i].first.m_segmentId == vectorR[i].first.m_segmentId &&
           vectorL[i].second.m_maxSpeedKmPH == vectorR[i].second.m_maxSpeedKmPH &&
           base::AlmostEqualAbs(vectorL[i].second.m_coef, vectorR[i].second.m_coef, epsilon)))
@@ -215,7 +206,7 @@ void TestSpeedCameraSectionBuilding(string const & osmContent, CameraMap const &
 
   if (!answer.empty())
   {
-    // Check that intermediate file is non empty.
+    // Check that intermediate file is non-empty.
     TEST_NOT_EQUAL(base::FileData(camerasFilename, base::FileData::OP_READ).Size(), 0,
                    ("SpeedCam intermediate file is empty"));
   }

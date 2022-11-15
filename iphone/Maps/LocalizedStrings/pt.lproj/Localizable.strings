@@ -153,7 +153,7 @@
 "water" = "Água";
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
-"rv" = "RV Facilities";
+"rv" = "Para trailers";
 
 "share_bookmarks_email_body" = "Olá!\n\nSegue em anexo os meus favoritos da aplicação Organic Maps. Por favor abra-os se tiver o Organic Maps instalado. Caso não tenha, descarregue a aplicação para o seu dispositivo iOS ou Android com a hiperligação https://omaps.app/get?kmz\n\nDivirta-se a viajar com o Organic Maps!";
 
@@ -1839,6 +1839,8 @@
 "type.entrance" = "Entrada";
 
 "type.healthcare.laboratory" = "Laboratório médico";
+
+"type.healthcare.physiotherapist" = "Fisioterapeuta";
 
 
 /********** Types: Roads **********/

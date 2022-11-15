@@ -115,12 +115,7 @@ std::pair<feature::FeatureBuilder, double> GetBoundaryWithSmallestArea(
 
   return {boundaries[bestIndex], minArea};
 }
-}  // routing_city_boundaries
-}  // namespace generator
-
-namespace generator
-{
-using namespace routing_city_boundaries;
+}  // namespace routing_city_boundaries
 
 RoutingCityBoundariesProcessor::RoutingCityBoundariesProcessor(std::string tmpFilename,
                                                                std::string dumpFilename)
@@ -131,6 +126,7 @@ RoutingCityBoundariesProcessor::RoutingCityBoundariesProcessor(std::string tmpFi
 
 void RoutingCityBoundariesProcessor::ProcessDataFromCollector()
 {
+  using namespace routing_city_boundaries;
   auto const nodeOsmIdToLocalityData = LoadNodeToLocalityData(
       RoutingCityBoundariesWriter::GetNodeToLocalityDataFilename(m_tmpFilename));
 

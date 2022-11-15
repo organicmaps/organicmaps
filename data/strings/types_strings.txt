@@ -12,6 +12,7 @@
     it = Impianto a fune
     ja = 索道
     mr = हवाई मार्ग
+    nb = Taubane
     nl = Kabelbaan
     pl = Transport linowy
     pt = Transporte aéreo
@@ -34,6 +35,7 @@
     it = Teleferica
     ja = ロープウェイ
     mr = हवाई मार्ग
+    nb = Pendeltaubane
     nl = Cabinelift
     pl = Kolej linowa
     pt = Teleférico
@@ -56,6 +58,7 @@
     it = Seggiovia
     ja = チェアリフト
     mr = हवाई मार्ग
+    nb = Stolheis
     nl = Stoeltjeslift
     pl = Wyciąg krzesełkowy
     pt = Telecadeira
@@ -77,6 +80,7 @@
     it = Ski-lift
     ja = 牽引リフト
     mr = हवाई मार्ग
+    nb = Skitrekk
     nl = Sleeplift
     pl = Wyciąg orczykowy
     pt = Telesquis
@@ -99,6 +103,7 @@
     it = Cabinovia
     ja = ゴンドラ
     mr = हवाई मार्ग
+    nb = Gondolbane
     nl = Gondelbaan
     pl = Gondola kolejki linowej
     pt = Telecabine
@@ -120,6 +125,7 @@
     it = Impianto misto
     ja = 混合リフト
     mr = हवाई मार्ग
+    nb = Kombibane
     nl = Gecombineerde kabelbaan
     pl = Wyciąg mieszany
     pt = Teleférico híbrido
@@ -148,7 +154,7 @@
     ja = ケーブルカー駅
     ko = 케이블카 역
     mr = हवाई स्थानक
-    nb = Kabelbanestasjon
+    nb = Taubanestasjon
     nl = Kabelwagenstation
     pl = Stacja kolejki linowej
     pt = Estação de teleférico
@@ -399,7 +405,7 @@
     ja = アメニティー
     ko = 생활 편의시설
     mr = सुविधा
-    nb = Rekreasjonsområde
+    nb = Fasilitet
     nl = Voorzieningen
     pl = Obiekty infrastruktury
     pt = Infraestruturas
@@ -554,7 +560,7 @@
     ja = ピクニック
     ko = 소풍 사이트
     mr = सहलीचे ठिकाण
-    nb = Rasteplasser
+    nb = Rasteplass
     nl = Barbecueplaats
     pl = Pole piknikowe
     pt = Grelhador público
@@ -924,7 +930,7 @@
     ja = カーシェアリング
     ko = 카 셰어링
     mr = कार शेअरिंग
-    nb = Kjøre sammen
+    nb = Bildeling
     nl = Autodelen
     pl = Współdzielenie samochodów
     pt = Partilha de carro
@@ -1062,7 +1068,7 @@
     ja = 託児所
     ko = 보육
     mr = बालवाडी
-    nb = Førskole
+    nb = Daghjem
     nl = Crèche
     pl = Opieka nad dziećmi
     pt = Creche
@@ -3634,7 +3640,7 @@
     ja = 避難所
     ko = 대피소
     mr = निवारा
-    nb = Tilfluktsrom
+    nb = Ly
     nl = Beschutting
     pl = Wiata
     pt = Abrigo
@@ -4232,7 +4238,7 @@
     ja = ゴミ箱
     ko = 쓰레기통
     mr = कचरा पेटी
-    nb = Søppelkasse
+    nb = Søppelbøtte
     nl = Vuilnisbak
     pl = Kosz na śmieci
     pt = Caixote do lixo
@@ -4267,7 +4273,7 @@
     ja = ゴミ
     ko = 휴지통
     mr = कचऱ्याची मोठी पेटी
-    nb = Søppel
+    nb = Søppeldunk
     nl = Vuilcontainer
     pl = Wysypisko śmieci
     pt = Contentor do lixo
@@ -4343,6 +4349,7 @@
     it = Barriera
     ja = 障害物
     mr = अडथळा
+    nb = Barriere
     nl = Barrière
     pl = Bariera
     pt = Barreira
@@ -4577,6 +4584,7 @@
     it = Steccato
     ja = フェンス
     mr = कुंपण
+    nb = Gjerde
     nl = Hek
     pl = Płot
     pt = Vedação
@@ -4719,7 +4727,7 @@
     it = Scaletta per recinzioni
     ja = 回転扉
     ko = 디딤대
-    nb = Sperre
+    nb = Gjerdeklyver
     nl = Tourniquet
     pl = Przełaz
     pt = Travessia de escada em vedação ou muro
@@ -5053,7 +5061,7 @@
     ja = 国立公園
     ko = 국립 공원
     mr = राष्ट्रीय उद्यान
-    nb = Nasonalpark
+    nb = Nasjonalpark
     nl = Nationaal park
     pl = Park narodowy
     pt = Parque nacional
@@ -5156,7 +5164,7 @@
     ja = 車庫
     ko = 차고
     mr = गराज
-    nb = Verksted
+    nb = Garasje
     nl = Garage
     pl = Garaż
     pt = Garagem
@@ -5508,7 +5516,7 @@
     ja = 菓子職人
     ko = 과자 장수
     mr = हलवाई
-    nb = Konditor
+    nb = Konditori
     nl = Banketbakkerij
     pl = Cukiernik
     pt = Confeitaria
@@ -6843,7 +6851,7 @@
     it = Gastronomia
     ja = デリ
     ko = 델리
-    nb = Delimat
+    nb = Delikatesse
     nl = Deli
     pl = Delikatesy
     pt = Iguarias regionais
@@ -8863,7 +8871,7 @@
     it = Cucina vegana
     ja = ビーガン料理
     ko = 비건 음식
-    nb = Veganermat
+    nb = Vegansk
     nl = Veganistisch
     pl = Kuchnia wegańska
     pt = Cozinha vegana
@@ -8898,7 +8906,7 @@
     ja = ベジタリアン料理
     ko = 채식주의자 음식
     mr = शाकाहारी
-    nb = Vegetar mat
+    nb = Vegetarisk
     nl = Vegetarisch
     pl = Kuchnia wegetariańska
     pt = Cozinha vegetariana
@@ -9144,6 +9152,45 @@
     zh-Hans = 医学实验室
     zh-Hant = 醫學實驗室
 
+  [type.healthcare.physiotherapist]
+    en = Physiotherapist
+    ar = اخصائي علاج طبيعي
+    be = Фізіятэрапеўт
+    bg = Физиотерапевт
+    cs = Fyzioterapeut
+    da = Fysioterapeut
+    de = Physiotherapeut
+    el = Φυσικοθεραπευτής
+    es = Fisioterapeuta
+    et = Füsioterapeut
+    eu = Fisioterapeuta
+    fa = فیزیوتراپیست
+    fi = Fysioterapeutti
+    fr = Physiothérapeute
+    he = פיזיותרפיסט
+    hu = Fizioterapeuta
+    id = Fisioterapis
+    it = Fisioterapista
+    ja = 理学療法士
+    ko = 물리치료사
+    mr = फिजिओथेरपिस्ट
+    nb = Fysioterapeut
+    nl = Fysiotherapeut
+    pl = Fizjoterapeuta
+    pt = Fisioterapeuta
+    pt-BR = Fisioterapeuta
+    ro = Fizioterapeut
+    ru = Физиотерапевт
+    sk = Fyzioterapeut
+    sv = Fysioterapeut
+    sw = Mtaalamu wa Physiotherapist
+    th = นักกายภาพบำบัด
+    tr = Fizyoterapist
+    uk = Фізіотерапевт
+    vi = Nhà vật lý trị liệu
+    zh-Hans = 物理治疗师
+    zh-Hant = 物理治療師
+
 [[Types: Roads]]
 
   [type.highway]
@@ -9170,6 +9217,7 @@
     fr = Chemin pour cavalier
     it = sentiero per cavalli
     ja = 馬道
+    nb = Ridevei
     nl = Ruiterpad
     pl = Droga dla koni
     pt = Caminho para cavaleiros
@@ -9279,6 +9327,7 @@
     it = Pista ciclabile
     ja = 自転車道
     mr = सायकल वाट
+    nb = Sykkelvei
     nl = Fietspad
     pl = Droga rowerowa
     pt = Ciclovia
@@ -9347,7 +9396,7 @@
     ja = 歩道
     ko = 길
     mr = पादचारी मार्ग
-    nb = Sti
+    nb = Gangvei
     nl = Voetpad
     pl = Chodnik
     pt = Caminho pedonal
@@ -9555,7 +9604,7 @@
     ja = ストリート
     ko = 거리
     mr = महामार्ग
-    nb = Gate
+    nb = Motorvei
     nl = Snelweg
     pl = Ulica
     pt = Autoestrada
@@ -9610,7 +9659,7 @@
     id = Keluar
     ja = ジャンクション
     mr = रस्ता निर्गमन
-    nb = Utgang
+    nb = Avkjørsel
     nl = Afrit
     pl = Wyjazd
     pt = Saída de autoestrada
@@ -9776,7 +9825,7 @@
     ja = ストリート
     ko = 거리
     mr = पादचारी मार्ग
-    nb = Gate
+    nb = Gågate
     nl = Voetgangersgebied
     pl = Pasaż pieszy
     pt = Rua pedonal
@@ -9843,7 +9892,7 @@
     ja = ストリート
     ko = 거리
     mr = प्राथमिक मार्ग
-    nb = Gate
+    nb = Hovedvei
     nl = Hoofdweg
     pl = Ulica
     pt = Estrada primária
@@ -10021,7 +10070,7 @@
     ja = ストリート
     ko = 거리
     mr = रस्ता
-    nb = Gate
+    nb = Vei
     nl = Straat
     pl = Ulica
     pt = Estrada
@@ -10061,7 +10110,7 @@
     ja = 橋
     ko = 다리
     mr = पूल
-    nb = Bridge
+    nb = Bru
     nl = Brug
     pl = Most
     pt = Ponte
@@ -10138,7 +10187,7 @@
     ja = ストリート
     ko = 거리
     mr = दुय्यम मार्ग
-    nb = Gate
+    nb = Sekundærvei
     nl = Secundaire weg
     pl = Ulica
     pt = Estrada secundária
@@ -10204,7 +10253,7 @@
     ja = ストリート
     ko = 거리
     mr = सेवा मार्ग
-    nb = Gate
+    nb = Service-vei
     nl = Straat
     pl = Ulica
     pt = Estrada de acesso ou serviço
@@ -10333,7 +10382,7 @@
     ja = 歩道
     ko = 길
     mr = पायऱ्या
-    nb = Sti
+    nb = Trapper
     nl = Trap
     pl = Schody
     pt = Escadas
@@ -10374,7 +10423,7 @@
     ja = ストリート
     ko = 거리
     mr = तृतीयक मार्ग
-    nb = Gate
+    nb = Tertiærvei
     nl = Tertiaire weg
     pl = Ulica
     pt = Estrada terciária
@@ -10438,7 +10487,7 @@
     ja = ストリート
     ko = 거리
     mr = ट्रॅक
-    nb = Gate
+    nb = Traktor/Skogsbilvei
     nl = Straat
     pl = Ulica
     pt = Carreiro florestal ou agrícola
@@ -10541,7 +10590,7 @@
     ja = ストリート
     ko = 거리
     mr = राष्ट्रीय महामार्ग
-    nb = Gate
+    nb = Riksvei
     nl = Straat
     pl = Ulica
     pt = Via rápida
@@ -10602,7 +10651,7 @@
     ja = ストリート
     ko = 거리
     mr = किरकोळ रस्ता
-    nb = Gate
+    nb = Småvei
     nl = Straat
     pl = Ulica
     pt = Estrada sem classificação
@@ -10837,7 +10886,7 @@
     ja = 境界標
     ko = 경계석
     mr = सीमेचा दगड
-    nb = Grensemerke
+    nb = Grensestein
     nl = Grenssteen
     pl = Historyczny kamień graniczny
     pt = Marco fronteiriço
@@ -11331,7 +11380,7 @@
     ja = 城壁
     ko = 도시의 벽
     mr = शहराची भिंत
-    nb = Bymurer
+    nb = Bymur
     nl = Stadsmuur
     pl = Mur miejski
     pt = Muralha
@@ -11522,7 +11571,7 @@
     ja = 銘板
     ko = 기념비
     mr = फलक
-    nb = Minnesmerke
+    nb = Minneplakett
     nl = Gedenkplaat
     pl = Tablica pamiątkowa
     pt = Placa comemorativa
@@ -11560,7 +11609,7 @@
     ja = 彫刻
     ko = 기념비
     mr = शिल्प
-    nb = Minnesmerke
+    nb = Skulptur
     nl = Sculptuur
     pl = Rzeźba
     pt = Escultura
@@ -11598,7 +11647,7 @@
     ja = 塑像
     ko = 기념비
     mr = पुतळा
-    nb = Minnesmerke
+    nb = Statue
     nl = Standbeeld
     pl = Pomnik
     pt = Estátua
@@ -11749,7 +11798,7 @@
     ja = さらし台
     ko = 칼
     mr = पिलोरी
-    nb = Pilry
+    nb = Gapestokk
     nl = Schandpaal
     pl = Pręgierz
     pt = Pelourinho
@@ -11825,7 +11874,7 @@
     ja = 退役船
     ko = 배
     mr = जहाज
-    nb = Severdigheter
+    nb = Skip
     nl = Historisch schip
     pl = Okręt
     pt = Barco
@@ -11863,7 +11912,7 @@
     ja = 墓
     ko = 무덤
     mr = थडगे
-    nb = Severdigheter
+    nb = Grav
     nl = Graftombe
     pl = Grobowiec
     pt = Túmulo
@@ -12121,7 +12170,7 @@
     ja = 水地
     ko = 저수지
     mr = कुंड
-    nb = Vannvask
+    nb = Basseng
     nl = Waterbassin
     pl = Zbiornik
     pt = Reservatório
@@ -12390,7 +12439,7 @@
     ja = 森林
     ko = 숲
     mr = शंकुमंत जंगल
-    nb = Skog
+    nb = Barskog
     nl = Naaldbos
     pl = Las iglasty
     pt = Floresta de coníferas
@@ -12425,7 +12474,7 @@
     ja = 森林
     ko = 숲
     mr = पानझडी जंगल
-    nb = Skog
+    nb = Løvskog
     nl = Loofbos
     pl = Las liściasty
     pt = Floresta de folha caduca
@@ -12978,7 +13027,7 @@
     it = Centro fitness
     ja = フィットネスステーション
     ko = 피트니스 스테이션
-    nb = Treningssenter
+    nb = Treningsstasjon
     nl = Fitness-Station
     pl = Stacja fitness
     pt = Dispositivo público de exercícios
@@ -13178,7 +13227,7 @@
     ja = 自然保護区
     ko = 천연보호구역
     mr = संरक्षित निसर्गक्षेत्र
-    nb = Reservat
+    nb = Naturreservat
     nl = Natuurreservaat
     pl = Rezerwat przyrody
     pt = Reserva natural
@@ -13401,7 +13450,7 @@
     ja = 運動場
     ko = 운동장
     mr = क्रीडांगण
-    nb = Sportssenter
+    nb = Idrettsplass
     nl = Sportveld
     pl = Boisko sportowe
     pt = Campo de desportos
@@ -14674,7 +14723,7 @@
     ja = 崖
     ko = 낭떠러지
     mr = उंच कडा
-    nb = Klippe
+    nb = Jordbanke
     nl = Klif
     pl = Żleb
     pt = Penhasco
@@ -14817,7 +14866,7 @@
     ja = 間欠泉
     ko = 간헐천
     mr = गिझर
-    nb = Gaysir
+    nb = Geysir
     nl = Geiser
     pl = Gejzer
     pt = Géiser
@@ -14934,7 +14983,7 @@
     ja = ヒース
     ko = 히스
     mr = हिथ
-    nb = Heath
+    nb = Hei
     nl = Heide
     pl = Wrzosowisko
     pt = Charneca
@@ -15162,7 +15211,7 @@
     ja = 水地
     ko = 저수지
     mr = कुंड
-    nb = Vannvask
+    nb = Basseng
     nl = Waterbassin
     pl = Zbiornik
     pt = Reservatório
@@ -15352,7 +15401,7 @@
     ja = 山頂
     ko = 산
     mr = शिखर
-    nb = Høydepunkt
+    nb = Topp
     nl = Top
     pl = Szczyt
     pt = Pico
@@ -15428,7 +15477,7 @@
     ja = 岩
     ko = 암석
     mr = खडक
-    nb = Bergart
+    nb = Fjell
     nl = Steen
     pl = Skała
     pt = Rochedo
@@ -15467,7 +15516,7 @@
     ja = 雑木林
     ko = 관목지
     mr = खुरटी झाडे
-    nb = Myr
+    nb = Kratt
     nl = Kreupel bos
     pl = Zarośla
     pt = Matagal
@@ -15505,7 +15554,7 @@
     ja = 泉
     ko = 샘
     mr = झरे
-    nb = Vår
+    nb = Kilde
     nl = Bron
     pl = Źródło
     pt = Nascente
@@ -15734,7 +15783,7 @@
     ja = 水地
     ko = 수역
     mr = पाणवठा
-    nb = Vassmasse
+    nb = Vann
     nl = Waterlichaam
     pl = Akwen
     pt = Corpo de água
@@ -16576,7 +16625,7 @@
     ja = 小規模な村
     ko = 고립된 주거
     mr = निवासस्थान
-    nb = Isolert bolig
+    nb = Isolert bosetting
     nl = Geïsoleerde woning
     pl = Mała osada
     pt = Habitação isolada
@@ -16614,7 +16663,7 @@
     ja = 地域
     ko = 장소
     mr = परिसर
-    nb = Lokalitet
+    nb = Sted
     nl = Plaats
     pl = Lokalne
     pt = Localidade
@@ -17242,6 +17291,7 @@
     it = Trasporto pubblico
     ja = 公共交通機関
     mr = सार्वजनिक वाहतूक
+    nb = Offentlig transport
     nl = Openbaar vervoer
     pl = Transport publiczny
     pt = Transporte público
@@ -17272,6 +17322,7 @@
     it = Ferrovia
     ja = 鉄道
     mr = रेल्वे
+    nb = Jernbane
     nl = Spoorweg
     pl = Kolej
     pt = Ferrovia
@@ -17282,7 +17333,7 @@
     zh-Hans = 铁路要素
 
   [type.railway.abandoned]
-    en = Abandoned railway
+    en = Abandoned Railway
     de = Ehemalige Eisenbahnstrecke
     et = Mahajäetud raudtee
     fr = Chemin de fer abandonné
@@ -17296,7 +17347,7 @@
     zh-Hans = 铁路遗迹
 
   [type.railway.abandoned.bridge]
-    en = Abandoned railway
+    en = Abandoned Railway Bridge
     de = Ehemalige Eisenbahnbrücke
     et = Mahajäetud sild
     fr = Chemin de fer abandonné
@@ -17310,7 +17361,7 @@
     zh-Hans = 铁路遗迹
 
   [type.railway.abandoned.tunnel]
-    en = Abandoned Railway
+    en = Abandoned Railway Tunnel
     de = Ehemaliger Eisenbahntunnel
     et = Mahajäetud tunnel
     fr = Chemin de fer abandonné
@@ -17324,7 +17375,7 @@
     zh-Hans = 铁路遗迹
 
   [type.railway.construction]
-    en = Railway's Construction
+    en = Railway Construction
     de = Eisenbahnstrecke im Bau
     et = Raudtee ehitus
     fr = Chemin de fer en construction
@@ -17383,7 +17434,7 @@
     zh-Hans = 缆索铁路轨道
 
   [type.railway.funicular.bridge]
-    en = Funicular
+    en = Funicular Bridge
     de = Standseilbahnbrücke
     et = Funikulöör
     fr = Funiculaire
@@ -17398,7 +17449,7 @@
     zh-Hans = 缆索铁路轨道
 
   [type.railway.funicular.tunnel]
-    en = Funicular
+    en = Funicular Tunnel
     de = Standseilbahntunnel
     et = Funikulöör
     fr = Funiculaire
@@ -17474,7 +17525,7 @@
     zh-Hans = 轻轨轨道
 
   [type.railway.light_rail.bridge]
-    en = Light Rail
+    en = Light Rail Bridge
     de = Stadtbahnbrücke
     et = Kergrööbas - sild
     ja = ライトレール(橋)
@@ -17487,7 +17538,7 @@
     zh-Hans = 轻轨轨道
 
   [type.railway.light_rail.tunnel]
-    en = Light Rail
+    en = Light Rail Tunnel
     de = Stadtbahntunnel
     et = Kergrööbas - tunnel
     ja = ライトレール(トンネル)
@@ -17537,7 +17588,7 @@
     zh-Hant = 單軌軌道
 
   [type.railway.monorail.bridge]
-    en = Monorail
+    en = Monorail Bridge
     de = Einschienenbahnbrücke
     et = Monorelss - sild
     fr = Monorail
@@ -17553,7 +17604,7 @@
     zh-Hant = 單軌軌道
 
   [type.railway.monorail.tunnel]
-    en = Monorail
+    en = Monorail Tunnel
     de = Einschienenbahntunnel
     et = Monorelss - tunnel
     fr = Monorail
@@ -17574,6 +17625,7 @@
     et = Kitsarööpmeline raudtee
     ja = 狭軌鉄道
     mr = अरुंदमापी रेल्वे
+    nb = Smalsporet jernbane
     nl = Smalspoorbaan
     pt = Caminho de ferro de via estreita
     pt-BR = Caminho de ferro de via estreita
@@ -17583,7 +17635,7 @@
     zh-Hans = 窄轨铁路轨道
 
   [type.railway.narrow_gauge.bridge]
-    en = Narrow Gauge Rail
+    en = Narrow Gauge Rail Bridge
     de = Schmalspurbahnbrücke
     et = Kitsarööpmelise raudtee sild
     ja = 狭軌鉄道(橋)
@@ -17597,7 +17649,7 @@
     zh-Hans = 窄轨铁路轨道
 
   [type.railway.narrow_gauge.tunnel]
-    en = Narrow Gauge Rail
+    en = Narrow Gauge Rail Tunnel
     de = Schmalspurbahntunnel
     et = Kitsarööpmelise raudtee tunnel
     ja = ja = 狭軌鉄道(トンネル)
@@ -17618,6 +17670,7 @@
     fr = Quai de gare
     ja = プラットホーム
     mr = रेल्वे फलाट
+    nb = Jernbaneplattform
     nl = Perron
     pt = Plataforma ferroviária
     pt-BR = Plataforma ferroviária
@@ -17632,6 +17685,7 @@
     et = Muuseumiraudtee
     fr = Chemin de fer touristique
     ja = 保存鉄道
+    nb = Museumsjernbane
     nl = Museumspoorbaan
     pt = Ferrovia preservada
     pt-BR = Ferrovia preservada
@@ -17640,7 +17694,7 @@
     uk = Законсервована залізниця
 
   [type.railway.preserved.bridge]
-    en = Preserved Rail
+    en = Preserved Rail Bridge
     de = Museumsbahnbrücke
     et = Muuseumiraudtee sild
     ja = 保存鉄道(橋)
@@ -17652,7 +17706,7 @@
     uk = Законсервована залізниця
 
   [type.railway.preserved.tunnel]
-    en = Preserved Rail
+    en = Preserved Rail Tunnel
     de = Museumsbahntunnel
     et = Muuseumiraudtee tunnel
     ja = 保存鉄道(トンネル)
@@ -17701,7 +17755,7 @@
     zh-Hant = 鐵路軌道
 
   [type.railway.rail.bridge]
-    en = Railway
+    en = Railway Bridge
     de = S-Bahn-Brücke
     et = Raudtee sild
     fr = Chemin de fer
@@ -17732,7 +17786,7 @@
     zh-Hant = 鐵路軌道
 
   [type.railway.rail.tunnel]
-    en = Railway
+    en = Railway Tunnel
     de = S-Bahn-Tunnel
     et = Raudtee tunnel
     fr = Chemin de fer
@@ -17772,7 +17826,7 @@
     uk = Гілка залізниці
 
   [type.railway.siding.bridge]
-    en = Siding Rail
+    en = Siding Rail Bridge
     de = Ausweich-/Überholgleis
     et = Raudtee haru sild
     ja = 側線(橋)
@@ -17784,7 +17838,7 @@
     uk = Гілка залізниці
 
   [type.railway.siding.tunnel]
-    en = Siding Rail
+    en = Siding Rail Tunnel
     de = Ausweich-/Überholgleis
     et = Raudtee haru tunnel
     ja = 側線(トンネル)
@@ -17808,7 +17862,7 @@
     uk = Під'їздна залізниця
 
   [type.railway.spur.bridge]
-    en = Spur Rail
+    en = Spur Rail Bridge
     de = Anschlussgleis
     et = Rööbastee sild
     ja = 引き込み線(橋)
@@ -17820,7 +17874,7 @@
     uk = Під'їздна залізниця
 
   [type.railway.spur.tunnel]
-    en = Spur Rail
+    en = Spur Rail Tunnel
     de = Anschlussgleis
     et = Rööbastee tunnel
     ja = 引き込み線(トンネル)
@@ -17880,6 +17934,7 @@
 
   [type.railway.station.subway]
     en = Subway
+    en-GB = Metro
     ar = محطة مترو
     cs = Metro
     da = Metro
@@ -18071,6 +18126,8 @@
 
   [type.railway.station.subway.london]
     ref = type.railway.station.subway
+    en = Underground Station
+    en-GB = Underground Station
 
   [type.railway.station.subway.lyon]
     ref = type.railway.station.subway
@@ -18239,6 +18296,7 @@
 
   [type.railway.subway]
     en = Subway Line
+    en-GB = Metro Line
     de = U-Bahn
     et = Metrooliin
     fr = Ligne de métro
@@ -18252,7 +18310,8 @@
     uk = Лінія метро
 
   [type.railway.subway.bridge]
-    en = Subway Line
+    en = Subway Line Bridge
+    en-GB = Metro Line Bridge
     de = U-Bahn-Brücke
     et = Metrooliin - sild
     fr = Voie de métro
@@ -18265,7 +18324,8 @@
     uk = Лінія метро
 
   [type.railway.subway.tunnel]
-    en = Subway Line
+    en = Subway Line Tunnel
+    en-GB = Metro Line Tunnel
     de = U-Bahn-Tunnel
     et = Metrooliin - tunnel
     fr = Voie de métro
@@ -18279,6 +18339,7 @@
 
   [type.railway.subway_entrance]
     en = Subway Entrance
+    en-GB = Metro Entrance
     ar = مدخل المترو
     cs = Vchod do podchodu
     da = Indgang til undergrundsbane
@@ -18472,6 +18533,8 @@
 
   [type.railway.subway_entrance.london]
     ref = type.railway.subway_entrance
+    en = Underground Station Entrance
+    en-GB = Underground Station Entrance
 
   [type.railway.subway_entrance.lyon]
     ref = type.railway.subway_entrance
@@ -18656,7 +18719,7 @@
     zh-Hant = 電車軌道
 
   [type.railway.tram.bridge]
-    en = Tram Line
+    en = Tram Line Bridge
     de = Straßenbahnbrücke
     et = Trammiliini sild
     fr = Voie de tramway
@@ -18672,7 +18735,7 @@
     zh-Hant = 電車軌道
 
   [type.railway.tram.tunnel]
-    en = Tram Line
+    en = Tram Line Tunnel
     de = Straßenbahntunnel
     et = Trammiliini tunnel
     fr = Voie de tramway
@@ -18737,7 +18800,7 @@
     zh-Hans = 铁路货场
 
   [type.railway.yard.bridge]
-    en = Railway Yard
+    en = Railway Yard Bridge
     de = Abstellgleis
     et = Raudtee hoovi sild
     ja = ヤード(橋)
@@ -18751,7 +18814,7 @@
     zh-Hans = 铁路货场
 
   [type.railway.yard.tunnel]
-    en = Railway Yard
+    en = Railway Yard Tunnel
     de = Abstellgleis
     et = Raudtee hoovi tunnel
     ja = ヤード(トンネル)
@@ -20305,7 +20368,7 @@
     ja = キオスク
     ko = 정자
     mr = टपरी
-    nb = Butikk
+    nb = Kiosk
     pt = Quiosque
     pt-BR = Quiosque
     ro = Magazin
@@ -20408,7 +20471,7 @@
     ja = モール
     ko = 몰
     mr = मॉल
-    nb = Kjøpesenteret
+    nb = Kjøpesenter
     nl = Winkelcentrum
     pl = Centrum handlowe
     pt = Centro comercial
@@ -20586,7 +20649,7 @@
     ja = CDショップ
     ko = 가게
     mr = दुकान
-    nb = Butikk
+    nb = Platebutikk
     nl = Muziekwinkel
     pl = Sklep muzyczny
     pt = Loja de música
@@ -20622,7 +20685,7 @@
     ja = 楽器店
     ko = 가게
     mr = दुकान
-    nb = Butikk
+    nb = Musikkinstrumenter
     nl = Muziekinstrumentenwinkel
     pl = Sklep z instrumentami muzycznymi
     pt = Loja de instrumentos musicais
@@ -20765,7 +20828,7 @@
     it = Pasticcino
     ja = ペストリー
     ko = 패스트리
-    nb = Kake
+    nb = Bakverk
     nl = Banketbakker
     pl = Ciasto
     pt = Pastelaria
@@ -21048,7 +21111,7 @@
     ja = 文房具店
     ko = 문방구
     mr = लेखनसामग्री दुकान
-    nb = Bokhandel
+    nb = Kontorrekvisita
     nl = Kantoorboekhandel
     pl = Artykuły papiernicze
     pt = Papelaria
@@ -21149,7 +21212,7 @@
     ja = 茶販売店
     ko = 가게
     mr = दुकान
-    nb = Butikk
+    nb = Tebutikk
     nl = Theewinkel
     pl = Sklep z herbatą
     pt = Loja de chás
@@ -21219,7 +21282,7 @@
     ja = おもちゃ屋
     ko = 장난감 가게
     mr = खेळण्यांचे दुकान
-    nb = Legebutikk
+    nb = Leketøybutikk
     nl = Speelgoedwinkel
     pl = Sklep z zabawkami
     pt = Loja de brinquedos
@@ -22154,7 +22217,7 @@
     it = Noleggio deposito
     ja = ストレージレンタル
     ko = 스토리지 렌탈
-    nb = Utleie av lager
+    nb = Lagerutleie
     nl = Opslag verhuur
     pl = Wynajem magazynu
     pt = Aluguel de Armazenamento
@@ -23573,6 +23636,7 @@
     it = Turismo
     ja = 観光
     mr = पर्यटन
+    nb = Turisme
     nl = Tourisme
     pl = Turystyka
     pt = Turismo
@@ -23888,7 +23952,7 @@
     ja = キャンプ場
     ko = 캠핑
     mr = शिबिरवास(कॅम्पिंग)
-    nb = Overnatting i bobiler
+    nb = Campingplass
     nl = Kampeerterrein
     pl = Kamping
     pt = Parque de campismo
@@ -23985,7 +24049,7 @@
     ja = 美術館
     ko = 갤러리
     mr = वीथि
-    nb = Severdigheter
+    nb = Galleri
     nl = Galerij
     pl = Galeria
     pt = Galeria
@@ -24424,7 +24488,7 @@
     ja = テーマパーク
     ko = 테마 파크
     mr = थीम पार्क
-    nb = Severdigheter
+    nb = Temapark
     nl = Attractiepark
     pl = Park tematyczny
     pt = Parque de diversão

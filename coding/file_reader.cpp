@@ -13,25 +13,6 @@
 #define LOG_FILE_READER_EVERY_N_READS_MASK 0xFFFFFFFF
 #endif
 
-using namespace std;
-
-namespace
-{
-class FileDataWithCachedSize : public base::FileData
-{
-public:
-  explicit FileDataWithCachedSize(string const & fileName)
-    : base::FileData(fileName, FileData::OP_READ), m_Size(FileData::Size())
-  {
-  }
-
-  uint64_t Size() const { return m_Size; }
-
-private:
-  uint64_t m_Size;
-};
-}  // namespace
-
 // static
 uint32_t const FileReader::kDefaultLogPageSize = 10;
 // static
@@ -40,7 +21,7 @@ uint32_t const FileReader::kDefaultLogPageCount = 4;
 class FileReader::FileReaderData
 {
 public:
-  FileReaderData(string const & fileName, uint32_t logPageSize, uint32_t logPageCount)
+  FileReaderData(std::string const & fileName, uint32_t logPageSize, uint32_t logPageCount)
     : m_fileData(fileName), m_readerCache(logPageSize, logPageCount)
   {
 #if LOG_FILE_READER_STATS
@@ -70,6 +51,20 @@ public:
   }
 
 private:
+  class FileDataWithCachedSize : public base::FileData
+  {
+  public:
+    explicit FileDataWithCachedSize(std::string const & fileName)
+      : base::FileData(fileName, FileData::OP_READ), m_Size(FileData::Size())
+    {
+    }
+
+    uint64_t Size() const { return m_Size; }
+
+  private:
+    uint64_t m_Size;
+  };
+
   FileDataWithCachedSize m_fileData;
   ReaderCache<FileDataWithCachedSize, LOG_FILE_READER_STATS> m_readerCache;
 
@@ -83,11 +78,11 @@ FileReader::FileReader(std::string const & fileName)
 {
 }
 
-FileReader::FileReader(string const & fileName, uint32_t logPageSize, uint32_t logPageCount)
+FileReader::FileReader(std::string const & fileName, uint32_t logPageSize, uint32_t logPageCount)
   : ModelReader(fileName)
   , m_logPageSize(logPageSize)
   , m_logPageCount(logPageCount)
-  , m_fileData(make_shared<FileReaderData>(fileName, logPageSize, logPageCount))
+  , m_fileData(std::make_shared<FileReaderData>(fileName, logPageSize, logPageCount))
   , m_offset(0)
   , m_size(m_fileData->Size())
 {
@@ -116,11 +111,11 @@ FileReader FileReader::SubReader(uint64_t pos, uint64_t size) const
   return FileReader(*this, m_offset + pos, size, m_logPageSize, m_logPageCount);
 }
 
-unique_ptr<Reader> FileReader::CreateSubReader(uint64_t pos, uint64_t size) const
+std::unique_ptr<Reader> FileReader::CreateSubReader(uint64_t pos, uint64_t size) const
 {
   CheckPosAndSize(pos, size);
   // Can't use make_unique with private constructor.
-  return unique_ptr<Reader>(
+  return std::unique_ptr<Reader>(
       new FileReader(*this, m_offset + pos, size, m_logPageSize, m_logPageCount));
 }
 

@@ -24,14 +24,14 @@ namespace generator
 {
 namespace tests_support
 {
-using namespace std;
 using namespace feature;
+using std::ostringstream, std::string, std::string_view, std::vector;
 
 namespace
 {
 uint64_t GenUniqueId()
 {
-  static atomic<uint64_t> id;
+  static std::atomic<uint64_t> id;
   return id.fetch_add(1);
 }
 
@@ -49,7 +49,7 @@ TestFeature::TestFeature(string const & name, string const & lang)
 {
   m_names.AddString(lang, name);
 
-  // Names used for search depend on locale. Fill default name cause we need to run tests with
+  // Names used for search depend on locale. Fill default name because we need to run tests with
   // different locales. If you do not need default name to be filled use
   // TestFeature::TestFeature(StringUtf8Multilang const & name).
   m_names.AddString("default", name);
@@ -75,7 +75,7 @@ TestFeature::TestFeature(m2::PointD const & center, StringUtf8Multilang const & 
   Init();
 }
 
-TestFeature::TestFeature(m2::RectD const & boundary, std::string const & name, std::string const & lang)
+TestFeature::TestFeature(m2::RectD const & boundary, string const & name, string const & lang)
   : TestFeature(MakePoly(boundary), name, lang)
 {
 }
@@ -111,12 +111,12 @@ void TestFeature::Serialize(FeatureBuilder & fb) const
 
   // Iterate [1, FMD_COUNT). Absent types don't matter here.
   size_t i = 1;
-  size_t const count = static_cast<size_t>(Metadata::EType::FMD_COUNT);
+  auto constexpr count = static_cast<size_t>(Metadata::EType::FMD_COUNT);
   for (; i < count; ++i)
   {
     auto const type = static_cast<Metadata::EType>(i);
     if (m_metadata.Has(type))
-      fb.GetMetadata().Set(type, std::string(m_metadata.Get(type)));
+      fb.GetMetadata().Set(type, string(m_metadata.Get(type)));
   }
 
   switch (m_type)
@@ -288,8 +288,8 @@ TestPOI::TestPOI(m2::PointD const & center, string const & name, string const & 
 }
 
 // static
-pair<TestPOI, FeatureID> TestPOI::AddWithEditor(osm::Editor & editor, MwmSet::MwmId const & mwmId,
-                                                string const & enName, m2::PointD const & pt)
+std::pair<TestPOI, FeatureID> TestPOI::AddWithEditor(osm::Editor & editor, MwmSet::MwmId const & mwmId,
+                                                     string const & enName, m2::PointD const & pt)
 {
   TestPOI poi(pt, enName, "en");
 
@@ -339,7 +339,7 @@ TypesHolder TestPOI::GetTypes() const
   return types;
 }
 
-void TestPOI::SetTypes(initializer_list<base::StringIL> const & types)
+void TestPOI::SetTypes(std::initializer_list<base::StringIL> const & types)
 {
   m_types.clear();
   auto const & c = classif();
@@ -349,7 +349,7 @@ void TestPOI::SetTypes(initializer_list<base::StringIL> const & types)
 
 // TestMultilingualPOI -----------------------------------------------------------------------------
 TestMultilingualPOI::TestMultilingualPOI(m2::PointD const & center, string const & defaultName,
-                                         map<string, string> const & multilingualNames)
+                                         std::map<string, string> const & multilingualNames)
   : TestPOI(center, defaultName, "default"), m_multilingualNames(multilingualNames)
 {
 }

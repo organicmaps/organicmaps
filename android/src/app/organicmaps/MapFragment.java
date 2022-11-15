@@ -1,251 +1,65 @@
 package app.organicmaps;
 
 import android.content.Context;
-import android.graphics.Rect;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
-import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.res.ConfigurationHelper;
 
 import app.organicmaps.base.BaseMwmFragment;
-import app.organicmaps.location.LocationHelper;
-import app.organicmaps.util.Config;
-import app.organicmaps.util.UiUtils;
-import app.organicmaps.util.concurrency.UiThread;
 import app.organicmaps.util.log.Logger;
 
-public class MapFragment extends BaseMwmFragment
-                      implements View.OnTouchListener,
-                                 SurfaceHolder.Callback
+public class MapFragment extends BaseMwmFragment implements View.OnTouchListener, SurfaceHolder.Callback
 {
-  public static final String ARG_LAUNCH_BY_DEEP_LINK = "launch_by_deep_link";
   private static final String TAG = MapFragment.class.getSimpleName();
+  private final Map mMap = new Map();
 
-  // Should correspond to android::MultiTouchAction from Framework.cpp
-  private static final int NATIVE_ACTION_UP = 0x01;
-  private static final int NATIVE_ACTION_DOWN = 0x02;
-  private static final int NATIVE_ACTION_MOVE = 0x03;
-  private static final int NATIVE_ACTION_CANCEL = 0x04;
-
-  // Should correspond to gui::EWidget from skin.hpp
-  private static final int WIDGET_RULER = 0x01;
-  private static final int WIDGET_COMPASS = 0x02;
-  private static final int WIDGET_COPYRIGHT = 0x04;
-  private static final int WIDGET_SCALE_FPS_LABEL = 0x08;
-
-  // Should correspond to dp::Anchor from drape_global.hpp
-  private static final int ANCHOR_CENTER = 0x00;
-  private static final int ANCHOR_LEFT = 0x01;
-  private static final int ANCHOR_RIGHT = (ANCHOR_LEFT << 1);
-  private static final int ANCHOR_TOP = (ANCHOR_RIGHT << 1);
-  private static final int ANCHOR_BOTTOM = (ANCHOR_TOP << 1);
-  private static final int ANCHOR_LEFT_TOP = (ANCHOR_LEFT | ANCHOR_TOP);
-  private static final int ANCHOR_RIGHT_TOP = (ANCHOR_RIGHT | ANCHOR_TOP);
-  private static final int ANCHOR_LEFT_BOTTOM = (ANCHOR_LEFT | ANCHOR_BOTTOM);
-  private static final int ANCHOR_RIGHT_BOTTOM = (ANCHOR_RIGHT | ANCHOR_BOTTOM);
-
-  // Should correspond to df::TouchEvent::INVALID_MASKED_POINTER from user_event_stream.cpp
-  private static final int INVALID_POINTER_MASK = 0xFF;
-  private static final int INVALID_TOUCH_ID = -1;
-
-  private int mCurrentCompassOffsetX;
-  private int mCurrentCompassOffsetY;
-  private int mBottomWidgetOffsetX;
-  private int mBottomWidgetOffsetY;
-
-  private int mHeight;
-  private int mWidth;
-  private boolean mRequireResize;
-  private boolean mSurfaceCreated;
-  private boolean mSurfaceAttached;
-  private boolean mLaunchByDeepLink;
-  @Nullable
-  private String mUiThemeOnPause;
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private SurfaceView mSurfaceView;
-  @Nullable
-  private MapRenderingListener mMapRenderingListener;
-
-  private void setupWidgets(int width, int height)
+  public void adjustCompass(int offsetX, int offsetY)
   {
-    mHeight = height;
-    mWidth = width;
-    Context context = requireContext();
-
-    nativeCleanWidgets();
-    setupBottomWidgetsOffset(mBottomWidgetOffsetY, mBottomWidgetOffsetX);
-
-    nativeSetupWidget(WIDGET_SCALE_FPS_LABEL,
-                      UiUtils.dimen(context, R.dimen.margin_base),
-                      UiUtils.dimen(context, R.dimen.margin_base),
-                      ANCHOR_LEFT_TOP);
-
-    setupCompass(mCurrentCompassOffsetY, mCurrentCompassOffsetX, false);
+    mMap.setupCompass(requireContext(), offsetX, offsetY, true);
   }
 
-  /**
-   * Moves the map compass using the given offsets.
-   *
-   * @param offsetY Pixel offset from the top. -1 to keep the previous value.
-   * @param offsetX Pixel offset from the right.  -1 to keep the previous value.
-   * @param forceRedraw True to force the compass to redraw
-   */
-  void setupCompass(int offsetY, int offsetX, boolean forceRedraw)
+  public void adjustBottomWidgets(int offsetX, int offsetY)
   {
-    Context context = requireContext();
-    int x = offsetX < 0 ? mCurrentCompassOffsetX : offsetX;
-    int y = offsetY < 0 ? mCurrentCompassOffsetY : offsetY;
-    int navPadding = UiUtils.dimen(context, R.dimen.nav_frame_padding);
-    int marginX = UiUtils.dimen(context, R.dimen.margin_compass) + navPadding;
-    int marginY = UiUtils.dimen(context, R.dimen.margin_compass_top) + navPadding;
-    nativeSetupWidget(WIDGET_COMPASS,
-                      mWidth - x - marginX,
-                      y + marginY,
-                      ANCHOR_CENTER);
-    if (forceRedraw && mSurfaceCreated)
-      nativeApplyWidgets();
-    mCurrentCompassOffsetX = x;
-    mCurrentCompassOffsetY = y;
+    mMap.setupBottomWidgetsOffset(requireContext(), offsetX, offsetY);
   }
 
-  /**
-   * Moves the ruler and copyright using the given offsets.
-   *
-   * @param offsetY Pixel offset from the bottom. -1 to keep the previous value.
-   * @param offsetX Pixel offset from the left.  -1 to keep the previous value.
-   */
-  void setupBottomWidgetsOffset(int offsetY, int offsetX)
+  public void destroySurface()
   {
-    int x = offsetX < 0 ? mBottomWidgetOffsetX : offsetX;
-    int y = offsetY < 0 ? mBottomWidgetOffsetY : offsetY;
-    setupRuler(y, x,true);
-    setupAttribution(y, x, true);
-    mBottomWidgetOffsetX = x;
-    mBottomWidgetOffsetY = y;
+    mMap.onSurfaceDestroyed(requireActivity().isChangingConfigurations(), isAdded());
   }
 
-  private void setupRuler(int offsetY, int offsetX, boolean forceRedraw)
+  public boolean isContextCreated()
   {
-    Context context = requireContext();
-    nativeSetupWidget(WIDGET_RULER,
-                      UiUtils.dimen(context, R.dimen.margin_ruler) + offsetX,
-                      mHeight - UiUtils.dimen(context, R.dimen.margin_ruler) - offsetY,
-                      ANCHOR_LEFT_BOTTOM);
-    if (forceRedraw && mSurfaceCreated)
-      nativeApplyWidgets();
-  }
-
-  private void setupAttribution(int offsetY, int offsetX, boolean forceRedraw)
-  {
-    Context context = requireContext();
-    nativeSetupWidget(WIDGET_COPYRIGHT,
-                      UiUtils.dimen(context, R.dimen.margin_ruler) + offsetX,
-                      mHeight - UiUtils.dimen(context, R.dimen.margin_ruler) - offsetY,
-                      ANCHOR_LEFT_BOTTOM);
-    if (forceRedraw && mSurfaceCreated)
-      nativeApplyWidgets();
-  }
-
-  private void reportUnsupported()
-  {
-    new AlertDialog.Builder(requireActivity(), R.style.MwmTheme_AlertDialog)
-        .setMessage(R.string.unsupported_phone)
-        .setCancelable(false)
-        .setPositiveButton(R.string.close, (dlg, which) -> requireActivity().moveTaskToBack(true))
-        .show();
+    return mMap.isContextCreated();
   }
 
   @Override
   public void surfaceCreated(SurfaceHolder surfaceHolder)
   {
-    if (isThemeChangingProcess())
-    {
-      Logger.d(TAG, "Activity is being recreated due theme changing, skip 'surfaceCreated' callback");
-      return;
-    }
+    int densityDpi;
 
-    Logger.d(TAG, "surfaceCreated, mSurfaceCreated = " + mSurfaceCreated);
-    final Surface surface = surfaceHolder.getSurface();
-    if (nativeIsEngineCreated())
-    {
-      if (!nativeAttachSurface(surface))
-      {
-        reportUnsupported();
-        return;
-      }
-      mSurfaceCreated = true;
-      mSurfaceAttached = true;
-      mRequireResize = true;
-      nativeResumeSurfaceRendering();
-      return;
-    }
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
+      densityDpi = ConfigurationHelper.getDensityDpi(requireContext().getResources());
+    else
+      densityDpi = getDensityDpiOld();
 
-    mRequireResize = false;
-    final Rect rect = surfaceHolder.getSurfaceFrame();
-    setupWidgets(rect.width(), rect.height());
-
-    final DisplayMetrics metrics = new DisplayMetrics();
-    requireActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
-    final float exactDensityDpi = metrics.densityDpi;
-
-    final boolean firstStart = LocationHelper.INSTANCE.isInFirstRun();
-    if (!nativeCreateEngine(surface, (int) exactDensityDpi, firstStart, mLaunchByDeepLink,
-                            app.organicmaps.BuildConfig.VERSION_CODE))
-    {
-      reportUnsupported();
-      return;
-    }
-
-    if (firstStart)
-    {
-      UiThread.runLater(new Runnable()
-      {
-        @Override
-        public void run()
-        {
-          LocationHelper.INSTANCE.onExitFromFirstRun();
-        }
-      });
-    }
-
-    mSurfaceCreated = true;
-    mSurfaceAttached = true;
-    nativeResumeSurfaceRendering();
-    if (mMapRenderingListener != null)
-      mMapRenderingListener.onRenderingCreated();
+    mMap.onSurfaceCreated(requireContext(), surfaceHolder.getSurface(), surfaceHolder.getSurfaceFrame(), densityDpi);
   }
 
   @Override
   public void surfaceChanged(SurfaceHolder surfaceHolder, int format, int width, int height)
   {
-    if (isThemeChangingProcess())
-    {
-      Logger.d(TAG, "Activity is being recreated due theme changing, skip 'surfaceChanged' callback");
-      return;
-    }
-
-    Logger.d(TAG, "surfaceChanged, mSurfaceCreated = " + mSurfaceCreated);
-    if (!mSurfaceCreated || (!mRequireResize && surfaceHolder.isCreating()))
-      return;
-
-    final Surface surface = surfaceHolder.getSurface();
-    nativeSurfaceChanged(surface, width, height);
-
-    mRequireResize = false;
-    setupWidgets(width, height);
-    nativeApplyWidgets();
-    if (mMapRenderingListener != null)
-      mMapRenderingListener.onRenderingRestored();
+    mMap.onSurfaceChanged(requireContext(), surfaceHolder.getSurface(), surfaceHolder.getSurfaceFrame(), surfaceHolder.isCreating());
   }
 
   @Override
@@ -255,94 +69,68 @@ public class MapFragment extends BaseMwmFragment
     destroySurface();
   }
 
-  void destroySurface()
-  {
-    Logger.d(TAG, "destroySurface, mSurfaceCreated = " + mSurfaceCreated +
-             ", mSurfaceAttached = " + mSurfaceAttached + ", isAdded = " + isAdded());
-    if (!mSurfaceCreated || !mSurfaceAttached || !isAdded())
-      return;
-
-    nativeDetachSurface(!requireActivity().isChangingConfigurations());
-    mSurfaceCreated = !nativeDestroySurfaceOnDetach();
-    mSurfaceAttached = false;
-  }
-
   @Override
   public void onAttach(Context context)
   {
     super.onAttach(context);
-    mMapRenderingListener = (MapRenderingListener) context;
+    mMap.setMapRenderingListener((MapRenderingListener) context);
+    mMap.setCallbackUnsupported(this::reportUnsupported);
   }
 
   @Override
   public void onDetach()
   {
     super.onDetach();
-    mMapRenderingListener = null;
+    mMap.setMapRenderingListener(null);
+    mMap.setCallbackUnsupported(null);
   }
 
   @Override
   public void onCreate(Bundle b)
   {
     super.onCreate(b);
-    mCurrentCompassOffsetX = 0;
-    mCurrentCompassOffsetY = 0;
-    mBottomWidgetOffsetX = 0;
-    mBottomWidgetOffsetY = 0;
     setRetainInstance(true);
+    boolean launchByDeepLink = false;
     Bundle args = getArguments();
     if (args != null)
-      mLaunchByDeepLink = args.getBoolean(ARG_LAUNCH_BY_DEEP_LINK);
+      launchByDeepLink = args.getBoolean(Map.ARG_LAUNCH_BY_DEEP_LINK);
+    mMap.onCreate(launchByDeepLink);
   }
 
   @Override
   public void onStart()
   {
     super.onStart();
-    nativeSetRenderingInitializationFinishedListener(mMapRenderingListener);
+    mMap.onStart();
     Logger.d(TAG, "onStart");
   }
 
   public void onStop()
   {
     super.onStop();
-    nativeSetRenderingInitializationFinishedListener(null);
+    mMap.onStop();
     Logger.d(TAG, "onStop");
-  }
-
-  private boolean isThemeChangingProcess()
-  {
-    return mUiThemeOnPause != null &&
-           !mUiThemeOnPause.equals(Config.getCurrentUiTheme(requireContext()));
   }
 
   @Override
   public void onPause()
   {
-    mUiThemeOnPause = Config.getCurrentUiTheme(requireContext());
-
-    // Pause/Resume can be called without surface creation/destroy.
-    if (mSurfaceAttached)
-      nativePauseSurfaceRendering();
-
     super.onPause();
+    mMap.onPause(requireContext());
   }
 
   @Override
   public void onResume()
   {
     super.onResume();
-
-    // Pause/Resume can be called without surface creation/destroy.
-    if (mSurfaceAttached)
-      nativeResumeSurfaceRendering();
+    mMap.onResume();
   }
 
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
   {
     View view = inflater.inflate(R.layout.fragment_map, container, false);
-    mSurfaceView = view.findViewById(R.id.map_surfaceview);
+    final SurfaceView mSurfaceView = view.findViewById(R.id.map_surfaceview);
     mSurfaceView.getHolder().addCallback(this);
     return view;
   }
@@ -350,75 +138,50 @@ public class MapFragment extends BaseMwmFragment
   @Override
   public boolean onTouch(View view, MotionEvent event)
   {
-    final int count = event.getPointerCount();
-
-    if (count == 0)
-      return false;
-
     int action = event.getActionMasked();
     int pointerIndex = event.getActionIndex();
     switch (action)
     {
-      case MotionEvent.ACTION_POINTER_UP:
-        action = NATIVE_ACTION_UP;
-        break;
-      case MotionEvent.ACTION_UP:
-        action = NATIVE_ACTION_UP;
-        pointerIndex = 0;
-        break;
-      case MotionEvent.ACTION_POINTER_DOWN:
-        action = NATIVE_ACTION_DOWN;
-        break;
-      case MotionEvent.ACTION_DOWN:
-        action = NATIVE_ACTION_DOWN;
-        pointerIndex = 0;
-        break;
-      case MotionEvent.ACTION_MOVE:
-        action = NATIVE_ACTION_MOVE;
-        pointerIndex = INVALID_POINTER_MASK;
-        break;
-      case MotionEvent.ACTION_CANCEL:
-        action = NATIVE_ACTION_CANCEL;
-        break;
+    case MotionEvent.ACTION_POINTER_UP:
+      action = Map.NATIVE_ACTION_UP;
+      break;
+    case MotionEvent.ACTION_UP:
+      action = Map.NATIVE_ACTION_UP;
+      pointerIndex = 0;
+      break;
+    case MotionEvent.ACTION_POINTER_DOWN:
+      action = Map.NATIVE_ACTION_DOWN;
+      break;
+    case MotionEvent.ACTION_DOWN:
+      action = Map.NATIVE_ACTION_DOWN;
+      pointerIndex = 0;
+      break;
+    case MotionEvent.ACTION_MOVE:
+      action = Map.NATIVE_ACTION_MOVE;
+      pointerIndex = Map.INVALID_POINTER_MASK;
+      break;
+    case MotionEvent.ACTION_CANCEL:
+      action = Map.NATIVE_ACTION_CANCEL;
+      break;
     }
-
-    switch (count)
-    {
-      case 1:
-        nativeOnTouch(action, event.getPointerId(0), event.getX(), event.getY(), INVALID_TOUCH_ID, 0, 0, 0);
-        return true;
-      default:
-        nativeOnTouch(action,
-                      event.getPointerId(0), event.getX(0), event.getY(0),
-                      event.getPointerId(1), event.getX(1), event.getY(1), pointerIndex);
-        return true;
-    }
+    Map.onTouch(action, event, pointerIndex);
+    return true;
   }
 
-  boolean isContextCreated()
+  private void reportUnsupported()
   {
-    return mSurfaceCreated;
+    new AlertDialog.Builder(requireContext(), R.style.MwmTheme_AlertDialog)
+        .setMessage(R.string.unsupported_phone)
+        .setCancelable(false)
+        .setPositiveButton(R.string.close, (dlg, which) -> requireActivity().moveTaskToBack(true))
+        .show();
   }
 
-  static native void nativeCompassUpdated(double north, boolean forceRedraw);
-  static native void nativeScalePlus();
-  static native void nativeScaleMinus();
-  public static native boolean nativeShowMapForUrl(String url);
-  public static native boolean nativeIsEngineCreated();
-  static native boolean nativeDestroySurfaceOnDetach();
-  private static native boolean nativeCreateEngine(Surface surface, int density,
-                                                   boolean firstLaunch,
-                                                   boolean isLaunchByDeepLink,
-                                                   int appVersionCode);
-  private static native boolean nativeAttachSurface(Surface surface);
-  private static native void nativeDetachSurface(boolean destroySurface);
-  private static native void nativePauseSurfaceRendering();
-  private static native void nativeResumeSurfaceRendering();
-  private static native void nativeSurfaceChanged(Surface surface, int w, int h);
-  private static native void nativeOnTouch(int actionType, int id1, float x1, float y1, int id2, float x2, float y2, int maskedPointer);
-  private static native void nativeSetupWidget(int widget, float x, float y, int anchor);
-  private static native void nativeApplyWidgets();
-  private static native void nativeCleanWidgets();
-  private static native void nativeSetRenderingInitializationFinishedListener(
-      @Nullable MapRenderingListener listener);
+  @SuppressWarnings("deprecation")
+  private int getDensityDpiOld()
+  {
+    final DisplayMetrics metrics = new DisplayMetrics();
+    requireActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
+    return metrics.densityDpi;
+  }
 }

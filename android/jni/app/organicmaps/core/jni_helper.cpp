@@ -107,6 +107,7 @@ JavaVM * GetJVM()
 
 jmethodID GetMethodID(JNIEnv * env, jobject obj, char const * name, char const * signature)
 {
+  // GetObjectClass may hang in WaitHoldingLocks.
   TScopedLocalClassRef clazz(env, env->GetObjectClass(obj));
   ASSERT(clazz.get(), ("Can't get class: ", DescribeException()));
 

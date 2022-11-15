@@ -410,7 +410,7 @@ tourism|museum
 mapswithme
 mapswithme
 *leisure|park|private
-mapswithme
+*healthcare|physiotherapist
 *noexit
 *healthcare|laboratory
 *highway|motorway|tunnel

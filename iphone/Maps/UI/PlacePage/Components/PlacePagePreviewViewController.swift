@@ -216,7 +216,7 @@ final class PlacePagePreviewViewController: UIViewController {
   
   private func getTimeIntervalString(minutes: Int) -> String {
     var str = "";
-    if (minutes > 60)
+    if (minutes >= 60)
     {
       str = String(minutes / 60) + " " + L("hour") + " ";
     }

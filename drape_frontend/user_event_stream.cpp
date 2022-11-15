@@ -26,15 +26,13 @@
 
 namespace df
 {
-using namespace std;
-
 namespace
 {
-uint64_t const kDoubleTapPauseMs = 250;
-uint64_t const kLongTouchMs = 500;
-uint64_t const kKineticDelayMs = 500;
+uint64_t constexpr kDoubleTapPauseMs = 250;
+uint64_t constexpr kLongTouchMs = 500;
+uint64_t constexpr kKineticDelayMs = 500;
 
-float const kForceTapThreshold = 0.75;
+float constexpr kForceTapThreshold = 0.75;
 
 size_t GetValidTouchesCount(std::array<Touch, 2> const & touches)
 {
@@ -68,7 +66,7 @@ char const * UserEventStream::DOUBLE_TAP_AND_HOLD = "DoubleTapAndHold";
 char const * UserEventStream::END_DOUBLE_TAP_AND_HOLD = "EndDoubleTapAndHold";
 #endif
 
-uint8_t const TouchEvent::INVALID_MASKED_POINTER = 0xFF;
+uint8_t constexpr TouchEvent::INVALID_MASKED_POINTER = 0xFF;
 
 void TouchEvent::SetFirstTouch(const Touch & touch)
 {
@@ -80,7 +78,7 @@ void TouchEvent::SetSecondTouch(const Touch & touch)
   m_touches[1] = touch;
 }
 
-void TouchEvent::PrepareTouches(array<Touch, 2> const & previousTouches)
+void TouchEvent::PrepareTouches(std::array<Touch, 2> const & previousTouches)
 {
   if (GetValidTouchesCount(m_touches) == 2 && GetValidTouchesCount(previousTouches) > 0)
   {
@@ -126,7 +124,7 @@ void TouchEvent::Swap()
     return index ^ 0x1;
   };
 
-  swap(m_touches[0], m_touches[1]);
+  std::swap(m_touches[0], m_touches[1]);
   SetFirstMaskedPointer(swapIndex(GetFirstMaskedPointer()));
   SetSecondMaskedPointer(swapIndex(GetSecondMaskedPointer()));
 }
@@ -143,7 +141,7 @@ UserEventStream::UserEventStream()
 void UserEventStream::AddEvent(drape_ptr<UserEvent> && event)
 {
   std::lock_guard guard(m_lock);
-  m_events.emplace_back(move(event));
+  m_events.emplace_back(std::move(event));
 }
 
 ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChanged, bool & viewportChanged)
@@ -151,7 +149,7 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChanged, bool 
   TEventsList events;
   {
     std::lock_guard guard(m_lock);
-    swap(m_events, events);
+    std::swap(m_events, events);
   }
 
   m2::RectD const prevPixelRect = GetCurrentScreen().PixelRect();
@@ -743,7 +741,7 @@ bool UserEventStream::ProcessTouch(TouchEvent const & touch)
   return isMapTouch;
 }
 
-bool UserEventStream::TouchDown(array<Touch, 2> const & touches)
+bool UserEventStream::TouchDown(std::array<Touch, 2> const & touches)
 {
   size_t touchCount = GetValidTouchesCount(touches);
   bool isMapTouch = true;
@@ -803,12 +801,12 @@ bool UserEventStream::TouchDown(array<Touch, 2> const & touches)
   return isMapTouch;
 }
 
-bool UserEventStream::CheckDrag(array<Touch, 2> const & touches, double threshold) const
+bool UserEventStream::CheckDrag(std::array<Touch, 2> const & touches, double threshold) const
 {
   return m_startDragOrg.SquaredLength(m2::PointD(touches[0].m_location)) > threshold;
 }
 
-bool UserEventStream::TouchMove(array<Touch, 2> const & touches)
+bool UserEventStream::TouchMove(std::array<Touch, 2> const & touches)
 {
   size_t const touchCount = GetValidTouchesCount(touches);
   bool isMapTouch = true;
@@ -890,7 +888,7 @@ bool UserEventStream::TouchMove(array<Touch, 2> const & touches)
   return isMapTouch;
 }
 
-bool UserEventStream::TouchCancel(array<Touch, 2> const & touches)
+bool UserEventStream::TouchCancel(std::array<Touch, 2> const & touches)
 {
   size_t touchCount = GetValidTouchesCount(touches);
   UNUSED_VALUE(touchCount);
@@ -931,7 +929,7 @@ bool UserEventStream::TouchCancel(array<Touch, 2> const & touches)
   return isMapTouch;
 }
 
-bool UserEventStream::TouchUp(array<Touch, 2> const & touches)
+bool UserEventStream::TouchUp(std::array<Touch, 2> const & touches)
 {
   size_t touchCount = GetValidTouchesCount(touches);
   bool isMapTouch = true;
@@ -988,7 +986,7 @@ bool UserEventStream::TouchUp(array<Touch, 2> const & touches)
   return isMapTouch;
 }
 
-void UserEventStream::UpdateTouches(array<Touch, 2> const & touches)
+void UserEventStream::UpdateTouches(std::array<Touch, 2> const & touches)
 {
   m_touches = touches;
 }

@@ -129,6 +129,8 @@
 	<string name="recycling">بازیافت</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
 	<string name="water">اب</string>
+	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
+	<string name="rv">RV ﯼﺍﺮﺑ</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">یادداشت ها</string>
 	<!-- message title of loading file -->
@@ -825,6 +827,7 @@
 	<string name="type.emergency.phone">تلفن اضطراری</string>
 	<string name="type.entrance">ورودی</string>
 	<string name="type.healthcare.laboratory">ﯽﮑﺷﺰﭘ ﻩﺎﮕﺸﯾﺎﻣﺯﺁ</string>
+	<string name="type.healthcare.physiotherapist">فیزیوتراپیست</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->

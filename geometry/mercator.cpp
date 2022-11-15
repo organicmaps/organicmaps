@@ -8,12 +8,12 @@
 #include <algorithm>
 #include <cmath>
 
-using namespace std;
-
 namespace mercator
 {
 m2::RectD MetersToXY(double lon, double lat, double lonMetersR, double latMetersR)
 {
+  using std::cos, std::fabs, std::max, std::min;
+
   double const latDegreeOffset = latMetersR * Bounds::kDegreesInMeter;
   double const minLat = max(-90.0, lat - latDegreeOffset);
   double const maxLat = min(90.0, lat + latDegreeOffset);
@@ -25,11 +25,13 @@ m2::RectD MetersToXY(double lon, double lat, double lonMetersR, double latMeters
   double const minLon = max(-180.0, lon - lonDegreeOffset);
   double const maxLon = min(180.0, lon + lonDegreeOffset);
 
-  return m2::RectD(FromLatLon(minLat, minLon), FromLatLon(maxLat, maxLon));
+  return {FromLatLon(minLat, minLon), FromLatLon(maxLat, maxLon)};
 }
 
 m2::PointD GetSmPoint(m2::PointD const & pt, double lonMetersR, double latMetersR)
 {
+  using std::max, std::min;
+
   double const lat = YToLat(pt.y);
   double const lon = XToLon(pt.x);
 
@@ -110,12 +112,11 @@ m2::RectD RectByCenterLatLonAndSizeInMeters(double lat, double lon, double size)
 
 m2::RectD FromLatLonRect(m2::RectD const & latLonRect)
 {
-  return m2::RectD(FromLatLon(latLonRect.minY(), latLonRect.minX()),
-                   FromLatLon(latLonRect.maxY(), latLonRect.maxX()));
+  return {FromLatLon(latLonRect.minY(), latLonRect.minX()), FromLatLon(latLonRect.maxY(), latLonRect.maxX())};
 }
 m2::RectD ToLatLonRect(m2::RectD const & mercatorRect)
 {
-  return m2::RectD(YToLat(mercatorRect.minY()), XToLon(mercatorRect.minX()),
-                   YToLat(mercatorRect.maxY()), XToLon(mercatorRect.maxX()));
+  return {YToLat(mercatorRect.minY()), XToLon(mercatorRect.minX()),
+          YToLat(mercatorRect.maxY()), XToLon(mercatorRect.maxX())};
 }
 }  // namespace mercator

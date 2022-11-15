@@ -1,5 +1,10 @@
 # Flags for all
-set(OMIM_WARNING_FLAGS -Wall -Wextra -Wno-unused-parameter)
+set(OMIM_WARNING_FLAGS
+  $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wall>
+  $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wextra>
+  $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wno-unused-parameter>
+  $<$<CXX_COMPILER_ID:AppleClang>:-Wno-deprecated-declarations>  # boost warnings
+)
 set(OMIM_INCLUDE_DIRS "${OMIM_ROOT}/3party/boost")
 
 # Function for setting target platform:

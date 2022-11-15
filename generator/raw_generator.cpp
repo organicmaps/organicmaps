@@ -171,7 +171,7 @@ std::vector<std::string> const & RawGenerator::GetNames() const { return m_names
 
 RawGenerator::FinalProcessorPtr RawGenerator::CreateCoslineFinalProcessor()
 {
-  auto finalProcessor = make_shared<CoastlineFinalProcessor>(
+  auto finalProcessor = std::make_shared<CoastlineFinalProcessor>(
       m_genInfo.GetTmpFileName(WORLD_COASTS_FILE_NAME, DATA_FILE_EXTENSION_TMP));
   finalProcessor->SetCoastlinesFilenames(
       m_genInfo.GetIntermediateFileName(WORLD_COASTS_FILE_NAME, ".geom"),
@@ -181,7 +181,7 @@ RawGenerator::FinalProcessorPtr RawGenerator::CreateCoslineFinalProcessor()
 
 RawGenerator::FinalProcessorPtr RawGenerator::CreateCountryFinalProcessor(bool addAds)
 {
-  auto finalProcessor = make_shared<CountryFinalProcessor>(
+  auto finalProcessor = std::make_shared<CountryFinalProcessor>(
       m_genInfo.m_targetDir, m_genInfo.m_tmpDir, m_genInfo.m_intermediateDir,
       m_genInfo.m_haveBordersForWholeWorld, m_threadsCount);
   finalProcessor->SetIsolinesDir(m_genInfo.m_isolinesDir);
@@ -206,7 +206,7 @@ RawGenerator::FinalProcessorPtr RawGenerator::CreateCountryFinalProcessor(bool a
 
 RawGenerator::FinalProcessorPtr RawGenerator::CreateWorldFinalProcessor()
 {
-  auto finalProcessor = make_shared<WorldFinalProcessor>(
+  auto finalProcessor = std::make_shared<WorldFinalProcessor>(
       m_genInfo.m_tmpDir,
       m_genInfo.GetIntermediateFileName(WORLD_COASTS_FILE_NAME, RAW_GEOM_FILE_EXTENSION));
   finalProcessor->SetPopularPlaces(m_genInfo.m_popularPlacesFilename);
