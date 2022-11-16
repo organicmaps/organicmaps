@@ -132,6 +132,7 @@ void VehicleModel::GetAdditionalRoadSpeed(uint32_t type, bool isCityRoad,
   }
 }
 
+/// @note Saved speed |params| is taken into account only if isCar == true.
 SpeedKMpH VehicleModel::GetTypeSpeedImpl(feature::TypesHolder const & types, SpeedParams const & params, bool isCar) const
 {
   bool const isCityRoad = params.m_inCity;
@@ -171,7 +172,8 @@ SpeedKMpH VehicleModel::GetTypeSpeedImpl(feature::TypesHolder const & types, Spe
 
       // Override the global default speed with the MWM's saved default speed if they are not significantly differ (2x),
       // to avoid anomaly peaks (especially for tracks).
-      if (params.m_defSpeedKmPH != kInvalidSpeed && fabs(speed.m_weight - params.m_defSpeedKmPH) / speed.m_weight < 1.0)
+      if (isCar && params.m_defSpeedKmPH != kInvalidSpeed &&
+          fabs(speed.m_weight - params.m_defSpeedKmPH) / speed.m_weight < 1.0)
       {
         double const factor = speed.m_eta / speed.m_weight;
         speed.m_weight = params.m_defSpeedKmPH;
@@ -193,7 +195,7 @@ SpeedKMpH VehicleModel::GetTypeSpeedImpl(feature::TypesHolder const & types, Spe
       speed = *additionalRoadSpeed;
   }
 
-  ASSERT(!(m_maxModelSpeed < speed), (speed, m_maxModelSpeed));
+  ASSERT(!(m_maxModelSpeed < speed), (speed, m_maxModelSpeed, types));
   return speed * surfaceFactor;
 }
 
