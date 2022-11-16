@@ -40,6 +40,9 @@ void RunTestLoop(char const * testName, testing::RenderFunction && fn, bool auto
 
   int argc = 1;
   QApplication app(argc, &raw);
+ // Pretty icons on HDPI displays.
+  QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
+
   if (autoExit)
     QTimer::singleShot(3000, &app, SLOT(quit()));
 
@@ -59,6 +62,8 @@ void RunTestInOpenGLOffscreenEnvironment(char const * testName, bool apiOpenGLES
 
   int argc = 1;
   QApplication app(argc, &raw);
+  // Pretty icons on HDPI displays.
+  QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
 
   QSurfaceFormat fmt;
   fmt.setAlphaBufferSize(8);
