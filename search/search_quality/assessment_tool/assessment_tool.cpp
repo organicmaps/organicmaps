@@ -34,6 +34,8 @@ int main(int argc, char ** argv)
 
   Q_INIT_RESOURCE(resources_common);
   QApplication app(argc, argv);
+  // Pretty icons on HDPI displays.
+  QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
 
   FrameworkParams params;
   CHECK_GREATER(FLAGS_num_threads, 0, ());
