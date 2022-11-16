@@ -82,19 +82,6 @@ extension BottomMenuPresenter {
     }
     fatalError()
   }
-
-  func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-    return section > 0 ? 12 : 0
-  }
-
-  func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-    if section > 0 {
-      let view = UIView()
-      view.styleName = "BlackOpaqueBackground";
-      return view;
-    }
-    return nil
-  }
 }
 
 
