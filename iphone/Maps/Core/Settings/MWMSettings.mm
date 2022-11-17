@@ -77,9 +77,9 @@ NSString * const kUDTrackWarningAlertWasShown = @"TrackWarningAlertWasShown";
   if ([MWMCarPlayService shared].isCarplayActivated) {
     UIUserInterfaceStyle style = [[MWMCarPlayService shared] interfaceStyle];
     switch (style) {
-    case UIUserInterfaceStyleLight: return MWMThemeDay;
-    case UIUserInterfaceStyleDark: return MWMThemeNight;
-    case UIUserInterfaceStyleUnspecified: break;
+      case UIUserInterfaceStyleLight: return MWMThemeDay;
+      case UIUserInterfaceStyleDark: return MWMThemeNight;
+      case UIUserInterfaceStyleUnspecified: break;
     }
   }
   auto ud = NSUserDefaults.standardUserDefaults;
@@ -148,4 +148,12 @@ NSString * const kUDTrackWarningAlertWasShown = @"TrackWarningAlertWasShown";
   [ud setBool:shown forKey:kUDTrackWarningAlertWasShown];
   [ud synchronize];
 }
+
++ (NSString *)donateUrl
+{
+  std::string url;
+  if (settings::Get("DonateUrl", url)) return @(url.c_str());
+  return nil;
+}
+
 @end
