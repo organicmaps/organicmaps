@@ -297,6 +297,9 @@
 /* Button in the main Help dialog */
 "faq" = "질문과 답변";
 
+/* Button in the main menu */
+"donate" = "기부";
+
 /* Button in the main Help dialog */
 "how_to_support_us" = "우리를 지원하는 방법?";
 

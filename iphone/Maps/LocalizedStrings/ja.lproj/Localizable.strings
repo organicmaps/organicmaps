@@ -297,6 +297,9 @@
 /* Button in the main Help dialog */
 "faq" = "質問と回答";
 
+/* Button in the main menu */
+"donate" = "寄付";
+
 /* Button in the main Help dialog */
 "how_to_support_us" = "どのように私たちを支持する方法？";
 

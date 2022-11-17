@@ -297,6 +297,9 @@
 /* Button in the main Help dialog */
 "faq" = "Ερωτήσεις και απαντήσεις";
 
+/* Button in the main menu */
+"donate" = "Προσφέρω";
+
 /* Button in the main Help dialog */
 "how_to_support_us" = "Πώς να μας υποστηρίξετε;";
 

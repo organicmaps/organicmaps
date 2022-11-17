@@ -297,6 +297,9 @@
 /* Button in the main Help dialog */
 "faq" = "वारंवार विचारलेले प्रश्न";
 
+/* Button in the main menu */
+"donate" = "Donate";
+
 /* Button in the main Help dialog */
 "how_to_support_us" = "आम्हाला आधार कसा द्यायचा?";
 

@@ -297,6 +297,9 @@
 /* Button in the main Help dialog */
 "faq" = "Въпроси и отговори";
 
+/* Button in the main menu */
+"donate" = "Дарете";
+
 /* Button in the main Help dialog */
 "how_to_support_us" = "Как да ни подкрепите?";
 

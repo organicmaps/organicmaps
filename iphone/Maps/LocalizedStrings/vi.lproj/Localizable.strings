@@ -297,6 +297,9 @@
 /* Button in the main Help dialog */
 "faq" = "Câu hỏi và trả lời";
 
+/* Button in the main menu */
+"donate" = "Quyên tặng";
+
 /* Button in the main Help dialog */
 "how_to_support_us" = "Làm thế nào để hỗ trợ chúng tôi?";
 

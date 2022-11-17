@@ -297,6 +297,9 @@
 /* Button in the main Help dialog */
 "faq" = "Вопросы и ответы";
 
+/* Button in the main menu */
+"donate" = "Поддержать рублём";
+
 /* Button in the main Help dialog */
 "how_to_support_us" = "Как наc поддержать?";
 
