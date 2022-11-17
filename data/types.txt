@@ -854,10 +854,10 @@ mapswithme
 mapswithme
 mapswithme
 *mapswithme|grid
-mapswithme
-mapswithme
-mapswithme
-mapswithme
+*highway|service|busway
+*highway|busway
+*highway|busway|bridge
+*highway|busway|tunnel
 landuse|salt_pond
 mapswithme
 mapswithme

@@ -4224,7 +4224,7 @@ cont {
     scale: 18
     symbol {
       name: "car_sharing-m"
-      priority: 16613
+      priority: 16650
     }
     caption {
       primary {
@@ -4233,14 +4233,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15613
+      priority: 15650
     }
   }
   element {
     scale: 19
     symbol {
       name: "car_sharing-m"
-      priority: 16613
+      priority: 16650
     }
     caption {
       primary {
@@ -4249,7 +4249,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15613
+      priority: 15650
     }
   }
 }
@@ -4934,7 +4934,7 @@ cont {
     scale: 17
     symbol {
       name: "dentist-m"
-      priority: 16613
+      priority: 16669
     }
     caption {
       primary {
@@ -4942,14 +4942,14 @@ cont {
         color: 5592405
         offset_y: 1
       }
-      priority: 15613
+      priority: 15669
     }
   }
   element {
     scale: 18
     symbol {
       name: "dentist-m"
-      priority: 16613
+      priority: 16669
     }
     caption {
       primary {
@@ -4958,14 +4958,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15613
+      priority: 15669
     }
   }
   element {
     scale: 19
     symbol {
       name: "dentist-m"
-      priority: 16613
+      priority: 16669
     }
     caption {
       primary {
@@ -4974,7 +4974,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15613
+      priority: 15669
     }
   }
 }
@@ -6017,14 +6017,14 @@ cont {
     scale: 16
     symbol {
       name: "ice_cream-m"
-      priority: 16000
+      priority: 16698
     }
   }
   element {
     scale: 17
     symbol {
       name: "ice_cream-m"
-      priority: 16000
+      priority: 16698
       min_distance: 24
     }
   }
@@ -6032,7 +6032,7 @@ cont {
     scale: 18
     symbol {
       name: "ice_cream-m"
-      priority: 16000
+      priority: 16698
       min_distance: 24
     }
   }
@@ -6040,7 +6040,7 @@ cont {
     scale: 19
     symbol {
       name: "ice_cream-m"
-      priority: 16000
+      priority: 16698
       min_distance: 24
     }
     caption {
@@ -6050,7 +6050,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15300
+      priority: 15698
     }
   }
 }
@@ -6269,7 +6269,7 @@ cont {
     scale: 16
     symbol {
       name: "marketplace-m"
-      priority: 16613
+      priority: 16669
       min_distance: 24
     }
     caption {
@@ -6278,14 +6278,14 @@ cont {
         color: 5592405
         offset_y: 1
       }
-      priority: 15613
+      priority: 15669
     }
   }
   element {
     scale: 17
     symbol {
       name: "marketplace-m"
-      priority: 16613
+      priority: 16669
       min_distance: 8
     }
     caption {
@@ -6294,14 +6294,14 @@ cont {
         color: 5592405
         offset_y: 1
       }
-      priority: 15613
+      priority: 15669
     }
   }
   element {
     scale: 18
     symbol {
       name: "marketplace-m"
-      priority: 16613
+      priority: 16669
       min_distance: 8
     }
     caption {
@@ -6310,14 +6310,14 @@ cont {
         color: 5592405
         offset_y: 1
       }
-      priority: 15613
+      priority: 15669
     }
   }
   element {
     scale: 19
     symbol {
       name: "marketplace-m"
-      priority: 16613
+      priority: 16669
       min_distance: 8
     }
     caption {
@@ -6326,7 +6326,7 @@ cont {
         color: 5592405
         offset_y: 1
       }
-      priority: 15613
+      priority: 15669
     }
   }
 }
@@ -6422,7 +6422,7 @@ cont {
     scale: 16
     symbol {
       name: "bar-m"
-      priority: 16650
+      priority: 16669
     }
     caption {
       primary {
@@ -6430,14 +6430,14 @@ cont {
         color: 5592405
         offset_y: 1
       }
-      priority: 15650
+      priority: 15669
     }
   }
   element {
     scale: 17
     symbol {
       name: "bar-m"
-      priority: 16650
+      priority: 16669
     }
     caption {
       primary {
@@ -6445,14 +6445,14 @@ cont {
         color: 5592405
         offset_y: 1
       }
-      priority: 15650
+      priority: 15669
     }
   }
   element {
     scale: 18
     symbol {
       name: "bar-m"
-      priority: 16650
+      priority: 16669
     }
     caption {
       primary {
@@ -6460,14 +6460,14 @@ cont {
         color: 5592405
         offset_y: 1
       }
-      priority: 15650
+      priority: 15669
     }
   }
   element {
     scale: 19
     symbol {
       name: "bar-m"
-      priority: 16650
+      priority: 16669
     }
     caption {
       primary {
@@ -6475,7 +6475,7 @@ cont {
         color: 5592405
         offset_y: 1
       }
-      priority: 15650
+      priority: 15669
     }
   }
 }
@@ -14605,6 +14605,234 @@ cont {
         is_optional: true
       }
       priority: 15915
+    }
+  }
+}
+cont {
+  name: "highway-busway"
+  element {
+    scale: 15
+    lines {
+      width: 1.2
+      color: 4933187
+      priority: 1339
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 1.6
+      color: 4933187
+      priority: 1339
+    }
+    path_text {
+      primary {
+        height: 10
+        color: 7829367
+        stroke_color: 856756480
+      }
+      priority: 16339
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 2.0
+      color: 4933187
+      priority: 1339
+    }
+    path_text {
+      primary {
+        height: 10
+        color: 7829367
+        stroke_color: 856756480
+      }
+      priority: 16339
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 3.0
+      color: 4933187
+      priority: 1339
+    }
+    path_text {
+      primary {
+        height: 12
+        color: 7829367
+        stroke_color: 1118464
+      }
+      priority: 16339
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 4.0
+      color: 4933187
+      priority: 1339
+    }
+    path_text {
+      primary {
+        height: 12
+        color: 7829367
+        stroke_color: 1118464
+      }
+      priority: 16339
+    }
+  }
+}
+cont {
+  name: "highway-busway-bridge"
+  element {
+    scale: 15
+    lines {
+      width: 1.2
+      color: 4933187
+      priority: 1339
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 1.6
+      color: 4933187
+      priority: 1339
+    }
+    path_text {
+      primary {
+        height: 10
+        color: 7829367
+        stroke_color: 856756480
+      }
+      priority: 16339
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 2.0
+      color: 4933187
+      priority: 1339
+    }
+    path_text {
+      primary {
+        height: 10
+        color: 7829367
+        stroke_color: 856756480
+      }
+      priority: 16339
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 3.0
+      color: 4933187
+      priority: 1339
+    }
+    path_text {
+      primary {
+        height: 12
+        color: 7829367
+        stroke_color: 1118464
+      }
+      priority: 16339
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 4.0
+      color: 4933187
+      priority: 1339
+    }
+    path_text {
+      primary {
+        height: 12
+        color: 7829367
+        stroke_color: 1118464
+      }
+      priority: 16339
+    }
+  }
+}
+cont {
+  name: "highway-busway-tunnel"
+  element {
+    scale: 15
+    lines {
+      width: 1.2
+      color: 4933187
+      priority: 1339
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 1.6
+      color: 4933187
+      priority: 1339
+    }
+    path_text {
+      primary {
+        height: 10
+        color: 7829367
+        stroke_color: 856756480
+      }
+      priority: 16339
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 2.0
+      color: 4933187
+      priority: 1339
+    }
+    path_text {
+      primary {
+        height: 10
+        color: 7829367
+        stroke_color: 856756480
+      }
+      priority: 16339
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 3.0
+      color: 4933187
+      priority: 1339
+    }
+    path_text {
+      primary {
+        height: 12
+        color: 7829367
+        stroke_color: 1118464
+      }
+      priority: 16339
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 4.0
+      color: 4933187
+      priority: 1339
+    }
+    path_text {
+      primary {
+        height: 12
+        color: 7829367
+        stroke_color: 1118464
+      }
+      priority: 16339
     }
   }
 }
@@ -25656,6 +25884,82 @@ cont {
       priority: 1300
       cap: BUTTCAP
     }
+    lines {
+      width: 4.0
+      color: 4933187
+      priority: 1339
+    }
+    path_text {
+      primary {
+        height: 12
+        color: 7829367
+        stroke_color: 1118464
+      }
+      priority: 16339
+    }
+  }
+}
+cont {
+  name: "highway-service-busway"
+  element {
+    scale: 15
+    lines {
+      width: 1.2
+      color: 4933187
+      priority: 1339
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 1.6
+      color: 4933187
+      priority: 1339
+    }
+    path_text {
+      primary {
+        height: 10
+        color: 7829367
+        stroke_color: 856756480
+      }
+      priority: 16339
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 2.0
+      color: 4933187
+      priority: 1339
+    }
+    path_text {
+      primary {
+        height: 10
+        color: 7829367
+        stroke_color: 856756480
+      }
+      priority: 16339
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 3.0
+      color: 4933187
+      priority: 1339
+    }
+    path_text {
+      primary {
+        height: 12
+        color: 7829367
+        stroke_color: 1118464
+      }
+      priority: 16339
+    }
+  }
+  element {
+    scale: 19
     lines {
       width: 4.0
       color: 4933187
@@ -54649,6 +54953,16 @@ cont {
 }
 cont {
   name: "place-island"
+  element {
+    scale: 9
+    caption {
+      primary {
+        height: 8
+        color: 5592405
+      }
+      priority: 15000
+    }
+  }
   element {
     scale: 10
     caption {
@@ -91470,7 +91784,7 @@ cont {
     scale: 16
     symbol {
       name: "charity_shop-m"
-      priority: 16735
+      priority: 16650
       min_distance: 10
     }
     caption {
@@ -91479,14 +91793,14 @@ cont {
         color: 5592405
         offset_y: 1
       }
-      priority: 15735
+      priority: 15650
     }
   }
   element {
     scale: 17
     symbol {
       name: "charity_shop-m"
-      priority: 16735
+      priority: 16650
       min_distance: 24
     }
     caption {
@@ -91496,14 +91810,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15735
+      priority: 15650
     }
   }
   element {
     scale: 18
     symbol {
       name: "charity_shop-m"
-      priority: 16735
+      priority: 16650
       min_distance: 24
     }
     caption {
@@ -91513,14 +91827,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15735
+      priority: 15650
     }
   }
   element {
     scale: 19
     symbol {
       name: "charity_shop-m"
-      priority: 16735
+      priority: 16650
       min_distance: 24
     }
     caption {
@@ -91530,7 +91844,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15735
+      priority: 15650
     }
   }
 }
@@ -95589,7 +95903,7 @@ cont {
     scale: 16
     symbol {
       name: "second_hand_shop-m"
-      priority: 16735
+      priority: 16650
       min_distance: 10
     }
     caption {
@@ -95598,14 +95912,14 @@ cont {
         color: 5592405
         offset_y: 1
       }
-      priority: 15735
+      priority: 15650
     }
   }
   element {
     scale: 17
     symbol {
       name: "second_hand_shop-m"
-      priority: 16735
+      priority: 16650
       min_distance: 24
     }
     caption {
@@ -95615,14 +95929,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15735
+      priority: 15650
     }
   }
   element {
     scale: 18
     symbol {
       name: "second_hand_shop-m"
-      priority: 16735
+      priority: 16650
       min_distance: 24
     }
     caption {
@@ -95632,14 +95946,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15735
+      priority: 15650
     }
   }
   element {
     scale: 19
     symbol {
       name: "second_hand_shop-m"
-      priority: 16735
+      priority: 16650
       min_distance: 24
     }
     caption {
@@ -95649,7 +95963,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15735
+      priority: 15650
     }
   }
 }
