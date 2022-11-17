@@ -5461,10 +5461,10 @@
 
   [donate]
     comment = Button in the main menu
-    tags = android
+    tags = android,ios
     en = Donate
     ar = ﻉﺮﺒﺘﻳ
-    be = Ахвяраваць
+    be = Падтрымаць грашыма
     bg = Дарете
     ca = Donatiu
     cs = Darovat
@@ -5495,7 +5495,7 @@
     sw = Changia
     th = บริจาค
     tr = Bağış Yapın
-    uk = Пожертвувати
+    uk = Підтримати грошима
     vi = Quyên tặng
     zh-Hans = 捐
     zh-Hant = 捐
