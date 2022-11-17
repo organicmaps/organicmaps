@@ -32,7 +32,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.widget.NestedScrollViewClickFixed;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 import app.organicmaps.Framework;
@@ -320,6 +319,12 @@ public class PlacePageView extends NestedScrollViewClickFixed
   {
     super.onFinishInflate();
     mPreview = findViewById(R.id.pp__preview);
+    mPreview.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
+      final int oldHeight = oldBottom - oldTop;
+      final int newHeight = bottom - top;
+      if (oldHeight != newHeight)
+        mPreview.post(() -> mOnPlacePageContentChangeListener.OnPlacePageContentChange());
+    });
     mTvTitle = mPreview.findViewById(R.id.tv__title);
     mTvTitle.setOnLongClickListener(this);
     mTvTitle.setOnClickListener(this);
@@ -332,6 +337,8 @@ public class PlacePageView extends NestedScrollViewClickFixed
     View directionFrame = mPreview.findViewById(R.id.direction_frame);
     mTvDistance = mPreview.findViewById(R.id.tv__straight_distance);
     mAvDirection = mPreview.findViewById(R.id.av__direction);
+    UiUtils.hide(mTvDistance);
+    UiUtils.hide(mAvDirection);
     directionFrame.setOnClickListener(this);
 
     mTvAddress = mPreview.findViewById(R.id.tv__address);
@@ -875,7 +882,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
     if (mToolbar != null)
       mToolbar.setTitle(mapObject.getTitle());
     setTextAndColorizeSubtitle(mapObject);
-    UiUtils.hide(mAvDirection);
     UiUtils.setTextAndHideIfEmpty(mTvAddress, mapObject.getAddress());
   }
 
@@ -1241,6 +1247,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
   private void refreshMyPosition(@NonNull MapObject mapObject, Location l)
   {
     UiUtils.hide(mTvDistance);
+    UiUtils.hide(mAvDirection);
 
     if (l == null)
       return;
@@ -1268,7 +1275,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
     if (l == null)
       return;
 
-    mTvDistance.setVisibility(View.VISIBLE);
     double lat = mapObject.getLat();
     double lon = mapObject.getLon();
     DistanceAndAzimut distanceAndAzimuth =
@@ -1303,16 +1309,19 @@ public class PlacePageView extends NestedScrollViewClickFixed
 
     final Location location = LocationHelper.INSTANCE.getSavedLocation();
     if (location == null)
+    {
+      UiUtils.hide(mAvDirection);
       return;
+    }
 
     final double azimuth = Framework.nativeGetDistanceAndAzimuthFromLatLon(mMapObject.getLat(),
                                                                            mMapObject.getLon(),
                                                                            location.getLatitude(),
                                                                            location.getLongitude(),
                                                                            northAzimuth).getAzimuth();
+    UiUtils.showIf(azimuth >= 0, mAvDirection);
     if (azimuth >= 0)
     {
-      UiUtils.show(mAvDirection);
       mAvDirection.setAzimuth(azimuth);
     }
   }

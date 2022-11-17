@@ -87,20 +87,22 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginEnd="@dimen/margin_base"
+    android:paddingEnd="@dimen/margin_quarter"
+    android:paddingStart="@dimen/margin_quarter"
     android:layout_alignParentEnd="true"
     android:layout_alignWithParentIfMissing="true"
     android:layout_alignBottom="@id/title_container"
     android:background="?selectableItemBackground"
     android:layout_below="@id/pull_icon_container"
-    android:gravity="bottom"
-    android:orientation="horizontal"
+    android:gravity="center"
+    android:orientation="vertical"
     tools:background="#111111F0">
 
     <app.organicmaps.widget.ArrowView
       android:id="@+id/av__direction"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginEnd="@dimen/margin_half"
+      android:layout_gravity="center"
       app:tint="?colorAccent"
       android:scaleType="center"
       android:src="@drawable/ic_direction_pagepreview"/>
@@ -109,6 +111,7 @@
       android:id="@+id/tv__straight_distance"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:layout_gravity="center"
       android:textAppearance="@style/MwmTextAppearance.PlacePage.Accent"
       android:textSize="@dimen/text_size_body_3"
       tools:text="2000 km"/>

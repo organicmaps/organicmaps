@@ -251,8 +251,7 @@ public class RichPlacePageController implements PlacePageController, LocationLis
   {
     @BottomSheetBehavior.State
     int currentState = mPlacePageBehavior.getState();
-    if (PlacePageUtils.isHiddenState(currentState) || PlacePageUtils.isDraggingState(currentState)
-        || PlacePageUtils.isSettlingState(currentState))
+    if (PlacePageUtils.isHiddenState(currentState))
       return;
 
     mPlacePage.refreshAzimuth(north);
