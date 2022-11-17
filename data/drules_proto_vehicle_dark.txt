@@ -13999,6 +13999,91 @@ cont {
   }
 }
 cont {
+  name: "highway-service-busway"
+  element {
+    scale: 14
+    lines {
+      width: 1.0
+      color: 3354929
+      priority: 1364
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 1.6
+      color: 3354929
+      priority: 1364
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 3.0
+      color: 3354929
+      priority: 1364
+    }
+    path_text {
+      primary {
+        height: 15
+        color: 9211020
+        stroke_color: 856756480
+      }
+      priority: 16364
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 6.0
+      color: 3354929
+      priority: 1364
+    }
+    path_text {
+      primary {
+        height: 15
+        color: 9211020
+        stroke_color: 856756480
+      }
+      priority: 16364
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 7.0
+      color: 3354929
+      priority: 1364
+    }
+    path_text {
+      primary {
+        height: 15
+        color: 9211020
+        stroke_color: 1118464
+      }
+      priority: 16364
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 8.0
+      color: 3354929
+      priority: 1364
+    }
+    path_text {
+      primary {
+        height: 15
+        color: 9211020
+        stroke_color: 1118464
+      }
+      priority: 16364
+    }
+  }
+}
+cont {
   name: "highway-service-driveway"
   element {
     scale: 14
