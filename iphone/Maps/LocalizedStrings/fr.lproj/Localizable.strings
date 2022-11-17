@@ -297,6 +297,9 @@
 /* Button in the main Help dialog */
 "faq" = "Foire aux questions";
 
+/* Button in the main menu */
+"donate" = "Faire un don";
+
 /* Button in the main Help dialog */
 "how_to_support_us" = "Comment nous soutenir?";
 

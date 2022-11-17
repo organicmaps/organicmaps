@@ -297,6 +297,9 @@
 /* Button in the main Help dialog */
 "faq" = "คำถามและคำตอบ";
 
+/* Button in the main menu */
+"donate" = "บริจาค";
+
 /* Button in the main Help dialog */
 "how_to_support_us" = "วิธีการสนับสนุนเรา";
 

@@ -297,6 +297,9 @@
 /* Button in the main Help dialog */
 "faq" = "Korduma kippuvad küsimused";
 
+/* Button in the main menu */
+"donate" = "Anneta";
+
 /* Button in the main Help dialog */
 "how_to_support_us" = "Kuidas meid toetada?";
 
