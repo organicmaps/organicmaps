@@ -25,10 +25,6 @@ public final class Constants
     public static final String TWITTER = "https://twitter.com/OrganicMapsApp";
     public static final String MATRIX = "https://matrix.to/#/%23organicmaps:matrix.org";
 
-    public static final String SUPPORT_US = "https://organicmaps.app/support-us";
-
-    public static final String NEWS = "https://organicmaps.app/news/";
-    public static final String WEB_SITE = "https://organicmaps.app";
     public static final String GITHUB = "https://github.com/organicmaps/organicmaps";
 
     public static final String COPYRIGHT = "file:///android_asset/copyright.html";
@@ -45,7 +41,6 @@ public final class Constants
   public static class Email
   {
     public static final String SUPPORT = BuildConfig.SUPPORT_MAIL;
-    public static final String RATING = "rating@organicmaps.app";
 
     private Email() {}
   }

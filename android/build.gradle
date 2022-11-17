@@ -158,8 +158,8 @@ android {
     targetSdkVersion propTargetSdkVersion.toInteger()
     applicationId project.ext.appId
     buildConfigField 'String', 'SUPPORT_MAIL', '"android@organicmaps.app"'
-    buildConfigField 'String', 'REVIEW_URL', '"https://organicmaps.app/donate/"'
-    buildConfigField 'int', 'RATING_THRESHOLD', '5'
+    // Should be customized in flavors.
+    buildConfigField 'String', 'REVIEW_URL', '""'
 
     multiDexEnabled true
     multiDexKeepFile file('multidex-config.txt')
