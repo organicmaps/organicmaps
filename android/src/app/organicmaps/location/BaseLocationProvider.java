@@ -17,6 +17,8 @@ abstract class BaseLocationProvider
     void onLocationResolutionRequired(@Nullable PendingIntent pendingIntent);
     @UiThread
     void onLocationDisabled();
+    @UiThread
+    void onLocationUnsupported();
   }
 
   @NonNull

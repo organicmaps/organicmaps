@@ -98,6 +98,12 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
           mListener.onLocationResolutionRequired(resolvable.getResolution());
           return;
         }
+        else if (statusCode == LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE)
+        {
+          Logger.w(TAG, "Location is disabled");
+          mListener.onLocationDisabled();
+          return;
+        }
       }
       catch (ClassCastException ex)
       {
@@ -106,7 +112,7 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
         Logger.e(TAG, "An error that should be impossible: " + ex);
       }
       Logger.e(TAG, "Service is not available: " + e);
-      mListener.onLocationDisabled();
+      mListener.onLocationUnsupported();
     });
 
     // onLocationResult() may not always be called regularly, however the device location is known.
