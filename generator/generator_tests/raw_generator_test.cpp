@@ -382,6 +382,39 @@ UNIT_CLASS_TEST(TestRawGenerator, MiniRoundabout)
   LOG(LINFO, (camerasMap));
 }
 
+namespace
+{
+std::string_view GetPostcode(FeatureType & ft)
+{
+  return ft.GetMetadata(feature::Metadata::FMD_POSTCODE);
+}
+} // namespace
+
+UNIT_CLASS_TEST(TestRawGenerator, Postcode_Relations)
+{
+  std::string const mwmName = "Postcodes";
+  BuildFB("./data/osm_test_data/postcode_relations.osm", mwmName, false /* makeWorld */);
+  BuildFeatures(mwmName);
+
+  size_t count = 0;
+  ForEachFeature(mwmName, [&count](std::unique_ptr<FeatureType> ft)
+  {
+    auto const name = ft->GetName(StringUtf8Multilang::kDefaultCode);
+    if (name == "Boulevard Malesherbes")
+    {
+      TEST_EQUAL(GetPostcode(*ft), "75017", ());
+      ++count;
+    }
+    else if (name == "Facebook France")
+    {
+      TEST_EQUAL(GetPostcode(*ft), "75002", ());
+      ++count;
+    }
+  });
+
+  TEST_EQUAL(count, 2, ());
+}
+
 UNIT_CLASS_TEST(TestRawGenerator, Relation_Wiki)
 {
   std::string const mwmName = "Relation";
