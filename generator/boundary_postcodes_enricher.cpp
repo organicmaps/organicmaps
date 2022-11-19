@@ -23,6 +23,8 @@ BoundaryPostcodesEnricher::BoundaryPostcodesEnricher(std::string const & boundar
     utils::ReadString(src, postcode);
     std::vector<m2::PointD> geometry;
     rw::ReadVectorOfPOD(src, geometry);
+    CHECK(!postcode.empty() && !geometry.empty(), ());
+
     m_boundaryPostcodes.emplace_back(std::move(postcode), std::move(geometry));
     m_boundariesTree.Add(m_boundaryPostcodes.size() - 1,
                          m_boundaryPostcodes.back().second.GetRect());

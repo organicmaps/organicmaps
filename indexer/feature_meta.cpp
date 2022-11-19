@@ -95,8 +95,11 @@ bool Metadata::TypeFromString(string_view k, Metadata::EType & outType)
     outType = Metadata::FMD_TURN_LANES_BACKWARD;
   else if (k == "email" || k == "contact:email")
     outType = Metadata::FMD_EMAIL;
-  else if (k == "addr:postcode")
+
+  // https://wiki.openstreetmap.org/wiki/Key:postal_code
+  else if (k == "addr:postcode" || k == "postal_code")
     outType = Metadata::FMD_POSTCODE;
+
   else if (k == "wikipedia")
     outType = Metadata::FMD_WIKIPEDIA;
   else if (k == "wikimedia_commons")

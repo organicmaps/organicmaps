@@ -4,8 +4,6 @@
 #include "generator/feature_maker.hpp"
 #include "generator/osm_element.hpp"
 
-#include "coding/writer.hpp"
-
 #include <memory>
 #include <string>
 
@@ -23,17 +21,15 @@ public:
   std::shared_ptr<CollectorInterface> Clone(IDRInterfacePtr const & = {}) const override;
 
   void Collect(OsmElement const & el) override;
-  void Finish() override;
 
   IMPLEMENT_COLLECTOR_IFACE(BoundaryPostcodeCollector);
   void MergeInto(BoundaryPostcodeCollector & collector) const;
 
 protected:
   void Save() override;
-  void OrderCollectedData() override;
 
 private:
-  std::unique_ptr<FileWriter> m_writer;
+  std::vector<std::pair<std::string, feature::FeatureBuilder::PointSeq>> m_data;
   std::shared_ptr<cache::IntermediateDataReaderInterface> m_cache;
   FeatureMakerSimple m_featureMakerSimple;
 };
