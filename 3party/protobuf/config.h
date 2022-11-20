@@ -98,7 +98,7 @@
 #define PACKAGE_NAME "Protocol Buffers"
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING "Protocol Buffers 3.3.0"
+#define PACKAGE_STRING "Protocol Buffers 3.21.9"
 
 /* Define to the one symbol short name of this package. */
 #define PACKAGE_TARNAME "protobuf"
@@ -107,13 +107,15 @@
 #define PACKAGE_URL ""
 
 /* Define to the version of this package. */
-#define PACKAGE_VERSION "3.3.0"
+#define PACKAGE_VERSION "3.21.9"
 
 /* Define to necessary symbol if this constant uses a non-standard name on
    your system. */
 /* #undef PTHREAD_CREATE_JOINABLE */
 
-/* Define to 1 if you have the ANSI C header files. */
+/* Define to 1 if all of the C90 standard headers exist (not just the ones
+   required in a freestanding environment). This macro is provided for
+   backward compatibility; new code need not use it. */
 #define STDC_HEADERS 1
 
 /* Enable extensions on AIX 3, Interix.  */
@@ -139,7 +141,7 @@
 
 
 /* Version number of package */
-#define VERSION "3.3.0"
+#define VERSION "3.21.9"
 
 /* Define to 1 if on MINIX. */
 /* #undef _MINIX */
