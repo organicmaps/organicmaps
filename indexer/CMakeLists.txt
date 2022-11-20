@@ -149,6 +149,9 @@ file(COPY ${OTHER_FILES} DESTINATION ${CMAKE_BINARY_DIR})
 
 omim_add_library(${PROJECT_NAME} ${SRC})
 
+set(protobuf_BUILD_TESTS OFF)
+set(protobuf_BUILD_PROTOC_BINARIES OFF)
+
 add_subdirectory(${OMIM_ROOT}/3party/protobuf/protobuf ${CMAKE_CURRENT_BINARY_DIR}/protobuf)
 
 target_link_libraries(${PROJECT_NAME}
