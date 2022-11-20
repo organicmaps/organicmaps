@@ -1,14 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>golf-m</title>
-    <g id="Page-2:-Night" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.6">
-        <g id="golf-m" fill-rule="nonzero">
-            <circle id="Oval" fill="#FFFFFF" cx="12" cy="12" r="12"></circle>
-            <circle id="Oval" fill="#717065" cx="12" cy="12" r="11"></circle>
-            <g id="golf_course_black_24dp" transform="translate(6.000000, 5.000000)" fill="#FFFFFF">
-                <circle id="Oval" cx="10.3333333" cy="11.6666667" r="1"></circle>
-                <path d="M4.66666667,10.6866667 L4.66666667,4.65333333 L7.48,3.22 C7.96666667,2.97333333 7.96666667,2.26666667 7.47333333,2.02666667 L4.3,0.473333333 C3.85333333,0.253333333 3.33333333,0.573333333 3.33333333,1.06666667 L3.33333333,11.3333333 C3.33333333,11.7 3.03333333,12 2.66666667,12 C2.3,12 2,11.7 2,11.3333333 L2,10.8466667 C0.806666667,11.08 0,11.5066667 0,12 C0,12.7333333 1.79333333,13.3333333 4,13.3333333 C6.20666667,13.3333333 8,12.7333333 8,12 C8,11.34 6.56,10.7933333 4.66666667,10.6866667 Z" id="Path"></path>
-            </g>
-        </g>
+<svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+ <title>golf-m</title>
+ <g fill="none" fill-rule="evenodd">
+  <g id="golf-m" fill-rule="nonzero">
+   <g id="golf_course_black_24dp" transform="translate(6,5)" fill="#fff">
+    <g transform="matrix(1.392 0 0 1.392 -1.8882 -2.5605)" fill="#fff">
+     <circle cx="10.333" cy="11.667" r="1" opacity=".6"/>
+     <path id="Path" d="m4.6667 10.687v-6.0333l2.8133-1.4333c0.48667-0.24667 0.48667-0.95333-0.0066667-1.1933l-3.1733-1.5533c-0.44667-0.22-0.96667 0.1-0.96667 0.59333v10.267c0 0.36667-0.3 0.66667-0.66667 0.66667-0.36667 0-0.66667-0.3-0.66667-0.66667v-0.48667c-1.1933 0.23333-2 0.66-2 1.1533 0 0.73333 1.7933 1.3333 4 1.3333s4-0.6 4-1.3333c0-0.66-1.44-1.2067-3.3333-1.3133z" opacity=".6"/>
     </g>
+   </g>
+  </g>
+ </g>
 </svg>

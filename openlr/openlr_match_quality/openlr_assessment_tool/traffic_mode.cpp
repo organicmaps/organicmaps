@@ -1,22 +1,17 @@
-#include "openlr/openlr_match_quality/openlr_assessment_tool/traffic_mode.hpp"
+#include "traffic_mode.hpp"
 
 #include "openlr/openlr_model_xml.hpp"
 
 #include "indexer/data_source.hpp"
-#include "indexer/scales.hpp"
 
 #include "base/assert.hpp"
 #include "base/scope_guard.hpp"
 
-#include "3party/pugixml/utils.hpp"
-
 #include <QItemSelection>
 #include <QMessageBox>
 
-#include <tuple>
-
-using namespace openlr;
-
+namespace openlr
+{
 namespace
 {
 void RemovePointFromPull(m2::PointD const & toBeRemoved, std::vector<m2::PointD> & pool)
@@ -100,8 +95,6 @@ void RoadPointCandidate::SetActivePoint(FeatureID const & fid)
 }
 }  // namespace impl
 
-namespace openlr
-{
 // TrafficMode -------------------------------------------------------------------------------------
 TrafficMode::TrafficMode(std::string const & dataFileName, DataSource const & dataSource,
                          std::unique_ptr<TrafficDrawerDelegateBase> drawerDelegate,
@@ -382,20 +375,17 @@ void TrafficMode::CommitPath()
   openlr::Path path;
   for (size_t i = 1; i < GetPointsCount(); ++i)
   {
-    FeatureID fid, prevFid;
-    size_t segId, prevSegId;
-
     auto const prevPoint = m_goldenPath[i - 1];
     auto point = m_goldenPath[i];
 
     // The start and the end of the edge should lie on the same feature.
     point.ActivateCommonPoint(prevPoint);
 
-    std::tie(prevFid, prevSegId) = prevPoint.GetPoint();
-    std::tie(fid, segId) = point.GetPoint();
+    auto const & prevFt = prevPoint.GetPoint();
+    auto const & ft = point.GetPoint();
 
     path.push_back(Edge::MakeReal(
-        fid, prevSegId < segId /* forward */, base::checked_cast<uint32_t>(prevSegId),
+        ft.first, prevFt.second < ft.second /* forward */, base::checked_cast<uint32_t>(prevFt.second),
         geometry::PointWithAltitude(prevPoint.GetCoordinate(), 0 /* altitude */),
         geometry::PointWithAltitude(point.GetCoordinate(), 0 /* altitude */)));
   }

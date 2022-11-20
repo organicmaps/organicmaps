@@ -4,9 +4,9 @@
 
 #include "base/assert.hpp"
 
-#include <sstream>
+#include "std/boost_container_hash.hpp"
 
-#include <boost/container_hash/hash.hpp>
+#include <sstream>
 
 namespace routing
 {

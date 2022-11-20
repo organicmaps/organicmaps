@@ -97,7 +97,11 @@ namespace feature
       return (m_size > 0 ? m_types[0] : 0);
     }
 
-    bool Has(uint32_t t) const { return base::IsExist(*this, t); }
+    bool Has(uint32_t type) const { return base::IsExist(*this, type); }
+
+    // More _natural_ way of checking than Has, including subclass types hierarchy.
+    // "railway-station-subway" holder returns true for "railway-station" input.
+    bool HasWithSubclass(uint32_t type) const;
 
     template <typename Fn>
     bool RemoveIf(Fn && fn)

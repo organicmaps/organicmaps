@@ -88,11 +88,10 @@ void SimplifyContours(int simplificationZoom, Contours<ValueType> & contours)
     for (auto & contour : levelContours.second)
     {
       std::vector<m2::PointD> contourSimple;
-      feature::SimplifyPoints(m2::SquaredDistanceFromSegmentToPoint<m2::PointD>(),
+      feature::SimplifyPoints(m2::SquaredDistanceFromSegmentToPoint(),
                               simplificationZoom, contour, contourSimple);
       contour = std::move(contourSimple);
     }
   }
 }
 }  // namespace topography_generator
-

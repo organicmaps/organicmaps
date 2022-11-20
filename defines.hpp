@@ -36,7 +36,6 @@
 #define HEADER_FILE_TAG "header"
 #define VERSION_FILE_TAG "version"
 #define METADATA_FILE_TAG "meta"
-#define METADATA_INDEX_FILE_TAG "metaidx"
 #define ALTITUDES_FILE_TAG "altitudes"
 #define ROAD_ACCESS_FILE_TAG "roadaccess"
 #define RESTRICTIONS_FILE_TAG "restrictions"
@@ -45,7 +44,6 @@
 #define FEATURE_OFFSETS_FILE_TAG "offs"
 #define SEARCH_RANKS_FILE_TAG "ranks"
 #define POPULARITY_RANKS_FILE_TAG "popularity"
-#define RATINGS_FILE_TAG "ratings"
 #define REGION_INFO_FILE_TAG "rgninfo"
 #define METALINES_FILE_TAG "metalines"
 #define CAMERAS_INFO_FILE_TAG "speedcams"
@@ -61,7 +59,6 @@
 #define READY_FILE_EXTENSION ".ready"
 #define RESUME_FILE_EXTENSION ".resume"
 #define DOWNLOADING_FILE_EXTENSION ".downloading"
-#define BOOKMARKS_FILE_EXTENSION ".kml"
 #define TRANSIT_FILE_EXTENSION ".transit.json"
 
 #define GEOM_INDEX_TMP_EXT ".geomidx.tmp"

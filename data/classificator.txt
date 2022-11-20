@@ -4,8 +4,13 @@ world  +
         chair_lift  -
         drag_lift  -
         gondola  -
+        j-bar  -
+        magic_carpet  -
         mixed_lift  -
+        platter  -
+        rope_tow  -
         station  -
+        t-bar  -
         {}
     aeroway  +
         aerodrome  +
@@ -37,7 +42,9 @@ world  +
         car_sharing  -
         car_wash  -
         casino  -
-        charging_station  -
+        charging_station  +
+            motorcar  -
+            {}
         childcare  -
         cinema  -
         clinic  -
@@ -63,10 +70,12 @@ world  +
         ice_cream  -
         internet_cafe  -
         kindergarten  -
+        language_school  -
         library  -
         loading_dock  -
         marketplace  -
         motorcycle_parking  -
+        music_school  -
         nightclub  -
         nursing_home  -
         parcel_locker  -
@@ -79,7 +88,12 @@ world  +
             private  -
             underground  -
             {}
+        parking_entrance  +
+            permissive  -
+            private  -
+            {}
         parking_space  +
+            disabled  -
             permissive  -
             private  -
             underground  -
@@ -156,13 +170,16 @@ world  +
         block  -
         bollard  -
         border_control  -
+        cattle_grid  -
         chain  -
         city_wall  -
         cycle_barrier  -
+        ditch  -
         entrance  -
         fence  -
         gate  -
         hedge  -
+        kissing_gate  -
         lift_gate  -
         retaining_wall  -
         stile  -
@@ -191,6 +208,7 @@ world  +
             state  -
             suburb  -
             {}
+        military  -
         national_park  -
         {}
     building  +
@@ -323,6 +341,7 @@ world  +
     entrance  -
     healthcare  +
         laboratory  -
+        physiotherapist  -
         {}
     highway  +
         bridleway  +
@@ -331,6 +350,10 @@ world  +
             tunnel  -
             {}
         bus_stop  -
+        busway  +
+            bridge  -
+            tunnel  -
+            {}
         construction  -
         cycleway  +
             bridge  -
@@ -412,6 +435,7 @@ world  +
         service  +
             area  -
             bridge  -
+            busway  -
             driveway  -
             parking_aisle  -
             tunnel  -
@@ -464,17 +488,31 @@ world  +
         battlefield  -
         boundary_stone  -
         castle  +
+            castrum  -
             defensive  -
+            fortified_church  -
+            fortress  -
+            hillfort  -
+            kremlin  -
+            manor  -
+            palace  -
+            shiro  -
             stately  -
             {}
+        city_gate  -
         citywalls  -
         fort  -
+        gallows  -
         memorial  +
+            cross  -
             plaque  -
             sculpture  -
             statue  -
+            stolperstein  -
+            war_memorial  -
             {}
         monument  -
+        pillory  -
         ruins  -
         ship  -
         tomb  -
@@ -536,7 +574,9 @@ world  +
         industrial  -
         landfill  -
         meadow  -
-        military  -
+        military  +
+            danger_area  -
+            {}
         orchard  -
         quarry  -
         railway  -
@@ -551,10 +591,13 @@ world  +
     leisure  +
         beach_resort  -
         common  -
+        dance  -
         dog_park  -
         fitness_centre  -
         fitness_station  -
-        garden  -
+        garden  +
+            residential  -
+            {}
         golf_course  -
         ice_rink  -
         landscape_reserve  -
@@ -571,17 +614,14 @@ world  +
         recreation_ground  -
         sauna  -
         slipway  -
-        sports_centre  +
-            climbing  -
-            shooting  -
-            swimming  -
-            yoga  -
-            {}
+        sports_centre  -
         stadium  -
         swimming_pool  +
             private  -
             {}
-        track  -
+        track  +
+            area  -
+            {}
         water_park  -
         {}
     man_made  +
@@ -625,6 +665,7 @@ world  +
         cave_entrance  -
         cliff  -
         coastline  -
+        desert  -
         earth_bank  -
         geyser  -
         glacier  -
@@ -669,13 +710,6 @@ world  +
     organic  +
         only  -
         yes  -
-        {}
-    piste:lift  +
-        j-bar  -
-        magic_carpet  -
-        platter  -
-        rope_tow  -
-        t-bar  -
         {}
     piste:type  +
         downhill  +
@@ -792,17 +826,114 @@ world  +
             light_rail  -
             monorail  -
             subway  +
+                adana  -
+                algiers  -
+                almaty  -
+                amsterdam  -
+                ankara  -
+                athens  -
+                baku  -
+                bangkok  -
                 barcelona  -
+                beijing  -
+                bengalore  -
                 berlin  -
+                brasilia  -
+                brescia  -
+                brussels  -
+                bucharest  -
+                budapest  -
+                buenos_aires  -
+                bursa  -
+                cairo  -
+                caracas  -
+                catania  -
+                changchun  -
+                chengdu  -
+                chicago  -
+                chongqing  -
+                dalian  -
+                delhi  -
+                dnepro  -
+                dubai  -
+                ekb  -
+                fukuoka  -
+                glasgow  -
+                guangzhou  -
+                hamburg  -
+                helsinki  -
+                hiroshima  -
+                isfahan  -
+                istanbul  -
+                izmir  -
+                kazan  -
+                kharkiv  -
                 kiev  -
+                kobe  -
+                kolkata  -
+                kunming  -
+                kyoto  -
+                la  -
+                lausanne  -
+                lille  -
+                lima  -
+                lisboa  -
                 london  -
+                lyon  -
                 madrid  -
+                malaga  -
+                manila  -
+                maracaibo  -
+                mashhad  -
+                mecca  -
+                medellin  -
+                mexico  -
+                milan  -
                 minsk  -
+                montreal  -
                 moscow  -
+                munchen  -
+                nagoya  -
                 newyork  -
+                nnov  -
+                novosibirsk  -
+                osaka  -
+                oslo  -
+                palma  -
+                panama  -
                 paris  -
+                philadelphia  -
+                pyongyang  -
+                rennes  -
+                rio  -
                 roma  -
+                rotterdam  -
+                samara  -
+                santiago  -
+                santo_domingo  -
+                saopaulo  -
+                sapporo  -
+                sendai  -
+                sf  -
+                shanghai  -
+                shiraz  -
+                sofia  -
                 spb  -
+                stockholm  -
+                tabriz  -
+                taipei  -
+                taoyuan  -
+                tashkent  -
+                tbilisi  -
+                tianjin  -
+                tokyo  -
+                valencia  -
+                vienna  -
+                warszawa  -
+                washington  -
+                wuhan  -
+                yerevan  -
+                yokohama  -
                 {}
             {}
         subway  +
@@ -810,17 +941,114 @@ world  +
             tunnel  -
             {}
         subway_entrance  +
+            adana  -
+            algiers  -
+            almaty  -
+            amsterdam  -
+            ankara  -
+            athens  -
+            baku  -
+            bangkok  -
             barcelona  -
+            beijing  -
+            bengalore  -
             berlin  -
+            brasilia  -
+            brescia  -
+            brussels  -
+            bucharest  -
+            budapest  -
+            buenos_aires  -
+            bursa  -
+            cairo  -
+            caracas  -
+            catania  -
+            changchun  -
+            chengdu  -
+            chicago  -
+            chongqing  -
+            dalian  -
+            delhi  -
+            dnepro  -
+            dubai  -
+            ekb  -
+            fukuoka  -
+            glasgow  -
+            guangzhou  -
+            hamburg  -
+            helsinki  -
+            hiroshima  -
+            isfahan  -
+            istanbul  -
+            izmir  -
+            kazan  -
+            kharkiv  -
             kiev  -
+            kobe  -
+            kolkata  -
+            kunming  -
+            kyoto  -
+            la  -
+            lausanne  -
+            lille  -
+            lima  -
+            lisboa  -
             london  -
+            lyon  -
             madrid  -
+            malaga  -
+            manila  -
+            maracaibo  -
+            mashhad  -
+            mecca  -
+            medellin  -
+            mexico  -
+            milan  -
             minsk  -
+            montreal  -
             moscow  -
+            munchen  -
+            nagoya  -
             newyork  -
+            nnov  -
+            novosibirsk  -
+            osaka  -
+            oslo  -
+            palma  -
+            panama  -
             paris  -
+            philadelphia  -
+            pyongyang  -
+            rennes  -
+            rio  -
             roma  -
+            rotterdam  -
+            samara  -
+            santiago  -
+            santo_domingo  -
+            saopaulo  -
+            sapporo  -
+            sendai  -
+            sf  -
+            shanghai  -
+            shiraz  -
+            sofia  -
             spb  -
+            stockholm  -
+            tabriz  -
+            taipei  -
+            taoyuan  -
+            tashkent  -
+            tbilisi  -
+            tianjin  -
+            tokyo  -
+            valencia  -
+            vienna  -
+            warszawa  -
+            washington  -
+            wuhan  -
+            yerevan  -
+            yokohama  -
             {}
         tram  +
             bridge  -
@@ -953,27 +1181,42 @@ world  +
         wine  -
         {}
     sport  +
+        10pin  -
+        9pin  -
         american_football  -
         archery  -
         athletics  -
         australian_football  -
+        badminton  -
         baseball  -
         basketball  -
+        beachvolleyball  -
         bowls  -
+        chess  -
+        climbing  -
         cricket  -
         curling  -
         diving  -
         equestrian  -
+        field_hockey  -
+        futsal  -
         golf  -
         gymnastics  -
         handball  -
+        ice_hockey  -
         multi  -
+        padel  -
+        pelota  -
         scuba_diving  -
         shooting  -
+        skateboard  -
         skiing  -
         soccer  -
         swimming  -
+        table_tennis  -
         tennis  -
+        volleyball  -
+        yoga  -
         {}
     tourism  +
         alpine_hut  -

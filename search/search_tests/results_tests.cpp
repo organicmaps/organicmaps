@@ -2,18 +2,24 @@
 
 #include "search/result.hpp"
 
+#include "indexer/data_source.hpp"
+
 #include <iterator>
 
-namespace search
+namespace search_tests
 {
+
 UNIT_TEST(Results_Sorting)
 {
-  Results r;
-  MwmSet::MwmId id;
+  FrozenDataSource dataSource;
+  MwmSet::MwmId const id = dataSource.Register(platform::LocalCountryFile::MakeForTesting("minsk-pass")).first;
+
+  search::Results r;
   for (uint32_t i = 5; i != 0; --i)
   {
-    r.AddResultNoChecks({{id, i}, {} /* pt */, {} /* str */, {} /* address */,
-                         {} /* featureType */, {} /* metadata */});
+    search::Result res(m2::PointD::Zero(), {});
+    res.FromFeature({id, i}, 0, {});
+    r.AddResultNoChecks(std::move(res));
   }
 
   for (auto it = r.begin(); it != r.end(); ++it)
@@ -37,22 +43,18 @@ UNIT_TEST(Results_Sorting)
 
 UNIT_TEST(Result_PrependCity)
 {
-  FeatureID const fid;
-
   {
-    Result r(fid, m2::PointD::Zero(), "" /* str */, "Moscow, Russia" /* address */,
-             0 /* featureType */, {} /* details */);
-
+    search::Result r(m2::PointD::Zero(), {});
+    r.SetAddress("Moscow, Russia");
     r.PrependCity("Moscow");
     TEST_EQUAL(r.GetAddress(), "Moscow, Russia", ());
   }
 
   {
-    Result r(fid, m2::PointD::Zero(), "улица Михася Лынькова" /* str */,
-             "Минская область, Беларусь" /* address */, 0 /* featureType */, {} /* details */);
-
+    search::Result r(m2::PointD::Zero(), "улица Михася Лынькова");
+    r.SetAddress("Минская область, Беларусь");
     r.PrependCity("Минск");
     TEST_EQUAL(r.GetAddress(), "Минск, Минская область, Беларусь", ());
   }
 }
-}  // namespace search
+}  // namespace search_tests

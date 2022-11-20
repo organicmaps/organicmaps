@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>picnic_table-m</title>
-    <g id="Page-2:-Night" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.6">
-        <g id="picnic_table-m" fill-rule="nonzero">
-            <path d="M8.60809123,8.81818182 L6.86666667,8.81818182 L6.86666667,7 L17.1333333,7 L17.1333333,8.81818182 L15.2860325,8.81818182 L16.1021366,12.4545455 L19,12.4545455 L19,13.3636364 L16.3061626,13.3636364 L17.1392938,17.0758689 L15.31965,17.0675775 L14.4883796,13.3636364 L9.42306021,13.3636364 L8.63335716,16.9430104 L6.81371335,16.9513018 L7.60524569,13.3636364 L5,13.3636364 L5,12.4545455 L7.8058148,12.4545455 L8.60809123,8.81818182 Z M10.4259058,8.81818182 L9.62362932,12.4545455 L14.2843536,12.4545455 L13.4682495,8.81818182 L10.4259058,8.81818182 Z" id="Shape" fill="#FFF"></path>
-        </g>
-    </g>
+<svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+ <title>picnic_table-m</title>
+ <g id="Page-2:-Night" fill="none" fill-rule="evenodd" opacity=".6">
+  <g id="picnic_table-m" fill-rule="nonzero">
+   <path id="Shape" d="m8.6081 8.8182h-1.7414v-1.8182h10.267v1.8182h-1.8473l0.8161 3.6364h2.8979v0.90909h-2.6938l0.83313 3.7122-1.8196-0.0082914-0.83127-3.7039h-5.0653l-0.7897 3.5794-1.8196 0.0082914 0.79153-3.5877h-2.6052v-0.90909h2.8058l0.80228-3.6364zm1.8178 0-0.80228 3.6364h4.6607l-0.8161-3.6364h-3.0423z" fill="#FFF"/>
+  </g>
+ </g>
 </svg>

@@ -1,16 +1,12 @@
 #include "map/framework.hpp"
 #include "map/benchmark_tools.hpp"
-#include "map/chart_generator.hpp"
-#include "map/everywhere_search_params.hpp"
 #include "map/gps_tracker.hpp"
 #include "map/user_mark.hpp"
-#include "map/viewport_search_params.hpp"
+#include "map/track_mark.hpp"
 
 #include "ge0/geo_url_parser.hpp"
 #include "ge0/parser.hpp"
 #include "ge0/url_generator.hpp"
-
-#include "generator/borders.hpp"
 
 #include "routing/index_router.hpp"
 #include "routing/route.hpp"
@@ -19,25 +15,17 @@
 
 #include "routing_common/num_mwm_id.hpp"
 
-#include "search/cities_boundaries_table.hpp"
-#include "search/downloader_search_callback.hpp"
 #include "search/editor_delegate.hpp"
 #include "search/engine.hpp"
-#include "search/geometry_utils.hpp"
-#include "search/intermediate_result.hpp"
 #include "search/locality_finder.hpp"
 
 #include "storage/country_info_getter.hpp"
-#include "storage/downloader_search_params.hpp"
 #include "storage/routing_helpers.hpp"
 #include "storage/storage_helpers.hpp"
 
 #include "drape_frontend/color_constants.hpp"
 #include "drape_frontend/gps_track_point.hpp"
-#include "drape_frontend/route_renderer.hpp"
 #include "drape_frontend/visual_params.hpp"
-
-#include "drape/constants.hpp"
 
 #include "editor/editable_data_source.hpp"
 
@@ -45,7 +33,6 @@
 
 #include "indexer/categories_holder.hpp"
 #include "indexer/classificator.hpp"
-#include "indexer/classificator_loader.hpp"
 #include "indexer/drawing_rules.hpp"
 #include "indexer/editable_map_object.hpp"
 #include "indexer/feature.hpp"
@@ -60,20 +47,16 @@
 #include "platform/local_country_file_utils.hpp"
 #include "platform/localization.hpp"
 #include "platform/measurement_utils.hpp"
-#include "platform/mwm_traits.hpp"
 #include "platform/mwm_version.hpp"
-#include "platform/network_policy.hpp"
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
 #include "platform/settings.hpp"
-#include "platform/socket.hpp"
 
 #include "coding/endianness.hpp"
 #include "coding/point_coding.hpp"
 #include "coding/string_utf8_multilang.hpp"
 #include "coding/transliteration.hpp"
 #include "coding/url.hpp"
-#include "coding/zip_reader.hpp"
 
 #include "geometry/angles.hpp"
 #include "geometry/any_rect2d.hpp"
@@ -81,24 +64,18 @@
 #include "geometry/latlon.hpp"
 #include "geometry/mercator.hpp"
 #include "geometry/rect2d.hpp"
-#include "geometry/tree4d.hpp"
 #include "geometry/triangle2d.hpp"
 
-
-#include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 #include "base/math.hpp"
-#include "base/scope_guard.hpp"
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
-#include "base/timer.hpp"
 
 #include "std/target_os.hpp"
 
-#include <algorithm>
-
 #include "defines.hpp"
-#include "private.h"
+
+#include <algorithm>
 
 
 using namespace location;
@@ -733,7 +710,7 @@ void Framework::FillSearchResultInfo(SearchMarkPoint const & smp, place_page::In
 void Framework::FillMyPositionInfo(place_page::Info & info, place_page::BuildInfo const & buildInfo) const
 {
   auto const position = GetCurrentPosition();
-  VERIFY(position, ());
+  CHECK(position, ());
   info.SetMercator(*position);
   info.SetCustomName(m_stringsBundle.GetString("core_my_position"));
 
@@ -753,6 +730,19 @@ void Framework::FillRouteMarkInfo(RouteMarkPoint const & rmp, place_page::Info &
   info.SetIsRoutePoint();
   info.SetRouteMarkType(rmp.GetRoutePointType());
   info.SetIntermediateIndex(rmp.GetIntermediateIndex());
+}
+
+void Framework::FillSpeedCameraMarkInfo(SpeedCameraMark const & speedCameraMark, place_page::Info & info) const
+{
+  info.SetCanEditOrAdd(false);
+  info.SetMercator(speedCameraMark.GetPivot());
+
+  // Title is a speed limit, if any.
+  auto title = speedCameraMark.GetTitle();
+  if (!title.empty())
+    title = title + " " + platform::GetLocalizedSpeedUnits(measurement_utils::GetMeasurementUnits());
+
+  info.SetCustomNames(title, platform::GetLocalizedTypeName("highway-speed_camera"));
 }
 
 void Framework::FillTransitMarkInfo(TransitMark const & transitMark, place_page::Info & info) const
@@ -934,11 +924,6 @@ void Framework::ShowAll()
                                      false /* useVisibleViewport */);
 }
 
-m2::PointD Framework::GetPixelCenter() const
-{
-  return m_currentModelView.PixelRectIn3d().Center();
-}
-
 m2::PointD Framework::GetVisiblePixelCenter() const
 {
   return m_visibleViewport.Center();
@@ -1021,6 +1006,11 @@ void Framework::OnSize(int w, int h)
 {
   if (m_drapeEngine != nullptr)
     m_drapeEngine->Resize(std::max(w, 2), std::max(h, 2));
+
+  /// @todo Expected that DrapeEngine::Resize does all the work, but nope ..
+  /// - Strange, but seems like iOS works fine without it.
+  /// - Test Android screen orientation and position mark in map and navigation modes.
+  SetVisibleViewport(m2::RectD(0, 0, w, h));
 }
 
 namespace
@@ -1085,19 +1075,6 @@ void Framework::RunFirstLaunchAnimation()
 {
   if (m_drapeEngine != nullptr)
     m_drapeEngine->RunFirstLaunchAnimation();
-}
-
-bool Framework::IsCountryLoaded(m2::PointD const & pt) const
-{
-  // TODO (@gorshenin, @govako): the method's name is quite
-  // obfuscating and should be fixed.
-
-  // Correct, but slow version (check country polygon).
-  string const fName = m_infoGetter->GetRegionCountryId(pt);
-  if (fName.empty())
-    return true;
-
-  return m_featuresFetcher.IsLoaded(fName);
 }
 
 bool Framework::IsCountryLoadedByName(string_view name) const
@@ -1207,11 +1184,6 @@ void Framework::InitTransliteration()
 
   if (!LoadTransliteration())
     Transliteration::Instance().SetMode(Transliteration::Mode::Disabled);
-}
-
-storage::CountryId Framework::GetCountryIndex(m2::PointD const & pt) const
-{
-  return m_infoGetter->GetRegionCountryId(pt);
 }
 
 string Framework::GetCountryName(m2::PointD const & pt) const
@@ -1403,20 +1375,19 @@ void Framework::FillSearchResultsMarks(SearchResultsIterT beg, SearchResultsIter
       continue;
 
     auto * mark = editSession.CreateUserMark<SearchMarkPoint>(r.GetFeatureCenter());
-    auto const isFeature = r.GetResultType() == search::Result::Type::Feature;
-    if (isFeature)
-      mark->SetFoundFeature(r.GetFeatureID());
-
     mark->SetMatchedName(r.GetString());
 
-    if (isFeature)
+    if (r.GetResultType() == search::Result::Type::Feature)
     {
+      auto const fID = r.GetFeatureID();
+      mark->SetFoundFeature(fID);
+
       if (r.m_details.m_isHotel)
         mark->SetHotelType();
       else
         mark->SetFromType(r.GetFeatureType());
-      mark->SetVisited(m_searchMarks.IsVisited(mark->GetFeatureID()));
-      mark->SetSelected(m_searchMarks.IsSelected(mark->GetFeatureID()));
+      mark->SetVisited(m_searchMarks.IsVisited(fID));
+      mark->SetSelected(m_searchMarks.IsSelected(fID));
     }
   }
 }
@@ -1548,9 +1519,8 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
   OnSize(params.m_surfaceWidth, params.m_surfaceHeight);
 
   Allow3dMode(allow3d, allow3dBuildings);
-  LoadViewport();
 
-  SetVisibleViewport(m2::RectD(0, 0, params.m_surfaceWidth, params.m_surfaceHeight));
+  LoadViewport();
 
   if (m_connectToGpsTrack)
     GpsTracker::Instance().Connect(bind(&Framework::OnUpdateGpsTrackPointsCallback, this, _1, _2));
@@ -1740,10 +1710,7 @@ void Framework::SetupMeasurementSystem()
 {
   GetPlatform().SetupMeasurementSystem();
 
-  auto units = measurement_utils::Units::Metric;
-  settings::TryGet(settings::kMeasurementUnits, units);
-
-  m_routingManager.SetTurnNotificationsUnits(units);
+  m_routingManager.SetTurnNotificationsUnits(measurement_utils::GetMeasurementUnits());
 }
 
 void Framework::SetWidgetLayout(gui::TWidgetsLayoutInfo && layout)
@@ -1866,6 +1833,11 @@ std::string const & Framework::GetParsedAppName() const
   return m_parsedMapApi.GetAppName();
 }
 
+ms::LatLon Framework::GetParsedCenterLatLon() const
+{
+  return m_parsedMapApi.GetCenterLatLon();
+}
+
 FeatureID Framework::GetFeatureAtPoint(m2::PointD const & mercator,
                                        FeatureMatcher && matcher /* = nullptr */) const
 {
@@ -1957,6 +1929,7 @@ void Framework::SetPlacePageListeners(PlacePageEvent::OnOpen onOpen,
   m_onPlacePageOpen = std::move(onOpen);
   m_onPlacePageClose = std::move(onClose);
   m_onPlacePageUpdate = std::move(onUpdate);
+
 #ifdef OMIM_OS_ANDROID
   // A click on the Search result from the search activity in Android calls
   // ShowSearchResult/SelectSearchResult, but SetPlacePageListeners is set later,
@@ -2005,10 +1978,10 @@ void Framework::ActivateMapSelection()
                                 bi.m_needAnimationOnSelection, bi.m_isGeometrySelectionAllowed, true);
   }
 
+  /// @todo Current android logic is strange (see SetPlacePageListeners comments), so skip assert.
+  //ASSERT(m_onPlacePageOpen, ());
   if (m_onPlacePageOpen)
     m_onPlacePageOpen();
-  else
-    LOG(LWARNING, ("m_onPlacePageOpen has not been set up."));
 }
 
 void Framework::DeactivateMapSelection(bool notifyUI)
@@ -2188,6 +2161,11 @@ std::optional<place_page::Info> Framework::BuildPlacePageInfo(
       case UserMark::Type::TRANSIT:
       {
         FillTransitMarkInfo(*static_cast<TransitMark const *>(mark), outInfo);
+        break;
+      }
+      case UserMark::Type::SPEED_CAM:
+      {
+        FillSpeedCameraMarkInfo(*static_cast<SpeedCameraMark const *>(mark), outInfo);
         break;
       }
       default:
@@ -2711,10 +2689,13 @@ bool Framework::ParseEditorDebugCommand(search::SearchParams const & params)
         return true;
       }
 
-      feature::TypesHolder const types(*ft);
-      results.AddResultNoChecks(search::Result(fid, feature::GetCenter(*ft), string(ft->GetReadableName()),
-                                               move(edit.second), types.GetBestType(), {}));
+      search::Result res(feature::GetCenter(*ft), string(ft->GetReadableName()));
+      res.SetAddress(move(edit.second));
+      res.FromFeature(fid, feature::TypesHolder(*ft).GetBestType(), {});
+
+      results.AddResultNoChecks(std::move(res));
     }
+
     params.m_onResults(results);
 
     results.SetEndMarker(false /* isCancelled */);
@@ -2745,10 +2726,10 @@ bool Framework::ParseRoutingDebugCommand(search::SearchParams const & params)
   return false;
 }
 
+// Editable map object helper functions.
 namespace
 {
-[[nodiscard]] bool LocalizeStreet(DataSource const & dataSource, FeatureID const & fid,
-                                       osm::LocalizedStreet & result)
+bool LocalizeStreet(DataSource const & dataSource, FeatureID const & fid, osm::LocalizedStreet & result)
 {
   FeaturesLoaderGuard g(dataSource, fid.m_mwmId);
   auto ft = g.GetFeatureByIndex(fid.m_index);
@@ -2947,7 +2928,7 @@ osm::Editor::SaveResult Framework::SaveEditedMapObject(osm::EditableMapObject em
     }
     else
     {
-      originalFeature = std::make_unique<FeatureType>(emo);
+      originalFeature = FeatureType::CreateFromMapObject(emo);
     }
 
     // Handle only pois.
@@ -3224,27 +3205,14 @@ void Framework::FillDescription(FeatureType & ft, place_page::Info & info) const
   auto const deviceLang = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
   auto const langPriority = feature::GetDescriptionLangPriority(regionData, deviceLang);
 
-  std::string description;
-  if (m_descriptionsLoader->GetDescription(ft.GetID(), langPriority, description))
+  std::string description = m_descriptionsLoader->GetDescription(ft.GetID(), langPriority);
+  if (!description.empty())
   {
     info.SetDescription(std::move(description));
     info.SetOpeningMode(m_routingManager.IsRoutingActive()
                         ? place_page::OpeningMode::Preview
                         : place_page::OpeningMode::PreviewPlus);
   }
-}
-
-bool Framework::HaveTransit(m2::PointD const & pt) const
-{
-  auto const & dataSource = m_featuresFetcher.GetDataSource();
-  MwmSet::MwmId const mwmId =
-      dataSource.GetMwmIdByCountryFile(platform::CountryFile(m_infoGetter->GetRegionCountryId(pt)));
-
-  MwmSet::MwmHandle handle = m_featuresFetcher.GetDataSource().GetMwmHandleById(mwmId);
-  if (!handle.IsAlive())
-    return false;
-
-  return handle.GetValue()->m_cont.IsExist(TRANSIT_FILE_TAG);
 }
 
 void Framework::OnPowerFacilityChanged(power_management::Facility const facility, bool enabled)

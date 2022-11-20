@@ -5,16 +5,14 @@
 #include <numeric>
 #include <utility>
 
-using namespace std;
-
 namespace m2
 {
-Spline::Spline(vector<PointD> const & path)
+Spline::Spline(std::vector<PointD> const & path)
 {
   Init(path);
 }
 
-Spline::Spline(vector<PointD> && path)
+Spline::Spline(std::vector<PointD> && path)
 {
   Init(move(path));
 }
@@ -70,7 +68,7 @@ bool Spline::IsPrelonging(PointD const & pt)
   PointD prevDir = m_direction.back().Normalize();
 
   double const MAX_ANGLE_THRESHOLD = 0.995;
-  return fabs(DotProduct(prevDir, dir)) > MAX_ANGLE_THRESHOLD;
+  return std::fabs(DotProduct(prevDir, dir)) > MAX_ANGLE_THRESHOLD;
 }
 
 size_t Spline::GetSize() const
@@ -105,17 +103,17 @@ Spline::iterator Spline::GetPoint(double step) const
 
 double Spline::GetLength() const
 {
-  return accumulate(m_length.begin(), m_length.end(), 0.0);
+  return std::accumulate(m_length.begin(), m_length.end(), 0.0);
 }
 
 template <typename T>
 void Spline::Init(T && path)
 {
   ASSERT(path.size() > 1, ("Wrong path size!"));
-  m_position = forward<T>(path);
+  m_position = std::forward<T>(path);
   size_t cnt = m_position.size() - 1;
-  m_direction = vector<PointD>(cnt);
-  m_length = vector<double>(cnt);
+  m_direction = std::vector<PointD>(cnt);
+  m_length = std::vector<double>(cnt);
 
   for (size_t i = 0; i < cnt; ++i)
   {
@@ -159,7 +157,7 @@ void Spline::iterator::Advance(double step)
 
 double Spline::iterator::GetLength() const
 {
-  return accumulate(m_spl->m_length.begin(), m_spl->m_length.begin() + m_index, m_dist);
+  return std::accumulate(m_spl->m_length.begin(), m_spl->m_length.begin() + m_index, m_dist);
 }
 
 double Spline::iterator::GetFullLength() const
@@ -235,13 +233,13 @@ void Spline::iterator::AdvanceForward(double step)
   m_avrDir += m_pos;
 }
 
-SharedSpline::SharedSpline(vector<PointD> const & path)
-  : m_spline(make_shared<Spline>(path))
+SharedSpline::SharedSpline(std::vector<PointD> const & path)
+  : m_spline(std::make_shared<Spline>(path))
 {
 }
 
-SharedSpline::SharedSpline(vector<PointD> && path)
-  : m_spline(make_shared<Spline>(move(path)))
+SharedSpline::SharedSpline(std::vector<PointD> && path)
+  : m_spline(std::make_shared<Spline>(move(path)))
 {
 }
 
@@ -255,7 +253,7 @@ void SharedSpline::Reset(Spline * spline)
   m_spline.reset(spline);
 }
 
-void SharedSpline::Reset(vector<PointD> const & path)
+void SharedSpline::Reset(std::vector<PointD> const & path)
 {
   m_spline.reset(new Spline(path));
 }

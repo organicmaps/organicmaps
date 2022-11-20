@@ -36,7 +36,7 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
     vc.placePagePreviewData = placePageData.previewData
     return vc
   } ()
-  
+
   lazy var wikiDescriptionViewController: WikiDescriptionViewController = {
     let vc = storyboard.instantiateViewController(ofType: WikiDescriptionViewController.self)
     vc.view.isHidden = true
@@ -50,14 +50,14 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
     vc.delegate = interactor
     return vc
   } ()
-  
+
   lazy var infoViewController: PlacePageInfoViewController = {
     let vc = storyboard.instantiateViewController(ofType: PlacePageInfoViewController.self)
     vc.placePageInfoData = placePageData.infoData
     vc.delegate = interactor
     return vc
   } ()
-  
+
   lazy var buttonsViewController: PlacePageButtonsViewController = {
     let vc = storyboard.instantiateViewController(ofType: PlacePageButtonsViewController.self)
     vc.buttonsData = placePageData.buttonsData!
@@ -65,7 +65,7 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
     vc.delegate = interactor
     return vc
   } ()
-  
+
   lazy var actionBarViewController: ActionBarViewController = {
     let vc = storyboard.instantiateViewController(ofType: ActionBarViewController.self)
     vc.placePageData = placePageData
@@ -82,13 +82,13 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
   lazy var placePageNavigationViewController: PlacePageHeaderViewController = {
     return PlacePageHeaderBuilder.build(data: placePageData.previewData, delegate: interactor, headerType: .fixed)
   } ()
-  
+
   init(interactor: PlacePageInteractor, storyboard: UIStoryboard, data: PlacePageData) {
     self.interactor = interactor
     self.storyboard = storyboard
     self.placePageData = data
   }
-  
+
   private func configureViewControllers() -> [UIViewController] {
     var viewControllers = [UIViewController]()
     viewControllers.append(previewViewController)
@@ -113,7 +113,7 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
     if placePageData.buttonsData != nil {
       viewControllers.append(buttonsViewController)
     }
-    
+
     placePageData.onBookmarkStatusUpdate = { [weak self] in
       guard let self = self else { return }
       if self.placePageData.bookmarkData == nil {
@@ -184,8 +184,9 @@ extension PlacePageCommonLayout {
       isBookmark = true
     }
     if let title = placePageData.previewData.title {
-      header?.setTitle(title)
-      placePageNavigationViewController.setTitle(title)
+      let secondaryTitle = placePageData.previewData.secondaryTitle
+      header?.setTitle(title, secondaryTitle: secondaryTitle)
+      placePageNavigationViewController.setTitle(title, secondaryTitle: secondaryTitle)
     }
     self.presenter?.layoutIfNeeded()
     UIView.animate(withDuration: kDefaultAnimationDuration) { [unowned self] in
@@ -212,9 +213,8 @@ extension PlacePageCommonLayout: MWMLocationObserver {
       let altString = "▲ \(unitsFormatter.string(from: altMeasurement))"
 
       if location.speed > 0 && location.timestamp.timeIntervalSinceNow >= -2 {
-        let speed = imperial ? location.speed * 2.237 : location.speed * 3.6
-        let speedMeasurement = Measurement(value: speed.rounded(), unit: imperial ? UnitSpeed.milesPerHour: UnitSpeed.kilometersPerHour)
-        let speedString = "\(LocationManager.speedSymbolFor(location.speed))\(unitsFormatter.string(from: speedMeasurement))"
+        let speedMeasure = Measure.init(asSpeed: location.speed)
+        let speedString = "\(LocationManager.speedSymbolFor(location.speed))\(speedMeasure.valueAsString) \(speedMeasure.unit)"
         previewViewController.updateSpeedAndAltitude("\(altString)  \(speedString)")
       } else {
         previewViewController.updateSpeedAndAltitude(altString)

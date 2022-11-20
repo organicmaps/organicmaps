@@ -4,7 +4,6 @@
 #include "qt/editor_dialog.hpp"
 #include "qt/place_page_dialog.hpp"
 #include "qt/qt_common/helpers.hpp"
-#include "qt/qt_common/scale_slider.hpp"
 #include "qt/routing_settings_dialog.hpp"
 #include "qt/screenshoter.hpp"
 
@@ -23,9 +22,7 @@
 
 #include "indexer/editable_map_object.hpp"
 
-#include "platform/downloader_defines.hpp"
 #include "platform/platform.hpp"
-#include "platform/settings.hpp"
 
 #include "coding/reader.hpp"
 
@@ -96,13 +93,25 @@ DrawWidget::DrawWidget(Framework & framework, bool apiOpenGLES3, std::unique_ptr
   auto & routingManager = m_framework.GetRoutingManager();
 
   routingManager.SetRouteBuildingListener(
-      [&routingManager, this](routing::RouterResultCode, storage::CountriesSet const &) {
+      [&routingManager, this](routing::RouterResultCode, storage::CountriesSet const &)
+      {
         auto & drapeApi = m_framework.GetDrapeApi();
 
         m_turnsVisualizer.ClearTurns(drapeApi);
 
         if (RoutingSettings::TurnsEnabled())
           m_turnsVisualizer.Visualize(routingManager, drapeApi);
+
+        RoutingManager::DistanceAltitude da;
+        if (!routingManager.GetRouteAltitudesAndDistancesM(da))
+          return;
+
+        da.Simplify();
+        LOG(LDEBUG, ("Altitudes:", da));
+
+        uint32_t totalAscent, totalDescent;
+        da.CalculateAscentDescent(totalAscent, totalDescent);
+        LOG(LINFO, ("Ascent:", totalAscent, "Descent:", totalDescent));
       });
 
   routingManager.SetRouteRecommendationListener(
@@ -192,7 +201,7 @@ void DrawWidget::mousePressEvent(QMouseEvent * e)
     if (IsShiftModifier(e))
       SubmitRoutingPoint(pt);
     else if (m_ruler.IsActive() && IsAltModifier(e))
-      SubmitRulerPoint(e);
+      SubmitRulerPoint(pt);
     else if (IsAltModifier(e))
       SubmitFakeLocationPoint(pt);
     else
@@ -465,18 +474,19 @@ void DrawWidget::SubmitFakeLocationPoint(m2::PointD const & pt)
 
   m_framework.OnLocationUpdate(qt::common::MakeGpsInfo(point));
 
-  if (m_framework.GetRoutingManager().IsRoutingActive())
+  auto & routingManager = m_framework.GetRoutingManager();
+  if (routingManager.IsRoutingActive())
   {
     /// Immediate update of the position in Route to get updated FollowingInfo state for visual debugging.
     /// m_framework.OnLocationUpdate calls RoutingSession::OnLocationPositionChanged
     /// with delay several times according to interpolation.
     /// @todo Write log when the final point will be reached and
     /// RoutingSession::OnLocationPositionChanged will be called the last time.
-    m_framework.GetRoutingManager().RoutingSession().OnLocationPositionChanged(qt::common::MakeGpsInfo(point));
+    routingManager.RoutingSession().OnLocationPositionChanged(qt::common::MakeGpsInfo(point));
 
     routing::FollowingInfo loc;
-    m_framework.GetRoutingManager().GetRouteFollowingInfo(loc);
-    if (m_framework.GetRoutingManager().GetCurrentRouterType() == routing::RouterType::Pedestrian)
+    routingManager.GetRouteFollowingInfo(loc);
+    if (routingManager.GetCurrentRouterType() == routing::RouterType::Pedestrian)
     {
       LOG(LDEBUG, ("Distance:", loc.m_distToTarget + loc.m_targetUnitsSuffix, "Time:", loc.m_time,
                    DebugPrint(loc.m_pedestrianTurn),
@@ -485,8 +495,11 @@ void DrawWidget::SubmitFakeLocationPoint(m2::PointD const & pt)
     }
     else
     {
-      LOG(LDEBUG, ("Distance:", loc.m_distToTarget + loc.m_targetUnitsSuffix, "Time:", loc.m_time,
-                   loc.m_speedLimitUnitsSuffix.empty() ? "" : "SpeedLimit: " + loc.m_speedLimit + loc.m_speedLimitUnitsSuffix,
+      std::string speed;
+      if (loc.m_speedLimitMps > 0)
+        speed = "SpeedLimit: " + measurement_utils::FormatSpeedNumeric(loc.m_speedLimitMps, measurement_utils::Units::Metric);
+
+      LOG(LDEBUG, ("Distance:", loc.m_distToTarget + loc.m_targetUnitsSuffix, "Time:", loc.m_time, speed,
                    GetTurnString(loc.m_turn), (loc.m_exitNum != 0 ? ":" + std::to_string(loc.m_exitNum) : ""),
                    "in", loc.m_distToTurn + loc.m_turnUnitsSuffix,
                    loc.m_targetName.empty() ? "" : "to " + loc.m_targetName ));
@@ -494,25 +507,23 @@ void DrawWidget::SubmitFakeLocationPoint(m2::PointD const & pt)
   }
 }
 
-void DrawWidget::SubmitRulerPoint(QMouseEvent * e)
+void DrawWidget::SubmitRulerPoint(m2::PointD const & pt)
 {
-  m2::PointD const pt = GetDevicePoint(e);
-  m2::PointD const point = GetCoordsFromSettingsIfExists(true /* start */, pt);
-  m_ruler.AddPoint(point);
+  m_ruler.AddPoint(P2G(pt));
   m_ruler.DrawLine(m_framework.GetDrapeApi());
 }
 
 void DrawWidget::SubmitRoutingPoint(m2::PointD const & pt)
 {
   auto & routingManager = m_framework.GetRoutingManager();
-  auto const pointsCount = routingManager.GetRoutePoints().size();
 
   // Check if limit of intermediate points is reached.
-  if (m_routePointAddMode == RouteMarkType::Intermediate && !routingManager.CouldAddIntermediatePoint())
+  bool const isIntermediate = m_routePointAddMode == RouteMarkType::Intermediate;
+  if (isIntermediate && !routingManager.CouldAddIntermediatePoint())
     routingManager.RemoveRoutePoint(RouteMarkType::Intermediate, 0);
 
   // Insert implicit start point.
-  if (m_routePointAddMode == RouteMarkType::Finish && pointsCount == 0)
+  if (m_routePointAddMode == RouteMarkType::Finish && routingManager.GetRoutePoints().empty())
   {
     RouteMarkData startPoint;
     startPoint.m_pointType = RouteMarkType::Start;
@@ -523,7 +534,10 @@ void DrawWidget::SubmitRoutingPoint(m2::PointD const & pt)
   RouteMarkData point;
   point.m_pointType = m_routePointAddMode;
   point.m_isMyPosition = false;
-  point.m_position = GetCoordsFromSettingsIfExists(false /* start */, pt);
+  if (!isIntermediate)
+    point.m_position = GetCoordsFromSettingsIfExists(false /* start */, pt);
+ else
+    point.m_position = P2G(pt);
 
   routingManager.AddRoutePoint(std::move(point));
 
@@ -548,13 +562,11 @@ void DrawWidget::SubmitRoutingPoint(m2::PointD const & pt)
 void DrawWidget::SubmitBookmark(m2::PointD const & pt)
 {
   auto & manager = m_framework.GetBookmarkManager();
-  if (!manager.HasBmCategory(m_bookmarksCategoryId))
-    m_bookmarksCategoryId = manager.CreateBookmarkCategory("Desktop_bookmarks");
 
   kml::BookmarkData data;
   data.m_color.m_predefinedColor = kml::PredefinedColor::Red;
   data.m_point = m_framework.P3dtoG(pt);
-  manager.GetEditSession().CreateBookmark(std::move(data), m_bookmarksCategoryId);
+  manager.GetEditSession().CreateBookmark(std::move(data), manager.LastEditedBMCategory());
 }
 
 void DrawWidget::FollowRoute()
@@ -699,11 +711,16 @@ void DrawWidget::RefreshDrawingRules()
   SetMapStyle(MapStyleClear);
 }
 
-m2::PointD DrawWidget::GetCoordsFromSettingsIfExists(bool start, m2::PointD const & pt)
+m2::PointD DrawWidget::P2G(m2::PointD const & pt) const
+{
+  return m_framework.P3dtoG(pt);
+}
+
+m2::PointD DrawWidget::GetCoordsFromSettingsIfExists(bool start, m2::PointD const & pt) const
 {
   if (auto optional = RoutingSettings::GetCoords(start))
     return mercator::FromLatLon(*optional);
 
-  return m_framework.P3dtoG(pt);
+  return P2G(pt);
 }
 }  // namespace qt

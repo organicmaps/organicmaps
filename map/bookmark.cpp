@@ -1,11 +1,12 @@
 #include "map/bookmark.hpp"
 #include "map/bookmark_helpers.hpp"
 
+#include "indexer/scales.hpp"
+
 #include "base/string_utils.hpp"
 
 #include <sstream>
 
-#include "private.h"
 
 namespace
 {
@@ -400,5 +401,5 @@ kml::PredefinedColor BookmarkCategory::GetDefaultColor()
 void BookmarkCategory::SetDirty()
 {
   Base::SetDirty();
-  m_data.m_lastModified = std::chrono::system_clock::now();
+  m_data.m_lastModified = kml::TimestampClock::now();
 }

@@ -1,7 +1,6 @@
 #pragma once
 
 #include "base/assert.hpp"
-#include "base/macros.hpp"
 #include "base/thread_pool_delayed.hpp"
 
 #include <algorithm>
@@ -10,7 +9,6 @@
 #include <memory>
 #include <mutex>
 #include <unordered_set>
-#include <utility>
 #include <vector>
 
 namespace dp
@@ -171,10 +169,8 @@ class ActiveTasks
     std::shared_ptr<TaskType> m_task;
     DrapeRoutine::ResultPtr m_result;
 
-    ActiveTask(std::shared_ptr<TaskType> const & task,
-               DrapeRoutine::ResultPtr const & result)
-      : m_task(task)
-      , m_result(result)
+    ActiveTask(std::shared_ptr<TaskType> && task, DrapeRoutine::ResultPtr && result)
+      : m_task(std::move(task)), m_result(std::move(result))
     {}
   };
 
@@ -184,13 +180,12 @@ public:
     FinishAll();
   }
 
-  void Add(std::shared_ptr<TaskType> const & task,
-           DrapeRoutine::ResultPtr const & result)
+  void Add(std::shared_ptr<TaskType> && task, DrapeRoutine::ResultPtr && result)
   {
     ASSERT(task != nullptr, ());
     ASSERT(result != nullptr, ());
     std::lock_guard<std::mutex> lock(m_mutex);
-    m_tasks.emplace_back(task, result);
+    m_tasks.emplace_back(std::move(task), std::move(result));
   }
 
   void Remove(std::shared_ptr<TaskType> const & task)

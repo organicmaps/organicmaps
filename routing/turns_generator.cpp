@@ -314,7 +314,13 @@ void CorrectCandidatesSegmentByOutgoing(TurnInfo const & turnInfo, Segment const
   else // firstOutgoingSeg is found.
   {
     if (nodes.isCandidatesAngleValid)
-      ASSERT((base::AlmostEqualAbs(it->m_angle, turnAngle, 0.001) || abs(it->m_angle) + abs(turnAngle) > 359.999), ());
+    {
+#ifdef DEBUG
+      double constexpr eps = 0.001;
+      double const diff = fabs(it->m_angle - turnAngle);
+      ASSERT(diff < eps || fabs(diff - 360) < eps, (it->m_angle, turnAngle));
+#endif
+    }
     else
     {
       it->m_angle = turnAngle;

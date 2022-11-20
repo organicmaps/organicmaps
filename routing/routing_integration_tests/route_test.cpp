@@ -153,7 +153,7 @@ using namespace std;
         mercator::FromLatLon(50.21480, -5.47994), 455902.);
   }
 
-  UNIT_TEST(RussiaMoscowLenigradskiy39ItalySienaCenterRouteTest)
+  UNIT_TEST(RussiaMoscow_ItalySienaCenter_SplittedMotorway)
   {
     integration::CalculateRouteAndTestRouteLength(
         integration::GetVehicleComponents(VehicleType::Car),
@@ -378,7 +378,7 @@ using namespace std;
     integration::TestRouteTime(route, 19053.0);
   }
 
-  // Test on roads with tag route=shuttle_train
+  // Test on roads with tag route=shuttle_train. This train has defined maxspeed=100.
   UNIT_TEST(GermanyShuttleTrainTest)
   {
     TRouteResult const routeResult =
@@ -390,7 +390,8 @@ using namespace std;
 
     CHECK(routeResult.first, ());
     Route const & route = *routeResult.first;
-    integration::TestRouteTime(route, 6210.24);
+    integration::TestRouteLength(route, 44116.7);
+    integration::TestRouteTime(route, 2509.81);
   }
 
   UNIT_TEST(TolyattiFeatureThatCrossSeveralMwmsTest)
@@ -740,5 +741,30 @@ using namespace std;
         integration::GetVehicleComponents(VehicleType::Car),
         mercator::FromLatLon(34.0175371, -84.3272339), {0., 0.},
         mercator::FromLatLon(34.0298011, -84.3182477), 1609.76);
+  }
+
+  UNIT_TEST(Russia_UseDonMotorway)
+  {
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetVehicleComponents(VehicleType::Car),
+        mercator::FromLatLon(54.5775321, 38.2206224), {0., 0.},
+        mercator::FromLatLon(49.9315563, 40.5529881), 608031);
+  }
+
+  UNIT_TEST(Germany_Italy_Malcesine)
+  {
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetVehicleComponents(VehicleType::Car),
+        mercator::FromLatLon(48.4101446, 11.5892265), {0., 0.},
+        mercator::FromLatLon(45.7662964, 10.8111554), 427135);
+  }
+
+  // https://github.com/organicmaps/organicmaps/issues/3363
+  UNIT_TEST(Belarus_UseP27_PastawyBraslaw)
+  {
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetVehicleComponents(VehicleType::Car),
+        mercator::FromLatLon(55.1187744, 26.8460319), {0., 0.},
+        mercator::FromLatLon(55.6190911, 27.0938092), 86239.8);
   }
 } // namespace route_test

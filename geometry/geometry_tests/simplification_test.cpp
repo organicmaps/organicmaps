@@ -13,12 +13,12 @@
 #include <limits>
 #include <vector>
 
+namespace simplification_test
+{
 using namespace std;
 
-namespace
-{
 using P = m2::PointD;
-using DistanceFn = m2::SquaredDistanceFromSegmentToPoint<P>;
+using DistanceFn = m2::SquaredDistanceFromSegmentToPoint;
 using PointOutput = base::BackInsertFunctor<vector<m2::PointD>>;
 using SimplifyFn = void (*)(m2::PointD const *, m2::PointD const *, double, DistanceFn,
                             PointOutput);
@@ -98,7 +98,6 @@ void CheckDPStrict(P const * arr, size_t n, double eps, size_t expectedCount)
     TEST_GREATER_OR_EQUAL(d(vec[i - 2], vec[i], vec[i - 1]), eps, ());
   }
 }
-}  // namespace
 
 UNIT_TEST(Simplification_TestDataIsCorrect)
 {
@@ -143,3 +142,4 @@ UNIT_TEST(Simpfication_DP_DegenerateTrg)
               P(100.1, 450), P(100, 500),   P(0, 600)};
   CheckDPStrict(arr2, ARRAY_SIZE(arr2), 1.0, 4);
 }
+}  // namespace simplification_test

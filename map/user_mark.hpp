@@ -68,7 +68,7 @@ public:
   void ResetChanges() const override { m_isDirty = false; }
   bool IsVisible() const override { return true; }
   m2::PointD const & GetPivot() const override;
-  m2::PointD GetPixelOffset() const override { return {}; }
+  m2::PointD GetPixelOffset() const override { return {0.0, 0.0}; }
   dp::Anchor GetAnchor() const override { return dp::Center; }
   bool GetDepthTestEnabled() const override { return true; }
   float GetDepth() const override { return kInvalidDepth; }

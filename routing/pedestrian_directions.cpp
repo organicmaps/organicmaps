@@ -108,15 +108,6 @@ void PedestrianDirectionsEngine::FixupTurns(vector<RouteSegment> & routeSegments
         routeSegments[idx - 1].ClearTurn();
     }
   }
-
-#ifdef DEBUG
-  for (auto const & r : routeSegments)
-  {
-    auto const & t = r.GetTurn();
-    if (!t.IsTurnNone())
-      LOG(LDEBUG, (GetTurnString(t.m_turn), ":", t.m_index));
-  }
-#endif
 }
 
 }  // namespace routing

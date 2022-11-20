@@ -83,6 +83,7 @@ struct LineViewParams : CommonViewParams
 {
   dp::Color m_color;
   float m_width = 0.0f;
+  /// @todo Consider set defaults like RoundCap, RoundJoin?
   dp::LineCap m_cap;
   dp::LineJoin m_join;
   dp::PenPatternT m_pattern;

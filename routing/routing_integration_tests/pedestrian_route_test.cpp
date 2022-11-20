@@ -546,6 +546,9 @@ UNIT_TEST(RussiaElbrusPriut11)
 // Test on going straight forward on primary road.
 UNIT_TEST(BudvaPrimaryRoad)
 {
+  /// @todo Current pedestrian model avoids primary road and makes some small detours.
+  /// Can't say what is better here in general, but seems like it's ok to walk on primary in Montenegro.
+
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
       mercator::FromLatLon(42.2884527, 18.8456794), {0., 0.},

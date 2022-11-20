@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="24px" height="24px" version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <title>shelter-m</title>
-    <g fill="none" fill-rule="evenodd">
-        <g id="home-m" fill="none" fill-rule="nonzero" stroke="#FFF" stroke-linecap="round" stroke-linejoin="round" opacity="0.6">
-            <path d="m17.786 20.842v-8.4682h-11.572v8.4682" stroke-width="1.5"/>
-            <path d="m12.625 2.2617-.625 2.3203zm-4.4199 3.125-.625 2.3203zm8.8398 0-.625 2.3203zm-13.262 3.9727-.625 2.3203zm17.684 0-.625 2.3203z" stroke-width=".5"/>
-            <path d="m3.7832 14.493 8.2168-7.3211 8.2168 7.3211" stroke-width="2"/>
-        </g>
-    </g>
+<svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+ <title>shelter-m</title>
+ <g fill="none" fill-rule="evenodd">
+  <g id="home-m" fill="none" fill-rule="nonzero" opacity=".6" stroke="#FFF" stroke-linecap="round" stroke-linejoin="round">
+   <path d="m17.786 20.842v-8.4682h-11.572v8.4682" stroke-width="1.5"/>
+   <path d="m12.625 2.2617-.625 2.3203zm-4.4199 3.125-.625 2.3203zm8.8398 0-.625 2.3203zm-13.262 3.9727-.625 2.3203zm17.684 0-.625 2.3203z" stroke-width=".5"/>
+   <path d="m3.7832 14.493 8.2168-7.3211 8.2168 7.3211" stroke-width="2"/>
+  </g>
+ </g>
 </svg>

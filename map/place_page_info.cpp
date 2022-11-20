@@ -13,18 +13,14 @@
 
 #include "platform/measurement_utils.hpp"
 #include "platform/preferred_languages.hpp"
-#include "platform/settings.hpp"
 #include "platform/localization.hpp"
 
 #include "base/assert.hpp"
 
 #include <sstream>
 
-#include "private.h"
-
 namespace place_page
 {
-char const * const Info::kSubtitleSeparator = " • ";
 char const * const Info::kStarSymbol = "★";
 char const * const Info::kMountainSymbol = "▲";
 char const * const kWheelchairSymbol = u8"\u267F";
@@ -60,9 +56,17 @@ void Info::SetFromFeatureType(FeatureType & ft)
   {
     m_uiTitle = GetBookmarkName();
 
-    auto const secondaryTitle = m_customName.empty() ? m_primaryFeatureName : m_customName;
+    std::string secondaryTitle;
+
+    if (!m_customName.empty())
+      secondaryTitle = m_customName;
+    else if (!out.secondary.empty())
+      secondaryTitle = out.secondary;
+    else
+      secondaryTitle = m_primaryFeatureName;
+
     if (m_uiTitle != secondaryTitle)
-      m_uiSecondaryTitle = secondaryTitle;
+      m_uiSecondaryTitle = std::move(secondaryTitle);
 
     m_uiSubtitle = FormatSubtitle(true /* withType */);
     m_uiAddress = m_address;
@@ -102,7 +106,7 @@ std::string Info::FormatSubtitle(bool withType) const
   auto const append = [&result](std::string_view sv)
   {
     if (!result.empty())
-      result += kSubtitleSeparator;
+      result += kFieldsSeparator;
     result += sv;
   };
 
@@ -113,7 +117,7 @@ std::string Info::FormatSubtitle(bool withType) const
     append(GetLocalizedType());
 
   // Flats.
-  auto const flats = GetFlats();
+  auto const flats = GetMetadata(feature::Metadata::FMD_FLATS);
   if (!flats.empty())
     append(flats);
 
@@ -126,7 +130,7 @@ std::string Info::FormatSubtitle(bool withType) const
     append(recycling);
 
   // Airport IATA code.
-  auto const iata = GetAirportIata();
+  auto const iata = GetMetadata(feature::Metadata::FMD_AIRPORT_IATA);
   if (!iata.empty())
     append(iata);
 
@@ -141,7 +145,7 @@ std::string Info::FormatSubtitle(bool withType) const
     append(stars);
 
   // Operator.
-  auto const op = GetOperator();
+  auto const op = GetMetadata(feature::Metadata::FMD_OPERATOR);
   if (!op.empty())
     append(op);
 
@@ -187,7 +191,7 @@ void Info::SetTitlesForBookmark()
   subtitle.push_back(m_bookmarkCategoryName);
   if (!m_bookmarkData.m_featureTypes.empty())
     subtitle.push_back(GetLocalizedFeatureType(m_bookmarkData.m_featureTypes));
-  m_uiSubtitle = strings::JoinStrings(subtitle, kSubtitleSeparator);
+  m_uiSubtitle = strings::JoinStrings(subtitle, kFieldsSeparator);
 }
 
 void Info::SetCustomName(std::string const & name)
@@ -232,7 +236,7 @@ void Info::SetFromBookmarkProperties(kml::Properties const & p)
   if (auto const email = p.find("email"); email != p.end() && !email->second.empty())
     m_metadata.Set(feature::Metadata::EType::FMD_EMAIL, email->second);
   if (auto const url = p.find("url"); url != p.end() && !url->second.empty())
-    m_metadata.Set(feature::Metadata::EType::FMD_URL, url->second);
+    m_metadata.Set(feature::Metadata::EType::FMD_WEBSITE, url->second);
   m_hasMetadata = true;
 }
 
@@ -303,7 +307,7 @@ void Info::SetRoadType(FeatureType & ft, RoadWarningMarkType type, std::string c
   {
     if (!m_uiTitle.empty())
     {
-      m_uiTitle += kSubtitleSeparator;
+      m_uiTitle += kFieldsSeparator;
       m_uiTitle += str;
     }
     else
@@ -313,7 +317,7 @@ void Info::SetRoadType(FeatureType & ft, RoadWarningMarkType type, std::string c
   auto const addSubtitle = [this](std::string_view sv)
   {
     if (!m_uiSubtitle.empty())
-      m_uiSubtitle += kSubtitleSeparator;
+      m_uiSubtitle += kFieldsSeparator;
     m_uiSubtitle += sv;
   };
 
@@ -350,7 +354,8 @@ void Info::SetRoadType(FeatureType & ft, RoadWarningMarkType type, std::string c
   {
     m_uiTitle = m_primaryFeatureName;
     addSubtitle(localizedType);
-    auto const operatorName = GetOperator();
+
+    auto const operatorName = GetMetadata(feature::Metadata::FMD_OPERATOR);
     if (!operatorName.empty())
       addSubtitle(operatorName);
   }

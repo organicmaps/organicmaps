@@ -2,8 +2,8 @@
 
 #include "search/pre_ranking_info.hpp"
 #include "search/ranking_info.hpp"
-#include "search/ranking_utils.hpp"
 #include "search/result.hpp"
+#include "search/tracer.hpp"
 
 #include "storage/storage_defines.hpp"
 
@@ -34,9 +34,14 @@ public:
   PreRankerResult(FeatureID const & id, PreRankingInfo const & info,
                   std::vector<ResultTracer::Branch> const & provenance);
 
+  /// @name Compare functions.
+  /// @return true (-1) if lhs is better (less in sort) than rhs.
+  /// @{
   static bool LessRankAndPopularity(PreRankerResult const & lhs, PreRankerResult const & rhs);
   static bool LessDistance(PreRankerResult const & lhs, PreRankerResult const & rhs);
+  static int CompareByTokensMatch(PreRankerResult const & lhs, PreRankerResult const & rhs);
   static bool LessByExactMatch(PreRankerResult const & lhs, PreRankerResult const & rhs);
+  /// @}
 
   struct CategoriesComparator
   {
@@ -57,7 +62,7 @@ public:
   std::vector<ResultTracer::Branch> const & GetProvenance() const { return m_provenance; }
 #endif
 
-  size_t GetInnermostTokensNumber() const { return m_info.InnermostTokenRange().Size(); }
+//  size_t GetInnermostTokensNumber() const { return m_info.InnermostTokenRange().Size(); }
   size_t GetMatchedTokensNumber() const { return m_matchedTokensNumber; }
   bool IsNotRelaxed() const { return !m_isRelaxed; }
 
@@ -69,6 +74,8 @@ public:
     m_info.m_center = center;
     m_info.m_centerLoaded = true;
   }
+
+  friend std::string DebugPrint(PreRankerResult const & r);
 
 private:
   FeatureID m_id;
@@ -88,18 +95,18 @@ private:
 class RankerResult
 {
 public:
-  enum class Type
+  enum class Type : uint8_t
   {
-    LatLon,
+    LatLon = 0,
     Feature,
     Building,  //!< Buildings are not filtered out in duplicates filter.
     Postcode
   };
 
   /// For Type::Feature and Type::Building.
-  RankerResult(FeatureType & f, m2::PointD const & center, m2::PointD const & pivot,
+  RankerResult(FeatureType & ft, m2::PointD const & center,
                std::string displayName, std::string const & fileName);
-  RankerResult(FeatureType & ft, m2::PointD const & pivot, std::string const & fileName);
+  RankerResult(FeatureType & ft, std::string const & fileName);
 
   /// For Type::LatLon.
   RankerResult(double lat, double lon);
@@ -109,31 +116,31 @@ public:
 
   bool IsStreet() const;
 
-  RankingInfo const & GetRankingInfo() const { return m_info; }
-  void SetRankingInfo(RankingInfo & info)
+  StoredRankingInfo const & GetRankingInfo() const { return m_info; }
+  void SetRankingInfo(RankingInfo const & info)
   {
-    // No sense to make move for RankingInfo.
+    m_finalRank = info.GetLinearModelRank();
     m_info = info;
   }
 
   FeatureID const & GetID() const { return m_id; }
   std::string const & GetName() const { return m_str; }
   feature::TypesHolder const & GetTypes() const { return m_types; }
-  Type const & GetResultType() const { return m_resultType; }
+  Type GetResultType() const { return m_resultType; }
   m2::PointD GetCenter() const { return m_region.m_point; }
-  double GetDistance() const { return m_distance; }
   feature::GeomType GetGeomType() const { return m_geomType; }
   Result::Details GetDetails() const { return m_details; }
 
   double GetDistanceToPivot() const { return m_info.m_distanceToPivot; }
-  double GetLinearModelRank() const { return m_info.GetLinearModelRank(); }
+  double GetLinearModelRank() const { return m_finalRank; }
 
   bool GetCountryId(storage::CountryInfoGetter const & infoGetter, uint32_t ftype,
                     storage::CountryId & countryId) const;
 
+  bool IsEqualBasic(RankerResult const & r) const;
   bool IsEqualCommon(RankerResult const & r) const;
 
-  uint32_t GetBestType(std::vector<uint32_t> const & preferredTypes = {}) const;
+  uint32_t GetBestType(std::vector<uint32_t> const * preferredTypes = nullptr) const;
 
 #ifdef SEARCH_USE_PROVENANCE
   std::vector<ResultTracer::Branch> const & GetProvenance() const { return m_provenance; }
@@ -161,14 +168,18 @@ private:
   };
 
   RegionInfo m_region;
-  FeatureID m_id;
   feature::TypesHolder m_types;
   std::string m_str;
-  double m_distance = 0.0;
-  Type m_resultType;
-  RankingInfo m_info = {};
-  feature::GeomType m_geomType = feature::GeomType::Undefined;
   Result::Details m_details;
+
+  StoredRankingInfo m_info;
+  std::shared_ptr<RankingInfo> m_dbgInfo;   // used in debug logs and tests, nullptr in production
+
+  FeatureID m_id;
+  double m_finalRank;
+
+  Type m_resultType;
+  feature::GeomType m_geomType = feature::GeomType::Undefined;
 
 #ifdef SEARCH_USE_PROVENANCE
   // The call path in the Geocoder that leads to this result.

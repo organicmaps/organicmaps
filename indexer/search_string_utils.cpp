@@ -1,13 +1,10 @@
 #include "indexer/search_string_utils.hpp"
 
-#include "indexer/string_set.hpp"
 #include "indexer/transliteration_loader.hpp"
 
 #include "coding/transliteration.hpp"
 
-#include "base/assert.hpp"
 #include "base/dfa_helpers.hpp"
-#include "base/macros.hpp"
 #include "base/mem_trie.hpp"
 
 #include <algorithm>
@@ -17,11 +14,11 @@
 
 #include "3party/utfcpp/source/utf8/unchecked.h"
 
+namespace search
+{
 using namespace std;
 using namespace strings;
 
-namespace search
-{
 namespace
 {
 vector<strings::UniString> const kAllowedMisprints = {
@@ -35,31 +32,6 @@ vector<strings::UniString> const kAllowedMisprints = {
     strings::MakeUniString("шщ"),
 };
 
-// Replaces '#' followed by an end-of-string or a digit with space.
-void RemoveNumeroSigns(UniString & s)
-{
-  size_t const n = s.size();
-
-  size_t i = 0;
-  while (i < n)
-  {
-    if (s[i] != '#')
-    {
-      ++i;
-      continue;
-    }
-
-    size_t j = i + 1;
-    while (j < n && IsASCIISpace(s[j]))
-      ++j;
-
-    if (j == n || IsASCIIDigit(s[j]))
-      s[i] = ' ';
-
-    i = j;
-  }
-}
-
 void TransliterateHiraganaToKatakana(UniString & s)
 {
   // Transliteration is heavy. Check we have any hiragana symbol before transliteration.
@@ -72,15 +44,6 @@ void TransliterateHiraganaToKatakana(UniString & s)
     s = MakeUniString(out);
 }
 }  // namespace
-
-size_t GetMaxErrorsForTokenLength(size_t length)
-{
-  if (length < 4)
-    return 0;
-  if (length < 8)
-    return 1;
-  return 2;
-}
 
 size_t GetMaxErrorsForToken(strings::UniString const & token)
 {
@@ -150,17 +113,18 @@ UniString NormalizeAndSimplifyString(string_view s)
   TransliterateHiraganaToKatakana(uniString);
 
   // Remove accents that can appear after NFKD normalization.
-  uniString.erase_if([](UniChar const & c) {
+  uniString.erase_if([](UniChar const & c)
+  {
     // ̀  COMBINING GRAVE ACCENT
     // ́  COMBINING ACUTE ACCENT
     return (c == 0x0300 || c == 0x0301);
   });
 
-  RemoveNumeroSigns(uniString);
-
   // Replace sequence of spaces with single one.
-  auto const spacesChecker = [](UniChar lhs, UniChar rhs) { return (lhs == rhs) && (lhs == ' '); };
-  uniString.erase(unique(uniString.begin(), uniString.end(), spacesChecker), uniString.end());
+  uniString.erase(unique(uniString.begin(), uniString.end(), [](UniChar l, UniChar r)
+  {
+    return (l == r && l == ' ');
+  }), uniString.end());
 
   return uniString;
 
@@ -219,6 +183,22 @@ UniString FeatureTypeToString(uint32_t type)
 {
   string const s = "!type:" + to_string(type);
   return UniString(s.begin(), s.end());
+}
+
+std::vector<strings::UniString> NormalizeAndTokenizeString(std::string_view s)
+{
+  std::vector<strings::UniString> tokens;
+  ForEachNormalizedToken(s, base::MakeBackInsertFunctor(tokens));
+  return tokens;
+}
+
+bool TokenizeStringAndCheckIfLastTokenIsPrefix(std::string_view s, std::vector<strings::UniString> & tokens)
+{
+  auto const uniString = NormalizeAndSimplifyString(s);
+
+  Delimiters delims;
+  SplitUniString(uniString, base::MakeBackInsertFunctor(tokens), delims);
+  return !uniString.empty() && !delims(uniString.back());
 }
 
 namespace
@@ -312,6 +292,8 @@ public:
   }
 
 private:
+  /// @todo Print most common street tokens for each country on generator stage
+  /// (OSM ground truth) and compare with these synonyms.
   StreetsSynonymsHolder()
   {
     char const * affics[] =
@@ -328,8 +310,19 @@ private:
       // Bulgarian - Български
       "булевард", "бул", "площад", "пл", "улица", "ул", "квартал", "кв",
 
+      /// @todo Do not use popular POI (carrefour) or Street name (rambla) tokens as generic street synonyms.
+      /// This POIs (Carrefour supermarket) and Streets (La Rambla - most popular street in Barcelona)
+      /// will be lost in search results, otherwise.
+      /// Should reconsider candidates fetching and sorting logic from scratch to make correct processing.
+
       // Canada
-      "allee", "alley", "autoroute", "aut", "bypass", "byway", "carrefour", "carref", "chemin", "cercle", "circle", "côte", "crossing", "cross", "expressway", "freeway", "fwy", "line", "link", "loop", "parkway", "pky", "pkwy", "path", "pathway", "ptway", "route", "rue", "rte", "trail", "walk",
+      "allee", "alley", "autoroute", "aut", "bypass", "byway", /*"carrefour", "carref",*/ "côte", "expressway", "freeway", "fwy", "pky", "pkwy",
+      /// @todo Do not use next _common search_ (e.g. 'park' is a prefix of 'parkway') tokens as generic street synonyms.
+      /// Should reconsider streets matching logic to get this synonyms back.
+      //"line", "link", "loop", "parkway", "parkvej", "path", "pathway", "route", "trail", "walk"
+
+      // Catalan language (Barcelona, Valencia, ...)
+      "avinguda", "carrer", /*"rambla", "ronda",*/ "passeig", "passatge", "travessera",
 
       // Croatian - Hrvatski
       "šetalište", "trg", "ulica", "ul", "poljana",
@@ -338,7 +331,7 @@ private:
       "ulice", "ul", "náměstí", "nám", "nábřeží", "nábr",
 
       // Danish - Dansk
-      "plads",
+      "plads", "alle", "gade", "vej",
 
       // Dutch - Nederlands
       "laan", "ln.", "straat", "steenweg", "stwg", "st",
@@ -371,7 +364,8 @@ private:
       "मार्ग", "marg",
 
       // Norwegian - Norsk
-      "vei", "veien", "vn", "gaten", "gata", "gt", "plass", "plassen", "sving", "svingen", "sv",
+      // Details here: https://github.com/organicmaps/organicmaps/issues/3616
+      "vei", "veien", "veg", "vegen", "vn", "gata", "gate", "gaten", "gt", "plass", "plassen", "sving", "sv", "allé",
 
       // Polish - Polski
       "aleja", "aleje", "aleji", "alejach", "aleją", "plac", "placu", "placem", "ulica", "ulicy",
@@ -389,7 +383,7 @@ private:
       "avenida", "avd", "avda", "bulevar", "bulev", "calle", "calleja", "cllja", "callejón", "callej", "cjon", "callejuela", "cjla", "callizo", "cllzo", "calzada", "czada", "costera", "coste", "plza", "pza", "plazoleta", "pzta", "plazuela", "plzla", "tránsito", "trans", "transversal", "trval", "trasera", "tras", "travesía", "trva", "paseo", "plaça",
 
       // Swedish - Svenska
-      "väg", "vägen", "gatan", "gränd", "gränden", "stig", "stigen", "plats", "platsen",
+      "väg", "vägen", "gata", "gatan", "gränd", "gränden", "stig", "stigen", "plats", "platsen", "allé",
 
       // Turkish - Türkçe
       "sokak", "sk.", "sok", "sokağı", "cadde", "cad", "cd", "caddesi", "bulvar", "bulvarı", "blv.",

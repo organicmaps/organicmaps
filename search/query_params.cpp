@@ -8,11 +8,11 @@
 #include <map>
 #include <sstream>
 
+namespace search
+{
 using namespace std;
 using namespace strings;
 
-namespace search
-{
 namespace
 {
 // All synonyms should be lowercase.
@@ -60,11 +60,49 @@ string DebugPrint(QueryParams::Token const & token)
 }
 
 // QueryParams -------------------------------------------------------------------------------------
+void QueryParams::ClearStreetIndices()
+{
+  class AdditionalCommonTokens
+  {
+    set<String> m_strings;
+  public:
+    AdditionalCommonTokens()
+    {
+      char const * arr[] = {
+        "the",                      // English
+        "der", "zum", "und", "auf", // German
+        "del", "les",               // Spanish
+        "в", "на"                   // Cyrillic
+      };
+      for (char const * s : arr)
+        m_strings.insert(NormalizeAndSimplifyString(s));
+    }
+    bool Has(String const & s) const { return m_strings.count(s) > 0; }
+  };
+  static AdditionalCommonTokens const s_addCommonTokens;
+
+  size_t const count = GetNumTokens();
+  m_isCommonToken.resize(count, false);
+
+  for (size_t i = 0; i < count; ++i)
+  {
+    auto const & token = GetToken(i).GetOriginal();
+    if (IsStreetSynonym(token))
+    {
+      m_typeIndices[i].clear();
+      m_isCommonToken[i] = true;
+    }
+    else if (s_addCommonTokens.Has(token))
+      m_isCommonToken[i] = true;
+  }
+}
+
 void QueryParams::Clear()
 {
   m_tokens.clear();
   m_prefixToken.Clear();
   m_hasPrefix = false;
+  m_isCommonToken.clear();
   m_typeIndices.clear();
   m_langs.Clear();
 }
@@ -101,6 +139,11 @@ QueryParams::Token & QueryParams::GetToken(size_t i)
   return i < m_tokens.size() ? m_tokens[i] : m_prefixToken;
 }
 
+bool QueryParams::IsCommonToken(size_t i) const
+{
+  return i < m_isCommonToken.size() && m_isCommonToken[i];
+}
+
 bool QueryParams::IsNumberTokens(TokenRange const & range) const
 {
   ASSERT(range.IsValid(), (range));
@@ -108,7 +151,7 @@ bool QueryParams::IsNumberTokens(TokenRange const & range) const
 
   for (size_t i : range)
   {
-    if (!GetToken(i).AnyOfOriginalOrSynonyms([](String const & s) { return feature::IsNumber(s); }))
+    if (!GetToken(i).AnyOfOriginalOrSynonyms([](String const & s) { return strings::IsASCIINumeric(s); }))
       return false;
   }
 
@@ -155,12 +198,13 @@ void QueryParams::AddSynonyms()
 string DebugPrint(QueryParams const & params)
 {
   ostringstream os;
-  os << "QueryParams [ "
-     << "m_query=\"" << params.m_query << "\""
-     << ", m_tokens=" << ::DebugPrint(params.m_tokens)
-     << ", m_prefixToken=" << DebugPrint(params.m_prefixToken)
-     << ", m_typeIndices=" << ::DebugPrint(params.m_typeIndices)
-     << ", m_langs=" << DebugPrint(params.m_langs) << " ]";
+  os << boolalpha << "QueryParams "
+     << "{ m_tokens: " << ::DebugPrint(params.m_tokens)
+     << ", m_prefixToken: " << DebugPrint(params.m_prefixToken)
+     << ", m_typeIndices: " << ::DebugPrint(params.m_typeIndices)
+     << ", m_langs: " << DebugPrint(params.m_langs)
+     << ", m_isCommonToken: " << ::DebugPrint(params.m_isCommonToken)
+     << " }";
   return os.str();
 }
 }  // namespace search

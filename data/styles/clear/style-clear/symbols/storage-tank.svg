@@ -1,17 +1,6 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   viewBox="0 0 14 14"
-   height="14"
-   width="14"
-   id="svg109"
-   version="1.1">
-   <title>storage-tank</title>
-   <g id="Page-1" fill="#717065" fill-rule="nonzero">
-      <path d="M 5.4511719 0 C 4.1792667 -0.0065223625 2.9230628 0.6531739 2 2 L 2 14 L 9 14 L 9 6 L 11 6 L 11 14 L 12 14 L 12 2 L 11 2 L 11 4.9414062 L 9 4.9414062 L 9 2 C 8.0106834 0.67926335 6.723077 0.0065223625 5.4511719 0 z "/>
-   </g>
+<svg version="1.1" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg">
+ <title>storage-tank</title>
+ <g fill="#717065">
+  <path d="m5.4512 0c-1.2719-0.0065224-2.5281 0.65317-3.4512 2v12h7v-8h2v8h1v-12h-1v2.9414h-2v-2.9414c-0.98932-1.3207-2.2769-1.9935-3.5488-2z"/>
+ </g>
 </svg>

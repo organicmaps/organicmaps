@@ -80,20 +80,8 @@ node[shop=car_repair][service=tyres],
 area[shop=car_repair][service=tyres],
 {z-index: 2832;}
 
-node[historic=boundary_stone],
-area[historic=boundary_stone],
-node[historic=wayside_cross],
-area[historic=wayside_cross],
-node[historic=ship],
-area[historic=ship],
-node[historic=tomb],
-area[historic=tomb],
-node[historic=ruins],
-area[historic=ruins],
-node[historic=wayside_shrine],
-area[historic=wayside_shrine],
-node[historic=archaeological_site],
-area[historic=archaeological_site],
+node[historic],
+area[historic],
 node[amenity=arts_centre],
 area[amenity=arts_centre]
 {z-index: 2868;}
@@ -107,8 +95,12 @@ node[tourism=attraction],
 area[tourism=attraction],
 node[historic=monument],
 area[historic=monument],
+node[historic=city_gate],
+area[historic=city_gate],
 node[historic=memorial],
 area[historic=memorial],
+node[historic=battlefield],
+area[historic=battlefield],
 node[tourism=theme_park],
 area[tourism=theme_park]
 {z-index: 2872;}
@@ -162,9 +154,7 @@ area[amenity=bus_station],
 node[tourism=viewpoint]
 {z-index: 3050;}
 
-area[aeroway=airport],
 area[aeroway=aerodrome],
-node[aeroway=airport],
 node[aeroway=aerodrome],
 node[amenity=parking],
 area[amenity=parking],
@@ -202,35 +192,35 @@ node|z11[boundary=national_park],
 area|z11[boundary=national_park],
 node|z11[leisure=nature_reserve],
 area|z11[leisure=nature_reserve]
-{icon-image: nparkf-s.svg;icon-min-distance: 20;}*/
+{icon-image: nparkf-outline-s.svg;icon-min-distance: 20;}*/
 node|z12-13[landuse=forest][name],
 area|z12-13[landuse=forest][name],
 node|z12-13[boundary=national_park],
 area|z12-13[boundary=national_park],
 node|z12-13[leisure=nature_reserve],
 area|z12-13[leisure=nature_reserve]
-{icon-image: nparkf-s.svg;text-offset: 1;font-size: 11;icon-min-distance: 12;}
+{icon-image: nparkf-outline-s.svg;text-offset: 1;font-size: 11;icon-min-distance: 12;}
 node|z14[landuse=forest][name],
 area|z14[landuse=forest][name],
 node|z14[boundary=national_park],
 area|z14[boundary=national_park],
 node|z14[leisure=nature_reserve],
 area|z14[leisure=nature_reserve]
-{icon-image: nparkf-m.svg;text-offset: 1;font-size: 12.25;}
+{icon-image: nparkf-outline-m.svg;text-offset: 1;font-size: 12.25;}
 node|z15-16[landuse=forest][name],
 area|z15-16[landuse=forest][name],
 node|z15-16[boundary=national_park],
 area|z15-16[boundary=national_park],
 node|z15-16[leisure=nature_reserve],
 area|z15-16[leisure=nature_reserve]
-{icon-image: nparkf-m.svg;text-offset: 1;font-size: 12.5;text-halo-opacity: 0.85;}
+{icon-image: nparkf-outline-m.svg;text-offset: 1;font-size: 12.5;text-halo-opacity: 0.85;}
 node|z17-[landuse=forest][name],
 area|z17-[landuse=forest][name],
 node|z17-[boundary=national_park],
 area|z17-[boundary=national_park],
 node|z17-[leisure=nature_reserve],
 area|z17-[leisure=nature_reserve]
-{icon-image: nparkf-m.svg;text-offset: 1;font-size: 13.75;text-halo-opacity: 0.9;}
+{icon-image: nparkf-outline-m.svg;text-offset: 1;font-size: 13.75;text-halo-opacity: 0.9;}
 
 node|z12-[landuse=forest][!name],
 area|z12-[landuse=forest][!name],
@@ -261,14 +251,10 @@ node|z17-[railway=tram_stop]::int_name,
 area|z17-[railway=tram_stop]::int_name
 {text: int_name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 1;text-halo-color: @label_halo_light;}
 
-area|z10-[aeroway=airport],
 area|z10-[aeroway=aerodrome],
-node|z10-[aeroway=airport],
 node|z10-[aeroway=aerodrome],
 {text: name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 0.7;text-halo-color: @label_halo_light;text-position: center;}
-area|z12-[aeroway=airport]::int_name,
 area|z12-[aeroway=aerodrome]::int_name,
-node|z12-[aeroway=airport]::int_name,
 node|z12-[aeroway=aerodrome]::int_name,
 {text: int_name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 0.7;text-halo-color: @label_halo_light;text-position: center;}
 
@@ -278,45 +264,34 @@ node|z12-[aeroway=aerodrome]::int_name,
 
 
 node|z12[railway=station][!transport],
-area|z12[building=train_station],
 {icon-image: train-s.svg;text-offset: 1;font-size: 11;}
 node|z13[railway=station],
-area|z13[building=train_station],
 {icon-image: train-m.svg;text-offset: 1;font-size: 11.75;}
 node|z13[railway=station]::int_name,
-area|z13[building=train_station]::int_name,
 {text-offset: 1;font-size: 9;}
 node|z14[railway=station],
 node|z14[railway=halt],
-area|z14[building=train_station],
 {icon-image: train-m.svg;text-offset: 1;font-size: 12.25;text-halo-opacity: 0.7;}
 node|z14[railway=station]::int_name,
 node|z14[railway=halt]::int_name,
-area|z14[building=train_station]::int_name,
 {text-offset: 1;font-size: 10;text-halo-opacity: 0.7;}
 node|z15[railway=station],
 node|z15[railway=halt],
-area|z15[building=train_station],
 {icon-image: train-m.svg;text-offset: 1;font-size: 12.5;text-halo-opacity: 0.8;}
 node|z15[railway=station]::int_name,
 node|z15[railway=halt]::int_name,
-area|z15[building=train_station]::int_name,
 {text-offset: 1;font-size: 10;text-halo-opacity: 0.8;}
 node|z16[railway=station],
 node|z16[railway=halt],
-area|z16[building=train_station],
 {icon-image: train-m.svg;text-offset: 1;font-size: 13.75;text-halo-opacity: 0.8;}
 node|z16[railway=station]::int_name,
 node|z16[railway=halt]::int_name,
-area|z16[building=train_station]::int_name,
 {text-offset: 1;font-size: 11;text-halo-opacity: 0.8;}
 node|z17-[railway=station],
 node|z17-[railway=halt],
-area|z17-[building=train_station],
 {icon-image: train-m.svg;text-offset: 1;font-size: 14;text-halo-opacity: 0.9;}
 node|z17-[railway=station]::int_name,
 node|z17-[railway=halt]::int_name,
-area|z17-[building=train_station]::int_name,
 {text-offset: 1;font-size: 12;text-halo-opacity: 0.9;}
 
 /* 3.3 Tram Station */
@@ -342,48 +317,34 @@ area|z18-[railway=tram_stop]
 
 /* 3.6 Airport */
 
-area|z10[aeroway=airport][aerodrome=international],
+/* Manually define priority to avoid city names displacement */
+area|z7-9[aeroway=aerodrome][aerodrome=international],
+node|z7-9[aeroway=aerodrome][aerodrome=international],
+{ icon-image: airport-s.svg; -x-me-icon-priority: 10000 }
+
 area|z10[aeroway=aerodrome][aerodrome=international],
-node|z10[aeroway=airport][aerodrome=international],
 node|z10[aeroway=aerodrome][aerodrome=international],
 {icon-image: airport-s.svg;text-offset: 1;font-size: 10;fill-opacity: 1;}
-area|z11-14[aeroway=airport][aerodrome=international],
 area|z11-14[aeroway=aerodrome][aerodrome=international],
-node|z11-14[aeroway=airport][aerodrome=international],
 node|z11-14[aeroway=aerodrome][aerodrome=international],
-area|z12-14[aeroway=airport],
-node|z12-14[aeroway=airport],
 area|z12-14[aeroway=aerodrome],
 node|z12-14[aeroway=aerodrome],
 {icon-image: airport-m.svg;text-offset: 1;font-size: 11;-x-me-icon-priority: 3100;}
-area|z12-14[aeroway=airport]::int_name,
-node|z12-14[aeroway=airport]::int_name,
 area|z12-14[aeroway=aerodrome]::int_name,
 node|z12-14[aeroway=aerodrome]::int_name,
 {font-size: 10;}
-area|z15-16[aeroway=airport],
-node|z15-16[aeroway=airport],
 area|z15-16[aeroway=aerodrome],
 node|z15-16[aeroway=aerodrome],
 {icon-image: airport-m.svg;text-offset: 1;font-size: 12;}
-area|z15-16[aeroway=airport]::int_name,
-node|z15-16[aeroway=airport]::int_name,
 area|z15-16[aeroway=aerodrome]::int_name,
 node|z15-16[aeroway=aerodrome]::int_name,
 {font-size: 11;}
-area|z17-[aeroway=airport],
-node|z17-[aeroway=airport],
 area|z17-[aeroway=aerodrome],
 node|z17-[aeroway=aerodrome],
 {icon-image: airport-m.svg;text-offset: 1;font-size: 13;}
-area|z17-[aeroway=airport]::int_name,
-node|z17-[aeroway=airport]::int_name,
 area|z17-[aeroway=aerodrome]::int_name,
 node|z17-[aeroway=aerodrome]::int_name,
 {font-size: 12;}
-
-
-
 
 area|z17-[aeroway=heliport],
 node|z17-[aeroway=heliport],
@@ -406,6 +367,8 @@ node|z15-[historic=castle],
 area|z15-[historic=castle],
 node|z15-[historic=monument],
 area|z15-[historic=monument],
+node|z15-[historic=city_gate],
+area|z15-[historic=city_gate],
 node|z15-[tourism=museum],
 area|z15-[tourism=museum],
 node|z15-[tourism=zoo],
@@ -421,6 +384,8 @@ area|z15-[amenity=community_centre],
 node|z15-[tourism=viewpoint],
 node|z15-[historic=memorial],
 area|z15-[historic=memorial],
+node|z15-[historic=battlefield],
+area|z15-[historic=battlefield],
 node|z15-[tourism=gallery],
 area|z15-[tourism=gallery],
 node|z15-[tourism=artwork],
@@ -428,6 +393,10 @@ node|z16-[historic=boundary_stone],
 area|z16-[historic=boundary_stone],
 node|z16-[historic=wayside_cross],
 area|z16-[historic=wayside_cross],
+node|z16-[historic=gallows],
+area|z16-[historic=gallows],
+node|z16-[historic=pillory],
+area|z16-[historic=pillory],
 node|z16-[historic=ship],
 area|z16-[historic=ship],
 node|z16-[historic=tomb],
@@ -462,41 +431,57 @@ area|z17-[historic=ruins][name],
 node|z17-[historic=fort],
 area|z17-[historic=fort],
 node|z17-[historic=castle],
-area|z17-[historic=castle],
+area|z17-[historic=castle]
+{icon-image: remains-m.svg;text: name;text-offset: 1;font-size: 10;text-color: @poi_label;}
+
 node|z17-[historic=archaeological_site],
 area|z17-[historic=archaeological_site]
-{icon-image: remains-m.svg;text: name;text-offset: 1;font-size: 10;text-color: @poi_label;}
+{icon-image: archaeological-site-m.svg;text: name;text-offset: 1;font-size: 10;text-color: @poi_label;}
 
 node|z19-[historic=ruins][!name],
 area|z19-[historic=ruins][!name],
 {icon-image: remains-m.svg;}
 
 node|z13-14[historic=monument],
-area|z13-14[historic=monument]
+area|z13-14[historic=monument],
 {icon-image: monument-m.svg;}
 node|z15[historic=monument],
 area|z15[historic=monument],
 node|z15[historic=memorial],
-area|z15[historic=memorial]
-{icon-image: monument-m.svg;icon-min-distance: 24;text: name;text-offset: 1;font-size: 10;text-color: @poi_label;}
+area|z15[historic=memorial],
+node|z15[historic=battlefield],
+area|z15[historic=battlefield],
+{icon-image: monument-m.svg;icon-min-distance: 24;}
 node|z16-[historic=monument],
 area|z16-[historic=monument],
 node|z16-[historic=memorial],
 area|z16-[historic=memorial],
-{icon-image: monument-m.svg;icon-min-distance: 12;text: name;text-offset: 1;font-size: 10;text-color: @poi_label;}
+node|z16-[historic=battlefield],
+area|z16-[historic=battlefield],
+{icon-image: monument-m.svg;icon-min-distance: 12;}
 
+/* Zero previous params to redefine below */
 node|z15-[historic=memorial][memorial=plaque],
 area|z15-[historic=memorial][memorial=plaque],
-{icon-image: zero-icon.svg;text: none;}
-node|z16[historic=memorial][memorial=plaque],
-area|z16[historic=memorial][memorial=plaque],
-{icon-image: zero-icon.svg;text: none;}
-node|z17[historic=memorial][memorial=plaque],
-area|z17[historic=memorial][memorial=plaque]
-{icon-image: zero-icon.svg;text: none;}
-node|z18-[historic=memorial][memorial=plaque],
-area|z18-[historic=memorial][memorial=plaque]
-{icon-image: plaque.svg;icon-min-distance: 12;}
+node|z15-[historic=memorial][memorial=stolperstein],
+area|z15-[historic=memorial][memorial=stolperstein],
+node|z15-16[historic=memorial][memorial=cross],
+area|z15-16[historic=memorial][memorial=cross],
+{icon-image: zero-icon.svg; text: none;}
+
+node|z17-[historic=memorial][memorial=cross],
+area|z17-[historic=memorial][memorial=cross],
+{icon-image: cross-m.svg; icon-min-distance: 12;}
+
+node|z13-14[historic=city_gate],
+area|z13-14[historic=city_gate]
+{icon-image: remains-m.svg;}
+node|z15[historic=city_gate],
+area|z15[historic=city_gate],
+{icon-image: remains-m.svg;icon-min-distance: 24;text: name;text-offset: 1;font-size: 10;text-color: @poi_label;}
+node|z16-[historic=city_gate],
+area|z16-[historic=city_gate],
+{icon-image: remains-m.svg;icon-min-distance: 12;text: name;text-offset: 1;font-size: 10;text-color: @poi_label;}
 
 node|z15[tourism=museum],
 area|z15[tourism=museum]
@@ -532,7 +517,11 @@ node|z15-[tourism=viewpoint]
 node|z16[historic=boundary_stone],
 area|z16[historic=boundary_stone],
 node|z16[historic=wayside_cross],
-area|z16[historic=wayside_cross]
+area|z16[historic=wayside_cross],
+node|z16[historic=gallows],
+area|z16[historic=gallows],
+node|z16[historic=pillory],
+area|z16[historic=pillory]
 {icon-image: monument-m.svg;font-size: 11;icon-min-distance: 8;}
 node|z16[historic=ship],
 area|z16[historic=ship]
@@ -547,7 +536,11 @@ area|z16[historic=wayside_shrine]
 node|z17-[historic=boundary_stone],
 area|z17-[historic=boundary_stone],
 node|z17-[historic=wayside_cross],
-area|z17-[historic=wayside_cross]
+area|z17-[historic=wayside_cross],
+node|z17-[historic=gallows],
+area|z17-[historic=gallows],
+node|z17-[historic=pillory],
+area|z17-[historic=pillory],
 {icon-image: monument-m.svg;font-size: 11;icon-min-distance: 8;}
 node|z17-[historic=ship],
 area|z17-[historic=ship]
@@ -824,6 +817,13 @@ node|z17-[amenity=vending_machine][vending=parking_tickets],
 area|z17-[amenity=vending_machine][vending=parking_tickets]
 {icon-image: parking-meter-m.svg;font-size: 13.5;}
 
+node|z17[amenity=vending_machine][vending=fuel],
+area|z17[amenity=vending_machine][vending=fuel]
+{icon-image: zero-icon.svg;text: none;}
+node|z18-[amenity=vending_machine][vending=fuel],
+area|z18-[amenity=vending_machine][vending=fuel]
+{icon-image: fuel-dispenser-m.svg;}
+
 node|z17-[amenity=parcel_locker],
 area|z17-[amenity=parcel_locker],
 {icon-image: mail-m.svg;icon-min-distance: 20;}
@@ -927,10 +927,12 @@ area|z18-[shop=car_repair]
 
 node|z12-[amenity=fuel],
 area|z12-[amenity=fuel],
-node|z14-[amenity=charging_station],
-area|z14-[amenity=charging_station],
+node|z14-[amenity=charging_station][motorcar?],
+area|z14-[amenity=charging_station][motorcar?],
 node|z15-[amenity=sanitary_dump_station],
 area|z15-[amenity=sanitary_dump_station],
+node|z16-[amenity=charging_station],
+area|z16-[amenity=charging_station],
 node|z16-[amenity=parking],
 area|z16-[amenity=parking],
 node|z17-[amenity=car_wash],
@@ -963,11 +965,11 @@ node|z18-[amenity=fuel],
 area|z18-[amenity=fuel]
 {icon-image: fuel-m.svg;font-size: 14.5;}
 
-node|z14[amenity=charging_station],
-area|z14[amenity=charging_station]
+node|z14[amenity=charging_station][motorcar?],
+area|z14[amenity=charging_station][motorcar?],
 {icon-image: charging-station-m.svg;text-offset: 1;font-size: 12.25;-x-me-text-priority:15500;icon-min-distance: 20;}
-node|z15[amenity=charging_station],
-area|z15[amenity=charging_station]
+node|z15[amenity=charging_station][motorcar?],
+area|z15[amenity=charging_station][motorcar?],
 {icon-image: charging-station-m.svg;-x-me-text-priority:15500;icon-min-distance: 20;font-size: 12.5;}
 node|z16[amenity=charging_station],
 area|z16[amenity=charging_station]

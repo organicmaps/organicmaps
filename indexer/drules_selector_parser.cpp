@@ -4,10 +4,9 @@
 
 #include <algorithm>
 
-using namespace std;
-
 namespace drule
 {
+using namespace std;
 
 namespace
 {

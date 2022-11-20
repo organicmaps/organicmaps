@@ -592,20 +592,14 @@ IndexGraphStarterJoints<Graph>::FindFirstJoints(Segment const & startSegment, bo
     std::vector<Segment> path;
     path.emplace_back(current);
 
-    if (current == startSegment)
-      return path;
-
-    Segment parentSegment;
-    do
+    while (current != startSegment)
     {
-      parentSegment = parent[current];
-      path.emplace_back(parentSegment);
-      current = parentSegment;
-    } while (parentSegment != startSegment);
+      current = parent[current];
+      path.emplace_back(current);
+    }
 
     if (forward)
       std::reverse(path.begin(), path.end());
-
     return path;
   };
 

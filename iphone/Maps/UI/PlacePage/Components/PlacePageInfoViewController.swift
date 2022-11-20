@@ -52,6 +52,12 @@ class InfoItemViewController: UIViewController {
 protocol PlacePageInfoViewControllerDelegate: AnyObject {
   func didPressCall()
   func didPressWebsite()
+  func didPressWikipedia()
+  func didPressWikimediaCommons()
+  func didPressFacebook()
+  func didPressInstagram()
+  func didPressTwitter()
+  func didPressVk()
   func didPressEmail()
 }
 
@@ -71,11 +77,18 @@ class PlacePageInfoViewController: UIViewController {
   private var rawOpeningHoursView: InfoItemViewController?
   private var phoneView: InfoItemViewController?
   private var websiteView: InfoItemViewController?
+  private var wikipediaView: InfoItemViewController?
+  private var wikimediaCommonsView: InfoItemViewController?
   private var emailView: InfoItemViewController?
+  private var facebookView: InfoItemViewController?
+  private var instagramView: InfoItemViewController?
+  private var twitterView: InfoItemViewController?
+  private var vkView: InfoItemViewController?
   private var cuisineView: InfoItemViewController?
   private var operatorView: InfoItemViewController?
   private var wifiView: InfoItemViewController?
   private var addressView: InfoItemViewController?
+  private var levelView: InfoItemViewController?
   private var coordinatesView: InfoItemViewController?
 
   var placePageInfoData: PlacePageInfoData!
@@ -100,6 +113,12 @@ class PlacePageInfoViewController: UIViewController {
       rawOpeningHoursView?.infoLabel.numberOfLines = 0
     }
 
+    if let cuisine = placePageInfoData.cuisine {
+      cuisineView = createInfoItem(cuisine, icon: UIImage(named: "ic_placepage_cuisine"))
+    }
+
+    /// @todo Entrance is missing compared with Android. It's shown in title, but anyway ..
+
     if let phone = placePageInfoData.phone {
       var cellStyle: Style = .regular
       if let phoneUrl = placePageInfoData.phoneUrl, UIApplication.shared.canOpenURL(phoneUrl) {
@@ -110,10 +129,34 @@ class PlacePageInfoViewController: UIViewController {
       }
     }
 
+    if let ppOperator = placePageInfoData.ppOperator {
+      operatorView = createInfoItem(ppOperator, icon: UIImage(named: "ic_placepage_operator"))
+    }
+
     if let website = placePageInfoData.website {
       websiteView = createInfoItem(website, icon: UIImage(named: "ic_placepage_website"), style: .link) { [weak self] in
         self?.delegate?.didPressWebsite()
       }
+    }
+    
+    if let wikipedia = placePageInfoData.wikipedia {
+      wikipediaView = createInfoItem(L("read_in_wikipedia"), icon: UIImage(named: "ic_placepage_wiki"), style: .link) { [weak self] in
+        self?.delegate?.didPressWikipedia()
+      }
+    }
+    
+    if let wikimediaCommons = placePageInfoData.wikimediaCommons {
+      wikimediaCommonsView = createInfoItem(L("wikimedia_commons"), icon: UIImage(named: "ic_placepage_wikimedia_commons"), style: .link) { [weak self] in
+        self?.delegate?.didPressWikimediaCommons()
+      }
+    }
+
+    if let wifi = placePageInfoData.wifiAvailable {
+      wifiView = createInfoItem(wifi, icon: UIImage(named: "ic_placepage_wifi"))
+    }
+
+    if let level = placePageInfoData.level {
+      levelView = createInfoItem(level, icon: UIImage(named: "ic_placepage_level"))
     }
 
     if let email = placePageInfoData.email {
@@ -121,17 +164,29 @@ class PlacePageInfoViewController: UIViewController {
         self?.delegate?.didPressEmail()
       }
     }
-
-    if let cuisine = placePageInfoData.cuisine {
-      cuisineView = createInfoItem(cuisine, icon: UIImage(named: "ic_placepage_cuisine"))
+    
+    if let facebook = placePageInfoData.facebook {
+      facebookView = createInfoItem("@" + facebook, icon: UIImage(named: "ic_placepage_facebook"), style: .link) { [weak self] in
+        self?.delegate?.didPressFacebook()
+      }
     }
-
-    if let ppOperator = placePageInfoData.ppOperator {
-      operatorView = createInfoItem(ppOperator, icon: UIImage(named: "ic_placepage_operator"))
+    
+    if let instagram = placePageInfoData.instagram {
+      instagramView = createInfoItem("@" + instagram, icon: UIImage(named: "ic_placepage_instagram"), style: .link) { [weak self] in
+        self?.delegate?.didPressInstagram()
+      }
     }
-
-    if let wifi = placePageInfoData.wifiAvailable {
-      wifiView = createInfoItem(wifi, icon: UIImage(named: "ic_placepage_wifi"))
+    
+    if let twitter = placePageInfoData.twitter {
+      twitterView = createInfoItem("@" + twitter, icon: UIImage(named: "ic_placepage_twitter"), style: .link) { [weak self] in
+        self?.delegate?.didPressTwitter()
+      }
+    }
+    
+    if let vk = placePageInfoData.vk {
+      vkView = createInfoItem("@" + vk, icon: UIImage(named: "ic_placepage_vk"), style: .link) { [weak self] in
+        self?.delegate?.didPressVk()
+      }
     }
 
     if let address = placePageInfoData.address {

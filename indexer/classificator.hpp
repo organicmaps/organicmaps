@@ -34,12 +34,12 @@ class ClassifObjectPtr
   size_t m_ind;
 
 public:
-  ClassifObjectPtr() : m_p(0), m_ind(0) {}
+  ClassifObjectPtr() : m_p(nullptr), m_ind(0) {}
   ClassifObjectPtr(ClassifObject const * p, size_t i): m_p(p), m_ind(i) {}
 
   ClassifObject const * get() const { return m_p; }
   ClassifObject const * operator->() const { return m_p; }
-  operator bool() const { return (m_p != 0); }
+  explicit operator bool() const { return (m_p != nullptr); }
 
   size_t GetIndex() const { return m_ind; }
 };
@@ -63,8 +63,8 @@ class ClassifObject
   };
 
 public:
-  ClassifObject() {}  // for serialization only
-  ClassifObject(std::string const & s) : m_name(s) {}
+  ClassifObject() = default;  // for serialization only
+  explicit ClassifObject(std::string s) : m_name(std::move(s)) {}
 
   /// @name Fill from osm draw rule files.
   //@{
@@ -79,7 +79,7 @@ public:
 
   /// @name Find substitution when reading osm features.
   //@{
-  ClassifObjectPtr BinaryFind(std::string_view const s) const;
+  ClassifObjectPtr BinaryFind(std::string_view s) const;
   //@}
 
   void Sort();
@@ -88,10 +88,7 @@ public:
   std::string const & GetName() const { return m_name; }
   ClassifObject const * GetObject(size_t i) const;
 
-  void ConcatChildNames(std::string & s) const;
-
   void GetSuitable(int scale, feature::GeomType gt, drule::KeysT & keys) const;
-  inline std::vector<drule::Key> const & GetDrawingRules() const { return m_drawRule; }
 
   bool IsDrawable(int scale) const;
   bool IsDrawableAny() const;
@@ -113,7 +110,7 @@ public:
   }
   /// @}
 
-  // Recursive sub-tree iteration.
+  // Recursive subtree iteration.
   template <typename ToDo>
   void ForEachObjectInTree(ToDo && toDo, uint32_t const start) const
   {
@@ -141,8 +138,8 @@ public:
     ClassifObject * Current() const { return m_stack.back(); }
 
   public:
-    BasePolicy(ClassifObject * pRoot) { m_stack.push_back(pRoot); }
-
+    explicit BasePolicy(ClassifObject * pRoot) { m_stack.push_back(pRoot); }
+    // No polymorphism here.
     void Start(size_t i) { m_stack.push_back(&(Current()->m_objs[i])); }
     void End() { m_stack.pop_back(); }
   };
@@ -151,7 +148,7 @@ public:
   {
     typedef BasePolicy base_type;
   public:
-    LoadPolicy(ClassifObject * pRoot) : base_type(pRoot) {}
+    explicit LoadPolicy(ClassifObject * pRoot) : base_type(pRoot) {}
 
     void Name(std::string const & name) { Current()->m_name = name; }
     void Start(size_t i);
@@ -175,8 +172,6 @@ class Classificator
 {
 public:
   Classificator() : m_root("world") {}
-
-  ClassifObject * Add(ClassifObject * parent, std::string const & key, std::string const & value);
 
   /// @name Serialization-like functions.
   //@{
@@ -244,9 +239,6 @@ public:
 
 private:
   template <class ToDo> void ForEachPathObject(uint32_t type, ToDo && toDo) const;
-
-  static ClassifObject * AddV(ClassifObject * parent, std::string const & key,
-                              std::string const & value);
 
   template <typename Iter>
   uint32_t GetTypeByPathImpl(Iter beg, Iter end) const;

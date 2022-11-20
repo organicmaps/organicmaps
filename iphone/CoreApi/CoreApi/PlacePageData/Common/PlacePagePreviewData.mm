@@ -3,27 +3,45 @@
 #include "3party/opening_hours/opening_hours.hpp"
 
 static PlacePageDataSchedule convertOpeningHours(std::string_view rawOH) {
-  if (rawOH.empty())
-    return PlacePageDataOpeningHoursUnknown;
+    
+  PlacePageDataSchedule schedule;
+    
+  if (rawOH.empty()) {
+    schedule.state = PlacePageDataOpeningHoursUnknown;
+    return schedule;
+  }
 
   /// @todo Avoid temporary string when OpeningHours (boost::spirit) will allow string_view.
   osmoh::OpeningHours oh((std::string(rawOH)));
   if (!oh.IsValid()) {
-    return PlacePageDataOpeningHoursUnknown;
+    schedule.state = PlacePageDataOpeningHoursUnknown;
+    return schedule;
   }
+
   if (oh.IsTwentyFourHours()) {
-    return PlacePageDataOpeningHoursAllDay;
+    schedule.state = PlacePageDataOpeningHoursAllDay;
+    return schedule;
   }
 
   auto const t = time(nullptr);
-  if (oh.IsOpen(t)) {
-    return PlacePageDataOpeningHoursOpen;
+  osmoh::OpeningHours::InfoT info = oh.GetInfo(t);
+  switch (info.state) {
+    case osmoh::RuleState::Open:
+      schedule.state = PlacePageDataOpeningHoursOpen;
+      schedule.nextTimeClosed = info.nextTimeClosed;
+      break;
+          
+    case osmoh::RuleState::Closed:
+      schedule.state = PlacePageDataOpeningHoursClosed;
+      schedule.nextTimeOpen = info.nextTimeOpen;
+      break;
+          
+    case osmoh::RuleState::Unknown:
+      schedule.state = PlacePageDataOpeningHoursUnknown;
+      break;
   }
-  if (oh.IsClosed(t)) {
-    return PlacePageDataOpeningHoursClosed;
-  }
-
-  return PlacePageDataOpeningHoursUnknown;
+  
+  return schedule;
 }
 
 static PlacePageDataHotelType convertHotelType(std::optional<ftypes::IsHotelChecker::Type> hotelType) {
@@ -71,6 +89,7 @@ static PlacePageDataHotelType convertHotelType(std::optional<ftypes::IsHotelChec
   self = [super init];
   if (self) {
     _title = rawData.GetTitle().empty() ? nil : @(rawData.GetTitle().c_str());
+    _secondaryTitle = rawData.GetSecondaryTitle().empty() ? nil : @(rawData.GetSecondaryTitle().c_str());
     _subtitle = rawData.GetSubtitle().empty() ? nil : @(rawData.GetSubtitle().c_str());
     _coordinates = rawData.GetFormattedCoordinate(true).empty() ? nil : @(rawData.GetFormattedCoordinate(true).c_str());
     _address = rawData.GetAddress().empty() ? nil : @(rawData.GetAddress().c_str());

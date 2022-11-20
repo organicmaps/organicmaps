@@ -1,11 +1,15 @@
-• Prettify pattern lines drawing (also fixes crash on some older devices)
-• Updated Place Page style
-• Icons for information=board/map
-• Fixed categories search with stop words
-• Show "Opens in"/"Closes in" in search results
-• Made all sports searchable
-• amenity=parking can be added via Editor
-• Fixed place=square visibility at 16+ zoom level
-• Made streams & rivers visible on the beach
-• Made hedges and power lines less contrast
-• Improved pt-BR, es, it, fr, eu, enabled Marathi translations
+• New OSM data as of October 29
+• Improved location detection
+• Better full-screen on empty space tap
+• Many UI & performance improvements
+• Fix crashes
+• Change app language on Android 13+
+• Crosshair API now supports "cll=lat,lon" argument to center the map
+• Smooth road altitudes chart
+• Show "roads to avoid" for walking, cycling, metro
+• Catalan TTS
+• Improved on-map & villages search
+• New craft & historic types
+• New metro icons for many cities
+• Updated translations
+…more: omaps.app/news

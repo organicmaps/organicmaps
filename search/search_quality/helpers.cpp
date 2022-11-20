@@ -1,9 +1,5 @@
 #include "search/search_quality/helpers.hpp"
 
-#include "storage/country_info_getter.hpp"
-#include "storage/country_tree.hpp"
-#include "storage/storage.hpp"
-
 #include "indexer/data_source.hpp"
 
 #include "platform/local_country_file.hpp"
@@ -11,16 +7,12 @@
 #include "platform/platform.hpp"
 
 #include "coding/reader.hpp"
-#include "coding/reader_wrapper.hpp"
 
 #include "geometry/mercator.hpp"
 
 #include "base/assert.hpp"
-#include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
-
-#include "std/target_os.hpp"
 
 #include <fstream>
 #include <limits>
@@ -30,6 +22,10 @@
 
 #include "3party/jansson/myjansson.hpp"
 
+namespace search
+{
+namespace search_quality
+{
 using namespace std;
 
 namespace
@@ -43,20 +39,10 @@ uint64_t ReadVersionFromHeader(platform::LocalCountryFile const & mwm)
       return mwm.GetVersion();
   }
 
-  ModelReaderPtr reader =
-      FilesContainerR(mwm.GetPath(MapFileType::Map)).GetReader(VERSION_FILE_TAG);
-  ReaderSrc src(reader.GetPtr());
-
-  version::MwmVersion version;
-  version::ReadVersion(src, version);
-  return version.GetVersion();
+  return version::MwmVersion::Read(FilesContainerR(mwm.GetPath(MapFileType::Map))).GetVersion();
 }
 }  // namespace
 
-namespace search
-{
-namespace search_quality
-{
 void CheckLocale()
 {
   string const kJson = "{\"coord\":123.456}";
@@ -163,30 +149,14 @@ void InitDataSource(FrozenDataSource & dataSource, string const & mwmListPath)
   LOG(LINFO, ());
 }
 
-void InitStorageData(storage::Affiliations & affiliations,
-                     storage::CountryNameSynonyms & countryNameSynonyms)
-{
-  storage::CountryTree countries;
-  storage::MwmTopCityGeoIds mwmTopCityGeoIds;
-  storage::MwmTopCountryGeoIds mwmTopCountryGeoIds;
-  auto const rv =
-      storage::LoadCountriesFromFile(COUNTRIES_FILE, countries, affiliations, countryNameSynonyms,
-                                     mwmTopCityGeoIds, mwmTopCountryGeoIds);
-  CHECK(rv != -1, ("Can't load countries"));
-}
-
 unique_ptr<search::tests_support::TestSearchEngine> InitSearchEngine(
-    DataSource & dataSource, storage::Affiliations const & affiliations, string const & locale,
-    size_t numThreads)
+    DataSource & dataSource, string const & locale, size_t numThreads)
 {
   search::Engine::Params params;
   params.m_locale = locale;
   params.m_numThreads = base::checked_cast<size_t>(numThreads);
 
-  auto infoGetter = storage::CountryInfoReader::CreateCountryInfoGetter(GetPlatform());
-  infoGetter->SetAffiliations(&affiliations);
-
-  return make_unique<search::tests_support::TestSearchEngine>(dataSource, move(infoGetter), params);
+  return make_unique<search::tests_support::TestSearchEngine>(dataSource, params);
 }
 }  // namespace search_quality
 }  // namespace search

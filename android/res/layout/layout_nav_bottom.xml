@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/nav_bottom_frame"
@@ -20,7 +21,7 @@
     <include layout="@layout/bottom_sheet_handle" />
     <include layout="@layout/layout_nav_bottom_numbers" />
 
-    <com.mapswithme.maps.widget.FlatProgressView
+    <app.organicmaps.widget.FlatProgressView
       android:id="@+id/navigation_progress"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"

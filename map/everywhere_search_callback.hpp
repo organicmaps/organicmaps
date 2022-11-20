@@ -10,21 +10,28 @@
 
 namespace search
 {
-// An on-results-callback that should be used for search over all
-// maps.
-//
-// *NOTE* the class is NOT thread safe.
+/// @brief An on-results-callback that should be used for search over all maps.
+/// @note NOT thread safe.
 class EverywhereSearchCallback
 {
 public:
-  EverywhereSearchCallback(ProductInfo::Delegate & productInfoDelegate,
-                           EverywhereSearchParams::OnResults onResults);
+  class Delegate
+  {
+  public:
+    virtual ~Delegate() = default;
+
+    virtual void RunUITask(std::function<void()> fn) = 0;
+    virtual ProductInfo GetProductInfo(Result const & result) const = 0;
+  };
+
+  using OnResults = EverywhereSearchParams::OnResults;
+  EverywhereSearchCallback(Delegate & delegate, OnResults onResults);
 
   void operator()(Results const & results);
 
 private:
-  ProductInfo::Delegate & m_productInfoDelegate;
-  EverywhereSearchParams::OnResults m_onResults;
+  Delegate & m_delegate;
+  OnResults m_onResults;
   std::vector<ProductInfo> m_productInfo;
 };
 }  // namespace search

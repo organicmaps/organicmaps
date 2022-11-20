@@ -1,8 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-  <dimen name="menu_line_button_inset_edge">-12dp</dimen>
-  <dimen name="menu_line_button_width_edge">72dp</dimen>
-  <dimen name="menu_line_button_width">80dp</dimen>
-
   <dimen name="settings_width" tools:ignore="MissingDefaultResource">560dp</dimen>
 </resources>

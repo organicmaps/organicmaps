@@ -3,18 +3,22 @@
 #include "indexer/search_delimiters.hpp"
 
 #include "base/levenshtein_dfa.hpp"
-#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
-#include <cstdint>
 #include <functional>
 #include <string>
-#include <utility>
 #include <vector>
 
 namespace search
 {
-size_t GetMaxErrorsForTokenLength(size_t length);
+inline constexpr size_t GetMaxErrorsForTokenLength(size_t length)
+{
+  if (length < 4)
+    return 0;
+  if (length < 8)
+    return 1;
+  return 2;
+}
 size_t GetMaxErrorsForToken(strings::UniString const & token);
 
 strings::LevenshteinDFA BuildLevenshteinDFA(strings::UniString const & s);
@@ -28,67 +32,47 @@ strings::UniString NormalizeAndSimplifyString(std::string_view s);
 void PreprocessBeforeTokenization(strings::UniString & query);
 
 template <class Delims, typename Fn>
-void SplitUniString(strings::UniString const & uniS, Fn && f, Delims const & delims)
+void SplitUniString(strings::UniString const & uniS, Fn && fn, Delims const & delims)
 {
-  /// @todo Make string_view analog for strings::UniString.
+  size_t const count = uniS.size();
+  size_t i = 0;
+  while (true)
+  {
+    while (i < count && delims(uniS[i]))
+      ++i;
+    if (i >= count)
+      break;
 
-  using namespace strings;
-  TokenizeIterator<Delims, UniString::const_iterator> iter(uniS.begin(), uniS.end(), delims);
-  for (; iter; ++iter)
-    f(iter.GetUniString());
+    size_t j = i + 1;
+    while (j < count && !delims(uniS[j]))
+      ++j;
+
+    auto const beg = uniS.begin();
+    strings::UniString str(beg + i, beg + j);
+
+    // Transform "xyz's" -> "xyzs".
+    if (j+1 < count && uniS[j] == '\'' && uniS[j+1] == 's' && (j+2 == count || delims(uniS[j+2])))
+    {
+      str.push_back(uniS[j+1]);
+      j += 2;
+    }
+
+    fn(std::move(str));
+
+    i = j;
+  }
 }
 
-template <typename Tokens, typename Delims>
-void NormalizeAndTokenizeString(std::string_view s, Tokens & tokens, Delims const & delims)
+template <class FnT>
+void ForEachNormalizedToken(std::string_view s, FnT && fn)
 {
-  SplitUniString(NormalizeAndSimplifyString(s), ::base::MakeBackInsertFunctor(tokens), delims);
+  SplitUniString(NormalizeAndSimplifyString(s), fn, Delimiters());
 }
 
-template <typename Tokens>
-void NormalizeAndTokenizeString(std::string_view s, Tokens & tokens)
-{
-  SplitUniString(NormalizeAndSimplifyString(s), ::base::MakeBackInsertFunctor(tokens),
-                 search::Delimiters());
-}
-
-template <typename Tokens>
-void NormalizeAndTokenizeAsUtf8(std::string_view s, Tokens & tokens)
-{
-  tokens.clear();
-  auto const fn = [&](strings::UniString const & s) { tokens.emplace_back(strings::ToUtf8(s)); };
-  SplitUniString(NormalizeAndSimplifyString(s), fn, search::Delimiters());
-}
-
-inline std::vector<std::string> NormalizeAndTokenizeAsUtf8(std::string_view s)
-{
-  std::vector<std::string> result;
-  NormalizeAndTokenizeAsUtf8(s, result);
-  return result;
-}
-
-template <typename Fn>
-void ForEachNormalizedToken(std::string const & s, Fn && fn)
-{
-  SplitUniString(NormalizeAndSimplifyString(s), std::forward<Fn>(fn), search::Delimiters());
-}
+std::vector<strings::UniString> NormalizeAndTokenizeString(std::string_view s);
+bool TokenizeStringAndCheckIfLastTokenIsPrefix(std::string_view s, std::vector<strings::UniString> & tokens);
 
 strings::UniString FeatureTypeToString(uint32_t type);
-
-template <class Tokens, class Delims>
-bool TokenizeStringAndCheckIfLastTokenIsPrefix(strings::UniString const & s,
-                                               Tokens & tokens,
-                                               Delims const & delims)
-{
-  SplitUniString(s, ::base::MakeBackInsertFunctor(tokens), delims);
-  return !s.empty() && !delims(s.back());
-}
-
-template <class Tokens, class Delims>
-bool TokenizeStringAndCheckIfLastTokenIsPrefix(std::string_view sv, Tokens & tokens,
-                                               Delims const & delims)
-{
-  return TokenizeStringAndCheckIfLastTokenIsPrefix(NormalizeAndSimplifyString(sv), tokens, delims);
-}
 
 // Chops off the last query token (the "prefix" one) from |str|.
 std::string DropLastToken(std::string const & str);

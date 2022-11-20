@@ -8,34 +8,30 @@
 #include <cmath>
 #include <limits>
 
-using namespace std;
-
-namespace
-{
-// Length of semi-major axis of the spheroid WGS-84.
-double constexpr kA = 6378137.0;
-
-// Flattening of the spheroid.
-double constexpr kF = 1.0 / 298.257223563;
-
-// Length of semi-minor axis of the spheroid ~ 6356752.31424.
-double constexpr kB = (1.0 - kF) * kA;
-
-// Desired degree of accuracy for convergence of Vincenty's formulae.
-double constexpr kEps = 1e-10;
-
-// Maximum iterations of distance evaluation.
-int constexpr kIterations = 10;
-
-/// \brief Calculates latitude on the auxiliary sphere for |angleRad| latitude on a spheroid.
-double ReducedLatitude(double angleRad) { return atan((1.0 - kF) * tan(angleRad)); }
-}
-
 namespace oblate_spheroid
 {
+// Length of semi-major axis of the spheroid WGS-84.
+static double constexpr kA = 6378137.0;
+
+// Flattening of the spheroid.
+static double constexpr kF = 1.0 / 298.257223563;
+
+// Length of semi-minor axis of the spheroid ~ 6356752.31424.
+static double constexpr kB = (1.0 - kF) * kA;
+
+// Desired degree of accuracy for convergence of Vincenty's formulae.
+static double constexpr kEps = 1e-10;
+
+// Maximum iterations of distance evaluation.
+static int constexpr kIterations = 10;
+
+/// \brief Calculates latitude on the auxiliary sphere for |angleRad| latitude on a spheroid.
+static double ReducedLatitude(double angleRad) { return std::atan((1.0 - kF) * std::tan(angleRad)); }
+
 double GetDistance(ms::LatLon const & point1, ms::LatLon const & point2)
 {
   using namespace base;
+  using namespace std;
 
   m2::PointD const p1 = {DegToRad(point1.m_lon), DegToRad(point1.m_lat)};
   m2::PointD const p2 = {DegToRad(point2.m_lon), DegToRad(point2.m_lat)};

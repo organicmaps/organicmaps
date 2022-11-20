@@ -2,10 +2,6 @@
 
 #include "routing/base/small_list.hpp"
 
-#include "routing/segment.hpp"
-
-#include "routing_common/vehicle_model.hpp"
-
 #include "indexer/feature_data.hpp"
 
 #include "geometry/point_with_altitude.hpp"
@@ -78,11 +74,12 @@ public:
   bool operator!=(Edge const & r) const { return !(*this == r); }
   bool operator<(Edge const & r) const;
 
+  friend std::string DebugPrint(Edge const & r);
+  std::string PrintLatLon() const;
+
 private:
   Edge(Type type, FeatureID featureId, uint32_t fakeSegmentId, bool forward, uint32_t segId,
        JunctionPointT const & startJunction, JunctionPointT const & endJunction);
-
-  friend std::string DebugPrint(Edge const & r);
 
   Type m_type = Type::FakeWithoutRealPart;
 

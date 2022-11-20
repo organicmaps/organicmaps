@@ -8,7 +8,6 @@
 #include "generator/road_access_generator.hpp"
 
 #include "routing/road_access_serialization.hpp"
-#include "routing/segment.hpp"
 
 #include "indexer/classificator_loader.hpp"
 
@@ -22,12 +21,11 @@
 #include "coding/files_container.hpp"
 
 #include "base/file_name_utils.hpp"
-#include "base/logging.hpp"
 #include "base/scope_guard.hpp"
 #include "base/string_utils.hpp"
 
+#include <fstream>
 #include <iterator>
-#include <map>
 #include <string>
 #include <vector>
 
@@ -39,7 +37,7 @@ using namespace platform::tests_support;
 using namespace platform;
 using namespace routing;
 using namespace routing_builder;
-using namespace std;
+using std::fstream, std::ifstream, std::make_pair, std::string;
 
 string const kTestDir = "road_access_generation_test";
 string const kTestMwm = "test";
@@ -54,7 +52,7 @@ void BuildTestMwmWithRoads(LocalCountryFile & country)
   {
     string const name = "road " + strings::to_string(i);
     string const lang = "en";
-    vector<m2::PointD> points;
+    std::vector<m2::PointD> points;
     for (size_t j = 0; j < 10; ++j)
       points.emplace_back(static_cast<double>(i), static_cast<double>(j));
 
@@ -101,7 +99,7 @@ RoadAccessCollector::RoadAccessByVehicleType SaveAndLoadRoadAccess(string const 
   // Creating osm ids to feature ids mapping.
   string const mappingRelativePath = base::JoinPath(kTestDir, kOsmIdsToFeatureIdsName);
   ScopedFile const mappingFile(mappingRelativePath, ScopedFile::Mode::Create);
-  string const mappingFullPath = mappingFile.GetFullPath();
+  string const & mappingFullPath = mappingFile.GetFullPath();
   ReEncodeOsmIdsToFeatureIdsMapping(mappingContent, mappingFullPath);
 
   // Adding road access section to mwm.
@@ -123,7 +121,7 @@ RoadAccessCollector::RoadAccessByVehicleType SaveAndLoadRoadAccess(string const 
 }
 
 OsmElement MakeOsmElementWithNodes(uint64_t id, generator_tests::Tags const & tags,
-                                   OsmElement::EntityType t, vector<uint64_t> const & nodes)
+                                   OsmElement::EntityType t, std::vector<uint64_t> const & nodes)
 {
   auto r = generator_tests::MakeOsmElement(id, tags, t);
   r.m_nodes = nodes;
@@ -139,8 +137,8 @@ feature::FeatureBuilder MakeFbForTest(OsmElement element)
 
 UNIT_TEST(RoadAccess_Smoke)
 {
-  string const roadAccessContent = "";
-  string const osmIdsToFeatureIdsContent = "";
+  string const roadAccessContent;
+  string const osmIdsToFeatureIdsContent;
   SaveAndLoadRoadAccess(roadAccessContent, osmIdsToFeatureIdsContent);
 }
 
@@ -150,7 +148,7 @@ UNIT_TEST(RoadAccess_AccessPrivate)
   string const osmIdsToFeatureIdsContent = R"(0, 0,)";
   auto const roadAccessAllTypes =
       SaveAndLoadRoadAccess(roadAccessContent, osmIdsToFeatureIdsContent);
-  auto const carRoadAccess = roadAccessAllTypes[static_cast<size_t>(VehicleType::Car)];
+  auto const & carRoadAccess = roadAccessAllTypes[static_cast<size_t>(VehicleType::Car)];
   TEST_EQUAL(carRoadAccess.GetAccessWithoutConditional(0 /* featureId */),
              make_pair(RoadAccess::Type::Private, RoadAccess::Confidence::Sure), ());
 }
@@ -167,8 +165,8 @@ UNIT_TEST(RoadAccess_Access_Multiple_Vehicle_Types)
                                               40, 4,)";
   auto const roadAccessAllTypes =
       SaveAndLoadRoadAccess(roadAccessContent, osmIdsToFeatureIdsContent);
-  auto const carRoadAccess = roadAccessAllTypes[static_cast<size_t>(VehicleType::Car)];
-  auto const bicycleRoadAccess = roadAccessAllTypes[static_cast<size_t>(VehicleType::Bicycle)];
+  auto const & carRoadAccess = roadAccessAllTypes[static_cast<size_t>(VehicleType::Car)];
+  auto const & bicycleRoadAccess = roadAccessAllTypes[static_cast<size_t>(VehicleType::Bicycle)];
   TEST_EQUAL(carRoadAccess.GetAccessWithoutConditional(1 /* featureId */),
              make_pair(RoadAccess::Type::Private, RoadAccess::Confidence::Sure), ());
 
@@ -210,9 +208,9 @@ UNIT_TEST(RoadAccessWriter_Merge)
   auto const p3 = generator_tests::MakeOsmElement(32 /* id */, {{"barrier", "lift_gate"}},
                                                   OsmElement::EntityType::Node);
 
-  auto c1 = make_shared<RoadAccessWriter>(filename);
-  auto c2 = c1->Clone();
-  auto c3 = c1->Clone();
+  auto c1 = std::make_shared<RoadAccessWriter>(filename);
+  auto c2 = c1->Clone(nullptr);
+  auto c3 = c1->Clone(nullptr);
 
   c1->CollectFeature(MakeFbForTest(p1), p1);
   c2->CollectFeature(MakeFbForTest(p2), p2);
@@ -234,7 +232,7 @@ UNIT_TEST(RoadAccessWriter_Merge)
   ifstream stream;
   stream.exceptions(fstream::failbit | fstream::badbit);
   stream.open(filename);
-  stringstream buffer;
+  std::stringstream buffer;
   buffer << stream.rdbuf();
 
   string const correctAnswer = "Car Private 1 2\n"
@@ -246,8 +244,8 @@ UNIT_TEST(RoadAccessCoditionalParse)
 {
   AccessConditionalTagParser parser;
 
-  using ConditionalVector = vector<AccessConditional>;
-  vector<pair<string, ConditionalVector>> tests = {
+  using ConditionalVector = std::vector<AccessConditional>;
+  std::vector<std::pair<string, ConditionalVector>> const tests = {
       {"no @ Mo-Su",
        {{RoadAccess::Type::No, "Mo-Su"}}},
 
@@ -302,7 +300,7 @@ UNIT_TEST(RoadAccessCoditionalParse)
       {"asdsadasdasd", {}}
   };
 
-  vector<string> tags = {
+  std::vector<string> tags = {
       "motorcar:conditional",
       "vehicle:conditional",
       "motor_vehicle:conditional",
@@ -342,9 +340,9 @@ UNIT_TEST(RoadAccessWriter_ConditionalMerge)
        {"vehicle:conditional", "private @ (12:00-19:00) ; no @ (Mo-Su)"}} /* tags */,
       OsmElement::EntityType::Way, {30, 31, 32, 33});
 
-  auto c1 = make_shared<RoadAccessWriter>(filename);
-  auto c2 = c1->Clone();
-  auto c3 = c1->Clone();
+  auto c1 = std::make_shared<RoadAccessWriter>(filename);
+  auto c2 = c1->Clone(nullptr);
+  auto c3 = c1->Clone(nullptr);
 
   c1->CollectFeature(MakeFbForTest(w1), w1);
   c2->CollectFeature(MakeFbForTest(w2), w2);
@@ -362,7 +360,7 @@ UNIT_TEST(RoadAccessWriter_ConditionalMerge)
   ifstream stream;
   stream.exceptions(fstream::failbit | fstream::badbit);
   stream.open(filename + ROAD_ACCESS_CONDITIONAL_EXT);
-  string const resultFile((istreambuf_iterator<char>(stream)), istreambuf_iterator<char>());
+  string const resultFile((std::istreambuf_iterator<char>(stream)), std::istreambuf_iterator<char>());
 
   string const expectedFile =
       "Car\t1\t1\tNo\tMo-Su\t\n"
@@ -387,7 +385,7 @@ UNIT_TEST(RoadAccessWriter_Conditional_WinterRoads)
       {{"highway", "service"}, {"winter_road", "yes"}} /* tags */,
       OsmElement::EntityType::Way, {20, 21, 22, 23});
 
-  auto c1 = make_shared<RoadAccessWriter>(filename);
+  auto c1 = std::make_shared<RoadAccessWriter>(filename);
 
   c1->CollectFeature(MakeFbForTest(w1), w1);
   c1->CollectFeature(MakeFbForTest(w2), w2);
@@ -398,7 +396,7 @@ UNIT_TEST(RoadAccessWriter_Conditional_WinterRoads)
   ifstream stream;
   stream.exceptions(fstream::failbit | fstream::badbit);
   stream.open(filename + ROAD_ACCESS_CONDITIONAL_EXT);
-  string const resultFile((istreambuf_iterator<char>(stream)), istreambuf_iterator<char>());
+  string const resultFile((std::istreambuf_iterator<char>(stream)), std::istreambuf_iterator<char>());
 
   string const expectedFile =
       "Bicycle\t1\t1\tNo\tMar - Nov\t\n"

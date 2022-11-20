@@ -1,13 +1,11 @@
 #pragma once
 
 #include "search/common.hpp"
-#include "search/model.hpp"
 #include "search/query_params.hpp"
 
 #include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
 
-#include "base/levenshtein_dfa.hpp"
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
@@ -35,27 +33,30 @@ public:
   CategoriesInfo(feature::TypesHolder const & holder, TokenSlice const & tokens,
                  Locales const & locales, CategoriesHolder const & categories);
 
-  // Returns true when all tokens correspond to categories in
-  // |holder|.
+  size_t GetMatchedLength() const { return m_matchedLength; }
+
+  /// @return true when all tokens correspond to categories in |holder|.
   bool IsPureCategories() const { return m_pureCategories; }
 
-  // Returns true when all tokens are categories tokens but none of
-  // them correspond to categories in |holder|.
+  /// @return true when all tokens are categories tokens but none of them correspond to categories in |holder|.
   bool IsFalseCategories() const { return m_falseCategories; }
 
 private:
+  size_t m_matchedLength = 0;
   bool m_pureCategories = false;
   bool m_falseCategories = false;
 };
 
 struct ErrorsMade
 {
-  static size_t constexpr kInfiniteErrors = std::numeric_limits<size_t>::max();
+  static uint16_t constexpr kInfiniteErrors = std::numeric_limits<uint16_t>::max();
 
   ErrorsMade() = default;
-  explicit ErrorsMade(size_t errorsMade) : m_errorsMade(errorsMade) {}
+  explicit ErrorsMade(uint16_t errorsMade) : m_errorsMade(errorsMade) {}
 
   bool IsValid() const { return m_errorsMade != kInfiniteErrors; }
+  bool IsZero() const { return m_errorsMade == 0; }
+  bool IsBetterThan(ErrorsMade rhs) const { return m_errorsMade < rhs.m_errorsMade; }
 
   template <typename Fn>
   static ErrorsMade Combine(ErrorsMade const & lhs, ErrorsMade const & rhs, Fn && fn)
@@ -69,17 +70,17 @@ struct ErrorsMade
 
   static ErrorsMade Min(ErrorsMade const & lhs, ErrorsMade const & rhs)
   {
-    return Combine(lhs, rhs, [](size_t u, size_t v) { return std::min(u, v); });
+    return Combine(lhs, rhs, [](uint16_t u, uint16_t v) { return std::min(u, v); });
   }
 
   static ErrorsMade Max(ErrorsMade const & lhs, ErrorsMade const & rhs)
   {
-    return Combine(lhs, rhs, [](size_t u, size_t v) { return std::max(u, v); });
+    return Combine(lhs, rhs, [](uint16_t u, uint16_t v) { return std::max(u, v); });
   }
 
   friend ErrorsMade operator+(ErrorsMade const & lhs, ErrorsMade const & rhs)
   {
-    return Combine(lhs, rhs, [](size_t u, size_t v) { return u + v; });
+    return Combine(lhs, rhs, [](uint16_t u, uint16_t v) { return u + v; });
   }
 
   ErrorsMade & operator+=(ErrorsMade const & rhs)
@@ -90,7 +91,7 @@ struct ErrorsMade
 
   bool operator==(ErrorsMade const & rhs) const { return m_errorsMade == rhs.m_errorsMade; }
 
-  size_t m_errorsMade = kInfiniteErrors;
+  uint16_t m_errorsMade = kInfiniteErrors;
 };
 
 std::string DebugPrint(ErrorsMade const & errorsMade);
@@ -103,16 +104,18 @@ ErrorsMade GetErrorsMade(QueryParams::Token const & token, strings::UniString co
 ErrorsMade GetPrefixErrorsMade(QueryParams::Token const & token, strings::UniString const & text);
 }  // namespace impl
 
-// The order and numeric values are important here.  Please, check all
-// use-cases before changing this enum.
-enum NameScore
+// The order and numeric values are important here. Please, check all use-cases before changing this enum.
+enum class NameScore : uint8_t
 {
-  NAME_SCORE_ZERO = 0,
-  NAME_SCORE_SUBSTRING = 1,
-  NAME_SCORE_PREFIX = 2,
-  NAME_SCORE_FULL_MATCH = 3,
+  // example name = "Carrefour Mini"
+                    // example query:
+  ZERO = 0,         // Rewe
+  SUBSTRING = 1,    // Mini
+  PREFIX = 2,       // Carref
+  FULL_PREFIX = 3,  // Carrefour
+  FULL_MATCH = 4,   // Carrefour Mini
 
-  NAME_SCORE_COUNT
+  COUNT
 };
 
 struct NameScores
@@ -153,7 +156,7 @@ struct NameScores
            m_isAltOrOldName == rhs.m_isAltOrOldName && m_matchedLength == rhs.m_matchedLength;
   }
 
-  NameScore m_nameScore = NAME_SCORE_ZERO;
+  NameScore m_nameScore = NameScore::ZERO;
   ErrorsMade m_errorsMade;
   bool m_isAltOrOldName = false;
   size_t m_matchedLength = 0;
@@ -168,6 +171,8 @@ bool IsStopWord(strings::UniString const & s);
 // Normalizes, simplifies and splits string, removes stop-words.
 void PrepareStringForMatching(std::string_view name, std::vector<strings::UniString> & tokens);
 
+/// @param[in]  tokens  Feature's name (splitted on tokens, without delimiters) to match.
+/// @param[in]  slice   Input query.
 template <typename Slice>
 NameScores GetNameScores(std::vector<strings::UniString> const & tokens, uint8_t lang,
                          Slice const & slice)
@@ -176,7 +181,6 @@ NameScores GetNameScores(std::vector<strings::UniString> const & tokens, uint8_t
     return {};
 
   NameScores scores;
-  // Slice is the user query. Token is the potential match.
   size_t const tokenCount = tokens.size();
   size_t const sliceCount = slice.Size();
 
@@ -201,14 +205,14 @@ NameScores GetNameScores(std::vector<strings::UniString> const & tokens, uint8_t
     ErrorsMade totalErrorsMade(0);
     size_t matchedLength = 0;
     // Highest quality namescore possible for this offset
-    NameScore nameScore = NAME_SCORE_SUBSTRING;
+    NameScore nameScore = NameScore::SUBSTRING;
     // Prefix & full matches must test starting at the same index. (tokenIndex == i)
     if (offset + 1 == tokenCount)
     {
       if (sliceCount == tokenCount)
-          nameScore = NAME_SCORE_FULL_MATCH;
+        nameScore = NameScore::FULL_MATCH;
       else
-          nameScore = NAME_SCORE_PREFIX;
+        nameScore = NameScore::FULL_PREFIX;
     }
     bool isAltOrOldName = false;
     // Iterate through the entire slice. Incomplete matches can still be good.
@@ -238,23 +242,32 @@ NameScores GetNameScores(std::vector<strings::UniString> const & tokens, uint8_t
       // the matched length and check against the prior best.
       auto errorsMade = impl::GetErrorsMade(slice.Get(i), tokens[tokenIndex]);
 
-      // See if prefix token rules apply. The prefix token is the last one in the
-      // search, so it may only be partially typed.
-      // GetPrefixErrorsMade only expects the start of a token to match.
-      if (!errorsMade.IsValid() && slice.IsPrefix(i))
+      // Also, check like prefix, if we've got token-like matching errors.
+      if (!errorsMade.IsZero() && slice.IsPrefix(i))
       {
-        errorsMade = impl::GetPrefixErrorsMade(slice.Get(i), tokens[tokenIndex]);
-        if (nameScore == NAME_SCORE_FULL_MATCH)
-          nameScore = NAME_SCORE_PREFIX;
+        auto const prefixErrors = impl::GetPrefixErrorsMade(slice.Get(i), tokens[tokenIndex]);
+        if (prefixErrors.IsBetterThan(errorsMade))
+        {
+          // NAME_SCORE_PREFIX with less errors is better than NAME_SCORE_FULL_MATCH.
+          /// @see RankingInfo_PrefixVsFull test.
+          errorsMade = prefixErrors;
+          if (nameScore == NameScore::FULL_MATCH || nameScore == NameScore::FULL_PREFIX)
+            nameScore = NameScore::PREFIX;
+        }
       }
-      // If this was a full match and prior tokens matched, downgrade from full to prefix.
-      if (!errorsMade.IsValid() && nameScore == NAME_SCORE_FULL_MATCH && matchedLength)
+
+      // This block was responsibe for: name = "X Y", query = "X Z" => score is FULL_PREFIX.
+      // IMHO, this is very controversial, keep it as SUBSTRING.
+      /*
+      if (!errorsMade.IsValid() && nameScore == NameScore::FULL_MATCH && matchedLength)
       {
-        nameScore = NAME_SCORE_PREFIX;
+        nameScore = NameScore::FULL_PREFIX;
         errorsMade = ErrorsMade(0);
         // Don't count this token towards match length.
         matchedLength -= slice.Get(i).GetOriginal().size();
       }
+      */
+
       if (errorsMade.IsValid())
       {
         // Update the match quality
@@ -266,17 +279,18 @@ NameScores GetNameScores(std::vector<strings::UniString> const & tokens, uint8_t
       else
       {
         // If any token mismatches, this is at best a substring match.
-        nameScore = NAME_SCORE_SUBSTRING;
+        nameScore = NameScore::SUBSTRING;
       }
     }
 
     if (matchedLength == 0)
     {
-      nameScore = NAME_SCORE_ZERO;
+      nameScore = NameScore::ZERO;
       totalErrorsMade = ErrorsMade();
     }
     scores.UpdateIfBetter(NameScores(nameScore, totalErrorsMade, isAltOrOldName, matchedLength));
   }
+
   // Uncomment for verbose search logging
   // LOG(LDEBUG, ("Match quality", search::DebugPrint(scores), "from", tokens, "into", slice));
   return scores;
@@ -285,8 +299,6 @@ NameScores GetNameScores(std::vector<strings::UniString> const & tokens, uint8_t
 template <typename Slice>
 NameScores GetNameScores(std::string_view name, uint8_t lang, Slice const & slice)
 {
-  std::vector<strings::UniString> tokens;
-  SplitUniString(NormalizeAndSimplifyString(name), base::MakeBackInsertFunctor(tokens), Delimiters());
-  return GetNameScores(tokens, lang, slice);
+  return GetNameScores(NormalizeAndTokenizeString(name), lang, slice);
 }
 }  // namespace search

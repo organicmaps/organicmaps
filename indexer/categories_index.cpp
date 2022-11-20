@@ -1,5 +1,4 @@
 #include "categories_index.hpp"
-#include "search_delimiters.hpp"
 #include "search_string_utils.hpp"
 
 #include "base/assert.hpp"
@@ -9,17 +8,19 @@
 #include <algorithm>
 #include <set>
 
+namespace indexer
+{
 using namespace std;
 
 namespace
 {
-void AddAllNonemptySubstrings(base::MemTrie<string, base::VectorValues<uint32_t>> & trie,
-                              string const & s, uint32_t value)
+void AddAllNonemptySubstrings(base::MemTrie<std::string, base::VectorValues<uint32_t>> & trie,
+                              std::string const & s, uint32_t value)
 {
   ASSERT(!s.empty(), ());
   for (size_t i = 0; i < s.length(); ++i)
   {
-    string t;
+    std::string t;
     for (size_t j = i; j < s.length(); ++j)
     {
       t.push_back(s[j]);
@@ -29,19 +30,18 @@ void AddAllNonemptySubstrings(base::MemTrie<string, base::VectorValues<uint32_t>
 }
 
 template <typename TF>
-void ForEachToken(string const & s, TF && fn)
+void ForEachToken(std::string const & s, TF && fn)
 {
-  vector<strings::UniString> tokens;
-  SplitUniString(search::NormalizeAndSimplifyString(s), base::MakeBackInsertFunctor(tokens),
-                 search::Delimiters());
-  for (auto const & token : tokens)
+  search::ForEachNormalizedToken(s, [&fn](strings::UniString const & token)
+  {
     fn(strings::ToUtf8(token));
+  });
 }
 
-void TokenizeAndAddAllSubstrings(base::MemTrie<string, base::VectorValues<uint32_t>> & trie,
-                                 string const & s, uint32_t value)
+void TokenizeAndAddAllSubstrings(base::MemTrie<std::string, base::VectorValues<uint32_t>> & trie,
+                                 std::string const & s, uint32_t value)
 {
-  auto fn = [&](string const & token)
+  auto fn = [&](std::string const & token)
   {
     AddAllNonemptySubstrings(trie, token, value);
   };
@@ -49,8 +49,6 @@ void TokenizeAndAddAllSubstrings(base::MemTrie<string, base::VectorValues<uint32
 }
 }  // namespace
 
-namespace indexer
-{
 void CategoriesIndex::AddCategoryByTypeAndLang(uint32_t type, int8_t lang)
 {
   ASSERT(lang >= 1 && static_cast<size_t>(lang) <= CategoriesHolder::kLocaleMapping.size(),
@@ -91,9 +89,9 @@ void CategoriesIndex::AddAllCategoriesInAllLangs()
                                       });
 }
 
-void CategoriesIndex::GetCategories(string const & query, vector<Category> & result) const
+void CategoriesIndex::GetCategories(std::string const & query, std::vector<Category> & result) const
 {
-  vector<uint32_t> types;
+  std::vector<uint32_t> types;
   GetAssociatedTypes(query, types);
   base::SortUnique(types);
   m_catHolder->ForEachTypeAndCategory([&](uint32_t type, Category const & cat)
@@ -103,14 +101,14 @@ void CategoriesIndex::GetCategories(string const & query, vector<Category> & res
                                       });
 }
 
-void CategoriesIndex::GetAssociatedTypes(string const & query, vector<uint32_t> & result) const
+void CategoriesIndex::GetAssociatedTypes(std::string const & query, std::vector<uint32_t> & result) const
 {
   bool first = true;
-  set<uint32_t> intersection;
-  auto processToken = [&](string const & token)
+  std::set<uint32_t> intersection;
+  auto processToken = [&](std::string const & token)
   {
-    set<uint32_t> types;
-    auto fn = [&](string const &, uint32_t type)
+    std::set<uint32_t> types;
+    auto fn = [&](std::string const &, uint32_t type)
     {
       types.insert(type);
     };
@@ -122,7 +120,7 @@ void CategoriesIndex::GetAssociatedTypes(string const & query, vector<uint32_t> 
     }
     else
     {
-      set<uint32_t> tmp;
+      std::set<uint32_t> tmp;
       set_intersection(intersection.begin(), intersection.end(), types.begin(), types.end(),
                        inserter(tmp, tmp.begin()));
       intersection.swap(tmp);

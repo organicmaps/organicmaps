@@ -148,7 +148,14 @@ public:
     NonOwningReaderSource src(reader);
     KmlParser parser(m_fileData);
     if (!ParseXML(src, parser, true))
+    {
+      // Print corrupted KML file for debug and restore purposes.
+      std::string kmlText;
+      reader.ReadAsString(kmlText);
+      if (!kmlText.empty() && kmlText[0] == '<')
+        LOG(LWARNING, (kmlText));
       MYTHROW(DeserializeException, ("Could not parse KML."));
+    }
   }
 
 private:

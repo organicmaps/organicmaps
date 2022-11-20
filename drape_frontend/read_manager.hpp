@@ -106,7 +106,7 @@ private:
 
   void CancelTileInfo(std::shared_ptr<TileInfo> const & tileToCancel);
   void ClearTileInfo(std::shared_ptr<TileInfo> const & tileToClear);
-  void IncreaseCounter(int value);
+  void IncreaseCounter(size_t value);
   void CheckFinishedTiles(TTileInfoCollection const & requestedTiles, bool forceUpdateUserMarks);
 };
 }  // namespace df

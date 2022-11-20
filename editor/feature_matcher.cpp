@@ -12,8 +12,6 @@
 #include <string>
 #include <utility>
 
-using namespace std;
-
 using editor::XMLFeature;
 
 namespace
@@ -28,8 +26,8 @@ using Linestring = bg::model::linestring<PointXY>;
 using MultiLinestring = bg::model::multi_linestring<Linestring>;
 using AreaType = bg::default_area_result<Polygon>::type;
 
-using ForEachRefFn = function<void(XMLFeature const & xmlFt)>;
-using ForEachWayFn = function<void(pugi::xml_node const & way, string const & role)>;
+using ForEachRefFn = std::function<void(XMLFeature const & xmlFt)>;
+using ForEachWayFn = std::function<void(pugi::xml_node const & way, std::string const & role)>;
 
 double const kPointDiffEps = 1e-5;
 
@@ -43,7 +41,7 @@ void AddInnerIfNeeded(pugi::xml_document const & osmResponse, pugi::xml_node con
   if (refs.empty())
     return;
 
-  string const nodeRef = refs[0].attribute().value();
+  std::string const nodeRef = refs[0].attribute().value();
   auto const node = osmResponse.select_node(("osm/node[@id='" + nodeRef + "']").data()).node();
   ASSERT(node, ("OSM response have ref", nodeRef, "but have no node with such id.", osmResponse));
   XMLFeature xmlFt(node);
@@ -84,7 +82,7 @@ void ForEachRefInWay(pugi::xml_document const & osmResponse, pugi::xml_node cons
 {
   for (auto const & xNodeRef : way.select_nodes("nd/@ref"))
   {
-    string const nodeRef = xNodeRef.attribute().value();
+    std::string const nodeRef = xNodeRef.attribute().value();
     auto const node = osmResponse.select_node(("osm/node[@id='" + nodeRef + "']").data()).node();
     ASSERT(node, ("OSM response have ref", nodeRef, "but have no node with such id.", osmResponse));
     XMLFeature xmlFt(node);
@@ -98,7 +96,7 @@ void ForEachWayInRelation(pugi::xml_document const & osmResponse, pugi::xml_node
   auto const nodesSet = relation.select_nodes("member[@type='way']/@ref");
   for (auto const & xNodeRef : nodesSet)
   {
-    string const wayRef = xNodeRef.attribute().value();
+    std::string const wayRef = xNodeRef.attribute().value();
     auto const xpath = "osm/way[@id='" + wayRef + "']";
     auto const way = osmResponse.select_node(xpath.c_str()).node();
 
@@ -115,10 +113,7 @@ void ForEachWayInRelation(pugi::xml_document const & osmResponse, pugi::xml_node
     if (!roleNode && nodesSet.size() != 1)
       continue;
 
-    string role = "outer";
-    if (roleNode)
-      role = roleNode.attribute().value();
-
+    std::string const role = roleNode ? roleNode.attribute().value() : "outer";
     fn(way, role);
   }
 }
@@ -150,7 +145,7 @@ Polygon GetRelationsGeometry(pugi::xml_document const & osmResponse,
   MultiLinestring outerLines;
 
   auto const fn = [&osmResponse, &result, &outerLines](pugi::xml_node const & way,
-                                                       string const & role)
+                                                       std::string const & role)
   {
     if (role == "outer")
     {
@@ -189,7 +184,7 @@ Polygon GetWaysOrRelationsGeometry(pugi::xml_document const & osmResponse,
 /// |wayOrRelation| - either way or relation to be compared agains ourGeometry;
 /// |ourGeometry| - geometry of a FeatureType;
 double ScoreGeometry(pugi::xml_document const & osmResponse, pugi::xml_node const & wayOrRelation,
-                     vector<m2::PointD> const & ourGeometry)
+                     std::vector<m2::PointD> const & ourGeometry)
 {
   ASSERT(!ourGeometry.empty(), ("Our geometry cannot be empty"));
 
@@ -251,7 +246,7 @@ pugi::xml_node GetBestOsmNode(pugi::xml_document const & osmResponse, ms::LatLon
 }
 
 pugi::xml_node GetBestOsmWayOrRelation(pugi::xml_document const & osmResponse,
-                                       vector<m2::PointD> const & geometry)
+                                       std::vector<m2::PointD> const & geometry)
 {
   double bestScore = geometry::kPenaltyScore;
   pugi::xml_node bestMatchWay;
@@ -274,7 +269,7 @@ pugi::xml_node GetBestOsmWayOrRelation(pugi::xml_document const & osmResponse,
   return bestMatchWay;
 }
 
-double ScoreTriangulatedGeometries(vector<m2::PointD> const & lhs, vector<m2::PointD> const & rhs)
+double ScoreTriangulatedGeometries(std::vector<m2::PointD> const & lhs, std::vector<m2::PointD> const & rhs)
 {
   auto const score = geometry::GetIntersectionScoreForTriangulated(lhs, rhs);
 
@@ -285,8 +280,8 @@ double ScoreTriangulatedGeometries(vector<m2::PointD> const & lhs, vector<m2::Po
   return score;
 }
 
-double ScoreTriangulatedGeometriesByPoints(vector<m2::PointD> const & lhs,
-                                           vector<m2::PointD> const & rhs)
+double ScoreTriangulatedGeometriesByPoints(std::vector<m2::PointD> const & lhs,
+                                           std::vector<m2::PointD> const & rhs)
 {
   // The default comparison operator used in sort above (cmp1) and one that is
   // used in set_itersection (cmp2) are compatible in that sence that

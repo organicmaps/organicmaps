@@ -3,6 +3,7 @@
 #include "topography_generator/utils/contours.hpp"
 
 #include "geometry/latlon.hpp"
+#include "geometry/mercator.hpp"
 
 #include <algorithm>
 #include <deque>

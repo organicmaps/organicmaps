@@ -19,8 +19,6 @@
 
 #include "3party/bsdiff-courgette/bsdiff/bsdiff.h"
 
-using namespace std;
-
 namespace
 {
 enum Version
@@ -32,8 +30,8 @@ enum Version
 
 bool MakeDiffVersion0(FileReader & oldReader, FileReader & newReader, FileWriter & diffFileWriter)
 {
-  vector<uint8_t> diffBuf;
-  MemWriter<vector<uint8_t>> diffMemWriter(diffBuf);
+  std::vector<uint8_t> diffBuf;
+  MemWriter<std::vector<uint8_t>> diffMemWriter(diffBuf);
 
   auto const status = bsdiff::CreateBinaryPatch(oldReader, newReader, diffMemWriter);
 
@@ -46,7 +44,7 @@ bool MakeDiffVersion0(FileReader & oldReader, FileReader & newReader, FileWriter
   using Deflate = coding::ZLib::Deflate;
   Deflate deflate(Deflate::Format::ZLib, Deflate::Level::BestCompression);
 
-  vector<uint8_t> deflatedDiffBuf;
+  std::vector<uint8_t> deflatedDiffBuf;
   deflate(diffBuf.data(), diffBuf.size(), back_inserter(deflatedDiffBuf));
 
   // A basic header that holds only version.
@@ -62,12 +60,12 @@ generator::mwm_diff::DiffApplicationResult ApplyDiffVersion0(
 {
   using generator::mwm_diff::DiffApplicationResult;
 
-  vector<uint8_t> deflatedDiff(base::checked_cast<size_t>(diffFileSource.Size()));
+  std::vector<uint8_t> deflatedDiff(base::checked_cast<size_t>(diffFileSource.Size()));
   diffFileSource.Read(deflatedDiff.data(), deflatedDiff.size());
 
   using Inflate = coding::ZLib::Inflate;
   Inflate inflate(Inflate::Format::ZLib);
-  vector<uint8_t> diffBuf;
+  std::vector<uint8_t> diffBuf;
   inflate(deflatedDiff.data(), deflatedDiff.size(), back_inserter(diffBuf));
 
   // Our bsdiff assumes that both the old mwm and the diff files are correct and
@@ -99,7 +97,7 @@ namespace generator
 {
 namespace mwm_diff
 {
-bool MakeDiff(string const & oldMwmPath, string const & newMwmPath, string const & diffPath)
+bool MakeDiff(std::string const & oldMwmPath, std::string const & newMwmPath, std::string const & diffPath)
 {
   try
   {
@@ -129,8 +127,8 @@ bool MakeDiff(string const & oldMwmPath, string const & newMwmPath, string const
   return false;
 }
 
-DiffApplicationResult ApplyDiff(string const & oldMwmPath, string const & newMwmPath,
-                                string const & diffPath, base::Cancellable const & cancellable)
+DiffApplicationResult ApplyDiff(std::string const & oldMwmPath, std::string const & newMwmPath,
+                                std::string const & diffPath, base::Cancellable const & cancellable)
 {
   try
   {
@@ -163,7 +161,7 @@ DiffApplicationResult ApplyDiff(string const & oldMwmPath, string const & newMwm
                                    : DiffApplicationResult::Failed;
 }
 
-string DebugPrint(DiffApplicationResult const & result)
+std::string DebugPrint(DiffApplicationResult const & result)
 {
   switch (result)
   {

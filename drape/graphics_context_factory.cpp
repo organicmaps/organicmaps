@@ -31,10 +31,10 @@ GraphicsContext * ThreadSafeFactory::CreateContext(TCreateCtxFn const & createFn
   GraphicsContext * ctx = createFn();
   if (m_enableSharing)
   {
-    if (!checkFn())
-      m_Cond.wait(lock);
-    else
-      m_Cond.notify_one();
+    // Wait until context is created.
+    m_Cond.wait(lock, checkFn);
+
+    m_Cond.notify_one();
   }
 
   return ctx;
@@ -44,7 +44,7 @@ void ThreadSafeFactory::WaitForInitialization(GraphicsContext * context)
 {
   m_factory->WaitForInitialization(context);
 }
-  
+
 void ThreadSafeFactory::SetPresentAvailable(bool available)
 {
   m_factory->SetPresentAvailable(available);

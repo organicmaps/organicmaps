@@ -106,14 +106,14 @@ void IndexGraph::GetLastPointsForJoint(SegmentListT const & children,
                                        bool isOutgoing,
                                        PointIdListT & lastPoints) const
 {
-  CHECK(lastPoints.empty(), ());
+  ASSERT(lastPoints.empty(), ());
 
   lastPoints.reserve(children.size());
   for (auto const & child : children)
   {
     uint32_t const startPointId = child.GetPointId(!isOutgoing /* front */);
     uint32_t const pointsNumber = GetRoadGeometry(child.GetFeatureId()).GetPointsCount();
-    CHECK_LESS(startPointId, pointsNumber, ());
+    CHECK_LESS(startPointId, pointsNumber, (child));
 
     uint32_t endPointId;
     // child.IsForward() == isOutgoing
@@ -123,9 +123,7 @@ void IndexGraph::GetLastPointsForJoint(SegmentListT const & children,
     bool forward = child.IsForward() == isOutgoing;
     if (IsRoad(child.GetFeatureId()))
     {
-      std::tie(std::ignore, endPointId) =
-        GetRoad(child.GetFeatureId()).FindNeighbor(startPointId, forward,
-                                                   pointsNumber);
+      endPointId = GetRoad(child.GetFeatureId()).FindNeighbor(startPointId, forward, pointsNumber).second;
     }
     else
     {

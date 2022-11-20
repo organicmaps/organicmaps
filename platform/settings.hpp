@@ -8,7 +8,7 @@
 
 namespace settings
 {
-/// Metric or Feet.
+/// Metric or Imperial.
 extern char const * kMeasurementUnits;
 
 template <class T>
@@ -47,6 +47,12 @@ template <class Value>
 void Set(std::string const & key, Value const & value)
 {
   StringStorage::Instance().SetValue(key, ToString(value));
+}
+
+/// Automatically saves settings to external file
+inline void Update(std::map<std::string, std::string> const & settings)
+{
+  StringStorage::Instance().Update(settings);
 }
 
 inline void Delete(std::string const & key) { StringStorage::Instance().DeleteKeyAndValue(key); }

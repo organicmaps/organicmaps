@@ -132,6 +132,8 @@
 	<string name="recycling">การรีไซเคิล</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
 	<string name="water">น้ำ</string>
+	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
+	<string name="rv">สำหรับ RV</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">บันทึก</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -166,8 +168,6 @@
 	<string name="copied_to_clipboard">คัดลอกไปยังคลิปบอร์ด: %1$s</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">เสร็จแล้ว</string>
-	<!-- Prints version number in About dialog -->
-	<string name="version">เวอร์ชัน: %s</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">ข้อมูล OpenStreetMap: %s</string>
 	<!-- Confirmation in downloading countries dialog -->
@@ -218,6 +218,8 @@
 	<string name="help">ความช่วยเหลือ</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">คำถามและคำตอบ</string>
+	<!-- Button in the main menu -->
+	<string name="donate">บริจาค</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">วิธีการสนับสนุนเรา</string>
 	<!-- Button in the main Help dialog -->
@@ -337,7 +339,6 @@
 	<string name="routing_arrive">มาถึง: %s</string>
 	<string name="categories">หมวดหมู่</string>
 	<string name="history">ประวัติ</string>
-	<string name="closed">ปิด</string>
 	<string name="search_not_found">ขออภัย ฉันไม่พบสิ่งใด</string>
 	<string name="search_not_found_query">โปรดลองใช้คำถามอื่น</string>
 	<string name="search_history_title">ประวัติการค้นหา</string>
@@ -379,14 +380,15 @@
 	<string name="day_off_today">วันนี้ปิด</string>
 	<string name="day_off">ปิด</string>
 	<string name="today">วันนี้</string>
+	<string name="closed">ปิด</string>
 	<string name="edit_opening_hours">แก้ไขชั่วโมงทำการ</string>
 	<string name="no_osm_account">ไม่มีบัญชีใน OpenStreetMap?</string>
 	<string name="register_at_openstreetmap">ลงทะเบียน</string>
 	<string name="login">ล็อกอิน</string>
+	<string name="login_osm">เข้าสู่ระบบ OpenStreetMap</string>
 	<string name="password">รหัสผ่าน</string>
 	<string name="forgot_password">ลืมรหัสผ่าน?</string>
 	<string name="logout">ออกจากระบบ</string>
-	<string name="thank_you">ขอบพระคุณ</string>
 	<string name="edit_place">แก้ไขสถานที่</string>
 	<string name="add_language">เพิ่มภาษา</string>
 	<string name="street">ถนน</string>
@@ -402,6 +404,7 @@
 	<string name="select_cuisine">เลือกประเภทอาหาร</string>
 	<!-- login text field -->
 	<string name="email_or_username">อีเมลหรือชื่อผู้ใช้</string>
+	<string name="level">ชั้น</string>
 	<string name="downloader_delete_map_dialog">การเปลี่ยนแปลงแผนที่ทั้งหมดจะถูกลบไปพร้อมกับแผนที่</string>
 	<string name="downloader_update_maps">อัปเดตแผนที่</string>
 	<string name="downloader_mwm_migration_dialog">ในการสร้างเส้นทาง คุณต้องอัปเดตแผนที่ทั้งหมดแล้ววางแผนเส้นทางอีกครั้ง</string>
@@ -420,6 +423,7 @@
 	<string name="editor_report_problem_other_title">ปัญหาอีกอย่างหนึ่ง</string>
 	<string name="placepage_add_business_button">เพิ่มองค์กร</string>
 	<string name="message_invalid_feature_position">ไม่สามารถตั้งวัตถุได้ที่นี่</string>
+	<string name="osm_presentation">ข้อมูลแผนที่ทั้งหมดมาจากโครงการ OpenStreetMap เหมือนกับวิกิพีเดียสำหรับแผนที่ที่คุณสามารถเพิ่มหรือแก้ไขสถานที่ได้ และพวกเขาพร้อมให้ผู้ใช้หลายล้านคนทั่วโลกใช้งานได้</string>
 	<string name="login_to_make_edits_visible">ล็อกอินเพื่อให้ผู้ใช้คนอื่นสามารถเห็นการเปลี่ยนแปลงของคุณได้</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d จาก %2$d</string>
@@ -457,7 +461,6 @@
 	<string name="minute">น.</string>
 	<string name="placepage_place_description">คำอธิบาย</string>
 	<string name="placepage_more_button">เพิ่มเติม</string>
-	<string name="placepage_more_reviews_button">รีวิวอื่น ๆ</string>
 	<string name="placepage_call_button">โทร</string>
 	<string name="placepage_edit_bookmark_button">แก้ไข Bookmark</string>
 	<string name="editor_comment_hint">ข้อคิดเห็น</string>
@@ -473,17 +476,15 @@
 	<string name="placepage_add_place_button">เพิ่มสถานที่ไปยังแผนที่</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">คุณต้องการส่งมันให้ผู้ใช้ทั้งหมดหรือไม่?</string>
-	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">ตรวจสอบว่าคุณไม่ได้กรอกข้อมูลส่วนตัวใด ๆ</string>
-	<string name="editor_share_to_all_dialog_message_2">เราจะตรวจสอบการเปลี่ยนแปลง หากเรามีคำถามใด ๆ เราจะติดต่อคุณผ่านทางอีเมล</string>
+	<string name="editor_share_to_all_dialog_message_2">ผู้แก้ไข OpenStreetMap จะตรวจสอบการเปลี่ยนแปลงและติดต่อคุณหากมีคำถามใดๆ</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps เป็นแอปพลิเคชันแผนที่ออฟไลน์แบบโอเพนซอร์สฟรี ไม่มีโฆษณา ไม่มีการติดตาม. หากคุณเห็นข้อผิดพลาดบนแผนที่ โปรดแก้ไขใน OpenStreetMap โครงการนี้สร้างขึ้นโดยผู้ที่ชื่นชอบในเวลาว่าง เราจึงต้องการความคิดเห็นและการสนับสนุนจากคุณ</string>
 	<!-- For the first routing -->
 	<string name="accept">ยอมรับ</string>
 	<!-- For the first routing -->
 	<string name="decline">ปฏิเสธ</string>
-	<!-- A noun - a button name used to show search results in list form -->
-	<string name="search_in_table">รายการ</string>
 	<string name="mobile_data_dialog">ใช้อินเทอร์เน็ตมือถือแสดงข้อมูลโดยรายละเอียดหรือไม่?</string>
 	<string name="mobile_data_option_always">ใช้เสมอ</string>
 	<string name="mobile_data_option_today">วันนี้เท่านั้น</string>
@@ -504,10 +505,11 @@
 	<string name="on">เปิด</string>
 	<string name="off">ปิด</string>
 	<string name="prefs_languages_information">เราใช้ระบบ TTS สำหรับคำแนะนำด้วยเสียงพูด เครื่องแอนดรอยด์จำนวนมากใช้งาน Google TTS คุณสามารถดาวน์โหลดหรืออัปเดตได้จาก Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">สำหรับบางภาษาคุณจำเป็นต้องติดตั้งตัวสังเคราะห์เสียงหรือชุดภาษาเพิ่มเติมจากแอปสโตร์ (Google Play, Samsung Apps, App Gallery, FDroid)\nเปิดการตั้งค่าของเครื่องคุณ → ภาษาและการป้อนข้อมูล → คำพูด → เอาต์พุตการอ่านออกเสียง\nที่นี่คุณสามารถจัดการการตั้งค่าสำหรับการสังเคราะห์เสียง (ตัวอย่างเช่น ดาวน์โหลดชุดภาษาสำหรับใช้งานออฟไลน์) และเลือกเครื่องมืออ่านออกเสียงข้อความตัวอื่นได้</string>
+	<string name="prefs_languages_information_off">สำหรับบางภาษาคุณจำเป็นต้องติดตั้งตัวสังเคราะห์เสียงหรือชุดภาษาเพิ่มเติมจากแอปสโตร์ (Google Play, Galaxy Store, App Gallery, FDroid)\nเปิดการตั้งค่าของเครื่องคุณ → ภาษาและการป้อนข้อมูล → คำพูด → เอาต์พุตการอ่านออกเสียง\nที่นี่คุณสามารถจัดการการตั้งค่าสำหรับการสังเคราะห์เสียง (ตัวอย่างเช่น ดาวน์โหลดชุดภาษาสำหรับใช้งานออฟไลน์) และเลือกเครื่องมืออ่านออกเสียงข้อความตัวอื่นได้</string>
 	<string name="prefs_languages_information_off_link">สำหรับข้อมูลเพิ่มเติม กรุณาเข้าชมคำแนะนำนี้</string>
 	<string name="transliteration_title">การทับศัพท์เป็นภาษาละติน</string>
 	<string name="learn_more">ศึกษาเพิ่มเติม</string>
+	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">ออก</string>
 	<string name="routing_add_start_point">เพิ่มจุดเริ่มต้นเพื่อวางแผนเส้นทาง</string>
 	<string name="routing_add_finish_point">เพิ่มจุดสิ้นสุดเพื่อวางแผนเส้นทาง</string>
@@ -661,6 +663,8 @@
 	<string name="enable_screen_sleep">อนุญาตให้หน้าจอเข้าสู่โหมดสลีป</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">เมื่อเปิดใช้งานหน้าจอจะได้รับอนุญาตให้เข้าสู่โหมดสลีปหลังจากไม่มีการใช้งานเป็นระยะเวลาหนึ่ง</string>
+	<!-- OpenStreetMap text on splash screen -->
+	<string name="splash_subtitle">ข้อมูลแผนที่จาก OpenStreetMap</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">สถานีกระเช้าลอยฟ้า</string>
@@ -697,6 +701,8 @@
 	<string name="type.amenity.doctors">ห้องแพทย์</string>
 	<string name="type.amenity.drinking_water">น้ำดื่ม</string>
 	<string name="type.amenity.driving_school">โรงเรียนสอนขับรถ</string>
+	<string name="type.amenity.music_school">โรงเรียนดนตรี</string>
+	<string name="type.amenity.language_school">โรงเรียนภาษา</string>
 	<string name="type.office.diplomatic">สถานทูต</string>
 	<string name="type.amenity.fast_food">อาหารจานด่วน</string>
 	<string name="type.amenity.ferry_terminal">เฟอร์รี่</string>
@@ -718,17 +724,21 @@
 	<string name="type.amenity.nightclub">ไนต์คลับ</string>
 	<string name="type.amenity.nursing_home">บ้านพักคนชรา</string>
 	<string name="type.amenity.parking">ที่จอดรถ</string>
-	<string name="type.amenity.parking.fee">ที่จอดรถ</string>
-	<string name="type.amenity.parking.multi.storey">ที่จอดรถ</string>
-	<string name="type.amenity.parking.no.access">ที่จอดรถ</string>
+	<string name="type.amenity.parking.fee">ที่จอดรถแบบเสียค่าบริการ</string>
+	<string name="type.amenity.parking.multi.storey">ที่จอดรถหลายชั้น</string>
+	<string name="type.amenity.parking.no.access">ที่จอดรถส่วนตัว</string>
+	<string name="type.amenity.parking.permissive">ที่จอดรถส่วนตัว</string>
+	<string name="type.amenity.parking.private">ที่จอดรถส่วนตัว</string>
 	<string name="type.amenity.parking.park_and_ride">ที่จอดรถ</string>
-	<string name="type.amenity.parking.permissive">ที่จอดรถ</string>
-	<string name="type.amenity.parking.private">ที่จอดรถ</string>
-	<string name="type.amenity.parking.underground">ที่จอดรถ</string>
+	<string name="type.amenity.parking.underground">ที่จอดรถใต้ดิน</string>
+	<string name="type.amenity.parking_entrance.private">ทางเข้าที่จอดรถ</string>
+	<string name="type.amenity.parking_entrance.permissive">ทางเข้าที่จอดรถ</string>
+	<string name="type.amenity.parking_entrance">ทางเข้าที่จอดรถ</string>
 	<string name="type.amenity.parking_space">พื้นที่จอดรถ</string>
 	<string name="type.amenity.parking_space.permissive">พื้นที่จอดรถ</string>
 	<string name="type.amenity.parking_space.private">พื้นที่จอดรถ</string>
 	<string name="type.amenity.parking_space.underground">พื้นที่จอดรถ</string>
+	<string name="type.amenity.parking_space.disabled">ที่จอดรถสำหรับผู้พิการ</string>
 	<string name="type.amenity.payment_terminal">จุดชำระเงิน</string>
 	<string name="type.amenity.pharmacy">ร้านขายยา</string>
 	<string name="type.amenity.place_of_worship">สถานที่ประกอบพิธีกรรม</string>
@@ -778,8 +788,11 @@
 	<string name="type.barrier.block">บล็อก</string>
 	<string name="type.barrier.bollard">เสา</string>
 	<string name="type.barrier.border_control">ด่านตรวจคนเข้าเมือง</string>
+	<string name="type.barrier.city_wall">กำแพงเมือง</string>
+	<string name="type.barrier.ditch">คูเมือง</string>
 	<string name="type.barrier.entrance">ทางเข้า</string>
 	<string name="type.barrier.gate">ประตู</string>
+	<string name="type.barrier.kissing_gate">ประตู</string>
 	<string name="type.barrier.lift_gate">ไม้กั้น</string>
 	<string name="type.barrier.stile">บันไดข้าม</string>
 	<string name="type.barrier.swing_gate">ไม้กั้น</string>
@@ -791,17 +804,25 @@
 	<string name="type.building.has_parts">อาคาร</string>
 	<string name="type.building.train_station">สถานีรถไฟ</string>
 	<string name="type.cemetery.grave">หลุมฝังศพ</string>
+	<string name="type.craft">งานฝีมือ</string>
+	<string name="type.craft.beekeeper">คนเลี้ยงผึ้ง</string>
+	<string name="type.craft.blacksmith">ช่างตีเหล็ก</string>
 	<string name="type.craft.brewery">โรงเบียร์</string>
 	<string name="type.craft.carpenter">ช่างไม้</string>
+	<string name="type.craft.confectionery">ลูกกวาด</string>
 	<string name="type.craft.electrician">ช่างไฟฟ้า</string>
+	<string name="type.craft.electronics_repair">ซ่อมเครื่องใช้ไฟฟ้า</string>
 	<string name="type.craft.gardener">คนจัดสวน</string>
+	<string name="type.craft.handicraft">หัตถกรรม</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">ระบบปรับอากาศ</string>
 	<string name="type.craft.metal_construction">ช่างเหล็ก</string>
 	<string name="type.craft.painter">ช่างทาสี</string>
 	<string name="type.craft.photographer">ช่างภาพ</string>
 	<string name="type.craft.plumber">ช่างประปา</string>
+	<string name="type.craft.sawmill">ซูเมล</string>
 	<string name="type.craft.shoemaker">ช่างซ่อมรองเท้า</string>
+	<string name="type.craft.winery">โรงกลั่นเหล้าองุ่น</string>
 	<string name="type.craft.tailor">ช่างตัดเสื้อ</string>
 	<string name="type.cuisine.african">อาหารแอฟริกัน</string>
 	<string name="type.cuisine.american">อาหารอเมริกัน</string>
@@ -893,6 +914,7 @@
 	<string name="type.emergency.phone">โทรศัพท์ฉุกเฉิน</string>
 	<string name="type.entrance">ทางเข้า</string>
 	<string name="type.healthcare.laboratory">ห้องปฏิบัติการทางการแพทย์</string>
+	<string name="type.healthcare.physiotherapist">นักกายภาพบำบัด</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1058,18 +1080,38 @@
 	<string name="type.area_highway.unclassified">ถนน</string>
 
 	<!-- SECTION: Types: Historic -->
+	<string name="type.historic">วัตถุประวัติศาสตร์</string>
 	<string name="type.historic.archaeological_site">โบราณสถาน</string>
+	<string name="type.historic.battlefield">สนามรบ</string>
+	<string name="type.historic.boundary_stone">ขอบหิน</string>
 	<string name="type.historic.castle">ปราสาท</string>
+	<string name="type.historic.castle.castrum">ป้อมโรมัน</string>
 	<string name="type.historic.castle.defensive">ปราสาท</string>
+	<string name="type.historic.castle.fortified_church">โบสถ์เสริมความแข็งแกร่ง</string>
+	<string name="type.historic.castle.fortress">ป้อม</string>
+	<string name="type.historic.castle.hillfort">ป้อมเนิน</string>
+	<string name="type.historic.castle.kremlin">เครมลิน</string>
+	<string name="type.historic.castle.manor">คฤหาสน์</string>
+	<string name="type.historic.castle.palace">วัง</string>
+	<string name="type.historic.castle.shiro">ปราสาทญี่ปุ่น</string>
 	<string name="type.historic.castle.stately">ปราสาท</string>
+	<string name="type.historic.city_gate">ประตูเมือง</string>
+	<string name="type.historic.citywalls">กำแพงเมือง</string>
+	<string name="type.historic.fort">ป้อม</string>
 	<string name="type.historic.memorial">ที่ระลึก</string>
+	<string name="type.historic.memorial.cross">อนุสรณ์สถานข้าม</string>
 	<string name="type.historic.memorial.plaque">ที่ระลึก</string>
 	<string name="type.historic.memorial.sculpture">ที่ระลึก</string>
 	<string name="type.historic.memorial.statue">ที่ระลึก</string>
+	<string name="type.historic.memorial.stolperstein">อุปสรรค์</string>
+	<string name="type.historic.memorial.war_memorial">อนุสรณ์สถานสงคราม</string>
 	<string name="type.historic.monument">อนุสาวรีย์</string>
+	<string name="type.historic.pillory">ประจาน</string>
 	<string name="type.historic.ruins">ซากปรักหักพัง</string>
 	<string name="type.historic.ship">สถานที่ท่องเที่ยว</string>
 	<string name="type.historic.tomb">สถานที่ท่องเที่ยว</string>
+	<string name="type.historic.wayside_cross">ทางข้าม</string>
+	<string name="type.historic.wayside_shrine">ศาลเจ้าข้างทาง</string>
 	<string name="type.internet_access">อินเทอร์เน็ต</string>
 	<string name="type.internet_access.wlan">อินเทอร์เน็ต</string>
 	<string name="type.landuse.basin">อ่างน้ำ</string>
@@ -1090,7 +1132,9 @@
 	<string name="type.leisure.dog_park">สถานที่พาสุนัขเดินเล่น</string>
 	<string name="type.leisure.fitness_centre">ฟิตเนสเซ็นเตอร์</string>
 	<string name="type.leisure.fitness_station">ศูนย์ฟิตเนส</string>
+	<string name="type.leisure.dance">แดนซ์ฮอลล์</string>
 	<string name="type.leisure.garden">สวน</string>
+	<string name="type.leisure.garden.residential">สวน</string>
 	<string name="type.leisure.golf_course">สนามกอล์ฟ</string>
 	<string name="type.leisure.nature_reserve">เขตอนุรักษ์ธรรมชาติ</string>
 	<string name="type.leisure.park">สวนสาธารณะ</string>
@@ -1102,10 +1146,8 @@
 	<string name="type.leisure.playground">สนามเด็กเล่น</string>
 	<string name="type.leisure.sauna">เซาน่า</string>
 	<string name="type.leisure.sports_centre">กีฬา</string>
-	<string name="type.leisure.sports_centre.climbing">ศูนย์ปีนเขา</string>
-	<string name="type.leisure.sports_centre.shooting">สนามยิงปืน</string>
-	<string name="type.leisure.sports_centre.swimming">ศูนย์ว่ายน้ำ</string>
-	<string name="type.leisure.sports_centre.yoga">โยคะสตูดิโอ</string>
+	<string name="type.sport.climbing">ศูนย์ปีนเขา</string>
+	<string name="type.sport.yoga">โยคะสตูดิโอ</string>
 	<string name="type.leisure.stadium">สนามกีฬา</string>
 	<string name="type.leisure.swimming_pool">สระว่ายน้ำ</string>
 	<string name="type.leisure.swimming_pool.private">สระว่ายน้ำ</string>
@@ -1186,10 +1228,13 @@
 	<string name="type.place.hamlet">หมู่บ้านเล็ก ๆ</string>
 	<string name="type.place.island">เกาะ</string>
 	<string name="type.place.islet">เกาะ</string>
+	<string name="type.place.isolated_dwelling">ที่อยู่อาศัยโดดเดี่ยว</string>
 	<string name="type.place.locality">ท้องถิ่น</string>
+	<string name="type.place.neighbourhood">ละแวกบ้าน</string>
 	<string name="type.place.ocean">มหาสมุทร</string>
 	<string name="type.place.region">ภูมิภาค</string>
 	<string name="type.place.sea">เห็น</string>
+	<string name="type.place.square">ช่องว่าง</string>
 	<string name="type.place.state">รัฐ</string>
 	<string name="type.place.state.USA">รัฐ</string>
 	<string name="type.place.suburb">ชานเมือง</string>
@@ -1206,29 +1251,223 @@
 	<string name="type.railway.station.light_rail">สถานีรถไฟ</string>
 	<string name="type.railway.station.monorail">สถานีรถไฟ</string>
 	<string name="type.railway.station.subway">รถไฟ</string>
+	<string name="type.railway.station.subway.adana">รถไฟ</string>
+	<string name="type.railway.station.subway.algiers">รถไฟ</string>
+	<string name="type.railway.station.subway.almaty">รถไฟ</string>
+	<string name="type.railway.station.subway.amsterdam">รถไฟ</string>
+	<string name="type.railway.station.subway.ankara">รถไฟ</string>
+	<string name="type.railway.station.subway.athens">รถไฟ</string>
+	<string name="type.railway.station.subway.baku">รถไฟ</string>
+	<string name="type.railway.station.subway.bangkok">รถไฟ</string>
 	<string name="type.railway.station.subway.barcelona">รถไฟ</string>
+	<string name="type.railway.station.subway.beijing">รถไฟ</string>
+	<string name="type.railway.station.subway.bengalore">รถไฟ</string>
 	<string name="type.railway.station.subway.berlin">รถไฟ</string>
+	<string name="type.railway.station.subway.brasilia">รถไฟ</string>
+	<string name="type.railway.station.subway.brescia">รถไฟ</string>
+	<string name="type.railway.station.subway.brussels">รถไฟ</string>
+	<string name="type.railway.station.subway.bucharest">รถไฟ</string>
+	<string name="type.railway.station.subway.budapest">รถไฟ</string>
+	<string name="type.railway.station.subway.buenos_aires">รถไฟ</string>
+	<string name="type.railway.station.subway.bursa">รถไฟ</string>
+	<string name="type.railway.station.subway.cairo">รถไฟ</string>
+	<string name="type.railway.station.subway.caracas">รถไฟ</string>
+	<string name="type.railway.station.subway.catania">รถไฟ</string>
+	<string name="type.railway.station.subway.changchun">รถไฟ</string>
+	<string name="type.railway.station.subway.chengdu">รถไฟ</string>
+	<string name="type.railway.station.subway.chicago">รถไฟ</string>
+	<string name="type.railway.station.subway.chongqing">รถไฟ</string>
+	<string name="type.railway.station.subway.dalian">รถไฟ</string>
+	<string name="type.railway.station.subway.delhi">รถไฟ</string>
+	<string name="type.railway.station.subway.dnepro">รถไฟ</string>
+	<string name="type.railway.station.subway.dubai">รถไฟ</string>
+	<string name="type.railway.station.subway.ekb">รถไฟ</string>
+	<string name="type.railway.station.subway.fukuoka">รถไฟ</string>
+	<string name="type.railway.station.subway.glasgow">รถไฟ</string>
+	<string name="type.railway.station.subway.guangzhou">รถไฟ</string>
+	<string name="type.railway.station.subway.hamburg">รถไฟ</string>
+	<string name="type.railway.station.subway.helsinki">รถไฟ</string>
+	<string name="type.railway.station.subway.hiroshima">รถไฟ</string>
+	<string name="type.railway.station.subway.isfahan">รถไฟ</string>
+	<string name="type.railway.station.subway.istanbul">รถไฟ</string>
+	<string name="type.railway.station.subway.izmir">รถไฟ</string>
+	<string name="type.railway.station.subway.kazan">รถไฟ</string>
+	<string name="type.railway.station.subway.kharkiv">รถไฟ</string>
 	<string name="type.railway.station.subway.kiev">รถไฟ</string>
+	<string name="type.railway.station.subway.kobe">รถไฟ</string>
+	<string name="type.railway.station.subway.kolkata">รถไฟ</string>
+	<string name="type.railway.station.subway.kunming">รถไฟ</string>
+	<string name="type.railway.station.subway.kyoto">รถไฟ</string>
+	<string name="type.railway.station.subway.la">รถไฟ</string>
+	<string name="type.railway.station.subway.lausanne">รถไฟ</string>
+	<string name="type.railway.station.subway.lille">รถไฟ</string>
+	<string name="type.railway.station.subway.lima">รถไฟ</string>
+	<string name="type.railway.station.subway.lisboa">รถไฟ</string>
 	<string name="type.railway.station.subway.london">รถไฟ</string>
+	<string name="type.railway.station.subway.lyon">รถไฟ</string>
 	<string name="type.railway.station.subway.madrid">รถไฟ</string>
+	<string name="type.railway.station.subway.malaga">รถไฟ</string>
+	<string name="type.railway.station.subway.manila">รถไฟ</string>
+	<string name="type.railway.station.subway.maracaibo">รถไฟ</string>
+	<string name="type.railway.station.subway.mashhad">รถไฟ</string>
+	<string name="type.railway.station.subway.mecca">รถไฟ</string>
+	<string name="type.railway.station.subway.medellin">รถไฟ</string>
+	<string name="type.railway.station.subway.mexico">รถไฟ</string>
+	<string name="type.railway.station.subway.milan">รถไฟ</string>
 	<string name="type.railway.station.subway.minsk">รถไฟ</string>
+	<string name="type.railway.station.subway.montreal">รถไฟ</string>
 	<string name="type.railway.station.subway.moscow">รถไฟ</string>
+	<string name="type.railway.station.subway.munchen">รถไฟ</string>
+	<string name="type.railway.station.subway.nagoya">รถไฟ</string>
 	<string name="type.railway.station.subway.newyork">รถไฟ</string>
+	<string name="type.railway.station.subway.nnov">รถไฟ</string>
+	<string name="type.railway.station.subway.novosibirsk">รถไฟ</string>
+	<string name="type.railway.station.subway.osaka">รถไฟ</string>
+	<string name="type.railway.station.subway.oslo">รถไฟ</string>
+	<string name="type.railway.station.subway.palma">รถไฟ</string>
+	<string name="type.railway.station.subway.panama">รถไฟ</string>
 	<string name="type.railway.station.subway.paris">รถไฟ</string>
+	<string name="type.railway.station.subway.philadelphia">รถไฟ</string>
+	<string name="type.railway.station.subway.pyongyang">รถไฟ</string>
+	<string name="type.railway.station.subway.rennes">รถไฟ</string>
+	<string name="type.railway.station.subway.rio">รถไฟ</string>
 	<string name="type.railway.station.subway.roma">รถไฟ</string>
+	<string name="type.railway.station.subway.rotterdam">รถไฟ</string>
+	<string name="type.railway.station.subway.samara">รถไฟ</string>
+	<string name="type.railway.station.subway.santiago">รถไฟ</string>
+	<string name="type.railway.station.subway.santo_domingo">รถไฟ</string>
+	<string name="type.railway.station.subway.saopaulo">รถไฟ</string>
+	<string name="type.railway.station.subway.sapporo">รถไฟ</string>
+	<string name="type.railway.station.subway.sendai">รถไฟ</string>
+	<string name="type.railway.station.subway.sf">รถไฟ</string>
+	<string name="type.railway.station.subway.shanghai">รถไฟ</string>
+	<string name="type.railway.station.subway.shiraz">รถไฟ</string>
+	<string name="type.railway.station.subway.sofia">รถไฟ</string>
 	<string name="type.railway.station.subway.spb">รถไฟ</string>
+	<string name="type.railway.station.subway.stockholm">รถไฟ</string>
+	<string name="type.railway.station.subway.tabriz">รถไฟ</string>
+	<string name="type.railway.station.subway.taipei">รถไฟ</string>
+	<string name="type.railway.station.subway.taoyuan">รถไฟ</string>
+	<string name="type.railway.station.subway.tashkent">รถไฟ</string>
+	<string name="type.railway.station.subway.tbilisi">รถไฟ</string>
+	<string name="type.railway.station.subway.tianjin">รถไฟ</string>
+	<string name="type.railway.station.subway.tokyo">รถไฟ</string>
+	<string name="type.railway.station.subway.valencia">รถไฟ</string>
+	<string name="type.railway.station.subway.vienna">รถไฟ</string>
+	<string name="type.railway.station.subway.warszawa">รถไฟ</string>
+	<string name="type.railway.station.subway.washington">รถไฟ</string>
+	<string name="type.railway.station.subway.wuhan">รถไฟ</string>
+	<string name="type.railway.station.subway.yerevan">รถไฟ</string>
+	<string name="type.railway.station.subway.yokohama">รถไฟ</string>
 	<string name="type.railway.subway_entrance">ทางเข้ารถไฟใต้ดิน</string>
-	<string name="type.railway.subway_entrance.barcelona">รถไฟ</string>
-	<string name="type.railway.subway_entrance.berlin">รถไฟ</string>
-	<string name="type.railway.subway_entrance.kiev">รถไฟ</string>
-	<string name="type.railway.subway_entrance.london">รถไฟ</string>
-	<string name="type.railway.subway_entrance.madrid">รถไฟ</string>
-	<string name="type.railway.subway_entrance.minsk">รถไฟ</string>
-	<string name="type.railway.subway_entrance.moscow">รถไฟ</string>
-	<string name="type.railway.subway_entrance.newyork">รถไฟ</string>
-	<string name="type.railway.subway_entrance.paris">รถไฟ</string>
-	<string name="type.railway.subway_entrance.roma">รถไฟ</string>
-	<string name="type.railway.subway_entrance.spb">รถไฟ</string>
+	<string name="type.railway.subway_entrance.adana">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.algiers">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.almaty">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.amsterdam">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.ankara">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.athens">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.baku">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.bangkok">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.barcelona">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.beijing">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.bengalore">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.berlin">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.brasilia">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.brescia">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.brussels">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.bucharest">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.budapest">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.buenos_aires">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.bursa">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.cairo">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.caracas">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.catania">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.changchun">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.chengdu">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.chicago">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.chongqing">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.dalian">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.delhi">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.dnepro">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.dubai">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.ekb">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.fukuoka">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.glasgow">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.guangzhou">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.hamburg">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.helsinki">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.hiroshima">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.isfahan">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.istanbul">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.izmir">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.kazan">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.kharkiv">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.kiev">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.kobe">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.kolkata">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.kunming">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.kyoto">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.la">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.lausanne">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.lille">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.lima">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.lisboa">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.london">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.lyon">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.madrid">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.malaga">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.manila">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.maracaibo">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.mashhad">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.mecca">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.medellin">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.mexico">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.milan">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.minsk">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.montreal">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.moscow">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.munchen">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.nagoya">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.newyork">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.nnov">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.novosibirsk">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.osaka">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.oslo">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.palma">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.panama">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.paris">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.philadelphia">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.pyongyang">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.rennes">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.rio">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.roma">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.rotterdam">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.samara">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.santiago">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.santo_domingo">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.saopaulo">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.sapporo">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.sendai">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.sf">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.shanghai">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.shiraz">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.sofia">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.spb">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.stockholm">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.tabriz">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.taipei">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.taoyuan">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.tashkent">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.tbilisi">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.tianjin">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.tokyo">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.valencia">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.vienna">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.warszawa">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.washington">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.wuhan">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.yerevan">ทางเข้ารถไฟใต้ดิน</string>
+	<string name="type.railway.subway_entrance.yokohama">ทางเข้ารถไฟใต้ดิน</string>
 	<string name="type.railway.tram_stop">ป้ายรถราง</string>
 	<string name="type.shop">ร้านค้า</string>
 	<string name="type.shop.alcohol">ร้านขายเหล้า</string>
@@ -1334,6 +1573,8 @@
 	<string name="type.sport.athletics">กรีฑา</string>
 	<string name="type.sport.baseball">เบสบอล</string>
 	<string name="type.sport.basketball">บาสเก็ตบอล</string>
+	<string name="type.sport.beachvolleyball">วอลเลย์บอลชายหาด</string>
+	<string name="type.sport.chess">หมากรุกสากล</string>
 	<string name="type.sport.curling">เคอร์ลิง</string>
 	<string name="type.sport.equestrian">กีฬาแข่งม้า</string>
 	<string name="type.sport.golf">กอล์ฟ</string>
@@ -1343,10 +1584,21 @@
 	<!-- Used to tag a scuba diving site. -->
 	<string name="type.sport.scuba_diving">ดำน้ำลึก</string>
 	<string name="type.sport.shooting">ยิงปืน</string>
+	<string name="type.sport.skateboard">สเกตบอร์ด</string>
 	<string name="type.sport.skiing">เล่นสกี</string>
 	<string name="type.sport.soccer">ฟุตบอล</string>
 	<string name="type.sport.swimming">การว่ายน้ำ</string>
+	<string name="type.sport.table_tennis">เทเบิลเทนนิส</string>
 	<string name="type.sport.tennis">คอร์ทเทนนิส</string>
+	<string name="type.sport.volleyball">วอลเลย์บอล</string>
+	<string name="type.sport.10pin">โบว์ลิ่ง</string>
+	<string name="type.sport.9pin">โบว์ลิ่ง</string>
+	<string name="type.sport.padel">พาเดล</string>
+	<string name="type.sport.futsal">ฟุตซอล</string>
+	<string name="type.sport.ice_hockey">ฮอคกี้น้ำแข็ง</string>
+	<string name="type.sport.field_hockey">กีฬาฮอกกี้</string>
+	<string name="type.sport.badminton">แบดมินตัน</string>
+	<string name="type.sport.pelota">Basque pelota</string>
 	<string name="type.tourism.alpine_hut">ที่พักบนภูเขาโรงแรม</string>
 	<string name="type.tourism.apartment">อพาร์ตเมนต์</string>
 	<string name="type.tourism.artwork">งานศิลปะ</string>

@@ -229,6 +229,34 @@ using namespace storage;
   [self.ownerViewController openUrl:data.infoData.website];
 }
 
+- (void)openWikipedia:(PlacePageData *)data {
+  [self.ownerViewController openUrl:data.infoData.wikipedia];
+}
+
+- (void)openWikimediaCommons:(PlacePageData *)data {
+  [self.ownerViewController openUrl:data.infoData.wikimediaCommons];
+}
+
+- (void)openFacebook:(PlacePageData *)data {
+  [self.ownerViewController openUrl:[NSString stringWithFormat:@"https://m.facebook.com/%@", data.infoData.facebook]];
+}
+
+- (void)openInstagram:(PlacePageData *)data {
+  [self.ownerViewController openUrl:[NSString stringWithFormat:@"https://instagram.com/%@", data.infoData.instagram]];
+}
+
+- (void)openTwitter:(PlacePageData *)data {
+  [self.ownerViewController openUrl:[NSString stringWithFormat:@"https://mobile.twitter.com/%@", data.infoData.twitter]];
+}
+
+- (void)openVk:(PlacePageData *)data {
+  [self.ownerViewController openUrl:[NSString stringWithFormat:@"https://vk.com/%@", data.infoData.vk]];
+}
+
+- (void)openEmail:(PlacePageData *)data {
+  [UIApplication.sharedApplication openURL:data.infoData.emailUrl options:@{} completionHandler:nil];
+}
+
 - (void)openElevationDifficultPopup:(PlacePageData *)data {
   auto difficultyPopup = [ElevationDetailsBuilder buildWithData:data];
   [[MapViewController sharedController] presentViewController:difficultyPopup animated:YES completion:nil];

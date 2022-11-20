@@ -12,7 +12,7 @@ set(SRC
   base/text_index/mem.cpp
   base/text_index/mem.hpp
   base/text_index/merger.cpp
-  base/text_index/merger.hpp  
+  base/text_index/merger.hpp
   base/text_index/postings.hpp
   base/text_index/reader.hpp
   base/text_index/text_index.cpp
@@ -60,8 +60,10 @@ set(SRC
   features_layer.hpp
   features_layer_matcher.cpp
   features_layer_matcher.hpp
-  features_layer_path_finder.cpp
+  # Template functions implementation. Should be included when using.
+  # features_layer_path_finder.cpp
   features_layer_path_finder.hpp
+  filtering_params.hpp
   geocoder.cpp
   geocoder.hpp
   geocoder_context.cpp

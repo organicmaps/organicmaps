@@ -233,6 +233,13 @@ UNIT_TEST(Classificator_AreaPriority)
     // 3
     {"natural", "water"}, {"natural", "water", "lake"}, {"landuse", "basin"}, {"waterway", "riverbank"}
   }, {1, 2, 7, 4}, drule::area);
+
+  CheckPriority({
+    // 0
+    {"natural", "water"}, {"landuse", "reservoir"},
+    // 1
+    {"man_made", "pier"}, {"man_made", "breakwater"}, {"waterway", "dam"},
+  }, {2, 3}, drule::area);
 }
 
 UNIT_TEST(Classificator_PoiPriority)
@@ -254,6 +261,35 @@ UNIT_TEST(Classificator_PoiPriority)
       {"highway", "bus_stop"}, {"amenity", "bus_station"},
       {"railway", "station"}, {"railway", "halt"}, {"railway", "tram_stop"},
     }, {2, 5}, drule::symbol);
+  }
+
+  /// @todo Check that all of sport=* icons priority is bigger than all of pitch, sport_center, playground.
+
+  {
+    CheckPriority({
+      // 1
+      {"leisure", "pitch"},
+      // 2
+      {"sport", "yoga"}
+    }, {1, 1}, drule::symbol);
+  }
+
+  {
+    CheckPriority({
+      // 1
+      {"leisure", "sports_centre"},
+      // 2
+      {"sport", "shooting"}
+    }, {1, 1}, drule::symbol);
+  }
+
+  {
+    CheckPriority({
+      // 1
+      {"leisure", "playground"},
+      // 2
+      {"sport", "cricket"}
+    }, {1, 1}, drule::symbol);
   }
 }
 }  // namespace classificator_tests

@@ -282,11 +282,11 @@
 /* Text in menu */
 "instagram" = "Instagram";
 
+/* Text in the editor */
+"vk" = "VK";
+
 /* Text in menu */
 "openstreetmap" = "OpenStreetMap";
-
-/* Settings: Send feedback button and dialog title */
-"feedback" = "Geri Bildirim";
 
 /* Text in menu */
 "rate_the_app" = "Uygulamayı değerlendir";
@@ -296,6 +296,9 @@
 
 /* Button in the main Help dialog */
 "faq" = "Sıkça Sorulan Sorular";
+
+/* Button in the main menu */
+"donate" = "Bağış Yapın";
 
 /* Button in the main Help dialog */
 "how_to_support_us" = "Sizi nasıl destekleyebilirim?";
@@ -503,12 +506,6 @@
 
 "history" = "Geçmiş";
 
-"opens_in" = "%@ sonra açılıyor";
-
-"closes_in" = "%@ sonra kapanıyor";
-
-"closed" = "Kapalı";
-
 "search_not_found" = "Üzgünüz, hiç bir şey bulamadık.";
 
 "search_not_found_query" = "Lütfen başka bir sorgu girin.";
@@ -518,6 +515,12 @@
 "search_history_text" = "Son aramaları görüntüleyin.";
 
 "clear_search" = "Arama Geçmişini Temizle";
+
+/* Place Page link to Wikipedia article (if map object has it). */
+"read_in_wikipedia" = "Vikipedi";
+
+/* Place Page link to Wikimedia Commons. */
+"wikimedia_commons" = "Wikimedia Commons";
 
 "p2p_your_location" = "Konumunuz";
 
@@ -578,11 +581,25 @@
 
 "today" = "Bugün";
 
+"opens_tomorrow_at" = "Açılış yarın %@";
+
+"opens_dayoftheweek_at" = "Açılış %1$@ %2$@";
+
+"opens_at" = "Açılış %@";
+
+"opens_in" = "%@ sonra açılıyor";
+
+"closes_at" = "Kapanış %@";
+
+"closes_in" = "%@ sonra kapanıyor";
+
+"closed" = "Kapalı";
+
 "add_opening_hours" = "Açılış saatlerini ekle";
 
-"no_osm_account" = "OpenStreetMap hesabın yok mu?";
+"no_osm_account" = "OpenStreetMap hesabınız yok mu?";
 
-"register_at_openstreetmap" = "Kaydol";
+"register_at_openstreetmap" = "OpenStreetMap'e kaydol";
 
 "password_8_chars_min" = "Şifre (en az 8 karakter)";
 
@@ -630,6 +647,8 @@
 
 "phone" = "Telefon";
 
+"level" = "Zemin";
+
 "please_note" = "Lütfen dikkat";
 
 "downloader_delete_map_dialog" = "Harita ile birlikte tüm harita değişiklikleri de silinecektir.";
@@ -670,7 +689,7 @@
 
 "message_invalid_feature_position" = "Buraya bir nesne konumlandırılamıyor";
 
-"login_to_make_edits_visible" = "Diğer kullanıcıların yaptığınız değişiklikleri görebilmesi için oturum açın";
+"login_to_make_edits_visible" = "Diğer kullanıcıların yaptığınız değişiklikleri görebilmesi için OpenStreetMap.org'da oturum açın.";
 
 /* Error dialog no space */
 "migration_no_space_message" = "İndirmek için daha fazla alana ihtiyacınız var. Lütfen gereksiz verileri silin.";
@@ -750,6 +769,8 @@
 
 "miles_per_hour" = "saatte mil";
 
+"hour" = "sa";
+
 "minute" = "dk";
 
 "placepage_place_description" = "Açıklama";
@@ -798,10 +819,10 @@
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Bunu tüm kullanıcılara göndermek ister misiniz?";
 
-/* iOS Dialog before publishing the modifications to the public map. */
+/* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "Herhangi bir kişisel bilgi girmediğinizden emin olun.";
 
-"editor_share_to_all_dialog_message_2" = "Değişikliği kontrol edeceğiz. Eğer herhangi bir sorumuz olursa sizinle e-posta aracılığıyla iletişime geçeceğiz.";
+"editor_share_to_all_dialog_message_2" = "OpenStreetMap editörleri değişikliklerinizi kontrol edecek ve bir soruları olursa sizinle iletişime geçecekler.";
 
 "navigation_stop_button" = "dur";
 
@@ -856,15 +877,13 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Trafik verileri kullanılamıyor";
 
-/* Settings: "Send general feedback" button */
-"feedback_general" = "Genel Geri Bildirim";
-
 "on" = "Aç";
 
 "off" = "Kapat";
 
 "transliteration_title" = "Latin harf çevirisi";
 
+/* Subway exits for public transport marks on the map */
 "core_exit" = "Çık";
 
 "routing_add_start_point" = "Rotayı planlamak için bir başlangıç noktası ekleyin";
@@ -1205,6 +1224,15 @@
 /* edit track screen title */
 "track_title" = "Kayıt";
 
+/* Telegram group url for the "?" About page */
+"telegram_url" = "https://t.me/OrganicMapsTR";
+
+/* Instagram account url for the "?" About page */
+"instagram_url" = "https://www.instagram.com/organicmapstr";
+
+/* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
+"translated_om_site_url" = "https://organicmaps.app/tr/";
+
 
 /********** Types **********/
 
@@ -1300,6 +1328,10 @@
 
 "type.amenity.driving_school" = "Sürücü Kursu";
 
+"type.amenity.music_school" = "Müzik Okulu";
+
+"type.amenity.language_school" = "Dil Okulu";
+
 "type.office.diplomatic" = "Büyükelçilik";
 
 "type.amenity.fast_food" = "Hazır Yemek";
@@ -1342,19 +1374,25 @@
 
 "type.amenity.parking" = "Otopark";
 
-"type.amenity.parking.fee" = "Otopark";
+"type.amenity.parking.fee" = "Ücretli Otopark";
 
-"type.amenity.parking.multi.storey" = "Otopark";
+"type.amenity.parking.multi.storey" = "Çok Katlı Otopark";
 
-"type.amenity.parking.no.access" = "Otopark";
+"type.amenity.parking.no.access" = "Özel Otopark";
+
+"type.amenity.parking.permissive" = "Özel Otopark";
+
+"type.amenity.parking.private" = "Özel Otopark";
 
 "type.amenity.parking.park_and_ride" = "Otopark";
 
-"type.amenity.parking.permissive" = "Otopark";
+"type.amenity.parking.underground" = "Yeraltı otoparkı";
 
-"type.amenity.parking.private" = "Otopark";
+"type.amenity.parking_entrance.private" = "Otopark girişi";
 
-"type.amenity.parking.underground" = "Otopark";
+"type.amenity.parking_entrance.permissive" = "Otopark girişi";
+
+"type.amenity.parking_entrance" = "Otopark girişi";
 
 "type.amenity.parking_space" = "Park Alanı";
 
@@ -1363,6 +1401,8 @@
 "type.amenity.parking_space.private" = "Park Alanı";
 
 "type.amenity.parking_space.underground" = "Park Alanı";
+
+"type.amenity.parking_space.disabled" = "Engelli park yeri";
 
 "type.amenity.payment_terminal" = "Ödeme Noktası";
 
@@ -1503,6 +1543,8 @@
 
 "type.barrier.cycle_barrier" = "Bisiklet Bariyeri";
 
+"type.barrier.ditch" = "Hendek";
+
 "type.barrier.entrance" = "Giriş";
 
 "type.barrier.fence" = "Çit";
@@ -1510,6 +1552,8 @@
 "type.barrier.gate" = "Geçit";
 
 "type.barrier.hedge" = "Çit";
+
+"type.barrier.kissing_gate" = "Geçit";
 
 "type.barrier.lift_gate" = "Asansör Kapısı";
 
@@ -1589,7 +1633,7 @@
 
 "type.craft.carpenter" = "Marangoz";
 
-"type.craft.confectionery" = "Confectionery";
+"type.craft.confectionery" = "Şekerlemeci";
 
 "type.craft.electrician" = "Elektrikçi";
 
@@ -1610,11 +1654,11 @@
 
 "type.craft.plumber" = "Tesisatçı";
 
-"type.craft.sawmill" = "Sawmill";
+"type.craft.sawmill" = "Kereste Fabrikası";
 
 "type.craft.shoemaker" = "Ayakkabı Tamircisi";
 
-"type.craft.winery" = "Winery";
+"type.craft.winery" = "Şaraphane";
 
 "type.craft.tailor" = "Terzi";
 
@@ -1801,6 +1845,8 @@
 "type.entrance" = "Giriş";
 
 "type.healthcare.laboratory" = "Tıbbi Laboratuvar";
+
+"type.healthcare.physiotherapist" = "Fizyoterapist";
 
 
 /********** Types: Roads **********/
@@ -2114,17 +2160,39 @@
 
 "type.historic.boundary_stone" = "Sınır Taşı";
 
-"type.historic.castle" = "Kale";
+"type.historic.castle" = "Müstahkem şato";
 
-"type.historic.castle.defensive" = "Kale";
+"type.historic.castle.castrum" = "Castra";
 
-"type.historic.castle.stately" = "Kale";
+"type.historic.castle.defensive" = "Müstahkem şato";
+
+"type.historic.castle.fortified_church" = "Müstahkem kilise";
+
+"type.historic.castle.fortress" = "Kale";
+
+"type.historic.castle.hillfort" = "Tepe Kalesi";
+
+"type.historic.castle.kremlin" = "Kremlin";
+
+"type.historic.castle.manor" = "Malikane";
+
+"type.historic.castle.palace" = "Saray";
+
+"type.historic.castle.shiro" = "Japon kalesi";
+
+"type.historic.castle.stately" = "Şato";
+
+"type.historic.city_gate" = "Şehir kapısı";
 
 "type.historic.citywalls" = "Şehir Duvarı";
 
 "type.historic.fort" = "Hisar";
 
+"type.historic.gallows" = "Darağacı";
+
 "type.historic.memorial" = "Abide";
+
+"type.historic.memorial.cross" = "Anıt haç";
 
 "type.historic.memorial.plaque" = "Hatıra Plaketi";
 
@@ -2132,7 +2200,13 @@
 
 "type.historic.memorial.statue" = "Heykel";
 
+"type.historic.memorial.stolperstein" = "Tökezleyen Taşlar";
+
+"type.historic.memorial.war_memorial" = "Savaş anıtı";
+
 "type.historic.monument" = "Anıt";
+
+"type.historic.pillory" = "Boyunduruk";
 
 "type.historic.ruins" = "Harabeler";
 
@@ -2260,9 +2334,13 @@
 
 "type.leisure.fitness_centre" = "Fitness Merkezi";
 
-"type.leisure.fitness_station" = "Fitness Salonu";
+"type.leisure.fitness_station" = "Açık Hava Spor Alanı";
+
+"type.leisure.dance" = "Dans salonu";
 
 "type.leisure.garden" = "Bahçe";
+
+"type.leisure.garden.residential" = "Konut Bahçesi";
 
 "type.leisure.golf_course" = "Golf Sahası";
 
@@ -2296,13 +2374,9 @@
 
 "type.leisure.sports_centre" = "Spor Merkezi";
 
-"type.leisure.sports_centre.climbing" = "Tırmanma Merkezi";
+"type.sport.climbing" = "Tırmanma Merkezi";
 
-"type.leisure.sports_centre.shooting" = "Poligon";
-
-"type.leisure.sports_centre.swimming" = "Yüzme Merkezi";
-
-"type.leisure.sports_centre.yoga" = "Yoga Stüdyosu";
+"type.sport.yoga" = "Yoga Stüdyosu";
 
 "type.leisure.stadium" = "Stadyum";
 
@@ -2394,6 +2468,8 @@
 
 "type.natural.coastline" = "Kıyı Şeridi";
 
+"type.natural.desert" = "Desert";
+
 "type.natural.geyser" = "Gayzer";
 
 "type.natural.glacier" = "Buzul";
@@ -2471,8 +2547,6 @@
 "type.organic.only" = "Organic";
 
 "type.organic.yes" = "Organic";
-
-"type.place" = "Yer";
 
 "type.place.city" = "Şehir";
 
@@ -2648,27 +2722,221 @@
 
 "type.railway.station.subway" = "Metro";
 
+"type.railway.station.subway.adana" = "Metro";
+
+"type.railway.station.subway.algiers" = "Metro";
+
+"type.railway.station.subway.almaty" = "Metro";
+
+"type.railway.station.subway.amsterdam" = "Metro";
+
+"type.railway.station.subway.ankara" = "Metro";
+
+"type.railway.station.subway.athens" = "Metro";
+
+"type.railway.station.subway.baku" = "Metro";
+
+"type.railway.station.subway.bangkok" = "Metro";
+
 "type.railway.station.subway.barcelona" = "Metro";
+
+"type.railway.station.subway.beijing" = "Metro";
+
+"type.railway.station.subway.bengalore" = "Metro";
 
 "type.railway.station.subway.berlin" = "Metro";
 
+"type.railway.station.subway.brasilia" = "Metro";
+
+"type.railway.station.subway.brescia" = "Metro";
+
+"type.railway.station.subway.brussels" = "Metro";
+
+"type.railway.station.subway.bucharest" = "Metro";
+
+"type.railway.station.subway.budapest" = "Metro";
+
+"type.railway.station.subway.buenos_aires" = "Metro";
+
+"type.railway.station.subway.bursa" = "Metro";
+
+"type.railway.station.subway.cairo" = "Metro";
+
+"type.railway.station.subway.caracas" = "Metro";
+
+"type.railway.station.subway.catania" = "Metro";
+
+"type.railway.station.subway.changchun" = "Metro";
+
+"type.railway.station.subway.chengdu" = "Metro";
+
+"type.railway.station.subway.chicago" = "Metro";
+
+"type.railway.station.subway.chongqing" = "Metro";
+
+"type.railway.station.subway.dalian" = "Metro";
+
+"type.railway.station.subway.delhi" = "Metro";
+
+"type.railway.station.subway.dnepro" = "Metro";
+
+"type.railway.station.subway.dubai" = "Metro";
+
+"type.railway.station.subway.ekb" = "Metro";
+
+"type.railway.station.subway.fukuoka" = "Metro";
+
+"type.railway.station.subway.glasgow" = "Metro";
+
+"type.railway.station.subway.guangzhou" = "Metro";
+
+"type.railway.station.subway.hamburg" = "Metro";
+
+"type.railway.station.subway.helsinki" = "Metro";
+
+"type.railway.station.subway.hiroshima" = "Metro";
+
+"type.railway.station.subway.isfahan" = "Metro";
+
+"type.railway.station.subway.istanbul" = "Metro";
+
+"type.railway.station.subway.izmir" = "Metro";
+
+"type.railway.station.subway.kazan" = "Metro";
+
+"type.railway.station.subway.kharkiv" = "Metro";
+
 "type.railway.station.subway.kiev" = "Metro";
+
+"type.railway.station.subway.kobe" = "Metro";
+
+"type.railway.station.subway.kolkata" = "Metro";
+
+"type.railway.station.subway.kunming" = "Metro";
+
+"type.railway.station.subway.kyoto" = "Metro";
+
+"type.railway.station.subway.la" = "Metro";
+
+"type.railway.station.subway.lausanne" = "Metro";
+
+"type.railway.station.subway.lille" = "Metro";
+
+"type.railway.station.subway.lima" = "Metro";
+
+"type.railway.station.subway.lisboa" = "Metro";
 
 "type.railway.station.subway.london" = "Metro";
 
+"type.railway.station.subway.lyon" = "Metro";
+
 "type.railway.station.subway.madrid" = "Metro";
+
+"type.railway.station.subway.malaga" = "Metro";
+
+"type.railway.station.subway.manila" = "Metro";
+
+"type.railway.station.subway.maracaibo" = "Metro";
+
+"type.railway.station.subway.mashhad" = "Metro";
+
+"type.railway.station.subway.mecca" = "Metro";
+
+"type.railway.station.subway.medellin" = "Metro";
+
+"type.railway.station.subway.mexico" = "Metro";
+
+"type.railway.station.subway.milan" = "Metro";
 
 "type.railway.station.subway.minsk" = "Metro";
 
+"type.railway.station.subway.montreal" = "Metro";
+
 "type.railway.station.subway.moscow" = "Metro";
+
+"type.railway.station.subway.munchen" = "Metro";
+
+"type.railway.station.subway.nagoya" = "Metro";
 
 "type.railway.station.subway.newyork" = "Metro";
 
+"type.railway.station.subway.nnov" = "Metro";
+
+"type.railway.station.subway.novosibirsk" = "Metro";
+
+"type.railway.station.subway.osaka" = "Metro";
+
+"type.railway.station.subway.oslo" = "Metro";
+
+"type.railway.station.subway.palma" = "Metro";
+
+"type.railway.station.subway.panama" = "Metro";
+
 "type.railway.station.subway.paris" = "Metro";
+
+"type.railway.station.subway.philadelphia" = "Metro";
+
+"type.railway.station.subway.pyongyang" = "Metro";
+
+"type.railway.station.subway.rennes" = "Metro";
+
+"type.railway.station.subway.rio" = "Metro";
 
 "type.railway.station.subway.roma" = "Metro";
 
+"type.railway.station.subway.rotterdam" = "Metro";
+
+"type.railway.station.subway.samara" = "Metro";
+
+"type.railway.station.subway.santiago" = "Metro";
+
+"type.railway.station.subway.santo_domingo" = "Metro";
+
+"type.railway.station.subway.saopaulo" = "Metro";
+
+"type.railway.station.subway.sapporo" = "Metro";
+
+"type.railway.station.subway.sendai" = "Metro";
+
+"type.railway.station.subway.sf" = "Metro";
+
+"type.railway.station.subway.shanghai" = "Metro";
+
+"type.railway.station.subway.shiraz" = "Metro";
+
+"type.railway.station.subway.sofia" = "Metro";
+
 "type.railway.station.subway.spb" = "Metro";
+
+"type.railway.station.subway.stockholm" = "Metro";
+
+"type.railway.station.subway.tabriz" = "Metro";
+
+"type.railway.station.subway.taipei" = "Metro";
+
+"type.railway.station.subway.taoyuan" = "Metro";
+
+"type.railway.station.subway.tashkent" = "Metro";
+
+"type.railway.station.subway.tbilisi" = "Metro";
+
+"type.railway.station.subway.tianjin" = "Metro";
+
+"type.railway.station.subway.tokyo" = "Metro";
+
+"type.railway.station.subway.valencia" = "Metro";
+
+"type.railway.station.subway.vienna" = "Metro";
+
+"type.railway.station.subway.warszawa" = "Metro";
+
+"type.railway.station.subway.washington" = "Metro";
+
+"type.railway.station.subway.wuhan" = "Metro";
+
+"type.railway.station.subway.yerevan" = "Metro";
+
+"type.railway.station.subway.yokohama" = "Metro";
 
 "type.railway.subway" = "Metro Hattı";
 
@@ -2678,27 +2946,221 @@
 
 "type.railway.subway_entrance" = "Metro Girişi";
 
-"type.railway.subway_entrance.barcelona" = "Metro";
+"type.railway.subway_entrance.adana" = "Metro Girişi";
 
-"type.railway.subway_entrance.berlin" = "Metro";
+"type.railway.subway_entrance.algiers" = "Metro Girişi";
 
-"type.railway.subway_entrance.kiev" = "Metro";
+"type.railway.subway_entrance.almaty" = "Metro Girişi";
 
-"type.railway.subway_entrance.london" = "Metro";
+"type.railway.subway_entrance.amsterdam" = "Metro Girişi";
 
-"type.railway.subway_entrance.madrid" = "Metro";
+"type.railway.subway_entrance.ankara" = "Metro Girişi";
 
-"type.railway.subway_entrance.minsk" = "Metro";
+"type.railway.subway_entrance.athens" = "Metro Girişi";
 
-"type.railway.subway_entrance.moscow" = "Metro";
+"type.railway.subway_entrance.baku" = "Metro Girişi";
 
-"type.railway.subway_entrance.newyork" = "Metro";
+"type.railway.subway_entrance.bangkok" = "Metro Girişi";
 
-"type.railway.subway_entrance.paris" = "Metro";
+"type.railway.subway_entrance.barcelona" = "Metro Girişi";
 
-"type.railway.subway_entrance.roma" = "Metro";
+"type.railway.subway_entrance.beijing" = "Metro Girişi";
 
-"type.railway.subway_entrance.spb" = "Metro";
+"type.railway.subway_entrance.bengalore" = "Metro Girişi";
+
+"type.railway.subway_entrance.berlin" = "Metro Girişi";
+
+"type.railway.subway_entrance.brasilia" = "Metro Girişi";
+
+"type.railway.subway_entrance.brescia" = "Metro Girişi";
+
+"type.railway.subway_entrance.brussels" = "Metro Girişi";
+
+"type.railway.subway_entrance.bucharest" = "Metro Girişi";
+
+"type.railway.subway_entrance.budapest" = "Metro Girişi";
+
+"type.railway.subway_entrance.buenos_aires" = "Metro Girişi";
+
+"type.railway.subway_entrance.bursa" = "Metro Girişi";
+
+"type.railway.subway_entrance.cairo" = "Metro Girişi";
+
+"type.railway.subway_entrance.caracas" = "Metro Girişi";
+
+"type.railway.subway_entrance.catania" = "Metro Girişi";
+
+"type.railway.subway_entrance.changchun" = "Metro Girişi";
+
+"type.railway.subway_entrance.chengdu" = "Metro Girişi";
+
+"type.railway.subway_entrance.chicago" = "Metro Girişi";
+
+"type.railway.subway_entrance.chongqing" = "Metro Girişi";
+
+"type.railway.subway_entrance.dalian" = "Metro Girişi";
+
+"type.railway.subway_entrance.delhi" = "Metro Girişi";
+
+"type.railway.subway_entrance.dnepro" = "Metro Girişi";
+
+"type.railway.subway_entrance.dubai" = "Metro Girişi";
+
+"type.railway.subway_entrance.ekb" = "Metro Girişi";
+
+"type.railway.subway_entrance.fukuoka" = "Metro Girişi";
+
+"type.railway.subway_entrance.glasgow" = "Metro Girişi";
+
+"type.railway.subway_entrance.guangzhou" = "Metro Girişi";
+
+"type.railway.subway_entrance.hamburg" = "Metro Girişi";
+
+"type.railway.subway_entrance.helsinki" = "Metro Girişi";
+
+"type.railway.subway_entrance.hiroshima" = "Metro Girişi";
+
+"type.railway.subway_entrance.isfahan" = "Metro Girişi";
+
+"type.railway.subway_entrance.istanbul" = "Metro Girişi";
+
+"type.railway.subway_entrance.izmir" = "Metro Girişi";
+
+"type.railway.subway_entrance.kazan" = "Metro Girişi";
+
+"type.railway.subway_entrance.kharkiv" = "Metro Girişi";
+
+"type.railway.subway_entrance.kiev" = "Metro Girişi";
+
+"type.railway.subway_entrance.kobe" = "Metro Girişi";
+
+"type.railway.subway_entrance.kolkata" = "Metro Girişi";
+
+"type.railway.subway_entrance.kunming" = "Metro Girişi";
+
+"type.railway.subway_entrance.kyoto" = "Metro Girişi";
+
+"type.railway.subway_entrance.la" = "Metro Girişi";
+
+"type.railway.subway_entrance.lausanne" = "Metro Girişi";
+
+"type.railway.subway_entrance.lille" = "Metro Girişi";
+
+"type.railway.subway_entrance.lima" = "Metro Girişi";
+
+"type.railway.subway_entrance.lisboa" = "Metro Girişi";
+
+"type.railway.subway_entrance.london" = "Metro Girişi";
+
+"type.railway.subway_entrance.lyon" = "Metro Girişi";
+
+"type.railway.subway_entrance.madrid" = "Metro Girişi";
+
+"type.railway.subway_entrance.malaga" = "Metro Girişi";
+
+"type.railway.subway_entrance.manila" = "Metro Girişi";
+
+"type.railway.subway_entrance.maracaibo" = "Metro Girişi";
+
+"type.railway.subway_entrance.mashhad" = "Metro Girişi";
+
+"type.railway.subway_entrance.mecca" = "Metro Girişi";
+
+"type.railway.subway_entrance.medellin" = "Metro Girişi";
+
+"type.railway.subway_entrance.mexico" = "Metro Girişi";
+
+"type.railway.subway_entrance.milan" = "Metro Girişi";
+
+"type.railway.subway_entrance.minsk" = "Metro Girişi";
+
+"type.railway.subway_entrance.montreal" = "Metro Girişi";
+
+"type.railway.subway_entrance.moscow" = "Metro Girişi";
+
+"type.railway.subway_entrance.munchen" = "Metro Girişi";
+
+"type.railway.subway_entrance.nagoya" = "Metro Girişi";
+
+"type.railway.subway_entrance.newyork" = "Metro Girişi";
+
+"type.railway.subway_entrance.nnov" = "Metro Girişi";
+
+"type.railway.subway_entrance.novosibirsk" = "Metro Girişi";
+
+"type.railway.subway_entrance.osaka" = "Metro Girişi";
+
+"type.railway.subway_entrance.oslo" = "Metro Girişi";
+
+"type.railway.subway_entrance.palma" = "Metro Girişi";
+
+"type.railway.subway_entrance.panama" = "Metro Girişi";
+
+"type.railway.subway_entrance.paris" = "Metro Girişi";
+
+"type.railway.subway_entrance.philadelphia" = "Metro Girişi";
+
+"type.railway.subway_entrance.pyongyang" = "Metro Girişi";
+
+"type.railway.subway_entrance.rennes" = "Metro Girişi";
+
+"type.railway.subway_entrance.rio" = "Metro Girişi";
+
+"type.railway.subway_entrance.roma" = "Metro Girişi";
+
+"type.railway.subway_entrance.rotterdam" = "Metro Girişi";
+
+"type.railway.subway_entrance.samara" = "Metro Girişi";
+
+"type.railway.subway_entrance.santiago" = "Metro Girişi";
+
+"type.railway.subway_entrance.santo_domingo" = "Metro Girişi";
+
+"type.railway.subway_entrance.saopaulo" = "Metro Girişi";
+
+"type.railway.subway_entrance.sapporo" = "Metro Girişi";
+
+"type.railway.subway_entrance.sendai" = "Metro Girişi";
+
+"type.railway.subway_entrance.sf" = "Metro Girişi";
+
+"type.railway.subway_entrance.shanghai" = "Metro Girişi";
+
+"type.railway.subway_entrance.shiraz" = "Metro Girişi";
+
+"type.railway.subway_entrance.sofia" = "Metro Girişi";
+
+"type.railway.subway_entrance.spb" = "Metro Girişi";
+
+"type.railway.subway_entrance.stockholm" = "Metro Girişi";
+
+"type.railway.subway_entrance.tabriz" = "Metro Girişi";
+
+"type.railway.subway_entrance.taipei" = "Metro Girişi";
+
+"type.railway.subway_entrance.taoyuan" = "Metro Girişi";
+
+"type.railway.subway_entrance.tashkent" = "Metro Girişi";
+
+"type.railway.subway_entrance.tbilisi" = "Metro Girişi";
+
+"type.railway.subway_entrance.tianjin" = "Metro Girişi";
+
+"type.railway.subway_entrance.tokyo" = "Metro Girişi";
+
+"type.railway.subway_entrance.valencia" = "Metro Girişi";
+
+"type.railway.subway_entrance.vienna" = "Metro Girişi";
+
+"type.railway.subway_entrance.warszawa" = "Metro Girişi";
+
+"type.railway.subway_entrance.washington" = "Metro Girişi";
+
+"type.railway.subway_entrance.wuhan" = "Metro Girişi";
+
+"type.railway.subway_entrance.yerevan" = "Metro Girişi";
+
+"type.railway.subway_entrance.yokohama" = "Metro Girişi";
 
 "type.railway.tram" = "Tramvay Hattı";
 
@@ -2794,7 +3256,7 @@
 
 "type.shop.greengrocer" = "Manav";
 
-"type.shop.grocery" = "Bakkal";
+"type.shop.grocery" = "Market";
 
 "type.shop.hairdresser" = "Kuaför";
 
@@ -2932,7 +3394,11 @@
 
 "type.sport.basketball" = "Basketbol";
 
+"type.sport.beachvolleyball" = "Plaj voleybolu";
+
 "type.sport.bowls" = "Kuka Oynu";
+
+"type.sport.chess" = "Satranç";
 
 "type.sport.cricket" = "Kriket";
 
@@ -2953,13 +3419,35 @@
 
 "type.sport.shooting" = "Çekim";
 
+"type.sport.skateboard" = "Kaykay";
+
 "type.sport.skiing" = "Kayak yapmak";
 
 "type.sport.soccer" = "Futbol";
 
 "type.sport.swimming" = "Yüzme";
 
+"type.sport.table_tennis" = "Masa tenisi";
+
 "type.sport.tennis" = "Tenis Kortu";
+
+"type.sport.volleyball" = "Voleybol";
+
+"type.sport.10pin" = "Bowling";
+
+"type.sport.9pin" = "Bowling";
+
+"type.sport.padel" = "Padel";
+
+"type.sport.futsal" = "Futsal";
+
+"type.sport.ice_hockey" = "Buz Hokeyi";
+
+"type.sport.field_hockey" = "Çim Hokeyi";
+
+"type.sport.badminton" = "Badminton";
+
+"type.sport.pelota" = "Bask pelotası";
 
 "type.tourism" = "Turizm";
 
@@ -2979,7 +3467,7 @@
 
 "type.tourism.attraction" = "Görülecek Yerler";
 
-"type.tourism.attraction.animal" = "Görülecek Yerler";
+"type.tourism.attraction.animal" = "Hayvanat bahçesi";
 
 "type.tourism.attraction.specified" = "Görülecek Yerler";
 
@@ -3023,11 +3511,11 @@
 
 "type.tourism.zoo" = "Hayvanat Bahçesi";
 
-"type.traffic_calming" = "Hız Kesici (Tümsek)";
+"type.traffic_calming" = "Hız Kesici (Kasis)";
 
-"type.traffic_calming.bump" = "Hız Kesici (Tümsek)";
+"type.traffic_calming.bump" = "Hız Kesici (Kasis)";
 
-"type.traffic_calming.hump" = "Hız Kesici (Tümsek)";
+"type.traffic_calming.hump" = "Hız Kesici (Kasis)";
 
 "type.waterway" = "Su Yolu";
 
@@ -3047,7 +3535,7 @@
 
 "type.waterway.drain.tunnel" = "Lağım";
 
-"type.waterway.lock_gate" = "Kilit Kapısı";
+"type.waterway.lock_gate" = "Eklüz Kapağı";
 
 "type.waterway.river" = "Nehir";
 
@@ -3075,18 +3563,15 @@
 
 "type.wheelchair.yes" = "Tekerlekli sandalye erişimi var";
 
-/* en.wikipedia.org/wiki/Surface_lift */
-"type.piste_lift" = "Kayak Teleferiği";
+"type.aerialway.j.bar" = "Kayak Teleferiği";
 
-"type.piste_lift.j.bar" = "Kayak Teleferiği";
+"type.aerialway.magic_carpet" = "Kayak Teleferiği";
 
-"type.piste_lift.magic_carpet" = "Kayak Teleferiği";
+"type.aerialway.platter" = "Tabak Asansörü";
 
-"type.piste_lift.platter" = "Tabak Asansörü";
+"type.aerialway.rope_tow" = "Çekme Halatı";
 
-"type.piste_lift.rope_tow" = "Çekme Halatı";
-
-"type.piste_lift.t.bar" = "T-bar Lift";
+"type.aerialway.t.bar" = "Kayakçı teleferiği";
 
 "type.piste_type" = "Kayakçı Taşıyıcı";
 

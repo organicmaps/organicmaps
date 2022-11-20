@@ -161,7 +161,7 @@ public:
 
   void AssignRouteForTesting(std::shared_ptr<Route> route, RouterResultCode e) { AssignRoute(route, e); }
 
-  bool IsSpeedLimitExceeded() const { return m_speedCameraManager.IsSpeedLimitExceeded(); }
+  bool IsSpeedCamLimitExceeded() const { return m_speedCameraManager.IsSpeedLimitExceeded(); }
   SpeedCameraManager & GetSpeedCamManager() { return m_speedCameraManager; }
   SpeedCameraManager const & GetSpeedCamManager() const { return m_speedCameraManager; }
 
@@ -180,10 +180,10 @@ private:
         : m_rs(rs), m_callback(cb)
     {}
 
-    void operator()(std::shared_ptr<Route> route, RouterResultCode e);
+    void operator()(std::shared_ptr<Route> const & route, RouterResultCode e);
   };
 
-  void AssignRoute(std::shared_ptr<Route> route, RouterResultCode e);
+  void AssignRoute(std::shared_ptr<Route> const & route, RouterResultCode e);
   /// RemoveRoute() removes m_route and resets route attributes (m_lastDistance, m_moveAwayCounter).
   void RemoveRoute();
   void RebuildRouteOnTrafficUpdate();

@@ -1,16 +1,18 @@
 #pragma once
 
+#include "base/exception.hpp"
+
 #include <cstdint>
 #include <string>
 
 class FilesContainerR;
-class ReaderSrc;
 class Writer;
 class ModelReaderPtr;
 
+DECLARE_EXCEPTION(CorruptedMwmFile, RootException);
+
 namespace version
 {
-// Add new types to the corresponding list in generator/pygen/pygen.cpp.
 enum class Format
 {
   unknownFormat = -1,
@@ -31,13 +33,6 @@ enum class Format
   lastFormat = v11
 };
 
-enum class MwmType
-{
-  SeparateMwms,
-  SingleMwm,
-  Unknown
-};
-
 std::string DebugPrint(Format f);
 
 class MwmVersion
@@ -48,9 +43,15 @@ public:
   /// \return version as YYMMDD.
   uint32_t GetVersion() const;
 
+  bool IsEditableMap() const;
+
+  /// @name Used in tests only.
+  /// @{
   void SetFormat(Format format) { m_format = format; }
   void SetSecondsSinceEpoch(uint64_t secondsSinceEpoch) { m_secondsSinceEpoch = secondsSinceEpoch; }
-  bool IsEditableMap() const;
+  /// @}
+
+  static MwmVersion Read(FilesContainerR const & container);
 
 private:
   /// Data layout format in mwm file.
@@ -63,24 +64,8 @@ std::string DebugPrint(MwmVersion const & mwmVersion);
 /// Writes latest format and current timestamp to the writer.
 void WriteVersion(Writer & w, uint64_t secondsSinceEpoch);
 
-/// Reads mwm version from src.
-void ReadVersion(ReaderSrc & src, MwmVersion & version);
-
-/// \return True when version was successfully parsed from container,
-///         otherwise returns false. In the latter case version is
-///         unchanged.
-bool ReadVersion(FilesContainerR const & container, MwmVersion & version);
-
 /// Helper function that is used in FindAllLocalMaps.
 uint32_t ReadVersionDate(ModelReaderPtr const & reader);
-
-/// \returns true if version is version of an mwm which was generated after small mwm update.
-/// This means it contains routing file as well.
-/// Always returns true for mwms with version 0 (located in root directory).
-bool IsSingleMwm(int64_t version);
-
-/// Returns MwmType (SeparateMwms/SingleMwm/Unknown) on the basis of mwm version and format.
-MwmType GetMwmType(MwmVersion const & version);
 
 /// \brief This enum sets constants which are used for
 /// writing test to set a version of mwm which should be processed.

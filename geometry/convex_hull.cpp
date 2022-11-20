@@ -6,8 +6,6 @@
 
 #include <algorithm>
 
-using namespace std;
-
 namespace m2
 {
 namespace
@@ -18,7 +16,7 @@ bool IsCCW(PointD const & p1, PointD const & p2, PointD const & p, double eps)
   return robust::OrientedS(p1, p2, p) > eps;
 }
 
-bool IsContinuedBy(vector<PointD> const & hull, PointD const & p, double eps)
+bool IsContinuedBy(std::vector<PointD> const & hull, PointD const & p, double eps)
 {
   auto const n = hull.size();
   if (n < 2)
@@ -31,7 +29,7 @@ bool IsContinuedBy(vector<PointD> const & hull, PointD const & p, double eps)
   return IsCCW(p, p1, p2, eps);
 }
 
-vector<PointD> BuildConvexHull(vector<PointD> points, double eps)
+std::vector<PointD> BuildConvexHull(std::vector<PointD> points, double eps)
 {
   base::SortUnique(points);
 
@@ -40,11 +38,11 @@ vector<PointD> BuildConvexHull(vector<PointD> points, double eps)
   if (n < 2)
     return points;
 
-  iter_swap(points.begin(), min_element(points.begin(), points.end()));
+  std::iter_swap(points.begin(), min_element(points.begin(), points.end()));
 
   auto const pivot = points[0];
 
-  sort(points.begin() + 1, points.end(), [&pivot, &eps](PointD const & lhs, PointD const & rhs) {
+  std::sort(points.begin() + 1, points.end(), [&pivot, &eps](PointD const & lhs, PointD const & rhs) {
     if (IsCCW(lhs, rhs, pivot, eps))
       return true;
     if (IsCCW(rhs, lhs, pivot, eps))
@@ -52,7 +50,7 @@ vector<PointD> BuildConvexHull(vector<PointD> points, double eps)
     return lhs.SquaredLength(pivot) < rhs.SquaredLength(pivot);
   });
 
-  vector<PointD> hull;
+  std::vector<PointD> hull;
 
   for (auto const & p : points)
   {
@@ -65,7 +63,7 @@ vector<PointD> BuildConvexHull(vector<PointD> points, double eps)
 }
 }  // namespace
 
-ConvexHull::ConvexHull(vector<PointD> const & points, double eps)
+ConvexHull::ConvexHull(std::vector<PointD> const & points, double eps)
   : m_hull(BuildConvexHull(points, eps))
 {
 }

@@ -15,11 +15,10 @@
 - `benchmarks/` -
 - `borders/` - polygons describing countries' borders.
 - `conf/isolines/` - per-country isoline profiles.
-- `metainfo/` - languages used in countries / regions.
 - `vulkan_shaders/` -
 
 - `countries.txt` - map files hierarchy and checksums.
-- `countries_meta.txt` - country languages and driving sides.
+- `countries_meta.txt` - country/region languages and driving sides.
 - `hierarchy.txt` - countries / map regions hierarchy, languages used and Wikidata IDs.
 
 - `faq.html` - FAQ text displayed in the "?"/Help screen.

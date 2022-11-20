@@ -2,7 +2,6 @@
 
 #include "generator/brands_loader.hpp"
 
-#include "platform/platform.hpp"
 #include "platform/platform_tests_support/scoped_file.hpp"
 
 #include "base/geo_object_id.hpp"
@@ -10,8 +9,9 @@
 #include <string>
 #include <unordered_map>
 
+namespace brands_loader_test
+{
 using namespace generator;
-using namespace std;
 using base::GeoObjectId;
 using platform::tests_support::ScopedFile;
 
@@ -50,7 +50,7 @@ UNIT_TEST(LoadBrands)
   ScopedFile const brandsFile("brands.json", kBrandsJson);
   ScopedFile const translationsFile("translations.json", kBrandTranslationsJson);
 
-  unordered_map<GeoObjectId, string> brands;
+  std::unordered_map<GeoObjectId, std::string> brands;
   TEST(LoadBrands(brandsFile.GetFullPath(), translationsFile.GetFullPath(), brands), ());
   TEST_EQUAL(brands[GeoObjectId(GeoObjectId::Type::ObsoleteOsmNode,     2132500347)], "mcdonalds", ());
   TEST_EQUAL(brands[GeoObjectId(GeoObjectId::Type::ObsoleteOsmWay,      440527172)],  "mcdonalds", ());
@@ -59,3 +59,4 @@ UNIT_TEST(LoadBrands)
   TEST_EQUAL(brands[GeoObjectId(GeoObjectId::Type::ObsoleteOsmWay,      149816366)],  "subway", ());
   TEST_EQUAL(brands[GeoObjectId(GeoObjectId::Type::ObsoleteOsmRelation, 6228042)],    "subway", ());
 }
+}  // namespace brands_loader_test

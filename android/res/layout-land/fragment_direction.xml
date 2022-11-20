@@ -12,7 +12,7 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center">
 
-    <com.mapswithme.maps.widget.ArrowView
+    <app.organicmaps.widget.ArrowView
       android:id="@+id/av__direction"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"

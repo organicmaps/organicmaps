@@ -2,12 +2,5 @@
 <resources>
   <integer name="pp_title_lines">5</integer>
   <integer name="pp_buttons_max">4</integer>
-  <integer name="pp_hotel_description_lines">5</integer>
-
-  <integer name="sharing_initial_rows">2</integer>
-
-  <integer name="search_fade_in_anim_time">200</integer>
-  <integer name="search_fade_out_anim_time">150</integer>
-  <integer name="opaque">255</integer>
-  <integer name="bookmark_all_subs_pager_text_max_lines">3</integer>
+  <integer name="place_page_description_max_length">500</integer>
 </resources>

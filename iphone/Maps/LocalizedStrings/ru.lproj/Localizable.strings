@@ -282,11 +282,11 @@
 /* Text in menu */
 "instagram" = "Instagram";
 
+/* Text in the editor */
+"vk" = "VK";
+
 /* Text in menu */
 "openstreetmap" = "OpenStreetMap";
-
-/* Settings: Send feedback button and dialog title */
-"feedback" = "Связаться с нами";
 
 /* Text in menu */
 "rate_the_app" = "Оценить приложение";
@@ -296,6 +296,9 @@
 
 /* Button in the main Help dialog */
 "faq" = "Вопросы и ответы";
+
+/* Button in the main menu */
+"donate" = "Поддержать рублём";
 
 /* Button in the main Help dialog */
 "how_to_support_us" = "Как наc поддержать?";
@@ -503,12 +506,6 @@
 
 "history" = "История";
 
-"opens_in" = "Открывается через %@";
-
-"closes_in" = "Закроется через %@";
-
-"closed" = "Закрыто";
-
 "search_not_found" = "К сожалению, мы ничего не нашли.";
 
 "search_not_found_query" = "Попробуйте изменить условия поиска.";
@@ -518,6 +515,12 @@
 "search_history_text" = "Быстрый доступ к последним поисковым запросам.";
 
 "clear_search" = "Очистить историю поиска";
+
+/* Place Page link to Wikipedia article (if map object has it). */
+"read_in_wikipedia" = "Википедия";
+
+/* Place Page link to Wikimedia Commons. */
+"wikimedia_commons" = "Wikimedia Commons";
 
 "p2p_your_location" = "Ваше местоположение";
 
@@ -578,6 +581,20 @@
 
 "today" = "Сегодня";
 
+"opens_tomorrow_at" = "Откроется завтра в %@";
+
+"opens_dayoftheweek_at" = "Открывается в %1$@ в %2$@";
+
+"opens_at" = "Открывается в %@";
+
+"opens_in" = "Открывается через %@";
+
+"closes_at" = "Закрывается в %@";
+
+"closes_in" = "Закроется через %@";
+
+"closed" = "Закрыто";
+
 "add_opening_hours" = "Добавить время работы";
 
 "no_osm_account" = "Не зарегистрированы в OpenStreetMap?";
@@ -630,6 +647,8 @@
 
 "phone" = "Телефон";
 
+"level" = "Этаж";
+
 "please_note" = "Обратите внимание";
 
 "downloader_delete_map_dialog" = "Вместе с картой удалятся и внесенные вами правки на этой карте.";
@@ -670,7 +689,7 @@
 
 "message_invalid_feature_position" = "Объект не может находиться в этом месте";
 
-"login_to_make_edits_visible" = "Войдите, чтобы ваши изменения увидели другие пользователи.";
+"login_to_make_edits_visible" = "Авторизуйтесь в OpenStreetMap.org, чтобы ваши изменения увидели другие пользователи.";
 
 /* Error dialog no space */
 "migration_no_space_message" = "Для загрузки требуется больше свободного места. Пожалуйста, удалите ненужные данные.";
@@ -750,6 +769,8 @@
 
 "miles_per_hour" = "ми/ч";
 
+"hour" = "ч";
+
 "minute" = "мин";
 
 "placepage_place_description" = "Описание";
@@ -798,10 +819,10 @@
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Отправить всем пользователям?";
 
-/* iOS Dialog before publishing the modifications to the public map. */
+/* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "Убедитесь, что вы не ввели личные данные.";
 
-"editor_share_to_all_dialog_message_2" = "Если при проверке изменений возникнут вопросы, мы напишем вам на email.";
+"editor_share_to_all_dialog_message_2" = "Редакторы OpenStreetMap проверят изменения и свяжутся с вами, если у них возникнут вопросы.";
 
 "navigation_stop_button" = "стоп";
 
@@ -856,15 +877,13 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Данные о пробках недоступны";
 
-/* Settings: "Send general feedback" button */
-"feedback_general" = "Отправить отзыв";
-
 "on" = "Вкл.";
 
 "off" = "Выкл.";
 
 "transliteration_title" = "Латинская транслитерация";
 
+/* Subway exits for public transport marks on the map */
 "core_exit" = "Выход";
 
 "routing_add_start_point" = "Добавьте стартовую точку, чтобы построить маршрут";
@@ -1205,6 +1224,15 @@
 /* edit track screen title */
 "track_title" = "Трек";
 
+/* Telegram group url for the "?" About page */
+"telegram_url" = "https://t.me/OrganicMapsRu";
+
+/* Instagram account url for the "?" About page */
+"instagram_url" = "https://www.instagram.com/organicmaps.app";
+
+/* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
+"translated_om_site_url" = "https://organicmaps.app/ru/";
+
 
 /********** Types **********/
 
@@ -1300,6 +1328,10 @@
 
 "type.amenity.driving_school" = "Автошкола";
 
+"type.amenity.music_school" = "Музыкальная школа";
+
+"type.amenity.language_school" = "Языковая школа";
+
 "type.office.diplomatic" = "Посольство";
 
 "type.amenity.fast_food" = "Фастфуд";
@@ -1342,19 +1374,25 @@
 
 "type.amenity.parking" = "Парковка";
 
-"type.amenity.parking.fee" = "Парковка";
+"type.amenity.parking.fee" = "Платная парковка";
 
-"type.amenity.parking.multi.storey" = "Парковка";
+"type.amenity.parking.multi.storey" = "Многоэтажная парковка";
 
-"type.amenity.parking.no.access" = "Парковка";
+"type.amenity.parking.no.access" = "Частная парковка";
+
+"type.amenity.parking.permissive" = "Частная парковка";
+
+"type.amenity.parking.private" = "Частная парковка";
 
 "type.amenity.parking.park_and_ride" = "Парковка";
 
-"type.amenity.parking.permissive" = "Парковка";
+"type.amenity.parking.underground" = "Подземный паркинг";
 
-"type.amenity.parking.private" = "Парковка";
+"type.amenity.parking_entrance.private" = "Въезд на парковку";
 
-"type.amenity.parking.underground" = "Парковка";
+"type.amenity.parking_entrance.permissive" = "Въезд на парковку";
+
+"type.amenity.parking_entrance" = "Въезд на парковку";
 
 "type.amenity.parking_space" = "Парковочное место";
 
@@ -1363,6 +1401,8 @@
 "type.amenity.parking_space.private" = "Парковочное место";
 
 "type.amenity.parking_space.underground" = "Парковочное место";
+
+"type.amenity.parking_space.disabled" = "Парковочное место для инвалидов";
 
 "type.amenity.payment_terminal" = "Терминал оплаты";
 
@@ -1503,6 +1543,8 @@
 
 "type.barrier.cycle_barrier" = "Велосипедный барьер";
 
+"type.barrier.ditch" = "Ров";
+
 "type.barrier.entrance" = "Проход";
 
 "type.barrier.fence" = "Забор";
@@ -1510,6 +1552,8 @@
 "type.barrier.gate" = "Ворота";
 
 "type.barrier.hedge" = "Живая изгородь";
+
+"type.barrier.kissing_gate" = "Ворота";
 
 "type.barrier.lift_gate" = "Шлагбаум";
 
@@ -1801,6 +1845,8 @@
 "type.entrance" = "Вход";
 
 "type.healthcare.laboratory" = "Медицинская лаборатория";
+
+"type.healthcare.physiotherapist" = "Физиотерапевт";
 
 
 /********** Types: Roads **********/
@@ -2116,15 +2162,37 @@
 
 "type.historic.castle" = "Замок";
 
+"type.historic.castle.castrum" = "Каструм";
+
 "type.historic.castle.defensive" = "Замок";
 
-"type.historic.castle.stately" = "Замок";
+"type.historic.castle.fortified_church" = "Укреплённая церковь";
+
+"type.historic.castle.fortress" = "Крепость";
+
+"type.historic.castle.hillfort" = "Городище";
+
+"type.historic.castle.kremlin" = "Кремль";
+
+"type.historic.castle.manor" = "Усадьба";
+
+"type.historic.castle.palace" = "Дворец";
+
+"type.historic.castle.shiro" = "Замки Японии";
+
+"type.historic.castle.stately" = "Шато";
+
+"type.historic.city_gate" = "Городские ворота";
 
 "type.historic.citywalls" = "Городская стена";
 
 "type.historic.fort" = "Форт";
 
+"type.historic.gallows" = "Виселица";
+
 "type.historic.memorial" = "Мемориал";
+
+"type.historic.memorial.cross" = "Памятный крест";
 
 "type.historic.memorial.plaque" = "Памятная доска";
 
@@ -2132,7 +2200,13 @@
 
 "type.historic.memorial.statue" = "Статуя";
 
+"type.historic.memorial.stolperstein" = "Камни преткновения";
+
+"type.historic.memorial.war_memorial" = "Военный мемориал";
+
 "type.historic.monument" = "Памятник";
+
+"type.historic.pillory" = "Позорный столб";
 
 "type.historic.ruins" = "Руины";
 
@@ -2262,7 +2336,11 @@
 
 "type.leisure.fitness_station" = "Спортивные снаряды";
 
+"type.leisure.dance" = "Танцпол";
+
 "type.leisure.garden" = "Сад";
+
+"type.leisure.garden.residential" = "Частный сад";
 
 "type.leisure.golf_course" = "Площадка для гольфа";
 
@@ -2296,13 +2374,9 @@
 
 "type.leisure.sports_centre" = "Спорткомплекс";
 
-"type.leisure.sports_centre.climbing" = "Скалодром";
+"type.sport.climbing" = "Скалодром";
 
-"type.leisure.sports_centre.shooting" = "Тир";
-
-"type.leisure.sports_centre.swimming" = "Плавательный бассейн";
-
-"type.leisure.sports_centre.yoga" = "Йога-центр";
+"type.sport.yoga" = "Йога-центр";
 
 "type.leisure.stadium" = "Стадион";
 
@@ -2394,6 +2468,8 @@
 
 "type.natural.coastline" = "Береговая линия";
 
+"type.natural.desert" = "Пустыня";
+
 "type.natural.geyser" = "Гейзер";
 
 "type.natural.glacier" = "Ледник";
@@ -2472,8 +2548,6 @@
 
 "type.organic.yes" = "Эко";
 
-"type.place" = "Место";
-
 "type.place.city" = "Город";
 
 "type.place.city.capital" = "Столица";
@@ -2512,7 +2586,7 @@
 
 "type.place.islet" = "Остров";
 
-"type.place.isolated_dwelling" = "Жилище";
+"type.place.isolated_dwelling" = "Хутор";
 
 "type.place.locality" = "Местность";
 
@@ -2648,27 +2722,221 @@
 
 "type.railway.station.subway" = "Метро";
 
+"type.railway.station.subway.adana" = "Метро";
+
+"type.railway.station.subway.algiers" = "Метро";
+
+"type.railway.station.subway.almaty" = "Метро";
+
+"type.railway.station.subway.amsterdam" = "Метро";
+
+"type.railway.station.subway.ankara" = "Метро";
+
+"type.railway.station.subway.athens" = "Метро";
+
+"type.railway.station.subway.baku" = "Метро";
+
+"type.railway.station.subway.bangkok" = "Метро";
+
 "type.railway.station.subway.barcelona" = "Метро";
+
+"type.railway.station.subway.beijing" = "Метро";
+
+"type.railway.station.subway.bengalore" = "Метро";
 
 "type.railway.station.subway.berlin" = "Метро";
 
+"type.railway.station.subway.brasilia" = "Метро";
+
+"type.railway.station.subway.brescia" = "Метро";
+
+"type.railway.station.subway.brussels" = "Метро";
+
+"type.railway.station.subway.bucharest" = "Метро";
+
+"type.railway.station.subway.budapest" = "Метро";
+
+"type.railway.station.subway.buenos_aires" = "Метро";
+
+"type.railway.station.subway.bursa" = "Метро";
+
+"type.railway.station.subway.cairo" = "Метро";
+
+"type.railway.station.subway.caracas" = "Метро";
+
+"type.railway.station.subway.catania" = "Метро";
+
+"type.railway.station.subway.changchun" = "Метро";
+
+"type.railway.station.subway.chengdu" = "Метро";
+
+"type.railway.station.subway.chicago" = "Метро";
+
+"type.railway.station.subway.chongqing" = "Метро";
+
+"type.railway.station.subway.dalian" = "Метро";
+
+"type.railway.station.subway.delhi" = "Метро";
+
+"type.railway.station.subway.dnepro" = "Метро";
+
+"type.railway.station.subway.dubai" = "Метро";
+
+"type.railway.station.subway.ekb" = "Метро";
+
+"type.railway.station.subway.fukuoka" = "Метро";
+
+"type.railway.station.subway.glasgow" = "Метро";
+
+"type.railway.station.subway.guangzhou" = "Метро";
+
+"type.railway.station.subway.hamburg" = "Метро";
+
+"type.railway.station.subway.helsinki" = "Метро";
+
+"type.railway.station.subway.hiroshima" = "Метро";
+
+"type.railway.station.subway.isfahan" = "Метро";
+
+"type.railway.station.subway.istanbul" = "Метро";
+
+"type.railway.station.subway.izmir" = "Метро";
+
+"type.railway.station.subway.kazan" = "Метро";
+
+"type.railway.station.subway.kharkiv" = "Метро";
+
 "type.railway.station.subway.kiev" = "Метро";
+
+"type.railway.station.subway.kobe" = "Метро";
+
+"type.railway.station.subway.kolkata" = "Метро";
+
+"type.railway.station.subway.kunming" = "Метро";
+
+"type.railway.station.subway.kyoto" = "Метро";
+
+"type.railway.station.subway.la" = "Метро";
+
+"type.railway.station.subway.lausanne" = "Метро";
+
+"type.railway.station.subway.lille" = "Метро";
+
+"type.railway.station.subway.lima" = "Метро";
+
+"type.railway.station.subway.lisboa" = "Метро";
 
 "type.railway.station.subway.london" = "Метро";
 
+"type.railway.station.subway.lyon" = "Метро";
+
 "type.railway.station.subway.madrid" = "Метро";
+
+"type.railway.station.subway.malaga" = "Метро";
+
+"type.railway.station.subway.manila" = "Метро";
+
+"type.railway.station.subway.maracaibo" = "Метро";
+
+"type.railway.station.subway.mashhad" = "Метро";
+
+"type.railway.station.subway.mecca" = "Метро";
+
+"type.railway.station.subway.medellin" = "Метро";
+
+"type.railway.station.subway.mexico" = "Метро";
+
+"type.railway.station.subway.milan" = "Метро";
 
 "type.railway.station.subway.minsk" = "Метро";
 
+"type.railway.station.subway.montreal" = "Метро";
+
 "type.railway.station.subway.moscow" = "Метро";
+
+"type.railway.station.subway.munchen" = "Метро";
+
+"type.railway.station.subway.nagoya" = "Метро";
 
 "type.railway.station.subway.newyork" = "Метро";
 
+"type.railway.station.subway.nnov" = "Метро";
+
+"type.railway.station.subway.novosibirsk" = "Метро";
+
+"type.railway.station.subway.osaka" = "Метро";
+
+"type.railway.station.subway.oslo" = "Метро";
+
+"type.railway.station.subway.palma" = "Метро";
+
+"type.railway.station.subway.panama" = "Метро";
+
 "type.railway.station.subway.paris" = "Метро";
+
+"type.railway.station.subway.philadelphia" = "Метро";
+
+"type.railway.station.subway.pyongyang" = "Метро";
+
+"type.railway.station.subway.rennes" = "Метро";
+
+"type.railway.station.subway.rio" = "Метро";
 
 "type.railway.station.subway.roma" = "Метро";
 
+"type.railway.station.subway.rotterdam" = "Метро";
+
+"type.railway.station.subway.samara" = "Метро";
+
+"type.railway.station.subway.santiago" = "Метро";
+
+"type.railway.station.subway.santo_domingo" = "Метро";
+
+"type.railway.station.subway.saopaulo" = "Метро";
+
+"type.railway.station.subway.sapporo" = "Метро";
+
+"type.railway.station.subway.sendai" = "Метро";
+
+"type.railway.station.subway.sf" = "Метро";
+
+"type.railway.station.subway.shanghai" = "Метро";
+
+"type.railway.station.subway.shiraz" = "Метро";
+
+"type.railway.station.subway.sofia" = "Метро";
+
 "type.railway.station.subway.spb" = "Метро";
+
+"type.railway.station.subway.stockholm" = "Метро";
+
+"type.railway.station.subway.tabriz" = "Метро";
+
+"type.railway.station.subway.taipei" = "Метро";
+
+"type.railway.station.subway.taoyuan" = "Метро";
+
+"type.railway.station.subway.tashkent" = "Метро";
+
+"type.railway.station.subway.tbilisi" = "Метро";
+
+"type.railway.station.subway.tianjin" = "Метро";
+
+"type.railway.station.subway.tokyo" = "Метро";
+
+"type.railway.station.subway.valencia" = "Метро";
+
+"type.railway.station.subway.vienna" = "Метро";
+
+"type.railway.station.subway.warszawa" = "Метро";
+
+"type.railway.station.subway.washington" = "Метро";
+
+"type.railway.station.subway.wuhan" = "Метро";
+
+"type.railway.station.subway.yerevan" = "Метро";
+
+"type.railway.station.subway.yokohama" = "Метро";
 
 "type.railway.subway" = "Ветка метро";
 
@@ -2678,27 +2946,221 @@
 
 "type.railway.subway_entrance" = "Вход в метро";
 
-"type.railway.subway_entrance.barcelona" = "Метро";
+"type.railway.subway_entrance.adana" = "Вход в метро";
 
-"type.railway.subway_entrance.berlin" = "Метро";
+"type.railway.subway_entrance.algiers" = "Вход в метро";
 
-"type.railway.subway_entrance.kiev" = "Метро";
+"type.railway.subway_entrance.almaty" = "Вход в метро";
 
-"type.railway.subway_entrance.london" = "Метро";
+"type.railway.subway_entrance.amsterdam" = "Вход в метро";
 
-"type.railway.subway_entrance.madrid" = "Метро";
+"type.railway.subway_entrance.ankara" = "Вход в метро";
 
-"type.railway.subway_entrance.minsk" = "Метро";
+"type.railway.subway_entrance.athens" = "Вход в метро";
 
-"type.railway.subway_entrance.moscow" = "Метро";
+"type.railway.subway_entrance.baku" = "Вход в метро";
 
-"type.railway.subway_entrance.newyork" = "Метро";
+"type.railway.subway_entrance.bangkok" = "Вход в метро";
 
-"type.railway.subway_entrance.paris" = "Метро";
+"type.railway.subway_entrance.barcelona" = "Вход в метро";
 
-"type.railway.subway_entrance.roma" = "Метро";
+"type.railway.subway_entrance.beijing" = "Вход в метро";
 
-"type.railway.subway_entrance.spb" = "Метро";
+"type.railway.subway_entrance.bengalore" = "Вход в метро";
+
+"type.railway.subway_entrance.berlin" = "Вход в метро";
+
+"type.railway.subway_entrance.brasilia" = "Вход в метро";
+
+"type.railway.subway_entrance.brescia" = "Вход в метро";
+
+"type.railway.subway_entrance.brussels" = "Вход в метро";
+
+"type.railway.subway_entrance.bucharest" = "Вход в метро";
+
+"type.railway.subway_entrance.budapest" = "Вход в метро";
+
+"type.railway.subway_entrance.buenos_aires" = "Вход в метро";
+
+"type.railway.subway_entrance.bursa" = "Вход в метро";
+
+"type.railway.subway_entrance.cairo" = "Вход в метро";
+
+"type.railway.subway_entrance.caracas" = "Вход в метро";
+
+"type.railway.subway_entrance.catania" = "Вход в метро";
+
+"type.railway.subway_entrance.changchun" = "Вход в метро";
+
+"type.railway.subway_entrance.chengdu" = "Вход в метро";
+
+"type.railway.subway_entrance.chicago" = "Вход в метро";
+
+"type.railway.subway_entrance.chongqing" = "Вход в метро";
+
+"type.railway.subway_entrance.dalian" = "Вход в метро";
+
+"type.railway.subway_entrance.delhi" = "Вход в метро";
+
+"type.railway.subway_entrance.dnepro" = "Вход в метро";
+
+"type.railway.subway_entrance.dubai" = "Вход в метро";
+
+"type.railway.subway_entrance.ekb" = "Вход в метро";
+
+"type.railway.subway_entrance.fukuoka" = "Вход в метро";
+
+"type.railway.subway_entrance.glasgow" = "Вход в метро";
+
+"type.railway.subway_entrance.guangzhou" = "Вход в метро";
+
+"type.railway.subway_entrance.hamburg" = "Вход в метро";
+
+"type.railway.subway_entrance.helsinki" = "Вход в метро";
+
+"type.railway.subway_entrance.hiroshima" = "Вход в метро";
+
+"type.railway.subway_entrance.isfahan" = "Вход в метро";
+
+"type.railway.subway_entrance.istanbul" = "Вход в метро";
+
+"type.railway.subway_entrance.izmir" = "Вход в метро";
+
+"type.railway.subway_entrance.kazan" = "Вход в метро";
+
+"type.railway.subway_entrance.kharkiv" = "Вход в метро";
+
+"type.railway.subway_entrance.kiev" = "Вход в метро";
+
+"type.railway.subway_entrance.kobe" = "Вход в метро";
+
+"type.railway.subway_entrance.kolkata" = "Вход в метро";
+
+"type.railway.subway_entrance.kunming" = "Вход в метро";
+
+"type.railway.subway_entrance.kyoto" = "Вход в метро";
+
+"type.railway.subway_entrance.la" = "Вход в метро";
+
+"type.railway.subway_entrance.lausanne" = "Вход в метро";
+
+"type.railway.subway_entrance.lille" = "Вход в метро";
+
+"type.railway.subway_entrance.lima" = "Вход в метро";
+
+"type.railway.subway_entrance.lisboa" = "Вход в метро";
+
+"type.railway.subway_entrance.london" = "Вход в метро";
+
+"type.railway.subway_entrance.lyon" = "Вход в метро";
+
+"type.railway.subway_entrance.madrid" = "Вход в метро";
+
+"type.railway.subway_entrance.malaga" = "Вход в метро";
+
+"type.railway.subway_entrance.manila" = "Вход в метро";
+
+"type.railway.subway_entrance.maracaibo" = "Вход в метро";
+
+"type.railway.subway_entrance.mashhad" = "Вход в метро";
+
+"type.railway.subway_entrance.mecca" = "Вход в метро";
+
+"type.railway.subway_entrance.medellin" = "Вход в метро";
+
+"type.railway.subway_entrance.mexico" = "Вход в метро";
+
+"type.railway.subway_entrance.milan" = "Вход в метро";
+
+"type.railway.subway_entrance.minsk" = "Вход в метро";
+
+"type.railway.subway_entrance.montreal" = "Вход в метро";
+
+"type.railway.subway_entrance.moscow" = "Вход в метро";
+
+"type.railway.subway_entrance.munchen" = "Вход в метро";
+
+"type.railway.subway_entrance.nagoya" = "Вход в метро";
+
+"type.railway.subway_entrance.newyork" = "Вход в метро";
+
+"type.railway.subway_entrance.nnov" = "Вход в метро";
+
+"type.railway.subway_entrance.novosibirsk" = "Вход в метро";
+
+"type.railway.subway_entrance.osaka" = "Вход в метро";
+
+"type.railway.subway_entrance.oslo" = "Вход в метро";
+
+"type.railway.subway_entrance.palma" = "Вход в метро";
+
+"type.railway.subway_entrance.panama" = "Вход в метро";
+
+"type.railway.subway_entrance.paris" = "Вход в метро";
+
+"type.railway.subway_entrance.philadelphia" = "Вход в метро";
+
+"type.railway.subway_entrance.pyongyang" = "Вход в метро";
+
+"type.railway.subway_entrance.rennes" = "Вход в метро";
+
+"type.railway.subway_entrance.rio" = "Вход в метро";
+
+"type.railway.subway_entrance.roma" = "Вход в метро";
+
+"type.railway.subway_entrance.rotterdam" = "Вход в метро";
+
+"type.railway.subway_entrance.samara" = "Вход в метро";
+
+"type.railway.subway_entrance.santiago" = "Вход в метро";
+
+"type.railway.subway_entrance.santo_domingo" = "Вход в метро";
+
+"type.railway.subway_entrance.saopaulo" = "Вход в метро";
+
+"type.railway.subway_entrance.sapporo" = "Вход в метро";
+
+"type.railway.subway_entrance.sendai" = "Вход в метро";
+
+"type.railway.subway_entrance.sf" = "Вход в метро";
+
+"type.railway.subway_entrance.shanghai" = "Вход в метро";
+
+"type.railway.subway_entrance.shiraz" = "Вход в метро";
+
+"type.railway.subway_entrance.sofia" = "Вход в метро";
+
+"type.railway.subway_entrance.spb" = "Вход в метро";
+
+"type.railway.subway_entrance.stockholm" = "Вход в метро";
+
+"type.railway.subway_entrance.tabriz" = "Вход в метро";
+
+"type.railway.subway_entrance.taipei" = "Вход в метро";
+
+"type.railway.subway_entrance.taoyuan" = "Вход в метро";
+
+"type.railway.subway_entrance.tashkent" = "Вход в метро";
+
+"type.railway.subway_entrance.tbilisi" = "Вход в метро";
+
+"type.railway.subway_entrance.tianjin" = "Вход в метро";
+
+"type.railway.subway_entrance.tokyo" = "Вход в метро";
+
+"type.railway.subway_entrance.valencia" = "Вход в метро";
+
+"type.railway.subway_entrance.vienna" = "Вход в метро";
+
+"type.railway.subway_entrance.warszawa" = "Вход в метро";
+
+"type.railway.subway_entrance.washington" = "Вход в метро";
+
+"type.railway.subway_entrance.wuhan" = "Вход в метро";
+
+"type.railway.subway_entrance.yerevan" = "Вход в метро";
+
+"type.railway.subway_entrance.yokohama" = "Вход в метро";
 
 "type.railway.tram" = "Трамвай";
 
@@ -2750,11 +3212,11 @@
 
 "type.shop.chemist" = "Бытовая химия";
 
-"type.shop.chocolate" = "Магазин";
+"type.shop.chocolate" = "Магазин шоколада";
 
 "type.shop.clothes" = "Магазин одежды";
 
-"type.shop.coffee" = "Магазин";
+"type.shop.coffee" = "Магазин кофе";
 
 "type.shop.computer" = "Компьютерный магазин";
 
@@ -2818,13 +3280,13 @@
 
 "type.shop.mobile_phone" = "Мобильные телефоны";
 
-"type.shop.money_lender" = "Магазин";
+"type.shop.money_lender" = "Ростовщик";
 
 "type.shop.motorcycle" = "Магазин мотоциклов";
 
-"type.shop.music" = "Магазин";
+"type.shop.music" = "Музыкальный магазин";
 
-"type.shop.musical_instrument" = "Магазин";
+"type.shop.musical_instrument" = "Музыкальные инструменты";
 
 "type.shop.newsagent" = "Газетный киоск";
 
@@ -2854,7 +3316,7 @@
 
 "type.shop.tattoo" = "Тату-салон";
 
-"type.shop.tea" = "Магазин";
+"type.shop.tea" = "Чайный магазин";
 
 "type.shop.ticket" = "Билетная касса";
 
@@ -2932,7 +3394,11 @@
 
 "type.sport.basketball" = "Баскетбол";
 
+"type.sport.beachvolleyball" = "Пляжный волейбол";
+
 "type.sport.bowls" = "Боулз";
+
+"type.sport.chess" = "Шахматы";
 
 "type.sport.cricket" = "Крикет";
 
@@ -2953,13 +3419,35 @@
 
 "type.sport.shooting" = "Стрельба";
 
+"type.sport.skateboard" = "Скейтбординг";
+
 "type.sport.skiing" = "Лыжи";
 
 "type.sport.soccer" = "Футбол";
 
 "type.sport.swimming" = "Плавание";
 
+"type.sport.table_tennis" = "Настольный теннис";
+
 "type.sport.tennis" = "Теннисный корт";
+
+"type.sport.volleyball" = "Волейбол";
+
+"type.sport.10pin" = "Боулинг";
+
+"type.sport.9pin" = "Боулинг";
+
+"type.sport.padel" = "Падель";
+
+"type.sport.futsal" = "Футзал";
+
+"type.sport.ice_hockey" = "Хоккей с шайбой";
+
+"type.sport.field_hockey" = "Хоккей на траве";
+
+"type.sport.badminton" = "Бадминтон";
+
+"type.sport.pelota" = "Баскская пелота";
 
 "type.tourism" = "Туризм";
 
@@ -3075,18 +3563,15 @@
 
 "type.wheelchair.yes" = "Оборудовано для инвалидов";
 
-/* en.wikipedia.org/wiki/Surface_lift */
-"type.piste_lift" = "Бугельный подъёмник";
+"type.aerialway.j.bar" = "Бугельный подъёмник";
 
-"type.piste_lift.j.bar" = "Бугельный подъёмник";
+"type.aerialway.magic_carpet" = "Ленточный конвейер";
 
-"type.piste_lift.magic_carpet" = "Ленточный конвейер";
+"type.aerialway.platter" = "Бугельный подъёмник";
 
-"type.piste_lift.platter" = "Бугельный подъёмник";
+"type.aerialway.rope_tow" = "Бугельный подъёмник";
 
-"type.piste_lift.rope_tow" = "Бугельный подъёмник";
-
-"type.piste_lift.t.bar" = "Бугельный подъёмник";
+"type.aerialway.t.bar" = "Бугельный подъёмник";
 
 "type.piste_type" = "Тип трассы";
 

@@ -18,17 +18,16 @@
 #include <string>
 #include <vector>
 
-using namespace std;
-using namespace feature;
-
-namespace
+namespace coasts_test
 {
-m2::PointU D2I(double x, double y) { return PointDToPointU(m2::PointD(x, y), kPointCoordBits); }
+using feature::FeatureBuilder;
+
+static m2::PointU D2I(double x, double y) { return PointDToPointU(m2::PointD(x, y), kPointCoordBits); }
 
 class ProcessCoastsBase
 {
 public:
-  explicit ProcessCoastsBase(vector<string> const & vID) : m_vID(vID) {}
+  explicit ProcessCoastsBase(std::vector<std::string> const & vID) : m_vID(vID) {}
 
 protected:
   bool HasID(FeatureBuilder const & fb) const
@@ -38,13 +37,13 @@ protected:
   }
 
 private:
-  vector<string> const & m_vID;
+  std::vector<std::string> const & m_vID;
 };
 
 class DoPrintCoasts : public ProcessCoastsBase
 {
 public:
-  explicit DoPrintCoasts(vector<string> const & vID) : ProcessCoastsBase(vID) {}
+  explicit DoPrintCoasts(std::vector<std::string> const & vID) : ProcessCoastsBase(vID) {}
 
   void operator()(FeatureBuilder const & fb, uint64_t)
   {
@@ -59,11 +58,11 @@ public:
       LOG(LINFO, ("ID =", fb.GetName(), "Rect =", rect, "Polygons =", fb.GetGeometry()));
 
       // Make bound rect inflated a little.
-      DistanceToSegmentWithRectBounds distFn(rect);
+      feature::DistanceToSegmentWithRectBounds distFn(rect);
       m2::RectD const boundRect = m2::Inflate(rect, distFn.GetEpsilon(), distFn.GetEpsilon());
 
-      using Points = vector<m2::PointD>;
-      using Polygons = list<Points>;
+      using Points = std::vector<m2::PointD>;
+      using Polygons = std::list<Points>;
 
       Polygons const & poly = fb.GetGeometry();
 
@@ -90,7 +89,7 @@ public:
 class DoCopyCoasts : public ProcessCoastsBase
 {
 public:
-  DoCopyCoasts(string const & fName, vector<string> const & vID)
+  DoCopyCoasts(std::string const & fName, std::vector<std::string> const & vID)
     : ProcessCoastsBase(vID), m_collector(fName)
   {
   }
@@ -102,9 +101,8 @@ public:
   }
 
 private:
-  FeaturesCollector m_collector;
+  feature::FeaturesCollector m_collector;
 };
-}  // namespace
 
 UNIT_TEST(CellID_CheckRectPoints)
 {
@@ -117,7 +115,7 @@ UNIT_TEST(CellID_CheckRectPoints)
   for (size_t i = 0; i < count; ++i)
   {
     Id const cell = Id::FromBitsAndLevel(i, level);
-    pair<uint32_t, uint32_t> const xy = cell.XY();
+    std::pair<uint32_t, uint32_t> const xy = cell.XY();
     uint32_t const r = 2*cell.Radius();
     uint32_t const bound = (1 << level) * r;
 
@@ -182,7 +180,7 @@ UNIT_TEST(CellID_CheckRectPoints)
 /*
 UNIT_TEST(WorldCoasts_CheckBounds)
 {
-  vector<string> vID;
+  std::vector<std::string> vID;
 
   // bounds
   vID.push_back("2222");
@@ -208,3 +206,4 @@ UNIT_TEST(WorldCoasts_CheckBounds)
   ForEachFeatureRawFormat("/Users/alena/omim/omim-indexer-tmp/WorldCoasts.mwm.tmp", doProcess);
 }
 */
+}  // namespace coasts_test

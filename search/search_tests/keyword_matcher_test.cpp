@@ -3,7 +3,6 @@
 #include "search/common.hpp"
 #include "search/keyword_matcher.hpp"
 
-#include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
 
 #include "base/buffer_vector.hpp"
@@ -13,10 +12,9 @@
 #include <string>
 #include <vector>
 
-using namespace std;
-
-namespace
+namespace keyword_matcher_test
 {
+using namespace std;
 using search::KeywordMatcher;
 using search::kMaxNumTokens;
 
@@ -46,7 +44,7 @@ void InitMatcher(char const * query, KeywordMatcher & matcher)
 {
   vector<strings::UniString> keywords;
   strings::UniString prefix;
-  if (search::TokenizeStringAndCheckIfLastTokenIsPrefix(query, keywords, search::Delimiters()))
+  if (search::TokenizeStringAndCheckIfLastTokenIsPrefix(query, keywords))
   {
     prefix = keywords.back();
     keywords.pop_back();
@@ -133,7 +131,6 @@ void TestKeywordMatcher(char const * const query, KeywordMatcherTestCase const (
     prevScore = testScore;
   }
 }
-}  // namespace
 
 UNIT_TEST(KeywordMatcher_Prefix)
 {
@@ -243,9 +240,6 @@ UNIT_TEST(KeywordMatcher_KeywordAndKeyword)
   TestKeywordMatcher(query, testCases);
 }
 
-
-namespace
-{
 string GetManyTokens(string tokenPrefix, int tokenCount, bool countForward = true)
 {
   ostringstream out;
@@ -254,7 +248,6 @@ string GetManyTokens(string tokenPrefix, int tokenCount, bool countForward = tru
   return out.str();
 }
 
-}  // unnamed namespace
 
 UNIT_TEST(KeywordMatcher_QueryTooLong)
 {
@@ -341,3 +334,5 @@ UNIT_TEST(KeywordMatcher_DifferentLangs)
   TEST(!(matcher.CalcScore(arr[0]) < matcher.CalcScore(arr[1])), ());
   TEST(!(matcher.CalcScore(arr[1]) < matcher.CalcScore(arr[0])), ());
 }
+
+} // namespace keyword_matcher_test

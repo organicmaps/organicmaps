@@ -5,21 +5,15 @@
 
 #include "map/bookmark_manager.hpp"
 #include "map/framework.hpp"
-#include "map/user_mark_layer.hpp"
 
-#include "drape/constants.hpp"
-
-#include "platform/measurement_utils.hpp"
 #include "platform/platform.hpp"
 
 #include "base/assert.hpp"
 
-#include <functional>
-#include <utility>
-
 #include <QtCore/QTimer>
-#include <QtGui/QBitmap>
+#include <QtGui/QGuiApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QCheckBox>
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
@@ -35,6 +29,7 @@ namespace qt
 SearchPanel::SearchPanel(DrawWidget * drawWidget, QWidget * parent)
   : QWidget(parent)
   , m_pDrawWidget(drawWidget)
+  , m_clearIcon(":/ui/x.png")
   , m_busyIcon(":/ui/busy.png")
   , m_mode(search::Mode::Everywhere)
   , m_timestamp(0)
@@ -60,25 +55,30 @@ SearchPanel::SearchPanel(DrawWidget * drawWidget, QWidget * parent)
   m_pAnimationTimer = new QTimer(this);
   connect(m_pAnimationTimer, &QTimer::timeout, this, &SearchPanel::OnAnimationTimer);
 
-  m_pSearchModeButtons = new QButtonGroup(this);
+  QButtonGroup * searchModeButtons = new QButtonGroup(this);
   QGroupBox * groupBox = new QGroupBox();
   QHBoxLayout * modeLayout = new QHBoxLayout();
-  QRadioButton * buttonE = new QRadioButton("Everywhere");
+  QRadioButton * buttonE = new QRadioButton(tr("Everywhere"));
   modeLayout->addWidget(buttonE);
-  m_pSearchModeButtons->addButton(buttonE, static_cast<int>(search::Mode::Everywhere));
-  QRadioButton * buttonV = new QRadioButton("Viewport");
+  searchModeButtons->addButton(buttonE, static_cast<int>(search::Mode::Everywhere));
+  QRadioButton * buttonV = new QRadioButton(tr("Viewport"));
   modeLayout->addWidget(buttonV);
-  m_pSearchModeButtons->addButton(buttonV, static_cast<int>(search::Mode::Viewport));
+  searchModeButtons->addButton(buttonV, static_cast<int>(search::Mode::Viewport));
   groupBox->setLayout(modeLayout);
   groupBox->setFlat(true);
-  m_pSearchModeButtons->button(static_cast<int>(search::Mode::Everywhere))->setChecked(true);
-  connect(m_pSearchModeButtons, SIGNAL(buttonClicked(int)), this, SLOT(OnSearchModeChanged(int)));
+  searchModeButtons->button(static_cast<int>(search::Mode::Everywhere))->setChecked(true);
+  connect(searchModeButtons, SIGNAL(buttonClicked(int)), this, SLOT(OnSearchModeChanged(int)));
+
+  m_isCategory = new QCheckBox(tr("Category request"));
+  m_isCategory->setCheckState(Qt::Unchecked);
+  connect(m_isCategory, &QCheckBox::stateChanged, std::bind(&SearchPanel::RunSearch, this));
 
   QHBoxLayout * requestLayout = new QHBoxLayout();
   requestLayout->addWidget(m_pEditor);
   requestLayout->addWidget(m_pClearButton);
   QVBoxLayout * verticalLayout = new QVBoxLayout();
   verticalLayout->addWidget(groupBox);
+  verticalLayout->addWidget(m_isCategory);
   verticalLayout->addLayout(requestLayout);
   verticalLayout->addWidget(m_pTable);
   setLayout(verticalLayout);
@@ -94,16 +94,17 @@ QTableWidgetItem * CreateItem(QString const & s)
 }
 }  // namespace
 
-void SearchPanel::ClearResults()
+void SearchPanel::ClearTable()
 {
   m_pTable->clear();
   m_pTable->setRowCount(0);
-  m_results.clear();
-  m_pDrawWidget->GetFramework().GetBookmarkManager().GetEditSession().ClearGroup(
-      UserMark::Type::SEARCH);
+}
 
-  m_everywhereParams = {};
-  m_viewportParams = {};
+void SearchPanel::ClearResults()
+{
+  ClearTable();
+  m_results.Clear();
+  m_pDrawWidget->GetFramework().GetBookmarkManager().GetEditSession().ClearGroup(UserMark::Type::SEARCH);
 }
 
 void SearchPanel::StartBusyIndicator()
@@ -118,24 +119,22 @@ void SearchPanel::StartBusyIndicator()
 void SearchPanel::StopBusyIndicator()
 {
   m_pAnimationTimer->stop();
-  m_pClearButton->setIcon(QIcon(":/ui/x.png"));
+  m_pClearButton->setIcon(m_clearIcon);
 }
 
-void SearchPanel::OnEverywhereSearchResults(uint64_t timestamp, search::Results const & results)
+void SearchPanel::OnEverywhereSearchResults(uint64_t timestamp, search::Results results)
 {
   CHECK(m_threadChecker.CalledOnOriginalThread(), ());
-  CHECK_LESS_OR_EQUAL(timestamp, m_timestamp, ());
 
+  CHECK_LESS_OR_EQUAL(timestamp, m_timestamp, ());
   if (timestamp != m_timestamp)
     return;
 
-  CHECK_LESS_OR_EQUAL(m_results.size(), results.GetCount(), ());
+  m_results = std::move(results);
+  ClearTable();
 
-  auto const sizeBeforeUpdate = m_results.size();
-
-  for (size_t i = m_results.size(); i < results.GetCount(); ++i)
+  for (auto const & res : m_results)
   {
-    auto const & res = results[i];
     QString const name = QString::fromStdString(res.GetString());
     QString strHigh;
     int pos = 0;
@@ -162,18 +161,15 @@ void SearchPanel::OnEverywhereSearchResults(uint64_t timestamp, search::Results 
       m_pTable->setItem(rowCount, 0, CreateItem(QString::fromStdString(readableType)));
       m_pTable->setItem(rowCount, 3, CreateItem(m_pDrawWidget->GetDistance(res).c_str()));
     }
-
-    m_results.push_back(res);
   }
 
-  m_pDrawWidget->GetFramework().FillSearchResultsMarks(m_results.begin() + sizeBeforeUpdate,
-                                                       m_results.end(), false /* clear */);
+  m_pDrawWidget->GetFramework().FillSearchResultsMarks(true /* clear */, m_results);
 
-  if (results.IsEndMarker())
+  if (m_results.IsEndMarker())
     StopBusyIndicator();
 }
 
-bool SearchPanel::Try3dModeCmd(QString const & str)
+bool SearchPanel::Try3dModeCmd(std::string const & str)
 {
   bool const is3dModeOn = (str == "?3d");
   bool const is3dBuildingsOn = (str == "?b3d");
@@ -188,7 +184,7 @@ bool SearchPanel::Try3dModeCmd(QString const & str)
   return true;
 }
 
-bool SearchPanel::TryTrafficSimplifiedColorsCmd(QString const & str)
+bool SearchPanel::TryTrafficSimplifiedColorsCmd(std::string const & str)
 {
   bool const simplifiedMode = (str == "?tc:simp");
   bool const normalMode = (str == "?tc:norm");
@@ -203,9 +199,22 @@ bool SearchPanel::TryTrafficSimplifiedColorsCmd(QString const & str)
   return true;
 }
 
+std::string SearchPanel::GetCurrentInputLocale()
+{
+  QString loc = QGuiApplication::inputMethod()->locale().name();
+  loc.replace('_', '-');
+  auto res = loc.toStdString();
+  if (CategoriesHolder::MapLocaleToInteger(res) < 0)
+    res = "en";
+  return res;
+}
+
 void SearchPanel::OnSearchTextChanged(QString const & str)
 {
-  QString const normalized = str.normalized(QString::NormalizationForm_KC);
+  // Pass input query as-is without any normalization.
+  // Otherwise № -> No, and it's unexpectable for the search index.
+  //QString const normalized = str.normalized(QString::NormalizationForm_KC);
+  std::string const normalized = str.toStdString();
 
   if (Try3dModeCmd(normalized))
     return;
@@ -214,7 +223,7 @@ void SearchPanel::OnSearchTextChanged(QString const & str)
 
   ClearResults();
 
-  if (normalized.isEmpty())
+  if (normalized.empty())
   {
     m_pDrawWidget->GetFramework().GetSearchAPI().CancelAllSearches();
 
@@ -223,32 +232,38 @@ void SearchPanel::OnSearchTextChanged(QString const & str)
     return;
   }
 
-  bool started = false;
+  bool const isCategory = m_isCategory->isChecked();
   auto const timestamp = ++m_timestamp;
 
-  switch (m_mode)
+  using namespace search;
+  if (m_mode == Mode::Everywhere)
   {
-  case search::Mode::Everywhere:
-  {
-    m_everywhereParams.m_query = normalized.toUtf8().constData();
-    m_everywhereParams.m_onResults = [this, timestamp](
-                                         search::Results const & results,
-                                         std::vector<search::ProductInfo> const & productInfo) {
-      GetPlatform().RunTask(
-          Platform::Thread::Gui,
-          std::bind(&SearchPanel::OnEverywhereSearchResults, this, timestamp, results));
+    EverywhereSearchParams params
+    {
+      normalized, GetCurrentInputLocale(), {} /* timeout */, isCategory,
+      // m_onResults
+      [this, timestamp](Results results, std::vector<ProductInfo> /* productInfo */)
+      {
+        OnEverywhereSearchResults(timestamp, std::move(results));
+      }
     };
-    m_everywhereParams.m_timeout = search::SearchParams::kDefaultDesktopTimeout;
 
-    started = m_pDrawWidget->GetFramework().GetSearchAPI().SearchEverywhere(m_everywhereParams);
+    if (m_pDrawWidget->GetFramework().GetSearchAPI().SearchEverywhere(std::move(params)))
+      StartBusyIndicator();
   }
-  break;
-
-  case search::Mode::Viewport:
+  else if (m_mode == Mode::Viewport)
   {
-    m_viewportParams.m_query = normalized.toUtf8().constData();
-    m_viewportParams.m_onCompleted = [this](search::Results const & results) {
-      GetPlatform().RunTask(Platform::Thread::Gui, [this, results] {
+    ViewportSearchParams params
+    {
+      normalized, GetCurrentInputLocale(), {} /* timeout */, isCategory,
+      // m_onStarted
+      [this]()
+      {
+        StartBusyIndicator();
+      },
+      // m_onCompleted
+      [this](search::Results results)
+      {
         // |m_pTable| is not updated here because the OnResults callback is recreated within
         // SearchAPI when the viewport is changed. Thus a single call to SearchInViewport may
         // initiate an arbitrary amount of actual search requests with different viewports, and
@@ -257,21 +272,11 @@ void SearchPanel::OnSearchTextChanged(QString const & str)
         // results in the viewport search mode.
         m_pDrawWidget->GetFramework().FillSearchResultsMarks(true /* clear */, results);
         StopBusyIndicator();
-      });
+      }
     };
-    m_viewportParams.m_timeout = search::SearchParams::kDefaultDesktopTimeout;
 
-    started = m_pDrawWidget->GetFramework().GetSearchAPI().SearchInViewport(m_viewportParams);
+    m_pDrawWidget->GetFramework().GetSearchAPI().SearchInViewport(std::move(params));
   }
-  break;
-
-  default:
-    started = false;
-  break;
-  }
-
-  if (started)
-    StartBusyIndicator();
 }
 
 void SearchPanel::OnSearchModeChanged(int mode)
@@ -288,10 +293,13 @@ void SearchPanel::OnSearchModeChanged(int mode)
 
   if (m_mode == newMode)
     return;
-
   m_mode = newMode;
 
-  // Run this query in the new mode.
+  RunSearch();
+}
+
+void SearchPanel::RunSearch()
+{
   auto const text = m_pEditor->text();
   m_pEditor->setText(QString());
   m_pEditor->setText(text);
@@ -299,7 +307,7 @@ void SearchPanel::OnSearchModeChanged(int mode)
 
 void SearchPanel::OnSearchPanelItemClicked(int row, int)
 {
-  ASSERT_EQUAL(m_results.size(), static_cast<size_t>(m_pTable->rowCount()), ());
+  ASSERT_EQUAL(m_results.GetCount(), static_cast<size_t>(m_pTable->rowCount()), ());
 
   if (m_results[row].IsSuggest())
   {

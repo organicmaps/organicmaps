@@ -6,15 +6,15 @@
 #include "geometry/point2d.hpp"
 #include "geometry/region2d.hpp"
 
-#include <cstddef>
 #include <iostream>
 #include <random>
 #include <vector>
+#include <type_traits>
 
+namespace region_tests
+{
 using namespace std;
 
-namespace
-{
 template <class Region>
 struct ContainsChecker
 {
@@ -39,8 +39,10 @@ void TestContainsRectangular(Point const * arr)
 
   for (size_t i = 0; i < count; ++i)
   {
-    region.Contains(arr[i]);
-    region.Contains((arr[i] + arr[(i + count - 1) % count]) / 2);
+    TEST(region.Contains(arr[i]), ());
+
+    if constexpr (std::is_floating_point<typename Point::value_type>::value)
+      TEST(region.Contains((arr[i] + arr[(i + 1) % count]) / 2), ());
   }
 
   Point dx(1, 0);
@@ -137,7 +139,6 @@ public:
 private:
   Point & m_res;
 };
-}  // namespace
 
 UNIT_TEST(Region)
 {
@@ -362,3 +363,4 @@ UNIT_TEST(Region_GetRandomPoint)
     testConvexRegion(region);
   }
 }
+} // namespace region_tests

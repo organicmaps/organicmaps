@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>toll_booth-s</title>
-    <g id="Page-2:-Night" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.6">
-        <g id="toll_booth-s" fill-rule="nonzero">
-            <circle id="Oval" fill="#FFFFFF" cx="8" cy="8" r="8"></circle>
-            <circle id="Oval" fill="#717065" cx="8" cy="8" r="7"></circle>
-            <polygon id="Path" fill="#FFFFFF" points="6.501 4 5.001 5.036 5.001 11 4 11 4 12 9 12 9 11.036 8 11 8 10.096 13 7 13 6 8 9 8.089 5.036"></polygon>
-        </g>
-    </g>
+<svg version="1.1" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+ <title>toll_booth-s</title>
+ <g id="Page-2:-Night" fill="none" fill-rule="evenodd" opacity=".6">
+  <g id="toll_booth-s" fill-rule="nonzero">
+   <circle id="Oval" cx="8" cy="8" r="8" fill="#fff"/>
+   <circle id="Oval" cx="8" cy="8" r="7" fill="#717065"/>
+   <polygon id="Path" points="6.501 4 5.001 5.036 5.001 11 4 11 4 12 9 12 9 11.036 8 11 8 10.096 13 7 13 6 8 9 8.089 5.036" fill="#fff"/>
+  </g>
+ </g>
 </svg>

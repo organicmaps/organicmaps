@@ -27,31 +27,19 @@
 
 #include "base/assert.hpp"
 #include "base/cancellable.hpp"
-#include "base/limited_priority_queue.hpp"
 #include "base/math.hpp"
 #include "base/stl_helpers.hpp"
 
 #include <algorithm>
-#include <cstddef>
-#include <cstdint>
 #include <iterator>
 #include <vector>
 
+namespace pre_ranker_test
+{
 using namespace generator::tests_support;
-using namespace search::tests_support;
+using namespace search;
 using namespace std;
 
-class DataSource;
-
-namespace storage
-{
-class CountryInfoGetter;
-}
-
-namespace search
-{
-namespace
-{
 class TestRanker : public Ranker
 {
 public:
@@ -91,7 +79,7 @@ private:
   bool m_finished = false;
 };
 
-class PreRankerTest : public SearchTest
+class PreRankerTest : public search::tests_support::SearchTest
 {
 public:
   vector<Suggest> m_suggests;
@@ -105,12 +93,15 @@ UNIT_CLASS_TEST(PreRankerTest, Smoke)
   // emits results nearest to the pivot.
 
   m2::PointD const kPivot(0, 0);
-  m2::RectD const kViewport(m2::PointD(-5, -5), m2::PointD(5, 5));
+  m2::RectD const kViewport(-5, -5, 5, 5);
 
-  size_t const kBatchSize = 50;
+  /// @todo Well, I'm not sure that 50 results will have unique distances to pivot.
+  /// 7x7 grid is 49, so potentially it can be 51 (north and south) or (east and west).
+  /// But we should consider circle (ellipse) around pivot and I can't say,
+  /// how it goes in meters radius on integer mercator grid.
+  size_t constexpr kBatchSize = 50;
 
   vector<TestPOI> pois;
-
   for (int x = -5; x <= 5; ++x)
   {
     for (int y = -5; y <= 5; ++y)
@@ -122,7 +113,8 @@ UNIT_CLASS_TEST(PreRankerTest, Smoke)
 
   TEST_LESS(kBatchSize, pois.size(), ());
 
-  auto mwmId = BuildCountry("Cafeland", [&](TestMwmBuilder & builder) {
+  auto mwmId = BuildCountry("Cafeland", [&](TestMwmBuilder & builder)
+  {
     for (auto const & poi : pois)
       builder.Add(poi);
   });
@@ -150,7 +142,8 @@ UNIT_CLASS_TEST(PreRankerTest, Smoke)
   vector<bool> emit(pois.size());
 
   FeaturesVectorTest fv(mwmId.GetInfo()->GetLocalFile().GetPath(MapFileType::Map));
-  fv.GetVector().ForEach([&](FeatureType & ft, uint32_t index) {
+  fv.GetVector().ForEach([&](FeatureType & ft, uint32_t index)
+  {
     FeatureID id(mwmId, index);
     ResultTracer::Provenance provenance;
     preRanker.Emplace(id, PreRankingInfo(Model::TYPE_SUBPOI, TokenRange(0, 1)), provenance);
@@ -164,19 +157,21 @@ UNIT_CLASS_TEST(PreRankerTest, Smoke)
 
   TEST(all_of(emit.begin(), emit.end(), base::IdFunctor()), (emit));
   TEST(ranker.Finished(), ());
-  TEST_EQUAL(results.size(), kBatchSize, ());
+
+  size_t const count = results.size();
+  // See todo comment above for details.
+  TEST(count == kBatchSize || count == kBatchSize + 1, (count));
 
   vector<bool> checked(pois.size());
-  for (size_t i = 0; i < results.size(); ++i)
+  for (size_t i = 0; i < count; ++i)
   {
     size_t const index = results[i].GetId().m_index;
     TEST_LESS(index, pois.size(), ());
 
     TEST(!checked[index], (index));
-    TEST(base::AlmostEqualAbs(distances[index], results[i].GetDistance(), 1.0),
+    TEST(base::AlmostEqualAbs(distances[index], results[i].GetDistance(), 1.0 /* 1 meter epsilon */),
          (distances[index], results[i].GetDistance()));
     checked[index] = true;
   }
 }
-}  // namespace
-}  // namespace search
+} // namespace pre_ranker_test

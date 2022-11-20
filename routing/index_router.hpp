@@ -10,8 +10,6 @@
 #include "routing/fake_edges_container.hpp"
 #include "routing/features_road_graph.hpp"
 #include "routing/guides_connections.hpp"
-#include "routing/index_graph_starter_joints.hpp"
-#include "routing/joint.hpp"
 #include "routing/nearest_edge_finder.hpp"
 #include "routing/regions_decl.hpp"
 #include "routing/router.hpp"
@@ -25,15 +23,12 @@
 #include "platform/country_file.hpp"
 
 #include "geometry/point2d.hpp"
-#include "geometry/point_with_altitude.hpp"
-#include "geometry/rect2d.hpp"
 #include "geometry/tree4d.hpp"
 
 #include <functional>
 #include <memory>
 #include <set>
 #include <string>
-#include <utility>
 #include <vector>
 
 namespace traffic { class TrafficCache; }
@@ -195,16 +190,33 @@ private:
                        std::vector<Edge> & bestEdges, bool & bestSegmentIsAlmostCodirectional);
   };
 
+  using RoutingResultT = RoutingResult<Segment, RouteWeight>;
+  class RoutesCalculator
+  {
+    std::map<std::pair<Segment, Segment>, RoutingResultT> m_cache;
+    IndexGraphStarter & m_starter;
+    RouterDelegate const & m_delegate;
+
+  public:
+    RoutesCalculator(IndexGraphStarter & starter, RouterDelegate const & delegate)
+      : m_starter(starter), m_delegate(delegate) {}
+
+    using ProgressPtrT = std::shared_ptr<AStarProgress>;
+    RoutingResultT const * Calc(Segment const & beg, Segment const & end,
+                                ProgressPtrT const & progress, double progressCoef);
+    // Makes JointSingleMwm first and Joints then, if first attempt was failed.
+    RoutingResultT const * Calc2Times(Segment const & beg, Segment const & end,
+                                      ProgressPtrT const & progress, double progressCoef);
+  };
+
   // Input route may contains 'leaps': shortcut edges from mwm border enter to exit.
   // ProcessLeaps replaces each leap with calculated route through mwm.
-  using RoutingResultT = RoutingResult<Segment, RouteWeight>;
-  using RoutesCacheT = std::map<std::pair<Segment, Segment>, RoutingResultT>;
   RouterResultCode ProcessLeapsJoints(std::vector<Segment> const & input,
-                                      RouterDelegate const & delegate,
                                       IndexGraphStarter & starter,
                                       std::shared_ptr<AStarProgress> const & progress,
-                                      RoutesCacheT & cache,
+                                      RoutesCalculator & calculator,
                                       RoutingResultT & result);
+
   RouterResultCode RedressRoute(std::vector<Segment> const & segments,
                                 base::Cancellable const & cancellable, IndexGraphStarter & starter,
                                 Route & route);

@@ -306,22 +306,22 @@ IncludeCategories:
   - Regex:           '^"pyhelpers/'
     Priority:        49800
 
-  - Regex:           '^"com/mapswithme/util/'
+  - Regex:           '^"app/organicmaps/util/'
     Priority:        49840
 
-  - Regex:           '^"com/mapswithme/maps/'
+  - Regex:           '^"app/organicmaps/maps/'
     Priority:        49850
 
-  - Regex:           '^"com/mapswithme/platform/'
+  - Regex:           '^"app/organicmaps/platform/'
     Priority:        49860
 
-  - Regex:           '^"com/mapswithme/opengl/'
+  - Regex:           '^"app/organicmaps/opengl/'
     Priority:        49870
 
-  - Regex:           '^"com/mapswithme/vulkan/'
+  - Regex:           '^"app/organicmaps/vulkan/'
     Priority:        49880
 
-  - Regex:           '^"com/mapswithme/core/'
+  - Regex:           '^"app/organicmaps/core/'
     Priority:        49890
 
   - Regex:           '^"private\.h"$'

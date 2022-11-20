@@ -9,7 +9,6 @@
 #include "generator/descriptions_section_builder.hpp"
 #include "generator/dumper.hpp"
 #include "generator/feature_builder.hpp"
-#include "generator/feature_generator.hpp"
 #include "generator/feature_sorter.hpp"
 #include "generator/generate_info.hpp"
 #include "generator/isolines_section_builder.hpp"
@@ -30,7 +29,6 @@
 #include "generator/traffic_generator.hpp"
 #include "generator/transit_generator.hpp"
 #include "generator/transit_generator_experimental.hpp"
-#include "generator/translator_collection.hpp"
 #include "generator/translator_factory.hpp"
 #include "generator/unpack_mwm.hpp"
 #include "generator/utils.hpp"
@@ -41,12 +39,9 @@
 
 #include "storage/country_parent_getter.hpp"
 
-#include "indexer/classificator.hpp"
 #include "indexer/classificator_loader.hpp"
 #include "indexer/data_header.hpp"
-#include "indexer/drawing_rules.hpp"
 #include "indexer/features_offsets_table.hpp"
-#include "indexer/features_vector.hpp"
 #include "indexer/index_builder.hpp"
 #include "indexer/map_style_reader.hpp"
 #include "indexer/rank_table.hpp"
@@ -65,19 +60,14 @@
 #include <fstream>
 #include <memory>
 #include <string>
-#include <thread>
 
 #include "gflags/gflags.h"
-
-#include "build_version.hpp"
-
-using namespace std;
 
 namespace
 {
 char const * GetDataPathHelp()
 {
-  static string const kHelp =
+  static std::string const kHelp =
       "Directory where the generated mwms are put into. Also used as the path for helper "
       "functions, such as those that calculate statistics and regenerate sections. "
       "Default: " +
@@ -209,18 +199,20 @@ DEFINE_uint64(threads_count, 0, "Desired count of threads. If count equals zero,
                                 "threads is set automatically.");
 DEFINE_bool(verbose, false, "Provide more detailed output.");
 
-using namespace generator;
-
 MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
 {
+  using namespace generator;
+  using std::string;
+
   CHECK(IsLittleEndian(), ("Only little-endian architectures are supported."));
+
+  Platform & pl = GetPlatform();
 
   gflags::SetUsageMessage(
       "Takes OSM XML data from stdin and creates data and index files in several passes.");
-  gflags::SetVersionString(build_version::kName);
+  gflags::SetVersionString(pl.Version());
   gflags::ParseCommandLineFlags(&argc, &argv, true);
 
-  Platform & pl = GetPlatform();
   unsigned threadsCount = FLAGS_threads_count != 0 ? static_cast<unsigned>(FLAGS_threads_count)
                                                    : pl.CpuCores();
 
@@ -314,12 +306,12 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
   }
 
   // Load mwm tree only if we need it
-  unique_ptr<storage::CountryParentGetter> countryParentGetter;
+  std::unique_ptr<storage::CountryParentGetter> countryParentGetter;
   if (FLAGS_make_routing_index || FLAGS_make_cross_mwm || FLAGS_make_transit_cross_mwm ||
       FLAGS_make_transit_cross_mwm_experimental || !FLAGS_uk_postcodes_dataset.empty() ||
       !FLAGS_us_postcodes_dataset.empty())
   {
-    countryParentGetter = make_unique<storage::CountryParentGetter>();
+    countryParentGetter = std::make_unique<storage::CountryParentGetter>();
   }
 
   if (!FLAGS_dump_wikipedia_urls.empty())
@@ -573,10 +565,8 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
 
     if (!FLAGS_wikipedia_pages.empty())
     {
-      if (!FLAGS_idToWikidata.empty())
-        BuildDescriptionsSection(FLAGS_wikipedia_pages, dataFile, FLAGS_idToWikidata);
-      else
-        BuildDescriptionsSection(FLAGS_wikipedia_pages, dataFile);
+      // FLAGS_idToWikidata maybe empty.
+      DescriptionsSectionBuilder::CollectAndBuild(FLAGS_wikipedia_pages, dataFile, FLAGS_idToWikidata);
     }
 
     // This section must be built with the same isolines file as had been used at the features stage.
@@ -607,7 +597,7 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
     auto file = OfstreamWithExceptions(genInfo.GetIntermediateFileName(FLAGS_output, STATS_EXTENSION));
     stats::MapInfo info(FLAGS_stats_geometry_dup_factor);
     stats::CalcStats(dataFile, info);
-    
+
     if (FLAGS_stats_general)
     {
       LOG(LINFO, ("Writing general statistics"));
@@ -628,16 +618,16 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
   }
 
   if (FLAGS_dump_types)
-    feature::DumpTypes(dataFile);
+    features_dumper::DumpTypes(dataFile);
 
   if (FLAGS_dump_prefixes)
-    feature::DumpPrefixes(dataFile);
+    features_dumper::DumpPrefixes(dataFile);
 
   if (FLAGS_dump_search_tokens)
-    feature::DumpSearchTokens(dataFile, 100 /* maxTokensToShow */);
+    features_dumper::DumpSearchTokens(dataFile, 100 /* maxTokensToShow */);
 
-  if (FLAGS_dump_feature_names != "")
-    feature::DumpFeatureNames(dataFile, FLAGS_dump_feature_names);
+  if (!FLAGS_dump_feature_names.empty())
+    features_dumper::DumpFeatureNames(dataFile, FLAGS_dump_feature_names);
 
   if (FLAGS_unpack_mwm)
     UnpackMwm(dataFile);
@@ -655,4 +645,4 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
     check_model::ReadFeatures(dataFile);
 
   return EXIT_SUCCESS;
-});
+})

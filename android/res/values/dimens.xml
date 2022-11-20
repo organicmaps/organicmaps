@@ -39,20 +39,13 @@
   <dimen name="primary_button_min_width">64dp</dimen>
   <dimen name="dialog_min_width">288dp</dimen>
   <dimen name="dialog_min_height">100dp</dimen>
-  <dimen name="default_elevation">2dp</dimen>
-  <dimen name="progress_bar_size">24dp</dimen>
 
-  <dimen name="dialog_max_height">320dp</dimen>
   <dimen name="search_item_height">56dp</dimen>
-  <dimen name="search_box_height">56dp</dimen>
 
   <dimen name="place_page_width">320dp</dimen>
   <dimen name="place_page_buttons_height">56dp</dimen>
-  <dimen name="place_page_category_logo_height">30dp</dimen>
-  <dimen name="place_page_category_logo_width">60dp</dimen>
 
   <dimen name="downloader_status_size">40dp</dimen>
-  <dimen name="downloader_ad_icon_size">@dimen/downloader_status_size</dimen>
   <dimen name="search_progress_size">32dp</dimen>
 
   <dimen name="panel_width">360dp</dimen>
@@ -70,15 +63,11 @@
   <dimen name="margin_direction_side">32dp</dimen>
   <dimen name="margin_direction_mid">24dp</dimen>
   <dimen name="margin_direction_around_center">40dp</dimen>
-  <dimen name="direction_frame_min_height">36dp</dimen>
 
   <!-- map widgets -->
   <dimen name="margin_compass">32dp</dimen>
   <dimen name="margin_compass_top">26dp</dimen>
-  <dimen name="margin_ruler_left">10dp</dimen>
-  <dimen name="margin_ruler_bottom">58dp</dimen>
-  <dimen name="compass_height">40dp</dimen>
-  <dimen name="button_big_corner_radius">20dp</dimen>
+  <dimen name="margin_ruler">10dp</dimen>
   <dimen name="button_small_corner_radius">2dp</dimen>
   <dimen name="viewport_min_height">100dp</dimen>
   <dimen name="viewport_min_width">300dp</dimen>
@@ -90,29 +79,21 @@
   <dimen name="elevation_profile_height">108dp</dimen>
   <dimen name="elevation_profile_half_height">54dp</dimen>
   <dimen name="elevation_profile_dot_levels_margin">3dp</dimen>
+  <dimen name="map_button_size">48dp</dimen>
+  <dimen name="map_button_icon_size">28dp</dimen>
+  <dimen name="map_button_arrow_icon_size">34dp</dimen>
 
   <!-- routing layout -->
-  <dimen name="routing_info_height">48dp</dimen>
-  <dimen name="routing_selector_size">48dp</dimen>
   <dimen name="routing_selector_wheel_size">40dp</dimen>
   <dimen name="routing_selector_wheel_margin">4dp</dimen>
-  <dimen name="routing_shadow_top_margin">3dp</dimen>
-  <dimen name="routing_shadow_top_margin_dragging">0dp</dimen>
-  <dimen name="routing_shadow_bottom_margin">2dp</dimen>
-  <dimen name="routing_shadow_bottom_margin_dragging">4dp</dimen>
-  <dimen name="routing_turns_padding">8dp</dimen>
   <dimen name="routing_transit_step_corner_radius">4dp</dimen>
   <dimen name="routing_transit_step_min_height">20dp</dimen>
   <dimen name="routing_transit_setp_min_acceptable_with">104dp</dimen>
 
   <!-- Bottom menu -->
   <dimen name="menu_line_height">48dp</dimen>
-  <dimen name="menu_line_button_width">60dp</dimen>
-  <dimen name="menu_line_button_width_edge">68dp</dimen>
   <dimen name="menu_line_button_inset_top">-20dp</dimen>
-  <dimen name="menu_line_button_inset_edge">-16dp</dimen>
   <dimen name="menu_list_item_height">48dp</dimen>
-  <dimen name="main_menu_bottom_sheet_width">375dp</dimen>
 
   <!-- Nav menu -->
   <dimen name="nav_elevation">6dp</dimen>
@@ -126,46 +107,36 @@
   <dimen name="nav_next_next_turn_frame">32dp</dimen>
   <dimen name="nav_numbers_margin">8dp</dimen>
   <dimen name="nav_numbers_side_min_width">90dp</dimen>
-  <dimen name="nav_numbers_center_min_width">130dp</dimen>
   <dimen name="nav_progress">4sp</dimen>
   <dimen name="nav_progress_head">2dp</dimen>
-  <dimen name="nav_button_width">200dp</dimen>
   <dimen name="nav_button_height">@dimen/primary_button_min_height</dimen>
   <dimen name="nav_icon_size">48dp</dimen>
   <dimen name="nav_bottom_gap">12dp</dimen>
-  <dimen name="nav_menu_top_offset">0dp</dimen>
-  <dimen name="nav_numbers_height">54sp</dimen>
+  <dimen name="nav_menu_height">70sp</dimen>
   <dimen name="nav_menu_content_height">64dp</dimen>
   <dimen name="nav_menu_landscape_width">360dp</dimen>
 
-  <dimen name="nav_frame_padding">@dimen/margin_eighth</dimen>
-  <dimen name="nav_button">28dp</dimen>
-  <dimen name="nav_zoom_bottom">160dp</dimen>
-  <dimen name="nav_zoom_top">258dp</dimen>
-  <dimen name="nav_button_top_limit">68dp</dimen>
-  <dimen name="nav_my_position_bottom">136dp</dimen>
-  <dimen name="nav_search_frame_offset">28dp</dimen>
+  <dimen name="nav_frame_padding">@dimen/margin_half</dimen>
+  <dimen name="zoom_buttons_margin">64dp</dimen>
+  <dimen name="map_buttons_bottom_margin">136dp</dimen>
+  <dimen name="map_buttons_bottom_max_width">300dp</dimen>
 
-  <dimen name="panel_elevation">12dp</dimen>
   <dimen name="appbar_elevation">4dp</dimen>
   <dimen name="placepage_elevation">4dp</dimen>
 
   <dimen name="tabs_height">64dp</dimen>
 
-  <dimen name="news_max_width">560dp</dimen>
-  <dimen name="news_max_height">500dp</dimen>
-
   <!-- Editor -->
   <dimen name="editor_height_days">72dp</dimen>
   <dimen name="editor_height_closed">72dp</dimen>
   <dimen name="editor_height_allday">56dp</dimen>
-  <dimen name="editor_height_hours">80dp</dimen>
-  <dimen name="editor_height_add_delete_schedule">92dp</dimen>
   <dimen name="editor_height_field">64dp</dimen>
   <dimen name="editor_margin_left">56dp</dimen>
-  <dimen name="editor_margin_left_plus">72dp</dimen>
   <dimen name="editor_auth_btn_height">@dimen/primary_button_min_height</dimen>
   <dimen name="editor_margin_timetable_left">50dp</dimen>
+
+  <!-- Login -->
+  <dimen name="login_osm_logo">64dp</dimen>
 
   <!-- Altitude chart -->
   <dimen name="altitude_chart_container_padding_left">16dp</dimen>
@@ -181,107 +152,26 @@
   <!-- Routing action panel -->
   <dimen name="routing_action_panel_margin_vert">14dp</dimen>
 
-  <!-- Gallery-->
-  <dimen name="placepage_hotel_gallery_height">100dp</dimen>
-  <dimen name="placepage_hotel_gallery_width">150dp</dimen>
-  <dimen name="gallery_image_height">84dp</dimen>
-  <dimen name="gallery_product_width">160dp</dimen>
-
-  <!-- Nearby-->
-  <dimen name="placepage_hotel_nearby_height">64dp</dimen>
-  <dimen name="placepage_hotel_nearby_icon_size">24dp</dimen>
-
-  <!-- Rating-->
-  <dimen name="placepage_margin_rating">20dp</dimen>
-
-  <!-- Facilities-->
-  <dimen name="placepage_facilities_item">32dp</dimen>
-
-  <!-- Place page taxi-->
-  <dimen name="placepage_taxi_button_min_width">96dp</dimen>
-  <dimen name="placepage_taxi_padding_vert">14dp</dimen>
-  <dimen name="placepage_taxi_button_padding_vert">10dp</dimen>
-
   <!-- Placeholder-->
   <dimen name="placeholder_margin_top">20dp</dimen>
-  <dimen name="placeholder_margin_top_no_image">80dp</dimen>
 
-  <dimen name="hotel_filters_tag_height">32dp</dimen>
   <dimen name="margin_dialog_title">20dp</dimen>
 
   <dimen name="action_bar_extended_height">72dp</dimen>
 
- <dimen name="info_page_image_size">240dp</dimen>
-
-  <!-- Viator-->
-  <dimen name="viator_product_height">218dp</dimen>
-  <dimen name="viator_product_image_height">80dp</dimen>
-
-  <!-- Luggage-->
-  <dimen name="luggage_product_height">140dp</dimen>
-  <dimen name="luggage_product_width">160dp</dimen>
-  <dimen name="luggage_details_height">44dp</dimen>
-
-  <!-- Rating-->
-  <dimen name="rating_view_height">40dp</dimen>
-  <dimen name="rating_view_height_small">20dp</dimen>
-  <dimen name="rating_view_background_radius">20dp</dimen>
-  <dimen name="rating_user_review_min_height">152dp</dimen>
-
-  <!-- Authorization-->
-  <dimen name="auth_dialog_padding_top">28dp</dimen>
-  <dimen name="auth_dialog_padding_bottom">24dp</dimen>
-  <dimen name="auth_dialog_facebook_btn_height">40dp</dimen>
-
   <dimen name="divider_height">1dp</dimen>
   <dimen name="divider_width">1dp</dimen>
-
-  <!-- Discovery-->
-  <dimen name="discovery_button_min_height">40dp</dimen>
-  <dimen name="discovery_search_item_min_height">166dp</dimen>
-  <dimen name="discovery_expert_item_min_height">198dp</dimen>
 
   <!-- Bookmarks-->
   <dimen name="bookmark_hide_btn_padding_top">22dp</dimen>
   <dimen name="bookmark_recycler_view_bottom_margin">80dp</dimen>
-  <dimen name="show_on_map_dialog_padding">30dp</dimen>
   <dimen name="dp_0">0dp</dimen>
   <dimen name="toggle_map_layer_frame_height">98dp</dimen>
-  <dimen name="focal_radius">44dp</dimen>
-  <dimen name="guide_image_height">180dp</dimen>
-  <dimen name="guide_description_content_by_height">60dp</dimen>
-  <dimen name="content_by_logo_width">68dp</dimen>
   <dimen name="bookmark_collection_item_end_margin">56dp</dimen>
   <dimen name="bookmark_category_checkbox_width">36dp</dimen>
 
   <!-- Purchases-->
-  <dimen name="ads_removal_dialog_min_height">508dp</dimen>
-  <dimen name="ads_removal_pay_button_min_width">240dp</dimen>
-  <dimen name="dot_size">6dp</dimen>
   <dimen name="sharing_options_img_size">18dp</dimen>
-  <dimen name="bookmark_purchase_img_height">258dp</dimen>
   <dimen name="bookmark_purchase_img_width">280dp</dimen>
   <dimen name="square_block_size">168dp</dimen>
-  <dimen name="bookmarks_subs_margin_top">34dp</dimen>
-  <dimen name="bookmarks_subs_sale_min_width">84dp</dimen>
-  <dimen name="bookmarks_subs_offer_card_width">164dp</dimen>
-  <dimen name="bookmarks_subs_card_corner_radius">9dp</dimen>
-  <dimen name="subs_btn_min_width">328dp</dimen>
-  <dimen name="bookmarks_all_subscription_pager_item_margin">@dimen/margin_base_plus</dimen>
-  <dimen name="bookmarks_sightseeing_subs_central_content_margin">88dp</dimen>
-  <dimen name="bookmark_all_subscription_content_width">336dp</dimen>
-  <dimen name="all_pass_top_offset">62dp</dimen>
-  <dimen name="subs_card_min_height">226dp</dimen>
-  <dimen name="subs_card_min_width">164dp</dimen>
-  <dimen name="subscription_view_pager_height">256dp</dimen>
-
-  <!-- Promo-->
-  <dimen name="promo_after_booking_width">288dp</dimen>
-  <dimen name="pro_label_margin">52dp</dimen>
-  <dimen name="promo_single_place_container_height">194dp</dimen>
-  <dimen name="zero">0dp</dimen>
-  <dimen name="welcome_btn_min_width">148dp</dimen>
-  <dimen name="guide_gallery_item_width">328dp</dimen>
-  <dimen name="guide_gallery_title_width">176dp</dimen>
-  <dimen name="guide_gallery_title_height">40dp</dimen>
 </resources>

@@ -12,15 +12,13 @@
 #include <array>
 #include <limits>
 
-using namespace std;
-
 namespace m2
 {
 namespace
 {
-static_assert(numeric_limits<double>::has_infinity, "");
+static_assert(std::numeric_limits<double>::has_infinity, "");
 
-double const kInf = numeric_limits<double>::infinity();
+double constexpr kInf = std::numeric_limits<double>::infinity();
 
 // Checks whether (p1 - p) x (p2 - p) >= 0.
 bool IsCCWNeg(PointD const & p1, PointD const & p2, PointD const & p, double eps)
@@ -42,22 +40,22 @@ void ForEachRect(ConvexHull const & hull, Fn && fn)
   {
     auto const ab = hull.SegmentAt(i).Dir();
 
-    j = max(j, i + 1);
+    j = std::max(j, i + 1);
     while (DotProduct(ab, hull.SegmentAt(j).Dir()) > CalipersBox::kEps)
       ++j;
 
-    k = max(k, j);
+    k = std::max(k, j);
     while (CrossProduct(ab, hull.SegmentAt(k).Dir()) > CalipersBox::kEps)
       ++k;
 
-    l = max(l, k);
+    l = std::max(l, k);
     while (DotProduct(ab, hull.SegmentAt(l).Dir()) < -CalipersBox::kEps)
       ++l;
 
     auto const oab = Ort(ab);
-    array<Line2D, 4> const lines = {{Line2D(hull.PointAt(i), ab), Line2D(hull.PointAt(j), oab),
+    std::array<Line2D, 4> const lines = {{Line2D(hull.PointAt(i), ab), Line2D(hull.PointAt(j), oab),
                                      Line2D(hull.PointAt(k), ab), Line2D(hull.PointAt(l), oab)}};
-    vector<PointD> corners;
+    std::vector<PointD> corners;
     for (size_t i = 0; i < lines.size(); ++i)
     {
       auto const j = (i + 1) % lines.size();
@@ -77,7 +75,7 @@ void ForEachRect(ConvexHull const & hull, Fn && fn)
 }
 }  // namespace
 
-CalipersBox::CalipersBox(vector<PointD> const & points) : m_points({})
+CalipersBox::CalipersBox(std::vector<PointD> const & points) : m_points({})
 {
   ConvexHull hull(points, kEps);
 
@@ -88,8 +86,8 @@ CalipersBox::CalipersBox(vector<PointD> const & points) : m_points({})
   }
 
   double bestArea = kInf;
-  vector<PointD> bestPoints;
-  ForEachRect(hull, [&](vector<PointD> const & points) {
+  std::vector<PointD> bestPoints;
+  ForEachRect(hull, [&](std::vector<PointD> const & points) {
     ASSERT_EQUAL(points.size(), 4, ());
     double const area = GetPolygonArea(points.begin(), points.end());
     if (area < bestArea)

@@ -1,30 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
-  android:layout_height="match_parent">
-
-  <View
-    android:id="@+id/anchor_center"
-    android:layout_width="1dp"
-    android:layout_height="1dp"
-    android:layout_centerInParent="true"/>
+  android:layout_height="match_parent"
+  android:orientation="vertical"
+  android:gravity="center">
 
   <ImageView
-    android:id="@+id/iv__logo"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:src="@drawable/splash"
-    android:layout_centerVertical="true"
-    android:layout_centerHorizontal="true"/>
+      android:id="@+id/iv__logo"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:contentDescription="@null"
+      android:src="@drawable/splash"
+      android:layout_weight="1000"
+      android:layout_margin="@dimen/margin_double"/>
 
-  <TextView
-    android:id="@+id/tv__app_name"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignParentBottom="true"
-    android:layout_centerHorizontal="true"
-    android:layout_marginBottom="@dimen/margin_double_plus"
-    android:textAppearance="@style/MwmTextAppearance.Title"
-    android:text="@string/app_name"/>
-</RelativeLayout>
+  <LinearLayout
+      android:gravity="center"
+      android:orientation="vertical"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:paddingBottom="@dimen/margin_double">
+
+    <TextView
+        android:id="@+id/tv__app_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_eighth"
+        android:text="@string/app_name"
+        android:gravity="center_horizontal"
+        android:textAppearance="@style/MwmTextAppearance.Title.Splash" />
+
+    <TextView
+        android:id="@+id/tv__splash_subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/splash_subtitle"
+        android:layout_marginStart="@dimen/margin_double"
+        android:layout_marginEnd="@dimen/margin_double"
+        android:gravity="center_horizontal"
+        android:textAppearance="@style/MwmTextAppearance.Toolbar" />
+
+  </LinearLayout>
+
+</LinearLayout>

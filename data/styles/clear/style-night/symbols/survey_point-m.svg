@@ -1,15 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="24px" height="24px" version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <title>survey_point-m</title>
-    <g fill="none" fill-rule="evenodd" opacity=".6">
-        <g id="survey_point-m" fill-rule="nonzero">
-            <g transform="matrix(1.5049,0,0,1.5049,-6.0591,-8.1013)" fill="#ffffff">
-                <circle cx="12" cy="10.066" r="1.1503"/>
-                <rect x="9.3034" y="7.8647" width="5.3932" height="1.5362" rx=".75229" ry=".76811"/>
-                <rect x="11.45" y="10.204" width="1.1003" height="8.9832" ry=".55014"/>
-                <rect transform="rotate(-30)" x="4.8422" y="14.864" width="1.1003" height="8.9832" ry=".55014"/>
-                <rect transform="matrix(-.86603 -.5 -.5 .86603 0 0)" x="-15.942" y="2.8643" width="1.1003" height="8.9832" ry=".55014"/>
-            </g>
-        </g>
-    </g>
+<svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+ <title>survey_point-m</title>
+ <g fill="none" fill-rule="evenodd" opacity=".6">
+  <g id="survey_point-m" fill-rule="nonzero">
+   <g transform="matrix(1.5049,0,0,1.5049,-6.0591,-8.1013)" fill="#fff">
+    <circle cx="12" cy="10.066" r="1.1503"/>
+    <rect x="9.3034" y="7.8647" width="5.3932" height="1.5362" rx=".75229" ry=".76811"/>
+    <rect x="11.45" y="10.204" width="1.1003" height="8.9832" ry=".55014"/>
+    <rect transform="rotate(-30)" x="4.8422" y="14.864" width="1.1003" height="8.9832" ry=".55014"/>
+    <rect transform="matrix(-.86603 -.5 -.5 .86603 0 0)" x="-15.942" y="2.8643" width="1.1003" height="8.9832" ry=".55014"/>
+   </g>
+  </g>
+ </g>
 </svg>

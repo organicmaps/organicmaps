@@ -3,15 +3,10 @@
 #include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"
 
-#include "base/assert.hpp"
-#include "base/macros.hpp"
-#include "base/logging.hpp"
-
-using namespace routing;
-using namespace std;
-
 namespace bicycle_model
 {
+using namespace routing;
+
 // See model specifics in different countries here:
 //   https://wiki.openstreetmap.org/wiki/OSM_tags_for_routing/Access-Restrictions
 // Document contains proposals for some countries, but we assume that some kinds of roads are ready for bicycle routing,
@@ -29,6 +24,10 @@ namespace bicycle_model
 // not marked as "hwtag=nobicycle" in OSM.
 
 HighwayBasedFactors const kDefaultFactors = GetOneFactorsForBicycleAndPedestrianModel();
+
+SpeedKMpH constexpr kSpeedOffroadKMpH = {1.5 /* weight */, 3.0 /* eta */};
+SpeedKMpH constexpr kSpeedDismountKMpH = {2.0 /* weight */, 2.0 /* eta */};
+SpeedKMpH constexpr kSpeedOnFootwayKMpH = {5.0 /* weight */, 7.0 /* eta */};
 
 HighwayBasedSpeeds const kDefaultSpeeds = {
     // {highway class : InOutCitySpeedKMpH(in city(weight, eta), out city(weight eta))}
@@ -51,163 +50,85 @@ HighwayBasedSpeeds const kDefaultSpeeds = {
     {HighwayType::HighwayLivingStreet, InOutCitySpeedKMpH(SpeedKMpH(7.0, 8.0))},
     // Steps have obvious inconvenience of a bike in hands.
     {HighwayType::HighwaySteps, InOutCitySpeedKMpH(SpeedKMpH(1.0, 1.0))},
-    {HighwayType::HighwayPedestrian, InOutCitySpeedKMpH(SpeedKMpH(5.0))},
-    {HighwayType::HighwayFootway, InOutCitySpeedKMpH(SpeedKMpH(7.0, 5.0))},
-    {HighwayType::ManMadePier, InOutCitySpeedKMpH(SpeedKMpH(7.0))},
-    {HighwayType::RouteFerry, InOutCitySpeedKMpH(SpeedKMpH(3.0, 20.0))},
+    {HighwayType::HighwayPedestrian, InOutCitySpeedKMpH(kSpeedDismountKMpH)},
+    {HighwayType::HighwayFootway, InOutCitySpeedKMpH(kSpeedDismountKMpH)},
+    {HighwayType::ManMadePier, InOutCitySpeedKMpH(kSpeedOnFootwayKMpH)},
+    /// @todo A car ferry has {10, 10}. Weight = 9 is 60% from reasonable 15 average speed.
+    {HighwayType::RouteFerry, InOutCitySpeedKMpH(SpeedKMpH(9.0, 20.0))},
 };
 
-SpeedKMpH constexpr kSpeedOffroadKMpH = {1.5 /* weight */, 3.0 /* eta */};
-
-// Default
-VehicleModel::LimitsInitList const kBicycleOptionsDefault = {
-    // {{roadType, roadType} passThroughAllowed}
-    {{"highway", "trunk"}, true},
-    {{"highway", "trunk_link"}, true},
-    {{"highway", "primary"}, true},
-    {{"highway", "primary_link"}, true},
-    {{"highway", "secondary"}, true},
-    {{"highway", "secondary_link"}, true},
-    {{"highway", "tertiary"}, true},
-    {{"highway", "tertiary_link"}, true},
-    {{"highway", "service"}, true},
-    {{"highway", "unclassified"}, true},
-    {{"highway", "road"}, true},
-    {{"highway", "track"}, true},
-    {{"highway", "path"}, true},
-    {{"highway", "cycleway"}, true},
-    {{"highway", "residential"}, true},
-    {{"highway", "living_street"}, true},
-    {{"highway", "steps"}, true}};
-
-// All options available.
-VehicleModel::LimitsInitList const kBicycleOptionsAll = {
-    {{"highway", "trunk"}, true},
-    {{"highway", "trunk_link"}, true},
-    {{"highway", "primary"}, true},
-    {{"highway", "primary_link"}, true},
-    {{"highway", "secondary"}, true},
-    {{"highway", "secondary_link"}, true},
-    {{"highway", "tertiary"}, true},
-    {{"highway", "tertiary_link"}, true},
-    {{"highway", "service"}, true},
-    {{"highway", "unclassified"}, true},
-    {{"highway", "road"}, true},
-    {{"highway", "track"}, true},
-    {{"highway", "path"}, true},
-    {{"highway", "bridleway"}, true},
-    {{"highway", "cycleway"}, true},
-    {{"highway", "residential"}, true},
-    {{"highway", "living_street"}, true},
-    {{"highway", "steps"}, true},
-    {{"highway", "pedestrian"}, true},
-    {{"highway", "footway"}, true}};
+// Default, no bridleway.
+VehicleModel::LimitsInitList const kDefaultOptions = {
+    // {HighwayType, passThroughAllowed}
+    {HighwayType::HighwayTrunk, true},
+    {HighwayType::HighwayTrunkLink, true},
+    {HighwayType::HighwayPrimary, true},
+    {HighwayType::HighwayPrimaryLink, true},
+    {HighwayType::HighwaySecondary, true},
+    {HighwayType::HighwaySecondaryLink, true},
+    {HighwayType::HighwayTertiary, true},
+    {HighwayType::HighwayTertiaryLink, true},
+    {HighwayType::HighwayService, true},
+    {HighwayType::HighwayUnclassified, true},
+    {HighwayType::HighwayRoad, true},
+    {HighwayType::HighwayTrack, true},
+    {HighwayType::HighwayPath, true},
+    // HighwayBridleway is missing
+    {HighwayType::HighwayCycleway, true},
+    {HighwayType::HighwayResidential, true},
+    {HighwayType::HighwayLivingStreet, true},
+    {HighwayType::HighwaySteps, true},
+    {HighwayType::HighwayPedestrian, true},
+    {HighwayType::HighwayFootway, true},
+    {HighwayType::ManMadePier, true},
+    {HighwayType::RouteFerry, true}
+};
 
 // Same as defaults except trunk and trunk_link are not allowed
-VehicleModel::LimitsInitList const kBicycleOptionsNoTrunk = {
-    {{"highway", "primary"}, true},
-    {{"highway", "primary_link"}, true},
-    {{"highway", "secondary"}, true},
-    {{"highway", "secondary_link"}, true},
-    {{"highway", "tertiary"}, true},
-    {{"highway", "tertiary_link"}, true},
-    {{"highway", "service"}, true},
-    {{"highway", "unclassified"}, true},
-    {{"highway", "road"}, true},
-    {{"highway", "track"}, true},
-    {{"highway", "path"}, true},
-    {{"highway", "cycleway"}, true},
-    {{"highway", "residential"}, true},
-    {{"highway", "living_street"}, true},
-    {{"highway", "steps"}, true}};
+VehicleModel::LimitsInitList NoTrunk()
+{
+  VehicleModel::LimitsInitList res;
+  res.reserve(kDefaultOptions.size() - 2);
+  for (auto const & e : kDefaultOptions)
+  {
+    if (e.m_type != HighwayType::HighwayTrunk && e.m_type != HighwayType::HighwayTrunkLink)
+      res.push_back(e);
+  }
+  return res;
+}
 
 // Same as defaults except pedestrian is allowed
-VehicleModel::LimitsInitList const kBicycleOptionsPedestrianAllowed = {
-    {{"highway", "trunk"}, true},
-    {{"highway", "trunk_link"}, true},
-    {{"highway", "primary"}, true},
-    {{"highway", "primary_link"}, true},
-    {{"highway", "secondary"}, true},
-    {{"highway", "secondary_link"}, true},
-    {{"highway", "tertiary"}, true},
-    {{"highway", "tertiary_link"}, true},
-    {{"highway", "service"}, true},
-    {{"highway", "unclassified"}, true},
-    {{"highway", "road"}, true},
-    {{"highway", "track"}, true},
-    {{"highway", "path"}, true},
-    {{"highway", "cycleway"}, true},
-    {{"highway", "residential"}, true},
-    {{"highway", "living_street"}, true},
-    {{"highway", "steps"}, true},
-    {{"highway", "pedestrian"}, true}};
+HighwayBasedSpeeds NormalPedestrianSpeed()
+{
+  HighwayBasedSpeeds res = kDefaultSpeeds;
+  res.Replace(HighwayType::HighwayPedestrian, InOutCitySpeedKMpH(kSpeedOnFootwayKMpH));
+  return res;
+}
 
 // Same as defaults except bridleway is allowed
-VehicleModel::LimitsInitList const kBicycleOptionsBridlewayAllowed = {
-    {{"highway", "trunk"}, true},
-    {{"highway", "trunk_link"}, true},
-    {{"highway", "primary"}, true},
-    {{"highway", "primary_link"}, true},
-    {{"highway", "secondary"}, true},
-    {{"highway", "secondary_link"}, true},
-    {{"highway", "tertiary"}, true},
-    {{"highway", "tertiary_link"}, true},
-    {{"highway", "service"}, true},
-    {{"highway", "unclassified"}, true},
-    {{"highway", "road"}, true},
-    {{"highway", "track"}, true},
-    {{"highway", "path"}, true},
-    {{"highway", "bridleway"}, true},
-    {{"highway", "cycleway"}, true},
-    {{"highway", "residential"}, true},
-    {{"highway", "living_street"}, true},
-    {{"highway", "steps"}, true}};
+VehicleModel::LimitsInitList AllAllowed()
+{
+  auto res = kDefaultOptions;
+  res.push_back({HighwayType::HighwayBridleway, true});
+  return res;
+}
 
 // Same as defaults except pedestrian and footway are allowed
-VehicleModel::LimitsInitList const kBicycleOptionsPedestrianFootwayAllowed = {
-    {{"highway", "trunk"}, true},
-    {{"highway", "trunk_link"}, true},
-    {{"highway", "primary"}, true},
-    {{"highway", "primary_link"}, true},
-    {{"highway", "secondary"}, true},
-    {{"highway", "secondary_link"}, true},
-    {{"highway", "tertiary"}, true},
-    {{"highway", "tertiary_link"}, true},
-    {{"highway", "service"}, true},
-    {{"highway", "unclassified"}, true},
-    {{"highway", "road"}, true},
-    {{"highway", "track"}, true},
-    {{"highway", "path"}, true},
-    {{"highway", "cycleway"}, true},
-    {{"highway", "residential"}, true},
-    {{"highway", "living_street"}, true},
-    {{"highway", "steps"}, true},
-    {{"highway", "pedestrian"}, true},
-    {{"highway", "footway"}, true}};
+HighwayBasedSpeeds NormalPedestrianAndFootwaySpeed()
+{
+  HighwayBasedSpeeds res = kDefaultSpeeds;
+  InOutCitySpeedKMpH const footSpeed(kSpeedOnFootwayKMpH);
+  res.Replace(HighwayType::HighwayPedestrian, footSpeed);
+  res.Replace(HighwayType::HighwayFootway, footSpeed);
+  return res;
+}
 
-// Australia
-VehicleModel::LimitsInitList const kBicycleOptionsAustralia = kBicycleOptionsAll;
-
-// Austria
-VehicleModel::LimitsInitList const kBicycleOptionsAustria = {
-    // No trunk, trunk_link, path
-    {{"highway", "primary"}, true},
-    {{"highway", "primary_link"}, true},
-    {{"highway", "secondary"}, true},
-    {{"highway", "secondary_link"}, true},
-    {{"highway", "tertiary"}, true},
-    {{"highway", "tertiary_link"}, true},
-    {{"highway", "service"}, true},
-    {{"highway", "unclassified"}, true},
-    {{"highway", "road"}, true},
-    {{"highway", "track"}, true},
-    {{"highway", "cycleway"}, true},
-    {{"highway", "residential"}, true},
-    {{"highway", "living_street"}, true},
-    {{"highway", "steps"}, true}};
-
-// Belarus
-VehicleModel::LimitsInitList const kBicycleOptionsBelarus = kBicycleOptionsPedestrianFootwayAllowed;
+HighwayBasedSpeeds DismountPathSpeed()
+{
+  HighwayBasedSpeeds res = kDefaultSpeeds;
+  res.Replace(HighwayType::HighwayPath, InOutCitySpeedKMpH(kSpeedDismountKMpH));
+  return res;
+}
 
 HighwayBasedSpeeds PreferFootwaysToRoads()
 {
@@ -228,169 +149,17 @@ HighwayBasedSpeeds PreferFootwaysToRoads()
   return res;
 }
 
-// Belgium
-VehicleModel::LimitsInitList const kBicycleOptionsBelgium = {
-    // No trunk, trunk_link
-    // Pedestrian is allowed
-    {{"highway", "primary"}, true},
-    {{"highway", "primary_link"}, true},
-    {{"highway", "secondary"}, true},
-    {{"highway", "secondary_link"}, true},
-    {{"highway", "tertiary"}, true},
-    {{"highway", "tertiary_link"}, true},
-    {{"highway", "service"}, true},
-    {{"highway", "unclassified"}, true},
-    {{"highway", "road"}, true},
-    {{"highway", "track"}, true},
-    {{"highway", "path"}, true},
-    {{"highway", "cycleway"}, true},
-    {{"highway", "residential"}, true},
-    {{"highway", "living_street"}, true},
-    {{"highway", "steps"}, true},
-    {{"highway", "pedestrian"}, true}};
-
-// Brazil
-VehicleModel::LimitsInitList const kBicycleOptionsBrazil = {
-    // Bridleway and fotway are allowed
-    {{"highway", "trunk"}, true},
-    {{"highway", "trunk_link"}, true},
-    {{"highway", "primary"}, true},
-    {{"highway", "primary_link"}, true},
-    {{"highway", "secondary"}, true},
-    {{"highway", "secondary_link"}, true},
-    {{"highway", "tertiary"}, true},
-    {{"highway", "tertiary_link"}, true},
-    {{"highway", "service"}, true},
-    {{"highway", "unclassified"}, true},
-    {{"highway", "road"}, true},
-    {{"highway", "track"}, true},
-    {{"highway", "path"}, true},
-    {{"highway", "bridleway"}, true},
-    {{"highway", "cycleway"}, true},
-    {{"highway", "residential"}, true},
-    {{"highway", "living_street"}, true},
-    {{"highway", "steps"}, true},
-    {{"highway", "footway"}, true}};
-
-// Denmark
-VehicleModel::LimitsInitList const kBicycleOptionsDenmark = kBicycleOptionsNoTrunk;
-
-// France
-VehicleModel::LimitsInitList const kBicycleOptionsFrance = {
-    // No trunk, trunk_link
-    // Pedestrian is allowed
-    {{"highway", "primary"}, true},
-    {{"highway", "primary_link"}, true},
-    {{"highway", "secondary"}, true},
-    {{"highway", "secondary_link"}, true},
-    {{"highway", "tertiary"}, true},
-    {{"highway", "tertiary_link"}, true},
-    {{"highway", "service"}, true},
-    {{"highway", "unclassified"}, true},
-    {{"highway", "road"}, true},
-    {{"highway", "track"}, true},
-    {{"highway", "path"}, true},
-    {{"highway", "cycleway"}, true},
-    {{"highway", "residential"}, true},
-    {{"highway", "living_street"}, true},
-    {{"highway", "steps"}, true},
-    {{"highway", "pedestrian"}, true}};
-
-// Finland
-VehicleModel::LimitsInitList const kBicycleOptionsFinland = kBicycleOptionsPedestrianAllowed;
-
-// Germany
-VehicleModel::LimitsInitList const kBicycleOptionsGermany = kBicycleOptionsDefault;
-
-// Hungary
-VehicleModel::LimitsInitList const kBicycleOptionsHungary = kBicycleOptionsNoTrunk;
-
-// Iceland
-VehicleModel::LimitsInitList const kBicycleOptionsIceland = kBicycleOptionsAll;
-
-// Netherlands
-VehicleModel::LimitsInitList const kBicycleOptionsNetherlands = kBicycleOptionsNoTrunk;
-
-// Norway
-VehicleModel::LimitsInitList const kBicycleOptionsNorway = kBicycleOptionsAll;
-
-// Oman
-VehicleModel::LimitsInitList const kBicycleOptionsOman = kBicycleOptionsBridlewayAllowed;
-
-// Poland
-VehicleModel::LimitsInitList const kBicycleOptionsPoland = kBicycleOptionsNoTrunk;
-
-// Romania
-VehicleModel::LimitsInitList const kBicycleOptionsRomania = kBicycleOptionsNoTrunk;
-
-// Russian Federation
-// Footway and pedestrian are allowed
-// Note. Despite the fact that according to
-// https://wiki.openstreetmap.org/wiki/OSM_tags_for_routing/Access-Restrictions
-// passing through service and living_street with a bicycle is prohibited
-// it's allowed according to Russian traffic rules.
-VehicleModel::LimitsInitList const kBicycleOptionsRussia = kBicycleOptionsPedestrianFootwayAllowed;
-
-// Slovakia
-VehicleModel::LimitsInitList const kBicycleOptionsSlovakia = kBicycleOptionsNoTrunk;
-
-// Spain
-VehicleModel::LimitsInitList const kBicycleOptionsSpain = kBicycleOptionsPedestrianAllowed;
-
-// Switzerland
-VehicleModel::LimitsInitList const kBicycleOptionsSwitzerland = kBicycleOptionsNoTrunk;
-
-// Turkey
-VehicleModel::LimitsInitList const kBicycleOptionsTurkey = kBicycleOptionsDefault;
-
-// Ukraine
-VehicleModel::LimitsInitList const kBicycleOptionsUkraine = {
-    // No trunk
-    // Footway and pedestrian are allowed
-    // No pass through living_street and service
-    {{"highway", "primary"}, true},
-    {{"highway", "primary_link"}, true},
-    {{"highway", "secondary"}, true},
-    {{"highway", "secondary_link"}, true},
-    {{"highway", "tertiary"}, true},
-    {{"highway", "tertiary_link"}, true},
-    {{"highway", "service"}, false},
-    {{"highway", "unclassified"}, true},
-    {{"highway", "road"}, true},
-    {{"highway", "track"}, true},
-    {{"highway", "path"}, true},
-    {{"highway", "cycleway"}, true},
-    {{"highway", "residential"}, true},
-    {{"highway", "living_street"}, false},
-    {{"highway", "steps"}, true},
-    {{"highway", "pedestrian"}, true},
-    {{"highway", "footway"}, true}};
-
-// United Kingdom
-VehicleModel::LimitsInitList const kBicycleOptionsUK = kBicycleOptionsBridlewayAllowed;
-
-// United States of America
-VehicleModel::LimitsInitList const kBicycleOptionsUS = {
-    // Bridleway and pedesprian are allowed
-    {{"highway", "trunk"}, true},
-    {{"highway", "trunk_link"}, true},
-    {{"highway", "primary"}, true},
-    {{"highway", "primary_link"}, true},
-    {{"highway", "secondary"}, true},
-    {{"highway", "secondary_link"}, true},
-    {{"highway", "tertiary"}, true},
-    {{"highway", "tertiary_link"}, true},
-    {{"highway", "service"}, true},
-    {{"highway", "unclassified"}, true},
-    {{"highway", "road"}, true},
-    {{"highway", "track"}, true},
-    {{"highway", "path"}, true},
-    {{"highway", "bridleway"}, true},
-    {{"highway", "cycleway"}, true},
-    {{"highway", "residential"}, true},
-    {{"highway", "living_street"}, true},
-    {{"highway", "steps"}, true},
-    {{"highway", "pedestrian"}, true}};
+// No trunk, No pass through living_street and service
+VehicleModel::LimitsInitList UkraineOptions()
+{
+  auto res = NoTrunk();
+  for (auto & e : res)
+  {
+    if (e.m_type == HighwayType::HighwayLivingStreet || e.m_type == HighwayType::HighwayService)
+      e.m_isPassThroughAllowed = false;
+  }
+  return res;
+}
 
 VehicleModel::SurfaceInitList const kBicycleSurface = {
   // {{surfaceType, surfaceType}, {weightFactor, etaFactor}}
@@ -404,7 +173,7 @@ VehicleModel::SurfaceInitList const kBicycleSurface = {
 namespace routing
 {
 BicycleModel::BicycleModel()
-  : BicycleModel(bicycle_model::kBicycleOptionsDefault)
+  : BicycleModel(bicycle_model::kDefaultOptions)
 {
 }
 
@@ -416,41 +185,22 @@ BicycleModel::BicycleModel(VehicleModel::LimitsInitList const & limits)
 BicycleModel::BicycleModel(VehicleModel::LimitsInitList const & limits, HighwayBasedSpeeds const & speeds)
   : VehicleModel(classif(), limits, bicycle_model::kBicycleSurface, {speeds, bicycle_model::kDefaultFactors})
 {
+  using namespace bicycle_model;
+
+  // No bridleway in default.
+  ASSERT_EQUAL(kDefaultOptions.size(), kDefaultSpeeds.size() - 1, ());
+
   std::vector<std::string> hwtagYesBicycle = {"hwtag", "yesbicycle"};
 
   auto const & cl = classif();
-  m_noBicycleType = cl.GetTypeByPath({"hwtag", "nobicycle"});
-  m_yesBicycleType = cl.GetTypeByPath(hwtagYesBicycle);
+  m_noType = cl.GetTypeByPath({"hwtag", "nobicycle"});
+  m_yesType = cl.GetTypeByPath(hwtagYesBicycle);
   m_bidirBicycleType = cl.GetTypeByPath({"hwtag", "bidir_bicycle"});
   m_onedirBicycleType = cl.GetTypeByPath({"hwtag", "onedir_bicycle"});
 
   // Assign 90% of max cycleway speed for bicycle=yes to keep choosing most preferred cycleway.
-  double const factor = 0.9;
-  AddAdditionalRoadTypes(cl, {
-      {std::move(hwtagYesBicycle), {m_maxModelSpeed.m_inCity * factor, m_maxModelSpeed.m_outCity * factor}},
-      {{"route", "ferry"}, bicycle_model::kDefaultSpeeds.Get(HighwayType::RouteFerry)},
-      {{"man_made", "pier"}, bicycle_model::kDefaultSpeeds.Get(HighwayType::ManMadePier)}
-  });
-
-  // Small dismount speed with obvious inconvenience of a bike in hands.
-  InOutCitySpeedKMpH const dismountSpeed(DismountSpeed());
-
-  AddAdditionalRoadTypes(cl, {
-      {{"highway", "footway"}, dismountSpeed},
-      {{"highway", "pedestrian"}, dismountSpeed},
-      {{"highway", "steps"}, dismountSpeed}
-  });
-}
-
-VehicleModelInterface::RoadAvailability BicycleModel::GetRoadAvailability(feature::TypesHolder const & types) const
-{
-  if (types.Has(m_yesBicycleType))
-    return RoadAvailability::Available;
-
-  if (types.Has(m_noBicycleType))
-    return RoadAvailability::NotAvailable;
-
-  return RoadAvailability::Unknown;
+  auto const yesSpeed = kDefaultSpeeds.Get(HighwayType::HighwayCycleway).m_inCity * 0.9;
+  AddAdditionalRoadTypes(cl, {{ std::move(hwtagYesBicycle), InOutCitySpeedKMpH(yesSpeed) }});
 }
 
 bool BicycleModel::IsBicycleBidir(feature::TypesHolder const & types) const
@@ -463,9 +213,9 @@ bool BicycleModel::IsBicycleOnedir(feature::TypesHolder const & types) const
   return types.Has(m_onedirBicycleType);
 }
 
-SpeedKMpH BicycleModel::GetSpeed(FeatureType & f, SpeedParams const & speedParams) const
+SpeedKMpH BicycleModel::GetTypeSpeed(feature::TypesHolder const & types, SpeedParams const & speedParams) const
 {
-  return VehicleModel::GetSpeedWihtoutMaxspeed(f, speedParams);
+  return GetTypeSpeedImpl(types, speedParams, false /* isCar */);
 }
 
 bool BicycleModel::IsOneWay(FeatureType & f) const
@@ -488,14 +238,14 @@ SpeedKMpH const & BicycleModel::GetOffroadSpeed() const { return bicycle_model::
 // static
 BicycleModel const & BicycleModel::AllLimitsInstance()
 {
-  static BicycleModel const instance(bicycle_model::kBicycleOptionsAll);
+  static BicycleModel const instance(bicycle_model::AllAllowed(), bicycle_model::NormalPedestrianAndFootwaySpeed());
   return instance;
 }
 
 // static
 SpeedKMpH BicycleModel::DismountSpeed()
 {
-  return 2.0;
+  return bicycle_model::kSpeedDismountKMpH;
 }
 
 BicycleModelFactory::BicycleModelFactory(
@@ -503,34 +253,39 @@ BicycleModelFactory::BicycleModelFactory(
   : VehicleModelFactory(countryParentNameGetterFn)
 {
   using namespace bicycle_model;
+  using std::make_shared;
+
   // Names must be the same with country names from countries.txt
-  m_models[""] = make_shared<BicycleModel>(kBicycleOptionsDefault);
-  m_models["Australia"] = make_shared<BicycleModel>(kBicycleOptionsAustralia);
-  m_models["Austria"] = make_shared<BicycleModel>(kBicycleOptionsAustria);
+  m_models[""] = make_shared<BicycleModel>(kDefaultOptions);
 
+  m_models["Australia"] = make_shared<BicycleModel>(AllAllowed(), NormalPedestrianAndFootwaySpeed());
+  m_models["Austria"] = make_shared<BicycleModel>(NoTrunk(), DismountPathSpeed());
   // Belarus law demands to use footways for bicycles where possible.
-  m_models["Belarus"] = make_shared<BicycleModel>(kBicycleOptionsBelarus, PreferFootwaysToRoads());
-
-  m_models["Belgium"] = make_shared<BicycleModel>(kBicycleOptionsBelgium);
-  m_models["Brazil"] = make_shared<BicycleModel>(kBicycleOptionsBrazil);
-  m_models["Denmark"] = make_shared<BicycleModel>(kBicycleOptionsDenmark);
-  m_models["France"] = make_shared<BicycleModel>(kBicycleOptionsFrance);
-  m_models["Finland"] = make_shared<BicycleModel>(kBicycleOptionsFinland);
-  m_models["Germany"] = make_shared<BicycleModel>(kBicycleOptionsGermany);
-  m_models["Hungary"] = make_shared<BicycleModel>(kBicycleOptionsHungary);
-  m_models["Iceland"] = make_shared<BicycleModel>(kBicycleOptionsIceland);
-  m_models["Netherlands"] = make_shared<BicycleModel>(kBicycleOptionsNetherlands);
-  m_models["Norway"] = make_shared<BicycleModel>(kBicycleOptionsNorway);
-  m_models["Oman"] = make_shared<BicycleModel>(kBicycleOptionsOman);
-  m_models["Poland"] = make_shared<BicycleModel>(kBicycleOptionsPoland);
-  m_models["Romania"] = make_shared<BicycleModel>(kBicycleOptionsRomania);
-  m_models["Russian Federation"] = make_shared<BicycleModel>(kBicycleOptionsRussia);
-  m_models["Slovakia"] = make_shared<BicycleModel>(kBicycleOptionsSlovakia);
-  m_models["Spain"] = make_shared<BicycleModel>(kBicycleOptionsSpain);
-  m_models["Switzerland"] = make_shared<BicycleModel>(kBicycleOptionsSwitzerland);
-  m_models["Turkey"] = make_shared<BicycleModel>(kBicycleOptionsTurkey);
-  m_models["Ukraine"] = make_shared<BicycleModel>(kBicycleOptionsUkraine);
-  m_models["United Kingdom"] = make_shared<BicycleModel>(kBicycleOptionsUK);
-  m_models["United States of America"] = make_shared<BicycleModel>(kBicycleOptionsUS);
+  m_models["Belarus"] = make_shared<BicycleModel>(kDefaultOptions, PreferFootwaysToRoads());
+  m_models["Belgium"] = make_shared<BicycleModel>(NoTrunk(), NormalPedestrianSpeed());
+  m_models["Brazil"] = make_shared<BicycleModel>(AllAllowed());
+  m_models["Denmark"] = make_shared<BicycleModel>(NoTrunk());
+  m_models["France"] = make_shared<BicycleModel>(NoTrunk(), NormalPedestrianSpeed());
+  m_models["Finland"] = make_shared<BicycleModel>(kDefaultOptions, NormalPedestrianSpeed());
+  m_models["Hungary"] = make_shared<BicycleModel>(NoTrunk());
+  m_models["Iceland"] = make_shared<BicycleModel>(AllAllowed(), NormalPedestrianAndFootwaySpeed());
+  m_models["Ireland"] = make_shared<BicycleModel>(AllAllowed());
+  m_models["Italy"] = make_shared<BicycleModel>(kDefaultOptions, NormalPedestrianSpeed());
+  m_models["Netherlands"] = make_shared<BicycleModel>(NoTrunk());
+  m_models["Norway"] = make_shared<BicycleModel>(AllAllowed(), NormalPedestrianAndFootwaySpeed());
+  m_models["Oman"] = make_shared<BicycleModel>(AllAllowed());
+  m_models["Philippines"] = make_shared<BicycleModel>(AllAllowed(), NormalPedestrianSpeed());
+  m_models["Poland"] = make_shared<BicycleModel>(NoTrunk());
+  m_models["Romania"] = make_shared<BicycleModel>(AllAllowed());
+  // Note. Despite the fact that according to https://wiki.openstreetmap.org/wiki/OSM_tags_for_routing/Access-Restrictions
+  // passing through service and living_street with a bicycle is prohibited it's allowed according to Russian traffic rules.
+  m_models["Russian Federation"] = make_shared<BicycleModel>(kDefaultOptions, NormalPedestrianAndFootwaySpeed());
+  m_models["Slovakia"] = make_shared<BicycleModel>(NoTrunk());
+  m_models["Spain"] = make_shared<BicycleModel>(NoTrunk(), NormalPedestrianSpeed());
+  m_models["Sweden"] = make_shared<BicycleModel>(kDefaultOptions, NormalPedestrianSpeed());
+  m_models["Switzerland"] = make_shared<BicycleModel>(NoTrunk(), NormalPedestrianAndFootwaySpeed());
+  m_models["Ukraine"] = make_shared<BicycleModel>(UkraineOptions());
+  m_models["United Kingdom"] = make_shared<BicycleModel>(AllAllowed());
+  m_models["United States of America"] = make_shared<BicycleModel>(AllAllowed(), NormalPedestrianSpeed());
 }
 }  // routing

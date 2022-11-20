@@ -1,44 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg
-   viewBox="0 0 14 14"
-   height="14"
-   width="14"
-   id="svg109"
-   version="1.1"
-   sodipodi:docname="board-original.svg"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:dc="http://purl.org/dc/elements/1.1/">
-  <sodipodi:namedview
-     id="namedview6"
-     pagecolor="#ffffff"
-     bordercolor="#000000"
-     borderopacity="0.25"
-     inkscape:showpageshadow="2"
-     inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="0"
-     inkscape:deskcolor="#d1d1d1"
-     showgrid="false" />
-  <metadata
-     id="metadata115">
-    <rdf:RDF>
-      <cc:Work
-         rdf:about="">
-        <dc:format>image/svg+xml</dc:format>
-        <dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
-      </cc:Work>
-    </rdf:RDF>
-  </metadata>
-  <defs
-     id="defs113" />
-  <path
-     id="rect18-1"
-     d="m 0,0 c 0,4.6666667 0,9.3333333 0,14 h 1 v -3 h 12 v 3 h 1 C 14,9.3333333 14,4.6666667 14,0 9.3333333,0 4.6666667,0 0,0 Z m 1,1 h 12 v 9 H 1 Z m 3,2 v 1 h 6 V 3 Z M 2,5 V 6 H 12 V 5 Z M 2,7 V 8 H 12 V 7 Z"
-     style="opacity:1;fill:#717065;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:5.16719;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill" />
+<svg version="1.1" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+ <metadata>
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <path d="m0 0v14h1v-3h12v3h1v-14h-14zm1 1h12v9h-12zm3 2v1h6v-1zm-2 2v1h10v-1zm0 2v1h10v-1z" fill="#717065" fill-rule="evenodd" style="paint-order:markers stroke fill"/>
 </svg>

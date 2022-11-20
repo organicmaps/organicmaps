@@ -130,6 +130,8 @@
 	<string name="recycling">Tái chế rác thải</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
 	<string name="water">Nước</string>
+	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
+	<string name="rv">Đối với RV</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Ghi chú</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -164,8 +166,6 @@
 	<string name="copied_to_clipboard">Đã sao chép vào Bảng tạm: %1$s</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">Xong</string>
-	<!-- Prints version number in About dialog -->
-	<string name="version">Phiên bản: %s</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">Dữ liệu OpenStreetMap: %s</string>
 	<!-- Confirmation in downloading countries dialog -->
@@ -216,6 +216,8 @@
 	<string name="help">Trợ giúp</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">Câu hỏi và trả lời</string>
+	<!-- Button in the main menu -->
+	<string name="donate">Quyên tặng</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">Làm thế nào để hỗ trợ chúng tôi?</string>
 	<!-- Button in the main Help dialog -->
@@ -335,7 +337,6 @@
 	<string name="routing_arrive">Đến: %s</string>
 	<string name="categories">Thể loại</string>
 	<string name="history">Lịch sử</string>
-	<string name="closed">Đã đóng</string>
 	<string name="search_not_found">Xin lỗi, tôi không tìm thấy kết quả nào.</string>
 	<string name="search_not_found_query">Vui lòng thử câu hỏi khác.</string>
 	<string name="search_history_title">Lịch sử tìm kiếm</string>
@@ -377,14 +378,15 @@
 	<string name="day_off_today">Nghỉ hôm nay</string>
 	<string name="day_off">Ngày nghỉ</string>
 	<string name="today">Hôm nay</string>
+	<string name="closed">Đã đóng</string>
 	<string name="edit_opening_hours">Sửa giờ làm việc</string>
 	<string name="no_osm_account">Bạn chưa có tài khoản tại OpenStreetMap ư?</string>
 	<string name="register_at_openstreetmap">Đăng ký</string>
 	<string name="login">Đăng nhập</string>
+	<string name="login_osm">Đăng nhập vào OpenStreetMap</string>
 	<string name="password">Mật khẩu</string>
 	<string name="forgot_password">Quên mật khẩu?</string>
 	<string name="logout">Đăng xuất</string>
-	<string name="thank_you">Cảm ơn bạn</string>
 	<string name="edit_place">Chỉnh sửa địa điểm</string>
 	<string name="add_language">Thêm ngôn ngữ</string>
 	<string name="street">Đường</string>
@@ -400,6 +402,7 @@
 	<string name="select_cuisine">Chọn Ẩm thực</string>
 	<!-- login text field -->
 	<string name="email_or_username">Email hoặc tên người dùng</string>
+	<string name="level">Tầng</string>
 	<string name="downloader_delete_map_dialog">Tất cả những thay đổi của bản đồ sẽ bị xóa cùng với bản đồ đó.</string>
 	<string name="downloader_update_maps">Cập nhật các bản đồ</string>
 	<string name="downloader_mwm_migration_dialog">Để tạo một tuyến đường, bạn cần cập nhật tất cả các bản đồ và sau đó lập lại tuyến đường.</string>
@@ -418,6 +421,7 @@
 	<string name="editor_report_problem_other_title">Một vấn đề khác</string>
 	<string name="placepage_add_business_button">Thêm tổ chức</string>
 	<string name="message_invalid_feature_position">Một đối tượng không thể đặt được ở đây</string>
+	<string name="osm_presentation">Tất cả dữ liệu bản đồ đến từ dự án OpenStreetMap. Nó giống như Wikipedia dành cho bản đồ nơi bạn có thể thêm hoặc chỉnh sửa các địa điểm và chúng có sẵn cho hàng triệu người dùng trên khắp Thế giới.</string>
 	<string name="login_to_make_edits_visible">Đăng nhập để người dùng khác có thể nhìn thấy những thay đổi bạn đã thực hiện.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d trên %2$d</string>
@@ -455,7 +459,6 @@
 	<string name="minute">phút</string>
 	<string name="placepage_place_description">Mô tả</string>
 	<string name="placepage_more_button">Bổ sung</string>
-	<string name="placepage_more_reviews_button">Thêm nhận xét</string>
 	<string name="placepage_call_button">Gọi</string>
 	<string name="placepage_edit_bookmark_button">Sửa Dấu Trang</string>
 	<string name="editor_comment_hint">Nhận xét…</string>
@@ -471,17 +474,15 @@
 	<string name="placepage_add_place_button">Thêm địa điểm vào bản đồ</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Bạn có muốn gửi cho toàn bộ người dùng?</string>
-	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Chắc chắn rằng bạn không nhập bất kỳ thông tin cá nhân nào.</string>
-	<string name="editor_share_to_all_dialog_message_2">Chúng tôi sẽ kiểm tra những thay đổi. Nếu chúng tôi có câu hỏi nào, chúng tôi sẽ liên lạc với bạn qua email.</string>
+	<string name="editor_share_to_all_dialog_message_2">Các biên tập viên của OpenStreetMap sẽ kiểm tra các thay đổi và liên hệ với bạn nếu họ có bất kỳ câu hỏi nào.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps là một ứng dụng bản đồ ngoại tuyến mã nguồn mở và miễn phí. Không quảng cáo. Không theo dõi. Nếu bạn thấy lỗi trên bản đồ, hãy sửa lỗi đó trong OpenStreetMap. Dự án được tạo ra bởi những người đam mê trong thời gian rảnh của chúng tôi, vì vậy chúng tôi cần phản hồi và hỗ trợ của bạn.</string>
 	<!-- For the first routing -->
 	<string name="accept">Chấp nhận</string>
 	<!-- For the first routing -->
 	<string name="decline">Từ chối</string>
-	<!-- A noun - a button name used to show search results in list form -->
-	<string name="search_in_table">Danh sách</string>
 	<string name="mobile_data_dialog">Sử dụng mạng Internet di động để hiển thị thông tin chi tiết?</string>
 	<string name="mobile_data_option_always">Luôn Sử dụng</string>
 	<string name="mobile_data_option_today">Chỉ Hôm nay</string>
@@ -502,10 +503,11 @@
 	<string name="on">Bật</string>
 	<string name="off">Tắt</string>
 	<string name="prefs_languages_information">Chúng tôi sử dụng TTS hệ thống để hướng dẫn bằng giọng nói. Rất nhiều thiết bị Android sử dụng Google TTS, bạn có thể tải về hoặc cập nhật nó từ Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">Đối với một số ngôn ngữ, bạn sẽ cần cài đặt một trình tổng hợp lời nói khác hoặc một gói ngôn ngữ bổ sung từ cửa hàng ứng dụng (Google Play, Samsung Apps, App Gallery, FDroid).\nMở cài đặt của thiết bị → Ngôn ngữ và nhập liệu → Lời nói → Đầu ra văn bản sang lời nói.\nTại đây bạn có thể quản lý các cài đặt tổng hợp lời nói (ví dụ, tải về các gói ngôn ngữ để sử dụng ngoại tuyến) và chọn một công cụ chuyển đổi văn bản sang lời nói khác.</string>
+	<string name="prefs_languages_information_off">Đối với một số ngôn ngữ, bạn sẽ cần cài đặt một trình tổng hợp lời nói khác hoặc một gói ngôn ngữ bổ sung từ cửa hàng ứng dụng (Google Play, Galaxy Store, App Gallery, FDroid).\nMở cài đặt của thiết bị → Ngôn ngữ và nhập liệu → Lời nói → Đầu ra văn bản sang lời nói.\nTại đây bạn có thể quản lý các cài đặt tổng hợp lời nói (ví dụ, tải về các gói ngôn ngữ để sử dụng ngoại tuyến) và chọn một công cụ chuyển đổi văn bản sang lời nói khác.</string>
 	<string name="prefs_languages_information_off_link">Để biết thêm thông tin, vui lòng kiểm tra bài hướng dẫn này.</string>
 	<string name="transliteration_title">Chuyển ngữ sang chữ Latinh</string>
 	<string name="learn_more">Tìm hiểu thêm</string>
+	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">Lối ra</string>
 	<string name="routing_add_start_point">Bổ sung điểm bắt đầu để lập kế hoạch lộ trình</string>
 	<string name="routing_add_finish_point">Bổ sung điểm kết thúc để lập kế hoạch lộ trình</string>
@@ -660,6 +662,8 @@
 	<string name="enable_screen_sleep">Cho phép màn hình ở chế độ ngủ</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Khi được bật, màn hình sẽ được phép ở chế độ ngủ sau một thời gian không hoạt động.</string>
+	<!-- OpenStreetMap text on splash screen -->
+	<string name="splash_subtitle">Dữ liệu bản đồ từ OpenStreetMap</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Trạm Cáp Treo</string>
@@ -695,6 +699,8 @@
 	<string name="type.amenity.doctors">Bác sĩ</string>
 	<string name="type.amenity.drinking_water">Nước uống</string>
 	<string name="type.amenity.driving_school">Trường lái xe</string>
+	<string name="type.amenity.music_school">Trường âm nhạc</string>
+	<string name="type.amenity.language_school">Ngôn ngữ Trường học</string>
 	<string name="type.office.diplomatic">Đại sứ quán</string>
 	<string name="type.amenity.fast_food">Thức ăn nhanh</string>
 	<string name="type.amenity.ferry_terminal">Phà</string>
@@ -716,17 +722,21 @@
 	<string name="type.amenity.nightclub">Câu lạc bộ đêm</string>
 	<string name="type.amenity.nursing_home">Nhà dưỡng lão</string>
 	<string name="type.amenity.parking">đỗ xe</string>
-	<string name="type.amenity.parking.fee">đỗ xe</string>
-	<string name="type.amenity.parking.multi.storey">đỗ xe</string>
-	<string name="type.amenity.parking.no.access">đỗ xe</string>
+	<string name="type.amenity.parking.fee">Đậu xe trả phí</string>
+	<string name="type.amenity.parking.multi.storey">Bãi đậu xe nhiều tầng</string>
+	<string name="type.amenity.parking.no.access">Bãi đậu xe tư nhân</string>
+	<string name="type.amenity.parking.permissive">Bãi đậu xe tư nhân</string>
+	<string name="type.amenity.parking.private">Bãi đậu xe tư nhân</string>
 	<string name="type.amenity.parking.park_and_ride">đỗ xe</string>
-	<string name="type.amenity.parking.permissive">đỗ xe</string>
-	<string name="type.amenity.parking.private">đỗ xe</string>
-	<string name="type.amenity.parking.underground">đỗ xe</string>
+	<string name="type.amenity.parking.underground">Bãi đậu xe ngầm</string>
+	<string name="type.amenity.parking_entrance.private">Lối vào bãi đậu xe</string>
+	<string name="type.amenity.parking_entrance.permissive">Lối vào bãi đậu xe</string>
+	<string name="type.amenity.parking_entrance">Lối vào bãi đậu xe</string>
 	<string name="type.amenity.parking_space">Chỗ để xe</string>
 	<string name="type.amenity.parking_space.permissive">Chỗ để xe</string>
 	<string name="type.amenity.parking_space.private">Chỗ để xe</string>
 	<string name="type.amenity.parking_space.underground">Chỗ để xe</string>
+	<string name="type.amenity.parking_space.disabled">Chỗ đậu xe dành cho người khuyết tật</string>
 	<string name="type.amenity.payment_terminal">Thiết bị thanh toán</string>
 	<string name="type.amenity.pharmacy">3Hiệu thuốc</string>
 	<string name="type.amenity.place_of_worship">Chùa</string>
@@ -775,8 +785,11 @@
 	<string name="type.barrier.block">Khối</string>
 	<string name="type.barrier.bollard">Trụ</string>
 	<string name="type.barrier.border_control">Biên Phòng</string>
+	<string name="type.barrier.city_wall">Tường thành</string>
+	<string name="type.barrier.ditch">Hào nước</string>
 	<string name="type.barrier.entrance">Lối vào</string>
 	<string name="type.barrier.gate">Cổng</string>
+	<string name="type.barrier.kissing_gate">Cổng</string>
 	<string name="type.barrier.lift_gate">Thanh Chắn</string>
 	<string name="type.barrier.stile">Trụ chắn</string>
 	<string name="type.barrier.swing_gate">Thanh Chắn</string>
@@ -788,17 +801,25 @@
 	<string name="type.building.has_parts">Tòa nhà</string>
 	<string name="type.building.train_station">Đường tàu hỏa</string>
 	<string name="type.cemetery.grave">Phần mộ</string>
+	<string name="type.craft">Thủ công</string>
+	<string name="type.craft.beekeeper">Người nuôi ong</string>
+	<string name="type.craft.blacksmith">Thợ rèn</string>
 	<string name="type.craft.brewery">Nhà máy bia</string>
 	<string name="type.craft.carpenter">Thợ mộc</string>
+	<string name="type.craft.confectionery">Người làm bánh kẹo</string>
 	<string name="type.craft.electrician">Thợ điện</string>
+	<string name="type.craft.electronics_repair">Sửa chữa điện tử</string>
 	<string name="type.craft.gardener">Người thiết kế và xây dựng cảnh quan</string>
+	<string name="type.craft.handicraft">Thủ công mỹ nghệ</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Điều hòa nhiệt độ</string>
 	<string name="type.craft.metal_construction">Nhà kim khí</string>
 	<string name="type.craft.painter">Họa sỹ</string>
 	<string name="type.craft.photographer">Thợ chụp ảnh</string>
 	<string name="type.craft.plumber">Thợ đường ống</string>
+	<string name="type.craft.sawmill">Sumel</string>
 	<string name="type.craft.shoemaker">Sửa giày</string>
+	<string name="type.craft.winery">Nhà máy rượu</string>
 	<string name="type.craft.tailor">Thợ may</string>
 	<string name="type.cuisine.african">Ẩm thực châu phi</string>
 	<string name="type.cuisine.american">Ẩm thực mỹ</string>
@@ -890,6 +911,7 @@
 	<string name="type.emergency.phone">Điện thoại khẩn cấp</string>
 	<string name="type.entrance">Lối vào</string>
 	<string name="type.healthcare.laboratory">Phòng thí nghiệm y tế</string>
+	<string name="type.healthcare.physiotherapist">Nhà vật lý trị liệu</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1055,18 +1077,39 @@
 	<string name="type.area_highway.unclassified">Phố</string>
 
 	<!-- SECTION: Types: Historic -->
+	<string name="type.historic">Đối tượng lịch sử</string>
 	<string name="type.historic.archaeological_site">Điểm khảo cổ</string>
-	<string name="type.historic.castle">Pháo đài</string>
-	<string name="type.historic.castle.defensive">Pháo đài</string>
+	<string name="type.historic.battlefield">Chiến trường</string>
+	<string name="type.historic.boundary_stone">Đá ranh giới</string>
+	<string name="type.historic.castle">Lâu đài</string>
+	<string name="type.historic.castle.castrum">Pháo đài La mã</string>
+	<string name="type.historic.castle.defensive">Lâu đài</string>
+	<string name="type.historic.castle.fortified_church">Nhà thờ kiên cố</string>
+	<string name="type.historic.castle.fortress">Pháo đài</string>
+	<string name="type.historic.castle.hillfort">Hillfort</string>
+	<string name="type.historic.castle.kremlin">Kremli</string>
+	<string name="type.historic.castle.manor">Trang viên</string>
+	<string name="type.historic.castle.palace">Cung điện</string>
+	<string name="type.historic.castle.shiro">Lâu đài nhật bản</string>
 	<string name="type.historic.castle.stately">Pháo đài</string>
+	<string name="type.historic.city_gate">Cổng thành</string>
+	<string name="type.historic.citywalls">Tường thành</string>
+	<string name="type.historic.fort">Pháo đài</string>
+	<string name="type.historic.gallows">Giá treo cổ</string>
 	<string name="type.historic.memorial">Đài tưởng niệm</string>
+	<string name="type.historic.memorial.cross">Thánh giá tưởng niệm</string>
 	<string name="type.historic.memorial.plaque">Đài tưởng niệm</string>
 	<string name="type.historic.memorial.sculpture">Đài tưởng niệm</string>
 	<string name="type.historic.memorial.statue">Đài tưởng niệm</string>
+	<string name="type.historic.memorial.stolperstein">Vấp ngã</string>
+	<string name="type.historic.memorial.war_memorial">Đài tưởng niệm chiến tranh</string>
 	<string name="type.historic.monument">Tượng đài</string>
+	<string name="type.historic.pillory">Thuốc viên</string>
 	<string name="type.historic.ruins">Phế tích</string>
 	<string name="type.historic.ship">Diểm tham quan</string>
 	<string name="type.historic.tomb">Diểm tham quan</string>
+	<string name="type.historic.wayside_cross">Đường chéo</string>
+	<string name="type.historic.wayside_shrine">Đền thờ</string>
 	<string name="type.landuse.basin">Một chậu nước</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery">Bãi tha ma</string>
@@ -1085,7 +1128,9 @@
 	<string name="type.leisure.dog_park">Nơi cho chó đi dạo</string>
 	<string name="type.leisure.fitness_centre">Phòng Tập</string>
 	<string name="type.leisure.fitness_station">Trạm tập thể hình</string>
+	<string name="type.leisure.dance">Vũ trường</string>
 	<string name="type.leisure.garden">Điểm khảo cổ</string>
+	<string name="type.leisure.garden.residential">Điểm khảo cổ</string>
 	<string name="type.leisure.golf_course">Sân gôn</string>
 	<string name="type.leisure.nature_reserve">Giữ chỗ</string>
 	<string name="type.leisure.park">Công viên</string>
@@ -1097,10 +1142,8 @@
 	<string name="type.leisure.playground">Sân chơi</string>
 	<string name="type.leisure.sauna">Sauna</string>
 	<string name="type.leisure.sports_centre">Thể thao</string>
-	<string name="type.leisure.sports_centre.climbing">Trung tâm leo núi</string>
-	<string name="type.leisure.sports_centre.shooting">Nơi bắn súng</string>
-	<string name="type.leisure.sports_centre.swimming">Trung tâm Bơi lội</string>
-	<string name="type.leisure.sports_centre.yoga">Phòng tập yoga</string>
+	<string name="type.sport.climbing">Trung tâm leo núi</string>
+	<string name="type.sport.yoga">Phòng tập yoga</string>
 	<string name="type.leisure.stadium">Sân vận động</string>
 	<string name="type.leisure.swimming_pool">Bể bơi</string>
 	<string name="type.leisure.swimming_pool.private">Bể bơi</string>
@@ -1181,10 +1224,13 @@
 	<string name="type.place.hamlet">Quận</string>
 	<string name="type.place.island">Tỉnh</string>
 	<string name="type.place.islet">Tỉnh</string>
+	<string name="type.place.isolated_dwelling">Nhà ở Biệt lập</string>
 	<string name="type.place.locality">Thôn</string>
+	<string name="type.place.neighbourhood">Vùng lân cận</string>
 	<string name="type.place.ocean">Đại dương</string>
 	<string name="type.place.region">Vùng</string>
 	<string name="type.place.sea">Biển</string>
+	<string name="type.place.square">Quảng trường</string>
 	<string name="type.place.state">Hạt</string>
 	<string name="type.place.state.USA">Hạt</string>
 	<string name="type.place.suburb">Đảo</string>
@@ -1201,29 +1247,223 @@
 	<string name="type.railway.station.light_rail">Đường tàu hỏa</string>
 	<string name="type.railway.station.monorail">Đường tàu hỏa</string>
 	<string name="type.railway.station.subway">Ngầm</string>
+	<string name="type.railway.station.subway.adana">Ngầm</string>
+	<string name="type.railway.station.subway.algiers">Ngầm</string>
+	<string name="type.railway.station.subway.almaty">Ngầm</string>
+	<string name="type.railway.station.subway.amsterdam">Ngầm</string>
+	<string name="type.railway.station.subway.ankara">Ngầm</string>
+	<string name="type.railway.station.subway.athens">Ngầm</string>
+	<string name="type.railway.station.subway.baku">Ngầm</string>
+	<string name="type.railway.station.subway.bangkok">Ngầm</string>
 	<string name="type.railway.station.subway.barcelona">Ngầm</string>
+	<string name="type.railway.station.subway.beijing">Ngầm</string>
+	<string name="type.railway.station.subway.bengalore">Ngầm</string>
 	<string name="type.railway.station.subway.berlin">Ngầm</string>
+	<string name="type.railway.station.subway.brasilia">Ngầm</string>
+	<string name="type.railway.station.subway.brescia">Ngầm</string>
+	<string name="type.railway.station.subway.brussels">Ngầm</string>
+	<string name="type.railway.station.subway.bucharest">Ngầm</string>
+	<string name="type.railway.station.subway.budapest">Ngầm</string>
+	<string name="type.railway.station.subway.buenos_aires">Ngầm</string>
+	<string name="type.railway.station.subway.bursa">Ngầm</string>
+	<string name="type.railway.station.subway.cairo">Ngầm</string>
+	<string name="type.railway.station.subway.caracas">Ngầm</string>
+	<string name="type.railway.station.subway.catania">Ngầm</string>
+	<string name="type.railway.station.subway.changchun">Ngầm</string>
+	<string name="type.railway.station.subway.chengdu">Ngầm</string>
+	<string name="type.railway.station.subway.chicago">Ngầm</string>
+	<string name="type.railway.station.subway.chongqing">Ngầm</string>
+	<string name="type.railway.station.subway.dalian">Ngầm</string>
+	<string name="type.railway.station.subway.delhi">Ngầm</string>
+	<string name="type.railway.station.subway.dnepro">Ngầm</string>
+	<string name="type.railway.station.subway.dubai">Ngầm</string>
+	<string name="type.railway.station.subway.ekb">Ngầm</string>
+	<string name="type.railway.station.subway.fukuoka">Ngầm</string>
+	<string name="type.railway.station.subway.glasgow">Ngầm</string>
+	<string name="type.railway.station.subway.guangzhou">Ngầm</string>
+	<string name="type.railway.station.subway.hamburg">Ngầm</string>
+	<string name="type.railway.station.subway.helsinki">Ngầm</string>
+	<string name="type.railway.station.subway.hiroshima">Ngầm</string>
+	<string name="type.railway.station.subway.isfahan">Ngầm</string>
+	<string name="type.railway.station.subway.istanbul">Ngầm</string>
+	<string name="type.railway.station.subway.izmir">Ngầm</string>
+	<string name="type.railway.station.subway.kazan">Ngầm</string>
+	<string name="type.railway.station.subway.kharkiv">Ngầm</string>
 	<string name="type.railway.station.subway.kiev">Ngầm</string>
+	<string name="type.railway.station.subway.kobe">Ngầm</string>
+	<string name="type.railway.station.subway.kolkata">Ngầm</string>
+	<string name="type.railway.station.subway.kunming">Ngầm</string>
+	<string name="type.railway.station.subway.kyoto">Ngầm</string>
+	<string name="type.railway.station.subway.la">Ngầm</string>
+	<string name="type.railway.station.subway.lausanne">Ngầm</string>
+	<string name="type.railway.station.subway.lille">Ngầm</string>
+	<string name="type.railway.station.subway.lima">Ngầm</string>
+	<string name="type.railway.station.subway.lisboa">Ngầm</string>
 	<string name="type.railway.station.subway.london">Ngầm</string>
+	<string name="type.railway.station.subway.lyon">Ngầm</string>
 	<string name="type.railway.station.subway.madrid">Ngầm</string>
+	<string name="type.railway.station.subway.malaga">Ngầm</string>
+	<string name="type.railway.station.subway.manila">Ngầm</string>
+	<string name="type.railway.station.subway.maracaibo">Ngầm</string>
+	<string name="type.railway.station.subway.mashhad">Ngầm</string>
+	<string name="type.railway.station.subway.mecca">Ngầm</string>
+	<string name="type.railway.station.subway.medellin">Ngầm</string>
+	<string name="type.railway.station.subway.mexico">Ngầm</string>
+	<string name="type.railway.station.subway.milan">Ngầm</string>
 	<string name="type.railway.station.subway.minsk">Ngầm</string>
+	<string name="type.railway.station.subway.montreal">Ngầm</string>
 	<string name="type.railway.station.subway.moscow">Ngầm</string>
+	<string name="type.railway.station.subway.munchen">Ngầm</string>
+	<string name="type.railway.station.subway.nagoya">Ngầm</string>
 	<string name="type.railway.station.subway.newyork">Ngầm</string>
+	<string name="type.railway.station.subway.nnov">Ngầm</string>
+	<string name="type.railway.station.subway.novosibirsk">Ngầm</string>
+	<string name="type.railway.station.subway.osaka">Ngầm</string>
+	<string name="type.railway.station.subway.oslo">Ngầm</string>
+	<string name="type.railway.station.subway.palma">Ngầm</string>
+	<string name="type.railway.station.subway.panama">Ngầm</string>
 	<string name="type.railway.station.subway.paris">Ngầm</string>
+	<string name="type.railway.station.subway.philadelphia">Ngầm</string>
+	<string name="type.railway.station.subway.pyongyang">Ngầm</string>
+	<string name="type.railway.station.subway.rennes">Ngầm</string>
+	<string name="type.railway.station.subway.rio">Ngầm</string>
 	<string name="type.railway.station.subway.roma">Ngầm</string>
+	<string name="type.railway.station.subway.rotterdam">Ngầm</string>
+	<string name="type.railway.station.subway.samara">Ngầm</string>
+	<string name="type.railway.station.subway.santiago">Ngầm</string>
+	<string name="type.railway.station.subway.santo_domingo">Ngầm</string>
+	<string name="type.railway.station.subway.saopaulo">Ngầm</string>
+	<string name="type.railway.station.subway.sapporo">Ngầm</string>
+	<string name="type.railway.station.subway.sendai">Ngầm</string>
+	<string name="type.railway.station.subway.sf">Ngầm</string>
+	<string name="type.railway.station.subway.shanghai">Ngầm</string>
+	<string name="type.railway.station.subway.shiraz">Ngầm</string>
+	<string name="type.railway.station.subway.sofia">Ngầm</string>
 	<string name="type.railway.station.subway.spb">Ngầm</string>
+	<string name="type.railway.station.subway.stockholm">Ngầm</string>
+	<string name="type.railway.station.subway.tabriz">Ngầm</string>
+	<string name="type.railway.station.subway.taipei">Ngầm</string>
+	<string name="type.railway.station.subway.taoyuan">Ngầm</string>
+	<string name="type.railway.station.subway.tashkent">Ngầm</string>
+	<string name="type.railway.station.subway.tbilisi">Ngầm</string>
+	<string name="type.railway.station.subway.tianjin">Ngầm</string>
+	<string name="type.railway.station.subway.tokyo">Ngầm</string>
+	<string name="type.railway.station.subway.valencia">Ngầm</string>
+	<string name="type.railway.station.subway.vienna">Ngầm</string>
+	<string name="type.railway.station.subway.warszawa">Ngầm</string>
+	<string name="type.railway.station.subway.washington">Ngầm</string>
+	<string name="type.railway.station.subway.wuhan">Ngầm</string>
+	<string name="type.railway.station.subway.yerevan">Ngầm</string>
+	<string name="type.railway.station.subway.yokohama">Ngầm</string>
 	<string name="type.railway.subway_entrance">Lỗi vào Metro</string>
-	<string name="type.railway.subway_entrance.barcelona">Ngầm</string>
-	<string name="type.railway.subway_entrance.berlin">Ngầm</string>
-	<string name="type.railway.subway_entrance.kiev">Ngầm</string>
-	<string name="type.railway.subway_entrance.london">Ngầm</string>
-	<string name="type.railway.subway_entrance.madrid">Ngầm</string>
-	<string name="type.railway.subway_entrance.minsk">Ngầm</string>
-	<string name="type.railway.subway_entrance.moscow">Ngầm</string>
-	<string name="type.railway.subway_entrance.newyork">Ngầm</string>
-	<string name="type.railway.subway_entrance.paris">Ngầm</string>
-	<string name="type.railway.subway_entrance.roma">Ngầm</string>
-	<string name="type.railway.subway_entrance.spb">Ngầm</string>
+	<string name="type.railway.subway_entrance.adana">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.algiers">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.almaty">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.amsterdam">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.ankara">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.athens">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.baku">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.bangkok">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.barcelona">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.beijing">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.bengalore">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.berlin">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.brasilia">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.brescia">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.brussels">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.bucharest">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.budapest">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.buenos_aires">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.bursa">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.cairo">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.caracas">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.catania">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.changchun">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.chengdu">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.chicago">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.chongqing">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.dalian">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.delhi">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.dnepro">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.dubai">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.ekb">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.fukuoka">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.glasgow">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.guangzhou">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.hamburg">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.helsinki">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.hiroshima">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.isfahan">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.istanbul">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.izmir">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.kazan">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.kharkiv">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.kiev">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.kobe">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.kolkata">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.kunming">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.kyoto">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.la">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.lausanne">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.lille">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.lima">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.lisboa">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.london">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.lyon">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.madrid">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.malaga">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.manila">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.maracaibo">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.mashhad">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.mecca">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.medellin">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.mexico">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.milan">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.minsk">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.montreal">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.moscow">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.munchen">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.nagoya">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.newyork">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.nnov">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.novosibirsk">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.osaka">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.oslo">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.palma">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.panama">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.paris">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.philadelphia">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.pyongyang">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.rennes">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.rio">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.roma">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.rotterdam">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.samara">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.santiago">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.santo_domingo">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.saopaulo">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.sapporo">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.sendai">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.sf">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.shanghai">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.shiraz">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.sofia">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.spb">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.stockholm">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.tabriz">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.taipei">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.taoyuan">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.tashkent">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.tbilisi">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.tianjin">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.tokyo">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.valencia">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.vienna">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.warszawa">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.washington">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.wuhan">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.yerevan">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.yokohama">Lỗi vào Metro</string>
 	<string name="type.railway.tram_stop">Bến tàu điện</string>
 	<string name="type.shop">Cửa hàng</string>
 	<string name="type.shop.alcohol">Cửa hàng rượu</string>
@@ -1330,6 +1570,8 @@
 	<string name="type.sport.australian_football">Bóng bầu dục Úc</string>
 	<string name="type.sport.baseball">Bóng chày</string>
 	<string name="type.sport.basketball">Bóng rổ</string>
+	<string name="type.sport.beachvolleyball">Bóng chuyền bãi biển</string>
+	<string name="type.sport.chess">Cờ vua</string>
 	<string name="type.sport.cricket">Cricket</string>
 	<string name="type.sport.curling">Bi đá trên băng</string>
 	<string name="type.sport.equestrian">Thể thao cưỡi ngựa</string>
@@ -1340,10 +1582,21 @@
 	<!-- Used to tag a scuba diving site. -->
 	<string name="type.sport.scuba_diving">Môn lặn</string>
 	<string name="type.sport.shooting">Chụp</string>
+	<string name="type.sport.skateboard">Trượt ván</string>
 	<string name="type.sport.skiing">Trượt tuyết</string>
 	<string name="type.sport.soccer">Bóng đá</string>
 	<string name="type.sport.swimming">Bơi</string>
+	<string name="type.sport.table_tennis">Bóng bàn</string>
 	<string name="type.sport.tennis">Sân tenis</string>
+	<string name="type.sport.volleyball">Bóng chuyền</string>
+	<string name="type.sport.10pin">Bowling</string>
+	<string name="type.sport.9pin">Bowling</string>
+	<string name="type.sport.padel">Padel</string>
+	<string name="type.sport.futsal">Futsal</string>
+	<string name="type.sport.ice_hockey">Khúc côn cầu trên băng</string>
+	<string name="type.sport.field_hockey">Khúc côn cầu</string>
+	<string name="type.sport.badminton">Cầu lông</string>
+	<string name="type.sport.pelota">Pơ mu Basque</string>
 	<string name="type.tourism.alpine_hut">Nhà ở trên núi</string>
 	<string name="type.tourism.apartment">Căn hộ</string>
 	<string name="type.tourism.artwork">Du lịch</string>

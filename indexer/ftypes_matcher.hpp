@@ -2,7 +2,7 @@
 
 #include "indexer/feature_data.hpp"
 
-#include "base/base.hpp"
+#include "base/small_map.hpp"
 #include "base/stl_helpers.hpp"
 
 #include <array>
@@ -207,12 +207,33 @@ public:
   DECLARE_CHECKER_INSTANCE(IsSuburbChecker);
 };
 
+/// @todo Better to rename like IsStreetChecker, as it is used in search context only?
 class IsWayChecker : public BaseChecker
 {
   IsWayChecker();
 
 public:
   DECLARE_CHECKER_INSTANCE(IsWayChecker);
+
+  enum SearchRank : uint8_t
+  {
+    Default = 0,  // Not a road, other linear way like river, rail ...
+
+    // Bigger is better (more important).
+    Pedestrian,
+    Cycleway,
+    Outdoor,
+    Residential,
+    Regular,
+    Motorway,
+
+    Count
+  };
+
+  SearchRank GetSearchRank(uint32_t type) const;
+
+private:
+  base::SmallMap<uint32_t, SearchRank> m_ranks;
 };
 
 class IsStreetOrSquareChecker : public BaseChecker
@@ -299,25 +320,13 @@ public:
 
 class AttractionsChecker : public BaseChecker
 {
+  size_t m_additionalTypesStart;
+
   AttractionsChecker();
-
 public:
-  std::vector<uint32_t> m_primaryTypes;
-  std::vector<uint32_t> m_additionalTypes;
-
   DECLARE_CHECKER_INSTANCE(AttractionsChecker);
 
-  template <typename Ft>
-  bool NeedFeature(Ft & feature) const
-  {
-    bool need = false;
-    feature.ForEachType([&](uint32_t type) {
-      if (!need && IsMatched(type))
-        need = true;
-    });
-    return need;
-  }
-
+  // Used in generator.
   uint32_t GetBestType(FeatureParams::Types const & types) const;
 };
 
@@ -417,13 +426,21 @@ public:
   uint32_t GetType() const { return m_types[0]; }
 };
 
+class IsShopChecker : public BaseChecker
+{
+public:
+  DECLARE_CHECKER_INSTANCE(IsShopChecker);
+
+private:
+  IsShopChecker();
+};
+
 class IsEatChecker : public BaseChecker
 {
 public:
 //  enum class Type
 //  {
 //    Cafe = 0,
-//    Bakery,
 //    FastFood,
 //    Restaurant,
 //    Bar,

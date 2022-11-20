@@ -141,7 +141,7 @@ uint64_t ReadVarUint(TSource & src, uint64_t const *)
   }
 }
 
-}
+}  // namespace impl
 
 template <typename T, typename TSource>
 T ReadVarUint(TSource & src)
@@ -256,27 +256,27 @@ void const * ReadVarInt64Array(void const * pBeg, WhileConditionT whileCondition
 template <typename F>
 void const * ReadVarInt64Array(void const * pBeg, void const * pEnd, F f)
 {
-  return impl::ReadVarInt64Array<int64_t (*)(uint64_t)>(
-        pBeg, impl::ReadVarInt64ArrayUntilBufferEnd(pEnd), f, &bits::ZigZagDecode);
+  return ::impl::ReadVarInt64Array<int64_t (*)(uint64_t)>(
+        pBeg, ::impl::ReadVarInt64ArrayUntilBufferEnd(pEnd), f, &bits::ZigZagDecode);
 }
 
 template <typename F>
 void const * ReadVarUint64Array(void const * pBeg, void const * pEnd, F f)
 {
-  return impl::ReadVarInt64Array(pBeg, impl::ReadVarInt64ArrayUntilBufferEnd(pEnd), f, base::IdFunctor());
+  return ::impl::ReadVarInt64Array(pBeg, ::impl::ReadVarInt64ArrayUntilBufferEnd(pEnd), f, base::IdFunctor());
 }
 
 template <typename F>
 void const * ReadVarInt64Array(void const * pBeg, size_t count, F f)
 {
-  return impl::ReadVarInt64Array<int64_t (*)(uint64_t)>(
-        pBeg, impl::ReadVarInt64ArrayGivenSize(count), f, &bits::ZigZagDecode);
+  return ::impl::ReadVarInt64Array<int64_t (*)(uint64_t)>(
+        pBeg, ::impl::ReadVarInt64ArrayGivenSize(count), f, &bits::ZigZagDecode);
 }
 
 template <typename F>
 void const * ReadVarUint64Array(void const * pBeg, size_t count, F f)
 {
-  return impl::ReadVarInt64Array(pBeg, impl::ReadVarInt64ArrayGivenSize(count), f, base::IdFunctor());
+  return ::impl::ReadVarInt64Array(pBeg, ::impl::ReadVarInt64ArrayGivenSize(count), f, base::IdFunctor());
 }
 
 template <class Cont, class Sink>

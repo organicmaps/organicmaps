@@ -13,24 +13,18 @@
 #include <unicode/utrans.h>
 #include <unicode/utypes.h>
 
-#include "std/target_os.hpp"
-
 #include <cstring>
 #include <mutex>
 
 struct Transliteration::TransliteratorInfo
 {
-  TransliteratorInfo()
-    : m_initialized(false)
-  {}
-
-  std::atomic<bool> m_initialized;
+  std::atomic<bool> m_initialized = false;
   std::mutex m_mutex;
   std::unique_ptr<icu::Transliterator> m_transliterator;
 };
 
 Transliteration::Transliteration()
-  : m_mode(Mode::Enabled)
+  : m_inited(false), m_mode(Mode::Enabled)
 {}
 
 Transliteration::~Transliteration()

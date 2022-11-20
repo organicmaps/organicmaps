@@ -7,18 +7,15 @@
 #include <algorithm>
 #include <climits>
 #include <cstdint>
-#include <limits>
 
-namespace
-{
-uint8_t const kByteMask = 0xFF;
-}  // namespace
 
-static_assert(CHAR_BIT == 8, "");
+static_assert(CHAR_BIT == 8);
 
 template <typename TWriter>
 class BitWriter
 {
+  static uint8_t constexpr kMinBits = CHAR_BIT;
+
 public:
   explicit BitWriter(TWriter & writer) : m_writer(writer), m_buf(0), m_bitsWritten(0) {}
 
@@ -33,7 +30,7 @@ public:
       LOG(LWARNING, ("Caught an exception when flushing BitWriter."));
     }
   }
-  
+
   // Returns the number of bits that have been sent to BitWriter,
   // including those that are in m_buf and are possibly not flushed
   // yet.
@@ -85,8 +82,6 @@ public:
   // Same as Write but accept up to 32 bits to write.
   void WriteAtMost32Bits(uint32_t bits, uint8_t n)
   {
-    uint8_t const kMinBits = CHAR_BIT;
-
     ASSERT_LESS_OR_EQUAL(n, 32, ());
 
     WRITE_BYTE();
@@ -99,8 +94,6 @@ public:
   // Same as Write but accept up to 64 bits to write.
   void WriteAtMost64Bits(uint64_t bits, uint8_t n)
   {
-    uint8_t const kMinBits = CHAR_BIT;
-
     ASSERT_LESS_OR_EQUAL(n, 64, ());
 
     WRITE_BYTE();
@@ -134,6 +127,8 @@ private:
 template <typename TSource>
 class BitReader
 {
+  static uint8_t constexpr kMinBits = CHAR_BIT;
+
 public:
   explicit BitReader(TSource & src) : m_src(src), m_bitsRead(0), m_bufferedBits(0), m_buf(0) {}
 
@@ -149,6 +144,9 @@ public:
   {
     if (n == 0)
       return 0;
+
+    uint8_t constexpr kByteMask = 0xFF;
+
     ASSERT_LESS_OR_EQUAL(n, CHAR_BIT, ());
     m_bitsRead += n;
     uint8_t result = 0;
@@ -182,8 +180,6 @@ public:
   // Same as Read but accept up to 32 bits to read.
   uint32_t ReadAtMost32Bits(uint8_t n)
   {
-    uint8_t constexpr kMinBits = CHAR_BIT;
-
     ASSERT_LESS_OR_EQUAL(n, 32, ());
 
     uint32_t result = 0;
@@ -198,8 +194,6 @@ public:
   // Same as Read but accept up to 64 bits to read.
   uint64_t ReadAtMost64Bits(uint8_t n)
   {
-    uint8_t constexpr kMinBits = CHAR_BIT;
-
     ASSERT_LESS_OR_EQUAL(n, 64, ());
 
     uint64_t result = 0;

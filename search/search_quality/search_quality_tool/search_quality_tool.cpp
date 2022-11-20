@@ -7,34 +7,23 @@
 #include "search/result.hpp"
 #include "search/search_params.hpp"
 
-#include "storage/country.hpp"
-#include "storage/country_info_getter.hpp"
-#include "storage/storage.hpp"
-#include "storage/storage_defines.hpp"
-
 #include "indexer/classificator_loader.hpp"
-#include "indexer/data_header.hpp"
 #include "indexer/data_source.hpp"
 #include "indexer/mwm_set.hpp"
 
 #include "platform/platform_tests_support/helpers.hpp"
 
 #include "platform/country_file.hpp"
-#include "platform/local_country_file.hpp"
 #include "platform/platform.hpp"
 
 #include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
 
-#include "base/checked_cast.hpp"
 #include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
-#include "base/scope_guard.hpp"
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 #include "base/timer.hpp"
-
-#include "defines.hpp"
 
 #include <algorithm>
 #include <chrono>
@@ -57,7 +46,6 @@ using namespace search::tests_support;
 using namespace search;
 using namespace std::chrono;
 using namespace std;
-using namespace storage;
 
 DEFINE_string(data_path, "", "Path to data directory (resources dir)");
 DEFINE_string(locale, "en", "Locale of all the search queries");
@@ -382,11 +370,8 @@ int main(int argc, char * argv[])
   FrozenDataSource dataSource;
   InitDataSource(dataSource, FLAGS_mwm_list_path);
 
-  storage::Affiliations affiliations;
-  storage::CountryNameSynonyms countryNameSynonyms;
-  InitStorageData(affiliations, countryNameSynonyms);
-
-  auto engine = InitSearchEngine(dataSource, affiliations, FLAGS_locale, FLAGS_num_threads);
+  auto engine = InitSearchEngine(dataSource, FLAGS_locale, FLAGS_num_threads);
+  engine->InitAffiliations();
 
   m2::RectD viewport;
   InitViewport(FLAGS_viewport, viewport);

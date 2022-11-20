@@ -1,12 +1,12 @@
 #include "indexer/feature_decl.hpp"
 
-#include <sstream>
+#include "std/boost_container_hash.hpp"
 
-using namespace std;
+#include <sstream>
 
 namespace feature
 {
-string DebugPrint(GeomType type)
+std::string DebugPrint(GeomType type)
 {
   switch (type)
   {
@@ -19,7 +19,7 @@ string DebugPrint(GeomType type)
 }
 }  // namespace feature
 
-string DebugPrint(FeatureID const & id)
+std::string DebugPrint(FeatureID const & id)
 {
   return "{ " + DebugPrint(id.m_mwmId) + ", " + std::to_string(id.m_index) + " }";
 }
@@ -30,7 +30,7 @@ char const * const FeatureID::kInvalidFileName = "INVALID";
 int64_t const FeatureID::kInvalidMwmVersion = -1;
 
 
-string FeatureID::GetMwmName() const
+std::string FeatureID::GetMwmName() const
 {
   return IsValid() ? m_mwmId.GetInfo()->GetCountryName() : kInvalidFileName;
 }
@@ -38,4 +38,12 @@ string FeatureID::GetMwmName() const
 int64_t FeatureID::GetMwmVersion() const
 {
   return IsValid() ? m_mwmId.GetInfo()->GetVersion() : kInvalidMwmVersion;
+}
+
+size_t std::hash<FeatureID>::operator()(FeatureID const & fID) const
+{
+  size_t seed = 0;
+  boost::hash_combine(seed, fID.m_mwmId.GetInfo());
+  boost::hash_combine(seed, fID.m_index);
+  return seed;
 }

@@ -132,6 +132,8 @@
 	<string name="recycling">Mendaur ulang</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
 	<string name="water">Air</string>
+	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
+	<string name="rv">Untuk RV</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Catatan</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -166,8 +168,6 @@
 	<string name="copied_to_clipboard">Telah Disalin ke Papan Klip: %1$s</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">Selesai</string>
-	<!-- Prints version number in About dialog -->
-	<string name="version">Versi: %s</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">Data OpenStreetMap: %s</string>
 	<!-- Confirmation in downloading countries dialog -->
@@ -218,6 +218,8 @@
 	<string name="help">Bantuan</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">Pertanyaan dan jawaban</string>
+	<!-- Button in the main menu -->
+	<string name="donate">Menyumbangkan</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">Bagaimana cara mendukung kami?</string>
 	<!-- Button in the main Help dialog -->
@@ -335,7 +337,6 @@
 	<string name="routing_arrive">Kedatangan: %s</string>
 	<string name="categories">Kategori</string>
 	<string name="history">Riwayat</string>
-	<string name="closed">Tutup</string>
 	<string name="search_not_found">Maaf, saya tidak menemukan apa pun.</string>
 	<string name="search_not_found_query">Silakan coba kueri lainnya.</string>
 	<string name="search_history_title">Riwayat Pencarian</string>
@@ -377,14 +378,15 @@
 	<string name="day_off_today">Tutup hari ini</string>
 	<string name="day_off">Tutup</string>
 	<string name="today">Hari ini</string>
+	<string name="closed">Tutup</string>
 	<string name="edit_opening_hours">Sunting jam kerja</string>
 	<string name="no_osm_account">Tidak ada akun di OpenStreetMap?</string>
 	<string name="register_at_openstreetmap">Mendaftar</string>
 	<string name="login">Masuk</string>
+	<string name="login_osm">Masuk ke OpenStreetMap</string>
 	<string name="password">Kata sandi</string>
 	<string name="forgot_password">Lupa kata sandi?</string>
 	<string name="logout">Keluar</string>
-	<string name="thank_you">Terima kasih</string>
 	<string name="edit_place">Sunting tempat</string>
 	<string name="add_language">Tambahkan bahasa</string>
 	<string name="street">Jalan</string>
@@ -400,6 +402,7 @@
 	<string name="select_cuisine">Pilih Masakan</string>
 	<!-- login text field -->
 	<string name="email_or_username">Surel atau nama pengguna</string>
+	<string name="level">Tingkat</string>
 	<string name="downloader_delete_map_dialog">Semua perubahan peta akan dihapus bersama dengan peta.</string>
 	<string name="downloader_update_maps">Perbarui peta</string>
 	<string name="downloader_mwm_migration_dialog">Untuk membuat rute, Anda perlu memperbarui semua peta dan kemudian merencanakan rute tersebut lagi.</string>
@@ -418,6 +421,7 @@
 	<string name="editor_report_problem_other_title">Masalah yang berbeda</string>
 	<string name="placepage_add_business_button">Tambahkan organisasi</string>
 	<string name="message_invalid_feature_position">Objek tidak dapat diletakkan di sini</string>
+	<string name="osm_presentation">Semua data peta berasal dari proyek OpenStreetMap. Ini seperti Wikipedia untuk peta tempat Anda dapat menambahkan atau mengedit tempat, dan peta tersebut tersedia bagi jutaan pengguna di seluruh Dunia.</string>
 	<string name="login_to_make_edits_visible">Masuk agar pengguna lain dapat melihat perubahan yang Anda buat.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d dari %2$d</string>
@@ -455,7 +459,6 @@
 	<string name="minute">mnt</string>
 	<string name="placepage_place_description">Deskripsi</string>
 	<string name="placepage_more_button">Lainnya</string>
-	<string name="placepage_more_reviews_button">Ulasan Lainnya</string>
 	<string name="placepage_call_button">Hubungi</string>
 	<string name="placepage_edit_bookmark_button">Edit Bookmark</string>
 	<string name="editor_comment_hint">Komentar…</string>
@@ -471,17 +474,15 @@
 	<string name="placepage_add_place_button">Tambahkan tempat ke peta</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Apakah Anda ingin mengirimkannya ke semua pengguna?</string>
-	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Pastikan Anda tidak memasukkan data pribadi apa pun.</string>
-	<string name="editor_share_to_all_dialog_message_2">Kami akan memeriksa perubahan tersebut. Jika kami memiliki pertanyaan maka kami akan menghubungi Anda melalui surel.</string>
+	<string name="editor_share_to_all_dialog_message_2">Editor OpenStreetMap akan memeriksa perubahan dan menghubungi Anda jika ada pertanyaan.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps adalah aplikasi peta offline sumber terbuka dan gratis. Tanpa iklan. Tidak ada pelacakan. Jika Anda melihat kesalahan pada peta, harap perbaiki di OpenStreetMap. Proyek ini dibuat oleh para penggemar di waktu luang kami, jadi kami membutuhkan masukan dan dukungan Anda.</string>
 	<!-- For the first routing -->
 	<string name="accept">Terima</string>
 	<!-- For the first routing -->
 	<string name="decline">Tolak</string>
-	<!-- A noun - a button name used to show search results in list form -->
-	<string name="search_in_table">Daftar</string>
 	<string name="mobile_data_dialog">Gunakan internet seluler untuk memperlihatkan informasi terperinci?</string>
 	<string name="mobile_data_option_always">Selalu Gunakan</string>
 	<string name="mobile_data_option_today">Hanya Hari Ini</string>
@@ -502,10 +503,11 @@
 	<string name="on">On</string>
 	<string name="off">Mati</string>
 	<string name="prefs_languages_information">Kami menggunakan TTS sistem untuk petunjuk suara. Banyak perangkat Android menggunakan Google TTS, Anda dapat mengunduhnya dari Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">Untuk beberapa bahasa, Anda perlu menginstal synthesizer suara atau paket bahasa tambahan dari toko aplikasi (Google Play, Samsung Apps, App Gallery, FDroid).\nBuka pengaturan perangkat Anda → Language and input (Bahasa dan input) → Speech (Suara) → Text to speech (Teks ke suara).\nDi sini, Anda dapat mengelola pengaturan untuk sintesis suara (contohnya, mengunduh paket bahasa untuk penggunaan tanpa internet) dan memilih mesin tekske suara lain.</string>
+	<string name="prefs_languages_information_off">Untuk beberapa bahasa, Anda perlu menginstal synthesizer suara atau paket bahasa tambahan dari toko aplikasi (Google Play, Galaxy Store, App Gallery, FDroid).\nBuka pengaturan perangkat Anda → Language and input (Bahasa dan input) → Speech (Suara) → Text to speech (Teks ke suara).\nDi sini, Anda dapat mengelola pengaturan untuk sintesis suara (contohnya, mengunduh paket bahasa untuk penggunaan tanpa internet) dan memilih mesin tekske suara lain.</string>
 	<string name="prefs_languages_information_off_link">Untuk informasi selengkapnya, bacalah panduan ini.</string>
 	<string name="transliteration_title">Transliterasi ke dalam bahasa Latin</string>
 	<string name="learn_more">Pelajari selengkapnya</string>
+	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">Keluar</string>
 	<string name="routing_add_start_point">Tambahkan titik awal untuk merencanakan rute</string>
 	<string name="routing_add_finish_point">Tambahkan titik akhir untuk merencanakan rute</string>
@@ -660,6 +662,8 @@
 	<string name="enable_screen_sleep">Izinkan layar untuk tidur</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Jika diaktifkan, layar akan diizinkan untuk tidur setelah beberapa saat tidak aktif.</string>
+	<!-- OpenStreetMap text on splash screen -->
+	<string name="splash_subtitle">Data peta dari OpenStreetMap</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stasiun kereta gantung</string>
@@ -691,6 +695,8 @@
 	<string name="type.amenity.doctors">Praktik dokter</string>
 	<string name="type.amenity.drinking_water">Air minum</string>
 	<string name="type.amenity.driving_school">Sekolah Mengemudi</string>
+	<string name="type.amenity.music_school">Sekolah musik</string>
+	<string name="type.amenity.language_school">Sekolah bahasa</string>
 	<string name="type.office.diplomatic">Kedutaan</string>
 	<string name="type.amenity.fast_food">Cepat saji</string>
 	<string name="type.amenity.ferry_terminal">Terminal</string>
@@ -712,17 +718,21 @@
 	<string name="type.amenity.nightclub">Kelab malam</string>
 	<string name="type.amenity.nursing_home">Panti Jompo</string>
 	<string name="type.amenity.parking">Parkir</string>
-	<string name="type.amenity.parking.fee">Parkir</string>
-	<string name="type.amenity.parking.multi.storey">Parkir</string>
-	<string name="type.amenity.parking.no.access">Parkir</string>
+	<string name="type.amenity.parking.fee">Parkir Berbayar</string>
+	<string name="type.amenity.parking.multi.storey">Parkir Bertingkat</string>
+	<string name="type.amenity.parking.no.access">Parkir pribadi</string>
+	<string name="type.amenity.parking.permissive">Parkir pribadi</string>
+	<string name="type.amenity.parking.private">Parkir pribadi</string>
 	<string name="type.amenity.parking.park_and_ride">Parkir</string>
-	<string name="type.amenity.parking.permissive">Parkir</string>
-	<string name="type.amenity.parking.private">Parkir</string>
-	<string name="type.amenity.parking.underground">Parkir</string>
+	<string name="type.amenity.parking.underground">Parkir bawah tanah</string>
+	<string name="type.amenity.parking_entrance.private">Pintu masuk parkir</string>
+	<string name="type.amenity.parking_entrance.permissive">Pintu masuk parkir</string>
+	<string name="type.amenity.parking_entrance">Pintu masuk parkir</string>
 	<string name="type.amenity.parking_space">Tempat parkir</string>
 	<string name="type.amenity.parking_space.permissive">Tempat parkir</string>
 	<string name="type.amenity.parking_space.private">Tempat parkir</string>
 	<string name="type.amenity.parking_space.underground">Tempat parkir</string>
+	<string name="type.amenity.parking_space.disabled">Tempat parkir penyandang cacat</string>
 	<string name="type.amenity.payment_terminal">Terminal Pembayaran</string>
 	<string name="type.amenity.pharmacy">Apotek</string>
 	<string name="type.amenity.place_of_worship">Tempat ibadah</string>
@@ -770,8 +780,11 @@
 	<string name="type.barrier.block">Blok</string>
 	<string name="type.barrier.bollard">Pilar</string>
 	<string name="type.barrier.border_control">Gerbang perbatasan</string>
+	<string name="type.barrier.city_wall">Tembok Kota</string>
+	<string name="type.barrier.ditch">Parit</string>
 	<string name="type.barrier.entrance">Pintu masuk</string>
 	<string name="type.barrier.gate">Gerbang</string>
+	<string name="type.barrier.kissing_gate">Gerbang</string>
 	<string name="type.barrier.lift_gate">Polisi tidur</string>
 	<string name="type.barrier.stile">Undakan</string>
 	<string name="type.barrier.swing_gate">Polisi tidur</string>
@@ -783,15 +796,25 @@
 	<string name="type.building.has_parts">Gedung</string>
 	<string name="type.building.train_station">Rel kereta api</string>
 	<string name="type.cemetery.grave">Kuburan</string>
+	<string name="type.craft">Kerajinan</string>
+	<string name="type.craft.beekeeper">Peternak lebah</string>
+	<string name="type.craft.blacksmith">Pandai Besi</string>
 	<string name="type.craft.brewery">Toko minuman</string>
 	<string name="type.craft.carpenter">Tukang kayu</string>
+	<string name="type.craft.confectionery">Penganan</string>
 	<string name="type.craft.electrician">Tukang listrik</string>
+	<string name="type.craft.electronics_repair">Perbaikan Elektronik</string>
 	<string name="type.craft.gardener">Tukang kebun</string>
+	<string name="type.craft.handicraft">Kriya</string>
+	<!-- Heating, Ventilation, and Air Conditioning -->
+	<string name="type.craft.hvac">HVAC</string>
 	<string name="type.craft.metal_construction">Tukang besi</string>
 	<string name="type.craft.painter">Tukang cat</string>
 	<string name="type.craft.photographer">Juru foto</string>
 	<string name="type.craft.plumber">Tukang pipa</string>
+	<string name="type.craft.sawmill">Penggergajian kayu</string>
 	<string name="type.craft.shoemaker">Tukang sepatu</string>
+	<string name="type.craft.winery">Kilang Anggur</string>
 	<string name="type.craft.tailor">Tukang jahit</string>
 	<string name="type.cuisine.african">Masakan afrika</string>
 	<string name="type.cuisine.american">Masakan amerika</string>
@@ -883,6 +906,7 @@
 	<string name="type.emergency.phone">Telepon darurat</string>
 	<string name="type.entrance">Pintu masuk</string>
 	<string name="type.healthcare.laboratory">Laboratorium medis</string>
+	<string name="type.healthcare.physiotherapist">Fisioterapis</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1048,18 +1072,39 @@
 	<string name="type.area_highway.unclassified">Jalan</string>
 
 	<!-- SECTION: Types: Historic -->
+	<string name="type.historic">Objek bersejarah</string>
 	<string name="type.historic.archaeological_site">Situs arkeologi</string>
+	<string name="type.historic.battlefield">Medan Perang</string>
+	<string name="type.historic.boundary_stone">Batu pembatas</string>
 	<string name="type.historic.castle">Kastel</string>
+	<string name="type.historic.castle.castrum">Benteng Romawi</string>
 	<string name="type.historic.castle.defensive">Kastel</string>
+	<string name="type.historic.castle.fortified_church">Gereja yang dibentengi</string>
+	<string name="type.historic.castle.fortress">Benteng</string>
+	<string name="type.historic.castle.hillfort">Benteng bukit</string>
+	<string name="type.historic.castle.kremlin">Kremlin</string>
+	<string name="type.historic.castle.manor">Rumah bangsawan</string>
+	<string name="type.historic.castle.palace">Istana</string>
+	<string name="type.historic.castle.shiro">Istana Jepang</string>
 	<string name="type.historic.castle.stately">Kastel</string>
+	<string name="type.historic.city_gate">Gerbang kota</string>
+	<string name="type.historic.citywalls">Tembok Kota</string>
+	<string name="type.historic.fort">Benteng</string>
+	<string name="type.historic.gallows">Tiang gantungan</string>
 	<string name="type.historic.memorial">Tugu peringatan</string>
+	<string name="type.historic.memorial.cross">Salib peringatan</string>
 	<string name="type.historic.memorial.plaque">Tugu peringatan</string>
 	<string name="type.historic.memorial.sculpture">Tugu peringatan</string>
 	<string name="type.historic.memorial.statue">Tugu peringatan</string>
+	<string name="type.historic.memorial.stolperstein">Stolperstein</string>
+	<string name="type.historic.memorial.war_memorial">Tugu peringatan perang</string>
 	<string name="type.historic.monument">Monumen</string>
+	<string name="type.historic.pillory">Pilar</string>
 	<string name="type.historic.ruins">Reruntuhan</string>
 	<string name="type.historic.ship">Pemandangan</string>
 	<string name="type.historic.tomb">Pemandangan</string>
+	<string name="type.historic.wayside_cross">Salib di pinggir jalan</string>
+	<string name="type.historic.wayside_shrine">Kuil di pinggir jalan</string>
 	<string name="type.landuse.basin">Sebuah baskom air</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery">Pemakaman</string>
@@ -1078,7 +1123,9 @@
 	<string name="type.leisure.dog_park">Area untuk anjing</string>
 	<string name="type.leisure.fitness_centre">Pusat kebugaran</string>
 	<string name="type.leisure.fitness_station">Stasiun Kebugaran</string>
+	<string name="type.leisure.dance">Lantai dansa</string>
 	<string name="type.leisure.garden">Situs arkeologi</string>
+	<string name="type.leisure.garden.residential">Situs arkeologi</string>
 	<string name="type.leisure.golf_course">Lapangan golf</string>
 	<string name="type.leisure.nature_reserve">Cagar Alam</string>
 	<string name="type.leisure.park">Taman</string>
@@ -1090,10 +1137,8 @@
 	<string name="type.leisure.playground">Taman bermain</string>
 	<string name="type.leisure.sauna">Sauna</string>
 	<string name="type.leisure.sports_centre">Olahraga</string>
-	<string name="type.leisure.sports_centre.climbing">Pusat Peralatan Mendaki</string>
-	<string name="type.leisure.sports_centre.shooting">Lapangan tembak</string>
-	<string name="type.leisure.sports_centre.swimming">Kolam Renang</string>
-	<string name="type.leisure.sports_centre.yoga">Studio Yoga</string>
+	<string name="type.sport.climbing">Pusat Peralatan Mendaki</string>
+	<string name="type.sport.yoga">Studio Yoga</string>
 	<string name="type.leisure.stadium">Stadion</string>
 	<string name="type.leisure.swimming_pool">Kolam renang</string>
 	<string name="type.leisure.swimming_pool.private">Kolam renang</string>
@@ -1118,6 +1163,7 @@
 	<string name="type.natural.earth_bank">Jurang</string>
 	<string name="type.man_made.embankment">Tanggul</string>
 	<string name="type.natural.coastline">Pesisir</string>
+	<string name="type.natural.desert">Gurun</string>
 	<string name="type.natural.geyser">Geiser</string>
 	<string name="type.natural.glacier">Gletser</string>
 	<string name="type.natural.grassland">Padang rumput</string>
@@ -1173,10 +1219,13 @@
 	<string name="type.place.hamlet">Dusun</string>
 	<string name="type.place.island">Pulau</string>
 	<string name="type.place.islet">Pulau</string>
+	<string name="type.place.isolated_dwelling">Tempat Tinggal Terisolasi</string>
 	<string name="type.place.locality">Wilayah</string>
+	<string name="type.place.neighbourhood">Lingkungan</string>
 	<string name="type.place.ocean">Samudra</string>
 	<string name="type.place.region">Wilayah</string>
 	<string name="type.place.sea">Laut</string>
+	<string name="type.place.square">Lapangan kota</string>
 	<string name="type.place.state">Negara bagian</string>
 	<string name="type.place.state.USA">Negara bagian</string>
 	<string name="type.place.suburb">Pinggiran kota</string>
@@ -1193,29 +1242,223 @@
 	<string name="type.railway.station.light_rail">Rel kereta api</string>
 	<string name="type.railway.station.monorail">Rel kereta api</string>
 	<string name="type.railway.station.subway">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.adana">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.algiers">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.almaty">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.amsterdam">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.ankara">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.athens">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.baku">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.bangkok">Stasiun bawah tanah</string>
 	<string name="type.railway.station.subway.barcelona">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.beijing">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.bengalore">Stasiun bawah tanah</string>
 	<string name="type.railway.station.subway.berlin">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.brasilia">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.brescia">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.brussels">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.bucharest">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.budapest">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.buenos_aires">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.bursa">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.cairo">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.caracas">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.catania">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.changchun">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.chengdu">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.chicago">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.chongqing">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.dalian">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.delhi">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.dnepro">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.dubai">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.ekb">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.fukuoka">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.glasgow">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.guangzhou">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.hamburg">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.helsinki">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.hiroshima">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.isfahan">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.istanbul">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.izmir">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.kazan">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.kharkiv">Stasiun bawah tanah</string>
 	<string name="type.railway.station.subway.kiev">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.kobe">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.kolkata">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.kunming">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.kyoto">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.la">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.lausanne">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.lille">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.lima">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.lisboa">Stasiun bawah tanah</string>
 	<string name="type.railway.station.subway.london">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.lyon">Stasiun bawah tanah</string>
 	<string name="type.railway.station.subway.madrid">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.malaga">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.manila">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.maracaibo">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.mashhad">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.mecca">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.medellin">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.mexico">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.milan">Stasiun bawah tanah</string>
 	<string name="type.railway.station.subway.minsk">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.montreal">Stasiun bawah tanah</string>
 	<string name="type.railway.station.subway.moscow">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.munchen">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.nagoya">Stasiun bawah tanah</string>
 	<string name="type.railway.station.subway.newyork">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.nnov">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.novosibirsk">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.osaka">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.oslo">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.palma">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.panama">Stasiun bawah tanah</string>
 	<string name="type.railway.station.subway.paris">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.philadelphia">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.pyongyang">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.rennes">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.rio">Stasiun bawah tanah</string>
 	<string name="type.railway.station.subway.roma">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.rotterdam">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.samara">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.santiago">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.santo_domingo">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.saopaulo">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.sapporo">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.sendai">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.sf">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.shanghai">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.shiraz">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.sofia">Stasiun bawah tanah</string>
 	<string name="type.railway.station.subway.spb">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.stockholm">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.tabriz">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.taipei">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.taoyuan">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.tashkent">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.tbilisi">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.tianjin">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.tokyo">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.valencia">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.vienna">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.warszawa">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.washington">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.wuhan">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.yerevan">Stasiun bawah tanah</string>
+	<string name="type.railway.station.subway.yokohama">Stasiun bawah tanah</string>
 	<string name="type.railway.subway_entrance">Pintu masuk kereta bawah tanah</string>
-	<string name="type.railway.subway_entrance.barcelona">Stasiun bawah tanah</string>
-	<string name="type.railway.subway_entrance.berlin">Stasiun bawah tanah</string>
-	<string name="type.railway.subway_entrance.kiev">Stasiun bawah tanah</string>
-	<string name="type.railway.subway_entrance.london">Stasiun bawah tanah</string>
-	<string name="type.railway.subway_entrance.madrid">Stasiun bawah tanah</string>
-	<string name="type.railway.subway_entrance.minsk">Stasiun bawah tanah</string>
-	<string name="type.railway.subway_entrance.moscow">Stasiun bawah tanah</string>
-	<string name="type.railway.subway_entrance.newyork">Stasiun bawah tanah</string>
-	<string name="type.railway.subway_entrance.paris">Stasiun bawah tanah</string>
-	<string name="type.railway.subway_entrance.roma">Stasiun bawah tanah</string>
-	<string name="type.railway.subway_entrance.spb">Stasiun bawah tanah</string>
+	<string name="type.railway.subway_entrance.adana">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.algiers">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.almaty">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.amsterdam">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.ankara">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.athens">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.baku">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.bangkok">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.barcelona">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.beijing">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.bengalore">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.berlin">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.brasilia">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.brescia">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.brussels">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.bucharest">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.budapest">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.buenos_aires">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.bursa">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.cairo">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.caracas">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.catania">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.changchun">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.chengdu">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.chicago">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.chongqing">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.dalian">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.delhi">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.dnepro">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.dubai">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.ekb">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.fukuoka">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.glasgow">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.guangzhou">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.hamburg">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.helsinki">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.hiroshima">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.isfahan">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.istanbul">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.izmir">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.kazan">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.kharkiv">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.kiev">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.kobe">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.kolkata">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.kunming">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.kyoto">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.la">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.lausanne">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.lille">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.lima">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.lisboa">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.london">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.lyon">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.madrid">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.malaga">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.manila">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.maracaibo">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.mashhad">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.mecca">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.medellin">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.mexico">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.milan">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.minsk">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.montreal">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.moscow">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.munchen">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.nagoya">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.newyork">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.nnov">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.novosibirsk">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.osaka">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.oslo">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.palma">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.panama">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.paris">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.philadelphia">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.pyongyang">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.rennes">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.rio">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.roma">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.rotterdam">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.samara">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.santiago">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.santo_domingo">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.saopaulo">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.sapporo">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.sendai">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.sf">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.shanghai">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.shiraz">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.sofia">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.spb">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.stockholm">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.tabriz">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.taipei">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.taoyuan">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.tashkent">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.tbilisi">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.tianjin">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.tokyo">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.valencia">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.vienna">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.warszawa">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.washington">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.wuhan">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.yerevan">Pintu masuk kereta bawah tanah</string>
+	<string name="type.railway.subway_entrance.yokohama">Pintu masuk kereta bawah tanah</string>
 	<string name="type.railway.tram_stop">Perhentian trem</string>
 	<string name="type.shop">Toko</string>
 	<string name="type.shop.alcohol">Toko alkohol</string>
@@ -1320,7 +1563,9 @@
 	<string name="type.sport.australian_football">Sepak bola Australia</string>
 	<string name="type.sport.baseball">Baseball</string>
 	<string name="type.sport.basketball">Bola basket</string>
+	<string name="type.sport.beachvolleyball">Voli pantai</string>
 	<string name="type.sport.bowls">Boling lapangan</string>
+	<string name="type.sport.chess">Catur</string>
 	<string name="type.sport.cricket">Kriket</string>
 	<string name="type.sport.curling">Curling</string>
 	<string name="type.sport.equestrian">Olahraga Berkuda</string>
@@ -1331,10 +1576,21 @@
 	<!-- Used to tag a scuba diving site. -->
 	<string name="type.sport.scuba_diving">Selam scuba</string>
 	<string name="type.sport.shooting">Penembakan</string>
+	<string name="type.sport.skateboard">Seluncur papan</string>
 	<string name="type.sport.skiing">Bermain ski</string>
 	<string name="type.sport.soccer">Sepak bola</string>
 	<string name="type.sport.swimming">Berenang</string>
+	<string name="type.sport.table_tennis">Tenis meja</string>
 	<string name="type.sport.tennis">Lapangan tenis</string>
+	<string name="type.sport.volleyball">Bola voli</string>
+	<string name="type.sport.10pin">Boling</string>
+	<string name="type.sport.9pin">Boling</string>
+	<string name="type.sport.padel">Padel</string>
+	<string name="type.sport.futsal">Futsal</string>
+	<string name="type.sport.ice_hockey">Hoki es</string>
+	<string name="type.sport.field_hockey">Hoki Lapangan</string>
+	<string name="type.sport.badminton">Bulu tangkis</string>
+	<string name="type.sport.pelota">Basque pelota</string>
 	<string name="type.tourism.alpine_hut">Penginapan di pegunungan</string>
 	<string name="type.tourism.apartment">Apartemen</string>
 	<string name="type.tourism.artwork">Pariwisata</string>

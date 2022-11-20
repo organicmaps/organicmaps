@@ -9,15 +9,19 @@
 #include <cmath>
 #include <functional>
 
+#ifdef __clang__
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wcomma"
+#endif  // #ifdef __clang__
 #include <boost/geometry.hpp>
+#ifdef __clang__
 #pragma clang diagnostic pop
+#endif  // #ifdef __clang__
 #include <boost/geometry/geometries/register/ring.hpp>
 #include <boost/geometry/geometries/register/point.hpp>
 
-BOOST_GEOMETRY_REGISTER_POINT_2D(m2::PointD, double, boost::geometry::cs::cartesian, x, y);
-BOOST_GEOMETRY_REGISTER_RING(std::vector<m2::PointD>);
+BOOST_GEOMETRY_REGISTER_POINT_2D(m2::PointD, double, boost::geometry::cs::cartesian, x, y)
+BOOST_GEOMETRY_REGISTER_RING(std::vector<m2::PointD>)
 
 namespace feature
 {

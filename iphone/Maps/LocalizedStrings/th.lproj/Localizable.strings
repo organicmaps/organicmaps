@@ -153,7 +153,7 @@
 "water" = "น้ำ";
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
-"rv" = "RV Facilities";
+"rv" = "สำหรับ RV";
 
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
 
@@ -282,11 +282,11 @@
 /* Text in menu */
 "instagram" = "Instagram";
 
+/* Text in the editor */
+"vk" = "VK";
+
 /* Text in menu */
 "openstreetmap" = "OpenStreetMap";
-
-/* Settings: Send feedback button and dialog title */
-"feedback" = "ข้อเสนอแนะ";
 
 /* Text in menu */
 "rate_the_app" = "ให้คะแนนแอป";
@@ -296,6 +296,9 @@
 
 /* Button in the main Help dialog */
 "faq" = "คำถามและคำตอบ";
+
+/* Button in the main menu */
+"donate" = "บริจาค";
 
 /* Button in the main Help dialog */
 "how_to_support_us" = "วิธีการสนับสนุนเรา";
@@ -503,12 +506,6 @@
 
 "history" = "ประวัติ";
 
-"opens_in" = "Opens in %@";
-
-"closes_in" = "Closes in %@";
-
-"closed" = "ปิด";
-
 "search_not_found" = "ขออภัย ฉันไม่พบสิ่งใด";
 
 "search_not_found_query" = "โปรดลองใช้คำถามอื่น";
@@ -518,6 +515,12 @@
 "search_history_text" = "เข้าถึงคำถามที่ใช้ในการค้นหาเมื่อเร็ว ๆ นี้ได้อย่างรวดเร็ว";
 
 "clear_search" = "ล้างการค้นหาประวัติ";
+
+/* Place Page link to Wikipedia article (if map object has it). */
+"read_in_wikipedia" = "Wikipedia";
+
+/* Place Page link to Wikimedia Commons. */
+"wikimedia_commons" = "Wikimedia Commons";
 
 "p2p_your_location" = "ตำแหน่งที่ตั้งของคุณ";
 
@@ -578,6 +581,20 @@
 
 "today" = "วันนี้";
 
+"opens_tomorrow_at" = "Opens tomorrow at %@";
+
+"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
+
+"opens_at" = "Opens at %@";
+
+"opens_in" = "Opens in %@";
+
+"closes_at" = "Closes at %@";
+
+"closes_in" = "Closes in %@";
+
+"closed" = "ปิด";
+
 "add_opening_hours" = "เพิ่มชั่วโมงทำการ";
 
 "no_osm_account" = "ไม่มีบัญชีใน OpenStreetMap?";
@@ -629,6 +646,8 @@
 "email_or_username" = "อีเมลหรือชื่อผู้ใช้";
 
 "phone" = "โทรศัพท์";
+
+"level" = "ชั้น";
 
 "please_note" = "โปรดทราบ";
 
@@ -750,6 +769,8 @@
 
 "miles_per_hour" = "ไมล์/ชม.";
 
+"hour" = "ชม.";
+
 "minute" = "น.";
 
 "placepage_place_description" = "คำอธิบาย";
@@ -798,10 +819,10 @@
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "คุณต้องการส่งมันให้ผู้ใช้ทั้งหมดหรือไม่?";
 
-/* iOS Dialog before publishing the modifications to the public map. */
+/* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "ตรวจสอบว่าคุณไม่ได้กรอกข้อมูลส่วนตัวใด ๆ";
 
-"editor_share_to_all_dialog_message_2" = "เราจะตรวจสอบการเปลี่ยนแปลง หากเรามีคำถามใด ๆ เราจะติดต่อคุณผ่านทางอีเมล";
+"editor_share_to_all_dialog_message_2" = "ผู้แก้ไข OpenStreetMap จะตรวจสอบการเปลี่ยนแปลงและติดต่อคุณหากมีคำถามใดๆ";
 
 "navigation_stop_button" = "หยุด";
 
@@ -856,15 +877,13 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "ไม่มีข้อมูลการจราจร";
 
-/* Settings: "Send general feedback" button */
-"feedback_general" = "ข้อเสนอแนะทั่วไป";
-
 "on" = "เปิด";
 
 "off" = "ปิด";
 
 "transliteration_title" = "การทับศัพท์เป็นภาษาละติน";
 
+/* Subway exits for public transport marks on the map */
 "core_exit" = "ออก";
 
 "routing_add_start_point" = "เพิ่มจุดเริ่มต้นเพื่อวางแผนเส้นทาง";
@@ -1205,20 +1224,29 @@
 /* edit track screen title */
 "track_title" = "ติดตาม";
 
+/* Telegram group url for the "?" About page */
+"telegram_url" = "https://t.me/OrganicMapsApp";
+
+/* Instagram account url for the "?" About page */
+"instagram_url" = "https://www.instagram.com/organicmaps.app";
+
+/* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
+"translated_om_site_url" = "https://organicmaps.app/";
+
 
 /********** Types **********/
 
 "type.aerialway" = "Aerialway";
 
-"type.aerialway.cable_car" = "Aerialway";
+"type.aerialway.cable_car" = "Cable car";
 
-"type.aerialway.chair_lift" = "Aerialway";
+"type.aerialway.chair_lift" = "Chair lift";
 
-"type.aerialway.drag_lift" = "Aerialway";
+"type.aerialway.drag_lift" = "Drag lift";
 
-"type.aerialway.gondola" = "Aerialway";
+"type.aerialway.gondola" = "Gondola";
 
-"type.aerialway.mixed_lift" = "Aerialway";
+"type.aerialway.mixed_lift" = "Mixed lift";
 
 "type.aerialway.station" = "สถานีกระเช้าลอยฟ้า";
 
@@ -1300,6 +1328,10 @@
 
 "type.amenity.driving_school" = "โรงเรียนสอนขับรถ";
 
+"type.amenity.music_school" = "โรงเรียนดนตรี";
+
+"type.amenity.language_school" = "โรงเรียนภาษา";
+
 "type.office.diplomatic" = "สถานทูต";
 
 "type.amenity.fast_food" = "อาหารจานด่วน";
@@ -1342,19 +1374,25 @@
 
 "type.amenity.parking" = "ที่จอดรถ";
 
-"type.amenity.parking.fee" = "ที่จอดรถ";
+"type.amenity.parking.fee" = "ที่จอดรถแบบเสียค่าบริการ";
 
-"type.amenity.parking.multi.storey" = "ที่จอดรถ";
+"type.amenity.parking.multi.storey" = "ที่จอดรถหลายชั้น";
 
-"type.amenity.parking.no.access" = "ที่จอดรถ";
+"type.amenity.parking.no.access" = "ที่จอดรถส่วนตัว";
+
+"type.amenity.parking.permissive" = "ที่จอดรถส่วนตัว";
+
+"type.amenity.parking.private" = "ที่จอดรถส่วนตัว";
 
 "type.amenity.parking.park_and_ride" = "ที่จอดรถ";
 
-"type.amenity.parking.permissive" = "ที่จอดรถ";
+"type.amenity.parking.underground" = "ที่จอดรถใต้ดิน";
 
-"type.amenity.parking.private" = "ที่จอดรถ";
+"type.amenity.parking_entrance.private" = "ทางเข้าที่จอดรถ";
 
-"type.amenity.parking.underground" = "ที่จอดรถ";
+"type.amenity.parking_entrance.permissive" = "ทางเข้าที่จอดรถ";
+
+"type.amenity.parking_entrance" = "ทางเข้าที่จอดรถ";
 
 "type.amenity.parking_space" = "พื้นที่จอดรถ";
 
@@ -1363,6 +1401,8 @@
 "type.amenity.parking_space.private" = "พื้นที่จอดรถ";
 
 "type.amenity.parking_space.underground" = "พื้นที่จอดรถ";
+
+"type.amenity.parking_space.disabled" = "ที่จอดรถสำหรับผู้พิการ";
 
 "type.amenity.payment_terminal" = "จุดชำระเงิน";
 
@@ -1429,7 +1469,7 @@
 
 "type.recycling.green_waste" = "Green/Organic Waste";
 
-"type.recycling.cartons" = "Bewerage Cartons";
+"type.recycling.cartons" = "Beverage Cartons";
 
 "type.amenity.restaurant" = "ร้านอาหาร";
 
@@ -1499,9 +1539,11 @@
 
 "type.barrier.chain" = "Chain";
 
-"type.barrier.city_wall" = "City Wall";
+"type.barrier.city_wall" = "กำแพงเมือง";
 
 "type.barrier.cycle_barrier" = "Cycle Barrier";
+
+"type.barrier.ditch" = "คูเมือง";
 
 "type.barrier.entrance" = "ทางเข้า";
 
@@ -1510,6 +1552,8 @@
 "type.barrier.gate" = "ประตู";
 
 "type.barrier.hedge" = "Hedge";
+
+"type.barrier.kissing_gate" = "ประตู";
 
 "type.barrier.lift_gate" = "ไม้กั้น";
 
@@ -1579,25 +1623,25 @@
 
 "type.cemetery.grave" = "หลุมฝังศพ";
 
-"type.craft" = "Craft";
+"type.craft" = "งานฝีมือ";
 
-"type.craft.beekeeper" = "Beekeeper";
+"type.craft.beekeeper" = "คนเลี้ยงผึ้ง";
 
-"type.craft.blacksmith" = "Blacksmith";
+"type.craft.blacksmith" = "ช่างตีเหล็ก";
 
 "type.craft.brewery" = "โรงเบียร์";
 
 "type.craft.carpenter" = "ช่างไม้";
 
-"type.craft.confectionery" = "Confectionery";
+"type.craft.confectionery" = "ลูกกวาด";
 
 "type.craft.electrician" = "ช่างไฟฟ้า";
 
-"type.craft.electronics_repair" = "Electronics Repair";
+"type.craft.electronics_repair" = "ซ่อมเครื่องใช้ไฟฟ้า";
 
 "type.craft.gardener" = "คนจัดสวน";
 
-"type.craft.handicraft" = "Handicraft";
+"type.craft.handicraft" = "หัตถกรรม";
 
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "ระบบปรับอากาศ";
@@ -1610,11 +1654,11 @@
 
 "type.craft.plumber" = "ช่างประปา";
 
-"type.craft.sawmill" = "Sawmill";
+"type.craft.sawmill" = "ซูเมล";
 
 "type.craft.shoemaker" = "ช่างซ่อมรองเท้า";
 
-"type.craft.winery" = "Winery";
+"type.craft.winery" = "โรงกลั่นเหล้าองุ่น";
 
 "type.craft.tailor" = "ช่างตัดเสื้อ";
 
@@ -1801,6 +1845,8 @@
 "type.entrance" = "ทางเข้า";
 
 "type.healthcare.laboratory" = "ห้องปฏิบัติการทางการแพทย์";
+
+"type.healthcare.physiotherapist" = "นักกายภาพบำบัด";
 
 
 /********** Types: Roads **********/
@@ -2106,25 +2152,47 @@
 
 /********** Types: Historic **********/
 
-"type.historic" = "Historic";
+"type.historic" = "วัตถุประวัติศาสตร์";
 
 "type.historic.archaeological_site" = "โบราณสถาน";
 
-"type.historic.battlefield" = "Battlefield";
+"type.historic.battlefield" = "สนามรบ";
 
-"type.historic.boundary_stone" = "Boundary Stone";
+"type.historic.boundary_stone" = "ขอบหิน";
 
 "type.historic.castle" = "ปราสาท";
 
+"type.historic.castle.castrum" = "ป้อมโรมัน";
+
 "type.historic.castle.defensive" = "ปราสาท";
+
+"type.historic.castle.fortified_church" = "โบสถ์เสริมความแข็งแกร่ง";
+
+"type.historic.castle.fortress" = "ป้อม";
+
+"type.historic.castle.hillfort" = "ป้อมเนิน";
+
+"type.historic.castle.kremlin" = "เครมลิน";
+
+"type.historic.castle.manor" = "คฤหาสน์";
+
+"type.historic.castle.palace" = "วัง";
+
+"type.historic.castle.shiro" = "ปราสาทญี่ปุ่น";
 
 "type.historic.castle.stately" = "ปราสาท";
 
-"type.historic.citywalls" = "City Wall";
+"type.historic.city_gate" = "ประตูเมือง";
 
-"type.historic.fort" = "Fort";
+"type.historic.citywalls" = "กำแพงเมือง";
+
+"type.historic.fort" = "ป้อม";
+
+"type.historic.gallows" = "Gallows";
 
 "type.historic.memorial" = "ที่ระลึก";
+
+"type.historic.memorial.cross" = "อนุสรณ์สถานข้าม";
 
 "type.historic.memorial.plaque" = "ที่ระลึก";
 
@@ -2132,7 +2200,13 @@
 
 "type.historic.memorial.statue" = "ที่ระลึก";
 
+"type.historic.memorial.stolperstein" = "อุปสรรค์";
+
+"type.historic.memorial.war_memorial" = "อนุสรณ์สถานสงคราม";
+
 "type.historic.monument" = "อนุสาวรีย์";
+
+"type.historic.pillory" = "ประจาน";
 
 "type.historic.ruins" = "ซากปรักหักพัง";
 
@@ -2140,9 +2214,9 @@
 
 "type.historic.tomb" = "สถานที่ท่องเที่ยว";
 
-"type.historic.wayside_cross" = "Christian Cross";
+"type.historic.wayside_cross" = "ทางข้าม";
 
-"type.historic.wayside_shrine" = "Shrine";
+"type.historic.wayside_shrine" = "ศาลเจ้าข้างทาง";
 
 "type.hwtag" = "hwtag";
 
@@ -2262,7 +2336,11 @@
 
 "type.leisure.fitness_station" = "ศูนย์ฟิตเนส";
 
+"type.leisure.dance" = "แดนซ์ฮอลล์";
+
 "type.leisure.garden" = "สวน";
+
+"type.leisure.garden.residential" = "สวน";
 
 "type.leisure.golf_course" = "สนามกอล์ฟ";
 
@@ -2296,13 +2374,9 @@
 
 "type.leisure.sports_centre" = "กีฬา";
 
-"type.leisure.sports_centre.climbing" = "ศูนย์ปีนเขา";
+"type.sport.climbing" = "ศูนย์ปีนเขา";
 
-"type.leisure.sports_centre.shooting" = "สนามยิงปืน";
-
-"type.leisure.sports_centre.swimming" = "ศูนย์ว่ายน้ำ";
-
-"type.leisure.sports_centre.yoga" = "โยคะสตูดิโอ";
+"type.sport.yoga" = "โยคะสตูดิโอ";
 
 "type.leisure.stadium" = "สนามกีฬา";
 
@@ -2348,7 +2422,7 @@
 
 "type.man_made.tower" = "หอคอย";
 
-"type.man_made.wastewater_plant" = "Wastewater Plant";
+"type.man_made.wastewater_plant" = "Wastewater treatment plant";
 
 "type.man_made.water_tap" = "ก๊อกน้ำ";
 
@@ -2393,6 +2467,8 @@
 "type.man_made.embankment" = "เขื่อน";
 
 "type.natural.coastline" = "ชายฝั่ง";
+
+"type.natural.desert" = "Desert";
 
 "type.natural.geyser" = "นำ้พุร้อน";
 
@@ -2472,8 +2548,6 @@
 
 "type.organic.yes" = "Organic";
 
-"type.place" = "place";
-
 "type.place.city" = "เมือง";
 
 "type.place.city.capital" = "เมือง";
@@ -2512,11 +2586,11 @@
 
 "type.place.islet" = "เกาะ";
 
-"type.place.isolated_dwelling" = "Dwelling";
+"type.place.isolated_dwelling" = "ที่อยู่อาศัยโดดเดี่ยว";
 
 "type.place.locality" = "ท้องถิ่น";
 
-"type.place.neighbourhood" = "Neighbourhood";
+"type.place.neighbourhood" = "ละแวกบ้าน";
 
 "type.place.ocean" = "มหาสมุทร";
 
@@ -2524,7 +2598,7 @@
 
 "type.place.sea" = "เห็น";
 
-"type.place.square" = "Square";
+"type.place.square" = "ช่องว่าง";
 
 "type.place.state" = "รัฐ";
 
@@ -2570,13 +2644,13 @@
 
 "type.railway" = "Railway";
 
-"type.railway.abandoned" = "Abandoned railway";
+"type.railway.abandoned" = "Abandoned Railway";
 
-"type.railway.abandoned.bridge" = "Abandoned railway";
+"type.railway.abandoned.bridge" = "Abandoned Railway Bridge";
 
-"type.railway.abandoned.tunnel" = "Abandoned Railway";
+"type.railway.abandoned.tunnel" = "Abandoned Railway Tunnel";
 
-"type.railway.construction" = "Railway's Construction";
+"type.railway.construction" = "Railway Construction";
 
 "type.railway.crossing" = "Railway Crossing";
 
@@ -2584,9 +2658,9 @@
 
 "type.railway.funicular" = "Funicular";
 
-"type.railway.funicular.bridge" = "Funicular";
+"type.railway.funicular.bridge" = "Funicular Bridge";
 
-"type.railway.funicular.tunnel" = "Funicular";
+"type.railway.funicular.tunnel" = "Funicular Tunnel";
 
 "type.railway.halt" = "สถานีรถไฟ";
 
@@ -2594,51 +2668,51 @@
 
 "type.railway.light_rail" = "Light Rail";
 
-"type.railway.light_rail.bridge" = "Light Rail";
+"type.railway.light_rail.bridge" = "Light Rail Bridge";
 
-"type.railway.light_rail.tunnel" = "Light Rail";
+"type.railway.light_rail.tunnel" = "Light Rail Tunnel";
 
 "type.railway.monorail" = "รางรถไฟรางเดี่ยว";
 
-"type.railway.monorail.bridge" = "Monorail";
+"type.railway.monorail.bridge" = "Monorail Bridge";
 
-"type.railway.monorail.tunnel" = "Monorail";
+"type.railway.monorail.tunnel" = "Monorail Tunnel";
 
 "type.railway.narrow_gauge" = "Narrow Gauge Rail";
 
-"type.railway.narrow_gauge.bridge" = "Narrow Gauge Rail";
+"type.railway.narrow_gauge.bridge" = "Narrow Gauge Rail Bridge";
 
-"type.railway.narrow_gauge.tunnel" = "Narrow Gauge Rail";
+"type.railway.narrow_gauge.tunnel" = "Narrow Gauge Rail Tunnel";
 
 "type.railway.platform" = "Railway Platform";
 
 "type.railway.preserved" = "Preserved Rail";
 
-"type.railway.preserved.bridge" = "Preserved Rail";
+"type.railway.preserved.bridge" = "Preserved Rail Bridge";
 
-"type.railway.preserved.tunnel" = "Preserved Rail";
+"type.railway.preserved.tunnel" = "Preserved Rail Tunnel";
 
 "type.railway.rail" = "รถไฟ";
 
-"type.railway.rail.bridge" = "Railway";
+"type.railway.rail.bridge" = "Railway Bridge";
 
 "type.railway.rail.motor_vehicle" = "Railway";
 
-"type.railway.rail.tunnel" = "Railway";
+"type.railway.rail.tunnel" = "Railway Tunnel";
 
 "type.railway.razed" = "Razed Rail";
 
 "type.railway.siding" = "Siding Rail";
 
-"type.railway.siding.bridge" = "Siding Rail";
+"type.railway.siding.bridge" = "Siding Rail Bridge";
 
-"type.railway.siding.tunnel" = "Siding Rail";
+"type.railway.siding.tunnel" = "Siding Rail Tunnel";
 
 "type.railway.spur" = "Spur Rail";
 
-"type.railway.spur.bridge" = "Spur Rail";
+"type.railway.spur.bridge" = "Spur Rail Bridge";
 
-"type.railway.spur.tunnel" = "Spur Rail";
+"type.railway.spur.tunnel" = "Spur Rail Tunnel";
 
 "type.railway.station" = "สถานีรถไฟ";
 
@@ -2648,71 +2722,459 @@
 
 "type.railway.station.subway" = "รถไฟ";
 
+"type.railway.station.subway.adana" = "รถไฟ";
+
+"type.railway.station.subway.algiers" = "รถไฟ";
+
+"type.railway.station.subway.almaty" = "รถไฟ";
+
+"type.railway.station.subway.amsterdam" = "รถไฟ";
+
+"type.railway.station.subway.ankara" = "รถไฟ";
+
+"type.railway.station.subway.athens" = "รถไฟ";
+
+"type.railway.station.subway.baku" = "รถไฟ";
+
+"type.railway.station.subway.bangkok" = "รถไฟ";
+
 "type.railway.station.subway.barcelona" = "รถไฟ";
+
+"type.railway.station.subway.beijing" = "รถไฟ";
+
+"type.railway.station.subway.bengalore" = "รถไฟ";
 
 "type.railway.station.subway.berlin" = "รถไฟ";
 
+"type.railway.station.subway.brasilia" = "รถไฟ";
+
+"type.railway.station.subway.brescia" = "รถไฟ";
+
+"type.railway.station.subway.brussels" = "รถไฟ";
+
+"type.railway.station.subway.bucharest" = "รถไฟ";
+
+"type.railway.station.subway.budapest" = "รถไฟ";
+
+"type.railway.station.subway.buenos_aires" = "รถไฟ";
+
+"type.railway.station.subway.bursa" = "รถไฟ";
+
+"type.railway.station.subway.cairo" = "รถไฟ";
+
+"type.railway.station.subway.caracas" = "รถไฟ";
+
+"type.railway.station.subway.catania" = "รถไฟ";
+
+"type.railway.station.subway.changchun" = "รถไฟ";
+
+"type.railway.station.subway.chengdu" = "รถไฟ";
+
+"type.railway.station.subway.chicago" = "รถไฟ";
+
+"type.railway.station.subway.chongqing" = "รถไฟ";
+
+"type.railway.station.subway.dalian" = "รถไฟ";
+
+"type.railway.station.subway.delhi" = "รถไฟ";
+
+"type.railway.station.subway.dnepro" = "รถไฟ";
+
+"type.railway.station.subway.dubai" = "รถไฟ";
+
+"type.railway.station.subway.ekb" = "รถไฟ";
+
+"type.railway.station.subway.fukuoka" = "รถไฟ";
+
+"type.railway.station.subway.glasgow" = "รถไฟ";
+
+"type.railway.station.subway.guangzhou" = "รถไฟ";
+
+"type.railway.station.subway.hamburg" = "รถไฟ";
+
+"type.railway.station.subway.helsinki" = "รถไฟ";
+
+"type.railway.station.subway.hiroshima" = "รถไฟ";
+
+"type.railway.station.subway.isfahan" = "รถไฟ";
+
+"type.railway.station.subway.istanbul" = "รถไฟ";
+
+"type.railway.station.subway.izmir" = "รถไฟ";
+
+"type.railway.station.subway.kazan" = "รถไฟ";
+
+"type.railway.station.subway.kharkiv" = "รถไฟ";
+
 "type.railway.station.subway.kiev" = "รถไฟ";
+
+"type.railway.station.subway.kobe" = "รถไฟ";
+
+"type.railway.station.subway.kolkata" = "รถไฟ";
+
+"type.railway.station.subway.kunming" = "รถไฟ";
+
+"type.railway.station.subway.kyoto" = "รถไฟ";
+
+"type.railway.station.subway.la" = "รถไฟ";
+
+"type.railway.station.subway.lausanne" = "รถไฟ";
+
+"type.railway.station.subway.lille" = "รถไฟ";
+
+"type.railway.station.subway.lima" = "รถไฟ";
+
+"type.railway.station.subway.lisboa" = "รถไฟ";
 
 "type.railway.station.subway.london" = "รถไฟ";
 
+"type.railway.station.subway.lyon" = "รถไฟ";
+
 "type.railway.station.subway.madrid" = "รถไฟ";
+
+"type.railway.station.subway.malaga" = "รถไฟ";
+
+"type.railway.station.subway.manila" = "รถไฟ";
+
+"type.railway.station.subway.maracaibo" = "รถไฟ";
+
+"type.railway.station.subway.mashhad" = "รถไฟ";
+
+"type.railway.station.subway.mecca" = "รถไฟ";
+
+"type.railway.station.subway.medellin" = "รถไฟ";
+
+"type.railway.station.subway.mexico" = "รถไฟ";
+
+"type.railway.station.subway.milan" = "รถไฟ";
 
 "type.railway.station.subway.minsk" = "รถไฟ";
 
+"type.railway.station.subway.montreal" = "รถไฟ";
+
 "type.railway.station.subway.moscow" = "รถไฟ";
+
+"type.railway.station.subway.munchen" = "รถไฟ";
+
+"type.railway.station.subway.nagoya" = "รถไฟ";
 
 "type.railway.station.subway.newyork" = "รถไฟ";
 
+"type.railway.station.subway.nnov" = "รถไฟ";
+
+"type.railway.station.subway.novosibirsk" = "รถไฟ";
+
+"type.railway.station.subway.osaka" = "รถไฟ";
+
+"type.railway.station.subway.oslo" = "รถไฟ";
+
+"type.railway.station.subway.palma" = "รถไฟ";
+
+"type.railway.station.subway.panama" = "รถไฟ";
+
 "type.railway.station.subway.paris" = "รถไฟ";
+
+"type.railway.station.subway.philadelphia" = "รถไฟ";
+
+"type.railway.station.subway.pyongyang" = "รถไฟ";
+
+"type.railway.station.subway.rennes" = "รถไฟ";
+
+"type.railway.station.subway.rio" = "รถไฟ";
 
 "type.railway.station.subway.roma" = "รถไฟ";
 
+"type.railway.station.subway.rotterdam" = "รถไฟ";
+
+"type.railway.station.subway.samara" = "รถไฟ";
+
+"type.railway.station.subway.santiago" = "รถไฟ";
+
+"type.railway.station.subway.santo_domingo" = "รถไฟ";
+
+"type.railway.station.subway.saopaulo" = "รถไฟ";
+
+"type.railway.station.subway.sapporo" = "รถไฟ";
+
+"type.railway.station.subway.sendai" = "รถไฟ";
+
+"type.railway.station.subway.sf" = "รถไฟ";
+
+"type.railway.station.subway.shanghai" = "รถไฟ";
+
+"type.railway.station.subway.shiraz" = "รถไฟ";
+
+"type.railway.station.subway.sofia" = "รถไฟ";
+
 "type.railway.station.subway.spb" = "รถไฟ";
+
+"type.railway.station.subway.stockholm" = "รถไฟ";
+
+"type.railway.station.subway.tabriz" = "รถไฟ";
+
+"type.railway.station.subway.taipei" = "รถไฟ";
+
+"type.railway.station.subway.taoyuan" = "รถไฟ";
+
+"type.railway.station.subway.tashkent" = "รถไฟ";
+
+"type.railway.station.subway.tbilisi" = "รถไฟ";
+
+"type.railway.station.subway.tianjin" = "รถไฟ";
+
+"type.railway.station.subway.tokyo" = "รถไฟ";
+
+"type.railway.station.subway.valencia" = "รถไฟ";
+
+"type.railway.station.subway.vienna" = "รถไฟ";
+
+"type.railway.station.subway.warszawa" = "รถไฟ";
+
+"type.railway.station.subway.washington" = "รถไฟ";
+
+"type.railway.station.subway.wuhan" = "รถไฟ";
+
+"type.railway.station.subway.yerevan" = "รถไฟ";
+
+"type.railway.station.subway.yokohama" = "รถไฟ";
 
 "type.railway.subway" = "Subway Line";
 
-"type.railway.subway.bridge" = "Subway Line";
+"type.railway.subway.bridge" = "Subway Line Bridge";
 
-"type.railway.subway.tunnel" = "Subway Line";
+"type.railway.subway.tunnel" = "Subway Line Tunnel";
 
 "type.railway.subway_entrance" = "ทางเข้ารถไฟใต้ดิน";
 
-"type.railway.subway_entrance.barcelona" = "รถไฟ";
+"type.railway.subway_entrance.adana" = "ทางเข้ารถไฟใต้ดิน";
 
-"type.railway.subway_entrance.berlin" = "รถไฟ";
+"type.railway.subway_entrance.algiers" = "ทางเข้ารถไฟใต้ดิน";
 
-"type.railway.subway_entrance.kiev" = "รถไฟ";
+"type.railway.subway_entrance.almaty" = "ทางเข้ารถไฟใต้ดิน";
 
-"type.railway.subway_entrance.london" = "รถไฟ";
+"type.railway.subway_entrance.amsterdam" = "ทางเข้ารถไฟใต้ดิน";
 
-"type.railway.subway_entrance.madrid" = "รถไฟ";
+"type.railway.subway_entrance.ankara" = "ทางเข้ารถไฟใต้ดิน";
 
-"type.railway.subway_entrance.minsk" = "รถไฟ";
+"type.railway.subway_entrance.athens" = "ทางเข้ารถไฟใต้ดิน";
 
-"type.railway.subway_entrance.moscow" = "รถไฟ";
+"type.railway.subway_entrance.baku" = "ทางเข้ารถไฟใต้ดิน";
 
-"type.railway.subway_entrance.newyork" = "รถไฟ";
+"type.railway.subway_entrance.bangkok" = "ทางเข้ารถไฟใต้ดิน";
 
-"type.railway.subway_entrance.paris" = "รถไฟ";
+"type.railway.subway_entrance.barcelona" = "ทางเข้ารถไฟใต้ดิน";
 
-"type.railway.subway_entrance.roma" = "รถไฟ";
+"type.railway.subway_entrance.beijing" = "ทางเข้ารถไฟใต้ดิน";
 
-"type.railway.subway_entrance.spb" = "รถไฟ";
+"type.railway.subway_entrance.bengalore" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.berlin" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.brasilia" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.brescia" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.brussels" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.bucharest" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.budapest" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.buenos_aires" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.bursa" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.cairo" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.caracas" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.catania" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.changchun" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.chengdu" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.chicago" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.chongqing" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.dalian" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.delhi" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.dnepro" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.dubai" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.ekb" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.fukuoka" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.glasgow" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.guangzhou" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.hamburg" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.helsinki" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.hiroshima" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.isfahan" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.istanbul" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.izmir" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.kazan" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.kharkiv" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.kiev" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.kobe" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.kolkata" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.kunming" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.kyoto" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.la" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.lausanne" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.lille" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.lima" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.lisboa" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.london" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.lyon" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.madrid" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.malaga" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.manila" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.maracaibo" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.mashhad" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.mecca" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.medellin" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.mexico" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.milan" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.minsk" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.montreal" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.moscow" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.munchen" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.nagoya" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.newyork" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.nnov" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.novosibirsk" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.osaka" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.oslo" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.palma" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.panama" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.paris" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.philadelphia" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.pyongyang" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.rennes" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.rio" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.roma" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.rotterdam" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.samara" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.santiago" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.santo_domingo" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.saopaulo" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.sapporo" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.sendai" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.sf" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.shanghai" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.shiraz" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.sofia" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.spb" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.stockholm" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.tabriz" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.taipei" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.taoyuan" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.tashkent" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.tbilisi" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.tianjin" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.tokyo" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.valencia" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.vienna" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.warszawa" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.washington" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.wuhan" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.yerevan" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.yokohama" = "ทางเข้ารถไฟใต้ดิน";
 
 "type.railway.tram" = "Tram Line";
 
-"type.railway.tram.bridge" = "Tram Line";
+"type.railway.tram.bridge" = "Tram Line Bridge";
 
-"type.railway.tram.tunnel" = "Tram Line";
+"type.railway.tram.tunnel" = "Tram Line Tunnel";
 
 "type.railway.tram_stop" = "ป้ายรถราง";
 
 "type.railway.yard" = "Railway Yard";
 
-"type.railway.yard.bridge" = "Railway Yard";
+"type.railway.yard.bridge" = "Railway Yard Bridge";
 
-"type.railway.yard.tunnel" = "Railway Yard";
+"type.railway.yard.tunnel" = "Railway Yard Tunnel";
 
 "type.route" = "route";
 
@@ -2932,7 +3394,11 @@
 
 "type.sport.basketball" = "บาสเก็ตบอล";
 
+"type.sport.beachvolleyball" = "วอลเลย์บอลชายหาด";
+
 "type.sport.bowls" = "Bowls";
+
+"type.sport.chess" = "หมากรุกสากล";
 
 "type.sport.cricket" = "Cricket";
 
@@ -2953,13 +3419,35 @@
 
 "type.sport.shooting" = "ยิงปืน";
 
+"type.sport.skateboard" = "สเกตบอร์ด";
+
 "type.sport.skiing" = "เล่นสกี";
 
 "type.sport.soccer" = "ฟุตบอล";
 
 "type.sport.swimming" = "การว่ายน้ำ";
 
+"type.sport.table_tennis" = "เทเบิลเทนนิส";
+
 "type.sport.tennis" = "คอร์ทเทนนิส";
+
+"type.sport.volleyball" = "วอลเลย์บอล";
+
+"type.sport.10pin" = "โบว์ลิ่ง";
+
+"type.sport.9pin" = "โบว์ลิ่ง";
+
+"type.sport.padel" = "พาเดล";
+
+"type.sport.futsal" = "ฟุตซอล";
+
+"type.sport.ice_hockey" = "ฮอคกี้น้ำแข็ง";
+
+"type.sport.field_hockey" = "กีฬาฮอกกี้";
+
+"type.sport.badminton" = "แบดมินตัน";
+
+"type.sport.pelota" = "Basque pelota";
 
 "type.tourism" = "Tourism";
 
@@ -3075,18 +3563,15 @@
 
 "type.wheelchair.yes" = "พื้นใช้รถเข็นสำหรับผู้ป่วย/ผู้สูงอายุได้";
 
-/* en.wikipedia.org/wiki/Surface_lift */
-"type.piste_lift" = "Surface Lift";
+"type.aerialway.j.bar" = "J-bar Lift";
 
-"type.piste_lift.j.bar" = "J-bar Lift";
+"type.aerialway.magic_carpet" = "Magic Carpet";
 
-"type.piste_lift.magic_carpet" = "Magic Carpet";
+"type.aerialway.platter" = "Platter Lift";
 
-"type.piste_lift.platter" = "Platter Lift";
+"type.aerialway.rope_tow" = "Rope Tow";
 
-"type.piste_lift.rope_tow" = "Rope Tow";
-
-"type.piste_lift.t.bar" = "T-bar Lift";
+"type.aerialway.t.bar" = "T-bar Lift";
 
 "type.piste_type" = "Piste Type";
 

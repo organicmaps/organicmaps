@@ -28,11 +28,6 @@
 DEFINE_string(srtm_path, "", "Path to directory with SRTM files");
 DEFINE_string(mwm_path, "", "Path to mwm files (writable dir)");
 
-using namespace feature;
-using namespace platform;
-using namespace routing;
-using namespace std;
-
 int main(int argc, char * argv[])
 {
   gflags::SetUsageMessage("SRTM coverage checker.");
@@ -51,8 +46,8 @@ int main(int argc, char * argv[])
   LOG(LINFO, ("writable dir =", platform.WritableDir()));
   LOG(LINFO, ("srtm dir =", FLAGS_srtm_path));
 
-  vector<LocalCountryFile> localFiles;
-  FindAllLocalMapsAndCleanup(numeric_limits<int64_t>::max() /* latestVersion */, localFiles);
+  std::vector<platform::LocalCountryFile> localFiles;
+  FindAllLocalMapsAndCleanup(std::numeric_limits<int64_t>::max() /* latestVersion */, localFiles);
 
   generator::SrtmTileManager manager(FLAGS_srtm_path);
   classificator::Load();
@@ -71,8 +66,8 @@ int main(int argc, char * argv[])
 
     size_t all = 0;
     size_t good = 0;
-    ForEachFeature(path, [&](FeatureType & ft, uint32_t fid) {
-      if (!IsRoad(TypesHolder(ft)))
+    feature::ForEachFeature(path, [&](FeatureType & ft, uint32_t fid) {
+      if (!routing::IsRoad(feature::TypesHolder(ft)))
         return;
 
       ft.ParseGeometry(FeatureType::BEST_GEOMETRY);

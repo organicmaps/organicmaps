@@ -2,8 +2,6 @@
 
 #include <iterator>
 
-using namespace std::placeholders;
-
 namespace dp
 {
 GlyphGenerator::GlyphGenerator(uint32_t sdfScale)
@@ -87,7 +85,7 @@ void GlyphGenerator::GenerateGlyphs(ref_ptr<Listener> listener,
   });
 
   if (result)
-    m_activeTasks.Add(generateTask, result);
+    m_activeTasks.Add(std::move(generateTask), std::move(result));
   else
     generateTask->DestroyAllGlyphs();
 }

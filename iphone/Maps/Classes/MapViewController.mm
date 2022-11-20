@@ -399,7 +399,10 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
   return NO;
 }
 - (UIStatusBarStyle)preferredStatusBarStyle {
-  return [self.controlsManager preferredStatusBarStyle];
+  MWMMapViewControlsManager * manager = self.controlsManager;
+  if (manager)
+    return manager.preferredStatusBarStyle;
+  return UIStatusBarStyleDefault;
 }
 
 - (void)updateStatusBarStyle {
@@ -613,8 +616,10 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 #pragma mark - Properties
 
 - (MWMMapViewControlsManager *)controlsManager {
-  if (!self.isViewLoaded)
+  if (!self.isViewLoaded) {
+    // TODO: Returns nil when called from MapViewController.preferredStatusBarStyle.
     return nil;
+  }
   if (!_controlsManager)
     _controlsManager = [[MWMMapViewControlsManager alloc] initWithParentController:self];
   return _controlsManager;
@@ -719,11 +724,10 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 }
 
 - (void)goBack {
-   NSString *backURL = [DeepLinkHandler.shared getBackUrl];
-   BOOL canOpenURL = [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:backURL]];
-   if (canOpenURL){
-     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:backURL] options:@{} completionHandler:nil];
-   }
+  NSString *backURL = [DeepLinkHandler.shared getBackUrl];
+  if (backURL != nil) {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString: backURL] options:@{} completionHandler:nil];
+  }
 }
 
 @end

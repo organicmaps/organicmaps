@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>police-m</title>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="police-m" fill-rule="nonzero">
-            <circle id="Oval" fill="#FFFFFF" opacity="0.6" cx="12" cy="12" r="12"></circle>
-            <circle id="Oval" fill="#717065" cx="12" cy="12" r="11"></circle>
-            <path d="M11.7272727,5 L6,7.54545455 L6,11.3636364 C6,14.8954545 8.44363636,18.1981818 11.7272727,19 C15.0109091,18.1981818 17.4545455,14.8954545 17.4545455,11.3636364 L17.4545455,7.54545455 L11.7272727,5 Z M13.3181818,12.3754545 L13.8909091,14.8445455 L11.7272727,13.54 L9.56363636,14.8445455 L10.1363636,12.3818182 L8.22727273,10.7336364 L10.7472727,10.5172727 L11.7272727,8.19454545 L12.7072727,10.5109091 L15.2272727,10.7272727 L13.3181818,12.3754545 Z" id="Shape" fill="#FFFFFF"></path>
-        </g>
-    </g>
+<svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+ <title>police-m</title>
+ <g fill="none" fill-rule="evenodd">
+  <g id="police-m" fill-rule="nonzero">
+   <circle id="Oval" cx="12" cy="12" r="12" fill="#fff" opacity=".6"/>
+   <circle id="Oval" cx="12" cy="12" r="11" fill="#717065"/>
+   <path id="Shape" d="m11.727 5-5.7273 2.5455v3.8182c0 3.5318 2.4436 6.8345 5.7273 7.6364 3.2836-0.80182 5.7273-4.1045 5.7273-7.6364v-3.8182l-5.7273-2.5455zm1.5909 7.3755 0.57273 2.4691-2.1636-1.3045-2.1636 1.3045 0.57273-2.4627-1.9091-1.6482 2.52-0.21636 0.98-2.3227 0.98 2.3164 2.52 0.21636-1.9091 1.6482z" fill="#fff"/>
+  </g>
+ </g>
 </svg>

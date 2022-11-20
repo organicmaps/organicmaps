@@ -49,8 +49,6 @@
   <color name="white_40">#66FFFFFF</color>  <!-- 40% white -->
   <color name="white_54">#8AFFFFFF</color> <!-- 54% black -->
   <color name="white_60">#99FFFFFF</color> <!-- 60% white -->
-  <color name="warm_gray">#FF999691</color>
-  <color name="warm_gray_night">#FF999691</color>
   <color name="dark_gray">#8B000000</color>
   <color name="light_gray">#F5F5F5</color>
   <color name="extended_green">#3C8C3C</color>
@@ -63,10 +61,6 @@
 
   <color name="divider">#1E000000</color>
   <color name="divider_night">#1EFFFFFF</color>
-  <color name="divider_gallery">#66FFFFFF</color>
-
-  <color name="text_placepage_rating">#568B2E</color>
-  <color name="text_placepage_rating_night">#46A046</color>
 
   <!-- Backgrounds -->
   <color name="bg_window">#FFEEEEEE</color>
@@ -77,8 +71,8 @@
   <color name="bg_cards_night">#FF3C4044</color>
   <color name="bg_panel">@color/bg_window</color>
   <color name="bg_panel_night">@color/bg_window_night</color>
-  <color name="bg_side_panel">@color/bg_cards</color>
-  <color name="bg_side_panel_night">@color/bg_panel_night</color>
+  <color name="bg_primary_dark">#197841</color>
+  <color name="bg_primary_dark_night">#14181C</color>
 
   <color name="bg_dialog_translucent">#BB000000</color>
   <color name="bg_text_translucent">#99FFFFFF</color>
@@ -86,24 +80,11 @@
   <color name="bg_menu">#CCFFFFFF</color>
   <color name="bg_menu_night">#CC2D3237</color>
 
-  <color name="bg_statusbar">#197841</color>
-  <color name="bg_statusbar_night">#14181C</color>
-
-  <color name="bg_azimut_arrow">#1D414651</color>
-  <color name="fg_azimut_arrow">#FFFFFFFF</color>
-
-  <color name="bg_placepage_rating">#F1F8E9</color>
-  <color name="bg_placepage_rating_night">#1EF0FAEB</color>
-  <color name="bg_placepage_rating_positive">#DCEDC8</color>
-  <color name="bg_placepage_rating_positive_night">#1EF0FAEB</color>
-  <color name="bg_placepage_rating_negative">#FFCDD2</color>
-  <color name="bg_placepage_rating_negative_night">#1EFFEBF0</color>
-
-  <color name="bg_search_available_hotel">#1A43A047</color>
+  <color name="bg_statusbar">#004120</color>
+  <color name="bg_statusbar_translucent">#66000000</color>
+  <color name="bg_statusbar_night">#121417</color>
 
   <!-- Buttons -->
-  <color name="button">@color/button_normal</color>
-  <color name="button_night">@color/button_normal_night</color>
   <color name="button_normal">#00000000</color>
   <color name="button_normal_night">#00000000</color>
   <color name="button_pressed">#66999999</color>
@@ -115,8 +96,6 @@
   <color name="button_text_disabled">#42000000</color>
   <color name="button_text_disabled_night">#4CFFFFFF</color>
 
-  <color name="button_accent">@color/button_accent_normal</color>
-  <color name="button_accent_night">@color/button_accent_normal_night</color>
   <color name="button_accent_normal">@color/base_accent</color>
   <color name="button_accent_normal_night">@color/base_accent_night</color>
   <color name="button_accent_pressed">#FF1C85D6</color>
@@ -135,85 +114,23 @@
   <color name="button_red_text">#FFFFFFFF</color>
   <color name="button_red_text_disabled">#FF606060</color>
 
-  <color name="downloader_gray">#FF999999</color>
-
   <!-- Routing-->
   <color name="bg_routing_progress">#1F000000</color>
   <color name="routing_button_tint">#FFFFFFFF</color>
   <color name="routing_button_activated_tint">@color/bg_statusbar</color>
   <color name="routing_button_activated_tint_night">@color/bg_statusbar_night</color>
   <color name="routing_button_pressed_tint">#80FFFFFF</color>
-  <color name="routing_intermediate_point">#43A047</color>
-
-
-  <color name="bs_divider_color">@color/divider</color>
-  <color name="bs_dark_divider_color">@color/divider_night</color>
-
-  <!-- Search -->
-  <color name="search_star_dimmed">#1F000000</color>
-
-  <!-- What's new -->
-  <color name="news_marker_active">#8A000000</color>
-  <color name="news_marker_active_night">@color/white_secondary</color>
-  <color name="news_marker_inactive">#1F000000</color>
-  <color name="news_marker_inactive_night">#4CFFFFFF</color>
 
   <!-- Editor -->
-  <color name="bg_editor_add_enabled">@color/base_accent</color>
-  <color name="bg_editor_add_disabled">#0C000000</color>
-  <color name="bg_editor_login_fb">#FF4861A3</color>
-  <color name="bg_editor_login_fb_pressed">#FF405792</color>
   <color name="bg_editor_light">#FFF2F6F6</color>
   <color name="bg_editor_light_pressed">#3D000000</color>
 
-  <color name="text_editor_add_disabled">#1A000000</color>
-
-  <!-- Brand colors -->
-  <color name="bg_brand_booking">#FF19457D</color>
-  <color name="bg_brand_booking_pressed">#FF1B549E</color>
-  <color name="bg_brand_opentable">#FFDA3743</color>
-  <color name="bg_brand_opentable_pressed">#FFFC5965</color>
-  <color name="tint_brand_lonely_planet">#004990</color>
-  <color name="tint_brand_lonely_planet_night">#B3FFFFFF</color>
-
-  <!-- Rating colors -->
-  <color name="rating_excellent">#43A047</color>
-  <color name="rating_good">#7CB342</color>
-  <color name="rating_normal">#F5B027</color>
-  <color name="rating_bad">#F4511E</color>
-  <color name="rating_horrible">#E53935</color>
-  <color name="rating_none">#FF888A82</color>
-  <color name="rating_coming_soon">#FF1E96F0</color>
-
-  <color name="tips_and_triks_bg_night">@color/dark_gray</color>
-  <color name="tips_and_triks_bg">#B8FFFFFF</color>
-  <color name="tips_and_triks_primary_text">#FFFFFF</color>
-  <color name="tips_and_triks_primary_text_night">#000000</color>
-  <color name="tips_and_triks_secondary_text">@color/white_secondary</color>
-  <color name="tips_and_triks_secondary_text_night">@color/dark_gray</color>
-
-  <color name="turquoise">#D0F6FF</color>
-  <color name="bookmarks_subs_title">#c60b2b1b</color>
-  <color name="bookmarks_subs_title_night">#c6ffffff</color>
-  <color name="bookmarks_subs_subtitle">#c6152b1c</color>
-  <color name="bookmarks_subs_subtitle_night">#c6ffffff</color>
-  <color name="sale_view_bg">#A335F4</color>
-  <color name="sightseeing_subs_sale_view_bg">#E54E35</color>
-  <color name="bg_sightseeing_subs">#F0FCFF</color>
-  <color name="bg_placeholder">#E2E2E2</color>
-
   <color name="notification">#82E510</color>
   <color name="yellow">#FFC800</color>
-  <color name="all_pass_subtitle">#67BEFF</color>
-  <color name="bookmarks_sightseeing_subs_central_content_bg">#DAF8FF</color>
 
   <color name="elevation_profile_dot_enabled">#FF9600</color>
   <color name="elevation_profile">#1E96F0</color>
   <color name="elevation_profile_dark">#4BB9E6</color>
-
-  <color name="city_color">#9B24B2</color>
-  <color name="city_color_night">#9867FC</color>
-  <color name="outdoor_color_night">#93BF39</color>
 
   <color name="material_calendar_surface_dark">#929292</color>
 </resources>

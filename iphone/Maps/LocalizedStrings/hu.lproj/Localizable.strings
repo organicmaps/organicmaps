@@ -153,7 +153,7 @@
 "water" = "Víz";
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
-"rv" = "RV Facilities";
+"rv" = "RV számára";
 
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
 
@@ -221,7 +221,7 @@
 "pref_map_style_auto" = "Automatikus";
 
 /* Settings «Map» category: «Perspective view» title */
-"pref_map_3d_title" = "Távlati kép";
+"pref_map_3d_title" = "Perspektivikus nézet";
 
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "3D-s épületek";
@@ -230,7 +230,7 @@
 "pref_tts_enable_title" = "Hangutasítások";
 
 /* Settings «Route» category: «Tts language» title */
-"pref_tts_language_title" = "A hang nyelve";
+"pref_tts_language_title" = "A hangutasítások nyelve";
 
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Egyéb";
@@ -238,7 +238,7 @@
 /* Settings «Map» category: «Record track» title */
 "pref_track_record_title" = "Legutolsó útvonal";
 
-"pref_map_auto_zoom" = "Auto-zoom";
+"pref_map_auto_zoom" = "Automatikus nagyítás";
 
 "duration_disabled" = "Kikapcsolva";
 
@@ -282,11 +282,11 @@
 /* Text in menu */
 "instagram" = "Instagram";
 
+/* Text in the editor */
+"vk" = "VK";
+
 /* Text in menu */
 "openstreetmap" = "OpenStreetMap";
-
-/* Settings: Send feedback button and dialog title */
-"feedback" = "Visszajelzés";
 
 /* Text in menu */
 "rate_the_app" = "Értékeld az alkalmazást";
@@ -297,14 +297,17 @@
 /* Button in the main Help dialog */
 "faq" = "Kérdések és válaszok";
 
+/* Button in the main menu */
+"donate" = "Adományozni";
+
 /* Button in the main Help dialog */
-"how_to_support_us" = "Hogyan támogat minket?";
+"how_to_support_us" = "Hogyan támogathatsz minket?";
 
 /* Button in the main Help dialog */
 "copyright" = "Szerzői jog";
 
 /* Text in menu + Button in the main Help dialog */
-"report_a_bug" = "Hibabejelentés";
+"report_a_bug" = "Hiba jelentése";
 
 /* Alert text */
 "email_error_body" = "Az email kliens nincs beállítva. Kérjük, konfiguráld vagy próbálj meg valamilyen más módon kapcsolatba lépni velünk a %@ email címen keresztül.";
@@ -503,12 +506,6 @@
 
 "history" = "Előzmények";
 
-"opens_in" = "Opens in %@";
-
-"closes_in" = "Closes in %@";
-
-"closed" = "Zárva";
-
 "search_not_found" = "Sajnos, semmit nem találtam.";
 
 "search_not_found_query" = "Próbáljon másik lekérdezést.";
@@ -518,6 +515,12 @@
 "search_history_text" = "Aktuális keresés gyors elérése.";
 
 "clear_search" = "A keresési előzmények törlése";
+
+/* Place Page link to Wikipedia article (if map object has it). */
+"read_in_wikipedia" = "Wikipedia";
+
+/* Place Page link to Wikimedia Commons. */
+"wikimedia_commons" = "Wikimedia Commons";
 
 "p2p_your_location" = "Az Ön helyzete";
 
@@ -578,6 +581,20 @@
 
 "today" = "Ma";
 
+"opens_tomorrow_at" = "Opens tomorrow at %@";
+
+"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
+
+"opens_at" = "Opens at %@";
+
+"opens_in" = "Opens in %@";
+
+"closes_at" = "Closes at %@";
+
+"closes_in" = "Closes in %@";
+
+"closed" = "Zárva";
+
 "add_opening_hours" = "Nyitvatartás hozzáadása";
 
 "no_osm_account" = "Nem rendelkezel még OpenStreetMap-felhasználói fiókkal?";
@@ -629,6 +646,8 @@
 "email_or_username" = "Email vagy felhasználónév";
 
 "phone" = "Telefonszám";
+
+"level" = "Szint";
 
 "please_note" = "Megjegyzés";
 
@@ -750,6 +769,8 @@
 
 "miles_per_hour" = "mph";
 
+"hour" = "ó";
+
 "minute" = "p";
 
 "placepage_place_description" = "Leírás";
@@ -798,10 +819,10 @@
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Szeretnéd elküldeni az összes felhasználónak?";
 
-/* iOS Dialog before publishing the modifications to the public map. */
+/* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "Győződj meg arról, hogy nem adsz meg semmilyen személyes információt.";
 
-"editor_share_to_all_dialog_message_2" = "Ellenőrizni fogjuk a változásokat. Ha bármilyen kérdésünk van, emailben keresünk.";
+"editor_share_to_all_dialog_message_2" = "Az OpenStreetMap szerkesztői ellenőrzik a változásokat, és felveszik Önnel a kapcsolatot, ha kérdéseik vannak.";
 
 "navigation_stop_button" = "megállítás";
 
@@ -816,15 +837,15 @@
 "recent_track_background_dialog_message" = "A Organic Maps a geopozíciód használatával a háttérben rögzíti a legutóbb megtett utad.";
 
 /* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Az Organic Maps egy ingyenes, nyílt forráskódú offline térképalkalmazás. Nincsenek hirdetések. Nincs nyomkövetés. Ha hibát lát a térképen, javítsa ki az OpenStreetMap segítségével. A projektet a lelkesek készítik szabadidőnkben, ezért szükségünk van az Ön visszajelzésére és támogatására.";
+"about_description" = "Az Organic Maps egy gyors és ingyenes offline térképalkalmazás hirdetések és nyomkövetés nélkül. A térképek az OpenStreetMap.org közösség által fenntartott adatain alapulnak, így a térképen megtalálható hibákat te is javíthatod, és adhatsz hozzá új helyeket. Az Organic Maps egy nyílt forráskódú projekt, amelyet lelkes fejlesztők hoztak létre szabadidejükben. Visszajelzéseidet és támogatásodat nagyra értékeljük!";
 
 "general_settings" = "Általános beállítások";
 
 /* For the first routing */
-"accept" = "Elfogadja";
+"accept" = "Elfogad";
 
 /* For the first routing */
-"decline" = "Elutasítja";
+"decline" = "Elutasít";
 
 /* A noun - a button name used to show search results in list form */
 "search_in_table" = "Lista";
@@ -856,15 +877,13 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Forgalmi adatok nem állnak rendelkezésre";
 
-/* Settings: "Send general feedback" button */
-"feedback_general" = "Általános visszajelzés";
-
 "on" = "Be";
 
 "off" = "Ki";
 
 "transliteration_title" = "Átírás latin nyelvre";
 
+/* Subway exits for public transport marks on the map */
 "core_exit" = "Kilépés";
 
 "routing_add_start_point" = "Adjon hozzá kiindulási pontot az útvonal megtervezéséhez";
@@ -986,13 +1005,13 @@
 
 "power_managment_setting_manual_max" = "Maximális energiatakarékosság";
 
-"driving_options_title" = "Vezetési lehetőségek";
+"driving_options_title" = "Útvonaltervezési lehetőségek";
 
 "driving_options_subheader" = "Elkerülés minden útvonalon";
 
-"avoid_tolls" = "Fizetős utak";
+"avoid_tolls" = "Díjköteles utak";
 
-"avoid_unpaved" = "Kövezetlen utak";
+"avoid_unpaved" = "Burkolatlan utak";
 
 "avoid_ferry" = "Kompátkelők";
 
@@ -1004,17 +1023,17 @@
 
 "define_to_avoid_btn" = "Elkerülendő utak meghatározása";
 
-"change_driving_options_btn" = "Vezetési lehetőségek bekapcsolva";
+"change_driving_options_btn" = "Útvonaltervezési lehetőségek bekapcsolva";
 
-"toll_road" = "Fizetős utak";
+"toll_road" = "Díjköteles utak";
 
-"unpaved_road" = "Kövezetlen utak";
+"unpaved_road" = "Burkolatlan utak";
 
 "ferry_crossing" = "Kompátkelők";
 
-"avoid_toll_roads_placepage" = "Fizetős utak elkerülése";
+"avoid_toll_roads_placepage" = "Díjköteles utak elkerülése";
 
-"avoid_unpaved_roads_placepage" = "Kövezetlen utak elkerülése";
+"avoid_unpaved_roads_placepage" = "Burkolatlan utak elkerülése";
 
 "avoid_ferry_crossing_placepage" = "Kompátkelők elkerülése";
 
@@ -1205,20 +1224,29 @@
 /* edit track screen title */
 "track_title" = "Útvonal";
 
+/* Telegram group url for the "?" About page */
+"telegram_url" = "https://t.me/OrganicMapsApp";
+
+/* Instagram account url for the "?" About page */
+"instagram_url" = "https://www.instagram.com/organicmaps.app";
+
+/* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
+"translated_om_site_url" = "https://organicmaps.app/";
+
 
 /********** Types **********/
 
 "type.aerialway" = "Aerialway";
 
-"type.aerialway.cable_car" = "Aerialway";
+"type.aerialway.cable_car" = "Cable car";
 
-"type.aerialway.chair_lift" = "Aerialway";
+"type.aerialway.chair_lift" = "Chair lift";
 
-"type.aerialway.drag_lift" = "Aerialway";
+"type.aerialway.drag_lift" = "Drag lift";
 
-"type.aerialway.gondola" = "Aerialway";
+"type.aerialway.gondola" = "Gondola";
 
-"type.aerialway.mixed_lift" = "Aerialway";
+"type.aerialway.mixed_lift" = "Mixed lift";
 
 "type.aerialway.station" = "Felvonóállomás";
 
@@ -1300,6 +1328,10 @@
 
 "type.amenity.driving_school" = "Autósiskola";
 
+"type.amenity.music_school" = "Zeneiskola";
+
+"type.amenity.language_school" = "Nyelviskola";
+
 "type.office.diplomatic" = "Nagykövetség";
 
 "type.amenity.fast_food" = "Gyorsétterem";
@@ -1342,19 +1374,25 @@
 
 "type.amenity.parking" = "Parkoló";
 
-"type.amenity.parking.fee" = "Parkoló";
+"type.amenity.parking.fee" = "Fizetős parkolás";
 
-"type.amenity.parking.multi.storey" = "Parkoló";
+"type.amenity.parking.multi.storey" = "Többszintes parkoló";
 
-"type.amenity.parking.no.access" = "Parkoló";
+"type.amenity.parking.no.access" = "Saját parkoló";
+
+"type.amenity.parking.permissive" = "Saját parkoló";
+
+"type.amenity.parking.private" = "Saját parkoló";
 
 "type.amenity.parking.park_and_ride" = "Parkoló";
 
-"type.amenity.parking.permissive" = "Parkoló";
+"type.amenity.parking.underground" = "Mélygarázs";
 
-"type.amenity.parking.private" = "Parkoló";
+"type.amenity.parking_entrance.private" = "Parkoló bejárata";
 
-"type.amenity.parking.underground" = "Parkoló";
+"type.amenity.parking_entrance.permissive" = "Parkoló bejárata";
+
+"type.amenity.parking_entrance" = "Parkoló bejárata";
 
 "type.amenity.parking_space" = "Parkolóhely";
 
@@ -1363,6 +1401,8 @@
 "type.amenity.parking_space.private" = "Parkolóhely";
 
 "type.amenity.parking_space.underground" = "Parkolóhely";
+
+"type.amenity.parking_space.disabled" = "Mozgássérült parkolóhely";
 
 "type.amenity.payment_terminal" = "Fizető terminál";
 
@@ -1429,7 +1469,7 @@
 
 "type.recycling.green_waste" = "Green/Organic Waste";
 
-"type.recycling.cartons" = "Bewerage Cartons";
+"type.recycling.cartons" = "Beverage Cartons";
 
 "type.amenity.restaurant" = "Étterem";
 
@@ -1499,9 +1539,11 @@
 
 "type.barrier.chain" = "Chain";
 
-"type.barrier.city_wall" = "City Wall";
+"type.barrier.city_wall" = "Városi fal";
 
 "type.barrier.cycle_barrier" = "Cycle Barrier";
+
+"type.barrier.ditch" = "Várárok";
 
 "type.barrier.entrance" = "Bejárat";
 
@@ -1510,6 +1552,8 @@
 "type.barrier.gate" = "Kapu";
 
 "type.barrier.hedge" = "Hedge";
+
+"type.barrier.kissing_gate" = "Kapu";
 
 "type.barrier.lift_gate" = "Sorompó";
 
@@ -1579,25 +1623,25 @@
 
 "type.cemetery.grave" = "Sír";
 
-"type.craft" = "Craft";
+"type.craft" = "Kézművesség";
 
-"type.craft.beekeeper" = "Beekeeper";
+"type.craft.beekeeper" = "Méhész";
 
-"type.craft.blacksmith" = "Blacksmith";
+"type.craft.blacksmith" = "Kovácsműhely";
 
 "type.craft.brewery" = "Sörfőzde";
 
 "type.craft.carpenter" = "Ács";
 
-"type.craft.confectionery" = "Confectionery";
+"type.craft.confectionery" = "Cukrászda";
 
 "type.craft.electrician" = "Villanyszerelő";
 
-"type.craft.electronics_repair" = "Electronics Repair";
+"type.craft.electronics_repair" = "Elektronikai javítás";
 
 "type.craft.gardener" = "Kertész";
 
-"type.craft.handicraft" = "Handicraft";
+"type.craft.handicraft" = "Kézművesség";
 
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Hűtés-fűtés szerelő";
@@ -1610,11 +1654,11 @@
 
 "type.craft.plumber" = "Vízvezeték-szerelő";
 
-"type.craft.sawmill" = "Sawmill";
+"type.craft.sawmill" = "Fűrészmalom";
 
 "type.craft.shoemaker" = "Cipész";
 
-"type.craft.winery" = "Winery";
+"type.craft.winery" = "Pincészet";
 
 "type.craft.tailor" = "Szabó";
 
@@ -1801,6 +1845,8 @@
 "type.entrance" = "Bejárat";
 
 "type.healthcare.laboratory" = "Orvosi laboratórium";
+
+"type.healthcare.physiotherapist" = "Fizioterapeuta";
 
 
 /********** Types: Roads **********/
@@ -2106,25 +2152,47 @@
 
 /********** Types: Historic **********/
 
-"type.historic" = "Historic";
+"type.historic" = "Történelmi tárgy";
 
 "type.historic.archaeological_site" = "Ásatás";
 
-"type.historic.battlefield" = "Battlefield";
+"type.historic.battlefield" = "Csatatér";
 
-"type.historic.boundary_stone" = "Boundary Stone";
+"type.historic.boundary_stone" = "Határkő";
 
 "type.historic.castle" = "Kastély";
 
+"type.historic.castle.castrum" = "Castrum";
+
 "type.historic.castle.defensive" = "Kastély";
+
+"type.historic.castle.fortified_church" = "Erősített templom";
+
+"type.historic.castle.fortress" = "Erődrendszer";
+
+"type.historic.castle.hillfort" = "Földvár";
+
+"type.historic.castle.kremlin" = "Kreml";
+
+"type.historic.castle.manor" = "Udvarház";
+
+"type.historic.castle.palace" = "Palota";
+
+"type.historic.castle.shiro" = "Japán várkastélyai";
 
 "type.historic.castle.stately" = "Kastély";
 
-"type.historic.citywalls" = "City Wall";
+"type.historic.city_gate" = "Városi kapu";
+
+"type.historic.citywalls" = "Városi fal";
 
 "type.historic.fort" = "Fort";
 
+"type.historic.gallows" = "Akasztófa";
+
 "type.historic.memorial" = "Emlékmű";
+
+"type.historic.memorial.cross" = "Emlékkereszt";
 
 "type.historic.memorial.plaque" = "Emlékmű";
 
@@ -2132,17 +2200,23 @@
 
 "type.historic.memorial.statue" = "Emlékmű";
 
+"type.historic.memorial.stolperstein" = "Botlatókő";
+
+"type.historic.memorial.war_memorial" = "Háborús emlékmű";
+
 "type.historic.monument" = "Műemlék";
+
+"type.historic.pillory" = "Pellengér";
 
 "type.historic.ruins" = "Romok";
 
 "type.historic.ship" = "Túrizmus";
 
-"type.historic.tomb" = "Túrizmus";
+"type.historic.tomb" = "Sír";
 
-"type.historic.wayside_cross" = "Christian Cross";
+"type.historic.wayside_cross" = "Útszéli kereszt";
 
-"type.historic.wayside_shrine" = "Shrine";
+"type.historic.wayside_shrine" = "Útmenti szentély";
 
 "type.hwtag" = "hwtag";
 
@@ -2262,7 +2336,11 @@
 
 "type.leisure.fitness_station" = "Fitness állomás";
 
+"type.leisure.dance" = "Táncterem";
+
 "type.leisure.garden" = "Kert";
+
+"type.leisure.garden.residential" = "Kert";
 
 "type.leisure.golf_course" = "Golfpálya";
 
@@ -2296,13 +2374,9 @@
 
 "type.leisure.sports_centre" = "Sportközpont";
 
-"type.leisure.sports_centre.climbing" = "Hegymászó központ";
+"type.sport.climbing" = "Hegymászó központ";
 
-"type.leisure.sports_centre.shooting" = "Lőtér";
-
-"type.leisure.sports_centre.swimming" = "Uszoda";
-
-"type.leisure.sports_centre.yoga" = "Jógastúdió";
+"type.sport.yoga" = "Jógastúdió";
 
 "type.leisure.stadium" = "Stadion";
 
@@ -2348,7 +2422,7 @@
 
 "type.man_made.tower" = "Torony";
 
-"type.man_made.wastewater_plant" = "Wastewater Plant";
+"type.man_made.wastewater_plant" = "Wastewater treatment plant";
 
 "type.man_made.water_tap" = "Vízcsap";
 
@@ -2393,6 +2467,8 @@
 "type.man_made.embankment" = "Töltés";
 
 "type.natural.coastline" = "Tengerpart";
+
+"type.natural.desert" = "Sivatag";
 
 "type.natural.geyser" = "Gejzír";
 
@@ -2472,8 +2548,6 @@
 
 "type.organic.yes" = "Organic";
 
-"type.place" = "place";
-
 "type.place.city" = "Város";
 
 "type.place.city.capital" = "Főváros";
@@ -2512,11 +2586,11 @@
 
 "type.place.islet" = "Sziget";
 
-"type.place.isolated_dwelling" = "Dwelling";
+"type.place.isolated_dwelling" = "Elszigetelt lakás";
 
 "type.place.locality" = "Falu";
 
-"type.place.neighbourhood" = "Neighbourhood";
+"type.place.neighbourhood" = "Szomszédság";
 
 "type.place.ocean" = "Óceán";
 
@@ -2524,7 +2598,7 @@
 
 "type.place.sea" = "Tenger";
 
-"type.place.square" = "Square";
+"type.place.square" = "Tér";
 
 "type.place.state" = "Állam";
 
@@ -2570,13 +2644,13 @@
 
 "type.railway" = "Railway";
 
-"type.railway.abandoned" = "Abandoned railway";
+"type.railway.abandoned" = "Abandoned Railway";
 
-"type.railway.abandoned.bridge" = "Abandoned railway";
+"type.railway.abandoned.bridge" = "Abandoned Railway Bridge";
 
-"type.railway.abandoned.tunnel" = "Abandoned Railway";
+"type.railway.abandoned.tunnel" = "Abandoned Railway Tunnel";
 
-"type.railway.construction" = "Railway's Construction";
+"type.railway.construction" = "Railway Construction";
 
 "type.railway.crossing" = "Railway Crossing";
 
@@ -2584,9 +2658,9 @@
 
 "type.railway.funicular" = "Funicular";
 
-"type.railway.funicular.bridge" = "Funicular";
+"type.railway.funicular.bridge" = "Funicular Bridge";
 
-"type.railway.funicular.tunnel" = "Funicular";
+"type.railway.funicular.tunnel" = "Funicular Tunnel";
 
 "type.railway.halt" = "Vonatmegálló";
 
@@ -2594,51 +2668,51 @@
 
 "type.railway.light_rail" = "Light Rail";
 
-"type.railway.light_rail.bridge" = "Light Rail";
+"type.railway.light_rail.bridge" = "Light Rail Bridge";
 
-"type.railway.light_rail.tunnel" = "Light Rail";
+"type.railway.light_rail.tunnel" = "Light Rail Tunnel";
 
 "type.railway.monorail" = "Egysínű vasút";
 
-"type.railway.monorail.bridge" = "Monorail";
+"type.railway.monorail.bridge" = "Monorail Bridge";
 
-"type.railway.monorail.tunnel" = "Monorail";
+"type.railway.monorail.tunnel" = "Monorail Tunnel";
 
 "type.railway.narrow_gauge" = "Narrow Gauge Rail";
 
-"type.railway.narrow_gauge.bridge" = "Narrow Gauge Rail";
+"type.railway.narrow_gauge.bridge" = "Narrow Gauge Rail Bridge";
 
-"type.railway.narrow_gauge.tunnel" = "Narrow Gauge Rail";
+"type.railway.narrow_gauge.tunnel" = "Narrow Gauge Rail Tunnel";
 
 "type.railway.platform" = "Railway Platform";
 
 "type.railway.preserved" = "Preserved Rail";
 
-"type.railway.preserved.bridge" = "Preserved Rail";
+"type.railway.preserved.bridge" = "Preserved Rail Bridge";
 
-"type.railway.preserved.tunnel" = "Preserved Rail";
+"type.railway.preserved.tunnel" = "Preserved Rail Tunnel";
 
 "type.railway.rail" = "Vasút";
 
-"type.railway.rail.bridge" = "Railway";
+"type.railway.rail.bridge" = "Railway Bridge";
 
 "type.railway.rail.motor_vehicle" = "Railway";
 
-"type.railway.rail.tunnel" = "Railway";
+"type.railway.rail.tunnel" = "Railway Tunnel";
 
 "type.railway.razed" = "Razed Rail";
 
 "type.railway.siding" = "Siding Rail";
 
-"type.railway.siding.bridge" = "Siding Rail";
+"type.railway.siding.bridge" = "Siding Rail Bridge";
 
-"type.railway.siding.tunnel" = "Siding Rail";
+"type.railway.siding.tunnel" = "Siding Rail Tunnel";
 
 "type.railway.spur" = "Spur Rail";
 
-"type.railway.spur.bridge" = "Spur Rail";
+"type.railway.spur.bridge" = "Spur Rail Bridge";
 
-"type.railway.spur.tunnel" = "Spur Rail";
+"type.railway.spur.tunnel" = "Spur Rail Tunnel";
 
 "type.railway.station" = "Vonatmegálló";
 
@@ -2648,71 +2722,459 @@
 
 "type.railway.station.subway" = "Földalatti";
 
+"type.railway.station.subway.adana" = "Földalatti";
+
+"type.railway.station.subway.algiers" = "Földalatti";
+
+"type.railway.station.subway.almaty" = "Földalatti";
+
+"type.railway.station.subway.amsterdam" = "Földalatti";
+
+"type.railway.station.subway.ankara" = "Földalatti";
+
+"type.railway.station.subway.athens" = "Földalatti";
+
+"type.railway.station.subway.baku" = "Földalatti";
+
+"type.railway.station.subway.bangkok" = "Földalatti";
+
 "type.railway.station.subway.barcelona" = "Földalatti";
+
+"type.railway.station.subway.beijing" = "Földalatti";
+
+"type.railway.station.subway.bengalore" = "Földalatti";
 
 "type.railway.station.subway.berlin" = "Földalatti";
 
+"type.railway.station.subway.brasilia" = "Földalatti";
+
+"type.railway.station.subway.brescia" = "Földalatti";
+
+"type.railway.station.subway.brussels" = "Földalatti";
+
+"type.railway.station.subway.bucharest" = "Földalatti";
+
+"type.railway.station.subway.budapest" = "Földalatti";
+
+"type.railway.station.subway.buenos_aires" = "Földalatti";
+
+"type.railway.station.subway.bursa" = "Földalatti";
+
+"type.railway.station.subway.cairo" = "Földalatti";
+
+"type.railway.station.subway.caracas" = "Földalatti";
+
+"type.railway.station.subway.catania" = "Földalatti";
+
+"type.railway.station.subway.changchun" = "Földalatti";
+
+"type.railway.station.subway.chengdu" = "Földalatti";
+
+"type.railway.station.subway.chicago" = "Földalatti";
+
+"type.railway.station.subway.chongqing" = "Földalatti";
+
+"type.railway.station.subway.dalian" = "Földalatti";
+
+"type.railway.station.subway.delhi" = "Földalatti";
+
+"type.railway.station.subway.dnepro" = "Földalatti";
+
+"type.railway.station.subway.dubai" = "Földalatti";
+
+"type.railway.station.subway.ekb" = "Földalatti";
+
+"type.railway.station.subway.fukuoka" = "Földalatti";
+
+"type.railway.station.subway.glasgow" = "Földalatti";
+
+"type.railway.station.subway.guangzhou" = "Földalatti";
+
+"type.railway.station.subway.hamburg" = "Földalatti";
+
+"type.railway.station.subway.helsinki" = "Földalatti";
+
+"type.railway.station.subway.hiroshima" = "Földalatti";
+
+"type.railway.station.subway.isfahan" = "Földalatti";
+
+"type.railway.station.subway.istanbul" = "Földalatti";
+
+"type.railway.station.subway.izmir" = "Földalatti";
+
+"type.railway.station.subway.kazan" = "Földalatti";
+
+"type.railway.station.subway.kharkiv" = "Földalatti";
+
 "type.railway.station.subway.kiev" = "Földalatti";
+
+"type.railway.station.subway.kobe" = "Földalatti";
+
+"type.railway.station.subway.kolkata" = "Földalatti";
+
+"type.railway.station.subway.kunming" = "Földalatti";
+
+"type.railway.station.subway.kyoto" = "Földalatti";
+
+"type.railway.station.subway.la" = "Földalatti";
+
+"type.railway.station.subway.lausanne" = "Földalatti";
+
+"type.railway.station.subway.lille" = "Földalatti";
+
+"type.railway.station.subway.lima" = "Földalatti";
+
+"type.railway.station.subway.lisboa" = "Földalatti";
 
 "type.railway.station.subway.london" = "Földalatti";
 
+"type.railway.station.subway.lyon" = "Földalatti";
+
 "type.railway.station.subway.madrid" = "Földalatti";
+
+"type.railway.station.subway.malaga" = "Földalatti";
+
+"type.railway.station.subway.manila" = "Földalatti";
+
+"type.railway.station.subway.maracaibo" = "Földalatti";
+
+"type.railway.station.subway.mashhad" = "Földalatti";
+
+"type.railway.station.subway.mecca" = "Földalatti";
+
+"type.railway.station.subway.medellin" = "Földalatti";
+
+"type.railway.station.subway.mexico" = "Földalatti";
+
+"type.railway.station.subway.milan" = "Földalatti";
 
 "type.railway.station.subway.minsk" = "Földalatti";
 
+"type.railway.station.subway.montreal" = "Földalatti";
+
 "type.railway.station.subway.moscow" = "Földalatti";
+
+"type.railway.station.subway.munchen" = "Földalatti";
+
+"type.railway.station.subway.nagoya" = "Földalatti";
 
 "type.railway.station.subway.newyork" = "Földalatti";
 
+"type.railway.station.subway.nnov" = "Földalatti";
+
+"type.railway.station.subway.novosibirsk" = "Földalatti";
+
+"type.railway.station.subway.osaka" = "Földalatti";
+
+"type.railway.station.subway.oslo" = "Földalatti";
+
+"type.railway.station.subway.palma" = "Földalatti";
+
+"type.railway.station.subway.panama" = "Földalatti";
+
 "type.railway.station.subway.paris" = "Földalatti";
+
+"type.railway.station.subway.philadelphia" = "Földalatti";
+
+"type.railway.station.subway.pyongyang" = "Földalatti";
+
+"type.railway.station.subway.rennes" = "Földalatti";
+
+"type.railway.station.subway.rio" = "Földalatti";
 
 "type.railway.station.subway.roma" = "Földalatti";
 
+"type.railway.station.subway.rotterdam" = "Földalatti";
+
+"type.railway.station.subway.samara" = "Földalatti";
+
+"type.railway.station.subway.santiago" = "Földalatti";
+
+"type.railway.station.subway.santo_domingo" = "Földalatti";
+
+"type.railway.station.subway.saopaulo" = "Földalatti";
+
+"type.railway.station.subway.sapporo" = "Földalatti";
+
+"type.railway.station.subway.sendai" = "Földalatti";
+
+"type.railway.station.subway.sf" = "Földalatti";
+
+"type.railway.station.subway.shanghai" = "Földalatti";
+
+"type.railway.station.subway.shiraz" = "Földalatti";
+
+"type.railway.station.subway.sofia" = "Földalatti";
+
 "type.railway.station.subway.spb" = "Földalatti";
+
+"type.railway.station.subway.stockholm" = "Földalatti";
+
+"type.railway.station.subway.tabriz" = "Földalatti";
+
+"type.railway.station.subway.taipei" = "Földalatti";
+
+"type.railway.station.subway.taoyuan" = "Földalatti";
+
+"type.railway.station.subway.tashkent" = "Földalatti";
+
+"type.railway.station.subway.tbilisi" = "Földalatti";
+
+"type.railway.station.subway.tianjin" = "Földalatti";
+
+"type.railway.station.subway.tokyo" = "Földalatti";
+
+"type.railway.station.subway.valencia" = "Földalatti";
+
+"type.railway.station.subway.vienna" = "Földalatti";
+
+"type.railway.station.subway.warszawa" = "Földalatti";
+
+"type.railway.station.subway.washington" = "Földalatti";
+
+"type.railway.station.subway.wuhan" = "Földalatti";
+
+"type.railway.station.subway.yerevan" = "Földalatti";
+
+"type.railway.station.subway.yokohama" = "Földalatti";
 
 "type.railway.subway" = "Subway Line";
 
-"type.railway.subway.bridge" = "Subway Line";
+"type.railway.subway.bridge" = "Subway Line Bridge";
 
-"type.railway.subway.tunnel" = "Subway Line";
+"type.railway.subway.tunnel" = "Subway Line Tunnel";
 
 "type.railway.subway_entrance" = "Földalatti bejárat";
 
-"type.railway.subway_entrance.barcelona" = "Földalatti";
+"type.railway.subway_entrance.adana" = "Földalatti bejárat";
 
-"type.railway.subway_entrance.berlin" = "Földalatti";
+"type.railway.subway_entrance.algiers" = "Földalatti bejárat";
 
-"type.railway.subway_entrance.kiev" = "Földalatti";
+"type.railway.subway_entrance.almaty" = "Földalatti bejárat";
 
-"type.railway.subway_entrance.london" = "Földalatti";
+"type.railway.subway_entrance.amsterdam" = "Földalatti bejárat";
 
-"type.railway.subway_entrance.madrid" = "Földalatti";
+"type.railway.subway_entrance.ankara" = "Földalatti bejárat";
 
-"type.railway.subway_entrance.minsk" = "Földalatti";
+"type.railway.subway_entrance.athens" = "Földalatti bejárat";
 
-"type.railway.subway_entrance.moscow" = "Földalatti";
+"type.railway.subway_entrance.baku" = "Földalatti bejárat";
 
-"type.railway.subway_entrance.newyork" = "Földalatti";
+"type.railway.subway_entrance.bangkok" = "Földalatti bejárat";
 
-"type.railway.subway_entrance.paris" = "Földalatti";
+"type.railway.subway_entrance.barcelona" = "Földalatti bejárat";
 
-"type.railway.subway_entrance.roma" = "Földalatti";
+"type.railway.subway_entrance.beijing" = "Földalatti bejárat";
 
-"type.railway.subway_entrance.spb" = "Földalatti";
+"type.railway.subway_entrance.bengalore" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.berlin" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.brasilia" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.brescia" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.brussels" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.bucharest" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.budapest" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.buenos_aires" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.bursa" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.cairo" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.caracas" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.catania" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.changchun" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.chengdu" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.chicago" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.chongqing" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.dalian" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.delhi" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.dnepro" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.dubai" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.ekb" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.fukuoka" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.glasgow" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.guangzhou" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.hamburg" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.helsinki" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.hiroshima" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.isfahan" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.istanbul" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.izmir" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.kazan" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.kharkiv" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.kiev" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.kobe" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.kolkata" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.kunming" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.kyoto" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.la" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.lausanne" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.lille" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.lima" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.lisboa" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.london" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.lyon" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.madrid" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.malaga" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.manila" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.maracaibo" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.mashhad" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.mecca" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.medellin" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.mexico" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.milan" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.minsk" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.montreal" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.moscow" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.munchen" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.nagoya" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.newyork" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.nnov" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.novosibirsk" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.osaka" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.oslo" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.palma" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.panama" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.paris" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.philadelphia" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.pyongyang" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.rennes" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.rio" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.roma" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.rotterdam" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.samara" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.santiago" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.santo_domingo" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.saopaulo" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.sapporo" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.sendai" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.sf" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.shanghai" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.shiraz" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.sofia" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.spb" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.stockholm" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.tabriz" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.taipei" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.taoyuan" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.tashkent" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.tbilisi" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.tianjin" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.tokyo" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.valencia" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.vienna" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.warszawa" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.washington" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.wuhan" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.yerevan" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.yokohama" = "Földalatti bejárat";
 
 "type.railway.tram" = "Tram Line";
 
-"type.railway.tram.bridge" = "Tram Line";
+"type.railway.tram.bridge" = "Tram Line Bridge";
 
-"type.railway.tram.tunnel" = "Tram Line";
+"type.railway.tram.tunnel" = "Tram Line Tunnel";
 
 "type.railway.tram_stop" = "Villamosmegálló";
 
 "type.railway.yard" = "Railway Yard";
 
-"type.railway.yard.bridge" = "Railway Yard";
+"type.railway.yard.bridge" = "Railway Yard Bridge";
 
-"type.railway.yard.tunnel" = "Railway Yard";
+"type.railway.yard.tunnel" = "Railway Yard Tunnel";
 
 "type.route" = "route";
 
@@ -2876,7 +3338,7 @@
 
 "type.shop.art" = "Művészeti Bolt";
 
-"type.shop.baby_goods" = "Gyermekbolt";
+"type.shop.baby_goods" = "Bababolt";
 
 "type.shop.bag" = "Táskák bolt";
 
@@ -2896,7 +3358,7 @@
 
 "type.shop.interior_decoration" = "Belső dekorációk";
 
-"type.shop.lottery" = "Sorsjegyek";
+"type.shop.lottery" = "Lottózó";
 
 "type.shop.medical_supply" = "Orvosi eszközök";
 
@@ -2932,7 +3394,11 @@
 
 "type.sport.basketball" = "Kosárlabda";
 
+"type.sport.beachvolleyball" = "Strandröplabda";
+
 "type.sport.bowls" = "Bowls";
+
+"type.sport.chess" = "Sakk";
 
 "type.sport.cricket" = "Krikett";
 
@@ -2953,13 +3419,35 @@
 
 "type.sport.shooting" = "Lövés";
 
+"type.sport.skateboard" = "Gördeszkázás";
+
 "type.sport.skiing" = "Síelés";
 
 "type.sport.soccer" = "Futball";
 
 "type.sport.swimming" = "Úszás";
 
+"type.sport.table_tennis" = "Asztalitenisz";
+
 "type.sport.tennis" = "Teniszpálya";
+
+"type.sport.volleyball" = "Röplabda";
+
+"type.sport.10pin" = "Bowling";
+
+"type.sport.9pin" = "Bowling";
+
+"type.sport.padel" = "Padel";
+
+"type.sport.futsal" = "Futsal";
+
+"type.sport.ice_hockey" = "Jéghoki";
+
+"type.sport.field_hockey" = "Gyeplabda";
+
+"type.sport.badminton" = "Tollaslabda";
+
+"type.sport.pelota" = "Baszk pelota";
 
 "type.tourism" = "Tourism";
 
@@ -3075,18 +3563,15 @@
 
 "type.wheelchair.yes" = "Teljesen akadálymentesített";
 
-/* en.wikipedia.org/wiki/Surface_lift */
-"type.piste_lift" = "Surface Lift";
+"type.aerialway.j.bar" = "J-bar Lift";
 
-"type.piste_lift.j.bar" = "J-bar Lift";
+"type.aerialway.magic_carpet" = "Magic Carpet";
 
-"type.piste_lift.magic_carpet" = "Magic Carpet";
+"type.aerialway.platter" = "Platter Lift";
 
-"type.piste_lift.platter" = "Platter Lift";
+"type.aerialway.rope_tow" = "Rope Tow";
 
-"type.piste_lift.rope_tow" = "Rope Tow";
-
-"type.piste_lift.t.bar" = "T-bar Lift";
+"type.aerialway.t.bar" = "T-bar Lift";
 
 "type.piste_type" = "Piste Type";
 

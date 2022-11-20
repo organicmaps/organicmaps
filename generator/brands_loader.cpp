@@ -15,14 +15,14 @@
 #include <utility>
 #include <vector>
 
-using namespace std;
-using base::GeoObjectId;
-
-namespace
+namespace generator
 {
+using base::GeoObjectId;
+using std::pair, std::string, std::unordered_map, std::vector;
+
 DECLARE_EXCEPTION(ParsingError, RootException);
 
-void ParseFeatureToBrand(json_t * root, string const & field, GeoObjectId::Type type,
+static void ParseFeatureToBrand(json_t * root, string const & field, GeoObjectId::Type type,
                          vector<pair<GeoObjectId, uint32_t>> & result)
 {
   auto arr = base::GetJSONOptionalField(root, field);
@@ -33,7 +33,7 @@ void ParseFeatureToBrand(json_t * root, string const & field, GeoObjectId::Type 
   json_t * value;
   json_object_foreach(arr, key, value)
   {
-    result.push_back(pair<GeoObjectId, uint32_t>());
+    result.emplace_back();
     uint64_t id;
     if (!strings::to_uint64(key, id))
       MYTHROW(ParsingError, ("Incorrect OSM id:", key));
@@ -42,7 +42,7 @@ void ParseFeatureToBrand(json_t * root, string const & field, GeoObjectId::Type 
   }
 }
 
-void ParseTranslations(json_t * root, set<string> const & keys,
+void ParseTranslations(json_t * root, std::set<string> const & keys,
                        unordered_map<uint32_t, string> & idToKey)
 {
   string const empty;
@@ -81,10 +81,7 @@ void ParseTranslations(json_t * root, set<string> const & keys,
     }
   }
 }
-}  // namespace
 
-namespace generator
-{
 bool LoadBrands(string const & brandsFilename, string const & translationsFilename,
                 unordered_map<GeoObjectId, string> & brands)
 {

@@ -1,49 +1,47 @@
 #include "indexer/data_header.hpp"
 #include "indexer/scales.hpp"
 
+#include "platform/mwm_version.hpp"
 #include "platform/platform.hpp"
 
 #include "coding/files_container.hpp"
 #include "coding/file_writer.hpp"
 #include "coding/point_coding.hpp"
 #include "coding/varint.hpp"
-#include "coding/write_to_sink.hpp"
 
 #include "defines.hpp"
 
-using namespace std;
-
-namespace
-{
-  template <class Sink, class Cont>
-  void SaveBytes(Sink & sink, Cont const & cont)
-  {
-    static_assert(sizeof(typename Cont::value_type) == 1, "");
-
-    uint32_t const count = static_cast<uint32_t>(cont.size());
-    WriteVarUint(sink, count);
-    if (count > 0)
-      sink.Write(&cont[0], count);
-  }
-
-  template <class Source, class Cont>
-  void LoadBytes(Source & src, Cont & cont)
-  {
-    static_assert(sizeof(typename Cont::value_type) == 1, "");
-    ASSERT(cont.empty(), ());
-
-    uint32_t const count = ReadVarUint<uint32_t>(src);
-    if (count > 0)
-    {
-      cont.resize(count);
-      src.Read(&cont[0], count);
-    }
-  }
-}  // namespace
-
 namespace feature
 {
-  DataHeader::DataHeader(string const & fileName)
+namespace
+{
+template <class Sink, class Cont>
+void SaveBytes(Sink & sink, Cont const & cont)
+{
+  static_assert(sizeof(typename Cont::value_type) == 1);
+
+  auto const count = static_cast<uint32_t>(cont.size());
+  WriteVarUint(sink, count);
+  if (count > 0)
+    sink.Write(&cont[0], count);
+}
+
+template <class Source, class Cont>
+void LoadBytes(Source & src, Cont & cont)
+{
+  static_assert(sizeof(typename Cont::value_type) == 1);
+  ASSERT(cont.empty(), ());
+
+  auto const count = ReadVarUint<uint32_t>(src);
+  if (count > 0)
+  {
+    cont.resize(count);
+    src.Read(&cont[0], count);
+  }
+}
+}  // namespace
+
+  DataHeader::DataHeader(std::string const & fileName)
     : DataHeader((FilesContainerR(GetPlatform().GetReader(fileName))))
   {
   }
@@ -55,12 +53,11 @@ namespace feature
 
   serial::GeometryCodingParams DataHeader::GetGeometryCodingParams(int scaleIndex) const
   {
-    return serial::GeometryCodingParams(
-        m_codingParams.GetCoordBits() - (m_scales.back() - m_scales[scaleIndex]) / 2,
-        m_codingParams.GetBasePointUint64());
+    return { static_cast<uint8_t>(m_codingParams.GetCoordBits() - (m_scales.back() - m_scales[scaleIndex]) / 2),
+             m_codingParams.GetBasePointUint64()};
   }
 
-  m2::RectD const DataHeader::GetBounds() const
+  m2::RectD DataHeader::GetBounds() const
   {
     return Int64ToRectObsolete(m_bounds, m_codingParams.GetCoordBits());
   }
@@ -70,7 +67,7 @@ namespace feature
     m_bounds = RectToInt64Obsolete(r, m_codingParams.GetCoordBits());
   }
 
-  pair<int, int> DataHeader::GetScaleRange() const
+  std::pair<int, int> DataHeader::GetScaleRange() const
   {
     using namespace scales;
 
@@ -81,14 +78,14 @@ namespace feature
 
     switch (type)
     {
-    case MapType::World: return make_pair(low, worldH);
-    case MapType::WorldCoasts: return make_pair(low, high);
+    case MapType::World: return {low, worldH};
+    case MapType::WorldCoasts: return {low, high};
     default:
       ASSERT_EQUAL(type, MapType::Country, ());
-      return make_pair(worldH + 1, high);
+      return {worldH + 1, high};
 
       // Uncomment this to test countries drawing in all scales.
-      //return make_pair(1, high);
+      //return {1, high};
     }
   }
 
@@ -107,14 +104,10 @@ namespace feature
 
   void DataHeader::Load(FilesContainerR const & cont)
   {
-    ModelReaderPtr headerReader = cont.GetReader(HEADER_FILE_TAG);
-    version::MwmVersion version;
-
-    CHECK(version::ReadVersion(cont, version), ());
-    Load(headerReader, version.GetFormat());
+    Load(cont.GetReader(HEADER_FILE_TAG));
   }
 
-  void DataHeader::Load(ModelReaderPtr const & r, version::Format format)
+  void DataHeader::Load(ModelReaderPtr const & r)
   {
     ReaderSource<ModelReaderPtr> src(r);
     m_codingParams.Load(src);
@@ -126,19 +119,12 @@ namespace feature
     LoadBytes(src, m_langs);
 
     m_type = static_cast<MapType>(ReadVarInt<int32_t>(src));
-    m_format = format;
 
-    if (!IsMWMSuitable())
-    {
-      // Actually, old versions of the app should read mwm header correct!
-      // This condition is also checked in adding mwm to the model.
-      return;
-    }
-
-    // Place all new serializable staff here.
+    if (m_type < MapType::World || m_type > MapType::Country || m_scales.size() != kMaxScalesCount)
+      MYTHROW(CorruptedMwmFile, (r.GetName()));
   }
 
-  string DebugPrint(DataHeader::MapType type)
+  std::string DebugPrint(DataHeader::MapType type)
   {
     switch (type)
     {

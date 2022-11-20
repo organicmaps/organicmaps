@@ -1,4 +1,4 @@
-‣ Ücretsiz uygulamamız sizi takip etmez ve reklam içermez.
+‣ Ücretsiz uygulamamız sizi takip etmez, reklam içermez ve bağışlarınız sayesinde desteklenir.
 ‣ Küçük ekibimiz tarafından, boş zamanlarımızda kendi paramız ve kullanıcılarımızdan gelen bağışlar/katkılar kullanılarak sürekli olarak geliştirilmektedir.
 ‣ Haritada yanlış veya eksik bir şey varsa, lütfen <b>OpenStreetMap'te</b> düzeltin ve gelecekteki harita güncellemelerinde değişikliklerinizi görün.
 ‣ Navigasyon veya arama çalışmıyorsa, lütfen bize e-posta gönderin. <i>HER</i> e-postayı yanıtlıyoruz ve en kısa sürede düzelteceğiz.
@@ -17,7 +17,7 @@
 
 Organic Maps'te <i>henüz</i> Android Auto, toplu taşıma, uydu haritaları ve diğer harika özellikler yok. Ancak <i>sizin yardımınız ve desteğinizle</i> bu dünyayı adım adım daha iyi hale getirebiliriz.
 
-Organic Maps, sevgiyle yapılmış saf ve organiktir:
+Organic Maps, <b>sevgiyle yapılmış saf ve organiktir</b>:
 
 • Çarpıcı hızlı çevrimdışı deneyim
 • Gizliliğinize saygı duyar

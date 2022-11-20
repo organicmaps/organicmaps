@@ -8,17 +8,16 @@
 
 #include "base/stl_helpers.hpp"
 
-#include <cstdint>
 #include <memory>
 #include <mutex>
 #include <string>
 #include <unordered_map>
-#include <utility>
 #include <vector>
 
 namespace feature
 {
 class MetadataBase;
+class Metadata;
 }  // namespace feature
 
 namespace indexer
@@ -60,6 +59,7 @@ public:
   using MetaIds = std::vector<std::pair<uint8_t, uint32_t>>;
 
   static std::unique_ptr<MetadataDeserializer> Load(Reader & reader);
+  static std::unique_ptr<MetadataDeserializer> Load(FilesContainerR const & cont);
 
   // Tries to get metadata of the feature with id |featureId|. Returns false if table
   // does not have entry for the feature.
@@ -88,7 +88,7 @@ private:
 class MetadataBuilder
 {
 public:
-  void Put(uint32_t featureId, feature::MetadataBase const & meta);
+  void Put(uint32_t featureId, feature::Metadata const & meta);
   void Freeze(Writer & writer) const;
 
 private:

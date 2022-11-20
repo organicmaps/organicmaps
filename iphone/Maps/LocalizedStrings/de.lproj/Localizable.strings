@@ -262,7 +262,7 @@
 "website" = "Webseite";
 
 /* Text in About menu, opens Organic Maps news website */
-"news" = "Nachrichten";
+"news" = "News";
 
 /* Text in menu */
 "github" = "GitHub";
@@ -282,11 +282,11 @@
 /* Text in menu */
 "instagram" = "Instagram";
 
+/* Text in the editor */
+"vk" = "VK";
+
 /* Text in menu */
 "openstreetmap" = "OpenStreetMap";
-
-/* Settings: Send feedback button and dialog title */
-"feedback" = "Feedback";
 
 /* Text in menu */
 "rate_the_app" = "Bewerten Sie die App";
@@ -296,6 +296,9 @@
 
 /* Button in the main Help dialog */
 "faq" = "Fragen und Antworten";
+
+/* Button in the main menu */
+"donate" = "Spenden";
 
 /* Button in the main Help dialog */
 "how_to_support_us" = "Wie unterstützen Sie uns?";
@@ -503,12 +506,6 @@
 
 "history" = "Verlauf";
 
-"opens_in" = "Öffnet in %@";
-
-"closes_in" = "Schließt in %@";
-
-"closed" = "Geschlossen";
-
 "search_not_found" = "Leider wurde nichts gefunden.";
 
 "search_not_found_query" = "Versuchen Sie bitte eine andere Suchanfrage.";
@@ -518,6 +515,12 @@
 "search_history_text" = "Hier werden Ihre letzten Suchanfragen angezeigt.";
 
 "clear_search" = "Suchverlauf löschen";
+
+/* Place Page link to Wikipedia article (if map object has it). */
+"read_in_wikipedia" = "Wikipedia";
+
+/* Place Page link to Wikimedia Commons. */
+"wikimedia_commons" = "Wikimedia Commons";
 
 "p2p_your_location" = "Ihr Standort";
 
@@ -578,6 +581,20 @@
 
 "today" = "Heute";
 
+"opens_tomorrow_at" = "Öffnet morgen um %@";
+
+"opens_dayoftheweek_at" = "Öffnet %1$@ um %2$@";
+
+"opens_at" = "Öffnet um %@";
+
+"opens_in" = "Öffnet in %@";
+
+"closes_at" = "Schließt um %@";
+
+"closes_in" = "Schließt in %@";
+
+"closed" = "Geschlossen";
+
 "add_opening_hours" = "Geschäftszeiten hinzufügen";
 
 "no_osm_account" = "Kein Konto bei OpenStreetMap?";
@@ -629,6 +646,8 @@
 "email_or_username" = "Email oder Benutzername";
 
 "phone" = "Telefon";
+
+"level" = "Stockwerk";
 
 "please_note" = "Bitte beachten";
 
@@ -750,6 +769,8 @@
 
 "miles_per_hour" = "mph";
 
+"hour" = "h";
+
 "minute" = "min";
 
 "placepage_place_description" = "Beschreibung";
@@ -798,10 +819,10 @@
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "An alle Benutzer senden?";
 
-/* iOS Dialog before publishing the modifications to the public map. */
+/* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "Stellen Sie sicher, dass Sie keine persönlichen Daten eingegeben haben.";
 
-"editor_share_to_all_dialog_message_2" = "Wir werden die Änderungen prüfen. Wenn wir Fragen haben, werden wir Sie per Email kontaktieren.";
+"editor_share_to_all_dialog_message_2" = "OpenStreetMap-Redakteure werden die Änderungen prüfen und sich bei Fragen mit Ihnen in Verbindung setzen.";
 
 "navigation_stop_button" = "Stopp";
 
@@ -856,16 +877,14 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Verkehrsdaten sind nicht verfügbar";
 
-/* Settings: "Send general feedback" button */
-"feedback_general" = "Allgemeines Feedback";
-
 "on" = "An";
 
 "off" = "Aus";
 
 "transliteration_title" = "Transliteration ins Lateinische";
 
-"core_exit" = "Beenden";
+/* Subway exits for public transport marks on the map */
+"core_exit" = "Ausgang";
 
 "routing_add_start_point" = "Fügen Sie einen Startpunkt hinzu, um eine Route zu planen";
 
@@ -1205,6 +1224,15 @@
 /* edit track screen title */
 "track_title" = "Strecke";
 
+/* Telegram group url for the "?" About page */
+"telegram_url" = "https://t.me/OrganicMapsApp";
+
+/* Instagram account url for the "?" About page */
+"instagram_url" = "https://www.instagram.com/organicmaps.app";
+
+/* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
+"translated_om_site_url" = "https://organicmaps.app/";
+
 
 /********** Types **********/
 
@@ -1300,6 +1328,10 @@
 
 "type.amenity.driving_school" = "Fahrschule";
 
+"type.amenity.music_school" = "Musikschule";
+
+"type.amenity.language_school" = "Sprachschule";
+
 "type.office.diplomatic" = "Botschaft";
 
 "type.amenity.fast_food" = "Fast-Food";
@@ -1342,19 +1374,25 @@
 
 "type.amenity.parking" = "Parkplatz";
 
-"type.amenity.parking.fee" = "Parkplatz";
+"type.amenity.parking.fee" = "Kostenpflichtiger Parkplatz";
 
 "type.amenity.parking.multi.storey" = "Parkhaus";
 
-"type.amenity.parking.no.access" = "Parkplatz";
+"type.amenity.parking.no.access" = "Privatparkplatz";
+
+"type.amenity.parking.permissive" = "Privatparkplatz";
+
+"type.amenity.parking.private" = "Privatparkplatz";
 
 "type.amenity.parking.park_and_ride" = "P+R-Parkplatz";
 
-"type.amenity.parking.permissive" = "Parkplatz";
-
-"type.amenity.parking.private" = "Parkplatz";
-
 "type.amenity.parking.underground" = "Tiefgarage";
+
+"type.amenity.parking_entrance.private" = "Parkplatzeinfahrt";
+
+"type.amenity.parking_entrance.permissive" = "Parkplatzeinfahrt";
+
+"type.amenity.parking_entrance" = "Parkplatzeinfahrt";
 
 "type.amenity.parking_space" = "Parkplatz";
 
@@ -1363,6 +1401,8 @@
 "type.amenity.parking_space.private" = "Parkplatz";
 
 "type.amenity.parking_space.underground" = "Parkplatz";
+
+"type.amenity.parking_space.disabled" = "Behindertenparkplatz";
 
 "type.amenity.payment_terminal" = "Bezahlterminal";
 
@@ -1503,6 +1543,8 @@
 
 "type.barrier.cycle_barrier" = "Umlaufschranke";
 
+"type.barrier.ditch" = "Graben";
+
 "type.barrier.entrance" = "Durchgang";
 
 "type.barrier.fence" = "Zaun";
@@ -1510,6 +1552,8 @@
 "type.barrier.gate" = "Tor";
 
 "type.barrier.hedge" = "Hecke";
+
+"type.barrier.kissing_gate" = "Tor";
 
 "type.barrier.lift_gate" = "Schranke";
 
@@ -1579,28 +1623,28 @@
 
 "type.cemetery.grave" = "Grab";
 
-"type.craft" = "Craft";
+"type.craft" = "Handwerk";
 
-"type.craft.beekeeper" = "Beekeeper";
+"type.craft.beekeeper" = "Imker";
 
-"type.craft.blacksmith" = "Blacksmith";
+"type.craft.blacksmith" = "Schmied";
 
 "type.craft.brewery" = "Brauerei";
 
 "type.craft.carpenter" = "Zimmermann";
 
-"type.craft.confectionery" = "Confectionery";
+"type.craft.confectionery" = "Konditor";
 
 "type.craft.electrician" = "Elektriker";
 
-"type.craft.electronics_repair" = "Electronics Repair";
+"type.craft.electronics_repair" = "Elektrogerätereparatur";
 
 "type.craft.gardener" = "Landschaftsgärtner";
 
-"type.craft.handicraft" = "Handicraft";
+"type.craft.handicraft" = "Kunsthandwerk";
 
 /* Heating, Ventilation, and Air Conditioning */
-"type.craft.hvac" = "Heizung";
+"type.craft.hvac" = "Heizung, Lüftung und Klimatisierung";
 
 "type.craft.metal_construction" = "Schlosser";
 
@@ -1610,11 +1654,11 @@
 
 "type.craft.plumber" = "Installateur";
 
-"type.craft.sawmill" = "Sawmill";
+"type.craft.sawmill" = "Sägewerk";
 
 "type.craft.shoemaker" = "Schuhmacher";
 
-"type.craft.winery" = "Winery";
+"type.craft.winery" = "Weingut";
 
 "type.craft.tailor" = "Schneider";
 
@@ -1801,6 +1845,8 @@
 "type.entrance" = "Eingang";
 
 "type.healthcare.laboratory" = "Medizinisches Labor";
+
+"type.healthcare.physiotherapist" = "Physiotherapeut";
 
 
 /********** Types: Roads **********/
@@ -2116,15 +2162,37 @@
 
 "type.historic.castle" = "Burg";
 
+"type.historic.castle.castrum" = "Römisches Militärlager";
+
 "type.historic.castle.defensive" = "Burg";
+
+"type.historic.castle.fortified_church" = "Wehrkirche";
+
+"type.historic.castle.fortress" = "Festung";
+
+"type.historic.castle.hillfort" = "Wallburg";
+
+"type.historic.castle.kremlin" = "Kreml";
+
+"type.historic.castle.manor" = "Herrenhaus";
+
+"type.historic.castle.palace" = "Palais";
+
+"type.historic.castle.shiro" = "Japanische Burg";
 
 "type.historic.castle.stately" = "Schloss";
 
+"type.historic.city_gate" = "Stadttor";
+
 "type.historic.citywalls" = "Stadtmauer";
 
-"type.historic.fort" = "Festung";
+"type.historic.fort" = "Fort";
+
+"type.historic.gallows" = "Galgen";
 
 "type.historic.memorial" = "Denkmal";
+
+"type.historic.memorial.cross" = "Gedenkkreuz";
 
 "type.historic.memorial.plaque" = "Gedenktafel";
 
@@ -2132,7 +2200,13 @@
 
 "type.historic.memorial.statue" = "Statue";
 
+"type.historic.memorial.stolperstein" = "Stolperstein";
+
+"type.historic.memorial.war_memorial" = "Kriegerdenkmal";
+
 "type.historic.monument" = "Monument";
+
+"type.historic.pillory" = "Pranger";
 
 "type.historic.ruins" = "Ruine";
 
@@ -2262,7 +2336,11 @@
 
 "type.leisure.fitness_station" = "Fitnessstation";
 
+"type.leisure.dance" = "Tanzsaal";
+
 "type.leisure.garden" = "Garten";
+
+"type.leisure.garden.residential" = "Garten";
 
 "type.leisure.golf_course" = "Golfplatz";
 
@@ -2296,13 +2374,9 @@
 
 "type.leisure.sports_centre" = "Sportzentrum";
 
-"type.leisure.sports_centre.climbing" = "Kletterhalle";
+"type.sport.climbing" = "Kletterhalle";
 
-"type.leisure.sports_centre.shooting" = "Schießanlage";
-
-"type.leisure.sports_centre.swimming" = "Schwimmhalle";
-
-"type.leisure.sports_centre.yoga" = "Yoga Studio";
+"type.sport.yoga" = "Yoga Studio";
 
 "type.leisure.stadium" = "Stadion";
 
@@ -2394,6 +2468,8 @@
 
 "type.natural.coastline" = "Küste";
 
+"type.natural.desert" = "Wüste";
+
 "type.natural.geyser" = "Geysir";
 
 "type.natural.glacier" = "Gletscher";
@@ -2472,8 +2548,6 @@
 
 "type.organic.yes" = "Bio";
 
-"type.place" = "Ort";
-
 "type.place.city" = "Großstadt";
 
 "type.place.city.capital" = "Hauptstadt";
@@ -2510,7 +2584,7 @@
 
 "type.place.island" = "Insel";
 
-"type.place.islet" = "kleine Insel";
+"type.place.islet" = "Kleine Insel";
 
 "type.place.isolated_dwelling" = "Kleinstsiedlung";
 
@@ -2530,9 +2604,9 @@
 
 "type.place.state.USA" = "Bundesstaat";
 
-"type.place.suburb" = "Stadtteil";
+"type.place.suburb" = "Vorort";
 
-"type.place.town" = "Stadt";
+"type.place.town" = "Kleinstadt";
 
 "type.place.village" = "Dorf";
 
@@ -2648,27 +2722,221 @@
 
 "type.railway.station.subway" = "U-Bahnstation";
 
+"type.railway.station.subway.adana" = "U-Bahnstation";
+
+"type.railway.station.subway.algiers" = "U-Bahnstation";
+
+"type.railway.station.subway.almaty" = "U-Bahnstation";
+
+"type.railway.station.subway.amsterdam" = "U-Bahnstation";
+
+"type.railway.station.subway.ankara" = "U-Bahnstation";
+
+"type.railway.station.subway.athens" = "U-Bahnstation";
+
+"type.railway.station.subway.baku" = "U-Bahnstation";
+
+"type.railway.station.subway.bangkok" = "U-Bahnstation";
+
 "type.railway.station.subway.barcelona" = "U-Bahnstation";
+
+"type.railway.station.subway.beijing" = "U-Bahnstation";
+
+"type.railway.station.subway.bengalore" = "U-Bahnstation";
 
 "type.railway.station.subway.berlin" = "U-Bahnstation";
 
+"type.railway.station.subway.brasilia" = "U-Bahnstation";
+
+"type.railway.station.subway.brescia" = "U-Bahnstation";
+
+"type.railway.station.subway.brussels" = "U-Bahnstation";
+
+"type.railway.station.subway.bucharest" = "U-Bahnstation";
+
+"type.railway.station.subway.budapest" = "U-Bahnstation";
+
+"type.railway.station.subway.buenos_aires" = "U-Bahnstation";
+
+"type.railway.station.subway.bursa" = "U-Bahnstation";
+
+"type.railway.station.subway.cairo" = "U-Bahnstation";
+
+"type.railway.station.subway.caracas" = "U-Bahnstation";
+
+"type.railway.station.subway.catania" = "U-Bahnstation";
+
+"type.railway.station.subway.changchun" = "U-Bahnstation";
+
+"type.railway.station.subway.chengdu" = "U-Bahnstation";
+
+"type.railway.station.subway.chicago" = "U-Bahnstation";
+
+"type.railway.station.subway.chongqing" = "U-Bahnstation";
+
+"type.railway.station.subway.dalian" = "U-Bahnstation";
+
+"type.railway.station.subway.delhi" = "U-Bahnstation";
+
+"type.railway.station.subway.dnepro" = "U-Bahnstation";
+
+"type.railway.station.subway.dubai" = "U-Bahnstation";
+
+"type.railway.station.subway.ekb" = "U-Bahnstation";
+
+"type.railway.station.subway.fukuoka" = "U-Bahnstation";
+
+"type.railway.station.subway.glasgow" = "U-Bahnstation";
+
+"type.railway.station.subway.guangzhou" = "U-Bahnstation";
+
+"type.railway.station.subway.hamburg" = "U-Bahnstation";
+
+"type.railway.station.subway.helsinki" = "U-Bahnstation";
+
+"type.railway.station.subway.hiroshima" = "U-Bahnstation";
+
+"type.railway.station.subway.isfahan" = "U-Bahnstation";
+
+"type.railway.station.subway.istanbul" = "U-Bahnstation";
+
+"type.railway.station.subway.izmir" = "U-Bahnstation";
+
+"type.railway.station.subway.kazan" = "U-Bahnstation";
+
+"type.railway.station.subway.kharkiv" = "U-Bahnstation";
+
 "type.railway.station.subway.kiev" = "U-Bahnstation";
+
+"type.railway.station.subway.kobe" = "U-Bahnstation";
+
+"type.railway.station.subway.kolkata" = "U-Bahnstation";
+
+"type.railway.station.subway.kunming" = "U-Bahnstation";
+
+"type.railway.station.subway.kyoto" = "U-Bahnstation";
+
+"type.railway.station.subway.la" = "U-Bahnstation";
+
+"type.railway.station.subway.lausanne" = "U-Bahnstation";
+
+"type.railway.station.subway.lille" = "U-Bahnstation";
+
+"type.railway.station.subway.lima" = "U-Bahnstation";
+
+"type.railway.station.subway.lisboa" = "U-Bahnstation";
 
 "type.railway.station.subway.london" = "U-Bahnstation";
 
+"type.railway.station.subway.lyon" = "U-Bahnstation";
+
 "type.railway.station.subway.madrid" = "U-Bahnstation";
+
+"type.railway.station.subway.malaga" = "U-Bahnstation";
+
+"type.railway.station.subway.manila" = "U-Bahnstation";
+
+"type.railway.station.subway.maracaibo" = "U-Bahnstation";
+
+"type.railway.station.subway.mashhad" = "U-Bahnstation";
+
+"type.railway.station.subway.mecca" = "U-Bahnstation";
+
+"type.railway.station.subway.medellin" = "U-Bahnstation";
+
+"type.railway.station.subway.mexico" = "U-Bahnstation";
+
+"type.railway.station.subway.milan" = "U-Bahnstation";
 
 "type.railway.station.subway.minsk" = "U-Bahnstation";
 
+"type.railway.station.subway.montreal" = "U-Bahnstation";
+
 "type.railway.station.subway.moscow" = "U-Bahnstation";
+
+"type.railway.station.subway.munchen" = "U-Bahnstation";
+
+"type.railway.station.subway.nagoya" = "U-Bahnstation";
 
 "type.railway.station.subway.newyork" = "U-Bahnstation";
 
+"type.railway.station.subway.nnov" = "U-Bahnstation";
+
+"type.railway.station.subway.novosibirsk" = "U-Bahnstation";
+
+"type.railway.station.subway.osaka" = "U-Bahnstation";
+
+"type.railway.station.subway.oslo" = "U-Bahnstation";
+
+"type.railway.station.subway.palma" = "U-Bahnstation";
+
+"type.railway.station.subway.panama" = "U-Bahnstation";
+
 "type.railway.station.subway.paris" = "U-Bahnstation";
+
+"type.railway.station.subway.philadelphia" = "U-Bahnstation";
+
+"type.railway.station.subway.pyongyang" = "U-Bahnstation";
+
+"type.railway.station.subway.rennes" = "U-Bahnstation";
+
+"type.railway.station.subway.rio" = "U-Bahnstation";
 
 "type.railway.station.subway.roma" = "U-Bahnstation";
 
+"type.railway.station.subway.rotterdam" = "U-Bahnstation";
+
+"type.railway.station.subway.samara" = "U-Bahnstation";
+
+"type.railway.station.subway.santiago" = "U-Bahnstation";
+
+"type.railway.station.subway.santo_domingo" = "U-Bahnstation";
+
+"type.railway.station.subway.saopaulo" = "U-Bahnstation";
+
+"type.railway.station.subway.sapporo" = "U-Bahnstation";
+
+"type.railway.station.subway.sendai" = "U-Bahnstation";
+
+"type.railway.station.subway.sf" = "U-Bahnstation";
+
+"type.railway.station.subway.shanghai" = "U-Bahnstation";
+
+"type.railway.station.subway.shiraz" = "U-Bahnstation";
+
+"type.railway.station.subway.sofia" = "U-Bahnstation";
+
 "type.railway.station.subway.spb" = "U-Bahnstation";
+
+"type.railway.station.subway.stockholm" = "U-Bahnstation";
+
+"type.railway.station.subway.tabriz" = "U-Bahnstation";
+
+"type.railway.station.subway.taipei" = "U-Bahnstation";
+
+"type.railway.station.subway.taoyuan" = "U-Bahnstation";
+
+"type.railway.station.subway.tashkent" = "U-Bahnstation";
+
+"type.railway.station.subway.tbilisi" = "U-Bahnstation";
+
+"type.railway.station.subway.tianjin" = "U-Bahnstation";
+
+"type.railway.station.subway.tokyo" = "U-Bahnstation";
+
+"type.railway.station.subway.valencia" = "U-Bahnstation";
+
+"type.railway.station.subway.vienna" = "U-Bahnstation";
+
+"type.railway.station.subway.warszawa" = "U-Bahnstation";
+
+"type.railway.station.subway.washington" = "U-Bahnstation";
+
+"type.railway.station.subway.wuhan" = "U-Bahnstation";
+
+"type.railway.station.subway.yerevan" = "U-Bahnstation";
+
+"type.railway.station.subway.yokohama" = "U-Bahnstation";
 
 "type.railway.subway" = "U-Bahn";
 
@@ -2678,27 +2946,221 @@
 
 "type.railway.subway_entrance" = "U-Bahn-Eingang";
 
+"type.railway.subway_entrance.adana" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.algiers" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.almaty" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.amsterdam" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.ankara" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.athens" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.baku" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.bangkok" = "U-Bahn-Eingang";
+
 "type.railway.subway_entrance.barcelona" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.beijing" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.bengalore" = "U-Bahn-Eingang";
 
 "type.railway.subway_entrance.berlin" = "U-Bahn-Eingang";
 
+"type.railway.subway_entrance.brasilia" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.brescia" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.brussels" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.bucharest" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.budapest" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.buenos_aires" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.bursa" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.cairo" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.caracas" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.catania" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.changchun" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.chengdu" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.chicago" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.chongqing" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.dalian" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.delhi" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.dnepro" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.dubai" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.ekb" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.fukuoka" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.glasgow" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.guangzhou" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.hamburg" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.helsinki" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.hiroshima" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.isfahan" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.istanbul" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.izmir" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.kazan" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.kharkiv" = "U-Bahn-Eingang";
+
 "type.railway.subway_entrance.kiev" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.kobe" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.kolkata" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.kunming" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.kyoto" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.la" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.lausanne" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.lille" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.lima" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.lisboa" = "U-Bahn-Eingang";
 
 "type.railway.subway_entrance.london" = "U-Bahn-Eingang";
 
+"type.railway.subway_entrance.lyon" = "U-Bahn-Eingang";
+
 "type.railway.subway_entrance.madrid" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.malaga" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.manila" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.maracaibo" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.mashhad" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.mecca" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.medellin" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.mexico" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.milan" = "U-Bahn-Eingang";
 
 "type.railway.subway_entrance.minsk" = "U-Bahn-Eingang";
 
+"type.railway.subway_entrance.montreal" = "U-Bahn-Eingang";
+
 "type.railway.subway_entrance.moscow" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.munchen" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.nagoya" = "U-Bahn-Eingang";
 
 "type.railway.subway_entrance.newyork" = "U-Bahn-Eingang";
 
+"type.railway.subway_entrance.nnov" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.novosibirsk" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.osaka" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.oslo" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.palma" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.panama" = "U-Bahn-Eingang";
+
 "type.railway.subway_entrance.paris" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.philadelphia" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.pyongyang" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.rennes" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.rio" = "U-Bahn-Eingang";
 
 "type.railway.subway_entrance.roma" = "U-Bahn-Eingang";
 
+"type.railway.subway_entrance.rotterdam" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.samara" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.santiago" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.santo_domingo" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.saopaulo" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.sapporo" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.sendai" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.sf" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.shanghai" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.shiraz" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.sofia" = "U-Bahn-Eingang";
+
 "type.railway.subway_entrance.spb" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.stockholm" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.tabriz" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.taipei" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.taoyuan" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.tashkent" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.tbilisi" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.tianjin" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.tokyo" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.valencia" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.vienna" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.warszawa" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.washington" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.wuhan" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.yerevan" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.yokohama" = "U-Bahn-Eingang";
 
 "type.railway.tram" = "Straßenbahn";
 
@@ -2876,7 +3338,7 @@
 
 "type.shop.art" = "Kunstgeschäft";
 
-"type.shop.baby_goods" = "Kinderladen";
+"type.shop.baby_goods" = "Babybedarf";
 
 "type.shop.bag" = "Taschen Shop";
 
@@ -2932,7 +3394,11 @@
 
 "type.sport.basketball" = "Basketball";
 
+"type.sport.beachvolleyball" = "Beachvolleyball";
+
 "type.sport.bowls" = "Bowls";
+
+"type.sport.chess" = "Schach";
 
 "type.sport.cricket" = "Cricket";
 
@@ -2953,17 +3419,39 @@
 
 "type.sport.shooting" = "Schießen";
 
+"type.sport.skateboard" = "Skateboarding";
+
 "type.sport.skiing" = "Skifahren";
 
 "type.sport.soccer" = "Fußball";
 
 "type.sport.swimming" = "Schwimmen";
 
+"type.sport.table_tennis" = "Tischtennis";
+
 "type.sport.tennis" = "Tennisspielfeld";
+
+"type.sport.volleyball" = "Volleyball";
+
+"type.sport.10pin" = "Bowling";
+
+"type.sport.9pin" = "Bowling";
+
+"type.sport.padel" = "Padel";
+
+"type.sport.futsal" = "Futsal";
+
+"type.sport.ice_hockey" = "Eishockey";
+
+"type.sport.field_hockey" = "Feldhockey";
+
+"type.sport.badminton" = "Badminton";
+
+"type.sport.pelota" = "Pelota Vasca";
 
 "type.tourism" = "Tourismus";
 
-"type.tourism.alpine_hut" = "bewirtschaftete Schutzhütte";
+"type.tourism.alpine_hut" = "Berghütte";
 
 "type.tourism.apartment" = "Ferienwohnung";
 
@@ -3019,7 +3507,7 @@
 
 "type.tourism.viewpoint" = "Aussichtspunkt";
 
-"type.tourism.wilderness_hut" = "unbewirtschaftete Schutzhütte";
+"type.tourism.wilderness_hut" = "Waldhütte";
 
 "type.tourism.zoo" = "Zoo";
 
@@ -3075,18 +3563,15 @@
 
 "type.wheelchair.yes" = "Vollständiger Zugang für Rollstühle";
 
-/* en.wikipedia.org/wiki/Surface_lift */
-"type.piste_lift" = "Lift";
+"type.aerialway.j.bar" = "Schlepplift";
 
-"type.piste_lift.j.bar" = "Schlepplift";
+"type.aerialway.magic_carpet" = "Laufband";
 
-"type.piste_lift.magic_carpet" = "Laufband";
+"type.aerialway.platter" = "Tellerlift";
 
-"type.piste_lift.platter" = "Tellerlift";
+"type.aerialway.rope_tow" = "Seillift";
 
-"type.piste_lift.rope_tow" = "Seillift";
-
-"type.piste_lift.t.bar" = "T-Bügel-Lift";
+"type.aerialway.t.bar" = "T-Bügel-Lift";
 
 "type.piste_type" = "Pistentyp";
 

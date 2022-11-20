@@ -5,48 +5,42 @@
 #include "coding/reader.hpp"
 #include "coding/writer.hpp"
 
-#include "std/target_os.hpp"
-
 #include <map>
 #include <string>
 #include <vector>
 
+namespace feature_metadata_test
+{
 using namespace std;
 using feature::Metadata;
+using EType = Metadata::EType;
 
-namespace
+map<EType, string> const kKeyValues =
 {
-map<Metadata::EType, string> const kKeyValues =
-{
-  {Metadata::FMD_ELE, "12345"},
-  {Metadata::FMD_EMAIL, "cool@email.at"},
+  {EType::FMD_ELE, "12345"},
+  {EType::FMD_EMAIL, "cool@email.at"},
   // This string is longer than 255 bytes.
-  {Metadata::FMD_URL, "http://rskxmkjwnikfnjqhyv"
-                      "kpjgaghhyhukjyenduiuanxgb"
-                      "mndtlpfphdgaizfcpzuiuspcp"
-                      "umeojwvekvjprlutwjmxudyzr"
-                      "lwwsepewevsuqelobqcfdzsoq"
-                      "ozkesghojribepbaitivmaqep"
-                      "hheckitonddqhbapdybhetvnw"
-                      "vlchjafepdjaeoaapysdvculx"
-                      "uwjbgdddryodiihvnpvmkgqvs"
-                      "mawbdsrbmnndcozmrgeoahbkh"
-                      "cevxkmtdqnxpxlsju.org"}
+  {EType::FMD_WEBSITE, "http://rskxmkjwnikfnjqhyvkpjgaghhyhukjyenduiuanxgbmndtlpfphdgaizfcpzuiuspcp"
+                       "umeojwvekvjprlutwjmxudyzrlwwsepewevsuqelobqcfdzsoqozkesghojribepbaitivmaqep"
+                       "hheckitonddqhbapdybhetvnwvlchjafepdjaeoaapysdvculxuwjbgdddryodiihvnpvmkgqvs"
+                       "mawbdsrbmnndcozmrgeoahbkhcevxkmtdqnxpxlsju.org"}
 };
-} // namespace
 
 UNIT_TEST(Feature_Metadata_GetSet)
 {
   Metadata m;
-  Metadata::EType const type = Metadata::FMD_ELE;
+  EType const type = EType::FMD_ELE;
+
   // Absent types should return empty values.
   TEST_EQUAL(m.Get(type), "", ());
   m.Set(type, "12345");
   TEST_EQUAL(m.Get(type), "12345", ());
   TEST_EQUAL(m.Size(), 1, ());
+
   // Same types should replace old metadata values.
-  m.Set(type, "5678");
-  TEST_EQUAL(m.Get(type), "5678", ());
+  m.Set(type, "9876543210");
+  TEST_EQUAL(m.Get(type), "9876543210", ());
+
   // Empty values should drop fields.
   m.Set(type, "");
   TEST_EQUAL(m.Get(type), "", ());
@@ -61,16 +55,13 @@ UNIT_TEST(Feature_Metadata_PresentTypes)
     m.Set(value.first, value.second);
   TEST_EQUAL(m.Size(), kKeyValues.size(), ());
 
-  auto const types = m.GetPresentTypes();
-  TEST_EQUAL(types.size(), m.Size(), ());
-  for (auto const t : types)
+  m.ForEach([&](Metadata::EType type, std::string const &)
   {
-    auto const type = static_cast<Metadata::EType>(t);
     TEST_EQUAL(m.Get(type), kKeyValues.find(type)->second, ());
-  }
+  });
 }
 
-UNIT_TEST(Feature_MwmTmpSerialization)
+UNIT_TEST(Feature_Metadata_MwmTmpSerialization)
 {
   Metadata original;
   for (auto const & value : kKeyValues)
@@ -89,7 +80,7 @@ UNIT_TEST(Feature_MwmTmpSerialization)
 
     for (auto const & value : kKeyValues)
       TEST_EQUAL(serialized.Get(value.first), value.second, ());
-    TEST_EQUAL(serialized.Get(Metadata::FMD_OPERATOR), "", ());
+    TEST_EQUAL(serialized.Get(EType::FMD_OPERATOR), "", ());
     TEST_EQUAL(serialized.Size(), kKeyValues.size(), ());
   }
 }
@@ -97,7 +88,7 @@ UNIT_TEST(Feature_MwmTmpSerialization)
 UNIT_TEST(Feature_Metadata_GetWikipedia)
 {
   Metadata m;
-  Metadata::EType const wikiType = Metadata::FMD_WIKIPEDIA;
+  EType const wikiType = EType::FMD_WIKIPEDIA;
   m.Set(wikiType, "en:Article");
   TEST_EQUAL(m.Get(wikiType), "en:Article", ());
 #ifdef OMIM_OS_MOBILE
@@ -137,7 +128,8 @@ UNIT_TEST(Feature_Metadata_Print)
   s.AddString("be", "Беларуская");
 
   Metadata m;
-  m.Set(Metadata::FMD_DESCRIPTION, s.GetBuffer());
+  m.Set(EType::FMD_DESCRIPTION, s.GetBuffer());
 
   TEST_EQUAL(DebugPrint(m), "Metadata [description=" + DebugPrint(s) + "]", ());
 }
+} // namespace feature_metadata_test

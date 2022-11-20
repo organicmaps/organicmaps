@@ -72,12 +72,7 @@ void TestPolylineEncode(string testName, vector<m2::PointU> const & points,
 vector<m2::PointU> SimplifyPoints(vector<m2::PointU> const & points, double eps)
 {
   vector<m2::PointU> simpPoints;
-
-  m2::SquaredDistanceFromSegmentToPoint<m2::PointD> const distFn;
-
-  SimplifyNearOptimal(
-      20 /* maxFalseLookAhead */, points.begin(), points.end(), eps, distFn,
-      AccumulateSkipSmallTrg<decltype(distFn), m2::PointU>(distFn, simpPoints, eps));
+  SimplifyDefault(points.begin(), points.end(), eps, simpPoints);
   return simpPoints;
 }
 

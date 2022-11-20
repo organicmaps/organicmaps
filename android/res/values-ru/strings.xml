@@ -182,8 +182,6 @@
 	<string name="copied_to_clipboard">Скопировано в буфер обмена: %1$s</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">Готово</string>
-	<!-- Prints version number in About dialog -->
-	<string name="version">Версия: %s</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">Данные OpenStreetMap: %s</string>
 	<!-- Confirmation in downloading countries dialog -->
@@ -226,6 +224,8 @@
 	<string name="duration_12_hours">12 часов</string>
 	<string name="duration_1_day">1 сутки</string>
 	<string name="search_show_on_map">Посмотреть на карте</string>
+	<!-- Menu button -->
+	<string name="menu">Меню</string>
 	<!-- Text in menu -->
 	<string name="website">Вебсайт</string>
 	<!-- Text in About menu, opens Organic Maps news website -->
@@ -238,6 +238,8 @@
 	<string name="help">Справка</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">Вопросы и ответы</string>
+	<!-- Button in the main menu -->
+	<string name="donate">Поддержать рублём</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">Как наc поддержать?</string>
 	<!-- Button in the main Help dialog -->
@@ -357,9 +359,6 @@
 	<string name="routing_arrive">Прибытие в %s</string>
 	<string name="categories">Категории</string>
 	<string name="history">История</string>
-	<string name="opens_in">Открывается через %s</string>
-	<string name="closes_in">Закроется через %s</string>
-	<string name="closed">Закрыто</string>
 	<string name="search_not_found">К сожалению, мы ничего не нашли.</string>
 	<string name="search_not_found_query">Попробуйте изменить условия поиска.</string>
 	<string name="search_history_title">История поиска</string>
@@ -403,14 +402,17 @@
 	<string name="day_off_today">Сегодня закрыто</string>
 	<string name="day_off">Закрыто</string>
 	<string name="today">Сегодня</string>
+	<string name="opens_in">Открывается через %s</string>
+	<string name="closes_in">Закроется через %s</string>
+	<string name="closed">Закрыто</string>
 	<string name="edit_opening_hours">Редактировать время работы</string>
 	<string name="no_osm_account">Не зарегистрированы в OpenStreetMap?</string>
 	<string name="register_at_openstreetmap">Зарегистрироваться</string>
 	<string name="login">Войти</string>
+	<string name="login_osm">Войти в OpenStreetMap</string>
 	<string name="password">Пароль</string>
 	<string name="forgot_password">Забыли пароль?</string>
 	<string name="logout">Выйти</string>
-	<string name="thank_you">Спасибо</string>
 	<string name="edit_place">Редактировать место</string>
 	<string name="add_language">Добавить язык</string>
 	<string name="street">Улица</string>
@@ -429,6 +431,7 @@
 	<!-- login text field -->
 	<string name="email_or_username">Эл. почта или имя пользователя</string>
 	<string name="editor_add_phone">Добавить телефон</string>
+	<string name="level">Этаж</string>
 	<string name="downloader_delete_map_dialog">Вместе с картой удалятся и внесенные вами правки на этой карте.</string>
 	<string name="downloader_update_maps">Обновите карты</string>
 	<string name="downloader_mwm_migration_dialog">Для построения маршрутов необходимо обновить все карты и построить маршрут заново.</string>
@@ -447,7 +450,8 @@
 	<string name="editor_report_problem_other_title">Другая проблема</string>
 	<string name="placepage_add_business_button">Добавить организацию</string>
 	<string name="message_invalid_feature_position">Объект не может находиться в этом месте</string>
-	<string name="login_to_make_edits_visible">Войдите, чтобы ваши изменения увидели другие пользователи.</string>
+	<string name="osm_presentation">Все данные карты поступают из проекта OpenStreetMap. Это как Википедия для карт, где вы можете добавлять или редактировать места, и они становятся доступными для миллионов пользователей по всему миру.</string>
+	<string name="login_to_make_edits_visible">Авторизуйтесь в OpenStreetMap.org, чтобы ваши изменения увидели другие пользователи.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d из %2$d</string>
 	<string name="download_over_mobile_header">Загрузить через сотовую связь?</string>
@@ -484,7 +488,6 @@
 	<string name="minute">мин</string>
 	<string name="placepage_place_description">Описание</string>
 	<string name="placepage_more_button">Ещё</string>
-	<string name="placepage_more_reviews_button">Ещё отзывы</string>
 	<string name="placepage_call_button">Позвонить</string>
 	<string name="placepage_edit_bookmark_button">Редактировать метку</string>
 	<string name="editor_comment_hint">Коментарий…</string>
@@ -507,17 +510,15 @@
 	<string name="placepage_add_place_button">Добавить место на карту</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Отправить всем пользователям?</string>
-	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Убедитесь, что вы не ввели личные данные.</string>
-	<string name="editor_share_to_all_dialog_message_2">Если при проверке изменений возникнут вопросы, мы напишем вам на email.</string>
+	<string name="editor_share_to_all_dialog_message_2">Редакторы OpenStreetMap проверят изменения и свяжутся с вами, если у них возникнут вопросы.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps — быстрые и бесплатные карты, которые работают без Интернета. Все картографические данные берутся из OpenStreetMap.org, там можно самостоятельно исправлять ошибки и добавлять новые объекты. В Organic Maps нет рекламы и сбора персональных данных. Это проект с открытым исходным кодом, создаваемый энтузиастами в свободное время. Будем рады вашей поддержке и обратной связи!</string>
 	<!-- For the first routing -->
 	<string name="accept">Принять</string>
 	<!-- For the first routing -->
 	<string name="decline">Отклонить</string>
-	<!-- A noun - a button name used to show search results in list form -->
-	<string name="search_in_table">Список</string>
 	<string name="mobile_data_dialog">Загружать дополнительную информацию через мобильный интернет?</string>
 	<string name="mobile_data_option_always">Всегда</string>
 	<string name="mobile_data_option_today">Только сегодня</string>
@@ -538,10 +539,11 @@
 	<string name="on">Вкл.</string>
 	<string name="off">Выкл.</string>
 	<string name="prefs_languages_information">Подсказки озвучиваются системным синтезатором речи (TTS). На многих устройствах используется Google TTS, его можно загрузить или обновить в Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">Для некоторых языков, возможно, необходимо установить дополнительный синтезатор речи (TTS) из магазина приложений (Google Play, Samsung Apps, App Gallery, FDroid).\nЧтобы настроить синтезатор речи, перейдите в Настройки → Язык и ввод → Синтез речи.\nЗдесь можно установить дополнительные языковые пакеты или выбрать синтезатор речи.</string>
+	<string name="prefs_languages_information_off">Для некоторых языков, возможно, необходимо установить дополнительный синтезатор речи (TTS) из магазина приложений (Google Play, Galaxy Store, App Gallery, FDroid).\nЧтобы настроить синтезатор речи, перейдите в Настройки → Язык и ввод → Синтез речи.\nЗдесь можно установить дополнительные языковые пакеты или выбрать синтезатор речи.</string>
 	<string name="prefs_languages_information_off_link">Более подробная информация — в этом руководстве.</string>
 	<string name="transliteration_title">Латинская транслитерация</string>
 	<string name="learn_more">Узнать больше</string>
+	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">Выход</string>
 	<string name="routing_add_start_point">Добавьте стартовую точку, чтобы построить маршрут</string>
 	<string name="routing_add_finish_point">Добавьте конечную точку, чтобы построить маршрут</string>
@@ -718,6 +720,12 @@
 	<string name="enable_show_on_lock_screen">Показывать на экране блокировки</string>
 	<!-- Description in preferences -->
 	<string name="enable_show_on_lock_screen_description">Если эта функция включена, вам не нужно каждый раз разблокировать устройство во время работы приложения.</string>
+	<!-- OpenStreetMap text on splash screen -->
+	<string name="splash_subtitle">Картографические данные из OpenStreetMap</string>
+	<!-- Telegram group url for the "?" About page -->
+	<string name="telegram_url">https://t.me/OrganicMapsRu</string>
+	<!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
+	<string name="translated_om_site_url">https://organicmaps.app/ru/</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway">Канатная дорога</string>
@@ -766,6 +774,8 @@
 	<string name="type.amenity.doctors">Врач</string>
 	<string name="type.amenity.drinking_water">Питьевая вода</string>
 	<string name="type.amenity.driving_school">Автошкола</string>
+	<string name="type.amenity.music_school">Музыкальная школа</string>
+	<string name="type.amenity.language_school">Языковая школа</string>
 	<string name="type.office.diplomatic">Посольство</string>
 	<string name="type.amenity.fast_food">Фастфуд</string>
 	<string name="type.amenity.ferry_terminal">Паром</string>
@@ -788,17 +798,21 @@
 	<string name="type.amenity.nightclub">Ночной клуб</string>
 	<string name="type.amenity.nursing_home">Дом престарелых</string>
 	<string name="type.amenity.parking">Парковка</string>
-	<string name="type.amenity.parking.fee">Парковка</string>
-	<string name="type.amenity.parking.multi.storey">Парковка</string>
-	<string name="type.amenity.parking.no.access">Парковка</string>
+	<string name="type.amenity.parking.fee">Платная парковка</string>
+	<string name="type.amenity.parking.multi.storey">Многоэтажная парковка</string>
+	<string name="type.amenity.parking.no.access">Частная парковка</string>
+	<string name="type.amenity.parking.permissive">Частная парковка</string>
+	<string name="type.amenity.parking.private">Частная парковка</string>
 	<string name="type.amenity.parking.park_and_ride">Парковка</string>
-	<string name="type.amenity.parking.permissive">Парковка</string>
-	<string name="type.amenity.parking.private">Парковка</string>
-	<string name="type.amenity.parking.underground">Парковка</string>
+	<string name="type.amenity.parking.underground">Подземный паркинг</string>
+	<string name="type.amenity.parking_entrance.private">Въезд на парковку</string>
+	<string name="type.amenity.parking_entrance.permissive">Въезд на парковку</string>
+	<string name="type.amenity.parking_entrance">Въезд на парковку</string>
 	<string name="type.amenity.parking_space">Парковочное место</string>
 	<string name="type.amenity.parking_space.permissive">Парковочное место</string>
 	<string name="type.amenity.parking_space.private">Парковочное место</string>
 	<string name="type.amenity.parking_space.underground">Парковочное место</string>
+	<string name="type.amenity.parking_space.disabled">Парковочное место для инвалидов</string>
 	<string name="type.amenity.payment_terminal">Терминал оплаты</string>
 	<string name="type.amenity.pharmacy">Аптека</string>
 	<string name="type.amenity.place_of_worship">Храм</string>
@@ -869,10 +883,12 @@
 	<string name="type.barrier.chain">Цепь</string>
 	<string name="type.barrier.city_wall">Городская стена</string>
 	<string name="type.barrier.cycle_barrier">Велосипедный барьер</string>
+	<string name="type.barrier.ditch">Ров</string>
 	<string name="type.barrier.entrance">Проход</string>
 	<string name="type.barrier.fence">Забор</string>
 	<string name="type.barrier.gate">Ворота</string>
 	<string name="type.barrier.hedge">Живая изгородь</string>
+	<string name="type.barrier.kissing_gate">Ворота</string>
 	<string name="type.barrier.lift_gate">Шлагбаум</string>
 	<string name="type.barrier.retaining_wall">Поддерживающая стена</string>
 	<string name="type.barrier.stile">Перелаз</string>
@@ -1019,6 +1035,7 @@
 	<string name="type.emergency.phone">Телефон для экстренных вызовов</string>
 	<string name="type.entrance">Вход</string>
 	<string name="type.healthcare.laboratory">Медицинская лаборатория</string>
+	<string name="type.healthcare.physiotherapist">Физиотерапевт</string>
 
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway">Дорога</string>
@@ -1197,15 +1214,29 @@
 	<string name="type.historic.battlefield">Поле боя</string>
 	<string name="type.historic.boundary_stone">Пограничный камень</string>
 	<string name="type.historic.castle">Замок</string>
+	<string name="type.historic.castle.castrum">Каструм</string>
 	<string name="type.historic.castle.defensive">Замок</string>
-	<string name="type.historic.castle.stately">Замок</string>
+	<string name="type.historic.castle.fortified_church">Укреплённая церковь</string>
+	<string name="type.historic.castle.fortress">Крепость</string>
+	<string name="type.historic.castle.hillfort">Городище</string>
+	<string name="type.historic.castle.kremlin">Кремль</string>
+	<string name="type.historic.castle.manor">Усадьба</string>
+	<string name="type.historic.castle.palace">Дворец</string>
+	<string name="type.historic.castle.shiro">Замки Японии</string>
+	<string name="type.historic.castle.stately">Шато</string>
+	<string name="type.historic.city_gate">Городские ворота</string>
 	<string name="type.historic.citywalls">Городская стена</string>
 	<string name="type.historic.fort">Форт</string>
+	<string name="type.historic.gallows">Виселица</string>
 	<string name="type.historic.memorial">Мемориал</string>
+	<string name="type.historic.memorial.cross">Памятный крест</string>
 	<string name="type.historic.memorial.plaque">Памятная доска</string>
 	<string name="type.historic.memorial.sculpture">Скульптура</string>
 	<string name="type.historic.memorial.statue">Статуя</string>
+	<string name="type.historic.memorial.stolperstein">Камни преткновения</string>
+	<string name="type.historic.memorial.war_memorial">Военный мемориал</string>
 	<string name="type.historic.monument">Памятник</string>
+	<string name="type.historic.pillory">Позорный столб</string>
 	<string name="type.historic.ruins">Руины</string>
 	<string name="type.historic.ship">Корабль</string>
 	<string name="type.historic.tomb">Гробница</string>
@@ -1258,7 +1289,9 @@
 	<string name="type.leisure.dog_park">Место для выгула собак</string>
 	<string name="type.leisure.fitness_centre">Фитнес-клуб</string>
 	<string name="type.leisure.fitness_station">Спортивные снаряды</string>
+	<string name="type.leisure.dance">Танцпол</string>
 	<string name="type.leisure.garden">Сад</string>
+	<string name="type.leisure.garden.residential">Частный сад</string>
 	<string name="type.leisure.golf_course">Площадка для гольфа</string>
 	<string name="type.leisure.ice_rink">Каток</string>
 	<string name="type.leisure.landscape_reserve">Ландшафтный заповедник</string>
@@ -1275,10 +1308,8 @@
 	<string name="type.leisure.sauna">Сауна</string>
 	<string name="type.leisure.slipway">Лодочный спуск</string>
 	<string name="type.leisure.sports_centre">Спорткомплекс</string>
-	<string name="type.leisure.sports_centre.climbing">Скалодром</string>
-	<string name="type.leisure.sports_centre.shooting">Тир</string>
-	<string name="type.leisure.sports_centre.swimming">Плавательный бассейн</string>
-	<string name="type.leisure.sports_centre.yoga">Йога-центр</string>
+	<string name="type.sport.climbing">Скалодром</string>
+	<string name="type.sport.yoga">Йога-центр</string>
 	<string name="type.leisure.stadium">Стадион</string>
 	<string name="type.leisure.swimming_pool">Плавательный бассейн</string>
 	<string name="type.leisure.swimming_pool.private">Плавательный бассейн</string>
@@ -1322,6 +1353,7 @@
 	<string name="type.natural.earth_bank">Обрыв</string>
 	<string name="type.man_made.embankment">Насыпь</string>
 	<string name="type.natural.coastline">Береговая линия</string>
+	<string name="type.natural.desert">Пустыня</string>
 	<string name="type.natural.geyser">Гейзер</string>
 	<string name="type.natural.glacier">Ледник</string>
 	<string name="type.natural.grassland">Луг</string>
@@ -1361,7 +1393,6 @@
 	<string name="type.office.telecommunication">Телекоммуникационная компания</string>
 	<string name="type.organic.only">Эко</string>
 	<string name="type.organic.yes">Эко</string>
-	<string name="type.place">Место</string>
 	<string name="type.place.city">Город</string>
 	<string name="type.place.city.capital">Столица</string>
 	<string name="type.place.city.capital.10">Город</string>
@@ -1381,7 +1412,7 @@
 	<string name="type.place.hamlet">Посёлок</string>
 	<string name="type.place.island">Остров</string>
 	<string name="type.place.islet">Остров</string>
-	<string name="type.place.isolated_dwelling">Жилище</string>
+	<string name="type.place.isolated_dwelling">Хутор</string>
 	<string name="type.place.locality">Местность</string>
 	<string name="type.place.neighbourhood">Микрорайон</string>
 	<string name="type.place.ocean">Океан</string>
@@ -1449,32 +1480,226 @@
 	<string name="type.railway.station.light_rail">Ж/д станция</string>
 	<string name="type.railway.station.monorail">Ж/д станция</string>
 	<string name="type.railway.station.subway">Метро</string>
+	<string name="type.railway.station.subway.adana">Метро</string>
+	<string name="type.railway.station.subway.algiers">Метро</string>
+	<string name="type.railway.station.subway.almaty">Метро</string>
+	<string name="type.railway.station.subway.amsterdam">Метро</string>
+	<string name="type.railway.station.subway.ankara">Метро</string>
+	<string name="type.railway.station.subway.athens">Метро</string>
+	<string name="type.railway.station.subway.baku">Метро</string>
+	<string name="type.railway.station.subway.bangkok">Метро</string>
 	<string name="type.railway.station.subway.barcelona">Метро</string>
+	<string name="type.railway.station.subway.beijing">Метро</string>
+	<string name="type.railway.station.subway.bengalore">Метро</string>
 	<string name="type.railway.station.subway.berlin">Метро</string>
+	<string name="type.railway.station.subway.brasilia">Метро</string>
+	<string name="type.railway.station.subway.brescia">Метро</string>
+	<string name="type.railway.station.subway.brussels">Метро</string>
+	<string name="type.railway.station.subway.bucharest">Метро</string>
+	<string name="type.railway.station.subway.budapest">Метро</string>
+	<string name="type.railway.station.subway.buenos_aires">Метро</string>
+	<string name="type.railway.station.subway.bursa">Метро</string>
+	<string name="type.railway.station.subway.cairo">Метро</string>
+	<string name="type.railway.station.subway.caracas">Метро</string>
+	<string name="type.railway.station.subway.catania">Метро</string>
+	<string name="type.railway.station.subway.changchun">Метро</string>
+	<string name="type.railway.station.subway.chengdu">Метро</string>
+	<string name="type.railway.station.subway.chicago">Метро</string>
+	<string name="type.railway.station.subway.chongqing">Метро</string>
+	<string name="type.railway.station.subway.dalian">Метро</string>
+	<string name="type.railway.station.subway.delhi">Метро</string>
+	<string name="type.railway.station.subway.dnepro">Метро</string>
+	<string name="type.railway.station.subway.dubai">Метро</string>
+	<string name="type.railway.station.subway.ekb">Метро</string>
+	<string name="type.railway.station.subway.fukuoka">Метро</string>
+	<string name="type.railway.station.subway.glasgow">Метро</string>
+	<string name="type.railway.station.subway.guangzhou">Метро</string>
+	<string name="type.railway.station.subway.hamburg">Метро</string>
+	<string name="type.railway.station.subway.helsinki">Метро</string>
+	<string name="type.railway.station.subway.hiroshima">Метро</string>
+	<string name="type.railway.station.subway.isfahan">Метро</string>
+	<string name="type.railway.station.subway.istanbul">Метро</string>
+	<string name="type.railway.station.subway.izmir">Метро</string>
+	<string name="type.railway.station.subway.kazan">Метро</string>
+	<string name="type.railway.station.subway.kharkiv">Метро</string>
 	<string name="type.railway.station.subway.kiev">Метро</string>
+	<string name="type.railway.station.subway.kobe">Метро</string>
+	<string name="type.railway.station.subway.kolkata">Метро</string>
+	<string name="type.railway.station.subway.kunming">Метро</string>
+	<string name="type.railway.station.subway.kyoto">Метро</string>
+	<string name="type.railway.station.subway.la">Метро</string>
+	<string name="type.railway.station.subway.lausanne">Метро</string>
+	<string name="type.railway.station.subway.lille">Метро</string>
+	<string name="type.railway.station.subway.lima">Метро</string>
+	<string name="type.railway.station.subway.lisboa">Метро</string>
 	<string name="type.railway.station.subway.london">Метро</string>
+	<string name="type.railway.station.subway.lyon">Метро</string>
 	<string name="type.railway.station.subway.madrid">Метро</string>
+	<string name="type.railway.station.subway.malaga">Метро</string>
+	<string name="type.railway.station.subway.manila">Метро</string>
+	<string name="type.railway.station.subway.maracaibo">Метро</string>
+	<string name="type.railway.station.subway.mashhad">Метро</string>
+	<string name="type.railway.station.subway.mecca">Метро</string>
+	<string name="type.railway.station.subway.medellin">Метро</string>
+	<string name="type.railway.station.subway.mexico">Метро</string>
+	<string name="type.railway.station.subway.milan">Метро</string>
 	<string name="type.railway.station.subway.minsk">Метро</string>
+	<string name="type.railway.station.subway.montreal">Метро</string>
 	<string name="type.railway.station.subway.moscow">Метро</string>
+	<string name="type.railway.station.subway.munchen">Метро</string>
+	<string name="type.railway.station.subway.nagoya">Метро</string>
 	<string name="type.railway.station.subway.newyork">Метро</string>
+	<string name="type.railway.station.subway.nnov">Метро</string>
+	<string name="type.railway.station.subway.novosibirsk">Метро</string>
+	<string name="type.railway.station.subway.osaka">Метро</string>
+	<string name="type.railway.station.subway.oslo">Метро</string>
+	<string name="type.railway.station.subway.palma">Метро</string>
+	<string name="type.railway.station.subway.panama">Метро</string>
 	<string name="type.railway.station.subway.paris">Метро</string>
+	<string name="type.railway.station.subway.philadelphia">Метро</string>
+	<string name="type.railway.station.subway.pyongyang">Метро</string>
+	<string name="type.railway.station.subway.rennes">Метро</string>
+	<string name="type.railway.station.subway.rio">Метро</string>
 	<string name="type.railway.station.subway.roma">Метро</string>
+	<string name="type.railway.station.subway.rotterdam">Метро</string>
+	<string name="type.railway.station.subway.samara">Метро</string>
+	<string name="type.railway.station.subway.santiago">Метро</string>
+	<string name="type.railway.station.subway.santo_domingo">Метро</string>
+	<string name="type.railway.station.subway.saopaulo">Метро</string>
+	<string name="type.railway.station.subway.sapporo">Метро</string>
+	<string name="type.railway.station.subway.sendai">Метро</string>
+	<string name="type.railway.station.subway.sf">Метро</string>
+	<string name="type.railway.station.subway.shanghai">Метро</string>
+	<string name="type.railway.station.subway.shiraz">Метро</string>
+	<string name="type.railway.station.subway.sofia">Метро</string>
 	<string name="type.railway.station.subway.spb">Метро</string>
+	<string name="type.railway.station.subway.stockholm">Метро</string>
+	<string name="type.railway.station.subway.tabriz">Метро</string>
+	<string name="type.railway.station.subway.taipei">Метро</string>
+	<string name="type.railway.station.subway.taoyuan">Метро</string>
+	<string name="type.railway.station.subway.tashkent">Метро</string>
+	<string name="type.railway.station.subway.tbilisi">Метро</string>
+	<string name="type.railway.station.subway.tianjin">Метро</string>
+	<string name="type.railway.station.subway.tokyo">Метро</string>
+	<string name="type.railway.station.subway.valencia">Метро</string>
+	<string name="type.railway.station.subway.vienna">Метро</string>
+	<string name="type.railway.station.subway.warszawa">Метро</string>
+	<string name="type.railway.station.subway.washington">Метро</string>
+	<string name="type.railway.station.subway.wuhan">Метро</string>
+	<string name="type.railway.station.subway.yerevan">Метро</string>
+	<string name="type.railway.station.subway.yokohama">Метро</string>
 	<string name="type.railway.subway">Ветка метро</string>
 	<string name="type.railway.subway.bridge">Ветка метро</string>
 	<string name="type.railway.subway.tunnel">Ветка метро</string>
 	<string name="type.railway.subway_entrance">Вход в метро</string>
-	<string name="type.railway.subway_entrance.barcelona">Метро</string>
-	<string name="type.railway.subway_entrance.berlin">Метро</string>
-	<string name="type.railway.subway_entrance.kiev">Метро</string>
-	<string name="type.railway.subway_entrance.london">Метро</string>
-	<string name="type.railway.subway_entrance.madrid">Метро</string>
-	<string name="type.railway.subway_entrance.minsk">Метро</string>
-	<string name="type.railway.subway_entrance.moscow">Метро</string>
-	<string name="type.railway.subway_entrance.newyork">Метро</string>
-	<string name="type.railway.subway_entrance.paris">Метро</string>
-	<string name="type.railway.subway_entrance.roma">Метро</string>
-	<string name="type.railway.subway_entrance.spb">Метро</string>
+	<string name="type.railway.subway_entrance.adana">Вход в метро</string>
+	<string name="type.railway.subway_entrance.algiers">Вход в метро</string>
+	<string name="type.railway.subway_entrance.almaty">Вход в метро</string>
+	<string name="type.railway.subway_entrance.amsterdam">Вход в метро</string>
+	<string name="type.railway.subway_entrance.ankara">Вход в метро</string>
+	<string name="type.railway.subway_entrance.athens">Вход в метро</string>
+	<string name="type.railway.subway_entrance.baku">Вход в метро</string>
+	<string name="type.railway.subway_entrance.bangkok">Вход в метро</string>
+	<string name="type.railway.subway_entrance.barcelona">Вход в метро</string>
+	<string name="type.railway.subway_entrance.beijing">Вход в метро</string>
+	<string name="type.railway.subway_entrance.bengalore">Вход в метро</string>
+	<string name="type.railway.subway_entrance.berlin">Вход в метро</string>
+	<string name="type.railway.subway_entrance.brasilia">Вход в метро</string>
+	<string name="type.railway.subway_entrance.brescia">Вход в метро</string>
+	<string name="type.railway.subway_entrance.brussels">Вход в метро</string>
+	<string name="type.railway.subway_entrance.bucharest">Вход в метро</string>
+	<string name="type.railway.subway_entrance.budapest">Вход в метро</string>
+	<string name="type.railway.subway_entrance.buenos_aires">Вход в метро</string>
+	<string name="type.railway.subway_entrance.bursa">Вход в метро</string>
+	<string name="type.railway.subway_entrance.cairo">Вход в метро</string>
+	<string name="type.railway.subway_entrance.caracas">Вход в метро</string>
+	<string name="type.railway.subway_entrance.catania">Вход в метро</string>
+	<string name="type.railway.subway_entrance.changchun">Вход в метро</string>
+	<string name="type.railway.subway_entrance.chengdu">Вход в метро</string>
+	<string name="type.railway.subway_entrance.chicago">Вход в метро</string>
+	<string name="type.railway.subway_entrance.chongqing">Вход в метро</string>
+	<string name="type.railway.subway_entrance.dalian">Вход в метро</string>
+	<string name="type.railway.subway_entrance.delhi">Вход в метро</string>
+	<string name="type.railway.subway_entrance.dnepro">Вход в метро</string>
+	<string name="type.railway.subway_entrance.dubai">Вход в метро</string>
+	<string name="type.railway.subway_entrance.ekb">Вход в метро</string>
+	<string name="type.railway.subway_entrance.fukuoka">Вход в метро</string>
+	<string name="type.railway.subway_entrance.glasgow">Вход в метро</string>
+	<string name="type.railway.subway_entrance.guangzhou">Вход в метро</string>
+	<string name="type.railway.subway_entrance.hamburg">Вход в метро</string>
+	<string name="type.railway.subway_entrance.helsinki">Вход в метро</string>
+	<string name="type.railway.subway_entrance.hiroshima">Вход в метро</string>
+	<string name="type.railway.subway_entrance.isfahan">Вход в метро</string>
+	<string name="type.railway.subway_entrance.istanbul">Вход в метро</string>
+	<string name="type.railway.subway_entrance.izmir">Вход в метро</string>
+	<string name="type.railway.subway_entrance.kazan">Вход в метро</string>
+	<string name="type.railway.subway_entrance.kharkiv">Вход в метро</string>
+	<string name="type.railway.subway_entrance.kiev">Вход в метро</string>
+	<string name="type.railway.subway_entrance.kobe">Вход в метро</string>
+	<string name="type.railway.subway_entrance.kolkata">Вход в метро</string>
+	<string name="type.railway.subway_entrance.kunming">Вход в метро</string>
+	<string name="type.railway.subway_entrance.kyoto">Вход в метро</string>
+	<string name="type.railway.subway_entrance.la">Вход в метро</string>
+	<string name="type.railway.subway_entrance.lausanne">Вход в метро</string>
+	<string name="type.railway.subway_entrance.lille">Вход в метро</string>
+	<string name="type.railway.subway_entrance.lima">Вход в метро</string>
+	<string name="type.railway.subway_entrance.lisboa">Вход в метро</string>
+	<string name="type.railway.subway_entrance.london">Вход в метро</string>
+	<string name="type.railway.subway_entrance.lyon">Вход в метро</string>
+	<string name="type.railway.subway_entrance.madrid">Вход в метро</string>
+	<string name="type.railway.subway_entrance.malaga">Вход в метро</string>
+	<string name="type.railway.subway_entrance.manila">Вход в метро</string>
+	<string name="type.railway.subway_entrance.maracaibo">Вход в метро</string>
+	<string name="type.railway.subway_entrance.mashhad">Вход в метро</string>
+	<string name="type.railway.subway_entrance.mecca">Вход в метро</string>
+	<string name="type.railway.subway_entrance.medellin">Вход в метро</string>
+	<string name="type.railway.subway_entrance.mexico">Вход в метро</string>
+	<string name="type.railway.subway_entrance.milan">Вход в метро</string>
+	<string name="type.railway.subway_entrance.minsk">Вход в метро</string>
+	<string name="type.railway.subway_entrance.montreal">Вход в метро</string>
+	<string name="type.railway.subway_entrance.moscow">Вход в метро</string>
+	<string name="type.railway.subway_entrance.munchen">Вход в метро</string>
+	<string name="type.railway.subway_entrance.nagoya">Вход в метро</string>
+	<string name="type.railway.subway_entrance.newyork">Вход в метро</string>
+	<string name="type.railway.subway_entrance.nnov">Вход в метро</string>
+	<string name="type.railway.subway_entrance.novosibirsk">Вход в метро</string>
+	<string name="type.railway.subway_entrance.osaka">Вход в метро</string>
+	<string name="type.railway.subway_entrance.oslo">Вход в метро</string>
+	<string name="type.railway.subway_entrance.palma">Вход в метро</string>
+	<string name="type.railway.subway_entrance.panama">Вход в метро</string>
+	<string name="type.railway.subway_entrance.paris">Вход в метро</string>
+	<string name="type.railway.subway_entrance.philadelphia">Вход в метро</string>
+	<string name="type.railway.subway_entrance.pyongyang">Вход в метро</string>
+	<string name="type.railway.subway_entrance.rennes">Вход в метро</string>
+	<string name="type.railway.subway_entrance.rio">Вход в метро</string>
+	<string name="type.railway.subway_entrance.roma">Вход в метро</string>
+	<string name="type.railway.subway_entrance.rotterdam">Вход в метро</string>
+	<string name="type.railway.subway_entrance.samara">Вход в метро</string>
+	<string name="type.railway.subway_entrance.santiago">Вход в метро</string>
+	<string name="type.railway.subway_entrance.santo_domingo">Вход в метро</string>
+	<string name="type.railway.subway_entrance.saopaulo">Вход в метро</string>
+	<string name="type.railway.subway_entrance.sapporo">Вход в метро</string>
+	<string name="type.railway.subway_entrance.sendai">Вход в метро</string>
+	<string name="type.railway.subway_entrance.sf">Вход в метро</string>
+	<string name="type.railway.subway_entrance.shanghai">Вход в метро</string>
+	<string name="type.railway.subway_entrance.shiraz">Вход в метро</string>
+	<string name="type.railway.subway_entrance.sofia">Вход в метро</string>
+	<string name="type.railway.subway_entrance.spb">Вход в метро</string>
+	<string name="type.railway.subway_entrance.stockholm">Вход в метро</string>
+	<string name="type.railway.subway_entrance.tabriz">Вход в метро</string>
+	<string name="type.railway.subway_entrance.taipei">Вход в метро</string>
+	<string name="type.railway.subway_entrance.taoyuan">Вход в метро</string>
+	<string name="type.railway.subway_entrance.tashkent">Вход в метро</string>
+	<string name="type.railway.subway_entrance.tbilisi">Вход в метро</string>
+	<string name="type.railway.subway_entrance.tianjin">Вход в метро</string>
+	<string name="type.railway.subway_entrance.tokyo">Вход в метро</string>
+	<string name="type.railway.subway_entrance.valencia">Вход в метро</string>
+	<string name="type.railway.subway_entrance.vienna">Вход в метро</string>
+	<string name="type.railway.subway_entrance.warszawa">Вход в метро</string>
+	<string name="type.railway.subway_entrance.washington">Вход в метро</string>
+	<string name="type.railway.subway_entrance.wuhan">Вход в метро</string>
+	<string name="type.railway.subway_entrance.yerevan">Вход в метро</string>
+	<string name="type.railway.subway_entrance.yokohama">Вход в метро</string>
 	<string name="type.railway.tram">Трамвай</string>
 	<string name="type.railway.tram.bridge">Трамвай</string>
 	<string name="type.railway.tram.tunnel">Трамвай</string>
@@ -1500,9 +1725,9 @@
 	<string name="type.shop.car_repair.tyres">Шиномонтаж</string>
 	<string name="type.shop.caravan">Продажа автодомов</string>
 	<string name="type.shop.chemist">Бытовая химия</string>
-	<string name="type.shop.chocolate">Магазин</string>
+	<string name="type.shop.chocolate">Магазин шоколада</string>
 	<string name="type.shop.clothes">Магазин одежды</string>
-	<string name="type.shop.coffee">Магазин</string>
+	<string name="type.shop.coffee">Магазин кофе</string>
 	<string name="type.shop.computer">Компьютерный магазин</string>
 	<string name="type.shop.confectionery">Кондитерская</string>
 	<string name="type.shop.convenience">Продуктовый магазин</string>
@@ -1534,10 +1759,10 @@
 	<string name="type.shop.mall">Торговый центр</string>
 	<string name="type.shop.massage">Массажный салон</string>
 	<string name="type.shop.mobile_phone">Мобильные телефоны</string>
-	<string name="type.shop.money_lender">Магазин</string>
+	<string name="type.shop.money_lender">Ростовщик</string>
 	<string name="type.shop.motorcycle">Магазин мотоциклов</string>
-	<string name="type.shop.music">Магазин</string>
-	<string name="type.shop.musical_instrument">Магазин</string>
+	<string name="type.shop.music">Музыкальный магазин</string>
+	<string name="type.shop.musical_instrument">Музыкальные инструменты</string>
 	<string name="type.shop.newsagent">Газетный киоск</string>
 	<string name="type.shop.optician">Оптика</string>
 	<string name="type.shop.outdoor">Магазин снаряжения</string>
@@ -1552,7 +1777,7 @@
 	<string name="type.shop.stationery">Канцелярский магазин</string>
 	<string name="type.shop.supermarket">Супермаркет</string>
 	<string name="type.shop.tattoo">Тату-салон</string>
-	<string name="type.shop.tea">Магазин</string>
+	<string name="type.shop.tea">Чайный магазин</string>
 	<string name="type.shop.ticket">Билетная касса</string>
 	<string name="type.shop.toys">Магазин игрушек</string>
 	<string name="type.shop.travel_agency">Турагентство</string>
@@ -1591,7 +1816,9 @@
 	<string name="type.sport.australian_football">Австралийский футбол</string>
 	<string name="type.sport.baseball">Бейсбол</string>
 	<string name="type.sport.basketball">Баскетбол</string>
+	<string name="type.sport.beachvolleyball">Пляжный волейбол</string>
 	<string name="type.sport.bowls">Боулз</string>
+	<string name="type.sport.chess">Шахматы</string>
 	<string name="type.sport.cricket">Крикет</string>
 	<string name="type.sport.curling">Кёрлинг</string>
 	<string name="type.sport.equestrian">Конный спорт</string>
@@ -1602,10 +1829,21 @@
 	<!-- Used to tag a scuba diving site. -->
 	<string name="type.sport.scuba_diving">Место для дайвинга</string>
 	<string name="type.sport.shooting">Стрельба</string>
+	<string name="type.sport.skateboard">Скейтбординг</string>
 	<string name="type.sport.skiing">Лыжи</string>
 	<string name="type.sport.soccer">Футбол</string>
 	<string name="type.sport.swimming">Плавание</string>
+	<string name="type.sport.table_tennis">Настольный теннис</string>
 	<string name="type.sport.tennis">Теннисный корт</string>
+	<string name="type.sport.volleyball">Волейбол</string>
+	<string name="type.sport.10pin">Боулинг</string>
+	<string name="type.sport.9pin">Боулинг</string>
+	<string name="type.sport.padel">Падель</string>
+	<string name="type.sport.futsal">Футзал</string>
+	<string name="type.sport.ice_hockey">Хоккей с шайбой</string>
+	<string name="type.sport.field_hockey">Хоккей на траве</string>
+	<string name="type.sport.badminton">Бадминтон</string>
+	<string name="type.sport.pelota">Баскская пелота</string>
 	<string name="type.tourism">Туризм</string>
 	<string name="type.tourism.alpine_hut">Горный отель</string>
 	<string name="type.tourism.apartment">Апартаменты</string>
@@ -1663,13 +1901,11 @@
 	<string name="type.wheelchair.limited">Частично оборудовано для инвалидов</string>
 	<string name="type.wheelchair.no">Не оборудовано для инвалидов</string>
 	<string name="type.wheelchair.yes">Оборудовано для инвалидов</string>
-	<!-- en.wikipedia.org/wiki/Surface_lift -->
-	<string name="type.piste_lift">Бугельный подъёмник</string>
-	<string name="type.piste_lift.j.bar">Бугельный подъёмник</string>
-	<string name="type.piste_lift.magic_carpet">Ленточный конвейер</string>
-	<string name="type.piste_lift.platter">Бугельный подъёмник</string>
-	<string name="type.piste_lift.rope_tow">Бугельный подъёмник</string>
-	<string name="type.piste_lift.t.bar">Бугельный подъёмник</string>
+	<string name="type.aerialway.j.bar">Бугельный подъёмник</string>
+	<string name="type.aerialway.magic_carpet">Ленточный конвейер</string>
+	<string name="type.aerialway.platter">Бугельный подъёмник</string>
+	<string name="type.aerialway.rope_tow">Бугельный подъёмник</string>
+	<string name="type.aerialway.t.bar">Бугельный подъёмник</string>
 	<string name="type.piste_type">Тип трассы</string>
 	<string name="type.piste_type.downhill">Горнолыжная трасса</string>
 	<string name="type.piste_type.downhill.advanced">Продвинутая горнолыжная трасса</string>

@@ -9,18 +9,15 @@
 
 #include "base/macros.hpp"
 
-#include <cstddef>
 #include <functional>
-#include <iterator>
 
+namespace interactive_search_test
+{
 using namespace generator::tests_support;
 using namespace search::tests_support;
+using namespace search;
 using namespace std;
 
-namespace search
-{
-namespace
-{
 struct Stats
 {
   size_t m_numShownResults = 0;
@@ -123,12 +120,13 @@ UNIT_CLASS_TEST(InteractiveSearchTest, Smoke)
 
 UNIT_CLASS_TEST(InteractiveSearchTest, NearbyFeaturesInViewport)
 {
-  double const kEps = 0.1;
+  static double constexpr kEps = 0.1;
   TestCafe cafe1(m2::PointD(0.0, 0.0));
   TestCafe cafe2(m2::PointD(0.0, kEps));
   TestCafe cafe3(m2::PointD(0.0, 2 * kEps));
 
-  auto const id = BuildCountry("Wonderland", [&](TestMwmBuilder & builder) {
+  auto const id = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
     builder.Add(cafe1);
     builder.Add(cafe2);
     builder.Add(cafe3);
@@ -137,10 +135,9 @@ UNIT_CLASS_TEST(InteractiveSearchTest, NearbyFeaturesInViewport)
   SearchParams params;
   params.m_query = "cafe";
   params.m_inputLocale = "en";
-  params.m_viewport = m2::RectD(m2::PointD(-0.5, -0.5), m2::PointD(0.5, 0.5));
+  params.m_viewport = { -0.5, -0.5, 0.5, 0.5 };
   params.m_mode = Mode::Viewport;
-  params.m_minDistanceOnMapBetweenResultsX = kEps * 0.9;
-  params.m_minDistanceOnMapBetweenResultsY = kEps * 0.9;
+  params.m_minDistanceOnMapBetweenResults = { kEps * 0.9, kEps * 0.9 };
   params.m_suggestsEnabled = false;
 
   {
@@ -149,12 +146,10 @@ UNIT_CLASS_TEST(InteractiveSearchTest, NearbyFeaturesInViewport)
 
     TEST(MatchResults(m_dataSource,
                       Rules{ExactMatch(id, cafe1), ExactMatch(id, cafe2), ExactMatch(id, cafe3)},
-                      request.Results()),
-         ());
+                      request.Results()), ());
   }
 
-  params.m_minDistanceOnMapBetweenResultsX = kEps * 1.1;
-  params.m_minDistanceOnMapBetweenResultsY = kEps * 1.1;
+  params.m_minDistanceOnMapBetweenResults = { kEps * 1.1, kEps * 1.1 };
 
   {
     TestSearchRequest request(m_engine, params);
@@ -163,9 +158,7 @@ UNIT_CLASS_TEST(InteractiveSearchTest, NearbyFeaturesInViewport)
     auto const & results = request.Results();
 
     TEST(MatchResults(m_dataSource, Rules{ExactMatch(id, cafe1), ExactMatch(id, cafe3)}, results) ||
-             MatchResults(m_dataSource, Rules{ExactMatch(id, cafe2)}, results),
-         ());
+         MatchResults(m_dataSource, Rules{ExactMatch(id, cafe2)}, results), ());
   }
 }
-}  // namespace
-}  // namespace search
+} // namespace interactive_search_test

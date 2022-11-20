@@ -2,7 +2,6 @@
 
 #include "routing/geometry.hpp"
 #include "routing/latlon_with_altitude.hpp"
-#include "routing/routing_exceptions.hpp"
 #include "routing/routing_helpers.hpp"
 #include "routing/traffic_stash.hpp"
 
@@ -56,7 +55,7 @@ double CalcClimbSegment(EdgeEstimator::Purpose purpose, Segment const & segment,
   LatLonWithAltitude const & to = road.GetJunction(segment.GetPointId(true /* front */));
   SpeedKMpH const & speed = road.GetSpeed(segment.IsForward());
 
-  double const distance = ms::DistanceOnEarth(from.GetLatLon(), to.GetLatLon());
+  double const distance = road.GetDistance(segment.GetSegmentIdx());
   double const speedMpS =
       KmphToMps(purpose == EdgeEstimator::Purpose::Weight ? speed.m_weight : speed.m_eta);
   CHECK_GREATER(speedMpS, 0.0, ("from:", from.GetLatLon(), "to:", to.GetLatLon(), "speed:", speed));
@@ -135,6 +134,8 @@ EdgeEstimator::EdgeEstimator(double maxWeightSpeedKMpH, SpeedKMpH const & offroa
 
 double EdgeEstimator::CalcHeuristic(ms::LatLon const & from, ms::LatLon const & to) const
 {
+  // For the correct A*, we should use maximum _possible_ speed here, including:
+  // default model, feature stored, unlimited autobahn, ferry or rail transit.
   return TimeBetweenSec(from, to, m_maxWeightSpeedMpS);
 }
 
@@ -143,12 +144,12 @@ double EdgeEstimator::ComputeDefaultLeapWeightSpeed() const
   // 1.76 factor was computed as an average ratio of escape/enter speed to max MWM speed across all MWMs.
   //return m_maxWeightSpeedMpS / 1.76;
 
-  /// @todo By VNG: Current m_maxWeightSpeedMpS is > 120 km/h, so estimating speed was > 60km/h
-  /// for start/end fake edges by straight line! I strongly believe that this is very! optimistic.
-  /// Set factor to 2.15:
-  /// - lower bound Russia_MoscowDesnogorsk (https://github.com/organicmaps/organicmaps/issues/1071)
-  /// - upper bound RussiaSmolenskRussiaMoscowTimeTest
-  return m_maxWeightSpeedMpS / 2.15;
+  // By VNG: Current m_maxWeightSpeedMpS is > 120 km/h, so estimating speed was > 60km/h
+  // for start/end fake edges by straight line! I strongly believe that this is very! optimistic.
+  // Set speed to 57.5km/h (16m/s):
+  // - lower bound Russia_MoscowDesnogorsk (https://github.com/organicmaps/organicmaps/issues/1071)
+  // - upper bound RussiaSmolenskRussiaMoscowTimeTest
+  return 16.0;
 }
 
 /*

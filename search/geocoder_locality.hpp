@@ -51,12 +51,11 @@ struct Region : public Locality
     TYPE_COUNT
   };
 
-  Region(Locality const & locality, Type type) : Locality(locality), m_center(0, 0), m_type(type) {}
+  Region(Locality && locality, Type type) : Locality(std::move(locality)), m_center(0, 0), m_type(type) {}
 
   static Model::Type ToModelType(Type type);
 
   storage::CountryInfoGetter::RegionIdVec m_ids;
-  std::string m_defaultName;
   m2::PointD m_center;
   Type m_type;
 };
@@ -68,16 +67,12 @@ struct Region : public Locality
 // states and Locality for smaller settlements.
 struct City : public Locality
 {
-  City(Locality const & locality, Model::Type type) : Locality(locality), m_type(type)
+  City(Locality && locality, Model::Type type) : Locality(std::move(locality)), m_type(type)
   {
   }
 
   m2::RectD m_rect;
   Model::Type m_type;
-
-#ifdef DEBUG
-  std::string m_defaultName;
-#endif
 };
 
 struct Suburb

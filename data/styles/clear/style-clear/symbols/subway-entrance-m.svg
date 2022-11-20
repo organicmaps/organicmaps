@@ -1,1 +1,7 @@
-<svg height="22" viewBox="0 0 22 22" width="22"><g fill="none" fill-rule="evenodd"><circle cx="11" cy="11" fill="#fff" opacity=".6" r="11"/><circle cx="11" cy="11" fill="#3c3e38" r="10.043"/><path d="m13.2727273 11.4270247h2.7272727l-5 4.5729753-5-4.5729753h2.72727273v-5.4270247h4.54545457z" fill="#fff"/></g></svg>
+<svg viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+ <g fill-rule="evenodd">
+  <circle cx="11" cy="11" r="11" fill="#fff" opacity=".6"/>
+  <circle cx="11" cy="11" r="10.043" fill="#3c3e38"/>
+  <path d="m13.273 11.427h2.7273l-5 4.573-5-4.573h2.7273v-5.427h4.5455z" fill="#fff"/>
+ </g>
+</svg>

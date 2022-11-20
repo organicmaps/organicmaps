@@ -4,21 +4,18 @@
 
 #include "platform/mwm_version.hpp"
 
-#include "base/logging.hpp"
-
 #include <algorithm>
 #include <limits>
 
 using platform::CountryFile;
 using platform::LocalCountryFile;
-using namespace std;
 
 namespace
 {
 class ReadMWMFunctor
 {
 public:
-  using Fn = function<void(uint32_t, FeatureSource & src)>;
+  using Fn = std::function<void(uint32_t, FeatureSource & src)>;
 
   ReadMWMFunctor(FeatureSourceFactory const & factory, Fn const & fn) : m_factory(factory), m_fn(fn)
   {
@@ -82,9 +79,9 @@ private:
   DataSource::StopSearchCallback m_stop;
 };
 
-void ReadFeatureType(function<void(FeatureType &)> const & fn, FeatureSource & src, uint32_t index)
+void ReadFeatureType(std::function<void(FeatureType &)> const & fn, FeatureSource & src, uint32_t index)
 {
-  unique_ptr<FeatureType> ft;
+  std::unique_ptr<FeatureType> ft;
   switch (src.GetFeatureStatus(index))
   {
   case FeatureStatus::Deleted:
@@ -107,10 +104,10 @@ void ReadFeatureType(function<void(FeatureType &)> const & fn, FeatureSource & s
 }  //  namespace
 
 // FeaturesLoaderGuard ---------------------------------------------------------------------
-string FeaturesLoaderGuard::GetCountryFileName() const
+std::string FeaturesLoaderGuard::GetCountryFileName() const
 {
   if (!m_handle.IsAlive())
-    return string();
+    return {};
 
   return m_handle.GetValue()->GetCountryFileName();
 }
@@ -124,7 +121,7 @@ bool FeaturesLoaderGuard::IsWorld() const
          feature::DataHeader::MapType::World;
 }
 
-unique_ptr<FeatureType> FeaturesLoaderGuard::GetOriginalOrEditedFeatureByIndex(uint32_t index) const
+std::unique_ptr<FeatureType> FeaturesLoaderGuard::GetOriginalOrEditedFeatureByIndex(uint32_t index) const
 {
   if (!m_handle.IsAlive())
     return {};
@@ -133,7 +130,7 @@ unique_ptr<FeatureType> FeaturesLoaderGuard::GetOriginalOrEditedFeatureByIndex(u
   return GetFeatureByIndex(index);
 }
 
-unique_ptr<FeatureType> FeaturesLoaderGuard::GetFeatureByIndex(uint32_t index) const
+std::unique_ptr<FeatureType> FeaturesLoaderGuard::GetFeatureByIndex(uint32_t index) const
 {
   if (!m_handle.IsAlive())
     return {};
@@ -148,24 +145,19 @@ unique_ptr<FeatureType> FeaturesLoaderGuard::GetFeatureByIndex(uint32_t index) c
   return GetOriginalFeatureByIndex(index);
 }
 
-unique_ptr<FeatureType> FeaturesLoaderGuard::GetOriginalFeatureByIndex(uint32_t index) const
+std::unique_ptr<FeatureType> FeaturesLoaderGuard::GetOriginalFeatureByIndex(uint32_t index) const
 {
   return m_handle.IsAlive() ? m_source->GetOriginalFeature(index) : nullptr;
 }
 
 // DataSource ----------------------------------------------------------------------------------
-unique_ptr<MwmInfo> DataSource::CreateInfo(platform::LocalCountryFile const & localFile) const
+std::unique_ptr<MwmInfo> DataSource::CreateInfo(platform::LocalCountryFile const & localFile) const
 {
   MwmValue value(localFile);
 
-  if (version::GetMwmType(value.GetMwmVersion()) != version::MwmType::SingleMwm)
-    return nullptr;
-
   feature::DataHeader const & h = value.GetHeader();
-  if (!h.IsMWMSuitable())
-    return nullptr;
 
-  auto info = make_unique<MwmInfoEx>();
+  auto info = std::make_unique<MwmInfoEx>();
   info->m_bordersRect = h.GetBounds();
 
   auto const scaleR = h.GetScaleRange();
@@ -177,20 +169,19 @@ unique_ptr<MwmInfo> DataSource::CreateInfo(platform::LocalCountryFile const & lo
   return info;
 }
 
-unique_ptr<MwmValue> DataSource::CreateValue(MwmInfo & info) const
+std::unique_ptr<MwmValue> DataSource::CreateValue(MwmInfo & info) const
 {
-  // Create a section with rank table if it does not exist.
   platform::LocalCountryFile const & localFile = info.GetLocalFile();
-  auto p = make_unique<MwmValue>(localFile);
-  if (!p || version::GetMwmType(p->GetMwmVersion()) != version::MwmType::SingleMwm)
-    return nullptr;
+  auto p = std::make_unique<MwmValue>(localFile);
 
   p->SetTable(dynamic_cast<MwmInfoEx &>(info));
-  ASSERT(p->GetHeader().IsMWMSuitable(), ());
+
+  p->m_metaDeserializer = indexer::MetadataDeserializer::Load(p->m_cont);
+  CHECK(p->m_metaDeserializer, ());
   return p;
 }
 
-pair<MwmSet::MwmId, MwmSet::RegResult> DataSource::RegisterMap(LocalCountryFile const & localFile)
+std::pair<MwmSet::MwmId, MwmSet::RegResult> DataSource::RegisterMap(LocalCountryFile const & localFile)
 {
   return Register(localFile);
 }
@@ -200,14 +191,14 @@ bool DataSource::DeregisterMap(CountryFile const & countryFile) { return Deregis
 void DataSource::ForEachInIntervals(ReaderCallback const & fn, covering::CoveringMode mode,
                                     m2::RectD const & rect, int scale) const
 {
-  vector<shared_ptr<MwmInfo>> mwms;
+  std::vector<std::shared_ptr<MwmInfo>> mwms;
   GetMwmsInfo(mwms);
 
   covering::CoveringGetter cov(rect, mode);
 
   MwmId worldID[2];
 
-  for (shared_ptr<MwmInfo> const & info : mwms)
+  for (auto const & info : mwms)
   {
     if (info->m_minScale <= scale && scale <= info->m_maxScale &&
         rect.IsIntersect(info->m_bordersRect))
@@ -290,7 +281,7 @@ void DataSource::ForEachInRectForMWM(FeatureCallback const & f, m2::RectD const 
   }
 }
 
-void DataSource::ReadFeatures(FeatureCallback const & fn, vector<FeatureID> const & features) const
+void DataSource::ReadFeatures(FeatureCallback const & fn, std::vector<FeatureID> const & features) const
 {
   ASSERT(is_sorted(features.begin(), features.end()), ());
 
@@ -310,7 +301,7 @@ void DataSource::ReadFeatures(FeatureCallback const & fn, vector<FeatureID> cons
         ASSERT_NOT_EQUAL(
             FeatureStatus::Deleted, fts,
             ("Deleted feature was cached. It should not be here. Please review your code."));
-        unique_ptr<FeatureType> ft;
+        std::unique_ptr<FeatureType> ft;
         if (fts == FeatureStatus::Modified || fts == FeatureStatus::Created)
           ft = src->GetModifiedFeature(fidIter->m_index);
         else

@@ -129,6 +129,8 @@
 	<string name="recycling">بازیافت</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
 	<string name="water">اب</string>
+	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
+	<string name="rv">RV ﯼﺍﺮﺑ</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">یادداشت ها</string>
 	<!-- message title of loading file -->
@@ -153,8 +155,6 @@
 	<string name="copied_to_clipboard">کپی در کلیپ برد :%1$s</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">انجام شد</string>
-	<!-- Prints version number in About dialog -->
-	<string name="version">ورژن: %s</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">OpenStreetMap: %s ﯼﺎﻫ ﻩﺩﺍﺩ</string>
 	<!-- Confirmation in downloading countries dialog -->
@@ -209,6 +209,8 @@
 	<string name="help">کمک</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">ﺦﺳﺎﭘ ﻭ ﺶﺳﺮﭘ</string>
+	<!-- Button in the main menu -->
+	<string name="donate">ﺪﯿﻨﮐ ﺍﺪﻫﺍ</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">چگونه از ما حمایت کنیم؟</string>
 	<!-- Button in the main Help dialog -->
@@ -328,7 +330,6 @@
 	<string name="routing_arrive">ورود به: %s</string>
 	<string name="categories">دسته بندی ها</string>
 	<string name="history">تاریخچه</string>
-	<string name="closed">تعطیل</string>
 	<string name="search_not_found">متاسفانه چیزی پیدا نشد</string>
 	<string name="search_not_found_query">با تغییر در معیار های جست و جو دوباره امتحان کنید</string>
 	<string name="search_history_title">سوابق جست وجو</string>
@@ -372,14 +373,15 @@
 	<string name="day_off_today">امروز تعطیل است</string>
 	<string name="day_off">تعطیل است</string>
 	<string name="today">امروز</string>
+	<string name="closed">تعطیل</string>
 	<string name="edit_opening_hours">ویرایش ساعت کاری</string>
 	<string name="no_osm_account">ایا حساب OpenStreetMap ندارید؟</string>
-	<string name="register_at_openstreetmap">ثبت نام در OSM</string>
+	<string name="register_at_openstreetmap">ثبت نام در OpenStreetMap</string>
 	<string name="login">ورود</string>
+	<string name="login_osm">ﺪﯾﻮﺷ OpenStreetMap ﺩﺭﺍﻭ</string>
 	<string name="password">رمز عبور</string>
 	<string name="forgot_password">رمز عبور خود را فراموش کردید؟</string>
 	<string name="logout">خروج از حساب</string>
-	<string name="thank_you">متشکریم</string>
 	<string name="edit_place">ویرایش مکان</string>
 	<string name="add_language">افزودن یک زبان</string>
 	<string name="street">خیابان</string>
@@ -397,6 +399,7 @@
 	<string name="select_cuisine">انتخاب غذاخوری</string>
 	<!-- login text field -->
 	<string name="email_or_username">ایمیل یا نام کاربری</string>
+	<string name="level">طبقه</string>
 	<string name="downloader_delete_map_dialog">تمام ویرایش های که بر روی نقشه انجام داده اید به همراه نقشه حذف شد.</string>
 	<string name="downloader_update_maps">بروزرسانی نقشه ها</string>
 	<string name="downloader_mwm_migration_dialog">برای ایجاد مسیر شما نیازمند بروزرسانی تمامی  نقشه ها هستید سپس می توانید دوباره مسیرتان را برنامه ریزی کنید</string>
@@ -415,6 +418,7 @@
 	<string name="editor_report_problem_other_title">مشکلی دیگر</string>
 	<string name="placepage_add_business_button">اضافه کردن یک تجارت</string>
 	<string name="message_invalid_feature_position">نمی توان شی ای در این مکان باشد</string>
+	<string name="osm_presentation">.ﺪﻧﺮﯿﮔu200cﯽﻣ ﺭﺍﺮﻗ ﺱﺮﺘﺳﺩ ﺭﺩ ﻥﺎﻬﺟ ﺮﺳﺍﺮﺳ ﺭﺩ ﺮﺑﺭﺎﮐ ﺎﻫu200cﻥﻮﯿﻠﯿﻣ ﯼﺍﺮﺑ ﺎﻫu200cﻥﺁ ﻭ</string>
 	<string name="login_to_make_edits_visible">وارد شوید تا دیگر کاربران نیز بتوانند تغییرات ایجاد شده توسط شما را ببینند</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d  از  %2$d</string>
@@ -452,7 +456,6 @@
 	<string name="minute">دقیقه</string>
 	<string name="placepage_place_description">توضیحات</string>
 	<string name="placepage_more_button">بیشتر</string>
-	<string name="placepage_more_reviews_button">نقدهای دیگر</string>
 	<string name="placepage_call_button">تماس</string>
 	<string name="placepage_edit_bookmark_button">ویرایش نشانه ها</string>
 	<string name="editor_comment_hint">اظهار نظر</string>
@@ -468,17 +471,15 @@
 	<string name="placepage_add_place_button">اضافه کردن یک مکان به نقشه</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">ایا می خواهید ان را برای دیگر کاربران ارسال کنید؟</string>
-	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">مطمئن شوید که هیچ اطلاعات شخصی وارد نکرده باشد.</string>
-	<string name="editor_share_to_all_dialog_message_2">ما تغییرات را بررسی می کنیم.اگر سوالی بود با ایمیل با شما تماس می گیریم.</string>
+	<string name="editor_share_to_all_dialog_message_2">.ﺖﻓﺮﮔ ﺪﻨﻫﺍﻮﺧ ﺱﺎﻤﺗ ﺎﻤﺷ ﺎﺑ ﻝﺍﻮﺳ ﻪﻧﻮﮔﺮﻫ ﻦﺘﺷﺍﺩ ﺕﺭﻮﺻ ﺭﺩ ﻭ ﻩﺩﺮﮐ ﯽﺳﺭﺮﺑ ﺍﺭ ﺕﺍﺮﯿﯿﻐﺗ Ope</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps یک برنامه نقشه آفلاین رایگان و منبع باز است. بدون تبلیغات بدون ردیابی اگر خطایی روی نقشه مشاهده کردید، لطفاً آن را در OpenStreetMap برطرف کنید. این پروژه توسط علاقه مندان در اوقات فراغت ما ایجاد می شود، بنابراین ما به بازخورد و پشتیبانی شما نیاز داریم.</string>
 	<!-- For the first routing -->
 	<string name="accept">موافقم</string>
 	<!-- For the first routing -->
 	<string name="decline">کاهش</string>
-	<!-- A noun - a button name used to show search results in list form -->
-	<string name="search_in_table">لیست</string>
 	<string name="mobile_data_dialog">از دیتای موبایل برای نمایش اطلاعات بیشتر استفاده شود؟</string>
 	<string name="mobile_data_option_always">همیشه استفاده کن</string>
 	<string name="mobile_data_option_today">فقط امروز</string>
@@ -499,10 +500,11 @@
 	<string name="on">روشن</string>
 	<string name="off">خاموش</string>
 	<string name="prefs_languages_information">ما از TTS سیستم برای دستورالعمل های صوتی استفاده می کنیم. بسیاری از دستگاه های Android از Google TTS استفاده می کنند، شما می توانید آن را از Google Play دانلود کنید (https://play.google.com/store/apps/details؟id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">برای بعضی از زبان ها، شما باید speech synthesizer یا یک بسته زبان دیگر را از فروشگاه برنامه (بازار Google Play، Samsung Apps) نصب کنید. \n تنظیمات دستگاه خود را باز کنید. → زبان و ورودی → گفتار → خروجی متن به گفتار. می توانید تنظیمات برای ترکیب گفتار (به عنوان مثال، بسته های زبان را برای استفاده آفلاین دانلود کنید) را مدیریت کنید و یک موتور دیگر متن به گفتار را انتخاب کنید.</string>
+	<string name="prefs_languages_information_off">برای بعضی از زبان ها، شما باید speech synthesizer یا یک بسته زبان دیگر را از فروشگاه برنامه (بازار Google Play، Galaxy Store) نصب کنید. \n تنظیمات دستگاه خود را باز کنید. → زبان و ورودی → گفتار → خروجی متن به گفتار. می توانید تنظیمات برای ترکیب گفتار (به عنوان مثال، بسته های زبان را برای استفاده آفلاین دانلود کنید) را مدیریت کنید و یک موتور دیگر متن به گفتار را انتخاب کنید.</string>
 	<string name="prefs_languages_information_off_link">برای اطلاعات بیشتر لطفا این راهنما را بررسی کنید.</string>
 	<string name="transliteration_title">ترجمه به لاتین</string>
 	<string name="learn_more">بیشتر بدانید</string>
+	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">خروج</string>
 	<string name="routing_add_start_point">یک نقطه شروع برای برنامه ریزی یک مسیر اضافه کنید</string>
 	<string name="routing_add_finish_point">یک مقصد برای برنامه ریزی یک مسیر اضافه کنید</string>
@@ -660,6 +662,10 @@
 	<string name="enable_screen_sleep">اجازه دهید صفحه نمایش بخوابد</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">درصورت فعال بودن ، بعد از یک دوره عدم فعالیت به صفحه اجازه خواب داده می شود.</string>
+	<!-- OpenStreetMap text on splash screen -->
+	<string name="splash_subtitle">OpenStreetMap ﺯﺍ ﻪﺸﻘﻧ ﯼﺎﻫ ﻩﺩﺍﺩ</string>
+	<!-- Telegram group url for the "?" About page -->
+	<string name="telegram_url">https://t.me/OrganicMapsIR</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aeroway.aerodrome">فرودگاه</string>
@@ -694,6 +700,8 @@
 	<string name="type.amenity.doctors">کلینیک</string>
 	<string name="type.amenity.drinking_water">اب اشامیدنی</string>
 	<string name="type.amenity.driving_school">اموزشگاه رانندگی</string>
+	<string name="type.amenity.music_school">ﯽﻘﯿﺳﻮﻣ ﻩﺎﮕﺷﺯﻮﻣﺁ</string>
+	<string name="type.amenity.language_school">ﻥﺎﺑﺯ ﻪﺳﺭﺪﻣ</string>
 	<string name="type.office.diplomatic">سفارت</string>
 	<string name="type.amenity.fast_food">فست فود</string>
 	<string name="type.amenity.ferry_terminal">حمل و نقل</string>
@@ -715,17 +723,21 @@
 	<string name="type.amenity.nightclub">کلوپ شبانه</string>
 	<string name="type.amenity.nursing_home">خانه سالمندان</string>
 	<string name="type.amenity.parking">پارکینگ</string>
-	<string name="type.amenity.parking.fee">پارکینگ</string>
-	<string name="type.amenity.parking.multi.storey">پارکینگ</string>
-	<string name="type.amenity.parking.no.access">پارکینگ</string>
+	<string name="type.amenity.parking.fee">ﯽﻟﻮﭘ ﮓﻨﯿﮐﺭﺎﭘ</string>
+	<string name="type.amenity.parking.multi.storey">ﻪﻘﺒﻃ ﺪﻨﭼ ﮓﻨﯿﮐﺭﺎﭘ</string>
+	<string name="type.amenity.parking.no.access">ﯽﺻﺎﺼﺘﺧﺍ ﮓﻨﯿﮐﺭﺎﭘ</string>
+	<string name="type.amenity.parking.permissive">ﯽﺻﺎﺼﺘﺧﺍ ﮓﻨﯿﮐﺭﺎﭘ</string>
+	<string name="type.amenity.parking.private">ﯽﺻﺎﺼﺘﺧﺍ ﮓﻨﯿﮐﺭﺎﭘ</string>
 	<string name="type.amenity.parking.park_and_ride">پارکینگ</string>
-	<string name="type.amenity.parking.permissive">پارکینگ</string>
-	<string name="type.amenity.parking.private">پارکینگ</string>
-	<string name="type.amenity.parking.underground">پارکینگ</string>
+	<string name="type.amenity.parking.underground">ﯽﻨﯿﻣﺯ ﺮﯾﺯ ﮓﻨﯿﮐﺭﺎﭘ</string>
+	<string name="type.amenity.parking_entrance.private">ﮓﻨﯿﮐﺭﺎﭘ ﯼﺩﻭﺭﻭ</string>
+	<string name="type.amenity.parking_entrance.permissive">ﮓﻨﯿﮐﺭﺎﭘ ﯼﺩﻭﺭﻭ</string>
+	<string name="type.amenity.parking_entrance">ﮓﻨﯿﮐﺭﺎﭘ ﯼﺩﻭﺭﻭ</string>
 	<string name="type.amenity.parking_space">جای پارک</string>
 	<string name="type.amenity.parking_space.permissive">جای پارک</string>
 	<string name="type.amenity.parking_space.private">جای پارک</string>
 	<string name="type.amenity.parking_space.underground">جای پارک</string>
+	<string name="type.amenity.parking_space.disabled">ﻦﯿﻟﻮﻠﻌﻣ ﮎﺭﺎﭘ ﯼﺎﺟ</string>
 	<string name="type.amenity.payment_terminal">دستگاه کارتخوان</string>
 	<string name="type.amenity.pharmacy">داروخانه</string>
 	<string name="type.amenity.place_of_worship">گردشگری</string>
@@ -774,8 +786,11 @@
 	<string name="type.barrier.block">بلوک</string>
 	<string name="type.barrier.bollard">ستون</string>
 	<string name="type.barrier.border_control">کنترل مرزی</string>
+	<string name="type.barrier.city_wall">دیوار شهر</string>
+	<string name="type.barrier.ditch">ﻕﺪﻨﺧ</string>
 	<string name="type.barrier.entrance">ورودی</string>
 	<string name="type.barrier.gate">ورودی</string>
+	<string name="type.barrier.kissing_gate">ورودی</string>
 	<string name="type.barrier.lift_gate">اسانسور</string>
 	<string name="type.barrier.stile">پلکان</string>
 	<string name="type.barrier.swing_gate">اسانسور</string>
@@ -787,21 +802,32 @@
 	<string name="type.building.has_parts">ساختمان</string>
 	<string name="type.building.train_station">ایستگاه قطار</string>
 	<string name="type.cemetery.grave">ﺮﺒﻗ</string>
+	<string name="type.craft">صنعت‌گری</string>
+	<string name="type.craft.beekeeper">زنبوردار</string>
+	<string name="type.craft.blacksmith">آهنگر</string>
 	<string name="type.craft.brewery">کارخانه ابجوسازی</string>
 	<string name="type.craft.carpenter">نجار</string>
+	<string name="type.craft.confectionery">قنادی</string>
 	<string name="type.craft.electrician">برق کار</string>
+	<string name="type.craft.electronics_repair">تعمیرات الکترونیک</string>
 	<string name="type.craft.gardener">باغبان</string>
+	<string name="type.craft.handicraft">صنایع دستی</string>
+	<!-- Heating, Ventilation, and Air Conditioning -->
+	<string name="type.craft.hvac">گرمایش و تهویه‌هوا</string>
 	<string name="type.craft.metal_construction">اهن کار</string>
 	<string name="type.craft.painter">نقاش</string>
 	<string name="type.craft.photographer">عکاس</string>
 	<string name="type.craft.plumber">لوله کش</string>
+	<string name="type.craft.sawmill">کارخانه چوب‌بری</string>
 	<string name="type.craft.shoemaker">کفاش</string>
+	<string name="type.craft.winery">شراب‌خانه</string>
 	<string name="type.craft.tailor">خیاطی</string>
 	<string name="type.emergency.defibrillator">دستگاه شوک</string>
 	<string name="type.emergency.fire_hydrant">شیر آتش‌نشانی</string>
 	<string name="type.emergency.phone">تلفن اضطراری</string>
 	<string name="type.entrance">ورودی</string>
 	<string name="type.healthcare.laboratory">ﯽﮑﺷﺰﭘ ﻩﺎﮕﺸﯾﺎﻣﺯﺁ</string>
+	<string name="type.healthcare.physiotherapist">فیزیوتراپیست</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -966,18 +992,39 @@
 	<string name="type.area_highway.unclassified">جاده</string>
 
 	<!-- SECTION: Types: Historic -->
+	<string name="type.historic">شیء تاریخی</string>
 	<string name="type.historic.archaeological_site">گردشگری</string>
-	<string name="type.historic.castle">گردشگری</string>
-	<string name="type.historic.castle.defensive">گردشگری</string>
+	<string name="type.historic.battlefield">میدان جنگ</string>
+	<string name="type.historic.boundary_stone">نشانگر مرز</string>
+	<string name="type.historic.castle">قلعه</string>
+	<string name="type.historic.castle.castrum">قلعه رومی</string>
+	<string name="type.historic.castle.defensive">قلعه</string>
+	<string name="type.historic.castle.fortified_church">کلیسای مستحکم</string>
+	<string name="type.historic.castle.fortress">قلعه</string>
+	<string name="type.historic.castle.hillfort">تپه‌قلعه</string>
+	<string name="type.historic.castle.kremlin">کرملین</string>
+	<string name="type.historic.castle.manor">خانه ارباب یا صاحب تیول</string>
+	<string name="type.historic.castle.palace">کاخ</string>
+	<string name="type.historic.castle.shiro">قلعه ژاپنی</string>
 	<string name="type.historic.castle.stately">گردشگری</string>
+	<string name="type.historic.city_gate">دروازه شهر</string>
+	<string name="type.historic.citywalls">دیوار شهر</string>
+	<string name="type.historic.fort">دژ</string>
+	<string name="type.historic.gallows">چوبه دار</string>
 	<string name="type.historic.memorial">گردشگری</string>
+	<string name="type.historic.memorial.cross">صلیب یادبود</string>
 	<string name="type.historic.memorial.plaque">گردشگری</string>
 	<string name="type.historic.memorial.sculpture">گردشگری</string>
 	<string name="type.historic.memorial.statue">گردشگری</string>
+	<string name="type.historic.memorial.stolperstein">سنگ مانع</string>
+	<string name="type.historic.memorial.war_memorial">رزم‌یاد</string>
 	<string name="type.historic.monument">گردشگری</string>
+	<string name="type.historic.pillory">تخته‌بند</string>
 	<string name="type.historic.ruins">گردشگری</string>
 	<string name="type.historic.ship">گردشگری</string>
 	<string name="type.historic.tomb">گردشگری</string>
+	<string name="type.historic.wayside_cross">صلیب کنار راه</string>
+	<string name="type.historic.wayside_shrine">حرم کنار راه</string>
 	<string name="type.internet_access">وای فای</string>
 	<string name="type.internet_access.wlan">وای فای</string>
 	<string name="type.landuse.basin">حوضه آب</string>
@@ -998,7 +1045,9 @@
 	<string name="type.leisure.dog_park">محدوده مخصوص سگ</string>
 	<string name="type.leisure.fitness_centre">باشگاه بدنسازی</string>
 	<string name="type.leisure.fitness_station">پارک سلامت</string>
+	<string name="type.leisure.dance">ﺺﻗﺭ ﻦﻟﺎﺳ</string>
 	<string name="type.leisure.garden">گردشگری</string>
+	<string name="type.leisure.garden.residential">گردشگری</string>
 	<string name="type.leisure.golf_course">زمین گلف</string>
 	<string name="type.leisure.park">پارک</string>
 	<string name="type.leisure.park.no.access">پارک</string>
@@ -1009,10 +1058,8 @@
 	<string name="type.leisure.playground">زمین بازی</string>
 	<string name="type.leisure.sauna">سونا</string>
 	<string name="type.leisure.sports_centre">مرکزورزشی</string>
-	<string name="type.leisure.sports_centre.climbing">مرکز صعود</string>
-	<string name="type.leisure.sports_centre.shooting">محل تیراندازی</string>
-	<string name="type.leisure.sports_centre.swimming">استخرشنا</string>
-	<string name="type.leisure.sports_centre.yoga">سالن یوگا</string>
+	<string name="type.sport.climbing">مرکز صعود</string>
+	<string name="type.sport.yoga">سالن یوگا</string>
 	<string name="type.leisure.stadium">استادیوم</string>
 	<string name="type.leisure.swimming_pool">استخرشنا</string>
 	<string name="type.leisure.swimming_pool.private">استخرشنا</string>
@@ -1037,6 +1084,7 @@
 	<string name="type.natural.earth_bank">صخره</string>
 	<string name="type.man_made.embankment">خاک‌ریز</string>
 	<string name="type.natural.coastline">کناره</string>
+	<string name="type.natural.desert">ﺮﯾﻮﮐ</string>
 	<string name="type.natural.geyser">چشمه آب گرم</string>
 	<string name="type.natural.glacier">یخچال طبیعی</string>
 	<string name="type.natural.grassland">علفزار</string>
@@ -1092,10 +1140,13 @@
 	<string name="type.place.hamlet">روستا</string>
 	<string name="type.place.island">جزیره</string>
 	<string name="type.place.islet">جزیره</string>
+	<string name="type.place.isolated_dwelling">مسکن منزوی</string>
 	<string name="type.place.locality">محله</string>
+	<string name="type.place.neighbourhood">محله</string>
 	<string name="type.place.ocean">اقیانوس</string>
 	<string name="type.place.region">منطقه</string>
 	<string name="type.place.sea">دریا</string>
+	<string name="type.place.square">میدان</string>
 	<string name="type.place.state">ایالت</string>
 	<string name="type.place.state.USA">ایالت</string>
 	<string name="type.place.suburb">حومه</string>
@@ -1111,29 +1162,223 @@
 	<string name="type.railway.station.light_rail">ایستگاه قطار</string>
 	<string name="type.railway.station.monorail">ایستگاه قطار</string>
 	<string name="type.railway.station.subway">حمل و نقل</string>
+	<string name="type.railway.station.subway.adana">حمل و نقل</string>
+	<string name="type.railway.station.subway.algiers">حمل و نقل</string>
+	<string name="type.railway.station.subway.almaty">حمل و نقل</string>
+	<string name="type.railway.station.subway.amsterdam">حمل و نقل</string>
+	<string name="type.railway.station.subway.ankara">حمل و نقل</string>
+	<string name="type.railway.station.subway.athens">حمل و نقل</string>
+	<string name="type.railway.station.subway.baku">حمل و نقل</string>
+	<string name="type.railway.station.subway.bangkok">حمل و نقل</string>
 	<string name="type.railway.station.subway.barcelona">حمل و نقل</string>
+	<string name="type.railway.station.subway.beijing">حمل و نقل</string>
+	<string name="type.railway.station.subway.bengalore">حمل و نقل</string>
 	<string name="type.railway.station.subway.berlin">حمل و نقل</string>
+	<string name="type.railway.station.subway.brasilia">حمل و نقل</string>
+	<string name="type.railway.station.subway.brescia">حمل و نقل</string>
+	<string name="type.railway.station.subway.brussels">حمل و نقل</string>
+	<string name="type.railway.station.subway.bucharest">حمل و نقل</string>
+	<string name="type.railway.station.subway.budapest">حمل و نقل</string>
+	<string name="type.railway.station.subway.buenos_aires">حمل و نقل</string>
+	<string name="type.railway.station.subway.bursa">حمل و نقل</string>
+	<string name="type.railway.station.subway.cairo">حمل و نقل</string>
+	<string name="type.railway.station.subway.caracas">حمل و نقل</string>
+	<string name="type.railway.station.subway.catania">حمل و نقل</string>
+	<string name="type.railway.station.subway.changchun">حمل و نقل</string>
+	<string name="type.railway.station.subway.chengdu">حمل و نقل</string>
+	<string name="type.railway.station.subway.chicago">حمل و نقل</string>
+	<string name="type.railway.station.subway.chongqing">حمل و نقل</string>
+	<string name="type.railway.station.subway.dalian">حمل و نقل</string>
+	<string name="type.railway.station.subway.delhi">حمل و نقل</string>
+	<string name="type.railway.station.subway.dnepro">حمل و نقل</string>
+	<string name="type.railway.station.subway.dubai">حمل و نقل</string>
+	<string name="type.railway.station.subway.ekb">حمل و نقل</string>
+	<string name="type.railway.station.subway.fukuoka">حمل و نقل</string>
+	<string name="type.railway.station.subway.glasgow">حمل و نقل</string>
+	<string name="type.railway.station.subway.guangzhou">حمل و نقل</string>
+	<string name="type.railway.station.subway.hamburg">حمل و نقل</string>
+	<string name="type.railway.station.subway.helsinki">حمل و نقل</string>
+	<string name="type.railway.station.subway.hiroshima">حمل و نقل</string>
+	<string name="type.railway.station.subway.isfahan">حمل و نقل</string>
+	<string name="type.railway.station.subway.istanbul">حمل و نقل</string>
+	<string name="type.railway.station.subway.izmir">حمل و نقل</string>
+	<string name="type.railway.station.subway.kazan">حمل و نقل</string>
+	<string name="type.railway.station.subway.kharkiv">حمل و نقل</string>
 	<string name="type.railway.station.subway.kiev">حمل و نقل</string>
+	<string name="type.railway.station.subway.kobe">حمل و نقل</string>
+	<string name="type.railway.station.subway.kolkata">حمل و نقل</string>
+	<string name="type.railway.station.subway.kunming">حمل و نقل</string>
+	<string name="type.railway.station.subway.kyoto">حمل و نقل</string>
+	<string name="type.railway.station.subway.la">حمل و نقل</string>
+	<string name="type.railway.station.subway.lausanne">حمل و نقل</string>
+	<string name="type.railway.station.subway.lille">حمل و نقل</string>
+	<string name="type.railway.station.subway.lima">حمل و نقل</string>
+	<string name="type.railway.station.subway.lisboa">حمل و نقل</string>
 	<string name="type.railway.station.subway.london">حمل و نقل</string>
+	<string name="type.railway.station.subway.lyon">حمل و نقل</string>
 	<string name="type.railway.station.subway.madrid">حمل و نقل</string>
+	<string name="type.railway.station.subway.malaga">حمل و نقل</string>
+	<string name="type.railway.station.subway.manila">حمل و نقل</string>
+	<string name="type.railway.station.subway.maracaibo">حمل و نقل</string>
+	<string name="type.railway.station.subway.mashhad">حمل و نقل</string>
+	<string name="type.railway.station.subway.mecca">حمل و نقل</string>
+	<string name="type.railway.station.subway.medellin">حمل و نقل</string>
+	<string name="type.railway.station.subway.mexico">حمل و نقل</string>
+	<string name="type.railway.station.subway.milan">حمل و نقل</string>
 	<string name="type.railway.station.subway.minsk">حمل و نقل</string>
+	<string name="type.railway.station.subway.montreal">حمل و نقل</string>
 	<string name="type.railway.station.subway.moscow">حمل و نقل</string>
+	<string name="type.railway.station.subway.munchen">حمل و نقل</string>
+	<string name="type.railway.station.subway.nagoya">حمل و نقل</string>
 	<string name="type.railway.station.subway.newyork">حمل و نقل</string>
+	<string name="type.railway.station.subway.nnov">حمل و نقل</string>
+	<string name="type.railway.station.subway.novosibirsk">حمل و نقل</string>
+	<string name="type.railway.station.subway.osaka">حمل و نقل</string>
+	<string name="type.railway.station.subway.oslo">حمل و نقل</string>
+	<string name="type.railway.station.subway.palma">حمل و نقل</string>
+	<string name="type.railway.station.subway.panama">حمل و نقل</string>
 	<string name="type.railway.station.subway.paris">حمل و نقل</string>
+	<string name="type.railway.station.subway.philadelphia">حمل و نقل</string>
+	<string name="type.railway.station.subway.pyongyang">حمل و نقل</string>
+	<string name="type.railway.station.subway.rennes">حمل و نقل</string>
+	<string name="type.railway.station.subway.rio">حمل و نقل</string>
 	<string name="type.railway.station.subway.roma">حمل و نقل</string>
+	<string name="type.railway.station.subway.rotterdam">حمل و نقل</string>
+	<string name="type.railway.station.subway.samara">حمل و نقل</string>
+	<string name="type.railway.station.subway.santiago">حمل و نقل</string>
+	<string name="type.railway.station.subway.santo_domingo">حمل و نقل</string>
+	<string name="type.railway.station.subway.saopaulo">حمل و نقل</string>
+	<string name="type.railway.station.subway.sapporo">حمل و نقل</string>
+	<string name="type.railway.station.subway.sendai">حمل و نقل</string>
+	<string name="type.railway.station.subway.sf">حمل و نقل</string>
+	<string name="type.railway.station.subway.shanghai">حمل و نقل</string>
+	<string name="type.railway.station.subway.shiraz">حمل و نقل</string>
+	<string name="type.railway.station.subway.sofia">حمل و نقل</string>
 	<string name="type.railway.station.subway.spb">حمل و نقل</string>
+	<string name="type.railway.station.subway.stockholm">حمل و نقل</string>
+	<string name="type.railway.station.subway.tabriz">حمل و نقل</string>
+	<string name="type.railway.station.subway.taipei">حمل و نقل</string>
+	<string name="type.railway.station.subway.taoyuan">حمل و نقل</string>
+	<string name="type.railway.station.subway.tashkent">حمل و نقل</string>
+	<string name="type.railway.station.subway.tbilisi">حمل و نقل</string>
+	<string name="type.railway.station.subway.tianjin">حمل و نقل</string>
+	<string name="type.railway.station.subway.tokyo">حمل و نقل</string>
+	<string name="type.railway.station.subway.valencia">حمل و نقل</string>
+	<string name="type.railway.station.subway.vienna">حمل و نقل</string>
+	<string name="type.railway.station.subway.warszawa">حمل و نقل</string>
+	<string name="type.railway.station.subway.washington">حمل و نقل</string>
+	<string name="type.railway.station.subway.wuhan">حمل و نقل</string>
+	<string name="type.railway.station.subway.yerevan">حمل و نقل</string>
+	<string name="type.railway.station.subway.yokohama">حمل و نقل</string>
 	<string name="type.railway.subway_entrance">ورودی مترو</string>
-	<string name="type.railway.subway_entrance.barcelona">حمل و نقل</string>
-	<string name="type.railway.subway_entrance.berlin">حمل و نقل</string>
-	<string name="type.railway.subway_entrance.kiev">حمل و نقل</string>
-	<string name="type.railway.subway_entrance.london">حمل و نقل</string>
-	<string name="type.railway.subway_entrance.madrid">حمل و نقل</string>
-	<string name="type.railway.subway_entrance.minsk">حمل و نقل</string>
-	<string name="type.railway.subway_entrance.moscow">حمل و نقل</string>
-	<string name="type.railway.subway_entrance.newyork">حمل و نقل</string>
-	<string name="type.railway.subway_entrance.paris">حمل و نقل</string>
-	<string name="type.railway.subway_entrance.roma">حمل و نقل</string>
-	<string name="type.railway.subway_entrance.spb">حمل و نقل</string>
+	<string name="type.railway.subway_entrance.adana">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.algiers">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.almaty">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.amsterdam">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.ankara">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.athens">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.baku">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.bangkok">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.barcelona">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.beijing">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.bengalore">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.berlin">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.brasilia">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.brescia">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.brussels">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.bucharest">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.budapest">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.buenos_aires">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.bursa">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.cairo">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.caracas">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.catania">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.changchun">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.chengdu">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.chicago">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.chongqing">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.dalian">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.delhi">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.dnepro">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.dubai">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.ekb">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.fukuoka">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.glasgow">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.guangzhou">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.hamburg">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.helsinki">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.hiroshima">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.isfahan">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.istanbul">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.izmir">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.kazan">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.kharkiv">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.kiev">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.kobe">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.kolkata">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.kunming">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.kyoto">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.la">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.lausanne">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.lille">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.lima">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.lisboa">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.london">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.lyon">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.madrid">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.malaga">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.manila">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.maracaibo">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.mashhad">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.mecca">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.medellin">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.mexico">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.milan">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.minsk">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.montreal">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.moscow">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.munchen">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.nagoya">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.newyork">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.nnov">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.novosibirsk">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.osaka">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.oslo">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.palma">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.panama">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.paris">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.philadelphia">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.pyongyang">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.rennes">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.rio">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.roma">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.rotterdam">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.samara">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.santiago">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.santo_domingo">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.saopaulo">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.sapporo">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.sendai">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.sf">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.shanghai">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.shiraz">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.sofia">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.spb">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.stockholm">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.tabriz">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.taipei">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.taoyuan">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.tashkent">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.tbilisi">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.tianjin">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.tokyo">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.valencia">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.vienna">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.warszawa">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.washington">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.wuhan">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.yerevan">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.yokohama">ورودی مترو</string>
 	<string name="type.railway.tram_stop">ایستگاه قطار</string>
 	<string name="type.shop">فروشگاه</string>
 	<string name="type.shop.alcohol">فروشگاه</string>
@@ -1240,7 +1485,9 @@
 	<string name="type.sport.australian_football">فوتبال استرالیایی</string>
 	<string name="type.sport.baseball">بیسبال</string>
 	<string name="type.sport.basketball">بسکتبال</string>
+	<string name="type.sport.beachvolleyball">والیبال ساحلی</string>
 	<string name="type.sport.bowls">لعبة البولينج</string>
+	<string name="type.sport.chess">شطرنج</string>
 	<string name="type.sport.cricket">کریکت</string>
 	<string name="type.sport.curling">کرلینگ</string>
 	<string name="type.sport.equestrian">ورزش های سوارکاری</string>
@@ -1251,10 +1498,21 @@
 	<!-- Used to tag a scuba diving site. -->
 	<string name="type.sport.scuba_diving">غواصی</string>
 	<string name="type.sport.shooting">ورزش تیراندازی</string>
+	<string name="type.sport.skateboard">اسکیت‌بردینگ</string>
 	<string name="type.sport.skiing">اسکی</string>
 	<string name="type.sport.soccer">فوتبال</string>
 	<string name="type.sport.swimming">شنا</string>
+	<string name="type.sport.table_tennis">تنیس روی میز</string>
 	<string name="type.sport.tennis">زمین تنیس</string>
+	<string name="type.sport.volleyball">والیبال</string>
+	<string name="type.sport.10pin">بولینگ</string>
+	<string name="type.sport.9pin">بولینگ</string>
+	<string name="type.sport.padel">ﻝﺩﺎﭘ</string>
+	<string name="type.sport.futsal">ﻝﺎﺴﺗﻮﻓ</string>
+	<string name="type.sport.ice_hockey">ﺦﯾ ﯼﻭﺭ ﯽﮐﺎﻫ</string>
+	<string name="type.sport.field_hockey">ﻦﻤﭼ ﯼﻭﺭ ﯽﮐﺎﻫ</string>
+	<string name="type.sport.badminton">ﻥﻮﺘﻨﯿﻣﺪﺑ</string>
+	<string name="type.sport.pelota">ﯽﮑﺳﺎﺑ ﯼﺎﺗﻮﻠﭘ</string>
 	<string name="type.tourism.apartment">اپارتمان</string>
 	<string name="type.tourism.artwork">گردشگری</string>
 	<string name="type.tourism.artwork.architecture">گردشگری</string>

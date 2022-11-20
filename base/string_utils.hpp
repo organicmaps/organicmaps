@@ -34,7 +34,8 @@ public:
   using value_type = UniChar;
 
   UniString() {}
-  explicit UniString(size_t n, UniChar c = UniChar()) : BaseT(n, c) {}
+  explicit UniString(size_t n) : BaseT(n) {}
+  UniString(size_t n, UniChar c) { resize(n, c); }
 
   template <typename Iter>
   UniString(Iter b, Iter e) : BaseT(b, e)
@@ -81,14 +82,14 @@ public:
 /// to rules in ftp://ftp.unicode.org/Public/UNIDATA/CaseFolding.txt
 /// For implementation @see base/lower_case.cpp
 void MakeLowerCaseInplace(UniString & s);
-UniString MakeLowerCase(UniString const & s);
+UniString MakeLowerCase(UniString s);
 
 /// Performs NFKD - Compatibility decomposition for Unicode according
 /// to rules in ftp://ftp.unicode.org/Public/UNIDATA/UnicodeData.txt
 /// For implementation @see base/normalize_unicode.cpp
 void NormalizeInplace(UniString & s);
 
-UniString Normalize(UniString const & s);
+UniString Normalize(UniString s);
 std::string Normalize(std::string const & s);
 
 /// Replaces "full width" unicode digits with ascii ones.
@@ -120,14 +121,18 @@ bool ReplaceFirst(std::string & str, std::string const & from, std::string const
 bool ReplaceLast(std::string & str, std::string const & from, std::string const & to);
 
 void MakeLowerCaseInplace(std::string & s);
-std::string MakeLowerCase(std::string const & s);
+std::string MakeLowerCase(std::string s);
 bool EqualNoCase(std::string const & s1, std::string const & s2);
 
 UniString MakeUniString(std::string_view utf8s);
 std::string ToUtf8(UniString const & s);
 bool IsASCIIString(std::string_view sv);
 bool IsASCIIDigit(UniChar c);
-bool IsASCIINumeric(std::string const & str);
+template <class StringT> bool IsASCIINumeric(StringT const & str)
+{
+  return !std::empty(str) && std::all_of(std::begin(str), std::end(str), &IsASCIIDigit);
+}
+inline bool IsASCIINumeric(char const * s) { return IsASCIINumeric(std::string_view(s)); }
 bool IsASCIISpace(UniChar c);
 bool IsASCIILatin(UniChar c);
 
@@ -586,6 +591,7 @@ bool StartsWith(IterT1 beg, IterT1 end, IterT2 begPrefix, IterT2 endPrefix)
 
 bool StartsWith(UniString const & s, UniString const & p);
 bool StartsWith(std::string const & s1, char const * s2);
+bool StartsWith(std::string const & s1, std::string_view s2);
 bool StartsWith(std::string const & s, std::string::value_type c);
 bool StartsWith(std::string const & s1, std::string const & s2);
 

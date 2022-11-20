@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>hardware-m</title>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="hardware-m" fill-rule="nonzero">
-            <circle id="Oval" fill="#FFFFFF" opacity="0.6" cx="12" cy="12" r="12"></circle>
-            <circle id="Oval" fill="#8C5F93" cx="12" cy="12" r="11"></circle>
-            <path d="M12.745554,5 L12.745554,10.0624715 L17.2143183,10.0624715 C17.2143183,7.45782034 15.2672139,5.3128135 12.745554,5 Z M7,13.8928409 C7,16.7145463 9.28545372,19 12.1071591,19 C14.9288646,19 17.2143183,16.7145463 17.2143183,13.8928409 L17.2143183,11.3392613 L7,11.3392613 L7,13.8928409 Z M11.4687642,5 C8.94710442,5.3128135 7,7.45782034 7,10.0624715 L11.4687642,10.0624715 L11.4687642,5 Z" id="Shape" fill="#FFFFFF"></path>
-        </g>
-    </g>
+<svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+ <title>hardware-m</title>
+ <g fill="none" fill-rule="evenodd">
+  <g id="hardware-m" fill-rule="nonzero">
+   <circle id="Oval" cx="12" cy="12" r="12" fill="#fff" opacity=".6"/>
+   <circle id="Oval" cx="12" cy="12" r="11" fill="#8C5F93"/>
+   <path id="Shape" d="m12.746 5v5.0625h4.4688c0-2.6047-1.9471-4.7497-4.4688-5.0625zm-5.7456 8.8928c0 2.8217 2.2855 5.1072 5.1072 5.1072 2.8217 0 5.1072-2.2855 5.1072-5.1072v-2.5536h-10.214v2.5536zm4.4688-8.8928c-2.5217 0.31281-4.4688 2.4578-4.4688 5.0625h4.4688v-5.0625z" fill="#fff"/>
+  </g>
+ </g>
 </svg>

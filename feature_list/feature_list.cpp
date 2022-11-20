@@ -32,8 +32,6 @@
 #include "base/string_utils.hpp"
 
 #include <algorithm>
-#include <cstddef>
-#include <cstdint>
 #include <iostream>
 #include <limits>
 #include <map>
@@ -268,7 +266,8 @@ public:
     string const denomination(meta.Get(feature::Metadata::FMD_DENOMINATION));
     string const wheelchair(GetWheelchairType(f));
     string const opening_hours(meta.Get(feature::Metadata::FMD_OPEN_HOURS));
-    string const wikipedia(meta.GetWikiURL());
+    string const wikipedia(meta.Get(feature::Metadata::FMD_WIKIPEDIA));
+    string const wikimedia_commons(meta.Get(feature::Metadata::FMD_WIKIMEDIA_COMMONS));
     string const floor(meta.Get(feature::Metadata::FMD_LEVEL));
     string const fee = strings::EndsWith(category, "-fee") ? "yes" : "";
     string const atm = HasAtm(f) ? "yes" : "";
@@ -277,7 +276,7 @@ public:
         osmId,             uid,             lat,           lon,       mwmName, category,     name,    std::string(city),
         addrStreet,        addrHouse,       phone,         website,   stars,   std::string(metaOperator), internet,
         denomination,      wheelchair,      opening_hours, wikipedia, floor,   fee,          atm,     contact_facebook,
-        contact_instagram, contact_twitter, contact_vk,    contact_line};
+        contact_instagram, contact_twitter, contact_vk,    contact_line, wikimedia_commons};
 
     AppendNames(f, columns);
     PrintAsCSV(columns, ';', cout);
@@ -291,7 +290,7 @@ void PrintHeader()
                             "phone",           "website",      "cuisines",   "stars",            "operator",
                             "internet",        "denomination", "wheelchair", "opening_hours",    "wikipedia",
                             "floor",           "fee",          "atm",        "contact_facebook", "contact_instagram",
-                            "contact_twitter", "contact_vk",   "contact_line"};
+                            "contact_twitter", "contact_vk",   "contact_line", "wikimedia_commons"};
   // Append all supported name languages in order.
   for (uint8_t idx = 1; idx < kLangCount; idx++)
     columns.push_back("name_" + string(StringUtf8Multilang::GetLangByCode(idx)));

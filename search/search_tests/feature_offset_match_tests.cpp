@@ -8,16 +8,15 @@
 #include "base/mem_trie.hpp"
 #include "base/string_utils.hpp"
 
-#include <cstdint>
 #include <map>
 #include <string>
 #include <vector>
 
+namespace feature_offset_match_tests
+{
 using namespace base;
 using namespace std;
 
-namespace
-{
 using Key = strings::UniString;
 using Value = uint32_t;
 using ValueList = VectorValues<Value>;
@@ -94,4 +93,4 @@ UNIT_TEST(MatchPrefixInTrieTest)
     TEST(vals.at(1), (vals));
   }
 }
-}  // namespace
+} // namespace feature_offset_match_tests

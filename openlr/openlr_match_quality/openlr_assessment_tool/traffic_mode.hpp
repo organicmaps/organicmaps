@@ -1,11 +1,10 @@
 #pragma once
 
-#include "openlr/openlr_match_quality/openlr_assessment_tool/points_controller_delegate_base.hpp"
-#include "openlr/openlr_match_quality/openlr_assessment_tool/segment_correspondence.hpp"
-#include "openlr/openlr_match_quality/openlr_assessment_tool/traffic_drawer_delegate_base.hpp"
+#include "points_controller_delegate_base.hpp"
+#include "segment_correspondence.hpp"
+#include "traffic_drawer_delegate_base.hpp"
 
 #include "openlr/decoded_path.hpp"
-#include "openlr/openlr_model.hpp"
 
 #include "indexer/data_source.hpp"
 
@@ -13,20 +12,20 @@
 
 #include "3party/pugixml/pugixml/src/pugixml.hpp"
 
-#include <cstdint>
 #include <memory>
 #include <string>
-#include <unordered_map>
-#include <utility>
+#include <vector>
 
 #include <QAbstractTableModel>
-#include <Qt>
+
 
 class QItemSelection;
 class Selection;
 
 DECLARE_EXCEPTION(TrafficModeError, RootException);
 
+namespace openlr
+{
 namespace impl
 {
 /// This class denotes a "non-deterministic" feature point.
@@ -55,10 +54,6 @@ private:
 };
 }  // namespace impl
 
-class BookmarkManager;
-
-namespace openlr
-{
 /// This class is used to map sample ids to real data
 /// and change sample evaluations.
 class TrafficMode : public QAbstractTableModel

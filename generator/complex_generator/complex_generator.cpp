@@ -12,8 +12,7 @@
 //
 // $ python -m maps_generator --skip="coastline" --countries="Russia_Moscow"
 //
-// $ ./complex_generator --maps_build_path=path/to/maps_build \
-//   --user_resource_path=path/to/omim/data --output=output.txt
+// $ ./complex_generator --maps_build_path=path/to/maps_build --user_resource_path=path/to/omim/data --output=output.txt
 
 #include "generator/filter_complex.hpp"
 #include "generator/filter_interface.hpp"
@@ -42,7 +41,6 @@
 #include <exception>
 #include <iostream>
 
-#include "build_version.hpp"
 #include "defines.hpp"
 
 #include "gflags/gflags.h"
@@ -61,14 +59,15 @@ DEFINE_bool(debug, false, "Debug mode.");
 MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv) {
   CHECK(IsLittleEndian(), ("Only little-endian architectures are supported."));
 
+  Platform & pl = GetPlatform();
+
   gflags::SetUsageMessage(
       "complex_generator is a program that generates complexes on the basis of "
       "the last generation of maps. Complexes are a hierarchy of interesting "
       "geographical features.");
-  gflags::SetVersionString(build_version::kName);
+  gflags::SetVersionString(pl.Version());
   gflags::ParseCommandLineFlags(&argc, &argv, true);
 
-  Platform & pl = GetPlatform();
   auto threadsCount = pl.CpuCores();
   CHECK(!FLAGS_user_resource_path.empty(), ());
   pl.SetResourceDir(FLAGS_user_resource_path);

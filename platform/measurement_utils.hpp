@@ -2,8 +2,6 @@
 
 #include "geometry/point2d.hpp"
 
-#include "base/assert.hpp"
-
 #include <optional>
 #include <string>
 
@@ -19,6 +17,8 @@ enum class Units
 
 std::string DebugPrint(Units units);
 
+Units GetMeasurementUnits();
+
 inline double MetersToMiles(double m) { return m * 0.000621371192; }
 inline double MilesToMeters(double mi) { return mi * 1609.344; }
 inline double MiphToKmph(double miph) { return MilesToMeters(miph) / 1000.0; }
@@ -31,7 +31,8 @@ inline double InchesToMeters(double in) { return in / 39.370; }
 inline double NauticalMilesToMeters(double nmi) { return nmi * 1852; }
 inline double KmphToMps(double kmph) { return kmph * 1000 / 3600; }
 
-double ToSpeedKmPH(double speed, measurement_utils::Units units);
+double ToSpeedKmPH(double speed, Units units);
+double MpsToUnits(double mps, Units units);
 
 /// Takes into an account user settings [metric, imperial]
 /// @param[in] m meters
@@ -40,13 +41,11 @@ double ToSpeedKmPH(double speed, measurement_utils::Units units);
 std::string FormatDistance(double distanceInMeters);
 std::string FormatDistanceWithLocalization(double m, OptionalStringRef high, OptionalStringRef low);
 
-/// We always use meters and feet/yards for altitude
+/// @return Localized meters or feets string for altitude, depending on current measurement units.
 std::string FormatAltitude(double altitudeInMeters);
 std::string FormatAltitudeWithLocalization(double altitudeInMeters, OptionalStringRef localizedUnits);
-// Return value is measured in km/h for Metric and in mph for Imperial.
-std::string FormatSpeed(double metersPerSecond);
+/// @return Speed value string (without suffix) in km/h for Metric and in mph for Imperial.
 std::string FormatSpeedNumeric(double metersPerSecond, Units units);
-std::string FormatSpeedUnits(Units units);
 
 /// @param[in] dac  Digits after comma in seconds.
 /// Use dac == 3 for our common conversions to DMS.

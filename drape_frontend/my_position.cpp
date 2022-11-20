@@ -13,7 +13,6 @@
 #include "drape/overlay_handle.hpp"
 #include "drape/render_bucket.hpp"
 
-#include "indexer/map_style_reader.hpp"
 
 namespace df
 {
@@ -60,7 +59,6 @@ MyPosition::MyPosition(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Texture
   , m_accuracy(0.0f)
   , m_showAzimuth(false)
   , m_isRoutingMode(false)
-  , m_obsoletePosition(false)
 {
   m_parts.resize(4);
   CacheAccuracySector(context, mng);
@@ -100,7 +98,6 @@ void MyPosition::SetRoutingMode(bool routingMode)
 
 void MyPosition::SetPositionObsolete(bool obsolete)
 {
-  m_obsoletePosition = obsolete;
   CHECK(m_arrow3d != nullptr, ());
   m_arrow3d->SetPositionObsolete(obsolete);
 }

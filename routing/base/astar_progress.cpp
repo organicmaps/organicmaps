@@ -1,6 +1,6 @@
 #include "routing/base/astar_progress.hpp"
 
-#include "geometry/distance_on_sphere.hpp"
+#include "coding/point_coding.hpp"
 
 #include "base/assert.hpp"
 #include "base/math.hpp"
@@ -10,7 +10,14 @@
 
 namespace routing
 {
-// AStarSubProgress ----------------------------------------------------------------------
+
+double AStarSubProgress::CalcDistance(ms::LatLon const & from, ms::LatLon const & to)
+{
+  // Use very simple, naive and fast distance for progress, because the honest ms::DistanceOnEarth
+  // is very time-consuming and *on top* of routing calculation, taking into account frequent progress calls.
+  // We even added distance cache into RoadGeometry.
+  return fabs(from.m_lon - to.m_lon) + fabs(from.m_lat - to.m_lat);
+}
 
 AStarSubProgress::AStarSubProgress(ms::LatLon const & start, ms::LatLon const & finish,
                                    double contributionCoef)
@@ -18,7 +25,7 @@ AStarSubProgress::AStarSubProgress(ms::LatLon const & start, ms::LatLon const & 
 {
   ASSERT_GREATER(m_contributionCoef, 0.0, ());
 
-  m_fullDistance = ms::DistanceOnEarth(start, finish);
+  m_fullDistance = CalcDistance(start, finish);
   m_forwardDistance = m_fullDistance;
   m_backwardDistance = m_fullDistance;
 }
@@ -32,10 +39,10 @@ AStarSubProgress::AStarSubProgress(double contributionCoef)
 double AStarSubProgress::UpdateProgress(ms::LatLon const & current, ms::LatLon const & finish)
 {
   // to avoid 0/0
-  if (m_fullDistance < 1.0E-6)
+  if (m_fullDistance < kMwmPointAccuracy)
     return m_currentProgress;
 
-  double const dist = ms::DistanceOnEarth(current, finish);
+  double const dist = CalcDistance(current, finish);
   double & toUpdate = finish == m_finishPoint ? m_forwardDistance : m_backwardDistance;
 
   toUpdate = std::min(toUpdate, dist);
@@ -83,18 +90,15 @@ void AStarProgress::AppendSubProgress(AStarSubProgress const & subProgress)
 void AStarProgress::DropLastSubProgress()
 {
   CHECK(!m_subProgresses.empty(), ());
-  auto const last = std::prev(m_subProgresses.end());
-  m_subProgresses.erase(last);
+  m_subProgresses.pop_back();
 }
 
 void AStarProgress::PushAndDropLastSubProgress()
 {
-  CHECK(m_subProgresses.begin() != m_subProgresses.end(), ());
-  CHECK(m_subProgresses.begin() != std::prev(m_subProgresses.end()), ());
-
+  CHECK_GREATER(m_subProgresses.size(), 1, ());
   auto prevLast = std::prev(std::prev(m_subProgresses.end()));
-  prevLast->Flush(m_subProgresses.back().GetMaxContribution());
 
+  prevLast->Flush(m_subProgresses.back().GetMaxContribution());
   DropLastSubProgress();
 }
 

@@ -9,16 +9,11 @@
 
 #include "base/array_adapters.hpp"
 #include "base/assert.hpp"
-#include "base/base.hpp"
-#include "base/bits.hpp"
 #include "base/buffer_vector.hpp"
 #include "base/stl_helpers.hpp"
 
 #include <algorithm>
-#include <cstddef>
-#include <cstdint>
 #include <functional>
-#include <iterator>
 #include <list>
 #include <vector>
 
@@ -52,6 +47,7 @@ m2::PointU DecodePointDelta(Source & source, m2::PointU const & base)
 {
   auto const dx = ReadVarInt<int32_t>(source);
   auto const dy = ReadVarInt<int32_t>(source);
+  ASSERT(int(base.x) + dx >= 0 && int(base.y) + dy >= 0, (base, dx, dy));
   return m2::PointU(base.x + dx, base.y + dy);
 }
 

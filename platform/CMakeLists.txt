@@ -83,12 +83,31 @@ elseif(${PLATFORM_ANDROID})
     platform_unix_impl.hpp
   )
 else() # neither iPhone nor Android
+
+  # Generate version header file.
+  execute_process(COMMAND tools/unix/version.sh qt_version
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+    OUTPUT_VARIABLE OM_VERSION
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+    COMMAND_ERROR_IS_FATAL ANY
+  )
+  execute_process(COMMAND tools/unix/version.sh qt_int_version
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+    OUTPUT_VARIABLE OM_INT_VERSION
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+    COMMAND_ERROR_IS_FATAL ANY
+  )
+  configure_file("${CMAKE_CURRENT_SOURCE_DIR}/platform_qt_version.cpp.in"
+                 "${CMAKE_CURRENT_BINARY_DIR}/platform_qt_version.cpp"
+                  @ONLY)
+
   append(SRC
     localization_dummy.cpp
     location_service.cpp
     location_service.hpp
     network_policy_dummy.cpp
     platform_qt.cpp
+    "${CMAKE_CURRENT_BINARY_DIR}/platform_qt_version.cpp"
   )
 
   if (${PLATFORM_WIN})

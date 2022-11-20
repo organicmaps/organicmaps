@@ -9,11 +9,11 @@
 
 #include <algorithm>
 
+namespace polygon_test
+{
 using namespace std;
 using namespace m2::robust;
 
-namespace
-{
 using P = m2::PointD;
 
 template <typename Iter>
@@ -61,7 +61,6 @@ void TestPolygonOrReverseCCW(Iter beg, Iter end)
   bool const bReverseCCW = IsPolygonCCW(ReverseIter(end), ReverseIter(beg));
   TEST_NOT_EQUAL(bForwardCCW, bReverseCCW, ());
 }
-}  // namespace
 
 UNIT_TEST(IsSegmentInCone)
 {
@@ -86,7 +85,7 @@ UNIT_TEST(IsSegmentInCone)
 
 UNIT_TEST(IsDiagonalVisible)
 {
-  P poly[] = {P(0, 0), P(3, 0), P(3, 2), P(2, 2), P(2, 1), P(0, 1)};
+  P const poly[] = {P(0, 0), P(3, 0), P(3, 2), P(2, 2), P(2, 1), P(0, 1)};
   P const * b = poly;
   P const * e = poly + ARRAY_SIZE(poly);
 
@@ -104,19 +103,19 @@ UNIT_TEST(IsDiagonalVisible)
 UNIT_TEST(FindSingleStrip)
 {
   {
-    P poly[] = {P(0, 0), P(3, 0), P(3, 2), P(2, 2), P(2, 1), P(0, 1)};
+    P const poly[] = {P(0, 0), P(3, 0), P(3, 2), P(2, 2), P(2, 1), P(0, 1)};
     TestFindStripMulti(poly, ARRAY_SIZE(poly));
   }
 
   {
-    P poly[] = {P(0, 0), P(2, 0), P(2, -1), P(3, -1), P(3, 2), P(2, 2), P(2, 1), P(0, 1)};
+    P const poly[] = {P(0, 0), P(2, 0), P(2, -1), P(3, -1), P(3, 2), P(2, 2), P(2, 1), P(0, 1)};
     size_t const n = ARRAY_SIZE(poly);
     TEST_EQUAL(FindSingleStrip(n, IsDiagonalVisibleFunctor<P const *>(poly, poly + n)), n, ());
   }
 
   {
     // Minsk, Bobryiskaya str., 7
-    P poly[] = {P(53.8926922, 27.5460021), P(53.8926539, 27.5461821), P(53.8926164, 27.5461591),
+    P const poly[] = {P(53.8926922, 27.5460021), P(53.8926539, 27.5461821), P(53.8926164, 27.5461591),
                 P(53.8925455, 27.5464921), P(53.8925817, 27.5465143), P(53.8925441, 27.5466909),
                 P(53.8923762, 27.5465881), P(53.8925229, 27.5458984)};
     TestFindStrip(poly, ARRAY_SIZE(poly));
@@ -200,3 +199,4 @@ P(37.368097992025411713, 67.292830094036474975), P(37.368216009222180674, 67.292
   TestPolygonOrReverseCCW(arr, arr + ARRAY_SIZE(arr));
 }
 */
+}  // namespace polygon_test

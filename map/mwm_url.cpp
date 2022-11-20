@@ -8,39 +8,17 @@
 
 #include "drape_frontend/visual_params.hpp"
 
-#include "platform/settings.hpp"
-
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
 #include <array>
 
-using namespace std;
-
 namespace url_scheme
 {
-namespace lead
-{
-struct CampaignDescription
-{
-  void Write() const
-  {
-    if (!IsValid())
-    {
-      LOG(LERROR, ("Invalid campaign description"));
-      return;
-    }
-  }
+using namespace std;
 
-  bool IsValid() const { return !m_from.empty() && !m_type.empty() && !m_name.empty(); }
-
-  string m_from;
-  string m_type;
-  string m_name;
-  string m_content;
-  string m_keyword;
-};
-}  // namespace lead
+string_view constexpr kCenterLatLon = "cll";
+string_view constexpr kAppName = "appname";
 
 namespace map
 {
@@ -51,7 +29,6 @@ char const * kId = "id";
 char const * kStyle = "s";
 char const * kBackUrl = "backurl";
 char const * kVersion = "v";
-char const * kAppName = "appname";
 char const * kBalloonAction = "balloonaction";
 }  // namespace map
 
@@ -71,7 +48,6 @@ char const * kRouteTypeTransit = "transit";
 namespace search
 {
 char const * kQuery = "query";
-char const * kCenterLatLon = "cll";
 char const * kLocale = "locale";
 char const * kSearchOnMap = "map";
 }  // namespace search
@@ -194,22 +170,23 @@ bool ParsedMapApi::Parse(url::Url const & url, UrlType type)
     }
     case UrlType::Search:
     {
-      SearchRequest request;
-      url.ForEachParam([&request, this](auto const & key, auto const & value)
+      url.ForEachParam([this](auto const & key, auto const & value)
       {
-        ParseSearchParam(key, value, request);
+        ParseSearchParam(key, value);
       });
-      if (request.m_query.empty())
+      if (m_searchRequest.m_query.empty())
+      {
+        m_searchRequest = SearchRequest();
         return false;
+      }
 
-      m_request = request;
       return true;
     }
     case UrlType::Crosshair:
     {
       url.ForEachParam([this](auto const & key, auto const & value)
       {
-         ParseCrosshairParam(key, value);
+         ParseCommonParam(key, value);
       });
       return true;
     }
@@ -227,7 +204,10 @@ void ParsedMapApi::ParseMapParam(std::string const & key, std::string const & va
     double lat = 0.0;
     double lon = 0.0;
     if (!ParseLatLon(key, value, lat, lon))
+    {
+      LOG(LWARNING, ("Incorrect 'll':", value));
       return;
+    }
 
     ApiPoint pt{.m_lat = lat, .m_lon = lon};
     points.push_back(pt);
@@ -288,13 +268,13 @@ void ParsedMapApi::ParseMapParam(std::string const & key, std::string const & va
     if (!strings::to_int(value, m_version))
       m_version = 0;
   }
-  else if (key == kAppName)
-  {
-    m_appName = value;
-  }
   else if (key == kBalloonAction)
   {
     m_goBackOnBalloonClick = true;
+  }
+  else
+  {
+    ParseCommonParam(key, value);
   }
 }
 
@@ -311,7 +291,10 @@ void ParsedMapApi::ParseRouteParam(std::string const & key, std::string const & 
     double lat = 0.0;
     double lon = 0.0;
     if (!ParseLatLon(key, value, lat, lon))
+    {
+      LOG(LWARNING, ("Incorrect 'sll':", value));
       return;
+    }
 
     RoutePoint p;
     p.m_org = mercator::FromLatLon(lat, lon);
@@ -339,47 +322,54 @@ void ParsedMapApi::ParseRouteParam(std::string const & key, std::string const & 
   pattern.erase(pattern.begin());
 }
 
-void ParsedMapApi::ParseSearchParam(std::string const & key, std::string const & value,
-                                    SearchRequest & request) const
+void ParsedMapApi::ParseSearchParam(std::string const & key, std::string const & value)
 {
   using namespace search;
 
   if (key == kQuery)
   {
-    request.m_query = value;
+    m_searchRequest.m_query = value;
+  }
+  else if (key == kLocale)
+  {
+    m_searchRequest.m_locale = value;
+  }
+  else if (key == kSearchOnMap)
+  {
+    m_searchRequest.m_isSearchOnMap = true;
+  }
+  else
+  {
+    ParseCommonParam(key, value);
+  }
+}
+
+void ParsedMapApi::ParseCommonParam(std::string const & key, std::string const & value)
+{
+  if (key == kAppName)
+  {
+    m_appName = value;
   }
   else if (key == kCenterLatLon)
   {
     double lat = 0.0;
     double lon = 0.0;
-    if (ParseLatLon(key, value, lat, lon))
+    if (!ParseLatLon(key, value, lat, lon))
     {
-      request.m_centerLat = lat;
-      request.m_centerLon = lon;
+      LOG(LWARNING, ("Incorrect 'cll':", value));
+      return;
     }
+    m_centerLatLon = ms::LatLon(lat, lon);
   }
-  else if (key == kLocale)
-  {
-    request.m_locale = value;
-  }
-  else if (key == kSearchOnMap)
-  {
-    request.m_isSearchOnMap = true;
-  }
-}
-
-void ParsedMapApi::ParseCrosshairParam(std::string const & key, std::string const & value)
-{
-  if (key == map::kAppName)
-    m_appName = value;
 }
 
 void ParsedMapApi::Reset()
 {
   m_routePoints = {};
-  m_request = {};
+  m_searchRequest = {};
   m_globalBackUrl ={};
   m_appName = {};
+  m_centerLatLon = {};
   m_routingType = {};
   m_version = 0;
   m_zoomLevel = 0.0;

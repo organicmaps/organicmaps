@@ -16,14 +16,12 @@
 
 #include "shaders/programs.hpp"
 
+#include "drape/constants.hpp"
 #include "drape/drape_global.hpp"
 #include "drape/framebuffer.hpp"
 #include "drape/support_manager.hpp"
-#include "drape/utils/glyph_usage_tracker.hpp"
-#include "drape/utils/gpu_mem_tracker.hpp"
 #include "drape/utils/projection.hpp"
 
-#include "indexer/classificator_loader.hpp"
 #include "indexer/drawing_rules.hpp"
 #include "indexer/map_style_reader.hpp"
 #include "indexer/scales.hpp"
@@ -47,10 +45,11 @@
 #include <thread>
 #include <utility>
 
-using namespace std::placeholders;
 
 namespace df
 {
+using namespace std::placeholders;
+
 namespace
 {
 float constexpr kIsometryAngle = static_cast<float>(math::pi) * 76.0f / 180.0f;
@@ -256,7 +255,7 @@ void FrontendRenderer::UpdateCanBeDeletedStatus()
         if (tileRect.IsIntersect(screenRect))
           canBeDeleted = !HasIntersection(tileRect, notFinishedTileRects);
       }
-      layer.m_isDirty |= group->UpdateCanBeDeletedStatus(canBeDeleted, m_currentZoomLevel,
+      layer.m_isDirty |= group->UpdateCanBeDeletedStatus(canBeDeleted, GetCurrentZoom(),
                                                          make_ref(m_overlayTree));
     }
   }
@@ -272,7 +271,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       dp::RenderState const & state = msg->GetState();
       TileKey const & key = msg->GetKey();
       drape_ptr<dp::RenderBucket> bucket = msg->AcceptBuffer();
-      if (key.m_zoomLevel == m_currentZoomLevel && CheckTileGenerations(key))
+      if (key.m_zoomLevel == GetCurrentZoom() && CheckTileGenerations(key))
       {
         PrepareBucket(state, bucket);
         AddToRenderGroup<RenderGroup>(state, std::move(bucket), key);
@@ -286,7 +285,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       TOverlaysRenderData renderData = msg->AcceptRenderData();
       for (auto & overlayRenderData : renderData)
       {
-        if (overlayRenderData.m_tileKey.m_zoomLevel == m_currentZoomLevel &&
+        if (overlayRenderData.m_tileKey.m_zoomLevel == GetCurrentZoom() &&
             CheckTileGenerations(overlayRenderData.m_tileKey))
         {
           PrepareBucket(overlayRenderData.m_state, overlayRenderData.m_bucket);
@@ -329,7 +328,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 #if defined(DRAPE_MEASURER_BENCHMARK) && defined(GENERATING_STATISTIC)
         DrapeMeasurer::Instance().EndScenePreparing();
 #endif
-        m_trafficRenderer->OnGeometryReady(m_currentZoomLevel);
+        m_trafficRenderer->OnGeometryReady(GetCurrentZoom());
 
 #if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
         if (m_graphicsStage == GraphicsStage::WaitReady)
@@ -352,7 +351,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       TUserMarksRenderData marksRenderData = msg->AcceptRenderData();
       for (auto & renderData : marksRenderData)
       {
-        if (renderData.m_tileKey.m_zoomLevel == m_currentZoomLevel &&
+        if (renderData.m_tileKey.m_zoomLevel == GetCurrentZoom() &&
             CheckTileGenerations(renderData.m_tileKey))
         {
           PrepareBucket(renderData.m_state, renderData.m_bucket);
@@ -484,11 +483,12 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
         m_selectObjectMessage = make_unique_dp<SelectObjectMessage>(
             msg->GetSelectedObject(), msg->GetPosition(), msg->GetFeatureID(), msg->IsAnim(),
             msg->IsGeometrySelectionAllowed(), true /* isSelectionShapeVisible */);
-        break;
       }
-      ProcessSelection(msg);
-      AddUserEvent(make_unique_dp<SetVisibleViewportEvent>(m_userEventStream.GetVisibleViewport()));
-
+      else
+      {
+        ProcessSelection(msg);
+        AddUserEvent(make_unique_dp<SetVisibleViewportEvent>(m_userEventStream.GetVisibleViewport()));
+      }
       break;
     }
 
@@ -612,11 +612,12 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
         m_pendingFollowRoute = std::make_unique<FollowRouteData>(
             msg->GetPreferredZoomLevel(), msg->GetPreferredZoomLevelIn3d(), msg->EnableAutoZoom(),
             msg->IsArrowGlued());
-        break;
       }
-
-      FollowRoute(msg->GetPreferredZoomLevel(), msg->GetPreferredZoomLevelIn3d(),
-                  msg->EnableAutoZoom(), msg->IsArrowGlued());
+      else
+      {
+        FollowRoute(msg->GetPreferredZoomLevel(), msg->GetPreferredZoomLevelIn3d(),
+                    msg->EnableAutoZoom(), msg->IsArrowGlued());
+      }
       break;
     }
 
@@ -812,11 +813,11 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::Type::OnEnterBackground:
-    {
-      m_myPositionController->OnEnterBackground();
-      break;
-    }
+//  case Message::Type::OnEnterBackground:
+//    {
+//      m_myPositionController->OnEnterBackground();
+//      break;
+//    }
 
   case Message::Type::SetAddNewPlaceMode:
     {
@@ -831,11 +832,14 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
         }
         else
         {
-          m2::PointD const pt = msg->HasPosition()? msg->GetPosition() :
+          // Exact position for POI or screen's center for Add place on map.
+          m2::PointD const pt = msg->HasPosition() ? msg->GetPosition() :
                                 m_userEventStream.GetCurrentScreen().GlobalRect().Center();
+
           int zoom = kDoNotChangeZoom;
-          if (m_currentZoomLevel < scales::GetAddNewPlaceScale())
+          if (GetCurrentZoom() < scales::GetAddNewPlaceScale())
             zoom = scales::GetAddNewPlaceScale();
+
           AddUserEvent(make_unique_dp<SetCenterEvent>(pt, zoom, true /* isAnim */, false /* trackVisibleViewport */,
                                                       nullptr /* parallelAnimCreator */));
         }
@@ -1072,13 +1076,10 @@ void FrontendRenderer::UpdateContextDependentResources()
 
   m_trafficRenderer->ClearContextDependentResources();
 
-  // In some cases UpdateContextDependentResources can be called before the rendering of
-  // the first frame. m_currentZoomLevel will be equal to -1, so ResolveTileKeys
-  // could not be called.
-  if (m_currentZoomLevel > 0)
+  if (IsValidCurrentZoom())
   {
     // Request new tiles.
-    ScreenBase screen = m_userEventStream.GetCurrentScreen();
+    ScreenBase const & screen = m_userEventStream.GetCurrentScreen();
     m_lastReadedModelView = screen;
     m_requestedTiles->Set(screen, m_isIsometry || screen.isPerspective(),
                           m_forceUpdateScene, m_forceUpdateUserMarks,
@@ -1116,16 +1117,16 @@ bool FrontendRenderer::CheckRouteRecaching(ref_ptr<BaseSubrouteData> subrouteDat
 
 void FrontendRenderer::InvalidateRect(m2::RectD const & gRect)
 {
-  ScreenBase screen = m_userEventStream.GetCurrentScreen();
+  ScreenBase const screen = m_userEventStream.GetCurrentScreen();
   m2::RectD rect = gRect;
   if (rect.Intersect(screen.ClipRect()))
   {
     // Find tiles to invalidate.
     TTilesCollection tiles;
-    int const dataZoomLevel = ClipTileZoomByMaxDataZoom(m_currentZoomLevel);
+    int const dataZoomLevel = ClipTileZoomByMaxDataZoom(GetCurrentZoom());
     CalcTilesCoverage(rect, dataZoomLevel, [this, &rect, &tiles](int tileX, int tileY)
     {
-      TileKey const key(tileX, tileY, m_currentZoomLevel);
+      TileKey const key(tileX, tileY, GetCurrentZoom());
       if (rect.IsIntersect(key.GetGlobalRect()))
         tiles.insert(key);
     });
@@ -1310,7 +1311,7 @@ void FrontendRenderer::PullToBoundArea(bool randomPlace, bool applyZoom)
     m2::PointD const dest = randomPlace ? m2::GetRandomPointInsideTriangles(m_dragBoundArea) :
                                           m2::ProjectPointToTriangles(center, m_dragBoundArea);
     int zoom = kDoNotChangeZoom;
-    if (applyZoom && m_currentZoomLevel < scales::GetAddNewPlaceScale())
+    if (applyZoom && GetCurrentZoom() < scales::GetAddNewPlaceScale())
       zoom = scales::GetAddNewPlaceScale();
     AddUserEvent(make_unique_dp<SetCenterEvent>(dest, zoom, true /* isAnim */, false /* trackVisibleViewport */,
                                                 nullptr /* parallelAnimCreator */));
@@ -1322,7 +1323,7 @@ void FrontendRenderer::ProcessSelection(ref_ptr<SelectObjectMessage> msg)
   if (msg->IsDismiss())
   {
     m_selectionShape->Hide();
-    if (!m_myPositionController->IsModeChangeViewport() && m_selectionTrackInfo.has_value())
+    if (!m_myPositionController->IsModeChangeViewport() && m_selectionTrackInfo)
     {
       AddUserEvent(make_unique_dp<SetAnyRectEvent>(m_selectionTrackInfo->m_startRect,
                                                    true /* isAnim */, false /* fitInViewport */,
@@ -1335,8 +1336,8 @@ void FrontendRenderer::ProcessSelection(ref_ptr<SelectObjectMessage> msg)
     double offsetZ = 0.0;
     ScreenBase modelView;
     m_userEventStream.GetTargetScreen(modelView);
-    if (modelView.isPerspective() &&
-        msg->GetSelectedObject() != SelectionShape::ESelectedObject::OBJECT_TRACK)
+
+    if (modelView.isPerspective() && msg->GetSelectedObject() != SelectionShape::ESelectedObject::OBJECT_TRACK)
     {
       dp::TOverlayContainer selectResult;
       if (m_overlayTree->IsNeedUpdate())
@@ -1345,15 +1346,16 @@ void FrontendRenderer::ProcessSelection(ref_ptr<SelectObjectMessage> msg)
       for (ref_ptr<dp::OverlayHandle> const & handle : selectResult)
         offsetZ = std::max(offsetZ, handle->GetPivotZ());
     }
+
     if (msg->IsSelectionShapeVisible())
       m_selectionShape->Show(msg->GetSelectedObject(), msg->GetPosition(), offsetZ, msg->IsAnim());
     else
       m_selectionShape->Hide();
+
     if (!m_myPositionController->IsModeChangeViewport())
     {
-      m2::PointD startPosition;
-      if (m_selectionShape->IsVisible(modelView, startPosition))
-        m_selectionTrackInfo = SelectionTrackInfo(modelView.GlobalRect(), startPosition);
+      if (auto const startPosition = m_selectionShape->GetPixelPosition(modelView, GetCurrentZoom()))
+        m_selectionTrackInfo = SelectionTrackInfo(modelView.GlobalRect(), *startPosition);
     }
 
     if (msg->IsGeometrySelectionAllowed())
@@ -1369,7 +1371,7 @@ void FrontendRenderer::ProcessSelection(ref_ptr<SelectObjectMessage> msg)
 void FrontendRenderer::BeginUpdateOverlayTree(ScreenBase const & modelView)
 {
   if (m_overlayTree->Frame())
-    m_overlayTree->StartOverlayPlacing(modelView, m_currentZoomLevel);
+    m_overlayTree->StartOverlayPlacing(modelView, GetCurrentZoom());
 }
 
 void FrontendRenderer::UpdateOverlayTree(ScreenBase const & modelView, drape_ptr<RenderGroup> & renderGroup)
@@ -1387,7 +1389,7 @@ void FrontendRenderer::EndUpdateOverlayTree()
     m_overlayTree->EndOverlayPlacing();
 
     // Track overlays.
-    if (m_overlaysTracker->StartTracking(m_currentZoomLevel,
+    if (m_overlaysTracker->StartTracking(GetCurrentZoom(),
                                          m_myPositionController->IsModeHasPosition(),
                                          m_myPositionController->GetDrawablePosition(),
                                          m_myPositionController->GetHorizontalAccuracy()))
@@ -1449,7 +1451,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
 
     m_context->Clear(dp::ClearBits::DepthBit, dp::kClearBitsStoreAll);
 
-    if (m_selectionShape != nullptr)
+    if (m_selectionShape && IsValidCurrentZoom())
     {
       SelectionShape::ESelectedObject selectedObject = m_selectionShape->GetSelectedObject();
       if (selectedObject == SelectionShape::OBJECT_MY_POSITION)
@@ -1457,12 +1459,12 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
         ASSERT(m_myPositionController->IsModeHasPosition(), ());
         m_selectionShape->SetPosition(m_myPositionController->Position());
         m_selectionShape->Render(m_context, make_ref(m_gpuProgramManager), modelView,
-                                 m_currentZoomLevel, m_frameValues);
+                                 GetCurrentZoom(), m_frameValues);
       }
       else if (selectedObject == SelectionShape::OBJECT_POI)
       {
         m_selectionShape->Render(m_context, make_ref(m_gpuProgramManager), modelView,
-                                 m_currentZoomLevel, m_frameValues);
+                                 GetCurrentZoom(), m_frameValues);
       }
     }
 
@@ -1471,15 +1473,18 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
       RenderOverlayLayer(modelView);
     }
 
-    m_gpsTrackRenderer->RenderTrack(m_context, make_ref(m_gpuProgramManager), modelView, m_currentZoomLevel,
-                                    m_frameValues);
-
-    if (m_selectionShape != nullptr &&
-        (m_selectionShape->GetSelectedObject() == SelectionShape::OBJECT_USER_MARK ||
-         m_selectionShape->GetSelectedObject() == SelectionShape::OBJECT_TRACK))
+    if (IsValidCurrentZoom())
     {
-      m_selectionShape->Render(m_context, make_ref(m_gpuProgramManager), modelView, m_currentZoomLevel,
-                               m_frameValues);
+      m_gpsTrackRenderer->RenderTrack(m_context, make_ref(m_gpuProgramManager), modelView, GetCurrentZoom(),
+                                      m_frameValues);
+
+      if (m_selectionShape &&
+          (m_selectionShape->GetSelectedObject() == SelectionShape::OBJECT_USER_MARK ||
+           m_selectionShape->GetSelectedObject() == SelectionShape::OBJECT_TRACK))
+      {
+        m_selectionShape->Render(m_context, make_ref(m_gpuProgramManager), modelView, GetCurrentZoom(),
+                                 m_frameValues);
+      }
     }
 
     if (HasTransitRouteData())
@@ -1505,10 +1510,10 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
   if (!m_postprocessRenderer->EndFrame(m_context, make_ref(m_gpuProgramManager), m_viewport))
     return;
 
-  m_myPositionController->Render(m_context, make_ref(m_gpuProgramManager), modelView, m_currentZoomLevel,
-                                 m_frameValues);
+  if (IsValidCurrentZoom())
+    m_myPositionController->Render(m_context, make_ref(m_gpuProgramManager), modelView, GetCurrentZoom(), m_frameValues);
 
-  if (m_guiRenderer != nullptr && !m_screenshotMode)
+  if (m_guiRenderer && !m_screenshotMode)
   {
     m_guiRenderer->Render(m_context, make_ref(m_gpuProgramManager), m_myPositionController->IsInRouting(),
                           modelView);
@@ -1615,7 +1620,7 @@ bool FrontendRenderer::HasRouteData() const
 void FrontendRenderer::RenderTransitSchemeLayer(ScreenBase const & modelView)
 {
   CHECK(m_context != nullptr, ());
-  if (m_transitSchemeEnabled && m_transitSchemeRenderer->IsSchemeVisible(m_currentZoomLevel))
+  if (m_transitSchemeEnabled && m_transitSchemeRenderer->IsSchemeVisible(GetCurrentZoom()))
   {
     DEBUG_LABEL(m_context, "Transit Scheme");
     m_context->Clear(dp::ClearBits::DepthBit, dp::kClearBitsStoreAll);
@@ -1634,7 +1639,7 @@ void FrontendRenderer::RenderTrafficLayer(ScreenBase const & modelView)
     DEBUG_LABEL(m_context, "Traffic Layer");
     m_context->Clear(dp::ClearBits::DepthBit, dp::kClearBitsStoreAll);
     m_trafficRenderer->RenderTraffic(m_context, make_ref(m_gpuProgramManager), modelView,
-                                     m_currentZoomLevel, 1.0f /* opacity */, m_frameValues);
+                                     GetCurrentZoom(), 1.0f /* opacity */, m_frameValues);
   }
 }
 
@@ -1733,16 +1738,16 @@ void FrontendRenderer::RenderFrame()
   auto & scaleFpsHelper = gui::DrapeGui::Instance().GetScaleFpsHelper();
   m_frameData.m_timer.Reset();
 
-  ScreenBase const & modelView = ProcessEvents(m_frameData.m_modelViewChanged,
-                                               m_frameData.m_viewportChanged);
-  if (m_frameData.m_viewportChanged || m_needRestoreSize)
+  bool modelViewChanged, viewportChanged;
+  ScreenBase const & modelView = ProcessEvents(modelViewChanged, viewportChanged);
+  if (viewportChanged || m_needRestoreSize)
     OnResize(modelView);
 
   if (!m_context->BeginRendering())
     return;
 
   // Check for a frame is active.
-  bool isActiveFrame = m_frameData.m_modelViewChanged || m_frameData.m_viewportChanged;
+  bool isActiveFrame = modelViewChanged || viewportChanged;
 
   if (isActiveFrame)
     PrepareScene(modelView);
@@ -1776,7 +1781,7 @@ void FrontendRenderer::RenderFrame()
   isActiveFrame = true;
 #endif
 
-  if (m_frameData.m_modelViewChanged || hasForceUpdate)
+  if (modelViewChanged || hasForceUpdate)
     UpdateScene(modelView);
 
   InterpolationHolder::Instance().Advance(m_frameData.m_frameTime);
@@ -1855,19 +1860,21 @@ void FrontendRenderer::RenderFrame()
 
 void FrontendRenderer::BuildOverlayTree(ScreenBase const & modelView)
 {
-  static std::array<DepthLayer, 4> layers = {DepthLayer::OverlayLayer,
-                                             DepthLayer::NavigationLayer,
-                                             DepthLayer::RoutingBottomMarkLayer,
-                                             DepthLayer::RoutingMarkLayer};
+  if (!IsValidCurrentZoom())
+    return;
+
   BeginUpdateOverlayTree(modelView);
-  for (auto const layerId : layers)
+  for (auto const layerId : {DepthLayer::OverlayLayer,
+                             DepthLayer::NavigationLayer,
+                             DepthLayer::RoutingBottomMarkLayer,
+                             DepthLayer::RoutingMarkLayer})
   {
     RenderLayer & overlay = m_layers[static_cast<size_t>(layerId)];
     overlay.Sort(make_ref(m_overlayTree));
-    for (drape_ptr<RenderGroup> & group : overlay.m_renderGroups)
+    for (auto & group : overlay.m_renderGroups)
       UpdateOverlayTree(modelView, group);
   }
-  if (m_transitSchemeRenderer->IsSchemeVisible(m_currentZoomLevel) && !HasTransitRouteData())
+  if (m_transitSchemeRenderer->IsSchemeVisible(GetCurrentZoom()) && !HasTransitRouteData())
     m_transitSchemeRenderer->CollectOverlays(make_ref(m_overlayTree), modelView);
   EndUpdateOverlayTree();
 }
@@ -1875,14 +1882,12 @@ void FrontendRenderer::BuildOverlayTree(ScreenBase const & modelView)
 void FrontendRenderer::PrepareBucket(dp::RenderState const & state, drape_ptr<dp::RenderBucket> & bucket)
 {
   CHECK(m_context != nullptr, ());
-  auto program = m_gpuProgramManager->GetProgram(state.GetProgram<gpu::Program>());
-  auto program3d = m_gpuProgramManager->GetProgram(state.GetProgram3d<gpu::Program>());
-  bool const isPerspective = m_userEventStream.GetCurrentScreen().isPerspective();
-  if (isPerspective)
-    program3d->Bind();
-  else
-    program->Bind();
-  bucket->GetBuffer()->Build(m_context, isPerspective ? program3d : program);
+
+  auto program = m_gpuProgramManager->GetProgram(m_userEventStream.GetCurrentScreen().isPerspective() ?
+          state.GetProgram3d<gpu::Program>() : state.GetProgram<gpu::Program>());
+
+  program->Bind();
+  bucket->GetBuffer()->Build(m_context, program);
 }
 
 void FrontendRenderer::RenderSingleGroup(ref_ptr<dp::GraphicsContext> context,
@@ -1949,7 +1954,7 @@ void FrontendRenderer::DisablePerspective()
 
 void FrontendRenderer::CheckIsometryMinScale(ScreenBase const & screen)
 {
-  bool const isScaleAllowableIn3d = IsScaleAllowableIn3d(m_currentZoomLevel);
+  bool const isScaleAllowableIn3d = IsScaleAllowableIn3d(GetCurrentZoom());
   bool const isIsometry = m_enable3dBuildings && !m_choosePositionMode && isScaleAllowableIn3d;
   if (m_isIsometry != isIsometry)
   {
@@ -1974,7 +1979,7 @@ void FrontendRenderer::ResolveZoomLevel(ScreenBase const & screen)
 void FrontendRenderer::UpdateDisplacementEnabled()
 {
   if (m_choosePositionMode)
-    m_overlayTree->SetDisplacementEnabled(m_currentZoomLevel < scales::GetAddNewPlaceScale());
+    m_overlayTree->SetDisplacementEnabled(GetCurrentZoom() < scales::GetAddNewPlaceScale());
   else
     m_overlayTree->SetDisplacementEnabled(true);
 }
@@ -2135,13 +2140,13 @@ bool FrontendRenderer::OnNewVisibleViewport(m2::RectD const & oldViewport, m2::R
   ScreenBase targetScreen;
   AnimationSystem::Instance().GetTargetScreen(screen, targetScreen);
 
-  m2::PointD pos;
-  m2::PointD targetPos;
-  if (!m_selectionShape->IsVisible(screen, pos) || !m_selectionShape->IsVisible(targetScreen, targetPos))
+  auto const pos = m_selectionShape->GetPixelPosition(screen, GetCurrentZoom());
+  auto const targetPos = m_selectionShape->GetPixelPosition(targetScreen, GetCurrentZoom());
+  if (!pos || !targetPos)
     return false;
 
-  m2::RectD rect(pos, pos);
-  m2::RectD targetRect(targetPos, targetPos);
+  m2::RectD rect(*pos, *pos);
+  m2::RectD targetRect(*targetPos, *targetPos);
   if (m_selectionShape->HasSelectionGeometry())
   {
     auto r = m_selectionShape->GetSelectionGeometryBoundingBox();
@@ -2185,29 +2190,29 @@ bool FrontendRenderer::OnNewVisibleViewport(m2::RectD const & oldViewport, m2::R
     // try to rollback part of that scrolling to return the map to its original position.
     if (rect.minX() < newViewport.minX() || m_selectionTrackInfo->m_snapSides.x < 0)
     {
-      pOffset.x = std::max(m_selectionTrackInfo->m_startPos.x - pos.x, newViewport.minX() - rect.minX());
+      pOffset.x = std::max(m_selectionTrackInfo->m_startPos.x - pos->x, newViewport.minX() - rect.minX());
       m_selectionTrackInfo->m_snapSides.x = -1;
     }
     else if (rect.maxX() > newViewport.maxX() || m_selectionTrackInfo->m_snapSides.x > 0)
     {
-      pOffset.x = std::min(m_selectionTrackInfo->m_startPos.x - pos.x, newViewport.maxX() - rect.maxX());
+      pOffset.x = std::min(m_selectionTrackInfo->m_startPos.x - pos->x, newViewport.maxX() - rect.maxX());
       m_selectionTrackInfo->m_snapSides.x = 1;
     }
 
     if (rect.minY() < newViewport.minY() || m_selectionTrackInfo->m_snapSides.y < 0)
     {
-      pOffset.y = std::max(m_selectionTrackInfo->m_startPos.y - pos.y, newViewport.minY() - rect.minY());
+      pOffset.y = std::max(m_selectionTrackInfo->m_startPos.y - pos->y, newViewport.minY() - rect.minY());
       m_selectionTrackInfo->m_snapSides.y = -1;
     }
     else if (rect.maxY() > newViewport.maxY() || m_selectionTrackInfo->m_snapSides.y > 0)
     {
-      pOffset.y = std::min(m_selectionTrackInfo->m_startPos.y - pos.y, newViewport.maxY() - rect.maxY());
+      pOffset.y = std::min(m_selectionTrackInfo->m_startPos.y - pos->y, newViewport.maxY() - rect.maxY());
       m_selectionTrackInfo->m_snapSides.y = 1;
     }
   }
 
   double const ptZ = m_selectionShape->GetPositionZ();
-  gOffset = screen.PtoG(screen.P3dtoP(pos + pOffset, ptZ)) - screen.PtoG(screen.P3dtoP(pos, ptZ));
+  gOffset = screen.PtoG(screen.P3dtoP(*pos + pOffset, ptZ)) - screen.PtoG(screen.P3dtoP(*pos, ptZ));
   return true;
 }
 
@@ -2217,7 +2222,7 @@ TTilesCollection FrontendRenderer::ResolveTileKeys(ScreenBase const & screen)
   double const vs = VisualParams::Instance().GetVisualScale();
   double const extension = vs * dp::kScreenPixelRectExtension * screen.GetScale();
   rect.Inflate(extension, extension);
-  int const dataZoomLevel = ClipTileZoomByMaxDataZoom(m_currentZoomLevel);
+  int const dataZoomLevel = ClipTileZoomByMaxDataZoom(GetCurrentZoom());
 
   m_notFinishedTiles.clear();
 
@@ -2228,7 +2233,7 @@ TTilesCollection FrontendRenderer::ResolveTileKeys(ScreenBase const & screen)
   auto const result = CalcTilesCoverage(rect, dataZoomLevel,
                                   [this, &rect, &tiles, &tilesToDelete](int tileX, int tileY)
   {
-    TileKey const key(tileX, tileY, m_currentZoomLevel);
+    TileKey const key(tileX, tileY, GetCurrentZoom());
     if (rect.IsIntersect(key.GetGlobalRect()))
     {
       tiles.insert(key);
@@ -2244,7 +2249,7 @@ TTilesCollection FrontendRenderer::ResolveTileKeys(ScreenBase const & screen)
   auto removePredicate = [this, &result, &tilesToDelete](drape_ptr<RenderGroup> const & group)
   {
     TileKey const & key = group->GetTileKey();
-    return key.m_zoomLevel == m_currentZoomLevel &&
+    return key.m_zoomLevel == GetCurrentZoom() &&
            (key.m_x < result.m_minTileX || key.m_x >= result.m_maxTileX ||
            key.m_y < result.m_minTileY || key.m_y >= result.m_maxTileY ||
            base::IsExist(tilesToDelete, key));
@@ -2254,10 +2259,10 @@ TTilesCollection FrontendRenderer::ResolveTileKeys(ScreenBase const & screen)
 
   RemoveRenderGroupsLater([this](drape_ptr<RenderGroup> const & group)
   {
-    return group->GetTileKey().m_zoomLevel != m_currentZoomLevel;
+    return group->GetTileKey().m_zoomLevel != GetCurrentZoom();
   });
 
-  m_trafficRenderer->OnUpdateViewport(result, m_currentZoomLevel, tilesToDelete);
+  m_trafficRenderer->OnUpdateViewport(result, GetCurrentZoom(), tilesToDelete);
 
 #if defined(DRAPE_MEASURER_BENCHMARK) && defined(GENERATING_STATISTIC)
   DrapeMeasurer::Instance().StartScenePreparing();
@@ -2522,6 +2527,11 @@ void FrontendRenderer::ChangeModelView(double autoScale, m2::PointD const & user
   AddUserEvent(make_unique_dp<FollowAndRotateEvent>(userPos, pxZero, azimuth, autoScale, parallelAnimCreator));
 }
 
+void FrontendRenderer::OnEnterBackground()
+{
+  m_myPositionController->OnEnterBackground();
+}
+
 ScreenBase const & FrontendRenderer::ProcessEvents(bool & modelViewChanged, bool & viewportChanged)
 {
   ScreenBase const & modelView = m_userEventStream.ProcessEvents(modelViewChanged, viewportChanged);
@@ -2555,7 +2565,7 @@ void FrontendRenderer::UpdateScene(ScreenBase const & modelView)
     uint32_t const kMaxGenerationRange = 5;
     TileKey const & key = group->GetTileKey();
 
-    return (group->IsOverlay() && key.m_zoomLevel > m_currentZoomLevel) ||
+    return (group->IsOverlay() && key.m_zoomLevel > GetCurrentZoom()) ||
            (m_maxGeneration - key.m_generation > kMaxGenerationRange) ||
            (group->IsUserMark() &&
             (m_maxUserMarksGeneration - key.m_userMarksGeneration > kMaxGenerationRange));
@@ -2608,11 +2618,6 @@ void FrontendRenderer::OnCacheRouteArrows(dp::DrapeID subrouteIndex, std::vector
   m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                             make_unique_dp<CacheSubrouteArrowsMessage>(subrouteIndex, borders, m_lastRecacheRouteId),
                             MessagePriority::Normal);
-}
-
-drape_ptr<ScenarioManager> const & FrontendRenderer::GetScenarioManager() const
-{
-  return m_scenarioManager;
 }
 
 void FrontendRenderer::CollectShowOverlaysEvents()

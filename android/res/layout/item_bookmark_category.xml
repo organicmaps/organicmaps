@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
@@ -45,7 +46,7 @@
       tools:text="42000000" />
   </LinearLayout>
   <ImageView
-    android:id="@id/more"
+    android:id="@+id/more"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_alignParentEnd="true"
@@ -54,5 +55,5 @@
     android:paddingStart="@dimen/margin_quarter"
     android:paddingEnd="@dimen/margin_half"
     android:src="@drawable/ic_more"
-    android:tint="?secondary" />
+    app:tint="?secondary" />
 </RelativeLayout>

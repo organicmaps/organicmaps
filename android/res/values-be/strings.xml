@@ -180,8 +180,6 @@
 	<string name="copied_to_clipboard">Скапіравана ў буфер абмена: %1$s</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">Гатова</string>
-	<!-- Prints version number in About dialog -->
-	<string name="version">Версія: %s</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">Дадзеныя OpenStreetMap: %s</string>
 	<!-- Confirmation in downloading countries dialog -->
@@ -236,6 +234,8 @@
 	<string name="help">Дапамога</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">Пытанні і адказы</string>
+	<!-- Button in the main menu -->
+	<string name="donate">Ахвяраваць</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">Як нас падтрымаць?</string>
 	<!-- Button in the main Help dialog -->
@@ -355,9 +355,6 @@
 	<string name="routing_arrive">Прыбыццё а %s</string>
 	<string name="categories">Катэгорыі</string>
 	<string name="history">Гісторыя</string>
-	<string name="opens_in">Адчыняецца праз %s</string>
-	<string name="closes_in">Зачыняецца праз %s</string>
-	<string name="closed">Зачынена</string>
 	<string name="search_not_found">Нічога не знойдзена.</string>
 	<string name="search_not_found_query">Паспрабуйце змяніць умовы пошуку.</string>
 	<string name="search_history_title">Гісторыя пошуку</string>
@@ -401,14 +398,17 @@
 	<string name="day_off_today">Сёння зачынена</string>
 	<string name="day_off">Зачынена</string>
 	<string name="today">Сёння</string>
+	<string name="opens_in">Адчыняецца праз %s</string>
+	<string name="closes_in">Зачыняецца праз %s</string>
+	<string name="closed">Зачынена</string>
 	<string name="edit_opening_hours">Правіць часы працы</string>
 	<string name="no_osm_account">Не зарэгістраваныя на OpenStreetMap?</string>
 	<string name="register_at_openstreetmap">Зарэгістравацца на OpenStreetMap</string>
 	<string name="login">Увайсці</string>
+	<string name="login_osm">Увайсці ў OpenStreetMap</string>
 	<string name="password">Пароль</string>
 	<string name="forgot_password">Забылі пароль?</string>
 	<string name="logout">Выйсці</string>
-	<string name="thank_you">Дзякуй</string>
 	<string name="edit_place">Правіць месца</string>
 	<string name="add_language">Дадаць мову</string>
 	<string name="street">Вуліца</string>
@@ -426,6 +426,7 @@
 	<string name="select_cuisine">Выбраць кухню</string>
 	<!-- login text field -->
 	<string name="email_or_username">Email альбо імя карыстальніка</string>
+	<string name="level">Паверх</string>
 	<string name="downloader_delete_map_dialog">Усе вашы праўкі мапы будуць выдаленыя разам з мапай.</string>
 	<string name="downloader_update_maps">Абнавіць мапы</string>
 	<string name="downloader_mwm_migration_dialog">Каб стварыць маршрут, вам трэба абнавіць усе мапы і потым пракласці маршрут зноў.</string>
@@ -444,7 +445,8 @@
 	<string name="editor_report_problem_other_title">Іншая праблема</string>
 	<string name="placepage_add_business_button">Дадаць установу</string>
 	<string name="message_invalid_feature_position">Аб\'ект не можа знаходзіцца тут</string>
-	<string name="login_to_make_edits_visible">Аўтарызуйцеся, каб іншыя карыстальнікі бачылі вашыя змены.</string>
+	<string name="osm_presentation">Усе дадзеныя карты паходзяць з праекта OpenStreetMap. Гэта як Wikipedia для карт, дзе вы можаце дадаваць або рэдагаваць месцы, і яны становяцца даступнымі для мільёнаў карыстальнікаў па ўсім свеце.</string>
+	<string name="login_to_make_edits_visible">Аўтарызуйцеся ў OpenStreetMap.org, каб іншыя карыстальнікі бачылі вашыя змены.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d з %2$d</string>
 	<string name="download_over_mobile_header">Спампаваць праз мабільны інтэрнэт?</string>
@@ -481,7 +483,6 @@
 	<string name="minute">хв</string>
 	<string name="placepage_place_description">Апісанне</string>
 	<string name="placepage_more_button">Яшчэ</string>
-	<string name="placepage_more_reviews_button">Больш водгукаў</string>
 	<string name="placepage_call_button">Патэлефанаваць</string>
 	<string name="placepage_edit_bookmark_button">Правіць закладку</string>
 	<string name="editor_comment_hint">Каментар…</string>
@@ -500,17 +501,15 @@
 	<string name="placepage_add_place_button">Дадаць месца на мапу</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Хочаце адправіць усім карыстальнікам?</string>
-	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Упэўніцеся, што вы не ўвялі ніякіх асабістых дадзеных.</string>
-	<string name="editor_share_to_all_dialog_message_2">Мы праверым змены. Калі ў нас з\'явяцца пытанні, мы з вамі звяжамся праз email.</string>
+	<string name="editor_share_to_all_dialog_message_2">Рэдактары OpenStreetMap правераць змены і звяжуцца з вамі, калі ў іх узнікнуць пытанні.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps — гэта хуткія і бясплатныя мапы без рэкламы, якія працуюць без Інтэрнэту і не шпіёняць за вамі. Усе картаграфічныя дадзеныя бяруцца з OpenStreetMap.org, там вы зможаце самастойна выпраўляць памылкі і дадаваць новыя аб\'екты. Organic Maps — гэта праект з адкрытым зыходным кодам, які ствараецца энтузіястамі ў вольны час. Будзем рады вашай падтрымцы і зваротнай сувязі!</string>
 	<!-- For the first routing -->
 	<string name="accept">Прыняць</string>
 	<!-- For the first routing -->
 	<string name="decline">Адхіліць</string>
-	<!-- A noun - a button name used to show search results in list form -->
-	<string name="search_in_table">Спіс</string>
 	<string name="mobile_data_dialog">Ужываць мабільны інтэрнэт для паказу больш падрабязнай інфармацыі?</string>
 	<string name="mobile_data_option_always">Заўсёды</string>
 	<string name="mobile_data_option_today">Толькі сёння</string>
@@ -531,10 +530,11 @@
 	<string name="on">Укл.</string>
 	<string name="off">Выкл.</string>
 	<string name="prefs_languages_information">Мы ужываем сістэмны сінтэзатар маўлення (TTS). Многія прылады на Android ужываюць Google TTS, вы можаце спампаваць альбо абнавіць яго праз Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">Для некаторых моў вам спатрэбіцца ўсталяваць сінтэзатар маўлення альбо дадатковы моўны пакет з крамы дадаткаў (Google Play, Samsung Apps, App Gallery, FDroid).\Зайдзіце на вашай прыладзе ў Налады → Мова і ўвод → Маўленне → Сінтэз маўлення.\nТут вы можаце задаць налады сінтэза маўлення (напрыклад, спампаваць моўны пакет для выкарыстання без падключэння да інтэрнэту) альбо выбраць іншы сінтэзатар маўлення.</string>
+	<string name="prefs_languages_information_off">Для некаторых моў вам спатрэбіцца ўсталяваць сінтэзатар маўлення альбо дадатковы моўны пакет з крамы дадаткаў (Google Play, Galaxy Store, App Gallery, FDroid).\Зайдзіце на вашай прыладзе ў Налады → Мова і ўвод → Маўленне → Сінтэз маўлення.\nТут вы можаце задаць налады сінтэза маўлення (напрыклад, спампаваць моўны пакет для выкарыстання без падключэння да інтэрнэту) альбо выбраць іншы сінтэзатар маўлення.</string>
 	<string name="prefs_languages_information_off_link">Больш падрабязная інфармацыя знаходзіцца ў гэтым кіраўніцтве.</string>
 	<string name="transliteration_title">Транслітарацыя лацінкай</string>
 	<string name="learn_more">Даведацца больш</string>
+	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">Выхад</string>
 	<string name="routing_add_start_point">Дадайце пункт адпраўлення каб пракласці маршрут</string>
 	<string name="routing_add_finish_point">Дадайце пункт прызначэння каб пракласці маршрут</string>
@@ -702,9 +702,18 @@
 	<string name="enable_show_on_lock_screen">Паказваць на экране блакіроўкі</string>
 	<!-- Description in preferences -->
 	<string name="enable_show_on_lock_screen_description">Калі ўключана, вам не трэба разблакіраваць прыладу кожны раз падчас працы дадатку.</string>
+	<!-- OpenStreetMap text on splash screen -->
+	<string name="splash_subtitle">Дадзеныя карты з OpenStreetMap</string>
+	<!-- Telegram group url for the "?" About page -->
+	<string name="telegram_url">https://t.me/OrganicMapsRu</string>
+	<!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
+	<string name="translated_om_site_url">https://organicmaps.app/ru/</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.amenity.bicycle_parking">Велапаркоўка</string>
+	<string name="type.amenity.driving_school">Аўташкола</string>
+	<string name="type.amenity.music_school">Музычная школа</string>
+	<string name="type.amenity.language_school">Моўная школа</string>
 	<string name="type.amenity.fire_station">Пажарная частка</string>
 	<string name="type.amenity.fuel">АЗС</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
@@ -712,6 +721,17 @@
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.amenity.grave_yard.christian">Хрысціянскія могілкі</string>
 	<string name="type.amenity.ice_cream">Марозіва</string>
+	<string name="type.amenity.parking">Паркоўка</string>
+	<string name="type.amenity.parking.fee">Платная паркоўка</string>
+	<string name="type.amenity.parking.multi.storey">Шматпавярховая паркоўка</string>
+	<string name="type.amenity.parking.no.access">Прыватная паркоўка</string>
+	<string name="type.amenity.parking.permissive">Прыватная паркоўка</string>
+	<string name="type.amenity.parking.private">Прыватная паркоўка</string>
+	<string name="type.amenity.parking.underground">Падземны паркінг</string>
+	<string name="type.amenity.parking_entrance.private">Уваход на паркоўку</string>
+	<string name="type.amenity.parking_entrance.permissive">Уваход на паркоўку</string>
+	<string name="type.amenity.parking_entrance">Уваход на паркоўку</string>
+	<string name="type.amenity.parking_space.disabled">Паркоўка для інвалідаў</string>
 	<string name="type.amenity.post_box">Паштовая скрыня</string>
 
 	<!-- SECTION: Types: Recycling -->
@@ -748,19 +768,37 @@
 	<string name="type.amenity.waste_transfer_station">Станцыя перавалкі адходаў</string>
 	<string name="type.amenity.water_point">Вада для аўтадомаў</string>
 	<string name="type.barrier.chain">Ланцуг</string>
+	<string name="type.barrier.city_wall">Гарадскі вал</string>
+	<string name="type.barrier.ditch">Роў</string>
 	<string name="type.barrier.lift_gate">Шлагбаўм</string>
 	<string name="type.barrier.swing_gate">Шлагбаўм</string>
 	<string name="type.cemetery.grave">Магіла</string>
+	<string name="type.craft">Рамяство</string>
 	<string name="type.craft.beekeeper">Пчаляр</string>
 	<string name="type.craft.blacksmith">Кузня</string>
 	<string name="type.craft.brewery">Крафтавы бровар</string>
+	<string name="type.craft.carpenter">Цясляр</string>
+	<string name="type.craft.confectionery">Кандытар</string>
+	<string name="type.craft.electrician">Электрык</string>
+	<string name="type.craft.electronics_repair">Рамонт электронікі</string>
+	<string name="type.craft.gardener">Садоўнік</string>
+	<string name="type.craft.handicraft">Рамесніцтва</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Ацяпленне, вентыляцыя і кандыцыянаванне</string>
 	<string name="type.craft.metal_construction">Металаканструкцыі</string>
+	<string name="type.craft.painter">Мастак</string>
+	<string name="type.craft.photographer">Фатограф</string>
+	<string name="type.craft.plumber">Вадаправодчык</string>
+	<string name="type.craft.sawmill">Лесапільня</string>
+	<string name="type.craft.shoemaker">Шавец</string>
+	<string name="type.craft.winery">Вінакурня</string>
+	<string name="type.craft.tailor">Кравец</string>
 	<string name="type.cuisine.bubble_tea">Чай з бурбалкамі</string>
+	<string name="type.cuisine.deli">Дэлікатэсы</string>
 	<string name="type.emergency.defibrillator">Дэфібрылятар</string>
 	<string name="type.emergency.fire_hydrant">Пажарны гідрант</string>
 	<string name="type.healthcare.laboratory">Медыцынская лабараторыя</string>
+	<string name="type.healthcare.physiotherapist">Фізіятэрапеўт</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -853,15 +891,53 @@
 	<string name="type.highway.unclassified.tunnel">Тунэль</string>
 
 	<!-- SECTION: Types: Historic -->
+	<string name="type.historic">Гістарычны аб\'ект</string>
 	<string name="type.historic.archaeological_site">Археалагічны помнік</string>
+	<string name="type.historic.battlefield">Поле бітвы</string>
+	<string name="type.historic.boundary_stone">Межавы камень</string>
+	<string name="type.historic.castle">Замак</string>
+	<string name="type.historic.castle.castrum">Каструм</string>
+	<string name="type.historic.castle.defensive">Замак</string>
+	<string name="type.historic.castle.fortified_church">Абарончы храм</string>
+	<string name="type.historic.castle.fortress">Крэпасць</string>
+	<string name="type.historic.castle.hillfort">Гарадзішча</string>
+	<string name="type.historic.castle.kremlin">Крэмль</string>
+	<string name="type.historic.castle.manor">Сядзіба</string>
+	<string name="type.historic.castle.palace">Палац</string>
+	<string name="type.historic.castle.shiro">Японскі замак</string>
+	<string name="type.historic.castle.stately">Замак</string>
+	<string name="type.historic.city_gate">Гарадская брама</string>
+	<string name="type.historic.citywalls">Гарадскі вал</string>
+	<string name="type.historic.fort">Форт</string>
+	<string name="type.historic.gallows">Шыбеніца</string>
+	<string name="type.historic.memorial">Мемарыял</string>
+	<string name="type.historic.memorial.cross">Памятны крыж</string>
+	<string name="type.historic.memorial.plaque">Памятная дошка</string>
+	<string name="type.historic.memorial.sculpture">Скульптура</string>
+	<string name="type.historic.memorial.statue">Статуя</string>
+	<string name="type.historic.memorial.stolperstein">Камяні спатыкнення</string>
+	<string name="type.historic.memorial.war_memorial">Ваенны мемарыял</string>
+	<string name="type.historic.monument">Помнік</string>
+	<string name="type.historic.pillory">Пазорны слуп</string>
+	<string name="type.historic.ruins">Руіны</string>
+	<string name="type.historic.ship">Судна</string>
+	<string name="type.historic.tomb">Магіла</string>
+	<string name="type.historic.wayside_cross">Прыдарожны крыж</string>
+	<string name="type.historic.wayside_shrine">Прыдарожная святыня</string>
 	<string name="type.landuse.basin">Рэзервуар</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery">Могілкі</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery.christian">Хрысціянскія могілкі</string>
 	<string name="type.landuse.education">Адукацыйныя ўстановы</string>
+	<string name="type.leisure.dance">Танцавальная зала</string>
+	<string name="type.leisure.garden.residential">Частный сад</string>
 	<string name="type.leisure.marina">Прычал</string>
 	<string name="type.leisure.picnic_table">Стол для пікніка</string>
+	<string name="type.sport.climbing">Скаладром</string>
+	<string name="type.sport.yoga">Ёга</string>
+	<string name="type.leisure.swimming_pool">Басейн</string>
+	<string name="type.leisure.swimming_pool.private">Басейн</string>
 	<string name="type.man_made.survey_point">Геадэзічны пункт</string>
 	<string name="type.man_made.flagpole">Флагшток</string>
 	<string name="type.man_made.mast">Мачта/вышка</string>
@@ -880,6 +956,7 @@
 	<string name="type.natural.earth_bank">Абрыў</string>
 	<string name="type.man_made.embankment">Насып</string>
 	<string name="type.natural.coastline">Узбярэжжа</string>
+	<string name="type.natural.desert">Пустыня</string>
 	<string name="type.natural.geyser">Гейзер</string>
 	<string name="type.natural.glacier">Ледавік</string>
 	<string name="type.natural.grassland">Луг</string>
@@ -911,9 +988,42 @@
 	<string name="type.office.telecommunication">Тэлекамунікацыйная кампанія</string>
 	<string name="type.organic.only">Эка</string>
 	<string name="type.organic.yes">Эка</string>
+	<string name="type.place.city">Горад</string>
+	<string name="type.place.city.capital">Сталіца</string>
+	<string name="type.place.city.capital.10">Горад</string>
+	<string name="type.place.city.capital.11">Горад</string>
+	<string name="type.place.city.capital.2">Сталіца</string>
+	<string name="type.place.city.capital.3">Горад</string>
+	<string name="type.place.city.capital.4">Горад</string>
+	<string name="type.place.city.capital.5">Горад</string>
+	<string name="type.place.city.capital.6">Горад</string>
+	<string name="type.place.city.capital.7">Горад</string>
+	<string name="type.place.city.capital.8">Горад</string>
+	<string name="type.place.city.capital.9">Горад</string>
+	<string name="type.place.continent">Кантынент</string>
+	<string name="type.place.country">Краіна</string>
+	<string name="type.place.county">Графства</string>
+	<string name="type.place.farm">Ферма</string>
+	<string name="type.place.hamlet">Вёска</string>
+	<string name="type.place.island">Востраў</string>
+	<string name="type.place.islet">Астравок</string>
+	<string name="type.place.isolated_dwelling">Хутар</string>
+	<string name="type.place.locality">Місце</string>
+	<string name="type.place.neighbourhood">Мікрараён</string>
+	<string name="type.place.ocean">Акіян</string>
+	<string name="type.place.region">Рэгіён</string>
+	<string name="type.place.sea">Мора</string>
+	<string name="type.place.square">Плошча</string>
+	<string name="type.place.state">Штат</string>
+	<string name="type.place.state.USA">Штат</string>
+	<string name="type.place.suburb">Раён</string>
+	<string name="type.place.town">Мястэчка</string>
+	<string name="type.place.village">Вёска</string>
 	<string name="type.railway.platform">Чыгуначная платформа</string>
 	<string name="type.shop.beverages">Напоі</string>
 	<string name="type.shop.caravan">Продаж аўтадамоў</string>
+	<string name="type.shop.chocolate">Крама шакалада</string>
+	<string name="type.shop.coffee">Крама кавы</string>
 	<string name="type.shop.cosmetics">Касметыка</string>
 	<string name="type.shop.deli">Дэлікатэсная крама</string>
 	<string name="type.shop.farm">Сельскагаспадарчыя прадукты</string>
@@ -923,8 +1033,12 @@
 	<string name="type.shop.health_food">Крама здаровай ежы</string>
 	<string name="type.shop.houseware">Крама посуду</string>
 	<string name="type.shop.kitchen">Крама для кухні</string>
+	<string name="type.shop.money_lender">Ліхвяр</string>
+	<string name="type.shop.music">Музычная крама</string>
+	<string name="type.shop.musical_instrument">Музычныя інструменты</string>
 	<string name="type.shop.pastry">Кандытарскія вырабы</string>
 	<string name="type.shop.second_hand">Крама сэканд-хэнд</string>
+	<string name="type.shop.tea">Крама гарбаты</string>
 	<string name="type.shop.antiques">Антыкварыят</string>
 	<string name="type.shop.art">Крама мастацтваў</string>
 	<string name="type.shop.baby_goods">Дзіцячая крама</string>
@@ -953,7 +1067,9 @@
 	<string name="type.sport.archery">Стральба з лука</string>
 	<string name="type.sport.australian_football">Аўстралійскі футбол</string>
 	<string name="type.sport.baseball">Бейсбол</string>
+	<string name="type.sport.beachvolleyball">Пляжны валейбол</string>
 	<string name="type.sport.bowls">Боўлз</string>
+	<string name="type.sport.chess">Шахматы</string>
 	<string name="type.sport.cricket">Крикет</string>
 	<string name="type.sport.curling">Кёрлінг</string>
 	<string name="type.sport.equestrian">Конны спорт</string>
@@ -964,10 +1080,21 @@
 	<!-- Used to tag a scuba diving site. -->
 	<string name="type.sport.scuba_diving">Месца для дайвінга</string>
 	<string name="type.sport.shooting">Стральба</string>
+	<string name="type.sport.skateboard">Скейтбордынг</string>
 	<string name="type.sport.skiing">Катанне на лыжах</string>
 	<string name="type.sport.soccer">Футбол</string>
 	<string name="type.sport.swimming">Плаванне</string>
+	<string name="type.sport.table_tennis">Настольны тэніс</string>
 	<string name="type.sport.tennis">Тэнісны корт</string>
+	<string name="type.sport.volleyball">Валейбол</string>
+	<string name="type.sport.10pin">Боўлінг</string>
+	<string name="type.sport.9pin">Боўлінг</string>
+	<string name="type.sport.padel">Падэль</string>
+	<string name="type.sport.futsal">Футзал</string>
+	<string name="type.sport.ice_hockey">Хакей з шайбай</string>
+	<string name="type.sport.field_hockey">Хакей на траве</string>
+	<string name="type.sport.badminton">Бадмінтон</string>
+	<string name="type.sport.pelota">Баскская пелота</string>
 	<string name="type.tourism.caravan_site">Кемпінг для аўтадамоў</string>
 	<string name="type.tourism.information">Турыстычная інфармацыя</string>
 	<string name="type.tourism.information.board">Інфармацыйны шчыт</string>

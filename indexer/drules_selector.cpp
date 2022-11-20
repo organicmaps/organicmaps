@@ -1,16 +1,16 @@
-#include "indexer/classificator.hpp"
 #include "indexer/drules_selector.hpp"
 #include "indexer/drules_selector_parser.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/scales.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include "base/assert.hpp"
 #include "base/logging.hpp"
 
-using namespace std;
-
 namespace drule
 {
+using namespace std;
 
 namespace
 {

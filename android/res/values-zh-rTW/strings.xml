@@ -130,6 +130,8 @@
 	<string name="recycling">回收</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
 	<string name="water">水</string>
+	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
+	<string name="rv">房車用</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">描述說明</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -165,8 +167,6 @@
 	<string name="copied_to_clipboard">已複製到剪貼簿：%1$s</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">完成</string>
-	<!-- Prints version number in About dialog -->
-	<string name="version">版本： %s</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">OpenStreetMap 數據：%s</string>
 	<!-- Confirmation in downloading countries dialog -->
@@ -227,6 +227,8 @@
 	<string name="help">幫助</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">問題和解答</string>
+	<!-- Button in the main menu -->
+	<string name="donate">捐</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">如何支持我們？</string>
 	<!-- Button in the main Help dialog -->
@@ -346,7 +348,6 @@
 	<string name="routing_arrive">抵達:%s</string>
 	<string name="categories">類別</string>
 	<string name="history">記錄</string>
-	<string name="closed">已關閉</string>
 	<string name="search_not_found">很抱歉，找不到任何東西。</string>
 	<string name="search_not_found_query">請嘗試其他搜尋字詞。</string>
 	<string name="search_history_title">搜尋歷史紀錄</string>
@@ -390,14 +391,15 @@
 	<string name="day_off_today">今天沒有營業</string>
 	<string name="day_off">沒有營業</string>
 	<string name="today">今天</string>
+	<string name="closed">已關閉</string>
 	<string name="edit_opening_hours">編輯營業時間</string>
 	<string name="no_osm_account">沒有 OpenStreetMap 帳號嗎？</string>
 	<string name="register_at_openstreetmap">註冊</string>
 	<string name="login">登入</string>
+	<string name="login_osm">登錄 OpenStreetMap</string>
 	<string name="password">密碼</string>
 	<string name="forgot_password">忘記密碼</string>
 	<string name="logout">登出</string>
-	<string name="thank_you">謝謝您</string>
 	<string name="edit_place">編輯地點</string>
 	<string name="add_language">新增語言</string>
 	<string name="street">街道</string>
@@ -414,6 +416,7 @@
 	<!-- login text field -->
 	<string name="email_or_username">電子郵件或使用者名稱</string>
 	<string name="editor_add_phone">新增電話</string>
+	<string name="level">樓層</string>
 	<string name="downloader_delete_map_dialog">所有對地圖的修改都將與地圖一起被刪除。</string>
 	<string name="downloader_update_maps">更新地圖</string>
 	<string name="downloader_mwm_migration_dialog">為了建立路線，您需要更新全部地圖並重新規劃路線。</string>
@@ -432,6 +435,7 @@
 	<string name="editor_report_problem_other_title">不同的問題</string>
 	<string name="placepage_add_business_button">添加組織</string>
 	<string name="message_invalid_feature_position">物件無法設置在這裡</string>
+	<string name="osm_presentation">所有地圖數據均來自 OpenStreetMap 項目。它就像 Wikipedia 中的地圖，您可以在其中添加或編輯地點，並且它們可供全球數百萬用戶使用。</string>
 	<string name="login_to_make_edits_visible">登入來讓其他使用者能看到您所作出的修改。</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d個/共%2$d個</string>
@@ -469,7 +473,6 @@
 	<string name="minute">分鐘</string>
 	<string name="placepage_place_description">說明</string>
 	<string name="placepage_more_button">更多</string>
-	<string name="placepage_more_reviews_button">更多評論</string>
 	<string name="placepage_call_button">呼叫</string>
 	<string name="placepage_edit_bookmark_button">編輯書籤</string>
 	<string name="editor_comment_hint">註解…</string>
@@ -489,17 +492,15 @@
 	<string name="placepage_add_place_button">增加地點到地圖上</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">您想要發給所有用戶嗎？</string>
-	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">確保您沒有輸入任何個人資料。</string>
-	<string name="editor_share_to_all_dialog_message_2">我們會檢查更改。如果我們有任何問題，我們會郵件與您聯絡。</string>
+	<string name="editor_share_to_all_dialog_message_2">OpenStreetMap 編輯人員將檢查更改並在有任何問題時與您聯繫。</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps 是一款免費的開源離線地圖 app。沒有廣告，不會追蹤。如果您在地圖上看到錯誤，請在 OpenStreetMap 中修復吧。這個專案由愛好者在我們的空閒時間創建，因此我們需要您的回饋和支援。</string>
 	<!-- For the first routing -->
 	<string name="accept">接受</string>
 	<!-- For the first routing -->
 	<string name="decline">拒絕</string>
-	<!-- A noun - a button name used to show search results in list form -->
-	<string name="search_in_table">清單</string>
 	<string name="mobile_data_dialog">使用手機網路顯示詳細資訊？</string>
 	<string name="mobile_data_option_always">一律使用</string>
 	<string name="mobile_data_option_today">僅限今天</string>
@@ -520,10 +521,11 @@
 	<string name="on">開</string>
 	<string name="off">關</string>
 	<string name="prefs_languages_information">我們使用系統 TTS 提供語音指示。許多 Android 裝置使用 Google TTS，您可從 Google Play 下載或更新 (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">對於某些語言，您將需要從 App 商店 (Google Play 商店, Samsung Apps) 安裝其他語音合成器或額外的語言套件。\n開啟您裝置的設定 → 語言與輸入 → 語音 → 文字轉換語音輸出。\n在這裡，您可以管理語音合成器的設定（例如，下載語言套件以供離線使用），並選取其他文字轉換語音引擎。</string>
+	<string name="prefs_languages_information_off">對於某些語言，您將需要從 App 商店 (Google Play 商店, Galaxy Store) 安裝其他語音合成器或額外的語言套件。\n開啟您裝置的設定 → 語言與輸入 → 語音 → 文字轉換語音輸出。\n在這裡，您可以管理語音合成器的設定（例如，下載語言套件以供離線使用），並選取其他文字轉換語音引擎。</string>
 	<string name="prefs_languages_information_off_link">如需更多資訊，請參閱本指南。</string>
 	<string name="transliteration_title">音譯為拉丁文</string>
 	<string name="learn_more">瞭解更多資訊</string>
+	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">退出</string>
 	<string name="routing_add_start_point">新增起點以計劃路線</string>
 	<string name="routing_add_finish_point">新增終點以計劃路線</string>
@@ -681,6 +683,8 @@
 	<string name="enable_screen_sleep">允许螢幕進入休眠狀態</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">啟用後，螢幕將在一段時間不活動後進入休眠狀態。</string>
+	<!-- OpenStreetMap text on splash screen -->
+	<string name="splash_subtitle">來自 OpenStreetMap 的地圖數據</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway">纜車要素</string>
@@ -728,6 +732,8 @@
 	<string name="type.amenity.doctors">醫師診間</string>
 	<string name="type.amenity.drinking_water">飲用水</string>
 	<string name="type.amenity.driving_school">駕訓班</string>
+	<string name="type.amenity.music_school">音樂學校</string>
+	<string name="type.amenity.language_school">語言學校</string>
 	<string name="type.office.diplomatic">大使館</string>
 	<string name="type.amenity.fast_food">速食店</string>
 	<string name="type.amenity.ferry_terminal">渡船</string>
@@ -749,17 +755,21 @@
 	<string name="type.amenity.nightclub">夜店</string>
 	<string name="type.amenity.nursing_home">養老院</string>
 	<string name="type.amenity.parking">停車場</string>
-	<string name="type.amenity.parking.fee">停車場</string>
-	<string name="type.amenity.parking.multi.storey">停車場</string>
-	<string name="type.amenity.parking.no.access">停車場</string>
+	<string name="type.amenity.parking.fee">付費停車</string>
+	<string name="type.amenity.parking.multi.storey">多層停車場</string>
+	<string name="type.amenity.parking.no.access">私人停車場</string>
+	<string name="type.amenity.parking.permissive">私人停車場</string>
+	<string name="type.amenity.parking.private">私人停車場</string>
 	<string name="type.amenity.parking.park_and_ride">停車場</string>
-	<string name="type.amenity.parking.permissive">停車場</string>
-	<string name="type.amenity.parking.private">停車場</string>
-	<string name="type.amenity.parking.underground">停車場</string>
+	<string name="type.amenity.parking.underground">地下停車場</string>
+	<string name="type.amenity.parking_entrance.private">停車場入口</string>
+	<string name="type.amenity.parking_entrance.permissive">停車場入口</string>
+	<string name="type.amenity.parking_entrance">停車場入口</string>
 	<string name="type.amenity.parking_space">停車地點</string>
 	<string name="type.amenity.parking_space.permissive">停車地點</string>
 	<string name="type.amenity.parking_space.private">停車地點</string>
 	<string name="type.amenity.parking_space.underground">停車地點</string>
+	<string name="type.amenity.parking_space.disabled">殘疾人停車位</string>
 	<string name="type.amenity.payment_terminal">付款終端</string>
 	<string name="type.amenity.pharmacy">藥局</string>
 	<string name="type.amenity.place_of_worship">寺廟</string>
@@ -810,8 +820,11 @@
 	<string name="type.barrier.block">街區</string>
 	<string name="type.barrier.bollard">柱</string>
 	<string name="type.barrier.border_control">邊境管制</string>
+	<string name="type.barrier.city_wall">城牆</string>
+	<string name="type.barrier.ditch">護城河</string>
 	<string name="type.barrier.entrance">入口</string>
 	<string name="type.barrier.gate">大門</string>
+	<string name="type.barrier.kissing_gate">大門</string>
 	<string name="type.barrier.lift_gate">遮斷機</string>
 	<string name="type.barrier.stile">梯磴</string>
 	<string name="type.barrier.swing_gate">遮斷機</string>
@@ -823,17 +836,25 @@
 	<string name="type.building.has_parts">建築物</string>
 	<string name="type.building.train_station">鐵道</string>
 	<string name="type.cemetery.grave">墓穴</string>
+	<string name="type.craft">工藝作坊</string>
+	<string name="type.craft.beekeeper">蜂農</string>
+	<string name="type.craft.blacksmith">鐵匠</string>
 	<string name="type.craft.brewery">釀酒廠</string>
 	<string name="type.craft.carpenter">木工</string>
+	<string name="type.craft.confectionery">糖果商</string>
 	<string name="type.craft.electrician">電工</string>
+	<string name="type.craft.electronics_repair">電子產品維修</string>
 	<string name="type.craft.gardener">園藝師</string>
+	<string name="type.craft.handicraft">手工藝</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">空調設備</string>
 	<string name="type.craft.metal_construction">鐵工</string>
 	<string name="type.craft.painter">油漆工</string>
 	<string name="type.craft.photographer">攝影師</string>
 	<string name="type.craft.plumber">水管工人</string>
+	<string name="type.craft.sawmill">鋸木廠</string>
 	<string name="type.craft.shoemaker">修鞋工</string>
+	<string name="type.craft.winery">酒莊</string>
 	<string name="type.craft.tailor">裁縫師</string>
 	<string name="type.cuisine.african">非洲料理</string>
 	<string name="type.cuisine.american">美國料理</string>
@@ -925,6 +946,7 @@
 	<string name="type.emergency.phone">緊急電話</string>
 	<string name="type.entrance">入口</string>
 	<string name="type.healthcare.laboratory">醫學實驗室</string>
+	<string name="type.healthcare.physiotherapist">物理治療師</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1096,15 +1118,29 @@
 	<string name="type.historic.battlefield">古戰場</string>
 	<string name="type.historic.boundary_stone">界碑</string>
 	<string name="type.historic.castle">城堡</string>
+	<string name="type.historic.castle.castrum">古羅馬兵營</string>
 	<string name="type.historic.castle.defensive">城堡</string>
-	<string name="type.historic.castle.stately">宮殿</string>
-	<string name="type.historic.citywalls">歷史城牆</string>
+	<string name="type.historic.castle.fortified_church">堅固的教堂</string>
+	<string name="type.historic.castle.fortress">要塞</string>
+	<string name="type.historic.castle.hillfort">丘堡</string>
+	<string name="type.historic.castle.kremlin">克里姆林</string>
+	<string name="type.historic.castle.manor">莊園大屋</string>
+	<string name="type.historic.castle.palace">宮殿</string>
+	<string name="type.historic.castle.shiro">城</string>
+	<string name="type.historic.castle.stately">法式城堡</string>
+	<string name="type.historic.city_gate">城門</string>
+	<string name="type.historic.citywalls">城牆</string>
 	<string name="type.historic.fort">歷史要塞</string>
+	<string name="type.historic.gallows">絞架</string>
 	<string name="type.historic.memorial">紀念館</string>
+	<string name="type.historic.memorial.cross">紀念十字架</string>
 	<string name="type.historic.memorial.plaque">紀念牌匾</string>
 	<string name="type.historic.memorial.sculpture">雕塑</string>
 	<string name="type.historic.memorial.statue">塑像</string>
+	<string name="type.historic.memorial.stolperstein">絆腳石</string>
+	<string name="type.historic.memorial.war_memorial">戰爭紀念建築</string>
 	<string name="type.historic.monument">紀念碑</string>
+	<string name="type.historic.pillory">刑柱</string>
 	<string name="type.historic.ruins">廢墟</string>
 	<string name="type.historic.ship">歷史船</string>
 	<string name="type.historic.tomb">陵墓</string>
@@ -1130,7 +1166,9 @@
 	<string name="type.leisure.dog_park">遛狗區</string>
 	<string name="type.leisure.fitness_centre">健身中心</string>
 	<string name="type.leisure.fitness_station">健身房</string>
+	<string name="type.leisure.dance">舞廳</string>
 	<string name="type.leisure.garden">花園</string>
+	<string name="type.leisure.garden.residential">花園</string>
 	<string name="type.leisure.golf_course">高爾夫球場</string>
 	<string name="type.leisure.nature_reserve">自然保護區</string>
 	<string name="type.leisure.park">公園</string>
@@ -1142,10 +1180,8 @@
 	<string name="type.leisure.playground">遊樂場</string>
 	<string name="type.leisure.sauna">桑拿</string>
 	<string name="type.leisure.sports_centre">體育中心</string>
-	<string name="type.leisure.sports_centre.climbing">攀登中心</string>
-	<string name="type.leisure.sports_centre.shooting">射擊場</string>
-	<string name="type.leisure.sports_centre.swimming">遊泳中心</string>
-	<string name="type.leisure.sports_centre.yoga">瑜伽工作室</string>
+	<string name="type.sport.climbing">攀登中心</string>
+	<string name="type.sport.yoga">瑜伽工作室</string>
 	<string name="type.leisure.stadium">體育場</string>
 	<string name="type.leisure.swimming_pool">游泳池</string>
 	<string name="type.leisure.swimming_pool.private">游泳池</string>
@@ -1226,10 +1262,13 @@
 	<string name="type.place.hamlet">村</string>
 	<string name="type.place.island">島</string>
 	<string name="type.place.islet">島</string>
+	<string name="type.place.isolated_dwelling">孤立居所</string>
 	<string name="type.place.locality">當地</string>
+	<string name="type.place.neighbourhood">鄰里社區</string>
 	<string name="type.place.ocean">海洋</string>
 	<string name="type.place.region">地區</string>
 	<string name="type.place.sea">海</string>
+	<string name="type.place.square">廣場</string>
 	<string name="type.place.state">州/省</string>
 	<string name="type.place.state.USA">州</string>
 	<string name="type.place.suburb">郊區</string>
@@ -1250,30 +1289,224 @@
 	<string name="type.railway.station">火車站</string>
 	<string name="type.railway.station.light_rail">輕軌車站</string>
 	<string name="type.railway.station.monorail">單軌車站</string>
-	<string name="type.railway.station.subway">地鐵車站</string>
-	<string name="type.railway.station.subway.barcelona">地鐵車站</string>
-	<string name="type.railway.station.subway.berlin">地鐵車站</string>
-	<string name="type.railway.station.subway.kiev">地鐵車站</string>
-	<string name="type.railway.station.subway.london">地鐵車站</string>
-	<string name="type.railway.station.subway.madrid">地鐵車站</string>
-	<string name="type.railway.station.subway.minsk">地鐵車站</string>
-	<string name="type.railway.station.subway.moscow">地鐵車站</string>
-	<string name="type.railway.station.subway.newyork">地鐵車站</string>
-	<string name="type.railway.station.subway.paris">地鐵車站</string>
-	<string name="type.railway.station.subway.roma">地鐵車站</string>
-	<string name="type.railway.station.subway.spb">地鐵車站</string>
+	<string name="type.railway.station.subway">捷運站</string>
+	<string name="type.railway.station.subway.adana">捷運站</string>
+	<string name="type.railway.station.subway.algiers">捷運站</string>
+	<string name="type.railway.station.subway.almaty">捷運站</string>
+	<string name="type.railway.station.subway.amsterdam">捷運站</string>
+	<string name="type.railway.station.subway.ankara">捷運站</string>
+	<string name="type.railway.station.subway.athens">捷運站</string>
+	<string name="type.railway.station.subway.baku">捷運站</string>
+	<string name="type.railway.station.subway.bangkok">捷運站</string>
+	<string name="type.railway.station.subway.barcelona">捷運站</string>
+	<string name="type.railway.station.subway.beijing">捷運站</string>
+	<string name="type.railway.station.subway.bengalore">捷運站</string>
+	<string name="type.railway.station.subway.berlin">捷運站</string>
+	<string name="type.railway.station.subway.brasilia">捷運站</string>
+	<string name="type.railway.station.subway.brescia">捷運站</string>
+	<string name="type.railway.station.subway.brussels">捷運站</string>
+	<string name="type.railway.station.subway.bucharest">捷運站</string>
+	<string name="type.railway.station.subway.budapest">捷運站</string>
+	<string name="type.railway.station.subway.buenos_aires">捷運站</string>
+	<string name="type.railway.station.subway.bursa">捷運站</string>
+	<string name="type.railway.station.subway.cairo">捷運站</string>
+	<string name="type.railway.station.subway.caracas">捷運站</string>
+	<string name="type.railway.station.subway.catania">捷運站</string>
+	<string name="type.railway.station.subway.changchun">捷運站</string>
+	<string name="type.railway.station.subway.chengdu">捷運站</string>
+	<string name="type.railway.station.subway.chicago">捷運站</string>
+	<string name="type.railway.station.subway.chongqing">捷運站</string>
+	<string name="type.railway.station.subway.dalian">捷運站</string>
+	<string name="type.railway.station.subway.delhi">捷運站</string>
+	<string name="type.railway.station.subway.dnepro">捷運站</string>
+	<string name="type.railway.station.subway.dubai">捷運站</string>
+	<string name="type.railway.station.subway.ekb">捷運站</string>
+	<string name="type.railway.station.subway.fukuoka">捷運站</string>
+	<string name="type.railway.station.subway.glasgow">捷運站</string>
+	<string name="type.railway.station.subway.guangzhou">捷運站</string>
+	<string name="type.railway.station.subway.hamburg">捷運站</string>
+	<string name="type.railway.station.subway.helsinki">捷運站</string>
+	<string name="type.railway.station.subway.hiroshima">捷運站</string>
+	<string name="type.railway.station.subway.isfahan">捷運站</string>
+	<string name="type.railway.station.subway.istanbul">捷運站</string>
+	<string name="type.railway.station.subway.izmir">捷運站</string>
+	<string name="type.railway.station.subway.kazan">捷運站</string>
+	<string name="type.railway.station.subway.kharkiv">捷運站</string>
+	<string name="type.railway.station.subway.kiev">捷運站</string>
+	<string name="type.railway.station.subway.kobe">捷運站</string>
+	<string name="type.railway.station.subway.kolkata">捷運站</string>
+	<string name="type.railway.station.subway.kunming">捷運站</string>
+	<string name="type.railway.station.subway.kyoto">捷運站</string>
+	<string name="type.railway.station.subway.la">捷運站</string>
+	<string name="type.railway.station.subway.lausanne">捷運站</string>
+	<string name="type.railway.station.subway.lille">捷運站</string>
+	<string name="type.railway.station.subway.lima">捷運站</string>
+	<string name="type.railway.station.subway.lisboa">捷運站</string>
+	<string name="type.railway.station.subway.london">捷運站</string>
+	<string name="type.railway.station.subway.lyon">捷運站</string>
+	<string name="type.railway.station.subway.madrid">捷運站</string>
+	<string name="type.railway.station.subway.malaga">捷運站</string>
+	<string name="type.railway.station.subway.manila">捷運站</string>
+	<string name="type.railway.station.subway.maracaibo">捷運站</string>
+	<string name="type.railway.station.subway.mashhad">捷運站</string>
+	<string name="type.railway.station.subway.mecca">捷運站</string>
+	<string name="type.railway.station.subway.medellin">捷運站</string>
+	<string name="type.railway.station.subway.mexico">捷運站</string>
+	<string name="type.railway.station.subway.milan">捷運站</string>
+	<string name="type.railway.station.subway.minsk">捷運站</string>
+	<string name="type.railway.station.subway.montreal">捷運站</string>
+	<string name="type.railway.station.subway.moscow">捷運站</string>
+	<string name="type.railway.station.subway.munchen">捷運站</string>
+	<string name="type.railway.station.subway.nagoya">捷運站</string>
+	<string name="type.railway.station.subway.newyork">捷運站</string>
+	<string name="type.railway.station.subway.nnov">捷運站</string>
+	<string name="type.railway.station.subway.novosibirsk">捷運站</string>
+	<string name="type.railway.station.subway.osaka">捷運站</string>
+	<string name="type.railway.station.subway.oslo">捷運站</string>
+	<string name="type.railway.station.subway.palma">捷運站</string>
+	<string name="type.railway.station.subway.panama">捷運站</string>
+	<string name="type.railway.station.subway.paris">捷運站</string>
+	<string name="type.railway.station.subway.philadelphia">捷運站</string>
+	<string name="type.railway.station.subway.pyongyang">捷運站</string>
+	<string name="type.railway.station.subway.rennes">捷運站</string>
+	<string name="type.railway.station.subway.rio">捷運站</string>
+	<string name="type.railway.station.subway.roma">捷運站</string>
+	<string name="type.railway.station.subway.rotterdam">捷運站</string>
+	<string name="type.railway.station.subway.samara">捷運站</string>
+	<string name="type.railway.station.subway.santiago">捷運站</string>
+	<string name="type.railway.station.subway.santo_domingo">捷運站</string>
+	<string name="type.railway.station.subway.saopaulo">捷運站</string>
+	<string name="type.railway.station.subway.sapporo">捷運站</string>
+	<string name="type.railway.station.subway.sendai">捷運站</string>
+	<string name="type.railway.station.subway.sf">捷運站</string>
+	<string name="type.railway.station.subway.shanghai">捷運站</string>
+	<string name="type.railway.station.subway.shiraz">捷運站</string>
+	<string name="type.railway.station.subway.sofia">捷運站</string>
+	<string name="type.railway.station.subway.spb">捷運站</string>
+	<string name="type.railway.station.subway.stockholm">捷運站</string>
+	<string name="type.railway.station.subway.tabriz">捷運站</string>
+	<string name="type.railway.station.subway.taipei">捷運站</string>
+	<string name="type.railway.station.subway.taoyuan">捷運站</string>
+	<string name="type.railway.station.subway.tashkent">捷運站</string>
+	<string name="type.railway.station.subway.tbilisi">捷運站</string>
+	<string name="type.railway.station.subway.tianjin">捷運站</string>
+	<string name="type.railway.station.subway.tokyo">捷運站</string>
+	<string name="type.railway.station.subway.valencia">捷運站</string>
+	<string name="type.railway.station.subway.vienna">捷運站</string>
+	<string name="type.railway.station.subway.warszawa">捷運站</string>
+	<string name="type.railway.station.subway.washington">捷運站</string>
+	<string name="type.railway.station.subway.wuhan">捷運站</string>
+	<string name="type.railway.station.subway.yerevan">捷運站</string>
+	<string name="type.railway.station.subway.yokohama">捷運站</string>
 	<string name="type.railway.subway_entrance">地鐵入口</string>
+	<string name="type.railway.subway_entrance.adana">地鐵入口</string>
+	<string name="type.railway.subway_entrance.algiers">地鐵入口</string>
+	<string name="type.railway.subway_entrance.almaty">地鐵入口</string>
+	<string name="type.railway.subway_entrance.amsterdam">地鐵入口</string>
+	<string name="type.railway.subway_entrance.ankara">地鐵入口</string>
+	<string name="type.railway.subway_entrance.athens">地鐵入口</string>
+	<string name="type.railway.subway_entrance.baku">地鐵入口</string>
+	<string name="type.railway.subway_entrance.bangkok">地鐵入口</string>
 	<string name="type.railway.subway_entrance.barcelona">地鐵入口</string>
+	<string name="type.railway.subway_entrance.beijing">地鐵入口</string>
+	<string name="type.railway.subway_entrance.bengalore">地鐵入口</string>
 	<string name="type.railway.subway_entrance.berlin">地鐵入口</string>
+	<string name="type.railway.subway_entrance.brasilia">地鐵入口</string>
+	<string name="type.railway.subway_entrance.brescia">地鐵入口</string>
+	<string name="type.railway.subway_entrance.brussels">地鐵入口</string>
+	<string name="type.railway.subway_entrance.bucharest">地鐵入口</string>
+	<string name="type.railway.subway_entrance.budapest">地鐵入口</string>
+	<string name="type.railway.subway_entrance.buenos_aires">地鐵入口</string>
+	<string name="type.railway.subway_entrance.bursa">地鐵入口</string>
+	<string name="type.railway.subway_entrance.cairo">地鐵入口</string>
+	<string name="type.railway.subway_entrance.caracas">地鐵入口</string>
+	<string name="type.railway.subway_entrance.catania">地鐵入口</string>
+	<string name="type.railway.subway_entrance.changchun">地鐵入口</string>
+	<string name="type.railway.subway_entrance.chengdu">地鐵入口</string>
+	<string name="type.railway.subway_entrance.chicago">地鐵入口</string>
+	<string name="type.railway.subway_entrance.chongqing">地鐵入口</string>
+	<string name="type.railway.subway_entrance.dalian">地鐵入口</string>
+	<string name="type.railway.subway_entrance.delhi">地鐵入口</string>
+	<string name="type.railway.subway_entrance.dnepro">地鐵入口</string>
+	<string name="type.railway.subway_entrance.dubai">地鐵入口</string>
+	<string name="type.railway.subway_entrance.ekb">地鐵入口</string>
+	<string name="type.railway.subway_entrance.fukuoka">地鐵入口</string>
+	<string name="type.railway.subway_entrance.glasgow">地鐵入口</string>
+	<string name="type.railway.subway_entrance.guangzhou">地鐵入口</string>
+	<string name="type.railway.subway_entrance.hamburg">地鐵入口</string>
+	<string name="type.railway.subway_entrance.helsinki">地鐵入口</string>
+	<string name="type.railway.subway_entrance.hiroshima">地鐵入口</string>
+	<string name="type.railway.subway_entrance.isfahan">地鐵入口</string>
+	<string name="type.railway.subway_entrance.istanbul">地鐵入口</string>
+	<string name="type.railway.subway_entrance.izmir">地鐵入口</string>
+	<string name="type.railway.subway_entrance.kazan">地鐵入口</string>
+	<string name="type.railway.subway_entrance.kharkiv">地鐵入口</string>
 	<string name="type.railway.subway_entrance.kiev">地鐵入口</string>
+	<string name="type.railway.subway_entrance.kobe">地鐵入口</string>
+	<string name="type.railway.subway_entrance.kolkata">地鐵入口</string>
+	<string name="type.railway.subway_entrance.kunming">地鐵入口</string>
+	<string name="type.railway.subway_entrance.kyoto">地鐵入口</string>
+	<string name="type.railway.subway_entrance.la">地鐵入口</string>
+	<string name="type.railway.subway_entrance.lausanne">地鐵入口</string>
+	<string name="type.railway.subway_entrance.lille">地鐵入口</string>
+	<string name="type.railway.subway_entrance.lima">地鐵入口</string>
+	<string name="type.railway.subway_entrance.lisboa">地鐵入口</string>
 	<string name="type.railway.subway_entrance.london">地鐵入口</string>
+	<string name="type.railway.subway_entrance.lyon">地鐵入口</string>
 	<string name="type.railway.subway_entrance.madrid">地鐵入口</string>
+	<string name="type.railway.subway_entrance.malaga">地鐵入口</string>
+	<string name="type.railway.subway_entrance.manila">地鐵入口</string>
+	<string name="type.railway.subway_entrance.maracaibo">地鐵入口</string>
+	<string name="type.railway.subway_entrance.mashhad">地鐵入口</string>
+	<string name="type.railway.subway_entrance.mecca">地鐵入口</string>
+	<string name="type.railway.subway_entrance.medellin">地鐵入口</string>
+	<string name="type.railway.subway_entrance.mexico">地鐵入口</string>
+	<string name="type.railway.subway_entrance.milan">地鐵入口</string>
 	<string name="type.railway.subway_entrance.minsk">地鐵入口</string>
+	<string name="type.railway.subway_entrance.montreal">地鐵入口</string>
 	<string name="type.railway.subway_entrance.moscow">地鐵入口</string>
+	<string name="type.railway.subway_entrance.munchen">地鐵入口</string>
+	<string name="type.railway.subway_entrance.nagoya">地鐵入口</string>
 	<string name="type.railway.subway_entrance.newyork">地鐵入口</string>
+	<string name="type.railway.subway_entrance.nnov">地鐵入口</string>
+	<string name="type.railway.subway_entrance.novosibirsk">地鐵入口</string>
+	<string name="type.railway.subway_entrance.osaka">地鐵入口</string>
+	<string name="type.railway.subway_entrance.oslo">地鐵入口</string>
+	<string name="type.railway.subway_entrance.palma">地鐵入口</string>
+	<string name="type.railway.subway_entrance.panama">地鐵入口</string>
 	<string name="type.railway.subway_entrance.paris">地鐵入口</string>
+	<string name="type.railway.subway_entrance.philadelphia">地鐵入口</string>
+	<string name="type.railway.subway_entrance.pyongyang">地鐵入口</string>
+	<string name="type.railway.subway_entrance.rennes">地鐵入口</string>
+	<string name="type.railway.subway_entrance.rio">地鐵入口</string>
 	<string name="type.railway.subway_entrance.roma">地鐵入口</string>
+	<string name="type.railway.subway_entrance.rotterdam">地鐵入口</string>
+	<string name="type.railway.subway_entrance.samara">地鐵入口</string>
+	<string name="type.railway.subway_entrance.santiago">地鐵入口</string>
+	<string name="type.railway.subway_entrance.santo_domingo">地鐵入口</string>
+	<string name="type.railway.subway_entrance.saopaulo">地鐵入口</string>
+	<string name="type.railway.subway_entrance.sapporo">地鐵入口</string>
+	<string name="type.railway.subway_entrance.sendai">地鐵入口</string>
+	<string name="type.railway.subway_entrance.sf">地鐵入口</string>
+	<string name="type.railway.subway_entrance.shanghai">地鐵入口</string>
+	<string name="type.railway.subway_entrance.shiraz">地鐵入口</string>
+	<string name="type.railway.subway_entrance.sofia">地鐵入口</string>
 	<string name="type.railway.subway_entrance.spb">地鐵入口</string>
+	<string name="type.railway.subway_entrance.stockholm">地鐵入口</string>
+	<string name="type.railway.subway_entrance.tabriz">地鐵入口</string>
+	<string name="type.railway.subway_entrance.taipei">地鐵入口</string>
+	<string name="type.railway.subway_entrance.taoyuan">地鐵入口</string>
+	<string name="type.railway.subway_entrance.tashkent">地鐵入口</string>
+	<string name="type.railway.subway_entrance.tbilisi">地鐵入口</string>
+	<string name="type.railway.subway_entrance.tianjin">地鐵入口</string>
+	<string name="type.railway.subway_entrance.tokyo">地鐵入口</string>
+	<string name="type.railway.subway_entrance.valencia">地鐵入口</string>
+	<string name="type.railway.subway_entrance.vienna">地鐵入口</string>
+	<string name="type.railway.subway_entrance.warszawa">地鐵入口</string>
+	<string name="type.railway.subway_entrance.washington">地鐵入口</string>
+	<string name="type.railway.subway_entrance.wuhan">地鐵入口</string>
+	<string name="type.railway.subway_entrance.yerevan">地鐵入口</string>
+	<string name="type.railway.subway_entrance.yokohama">地鐵入口</string>
 	<string name="type.railway.tram">電車軌道</string>
 	<string name="type.railway.tram.bridge">電車軌道</string>
 	<string name="type.railway.tram.tunnel">電車軌道</string>
@@ -1383,7 +1616,9 @@
 	<string name="type.sport.australian_football">澳式足球</string>
 	<string name="type.sport.baseball">棒球</string>
 	<string name="type.sport.basketball">籃球</string>
+	<string name="type.sport.beachvolleyball">沙灘排球</string>
 	<string name="type.sport.bowls">草地滾球</string>
+	<string name="type.sport.chess">國際象棋</string>
 	<string name="type.sport.cricket">板球</string>
 	<string name="type.sport.curling">冰壺</string>
 	<string name="type.sport.equestrian">馬術運動</string>
@@ -1394,10 +1629,21 @@
 	<!-- Used to tag a scuba diving site. -->
 	<string name="type.sport.scuba_diving">水肺潛水</string>
 	<string name="type.sport.shooting">射擊</string>
+	<string name="type.sport.skateboard">滑板活動</string>
 	<string name="type.sport.skiing">滑雪</string>
 	<string name="type.sport.soccer">足球</string>
 	<string name="type.sport.swimming">游泳</string>
+	<string name="type.sport.table_tennis">乒乓球</string>
 	<string name="type.sport.tennis">網球場</string>
+	<string name="type.sport.volleyball">排球</string>
+	<string name="type.sport.10pin">保齡球</string>
+	<string name="type.sport.9pin">保齡球</string>
+	<string name="type.sport.padel">帕德爾</string>
+	<string name="type.sport.futsal">五人制足球</string>
+	<string name="type.sport.ice_hockey">冰球</string>
+	<string name="type.sport.field_hockey">曲棍球</string>
+	<string name="type.sport.badminton">羽毛球</string>
+	<string name="type.sport.pelota">巴斯克回力球</string>
 	<string name="type.tourism.alpine_hut">山上住宿</string>
 	<string name="type.tourism.apartment">公寓</string>
 	<string name="type.tourism.artwork">藝術品</string>

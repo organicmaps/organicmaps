@@ -13,15 +13,13 @@
 #include "base/scope_guard.hpp"
 
 #include <cstdint>
-#include <string>
 #include <vector>
 
-using namespace std;
+namespace generator::diff_tests
+{
+using namespace mwm_diff;
+using std::string, std::vector;
 
-namespace generator
-{
-namespace mwm_diff
-{
 UNIT_TEST(IncrementalUpdates_Smoke)
 {
   base::ScopedLogAbortLevelChanger ignoreLogError(base::LogLevel::LCRITICAL);
@@ -92,5 +90,4 @@ UNIT_TEST(IncrementalUpdates_Smoke)
   TEST_EQUAL(ApplyDiff(oldMwmPath, newMwmPath2, diffPath, cancellable),
              DiffApplicationResult::Failed, ());
 }
-}  // namespace mwm_diff
-}  // namespace generator
+}  // namespace generator::diff_tests

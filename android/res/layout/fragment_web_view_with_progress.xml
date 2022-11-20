@@ -4,7 +4,7 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent">
 
-  <com.mapswithme.maps.widget.ObservableWebView
+  <app.organicmaps.widget.ObservableWebView
     android:id="@+id/webview"
     android:layout_width="match_parent"
     android:layout_height="match_parent"

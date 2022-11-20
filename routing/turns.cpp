@@ -13,12 +13,13 @@
 #include <sstream>
 #include <utility>
 
+namespace routing
+{
+using namespace routing::turns;
 using namespace std;
 
 namespace
 {
-using namespace routing::turns;
-
 /// The order is important. Starting with the most frequent tokens according to
 /// taginfo.openstreetmap.org we minimize the number of the comparisons in ParseSingleLane().
 array<pair<LaneWay, char const *>, static_cast<size_t>(LaneWay::Count)> const g_laneWayNames = {
@@ -58,8 +59,6 @@ static_assert(g_turnNames.size() == static_cast<size_t>(CarDirection::Count),
               "Check the size of g_turnNames");
 }  // namespace
 
-namespace routing
-{
 // SegmentRange -----------------------------------------------------------------------------------
 SegmentRange::SegmentRange(FeatureID const & featureId, uint32_t startSegId, uint32_t endSegId,
                            bool forward, m2::PointD const & start, m2::PointD const & end)
@@ -147,13 +146,14 @@ bool SegmentRange::GetSegmentBySegId(uint32_t segId, NumMwmIds const & numMwmIds
 string DebugPrint(SegmentRange const & segmentRange)
 {
   stringstream out;
-  out << "SegmentRange [ m_featureId = " << DebugPrint(segmentRange.m_featureId)
+  out << "SegmentRange "
+      << "{ m_featureId = " << DebugPrint(segmentRange.m_featureId)
       << ", m_startSegId = " << segmentRange.m_startSegId
       << ", m_endSegId = " << segmentRange.m_endSegId
       << ", m_forward = " << segmentRange.m_forward
       << ", m_start = " << DebugPrint(segmentRange.m_start)
       << ", m_end = " << DebugPrint(segmentRange.m_end)
-      << "]" << endl;
+      << " }";
   return out.str();
 }
 
@@ -168,24 +168,27 @@ bool SingleLaneInfo::operator==(SingleLaneInfo const & other) const
 string DebugPrint(TurnItem const & turnItem)
 {
   stringstream out;
-  out << "TurnItem [ m_index = " << turnItem.m_index
+  out << "TurnItem "
+      << "{ m_index = " << turnItem.m_index
       << ", m_turn = " << DebugPrint(turnItem.m_turn)
-      << ", m_lanes = " << ::DebugPrint(turnItem.m_lanes) << ", m_exitNum = " << turnItem.m_exitNum
+      << ", m_lanes = " << ::DebugPrint(turnItem.m_lanes)
+      << ", m_exitNum = " << turnItem.m_exitNum
       << ", m_pedestrianDir = " << DebugPrint(turnItem.m_pedestrianTurn)
-      << " ]" << endl;
+      << " }";
   return out.str();
 }
 
 string DebugPrint(TurnItemDist const & turnItemDist)
 {
   stringstream out;
-  out << "TurnItemDist [ m_turnItem = " << DebugPrint(turnItemDist.m_turnItem)
+  out << "TurnItemDist "
+      << "{ m_turnItem = " << DebugPrint(turnItemDist.m_turnItem)
       << ", m_distMeters = " << turnItemDist.m_distMeters
-      << " ]" << endl;
+      << " }";
   return out.str();
 }
 
-string const GetTurnString(CarDirection turn)
+string GetTurnString(CarDirection turn)
 {
   for (auto const & p : g_turnNames)
   {
@@ -193,9 +196,8 @@ string const GetTurnString(CarDirection turn)
       return p.second;
   }
 
-  stringstream out;
-  out << "unknown CarDirection (" << static_cast<int>(turn) << ")";
-  return out.str();
+  ASSERT(false, (static_cast<int>(turn)));
+  return "unknown CarDirection";
 }
 
 bool IsLeftTurn(CarDirection t)
@@ -348,9 +350,7 @@ string DebugPrint(LaneWay const l)
 
 string DebugPrint(CarDirection const turn)
 {
-  stringstream out;
-  out << "[ " << GetTurnString(turn) << " ]";
-  return out.str();
+  return GetTurnString(turn);
 }
 
 string DebugPrint(PedestrianDirection const l)
@@ -368,9 +368,8 @@ string DebugPrint(PedestrianDirection const l)
     break;
   }
 
-  stringstream out;
-  out << "unknown PedestrianDirection (" << static_cast<int>(l) << ")";
-  return out.str();
+  ASSERT(false, (static_cast<int>(l)));
+  return "unknown PedestrianDirection";
 }
 
 string DebugPrint(SingleLaneInfo const & singleLaneInfo)

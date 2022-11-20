@@ -87,10 +87,7 @@ public:
       std::vector<m2::PointD> out;
 
       /// @todo Choose scale level for simplification.
-      double const eps = base::Pow2(scales::GetEpsilonForSimplify(10));
-      m2::SquaredDistanceFromSegmentToPoint<m2::PointD> distFn;
-      SimplifyNearOptimal(20, in.begin(), in.end(), eps, distFn,
-                          AccumulateSkipSmallTrg<decltype(distFn), m2::PointD>(distFn, out, eps));
+      SimplifyDefault(in.begin(), in.end(), base::Pow2(scales::GetEpsilonForSimplify(10)), out);
 
       serial::SaveOuterPath(out, cp, *w);
     }

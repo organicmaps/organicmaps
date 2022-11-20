@@ -24,13 +24,13 @@ public:
 class Model
 {
 public:
-  // WARNING: after modifications to the enum below, re-check all methods in the class.
-  enum Type
+  /// @note Check ranking_info.cpp constants (kType) before changing this enum.
+  enum Type : uint8_t
   {
     // Low-level features such as amenities, offices, shops, buildings without house number, etc.
     // Can be stand-alone or located inside COMPLEX_POIs. E.g. cafes/shops inside
     // airports/universities/museums.
-    TYPE_SUBPOI,
+    TYPE_SUBPOI = 0,
 
     // Big pois which can contain SUBPOIs. E.g. airports, train stations, malls, parks.
     TYPE_COMPLEX_POI,

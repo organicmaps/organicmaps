@@ -2,8 +2,6 @@
 
 #include "map/bookmark.hpp"
 
-#include "indexer/feature.hpp"
-
 #include "coding/reader.hpp"
 
 #include "geometry/rect2d.hpp"
@@ -70,6 +68,7 @@ enum class BookmarkBaseType : uint16_t
 extern std::string const kKmzExtension;
 extern std::string const kKmlExtension;
 extern std::string const kKmbExtension;
+extern std::string const kDefaultBookmarksFileName;
 
 enum class KmlFileType
 {
@@ -87,15 +86,29 @@ inline std::string DebugPrint(KmlFileType fileType)
   UNREACHABLE();
 }
 
+/// @name File name/path helpers.
+/// @{
+std::string GetBookmarksDirectory();
+std::string RemoveInvalidSymbols(std::string const & name);
+std::string GenerateUniqueFileName(const std::string & path, std::string name, std::string const & ext = kKmlExtension);
+std::string GenerateValidAndUniqueFilePathForKML(std::string const & fileName);
+/// @}
+
+/// @name SerDes helpers.
+/// @{
 std::unique_ptr<kml::FileData> LoadKmlFile(std::string const & file, KmlFileType fileType);
-std::unique_ptr<kml::FileData> LoadKmzFile(std::string const & file, std::string & kmlHash);
 std::unique_ptr<kml::FileData> LoadKmlData(Reader const & reader, KmlFileType fileType);
+
+std::string GetKMLPath(std::string const & filePath);
 
 bool SaveKmlFileSafe(kml::FileData & kmlData, std::string const & file, KmlFileType fileType);
 bool SaveKmlData(kml::FileData & kmlData, Writer & writer, KmlFileType fileType);
+bool SaveKmlFileByExt(kml::FileData & kmlData, std::string const & file);
+/// @}
 
 void ResetIds(kml::FileData & kmlData);
 
+namespace feature { class TypesHolder; }
 void SaveFeatureTypes(feature::TypesHolder const & types, kml::BookmarkData & bmData);
 
 std::string GetPreferredBookmarkName(kml::BookmarkData const & bmData);

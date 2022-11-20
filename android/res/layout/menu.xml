@@ -4,19 +4,14 @@
   android:id="@+id/menu_frame"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  android:background="?menuBackground"
-  android:visibility="invisible"
+  android:background="?cardBackground"
+  android:visibility="gone"
   tools:visibility="visible">
-
-  <include
-    android:id="@+id/buttons_frame"
-    layout="@layout/menu_buttons_line" />
 
   <include
     android:id="@+id/routing_plan_frame"
     layout="@layout/menu_route_plan_line"
     tools:layout_height="@dimen/menu_line_height"
-    tools:layout_marginTop="60dp"
     tools:layout_width="match_parent" />
 
   <include
@@ -24,7 +19,7 @@
     layout="@layout/routing_action_panel"
     android:visibility="gone"
     tools:layout_height="wrap_content"
-    tools:layout_marginTop="120dp"
+    tools:layout_marginTop="@dimen/menu_line_height"
     tools:layout_width="match_parent"
     tools:visibility="visible" />
 </FrameLayout>

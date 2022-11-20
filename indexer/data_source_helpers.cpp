@@ -4,10 +4,10 @@
 #include "indexer/feature_algo.hpp"
 #include "indexer/scales.hpp"
 
-using namespace std;
-
 namespace indexer
 {
+using namespace std;
+
 void ForEachFeatureAtPoint(DataSource const & dataSource, function<void(FeatureType &)> && fn,
                            m2::PointD const & mercator, double toleranceInMeters)
 {

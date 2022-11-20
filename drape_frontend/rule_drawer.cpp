@@ -2,11 +2,10 @@
 
 #include "drape_frontend/apply_feature_functors.hpp"
 #include "drape_frontend/engine_context.hpp"
+#include "drape_frontend/line_shape.hpp"
 #include "drape_frontend/stylist.hpp"
 #include "drape_frontend/traffic_renderer.hpp"
 #include "drape_frontend/visual_params.hpp"
-
-#include "drape/drape_diagnostics.hpp"
 
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
@@ -17,13 +16,13 @@
 #include "indexer/scales.hpp"
 
 #include "geometry/clipping.hpp"
+#include "geometry/mercator.hpp"
 
 #include "base/assert.hpp"
-#include "base/logging.hpp"
 
-#include "drape_frontend/text_shape.hpp"
-#include "drape_frontend/line_shape.hpp"
 #ifdef DRAW_TILE_NET
+#include "drape/drape_diagnostics.hpp"
+
 #include "drape_frontend/line_shape.hpp"
 #include "drape_frontend/text_shape.hpp"
 
@@ -32,7 +31,6 @@
 
 #include <array>
 #include <functional>
-#include <utility>
 #include <vector>
 
 namespace df
@@ -326,7 +324,7 @@ void RuleDrawer::ProcessLineStyle(FeatureType & f, Stylist const & s,
                                   TInsertShapeFn const & insertShape, int & minVisibleScale)
 {
   int const zoomLevel = m_context->GetTileKey().m_zoomLevel;
-  auto const smooth = ftypes::IsIsolineChecker::Instance()(f);
+  bool const smooth = ftypes::IsIsolineChecker::Instance()(f);
 
   ApplyLineFeatureGeometry applyGeom(m_context->GetTileKey(), insertShape, f.GetID(),
                                      m_currentScaleGtoP, minVisibleScale, f.GetRank(),
@@ -518,14 +516,13 @@ void RuleDrawer::DrawTileNet()
     return;
 
   auto const key = m_context->GetTileKey();
-  auto const tileRect = key.GetGlobalRect();
 
   std::vector<m2::PointD> path;
   path.reserve(4);
-  path.push_back(tileRect.LeftBottom());
-  path.push_back(tileRect.LeftTop());
-  path.push_back(tileRect.RightTop());
-  path.push_back(tileRect.RightBottom());
+  path.push_back(m_globalRect.LeftBottom());
+  path.push_back(m_globalRect.LeftTop());
+  path.push_back(m_globalRect.RightTop());
+  path.push_back(m_globalRect.RightBottom());
 
   m2::SharedSpline spline(path);
   df::LineViewParams p;
@@ -545,17 +542,16 @@ void RuleDrawer::DrawTileNet()
   m_context->Flush(std::move(shapes));
 
   df::TextViewParams tp;
+  tp.m_markId = kml::kDebugMarkId;
   tp.m_tileCenter = m_globalRect.Center();
   tp.m_titleDecl.m_anchor = dp::Center;
   tp.m_depth = 20000;
   tp.m_depthLayer = DepthLayer::OverlayLayer;
-  tp.m_titleDecl.m_primaryText = strings::to_string(key.m_x) + " " +
-    strings::to_string(key.m_y) + " " +
-    strings::to_string(key.m_zoomLevel);
+  tp.m_titleDecl.m_primaryText = key.Coord2String();
 
   tp.m_titleDecl.m_primaryTextFont = dp::FontDecl(dp::Color::Red(), 30);
   tp.m_titleDecl.m_primaryOffset = {0.0f, 0.0f};
-  auto textShape = make_unique_dp<TextShape>(tileRect.Center(), tp, key,
+  auto textShape = make_unique_dp<TextShape>(m_globalRect.Center(), tp, key,
                                              m2::PointF(0.0f, 0.0f) /* symbolSize */,
                                              m2::PointF(0.0f, 0.0f) /* symbolOffset */,
                                              dp::Anchor::Center,

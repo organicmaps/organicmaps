@@ -104,7 +104,7 @@ bool OpeningHoursSerDes::IsEnabled(OpeningHoursSerDes::Header::Bits bit) const
   bool const sup = base::IsExist(m_supportedFeatures, bit);
   bool const unsup = base::IsExist(m_unsupportedFeatures, bit);
 
-  CHECK((!sup && unsup) || (sup && !unsup), ());
+  CHECK_NOT_EQUAL(sup, unsup, ());
   return sup;
 }
 

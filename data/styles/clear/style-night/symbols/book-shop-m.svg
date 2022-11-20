@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>book-shop-m</title>
-    <g id="Page-2:-Night" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.6">
-        <g id="book-shop-m">
-            <circle id="Oval" fill="#FFFFFF" fill-rule="nonzero" cx="12" cy="12" r="12"></circle>
-            <circle id="Oval" fill="#8C5F93" fill-rule="nonzero" cx="12" cy="12" r="11"></circle>
-            <path d="M12,8.28126545 C12,8.28126545 9,5.70983688 6,7.85269402 L6,17.2812654 C9,15.1384083 12,17.2812654 12,17.2812654 C12,17.2812654 15,15.1384083 18,17.2812654 L18,7.85269402 C15,5.70983688 12,8.28126545 12,8.28126545 Z M12,8.28126545 L12,17.2812654" id="Shape" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-        </g>
-    </g>
+<svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+ <title>book-shop-m</title>
+ <g id="Page-2:-Night" fill="none" fill-rule="evenodd" opacity=".6">
+  <g id="book-shop-m">
+   <circle id="Oval" cx="12" cy="12" r="12" fill="#fff" fill-rule="nonzero"/>
+   <circle id="Oval" cx="12" cy="12" r="11" fill="#8C5F93" fill-rule="nonzero"/>
+   <path id="Shape" d="m12 8.2813s-3-2.5714-6-0.42857v9.4286c3-2.1429 6 0 6 0s3-2.1429 6 0v-9.4286c-3-2.1429-6 0.42857-6 0.42857zm0 0v9" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+  </g>
+ </g>
 </svg>

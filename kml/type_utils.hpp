@@ -1,7 +1,5 @@
 #pragma once
 
-#include "indexer/feature.hpp"
-
 #include "geometry/point2d.hpp"
 #include "geometry/point_with_altitude.hpp"
 
@@ -10,14 +8,17 @@
 #include <limits>
 #include <map>
 #include <set>
-#include <sstream>
 #include <string>
 #include <unordered_map>
 #include <vector>
 
+namespace feature { class RegionData; }
+
 namespace kml
 {
-using Timestamp = std::chrono::time_point<std::chrono::system_clock>;
+using TimestampClock = std::chrono::system_clock;
+using Timestamp = std::chrono::time_point<TimestampClock>;
+
 using LocalizableString = std::unordered_map<int8_t, std::string>;
 using LocalizableStringSubIndex = std::map<int8_t, uint32_t>;
 using LocalizableStringIndex = std::vector<LocalizableStringSubIndex>;
@@ -40,6 +41,7 @@ using GroupIdSet = std::set<MarkGroupId>;
 
 MarkGroupId constexpr kInvalidMarkGroupId = std::numeric_limits<MarkGroupId>::max();
 MarkId constexpr kInvalidMarkId = std::numeric_limits<MarkId>::max();
+MarkId constexpr kDebugMarkId = kInvalidMarkId - 1;
 TrackId constexpr kInvalidTrackId = std::numeric_limits<TrackId>::max();
 CompilationId constexpr kInvalidCompilationId = std::numeric_limits<CompilationId>::max();
 
@@ -80,7 +82,7 @@ inline void SetDefaultStr(LocalizableString & localizableStr, std::string const 
     localizableStr.erase(kDefaultLangCode);
     return;
   }
-    
+
   localizableStr[kDefaultLangCode] = str;
 }
 

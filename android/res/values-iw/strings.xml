@@ -110,6 +110,8 @@
 	<string name="police">משטרה</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
 	<string name="water">מים</string>
+	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
+	<string name="rv">םינאוורק רובע</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">הערות</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -142,8 +144,6 @@
 	<string name="copied_to_clipboard">הועתקו לזכרון זמני %1$s</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">בוצע</string>
-	<!-- Prints version number in About dialog -->
-	<string name="version">%s וורסיה</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">OpenStreetMap: %s ינותנ</string>
 	<!-- Confirmation in downloading countries dialog -->
@@ -164,6 +164,8 @@
 	<string name="help">עזרה</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">תובושתו תולאש</string>
+	<!-- Button in the main menu -->
+	<string name="donate">םוֹרתְלִ</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">כיצד לתמוך בנו?</string>
 	<!-- Button in the main Help dialog -->
@@ -213,6 +215,10 @@
 	<string name="search_without_internet_advertisement">על מנת להתחיל לחפש וליצור מסלולים, הורידו בבקשה את המפה ולא תזדקקו יותר לחיבור לאינטרנט.</string>
 	<string name="search_select_map">בחרו את המפה</string>
 	<string name="twentyfour_seven">יום ולילה</string>
+	<string name="login_osm">OpenStreetMap-ל סנכיה</string>
+	<string name="level">קוֹמָה</string>
+	<string name="osm_presentation">.םלועה יבחר לכב םישמתשמ ינוילימל תונימזל תוכפוה ןהו ,תומוקמ ךורעל וא ףיסוהל לו</string>
+	<string name="editor_share_to_all_dialog_message_2">.ןהשלכ תולאש םהל שי םא רשק ךתיא ורציו םייונישה תא וקדבי OpenStreetMap יכרוע</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps היא אפליקציית מפות לא מקוונות בחינם ובקוד פתוח. ללא פרסומות. אין מעקב. אם אתה רואה שגיאה במפה, אנא תקן אותה ב-OpenStreetMap. הפרויקט נוצר על ידי חובבים בזמננו הפנוי, אז אנו זקוקים למשוב ולתמיכה שלכם.</string>
 	<string name="transliteration_title">תעתיק ללטינית</string>
@@ -223,10 +229,49 @@
 	<string name="enable_screen_sleep">אפשר למסך לישון</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">כאשר מופעל המסך יורשה לישון לאחר תקופה של חוסר פעילות.</string>
+	<!-- OpenStreetMap text on splash screen -->
+	<string name="splash_subtitle">OpenStreetMap-מ הפמ ינותנ</string>
+
+	<!-- SECTION: Types -->
+	<string name="type.amenity.music_school">הקיזומל רפס תיב</string>
+	<string name="type.amenity.language_school">תופשל רפס תיב</string>
+	<string name="type.amenity.parking">היָנָחֲ</string>
+	<string name="type.amenity.parking.fee">םולשתב הינח</string>
+	<string name="type.amenity.parking.multi.storey">תומוק בר הינח</string>
+	<string name="type.amenity.parking.no.access">תיטרפ הינח</string>
+	<string name="type.amenity.parking.permissive">תיטרפ הינח</string>
+	<string name="type.amenity.parking.private">תיטרפ הינח</string>
+	<string name="type.amenity.parking.underground">תיעקרק - תת הינח</string>
+	<string name="type.amenity.parking_entrance.private">הינחל הסינכ</string>
+	<string name="type.amenity.parking_entrance.permissive">הינחל הסינכ</string>
+	<string name="type.amenity.parking_entrance">הינחל הסינכ</string>
+	<string name="type.amenity.parking_space.disabled">םיכנל הינח</string>
 
 	<!-- SECTION: Types: Recycling -->
 	<string name="type.recycling.batteries">תוללוס</string>
+	<string name="type.barrier.city_wall">חומת העיר</string>
+	<string name="type.barrier.ditch">ןגֵמָ תלַעָתְ</string>
 	<string name="type.cemetery.grave">רבק</string>
+	<string name="type.craft">מְלָאכָה</string>
+	<string name="type.craft.beekeeper">כוורן</string>
+	<string name="type.craft.blacksmith">נַפָּח</string>
+	<string name="type.craft.brewery">מבשלה</string>
+	<string name="type.craft.carpenter">נגר</string>
+	<string name="type.craft.confectionery">קוֹנדִיטוֹר</string>
+	<string name="type.craft.electrician">חשמלאי</string>
+	<string name="type.craft.electronics_repair">תיקון אלקטרוניקה</string>
+	<string name="type.craft.gardener">גנן</string>
+	<string name="type.craft.handicraft">אומנות</string>
+	<!-- Heating, Ventilation, and Air Conditioning -->
+	<string name="type.craft.hvac">חימום, אוורור ומיזוג אוויר</string>
+	<string name="type.craft.metal_construction">עובד מתכת</string>
+	<string name="type.craft.painter">צייר</string>
+	<string name="type.craft.photographer">צלם</string>
+	<string name="type.craft.plumber">שרברב</string>
+	<string name="type.craft.sawmill">מנסרה</string>
+	<string name="type.craft.shoemaker">סנדלר</string>
+	<string name="type.craft.winery">יקב</string>
+	<string name="type.craft.tailor">חייט</string>
 	<string name="type.cuisine.african">מטבח אפריקאי</string>
 	<string name="type.cuisine.american">מטבח אמריקאי</string>
 	<string name="type.cuisine.arab">מטבח ערבי</string>
@@ -313,6 +358,7 @@
 	<string name="type.cuisine.vegetarian">מטבח צמחוני</string>
 	<string name="type.cuisine.vietnamese">מטבח וייטנאמי</string>
 	<string name="type.healthcare.laboratory">תיאופר הדבעמ</string>
+	<string name="type.healthcare.physiotherapist">פיזיותרפיסט</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -405,7 +451,41 @@
 	<string name="type.highway.unclassified.tunnel">מִנהָרָה</string>
 
 	<!-- SECTION: Types: Historic -->
+	<string name="type.historic">חפץ היסטורי</string>
+	<string name="type.historic.archaeological_site">אתר ארכיאולוגי</string>
+	<string name="type.historic.battlefield">שדה קרב</string>
+	<string name="type.historic.boundary_stone">אבן גבול</string>
+	<string name="type.historic.castle">טירה</string>
+	<string name="type.historic.castle.castrum">קסטרום</string>
+	<string name="type.historic.castle.defensive">טירה</string>
+	<string name="type.historic.castle.fortified_church">כנסייה מבוצרת</string>
+	<string name="type.historic.castle.fortress">מִבצָר</string>
+	<string name="type.historic.castle.hillfort">מבצר גבעה</string>
+	<string name="type.historic.castle.kremlin">קרמלין</string>
+	<string name="type.historic.castle.manor">אחוזה</string>
+	<string name="type.historic.castle.palace">ארמון</string>
+	<string name="type.historic.castle.shiro">טירה יפנית</string>
+	<string name="type.historic.castle.stately">שאטו</string>
+	<string name="type.historic.city_gate">שער העיר</string>
+	<string name="type.historic.citywalls">חומת העיר</string>
+	<string name="type.historic.fort">מִבצָר</string>
+	<string name="type.historic.gallows">גרדום</string>
+	<string name="type.historic.memorial">אתר הנצחה</string>
+	<string name="type.historic.memorial.cross">צלב זיכרון</string>
+	<string name="type.historic.memorial.plaque">לוחית זיכרון</string>
+	<string name="type.historic.memorial.sculpture">פֶּסֶל</string>
+	<string name="type.historic.memorial.statue">פסל</string>
+	<string name="type.historic.memorial.stolperstein">אבן נגף</string>
+	<string name="type.historic.memorial.war_memorial">אנדרטת מלחמה</string>
+	<string name="type.historic.monument">מונומנט</string>
+	<string name="type.historic.pillory">עמוד הקלון</string>
+	<string name="type.historic.ruins">חורבות</string>
+	<string name="type.historic.ship">אונייה</string>
+	<string name="type.historic.tomb">קֶבֶר</string>
+	<string name="type.historic.wayside_cross">צלב בצד הדרך</string>
+	<string name="type.historic.wayside_shrine">מקדש בצד הדרך</string>
 	<string name="type.landuse.basin">אגן מים</string>
+	<string name="type.leisure.dance">םידוקיר םלוא</string>
 	<string name="type.leisure.picnic_table">קינקיפ ןחלוש</string>
 	<string name="type.natural">טבע</string>
 	<string name="type.natural.bare_rock">סלע חשוף</string>
@@ -419,6 +499,7 @@
 	<string name="type.natural.earth_bank">צוּק</string>
 	<string name="type.man_made.embankment">סוֹלְלָה</string>
 	<string name="type.natural.coastline">חוף</string>
+	<string name="type.natural.desert">רבָּדמִ</string>
 	<string name="type.natural.geyser">גייזר</string>
 	<string name="type.natural.glacier">קרחון</string>
 	<string name="type.natural.grassland">ערבה</string>
@@ -447,6 +528,37 @@
 	<string name="type.natural.wetland">ביצה</string>
 	<string name="type.natural.wetland.bog">ביצת כבול</string>
 	<string name="type.natural.wetland.marsh">ביצת עשב</string>
+	<string name="type.place.city">עיר</string>
+	<string name="type.place.city.capital">עיר בירה</string>
+	<string name="type.place.city.capital.10">עיר</string>
+	<string name="type.place.city.capital.11">עיר</string>
+	<string name="type.place.city.capital.2">עיר בירה</string>
+	<string name="type.place.city.capital.3">עיר</string>
+	<string name="type.place.city.capital.4">עיר</string>
+	<string name="type.place.city.capital.5">עיר</string>
+	<string name="type.place.city.capital.6">עיר</string>
+	<string name="type.place.city.capital.7">עיר</string>
+	<string name="type.place.city.capital.8">עיר</string>
+	<string name="type.place.city.capital.9">עיר</string>
+	<string name="type.place.continent">יבשת</string>
+	<string name="type.place.country">ארץ</string>
+	<string name="type.place.county">נפה</string>
+	<string name="type.place.farm">חווה חקלאית</string>
+	<string name="type.place.hamlet">כְּפָר קָטָן</string>
+	<string name="type.place.island">אי</string>
+	<string name="type.place.islet">איון</string>
+	<string name="type.place.isolated_dwelling">דירת מגורים מבודדת</string>
+	<string name="type.place.locality">מקום</string>
+	<string name="type.place.neighbourhood">שכונה</string>
+	<string name="type.place.ocean">אוקיינוס</string>
+	<string name="type.place.region">חבל ארץ</string>
+	<string name="type.place.sea">ים</string>
+	<string name="type.place.square">כיכר עירונית</string>
+	<string name="type.place.state">מדינה פדרלית</string>
+	<string name="type.place.state.USA">מדינה</string>
+	<string name="type.place.suburb">פרוור</string>
+	<string name="type.place.town">עיירה</string>
+	<string name="type.place.village">כפר</string>
 	<string name="type.shop.deli">תוינדעמ תונח</string>
 	<string name="type.shop.farm">הווחל ןוזמ תונח</string>
 	<string name="type.shop.grocery">תלֶוֹכּמַ</string>
@@ -484,7 +596,9 @@
 	<string name="type.sport.archery">קַשׁתוּת</string>
 	<string name="type.sport.australian_football">פוטבול אוסטרלי</string>
 	<string name="type.sport.baseball">בייסבול</string>
+	<string name="type.sport.beachvolleyball">כדורעף חופים</string>
 	<string name="type.sport.bowls">כדורת דשא</string>
+	<string name="type.sport.chess">שחמט</string>
 	<string name="type.sport.cricket">קריקט</string>
 	<string name="type.sport.curling">קרלינג</string>
 	<string name="type.sport.equestrian">רכיבה</string>
@@ -493,10 +607,21 @@
 	<string name="type.sport.handball">כדוריד</string>
 	<string name="type.sport.multi">ענפי ספורט שונים</string>
 	<string name="type.sport.shooting">ירי ספורטיבי</string>
+	<string name="type.sport.skateboard">סקייטבורדינג</string>
 	<string name="type.sport.skiing">סקי</string>
 	<string name="type.sport.soccer">כדורגל</string>
 	<string name="type.sport.swimming">שחייה</string>
+	<string name="type.sport.table_tennis">טניס שולחן</string>
 	<string name="type.sport.tennis">טֶנִיס</string>
+	<string name="type.sport.volleyball">כדורעף</string>
+	<string name="type.sport.10pin">בָּאוּלִינְג</string>
+	<string name="type.sport.9pin">בָּאוּלִינְג</string>
+	<string name="type.sport.padel">לדאפ</string>
+	<string name="type.sport.futsal">לסטופ</string>
+	<string name="type.sport.ice_hockey">חרק יקוה</string>
+	<string name="type.sport.field_hockey">הדש יקוה</string>
+	<string name="type.sport.badminton">תיצונ</string>
+	<string name="type.sport.pelota">תיקסאב הטלפ</string>
 	<string name="type.tourism.information">מידע לתייר</string>
 	<string name="type.tourism.information.board">לוח מידע</string>
 	<string name="type.tourism.information.guidepost">מנחה</string>

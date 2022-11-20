@@ -1,5 +1,6 @@
 #pragma once
 #include "indexer/data_factory.hpp"
+#include "indexer/house_to_street_iface.hpp"
 
 #include "platform/local_country_file.hpp"
 #include "platform/mwm_version.hpp"
@@ -46,8 +47,12 @@ public:
   MwmInfo();
   virtual ~MwmInfo() = default;
 
-  m2::RectD m_bordersRect;        ///< Rect around region border. Features which cross region border may
-                                  ///< cross this rect.
+  /// @obsolete Rect around region border. Features which cross region border may cross this rect.
+  /// @todo VNG: Not true. This rect accumulates all features in MWM. Since we don't crop features by border,
+  /// the rect defines _bigger_ area (in general) that MWM is responsible for.
+  /// Take into account this fact, or you can get fair rect with CountryInfoGetter.
+  m2::RectD m_bordersRect;
+
   uint8_t m_minScale;             ///< Min zoom level of mwm.
   uint8_t m_maxScale;             ///< Max zoom level of mwm.
   version::MwmVersion m_version;  ///< Mwm file version.
@@ -146,7 +151,7 @@ public:
     ~MwmHandle();
 
     // Returns a non-owning ptr.
-    MwmValue const * GetValue() const { return m_value.get(); }
+    MwmValue * GetValue() const { return m_value.get(); }
 
     bool IsAlive() const { return m_value.get() != nullptr; }
     MwmId const & GetId() const { return m_mwmId; }
@@ -374,6 +379,8 @@ public:
   platform::LocalCountryFile const m_file;
 
   std::shared_ptr<feature::FeaturesOffsetsTable> m_table;
+  std::unique_ptr<indexer::MetadataDeserializer> m_metaDeserializer;
+  std::unique_ptr<HouseToStreetTable> m_house2street;
 
   explicit MwmValue(platform::LocalCountryFile const & localFile);
   void SetTable(MwmInfoEx & info);
@@ -391,3 +398,14 @@ public:
 std::string DebugPrint(MwmSet::RegResult result);
 std::string DebugPrint(MwmSet::Event::Type type);
 std::string DebugPrint(MwmSet::Event const & event);
+
+namespace std
+{
+template <> struct hash<MwmSet::MwmId>
+{
+  size_t operator()(MwmSet::MwmId const & id) const
+  {
+    return std::hash<std::shared_ptr<MwmInfo>>()(id.GetInfo());
+  }
+};
+}  // namespace std

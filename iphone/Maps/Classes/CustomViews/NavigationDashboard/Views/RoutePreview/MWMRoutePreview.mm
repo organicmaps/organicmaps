@@ -1,8 +1,6 @@
 #import "MWMRoutePreview.h"
 #import "MWMCircularProgress.h"
 #import "MWMLocationManager.h"
-#import "MWMNavigationDashboardEntity.h"
-#import "MWMNavigationDashboardManager.h"
 #import "MWMRouter.h"
 #import "UIButton+Orientation.h"
 #import "UIImageView+Coloring.h"
@@ -20,7 +18,7 @@ static CGFloat const kDrivingOptionsHeight = 48;
 @property(weak, nonatomic) IBOutlet UIView * contentView;
 @property(weak, nonatomic) IBOutlet UIView * pedestrian;
 @property(weak, nonatomic) IBOutlet UIView * publicTransport;
-@property(weak, nonatomic) IBOutlet UIView * taxi;
+@property(weak, nonatomic) IBOutlet UIView * helicopter;
 @property(weak, nonatomic) IBOutlet UIView * vehicle;
 @property(strong, nonatomic) IBOutlet NSLayoutConstraint * drivingOptionHeightConstraint;
 @property(strong, nonatomic) IBOutlet UIButton * drivingOptionsButton;
@@ -106,9 +104,6 @@ static CGFloat const kDrivingOptionsHeight = 48;
 {
   for (auto const & progress : m_progresses)
     progress.second.state = MWMCircularProgressStateNormal;
-
-  //if (!MWMLocationManager.lastLocation || !Platform::IsConnected())
-    [self.taxi removeFromSuperview];
 }
 
 - (void)selectRouter:(MWMRouterType)routerType

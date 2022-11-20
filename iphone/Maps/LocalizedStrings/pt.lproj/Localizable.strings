@@ -153,7 +153,7 @@
 "water" = "Água";
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
-"rv" = "RV Facilities";
+"rv" = "Para trailers";
 
 "share_bookmarks_email_body" = "Olá!\n\nSegue em anexo os meus favoritos da aplicação Organic Maps. Por favor abra-os se tiver o Organic Maps instalado. Caso não tenha, descarregue a aplicação para o seu dispositivo iOS ou Android com a hiperligação https://omaps.app/get?kmz\n\nDivirta-se a viajar com o Organic Maps!";
 
@@ -282,11 +282,11 @@
 /* Text in menu */
 "instagram" = "Instagram";
 
+/* Text in the editor */
+"vk" = "VK";
+
 /* Text in menu */
 "openstreetmap" = "OpenStreetMap";
-
-/* Settings: Send feedback button and dialog title */
-"feedback" = "Comentários";
 
 /* Text in menu */
 "rate_the_app" = "Avaliar a aplicação";
@@ -296,6 +296,9 @@
 
 /* Button in the main Help dialog */
 "faq" = "Perguntas e respostas";
+
+/* Button in the main menu */
+"donate" = "Doar";
 
 /* Button in the main Help dialog */
 "how_to_support_us" = "Como nos apoiar?";
@@ -503,12 +506,6 @@
 
 "history" = "Histórico";
 
-"opens_in" = "Opens in %@";
-
-"closes_in" = "Closes in %@";
-
-"closed" = "Fechado";
-
 "search_not_found" = "Lamento, mas não foram encontrados resultados.";
 
 "search_not_found_query" = "Por favor, tente outro termo de pesquisa.";
@@ -518,6 +515,12 @@
 "search_history_text" = "Ver as pesquisas recentes.";
 
 "clear_search" = "Limpar histórico de pesquisas";
+
+/* Place Page link to Wikipedia article (if map object has it). */
+"read_in_wikipedia" = "Wikipédia";
+
+/* Place Page link to Wikimedia Commons. */
+"wikimedia_commons" = "Wikimedia Commons";
 
 "p2p_your_location" = "Localização atual";
 
@@ -578,11 +581,25 @@
 
 "today" = "Hoje";
 
+"opens_tomorrow_at" = "Abre amanhã às %@";
+
+"opens_dayoftheweek_at" = "Abre %1$@ às %2$@";
+
+"opens_at" = "Abre às %@";
+
+"opens_in" = "Opens in %@";
+
+"closes_at" = "Encerra às %@";
+
+"closes_in" = "Closes in %@";
+
+"closed" = "Fechado";
+
 "add_opening_hours" = "Adicionar horário de funcionamento";
 
 "no_osm_account" = "Não tem uma conta no OpenStreetMap?";
 
-"register_at_openstreetmap" = "Crie uma conta no OSM";
+"register_at_openstreetmap" = "Crie uma conta no OpenStreetMap";
 
 "password_8_chars_min" = "Palavra-chave (mínimo de 8 caracteres)";
 
@@ -629,6 +646,8 @@
 "email_or_username" = "Email ou nome de utilizador";
 
 "phone" = "Telefone";
+
+"level" = "Andar";
 
 "please_note" = "Aviso";
 
@@ -750,6 +769,8 @@
 
 "miles_per_hour" = "mph";
 
+"hour" = "h";
+
 "minute" = "min";
 
 "placepage_place_description" = "Descrição";
@@ -798,10 +819,10 @@
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Quer enviar para todos os utilizadores?";
 
-/* iOS Dialog before publishing the modifications to the public map. */
+/* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "Certifique-se que não incluiu nenhuns dados pessoais.";
 
-"editor_share_to_all_dialog_message_2" = "Vamos verificar as alterações. Se tivermos alguma pergunta, vamos contactá-lo por email.";
+"editor_share_to_all_dialog_message_2" = "Os editores do OpenStreetMap verificarão as alterações e entrarão em contacto consigo se tiverem alguma dúvida.";
 
 "navigation_stop_button" = "parar";
 
@@ -856,16 +877,14 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Os dados de tráfego não estão disponíveis";
 
-/* Settings: "Send general feedback" button */
-"feedback_general" = "Opinão geral";
-
 "on" = "Lig.";
 
 "off" = "Deslig.";
 
 "transliteration_title" = "Transliteração para o latim";
 
-"core_exit" = "Sair";
+/* Subway exits for public transport marks on the map */
+"core_exit" = "Saída";
 
 "routing_add_start_point" = "Adicionar ponto de partida para planear uma rota";
 
@@ -1000,7 +1019,7 @@
 
 "unable_to_calc_alert_title" = "Não foi possível calcular a rota";
 
-"unable_to_calc_alert_subtitle" = "Infelizmente não não foi possível criar o percurso com as opções selecionadas. Altere as opções e tente novamente";
+"unable_to_calc_alert_subtitle" = "Infelizmente não foi possível criar o percurso com as opções selecionadas. Altere as opções e tente novamente";
 
 "define_to_avoid_btn" = "Definir as estradas a evitar";
 
@@ -1205,6 +1224,15 @@
 /* edit track screen title */
 "track_title" = "Percurso";
 
+/* Telegram group url for the "?" About page */
+"telegram_url" = "https://t.me/OrganicMapsApp";
+
+/* Instagram account url for the "?" About page */
+"instagram_url" = "https://www.instagram.com/organicmaps.app";
+
+/* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
+"translated_om_site_url" = "https://organicmaps.app/";
+
 
 /********** Types **********/
 
@@ -1300,6 +1328,10 @@
 
 "type.amenity.driving_school" = "Escola de condução";
 
+"type.amenity.music_school" = "Escola de música";
+
+"type.amenity.language_school" = "Escola de idiomas";
+
 "type.office.diplomatic" = "Embaixada ou consulado";
 
 "type.amenity.fast_food" = "Comida rápida";
@@ -1342,19 +1374,25 @@
 
 "type.amenity.parking" = "Estacionamento";
 
-"type.amenity.parking.fee" = "Estacionamento";
+"type.amenity.parking.fee" = "Estacionamento pago";
 
-"type.amenity.parking.multi.storey" = "Estacionamento";
+"type.amenity.parking.multi.storey" = "Estacionamento de vários andares";
 
-"type.amenity.parking.no.access" = "Estacionamento";
+"type.amenity.parking.no.access" = "Estacionamento privado";
 
-"type.amenity.parking.park_and_ride" = "Estacionamento";
-
-"type.amenity.parking.permissive" = "Estacionamento";
+"type.amenity.parking.permissive" = "Estacionamento privado";
 
 "type.amenity.parking.private" = "Estacionamento privado";
 
+"type.amenity.parking.park_and_ride" = "Parque de estacionamento dissuasor";
+
 "type.amenity.parking.underground" = "Estacionamento subterrâneo";
+
+"type.amenity.parking_entrance.private" = "Entrada do estacionamento";
+
+"type.amenity.parking_entrance.permissive" = "Entrada do estacionamento";
+
+"type.amenity.parking_entrance" = "Entrada do estacionamento";
 
 "type.amenity.parking_space" = "Lugar de estacionamento";
 
@@ -1363,6 +1401,8 @@
 "type.amenity.parking_space.private" = "Lugar de estacionamento privado";
 
 "type.amenity.parking_space.underground" = "Lugar de estacionamento subterrâneo";
+
+"type.amenity.parking_space.disabled" = "Estacionamento para deficientes";
 
 "type.amenity.payment_terminal" = "Terminal de pagamento";
 
@@ -1429,7 +1469,7 @@
 
 "type.recycling.green_waste" = "Green/Organic Waste";
 
-"type.recycling.cartons" = "Bewerage Cartons";
+"type.recycling.cartons" = "Beverage Cartons";
 
 "type.amenity.restaurant" = "Restaurante";
 
@@ -1475,7 +1515,7 @@
 
 "type.amenity.vending_machine.excrement_bags" = "Excrement Bags Dispenser";
 
-"type.amenity.parcel_locker" = "Parcel Locker";
+"type.amenity.parcel_locker" = "Cacifo";
 
 "type.amenity.vending_machine.fuel" = "Fuel Dispenser";
 
@@ -1499,9 +1539,11 @@
 
 "type.barrier.chain" = "Chain";
 
-"type.barrier.city_wall" = "Muralha de cidade";
+"type.barrier.city_wall" = "Muralha";
 
 "type.barrier.cycle_barrier" = "Barreira de bicicletas";
+
+"type.barrier.ditch" = "Fosso";
 
 "type.barrier.entrance" = "Entrada";
 
@@ -1510,6 +1552,8 @@
 "type.barrier.gate" = "Portão";
 
 "type.barrier.hedge" = "Sebe";
+
+"type.barrier.kissing_gate" = "Quebra-corpo";
 
 "type.barrier.lift_gate" = "Cancela elevatória";
 
@@ -1581,23 +1625,23 @@
 
 "type.craft" = "Ofícios";
 
-"type.craft.beekeeper" = "Beekeeper";
+"type.craft.beekeeper" = "Apicultor";
 
-"type.craft.blacksmith" = "Blacksmith";
+"type.craft.blacksmith" = "Ferreiro";
 
 "type.craft.brewery" = "Cervejaria artesanal";
 
 "type.craft.carpenter" = "Carpinteiro";
 
-"type.craft.confectionery" = "Confectionery";
+"type.craft.confectionery" = "Confeitaria";
 
 "type.craft.electrician" = "Eletricista";
 
-"type.craft.electronics_repair" = "Electronics Repair";
+"type.craft.electronics_repair" = "Reparação electrónica";
 
 "type.craft.gardener" = "Jardineiro";
 
-"type.craft.handicraft" = "Handicraft";
+"type.craft.handicraft" = "Artesanato";
 
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Instalador de ar-condicionado";
@@ -1610,11 +1654,11 @@
 
 "type.craft.plumber" = "Picheleiro";
 
-"type.craft.sawmill" = "Sawmill";
+"type.craft.sawmill" = "Serraria";
 
 "type.craft.shoemaker" = "Sapateiro";
 
-"type.craft.winery" = "Winery";
+"type.craft.winery" = "Adega";
 
 "type.craft.tailor" = "Alfaiate";
 
@@ -1801,6 +1845,8 @@
 "type.entrance" = "Entrada";
 
 "type.healthcare.laboratory" = "Laboratório médico";
+
+"type.healthcare.physiotherapist" = "Fisioterapeuta";
 
 
 /********** Types: Roads **********/
@@ -2106,7 +2152,7 @@
 
 /********** Types: Historic **********/
 
-"type.historic" = "Histórico";
+"type.historic" = "Objeto histórico";
 
 "type.historic.archaeological_site" = "Sítio arqueológico";
 
@@ -2116,27 +2162,55 @@
 
 "type.historic.castle" = "Castelo";
 
-"type.historic.castle.defensive" = "Castelo defensivo";
+"type.historic.castle.castrum" = "Castro";
+
+"type.historic.castle.defensive" = "Castelo";
+
+"type.historic.castle.fortified_church" = "Igreja fortificada";
+
+"type.historic.castle.fortress" = "Fortaleza";
+
+"type.historic.castle.hillfort" = "Castro";
+
+"type.historic.castle.kremlin" = "Kremlin";
+
+"type.historic.castle.manor" = "Solar";
+
+"type.historic.castle.palace" = "Palácio";
+
+"type.historic.castle.shiro" = "Castelo japonês";
 
 "type.historic.castle.stately" = "Château";
 
-"type.historic.citywalls" = "Muralha de cidade";
+"type.historic.city_gate" = "Portas da cidade";
 
-"type.historic.fort" = "Forte histórico";
+"type.historic.citywalls" = "Muralha";
+
+"type.historic.fort" = "Forte";
+
+"type.historic.gallows" = "Forca";
 
 "type.historic.memorial" = "Memorial";
 
+"type.historic.memorial.cross" = "Cruz memorial";
+
 "type.historic.memorial.plaque" = "Placa comemorativa";
 
-"type.historic.memorial.sculpture" = "Escultura memorial";
+"type.historic.memorial.sculpture" = "Escultura";
 
-"type.historic.memorial.statue" = "Estátua memorial";
+"type.historic.memorial.statue" = "Estátua";
+
+"type.historic.memorial.stolperstein" = "Stolperstein";
+
+"type.historic.memorial.war_memorial" = "Memorial de guerra";
 
 "type.historic.monument" = "Monumento";
 
+"type.historic.pillory" = "Pelourinho";
+
 "type.historic.ruins" = "Ruínas";
 
-"type.historic.ship" = "Barco histórico";
+"type.historic.ship" = "Barco";
 
 "type.historic.tomb" = "Túmulo";
 
@@ -2262,7 +2336,11 @@
 
 "type.leisure.fitness_station" = "Dispositivo público de exercícios";
 
+"type.leisure.dance" = "Salão de dança";
+
 "type.leisure.garden" = "Jardim";
+
+"type.leisure.garden.residential" = "Jardim residencial";
 
 "type.leisure.golf_course" = "Campo de golfe";
 
@@ -2296,13 +2374,9 @@
 
 "type.leisure.sports_centre" = "Centro desportivo";
 
-"type.leisure.sports_centre.climbing" = "Centro de escaladas";
+"type.sport.climbing" = "Centro de escaladas";
 
-"type.leisure.sports_centre.shooting" = "Campo de tiro";
-
-"type.leisure.sports_centre.swimming" = "Centro de natação";
-
-"type.leisure.sports_centre.yoga" = "Estúdio de ioga";
+"type.sport.yoga" = "Estúdio de ioga";
 
 "type.leisure.stadium" = "Estádio";
 
@@ -2394,6 +2468,8 @@
 
 "type.natural.coastline" = "Linha costeira";
 
+"type.natural.desert" = "Deserto";
+
 "type.natural.geyser" = "Géiser";
 
 "type.natural.glacier" = "Glaciar";
@@ -2471,8 +2547,6 @@
 "type.organic.only" = "Orgânico";
 
 "type.organic.yes" = "Orgânico";
-
-"type.place" = "Local";
 
 "type.place.city" = "Cidade";
 
@@ -2646,29 +2720,223 @@
 
 "type.railway.station.monorail" = "Estação de comboios";
 
-"type.railway.station.subway" = "Estação de metropolitano";
+"type.railway.station.subway" = "Estação de metro";
 
-"type.railway.station.subway.barcelona" = "Estação de metropolitano";
+"type.railway.station.subway.adana" = "Estação de metro";
 
-"type.railway.station.subway.berlin" = "Estação de metropolitano";
+"type.railway.station.subway.algiers" = "Estação de metro";
 
-"type.railway.station.subway.kiev" = "Estação de metropolitano";
+"type.railway.station.subway.almaty" = "Estação de metro";
 
-"type.railway.station.subway.london" = "Estação de metropolitano";
+"type.railway.station.subway.amsterdam" = "Estação de metro";
 
-"type.railway.station.subway.madrid" = "Estação de metropolitano";
+"type.railway.station.subway.ankara" = "Estação de metro";
 
-"type.railway.station.subway.minsk" = "Estação de metropolitano";
+"type.railway.station.subway.athens" = "Estação de metro";
 
-"type.railway.station.subway.moscow" = "Estação de metropolitano";
+"type.railway.station.subway.baku" = "Estação de metro";
 
-"type.railway.station.subway.newyork" = "Estação de metropolitano";
+"type.railway.station.subway.bangkok" = "Estação de metro";
 
-"type.railway.station.subway.paris" = "Estação de metropolitano";
+"type.railway.station.subway.barcelona" = "Estação de metro";
 
-"type.railway.station.subway.roma" = "Estação de metropolitano";
+"type.railway.station.subway.beijing" = "Estação de metro";
 
-"type.railway.station.subway.spb" = "Estação de metropolitano";
+"type.railway.station.subway.bengalore" = "Estação de metro";
+
+"type.railway.station.subway.berlin" = "Estação de metro";
+
+"type.railway.station.subway.brasilia" = "Estação de metro";
+
+"type.railway.station.subway.brescia" = "Estação de metro";
+
+"type.railway.station.subway.brussels" = "Estação de metro";
+
+"type.railway.station.subway.bucharest" = "Estação de metro";
+
+"type.railway.station.subway.budapest" = "Estação de metro";
+
+"type.railway.station.subway.buenos_aires" = "Estação de metro";
+
+"type.railway.station.subway.bursa" = "Estação de metro";
+
+"type.railway.station.subway.cairo" = "Estação de metro";
+
+"type.railway.station.subway.caracas" = "Estação de metro";
+
+"type.railway.station.subway.catania" = "Estação de metro";
+
+"type.railway.station.subway.changchun" = "Estação de metro";
+
+"type.railway.station.subway.chengdu" = "Estação de metro";
+
+"type.railway.station.subway.chicago" = "Estação de metro";
+
+"type.railway.station.subway.chongqing" = "Estação de metro";
+
+"type.railway.station.subway.dalian" = "Estação de metro";
+
+"type.railway.station.subway.delhi" = "Estação de metro";
+
+"type.railway.station.subway.dnepro" = "Estação de metro";
+
+"type.railway.station.subway.dubai" = "Estação de metro";
+
+"type.railway.station.subway.ekb" = "Estação de metro";
+
+"type.railway.station.subway.fukuoka" = "Estação de metro";
+
+"type.railway.station.subway.glasgow" = "Estação de metro";
+
+"type.railway.station.subway.guangzhou" = "Estação de metro";
+
+"type.railway.station.subway.hamburg" = "Estação de metro";
+
+"type.railway.station.subway.helsinki" = "Estação de metro";
+
+"type.railway.station.subway.hiroshima" = "Estação de metro";
+
+"type.railway.station.subway.isfahan" = "Estação de metro";
+
+"type.railway.station.subway.istanbul" = "Estação de metro";
+
+"type.railway.station.subway.izmir" = "Estação de metro";
+
+"type.railway.station.subway.kazan" = "Estação de metro";
+
+"type.railway.station.subway.kharkiv" = "Estação de metro";
+
+"type.railway.station.subway.kiev" = "Estação de metro";
+
+"type.railway.station.subway.kobe" = "Estação de metro";
+
+"type.railway.station.subway.kolkata" = "Estação de metro";
+
+"type.railway.station.subway.kunming" = "Estação de metro";
+
+"type.railway.station.subway.kyoto" = "Estação de metro";
+
+"type.railway.station.subway.la" = "Estação de metro";
+
+"type.railway.station.subway.lausanne" = "Estação de metro";
+
+"type.railway.station.subway.lille" = "Estação de metro";
+
+"type.railway.station.subway.lima" = "Estação de metro";
+
+"type.railway.station.subway.lisboa" = "Estação de metro";
+
+"type.railway.station.subway.london" = "Estação de metro";
+
+"type.railway.station.subway.lyon" = "Estação de metro";
+
+"type.railway.station.subway.madrid" = "Estação de metro";
+
+"type.railway.station.subway.malaga" = "Estação de metro";
+
+"type.railway.station.subway.manila" = "Estação de metro";
+
+"type.railway.station.subway.maracaibo" = "Estação de metro";
+
+"type.railway.station.subway.mashhad" = "Estação de metro";
+
+"type.railway.station.subway.mecca" = "Estação de metro";
+
+"type.railway.station.subway.medellin" = "Estação de metro";
+
+"type.railway.station.subway.mexico" = "Estação de metro";
+
+"type.railway.station.subway.milan" = "Estação de metro";
+
+"type.railway.station.subway.minsk" = "Estação de metro";
+
+"type.railway.station.subway.montreal" = "Estação de metro";
+
+"type.railway.station.subway.moscow" = "Estação de metro";
+
+"type.railway.station.subway.munchen" = "Estação de metro";
+
+"type.railway.station.subway.nagoya" = "Estação de metro";
+
+"type.railway.station.subway.newyork" = "Estação de metro";
+
+"type.railway.station.subway.nnov" = "Estação de metro";
+
+"type.railway.station.subway.novosibirsk" = "Estação de metro";
+
+"type.railway.station.subway.osaka" = "Estação de metro";
+
+"type.railway.station.subway.oslo" = "Estação de metro";
+
+"type.railway.station.subway.palma" = "Estação de metro";
+
+"type.railway.station.subway.panama" = "Estação de metro";
+
+"type.railway.station.subway.paris" = "Estação de metro";
+
+"type.railway.station.subway.philadelphia" = "Estação de metro";
+
+"type.railway.station.subway.pyongyang" = "Estação de metro";
+
+"type.railway.station.subway.rennes" = "Estação de metro";
+
+"type.railway.station.subway.rio" = "Estação de metro";
+
+"type.railway.station.subway.roma" = "Estação de metro";
+
+"type.railway.station.subway.rotterdam" = "Estação de metro";
+
+"type.railway.station.subway.samara" = "Estação de metro";
+
+"type.railway.station.subway.santiago" = "Estação de metro";
+
+"type.railway.station.subway.santo_domingo" = "Estação de metro";
+
+"type.railway.station.subway.saopaulo" = "Estação de metro";
+
+"type.railway.station.subway.sapporo" = "Estação de metro";
+
+"type.railway.station.subway.sendai" = "Estação de metro";
+
+"type.railway.station.subway.sf" = "Estação de metro";
+
+"type.railway.station.subway.shanghai" = "Estação de metro";
+
+"type.railway.station.subway.shiraz" = "Estação de metro";
+
+"type.railway.station.subway.sofia" = "Estação de metro";
+
+"type.railway.station.subway.spb" = "Estação de metro";
+
+"type.railway.station.subway.stockholm" = "Estação de metro";
+
+"type.railway.station.subway.tabriz" = "Estação de metro";
+
+"type.railway.station.subway.taipei" = "Estação de metro";
+
+"type.railway.station.subway.taoyuan" = "Estação de metro";
+
+"type.railway.station.subway.tashkent" = "Estação de metro";
+
+"type.railway.station.subway.tbilisi" = "Estação de metro";
+
+"type.railway.station.subway.tianjin" = "Estação de metro";
+
+"type.railway.station.subway.tokyo" = "Estação de metro";
+
+"type.railway.station.subway.valencia" = "Estação de metro";
+
+"type.railway.station.subway.vienna" = "Estação de metro";
+
+"type.railway.station.subway.warszawa" = "Estação de metro";
+
+"type.railway.station.subway.washington" = "Estação de metro";
+
+"type.railway.station.subway.wuhan" = "Estação de metro";
+
+"type.railway.station.subway.yerevan" = "Estação de metro";
+
+"type.railway.station.subway.yokohama" = "Estação de metro";
 
 "type.railway.subway" = "Metropolitano";
 
@@ -2676,29 +2944,223 @@
 
 "type.railway.subway.tunnel" = "Metropolitano";
 
-"type.railway.subway_entrance" = "Entrada de metropolitano";
+"type.railway.subway_entrance" = "Entrada do metro";
 
-"type.railway.subway_entrance.barcelona" = "Entrada de estação de metrolitano";
+"type.railway.subway_entrance.adana" = "Entrada do metro";
 
-"type.railway.subway_entrance.berlin" = "Entrada de estação de metrolitano";
+"type.railway.subway_entrance.algiers" = "Entrada do metro";
 
-"type.railway.subway_entrance.kiev" = "Entrada de estação de metrolitano";
+"type.railway.subway_entrance.almaty" = "Entrada do metro";
 
-"type.railway.subway_entrance.london" = "Entrada de estação de metrolitano";
+"type.railway.subway_entrance.amsterdam" = "Entrada do metro";
 
-"type.railway.subway_entrance.madrid" = "Entrada de estação de metrolitano";
+"type.railway.subway_entrance.ankara" = "Entrada do metro";
 
-"type.railway.subway_entrance.minsk" = "Entrada de estação de metrolitano";
+"type.railway.subway_entrance.athens" = "Entrada do metro";
 
-"type.railway.subway_entrance.moscow" = "Entrada de estação de metrolitano";
+"type.railway.subway_entrance.baku" = "Entrada do metro";
 
-"type.railway.subway_entrance.newyork" = "Entrada de estação de metrolitano";
+"type.railway.subway_entrance.bangkok" = "Entrada do metro";
 
-"type.railway.subway_entrance.paris" = "Entrada de estação de metrolitano";
+"type.railway.subway_entrance.barcelona" = "Entrada do metro";
 
-"type.railway.subway_entrance.roma" = "Entrada de estação de metrolitano";
+"type.railway.subway_entrance.beijing" = "Entrada do metro";
 
-"type.railway.subway_entrance.spb" = "Entrada de estação de metrolitano";
+"type.railway.subway_entrance.bengalore" = "Entrada do metro";
+
+"type.railway.subway_entrance.berlin" = "Entrada do metro";
+
+"type.railway.subway_entrance.brasilia" = "Entrada do metro";
+
+"type.railway.subway_entrance.brescia" = "Entrada do metro";
+
+"type.railway.subway_entrance.brussels" = "Entrada do metro";
+
+"type.railway.subway_entrance.bucharest" = "Entrada do metro";
+
+"type.railway.subway_entrance.budapest" = "Entrada do metro";
+
+"type.railway.subway_entrance.buenos_aires" = "Entrada do metro";
+
+"type.railway.subway_entrance.bursa" = "Entrada do metro";
+
+"type.railway.subway_entrance.cairo" = "Entrada do metro";
+
+"type.railway.subway_entrance.caracas" = "Entrada do metro";
+
+"type.railway.subway_entrance.catania" = "Entrada do metro";
+
+"type.railway.subway_entrance.changchun" = "Entrada do metro";
+
+"type.railway.subway_entrance.chengdu" = "Entrada do metro";
+
+"type.railway.subway_entrance.chicago" = "Entrada do metro";
+
+"type.railway.subway_entrance.chongqing" = "Entrada do metro";
+
+"type.railway.subway_entrance.dalian" = "Entrada do metro";
+
+"type.railway.subway_entrance.delhi" = "Entrada do metro";
+
+"type.railway.subway_entrance.dnepro" = "Entrada do metro";
+
+"type.railway.subway_entrance.dubai" = "Entrada do metro";
+
+"type.railway.subway_entrance.ekb" = "Entrada do metro";
+
+"type.railway.subway_entrance.fukuoka" = "Entrada do metro";
+
+"type.railway.subway_entrance.glasgow" = "Entrada do metro";
+
+"type.railway.subway_entrance.guangzhou" = "Entrada do metro";
+
+"type.railway.subway_entrance.hamburg" = "Entrada do metro";
+
+"type.railway.subway_entrance.helsinki" = "Entrada do metro";
+
+"type.railway.subway_entrance.hiroshima" = "Entrada do metro";
+
+"type.railway.subway_entrance.isfahan" = "Entrada do metro";
+
+"type.railway.subway_entrance.istanbul" = "Entrada do metro";
+
+"type.railway.subway_entrance.izmir" = "Entrada do metro";
+
+"type.railway.subway_entrance.kazan" = "Entrada do metro";
+
+"type.railway.subway_entrance.kharkiv" = "Entrada do metro";
+
+"type.railway.subway_entrance.kiev" = "Entrada do metro";
+
+"type.railway.subway_entrance.kobe" = "Entrada do metro";
+
+"type.railway.subway_entrance.kolkata" = "Entrada do metro";
+
+"type.railway.subway_entrance.kunming" = "Entrada do metro";
+
+"type.railway.subway_entrance.kyoto" = "Entrada do metro";
+
+"type.railway.subway_entrance.la" = "Entrada do metro";
+
+"type.railway.subway_entrance.lausanne" = "Entrada do metro";
+
+"type.railway.subway_entrance.lille" = "Entrada do metro";
+
+"type.railway.subway_entrance.lima" = "Entrada do metro";
+
+"type.railway.subway_entrance.lisboa" = "Entrada do metro";
+
+"type.railway.subway_entrance.london" = "Entrada do metro";
+
+"type.railway.subway_entrance.lyon" = "Entrada do metro";
+
+"type.railway.subway_entrance.madrid" = "Entrada do metro";
+
+"type.railway.subway_entrance.malaga" = "Entrada do metro";
+
+"type.railway.subway_entrance.manila" = "Entrada do metro";
+
+"type.railway.subway_entrance.maracaibo" = "Entrada do metro";
+
+"type.railway.subway_entrance.mashhad" = "Entrada do metro";
+
+"type.railway.subway_entrance.mecca" = "Entrada do metro";
+
+"type.railway.subway_entrance.medellin" = "Entrada do metro";
+
+"type.railway.subway_entrance.mexico" = "Entrada do metro";
+
+"type.railway.subway_entrance.milan" = "Entrada do metro";
+
+"type.railway.subway_entrance.minsk" = "Entrada do metro";
+
+"type.railway.subway_entrance.montreal" = "Entrada do metro";
+
+"type.railway.subway_entrance.moscow" = "Entrada do metro";
+
+"type.railway.subway_entrance.munchen" = "Entrada do metro";
+
+"type.railway.subway_entrance.nagoya" = "Entrada do metro";
+
+"type.railway.subway_entrance.newyork" = "Entrada do metro";
+
+"type.railway.subway_entrance.nnov" = "Entrada do metro";
+
+"type.railway.subway_entrance.novosibirsk" = "Entrada do metro";
+
+"type.railway.subway_entrance.osaka" = "Entrada do metro";
+
+"type.railway.subway_entrance.oslo" = "Entrada do metro";
+
+"type.railway.subway_entrance.palma" = "Entrada do metro";
+
+"type.railway.subway_entrance.panama" = "Entrada do metro";
+
+"type.railway.subway_entrance.paris" = "Entrada do metro";
+
+"type.railway.subway_entrance.philadelphia" = "Entrada do metro";
+
+"type.railway.subway_entrance.pyongyang" = "Entrada do metro";
+
+"type.railway.subway_entrance.rennes" = "Entrada do metro";
+
+"type.railway.subway_entrance.rio" = "Entrada do metro";
+
+"type.railway.subway_entrance.roma" = "Entrada do metro";
+
+"type.railway.subway_entrance.rotterdam" = "Entrada do metro";
+
+"type.railway.subway_entrance.samara" = "Entrada do metro";
+
+"type.railway.subway_entrance.santiago" = "Entrada do metro";
+
+"type.railway.subway_entrance.santo_domingo" = "Entrada do metro";
+
+"type.railway.subway_entrance.saopaulo" = "Entrada do metro";
+
+"type.railway.subway_entrance.sapporo" = "Entrada do metro";
+
+"type.railway.subway_entrance.sendai" = "Entrada do metro";
+
+"type.railway.subway_entrance.sf" = "Entrada do metro";
+
+"type.railway.subway_entrance.shanghai" = "Entrada do metro";
+
+"type.railway.subway_entrance.shiraz" = "Entrada do metro";
+
+"type.railway.subway_entrance.sofia" = "Entrada do metro";
+
+"type.railway.subway_entrance.spb" = "Entrada do metro";
+
+"type.railway.subway_entrance.stockholm" = "Entrada do metro";
+
+"type.railway.subway_entrance.tabriz" = "Entrada do metro";
+
+"type.railway.subway_entrance.taipei" = "Entrada do metro";
+
+"type.railway.subway_entrance.taoyuan" = "Entrada do metro";
+
+"type.railway.subway_entrance.tashkent" = "Entrada do metro";
+
+"type.railway.subway_entrance.tbilisi" = "Entrada do metro";
+
+"type.railway.subway_entrance.tianjin" = "Entrada do metro";
+
+"type.railway.subway_entrance.tokyo" = "Entrada do metro";
+
+"type.railway.subway_entrance.valencia" = "Entrada do metro";
+
+"type.railway.subway_entrance.vienna" = "Entrada do metro";
+
+"type.railway.subway_entrance.warszawa" = "Entrada do metro";
+
+"type.railway.subway_entrance.washington" = "Entrada do metro";
+
+"type.railway.subway_entrance.wuhan" = "Entrada do metro";
+
+"type.railway.subway_entrance.yerevan" = "Entrada do metro";
+
+"type.railway.subway_entrance.yokohama" = "Entrada do metro";
 
 "type.railway.tram" = "Linha de elétrico";
 
@@ -2932,7 +3394,11 @@
 
 "type.sport.basketball" = "Basquetebol";
 
+"type.sport.beachvolleyball" = "Voleibol de praia";
+
 "type.sport.bowls" = "Lawn bowls";
+
+"type.sport.chess" = "Xadrez";
 
 "type.sport.cricket" = "Críquete";
 
@@ -2953,13 +3419,35 @@
 
 "type.sport.shooting" = "Tiro desportivo";
 
+"type.sport.skateboard" = "Skate";
+
 "type.sport.skiing" = "Esqui";
 
 "type.sport.soccer" = "Futebol";
 
 "type.sport.swimming" = "Natação desportiva";
 
+"type.sport.table_tennis" = "Ténis de mesa";
+
 "type.sport.tennis" = "Campo de ténis";
+
+"type.sport.volleyball" = "Voleibol";
+
+"type.sport.10pin" = "Boliche";
+
+"type.sport.9pin" = "Boliche";
+
+"type.sport.padel" = "Padel";
+
+"type.sport.futsal" = "Futsal";
+
+"type.sport.ice_hockey" = "Hóquei no gelo";
+
+"type.sport.field_hockey" = "Hóquei em campo";
+
+"type.sport.badminton" = "Badminton";
+
+"type.sport.pelota" = "Pelota basca";
 
 "type.tourism" = "Turismo";
 
@@ -3075,18 +3563,15 @@
 
 "type.wheelchair.yes" = "Acessível a cadeiras de rodas";
 
-/* en.wikipedia.org/wiki/Surface_lift */
-"type.piste_lift" = "Telesqui";
+"type.aerialway.j.bar" = "Telesqui de barra em J";
 
-"type.piste_lift.j.bar" = "Telesqui de barra em J";
+"type.aerialway.magic_carpet" = "Tapete deslizante";
 
-"type.piste_lift.magic_carpet" = "Tapete deslizante";
+"type.aerialway.platter" = "Telesqui de disco";
 
-"type.piste_lift.platter" = "Telesqui de disco";
+"type.aerialway.rope_tow" = "Telesqui de corda";
 
-"type.piste_lift.rope_tow" = "Telesqui de corda";
-
-"type.piste_lift.t.bar" = "Telesqui de barra em T";
+"type.aerialway.t.bar" = "Telesqui de barra em T";
 
 "type.piste_type" = "Tipo de pista";
 

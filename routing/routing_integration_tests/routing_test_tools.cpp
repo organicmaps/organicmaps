@@ -21,23 +21,12 @@
 #include "platform/local_country_file.hpp"
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
-#include "platform/preferred_languages.hpp"
 
 #include "geometry/distance_on_sphere.hpp"
-#include "geometry/latlon.hpp"
 
 #include "base/math.hpp"
 #include "base/stl_helpers.hpp"
 
-#include "private.h"
-
-#include <functional>
-#include <limits>
-#include <map>
-#include <memory>
-#include <set>
-#include <tuple>
-#include <utility>
 
 namespace integration
 {
@@ -181,14 +170,24 @@ void TestTurnCount(routing::Route const & route, uint32_t expectedTurnCount)
   TEST_EQUAL(turns.size() - 1, expectedTurnCount, ());
 }
 
-void TestCurrentStreetName(routing::Route const & route, string const & expectedStreetName)
+void TestTurns(Route const & route, vector<CarDirection> const & expectedTurns)
+{
+  vector<turns::TurnItem> turns;
+  route.GetTurnsForTesting(turns);
+  TEST_EQUAL(turns.size() - 1, expectedTurns.size(), ());
+
+  for (size_t i = 0; i < expectedTurns.size(); ++i)
+    TEST_EQUAL(turns[i].m_turn, expectedTurns[i], ());
+}
+
+void TestCurrentStreetName(Route const & route, string const & expectedStreetName)
 {
   RouteSegment::RoadNameInfo roadNameInfo;
   route.GetCurrentStreetName(roadNameInfo);
   TEST_EQUAL(roadNameInfo.m_name, expectedStreetName, ());
 }
 
-void TestNextStreetName(routing::Route const & route, string const & expectedStreetName)
+void TestNextStreetName(Route const & route, string const & expectedStreetName)
 {
   RouteSegment::RoadNameInfo roadNameInfo;
   route.GetNextTurnStreetName(roadNameInfo);

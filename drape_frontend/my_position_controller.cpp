@@ -7,21 +7,17 @@
 #include "drape_frontend/user_event_stream.hpp"
 #include "drape_frontend/visual_params.hpp"
 
-#include "indexer/scales.hpp"
-
 #include "geometry/mercator.hpp"
-
-#include "base/math.hpp"
 
 #include "platform/measurement_utils.hpp"
 
+#include "base/math.hpp"
 
 #include <algorithm>
 #include <array>
 #include <chrono>
 #include <string>
 #include <vector>
-#include <utility>
 
 namespace df
 {
@@ -148,16 +144,21 @@ MyPositionController::MyPositionController(Params && params, ref_ptr<DrapeNotifi
   , m_blockAutoZoomNotifyId(DrapeNotifier::kInvalidId)
   , m_updateLocationNotifyId(DrapeNotifier::kInvalidId)
 {
+#ifdef OMIM_OS_ANDROID
+  /// @todo Hotfix for Android. Suppose that additional offset is needed for system buttons toolbar.
+  m_positionRoutingOffsetY += Arrow3d::GetMaxBottomSize();
+#endif
+
   using namespace location;
 
   m_mode = PendingPosition;
-  if (m_hints.m_isFirstLaunch)
-  {
-    m_desiredInitMode = Follow;
-  }
-  else if (m_hints.m_isLaunchByDeepLink)
+  if (m_hints.m_isLaunchByDeepLink)
   {
     m_desiredInitMode = NotFollow;
+  }
+  else if (m_hints.m_isFirstLaunch)
+  {
+    m_desiredInitMode = Follow;
   }
   else if (params.m_timeInBackground >= kMaxTimeInBackgroundSec)
   {
@@ -168,7 +169,7 @@ MyPositionController::MyPositionController(Params && params, ref_ptr<DrapeNotifi
     m_desiredInitMode = params.m_initMode;
 
     // Do not start position if we ended previous session without it.
-    if (!params.m_isRoutingActive && m_desiredInitMode == NotFollowNoPosition)
+    if (!m_isInRouting && m_desiredInitMode == NotFollowNoPosition)
       m_mode = NotFollowNoPosition;
   }
 
@@ -340,7 +341,6 @@ void MyPositionController::NextMode(ScreenBase const & screen)
   // Start looking for location.
   if (m_mode == location::NotFollowNoPosition)
   {
-    ResetNotification(m_locationWaitingNotifyId);
     ChangeMode(location::PendingPosition);
 
     if (!m_isPositionAssigned)
@@ -433,18 +433,10 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
     m_isDirtyViewport = true;
   }
 
-  using namespace std::chrono;
-  auto const delta =
-    duration_cast<seconds>(system_clock::now().time_since_epoch()).count() - info.m_timestamp;
-  if (delta >= kMaxUpdateLocationInvervalSec)
-  {
-    m_positionIsObsolete = true;
-    m_autoScale2d = m_autoScale3d = kUnknownAutoZoom;
-  }
-  else
-  {
-    m_positionIsObsolete = false;
-  }
+  // Assume that every new position is fresh enough. We can't make some straightforward filtering here
+  // like comparing system_clock::now().time_since_epoch() and info.m_timestamp, because can't rely
+  // on valid time settings on endpoint device.
+  m_positionIsObsolete = false;
 
   if (!m_isPositionAssigned)
   {
@@ -537,14 +529,9 @@ void MyPositionController::LoseLocation()
     return;
 
   if (m_mode == location::Follow || m_mode == location::FollowAndRotate)
-  {
-    ResetNotification(m_locationWaitingNotifyId);
     ChangeMode(location::PendingPosition);
-  }
   else
-  {
     ChangeMode(location::NotFollowNoPosition);
-  }
 
   if (m_listener != nullptr)
     m_listener->PositionChanged(Position(), false /* hasPosition */);
@@ -603,6 +590,8 @@ void MyPositionController::Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<
     if (!IsModeChangeViewport())
       m_isPendingAnimation = false;
 
+    /// @todo Put under !m_hints.m_screenshotMode?
+    /// Why do we have 6 modifiers (and 6 variables inside), if better to make 1 function m_shape->Render(Params)?
     m_shape->SetPositionObsolete(m_positionIsObsolete);
     m_shape->SetPosition(m2::PointF(GetDrawablePosition()));
     m_shape->SetAzimuth(static_cast<float>(GetDrawableAzimut()));
@@ -648,6 +637,7 @@ void MyPositionController::ChangeMode(location::EMyPositionMode newMode)
 
   if (newMode == location::PendingPosition)
   {
+    ResetNotification(m_locationWaitingNotifyId);
     m_pendingTimer.Reset();
     m_pendingStarted = true;
   }
@@ -695,8 +685,6 @@ void MyPositionController::OnEnterForeground(double backgroundTime)
 
 void MyPositionController::OnEnterBackground()
 {
-  if (!m_isInRouting && !df::IsModeChangeViewport(m_mode))
-    ChangeMode(location::NotFollowNoPosition);
 }
 
 void MyPositionController::OnCompassTapped()
@@ -786,6 +774,7 @@ m2::PointD MyPositionController::GetRoutingRotationPixelCenter() const
 
 void MyPositionController::UpdateRoutingOffsetY(bool useDefault, int offsetY)
 {
+  /// @todo This function is called on CarPlay only for now.
   m_positionRoutingOffsetY = useDefault ? kPositionRoutingOffsetY : offsetY + Arrow3d::GetMaxBottomSize();
 }
 

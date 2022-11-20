@@ -4,15 +4,12 @@
 
 #include "search/common.hpp"
 #include "search/cuisine_filter.hpp"
-#include "search/dummy_rank_table.hpp"
 #include "search/geometry_utils.hpp"
 #include "search/intermediate_result.hpp"
 #include "search/latlon_match.hpp"
 #include "search/mode.hpp"
 #include "search/postcode_points.hpp"
-#include "search/pre_ranking_info.hpp"
 #include "search/query_params.hpp"
-#include "search/ranking_info.hpp"
 #include "search/ranking_utils.hpp"
 #include "search/search_index_values.hpp"
 #include "search/search_params.hpp"
@@ -26,27 +23,19 @@
 #include "indexer/data_source.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
-#include "indexer/feature_covering.hpp"
-#include "indexer/feature_data.hpp"
-#include "indexer/feature_impl.hpp"
 #include "indexer/feature_utils.hpp"
 #include "indexer/features_vector.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/mwm_set.hpp"
 #include "indexer/postcodes_matcher.hpp"
-#include "indexer/scales.hpp"
 #include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
 #include "indexer/trie_reader.hpp"
 
-#include "platform/mwm_traits.hpp"
-#include "platform/mwm_version.hpp"
 #include "platform/preferred_languages.hpp"
 
 #include "coding/compressed_bit_vector.hpp"
-#include "coding/reader_wrapper.hpp"
 #include "coding/string_utf8_multilang.hpp"
-#include "coding/url.hpp"
 
 #include "geometry/latlon.hpp"
 #include "geometry/mercator.hpp"
@@ -54,25 +43,19 @@
 #include "base/assert.hpp"
 #include "base/buffer_vector.hpp"
 #include "base/logging.hpp"
-#include "base/macros.hpp"
-#include "base/scope_guard.hpp"
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
 #include <algorithm>
-#include <cctype>
-#include <memory>
-#include <optional>
 #include <set>
 #include <sstream>
-#include <utility>
 
 #include "3party/open-location-code/openlocationcode.h"
 
-using namespace std;
-
 namespace search
 {
+using namespace std;
+
 namespace
 {
 enum LanguageTier
@@ -255,6 +238,8 @@ void Processor::SetInputLocale(string const & locale)
 
 void Processor::SetQuery(string const & query, bool categorialRequest /* = false */)
 {
+  LOG(LDEBUG, ("query:", query, "isCategorial:", categorialRequest));
+
   m_query = query;
   m_tokens.clear();
   m_prefix.clear();
@@ -264,38 +249,11 @@ void Processor::SetQuery(string const & query, bool categorialRequest /* = false
   // retrieve all tokens that start with a single hashtag and leave
   // them as is.
 
-  vector<strings::UniString> tokens;
+  Delimiters delims;
   {
-    search::DelimitersWithExceptions delims({'#'});
     auto normalizedQuery = NormalizeAndSimplifyString(query);
     PreprocessBeforeTokenization(normalizedQuery);
-    SplitUniString(normalizedQuery, base::MakeBackInsertFunctor(tokens), delims);
-  }
-
-  search::Delimiters delims;
-  {
-    QueryTokens subTokens;
-    for (auto const & token : tokens)
-    {
-      size_t numHashes = 0;
-      for (; numHashes < token.size() && token[numHashes] == '#'; ++numHashes)
-        ;
-
-      // Splits |token| by hashtags, because all other delimiters are
-      // already removed.
-      subTokens.clear();
-      SplitUniString(token, base::MakeBackInsertFunctor(subTokens), delims);
-      if (subTokens.empty())
-        continue;
-
-      if (numHashes == 1)
-        m_tokens.push_back(strings::MakeUniString("#") + subTokens[0]);
-      else
-        m_tokens.emplace_back(move(subTokens[0]));
-
-      for (size_t i = 1; i < subTokens.size(); ++i)
-        m_tokens.push_back(move(subTokens[i]));
-    }
+    SplitUniString(normalizedQuery, base::MakeBackInsertFunctor(m_tokens), delims);
   }
 
   static_assert(kMaxNumTokens > 0, "");
@@ -457,65 +415,45 @@ bool Processor::IsCancelled() const
 
 void Processor::SearchByFeatureId()
 {
-  // String processing is suboptimal in this method so
-  // we need a guard against very long strings.
-  size_t const kMaxFeatureIdStringSize = 1000;
-  if (m_query.size() > kMaxFeatureIdStringSize)
-    return;
-
   // Create a copy of the query to trim it in-place.
   string query(m_query);
   strings::Trim(query);
 
-  strings::EatPrefix(query, "?");
-
-  string const kFidPrefix = "fid";
-  bool hasFidPrefix = false;
-
-  if (strings::EatPrefix(query, kFidPrefix))
+  if (strings::EatPrefix(query, "?fid"))
   {
-    hasFidPrefix = true;
-
     strings::Trim(query);
     if (strings::EatPrefix(query, "="))
       strings::Trim(query);
   }
+  else
+    return;
 
   vector<shared_ptr<MwmInfo>> infos;
   m_dataSource.GetMwmsInfo(infos);
 
   // Case 0.
-  if (hasFidPrefix)
   {
     string s = query;
     uint32_t fid;
     if (EatFid(s, fid))
       EmitFeaturesByIndexFromAllMwms(infos, fid);
   }
+
   // Case 1.
-  if (hasFidPrefix)
   {
     string s = query;
     storage::CountryId mwmName;
     uint32_t fid;
 
-    bool ok = true;
     bool const parenPref = strings::EatPrefix(s, "(");
     bool const parenSuff = strings::EatSuffix(s, ")");
-    ok = ok && parenPref == parenSuff;
-    ok = ok && EatMwmName(m_countriesTrie, s, mwmName);
-    ok = ok && strings::EatPrefix(s, ",");
-    ok = ok && EatFid(s, fid);
-    // fid variable can not be uninitialized below, but by some reason compilers do not understand it.
-#ifdef __clang__
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wconditional-uninitialized"
-#endif
-    if (ok)
+    if (parenPref == parenSuff &&
+        EatMwmName(m_countriesTrie, s, mwmName) &&
+        strings::EatPrefix(s, ",") &&
+        EatFid(s, fid))
+    {
       EmitFeatureIfExists(infos, mwmName, {} /* version */, fid);
-#ifdef __clang__
-#pragma clang diagnostic pop
-#endif
+    }
   }
 
   // Case 2.
@@ -525,24 +463,16 @@ void Processor::SearchByFeatureId()
     uint32_t version;
     uint32_t fid;
 
-    bool ok = true;
-    ok = ok && strings::EatPrefix(s, "{ MwmId [");
-    ok = ok && EatMwmName(m_countriesTrie, s, mwmName);
-    ok = ok && strings::EatPrefix(s, ", ");
-    ok = ok && EatVersion(s, version);
-    ok = ok && strings::EatPrefix(s, "], ");
-    ok = ok && EatFid(s, fid);
-    ok = ok && strings::EatPrefix(s, " }");
-    // fid variable can not be uninitialized below, but by some reason compilers do not understand it.
-#ifdef __clang__
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wconditional-uninitialized"
-#endif
-    if (ok)
+    if (strings::EatPrefix(s, "{ MwmId [") &&
+        EatMwmName(m_countriesTrie, s, mwmName) &&
+        strings::EatPrefix(s, ", ") &&
+        EatVersion(s, version) &&
+        strings::EatPrefix(s, "], ") &&
+        EatFid(s, fid) &&
+        strings::EatPrefix(s, " }"))
+    {
       EmitFeatureIfExists(infos, mwmName, version, fid);
-#ifdef __clang__
-#pragma clang diagnostic pop
-#endif
+    }
   }
 }
 
@@ -574,11 +504,9 @@ void Processor::ForEachCategoryTypeFuzzy(StringSliceBase const & slice, ToDo && 
                                      forward<ToDo>(toDo));
 }
 
-void Processor::Search(SearchParams const & params)
+void Processor::Search(SearchParams params)
 {
   SetDeadline(chrono::steady_clock::now() + params.m_timeout);
-
-  InitEmitter(params);
 
   if (params.m_onStarted)
     params.m_onStarted();
@@ -588,13 +516,11 @@ void Processor::Search(SearchParams const & params)
   {
     Results results;
     results.SetEndMarker(true /* isCancelled */);
-
-    if (params.m_onResults)
-      params.m_onResults(results);
-    else
-      LOG(LERROR, ("OnResults is not set."));
+    params.m_onResults(std::move(results));
     return;
   }
+
+  m_emitter.Init(std::move(params.m_onResults));
 
   bool const viewportSearch = params.m_mode == Mode::Viewport;
 
@@ -627,19 +553,21 @@ void Processor::Search(SearchParams const & params)
 
     try
     {
-      SearchDebug();
-      SearchCoordinates();
-      SearchPlusCode();
-      SearchPostcode();
-      if (viewportSearch)
+      if (!SearchCoordinates())
       {
-        m_geocoder.GoInViewport();
-      }
-      else
-      {
-        if (m_tokens.empty())
-          m_ranker.SuggestStrings();
-        m_geocoder.GoEverywhere();
+        SearchDebug();
+        SearchPlusCode();
+        SearchPostcode();
+        if (viewportSearch)
+        {
+          m_geocoder.GoInViewport();
+        }
+        else
+        {
+          if (m_tokens.empty())
+            m_ranker.SuggestStrings();
+          m_geocoder.GoEverywhere();
+        }
       }
     }
     catch (CancelException const &)
@@ -664,26 +592,30 @@ void Processor::Search(SearchParams const & params)
   case Mode::Count: ASSERT(false, ("Invalid mode")); break;
   }
 
-  if (!viewportSearch && cancellationStatus != Cancellable::Status::CancelCalled)
-  {
-    LOG(LWARNING, ("Search cancelled by timeout"));
-  }
+  if (!viewportSearch && cancellationStatus == Cancellable::Status::DeadlineExceeded)
+    LOG(LWARNING, ("Search stopped by timeout"));
 }
 
 void Processor::SearchDebug()
 {
+#ifdef DEBUG
   SearchByFeatureId();
+#endif
 }
 
-void Processor::SearchCoordinates()
+bool Processor::SearchCoordinates()
 {
+  bool coords_found = false;
   buffer_vector<ms::LatLon, 3> results;
 
   {
     double lat;
     double lon;
     if (MatchLatLonDegree(m_query, lat, lon))
+    {
+      coords_found = true;
       results.emplace_back(lat, lon);
+    }
   }
 
   istringstream iss(m_query);
@@ -693,11 +625,17 @@ void Processor::SearchCoordinates()
     ge0::Ge0Parser parser;
     ge0::Ge0Parser::Result r;
     if (parser.Parse(token, r))
+    {
+      coords_found = true;
       results.emplace_back(r.m_lat, r.m_lon);
+    }
 
     geo::GeoURLInfo const info = m_geoUrlParser.Parse(token);
     if (info.IsValid())
+    {
+      coords_found = true;
       results.emplace_back(info.m_lat, info.m_lon);
+    }
   }
 
   base::SortUnique(results);
@@ -707,6 +645,7 @@ void Processor::SearchCoordinates()
         RankerResult(r.m_lat, r.m_lon), true /* needAddress */, true /* needHighlighting */));
     m_emitter.Emit();
   }
+  return coords_found;
 }
 
 void Processor::SearchPlusCode()
@@ -799,17 +738,12 @@ void Processor::SearchBookmarks(bookmarks::GroupId const & groupId)
 
 void Processor::InitParams(QueryParams & params) const
 {
-  params.SetQuery(m_query);
-
-  if (m_prefix.empty())
-    params.InitNoPrefix(m_tokens.begin(), m_tokens.end());
-  else
-    params.InitWithPrefix(m_tokens.begin(), m_tokens.end(), m_prefix);
+  params.Init(m_query, m_tokens.begin(), m_tokens.end(), m_prefix);
 
   Classificator const & c = classif();
 
   // Add names of categories (and synonyms).
-  auto const tokenSlice = QuerySliceOnRawStrings<decltype(m_tokens)>(m_tokens, m_prefix);
+  QuerySliceOnRawStrings const tokenSlice(m_tokens, m_prefix);
   params.SetCategorialRequest(m_isCategorialRequest);
   if (m_isCategorialRequest)
   {
@@ -831,12 +765,7 @@ void Processor::InitParams(QueryParams & params) const
   }
 
   // Remove all type indices for streets, as they're considired individually.
-  for (size_t i = 0; i < params.GetNumTokens(); ++i)
-  {
-    auto & token = params.GetToken(i);
-    if (IsStreetSynonym(token.GetOriginal()))
-      params.GetTypeIndices(i).clear();
-  }
+  params.ClearStreetIndices();
 
   for (size_t i = 0; i < params.GetNumTokens(); ++i)
     base::SortUnique(params.GetTypeIndices(i));
@@ -860,8 +789,8 @@ void Processor::InitGeocoder(Geocoder::Params & geocoderParams, SearchParams con
   geocoderParams.m_cuisineTypes = m_cuisineTypes;
   geocoderParams.m_preferredTypes = m_preferredTypes;
   geocoderParams.m_tracer = searchParams.m_tracer;
-  geocoderParams.m_streetSearchRadiusM = searchParams.m_streetSearchRadiusM;
-  geocoderParams.m_villageSearchRadiusM = searchParams.m_villageSearchRadiusM;
+  geocoderParams.m_filteringParams = searchParams.m_filteringParams;
+  geocoderParams.m_useDebugInfo = searchParams.m_useDebugInfo;
 
   m_geocoder.SetParams(geocoderParams);
 }
@@ -874,10 +803,7 @@ void Processor::InitPreRanker(Geocoder::Params const & geocoderParams,
   PreRanker::Params params;
 
   if (viewportSearch)
-  {
-    params.m_minDistanceOnMapBetweenResultsX = searchParams.m_minDistanceOnMapBetweenResultsX;
-    params.m_minDistanceOnMapBetweenResultsY = searchParams.m_minDistanceOnMapBetweenResultsY;
-  }
+    params.m_minDistanceOnMapBetweenResults = searchParams.m_minDistanceOnMapBetweenResults;
 
   params.m_viewport = GetViewport();
   params.m_accuratePivotCenter = GetPivotPoint(viewportSearch);
@@ -915,11 +841,9 @@ void Processor::InitRanker(Geocoder::Params const & geocoderParams,
 
   Ranker::Params params;
 
-  params.m_currentLocaleCode = m_currentLocaleCode;
-
   params.m_batchSize = searchParams.m_batchSize;
   params.m_limit = searchParams.m_maxNumResults;
-  params.m_pivot = m_position ? *m_position : GetViewport().Center();
+  params.m_pivot = GetPivotPoint(viewportSearch);
   params.m_pivotRegion = GetPivotRegion();
 
   params.m_preferredTypes = m_preferredTypes;
@@ -933,17 +857,11 @@ void Processor::InitRanker(Geocoder::Params const & geocoderParams,
   params.m_tokens = m_tokens;
   params.m_prefix = m_prefix;
   params.m_categoryLocales = GetCategoryLocales();
-  params.m_accuratePivotCenter = GetPivotPoint(viewportSearch);
   params.m_viewportSearch = viewportSearch;
   params.m_viewport = GetViewport();
   params.m_categorialRequest = geocoderParams.IsCategorialRequest();
 
   m_ranker.Init(params, geocoderParams);
-}
-
-void Processor::InitEmitter(SearchParams const & searchParams)
-{
-  m_emitter.Init(searchParams.m_onResults);
 }
 
 void Processor::ClearCaches()
@@ -975,7 +893,7 @@ void Processor::EmitFeatureIfExists(vector<shared_ptr<MwmInfo>> const & infos,
       continue;
 
     m_emitter.AddResultNoChecks(m_ranker.MakeResult(
-        RankerResult(*ft, m2::PointD() /* pivot */, guard->GetCountryFileName()),
+        RankerResult(*ft, guard->GetCountryFileName()),
         true /* needAddress */, true /* needHighlighting */));
     m_emitter.Emit();
   }
@@ -984,8 +902,10 @@ void Processor::EmitFeatureIfExists(vector<shared_ptr<MwmInfo>> const & infos,
 void Processor::EmitFeaturesByIndexFromAllMwms(vector<shared_ptr<MwmInfo>> const & infos,
                                                uint32_t fid)
 {
-  vector<tuple<double, m2::PointD, std::string, std::unique_ptr<FeatureType>>> results;
+  // Don't pay attention on possible overhead here, this function is used for debug purpose only.
+  vector<tuple<double, std::string, std::unique_ptr<FeatureType>>> results;
   vector<unique_ptr<FeaturesLoaderGuard>> guards;
+
   for (auto const & info : infos)
   {
     auto guard = make_unique<FeaturesLoaderGuard>(m_dataSource, MwmSet::MwmId(info));
@@ -995,28 +915,18 @@ void Processor::EmitFeaturesByIndexFromAllMwms(vector<shared_ptr<MwmInfo>> const
     if (!ft)
       continue;
 
+    // Distance needed for sorting.
     auto const center = feature::GetCenter(*ft, FeatureType::WORST_GEOMETRY);
-    double dist = center.SquaredLength(m_viewport.Center());
-    auto pivot = m_viewport.Center();
-    if (m_position)
-    {
-      auto const distPos = center.SquaredLength(*m_position);
-      if (dist > distPos)
-      {
-        dist = distPos;
-        pivot = *m_position;
-      }
-    }
-    results.emplace_back(dist, pivot, guard->GetCountryFileName(), move(ft));
+    double const dist = center.SquaredLength(m_viewport.Center());
+    results.emplace_back(dist, guard->GetCountryFileName(), move(ft));
     guards.push_back(move(guard));
   }
 
   sort(results.begin(), results.end());
 
-  for (auto const & [dist, pivot, country, ft] : results)
+  for (auto const & [_, country, ft] : results)
   {
-    /// @todo We make duplicating feature::GetCenter call in RankerResult.
-    m_emitter.AddResultNoChecks(m_ranker.MakeResult(RankerResult(*ft, pivot, country),
+    m_emitter.AddResultNoChecks(m_ranker.MakeResult(RankerResult(*ft, country),
                                                     true /* needAddress */,
                                                     true /* needHighlighting */));
     m_emitter.Emit();

@@ -10,10 +10,10 @@
 
 #include <algorithm>
 
-using namespace std;
-
 namespace search
 {
+using namespace std;
+
 namespace
 {
 bool LessByHashAndRange(StreetsMatcher::Prediction const & lhs,

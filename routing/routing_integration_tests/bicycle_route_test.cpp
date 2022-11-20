@@ -115,17 +115,13 @@ UNIT_TEST(RussiaMoscowServicePassThrough3)
   TEST_EQUAL(route.second, RouterResultCode::NoError, ());
 }
 
-// TODO: This test doesn't pass because routing::RouteWeight::operator<
-// prefer roads with less number of barriers. It will be more useful to consider
-// barriers only with access=no/private/etc tag.
-
-//UNIT_TEST(RussiaKerchStraitFerryRoute)
-//{
-//  CalculateRouteAndTestRouteLength(
-//      GetVehicleComponents(VehicleType::Bicycle),
-//      mercator::FromLatLon(45.4167, 36.7658), {0.0, 0.0},
-//      mercator::FromLatLon(45.3653, 36.6161), 18000.0);
-//}
+UNIT_TEST(RussiaKerchStraitFerryRoute)
+{
+  CalculateRouteAndTestRouteLength(
+      GetVehicleComponents(VehicleType::Bicycle),
+      mercator::FromLatLon(45.4167, 36.7658), {0.0, 0.0},
+      mercator::FromLatLon(45.3653, 36.6161), 17151.4);
+}
 
 // Test on building bicycle route past ferry.
 UNIT_TEST(SwedenStockholmBicyclePastFerry)

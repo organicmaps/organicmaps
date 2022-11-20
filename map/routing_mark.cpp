@@ -573,6 +573,11 @@ void SpeedCameraMark::SetTitle(std::string const & title)
   m_titleDecl.m_primaryText = title;
 }
 
+std::string const & SpeedCameraMark::GetTitle() const
+{
+  return m_titleDecl.m_primaryText;
+}
+
 void SpeedCameraMark::SetIndex(uint32_t index)
 {
   SetDirty();

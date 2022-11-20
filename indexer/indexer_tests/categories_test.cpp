@@ -317,9 +317,7 @@ UNIT_TEST(CategoriesIndex_AllCategories)
   LOG(LINFO, ("Number of nodes in the CategoriesIndex trie:", index.GetNumTrieNodes()));
   TEST_LESS(index.GetNumTrieNodes(), 600000, ());
 }
-#endif
 
-#ifdef DEBUG
 // A check that this data structure is not too heavy.
 UNIT_TEST(CategoriesIndex_AllCategoriesEnglishName)
 {
@@ -328,6 +326,6 @@ UNIT_TEST(CategoriesIndex_AllCategoriesEnglishName)
   CategoriesIndex index;
 
   index.AddAllCategoriesInLang(CategoriesHolder::MapLocaleToInteger("en"));
-  TEST_LESS(index.GetNumTrieNodes(), 9000, ());
+  TEST_LESS(index.GetNumTrieNodes(), 10000, ());
 }
 #endif

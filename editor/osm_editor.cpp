@@ -7,33 +7,20 @@
 #include "editor/xml_feature.hpp"
 
 #include "indexer/categories_holder.hpp"
-#include "indexer/classificator.hpp"
-#include "indexer/data_source_helpers.hpp"
 #include "indexer/fake_feature_ids.hpp"
-#include "indexer/feature_algo.hpp"
 #include "indexer/feature_decl.hpp"
-#include "indexer/feature_impl.hpp"
 #include "indexer/feature_meta.hpp"
 #include "indexer/feature_source.hpp"
-#include "indexer/ftypes_matcher.hpp"
 #include "indexer/mwm_set.hpp"
 
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
-#include "platform/preferred_languages.hpp"
-
-#include "coding/internal/file_data.hpp"
-
-#include "geometry/algorithm.hpp"
 
 #include "base/exception.hpp"
 #include "base/logging.hpp"
 #include "base/stl_helpers.hpp"
-#include "base/string_utils.hpp"
 #include "base/thread_checker.hpp"
 #include "base/timer.hpp"
-
-#include "std/target_os.hpp"
 
 #include <algorithm>
 #include <array>
@@ -42,12 +29,15 @@
 #include "3party/opening_hours/opening_hours.hpp"
 #include "3party/pugixml/pugixml/src/pugixml.hpp"
 
-using namespace std;
-
+namespace osm
+{
+// TODO(AlexZ): Normalize osm multivalue strings for correct merging
+// (e.g. insert/remove spaces after ';' delimeter);
 using namespace pugi;
 using feature::GeomType;
 using feature::Metadata;
 using editor::XMLFeature;
+using std::move, std::make_shared, std::string;
 
 namespace
 {
@@ -76,10 +66,10 @@ struct XmlSection
   string m_sectionName;
 };
 
-array<XmlSection, 4> const kXmlSections = {{{FeatureStatus::Deleted, kDeleteSection},
-                                            {FeatureStatus::Modified, kModifySection},
-                                            {FeatureStatus::Obsolete, kObsoleteSection},
-                                            {FeatureStatus::Created, kCreateSection}}};
+std::array<XmlSection, 4> const kXmlSections = {{{FeatureStatus::Deleted, kDeleteSection},
+                                                 {FeatureStatus::Modified, kModifySection},
+                                                 {FeatureStatus::Obsolete, kObsoleteSection},
+                                                 {FeatureStatus::Created, kCreateSection}}};
 
 struct LogHelper
 {
@@ -116,31 +106,6 @@ bool NeedsUpload(string const & uploadStatus)
          uploadStatus != kMatchedFeatureIsEmpty;
 }
 
-/// Compares editable fields connected with feature ignoring street.
-bool AreObjectsEqualButStreet(osm::EditableMapObject const & lhs,
-                              osm::EditableMapObject const & rhs)
-{
-  feature::TypesHolder const & lhsTypes = lhs.GetTypes();
-  feature::TypesHolder const & rhsTypes = rhs.GetTypes();
-
-  if (!lhsTypes.Equals(rhsTypes))
-    return false;
-
-  if (lhs.GetHouseNumber() != rhs.GetHouseNumber())
-    return false;
-
-  if (lhs.GetCuisines() != rhs.GetCuisines())
-    return false;
-
-  if (!lhs.GetMetadata().Equals(rhs.GetMetadata()))
-    return false;
-
-  if (lhs.GetNameMultilang() != rhs.GetNameMultilang())
-    return false;
-
-  return true;
-}
-
 XMLFeature GetMatchingFeatureFromOSM(osm::ChangesetWrapper & cw, osm::EditableMapObject & o)
 {
   ASSERT_NOT_EQUAL(o.GetGeomType(), feature::GeomType::Line,
@@ -169,11 +134,6 @@ bool IsObsolete(editor::XMLFeature const & xml, FeatureID const & fid)
 }
 }  // namespace
 
-namespace osm
-{
-// TODO(AlexZ): Normalize osm multivalue strings for correct merging
-// (e.g. insert/remove spaces after ';' delimeter);
-
 Editor::Editor()
   : m_configLoader(m_config)
   , m_notes(editor::Notes::MakeNotes())
@@ -188,7 +148,7 @@ Editor & Editor::Instance()
   return instance;
 }
 
-void Editor::SetDefaultStorage() { m_storage = make_unique<editor::LocalStorage>(); }
+void Editor::SetDefaultStorage() { m_storage = std::make_unique<editor::LocalStorage>(); }
 
 void Editor::LoadEdits()
 {
@@ -290,7 +250,7 @@ bool Editor::Save(FeaturesContainer const & features) const
   return m_storage->Save(doc);
 }
 
-bool Editor::SaveTransaction(shared_ptr<FeaturesContainer> const & features)
+bool Editor::SaveTransaction(std::shared_ptr<FeaturesContainer> const & features)
 {
   if (!Save(*features))
     return false;
@@ -397,7 +357,7 @@ Editor::SaveResult Editor::SaveEditedFeature(EditableMapObject const & emo)
     if (featureStatus == FeatureStatus::Created)
     {
       auto const & editedFeatureInfo = features->at(fid.m_mwmId).at(fid.m_index);
-      if (AreObjectsEqualButStreet(fti.m_object, editedFeatureInfo.m_object) &&
+      if (AreObjectsEqualIgnoringStreet(fti.m_object, editedFeatureInfo.m_object) &&
           emo.GetStreet().m_defaultName == editedFeatureInfo.m_street)
       {
         return SaveResult::NothingWasChanged;
@@ -414,14 +374,14 @@ Editor::SaveResult Editor::SaveEditedFeature(EditableMapObject const & emo)
     }
     fti.m_object = emo;
     bool const sameAsInMWM =
-        AreObjectsEqualButStreet(fti.m_object, *originalObjectPtr) &&
+        AreObjectsEqualIgnoringStreet(fti.m_object, *originalObjectPtr) &&
         emo.GetStreet().m_defaultName == GetOriginalFeatureStreet(fti.m_object.GetID());
 
     if (featureStatus != FeatureStatus::Untouched)
     {
       // A feature was modified and equals to the one in editor.
       auto const & editedFeatureInfo = features->at(fid.m_mwmId).at(fid.m_index);
-      if (AreObjectsEqualButStreet(fti.m_object, editedFeatureInfo.m_object) &&
+      if (AreObjectsEqualIgnoringStreet(fti.m_object, editedFeatureInfo.m_object) &&
           emo.GetStreet().m_defaultName == editedFeatureInfo.m_street)
       {
         return SaveResult::NothingWasChanged;
@@ -460,7 +420,7 @@ Editor::SaveResult Editor::SaveEditedFeature(EditableMapObject const & emo)
   fti.m_uploadStatus = {};
 
   auto editableFeatures = make_shared<FeaturesContainer>(*features);
-  (*editableFeatures)[fid.m_mwmId][fid.m_index] = move(fti);
+  (*editableFeatures)[fid.m_mwmId][fid.m_index] = std::move(fti);
 
   bool const savedSuccessfully = SaveTransaction(editableFeatures);
 
@@ -499,7 +459,7 @@ void Editor::ForEachCreatedFeature(MwmSet::MwmId const & id, FeatureIndexFunctor
   }
 }
 
-optional<osm::EditableMapObject> Editor::GetEditedFeature(FeatureID const & fid) const
+std::optional<osm::EditableMapObject> Editor::GetEditedFeature(FeatureID const & fid) const
 {
   auto const features = m_features.Get();
   auto const * featureInfo = GetFeatureTypeInfo(*features, fid.m_mwmId, fid.m_index);
@@ -520,12 +480,12 @@ bool Editor::GetEditedFeatureStreet(FeatureID const & fid, string & outFeatureSt
   return true;
 }
 
-vector<uint32_t> Editor::GetFeaturesByStatus(MwmSet::MwmId const & mwmId,
-                                             FeatureStatus status) const
+std::vector<uint32_t> Editor::GetFeaturesByStatus(MwmSet::MwmId const & mwmId,
+                                                  FeatureStatus status) const
 {
   auto const features = m_features.Get();
 
-  vector<uint32_t> result;
+  std::vector<uint32_t> result;
   auto const matchedMwm = features->find(mwmId);
   if (matchedMwm == features->cend())
     return result;
@@ -535,7 +495,7 @@ vector<uint32_t> Editor::GetFeaturesByStatus(MwmSet::MwmId const & mwmId,
     if (index.second.m_status == status)
       result.push_back(index.first);
   }
-  sort(result.begin(), result.end());
+  std::sort(result.begin(), result.end());
   return result;
 }
 
@@ -562,10 +522,8 @@ EditableProperties Editor::GetEditableProperties(FeatureType & feature) const
       return {};
     }
 
-    auto const & metadata = originalObjectPtr->GetMetadata();
-
     /// @todo Avoid temporary string when OpeningHours (boost::spirit) will allow string_view.
-    std::string const featureOpeningHours(metadata.Get(feature::Metadata::FMD_OPEN_HOURS));
+    string const featureOpeningHours(originalObjectPtr->GetOpeningHours());
     /// @note Empty string is parsed as a valid opening hours rule.
     if (!osmoh::OpeningHours(featureOpeningHours).IsValid())
     {
@@ -581,8 +539,10 @@ EditableProperties Editor::GetEditablePropertiesForTypes(feature::TypesHolder co
 {
   editor::TypeAggregatedDescription desc;
   if (m_config.Get()->GetTypeDescription(types.ToObjectNames(), desc))
-    return {desc.GetEditableFields(), desc.IsNameEditable(), desc.IsAddressEditable(),
-            desc.IsCuisineEditable()};
+  {
+    return { std::move(desc.m_editableFields), desc.IsNameEditable(),
+             desc.IsAddressEditable(), desc.IsCuisineEditable() };
+  }
   return {};
 }
 
@@ -1029,16 +989,16 @@ bool Editor::CreatePoint(uint32_t type, m2::PointD const & mercator, MwmSet::Mwm
 }
 
 void Editor::CreateNote(ms::LatLon const & latLon, FeatureID const & fid,
-                        feature::TypesHolder const & holder, string const & defaultName,
-                        NoteProblemType const type, string const & note)
+                        feature::TypesHolder const & holder, std::string_view defaultName,
+                        NoteProblemType const type, std::string_view note)
 {
   CHECK_THREAD_CHECKER(MainThreadChecker, (""));
 
-  ostringstream sstr;
+  std::ostringstream sstr;
   auto canCreate = true;
 
   if (!note.empty())
-    sstr << "\"" << note << "\"\n";
+    sstr << '"' << note << "\"\n";
 
   switch (type)
   {
@@ -1082,7 +1042,7 @@ void Editor::CreateNote(ms::LatLon const & latLon, FeatureID const & fid,
     sstr << ' ' << type;
   }
   sstr << "\n";
-  cout << "***TEXT*** " << sstr.str();
+  std::cout << "***TEXT*** " << sstr.str();
   m_notes->CreateNote(latLon, sstr.str());
 }
 
@@ -1116,7 +1076,7 @@ MwmSet::MwmId Editor::GetMwmIdByMapName(string const & name)
   return m_delegate->GetMwmIdByMapName(name);
 }
 
-unique_ptr<EditableMapObject> Editor::GetOriginalMapObject(FeatureID const & fid) const
+std::unique_ptr<EditableMapObject> Editor::GetOriginalMapObject(FeatureID const & fid) const
 {
   if (!m_delegate)
   {
@@ -1195,7 +1155,7 @@ void Editor::LoadMwmEdits(FeaturesContainer & loadedFeatures, xml_node const & m
       }
       catch (editor::XMLFeatureError const & ex)
       {
-        ostringstream s;
+        std::ostringstream s;
         nodeOrWay.node().print(s, "  ");
         LOG(LERROR, (ex.what(), "mwmId =", mwmId, "in section", section.m_sectionName, s.str()));
       }

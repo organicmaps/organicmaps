@@ -1,5 +1,10 @@
 # Flags for all
-set(OMIM_WARNING_FLAGS -Wall -Wextra -Wno-unused-parameter)
+set(OMIM_WARNING_FLAGS
+  $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wall>
+  $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wextra>
+  $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wno-unused-parameter>
+  $<$<CXX_COMPILER_ID:AppleClang>:-Wno-deprecated-declarations>  # boost warnings
+)
 set(OMIM_INCLUDE_DIRS "${OMIM_ROOT}/3party/boost")
 
 # Function for setting target platform:
@@ -302,3 +307,18 @@ ${include_compiled_header_dir}/${pch_file_name}.${PCH_EXTENSION}"
     endif()
   endforeach()
 endfunction()
+
+
+# Macro for finding a system provided library
+# that fulfills the required minimum version
+# or else including the vendored library
+# from a local git subdirectory
+macro(find_package_or_fallback_to_3party PACKAGE_NAME MIN_REQUIRED_VERSION SUBDIRECTORY)
+  find_package(${PACKAGE_NAME} ${MIN_REQUIRED_VERSION} QUIET)
+  if (NOT ${${PACKAGE_NAME}_FOUND} OR ("${${PACKAGE_NAME}_VERSION}" VERSION_LESS "${MIN_REQUIRED_VERSION}"))
+    message(STATUS "Using ${PACKAGE_NAME} from submodule: ${SUBDIRECTORY}")
+    add_subdirectory(${SUBDIRECTORY} ${ARGN})
+  else()
+    message(STATUS "Found ${PACKAGE_NAME} ${${PACKAGE_NAME}_VERSION} (minimum required version ${MIN_REQUIRED_VERSION})")
+  endif()
+endmacro()

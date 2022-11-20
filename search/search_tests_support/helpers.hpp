@@ -9,60 +9,67 @@
 
 #include "geometry/rect2d.hpp"
 
-#include <cstddef>
 #include <memory>
 #include <string>
 #include <vector>
 
 namespace search
 {
-class SearchTest : public tests_support::TestWithCustomMwms
+namespace tests_support
+{
+
+class SearchTestBase : public TestWithCustomMwms
 {
 public:
-  using Rule = std::shared_ptr<tests_support::MatchingRule>;
+  using Rule = std::shared_ptr<MatchingRule>;
   using Rules = std::vector<Rule>;
 
-  SearchTest();
-  ~SearchTest() override = default;
-
-  // Registers country in internal records. Note that physical country
-  // file may be absent.
-  void RegisterCountry(std::string const & name, m2::RectD const & rect);
+  SearchTestBase(base::LogLevel logLevel, bool mockCountryInfo);
 
   inline void SetViewport(m2::RectD const & viewport) { m_viewport = viewport; }
+  void SetViewport(ms::LatLon const & ll, double radiusM);
 
-  bool ResultsMatch(std::string const & query, Rules const & rules);
-  bool CategoryMatch(std::string const & query, Rules const & rules, std::string const & locale = "en");
+  bool CategoryMatch(std::string const & query, Rules const & rules,
+                     std::string const & locale = "en");
 
-  bool ResultsMatch(std::string const & query, std::string const & locale, Rules const & rules);
-
-  bool ResultsMatch(std::string const & query, Mode mode, Rules const & rules);
-
-  bool ResultsMatch(std::vector<search::Result> const & results, Rules const & rules);
-
+  bool ResultsMatch(std::string const & query, Rules const & rules,
+                    std::string const & locale = "en",
+                    Mode mode = Mode::Everywhere);
+  bool ResultsMatch(std::vector<Result> const & results, Rules const & rules);
   bool ResultsMatch(SearchParams const & params, Rules const & rules);
 
-  bool ResultMatches(search::Result const & result, Rule const & rule);
+  bool IsResultMatches(Result const & result, Rule const & rule);
 
   bool AlternativeMatch(std::string const & query, std::vector<Rules> const & rulesList);
 
   size_t GetResultsNumber(std::string const & query, std::string const & locale);
 
-  std::unique_ptr<tests_support::TestSearchRequest> MakeRequest(SearchParams params);
-
-  std::unique_ptr<tests_support::TestSearchRequest> MakeRequest(std::string const & query,
-                                                                std::string const & locale = "en");
+  std::unique_ptr<TestSearchRequest> MakeRequest(SearchParams const & params);
+  std::unique_ptr<TestSearchRequest> MakeRequest(std::string const & query, std::string const & locale = "en");
 
   size_t CountFeatures(m2::RectD const & rect);
 
 protected:
-  void OnMwmBuilt(MwmInfo const & /* info */) override;
-
   base::ScopedLogLevelChanger m_scopedLog;
 
-  tests_support::TestSearchEngine m_engine;
+  TestSearchEngine m_engine;
 
   m2::RectD m_viewport;
+};
+
+class SearchTest : public SearchTestBase
+{
+public:
+  explicit SearchTest(base::LogLevel logLevel = base::LDEBUG)
+    : SearchTestBase(logLevel, true /* mockCountryInfo*/)
+  {
+  }
+
+  // Registers country in internal records. Note that physical country file may be absent.
+  void RegisterCountry(std::string const & name, m2::RectD const & rect);
+
+protected:
+  void OnMwmBuilt(MwmInfo const & /* info */) override;
 };
 
 class TestCafe : public generator::tests_support::TestPOI
@@ -88,4 +95,6 @@ public:
 
   explicit TestHotel(m2::PointD const & center) : TestHotel(center, "hotel", "en") {}
 };
-}  // namespace search
+
+} // namespace tests_support
+} // namespace search

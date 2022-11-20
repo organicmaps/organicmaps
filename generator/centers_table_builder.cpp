@@ -1,15 +1,11 @@
 #include "generator/centers_table_builder.hpp"
 
-#include "search/search_trie.hpp"
-
 #include "indexer/centers_table.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/features_offsets_table.hpp"
 #include "indexer/features_vector.hpp"
 
 #include "coding/files_container.hpp"
-
-#include "platform/mwm_traits.hpp"
 
 #include "base/exception.hpp"
 
@@ -28,13 +24,6 @@ bool BuildCentersTableFromDataFile(std::string const & filename, bool forceRebui
       if (!forceRebuild && rcont.IsExist(CENTERS_FILE_TAG))
         return true;
 
-      version::MwmVersion version;
-      if (!ReadVersion(rcont, version))
-      {
-        LOG(LERROR, ("Can't read version from", filename));
-        return false;
-      }
-
       auto const table = feature::FeaturesOffsetsTable::Load(rcont);
       if (!table)
       {
@@ -43,10 +32,11 @@ bool BuildCentersTableFromDataFile(std::string const & filename, bool forceRebui
       }
 
       feature::DataHeader const header(rcont);
-      FeaturesVector const features(rcont, header, table.get());
+      FeaturesVector const features(rcont, header, table.get(), nullptr);
 
       builder.SetGeometryParams(header.GetBounds());
-      features.ForEach([&](FeatureType & ft, uint32_t featureId) {
+      features.ForEach([&](FeatureType & ft, uint32_t featureId)
+      {
         builder.Put(featureId, feature::GetCenter(ft));
       });
     }

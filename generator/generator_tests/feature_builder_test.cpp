@@ -5,10 +5,8 @@
 #include "generator/feature_builder.hpp"
 #include "generator/generator_tests_support/test_with_classificator.hpp"
 #include "generator/geometry_holder.hpp"
-#include "generator/osm2type.hpp"
 
 #include "indexer/data_header.hpp"
-#include "indexer/classificator_loader.hpp"
 #include "indexer/feature_visibility.hpp"
 
 #include "base/geo_object_id.hpp"
@@ -19,7 +17,6 @@ namespace feature_builder_test
 {
 using namespace feature;
 using namespace generator::tests_support;
-using namespace std;
 using namespace tests;
 
 UNIT_CLASS_TEST(TestWithClassificator, FBuilder_ManyTypes)
@@ -126,7 +123,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_Waterfall)
 
   TEST(fb2.IsValid(), (fb2));
   TEST_EQUAL(fb1, fb2, ());
-  TEST_EQUAL(fb2.GetTypesCount(), 1, ());;
+  TEST_EQUAL(fb2.GetTypesCount(), 1, ());
 }
 
 UNIT_CLASS_TEST(TestWithClassificator, FBbuilder_GetMostGeneralOsmId)
@@ -151,7 +148,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FVisibility_RemoveUselessTypes)
   Classificator const & c = classif();
 
   {
-    vector<uint32_t> types;
+    std::vector<uint32_t> types;
     types.push_back(c.GetTypeByPath({ "building" }));
     types.push_back(c.GetTypeByPath({ "amenity", "theatre" }));
 
@@ -160,7 +157,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FVisibility_RemoveUselessTypes)
   }
 
   {
-    vector<uint32_t> types;
+    std::vector<uint32_t> types;
     types.push_back(c.GetTypeByPath({ "highway", "primary" }));
     types.push_back(c.GetTypeByPath({ "building" }));
 
@@ -250,7 +247,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FeatureBuilder_SerializeLocalityObjectFor
   fb.SerializeLocalityObject(serial::GeometryCodingParams(), buffer);
 }
 
-UNIT_TEST(FeatureBuilder_SerializeAccuratelyForIntermediate)
+UNIT_CLASS_TEST(TestWithClassificator, FeatureBuilder_SerializeAccuratelyForIntermediate)
 {
   FeatureBuilder fb1;
   FeatureBuilderParams params;

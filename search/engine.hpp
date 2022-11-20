@@ -1,6 +1,5 @@
 #pragma once
 
-#include "search/bookmarks/processor.hpp"
 #include "search/search_params.hpp"
 #include "search/suggest.hpp"
 
@@ -10,13 +9,11 @@
 #include "base/thread.hpp"
 
 #include <condition_variable>
-#include <cstddef>
 #include <functional>
 #include <memory>
 #include <mutex>
 #include <queue>
 #include <string>
-#include <utility>
 #include <vector>
 
 class DataSource;
@@ -91,7 +88,7 @@ public:
   ~Engine();
 
   // Posts search request to the queue and returns its handle.
-  std::weak_ptr<ProcessorHandle> Search(SearchParams const & params);
+  std::weak_ptr<ProcessorHandle> Search(SearchParams params);
 
   // Sets default locale on all query processors.
   void SetLocale(std::string const & locale);
@@ -169,8 +166,7 @@ private:
   template <typename... Args>
   void PostMessage(Args &&... args);
 
-  void DoSearch(SearchParams const & params, std::shared_ptr<ProcessorHandle> handle,
-                Processor & processor);
+  void DoSearch(SearchParams params, std::shared_ptr<ProcessorHandle> handle, Processor & processor);
 
   std::vector<Suggest> m_suggests;
 

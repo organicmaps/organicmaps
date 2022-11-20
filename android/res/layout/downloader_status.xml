@@ -6,7 +6,7 @@
   android:layout_width="@dimen/downloader_status_size"
   android:layout_height="@dimen/downloader_status_size"
   tools:background="#20000FF0">
-  <com.mapswithme.maps.widget.WheelProgressView
+  <app.organicmaps.widget.WheelProgressView
     android:id="@+id/downloader_progress_wheel"
     android:layout_width="match_parent"
     android:layout_height="match_parent"

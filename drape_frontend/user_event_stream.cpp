@@ -11,16 +11,11 @@
 #include "drape_frontend/screen_operations.hpp"
 #include "drape_frontend/visual_params.hpp"
 
-#include "indexer/scales.hpp"
-
 #include "platform/platform.hpp"
 
-#include "base/logging.hpp"
 #include "base/macros.hpp"
 
-#include <chrono>
 #include <cmath>
-#include <cstdint>
 
 #ifdef DEBUG
 #define TEST_CALL(action) if (m_testFn) m_testFn(action)
@@ -28,18 +23,16 @@
 #define TEST_CALL(action)
 #endif
 
-using namespace std;
-using std::chrono::milliseconds;
 
 namespace df
 {
 namespace
 {
-uint64_t const kDoubleTapPauseMs = 250;
-uint64_t const kLongTouchMs = 500;
-uint64_t const kKineticDelayMs = 500;
+uint64_t constexpr kDoubleTapPauseMs = 250;
+uint64_t constexpr kLongTouchMs = 500;
+uint64_t constexpr kKineticDelayMs = 500;
 
-float const kForceTapThreshold = 0.75;
+float constexpr kForceTapThreshold = 0.75;
 
 size_t GetValidTouchesCount(std::array<Touch, 2> const & touches)
 {
@@ -73,7 +66,7 @@ char const * UserEventStream::DOUBLE_TAP_AND_HOLD = "DoubleTapAndHold";
 char const * UserEventStream::END_DOUBLE_TAP_AND_HOLD = "EndDoubleTapAndHold";
 #endif
 
-uint8_t const TouchEvent::INVALID_MASKED_POINTER = 0xFF;
+uint8_t constexpr TouchEvent::INVALID_MASKED_POINTER = 0xFF;
 
 void TouchEvent::SetFirstTouch(const Touch & touch)
 {
@@ -85,7 +78,7 @@ void TouchEvent::SetSecondTouch(const Touch & touch)
   m_touches[1] = touch;
 }
 
-void TouchEvent::PrepareTouches(array<Touch, 2> const & previousTouches)
+void TouchEvent::PrepareTouches(std::array<Touch, 2> const & previousTouches)
 {
   if (GetValidTouchesCount(m_touches) == 2 && GetValidTouchesCount(previousTouches) > 0)
   {
@@ -131,7 +124,7 @@ void TouchEvent::Swap()
     return index ^ 0x1;
   };
 
-  swap(m_touches[0], m_touches[1]);
+  std::swap(m_touches[0], m_touches[1]);
   SetFirstMaskedPointer(swapIndex(GetFirstMaskedPointer()));
   SetSecondMaskedPointer(swapIndex(GetSecondMaskedPointer()));
 }
@@ -141,22 +134,22 @@ UserEventStream::UserEventStream()
   , m_animationSystem(AnimationSystem::Instance())
   , m_startDragOrg(m2::PointD::Zero())
   , m_startDoubleTapAndHold(m2::PointD::Zero())
-{}
+  , m_dragThreshold(base::Pow2(VisualParams::Instance().GetDragThreshold()))
+{
+}
 
 void UserEventStream::AddEvent(drape_ptr<UserEvent> && event)
 {
-  std::lock_guard<std::mutex> guard(m_lock);
-  UNUSED_VALUE(guard);
-  m_events.emplace_back(move(event));
+  std::lock_guard guard(m_lock);
+  m_events.emplace_back(std::move(event));
 }
 
 ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChanged, bool & viewportChanged)
 {
   TEventsList events;
   {
-    std::lock_guard<std::mutex> guard(m_lock);
-    UNUSED_VALUE(guard);
-    swap(m_events, events);
+    std::lock_guard guard(m_lock);
+    std::swap(m_events, events);
   }
 
   m2::RectD const prevPixelRect = GetCurrentScreen().PixelRect();
@@ -282,10 +275,13 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChanged, bool 
     m_animationSystem.UpdateLastScreen(GetCurrentScreen());
 
   modelViewChanged = m_modelViewChanged;
-
-  double const kEps = 1e-5;
-  viewportChanged |= !m2::IsEqualSize(prevPixelRect, GetCurrentScreen().PixelRect(), kEps, kEps);
   m_modelViewChanged = false;
+
+  if (!viewportChanged)
+  {
+    double constexpr kEps = 1e-5;
+    viewportChanged = !m2::IsEqualSize(prevPixelRect, GetCurrentScreen().PixelRect(), kEps, kEps);
+  }
 
   return m_navigator.Screen();
 }
@@ -745,7 +741,7 @@ bool UserEventStream::ProcessTouch(TouchEvent const & touch)
   return isMapTouch;
 }
 
-bool UserEventStream::TouchDown(array<Touch, 2> const & touches)
+bool UserEventStream::TouchDown(std::array<Touch, 2> const & touches)
 {
   size_t touchCount = GetValidTouchesCount(touches);
   bool isMapTouch = true;
@@ -805,15 +801,14 @@ bool UserEventStream::TouchDown(array<Touch, 2> const & touches)
   return isMapTouch;
 }
 
-bool UserEventStream::CheckDrag(array<Touch, 2> const & touches, double threshold) const
+bool UserEventStream::CheckDrag(std::array<Touch, 2> const & touches, double threshold) const
 {
   return m_startDragOrg.SquaredLength(m2::PointD(touches[0].m_location)) > threshold;
 }
 
-bool UserEventStream::TouchMove(array<Touch, 2> const & touches)
+bool UserEventStream::TouchMove(std::array<Touch, 2> const & touches)
 {
-  double const kDragThreshold = base::Pow2(VisualParams::Instance().GetDragThreshold());
-  size_t touchCount = GetValidTouchesCount(touches);
+  size_t const touchCount = GetValidTouchesCount(touches);
   bool isMapTouch = true;
 
   switch (m_state)
@@ -821,7 +816,7 @@ bool UserEventStream::TouchMove(array<Touch, 2> const & touches)
   case STATE_EMPTY:
     if (touchCount == 1)
     {
-      if (CheckDrag(touches, kDragThreshold))
+      if (CheckDrag(touches, m_dragThreshold))
         BeginDrag(touches[0]);
       else
         isMapTouch = false;
@@ -834,10 +829,12 @@ bool UserEventStream::TouchMove(array<Touch, 2> const & touches)
   case STATE_TAP_TWO_FINGERS:
     if (touchCount == 2)
     {
-      auto const threshold = static_cast<float>(kDragThreshold);
+      float const threshold = static_cast<float>(m_dragThreshold);
       if (m_twoFingersTouches[0].SquaredLength(touches[0].m_location) > threshold ||
           m_twoFingersTouches[1].SquaredLength(touches[1].m_location) > threshold)
+      {
         BeginScale(touches[0], touches[1]);
+      }
       else
         isMapTouch = false;
     }
@@ -848,13 +845,13 @@ bool UserEventStream::TouchMove(array<Touch, 2> const & touches)
     break;
   case STATE_TAP_DETECTION:
   case STATE_WAIT_DOUBLE_TAP:
-    if (CheckDrag(touches, kDragThreshold))
+    if (CheckDrag(touches, m_dragThreshold))
       CancelTapDetector();
     else
       isMapTouch = false;
     break;
   case STATE_WAIT_DOUBLE_TAP_HOLD:
-    if (CheckDrag(touches, kDragThreshold))
+    if (CheckDrag(touches, m_dragThreshold))
       StartDoubleTapAndHold(touches[0]);
     break;
   case STATE_DOUBLE_TAP_HOLD:
@@ -891,7 +888,7 @@ bool UserEventStream::TouchMove(array<Touch, 2> const & touches)
   return isMapTouch;
 }
 
-bool UserEventStream::TouchCancel(array<Touch, 2> const & touches)
+bool UserEventStream::TouchCancel(std::array<Touch, 2> const & touches)
 {
   size_t touchCount = GetValidTouchesCount(touches);
   UNUSED_VALUE(touchCount);
@@ -932,7 +929,7 @@ bool UserEventStream::TouchCancel(array<Touch, 2> const & touches)
   return isMapTouch;
 }
 
-bool UserEventStream::TouchUp(array<Touch, 2> const & touches)
+bool UserEventStream::TouchUp(std::array<Touch, 2> const & touches)
 {
   size_t touchCount = GetValidTouchesCount(touches);
   bool isMapTouch = true;
@@ -989,7 +986,7 @@ bool UserEventStream::TouchUp(array<Touch, 2> const & touches)
   return isMapTouch;
 }
 
-void UserEventStream::UpdateTouches(array<Touch, 2> const & touches)
+void UserEventStream::UpdateTouches(std::array<Touch, 2> const & touches)
 {
   m_touches = touches;
 }

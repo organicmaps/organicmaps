@@ -163,7 +163,7 @@
       android:order="6"
       android:title="@string/driving_options_title">
       <intent
-        android:targetClass="com.mapswithme.maps.settings.DrivingOptionsActivity"
+        android:targetClass="app.organicmaps.settings.DrivingOptionsActivity"
         android:targetPackage="@string/app_id">
         <extra android:name="from" android:value="settings" />
       </intent>

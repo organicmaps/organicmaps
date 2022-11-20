@@ -9,7 +9,6 @@
 #include "base/string_utils.hpp"
 
 #include "drape/bidi.hpp"
-#include "drape/glsl_func.hpp"
 
 #include <algorithm>
 #include <array>
@@ -351,7 +350,7 @@ void MutableLabel::Precache(PrecacheParams const & params, PrecacheResult & resu
   glsl::vec2 colorTex = glsl::ToVec2(color.GetTexRect().Center());
   glsl::vec2 outlineTex = glsl::ToVec2(outlineColor.GetTexRect().Center());
 
-  auto const vertexCount = static_cast<size_t>(4 * m_maxLength);
+  auto const vertexCount = static_cast<size_t>(m_maxLength) * 4;
   result.m_buffer.resize(vertexCount,
                          StaticVertex(glsl::vec3(0.0, 0.0, 0.0), colorTex, outlineTex));
 

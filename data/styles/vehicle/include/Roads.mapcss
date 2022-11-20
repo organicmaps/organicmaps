@@ -30,10 +30,8 @@
   8.4 Cycleway 13-22 ZOOM
   8.5 Construction & Proposed 13-22 ZOOM
   8.6 Track & Path 16-22 ZOOM
-  8.7 Footway 18-22 ZOOM
-  8.8 Footway & Path tunnel 17-22 ZOOM
+  8.7 Footway & Steps 18-22 ZOOM
   8.9 Bridleway 14-22 ZOOM
-  8.10 Steps 16-22 ZOOM
   8.11 Runway 12-22 ZOOM
 9.RAIL 11-22 ZOOM
   9.1 RAIL 11-22 ZOOM
@@ -71,9 +69,9 @@ line[highway=service][tunnel?],
 line[railway=rail][tunnel?],
 */
 
-
 line[highway=footway][tunnel?]::tunnelCasing,
 line[highway=path][tunnel?]::tunnelCasing,
+line[highway=steps][tunnel?]::tunnelCasing,
 line[railway=rail][bridge?]::bridgeblack,
 line[railway=subway][bridge?]::bridgeblack,
 line[railway=light_rail][bridge?]::bridgeblack,
@@ -82,6 +80,7 @@ line[railway=yard][bridge?]::bridgeblack
 
 line[highway=footway][tunnel?]::tunnelBackground,
 line[highway=path][tunnel?]::tunnelBackground,
+line[highway=steps][tunnel?]::tunnelBackground,
 line[railway=rail][bridge?]::bridgewhite,
 line[railway=subway][bridge?]::bridgewhite,
 line[railway=light_rail][bridge?]::bridgewhite,
@@ -263,14 +262,6 @@ line[aerialway=rope_tow],
 
 line[power=line]
 {z-index: 2000;}
-
-line[piste:lift],
-line[piste:lift=j-bar],
-line[piste:lift=magic_carpet],
-line[piste:lift=platter],
-line[piste:lift=rope_tow],
-line[piste:lift=t-bar]
-{z-index: 6888;}
 
 line[highway]
 {casing-width: 0;}
@@ -972,29 +963,15 @@ line|z19-[highway=footway][sac_scale],
 {width: 1.5; dashes: 4,2.5;}
 
 
-/* 8.7 Footway 18-22 ZOOM */
+/* 8.7 Footway & Steps 18-22 ZOOM */
 
-line|z18-[highway=footway]
+line|z18-[highway=footway],
+line|z18-[highway=steps],
 {color: @footway; opacity: 1; width: 1.5; dashes: 5,2;}
-line|z19-[highway=footway]
+line|z19-[highway=footway],
+line|z19-[highway=steps],
 {width: 2; dashes: 5,2;}
 
-/* 8.8 Footway & Path tunnel 17-22 ZOOM */
-
-/*line|z17-[highway=footway][tunnel?]::tunnelBackground,
-line|z17-[highway=path][tunnel?]::tunnelBackground {
-  casing-width: eval(prop("width")+0.5);
-  casing-linecap: butt;
-  casing-color: @bridge_background;
-}
-
-line|z17-[highway=footway][tunnel?]::tunnelCasing,
-line|z17-[highway=path][tunnel?]::tunnelCasing {
-  casing-width: eval(prop("width")+1);
-  casing-linecap: butt;
-  casing-color: @bridge_casing;
-  casing-dashes: 2,2;
-}*/
 
 /* 8.9 Bridleway 14-22 ZOOM */
 
@@ -1010,17 +987,6 @@ line|z18[highway=bridleway]
 {width: 3;dashes: 7.2,2.7;}
 line|z19-[highway=bridleway]
 {width: 4;dashes: 9,3.6;}*/
-
-/* 8.10 Steps 16-22 ZOOM */
-
-/*line|z16[highway=steps]
-{width: 5;dashes: 1.5,1.5;}
-line|z17[highway=steps]
-{width: 7;dashes: 2.3,2.3;}
-line|z18[highway=steps]
-{width: 9;dashes: 3.2,3.2;}
-line|z19-[highway=steps]
-{width: 11;dashes: 4,4;}*/
 
 /* 8.11 Runway 12-22 ZOOM */
 
@@ -1222,12 +1188,7 @@ line|z15-[railway=funicular],
 
 /* 10.PISTE 12-22 ZOOM */
 
-/*line|z12-[piste:lift],
-line|z12-[piste:lift=j-bar],
-line|z12-[piste:lift=magic_carpet],
-line|z12-[piste:lift=platter],
-line|z12-[piste:lift=rope_tow],
-line|z12-[piste:lift=t-bar],
+/*
 line|z12-[aerialway=cable_car],
 line|z12-[aerialway=chair_lift],
 line|z12-[aerialway=gondola],
@@ -1249,31 +1210,8 @@ line|z12-[aerialway=magic_carpet]::dash,
 line|z12-[aerialway=platter]::dash,
 line|z12-[aerialway=rope_tow]::dash,
 line|z18-[power=line],
-{color: @aerialway;opacity: 1;}*/
-
-/* 10.1 Lift 12-22 ZOOM */
-
-/*line|z12-14[piste:lift=j-bar],
-line|z12-14[piste:lift=magic_carpet],
-line|z12-14[piste:lift=platter],
-line|z12-14[piste:lift=rope_tow],
-line|z12-14[piste:lift=t-bar],
-line|z19-[power=line],
-{width: 1;}
-line|z15-[piste:lift],
-line|z15-[piste:lift=j-bar],
-line|z15-[piste:lift=magic_carpet],
-line|z15-[piste:lift=platter],
-line|z15-[piste:lift=rope_tow],
-line|z15-[piste:lift=t-bar]
-{width: 1.6;}
-line|z17-[piste:lift],
-line|z17-[piste:lift=j-bar],
-line|z17-[piste:lift=magic_carpet],
-line|z17-[piste:lift=platter],
-line|z17-[piste:lift=rope_tow],
-line|z17-[piste:lift=t-bar]
-{width: 2;}*/
+{color: @aerialway;opacity: 1;}
+*/
 
 /* 10.2 Aerialway 12-22 ZOOM */
 

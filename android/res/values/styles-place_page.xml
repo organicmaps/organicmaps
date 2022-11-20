@@ -57,22 +57,6 @@
     <item name="android:textAppearance">@style/MwmTextAppearance.PlacePage.Accent</item>
   </style>
 
-  <style name="PlacePageTitleText">
-    <item name="android:layout_width">wrap_content</item>
-    <item name="android:layout_height">wrap_content</item>
-    <item name="android:textAppearance">@style/MwmTextAppearance.PlacePage.Title</item>
-  </style>
-
-  <style name="PlacePageGalleryText">
-    <item name="android:layout_width">wrap_content</item>
-    <item name="android:layout_height">wrap_content</item>
-    <item name="android:layout_gravity">center</item>
-    <item name="android:gravity">center</item>
-    <item name="android:textColor">@color/white_primary</item>
-    <item name="android:textAllCaps">true</item>
-    <item name="android:drawableEnd">@drawable/ic_chevron_right_white</item>
-  </style>
-
   <style name="PlacePageMetadataIcon">
     <item name="android:layout_width">wrap_content</item>
     <item name="android:layout_height">wrap_content</item>

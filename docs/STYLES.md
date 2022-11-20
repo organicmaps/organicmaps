@@ -17,15 +17,21 @@ and ["icons wanted" issues](https://github.com/organicmaps/organicmaps/issues?q=
 
 To work with styles first [clone the OM repository](INSTALL.md#getting-sources).
 
-Install a `protobuf` python package, e.g.
+Install a `protobuf` python package with `pip`
 ```
 pip install protobuf
+```
+or with your OS package manager, e.g for Ubuntu 
+```
+sudo apt install python3-protobuf 
 ```
 
 To run the `generate_symbols.sh` script install `optipng` also, e.g. for Ubuntu
 ```
 sudo apt install optipng
 ```
+
+If you use WSL on Windows 10 you might need to run [X Server](INSTALL.md#windows-10-wsl) before running `generate_symbols.sh`
 
 ## Files
 

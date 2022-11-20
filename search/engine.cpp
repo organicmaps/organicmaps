@@ -8,19 +8,16 @@
 #include "indexer/search_string_utils.hpp"
 
 #include "base/scope_guard.hpp"
-#include "base/stl_helpers.hpp"
 #include "base/timer.hpp"
 
 #include <algorithm>
-#include <cstdint>
-#include <functional>
 #include <map>
 #include <vector>
 
-using namespace std;
-
 namespace search
 {
+using namespace std;
+
 namespace
 {
 class InitSuggestions
@@ -120,12 +117,12 @@ Engine::~Engine()
     thread.join();
 }
 
-weak_ptr<ProcessorHandle> Engine::Search(SearchParams const & params)
+weak_ptr<ProcessorHandle> Engine::Search(SearchParams params)
 {
   shared_ptr<ProcessorHandle> handle(new ProcessorHandle());
-  PostMessage(Message::TYPE_TASK, [this, params, handle](Processor & processor)
+  PostMessage(Message::TYPE_TASK, [this, params = std::move(params), handle](Processor & processor)
               {
-                DoSearch(params, handle, processor);
+                DoSearch(std::move(params), handle, processor);
               });
   return handle;
 }
@@ -282,12 +279,12 @@ void Engine::PostMessage(Args &&... args)
   m_cv.notify_one();
 }
 
-void Engine::DoSearch(SearchParams const & params, shared_ptr<ProcessorHandle> handle,
-                      Processor & processor)
+void Engine::DoSearch(SearchParams params, shared_ptr<ProcessorHandle> handle, Processor & processor)
 {
-  LOG(LINFO, ("Search started."));
+  LOG(LINFO, ("Search started:", params.m_mode));
   base::Timer timer;
-  SCOPE_GUARD(printDuration, [&timer]() {
+  SCOPE_GUARD(printDuration, [&timer]()
+  {
     LOG(LINFO, ("Search ended in", timer.ElapsedMilliseconds(), "ms."));
   });
 
@@ -295,6 +292,6 @@ void Engine::DoSearch(SearchParams const & params, shared_ptr<ProcessorHandle> h
   handle->Attach(processor);
   SCOPE_GUARD(detach, [&handle] { handle->Detach(); });
 
-  processor.Search(params);
+  processor.Search(std::move(params));
 }
 }  // namespace search

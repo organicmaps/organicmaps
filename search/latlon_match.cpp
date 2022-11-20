@@ -16,7 +16,7 @@ using namespace std;
 namespace
 {
 string const kSpaces = " \t";
-string const kCharsToSkip = " \t,;:.()";
+string const kCharsToSkip = " \n\t,;:.()";
 string const kDecimalMarks = ".,";
 
 bool IsDecimalMark(char c)
@@ -150,7 +150,8 @@ bool MatchLatLonDegree(string const & query, double & lat, double & lon)
   char const * arrPos[] = {nullptr, nullptr, nullptr, nullptr};
   bool arrDegreeSymbol[] = { false, false };
 
-  char const * s = query.c_str();
+  char const * const startQuery = query.c_str();
+  char const * s = startQuery;
   while (true)
   {
     char const * s1 = s;
@@ -177,6 +178,11 @@ bool MatchLatLonDegree(string const & query, double & lat, double & lon)
         // Check matching if token is delimited.
         break;
       }
+    }
+    else if (x < 0 && s == s1 && !(s == startQuery || kSpaces.find(*(s-1)) != string::npos))
+    {
+      // Skip input like "3-8"
+      return false;
     }
 
     s = s2;

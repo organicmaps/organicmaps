@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>motel-m</title>
-    <g id="Page-2:-Night" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.6">
-        <g id="motel-m" fill-rule="nonzero">
-            <circle id="Oval" fill="#FFFFFF" cx="12" cy="12" r="12"></circle>
-            <circle id="Oval" fill="#332721" cx="12" cy="12" r="11"></circle>
-            <path d="M18,12 L18,16 L17,16 L17,14 L6,14 L6,16 L5,16 L5,12 L7,12 L18,12 Z M6.5,11 C7.328,11 8,10.328 8,9.5 C8,8.672 7.328,8 6.5,8 C5.672,8 5,8.672 5,9.5 C5,10.328 5.672,11 6.5,11 Z M17.02,8.804 L9.981,8.197 C9.44,8.089 9.001,8.448 9.001,9.001 L9.001,11.001 L18.001,11.001 L18.001,10.001 C18,9.447 17.561,8.912 17.02,8.804 L17.02,8.804 Z" id="Shape" fill="#FFFFFF"></path>
-        </g>
-    </g>
+<svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+ <title>motel-m</title>
+ <g id="Page-2:-Night" fill="none" fill-rule="evenodd" opacity=".6">
+  <g id="motel-m" fill-rule="nonzero">
+   <circle id="Oval" cx="12" cy="12" r="12" fill="#fff"/>
+   <circle id="Oval" cx="12" cy="12" r="11" fill="#332721"/>
+   <path id="Shape" d="m18 12v4h-1v-2h-11v2h-1v-4h2 11zm-11.5-1c0.828 0 1.5-0.672 1.5-1.5s-0.672-1.5-1.5-1.5-1.5 0.672-1.5 1.5 0.672 1.5 1.5 1.5zm10.52-2.196-7.039-0.607c-0.541-0.108-0.98 0.251-0.98 0.804v2h9v-1c-1e-3 -0.554-0.44-1.089-0.981-1.197z" fill="#fff"/>
+  </g>
+ </g>
 </svg>

@@ -66,15 +66,15 @@ public:
   // Should match codes in the array below.
   static int8_t constexpr kEnglishCode = 1;
   static int8_t constexpr kUnsupportedLocaleCode = -1;
-  static int8_t constexpr kSimplifiedChineseCode = 39;
-  static int8_t constexpr kTraditionalChineseCode = 40;
+  static int8_t constexpr kSimplifiedChineseCode = 41;
+  static int8_t constexpr kTraditionalChineseCode = 42;
   // *NOTE* These constants should be updated when adding new
   // translation to categories.txt. When editing, keep in mind to check
   // CategoriesHolder::MapLocaleToInteger() and
   // CategoriesHolder::MapIntegerToLocale() as their implementations
   // strongly depend on the contents of the variable.
   // TODO: Refactor for more flexibility and to avoid breaking rules in two methods mentioned above.
-  static std::array<CategoriesHolder::Mapping, 40> constexpr kLocaleMapping = {{
+  static std::array<CategoriesHolder::Mapping, 42> constexpr kLocaleMapping = {{
       {"en", kEnglishCode},
       {"en-AU", 2},
       {"en-GB", 3},
@@ -82,37 +82,39 @@ public:
       {"ar", 5},
       {"be", 6},
       {"bg", 7},
-      {"cs", 8},
-      {"da", 9},
-      {"de", 10},
-      {"el", 11},
-      {"es", 12},
-      {"es-MX", 13},
-      {"eu", 14},
-      {"fa", 15},
-      {"fi", 16},
-      {"fr", 17},
-      {"he", 18},
-      {"hu", 19},
-      {"id", 20},
-      {"it", 21},
-      {"ja", 22},
-      {"ko", 23},
-      {"mr", 24},
-      {"nb", 25},
-      {"nl", 26},
-      {"pl", 27},
-      {"pt", 28},
-      {"pt-BR", 29},
-      {"ro", 30},
-      {"ru", 31},
-      {"sk", 32},
-      {"sv", 33},
-      {"sw", 34},
-      {"th", 35},
-      {"tr", 36},
-      {"uk", 37},
-      {"vi", 38},
+      {"ca", 8},
+      {"cs", 9},
+      {"da", 10},
+      {"de", 11},
+      {"el", 12},
+      {"es", 13},
+      {"es-MX", 14},
+      {"et", 15},
+      {"eu", 16},
+      {"fa", 17},
+      {"fi", 18},
+      {"fr", 19},
+      {"he", 20},
+      {"hu", 21},
+      {"id", 22},
+      {"it", 23},
+      {"ja", 24},
+      {"ko", 25},
+      {"mr", 26},
+      {"nb", 27},
+      {"nl", 28},
+      {"pl", 29},
+      {"pt", 30},
+      {"pt-BR", 31},
+      {"ro", 32},
+      {"ru", 33},
+      {"sk", 34},
+      {"sv", 35},
+      {"sw", 36},
+      {"th", 37},
+      {"tr", 38},
+      {"uk", 39},
+      {"vi", 40},
       {"zh-Hans", kSimplifiedChineseCode},
       {"zh-Hant", kTraditionalChineseCode},
   }};

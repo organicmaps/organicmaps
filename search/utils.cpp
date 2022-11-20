@@ -9,43 +9,38 @@
 
 #include "base/cancellable.hpp"
 
-#include <cctype>
 #include <utility>
-
-using namespace std;
 
 namespace search
 {
-vector<uint32_t> GetCategoryTypes(string const & name, string const & locale,
-                                  CategoriesHolder const & categories)
+std::vector<uint32_t> GetCategoryTypes(std::string const & name, std::string const & locale,
+                                       CategoriesHolder const & categories)
 {
-  vector<uint32_t> types;
+  std::vector<uint32_t> types;
 
   int8_t const code = CategoriesHolder::MapLocaleToInteger(locale);
   Locales locales;
   locales.Insert(static_cast<uint64_t>(code));
 
-  vector<strings::UniString> tokens;
-  SplitUniString(NormalizeAndSimplifyString(name), base::MakeBackInsertFunctor(tokens),
-                 Delimiters());
+  auto const tokens = NormalizeAndTokenizeString(name);
 
-  FillCategories(QuerySliceOnRawStrings<vector<strings::UniString>>(tokens, {} /* prefix */),
+  FillCategories(QuerySliceOnRawStrings<std::vector<strings::UniString>>(tokens, {} /* prefix */),
                  locales, categories, types);
 
   base::SortUnique(types);
   return types;
 }
 
-void ForEachOfTypesInRect(DataSource const & dataSource, vector<uint32_t> const & types,
+void ForEachOfTypesInRect(DataSource const & dataSource, std::vector<uint32_t> const & types,
                           m2::RectD const & pivot, FeatureIndexCallback const & fn)
 {
-  vector<shared_ptr<MwmInfo>> infos;
+  std::vector<std::shared_ptr<MwmInfo>> infos;
   dataSource.GetMwmsInfo(infos);
 
   base::Cancellable const cancellable;
   CategoriesCache cache(types, cancellable);
   auto pivotRectsCache = PivotRectsCache(1 /* maxNumEntries */, cancellable,
-                                         max(pivot.SizeX(), pivot.SizeY()) /* maxRadiusMeters */);
+                                         std::max(pivot.SizeX(), pivot.SizeY()) /* maxRadiusMeters */);
 
   for (auto const & info : infos)
   {
@@ -57,7 +52,7 @@ void ForEachOfTypesInRect(DataSource const & dataSource, vector<uint32_t> const 
     if (!value.HasSearchIndex())
       continue;
 
-    MwmContext const mwmContext(move(handle));
+    MwmContext const mwmContext(std::move(handle));
     auto features = cache.Get(mwmContext);
 
     auto const pivotFeatures = pivotRectsCache.Get(mwmContext, pivot, scales::GetUpperScale());
@@ -70,14 +65,12 @@ void ForEachOfTypesInRect(DataSource const & dataSource, vector<uint32_t> const 
   }
 }
 
-bool IsCategorialRequestFuzzy(string const & query, string const & categoryName)
+bool IsCategorialRequestFuzzy(std::string const & query, std::string const & categoryName)
 {
   auto const & catHolder = GetDefaultCategories();
   auto const types = GetCategoryTypes(categoryName, "en", catHolder);
 
-  vector<QueryParams::String> queryTokens;
-  SplitUniString(NormalizeAndSimplifyString(query), base::MakeBackInsertFunctor(queryTokens),
-                 Delimiters());
+  auto const queryTokens = NormalizeAndTokenizeString(query);
 
   bool isCategorialRequest = false;
   for (auto const type : types)
@@ -85,31 +78,30 @@ bool IsCategorialRequestFuzzy(string const & query, string const & categoryName)
     if (isCategorialRequest)
       return true;
 
-    catHolder.ForEachNameByType(
-        type, [&](CategoriesHolder::Category::Name const & categorySynonym) {
-          if (isCategorialRequest)
-            return;
-          vector<QueryParams::String> categoryTokens;
-          SplitUniString(NormalizeAndSimplifyString(categorySynonym.m_name),
-                         base::MakeBackInsertFunctor(categoryTokens), Delimiters());
-          for (size_t start = 0; start < queryTokens.size(); ++start)
+    catHolder.ForEachNameByType(type, [&](CategoriesHolder::Category::Name const & categorySynonym)
+    {
+      if (isCategorialRequest)
+        return;
+
+      auto const categoryTokens = NormalizeAndTokenizeString(categorySynonym.m_name);
+      for (size_t start = 0; start < queryTokens.size(); ++start)
+      {
+        bool found = true;
+        for (size_t i = 0; i < categoryTokens.size() && start + i < queryTokens.size(); ++i)
+        {
+          if (queryTokens[start + i] != categoryTokens[i])
           {
-            bool found = true;
-            for (size_t i = 0; i < categoryTokens.size() && start + i < queryTokens.size(); ++i)
-            {
-              if (queryTokens[start + i] != categoryTokens[i])
-              {
-                found = false;
-                break;
-              }
-            }
-            if (found)
-            {
-              isCategorialRequest = true;
-              break;
-            }
+            found = false;
+            break;
           }
-        });
+        }
+        if (found)
+        {
+          isCategorialRequest = true;
+          break;
+        }
+      }
+    });
   }
 
   return isCategorialRequest;

@@ -80,8 +80,20 @@
 	<string name="maps_storage_summary">Haritaların indirileceği yeri seçin</string>
 	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
 	<string name="maps_storage_downloaded">Haritalar</string>
+	<!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
+	<string name="maps_storage_internal">Dahili özel depolama</string>
+	<!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
+	<string name="maps_storage_shared">Dahili paylaşılan depolama</string>
+	<!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
+	<string name="maps_storage_removable">SD kart</string>
+	<!-- Generic external storage type in Maps Storage settings -->
+	<string name="maps_storage_external">Harici paylaşılan depolama</string>
+	<!-- Free space out of total storage size in Maps Storage settings, e.g. "300 MB free of 2 GB" -->
+	<string name="maps_storage_free_size">%2$s\'ın %1$s\'ı boş</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Haritalar taşınsın mı?</string>
+	<!-- Error moving map files from one storage to another -->
+	<string name="move_maps_error">Harita dosyalarını taşıma hatası</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
 	<string name="wait_several_minutes">Bu işlem birkaç dakika sürebilir.\nLütfen bekleyin…</string>
 	<!-- Measurement units title in settings activity -->
@@ -169,8 +181,6 @@
 	<string name="copied_to_clipboard">Panoya kopyalandı: %1$s</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">Bitti</string>
-	<!-- Prints version number in About dialog -->
-	<string name="version">Sürüm: %s</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">OpenStreetMap verileri: %s</string>
 	<!-- Confirmation in downloading countries dialog -->
@@ -225,6 +235,8 @@
 	<string name="help">Yardım</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">Sıkça Sorulan Sorular</string>
+	<!-- Button in the main menu -->
+	<string name="donate">Bağış Yapın</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">Sizi nasıl destekleyebilirim?</string>
 	<!-- Button in the main Help dialog -->
@@ -344,9 +356,6 @@
 	<string name="routing_arrive">Varış: %s</string>
 	<string name="categories">Kategoriler</string>
 	<string name="history">Geçmiş</string>
-	<string name="opens_in">%s sonra açılıyor</string>
-	<string name="closes_in">%s sonra kapanıyor</string>
-	<string name="closed">Kapalı</string>
 	<string name="search_not_found">Üzgünüz, hiç bir şey bulamadık.</string>
 	<string name="search_not_found_query">Lütfen başka bir sorgu girin.</string>
 	<string name="search_history_title">Arama Geçmişi</string>
@@ -390,14 +399,17 @@
 	<string name="day_off_today">Bugün kapalı</string>
 	<string name="day_off">Kapalı</string>
 	<string name="today">Bugün</string>
-	<string name="edit_opening_hours">İş saatlerini düzenle</string>
-	<string name="no_osm_account">OpenStreetMap hesabın yok mu?</string>
-	<string name="register_at_openstreetmap">Kaydol</string>
+	<string name="opens_in">%s sonra açılıyor</string>
+	<string name="closes_in">%s sonra kapanıyor</string>
+	<string name="closed">Kapalı</string>
+	<string name="edit_opening_hours">Çalışma saatlerini düzenle</string>
+	<string name="no_osm_account">OpenStreetMap hesabınız yok mu?</string>
+	<string name="register_at_openstreetmap">OpenStreetMap\'e kaydol</string>
 	<string name="login">Oturum aç</string>
+	<string name="login_osm">OpenStreetMap\'e giriş yap</string>
 	<string name="password">Şifre</string>
 	<string name="forgot_password">Şifreni mi unuttun?</string>
 	<string name="logout">Oturumu kapat</string>
-	<string name="thank_you">Teşekkür ederiz</string>
 	<string name="edit_place">Yeri Düzenle</string>
 	<string name="add_language">Bir dil ekle</string>
 	<string name="street">Sokak</string>
@@ -416,6 +428,7 @@
 	<!-- login text field -->
 	<string name="email_or_username">E-posta veya kullanıcı adı</string>
 	<string name="editor_add_phone">Telefon Ekle</string>
+	<string name="level">Zemin</string>
 	<string name="downloader_delete_map_dialog">Harita ile birlikte tüm harita değişiklikleri de silinecektir.</string>
 	<string name="downloader_update_maps">Haritaları güncelle</string>
 	<string name="downloader_mwm_migration_dialog">Bir rota oluşturmak için tüm haritaları güncellemeli ve ardından rotayı tekrar planlamalısınız.</string>
@@ -434,7 +447,8 @@
 	<string name="editor_report_problem_other_title">Farklı bir sorun</string>
 	<string name="placepage_add_business_button">Kuruluş ekle</string>
 	<string name="message_invalid_feature_position">Buraya bir nesne konumlandırılamıyor</string>
-	<string name="login_to_make_edits_visible">Diğer kullanıcıların yaptığınız değişiklikleri görebilmesi için oturum açın</string>
+	<string name="osm_presentation">Tüm harita verileri OpenStreetMap projesinden geliyor. Bu proje Vikipedi\'nin harita sürümü gibidir, yer ekleyerek veya düzenleyerek tüm dünyadaki milyonlarca kullanıcı gibi bu harita verilerinin gelişmesine katkıda bulunabilirsiniz.</string>
+	<string name="login_to_make_edits_visible">Diğer kullanıcıların yaptığınız değişiklikleri görebilmesi için OpenStreetMap.org\'da oturum açın.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d/%2$d</string>
 	<string name="download_over_mobile_header">Hücresel bir ağ bağlantısı kullanarak indirilsin mi?</string>
@@ -471,7 +485,6 @@
 	<string name="minute">dk</string>
 	<string name="placepage_place_description">Açıklama</string>
 	<string name="placepage_more_button">Diğer</string>
-	<string name="placepage_more_reviews_button">Diğer Yorumlar</string>
 	<string name="placepage_call_button">Ara</string>
 	<string name="placepage_edit_bookmark_button">Yer İmini Düzenle</string>
 	<string name="editor_comment_hint">Yorum…</string>
@@ -494,17 +507,15 @@
 	<string name="placepage_add_place_button">Haritaya bir yer ekle</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Bunu tüm kullanıcılara göndermek ister misiniz?</string>
-	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Herhangi bir kişisel bilgi girmediğinizden emin olun.</string>
-	<string name="editor_share_to_all_dialog_message_2">Değişikliği kontrol edeceğiz. Eğer herhangi bir sorumuz olursa sizinle e-posta aracılığıyla iletişime geçeceğiz.</string>
+	<string name="editor_share_to_all_dialog_message_2">OpenStreetMap editörleri değişikliklerinizi kontrol edecek ve bir soruları olursa sizinle iletişime geçecekler.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps, reklam ve izleyici içermeyen hızlı ve ücretsiz bir çevrimdışı harita uygulamasıdır. Haritalar kitle kaynaklı OpenStreetMap.org verilerine dayanmaktadır, böylece kendiniz harita hatalarını düzeltebilir ve haritaya yeni nesneler ekleyebilirsiniz. Organic Maps, teknoloji tutkunlarının boş zamanlarında oluşturduğu açık kaynaklı bir projedir. Geri bildirim ve desteğinize çok değer veriyoruz!</string>
 	<!-- For the first routing -->
 	<string name="accept">Kabul et</string>
 	<!-- For the first routing -->
 	<string name="decline">Reddet</string>
-	<!-- A noun - a button name used to show search results in list form -->
-	<string name="search_in_table">Liste</string>
 	<string name="mobile_data_dialog">Ayrıntılı bilgileri görüntülemek için mobil internet kullanılsın mı?</string>
 	<string name="mobile_data_option_always">Her Zaman Kullan</string>
 	<string name="mobile_data_option_today">Sadece Bugün</string>
@@ -525,10 +536,11 @@
 	<string name="on">Aç</string>
 	<string name="off">Kapat</string>
 	<string name="prefs_languages_information">Sesli yönlendirme için TTS sistemini kullanıyoruz. Çoğu Android cihaz, Google TTS\'yi kullanıyor. Uygulamayı, Google Play\'den indirebilir veya güncelleyebilirsiniz (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">Bazı diller için uygulama mağazasından (Google Play, Samsung Apps, App Gallery, FDroid) farklı bir konuşma sentezleyicisi veya ek bir dil paketi yüklemeniz gerekebilir. Cihaz ayarları → Dil ve Giriş → Konuşma → Metin Okuma seçeneğini açın. Buradan konuşma sentezi ayarlarını yönetebilir (örneğin, çevrimdışı kullanım için bir dil paketini karşıdan yükleyebilir) ve başka bir metin okuma motorunu seçebilirsiniz.</string>
+	<string name="prefs_languages_information_off">Bazı diller için uygulama mağazasından (Google Play, Galaxy Store, App Gallery, FDroid) farklı bir konuşma sentezleyicisi veya ek bir dil paketi yüklemeniz gerekebilir. Cihaz ayarları → Dil ve Giriş → Konuşma → Metin Okuma seçeneğini açın. Buradan konuşma sentezi ayarlarını yönetebilir (örneğin, çevrimdışı kullanım için bir dil paketini karşıdan yükleyebilir) ve başka bir metin okuma motorunu seçebilirsiniz.</string>
 	<string name="prefs_languages_information_off_link">Daha fazla bilgi için lütfen bu kılavuzu inceleyin.</string>
 	<string name="transliteration_title">Latin harf çevirisi</string>
 	<string name="learn_more">Daha fazla bilgi edinin</string>
+	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">Çık</string>
 	<string name="routing_add_start_point">Rotayı planlamak için bir başlangıç noktası ekleyin</string>
 	<string name="routing_add_finish_point">Rotayı planlamak için bir varış noktası ekleyin</string>
@@ -697,6 +709,14 @@
 	<string name="enable_show_on_lock_screen">Kilit ekranında göster</string>
 	<!-- Description in preferences -->
 	<string name="enable_show_on_lock_screen_description">Etkinleştirildiğinde, uygulama çalışırken her seferinde cihazınızın kilidini açmanıza gerek kalmaz.</string>
+	<!-- OpenStreetMap text on splash screen -->
+	<string name="splash_subtitle">Harita verileri OpenStreetMap\'ten</string>
+	<!-- Telegram group url for the "?" About page -->
+	<string name="telegram_url">https://t.me/OrganicMapsTR</string>
+	<!-- Instagram account url for the "?" About page -->
+	<string name="instagram_url">https://www.instagram.com/organicmapstr</string>
+	<!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
+	<string name="translated_om_site_url">https://organicmaps.app/tr/</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway">Teleferik</string>
@@ -745,6 +765,8 @@
 	<string name="type.amenity.doctors">Doktor</string>
 	<string name="type.amenity.drinking_water">İçme Suyu</string>
 	<string name="type.amenity.driving_school">Sürücü Kursu</string>
+	<string name="type.amenity.music_school">Müzik Okulu</string>
+	<string name="type.amenity.language_school">Dil Okulu</string>
 	<string name="type.office.diplomatic">Büyükelçilik</string>
 	<string name="type.amenity.fast_food">Hazır Yemek</string>
 	<string name="type.amenity.ferry_terminal">Feribot</string>
@@ -767,17 +789,21 @@
 	<string name="type.amenity.nightclub">Gece Kulübü</string>
 	<string name="type.amenity.nursing_home">Huzurevi</string>
 	<string name="type.amenity.parking">Otopark</string>
-	<string name="type.amenity.parking.fee">Otopark</string>
-	<string name="type.amenity.parking.multi.storey">Otopark</string>
-	<string name="type.amenity.parking.no.access">Otopark</string>
+	<string name="type.amenity.parking.fee">Ücretli Otopark</string>
+	<string name="type.amenity.parking.multi.storey">Çok Katlı Otopark</string>
+	<string name="type.amenity.parking.no.access">Özel Otopark</string>
+	<string name="type.amenity.parking.permissive">Özel Otopark</string>
+	<string name="type.amenity.parking.private">Özel Otopark</string>
 	<string name="type.amenity.parking.park_and_ride">Otopark</string>
-	<string name="type.amenity.parking.permissive">Otopark</string>
-	<string name="type.amenity.parking.private">Otopark</string>
-	<string name="type.amenity.parking.underground">Otopark</string>
+	<string name="type.amenity.parking.underground">Yeraltı otoparkı</string>
+	<string name="type.amenity.parking_entrance.private">Otopark girişi</string>
+	<string name="type.amenity.parking_entrance.permissive">Otopark girişi</string>
+	<string name="type.amenity.parking_entrance">Otopark girişi</string>
 	<string name="type.amenity.parking_space">Park Alanı</string>
 	<string name="type.amenity.parking_space.permissive">Park Alanı</string>
 	<string name="type.amenity.parking_space.private">Park Alanı</string>
 	<string name="type.amenity.parking_space.underground">Park Alanı</string>
+	<string name="type.amenity.parking_space.disabled">Engelli park yeri</string>
 	<string name="type.amenity.payment_terminal">Ödeme Noktası</string>
 	<string name="type.amenity.pharmacy">Eczane</string>
 	<string name="type.amenity.place_of_worship">İbadet Yerleri</string>
@@ -843,10 +869,12 @@
 	<string name="type.barrier.chain">Zincir</string>
 	<string name="type.barrier.city_wall">Şehir Duvarı</string>
 	<string name="type.barrier.cycle_barrier">Bisiklet Bariyeri</string>
+	<string name="type.barrier.ditch">Hendek</string>
 	<string name="type.barrier.entrance">Giriş</string>
 	<string name="type.barrier.fence">Çit</string>
 	<string name="type.barrier.gate">Geçit</string>
 	<string name="type.barrier.hedge">Çit</string>
+	<string name="type.barrier.kissing_gate">Geçit</string>
 	<string name="type.barrier.lift_gate">Asansör Kapısı</string>
 	<string name="type.barrier.retaining_wall">İstinat duvarı</string>
 	<string name="type.barrier.stile">Çit Merdiveni</string>
@@ -886,6 +914,7 @@
 	<string name="type.craft.blacksmith">Demirci</string>
 	<string name="type.craft.brewery">Bira Fabrikası</string>
 	<string name="type.craft.carpenter">Marangoz</string>
+	<string name="type.craft.confectionery">Şekerlemeci</string>
 	<string name="type.craft.electrician">Elektrikçi</string>
 	<string name="type.craft.electronics_repair">Elektronik Tamircisi</string>
 	<string name="type.craft.gardener">Bahçe Düzenleyici</string>
@@ -896,7 +925,9 @@
 	<string name="type.craft.painter">Boyacı</string>
 	<string name="type.craft.photographer">Fotoğraf Stüdyosu</string>
 	<string name="type.craft.plumber">Tesisatçı</string>
+	<string name="type.craft.sawmill">Kereste Fabrikası</string>
 	<string name="type.craft.shoemaker">Ayakkabı Tamircisi</string>
+	<string name="type.craft.winery">Şaraphane</string>
 	<string name="type.craft.tailor">Terzi</string>
 	<string name="type.cuisine.african">Afrika mutfağı</string>
 	<string name="type.cuisine.american">Amerikan mutfağı</string>
@@ -989,6 +1020,7 @@
 	<string name="type.emergency.phone">Acil Telefon</string>
 	<string name="type.entrance">Giriş</string>
 	<string name="type.healthcare.laboratory">Tıbbi Laboratuvar</string>
+	<string name="type.healthcare.physiotherapist">Fizyoterapist</string>
 
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway">Otoyol</string>
@@ -1166,16 +1198,30 @@
 	<string name="type.historic.archaeological_site">Sit Alanı</string>
 	<string name="type.historic.battlefield">Harp Meydanı</string>
 	<string name="type.historic.boundary_stone">Sınır Taşı</string>
-	<string name="type.historic.castle">Kale</string>
-	<string name="type.historic.castle.defensive">Kale</string>
-	<string name="type.historic.castle.stately">Kale</string>
+	<string name="type.historic.castle">Müstahkem şato</string>
+	<string name="type.historic.castle.castrum">Castra</string>
+	<string name="type.historic.castle.defensive">Müstahkem şato</string>
+	<string name="type.historic.castle.fortified_church">Müstahkem kilise</string>
+	<string name="type.historic.castle.fortress">Kale</string>
+	<string name="type.historic.castle.hillfort">Tepe Kalesi</string>
+	<string name="type.historic.castle.kremlin">Kremlin</string>
+	<string name="type.historic.castle.manor">Malikane</string>
+	<string name="type.historic.castle.palace">Saray</string>
+	<string name="type.historic.castle.shiro">Japon kalesi</string>
+	<string name="type.historic.castle.stately">Şato</string>
+	<string name="type.historic.city_gate">Şehir kapısı</string>
 	<string name="type.historic.citywalls">Şehir Duvarı</string>
 	<string name="type.historic.fort">Hisar</string>
+	<string name="type.historic.gallows">Darağacı</string>
 	<string name="type.historic.memorial">Abide</string>
+	<string name="type.historic.memorial.cross">Anıt haç</string>
 	<string name="type.historic.memorial.plaque">Hatıra Plaketi</string>
 	<string name="type.historic.memorial.sculpture">Heykel</string>
 	<string name="type.historic.memorial.statue">Heykel</string>
+	<string name="type.historic.memorial.stolperstein">Tökezleyen Taşlar</string>
+	<string name="type.historic.memorial.war_memorial">Savaş anıtı</string>
 	<string name="type.historic.monument">Anıt</string>
+	<string name="type.historic.pillory">Boyunduruk</string>
 	<string name="type.historic.ruins">Harabeler</string>
 	<string name="type.historic.ship">Görülecek yerler</string>
 	<string name="type.historic.tomb">Türbe</string>
@@ -1226,8 +1272,10 @@
 	<string name="type.leisure.common">Kamu Alanı</string>
 	<string name="type.leisure.dog_park">Köpek Alanı</string>
 	<string name="type.leisure.fitness_centre">Fitness Merkezi</string>
-	<string name="type.leisure.fitness_station">Fitness Salonu</string>
+	<string name="type.leisure.fitness_station">Açık Hava Spor Alanı</string>
+	<string name="type.leisure.dance">Dans salonu</string>
 	<string name="type.leisure.garden">Bahçe</string>
+	<string name="type.leisure.garden.residential">Konut Bahçesi</string>
 	<string name="type.leisure.golf_course">Golf Sahası</string>
 	<string name="type.leisure.ice_rink">Buz Pateni Pisti</string>
 	<string name="type.leisure.landscape_reserve">Peyzaj Rezervi</string>
@@ -1244,10 +1292,8 @@
 	<string name="type.leisure.sauna">Sauna</string>
 	<string name="type.leisure.slipway">Kızak</string>
 	<string name="type.leisure.sports_centre">Spor Merkezi</string>
-	<string name="type.leisure.sports_centre.climbing">Tırmanma Merkezi</string>
-	<string name="type.leisure.sports_centre.shooting">Poligon</string>
-	<string name="type.leisure.sports_centre.swimming">Yüzme Merkezi</string>
-	<string name="type.leisure.sports_centre.yoga">Yoga Stüdyosu</string>
+	<string name="type.sport.climbing">Tırmanma Merkezi</string>
+	<string name="type.sport.yoga">Yoga Stüdyosu</string>
 	<string name="type.leisure.stadium">Stadyum</string>
 	<string name="type.leisure.swimming_pool">Yüzme Havuzu</string>
 	<string name="type.leisure.swimming_pool.private">Yüzme Havuzu</string>
@@ -1327,7 +1373,6 @@
 	<string name="type.office.lawyer">Avukatlık Bürosu</string>
 	<string name="type.office.ngo">STK Binası</string>
 	<string name="type.office.telecommunication">Cep Telefonu Operatörü</string>
-	<string name="type.place">Yer</string>
 	<string name="type.place.city">Şehir</string>
 	<string name="type.place.city.capital">Başkent</string>
 	<string name="type.place.city.capital.10">Şehir</string>
@@ -1410,32 +1455,226 @@
 	<string name="type.railway.station.light_rail">Tren İstasyonu</string>
 	<string name="type.railway.station.monorail">Tren İstasyonu</string>
 	<string name="type.railway.station.subway">Metro</string>
+	<string name="type.railway.station.subway.adana">Metro</string>
+	<string name="type.railway.station.subway.algiers">Metro</string>
+	<string name="type.railway.station.subway.almaty">Metro</string>
+	<string name="type.railway.station.subway.amsterdam">Metro</string>
+	<string name="type.railway.station.subway.ankara">Metro</string>
+	<string name="type.railway.station.subway.athens">Metro</string>
+	<string name="type.railway.station.subway.baku">Metro</string>
+	<string name="type.railway.station.subway.bangkok">Metro</string>
 	<string name="type.railway.station.subway.barcelona">Metro</string>
+	<string name="type.railway.station.subway.beijing">Metro</string>
+	<string name="type.railway.station.subway.bengalore">Metro</string>
 	<string name="type.railway.station.subway.berlin">Metro</string>
+	<string name="type.railway.station.subway.brasilia">Metro</string>
+	<string name="type.railway.station.subway.brescia">Metro</string>
+	<string name="type.railway.station.subway.brussels">Metro</string>
+	<string name="type.railway.station.subway.bucharest">Metro</string>
+	<string name="type.railway.station.subway.budapest">Metro</string>
+	<string name="type.railway.station.subway.buenos_aires">Metro</string>
+	<string name="type.railway.station.subway.bursa">Metro</string>
+	<string name="type.railway.station.subway.cairo">Metro</string>
+	<string name="type.railway.station.subway.caracas">Metro</string>
+	<string name="type.railway.station.subway.catania">Metro</string>
+	<string name="type.railway.station.subway.changchun">Metro</string>
+	<string name="type.railway.station.subway.chengdu">Metro</string>
+	<string name="type.railway.station.subway.chicago">Metro</string>
+	<string name="type.railway.station.subway.chongqing">Metro</string>
+	<string name="type.railway.station.subway.dalian">Metro</string>
+	<string name="type.railway.station.subway.delhi">Metro</string>
+	<string name="type.railway.station.subway.dnepro">Metro</string>
+	<string name="type.railway.station.subway.dubai">Metro</string>
+	<string name="type.railway.station.subway.ekb">Metro</string>
+	<string name="type.railway.station.subway.fukuoka">Metro</string>
+	<string name="type.railway.station.subway.glasgow">Metro</string>
+	<string name="type.railway.station.subway.guangzhou">Metro</string>
+	<string name="type.railway.station.subway.hamburg">Metro</string>
+	<string name="type.railway.station.subway.helsinki">Metro</string>
+	<string name="type.railway.station.subway.hiroshima">Metro</string>
+	<string name="type.railway.station.subway.isfahan">Metro</string>
+	<string name="type.railway.station.subway.istanbul">Metro</string>
+	<string name="type.railway.station.subway.izmir">Metro</string>
+	<string name="type.railway.station.subway.kazan">Metro</string>
+	<string name="type.railway.station.subway.kharkiv">Metro</string>
 	<string name="type.railway.station.subway.kiev">Metro</string>
+	<string name="type.railway.station.subway.kobe">Metro</string>
+	<string name="type.railway.station.subway.kolkata">Metro</string>
+	<string name="type.railway.station.subway.kunming">Metro</string>
+	<string name="type.railway.station.subway.kyoto">Metro</string>
+	<string name="type.railway.station.subway.la">Metro</string>
+	<string name="type.railway.station.subway.lausanne">Metro</string>
+	<string name="type.railway.station.subway.lille">Metro</string>
+	<string name="type.railway.station.subway.lima">Metro</string>
+	<string name="type.railway.station.subway.lisboa">Metro</string>
 	<string name="type.railway.station.subway.london">Metro</string>
+	<string name="type.railway.station.subway.lyon">Metro</string>
 	<string name="type.railway.station.subway.madrid">Metro</string>
+	<string name="type.railway.station.subway.malaga">Metro</string>
+	<string name="type.railway.station.subway.manila">Metro</string>
+	<string name="type.railway.station.subway.maracaibo">Metro</string>
+	<string name="type.railway.station.subway.mashhad">Metro</string>
+	<string name="type.railway.station.subway.mecca">Metro</string>
+	<string name="type.railway.station.subway.medellin">Metro</string>
+	<string name="type.railway.station.subway.mexico">Metro</string>
+	<string name="type.railway.station.subway.milan">Metro</string>
 	<string name="type.railway.station.subway.minsk">Metro</string>
+	<string name="type.railway.station.subway.montreal">Metro</string>
 	<string name="type.railway.station.subway.moscow">Metro</string>
+	<string name="type.railway.station.subway.munchen">Metro</string>
+	<string name="type.railway.station.subway.nagoya">Metro</string>
 	<string name="type.railway.station.subway.newyork">Metro</string>
+	<string name="type.railway.station.subway.nnov">Metro</string>
+	<string name="type.railway.station.subway.novosibirsk">Metro</string>
+	<string name="type.railway.station.subway.osaka">Metro</string>
+	<string name="type.railway.station.subway.oslo">Metro</string>
+	<string name="type.railway.station.subway.palma">Metro</string>
+	<string name="type.railway.station.subway.panama">Metro</string>
 	<string name="type.railway.station.subway.paris">Metro</string>
+	<string name="type.railway.station.subway.philadelphia">Metro</string>
+	<string name="type.railway.station.subway.pyongyang">Metro</string>
+	<string name="type.railway.station.subway.rennes">Metro</string>
+	<string name="type.railway.station.subway.rio">Metro</string>
 	<string name="type.railway.station.subway.roma">Metro</string>
+	<string name="type.railway.station.subway.rotterdam">Metro</string>
+	<string name="type.railway.station.subway.samara">Metro</string>
+	<string name="type.railway.station.subway.santiago">Metro</string>
+	<string name="type.railway.station.subway.santo_domingo">Metro</string>
+	<string name="type.railway.station.subway.saopaulo">Metro</string>
+	<string name="type.railway.station.subway.sapporo">Metro</string>
+	<string name="type.railway.station.subway.sendai">Metro</string>
+	<string name="type.railway.station.subway.sf">Metro</string>
+	<string name="type.railway.station.subway.shanghai">Metro</string>
+	<string name="type.railway.station.subway.shiraz">Metro</string>
+	<string name="type.railway.station.subway.sofia">Metro</string>
 	<string name="type.railway.station.subway.spb">Metro</string>
+	<string name="type.railway.station.subway.stockholm">Metro</string>
+	<string name="type.railway.station.subway.tabriz">Metro</string>
+	<string name="type.railway.station.subway.taipei">Metro</string>
+	<string name="type.railway.station.subway.taoyuan">Metro</string>
+	<string name="type.railway.station.subway.tashkent">Metro</string>
+	<string name="type.railway.station.subway.tbilisi">Metro</string>
+	<string name="type.railway.station.subway.tianjin">Metro</string>
+	<string name="type.railway.station.subway.tokyo">Metro</string>
+	<string name="type.railway.station.subway.valencia">Metro</string>
+	<string name="type.railway.station.subway.vienna">Metro</string>
+	<string name="type.railway.station.subway.warszawa">Metro</string>
+	<string name="type.railway.station.subway.washington">Metro</string>
+	<string name="type.railway.station.subway.wuhan">Metro</string>
+	<string name="type.railway.station.subway.yerevan">Metro</string>
+	<string name="type.railway.station.subway.yokohama">Metro</string>
 	<string name="type.railway.subway">Metro Hattı</string>
 	<string name="type.railway.subway.bridge">Metro Hattı</string>
 	<string name="type.railway.subway.tunnel">Metro Hattı</string>
 	<string name="type.railway.subway_entrance">Metro Girişi</string>
-	<string name="type.railway.subway_entrance.barcelona">Metro</string>
-	<string name="type.railway.subway_entrance.berlin">Metro</string>
-	<string name="type.railway.subway_entrance.kiev">Metro</string>
-	<string name="type.railway.subway_entrance.london">Metro</string>
-	<string name="type.railway.subway_entrance.madrid">Metro</string>
-	<string name="type.railway.subway_entrance.minsk">Metro</string>
-	<string name="type.railway.subway_entrance.moscow">Metro</string>
-	<string name="type.railway.subway_entrance.newyork">Metro</string>
-	<string name="type.railway.subway_entrance.paris">Metro</string>
-	<string name="type.railway.subway_entrance.roma">Metro</string>
-	<string name="type.railway.subway_entrance.spb">Metro</string>
+	<string name="type.railway.subway_entrance.adana">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.algiers">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.almaty">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.amsterdam">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.ankara">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.athens">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.baku">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.bangkok">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.barcelona">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.beijing">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.bengalore">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.berlin">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.brasilia">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.brescia">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.brussels">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.bucharest">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.budapest">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.buenos_aires">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.bursa">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.cairo">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.caracas">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.catania">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.changchun">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.chengdu">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.chicago">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.chongqing">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.dalian">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.delhi">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.dnepro">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.dubai">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.ekb">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.fukuoka">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.glasgow">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.guangzhou">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.hamburg">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.helsinki">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.hiroshima">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.isfahan">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.istanbul">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.izmir">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.kazan">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.kharkiv">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.kiev">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.kobe">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.kolkata">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.kunming">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.kyoto">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.la">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.lausanne">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.lille">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.lima">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.lisboa">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.london">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.lyon">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.madrid">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.malaga">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.manila">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.maracaibo">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.mashhad">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.mecca">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.medellin">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.mexico">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.milan">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.minsk">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.montreal">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.moscow">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.munchen">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.nagoya">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.newyork">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.nnov">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.novosibirsk">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.osaka">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.oslo">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.palma">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.panama">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.paris">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.philadelphia">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.pyongyang">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.rennes">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.rio">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.roma">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.rotterdam">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.samara">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.santiago">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.santo_domingo">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.saopaulo">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.sapporo">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.sendai">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.sf">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.shanghai">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.shiraz">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.sofia">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.spb">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.stockholm">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.tabriz">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.taipei">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.taoyuan">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.tashkent">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.tbilisi">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.tianjin">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.tokyo">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.valencia">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.vienna">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.warszawa">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.washington">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.wuhan">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.yerevan">Metro Girişi</string>
+	<string name="type.railway.subway_entrance.yokohama">Metro Girişi</string>
 	<string name="type.railway.tram">Tramvay Hattı</string>
 	<string name="type.railway.tram.bridge">Tramvay Hattı</string>
 	<string name="type.railway.tram.tunnel">Tramvay Hattı</string>
@@ -1483,7 +1722,7 @@
 	<string name="type.shop.garden_centre">Bahçe Mağazası</string>
 	<string name="type.shop.gift">Hediyelik Eşya Mağazası</string>
 	<string name="type.shop.greengrocer">Manav</string>
-	<string name="type.shop.grocery">Bakkal</string>
+	<string name="type.shop.grocery">Market</string>
 	<string name="type.shop.hairdresser">Kuaför</string>
 	<string name="type.shop.hardware">Donanım mağazası</string>
 	<string name="type.shop.health_food">Sağlık Gıda Mağazası</string>
@@ -1552,7 +1791,9 @@
 	<string name="type.sport.australian_football">Avustralya futbolu</string>
 	<string name="type.sport.baseball">Beyzbol</string>
 	<string name="type.sport.basketball">Basketbol</string>
+	<string name="type.sport.beachvolleyball">Plaj voleybolu</string>
 	<string name="type.sport.bowls">Kuka Oynu</string>
+	<string name="type.sport.chess">Satranç</string>
 	<string name="type.sport.cricket">Kriket</string>
 	<string name="type.sport.curling">Körling</string>
 	<string name="type.sport.equestrian">Binicilik Sporları</string>
@@ -1563,10 +1804,21 @@
 	<!-- Used to tag a scuba diving site. -->
 	<string name="type.sport.scuba_diving">Tüplü Dalış</string>
 	<string name="type.sport.shooting">Çekim</string>
+	<string name="type.sport.skateboard">Kaykay</string>
 	<string name="type.sport.skiing">Kayak yapmak</string>
 	<string name="type.sport.soccer">Futbol</string>
 	<string name="type.sport.swimming">Yüzme</string>
+	<string name="type.sport.table_tennis">Masa tenisi</string>
 	<string name="type.sport.tennis">Tenis Kortu</string>
+	<string name="type.sport.volleyball">Voleybol</string>
+	<string name="type.sport.10pin">Bowling</string>
+	<string name="type.sport.9pin">Bowling</string>
+	<string name="type.sport.padel">Padel</string>
+	<string name="type.sport.futsal">Futsal</string>
+	<string name="type.sport.ice_hockey">Buz Hokeyi</string>
+	<string name="type.sport.field_hockey">Çim Hokeyi</string>
+	<string name="type.sport.badminton">Badminton</string>
+	<string name="type.sport.pelota">Bask pelotası</string>
 	<string name="type.tourism">Turizm</string>
 	<string name="type.tourism.alpine_hut">Dağda Konaklama</string>
 	<string name="type.tourism.apartment">Apart Otel</string>
@@ -1576,7 +1828,7 @@
 	<string name="type.tourism.artwork.sculpture">Heykel</string>
 	<string name="type.tourism.artwork.statue">Heykel</string>
 	<string name="type.tourism.attraction">Görülecek Yerler</string>
-	<string name="type.tourism.attraction.animal">Görülecek Yerler</string>
+	<string name="type.tourism.attraction.animal">Hayvanat bahçesi</string>
 	<string name="type.tourism.attraction.specified">Görülecek Yerler</string>
 	<string name="type.tourism.camp_site">Kamp Alanı</string>
 	<string name="type.tourism.caravan_site">Karavan Parkı</string>
@@ -1598,9 +1850,9 @@
 	<string name="type.tourism.viewpoint">Manzara</string>
 	<string name="type.tourism.wilderness_hut">Vahşi Doğa Kulübesi</string>
 	<string name="type.tourism.zoo">Hayvanat Bahçesi</string>
-	<string name="type.traffic_calming">Hız Kesici (Tümsek)</string>
-	<string name="type.traffic_calming.bump">Hız Kesici (Tümsek)</string>
-	<string name="type.traffic_calming.hump">Hız Kesici (Tümsek)</string>
+	<string name="type.traffic_calming">Hız Kesici (Kasis)</string>
+	<string name="type.traffic_calming.bump">Hız Kesici (Kasis)</string>
+	<string name="type.traffic_calming.hump">Hız Kesici (Kasis)</string>
 	<string name="type.waterway">Su Yolu</string>
 	<string name="type.waterway.canal">Kanal</string>
 	<string name="type.waterway.canal.tunnel">Kanal</string>
@@ -1610,7 +1862,7 @@
 	<string name="type.waterway.dock">Rıhtım</string>
 	<string name="type.waterway.drain">Lağım</string>
 	<string name="type.waterway.drain.tunnel">Lağım</string>
-	<string name="type.waterway.lock_gate">Kilit Kapısı</string>
+	<string name="type.waterway.lock_gate">Eklüz Kapağı</string>
 	<string name="type.waterway.river">Nehir</string>
 	<string name="type.waterway.river.tunnel">Nehir</string>
 	<string name="type.waterway.riverbank">Nehir</string>
@@ -1624,12 +1876,11 @@
 	<string name="type.wheelchair.limited">Sınırlı tekerlekli sandalye erişimi</string>
 	<string name="type.wheelchair.no">Tekerlekli sandalye erişimi yok</string>
 	<string name="type.wheelchair.yes">Tekerlekli sandalye erişimi var</string>
-	<!-- en.wikipedia.org/wiki/Surface_lift -->
-	<string name="type.piste_lift">Kayak Teleferiği</string>
-	<string name="type.piste_lift.j.bar">Kayak Teleferiği</string>
-	<string name="type.piste_lift.magic_carpet">Kayak Teleferiği</string>
-	<string name="type.piste_lift.platter">Tabak Asansörü</string>
-	<string name="type.piste_lift.rope_tow">Çekme Halatı</string>
+	<string name="type.aerialway.j.bar">Kayak Teleferiği</string>
+	<string name="type.aerialway.magic_carpet">Kayak Teleferiği</string>
+	<string name="type.aerialway.platter">Tabak Asansörü</string>
+	<string name="type.aerialway.rope_tow">Çekme Halatı</string>
+	<string name="type.aerialway.t.bar">Kayakçı teleferiği</string>
 	<string name="type.piste_type">Kayakçı Taşıyıcı</string>
 	<string name="type.piste_type.downhill">Yokuş Aşağı Kayak Pisti</string>
 	<string name="type.piste_type.downhill.advanced">Gelişmiş kayak pisti</string>

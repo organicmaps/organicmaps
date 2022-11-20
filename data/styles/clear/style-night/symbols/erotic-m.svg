@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>erotic-m</title>
-    <g id="Page-2:-Night" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.6">
-        <g id="erotic-m" fill-rule="nonzero">
-            <circle id="Oval" fill="#FFFFFF" cx="12" cy="12" r="12"></circle>
-            <circle id="Oval" fill="#8C5F93" cx="12" cy="12" r="11"></circle>
-            <path d="M12.6,6 L12.6,7.8 L15,7.8 L12.50625,10.29375 C11.8429842,9.85540026 11.054538,9.6 10.2,9.6 C7.8804,9.6 6,11.4804 6,13.8 C6,16.1196 7.8804,18 10.2,18 C12.5196,18 14.4,16.1196 14.4,13.8 C14.4,12.945462 14.1445998,12.1570158 13.70625,11.49375 L16.2,9 L16.2,11.4 L18,11.4 L18,7.8 L18,6 L16.2,6 L12.6,6 Z M10.2,11.4 C11.5254,11.4 12.6,12.4746 12.6,13.8 C12.6,15.1254 11.5254,16.2 10.2,16.2 C8.8746,16.2 7.8,15.1254 7.8,13.8 C7.8,12.4746 8.8746,11.4 10.2,11.4 Z" id="Shape" fill="#FFFFFF"></path>
-        </g>
-    </g>
+<svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+ <title>erotic-m</title>
+ <g id="Page-2:-Night" fill="none" fill-rule="evenodd" opacity=".6">
+  <g id="erotic-m" fill-rule="nonzero">
+   <circle id="Oval" cx="12" cy="12" r="12" fill="#fff"/>
+   <circle id="Oval" cx="12" cy="12" r="11" fill="#8C5F93"/>
+   <path id="Shape" d="m12.6 6v1.8h2.4l-2.4938 2.4938c-0.66327-0.43835-1.4517-0.69375-2.3062-0.69375-2.3196 0-4.2 1.8804-4.2 4.2s1.8804 4.2 4.2 4.2 4.2-1.8804 4.2-4.2c0-0.85454-0.2554-1.643-0.69375-2.3062l2.4938-2.4938v2.4h1.8v-3.6-1.8h-1.8-3.6zm-2.4 5.4c1.3254 0 2.4 1.0746 2.4 2.4s-1.0746 2.4-2.4 2.4-2.4-1.0746-2.4-2.4 1.0746-2.4 2.4-2.4z" fill="#fff"/>
+  </g>
+ </g>
 </svg>

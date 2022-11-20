@@ -131,6 +131,8 @@
 	<string name="recycling">Ανακύκλωση</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
 	<string name="water">Νερό</string>
+	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
+	<string name="rv">Για RV</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Σημειώσεις</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -165,8 +167,6 @@
 	<string name="copied_to_clipboard">Αντιγράφηκε στο Πρόχειρο: %1$s</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">Ολοκληρώθηκε</string>
-	<!-- Prints version number in About dialog -->
-	<string name="version">Έκδοση: %s</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">Δεδομένα OpenStreetMap: %s</string>
 	<!-- Confirmation in downloading countries dialog -->
@@ -217,6 +217,8 @@
 	<string name="help">Βοήθεια</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">Ερωτήσεις και απαντήσεις</string>
+	<!-- Button in the main menu -->
+	<string name="donate">Προσφέρω</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">Πώς να μας υποστηρίξετε;</string>
 	<!-- Button in the main Help dialog -->
@@ -336,7 +338,6 @@
 	<string name="routing_arrive">Άφιξη στις %s</string>
 	<string name="categories">Κατηγορίες</string>
 	<string name="history">Ιστορικό</string>
-	<string name="closed">Κλειστό</string>
 	<string name="search_not_found">Ωχ, δεν βρέθηκαν αποτελέσματα.</string>
 	<string name="search_not_found_query">Δοκιμάστε να αλλάξετε τα κριτήρια αναζήτησής σας.</string>
 	<string name="search_history_title">Ιστορικό αναζήτησης</string>
@@ -380,14 +381,15 @@
 	<string name="day_off_today">Κλειστό σήμερα</string>
 	<string name="day_off">Κλειστό</string>
 	<string name="today">Σήμερα</string>
+	<string name="closed">Κλειστό</string>
 	<string name="edit_opening_hours">Επεξεργαστείτε τις ώρες λειτουργίας</string>
 	<string name="no_osm_account">Δεν έχετε λογαριασμό OpenStreetMap;</string>
-	<string name="register_at_openstreetmap">Εγγραφείτε στο OSM</string>
+	<string name="register_at_openstreetmap">Εγγραφείτε στο OpenStreetMap</string>
 	<string name="login">Σύνδεση</string>
+	<string name="login_osm">Συνδεθείτε στο OpenStreetMap</string>
 	<string name="password">Κωδικός πρόσβασης</string>
 	<string name="forgot_password">Ξαχάσατε τον κωδικό πρόσβασης;</string>
 	<string name="logout">Αποσύνδεση</string>
-	<string name="thank_you">Σας ευχαριστούμε</string>
 	<string name="edit_place">Επεξεργασία μέρους</string>
 	<string name="add_language">Προσθήκη γλώσσας</string>
 	<string name="street">Οδός</string>
@@ -404,6 +406,7 @@
 	<string name="select_cuisine">Επιλέξτε κουζίνα</string>
 	<!-- login text field -->
 	<string name="email_or_username">Email ή όνομα χρήστη</string>
+	<string name="level">Όροφος</string>
 	<string name="downloader_delete_map_dialog">Όλες οι αλλαγές που έχετε κάνει στο χάρτη θα διαγραφούν μαζί με το χάρτη.</string>
 	<string name="downloader_update_maps">Ενημέρωση χαρτών</string>
 	<string name="downloader_mwm_migration_dialog">Για να δημιουργήσετε μια διαδρομή, πρέπει να ενημερώσετε όλους τους χάρτες και στη συνέχεια να σχεδιάσετε τη διαδρομή ξανά.</string>
@@ -422,6 +425,7 @@
 	<string name="editor_report_problem_other_title">Διαφορετικό πρόβλημα</string>
 	<string name="placepage_add_business_button">Προσθήκη επιχείρησης</string>
 	<string name="message_invalid_feature_position">Δε μπορεί να εντοπιστεί αντικείμενο εδώ</string>
+	<string name="osm_presentation">Όλα τα δεδομένα χάρτη προέρχονται από το έργο OpenStreetMap. Μοιάζει με τη Wikipedia για χάρτες όπου μπορείτε να προσθέσετε ή να επεξεργαστείτε μέρη και γίνονται διαθέσιμα σε εκατομμύρια χρήστες σε όλο τον κόσμο.</string>
 	<string name="login_to_make_edits_visible">Συνδεθείτε ώστε άλλοι χρήστες να μπορούν να δουν τις αλλαγές που έχετε κάνει</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d από %2$d</string>
@@ -449,7 +453,6 @@
 	<string name="current_location_unknown_continue_button">Συνέχεια</string>
 	<string name="current_location_unknown_stop_button">Στοπ</string>
 	<string name="placepage_more_button">Περισσότερα</string>
-	<string name="placepage_more_reviews_button">Περισσότερα σχόλια</string>
 	<string name="placepage_call_button">Κλήση</string>
 	<string name="placepage_edit_bookmark_button">Επεξεργασία αγαπημένου</string>
 	<string name="editor_comment_hint">Σχόλιο…</string>
@@ -465,17 +468,15 @@
 	<string name="placepage_add_place_button">Να προστεθεί η τοποθεσία στο χάρτη</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Θέλετε να το στείλετε σε όλους τους χρήστες;</string>
-	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Βεβαιωθείτε ότι δεν έχετε εισάγει προσωπικά δεδομένα.</string>
-	<string name="editor_share_to_all_dialog_message_2">Θα ελέγξουμε τις αλλαγές. Εάν έχουμε οποιαδήποτε απορία θα επικοινωνήσουμε μαζί σας μέσω email.</string>
+	<string name="editor_share_to_all_dialog_message_2">Οι συντάκτες του OpenStreetMap θα ελέγξουν τις αλλαγές και θα επικοινωνήσουν μαζί σας εάν έχουν απορίες.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Οι Organic Maps είναι μια δωρεάν και ανοιχτού κώδικα εφαρμογή χαρτών εκτός σύνδεσης. Χωρίς διαφημίσεις. Χωρίς εντοπισμό. Εάν δείτε κάποιο σφάλμα στον χάρτη, διορθώστε το στο OpenStreetMap. Το έργο δημιουργείται από λάτρεις στον ελεύθερο χρόνο μας, επομένως χρειαζόμαστε τα σχόλια και την υποστήριξή σας.</string>
 	<!-- For the first routing -->
 	<string name="accept">Συμφωνώ</string>
 	<!-- For the first routing -->
 	<string name="decline">Διαφωνώ</string>
-	<!-- A noun - a button name used to show search results in list form -->
-	<string name="search_in_table">Λίστα</string>
 	<string name="mobile_data_dialog">Θέλετε να χρησιμοποιήσετε το δίκτυο κινητής τηλεφωνίας για να εμφανίσετε αναλυτικές πληροφορίες;</string>
 	<string name="mobile_data_option_always">Να χρησιμοποιείται πάντα</string>
 	<string name="mobile_data_option_today">Μόνο σήμερα</string>
@@ -496,10 +497,11 @@
 	<string name="on">Ενεργ.</string>
 	<string name="off">Απενεργ.</string>
 	<string name="prefs_languages_information">Χρησιμοποιούμε σύστημα TTS για τις φωνητικές οδηγίες. Αρκετές συσκευές Android χρησιμοποιούν Google TTS, μπορείτε να το κατεβάσετε ή να το ενημερώσετε από το Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">Για μερικές γλώσσες θα χρειαστεί να εγκαταστήσετε συνθεσάιζερ ομιλίας ή συμπληρωματικό πακέτο γλώσσας από το app store (Google Play, Samsung Apps, App Gallery, FDroid).\nΑνοίξτε τις Ρυθμίσεις της συσκευής σας → Γλώσσα και εισαγωγή → Ομιλία → Μετατροπή κειμένου σε ομιλία.\nΕδώ μπορείτε να διαχειριστείτε τις ρυθμίσεις της σύνθεσης ομιλίας (για παράδειγμα, μπορείτε να κατεβάσετε πακέτο γλώσσας για χρήση εκτός σύνδεσης) και να επιλέξετε άλλη μηχανή μετατροπής κειμένου σε ομιλία.</string>
+	<string name="prefs_languages_information_off">Για μερικές γλώσσες θα χρειαστεί να εγκαταστήσετε συνθεσάιζερ ομιλίας ή συμπληρωματικό πακέτο γλώσσας από το app store (Google Play, Galaxy Store, App Gallery, FDroid).\nΑνοίξτε τις Ρυθμίσεις της συσκευής σας → Γλώσσα και εισαγωγή → Ομιλία → Μετατροπή κειμένου σε ομιλία.\nΕδώ μπορείτε να διαχειριστείτε τις ρυθμίσεις της σύνθεσης ομιλίας (για παράδειγμα, μπορείτε να κατεβάσετε πακέτο γλώσσας για χρήση εκτός σύνδεσης) και να επιλέξετε άλλη μηχανή μετατροπής κειμένου σε ομιλία.</string>
 	<string name="prefs_languages_information_off_link">Για περισσότερες πληροφορίες δείτε αυτό τον οδηγό.</string>
 	<string name="transliteration_title">Μεταγραφή στα Λατινικά</string>
 	<string name="learn_more">Μάθετε περισσότερα</string>
+	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">Έξοδος</string>
 	<string name="routing_add_start_point">Προσθέστε αφετηρία για να σχεδιάσετε μια διαδρομή</string>
 	<string name="routing_add_finish_point">Προσθέστε τελικό προορισμό, για να σχεδιάσετε μια διαδρομή</string>
@@ -654,6 +656,8 @@
 	<string name="enable_screen_sleep">Αφήστε την οθόνη να κοιμηθεί</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Όταν είναι ενεργοποιημένη, η οθόνη θα αφεθεί να κοιμηθεί μετά από περίοδο αδράνειας.</string>
+	<!-- OpenStreetMap text on splash screen -->
+	<string name="splash_subtitle">Δεδομένα χάρτη από το OpenStreetMap</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway">Τελεφερίκ</string>
@@ -694,6 +698,8 @@
 	<string name="type.amenity.doctors">Γιατροί</string>
 	<string name="type.amenity.drinking_water">Πόσιμο νερό</string>
 	<string name="type.amenity.driving_school">Σχολή οδήγησης</string>
+	<string name="type.amenity.music_school">Μουσική Σχολή</string>
+	<string name="type.amenity.language_school">Σχολή Γλωσσών</string>
 	<string name="type.office.diplomatic">Πρεσβεία</string>
 	<string name="type.amenity.fast_food">Ταχυφαγίο</string>
 	<string name="type.amenity.ferry_terminal">Πορθμείο</string>
@@ -715,17 +721,21 @@
 	<string name="type.amenity.nightclub">Νυχτερινό κέντρο διασκέδασης</string>
 	<string name="type.amenity.nursing_home">Γηροκομείο</string>
 	<string name="type.amenity.parking">Χώρος στάθμευσης</string>
-	<string name="type.amenity.parking.fee">Χώρος στάθμευσης</string>
-	<string name="type.amenity.parking.multi.storey">Χώρος στάθμευσης</string>
-	<string name="type.amenity.parking.no.access">Χώρος στάθμευσης</string>
+	<string name="type.amenity.parking.fee">Χώρος στάθμευσης επί πληρωμή</string>
+	<string name="type.amenity.parking.multi.storey">Πολυώροφος χώρος στάθμευσης</string>
+	<string name="type.amenity.parking.no.access">Ιδιωτικός χώρος στάθμευσης</string>
+	<string name="type.amenity.parking.permissive">Ιδιωτικός χώρος στάθμευσης</string>
+	<string name="type.amenity.parking.private">Ιδιωτικός χώρος στάθμευσης</string>
 	<string name="type.amenity.parking.park_and_ride">Χώρος στάθμευσης</string>
-	<string name="type.amenity.parking.permissive">Χώρος στάθμευσης</string>
-	<string name="type.amenity.parking.private">Χώρος στάθμευσης</string>
-	<string name="type.amenity.parking.underground">Χώρος στάθμευσης</string>
+	<string name="type.amenity.parking.underground">Υπόγειος χώρος στάθμευσης</string>
+	<string name="type.amenity.parking_entrance.private">Είσοδος στάθμευσης</string>
+	<string name="type.amenity.parking_entrance.permissive">Είσοδος στάθμευσης</string>
+	<string name="type.amenity.parking_entrance">Είσοδος στάθμευσης</string>
 	<string name="type.amenity.parking_space">Χώρος στάθμευσης</string>
 	<string name="type.amenity.parking_space.permissive">Χώρος στάθμευσης</string>
 	<string name="type.amenity.parking_space.private">Χώρος στάθμευσης</string>
 	<string name="type.amenity.parking_space.underground">Χώρος στάθμευσης</string>
+	<string name="type.amenity.parking_space.disabled">Χώρος στάθμευσης για ΑΜΕΑ</string>
 	<string name="type.amenity.payment_terminal">Τερματικό πληρωμών</string>
 	<string name="type.amenity.pharmacy">Φαρμακείο</string>
 	<string name="type.amenity.place_of_worship">Χώρος λατρείας</string>
@@ -775,8 +785,11 @@
 	<string name="type.barrier.block">Εμπόδιο</string>
 	<string name="type.barrier.bollard">Πυλώνας</string>
 	<string name="type.barrier.border_control">Έλεγχος συνόρων</string>
+	<string name="type.barrier.city_wall">Τείχος της πόλης</string>
+	<string name="type.barrier.ditch">Τάφρος</string>
 	<string name="type.barrier.entrance">Είσοδος</string>
 	<string name="type.barrier.gate">Πύλη</string>
+	<string name="type.barrier.kissing_gate">Πύλη</string>
 	<string name="type.barrier.lift_gate">Ανυψούμενη μπάρα</string>
 	<string name="type.barrier.stile">Τουρνικέ</string>
 	<string name="type.barrier.swing_gate">Ανυψούμενη μπάρα</string>
@@ -788,17 +801,25 @@
 	<string name="type.building.has_parts">Κτίριο</string>
 	<string name="type.building.train_station">Σιδηροδρομικός σταθμός</string>
 	<string name="type.cemetery.grave">Τάφος</string>
+	<string name="type.craft">Τεχνική</string>
+	<string name="type.craft.beekeeper">Μελισσοκόμος</string>
+	<string name="type.craft.blacksmith">Σιδηρουργός</string>
 	<string name="type.craft.brewery">Ζυθοποιείο</string>
 	<string name="type.craft.carpenter">Ξυλουργός</string>
+	<string name="type.craft.confectionery">Ζαχαροπλάστης</string>
 	<string name="type.craft.electrician">Ηλεκτρολόγος</string>
+	<string name="type.craft.electronics_repair">Επισκευή ηλεκτρονικών</string>
 	<string name="type.craft.gardener">Κηπουρός</string>
+	<string name="type.craft.handicraft">Χειροτεχνία</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Ψυκτικός</string>
 	<string name="type.craft.metal_construction">Μεταλλουργός</string>
 	<string name="type.craft.painter">Μπογιατζής</string>
 	<string name="type.craft.photographer">Φωτογράφος</string>
 	<string name="type.craft.plumber">Υδραυλικός</string>
+	<string name="type.craft.sawmill">Πριστήριο</string>
 	<string name="type.craft.shoemaker">Υποδηματοποιός</string>
+	<string name="type.craft.winery">Οινοποιείο</string>
 	<string name="type.craft.tailor">Ράφτης</string>
 	<string name="type.cuisine.african">Αφρικανική</string>
 	<string name="type.cuisine.american">Αμερικάνικη</string>
@@ -890,6 +911,7 @@
 	<string name="type.emergency.phone">Τηλέφωνο έκτακτης ανάγκης</string>
 	<string name="type.entrance">Είσοδος</string>
 	<string name="type.healthcare.laboratory">Ιατρικό Εργαστήριο</string>
+	<string name="type.healthcare.physiotherapist">Φυσικοθεραπευτής</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1055,18 +1077,39 @@
 	<string name="type.area_highway.unclassified">Οδός</string>
 
 	<!-- SECTION: Types: Historic -->
+	<string name="type.historic">Ιστορικό αντικείμενο</string>
 	<string name="type.historic.archaeological_site">Αρχαιολογικός χώρος</string>
+	<string name="type.historic.battlefield">Πεδίο μάχης</string>
+	<string name="type.historic.boundary_stone">Οριακή πέτρα</string>
 	<string name="type.historic.castle">Κάστρο</string>
+	<string name="type.historic.castle.castrum">Ρωμαϊκό κάστρο</string>
 	<string name="type.historic.castle.defensive">Κάστρο</string>
+	<string name="type.historic.castle.fortified_church">Οχυρωμένη εκκλησία</string>
+	<string name="type.historic.castle.fortress">Φρούριο</string>
+	<string name="type.historic.castle.hillfort">Φρούριο</string>
+	<string name="type.historic.castle.kremlin">Κρεμλίνο</string>
+	<string name="type.historic.castle.manor">Αρχοντικό</string>
+	<string name="type.historic.castle.palace">Παλάτι</string>
+	<string name="type.historic.castle.shiro">Ιαπωνικό κάστρο</string>
 	<string name="type.historic.castle.stately">Κάστρο</string>
+	<string name="type.historic.city_gate">Πύλη της πόλης</string>
+	<string name="type.historic.citywalls">Τείχος της πόλης</string>
+	<string name="type.historic.fort">Φορτ</string>
+	<string name="type.historic.gallows">Αγχόνη</string>
 	<string name="type.historic.memorial">Μνημείο</string>
+	<string name="type.historic.memorial.cross">Σταυρός μνήμης</string>
 	<string name="type.historic.memorial.plaque">Μνημείο</string>
 	<string name="type.historic.memorial.sculpture">Μνημείο</string>
 	<string name="type.historic.memorial.statue">Μνημείο</string>
+	<string name="type.historic.memorial.stolperstein">Λίθοι Μνήμης</string>
+	<string name="type.historic.memorial.war_memorial">Μνημείο του Αγνώστου Στρατιώτη</string>
 	<string name="type.historic.monument">Μνημείο</string>
+	<string name="type.historic.pillory">Κύφωνας</string>
 	<string name="type.historic.ruins">Ερείπια</string>
 	<string name="type.historic.ship">Αξιοθέατο</string>
 	<string name="type.historic.tomb">Αξιοθέατο</string>
+	<string name="type.historic.wayside_cross">Σταυρός στην άκρη του δρόμου</string>
+	<string name="type.historic.wayside_shrine">Εικονοστάσιο στην άκρη του δρόμου</string>
 	<string name="type.internet_access">Ίντερνετ</string>
 	<string name="type.internet_access.wlan">Ίντερνετ</string>
 	<string name="type.landuse.basin">Μια λεκάνη νερού</string>
@@ -1087,7 +1130,9 @@
 	<string name="type.leisure.dog_park">Περιοχή για βόλτα σκύλων</string>
 	<string name="type.leisure.fitness_centre">Κέντρο γυμναστικής</string>
 	<string name="type.leisure.fitness_station">Γυμναστήριο</string>
+	<string name="type.leisure.dance">Αίθουσα χορού</string>
 	<string name="type.leisure.garden">Κήπος αναψυχής</string>
+	<string name="type.leisure.garden.residential">Κήπος αναψυχής</string>
 	<string name="type.leisure.golf_course">Γήπεδο γκολφ</string>
 	<string name="type.leisure.nature_reserve">Φυσικό απόθεμα</string>
 	<string name="type.leisure.park">Πάρκο</string>
@@ -1099,10 +1144,8 @@
 	<string name="type.leisure.playground">Παιδική χαρά</string>
 	<string name="type.leisure.sauna">Σάουνα</string>
 	<string name="type.leisure.sports_centre">Αθλητικό κέντρο</string>
-	<string name="type.leisure.sports_centre.climbing">Κέντρο αναρρίχησης</string>
-	<string name="type.leisure.sports_centre.shooting">Σκοπευτήριο</string>
-	<string name="type.leisure.sports_centre.swimming">Κολυμβητήριο</string>
-	<string name="type.leisure.sports_centre.yoga">Στούντιο γιόγκα</string>
+	<string name="type.sport.climbing">Κέντρο αναρρίχησης</string>
+	<string name="type.sport.yoga">Στούντιο γιόγκα</string>
 	<string name="type.leisure.stadium">Γήπεδο</string>
 	<string name="type.leisure.swimming_pool">Πισίνα</string>
 	<string name="type.leisure.swimming_pool.private">Πισίνα</string>
@@ -1129,6 +1172,7 @@
 	<string name="type.natural.earth_bank">Γκρεμός</string>
 	<string name="type.man_made.embankment">Ανάχωμα</string>
 	<string name="type.natural.coastline">Ακτή</string>
+	<string name="type.natural.desert">Ερημος</string>
 	<string name="type.natural.geyser">Θερμοπίδακας</string>
 	<string name="type.natural.glacier">Παγετώνας</string>
 	<string name="type.natural.grassland">Βοσκότοποι</string>
@@ -1184,10 +1228,13 @@
 	<string name="type.place.hamlet">Χωριουδάκι</string>
 	<string name="type.place.island">Νησί</string>
 	<string name="type.place.islet">Νησί</string>
+	<string name="type.place.isolated_dwelling">Απομονωμένη κατοικία</string>
 	<string name="type.place.locality">Τοποθεσία</string>
+	<string name="type.place.neighbourhood">Γειτονιά</string>
 	<string name="type.place.ocean">Ωκεανός</string>
 	<string name="type.place.region">Περιοχή</string>
 	<string name="type.place.sea">Θάλασσα</string>
+	<string name="type.place.square">Πλατεία</string>
 	<string name="type.place.state">Πολιτεία</string>
 	<string name="type.place.state.USA">Πολιτεία</string>
 	<string name="type.place.suburb">Προάστιο</string>
@@ -1204,29 +1251,223 @@
 	<string name="type.railway.station.light_rail">Σιδηροδρομικός σταθμός</string>
 	<string name="type.railway.station.monorail">Σιδηροδρομικός σταθμός</string>
 	<string name="type.railway.station.subway">Μετρό</string>
+	<string name="type.railway.station.subway.adana">Μετρό</string>
+	<string name="type.railway.station.subway.algiers">Μετρό</string>
+	<string name="type.railway.station.subway.almaty">Μετρό</string>
+	<string name="type.railway.station.subway.amsterdam">Μετρό</string>
+	<string name="type.railway.station.subway.ankara">Μετρό</string>
+	<string name="type.railway.station.subway.athens">Μετρό</string>
+	<string name="type.railway.station.subway.baku">Μετρό</string>
+	<string name="type.railway.station.subway.bangkok">Μετρό</string>
 	<string name="type.railway.station.subway.barcelona">Μετρό</string>
+	<string name="type.railway.station.subway.beijing">Μετρό</string>
+	<string name="type.railway.station.subway.bengalore">Μετρό</string>
 	<string name="type.railway.station.subway.berlin">Μετρό</string>
+	<string name="type.railway.station.subway.brasilia">Μετρό</string>
+	<string name="type.railway.station.subway.brescia">Μετρό</string>
+	<string name="type.railway.station.subway.brussels">Μετρό</string>
+	<string name="type.railway.station.subway.bucharest">Μετρό</string>
+	<string name="type.railway.station.subway.budapest">Μετρό</string>
+	<string name="type.railway.station.subway.buenos_aires">Μετρό</string>
+	<string name="type.railway.station.subway.bursa">Μετρό</string>
+	<string name="type.railway.station.subway.cairo">Μετρό</string>
+	<string name="type.railway.station.subway.caracas">Μετρό</string>
+	<string name="type.railway.station.subway.catania">Μετρό</string>
+	<string name="type.railway.station.subway.changchun">Μετρό</string>
+	<string name="type.railway.station.subway.chengdu">Μετρό</string>
+	<string name="type.railway.station.subway.chicago">Μετρό</string>
+	<string name="type.railway.station.subway.chongqing">Μετρό</string>
+	<string name="type.railway.station.subway.dalian">Μετρό</string>
+	<string name="type.railway.station.subway.delhi">Μετρό</string>
+	<string name="type.railway.station.subway.dnepro">Μετρό</string>
+	<string name="type.railway.station.subway.dubai">Μετρό</string>
+	<string name="type.railway.station.subway.ekb">Μετρό</string>
+	<string name="type.railway.station.subway.fukuoka">Μετρό</string>
+	<string name="type.railway.station.subway.glasgow">Μετρό</string>
+	<string name="type.railway.station.subway.guangzhou">Μετρό</string>
+	<string name="type.railway.station.subway.hamburg">Μετρό</string>
+	<string name="type.railway.station.subway.helsinki">Μετρό</string>
+	<string name="type.railway.station.subway.hiroshima">Μετρό</string>
+	<string name="type.railway.station.subway.isfahan">Μετρό</string>
+	<string name="type.railway.station.subway.istanbul">Μετρό</string>
+	<string name="type.railway.station.subway.izmir">Μετρό</string>
+	<string name="type.railway.station.subway.kazan">Μετρό</string>
+	<string name="type.railway.station.subway.kharkiv">Μετρό</string>
 	<string name="type.railway.station.subway.kiev">Μετρό</string>
+	<string name="type.railway.station.subway.kobe">Μετρό</string>
+	<string name="type.railway.station.subway.kolkata">Μετρό</string>
+	<string name="type.railway.station.subway.kunming">Μετρό</string>
+	<string name="type.railway.station.subway.kyoto">Μετρό</string>
+	<string name="type.railway.station.subway.la">Μετρό</string>
+	<string name="type.railway.station.subway.lausanne">Μετρό</string>
+	<string name="type.railway.station.subway.lille">Μετρό</string>
+	<string name="type.railway.station.subway.lima">Μετρό</string>
+	<string name="type.railway.station.subway.lisboa">Μετρό</string>
 	<string name="type.railway.station.subway.london">Μετρό</string>
+	<string name="type.railway.station.subway.lyon">Μετρό</string>
 	<string name="type.railway.station.subway.madrid">Μετρό</string>
+	<string name="type.railway.station.subway.malaga">Μετρό</string>
+	<string name="type.railway.station.subway.manila">Μετρό</string>
+	<string name="type.railway.station.subway.maracaibo">Μετρό</string>
+	<string name="type.railway.station.subway.mashhad">Μετρό</string>
+	<string name="type.railway.station.subway.mecca">Μετρό</string>
+	<string name="type.railway.station.subway.medellin">Μετρό</string>
+	<string name="type.railway.station.subway.mexico">Μετρό</string>
+	<string name="type.railway.station.subway.milan">Μετρό</string>
 	<string name="type.railway.station.subway.minsk">Μετρό</string>
+	<string name="type.railway.station.subway.montreal">Μετρό</string>
 	<string name="type.railway.station.subway.moscow">Μετρό</string>
+	<string name="type.railway.station.subway.munchen">Μετρό</string>
+	<string name="type.railway.station.subway.nagoya">Μετρό</string>
 	<string name="type.railway.station.subway.newyork">Μετρό</string>
+	<string name="type.railway.station.subway.nnov">Μετρό</string>
+	<string name="type.railway.station.subway.novosibirsk">Μετρό</string>
+	<string name="type.railway.station.subway.osaka">Μετρό</string>
+	<string name="type.railway.station.subway.oslo">Μετρό</string>
+	<string name="type.railway.station.subway.palma">Μετρό</string>
+	<string name="type.railway.station.subway.panama">Μετρό</string>
 	<string name="type.railway.station.subway.paris">Μετρό</string>
+	<string name="type.railway.station.subway.philadelphia">Μετρό</string>
+	<string name="type.railway.station.subway.pyongyang">Μετρό</string>
+	<string name="type.railway.station.subway.rennes">Μετρό</string>
+	<string name="type.railway.station.subway.rio">Μετρό</string>
 	<string name="type.railway.station.subway.roma">Μετρό</string>
+	<string name="type.railway.station.subway.rotterdam">Μετρό</string>
+	<string name="type.railway.station.subway.samara">Μετρό</string>
+	<string name="type.railway.station.subway.santiago">Μετρό</string>
+	<string name="type.railway.station.subway.santo_domingo">Μετρό</string>
+	<string name="type.railway.station.subway.saopaulo">Μετρό</string>
+	<string name="type.railway.station.subway.sapporo">Μετρό</string>
+	<string name="type.railway.station.subway.sendai">Μετρό</string>
+	<string name="type.railway.station.subway.sf">Μετρό</string>
+	<string name="type.railway.station.subway.shanghai">Μετρό</string>
+	<string name="type.railway.station.subway.shiraz">Μετρό</string>
+	<string name="type.railway.station.subway.sofia">Μετρό</string>
 	<string name="type.railway.station.subway.spb">Μετρό</string>
+	<string name="type.railway.station.subway.stockholm">Μετρό</string>
+	<string name="type.railway.station.subway.tabriz">Μετρό</string>
+	<string name="type.railway.station.subway.taipei">Μετρό</string>
+	<string name="type.railway.station.subway.taoyuan">Μετρό</string>
+	<string name="type.railway.station.subway.tashkent">Μετρό</string>
+	<string name="type.railway.station.subway.tbilisi">Μετρό</string>
+	<string name="type.railway.station.subway.tianjin">Μετρό</string>
+	<string name="type.railway.station.subway.tokyo">Μετρό</string>
+	<string name="type.railway.station.subway.valencia">Μετρό</string>
+	<string name="type.railway.station.subway.vienna">Μετρό</string>
+	<string name="type.railway.station.subway.warszawa">Μετρό</string>
+	<string name="type.railway.station.subway.washington">Μετρό</string>
+	<string name="type.railway.station.subway.wuhan">Μετρό</string>
+	<string name="type.railway.station.subway.yerevan">Μετρό</string>
+	<string name="type.railway.station.subway.yokohama">Μετρό</string>
 	<string name="type.railway.subway_entrance">Είσοδος μετρό</string>
-	<string name="type.railway.subway_entrance.barcelona">Μετρό</string>
-	<string name="type.railway.subway_entrance.berlin">Μετρό</string>
-	<string name="type.railway.subway_entrance.kiev">Μετρό</string>
-	<string name="type.railway.subway_entrance.london">Μετρό</string>
-	<string name="type.railway.subway_entrance.madrid">Μετρό</string>
-	<string name="type.railway.subway_entrance.minsk">Μετρό</string>
-	<string name="type.railway.subway_entrance.moscow">Μετρό</string>
-	<string name="type.railway.subway_entrance.newyork">Μετρό</string>
-	<string name="type.railway.subway_entrance.paris">Μετρό</string>
-	<string name="type.railway.subway_entrance.roma">Μετρό</string>
-	<string name="type.railway.subway_entrance.spb">Μετρό</string>
+	<string name="type.railway.subway_entrance.adana">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.algiers">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.almaty">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.amsterdam">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.ankara">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.athens">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.baku">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.bangkok">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.barcelona">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.beijing">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.bengalore">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.berlin">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.brasilia">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.brescia">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.brussels">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.bucharest">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.budapest">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.buenos_aires">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.bursa">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.cairo">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.caracas">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.catania">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.changchun">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.chengdu">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.chicago">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.chongqing">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.dalian">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.delhi">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.dnepro">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.dubai">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.ekb">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.fukuoka">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.glasgow">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.guangzhou">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.hamburg">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.helsinki">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.hiroshima">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.isfahan">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.istanbul">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.izmir">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.kazan">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.kharkiv">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.kiev">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.kobe">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.kolkata">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.kunming">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.kyoto">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.la">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.lausanne">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.lille">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.lima">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.lisboa">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.london">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.lyon">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.madrid">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.malaga">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.manila">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.maracaibo">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.mashhad">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.mecca">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.medellin">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.mexico">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.milan">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.minsk">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.montreal">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.moscow">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.munchen">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.nagoya">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.newyork">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.nnov">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.novosibirsk">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.osaka">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.oslo">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.palma">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.panama">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.paris">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.philadelphia">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.pyongyang">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.rennes">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.rio">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.roma">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.rotterdam">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.samara">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.santiago">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.santo_domingo">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.saopaulo">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.sapporo">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.sendai">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.sf">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.shanghai">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.shiraz">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.sofia">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.spb">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.stockholm">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.tabriz">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.taipei">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.taoyuan">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.tashkent">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.tbilisi">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.tianjin">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.tokyo">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.valencia">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.vienna">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.warszawa">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.washington">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.wuhan">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.yerevan">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.yokohama">Είσοδος μετρό</string>
 	<string name="type.railway.tram_stop">Στάση τραμ</string>
 	<string name="type.shop">Κατάστημα</string>
 	<string name="type.shop.alcohol">Κάβα</string>
@@ -1333,6 +1574,8 @@
 	<string name="type.sport.australian_football">Αυστραλιανό ποδόσφαιρο</string>
 	<string name="type.sport.baseball">Μπέιζμπολ</string>
 	<string name="type.sport.basketball">Μπάσκετ</string>
+	<string name="type.sport.beachvolleyball">Μπιτς βόλεϊ</string>
+	<string name="type.sport.chess">Σκάκι</string>
 	<string name="type.sport.curling">Κέρλινγκ</string>
 	<string name="type.sport.equestrian">Ιππασία</string>
 	<string name="type.sport.golf">Γκολφ</string>
@@ -1342,10 +1585,21 @@
 	<!-- Used to tag a scuba diving site. -->
 	<string name="type.sport.scuba_diving">Κατάδυση</string>
 	<string name="type.sport.shooting">Κυνήγι</string>
+	<string name="type.sport.skateboard">Σκέιτμπορντινγκ</string>
 	<string name="type.sport.skiing">Χιονοδρόμια</string>
 	<string name="type.sport.soccer">Ποδόσφαιρο</string>
 	<string name="type.sport.swimming">Κολύμβηση</string>
+	<string name="type.sport.table_tennis">Επιτραπέζια αντισφαίριση</string>
 	<string name="type.sport.tennis">Γήπεδο τένις</string>
+	<string name="type.sport.volleyball">Πετοσφαίριση</string>
+	<string name="type.sport.10pin">Μπόουλινγκ</string>
+	<string name="type.sport.9pin">Μπόουλινγκ</string>
+	<string name="type.sport.padel">Padel</string>
+	<string name="type.sport.futsal">Futsal</string>
+	<string name="type.sport.ice_hockey">Χόκεϊ στον παγο</string>
+	<string name="type.sport.field_hockey">Χόκεϊ επί χόρτου</string>
+	<string name="type.sport.badminton">Αντιπτέριση</string>
+	<string name="type.sport.pelota">Βασκική πελότα</string>
 	<string name="type.tourism.alpine_hut">Ορεινό καταφύγιο</string>
 	<string name="type.tourism.apartment">Διαμερίσματα</string>
 	<string name="type.tourism.artwork">Έργα τέχνης</string>

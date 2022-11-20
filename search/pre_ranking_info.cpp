@@ -7,22 +7,26 @@ namespace search
 std::string DebugPrint(PreRankingInfo const & info)
 {
   std::ostringstream os;
-  os << "PreRankingInfo [";
-  os << "m_distanceToPivot: " << info.m_distanceToPivot << ", ";
-  for (size_t i = 0; i < static_cast<size_t>(Model::TYPE_COUNT); ++i)
+  os << std::boolalpha << "PreRankingInfo "
+     << "{ m_distanceToPivot: " << info.m_distanceToPivot
+     << ", m_tokenRanges [ ";
+  for (size_t i = 0; i < Model::TYPE_COUNT; ++i)
   {
     if (info.m_tokenRanges[i].Empty())
       continue;
 
     auto const type = static_cast<Model::Type>(i);
-    os << "m_tokenRanges[" << DebugPrint(type) << "]:" << DebugPrint(info.m_tokenRanges[i]) << ", ";
+    os << DebugPrint(type) << " : " << DebugPrint(info.m_tokenRanges[i]) << ", ";
   }
-  os << "m_allTokensUsed: " << info.m_allTokensUsed << ", ";
-  os << "m_exactMatch: " << info.m_exactMatch << ", ";
-  os << "m_rank: " << static_cast<int>(info.m_rank) << ", ";
-  os << "m_popularity: " << static_cast<int>(info.m_popularity) << ", ";
-  os << "m_type:" << info.m_type;
-  os << "]";
+  os << " ]"
+     << ", m_rank: " << static_cast<int>(info.m_rank)
+     << ", m_popularity: " << static_cast<int>(info.m_popularity)
+     << ", m_type: " << static_cast<int>(info.m_type)
+     << ", m_allTokensUsed: " << info.m_allTokensUsed
+     << ", m_exactMatch: " << info.m_exactMatch
+     << ", m_isCommonMatchOnly: " << info.m_isCommonMatchOnly
+     << " }";
+
   return os.str();
 }
 }  // namespace search

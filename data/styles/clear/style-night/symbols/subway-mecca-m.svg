@@ -1,8 +1,8 @@
-<svg width="24" height="24" viewBox="0 0 24 24">
-  <g fill="none">
-    <rect width="24" height="24" fill="#FFF" opacity=".4"/>
-    <rect width="22" height="22" x="1" y="1" fill="#A3A3A3"/>
-    <polygon fill="#000" points="18 12 2 21 2 2 18 2"/>
-    <path fill="#0D3C73" d="M19,22 L13,22 L19,15.1428571 L19,2 L22,2 L22,22 L19,22 Z"/>
-  </g>
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+ <g>
+  <rect width="24" height="24" fill="#FFF" opacity=".4"/>
+  <rect x="1" y="1" width="22" height="22" fill="#A3A3A3"/>
+  <polygon points="18 12 2 21 2 2 18 2"/>
+  <path d="m19 22h-6l6-6.8571v-13.143h3v20h-3z" fill="#0D3C73"/>
+ </g>
 </svg>

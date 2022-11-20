@@ -6,7 +6,6 @@
 #include "editor/editable_data_source.hpp"
 
 #include "indexer/data_header.hpp"
-#include "indexer/feature.hpp"
 #include "indexer/mwm_set.hpp"
 
 #include "platform/country_file.hpp"
@@ -28,16 +27,12 @@ class TestWithCustomMwms : public TestWithClassificator
 {
 public:
   TestWithCustomMwms();
-
   ~TestWithCustomMwms() override;
 
   // Creates a physical country file on a disk, which will be removed
   // at the end of the test. |fn| is a delegate that accepts a single
   // argument - TestMwmBuilder and adds all necessary features to the
   // country file.
-  //
-  // *NOTE* when |type| is feature::DataHeader::MapType::Country, the country
-  // with |name| will be automatically registered.
   template <typename BuildFn>
   MwmSet::MwmId BuildMwm(std::string name, feature::DataHeader::MapType type, BuildFn && fn)
   {
@@ -60,34 +55,24 @@ public:
     return id;
   }
 
-  void DeregisterMap(std::string const & name)
-  {
-    auto const file = platform::CountryFile(name);
-    auto it = base::FindIf(m_files, [&file](platform::LocalCountryFile const & f) {
-      return f.GetCountryFile() == file;
-    });
-
-    if (it == m_files.end())
-      return;
-
-    m_dataSource.DeregisterMap(file);
-    Cleanup(*it);
-    m_files.erase(it);
-  }
+  void DeregisterMap(std::string const & name);
 
   template <typename BuildFn>
   MwmSet::MwmId BuildWorld(BuildFn && fn)
   {
-    return BuildMwm("testWorld", feature::DataHeader::MapType::World, std::forward<BuildFn>(fn));
+    return BuildMwm("testWorld", feature::DataHeader::MapType::World, fn);
   }
 
   template <typename BuildFn>
   MwmSet::MwmId BuildCountry(std::string_view name, BuildFn && fn)
   {
-    return BuildMwm(std::string(name), feature::DataHeader::MapType::Country, std::forward<BuildFn>(fn));
+    return BuildMwm(std::string(name), feature::DataHeader::MapType::Country, fn);
   }
 
-  void SetMwmVersion(uint32_t version);
+  void SetMwmVersion(uint32_t version) { m_version = version; }
+
+  void RegisterLocalMapsInViewport(m2::RectD const & viewport);
+  void RegisterLocalMapsByPrefix(std::string const & prefix);
 
 protected:
   static void Cleanup(platform::LocalCountryFile const & file);

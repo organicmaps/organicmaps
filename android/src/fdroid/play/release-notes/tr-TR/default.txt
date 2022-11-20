@@ -1,10 +1,12 @@
-• Desen çizgileri güzelleştirildi (bazı eski cihazlarda çökmeyi de düzeltir)
-• Mekan Sayfası stili güncellendi
-• Harita/bilgi panoları için simgeler
-• Kategori aramasındaki gereksiz kelimeler düzeltildi
-• Arama sonuçlarında "süre sonra açılıyor/kapanıyor” gösteriliyor
-• Mevcut tüm sporlar aranabilir hale getirildi
-• amenity=parking, düzenleyici aracılığıyla haritaya eklenebilir
-• 16+ zum seviyesinde place=square görünürlüğü düzeltildi
-
-Daha fazla ayrıntı için organicmaps.app/news
+• Yeni OSM harita verileri (29 Ekim) 
+• Geliştirilmiş konum algılama
+• Boş bir yere dokununca daha iyi tam ekran
+• Birçok arayüz ve performans iyileştirmesi
+• Çökmeler düzeltildi
+• Android 13+'te uygulama dilini değiştirme
+• Daha iyi yol yükseklik tablosu
+• Yürüme, bisiklet, metro için "kaçınılacak yollar" seçeneği eklendi
+• Geliştirilmiş harita üzerinde ve köylerde arama
+• Yeni zanaat ve tarih türleri eklendi
+• Birçok şehir için yeni metro simgeleri
+…dahası: omaps.app/news

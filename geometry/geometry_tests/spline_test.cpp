@@ -5,6 +5,8 @@
 
 #include <vector>
 
+namespace spline_test
+{
 using namespace std;
 
 using m2::Spline;
@@ -208,4 +210,4 @@ UNIT_TEST(Length)
   double len2 = l1 + l2 + l3 + l4;
   TEST_ALMOST_EQUAL_ULPS(len1, len2, ());
 }
-
+}  // namespace spline_test

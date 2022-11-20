@@ -4,7 +4,6 @@ set(SRC
   header.hpp
   loader.cpp
   loader.hpp
-  serdes.cpp
   serdes.hpp
 )
 

@@ -54,7 +54,7 @@
 
 "close" = "Sluiten";
 
-"download" = "Download";
+"download" = "Downloaden";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
 "continue_download" = "Doorgaan";
@@ -93,7 +93,7 @@
 "eat" = "Waar iets gaan eten";
 
 /* Search category for grocery stores; any changes should be duplicated in categories.txt @food! */
-"food" = "Kruidenierswinkels";
+"food" = "Boodschappen";
 
 /* Search category for public transport; any changes should be duplicated in categories.txt @transport! */
 "transport" = "Transport";
@@ -153,7 +153,7 @@
 "water" = "Water";
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
-"rv" = "RV Facilities";
+"rv" = "Caravan faciliteiten";
 
 "share_bookmarks_email_body" = "Hallo!\n\nBijgesloten zijn mijn bladwijzers uit de Organic Maps app. Open ze als je Organic Maps geïnstalleerd hebt. Of, als je dat niet hebt, download de app voor je iOS- of Android-apparaat door deze link te volgen: https://omaps.app/get?kmz\n\nGeniet van het reizen met Organic Maps!";
 
@@ -282,11 +282,11 @@
 /* Text in menu */
 "instagram" = "Instagram";
 
+/* Text in the editor */
+"vk" = "VK";
+
 /* Text in menu */
 "openstreetmap" = "OpenStreetMap";
-
-/* Settings: Send feedback button and dialog title */
-"feedback" = "Feedback";
 
 /* Text in menu */
 "rate_the_app" = "App beoordelen";
@@ -296,6 +296,9 @@
 
 /* Button in the main Help dialog */
 "faq" = "Vragen en antwoorden";
+
+/* Button in the main menu */
+"donate" = "Doneren";
 
 /* Button in the main Help dialog */
 "how_to_support_us" = "Hoe ons te steunen?";
@@ -503,12 +506,6 @@
 
 "history" = "Geschiedenis";
 
-"opens_in" = "Opens in %@";
-
-"closes_in" = "Closes in %@";
-
-"closed" = "Gesloten";
-
 "search_not_found" = "Sorry, ik heb niets gevonden.";
 
 "search_not_found_query" = "Probeer een andere zoekopdracht.";
@@ -518,6 +515,12 @@
 "search_history_text" = "Snel toegang tot recente zoekopdrachten.";
 
 "clear_search" = "Zoekgeschiedenis wissen";
+
+/* Place Page link to Wikipedia article (if map object has it). */
+"read_in_wikipedia" = "Wikipedia";
+
+/* Place Page link to Wikimedia Commons. */
+"wikimedia_commons" = "Wikimedia Commons";
 
 "p2p_your_location" = "Uw locatie";
 
@@ -578,6 +581,20 @@
 
 "today" = "Vandaag";
 
+"opens_tomorrow_at" = "Opent morgen om %@";
+
+"opens_dayoftheweek_at" = "Opent %1$@ om %2$@";
+
+"opens_at" = "Opent om %@";
+
+"opens_in" = "Opent over %@";
+
+"closes_at" = "Sluit om %@";
+
+"closes_in" = "Sluit over %@";
+
+"closed" = "Gesloten";
+
 "add_opening_hours" = "Openingsuren toevoegen";
 
 "no_osm_account" = "Geen account bij OpenStreetMap?";
@@ -629,6 +646,8 @@
 "email_or_username" = "Emailadres of gebruikersnaam";
 
 "phone" = "Telefoonnummer";
+
+"level" = "Etage";
 
 "please_note" = "Opgelet";
 
@@ -750,6 +769,8 @@
 
 "miles_per_hour" = "mph";
 
+"hour" = "u";
+
 "minute" = "min";
 
 "placepage_place_description" = "Beschrijving";
@@ -798,10 +819,10 @@
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Wil je het naar alle gebruikers sturen?";
 
-/* iOS Dialog before publishing the modifications to the public map. */
+/* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "Controleer dat je geen persoonlijke gegevens hebt ingevoerd.";
 
-"editor_share_to_all_dialog_message_2" = "We zullen de wijzigingen controleren. Als we nog vragen hebben, zullen we contact met je opnemen via email.";
+"editor_share_to_all_dialog_message_2" = "OpenStreetMap-editors zullen de wijzigingen controleren en contact met u opnemen als ze vragen hebben.";
 
 "navigation_stop_button" = "stoppen";
 
@@ -856,16 +877,14 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Verkeersgegevens zijn niet beschikbaar";
 
-/* Settings: "Send general feedback" button */
-"feedback_general" = "Algemene Feedback";
-
 "on" = "Aan";
 
 "off" = "Uit";
 
 "transliteration_title" = "Transliteratie in het Latijn";
 
-"core_exit" = "Verlaten";
+/* Subway exits for public transport marks on the map */
+"core_exit" = "Uitgang";
 
 "routing_add_start_point" = "Voeg beginpunt toe om een route te plannen";
 
@@ -948,7 +967,7 @@
 
 "title_error_downloading_bookmarks" = "Er is een fout opgetreden";
 
-"popular_place" = "Popular";
+"popular_place" = "Populair";
 
 "export_file" = "Bestand exporteren";
 
@@ -1037,10 +1056,10 @@
 "no" = "Nee";
 
 /* E.g. "WiFi:Yes" */
-"yes_available" = "Ja";
+"yes_available" = "ja";
 
 /* E.g. "WiFi:No" */
-"no_available" = "Nee";
+"no_available" = "nee";
 
 "trip_finished" = "U bent aangekomen!";
 
@@ -1194,53 +1213,62 @@
 "whats_new_auto_update_button_later" = "Later handmatig bijwerken";
 
 /* Delete track button on track edit screen */
-"placepage_delete_track_button" = "Delete Track";
+"placepage_delete_track_button" = "Verwijder traject";
 
 /* Placeholder for track name input on track edit screen */
-"placepage_track_name_hint" = "Track Name";
+"placepage_track_name_hint" = "Trajectnaam";
 
 /* move track or bookmark from the list button text */
-"move" = "Move";
+"move" = "Verplaats";
 
 /* edit track screen title */
 "track_title" = "Track";
 
+/* Telegram group url for the "?" About page */
+"telegram_url" = "https://t.me/OrganicMapsApp";
+
+/* Instagram account url for the "?" About page */
+"instagram_url" = "https://www.instagram.com/organicmaps.app";
+
+/* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
+"translated_om_site_url" = "https://organicmaps.app/";
+
 
 /********** Types **********/
 
-"type.aerialway" = "Aerialway";
+"type.aerialway" = "Kabelbaan";
 
-"type.aerialway.cable_car" = "Aerialway";
+"type.aerialway.cable_car" = "Cabinelift";
 
-"type.aerialway.chair_lift" = "Aerialway";
+"type.aerialway.chair_lift" = "Stoeltjeslift";
 
-"type.aerialway.drag_lift" = "Aerialway";
+"type.aerialway.drag_lift" = "Sleeplift";
 
-"type.aerialway.gondola" = "Aerialway";
+"type.aerialway.gondola" = "Gondelbaan";
 
-"type.aerialway.mixed_lift" = "Aerialway";
+"type.aerialway.mixed_lift" = "Gecombineerde kabelbaan";
 
 "type.aerialway.station" = "Kabelwagenstation";
 
-"type.aeroway" = "Airspace Infrastructure";
+"type.aeroway" = "Luchtvaartinfrastructuur";
 
 "type.aeroway.aerodrome" = "Vliegveld";
 
 "type.aeroway.aerodrome.international" = "Vliegveld";
 
-"type.aeroway.apron" = "Apron";
+"type.aeroway.apron" = "Platform";
 
 "type.aeroway.gate" = "Gate";
 
 "type.aeroway.helipad" = "Heliplatform";
 
-"type.aeroway.runway" = "Runway";
+"type.aeroway.runway" = "Startbaan";
 
-"type.aeroway.taxiway" = "Taxiway";
+"type.aeroway.taxiway" = "Taxibaan";
 
 "type.aeroway.terminal" = "Terminal";
 
-"type.amenity" = "Infrastructuur objecten";
+"type.amenity" = "Voorzieningen";
 
 "type.amenity.arts_centre" = "Kunstcentrum";
 
@@ -1250,7 +1278,7 @@
 
 "type.amenity.bar" = "Bar";
 
-"type.amenity.bbq" = "Picnicplaats";
+"type.amenity.bbq" = "Barbecueplaats";
 
 "type.amenity.bench" = "Zitbank";
 
@@ -1260,7 +1288,7 @@
 
 "type.amenity.bicycle_repair_station" = "Fiets reparatie station";
 
-"type.amenity.biergarten" = "Biergarten";
+"type.amenity.biergarten" = "Biertuin";
 
 "type.amenity.brothel" = "Bordeel";
 
@@ -1268,13 +1296,13 @@
 
 "type.amenity.bus_station" = "Busstation";
 
-"type.amenity.cafe" = "Tearoom";
+"type.amenity.cafe" = "Café";
 
 "type.amenity.car_rental" = "Autoverhuur";
 
 "type.amenity.car_sharing" = "Autodelen";
 
-"type.amenity.car_wash" = "Car wash";
+"type.amenity.car_wash" = "Car Wash";
 
 "type.amenity.casino" = "Casino";
 
@@ -1288,7 +1316,7 @@
 
 "type.amenity.college" = "Hogeschool";
 
-"type.amenity.community_centre" = "Wijkcentrum";
+"type.amenity.community_centre" = "Gemeenschapscentrum";
 
 "type.amenity.courthouse" = "Rechtbank";
 
@@ -1299,6 +1327,10 @@
 "type.amenity.drinking_water" = "Drinkwater";
 
 "type.amenity.driving_school" = "Rijschool";
+
+"type.amenity.music_school" = "Muziekschool";
+
+"type.amenity.language_school" = "Taalschool";
 
 "type.office.diplomatic" = "Ambassade";
 
@@ -1315,18 +1347,18 @@
 "type.amenity.fuel" = "Tankstation";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
-"type.amenity.grave_yard" = "Begraafplaats";
+"type.amenity.grave_yard" = "Kerkhof";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
-"type.amenity.grave_yard.christian" = "Begraafplaats";
+"type.amenity.grave_yard.christian" = "Christelijk kerkhof";
 
 "type.amenity.hospital" = "Ziekenhuis";
 
 "type.amenity.hunting_stand" = "Jaagplek";
 
-"type.amenity.ice_cream" = "Ijsstand";
+"type.amenity.ice_cream" = "IJssalon";
 
-"type.amenity.internet_cafe" = "Internetcafe";
+"type.amenity.internet_cafe" = "Internetcafé";
 
 "type.amenity.kindergarten" = "Kleuterschool";
 
@@ -1336,33 +1368,41 @@
 
 "type.amenity.motorcycle_parking" = "Parking Motorfietsen";
 
-"type.amenity.nightclub" = "Discotheek";
+"type.amenity.nightclub" = "Nachtclub";
 
 "type.amenity.nursing_home" = "Bejaardentehuis";
 
 "type.amenity.parking" = "Parkeerplaats";
 
-"type.amenity.parking.fee" = "Parkeerplaats";
+"type.amenity.parking.fee" = "Betaald parkeren";
 
-"type.amenity.parking.multi.storey" = "Parkeerplaats";
+"type.amenity.parking.multi.storey" = "Parkeren met meerdere verdiepingen";
 
-"type.amenity.parking.no.access" = "Parkeerplaats";
+"type.amenity.parking.no.access" = "Privé parkeerplaats";
 
-"type.amenity.parking.park_and_ride" = "Parkeerplaats";
+"type.amenity.parking.permissive" = "Privé parkeerplaats";
 
-"type.amenity.parking.permissive" = "Parkeerplaats";
+"type.amenity.parking.private" = "Privé parkeerplaats";
 
-"type.amenity.parking.private" = "Parkeerplaats";
+"type.amenity.parking.park_and_ride" = "Parkeerplaats P+R";
 
-"type.amenity.parking.underground" = "Parkeerplaats";
+"type.amenity.parking.underground" = "Ondergrondse parking";
 
-"type.amenity.parking_space" = "Parkeerplaats";
+"type.amenity.parking_entrance.private" = "Parkeeringang";
 
-"type.amenity.parking_space.permissive" = "Parkeerplaats";
+"type.amenity.parking_entrance.permissive" = "Parkeeringang";
 
-"type.amenity.parking_space.private" = "Parkeerplaats";
+"type.amenity.parking_entrance" = "Parkeeringang";
 
-"type.amenity.parking_space.underground" = "Parkeerplaats";
+"type.amenity.parking_space" = "Parkeerplek";
+
+"type.amenity.parking_space.permissive" = "Parkeerplek";
+
+"type.amenity.parking_space.private" = "Privé parkeerplek";
+
+"type.amenity.parking_space.underground" = "Ondergrondse parkeerplek";
+
+"type.amenity.parking_space.disabled" = "Invalide parkeerplaats";
 
 "type.amenity.payment_terminal" = "Betaalautomaat";
 
@@ -1390,7 +1430,7 @@
 
 "type.amenity.post_office" = "Postkantoor";
 
-"type.amenity.prison" = "Prison";
+"type.amenity.prison" = "Gevangenis";
 
 "type.amenity.pub" = "Kroeg";
 
@@ -1421,19 +1461,19 @@
 
 "type.recycling.small_appliances" = "Elektronisch afval";
 
-"type.recycling.cardboard" = "Cardboard";
+"type.recycling.cardboard" = "Karton";
 
-"type.recycling.cans" = "Cans";
+"type.recycling.cans" = "Blikafval";
 
-"type.recycling.shoes" = "Shoes";
+"type.recycling.shoes" = "Schoenen";
 
-"type.recycling.green_waste" = "Green/Organic Waste";
+"type.recycling.green_waste" = "GFT afval";
 
-"type.recycling.cartons" = "Bewerage Cartons";
+"type.recycling.cartons" = "Drankverpakkingen";
 
 "type.amenity.restaurant" = "Restaurant";
 
-"type.amenity.sanitary_dump_station" = "Holding Tank Dump Station";
+"type.amenity.sanitary_dump_station" = "Caravantoilet cassette-leegpunt";
 
 "type.amenity.school" = "School";
 
@@ -1447,49 +1487,49 @@
 
 "type.amenity.theatre" = "Theater";
 
-"type.amenity.toilets" = "Toilet";
+"type.amenity.toilets" = "Toiletten";
 
 "type.amenity.townhall" = "Gemeentehuis";
 
 "type.amenity.university" = "Universiteit";
 
-"type.amenity.vending_machine" = "Vending Machine";
+"type.amenity.vending_machine" = "Automaat";
 
 "type.amenity.vending_machine.cigarettes" = "Sigarettenautomaat";
 
-"type.amenity.vending_machine.coffee" = "Coffee Dispenser";
+"type.amenity.vending_machine.coffee" = "Koffieautomaat";
 
-"type.amenity.vending_machine.condoms" = "Condoms Dispenser";
+"type.amenity.vending_machine.condoms" = "Condoomautomaat";
 
 "type.amenity.vending_machine.drinks" = "Drankautomaat";
 
-"type.amenity.vending_machine.food" = "Food Dispenser";
+"type.amenity.vending_machine.food" = "Etenswarenautomaat";
 
-"type.amenity.vending_machine.newspapers" = "Newspapers Dispenser";
+"type.amenity.vending_machine.newspapers" = "Krantenautomaat";
 
-"type.amenity.vending_machine.parking_tickets" = "Betaalautomaat parkeergarage";
+"type.amenity.vending_machine.parking_tickets" = "Betaalautomaat parkeerplaats";
 
 "type.amenity.vending_machine.public_transport_tickets" = "Kaartjesautomaat voor openbaar vervoer";
 
-"type.amenity.vending_machine.sweets" = "Sweets Dispenser";
+"type.amenity.vending_machine.sweets" = "Snoepautomaat";
 
-"type.amenity.vending_machine.excrement_bags" = "Excrement Bags Dispenser";
+"type.amenity.vending_machine.excrement_bags" = "Hondenpoepzakjesdispenser";
 
-"type.amenity.parcel_locker" = "Parcel Locker";
+"type.amenity.parcel_locker" = "Pakketjeskluis";
 
-"type.amenity.vending_machine.fuel" = "Fuel Dispenser";
+"type.amenity.vending_machine.fuel" = "Tankautomaat";
 
 "type.amenity.veterinary" = "Dierenarts";
 
 "type.amenity.waste_basket" = "Vuilnisbak";
 
-"type.amenity.waste_disposal" = "Uitschot";
+"type.amenity.waste_disposal" = "Vuilcontainer";
 
-"type.amenity.waste_transfer_station" = "Waste Transfer Station";
+"type.amenity.waste_transfer_station" = "Overslagstation voor afval";
 
 "type.amenity.water_point" = "Waterpunt";
 
-"type.barrier" = "Barrier";
+"type.barrier" = "Barrière";
 
 "type.barrier.block" = "Blok";
 
@@ -1497,23 +1537,27 @@
 
 "type.barrier.border_control" = "Grenscontrole";
 
-"type.barrier.chain" = "Chain";
+"type.barrier.chain" = "Ketting";
 
-"type.barrier.city_wall" = "City Wall";
+"type.barrier.city_wall" = "Stadsmuur";
 
-"type.barrier.cycle_barrier" = "Cycle Barrier";
+"type.barrier.cycle_barrier" = "Fietsbarrière";
+
+"type.barrier.ditch" = "Gracht";
 
 "type.barrier.entrance" = "Ingang";
 
-"type.barrier.fence" = "Fence";
+"type.barrier.fence" = "Hek";
 
 "type.barrier.gate" = "Poort";
 
-"type.barrier.hedge" = "Hedge";
+"type.barrier.hedge" = "Heg";
+
+"type.barrier.kissing_gate" = "Voetgangershek";
 
 "type.barrier.lift_gate" = "Slagboom";
 
-"type.barrier.retaining_wall" = "Retaining Wall";
+"type.barrier.retaining_wall" = "Keermuur";
 
 "type.barrier.stile" = "Tourniquet";
 
@@ -1521,47 +1565,47 @@
 
 "type.barrier.toll_booth" = "Tolhokje";
 
-"type.barrier.wall" = "Wall";
+"type.barrier.wall" = "Muur";
 
-"type.boundary" = "Boundary";
+"type.boundary" = "Grens";
 
-"type.boundary.administrative" = "Administrative Boundary";
+"type.boundary.administrative" = "Administratieve grens";
 
-"type.boundary.administrative.10" = "Administrative Boundary";
+"type.boundary.administrative.10" = "Administratieve grens";
 
-"type.boundary.administrative.11" = "Administrative Boundary";
+"type.boundary.administrative.11" = "Administratieve grens";
 
-"type.boundary.administrative.2" = "National Border";
+"type.boundary.administrative.2" = "Landsgrens";
 
-"type.boundary.administrative.3" = "Administrative Boundary";
+"type.boundary.administrative.3" = "Administratieve grens";
 
-"type.boundary.administrative.4" = "Administrative Boundary";
+"type.boundary.administrative.4" = "Administratieve grens";
 
-"type.boundary.administrative.5" = "Administrative Boundary";
+"type.boundary.administrative.5" = "Administratieve grens";
 
-"type.boundary.administrative.6" = "Administrative Boundary";
+"type.boundary.administrative.6" = "Administratieve grens";
 
-"type.boundary.administrative.7" = "Administrative Boundary";
+"type.boundary.administrative.7" = "Administratieve grens";
 
-"type.boundary.administrative.8" = "Administrative Boundary";
+"type.boundary.administrative.8" = "Administratieve grens";
 
-"type.boundary.administrative.9" = "Administrative Boundary";
+"type.boundary.administrative.9" = "Administratieve grens";
 
-"type.boundary.administrative.city" = "City Boundary";
+"type.boundary.administrative.city" = "Stadsgrens";
 
-"type.boundary.administrative.country" = "National Border";
+"type.boundary.administrative.country" = "Landsgrens";
 
-"type.boundary.administrative.county" = "County Boundary";
+"type.boundary.administrative.county" = "Provinciegrens";
 
-"type.boundary.administrative.municipality" = "Municipality Boundary";
+"type.boundary.administrative.municipality" = "Gemeentegrens";
 
-"type.boundary.administrative.nation" = "National Border";
+"type.boundary.administrative.nation" = "Natiegrens";
 
-"type.boundary.administrative.region" = "Regional Boundary";
+"type.boundary.administrative.region" = "Regiogrens";
 
-"type.boundary.administrative.state" = "State Boundary";
+"type.boundary.administrative.state" = "Staatsgrens";
 
-"type.boundary.administrative.suburb" = "Suburb Boundary";
+"type.boundary.administrative.suburb" = "Buitenwijkgrens";
 
 "type.boundary.national_park" = "Nationaal park";
 
@@ -1573,31 +1617,31 @@
 
 "type.building.has_parts" = "Gebouw";
 
-"type.building.train_station" = "Station";
+"type.building.train_station" = "Treinstation";
 
-"type.building.warehouse" = "Warehouse";
+"type.building.warehouse" = "Magazijn";
 
 "type.cemetery.grave" = "Graf";
 
-"type.craft" = "Craft";
+"type.craft" = "Ambacht";
 
-"type.craft.beekeeper" = "Beekeeper";
+"type.craft.beekeeper" = "Imker";
 
-"type.craft.blacksmith" = "Blacksmith";
+"type.craft.blacksmith" = "Smid";
 
 "type.craft.brewery" = "Brouwerij";
 
 "type.craft.carpenter" = "Timmerman";
 
-"type.craft.confectionery" = "Confectionery";
+"type.craft.confectionery" = "Banketbakkerij";
 
 "type.craft.electrician" = "Elektricien";
 
-"type.craft.electronics_repair" = "Electronics Repair";
+"type.craft.electronics_repair" = "Electronica-reparatie";
 
 "type.craft.gardener" = "Tuinarchitect";
 
-"type.craft.handicraft" = "Handicraft";
+"type.craft.handicraft" = "Handwerk";
 
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Airconditioning";
@@ -1610,11 +1654,11 @@
 
 "type.craft.plumber" = "Loodgieter";
 
-"type.craft.sawmill" = "Sawmill";
+"type.craft.sawmill" = "Zagerij";
 
 "type.craft.shoemaker" = "Schoenmaker";
 
-"type.craft.winery" = "Winery";
+"type.craft.winery" = "Wijnhandel";
 
 "type.craft.tailor" = "Kleermaker";
 
@@ -1790,9 +1834,9 @@
 
 "type.cuisine.vietnamese" = "Vietnamees";
 
-"type.emergency" = "Emergency";
+"type.emergency" = "Noodgeval";
 
-"type.emergency.defibrillator" = "Defibrillator";
+"type.emergency.defibrillator" = "Defibrillator (AED)";
 
 "type.emergency.fire_hydrant" = "Brandkraan";
 
@@ -1802,17 +1846,19 @@
 
 "type.healthcare.laboratory" = "Medisch laboratorium";
 
+"type.healthcare.physiotherapist" = "Fysiotherapeut";
+
 
 /********** Types: Roads **********/
 
-"type.highway" = "Highway";
+"type.highway" = "Straat";
 
-"type.highway.bridleway" = "Bridle Path";
+"type.highway.bridleway" = "Ruiterpad";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.bridleway.bridge" = "Brug";
 
-"type.highway.bridleway.permissive" = "Bridle Path";
+"type.highway.bridleway.permissive" = "Ruiterpad";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "Tunnel";
@@ -1821,41 +1867,41 @@
 
 "type.highway.construction" = "Baan in aanbouw";
 
-"type.highway.cycleway" = "Cycle Path";
+"type.highway.cycleway" = "Fietspad";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.cycleway.bridge" = "Brug";
+"type.highway.cycleway.bridge" = "Fietsbrug";
 
-"type.highway.cycleway.permissive" = "Cycle Path";
+"type.highway.cycleway.permissive" = "Fietspad";
 
 /* These translations are used for all type.highway.*.tunnel. */
-"type.highway.cycleway.tunnel" = "Tunnel";
+"type.highway.cycleway.tunnel" = "Fietstunnel";
 
-"type.highway.elevator" = "Elevator";
+"type.highway.elevator" = "Lift";
 
-"type.highway.footway" = "Pad";
+"type.highway.footway" = "Voetpad";
 
-"type.highway.footway.alpine_hiking" = "Pad";
+"type.highway.footway.alpine_hiking" = "Alpine wandelpad";
 
-"type.highway.footway.area" = "Pad";
+"type.highway.footway.area" = "Voetgangerszone";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.footway.bridge" = "Brug";
+"type.highway.footway.bridge" = "Voetgangersbrug";
 
-"type.highway.footway.demanding_alpine_hiking" = "Pad";
+"type.highway.footway.demanding_alpine_hiking" = "Uitdagend alpine bergklimpad";
 
-"type.highway.footway.demanding_mountain_hiking" = "Pad";
+"type.highway.footway.demanding_mountain_hiking" = "Uitdagend bergwandelpad";
 
-"type.highway.footway.difficult_alpine_hiking" = "Pad";
+"type.highway.footway.difficult_alpine_hiking" = "Moeilijk alpine bergklimpad";
 
-"type.highway.footway.hiking" = "Pad";
+"type.highway.footway.hiking" = "Wandelpad";
 
-"type.highway.footway.mountain_hiking" = "Pad";
+"type.highway.footway.mountain_hiking" = "Bergpad";
 
-"type.highway.footway.permissive" = "Pad";
+"type.highway.footway.permissive" = "Voetpad";
 
 /* These translations are used for all type.highway.*.tunnel. */
-"type.highway.footway.tunnel" = "Tunnel";
+"type.highway.footway.tunnel" = "Voetgangerstunnel";
 
 "type.highway.ford" = "Voorde";
 
@@ -1867,17 +1913,17 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.living_street.tunnel" = "Tunnel";
 
-"type.highway.motorway" = "Straat";
+"type.highway.motorway" = "Snelweg";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.motorway.bridge" = "Brug";
+"type.highway.motorway.bridge" = "Snelwegbrug";
 
 /* These translations are used for all type.highway.*.tunnel. */
-"type.highway.motorway.tunnel" = "Tunnel";
+"type.highway.motorway.tunnel" = "Snelwegtunnel";
 
 "type.highway.motorway_junction" = "Afrit";
 
-"type.highway.motorway_link" = "Straat";
+"type.highway.motorway_link" = "Snelwegoprit";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.motorway_link.bridge" = "Brug";
@@ -1887,9 +1933,9 @@
 
 "type.highway.path" = "Pad";
 
-"type.highway.path.alpine_hiking" = "Pad";
+"type.highway.path.alpine_hiking" = "Alpine wandelpad";
 
-"type.highway.path.bicycle" = "Pad";
+"type.highway.path.bicycle" = "Fietspad";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "Brug";
@@ -1900,28 +1946,28 @@
 
 "type.highway.path.difficult_alpine_hiking" = "Pad";
 
-"type.highway.path.hiking" = "Pad";
+"type.highway.path.hiking" = "Wandelpad";
 
-"type.highway.path.horse" = "Pad";
+"type.highway.path.horse" = "Ruiterpad";
 
-"type.highway.path.mountain_hiking" = "Pad";
+"type.highway.path.mountain_hiking" = "Bergpad";
 
 "type.highway.path.permissive" = "Pad";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "Tunnel";
 
-"type.highway.pedestrian" = "Straat";
+"type.highway.pedestrian" = "Voetgangersgebied";
 
-"type.highway.pedestrian.area" = "Straat";
+"type.highway.pedestrian.area" = "Voetgangersgebied";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.pedestrian.bridge" = "Brug";
+"type.highway.pedestrian.bridge" = "Voetgangersbrug";
 
 /* These translations are used for all type.highway.*.tunnel. */
-"type.highway.pedestrian.tunnel" = "Tunnel";
+"type.highway.pedestrian.tunnel" = "Voetgangerstunnel";
 
-"type.highway.primary" = "Straat";
+"type.highway.primary" = "Hoofdweg";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.primary.bridge" = "Brug";
@@ -1929,7 +1975,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.primary.tunnel" = "Tunnel";
 
-"type.highway.primary_link" = "Straat";
+"type.highway.primary_link" = "Hoofdweg";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.primary_link.bridge" = "Brug";
@@ -1959,7 +2005,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.road.tunnel" = "Tunnel";
 
-"type.highway.secondary" = "Straat";
+"type.highway.secondary" = "Secundaire weg";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.secondary.bridge" = "Brug";
@@ -1967,7 +2013,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.secondary.tunnel" = "Tunnel";
 
-"type.highway.secondary_link" = "Straat";
+"type.highway.secondary_link" = "Secundaire weg";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.secondary_link.bridge" = "Brug";
@@ -1989,11 +2035,11 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.service.tunnel" = "Tunnel";
 
-"type.highway.services" = "Service Area";
+"type.highway.services" = "Servicegebied";
 
 "type.highway.speed_camera" = "Flitspaal";
 
-"type.highway.steps" = "Pad";
+"type.highway.steps" = "Trap";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.steps.bridge" = "Brug";
@@ -2001,7 +2047,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.steps.tunnel" = "Tunnel";
 
-"type.highway.tertiary" = "Straat";
+"type.highway.tertiary" = "Tertiaire weg";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.tertiary.bridge" = "Brug";
@@ -2009,7 +2055,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.tertiary.tunnel" = "Tunnel";
 
-"type.highway.tertiary_link" = "Straat";
+"type.highway.tertiary_link" = "Tertiaire weg";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.tertiary_link.bridge" = "Brug";
@@ -2069,29 +2115,29 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.unclassified.tunnel" = "Tunnel";
 
-"type.area_highway.cycleway" = "Cycle Path";
+"type.area_highway.cycleway" = "Fietspad";
 
-"type.area_highway.footway" = "Pad";
+"type.area_highway.footway" = "Voetpad";
 
 "type.area_highway.living_street" = "Straat";
 
-"type.area_highway.motorway" = "Straat";
+"type.area_highway.motorway" = "Snelweg";
 
 "type.area_highway.path" = "Pad";
 
-"type.area_highway.pedestrian" = "Straat";
+"type.area_highway.pedestrian" = "Voetgangersgebied";
 
-"type.area_highway.primary" = "Straat";
+"type.area_highway.primary" = "Hoofdweg";
 
 "type.area_highway.residential" = "Straat";
 
-"type.area_highway.secondary" = "Straat";
+"type.area_highway.secondary" = "Secundaire weg";
 
 "type.area_highway.service" = "Straat";
 
-"type.area_highway.tertiary" = "Straat";
+"type.area_highway.tertiary" = "Tertiaire weg";
 
-"type.area_highway.steps" = "Pad";
+"type.area_highway.steps" = "Trappen";
 
 "type.area_highway.track" = "Straat";
 
@@ -2106,43 +2152,71 @@
 
 /********** Types: Historic **********/
 
-"type.historic" = "Historic";
+"type.historic" = "Historisch object";
 
 "type.historic.archaeological_site" = "Archeologische site";
 
-"type.historic.battlefield" = "Battlefield";
+"type.historic.battlefield" = "Slagveld";
 
-"type.historic.boundary_stone" = "Boundary Stone";
+"type.historic.boundary_stone" = "Grenssteen";
 
 "type.historic.castle" = "Kasteel";
 
+"type.historic.castle.castrum" = "Castra";
+
 "type.historic.castle.defensive" = "Kasteel";
 
-"type.historic.castle.stately" = "Kasteel";
+"type.historic.castle.fortified_church" = "Weerkerk";
 
-"type.historic.citywalls" = "City Wall";
+"type.historic.castle.fortress" = "Vesting";
+
+"type.historic.castle.hillfort" = "Heuvelfort";
+
+"type.historic.castle.kremlin" = "Kremlin";
+
+"type.historic.castle.manor" = "Manoir";
+
+"type.historic.castle.palace" = "Paleis";
+
+"type.historic.castle.shiro" = "Japans kasteel";
+
+"type.historic.castle.stately" = "Landhuis";
+
+"type.historic.city_gate" = "Stadspoort";
+
+"type.historic.citywalls" = "Stadsmuur";
 
 "type.historic.fort" = "Fort";
 
+"type.historic.gallows" = "Galg";
+
 "type.historic.memorial" = "Gedenkteken";
 
-"type.historic.memorial.plaque" = "Gedenkteken";
+"type.historic.memorial.cross" = "Herdenkingskruis";
 
-"type.historic.memorial.sculpture" = "Gedenkteken";
+"type.historic.memorial.plaque" = "Gedenkplaat";
 
-"type.historic.memorial.statue" = "Gedenkteken";
+"type.historic.memorial.sculpture" = "Sculptuur";
+
+"type.historic.memorial.statue" = "Standbeeld";
+
+"type.historic.memorial.stolperstein" = "Stolperstein";
+
+"type.historic.memorial.war_memorial" = "Oorlogsmonument";
 
 "type.historic.monument" = "Monument";
 
+"type.historic.pillory" = "Schandpaal";
+
 "type.historic.ruins" = "Ruïne";
 
-"type.historic.ship" = "Toerisme";
+"type.historic.ship" = "Historisch schip";
 
-"type.historic.tomb" = "Toerisme";
+"type.historic.tomb" = "Graftombe";
 
-"type.historic.wayside_cross" = "Christian Cross";
+"type.historic.wayside_cross" = "Wegkruis";
 
-"type.historic.wayside_shrine" = "Shrine";
+"type.historic.wayside_shrine" = "Kruisbeeld";
 
 "type.hwtag" = "hwtag";
 
@@ -2172,15 +2246,15 @@
 
 "type.internet_access" = "Internet";
 
-"type.internet_access.wlan" = "Internet";
+"type.internet_access.wlan" = "Draadloos internet";
 
-"type.junction" = "Junction";
+"type.junction" = "Kruispunt";
 
-"type.junction.roundabout" = "Roundabout";
+"type.junction.roundabout" = "Rotonde";
 
-"type.landuse" = "Landuse";
+"type.landuse" = "Landgebruik";
 
-"type.landuse.allotments" = "Allotments";
+"type.landuse.allotments" = "Volkstuinen";
 
 "type.landuse.basin" = "Waterbassin";
 
@@ -2190,31 +2264,31 @@
 "type.landuse.cemetery" = "Begraafplaats";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
-"type.landuse.cemetery.christian" = "Begraafplaats";
+"type.landuse.cemetery.christian" = "Christelijke begraafplaats";
 
 "type.landuse.churchyard" = "Kerkhof";
 
-"type.landuse.commercial" = "Commercial Area";
+"type.landuse.commercial" = "Commercieel gebied";
 
-"type.landuse.construction" = "Construction";
+"type.landuse.construction" = "Bouwplaats";
 
-"type.landuse.education" = "Educational Facilities";
+"type.landuse.education" = "Educatieve voorzieningen";
 
-"type.landuse.farm" = "Farm";
+"type.landuse.farm" = "Boerderij";
 
 "type.landuse.farmland" = "Landbouwgrond";
 
-"type.landuse.farmyard" = "Farmyard";
+"type.landuse.farmyard" = "Boerenerf";
 
-"type.landuse.field" = "Field";
+"type.landuse.field" = "Veld";
 
 "type.landuse.forest" = "Bos";
 
-"type.landuse.forest.coniferous" = "Bos";
+"type.landuse.forest.coniferous" = "Naaldbos";
 
-"type.landuse.forest.deciduous" = "Bos";
+"type.landuse.forest.deciduous" = "Loofbos";
 
-"type.landuse.forest.mixed" = "Bos";
+"type.landuse.forest.mixed" = "Gemengd bos";
 
 "type.landuse.garages" = "Garages";
 
@@ -2222,65 +2296,69 @@
 
 "type.landuse.greenfield" = "Greenfield";
 
-"type.landuse.greenhouse_horticulture" = "Greenhouse";
+"type.landuse.greenhouse_horticulture" = "Kassen";
 
-"type.landuse.industrial" = "Industrial Land";
+"type.landuse.industrial" = "Industrieterrein";
 
 "type.landuse.landfill" = "Stortplaats";
 
-"type.landuse.meadow" = "Meadow";
+"type.landuse.meadow" = "Weiland";
 
-"type.landuse.military" = "Military Area";
+"type.landuse.military" = "Militair terrein";
 
-"type.landuse.orchard" = "Orchard";
+"type.landuse.orchard" = "Boomgaard";
 
-"type.landuse.quarry" = "Quarry";
+"type.landuse.quarry" = "Steengroeve";
 
 "type.landuse.railway" = "Spoorwegfaciliteiten";
 
-"type.landuse.recreation_ground" = "Recreation Ground";
+"type.landuse.recreation_ground" = "Recreatiezone";
 
 "type.landuse.reservoir" = "Water";
 
-"type.landuse.residential" = "Residential Land";
+"type.landuse.residential" = "Woonwijk";
 
-"type.landuse.retail" = "Retail Land";
+"type.landuse.retail" = "Detailhandel";
 
-"type.landuse.salt_pond" = "Pond";
+"type.landuse.salt_pond" = "Zoutpoel";
 
-"type.landuse.village_green" = "Land";
+"type.landuse.village_green" = "Dorpspark";
 
-"type.landuse.vineyard" = "Vineyard";
+"type.landuse.vineyard" = "Wijngaard";
 
-"type.leisure" = "Leisure";
+"type.leisure" = "Ontspanning";
 
-"type.leisure.common" = "Public Land";
+"type.leisure.common" = "Openbare grond";
 
-"type.leisure.dog_park" = "Plaats voor hondenuitlaten";
+"type.leisure.dog_park" = "Hondenuitlaatplek";
 
 "type.leisure.fitness_centre" = "Fitnesscentrum";
 
 "type.leisure.fitness_station" = "Fitness-Station";
 
+"type.leisure.dance" = "Danszaal";
+
 "type.leisure.garden" = "Tuin";
+
+"type.leisure.garden.residential" = "Tuin";
 
 "type.leisure.golf_course" = "Golfbaan";
 
-"type.leisure.ice_rink" = "Ice Rink";
+"type.leisure.ice_rink" = "Schaatsbaan";
 
-"type.leisure.landscape_reserve" = "Landscape Reserve";
+"type.leisure.landscape_reserve" = "Landschapsreservaat";
 
-"type.leisure.marina" = "Marina";
+"type.leisure.marina" = "Jachthaven";
 
-"type.leisure.nature_reserve" = "Reserve";
+"type.leisure.nature_reserve" = "Natuurreservaat";
 
 "type.leisure.park" = "Park";
 
-"type.leisure.park.no.access" = "Park";
+"type.leisure.park.no.access" = "Ontoegankelijk park";
 
 "type.leisure.park.permissive" = "Park";
 
-"type.leisure.park.private" = "Park";
+"type.leisure.park.private" = "Privé park";
 
 "type.leisure.picnic_table" = "Picknicktafel";
 
@@ -2288,47 +2366,43 @@
 
 "type.leisure.playground" = "Speeltuin";
 
-"type.leisure.recreation_ground" = "Recreation Ground";
+"type.leisure.recreation_ground" = "Recreatieterrein";
 
 "type.leisure.sauna" = "Sauna";
 
-"type.leisure.slipway" = "Slipway";
+"type.leisure.slipway" = "Scheepshelling";
 
 "type.leisure.sports_centre" = "Sportcentrum";
 
-"type.leisure.sports_centre.climbing" = "Klimhal";
+"type.sport.climbing" = "Klimhal";
 
-"type.leisure.sports_centre.shooting" = "Schietbaan";
+"type.sport.yoga" = "Yogastudio";
 
-"type.leisure.sports_centre.swimming" = "Zwembad";
-
-"type.leisure.sports_centre.yoga" = "Yogastudio";
-
-"type.leisure.stadium" = "Stadium";
+"type.leisure.stadium" = "Stadion";
 
 "type.leisure.swimming_pool" = "Zwembad";
 
-"type.leisure.swimming_pool.private" = "Zwembad";
+"type.leisure.swimming_pool.private" = "Privé zwembad";
 
-"type.leisure.track" = "Track";
+"type.leisure.track" = "Parcours";
 
 "type.leisure.water_park" = "Waterpark";
 
-"type.leisure.beach_resort" = "Beach Resort";
+"type.leisure.beach_resort" = "Strandresort";
 
-"type.man_made" = "Man Made";
+"type.man_made" = "Kunstmatige constructies";
 
-"type.man_made.breakwater" = "Breakwater";
+"type.man_made.breakwater" = "Golfbreker";
 
-"type.man_made.cairn" = "Cairn";
+"type.man_made.cairn" = "Steengroeve";
 
 "type.man_made.chimney" = "Fabrieksschoorsteen";
 
-"type.man_made.cutline" = "Cutline";
+"type.man_made.cutline" = "Bospad";
 
-"type.man_made.survey_point" = "Survey Point";
+"type.man_made.survey_point" = "Meetpunt";
 
-"type.man_made.flagpole" = "Flagpole";
+"type.man_made.flagpole" = "Vlaggenpaal";
 
 "type.man_made.lighthouse" = "Vuurtoren";
 
@@ -2342,35 +2416,35 @@
 
 "type.man_made.silo" = "Silo";
 
-"type.man_made.storage_tank" = "Storage Tank";
+"type.man_made.storage_tank" = "Opslagtank";
 
 "type.man_made.surveillance" = "Bewakingscamera";
 
 "type.man_made.tower" = "Toren";
 
-"type.man_made.wastewater_plant" = "Wastewater Plant";
+"type.man_made.wastewater_plant" = "Waterzuiveringsinstallatie";
 
 "type.man_made.water_tap" = "Waterkraan";
 
 "type.man_made.water_tower" = "Watertoren";
 
-"type.man_made.water_well" = "Waterbron";
+"type.man_made.water_well" = "Waterput";
 
 "type.man_made.windmill" = "Windmolen";
 
-"type.man_made.works" = "Industrial Works";
+"type.man_made.works" = "Fabriek";
 
 "type.mapswithme" = "mapswithme";
 
 "type.mapswithme.grid" = "mapswithme-grid";
 
-"type.military" = "Military";
+"type.military" = "Militair";
 
 "type.military.bunker" = "Bunker";
 
-"type.mountain_pass" = "Mountain Pass";
+"type.mountain_pass" = "Bergpas";
 
-"type.natural" = "Natuurlijk";
+"type.natural" = "Natuur";
 
 "type.natural.bare_rock" = "Kale steen";
 
@@ -2393,6 +2467,8 @@
 "type.man_made.embankment" = "Baanlichaam";
 
 "type.natural.coastline" = "Kustlijn";
+
+"type.natural.desert" = "Woestijn";
 
 "type.natural.geyser" = "Geiser";
 
@@ -2450,7 +2526,7 @@
 
 "type.natural.wetland.marsh" = "Moeras";
 
-"type.noexit" = "Dead End";
+"type.noexit" = "Doodlopende weg";
 
 "type.office" = "Kantoor";
 
@@ -2471,8 +2547,6 @@
 "type.organic.only" = "Biologisch";
 
 "type.organic.yes" = "Biologisch";
-
-"type.place" = "place";
 
 "type.place.city" = "Stad";
 
@@ -2508,15 +2582,15 @@
 
 "type.place.hamlet" = "Gehucht";
 
-"type.place.island" = "Eilandje";
+"type.place.island" = "Eiland";
 
 "type.place.islet" = "Eilandje";
 
-"type.place.isolated_dwelling" = "Dwelling";
+"type.place.isolated_dwelling" = "Geïsoleerde woning";
 
 "type.place.locality" = "Plaats";
 
-"type.place.neighbourhood" = "Neighbourhood";
+"type.place.neighbourhood" = "Buurt";
 
 "type.place.ocean" = "Oceaan";
 
@@ -2524,121 +2598,121 @@
 
 "type.place.sea" = "Zee";
 
-"type.place.square" = "Square";
+"type.place.square" = "Plein";
 
 "type.place.state" = "Deelstaat";
 
 "type.place.state.USA" = "Deelstaat";
 
-"type.place.suburb" = "Buitenwijken";
+"type.place.suburb" = "Buitenwijk";
 
 "type.place.town" = "Stad";
 
 "type.place.village" = "Dorp";
 
-"type.power" = "Power";
+"type.power" = "Electriciteit";
 
 "type.power.generator" = "Generator";
 
-"type.power.line" = "Power Line";
+"type.power.line" = "Hoogspanningsleiding";
 
-"type.power.line.underground" = "Underground Power Line";
+"type.power.line.underground" = "Ondergrondse hoogspanningsleiding";
 
-"type.power.minor_line" = "Minor Power Line";
+"type.power.minor_line" = "Laag-/middelspanningsleiding";
 
 "type.power.pole" = "Elektriciteitspaal";
 
-"type.power.station" = "Power Station";
+"type.power.station" = "Transformatorstation";
 
-"type.power.substation" = "Substation";
+"type.power.substation" = "Transformatorstation";
 
-"type.power.tower" = "Elektriciteitspaal";
+"type.power.tower" = "Elektriciteitsmast";
 
-"type.psurface" = "psurface";
+"type.psurface" = "Wegdek";
 
-"type.psurface.paved_bad" = "psurface-paved_bad";
+"type.psurface.paved_bad" = "Verhard";
 
-"type.psurface.paved_good" = "psurface-paved_good";
+"type.psurface.paved_good" = "Verhard";
 
-"type.psurface.unpaved_bad" = "psurface-unpaved_bad";
+"type.psurface.unpaved_bad" = "Onverhard";
 
-"type.psurface.unpaved_good" = "psurface-unpaved_good";
+"type.psurface.unpaved_good" = "Onverhard";
 
-"type.public_transport" = "Public Transport";
+"type.public_transport" = "Openbaar vervoer";
 
 "type.public_transport.platform" = "Platform";
 
-"type.railway" = "Railway";
+"type.railway" = "Spoorweg";
 
-"type.railway.abandoned" = "Abandoned railway";
+"type.railway.abandoned" = "Voormalig treinspoor";
 
-"type.railway.abandoned.bridge" = "Abandoned railway";
+"type.railway.abandoned.bridge" = "Voormalige spoorbrug";
 
-"type.railway.abandoned.tunnel" = "Abandoned Railway";
+"type.railway.abandoned.tunnel" = "Voormalige spoortunnel";
 
-"type.railway.construction" = "Railway's Construction";
+"type.railway.construction" = "Treinspoor in aanbouw";
 
-"type.railway.crossing" = "Railway Crossing";
+"type.railway.crossing" = "Spoorwegovergang";
 
-"type.railway.disused" = "Disused railway";
+"type.railway.disused" = "Ongebruikt spoor";
 
-"type.railway.funicular" = "Funicular";
+"type.railway.funicular" = "Kabelspoorweg";
 
-"type.railway.funicular.bridge" = "Funicular";
+"type.railway.funicular.bridge" = "Kabelspoorbuur";
 
-"type.railway.funicular.tunnel" = "Funicular";
+"type.railway.funicular.tunnel" = "Kabelspoortunnel";
 
 "type.railway.halt" = "Station";
 
 "type.railway.level_crossing" = "Spoorwegovergang";
 
-"type.railway.light_rail" = "Light Rail";
+"type.railway.light_rail" = "Lightrail";
 
-"type.railway.light_rail.bridge" = "Light Rail";
+"type.railway.light_rail.bridge" = "Lightrail-brug";
 
-"type.railway.light_rail.tunnel" = "Light Rail";
+"type.railway.light_rail.tunnel" = "Lightrail-tunnel";
 
 "type.railway.monorail" = "Monorail";
 
-"type.railway.monorail.bridge" = "Monorail";
+"type.railway.monorail.bridge" = "Monorail-brug";
 
-"type.railway.monorail.tunnel" = "Monorail";
+"type.railway.monorail.tunnel" = "Monorail-tunnel";
 
-"type.railway.narrow_gauge" = "Narrow Gauge Rail";
+"type.railway.narrow_gauge" = "Smalspoorbaan";
 
-"type.railway.narrow_gauge.bridge" = "Narrow Gauge Rail";
+"type.railway.narrow_gauge.bridge" = "Smalspoorbrug";
 
-"type.railway.narrow_gauge.tunnel" = "Narrow Gauge Rail";
+"type.railway.narrow_gauge.tunnel" = "Smalspoortunnel";
 
-"type.railway.platform" = "Railway Platform";
+"type.railway.platform" = "Perron";
 
-"type.railway.preserved" = "Preserved Rail";
+"type.railway.preserved" = "Museumspoorbaan";
 
-"type.railway.preserved.bridge" = "Preserved Rail";
+"type.railway.preserved.bridge" = "Museumspoorbaanbrug";
 
-"type.railway.preserved.tunnel" = "Preserved Rail";
+"type.railway.preserved.tunnel" = "Museumspoorbaantunnel";
 
 "type.railway.rail" = "Spoorlijn";
 
-"type.railway.rail.bridge" = "Railway";
+"type.railway.rail.bridge" = "Treinspoorbrug";
 
-"type.railway.rail.motor_vehicle" = "Railway";
+"type.railway.rail.motor_vehicle" = "Spoorweg";
 
-"type.railway.rail.tunnel" = "Railway";
+"type.railway.rail.tunnel" = "Spoortunnel";
 
-"type.railway.razed" = "Razed Rail";
+"type.railway.razed" = "Verwijderde spoorbaan";
 
-"type.railway.siding" = "Siding Rail";
+"type.railway.siding" = "Nevenspoor";
 
-"type.railway.siding.bridge" = "Siding Rail";
+"type.railway.siding.bridge" = "Nevenspoor-brug";
 
-"type.railway.siding.tunnel" = "Siding Rail";
+"type.railway.siding.tunnel" = "Nevenspoor-tunnel";
 
-"type.railway.spur" = "Spur Rail";
+"type.railway.spur" = "Zijspoor";
 
-"type.railway.spur.bridge" = "Spur Rail";
+"type.railway.spur.bridge" = "Zijspoor-brug";
 
-"type.railway.spur.tunnel" = "Spur Rail";
+"type.railway.spur.tunnel" = "Zijspoor-tunnel";
 
 "type.railway.station" = "Station";
 
@@ -2646,79 +2720,467 @@
 
 "type.railway.station.monorail" = "Station";
 
-"type.railway.station.subway" = "Metro";
+"type.railway.station.subway" = "Metrostation";
 
-"type.railway.station.subway.barcelona" = "Metro";
+"type.railway.station.subway.adana" = "Metrostation";
 
-"type.railway.station.subway.berlin" = "Metro";
+"type.railway.station.subway.algiers" = "Metrostation";
 
-"type.railway.station.subway.kiev" = "Metro";
+"type.railway.station.subway.almaty" = "Metrostation";
 
-"type.railway.station.subway.london" = "Metro";
+"type.railway.station.subway.amsterdam" = "Metrostation";
 
-"type.railway.station.subway.madrid" = "Metro";
+"type.railway.station.subway.ankara" = "Metrostation";
 
-"type.railway.station.subway.minsk" = "Metro";
+"type.railway.station.subway.athens" = "Metrostation";
 
-"type.railway.station.subway.moscow" = "Metro";
+"type.railway.station.subway.baku" = "Metrostation";
 
-"type.railway.station.subway.newyork" = "Metro";
+"type.railway.station.subway.bangkok" = "Metrostation";
 
-"type.railway.station.subway.paris" = "Metro";
+"type.railway.station.subway.barcelona" = "Metrostation";
 
-"type.railway.station.subway.roma" = "Metro";
+"type.railway.station.subway.beijing" = "Metrostation";
 
-"type.railway.station.subway.spb" = "Metro";
+"type.railway.station.subway.bengalore" = "Metrostation";
 
-"type.railway.subway" = "Subway Line";
+"type.railway.station.subway.berlin" = "Metrostation";
 
-"type.railway.subway.bridge" = "Subway Line";
+"type.railway.station.subway.brasilia" = "Metrostation";
 
-"type.railway.subway.tunnel" = "Subway Line";
+"type.railway.station.subway.brescia" = "Metrostation";
+
+"type.railway.station.subway.brussels" = "Metrostation";
+
+"type.railway.station.subway.bucharest" = "Metrostation";
+
+"type.railway.station.subway.budapest" = "Metrostation";
+
+"type.railway.station.subway.buenos_aires" = "Metrostation";
+
+"type.railway.station.subway.bursa" = "Metrostation";
+
+"type.railway.station.subway.cairo" = "Metrostation";
+
+"type.railway.station.subway.caracas" = "Metrostation";
+
+"type.railway.station.subway.catania" = "Metrostation";
+
+"type.railway.station.subway.changchun" = "Metrostation";
+
+"type.railway.station.subway.chengdu" = "Metrostation";
+
+"type.railway.station.subway.chicago" = "Metrostation";
+
+"type.railway.station.subway.chongqing" = "Metrostation";
+
+"type.railway.station.subway.dalian" = "Metrostation";
+
+"type.railway.station.subway.delhi" = "Metrostation";
+
+"type.railway.station.subway.dnepro" = "Metrostation";
+
+"type.railway.station.subway.dubai" = "Metrostation";
+
+"type.railway.station.subway.ekb" = "Metrostation";
+
+"type.railway.station.subway.fukuoka" = "Metrostation";
+
+"type.railway.station.subway.glasgow" = "Metrostation";
+
+"type.railway.station.subway.guangzhou" = "Metrostation";
+
+"type.railway.station.subway.hamburg" = "Metrostation";
+
+"type.railway.station.subway.helsinki" = "Metrostation";
+
+"type.railway.station.subway.hiroshima" = "Metrostation";
+
+"type.railway.station.subway.isfahan" = "Metrostation";
+
+"type.railway.station.subway.istanbul" = "Metrostation";
+
+"type.railway.station.subway.izmir" = "Metrostation";
+
+"type.railway.station.subway.kazan" = "Metrostation";
+
+"type.railway.station.subway.kharkiv" = "Metrostation";
+
+"type.railway.station.subway.kiev" = "Metrostation";
+
+"type.railway.station.subway.kobe" = "Metrostation";
+
+"type.railway.station.subway.kolkata" = "Metrostation";
+
+"type.railway.station.subway.kunming" = "Metrostation";
+
+"type.railway.station.subway.kyoto" = "Metrostation";
+
+"type.railway.station.subway.la" = "Metrostation";
+
+"type.railway.station.subway.lausanne" = "Metrostation";
+
+"type.railway.station.subway.lille" = "Metrostation";
+
+"type.railway.station.subway.lima" = "Metrostation";
+
+"type.railway.station.subway.lisboa" = "Metrostation";
+
+"type.railway.station.subway.london" = "Metrostation";
+
+"type.railway.station.subway.lyon" = "Metrostation";
+
+"type.railway.station.subway.madrid" = "Metrostation";
+
+"type.railway.station.subway.malaga" = "Metrostation";
+
+"type.railway.station.subway.manila" = "Metrostation";
+
+"type.railway.station.subway.maracaibo" = "Metrostation";
+
+"type.railway.station.subway.mashhad" = "Metrostation";
+
+"type.railway.station.subway.mecca" = "Metrostation";
+
+"type.railway.station.subway.medellin" = "Metrostation";
+
+"type.railway.station.subway.mexico" = "Metrostation";
+
+"type.railway.station.subway.milan" = "Metrostation";
+
+"type.railway.station.subway.minsk" = "Metrostation";
+
+"type.railway.station.subway.montreal" = "Metrostation";
+
+"type.railway.station.subway.moscow" = "Metrostation";
+
+"type.railway.station.subway.munchen" = "Metrostation";
+
+"type.railway.station.subway.nagoya" = "Metrostation";
+
+"type.railway.station.subway.newyork" = "Metrostation";
+
+"type.railway.station.subway.nnov" = "Metrostation";
+
+"type.railway.station.subway.novosibirsk" = "Metrostation";
+
+"type.railway.station.subway.osaka" = "Metrostation";
+
+"type.railway.station.subway.oslo" = "Metrostation";
+
+"type.railway.station.subway.palma" = "Metrostation";
+
+"type.railway.station.subway.panama" = "Metrostation";
+
+"type.railway.station.subway.paris" = "Metrostation";
+
+"type.railway.station.subway.philadelphia" = "Metrostation";
+
+"type.railway.station.subway.pyongyang" = "Metrostation";
+
+"type.railway.station.subway.rennes" = "Metrostation";
+
+"type.railway.station.subway.rio" = "Metrostation";
+
+"type.railway.station.subway.roma" = "Metrostation";
+
+"type.railway.station.subway.rotterdam" = "Metrostation";
+
+"type.railway.station.subway.samara" = "Metrostation";
+
+"type.railway.station.subway.santiago" = "Metrostation";
+
+"type.railway.station.subway.santo_domingo" = "Metrostation";
+
+"type.railway.station.subway.saopaulo" = "Metrostation";
+
+"type.railway.station.subway.sapporo" = "Metrostation";
+
+"type.railway.station.subway.sendai" = "Metrostation";
+
+"type.railway.station.subway.sf" = "Metrostation";
+
+"type.railway.station.subway.shanghai" = "Metrostation";
+
+"type.railway.station.subway.shiraz" = "Metrostation";
+
+"type.railway.station.subway.sofia" = "Metrostation";
+
+"type.railway.station.subway.spb" = "Metrostation";
+
+"type.railway.station.subway.stockholm" = "Metrostation";
+
+"type.railway.station.subway.tabriz" = "Metrostation";
+
+"type.railway.station.subway.taipei" = "Metrostation";
+
+"type.railway.station.subway.taoyuan" = "Metrostation";
+
+"type.railway.station.subway.tashkent" = "Metrostation";
+
+"type.railway.station.subway.tbilisi" = "Metrostation";
+
+"type.railway.station.subway.tianjin" = "Metrostation";
+
+"type.railway.station.subway.tokyo" = "Metrostation";
+
+"type.railway.station.subway.valencia" = "Metrostation";
+
+"type.railway.station.subway.vienna" = "Metrostation";
+
+"type.railway.station.subway.warszawa" = "Metrostation";
+
+"type.railway.station.subway.washington" = "Metrostation";
+
+"type.railway.station.subway.wuhan" = "Metrostation";
+
+"type.railway.station.subway.yerevan" = "Metrostation";
+
+"type.railway.station.subway.yokohama" = "Metrostation";
+
+"type.railway.subway" = "Metro";
+
+"type.railway.subway.bridge" = "Metrobrug";
+
+"type.railway.subway.tunnel" = "Metrotunnel";
 
 "type.railway.subway_entrance" = "Metro ingang";
 
-"type.railway.subway_entrance.barcelona" = "Metro";
+"type.railway.subway_entrance.adana" = "Metro ingang";
 
-"type.railway.subway_entrance.berlin" = "Metro";
+"type.railway.subway_entrance.algiers" = "Metro ingang";
 
-"type.railway.subway_entrance.kiev" = "Metro";
+"type.railway.subway_entrance.almaty" = "Metro ingang";
 
-"type.railway.subway_entrance.london" = "Metro";
+"type.railway.subway_entrance.amsterdam" = "Metro ingang";
 
-"type.railway.subway_entrance.madrid" = "Metro";
+"type.railway.subway_entrance.ankara" = "Metro ingang";
 
-"type.railway.subway_entrance.minsk" = "Metro";
+"type.railway.subway_entrance.athens" = "Metro ingang";
 
-"type.railway.subway_entrance.moscow" = "Metro";
+"type.railway.subway_entrance.baku" = "Metro ingang";
 
-"type.railway.subway_entrance.newyork" = "Metro";
+"type.railway.subway_entrance.bangkok" = "Metro ingang";
 
-"type.railway.subway_entrance.paris" = "Metro";
+"type.railway.subway_entrance.barcelona" = "Metro ingang";
 
-"type.railway.subway_entrance.roma" = "Metro";
+"type.railway.subway_entrance.beijing" = "Metro ingang";
 
-"type.railway.subway_entrance.spb" = "Metro";
+"type.railway.subway_entrance.bengalore" = "Metro ingang";
 
-"type.railway.tram" = "Tram Line";
+"type.railway.subway_entrance.berlin" = "Metro ingang";
 
-"type.railway.tram.bridge" = "Tram Line";
+"type.railway.subway_entrance.brasilia" = "Metro ingang";
 
-"type.railway.tram.tunnel" = "Tram Line";
+"type.railway.subway_entrance.brescia" = "Metro ingang";
+
+"type.railway.subway_entrance.brussels" = "Metro ingang";
+
+"type.railway.subway_entrance.bucharest" = "Metro ingang";
+
+"type.railway.subway_entrance.budapest" = "Metro ingang";
+
+"type.railway.subway_entrance.buenos_aires" = "Metro ingang";
+
+"type.railway.subway_entrance.bursa" = "Metro ingang";
+
+"type.railway.subway_entrance.cairo" = "Metro ingang";
+
+"type.railway.subway_entrance.caracas" = "Metro ingang";
+
+"type.railway.subway_entrance.catania" = "Metro ingang";
+
+"type.railway.subway_entrance.changchun" = "Metro ingang";
+
+"type.railway.subway_entrance.chengdu" = "Metro ingang";
+
+"type.railway.subway_entrance.chicago" = "Metro ingang";
+
+"type.railway.subway_entrance.chongqing" = "Metro ingang";
+
+"type.railway.subway_entrance.dalian" = "Metro ingang";
+
+"type.railway.subway_entrance.delhi" = "Metro ingang";
+
+"type.railway.subway_entrance.dnepro" = "Metro ingang";
+
+"type.railway.subway_entrance.dubai" = "Metro ingang";
+
+"type.railway.subway_entrance.ekb" = "Metro ingang";
+
+"type.railway.subway_entrance.fukuoka" = "Metro ingang";
+
+"type.railway.subway_entrance.glasgow" = "Metro ingang";
+
+"type.railway.subway_entrance.guangzhou" = "Metro ingang";
+
+"type.railway.subway_entrance.hamburg" = "Metro ingang";
+
+"type.railway.subway_entrance.helsinki" = "Metro ingang";
+
+"type.railway.subway_entrance.hiroshima" = "Metro ingang";
+
+"type.railway.subway_entrance.isfahan" = "Metro ingang";
+
+"type.railway.subway_entrance.istanbul" = "Metro ingang";
+
+"type.railway.subway_entrance.izmir" = "Metro ingang";
+
+"type.railway.subway_entrance.kazan" = "Metro ingang";
+
+"type.railway.subway_entrance.kharkiv" = "Metro ingang";
+
+"type.railway.subway_entrance.kiev" = "Metro ingang";
+
+"type.railway.subway_entrance.kobe" = "Metro ingang";
+
+"type.railway.subway_entrance.kolkata" = "Metro ingang";
+
+"type.railway.subway_entrance.kunming" = "Metro ingang";
+
+"type.railway.subway_entrance.kyoto" = "Metro ingang";
+
+"type.railway.subway_entrance.la" = "Metro ingang";
+
+"type.railway.subway_entrance.lausanne" = "Metro ingang";
+
+"type.railway.subway_entrance.lille" = "Metro ingang";
+
+"type.railway.subway_entrance.lima" = "Metro ingang";
+
+"type.railway.subway_entrance.lisboa" = "Metro ingang";
+
+"type.railway.subway_entrance.london" = "Metro ingang";
+
+"type.railway.subway_entrance.lyon" = "Metro ingang";
+
+"type.railway.subway_entrance.madrid" = "Metro ingang";
+
+"type.railway.subway_entrance.malaga" = "Metro ingang";
+
+"type.railway.subway_entrance.manila" = "Metro ingang";
+
+"type.railway.subway_entrance.maracaibo" = "Metro ingang";
+
+"type.railway.subway_entrance.mashhad" = "Metro ingang";
+
+"type.railway.subway_entrance.mecca" = "Metro ingang";
+
+"type.railway.subway_entrance.medellin" = "Metro ingang";
+
+"type.railway.subway_entrance.mexico" = "Metro ingang";
+
+"type.railway.subway_entrance.milan" = "Metro ingang";
+
+"type.railway.subway_entrance.minsk" = "Metro ingang";
+
+"type.railway.subway_entrance.montreal" = "Metro ingang";
+
+"type.railway.subway_entrance.moscow" = "Metro ingang";
+
+"type.railway.subway_entrance.munchen" = "Metro ingang";
+
+"type.railway.subway_entrance.nagoya" = "Metro ingang";
+
+"type.railway.subway_entrance.newyork" = "Metro ingang";
+
+"type.railway.subway_entrance.nnov" = "Metro ingang";
+
+"type.railway.subway_entrance.novosibirsk" = "Metro ingang";
+
+"type.railway.subway_entrance.osaka" = "Metro ingang";
+
+"type.railway.subway_entrance.oslo" = "Metro ingang";
+
+"type.railway.subway_entrance.palma" = "Metro ingang";
+
+"type.railway.subway_entrance.panama" = "Metro ingang";
+
+"type.railway.subway_entrance.paris" = "Metro ingang";
+
+"type.railway.subway_entrance.philadelphia" = "Metro ingang";
+
+"type.railway.subway_entrance.pyongyang" = "Metro ingang";
+
+"type.railway.subway_entrance.rennes" = "Metro ingang";
+
+"type.railway.subway_entrance.rio" = "Metro ingang";
+
+"type.railway.subway_entrance.roma" = "Metro ingang";
+
+"type.railway.subway_entrance.rotterdam" = "Metro ingang";
+
+"type.railway.subway_entrance.samara" = "Metro ingang";
+
+"type.railway.subway_entrance.santiago" = "Metro ingang";
+
+"type.railway.subway_entrance.santo_domingo" = "Metro ingang";
+
+"type.railway.subway_entrance.saopaulo" = "Metro ingang";
+
+"type.railway.subway_entrance.sapporo" = "Metro ingang";
+
+"type.railway.subway_entrance.sendai" = "Metro ingang";
+
+"type.railway.subway_entrance.sf" = "Metro ingang";
+
+"type.railway.subway_entrance.shanghai" = "Metro ingang";
+
+"type.railway.subway_entrance.shiraz" = "Metro ingang";
+
+"type.railway.subway_entrance.sofia" = "Metro ingang";
+
+"type.railway.subway_entrance.spb" = "Metro ingang";
+
+"type.railway.subway_entrance.stockholm" = "Metro ingang";
+
+"type.railway.subway_entrance.tabriz" = "Metro ingang";
+
+"type.railway.subway_entrance.taipei" = "Metro ingang";
+
+"type.railway.subway_entrance.taoyuan" = "Metro ingang";
+
+"type.railway.subway_entrance.tashkent" = "Metro ingang";
+
+"type.railway.subway_entrance.tbilisi" = "Metro ingang";
+
+"type.railway.subway_entrance.tianjin" = "Metro ingang";
+
+"type.railway.subway_entrance.tokyo" = "Metro ingang";
+
+"type.railway.subway_entrance.valencia" = "Metro ingang";
+
+"type.railway.subway_entrance.vienna" = "Metro ingang";
+
+"type.railway.subway_entrance.warszawa" = "Metro ingang";
+
+"type.railway.subway_entrance.washington" = "Metro ingang";
+
+"type.railway.subway_entrance.wuhan" = "Metro ingang";
+
+"type.railway.subway_entrance.yerevan" = "Metro ingang";
+
+"type.railway.subway_entrance.yokohama" = "Metro ingang";
+
+"type.railway.tram" = "Tram";
+
+"type.railway.tram.bridge" = "Trambrug";
+
+"type.railway.tram.tunnel" = "Tramtunnel";
 
 "type.railway.tram_stop" = "Tramhalte";
 
-"type.railway.yard" = "Railway Yard";
+"type.railway.yard" = "Rangeerterrein";
 
-"type.railway.yard.bridge" = "Railway Yard";
+"type.railway.yard.bridge" = "Rangeerterrein brug";
 
-"type.railway.yard.tunnel" = "Railway Yard";
+"type.railway.yard.tunnel" = "Rangeerterrein tunnel";
 
 "type.route" = "route";
 
-"type.route.ferry" = "Ferry";
+"type.route.ferry" = "Veerboot";
 
-"type.route.shuttle_train" = "Shuttle Train";
+"type.route.shuttle_train" = "Shuttle-trein";
 
 "type.shop" = "Winkel";
 
@@ -2732,7 +3194,7 @@
 
 "type.shop.bicycle" = "Fietsenwinkel";
 
-"type.shop.bookmaker" = "Bookmaker";
+"type.shop.bookmaker" = "Boekbinder";
 
 "type.shop.books" = "Boekenwinkel";
 
@@ -2746,23 +3208,23 @@
 
 "type.shop.car_repair.tyres" = "Bandenreparatie";
 
-"type.shop.caravan" = "RV Dealership";
+"type.shop.caravan" = "Caravan en camper verkoper";
 
 "type.shop.chemist" = "Drogisterij";
 
-"type.shop.chocolate" = "Winkel";
+"type.shop.chocolate" = "Chocolaterie";
 
 "type.shop.clothes" = "Kledingwinkel";
 
-"type.shop.coffee" = "Winkel";
+"type.shop.coffee" = "Koffiewinkel";
 
 "type.shop.computer" = "Computerwinkel";
 
-"type.shop.confectionery" = "Banketbakker";
+"type.shop.confectionery" = "Snoepwinkel";
 
 "type.shop.convenience" = "Buurtwinkel";
 
-"type.shop.copyshop" = "Copy Shop";
+"type.shop.copyshop" = "Kopieerwinkel";
 
 "type.shop.cosmetics" = "Schoonheidsmiddelen";
 
@@ -2770,7 +3232,7 @@
 
 "type.shop.department_store" = "Warenhuis";
 
-"type.shop.doityourself" = "Ijzerhandel";
+"type.shop.doityourself" = "IJzerhandel";
 
 "type.shop.dry_cleaning" = "Droogkuis";
 
@@ -2778,7 +3240,7 @@
 
 "type.shop.erotic" = "Erotiekwinkel";
 
-"type.shop.fabric" = "Winkel";
+"type.shop.fabric" = "Stoffenwinkel";
 
 "type.shop.farm" = "Boerderijwinkel";
 
@@ -2794,11 +3256,11 @@
 
 "type.shop.greengrocer" = "Groentenwinkel";
 
-"type.shop.grocery" = "Boodschap";
+"type.shop.grocery" = "Boodschappen";
 
 "type.shop.hairdresser" = "Kapper";
 
-"type.shop.hardware" = "Ijzerwaren";
+"type.shop.hardware" = "IJzerwaren";
 
 "type.shop.health_food" = "Natuurvoedingswinkel";
 
@@ -2812,7 +3274,7 @@
 
 "type.shop.laundry" = "Wasserette";
 
-"type.shop.mall" = "Het winkelcentrum";
+"type.shop.mall" = "Winkelcentrum";
 
 "type.shop.massage" = "Massagesalon";
 
@@ -2822,9 +3284,9 @@
 
 "type.shop.motorcycle" = "Motorzaak";
 
-"type.shop.music" = "Winkel";
+"type.shop.music" = "Muziekwinkel";
 
-"type.shop.musical_instrument" = "Winkel";
+"type.shop.musical_instrument" = "Muziekinstrumentenwinkel";
 
 "type.shop.newsagent" = "Kiosk";
 
@@ -2832,7 +3294,7 @@
 
 "type.shop.outdoor" = "Outdooruitrusting";
 
-"type.shop.pastry" = "Gebakje";
+"type.shop.pastry" = "Banketbakker";
 
 "type.shop.pawnbroker" = "Pandjesbaas";
 
@@ -2854,7 +3316,7 @@
 
 "type.shop.tattoo" = "Tattoosalon";
 
-"type.shop.tea" = "Winkel";
+"type.shop.tea" = "Theewinkel";
 
 "type.shop.ticket" = "Kaartjesverkoop";
 
@@ -2870,13 +3332,13 @@
 
 "type.shop.video_games" = "Winkel voor videogames";
 
-"type.shop.wine" = "Wijn";
+"type.shop.wine" = "Wijnhandel";
 
-"type.shop.antiques" = "Antiek";
+"type.shop.antiques" = "Antiekhandel";
 
 "type.shop.art" = "Kunstwinkel";
 
-"type.shop.baby_goods" = "Kinderwinkel";
+"type.shop.baby_goods" = "Babyspullenwinkel";
 
 "type.shop.bag" = "Tassenwinkel";
 
@@ -2902,7 +3364,7 @@
 
 "type.shop.nutrition_supplements" = "Voedingssupplementen";
 
-"type.shop.paint" = "Verven";
+"type.shop.paint" = "Verfwinkel";
 
 "type.shop.perfumery" = "Parfumerie";
 
@@ -2910,17 +3372,17 @@
 
 "type.shop.storage_rental" = "Opslag verhuur";
 
-"type.shop.tobacco" = "Tabak";
+"type.shop.tobacco" = "Tabakszaak";
 
 "type.shop.trade" = "Handelsbenodigdheden";
 
-"type.shop.watches" = "Horloges";
+"type.shop.watches" = "Horlogezaak";
 
-"type.shop.wholesale" = "Groothandel winkel";
+"type.shop.wholesale" = "Groothandel";
 
 "type.sport" = "Sport";
 
-"type.sport.american_football" = "Amerikaans voetbal";
+"type.sport.american_football" = "American football";
 
 "type.sport.archery" = "Boogschieten";
 
@@ -2928,11 +3390,15 @@
 
 "type.sport.australian_football" = "Australian football";
 
-"type.sport.baseball" = "Basketbal";
+"type.sport.baseball" = "Honkbal";
 
 "type.sport.basketball" = "Basketbal";
 
+"type.sport.beachvolleyball" = "Beachvolleybal";
+
 "type.sport.bowls" = "Bowls";
+
+"type.sport.chess" = "Schaken";
 
 "type.sport.cricket" = "Cricket";
 
@@ -2953,15 +3419,37 @@
 
 "type.sport.shooting" = "schieten";
 
+"type.sport.skateboard" = "Skateboarden";
+
 "type.sport.skiing" = "Skiën";
 
 "type.sport.soccer" = "Voetbal";
 
 "type.sport.swimming" = "Zwemmen";
 
-"type.sport.tennis" = "Tennisveld";
+"type.sport.table_tennis" = "Tafeltennis";
 
-"type.tourism" = "Tourism";
+"type.sport.tennis" = "Tennis";
+
+"type.sport.volleyball" = "Volleyball";
+
+"type.sport.10pin" = "Bowlen";
+
+"type.sport.9pin" = "Bowlen";
+
+"type.sport.padel" = "Padel";
+
+"type.sport.futsal" = "Futsal";
+
+"type.sport.ice_hockey" = "IJshockey";
+
+"type.sport.field_hockey" = "Veldhockey";
+
+"type.sport.badminton" = "Badminton";
+
+"type.sport.pelota" = "Baskische peloton";
+
+"type.tourism" = "Tourisme";
 
 "type.tourism.alpine_hut" = "Berghut";
 
@@ -2971,29 +3459,29 @@
 
 "type.tourism.artwork.architecture" = "Kunstwerk";
 
-"type.tourism.artwork.painting" = "Kunstwerk";
+"type.tourism.artwork.painting" = "Schilderij";
 
 "type.tourism.artwork.sculpture" = "Kunstwerk";
 
-"type.tourism.artwork.statue" = "Kunstwerk";
+"type.tourism.artwork.statue" = "Standbeeld";
 
 "type.tourism.attraction" = "Attractie";
 
-"type.tourism.attraction.animal" = "Attractie";
+"type.tourism.attraction.animal" = "Dierenverblijf";
 
 "type.tourism.attraction.specified" = "Attractie";
 
-"type.tourism.camp_site" = "Camping";
+"type.tourism.camp_site" = "Kampeerterrein";
 
 "type.tourism.caravan_site" = "Caravan site";
 
-"type.tourism.chalet" = "Chalet";
+"type.tourism.chalet" = "Vakantiehuis";
 
-"type.tourism.gallery" = "Toerisme";
+"type.tourism.gallery" = "Galerij";
 
 "type.tourism.guest_house" = "Gasthuis";
 
-"type.tourism.hostel" = "Hostel";
+"type.tourism.hostel" = "Herberg";
 
 "type.tourism.hotel" = "Hotel";
 
@@ -3015,21 +3503,21 @@
 
 "type.tourism.resort" = "Complex";
 
-"type.tourism.theme_park" = "Toerisme";
+"type.tourism.theme_park" = "Attractiepark";
 
-"type.tourism.viewpoint" = "Uitzicht";
+"type.tourism.viewpoint" = "Uitkijkpunt";
 
 "type.tourism.wilderness_hut" = "Wildernishut";
 
 "type.tourism.zoo" = "Dierentuin";
 
-"type.traffic_calming" = "Traffic Calming";
+"type.traffic_calming" = "Snelheidsmatigende maatregel";
 
-"type.traffic_calming.bump" = "Traffic Bump";
+"type.traffic_calming.bump" = "Verkeersdrempel";
 
-"type.traffic_calming.hump" = "Traffic Hump";
+"type.traffic_calming.hump" = "Verkeersheuvel";
 
-"type.waterway" = "Waterway";
+"type.waterway" = "Waterweg";
 
 "type.waterway.canal" = "Kanaal";
 
@@ -3037,17 +3525,17 @@
 
 "type.waterway.dam" = "Dam";
 
-"type.waterway.ditch" = "Ditch";
+"type.waterway.ditch" = "Sloot";
 
-"type.waterway.ditch.tunnel" = "Ditch";
+"type.waterway.ditch.tunnel" = "Sloot";
 
-"type.waterway.dock" = "Waterway Dock";
+"type.waterway.dock" = "Dok";
 
-"type.waterway.drain" = "Drain";
+"type.waterway.drain" = "Afvoer";
 
-"type.waterway.drain.tunnel" = "Drain";
+"type.waterway.drain.tunnel" = "Afvoer";
 
-"type.waterway.lock_gate" = "Gesloten poort";
+"type.waterway.lock_gate" = "Sluisdeur";
 
 "type.waterway.river" = "Rivier";
 
@@ -3055,19 +3543,19 @@
 
 "type.waterway.riverbank" = "Rivier";
 
-"type.waterway.stream" = "Rivier";
+"type.waterway.stream" = "Beek";
 
 "type.waterway.stream.ephemeral" = "Rivier";
 
-"type.waterway.stream.intermittent" = "Rivier";
+"type.waterway.stream.intermittent" = "Beek";
 
-"type.waterway.stream.tunnel" = "Rivier";
+"type.waterway.stream.tunnel" = "Beek";
 
-"type.waterway.waterfall" = "Watervallen";
+"type.waterway.waterfall" = "Waterval";
 
-"type.waterway.weir" = "Weir";
+"type.waterway.weir" = "Stuw";
 
-"type.wheelchair" = "Wheelchair";
+"type.wheelchair" = "Rolstoel";
 
 "type.wheelchair.limited" = "Gedeeltelijk uitgerust voor gehandicapten";
 
@@ -3075,38 +3563,35 @@
 
 "type.wheelchair.yes" = "Uitgerust voor gehandicapten";
 
-/* en.wikipedia.org/wiki/Surface_lift */
-"type.piste_lift" = "Surface Lift";
+"type.aerialway.j.bar" = "Sleeplift (J)";
 
-"type.piste_lift.j.bar" = "J-bar Lift";
+"type.aerialway.magic_carpet" = "Loopband";
 
-"type.piste_lift.magic_carpet" = "Magic Carpet";
+"type.aerialway.platter" = "Sleeplift";
 
-"type.piste_lift.platter" = "Platter Lift";
+"type.aerialway.rope_tow" = "Touwlift";
 
-"type.piste_lift.rope_tow" = "Rope Tow";
+"type.aerialway.t.bar" = "Sleeplift (T-beugel)";
 
-"type.piste_lift.t.bar" = "T-bar Lift";
+"type.piste_type" = "Pistesoort";
 
-"type.piste_type" = "Piste Type";
+"type.piste_type.downhill" = "Ski-afdaling";
 
-"type.piste_type.downhill" = "Downhill Ski Run";
+"type.piste_type.downhill.advanced" = "Moeilijke afdaling";
 
-"type.piste_type.downhill.advanced" = "Downhill Ski Run";
+"type.piste_type.downhill.easy" = "Makkelijke afdaling";
 
-"type.piste_type.downhill.easy" = "Downhill Ski Run";
+"type.piste_type.downhill.expert" = "Afdaling voor experts";
 
-"type.piste_type.downhill.expert" = "Downhill Ski Run";
+"type.piste_type.downhill.freeride" = "Ski-afdaling";
 
-"type.piste_type.downhill.freeride" = "Downhill Ski Run";
+"type.piste_type.downhill.intermediate" = "Gemiddelde afdaling";
 
-"type.piste_type.downhill.intermediate" = "Downhill Ski Run";
+"type.piste_type.downhill.novice" = "Beginnersafdaling";
 
-"type.piste_type.downhill.novice" = "Downhill Ski Run";
+"type.piste_type.nordic" = "Langlaufroute";
 
-"type.piste_type.nordic" = "Nordic Ski Trail";
-
-"type.piste_type.sled" = "Sledding Piste";
+"type.piste_type.sled" = "Sleebaan";
 
 "type.building_part" = "Gebouw";
 

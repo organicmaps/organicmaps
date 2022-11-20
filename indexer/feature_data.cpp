@@ -2,8 +2,6 @@
 
 #include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"
-#include "indexer/feature_impl.hpp"
-#include "indexer/feature_visibility.hpp"
 #include "indexer/ftypes_matcher.hpp"
 
 #include "base/assert.hpp"
@@ -17,8 +15,6 @@
 #include <vector>
 
 using namespace feature;
-using namespace std;
-using namespace std::placeholders;
 
 ////////////////////////////////////////////////////////////////////////////////////
 // TypesHolder implementation
@@ -26,6 +22,8 @@ using namespace std::placeholders;
 
 namespace feature
 {
+using namespace std;
+
 template <class ContT> string TypesToString(ContT const & holder)
 {
   Classificator const & c = classif();
@@ -50,6 +48,18 @@ TypesHolder::TypesHolder(FeatureType & f) : m_size(0), m_geomType(f.GetGeomType(
   });
 }
 
+bool TypesHolder::HasWithSubclass(uint32_t type) const
+{
+  uint8_t const level = ftype::GetLevel(type);
+  for (uint32_t t : *this)
+  {
+    ftype::TruncValue(t, level);
+    if (t == type)
+      return true;
+  }
+  return false;
+}
+
 void TypesHolder::Remove(uint32_t type)
 {
   UNUSED_VALUE(RemoveIf(base::EqualFunctor<uint32_t>(type)));
@@ -71,7 +81,6 @@ bool TypesHolder::Equals(TypesHolder const & other) const
   }
   return true;
 }
-}  // namespace feature
 
 namespace
 {
@@ -94,8 +103,11 @@ public:
       return 1;
 
     ftype::TruncValue(t, 1);
-    if (IsIn1(t))
+    if (t == m_building)
       return 2;
+
+    if (IsIn1(t))
+      return 3;
 
     return 0;
   }
@@ -114,9 +126,8 @@ private:
   {
     // Fill types that will be taken into account last,
     // when we have many types for POI.
-    vector<vector<string>> const types = {
+    base::StringIL const types1[] = {
         // 1-arity
-        {"building"},
         {"building:part"},
         {"hwtag"},
         {"psurface"},
@@ -128,6 +139,10 @@ private:
         {"recycling"},
         {"area:highway"},
         {"earthquake:damage"},
+        {"emergency"},  // used in subway facilities (Barcelona)
+    };
+
+    base::StringIL const types2[] = {
         // 2-arity
         {"amenity", "atm"},
         {"amenity", "bench"},
@@ -136,20 +151,19 @@ private:
         {"amenity", "drinking_water"},
         {"leisure", "pitch"}, // Give priority to tag "sport"=*.
         {"public_transport", "platform"},
-        {"building", "address"},
-        {"building", "has_parts"},
     };
 
     Classificator const & c = classif();
-    for (auto const & type : types)
-    {
-      if (type.size() == 1)
-        m_types1.push_back(c.GetTypeByPath(type));
-      else if (type.size() == 2)
+
+    m_building = c.GetTypeByPath({"building"});
+
+    m_types1.reserve(std::size(types1));
+    for (auto const & type : types1)
+      m_types1.push_back(c.GetTypeByPath(type));
+
+    m_types2.reserve(std::size(types2));
+    for (auto const & type : types2)
         m_types2.push_back(c.GetTypeByPath(type));
-      else
-        ASSERT(false, (type));
-    }
 
     std::sort(m_types1.begin(), m_types1.end());
     std::sort(m_types2.begin(), m_types2.end());
@@ -160,12 +174,10 @@ private:
 
   vector<uint32_t> m_types1;
   vector<uint32_t> m_types2;
+  uint32_t m_building;
 };
+} // namespace
 
-}  // namespace
-
-namespace feature
-{
 uint8_t CalculateHeader(size_t const typesCount, HeaderGeomType const headerGeomType,
                         FeatureParamsBase const & params)
 {
@@ -208,9 +220,10 @@ void TypesHolder::SortBySpec()
 
 vector<string> TypesHolder::ToObjectNames() const
 {
+  Classificator const & c = classif();
   vector<string> result;
-  for (auto const type : *this)
-    result.push_back(classif().GetReadableObjectName(type));
+  for (uint32_t const type : *this)
+    result.push_back(c.GetReadableObjectName(type));
   return result;
 }
 }  // namespace feature
@@ -336,7 +349,7 @@ bool FeatureParams::AddHouseNumber(string houseNumber)
     ++i;
   houseNumber.erase(0, i);
 
-  if (any_of(houseNumber.cbegin(), houseNumber.cend(), IsDigit))
+  if (any_of(houseNumber.cbegin(), houseNumber.cend(), &strings::IsASCIIDigit))
   {
     house.Set(houseNumber);
     return true;

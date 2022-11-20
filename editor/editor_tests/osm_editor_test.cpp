@@ -1,5 +1,7 @@
 #include "testing/testing.hpp"
 
+#include "generator/generator_tests_support/test_feature.hpp"
+
 #include "editor/editor_storage.hpp"
 #include "editor/editor_tests/osm_editor_test.hpp"
 #include "editor/editor_tests_support/helpers.hpp"
@@ -9,7 +11,6 @@
 
 #include "indexer/classificator.hpp"
 #include "indexer/classificator_loader.hpp"
-#include "indexer/data_source_helpers.hpp"
 #include "indexer/feature_source.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/scales.hpp"
@@ -17,12 +18,15 @@
 #include "platform/platform_tests_support/async_gui_thread.hpp"
 #include "platform/platform_tests_support/scoped_file.hpp"
 
-#include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"
 
 #include <memory>
 
+namespace editor
+{
+namespace testing
+{
 using namespace generator::tests_support;
 using namespace editor::tests_support;
 using platform::tests_support::ScopedFile;
@@ -132,11 +136,16 @@ void FillEditableMapObject(osm::Editor const & editor, FeatureType & ft, osm::Ed
   emo.SetEditableProperties(editor.GetEditableProperties(ft));
 }
 
+void SetBuildingLevels(osm::EditableMapObject & emo, std::string s)
+{
+  emo.SetMetadata(feature::Metadata::FMD_BUILDING_LEVELS, std::move(s));
+}
+
 void SetBuildingLevelsToOne(FeatureType & ft)
 {
   EditFeature(ft, [](osm::EditableMapObject & emo)
   {
-    emo.SetBuildingLevels("1"); // change something
+    SetBuildingLevels(emo, "1");
   });
 }
 
@@ -189,10 +198,6 @@ uint32_t CountFeatureTypeInRectByDataSource(DataSource const & dataSource, m2::R
 }
 }  // namespace
 
-namespace editor
-{
-namespace testing
-{
 EditorTest::EditorTest()
 {
   try
@@ -268,7 +273,7 @@ void EditorTest::GetEditedFeatureTest()
     auto savedEmo = editor.GetEditedFeature(ft.GetID());
     TEST(savedEmo, ());
 
-    TEST_EQUAL(savedEmo->GetBuildingLevels(), "1", ());
+    TEST_EQUAL(savedEmo->GetMetadata(feature::Metadata::FMD_BUILDING_LEVELS), "1", ());
 
     TEST_EQUAL(ft.GetID(), savedEmo->GetID(), ());
   });
@@ -403,7 +408,7 @@ void EditorTest::GetFeatureStatusTest()
 
     osm::EditableMapObject emo;
     FillEditableMapObject(editor, ft, emo);
-    emo.SetBuildingLevels("1");
+    SetBuildingLevels(emo, "1");
     TEST_EQUAL(editor.SaveEditedFeature(emo), osm::Editor::SaveResult::SavedSuccessfully, ());
 
     TEST_EQUAL(editor.GetFeatureStatus(ft.GetID()), FeatureStatus::Modified, ());
@@ -530,7 +535,7 @@ void EditorTest::GetFeaturesByStatusTest()
   {
     osm::EditableMapObject emo;
     FillEditableMapObject(editor, ft, emo);
-    emo.SetBuildingLevels("1");
+    SetBuildingLevels(emo, "1");
     TEST_EQUAL(editor.SaveEditedFeature(emo), osm::Editor::SaveResult::SavedSuccessfully, ());
 
     modifiedId = emo.GetID();
@@ -854,7 +859,7 @@ void EditorTest::ForEachFeatureInMwmRectAndScaleTest()
 
     osm::EditableMapObject emo;
     FillEditableMapObject(editor, ft, emo);
-    emo.SetBuildingLevels("1");
+    SetBuildingLevels(emo, "1");
     TEST_EQUAL(editor.SaveEditedFeature(emo), osm::Editor::SaveResult::SavedSuccessfully, ());
     TEST_EQUAL(editor.GetFeatureStatus(ft.GetID()), FeatureStatus::Modified, ());
   });
@@ -915,7 +920,7 @@ void EditorTest::CreateNoteTest()
 
     auto const notes = editor.m_notes->GetNotes();
     TEST_EQUAL(notes.size(), 1, ());
-    auto const note = notes.front();
+    auto const & note = notes.front();
     TEST(note.m_point.EqualDxDy(pos, 1e-10), ());
     TEST(note.m_note.find("with comment") != std::string::npos, ());
     TEST(note.m_note.find("OSM snapshot date") != std::string::npos, ());
@@ -1167,7 +1172,7 @@ void EditorTest::SaveTransactionTest()
       osm::EditableMapObject emo;
       emo.SetFromFeatureType(ft);
       emo.SetEditableProperties(editor.GetEditableProperties(ft));
-      emo.SetBuildingLevels("5");
+      SetBuildingLevels(emo, "5");
 
       saveResult = editor.SaveEditedFeature(emo);
     });
@@ -1190,7 +1195,7 @@ void EditorTest::SaveTransactionTest()
       osm::EditableMapObject emo;
       emo.SetFromFeatureType(ft);
       emo.SetEditableProperties(editor.GetEditableProperties(ft));
-      emo.SetBuildingLevels("");
+      SetBuildingLevels(emo, "");
 
       saveResult = editor.SaveEditedFeature(emo);
     });

@@ -282,11 +282,11 @@
 /* Text in menu */
 "instagram" = "Instagram";
 
+/* Text in the editor */
+"vk" = "VK";
+
 /* Text in menu */
 "openstreetmap" = "OpenStreetMap";
-
-/* Settings: Send feedback button and dialog title */
-"feedback" = "Відгук";
 
 /* Text in menu */
 "rate_the_app" = "Оцінити застосунок";
@@ -296,6 +296,9 @@
 
 /* Button in the main Help dialog */
 "faq" = "Питання та відповіді";
+
+/* Button in the main menu */
+"donate" = "Пожертвувати";
 
 /* Button in the main Help dialog */
 "how_to_support_us" = "Як нас підтримати?";
@@ -503,12 +506,6 @@
 
 "history" = "Історія";
 
-"opens_in" = "Відкривається через %@";
-
-"closes_in" = "Зачиняється через %@";
-
-"closed" = "Зачинено";
-
 "search_not_found" = "На жаль, нічого не знайдено.";
 
 "search_not_found_query" = "Спробуйте змінити запит.";
@@ -518,6 +515,12 @@
 "search_history_text" = "Швидкий доступ до недавніх результатів пошуку.";
 
 "clear_search" = "Очистити історію пошуку";
+
+/* Place Page link to Wikipedia article (if map object has it). */
+"read_in_wikipedia" = "Вікіпедія";
+
+/* Place Page link to Wikimedia Commons. */
+"wikimedia_commons" = "Wikimedia Commons";
 
 "p2p_your_location" = "Ваше місцезнаходження";
 
@@ -578,6 +581,20 @@
 
 "today" = "Сьогодні";
 
+"opens_tomorrow_at" = "Відкриття завтра о %@";
+
+"opens_dayoftheweek_at" = "Відчиняється в %1$@ о %2$@";
+
+"opens_at" = "Відкриття о %@";
+
+"opens_in" = "Відкривається через %@";
+
+"closes_at" = "Закривається о %@";
+
+"closes_in" = "Зачиняється через %@";
+
+"closed" = "Зачинено";
+
 "add_opening_hours" = "Додати години роботи";
 
 "no_osm_account" = "Не зареєстровані в OpenStreetMap?";
@@ -630,6 +647,8 @@
 
 "phone" = "Телефон";
 
+"level" = "Поверх";
+
 "please_note" = "Будь ласка, зверніть увагу";
 
 "downloader_delete_map_dialog" = "Разом з мапою будуть видалені й внесені Вами правки на цій мапі.";
@@ -670,7 +689,7 @@
 
 "message_invalid_feature_position" = "Об'єкт не може перебувати в цьому місцезнаходженні";
 
-"login_to_make_edits_visible" = "Увійдіть, щоб ваші зміни побачили інші користувачі.";
+"login_to_make_edits_visible" = "Увійдіть у OpenStreetMap.org, щоб ваші зміни побачили інші користувачі.";
 
 /* Error dialog no space */
 "migration_no_space_message" = "Для завантаження потрібно більше вільного місця. Будь ласка, видаліть непотрібні дані.";
@@ -750,6 +769,8 @@
 
 "miles_per_hour" = "ми/год";
 
+"hour" = "год";
+
 "minute" = "хв";
 
 "placepage_place_description" = "Опис";
@@ -798,10 +819,10 @@
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Надіслати усім користувачам?";
 
-/* iOS Dialog before publishing the modifications to the public map. */
+/* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "Переконайтеся, що ви не ввели особисті дані.";
 
-"editor_share_to_all_dialog_message_2" = "Якщо при перевірці змін виникнуть питання, ми напишемо вам на email.";
+"editor_share_to_all_dialog_message_2" = "Редактори OpenStreetMap перевірять зміни та зв’яжуться з вами, якщо у них виникнуть запитання.";
 
 "navigation_stop_button" = "стоп";
 
@@ -856,15 +877,13 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Дані про трафік недоступні";
 
-/* Settings: "Send general feedback" button */
-"feedback_general" = "Загальний відгук";
-
 "on" = "Увімкн.";
 
 "off" = "Вимкн.";
 
 "transliteration_title" = "Транслітерація латинськими літерами";
 
+/* Subway exits for public transport marks on the map */
 "core_exit" = "Вихід";
 
 "routing_add_start_point" = "Вкажіть початкову точку для побудови маршруту";
@@ -1205,6 +1224,15 @@
 /* edit track screen title */
 "track_title" = "Маршрут";
 
+/* Telegram group url for the "?" About page */
+"telegram_url" = "https://t.me/OrganicMapsApp";
+
+/* Instagram account url for the "?" About page */
+"instagram_url" = "https://www.instagram.com/organicmaps.app";
+
+/* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
+"translated_om_site_url" = "https://organicmaps.app/";
+
 
 /********** Types **********/
 
@@ -1300,6 +1328,10 @@
 
 "type.amenity.driving_school" = "Автошкола";
 
+"type.amenity.music_school" = "Музична школа ім";
+
+"type.amenity.language_school" = "Мовна школа";
+
 "type.office.diplomatic" = "Посольство";
 
 "type.amenity.fast_food" = "Фастфуд";
@@ -1342,19 +1374,25 @@
 
 "type.amenity.parking" = "Парковка";
 
-"type.amenity.parking.fee" = "Парковка";
+"type.amenity.parking.fee" = "Платна парковка";
 
-"type.amenity.parking.multi.storey" = "Парковка";
+"type.amenity.parking.multi.storey" = "Багатоповерховий паркінг";
 
-"type.amenity.parking.no.access" = "Парковка";
+"type.amenity.parking.no.access" = "Приватна парковка";
+
+"type.amenity.parking.permissive" = "Приватна парковка";
+
+"type.amenity.parking.private" = "Приватна парковка";
 
 "type.amenity.parking.park_and_ride" = "Парковка";
 
-"type.amenity.parking.permissive" = "Парковка";
+"type.amenity.parking.underground" = "Підземний паркінг";
 
-"type.amenity.parking.private" = "Парковка";
+"type.amenity.parking_entrance.private" = "Вхід на паркінг";
 
-"type.amenity.parking.underground" = "Парковка";
+"type.amenity.parking_entrance.permissive" = "Вхід на паркінг";
+
+"type.amenity.parking_entrance" = "Вхід на паркінг";
 
 "type.amenity.parking_space" = "Паркувальне місце";
 
@@ -1363,6 +1401,8 @@
 "type.amenity.parking_space.private" = "Паркувальне місце";
 
 "type.amenity.parking_space.underground" = "Паркувальне місце";
+
+"type.amenity.parking_space.disabled" = "Паркомісце для інвалідів";
 
 "type.amenity.payment_terminal" = "Платіжний термінал";
 
@@ -1503,6 +1543,8 @@
 
 "type.barrier.cycle_barrier" = "Велосипедна перешкода";
 
+"type.barrier.ditch" = "Рів";
+
 "type.barrier.entrance" = "Прохід";
 
 "type.barrier.fence" = "Огорожа";
@@ -1510,6 +1552,8 @@
 "type.barrier.gate" = "Ворота";
 
 "type.barrier.hedge" = "Hedge";
+
+"type.barrier.kissing_gate" = "Ворота";
 
 "type.barrier.lift_gate" = "Шлагбаум";
 
@@ -1589,15 +1633,15 @@
 
 "type.craft.carpenter" = "Столяр";
 
-"type.craft.confectionery" = "Confectionery";
+"type.craft.confectionery" = "Кондитер";
 
 "type.craft.electrician" = "Електрик";
 
-"type.craft.electronics_repair" = "Electronics Repair";
+"type.craft.electronics_repair" = "Ремонт електроніки";
 
 "type.craft.gardener" = "Садівник";
 
-"type.craft.handicraft" = "Handicraft";
+"type.craft.handicraft" = "Народні художні промисли";
 
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Опалення, вентиляція та кондиціювання повітря";
@@ -1610,11 +1654,11 @@
 
 "type.craft.plumber" = "Сантехнік";
 
-"type.craft.sawmill" = "Sawmill";
+"type.craft.sawmill" = "Лісопильня";
 
 "type.craft.shoemaker" = "Ремонт взуття";
 
-"type.craft.winery" = "Winery";
+"type.craft.winery" = "Виноробний завод";
 
 "type.craft.tailor" = "Ательє";
 
@@ -1801,6 +1845,8 @@
 "type.entrance" = "Вхід";
 
 "type.healthcare.laboratory" = "Медична лабораторія";
+
+"type.healthcare.physiotherapist" = "Фізіотерапевт";
 
 
 /********** Types: Roads **********/
@@ -2116,15 +2162,37 @@
 
 "type.historic.castle" = "Замок";
 
+"type.historic.castle.castrum" = "Каструм";
+
 "type.historic.castle.defensive" = "Замок";
 
-"type.historic.castle.stately" = "Замок";
+"type.historic.castle.fortified_church" = "Оборонний храм";
+
+"type.historic.castle.fortress" = "Фортеця";
+
+"type.historic.castle.hillfort" = "Городище";
+
+"type.historic.castle.kremlin" = "Кремль";
+
+"type.historic.castle.manor" = "Садиба";
+
+"type.historic.castle.palace" = "Палац";
+
+"type.historic.castle.shiro" = "Японський замок";
+
+"type.historic.castle.stately" = "Шато";
+
+"type.historic.city_gate" = "Міська брама";
 
 "type.historic.citywalls" = "Міська стіна";
 
 "type.historic.fort" = "Форт";
 
+"type.historic.gallows" = "Шибениця";
+
 "type.historic.memorial" = "Меморіал";
+
+"type.historic.memorial.cross" = "Пам'ятний хрест";
 
 "type.historic.memorial.plaque" = "Дошка пам'яті";
 
@@ -2132,7 +2200,13 @@
 
 "type.historic.memorial.statue" = "Статуя";
 
+"type.historic.memorial.stolperstein" = "Камені спотикання";
+
+"type.historic.memorial.war_memorial" = "Військовий меморіал";
+
 "type.historic.monument" = "Пам'ятник";
+
+"type.historic.pillory" = "Ганебний стовп";
 
 "type.historic.ruins" = "Руїни";
 
@@ -2262,7 +2336,11 @@
 
 "type.leisure.fitness_station" = "Спортивні знаряддя";
 
+"type.leisure.dance" = "Танцювальний зал";
+
 "type.leisure.garden" = "Садок";
+
+"type.leisure.garden.residential" = "Частный сад";
 
 "type.leisure.golf_course" = "Майданчик для гольфу";
 
@@ -2296,13 +2374,9 @@
 
 "type.leisure.sports_centre" = "Спорткомплекс";
 
-"type.leisure.sports_centre.climbing" = "Скеледром";
+"type.sport.climbing" = "Скеледром";
 
-"type.leisure.sports_centre.shooting" = "Тир";
-
-"type.leisure.sports_centre.swimming" = "Басейн для плавання";
-
-"type.leisure.sports_centre.yoga" = "Студія йоги";
+"type.sport.yoga" = "Студія йоги";
 
 "type.leisure.stadium" = "Стадіон";
 
@@ -2394,6 +2468,8 @@
 
 "type.natural.coastline" = "Берегова лiнiя";
 
+"type.natural.desert" = "Пустиня";
+
 "type.natural.geyser" = "Гейзер";
 
 "type.natural.glacier" = "Льодовик";
@@ -2472,8 +2548,6 @@
 
 "type.organic.yes" = "Еко";
 
-"type.place" = "Мicце";
-
 "type.place.city" = "Місто";
 
 "type.place.city.capital" = "Столиця";
@@ -2512,9 +2586,9 @@
 
 "type.place.islet" = "Острів";
 
-"type.place.isolated_dwelling" = "Житло";
+"type.place.isolated_dwelling" = "Хутір";
 
-"type.place.locality" = "Місцевість";
+"type.place.locality" = "Місце";
 
 "type.place.neighbourhood" = "Мiкрорайон";
 
@@ -2648,27 +2722,221 @@
 
 "type.railway.station.subway" = "Метро";
 
+"type.railway.station.subway.adana" = "Метро";
+
+"type.railway.station.subway.algiers" = "Метро";
+
+"type.railway.station.subway.almaty" = "Метро";
+
+"type.railway.station.subway.amsterdam" = "Метро";
+
+"type.railway.station.subway.ankara" = "Метро";
+
+"type.railway.station.subway.athens" = "Метро";
+
+"type.railway.station.subway.baku" = "Метро";
+
+"type.railway.station.subway.bangkok" = "Метро";
+
 "type.railway.station.subway.barcelona" = "Метро";
+
+"type.railway.station.subway.beijing" = "Метро";
+
+"type.railway.station.subway.bengalore" = "Метро";
 
 "type.railway.station.subway.berlin" = "Метро";
 
+"type.railway.station.subway.brasilia" = "Метро";
+
+"type.railway.station.subway.brescia" = "Метро";
+
+"type.railway.station.subway.brussels" = "Метро";
+
+"type.railway.station.subway.bucharest" = "Метро";
+
+"type.railway.station.subway.budapest" = "Метро";
+
+"type.railway.station.subway.buenos_aires" = "Метро";
+
+"type.railway.station.subway.bursa" = "Метро";
+
+"type.railway.station.subway.cairo" = "Метро";
+
+"type.railway.station.subway.caracas" = "Метро";
+
+"type.railway.station.subway.catania" = "Метро";
+
+"type.railway.station.subway.changchun" = "Метро";
+
+"type.railway.station.subway.chengdu" = "Метро";
+
+"type.railway.station.subway.chicago" = "Метро";
+
+"type.railway.station.subway.chongqing" = "Метро";
+
+"type.railway.station.subway.dalian" = "Метро";
+
+"type.railway.station.subway.delhi" = "Метро";
+
+"type.railway.station.subway.dnepro" = "Метро";
+
+"type.railway.station.subway.dubai" = "Метро";
+
+"type.railway.station.subway.ekb" = "Метро";
+
+"type.railway.station.subway.fukuoka" = "Метро";
+
+"type.railway.station.subway.glasgow" = "Метро";
+
+"type.railway.station.subway.guangzhou" = "Метро";
+
+"type.railway.station.subway.hamburg" = "Метро";
+
+"type.railway.station.subway.helsinki" = "Метро";
+
+"type.railway.station.subway.hiroshima" = "Метро";
+
+"type.railway.station.subway.isfahan" = "Метро";
+
+"type.railway.station.subway.istanbul" = "Метро";
+
+"type.railway.station.subway.izmir" = "Метро";
+
+"type.railway.station.subway.kazan" = "Метро";
+
+"type.railway.station.subway.kharkiv" = "Метро";
+
 "type.railway.station.subway.kiev" = "Метро";
+
+"type.railway.station.subway.kobe" = "Метро";
+
+"type.railway.station.subway.kolkata" = "Метро";
+
+"type.railway.station.subway.kunming" = "Метро";
+
+"type.railway.station.subway.kyoto" = "Метро";
+
+"type.railway.station.subway.la" = "Метро";
+
+"type.railway.station.subway.lausanne" = "Метро";
+
+"type.railway.station.subway.lille" = "Метро";
+
+"type.railway.station.subway.lima" = "Метро";
+
+"type.railway.station.subway.lisboa" = "Метро";
 
 "type.railway.station.subway.london" = "Метро";
 
+"type.railway.station.subway.lyon" = "Метро";
+
 "type.railway.station.subway.madrid" = "Метро";
+
+"type.railway.station.subway.malaga" = "Метро";
+
+"type.railway.station.subway.manila" = "Метро";
+
+"type.railway.station.subway.maracaibo" = "Метро";
+
+"type.railway.station.subway.mashhad" = "Метро";
+
+"type.railway.station.subway.mecca" = "Метро";
+
+"type.railway.station.subway.medellin" = "Метро";
+
+"type.railway.station.subway.mexico" = "Метро";
+
+"type.railway.station.subway.milan" = "Метро";
 
 "type.railway.station.subway.minsk" = "Метро";
 
+"type.railway.station.subway.montreal" = "Метро";
+
 "type.railway.station.subway.moscow" = "Метро";
+
+"type.railway.station.subway.munchen" = "Метро";
+
+"type.railway.station.subway.nagoya" = "Метро";
 
 "type.railway.station.subway.newyork" = "Метро";
 
+"type.railway.station.subway.nnov" = "Метро";
+
+"type.railway.station.subway.novosibirsk" = "Метро";
+
+"type.railway.station.subway.osaka" = "Метро";
+
+"type.railway.station.subway.oslo" = "Метро";
+
+"type.railway.station.subway.palma" = "Метро";
+
+"type.railway.station.subway.panama" = "Метро";
+
 "type.railway.station.subway.paris" = "Метро";
+
+"type.railway.station.subway.philadelphia" = "Метро";
+
+"type.railway.station.subway.pyongyang" = "Метро";
+
+"type.railway.station.subway.rennes" = "Метро";
+
+"type.railway.station.subway.rio" = "Метро";
 
 "type.railway.station.subway.roma" = "Метро";
 
+"type.railway.station.subway.rotterdam" = "Метро";
+
+"type.railway.station.subway.samara" = "Метро";
+
+"type.railway.station.subway.santiago" = "Метро";
+
+"type.railway.station.subway.santo_domingo" = "Метро";
+
+"type.railway.station.subway.saopaulo" = "Метро";
+
+"type.railway.station.subway.sapporo" = "Метро";
+
+"type.railway.station.subway.sendai" = "Метро";
+
+"type.railway.station.subway.sf" = "Метро";
+
+"type.railway.station.subway.shanghai" = "Метро";
+
+"type.railway.station.subway.shiraz" = "Метро";
+
+"type.railway.station.subway.sofia" = "Метро";
+
 "type.railway.station.subway.spb" = "Метро";
+
+"type.railway.station.subway.stockholm" = "Метро";
+
+"type.railway.station.subway.tabriz" = "Метро";
+
+"type.railway.station.subway.taipei" = "Метро";
+
+"type.railway.station.subway.taoyuan" = "Метро";
+
+"type.railway.station.subway.tashkent" = "Метро";
+
+"type.railway.station.subway.tbilisi" = "Метро";
+
+"type.railway.station.subway.tianjin" = "Метро";
+
+"type.railway.station.subway.tokyo" = "Метро";
+
+"type.railway.station.subway.valencia" = "Метро";
+
+"type.railway.station.subway.vienna" = "Метро";
+
+"type.railway.station.subway.warszawa" = "Метро";
+
+"type.railway.station.subway.washington" = "Метро";
+
+"type.railway.station.subway.wuhan" = "Метро";
+
+"type.railway.station.subway.yerevan" = "Метро";
+
+"type.railway.station.subway.yokohama" = "Метро";
 
 "type.railway.subway" = "Лінія метро";
 
@@ -2678,27 +2946,221 @@
 
 "type.railway.subway_entrance" = "Вхід до метро";
 
-"type.railway.subway_entrance.barcelona" = "Метро";
+"type.railway.subway_entrance.adana" = "Вхід до метро";
 
-"type.railway.subway_entrance.berlin" = "Метро";
+"type.railway.subway_entrance.algiers" = "Вхід до метро";
 
-"type.railway.subway_entrance.kiev" = "Метро";
+"type.railway.subway_entrance.almaty" = "Вхід до метро";
 
-"type.railway.subway_entrance.london" = "Метро";
+"type.railway.subway_entrance.amsterdam" = "Вхід до метро";
 
-"type.railway.subway_entrance.madrid" = "Метро";
+"type.railway.subway_entrance.ankara" = "Вхід до метро";
 
-"type.railway.subway_entrance.minsk" = "Метро";
+"type.railway.subway_entrance.athens" = "Вхід до метро";
 
-"type.railway.subway_entrance.moscow" = "Метро";
+"type.railway.subway_entrance.baku" = "Вхід до метро";
 
-"type.railway.subway_entrance.newyork" = "Метро";
+"type.railway.subway_entrance.bangkok" = "Вхід до метро";
 
-"type.railway.subway_entrance.paris" = "Метро";
+"type.railway.subway_entrance.barcelona" = "Вхід до метро";
 
-"type.railway.subway_entrance.roma" = "Метро";
+"type.railway.subway_entrance.beijing" = "Вхід до метро";
 
-"type.railway.subway_entrance.spb" = "Метро";
+"type.railway.subway_entrance.bengalore" = "Вхід до метро";
+
+"type.railway.subway_entrance.berlin" = "Вхід до метро";
+
+"type.railway.subway_entrance.brasilia" = "Вхід до метро";
+
+"type.railway.subway_entrance.brescia" = "Вхід до метро";
+
+"type.railway.subway_entrance.brussels" = "Вхід до метро";
+
+"type.railway.subway_entrance.bucharest" = "Вхід до метро";
+
+"type.railway.subway_entrance.budapest" = "Вхід до метро";
+
+"type.railway.subway_entrance.buenos_aires" = "Вхід до метро";
+
+"type.railway.subway_entrance.bursa" = "Вхід до метро";
+
+"type.railway.subway_entrance.cairo" = "Вхід до метро";
+
+"type.railway.subway_entrance.caracas" = "Вхід до метро";
+
+"type.railway.subway_entrance.catania" = "Вхід до метро";
+
+"type.railway.subway_entrance.changchun" = "Вхід до метро";
+
+"type.railway.subway_entrance.chengdu" = "Вхід до метро";
+
+"type.railway.subway_entrance.chicago" = "Вхід до метро";
+
+"type.railway.subway_entrance.chongqing" = "Вхід до метро";
+
+"type.railway.subway_entrance.dalian" = "Вхід до метро";
+
+"type.railway.subway_entrance.delhi" = "Вхід до метро";
+
+"type.railway.subway_entrance.dnepro" = "Вхід до метро";
+
+"type.railway.subway_entrance.dubai" = "Вхід до метро";
+
+"type.railway.subway_entrance.ekb" = "Вхід до метро";
+
+"type.railway.subway_entrance.fukuoka" = "Вхід до метро";
+
+"type.railway.subway_entrance.glasgow" = "Вхід до метро";
+
+"type.railway.subway_entrance.guangzhou" = "Вхід до метро";
+
+"type.railway.subway_entrance.hamburg" = "Вхід до метро";
+
+"type.railway.subway_entrance.helsinki" = "Вхід до метро";
+
+"type.railway.subway_entrance.hiroshima" = "Вхід до метро";
+
+"type.railway.subway_entrance.isfahan" = "Вхід до метро";
+
+"type.railway.subway_entrance.istanbul" = "Вхід до метро";
+
+"type.railway.subway_entrance.izmir" = "Вхід до метро";
+
+"type.railway.subway_entrance.kazan" = "Вхід до метро";
+
+"type.railway.subway_entrance.kharkiv" = "Вхід до метро";
+
+"type.railway.subway_entrance.kiev" = "Вхід до метро";
+
+"type.railway.subway_entrance.kobe" = "Вхід до метро";
+
+"type.railway.subway_entrance.kolkata" = "Вхід до метро";
+
+"type.railway.subway_entrance.kunming" = "Вхід до метро";
+
+"type.railway.subway_entrance.kyoto" = "Вхід до метро";
+
+"type.railway.subway_entrance.la" = "Вхід до метро";
+
+"type.railway.subway_entrance.lausanne" = "Вхід до метро";
+
+"type.railway.subway_entrance.lille" = "Вхід до метро";
+
+"type.railway.subway_entrance.lima" = "Вхід до метро";
+
+"type.railway.subway_entrance.lisboa" = "Вхід до метро";
+
+"type.railway.subway_entrance.london" = "Вхід до метро";
+
+"type.railway.subway_entrance.lyon" = "Вхід до метро";
+
+"type.railway.subway_entrance.madrid" = "Вхід до метро";
+
+"type.railway.subway_entrance.malaga" = "Вхід до метро";
+
+"type.railway.subway_entrance.manila" = "Вхід до метро";
+
+"type.railway.subway_entrance.maracaibo" = "Вхід до метро";
+
+"type.railway.subway_entrance.mashhad" = "Вхід до метро";
+
+"type.railway.subway_entrance.mecca" = "Вхід до метро";
+
+"type.railway.subway_entrance.medellin" = "Вхід до метро";
+
+"type.railway.subway_entrance.mexico" = "Вхід до метро";
+
+"type.railway.subway_entrance.milan" = "Вхід до метро";
+
+"type.railway.subway_entrance.minsk" = "Вхід до метро";
+
+"type.railway.subway_entrance.montreal" = "Вхід до метро";
+
+"type.railway.subway_entrance.moscow" = "Вхід до метро";
+
+"type.railway.subway_entrance.munchen" = "Вхід до метро";
+
+"type.railway.subway_entrance.nagoya" = "Вхід до метро";
+
+"type.railway.subway_entrance.newyork" = "Вхід до метро";
+
+"type.railway.subway_entrance.nnov" = "Вхід до метро";
+
+"type.railway.subway_entrance.novosibirsk" = "Вхід до метро";
+
+"type.railway.subway_entrance.osaka" = "Вхід до метро";
+
+"type.railway.subway_entrance.oslo" = "Вхід до метро";
+
+"type.railway.subway_entrance.palma" = "Вхід до метро";
+
+"type.railway.subway_entrance.panama" = "Вхід до метро";
+
+"type.railway.subway_entrance.paris" = "Вхід до метро";
+
+"type.railway.subway_entrance.philadelphia" = "Вхід до метро";
+
+"type.railway.subway_entrance.pyongyang" = "Вхід до метро";
+
+"type.railway.subway_entrance.rennes" = "Вхід до метро";
+
+"type.railway.subway_entrance.rio" = "Вхід до метро";
+
+"type.railway.subway_entrance.roma" = "Вхід до метро";
+
+"type.railway.subway_entrance.rotterdam" = "Вхід до метро";
+
+"type.railway.subway_entrance.samara" = "Вхід до метро";
+
+"type.railway.subway_entrance.santiago" = "Вхід до метро";
+
+"type.railway.subway_entrance.santo_domingo" = "Вхід до метро";
+
+"type.railway.subway_entrance.saopaulo" = "Вхід до метро";
+
+"type.railway.subway_entrance.sapporo" = "Вхід до метро";
+
+"type.railway.subway_entrance.sendai" = "Вхід до метро";
+
+"type.railway.subway_entrance.sf" = "Вхід до метро";
+
+"type.railway.subway_entrance.shanghai" = "Вхід до метро";
+
+"type.railway.subway_entrance.shiraz" = "Вхід до метро";
+
+"type.railway.subway_entrance.sofia" = "Вхід до метро";
+
+"type.railway.subway_entrance.spb" = "Вхід до метро";
+
+"type.railway.subway_entrance.stockholm" = "Вхід до метро";
+
+"type.railway.subway_entrance.tabriz" = "Вхід до метро";
+
+"type.railway.subway_entrance.taipei" = "Вхід до метро";
+
+"type.railway.subway_entrance.taoyuan" = "Вхід до метро";
+
+"type.railway.subway_entrance.tashkent" = "Вхід до метро";
+
+"type.railway.subway_entrance.tbilisi" = "Вхід до метро";
+
+"type.railway.subway_entrance.tianjin" = "Вхід до метро";
+
+"type.railway.subway_entrance.tokyo" = "Вхід до метро";
+
+"type.railway.subway_entrance.valencia" = "Вхід до метро";
+
+"type.railway.subway_entrance.vienna" = "Вхід до метро";
+
+"type.railway.subway_entrance.warszawa" = "Вхід до метро";
+
+"type.railway.subway_entrance.washington" = "Вхід до метро";
+
+"type.railway.subway_entrance.wuhan" = "Вхід до метро";
+
+"type.railway.subway_entrance.yerevan" = "Вхід до метро";
+
+"type.railway.subway_entrance.yokohama" = "Вхід до метро";
 
 "type.railway.tram" = "Трамвай";
 
@@ -2932,7 +3394,11 @@
 
 "type.sport.basketball" = "Баскетбол";
 
+"type.sport.beachvolleyball" = "Пляжний волейбол";
+
 "type.sport.bowls" = "Боулз";
+
+"type.sport.chess" = "Шахи";
 
 "type.sport.cricket" = "Крикет";
 
@@ -2953,13 +3419,35 @@
 
 "type.sport.shooting" = "Стрільба";
 
+"type.sport.skateboard" = "Скейтбординг";
+
 "type.sport.skiing" = "Лижi";
 
 "type.sport.soccer" = "Футбол";
 
 "type.sport.swimming" = "Плавання";
 
+"type.sport.table_tennis" = "Настільний теніс";
+
 "type.sport.tennis" = "Тенісний корт";
+
+"type.sport.volleyball" = "Волейбол";
+
+"type.sport.10pin" = "Боулінг";
+
+"type.sport.9pin" = "Боулінг";
+
+"type.sport.padel" = "Падель";
+
+"type.sport.futsal" = "Футзал";
+
+"type.sport.ice_hockey" = "Хокей із шайбою";
+
+"type.sport.field_hockey" = "Хокей на траві";
+
+"type.sport.badminton" = "Бадмінтон";
+
+"type.sport.pelota" = "Баскська пелота";
 
 "type.tourism" = "Туризм";
 
@@ -3075,18 +3563,15 @@
 
 "type.wheelchair.yes" = "Обладнано для інвалідів";
 
-/* en.wikipedia.org/wiki/Surface_lift */
-"type.piste_lift" = "Бугельний витяг";
+"type.aerialway.j.bar" = "Бугельний витяг";
 
-"type.piste_lift.j.bar" = "Бугельний витяг";
+"type.aerialway.magic_carpet" = "Стрiчковий конвеєр";
 
-"type.piste_lift.magic_carpet" = "Стрiчковий конвеєр";
+"type.aerialway.platter" = "Бугельний витяг";
 
-"type.piste_lift.platter" = "Бугельний витяг";
+"type.aerialway.rope_tow" = "Бугельний витяг";
 
-"type.piste_lift.rope_tow" = "Бугельний витяг";
-
-"type.piste_lift.t.bar" = "Бугельний витяг";
+"type.aerialway.t.bar" = "Бугельний витяг";
 
 "type.piste_type" = "Тип траси";
 

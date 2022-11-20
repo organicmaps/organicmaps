@@ -1,7 +1,5 @@
 #pragma once
 
-#include "indexer/scales.hpp"
-
 #include "coding/string_utf8_multilang.hpp"
 
 #include "base/assert.hpp"
@@ -37,30 +35,26 @@ public:
     void AddSynonym(String const & s);
 
     template <typename Fn>
-    std::enable_if_t<std::is_same<std::result_of_t<Fn(String)>, void>::value> ForEachSynonym(
-        Fn && fn) const
+    void ForEachSynonym(Fn && fn) const
     {
       std::for_each(m_synonyms.begin(), m_synonyms.end(), std::forward<Fn>(fn));
     }
 
     template <typename Fn>
-    std::enable_if_t<std::is_same<std::result_of_t<Fn(String)>, void>::value>
-    ForOriginalAndSynonyms(Fn && fn) const
+    void ForOriginalAndSynonyms(Fn && fn) const
     {
       fn(m_original);
       ForEachSynonym(std::forward<Fn>(fn));
     }
 
     template <typename Fn>
-    std::enable_if_t<std::is_same<std::result_of_t<Fn(String)>, bool>::value, bool> AnyOfSynonyms(
-        Fn && fn) const
+    bool AnyOfSynonyms(Fn && fn) const
     {
       return std::any_of(m_synonyms.begin(), m_synonyms.end(), std::forward<Fn>(fn));
     }
 
     template <typename Fn>
-    std::enable_if_t<std::is_same<std::result_of_t<Fn(String)>, bool>::value, bool>
-    AnyOfOriginalOrSynonyms(Fn && fn) const
+    bool AnyOfOriginalOrSynonyms(Fn && fn) const
     {
       if (fn(m_original))
         return true;
@@ -84,29 +78,35 @@ public:
 
   QueryParams() = default;
 
-  void SetQuery(std::string const & query) { m_query = query; }
-
-  template <typename It>
-  void InitNoPrefix(It tokenBegin, It tokenEnd)
+  template <typename IterT>
+  void Init(std::string const & /*query*/, IterT tokenBegin, IterT tokenEnd, String const & prefix)
   {
     Clear();
+
     for (; tokenBegin != tokenEnd; ++tokenBegin)
       m_tokens.emplace_back(*tokenBegin);
+
+    if (!prefix.empty())
+    {
+      m_prefixToken = Token(prefix);
+      m_hasPrefix = true;
+    }
+
     m_typeIndices.resize(GetNumTokens());
+
     AddSynonyms();
   }
 
-  template <typename It>
-  void InitWithPrefix(It tokenBegin, It tokenEnd, String const & prefix)
+  template <typename ContT>
+  void Init(std::string const & query, ContT const & tokens, bool isLastPrefix)
   {
-    Clear();
-    for (; tokenBegin != tokenEnd; ++tokenBegin)
-      m_tokens.emplace_back(*tokenBegin);
-    m_prefixToken = Token(prefix);
-    m_hasPrefix = true;
-    m_typeIndices.resize(GetNumTokens());
-    AddSynonyms();
+    CHECK(!isLastPrefix || !tokens.empty(), ());
+
+    Init(query, tokens.begin(), isLastPrefix ? tokens.end() - 1 : tokens.end(),
+         isLastPrefix ? tokens.back() : String{});
   }
+
+  void ClearStreetIndices();
 
   size_t GetNumTokens() const { return m_hasPrefix ? m_tokens.size() + 1 : m_tokens.size(); }
 
@@ -122,6 +122,8 @@ public:
   bool IsPrefixToken(size_t i) const;
   Token const & GetToken(size_t i) const;
   Token & GetToken(size_t i);
+
+  bool IsCommonToken(size_t i) const;
 
   // Returns true if all tokens in |range| have integral synonyms.
   bool IsNumberTokens(TokenRange const & range) const;
@@ -140,13 +142,12 @@ private:
 
   void AddSynonyms();
 
-  // The original query without any normalizations.
-  std::string m_query;
-
   std::vector<Token> m_tokens;
   Token m_prefixToken;
   bool m_hasPrefix = false;
   bool m_isCategorialRequest = false;
+
+  std::vector<bool> m_isCommonToken;
 
   std::vector<TypeIndices> m_typeIndices;
 

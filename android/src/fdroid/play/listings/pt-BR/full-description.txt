@@ -1,28 +1,28 @@
-‣ Nosso aplicativo gratuito não rastreia você e não tem anúncios e é apoiado por suas doações.
-‣ Está sendo constantemente aperfeiçoado por nossa pequena equipe, em tempo livre, usando nosso próprio dinheiro e doações/contribuições de nossos usuários.
-‣ Se algo estiver errado ou faltando no mapa, por favor, conserte-o via <b>OpenStreetMap</b> e veja estas mudanças na próxima atualização dos mapas.
-‣ Se a navegação ou a busca não funcionar, por favor, envie-nos um e-mail. Respondemos a <i>CADA</i> email, e vamos consertar tudo o mais rápido possível!
+‣ Nosso aplicativo gratuito não te rastreia e não tem anúncios, e é mantido por suas doações.
+‣ Está sendo constantemente aperfeiçoado por nossa pequena equipe, no tempo livre, usando nosso próprio dinheiro e doações/contribuições de nossos usuários.
+‣ Se algo estiver errado ou faltando no mapa, por favor, conserte diretamente no <b>OpenStreetMap</b> e veja suas mudanças na próxima atualização dos mapas.
+‣ Se a navegação ou a busca não funcionar, por favor, envie-nos um e-mail. Respondemos a <i>CADA</i> email, e vamos consertar o mais rápido possível!
 
-<b>Seu feedback e as avaliações de 5 estrelas são as melhores maneiras de motivar nossa equipe!</b>
+<b>Sua opinião e as avaliações de 5 estrelas são as melhores maneiras de motivar nossa equipe!</b>
 
 Características principais:
 • Gratuito, de software livre, sem anúncios, sem rastreamento
-• Mapas offline detalhados com lugares que não existem no Google maps, gratidão a comunidade do <b>OpenStreetMap</b>
-• Rotas para ciclistas, trilhas e áreas para caminhadas
-• Linhas de contorno, perfis de elevação, picos e declives
-• Caminhada, ciclismo e navegação EXPERIMENTAL de carro com orientação por voz
+• Mapas offline detalhados com lugares que não existem Google Maps, graças à comunidade <b>OpenStreetMap</b>
+• Rotas de ciclismo, trilhas para caminhadas e caminhos para pedestres
+• Curvas de nível, perfis de elevação, picos e encostas
+• Navegação passo a passo a pé, bicicleta e carro, com orientação por voz (experimental)
 • Busca rápida offline
-• Exportação e importação de favoritos em formatos KML/KMZ (GPX está chegando em breve)
-• Modo escuro para proteger sua vista
+• Exportação e importação de favoritos em formatos KML/KMZ (GPX em breve)
+• Modo escuro para proteger seus olhos
 
-Organic Maps ainda não tem suporte ao Android Auto, transporte público, mapas de satélite e outras características legais, <i>por enquanto</i>. Mas com a <i>sua ajuda e apoio</i>, podemos tornar este mundo melhor, passo a passo.
+Organic Maps ainda não tem suporte ao Android Auto, transporte público, mapas de satélite e outras características legais, <i>por enquanto</i>. Mas com a <i>sua ajuda e apoio</i>, podemos tornar este mundo melhor, pouco a pouco.
 
 Organic Maps é <b>puro e orgânico, feito com amor</b>:
 
 • Desempenho offline incrivelmente rápido
 • Respeita sua privacidade
 • Economiza sua bateria
-• Sem taxas imprevistas de dados móveis
+• Sem cobranças inesperadas de dados móveis
 • Simples de usar, apenas com funcionalidades mais importantes incluídas
 
 Livre de rastreadores e outras coisas ruins:
@@ -33,20 +33,20 @@ Livre de rastreadores e outras coisas ruins:
 • Sem conexões para servidores externos
 • Sem registros desnecessários
 • Sem tutoriais obrigatórios
-• Sem spam por e-mail
+• Sem lixo eletrônico por e-mail
 • Sem notificações push
-• Sem recursos maliciosos
-• Sem pesticidas, Puramente orgânico
+• Sem recursos desnecessários
+•  ̶S̶e̶m̶ ̶p̶e̶s̶t̶i̶c̶i̶d̶a̶s̶ Puramente orgânico
 
-Organic Maps acredita que <b>a privacidade é um direito humano fundamental</b>:
+No Organic Maps, acreditamos que <b>a privacidade é um direito humano fundamental</b>:
 
 • Organic Maps é um projeto indie de iniciativa comunitária de software livre
-• Protegemos a sua privacidade contra os olhos curiosos da Big Tech
+• Protegemos a sua privacidade dos olhos curiosos das grandes empresas
 • Fique protegido, não importa onde você esteja
 
 Zero rastreadores e apenas as permissões absolutamente necessárias são exigidas, testado por Exodus Privacy Report.
 
-Por favor, visite o site <b><i>organicmaps.app</i></b> para mais detalhes e FAQ ou entre em contato diretamente via Telegram @OrganicMapsApp.
+Por favor, visite o site <b><i>organicmaps.app</i></b> para mais detalhes e perguntas frequentes ou entre em contato diretamente via Telegram (@OrganicMapsApp).
 
 Rejeite a vigilância - abrace sua liberdade.
-<b>Experimente o Organic Maps!</b>
+<b>Experimente Organic Maps!</b>

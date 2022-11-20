@@ -153,7 +153,7 @@
 "water" = "Air";
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
-"rv" = "RV Facilities";
+"rv" = "Untuk RV";
 
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
 
@@ -282,11 +282,11 @@
 /* Text in menu */
 "instagram" = "Instagram";
 
+/* Text in the editor */
+"vk" = "VK";
+
 /* Text in menu */
 "openstreetmap" = "OpenStreetMap";
-
-/* Settings: Send feedback button and dialog title */
-"feedback" = "Umpan balik";
 
 /* Text in menu */
 "rate_the_app" = "Beri nilai aplikasi";
@@ -296,6 +296,9 @@
 
 /* Button in the main Help dialog */
 "faq" = "Pertanyaan dan jawaban";
+
+/* Button in the main menu */
+"donate" = "Menyumbangkan";
 
 /* Button in the main Help dialog */
 "how_to_support_us" = "Bagaimana cara mendukung kami?";
@@ -503,12 +506,6 @@
 
 "history" = "Riwayat";
 
-"opens_in" = "Opens in %@";
-
-"closes_in" = "Closes in %@";
-
-"closed" = "Tutup";
-
 "search_not_found" = "Maaf, saya tidak menemukan apa pun.";
 
 "search_not_found_query" = "Silakan coba kueri lainnya.";
@@ -518,6 +515,12 @@
 "search_history_text" = "Akses kueri pencarian terbaru dengan cepat.";
 
 "clear_search" = "Bersihkan riwayat pencarian";
+
+/* Place Page link to Wikipedia article (if map object has it). */
+"read_in_wikipedia" = "Wikipedia";
+
+/* Place Page link to Wikimedia Commons. */
+"wikimedia_commons" = "Wikimedia Commons";
 
 "p2p_your_location" = "Lokasi Anda";
 
@@ -578,6 +581,20 @@
 
 "today" = "Hari ini";
 
+"opens_tomorrow_at" = "Opens tomorrow at %@";
+
+"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
+
+"opens_at" = "Opens at %@";
+
+"opens_in" = "Opens in %@";
+
+"closes_at" = "Closes at %@";
+
+"closes_in" = "Closes in %@";
+
+"closed" = "Tutup";
+
 "add_opening_hours" = "Tambah jam kerja";
 
 "no_osm_account" = "Tidak ada akun di OpenStreetMap?";
@@ -629,6 +646,8 @@
 "email_or_username" = "Surel atau nama pengguna";
 
 "phone" = "Telepon";
+
+"level" = "Tingkat";
 
 "please_note" = "Harap diperhatikan";
 
@@ -750,6 +769,8 @@
 
 "miles_per_hour" = "mpj";
 
+"hour" = "j";
+
 "minute" = "mnt";
 
 "placepage_place_description" = "Deskripsi";
@@ -798,10 +819,10 @@
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Apakah Anda ingin mengirimkannya ke semua pengguna?";
 
-/* iOS Dialog before publishing the modifications to the public map. */
+/* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "Pastikan Anda tidak memasukkan data pribadi apa pun.";
 
-"editor_share_to_all_dialog_message_2" = "Kami akan memeriksa perubahan tersebut. Jika kami memiliki pertanyaan maka kami akan menghubungi Anda melalui surel.";
+"editor_share_to_all_dialog_message_2" = "Editor OpenStreetMap akan memeriksa perubahan dan menghubungi Anda jika ada pertanyaan.";
 
 "navigation_stop_button" = "berhenti";
 
@@ -856,15 +877,13 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Data lalu lintas tidak tersedia";
 
-/* Settings: "Send general feedback" button */
-"feedback_general" = "Umpan Balik Umum";
-
 "on" = "On";
 
 "off" = "Mati";
 
 "transliteration_title" = "Transliterasi ke dalam bahasa Latin";
 
+/* Subway exits for public transport marks on the map */
 "core_exit" = "Keluar";
 
 "routing_add_start_point" = "Tambahkan titik awal untuk merencanakan rute";
@@ -1205,20 +1224,29 @@
 /* edit track screen title */
 "track_title" = "Trek";
 
+/* Telegram group url for the "?" About page */
+"telegram_url" = "https://t.me/OrganicMapsApp";
+
+/* Instagram account url for the "?" About page */
+"instagram_url" = "https://www.instagram.com/organicmaps.app";
+
+/* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
+"translated_om_site_url" = "https://organicmaps.app/";
+
 
 /********** Types **********/
 
 "type.aerialway" = "Aerialway";
 
-"type.aerialway.cable_car" = "Aerialway";
+"type.aerialway.cable_car" = "Cable car";
 
-"type.aerialway.chair_lift" = "Aerialway";
+"type.aerialway.chair_lift" = "Chair lift";
 
-"type.aerialway.drag_lift" = "Aerialway";
+"type.aerialway.drag_lift" = "Drag lift";
 
-"type.aerialway.gondola" = "Aerialway";
+"type.aerialway.gondola" = "Gondola";
 
-"type.aerialway.mixed_lift" = "Aerialway";
+"type.aerialway.mixed_lift" = "Mixed lift";
 
 "type.aerialway.station" = "Stasiun kereta gantung";
 
@@ -1300,6 +1328,10 @@
 
 "type.amenity.driving_school" = "Sekolah Mengemudi";
 
+"type.amenity.music_school" = "Sekolah musik";
+
+"type.amenity.language_school" = "Sekolah bahasa";
+
 "type.office.diplomatic" = "Kedutaan";
 
 "type.amenity.fast_food" = "Cepat saji";
@@ -1342,19 +1374,25 @@
 
 "type.amenity.parking" = "Parkir";
 
-"type.amenity.parking.fee" = "Parkir";
+"type.amenity.parking.fee" = "Parkir Berbayar";
 
-"type.amenity.parking.multi.storey" = "Parkir";
+"type.amenity.parking.multi.storey" = "Parkir Bertingkat";
 
-"type.amenity.parking.no.access" = "Parkir";
+"type.amenity.parking.no.access" = "Parkir pribadi";
+
+"type.amenity.parking.permissive" = "Parkir pribadi";
+
+"type.amenity.parking.private" = "Parkir pribadi";
 
 "type.amenity.parking.park_and_ride" = "Parkir";
 
-"type.amenity.parking.permissive" = "Parkir";
+"type.amenity.parking.underground" = "Parkir bawah tanah";
 
-"type.amenity.parking.private" = "Parkir";
+"type.amenity.parking_entrance.private" = "Pintu masuk parkir";
 
-"type.amenity.parking.underground" = "Parkir";
+"type.amenity.parking_entrance.permissive" = "Pintu masuk parkir";
+
+"type.amenity.parking_entrance" = "Pintu masuk parkir";
 
 "type.amenity.parking_space" = "Tempat parkir";
 
@@ -1363,6 +1401,8 @@
 "type.amenity.parking_space.private" = "Tempat parkir";
 
 "type.amenity.parking_space.underground" = "Tempat parkir";
+
+"type.amenity.parking_space.disabled" = "Tempat parkir penyandang cacat";
 
 "type.amenity.payment_terminal" = "Terminal Pembayaran";
 
@@ -1429,7 +1469,7 @@
 
 "type.recycling.green_waste" = "Green/Organic Waste";
 
-"type.recycling.cartons" = "Bewerage Cartons";
+"type.recycling.cartons" = "Beverage Cartons";
 
 "type.amenity.restaurant" = "Restoran";
 
@@ -1499,9 +1539,11 @@
 
 "type.barrier.chain" = "Chain";
 
-"type.barrier.city_wall" = "City Wall";
+"type.barrier.city_wall" = "Tembok Kota";
 
 "type.barrier.cycle_barrier" = "Cycle Barrier";
+
+"type.barrier.ditch" = "Parit";
 
 "type.barrier.entrance" = "Pintu masuk";
 
@@ -1510,6 +1552,8 @@
 "type.barrier.gate" = "Gerbang";
 
 "type.barrier.hedge" = "Hedge";
+
+"type.barrier.kissing_gate" = "Gerbang";
 
 "type.barrier.lift_gate" = "Polisi tidur";
 
@@ -1579,25 +1623,25 @@
 
 "type.cemetery.grave" = "Kuburan";
 
-"type.craft" = "Craft";
+"type.craft" = "Kerajinan";
 
-"type.craft.beekeeper" = "Beekeeper";
+"type.craft.beekeeper" = "Peternak lebah";
 
-"type.craft.blacksmith" = "Blacksmith";
+"type.craft.blacksmith" = "Pandai Besi";
 
 "type.craft.brewery" = "Toko minuman";
 
 "type.craft.carpenter" = "Tukang kayu";
 
-"type.craft.confectionery" = "Confectionery";
+"type.craft.confectionery" = "Penganan";
 
 "type.craft.electrician" = "Tukang listrik";
 
-"type.craft.electronics_repair" = "Electronics Repair";
+"type.craft.electronics_repair" = "Perbaikan Elektronik";
 
 "type.craft.gardener" = "Tukang kebun";
 
-"type.craft.handicraft" = "Handicraft";
+"type.craft.handicraft" = "Kriya";
 
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "HVAC";
@@ -1610,11 +1654,11 @@
 
 "type.craft.plumber" = "Tukang pipa";
 
-"type.craft.sawmill" = "Sawmill";
+"type.craft.sawmill" = "Penggergajian kayu";
 
 "type.craft.shoemaker" = "Tukang sepatu";
 
-"type.craft.winery" = "Winery";
+"type.craft.winery" = "Kilang Anggur";
 
 "type.craft.tailor" = "Tukang jahit";
 
@@ -1801,6 +1845,8 @@
 "type.entrance" = "Pintu masuk";
 
 "type.healthcare.laboratory" = "Laboratorium medis";
+
+"type.healthcare.physiotherapist" = "Fisioterapis";
 
 
 /********** Types: Roads **********/
@@ -2106,25 +2152,47 @@
 
 /********** Types: Historic **********/
 
-"type.historic" = "Historic";
+"type.historic" = "Objek bersejarah";
 
 "type.historic.archaeological_site" = "Situs arkeologi";
 
-"type.historic.battlefield" = "Battlefield";
+"type.historic.battlefield" = "Medan Perang";
 
-"type.historic.boundary_stone" = "Boundary Stone";
+"type.historic.boundary_stone" = "Batu pembatas";
 
 "type.historic.castle" = "Kastel";
 
+"type.historic.castle.castrum" = "Benteng Romawi";
+
 "type.historic.castle.defensive" = "Kastel";
+
+"type.historic.castle.fortified_church" = "Gereja yang dibentengi";
+
+"type.historic.castle.fortress" = "Benteng";
+
+"type.historic.castle.hillfort" = "Benteng bukit";
+
+"type.historic.castle.kremlin" = "Kremlin";
+
+"type.historic.castle.manor" = "Rumah bangsawan";
+
+"type.historic.castle.palace" = "Istana";
+
+"type.historic.castle.shiro" = "Istana Jepang";
 
 "type.historic.castle.stately" = "Kastel";
 
-"type.historic.citywalls" = "City Wall";
+"type.historic.city_gate" = "Gerbang kota";
 
-"type.historic.fort" = "Fort";
+"type.historic.citywalls" = "Tembok Kota";
+
+"type.historic.fort" = "Benteng";
+
+"type.historic.gallows" = "Tiang gantungan";
 
 "type.historic.memorial" = "Tugu peringatan";
+
+"type.historic.memorial.cross" = "Salib peringatan";
 
 "type.historic.memorial.plaque" = "Tugu peringatan";
 
@@ -2132,7 +2200,13 @@
 
 "type.historic.memorial.statue" = "Tugu peringatan";
 
+"type.historic.memorial.stolperstein" = "Stolperstein";
+
+"type.historic.memorial.war_memorial" = "Tugu peringatan perang";
+
 "type.historic.monument" = "Monumen";
+
+"type.historic.pillory" = "Pilar";
 
 "type.historic.ruins" = "Reruntuhan";
 
@@ -2140,9 +2214,9 @@
 
 "type.historic.tomb" = "Pemandangan";
 
-"type.historic.wayside_cross" = "Christian Cross";
+"type.historic.wayside_cross" = "Salib di pinggir jalan";
 
-"type.historic.wayside_shrine" = "Shrine";
+"type.historic.wayside_shrine" = "Kuil di pinggir jalan";
 
 "type.hwtag" = "hwtag";
 
@@ -2262,7 +2336,11 @@
 
 "type.leisure.fitness_station" = "Stasiun Kebugaran";
 
+"type.leisure.dance" = "Lantai dansa";
+
 "type.leisure.garden" = "Situs arkeologi";
+
+"type.leisure.garden.residential" = "Situs arkeologi";
 
 "type.leisure.golf_course" = "Lapangan golf";
 
@@ -2296,13 +2374,9 @@
 
 "type.leisure.sports_centre" = "Olahraga";
 
-"type.leisure.sports_centre.climbing" = "Pusat Peralatan Mendaki";
+"type.sport.climbing" = "Pusat Peralatan Mendaki";
 
-"type.leisure.sports_centre.shooting" = "Lapangan tembak";
-
-"type.leisure.sports_centre.swimming" = "Kolam Renang";
-
-"type.leisure.sports_centre.yoga" = "Studio Yoga";
+"type.sport.yoga" = "Studio Yoga";
 
 "type.leisure.stadium" = "Stadion";
 
@@ -2348,7 +2422,7 @@
 
 "type.man_made.tower" = "Menara";
 
-"type.man_made.wastewater_plant" = "Wastewater Plant";
+"type.man_made.wastewater_plant" = "Wastewater treatment plant";
 
 "type.man_made.water_tap" = "Keran Air";
 
@@ -2393,6 +2467,8 @@
 "type.man_made.embankment" = "Tanggul";
 
 "type.natural.coastline" = "Pesisir";
+
+"type.natural.desert" = "Gurun";
 
 "type.natural.geyser" = "Geiser";
 
@@ -2472,8 +2548,6 @@
 
 "type.organic.yes" = "Organic";
 
-"type.place" = "place";
-
 "type.place.city" = "Kota";
 
 "type.place.city.capital" = "Ibu kota";
@@ -2512,11 +2586,11 @@
 
 "type.place.islet" = "Pulau";
 
-"type.place.isolated_dwelling" = "Dwelling";
+"type.place.isolated_dwelling" = "Tempat Tinggal Terisolasi";
 
 "type.place.locality" = "Wilayah";
 
-"type.place.neighbourhood" = "Neighbourhood";
+"type.place.neighbourhood" = "Lingkungan";
 
 "type.place.ocean" = "Samudra";
 
@@ -2524,7 +2598,7 @@
 
 "type.place.sea" = "Laut";
 
-"type.place.square" = "Square";
+"type.place.square" = "Lapangan kota";
 
 "type.place.state" = "Negara bagian";
 
@@ -2570,13 +2644,13 @@
 
 "type.railway" = "Railway";
 
-"type.railway.abandoned" = "Abandoned railway";
+"type.railway.abandoned" = "Abandoned Railway";
 
-"type.railway.abandoned.bridge" = "Abandoned railway";
+"type.railway.abandoned.bridge" = "Abandoned Railway Bridge";
 
-"type.railway.abandoned.tunnel" = "Abandoned Railway";
+"type.railway.abandoned.tunnel" = "Abandoned Railway Tunnel";
 
-"type.railway.construction" = "Railway's Construction";
+"type.railway.construction" = "Railway Construction";
 
 "type.railway.crossing" = "Railway Crossing";
 
@@ -2584,9 +2658,9 @@
 
 "type.railway.funicular" = "Funicular";
 
-"type.railway.funicular.bridge" = "Funicular";
+"type.railway.funicular.bridge" = "Funicular Bridge";
 
-"type.railway.funicular.tunnel" = "Funicular";
+"type.railway.funicular.tunnel" = "Funicular Tunnel";
 
 "type.railway.halt" = "Rel kereta api";
 
@@ -2594,51 +2668,51 @@
 
 "type.railway.light_rail" = "Light Rail";
 
-"type.railway.light_rail.bridge" = "Light Rail";
+"type.railway.light_rail.bridge" = "Light Rail Bridge";
 
-"type.railway.light_rail.tunnel" = "Light Rail";
+"type.railway.light_rail.tunnel" = "Light Rail Tunnel";
 
 "type.railway.monorail" = "Monorel";
 
-"type.railway.monorail.bridge" = "Monorail";
+"type.railway.monorail.bridge" = "Monorail Bridge";
 
-"type.railway.monorail.tunnel" = "Monorail";
+"type.railway.monorail.tunnel" = "Monorail Tunnel";
 
 "type.railway.narrow_gauge" = "Narrow Gauge Rail";
 
-"type.railway.narrow_gauge.bridge" = "Narrow Gauge Rail";
+"type.railway.narrow_gauge.bridge" = "Narrow Gauge Rail Bridge";
 
-"type.railway.narrow_gauge.tunnel" = "Narrow Gauge Rail";
+"type.railway.narrow_gauge.tunnel" = "Narrow Gauge Rail Tunnel";
 
 "type.railway.platform" = "Railway Platform";
 
 "type.railway.preserved" = "Preserved Rail";
 
-"type.railway.preserved.bridge" = "Preserved Rail";
+"type.railway.preserved.bridge" = "Preserved Rail Bridge";
 
-"type.railway.preserved.tunnel" = "Preserved Rail";
+"type.railway.preserved.tunnel" = "Preserved Rail Tunnel";
 
 "type.railway.rail" = "Kereta api";
 
-"type.railway.rail.bridge" = "Railway";
+"type.railway.rail.bridge" = "Railway Bridge";
 
 "type.railway.rail.motor_vehicle" = "Railway";
 
-"type.railway.rail.tunnel" = "Railway";
+"type.railway.rail.tunnel" = "Railway Tunnel";
 
 "type.railway.razed" = "Razed Rail";
 
 "type.railway.siding" = "Siding Rail";
 
-"type.railway.siding.bridge" = "Siding Rail";
+"type.railway.siding.bridge" = "Siding Rail Bridge";
 
-"type.railway.siding.tunnel" = "Siding Rail";
+"type.railway.siding.tunnel" = "Siding Rail Tunnel";
 
 "type.railway.spur" = "Spur Rail";
 
-"type.railway.spur.bridge" = "Spur Rail";
+"type.railway.spur.bridge" = "Spur Rail Bridge";
 
-"type.railway.spur.tunnel" = "Spur Rail";
+"type.railway.spur.tunnel" = "Spur Rail Tunnel";
 
 "type.railway.station" = "Rel kereta api";
 
@@ -2648,71 +2722,459 @@
 
 "type.railway.station.subway" = "Stasiun bawah tanah";
 
+"type.railway.station.subway.adana" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.algiers" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.almaty" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.amsterdam" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.ankara" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.athens" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.baku" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.bangkok" = "Stasiun bawah tanah";
+
 "type.railway.station.subway.barcelona" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.beijing" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.bengalore" = "Stasiun bawah tanah";
 
 "type.railway.station.subway.berlin" = "Stasiun bawah tanah";
 
+"type.railway.station.subway.brasilia" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.brescia" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.brussels" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.bucharest" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.budapest" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.buenos_aires" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.bursa" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.cairo" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.caracas" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.catania" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.changchun" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.chengdu" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.chicago" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.chongqing" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.dalian" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.delhi" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.dnepro" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.dubai" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.ekb" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.fukuoka" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.glasgow" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.guangzhou" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.hamburg" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.helsinki" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.hiroshima" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.isfahan" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.istanbul" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.izmir" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.kazan" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.kharkiv" = "Stasiun bawah tanah";
+
 "type.railway.station.subway.kiev" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.kobe" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.kolkata" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.kunming" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.kyoto" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.la" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.lausanne" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.lille" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.lima" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.lisboa" = "Stasiun bawah tanah";
 
 "type.railway.station.subway.london" = "Stasiun bawah tanah";
 
+"type.railway.station.subway.lyon" = "Stasiun bawah tanah";
+
 "type.railway.station.subway.madrid" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.malaga" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.manila" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.maracaibo" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.mashhad" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.mecca" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.medellin" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.mexico" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.milan" = "Stasiun bawah tanah";
 
 "type.railway.station.subway.minsk" = "Stasiun bawah tanah";
 
+"type.railway.station.subway.montreal" = "Stasiun bawah tanah";
+
 "type.railway.station.subway.moscow" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.munchen" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.nagoya" = "Stasiun bawah tanah";
 
 "type.railway.station.subway.newyork" = "Stasiun bawah tanah";
 
+"type.railway.station.subway.nnov" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.novosibirsk" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.osaka" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.oslo" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.palma" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.panama" = "Stasiun bawah tanah";
+
 "type.railway.station.subway.paris" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.philadelphia" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.pyongyang" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.rennes" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.rio" = "Stasiun bawah tanah";
 
 "type.railway.station.subway.roma" = "Stasiun bawah tanah";
 
+"type.railway.station.subway.rotterdam" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.samara" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.santiago" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.santo_domingo" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.saopaulo" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.sapporo" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.sendai" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.sf" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.shanghai" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.shiraz" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.sofia" = "Stasiun bawah tanah";
+
 "type.railway.station.subway.spb" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.stockholm" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.tabriz" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.taipei" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.taoyuan" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.tashkent" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.tbilisi" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.tianjin" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.tokyo" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.valencia" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.vienna" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.warszawa" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.washington" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.wuhan" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.yerevan" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.yokohama" = "Stasiun bawah tanah";
 
 "type.railway.subway" = "Subway Line";
 
-"type.railway.subway.bridge" = "Subway Line";
+"type.railway.subway.bridge" = "Subway Line Bridge";
 
-"type.railway.subway.tunnel" = "Subway Line";
+"type.railway.subway.tunnel" = "Subway Line Tunnel";
 
 "type.railway.subway_entrance" = "Pintu masuk kereta bawah tanah";
 
-"type.railway.subway_entrance.barcelona" = "Stasiun bawah tanah";
+"type.railway.subway_entrance.adana" = "Pintu masuk kereta bawah tanah";
 
-"type.railway.subway_entrance.berlin" = "Stasiun bawah tanah";
+"type.railway.subway_entrance.algiers" = "Pintu masuk kereta bawah tanah";
 
-"type.railway.subway_entrance.kiev" = "Stasiun bawah tanah";
+"type.railway.subway_entrance.almaty" = "Pintu masuk kereta bawah tanah";
 
-"type.railway.subway_entrance.london" = "Stasiun bawah tanah";
+"type.railway.subway_entrance.amsterdam" = "Pintu masuk kereta bawah tanah";
 
-"type.railway.subway_entrance.madrid" = "Stasiun bawah tanah";
+"type.railway.subway_entrance.ankara" = "Pintu masuk kereta bawah tanah";
 
-"type.railway.subway_entrance.minsk" = "Stasiun bawah tanah";
+"type.railway.subway_entrance.athens" = "Pintu masuk kereta bawah tanah";
 
-"type.railway.subway_entrance.moscow" = "Stasiun bawah tanah";
+"type.railway.subway_entrance.baku" = "Pintu masuk kereta bawah tanah";
 
-"type.railway.subway_entrance.newyork" = "Stasiun bawah tanah";
+"type.railway.subway_entrance.bangkok" = "Pintu masuk kereta bawah tanah";
 
-"type.railway.subway_entrance.paris" = "Stasiun bawah tanah";
+"type.railway.subway_entrance.barcelona" = "Pintu masuk kereta bawah tanah";
 
-"type.railway.subway_entrance.roma" = "Stasiun bawah tanah";
+"type.railway.subway_entrance.beijing" = "Pintu masuk kereta bawah tanah";
 
-"type.railway.subway_entrance.spb" = "Stasiun bawah tanah";
+"type.railway.subway_entrance.bengalore" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.berlin" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.brasilia" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.brescia" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.brussels" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.bucharest" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.budapest" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.buenos_aires" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.bursa" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.cairo" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.caracas" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.catania" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.changchun" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.chengdu" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.chicago" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.chongqing" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.dalian" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.delhi" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.dnepro" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.dubai" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.ekb" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.fukuoka" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.glasgow" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.guangzhou" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.hamburg" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.helsinki" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.hiroshima" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.isfahan" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.istanbul" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.izmir" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.kazan" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.kharkiv" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.kiev" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.kobe" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.kolkata" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.kunming" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.kyoto" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.la" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.lausanne" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.lille" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.lima" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.lisboa" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.london" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.lyon" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.madrid" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.malaga" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.manila" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.maracaibo" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.mashhad" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.mecca" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.medellin" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.mexico" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.milan" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.minsk" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.montreal" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.moscow" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.munchen" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.nagoya" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.newyork" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.nnov" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.novosibirsk" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.osaka" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.oslo" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.palma" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.panama" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.paris" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.philadelphia" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.pyongyang" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.rennes" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.rio" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.roma" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.rotterdam" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.samara" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.santiago" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.santo_domingo" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.saopaulo" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.sapporo" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.sendai" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.sf" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.shanghai" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.shiraz" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.sofia" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.spb" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.stockholm" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.tabriz" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.taipei" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.taoyuan" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.tashkent" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.tbilisi" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.tianjin" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.tokyo" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.valencia" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.vienna" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.warszawa" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.washington" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.wuhan" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.yerevan" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.yokohama" = "Pintu masuk kereta bawah tanah";
 
 "type.railway.tram" = "Tram Line";
 
-"type.railway.tram.bridge" = "Tram Line";
+"type.railway.tram.bridge" = "Tram Line Bridge";
 
-"type.railway.tram.tunnel" = "Tram Line";
+"type.railway.tram.tunnel" = "Tram Line Tunnel";
 
 "type.railway.tram_stop" = "Perhentian trem";
 
 "type.railway.yard" = "Railway Yard";
 
-"type.railway.yard.bridge" = "Railway Yard";
+"type.railway.yard.bridge" = "Railway Yard Bridge";
 
-"type.railway.yard.tunnel" = "Railway Yard";
+"type.railway.yard.tunnel" = "Railway Yard Tunnel";
 
 "type.route" = "route";
 
@@ -2932,7 +3394,11 @@
 
 "type.sport.basketball" = "Bola basket";
 
+"type.sport.beachvolleyball" = "Voli pantai";
+
 "type.sport.bowls" = "Boling lapangan";
+
+"type.sport.chess" = "Catur";
 
 "type.sport.cricket" = "Kriket";
 
@@ -2953,13 +3419,35 @@
 
 "type.sport.shooting" = "Penembakan";
 
+"type.sport.skateboard" = "Seluncur papan";
+
 "type.sport.skiing" = "Bermain ski";
 
 "type.sport.soccer" = "Sepak bola";
 
 "type.sport.swimming" = "Berenang";
 
+"type.sport.table_tennis" = "Tenis meja";
+
 "type.sport.tennis" = "Lapangan tenis";
+
+"type.sport.volleyball" = "Bola voli";
+
+"type.sport.10pin" = "Boling";
+
+"type.sport.9pin" = "Boling";
+
+"type.sport.padel" = "Padel";
+
+"type.sport.futsal" = "Futsal";
+
+"type.sport.ice_hockey" = "Hoki es";
+
+"type.sport.field_hockey" = "Hoki Lapangan";
+
+"type.sport.badminton" = "Bulu tangkis";
+
+"type.sport.pelota" = "Basque pelota";
 
 "type.tourism" = "Tourism";
 
@@ -3075,18 +3563,15 @@
 
 "type.wheelchair.yes" = "Akses penuh kursi roda";
 
-/* en.wikipedia.org/wiki/Surface_lift */
-"type.piste_lift" = "Surface Lift";
+"type.aerialway.j.bar" = "J-bar Lift";
 
-"type.piste_lift.j.bar" = "J-bar Lift";
+"type.aerialway.magic_carpet" = "Magic Carpet";
 
-"type.piste_lift.magic_carpet" = "Magic Carpet";
+"type.aerialway.platter" = "Platter Lift";
 
-"type.piste_lift.platter" = "Platter Lift";
+"type.aerialway.rope_tow" = "Rope Tow";
 
-"type.piste_lift.rope_tow" = "Rope Tow";
-
-"type.piste_lift.t.bar" = "T-bar Lift";
+"type.aerialway.t.bar" = "T-bar Lift";
 
 "type.piste_type" = "Piste Type";
 

@@ -182,7 +182,7 @@
 			isa = PBXProject;
 			attributes = {
 				DefaultBuildSystemTypeForWorkspace = Latest;
-				LastUpgradeCheck = 1310;
+				LastUpgradeCheck = 1410;
 				ORGANIZATIONNAME = "Organic Maps";
 				TargetAttributes = {
 					47375D952420D4DB00FFCC49 = {

@@ -174,7 +174,7 @@ df::TouchEvent MapWidget::GetTouchEvent(QMouseEvent * e, df::TouchEvent::ETouchT
 
 df::Touch MapWidget::GetSymmetrical(df::Touch const & touch) const
 {
-  m2::PointD const pixelCenter = m_framework.GetPixelCenter();
+  m2::PointD const pixelCenter = m_framework.GetVisiblePixelCenter();
   m2::PointD const symmetricalLocation = pixelCenter + pixelCenter - m2::PointD(touch.m_location);
 
   df::Touch result;
@@ -385,7 +385,7 @@ void MapWidget::resizeGL(int width, int height)
   int const w = m_screenshotMode ? width : m_ratio * width;
   int const h = m_screenshotMode ? height : m_ratio * height;
   m_framework.OnSize(w, h);
-  m_framework.SetVisibleViewport(m2::RectD(0, 0, w, h));
+
   if (m_skin)
   {
     m_skin->Resize(w, h);

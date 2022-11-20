@@ -6,7 +6,6 @@
 #include "search/mwm_context.hpp"
 
 #include "indexer/data_source.hpp"
-#include "indexer/feature_algo.hpp"
 #include "indexer/feature_visibility.hpp"
 #include "indexer/ftypes_matcher.hpp"
 
@@ -15,10 +14,10 @@
 
 #include <vector>
 
-using namespace std;
-
 namespace search
 {
+using namespace std;
+
 namespace
 {
 double const kMaxCityRadiusMeters = 30000.0;
@@ -309,6 +308,8 @@ void LocalityFinder::UpdateMaps()
     switch (info->GetType())
     {
     case MwmInfo::WORLD: m_worldId = id; break;
+    /// @todo Use fair MWM rect from CountryInfoGetter here and everywhere in search?
+    /// @see MwmInfo.m_bordersRect for details.
     case MwmInfo::COUNTRY: m_maps.Add(id, info->m_bordersRect); break;
     case MwmInfo::COASTS: break;
     }

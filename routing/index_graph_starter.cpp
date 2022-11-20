@@ -270,17 +270,17 @@ RouteWeight IndexGraphStarter::CalcSegmentWeight(Segment const & segment,
   Segment real;
   if (m_fake.FindReal(segment, real))
   {
-    auto const partLen = ms::DistanceOnEarth(vertex.GetPointFrom(), vertex.GetPointTo());
-    auto const fullLen =
-        ms::DistanceOnEarth(GetPoint(real, false /* front */), GetPoint(real, true /* front */));
+    double const partLen = ms::DistanceOnEarth(vertex.GetPointFrom(), vertex.GetPointTo());
+
+    if (IsRegionsGraphMode())
+      return RouteWeight(partLen);
+
+    double const fullLen = ms::DistanceOnEarth(GetPoint(real, false), GetPoint(real, true));
     // Note 1. |fullLen| == 0.0 in case of Segment(s) with the same ends.
     // Note 2. There is the following logic behind |return 0.0 * m_graph.CalcSegmentWeight(real, ...);|:
     // it's necessary to return a instance of the structure |RouteWeight| with zero wight.
     // Theoretically it may be differ from |RouteWeight(0)| because some road access block
     // may be kept in it and it is up to |RouteWeight| to know how to multiply by zero.
-
-    if (IsRegionsGraphMode())
-      return RouteWeight(partLen);
 
     Weight weight;
     if (IsGuidesSegment(real))
@@ -386,12 +386,13 @@ void IndexGraphStarter::AddEnding(FakeEnding const & thisEnding)
       auto const it = otherSegments.find(projection.m_segment);
       if (it != otherSegments.end())
       {
-        LatLonWithAltitude otherJunction = it->second[0];
-        double distBackToOther =
-            ms::DistanceOnEarth(backJunction.GetLatLon(), otherJunction.GetLatLon());
+        ASSERT(!it->second.empty(), ());
+
+        LatLonWithAltitude otherJunction;
+        double distBackToOther = 1.0E8;
         for (auto const & coord : it->second)
         {
-          double curDist = ms::DistanceOnEarth(backJunction.GetLatLon(), coord.GetLatLon());
+          double const curDist = ms::DistanceOnEarth(backJunction.GetLatLon(), coord.GetLatLon());
           if (curDist < distBackToOther)
           {
             distBackToOther = curDist;
@@ -399,8 +400,7 @@ void IndexGraphStarter::AddEnding(FakeEnding const & thisEnding)
           }
         }
 
-        auto const distBackToThis =
-            ms::DistanceOnEarth(backJunction.GetLatLon(), projection.m_junction.GetLatLon());
+        double const distBackToThis = ms::DistanceOnEarth(backJunction.GetLatLon(), projection.m_junction.GetLatLon());
 
         if (distBackToThis < distBackToOther)
           frontJunction = otherJunction;

@@ -3,7 +3,6 @@
 #include "routing/routing_helpers.hpp"
 
 #include "indexer/feature_algo.hpp"
-#include "indexer/feature_impl.hpp"
 #include "indexer/feature_visibility.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/search_string_utils.hpp"
@@ -23,8 +22,6 @@
 #include <algorithm>
 #include <cstring>
 #include <vector>
-
-using namespace std;
 
 namespace
 {
@@ -46,7 +43,7 @@ bool IsEqual(m2::RectD const & r1, m2::RectD const & r2)
           IsEqual(r1.maxY(), r2.maxY()));
 }
 
-bool IsEqual(vector<m2::PointD> const & v1, vector<m2::PointD> const & v2)
+bool IsEqual(std::vector<m2::PointD> const & v1, std::vector<m2::PointD> const & v2)
 {
   return equal(cbegin(v1), cend(v1), cbegin(v2), cend(v2),
                [](m2::PointD const & p1, m2::PointD const & p2) { return IsEqual(p1, p2); });
@@ -165,7 +162,7 @@ void FeatureBuilder::SetHoles(FeatureBuilder::Geometry const & holes)
   }
 }
 
-void FeatureBuilder::AddPolygon(vector<m2::PointD> & poly)
+void FeatureBuilder::AddPolygon(std::vector<m2::PointD> & poly)
 {
   // check for closing
   if (poly.size() < 3)
@@ -293,7 +290,7 @@ void FeatureBuilder::RemoveUselessNames()
     if (types.RemoveIf(typeRemover))
     {
       // Remove only if there are no other text-style types in feature (e.g. highway).
-      pair<int, int> const range = GetDrawableScaleRangeForRules(types, RULE_ANY_TEXT);
+      std::pair<int, int> const range = GetDrawableScaleRangeForRules(types, RULE_ANY_TEXT);
       if (range.first == -1)
         m_params.name.Clear();
     }
@@ -313,7 +310,7 @@ void FeatureBuilder::RemoveNameIfInvisible(int minS, int maxS)
 {
   if (!m_params.name.IsEmpty() && !IsCoastCell())
   {
-    pair<int, int> const range = GetDrawableScaleRangeForRules(GetTypesHolder(), RULE_ANY_TEXT);
+    std::pair<int, int> const range = GetDrawableScaleRangeForRules(GetTypesHolder(), RULE_ANY_TEXT);
     if (range.first > maxS || range.second < minS)
       m_params.name.Clear();
   }
@@ -350,12 +347,11 @@ bool FeatureBuilder::operator==(FeatureBuilder const & fb) const
 
 bool FeatureBuilder::IsExactEq(FeatureBuilder const & fb) const
 {
-  return m_center == fb.m_center &&
-      m_polygons == fb.m_polygons &&
-      m_limitRect == fb.m_limitRect &&
-      m_osmIds == fb.m_osmIds &&
-      m_params == fb.m_params &&
-      m_coastCell == fb.m_coastCell;
+  if (m_params.GetGeomType() == GeomType::Point && m_center != fb.m_center)
+    return false;
+
+  return (m_polygons == fb.m_polygons && m_limitRect == fb.m_limitRect &&
+          m_osmIds == fb.m_osmIds && m_params == fb.m_params && m_coastCell == fb.m_coastCell);
 }
 
 void FeatureBuilder::SerializeForIntermediate(Buffer & data) const
@@ -576,14 +572,14 @@ int FeatureBuilder::GetMinFeatureDrawScale() const
   return (minScale == -1 ? 1000 : minScale);
 }
 
-bool FeatureBuilder::AddName(string_view lang, string_view name)
+bool FeatureBuilder::AddName(std::string_view lang, std::string_view name)
 {
   return m_params.AddName(lang, name);
 }
 
-string_view FeatureBuilder::GetName(int8_t lang) const
+std::string_view FeatureBuilder::GetName(int8_t lang) const
 {
-  string_view sv;
+  std::string_view sv;
   CHECK(m_params.name.GetString(lang, sv) != sv.empty(), ());
   return sv;
 }
@@ -765,9 +761,9 @@ bool FeatureBuilder::IsValid() const
   return true;
 }
 
-string DebugPrint(FeatureBuilder const & fb)
+std::string DebugPrint(FeatureBuilder const & fb)
 {
-  ostringstream out;
+  std::ostringstream out;
 
   switch (fb.GetGeomType())
   {

@@ -200,6 +200,27 @@ UNIT_TEST(Metadata_ValidateAndFormat_wikipedia)
 #undef WIKIHOST
 }
 
+UNIT_TEST(Metadata_ValidateAndFormat_wikimedia_commons)
+{
+  char const * kWikiKey = "wikimedia_commons";
+
+  FeatureBuilderParams params;
+  MetadataTagProcessor p(params);
+  Metadata & md = params.GetMetadata();
+
+  p(kWikiKey, "File:Boğaz (105822801).jpeg");
+  TEST_EQUAL(md.Get(Metadata::FMD_WIKIMEDIA_COMMONS), "File:Boğaz (105822801).jpeg", ());
+  md.Drop(Metadata::FMD_WIKIPEDIA);
+
+  p(kWikiKey, "Category:Bosphorus");
+  TEST_EQUAL(md.Get(Metadata::FMD_WIKIMEDIA_COMMONS), "Category:Bosphorus", ());
+  md.Drop(Metadata::FMD_WIKIPEDIA);
+
+  p(kWikiKey, "incorrect_wikimedia_content");
+  TEST(md.Get(Metadata::FMD_WIKIMEDIA_COMMONS).empty(), ());
+  md.Drop(Metadata::FMD_WIKIPEDIA);
+}
+
 // Look at: https://wiki.openstreetmap.org/wiki/Key:duration for details
 // about "duration" format.
 

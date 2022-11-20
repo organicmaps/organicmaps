@@ -30,8 +30,9 @@ bench=yes : amenity=bench
 shelter=yes : amenity=shelter
 toilets=yes : amenity=toilets
 restaurant=yes : amenity=restaurant
-
 ice_cream=yes : amenity=ice_cream
+
+sauna=yes : leisure=sauna
 
 shop=ice_cream : amenity=ice_cream
 shop=e-cigarette : shop=tobacco
@@ -45,6 +46,10 @@ ford=stream : highway=ford
 ford=stepping_stones : highway=ford
 ford=yes : highway=ford
 
+barrier=jersey_barrier : barrier=block
+barrier=sliding_gate : barrier=gate
+barrier=turnstile : barrier=stile
+
 drinkable=yes : amenity=drinking_water
 drinking_water=yes : amenity=drinking_water
 water_point=yes : amenity=water_point
@@ -54,7 +59,6 @@ sanitary_dump_station=customers : amenity=sanitary_dump_station
 sanitary_dump_station=public : amenity=sanitary_dump_station
 waterway=sanitary_dump_station : amenity=sanitary_dump_station
 amenity=monastery : amenity=place_of_worship
-amenity=parking_entrance : amenity=parking
 vending=parcel_pickup;parcel_mail_in : amenity=parcel_locker | u
 vending=parcel_pickup : amenity=parcel_locker | u
 vending=water : vending=drinks
@@ -73,7 +77,13 @@ man_made=quay : man_made=pier
 natural=marsh     : natural=wetland, wetland=marsh
 natural=waterfall : waterway=waterfall
 natural=forest    : natural=wood
+natural=shrubbery : natural=scrub
 cliff=yes         : natural=cliff
+
+desert=sand : desert=erg
+desert=yes : desert=erg
+desert=semi_arid : desert=erg
+desert=dune : desert=erg
 
 office=notary : office=lawyer
 office=administrative : office=government
@@ -85,6 +95,8 @@ cycleway=opposite_lane : oneway:bicycle=no
 power=transformer : power=substation
 
 organic=limited : organic=yes
+
+amenity=dancing_school : leisure=dance
 
 wifi=yes : internet_access=wlan
 wifi=free : internet_access=wlan
@@ -101,7 +113,21 @@ ruins=yes : historic=ruins
 historic=cannon : historic=memorial
 historic=technical_monument : historic=memorial
 historic=shield : historic=memorial
-historic=war_memorial : historic=memorial
+
+memorial=blue_plaque : memorial=plaque
+memorial=stele : memorial=sculpture
+memorial=obelisk : memorial=sculpture
+memorial=stone : memorial=sculpture
+memorial=bust : memorial=statue
+memorial=person : memorial=statue
+memorial:type=plate : memorial:type=plaque
+
+artwork_type=mural : artwork_type=painting
+artwork_type=mural_painting : artwork_type=painting
+artwork_type=graffiti : artwork_type=painting
+artwork_type=stone : artwork_type=sculpture
+artwork_type=installation : artwork_type=sculpture
+artwork_type=bust : artwork_type=statue
 
 place=allotments : place=neighbourhood
 
@@ -126,3 +152,9 @@ recycling:paper_packaging=yes   : recycling:paper=yes
 recycling:newspaper=yes         : recycling:paper=yes
 recycling:magazines=yes         : recycling:paper=yes
 recycling:beverage_cartons=yes  : recycling:cartons=yes
+
+piste:lift=platter : aerialway=platter
+piste:lift=t-bar : aerialway=t-bar
+piste:lift=j-bar : aerialway=j-bar
+piste:lift=rope_tow : aerialway=rope_tow
+piste:lift=magic_carpet : aerialway=magic_carpet

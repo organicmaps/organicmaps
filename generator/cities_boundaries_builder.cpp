@@ -2,15 +2,10 @@
 
 #include "generator/utils.hpp"
 
-#include "search/categories_cache.hpp"
 #include "search/cbv.hpp"
-#include "search/localities_source.hpp"
-#include "search/mwm_context.hpp"
 
 #include "indexer/cities_boundaries_serdes.hpp"
 #include "indexer/city_boundary.hpp"
-#include "indexer/data_source.hpp"
-#include "indexer/feature_processor.hpp"
 #include "indexer/mwm_set.hpp"
 
 #include "platform/local_country_file.hpp"
@@ -22,7 +17,6 @@
 #include "base/assert.hpp"
 #include "base/checked_cast.hpp"
 #include "base/logging.hpp"
-#include "base/string_utils.hpp"
 
 #include <memory>
 #include <unordered_map>
@@ -31,12 +25,12 @@
 
 #include "defines.hpp"
 
-using namespace indexer;
-using namespace search;
-using namespace std;
-
 namespace generator
 {
+using namespace indexer;
+using namespace search;
+using std::string, std::vector;
+
 namespace
 {
 template <typename BoundariesTable, typename MappingReader>
@@ -60,7 +54,7 @@ bool BuildCitiesBoundaries(string const & dataPath, BoundariesTable & table,
       bs.insert(bs.end(), b.begin(), b.end());
     }
 
-    all.emplace_back(move(bs));
+    all.emplace_back(std::move(bs));
   });
 
   FilesContainerW container(dataPath, FileWriter::OP_WRITE_EXISTING);
@@ -74,9 +68,9 @@ bool BuildCitiesBoundaries(string const & dataPath, BoundariesTable & table,
 bool BuildCitiesBoundaries(string const & dataPath, string const & osmToFeaturePath,
                            OsmIdToBoundariesTable & table)
 {
-  using Mapping = unordered_map<uint32_t, base::GeoObjectId>;
+  using Mapping = std::unordered_map<uint32_t, base::GeoObjectId>;
 
-  return BuildCitiesBoundaries(dataPath, table, [&]() -> unique_ptr<Mapping> {
+  return BuildCitiesBoundaries(dataPath, table, [&]() -> std::unique_ptr<Mapping> {
     Mapping mapping;
     // todo(@m) Use osmToFeaturePath?
     if (!ParseFeatureIdToOsmIdMapping(dataPath + OSM2FEATURE_FILE_EXTENSION, mapping))
@@ -84,22 +78,22 @@ bool BuildCitiesBoundaries(string const & dataPath, string const & osmToFeatureP
       LOG(LERROR, ("Can't parse feature id to osm id mapping."));
       return {};
     }
-    return make_unique<Mapping>(move(mapping));
+    return std::make_unique<Mapping>(std::move(mapping));
   });
 }
 
 bool BuildCitiesBoundariesForTesting(string const & dataPath, TestIdToBoundariesTable & table)
 {
-  using Mapping = unordered_map<uint32_t, uint64_t>;
+  using Mapping = std::unordered_map<uint32_t, uint64_t>;
 
-  return BuildCitiesBoundaries(dataPath, table, [&]() -> unique_ptr<Mapping> {
+  return BuildCitiesBoundaries(dataPath, table, [&]() -> std::unique_ptr<Mapping> {
     Mapping mapping;
     if (!ParseFeatureIdToTestIdMapping(dataPath, mapping))
     {
       LOG(LERROR, ("Can't parse feature id to test id mapping."));
       return {};
     }
-    return make_unique<Mapping>(move(mapping));
+    return std::make_unique<Mapping>(std::move(mapping));
   });
 }
 

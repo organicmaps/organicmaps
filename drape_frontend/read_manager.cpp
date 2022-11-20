@@ -3,8 +3,6 @@
 #include "drape_frontend/metaline_manager.hpp"
 #include "drape_frontend/visual_params.hpp"
 
-#include "drape/constants.hpp"
-
 #include "base/buffer_vector.hpp"
 #include "base/stl_helpers.hpp"
 
@@ -65,9 +63,10 @@ void ReadManager::Start()
   if (m_pool != nullptr)
     return;
 
-  using namespace std::placeholders;
+  ASSERT_EQUAL(m_counter, 0, ());
+
   m_pool = make_unique_dp<base::thread_pool::routine::ThreadPool>(kReadingThreadsCount,
-                                               std::bind(&ReadManager::OnTaskFinished, this, _1));
+                              std::bind(&ReadManager::OnTaskFinished, this, std::placeholders::_1));
 }
 
 void ReadManager::Stop()
@@ -91,27 +90,26 @@ void ReadManager::OnTaskFinished(threads::IRoutine * task)
 
   // finish tiles
   {
-    std::lock_guard<std::mutex> lock(m_finishedTilesMutex);
+    std::lock_guard lock(m_finishedTilesMutex);
 
     // decrement counter
-    ASSERT(m_counter > 0, ());
-    --m_counter;
-    if (m_counter == 0)
+    ASSERT_GREATER(m_counter, 0, ());
+    if (--m_counter == 0)
     {
       m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                 make_unique_dp<FinishReadingMessage>(),
                                 MessagePriority::Normal);
     }
 
+    auto const & key = t->GetTileKey();
     if (!task->IsCancelled())
     {
-      auto const it = m_activeTiles.find(t->GetTileKey());
+      auto const it = m_activeTiles.find(key);
       ASSERT(it != m_activeTiles.end(), ());
 
       // Use the tile key from active tiles with the actual user marks generation.
-      auto const tileKey = *it;
       TTilesCollection tiles;
-      tiles.emplace(tileKey);
+      tiles.emplace(*it);
 
       m_activeTiles.erase(it);
 
@@ -143,7 +141,7 @@ void ReadManager::UpdateCoverage(ScreenBase const & screen, bool have3dBuildings
       CancelTileInfo(info);
     m_tileInfos.clear();
 
-    IncreaseCounter(static_cast<int>(tiles.size()));
+    IncreaseCounter(tiles.size());
     ++m_generationCounter;
     ++m_userMarksGenerationCounter;
 
@@ -173,10 +171,12 @@ void ReadManager::UpdateCoverage(ScreenBase const & screen, bool have3dBuildings
                         outdatedTiles.begin(), outdatedTiles.end(),
                         std::back_inserter(readyTiles), LessCoverageCell());
 
-    IncreaseCounter(static_cast<int>(newTiles.size()));
+    IncreaseCounter(newTiles.size());
+
     if (forceUpdateUserMarks)
       ++m_userMarksGenerationCounter;
     CheckFinishedTiles(readyTiles, forceUpdateUserMarks);
+
     for (auto const & tileKey : newTiles)
       PushTaskBackForTileKey(tileKey, texMng, metalineMng);
   }
@@ -239,11 +239,15 @@ void ReadManager::PushTaskBackForTileKey(TileKey const & tileKey,
                                                m_trafficEnabled, m_isolinesEnabled);
   std::shared_ptr<TileInfo> tileInfo = std::make_shared<TileInfo>(std::move(context));
   m_tileInfos.insert(tileInfo);
+
+  /// @todo Do we really need ReadMWMTask pool? Avoid "new" with hand-written bicycle? ;)
   ReadMWMTask * task = m_tasksPool.Get();
 
   task->Init(tileInfo);
+  /// @todo Can we update m_activeTiles once like IncreaseCounter and lock mutex once?
+  /// Or order is important here?
   {
-    std::lock_guard<std::mutex> lock(m_finishedTilesMutex);
+    std::lock_guard lock(m_finishedTilesMutex);
     m_activeTiles.insert(TileKey(tileKey, m_generationCounter, m_userMarksGenerationCounter));
   }
   m_pool->PushBack(task);
@@ -298,17 +302,15 @@ void ReadManager::ClearTileInfo(std::shared_ptr<TileInfo> const & tileToClear)
   m_tileInfos.erase(tileToClear);
 }
 
-void ReadManager::IncreaseCounter(int value)
+void ReadManager::IncreaseCounter(size_t value)
 {
-  std::lock_guard<std::mutex> lock(m_finishedTilesMutex);
-  m_counter += value;
+  if (value == 0)
+    return;
 
-  if (m_counter == 0)
-  {
-    m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                              make_unique_dp<FinishReadingMessage>(),
-                              MessagePriority::Normal);
-  }
+  std::lock_guard<std::mutex> lock(m_finishedTilesMutex);
+
+  ASSERT_GREATER_OR_EQUAL(m_counter, 0, ());
+  m_counter += value;
 }
 
 void ReadManager::Allow3dBuildings(bool allow3dBuildings)

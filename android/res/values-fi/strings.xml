@@ -132,6 +132,8 @@
 	<string name="recycling">Kierrätys</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
 	<string name="water">Vesi</string>
+	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
+	<string name="rv">RV tilat</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Muistiinpanot</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -166,8 +168,6 @@
 	<string name="copied_to_clipboard">Kopioitu leikepöydälle: %1$s</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">Valmis</string>
-	<!-- Prints version number in About dialog -->
-	<string name="version">Versio: %s</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">OpenStreetMap-tiedot: %s</string>
 	<!-- Confirmation in downloading countries dialog -->
@@ -222,6 +222,8 @@
 	<string name="help">Ohje</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">Kysymykset ja vastaukset</string>
+	<!-- Button in the main menu -->
+	<string name="donate">Lahjoittaa</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">Kuinka tukea meitä?</string>
 	<!-- Button in the main Help dialog -->
@@ -341,7 +343,6 @@
 	<string name="routing_arrive">Saavut: %s</string>
 	<string name="categories">Luokat</string>
 	<string name="history">Historia</string>
-	<string name="closed">Suljettu</string>
 	<string name="search_not_found">Pahoittelut, hakutuloksia ei ole.</string>
 	<string name="search_not_found_query">Yritä jotain toista hakusanaa.</string>
 	<string name="search_history_title">Hakuhistoria</string>
@@ -383,14 +384,15 @@
 	<string name="day_off_today">Suljettu tänään</string>
 	<string name="day_off">Suljettu</string>
 	<string name="today">Tänään</string>
+	<string name="closed">Suljettu</string>
 	<string name="edit_opening_hours">Muokkaa aukioloaikoja</string>
 	<string name="no_osm_account">Eikö sinulla ole OpenStreetMap tiliä?</string>
 	<string name="register_at_openstreetmap">Rekisteröidy</string>
 	<string name="login">Kirjaudu sisään</string>
+	<string name="login_osm">Kirjaudu OpenStreetMapiin</string>
 	<string name="password">Salasana</string>
 	<string name="forgot_password">Unohtuiko salasana?</string>
 	<string name="logout">Kirjaudu ulos</string>
-	<string name="thank_you">Kiitos</string>
 	<string name="edit_place">Muokkaa kohdetta</string>
 	<string name="add_language">Lisää kieli</string>
 	<string name="street">Katu</string>
@@ -406,6 +408,7 @@
 	<string name="select_cuisine">Valitse ruokalaji</string>
 	<!-- login text field -->
 	<string name="email_or_username">Sähköposti tai käyttäjätunnus</string>
+	<string name="level">Kerros</string>
 	<string name="downloader_delete_map_dialog">Kaikki karttaan tehdyt muutokset poistetaan kartan mukana.</string>
 	<string name="downloader_update_maps">Päivitä kartat</string>
 	<string name="downloader_mwm_migration_dialog">Sinun täytyy päivittää kaikki kartat ja suunnitella reitti uudelleen luodaksesi uuden reitin.</string>
@@ -424,6 +427,7 @@
 	<string name="editor_report_problem_other_title">Eri ongelma</string>
 	<string name="placepage_add_business_button">Lisää organisaatio</string>
 	<string name="message_invalid_feature_position">Kohdetta ei voida asettaa tänne</string>
+	<string name="osm_presentation">Kaikki karttatiedot tulevat OpenStreetMap-projektista. Se on kuin karttojen Wikipedia, jossa voit lisätä tai muokata paikkoja, ja ne ovat miljoonien käyttäjien saatavilla kaikkialla maailmassa.</string>
 	<string name="login_to_make_edits_visible">Kirjaudu sisään jotta muut käyttäjät voivat nähdä tekemäsi muokkaukset.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d/%2$d</string>
@@ -461,7 +465,6 @@
 	<string name="minute">min</string>
 	<string name="placepage_place_description">Kuvaus</string>
 	<string name="placepage_more_button">Lisää</string>
-	<string name="placepage_more_reviews_button">Lisää arvosteluja</string>
 	<string name="placepage_call_button">Soita</string>
 	<string name="placepage_edit_bookmark_button">Muokkaa kirjanmerkkiä</string>
 	<string name="editor_comment_hint">Kommentti…</string>
@@ -477,17 +480,15 @@
 	<string name="placepage_add_place_button">Lisää paikka kartalle</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Haluatko lähettää sen kaikille käyttäjille?</string>
-	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Varmistat, ettet syöttänyt henkilökohtaisia tietojasi.</string>
-	<string name="editor_share_to_all_dialog_message_2">Tarkistamme muutokset. Otamme sinuun yhteyttä sähköpostitse, jos meillä on kysyttävää.</string>
+	<string name="editor_share_to_all_dialog_message_2">OpenStreetMap-editorit tarkistavat muutokset ja ottavat sinuun yhteyttä, jos heillä on kysyttävää.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps on ilmainen ja avoimen lähdekoodin offline-karttasovellus. Ei mainoksia. Ei seurantaa. Jos näet virheen kartalla, korjaa se OpenStreetMapissa. Hankkeen ovat luoneet harrastajat vapaa-ajallamme, joten tarvitsemme palautettasi ja tukeasi.</string>
 	<!-- For the first routing -->
 	<string name="accept">Hyväksy</string>
 	<!-- For the first routing -->
 	<string name="decline">Hylkää</string>
-	<!-- A noun - a button name used to show search results in list form -->
-	<string name="search_in_table">Luettelo</string>
 	<string name="mobile_data_dialog">Näytetäänkö lisätiedot mobiili-internetillä?</string>
 	<string name="mobile_data_option_always">Käytä aina</string>
 	<string name="mobile_data_option_today">Vain tänään</string>
@@ -508,10 +509,11 @@
 	<string name="on">Käytössä</string>
 	<string name="off">Ei käytössä</string>
 	<string name="prefs_languages_information">Käytämme ääniohjeisiin tekstistä puheeksi -järjestelmää. Monet Android-laitteet käyttävät Googlen tekstistä puheeksi -sovellusta, jonka voit ladata tai päivittää Google Playssä (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">Joidenkin kielien osalta sinun täytyy asentaa toinen puhesyntetisaattori tai lisäkielipaketti sovelluskaupasta (Google Play, Samsung Apps, App Gallery, FDroid). Avaa laitteen asetukset → Kieli ja syöttötapa → Puhe → Teksistä puheeksi -toisto. Täällä voit hallita puhesynteesin asetuksia (esimerkiksi ladata offline-tilassa käytettävän kielipaketin) ja valita toisen tekstistä puheeksi -moottorin.</string>
+	<string name="prefs_languages_information_off">Joidenkin kielien osalta sinun täytyy asentaa toinen puhesyntetisaattori tai lisäkielipaketti sovelluskaupasta (Google Play, Galaxy Store, App Gallery, FDroid). Avaa laitteen asetukset → Kieli ja syöttötapa → Puhe → Teksistä puheeksi -toisto. Täällä voit hallita puhesynteesin asetuksia (esimerkiksi ladata offline-tilassa käytettävän kielipaketin) ja valita toisen tekstistä puheeksi -moottorin.</string>
 	<string name="prefs_languages_information_off_link">Lisätietoja saat tästä oppaasta.</string>
 	<string name="transliteration_title">Translitterointi latinaksi</string>
 	<string name="learn_more">Lisätietoja</string>
+	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">Poistu</string>
 	<string name="routing_add_start_point">Lisää alkupiste reitin suunnittelua varten</string>
 	<string name="routing_add_finish_point">Lisää määränpää reitin suunnittelua varten</string>
@@ -673,12 +675,23 @@
 	<string name="enable_screen_sleep">Salli näytön lepotila</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Kun tämä asetus on käytössä, näyttö menee lepotilaan käyttämättömyyden jälkeen.</string>
+	<!-- OpenStreetMap text on splash screen -->
+	<string name="splash_subtitle">OpenStreetMapin karttatiedot</string>
 
 	<!-- SECTION: Types -->
+	<string name="type.aerialway">Köysirata</string>
+	<string name="type.aerialway.cable_car">Kabiinihissi</string>
+	<string name="type.aerialway.chair_lift">Tuolihissi</string>
+	<string name="type.aerialway.drag_lift">Kapulahissi</string>
+	<string name="type.aerialway.gondola">Gondolihissi</string>
+	<string name="type.aerialway.mixed_lift">Köysirata</string>
 	<string name="type.aerialway.station">Köysirata-asema</string>
 	<string name="type.aeroway.aerodrome">Lentokenttä</string>
 	<string name="type.aeroway.aerodrome.international">Lentokenttä</string>
+	<string name="type.aeroway.gate">Portti</string>
 	<string name="type.aeroway.helipad">Helikopterialusta</string>
+	<string name="type.aeroway.runway">Kiitorata</string>
+	<string name="type.aeroway.terminal">Terminaali</string>
 	<string name="type.amenity">Infrastruktuurikohteet</string>
 	<string name="type.amenity.arts_centre">Taidekeskus</string>
 	<string name="type.amenity.atm">Pankkiautomaatti</string>
@@ -701,12 +714,15 @@
 	<string name="type.amenity.childcare">Päivähoito</string>
 	<string name="type.amenity.cinema">Elokuvateatteri</string>
 	<string name="type.amenity.clinic">Klinikka</string>
+	<string name="type.amenity.college">Korkeakoulu</string>
 	<string name="type.amenity.community_centre">Monitoimitalo</string>
 	<string name="type.amenity.courthouse">Oikeustalo</string>
 	<string name="type.amenity.dentist">Hammaslääkäri</string>
 	<string name="type.amenity.doctors">Lääkärin vastaanotto</string>
 	<string name="type.amenity.drinking_water">Juomavesi</string>
 	<string name="type.amenity.driving_school">Autokoulu</string>
+	<string name="type.amenity.music_school">Musiikkikoulu</string>
+	<string name="type.amenity.language_school">Kielikoulu</string>
 	<string name="type.office.diplomatic">Suurlähetystö</string>
 	<string name="type.amenity.fast_food">Pikaruokala</string>
 	<string name="type.amenity.ferry_terminal">Lautta</string>
@@ -728,17 +744,21 @@
 	<string name="type.amenity.nightclub">Yökerho</string>
 	<string name="type.amenity.nursing_home">Hoitokoti</string>
 	<string name="type.amenity.parking">Parkkipaikka</string>
-	<string name="type.amenity.parking.fee">Parkkipaikka</string>
-	<string name="type.amenity.parking.multi.storey">Parkkipaikka</string>
-	<string name="type.amenity.parking.no.access">Parkkipaikka</string>
-	<string name="type.amenity.parking.park_and_ride">Parkkipaikka</string>
-	<string name="type.amenity.parking.permissive">Parkkipaikka</string>
-	<string name="type.amenity.parking.private">Parkkipaikka</string>
-	<string name="type.amenity.parking.underground">Parkkipaikka</string>
+	<string name="type.amenity.parking.fee">Maksullinen pysäköinti</string>
+	<string name="type.amenity.parking.multi.storey">Monikerroksinen pysäköinti</string>
+	<string name="type.amenity.parking.no.access">Yksityinen pysäköinti</string>
+	<string name="type.amenity.parking.permissive">Yksityinen pysäköinti</string>
+	<string name="type.amenity.parking.private">Yksityinen pysäköinti</string>
+	<string name="type.amenity.parking.park_and_ride">Liityntäpysäköinti</string>
+	<string name="type.amenity.parking.underground">Maanalainen pysäköinti</string>
+	<string name="type.amenity.parking_entrance.private">Pysäköinnin sisäänkäynti</string>
+	<string name="type.amenity.parking_entrance.permissive">Pysäköinnin sisäänkäynti</string>
+	<string name="type.amenity.parking_entrance">Pysäköinnin sisäänkäynti</string>
 	<string name="type.amenity.parking_space">Parkkipaikka</string>
 	<string name="type.amenity.parking_space.permissive">Parkkipaikka</string>
 	<string name="type.amenity.parking_space.private">Parkkipaikka</string>
 	<string name="type.amenity.parking_space.underground">Parkkipaikka</string>
+	<string name="type.amenity.parking_space.disabled">Vammaispysäköinti</string>
 	<string name="type.amenity.payment_terminal">Maksupääte</string>
 	<string name="type.amenity.pharmacy">Apteekki</string>
 	<string name="type.amenity.place_of_worship">Uskonnollinen kohde</string>
@@ -752,6 +772,7 @@
 	<string name="type.amenity.police">Poliisi</string>
 	<string name="type.amenity.post_box">Postilaatikko</string>
 	<string name="type.amenity.post_office">Postitoimisto</string>
+	<string name="type.amenity.prison">Vankila</string>
 	<string name="type.amenity.pub">Pubi</string>
 	<string name="type.amenity.public_bookcase">Kirjahylly</string>
 
@@ -769,7 +790,7 @@
 	<string name="type.recycling.small_appliances">Kodinkonejäte</string>
 	<string name="type.amenity.restaurant">Ravintola</string>
 	<string name="type.amenity.school">Koulu</string>
-	<string name="type.amenity.shelter">Turvapaikka</string>
+	<string name="type.amenity.shelter">Katos</string>
 	<string name="type.amenity.shower">Suihku</string>
 	<string name="type.amenity.taxi">Taksi</string>
 	<string name="type.amenity.telephone">Puhelin</string>
@@ -777,10 +798,17 @@
 	<string name="type.amenity.toilets">WC</string>
 	<string name="type.amenity.townhall">Kaupungintalo</string>
 	<string name="type.amenity.university">Yliopisto</string>
+	<string name="type.amenity.vending_machine">Myyntiautomaatti</string>
 	<string name="type.amenity.vending_machine.cigarettes">Savukeautomaatti</string>
+	<string name="type.amenity.vending_machine.coffee">Kahviautomaatti</string>
+	<string name="type.amenity.vending_machine.condoms">Kondomiautomaatti</string>
 	<string name="type.amenity.vending_machine.drinks">Juoma-automaatti</string>
+	<string name="type.amenity.vending_machine.food">Ruoka-automaatti</string>
+	<string name="type.amenity.vending_machine.newspapers">Sanomalehtiautomaatti</string>
 	<string name="type.amenity.vending_machine.parking_tickets">Pysäköintimaksuautomaatti</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">Julkisen liikenteen lippuautomaatti</string>
+	<string name="type.amenity.vending_machine.sweets">Karkkiautomaatti</string>
+	<string name="type.amenity.vending_machine.fuel">Bensa-automaatti</string>
 	<string name="type.amenity.veterinary">Eläinlääkäri</string>
 	<string name="type.amenity.waste_basket">Roska-astia</string>
 	<string name="type.amenity.waste_disposal">Roska</string>
@@ -788,30 +816,65 @@
 	<string name="type.barrier.block">Este</string>
 	<string name="type.barrier.bollard">Tolppa</string>
 	<string name="type.barrier.border_control">Rajavalvonta</string>
+	<string name="type.barrier.chain">Ketju</string>
+	<string name="type.barrier.city_wall">Kaupungin muuri</string>
+	<string name="type.barrier.cycle_barrier">Polkupyöräeste</string>
+	<string name="type.barrier.ditch">Vallihauta</string>
 	<string name="type.barrier.entrance">Sisäänkäynti</string>
+	<string name="type.barrier.fence">Aita</string>
 	<string name="type.barrier.gate">Portti</string>
-	<string name="type.barrier.lift_gate">Puomi</string>
+	<string name="type.barrier.hedge">Pensasaita</string>
+	<string name="type.barrier.kissing_gate">Portti</string>
+	<string name="type.barrier.lift_gate">Nostopuomi</string>
 	<string name="type.barrier.stile">Portaat</string>
-	<string name="type.barrier.swing_gate">Puomi</string>
+	<string name="type.barrier.swing_gate">Kääntöpuomi</string>
 	<string name="type.barrier.toll_booth">Tietulliasema</string>
+	<string name="type.barrier.wall">Muuri</string>
+	<string name="type.boundary">Raja</string>
+	<string name="type.boundary.administrative">Hallinnollinen raja</string>
+	<string name="type.boundary.administrative.10">Hallinnollinen raja</string>
+	<string name="type.boundary.administrative.11">Hallinnollinen raja</string>
+	<string name="type.boundary.administrative.2">Valtakunnanraja</string>
+	<string name="type.boundary.administrative.3">Hallinnollinen raja</string>
+	<string name="type.boundary.administrative.4">Hallinnollinen raja</string>
+	<string name="type.boundary.administrative.5">Hallinnollinen raja</string>
+	<string name="type.boundary.administrative.6">Hallinnollinen raja</string>
+	<string name="type.boundary.administrative.7">Hallinnollinen raja</string>
+	<string name="type.boundary.administrative.8">Hallinnollinen raja</string>
+	<string name="type.boundary.administrative.9">Hallinnollinen raja</string>
+	<string name="type.boundary.administrative.city">Kaupunginraja</string>
+	<string name="type.boundary.administrative.country">Valtakunnanraja</string>
+	<string name="type.boundary.administrative.county">Maakunnanraja</string>
+	<string name="type.boundary.administrative.municipality">Kunnanraja</string>
+	<string name="type.boundary.administrative.nation">Valtakunnanraja</string>
+	<string name="type.boundary.administrative.state">Osavaltion raja</string>
 	<string name="type.boundary.national_park">Kansallispuisto</string>
 	<string name="type.building">Rakennus</string>
 	<string name="type.building.address">Rakennus</string>
 	<string name="type.building.garage">Autotalli</string>
 	<string name="type.building.has_parts">Rakennus</string>
 	<string name="type.building.train_station">Rautatieasema</string>
+	<string name="type.building.warehouse">Varasto</string>
 	<string name="type.cemetery.grave">Hauta</string>
+	<string name="type.craft">Käsityö</string>
+	<string name="type.craft.beekeeper">Mehiläishoitaja</string>
+	<string name="type.craft.blacksmith">Seppä</string>
 	<string name="type.craft.brewery">Panimo</string>
 	<string name="type.craft.carpenter">Puuseppä</string>
+	<string name="type.craft.confectionery">Kondiittori</string>
 	<string name="type.craft.electrician">Sähkömies</string>
+	<string name="type.craft.electronics_repair">Elektroniikan korjaus</string>
 	<string name="type.craft.gardener">Puutarhuri</string>
+	<string name="type.craft.handicraft">Käsityö</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Ilmastointilaite</string>
 	<string name="type.craft.metal_construction">Metallimies</string>
 	<string name="type.craft.painter">Maalari</string>
 	<string name="type.craft.photographer">Valokuvaaja</string>
 	<string name="type.craft.plumber">Putkimies</string>
+	<string name="type.craft.sawmill">Saha</string>
 	<string name="type.craft.shoemaker">Suutari</string>
+	<string name="type.craft.winery">Viinitila</string>
 	<string name="type.craft.tailor">Räätäli</string>
 	<string name="type.cuisine.african">Afrikkalainen keittiö</string>
 	<string name="type.cuisine.american">Amerikkalainen keittiö</string>
@@ -903,6 +966,7 @@
 	<string name="type.emergency.phone">Hätäpuhelin</string>
 	<string name="type.entrance">Sisäänkäynti</string>
 	<string name="type.healthcare.laboratory">Lääketieteellinen laboratorio</string>
+	<string name="type.healthcare.physiotherapist">Fysioterapeutti</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1069,18 +1133,39 @@
 	<string name="type.area_highway.unclassified">Katu</string>
 
 	<!-- SECTION: Types: Historic -->
+	<string name="type.historic">Historiallinen esine</string>
 	<string name="type.historic.archaeological_site">Arkeologinen kohde</string>
+	<string name="type.historic.battlefield">Taistelukenttä</string>
+	<string name="type.historic.boundary_stone">Rajamerkki</string>
 	<string name="type.historic.castle">Linna</string>
+	<string name="type.historic.castle.castrum">Castra</string>
 	<string name="type.historic.castle.defensive">Linna</string>
+	<string name="type.historic.castle.fortified_church">Linnoitettu kirkko</string>
+	<string name="type.historic.castle.fortress">Linnoitus</string>
+	<string name="type.historic.castle.hillfort">Linnavuori</string>
+	<string name="type.historic.castle.kremlin">Kreml</string>
+	<string name="type.historic.castle.manor">Kartano</string>
+	<string name="type.historic.castle.palace">Palatsi</string>
+	<string name="type.historic.castle.shiro">Japanilainen linna</string>
 	<string name="type.historic.castle.stately">Linna</string>
+	<string name="type.historic.city_gate">Kaupungin portti</string>
+	<string name="type.historic.citywalls">Kaupungin muuri</string>
+	<string name="type.historic.fort">Fort</string>
+	<string name="type.historic.gallows">Sappeja</string>
 	<string name="type.historic.memorial">Muistomerkki</string>
+	<string name="type.historic.memorial.cross">Muistoristi</string>
 	<string name="type.historic.memorial.plaque">Muistomerkki</string>
 	<string name="type.historic.memorial.sculpture">Muistomerkki</string>
 	<string name="type.historic.memorial.statue">Muistomerkki</string>
+	<string name="type.historic.memorial.stolperstein">Kompastuskivet</string>
+	<string name="type.historic.memorial.war_memorial">Sotamuistomerkki</string>
 	<string name="type.historic.monument">Monumentti</string>
+	<string name="type.historic.pillory">Häpeäpaalu</string>
 	<string name="type.historic.ruins">Rauniot</string>
 	<string name="type.historic.ship">Nähtävyydet</string>
 	<string name="type.historic.tomb">Nähtävyydet</string>
+	<string name="type.historic.wayside_cross">Tienvarren risti</string>
+	<string name="type.historic.wayside_shrine">Tienvarren pyhäkkö</string>
 	<string name="type.landuse.basin">Vesisäiliö</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery">Hautausmaa</string>
@@ -1099,7 +1184,9 @@
 	<string name="type.leisure.dog_park">Koirien ulkoilupaikka</string>
 	<string name="type.leisure.fitness_centre">Kuntosali</string>
 	<string name="type.leisure.fitness_station">Kuntokeskus</string>
+	<string name="type.leisure.dance">Tanssisali</string>
 	<string name="type.leisure.garden">Puutarha</string>
+	<string name="type.leisure.garden.residential">Puutarha</string>
 	<string name="type.leisure.golf_course">Golf-rata</string>
 	<string name="type.leisure.nature_reserve">Luonnonsuojelualue</string>
 	<string name="type.leisure.park">Puisto</string>
@@ -1111,10 +1198,8 @@
 	<string name="type.leisure.playground">Leikkikenttä</string>
 	<string name="type.leisure.sauna">Sauna</string>
 	<string name="type.leisure.sports_centre">Urheilukeskus</string>
-	<string name="type.leisure.sports_centre.climbing">Kiipeilykeskus</string>
-	<string name="type.leisure.sports_centre.shooting">Ampumarata</string>
-	<string name="type.leisure.sports_centre.swimming">Uimahalli</string>
-	<string name="type.leisure.sports_centre.yoga">Joogastudio</string>
+	<string name="type.sport.climbing">Kiipeilykeskus</string>
+	<string name="type.sport.yoga">Joogastudio</string>
 	<string name="type.leisure.stadium">Stadion</string>
 	<string name="type.leisure.swimming_pool">Uima-allas</string>
 	<string name="type.leisure.swimming_pool.private">Uima-allas</string>
@@ -1140,6 +1225,7 @@
 	<string name="type.natural.earth_bank">Kallio</string>
 	<string name="type.man_made.embankment">Pengerrys</string>
 	<string name="type.natural.coastline">Rannikko</string>
+	<string name="type.natural.desert">Aavikko</string>
 	<string name="type.natural.geyser">Geysir</string>
 	<string name="type.natural.glacier">Jäätikkö</string>
 	<string name="type.natural.grassland">Nurmi</string>
@@ -1195,10 +1281,13 @@
 	<string name="type.place.hamlet">Pieni kylä</string>
 	<string name="type.place.island">Saari</string>
 	<string name="type.place.islet">Saari</string>
+	<string name="type.place.isolated_dwelling">Erillinen asunto</string>
 	<string name="type.place.locality">Paikkakunta</string>
+	<string name="type.place.neighbourhood">Naapurusto</string>
 	<string name="type.place.ocean">Valtameri</string>
 	<string name="type.place.region">Alue</string>
 	<string name="type.place.sea">Meri</string>
+	<string name="type.place.square">Tori</string>
 	<string name="type.place.state">Lääni</string>
 	<string name="type.place.state.USA">Lääni</string>
 	<string name="type.place.suburb">Esikaupunki</string>
@@ -1215,29 +1304,223 @@
 	<string name="type.railway.station.light_rail">Rautatieasema</string>
 	<string name="type.railway.station.monorail">Rautatieasema</string>
 	<string name="type.railway.station.subway">Metro</string>
+	<string name="type.railway.station.subway.adana">Metro</string>
+	<string name="type.railway.station.subway.algiers">Metro</string>
+	<string name="type.railway.station.subway.almaty">Metro</string>
+	<string name="type.railway.station.subway.amsterdam">Metro</string>
+	<string name="type.railway.station.subway.ankara">Metro</string>
+	<string name="type.railway.station.subway.athens">Metro</string>
+	<string name="type.railway.station.subway.baku">Metro</string>
+	<string name="type.railway.station.subway.bangkok">Metro</string>
 	<string name="type.railway.station.subway.barcelona">Metro</string>
+	<string name="type.railway.station.subway.beijing">Metro</string>
+	<string name="type.railway.station.subway.bengalore">Metro</string>
 	<string name="type.railway.station.subway.berlin">Metro</string>
+	<string name="type.railway.station.subway.brasilia">Metro</string>
+	<string name="type.railway.station.subway.brescia">Metro</string>
+	<string name="type.railway.station.subway.brussels">Metro</string>
+	<string name="type.railway.station.subway.bucharest">Metro</string>
+	<string name="type.railway.station.subway.budapest">Metro</string>
+	<string name="type.railway.station.subway.buenos_aires">Metro</string>
+	<string name="type.railway.station.subway.bursa">Metro</string>
+	<string name="type.railway.station.subway.cairo">Metro</string>
+	<string name="type.railway.station.subway.caracas">Metro</string>
+	<string name="type.railway.station.subway.catania">Metro</string>
+	<string name="type.railway.station.subway.changchun">Metro</string>
+	<string name="type.railway.station.subway.chengdu">Metro</string>
+	<string name="type.railway.station.subway.chicago">Metro</string>
+	<string name="type.railway.station.subway.chongqing">Metro</string>
+	<string name="type.railway.station.subway.dalian">Metro</string>
+	<string name="type.railway.station.subway.delhi">Metro</string>
+	<string name="type.railway.station.subway.dnepro">Metro</string>
+	<string name="type.railway.station.subway.dubai">Metro</string>
+	<string name="type.railway.station.subway.ekb">Metro</string>
+	<string name="type.railway.station.subway.fukuoka">Metro</string>
+	<string name="type.railway.station.subway.glasgow">Metro</string>
+	<string name="type.railway.station.subway.guangzhou">Metro</string>
+	<string name="type.railway.station.subway.hamburg">Metro</string>
+	<string name="type.railway.station.subway.helsinki">Metro</string>
+	<string name="type.railway.station.subway.hiroshima">Metro</string>
+	<string name="type.railway.station.subway.isfahan">Metro</string>
+	<string name="type.railway.station.subway.istanbul">Metro</string>
+	<string name="type.railway.station.subway.izmir">Metro</string>
+	<string name="type.railway.station.subway.kazan">Metro</string>
+	<string name="type.railway.station.subway.kharkiv">Metro</string>
 	<string name="type.railway.station.subway.kiev">Metro</string>
+	<string name="type.railway.station.subway.kobe">Metro</string>
+	<string name="type.railway.station.subway.kolkata">Metro</string>
+	<string name="type.railway.station.subway.kunming">Metro</string>
+	<string name="type.railway.station.subway.kyoto">Metro</string>
+	<string name="type.railway.station.subway.la">Metro</string>
+	<string name="type.railway.station.subway.lausanne">Metro</string>
+	<string name="type.railway.station.subway.lille">Metro</string>
+	<string name="type.railway.station.subway.lima">Metro</string>
+	<string name="type.railway.station.subway.lisboa">Metro</string>
 	<string name="type.railway.station.subway.london">Metro</string>
+	<string name="type.railway.station.subway.lyon">Metro</string>
 	<string name="type.railway.station.subway.madrid">Metro</string>
+	<string name="type.railway.station.subway.malaga">Metro</string>
+	<string name="type.railway.station.subway.manila">Metro</string>
+	<string name="type.railway.station.subway.maracaibo">Metro</string>
+	<string name="type.railway.station.subway.mashhad">Metro</string>
+	<string name="type.railway.station.subway.mecca">Metro</string>
+	<string name="type.railway.station.subway.medellin">Metro</string>
+	<string name="type.railway.station.subway.mexico">Metro</string>
+	<string name="type.railway.station.subway.milan">Metro</string>
 	<string name="type.railway.station.subway.minsk">Metro</string>
+	<string name="type.railway.station.subway.montreal">Metro</string>
 	<string name="type.railway.station.subway.moscow">Metro</string>
+	<string name="type.railway.station.subway.munchen">Metro</string>
+	<string name="type.railway.station.subway.nagoya">Metro</string>
 	<string name="type.railway.station.subway.newyork">Metro</string>
+	<string name="type.railway.station.subway.nnov">Metro</string>
+	<string name="type.railway.station.subway.novosibirsk">Metro</string>
+	<string name="type.railway.station.subway.osaka">Metro</string>
+	<string name="type.railway.station.subway.oslo">Metro</string>
+	<string name="type.railway.station.subway.palma">Metro</string>
+	<string name="type.railway.station.subway.panama">Metro</string>
 	<string name="type.railway.station.subway.paris">Metro</string>
+	<string name="type.railway.station.subway.philadelphia">Metro</string>
+	<string name="type.railway.station.subway.pyongyang">Metro</string>
+	<string name="type.railway.station.subway.rennes">Metro</string>
+	<string name="type.railway.station.subway.rio">Metro</string>
 	<string name="type.railway.station.subway.roma">Metro</string>
+	<string name="type.railway.station.subway.rotterdam">Metro</string>
+	<string name="type.railway.station.subway.samara">Metro</string>
+	<string name="type.railway.station.subway.santiago">Metro</string>
+	<string name="type.railway.station.subway.santo_domingo">Metro</string>
+	<string name="type.railway.station.subway.saopaulo">Metro</string>
+	<string name="type.railway.station.subway.sapporo">Metro</string>
+	<string name="type.railway.station.subway.sendai">Metro</string>
+	<string name="type.railway.station.subway.sf">Metro</string>
+	<string name="type.railway.station.subway.shanghai">Metro</string>
+	<string name="type.railway.station.subway.shiraz">Metro</string>
+	<string name="type.railway.station.subway.sofia">Metro</string>
 	<string name="type.railway.station.subway.spb">Metro</string>
+	<string name="type.railway.station.subway.stockholm">Metro</string>
+	<string name="type.railway.station.subway.tabriz">Metro</string>
+	<string name="type.railway.station.subway.taipei">Metro</string>
+	<string name="type.railway.station.subway.taoyuan">Metro</string>
+	<string name="type.railway.station.subway.tashkent">Metro</string>
+	<string name="type.railway.station.subway.tbilisi">Metro</string>
+	<string name="type.railway.station.subway.tianjin">Metro</string>
+	<string name="type.railway.station.subway.tokyo">Metro</string>
+	<string name="type.railway.station.subway.valencia">Metro</string>
+	<string name="type.railway.station.subway.vienna">Metro</string>
+	<string name="type.railway.station.subway.warszawa">Metro</string>
+	<string name="type.railway.station.subway.washington">Metro</string>
+	<string name="type.railway.station.subway.wuhan">Metro</string>
+	<string name="type.railway.station.subway.yerevan">Metro</string>
+	<string name="type.railway.station.subway.yokohama">Metro</string>
 	<string name="type.railway.subway_entrance">Metron sisäänkäynti</string>
-	<string name="type.railway.subway_entrance.barcelona">Metro</string>
-	<string name="type.railway.subway_entrance.berlin">Metro</string>
-	<string name="type.railway.subway_entrance.kiev">Metro</string>
-	<string name="type.railway.subway_entrance.london">Metro</string>
-	<string name="type.railway.subway_entrance.madrid">Metro</string>
-	<string name="type.railway.subway_entrance.minsk">Metro</string>
-	<string name="type.railway.subway_entrance.moscow">Metro</string>
-	<string name="type.railway.subway_entrance.newyork">Metro</string>
-	<string name="type.railway.subway_entrance.paris">Metro</string>
-	<string name="type.railway.subway_entrance.roma">Metro</string>
-	<string name="type.railway.subway_entrance.spb">Metro</string>
+	<string name="type.railway.subway_entrance.adana">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.algiers">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.almaty">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.amsterdam">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.ankara">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.athens">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.baku">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.bangkok">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.barcelona">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.beijing">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.bengalore">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.berlin">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.brasilia">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.brescia">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.brussels">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.bucharest">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.budapest">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.buenos_aires">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.bursa">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.cairo">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.caracas">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.catania">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.changchun">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.chengdu">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.chicago">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.chongqing">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.dalian">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.delhi">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.dnepro">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.dubai">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.ekb">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.fukuoka">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.glasgow">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.guangzhou">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.hamburg">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.helsinki">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.hiroshima">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.isfahan">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.istanbul">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.izmir">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.kazan">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.kharkiv">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.kiev">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.kobe">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.kolkata">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.kunming">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.kyoto">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.la">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.lausanne">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.lille">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.lima">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.lisboa">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.london">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.lyon">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.madrid">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.malaga">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.manila">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.maracaibo">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.mashhad">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.mecca">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.medellin">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.mexico">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.milan">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.minsk">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.montreal">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.moscow">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.munchen">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.nagoya">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.newyork">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.nnov">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.novosibirsk">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.osaka">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.oslo">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.palma">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.panama">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.paris">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.philadelphia">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.pyongyang">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.rennes">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.rio">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.roma">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.rotterdam">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.samara">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.santiago">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.santo_domingo">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.saopaulo">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.sapporo">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.sendai">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.sf">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.shanghai">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.shiraz">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.sofia">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.spb">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.stockholm">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.tabriz">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.taipei">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.taoyuan">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.tashkent">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.tbilisi">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.tianjin">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.tokyo">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.valencia">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.vienna">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.warszawa">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.washington">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.wuhan">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.yerevan">Metron sisäänkäynti</string>
+	<string name="type.railway.subway_entrance.yokohama">Metron sisäänkäynti</string>
 	<string name="type.railway.tram_stop">Raitiovaunupysäkki</string>
 	<string name="type.shop">Kauppa</string>
 	<string name="type.shop.alcohol">Alkoholikauppa</string>
@@ -1344,7 +1627,9 @@
 	<string name="type.sport.australian_football">Australialainen jalkapallo</string>
 	<string name="type.sport.baseball">Baseball</string>
 	<string name="type.sport.basketball">Koripallo</string>
+	<string name="type.sport.beachvolleyball">Rantalentopallo</string>
 	<string name="type.sport.bowls">Nurmikeilailu</string>
+	<string name="type.sport.chess">Shakki</string>
 	<string name="type.sport.cricket">Kriketti</string>
 	<string name="type.sport.curling">Curling</string>
 	<string name="type.sport.equestrian">Hevosurheilu</string>
@@ -1355,10 +1640,21 @@
 	<!-- Used to tag a scuba diving site. -->
 	<string name="type.sport.scuba_diving">Sukellus</string>
 	<string name="type.sport.shooting">Ammunta</string>
+	<string name="type.sport.skateboard">Rullalautailu</string>
 	<string name="type.sport.skiing">Hiihto</string>
 	<string name="type.sport.soccer">Jalkapallo</string>
 	<string name="type.sport.swimming">Uinti</string>
+	<string name="type.sport.table_tennis">Pöytätennis</string>
 	<string name="type.sport.tennis">Tenniskenttä</string>
+	<string name="type.sport.volleyball">Lentopallo</string>
+	<string name="type.sport.10pin">Keilailu</string>
+	<string name="type.sport.9pin">Keilailu</string>
+	<string name="type.sport.padel">Padel</string>
+	<string name="type.sport.futsal">Futsal</string>
+	<string name="type.sport.ice_hockey">Jääkiekko</string>
+	<string name="type.sport.field_hockey">Maahockey</string>
+	<string name="type.sport.badminton">Sulkapallo</string>
+	<string name="type.sport.pelota">Baskimaan pelota</string>
 	<string name="type.tourism">Turismi</string>
 	<string name="type.tourism.alpine_hut">Vuorimajoitus</string>
 	<string name="type.tourism.apartment">Loma-asunnot</string>
@@ -1396,6 +1692,7 @@
 	<string name="type.waterway.canal.tunnel">Kanaali</string>
 	<string name="type.waterway.dam">Pato</string>
 	<string name="type.waterway.ditch">Oja</string>
+	<string name="type.waterway.ditch.tunnel">Oja</string>
 	<string name="type.waterway.dock">Telakka</string>
 	<string name="type.waterway.lock_gate">Kanavasulku</string>
 	<string name="type.waterway.river">Joki</string>
@@ -1410,6 +1707,9 @@
 	<string name="type.wheelchair.limited">Osittain varustettu vammaisille</string>
 	<string name="type.wheelchair.no">Ei varustettu vammaisille</string>
 	<string name="type.wheelchair.yes">Varustettu vammaisille</string>
+	<string name="type.aerialway.platter">Sompahissi</string>
+	<string name="type.aerialway.rope_tow">Naruhissi</string>
+	<string name="type.aerialway.t.bar">Ankkurihissi</string>
 	<string name="type.piste_type.downhill">Laskettelurinne</string>
 	<string name="type.piste_type.downhill.advanced">Laskettelurinne</string>
 	<string name="type.piste_type.downhill.easy">Laskettelurinne</string>
@@ -1418,6 +1718,7 @@
 	<string name="type.piste_type.downhill.intermediate">Laskettelurinne</string>
 	<string name="type.piste_type.downhill.novice">Laskettelurinne</string>
 	<string name="type.piste_type.nordic">Latu</string>
+	<string name="type.piste_type.sled">Kelkkarata</string>
 	<string name="type.building_part">Rakennus</string>
 	<string name="type.amenity.events_venue">Tapahtumapaikka</string>
 </resources>

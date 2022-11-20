@@ -44,5 +44,5 @@ namespace bench
   };
 
   /// @param[in] count number of times to run benchmark
-  void RunFeaturesLoadingBenchmark(std::string const & file, std::pair<int, int> scaleR, AllResult & res);
+  void RunFeaturesLoadingBenchmark(std::string filePath, std::pair<int, int> scaleR, AllResult & res);
 }  // namespace bench

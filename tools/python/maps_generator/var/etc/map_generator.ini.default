@@ -46,6 +46,7 @@ DIFF_VERSION_DEPTH: 2
 
 [External]
 # Note: If you want to set a directory name you have to add "/" to the end of url.
+# In each field where you need to specify a URL, you can specify the path to the file system using file:///path/to/file
 
 # The url to the planet file.
 # PLANET_URL:

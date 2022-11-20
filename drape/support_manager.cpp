@@ -123,8 +123,12 @@ bool SupportManager::IsVulkanForbidden(std::string const & deviceName,
       Configuration{"Adreno (TM) 506", {1, 1, 66}, {512, 313, 0}},
       Configuration{"Adreno (TM) 530", {1, 1, 66}, {512, 313, 0}},
 
+      /// @todo Route line is flickering in nav mode.
+      /// Samsung Galaxy S8 (SM-G950F)
+      Configuration{"Mali-G71", {1, 0, 97}, {16, 0, 0}},
+
       /// @todo Dashed lines stopped drawing after updating LineShape::Construct<DashedLineBuilder>.
-      /// Should obtain a device (Huawei P20) for better investigation.
+      /// Huawei P20
       Configuration{"Mali-G72", {1, 1, 97}, {18, 0, 0}},
   };
 

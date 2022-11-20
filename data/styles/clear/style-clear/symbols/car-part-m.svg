@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>car-part-m</title>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="car-part-m" fill-rule="nonzero">
-            <circle id="Oval" fill="#FFFFFF" opacity="0.6" cx="12" cy="12" r="12"></circle>
-            <circle id="Oval" fill="#717065" cx="12" cy="12" r="11"></circle>
-            <path d="M12,5 C8.15,5 5,8.15 5,12 C5,15.85 8.15,19 12,19 C15.85,19 19,15.85 19,12 C19,8.15 15.85,5 12,5 Z M12,6.4 C14.87,6.4 17.25,8.57 17.6,11.3 L15.5,11.3 C15.15,10.53 13.68,9.9 12,9.9 C10.32,9.9 8.85,10.53 8.5,11.3 L6.4,11.3 C6.75,8.57 9.13,6.4 12,6.4 Z M6.4,12.7 L8.5,12.7 C8.64,13.61 9.34,15.22 11.3,15.5 L11.3,17.6 C8.78,17.32 6.68,15.22 6.4,12.7 Z M12.7,17.6 L12.7,15.5 C14.66,15.22 15.29,13.61 15.5,12.7 L17.6,12.7 C17.32,15.22 15.22,17.32 12.7,17.6 Z" id="Shape" fill="#FFFFFF"></path>
-        </g>
-    </g>
+<svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+ <title>car-part-m</title>
+ <g fill="none" fill-rule="evenodd">
+  <g id="car-part-m" fill-rule="nonzero">
+   <circle id="Oval" cx="12" cy="12" r="12" fill="#fff" opacity=".6"/>
+   <circle id="Oval" cx="12" cy="12" r="11" fill="#717065"/>
+   <path id="Shape" d="m12 5c-3.85 0-7 3.15-7 7s3.15 7 7 7 7-3.15 7-7-3.15-7-7-7zm0 1.4c2.87 0 5.25 2.17 5.6 4.9h-2.1c-0.35-0.77-1.82-1.4-3.5-1.4s-3.15 0.63-3.5 1.4h-2.1c0.35-2.73 2.73-4.9 5.6-4.9zm-5.6 6.3h2.1c0.14 0.91 0.84 2.52 2.8 2.8v2.1c-2.52-0.28-4.62-2.38-4.9-4.9zm6.3 4.9v-2.1c1.96-0.28 2.59-1.89 2.8-2.8h2.1c-0.28 2.52-2.38 4.62-4.9 4.9z" fill="#fff"/>
+  </g>
+ </g>
 </svg>

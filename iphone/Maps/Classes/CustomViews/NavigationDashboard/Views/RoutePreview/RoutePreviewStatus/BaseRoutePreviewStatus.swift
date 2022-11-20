@@ -39,6 +39,12 @@ final class BaseRoutePreviewStatus: SolidTouchView {
 
   weak var navigationInfo: MWMNavigationDashboardEntity?
 
+  static let elevationAttributes: [NSAttributedString.Key: Any] =
+                                        [
+                                          .foregroundColor: UIColor.linkBlue(),
+                                          .font: UIFont.medium14()
+                                        ]
+
   var elevation: NSAttributedString? {
     didSet {
       updateResultsLabel()
@@ -118,15 +124,11 @@ final class BaseRoutePreviewStatus: SolidTouchView {
     if MWMRouter.hasRouteAltitude() {
       heightBox.isHidden = false
       MWMRouter.routeAltitudeImage(for: heightProfileImage.frame.size,
-                                   completion: { image, elevation in
-                                     self.heightProfileImage.image = image
-                                     guard let elevation = elevation else { return }
-                                     let attributes: [NSAttributedString.Key: Any] =
-                                       [
-                                         .foregroundColor: UIColor.linkBlue(),
-                                         .font: UIFont.medium14()
-                                       ]
-                                     self.elevation = NSAttributedString(string: "▲▼ \(elevation)", attributes: attributes)
+                                    completion: { image, totalAscent, totalDescent in
+                                    self.heightProfileImage.image = image
+                                    if let totalAscent = totalAscent, let totalDescent = totalDescent {                                      
+                                      self.elevation = NSAttributedString(string: "▲ \(totalAscent) ▼ \(totalDescent)", attributes: BaseRoutePreviewStatus.elevationAttributes)
+                                    }
       })
     } else {
       heightBox.isHidden = true
@@ -140,7 +142,7 @@ final class BaseRoutePreviewStatus: SolidTouchView {
 
     if let result = info.estimate.mutableCopy() as? NSMutableAttributedString {
       if let elevation = self.elevation {
-        result.append(info.estimateDot)
+        result.append(MWMNavigationDashboardEntity.estimateDot())
         result.append(elevation)
       }
       resultLabel.attributedText = result

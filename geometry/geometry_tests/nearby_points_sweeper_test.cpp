@@ -9,13 +9,11 @@
 #include <utility>
 #include <vector>
 
+namespace nearby_points_sweeper_test
+{
 using namespace m2;
 using namespace std;
 
-namespace search
-{
-namespace
-{
 // Multiset is used here to catch situations when some index is reported more than once.
 using TIndexSet = multiset<size_t>;
 
@@ -147,5 +145,4 @@ UNIT_TEST(NearbyPointsSweeper_Priority)
     TEST_EQUAL(expected, actual, ());
   }
 }
-}  // namespace
-}  // namespace search
+}  // namespace nearby_points_sweeper_test

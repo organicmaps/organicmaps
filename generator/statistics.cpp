@@ -2,10 +2,9 @@
 
 #include "indexer/classificator.hpp"
 #include "indexer/data_factory.hpp"
-#include "indexer/feature_impl.hpp"
 #include "indexer/feature_processor.hpp"
 
-#include "geometry/triangle2d.hpp"
+#include "geometry/mercator.hpp"
 
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
@@ -244,14 +243,16 @@ namespace stats
     os << "\n";
   }
 
+  /// @note If you gonna change this function, take into account
+  /// ./tools/python/maps_generator/generator/statistics.py
   void PrintTypeStats(std::ostream & os, MapInfo & info)
   {
     os << "Feature stats by Classificator Type\n"
        << "(a single feature can contain several types and thus its size can be included in several type lines)\n";
-    for (auto it = info.m_byClassifType.begin(); it != info.m_byClassifType.end(); ++it)
-    {
-      PrintInfo(os, GetKey(it->first), it->second, 30, true, true);
-    }
+
+    for (auto const & e : info.m_byClassifType)
+      PrintInfo(os, GetKey(e.first), e.second, 30, true, true);
+
     os << "\n";
   }
 

@@ -157,7 +157,7 @@ decltype(auto) FindIf(Cont const & c, Fn && fn)
 template <typename Cont, typename T>
 bool IsExist(Cont const & c, T const & t)
 {
-  auto end = std::cend(c);
+  auto const end = std::cend(c);
   return std::find(std::cbegin(c), end, t) != end;
 }
 
@@ -254,7 +254,7 @@ class BackInsertFunctor
 {
 public:
   explicit BackInsertFunctor(Container & container) : m_Container(container) {}
-  void operator()(typename Container::value_type const & t) const { m_Container.push_back(t); }
+  template <class T> void operator()(T && t) const { m_Container.push_back(std::forward<T>(t)); }
 
 private:
   Container & m_Container;

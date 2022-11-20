@@ -5,11 +5,11 @@
 
 #include <vector>
 
+namespace calipers_box_tests
+{
 using namespace m2;
 using namespace std;
 
-namespace
-{
 UNIT_TEST(CalipersBox_Smoke)
 {
   {
@@ -72,4 +72,4 @@ UNIT_TEST(CalipersBox_Smoke)
     TEST(!cbox.HasPoint(4, 2), ());
   }
 }
-}  // namespace
+}  // namespace calipers_box_tests

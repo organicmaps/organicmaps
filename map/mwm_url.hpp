@@ -4,6 +4,7 @@
 
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
+#include "geometry/latlon.hpp"
 
 #include <string>
 #include <vector>
@@ -39,8 +40,6 @@ struct SearchRequest
 {
   std::string m_query;
   std::string m_locale;
-  double m_centerLat = 0.0;
-  double m_centerLon = 0.0;
   bool m_isSearchOnMap = false;
 };
 
@@ -71,6 +70,7 @@ public:
   bool IsValid() const { return m_isValid; }
   std::string const & GetGlobalBackUrl() const { return m_globalBackUrl; }
   std::string const & GetAppName() const { return m_appName; }
+  ms::LatLon GetCenterLatLon() const { return m_centerLatLon; }
   int GetApiVersion() const { return m_version; }
   void Reset();
   bool GoBackOnBalloonClick() const { return m_goBackOnBalloonClick; }
@@ -81,7 +81,7 @@ public:
   ApiMarkPoint const * GetSinglePoint() const;
   std::vector<RoutePoint> const & GetRoutePoints() const { return m_routePoints; }
   std::string const & GetRoutingType() const { return m_routingType; }
-  SearchRequest const & GetSearchRequest() const { return m_request; }
+  SearchRequest const & GetSearchRequest() const { return m_searchRequest; }
 
 private:
   /// Returns true when all statements are true:
@@ -94,15 +94,15 @@ private:
                      std::vector<ApiPoint> & points, bool & correctOrder);
   void ParseRouteParam(std::string const & key, std::string const & value,
                        std::vector<std::string> & pattern);
-  void ParseSearchParam(std::string const & key, std::string const & value,
-                        SearchRequest & request) const;
-  void ParseCrosshairParam(std::string const & key, std::string const & value);
+  void ParseSearchParam(std::string const & key, std::string const & value);
+  void ParseCommonParam(std::string const & key, std::string const & value);
 
   BookmarkManager * m_bmManager = nullptr;
   std::vector<RoutePoint> m_routePoints;
-  SearchRequest m_request;
+  SearchRequest m_searchRequest;
   std::string m_globalBackUrl;
   std::string m_appName;
+  ms::LatLon m_centerLatLon;
   std::string m_routingType;
   int m_version = 0;
   /// Zoom level in OSM format (e.g. from 1.0 to 20.0)

@@ -19,10 +19,11 @@ import androidx.car.app.model.Template;
 import androidx.car.app.navigation.NavigationManager;
 import androidx.car.app.navigation.model.NavigationTemplate;
 import androidx.core.graphics.drawable.IconCompat;
-import com.mapswithme.maps.BuildConfig;
-import com.mapswithme.maps.MapFragment;
-import com.mapswithme.maps.MwmApplication;
-import com.mapswithme.maps.R;
+import app.organicmaps.BuildConfig;
+import app.organicmaps.Map;
+import app.organicmaps.MapFragment;
+import app.organicmaps.MwmApplication;
+import app.organicmaps.R;
 
 import java.io.IOException;
 
@@ -63,20 +64,16 @@ public class MainScreen extends Screen implements SurfaceCallback
                                                      .build());
 
     Action panAction = new Action.Builder(Action.PAN).build();
-    Action zoomIn = new Action.Builder().setIcon(new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_zoom_in)).build())
+    Action zoomIn = new Action.Builder().setIcon(new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_plus)).build())
                                         .setOnClickListener(this::zoomIn)
                                         .build();
-    Action zoomOut = new Action.Builder().setIcon(new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_zoom_out)).build())
-                                         .setOnClickListener(this::zoomOut)
-                                         .build();
-
-    Action openMic = new Action.Builder().setIcon(new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_booking)).build())
+    Action zoomOut = new Action.Builder().setIcon(new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_minus)).build())
                                          .setOnClickListener(this::zoomOut)
                                          .build();
 
     ActionStrip mapActionStrip = new ActionStrip.Builder().addAction(zoomIn)
                                                           .addAction(zoomOut)
-                                                          .addAction(panAction).addAction(openMic)
+                                                          .addAction(panAction)
                                                           .build();
     builder.setMapActionStrip(mapActionStrip);
     builder.setActionStrip(actionStripBuilder.build());
@@ -86,18 +83,18 @@ public class MainScreen extends Screen implements SurfaceCallback
 
   private void zoomOut()
   {
-    MapFragment.nativeScaleMinus();
+    Map.zoomOut();
   }
 
   private void zoomIn()
   {
-    MapFragment.nativeScalePlus();
+    Map.zoomIn();
   }
 
   private void exit()
   {
     getCarContext().finishCarApp();
-    MapFragment.nativeDetachSurface(true);
+//    MapFragment.nativeDetachSurface(true);
   }
 
   @Override
@@ -114,32 +111,32 @@ public class MainScreen extends Screen implements SurfaceCallback
 
 
 
-   if (MapFragment.nativeIsEngineCreated()){
-     MapFragment.nativeDetachSurface(true);
-   }
-
-
-    if (MapFragment.nativeIsEngineCreated())
-    {
-      if (!MapFragment.nativeAttachSurface(surface))
-      {
-        reportUnsupported();
-        return;
-      }
-      MapFragment.nativeResumeSurfaceRendering();
-      return;
-    }
-
-    final int WIDGET_COPYRIGHT = 0x04;
-    MapFragment.nativeSetupWidget(WIDGET_COPYRIGHT, 0.0f, 0.0f, 0);
-
-    if (!MapFragment.nativeCreateEngine(surface, surfaceContainer.getDpi(), true, false, BuildConfig.VERSION_CODE))
-    {
-      reportUnsupported();
-      return;
-    }
-
-    MapFragment.nativeResumeSurfaceRendering();
+//   if (MapFragment.nativeIsEngineCreated()){
+//     MapFragment.nativeDetachSurface(true);
+//   }
+//
+//
+//    if (MapFragment.nativeIsEngineCreated())
+//    {
+//      if (!MapFragment.nativeAttachSurface(surface))
+//      {
+//        reportUnsupported();
+//        return;
+//      }
+//      MapFragment.nativeResumeSurfaceRendering();
+//      return;
+//    }
+//
+//    final int WIDGET_COPYRIGHT = 0x04;
+//    MapFragment.nativeSetupWidget(WIDGET_COPYRIGHT, 0.0f, 0.0f, 0);
+//
+//    if (!MapFragment.nativeCreateEngine(surface, surfaceContainer.getDpi(), true, false, BuildConfig.VERSION_CODE))
+//    {
+//      reportUnsupported();
+//      return;
+//    }
+//
+//    MapFragment.nativeResumeSurfaceRendering();
   }
 
   @Override
@@ -159,7 +156,7 @@ public class MainScreen extends Screen implements SurfaceCallback
   public void onSurfaceDestroyed(@NonNull SurfaceContainer surfaceContainer)
   {
     SurfaceCallback.super.onSurfaceDestroyed(surfaceContainer);
-    MapFragment.nativeDetachSurface(true);
+//    MapFragment.nativeDetachSurface(true);
     Log.i(TAG, "Surface destroyed");
   }
 
@@ -181,12 +178,6 @@ public class MainScreen extends Screen implements SurfaceCallback
   public void onScale(float focusX, float focusY, float scaleFactor)
   {
     SurfaceCallback.super.onScale(focusX, focusY, scaleFactor);
-  }
-
-  @Override
-  public void onClick(float x, float y)
-  {
-    SurfaceCallback.super.onClick(x, y);
   }
 
   private void reportUnsupported()

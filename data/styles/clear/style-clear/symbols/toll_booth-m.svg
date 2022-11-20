@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>toll_booth-m</title>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="toll_booth-m" fill-rule="nonzero">
-            <circle id="Oval" fill="#FFFFFF" opacity="0.6" cx="12" cy="12" r="12"></circle>
-            <circle id="Oval" fill="#717065" cx="12" cy="12" r="11"></circle>
-            <path d="M10.2,4 L6.7,6.1 L6.7,16.6 L6,16.6 L6,18 L14.4,18 L14.4,16.6 L13.7,16.6 L13.7,13.384375 L14.684375,12.75 L14.53125,11.21875 L13.7,11.721875 L13.7,6.1 L10.2,4 Z M8.1,7.5 L12.3,7.5 L12.3,12.4 L8.1,12.4 L8.1,7.5 Z M19.234375,8.2 L18.665625,8.55 L18.81875,10.08125 L20,9.38125 L19.234375,8.2 Z M18.03125,8.9 L16.85,9.665625 L16.98125,11.21875 L18.184375,10.43125 L18.03125,8.9 Z M16.28125,10.015625 L15.1,10.78125 L15.23125,12.334375 L16.434375,11.56875 L16.28125,10.015625 Z" id="Shape" fill="#FFFFFF"></path>
-        </g>
-    </g>
+<svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+ <title>toll_booth-m</title>
+ <g fill="none" fill-rule="evenodd">
+  <g id="toll_booth-m" fill-rule="nonzero">
+   <circle id="Oval" cx="12" cy="12" r="12" fill="#fff" opacity=".6"/>
+   <circle id="Oval" cx="12" cy="12" r="11" fill="#717065"/>
+   <path id="Shape" d="m10.2 4-3.5 2.1v10.5h-0.7v1.4h8.4v-1.4h-0.7v-3.2156l0.98438-0.63438-0.15312-1.5312-0.83125 0.50312v-5.6219l-3.5-2.1zm-2.1 3.5h4.2v4.9h-4.2v-4.9zm11.134 0.7-0.56875 0.35 0.15312 1.5312 1.1812-0.7-0.76562-1.1812zm-1.2031 0.7-1.1812 0.76562 0.13125 1.5531 1.2031-0.7875-0.15312-1.5312zm-1.75 1.1156-1.1812 0.76562 0.13125 1.5531 1.2031-0.76562-0.15312-1.5531z" fill="#fff"/>
+  </g>
+ </g>
 </svg>

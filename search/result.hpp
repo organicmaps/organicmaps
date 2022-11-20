@@ -2,7 +2,6 @@
 
 #include "search/bookmarks/results.hpp"
 #include "search/ranking_info.hpp"
-#include "search/tracer.hpp"
 
 #include "indexer/feature_decl.hpp"
 
@@ -11,9 +10,8 @@
 #include "geometry/point2d.hpp"
 
 #include "base/assert.hpp"
+#include "base/checked_cast.hpp"
 #include "base/buffer_vector.hpp"
-
-#include "defines.hpp"
 
 #include <algorithm>
 #include <string>
@@ -75,15 +73,11 @@ public:
   // Min distance to search result when popularity label has a higher priority (in meters).
   static auto constexpr kPopularityHighPriorityMinDistance = 50000.0;
 
-  // For Type::Feature.
-  Result(FeatureID const & id, m2::PointD const & pt, std::string && str,
-         std::string && address, uint32_t featureType, Details && meta);
+  Result(m2::PointD const & pt, std::string const & name) : m_center(pt), m_str(name) {}
+  void FromFeature(FeatureID const & id, uint32_t featureType, Details const & details);
 
-  // For Type::LatLon.
-  Result(m2::PointD const & pt, std::string && latlon, std::string && address);
-
-  // For Type::Postcode.
-  Result(m2::PointD const & pt, std::string && postcode);
+  void SetAddress(std::string && address) { m_address = std::move(address); }
+  void SetType(Result::Type type) { m_resultType = type; }
 
   // For Type::PureSuggest.
   Result(std::string str, std::string && suggest);
@@ -136,12 +130,15 @@ public:
   int32_t GetPositionInResults() const { return m_positionInResults; }
   void SetPositionInResults(int32_t pos) { m_positionInResults = pos; }
 
-  RankingInfo const & GetRankingInfo() const { return m_info; }
-  void SetRankingInfo(RankingInfo & info)
+  /// @name Used for debug logs and tests only.
+  /// @{
+  RankingInfo const & GetRankingInfo() const
   {
-    // No sense to make move for RankingInfo.
-    m_info = info;
+    CHECK(m_dbgInfo, ());
+    return *m_dbgInfo;
   }
+  void SetRankingInfo(std::shared_ptr<RankingInfo> info) { m_dbgInfo = std::move(info); }
+  /// @}
 
 #ifdef SEARCH_USE_PROVENANCE
   template <typename Prov>
@@ -169,7 +166,7 @@ private:
   std::string m_suggestionStr;
   buffer_vector<std::pair<uint16_t, uint16_t>, 4> m_hightlightRanges;
 
-  RankingInfo m_info = {};
+  std::shared_ptr<RankingInfo> m_dbgInfo;   // used in debug logs and tests, nullptr in production
 
   // The position that this result occupied in the vector returned by
   // a search query. -1 if undefined.
@@ -189,7 +186,6 @@ std::string DebugPrint(search::Result::Type type);
 class Results
 {
 public:
-  using Iter = std::vector<Result>::iterator;
   using ConstIter = std::vector<Result>::const_iterator;
 
   enum class Type
@@ -220,19 +216,11 @@ public:
 
   void Clear();
 
-  Iter begin() { return m_results.begin(); }
-  Iter end() { return m_results.end(); }
   ConstIter begin() const { return m_results.cbegin(); }
   ConstIter end() const { return m_results.cend(); }
 
   size_t GetCount() const { return m_results.size(); }
   size_t GetSuggestsCount() const;
-
-  Result & operator[](size_t i)
-  {
-    ASSERT_LESS(i, m_results.size(), ());
-    return m_results[i];
-  }
 
   Result const & operator[](size_t i) const
   {
@@ -242,12 +230,13 @@ public:
 
   bookmarks::Results const & GetBookmarksResults() const;
 
+  /// @deprecated Fucntion is obsolete (used in tests) and doesn't take into account bookmarks.
   template <typename Fn>
   void SortBy(Fn && comparator)
   {
-    std::sort(begin(), end(), std::forward<Fn>(comparator));
-    for (int32_t i = 0; i < static_cast<int32_t>(GetCount()); ++i)
-      operator[](i).SetPositionInResults(i);
+    std::sort(m_results.begin(), m_results.end(), comparator);
+    for (size_t i = 0; i < m_results.size(); ++i)
+      m_results[i].SetPositionInResults(base::asserted_cast<uint32_t>(i));
   }
 
 private:

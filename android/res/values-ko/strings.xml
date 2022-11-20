@@ -130,6 +130,8 @@
 	<string name="recycling">재활용</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
 	<string name="water">물</string>
+	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
+	<string name="rv">RV용</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">메모</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -164,8 +166,6 @@
 	<string name="copied_to_clipboard">클립보드에 복사됨: %1$s</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">완료</string>
-	<!-- Prints version number in About dialog -->
-	<string name="version">버전: %s</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">OpenStreetMap 데이터: %s</string>
 	<!-- Confirmation in downloading countries dialog -->
@@ -216,6 +216,8 @@
 	<string name="help">도움말</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">질문과 답변</string>
+	<!-- Button in the main menu -->
+	<string name="donate">기부</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">우리를 지원하는 방법?</string>
 	<!-- Button in the main Help dialog -->
@@ -335,7 +337,6 @@
 	<string name="routing_arrive">도착: %s</string>
 	<string name="categories">범주</string>
 	<string name="history">내역</string>
-	<string name="closed">닫음</string>
 	<string name="search_not_found">죄송합니다. 아무것도 찾지 못했습니다.</string>
 	<string name="search_not_found_query">다른 쿼리를 시도하십시오.</string>
 	<string name="search_history_title">검색 기록</string>
@@ -377,14 +378,15 @@
 	<string name="day_off_today">오늘 영업 종료됨</string>
 	<string name="day_off">종료됨</string>
 	<string name="today">오늘</string>
+	<string name="closed">닫음</string>
 	<string name="edit_opening_hours">영업일 편집</string>
 	<string name="no_osm_account">OpenStreetMap에서 계정이 없습니까?</string>
 	<string name="register_at_openstreetmap">등록</string>
 	<string name="login">로그인</string>
+	<string name="login_osm">OpenStreetMap에 로그인</string>
 	<string name="password">암호</string>
 	<string name="forgot_password">암호를 잊으 셨나요?</string>
 	<string name="logout">로그 아웃</string>
-	<string name="thank_you">고맙습니다.</string>
 	<string name="edit_place">장소 편집</string>
 	<string name="add_language">언어 추가</string>
 	<string name="street">거리</string>
@@ -400,6 +402,7 @@
 	<string name="select_cuisine">요리 선택</string>
 	<!-- login text field -->
 	<string name="email_or_username">이메일 또는 사용자 이름</string>
+	<string name="level">층</string>
 	<string name="downloader_delete_map_dialog">모든 지도의 변경 사항은 지도와 함께 삭제됩니다.</string>
 	<string name="downloader_update_maps">지도 업데이트</string>
 	<string name="downloader_mwm_migration_dialog">경로를 만들려면, 모든 지도를 업데이트한 다음, 다시 경로를 계획해야 합니다.</string>
@@ -418,6 +421,7 @@
 	<string name="editor_report_problem_other_title">다른 문제</string>
 	<string name="placepage_add_business_button">조직 추가</string>
 	<string name="message_invalid_feature_position">목적지를 이곳에서 찾을 수 없습니다</string>
+	<string name="osm_presentation">모든 지도 데이터는 OpenStreetMap 프로젝트에서 가져옵니다. \"\"장소를 추가하거나 편집할 수 있는 지도용 Wikipedia와 같으며 전 세계 수백만 사용자가 사용할 수 있습니다.</string>
 	<string name="login_to_make_edits_visible">로그인하여 다른 사용자가 변경한 내용을 볼 수 있도록 하십시오.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%2$d중의 %1$d</string>
@@ -455,7 +459,6 @@
 	<string name="minute">min</string>
 	<string name="placepage_place_description">설명</string>
 	<string name="placepage_more_button">자세히</string>
-	<string name="placepage_more_reviews_button">더 많은 리뷰</string>
 	<string name="placepage_call_button">전화</string>
 	<string name="placepage_edit_bookmark_button">즐겨찾기 편집</string>
 	<string name="editor_comment_hint">설명…</string>
@@ -471,17 +474,15 @@
 	<string name="placepage_add_place_button">지도에 장소 추가</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">이를 모든 사용자에게 전송하시겠습니까?</string>
-	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">개인 정보를 입력하지 않았는지 확인하십시오.</string>
-	<string name="editor_share_to_all_dialog_message_2">저희가 변경 사항을 확인할 것입니다. 질문이 있으신 경우, 저희에게 이메일을 통해 연락하십시오.</string>
+	<string name="editor_share_to_all_dialog_message_2">OpenStreetMap 편집자가 변경 사항을 확인하고 질문이 있는 경우 귀하에게 연락할 것입니다.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps는 무료 오픈 소스 오프라인 지도 애플리케이션입니다. 광고 없음. 추적이 없습니다. 지도에 오류가 표시되면 OpenStreetMap에서 수정하세요. 이 프로젝트는 여가 시간에 열광자들에 의해 만들어지므로 여러분의 피드백과 지원이 필요합니다.</string>
 	<!-- For the first routing -->
 	<string name="accept">동의</string>
 	<!-- For the first routing -->
 	<string name="decline">거부</string>
-	<!-- A noun - a button name used to show search results in list form -->
-	<string name="search_in_table">목록</string>
 	<string name="mobile_data_dialog">모바일 인터넷을 사용하여 자세한 정보를 표시하시겠습니까?</string>
 	<string name="mobile_data_option_always">항상 사용</string>
 	<string name="mobile_data_option_today">오늘만</string>
@@ -502,10 +503,11 @@
 	<string name="on">켜기</string>
 	<string name="off">끄기</string>
 	<string name="prefs_languages_information">당사는 음성 지침을 위해 시스템 TTS를 사용합니다. 많은 Android 장치에서 Google TTS를 사용합니다. Google Play(https://play.google.com/store/apps/details?id=com.google.android.tts)에서 Google TTS를 다운로드하거나 업데이트할 수 있습니다.</string>
-	<string name="prefs_languages_information_off">일부 언어의 경우 앱 스토어(Google Play, Samsung Apps, App Gallery, FDroid)에서 다른 음성 합성기 또는 추가 언어 팩을 설치해야 합니다.\n장치의 설정 → 언어 및 입력 → 음성 → 텍스트-음성 변환 출력을 엽니다.\n여기서 음성 합성에 대한 설정을 관리하고(예: 오프라인 사용을 위한 언어 팩 다운로드) 다른 텍스트-음성 변환 엔진을 선택할 수 있습니다.</string>
+	<string name="prefs_languages_information_off">일부 언어의 경우 앱 스토어(Google Play, Galaxy Store, App Gallery, FDroid)에서 다른 음성 합성기 또는 추가 언어 팩을 설치해야 합니다.\n장치의 설정 → 언어 및 입력 → 음성 → 텍스트-음성 변환 출력을 엽니다.\n여기서 음성 합성에 대한 설정을 관리하고(예: 오프라인 사용을 위한 언어 팩 다운로드) 다른 텍스트-음성 변환 엔진을 선택할 수 있습니다.</string>
 	<string name="prefs_languages_information_off_link">자세한 내용을 보려면 이 가이드를 확인하세요.</string>
 	<string name="transliteration_title">라틴어로 음역</string>
 	<string name="learn_more">자세히 알아보기</string>
+	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">끝내기</string>
 	<string name="routing_add_start_point">경로 계획을 세우기 위한 시작 지점을 추가하세요</string>
 	<string name="routing_add_finish_point">경로 계획을 세우기 위한 끝 지점을 추가하세요</string>
@@ -659,6 +661,8 @@
 	<string name="enable_screen_sleep">화면 절전 모드 허용</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">활성화되면 일정 시간 동안 활동이 없으면 화면이 절전 모드로 전환됩니다.</string>
+	<!-- OpenStreetMap text on splash screen -->
+	<string name="splash_subtitle">OpenStreetMap의 지도 데이터</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">케이블카 역</string>
@@ -694,6 +698,8 @@
 	<string name="type.amenity.doctors">개인병원</string>
 	<string name="type.amenity.drinking_water">음수대</string>
 	<string name="type.amenity.driving_school">운전학원</string>
+	<string name="type.amenity.music_school">음악 학교</string>
+	<string name="type.amenity.language_school">언어 학교</string>
 	<string name="type.office.diplomatic">대사관</string>
 	<string name="type.amenity.fast_food">패스트 푸드</string>
 	<string name="type.amenity.ferry_terminal">페리</string>
@@ -715,17 +721,21 @@
 	<string name="type.amenity.nightclub">나이트 클럽</string>
 	<string name="type.amenity.nursing_home">요양원</string>
 	<string name="type.amenity.parking">주차</string>
-	<string name="type.amenity.parking.fee">주차</string>
-	<string name="type.amenity.parking.multi.storey">주차</string>
-	<string name="type.amenity.parking.no.access">주차</string>
+	<string name="type.amenity.parking.fee">유료 주차장</string>
+	<string name="type.amenity.parking.multi.storey">다층 주차장</string>
+	<string name="type.amenity.parking.no.access">전용 주차장</string>
+	<string name="type.amenity.parking.permissive">전용 주차장</string>
+	<string name="type.amenity.parking.private">전용 주차장</string>
 	<string name="type.amenity.parking.park_and_ride">주차</string>
-	<string name="type.amenity.parking.permissive">주차</string>
-	<string name="type.amenity.parking.private">주차</string>
-	<string name="type.amenity.parking.underground">주차</string>
+	<string name="type.amenity.parking.underground">지하주차장</string>
+	<string name="type.amenity.parking_entrance.private">주차장 입구</string>
+	<string name="type.amenity.parking_entrance.permissive">주차장 입구</string>
+	<string name="type.amenity.parking_entrance">주차장 입구</string>
 	<string name="type.amenity.parking_space">주차장</string>
 	<string name="type.amenity.parking_space.permissive">주차장</string>
 	<string name="type.amenity.parking_space.private">주차장</string>
 	<string name="type.amenity.parking_space.underground">주차장</string>
+	<string name="type.amenity.parking_space.disabled">장애인 주차 공간</string>
 	<string name="type.amenity.payment_terminal">결제 단말기</string>
 	<string name="type.amenity.pharmacy">약국</string>
 	<string name="type.amenity.place_of_worship">예배 장소</string>
@@ -775,8 +785,11 @@
 	<string name="type.barrier.block">블록</string>
 	<string name="type.barrier.bollard">기둥</string>
 	<string name="type.barrier.border_control">국경통제소</string>
+	<string name="type.barrier.city_wall">도시의 벽</string>
+	<string name="type.barrier.ditch">\"해자 외호\"</string>
 	<string name="type.barrier.entrance">입구</string>
 	<string name="type.barrier.gate">게이트</string>
+	<string name="type.barrier.kissing_gate">게이트</string>
 	<string name="type.barrier.lift_gate">차량차단기</string>
 	<string name="type.barrier.stile">디딤대</string>
 	<string name="type.barrier.swing_gate">차량차단기</string>
@@ -788,17 +801,25 @@
 	<string name="type.building.has_parts">건물</string>
 	<string name="type.building.train_station">기차역</string>
 	<string name="type.cemetery.grave">무덤</string>
+	<string name="type.craft">공예</string>
+	<string name="type.craft.beekeeper">양봉가</string>
+	<string name="type.craft.blacksmith">대장장이</string>
 	<string name="type.craft.brewery">양조장</string>
 	<string name="type.craft.carpenter">목수</string>
+	<string name="type.craft.confectionery">과자 장수</string>
 	<string name="type.craft.electrician">전기기술자</string>
+	<string name="type.craft.electronics_repair">전자제품 수리</string>
 	<string name="type.craft.gardener">조경사</string>
+	<string name="type.craft.handicraft">수예</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">냉난방기</string>
 	<string name="type.craft.metal_construction">금속공</string>
 	<string name="type.craft.painter">페인트공</string>
 	<string name="type.craft.photographer">사진작가</string>
 	<string name="type.craft.plumber">배관공</string>
+	<string name="type.craft.sawmill">제재소</string>
 	<string name="type.craft.shoemaker">구두수선</string>
+	<string name="type.craft.winery">포도주 양조장</string>
 	<string name="type.craft.tailor">양복점</string>
 	<string name="type.cuisine.african">아프리카식 음식</string>
 	<string name="type.cuisine.american">미국식 음식</string>
@@ -890,6 +911,7 @@
 	<string name="type.emergency.phone">긴급 전화</string>
 	<string name="type.entrance">입구</string>
 	<string name="type.healthcare.laboratory">의료 연구실</string>
+	<string name="type.healthcare.physiotherapist">물리치료사</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1054,18 +1076,39 @@
 	<string name="type.area_highway.unclassified">거리</string>
 
 	<!-- SECTION: Types: Historic -->
+	<string name="type.historic">역사적 물건</string>
 	<string name="type.historic.archaeological_site">발굴</string>
+	<string name="type.historic.battlefield">전장터</string>
+	<string name="type.historic.boundary_stone">경계석</string>
 	<string name="type.historic.castle">성</string>
+	<string name="type.historic.castle.castrum">로마 요새</string>
 	<string name="type.historic.castle.defensive">성</string>
+	<string name="type.historic.castle.fortified_church">요새화된 교회</string>
+	<string name="type.historic.castle.fortress">요새</string>
+	<string name="type.historic.castle.hillfort">힐포트</string>
+	<string name="type.historic.castle.kremlin">크렘린</string>
+	<string name="type.historic.castle.manor">매너하우스</string>
+	<string name="type.historic.castle.palace">궁전</string>
+	<string name="type.historic.castle.shiro">일본의 성</string>
 	<string name="type.historic.castle.stately">성</string>
+	<string name="type.historic.city_gate">성문</string>
+	<string name="type.historic.citywalls">도시의 벽</string>
+	<string name="type.historic.fort">요새</string>
+	<string name="type.historic.gallows">교수대</string>
 	<string name="type.historic.memorial">기념비</string>
+	<string name="type.historic.memorial.cross">기념 십자가</string>
 	<string name="type.historic.memorial.plaque">기념비</string>
 	<string name="type.historic.memorial.sculpture">기념비</string>
 	<string name="type.historic.memorial.statue">기념비</string>
+	<string name="type.historic.memorial.stolperstein">장애물</string>
+	<string name="type.historic.memorial.war_memorial">전쟁기념관</string>
 	<string name="type.historic.monument">기념탑</string>
+	<string name="type.historic.pillory">칼</string>
 	<string name="type.historic.ruins">유적</string>
 	<string name="type.historic.ship">배</string>
 	<string name="type.historic.tomb">무덤</string>
+	<string name="type.historic.wayside_cross">길가의 십자가</string>
+	<string name="type.historic.wayside_shrine">길가의 신사</string>
 	<string name="type.internet_access">인터넷</string>
 	<string name="type.internet_access.wlan">인터넷</string>
 	<string name="type.landuse.basin">저수지</string>
@@ -1086,7 +1129,9 @@
 	<string name="type.leisure.dog_park">애완견 지역</string>
 	<string name="type.leisure.fitness_centre">피트니스센터</string>
 	<string name="type.leisure.fitness_station">피트니스 스테이션</string>
+	<string name="type.leisure.dance">\"댄스홀\"</string>
 	<string name="type.leisure.garden">정원</string>
+	<string name="type.leisure.garden.residential">정원</string>
 	<string name="type.leisure.golf_course">골프장</string>
 	<string name="type.leisure.nature_reserve">천연보호구역</string>
 	<string name="type.leisure.park">공원</string>
@@ -1098,10 +1143,8 @@
 	<string name="type.leisure.playground">놀이터</string>
 	<string name="type.leisure.sauna">사우나</string>
 	<string name="type.leisure.sports_centre">스포츠 센터</string>
-	<string name="type.leisure.sports_centre.climbing">등반 센터</string>
-	<string name="type.leisure.sports_centre.shooting">발사 범위</string>
-	<string name="type.leisure.sports_centre.swimming">수영 센터</string>
-	<string name="type.leisure.sports_centre.yoga">요가 스튜디오</string>
+	<string name="type.sport.climbing">등반 센터</string>
+	<string name="type.sport.yoga">요가 스튜디오</string>
 	<string name="type.leisure.stadium">경기장</string>
 	<string name="type.leisure.swimming_pool">수영장</string>
 	<string name="type.leisure.swimming_pool.private">수영장</string>
@@ -1127,6 +1170,7 @@
 	<string name="type.natural.earth_bank">낭떠러지</string>
 	<string name="type.man_made.embankment">둑</string>
 	<string name="type.natural.coastline">연안</string>
+	<string name="type.natural.desert">사막</string>
 	<string name="type.natural.geyser">간헐천</string>
 	<string name="type.natural.glacier">빙하</string>
 	<string name="type.natural.grassland">초원</string>
@@ -1182,10 +1226,13 @@
 	<string name="type.place.hamlet">작은 마을</string>
 	<string name="type.place.island">섬</string>
 	<string name="type.place.islet">섬</string>
+	<string name="type.place.isolated_dwelling">고립된 주거</string>
 	<string name="type.place.locality">장소</string>
+	<string name="type.place.neighbourhood">동네</string>
 	<string name="type.place.ocean">대양</string>
 	<string name="type.place.region">지역</string>
 	<string name="type.place.sea">바다</string>
+	<string name="type.place.square">광장</string>
 	<string name="type.place.state">주</string>
 	<string name="type.place.state.USA">주</string>
 	<string name="type.place.suburb">교외</string>
@@ -1202,29 +1249,223 @@
 	<string name="type.railway.station.light_rail">기차역</string>
 	<string name="type.railway.station.monorail">기차역</string>
 	<string name="type.railway.station.subway">지하철</string>
+	<string name="type.railway.station.subway.adana">지하철</string>
+	<string name="type.railway.station.subway.algiers">지하철</string>
+	<string name="type.railway.station.subway.almaty">지하철</string>
+	<string name="type.railway.station.subway.amsterdam">지하철</string>
+	<string name="type.railway.station.subway.ankara">지하철</string>
+	<string name="type.railway.station.subway.athens">지하철</string>
+	<string name="type.railway.station.subway.baku">지하철</string>
+	<string name="type.railway.station.subway.bangkok">지하철</string>
 	<string name="type.railway.station.subway.barcelona">지하철</string>
+	<string name="type.railway.station.subway.beijing">지하철</string>
+	<string name="type.railway.station.subway.bengalore">지하철</string>
 	<string name="type.railway.station.subway.berlin">지하철</string>
+	<string name="type.railway.station.subway.brasilia">지하철</string>
+	<string name="type.railway.station.subway.brescia">지하철</string>
+	<string name="type.railway.station.subway.brussels">지하철</string>
+	<string name="type.railway.station.subway.bucharest">지하철</string>
+	<string name="type.railway.station.subway.budapest">지하철</string>
+	<string name="type.railway.station.subway.buenos_aires">지하철</string>
+	<string name="type.railway.station.subway.bursa">지하철</string>
+	<string name="type.railway.station.subway.cairo">지하철</string>
+	<string name="type.railway.station.subway.caracas">지하철</string>
+	<string name="type.railway.station.subway.catania">지하철</string>
+	<string name="type.railway.station.subway.changchun">지하철</string>
+	<string name="type.railway.station.subway.chengdu">지하철</string>
+	<string name="type.railway.station.subway.chicago">지하철</string>
+	<string name="type.railway.station.subway.chongqing">지하철</string>
+	<string name="type.railway.station.subway.dalian">지하철</string>
+	<string name="type.railway.station.subway.delhi">지하철</string>
+	<string name="type.railway.station.subway.dnepro">지하철</string>
+	<string name="type.railway.station.subway.dubai">지하철</string>
+	<string name="type.railway.station.subway.ekb">지하철</string>
+	<string name="type.railway.station.subway.fukuoka">지하철</string>
+	<string name="type.railway.station.subway.glasgow">지하철</string>
+	<string name="type.railway.station.subway.guangzhou">지하철</string>
+	<string name="type.railway.station.subway.hamburg">지하철</string>
+	<string name="type.railway.station.subway.helsinki">지하철</string>
+	<string name="type.railway.station.subway.hiroshima">지하철</string>
+	<string name="type.railway.station.subway.isfahan">지하철</string>
+	<string name="type.railway.station.subway.istanbul">지하철</string>
+	<string name="type.railway.station.subway.izmir">지하철</string>
+	<string name="type.railway.station.subway.kazan">지하철</string>
+	<string name="type.railway.station.subway.kharkiv">지하철</string>
 	<string name="type.railway.station.subway.kiev">지하철</string>
+	<string name="type.railway.station.subway.kobe">지하철</string>
+	<string name="type.railway.station.subway.kolkata">지하철</string>
+	<string name="type.railway.station.subway.kunming">지하철</string>
+	<string name="type.railway.station.subway.kyoto">지하철</string>
+	<string name="type.railway.station.subway.la">지하철</string>
+	<string name="type.railway.station.subway.lausanne">지하철</string>
+	<string name="type.railway.station.subway.lille">지하철</string>
+	<string name="type.railway.station.subway.lima">지하철</string>
+	<string name="type.railway.station.subway.lisboa">지하철</string>
 	<string name="type.railway.station.subway.london">지하철</string>
+	<string name="type.railway.station.subway.lyon">지하철</string>
 	<string name="type.railway.station.subway.madrid">지하철</string>
+	<string name="type.railway.station.subway.malaga">지하철</string>
+	<string name="type.railway.station.subway.manila">지하철</string>
+	<string name="type.railway.station.subway.maracaibo">지하철</string>
+	<string name="type.railway.station.subway.mashhad">지하철</string>
+	<string name="type.railway.station.subway.mecca">지하철</string>
+	<string name="type.railway.station.subway.medellin">지하철</string>
+	<string name="type.railway.station.subway.mexico">지하철</string>
+	<string name="type.railway.station.subway.milan">지하철</string>
 	<string name="type.railway.station.subway.minsk">지하철</string>
+	<string name="type.railway.station.subway.montreal">지하철</string>
 	<string name="type.railway.station.subway.moscow">지하철</string>
+	<string name="type.railway.station.subway.munchen">지하철</string>
+	<string name="type.railway.station.subway.nagoya">지하철</string>
 	<string name="type.railway.station.subway.newyork">지하철</string>
+	<string name="type.railway.station.subway.nnov">지하철</string>
+	<string name="type.railway.station.subway.novosibirsk">지하철</string>
+	<string name="type.railway.station.subway.osaka">지하철</string>
+	<string name="type.railway.station.subway.oslo">지하철</string>
+	<string name="type.railway.station.subway.palma">지하철</string>
+	<string name="type.railway.station.subway.panama">지하철</string>
 	<string name="type.railway.station.subway.paris">지하철</string>
+	<string name="type.railway.station.subway.philadelphia">지하철</string>
+	<string name="type.railway.station.subway.pyongyang">지하철</string>
+	<string name="type.railway.station.subway.rennes">지하철</string>
+	<string name="type.railway.station.subway.rio">지하철</string>
 	<string name="type.railway.station.subway.roma">지하철</string>
+	<string name="type.railway.station.subway.rotterdam">지하철</string>
+	<string name="type.railway.station.subway.samara">지하철</string>
+	<string name="type.railway.station.subway.santiago">지하철</string>
+	<string name="type.railway.station.subway.santo_domingo">지하철</string>
+	<string name="type.railway.station.subway.saopaulo">지하철</string>
+	<string name="type.railway.station.subway.sapporo">지하철</string>
+	<string name="type.railway.station.subway.sendai">지하철</string>
+	<string name="type.railway.station.subway.sf">지하철</string>
+	<string name="type.railway.station.subway.shanghai">지하철</string>
+	<string name="type.railway.station.subway.shiraz">지하철</string>
+	<string name="type.railway.station.subway.sofia">지하철</string>
 	<string name="type.railway.station.subway.spb">지하철</string>
+	<string name="type.railway.station.subway.stockholm">지하철</string>
+	<string name="type.railway.station.subway.tabriz">지하철</string>
+	<string name="type.railway.station.subway.taipei">지하철</string>
+	<string name="type.railway.station.subway.taoyuan">지하철</string>
+	<string name="type.railway.station.subway.tashkent">지하철</string>
+	<string name="type.railway.station.subway.tbilisi">지하철</string>
+	<string name="type.railway.station.subway.tianjin">지하철</string>
+	<string name="type.railway.station.subway.tokyo">지하철</string>
+	<string name="type.railway.station.subway.valencia">지하철</string>
+	<string name="type.railway.station.subway.vienna">지하철</string>
+	<string name="type.railway.station.subway.warszawa">지하철</string>
+	<string name="type.railway.station.subway.washington">지하철</string>
+	<string name="type.railway.station.subway.wuhan">지하철</string>
+	<string name="type.railway.station.subway.yerevan">지하철</string>
+	<string name="type.railway.station.subway.yokohama">지하철</string>
 	<string name="type.railway.subway_entrance">지하철 입구</string>
-	<string name="type.railway.subway_entrance.barcelona">지하철</string>
-	<string name="type.railway.subway_entrance.berlin">지하철</string>
-	<string name="type.railway.subway_entrance.kiev">지하철</string>
-	<string name="type.railway.subway_entrance.london">지하철</string>
-	<string name="type.railway.subway_entrance.madrid">지하철</string>
-	<string name="type.railway.subway_entrance.minsk">지하철</string>
-	<string name="type.railway.subway_entrance.moscow">지하철</string>
-	<string name="type.railway.subway_entrance.newyork">지하철</string>
-	<string name="type.railway.subway_entrance.paris">지하철</string>
-	<string name="type.railway.subway_entrance.roma">지하철</string>
-	<string name="type.railway.subway_entrance.spb">지하철</string>
+	<string name="type.railway.subway_entrance.adana">지하철 입구</string>
+	<string name="type.railway.subway_entrance.algiers">지하철 입구</string>
+	<string name="type.railway.subway_entrance.almaty">지하철 입구</string>
+	<string name="type.railway.subway_entrance.amsterdam">지하철 입구</string>
+	<string name="type.railway.subway_entrance.ankara">지하철 입구</string>
+	<string name="type.railway.subway_entrance.athens">지하철 입구</string>
+	<string name="type.railway.subway_entrance.baku">지하철 입구</string>
+	<string name="type.railway.subway_entrance.bangkok">지하철 입구</string>
+	<string name="type.railway.subway_entrance.barcelona">지하철 입구</string>
+	<string name="type.railway.subway_entrance.beijing">지하철 입구</string>
+	<string name="type.railway.subway_entrance.bengalore">지하철 입구</string>
+	<string name="type.railway.subway_entrance.berlin">지하철 입구</string>
+	<string name="type.railway.subway_entrance.brasilia">지하철 입구</string>
+	<string name="type.railway.subway_entrance.brescia">지하철 입구</string>
+	<string name="type.railway.subway_entrance.brussels">지하철 입구</string>
+	<string name="type.railway.subway_entrance.bucharest">지하철 입구</string>
+	<string name="type.railway.subway_entrance.budapest">지하철 입구</string>
+	<string name="type.railway.subway_entrance.buenos_aires">지하철 입구</string>
+	<string name="type.railway.subway_entrance.bursa">지하철 입구</string>
+	<string name="type.railway.subway_entrance.cairo">지하철 입구</string>
+	<string name="type.railway.subway_entrance.caracas">지하철 입구</string>
+	<string name="type.railway.subway_entrance.catania">지하철 입구</string>
+	<string name="type.railway.subway_entrance.changchun">지하철 입구</string>
+	<string name="type.railway.subway_entrance.chengdu">지하철 입구</string>
+	<string name="type.railway.subway_entrance.chicago">지하철 입구</string>
+	<string name="type.railway.subway_entrance.chongqing">지하철 입구</string>
+	<string name="type.railway.subway_entrance.dalian">지하철 입구</string>
+	<string name="type.railway.subway_entrance.delhi">지하철 입구</string>
+	<string name="type.railway.subway_entrance.dnepro">지하철 입구</string>
+	<string name="type.railway.subway_entrance.dubai">지하철 입구</string>
+	<string name="type.railway.subway_entrance.ekb">지하철 입구</string>
+	<string name="type.railway.subway_entrance.fukuoka">지하철 입구</string>
+	<string name="type.railway.subway_entrance.glasgow">지하철 입구</string>
+	<string name="type.railway.subway_entrance.guangzhou">지하철 입구</string>
+	<string name="type.railway.subway_entrance.hamburg">지하철 입구</string>
+	<string name="type.railway.subway_entrance.helsinki">지하철 입구</string>
+	<string name="type.railway.subway_entrance.hiroshima">지하철 입구</string>
+	<string name="type.railway.subway_entrance.isfahan">지하철 입구</string>
+	<string name="type.railway.subway_entrance.istanbul">지하철 입구</string>
+	<string name="type.railway.subway_entrance.izmir">지하철 입구</string>
+	<string name="type.railway.subway_entrance.kazan">지하철 입구</string>
+	<string name="type.railway.subway_entrance.kharkiv">지하철 입구</string>
+	<string name="type.railway.subway_entrance.kiev">지하철 입구</string>
+	<string name="type.railway.subway_entrance.kobe">지하철 입구</string>
+	<string name="type.railway.subway_entrance.kolkata">지하철 입구</string>
+	<string name="type.railway.subway_entrance.kunming">지하철 입구</string>
+	<string name="type.railway.subway_entrance.kyoto">지하철 입구</string>
+	<string name="type.railway.subway_entrance.la">지하철 입구</string>
+	<string name="type.railway.subway_entrance.lausanne">지하철 입구</string>
+	<string name="type.railway.subway_entrance.lille">지하철 입구</string>
+	<string name="type.railway.subway_entrance.lima">지하철 입구</string>
+	<string name="type.railway.subway_entrance.lisboa">지하철 입구</string>
+	<string name="type.railway.subway_entrance.london">지하철 입구</string>
+	<string name="type.railway.subway_entrance.lyon">지하철 입구</string>
+	<string name="type.railway.subway_entrance.madrid">지하철 입구</string>
+	<string name="type.railway.subway_entrance.malaga">지하철 입구</string>
+	<string name="type.railway.subway_entrance.manila">지하철 입구</string>
+	<string name="type.railway.subway_entrance.maracaibo">지하철 입구</string>
+	<string name="type.railway.subway_entrance.mashhad">지하철 입구</string>
+	<string name="type.railway.subway_entrance.mecca">지하철 입구</string>
+	<string name="type.railway.subway_entrance.medellin">지하철 입구</string>
+	<string name="type.railway.subway_entrance.mexico">지하철 입구</string>
+	<string name="type.railway.subway_entrance.milan">지하철 입구</string>
+	<string name="type.railway.subway_entrance.minsk">지하철 입구</string>
+	<string name="type.railway.subway_entrance.montreal">지하철 입구</string>
+	<string name="type.railway.subway_entrance.moscow">지하철 입구</string>
+	<string name="type.railway.subway_entrance.munchen">지하철 입구</string>
+	<string name="type.railway.subway_entrance.nagoya">지하철 입구</string>
+	<string name="type.railway.subway_entrance.newyork">지하철 입구</string>
+	<string name="type.railway.subway_entrance.nnov">지하철 입구</string>
+	<string name="type.railway.subway_entrance.novosibirsk">지하철 입구</string>
+	<string name="type.railway.subway_entrance.osaka">지하철 입구</string>
+	<string name="type.railway.subway_entrance.oslo">지하철 입구</string>
+	<string name="type.railway.subway_entrance.palma">지하철 입구</string>
+	<string name="type.railway.subway_entrance.panama">지하철 입구</string>
+	<string name="type.railway.subway_entrance.paris">지하철 입구</string>
+	<string name="type.railway.subway_entrance.philadelphia">지하철 입구</string>
+	<string name="type.railway.subway_entrance.pyongyang">지하철 입구</string>
+	<string name="type.railway.subway_entrance.rennes">지하철 입구</string>
+	<string name="type.railway.subway_entrance.rio">지하철 입구</string>
+	<string name="type.railway.subway_entrance.roma">지하철 입구</string>
+	<string name="type.railway.subway_entrance.rotterdam">지하철 입구</string>
+	<string name="type.railway.subway_entrance.samara">지하철 입구</string>
+	<string name="type.railway.subway_entrance.santiago">지하철 입구</string>
+	<string name="type.railway.subway_entrance.santo_domingo">지하철 입구</string>
+	<string name="type.railway.subway_entrance.saopaulo">지하철 입구</string>
+	<string name="type.railway.subway_entrance.sapporo">지하철 입구</string>
+	<string name="type.railway.subway_entrance.sendai">지하철 입구</string>
+	<string name="type.railway.subway_entrance.sf">지하철 입구</string>
+	<string name="type.railway.subway_entrance.shanghai">지하철 입구</string>
+	<string name="type.railway.subway_entrance.shiraz">지하철 입구</string>
+	<string name="type.railway.subway_entrance.sofia">지하철 입구</string>
+	<string name="type.railway.subway_entrance.spb">지하철 입구</string>
+	<string name="type.railway.subway_entrance.stockholm">지하철 입구</string>
+	<string name="type.railway.subway_entrance.tabriz">지하철 입구</string>
+	<string name="type.railway.subway_entrance.taipei">지하철 입구</string>
+	<string name="type.railway.subway_entrance.taoyuan">지하철 입구</string>
+	<string name="type.railway.subway_entrance.tashkent">지하철 입구</string>
+	<string name="type.railway.subway_entrance.tbilisi">지하철 입구</string>
+	<string name="type.railway.subway_entrance.tianjin">지하철 입구</string>
+	<string name="type.railway.subway_entrance.tokyo">지하철 입구</string>
+	<string name="type.railway.subway_entrance.valencia">지하철 입구</string>
+	<string name="type.railway.subway_entrance.vienna">지하철 입구</string>
+	<string name="type.railway.subway_entrance.warszawa">지하철 입구</string>
+	<string name="type.railway.subway_entrance.washington">지하철 입구</string>
+	<string name="type.railway.subway_entrance.wuhan">지하철 입구</string>
+	<string name="type.railway.subway_entrance.yerevan">지하철 입구</string>
+	<string name="type.railway.subway_entrance.yokohama">지하철 입구</string>
 	<string name="type.railway.tram_stop">트램 정류장</string>
 	<string name="type.shop">가게</string>
 	<string name="type.shop.alcohol">주류 샵</string>
@@ -1331,7 +1572,9 @@
 	<string name="type.sport.australian_football">오스트레일리안 풋볼</string>
 	<string name="type.sport.baseball">야구</string>
 	<string name="type.sport.basketball">야구</string>
+	<string name="type.sport.beachvolleyball">비치발리볼</string>
 	<string name="type.sport.bowls">론볼</string>
+	<string name="type.sport.chess">체스</string>
 	<string name="type.sport.cricket">크리켓</string>
 	<string name="type.sport.curling">컬링</string>
 	<string name="type.sport.equestrian">승마 경기장</string>
@@ -1342,10 +1585,21 @@
 	<!-- Used to tag a scuba diving site. -->
 	<string name="type.sport.scuba_diving">스쿠버 다이빙</string>
 	<string name="type.sport.shooting">사격 경기</string>
+	<string name="type.sport.skateboard">스케이트보딩</string>
 	<string name="type.sport.skiing">스키 타기</string>
 	<string name="type.sport.soccer">축구</string>
 	<string name="type.sport.swimming">수영</string>
+	<string name="type.sport.table_tennis">탁구</string>
 	<string name="type.sport.tennis">테니스 코트</string>
+	<string name="type.sport.volleyball">배구</string>
+	<string name="type.sport.10pin">볼링</string>
+	<string name="type.sport.9pin">볼링</string>
+	<string name="type.sport.padel">파델</string>
+	<string name="type.sport.futsal">풋살</string>
+	<string name="type.sport.ice_hockey">아이스 하키</string>
+	<string name="type.sport.field_hockey">필드 하키</string>
+	<string name="type.sport.badminton">배드민턴</string>
+	<string name="type.sport.pelota">바스크 펠로타</string>
 	<string name="type.tourism.alpine_hut">고산 오두막</string>
 	<string name="type.tourism.apartment">아파트</string>
 	<string name="type.tourism.artwork">작품</string>

@@ -153,7 +153,7 @@
 "water" = "물";
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
-"rv" = "RV Facilities";
+"rv" = "RV용";
 
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
 
@@ -282,11 +282,11 @@
 /* Text in menu */
 "instagram" = "Instagram";
 
+/* Text in the editor */
+"vk" = "VK";
+
 /* Text in menu */
 "openstreetmap" = "OpenStreetMap";
-
-/* Settings: Send feedback button and dialog title */
-"feedback" = "피드백";
 
 /* Text in menu */
 "rate_the_app" = "앱 평가";
@@ -296,6 +296,9 @@
 
 /* Button in the main Help dialog */
 "faq" = "질문과 답변";
+
+/* Button in the main menu */
+"donate" = "기부";
 
 /* Button in the main Help dialog */
 "how_to_support_us" = "우리를 지원하는 방법?";
@@ -503,12 +506,6 @@
 
 "history" = "내역";
 
-"opens_in" = "Opens in %@";
-
-"closes_in" = "Closes in %@";
-
-"closed" = "닫음";
-
 "search_not_found" = "죄송합니다. 아무것도 찾지 못했습니다.";
 
 "search_not_found_query" = "다른 쿼리를 시도하십시오.";
@@ -518,6 +515,12 @@
 "search_history_text" = "최근 검색 쿼리에 신속하게 액세스할 수 있습니다.";
 
 "clear_search" = "이력 검색 지우기";
+
+/* Place Page link to Wikipedia article (if map object has it). */
+"read_in_wikipedia" = "Wikipedia";
+
+/* Place Page link to Wikimedia Commons. */
+"wikimedia_commons" = "Wikimedia Commons";
 
 "p2p_your_location" = "위치";
 
@@ -578,6 +581,20 @@
 
 "today" = "오늘";
 
+"opens_tomorrow_at" = "Opens tomorrow at %@";
+
+"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
+
+"opens_at" = "Opens at %@";
+
+"opens_in" = "Opens in %@";
+
+"closes_at" = "Closes at %@";
+
+"closes_in" = "Closes in %@";
+
+"closed" = "닫음";
+
 "add_opening_hours" = "영업일 추가";
 
 "no_osm_account" = "OpenStreetMap에서 계정이 없습니까?";
@@ -629,6 +646,8 @@
 "email_or_username" = "이메일 또는 사용자 이름";
 
 "phone" = "전화";
+
+"level" = "층";
 
 "please_note" = "참고 사항";
 
@@ -750,6 +769,8 @@
 
 "miles_per_hour" = "mph";
 
+"hour" = "t";
+
 "minute" = "min";
 
 "placepage_place_description" = "설명";
@@ -798,10 +819,10 @@
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "이를 모든 사용자에게 전송하시겠습니까?";
 
-/* iOS Dialog before publishing the modifications to the public map. */
+/* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "개인 정보를 입력하지 않았는지 확인하십시오.";
 
-"editor_share_to_all_dialog_message_2" = "저희가 변경 사항을 확인할 것입니다. 질문이 있으신 경우, 저희에게 이메일을 통해 연락하십시오.";
+"editor_share_to_all_dialog_message_2" = "OpenStreetMap 편집자가 변경 사항을 확인하고 질문이 있는 경우 귀하에게 연락할 것입니다.";
 
 "navigation_stop_button" = "중지";
 
@@ -856,15 +877,13 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "교통 데이터를 사용할 수 없습니다";
 
-/* Settings: "Send general feedback" button */
-"feedback_general" = "일반 피드백";
-
 "on" = "켜기";
 
 "off" = "끄기";
 
 "transliteration_title" = "라틴어로 음역";
 
+/* Subway exits for public transport marks on the map */
 "core_exit" = "끝내기";
 
 "routing_add_start_point" = "경로 계획을 세우기 위한 시작 지점을 추가하세요";
@@ -1205,20 +1224,29 @@
 /* edit track screen title */
 "track_title" = "길";
 
+/* Telegram group url for the "?" About page */
+"telegram_url" = "https://t.me/OrganicMapsApp";
+
+/* Instagram account url for the "?" About page */
+"instagram_url" = "https://www.instagram.com/organicmaps.app";
+
+/* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
+"translated_om_site_url" = "https://organicmaps.app/";
+
 
 /********** Types **********/
 
 "type.aerialway" = "Aerialway";
 
-"type.aerialway.cable_car" = "Aerialway";
+"type.aerialway.cable_car" = "Cable car";
 
-"type.aerialway.chair_lift" = "Aerialway";
+"type.aerialway.chair_lift" = "Chair lift";
 
-"type.aerialway.drag_lift" = "Aerialway";
+"type.aerialway.drag_lift" = "Drag lift";
 
-"type.aerialway.gondola" = "Aerialway";
+"type.aerialway.gondola" = "Gondola";
 
-"type.aerialway.mixed_lift" = "Aerialway";
+"type.aerialway.mixed_lift" = "Mixed lift";
 
 "type.aerialway.station" = "케이블카 역";
 
@@ -1300,6 +1328,10 @@
 
 "type.amenity.driving_school" = "운전학원";
 
+"type.amenity.music_school" = "음악 학교";
+
+"type.amenity.language_school" = "언어 학교";
+
 "type.office.diplomatic" = "대사관";
 
 "type.amenity.fast_food" = "패스트 푸드";
@@ -1342,19 +1374,25 @@
 
 "type.amenity.parking" = "주차";
 
-"type.amenity.parking.fee" = "주차";
+"type.amenity.parking.fee" = "유료 주차장";
 
-"type.amenity.parking.multi.storey" = "주차";
+"type.amenity.parking.multi.storey" = "다층 주차장";
 
-"type.amenity.parking.no.access" = "주차";
+"type.amenity.parking.no.access" = "전용 주차장";
+
+"type.amenity.parking.permissive" = "전용 주차장";
+
+"type.amenity.parking.private" = "전용 주차장";
 
 "type.amenity.parking.park_and_ride" = "주차";
 
-"type.amenity.parking.permissive" = "주차";
+"type.amenity.parking.underground" = "지하주차장";
 
-"type.amenity.parking.private" = "주차";
+"type.amenity.parking_entrance.private" = "주차장 입구";
 
-"type.amenity.parking.underground" = "주차";
+"type.amenity.parking_entrance.permissive" = "주차장 입구";
+
+"type.amenity.parking_entrance" = "주차장 입구";
 
 "type.amenity.parking_space" = "주차장";
 
@@ -1363,6 +1401,8 @@
 "type.amenity.parking_space.private" = "주차장";
 
 "type.amenity.parking_space.underground" = "주차장";
+
+"type.amenity.parking_space.disabled" = "장애인 주차 공간";
 
 "type.amenity.payment_terminal" = "결제 단말기";
 
@@ -1429,7 +1469,7 @@
 
 "type.recycling.green_waste" = "Green/Organic Waste";
 
-"type.recycling.cartons" = "Bewerage Cartons";
+"type.recycling.cartons" = "Beverage Cartons";
 
 "type.amenity.restaurant" = "레스토랑";
 
@@ -1499,9 +1539,11 @@
 
 "type.barrier.chain" = "Chain";
 
-"type.barrier.city_wall" = "City Wall";
+"type.barrier.city_wall" = "도시의 벽";
 
 "type.barrier.cycle_barrier" = "Cycle Barrier";
+
+"type.barrier.ditch" = "\"해자 외호\"";
 
 "type.barrier.entrance" = "입구";
 
@@ -1510,6 +1552,8 @@
 "type.barrier.gate" = "게이트";
 
 "type.barrier.hedge" = "Hedge";
+
+"type.barrier.kissing_gate" = "게이트";
 
 "type.barrier.lift_gate" = "차량차단기";
 
@@ -1579,25 +1623,25 @@
 
 "type.cemetery.grave" = "무덤";
 
-"type.craft" = "Craft";
+"type.craft" = "공예";
 
-"type.craft.beekeeper" = "Beekeeper";
+"type.craft.beekeeper" = "양봉가";
 
-"type.craft.blacksmith" = "Blacksmith";
+"type.craft.blacksmith" = "대장장이";
 
 "type.craft.brewery" = "양조장";
 
 "type.craft.carpenter" = "목수";
 
-"type.craft.confectionery" = "Confectionery";
+"type.craft.confectionery" = "과자 장수";
 
 "type.craft.electrician" = "전기기술자";
 
-"type.craft.electronics_repair" = "Electronics Repair";
+"type.craft.electronics_repair" = "전자제품 수리";
 
 "type.craft.gardener" = "조경사";
 
-"type.craft.handicraft" = "Handicraft";
+"type.craft.handicraft" = "수예";
 
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "냉난방기";
@@ -1610,11 +1654,11 @@
 
 "type.craft.plumber" = "배관공";
 
-"type.craft.sawmill" = "Sawmill";
+"type.craft.sawmill" = "제재소";
 
 "type.craft.shoemaker" = "구두수선";
 
-"type.craft.winery" = "Winery";
+"type.craft.winery" = "포도주 양조장";
 
 "type.craft.tailor" = "양복점";
 
@@ -1801,6 +1845,8 @@
 "type.entrance" = "입구";
 
 "type.healthcare.laboratory" = "의료 연구실";
+
+"type.healthcare.physiotherapist" = "물리치료사";
 
 
 /********** Types: Roads **********/
@@ -2106,25 +2152,47 @@
 
 /********** Types: Historic **********/
 
-"type.historic" = "Historic";
+"type.historic" = "역사적 물건";
 
 "type.historic.archaeological_site" = "발굴";
 
-"type.historic.battlefield" = "Battlefield";
+"type.historic.battlefield" = "전장터";
 
-"type.historic.boundary_stone" = "Boundary Stone";
+"type.historic.boundary_stone" = "경계석";
 
 "type.historic.castle" = "성";
 
+"type.historic.castle.castrum" = "로마 요새";
+
 "type.historic.castle.defensive" = "성";
+
+"type.historic.castle.fortified_church" = "요새화된 교회";
+
+"type.historic.castle.fortress" = "요새";
+
+"type.historic.castle.hillfort" = "힐포트";
+
+"type.historic.castle.kremlin" = "크렘린";
+
+"type.historic.castle.manor" = "매너하우스";
+
+"type.historic.castle.palace" = "궁전";
+
+"type.historic.castle.shiro" = "일본의 성";
 
 "type.historic.castle.stately" = "성";
 
-"type.historic.citywalls" = "City Wall";
+"type.historic.city_gate" = "성문";
 
-"type.historic.fort" = "Fort";
+"type.historic.citywalls" = "도시의 벽";
+
+"type.historic.fort" = "요새";
+
+"type.historic.gallows" = "교수대";
 
 "type.historic.memorial" = "기념비";
+
+"type.historic.memorial.cross" = "기념 십자가";
 
 "type.historic.memorial.plaque" = "기념비";
 
@@ -2132,7 +2200,13 @@
 
 "type.historic.memorial.statue" = "기념비";
 
+"type.historic.memorial.stolperstein" = "장애물";
+
+"type.historic.memorial.war_memorial" = "전쟁기념관";
+
 "type.historic.monument" = "기념탑";
+
+"type.historic.pillory" = "칼";
 
 "type.historic.ruins" = "유적";
 
@@ -2140,9 +2214,9 @@
 
 "type.historic.tomb" = "무덤";
 
-"type.historic.wayside_cross" = "Christian Cross";
+"type.historic.wayside_cross" = "길가의 십자가";
 
-"type.historic.wayside_shrine" = "Shrine";
+"type.historic.wayside_shrine" = "길가의 신사";
 
 "type.hwtag" = "hwtag";
 
@@ -2262,7 +2336,11 @@
 
 "type.leisure.fitness_station" = "피트니스 스테이션";
 
+"type.leisure.dance" = "\"댄스홀\"";
+
 "type.leisure.garden" = "정원";
+
+"type.leisure.garden.residential" = "정원";
 
 "type.leisure.golf_course" = "골프장";
 
@@ -2296,13 +2374,9 @@
 
 "type.leisure.sports_centre" = "스포츠 센터";
 
-"type.leisure.sports_centre.climbing" = "등반 센터";
+"type.sport.climbing" = "등반 센터";
 
-"type.leisure.sports_centre.shooting" = "발사 범위";
-
-"type.leisure.sports_centre.swimming" = "수영 센터";
-
-"type.leisure.sports_centre.yoga" = "요가 스튜디오";
+"type.sport.yoga" = "요가 스튜디오";
 
 "type.leisure.stadium" = "경기장";
 
@@ -2348,7 +2422,7 @@
 
 "type.man_made.tower" = "타워";
 
-"type.man_made.wastewater_plant" = "Wastewater Plant";
+"type.man_made.wastewater_plant" = "Wastewater treatment plant";
 
 "type.man_made.water_tap" = "수도꼭지";
 
@@ -2393,6 +2467,8 @@
 "type.man_made.embankment" = "둑";
 
 "type.natural.coastline" = "연안";
+
+"type.natural.desert" = "사막";
 
 "type.natural.geyser" = "간헐천";
 
@@ -2472,8 +2548,6 @@
 
 "type.organic.yes" = "Organic";
 
-"type.place" = "place";
-
 "type.place.city" = "도시";
 
 "type.place.city.capital" = "수도";
@@ -2512,11 +2586,11 @@
 
 "type.place.islet" = "섬";
 
-"type.place.isolated_dwelling" = "Dwelling";
+"type.place.isolated_dwelling" = "고립된 주거";
 
 "type.place.locality" = "장소";
 
-"type.place.neighbourhood" = "Neighbourhood";
+"type.place.neighbourhood" = "동네";
 
 "type.place.ocean" = "대양";
 
@@ -2524,7 +2598,7 @@
 
 "type.place.sea" = "바다";
 
-"type.place.square" = "Square";
+"type.place.square" = "광장";
 
 "type.place.state" = "주";
 
@@ -2570,13 +2644,13 @@
 
 "type.railway" = "Railway";
 
-"type.railway.abandoned" = "Abandoned railway";
+"type.railway.abandoned" = "Abandoned Railway";
 
-"type.railway.abandoned.bridge" = "Abandoned railway";
+"type.railway.abandoned.bridge" = "Abandoned Railway Bridge";
 
-"type.railway.abandoned.tunnel" = "Abandoned Railway";
+"type.railway.abandoned.tunnel" = "Abandoned Railway Tunnel";
 
-"type.railway.construction" = "Railway's Construction";
+"type.railway.construction" = "Railway Construction";
 
 "type.railway.crossing" = "Railway Crossing";
 
@@ -2584,9 +2658,9 @@
 
 "type.railway.funicular" = "Funicular";
 
-"type.railway.funicular.bridge" = "Funicular";
+"type.railway.funicular.bridge" = "Funicular Bridge";
 
-"type.railway.funicular.tunnel" = "Funicular";
+"type.railway.funicular.tunnel" = "Funicular Tunnel";
 
 "type.railway.halt" = "기차역";
 
@@ -2594,51 +2668,51 @@
 
 "type.railway.light_rail" = "Light Rail";
 
-"type.railway.light_rail.bridge" = "Light Rail";
+"type.railway.light_rail.bridge" = "Light Rail Bridge";
 
-"type.railway.light_rail.tunnel" = "Light Rail";
+"type.railway.light_rail.tunnel" = "Light Rail Tunnel";
 
 "type.railway.monorail" = "모노레일";
 
-"type.railway.monorail.bridge" = "Monorail";
+"type.railway.monorail.bridge" = "Monorail Bridge";
 
-"type.railway.monorail.tunnel" = "Monorail";
+"type.railway.monorail.tunnel" = "Monorail Tunnel";
 
 "type.railway.narrow_gauge" = "Narrow Gauge Rail";
 
-"type.railway.narrow_gauge.bridge" = "Narrow Gauge Rail";
+"type.railway.narrow_gauge.bridge" = "Narrow Gauge Rail Bridge";
 
-"type.railway.narrow_gauge.tunnel" = "Narrow Gauge Rail";
+"type.railway.narrow_gauge.tunnel" = "Narrow Gauge Rail Tunnel";
 
 "type.railway.platform" = "Railway Platform";
 
 "type.railway.preserved" = "Preserved Rail";
 
-"type.railway.preserved.bridge" = "Preserved Rail";
+"type.railway.preserved.bridge" = "Preserved Rail Bridge";
 
-"type.railway.preserved.tunnel" = "Preserved Rail";
+"type.railway.preserved.tunnel" = "Preserved Rail Tunnel";
 
 "type.railway.rail" = "철로";
 
-"type.railway.rail.bridge" = "Railway";
+"type.railway.rail.bridge" = "Railway Bridge";
 
 "type.railway.rail.motor_vehicle" = "Railway";
 
-"type.railway.rail.tunnel" = "Railway";
+"type.railway.rail.tunnel" = "Railway Tunnel";
 
 "type.railway.razed" = "Razed Rail";
 
 "type.railway.siding" = "Siding Rail";
 
-"type.railway.siding.bridge" = "Siding Rail";
+"type.railway.siding.bridge" = "Siding Rail Bridge";
 
-"type.railway.siding.tunnel" = "Siding Rail";
+"type.railway.siding.tunnel" = "Siding Rail Tunnel";
 
 "type.railway.spur" = "Spur Rail";
 
-"type.railway.spur.bridge" = "Spur Rail";
+"type.railway.spur.bridge" = "Spur Rail Bridge";
 
-"type.railway.spur.tunnel" = "Spur Rail";
+"type.railway.spur.tunnel" = "Spur Rail Tunnel";
 
 "type.railway.station" = "기차역";
 
@@ -2648,71 +2722,459 @@
 
 "type.railway.station.subway" = "지하철";
 
+"type.railway.station.subway.adana" = "지하철";
+
+"type.railway.station.subway.algiers" = "지하철";
+
+"type.railway.station.subway.almaty" = "지하철";
+
+"type.railway.station.subway.amsterdam" = "지하철";
+
+"type.railway.station.subway.ankara" = "지하철";
+
+"type.railway.station.subway.athens" = "지하철";
+
+"type.railway.station.subway.baku" = "지하철";
+
+"type.railway.station.subway.bangkok" = "지하철";
+
 "type.railway.station.subway.barcelona" = "지하철";
+
+"type.railway.station.subway.beijing" = "지하철";
+
+"type.railway.station.subway.bengalore" = "지하철";
 
 "type.railway.station.subway.berlin" = "지하철";
 
+"type.railway.station.subway.brasilia" = "지하철";
+
+"type.railway.station.subway.brescia" = "지하철";
+
+"type.railway.station.subway.brussels" = "지하철";
+
+"type.railway.station.subway.bucharest" = "지하철";
+
+"type.railway.station.subway.budapest" = "지하철";
+
+"type.railway.station.subway.buenos_aires" = "지하철";
+
+"type.railway.station.subway.bursa" = "지하철";
+
+"type.railway.station.subway.cairo" = "지하철";
+
+"type.railway.station.subway.caracas" = "지하철";
+
+"type.railway.station.subway.catania" = "지하철";
+
+"type.railway.station.subway.changchun" = "지하철";
+
+"type.railway.station.subway.chengdu" = "지하철";
+
+"type.railway.station.subway.chicago" = "지하철";
+
+"type.railway.station.subway.chongqing" = "지하철";
+
+"type.railway.station.subway.dalian" = "지하철";
+
+"type.railway.station.subway.delhi" = "지하철";
+
+"type.railway.station.subway.dnepro" = "지하철";
+
+"type.railway.station.subway.dubai" = "지하철";
+
+"type.railway.station.subway.ekb" = "지하철";
+
+"type.railway.station.subway.fukuoka" = "지하철";
+
+"type.railway.station.subway.glasgow" = "지하철";
+
+"type.railway.station.subway.guangzhou" = "지하철";
+
+"type.railway.station.subway.hamburg" = "지하철";
+
+"type.railway.station.subway.helsinki" = "지하철";
+
+"type.railway.station.subway.hiroshima" = "지하철";
+
+"type.railway.station.subway.isfahan" = "지하철";
+
+"type.railway.station.subway.istanbul" = "지하철";
+
+"type.railway.station.subway.izmir" = "지하철";
+
+"type.railway.station.subway.kazan" = "지하철";
+
+"type.railway.station.subway.kharkiv" = "지하철";
+
 "type.railway.station.subway.kiev" = "지하철";
+
+"type.railway.station.subway.kobe" = "지하철";
+
+"type.railway.station.subway.kolkata" = "지하철";
+
+"type.railway.station.subway.kunming" = "지하철";
+
+"type.railway.station.subway.kyoto" = "지하철";
+
+"type.railway.station.subway.la" = "지하철";
+
+"type.railway.station.subway.lausanne" = "지하철";
+
+"type.railway.station.subway.lille" = "지하철";
+
+"type.railway.station.subway.lima" = "지하철";
+
+"type.railway.station.subway.lisboa" = "지하철";
 
 "type.railway.station.subway.london" = "지하철";
 
+"type.railway.station.subway.lyon" = "지하철";
+
 "type.railway.station.subway.madrid" = "지하철";
+
+"type.railway.station.subway.malaga" = "지하철";
+
+"type.railway.station.subway.manila" = "지하철";
+
+"type.railway.station.subway.maracaibo" = "지하철";
+
+"type.railway.station.subway.mashhad" = "지하철";
+
+"type.railway.station.subway.mecca" = "지하철";
+
+"type.railway.station.subway.medellin" = "지하철";
+
+"type.railway.station.subway.mexico" = "지하철";
+
+"type.railway.station.subway.milan" = "지하철";
 
 "type.railway.station.subway.minsk" = "지하철";
 
+"type.railway.station.subway.montreal" = "지하철";
+
 "type.railway.station.subway.moscow" = "지하철";
+
+"type.railway.station.subway.munchen" = "지하철";
+
+"type.railway.station.subway.nagoya" = "지하철";
 
 "type.railway.station.subway.newyork" = "지하철";
 
+"type.railway.station.subway.nnov" = "지하철";
+
+"type.railway.station.subway.novosibirsk" = "지하철";
+
+"type.railway.station.subway.osaka" = "지하철";
+
+"type.railway.station.subway.oslo" = "지하철";
+
+"type.railway.station.subway.palma" = "지하철";
+
+"type.railway.station.subway.panama" = "지하철";
+
 "type.railway.station.subway.paris" = "지하철";
+
+"type.railway.station.subway.philadelphia" = "지하철";
+
+"type.railway.station.subway.pyongyang" = "지하철";
+
+"type.railway.station.subway.rennes" = "지하철";
+
+"type.railway.station.subway.rio" = "지하철";
 
 "type.railway.station.subway.roma" = "지하철";
 
+"type.railway.station.subway.rotterdam" = "지하철";
+
+"type.railway.station.subway.samara" = "지하철";
+
+"type.railway.station.subway.santiago" = "지하철";
+
+"type.railway.station.subway.santo_domingo" = "지하철";
+
+"type.railway.station.subway.saopaulo" = "지하철";
+
+"type.railway.station.subway.sapporo" = "지하철";
+
+"type.railway.station.subway.sendai" = "지하철";
+
+"type.railway.station.subway.sf" = "지하철";
+
+"type.railway.station.subway.shanghai" = "지하철";
+
+"type.railway.station.subway.shiraz" = "지하철";
+
+"type.railway.station.subway.sofia" = "지하철";
+
 "type.railway.station.subway.spb" = "지하철";
+
+"type.railway.station.subway.stockholm" = "지하철";
+
+"type.railway.station.subway.tabriz" = "지하철";
+
+"type.railway.station.subway.taipei" = "지하철";
+
+"type.railway.station.subway.taoyuan" = "지하철";
+
+"type.railway.station.subway.tashkent" = "지하철";
+
+"type.railway.station.subway.tbilisi" = "지하철";
+
+"type.railway.station.subway.tianjin" = "지하철";
+
+"type.railway.station.subway.tokyo" = "지하철";
+
+"type.railway.station.subway.valencia" = "지하철";
+
+"type.railway.station.subway.vienna" = "지하철";
+
+"type.railway.station.subway.warszawa" = "지하철";
+
+"type.railway.station.subway.washington" = "지하철";
+
+"type.railway.station.subway.wuhan" = "지하철";
+
+"type.railway.station.subway.yerevan" = "지하철";
+
+"type.railway.station.subway.yokohama" = "지하철";
 
 "type.railway.subway" = "Subway Line";
 
-"type.railway.subway.bridge" = "Subway Line";
+"type.railway.subway.bridge" = "Subway Line Bridge";
 
-"type.railway.subway.tunnel" = "Subway Line";
+"type.railway.subway.tunnel" = "Subway Line Tunnel";
 
 "type.railway.subway_entrance" = "지하철 입구";
 
-"type.railway.subway_entrance.barcelona" = "지하철";
+"type.railway.subway_entrance.adana" = "지하철 입구";
 
-"type.railway.subway_entrance.berlin" = "지하철";
+"type.railway.subway_entrance.algiers" = "지하철 입구";
 
-"type.railway.subway_entrance.kiev" = "지하철";
+"type.railway.subway_entrance.almaty" = "지하철 입구";
 
-"type.railway.subway_entrance.london" = "지하철";
+"type.railway.subway_entrance.amsterdam" = "지하철 입구";
 
-"type.railway.subway_entrance.madrid" = "지하철";
+"type.railway.subway_entrance.ankara" = "지하철 입구";
 
-"type.railway.subway_entrance.minsk" = "지하철";
+"type.railway.subway_entrance.athens" = "지하철 입구";
 
-"type.railway.subway_entrance.moscow" = "지하철";
+"type.railway.subway_entrance.baku" = "지하철 입구";
 
-"type.railway.subway_entrance.newyork" = "지하철";
+"type.railway.subway_entrance.bangkok" = "지하철 입구";
 
-"type.railway.subway_entrance.paris" = "지하철";
+"type.railway.subway_entrance.barcelona" = "지하철 입구";
 
-"type.railway.subway_entrance.roma" = "지하철";
+"type.railway.subway_entrance.beijing" = "지하철 입구";
 
-"type.railway.subway_entrance.spb" = "지하철";
+"type.railway.subway_entrance.bengalore" = "지하철 입구";
+
+"type.railway.subway_entrance.berlin" = "지하철 입구";
+
+"type.railway.subway_entrance.brasilia" = "지하철 입구";
+
+"type.railway.subway_entrance.brescia" = "지하철 입구";
+
+"type.railway.subway_entrance.brussels" = "지하철 입구";
+
+"type.railway.subway_entrance.bucharest" = "지하철 입구";
+
+"type.railway.subway_entrance.budapest" = "지하철 입구";
+
+"type.railway.subway_entrance.buenos_aires" = "지하철 입구";
+
+"type.railway.subway_entrance.bursa" = "지하철 입구";
+
+"type.railway.subway_entrance.cairo" = "지하철 입구";
+
+"type.railway.subway_entrance.caracas" = "지하철 입구";
+
+"type.railway.subway_entrance.catania" = "지하철 입구";
+
+"type.railway.subway_entrance.changchun" = "지하철 입구";
+
+"type.railway.subway_entrance.chengdu" = "지하철 입구";
+
+"type.railway.subway_entrance.chicago" = "지하철 입구";
+
+"type.railway.subway_entrance.chongqing" = "지하철 입구";
+
+"type.railway.subway_entrance.dalian" = "지하철 입구";
+
+"type.railway.subway_entrance.delhi" = "지하철 입구";
+
+"type.railway.subway_entrance.dnepro" = "지하철 입구";
+
+"type.railway.subway_entrance.dubai" = "지하철 입구";
+
+"type.railway.subway_entrance.ekb" = "지하철 입구";
+
+"type.railway.subway_entrance.fukuoka" = "지하철 입구";
+
+"type.railway.subway_entrance.glasgow" = "지하철 입구";
+
+"type.railway.subway_entrance.guangzhou" = "지하철 입구";
+
+"type.railway.subway_entrance.hamburg" = "지하철 입구";
+
+"type.railway.subway_entrance.helsinki" = "지하철 입구";
+
+"type.railway.subway_entrance.hiroshima" = "지하철 입구";
+
+"type.railway.subway_entrance.isfahan" = "지하철 입구";
+
+"type.railway.subway_entrance.istanbul" = "지하철 입구";
+
+"type.railway.subway_entrance.izmir" = "지하철 입구";
+
+"type.railway.subway_entrance.kazan" = "지하철 입구";
+
+"type.railway.subway_entrance.kharkiv" = "지하철 입구";
+
+"type.railway.subway_entrance.kiev" = "지하철 입구";
+
+"type.railway.subway_entrance.kobe" = "지하철 입구";
+
+"type.railway.subway_entrance.kolkata" = "지하철 입구";
+
+"type.railway.subway_entrance.kunming" = "지하철 입구";
+
+"type.railway.subway_entrance.kyoto" = "지하철 입구";
+
+"type.railway.subway_entrance.la" = "지하철 입구";
+
+"type.railway.subway_entrance.lausanne" = "지하철 입구";
+
+"type.railway.subway_entrance.lille" = "지하철 입구";
+
+"type.railway.subway_entrance.lima" = "지하철 입구";
+
+"type.railway.subway_entrance.lisboa" = "지하철 입구";
+
+"type.railway.subway_entrance.london" = "지하철 입구";
+
+"type.railway.subway_entrance.lyon" = "지하철 입구";
+
+"type.railway.subway_entrance.madrid" = "지하철 입구";
+
+"type.railway.subway_entrance.malaga" = "지하철 입구";
+
+"type.railway.subway_entrance.manila" = "지하철 입구";
+
+"type.railway.subway_entrance.maracaibo" = "지하철 입구";
+
+"type.railway.subway_entrance.mashhad" = "지하철 입구";
+
+"type.railway.subway_entrance.mecca" = "지하철 입구";
+
+"type.railway.subway_entrance.medellin" = "지하철 입구";
+
+"type.railway.subway_entrance.mexico" = "지하철 입구";
+
+"type.railway.subway_entrance.milan" = "지하철 입구";
+
+"type.railway.subway_entrance.minsk" = "지하철 입구";
+
+"type.railway.subway_entrance.montreal" = "지하철 입구";
+
+"type.railway.subway_entrance.moscow" = "지하철 입구";
+
+"type.railway.subway_entrance.munchen" = "지하철 입구";
+
+"type.railway.subway_entrance.nagoya" = "지하철 입구";
+
+"type.railway.subway_entrance.newyork" = "지하철 입구";
+
+"type.railway.subway_entrance.nnov" = "지하철 입구";
+
+"type.railway.subway_entrance.novosibirsk" = "지하철 입구";
+
+"type.railway.subway_entrance.osaka" = "지하철 입구";
+
+"type.railway.subway_entrance.oslo" = "지하철 입구";
+
+"type.railway.subway_entrance.palma" = "지하철 입구";
+
+"type.railway.subway_entrance.panama" = "지하철 입구";
+
+"type.railway.subway_entrance.paris" = "지하철 입구";
+
+"type.railway.subway_entrance.philadelphia" = "지하철 입구";
+
+"type.railway.subway_entrance.pyongyang" = "지하철 입구";
+
+"type.railway.subway_entrance.rennes" = "지하철 입구";
+
+"type.railway.subway_entrance.rio" = "지하철 입구";
+
+"type.railway.subway_entrance.roma" = "지하철 입구";
+
+"type.railway.subway_entrance.rotterdam" = "지하철 입구";
+
+"type.railway.subway_entrance.samara" = "지하철 입구";
+
+"type.railway.subway_entrance.santiago" = "지하철 입구";
+
+"type.railway.subway_entrance.santo_domingo" = "지하철 입구";
+
+"type.railway.subway_entrance.saopaulo" = "지하철 입구";
+
+"type.railway.subway_entrance.sapporo" = "지하철 입구";
+
+"type.railway.subway_entrance.sendai" = "지하철 입구";
+
+"type.railway.subway_entrance.sf" = "지하철 입구";
+
+"type.railway.subway_entrance.shanghai" = "지하철 입구";
+
+"type.railway.subway_entrance.shiraz" = "지하철 입구";
+
+"type.railway.subway_entrance.sofia" = "지하철 입구";
+
+"type.railway.subway_entrance.spb" = "지하철 입구";
+
+"type.railway.subway_entrance.stockholm" = "지하철 입구";
+
+"type.railway.subway_entrance.tabriz" = "지하철 입구";
+
+"type.railway.subway_entrance.taipei" = "지하철 입구";
+
+"type.railway.subway_entrance.taoyuan" = "지하철 입구";
+
+"type.railway.subway_entrance.tashkent" = "지하철 입구";
+
+"type.railway.subway_entrance.tbilisi" = "지하철 입구";
+
+"type.railway.subway_entrance.tianjin" = "지하철 입구";
+
+"type.railway.subway_entrance.tokyo" = "지하철 입구";
+
+"type.railway.subway_entrance.valencia" = "지하철 입구";
+
+"type.railway.subway_entrance.vienna" = "지하철 입구";
+
+"type.railway.subway_entrance.warszawa" = "지하철 입구";
+
+"type.railway.subway_entrance.washington" = "지하철 입구";
+
+"type.railway.subway_entrance.wuhan" = "지하철 입구";
+
+"type.railway.subway_entrance.yerevan" = "지하철 입구";
+
+"type.railway.subway_entrance.yokohama" = "지하철 입구";
 
 "type.railway.tram" = "Tram Line";
 
-"type.railway.tram.bridge" = "Tram Line";
+"type.railway.tram.bridge" = "Tram Line Bridge";
 
-"type.railway.tram.tunnel" = "Tram Line";
+"type.railway.tram.tunnel" = "Tram Line Tunnel";
 
 "type.railway.tram_stop" = "트램 정류장";
 
 "type.railway.yard" = "Railway Yard";
 
-"type.railway.yard.bridge" = "Railway Yard";
+"type.railway.yard.bridge" = "Railway Yard Bridge";
 
-"type.railway.yard.tunnel" = "Railway Yard";
+"type.railway.yard.tunnel" = "Railway Yard Tunnel";
 
 "type.route" = "route";
 
@@ -2932,7 +3394,11 @@
 
 "type.sport.basketball" = "야구";
 
+"type.sport.beachvolleyball" = "비치발리볼";
+
 "type.sport.bowls" = "론볼";
+
+"type.sport.chess" = "체스";
 
 "type.sport.cricket" = "크리켓";
 
@@ -2953,13 +3419,35 @@
 
 "type.sport.shooting" = "사격 경기";
 
+"type.sport.skateboard" = "스케이트보딩";
+
 "type.sport.skiing" = "스키 타기";
 
 "type.sport.soccer" = "축구";
 
 "type.sport.swimming" = "수영";
 
+"type.sport.table_tennis" = "탁구";
+
 "type.sport.tennis" = "테니스 코트";
+
+"type.sport.volleyball" = "배구";
+
+"type.sport.10pin" = "볼링";
+
+"type.sport.9pin" = "볼링";
+
+"type.sport.padel" = "파델";
+
+"type.sport.futsal" = "풋살";
+
+"type.sport.ice_hockey" = "아이스 하키";
+
+"type.sport.field_hockey" = "필드 하키";
+
+"type.sport.badminton" = "배드민턴";
+
+"type.sport.pelota" = "바스크 펠로타";
 
 "type.tourism" = "Tourism";
 
@@ -3075,18 +3563,15 @@
 
 "type.wheelchair.yes" = "휠체어 접근 가능";
 
-/* en.wikipedia.org/wiki/Surface_lift */
-"type.piste_lift" = "Surface Lift";
+"type.aerialway.j.bar" = "J-bar Lift";
 
-"type.piste_lift.j.bar" = "J-bar Lift";
+"type.aerialway.magic_carpet" = "Magic Carpet";
 
-"type.piste_lift.magic_carpet" = "Magic Carpet";
+"type.aerialway.platter" = "Platter Lift";
 
-"type.piste_lift.platter" = "Platter Lift";
+"type.aerialway.rope_tow" = "Rope Tow";
 
-"type.piste_lift.rope_tow" = "Rope Tow";
-
-"type.piste_lift.t.bar" = "T-bar Lift";
+"type.aerialway.t.bar" = "T-bar Lift";
 
 "type.piste_type" = "Piste Type";
 

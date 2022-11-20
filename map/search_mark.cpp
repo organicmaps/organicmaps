@@ -4,23 +4,19 @@
 #include "map/place_page_info.hpp"
 
 #include "drape_frontend/drape_engine.hpp"
-#include "drape_frontend/visual_params.hpp"
 
 #include "indexer/scales.hpp"
 
-#include "platform/localization.hpp"
 #include "platform/platform.hpp"
 
 #include "base/stl_helpers.hpp"
-
-#include "defines.hpp"
 
 #include <algorithm>
 #include <array>
 #include <limits>
 
 
-enum class SearchMarkPoint::SearchMarkType : uint32_t
+enum SearchMarkPoint::SearchMarkType : uint8_t
 {
   Default = 0,
   Hotel,
@@ -69,7 +65,7 @@ df::ColorConstant const kColorConstant = "SearchmarkDefault";
 float const kVisitedSymbolOpacity = 0.7f;
 float const kOutOfFiltersSymbolOpacity = 0.4f;
 
-std::array<std::string, static_cast<size_t>(SearchMarkType::Count)> const kSymbols = {
+std::array<std::string, SearchMarkType::Count> const kSymbols = {
     "search-result",                        // Default.
     "norating-default-l",                   // Hotel
     "search-result-cafe",                   // Cafe.
@@ -106,12 +102,10 @@ std::array<std::string, static_cast<size_t>(SearchMarkType::Count)> const kSymbo
     "non-found-search-result",  // NotFound.
 };
 
-std::string GetSymbol(SearchMarkType searchMarkType)
+std::string const & GetSymbol(SearchMarkType searchMarkType)
 {
-  auto const index = static_cast<size_t>(searchMarkType);
-  ASSERT_LESS(index, kSymbols.size(), ());
-
-  return kSymbols[index];
+  ASSERT_LESS(searchMarkType, kSymbols.size(), ());
+  return kSymbols[searchMarkType];
 }
 
 class SearchMarkTypeChecker
@@ -194,7 +188,13 @@ SearchMarkType GetSearchMarkType(uint32_t type)
 }  // namespace
 
 SearchMarkPoint::SearchMarkPoint(m2::PointD const & ptOrg)
-  : UserMark(ptOrg, UserMark::Type::SEARCH)
+: UserMark(ptOrg, UserMark::Type::SEARCH)
+, m_type(SearchMarkType::Default)
+, m_isPreparing(false)
+, m_hasSale(false)
+, m_isSelected(false)
+, m_isVisited(false)
+, m_isAvailable(true)
 {
 }
 
@@ -202,25 +202,25 @@ m2::PointD SearchMarkPoint::GetPixelOffset() const
 {
   if (!IsHotel())
     return {0.0, 4.0};
-  return {};
+  return {0.0, 0.0};
 }
 
 drape_ptr<df::UserPointMark::SymbolNameZoomInfo> SearchMarkPoint::GetSymbolNames() const
 {
   auto const symbolName = GetSymbolName();
-  if (symbolName.empty())
+  if (symbolName == nullptr)
     return nullptr;
 
   auto symbolZoomInfo = make_unique_dp<SymbolNameZoomInfo>();
-  symbolZoomInfo->emplace(1 /*kWorldZoomLevel*/, symbolName);
+  symbolZoomInfo->emplace(1 /*kWorldZoomLevel*/, *symbolName);
   return symbolZoomInfo;
 }
 
 drape_ptr<df::UserPointMark::SymbolOffsets> SearchMarkPoint::GetSymbolOffsets() const
 {
-  m2::PointF offset;
+  m2::PointF offset(0, 0);
   if (!IsHotel())
-    offset = m2::PointF{0.0, 1.0};
+    offset.y = 1;
   return make_unique_dp<SymbolOffsets>(static_cast<size_t>(scales::UPPER_STYLE_SCALE), offset);
 }
 
@@ -281,30 +281,34 @@ void SearchMarkPoint::SetNotFoundType()
   SetAttributeValue(m_type, SearchMarkType::NotFound);
 }
 
+#define SET_BOOL_ATTRIBUTE(dest, src) if (dest != src) { dest = src; SetDirty(); }
+
 void SearchMarkPoint::SetPreparing(bool isPreparing)
 {
-  SetAttributeValue(m_isPreparing, isPreparing);
+  SET_BOOL_ATTRIBUTE(m_isPreparing, isPreparing);
 }
 
 void SearchMarkPoint::SetSale(bool hasSale)
 {
-  SetAttributeValue(m_hasSale, hasSale);
+  SET_BOOL_ATTRIBUTE(m_hasSale, hasSale);
 }
 
 void SearchMarkPoint::SetSelected(bool isSelected)
 {
-  SetAttributeValue(m_isSelected, isSelected);
+  SET_BOOL_ATTRIBUTE(m_isSelected, isSelected);
 }
 
 void SearchMarkPoint::SetVisited(bool isVisited)
 {
-  SetAttributeValue(m_isVisited, isVisited);
+  SET_BOOL_ATTRIBUTE(m_isVisited, isVisited);
 }
 
 void SearchMarkPoint::SetAvailable(bool isAvailable)
 {
-  SetAttributeValue(m_isAvailable, isAvailable);
+  SET_BOOL_ATTRIBUTE(m_isAvailable, isAvailable);
 }
+
+#undef SET_BOOL_ATTRIBUTE
 
 void SearchMarkPoint::SetReason(std::string const & reason)
 {
@@ -321,30 +325,34 @@ bool SearchMarkPoint::IsHotel() const { return m_type == SearchMarkType::Hotel; 
 
 bool SearchMarkPoint::HasReason() const { return !m_reason.empty(); }
 
-std::string SearchMarkPoint::GetSymbolName() const
+std::string const * SearchMarkPoint::GetSymbolName() const
 {
-  std::string symbolName;
+  std::string const * symbolName = nullptr;
+
   if (!SearchMarks::HaveSizes())
     return symbolName;
 
   if (m_type >= SearchMarkType::Count)
   {
-    ASSERT(false, ("Unknown search mark symbol."));
-    symbolName = GetSymbol(SearchMarkType::Default);
+    ASSERT(false, (m_type));
+    symbolName = &GetSymbol(SearchMarkType::Default);
   }
   else
   {
-    symbolName = GetSymbol(m_type);
+    symbolName = &GetSymbol(m_type);
   }
 
-  if (symbolName.empty() || !SearchMarks::GetSize(symbolName))
-    return {};
+  if (!SearchMarks::GetSize(*symbolName))
+  {
+    ASSERT(false, (*symbolName));
+    symbolName = nullptr;
+  }
 
   return symbolName;
 }
 
 // static
-std::map<std::string, m2::PointF> SearchMarks::m_searchMarkSizes;
+std::map<std::string, m2::PointF> SearchMarks::s_markSizes;
 
 SearchMarks::SearchMarks()
   : m_bmManager(nullptr)
@@ -357,7 +365,7 @@ void SearchMarks::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine)
     return;
 
   std::vector<std::string> symbols;
-  for (uint32_t t = 0; t < static_cast<uint32_t>(SearchMarkType::Count); ++t)
+  for (uint8_t t = 0; t < SearchMarkType::Count; ++t)
     symbols.push_back(GetSymbol(static_cast<SearchMarkType>(t)));
 
   base::SortUnique(symbols);
@@ -367,7 +375,7 @@ void SearchMarks::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine)
   {
     GetPlatform().RunTask(Platform::Thread::Gui, [this, sizes = std::move(sizes)]() mutable
     {
-      m_searchMarkSizes = std::move(sizes);
+      s_markSizes = std::move(sizes);
       UpdateMaxDimension();
     });
   });
@@ -380,18 +388,14 @@ void SearchMarks::SetBookmarkManager(BookmarkManager * bmManager)
 
 m2::PointD SearchMarks::GetMaxDimension(ScreenBase const & modelView) const
 {
-  double const pixelToMercator = modelView.GetScale();
-  CHECK_GREATER_OR_EQUAL(pixelToMercator, 0.0, ());
-  CHECK_GREATER_OR_EQUAL(m_maxDimension.x, 0.0, ());
-  CHECK_GREATER_OR_EQUAL(m_maxDimension.y, 0.0, ());
-  return m_maxDimension * pixelToMercator;
+  return m_maxDimension * modelView.GetScale();
 }
 
 // static
 std::optional<m2::PointD> SearchMarks::GetSize(std::string const & symbolName)
 {
-  auto const it = m_searchMarkSizes.find(symbolName);
-  if (it == m_searchMarkSizes.end())
+  auto const it = s_markSizes.find(symbolName);
+  if (it == s_markSizes.end())
     return {};
   return m2::PointD(it->second);
 }
@@ -517,15 +521,14 @@ bool SearchMarks::IsSelected(FeatureID const & id) const
 
 void SearchMarks::ClearTrackedProperties()
 {
-  {
-    std::scoped_lock<std::mutex> lock(m_lock);
-    m_unavailable.clear();
-  }
+//  {
+//    std::scoped_lock<std::mutex> lock(m_lock);
+//    m_unavailable.clear();
+//  }
   m_selectedFeature = {};
 }
 
-void SearchMarks::ProcessMarks(
-    std::function<base::ControlFlow(SearchMarkPoint *)> && processor) const
+void SearchMarks::ProcessMarks(std::function<base::ControlFlow(SearchMarkPoint *)> && processor) const
 {
   if (m_bmManager == nullptr || processor == nullptr)
     return;
@@ -541,16 +544,9 @@ void SearchMarks::ProcessMarks(
 
 void SearchMarks::UpdateMaxDimension()
 {
-  for (auto const & [symbolName, symbolSize] : m_searchMarkSizes)
-  {
-    UNUSED_VALUE(symbolName);
-    if (m_maxDimension.x < symbolSize.x)
-      m_maxDimension.x = symbolSize.x;
-    if (m_maxDimension.y < symbolSize.y)
-      m_maxDimension.y = symbolSize.y;
-  }
-
-  // factor to roughly account for the width addition of price/pricing text
-  double constexpr kBadgeTextFactor = 2.5;
-  m_maxDimension.x *= kBadgeTextFactor;
+  // Use only generic search mark as 'filter' dimension. Users claim about missing results.
+  // https://github.com/organicmaps/organicmaps/issues/2070
+  auto const it = s_markSizes.find(kSymbols[SearchMarkType::Default]);
+  if (it != s_markSizes.end())
+    m_maxDimension = it->second;
 }

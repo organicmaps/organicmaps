@@ -3,28 +3,17 @@
   <declare-styleable name="ThemeAttrs">
     <attr name="fullscreenDialogTheme" format="reference" />
     <attr name="windowBackgroundForced" format="reference|color" />
-    <attr name="cardFrame" format="reference" />
     <attr name="cardBackground" format="reference" />
     <attr name="clickableBackground" format="reference" />
     <attr name="statusBar" format="color" />
     <attr name="secondary" format="color" />
     <attr name="panel" format="color" />
-    <attr name="sidePanel" format="color" />
     <attr name="iconTint" format="color" />
     <attr name="iconTintDisabled" format="color" />
     <attr name="iconTintActive" format="color" />
     <attr name="iconTintLight" format="color" />
-    <attr name="zoomPlus" format="reference" />
-    <attr name="zoomMinus" format="reference" />
-    <attr name="chevronTintColor" format="color" />
     <attr name="ppBackground" format="color" />
     <attr name="ppButtonsBackground" format="color" />
-    <attr name="ppPreviewHeadOpen" format="reference" />
-    <attr name="ppPreviewHeadClosed" format="reference" />
-    <attr name="ppRatingBackground" format="color" />
-    <attr name="ppRatingText" format="color" />
-    <attr name="ppPositive" format="reference" />
-    <attr name="ppNegative" format="reference" />
     <attr name="navNextTurnFrame" format="reference" />
     <attr name="navNextNextTurnFrame" format="reference" />
     <attr name="buttonBackground" format="reference" />
@@ -32,63 +21,25 @@
     <attr name="buttonTextColorDisabled" format="color" />
     <attr name="buttonDialogTextColor" format="color" />
     <attr name="accentButtonBackground" format="reference" />
-    <attr name="accentButtonRoundBackground" format="reference" />
     <attr name="accentButtonTextColor" format="color" />
     <attr name="accentButtonTextColorDisabled" format="color" />
-    <attr name="ghostButtonBackground" format="reference" />
-    <attr name="ghostButtonTextColor" format="color" />
     <attr name="redButtonBackground" format="reference" />
     <attr name="redButtonTextColor" format="color" />
     <attr name="redButtonTextColorDisabled" format="color" />
     <attr name="primaryButtonBackground" format="reference" />
-    <attr name="circleAccent" format="reference" />
     <attr name="menuBackground" format="color" />
     <attr name="myPositionButtonAnimation" format="reference" />
     <attr name="wheelPendingAnimation" format="reference" />
     <attr name="trafficLoadingAnimation" format="reference" />
-    <attr name="navButtonsTheme" format="reference" />
+    <attr name="navButtonsThemeRect" format="reference" />
+    <attr name="navButtonsThemeRound" format="reference" />
     <attr name="downloaderTheme" format="reference" />
     <attr name="navigationTheme" format="reference" />
-    <attr name="fabAdd" format="reference" />
-    <attr name="showOnMapFab" format="reference" />
     <attr name="routingButtonHint" format="color" />
-    <attr name="routingButtonPressedHint" format="color" />
-    <attr name="routingButtonActivatedHint" format="color" />
-    <attr name="steadyIconTint" format="color" />
-    <attr name="steadyIconBackground" format="reference" />
-    <attr name="activeIconTint" format="color" />
-    <attr name="activeIconBackground" format="reference" />
-    <attr name="warmGray" format="color" />
-    <attr name="sponsoredGalleryMore" format="reference" />
-    <attr name="luggageLogo" format="reference" />
     <attr name="drivingOptionsViewBg" format="color" />
-    <attr name="ratingButtonBackground" format="reference" />
-    <attr name="reviewButtonBackground" format="reference" />
     <attr name="transitPedestrianBackground" format="color" />
     <attr name="colorBtnHighlight" format="color" />
     <attr name="transitStepDivider" format="reference" />
-    <attr name="filterPropertyBackground" format="reference" />
-    <attr name="adChoicesIcon" format="reference" />
-    <attr name="saleIcon" format="reference" />
-    <attr name="toggleMapLayerBtnBg" format="reference" />
-    <attr name="tipsBgColor" format="color" />
-    <attr name="tipsPrimaryTextColor" format="color" />
-    <attr name="tipsSecondaryTextColor" format="color" />
-    <attr name="bgCrown" format="reference" />
-    <attr name="bgDogBtn" format="reference" />
-    <attr name="guidesTime" format="reference" />
-    <attr name="guidesAltitude" format="reference" />
-    <attr name="guidesSight" format="reference" />
-    <attr name="guidesPlaceholder" format="reference" />
-    <attr name="guidesDistance" format="reference" />
-    <attr name="bgRectangleView" format="reference" />
-    <attr name="bgRoundedCard" format="reference" />
-    <attr name="tintLonelyPlanetLogo" format="color" />
-  </declare-styleable>
-  <declare-styleable name="ThemeAttrs.NavButtons">
-    <attr name="nav_background" format="reference" />
-    <attr name="nav_bg_subway" format="reference" />
-    <attr name="nav_bg_isolines" format="reference" />
   </declare-styleable>
   <declare-styleable name="ThemeAttrs.Downloader">
     <attr name="status_done" format="reference" />
@@ -99,12 +50,7 @@
     <attr name="status_folder_done" format="reference" />
   </declare-styleable>
   <declare-styleable name="ThemeAttrs.Navigation">
-    <attr name="newsMarker" format="reference" />
     <attr name="searchLayoutBackground" format="reference" />
-  </declare-styleable>
-  <declare-styleable name="ThemeAttrs.BookmarksSubscription">
-    <attr name="subscriptionTitleColor" format="color" />
-    <attr name="subscriptionSubtitleColor" format="color" />
   </declare-styleable>
   <declare-styleable name="ThemeAttrs.ElevationProfile">
     <attr name="elevationProfileColor" format="color" />
@@ -116,16 +62,6 @@
     <attr name="elevationProfileSelectedPointBg" format="reference" />
     <attr name="elevationProfileSelectedPointTriangle" format="reference" />
     <attr name="elevationProfileFloatingTriangle" format="reference" />
-  </declare-styleable>
-  <declare-styleable name="ThemeAttrs.GuidesGallery">
-    <attr name="guidesIcon" format="reference" />
-    <attr name="guidesMenuDisabled" format="reference" />
-    <attr name="guidesMenuEnabled" format="reference" />
-    <attr name="bgBoughtContent" format="reference" />
-    <attr name="subtitleCityColor" format="color" />
-    <attr name="subtitleOutdoorColor" format="color" />
-    <attr name="cityCheckbox" format="reference" />
-    <attr name="outdoorCheckbox" format="reference" />
   </declare-styleable>
   <declare-styleable name="ThemeAttrs.Fonts">
     <attr name="fontHeadline1" format="reference" />
@@ -141,10 +77,5 @@
     <attr name="fontButton" format="reference" />
     <attr name="fontCaption" format="reference" />
     <attr name="fontOverline" format="reference" />
-  </declare-styleable>
-  <declare-styleable name="ThemeAttrs.Chip">
-    <attr name="chipBackgroundColor" format="color" />
-    <attr name="chipIconTintColor" format="color" />
-    <attr name="chipTextColor" format="color" />
   </declare-styleable>
 </resources>

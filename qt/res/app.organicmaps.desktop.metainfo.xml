@@ -107,6 +107,115 @@
   </screenshots>
 
   <releases>
+   <release version="2022.11.02-2" date="2022-11-02">
+     <description>
+       <p>Highlights:</p>
+         <ul>
+           <li>New OSM maps data as of October 29</li>
+           <li>Fixed search indicator in Viewport mode</li>
+           <li>Fixed search table update, now old results are always replaced by new ones</li>
+           <li>Minor performance improvements</li>
+         </ul>
+       <p>Routing and Navigation:</p>
+         <ul>
+           <li>Dump corrupted KMLs to the log on startup</li>
+           <li>Show "Roads to avoid" options and warnings on the route also for walking, cycling, and metro routes</li>
+           <li>Fixed some routing issues, including wrong routing via highway exits/links</li>
+           <li>Enable Catalan TTS</li>
+           <li>Show speed camera on tap</li>
+         </ul>
+       <p>Search:</p>
+         <ul>
+           <li>Show all found results on the map screen</li>
+           <li>Improved villages search</li>
+           <li>Show only matched categories if they were selected from the list, not names</li>
+	   <li>Fixed street synonyms for nordic languages</li>
+         </ul>
+       <p>Styles:</p>
+         <ul>
+           <li>Use regional metro/subway icons for entrances and stations</li>
+           <li>Added brewery, plumber, tailor, carpenter, sawmill, beekeeper, blacksmith, electrician, painter, and other craft icons</li>
+           <li>Added natural=shrubbery, natural=desert, leisure=dance, amenity=charging_station-motorcar, and more barrier types</li>
+           <li>Draw international airport icon on z7-9</li>
+           <li>Draw metro for major cities starting from z12</li>
+           <li>Do not draw railway station icon for building=train_station</li>
+           <li>Updated icons for garden, park, forest, national park, nature reserve, power, chimney</li>
+           <li>Add historic battlefield, gallows, pillory, memorial cross, stolperstein and war_memorial</li>
+           <li>Fixed historic=* priority</li>
+           <li>Support sauna=yes tags</li>
+           <li>Better colors for natural=scrub</li>
+           <li>Draw entrance icon instead of a dot</li>
+         </ul>
+       <p>Translations:</p>
+         <ul>
+           <li>Use larger, more geographically significant names for Oregon maps in Downloader</li>
+           <li>Updated Catalan, Chinese, Dutch, Finnish, German, Hungarian, Italian, Polish, Portuguese (European and Brazilian), Turkish translations</li>
+         </ul>
+     </description>
+   </release>
+   <release version="2022.09.22-3" date="2022-09-22">
+     <description>
+       <ul>
+         <li>New OSM maps data as of September 12</li>
+         <li>Fixed wrong elevation data between -1,-1 and 1,1 latitudes and longitudes</li>
+         <li>Fixed crash on startup after editing some OSM objects</li>
+         <li>Bookmark lists are now sorted by recently modified time (sorting by name is planned!)</li>
+         <li>Improved displaying of the next street name directions</li>
+         <li>Show features in the viewport at the top of search results</li>
+         <li>Significantly speedup some search scenarios</li>
+         <li>Improved category ranking &amp; address search.</li>
+         <li>Fixed highlighted hotel search results icon on the map</li>
+         <li>Improved German category search</li>
+         <li>Added driving_school, music_school, language_school, archaeological_site, craft-painter</li>
+         <li>Removed backgrounds from historic cemetery icons</li>
+         <li>Added different castle types: castrum, fortified_church, fortress, hillfort, kremlin, manor, palace &amp; shiro</li>
+         <li>Increased visibility of education &amp; some sports</li>
+         <li>Separated furniture &amp; kitchen types</li>
+         <li>Better looking leisure=track</li>
+         <li>Fixed vending=fuel icon</li>
+       </ul>
+     </description>
+   </release>
+   <release version="2022.08.23-5" date="2022-08-23">
+     <description>
+       <ul>
+         <li>Fixed issue when some found objects were not highlighted on the map</li>
+         <li>Removed common street search synonyms like parkway, path, line, walk, trail, etc.</li>
+         <li>Fixed coordinates search if the query contains a newline</li>
+         <li>Ignore non-relevant search results for coordinates</li>
+         <li>Better search for capitals</li>
+         <li>Treat 'emergency' as a last-choice feature type</li>
+         <li>Added Catalan street search synonyms</li>
+         <li>Properly filter equal streets in search results</li>
+         <li>Improved visibility of military areas and boundaries</li>
+         <li>Show disabled parking spaces</li>
+         <li>Do not draw icon for residential gardens</li>
+         <li>Render farm yard</li>
+         <li>Add parking_entrance</li>
+         <li>Add playground and internet cafe icon</li>
+         <li>Add second_hand and charity</li>
+         <li>Add table_tennis, volleyball, beachvolleyball, skateboard, chess, padel, handball, futsal, hockey, badminton, pelota</li>
+         <li>Removed background circles from icons</li>
+       </ul>
+     </description>
+   </release>
+   <release version="2022.07.27-3" date="2022-07-27">
+     <description>
+       <ul>
+         <li>New OSM data as of July 18, 2022</li>
+         <li>Added missing shop types from OpenStreetMap tags: antiques, art, baby_goods, bag, boutique, charity, cheese, craft, dairy, deli, electrical, farm, fishing, grocery, health_food, houseware, interior_decoration, kitchen, lottery, medical_supply, nutrition_supplements, paint, pastry, perfumery, second_hand, sewing, storage_rental, tobacco, trade, watches, wholesale</li>
+         <li>Properly select max speed in some routing cases</li>
+         <li>sport=* tags have higher priority than leisure=pitch</li>
+         <li>Fill transit mark place page with feature info</li>
+         <li>Show text info about the next turn's street longer</li>
+         <li>Use building:min_level for 3D buildings</li>
+         <li>Allow removing cuisines from selection in the Editor</li>
+         <li>Fix Belarusian, German, Russian, and Ukrainian translations</li>
+         <li>Add missing translations for OSM natural=* and amenity=events_venue types</li>
+         <li>Fix assertion failure in ES3 scenario on Linux, now OM should work on mobile Linux too</li>
+       </ul>
+     </description>
+   </release>
    <release version="2022.07.01-6" date="2022-07-01">
      <description>
        <ul>

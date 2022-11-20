@@ -12,12 +12,9 @@
 #include "geometry/tree4d.hpp"
 
 #include "base/geo_object_id.hpp"
-#include "base/math.hpp"
 
-#include <map>
 #include <memory>
 #include <string>
-#include <utility>
 #include <vector>
 
 namespace routing
@@ -89,8 +86,9 @@ public:
   /// Getting ingoing edges is not supported because we do not have enough information
   /// to calculate |segment| weight.
   void GetOutgoingEdgeList(Segment const & s, EdgeListT & edges);
-
   void GetIngoingEdgeList(Segment const & s, EdgeListT & edges);
+
+  RouteWeight GetWeightSure(Segment const & from, Segment const & to);
 
   //void Clear();
   void Purge();

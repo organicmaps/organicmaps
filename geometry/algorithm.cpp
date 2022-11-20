@@ -3,8 +3,6 @@
 
 #include "base/logging.hpp"
 
-using namespace std;
-
 namespace m2
 {
 // CalculatePolyLineCenter -------------------------------------------------------------------------
@@ -16,7 +14,7 @@ void CalculatePolyLineCenter::operator()(m2::PointD const & pt)
 
 PointD CalculatePolyLineCenter::GetResult() const
 {
-  using TIter = vector<Value>::const_iterator;
+  using TIter = std::vector<Value>::const_iterator;
 
   double const l = m_length / 2.0;
 
@@ -43,7 +41,7 @@ PointD CalculatePolyLineCenter::GetResult() const
 CalculatePointOnSurface::CalculatePointOnSurface(m2::RectD const & rect)
   : m_rectCenter(rect.Center())
   , m_center(m_rectCenter)
-  , m_squareDistanceToApproximate(numeric_limits<double>::max())
+  , m_squareDistanceToApproximate(std::numeric_limits<double>::max())
 {
 }
 

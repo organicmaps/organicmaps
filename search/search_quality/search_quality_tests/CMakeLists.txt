@@ -2,6 +2,7 @@ project(search_quality_tests)
 
 set(SRC
   benchmark_tests.cpp
+  real_mwm_tests.cpp
   sample_test.cpp
 )
 

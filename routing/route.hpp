@@ -5,9 +5,10 @@
 #include "routing/segment.hpp"
 #include "routing/transit_info.hpp"
 #include "routing/turns.hpp"
-#include "routing/maxspeeds.hpp"
 
 #include "routing/base/followed_polyline.hpp"
+
+#include "routing_common/maxspeed_conversion.hpp"
 
 #include "traffic/speed_groups.hpp"
 
@@ -24,7 +25,6 @@
 #include <optional>
 #include <set>
 #include <string>
-#include <utility>
 #include <vector>
 
 namespace location
@@ -75,8 +75,15 @@ public:
     std::string m_destination_ref; // Number of next road, e.g. "CA 85", Sometimes "CA 85 South". Usually match |m_ref| of next main road.
     std::string m_destination; // E.g. "Cupertino".
     bool m_isLink = false;
+
     bool HasBasicTextInfo() const { return !m_ref.empty() || !m_name.empty(); }
-    bool HasExitInfo() const { return m_isLink || !m_junction_ref.empty() || !m_destination_ref.empty() || !m_destination.empty(); }
+    bool HasExitInfo() const { return m_isLink || HasExitTextInfo(); }
+    bool HasExitTextInfo() const
+    {
+      return !m_junction_ref.empty() || !m_destination_ref.empty() || !m_destination.empty();
+    }
+
+    friend std::string DebugPrint(RoadNameInfo const & rni);
   };
 
   RouteSegment(Segment const & segment, turns::TurnItem const & turn,
@@ -423,6 +430,8 @@ public:
   /// \returns mwm list which is crossed by the route and where there are restrictions on warning
   /// about speed cameras.
   std::vector<platform::CountryFile> const & GetMwmsPartlyProhibitedForSpeedCams() const;
+
+  std::string DebugPrintTurns() const;
 
 private:
   friend std::string DebugPrint(Route const & r);

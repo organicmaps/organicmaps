@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>information-m</title>
-    <g id="Page-2:-Night" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.6">
-        <g id="information-m" fill-rule="nonzero">
-            <circle id="Oval" fill="#FFFFFF" cx="12" cy="12" r="12"></circle>
-            <circle id="Oval" fill="#717065" cx="12" cy="12" r="11"></circle>
-            <path d="M12,5 C8.136,5 5,8.136 5,12 C5,15.864 8.136,19 12,19 C15.864,19 19,15.864 19,12 C19,8.136 15.864,5 12,5 Z M12,15.5 C11.615,15.5 11.3,15.185 11.3,14.8 L11.3,12 C11.3,11.615 11.615,11.3 12,11.3 C12.385,11.3 12.7,11.615 12.7,12 L12.7,14.8 C12.7,15.185 12.385,15.5 12,15.5 Z M12.7,9.9 L11.3,9.9 L11.3,8.5 L12.7,8.5 L12.7,9.9 Z" id="Shape" fill="#FFFFFF"></path>
-        </g>
-    </g>
+<svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+ <title>information-m</title>
+ <g id="Page-2:-Night" fill="none" fill-rule="evenodd" opacity=".6">
+  <g id="information-m" fill-rule="nonzero">
+   <circle id="Oval" cx="12" cy="12" r="12" fill="#fff"/>
+   <circle id="Oval" cx="12" cy="12" r="11" fill="#717065"/>
+   <path id="Shape" d="m12 5c-3.864 0-7 3.136-7 7s3.136 7 7 7 7-3.136 7-7-3.136-7-7-7zm0 10.5c-0.385 0-0.7-0.315-0.7-0.7v-2.8c0-0.385 0.315-0.7 0.7-0.7s0.7 0.315 0.7 0.7v2.8c0 0.385-0.315 0.7-0.7 0.7zm0.7-5.6h-1.4v-1.4h1.4v1.4z" fill="#fff"/>
+  </g>
+ </g>
 </svg>
