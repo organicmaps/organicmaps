@@ -350,6 +350,10 @@ world  +
             tunnel  -
             {}
         bus_stop  -
+        busway  +
+            bridge  -
+            tunnel  -
+            {}
         construction  -
         cycleway  +
             bridge  -
@@ -431,6 +435,7 @@ world  +
         service  +
             area  -
             bridge  -
+            busway  -
             driveway  -
             parking_aisle  -
             tunnel  -

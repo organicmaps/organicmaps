@@ -60,7 +60,4 @@
   <string name="always_enum_value" translatable="false">ALWAYS</string>
   <string name="auto_enum_value" translatable="false">AUTO</string>
   <string name="placepage_behavior" translatable="false">com.google.android.material.bottomsheet.BottomSheetBehavior</string>
-
-  <string name="privacy_policy_url" translatable="false">https://organicmaps.app/privacy</string>
-  <string name="terms_of_use_url" translatable="false">https://organicmaps.app/terms</string>
 </resources>

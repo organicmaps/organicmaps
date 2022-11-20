@@ -1,8 +1,8 @@
 protocol BottomMenuInteractorProtocol: AnyObject {
   func close()
   func addPlace()
-  func downloadRoutes()
   func downloadMaps()
+  func donate()
   func openSettings()
   func shareLocation(cell: BottomMenuItemCell)
 }
@@ -43,8 +43,13 @@ extension BottomMenuInteractor: BottomMenuInteractorProtocol {
     delegate?.addPlace()
   }
 
-  func downloadRoutes() {
+  func donate() {
     close()
+    guard var url = Settings.donateUrl() else { return }
+    if url == "https://organicmaps.app/donate/" {
+      url = L("translated_om_site_url") + "donate/"
+    }
+    viewController?.openUrl(url, inSafari: true)
   }
 
   func downloadMaps() {

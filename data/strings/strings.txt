@@ -5540,10 +5540,10 @@
 
   [donate]
     comment = Button in the main menu
-    tags = android
+    tags = android,ios
     en = Donate
     ar = ﻉﺮﺒﺘﻳ
-    be = Ахвяраваць
+    be = Падтрымаць грашыма
     bg = Дарете
     ca = Donatiu
     cs = Darovat
@@ -5574,7 +5574,7 @@
     sw = Changia
     th = บริจาค
     tr = Bağış Yapın
-    uk = Пожертвувати
+    uk = Підтримати грошима
     vi = Quyên tặng
     zh-Hans = 捐
     zh-Hant = 捐
@@ -25130,7 +25130,7 @@
     zh-Hant = 來自 OpenStreetMap 的地圖數據
 
   [telegram_url]
-    comment = Telegram group url for the help page
+    comment = Telegram group url for the "?" About page
     tags = android,ios
     en = https://t.me/OrganicMapsApp
     be = https://t.me/OrganicMapsRu
@@ -25139,7 +25139,16 @@
     tr = https://t.me/OrganicMapsTR
 
   [instagram_url]
-    comment = Instagram account url for the help page
+    comment = Instagram account url for the "?" About page
     tags = android,ios
     en = https://www.instagram.com/organicmaps.app
     tr = https://www.instagram.com/organicmapstr
+
+  [translated_om_site_url]
+    comment = Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content
+    tags = android,ios
+    en = https://organicmaps.app/
+    be = https://organicmaps.app/ru/
+    it = https://organicmaps.app/it/
+    ru = https://organicmaps.app/ru/
+    tr = https://organicmaps.app/tr/

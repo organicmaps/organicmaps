@@ -297,6 +297,9 @@
 /* Button in the main Help dialog */
 "faq" = "Preguntes més freqüents";
 
+/* Button in the main menu */
+"donate" = "Donatiu";
+
 /* Button in the main Help dialog */
 "how_to_support_us" = "Com ajudar-nos?";
 
@@ -1221,11 +1224,14 @@
 /* edit track screen title */
 "track_title" = "Traça";
 
-/* Telegram group url for the help page */
+/* Telegram group url for the "?" About page */
 "telegram_url" = "https://t.me/OrganicMapsApp";
 
-/* Instagram account url for the help page */
+/* Instagram account url for the "?" About page */
 "instagram_url" = "https://www.instagram.com/organicmaps.app";
+
+/* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
+"translated_om_site_url" = "https://organicmaps.app/";
 
 
 /********** Types **********/

@@ -88,7 +88,10 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
       setupItem(R.id.donate, true, root);
       setupItem(R.id.support_us, true, root);
     }
-    setupItem(R.id.rate, true, root);
+    if (BuildConfig.REVIEW_URL.isEmpty())
+      root.findViewById(R.id.rate).setVisibility(View.GONE);
+    else
+      setupItem(R.id.rate, true, root);
     setupItem(R.id.copyright, false, root);
     View termOfUseView = root.findViewById(R.id.term_of_use_link);
     View privacyPolicyView = root.findViewById(R.id.privacy_policy);
@@ -105,12 +108,12 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
 
   private void onPrivacyPolicyClick()
   {
-    openLink(getResources().getString(R.string.privacy_policy_url));
+    openLink(getResources().getString(R.string.translated_om_site_url) + "policy/");
   }
 
   private void onTermOfUseClick()
   {
-    openLink(getResources().getString(R.string.terms_of_use_url));
+    openLink(getResources().getString(R.string.translated_om_site_url) + "terms/");
   }
 
   @Override
@@ -118,9 +121,9 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
   {
     final int id = v.getId();
     if (id == R.id.web)
-      openLink(Constants.Url.WEB_SITE);
+      openLink(getResources().getString(R.string.translated_om_site_url));
     else if (id == R.id.news)
-      openLink(Constants.Url.NEWS);
+      openLink(getResources().getString(R.string.translated_om_site_url) + "news/");
     else if (id == R.id.email)
       Utils.sendTo(requireContext(), BuildConfig.SUPPORT_MAIL, "Organic Maps");
     else if (id == R.id.github)
@@ -142,7 +145,7 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
     else if (id == R.id.report)
       Utils.sendBugReport(requireActivity(), "");
     else if (id == R.id.support_us)
-      openLink(Constants.Url.SUPPORT_US);
+      openLink(getResources().getString(R.string.translated_om_site_url) + "support-us/");
     else if (id == R.id.donate)
       openLink(mDonateUrl);
     else if (id == R.id.rate)
