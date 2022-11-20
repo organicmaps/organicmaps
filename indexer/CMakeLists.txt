@@ -149,7 +149,7 @@ file(COPY ${OTHER_FILES} DESTINATION ${CMAKE_BINARY_DIR})
 
 omim_add_library(${PROJECT_NAME} ${SRC})
 
-add_subdirectory(${OMIM_ROOT}/3party/protobuf ${CMAKE_CURRENT_BINARY_DIR}/protobuf)
+add_subdirectory(${OMIM_ROOT}/3party/protobuf/protobuf ${CMAKE_CURRENT_BINARY_DIR}/protobuf)
 
 target_link_libraries(${PROJECT_NAME}
   search  # search::DummyRankTable in CachingRankTableLoader
