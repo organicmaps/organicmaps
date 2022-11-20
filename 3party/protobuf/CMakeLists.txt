@@ -13,7 +13,7 @@ set(SRC
   protobuf/src/google/protobuf/stubs/bytestream.cc
   protobuf/src/google/protobuf/stubs/common.cc
   protobuf/src/google/protobuf/stubs/int128.cc
-  protobuf/src/google/protobuf/stubs/once.cc
+  protobuf/src/google/protobuf/stubs/once.h
   protobuf/src/google/protobuf/stubs/status.cc
   protobuf/src/google/protobuf/stubs/statusor.cc
   protobuf/src/google/protobuf/stubs/stringpiece.cc
