@@ -152,8 +152,7 @@ NSString * const kUDTrackWarningAlertWasShown = @"TrackWarningAlertWasShown";
 + (NSString *)donateUrl
 {
   std::string url;
-  if (settings::Get("DonateUrl", url)) return @(url.c_str());
-  return nil;
+  return settings::Get("DonateUrl", url) ? @(url.c_str()) : nil;
 }
 
 @end
