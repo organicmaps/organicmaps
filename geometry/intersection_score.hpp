@@ -10,8 +10,9 @@
 
 #ifdef __clang__
 #pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wshorten-64-to-32"
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 #pragma clang diagnostic ignored "-Wcomma"
+#pragma clang diagnostic ignored "-Wshorten-64-to-32"
 #endif
 #include <boost/geometry.hpp>
 #ifdef __clang__
