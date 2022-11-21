@@ -606,7 +606,6 @@ UNIT_TEST(Germany_FrankfurtAirport_TurnTest)
   integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnSlightRight);
 }
 
-
 UNIT_TEST(Germany_FrankfurtAirport2_TurnTest)
 {
   TRouteResult const routeResult =
@@ -618,12 +617,10 @@ UNIT_TEST(Germany_FrankfurtAirport2_TurnTest)
   RouterResultCode const result = routeResult.second;
 
   TEST_EQUAL(result, RouterResultCode::NoError, ());
-  integration::TestTurnCount(route, 2 /* expectedTurnCount */);
+  integration::TestTurnCount(route, 1 /* expectedTurnCount */);
 
-  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::ExitHighwayToRight);
-  integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnSlightLeft);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnSlightRight);
 }
-
 
 // Test on absence of unnecessary turn which may appear between two turns in the test.
 UNIT_TEST(Russia_Kubinka_TurnTest)
@@ -745,10 +742,12 @@ UNIT_TEST(Netherlands_Barneveld_TurnTest)
   RouterResultCode const result = routeResult.second;
 
   TEST_EQUAL(result, RouterResultCode::NoError, ());
-  /// @todo Reasonable solution from GraphHopper:
+  /// @todo Probably, reasonable solution from GraphHopper with NO turns:
   // https://www.openstreetmap.org/directions?engine=graphhopper_car&route=52.15866%2C5.56538%3B52.17042%2C5.55834
+  // Even if there is no other options, I think that we should show left-turn here https://www.openstreetmap.org/node/286040021
+
   integration::TestTurnCount(route, 1);
-  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnSlightLeft);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::GoStraight);
 }
 
 UNIT_TEST(Belarus_Minsk_TurnTest)

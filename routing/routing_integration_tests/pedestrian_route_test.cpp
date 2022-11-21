@@ -74,12 +74,10 @@ UNIT_TEST(Zgrad315parkingToMusicSchoolBus_BadRoute)
 
 UNIT_TEST(Zgrad924aToKrukovo)
 {
-  // New valid distance here (OSRM makes the same route).
-  // Connect this footway? https://www.openstreetmap.org/way/970708358#map=19/55.98064/37.17245
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
       mercator::FromLatLon(55.9844, 37.1808), {0., 0.},
-      mercator::FromLatLon(55.9802, 37.1736), 2461.);
+      mercator::FromLatLon(55.9802, 37.1736), 1305.48);
 }
 
 UNIT_TEST(MoscowMailRuStarbucksToPetrovskoRazumovskyAlley)

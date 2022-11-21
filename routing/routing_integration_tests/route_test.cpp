@@ -391,7 +391,7 @@ using namespace std;
     CHECK(routeResult.first, ());
     Route const & route = *routeResult.first;
     integration::TestRouteLength(route, 44116.7);
-    integration::TestRouteTime(route, 2509.81);
+    integration::TestRouteTime(route, 2580.82);
   }
 
   UNIT_TEST(TolyattiFeatureThatCrossSeveralMwmsTest)
