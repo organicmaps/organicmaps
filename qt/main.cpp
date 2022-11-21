@@ -119,6 +119,8 @@ int main(int argc, char * argv[])
 
   Platform & platform = GetPlatform();
 
+  LOG(LINFO, ("Organic Maps", platform.Version(), "started, detected CPU cores:", platform.CpuCores()));
+
   gflags::SetUsageMessage("Desktop application.");
   gflags::SetVersionString(platform.Version());
   gflags::ParseCommandLineFlags(&argc, &argv, true);
