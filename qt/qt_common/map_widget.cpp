@@ -60,8 +60,10 @@ void MapWidget::BindHotkeys(QWidget & parent)
 {
   Hotkey const hotkeys[] = {
       {Qt::Key_Equal, SLOT(ScalePlus())},
+      {Qt::Key_Plus, SLOT(ScalePlus())},
       {Qt::Key_Minus, SLOT(ScaleMinus())},
       {Qt::ALT + Qt::Key_Equal, SLOT(ScalePlusLight())},
+      {Qt::ALT + Qt::Key_Plus, SLOT(ScalePlusLight())},
       {Qt::ALT + Qt::Key_Minus, SLOT(ScaleMinusLight())},
 #ifdef ENABLE_AA_SWITCH
       {Qt::ALT + Qt::Key_A, SLOT(AntialiasingOn())},
