@@ -5268,7 +5268,7 @@
 
   [mastodon]
     comment = Text in menu
-    tags = android
+    tags = android,ios
     en = Mastodon
 
   [facebook]
