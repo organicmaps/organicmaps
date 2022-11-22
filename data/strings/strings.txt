@@ -9097,7 +9097,7 @@
     be = Нічога не знойдзена.
     bg = За съжаление не са намерени резултати.
     ca = Ups! No s'ha trobat cap resultat.
-    cs = Omlouvám se, nic nenalezeno.
+    cs = Omlouváme se, nic nebylo nalezeno.
     da = Desværre, jeg fandt ikke noget.
     de = Leider wurde nichts gefunden.
     el = Ωχ, δεν βρέθηκαν αποτελέσματα.
@@ -13269,7 +13269,7 @@
     be = Гэта можа быць даволі дорага з некаторымі тарыфнымі планамі альбо ў роўмінгу.
     bg = Това може да бъде значително скъпо при някои планове или при роуминг.
     ca = Això podria ser força car amb algunes tarifes d'itinerància de dades.
-    cs = Toto by mohli být s některými tarify nebo roamingem výrazně dražší.
+    cs = Toto by mohlo být s některými tarify nebo roamingem výrazně dražší.
     da = Dette kan blive dyrt med nogle abonnementer eller hvis du er i roamingtilstand.
     de = Das könnte mit einigen Tarifen oder beim Roaming sehr teuer werden.
     el = Αυτό μπορεί να είναι σημαντικά πιο ακριβό για μερικά πακέτα ή στην περίπτωση περιαγωγής
@@ -16193,7 +16193,7 @@
     be = Мабільны інтэрнэт неабходны для апавяшчэнняў аб абнаўленні мапы і для адлюстравання падрабязнай інфармацыі аб месцах і закладках.
     bg = Мобилните данни са необходими за показване на подробна информация за местата, като например снимки, цени и отзиви.
     ca = Es necessita Internet mòbil per a les notifiacions d'actualitzacions del mapa i per a mostrar informació detallada dels llocs i marcadors.
-    cs = Ke zobrazení podrobných informací o místech, jako jsou fotografie, ceny a recenze, je třeba mobilní internet.
+    cs = K zobrazení podrobných informací o místech, jako jsou fotografie, ceny, a recenze je třeba mobilní internet.
     da = Mobile internet er nødvendigt til visning af detaljerede oplysninger om steder, såsom fotos, priser og anmeldelser.
     de = Es wird mobiles Internet benötigt, um über Kartenaktualisierungen informiert zu werden und genauere Informationen über Orte anzuzeigen.
     el = Απαιτείται πρόσβαση στο Ίντερνετ μέσω δικτύου κινητής για την εμφάνιση αναλυτικών πληροφοριών για τις τοποθεσίες, όπως φωτογραφίες, τιμές και κριτικές.
@@ -20235,7 +20235,7 @@
     be = Рэжым захавання энергіі
     bg = Режим пестене на енергия
     ca = Mode d'estalvi d'energia
-    cs = Nízkoenergetický režim
+    cs = Režim spořič baterie
     da = Strømsparetilstand
     de = Stromsparmodus
     el = Λειτουργία εξοικονόμησης ενέργειας
@@ -20276,7 +20276,7 @@
     be = Калі ўключаны рэжым захавання энергіі, дадатак пачынае выключаць энергазатратныя функцыі ў залежнасці ад зарада батарэі
     bg = Ако е активиран режима пестене на енергия, приложението ще деактивира функциите, консумиращи енергия, в зависимост от текущия заряд на телефона.
     ca = Si està seleccionat el mode automàtic, l'aplicació desactivarà funcions que consumeixen energia, depenent del nivell de càrrega actual de la bateria
-    cs = Pokud je nízkoenergetický režim zapojen, příloha bude vypínat funkce, které mrhají energii v závislosti na nynější nabíjení telefonu
+    cs = Pokud je zapnut automatický režim spořiče baterie, aplikace začne vypínat funkce vybíjející baterii, v závislosti na její momentální úrovni nabití.
     da = Når automatisk tilstand er valgt, begynder applikationen at deaktivere funktioner, med højt batteri-strømforbrug, afhængigt af det aktuelle batteriniveau
     de = Wenn der Stromsparmodus aktiviert ist, wird die App stromintensive Funktionen je nach aktuellem Ladezustand des Akkus deaktivieren
     el = Εάν η λειτουργία εξοικονόμησης ενέργειας είναι ενεργοποιημένη, η εφαρμογή θα κλείνει τις λειτουργίες που καταναλώνουν ενέργεια ανάλογα με την τρέχουσα φόρτιση του τηλεφώνου
@@ -20317,7 +20317,7 @@
     be = Ніколі
     bg = Никога
     ca = Mai
-    cs = Nikdy
+    cs = Nikdy nepoužívat
     da = Aldrig
     de = Niemals
     el = Ποτέ
@@ -20358,7 +20358,7 @@
     be = Аўтаматычна
     bg = Автоматично
     ca = Automàtic
-    cs = Auto
+    cs = Automatický
     da = Automatisk
     de = Auto
     el = Αυτόματα
@@ -20399,7 +20399,7 @@
     be = Максімальнае захаванне энергіі
     bg = Максимално пестене на енергия
     ca = Estalvi d'energia màxim
-    cs = Maximální šetření energií
+    cs = Maximální šetření baterií
     da = Maksimum strømbesparelse
     de = Maximale Stromsparung
     el = Μέγιστη εξοικονόμηση ενέργειας
@@ -20440,7 +20440,7 @@
     be = Опцыя ўключае запіс журнала падзей для мэтаў дыягностыкі. Гэта можа дапамагчы нашай камандзе вырашаць праблемы з дадаткам. Уключайце гэтую опцыю часова каб запісаць і паслаць нам дэталёвую інфармацыю пра знойденую вамі праблему.
     bg = Тази настройка е разрешена, за да се записват действия за диагностични цели, които помагат на нашия екип да идентифицира проблеми с приложението. Временно активирайте тази настройка само за изпращане на подробна информация за проблема, който сте открили с приложението.
     ca = L'opció activa el registre amb finalitats de diagnòstic. Pot ser útil per al nostre equip per a identificar problemes amb l'aplicació. Activeu aquesta opció temporalment per a enregistgrar i enviar-nos informes detallats sobre el vostre problema.
-    cs = Daná možnost se zapojuje pro protokolování činností za účelem diagnostiky. To pomáhá týmu odhalit problémy s přílohou. Zapojujte možnost jenom na požádání podržení Organic Maps.
+    cs = Tato možnost zapne odesílání dat za účelem diagnostiky. To nám pomáhá při řešení problémů s aplikací. Zapněte tuto možnost pro dočasné nahrávání a odesílání logů našemu týmu o vašem problému.
     da = Indstillingen aktiverer logning til diagnostiske formål. Det kan være nyttigt for vores supportere, der fejlfinder problemer med appen. Aktiver kun denne mulighed på anmodning fra Organic Maps support.
     de = Diese Option wird aktiviert, um Aktivitäten zwecks Diagnostik aufzuzeichnen. Das hilft unserem Team, Probleme mit der App zu erkennen. Aktivieren Sie diese Option nur auf Ersuchen des Organic Maps-Supports.
     el = Αυτή η λειτουργία είναι ενεργοποιημένη για την καταγραφή ενεργειών για διαγνωστικούς σκοπούς. Αυτό βοηθά την ομάδα να εντοπίζει προβλήματα με την εφαρμογή. Να ενεργοποιείτε τη λειτουργία μόνο κατόπιν αιτήματος της υποστήριξης του Organic Maps.
@@ -20522,7 +20522,7 @@
     be = Налады пракладкі маршрута
     bg = Опции за маршрутизация
     ca = Opcions de la ruta
-    cs = Možnosti řízení
+    cs = Možnosti směrovače
     da = Køre muligheder
     de = Routenbeschränkungen
     el = Ρυθμίσεις παράκαμψης
@@ -24664,7 +24664,7 @@
     be = Дазваляе экрану засынаць пасля перыяда бездзеяння.
     bg = Когато е разрешено, екранът ще бъде оставен да заспи след определен период на неактивност.
     ca = Si l'opció està activa, es pot apagar la pantalla després d'un període d'inactivitat.
-    cs = Je-li tato možnost povolena, bude obrazovka po určité době nečinnosti umožněna usnout.
+    cs = Je-li tato možnost povolena, bude obrazovce po určité době nečinnosti umožněno usnout.
     da = Når den er aktiveret, får skærmen lov til at sove efter en periode med inaktivitet.
     de = Wenn diese Option aktiviert ist, kann der Bildschirm nach einer gewissen Zeit der Inaktivität in den Ruhezustand versetzt werden.
     el = Όταν είναι ενεργοποιημένη, η οθόνη θα αφεθεί να κοιμηθεί μετά από περίοδο αδράνειας.
