@@ -181,7 +181,7 @@ final class AboutController: MWMViewController, UITableViewDataSource, UITableVi
         case 1: self.openUrl("https://github.com/organicmaps/organicmaps/", inSafari: true)
         case 2: self.openUrl(L("translated_om_site_url"))
         case 3: sendEmailWith(header: "Organic Maps", toRecipients: [kiOSEmail])
-        case 4: self.openUrl("https://matrix.to/#/%23organicmaps:matrix.org", inSafari: true)
+        case 4: self.openUrl("https://matrix.to/#/#organicmaps:matrix.org", inSafari: true)
         case 5: self.openUrl("https://fosstodon.org/@organicmaps", inSafari: true)
         case 6: self.openUrl("https://facebook.com/OrganicMaps", inSafari: true)
         case 7: self.openUrl("https://twitter.com/OrganicMapsApp", inSafari: true)
