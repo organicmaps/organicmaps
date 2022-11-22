@@ -5259,6 +5259,11 @@
     tags = android,ios
     en = [matrix]
 
+  [mastodon]
+    comment = Text in menu
+    tags = android
+    en = Mastodon
+
   [facebook]
     comment = Text in menu
     tags = android,ios
