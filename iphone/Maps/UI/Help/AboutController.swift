@@ -117,7 +117,7 @@ final class AboutController: MWMViewController, UITableViewDataSource, UITableVi
   // Update didSelect... delegate and tools/python/clean_strings_txt.py after modifying this list.
   private let labels = [
     ["news", "faq", "report_a_bug", "how_to_support_us", "rate_the_app"],
-    ["telegram", "github", "website", "email", "facebook", "twitter", "instagram", "matrix", "openstreetmap"],
+    ["telegram", "github", "website", "email", "matrix", "mastodon", "facebook", "twitter", "instagram", "openstreetmap"],
     ["privacy_policy", "terms_of_use", "copyright"],
   ]
 
@@ -181,11 +181,12 @@ final class AboutController: MWMViewController, UITableViewDataSource, UITableVi
         case 1: self.openUrl("https://github.com/organicmaps/organicmaps/", inSafari: true)
         case 2: self.openUrl(L("translated_om_site_url"))
         case 3: sendEmailWith(header: "Organic Maps", toRecipients: [kiOSEmail])
-        case 4: self.openUrl("https://facebook.com/OrganicMaps", inSafari: true)
-        case 5: self.openUrl("https://twitter.com/OrganicMapsApp", inSafari: true)
-        case 6: self.openUrl(L("instagram_url"), inSafari: true)
-        case 7: self.openUrl("https://matrix.to/#/%23organicmaps:matrix.org", inSafari: true)
-        case 8: self.openUrl("https://wiki.openstreetmap.org/wiki/About_OpenStreetMap", inSafari: true)
+        case 4: self.openUrl("https://matrix.to/#/%23organicmaps:matrix.org", inSafari: true)
+        case 5: self.openUrl("https://fosstodon.org/@organicmaps", inSafari: true)
+        case 6: self.openUrl("https://facebook.com/OrganicMaps", inSafari: true)
+        case 7: self.openUrl("https://twitter.com/OrganicMapsApp", inSafari: true)
+        case 8: self.openUrl(L("instagram_url"), inSafari: true)
+        case 9: self.openUrl("https://wiki.openstreetmap.org/wiki/About_OpenStreetMap", inSafari: true)
         default: fatalError("Invalid cell1 \(indexPath)")
       }
       // Third section.
