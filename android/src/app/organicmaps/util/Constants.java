@@ -24,6 +24,7 @@ public final class Constants
     public static final String FB_OM_COMMUNITY_NATIVE = "fb://profile/102378968471811";
     public static final String TWITTER = "https://twitter.com/OrganicMapsApp";
     public static final String MATRIX = "https://matrix.to/#/%23organicmaps:matrix.org";
+    public static final String MASTODON = "https://fosstodon.org/@organicmaps";
 
     public static final String GITHUB = "https://github.com/organicmaps/organicmaps";
 
