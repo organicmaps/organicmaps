@@ -274,6 +274,9 @@
 "matrix" = "[matrix]";
 
 /* Text in menu */
+"mastodon" = "Mastodon";
+
+/* Text in menu */
 "facebook" = "Facebook";
 
 /* Text in menu */
@@ -506,7 +509,7 @@
 
 "history" = "Historie";
 
-"search_not_found" = "Omlouvám se, nic nenalezeno.";
+"search_not_found" = "Omlouváme se, nic nebylo nalezeno.";
 
 "search_not_found_query" = "Zkuste zadat jiný hledaný výraz.";
 
@@ -701,7 +704,7 @@
 
 "download_over_mobile_header" = "Stáhnout pomocí připojení přes mobilní síť?";
 
-"download_over_mobile_message" = "Toto by mohli být s některými tarify nebo roamingem výrazně dražší.";
+"download_over_mobile_message" = "Toto by mohlo být s některými tarify nebo roamingem výrazně dražší.";
 
 "error_enter_correct_house_number" = "Zadejte správné číslo domu";
 
@@ -861,7 +864,7 @@
 "mobile_data" = "Mobilní data";
 
 /* NOTE to translators: please synchronize your translation with the English one. */
-"mobile_data_description" = "Ke zobrazení podrobných informací o místech, jako jsou fotografie, ceny a recenze, je třeba mobilní internet.";
+"mobile_data_description" = "K zobrazení podrobných informací o místech, jako jsou fotografie, ceny, a recenze je třeba mobilní internet.";
 
 "mobile_data_option_never" = "Nikdy nepoužívat";
 
@@ -995,17 +998,17 @@
 
 "speedcams_notice_message" = "Automaticky - Upozorňovat na rychlostní radary, pokud hrozí riziko překročení rychlosti\nVždy - Vždy upozorňovat na rychlostní radary\nNikdy - Nikdy neupozorňovat na rychlostní radary";
 
-"power_managment_title" = "Nízkoenergetický režim";
+"power_managment_title" = "Režim spořič baterie";
 
-"power_managment_description" = "Pokud je nízkoenergetický režim zapojen, příloha bude vypínat funkce, které mrhají energii v závislosti na nynější nabíjení telefonu";
+"power_managment_description" = "Pokud je zapnut automatický režim spořiče baterie, aplikace začne vypínat funkce vybíjející baterii, v závislosti na její momentální úrovni nabití.";
 
-"power_managment_setting_never" = "Nikdy";
+"power_managment_setting_never" = "Nikdy nepoužívat";
 
-"power_managment_setting_auto" = "Auto";
+"power_managment_setting_auto" = "Automatický";
 
-"power_managment_setting_manual_max" = "Maximální šetření energií";
+"power_managment_setting_manual_max" = "Maximální šetření baterií";
 
-"driving_options_title" = "Možnosti řízení";
+"driving_options_title" = "Možnosti směrovače";
 
 "driving_options_subheader" = "Vyhněte se na každé trase";
 
