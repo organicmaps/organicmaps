@@ -1,38 +1,24 @@
-• New OSM data as of October 29
-• Minor performance improvements
-• Dump corrupted KML to the log on startup
-• Do not strip non-ASCII characters from exported bookmarks
-• Simplify/smooth road altitudes chart
-• Show Wikipedia and Wikimedia Commons links in the Place Page
-• Use system 12/24h time format in the Place Page
+• Yeni OSM harita verileri 19 Kasım itibariyle
+• Daha iyi yönlendirme için bisikletin hızı düzeltildi
+• Bazı URL'lerin # ve ? sembolleri ile açılması düzeltildi
+• Matrix bağlantısının Hakkında'dan açılması düzeltildi
+• Hakkında bölümüne Mastodon eklendi
+• Menüdeki çirkin çizgi kaldırıldı
+• Yer Sayfasında adı yerel dilde göster
+• Mekanın kapanmasına tam olarak 1 saat kaldığında uygun şekilde gösterin
 
-Routing and Navigation:
-• Show "Roads to avoid" options for walking, cycling, and metro routes
-• Fixed wrong routing via highway exits/links
-• Show warnings on the route for all router types
-• Enable Catalan TTS
-• Show speed camera on tap
+[stiller]
+• Bazı yanlış örtüşen tipler düzeltildi
+• Otoyol=otobüs yolu ve fizyoterapist eklendi
+• Adalar ve takımadalar artık Dünya Haritasında görülebilir
+• Arka plan alanı olarak su yolu=baraj çizin
+• Su çekme önceliği artık iskeleden daha az
+• Sabit eğlence alanları
 
-Search:
-• Show all found results on the map screen
-• Improved villages search
-• Show only matched categories if they were selected from the list, not names
-• Fixed street synonyms for nordic languages
-
-Styles:
-• Use regional metro/subway icons for entrances and stations
-• Add brewery, plumber, tailor, carpenter, sawmill, beekeeper, blacksmith, electrician, painter, and other craft icons
-• Draw international airport icon on z7-9
-• Draw metro for major cities starting from z12
-• Added natural=shrubbery, natural=desert, leisure=dance, amenity=charging_station-motorcar, and more barrier types
-• Do not draw railway station icon for building=train_station
-• Updated icons for garden, park, forest, national park, nature reserve, power, chimney
-• Add historic battlefield, gallows, pillory, memorial cross, stolperstein and war_memorial
-• Fixed historic=* priority
-• Support sauna=yes tags
-• Better colors for natural=scrub
-• Draw entrance icon instead of a dot
-
-Translations:
-• Use larger, more geographically significant names for Oregon maps in Downloader
-• Updated Catalan, Chinese, Dutch, Finnish, German, Hungarian, Italian, Polish, Portuguese, and Turkish translations
+[çeviriler]
+• Estonca çeviri eklendi
+• Çekçe, Norveççe, İspanyolca, Türkçe çeviriler güncellendi
+• Uygulamadaki yerelleştirilmiş web sitesi bağlantıları, lütfen web sitesi çevirimizde bize yardımcı olun: https://github.com/organicmaps/organicmaps.github.io
+• en-GB için Metro
+• Eksik RV kategori çevirilerini düzeltin
+• Katalanca için kategori araması düzeltildi

@@ -1,0 +1,11 @@
+• Nouvelles cartes OSM pour le 19 novembre
+• Vitesse fixe du vélo pour le routage
+• Mastodon dans "?"
+• Menu fixe sous la barre de navigation
+• La distance est désormais affichée dans les résultats de recherche
+• Correction de certains chevauchements d'icônes
+• Ajouté highway=busway et physiothérapeute
+• Îles et archipels sur la carte du monde
+• Dessin fixe de la jetée, de la digue et de l'eau au-dessus de la jetée
+• Estonien ajouté, traductions corrigées pour cs, es, nb, tr
+omaps.app/news

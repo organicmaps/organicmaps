@@ -1,14 +1,13 @@
-• Novos dados OSM de 19/10
-• Melhoria na detecção de localização
-• Melhor tela cheia em toque no espaço vazio
-• Melhorias de desempenho e UI
-• Correção de erros
-• Mudar idioma do app em Android 13+
-• Crosshair API agora suporta argumentos "cll=lat,lon" para centralizar o mapa
-• Gráfico suave de elevação
-• TTS catalão
-• Melhoria na busca no mapa e em vilas
-• Suporte a ofício e artefatos históricos
-• Novos ícones de metrô para várias cidades
-• Novas traduções
+• Novos dados OSM a partir de 19/11
+• Corrigir a velocidade da bicicleta
+• Adicionar Mastodon em "?".
+• Consertar algumas colisões
+• Menu de navegação fixo sob a barra de navegação
+• Distância fixa não mostrada nos resultados da busca
+• Consertar alguns ícones sobrepostos
+• Adicionar rodovia=busway e fisioterapeuta
+• Ilhas e arquipélagos no Mapa Mundial
+• Consertar áreas de lazer
+• Adicionar et, atualizar cs, es, nb, tr tradução
+• Fixar RV e categorias catalãs
 …mais: omaps.app/news
