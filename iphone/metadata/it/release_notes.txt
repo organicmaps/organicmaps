@@ -1,38 +1,23 @@
-• Nuovi dati OSM al 29 ottobre
-• Miglioramenti minori delle prestazioni
-• Dump danneggiato KML al registro all'avvio
-• Non rimuovere i caratteri non ASCII dai segnalibri esportati
-• Grafico delle altitudini stradali semplificate/lisce
-• Mostra i collegamenti di Wikipedia e Wikimedia Commons nella pagina dei luoghi
-• Usa il formato 12/24h del sistema nella pagina del luogo
+• Nuovi dati cartografici OSM a partire dal 19 novembre
+• Corretta la velocità della bicicletta per migliorare il percorso
+• Corretta l'apertura di alcuni URL con i simboli # e ?
+• Corretta l'apertura del link Matrix dalla finestra di dialogo della Guida
+• Aggiunto Mastodon nella finestra di dialogo della Guida
+• Mostra il nome nella lingua locale nella pagina dei luoghi
+• Mostrato correttamente quando manca esattamente 1 ora alla chiusura del luogo
 
-Routing e navigazione:
-• Mostra l'opzione "Strade da evitare" per passeggiate a piedi, in bicicletta e in metropolitana
-• Corretto il routing errato tramite uscite/collegamenti autostradali
-• Mostra avvisi sul percorso per tutti i tipi di indirizzamento
-• Abilita TTS catalano
-• Mostra autovelox al tocco
+[stili]
+• Corretti alcuni tipi impropriamente sovrapposti
+• Aggiunti highway=busway e fisioterapista
+• Isole e arcipelaghi sono ora visibili sulla Mappa del Mondo
+• Disegnare waterway=dam come area di sfondo
+• La priorità del disegno dell'acqua è ora inferiore a quella del molo
+• Corrette le aree di svago
 
-Ricerca:
-• Mostra tutti i risultati trovati sulla mappa
-• Ricerca villaggi migliorata
-• Mostra solo le categorie corrispondenti se sono state selezionate dall'elenco, non i nomi
-• Risolti sinonimi delle vie per lingue nordiche
-
-Stili:
-• Utilizzata le icone regionali della metropolitana per ingressi e stazioni
-• Aggiunta birreria, idraulico, sarto, falegname, segheria, apicoltore, fabbro, elettricista, pittore, e altre icone artigianali
-• Disegnata icona aeroporto internazionale su Z7-9
-• Disegnata metropolitana per le principali città a partire da Z12
-• Aggiunto natural=shrubbery, natural=desert, leisure=dance, amenity=charging_station-motorcar, e altri tipi di barriere
-• Non disegnata l'icona della stazione ferroviaria per building=train_station
-• Icone aggiornate per giardino, parco, foresta, parco nazionale, riserva naturale, potenza, camino
-• Aggiungi campo di battaglia storico, forca, gogna, croce commemorativa, stolperstein e war_memorial
-• Risolto storico=* priorità
-• Supporto sauna=sì tag
-• Colori migliori per natural=scrub
-• Disegnata l'icona dell'entrata invece di un punto
-
-Traduzioni:
-• Usa nomi più grandi e geograficamente più significativi per le mappe dell'Oregon in Downloader
-• Aggiornate le traduzioni in catalano, cinese, olandese, finlandese, tedesco, ungherese, italiano, polacco, portoghese e turco
+[Traduzioni]
+• Aggiunta la traduzione in estone
+• Traduzioni aggiornate in ceco, norvegese, spagnolo e turco
+• Link al sito web localizzati nell'app, per favore aiutateci con la traduzione del nostro sito web: https://github.com/organicmaps/organicmaps.github.io
+• Metro per en-GB
+• Sistemate le traduzioni mancanti della categoria RV
+• Corretta la ricerca delle categorie per il catalano

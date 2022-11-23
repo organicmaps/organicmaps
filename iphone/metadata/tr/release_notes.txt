@@ -3,7 +3,6 @@
 • Bazı URL'lerin # ve ? sembolleri ile açılması düzeltildi
 • Matrix bağlantısının Hakkında'dan açılması düzeltildi
 • Hakkında bölümüne Mastodon eklendi
-• Menüdeki çirkin çizgi kaldırıldı
 • Yer Sayfasında adı yerel dilde göster
 • Mekanın kapanmasına tam olarak 1 saat kaldığında uygun şekilde gösterin
 

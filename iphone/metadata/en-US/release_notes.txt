@@ -1,9 +1,8 @@
 • New OSM map data as of November 19
 • Corrected bicycle's speed for better routing
 • Fixed opening some URLs with # and ? symbols
-• Fixed opening Matrix link from About
-• Added Mastodon in About
-• Removed ugly line in menu
+• Fixed opening Matrix link from Help dialog
+• Added Mastodon in Help dialog
 • Show name in local language in Place Page
 • Properly display when exactly 1 hour left before place closes
 

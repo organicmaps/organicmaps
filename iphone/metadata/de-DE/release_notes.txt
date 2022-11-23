@@ -3,7 +3,6 @@
 • Das Öffnen einiger URLs mit # und ? Symbolen wurde korrigiert
 • Öffnen des Matrix-Links von About aus korrigiert
 • Mastodon in Über hinzugefügt
-• Hässliche Zeile im Menü entfernt
 • Name in lokaler Sprache auf der Ortsseite anzeigen
 • Korrekte Anzeige, wenn genau 1 Stunde vor Schließung des Ortes verbleibt
 
