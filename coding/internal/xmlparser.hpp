@@ -13,7 +13,7 @@
 #include <string>
 
 #define XML_STATIC
-#include "3party/expat/expat/lib/expat.h"
+#include <expat.h>
 
 #if defined(__clang__)
 #pragma clang diagnostic pop
