@@ -1,34 +1,23 @@
-• Novos dados OSM de 19 de outubro
-• Pequenas melhorias de desempenho
-• Adição de KML defeituoso no log ao iniciar app
-• Correção de caracteres não-ASCII de marcadores exportados
-• Gráfico suave de elevação
-• Formatação correta de horário 12/24h na informação do lugar selecionado
+• Novos dados OSM de 19 de novembro
+• Correção de velocidade de bicicleta para melhor roteamento
+• Correção de abertura de algumas URLs com os símbolos # e ?
+• Correção da abertura do link Matrix da seção de Ajuda
+• Adição de Mastodon na seção de Ajuda
+• Mostrar nome na língua local ao selecionar objeto
+• Correção ao mostrar a hora de fechamento de um local quando faltava exatamente 1 hora para o encerramento
 
-Rotas e Navegação:
-• Mostrar opção "Vias a serem evitadas" para rotas de caminhada e ciclismo
-• Modelos de veículos atualizados
-• Mostrar avisos na rota para todos os tipos de navegação
-• Adição de TTS catalão
-• Mostrar radar de velocidade ao tocar
+Estilos
+• Correção de alguns objetos que se sobrepunham
+• Adição de BRTs e fisioterapeuta
+• Ilhas e arquipélagos são agora visíveis no mapa mundial
+• Exibir barragem como área de fundo
+• Prioridade da exibição de água menor do que píer
+• Correção de áreas de lazer
 
-Busca:
-• Mostrar todos os resultados encontrados no mapa
-• Melhoria na busca de Vilas
-• Mostrar apenas as categorias correspondentes se tiverem sido selecionadas na lista, não os nomes
-• Correção de sinônimos de nomes de ruas para idiomas nórdicos
-
-Estilos:
-• Uso de ícones locais para entradas e estações de metrô
-• Adição de ícones para alfaiate, apicultor, carpinteiro, cervejaria, eletricista, encanador, ferreiro, pintor, serraria, e outros tipos de ofício
-• Correção de prioridade de historic=*
-• Exibição de ícone de aeroporto internacional nos níveis 7-9 de zoom
-• Exibição de metrô para cidades grandes iniciando no nível 12 de zoom
-• Adição de natural=shrubbery, natural=desert, leisure=dance, amenity=charging_station-motorcar, e mais tipos de barreira
-• Não mostra mais ícone de estação ferroviária para building=train_station
-• Atualização de ícones para jardim, parque, floresta, parque nacional, reserva natural, energia e chaminé
-• Adição de itens históricos como forca, pelourinho, cruz memorial, stolperstein e memorial de guerra
-
-Localização:
-• Uso de locais mais significativos para os mapas de Oregon no menu de Download de Mapas
-• Adição/correção de traduções em alemão, catalão, chinês, finlandês, holandês, italiano, polonês, português (Brasileiro e Europeu) e turco
+Localização
+• Adição de tradução em Estoniano
+• Atualização das traduções em checo, espanhol, norueguês e turco
+• Links do site principal agora estão localizados no app, favor nos ajudar com a tradução: https://github.com/organicmaps/organicmaps.github.io
+• Metrô para inglês Britânico
+• Correção de tradução ausente para categoria autocaravana
+• Correção de busca de categoria para catalão

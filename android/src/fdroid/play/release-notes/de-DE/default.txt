@@ -1,12 +1,11 @@
-• Neue OSM-Daten ab dem 29. Oktober
-• Verbesserte Standorterkennung
-• Bessere Vollbilddarstellung beim Tippen auf leeren Raum
-• Viele UI- und Leistungsverbesserungen
-• Behebung von Abstürzen
-• Ändern der App-Sprache unter Android 13+
-• Glatte Straßenhöhenkarte
-• Anzeige von "zu vermeidenden Straßen" für Fußgänger, Radfahrer und U-Bahnen
-• Katalanisch TTS
-• Verbesserte Suche auf der Karte und in den Dörfern
-• Neue Metrosymbole, Handwerks- und historische Typen
+• Neue OSM-Karten ab dem 19. November
+• Feste Fahrradgeschwindigkeit für Routenplanung
+• Mastodon im Hilfe-Dialog
+• Festes Menü unter der Navigationsleiste
+• Entfernung wird jetzt in den Suchergebnissen angezeigt
+• Einige sich überlappende Icons behoben
+• Autobahn=Buslinie und Physiotherapeut hinzugefügt
+• Inseln und Archipele auf der Weltkarte
+• Feststehende Zeichnung von Pier, Deich und Wasser über Pier
+• Estnisch hinzugefügt, Übersetzungen korrigiert für cs, es, nb, tr
 …mehr: omaps.app/news
