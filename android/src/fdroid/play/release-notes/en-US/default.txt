@@ -1,15 +1,14 @@
-• New OSM data as of October 29
-• Improved location detection
-• Better full-screen on empty space tap
-• Many UI & performance improvements
-• Fix crashes
-• Change app language on Android 13+
-• Crosshair API now supports "cll=lat,lon" argument to center the map
-• Smooth road altitudes chart
-• Show "roads to avoid" for walking, cycling, metro
-• Catalan TTS
-• Improved on-map & villages search
-• New craft & historic types
-• New metro icons for many cities
-• Updated translations
+• New OSM data as of November 19
+• Correct bicycle's speed for routing
+• Add Mastodon in "?"
+• Fix some crashes
+• Fix navigation menu under navbar
+• Fix distance not shown on search results
+• Fix some overlapping icons
+• Add highway=busway and physiotherapist
+• Islands and archipelagos on World Map
+• Fix water/peer and waterway=dam drawing priority
+• Fix leisure areas
+• Add Estonian, update cs, es, nb, tr translation
+• Fix RV and Catalan categories
 …more: omaps.app/news

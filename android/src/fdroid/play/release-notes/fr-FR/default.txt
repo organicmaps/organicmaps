@@ -1,0 +1,10 @@
+• Nouvelles cartes OSM du 19 novembre
+• Correction de la vitesse vélo pour une meilleur navigation
+• Ajout de Mastodon dans le menu "?"
+• Correction du menu de navigation sous la barre de navigation
+• La distance est désormais affichée dans les résultats de recherche
+• Correction de certains chevauchements d'icônes
+• Ajout de highway=busway et physiothérapeute
+• Îles et archipels sur la carte du monde
+• Correction du rendu pour jetée, digue et barrage
+Plus de détails : omaps.app/news

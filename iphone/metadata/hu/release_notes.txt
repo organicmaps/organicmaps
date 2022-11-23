@@ -1,38 +1,23 @@
-- Új OSM adatok október 29-től
-- Kisebb teljesítményjavítások
-- A sérült KML-fájlokat indításkor a naplóba dobja.
-- Nem távolítja el a nem ASCII karaktereket az exportált könyvjelzőkből.
-- Az útmagasságok diagramjának egyszerűsítése/simítása
-- Wikipedia és Wikimedia Commons linkek megjelenítése a helységoldalon
-- A 12/24 órás rendszeridő formátum használata a helyoldalon.
+• New OSM map data as of November 19
+• Corrected bicycle's speed for better routing
+• Fixed opening some URLs with # and ? symbols
+• Fixed opening Matrix link from Help dialog
+• Added Mastodon in Help dialog
+• Show name in local language in Place Page
+• Properly display when exactly 1 hour left before place closes
 
-Útvonaltervezés és navigáció:
-- „Elkerülendő utak” opciók megjelenítése gyalogos, kerékpáros és metróútvonalakhoz.
-- Helyes útvonaltervezés javítása autópálya-kijáratokon/kapcsolatokon keresztül.
-- Figyelmeztetések megjelenítése az útvonalon minden útvonaltípus esetében
-- Katalán szövegfelolvasás (TTS)
-- Sebességmérő kamera megjelenítése a csapoláskor
+Styles:
+• Fixed some improperly overlapping types
+• Added highway=busway and physiotherapist
+• Islands and archipelagos are now visible on World Map
+• Draw waterway=dam as background area
+• Water draw priority is now lesser than pier
+• Fixed leisure areas
 
-Keresés:
-- Az összes találat megjelenítése a térkép képernyőjén
-- Továbbfejlesztett falukeresés
-- Csak a megfelelő kategóriák megjelenítése, ha azokat a listából választották ki, nem név megadásával.
-- Javított utcaszinonimák északi nyelveknél
-
-Stílusok:
-- Regionális metró/aluljáró ikonok használata a bejáratokhoz és állomásokhoz.
-- Sörfőzde, vízvezeték-szerelő, szabó, asztalos, fűrészüzem, méhész, kovács, villanyszerelő, festő és más kézművesműhely-ikonok hozzáadása.
-- Nemzetközi repülőtér ikon rajzolása a 7–9-es nagyítási szinten
-- A nagyobb városok metrója a 12 nagyítási szinttől kezdődően
-- natural=shrubbery, natural=desert, leisure=dance, amenity=charging_station-motorcar, és sok akadálytípus hozzáadása.
-- Vasúállomás-épületnél nem rajzol ki vasútállomás-ikont.
-- Frissített ikonok: kert, park, erdő, nemzeti park, természetvédelmi terület, erőmű, kémény
-- Történelmi csatatér, akasztófa, pellengér, emlékkereszt, botlatókő és háborús emlékmű hozzáadása.
-- Javított történelmi=* prioritás
-- Támogatja a sauna=yes címkéket
-- Jobb színek a natural=scrub-hoz
-- Bejárat: pont helyett ikon
-
-Fordítások:
-- A letöltőben nagyobb, földrajzilag jelentősebb nevek használata az oregoni térképekhez
-- Frissített katalán, kínai, holland, finn, német, magyar, olasz, lengyel, holland, lengyel, portugál, olasz és török fordítás.
+Translations:
+• Added Estonian translation
+• Updated Czech, Norwegian, Spanish, Turkish translations
+• Localized website links in the app, please help us with our website translation: https://github.com/organicmaps/organicmaps.github.io
+• Metro for en-GB
+• Fix missing RV category translations
+• Fixed category search for Catalan

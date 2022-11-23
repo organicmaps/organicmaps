@@ -1,12 +1,11 @@
-• Yeni OSM harita verileri (29 Ekim) 
-• Geliştirilmiş konum algılama
-• Boş bir yere dokununca daha iyi tam ekran
-• Birçok arayüz ve performans iyileştirmesi
-• Çökmeler düzeltildi
-• Android 13+'te uygulama dilini değiştirme
-• Daha iyi yol yükseklik tablosu
-• Yürüme, bisiklet, metro için "kaçınılacak yollar" seçeneği eklendi
-• Geliştirilmiş harita üzerinde ve köylerde arama
-• Yeni zanaat ve tarih türleri eklendi
-• Birçok şehir için yeni metro simgeleri
+• Yeni OSM harita verileri (19 Kasım)
+• Rotalar için bisiklet hızı düzeltildi
+• "?" bölümüne Mastodon sayfamız eklendi
+• Bazı hatalar düzeltildi
+• Navigasyon menüsü düzeltildi
+• Artık arama sonuçlarında mesafe gösteriliyor
+• Üst üste binen bazı simgeler düzeltildi
+• highway=busway yolu ve fizyoterapist eklendi
+• Dünya haritasına adalar ve takımadalar eklendi
+• İskele, bent ve iskele üzerindeki su çizimi düzeltildi
 …dahası: omaps.app/news
