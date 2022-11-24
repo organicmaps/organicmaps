@@ -5240,7 +5240,7 @@ fr:Vêtement usagés|Déposer des affaires non-utilisées
 de:4Altkleider|Alte Kleidung|Sachen spenden
 hu:Régi ruhák|Régi ruhák újrahasznosítása
 id:Pakaian lama|Mendaur ulang pakaian lama
-it:Vestiti usati|Riciclare vestiti usati
+it:Vestiti usati|Riciclare vestiti usati|Raccolta indumenti
 ja:古着|古着のリサイクル
 ko:낡은 옷|낡은 옷 재활|낡은 옷 재활용
 mr:कपडे भंगारवाला
