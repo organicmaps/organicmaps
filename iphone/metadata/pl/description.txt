@@ -6,7 +6,7 @@
 • Zapisz wszystko czego potrzebujesz, importuj i udostępniaj KML/KMZ (planowany jest GPX)
 • Tryb ciemny, aby chronić Twoje oczy
 
-Organic Maps jest <b>czyste i organiczne, wykonane z miłością</b>:
+Organic Maps jest czyste i organiczne, wykonane z miłością:
 
 • Szanuje Twoją prywatność
 • Oszczędza baterię
@@ -23,9 +23,9 @@ Wolny od elementów śledzących i innych złych rzeczy:
 • Brak hałaśliwego spamu e-mailowego
 • Żadnych powiadomień typu push
 • Brak oprogramowanie śmieciowe
-• B̶r̶a̶k̶ ̶p̶e̶s̶t̶y̶c̶y̶d̶ó̶w
+• Brak pestycydów
 
-W Organic Maps wierzymy, że <b>prywatność jest podstawowym prawem człowieka</b>:
+W Organic Maps wierzymy, że prywatność jest podstawowym prawem człowieka:
 
 • Organic Maps to niezależny projekt prowadzony przez społeczność.
 • Kod źródłowy jest otwarty
