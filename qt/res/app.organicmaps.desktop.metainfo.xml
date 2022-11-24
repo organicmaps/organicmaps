@@ -107,6 +107,31 @@
   </screenshots>
 
   <releases>
+   <release version="2022.11.24-2" date="2022-11-24">
+     <description>
+       <p>Highlights:</p>
+         <ul>
+           <li>New OSM maps data as of November 19</li>
+           <li>Fixed map dragging on Linux</li>
+           <li>Use "+" key to zoom in</li>
+           <li>Improved docs about building OM with WSL</li>
+           <li>Use high-resolution icons on high-DPI displays</li>
+         </ul>
+       <p>Routing and Navigation:</p>
+         <ul>
+           <li>Corrected bicycle's speed for better routing</li>
+         </ul>
+       <p>Styles:</p>
+         <ul>
+           <li>Fixed some improperly overlapping types</li>
+           <li>Added highway=busway and physiotherapist</li>
+           <li>Islands and archipelagos are now visible on World Map</li>
+           <li>Draw waterway=dam as background area</li>
+           <li>Water draw priority is lesser now than pier</li>
+           <li>Fixed leisure areas</li>
+         </ul>
+     </description>
+   </release>
    <release version="2022.11.02-2" date="2022-11-02">
      <description>
        <p>Highlights:</p>
