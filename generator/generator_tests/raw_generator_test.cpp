@@ -59,8 +59,7 @@ UNIT_CLASS_TEST(TestRawGenerator, Towns)
     BuildFeatures(name);
     BuildSearch(name);
 
-    platform::LocalCountryFile localFile(platform::LocalCountryFile::MakeTemporary(GetMwmPath(name)));
-    auto res = dataSource.RegisterMap(localFile);
+    auto const res = dataSource.RegisterMap(platform::LocalCountryFile::MakeTemporary(GetMwmPath(name)));
     TEST_EQUAL(res.second, MwmSet::RegResult::Success, ());
     mwmIDs.push_back(std::move(res.first));
   }
@@ -124,16 +123,16 @@ UNIT_CLASS_TEST(TestRawGenerator, HighwayLinks)
   std::unordered_set<uint64_t> osmNoSpeed = { 23691193, 1017695668 };
 
   FrozenDataSource dataSource;
-  platform::LocalCountryFile localFile(platform::LocalCountryFile::MakeTemporary(GetMwmPath(mwmName)));
-  auto const res = dataSource.RegisterMap(localFile);
+  auto const res = dataSource.RegisterMap(platform::LocalCountryFile::MakeTemporary(GetMwmPath(mwmName)));
   CHECK_EQUAL(res.second, MwmSet::RegResult::Success, ());
 
-  auto const speeds = routing::LoadMaxspeeds(dataSource.GetMwmHandleById(res.first));
+  FeaturesLoaderGuard guard(dataSource, res.first);
+
+  auto const speeds = routing::LoadMaxspeeds(guard.GetHandle());
   CHECK(speeds, ());
 
   size_t speedChecked = 0, noSpeed = 0;
 
-  FeaturesLoaderGuard guard(dataSource, res.first);
   uint32_t const count = guard.GetNumFeatures();
   for (uint32_t id = 0; id < count; ++id)
   {
@@ -263,7 +262,7 @@ UNIT_CLASS_TEST(TestRawGenerator, AreaHighway)
 
 UNIT_CLASS_TEST(TestRawGenerator, Place_Region)
 {
-  static uint32_t regionType = classif().GetTypeByPath({"place", "region"});
+  uint32_t const regionType = classif().GetTypeByPath({"place", "region"});
 
   std::string const mwmName = "Region";
   std::string const worldMwmName = WORLD_FILE_NAME;
@@ -284,21 +283,13 @@ UNIT_CLASS_TEST(TestRawGenerator, Place_Region)
   worldRegions = 0;
 
   // Prepare features data source.
-  FrozenDataSource dataSource;
   for (auto const & name : { mwmName, worldMwmName })
   {
     BuildFeatures(name);
     BuildSearch(name);
 
-    platform::LocalCountryFile localFile(platform::LocalCountryFile::MakeTemporary(GetMwmPath(name)));
-    auto res = dataSource.RegisterMap(localFile);
-    TEST_EQUAL(res.second, MwmSet::RegResult::Success, ());
-
-    FeaturesLoaderGuard guard(dataSource, res.first);
-    size_t const numFeatures = guard.GetNumFeatures();
-    for (size_t id = 0; id < numFeatures; ++id)
+    ForEachFeature(name, [&](std::unique_ptr<FeatureType> ft)
     {
-      auto ft = guard.GetFeatureByIndex(id);
       if (feature::TypesHolder(*ft).Has(regionType))
       {
         TEST_EQUAL(ft->GetGeomType(), feature::GeomType::Point, ());
@@ -309,7 +300,7 @@ UNIT_CLASS_TEST(TestRawGenerator, Place_Region)
         else
           ++countryRegions;
       }
-    }
+    });
   }
 
   TEST_EQUAL(worldRegions, 1, ());
@@ -318,7 +309,7 @@ UNIT_CLASS_TEST(TestRawGenerator, Place_Region)
 
 UNIT_CLASS_TEST(TestRawGenerator, MiniRoundabout)
 {
-  static uint32_t roadType = classif().GetTypeByPath({"highway", "secondary"});
+  uint32_t const roadType = classif().GetTypeByPath({"highway", "secondary"});
 
   std::string const mwmName = "MiniRoundabout";
   BuildFB("./data/osm_test_data/mini_roundabout.osm", mwmName, false /* makeWorld */);
@@ -338,8 +329,7 @@ UNIT_CLASS_TEST(TestRawGenerator, MiniRoundabout)
   BuildRouting(mwmName, "United Kingdom");
 
   FrozenDataSource dataSource;
-  platform::LocalCountryFile localFile(platform::LocalCountryFile::MakeTemporary(GetMwmPath(mwmName)));
-  auto res = dataSource.RegisterMap(localFile);
+  auto const res = dataSource.RegisterMap(platform::LocalCountryFile::MakeTemporary(GetMwmPath(mwmName)));
   TEST_EQUAL(res.second, MwmSet::RegResult::Success, ());
 
   std::vector<uint32_t> roads, rounds;
@@ -482,6 +472,87 @@ UNIT_CLASS_TEST(TestRawGenerator, AssociatedStreet_Wiki)
   });
 
   TEST_EQUAL(count, 5, ());
+}
+
+UNIT_TEST(Place_CityRelations)
+{
+  std::string const mwmName = "Cities";
+  std::string const worldMwmName = WORLD_FILE_NAME;
+
+  std::string const arrFiles[] = {
+    // 1 Relation with many polygons + 1 Node.
+    "./data/osm_test_data/gorlovka_city.osm",
+    // 2 Relations + 1 Node
+    "./data/osm_test_data/tver_city.osm",
+    // 1 boundary-only Relation + 1 Node
+    //"./data/osm_test_data/kadikoy_town.osm",
+    // 1 Relation + 1 Node with _different_ names.
+    //"./data/osm_test_data/reykjavik_city.osm",
+  };
+
+  for (auto const & inFile : arrFiles)
+  {
+    TestRawGenerator generator;
+    generator.BuildFB(inFile, mwmName, true /* makeWorld */);
+
+    auto const & checker = ftypes::IsCityTownOrVillageChecker::Instance();
+
+    // Check that we have only 1 city without duplicates.
+    size_t count = 0;
+    generator.ForEachFB(worldMwmName, [&](feature::FeatureBuilder const & fb)
+    {
+      ++count;
+      TEST(checker(fb.GetTypes()), ());
+      TEST(fb.GetRank() > 0, ());
+    });
+
+    TEST_EQUAL(count, 1, ());
+
+    count = 0;
+    generator.ForEachFB(mwmName, [&](feature::FeatureBuilder const & fb)
+    {
+      if (checker(fb.GetTypes()))
+      {
+        ++count;
+        TEST(fb.GetRank() > 0, ());
+      }
+    });
+
+    TEST_EQUAL(count, 1, ());
+
+    // Build boundaries table.
+    generator.BuildFeatures(worldMwmName);
+    generator.BuildSearch(worldMwmName);
+
+    // Check that we have valid boundary in World.
+    FrozenDataSource dataSource;
+    auto const res = dataSource.RegisterMap(platform::LocalCountryFile::MakeTemporary(generator.GetMwmPath(worldMwmName)));
+    TEST_EQUAL(res.second, MwmSet::RegResult::Success, ());
+
+    search::CitiesBoundariesTable table(dataSource);
+    TEST(table.Load(), ());
+    TEST_EQUAL(table.GetSize(), 1, ());
+
+    FeaturesLoaderGuard guard(dataSource, res.first);
+    bool foundCity = false;
+
+    size_t const numFeatures = guard.GetNumFeatures();
+    for (size_t id = 0; id < numFeatures; ++id)
+    {
+      auto ft = guard.GetFeatureByIndex(id);
+      if (checker(*ft))
+      {
+        TEST_EQUAL(ft->GetGeomType(), feature::GeomType::Point, ());
+        foundCity = true;
+
+        search::CitiesBoundariesTable::Boundaries boundary;
+        TEST(table.Get(ft->GetID(), boundary), ());
+        TEST(boundary.HasPoint(ft->GetCenter()), ());
+      }
+    }
+
+    CHECK(foundCity, ());
+  }
 }
 
 } // namespace raw_generator_tests

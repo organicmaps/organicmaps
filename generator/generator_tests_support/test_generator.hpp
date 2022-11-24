@@ -43,8 +43,7 @@ public:
   template <class FnT> void ForEachFeature(std::string const & mwmName, FnT && fn)
   {
     FrozenDataSource dataSource;
-    platform::LocalCountryFile localFile(platform::LocalCountryFile::MakeTemporary(GetMwmPath(mwmName)));
-    auto const res = dataSource.RegisterMap(localFile);
+    auto const res = dataSource.RegisterMap(platform::LocalCountryFile::MakeTemporary(GetMwmPath(mwmName)));
     CHECK_EQUAL(res.second, MwmSet::RegResult::Success, ());
 
     FeaturesLoaderGuard guard(dataSource, res.first);

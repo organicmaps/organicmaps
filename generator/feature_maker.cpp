@@ -8,13 +8,13 @@
 #include "indexer/feature_visibility.hpp"
 
 #include "geometry/mercator.hpp"
+#include "geometry/polygon.hpp"
 
-#include <utility>
-
-using namespace feature;
 
 namespace generator
 {
+using namespace feature;
+
 std::shared_ptr<FeatureMakerBase> FeatureMakerSimple::Clone() const
 {
   return std::make_shared<FeatureMakerSimple>();
@@ -124,7 +124,8 @@ bool FeatureMakerSimple::BuildFromRelation(OsmElement & p, FeatureBuilderParams 
   helper.Build(&p);
   auto const & holesGeometry = helper.GetHoles();
   auto const size = m_queue.size();
-  auto func = [&](FeatureBuilder::PointSeq && pts, std::vector<uint64_t> const & ids)
+
+  auto const createFB = [&](auto && pts, auto const & ids)
   {
     FeatureBuilder fb;
 
@@ -141,7 +142,30 @@ bool FeatureMakerSimple::BuildFromRelation(OsmElement & p, FeatureBuilderParams 
     m_queue.push(std::move(fb));
   };
 
-  helper.GetOuter().ForEachArea(true /* collectID */, std::move(func));
+  bool const maxAreaMode = IsMaxRelationAreaMode(params);
+  double maxArea = -1.0;
+  FeatureBuilder::PointSeq maxPoints;
+  std::vector<uint64_t> maxIDs;
+
+  helper.GetOuter().ForEachArea(true /* collectID */, [&](auto && pts, auto && ids)
+  {
+    if (maxAreaMode)
+    {
+      double const area = GetPolygonArea(pts.begin(), pts.end());
+      if (area > maxArea)
+      {
+        maxArea = area;
+        maxPoints = std::move(pts);
+        maxIDs = std::move(ids);
+      }
+    }
+    else
+      createFB(std::move(pts), ids);
+  });
+
+  if (maxAreaMode && maxArea > 0)
+    createFB(std::move(maxPoints), maxIDs);
+
   return size != m_queue.size();
 }
 
@@ -155,4 +179,20 @@ void FeatureMaker::ParseParams(FeatureBuilderParams & params, OsmElement & p) co
   ftype::GetNameAndType(&p, params, &feature::IsUsefulType,
                         [this](OsmElement const * p) { return GetOrigin(*p); });
 }
+
+bool FeatureMaker::IsMaxRelationAreaMode(FeatureBuilderParams const & params) const
+{
+  auto const & c = classif();
+  bool const emptyName = params.IsEmptyNames();
+
+  // Select _one_ max area polygon, if we have Point drawing rules only (like place=*).
+  for (uint32_t const t : params.m_types)
+  {
+    auto const * obj = c.GetObject(t);
+    if (obj->IsDrawableLike(GeomType::Line, emptyName) || obj->IsDrawableLike(GeomType::Area, emptyName))
+      return false;
+  }
+  return true;
+}
+
 }  // namespace generator
