@@ -73,6 +73,7 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
     setupItem(R.id.facebook, false, root);
     setupItem(R.id.twitter, false, root);
     setupItem(R.id.matrix, true, root);
+    setupItem(R.id.mastodon, false, root);
     setupItem(R.id.openstreetmap, true, root);
     setupItem(R.id.faq, true, root);
     setupItem(R.id.report, true, root);
@@ -138,6 +139,8 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
       openLink(Constants.Url.TWITTER);
     else if (id == R.id.matrix)
       openLink(Constants.Url.MATRIX);
+    else if (id == R.id.mastodon)
+      openLink(Constants.Url.MASTODON);
     else if (id == R.id.openstreetmap)
       openLink(Constants.Url.OSM_ABOUT);
     else if (id == R.id.faq)

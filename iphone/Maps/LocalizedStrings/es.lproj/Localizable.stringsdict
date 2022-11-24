@@ -35,9 +35,9 @@
       <key>NSStringFormatValueTypeKey</key>
       <string>d</string>
       <key>one</key>
-      <string>Se encontró %d archivo. Lo verás después de la conversión.</string>
+      <string>Se encontró %d archivo. Lo verá después de la conversión.</string>
       <key>other</key>
-      <string>Se han encontrado %d archivos. Los verás después de la conversión.</string>
+      <string>Se han encontrado %d archivos. Los verá después de la conversión.</string>
     </dict>
   </dict>
 
@@ -52,9 +52,9 @@
       <key>NSStringFormatValueTypeKey</key>
       <string>d</string>
       <key>one</key>
-      <string>%d objecto</string>
+      <string>%d objeto</string>
       <key>other</key>
-      <string>%d objectos</string>
+      <string>%d objetos</string>
     </dict>
   </dict>
 

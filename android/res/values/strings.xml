@@ -237,6 +237,8 @@
 	<!-- Text in menu -->
 	<string name="matrix">[matrix]</string>
 	<!-- Text in menu -->
+	<string name="mastodon">Mastodon</string>
+	<!-- Text in menu -->
 	<string name="facebook">Facebook</string>
 	<!-- Text in menu -->
 	<string name="twitter">Twitter</string>

@@ -236,7 +236,10 @@ void DrawWidget::mouseMoveEvent(QMouseEvent * e)
   QOpenGLWidget::mouseMoveEvent(e);
 
   if (IsLeftButton(e) && !IsAltModifier(e))
+  {
     m_framework.TouchEvent(GetTouchEvent(e, df::TouchEvent::TOUCH_MOVE));
+    e->accept();
+  }
 
   if (m_selectionMode && m_rubberBand != nullptr && m_rubberBand->isVisible())
     m_rubberBand->setGeometry(QRect(m_rubberBandOrigin, e->pos()).normalized());
