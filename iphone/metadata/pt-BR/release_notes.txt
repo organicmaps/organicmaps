@@ -1,23 +1,23 @@
-• Novos dados do mapa OSM a partir de 19 de novembro
-• Correção da velocidade da bicicleta para um melhor encaminhamento
-• Abertura fixa de algumas URLs com símbolos # e ?
-• Link Matriz de abertura fixa do diálogo de Ajuda
-• Adicionado Mastodonte no diálogo de Ajuda
-• Mostrar nome no idioma local na página do local
-• Exibição adequada quando exatamente 1 hora antes do fechamento do local
+• Novos dados OSM de 19 de novembro
+• Correção de velocidade de bicicleta para melhor roteamento
+• Correção de abertura de algumas URLs com os símbolos # e ?
+• Correção da abertura do link Matrix da seção de Ajuda
+• Adição de Mastodon na seção de Ajuda
+• Mostrar nome na língua local ao selecionar objeto
+• Correção ao mostrar a hora de fechamento de um local quando faltava exatamente 1 hora para o encerramento
 
-[estilos]
-• Fixou alguns tipos inadequadamente sobrepostos
-• Adicionado highway=busway e fisioterapeuta
-• Ilhas e arquipélagos são agora visíveis no Mapa Mundial
-• Vias navegáveis de waterway=dam como área de fundo
-• A prioridade de captação de água é agora menor do que o cais
-• Áreas de lazer fixas
+Estilos
+• Correção de alguns objetos que se sobrepunham
+• Adição de BRTs e fisioterapeuta
+• Ilhas e arquipélagos são agora visíveis no mapa mundial
+• Exibir barragem como área de fundo
+• Prioridade da exibição de água menor do que píer
+• Correção de áreas de lazer
 
-[traduções]
-• Acrescentada a tradução estoniana
-• Traduções tcheco, norueguês, espanhol, turco atualizadas
-• Links localizados no aplicativo, ajude-nos com a tradução de nosso website: https://github.com/organicmaps/organicmaps.github.io
-• Metrô para en-GB
-• Consertar traduções de categoria RV ausentes
-• Pesquisa de categoria fixa para o catalão
+Localização
+• Adição de tradução em Estoniano
+• Atualização das traduções em checo, espanhol, norueguês e turco
+• Links do site principal agora estão localizados no app, favor nos ajudar com a tradução: https://github.com/organicmaps/organicmaps.github.io
+• Metrô para inglês Britânico
+• Correção de tradução ausente para categoria autocaravana
+• Correção de busca de categoria para catalão

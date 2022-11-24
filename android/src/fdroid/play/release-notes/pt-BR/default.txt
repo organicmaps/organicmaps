@@ -1,13 +1,12 @@
-• Novos dados OSM a partir de 19/11
-• Corrigir a velocidade da bicicleta
-• Adicionar Mastodon em "?".
-• Consertar algumas colisões
-• Menu de navegação fixo sob a barra de navegação
-• Distância fixa não mostrada nos resultados da busca
-• Consertar alguns ícones sobrepostos
-• Adicionar rodovia=busway e fisioterapeuta
-• Ilhas e arquipélagos no Mapa Mundial
-• Consertar áreas de lazer
-• Adicionar et, atualizar cs, es, nb, tr tradução
-• Fixar RV e categorias catalãs
+• Novos dados OSM de 19/11
+• Velocidade de bicicleta para melhor roteamento
+• Adição de Mastodon em Ajuda
+• Correção de alguns erros e do menu de navegação
+• Correção de distância na busca
+• Correção de ícones sobrepostos e de áreas de lazer
+• Adição de BRTs e fisioterapeuta
+• Ilhas e arquipélagos no mapa mundial
+• Correção de prioridade de exibição de água/píer e barragem
+• Tradução e atualização de cs, es, et, nb, tr
+• Correção de categorias de RV e catalão
 …mais: omaps.app/news
