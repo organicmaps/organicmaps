@@ -35,7 +35,7 @@
 /* Update maps later/Buy pro version later button text */
 "later" = "ภายหลัง";
 
-/* View and button titles for accessibility */
+/* View and button titles for accessibility, please also edit it in iphone/plist.txt */
 "search" = "ค้นหา";
 
 /* Settings/Downloader - 3G download warning dialog confirm button */
@@ -71,7 +71,7 @@
 /* "Bookmark Lists" dialog title */
 "bookmark_sets" = "ชุดของบุ๊กมาร์ก";
 
-/* "Bookmarks" dialog title */
+/* "Bookmarks" dialog title, please also edit it in iphone/plist.txt */
 "bookmarks" = "บุ๊กมาร์ก";
 
 /* Default bookmark list name */

@@ -10,16 +10,16 @@
 "search" = "Search";
 
 /* Used in home screen quick actions. */
-"bookmarks" = "Bookmarks";
+"bookmarks" = "Закладкі";
 
 /* Used in home screen quick actions. */
-"route" = "Route";
+"route" = "Маршрут";
 
 
 /********** gps strings **********/
 
 /* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
-"NSLocationAlwaysUsageDescription" = "Detecting location in the background is necessary to fully enjoy the functionality of the app. It is used for navigation and saving your recently traveled track.";
+"NSLocationAlwaysUsageDescription" = "Вызначэнне месцазнаходжання ў фонавым рэжыме неабходна для поўнага выкарыстання функцыянальнасці праграмы. Яно выкарыстоўваецца для навігацыі і захавання вашага нядаўна пройдзенага шляху.";
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
-"NSLocationWhenInUseUsageDescription" = "Determining your location is necessary for navigation and for saving your recently traveled track.";
+"NSLocationWhenInUseUsageDescription" = "Вызначэнне вашага месцазнаходжання неабходна для навігацыі і для захавання вашага нядаўна пройдзенага шляху.";

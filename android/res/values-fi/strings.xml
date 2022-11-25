@@ -25,7 +25,7 @@
 	<string name="core_my_position">Sijaintini</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">Myöhemmin</string>
-	<!-- View and button titles for accessibility -->
+	<!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
 	<string name="search">Haku</string>
 	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">Hae kartalta</string>
@@ -62,7 +62,7 @@
 	<string name="bookmark_color">Kirjanmerkin väri</string>
 	<!-- Add Bookmark list dialog - hint when the list name is empty -->
 	<string name="bookmark_set_name">Kirjanmerkkivalikoiman nimi</string>
-	<!-- "Bookmarks" dialog title -->
+	<!-- "Bookmarks" dialog title, please also edit it in iphone/plist.txt -->
 	<string name="bookmarks">Kirjanmerkit</string>
 	<!-- Default bookmark list name -->
 	<string name="core_my_places">Paikkani</string>

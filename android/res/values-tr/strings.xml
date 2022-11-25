@@ -25,7 +25,7 @@
 	<string name="core_my_position">Konumum</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">Daha sonra</string>
-	<!-- View and button titles for accessibility -->
+	<!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
 	<string name="search">Ara</string>
 	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">Haritada Ara</string>
@@ -62,7 +62,7 @@
 	<string name="bookmark_color">Yer İmi Rengi</string>
 	<!-- Add Bookmark list dialog - hint when the list name is empty -->
 	<string name="bookmark_set_name">Yer İmi Listesi Adı</string>
-	<!-- "Bookmarks" dialog title -->
+	<!-- "Bookmarks" dialog title, please also edit it in iphone/plist.txt -->
 	<string name="bookmarks">Yer İmleri</string>
 	<!-- Default bookmark list name -->
 	<string name="core_my_places">Yerlerim</string>

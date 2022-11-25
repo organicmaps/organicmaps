@@ -23,7 +23,7 @@
 	<string name="core_my_position">Mi posición</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">Luego</string>
-	<!-- View and button titles for accessibility -->
+	<!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
 	<string name="search">Buscar</string>
 	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">Buscar en el mapa</string>
@@ -60,7 +60,7 @@
 	<string name="bookmark_color">Color del marcador</string>
 	<!-- Add Bookmark list dialog - hint when the list name is empty -->
 	<string name="bookmark_set_name">Nombre del grupo de marcadores</string>
-	<!-- "Bookmarks" dialog title -->
+	<!-- "Bookmarks" dialog title, please also edit it in iphone/plist.txt -->
 	<string name="bookmarks">Marcadores</string>
 	<!-- Default bookmark list name -->
 	<string name="core_my_places">Mis lugares</string>

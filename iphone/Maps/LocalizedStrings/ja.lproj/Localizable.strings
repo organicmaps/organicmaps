@@ -35,7 +35,7 @@
 /* Update maps later/Buy pro version later button text */
 "later" = "次の機会に";
 
-/* View and button titles for accessibility */
+/* View and button titles for accessibility, please also edit it in iphone/plist.txt */
 "search" = "検索";
 
 /* Settings/Downloader - 3G download warning dialog confirm button */
@@ -71,7 +71,7 @@
 /* "Bookmark Lists" dialog title */
 "bookmark_sets" = "ブックマークセット";
 
-/* "Bookmarks" dialog title */
+/* "Bookmarks" dialog title, please also edit it in iphone/plist.txt */
 "bookmarks" = "ブックマーク";
 
 /* Default bookmark list name */

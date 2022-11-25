@@ -23,7 +23,7 @@
 	<string name="core_my_position">Min position</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">Senere</string>
-	<!-- View and button titles for accessibility -->
+	<!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
 	<string name="search">Søg</string>
 	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">Søg kort</string>
@@ -60,7 +60,7 @@
 	<string name="bookmark_color">Bogmærke Farve</string>
 	<!-- Add Bookmark list dialog - hint when the list name is empty -->
 	<string name="bookmark_set_name">Indstil bogmærkenavn</string>
-	<!-- "Bookmarks" dialog title -->
+	<!-- "Bookmarks" dialog title, please also edit it in iphone/plist.txt -->
 	<string name="bookmarks">Bogmærker</string>
 	<!-- Default bookmark list name -->
 	<string name="core_my_places">Mine Steder</string>

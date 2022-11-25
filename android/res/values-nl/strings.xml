@@ -23,7 +23,7 @@
 	<string name="core_my_position">Mijn locatie</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">Later</string>
-	<!-- View and button titles for accessibility -->
+	<!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
 	<string name="search">Zoeken</string>
 	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">Op de kaart zoeken</string>
@@ -60,7 +60,7 @@
 	<string name="bookmark_color">Bladwijzer-kleur</string>
 	<!-- Add Bookmark list dialog - hint when the list name is empty -->
 	<string name="bookmark_set_name">Naam van bladwijzergroep</string>
-	<!-- "Bookmarks" dialog title -->
+	<!-- "Bookmarks" dialog title, please also edit it in iphone/plist.txt -->
 	<string name="bookmarks">Bladwijzers</string>
 	<!-- Default bookmark list name -->
 	<string name="core_my_places">Mijn plaatsen</string>

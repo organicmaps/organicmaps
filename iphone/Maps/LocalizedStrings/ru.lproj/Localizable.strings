@@ -35,7 +35,7 @@
 /* Update maps later/Buy pro version later button text */
 "later" = "Не сейчас";
 
-/* View and button titles for accessibility */
+/* View and button titles for accessibility, please also edit it in iphone/plist.txt */
 "search" = "Поиск";
 
 /* Settings/Downloader - 3G download warning dialog confirm button */
@@ -71,7 +71,7 @@
 /* "Bookmark Lists" dialog title */
 "bookmark_sets" = "Списки меток";
 
-/* "Bookmarks" dialog title */
+/* "Bookmarks" dialog title, please also edit it in iphone/plist.txt */
 "bookmarks" = "Метки";
 
 /* Default bookmark list name */

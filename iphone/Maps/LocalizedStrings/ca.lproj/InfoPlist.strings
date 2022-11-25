@@ -10,16 +10,16 @@
 "search" = "Search";
 
 /* Used in home screen quick actions. */
-"bookmarks" = "Bookmarks";
+"bookmarks" = "Marcadors";
 
 /* Used in home screen quick actions. */
-"route" = "Route";
+"route" = "Ruta";
 
 
 /********** gps strings **********/
 
 /* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
-"NSLocationAlwaysUsageDescription" = "Detecting location in the background is necessary to fully enjoy the functionality of the app. It is used for navigation and saving your recently traveled track.";
+"NSLocationAlwaysUsageDescription" = "La detecció de la ubicació en segon pla és necessària per gaudir plenament de la funcionalitat de l'aplicació. S'utilitza per a la navegació i desar la ruta feta recentment.";
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
-"NSLocationWhenInUseUsageDescription" = "Determining your location is necessary for navigation and for saving your recently traveled track.";
+"NSLocationWhenInUseUsageDescription" = "Determinar la vostra ubicació és necessari per a la navegació i per desar el vostre recorregut recentment.";

@@ -24,7 +24,7 @@
 	<string name="core_my_position">Η θέση μου</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">Αργότερα</string>
-	<!-- View and button titles for accessibility -->
+	<!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
 	<string name="search">Αναζήτηση</string>
 	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">Αναζήτηση χάρτη</string>
@@ -61,7 +61,7 @@
 	<string name="bookmark_color">Χρώμα αγαπημένου</string>
 	<!-- Add Bookmark list dialog - hint when the list name is empty -->
 	<string name="bookmark_set_name">Όνομα συνόλου αγαπημένων</string>
-	<!-- "Bookmarks" dialog title -->
+	<!-- "Bookmarks" dialog title, please also edit it in iphone/plist.txt -->
 	<string name="bookmarks">Αγαπημένα</string>
 	<!-- Default bookmark list name -->
 	<string name="core_my_places">Οι τοποθεσίες μου</string>

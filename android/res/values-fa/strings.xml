@@ -12,7 +12,7 @@
 	<string name="delete">حذف</string>
 	<string name="download_maps">دانلود نقشه ها</string>
 	<!-- Settings/Downloader - info for country when download fails -->
-	<string name="download_has_failed">دانلود ناموفق بود . برای تلاش مجدد لمس کنید</string>
+	<string name="download_has_failed">دانلود ناموفق بود. برای تلاش مجدد لمس کنید</string>
 	<!-- Settings/Downloader - info for country which started downloading -->
 	<string name="downloading">درحال دانلود</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
@@ -26,7 +26,7 @@
 	<string name="core_my_position">مکان من</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">بعداً</string>
-	<!-- View and button titles for accessibility -->
+	<!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
 	<string name="search">جست‌وجو</string>
 	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">جست‌وجوی نقشه</string>
@@ -59,7 +59,7 @@
 	<string name="add_new_set">اضافه کردن مجموعه جدید</string>
 	<!-- Bookmark Color dialog title -->
 	<string name="bookmark_color">رنگ نشانه</string>
-	<!-- "Bookmarks" dialog title -->
+	<!-- "Bookmarks" dialog title, please also edit it in iphone/plist.txt -->
 	<string name="bookmarks">نشانه ها</string>
 	<!-- Default bookmark list name -->
 	<string name="core_my_places">مکان من</string>
@@ -152,7 +152,7 @@
 	<!-- Share by email button text, also used in editor and About. -->
 	<string name="email">ایمیل</string>
 	<!-- Text for message when used successfully copied something -->
-	<string name="copied_to_clipboard">کپی در کلیپ برد :%1$s</string>
+	<string name="copied_to_clipboard">کپی در کلیپ برد: %1$s</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">انجام شد</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->

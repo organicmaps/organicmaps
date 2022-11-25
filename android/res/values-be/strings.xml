@@ -26,7 +26,7 @@
 	<string name="core_my_position">Маё месцазнаходжанне</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">Потым</string>
-	<!-- View and button titles for accessibility -->
+	<!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
 	<string name="search">Шукаць</string>
 	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">Шукаць на мапе</string>
@@ -63,7 +63,7 @@
 	<string name="bookmark_color">Колер закладкі</string>
 	<!-- Add Bookmark list dialog - hint when the list name is empty -->
 	<string name="bookmark_set_name">Назва спісу закладак</string>
-	<!-- "Bookmarks" dialog title -->
+	<!-- "Bookmarks" dialog title, please also edit it in iphone/plist.txt -->
 	<string name="bookmarks">Закладкі</string>
 	<!-- Default bookmark list name -->
 	<string name="core_my_places">Мае месцы</string>
