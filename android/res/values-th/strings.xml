@@ -25,7 +25,7 @@
 	<string name="core_my_position">ตำแหน่งของฉัน</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">ภายหลัง</string>
-	<!-- View and button titles for accessibility -->
+	<!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
 	<string name="search">ค้นหา</string>
 	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">ค้นหาแผนที่</string>
@@ -62,7 +62,7 @@
 	<string name="bookmark_color">สีของบุ๊กมาร์ก</string>
 	<!-- Add Bookmark list dialog - hint when the list name is empty -->
 	<string name="bookmark_set_name">ชื่อของชุดบุ๊กมาร์ก</string>
-	<!-- "Bookmarks" dialog title -->
+	<!-- "Bookmarks" dialog title, please also edit it in iphone/plist.txt -->
 	<string name="bookmarks">บุ๊กมาร์ก</string>
 	<!-- Default bookmark list name -->
 	<string name="core_my_places">สถานที่ของฉัน</string>

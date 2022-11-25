@@ -23,7 +23,7 @@
 	<string name="core_my_position">我的位置</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">稍后</string>
-	<!-- View and button titles for accessibility -->
+	<!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
 	<string name="search">搜索</string>
 	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">搜索地图</string>
@@ -60,7 +60,7 @@
 	<string name="bookmark_color">书签颜色</string>
 	<!-- Add Bookmark list dialog - hint when the list name is empty -->
 	<string name="bookmark_set_name">书签集名称</string>
-	<!-- "Bookmarks" dialog title -->
+	<!-- "Bookmarks" dialog title, please also edit it in iphone/plist.txt -->
 	<string name="bookmarks">书签</string>
 	<!-- Default bookmark list name -->
 	<string name="core_my_places">我的位置</string>

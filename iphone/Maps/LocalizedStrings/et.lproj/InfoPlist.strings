@@ -10,7 +10,7 @@
 "search" = "Search";
 
 /* Used in home screen quick actions. */
-"bookmarks" = "Bookmarks";
+"bookmarks" = "Järjehoidjad";
 
 /* Used in home screen quick actions. */
 "route" = "Marsruut";
@@ -19,7 +19,7 @@
 /********** gps strings **********/
 
 /* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
-"NSLocationAlwaysUsageDescription" = "Detecting location in the background is necessary to fully enjoy the functionality of the app. It is used for navigation and saving your recently traveled track.";
+"NSLocationAlwaysUsageDescription" = "Rakenduse funktsionaalsuse täielikuks nautimiseks on vaja asukoha tuvastamist taustal. Seda kasutatakse navigeerimiseks ja hiljuti reisitud tee salvestamiseks.";
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
-"NSLocationWhenInUseUsageDescription" = "Determining your location is necessary for navigation and for saving your recently traveled track.";
+"NSLocationWhenInUseUsageDescription" = "Teie asukoha määramine on vajalik navigeerimiseks ja hiljuti reisitud raja salvestamiseks.";

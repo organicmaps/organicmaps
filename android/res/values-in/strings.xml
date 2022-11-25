@@ -25,7 +25,7 @@
 	<string name="core_my_position">Posisi Saya</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">Nanti</string>
-	<!-- View and button titles for accessibility -->
+	<!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
 	<string name="search">Cari</string>
 	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">Cari Peta</string>
@@ -62,7 +62,7 @@
 	<string name="bookmark_color">Warna Penanda</string>
 	<!-- Add Bookmark list dialog - hint when the list name is empty -->
 	<string name="bookmark_set_name">Nama Set Penanda</string>
-	<!-- "Bookmarks" dialog title -->
+	<!-- "Bookmarks" dialog title, please also edit it in iphone/plist.txt -->
 	<string name="bookmarks">Penanda</string>
 	<!-- Default bookmark list name -->
 	<string name="core_my_places">Tempat-tempat Saya</string>

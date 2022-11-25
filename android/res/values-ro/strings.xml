@@ -23,7 +23,7 @@
 	<string name="core_my_position">Poziția mea</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">Mai târziu</string>
-	<!-- View and button titles for accessibility -->
+	<!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
 	<string name="search">Caută</string>
 	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">Caută pe hartă</string>
@@ -60,7 +60,7 @@
 	<string name="bookmark_color">Culoare loc preferat</string>
 	<!-- Add Bookmark list dialog - hint when the list name is empty -->
 	<string name="bookmark_set_name">Denumirea listei</string>
-	<!-- "Bookmarks" dialog title -->
+	<!-- "Bookmarks" dialog title, please also edit it in iphone/plist.txt -->
 	<string name="bookmarks">Locuri preferate</string>
 	<!-- Default bookmark list name -->
 	<string name="core_my_places">Locurile mele</string>

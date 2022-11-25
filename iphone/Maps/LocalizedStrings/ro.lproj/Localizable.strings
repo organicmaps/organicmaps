@@ -35,7 +35,7 @@
 /* Update maps later/Buy pro version later button text */
 "later" = "Mai târziu";
 
-/* View and button titles for accessibility */
+/* View and button titles for accessibility, please also edit it in iphone/plist.txt */
 "search" = "Caută";
 
 /* Settings/Downloader - 3G download warning dialog confirm button */
@@ -71,7 +71,7 @@
 /* "Bookmark Lists" dialog title */
 "bookmark_sets" = "Liste cu locuri preferate";
 
-/* "Bookmarks" dialog title */
+/* "Bookmarks" dialog title, please also edit it in iphone/plist.txt */
 "bookmarks" = "Locuri preferate";
 
 /* Default bookmark list name */

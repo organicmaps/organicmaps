@@ -23,7 +23,7 @@
 	<string name="core_my_position">माझे स्थान</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">नंतर</string>
-	<!-- View and button titles for accessibility -->
+	<!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
 	<string name="search">शोधा</string>
 	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">नकाश्यात शोधा</string>
@@ -60,7 +60,7 @@
 	<string name="bookmark_color">खूणपत्र रंग</string>
 	<!-- Add Bookmark list dialog - hint when the list name is empty -->
 	<string name="bookmark_set_name">खूणपत्र यादीचे नाव</string>
-	<!-- "Bookmarks" dialog title -->
+	<!-- "Bookmarks" dialog title, please also edit it in iphone/plist.txt -->
 	<string name="bookmarks">खूणपत्रे</string>
 	<!-- Default bookmark list name -->
 	<string name="core_my_places">माझी ठिकाणे</string>

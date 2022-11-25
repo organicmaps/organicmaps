@@ -35,7 +35,7 @@
 /* Update maps later/Buy pro version later button text */
 "later" = "후";
 
-/* View and button titles for accessibility */
+/* View and button titles for accessibility, please also edit it in iphone/plist.txt */
 "search" = "검색하기";
 
 /* Settings/Downloader - 3G download warning dialog confirm button */
@@ -71,7 +71,7 @@
 /* "Bookmark Lists" dialog title */
 "bookmark_sets" = "세트를 즐겨찾기에 추가";
 
-/* "Bookmarks" dialog title */
+/* "Bookmarks" dialog title, please also edit it in iphone/plist.txt */
 "bookmarks" = "북마크";
 
 /* Default bookmark list name */

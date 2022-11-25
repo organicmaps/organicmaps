@@ -56,7 +56,7 @@
 	<string name="bookmark_color">צבע רשימת האתרים</string>
 	<!-- Add Bookmark list dialog - hint when the list name is empty -->
 	<string name="bookmark_set_name">שם רשימת האתרים</string>
-	<!-- "Bookmarks" dialog title -->
+	<!-- "Bookmarks" dialog title, please also edit it in iphone/plist.txt -->
 	<string name="bookmarks">רשימות אתרים</string>
 	<!-- Default bookmark list name -->
 	<string name="core_my_places">המקומות שלי</string>
@@ -217,7 +217,7 @@
 	<string name="twentyfour_seven">יום ולילה</string>
 	<string name="login_osm">OpenStreetMap-ל סנכיה</string>
 	<string name="level">קוֹמָה</string>
-	<string name="osm_presentation">.םלועה יבחר לכב םישמתשמ ינוילימל תונימזל תוכפוה ןהו ,תומוקמ ךורעל וא ףיסוהל לו</string>
+	<string name="osm_presentation">כל נתוני המפה מגיעים מפרויקט OpenStreetMap. זה כמו ויקיפדיה למפות, שבה אתה יכול להוסיף או לערוך מקומות, והם הופכים לזמינים למיליוני משתמשים בכל רחבי העולם.</string>
 	<string name="editor_share_to_all_dialog_message_2">.ןהשלכ תולאש םהל שי םא רשק ךתיא ורציו םייונישה תא וקדבי OpenStreetMap יכרוע</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps היא אפליקציית מפות לא מקוונות בחינם ובקוד פתוח. ללא פרסומות. אין מעקב. אם אתה רואה שגיאה במפה, אנא תקן אותה ב-OpenStreetMap. הפרויקט נוצר על ידי חובבים בזמננו הפנוי, אז אנו זקוקים למשוב ולתמיכה שלכם.</string>
