@@ -552,11 +552,11 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
   if (self.isViewLoaded) {
     auto searchState = MWMSearchManagerStateHidden;
     [MWMRouter stopRouting];
-    if ([action isEqualToString:@"me.maps.3daction.bookmarks"])
+    if ([action isEqualToString:@"app.organicmaps.3daction.bookmarks"])
       [self.bookmarksCoordinator open];
-    else if ([action isEqualToString:@"me.maps.3daction.search"])
+    else if ([action isEqualToString:@"app.organicmaps.3daction.search"])
       searchState = MWMSearchManagerStateDefault;
-    else if ([action isEqualToString:@"me.maps.3daction.route"])
+    else if ([action isEqualToString:@"app.organicmaps.3daction.route"])
       [self.controlsManager onRoutePrepare];
     [MWMSearchManager manager].state = searchState;
   } else {
