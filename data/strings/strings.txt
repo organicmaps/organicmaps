@@ -219,7 +219,7 @@
     es = Error durante la descarga. Pulse para intentarlo de nuevo.
     et = Allalaadimine ebaõnnestus. Puuduta uuesti proovimiseks.
     eu = Errore bat gertatu da deskargatzean, hasi berriro
-    fa = دانلود ناموفق بود . برای تلاش مجدد لمس کنید
+    fa = دانلود ناموفق بود. برای تلاش مجدد لمس کنید
     fi = Lataus epäonnistui, yritä uudelleen koskettamalla
     fr = Échec lors du téléchargement. Toucher de nouveau pour un essai de plus.
     he = הורדת הקובץ נכשלה. לחץ שוב לניסיון נוסף
@@ -521,7 +521,7 @@
     zh-Hant = 稍後
 
   [search]
-    comment = View and button titles for accessibility
+    comment = View and button titles for accessibility, please also edit it in iphone/plist.txt
     tags = android,ios
     en = Search
     ar = البحث
@@ -1613,7 +1613,7 @@
     zh-Hant = 收藏夾
 
   [bookmarks]
-    comment = "Bookmarks" dialog title
+    comment = "Bookmarks" dialog title, please also edit it in iphone/plist.txt
     tags = android,ios
     en = Bookmarks
     ar = الإشارات المرجعية
@@ -3802,7 +3802,7 @@
     es = Copiado al portapapeles: %1$@
     et = Kopeeritud vahemällu: %1$@
     eu = Arbelean kopiatu da: %1$@
-    fa = کپی در کلیپ برد :%1$@
+    fa = کپی در کلیپ برد: %1$@
     fi = Kopioitu leikepöydälle: %1$@
     fr = Copié dans le presse-papiers : %1$@
     he = הועתקו לזכרון זמני %1$@
@@ -13043,7 +13043,7 @@
     fa = .ﺪﻧﺮﯿﮔu200cﯽﻣ ﺭﺍﺮﻗ ﺱﺮﺘﺳﺩ ﺭﺩ ﻥﺎﻬﺟ ﺮﺳﺍﺮﺳ ﺭﺩ ﺮﺑﺭﺎﮐ ﺎﻫu200cﻥﻮﯿﻠﯿﻣ ﯼﺍﺮﺑ ﺎﻫu200cﻥﺁ ﻭ
     fi = Kaikki karttatiedot tulevat OpenStreetMap-projektista. Se on kuin karttojen Wikipedia, jossa voit lisätä tai muokata paikkoja, ja ne ovat miljoonien käyttäjien saatavilla kaikkialla maailmassa.
     fr = Toutes les données géographiques proviennent du projet OpenStreetMap. Le principe est similaire à Wikipedia: vous pouvez ajouter et modifier des lieux et ils deviendront accessibles à des millions d'utilisateurs partout dans le monde.
-    he = .םלועה יבחר לכב םישמתשמ ינוילימל תונימזל תוכפוה ןהו ,תומוקמ ךורעל וא ףיסוהל לו
+    he = כל נתוני המפה מגיעים מפרויקט OpenStreetMap. זה כמו ויקיפדיה למפות, שבה אתה יכול להוסיף או לערוך מקומות, והם הופכים לזמינים למיליוני משתמשים בכל רחבי העולם.
     hu = Minden térképadat az OpenStreetMap projektből származik. Olyan ez, mint a Wikipédia a térképekhez, ahol helyeket adhat hozzá vagy szerkeszthet, és a felhasználók milliói számára válnak elérhetővé szerte a világon.
     id = Semua data peta berasal dari proyek OpenStreetMap. Ini seperti Wikipedia untuk peta tempat Anda dapat menambahkan atau mengedit tempat, dan peta tersebut tersedia bagi jutaan pengguna di seluruh Dunia.
     it = Tutti i dati della mappa provengono dal progetto OpenStreetMap. È come Wikipedia per le mappe in cui puoi aggiungere o modificare luoghi e diventano disponibili per milioni di utenti in tutto il mondo.
@@ -16712,7 +16712,7 @@
     de = Für einige Sprachen müssen Sie einen anderen Sprachgenerator oder ein zusätzliches Sprachpaket aus dem App Store installieren (Google Play, Galaxy Store, App Gallery, FDroid). \nÖffnen Sie die Einstellungen Ihres Gerätes → Sprache und Eingabe → Sprache → Text-to-Speech-Ausgabe. Hier können Sie die Einstellungen für Sprachsynthese verwalten (beispielsweise ein Sprachpaket für die Offline-Verwendung herunterladen) und ein anderes Sprachausgabeprogramm auswählen.
     el = Για μερικές γλώσσες θα χρειαστεί να εγκαταστήσετε συνθεσάιζερ ομιλίας ή συμπληρωματικό πακέτο γλώσσας από το app store (Google Play, Galaxy Store, App Gallery, FDroid).\nΑνοίξτε τις Ρυθμίσεις της συσκευής σας → Γλώσσα και εισαγωγή → Ομιλία → Μετατροπή κειμένου σε ομιλία.\nΕδώ μπορείτε να διαχειριστείτε τις ρυθμίσεις της σύνθεσης ομιλίας (για παράδειγμα, μπορείτε να κατεβάσετε πακέτο γλώσσας για χρήση εκτός σύνδεσης) και να επιλέξετε άλλη μηχανή μετατροπής κειμένου σε ομιλία.
     es = Para algunos idiomas, debe instalar otro sintetizador de voz o un paquete de idioma adicional desde la tienda de aplicaciones (Google Play, Galaxy Store, App Gallery, FDroid). Abra los Ajustes de su dispositivo → Idioma e introducción → Voz → Opciones texto a voz. Aquí puede administrar la configuración de síntesis de voz (por ejemplo, descargar un paquete de idioma para poder usarlo sin conexión) o seleccionar otro motor de texto a voz.
-    et = Mõne keele puhul peate paigaldama kõnesüntesaatori või täiendava keelepaketi rakenduste poest (Google Play, Galaxy Store, App Gallery, FDroid).\nAvage oma seadme seaded → Keel ja sisend → Kõne → Tekst kõneks väljund .\nSiin saate hallata kõnesünteesi seadeid (näiteks alla laadida keelepaketti võrguühenduseta kasutamiseks) ja valida mõne muu teksti kõneks muutmise mootori.
+    et = Mõne keele puhul peate paigaldama kõnesüntesaatori või täiendava keelepaketi rakenduste poest (Google Play, Galaxy Store, App Gallery, FDroid).\nAvage oma seadme seaded → Keel ja sisend → Kõne → Tekst kõneks väljund.\nSiin saate hallata kõnesünteesi seadeid (näiteks alla laadida keelepaketti võrguühenduseta kasutamiseks) ja valida mõne muu teksti kõneks muutmise mootori.
     eu = Zenbait hizkuntzatan, beste ahots-sintetizadore bat edo hizkuntza-pakete gehigarri bat instalatu behar duzu aplikazio-dendatik (Google Play, Galaxy Store, App Gallery, FDroid). Ireki gailua Ezarpenak > Hizkuntza eta sarrera > Hizkera > Hizketarako testurako aukerak. Hemen ahots-sintesiaren ezarpenak kudea ditzakezu (adibidez, hizkuntza pakete bat deskargatu, konexiorik gabe erabiltzeko) edo testu-hizketarako beste motor bat hauta dezakezu.
     fa = برای بعضی از زبان ها، شما باید speech synthesizer یا یک بسته زبان دیگر را از فروشگاه برنامه (بازار Google Play، Galaxy Store) نصب کنید. \n تنظیمات دستگاه خود را باز کنید. → زبان و ورودی → گفتار → خروجی متن به گفتار. می توانید تنظیمات برای ترکیب گفتار (به عنوان مثال، بسته های زبان را برای استفاده آفلاین دانلود کنید) را مدیریت کنید و یک موتور دیگر متن به گفتار را انتخاب کنید.
     fi = Joidenkin kielien osalta sinun täytyy asentaa toinen puhesyntetisaattori tai lisäkielipaketti sovelluskaupasta (Google Play, Galaxy Store, App Gallery, FDroid). Avaa laitteen asetukset → Kieli ja syöttötapa → Puhe → Teksistä puheeksi -toisto. Täällä voit hallita puhesynteesin asetuksia (esimerkiksi ladata offline-tilassa käytettävän kielipaketin) ja valita toisen tekstistä puheeksi -moottorin.
