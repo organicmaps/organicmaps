@@ -127,7 +127,7 @@
 			<key>UIApplicationShortcutItemTitle</key>
 			<string>search</string>
 			<key>UIApplicationShortcutItemType</key>
-			<string>me.maps.3daction.search</string>
+			<string>app.organicmaps.3daction.search</string>
 		</dict>
 		<dict>
 			<key>UIApplicationShortcutItemIconFile</key>
@@ -135,7 +135,7 @@
 			<key>UIApplicationShortcutItemTitle</key>
 			<string>bookmarks</string>
 			<key>UIApplicationShortcutItemType</key>
-			<string>me.maps.3daction.bookmarks</string>
+			<string>app.organicmaps.3daction.bookmarks</string>
 		</dict>
 		<dict>
 			<key>UIApplicationShortcutItemIconFile</key>
@@ -143,7 +143,7 @@
 			<key>UIApplicationShortcutItemTitle</key>
 			<string>route</string>
 			<key>UIApplicationShortcutItemType</key>
-			<string>me.maps.3daction.route</string>
+			<string>app.organicmaps.3daction.route</string>
 		</dict>
 	</array>
 	<key>UIBackgroundModes</key>
