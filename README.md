@@ -139,7 +139,10 @@ and [Google Play](https://play.google.com/store/apps/details?id=app.organicmaps)
   - Присоединяйтесь к нашей [русскоязычной группе в Telegram](https://t.me/OrganicMapsRu) для обратной связи и помощи.
   - Diğer kullanıcılarla tartışmak için [Telegram Grubumuza](https://t.me/OrganicMapsTR) katılın.
 - Contact us by [email](mailto:hello@organicmaps.app).
-- Follow our updates in [Facebook](https://facebook.com/OrganicMaps), [Twitter](https://twitter.com/OrganicMapsApp),
+- Follow our updates in
+[Mastodon](https://fosstodon.org/@organicmaps),
+[Facebook](https://facebook.com/OrganicMaps),
+[Twitter](https://twitter.com/OrganicMapsApp),
 [Instagram](https://instagram.com/organicmaps.app/).
   - Güncellemelerimizi [Instagram](https://instagram.com/organicmapstr/) üzerinden takip edin.
 
