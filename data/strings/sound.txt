@@ -9,7 +9,7 @@
     da = Hold til højre.
     de = Halten Sie sich rechts.
     el = Μείνετε δεξιά.
-    es = Mantente a la derecha.
+    es = Manténgase a la derecha.
     eu = Mantendu eskuinera.
     fa = به راست برانید.
     fi = Pysy oikealla.
@@ -199,7 +199,7 @@
     da = Hold til venstre.
     de = Halten Sie sich links.
     el = Μείνετε αριστερά.
-    es = Mantente a la izquierda.
+    es = Manténgase a la izquierda.
     eu = Mantendu ezkerrean.
     fa = به چپ برانید.
     fi = Pysy vasemmalla.
