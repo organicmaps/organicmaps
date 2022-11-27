@@ -515,6 +515,7 @@ void ApplyPointFeature::Finish(ref_ptr<dp::TextureManager> texMng)
     params.m_minVisibleScale = m_minVisibleScale;
     params.m_rank = m_rank;
     params.m_symbolName = m_symbolRule->name();
+    ASSERT_GREATER_OR_EQUAL(m_symbolRule->min_distance(), 0, ());
     params.m_extendingSize = static_cast<uint32_t>(mainScale * m_symbolRule->min_distance() * poiExtendScale);
     params.m_posZ = m_posZ;
     params.m_hasArea = m_hasArea;
@@ -1145,12 +1146,13 @@ void ApplyLineFeatureAdditional::Finish(ref_ptr<dp::TextureManager> texMng,
   if (shieldPositions.empty())
     return;
 
+  // Set default shield's icon min distance.
   ASSERT(m_shieldRule != nullptr, ());
-  int constexpr kDefaultMinDistance = 50;
-  int minDistance = m_shieldRule->min_distance() != 0 ? m_shieldRule->min_distance()
-                                                      : kDefaultMinDistance;
-  if (minDistance < 0)
-    minDistance = kDefaultMinDistance;
+  int minDistance = m_shieldRule->min_distance();
+  ASSERT_GREATER_OR_EQUAL(minDistance, 0, ());
+  if (minDistance <= 0)
+    minDistance = 50;
+
   uint32_t const scaledMinDistance = static_cast<uint32_t>(vs * minDistance);
 
   uint8_t shieldIndex = 0;
