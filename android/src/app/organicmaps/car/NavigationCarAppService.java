@@ -7,10 +7,7 @@ import androidx.car.app.CarAppService;
 import androidx.car.app.Session;
 import androidx.car.app.validation.HostValidator;
 
-import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
-
-import java.io.IOException;
 
 public final class NavigationCarAppService extends CarAppService
 {
@@ -34,13 +31,6 @@ public final class NavigationCarAppService extends CarAppService
   @Override
   public Session onCreateSession()
   {
-    try
-    {
-      MwmApplication.from(getApplicationContext()).init();
-    } catch (IOException e)
-    {
-      e.printStackTrace();
-    }
     return new NavigationSession();
   }
 }
