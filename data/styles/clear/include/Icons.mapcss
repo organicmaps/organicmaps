@@ -1569,11 +1569,14 @@ area|z18-[craft]
 
 /* Declare _before_ all concrete shops to avoid icons override */
 node|z16-[shop],
-area|z16-[shop]
+area|z16-[shop],
+{icon-min-distance: 10;}
+node|z18-[shop],
+area|z18-[shop]
 {icon-image: shop-m.svg;text-offset: 1;font-size: 10;icon-min-distance: 10;}
 
-node|z18-[shop=massage],
-area|z18-[shop=massage]
+node|z17-[shop=massage],
+area|z17-[shop=massage]
 {icon-image: sauna-m.svg;font-size: 11;text-optional: true;}
 
 /* 5.1 Hospital */
