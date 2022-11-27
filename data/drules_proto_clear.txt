@@ -90369,11 +90369,6 @@ cont {
   name: "shop"
   element {
     scale: 16
-    symbol {
-      name: "shop-m"
-      priority: 16613
-      min_distance: 10
-    }
     caption {
       primary {
         height: 10
@@ -90385,11 +90380,6 @@ cont {
   }
   element {
     scale: 17
-    symbol {
-      name: "shop-m"
-      priority: 16613
-      min_distance: 10
-    }
     caption {
       primary {
         height: 10
@@ -90506,11 +90496,6 @@ cont {
   name: "shop-antiques"
   element {
     scale: 16
-    symbol {
-      name: "shop-m"
-      priority: 16613
-      min_distance: 10
-    }
     caption {
       primary {
         height: 10
@@ -90522,11 +90507,6 @@ cont {
   }
   element {
     scale: 17
-    symbol {
-      name: "shop-m"
-      priority: 16613
-      min_distance: 10
-    }
     caption {
       primary {
         height: 10
@@ -90573,11 +90553,6 @@ cont {
   name: "shop-art"
   element {
     scale: 16
-    symbol {
-      name: "shop-m"
-      priority: 16613
-      min_distance: 10
-    }
     caption {
       primary {
         height: 10
@@ -90589,11 +90564,6 @@ cont {
   }
   element {
     scale: 17
-    symbol {
-      name: "shop-m"
-      priority: 16613
-      min_distance: 10
-    }
     caption {
       primary {
         height: 10
@@ -90640,11 +90610,6 @@ cont {
   name: "shop-baby_goods"
   element {
     scale: 16
-    symbol {
-      name: "shop-m"
-      priority: 16613
-      min_distance: 10
-    }
     caption {
       primary {
         height: 10
@@ -90656,11 +90621,6 @@ cont {
   }
   element {
     scale: 17
-    symbol {
-      name: "shop-m"
-      priority: 16613
-      min_distance: 10
-    }
     caption {
       primary {
         height: 10
@@ -90707,11 +90667,6 @@ cont {
   name: "shop-bag"
   element {
     scale: 16
-    symbol {
-      name: "shop-m"
-      priority: 16613
-      min_distance: 10
-    }
     caption {
       primary {
         height: 10
@@ -90723,11 +90678,6 @@ cont {
   }
   element {
     scale: 17
-    symbol {
-      name: "shop-m"
-      priority: 16613
-      min_distance: 10
-    }
     caption {
       primary {
         height: 10
@@ -91194,11 +91144,6 @@ cont {
   name: "shop-boutique"
   element {
     scale: 16
-    symbol {
-      name: "shop-m"
-      priority: 16613
-      min_distance: 10
-    }
     caption {
       primary {
         height: 10
@@ -91210,11 +91155,6 @@ cont {
   }
   element {
     scale: 17
-    symbol {
-      name: "shop-m"
-      priority: 16613
-      min_distance: 10
-    }
     caption {
       primary {
         height: 10
@@ -91767,11 +91707,6 @@ cont {
   name: "shop-cheese"
   element {
     scale: 16
-    symbol {
-      name: "shop-m"
-      priority: 16613
-      min_distance: 10
-    }
     caption {
       primary {
         height: 10
@@ -91783,11 +91718,6 @@ cont {
   }
   element {
     scale: 17
-    symbol {
-      name: "shop-m"
-      priority: 16613
-      min_distance: 10
-    }
     caption {
       primary {
         height: 10
@@ -92044,11 +91974,6 @@ cont {
   name: "shop-coffee"
   element {
     scale: 16
-    symbol {
-      name: "shop-m"
-      priority: 16613
-      min_distance: 10
-    }
     caption {
       primary {
         height: 10
@@ -92060,11 +91985,6 @@ cont {
   }
   element {
     scale: 17
-    symbol {
-      name: "shop-m"
-      priority: 16613
-      min_distance: 10
-    }
     caption {
       primary {
         height: 10
@@ -92461,11 +92381,6 @@ cont {
   name: "shop-craft"
   element {
     scale: 16
-    symbol {
-      name: "shop-m"
-      priority: 16613
-      min_distance: 10
-    }
     caption {
       primary {
         height: 10
@@ -92477,11 +92392,6 @@ cont {
   }
   element {
     scale: 17
-    symbol {
-      name: "shop-m"
-      priority: 16613
-      min_distance: 10
-    }
     caption {
       primary {
         height: 10
@@ -92528,11 +92438,6 @@ cont {
   name: "shop-dairy"
   element {
     scale: 16
-    symbol {
-      name: "shop-m"
-      priority: 16613
-      min_distance: 10
-    }
     caption {
       primary {
         height: 10
@@ -92544,11 +92449,6 @@ cont {
   }
   element {
     scale: 17
-    symbol {
-      name: "shop-m"
-      priority: 16613
-      min_distance: 10
-    }
     caption {
       primary {
         height: 10
@@ -92875,11 +92775,6 @@ cont {
   name: "shop-electrical"
   element {
     scale: 16
-    symbol {
-      name: "shop-m"
-      priority: 16613
-      min_distance: 10
-    }
     caption {
       primary {
         height: 10
@@ -92891,11 +92786,6 @@ cont {
   }
   element {
     scale: 17
-    symbol {
-      name: "shop-m"
-      priority: 16613
-      min_distance: 10
-    }
     caption {
       primary {
         height: 10
@@ -93219,11 +93109,6 @@ cont {
   name: "shop-fishing"
   element {
     scale: 16
-    symbol {
-      name: "shop-m"
-      priority: 16613
-      min_distance: 10
-    }
     caption {
       primary {
         height: 10
@@ -93235,11 +93120,6 @@ cont {
   }
   element {
     scale: 17
-    symbol {
-      name: "shop-m"
-      priority: 16613
-      min_distance: 10
-    }
     caption {
       primary {
         height: 10
@@ -94056,11 +93936,6 @@ cont {
   name: "shop-interior_decoration"
   element {
     scale: 16
-    symbol {
-      name: "shop-m"
-      priority: 16613
-      min_distance: 10
-    }
     caption {
       primary {
         height: 10
@@ -94072,11 +93947,6 @@ cont {
   }
   element {
     scale: 17
-    symbol {
-      name: "shop-m"
-      priority: 16613
-      min_distance: 10
-    }
     caption {
       primary {
         height: 10
@@ -94403,11 +94273,6 @@ cont {
   name: "shop-lottery"
   element {
     scale: 16
-    symbol {
-      name: "shop-m"
-      priority: 16613
-      min_distance: 10
-    }
     caption {
       primary {
         height: 10
@@ -94419,11 +94284,6 @@ cont {
   }
   element {
     scale: 17
-    symbol {
-      name: "shop-m"
-      priority: 16613
-      min_distance: 10
-    }
     caption {
       primary {
         height: 10
@@ -94569,11 +94429,6 @@ cont {
   name: "shop-massage"
   element {
     scale: 16
-    symbol {
-      name: "shop-m"
-      priority: 16613
-      min_distance: 10
-    }
     caption {
       primary {
         height: 10
@@ -94586,7 +94441,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "shop-m"
+      name: "sauna-m"
       priority: 16613
       min_distance: 10
     }
@@ -94595,6 +94450,7 @@ cont {
         height: 10
         color: 4473924
         offset_y: 1
+        is_optional: true
       }
       priority: 15613
     }
@@ -94638,11 +94494,6 @@ cont {
   name: "shop-medical_supply"
   element {
     scale: 16
-    symbol {
-      name: "shop-m"
-      priority: 16613
-      min_distance: 10
-    }
     caption {
       primary {
         height: 10
@@ -94654,11 +94505,6 @@ cont {
   }
   element {
     scale: 17
-    symbol {
-      name: "shop-m"
-      priority: 16613
-      min_distance: 10
-    }
     caption {
       primary {
         height: 10
@@ -94775,11 +94621,6 @@ cont {
   name: "shop-money_lender"
   element {
     scale: 16
-    symbol {
-      name: "shop-m"
-      priority: 16613
-      min_distance: 10
-    }
     caption {
       primary {
         height: 10
@@ -95055,11 +94896,6 @@ cont {
   name: "shop-newsagent"
   element {
     scale: 16
-    symbol {
-      name: "shop-m"
-      priority: 16613
-      min_distance: 10
-    }
     caption {
       primary {
         height: 10
@@ -95125,11 +94961,6 @@ cont {
   name: "shop-nutrition_supplements"
   element {
     scale: 16
-    symbol {
-      name: "shop-m"
-      priority: 16613
-      min_distance: 10
-    }
     caption {
       primary {
         height: 10
@@ -95141,11 +94972,6 @@ cont {
   }
   element {
     scale: 17
-    symbol {
-      name: "shop-m"
-      priority: 16613
-      min_distance: 10
-    }
     caption {
       primary {
         height: 10
@@ -95332,11 +95158,6 @@ cont {
   name: "shop-paint"
   element {
     scale: 16
-    symbol {
-      name: "shop-m"
-      priority: 16613
-      min_distance: 10
-    }
     caption {
       primary {
         height: 10
@@ -95348,11 +95169,6 @@ cont {
   }
   element {
     scale: 17
-    symbol {
-      name: "shop-m"
-      priority: 16613
-      min_distance: 10
-    }
     caption {
       primary {
         height: 10
@@ -95469,11 +95285,6 @@ cont {
   name: "shop-pawnbroker"
   element {
     scale: 16
-    symbol {
-      name: "shop-m"
-      priority: 16650
-      min_distance: 10
-    }
     caption {
       primary {
         height: 10
@@ -95539,11 +95350,6 @@ cont {
   name: "shop-perfumery"
   element {
     scale: 16
-    symbol {
-      name: "shop-m"
-      priority: 16613
-      min_distance: 10
-    }
     caption {
       primary {
         height: 10
@@ -95555,11 +95361,6 @@ cont {
   }
   element {
     scale: 17
-    symbol {
-      name: "shop-m"
-      priority: 16613
-      min_distance: 10
-    }
     caption {
       primary {
         height: 10
@@ -95886,11 +95687,6 @@ cont {
   name: "shop-sewing"
   element {
     scale: 16
-    symbol {
-      name: "shop-m"
-      priority: 16613
-      min_distance: 10
-    }
     caption {
       primary {
         height: 10
@@ -95902,11 +95698,6 @@ cont {
   }
   element {
     scale: 17
-    symbol {
-      name: "shop-m"
-      priority: 16613
-      min_distance: 10
-    }
     caption {
       primary {
         height: 10
@@ -96093,11 +95884,6 @@ cont {
   name: "shop-stationery"
   element {
     scale: 16
-    symbol {
-      name: "shop-m"
-      priority: 16613
-      min_distance: 10
-    }
     caption {
       primary {
         height: 10
@@ -96163,11 +95949,6 @@ cont {
   name: "shop-storage_rental"
   element {
     scale: 16
-    symbol {
-      name: "shop-m"
-      priority: 16613
-      min_distance: 10
-    }
     caption {
       primary {
         height: 10
@@ -96179,11 +95960,6 @@ cont {
   }
   element {
     scale: 17
-    symbol {
-      name: "shop-m"
-      priority: 16613
-      min_distance: 10
-    }
     caption {
       primary {
         height: 10
@@ -96367,11 +96143,6 @@ cont {
   name: "shop-tea"
   element {
     scale: 16
-    symbol {
-      name: "shop-m"
-      priority: 16613
-      min_distance: 10
-    }
     caption {
       primary {
         height: 10
@@ -96383,11 +96154,6 @@ cont {
   }
   element {
     scale: 17
-    symbol {
-      name: "shop-m"
-      priority: 16613
-      min_distance: 10
-    }
     caption {
       primary {
         height: 10
@@ -96504,11 +96270,6 @@ cont {
   name: "shop-tobacco"
   element {
     scale: 16
-    symbol {
-      name: "shop-m"
-      priority: 16613
-      min_distance: 10
-    }
     caption {
       primary {
         height: 10
@@ -96520,11 +96281,6 @@ cont {
   }
   element {
     scale: 17
-    symbol {
-      name: "shop-m"
-      priority: 16613
-      min_distance: 10
-    }
     caption {
       primary {
         height: 10
@@ -96641,11 +96397,6 @@ cont {
   name: "shop-trade"
   element {
     scale: 16
-    symbol {
-      name: "shop-m"
-      priority: 16613
-      min_distance: 10
-    }
     caption {
       primary {
         height: 10
@@ -96657,11 +96408,6 @@ cont {
   }
   element {
     scale: 17
-    symbol {
-      name: "shop-m"
-      priority: 16613
-      min_distance: 10
-    }
     caption {
       primary {
         height: 10
@@ -96708,11 +96454,6 @@ cont {
   name: "shop-travel_agency"
   element {
     scale: 16
-    symbol {
-      name: "shop-m"
-      priority: 16613
-      min_distance: 10
-    }
     caption {
       primary {
         height: 10
@@ -96724,11 +96465,6 @@ cont {
   }
   element {
     scale: 17
-    symbol {
-      name: "shop-m"
-      priority: 16613
-      min_distance: 10
-    }
     caption {
       primary {
         height: 10
@@ -96845,11 +96581,6 @@ cont {
   name: "shop-variety_store"
   element {
     scale: 16
-    symbol {
-      name: "shop-m"
-      priority: 16613
-      min_distance: 10
-    }
     caption {
       primary {
         height: 10
@@ -96861,11 +96592,6 @@ cont {
   }
   element {
     scale: 17
-    symbol {
-      name: "shop-m"
-      priority: 16613
-      min_distance: 8
-    }
     caption {
       primary {
         height: 11
@@ -97052,11 +96778,6 @@ cont {
   name: "shop-watches"
   element {
     scale: 16
-    symbol {
-      name: "shop-m"
-      priority: 16613
-      min_distance: 10
-    }
     caption {
       primary {
         height: 10
@@ -97068,11 +96789,6 @@ cont {
   }
   element {
     scale: 17
-    symbol {
-      name: "shop-m"
-      priority: 16613
-      min_distance: 10
-    }
     caption {
       primary {
         height: 10
@@ -97119,11 +96835,6 @@ cont {
   name: "shop-wholesale"
   element {
     scale: 16
-    symbol {
-      name: "shop-m"
-      priority: 16613
-      min_distance: 10
-    }
     caption {
       primary {
         height: 10
@@ -97135,11 +96846,6 @@ cont {
   }
   element {
     scale: 17
-    symbol {
-      name: "shop-m"
-      priority: 16613
-      min_distance: 10
-    }
     caption {
       primary {
         height: 10
