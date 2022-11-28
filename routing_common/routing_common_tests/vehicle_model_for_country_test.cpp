@@ -4,7 +4,6 @@
 #include "routing_common/car_model.hpp"
 #include "routing_common/pedestrian_model.hpp"
 
-#include "indexer/classificator.hpp"
 #include "indexer/classificator_loader.hpp"
 
 #include <memory>
@@ -112,8 +111,8 @@ UNIT_CLASS_TEST(VehicleModelForCountryTest, CarModel_DirectParent)
 //    equals bicycle model for Russia and it's not default model.
 UNIT_CLASS_TEST(VehicleModelForCountryTest, BicycleModel_DirectParent)
 {
-  TestHaveNondefaultRestrictionForSelectedCountry<BicycleModel, BicycleModelFactory>(
-      "Russian Federation");
+  // Road types for RF are equal with defaults (speeds are not compared).
+//  TestHaveNondefaultRestrictionForSelectedCountry<BicycleModel, BicycleModelFactory>("Russian Federation");
   ParentTest<BicycleModel, BicycleModelFactory>("Moscow", "Russian Federation");
 }
 

@@ -163,14 +163,6 @@ line[aerialway=rope_tow],
 line[power=line]
 {z-index: 2000;}
 
-line[piste:lift],
-line[piste:lift=j-bar],
-line[piste:lift=magic_carpet],
-line[piste:lift=platter],
-line[piste:lift=rope_tow],
-line[piste:lift=t-bar],
-{z-index: 6888;}
-
 /* 2.SHIELD 10-22 ZOOM */
 
 line|z10-[highway=motorway],
@@ -514,12 +506,6 @@ line[railway=funicular]
 */
 /* 10.PISTE 15-22 ZOOM */
 /*
-line[piste:lift],
-line[piste:lift=j-bar],
-line[piste:lift=magic_carpet],
-line[piste:lift=platter],
-line[piste:lift=rope_tow],
-line[piste:lift=t-bar],
 line[power=line],
 line[aerialway=cable_car],
 line[aerialway=chair_lift],

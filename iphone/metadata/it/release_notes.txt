@@ -1,1 +1,23 @@
-../en-US/release_notes.txt
+• Nuovi dati cartografici OSM a partire dal 19 novembre
+• Corretta la velocità della bicicletta per migliorare il percorso
+• Corretta l'apertura di alcuni URL con i simboli # e ?
+• Corretta l'apertura del link Matrix dalla finestra di dialogo della Guida
+• Aggiunto Mastodon nella finestra di dialogo della Guida
+• Mostra il nome nella lingua locale nella pagina dei luoghi
+• Mostrato correttamente quando manca esattamente 1 ora alla chiusura del luogo
+
+Stili:
+• Corretti alcuni tipi impropriamente sovrapposti
+• Aggiunti highway=busway e fisioterapista
+• Isole e arcipelaghi sono ora visibili sulla Mappa del Mondo
+• Disegnare waterway=dam come area di sfondo
+• La priorità del disegno dell'acqua è ora inferiore a quella del molo
+• Corrette le aree di svago
+
+Traduzioni:
+• Aggiunta la traduzione in estone
+• Traduzioni aggiornate in ceco, norvegese, spagnolo e turco
+• Link al sito web localizzati nell'app, per favore aiutateci con la traduzione del nostro sito web: https://github.com/organicmaps/organicmaps.github.io
+• Metro per en-GB
+• Sistemate le traduzioni mancanti della categoria RV
+• Corretta la ricerca delle categorie per il catalano

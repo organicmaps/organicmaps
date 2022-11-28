@@ -130,6 +130,8 @@
 	<string name="recycling">回收</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
 	<string name="water">水</string>
+	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
+	<string name="rv">房车用</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">注释</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -515,6 +517,7 @@
 	<string name="prefs_languages_information_off_link">如需了解更多信息，请查阅此指南。</string>
 	<string name="transliteration_title">直译成拉丁文</string>
 	<string name="learn_more">了解更多</string>
+	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">退出</string>
 	<string name="routing_add_start_point">添加起点以规划路线</string>
 	<string name="routing_add_finish_point">添加终点以规划路线</string>
@@ -810,10 +813,12 @@
 	<string name="type.barrier.bollard">护柱</string>
 	<string name="type.barrier.border_control">边境检查站</string>
 	<string name="type.barrier.city_wall">城墙</string>
+	<string name="type.barrier.ditch">沟渠</string>
 	<string name="type.barrier.entrance">入口</string>
 	<string name="type.barrier.fence">篱笆</string>
 	<string name="type.barrier.gate">门</string>
 	<string name="type.barrier.hedge">树篱</string>
+	<string name="type.barrier.kissing_gate">门</string>
 	<string name="type.barrier.lift_gate">道闸</string>
 	<string name="type.barrier.retaining_wall">挡土墙</string>
 	<string name="type.barrier.stile">台阶</string>
@@ -959,6 +964,7 @@
 	<string name="type.emergency.phone">紧急电话</string>
 	<string name="type.entrance">入口</string>
 	<string name="type.healthcare.laboratory">医学实验室</string>
+	<string name="type.healthcare.physiotherapist">物理治疗师</string>
 
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway">公路要素</string>
@@ -1147,13 +1153,18 @@
 	<string name="type.historic.castle.shiro">城</string>
 	<string name="type.historic.castle.stately">法式城堡</string>
 	<string name="type.historic.city_gate">城门</string>
-	<string name="type.historic.citywalls">历史城墙</string>
+	<string name="type.historic.citywalls">城墙</string>
 	<string name="type.historic.fort">历史要塞</string>
+	<string name="type.historic.gallows">绞架</string>
 	<string name="type.historic.memorial">纪念物</string>
+	<string name="type.historic.memorial.cross">纪念十字架</string>
 	<string name="type.historic.memorial.plaque">纪念牌匾</string>
 	<string name="type.historic.memorial.sculpture">雕塑</string>
 	<string name="type.historic.memorial.statue">塑像</string>
+	<string name="type.historic.memorial.stolperstein">绊脚石</string>
+	<string name="type.historic.memorial.war_memorial">战争纪念建筑</string>
 	<string name="type.historic.monument">纪念堂</string>
+	<string name="type.historic.pillory">刑柱</string>
 	<string name="type.historic.ruins">废墟</string>
 	<string name="type.historic.ship">历史船</string>
 	<string name="type.historic.tomb">陵墓</string>
@@ -1202,6 +1213,7 @@
 	<string name="type.leisure.dog_park">遛狗区</string>
 	<string name="type.leisure.fitness_centre">健身中心</string>
 	<string name="type.leisure.fitness_station">健身驿站</string>
+	<string name="type.leisure.dance">舞厅</string>
 	<string name="type.leisure.garden">花园</string>
 	<string name="type.leisure.garden.residential">居民区花园</string>
 	<string name="type.leisure.golf_course">高尔夫球场</string>
@@ -1413,7 +1425,6 @@
 	<string name="type.railway.station.subway.lille">地铁车站</string>
 	<string name="type.railway.station.subway.lima">地铁车站</string>
 	<string name="type.railway.station.subway.lisboa">地铁车站</string>
-	<string name="type.railway.station.subway.lisbon">地铁车站</string>
 	<string name="type.railway.station.subway.london">地铁车站</string>
 	<string name="type.railway.station.subway.lyon">地铁车站</string>
 	<string name="type.railway.station.subway.madrid">地铁车站</string>
@@ -1523,7 +1534,6 @@
 	<string name="type.railway.subway_entrance.lille">地铁出入口</string>
 	<string name="type.railway.subway_entrance.lima">地铁出入口</string>
 	<string name="type.railway.subway_entrance.lisboa">地铁出入口</string>
-	<string name="type.railway.subway_entrance.lisbon">地铁出入口</string>
 	<string name="type.railway.subway_entrance.london">地铁出入口</string>
 	<string name="type.railway.subway_entrance.lyon">地铁出入口</string>
 	<string name="type.railway.subway_entrance.madrid">地铁出入口</string>

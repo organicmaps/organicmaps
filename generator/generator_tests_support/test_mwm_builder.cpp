@@ -36,8 +36,8 @@ namespace generator
 {
 namespace tests_support
 {
-using namespace std;
 using namespace feature;
+using std::string, std::vector;
 
 namespace
 {
@@ -65,7 +65,7 @@ TestMwmBuilder::TestMwmBuilder(platform::LocalCountryFile & file, DataHeader::Ma
   : m_file(file)
   , m_type(type)
   , m_collector(
-        make_unique<FeaturesCollector>(m_file.GetPath(MapFileType::Map) + EXTENSION_TMP))
+        std::make_unique<FeaturesCollector>(m_file.GetPath(MapFileType::Map) + EXTENSION_TMP))
   , m_version(version)
 {
 }
@@ -137,8 +137,8 @@ bool TestMwmBuilder::Add(FeatureBuilder & fb)
   return true;
 }
 
-void TestMwmBuilder::SetUKPostcodesData(
-    string const & postcodesPath, shared_ptr<storage::CountryInfoGetter> const & countryInfoGetter)
+void TestMwmBuilder::SetUKPostcodesData(string const & postcodesPath,
+    std::shared_ptr<storage::CountryInfoGetter> const & countryInfoGetter)
 {
   m_ukPostcodesPath = postcodesPath;
   m_postcodesCountryInfoGetter = countryInfoGetter;

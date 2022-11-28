@@ -153,7 +153,7 @@
 "water" = "น้ำ";
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
-"rv" = "RV Facilities";
+"rv" = "สำหรับ RV";
 
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
 
@@ -274,6 +274,9 @@
 "matrix" = "[matrix]";
 
 /* Text in menu */
+"mastodon" = "Mastodon";
+
+/* Text in menu */
 "facebook" = "Facebook";
 
 /* Text in menu */
@@ -296,6 +299,9 @@
 
 /* Button in the main Help dialog */
 "faq" = "คำถามและคำตอบ";
+
+/* Button in the main menu */
+"donate" = "บริจาค";
 
 /* Button in the main Help dialog */
 "how_to_support_us" = "วิธีการสนับสนุนเรา";
@@ -512,6 +518,12 @@
 "search_history_text" = "เข้าถึงคำถามที่ใช้ในการค้นหาเมื่อเร็ว ๆ นี้ได้อย่างรวดเร็ว";
 
 "clear_search" = "ล้างการค้นหาประวัติ";
+
+/* Place Page link to Wikipedia article (if map object has it). */
+"read_in_wikipedia" = "Wikipedia";
+
+/* Place Page link to Wikimedia Commons. */
+"wikimedia_commons" = "Wikimedia Commons";
 
 "p2p_your_location" = "ตำแหน่งที่ตั้งของคุณ";
 
@@ -874,6 +886,7 @@
 
 "transliteration_title" = "การทับศัพท์เป็นภาษาละติน";
 
+/* Subway exits for public transport marks on the map */
 "core_exit" = "ออก";
 
 "routing_add_start_point" = "เพิ่มจุดเริ่มต้นเพื่อวางแผนเส้นทาง";
@@ -1214,26 +1227,29 @@
 /* edit track screen title */
 "track_title" = "ติดตาม";
 
-/* Telegram group url for the help page */
+/* Telegram group url for the "?" About page */
 "telegram_url" = "https://t.me/OrganicMapsApp";
 
-/* Instagram account url for the help page */
+/* Instagram account url for the "?" About page */
 "instagram_url" = "https://www.instagram.com/organicmaps.app";
+
+/* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
+"translated_om_site_url" = "https://organicmaps.app/";
 
 
 /********** Types **********/
 
 "type.aerialway" = "Aerialway";
 
-"type.aerialway.cable_car" = "Aerialway";
+"type.aerialway.cable_car" = "Cable car";
 
-"type.aerialway.chair_lift" = "Aerialway";
+"type.aerialway.chair_lift" = "Chair lift";
 
-"type.aerialway.drag_lift" = "Aerialway";
+"type.aerialway.drag_lift" = "Drag lift";
 
-"type.aerialway.gondola" = "Aerialway";
+"type.aerialway.gondola" = "Gondola";
 
-"type.aerialway.mixed_lift" = "Aerialway";
+"type.aerialway.mixed_lift" = "Mixed lift";
 
 "type.aerialway.station" = "สถานีกระเช้าลอยฟ้า";
 
@@ -1456,7 +1472,7 @@
 
 "type.recycling.green_waste" = "Green/Organic Waste";
 
-"type.recycling.cartons" = "Bewerage Cartons";
+"type.recycling.cartons" = "Beverage Cartons";
 
 "type.amenity.restaurant" = "ร้านอาหาร";
 
@@ -1526,9 +1542,11 @@
 
 "type.barrier.chain" = "Chain";
 
-"type.barrier.city_wall" = "City Wall";
+"type.barrier.city_wall" = "กำแพงเมือง";
 
 "type.barrier.cycle_barrier" = "Cycle Barrier";
+
+"type.barrier.ditch" = "คูเมือง";
 
 "type.barrier.entrance" = "ทางเข้า";
 
@@ -1537,6 +1555,8 @@
 "type.barrier.gate" = "ประตู";
 
 "type.barrier.hedge" = "Hedge";
+
+"type.barrier.kissing_gate" = "ประตู";
 
 "type.barrier.lift_gate" = "ไม้กั้น";
 
@@ -1828,6 +1848,8 @@
 "type.entrance" = "ทางเข้า";
 
 "type.healthcare.laboratory" = "ห้องปฏิบัติการทางการแพทย์";
+
+"type.healthcare.physiotherapist" = "นักกายภาพบำบัด";
 
 
 /********** Types: Roads **********/
@@ -2133,13 +2155,13 @@
 
 /********** Types: Historic **********/
 
-"type.historic" = "Historic";
+"type.historic" = "วัตถุประวัติศาสตร์";
 
 "type.historic.archaeological_site" = "โบราณสถาน";
 
-"type.historic.battlefield" = "Battlefield";
+"type.historic.battlefield" = "สนามรบ";
 
-"type.historic.boundary_stone" = "Boundary Stone";
+"type.historic.boundary_stone" = "ขอบหิน";
 
 "type.historic.castle" = "ปราสาท";
 
@@ -2165,11 +2187,15 @@
 
 "type.historic.city_gate" = "ประตูเมือง";
 
-"type.historic.citywalls" = "City Wall";
+"type.historic.citywalls" = "กำแพงเมือง";
 
-"type.historic.fort" = "Fort";
+"type.historic.fort" = "ป้อม";
+
+"type.historic.gallows" = "Gallows";
 
 "type.historic.memorial" = "ที่ระลึก";
+
+"type.historic.memorial.cross" = "อนุสรณ์สถานข้าม";
 
 "type.historic.memorial.plaque" = "ที่ระลึก";
 
@@ -2177,7 +2203,13 @@
 
 "type.historic.memorial.statue" = "ที่ระลึก";
 
+"type.historic.memorial.stolperstein" = "อุปสรรค์";
+
+"type.historic.memorial.war_memorial" = "อนุสรณ์สถานสงคราม";
+
 "type.historic.monument" = "อนุสาวรีย์";
+
+"type.historic.pillory" = "ประจาน";
 
 "type.historic.ruins" = "ซากปรักหักพัง";
 
@@ -2185,9 +2217,9 @@
 
 "type.historic.tomb" = "สถานที่ท่องเที่ยว";
 
-"type.historic.wayside_cross" = "Christian Cross";
+"type.historic.wayside_cross" = "ทางข้าม";
 
-"type.historic.wayside_shrine" = "Shrine";
+"type.historic.wayside_shrine" = "ศาลเจ้าข้างทาง";
 
 "type.hwtag" = "hwtag";
 
@@ -2307,6 +2339,8 @@
 
 "type.leisure.fitness_station" = "ศูนย์ฟิตเนส";
 
+"type.leisure.dance" = "แดนซ์ฮอลล์";
+
 "type.leisure.garden" = "สวน";
 
 "type.leisure.garden.residential" = "สวน";
@@ -2391,7 +2425,7 @@
 
 "type.man_made.tower" = "หอคอย";
 
-"type.man_made.wastewater_plant" = "Wastewater Plant";
+"type.man_made.wastewater_plant" = "Wastewater treatment plant";
 
 "type.man_made.water_tap" = "ก๊อกน้ำ";
 
@@ -2436,6 +2470,8 @@
 "type.man_made.embankment" = "เขื่อน";
 
 "type.natural.coastline" = "ชายฝั่ง";
+
+"type.natural.desert" = "Desert";
 
 "type.natural.geyser" = "นำ้พุร้อน";
 
@@ -2611,13 +2647,13 @@
 
 "type.railway" = "Railway";
 
-"type.railway.abandoned" = "Abandoned railway";
+"type.railway.abandoned" = "Abandoned Railway";
 
-"type.railway.abandoned.bridge" = "Abandoned railway";
+"type.railway.abandoned.bridge" = "Abandoned Railway Bridge";
 
-"type.railway.abandoned.tunnel" = "Abandoned Railway";
+"type.railway.abandoned.tunnel" = "Abandoned Railway Tunnel";
 
-"type.railway.construction" = "Railway's Construction";
+"type.railway.construction" = "Railway Construction";
 
 "type.railway.crossing" = "Railway Crossing";
 
@@ -2625,9 +2661,9 @@
 
 "type.railway.funicular" = "Funicular";
 
-"type.railway.funicular.bridge" = "Funicular";
+"type.railway.funicular.bridge" = "Funicular Bridge";
 
-"type.railway.funicular.tunnel" = "Funicular";
+"type.railway.funicular.tunnel" = "Funicular Tunnel";
 
 "type.railway.halt" = "สถานีรถไฟ";
 
@@ -2635,51 +2671,51 @@
 
 "type.railway.light_rail" = "Light Rail";
 
-"type.railway.light_rail.bridge" = "Light Rail";
+"type.railway.light_rail.bridge" = "Light Rail Bridge";
 
-"type.railway.light_rail.tunnel" = "Light Rail";
+"type.railway.light_rail.tunnel" = "Light Rail Tunnel";
 
 "type.railway.monorail" = "รางรถไฟรางเดี่ยว";
 
-"type.railway.monorail.bridge" = "Monorail";
+"type.railway.monorail.bridge" = "Monorail Bridge";
 
-"type.railway.monorail.tunnel" = "Monorail";
+"type.railway.monorail.tunnel" = "Monorail Tunnel";
 
 "type.railway.narrow_gauge" = "Narrow Gauge Rail";
 
-"type.railway.narrow_gauge.bridge" = "Narrow Gauge Rail";
+"type.railway.narrow_gauge.bridge" = "Narrow Gauge Rail Bridge";
 
-"type.railway.narrow_gauge.tunnel" = "Narrow Gauge Rail";
+"type.railway.narrow_gauge.tunnel" = "Narrow Gauge Rail Tunnel";
 
 "type.railway.platform" = "Railway Platform";
 
 "type.railway.preserved" = "Preserved Rail";
 
-"type.railway.preserved.bridge" = "Preserved Rail";
+"type.railway.preserved.bridge" = "Preserved Rail Bridge";
 
-"type.railway.preserved.tunnel" = "Preserved Rail";
+"type.railway.preserved.tunnel" = "Preserved Rail Tunnel";
 
 "type.railway.rail" = "รถไฟ";
 
-"type.railway.rail.bridge" = "Railway";
+"type.railway.rail.bridge" = "Railway Bridge";
 
 "type.railway.rail.motor_vehicle" = "Railway";
 
-"type.railway.rail.tunnel" = "Railway";
+"type.railway.rail.tunnel" = "Railway Tunnel";
 
 "type.railway.razed" = "Razed Rail";
 
 "type.railway.siding" = "Siding Rail";
 
-"type.railway.siding.bridge" = "Siding Rail";
+"type.railway.siding.bridge" = "Siding Rail Bridge";
 
-"type.railway.siding.tunnel" = "Siding Rail";
+"type.railway.siding.tunnel" = "Siding Rail Tunnel";
 
 "type.railway.spur" = "Spur Rail";
 
-"type.railway.spur.bridge" = "Spur Rail";
+"type.railway.spur.bridge" = "Spur Rail Bridge";
 
-"type.railway.spur.tunnel" = "Spur Rail";
+"type.railway.spur.tunnel" = "Spur Rail Tunnel";
 
 "type.railway.station" = "สถานีรถไฟ";
 
@@ -2792,8 +2828,6 @@
 "type.railway.station.subway.lima" = "รถไฟ";
 
 "type.railway.station.subway.lisboa" = "รถไฟ";
-
-"type.railway.station.subway.lisbon" = "รถไฟ";
 
 "type.railway.station.subway.london" = "รถไฟ";
 
@@ -2909,9 +2943,9 @@
 
 "type.railway.subway" = "Subway Line";
 
-"type.railway.subway.bridge" = "Subway Line";
+"type.railway.subway.bridge" = "Subway Line Bridge";
 
-"type.railway.subway.tunnel" = "Subway Line";
+"type.railway.subway.tunnel" = "Subway Line Tunnel";
 
 "type.railway.subway_entrance" = "ทางเข้ารถไฟใต้ดิน";
 
@@ -3018,8 +3052,6 @@
 "type.railway.subway_entrance.lima" = "ทางเข้ารถไฟใต้ดิน";
 
 "type.railway.subway_entrance.lisboa" = "ทางเข้ารถไฟใต้ดิน";
-
-"type.railway.subway_entrance.lisbon" = "ทางเข้ารถไฟใต้ดิน";
 
 "type.railway.subway_entrance.london" = "ทางเข้ารถไฟใต้ดิน";
 
@@ -3135,17 +3167,17 @@
 
 "type.railway.tram" = "Tram Line";
 
-"type.railway.tram.bridge" = "Tram Line";
+"type.railway.tram.bridge" = "Tram Line Bridge";
 
-"type.railway.tram.tunnel" = "Tram Line";
+"type.railway.tram.tunnel" = "Tram Line Tunnel";
 
 "type.railway.tram_stop" = "ป้ายรถราง";
 
 "type.railway.yard" = "Railway Yard";
 
-"type.railway.yard.bridge" = "Railway Yard";
+"type.railway.yard.bridge" = "Railway Yard Bridge";
 
-"type.railway.yard.tunnel" = "Railway Yard";
+"type.railway.yard.tunnel" = "Railway Yard Tunnel";
 
 "type.route" = "route";
 
@@ -3534,18 +3566,15 @@
 
 "type.wheelchair.yes" = "พื้นใช้รถเข็นสำหรับผู้ป่วย/ผู้สูงอายุได้";
 
-/* en.wikipedia.org/wiki/Surface_lift */
-"type.piste_lift" = "Surface Lift";
+"type.aerialway.j.bar" = "J-bar Lift";
 
-"type.piste_lift.j.bar" = "J-bar Lift";
+"type.aerialway.magic_carpet" = "Magic Carpet";
 
-"type.piste_lift.magic_carpet" = "Magic Carpet";
+"type.aerialway.platter" = "Platter Lift";
 
-"type.piste_lift.platter" = "Platter Lift";
+"type.aerialway.rope_tow" = "Rope Tow";
 
-"type.piste_lift.rope_tow" = "Rope Tow";
-
-"type.piste_lift.t.bar" = "T-bar Lift";
+"type.aerialway.t.bar" = "T-bar Lift";
 
 "type.piste_type" = "Piste Type";
 

@@ -18,15 +18,12 @@
 #include <iterator>
 #include <sstream>
 
-using namespace base;
-using namespace generator;
-using namespace routing;
-using namespace feature;
-using namespace std;
-
+namespace generator
+{
 namespace
 {
-bool ParseMaxspeedAndWriteToStream(string const & maxspeed, SpeedInUnits & speed, ostringstream & ss)
+bool ParseMaxspeedAndWriteToStream(std::string const & maxspeed, routing::SpeedInUnits & speed,
+                                   std::ostringstream & ss)
 {
   if (maxspeed.empty() || !ParseMaxspeedTag(maxspeed, speed))
     return false;
@@ -36,33 +33,31 @@ bool ParseMaxspeedAndWriteToStream(string const & maxspeed, SpeedInUnits & speed
 }
 }  // namespace
 
-namespace generator
-{
-MaxspeedsCollector::MaxspeedsCollector(string const & filename)
+MaxspeedsCollector::MaxspeedsCollector(std::string const & filename)
   : CollectorInterface(filename)
 {
-  m_stream.exceptions(fstream::failbit | fstream::badbit);
+  m_stream.exceptions(std::fstream::failbit | std::fstream::badbit);
   m_stream.open(GetTmpFilename());
 }
 
-shared_ptr<CollectorInterface> MaxspeedsCollector::Clone(
-    shared_ptr<cache::IntermediateDataReaderInterface> const &) const
+std::shared_ptr<CollectorInterface> MaxspeedsCollector::Clone(
+    std::shared_ptr<cache::IntermediateDataReaderInterface> const &) const
 {
-  return make_shared<MaxspeedsCollector>(GetFilename());
+  return std::make_shared<MaxspeedsCollector>(GetFilename());
 }
 
-void MaxspeedsCollector::CollectFeature(FeatureBuilder const & ft, OsmElement const & p)
+void MaxspeedsCollector::CollectFeature(feature::FeatureBuilder const & ft, OsmElement const & p)
 {
   if (!p.IsWay())
     return;
 
-  ostringstream ss;
+  std::ostringstream ss;
   ss << p.m_id << ",";
 
-  string maxspeedForwardStr, maxspeedBackwardStr, maxspeedAdvisoryStr;
+  std::string maxspeedForwardStr, maxspeedBackwardStr, maxspeedAdvisoryStr;
   bool isReverse = false;
 
-  SpeedInUnits maxspeed;
+  routing::SpeedInUnits maxspeed;
   for (auto const & t : p.Tags())
   {
     if (t.m_key == "maxspeed" && ParseMaxspeedAndWriteToStream(t.m_value, maxspeed, ss))
@@ -93,9 +88,9 @@ void MaxspeedsCollector::CollectFeature(FeatureBuilder const & ft, OsmElement co
   {
     // Note. Keeping only maxspeed:forward and maxspeed:backward if they have the same units.
     // The exception is maxspeed:forward or maxspeed:backward have a special values
-    // like "none" or "walk". In that case units mean nothing an the values should
+    // like "none" or "walk". In that case units mean nothing and the values should
     // be processed in a special way.
-    SpeedInUnits maxspeedBackward;
+    routing::SpeedInUnits maxspeedBackward;
     if (ParseMaxspeedTag(maxspeedBackwardStr, maxspeedBackward) &&
         HaveSameUnits(maxspeed, maxspeedBackward))
     {
@@ -132,7 +127,7 @@ void MaxspeedsCollector::Save()
   CHECK(!m_stream.is_open(), ("Finish() has not been called."));
   LOG(LINFO, ("Saving maxspeed tag values to", GetFilename()));
   if (Platform::IsFileExistsByFullPath(GetTmpFilename()))
-    CHECK(CopyFileX(GetTmpFilename(), GetFilename()), ());
+    CHECK(base::CopyFileX(GetTmpFilename(), GetFilename()), ());
 }
 
 void MaxspeedsCollector::OrderCollectedData() { OrderTextFileByLine(GetFilename()); }

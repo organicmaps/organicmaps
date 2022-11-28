@@ -153,7 +153,7 @@
 "water" = "水";
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
-"rv" = "RV Facilities";
+"rv" = "RV用";
 
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
 
@@ -274,6 +274,9 @@
 "matrix" = "[matrix]";
 
 /* Text in menu */
+"mastodon" = "Mastodon";
+
+/* Text in menu */
 "facebook" = "Facebook";
 
 /* Text in menu */
@@ -296,6 +299,9 @@
 
 /* Button in the main Help dialog */
 "faq" = "質問と回答";
+
+/* Button in the main menu */
+"donate" = "寄付";
 
 /* Button in the main Help dialog */
 "how_to_support_us" = "どのように私たちを支持する方法？";
@@ -512,6 +518,12 @@
 "search_history_text" = "最近の検索クエリに素早くアクセス。";
 
 "clear_search" = "検索履歴を消去";
+
+/* Place Page link to Wikipedia article (if map object has it). */
+"read_in_wikipedia" = "Wikipedia";
+
+/* Place Page link to Wikimedia Commons. */
+"wikimedia_commons" = "Wikimedia Commons";
 
 "p2p_your_location" = "現在位置";
 
@@ -874,6 +886,7 @@
 
 "transliteration_title" = "ラテン文字への字訳";
 
+/* Subway exits for public transport marks on the map */
 "core_exit" = "終了";
 
 "routing_add_start_point" = "ルートを計画するには出発地点を追加してください";
@@ -1214,11 +1227,14 @@
 /* edit track screen title */
 "track_title" = "トラック";
 
-/* Telegram group url for the help page */
+/* Telegram group url for the "?" About page */
 "telegram_url" = "https://t.me/OrganicMapsApp";
 
-/* Instagram account url for the help page */
+/* Instagram account url for the "?" About page */
 "instagram_url" = "https://www.instagram.com/organicmaps.app";
+
+/* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
+"translated_om_site_url" = "https://organicmaps.app/";
 
 
 /********** Types **********/
@@ -1456,7 +1472,7 @@
 
 "type.recycling.green_waste" = "Green/Organic Waste";
 
-"type.recycling.cartons" = "Bewerage Cartons";
+"type.recycling.cartons" = "Beverage Cartons";
 
 "type.amenity.restaurant" = "レストラン";
 
@@ -1530,6 +1546,8 @@
 
 "type.barrier.cycle_barrier" = "バリカー";
 
+"type.barrier.ditch" = "堀";
+
 "type.barrier.entrance" = "エントランス";
 
 "type.barrier.fence" = "フェンス";
@@ -1537,6 +1555,8 @@
 "type.barrier.gate" = "ゲート";
 
 "type.barrier.hedge" = "生垣";
+
+"type.barrier.kissing_gate" = "ゲート";
 
 "type.barrier.lift_gate" = "ブームバリア";
 
@@ -1828,6 +1848,8 @@
 "type.entrance" = "エントランス";
 
 "type.healthcare.laboratory" = "医療研究所";
+
+"type.healthcare.physiotherapist" = "理学療法士";
 
 
 /********** Types: Roads **********/
@@ -2165,11 +2187,15 @@
 
 "type.historic.city_gate" = "城門";
 
-"type.historic.citywalls" = "歴史的な城壁";
+"type.historic.citywalls" = "城壁";
 
 "type.historic.fort" = "歴史的な要塞";
 
+"type.historic.gallows" = "絞首台";
+
 "type.historic.memorial" = "記念碑";
+
+"type.historic.memorial.cross" = "メモリアルクロス";
 
 "type.historic.memorial.plaque" = "銘板";
 
@@ -2177,7 +2203,13 @@
 
 "type.historic.memorial.statue" = "塑像";
 
+"type.historic.memorial.stolperstein" = "ストルパーシュタイン";
+
+"type.historic.memorial.war_memorial" = "戦争記念施設";
+
 "type.historic.monument" = "記念碑";
+
+"type.historic.pillory" = "さらし台";
 
 "type.historic.ruins" = "古跡";
 
@@ -2306,6 +2338,8 @@
 "type.leisure.fitness_centre" = "フィットネスセンター、ジム";
 
 "type.leisure.fitness_station" = "フィットネスステーション";
+
+"type.leisure.dance" = "ダンスホール";
 
 "type.leisure.garden" = "庭園";
 
@@ -2436,6 +2470,8 @@
 "type.man_made.embankment" = "盛土";
 
 "type.natural.coastline" = "海岸線";
+
+"type.natural.desert" = "荒野";
 
 "type.natural.geyser" = "間欠泉";
 
@@ -2793,8 +2829,6 @@
 
 "type.railway.station.subway.lisboa" = "地下鉄";
 
-"type.railway.station.subway.lisbon" = "地下鉄";
-
 "type.railway.station.subway.london" = "地下鉄";
 
 "type.railway.station.subway.lyon" = "地下鉄";
@@ -2909,9 +2943,9 @@
 
 "type.railway.subway" = "Subway Line";
 
-"type.railway.subway.bridge" = "Subway Line";
+"type.railway.subway.bridge" = "Subway Line Bridge";
 
-"type.railway.subway.tunnel" = "Subway Line";
+"type.railway.subway.tunnel" = "Subway Line Tunnel";
 
 "type.railway.subway_entrance" = "地下鉄入り口";
 
@@ -3018,8 +3052,6 @@
 "type.railway.subway_entrance.lima" = "地下鉄入り口";
 
 "type.railway.subway_entrance.lisboa" = "地下鉄入り口";
-
-"type.railway.subway_entrance.lisbon" = "地下鉄入り口";
 
 "type.railway.subway_entrance.london" = "地下鉄入り口";
 
@@ -3498,7 +3530,7 @@
 
 "type.waterway.ditch" = "排水路";
 
-"type.waterway.ditch.tunnel" = "排水路(トンネル)";
+"type.waterway.ditch.tunnel" = "排水路";
 
 "type.waterway.dock" = "ドック";
 
@@ -3534,18 +3566,15 @@
 
 "type.wheelchair.yes" = "車椅子でのアクセスあり";
 
-/* en.wikipedia.org/wiki/Surface_lift */
-"type.piste_lift" = "Surface Lift";
+"type.aerialway.j.bar" = "J-bar Lift";
 
-"type.piste_lift.j.bar" = "J-bar Lift";
+"type.aerialway.magic_carpet" = "Magic Carpet";
 
-"type.piste_lift.magic_carpet" = "Magic Carpet";
+"type.aerialway.platter" = "Platter Lift";
 
-"type.piste_lift.platter" = "Platter Lift";
+"type.aerialway.rope_tow" = "Rope Tow";
 
-"type.piste_lift.rope_tow" = "Rope Tow";
-
-"type.piste_lift.t.bar" = "T-bar Lift";
+"type.aerialway.t.bar" = "T-bar Lift";
 
 "type.piste_type" = "Piste Type";
 

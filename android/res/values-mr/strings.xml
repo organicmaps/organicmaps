@@ -513,6 +513,7 @@
 	<string name="prefs_languages_information_off_link">अधिक माहितीसाठी कृपया ही मार्गदर्शिका पहा.</string>
 	<string name="transliteration_title">लॅटिनमध्ये (इंग्रजीची अक्षरे) लिप्यंतरण</string>
 	<string name="learn_more">अधिक जाणून घ्या</string>
+	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">बाहेर पडा</string>
 	<string name="routing_add_start_point">मार्ग नियोजित करण्यासाठी प्रारंभ बिंदू जोडा</string>
 	<string name="routing_add_finish_point">मार्ग नियोजित करण्यासाठी इष्टस्थान जोडा</string>
@@ -822,6 +823,7 @@
 	<string name="type.barrier.fence">कुंपण</string>
 	<string name="type.barrier.gate">दार</string>
 	<string name="type.barrier.hedge">झुडुपांचे कुंपण</string>
+	<string name="type.barrier.kissing_gate">दार</string>
 	<string name="type.barrier.lift_gate">लिफ्ट दार</string>
 	<string name="type.barrier.retaining_wall">संधारक भिंत</string>
 	<string name="type.barrier.swing_gate">झुलते दार</string>
@@ -902,6 +904,7 @@
 	<string name="type.emergency.phone">संकटकालीन फोन</string>
 	<string name="type.entrance">प्रवेशद्वार</string>
 	<string name="type.healthcare.laboratory">वैद्यकीय प्रयोगशाळा</string>
+	<string name="type.healthcare.physiotherapist">फिजिओथेरपिस्ट</string>
 
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway">महामार्ग</string>
@@ -1075,6 +1078,7 @@
 	<string name="type.historic">ऐतिहासिक</string>
 	<string name="type.historic.archaeological_site">पुरातत्व स्थळ</string>
 	<string name="type.historic.battlefield">रणांगण</string>
+	<string name="type.historic.boundary_stone">सीमेचा दगड</string>
 	<string name="type.historic.castle">गढी</string>
 	<string name="type.historic.castle.castrum">रोमन किल्ला</string>
 	<string name="type.historic.castle.defensive">गढी</string>
@@ -1089,10 +1093,16 @@
 	<string name="type.historic.city_gate">शहराचा दरवाजा</string>
 	<string name="type.historic.citywalls">शहराची भिंत</string>
 	<string name="type.historic.fort">दुर्ग</string>
+	<string name="type.historic.gallows">फाशी</string>
 	<string name="type.historic.memorial">स्मारक</string>
+	<string name="type.historic.memorial.cross">मेमोरियल क्रॉस</string>
+	<string name="type.historic.memorial.plaque">फलक</string>
 	<string name="type.historic.memorial.sculpture">शिल्प</string>
 	<string name="type.historic.memorial.statue">पुतळा</string>
+	<string name="type.historic.memorial.stolperstein">अडथळा</string>
+	<string name="type.historic.memorial.war_memorial">युद्ध स्मारक</string>
 	<string name="type.historic.monument">स्मारक</string>
+	<string name="type.historic.pillory">पिलोरी</string>
 	<string name="type.historic.ruins">अवशेष</string>
 	<string name="type.historic.ship">जहाज</string>
 	<string name="type.historic.tomb">थडगे</string>
@@ -1353,7 +1363,6 @@
 	<string name="type.railway.station.subway.lille">भुयारी मार्ग</string>
 	<string name="type.railway.station.subway.lima">भुयारी मार्ग</string>
 	<string name="type.railway.station.subway.lisboa">भुयारी मार्ग</string>
-	<string name="type.railway.station.subway.lisbon">भुयारी मार्ग</string>
 	<string name="type.railway.station.subway.london">भुयारी मार्ग</string>
 	<string name="type.railway.station.subway.lyon">भुयारी मार्ग</string>
 	<string name="type.railway.station.subway.madrid">भुयारी मार्ग</string>
@@ -1466,7 +1475,6 @@
 	<string name="type.railway.subway_entrance.lille">भुयारी प्रवेशद्वार</string>
 	<string name="type.railway.subway_entrance.lima">भुयारी प्रवेशद्वार</string>
 	<string name="type.railway.subway_entrance.lisboa">भुयारी प्रवेशद्वार</string>
-	<string name="type.railway.subway_entrance.lisbon">भुयारी प्रवेशद्वार</string>
 	<string name="type.railway.subway_entrance.london">भुयारी प्रवेशद्वार</string>
 	<string name="type.railway.subway_entrance.lyon">भुयारी प्रवेशद्वार</string>
 	<string name="type.railway.subway_entrance.madrid">भुयारी प्रवेशद्वार</string>

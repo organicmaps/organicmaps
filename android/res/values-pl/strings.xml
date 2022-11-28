@@ -164,9 +164,9 @@
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Trwa pobieranie mapy kraju.</string>
 	<!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-	<string name="my_position_share_sms">Zobacz gdzie jestem. Link %1$s lub %2$s</string>
+	<string name="my_position_share_sms">Hej, spójrz na moją aktualną lokalizację w Organic Maps! %1$s lub %2$s Nie masz map offline? Pobierz tutaj: https://omaps.app/get</string>
 	<!-- Subject for emailed bookmark -->
-	<string name="bookmark_share_email_subject">Obejrzyj mój znacznik na mapie w Organic Maps</string>
+	<string name="bookmark_share_email_subject">Hej, spójrz na mój znacznik w Organic Maps!</string>
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">Zobacz moją aktualną lokalizację na mapie przy użyciu Organic Maps</string>
 	<!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
@@ -236,7 +236,7 @@
 	<!-- Button in the main Help dialog -->
 	<string name="faq">Pytania i odpowiedzi</string>
 	<!-- Button in the main menu -->
-	<string name="donate">Podarować</string>
+	<string name="donate">Wspomóż</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">Jak nas wspierać?</string>
 	<!-- Button in the main Help dialog -->
@@ -365,8 +365,8 @@
 	<string name="read_in_wikipedia">Wikipedia</string>
 	<string name="p2p_your_location">Twoja lokalizacja</string>
 	<string name="p2p_start">Start</string>
-	<string name="p2p_from_here">Z</string>
-	<string name="p2p_to_here">Droga do</string>
+	<string name="p2p_from_here">Trasa od</string>
+	<string name="p2p_to_here">Trasa do</string>
 	<string name="p2p_only_from_current">Nawigacja jest dostępna tylko od twojej bieżącej lokalizacji.</string>
 	<string name="p2p_reroute_from_current">Czy chcesz, byśmy zaplanowali trasę z Twojej bieżącej lokalizacji?</string>
 	<!-- Edit open hours/set time and minutes dialog -->
@@ -447,7 +447,7 @@
 	<string name="editor_report_problem_other_title">Inny problem</string>
 	<string name="placepage_add_business_button">Dodaj organizację</string>
 	<string name="message_invalid_feature_position">Obiekt nie może znajdować się tutaj</string>
-	<string name="osm_presentation">Wszystkie dane mapy pochodzą z projektu OpenStreetMap. Przypomina Wikipedię z mapami, w których można dodawać lub edytować miejsca, a stają się one dostępne dla milionów użytkowników na całym świecie.</string>
+	<string name="osm_presentation">Wszystkie dane mapy pochodzą z projektu OpenStreetMap. Jest jak Wikipedia, tylko dla map. Możesz dodawać lub edytować miejsca i staną się dostępne dla milionów użytkowników na całym świecie.</string>
 	<string name="login_to_make_edits_visible">Zaloguj się, by inni użytkownicy mogli zobaczyć Twoje zmiany.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d z %2$d</string>
@@ -511,18 +511,18 @@
 	<string name="editor_share_to_all_dialog_message_1">Upewnij się, że nie podałeś osobistych danych.</string>
 	<string name="editor_share_to_all_dialog_message_2">Redaktorzy OpenStreetMap sprawdzą zmiany i skontaktują się z Tobą, jeśli będą mieli jakiekolwiek pytania.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
-	<string name="about_description">Organic Maps to bezpłatna aplikacja do map offline typu open source. Bez reklam. Bez śledzenia. Jeśli zobaczysz błąd na mapie, napraw go w OpenStreetMap. Projekt jest tworzony przez entuzjastów w czasie wolnym, dlatego potrzebujemy Twojej opinii i wsparcia.</string>
+	<string name="about_description">Organic Maps to bezpłatna aplikacja do map offline typu open source. Bez reklam. Bez śledzenia. Jeśli zobaczysz błąd na mapie, popraw go w OpenStreetMap. Projekt jest tworzony przez entuzjastów w czasie wolnym, dlatego potrzebujemy Twojej opinii i wsparcia.</string>
 	<!-- For the first routing -->
 	<string name="accept">Zaakceptuj</string>
 	<!-- For the first routing -->
 	<string name="decline">Odrzuć</string>
-	<string name="mobile_data_dialog">Wykorzystać internet mobilny, aby wyświetlić dane szczegółowe?</string>
+	<string name="mobile_data_dialog">Wykorzystać dane mobilne, aby wyświetlić dane szczegółowe?</string>
 	<string name="mobile_data_option_always">Stosuj zawsze</string>
 	<string name="mobile_data_option_today">Tylko dzisiaj</string>
 	<string name="mobile_data_option_not_today">Nie stosuj dzisiaj</string>
-	<string name="mobile_data">Internet mobilny</string>
+	<string name="mobile_data">Dane mobilne</string>
 	<!-- NOTE to translators: please synchronize your translation with the English one. -->
-	<string name="mobile_data_description">Do wyświetlania danych szczegółowych o miejscach (np. zdjęcia, ceny i recenzje) wymagany jest internet mobilny.</string>
+	<string name="mobile_data_description">Dane mobilne są wymagane do powiadomień o aktualizacji map i wyświetlania dokładniejszych informacji o miejscach i zakładkach.</string>
 	<string name="mobile_data_option_never">Nigdy nie stosuj</string>
 	<string name="mobile_data_option_ask">Zawsze pytaj</string>
 	<string name="traffic_update_maps_text">Aby wyświetlić dane o ruchu, muszą zostać zaktualizowane mapy.</string>
@@ -530,17 +530,18 @@
 	<string name="traffic_update_app">Zaktualizuj Organic Maps</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">Dane o ruchu są niedostępne</string>
-	<string name="enable_logging">Włącz logowanie</string>
+	<string name="enable_logging">Włącz zbieranie danych</string>
 	<!-- Settings: "Send general feedback" button -->
 	<string name="feedback_general">Ogólne uwagi</string>
 	<string name="on">Wł.</string>
 	<string name="off">Wył.</string>
 	<string name="prefs_languages_information">Stosujemy system TTS dla komend głosowych. Stosuje go wiele urządzeń z systemem Android, można go pobrać lub zaktualizować z Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
 	<string name="prefs_languages_information_off">W przypadku niektórych języków wymagana będzie instalacja innego syntezatora lub pakietu językowego ze strony aplikacji (Google Play, Galaxy Store, App Gallery, FDroid). Otwórz ustawienia urządzenia → Język i klawiatura → Mowa → Przetwarzanie tekstu na mowę.\nMożesz w tym miejscu zarządzać ustawieniami syntezy mowy (np. pobrać pakiet językowy do stosowania offline) i wybrać inny silnik przetwarzania tekstu na mowę.</string>
-	<string name="prefs_languages_information_off_link">Aby uzyskać więcej informacji, sprawdź ten poradnik.</string>
+	<string name="prefs_languages_information_off_link">Aby uzyskać więcej informacji, spójrz na ten poradnik.</string>
 	<string name="transliteration_title">Transkrypcja na alfabet łaciński</string>
 	<string name="learn_more">Dowiedz się więcej</string>
-	<string name="core_exit">Wyjdź</string>
+	<!-- Subway exits for public transport marks on the map -->
+	<string name="core_exit">Wyjście</string>
 	<string name="routing_add_start_point">Aby zaplanować trasę, dodaj punkt początkowy</string>
 	<string name="routing_add_finish_point">Aby zaplanować trasę, dodaj punkt końcowy</string>
 	<string name="button_exit">Wyjdź</string>
@@ -605,7 +606,7 @@
 	<string name="bookmark_list_description_hint">Dodaj opis (tekst lub html)</string>
 	<string name="not_shared">Osobisty</string>
 	<string name="speedcams_alert_title">Fotoradary</string>
-	<string name="speedcam_option_auto">Auto</string>
+	<string name="speedcam_option_auto">Automatycznie</string>
 	<string name="speedcam_option_always">Zawsze</string>
 	<string name="speedcam_option_never">Nigdy</string>
 	<string name="place_description_title">Opis miejsca</string>
@@ -614,11 +615,11 @@
 	<string name="power_managment_title">Tryb oszczędzania energii</string>
 	<string name="power_managment_description">Jeśli jest włączony tryb oszczędzania energii, wtedy aplikacja wyłączy funkcje energochłonne, zależnie od bieżącego poziomu załadowania telefonu</string>
 	<string name="power_managment_setting_never">Nigdy</string>
-	<string name="power_managment_setting_auto">Auto</string>
+	<string name="power_managment_setting_auto">Automatycznie</string>
 	<string name="power_managment_setting_manual_max">Maksymalna oszczędność energii</string>
-	<string name="enable_logging_warning_message">Ta opcja zostaje włączona do logowania działań w celach diagnostycznych. Pomaga to zespołowi zidentyfikować problemy z aplikacją. Włączaj opcję tylko na żądanie wsparcia technicznego Organic Maps.</string>
+	<string name="enable_logging_warning_message">Ta opcja zostaje włączona do zbierania danych działań w celach diagnostycznych. Pomaga to zespołowi zidentyfikować problemy z aplikacją. Włączaj opcję tylko na żądanie wsparcia technicznego Organic Maps.</string>
 	<string name="access_rules_author_only">Edytowane online</string>
-	<string name="driving_options_title">Ustawienia objazdu</string>
+	<string name="driving_options_title">Ustawienia nawigacji</string>
 	<string name="driving_options_subheader">Unikaj na każdej trasie</string>
 	<string name="avoid_tolls">Drogi płatne</string>
 	<string name="avoid_unpaved">Drogi gruntowe</string>
@@ -703,13 +704,13 @@
 	<string name="connection_failure">Błąd połączenia</string>
 	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable_title">Odłącz kabel USB</string>
-	<string name="enable_screen_sleep">Pozwól ekranowi spać</string>
+	<string name="enable_screen_sleep">Pozwól na wygaszanie ekranu</string>
 	<!-- Description in preferences -->
-	<string name="enable_screen_sleep_description">Po włączeniu ekran będzie mógł spać po okresie bezczynności.</string>
+	<string name="enable_screen_sleep_description">Po włączeniu tej funkcji ekran będzie mógł się wygasić po okresie bezczynności.</string>
 	<!-- A preference title; keep short! -->
 	<string name="enable_show_on_lock_screen">Pokazuj na ekranie blokady</string>
 	<!-- Description in preferences -->
-	<string name="enable_show_on_lock_screen_description">Po włączeniu nie musisz odblokowywać urządzenia za każdym razem, gdy aplikacja jest uruchomiona.</string>
+	<string name="enable_show_on_lock_screen_description">Po włączeniu tej funkcji nie będziesz musieć odblokowywać urządzenia za każdym razem, gdy aplikacja jest uruchomiona.</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">Dane mapy z OpenStreetMap</string>
 
@@ -825,6 +826,7 @@
 	<string name="type.recycling.scrap_metal">Złom</string>
 	<string name="type.recycling.small_appliances">Odpady elektryczne</string>
 	<string name="type.amenity.restaurant">Restauracja</string>
+	<string name="type.amenity.sanitary_dump_station">Miejsce opróżniania toalety dla kamperów</string>
 	<string name="type.amenity.school">Szkoła</string>
 	<string name="type.amenity.shelter">Wiata</string>
 	<string name="type.amenity.shower">Prysznic</string>
@@ -842,6 +844,7 @@
 	<string name="type.amenity.veterinary">Weterynarz</string>
 	<string name="type.amenity.waste_basket">Kosz na śmieci</string>
 	<string name="type.amenity.waste_disposal">Wysypisko śmieci</string>
+	<string name="type.amenity.waste_transfer_station">Stacja przeładunku odpadów</string>
 	<string name="type.amenity.water_point">Ujęcie wody</string>
 	<string name="type.barrier">Bariera</string>
 	<string name="type.barrier.block">Blok</string>
@@ -849,10 +852,12 @@
 	<string name="type.barrier.border_control">Kontrola graniczna</string>
 	<string name="type.barrier.city_wall">Mur miejski</string>
 	<string name="type.barrier.cycle_barrier">Bariera rowerowa</string>
+	<string name="type.barrier.ditch">Rów</string>
 	<string name="type.barrier.entrance">Wejście</string>
 	<string name="type.barrier.fence">Płot</string>
 	<string name="type.barrier.gate">Brama</string>
 	<string name="type.barrier.hedge">Żywopłot</string>
+	<string name="type.barrier.kissing_gate">Brama</string>
 	<string name="type.barrier.lift_gate">Szlaban</string>
 	<string name="type.barrier.retaining_wall">Mur oporowy</string>
 	<string name="type.barrier.stile">Przełaz</string>
@@ -997,6 +1002,7 @@
 	<string name="type.emergency.phone">Telefon alarmowy</string>
 	<string name="type.entrance">Wejście</string>
 	<string name="type.healthcare.laboratory">Laboratorium Medyczne</string>
+	<string name="type.healthcare.physiotherapist">Fizjoterapeuta</string>
 
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway">Droga</string>
@@ -1185,12 +1191,18 @@
 	<string name="type.historic.castle.shiro">Japoński zamek</string>
 	<string name="type.historic.castle.stately">Zamek</string>
 	<string name="type.historic.city_gate">Brama miejska</string>
-	<string name="type.historic.citywalls">Historyczne mury miasta</string>
+	<string name="type.historic.citywalls">Mur miejski</string>
 	<string name="type.historic.fort">Historyczny fort</string>
+	<string name="type.historic.gallows">Szubienica</string>
 	<string name="type.historic.memorial">Pomnik</string>
+	<string name="type.historic.memorial.cross">Krzyż pomnikowy</string>
 	<string name="type.historic.memorial.plaque">Tablica pamiątkowa</string>
 	<string name="type.historic.memorial.sculpture">Rzeźba</string>
 	<string name="type.historic.memorial.statue">Pomnik</string>
+	<string name="type.historic.memorial.stolperstein">Kamień pamięci</string>
+	<string name="type.historic.memorial.war_memorial">Pomnik wojenny</string>
+	<string name="type.historic.monument">Monument</string>
+	<string name="type.historic.pillory">Pręgierz</string>
 	<string name="type.historic.ruins">Ruiny</string>
 	<string name="type.historic.ship">Okręt</string>
 	<string name="type.historic.tomb">Grobowiec</string>
@@ -1209,6 +1221,7 @@
 	<string name="type.landuse.churchyard">Teren kościelny</string>
 	<string name="type.landuse.commercial">Teren handlu i usług</string>
 	<string name="type.landuse.construction">Teren budowy</string>
+	<string name="type.landuse.education">Placówki oświatowe</string>
 	<string name="type.landuse.farm">Gospodarstwo rolne</string>
 	<string name="type.landuse.farmland">Grunt rolny</string>
 	<string name="type.landuse.farmyard">Obejście gospodarskie</string>
@@ -1238,6 +1251,7 @@
 	<string name="type.leisure.dog_park">Miejsce na spacer z psem</string>
 	<string name="type.leisure.fitness_centre">Centrum fitness</string>
 	<string name="type.leisure.fitness_station">Stacja fitness</string>
+	<string name="type.leisure.dance">Sala taneczna</string>
 	<string name="type.leisure.garden">Ogród</string>
 	<string name="type.leisure.garden.residential">Ogród przydomowy</string>
 	<string name="type.leisure.golf_course">Kurs golfowy</string>
@@ -1291,6 +1305,7 @@
 	<string name="type.natural.earth_bank">Żleb</string>
 	<string name="type.man_made.embankment">Nasyp</string>
 	<string name="type.natural.coastline">Linia brzegowa</string>
+	<string name="type.natural.desert">Pustynia</string>
 	<string name="type.natural.geyser">Gejzer</string>
 	<string name="type.natural.glacier">Lodowiec</string>
 	<string name="type.natural.grassland">Formacje trawiaste</string>
@@ -1429,7 +1444,6 @@
 	<string name="type.railway.station.subway.lille">Metro</string>
 	<string name="type.railway.station.subway.lima">Metro</string>
 	<string name="type.railway.station.subway.lisboa">Metro</string>
-	<string name="type.railway.station.subway.lisbon">Metro</string>
 	<string name="type.railway.station.subway.london">Metro</string>
 	<string name="type.railway.station.subway.lyon">Metro</string>
 	<string name="type.railway.station.subway.madrid">Metro</string>
@@ -1539,7 +1553,6 @@
 	<string name="type.railway.subway_entrance.lille">Wejście do metra</string>
 	<string name="type.railway.subway_entrance.lima">Wejście do metra</string>
 	<string name="type.railway.subway_entrance.lisboa">Wejście do metra</string>
-	<string name="type.railway.subway_entrance.lisbon">Wejście do metra</string>
 	<string name="type.railway.subway_entrance.london">Wejście do metra</string>
 	<string name="type.railway.subway_entrance.lyon">Wejście do metra</string>
 	<string name="type.railway.subway_entrance.madrid">Wejście do metra</string>
@@ -1763,12 +1776,12 @@
 	<string name="type.waterway.canal.tunnel">Kanał</string>
 	<string name="type.waterway.lock_gate">Wrota śluzy</string>
 	<string name="type.waterway.river">Rzeka</string>
-	<string name="type.waterway.river.tunnel">Tunel rzeki</string>
+	<string name="type.waterway.river.tunnel">Rzeka</string>
 	<string name="type.waterway.riverbank">Koryto rzeki</string>
 	<string name="type.waterway.stream">Ciek rzeki</string>
 	<string name="type.waterway.stream.ephemeral">Rzeka</string>
 	<string name="type.waterway.stream.intermittent">Rzeka</string>
-	<string name="type.waterway.stream.tunnel">Rzeka</string>
+	<string name="type.waterway.stream.tunnel">Ciek rzeki</string>
 	<string name="type.waterway.waterfall">Wodospad</string>
 	<string name="type.wheelchair.limited">Częściowo wyposażono dla osób niepełnosprawnych</string>
 	<string name="type.wheelchair.no">Nie wyposażono dla osób niepełnosprawnych</string>

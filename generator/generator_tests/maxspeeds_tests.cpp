@@ -30,19 +30,14 @@
 #include "platform/platform_tests_support/scoped_dir.hpp"
 #include "platform/platform_tests_support/scoped_file.hpp"
 
-#include "coding/reader.hpp"
-#include "coding/writer.hpp"
-
 #include "geometry/point2d.hpp"
 
 #include "base/file_name_utils.hpp"
 #include "base/geo_object_id.hpp"
-#include "base/logging.hpp"
 #include "base/scope_guard.hpp"
 
 #include <algorithm>
 #include <cstdint>
-#include <fstream>
 #include <map>
 #include <string>
 #include <vector>
@@ -56,9 +51,9 @@ using namespace platform::tests_support;
 using namespace platform;
 using namespace routing;
 using namespace routing_builder;
-using namespace std;
+using std::string;
 
-using Features = vector<vector<m2::PointD>>;
+using Features = std::vector<std::vector<m2::PointD>>;
 
 // Directory name for creating test mwm and temporary files.
 string const kTestDir = "maxspeeds_generation_test";
@@ -394,7 +389,7 @@ UNIT_TEST(Maxspeed_CollectorMerge)
   SCOPE_GUARD(_, std::bind(Platform::RemoveFileIfExists, std::cref(filename)));
 
   auto c1 = std::make_shared<MaxspeedsCollector>(filename);
-  auto c2 = c1->Clone();
+  auto c2 = c1->Clone(nullptr);
   c1->CollectFeature({}, MakeOsmElement(1 /* id */, {{"maxspeed", "50"}} /* tags */, OsmElement::EntityType::Way));
   c2->CollectFeature({}, MakeOsmElement(2 /* id */, {{"maxspeed", "60"}} /* tags */, OsmElement::EntityType::Way));
   c1->CollectFeature({}, MakeOsmElement(3 /* id */, {{"maxspeed", "70"}} /* tags */, OsmElement::EntityType::Way));

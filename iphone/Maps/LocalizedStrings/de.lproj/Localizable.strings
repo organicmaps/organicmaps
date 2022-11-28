@@ -274,6 +274,9 @@
 "matrix" = "[matrix]";
 
 /* Text in menu */
+"mastodon" = "Mastodon";
+
+/* Text in menu */
 "facebook" = "Facebook";
 
 /* Text in menu */
@@ -296,6 +299,9 @@
 
 /* Button in the main Help dialog */
 "faq" = "Fragen und Antworten";
+
+/* Button in the main menu */
+"donate" = "Spenden";
 
 /* Button in the main Help dialog */
 "how_to_support_us" = "Wie unterstützen Sie uns?";
@@ -512,6 +518,12 @@
 "search_history_text" = "Hier werden Ihre letzten Suchanfragen angezeigt.";
 
 "clear_search" = "Suchverlauf löschen";
+
+/* Place Page link to Wikipedia article (if map object has it). */
+"read_in_wikipedia" = "Wikipedia";
+
+/* Place Page link to Wikimedia Commons. */
+"wikimedia_commons" = "Wikimedia Commons";
 
 "p2p_your_location" = "Ihr Standort";
 
@@ -874,7 +886,8 @@
 
 "transliteration_title" = "Transliteration ins Lateinische";
 
-"core_exit" = "Beenden";
+/* Subway exits for public transport marks on the map */
+"core_exit" = "Ausgang";
 
 "routing_add_start_point" = "Fügen Sie einen Startpunkt hinzu, um eine Route zu planen";
 
@@ -1214,11 +1227,14 @@
 /* edit track screen title */
 "track_title" = "Strecke";
 
-/* Telegram group url for the help page */
+/* Telegram group url for the "?" About page */
 "telegram_url" = "https://t.me/OrganicMapsApp";
 
-/* Instagram account url for the help page */
+/* Instagram account url for the "?" About page */
 "instagram_url" = "https://www.instagram.com/organicmaps.app";
+
+/* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
+"translated_om_site_url" = "https://organicmaps.app/";
 
 
 /********** Types **********/
@@ -1530,6 +1546,8 @@
 
 "type.barrier.cycle_barrier" = "Umlaufschranke";
 
+"type.barrier.ditch" = "Graben";
+
 "type.barrier.entrance" = "Durchgang";
 
 "type.barrier.fence" = "Zaun";
@@ -1537,6 +1555,8 @@
 "type.barrier.gate" = "Tor";
 
 "type.barrier.hedge" = "Hecke";
+
+"type.barrier.kissing_gate" = "Tor";
 
 "type.barrier.lift_gate" = "Schranke";
 
@@ -1828,6 +1848,8 @@
 "type.entrance" = "Eingang";
 
 "type.healthcare.laboratory" = "Medizinisches Labor";
+
+"type.healthcare.physiotherapist" = "Physiotherapeut";
 
 
 /********** Types: Roads **********/
@@ -2167,9 +2189,13 @@
 
 "type.historic.citywalls" = "Stadtmauer";
 
-"type.historic.fort" = "Festung";
+"type.historic.fort" = "Fort";
+
+"type.historic.gallows" = "Galgen";
 
 "type.historic.memorial" = "Denkmal";
+
+"type.historic.memorial.cross" = "Gedenkkreuz";
 
 "type.historic.memorial.plaque" = "Gedenktafel";
 
@@ -2177,7 +2203,13 @@
 
 "type.historic.memorial.statue" = "Statue";
 
+"type.historic.memorial.stolperstein" = "Stolperstein";
+
+"type.historic.memorial.war_memorial" = "Kriegerdenkmal";
+
 "type.historic.monument" = "Monument";
+
+"type.historic.pillory" = "Pranger";
 
 "type.historic.ruins" = "Ruine";
 
@@ -2306,6 +2338,8 @@
 "type.leisure.fitness_centre" = "Fitnessstudio";
 
 "type.leisure.fitness_station" = "Fitnessstation";
+
+"type.leisure.dance" = "Tanzsaal";
 
 "type.leisure.garden" = "Garten";
 
@@ -2436,6 +2470,8 @@
 "type.man_made.embankment" = "Damm";
 
 "type.natural.coastline" = "Küste";
+
+"type.natural.desert" = "Wüste";
 
 "type.natural.geyser" = "Geysir";
 
@@ -2793,8 +2829,6 @@
 
 "type.railway.station.subway.lisboa" = "U-Bahnstation";
 
-"type.railway.station.subway.lisbon" = "U-Bahnstation";
-
 "type.railway.station.subway.london" = "U-Bahnstation";
 
 "type.railway.station.subway.lyon" = "U-Bahnstation";
@@ -3018,8 +3052,6 @@
 "type.railway.subway_entrance.lima" = "U-Bahn-Eingang";
 
 "type.railway.subway_entrance.lisboa" = "U-Bahn-Eingang";
-
-"type.railway.subway_entrance.lisbon" = "U-Bahn-Eingang";
 
 "type.railway.subway_entrance.london" = "U-Bahn-Eingang";
 
@@ -3309,7 +3341,7 @@
 
 "type.shop.art" = "Kunstgeschäft";
 
-"type.shop.baby_goods" = "Kinderladen";
+"type.shop.baby_goods" = "Babybedarf";
 
 "type.shop.bag" = "Taschen Shop";
 
@@ -3534,18 +3566,15 @@
 
 "type.wheelchair.yes" = "Vollständiger Zugang für Rollstühle";
 
-/* en.wikipedia.org/wiki/Surface_lift */
-"type.piste_lift" = "Lift";
+"type.aerialway.j.bar" = "Schlepplift";
 
-"type.piste_lift.j.bar" = "Schlepplift";
+"type.aerialway.magic_carpet" = "Laufband";
 
-"type.piste_lift.magic_carpet" = "Laufband";
+"type.aerialway.platter" = "Tellerlift";
 
-"type.piste_lift.platter" = "Tellerlift";
+"type.aerialway.rope_tow" = "Seillift";
 
-"type.piste_lift.rope_tow" = "Seillift";
-
-"type.piste_lift.t.bar" = "T-Bügel-Lift";
+"type.aerialway.t.bar" = "T-Bügel-Lift";
 
 "type.piste_type" = "Pistentyp";
 

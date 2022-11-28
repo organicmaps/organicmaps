@@ -130,6 +130,8 @@
 	<string name="recycling">リサイクル</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
 	<string name="water">水</string>
+	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
+	<string name="rv">RV用</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">メモ</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -503,6 +505,7 @@
 	<string name="prefs_languages_information_off_link">詳細については、このガイドをご確認ください。</string>
 	<string name="transliteration_title">ラテン文字への字訳</string>
 	<string name="learn_more">詳細情報</string>
+	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">終了</string>
 	<string name="routing_add_start_point">ルートを計画するには出発地点を追加してください</string>
 	<string name="routing_add_finish_point">ルートを計画するには到着地点を追加してください</string>
@@ -798,10 +801,12 @@
 	<string name="type.barrier.border_control">国境管理</string>
 	<string name="type.barrier.city_wall">城壁</string>
 	<string name="type.barrier.cycle_barrier">バリカー</string>
+	<string name="type.barrier.ditch">堀</string>
 	<string name="type.barrier.entrance">エントランス</string>
 	<string name="type.barrier.fence">フェンス</string>
 	<string name="type.barrier.gate">ゲート</string>
 	<string name="type.barrier.hedge">生垣</string>
+	<string name="type.barrier.kissing_gate">ゲート</string>
 	<string name="type.barrier.lift_gate">ブームバリア</string>
 	<string name="type.barrier.retaining_wall">擁壁</string>
 	<string name="type.barrier.stile">回転扉</string>
@@ -936,6 +941,7 @@
 	<string name="type.emergency.phone">緊急電話</string>
 	<string name="type.entrance">エントランス</string>
 	<string name="type.healthcare.laboratory">医療研究所</string>
+	<string name="type.healthcare.physiotherapist">理学療法士</string>
 
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway">道路</string>
@@ -1124,13 +1130,18 @@
 	<string name="type.historic.castle.shiro">日本の城</string>
 	<string name="type.historic.castle.stately">城</string>
 	<string name="type.historic.city_gate">城門</string>
-	<string name="type.historic.citywalls">歴史的な城壁</string>
+	<string name="type.historic.citywalls">城壁</string>
 	<string name="type.historic.fort">歴史的な要塞</string>
+	<string name="type.historic.gallows">絞首台</string>
 	<string name="type.historic.memorial">記念碑</string>
+	<string name="type.historic.memorial.cross">メモリアルクロス</string>
 	<string name="type.historic.memorial.plaque">銘板</string>
 	<string name="type.historic.memorial.sculpture">彫刻</string>
 	<string name="type.historic.memorial.statue">塑像</string>
+	<string name="type.historic.memorial.stolperstein">ストルパーシュタイン</string>
+	<string name="type.historic.memorial.war_memorial">戦争記念施設</string>
 	<string name="type.historic.monument">記念碑</string>
+	<string name="type.historic.pillory">さらし台</string>
 	<string name="type.historic.ruins">古跡</string>
 	<string name="type.historic.ship">退役船</string>
 	<string name="type.historic.tomb">墓</string>
@@ -1181,6 +1192,7 @@
 	<string name="type.leisure.dog_park">ドッグエリア</string>
 	<string name="type.leisure.fitness_centre">フィットネスセンター、ジム</string>
 	<string name="type.leisure.fitness_station">フィットネスステーション</string>
+	<string name="type.leisure.dance">ダンスホール</string>
 	<string name="type.leisure.garden">庭園</string>
 	<string name="type.leisure.garden.residential">庭園</string>
 	<string name="type.leisure.golf_course">ゴルフコース</string>
@@ -1237,6 +1249,7 @@
 	<string name="type.natural.earth_bank">崖</string>
 	<string name="type.man_made.embankment">盛土</string>
 	<string name="type.natural.coastline">海岸線</string>
+	<string name="type.natural.desert">荒野</string>
 	<string name="type.natural.geyser">間欠泉</string>
 	<string name="type.natural.glacier">氷河</string>
 	<string name="type.natural.grassland">草原</string>
@@ -1408,7 +1421,6 @@
 	<string name="type.railway.station.subway.lille">地下鉄</string>
 	<string name="type.railway.station.subway.lima">地下鉄</string>
 	<string name="type.railway.station.subway.lisboa">地下鉄</string>
-	<string name="type.railway.station.subway.lisbon">地下鉄</string>
 	<string name="type.railway.station.subway.london">地下鉄</string>
 	<string name="type.railway.station.subway.lyon">地下鉄</string>
 	<string name="type.railway.station.subway.madrid">地下鉄</string>
@@ -1518,7 +1530,6 @@
 	<string name="type.railway.subway_entrance.lille">地下鉄入り口</string>
 	<string name="type.railway.subway_entrance.lima">地下鉄入り口</string>
 	<string name="type.railway.subway_entrance.lisboa">地下鉄入り口</string>
-	<string name="type.railway.subway_entrance.lisbon">地下鉄入り口</string>
 	<string name="type.railway.subway_entrance.london">地下鉄入り口</string>
 	<string name="type.railway.subway_entrance.lyon">地下鉄入り口</string>
 	<string name="type.railway.subway_entrance.madrid">地下鉄入り口</string>
@@ -1756,7 +1767,7 @@
 	<string name="type.waterway.canal.tunnel">運河</string>
 	<string name="type.waterway.dam">ダム</string>
 	<string name="type.waterway.ditch">排水路</string>
-	<string name="type.waterway.ditch.tunnel">排水路(トンネル)</string>
+	<string name="type.waterway.ditch.tunnel">排水路</string>
 	<string name="type.waterway.dock">ドック</string>
 	<string name="type.waterway.drain">用水路</string>
 	<string name="type.waterway.drain.tunnel">用水路</string>

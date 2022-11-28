@@ -7,17 +7,13 @@
 #include "generator/gen_mwm_info.hpp"
 #include "generator/geometry_holder.hpp"
 #include "generator/region_meta.hpp"
-#include "generator/tesselator.hpp"
 
 #include "routing/routing_helpers.hpp"
-#include "routing/speed_camera_prohibition.hpp"
 
-#include "indexer/classificator.hpp"
 #include "indexer/dat_section_header.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_impl.hpp"
 #include "indexer/feature_processor.hpp"
-#include "indexer/feature_visibility.hpp"
 #include "indexer/scales.hpp"
 #include "indexer/scales_patch.hpp"
 
@@ -30,10 +26,7 @@
 #include "coding/point_coding.hpp"
 #include "coding/succinct_mapper.hpp"
 
-#include "geometry/polygon.hpp"
-
 #include "base/assert.hpp"
-#include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"
 #include "base/string_utils.hpp"
@@ -44,8 +37,6 @@
 #include <list>
 #include <memory>
 #include <vector>
-
-using namespace std;
 
 namespace feature
 {
@@ -65,15 +56,15 @@ public:
   {
     for (size_t i = 0; i < m_header.GetScalesCount(); ++i)
     {
-      string const postfix = strings::to_string(i);
-      m_geoFile.push_back(make_unique<TmpFile>(info.GetIntermediateFileName(name, GEOMETRY_FILE_TAG + postfix)));
-      m_trgFile.push_back(make_unique<TmpFile>(info.GetIntermediateFileName(name, TRIANGLE_FILE_TAG + postfix)));
+      std::string const postfix = strings::to_string(i);
+      m_geoFile.push_back(std::make_unique<TmpFile>(info.GetIntermediateFileName(name, GEOMETRY_FILE_TAG + postfix)));
+      m_trgFile.push_back(std::make_unique<TmpFile>(info.GetIntermediateFileName(name, TRIANGLE_FILE_TAG + postfix)));
     }
 
-    m_addrFile = make_unique<FileWriter>(info.GetIntermediateFileName(name + DATA_FILE_EXTENSION, TEMP_ADDR_FILENAME));
+    m_addrFile = std::make_unique<FileWriter>(info.GetIntermediateFileName(name + DATA_FILE_EXTENSION, TEMP_ADDR_FILENAME));
   }
 
-  void Finish()
+  void Finish() override
   {
     // write version information
     {
@@ -114,7 +105,7 @@ public:
       coding::WritePadding(*w, bytesWritten);
 
       header.m_featuresOffset = base::asserted_cast<uint32_t>(w->Pos() - startOffset);
-      ReaderSource<ModelReaderPtr> src(make_unique<FileReader>(m_dataFile.GetName()));
+      ReaderSource<ModelReaderPtr> src(std::make_unique<FileReader>(m_dataFile.GetName()));
       rw::ReadAndWrite(src, *w);
       header.m_featuresSize =
           base::asserted_cast<uint32_t>(w->Pos() - header.m_featuresOffset - startOffset);
@@ -126,7 +117,8 @@ public:
     }
 
     // File Writer finalization function with adding section to the main mwm file.
-    auto const finalizeFn = [this](unique_ptr<TmpFile> w, string const & tag) {
+    auto const finalizeFn = [this](std::unique_ptr<TmpFile> && w, std::string const & tag)
+    {
       w->Flush();
       FilesContainerW writer(m_filename, FileWriter::OP_WRITE_EXISTING);
       writer.Write(w->GetName(), tag);
@@ -134,8 +126,8 @@ public:
 
     for (size_t i = 0; i < m_header.GetScalesCount(); ++i)
     {
-      finalizeFn(move(m_geoFile[i]), GetTagForIndex(GEOMETRY_FILE_TAG, i));
-      finalizeFn(move(m_trgFile[i]), GetTagForIndex(TRIANGLE_FILE_TAG, i));
+      finalizeFn(std::move(m_geoFile[i]), GetTagForIndex(GEOMETRY_FILE_TAG, i));
+      finalizeFn(std::move(m_trgFile[i]), GetTagForIndex(TRIANGLE_FILE_TAG, i));
     }
 
     {
@@ -250,22 +242,22 @@ public:
 
       if (fb.HasOsmIds())
         m_osm2ft.AddIds(generator::MakeCompositeId(fb), featureId);
-    };
+    }
     return featureId;
   }
 
 private:
-  using Points = vector<m2::PointD>;
-  using Polygons = list<Points>;
+  using Points = std::vector<m2::PointD>;
+  using Polygons = std::list<Points>;
 
   class TmpFile : public FileWriter
   {
   public:
-    explicit TmpFile(string const & filePath) : FileWriter(filePath) {}
-    ~TmpFile() { DeleteFileX(GetName()); }
+    explicit TmpFile(std::string const & filePath) : FileWriter(filePath) {}
+    ~TmpFile() override { DeleteFileX(GetName()); }
   };
 
-  using TmpFiles = vector<unique_ptr<TmpFile>>;
+  using TmpFiles = std::vector<std::unique_ptr<TmpFile>>;
 
   static bool IsGoodArea(Points const & poly, int level)
   {
@@ -282,8 +274,7 @@ private:
 
   bool IsCountry() const { return m_header.GetType() == feature::DataHeader::MapType::Country; }
 
-  void SimplifyPoints(int level, bool isCoast, m2::RectD const & rect, Points const & in,
-                      Points & out)
+  static void SimplifyPoints(int level, bool isCoast, m2::RectD const & rect, Points const & in, Points & out)
   {
     if (isCoast)
     {
@@ -296,10 +287,10 @@ private:
     }
   }
 
-  string m_filename;
+  std::string m_filename;
 
   // File used for postcodes and search sections build.
-  unique_ptr<FileWriter> m_addrFile;
+  std::unique_ptr<FileWriter> m_addrFile;
 
   // Temporary files for sections.
   TmpFiles m_geoFile, m_trgFile;
@@ -316,11 +307,11 @@ private:
   DISALLOW_COPY_AND_MOVE(FeaturesCollector2);
 };
 
-bool GenerateFinalFeatures(feature::GenerateInfo const & info, string const & name,
+bool GenerateFinalFeatures(feature::GenerateInfo const & info, std::string const & name,
                            feature::DataHeader::MapType mapType)
 {
-  string const srcFilePath = info.GetTmpFileName(name);
-  string const dataFilePath = info.GetTargetFileName(name);
+  std::string const srcFilePath = info.GetTmpFileName(name);
+  std::string const dataFilePath = info.GetTargetFileName(name);
 
   // Store cellIds for middle points.
   CalculateMidPoints midPoints;

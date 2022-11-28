@@ -7,15 +7,15 @@
 #include "coding/internal/file_data.hpp"
 #include "coding/reader.hpp"
 
-#include <exception>
 #include <fstream>
 #include <iterator>
+#include <stdexcept>
 
 #include "3party/pugixml/pugixml/src/pugixml.hpp"
 
 namespace editor
 {
-using namespace std;
+using std::string;
 
 namespace
 {
@@ -24,9 +24,9 @@ using platform::HttpClient;
 auto const kConfigFileName = "editor.config";
 auto const kHashFileName = "editor.config.hash";
 
-auto const kSynchroTimeout = chrono::hours(4);
-auto const kRemoteHashUrl = "https://cdn.organicmaps.app/editor.config.date";
-auto const kRemoteConfigUrl = "https://cdn.organicmaps.app/editor.config";
+auto constexpr kSynchroTimeout = std::chrono::hours(4);
+auto constexpr kRemoteHashUrl = "https://cdn.organicmaps.app/editor.config.date";
+auto constexpr kRemoteConfigUrl = "https://cdn.organicmaps.app/editor.config";
 
 string GetConfigFilePath() { return GetPlatform().WritablePathForFile(kConfigFileName); }
 string GetHashFilePath() { return GetPlatform().WritablePathForFile(kHashFileName); }
@@ -39,7 +39,7 @@ string RunSimpleHttpRequest(string const & url)
   {
     result = request.RunHttpRequest();
   }
-  catch (runtime_error const & ex)
+  catch (std::runtime_error const & ex)
   {
      LOG(LWARNING, ("Exception from HttpClient::RunHttpRequest, message: ", ex.what()));
   }
@@ -56,7 +56,7 @@ string RunSimpleHttpRequest(string const & url)
 void Waiter::Interrupt()
 {
   {
-    lock_guard<mutex> lock(m_mutex);
+    std::lock_guard lock(m_mutex);
     m_interrupted = true;
   }
 
@@ -124,7 +124,7 @@ bool ConfigLoader::SaveAndReload(pugi::xml_document const & doc)
 
 void ConfigLoader::ResetConfig(pugi::xml_document const & doc)
 {
-  auto config = make_shared<EditorConfig>();
+  auto config = std::make_shared<EditorConfig>();
   config->SetConfig(doc);
   m_config.Set(config);
 }
@@ -133,7 +133,7 @@ void ConfigLoader::ResetConfig(pugi::xml_document const & doc)
 void ConfigLoader::LoadFromLocal(pugi::xml_document & doc)
 {
   string content;
-  unique_ptr<ModelReader> reader;
+  std::unique_ptr<ModelReader> reader;
 
   try
   {
@@ -179,7 +179,7 @@ bool ConfigLoader::SaveHash(string const & hash, string const & filePath)
   auto const result =
     base::WriteToTempAndRenameToFile(filePath, [&hash](string const & fileName)
     {
-      ofstream ofs(fileName, ofstream::out);
+      std::ofstream ofs(fileName, std::ofstream::out);
       if (!ofs.is_open())
         return false;
 
@@ -193,10 +193,10 @@ bool ConfigLoader::SaveHash(string const & hash, string const & filePath)
 // static
 string ConfigLoader::LoadHash(string const & filePath)
 {
-  ifstream ifs(filePath, ifstream::in);
+  std::ifstream ifs(filePath, std::ifstream::in);
   if (!ifs.is_open())
     return {};
 
-  return {istreambuf_iterator<char>(ifs), istreambuf_iterator<char>()};
+  return {std::istreambuf_iterator<char>(ifs), std::istreambuf_iterator<char>()};
 }
 }  // namespace editor

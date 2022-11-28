@@ -227,7 +227,6 @@ void ScoreCandidatePathsGetter::GetBestCandidatePaths(vector<shared_ptr<Link>> c
                                                       ScorePathVec & candidates)
 {
   CHECK_NOT_EQUAL(source, LinearSegmentSource::NotValid, ());
-  CHECK_GREATER_OR_EQUAL(requiredBearing, 0, ());
   CHECK_LESS_OR_EQUAL(requiredBearing, 255, ());
 
   multiset<CandidatePath, greater<>> candidatePaths;

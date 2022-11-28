@@ -153,7 +153,7 @@
 "water" = "Água";
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
-"rv" = "RV Facilities";
+"rv" = "Para trailers";
 
 "share_bookmarks_email_body" = "Olá!\n\nSegue em anexo os meus favoritos da aplicação Organic Maps. Por favor abra-os se tiver o Organic Maps instalado. Caso não tenha, descarregue a aplicação para o seu dispositivo iOS ou Android com a hiperligação https://omaps.app/get?kmz\n\nDivirta-se a viajar com o Organic Maps!";
 
@@ -274,6 +274,9 @@
 "matrix" = "[matrix]";
 
 /* Text in menu */
+"mastodon" = "Mastodon";
+
+/* Text in menu */
 "facebook" = "Facebook";
 
 /* Text in menu */
@@ -296,6 +299,9 @@
 
 /* Button in the main Help dialog */
 "faq" = "Perguntas e respostas";
+
+/* Button in the main menu */
+"donate" = "Doar";
 
 /* Button in the main Help dialog */
 "how_to_support_us" = "Como nos apoiar?";
@@ -512,6 +518,12 @@
 "search_history_text" = "Ver as pesquisas recentes.";
 
 "clear_search" = "Limpar histórico de pesquisas";
+
+/* Place Page link to Wikipedia article (if map object has it). */
+"read_in_wikipedia" = "Wikipédia";
+
+/* Place Page link to Wikimedia Commons. */
+"wikimedia_commons" = "Wikimedia Commons";
 
 "p2p_your_location" = "Localização atual";
 
@@ -874,7 +886,8 @@
 
 "transliteration_title" = "Transliteração para o latim";
 
-"core_exit" = "Sair";
+/* Subway exits for public transport marks on the map */
+"core_exit" = "Saída";
 
 "routing_add_start_point" = "Adicionar ponto de partida para planear uma rota";
 
@@ -1214,11 +1227,14 @@
 /* edit track screen title */
 "track_title" = "Percurso";
 
-/* Telegram group url for the help page */
+/* Telegram group url for the "?" About page */
 "telegram_url" = "https://t.me/OrganicMapsApp";
 
-/* Instagram account url for the help page */
+/* Instagram account url for the "?" About page */
 "instagram_url" = "https://www.instagram.com/organicmaps.app";
+
+/* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
+"translated_om_site_url" = "https://organicmaps.app/";
 
 
 /********** Types **********/
@@ -1456,7 +1472,7 @@
 
 "type.recycling.green_waste" = "Green/Organic Waste";
 
-"type.recycling.cartons" = "Bewerage Cartons";
+"type.recycling.cartons" = "Beverage Cartons";
 
 "type.amenity.restaurant" = "Restaurante";
 
@@ -1502,7 +1518,7 @@
 
 "type.amenity.vending_machine.excrement_bags" = "Excrement Bags Dispenser";
 
-"type.amenity.parcel_locker" = "Parcel Locker";
+"type.amenity.parcel_locker" = "Cacifo";
 
 "type.amenity.vending_machine.fuel" = "Fuel Dispenser";
 
@@ -1526,9 +1542,11 @@
 
 "type.barrier.chain" = "Chain";
 
-"type.barrier.city_wall" = "Muralha de cidade";
+"type.barrier.city_wall" = "Muralha";
 
 "type.barrier.cycle_barrier" = "Barreira de bicicletas";
+
+"type.barrier.ditch" = "Fosso";
 
 "type.barrier.entrance" = "Entrada";
 
@@ -1537,6 +1555,8 @@
 "type.barrier.gate" = "Portão";
 
 "type.barrier.hedge" = "Sebe";
+
+"type.barrier.kissing_gate" = "Quebra-corpo";
 
 "type.barrier.lift_gate" = "Cancela elevatória";
 
@@ -1828,6 +1848,8 @@
 "type.entrance" = "Entrada";
 
 "type.healthcare.laboratory" = "Laboratório médico";
+
+"type.healthcare.physiotherapist" = "Fisioterapeuta";
 
 
 /********** Types: Roads **********/
@@ -2133,7 +2155,7 @@
 
 /********** Types: Historic **********/
 
-"type.historic" = "Histórico";
+"type.historic" = "Objeto histórico";
 
 "type.historic.archaeological_site" = "Sítio arqueológico";
 
@@ -2165,23 +2187,33 @@
 
 "type.historic.city_gate" = "Portas da cidade";
 
-"type.historic.citywalls" = "Muralha de cidade";
+"type.historic.citywalls" = "Muralha";
 
-"type.historic.fort" = "Forte histórico";
+"type.historic.fort" = "Forte";
+
+"type.historic.gallows" = "Forca";
 
 "type.historic.memorial" = "Memorial";
 
+"type.historic.memorial.cross" = "Cruz memorial";
+
 "type.historic.memorial.plaque" = "Placa comemorativa";
 
-"type.historic.memorial.sculpture" = "Escultura memorial";
+"type.historic.memorial.sculpture" = "Escultura";
 
-"type.historic.memorial.statue" = "Estátua memorial";
+"type.historic.memorial.statue" = "Estátua";
+
+"type.historic.memorial.stolperstein" = "Stolperstein";
+
+"type.historic.memorial.war_memorial" = "Memorial de guerra";
 
 "type.historic.monument" = "Monumento";
 
+"type.historic.pillory" = "Pelourinho";
+
 "type.historic.ruins" = "Ruínas";
 
-"type.historic.ship" = "Barco histórico";
+"type.historic.ship" = "Barco";
 
 "type.historic.tomb" = "Túmulo";
 
@@ -2306,6 +2338,8 @@
 "type.leisure.fitness_centre" = "Academia de fitness";
 
 "type.leisure.fitness_station" = "Dispositivo público de exercícios";
+
+"type.leisure.dance" = "Salão de dança";
 
 "type.leisure.garden" = "Jardim";
 
@@ -2436,6 +2470,8 @@
 "type.man_made.embankment" = "Aterro";
 
 "type.natural.coastline" = "Linha costeira";
+
+"type.natural.desert" = "Deserto";
 
 "type.natural.geyser" = "Géiser";
 
@@ -2793,8 +2829,6 @@
 
 "type.railway.station.subway.lisboa" = "Estação de metro";
 
-"type.railway.station.subway.lisbon" = "Estação de metro";
-
 "type.railway.station.subway.london" = "Estação de metro";
 
 "type.railway.station.subway.lyon" = "Estação de metro";
@@ -3019,8 +3053,6 @@
 
 "type.railway.subway_entrance.lisboa" = "Entrada do metro";
 
-"type.railway.subway_entrance.lisbon" = "Entrada do metro";
-
 "type.railway.subway_entrance.london" = "Entrada do metro";
 
 "type.railway.subway_entrance.lyon" = "Entrada do metro";
@@ -3207,7 +3239,7 @@
 
 "type.shop.dry_cleaning" = "Lavagem a seco";
 
-"type.shop.electronics" = "Loja de electrónica de consumo";
+"type.shop.electronics" = "Loja de eletrónica de consumo";
 
 "type.shop.erotic" = "Loja de artigos eróticos";
 
@@ -3534,18 +3566,15 @@
 
 "type.wheelchair.yes" = "Acessível a cadeiras de rodas";
 
-/* en.wikipedia.org/wiki/Surface_lift */
-"type.piste_lift" = "Telesqui";
+"type.aerialway.j.bar" = "Telesqui de barra em J";
 
-"type.piste_lift.j.bar" = "Telesqui de barra em J";
+"type.aerialway.magic_carpet" = "Tapete deslizante";
 
-"type.piste_lift.magic_carpet" = "Tapete deslizante";
+"type.aerialway.platter" = "Telesqui de disco";
 
-"type.piste_lift.platter" = "Telesqui de disco";
+"type.aerialway.rope_tow" = "Telesqui de corda";
 
-"type.piste_lift.rope_tow" = "Telesqui de corda";
-
-"type.piste_lift.t.bar" = "Telesqui de barra em T";
+"type.aerialway.t.bar" = "Telesqui de barra em T";
 
 "type.piste_type" = "Tipo de pista";
 

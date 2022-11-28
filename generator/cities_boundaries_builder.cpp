@@ -2,15 +2,10 @@
 
 #include "generator/utils.hpp"
 
-#include "search/categories_cache.hpp"
 #include "search/cbv.hpp"
-#include "search/localities_source.hpp"
-#include "search/mwm_context.hpp"
 
 #include "indexer/cities_boundaries_serdes.hpp"
 #include "indexer/city_boundary.hpp"
-#include "indexer/data_source.hpp"
-#include "indexer/feature_processor.hpp"
 #include "indexer/mwm_set.hpp"
 
 #include "platform/local_country_file.hpp"
@@ -22,7 +17,6 @@
 #include "base/assert.hpp"
 #include "base/checked_cast.hpp"
 #include "base/logging.hpp"
-#include "base/string_utils.hpp"
 
 #include <memory>
 #include <unordered_map>
@@ -60,7 +54,7 @@ bool BuildCitiesBoundaries(string const & dataPath, BoundariesTable & table,
       bs.insert(bs.end(), b.begin(), b.end());
     }
 
-    all.emplace_back(move(bs));
+    all.emplace_back(std::move(bs));
   });
 
   FilesContainerW container(dataPath, FileWriter::OP_WRITE_EXISTING);
@@ -84,7 +78,7 @@ bool BuildCitiesBoundaries(string const & dataPath, string const & osmToFeatureP
       LOG(LERROR, ("Can't parse feature id to osm id mapping."));
       return {};
     }
-    return std::make_unique<Mapping>(move(mapping));
+    return std::make_unique<Mapping>(std::move(mapping));
   });
 }
 
@@ -99,7 +93,7 @@ bool BuildCitiesBoundariesForTesting(string const & dataPath, TestIdToBoundaries
       LOG(LERROR, ("Can't parse feature id to test id mapping."));
       return {};
     }
-    return std::make_unique<Mapping>(move(mapping));
+    return std::make_unique<Mapping>(std::move(mapping));
   });
 }
 

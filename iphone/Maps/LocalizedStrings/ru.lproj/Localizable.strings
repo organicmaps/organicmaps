@@ -274,6 +274,9 @@
 "matrix" = "[matrix]";
 
 /* Text in menu */
+"mastodon" = "Mastodon";
+
+/* Text in menu */
 "facebook" = "Facebook";
 
 /* Text in menu */
@@ -296,6 +299,9 @@
 
 /* Button in the main Help dialog */
 "faq" = "Вопросы и ответы";
+
+/* Button in the main menu */
+"donate" = "Поддержать рублём";
 
 /* Button in the main Help dialog */
 "how_to_support_us" = "Как наc поддержать?";
@@ -512,6 +518,12 @@
 "search_history_text" = "Быстрый доступ к последним поисковым запросам.";
 
 "clear_search" = "Очистить историю поиска";
+
+/* Place Page link to Wikipedia article (if map object has it). */
+"read_in_wikipedia" = "Википедия";
+
+/* Place Page link to Wikimedia Commons. */
+"wikimedia_commons" = "Wikimedia Commons";
 
 "p2p_your_location" = "Ваше местоположение";
 
@@ -874,6 +886,7 @@
 
 "transliteration_title" = "Латинская транслитерация";
 
+/* Subway exits for public transport marks on the map */
 "core_exit" = "Выход";
 
 "routing_add_start_point" = "Добавьте стартовую точку, чтобы построить маршрут";
@@ -1214,11 +1227,14 @@
 /* edit track screen title */
 "track_title" = "Трек";
 
-/* Telegram group url for the help page */
+/* Telegram group url for the "?" About page */
 "telegram_url" = "https://t.me/OrganicMapsRu";
 
-/* Instagram account url for the help page */
+/* Instagram account url for the "?" About page */
 "instagram_url" = "https://www.instagram.com/organicmaps.app";
+
+/* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
+"translated_om_site_url" = "https://organicmaps.app/ru/";
 
 
 /********** Types **********/
@@ -1530,6 +1546,8 @@
 
 "type.barrier.cycle_barrier" = "Велосипедный барьер";
 
+"type.barrier.ditch" = "Ров";
+
 "type.barrier.entrance" = "Проход";
 
 "type.barrier.fence" = "Забор";
@@ -1537,6 +1555,8 @@
 "type.barrier.gate" = "Ворота";
 
 "type.barrier.hedge" = "Живая изгородь";
+
+"type.barrier.kissing_gate" = "Ворота";
 
 "type.barrier.lift_gate" = "Шлагбаум";
 
@@ -1828,6 +1848,8 @@
 "type.entrance" = "Вход";
 
 "type.healthcare.laboratory" = "Медицинская лаборатория";
+
+"type.healthcare.physiotherapist" = "Физиотерапевт";
 
 
 /********** Types: Roads **********/
@@ -2169,7 +2191,11 @@
 
 "type.historic.fort" = "Форт";
 
+"type.historic.gallows" = "Виселица";
+
 "type.historic.memorial" = "Мемориал";
+
+"type.historic.memorial.cross" = "Памятный крест";
 
 "type.historic.memorial.plaque" = "Памятная доска";
 
@@ -2177,7 +2203,13 @@
 
 "type.historic.memorial.statue" = "Статуя";
 
+"type.historic.memorial.stolperstein" = "Камни преткновения";
+
+"type.historic.memorial.war_memorial" = "Военный мемориал";
+
 "type.historic.monument" = "Памятник";
+
+"type.historic.pillory" = "Позорный столб";
 
 "type.historic.ruins" = "Руины";
 
@@ -2306,6 +2338,8 @@
 "type.leisure.fitness_centre" = "Фитнес-клуб";
 
 "type.leisure.fitness_station" = "Спортивные снаряды";
+
+"type.leisure.dance" = "Танцпол";
 
 "type.leisure.garden" = "Сад";
 
@@ -2436,6 +2470,8 @@
 "type.man_made.embankment" = "Насыпь";
 
 "type.natural.coastline" = "Береговая линия";
+
+"type.natural.desert" = "Пустыня";
 
 "type.natural.geyser" = "Гейзер";
 
@@ -2793,8 +2829,6 @@
 
 "type.railway.station.subway.lisboa" = "Метро";
 
-"type.railway.station.subway.lisbon" = "Метро";
-
 "type.railway.station.subway.london" = "Метро";
 
 "type.railway.station.subway.lyon" = "Метро";
@@ -3019,8 +3053,6 @@
 
 "type.railway.subway_entrance.lisboa" = "Вход в метро";
 
-"type.railway.subway_entrance.lisbon" = "Вход в метро";
-
 "type.railway.subway_entrance.london" = "Вход в метро";
 
 "type.railway.subway_entrance.lyon" = "Вход в метро";
@@ -3183,11 +3215,11 @@
 
 "type.shop.chemist" = "Бытовая химия";
 
-"type.shop.chocolate" = "Магазин";
+"type.shop.chocolate" = "Магазин шоколада";
 
 "type.shop.clothes" = "Магазин одежды";
 
-"type.shop.coffee" = "Магазин";
+"type.shop.coffee" = "Магазин кофе";
 
 "type.shop.computer" = "Компьютерный магазин";
 
@@ -3251,13 +3283,13 @@
 
 "type.shop.mobile_phone" = "Мобильные телефоны";
 
-"type.shop.money_lender" = "Магазин";
+"type.shop.money_lender" = "Ростовщик";
 
 "type.shop.motorcycle" = "Магазин мотоциклов";
 
-"type.shop.music" = "Магазин";
+"type.shop.music" = "Музыкальный магазин";
 
-"type.shop.musical_instrument" = "Магазин";
+"type.shop.musical_instrument" = "Музыкальные инструменты";
 
 "type.shop.newsagent" = "Газетный киоск";
 
@@ -3287,7 +3319,7 @@
 
 "type.shop.tattoo" = "Тату-салон";
 
-"type.shop.tea" = "Магазин";
+"type.shop.tea" = "Чайный магазин";
 
 "type.shop.ticket" = "Билетная касса";
 
@@ -3534,18 +3566,15 @@
 
 "type.wheelchair.yes" = "Оборудовано для инвалидов";
 
-/* en.wikipedia.org/wiki/Surface_lift */
-"type.piste_lift" = "Бугельный подъёмник";
+"type.aerialway.j.bar" = "Бугельный подъёмник";
 
-"type.piste_lift.j.bar" = "Бугельный подъёмник";
+"type.aerialway.magic_carpet" = "Ленточный конвейер";
 
-"type.piste_lift.magic_carpet" = "Ленточный конвейер";
+"type.aerialway.platter" = "Бугельный подъёмник";
 
-"type.piste_lift.platter" = "Бугельный подъёмник";
+"type.aerialway.rope_tow" = "Бугельный подъёмник";
 
-"type.piste_lift.rope_tow" = "Бугельный подъёмник";
-
-"type.piste_lift.t.bar" = "Бугельный подъёмник";
+"type.aerialway.t.bar" = "Бугельный подъёмник";
 
 "type.piste_type" = "Тип трассы";
 

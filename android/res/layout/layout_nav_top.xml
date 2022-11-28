@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<androidx.constraintlayout.widget.ConstraintLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/nav_top_frame"
   android:layout_width="match_parent"
-  android:layout_height="wrap_content"
+  android:layout_height="match_parent"
   android:layoutDirection="ltr"
   tools:background="#20FF0000"
   tools:showIn="@layout/layout_nav">
@@ -14,6 +14,7 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/nav_street_height"
     android:elevation="@dimen/nav_elevation"
+    app:layout_constraintTop_toTopOf="parent"
     android:background="?cardBackground">
     <TextView
       android:id="@+id/street"
@@ -27,16 +28,13 @@
       tools:text="Sample street name.\nLong looooooooong!!!!"/>
   </FrameLayout>
 
-  <include
-    layout="@layout/shadow_top"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_below="@id/street_frame"/>
-
   <RelativeLayout
     android:id="@+id/nav_next_turn_container"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    app:layout_constraintTop_toBottomOf="@id/street_frame"
+    app:layout_constraintLeft_toLeftOf="parent"
+    android:layout_marginTop="-40dp"
     android:elevation="@dimen/nav_elevation">
     <LinearLayout
       android:id="@+id/nav_next_turn_frame"
@@ -52,7 +50,7 @@
         android:layout_marginTop="@dimen/nav_next_turn_top"
         android:layout_marginBottom="@dimen/nav_next_turn_space"
         android:layout_gravity="center_horizontal">
-        <com.mapswithme.maps.widget.ArrowView
+        <app.organicmaps.widget.ArrowView
           android:id="@+id/turn"
           android:theme="?navigationTheme"
           android:layout_width="@dimen/nav_next_turn_sign"
@@ -101,4 +99,4 @@
         tools:src="@drawable/ic_then_left_sharp"/>
     </FrameLayout>
   </RelativeLayout>
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

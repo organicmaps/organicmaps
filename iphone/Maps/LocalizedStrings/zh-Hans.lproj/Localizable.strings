@@ -153,7 +153,7 @@
 "water" = "水";
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
-"rv" = "RV Facilities";
+"rv" = "房车用";
 
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
 
@@ -274,6 +274,9 @@
 "matrix" = "[matrix]";
 
 /* Text in menu */
+"mastodon" = "Mastodon";
+
+/* Text in menu */
 "facebook" = "脸书";
 
 /* Text in menu */
@@ -296,6 +299,9 @@
 
 /* Button in the main Help dialog */
 "faq" = "问题和解答";
+
+/* Button in the main menu */
+"donate" = "捐";
 
 /* Button in the main Help dialog */
 "how_to_support_us" = "如何支持我们？";
@@ -512,6 +518,12 @@
 "search_history_text" = "快速访问最近的搜索查询。";
 
 "clear_search" = "清除历史搜索";
+
+/* Place Page link to Wikipedia article (if map object has it). */
+"read_in_wikipedia" = "维基百科";
+
+/* Place Page link to Wikimedia Commons. */
+"wikimedia_commons" = "Wikimedia Commons";
 
 "p2p_your_location" = "您的位置";
 
@@ -874,6 +886,7 @@
 
 "transliteration_title" = "直译成拉丁文";
 
+/* Subway exits for public transport marks on the map */
 "core_exit" = "退出";
 
 "routing_add_start_point" = "添加起点以规划路线";
@@ -1214,11 +1227,14 @@
 /* edit track screen title */
 "track_title" = "追踪";
 
-/* Telegram group url for the help page */
+/* Telegram group url for the "?" About page */
 "telegram_url" = "https://t.me/OrganicMapsApp";
 
-/* Instagram account url for the help page */
+/* Instagram account url for the "?" About page */
 "instagram_url" = "https://www.instagram.com/organicmaps.app";
+
+/* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
+"translated_om_site_url" = "https://organicmaps.app/";
 
 
 /********** Types **********/
@@ -1456,7 +1472,7 @@
 
 "type.recycling.green_waste" = "Green/Organic Waste";
 
-"type.recycling.cartons" = "Bewerage Cartons";
+"type.recycling.cartons" = "Beverage Cartons";
 
 "type.amenity.restaurant" = "餐馆";
 
@@ -1530,6 +1546,8 @@
 
 "type.barrier.cycle_barrier" = "Cycle Barrier";
 
+"type.barrier.ditch" = "沟渠";
+
 "type.barrier.entrance" = "入口";
 
 "type.barrier.fence" = "篱笆";
@@ -1537,6 +1555,8 @@
 "type.barrier.gate" = "门";
 
 "type.barrier.hedge" = "树篱";
+
+"type.barrier.kissing_gate" = "门";
 
 "type.barrier.lift_gate" = "道闸";
 
@@ -1828,6 +1848,8 @@
 "type.entrance" = "入口";
 
 "type.healthcare.laboratory" = "医学实验室";
+
+"type.healthcare.physiotherapist" = "物理治疗师";
 
 
 /********** Types: Roads **********/
@@ -2165,11 +2187,15 @@
 
 "type.historic.city_gate" = "城门";
 
-"type.historic.citywalls" = "历史城墙";
+"type.historic.citywalls" = "城墙";
 
 "type.historic.fort" = "历史要塞";
 
+"type.historic.gallows" = "绞架";
+
 "type.historic.memorial" = "纪念物";
+
+"type.historic.memorial.cross" = "纪念十字架";
 
 "type.historic.memorial.plaque" = "纪念牌匾";
 
@@ -2177,7 +2203,13 @@
 
 "type.historic.memorial.statue" = "塑像";
 
+"type.historic.memorial.stolperstein" = "绊脚石";
+
+"type.historic.memorial.war_memorial" = "战争纪念建筑";
+
 "type.historic.monument" = "纪念堂";
+
+"type.historic.pillory" = "刑柱";
 
 "type.historic.ruins" = "废墟";
 
@@ -2306,6 +2338,8 @@
 "type.leisure.fitness_centre" = "健身中心";
 
 "type.leisure.fitness_station" = "健身驿站";
+
+"type.leisure.dance" = "舞厅";
 
 "type.leisure.garden" = "花园";
 
@@ -2436,6 +2470,8 @@
 "type.man_made.embankment" = "路堤";
 
 "type.natural.coastline" = "海岸线";
+
+"type.natural.desert" = "Desert";
 
 "type.natural.geyser" = "间歇泉";
 
@@ -2655,9 +2691,9 @@
 
 "type.railway.preserved" = "Preserved Rail";
 
-"type.railway.preserved.bridge" = "Preserved Rail";
+"type.railway.preserved.bridge" = "Preserved Rail Bridge";
 
-"type.railway.preserved.tunnel" = "Preserved Rail";
+"type.railway.preserved.tunnel" = "Preserved Rail Tunnel";
 
 "type.railway.rail" = "铁路轨道";
 
@@ -2671,15 +2707,15 @@
 
 "type.railway.siding" = "Siding Rail";
 
-"type.railway.siding.bridge" = "Siding Rail";
+"type.railway.siding.bridge" = "Siding Rail Bridge";
 
-"type.railway.siding.tunnel" = "Siding Rail";
+"type.railway.siding.tunnel" = "Siding Rail Tunnel";
 
 "type.railway.spur" = "Spur Rail";
 
-"type.railway.spur.bridge" = "Spur Rail";
+"type.railway.spur.bridge" = "Spur Rail Bridge";
 
-"type.railway.spur.tunnel" = "Spur Rail";
+"type.railway.spur.tunnel" = "Spur Rail Tunnel";
 
 "type.railway.station" = "火车站";
 
@@ -2792,8 +2828,6 @@
 "type.railway.station.subway.lima" = "地铁车站";
 
 "type.railway.station.subway.lisboa" = "地铁车站";
-
-"type.railway.station.subway.lisbon" = "地铁车站";
 
 "type.railway.station.subway.london" = "地铁车站";
 
@@ -2909,9 +2943,9 @@
 
 "type.railway.subway" = "Subway Line";
 
-"type.railway.subway.bridge" = "Subway Line";
+"type.railway.subway.bridge" = "Subway Line Bridge";
 
-"type.railway.subway.tunnel" = "Subway Line";
+"type.railway.subway.tunnel" = "Subway Line Tunnel";
 
 "type.railway.subway_entrance" = "地铁出入口";
 
@@ -3018,8 +3052,6 @@
 "type.railway.subway_entrance.lima" = "地铁出入口";
 
 "type.railway.subway_entrance.lisboa" = "地铁出入口";
-
-"type.railway.subway_entrance.lisbon" = "地铁出入口";
 
 "type.railway.subway_entrance.london" = "地铁出入口";
 
@@ -3534,18 +3566,15 @@
 
 "type.wheelchair.yes" = "配备残疾人专用";
 
-/* en.wikipedia.org/wiki/Surface_lift */
-"type.piste_lift" = "Surface Lift";
+"type.aerialway.j.bar" = "J-bar Lift";
 
-"type.piste_lift.j.bar" = "J-bar Lift";
+"type.aerialway.magic_carpet" = "Magic Carpet";
 
-"type.piste_lift.magic_carpet" = "Magic Carpet";
+"type.aerialway.platter" = "Platter Lift";
 
-"type.piste_lift.platter" = "Platter Lift";
+"type.aerialway.rope_tow" = "Rope Tow";
 
-"type.piste_lift.rope_tow" = "Rope Tow";
-
-"type.piste_lift.t.bar" = "T-bar Lift";
+"type.aerialway.t.bar" = "T-bar Lift";
 
 "type.piste_type" = "Piste Type";
 

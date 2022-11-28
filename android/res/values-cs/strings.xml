@@ -130,6 +130,8 @@
 	<string name="recycling">Recyklace</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
 	<string name="water">Voda</string>
+	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
+	<string name="rv">Pro RV</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Poznámky</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -335,7 +337,7 @@
 	<string name="routing_arrive">Příjezd: %s</string>
 	<string name="categories">Kategorie</string>
 	<string name="history">Historie</string>
-	<string name="search_not_found">Omlouvám se, nic nenalezeno.</string>
+	<string name="search_not_found">Omlouváme se, nic nebylo nalezeno.</string>
 	<string name="search_not_found_query">Zkuste zadat jiný hledaný výraz.</string>
 	<string name="search_history_title">Prohledat historii</string>
 	<string name="search_history_text">Získejte rychlý přístup k hledaným výrazům.</string>
@@ -426,7 +428,7 @@
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d z %2$d</string>
 	<string name="download_over_mobile_header">Stáhnout pomocí připojení přes mobilní síť?</string>
-	<string name="download_over_mobile_message">Toto by mohli být s některými tarify nebo roamingem výrazně dražší.</string>
+	<string name="download_over_mobile_message">Toto by mohlo být s některými tarify nebo roamingem výrazně dražší.</string>
 	<string name="error_enter_correct_house_number">Zadejte správné číslo domu</string>
 	<string name="editor_storey_number">Počet poschodí (max. %d)</string>
 	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
@@ -489,7 +491,7 @@
 	<string name="mobile_data_option_not_today">Nepoužívat dnes</string>
 	<string name="mobile_data">Mobilní data</string>
 	<!-- NOTE to translators: please synchronize your translation with the English one. -->
-	<string name="mobile_data_description">Ke zobrazení podrobných informací o místech, jako jsou fotografie, ceny a recenze, je třeba mobilní internet.</string>
+	<string name="mobile_data_description">K zobrazení podrobných informací o místech, jako jsou fotografie, ceny, a recenze je třeba mobilní internet.</string>
 	<string name="mobile_data_option_never">Nikdy nepoužívat</string>
 	<string name="mobile_data_option_ask">Vždy se zeptat</string>
 	<string name="traffic_update_maps_text">Ke zobrazení údajů o provozu musí být aktualizovány mapy.</string>
@@ -507,6 +509,7 @@
 	<string name="prefs_languages_information_off_link">Více informací najdete v tomto návodu.</string>
 	<string name="transliteration_title">Přepis do latinky</string>
 	<string name="learn_more">Zjistit více</string>
+	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">Ukončit</string>
 	<string name="routing_add_start_point">Zadejte výchozí bod pro plánování trasy</string>
 	<string name="routing_add_finish_point">Zadejte cílový bod pro plánování trasy</string>
@@ -576,14 +579,14 @@
 	<string name="place_description_title">Popis místa</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Nahrávání map</string>
-	<string name="power_managment_title">Nízkoenergetický režim</string>
-	<string name="power_managment_description">Pokud je nízkoenergetický režim zapojen, příloha bude vypínat funkce, které mrhají energii v závislosti na nynější nabíjení telefonu</string>
-	<string name="power_managment_setting_never">Nikdy</string>
-	<string name="power_managment_setting_auto">Auto</string>
-	<string name="power_managment_setting_manual_max">Maximální šetření energií</string>
-	<string name="enable_logging_warning_message">Daná možnost se zapojuje pro protokolování činností za účelem diagnostiky. To pomáhá týmu odhalit problémy s přílohou. Zapojujte možnost jenom na požádání podržení Organic Maps.</string>
+	<string name="power_managment_title">Režim spořič baterie</string>
+	<string name="power_managment_description">Pokud je zapnut automatický režim spořiče baterie, aplikace začne vypínat funkce vybíjející baterii, v závislosti na její momentální úrovni nabití.</string>
+	<string name="power_managment_setting_never">Nikdy nepoužívat</string>
+	<string name="power_managment_setting_auto">Automatický</string>
+	<string name="power_managment_setting_manual_max">Maximální šetření baterií</string>
+	<string name="enable_logging_warning_message">Tato možnost zapne odesílání dat za účelem diagnostiky. To nám pomáhá při řešení problémů s aplikací. Zapněte tuto možnost pro dočasné nahrávání a odesílání logů našemu týmu o vašem problému.</string>
 	<string name="access_rules_author_only">Upravujte on-line</string>
-	<string name="driving_options_title">Možnosti řízení</string>
+	<string name="driving_options_title">Možnosti směrovače</string>
 	<string name="driving_options_subheader">Vyhněte se na každé trase</string>
 	<string name="avoid_tolls">Silnice s mýtným</string>
 	<string name="avoid_unpaved">Nezpevněná silnice</string>
@@ -661,7 +664,7 @@
 	<string name="isolines_toast_zooms_1_10">Přiblížit pro prozkoumání izolinií</string>
 	<string name="enable_screen_sleep">Nechte obrazovku spát</string>
 	<!-- Description in preferences -->
-	<string name="enable_screen_sleep_description">Je-li tato možnost povolena, bude obrazovka po určité době nečinnosti umožněna usnout.</string>
+	<string name="enable_screen_sleep_description">Je-li tato možnost povolena, bude obrazovce po určité době nečinnosti umožněno usnout.</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">Mapová data z OpenStreetMap</string>
 
@@ -783,8 +786,11 @@
 	<string name="type.barrier.block">Blok</string>
 	<string name="type.barrier.bollard">Pilíř</string>
 	<string name="type.barrier.border_control">Pohraniční kontrola</string>
+	<string name="type.barrier.city_wall">Městská zeď</string>
+	<string name="type.barrier.ditch">Hradní příkop</string>
 	<string name="type.barrier.entrance">Vstup</string>
 	<string name="type.barrier.gate">Brána</string>
+	<string name="type.barrier.kissing_gate">Brána</string>
 	<string name="type.barrier.lift_gate">Závora</string>
 	<string name="type.barrier.stile">Sloupek</string>
 	<string name="type.barrier.swing_gate">Závora</string>
@@ -906,6 +912,7 @@
 	<string name="type.emergency.phone">Tísňového volání</string>
 	<string name="type.entrance">Vchod</string>
 	<string name="type.healthcare.laboratory">Lékařská laboratoř</string>
+	<string name="type.healthcare.physiotherapist">Fyzioterapeut</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1071,7 +1078,10 @@
 	<string name="type.area_highway.unclassified">Ulice</string>
 
 	<!-- SECTION: Types: Historic -->
+	<string name="type.historic">Historický objekt</string>
 	<string name="type.historic.archaeological_site">Vykopávky</string>
+	<string name="type.historic.battlefield">Bojiště</string>
+	<string name="type.historic.boundary_stone">Hraniční kámen</string>
 	<string name="type.historic.castle">Hrad</string>
 	<string name="type.historic.castle.castrum">Castrum</string>
 	<string name="type.historic.castle.defensive">Hrad</string>
@@ -1084,14 +1094,23 @@
 	<string name="type.historic.castle.shiro">Japonský hrad</string>
 	<string name="type.historic.castle.stately">Zámek</string>
 	<string name="type.historic.city_gate">Městská brána</string>
+	<string name="type.historic.citywalls">Městská zeď</string>
+	<string name="type.historic.fort">Fort</string>
+	<string name="type.historic.gallows">Šibenice</string>
 	<string name="type.historic.memorial">Pomník</string>
+	<string name="type.historic.memorial.cross">Pamětní kříž</string>
 	<string name="type.historic.memorial.plaque">Pomník</string>
 	<string name="type.historic.memorial.sculpture">Pomník</string>
 	<string name="type.historic.memorial.statue">Pomník</string>
+	<string name="type.historic.memorial.stolperstein">Stolperstein</string>
+	<string name="type.historic.memorial.war_memorial">Válečný památník</string>
 	<string name="type.historic.monument">Zajímavost</string>
+	<string name="type.historic.pillory">Pranýř</string>
 	<string name="type.historic.ruins">Ruiny</string>
 	<string name="type.historic.ship">Pamětihodnost</string>
 	<string name="type.historic.tomb">Pamětihodnost</string>
+	<string name="type.historic.wayside_cross">Přícestný kříž</string>
+	<string name="type.historic.wayside_shrine">Drobná sakrální památka</string>
 	<string name="type.landuse.basin">Vodní nádrž</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery">Hřbitov</string>
@@ -1110,6 +1129,7 @@
 	<string name="type.leisure.dog_park">Místo pro psy</string>
 	<string name="type.leisure.fitness_centre">Fitness</string>
 	<string name="type.leisure.fitness_station">Posilovna</string>
+	<string name="type.leisure.dance">Taneční hala</string>
 	<string name="type.leisure.garden">Zahrada</string>
 	<string name="type.leisure.garden.residential">Zahrada</string>
 	<string name="type.leisure.golf_course">Golf</string>
@@ -1150,6 +1170,7 @@
 	<string name="type.natural.earth_bank">Útes</string>
 	<string name="type.man_made.embankment">Násyp</string>
 	<string name="type.natural.coastline">Pobřeží</string>
+	<string name="type.natural.desert">Poušť</string>
 	<string name="type.natural.geyser">Gejzír</string>
 	<string name="type.natural.glacier">Ledovec</string>
 	<string name="type.natural.grassland">Louky a pastviny</string>
@@ -1280,7 +1301,6 @@
 	<string name="type.railway.station.subway.lille">Metro</string>
 	<string name="type.railway.station.subway.lima">Metro</string>
 	<string name="type.railway.station.subway.lisboa">Metro</string>
-	<string name="type.railway.station.subway.lisbon">Metro</string>
 	<string name="type.railway.station.subway.london">Metro</string>
 	<string name="type.railway.station.subway.lyon">Metro</string>
 	<string name="type.railway.station.subway.madrid">Metro</string>
@@ -1390,7 +1410,6 @@
 	<string name="type.railway.subway_entrance.lille">Vchod do podchodu</string>
 	<string name="type.railway.subway_entrance.lima">Vchod do podchodu</string>
 	<string name="type.railway.subway_entrance.lisboa">Vchod do podchodu</string>
-	<string name="type.railway.subway_entrance.lisbon">Vchod do podchodu</string>
 	<string name="type.railway.subway_entrance.london">Vchod do podchodu</string>
 	<string name="type.railway.subway_entrance.lyon">Vchod do podchodu</string>
 	<string name="type.railway.subway_entrance.madrid">Vchod do podchodu</string>

@@ -588,7 +588,7 @@
 		675343701A3F5CF500A0A8C3 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1400;
+				LastUpgradeCheck = 1410;
 				TargetAttributes = {
 					675340E81C58C496002CF0D9 = {
 						CreatedOnToolsVersion = 7.2;
@@ -756,45 +756,33 @@
 				);
 				"FRAMEWORK_SEARCH_PATHS[sdk=iphoneos*]" = (
 					"$(inherited)",
-					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/iOS",
 				);
 				"FRAMEWORK_SEARCH_PATHS[sdk=iphonesimulator*]" = (
 					"$(inherited)",
-					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/iOS",
 				);
 				"FRAMEWORK_SEARCH_PATHS[sdk=macosx*]" = (
 					"$(inherited)",
 					"$(QT_PATH)/lib",
-					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/Mac",
 				);
 				"HEADER_SEARCH_PATHS[sdk=iphoneos*]" = (
 					"$(inherited)",
-					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/iOS/Alamofire.framework/Headers",
-					"$(OMIM_ROOT)/3party/jansson/src",
 				);
 				"HEADER_SEARCH_PATHS[sdk=iphonesimulator*]" = (
 					"$(inherited)",
-					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/iOS/Alamofire.framework/Headers",
-					"$(OMIM_ROOT)/3party/jansson/src",
 				);
 				"HEADER_SEARCH_PATHS[sdk=macosx*]" = (
 					"$(inherited)",
-					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/Mac/Alamofire.framework/Headers",
-					"$(OMIM_ROOT)/3party/jansson/src",
 					"$(QT_PATH)/include",
 				);
 				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*]" = (
 					"$(inherited)",
-					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/iOS",
 				);
 				"LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]" = (
 					"$(inherited)",
-					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/iOS",
 				);
 				"LIBRARY_SEARCH_PATHS[sdk=macosx*]" = (
 					"$(inherited)",
 					"$(QT_PATH)/lib",
-					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/Mac",
 				);
 			};
 			name = Debug;
@@ -834,17 +822,17 @@
 				"HEADER_SEARCH_PATHS[sdk=iphoneos*]" = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/iOS/Alamofire.framework/Headers",
-					"$(OMIM_ROOT)/3party/jansson/src",
+					"$(OMIM_ROOT)/3party/jansson/jansson/src",
 				);
 				"HEADER_SEARCH_PATHS[sdk=iphonesimulator*]" = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/iOS/Alamofire.framework/Headers",
-					"$(OMIM_ROOT)/3party/jansson/src",
+					"$(OMIM_ROOT)/3party/jansson/jansson/src",
 				);
 				"HEADER_SEARCH_PATHS[sdk=macosx*]" = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/Mac/Alamofire.framework/Headers",
-					"$(OMIM_ROOT)/3party/jansson/src",
+					"$(OMIM_ROOT)/3party/jansson/jansson/src",
 					"$(QT_PATH)/include",
 				);
 				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*]" = (

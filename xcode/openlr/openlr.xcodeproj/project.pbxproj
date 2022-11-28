@@ -202,7 +202,7 @@
 		671E78EB1E6A4FE400B2859B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1400;
+				LastUpgradeCheck = 1410;
 				TargetAttributes = {
 					671E78F21E6A4FE400B2859B = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -257,12 +257,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 671E791F1E6A503F00B2859B /* common-debug.xcconfig */;
 			buildSettings = {
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(OMIM_ROOT)",
-					"$(BOOST_ROOT)",
-					"$(OMIM_ROOT)/3party/jansson/src",
-				);
 			};
 			name = Debug;
 		};
@@ -270,12 +264,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 671E79201E6A503F00B2859B /* common-release.xcconfig */;
 			buildSettings = {
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(OMIM_ROOT)",
-					"$(BOOST_ROOT)",
-					"$(OMIM_ROOT)/3party/jansson/src",
-				);
 			};
 			name = Release;
 		};

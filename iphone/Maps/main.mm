@@ -6,7 +6,7 @@
 int main(int argc, char * argv[])
 {
   auto & p = GetPlatform();
-  LOG(LINFO, ("Organic Maps started, detected CPU cores:", p.CpuCores()));
+  LOG(LINFO, ("Organic Maps", p.Version(), "started, detected CPU cores:", p.CpuCores()));
 
   int retVal;
   @autoreleasepool

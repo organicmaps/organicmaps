@@ -20,12 +20,11 @@
 #include <algorithm>
 #include <string>
 
-using namespace std;
+namespace data_source_test
+{
 using platform::CountryFile;
 using platform::LocalCountryFile;
 
-namespace
-{
 class DataSourceTest : public MwmSet::Observer
 {
 public:
@@ -70,16 +69,15 @@ public:
 
 protected:
   template <typename... TArgs>
-  void AddEvent(vector<MwmSet::Event> & events, TArgs... args)
+  void AddEvent(std::vector<MwmSet::Event> & events, TArgs... args)
   {
-    events.emplace_back(forward<TArgs>(args)...);
+    events.emplace_back(std::forward<TArgs>(args)...);
   }
 
   FrozenDataSource m_dataSource;
-  vector<MwmSet::Event> m_expected;
-  vector<MwmSet::Event> m_actual;
+  std::vector<MwmSet::Event> m_expected;
+  std::vector<MwmSet::Event> m_actual;
 };
-}  // namespace
 
 UNIT_CLASS_TEST(DataSourceTest, Parse)
 {
@@ -91,7 +89,7 @@ UNIT_CLASS_TEST(DataSourceTest, Parse)
 
 UNIT_CLASS_TEST(DataSourceTest, StatusNotifications)
 {
-  string const mapsDir = GetPlatform().WritableDir();
+  std::string const mapsDir = GetPlatform().WritableDir();
   CountryFile const country("minsk-pass");
 
   // These two classes point to the same file, but will be considered
@@ -156,3 +154,4 @@ UNIT_CLASS_TEST(DataSourceTest, StatusNotifications)
     TEST(CheckExpectations(), ());
   }
 }
+}  // namespace data_source_test

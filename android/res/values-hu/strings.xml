@@ -130,6 +130,8 @@
 	<string name="recycling">Újrahasznosítás</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
 	<string name="water">Víz</string>
+	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
+	<string name="rv">RV számára</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Jegyzetek</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -185,16 +187,16 @@
 	<!-- «Map style» entry value -->
 	<string name="pref_map_style_auto">Automatikus</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
-	<string name="pref_map_3d_title">Távlati kép</string>
+	<string name="pref_map_3d_title">Perspektivikus nézet</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
 	<string name="pref_map_3d_buildings_title">3D-s épületek</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Hangutasítások</string>
 	<!-- Settings «Route» category: «Tts language» title -->
-	<string name="pref_tts_language_title">A hang nyelve</string>
+	<string name="pref_tts_language_title">A hangutasítások nyelve</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Nem áll rendelkezésre</string>
-	<string name="pref_map_auto_zoom">Auto-zoom</string>
+	<string name="pref_map_auto_zoom">Automatikus nagyítás</string>
 	<string name="duration_disabled">Kikapcsolva</string>
 	<string name="duration_1_hour">1 óra</string>
 	<string name="duration_2_hours">2 óra</string>
@@ -215,13 +217,13 @@
 	<!-- Button in the main Help dialog -->
 	<string name="faq">Kérdések és válaszok</string>
 	<!-- Button in the main menu -->
-	<string name="donate">Adományoz</string>
+	<string name="donate">Adományozni</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">Hogyan támogat minket?</string>
+	<string name="how_to_support_us">Hogyan támogathatsz minket?</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">Szerzői jog</string>
 	<!-- Text in menu + Button in the main Help dialog -->
-	<string name="report_a_bug">Hibabejelentés</string>
+	<string name="report_a_bug">Hiba jelentése</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Mindegyik frissítése</string>
 	<!-- Cancel all button text -->
@@ -476,11 +478,11 @@
 	<string name="editor_share_to_all_dialog_message_1">Győződj meg arról, hogy nem adsz meg semmilyen személyes információt.</string>
 	<string name="editor_share_to_all_dialog_message_2">Az OpenStreetMap szerkesztői ellenőrzik a változásokat, és felveszik Önnel a kapcsolatot, ha kérdéseik vannak.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
-	<string name="about_description">Az Organic Maps egy ingyenes, nyílt forráskódú offline térképalkalmazás. Nincsenek hirdetések. Nincs nyomkövetés. Ha hibát lát a térképen, javítsa ki az OpenStreetMap segítségével. A projektet a lelkesek készítik szabadidőnkben, ezért szükségünk van az Ön visszajelzésére és támogatására.</string>
+	<string name="about_description">Az Organic Maps egy gyors és ingyenes offline térképalkalmazás hirdetések és nyomkövetés nélkül. A térképek az OpenStreetMap.org közösség által fenntartott adatain alapulnak, így a térképen megtalálható hibákat te is javíthatod, és adhatsz hozzá új helyeket. Az Organic Maps egy nyílt forráskódú projekt, amelyet lelkes fejlesztők hoztak létre szabadidejükben. Visszajelzéseidet és támogatásodat nagyra értékeljük!</string>
 	<!-- For the first routing -->
-	<string name="accept">Elfogadja</string>
+	<string name="accept">Elfogad</string>
 	<!-- For the first routing -->
-	<string name="decline">Elutasítja</string>
+	<string name="decline">Elutasít</string>
 	<string name="mobile_data_dialog">Részletes információk megjelenítése a mobil internet segítségével?</string>
 	<string name="mobile_data_option_always">Mindig használja</string>
 	<string name="mobile_data_option_today">Csak ma</string>
@@ -505,6 +507,7 @@
 	<string name="prefs_languages_information_off_link">További tájékoztatást találhat még ebben az útmutatóban.</string>
 	<string name="transliteration_title">Átírás latin nyelvre</string>
 	<string name="learn_more">Tudjon meg többet</string>
+	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">Kilépés</string>
 	<string name="routing_add_start_point">Adjon hozzá kiindulási pontot az útvonal megtervezéséhez</string>
 	<string name="routing_add_finish_point">Adjon hozzá végpontot az útvonal tervezéséhez</string>
@@ -580,21 +583,21 @@
 	<string name="power_managment_setting_manual_max">Maximális energiatakarékosság</string>
 	<string name="enable_logging_warning_message">Az opció bekapcsolja a diagnosztikai célú naplózást. Hasznos lehet a support csapatunknak, akik elhárítják az alkalmazás hibáit. Csak a Organic Maps support kérésére kapcsold be ezt az opciót.</string>
 	<string name="access_rules_author_only">Online szerkesztés</string>
-	<string name="driving_options_title">Vezetési lehetőségek</string>
+	<string name="driving_options_title">Útvonaltervezési lehetőségek</string>
 	<string name="driving_options_subheader">Elkerülés minden útvonalon</string>
-	<string name="avoid_tolls">Fizetős utak</string>
-	<string name="avoid_unpaved">Kövezetlen utak</string>
+	<string name="avoid_tolls">Díjköteles utak</string>
+	<string name="avoid_unpaved">Burkolatlan utak</string>
 	<string name="avoid_ferry">Kompátkelők</string>
 	<string name="avoid_motorways">Autópályák</string>
 	<string name="unable_to_calc_alert_title">Nem lehet útvonalat számítani</string>
 	<string name="unable_to_calc_alert_subtitle">Sajnos nem találunk útvonalat, valószínűleg az általad meghatározott lehetőségek miatt. Kérjük változtass a beállításokon és próbáld újra</string>
 	<string name="define_to_avoid_btn">Elkerülendő utak meghatározása</string>
-	<string name="change_driving_options_btn">Vezetési lehetőségek bekapcsolva</string>
-	<string name="toll_road">Fizetős utak</string>
-	<string name="unpaved_road">Kövezetlen utak</string>
+	<string name="change_driving_options_btn">Útvonaltervezési lehetőségek bekapcsolva</string>
+	<string name="toll_road">Díjköteles utak</string>
+	<string name="unpaved_road">Burkolatlan utak</string>
 	<string name="ferry_crossing">Kompátkelők</string>
-	<string name="avoid_toll_roads_placepage">Fizetős utak elkerülése</string>
-	<string name="avoid_unpaved_roads_placepage">Kövezetlen utak elkerülése</string>
+	<string name="avoid_toll_roads_placepage">Díjköteles utak elkerülése</string>
+	<string name="avoid_unpaved_roads_placepage">Burkolatlan utak elkerülése</string>
 	<string name="avoid_ferry_crossing_placepage">Kompátkelők elkerülése</string>
 	<!-- A generic "Yes" button in dialogs -->
 	<string name="yes">Igen</string>
@@ -659,6 +662,10 @@
 	<string name="enable_screen_sleep">Hagyja aludni a képernyőt</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Ha engedélyezve van, akkor a képernyő inaktivitás után alszik.</string>
+	<!-- A preference title; keep short! -->
+	<string name="enable_show_on_lock_screen">Megjelenítés a zárolt képernyőn</string>
+	<!-- Description in preferences -->
+	<string name="enable_show_on_lock_screen_description">Ha engedélyezve van, nem kell minden alkalommal feloldanod a telefonod, amíg az alkalmazás fut.</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">Térképadatok az OpenStreetMapből</string>
 
@@ -782,8 +789,11 @@
 	<string name="type.barrier.block">Blokk</string>
 	<string name="type.barrier.bollard">Oszlop</string>
 	<string name="type.barrier.border_control">Határállomás</string>
+	<string name="type.barrier.city_wall">Városi fal</string>
+	<string name="type.barrier.ditch">Várárok</string>
 	<string name="type.barrier.entrance">Bejárat</string>
 	<string name="type.barrier.gate">Kapu</string>
+	<string name="type.barrier.kissing_gate">Kapu</string>
 	<string name="type.barrier.lift_gate">Sorompó</string>
 	<string name="type.barrier.stile">Átjáró</string>
 	<string name="type.barrier.swing_gate">Sorompó</string>
@@ -905,6 +915,7 @@
 	<string name="type.emergency.phone">Sürgősségi telefon</string>
 	<string name="type.entrance">Bejárat</string>
 	<string name="type.healthcare.laboratory">Orvosi laboratórium</string>
+	<string name="type.healthcare.physiotherapist">Fizioterapeuta</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1070,7 +1081,10 @@
 	<string name="type.area_highway.unclassified">Utca</string>
 
 	<!-- SECTION: Types: Historic -->
+	<string name="type.historic">Történelmi tárgy</string>
 	<string name="type.historic.archaeological_site">Ásatás</string>
+	<string name="type.historic.battlefield">Csatatér</string>
+	<string name="type.historic.boundary_stone">Határkő</string>
 	<string name="type.historic.castle">Kastély</string>
 	<string name="type.historic.castle.castrum">Castrum</string>
 	<string name="type.historic.castle.defensive">Kastély</string>
@@ -1083,14 +1097,23 @@
 	<string name="type.historic.castle.shiro">Japán várkastélyai</string>
 	<string name="type.historic.castle.stately">Kastély</string>
 	<string name="type.historic.city_gate">Városi kapu</string>
+	<string name="type.historic.citywalls">Városi fal</string>
+	<string name="type.historic.fort">Fort</string>
+	<string name="type.historic.gallows">Akasztófa</string>
 	<string name="type.historic.memorial">Emlékmű</string>
+	<string name="type.historic.memorial.cross">Emlékkereszt</string>
 	<string name="type.historic.memorial.plaque">Emlékmű</string>
 	<string name="type.historic.memorial.sculpture">Emlékmű</string>
 	<string name="type.historic.memorial.statue">Emlékmű</string>
+	<string name="type.historic.memorial.stolperstein">Botlatókő</string>
+	<string name="type.historic.memorial.war_memorial">Háborús emlékmű</string>
 	<string name="type.historic.monument">Műemlék</string>
+	<string name="type.historic.pillory">Pellengér</string>
 	<string name="type.historic.ruins">Romok</string>
 	<string name="type.historic.ship">Túrizmus</string>
-	<string name="type.historic.tomb">Túrizmus</string>
+	<string name="type.historic.tomb">Sír</string>
+	<string name="type.historic.wayside_cross">Útszéli kereszt</string>
+	<string name="type.historic.wayside_shrine">Útmenti szentély</string>
 	<string name="type.landuse.basin">Vízgyűjtő</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery">Temető</string>
@@ -1109,6 +1132,7 @@
 	<string name="type.leisure.dog_park">Kutyás terület</string>
 	<string name="type.leisure.fitness_centre">Fitnesz-terem</string>
 	<string name="type.leisure.fitness_station">Fitness állomás</string>
+	<string name="type.leisure.dance">Táncterem</string>
 	<string name="type.leisure.garden">Kert</string>
 	<string name="type.leisure.garden.residential">Kert</string>
 	<string name="type.leisure.golf_course">Golfpálya</string>
@@ -1148,6 +1172,7 @@
 	<string name="type.natural.earth_bank">Szikla</string>
 	<string name="type.man_made.embankment">Töltés</string>
 	<string name="type.natural.coastline">Tengerpart</string>
+	<string name="type.natural.desert">Sivatag</string>
 	<string name="type.natural.geyser">Gejzír</string>
 	<string name="type.natural.glacier">Gleccser</string>
 	<string name="type.natural.grassland">Füves puszta</string>
@@ -1278,7 +1303,6 @@
 	<string name="type.railway.station.subway.lille">Földalatti</string>
 	<string name="type.railway.station.subway.lima">Földalatti</string>
 	<string name="type.railway.station.subway.lisboa">Földalatti</string>
-	<string name="type.railway.station.subway.lisbon">Földalatti</string>
 	<string name="type.railway.station.subway.london">Földalatti</string>
 	<string name="type.railway.station.subway.lyon">Földalatti</string>
 	<string name="type.railway.station.subway.madrid">Földalatti</string>
@@ -1388,7 +1412,6 @@
 	<string name="type.railway.subway_entrance.lille">Földalatti bejárat</string>
 	<string name="type.railway.subway_entrance.lima">Földalatti bejárat</string>
 	<string name="type.railway.subway_entrance.lisboa">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.lisbon">Földalatti bejárat</string>
 	<string name="type.railway.subway_entrance.london">Földalatti bejárat</string>
 	<string name="type.railway.subway_entrance.lyon">Földalatti bejárat</string>
 	<string name="type.railway.subway_entrance.madrid">Földalatti bejárat</string>
@@ -1523,7 +1546,7 @@
 	<string name="type.shop.wine">Szeszesital-üzlet</string>
 	<string name="type.shop.antiques">Régiségek</string>
 	<string name="type.shop.art">Művészeti Bolt</string>
-	<string name="type.shop.baby_goods">Gyermekbolt</string>
+	<string name="type.shop.baby_goods">Bababolt</string>
 	<string name="type.shop.bag">Táskák bolt</string>
 	<string name="type.shop.boutique">Butik</string>
 	<string name="type.shop.charity">Jótékonysági Bolt</string>
@@ -1533,7 +1556,7 @@
 	<string name="type.shop.electrical">Elektronikai üzlet</string>
 	<string name="type.shop.fishing">Horgászbolt</string>
 	<string name="type.shop.interior_decoration">Belső dekorációk</string>
-	<string name="type.shop.lottery">Sorsjegyek</string>
+	<string name="type.shop.lottery">Lottózó</string>
 	<string name="type.shop.medical_supply">Orvosi eszközök</string>
 	<string name="type.shop.nutrition_supplements">Táplálékkiegészítők</string>
 	<string name="type.shop.paint">Festékek</string>

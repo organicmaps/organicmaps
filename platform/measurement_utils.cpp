@@ -292,7 +292,7 @@ bool OSMDistanceToMeters(string const & osmRawValue, double & outMeters)
     break;
 
   // Inches.
-  case '\"': outMeters = InchesToMeters(outMeters); return true;
+  case '"': outMeters = InchesToMeters(outMeters); return true;
 
   // It's probably a range. Use maximum value (if possible) for a range.
   case '-':
@@ -319,9 +319,7 @@ bool OSMDistanceToMeters(string const & osmRawValue, double & outMeters)
     outMeters = NauticalMilesToMeters(outMeters);
   else if (strstr(stop, "mi") == stop)
     outMeters = MilesToMeters(outMeters);
-  else if (strstr(stop, "ft") == stop)
-    outMeters = FeetToMeters(outMeters);
-  else if (strstr(stop, "feet") == stop)
+  else if (strstr(stop, "ft") == stop || strstr(stop, "feet") == stop)
     outMeters = FeetToMeters(outMeters);
   else if (strstr(stop, "km") == stop)
     outMeters = outMeters * 1000;

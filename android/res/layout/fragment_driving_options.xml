@@ -42,7 +42,7 @@
       android:layout_height="wrap_content"
       android:layout_gravity="center_vertical"
       android:textColor="?android:attr/textColorPrimary"/>
-    <Switch
+    <androidx.appcompat.widget.SwitchCompat
       android:id="@+id/avoid_tolls_btn"
       android:layout_width="wrap_content"
       android:layout_height="match_parent"/>
@@ -63,7 +63,7 @@
       android:layout_height="wrap_content"
       android:layout_gravity="center_vertical"
       android:textColor="?android:attr/textColorPrimary"/>
-    <Switch
+    <androidx.appcompat.widget.SwitchCompat
       android:id="@+id/avoid_dirty_roads_btn"
       android:layout_width="wrap_content"
       android:layout_height="match_parent"/>
@@ -84,7 +84,7 @@
       android:layout_height="wrap_content"
       android:layout_gravity="center_vertical"
       android:textColor="?android:attr/textColorPrimary"/>
-    <Switch
+    <androidx.appcompat.widget.SwitchCompat
       android:id="@+id/avoid_ferries_btn"
       android:layout_width="wrap_content"
       android:layout_height="match_parent"/>
@@ -105,7 +105,7 @@
       android:layout_gravity="center_vertical"
       android:layout_height="wrap_content"
       android:textColor="?android:attr/textColorPrimary"/>
-    <Switch
+    <androidx.appcompat.widget.SwitchCompat
       android:id="@+id/avoid_motorways_btn"
       android:layout_width="wrap_content"
       android:layout_height="match_parent"/>

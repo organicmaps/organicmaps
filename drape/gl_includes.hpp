@@ -19,7 +19,7 @@
   #define GL_GLEXT_PROTOTYPES
   #include <GLES2/gl2.h>
   #include <GLES2/gl2ext.h>
-  #include "android/jni/com/mapswithme/opengl/gl3stub.h"
+  #include "android/jni/app/organicmaps/opengl/gl3stub.h"
   #include <EGL/egl.h>
 #else
   #define GL_GLEXT_PROTOTYPES

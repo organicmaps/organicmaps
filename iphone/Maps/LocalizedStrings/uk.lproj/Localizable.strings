@@ -274,6 +274,9 @@
 "matrix" = "[matrix]";
 
 /* Text in menu */
+"mastodon" = "Mastodon";
+
+/* Text in menu */
 "facebook" = "Facebook";
 
 /* Text in menu */
@@ -296,6 +299,9 @@
 
 /* Button in the main Help dialog */
 "faq" = "Питання та відповіді";
+
+/* Button in the main menu */
+"donate" = "Підтримати грошима";
 
 /* Button in the main Help dialog */
 "how_to_support_us" = "Як нас підтримати?";
@@ -512,6 +518,12 @@
 "search_history_text" = "Швидкий доступ до недавніх результатів пошуку.";
 
 "clear_search" = "Очистити історію пошуку";
+
+/* Place Page link to Wikipedia article (if map object has it). */
+"read_in_wikipedia" = "Вікіпедія";
+
+/* Place Page link to Wikimedia Commons. */
+"wikimedia_commons" = "Wikimedia Commons";
 
 "p2p_your_location" = "Ваше місцезнаходження";
 
@@ -874,6 +886,7 @@
 
 "transliteration_title" = "Транслітерація латинськими літерами";
 
+/* Subway exits for public transport marks on the map */
 "core_exit" = "Вихід";
 
 "routing_add_start_point" = "Вкажіть початкову точку для побудови маршруту";
@@ -1214,11 +1227,14 @@
 /* edit track screen title */
 "track_title" = "Маршрут";
 
-/* Telegram group url for the help page */
+/* Telegram group url for the "?" About page */
 "telegram_url" = "https://t.me/OrganicMapsApp";
 
-/* Instagram account url for the help page */
+/* Instagram account url for the "?" About page */
 "instagram_url" = "https://www.instagram.com/organicmaps.app";
+
+/* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
+"translated_om_site_url" = "https://organicmaps.app/";
 
 
 /********** Types **********/
@@ -1530,6 +1546,8 @@
 
 "type.barrier.cycle_barrier" = "Велосипедна перешкода";
 
+"type.barrier.ditch" = "Рів";
+
 "type.barrier.entrance" = "Прохід";
 
 "type.barrier.fence" = "Огорожа";
@@ -1537,6 +1555,8 @@
 "type.barrier.gate" = "Ворота";
 
 "type.barrier.hedge" = "Hedge";
+
+"type.barrier.kissing_gate" = "Ворота";
 
 "type.barrier.lift_gate" = "Шлагбаум";
 
@@ -1828,6 +1848,8 @@
 "type.entrance" = "Вхід";
 
 "type.healthcare.laboratory" = "Медична лабораторія";
+
+"type.healthcare.physiotherapist" = "Фізіотерапевт";
 
 
 /********** Types: Roads **********/
@@ -2169,7 +2191,11 @@
 
 "type.historic.fort" = "Форт";
 
+"type.historic.gallows" = "Шибениця";
+
 "type.historic.memorial" = "Меморіал";
+
+"type.historic.memorial.cross" = "Пам'ятний хрест";
 
 "type.historic.memorial.plaque" = "Дошка пам'яті";
 
@@ -2177,7 +2203,13 @@
 
 "type.historic.memorial.statue" = "Статуя";
 
+"type.historic.memorial.stolperstein" = "Камені спотикання";
+
+"type.historic.memorial.war_memorial" = "Військовий меморіал";
+
 "type.historic.monument" = "Пам'ятник";
+
+"type.historic.pillory" = "Ганебний стовп";
 
 "type.historic.ruins" = "Руїни";
 
@@ -2306,6 +2338,8 @@
 "type.leisure.fitness_centre" = "Фітнес-зал";
 
 "type.leisure.fitness_station" = "Спортивні знаряддя";
+
+"type.leisure.dance" = "Танцювальний зал";
 
 "type.leisure.garden" = "Садок";
 
@@ -2436,6 +2470,8 @@
 "type.man_made.embankment" = "Насип";
 
 "type.natural.coastline" = "Берегова лiнiя";
+
+"type.natural.desert" = "Пустиня";
 
 "type.natural.geyser" = "Гейзер";
 
@@ -2793,8 +2829,6 @@
 
 "type.railway.station.subway.lisboa" = "Метро";
 
-"type.railway.station.subway.lisbon" = "Метро";
-
 "type.railway.station.subway.london" = "Метро";
 
 "type.railway.station.subway.lyon" = "Метро";
@@ -3018,8 +3052,6 @@
 "type.railway.subway_entrance.lima" = "Вхід до метро";
 
 "type.railway.subway_entrance.lisboa" = "Вхід до метро";
-
-"type.railway.subway_entrance.lisbon" = "Вхід до метро";
 
 "type.railway.subway_entrance.london" = "Вхід до метро";
 
@@ -3534,18 +3566,15 @@
 
 "type.wheelchair.yes" = "Обладнано для інвалідів";
 
-/* en.wikipedia.org/wiki/Surface_lift */
-"type.piste_lift" = "Бугельний витяг";
+"type.aerialway.j.bar" = "Бугельний витяг";
 
-"type.piste_lift.j.bar" = "Бугельний витяг";
+"type.aerialway.magic_carpet" = "Стрiчковий конвеєр";
 
-"type.piste_lift.magic_carpet" = "Стрiчковий конвеєр";
+"type.aerialway.platter" = "Бугельний витяг";
 
-"type.piste_lift.platter" = "Бугельний витяг";
+"type.aerialway.rope_tow" = "Бугельний витяг";
 
-"type.piste_lift.rope_tow" = "Бугельний витяг";
-
-"type.piste_lift.t.bar" = "Бугельний витяг";
+"type.aerialway.t.bar" = "Бугельний витяг";
 
 "type.piste_type" = "Тип траси";
 

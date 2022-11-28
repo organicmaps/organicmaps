@@ -220,6 +220,9 @@
 	<string name="duration_6_hours">6 hores</string>
 	<string name="duration_12_hours">12 hores</string>
 	<string name="duration_1_day">1 dia</string>
+	<string name="search_show_on_map">Veure al mapa</string>
+	<!-- Menu button -->
+	<string name="menu">Menú</string>
 	<!-- Text in menu -->
 	<string name="website">Lloc web</string>
 	<!-- Text in About menu, opens Organic Maps news website -->
@@ -443,6 +446,7 @@
 	<string name="editor_report_problem_other_title">Un altre problema</string>
 	<string name="placepage_add_business_button">Afegeix un negoci</string>
 	<string name="message_invalid_feature_position">No s\'ha trobat cap objecte aquí</string>
+	<string name="osm_presentation">Totes les dades cartogràfiques provenen del projecte OpenStreetMap. És com la Viquipèdia per als mapes on podeu afegir o editar llocs, i estan disponibles per a milions d\'usuaris de tot el món.</string>
 	<string name="login_to_make_edits_visible">Inicieu sessió perquè altres usuaris puguin veure els canvis que heu fet</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d de %2$d</string>
@@ -535,6 +539,7 @@
 	<string name="prefs_languages_information_off_link">Per a més informació, vegeu aquesta guia.</string>
 	<string name="transliteration_title">Translitertació a l\'alfabet llatí</string>
 	<string name="learn_more">Més informació</string>
+	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">Surt</string>
 	<string name="routing_add_start_point">Afegiu un punt inical per a planificar una ruta</string>
 	<string name="routing_add_finish_point">Afegeiu la destinació per a planificar la ruta</string>

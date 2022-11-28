@@ -823,7 +823,7 @@
 		670947321BDF9B82005014C0 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1400;
+				LastUpgradeCheck = 1410;
 				TargetAttributes = {
 					670947391BDF9B82005014C0 = {
 						CreatedOnToolsVersion = 7.1;
@@ -964,12 +964,10 @@
 					DEBUG_DRAPE_XCODE,
 				);
 				HEADER_SEARCH_PATHS = (
-					"$(OMIM_ROOT)",
-					"$(BOOST_ROOT)",
+					"$(inherited)",
 					"$(OMIM_ROOT)/3party/glm",
 					"$(OMIM_ROOT)/3party/protobuf/protobuf/src",
 					"$(OMIM_ROOT)/3party/protobuf",
-					"$(OMIM_ROOT)/3party/jansson/src",
 				);
 			};
 			name = Debug;
@@ -983,12 +981,10 @@
 					"U_DISABLE_RENAMING=1",
 				);
 				HEADER_SEARCH_PATHS = (
-					"$(OMIM_ROOT)",
-					"$(BOOST_ROOT)",
+					"$(inherited)",
 					"$(OMIM_ROOT)/3party/glm",
 					"$(OMIM_ROOT)/3party/protobuf/protobuf/src",
 					"$(OMIM_ROOT)/3party/protobuf",
-					"$(OMIM_ROOT)/3party/jansson/src",
 				);
 			};
 			name = Release;

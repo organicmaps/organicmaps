@@ -33,12 +33,11 @@ namespace osm
 {
 // TODO(AlexZ): Normalize osm multivalue strings for correct merging
 // (e.g. insert/remove spaces after ';' delimeter);
-
-using namespace std;
 using namespace pugi;
 using feature::GeomType;
 using feature::Metadata;
 using editor::XMLFeature;
+using std::move, std::make_shared, std::string;
 
 namespace
 {
@@ -58,13 +57,13 @@ constexpr char const * kMatchedFeatureIsEmpty = "Matched feature has no tags";
 
 struct XmlSection
 {
-  XmlSection(FeatureStatus status, std::string const & sectionName)
+  XmlSection(FeatureStatus status, string const & sectionName)
     : m_status(status), m_sectionName(sectionName)
   {
   }
 
   FeatureStatus m_status = FeatureStatus::Untouched;
-  std::string m_sectionName;
+  string m_sectionName;
 };
 
 std::array<XmlSection, 4> const kXmlSections = {{{FeatureStatus::Deleted, kDeleteSection},
@@ -101,7 +100,7 @@ struct LogHelper
   MwmSet::MwmId const & m_mwmId;
 };
 
-bool NeedsUpload(std::string const & uploadStatus)
+bool NeedsUpload(string const & uploadStatus)
 {
   return uploadStatus != kUploaded && uploadStatus != kDeletedFromOSMServer &&
          uploadStatus != kMatchedFeatureIsEmpty;
@@ -149,7 +148,7 @@ Editor & Editor::Instance()
   return instance;
 }
 
-void Editor::SetDefaultStorage() { m_storage = make_unique<editor::LocalStorage>(); }
+void Editor::SetDefaultStorage() { m_storage = std::make_unique<editor::LocalStorage>(); }
 
 void Editor::LoadEdits()
 {
@@ -251,7 +250,7 @@ bool Editor::Save(FeaturesContainer const & features) const
   return m_storage->Save(doc);
 }
 
-bool Editor::SaveTransaction(shared_ptr<FeaturesContainer> const & features)
+bool Editor::SaveTransaction(std::shared_ptr<FeaturesContainer> const & features)
 {
   if (!Save(*features))
     return false;
@@ -421,7 +420,7 @@ Editor::SaveResult Editor::SaveEditedFeature(EditableMapObject const & emo)
   fti.m_uploadStatus = {};
 
   auto editableFeatures = make_shared<FeaturesContainer>(*features);
-  (*editableFeatures)[fid.m_mwmId][fid.m_index] = move(fti);
+  (*editableFeatures)[fid.m_mwmId][fid.m_index] = std::move(fti);
 
   bool const savedSuccessfully = SaveTransaction(editableFeatures);
 
@@ -460,7 +459,7 @@ void Editor::ForEachCreatedFeature(MwmSet::MwmId const & id, FeatureIndexFunctor
   }
 }
 
-optional<osm::EditableMapObject> Editor::GetEditedFeature(FeatureID const & fid) const
+std::optional<osm::EditableMapObject> Editor::GetEditedFeature(FeatureID const & fid) const
 {
   auto const features = m_features.Get();
   auto const * featureInfo = GetFeatureTypeInfo(*features, fid.m_mwmId, fid.m_index);
@@ -481,12 +480,12 @@ bool Editor::GetEditedFeatureStreet(FeatureID const & fid, string & outFeatureSt
   return true;
 }
 
-vector<uint32_t> Editor::GetFeaturesByStatus(MwmSet::MwmId const & mwmId,
-                                             FeatureStatus status) const
+std::vector<uint32_t> Editor::GetFeaturesByStatus(MwmSet::MwmId const & mwmId,
+                                                  FeatureStatus status) const
 {
   auto const features = m_features.Get();
 
-  vector<uint32_t> result;
+  std::vector<uint32_t> result;
   auto const matchedMwm = features->find(mwmId);
   if (matchedMwm == features->cend())
     return result;
@@ -496,7 +495,7 @@ vector<uint32_t> Editor::GetFeaturesByStatus(MwmSet::MwmId const & mwmId,
     if (index.second.m_status == status)
       result.push_back(index.first);
   }
-  sort(result.begin(), result.end());
+  std::sort(result.begin(), result.end());
   return result;
 }
 
@@ -990,16 +989,16 @@ bool Editor::CreatePoint(uint32_t type, m2::PointD const & mercator, MwmSet::Mwm
 }
 
 void Editor::CreateNote(ms::LatLon const & latLon, FeatureID const & fid,
-                        feature::TypesHolder const & holder, string_view defaultName,
-                        NoteProblemType const type, string_view note)
+                        feature::TypesHolder const & holder, std::string_view defaultName,
+                        NoteProblemType const type, std::string_view note)
 {
   CHECK_THREAD_CHECKER(MainThreadChecker, (""));
 
-  ostringstream sstr;
+  std::ostringstream sstr;
   auto canCreate = true;
 
   if (!note.empty())
-    sstr << "\"" << note << "\"\n";
+    sstr << '"' << note << "\"\n";
 
   switch (type)
   {
@@ -1043,7 +1042,7 @@ void Editor::CreateNote(ms::LatLon const & latLon, FeatureID const & fid,
     sstr << ' ' << type;
   }
   sstr << "\n";
-  cout << "***TEXT*** " << sstr.str();
+  std::cout << "***TEXT*** " << sstr.str();
   m_notes->CreateNote(latLon, sstr.str());
 }
 
@@ -1077,7 +1076,7 @@ MwmSet::MwmId Editor::GetMwmIdByMapName(string const & name)
   return m_delegate->GetMwmIdByMapName(name);
 }
 
-unique_ptr<EditableMapObject> Editor::GetOriginalMapObject(FeatureID const & fid) const
+std::unique_ptr<EditableMapObject> Editor::GetOriginalMapObject(FeatureID const & fid) const
 {
   if (!m_delegate)
   {
@@ -1156,7 +1155,7 @@ void Editor::LoadMwmEdits(FeaturesContainer & loadedFeatures, xml_node const & m
       }
       catch (editor::XMLFeatureError const & ex)
       {
-        ostringstream s;
+        std::ostringstream s;
         nodeOrWay.node().print(s, "  ");
         LOG(LERROR, (ex.what(), "mwmId =", mwmId, "in section", section.m_sectionName, s.str()));
       }

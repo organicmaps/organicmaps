@@ -35,7 +35,6 @@
 #include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"
-#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 #include "base/timer.hpp"
 
@@ -43,13 +42,10 @@
 
 #include <algorithm>
 #include <fstream>
-#include <map>
-#include <mutex>
+#include <memory>
 #include <thread>
 #include <unordered_map>
 #include <vector>
-
-using namespace std;
 
 #define SYNONYMS_FILE "synonyms.txt"
 
@@ -58,14 +54,14 @@ namespace
 class SynonymsHolder
 {
 public:
-  explicit SynonymsHolder(string const & fPath)
+  explicit SynonymsHolder(std::string const & fPath)
   {
-    ifstream stream(fPath.c_str());
+    std::ifstream stream(fPath.c_str());
 
-    string line;
+    std::string line;
     while (stream.good())
     {
-      getline(stream, line);
+      std::getline(stream, line);
       if (line.empty())
         continue;
 
@@ -79,7 +75,7 @@ public:
           // For consistency, synonyms should not have any spaces.
           // For example, the hypothetical "Russia" -> "Russian Federation" mapping
           // would have the feature with name "Russia" match the request "federation". It would be wrong.
-          CHECK(tokens[i].find_first_of(" \t") == string::npos, ());
+          CHECK(tokens[i].find_first_of(" \t") == std::string::npos, ());
           m_map.emplace(tokens[0], tokens[i]);
         }
       }
@@ -87,7 +83,7 @@ public:
   }
 
   template <class ToDo>
-  void ForEach(string const & key, ToDo toDo) const
+  void ForEach(std::string const & key, ToDo toDo) const
   {
     auto range = m_map.equal_range(key);
     while (range.first != range.second)
@@ -98,11 +94,11 @@ public:
   }
 
 private:
-  unordered_multimap<string, string> m_map;
+  std::unordered_multimap<std::string, std::string> m_map;
 };
 
-void GetCategoryTypes(CategoriesHolder const & categories, pair<int, int> scaleRange,
-                      feature::TypesHolder const & types, vector<uint32_t> & result)
+void GetCategoryTypes(CategoriesHolder const & categories, std::pair<int, int> scaleRange,
+                      feature::TypesHolder const & types, std::vector<uint32_t> & result)
 {
   for (uint32_t t : types)
   {
@@ -138,7 +134,7 @@ class FeatureNameInserter
 
 public:
   FeatureNameInserter(uint32_t index, SynonymsHolder * synonyms,
-                      vector<pair<Key, Value>> & keyValuePairs, bool hasStreetType)
+                      std::vector<std::pair<Key, Value>> & keyValuePairs, bool hasStreetType)
     : m_val(index)
     , m_synonyms(synonyms)
     , m_keyValuePairs(keyValuePairs)
@@ -187,7 +183,7 @@ public:
     }
   }
 
-  void operator()(int8_t lang, string_view name) const
+  void operator()(int8_t lang, std::string_view name) const
   {
     /// @todo No problem here if we will have duplicating tokens? (POI name like "Step by Step").
     auto tokens = search::NormalizeAndTokenizeString(name);
@@ -196,13 +192,13 @@ public:
     if (m_synonyms)
     {
       /// @todo Avoid creating temporary std::string.
-      m_synonyms->ForEach(std::string(name), [&](string const & utf8str)
+      m_synonyms->ForEach(std::string(name), [&](std::string const & utf8str)
       {
         tokens.push_back(search::NormalizeAndSimplifyString(utf8str));
       });
     }
 
-    static_assert(search::kMaxNumTokens > 0, "");
+    static_assert(search::kMaxNumTokens > 0);
     size_t const maxTokensCount = search::kMaxNumTokens - 1;
     if (tokens.size() > maxTokensCount)
     {
@@ -230,20 +226,20 @@ public:
 
   Value m_val;
   SynonymsHolder * m_synonyms;
-  vector<pair<Key, Value>> & m_keyValuePairs;
+  std::vector<std::pair<Key, Value>> & m_keyValuePairs;
   bool m_hasStreetType = false;
 };
 
 // Returns true iff feature name was indexed as postcode and should be ignored for name indexing.
-bool InsertPostcodes(FeatureType & f, function<void(strings::UniString const &)> const & fn)
+bool InsertPostcodes(FeatureType & f, std::function<void(strings::UniString const &)> const & fn)
 {
   using namespace search;
 
   auto const & postBoxChecker = ftypes::IsPostBoxChecker::Instance();
   auto const postcode = f.GetMetadata(feature::Metadata::FMD_POSTCODE);
-  vector<string> postcodes;
+  std::vector<std::string> postcodes;
   if (!postcode.empty())
-    postcodes.push_back(std::string(postcode));
+    postcodes.emplace_back(postcode);
 
   bool useNameAsPostcode = false;
   if (postBoxChecker(f))
@@ -251,13 +247,13 @@ bool InsertPostcodes(FeatureType & f, function<void(strings::UniString const &)>
     auto const & names = f.GetNames();
     if (names.CountLangs() == 1)
     {
-      string_view defaultName;
+      std::string_view defaultName;
       names.GetString(StringUtf8Multilang::kDefaultCode, defaultName);
       if (!defaultName.empty() && LooksLikePostcode(defaultName, false /* isPrefix */))
       {
         // In UK it's common practice to set outer postcode as postcode and outer + inner as ref.
         // We convert ref to name at FeatureBuilder.
-        postcodes.push_back(std::string(defaultName));
+        postcodes.emplace_back(defaultName);
         useNameAsPostcode = true;
       }
     }
@@ -272,8 +268,8 @@ template <typename Key, typename Value>
 class FeatureInserter
 {
 public:
-  FeatureInserter(SynonymsHolder * synonyms, vector<pair<Key, Value>> & keyValuePairs,
-                  CategoriesHolder const & catHolder, pair<int, int> const & scales)
+  FeatureInserter(SynonymsHolder * synonyms, std::vector<std::pair<Key, Value>> & keyValuePairs,
+                  CategoriesHolder const & catHolder, std::pair<int, int> const & scales)
     : m_synonyms(synonyms)
     , m_keyValuePairs(keyValuePairs)
     , m_categories(catHolder)
@@ -347,7 +343,7 @@ public:
 
     Classificator const & c = classif();
 
-    vector<uint32_t> categoryTypes;
+    std::vector<uint32_t> categoryTypes;
     GetCategoryTypes(m_categories, m_scales, types, categoryTypes);
 
     // add names of categories of the feature
@@ -357,29 +353,29 @@ public:
 
 private:
   SynonymsHolder * m_synonyms;
-  vector<pair<Key, Value>> & m_keyValuePairs;
+  std::vector<std::pair<Key, Value>> & m_keyValuePairs;
 
   CategoriesHolder const & m_categories;
 
-  pair<int, int> m_scales;
+  std::pair<int, int> m_scales;
 };
 
 template <typename Key, typename Value>
 void AddFeatureNameIndexPairs(FeaturesVectorTest const & features,
                               CategoriesHolder const & categoriesHolder,
-                              vector<pair<Key, Value>> & keyValuePairs)
+                              std::vector<std::pair<Key, Value>> & keyValuePairs)
 {
   feature::DataHeader const & header = features.GetHeader();
 
-  unique_ptr<SynonymsHolder> synonyms;
+  std::unique_ptr<SynonymsHolder> synonyms;
   if (header.GetType() == feature::DataHeader::MapType::World)
-    synonyms.reset(new SynonymsHolder(base::JoinPath(GetPlatform().ResourcesDir(), SYNONYMS_FILE)));
+    synonyms = std::make_unique<SynonymsHolder>(base::JoinPath(GetPlatform().ResourcesDir(), SYNONYMS_FILE));
 
   features.GetVector().ForEach(FeatureInserter<Key, Value>(
       synonyms.get(), keyValuePairs, categoriesHolder, header.GetScaleRange()));
 }
 
-void ReadAddressData(string const & filename, vector<feature::AddressData> & addrs)
+void ReadAddressData(std::string const & filename, std::vector<feature::AddressData> & addrs)
 {
   FileReader reader(filename);
   ReaderSource<FileReader> src(reader);
@@ -390,7 +386,7 @@ void ReadAddressData(string const & filename, vector<feature::AddressData> & add
   }
 }
 
-bool GetStreetIndex(search::MwmContext & ctx, uint32_t featureID, string_view streetName, uint32_t & result)
+bool GetStreetIndex(search::MwmContext & ctx, uint32_t featureID, std::string_view streetName, uint32_t & result)
 {
   bool const hasStreet = !streetName.empty();
   if (hasStreet)
@@ -399,7 +395,7 @@ bool GetStreetIndex(search::MwmContext & ctx, uint32_t featureID, string_view st
     CHECK(ft, ());
 
     using TStreet = search::ReverseGeocoder::Street;
-    vector<TStreet> streets;
+    std::vector<TStreet> streets;
     search::ReverseGeocoder::GetNearbyStreets(ctx, feature::GetCenter(*ft),
                                               true /* includeSquaresAndSuburbs */, streets);
 
@@ -416,13 +412,13 @@ bool GetStreetIndex(search::MwmContext & ctx, uint32_t featureID, string_view st
   return false;
 }
 
-void BuildAddressTable(FilesContainerR & container, string const & addressDataFile, Writer & writer,
+void BuildAddressTable(FilesContainerR & container, std::string const & addressDataFile, Writer & writer,
                        uint32_t threadsCount)
 {
-  vector<feature::AddressData> addrs;
+  std::vector<feature::AddressData> addrs;
   ReadAddressData(addressDataFile, addrs);
 
-  uint32_t const featuresCount = base::checked_cast<uint32_t>(addrs.size());
+  auto const featuresCount = base::checked_cast<uint32_t>(addrs.size());
 
   // Initialize temporary source for the current mwm file.
   FrozenDataSource dataSource;
@@ -434,20 +430,21 @@ void BuildAddressTable(FilesContainerR & container, string const & addressDataFi
     mwmId = regResult.first;
   }
 
-  vector<unique_ptr<search::MwmContext>> contexts(threadsCount);
+  std::vector<std::unique_ptr<search::MwmContext>> contexts(threadsCount);
 
   uint32_t address = 0, missing = 0;
 
-  uint32_t const kEmptyResult = uint32_t(-1);
-  vector<uint32_t> results(featuresCount, kEmptyResult);
+  auto const kEmptyResult = uint32_t(-1);
+  std::vector<uint32_t> results(featuresCount, kEmptyResult);
 
-  mutex resMutex;
+  std::mutex resMutex;
 
   // Thread working function.
-  auto const fn = [&](uint32_t threadIdx) {
-    uint64_t const fc = static_cast<uint64_t>(featuresCount);
-    uint32_t const beg = static_cast<uint32_t>(fc * threadIdx / threadsCount);
-    uint32_t const end = static_cast<uint32_t>(fc * (threadIdx + 1) / threadsCount);
+  auto const fn = [&](uint32_t threadIdx)
+  {
+    auto const fc = static_cast<uint64_t>(featuresCount);
+    auto const beg = static_cast<uint32_t>(fc * threadIdx / threadsCount);
+    auto const end = static_cast<uint32_t>(fc * (threadIdx + 1) / threadsCount);
 
     for (uint32_t i = beg; i < end; ++i)
     {
@@ -455,7 +452,7 @@ void BuildAddressTable(FilesContainerR & container, string const & addressDataFi
       bool const found = GetStreetIndex(
           *(contexts[threadIdx]), i, addrs[i].Get(feature::AddressData::Type::Street), streetIndex);
 
-      lock_guard<mutex> guard(resMutex);
+      std::lock_guard<std::mutex> guard(resMutex);
 
       if (found)
       {
@@ -471,11 +468,11 @@ void BuildAddressTable(FilesContainerR & container, string const & addressDataFi
   };
 
   // Prepare threads and mwm contexts for each thread.
-  vector<thread> threads;
+  std::vector<std::thread> threads;
   for (size_t i = 0; i < threadsCount; ++i)
   {
     auto handle = dataSource.GetMwmHandleById(mwmId);
-    contexts[i] = make_unique<search::MwmContext>(move(handle));
+    contexts[i] = std::make_unique<search::MwmContext>(std::move(handle));
     threads.emplace_back(fn, i);
   }
 
@@ -512,7 +509,7 @@ namespace indexer
 {
 void BuildSearchIndex(FilesContainerR & container, Writer & indexWriter);
 
-bool BuildSearchIndexFromDataFile(string const & country, feature::GenerateInfo const & info,
+bool BuildSearchIndexFromDataFile(std::string const & country, feature::GenerateInfo const & info,
                                   bool forceRebuild, uint32_t threadsCount)
 {
   Platform & platform = GetPlatform();
@@ -522,10 +519,10 @@ bool BuildSearchIndexFromDataFile(string const & country, feature::GenerateInfo 
   if (readContainer.IsExist(SEARCH_INDEX_FILE_TAG) && !forceRebuild)
     return true;
 
-  string const indexFilePath = filename + "." + SEARCH_INDEX_FILE_TAG EXTENSION_TMP;
-  string const addrFilePath = filename + "." + SEARCH_ADDRESS_FILE_TAG EXTENSION_TMP;
-  SCOPE_GUARD(indexFileGuard, bind(&FileWriter::DeleteFileX, indexFilePath));
-  SCOPE_GUARD(addrFileGuard, bind(&FileWriter::DeleteFileX, addrFilePath));
+  auto const indexFilePath = filename + "." + SEARCH_INDEX_FILE_TAG EXTENSION_TMP;
+  auto const addrFilePath = filename + "." + SEARCH_ADDRESS_FILE_TAG EXTENSION_TMP;
+  SCOPE_GUARD(indexFileGuard, std::bind(&FileWriter::DeleteFileX, indexFilePath));
+  SCOPE_GUARD(addrFileGuard, std::bind(&FileWriter::DeleteFileX, addrFilePath));
 
   try
   {
@@ -599,10 +596,10 @@ void BuildSearchIndex(FilesContainerR & container, Writer & indexWriter)
   FeaturesVectorTest features(container);
   SingleValueSerializer<Value> serializer;
 
-  vector<pair<Key, Value>> searchIndexKeyValuePairs;
+  std::vector<std::pair<Key, Value>> searchIndexKeyValuePairs;
   AddFeatureNameIndexPairs(features, categoriesHolder, searchIndexKeyValuePairs);
 
-  sort(searchIndexKeyValuePairs.begin(), searchIndexKeyValuePairs.end());
+  std::sort(searchIndexKeyValuePairs.begin(), searchIndexKeyValuePairs.end());
   LOG(LINFO, ("End sorting strings:", timer.ElapsedSeconds()));
 
   trie::Build<Writer, Key, ValueList<Value>, SingleValueSerializer<Value>>(

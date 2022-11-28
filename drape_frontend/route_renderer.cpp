@@ -1,18 +1,11 @@
 #include "drape_frontend/route_renderer.hpp"
-#include "drape_frontend/message_subclasses.hpp"
 #include "drape_frontend/shape_view_params.hpp"
 #include "drape_frontend/visual_params.hpp"
 
 #include "shaders/programs.hpp"
 
 #include "drape/drape_routine.hpp"
-#include "drape/glsl_func.hpp"
-#include "drape/utils/projection.hpp"
 #include "drape/vertex_array_buffer.hpp"
-
-#include "indexer/scales.hpp"
-
-#include "base/logging.hpp"
 
 #include <algorithm>
 #include <array>
@@ -66,16 +59,6 @@ void InterpolateByZoom(SubrouteConstPtr const & subroute, ScreenBase const & scr
 
   halfWidth = InterpolateByZoomLevels(index, lerpCoef, *halfWidthInPixel);
   halfWidth *= static_cast<float>(df::VisualParams::Instance().GetVisualScale());
-}
-
-float CalculateRadius(ScreenBase const & screen)
-{
-  double zoom = 0.0;
-  int index = 0;
-  float lerpCoef = 0.0f;
-  ExtractZoomFactors(screen, zoom, index, lerpCoef);
-  float const radius = InterpolateByZoomLevels(index, lerpCoef, kPreviewPointRadiusInPixel);
-  return radius * static_cast<float>(VisualParams::Instance().GetVisualScale());
 }
 
 void ClipBorders(std::vector<ArrowBorders> & borders)
@@ -336,7 +319,7 @@ void RouteRenderer::UpdatePreview(ScreenBase const & screen)
   {
     ClearPreviewHandles();
     m_previewPivot = screen.GlobalRect().Center();
-    previewCircleRadius = CalculateRadius(screen);
+    previewCircleRadius = CalculateRadius(screen, kPreviewPointRadiusInPixel);
   }
   double const currentScaleGtoP = 1.0 / screen.GetScale();
   double const radiusMercator = previewCircleRadius / currentScaleGtoP;
@@ -796,7 +779,7 @@ bool RouteRenderer::HasData() const
 {
   return !m_subroutes.empty();
 }
-  
+
 bool RouteRenderer::HasPreviewData() const
 {
   return !m_previewSegments.empty() && !m_previewRenderData.empty();

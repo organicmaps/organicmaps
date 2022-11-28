@@ -31,6 +31,8 @@ To run the `generate_symbols.sh` script install `optipng` also, e.g. for Ubuntu
 sudo apt install optipng
 ```
 
+If you use WSL on Windows 10 you might need to run [X Server](INSTALL.md#windows-10-wsl) before running `generate_symbols.sh`
+
 ## Files
 
 Map styles are defined in text files located in `data/styles/clear/include/`:

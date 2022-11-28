@@ -4,7 +4,6 @@
 
 #include "base/assert.hpp"
 #include "base/bits.hpp"
-#include "base/math.hpp"
 
 #include <algorithm>
 
@@ -12,43 +11,53 @@ namespace
 {
 double CoordSize(uint8_t coordBits)
 {
-  ASSERT_LESS_OR_EQUAL(coordBits, 32, ());
+  ASSERT(coordBits >= 1 && coordBits <= 32, (coordBits));
   return static_cast<double>((uint64_t{1} << coordBits) - 1);
 }
 }  // namespace
 
 uint32_t DoubleToUint32(double x, double min, double max, uint8_t coordBits)
 {
-  ASSERT_GREATER_OR_EQUAL(coordBits, 1, ());
-  ASSERT_LESS_OR_EQUAL(coordBits, 32, ());
   ASSERT_LESS_OR_EQUAL(min, max, ());
-  x = base::Clamp(x, min, max);
-  return static_cast<uint32_t>(0.5 + (x - min) / (max - min) * bits::GetFullMask(coordBits));
+
+  double const coordSize = CoordSize(coordBits);
+
+  // Expand checks to avoid NANs when min == max.
+  double d;
+  if (x <= min)
+    d = 0;
+  else if (x >= max)
+    d = coordSize;
+  else
+    d = (x - min) / (max - min) * coordSize;
+
+  // Check in case of NANs.
+  ASSERT(d >= 0 && d <= coordSize, (d, x, min, max, coordBits));
+  return static_cast<uint32_t>(0.5 + d);
 }
 
 double Uint32ToDouble(uint32_t x, double min, double max, uint8_t coordBits)
 {
-  ASSERT_GREATER_OR_EQUAL(coordBits, 1, ());
-  ASSERT_LESS_OR_EQUAL(coordBits, 32, ());
-  auto const res = min + static_cast<double>(x) * (max - min) / bits::GetFullMask(coordBits);
-  // Clamp to avoid floating point calculation errors.
-  return base::Clamp(res, min, max);
+  ASSERT_LESS_OR_EQUAL(min, max, ());
+
+  double const coordSize = CoordSize(coordBits);
+  auto const d = min + static_cast<double>(x) * (max - min) / coordSize;
+
+  // It doesn't work now because of fancy serialization of m2::DiamondBox.
+  /// @todo Check PathsThroughLayers search test. Refactor CitiesBoundariesSerDes.
+  //ASSERT_LESS_OR_EQUAL(x, coordSize, (d, min, max, coordBits));
+
+  // It doesn't work because of possible floating errors.
+  //ASSERT(d >= min && d <= max, (d, x, min, max, coordBits));
+
+  return base::Clamp(d, min, max);
 }
 
 m2::PointU PointDToPointU(double x, double y, uint8_t coordBits)
 {
-  x = base::Clamp(x, mercator::Bounds::kMinX, mercator::Bounds::kMaxX);
-  y = base::Clamp(y, mercator::Bounds::kMinY, mercator::Bounds::kMaxY);
-
-  uint32_t const ix = static_cast<uint32_t>(
-      0.5 + (x - mercator::Bounds::kMinX) / mercator::Bounds::kRangeX * CoordSize(coordBits));
-  uint32_t const iy = static_cast<uint32_t>(
-      0.5 + (y - mercator::Bounds::kMinY) / mercator::Bounds::kRangeY * CoordSize(coordBits));
-
-  ASSERT_LESS_OR_EQUAL(ix, CoordSize(coordBits), ());
-  ASSERT_LESS_OR_EQUAL(iy, CoordSize(coordBits), ());
-
-  return m2::PointU(ix, iy);
+  using mercator::Bounds;
+  return { DoubleToUint32(x, Bounds::kMinX, Bounds::kMaxX, coordBits),
+           DoubleToUint32(y, Bounds::kMinY, Bounds::kMaxY, coordBits) };
 }
 
 m2::PointU PointDToPointU(m2::PointD const & pt, uint8_t coordBits)
@@ -58,26 +67,21 @@ m2::PointU PointDToPointU(m2::PointD const & pt, uint8_t coordBits)
 
 m2::PointU PointDToPointU(m2::PointD const & pt, uint8_t coordBits, m2::RectD const & limitRect)
 {
-  ASSERT_GREATER_OR_EQUAL(coordBits, 1, ());
-  ASSERT_LESS_OR_EQUAL(coordBits, 32, ());
-  auto const x = DoubleToUint32(pt.x, limitRect.minX(), limitRect.maxX(), coordBits);
-  auto const y = DoubleToUint32(pt.y, limitRect.minY(), limitRect.maxY(), coordBits);
-  return m2::PointU(x, y);
+  return { DoubleToUint32(pt.x, limitRect.minX(), limitRect.maxX(), coordBits),
+           DoubleToUint32(pt.y, limitRect.minY(), limitRect.maxY(), coordBits) };
 }
 
 m2::PointD PointUToPointD(m2::PointU const & pt, uint8_t coordBits)
 {
-  return m2::PointD(
-      static_cast<double>(pt.x) * mercator::Bounds::kRangeX / CoordSize(coordBits) +
-          mercator::Bounds::kMinX,
-      static_cast<double>(pt.y) * mercator::Bounds::kRangeY / CoordSize(coordBits) +
-          mercator::Bounds::kMinY);
+  using mercator::Bounds;
+  return { Uint32ToDouble(pt.x, Bounds::kMinX, Bounds::kMaxX, coordBits),
+           Uint32ToDouble(pt.y, Bounds::kMinY, Bounds::kMaxY, coordBits) };
 }
 
 m2::PointD PointUToPointD(m2::PointU const & pt, uint8_t coordBits, m2::RectD const & limitRect)
 {
-  return m2::PointD(Uint32ToDouble(pt.x, limitRect.minX(), limitRect.maxX(), coordBits),
-                    Uint32ToDouble(pt.y, limitRect.minY(), limitRect.maxY(), coordBits));
+  return { Uint32ToDouble(pt.x, limitRect.minX(), limitRect.maxX(), coordBits),
+           Uint32ToDouble(pt.y, limitRect.minY(), limitRect.maxY(), coordBits) };
 }
 
 uint8_t GetCoordBits(m2::RectD const & limitRect, double accuracy)

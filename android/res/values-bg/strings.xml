@@ -133,6 +133,8 @@
 	<string name="recycling">Рециклиране</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
 	<string name="water">Вода</string>
+	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
+	<string name="rv">За RV</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Бележки</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -496,6 +498,7 @@
 	<string name="prefs_languages_information_off_link">За повече информация вижте това ръководство.</string>
 	<string name="transliteration_title">Латинска транслитерация</string>
 	<string name="learn_more">Научете повече</string>
+	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">Изход</string>
 	<string name="routing_add_start_point">Добавяне на начална точка за планиране на маршрут</string>
 	<string name="routing_add_finish_point">Добавяне на крайна точка за планиране на маршрут</string>
@@ -656,6 +659,8 @@
 
 	<!-- SECTION: Types: Recycling -->
 	<string name="type.recycling.batteries">Батерии</string>
+	<string name="type.barrier.city_wall">Градска стена</string>
+	<string name="type.barrier.ditch">Ров</string>
 	<string name="type.cemetery.grave">Гроб</string>
 	<string name="type.craft">Занаяти</string>
 	<string name="type.craft.beekeeper">Пчелар</string>
@@ -677,7 +682,9 @@
 	<string name="type.craft.shoemaker">Обущар</string>
 	<string name="type.craft.winery">Винарна</string>
 	<string name="type.craft.tailor">Шивач</string>
+	<string name="type.cuisine.deli">Деликатеси</string>
 	<string name="type.healthcare.laboratory">Медицинска лаборатория</string>
+	<string name="type.healthcare.physiotherapist">Физиотерапевт</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -770,7 +777,10 @@
 	<string name="type.highway.unclassified.tunnel">Тунел</string>
 
 	<!-- SECTION: Types: Historic -->
+	<string name="type.historic">Исторически обект</string>
 	<string name="type.historic.archaeological_site">Археологически сайт</string>
+	<string name="type.historic.battlefield">Бойно поле</string>
+	<string name="type.historic.boundary_stone">Граничен камък</string>
 	<string name="type.historic.castle">Замък</string>
 	<string name="type.historic.castle.castrum">Каструм</string>
 	<string name="type.historic.castle.defensive">Замък</string>
@@ -783,7 +793,25 @@
 	<string name="type.historic.castle.shiro">Японски замък</string>
 	<string name="type.historic.castle.stately">Замък</string>
 	<string name="type.historic.city_gate">Градска порта</string>
+	<string name="type.historic.citywalls">Градска стена</string>
+	<string name="type.historic.fort">Форт</string>
+	<string name="type.historic.gallows">Бесилка</string>
+	<string name="type.historic.memorial">Мемориал</string>
+	<string name="type.historic.memorial.cross">Мемориален кръст</string>
+	<string name="type.historic.memorial.plaque">Паметна плоча</string>
+	<string name="type.historic.memorial.sculpture">Скулптура</string>
+	<string name="type.historic.memorial.statue">Статуя</string>
+	<string name="type.historic.memorial.stolperstein">Cпънка</string>
+	<string name="type.historic.memorial.war_memorial">Военен паметник</string>
+	<string name="type.historic.monument">Паметник</string>
+	<string name="type.historic.pillory">Позорен стълб</string>
+	<string name="type.historic.ruins">Развалина</string>
+	<string name="type.historic.ship">Кораб</string>
+	<string name="type.historic.tomb">Гробница</string>
+	<string name="type.historic.wayside_cross">Крайпътен кръст</string>
+	<string name="type.historic.wayside_shrine">Крайпътно светилище</string>
 	<string name="type.landuse.basin">Резервоар</string>
+	<string name="type.leisure.dance">Зала за танци</string>
 	<string name="type.leisure.picnic_table">Маса за пикник</string>
 	<string name="type.sport.climbing">Катерене</string>
 	<string name="type.sport.yoga">Йога</string>
@@ -801,6 +829,7 @@
 	<string name="type.natural.earth_bank">Скала</string>
 	<string name="type.man_made.embankment">Насип</string>
 	<string name="type.natural.coastline">Крайбрежие</string>
+	<string name="type.natural.desert">Пустинен</string>
 	<string name="type.natural.geyser">Гейзер</string>
 	<string name="type.natural.glacier">Ледник</string>
 	<string name="type.natural.grassland">Пасища</string>

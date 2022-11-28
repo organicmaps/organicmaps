@@ -134,7 +134,7 @@
 			isa = PBXProject;
 			attributes = {
 				DefaultBuildSystemTypeForWorkspace = Latest;
-				LastUpgradeCheck = 1400;
+				LastUpgradeCheck = 1410;
 				TargetAttributes = {
 					474017F523F5B2CE00A93C81 = {
 						CreatedOnToolsVersion = 11.3;

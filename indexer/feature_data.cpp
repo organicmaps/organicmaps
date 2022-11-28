@@ -2,7 +2,6 @@
 
 #include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"
-#include "indexer/feature_impl.hpp"
 #include "indexer/ftypes_matcher.hpp"
 
 #include "base/assert.hpp"
@@ -104,8 +103,11 @@ public:
       return 1;
 
     ftype::TruncValue(t, 1);
-    if (IsIn1(t))
+    if (t == m_building)
       return 2;
+
+    if (IsIn1(t))
+      return 3;
 
     return 0;
   }
@@ -126,7 +128,6 @@ private:
     // when we have many types for POI.
     base::StringIL const types1[] = {
         // 1-arity
-        {"building"},
         {"building:part"},
         {"hwtag"},
         {"psurface"},
@@ -150,11 +151,11 @@ private:
         {"amenity", "drinking_water"},
         {"leisure", "pitch"}, // Give priority to tag "sport"=*.
         {"public_transport", "platform"},
-        {"building", "address"},
-        {"building", "has_parts"},
     };
 
     Classificator const & c = classif();
+
+    m_building = c.GetTypeByPath({"building"});
 
     m_types1.reserve(std::size(types1));
     for (auto const & type : types1)
@@ -173,6 +174,7 @@ private:
 
   vector<uint32_t> m_types1;
   vector<uint32_t> m_types2;
+  uint32_t m_building;
 };
 } // namespace
 
@@ -347,7 +349,7 @@ bool FeatureParams::AddHouseNumber(string houseNumber)
     ++i;
   houseNumber.erase(0, i);
 
-  if (any_of(houseNumber.cbegin(), houseNumber.cend(), IsDigit))
+  if (any_of(houseNumber.cbegin(), houseNumber.cend(), &strings::IsASCIIDigit))
   {
     house.Set(houseNumber);
     return true;

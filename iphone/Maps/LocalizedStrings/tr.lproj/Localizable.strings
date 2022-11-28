@@ -274,6 +274,9 @@
 "matrix" = "[matrix]";
 
 /* Text in menu */
+"mastodon" = "Mastodon";
+
+/* Text in menu */
 "facebook" = "Facebook";
 
 /* Text in menu */
@@ -296,6 +299,9 @@
 
 /* Button in the main Help dialog */
 "faq" = "Sıkça Sorulan Sorular";
+
+/* Button in the main menu */
+"donate" = "Bağış yapın";
 
 /* Button in the main Help dialog */
 "how_to_support_us" = "Sizi nasıl destekleyebilirim?";
@@ -512,6 +518,12 @@
 "search_history_text" = "Son aramaları görüntüleyin.";
 
 "clear_search" = "Arama Geçmişini Temizle";
+
+/* Place Page link to Wikipedia article (if map object has it). */
+"read_in_wikipedia" = "Vikipedi";
+
+/* Place Page link to Wikimedia Commons. */
+"wikimedia_commons" = "Wikimedia Commons";
 
 "p2p_your_location" = "Konumunuz";
 
@@ -874,6 +886,7 @@
 
 "transliteration_title" = "Latin harf çevirisi";
 
+/* Subway exits for public transport marks on the map */
 "core_exit" = "Çık";
 
 "routing_add_start_point" = "Rotayı planlamak için bir başlangıç noktası ekleyin";
@@ -1214,11 +1227,14 @@
 /* edit track screen title */
 "track_title" = "Kayıt";
 
-/* Telegram group url for the help page */
+/* Telegram group url for the "?" About page */
 "telegram_url" = "https://t.me/OrganicMapsTR";
 
-/* Instagram account url for the help page */
+/* Instagram account url for the "?" About page */
 "instagram_url" = "https://www.instagram.com/organicmapstr";
+
+/* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
+"translated_om_site_url" = "https://organicmaps.app/tr/";
 
 
 /********** Types **********/
@@ -1438,7 +1454,7 @@
 
 "type.recycling.glass_bottles" = "Cam Şişeler";
 
-"type.recycling.paper" = "Kâğıt Atıklar";
+"type.recycling.paper" = "Kağıt Atıklar";
 
 "type.recycling.plastic" = "Plastik Atıklar";
 
@@ -1530,6 +1546,8 @@
 
 "type.barrier.cycle_barrier" = "Bisiklet Bariyeri";
 
+"type.barrier.ditch" = "Hendek";
+
 "type.barrier.entrance" = "Giriş";
 
 "type.barrier.fence" = "Çit";
@@ -1537,6 +1555,8 @@
 "type.barrier.gate" = "Geçit";
 
 "type.barrier.hedge" = "Çit";
+
+"type.barrier.kissing_gate" = "Geçit";
 
 "type.barrier.lift_gate" = "Asansör Kapısı";
 
@@ -1828,6 +1848,8 @@
 "type.entrance" = "Giriş";
 
 "type.healthcare.laboratory" = "Tıbbi Laboratuvar";
+
+"type.healthcare.physiotherapist" = "Fizyoterapist";
 
 
 /********** Types: Roads **********/
@@ -2169,7 +2191,11 @@
 
 "type.historic.fort" = "Hisar";
 
+"type.historic.gallows" = "Darağacı";
+
 "type.historic.memorial" = "Abide";
+
+"type.historic.memorial.cross" = "Anıt haç";
 
 "type.historic.memorial.plaque" = "Hatıra Plaketi";
 
@@ -2177,7 +2203,13 @@
 
 "type.historic.memorial.statue" = "Heykel";
 
+"type.historic.memorial.stolperstein" = "Tökezleyen Taşlar";
+
+"type.historic.memorial.war_memorial" = "Savaş anıtı";
+
 "type.historic.monument" = "Anıt";
+
+"type.historic.pillory" = "Boyunduruk";
 
 "type.historic.ruins" = "Harabeler";
 
@@ -2306,6 +2338,8 @@
 "type.leisure.fitness_centre" = "Fitness Merkezi";
 
 "type.leisure.fitness_station" = "Açık Hava Spor Alanı";
+
+"type.leisure.dance" = "Dans salonu";
 
 "type.leisure.garden" = "Bahçe";
 
@@ -2436,6 +2470,8 @@
 "type.man_made.embankment" = "Set";
 
 "type.natural.coastline" = "Kıyı Şeridi";
+
+"type.natural.desert" = "Desert";
 
 "type.natural.geyser" = "Gayzer";
 
@@ -2793,8 +2829,6 @@
 
 "type.railway.station.subway.lisboa" = "Metro";
 
-"type.railway.station.subway.lisbon" = "Metro";
-
 "type.railway.station.subway.london" = "Metro";
 
 "type.railway.station.subway.lyon" = "Metro";
@@ -3019,8 +3053,6 @@
 
 "type.railway.subway_entrance.lisboa" = "Metro Girişi";
 
-"type.railway.subway_entrance.lisbon" = "Metro Girişi";
-
 "type.railway.subway_entrance.london" = "Metro Girişi";
 
 "type.railway.subway_entrance.lyon" = "Metro Girişi";
@@ -3227,7 +3259,7 @@
 
 "type.shop.greengrocer" = "Manav";
 
-"type.shop.grocery" = "Bakkal";
+"type.shop.grocery" = "Market";
 
 "type.shop.hairdresser" = "Kuaför";
 
@@ -3438,7 +3470,7 @@
 
 "type.tourism.attraction" = "Görülecek Yerler";
 
-"type.tourism.attraction.animal" = "Görülecek Yerler";
+"type.tourism.attraction.animal" = "Hayvanat bahçesi";
 
 "type.tourism.attraction.specified" = "Görülecek Yerler";
 
@@ -3482,11 +3514,11 @@
 
 "type.tourism.zoo" = "Hayvanat Bahçesi";
 
-"type.traffic_calming" = "Hız Kesici (Tümsek)";
+"type.traffic_calming" = "Hız Kesici (Kasis)";
 
-"type.traffic_calming.bump" = "Hız Kesici (Tümsek)";
+"type.traffic_calming.bump" = "Hız Kesici (Kasis)";
 
-"type.traffic_calming.hump" = "Hız Kesici (Tümsek)";
+"type.traffic_calming.hump" = "Hız Kesici (Kasis)";
 
 "type.waterway" = "Su Yolu";
 
@@ -3506,7 +3538,7 @@
 
 "type.waterway.drain.tunnel" = "Lağım";
 
-"type.waterway.lock_gate" = "Kilit Kapısı";
+"type.waterway.lock_gate" = "Eklüz Kapağı";
 
 "type.waterway.river" = "Nehir";
 
@@ -3534,18 +3566,15 @@
 
 "type.wheelchair.yes" = "Tekerlekli sandalye erişimi var";
 
-/* en.wikipedia.org/wiki/Surface_lift */
-"type.piste_lift" = "Kayak Teleferiği";
+"type.aerialway.j.bar" = "Kayak Teleferiği";
 
-"type.piste_lift.j.bar" = "Kayak Teleferiği";
+"type.aerialway.magic_carpet" = "Kayak Teleferiği";
 
-"type.piste_lift.magic_carpet" = "Kayak Teleferiği";
+"type.aerialway.platter" = "Tabak Asansörü";
 
-"type.piste_lift.platter" = "Tabak Asansörü";
+"type.aerialway.rope_tow" = "Çekme Halatı";
 
-"type.piste_lift.rope_tow" = "Çekme Halatı";
-
-"type.piste_lift.t.bar" = "T-bar Lift";
+"type.aerialway.t.bar" = "Kayakçı teleferiği";
 
 "type.piste_type" = "Kayakçı Taşıyıcı";
 

@@ -181,6 +181,7 @@
 		9974CA2823DF1968003FE824 /* ElevationProfileData.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ElevationProfileData.mm; sourceTree = "<group>"; };
 		9974CA2B23DF197B003FE824 /* ElevationProfileData+Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ElevationProfileData+Core.h"; sourceTree = "<group>"; };
 		AC6A585628057CC1003EABAF /* StringUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringUtils.h; sourceTree = "<group>"; };
+		FAA6D8CF29205D2D00E8D50D /* libjansson.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libjansson.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -245,6 +246,7 @@
 		4700161123425CFC00EBF03D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FAA6D8CF29205D2D00E8D50D /* libjansson.a */,
 				4700161223425CFD00EBF03D /* UIKit.framework */,
 			);
 			name = Frameworks;
@@ -512,7 +514,7 @@
 		470015E62342509C00EBF03D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1310;
+				LastUpgradeCheck = 1410;
 				ORGANIZATIONNAME = "Organic Maps";
 				TargetAttributes = {
 					470015EE2342509C00EBF03D = {
@@ -601,6 +603,10 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/3party/glm",
+				);
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -620,6 +626,10 @@
 				DEFINES_MODULE = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/3party/glm",
+				);
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -635,12 +645,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(OMIM_ROOT)",
-					"$(BOOST_ROOT)",
-					"$(OMIM_ROOT)/3party/glm",
-				);
 				INFOPLIST_FILE = CoreApi/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -664,12 +668,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(OMIM_ROOT)",
-					"$(BOOST_ROOT)",
-					"$(OMIM_ROOT)/3party/glm",
-				);
 				INFOPLIST_FILE = CoreApi/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (

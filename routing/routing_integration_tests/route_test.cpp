@@ -378,7 +378,7 @@ using namespace std;
     integration::TestRouteTime(route, 19053.0);
   }
 
-  // Test on roads with tag route=shuttle_train
+  // Test on roads with tag route=shuttle_train. This train has defined maxspeed=100.
   UNIT_TEST(GermanyShuttleTrainTest)
   {
     TRouteResult const routeResult =
@@ -390,7 +390,8 @@ using namespace std;
 
     CHECK(routeResult.first, ());
     Route const & route = *routeResult.first;
-    integration::TestRouteTime(route, 6210.24);
+    integration::TestRouteLength(route, 44116.7);
+    integration::TestRouteTime(route, 2580.82);
   }
 
   UNIT_TEST(TolyattiFeatureThatCrossSeveralMwmsTest)
@@ -756,5 +757,14 @@ using namespace std;
         integration::GetVehicleComponents(VehicleType::Car),
         mercator::FromLatLon(48.4101446, 11.5892265), {0., 0.},
         mercator::FromLatLon(45.7662964, 10.8111554), 427135);
+  }
+
+  // https://github.com/organicmaps/organicmaps/issues/3363
+  UNIT_TEST(Belarus_UseP27_PastawyBraslaw)
+  {
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetVehicleComponents(VehicleType::Car),
+        mercator::FromLatLon(55.1187744, 26.8460319), {0., 0.},
+        mercator::FromLatLon(55.6190911, 27.0938092), 86239.8);
   }
 } // namespace route_test

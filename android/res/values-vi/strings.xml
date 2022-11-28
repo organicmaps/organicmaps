@@ -130,6 +130,8 @@
 	<string name="recycling">Tái chế rác thải</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
 	<string name="water">Nước</string>
+	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
+	<string name="rv">Đối với RV</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Ghi chú</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -505,6 +507,7 @@
 	<string name="prefs_languages_information_off_link">Để biết thêm thông tin, vui lòng kiểm tra bài hướng dẫn này.</string>
 	<string name="transliteration_title">Chuyển ngữ sang chữ Latinh</string>
 	<string name="learn_more">Tìm hiểu thêm</string>
+	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">Lối ra</string>
 	<string name="routing_add_start_point">Bổ sung điểm bắt đầu để lập kế hoạch lộ trình</string>
 	<string name="routing_add_finish_point">Bổ sung điểm kết thúc để lập kế hoạch lộ trình</string>
@@ -782,8 +785,11 @@
 	<string name="type.barrier.block">Khối</string>
 	<string name="type.barrier.bollard">Trụ</string>
 	<string name="type.barrier.border_control">Biên Phòng</string>
+	<string name="type.barrier.city_wall">Tường thành</string>
+	<string name="type.barrier.ditch">Hào nước</string>
 	<string name="type.barrier.entrance">Lối vào</string>
 	<string name="type.barrier.gate">Cổng</string>
+	<string name="type.barrier.kissing_gate">Cổng</string>
 	<string name="type.barrier.lift_gate">Thanh Chắn</string>
 	<string name="type.barrier.stile">Trụ chắn</string>
 	<string name="type.barrier.swing_gate">Thanh Chắn</string>
@@ -905,6 +911,7 @@
 	<string name="type.emergency.phone">Điện thoại khẩn cấp</string>
 	<string name="type.entrance">Lối vào</string>
 	<string name="type.healthcare.laboratory">Phòng thí nghiệm y tế</string>
+	<string name="type.healthcare.physiotherapist">Nhà vật lý trị liệu</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1070,7 +1077,10 @@
 	<string name="type.area_highway.unclassified">Phố</string>
 
 	<!-- SECTION: Types: Historic -->
+	<string name="type.historic">Đối tượng lịch sử</string>
 	<string name="type.historic.archaeological_site">Điểm khảo cổ</string>
+	<string name="type.historic.battlefield">Chiến trường</string>
+	<string name="type.historic.boundary_stone">Đá ranh giới</string>
 	<string name="type.historic.castle">Lâu đài</string>
 	<string name="type.historic.castle.castrum">Pháo đài La mã</string>
 	<string name="type.historic.castle.defensive">Lâu đài</string>
@@ -1083,14 +1093,23 @@
 	<string name="type.historic.castle.shiro">Lâu đài nhật bản</string>
 	<string name="type.historic.castle.stately">Pháo đài</string>
 	<string name="type.historic.city_gate">Cổng thành</string>
+	<string name="type.historic.citywalls">Tường thành</string>
+	<string name="type.historic.fort">Pháo đài</string>
+	<string name="type.historic.gallows">Giá treo cổ</string>
 	<string name="type.historic.memorial">Đài tưởng niệm</string>
+	<string name="type.historic.memorial.cross">Thánh giá tưởng niệm</string>
 	<string name="type.historic.memorial.plaque">Đài tưởng niệm</string>
 	<string name="type.historic.memorial.sculpture">Đài tưởng niệm</string>
 	<string name="type.historic.memorial.statue">Đài tưởng niệm</string>
+	<string name="type.historic.memorial.stolperstein">Vấp ngã</string>
+	<string name="type.historic.memorial.war_memorial">Đài tưởng niệm chiến tranh</string>
 	<string name="type.historic.monument">Tượng đài</string>
+	<string name="type.historic.pillory">Thuốc viên</string>
 	<string name="type.historic.ruins">Phế tích</string>
 	<string name="type.historic.ship">Diểm tham quan</string>
 	<string name="type.historic.tomb">Diểm tham quan</string>
+	<string name="type.historic.wayside_cross">Đường chéo</string>
+	<string name="type.historic.wayside_shrine">Đền thờ</string>
 	<string name="type.landuse.basin">Một chậu nước</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery">Bãi tha ma</string>
@@ -1109,6 +1128,7 @@
 	<string name="type.leisure.dog_park">Nơi cho chó đi dạo</string>
 	<string name="type.leisure.fitness_centre">Phòng Tập</string>
 	<string name="type.leisure.fitness_station">Trạm tập thể hình</string>
+	<string name="type.leisure.dance">Vũ trường</string>
 	<string name="type.leisure.garden">Điểm khảo cổ</string>
 	<string name="type.leisure.garden.residential">Điểm khảo cổ</string>
 	<string name="type.leisure.golf_course">Sân gôn</string>
@@ -1279,7 +1299,6 @@
 	<string name="type.railway.station.subway.lille">Ngầm</string>
 	<string name="type.railway.station.subway.lima">Ngầm</string>
 	<string name="type.railway.station.subway.lisboa">Ngầm</string>
-	<string name="type.railway.station.subway.lisbon">Ngầm</string>
 	<string name="type.railway.station.subway.london">Ngầm</string>
 	<string name="type.railway.station.subway.lyon">Ngầm</string>
 	<string name="type.railway.station.subway.madrid">Ngầm</string>
@@ -1389,7 +1408,6 @@
 	<string name="type.railway.subway_entrance.lille">Lỗi vào Metro</string>
 	<string name="type.railway.subway_entrance.lima">Lỗi vào Metro</string>
 	<string name="type.railway.subway_entrance.lisboa">Lỗi vào Metro</string>
-	<string name="type.railway.subway_entrance.lisbon">Lỗi vào Metro</string>
 	<string name="type.railway.subway_entrance.london">Lỗi vào Metro</string>
 	<string name="type.railway.subway_entrance.lyon">Lỗi vào Metro</string>
 	<string name="type.railway.subway_entrance.madrid">Lỗi vào Metro</string>

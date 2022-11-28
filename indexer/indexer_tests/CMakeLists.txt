@@ -18,6 +18,7 @@ set(SRC
   feature_metadata_test.cpp
   feature_names_test.cpp
   feature_to_osm_tests.cpp
+  feature_types_test.cpp
   features_offsets_table_test.cpp
   features_vector_test.cpp
   index_builder_test.cpp

@@ -150,7 +150,7 @@
 		56D7F2EC1FE7F0F200D99E62 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1400;
+				LastUpgradeCheck = 1410;
 				TargetAttributes = {
 					56D7F2F31FE7F0F200D99E62 = {
 						CreatedOnToolsVersion = 9.2;
@@ -212,12 +212,6 @@
 			buildSettings = {
 				EXECUTABLE_PREFIX = lib;
 				GCC_PREFIX_HEADER = "$(OMIM_ROOT)/precompiled_headers.hpp";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(OMIM_ROOT)",
-					"$(BOOST_ROOT)",
-					"$(OMIM_ROOT)/3party/jansson/src",
-				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -227,12 +221,6 @@
 			buildSettings = {
 				EXECUTABLE_PREFIX = lib;
 				GCC_PREFIX_HEADER = "$(OMIM_ROOT)/precompiled_headers.hpp";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(OMIM_ROOT)",
-					"$(BOOST_ROOT)",
-					"$(OMIM_ROOT)/3party/jansson/src",
-				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

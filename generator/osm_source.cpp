@@ -4,49 +4,41 @@
 #include "generator/intermediate_elements.hpp"
 #include "generator/osm_element.hpp"
 #include "generator/towns_dumper.hpp"
-#include "generator/translator_factory.hpp"
-
-#include "platform/platform.hpp"
 
 #include "geometry/mercator.hpp"
-#include "geometry/tree4d.hpp"
 
 #include "base/assert.hpp"
 #include "base/stl_helpers.hpp"
-#include "base/file_name_utils.hpp"
 
 #include <fstream>
 #include <memory>
-#include <set>
 
 #include "defines.hpp"
-
-using namespace std;
 
 namespace generator
 {
 // SourceReader ------------------------------------------------------------------------------------
-SourceReader::SourceReader() : m_file(unique_ptr<istream, Deleter>(&cin, Deleter(false)))
+SourceReader::SourceReader() : m_file(std::unique_ptr<std::istream, Deleter>(&std::cin, Deleter(false)))
 {
   LOG_SHORT(LINFO, ("Reading OSM data from stdin"));
 }
 
-SourceReader::SourceReader(string const & filename)
-  : m_file(unique_ptr<istream, Deleter>(new ifstream(filename), Deleter()))
+SourceReader::SourceReader(std::string const & filename)
+  : m_file(std::unique_ptr<std::istream, Deleter>(new std::ifstream(filename), Deleter()))
 {
-  CHECK(static_cast<ifstream *>(m_file.get())->is_open(), ("Can't open file:", filename));
+  CHECK(static_cast<std::ifstream *>(m_file.get())->is_open(), ("Can't open file:", filename));
   LOG_SHORT(LINFO, ("Reading OSM data from", filename));
 }
 
-SourceReader::SourceReader(istringstream & stream)
-  : m_file(unique_ptr<istream, Deleter>(&stream, Deleter(false)))
+SourceReader::SourceReader(std::istringstream & stream)
+  : m_file(std::unique_ptr<std::istream, Deleter>(&stream, Deleter(false)))
 {
   LOG_SHORT(LINFO, ("Reading OSM data from memory"));
 }
 
 uint64_t SourceReader::Read(char * buffer, uint64_t bufferSize)
 {
-  m_file->read(buffer, bufferSize);
+  m_file->read(buffer, static_cast<std::streamsize>(bufferSize));
   auto const gcount = static_cast<uint64_t>(m_file->gcount());
   m_pos += gcount;
   return gcount;
@@ -121,7 +113,7 @@ void BuildIntermediateDataFromXML(SourceReader & stream, cache::IntermediateData
   }
 }
 
-void ProcessOsmElementsFromXML(SourceReader & stream, function<void(OsmElement &&)> processor)
+void ProcessOsmElementsFromXML(SourceReader & stream, std::function<void(OsmElement &&)> const & processor)
 {
   ProcessorOsmElementsFromXml processorOsmElementsFromXml(stream);
   OsmElement element;
@@ -145,7 +137,7 @@ void BuildIntermediateDataFromO5M(SourceReader & stream, cache::IntermediateData
   ProcessOsmElementsFromO5M(stream, processor);
 }
 
-void ProcessOsmElementsFromO5M(SourceReader & stream, function<void(OsmElement &&)> processor)
+void ProcessOsmElementsFromO5M(SourceReader & stream, std::function<void(OsmElement &&)> const & processor)
 {
   ProcessorOsmElementsFromO5M processorOsmElementsFromO5M(stream);
   OsmElement element;

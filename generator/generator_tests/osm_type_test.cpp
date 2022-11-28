@@ -555,9 +555,15 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Surface)
   TestSurfaceTypes("asphalt", "bad", "", "paved_bad");
   TestSurfaceTypes("asphalt", "", "0", "paved_bad");
 
-  TestSurfaceTypes("fine_gravel", "", "", "paved_bad");
-  TestSurfaceTypes("fine_gravel", "intermediate", "", "paved_bad");
+  TestSurfaceTypes("cobblestone", "good", "", "paved_good");
   TestSurfaceTypes("cobblestone", "", "", "paved_bad");
+  TestSurfaceTypes("cobblestone", "intermediate", "", "paved_bad");
+
+  TestSurfaceTypes("compacted", "", "", "unpaved_good");
+  TestSurfaceTypes("fine_gravel", "", "", "unpaved_good");
+  TestSurfaceTypes("fine_gravel", "intermediate", "", "unpaved_good");
+  TestSurfaceTypes("pebblestone", "bad", "", "unpaved_good");      // Hack in DetermineSurface.
+  TestSurfaceTypes("pebblestone", "horrible", "", "unpaved_bad");
 
   // We definitely should store more than 4 surface options.
   // Gravel (widely used tag) always goes to unpaved_bad which is strange sometimes.
@@ -574,7 +580,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Surface)
   TestSurfaceTypes("wood", "", "", "paved_bad");
   TestSurfaceTypes("wood", "good", "", "paved_good");
   TestSurfaceTypes("wood", "", "3", "paved_good");
-  TestSurfaceTypes("pebblestone", "", "4", "paved_good");
+  TestSurfaceTypes("pebblestone", "", "4", "unpaved_good");
   TestSurfaceTypes("unpaved", "", "", "unpaved_good");
   TestSurfaceTypes("mud", "", "", "unpaved_bad");
 
@@ -1934,6 +1940,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
     {"natural", "cave_entrance"},
     {"natural", "cliff"},
     {"natural", "coastline"},
+    {"natural", "desert"},
     {"natural", "earth_bank"},
     {"natural", "geyser"},
     {"natural", "glacier"},
@@ -1959,11 +1966,11 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
     {"office", "telecommunication"},
     {"organic", "only"},
     {"organic", "yes"},
-    {"piste:lift", "j-bar"},
-    {"piste:lift", "magic_carpet"},
-    {"piste:lift", "platter"},
-    {"piste:lift", "rope_tow"},
-    {"piste:lift", "t-bar"},
+    {"aerialway", "j-bar"},
+    {"aerialway", "magic_carpet"},
+    {"aerialway", "platter"},
+    {"aerialway", "rope_tow"},
+    {"aerialway", "t-bar"},
     {"piste:type", "downhill"},
     {"piste:type", "nordic"},
     {"piste:type", "sled"},
@@ -2257,6 +2264,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_ComplexTypesSmoke)
     {{"highway", "footway", "mountain_hiking"}, {{"highway", "footway"}, {"sac_scale", "mountain_hiking"}}},
     {{"highway", "footway", "permissive"}, {{"highway", "footway"}, {"access", "permissive"}}},
     {{"highway", "footway", "tunnel"}, {{"highway", "footway"}, {"tunnel", "any_value"}}},
+    {{"highway", "footway", "tunnel"}, {{"highway", "footway"}, {"location", "underground"}}},
     {{"highway", "living_street", "bridge"}, {{"highway", "living_street"}, {"bridge", "any_value"}}},
     {{"highway", "living_street", "tunnel"}, {{"highway", "living_street"}, {"tunnel", "any_value"}}},
     {{"highway", "motorway", "bridge"}, {{"highway", "motorway"}, {"bridge", "any_value"}}},
@@ -2323,12 +2331,18 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_ComplexTypesSmoke)
     {{"historic", "castle", "manor"}, {{"historic", "castle"}, {"castle_type", "manor"}}},
     {{"historic", "castle", "manor"}, {{"historic", "manor"}}},
     {{"historic", "castle", "stately"}, {{"historic", "castle"}, {"castle_type", "stately"}}},
+    {{"historic", "memorial", "cross"}, {{"historic", "memorial"}, {"memorial", "cross"}}},
     {{"historic", "memorial", "plaque"}, {{"historic", "memorial"}, {"memorial", "plaque"}}},
     {{"historic", "memorial", "plaque"}, {{"historic", "memorial"}, {"memorial:type", "plaque"}}},
+    {{"historic", "memorial", "plaque"}, {{"historic", "memorial"}, {"memorial:type", "plate"}}},
     {{"historic", "memorial", "sculpture"}, {{"historic", "memorial"}, {"memorial", "sculpture"}}},
     {{"historic", "memorial", "sculpture"}, {{"historic", "memorial"}, {"memorial:type", "sculpture"}}},
     {{"historic", "memorial", "statue"}, {{"historic", "memorial"}, {"memorial", "statue"}}},
     {{"historic", "memorial", "statue"}, {{"historic", "memorial"}, {"memorial:type", "statue"}}},
+    {{"historic", "memorial", "stolperstein"}, {{"historic", "memorial"}, {"memorial", "stolperstein"}}},
+    {{"historic", "memorial", "stolperstein"}, {{"historic", "memorial"}, {"memorial:type", "stolperstein"}}},
+    {{"historic", "memorial", "war_memorial"}, {{"historic", "memorial"}, {"memorial", "war_memorial"}}},
+    {{"historic", "memorial", "war_memorial"}, {{"historic", "memorial"}, {"memorial:type", "war_memorial"}}},
     {{"internet_access"}, {{"internet_access", "any_value"}}},
     {{"landuse", "cemetery", "christian"}, {{"landuse", "cemetery"}, {"religion", "christian"}}},
     {{"landuse", "forest"}, {{"landuse", "forest"}}},
@@ -2355,6 +2369,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_ComplexTypesSmoke)
     {{"leisure", "sports_centre"}, {{"leisure", "sports_centre"}}},
     {{"leisure", "track", "area"}, {{"leisure", "track"}, {"area", "any_value"}}},
     {{"mountain_pass"}, {{"mountain_pass", "any_value"}}},
+    {{"natural", "desert"}, {{"natural", "sand"}, {"desert", "erg"}}},
     {{"natural", "water", "pond"}, {{"natural", "water"}, {"water", "pond"}}},
     {{"natural", "water", "lake"}, {{"natural", "water"}, {"water", "lake"}}},
     {{"natural", "water", "reservoir"}, {{"natural", "water"}, {"water", "reservoir"}}},

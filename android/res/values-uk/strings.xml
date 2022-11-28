@@ -232,7 +232,7 @@
 	<!-- Button in the main Help dialog -->
 	<string name="faq">Питання та відповіді</string>
 	<!-- Button in the main menu -->
-	<string name="donate">Пожертвувати</string>
+	<string name="donate">Підтримати грошима</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">Як нас підтримати?</string>
 	<!-- Button in the main Help dialog -->
@@ -535,6 +535,7 @@
 	<string name="prefs_languages_information_off_link">Додаткову інформацію див. у цьому керівництві.</string>
 	<string name="transliteration_title">Транслітерація латинськими літерами</string>
 	<string name="learn_more">Докладніше</string>
+	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">Вихід</string>
 	<string name="routing_add_start_point">Вкажіть початкову точку для побудови маршруту</string>
 	<string name="routing_add_finish_point">Вкажіть кінцеву точку для побудови маршруту</string>
@@ -853,9 +854,11 @@
 	<string name="type.barrier.chain">Ланцюг</string>
 	<string name="type.barrier.city_wall">Міська стіна</string>
 	<string name="type.barrier.cycle_barrier">Велосипедна перешкода</string>
+	<string name="type.barrier.ditch">Рів</string>
 	<string name="type.barrier.entrance">Прохід</string>
 	<string name="type.barrier.fence">Огорожа</string>
 	<string name="type.barrier.gate">Ворота</string>
+	<string name="type.barrier.kissing_gate">Ворота</string>
 	<string name="type.barrier.lift_gate">Шлагбаум</string>
 	<string name="type.barrier.stile">Перелаз</string>
 	<string name="type.barrier.swing_gate">Шлагбаум</string>
@@ -998,6 +1001,7 @@
 	<string name="type.emergency.phone">Аварійний телефон</string>
 	<string name="type.entrance">Вхід</string>
 	<string name="type.healthcare.laboratory">Медична лабораторія</string>
+	<string name="type.healthcare.physiotherapist">Фізіотерапевт</string>
 
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway">Дорога</string>
@@ -1189,11 +1193,16 @@
 	<string name="type.historic.city_gate">Міська брама</string>
 	<string name="type.historic.citywalls">Міська стіна</string>
 	<string name="type.historic.fort">Форт</string>
+	<string name="type.historic.gallows">Шибениця</string>
 	<string name="type.historic.memorial">Меморіал</string>
+	<string name="type.historic.memorial.cross">Пам\'ятний хрест</string>
 	<string name="type.historic.memorial.plaque">Дошка пам\'яті</string>
 	<string name="type.historic.memorial.sculpture">Скульптура</string>
 	<string name="type.historic.memorial.statue">Статуя</string>
+	<string name="type.historic.memorial.stolperstein">Камені спотикання</string>
+	<string name="type.historic.memorial.war_memorial">Військовий меморіал</string>
 	<string name="type.historic.monument">Пам\'ятник</string>
+	<string name="type.historic.pillory">Ганебний стовп</string>
 	<string name="type.historic.ruins">Руїни</string>
 	<string name="type.historic.ship">Корабель</string>
 	<string name="type.historic.tomb">Гробниця</string>
@@ -1246,6 +1255,7 @@
 	<string name="type.leisure.dog_park">Місце для вигулу собак</string>
 	<string name="type.leisure.fitness_centre">Фітнес-зал</string>
 	<string name="type.leisure.fitness_station">Спортивні знаряддя</string>
+	<string name="type.leisure.dance">Танцювальний зал</string>
 	<string name="type.leisure.garden">Садок</string>
 	<string name="type.leisure.garden.residential">Частный сад</string>
 	<string name="type.leisure.golf_course">Майданчик для гольфу</string>
@@ -1307,6 +1317,7 @@
 	<string name="type.natural.earth_bank">Обрив</string>
 	<string name="type.man_made.embankment">Насип</string>
 	<string name="type.natural.coastline">Берегова лiнiя</string>
+	<string name="type.natural.desert">Пустиня</string>
 	<string name="type.natural.geyser">Гейзер</string>
 	<string name="type.natural.glacier">Льодовик</string>
 	<string name="type.natural.grassland">Луг</string>
@@ -1479,7 +1490,6 @@
 	<string name="type.railway.station.subway.lille">Метро</string>
 	<string name="type.railway.station.subway.lima">Метро</string>
 	<string name="type.railway.station.subway.lisboa">Метро</string>
-	<string name="type.railway.station.subway.lisbon">Метро</string>
 	<string name="type.railway.station.subway.london">Метро</string>
 	<string name="type.railway.station.subway.lyon">Метро</string>
 	<string name="type.railway.station.subway.madrid">Метро</string>
@@ -1592,7 +1602,6 @@
 	<string name="type.railway.subway_entrance.lille">Вхід до метро</string>
 	<string name="type.railway.subway_entrance.lima">Вхід до метро</string>
 	<string name="type.railway.subway_entrance.lisboa">Вхід до метро</string>
-	<string name="type.railway.subway_entrance.lisbon">Вхід до метро</string>
 	<string name="type.railway.subway_entrance.london">Вхід до метро</string>
 	<string name="type.railway.subway_entrance.lyon">Вхід до метро</string>
 	<string name="type.railway.subway_entrance.madrid">Вхід до метро</string>
@@ -1849,13 +1858,11 @@
 	<string name="type.wheelchair.limited">Частково обладнано для інвалідів</string>
 	<string name="type.wheelchair.no">Не обладнано для інвалідів</string>
 	<string name="type.wheelchair.yes">Обладнано для інвалідів</string>
-	<!-- en.wikipedia.org/wiki/Surface_lift -->
-	<string name="type.piste_lift">Бугельний витяг</string>
-	<string name="type.piste_lift.j.bar">Бугельний витяг</string>
-	<string name="type.piste_lift.magic_carpet">Стрiчковий конвеєр</string>
-	<string name="type.piste_lift.platter">Бугельний витяг</string>
-	<string name="type.piste_lift.rope_tow">Бугельний витяг</string>
-	<string name="type.piste_lift.t.bar">Бугельний витяг</string>
+	<string name="type.aerialway.j.bar">Бугельний витяг</string>
+	<string name="type.aerialway.magic_carpet">Стрiчковий конвеєр</string>
+	<string name="type.aerialway.platter">Бугельний витяг</string>
+	<string name="type.aerialway.rope_tow">Бугельний витяг</string>
+	<string name="type.aerialway.t.bar">Бугельний витяг</string>
 	<string name="type.piste_type">Тип траси</string>
 	<string name="type.piste_type.downhill">Гірськолижна траса</string>
 	<string name="type.piste_type.downhill.advanced">Доповнена гірськолижна траса</string>

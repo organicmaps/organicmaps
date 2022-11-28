@@ -3,8 +3,7 @@
   <!-- Font names -->
   <string name="robotoLight" translatable="false">sans-serif-light</string>
   <string name="robotoRegular" translatable="false">sans-serif</string>
-  <!--  roboto medium (android 5.0)-->
-  <string name="robotoMedium" translatable="false">sans-serif</string>
+  <string name="robotoMedium" translatable="false">sans-serif-medium</string>
 
   <!--  Prefs -->
   <string name="pref_munits" translatable="false">MeasurementUnits</string>
@@ -61,7 +60,4 @@
   <string name="always_enum_value" translatable="false">ALWAYS</string>
   <string name="auto_enum_value" translatable="false">AUTO</string>
   <string name="placepage_behavior" translatable="false">com.google.android.material.bottomsheet.BottomSheetBehavior</string>
-
-  <string name="privacy_policy_url" translatable="false">https://organicmaps.app/privacy</string>
-  <string name="terms_of_use_url" translatable="false">https://organicmaps.app/terms</string>
 </resources>

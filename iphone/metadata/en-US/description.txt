@@ -2,8 +2,10 @@
 • Cycling routes, hiking trails, and walking paths
 • Contour lines, elevation profiles, peaks, and slopes
 • Turn-by-turn walking, cycling, and car navigation with voice guidance
-• Fast offline search on the map and bookmarks
+• Fast offline search
+• Bookmark everything you need, import and share KML/KMZ (GPX is planned)
 • Dark mode to protect your eyes
+• … and many other features!
 
 Organic Maps is pure and organic, made with love:
 

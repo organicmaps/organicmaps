@@ -91,8 +91,7 @@ public:
   ~RoadAccessWriter() override;
 
   std::shared_ptr<CollectorInterface> Clone(
-    std::shared_ptr<generator::cache::IntermediateDataReaderInterface> const & = {})
-  const override;
+      std::shared_ptr<generator::cache::IntermediateDataReaderInterface> const &) const override;
 
   void CollectFeature(feature::FeatureBuilder const & fb, OsmElement const & elem) override;
   void Finish() override;
@@ -143,9 +142,9 @@ private:
   RoadAccess::Type GetAccessByVehicleAndStringValue(std::string const & vehicleFromTag,
                                                     std::string const & stringAccessValue) const;
 
-  std::optional<std::pair<size_t, std::string>> ReadUntilSymbol(std::string const & input,
-                                                                size_t startPos, char symbol) const;
-  std::string TrimAndDropAroundParentheses(std::string input) const;
+  static std::optional<std::pair<size_t, std::string>> ReadUntilSymbol(std::string const & input,
+                                                                size_t startPos, char symbol) ;
+  static std::string TrimAndDropAroundParentheses(std::string input) ;
 
   std::vector<RoadAccessTagProcessor::TagMapping> m_vehiclesToRoadAccess;
 };

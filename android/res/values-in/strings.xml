@@ -132,6 +132,8 @@
 	<string name="recycling">Mendaur ulang</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
 	<string name="water">Air</string>
+	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
+	<string name="rv">Untuk RV</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Catatan</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -505,6 +507,7 @@
 	<string name="prefs_languages_information_off_link">Untuk informasi selengkapnya, bacalah panduan ini.</string>
 	<string name="transliteration_title">Transliterasi ke dalam bahasa Latin</string>
 	<string name="learn_more">Pelajari selengkapnya</string>
+	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">Keluar</string>
 	<string name="routing_add_start_point">Tambahkan titik awal untuk merencanakan rute</string>
 	<string name="routing_add_finish_point">Tambahkan titik akhir untuk merencanakan rute</string>
@@ -777,8 +780,11 @@
 	<string name="type.barrier.block">Blok</string>
 	<string name="type.barrier.bollard">Pilar</string>
 	<string name="type.barrier.border_control">Gerbang perbatasan</string>
+	<string name="type.barrier.city_wall">Tembok Kota</string>
+	<string name="type.barrier.ditch">Parit</string>
 	<string name="type.barrier.entrance">Pintu masuk</string>
 	<string name="type.barrier.gate">Gerbang</string>
+	<string name="type.barrier.kissing_gate">Gerbang</string>
 	<string name="type.barrier.lift_gate">Polisi tidur</string>
 	<string name="type.barrier.stile">Undakan</string>
 	<string name="type.barrier.swing_gate">Polisi tidur</string>
@@ -900,6 +906,7 @@
 	<string name="type.emergency.phone">Telepon darurat</string>
 	<string name="type.entrance">Pintu masuk</string>
 	<string name="type.healthcare.laboratory">Laboratorium medis</string>
+	<string name="type.healthcare.physiotherapist">Fisioterapis</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1065,7 +1072,10 @@
 	<string name="type.area_highway.unclassified">Jalan</string>
 
 	<!-- SECTION: Types: Historic -->
+	<string name="type.historic">Objek bersejarah</string>
 	<string name="type.historic.archaeological_site">Situs arkeologi</string>
+	<string name="type.historic.battlefield">Medan Perang</string>
+	<string name="type.historic.boundary_stone">Batu pembatas</string>
 	<string name="type.historic.castle">Kastel</string>
 	<string name="type.historic.castle.castrum">Benteng Romawi</string>
 	<string name="type.historic.castle.defensive">Kastel</string>
@@ -1078,14 +1088,23 @@
 	<string name="type.historic.castle.shiro">Istana Jepang</string>
 	<string name="type.historic.castle.stately">Kastel</string>
 	<string name="type.historic.city_gate">Gerbang kota</string>
+	<string name="type.historic.citywalls">Tembok Kota</string>
+	<string name="type.historic.fort">Benteng</string>
+	<string name="type.historic.gallows">Tiang gantungan</string>
 	<string name="type.historic.memorial">Tugu peringatan</string>
+	<string name="type.historic.memorial.cross">Salib peringatan</string>
 	<string name="type.historic.memorial.plaque">Tugu peringatan</string>
 	<string name="type.historic.memorial.sculpture">Tugu peringatan</string>
 	<string name="type.historic.memorial.statue">Tugu peringatan</string>
+	<string name="type.historic.memorial.stolperstein">Stolperstein</string>
+	<string name="type.historic.memorial.war_memorial">Tugu peringatan perang</string>
 	<string name="type.historic.monument">Monumen</string>
+	<string name="type.historic.pillory">Pilar</string>
 	<string name="type.historic.ruins">Reruntuhan</string>
 	<string name="type.historic.ship">Pemandangan</string>
 	<string name="type.historic.tomb">Pemandangan</string>
+	<string name="type.historic.wayside_cross">Salib di pinggir jalan</string>
+	<string name="type.historic.wayside_shrine">Kuil di pinggir jalan</string>
 	<string name="type.landuse.basin">Sebuah baskom air</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery">Pemakaman</string>
@@ -1104,6 +1123,7 @@
 	<string name="type.leisure.dog_park">Area untuk anjing</string>
 	<string name="type.leisure.fitness_centre">Pusat kebugaran</string>
 	<string name="type.leisure.fitness_station">Stasiun Kebugaran</string>
+	<string name="type.leisure.dance">Lantai dansa</string>
 	<string name="type.leisure.garden">Situs arkeologi</string>
 	<string name="type.leisure.garden.residential">Situs arkeologi</string>
 	<string name="type.leisure.golf_course">Lapangan golf</string>
@@ -1143,6 +1163,7 @@
 	<string name="type.natural.earth_bank">Jurang</string>
 	<string name="type.man_made.embankment">Tanggul</string>
 	<string name="type.natural.coastline">Pesisir</string>
+	<string name="type.natural.desert">Gurun</string>
 	<string name="type.natural.geyser">Geiser</string>
 	<string name="type.natural.glacier">Gletser</string>
 	<string name="type.natural.grassland">Padang rumput</string>
@@ -1273,7 +1294,6 @@
 	<string name="type.railway.station.subway.lille">Stasiun bawah tanah</string>
 	<string name="type.railway.station.subway.lima">Stasiun bawah tanah</string>
 	<string name="type.railway.station.subway.lisboa">Stasiun bawah tanah</string>
-	<string name="type.railway.station.subway.lisbon">Stasiun bawah tanah</string>
 	<string name="type.railway.station.subway.london">Stasiun bawah tanah</string>
 	<string name="type.railway.station.subway.lyon">Stasiun bawah tanah</string>
 	<string name="type.railway.station.subway.madrid">Stasiun bawah tanah</string>
@@ -1383,7 +1403,6 @@
 	<string name="type.railway.subway_entrance.lille">Pintu masuk kereta bawah tanah</string>
 	<string name="type.railway.subway_entrance.lima">Pintu masuk kereta bawah tanah</string>
 	<string name="type.railway.subway_entrance.lisboa">Pintu masuk kereta bawah tanah</string>
-	<string name="type.railway.subway_entrance.lisbon">Pintu masuk kereta bawah tanah</string>
 	<string name="type.railway.subway_entrance.london">Pintu masuk kereta bawah tanah</string>
 	<string name="type.railway.subway_entrance.lyon">Pintu masuk kereta bawah tanah</string>
 	<string name="type.railway.subway_entrance.madrid">Pintu masuk kereta bawah tanah</string>

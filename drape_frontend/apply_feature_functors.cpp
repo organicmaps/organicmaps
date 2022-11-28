@@ -61,9 +61,6 @@ df::ColorConstant const kRoadShieldBlueBackgroundColor = "RoadShieldBlueBackgrou
 df::ColorConstant const kRoadShieldRedBackgroundColor = "RoadShieldRedBackground";
 df::ColorConstant const kRoadShieldOrangeBackgroundColor = "RoadShieldOrangeBackground";
 
-int const kLineSimplifyLevelStart = 10;
-int const kLineSimplifyLevelEnd = 12;
-
 uint32_t const kPathTextBaseTextIndex = 128;
 uint32_t const kShieldBaseTextIndex = 0;
 int const kShieldMinVisibleZoomLevel = 10;
@@ -779,8 +776,7 @@ ApplyLineFeatureGeometry::ApplyLineFeatureGeometry(TileKey const & tileKey,
   : TBase(tileKey, insertShape, id, minVisibleScale, rank, CaptionDescription())
   , m_currentScaleGtoP(static_cast<float>(currentScaleGtoP))
   , m_minSegmentSqrLength(base::Pow2(4.0 * df::VisualParams::Instance().GetVisualScale() / currentScaleGtoP))
-  , m_simplify(tileKey.m_zoomLevel >= kLineSimplifyLevelStart &&
-               tileKey.m_zoomLevel <= kLineSimplifyLevelEnd)
+  , m_simplify(tileKey.m_zoomLevel >= 10 && tileKey.m_zoomLevel <= 12)
   , m_smooth(smooth)
   , m_initialPointsCount(pointsCount)
 #ifdef LINES_GENERATION_CALC_FILTERED_POINTS

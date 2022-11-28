@@ -2,8 +2,10 @@
 
 #include "base/checked_cast.hpp"
 
+#ifdef __clang__
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wimplicitly-unsigned-literal"
+#endif  // #ifdef __clang__
 UNIT_TEST(IsCastValid)
 {
   {
@@ -67,3 +69,6 @@ UNIT_TEST(IsCastValid)
     TEST(!base::IsCastValid<uint64_t>(value), ());
   }
 }
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif  // #ifdef __clang__

@@ -17,15 +17,11 @@
 #include "geometry/point2d.hpp"
 
 #include "base/assert.hpp"
-#include "base/checked_cast.hpp"
-#include "base/logging.hpp"
 #include "base/macros.hpp"
 #include "base/visitor.hpp"
 
 #include <algorithm>
 #include <cmath>
-#include <cstddef>
-#include <cstdint>
 #include <limits>
 #include <type_traits>
 #include <vector>
@@ -373,8 +369,6 @@ struct CitiesBoundariesSerDes
   {
     static uint8_t const kDefaultCoordBits = 19;
 
-    HeaderV0() {}
-
     DECLARE_VISITOR(visitor(m_coordBits, "coordBits"))
 
     uint8_t m_coordBits = kDefaultCoordBits;
@@ -391,8 +385,8 @@ struct CitiesBoundariesSerDes
     HeaderV0 const header;
     visitor(header);
 
-    serial::GeometryCodingParams const params(
-        header.m_coordBits, m2::PointD(mercator::Bounds::kMinX, mercator::Bounds::kMinY));
+    using mercator::Bounds;
+    serial::GeometryCodingParams const params(header.m_coordBits, {Bounds::kMinX, Bounds::kMinY});
     CitiesBoundariesEncoder<Sink> encoder(sink, params);
     encoder(boundaries);
   }
@@ -411,12 +405,10 @@ struct CitiesBoundariesSerDes
     HeaderV0 header;
     visitor(header);
 
-    auto const wx = mercator::Bounds::kRangeX;
-    auto const wy = mercator::Bounds::kRangeY;
-    precision = std::max(wx, wy) / double(1 << header.m_coordBits);
+    using mercator::Bounds;
+    precision = std::max(Bounds::kRangeX, Bounds::kRangeY) / double(1 << header.m_coordBits);
 
-    serial::GeometryCodingParams const params(
-        header.m_coordBits, m2::PointD(mercator::Bounds::kMinX, mercator::Bounds::kMinY));
+    serial::GeometryCodingParams const params(header.m_coordBits, {Bounds::kMinX, Bounds::kMinY});
     CitiesBoundariesDecoderV0<Source> decoder(source, params);
     decoder(boundaries);
   }

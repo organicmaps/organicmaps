@@ -236,7 +236,7 @@
 	<!-- Button in the main Help dialog -->
 	<string name="faq">Sıkça Sorulan Sorular</string>
 	<!-- Button in the main menu -->
-	<string name="donate">Bağış Yapın</string>
+	<string name="donate">Bağış yapın</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">Sizi nasıl destekleyebilirim?</string>
 	<!-- Button in the main Help dialog -->
@@ -540,6 +540,7 @@
 	<string name="prefs_languages_information_off_link">Daha fazla bilgi için lütfen bu kılavuzu inceleyin.</string>
 	<string name="transliteration_title">Latin harf çevirisi</string>
 	<string name="learn_more">Daha fazla bilgi edinin</string>
+	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">Çık</string>
 	<string name="routing_add_start_point">Rotayı planlamak için bir başlangıç noktası ekleyin</string>
 	<string name="routing_add_finish_point">Rotayı planlamak için bir varış noktası ekleyin</string>
@@ -710,10 +711,12 @@
 	<string name="enable_show_on_lock_screen_description">Etkinleştirildiğinde, uygulama çalışırken her seferinde cihazınızın kilidini açmanıza gerek kalmaz.</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">Harita verileri OpenStreetMap\'ten</string>
-	<!-- Telegram group url for the help page -->
+	<!-- Telegram group url for the "?" About page -->
 	<string name="telegram_url">https://t.me/OrganicMapsTR</string>
-	<!-- Instagram account url for the help page -->
+	<!-- Instagram account url for the "?" About page -->
 	<string name="instagram_url">https://www.instagram.com/organicmapstr</string>
+	<!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
+	<string name="translated_om_site_url">https://organicmaps.app/tr/</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway">Teleferik</string>
@@ -825,7 +828,7 @@
 	<string name="type.recycling.batteries">Piller</string>
 	<string name="type.recycling.clothes">Kıyafet</string>
 	<string name="type.recycling.glass_bottles">Cam Şişeler</string>
-	<string name="type.recycling.paper">Kâğıt Atıklar</string>
+	<string name="type.recycling.paper">Kağıt Atıklar</string>
 	<string name="type.recycling.plastic">Plastik Atıklar</string>
 	<string name="type.recycling.plastic_bottles">Plastik Şişeler</string>
 	<string name="type.recycling.scrap_metal">Hurda Metaller</string>
@@ -866,10 +869,12 @@
 	<string name="type.barrier.chain">Zincir</string>
 	<string name="type.barrier.city_wall">Şehir Duvarı</string>
 	<string name="type.barrier.cycle_barrier">Bisiklet Bariyeri</string>
+	<string name="type.barrier.ditch">Hendek</string>
 	<string name="type.barrier.entrance">Giriş</string>
 	<string name="type.barrier.fence">Çit</string>
 	<string name="type.barrier.gate">Geçit</string>
 	<string name="type.barrier.hedge">Çit</string>
+	<string name="type.barrier.kissing_gate">Geçit</string>
 	<string name="type.barrier.lift_gate">Asansör Kapısı</string>
 	<string name="type.barrier.retaining_wall">İstinat duvarı</string>
 	<string name="type.barrier.stile">Çit Merdiveni</string>
@@ -1015,6 +1020,7 @@
 	<string name="type.emergency.phone">Acil Telefon</string>
 	<string name="type.entrance">Giriş</string>
 	<string name="type.healthcare.laboratory">Tıbbi Laboratuvar</string>
+	<string name="type.healthcare.physiotherapist">Fizyoterapist</string>
 
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway">Otoyol</string>
@@ -1206,11 +1212,16 @@
 	<string name="type.historic.city_gate">Şehir kapısı</string>
 	<string name="type.historic.citywalls">Şehir Duvarı</string>
 	<string name="type.historic.fort">Hisar</string>
+	<string name="type.historic.gallows">Darağacı</string>
 	<string name="type.historic.memorial">Abide</string>
+	<string name="type.historic.memorial.cross">Anıt haç</string>
 	<string name="type.historic.memorial.plaque">Hatıra Plaketi</string>
 	<string name="type.historic.memorial.sculpture">Heykel</string>
 	<string name="type.historic.memorial.statue">Heykel</string>
+	<string name="type.historic.memorial.stolperstein">Tökezleyen Taşlar</string>
+	<string name="type.historic.memorial.war_memorial">Savaş anıtı</string>
 	<string name="type.historic.monument">Anıt</string>
+	<string name="type.historic.pillory">Boyunduruk</string>
 	<string name="type.historic.ruins">Harabeler</string>
 	<string name="type.historic.ship">Görülecek yerler</string>
 	<string name="type.historic.tomb">Türbe</string>
@@ -1262,6 +1273,7 @@
 	<string name="type.leisure.dog_park">Köpek Alanı</string>
 	<string name="type.leisure.fitness_centre">Fitness Merkezi</string>
 	<string name="type.leisure.fitness_station">Açık Hava Spor Alanı</string>
+	<string name="type.leisure.dance">Dans salonu</string>
 	<string name="type.leisure.garden">Bahçe</string>
 	<string name="type.leisure.garden.residential">Konut Bahçesi</string>
 	<string name="type.leisure.golf_course">Golf Sahası</string>
@@ -1495,7 +1507,6 @@
 	<string name="type.railway.station.subway.lille">Metro</string>
 	<string name="type.railway.station.subway.lima">Metro</string>
 	<string name="type.railway.station.subway.lisboa">Metro</string>
-	<string name="type.railway.station.subway.lisbon">Metro</string>
 	<string name="type.railway.station.subway.london">Metro</string>
 	<string name="type.railway.station.subway.lyon">Metro</string>
 	<string name="type.railway.station.subway.madrid">Metro</string>
@@ -1608,7 +1619,6 @@
 	<string name="type.railway.subway_entrance.lille">Metro Girişi</string>
 	<string name="type.railway.subway_entrance.lima">Metro Girişi</string>
 	<string name="type.railway.subway_entrance.lisboa">Metro Girişi</string>
-	<string name="type.railway.subway_entrance.lisbon">Metro Girişi</string>
 	<string name="type.railway.subway_entrance.london">Metro Girişi</string>
 	<string name="type.railway.subway_entrance.lyon">Metro Girişi</string>
 	<string name="type.railway.subway_entrance.madrid">Metro Girişi</string>
@@ -1712,7 +1722,7 @@
 	<string name="type.shop.garden_centre">Bahçe Mağazası</string>
 	<string name="type.shop.gift">Hediyelik Eşya Mağazası</string>
 	<string name="type.shop.greengrocer">Manav</string>
-	<string name="type.shop.grocery">Bakkal</string>
+	<string name="type.shop.grocery">Market</string>
 	<string name="type.shop.hairdresser">Kuaför</string>
 	<string name="type.shop.hardware">Donanım mağazası</string>
 	<string name="type.shop.health_food">Sağlık Gıda Mağazası</string>
@@ -1818,7 +1828,7 @@
 	<string name="type.tourism.artwork.sculpture">Heykel</string>
 	<string name="type.tourism.artwork.statue">Heykel</string>
 	<string name="type.tourism.attraction">Görülecek Yerler</string>
-	<string name="type.tourism.attraction.animal">Görülecek Yerler</string>
+	<string name="type.tourism.attraction.animal">Hayvanat bahçesi</string>
 	<string name="type.tourism.attraction.specified">Görülecek Yerler</string>
 	<string name="type.tourism.camp_site">Kamp Alanı</string>
 	<string name="type.tourism.caravan_site">Karavan Parkı</string>
@@ -1840,9 +1850,9 @@
 	<string name="type.tourism.viewpoint">Manzara</string>
 	<string name="type.tourism.wilderness_hut">Vahşi Doğa Kulübesi</string>
 	<string name="type.tourism.zoo">Hayvanat Bahçesi</string>
-	<string name="type.traffic_calming">Hız Kesici (Tümsek)</string>
-	<string name="type.traffic_calming.bump">Hız Kesici (Tümsek)</string>
-	<string name="type.traffic_calming.hump">Hız Kesici (Tümsek)</string>
+	<string name="type.traffic_calming">Hız Kesici (Kasis)</string>
+	<string name="type.traffic_calming.bump">Hız Kesici (Kasis)</string>
+	<string name="type.traffic_calming.hump">Hız Kesici (Kasis)</string>
 	<string name="type.waterway">Su Yolu</string>
 	<string name="type.waterway.canal">Kanal</string>
 	<string name="type.waterway.canal.tunnel">Kanal</string>
@@ -1852,7 +1862,7 @@
 	<string name="type.waterway.dock">Rıhtım</string>
 	<string name="type.waterway.drain">Lağım</string>
 	<string name="type.waterway.drain.tunnel">Lağım</string>
-	<string name="type.waterway.lock_gate">Kilit Kapısı</string>
+	<string name="type.waterway.lock_gate">Eklüz Kapağı</string>
 	<string name="type.waterway.river">Nehir</string>
 	<string name="type.waterway.river.tunnel">Nehir</string>
 	<string name="type.waterway.riverbank">Nehir</string>
@@ -1866,12 +1876,11 @@
 	<string name="type.wheelchair.limited">Sınırlı tekerlekli sandalye erişimi</string>
 	<string name="type.wheelchair.no">Tekerlekli sandalye erişimi yok</string>
 	<string name="type.wheelchair.yes">Tekerlekli sandalye erişimi var</string>
-	<!-- en.wikipedia.org/wiki/Surface_lift -->
-	<string name="type.piste_lift">Kayak Teleferiği</string>
-	<string name="type.piste_lift.j.bar">Kayak Teleferiği</string>
-	<string name="type.piste_lift.magic_carpet">Kayak Teleferiği</string>
-	<string name="type.piste_lift.platter">Tabak Asansörü</string>
-	<string name="type.piste_lift.rope_tow">Çekme Halatı</string>
+	<string name="type.aerialway.j.bar">Kayak Teleferiği</string>
+	<string name="type.aerialway.magic_carpet">Kayak Teleferiği</string>
+	<string name="type.aerialway.platter">Tabak Asansörü</string>
+	<string name="type.aerialway.rope_tow">Çekme Halatı</string>
+	<string name="type.aerialway.t.bar">Kayakçı teleferiği</string>
 	<string name="type.piste_type">Kayakçı Taşıyıcı</string>
 	<string name="type.piste_type.downhill">Yokuş Aşağı Kayak Pisti</string>
 	<string name="type.piste_type.downhill.advanced">Gelişmiş kayak pisti</string>

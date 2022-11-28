@@ -132,6 +132,8 @@
 	<string name="recycling">การรีไซเคิล</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
 	<string name="water">น้ำ</string>
+	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
+	<string name="rv">สำหรับ RV</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">บันทึก</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -507,6 +509,7 @@
 	<string name="prefs_languages_information_off_link">สำหรับข้อมูลเพิ่มเติม กรุณาเข้าชมคำแนะนำนี้</string>
 	<string name="transliteration_title">การทับศัพท์เป็นภาษาละติน</string>
 	<string name="learn_more">ศึกษาเพิ่มเติม</string>
+	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">ออก</string>
 	<string name="routing_add_start_point">เพิ่มจุดเริ่มต้นเพื่อวางแผนเส้นทาง</string>
 	<string name="routing_add_finish_point">เพิ่มจุดสิ้นสุดเพื่อวางแผนเส้นทาง</string>
@@ -785,8 +788,11 @@
 	<string name="type.barrier.block">บล็อก</string>
 	<string name="type.barrier.bollard">เสา</string>
 	<string name="type.barrier.border_control">ด่านตรวจคนเข้าเมือง</string>
+	<string name="type.barrier.city_wall">กำแพงเมือง</string>
+	<string name="type.barrier.ditch">คูเมือง</string>
 	<string name="type.barrier.entrance">ทางเข้า</string>
 	<string name="type.barrier.gate">ประตู</string>
+	<string name="type.barrier.kissing_gate">ประตู</string>
 	<string name="type.barrier.lift_gate">ไม้กั้น</string>
 	<string name="type.barrier.stile">บันไดข้าม</string>
 	<string name="type.barrier.swing_gate">ไม้กั้น</string>
@@ -908,6 +914,7 @@
 	<string name="type.emergency.phone">โทรศัพท์ฉุกเฉิน</string>
 	<string name="type.entrance">ทางเข้า</string>
 	<string name="type.healthcare.laboratory">ห้องปฏิบัติการทางการแพทย์</string>
+	<string name="type.healthcare.physiotherapist">นักกายภาพบำบัด</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1073,7 +1080,10 @@
 	<string name="type.area_highway.unclassified">ถนน</string>
 
 	<!-- SECTION: Types: Historic -->
+	<string name="type.historic">วัตถุประวัติศาสตร์</string>
 	<string name="type.historic.archaeological_site">โบราณสถาน</string>
+	<string name="type.historic.battlefield">สนามรบ</string>
+	<string name="type.historic.boundary_stone">ขอบหิน</string>
 	<string name="type.historic.castle">ปราสาท</string>
 	<string name="type.historic.castle.castrum">ป้อมโรมัน</string>
 	<string name="type.historic.castle.defensive">ปราสาท</string>
@@ -1086,14 +1096,22 @@
 	<string name="type.historic.castle.shiro">ปราสาทญี่ปุ่น</string>
 	<string name="type.historic.castle.stately">ปราสาท</string>
 	<string name="type.historic.city_gate">ประตูเมือง</string>
+	<string name="type.historic.citywalls">กำแพงเมือง</string>
+	<string name="type.historic.fort">ป้อม</string>
 	<string name="type.historic.memorial">ที่ระลึก</string>
+	<string name="type.historic.memorial.cross">อนุสรณ์สถานข้าม</string>
 	<string name="type.historic.memorial.plaque">ที่ระลึก</string>
 	<string name="type.historic.memorial.sculpture">ที่ระลึก</string>
 	<string name="type.historic.memorial.statue">ที่ระลึก</string>
+	<string name="type.historic.memorial.stolperstein">อุปสรรค์</string>
+	<string name="type.historic.memorial.war_memorial">อนุสรณ์สถานสงคราม</string>
 	<string name="type.historic.monument">อนุสาวรีย์</string>
+	<string name="type.historic.pillory">ประจาน</string>
 	<string name="type.historic.ruins">ซากปรักหักพัง</string>
 	<string name="type.historic.ship">สถานที่ท่องเที่ยว</string>
 	<string name="type.historic.tomb">สถานที่ท่องเที่ยว</string>
+	<string name="type.historic.wayside_cross">ทางข้าม</string>
+	<string name="type.historic.wayside_shrine">ศาลเจ้าข้างทาง</string>
 	<string name="type.internet_access">อินเทอร์เน็ต</string>
 	<string name="type.internet_access.wlan">อินเทอร์เน็ต</string>
 	<string name="type.landuse.basin">อ่างน้ำ</string>
@@ -1114,6 +1132,7 @@
 	<string name="type.leisure.dog_park">สถานที่พาสุนัขเดินเล่น</string>
 	<string name="type.leisure.fitness_centre">ฟิตเนสเซ็นเตอร์</string>
 	<string name="type.leisure.fitness_station">ศูนย์ฟิตเนส</string>
+	<string name="type.leisure.dance">แดนซ์ฮอลล์</string>
 	<string name="type.leisure.garden">สวน</string>
 	<string name="type.leisure.garden.residential">สวน</string>
 	<string name="type.leisure.golf_course">สนามกอล์ฟ</string>
@@ -1284,7 +1303,6 @@
 	<string name="type.railway.station.subway.lille">รถไฟ</string>
 	<string name="type.railway.station.subway.lima">รถไฟ</string>
 	<string name="type.railway.station.subway.lisboa">รถไฟ</string>
-	<string name="type.railway.station.subway.lisbon">รถไฟ</string>
 	<string name="type.railway.station.subway.london">รถไฟ</string>
 	<string name="type.railway.station.subway.lyon">รถไฟ</string>
 	<string name="type.railway.station.subway.madrid">รถไฟ</string>
@@ -1394,7 +1412,6 @@
 	<string name="type.railway.subway_entrance.lille">ทางเข้ารถไฟใต้ดิน</string>
 	<string name="type.railway.subway_entrance.lima">ทางเข้ารถไฟใต้ดิน</string>
 	<string name="type.railway.subway_entrance.lisboa">ทางเข้ารถไฟใต้ดิน</string>
-	<string name="type.railway.subway_entrance.lisbon">ทางเข้ารถไฟใต้ดิน</string>
 	<string name="type.railway.subway_entrance.london">ทางเข้ารถไฟใต้ดิน</string>
 	<string name="type.railway.subway_entrance.lyon">ทางเข้ารถไฟใต้ดิน</string>
 	<string name="type.railway.subway_entrance.madrid">ทางเข้ารถไฟใต้ดิน</string>

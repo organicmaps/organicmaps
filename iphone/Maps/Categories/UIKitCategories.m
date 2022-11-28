@@ -177,14 +177,23 @@
 - (BOOL)openUrl:(NSString *)urlString inSafari:(BOOL)safari
 {
   // TODO: This is a temporary workaround to open cyrillic/non-ASCII URLs.
-  // URLs in OSM are stored in UTF-8. NSURL documentation says:
+  // URLs in OSM are stored in UTF-8. NSURL constructor documentation says:
   // > Must be a URL that conforms to RFC 2396. This method parses URLString according to RFCs 1738 and 1808.
-  // This deprecated method (almost) properly encodes whole string, while leaving & and / not encoded.
-  // A better way to encode the URL string should be:
+  // The right way to encode the URL string should be:
   // 1. Split the (non-ASCII) string into components (host, path, query, fragment, etc.)
-  // 2. Encode each component separately (they have different rules).
+  // 2. Encode each component separately (they have different allowed characters).
   // 3. Merge them back into the string and create NSURL.
-  NSString * encoded = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+  NSMutableCharacterSet * charset = [[NSMutableCharacterSet alloc] init];
+  [charset formUnionWithCharacterSet:NSCharacterSet.URLHostAllowedCharacterSet];
+  [charset formUnionWithCharacterSet:NSCharacterSet.URLPathAllowedCharacterSet];
+  [charset formUnionWithCharacterSet:NSCharacterSet.URLQueryAllowedCharacterSet];
+  [charset formUnionWithCharacterSet:NSCharacterSet.URLFragmentAllowedCharacterSet];
+  [charset addCharactersInString:@"#;/?:@&=+$,"];
+  NSString * encoded = [urlString stringByAddingPercentEncodingWithAllowedCharacters:charset];
+  // Matrix has an url with two hashes which doesn't work for NSURL and NSURLComponent.
+  NSRange const matrixUrl = [encoded rangeOfString:@"#/#"];
+  if (matrixUrl.location != NSNotFound)
+    encoded = [encoded stringByReplacingOccurrencesOfString:@"#/#" withString:@"#/%23"];
   NSURLComponents * urlc = [NSURLComponents componentsWithString:encoded];
   if (!urlc)
   {

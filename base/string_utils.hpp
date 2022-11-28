@@ -128,7 +128,11 @@ UniString MakeUniString(std::string_view utf8s);
 std::string ToUtf8(UniString const & s);
 bool IsASCIIString(std::string_view sv);
 bool IsASCIIDigit(UniChar c);
-bool IsASCIINumeric(std::string const & str);
+template <class StringT> bool IsASCIINumeric(StringT const & str)
+{
+  return !std::empty(str) && std::all_of(std::begin(str), std::end(str), &IsASCIIDigit);
+}
+inline bool IsASCIINumeric(char const * s) { return IsASCIINumeric(std::string_view(s)); }
 bool IsASCIISpace(UniChar c);
 bool IsASCIILatin(UniChar c);
 

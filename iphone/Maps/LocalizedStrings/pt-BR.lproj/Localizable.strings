@@ -153,7 +153,7 @@
 "water" = "Água";
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
-"rv" = "RV Facilities";
+"rv" = "Para trailers";
 
 "share_bookmarks_email_body" = "Olá!\n\nSegue em anexo meus favoritos do app Organic Maps. Se tiver instalado o Organic Maps, pode abri-los agora. Caso não tenha, baixe o app para o seu dispositivo iOS ou Android via o link https://omaps.app/get?kmz\n\nDisfrute viajar com o Organic Maps!";
 
@@ -274,6 +274,9 @@
 "matrix" = "[matrix]";
 
 /* Text in menu */
+"mastodon" = "Mastodon";
+
+/* Text in menu */
 "facebook" = "Facebook";
 
 /* Text in menu */
@@ -296,6 +299,9 @@
 
 /* Button in the main Help dialog */
 "faq" = "Perguntas e respostas";
+
+/* Button in the main menu */
+"donate" = "Doar";
 
 /* Button in the main Help dialog */
 "how_to_support_us" = "Como nos apoiar?";
@@ -512,6 +518,12 @@
 "search_history_text" = "Visualizar as buscas recentes.";
 
 "clear_search" = "Limpar histórico de pesquisa";
+
+/* Place Page link to Wikipedia article (if map object has it). */
+"read_in_wikipedia" = "Wikipédia";
+
+/* Place Page link to Wikimedia Commons. */
+"wikimedia_commons" = "Wikimedia Commons";
 
 "p2p_your_location" = "Localização atual";
 
@@ -874,7 +886,8 @@
 
 "transliteration_title" = "Transliteração para alfabeto latino";
 
-"core_exit" = "Sair";
+/* Subway exits for public transport marks on the map */
+"core_exit" = "Saída";
 
 "routing_add_start_point" = "Adicionar ponto de partida para planejar uma rota";
 
@@ -1214,11 +1227,14 @@
 /* edit track screen title */
 "track_title" = "Percurso";
 
-/* Telegram group url for the help page */
+/* Telegram group url for the "?" About page */
 "telegram_url" = "https://t.me/OrganicMapsApp";
 
-/* Instagram account url for the help page */
+/* Instagram account url for the "?" About page */
 "instagram_url" = "https://www.instagram.com/organicmaps.app";
+
+/* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
+"translated_om_site_url" = "https://organicmaps.app/";
 
 
 /********** Types **********/
@@ -1428,9 +1444,9 @@
 
 "type.amenity.recycling.centre" = "Centro de reciclagem";
 
-"type.amenity.recycling" = "Recipiente de reciclagem";
+"type.amenity.recycling" = "Contêiner de reciclagem";
 
-"type.amenity.recycling.container" = "Recipiente de reciclagem";
+"type.amenity.recycling.container" = "Contêiner de reciclagem";
 
 "type.recycling.batteries" = "Baterias";
 
@@ -1438,29 +1454,29 @@
 
 "type.recycling.glass_bottles" = "Garrafas de vidro";
 
-"type.recycling.paper" = "Lixo de papel";
+"type.recycling.paper" = "Papel";
 
-"type.recycling.plastic" = "Lixo plástico";
+"type.recycling.plastic" = "Plástico";
 
 "type.recycling.plastic_bottles" = "Garrafas plásticas";
 
-"type.recycling.scrap_metal" = "Ferro velho";
+"type.recycling.scrap_metal" = "Sucata";
 
-"type.recycling.small_appliances" = "Lixo eletrônico";
+"type.recycling.small_appliances" = "Eletrônicos";
 
-"type.recycling.cardboard" = "Cardboard";
+"type.recycling.cardboard" = "Papelão";
 
-"type.recycling.cans" = "Cans";
+"type.recycling.cans" = "Latas";
 
-"type.recycling.shoes" = "Shoes";
+"type.recycling.shoes" = "Sapatos";
 
-"type.recycling.green_waste" = "Green/Organic Waste";
+"type.recycling.green_waste" = "Lixo verde/orgânico";
 
-"type.recycling.cartons" = "Bewerage Cartons";
+"type.recycling.cartons" = "Caixa de bebidas";
 
 "type.amenity.restaurant" = "Restaurante";
 
-"type.amenity.sanitary_dump_station" = "Holding Tank Dump Station";
+"type.amenity.sanitary_dump_station" = "Estação de despejo de esgotos";
 
 "type.amenity.school" = "Escola";
 
@@ -1484,27 +1500,27 @@
 
 "type.amenity.vending_machine.cigarettes" = "Máquina de venda de cigarros";
 
-"type.amenity.vending_machine.coffee" = "Coffee Dispenser";
+"type.amenity.vending_machine.coffee" = "Máquina de café";
 
-"type.amenity.vending_machine.condoms" = "Condoms Dispenser";
+"type.amenity.vending_machine.condoms" = "Máquina de venda de preservativos";
 
 "type.amenity.vending_machine.drinks" = "Máquina de venda de bebidas";
 
-"type.amenity.vending_machine.food" = "Food Dispenser";
+"type.amenity.vending_machine.food" = "Máquina de venda de comidas";
 
-"type.amenity.vending_machine.newspapers" = "Newspapers Dispenser";
+"type.amenity.vending_machine.newspapers" = "Máquina de venda de jornais";
 
-"type.amenity.vending_machine.parking_tickets" = "Máquina venda de tíquetes de estacionamento";
+"type.amenity.vending_machine.parking_tickets" = "Máquina de venda de tíquetes de estacionamento";
 
-"type.amenity.vending_machine.public_transport_tickets" = "Máquinas automáticas de venda de passagens de transporte público";
+"type.amenity.vending_machine.public_transport_tickets" = "Máquina de venda de passagens de transporte público";
 
-"type.amenity.vending_machine.sweets" = "Sweets Dispenser";
+"type.amenity.vending_machine.sweets" = "Máquina de venda de doces";
 
-"type.amenity.vending_machine.excrement_bags" = "Excrement Bags Dispenser";
+"type.amenity.vending_machine.excrement_bags" = "Saquinhos de lixo";
 
-"type.amenity.parcel_locker" = "Parcel Locker";
+"type.amenity.parcel_locker" = "Armário de encomendas";
 
-"type.amenity.vending_machine.fuel" = "Fuel Dispenser";
+"type.amenity.vending_machine.fuel" = "Bomba de combustível";
 
 "type.amenity.veterinary" = "Veterinário";
 
@@ -1512,7 +1528,7 @@
 
 "type.amenity.waste_disposal" = "Depósito de lixo";
 
-"type.amenity.waste_transfer_station" = "Waste Transfer Station";
+"type.amenity.waste_transfer_station" = "Estação de transferência de resíduos";
 
 "type.amenity.water_point" = "Ponto de água";
 
@@ -1520,15 +1536,17 @@
 
 "type.barrier.block" = "Bloco";
 
-"type.barrier.bollard" = "Pilar";
+"type.barrier.bollard" = "Pilarete";
 
 "type.barrier.border_control" = "Controle de fronteira";
 
 "type.barrier.chain" = "Chain";
 
-"type.barrier.city_wall" = "Muralha de cidade";
+"type.barrier.city_wall" = "City Wall";
 
 "type.barrier.cycle_barrier" = "Barreira de bicicletas";
+
+"type.barrier.ditch" = "Fosso";
 
 "type.barrier.entrance" = "Entrada";
 
@@ -1537,6 +1555,8 @@
 "type.barrier.gate" = "Portão";
 
 "type.barrier.hedge" = "Sebe";
+
+"type.barrier.kissing_gate" = "Quebra-corpo";
 
 "type.barrier.lift_gate" = "Cancela";
 
@@ -1828,6 +1848,8 @@
 "type.entrance" = "Entrada";
 
 "type.healthcare.laboratory" = "Laboratório médico";
+
+"type.healthcare.physiotherapist" = "Fisioterapeuta";
 
 
 /********** Types: Roads **********/
@@ -2133,7 +2155,7 @@
 
 /********** Types: Historic **********/
 
-"type.historic" = "Histórico";
+"type.historic" = "Objeto histórico";
 
 "type.historic.archaeological_site" = "Sítio arqueológico";
 
@@ -2165,23 +2187,33 @@
 
 "type.historic.city_gate" = "Portas da cidade";
 
-"type.historic.citywalls" = "Muralha de cidade";
+"type.historic.citywalls" = "Muralha";
 
-"type.historic.fort" = "Forte histórico";
+"type.historic.fort" = "Forte";
+
+"type.historic.gallows" = "Galo";
 
 "type.historic.memorial" = "Memorial";
 
+"type.historic.memorial.cross" = "Cruz de memorial";
+
 "type.historic.memorial.plaque" = "Placa comemorativa";
 
-"type.historic.memorial.sculpture" = "Escultura memorial";
+"type.historic.memorial.sculpture" = "Escultura";
 
-"type.historic.memorial.statue" = "Estátua memorial";
+"type.historic.memorial.statue" = "Estátua";
+
+"type.historic.memorial.stolperstein" = "Stolperstein";
+
+"type.historic.memorial.war_memorial" = "Memorial de guerra";
 
 "type.historic.monument" = "Monumento";
 
+"type.historic.pillory" = "Pelourinho";
+
 "type.historic.ruins" = "Ruínas";
 
-"type.historic.ship" = "Barco histórico";
+"type.historic.ship" = "Barco";
 
 "type.historic.tomb" = "Túmulo";
 
@@ -2306,6 +2338,8 @@
 "type.leisure.fitness_centre" = "Academia de ginástica";
 
 "type.leisure.fitness_station" = "Estação de fitness";
+
+"type.leisure.dance" = "Salão de dança";
 
 "type.leisure.garden" = "Jardim";
 
@@ -2436,6 +2470,8 @@
 "type.man_made.embankment" = "Aterro";
 
 "type.natural.coastline" = "Linha costeira";
+
+"type.natural.desert" = "Deserto";
 
 "type.natural.geyser" = "Gêiser";
 
@@ -2793,8 +2829,6 @@
 
 "type.railway.station.subway.lisboa" = "Estação de metrô";
 
-"type.railway.station.subway.lisbon" = "Estação de metrô";
-
 "type.railway.station.subway.london" = "Estação de metrô";
 
 "type.railway.station.subway.lyon" = "Estação de metrô";
@@ -3019,8 +3053,6 @@
 
 "type.railway.subway_entrance.lisboa" = "Entrada do metrô";
 
-"type.railway.subway_entrance.lisbon" = "Entrada do metrô";
-
 "type.railway.subway_entrance.london" = "Entrada do metrô";
 
 "type.railway.subway_entrance.lyon" = "Entrada do metrô";
@@ -3151,11 +3183,11 @@
 
 "type.route.ferry" = "Rota de balsa";
 
-"type.route.shuttle_train" = "Rota de trem vaivem";
+"type.route.shuttle_train" = "Rota de trem vaivém";
 
 "type.shop" = "Loja";
 
-"type.shop.alcohol" = "Loja de bebidas alcoolicas";
+"type.shop.alcohol" = "Loja de bebidas alcoólicas";
 
 "type.shop.bakery" = "Padaria";
 
@@ -3203,7 +3235,7 @@
 
 "type.shop.department_store" = "Loja de departamentos";
 
-"type.shop.doityourself" = "Loja de ferramentas e materiais de bricolage";
+"type.shop.doityourself" = "Loja de ferramentas e materiais de bricolagem";
 
 "type.shop.dry_cleaning" = "Lavagem a seco";
 
@@ -3265,7 +3297,7 @@
 
 "type.shop.outdoor" = "Artigos de atividades ao ar livre";
 
-"type.shop.pastry" = "Pastelaria";
+"type.shop.pastry" = "Confeitaria";
 
 "type.shop.pawnbroker" = "Casa de penhores";
 
@@ -3299,7 +3331,7 @@
 
 "type.shop.variety_store" = "Loja 1,99";
 
-"type.shop.video" = "Vídeo locadora";
+"type.shop.video" = "Videolocadora";
 
 "type.shop.video_games" = "Loja de jogos eletrônicos";
 
@@ -3319,7 +3351,7 @@
 
 "type.shop.cheese" = "Loja de queijos";
 
-"type.shop.craft" = "Artes e Ofícios";
+"type.shop.craft" = "Artes e ofícios";
 
 "type.shop.dairy" = "Lacticínios";
 
@@ -3327,7 +3359,7 @@
 
 "type.shop.fishing" = "Loja de pesca";
 
-"type.shop.interior_decoration" = "Decorações de Interiores";
+"type.shop.interior_decoration" = "Decoração de interiores";
 
 "type.shop.lottery" = "Bilhete de loteria";
 
@@ -3341,7 +3373,7 @@
 
 "type.shop.sewing" = "Materiais de costura";
 
-"type.shop.storage_rental" = "Aluguel de Armazenamento";
+"type.shop.storage_rental" = "Aluguel de armazenamento";
 
 "type.shop.tobacco" = "Tabaco";
 
@@ -3383,7 +3415,7 @@
 
 "type.sport.handball" = "Handebol";
 
-"type.sport.multi" = "Vários desportos";
+"type.sport.multi" = "Poliesportivo";
 
 /* Used to tag a scuba diving site. */
 "type.sport.scuba_diving" = "Mergulho autônomo";
@@ -3534,18 +3566,15 @@
 
 "type.wheelchair.yes" = "Acesso total para cadeira de rodas";
 
-/* en.wikipedia.org/wiki/Surface_lift */
-"type.piste_lift" = "Telesqui";
+"type.aerialway.j.bar" = "Telesqui de barra em J";
 
-"type.piste_lift.j.bar" = "Telesqui de barra em J";
+"type.aerialway.magic_carpet" = "Tapete deslizante";
 
-"type.piste_lift.magic_carpet" = "Tapete deslizante";
+"type.aerialway.platter" = "Telesqui de disco";
 
-"type.piste_lift.platter" = "Telesqui de disco";
+"type.aerialway.rope_tow" = "Telesqui de corda";
 
-"type.piste_lift.rope_tow" = "Telesqui de corda";
-
-"type.piste_lift.t.bar" = "Telesqui de barra em T";
+"type.aerialway.t.bar" = "Telesqui de barra em T";
 
 "type.piste_type" = "Tipo de pista";
 

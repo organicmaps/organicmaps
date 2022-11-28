@@ -15,6 +15,8 @@
 - (void)addBusiness;
 - (void)addPlace:(CLLocationCoordinate2D)coordinate;
 - (void)openWebsite:(PlacePageData *)data;
+- (void)openWikipedia:(PlacePageData *)data;
+- (void)openWikimediaCommons:(PlacePageData *)data;
 - (void)openEmail:(PlacePageData *)data;
 - (void)openFacebook:(PlacePageData *)data;
 - (void)openInstagram:(PlacePageData *)data;
@@ -70,6 +72,14 @@
 
 + (void)openEmail:(PlacePageData *)data {
   [[MWMMapViewControlsManager manager].placePageManager openEmail:data];
+}
+
++ (void)openWikipedia:(PlacePageData *)data {
+  [[MWMMapViewControlsManager manager].placePageManager openWikipedia:data];
+}
+
++ (void)openWikimediaCommons:(PlacePageData *)data {
+  [[MWMMapViewControlsManager manager].placePageManager openWikimediaCommons:data];
 }
 
 + (void)openFacebook:(PlacePageData *)data {

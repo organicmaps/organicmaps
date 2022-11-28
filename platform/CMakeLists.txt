@@ -89,11 +89,13 @@ else() # neither iPhone nor Android
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
     OUTPUT_VARIABLE OM_VERSION
     OUTPUT_STRIP_TRAILING_WHITESPACE
+    COMMAND_ERROR_IS_FATAL ANY
   )
   execute_process(COMMAND tools/unix/version.sh qt_int_version
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
     OUTPUT_VARIABLE OM_INT_VERSION
     OUTPUT_STRIP_TRAILING_WHITESPACE
+    COMMAND_ERROR_IS_FATAL ANY
   )
   configure_file("${CMAKE_CURRENT_SOURCE_DIR}/platform_qt_version.cpp.in"
                  "${CMAKE_CURRENT_BINARY_DIR}/platform_qt_version.cpp"

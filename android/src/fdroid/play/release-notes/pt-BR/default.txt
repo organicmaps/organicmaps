@@ -1,11 +1,12 @@
-• Novos dados OSM de 12/09
-• Melhoria na experiência e visibilidade do mapa
-• Melhoria na página de login e perfil do OSM
-• Busca mais rápida e precisa
-• Corrigido erro ao iniciar o app depois de uma edição
-• Lista de favoritos ordenada por última modificação
-• Novas traduções: nl, pt-BR, it, ca, tr, be
-• Adição de TTS para catalão
-• Suporte aos sítios arqueológicos e castelos, e às escolas de condução, música e idiomas
-• Melhoria em estilos e ícones
+• Novos dados OSM de 19/11
+• Velocidade de bicicleta para melhor roteamento
+• Adição de Mastodon em Ajuda
+• Correção de alguns erros e do menu de navegação
+• Correção de distância na busca
+• Correção de ícones sobrepostos e de áreas de lazer
+• Adição de BRTs e fisioterapeuta
+• Ilhas e arquipélagos no mapa mundial
+• Correção de prioridade de exibição de água/píer e barragem
+• Tradução e atualização de cs, es, et, nb, tr
+• Correção de categorias de RV e catalão
 …mais: omaps.app/news

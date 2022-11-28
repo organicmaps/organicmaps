@@ -15,7 +15,7 @@
     android:layout_marginStart="@dimen/margin_half"
     android:layout_marginEnd="@dimen/margin_half"
     android:orientation="vertical">
-    <com.mapswithme.maps.widget.CustomTextInputLayout
+    <app.organicmaps.widget.CustomTextInputLayout
       style="?fontBody1"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
         android:hint="@string/name"
         android:inputType="textCapSentences"
         android:singleLine="true" />
-    </com.mapswithme.maps.widget.CustomTextInputLayout>
+    </app.organicmaps.widget.CustomTextInputLayout>
   </LinearLayout>
   <RelativeLayout
     android:id="@+id/rl__bookmark_set"
@@ -75,7 +75,7 @@
       android:padding="@dimen/margin_half"
       tools:src="@drawable/ic_bookmark_none" />
   </RelativeLayout>
-  <com.mapswithme.maps.widget.CustomTextInputLayout
+  <app.organicmaps.widget.CustomTextInputLayout
     style="?fontBody1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -90,5 +90,5 @@
       android:layout_height="wrap_content"
       android:hint="@string/edit_description_hint"
       android:inputType="textMultiLine" />
-  </com.mapswithme.maps.widget.CustomTextInputLayout>
+  </app.organicmaps.widget.CustomTextInputLayout>
 </RelativeLayout>

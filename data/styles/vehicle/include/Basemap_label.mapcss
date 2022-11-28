@@ -10,7 +10,7 @@
   4.4 Districts & Small localities
 5.VEGETATION, BEACH & GLACIER
   5.1 Vegetation
-  5.2 Beach & Glacier
+  5.2 Beach, Glacier, Desert, etc.
 6.WATER
 	6.1 Area water(lake,pond etc.)
 	6.2 Line water(river,canal etc.)
@@ -50,13 +50,10 @@ node[place=continent]
 {z-index: 999;}
 
 node[place=country],
-area[man_made=pier],
-area[man_made=breakwater],
 line[man_made=pier],
 line[man_made=breakwater],
 node[man_made=pier],
 node[man_made=breakwater],
-area[waterway=dam],
 line[waterway=dam],
 line[waterway=weir],
 node[waterway=weir],
@@ -95,8 +92,6 @@ node[place=ocean],
 node[place=sea]
 {z-index: 3000;}
 
-area[landuse=reservoir],
-area[natural=water],
 line[waterway=river],
 line[waterway=riverbank],
 line[waterway=canal],
@@ -403,70 +398,44 @@ node|z14-[place=farm]::int_name,
 /* 5.VEGETATION, BEACH & GLACIER */
 
 /* 5.1 Vegetation */
-area|z18-[leisure=park][name],
-area|z18-[landuse=forest][name],
-{text: name;text-color: @park_label;text-halo-color: @halo_park_label;text-halo-radius: 0.5;text-halo-opacity: 0.8;icon-min-distance: 10;}
-
-
 area|z14-[leisure=park][name],
 area|z14-[landuse=forest][name],
-{text: name;text-color: @park_label;text-halo-color: @halo_park_label;text-halo-radius: 0.5;text-halo-opacity: 0.8;icon-min-distance: 10;}
+{text: name; text-color: @park_label; text-halo-color: @halo_park_label; text-halo-radius: 0.5; text-halo-opacity: 0.8; icon-min-distance: 8; text-offset: 1; font-size: 11;}
 
-
-area|z14-[landuse=forest][name]
-{icon-image: nparkf-m.svg;text-offset: 1;font-size: 11;}
-area|z14-[leisure=park][name],
-{icon-image: park-m.svg;text-offset: 1;font-size: 11;}
-area|z14-[leisure=park][name]::int_name,
-area|z14-[landuse=forest][name]::int_name
-{text-offset: 1;}
+/* If we define [name] styles, we should also define at least empty [!name] stub. */
 area|z14-[leisure=park][!name],
-area|z14-[landuse=forest][!name]
-{}/*check*/
-
-area|z15-[landuse=forest][name]
-{icon-image: nparkf-m.svg;text-offset: 1;font-size: 12;}
-area|z15-[leisure=park][name],
-{icon-image: park-m.svg;text-offset: 1;font-size: 12;}
-area|z15-17[leisure=park][name]::int_name,
-area|z15-17[landuse=forest][name]::int_name,
-area|z16-17[landuse=forest][name]::int_name
-{text-offset: 1;font-size: 10;}
-area|z15[leisure=park][!name],
-area|z15[landuse=forest][!name]
-{}/*check*/
-
-area|z16[landuse=forest][name]
-{icon-image: nparkf-m.svg;text-offset: 1;font-size: 12.5;}
-area|z16[leisure=park][name],
-{icon-image: park-m.svg;text-offset: 1;font-size: 12.5;}
-area|z16[leisure=park][!name],
-area|z16[landuse=forest][!name],
-area|z16[leisure=park][!name]::int_name,
-area|z16[landuse=forest][!name]::int_name
-{}/*check*/
-
-area|z18-[landuse=forest][name]
-{icon-image: nparkf-m.svg;text-offset: 1;font-size: 13.5;}
-area|z18-[leisure=park][name],
-{icon-image: park-m.svg;text-offset: 1;font-size: 13.5;}
-area|z18-[leisure=park][name],
-area|z18-[landuse=forest][name]
+area|z14-[landuse=forest][!name],
 {}
 
+area|z14-[landuse=forest][name]
+{icon-image: nparkf-outline-m.svg;}
+area|z14-[leisure=park][name]
+{icon-image: park-outline-m.svg;}
 
-area|z18-[landuse=forest]
-{icon-image: nparkf-m.svg;text-offset: 1;font-size: 13.5;}
-area|z18-[leisure=park],
-{icon-image: park-m.svg;text-offset: 1;font-size: 13.5;}
-area|z18-[leisure=park]::int_name,
-area|z18-[leisure=forest]::int_name
-{text-offset: 1;font-size: 11;}
+area|z15-[landuse=forest][name],
+area|z15-[leisure=park][name],
+{font-size: 12;}
+
+area|z16-[landuse=forest][name],
+area|z16-[leisure=park][name],
+{font-size: 12.5;}
+
+area|z18-[landuse=forest][name],
+area|z18-[leisure=park][name],
+{font-size: 13.5;}
+area|z18-[leisure=park][name]::int_name,
+area|z18-[landuse=forest][name]::int_name,
+{text: int_name; text-offset: 1; font-size: 11;}
+
+area|z18-[landuse=forest][!name]
+{text: none; icon-image: nparkf-m.svg;}
+area|z18-[leisure=park][!name]
+{text: none; icon-image: park-m.svg;}
 
 
+/* 5.2 Beach, Glacier, Desert, etc. */
 
-/* 5.2 Beach & Glacier */
-
+area|z14-[natural=desert],
 area|z15-[leisure=beach_resort],
 area|z15-[natural=beach],
 node|z17-[leisure=beach_resort],
@@ -491,7 +460,10 @@ node|z16-[natural=wetland],
 area|z16-[natural=wetland],
 {text:name;text-color: @water_label;}
 
-
+/* Don't want to break current logic, but there are several strange moments here:
+- removing NODE rule "node|z14-[natural=water][bbox_area>=1000000]" breaks other rules.
+- z14-[natural=water], bbox_area=[1000000-4000000] range can stay without captions (see rules below).
+ */
 
 /*6.1 Area water(ocean,sea,lake,pond etc.)*/
 

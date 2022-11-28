@@ -98,7 +98,7 @@ ReaderPtr<Reader> StyleReader::GetDrawingRulesReader() const
 
   auto overriddenRulesFile =
       base::JoinPath(GetPlatform().WritableDir(), kStylesOverrideDir, rulesFile);
-  if (GetPlatform().IsFileExistsByFullPath(overriddenRulesFile))
+  if (Platform::IsFileExistsByFullPath(overriddenRulesFile))
     rulesFile = overriddenRulesFile;
 
 #ifdef BUILD_DESIGNER

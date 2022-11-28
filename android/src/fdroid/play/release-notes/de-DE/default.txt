@@ -1,10 +1,11 @@
-• Neue OSM-Kartendaten ab dem 12. September
-• Entfernte untere Symbolleiste für bessere UX und Sichtbarkeit der Karte
-• Verbesserte OSM-Anmeldeseite und OSM-Profil
-• Schnellere, bessere Suche
-• Absturz beim Starten nach der Bearbeitung behoben
-• Lesezeichenlisten sind nun nach der letzten Änderungszeit sortiert
-• Verbesserte Übersetzungen
-• Fahr-, Musik- und Sprachschulen, archäologische Stätten und Schlösser hinzugefügt
-• Andere Stile und Icons wurden verbessert
+• Neue OSM-Karten ab dem 19. November
+• Feste Fahrradgeschwindigkeit für Routenplanung
+• Mastodon im Hilfe-Dialog
+• Festes Menü unter der Navigationsleiste
+• Entfernung wird jetzt in den Suchergebnissen angezeigt
+• Einige sich überlappende Icons behoben
+• Autobahn=Buslinie und Physiotherapeut hinzugefügt
+• Inseln und Archipele auf der Weltkarte
+• Feststehende Zeichnung von Pier, Deich und Wasser über Pier
+• Estnisch hinzugefügt, Übersetzungen korrigiert für cs, es, nb, tr
 …mehr: omaps.app/news

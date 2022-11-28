@@ -131,6 +131,8 @@
 	<string name="recycling">Ανακύκλωση</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
 	<string name="water">Νερό</string>
+	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
+	<string name="rv">Για RV</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Σημειώσεις</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -499,6 +501,7 @@
 	<string name="prefs_languages_information_off_link">Για περισσότερες πληροφορίες δείτε αυτό τον οδηγό.</string>
 	<string name="transliteration_title">Μεταγραφή στα Λατινικά</string>
 	<string name="learn_more">Μάθετε περισσότερα</string>
+	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">Έξοδος</string>
 	<string name="routing_add_start_point">Προσθέστε αφετηρία για να σχεδιάσετε μια διαδρομή</string>
 	<string name="routing_add_finish_point">Προσθέστε τελικό προορισμό, για να σχεδιάσετε μια διαδρομή</string>
@@ -782,8 +785,11 @@
 	<string name="type.barrier.block">Εμπόδιο</string>
 	<string name="type.barrier.bollard">Πυλώνας</string>
 	<string name="type.barrier.border_control">Έλεγχος συνόρων</string>
+	<string name="type.barrier.city_wall">Τείχος της πόλης</string>
+	<string name="type.barrier.ditch">Τάφρος</string>
 	<string name="type.barrier.entrance">Είσοδος</string>
 	<string name="type.barrier.gate">Πύλη</string>
+	<string name="type.barrier.kissing_gate">Πύλη</string>
 	<string name="type.barrier.lift_gate">Ανυψούμενη μπάρα</string>
 	<string name="type.barrier.stile">Τουρνικέ</string>
 	<string name="type.barrier.swing_gate">Ανυψούμενη μπάρα</string>
@@ -905,6 +911,7 @@
 	<string name="type.emergency.phone">Τηλέφωνο έκτακτης ανάγκης</string>
 	<string name="type.entrance">Είσοδος</string>
 	<string name="type.healthcare.laboratory">Ιατρικό Εργαστήριο</string>
+	<string name="type.healthcare.physiotherapist">Φυσικοθεραπευτής</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1070,7 +1077,10 @@
 	<string name="type.area_highway.unclassified">Οδός</string>
 
 	<!-- SECTION: Types: Historic -->
+	<string name="type.historic">Ιστορικό αντικείμενο</string>
 	<string name="type.historic.archaeological_site">Αρχαιολογικός χώρος</string>
+	<string name="type.historic.battlefield">Πεδίο μάχης</string>
+	<string name="type.historic.boundary_stone">Οριακή πέτρα</string>
 	<string name="type.historic.castle">Κάστρο</string>
 	<string name="type.historic.castle.castrum">Ρωμαϊκό κάστρο</string>
 	<string name="type.historic.castle.defensive">Κάστρο</string>
@@ -1083,14 +1093,23 @@
 	<string name="type.historic.castle.shiro">Ιαπωνικό κάστρο</string>
 	<string name="type.historic.castle.stately">Κάστρο</string>
 	<string name="type.historic.city_gate">Πύλη της πόλης</string>
+	<string name="type.historic.citywalls">Τείχος της πόλης</string>
+	<string name="type.historic.fort">Φορτ</string>
+	<string name="type.historic.gallows">Αγχόνη</string>
 	<string name="type.historic.memorial">Μνημείο</string>
+	<string name="type.historic.memorial.cross">Σταυρός μνήμης</string>
 	<string name="type.historic.memorial.plaque">Μνημείο</string>
 	<string name="type.historic.memorial.sculpture">Μνημείο</string>
 	<string name="type.historic.memorial.statue">Μνημείο</string>
+	<string name="type.historic.memorial.stolperstein">Λίθοι Μνήμης</string>
+	<string name="type.historic.memorial.war_memorial">Μνημείο του Αγνώστου Στρατιώτη</string>
 	<string name="type.historic.monument">Μνημείο</string>
+	<string name="type.historic.pillory">Κύφωνας</string>
 	<string name="type.historic.ruins">Ερείπια</string>
 	<string name="type.historic.ship">Αξιοθέατο</string>
 	<string name="type.historic.tomb">Αξιοθέατο</string>
+	<string name="type.historic.wayside_cross">Σταυρός στην άκρη του δρόμου</string>
+	<string name="type.historic.wayside_shrine">Εικονοστάσιο στην άκρη του δρόμου</string>
 	<string name="type.internet_access">Ίντερνετ</string>
 	<string name="type.internet_access.wlan">Ίντερνετ</string>
 	<string name="type.landuse.basin">Μια λεκάνη νερού</string>
@@ -1111,6 +1130,7 @@
 	<string name="type.leisure.dog_park">Περιοχή για βόλτα σκύλων</string>
 	<string name="type.leisure.fitness_centre">Κέντρο γυμναστικής</string>
 	<string name="type.leisure.fitness_station">Γυμναστήριο</string>
+	<string name="type.leisure.dance">Αίθουσα χορού</string>
 	<string name="type.leisure.garden">Κήπος αναψυχής</string>
 	<string name="type.leisure.garden.residential">Κήπος αναψυχής</string>
 	<string name="type.leisure.golf_course">Γήπεδο γκολφ</string>
@@ -1152,6 +1172,7 @@
 	<string name="type.natural.earth_bank">Γκρεμός</string>
 	<string name="type.man_made.embankment">Ανάχωμα</string>
 	<string name="type.natural.coastline">Ακτή</string>
+	<string name="type.natural.desert">Ερημος</string>
 	<string name="type.natural.geyser">Θερμοπίδακας</string>
 	<string name="type.natural.glacier">Παγετώνας</string>
 	<string name="type.natural.grassland">Βοσκότοποι</string>
@@ -1282,7 +1303,6 @@
 	<string name="type.railway.station.subway.lille">Μετρό</string>
 	<string name="type.railway.station.subway.lima">Μετρό</string>
 	<string name="type.railway.station.subway.lisboa">Μετρό</string>
-	<string name="type.railway.station.subway.lisbon">Μετρό</string>
 	<string name="type.railway.station.subway.london">Μετρό</string>
 	<string name="type.railway.station.subway.lyon">Μετρό</string>
 	<string name="type.railway.station.subway.madrid">Μετρό</string>
@@ -1392,7 +1412,6 @@
 	<string name="type.railway.subway_entrance.lille">Είσοδος μετρό</string>
 	<string name="type.railway.subway_entrance.lima">Είσοδος μετρό</string>
 	<string name="type.railway.subway_entrance.lisboa">Είσοδος μετρό</string>
-	<string name="type.railway.subway_entrance.lisbon">Είσοδος μετρό</string>
 	<string name="type.railway.subway_entrance.london">Είσοδος μετρό</string>
 	<string name="type.railway.subway_entrance.lyon">Είσοδος μετρό</string>
 	<string name="type.railway.subway_entrance.madrid">Είσοδος μετρό</string>

@@ -40,7 +40,7 @@ HARDCODED_STRINGS = [
     "cyan", "teal", "lime", "deep_orange", "gray", "blue_gray",
     # Used in About in iphone/Maps/UI/Help/AboutController.swift
     "news", "faq", "report_a_bug", "how_to_support_us", "rate_the_app",
-    "telegram", "github", "website", "email", "facebook", "twitter", "instagram", "matrix", "openstreetmap",
+    "telegram", "github", "website", "email", "matrix", "mastodon", "facebook", "twitter", "instagram", "openstreetmap",
     "privacy_policy", "terms_of_use", "copyright",
 ]
 

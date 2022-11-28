@@ -17,6 +17,8 @@
 
   <TextView
     android:id="@+id/tv__place_wiki"
-    style="@style/PlacePageMetadataText.Button"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textAppearance="@style/MwmTextAppearance.PlacePage.Accent"
     android:text="@string/read_in_wikipedia"/>
 </LinearLayout>

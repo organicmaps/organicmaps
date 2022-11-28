@@ -30,7 +30,7 @@
 
 namespace ftype
 {
-using namespace std;
+using std::function, std::string, std::vector;
 
 namespace
 {
@@ -38,7 +38,7 @@ template <typename ToDo>
 void ForEachTag(OsmElement * p, ToDo && toDo)
 {
   for (auto & e : p->m_tags)
-    toDo(move(e.m_key), move(e.m_value));
+    toDo(std::move(e.m_key), std::move(e.m_value));
 }
 
 class NamesExtractor
@@ -54,7 +54,7 @@ public:
 
   explicit NamesExtractor(FeatureBuilderParams & params) : m_params(params) {}
 
-  LangAction GetLangByKey(string const & k, string & lang)
+  static LangAction GetLangByKey(string const & k, string & lang)
   {
     strings::SimpleTokenizer token(k, "\t :");
     if (!token)
@@ -65,7 +65,7 @@ public:
     {
       lang = *token;
 
-      // Consider only pure int/alt/old name without :lang. Otherwise feature with several
+      // Consider only pure int/alt/old name without :lang. Otherwise, feature with several
       // alt_name:lang will receive random name based on tags enumeration order.
       // For old_name we support old_name:date.
       if (++token)
@@ -119,7 +119,7 @@ public:
     switch (GetLangByKey(k, lang))
     {
     case LangAction::Forbid: return;
-    case LangAction::Accept: m_names.emplace(move(lang), move(v)); break;
+    case LangAction::Accept: m_names.emplace(std::move(lang), std::move(v)); break;
     case LangAction::Replace: swap(m_names[lang], v); break;
     case LangAction::Append:
       auto & name = m_names[lang];
@@ -141,7 +141,7 @@ public:
   }
 
 private:
-  map<string, string> m_names;
+  std::map<string, string> m_names;
   FeatureBuilderParams & m_params;
 };
 
@@ -162,7 +162,7 @@ public:
   };
 
   template <typename Function = void()>
-  void ApplyRules(initializer_list<Rule<Function>> const & rules) const
+  void ApplyRules(std::initializer_list<Rule<Function>> const & rules) const
   {
     for (auto & e : m_element->m_tags)
     {
@@ -244,7 +244,7 @@ public:
   {
     Classificator const & c = classif();
 
-    static map<Type, vector<string>> const kTypeToName = {
+    static std::map<Type, vector<string>> const kTypeToName = {
         {Type::Entrance,           {"entrance"}},
         {Type::Highway,            {"highway"}},
         {Type::Address,            {"building", "address"}},
@@ -347,17 +347,25 @@ void MatchTypes(OsmElement * p, FeatureBuilderParams & params, function<bool(uin
 
 string MatchCity(OsmElement const * p)
 {
-  static map<string, m2::RectD> const cities = {
+  // Get approx boundaries from: https://boundingbox.klokantech.com/
+  // City name should be equal with railway-station-subway-CITY classifier types.
+  static std::map<string, m2::RectD> const cities = {
+      {"algiers", {2.949538, 36.676777, 3.256914, 36.826518}},
       {"almaty", {76.7223358154, 43.1480920701, 77.123336792, 43.4299852362}},
       {"amsterdam", {4.65682983398, 52.232846171, 5.10040283203, 52.4886341706}},
-      {"baires", {-58.9910888672, -35.1221551064, -57.8045654297, -34.2685661867}},
+      {"ankara", {32.4733, 39.723, 33.0499, 40.086}},
+      {"athens", {23.518075, 37.849188, 23.993853, 38.129109}},
       {"bangkok", {100.159606934, 13.4363737155, 100.909423828, 14.3069694978}},
       {"barcelona", {1.94458007812, 41.2489025224, 2.29614257812, 41.5414776668}},
       {"beijing", {115.894775391, 39.588757277, 117.026367187, 40.2795256688}},
       {"berlin", {13.0352783203, 52.3051199211, 13.7933349609, 52.6963610783}},
       {"boston", {-71.2676239014, 42.2117365893, -70.8879089355, 42.521711682}},
-      {"brussel", {4.2448425293, 50.761653413, 4.52499389648, 50.9497757762}},
+      {"brasilia", {-48.334467, -16.036627, -47.358264, -15.50321}},
+      {"brussels", {4.2448425293, 50.761653413, 4.52499389648, 50.9497757762}},
+      {"bucharest", {25.905198, 44.304636, 26.29032, 44.588137}},
       {"budapest", {18.7509155273, 47.3034470439, 19.423828125, 47.7023684666}},
+      {"buenos_aires", {-58.9910888672, -35.1221551064, -57.8045654297, -34.2685661867}},
+      {"cairo", {30.3232, 29.6163, 31.9891, 30.6445}},
       {"chicago", {-88.3163452148, 41.3541338721, -87.1270751953, 42.2691794924}},
       {"delhi", {76.8026733398, 28.3914003758, 77.5511169434, 28.9240352884}},
       {"dnepro", {34.7937011719, 48.339820521, 35.2798461914, 48.6056737841}},
@@ -368,16 +376,24 @@ string MatchCity(OsmElement const * p)
       {"hamburg", {9.75860595703, 53.39151869, 10.2584838867, 53.6820686709}},
       {"helsinki", {24.3237304688, 59.9989861206, 25.48828125, 60.44638186}},
       {"hongkong", {114.039459229, 22.1848617608, 114.305877686, 22.3983322415}},
+      {"istanbul", {28.4155, 40.7172, 29.7304, 41.4335}},
       {"kazan", {48.8067626953, 55.6372985742, 49.39453125, 55.9153515154}},
+      {"kharkiv", {36.078138, 49.854027, 36.51107, 50.141277}},
       {"kiev", {30.1354980469, 50.2050332649, 31.025390625, 50.6599083609}},
       {"koln", {6.7943572998, 50.8445380881, 7.12669372559, 51.0810964366}},
+      {"kyoto", {135.619598, 34.874916, 135.878442, 35.113709}},
+      // https://observablehq.com/@rdmurphy/u-s-county-bounding-boxes-by-state
+      {"la", {-118.944112, 32.806553, -117.644787, 34.822766}},
       {"lima", {-77.2750854492, -12.3279274859, -76.7999267578, -11.7988014362}},
       {"lisboa", {-9.42626953125, 38.548165423, -8.876953125, 38.9166815364}},
       {"london", {-0.4833984375, 51.3031452592, 0.2197265625, 51.6929902115}},
+      {"lyon", {4.5741, 45.5842, 5.1603, 45.9393}},
       {"madrid", {-4.00451660156, 40.1536868578, -3.32885742188, 40.6222917831}},
+      {"mecca", {39.663307, 21.274985, 40.056236, 21.564195}},
       {"mexico", {-99.3630981445, 19.2541083164, -98.879699707, 19.5960192403}},
       {"milan", {9.02252197266, 45.341528405, 9.35760498047, 45.5813674681}},
       {"minsk", {27.2845458984, 53.777934972, 27.8393554688, 54.0271334441}},
+      {"montreal", {-73.995802, 45.398482, -73.474295, 45.70479}},
       {"moscow", {36.9964599609, 55.3962717136, 38.1884765625, 56.1118730004}},
       {"mumbai", {72.7514648437, 18.8803004445, 72.9862976074, 19.2878132403}},
       {"munchen", {11.3433837891, 47.9981928195, 11.7965698242, 48.2530267576}},
@@ -386,25 +402,36 @@ string MatchCity(OsmElement const * p)
       {"novosibirsk", {82.4578857422, 54.8513152597, 83.2983398438, 55.2540770671}},
       {"osaka", {134.813232422, 34.1981730963, 136.076660156, 35.119908571}},
       {"oslo", {10.3875732422, 59.7812868211, 10.9286499023, 60.0401604652}},
+      {"panama", {-79.633827, 8.880788, -79.367367, 9.149179}},
       {"paris", {2.09014892578, 48.6637569323, 2.70538330078, 49.0414689141}},
+      {"philadelphia", {-75.276761, 39.865446, -74.964493, 40.137768}},
+      {"pyongyang", {125.48888, 38.780932, 126.12748, 39.298738}},
       {"rio", {-43.4873199463, -23.0348745407, -43.1405639648, -22.7134898498}},
       {"roma", {12.3348999023, 41.7672146942, 12.6397705078, 42.0105298189}},
-      {"sanfran", {-122.72277832, 37.1690715771, -121.651611328, 38.0307856938}},
+      {"rotterdam", {3.940749, 51.842118, 4.601808, 52.004528}},
+      {"samara", {50.001145, 53.070867, 50.434992, 53.339216}},
       {"santiago", {-71.015625, -33.8133843291, -70.3372192383, -33.1789392606}},
       {"saopaulo", {-46.9418334961, -23.8356009866, -46.2963867187, -23.3422558351}},
       {"seoul", {126.540527344, 37.3352243593, 127.23815918, 37.6838203267}},
+      {"sf", {-122.72277832, 37.1690715771, -121.651611328, 38.0307856938}},
       {"shanghai", {119.849853516, 30.5291450367, 122.102050781, 32.1523618947}},
       {"shenzhen", {113.790893555, 22.459263801, 114.348449707, 22.9280416657}},
       {"singapore", {103.624420166, 1.21389843409, 104.019927979, 1.45278619819}},
+      {"sofia", {23.195085, 42.574041, 23.503569, 42.835375}},
       {"spb", {29.70703125, 59.5231755354, 31.3110351562, 60.2725145948}},
       {"stockholm", {17.5726318359, 59.1336814082, 18.3966064453, 59.5565918857}},
       {"stuttgart", {9.0877532959, 48.7471343254, 9.29306030273, 48.8755544436}},
       {"sydney", {150.42755127, -34.3615762875, 151.424560547, -33.4543597895}},
       {"taipei", {121.368713379, 24.9312761454, 121.716156006, 25.1608229799}},
+      {"tashkent", {69.12171, 41.163421, 69.476967, 41.398638}},
+      {"tbilisi", {44.596922, 41.619315, 45.019694, 41.843421}},
       {"tokyo", {139.240722656, 35.2186974963, 140.498657227, 36.2575628263}},
+      {"valencia", {-0.432551, 39.27845, -0.272521, 39.566609}},
+      {"vienna", {16.0894775391, 48.0633965378, 16.6387939453, 48.3525987075}},
       {"warszawa", {20.7202148438, 52.0322181041, 21.3024902344, 52.4091212523}},
       {"washington", {-77.4920654297, 38.5954071994, -76.6735839844, 39.2216149801}},
-      {"wien", {16.0894775391, 48.0633965378, 16.6387939453, 48.3525987075}},
+      {"yerevan", {44.359899, 40.065411, 44.645352, 40.26398}},
+      {"yokohama", {139.464781, 35.312501, 139.776935, 35.592738}},
   };
 
   m2::PointD const pt(p->m_lon, p->m_lat);
@@ -441,18 +468,15 @@ string DetermineSurface(OsmElement * p)
   if (!isHighway || (surface.empty() && smoothness.empty()))
     return {};
 
-  // According to this:
-  // https://wiki.openstreetmap.org/wiki/Tag:surface=compacted
-  // Surfaces by quality: asphalt, concrete, paving stones, compacted.
+  // According to https://wiki.openstreetmap.org/wiki/Key:surface
   static base::StringIL pavedSurfaces = {
-      "asphalt",  "cobblestone",    "cobblestone:flattened", "chipseal", "compacted",
-      "concrete", "concrete:lanes", "concrete:plates", "fine_gravel", "metal",
-      "paved", "paving_stones", "pebblestone", "sett", "unhewn_cobblestone", "wood"
+      "asphalt",  "cobblestone", "chipseal", "concrete", "concrete:lanes", "concrete:plates",
+      "metal", "paved", "paving_stones", "sett", "unhewn_cobblestone", "wood"
   };
 
   static base::StringIL badSurfaces = {
-      "cobblestone", "dirt", "earth", "fine_gravel",  "grass", "gravel", "ground", "metal",
-      "mud", "pebblestone", "sand", "sett", "snow", "unhewn_cobblestone", "wood", "woodchips"
+      "cobblestone", "dirt", "earth", "grass", "gravel", "ground", "metal", "mud",
+      "pebblestone", "sand", "sett", "snow", "unhewn_cobblestone", "wood", "woodchips"
   };
 
   static base::StringIL badSmoothness = {
@@ -462,13 +486,13 @@ string DetermineSurface(OsmElement * p)
 
   static base::StringIL goodSmoothness = { "excellent", "good" };
 
-  auto const Has = [](base::StringIL const & il, std::string const & v)
+  auto const Has = [](base::StringIL const & il, string const & v)
   {
     return base::IsExist(il, v);
   };
 
-  bool isPaved = false;
   bool isGood = true;
+  bool isPaved;
 
   if (!surface.empty())
     isPaved = Has(pavedSurfaces, surface);
@@ -551,43 +575,6 @@ void PreprocessElement(OsmElement * p)
     }
   }
 
-  // Merge attraction and memorial types to predefined set of values
-  p->UpdateTag("artwork_type", [](string & value) {
-    if (value.empty())
-      return;
-    if (value == "mural" || value == "graffiti" || value == "azulejo" || value == "tilework")
-      value = "painting";
-    else if (value == "stone" || value == "installation")
-      value = "sculpture";
-    else if (value == "bust")
-      value = "statue";
-  });
-
-  string const & memorialType = p->GetTag("memorial:type");
-  p->UpdateTag("memorial", [&memorialType](string & value) {
-    if (value.empty())
-    {
-      if (memorialType.empty())
-        return;
-      else
-        value = memorialType;
-    }
-
-    if (value == "blue_plaque" || value == "stolperstein")
-    {
-      value = "plaque";
-    }
-    else if (value == "war_memorial" || value == "stele" || value == "obelisk" ||
-             value == "stone" || value == "cross")
-    {
-      value = "sculpture";
-    }
-    else if (value == "bust" || value == "person")
-    {
-      value = "statue";
-    }
-  });
-
   p->UpdateTag("attraction", [](string & value) {
     // "specified" is a special value which means we have the "attraction" tag,
     // but its value is not "animal".
@@ -646,7 +633,7 @@ void PreprocessElement(OsmElement * p)
   {
     strings::MakeLowerCaseInplace(aerodromeTypes);
     bool first = true;
-    for (auto type : strings::Tokenize<std::string>(aerodromeTypes, ",;"))
+    for (auto type : strings::Tokenize<string>(aerodromeTypes, ",;"))
     {
       strings::Trim(type);
 
@@ -706,7 +693,7 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
     {
       params.name.Clear();
       // If we have address (house name or number), we should assign valid type.
-      // There are a lot of features like this in Czech Republic.
+      // There are a lot of features like this in the Czech Republic.
       params.AddType(types.Get(CachedTypes::Type::Address));
     }
   }
@@ -726,9 +713,9 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
   // Get a copy of source types, because we will modify params in the loop;
   FeatureBuilderParams::Types const vTypes = params.m_types;
 
-  for (size_t i = 0; i < vTypes.size(); ++i)
+  for (uint32_t vType : vTypes)
   {
-    if (!highwayDone && types.IsHighway(vTypes[i]))
+    if (!highwayDone && types.IsHighway(vType))
     {
       bool addOneway = false;
       bool noOneway = false;
@@ -786,7 +773,7 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
       highwayDone = true;
     }
 
-    if (!ferryDone && types.IsFerry(vTypes[i]))
+    if (!ferryDone && types.IsFerry(vType))
     {
       bool yesMotorFerry = false;
       bool noMotorFerry = false;
@@ -828,7 +815,7 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
 
     /// @todo Probably, we can delete this processing because cities
     /// are matched by limit rect in MatchCity.
-    if (!subwayDone && types.IsSubwayStation(vTypes[i]))
+    if (!subwayDone && types.IsSubwayStation(vType))
     {
       TagProcessor(p).ApplyRules({
           {"network", "London Underground", [&params] { params.SetRwSubwayType("london"); }},
@@ -856,7 +843,7 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
       subwayDone = true;
     }
 
-    if (!subwayDone && !railwayDone && types.IsRailwayStation(vTypes[i]))
+    if (!subwayDone && !railwayDone && types.IsRailwayStation(vType))
     {
       TagProcessor(p).ApplyRules({
           {"network", "London Underground", [&params] { params.SetRwSubwayType("london"); }},
@@ -869,7 +856,7 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
 }  // namespace
 
 void GetNameAndType(OsmElement * p, FeatureBuilderParams & params,
-                    function<bool(uint32_t)> filterType)
+                    function<bool(uint32_t)> const & filterType)
 {
   // Stage1: Preprocess tags.
   PreprocessElement(p);

@@ -30,7 +30,7 @@ node|z17[railway=subway_entrance][city=almaty] {icon-image: subway-almaty-s.svg;
 node|z18-[railway=subway_entrance][city=almaty] {icon-image: subway-almaty-m.svg;text-optional: true;}
 
 /* Amsterdam Subway Station */
-node|z13[railway=station][transport=subway][city=amsterdam] {icon-image: subway-amsterdam-s.svg;icon-min-distance: 1;}
+node|z12-13[railway=station][transport=subway][city=amsterdam] {icon-image: subway-amsterdam-s.svg;icon-min-distance: 1;}
 node|z14[railway=station][transport=subway][city=amsterdam] {icon-image: subway-amsterdam-s.svg;}
 node|z15-16[railway=station][transport=subway][city=amsterdam] {icon-image: subway-amsterdam-m.svg;}
 node|z17-[railway=station][transport=subway][city=amsterdam] {icon-image: subway-amsterdam-m.svg;text-optional: true;}
@@ -70,7 +70,7 @@ node|z17[railway=subway_entrance][city=bangkok] {icon-image: subway-bangkok-s.sv
 node|z18-[railway=subway_entrance][city=bangkok] {icon-image: subway-bangkok-m.svg;text-optional: true;}
 
 /* Barcelona Subway Station */
-node|z13[railway=station][transport=subway][city=barcelona] {icon-image: subway-barcelona-s.svg;icon-min-distance: 1;}
+node|z12-13[railway=station][transport=subway][city=barcelona] {icon-image: subway-barcelona-s.svg;icon-min-distance: 1;}
 node|z14[railway=station][transport=subway][city=barcelona] {icon-image: subway-barcelona-s.svg;}
 node|z15-16[railway=station][transport=subway][city=barcelona] {icon-image: subway-barcelona-m.svg;}
 node|z17-[railway=station][transport=subway][city=barcelona] {icon-image: subway-barcelona-m.svg;text-optional: true;}
@@ -78,7 +78,7 @@ node|z17[railway=subway_entrance][city=barcelona] {icon-image: subway-barcelona-
 node|z18-[railway=subway_entrance][city=barcelona] {icon-image: subway-barcelona-m.svg;text-optional: true;}
 
 /* Beijing Subway Station */
-node|z13[railway=station][transport=subway][city=beijing] {icon-image: subway-beijing-s.svg;icon-min-distance: 1;}
+node|z12-13[railway=station][transport=subway][city=beijing] {icon-image: subway-beijing-s.svg;icon-min-distance: 1;}
 node|z14[railway=station][transport=subway][city=beijing] {icon-image: subway-beijing-s.svg;}
 node|z15-16[railway=station][transport=subway][city=beijing] {icon-image: subway-beijing-m.svg;}
 node|z17-[railway=station][transport=subway][city=beijing] {icon-image: subway-beijing-m.svg;text-optional: true;}
@@ -86,7 +86,7 @@ node|z17[railway=subway_entrance][city=beijing] {icon-image: subway-beijing-s.sv
 node|z18-[railway=subway_entrance][city=beijing] {icon-image: subway-beijing-m.svg;text-optional: true;}
 
 /* Berlin Subway Station*/
-node|z13[railway=station][transport=subway][city=berlin] {icon-image: subway-ubahn-s.svg;icon-min-distance: 1;}
+node|z12-13[railway=station][transport=subway][city=berlin] {icon-image: subway-ubahn-s.svg;icon-min-distance: 1;}
 node|z14[railway=station][transport=subway][city=berlin] {icon-image: subway-ubahn-s.svg;}
 node|z15-16[railway=station][transport=subway][city=berlin] {icon-image: subway-ubahn-m.svg;}
 node|z17-[railway=station][transport=subway][city=berlin] {icon-image: subway-ubahn-m.svg;text-optional: true;}
@@ -115,7 +115,7 @@ node|z15-16[railway=station][transport=subway][city=brasilia] {icon-image: subwa
 node|z17-[railway=station][transport=subway][city=brasilia] {icon-image: subway-brasilia-m.svg;text-optional: true;}
 node|z17-[railway=subway_entrance][city=brasilia] {icon-image: subway-brasilia-s.svg;text-optional: true;}
 
-/* brescia Subway Station*/
+/* Brescia Subway Station*/
 node|z13[railway=station][transport=subway][city=brescia] {icon-image: subway-brescia-s.svg;icon-min-distance: 1;}
 node|z14[railway=station][transport=subway][city=brescia] {icon-image: subway-brescia-s.svg;}
 node|z15-16[railway=station][transport=subway][city=brescia] {icon-image: subway-brescia-m.svg;}
@@ -130,7 +130,7 @@ node|z17-[railway=station][transport=subway][city=brussels] {icon-image: subway-
 node|z17[railway=subway_entrance][city=brussels] {icon-image: subway-brussel-s.svg;text-optional: true;}
 node|z18-[railway=subway_entrance][city=brussels] {icon-image: subway-brussel-m.svg;text-optional: true;}
 
-/* bucharest Subway Station */
+/* Bucharest Subway Station */
 node|z13[railway=station][transport=subway][city=bucharest] {icon-image: subway-bucharest-s.svg;icon-min-distance: 1;}
 node|z14[railway=station][transport=subway][city=bucharest] {icon-image: subway-bucharest-s.svg;}
 node|z15-16[railway=station][transport=subway][city=bucharest] {icon-image: subway-bucharest-m.svg;}
@@ -147,7 +147,7 @@ node|z17[railway=subway_entrance][city=budapest] {icon-image: subway-budapest-s.
 node|z18-[railway=subway_entrance][city=budapest] {icon-image: subway-budapest-m.svg;text-optional: true;}
 
 /* Buenos Aires Subway Station */
-node|z13[railway=station][transport=subway][city=buenos_aires] {icon-image: subway-buenosaires-s.svg;icon-min-distance: 1;}
+node|z12-13[railway=station][transport=subway][city=buenos_aires] {icon-image: subway-buenosaires-s.svg;icon-min-distance: 1;}
 node|z14[railway=station][transport=subway][city=buenos_aires] {icon-image: subway-buenosaires-s.svg;}
 node|z15-16[railway=station][transport=subway][city=buenos_aires] {icon-image: subway-buenosaires-m.svg;}
 node|z17-[railway=station][transport=subway][city=buenos_aires] {icon-image: subway-buenosaires-m.svg;text-optional: true;}
@@ -315,7 +315,7 @@ node|z17[railway=subway_entrance][city=isfahan] {icon-image: subway-isfahan-s.sv
 node|z18-[railway=subway_entrance][city=isfahan] {icon-image: subway-isfahan-m.svg;text-optional: true;}
 
 /* Istanbul Subway Station */
-node|z13[railway=station][transport=subway][city=istanbul] {icon-image: subway-istanbul-s.svg;icon-min-distance: 1;}
+node|z12-13[railway=station][transport=subway][city=istanbul] {icon-image: subway-istanbul-s.svg;icon-min-distance: 1;}
 node|z14[railway=station][transport=subway][city=istanbul] {icon-image: subway-istanbul-s.svg;}
 node|z15-16[railway=station][transport=subway][city=istanbul] {icon-image: subway-istanbul-m.svg;}
 node|z17-[railway=station][transport=subway][city=istanbul] {icon-image: subway-istanbul-m.svg;text-optional: true;}
@@ -347,7 +347,7 @@ node|z17[railway=subway_entrance][city=kharkiv] {icon-image: subway-kharkiv-s.sv
 node|z18-[railway=subway_entrance][city=kharkiv] {icon-image: subway-kharkiv-m.svg;text-optional: true;}
 
 /* Kiev Subway Station */
-node|z13[railway=station][transport=subway][city=kiev] {icon-image: subway-kiev-s.svg;text-offset: 1;font-size: 10;text: name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 0.7;text-halo-color: @label_halo_light;icon-min-distance: 1;}
+node|z12-13[railway=station][transport=subway][city=kiev] {icon-image: subway-kiev-s.svg;text-offset: 1;font-size: 10;text: name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 0.7;text-halo-color: @label_halo_light;icon-min-distance: 1;}
 node|z14[railway=station][transport=subway][city=kiev] {icon-image: subway-kiev-s.svg;}
 node|z15-16[railway=station][transport=subway][city=kiev] {icon-image: subway-kiev-m.svg;}
 node|z17-[railway=station][transport=subway][city=kiev] {icon-image: zero-icon.svg;font-size: 10;text: name;text-color: @district_label;text-halo-radius: 0;text-optional: true;}/*check none*/
@@ -410,23 +410,15 @@ node|z17[railway=subway_entrance][city=lima] {icon-image: subway-lima-s.svg;text
 node|z18-[railway=subway_entrance][city=lima] {icon-image: subway-lima-m.svg;text-optional: true;}
 
 /* Lisboa Subway Station */
-node|z13[railway=station][transport=subway][city=lisboa] {icon-image: subway-lisboa-s.svg;icon-min-distance: 1;}
+node|z12-13[railway=station][transport=subway][city=lisboa] {icon-image: subway-lisboa-s.svg;icon-min-distance: 1;}
 node|z14[railway=station][transport=subway][city=lisboa] {icon-image: subway-lisboa-s.svg;}
 node|z15-16[railway=station][transport=subway][city=lisboa] {icon-image: subway-lisboa-m.svg;}
 node|z17-[railway=station][transport=subway][city=lisboa] {icon-image: subway-lisboa-m.svg;text-optional: true;}
 node|z17[railway=subway_entrance][city=lisboa] {icon-image: subway-lisboa-s.svg;text-optional: true;}
 node|z18-[railway=subway_entrance][city=lisboa] {icon-image: subway-lisboa-m.svg;text-optional: true;}
 
-/* Lisbon Subway Station */
-node|z13[railway=station][transport=subway][city=lisbon] {icon-image: subway-lisboa-s.svg;icon-min-distance: 1;}
-node|z14[railway=station][transport=subway][city=lisbon] {icon-image: subway-lisboa-s.svg;}
-node|z15-16[railway=station][transport=subway][city=lisbon] {icon-image: subway-lisboa-m.svg;}
-node|z17-[railway=station][transport=subway][city=lisbon] {icon-image: subway-lisboa-m.svg;text-optional: true;}
-node|z17[railway=subway_entrance][city=lisbon] {icon-image: subway-lisboa-s.svg;text-optional: true;text-optional: true;}
-node|z18-[railway=subway_entrance][city=lisbon] {icon-image: subway-lisboa-m.svg;}
-
 /* London Subway Station */
-node|z13[railway=station][transport=subway][city=london] {icon-image: subway-london-s.svg;icon-min-distance: 1;}
+node|z12-13[railway=station][transport=subway][city=london] {icon-image: subway-london-s.svg;icon-min-distance: 1;}
 node|z14[railway=station][transport=subway][city=london] {icon-image: subway-london-s.svg;}
 node|z15-16[railway=station][transport=subway][city=london] {icon-image: subway-london-m.svg;}
 node|z17-[railway=station][transport=subway][city=london] {icon-image: subway-london-m.svg;text-optional: true;}
@@ -434,7 +426,7 @@ node|z17[railway=subway_entrance][city=london] {icon-image: subway-london-s.svg;
 node|z18-[railway=subway_entrance][city=london] {icon-image: subway-london-m.svg;text-optional: true;}
 
 /* Los Angeles Subway Station */
-node|z13[railway=station][transport=subway][city=la] {icon-image: subway-losangeles-s.svg;icon-min-distance: 1;}
+node|z12-13[railway=station][transport=subway][city=la] {icon-image: subway-losangeles-s.svg;icon-min-distance: 1;}
 node|z14[railway=station][transport=subway][city=la] {icon-image: subway-losangeles-s.svg;}
 node|z15-16[railway=station][transport=subway][city=la] {icon-image: subway-losangeles-m.svg;}
 node|z17-[railway=station][transport=subway][city=la] {icon-image: subway-losangeles-m.svg;text-optional: true;}
@@ -450,7 +442,7 @@ node|z17[railway=subway_entrance][city=lyon] {icon-image: subway-lyon-s.svg;text
 node|z18-[railway=subway_entrance][city=lyon] {icon-image: subway-lyon-m.svg;text-optional: true;}
 
 /* Madrid Subway Station */
-node|z13[railway=station][transport=subway][city=madrid] {icon-image: subway-madrid-s.svg;icon-min-distance: 1;}
+node|z12-13[railway=station][transport=subway][city=madrid] {icon-image: subway-madrid-s.svg;icon-min-distance: 1;}
 node|z14[railway=station][transport=subway][city=madrid] {icon-image: subway-madrid-s.svg;}
 node|z15-16[railway=station][transport=subway][city=madrid] {icon-image: subway-madrid-m.svg;}
 node|z17-[railway=station][transport=subway][city=madrid] {icon-image: subway-madrid-m.svg;text-optional: true;}
@@ -506,7 +498,7 @@ node|z17[railway=subway_entrance][city=medellin] {icon-image: subway-medellin-s.
 node|z18-[railway=subway_entrance][city=medellin] {icon-image: subway-medellin-m.svg;text-optional: true;}
 
 /* Mexico Subway Station */
-node|z13[railway=station][transport=subway][city=mexico] {icon-image: subway-mexico-s.svg;icon-min-distance: 1;}
+node|z12-13[railway=station][transport=subway][city=mexico] {icon-image: subway-mexico-s.svg;icon-min-distance: 1;}
 node|z14[railway=station][transport=subway][city=mexico] {icon-image: subway-mexico-s.svg;}
 node|z15-16[railway=station][transport=subway][city=mexico] {icon-image: subway-mexico-m.svg;}
 node|z17-[railway=station][transport=subway][city=mexico] {icon-image: subway-mexico-m.svg;text-optional: true;}
@@ -522,7 +514,7 @@ node|z17[railway=subway_entrance][city=milan] {icon-image: subway-milan-s.svg;te
 node|z18-[railway=subway_entrance][city=milan] {icon-image: subway-milan-m.svg;text-optional: true;}
 
 /* Minsk Subway Station */
-node|z13[railway=station][transport=subway][city=minsk] {icon-image: subway-minsk-s.svg;text-offset: 1;font-size: 10;text: name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 0.7;text-halo-color: @label_halo_light;icon-min-distance: 1;}
+node|z12-13[railway=station][transport=subway][city=minsk] {icon-image: subway-minsk-s.svg;text-offset: 1;font-size: 10;text: name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 0.7;text-halo-color: @label_halo_light;icon-min-distance: 1;}
 node|z14[railway=station][transport=subway][city=minsk] {icon-image: subway-minsk-s.svg;text-offset: 1;}
 node|z15[railway=station][transport=subway][city=minsk] {icon-image: subway-minsk-m.svg;text-offset: 1;}
 node|z16[railway=station][transport=subway][city=minsk] {icon-image: subway-minsk-m.svg;font-size: 10;text: name;text-color: @district_label;text-halo-radius: 0;}/*check none*/
@@ -605,7 +597,7 @@ node|z17[railway=subway_entrance][city=nagoya] {icon-image: subway-nagoya-s.svg;
 node|z18-[railway=subway_entrance][city=nagoya] {icon-image: subway-nagoya-m.svg;text-optional: true;}
 
 /* New York Subway Station */
-node|z13[railway=station][transport=subway][city=newyork] {icon-image: subway-newyork-s.svg;icon-min-distance: 1;}
+node|z12-13[railway=station][transport=subway][city=newyork] {icon-image: subway-newyork-s.svg;icon-min-distance: 1;}
 node|z14[railway=station][transport=subway][city=newyork] {icon-image: subway-newyork-s.svg;}
 node|z15-[railway=station][transport=subway][city=newyork] {icon-image: subway-newyork-m.svg;}
 node|z17-[railway=subway_entrance][city=newyork] {icon-image: subway-newyork-s.svg;text-optional: true;}
@@ -647,7 +639,7 @@ node|z15-[railway=station][transport=subway][city=panama] {icon-image: subway-pa
 node|z17-[railway=subway_entrance][city=panama] {icon-image: subway-panama-s.svg;text-optional: true;}
 
 /* Paris Subway Station */
-node|z13[railway=station][transport=subway][city=paris] {icon-image: subway-paris-s.svg;icon-min-distance: 1;}
+node|z12-13[railway=station][transport=subway][city=paris] {icon-image: subway-paris-s.svg;icon-min-distance: 1;}
 node|z14[railway=station][transport=subway][city=paris] {icon-image: subway-paris-s.svg;}
 node|z15-16[railway=station][transport=subway][city=paris] {icon-image: subway-paris-m.svg;}
 node|z17-[railway=station][transport=subway][city=paris] {icon-image: subway-paris-m.svg;text-optional: true;}
@@ -678,7 +670,7 @@ node|z15-[railway=station][transport=subway][city=rio] {icon-image: subway-riode
 node|z17-[railway=subway_entrance][city=rio] {icon-image: subway-riodejaneiro-s.svg;text-optional: true;}
 
 /* Roma Subway Station */
-node|z13[railway=station][transport=subway][city=roma] {icon-image: subway-rome-s.svg;icon-min-distance: 1;}
+node|z12-13[railway=station][transport=subway][city=roma] {icon-image: subway-rome-s.svg;icon-min-distance: 1;}
 node|z14[railway=station][transport=subway][city=roma] {icon-image: subway-rome-s.svg;}
 node|z15[railway=station][transport=subway][city=roma] {icon-image: subway-rome-m.svg;}
 node|z16[railway=station][transport=subway][city=roma] {icon-image: subway-rome-m.svg;}
@@ -698,7 +690,7 @@ node|z15-[railway=station][transport=subway][city=samara] {icon-image: subway-sa
 node|z17-[railway=subway_entrance][city=samara] {icon-image: subway-samara-s.svg;text-optional: true;}
 
 /* San Francisco Subway Station */
-node|z13[railway=station][transport=subway][city=sf] {icon-image: subway-sanfrancisco-s.svg;icon-min-distance: 1;}
+node|z12-13[railway=station][transport=subway][city=sf] {icon-image: subway-sanfrancisco-s.svg;icon-min-distance: 1;}
 node|z14[railway=station][transport=subway][city=sf] {icon-image: subway-sanfrancisco-s.svg;}
 node|z15-[railway=station][transport=subway][city=sf] {icon-image: subway-sanfrancisco-m.svg;}
 node|z17-[railway=subway_entrance][city=sf] {icon-image: subway-sanfrancisco-s.svg;text-optional: true;}
@@ -735,7 +727,7 @@ node|z15-[railway=station][transport=subway][city=sendai] {icon-image: subway-se
 node|z17-[railway=subway_entrance][city=sendai] {icon-image: subway-sendai-s.svg;text-optional: true;}
 
 /* Shanghai Subway Station */
-node|z13[railway=station][transport=subway][city=shanghai] {icon-image: subway-shanghai-s.svg;icon-min-distance: 1;}
+node|z12-13[railway=station][transport=subway][city=shanghai] {icon-image: subway-shanghai-s.svg;icon-min-distance: 1;}
 node|z14[railway=station][transport=subway][city=shanghai] {icon-image: subway-shanghai-s.svg;}
 node|z15-[railway=station][transport=subway][city=shanghai] {icon-image: subway-shanghai-m.svg;}
 node|z17-[railway=subway_entrance][city=shanghai] {icon-image: subway-shanghai-s.svg;text-optional: true;}
@@ -802,7 +794,7 @@ node|z18-[railway=subway_entrance][city=spb]::int_name
 {text-offset: 25;font-size: 12;text-halo-opacity: 0.8;text-optional: true;}
 
 /* Stockholm Subway Station */
-node|z13[railway=station][transport=subway][city=stockholm] {icon-image: subway-stockholm-s.svg;icon-min-distance: 1;}
+node|z12-13[railway=station][transport=subway][city=stockholm] {icon-image: subway-stockholm-s.svg;icon-min-distance: 1;}
 node|z14[railway=station][transport=subway][city=stockholm] {icon-image: subway-stockholm-s.svg;}
 node|z15-16[railway=station][transport=subway][city=stockholm] {icon-image: subway-stockholm-m.svg;}
 node|z17-[railway=station][transport=subway][city=stockholm] {icon-image: subway-stockholm-m.svg;text-optional: true;}
@@ -851,7 +843,7 @@ node|z17-[railway=station][transport=subway][city=tianjin] {icon-image: subway-t
 node|z17-[railway=subway_entrance][city=tianjin] {icon-image: subway-tianjin-s.svg;text-optional: true;}
 
 /* Tokyo Subway Station */
-node|z13[railway=station][transport=subway][city=tokyo] {icon-image: subway-tokyo-s.svg;icon-min-distance: 1;}
+node|z12-13[railway=station][transport=subway][city=tokyo] {icon-image: subway-tokyo-s.svg;icon-min-distance: 1;}
 node|z14[railway=station][transport=subway][city=tokyo] {icon-image: subway-tokyo-s.svg;}
 node|z15-16[railway=station][transport=subway][city=tokyo] {icon-image: subway-tokyo-m.svg;}
 node|z17-[railway=station][transport=subway][city=tokyo] {icon-image: subway-tokyo-m.svg;text-optional: true;}
@@ -872,7 +864,7 @@ node|z17-[railway=station][transport=subway][city=valencia] {icon-image: subway-
 node|z17-[railway=subway_entrance][city=valencia] {icon-image: subway-valencia-s.svg;text-optional: true;}
 
 /* Vienna Subway Station */
-node|z13[railway=station][transport=subway][city=vienna] {icon-image: subway-vienna-s.svg;icon-min-distance: 1;}
+node|z12-13[railway=station][transport=subway][city=vienna] {icon-image: subway-vienna-s.svg;icon-min-distance: 1;}
 node|z14[railway=station][transport=subway][city=vienna] {icon-image: subway-vienna-s.svg;}
 node|z15-16[railway=station][transport=subway][city=vienna] {icon-image: subway-vienna-m.svg;}
 node|z17-[railway=station][transport=subway][city=vienna] {icon-image: subway-vienna-m.svg;text-optional: true;}

@@ -56,7 +56,7 @@ namespace routing_builder
 using namespace feature;
 using namespace platform;
 using namespace routing;
-using namespace std;
+using std::string, std::vector;
 
 class VehicleMaskBuilder final
 {
@@ -100,9 +100,9 @@ private:
     return mask;
   }
 
-  shared_ptr<VehicleModelInterface> const m_pedestrianModel;
-  shared_ptr<VehicleModelInterface> const m_bicycleModel;
-  shared_ptr<VehicleModelInterface> const m_carModel;
+  std::shared_ptr<VehicleModelInterface> const m_pedestrianModel;
+  std::shared_ptr<VehicleModelInterface> const m_bicycleModel;
+  std::shared_ptr<VehicleModelInterface> const m_carModel;
 };
 
 class Processor final
@@ -116,8 +116,8 @@ public:
 
   void ProcessAllFeatures(string const & filename)
   {
-    namespace pl = std::placeholders;
-    ForEachFeature(filename, bind(&Processor::ProcessFeature, this, pl::_1, pl::_2));
+    using namespace std::placeholders;
+    ForEachFeature(filename, std::bind(&Processor::ProcessFeature, this, _1, _2));
   }
 
   void BuildGraph(IndexGraph & graph) const
@@ -133,7 +133,7 @@ public:
     graph.Import(joints);
   }
 
-  unordered_map<uint32_t, VehicleMask> const & GetMasks() const { return m_masks; }
+  std::unordered_map<uint32_t, VehicleMask> const & GetMasks() const { return m_masks; }
 
 private:
   void ProcessFeature(FeatureType & f, uint32_t id)
@@ -153,8 +153,8 @@ private:
   }
 
   VehicleMaskBuilder const m_maskBuilder;
-  unordered_map<uint64_t, Joint> m_posToJoint;
-  unordered_map<uint32_t, VehicleMask> m_masks;
+  std::unordered_map<uint64_t, Joint> m_posToJoint;
+  std::unordered_map<uint32_t, VehicleMask> m_masks;
 };
 
 class IndexGraphWrapper final
@@ -275,7 +275,7 @@ void CalcCrossMwmTransitions(
     CrossMwmConnectorBuilderEx<base::GeoObjectId> & builder)
 {
   VehicleMaskBuilder const maskMaker(country, countryParentNameGetterFn);
-  map<uint32_t, base::GeoObjectId> featureIdToOsmId;
+  std::map<uint32_t, base::GeoObjectId> featureIdToOsmId;
   CHECK(ParseWaysFeatureIdToOsmIdMapping(mappingFile, featureIdToOsmId),
         ("Can't parse feature id to osm id mapping. File:", mappingFile));
 
@@ -502,20 +502,20 @@ void FillWeights(string const & path, string const & mwmFile, string const & cou
   // We use leaps for cars only. To use leaps for other vehicle types add weights generation
   // here and change WorldGraph mode selection rule in IndexRouter::CalculateSubroute.
   VehicleType const vhType = VehicleType::Car;
-  shared_ptr<VehicleModelInterface> vehicleModel =
+  std::shared_ptr<VehicleModelInterface> vehicleModel =
       CarModelFactory(countryParentNameGetterFn).GetVehicleModelForCountry(country);
 
   MwmValue mwmValue(LocalCountryFile(path, platform::CountryFile(country), 0 /* version */));
   uint32_t mwmNumRoads = DeserializeIndexGraphNumRoads(mwmValue, vhType);
-  IndexGraph graph(make_shared<Geometry>(GeometryLoader::CreateFromFile(mwmFile, vehicleModel), mwmNumRoads),
-                                         EdgeEstimator::Create(vhType, *vehicleModel,
-                                                               nullptr /* trafficStash */,
-                                                               nullptr /* dataSource */,
-                                                               nullptr /* numMvmIds */));
+  IndexGraph graph(std::make_shared<Geometry>(GeometryLoader::CreateFromFile(mwmFile, vehicleModel), mwmNumRoads),
+                                              EdgeEstimator::Create(vhType, *vehicleModel,
+                                                                    nullptr /* trafficStash */,
+                                                                    nullptr /* dataSource */,
+                                                                    nullptr /* numMvmIds */));
   graph.SetCurrentTimeGetter([time = GetCurrentTimestamp()] { return time; });
   DeserializeIndexGraph(mwmValue, vhType, graph);
 
-  map<Segment, map<Segment, RouteWeight>> weights;
+  std::map<Segment, std::map<Segment, RouteWeight>> weights;
   size_t foundCount = 0;
   size_t notFoundCount = 0;
 
@@ -536,7 +536,7 @@ void FillWeights(string const & path, string const & mwmFile, string const & cou
     DijkstraWrapperJoints wrapper(indexGraphWrapper, enter);
     Algorithm::Context context(wrapper);
 
-    unordered_map<uint32_t, vector<JointSegment>> visitedVertexes;
+    std::unordered_map<uint32_t, vector<JointSegment>> visitedVertexes;
     astar.PropagateWave(
         wrapper, wrapper.GetStartJoint(),
         [&](JointSegment const & vertex) {

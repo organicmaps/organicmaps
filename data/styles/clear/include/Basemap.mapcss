@@ -7,7 +7,7 @@
   3.2 Region
   3.3 Military
 4.VEGETATION
-5.BEACH & GLACIER
+5.BEACH, GLACIER, DESERT, etc.
 6.WATER
   6.1 Area water(lake,pond etc.)
   6.2 Line water(river,canal etc.)
@@ -39,10 +39,9 @@ area[place=islet]
 
 area[natural=glacier],
 area[natural=beach],
+area[natural=desert],
 area[leisure=beach_resort],
-area[aeroway=airport][aerodrome=international],
 area[aeroway=aerodrome][aerodrome=international],
-area[aeroway=airport],
 area[aeroway=aerodrome],
 area[landuse=education],
 {z-index: 1;}
@@ -82,7 +81,6 @@ area[leisure=garden]
 area[landuse=farmland],
 area[landuse=farmyard],
 area[landuse=allotments],
-area[natural=scrub],
 area[natural=bare_rock],
 area[landuse=orchard],
 area[landuse=vineyard],
@@ -125,12 +123,16 @@ area[leisure=golf_course],
 area[natural=heath]
 {z-index: 46;}
 
+area[natural=scrub]
+{z-index: 47;}
+
 line[waterway=river],
 line[waterway=riverbank],
 line[waterway=stream],
 line[waterway=canal],
 line[natural=strait],
 line[waterway=ditch],
+line[barrier=ditch],
 line[waterway=drain],
 {z-index: 50;}
 
@@ -179,7 +181,6 @@ line[barrier=retaining_wall],
 area[building],
 area[building:part],
 area[landuse=garages],
-area[building=train_station],
 {z-index: 150;}
 
 area[aeroway=terminal]
@@ -263,7 +264,7 @@ line|z10-[boundary=military]
 
 area|z10-[landuse=forest],
 area|z10-[leisure=park],
-area|z10-[leisure=garden],
+area|z12-[leisure=garden],
 area|z12-[landuse=grass],
 area|z12-[natural=grassland],
 area|z12-[leisure=golf_course],
@@ -285,7 +286,6 @@ area|z14-[natural=grassland],
 area|z14-[leisure=golf_course],
 area|z14-[natural=heath],
 area|z14-[landuse=allotments],
-area|z14-[natural=scrub],
 area|z14-[landuse=orchard],
 area|z14-[landuse=vineyard],
 area|z14-[landuse=meadow],
@@ -309,7 +309,6 @@ area|z12-13[natural=grassland],
 area|z12-13[leisure=golf_course],
 area|z12-13[natural=heath],
 area|z12-13[landuse=allotments],
-area|z12-13[natural=scrub],
 area|z12-13[landuse=orchard],
 area|z12-13[landuse=vineyard],
 area|z12-13[landuse=meadow],
@@ -333,26 +332,30 @@ area|z12-[landuse=military]
 
 area|z14[landuse=forest],
 area|z14[leisure=park],
-area|z14[leisure=garden]
+area|z14[leisure=garden],
+area|z14[natural=scrub]
 {fill-color: @green4;}
 
 area|z15[landuse=forest],
 area|z15[leisure=park],
-area|z15[leisure=garden]
+area|z15[leisure=garden],
+area|z15[natural=scrub]
 {fill-color: @green5;}
 
 area|z16-[landuse=forest],
 area|z16-[leisure=park],
-area|z16-[leisure=garden]
+area|z16-[leisure=garden],
+area|z16-[natural=scrub]
 {fill-color: @forest;}
 
 area|z12-[natural=bare_rock],
 {fill-color: @barerock;}
 
-/* 5.BEACH & GLACIER */
+/* 5.BEACH, GLACIER, DESERT, etc. */
 
 area|z0-[natural=glacier],
 area|z10-[natural=beach],
+area|z0-[natural=desert],
 area|z10-[leisure=beach_resort],
 {fill-position: background;	fill-opacity: 1;}
 
@@ -362,6 +365,9 @@ area|z0-[natural=glacier]
 area|z10-[natural=beach],
 area|z10-[leisure=beach_resort],
 {fill-color: @beach;}
+
+area|z0-[natural=desert],
+{fill-color: @desert;}
 
 /* 6.WATER */
 
@@ -444,6 +450,7 @@ node|z16-[waterway=lock_gate],
 {icon-image: dot-m.svg;}
 
 line|z17-[waterway=ditch],
+line|z17-[barrier=ditch],
 line|z17-[waterway=drain],
 {width: 1.8;opacity: 1;color: @river;dashes: 0.9,0.9;}
 
@@ -454,9 +461,7 @@ line[waterway][tunnel]
 
 /* 7.LANDUSE */
 
-area|z10-[aeroway=airport][aerodrome=international],
 area|z10-[aeroway=aerodrome][aerodrome=international],
-area|z10-[aeroway=airport],
 area|z10-[aeroway=aerodrome],
 area|z14-[amenity=hospital],
 area|z14-[amenity=doctors],
@@ -558,34 +563,22 @@ area|z16-[area:highway=living_street],
 
 /* 7.6 Airports */
 
-area|z10[aeroway=airport][aerodrome=international],
 area|z10[aeroway=aerodrome][aerodrome=international],
 area|z10[aeroway=aerodrome],
-area|z10[aeroway=airport]
 {fill-color: @aerodrome0;}
-area|z11[aeroway=airport][aerodrome=international],
 area|z11[aeroway=aerodrome][aerodrome=international],
 area|z11[aeroway=aerodrome],
-area|z11[aeroway=airport],
 {fill-color: @aerodrome1;}
-area|z12-[aeroway=airport][aerodrome=international],
 area|z12-[aeroway=aerodrome][aerodrome=international],
-area|z12-[aeroway=airport],
 area|z12-[aeroway=aerodrome]
 {fill-color: @aerodrome2;}
-area|z13[aeroway=airport][aerodrome=international],
 area|z13[aeroway=aerodrome][aerodrome=international],
-area|z13[aeroway=airport],
 area|z13[aeroway=aerodrome]
 {fill-color: @aerodrome3;}
-area|z14[aeroway=airport][aerodrome=international],
 area|z14[aeroway=aerodrome][aerodrome=international],
-area|z14[aeroway=airport],
 area|z14[aeroway=aerodrome]
 {fill-color: @aerodrome4;}
-area|z15-19[aeroway=airport][aerodrome=international],
 area|z15-19[aeroway=aerodrome][aerodrome=international],
-area|z15-19[aeroway=airport],
 area|z15-19[aeroway=aerodrome]
 {fill-color: @aerodrome5;}
 
@@ -611,7 +604,7 @@ area|z15-[amenity=parking]
 
 area|z12-[man_made=pier],
 area|z12-[man_made=breakwater],
-{fill-position: background; fill-opacity: 1; fill-color: @background;casing-color: @background;}
+{fill-position: background; fill-opacity: 1; fill-color: @background;}
 
 line|z14-[man_made=pier],
 line|z14-[man_made=breakwater],
@@ -670,13 +663,11 @@ line|z19-[man_made=cutline],
 area|z14[building],
 area|z14[waterway=dam],
 area|z14[landuse=garages],
-area|z14[building=train_station],
 {fill-color: @building;fill-opacity: 0.5;casing-width: 0;}
 
 area|z15[building],
 area|z15[waterway=dam],
 area|z15[landuse=garages],
-area|z15[building=train_station],
 {fill-color: @building;fill-opacity: 0.6;casing-width: 0;}
 
 area|z14-15[aeroway=terminal],
@@ -684,7 +675,6 @@ area|z16[building],
 area|z16[building:part],
 area|z16[waterway=dam],
 area|z16[landuse=garages],
-area|z16[building=train_station],
 {fill-color: @building;fill-opacity: 0.8;casing-width: 1;casing-color: @building_border;}
 
 area|z16[aeroway=terminal],
@@ -692,7 +682,6 @@ area|z17[building],
 area|z17[building:part],
 area|z17[waterway=dam],
 area|z17[landuse=garages],
-area|z17[building=train_station],
 {fill-color: @building_dark;casing-width: 1;casing-color: @building_dark_border;}
 
 area|z17-[aeroway=terminal],
@@ -700,8 +689,10 @@ area|z18-[building],
 area|z18-[building:part],
 area|z18-[waterway=dam],
 area|z18-[landuse=garages],
-area|z18-[building=train_station],
 {fill-color: @building_dark;casing-width: 1;casing-color: @building_dark_border;}
+
+area|z14-[waterway=dam],
+{fill-position: background;}
 
 
 /* 8.3 Barriers, cliffs */

@@ -7,13 +7,11 @@
 #include <limits>
 #include <unordered_map>
 
-namespace
+namespace generator
 {
-using namespace measurement_utils;
-using namespace routing;
-using namespace std;
+using measurement_utils::Units;
 
-unordered_map<string, SpeedInUnits> const kRoadCategoryToSpeed = {
+static std::unordered_map<std::string, routing::SpeedInUnits> const kRoadCategoryToSpeed = {
     {"AR:urban", {40, Units::Metric}},
     {"AR:urban:primary", {60, Units::Metric}},
     {"AR:urban:secondary", {60, Units::Metric}},
@@ -47,8 +45,8 @@ unordered_map<string, SpeedInUnits> const kRoadCategoryToSpeed = {
     {"DE:urban", {50, Units::Metric}},
     {"DE:rural", {100, Units::Metric}},
     {"DE:bicycle_road", {30, Units::Metric}},
-    {"DE:trunk", {kNoneMaxSpeed, Units::Metric}},
-    {"DE:motorway", {kNoneMaxSpeed, Units::Metric}},
+    {"DE:trunk", {routing::kNoneMaxSpeed, Units::Metric}},
+    {"DE:motorway", {routing::kNoneMaxSpeed, Units::Metric}},
     {"FI:urban", {50, Units::Metric}},
     {"FI:rural", {80, Units::Metric}},
     {"FI:trunk", {100, Units::Metric}},
@@ -134,11 +132,8 @@ unordered_map<string, SpeedInUnits> const kRoadCategoryToSpeed = {
     {"UZ:rural", {100, Units::Metric}},
     {"UZ:motorway", {110, Units::Metric}},
 };
-}  // namespace
 
-namespace generator
-{
-bool RoadCategoryToSpeed(string const & category, SpeedInUnits & speed)
+bool RoadCategoryToSpeed(std::string const & category, routing::SpeedInUnits & speed)
 {
   auto const it = kRoadCategoryToSpeed.find(category);
   if (it == kRoadCategoryToSpeed.cend())
@@ -148,27 +143,27 @@ bool RoadCategoryToSpeed(string const & category, SpeedInUnits & speed)
   return true;
 }
 
-bool ParseMaxspeedTag(string const & maxspeedValue, SpeedInUnits & speed)
+bool ParseMaxspeedTag(std::string const & maxspeedValue, routing::SpeedInUnits & speed)
 {
   if (RoadCategoryToSpeed(maxspeedValue, speed))
     return true;
 
   if (maxspeedValue == "none")
   {
-    speed.SetSpeed(kNoneMaxSpeed);
+    speed.SetSpeed(routing::kNoneMaxSpeed);
     speed.SetUnits(Units::Metric); // It's dummy value in case of kNoneMaxSpeed
     return true;
   }
 
   if (maxspeedValue == "walk")
   {
-    speed.SetSpeed(kWalkMaxSpeed);
+    speed.SetSpeed(routing::kWalkMaxSpeed);
     speed.SetUnits(Units::Metric); // It's dummy value in case of kWalkMaxSpeed
     return true;
   }
 
   // strings::to_int doesn't work here because of bad errno.
-  string speedStr;
+  std::string speedStr;
   size_t i;
   for (i = 0; i < maxspeedValue.size(); ++i)
   {
@@ -182,10 +177,10 @@ bool ParseMaxspeedTag(string const & maxspeedValue, SpeedInUnits & speed)
     ++i;
 
   if (maxspeedValue.size() == i ||
-      strings::StartsWith(string(maxspeedValue.begin() + i, maxspeedValue.end()), "kmh"))
+      strings::StartsWith({maxspeedValue.begin() + i, maxspeedValue.end()}, "kmh"))
   {
     uint64_t kmph = 0;
-    if (!strings::to_uint64(speedStr.c_str(), kmph) || kmph == 0 || kmph > numeric_limits<uint16_t>::max())
+    if (!strings::to_uint64(speedStr.c_str(), kmph) || kmph == 0 || kmph > std::numeric_limits<uint16_t>::max())
       return false;
 
     speed.SetSpeed(static_cast<uint16_t>(kmph));
@@ -193,10 +188,10 @@ bool ParseMaxspeedTag(string const & maxspeedValue, SpeedInUnits & speed)
     return true;
   }
 
-  if (strings::StartsWith(string(maxspeedValue.begin() + i, maxspeedValue.end()), "mph"))
+  if (strings::StartsWith({maxspeedValue.begin() + i, maxspeedValue.end()}, "mph"))
   {
     uint64_t mph = 0;
-    if (!strings::to_uint64(speedStr.c_str(), mph) || mph == 0 || mph > numeric_limits<uint16_t>::max())
+    if (!strings::to_uint64(speedStr.c_str(), mph) || mph == 0 || mph > std::numeric_limits<uint16_t>::max())
       return false;
 
     speed.SetSpeed(static_cast<uint16_t>(mph));
@@ -207,7 +202,7 @@ bool ParseMaxspeedTag(string const & maxspeedValue, SpeedInUnits & speed)
   return false;
 }
 
-string UnitsToString(Units units)
+std::string UnitsToString(Units units)
 {
   switch (units)
   {
@@ -217,7 +212,7 @@ string UnitsToString(Units units)
   UNREACHABLE();
 }
 
-Units StringToUnits(string_view units)
+Units StringToUnits(std::string_view units)
 {
   if (units == "Metric")
     return Units::Metric;

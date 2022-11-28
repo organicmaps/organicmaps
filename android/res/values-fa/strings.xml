@@ -129,6 +129,8 @@
 	<string name="recycling">بازیافت</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
 	<string name="water">اب</string>
+	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
+	<string name="rv">RV ﯼﺍﺮﺑ</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">یادداشت ها</string>
 	<!-- message title of loading file -->
@@ -502,6 +504,7 @@
 	<string name="prefs_languages_information_off_link">برای اطلاعات بیشتر لطفا این راهنما را بررسی کنید.</string>
 	<string name="transliteration_title">ترجمه به لاتین</string>
 	<string name="learn_more">بیشتر بدانید</string>
+	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">خروج</string>
 	<string name="routing_add_start_point">یک نقطه شروع برای برنامه ریزی یک مسیر اضافه کنید</string>
 	<string name="routing_add_finish_point">یک مقصد برای برنامه ریزی یک مسیر اضافه کنید</string>
@@ -661,7 +664,7 @@
 	<string name="enable_screen_sleep_description">درصورت فعال بودن ، بعد از یک دوره عدم فعالیت به صفحه اجازه خواب داده می شود.</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">OpenStreetMap ﺯﺍ ﻪﺸﻘﻧ ﯼﺎﻫ ﻩﺩﺍﺩ</string>
-	<!-- Telegram group url for the help page -->
+	<!-- Telegram group url for the "?" About page -->
 	<string name="telegram_url">https://t.me/OrganicMapsIR</string>
 
 	<!-- SECTION: Types -->
@@ -783,8 +786,11 @@
 	<string name="type.barrier.block">بلوک</string>
 	<string name="type.barrier.bollard">ستون</string>
 	<string name="type.barrier.border_control">کنترل مرزی</string>
+	<string name="type.barrier.city_wall">دیوار شهر</string>
+	<string name="type.barrier.ditch">ﻕﺪﻨﺧ</string>
 	<string name="type.barrier.entrance">ورودی</string>
 	<string name="type.barrier.gate">ورودی</string>
+	<string name="type.barrier.kissing_gate">ورودی</string>
 	<string name="type.barrier.lift_gate">اسانسور</string>
 	<string name="type.barrier.stile">پلکان</string>
 	<string name="type.barrier.swing_gate">اسانسور</string>
@@ -821,6 +827,7 @@
 	<string name="type.emergency.phone">تلفن اضطراری</string>
 	<string name="type.entrance">ورودی</string>
 	<string name="type.healthcare.laboratory">ﯽﮑﺷﺰﭘ ﻩﺎﮕﺸﯾﺎﻣﺯﺁ</string>
+	<string name="type.healthcare.physiotherapist">فیزیوتراپیست</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -985,7 +992,10 @@
 	<string name="type.area_highway.unclassified">جاده</string>
 
 	<!-- SECTION: Types: Historic -->
+	<string name="type.historic">شیء تاریخی</string>
 	<string name="type.historic.archaeological_site">گردشگری</string>
+	<string name="type.historic.battlefield">میدان جنگ</string>
+	<string name="type.historic.boundary_stone">نشانگر مرز</string>
 	<string name="type.historic.castle">قلعه</string>
 	<string name="type.historic.castle.castrum">قلعه رومی</string>
 	<string name="type.historic.castle.defensive">قلعه</string>
@@ -998,14 +1008,23 @@
 	<string name="type.historic.castle.shiro">قلعه ژاپنی</string>
 	<string name="type.historic.castle.stately">گردشگری</string>
 	<string name="type.historic.city_gate">دروازه شهر</string>
+	<string name="type.historic.citywalls">دیوار شهر</string>
+	<string name="type.historic.fort">دژ</string>
+	<string name="type.historic.gallows">چوبه دار</string>
 	<string name="type.historic.memorial">گردشگری</string>
+	<string name="type.historic.memorial.cross">صلیب یادبود</string>
 	<string name="type.historic.memorial.plaque">گردشگری</string>
 	<string name="type.historic.memorial.sculpture">گردشگری</string>
 	<string name="type.historic.memorial.statue">گردشگری</string>
+	<string name="type.historic.memorial.stolperstein">سنگ مانع</string>
+	<string name="type.historic.memorial.war_memorial">رزم‌یاد</string>
 	<string name="type.historic.monument">گردشگری</string>
+	<string name="type.historic.pillory">تخته‌بند</string>
 	<string name="type.historic.ruins">گردشگری</string>
 	<string name="type.historic.ship">گردشگری</string>
 	<string name="type.historic.tomb">گردشگری</string>
+	<string name="type.historic.wayside_cross">صلیب کنار راه</string>
+	<string name="type.historic.wayside_shrine">حرم کنار راه</string>
 	<string name="type.internet_access">وای فای</string>
 	<string name="type.internet_access.wlan">وای فای</string>
 	<string name="type.landuse.basin">حوضه آب</string>
@@ -1026,6 +1045,7 @@
 	<string name="type.leisure.dog_park">محدوده مخصوص سگ</string>
 	<string name="type.leisure.fitness_centre">باشگاه بدنسازی</string>
 	<string name="type.leisure.fitness_station">پارک سلامت</string>
+	<string name="type.leisure.dance">ﺺﻗﺭ ﻦﻟﺎﺳ</string>
 	<string name="type.leisure.garden">گردشگری</string>
 	<string name="type.leisure.garden.residential">گردشگری</string>
 	<string name="type.leisure.golf_course">زمین گلف</string>
@@ -1064,6 +1084,7 @@
 	<string name="type.natural.earth_bank">صخره</string>
 	<string name="type.man_made.embankment">خاک‌ریز</string>
 	<string name="type.natural.coastline">کناره</string>
+	<string name="type.natural.desert">ﺮﯾﻮﮐ</string>
 	<string name="type.natural.geyser">چشمه آب گرم</string>
 	<string name="type.natural.glacier">یخچال طبیعی</string>
 	<string name="type.natural.grassland">علفزار</string>
@@ -1193,7 +1214,6 @@
 	<string name="type.railway.station.subway.lille">حمل و نقل</string>
 	<string name="type.railway.station.subway.lima">حمل و نقل</string>
 	<string name="type.railway.station.subway.lisboa">حمل و نقل</string>
-	<string name="type.railway.station.subway.lisbon">حمل و نقل</string>
 	<string name="type.railway.station.subway.london">حمل و نقل</string>
 	<string name="type.railway.station.subway.lyon">حمل و نقل</string>
 	<string name="type.railway.station.subway.madrid">حمل و نقل</string>
@@ -1303,7 +1323,6 @@
 	<string name="type.railway.subway_entrance.lille">ورودی مترو</string>
 	<string name="type.railway.subway_entrance.lima">ورودی مترو</string>
 	<string name="type.railway.subway_entrance.lisboa">ورودی مترو</string>
-	<string name="type.railway.subway_entrance.lisbon">ورودی مترو</string>
 	<string name="type.railway.subway_entrance.london">ورودی مترو</string>
 	<string name="type.railway.subway_entrance.lyon">ورودی مترو</string>
 	<string name="type.railway.subway_entrance.madrid">ورودی مترو</string>

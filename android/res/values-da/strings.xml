@@ -130,6 +130,8 @@
 	<string name="recycling">Genbrug</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
 	<string name="water">Vand</string>
+	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
+	<string name="rv">Til RV</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Noter</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -507,6 +509,7 @@
 	<string name="prefs_languages_information_off_link">Se denne vejledning for flere oplysninger.</string>
 	<string name="transliteration_title">Translitteration til latinsk</string>
 	<string name="learn_more">Flere oplysninger</string>
+	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">Afslut</string>
 	<string name="routing_add_start_point">Tilføj startpunkt for at planlægge en rute</string>
 	<string name="routing_add_finish_point">Tilføj slutpunkt for at planlægge en rute</string>
@@ -778,8 +781,11 @@
 	<string name="type.barrier.block">Blokering</string>
 	<string name="type.barrier.bollard">Søjle</string>
 	<string name="type.barrier.border_control">Grænsekontrol</string>
+	<string name="type.barrier.city_wall">Bymur</string>
+	<string name="type.barrier.ditch">Voldgrav</string>
 	<string name="type.barrier.entrance">Gennemgang</string>
 	<string name="type.barrier.gate">Port</string>
+	<string name="type.barrier.kissing_gate">Port</string>
 	<string name="type.barrier.lift_gate">Bom</string>
 	<string name="type.barrier.stile">Gærdebro</string>
 	<string name="type.barrier.swing_gate">Bom</string>
@@ -900,6 +906,7 @@
 	<string name="type.emergency.phone">Nødtelefon</string>
 	<string name="type.entrance">Indgang</string>
 	<string name="type.healthcare.laboratory">Medicinsk laboratorium</string>
+	<string name="type.healthcare.physiotherapist">Fysioterapeut</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1065,7 +1072,10 @@
 	<string name="type.area_highway.unclassified">Gade</string>
 
 	<!-- SECTION: Types: Historic -->
+	<string name="type.historic">Historisk objekt</string>
 	<string name="type.historic.archaeological_site">Arkæologisk sted</string>
+	<string name="type.historic.battlefield">Slagmark</string>
+	<string name="type.historic.boundary_stone">Grænsesten</string>
 	<string name="type.historic.castle">Slot</string>
 	<string name="type.historic.castle.castrum">Romersk fort</string>
 	<string name="type.historic.castle.defensive">Slot</string>
@@ -1078,13 +1088,23 @@
 	<string name="type.historic.castle.shiro">Japansk slot</string>
 	<string name="type.historic.castle.stately">Slot</string>
 	<string name="type.historic.city_gate">Byport</string>
+	<string name="type.historic.citywalls">Bymur</string>
+	<string name="type.historic.fort">Fort</string>
+	<string name="type.historic.gallows">Galge</string>
 	<string name="type.historic.memorial">Mindesmærke</string>
+	<string name="type.historic.memorial.cross">Mindesmærkekors</string>
 	<string name="type.historic.memorial.plaque">Mindesmærke</string>
 	<string name="type.historic.memorial.sculpture">Mindesmærke</string>
 	<string name="type.historic.memorial.statue">Mindesmærke</string>
+	<string name="type.historic.memorial.stolperstein">Stolpersten</string>
+	<string name="type.historic.memorial.war_memorial">Krigsmindesmærke</string>
+	<string name="type.historic.monument">Monument</string>
+	<string name="type.historic.pillory">Kag</string>
 	<string name="type.historic.ruins">Ruiner</string>
 	<string name="type.historic.ship">Turisme</string>
-	<string name="type.historic.tomb">Turisme</string>
+	<string name="type.historic.tomb">Grav</string>
+	<string name="type.historic.wayside_cross">Kors ved vejsiden</string>
+	<string name="type.historic.wayside_shrine">Skrin ved vejsiden</string>
 	<string name="type.landuse.basin">Vandbassin</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery">Kirkegård</string>
@@ -1103,6 +1123,7 @@
 	<string name="type.leisure.dog_park">Hundepark</string>
 	<string name="type.leisure.fitness_centre">Trænings- og motionscenter</string>
 	<string name="type.leisure.fitness_station">Fitness-station</string>
+	<string name="type.leisure.dance">Dansesal</string>
 	<string name="type.leisure.garden">Have</string>
 	<string name="type.leisure.garden.residential">Have</string>
 	<string name="type.leisure.golf_course">Golf</string>
@@ -1141,6 +1162,7 @@
 	<string name="type.natural.earth_bank">Jordbanken</string>
 	<string name="type.man_made.embankment">Dæmning</string>
 	<string name="type.natural.coastline">Kyst</string>
+	<string name="type.natural.desert">Ørken</string>
 	<string name="type.natural.geyser">Gejser</string>
 	<string name="type.natural.glacier">Gletsjer</string>
 	<string name="type.natural.grassland">Græsslette</string>
@@ -1271,7 +1293,6 @@
 	<string name="type.railway.station.subway.lille">Metro</string>
 	<string name="type.railway.station.subway.lima">Metro</string>
 	<string name="type.railway.station.subway.lisboa">Metro</string>
-	<string name="type.railway.station.subway.lisbon">Metro</string>
 	<string name="type.railway.station.subway.london">Metro</string>
 	<string name="type.railway.station.subway.lyon">Metro</string>
 	<string name="type.railway.station.subway.madrid">Metro</string>
@@ -1381,7 +1402,6 @@
 	<string name="type.railway.subway_entrance.lille">Indgang til undergrundsbane</string>
 	<string name="type.railway.subway_entrance.lima">Indgang til undergrundsbane</string>
 	<string name="type.railway.subway_entrance.lisboa">Indgang til undergrundsbane</string>
-	<string name="type.railway.subway_entrance.lisbon">Indgang til undergrundsbane</string>
 	<string name="type.railway.subway_entrance.london">Indgang til undergrundsbane</string>
 	<string name="type.railway.subway_entrance.lyon">Indgang til undergrundsbane</string>
 	<string name="type.railway.subway_entrance.madrid">Indgang til undergrundsbane</string>

@@ -1,29 +1,23 @@
-• Neue OSM-Kartendaten ab dem 12. September
-• Absturz beim Starten nach dem Bearbeiten einiger OSM-Objekte behoben
-• Lesezeichenlisten werden nun nach der letzten Änderungszeit sortiert
-• Verbesserte Anzeige des nächsten Straßennamens in der Wegbeschreibung
-• Überall wird die gleiche Systemschrift verwendet
-• Verwenden Sie die Standard-Mail-App unter iOS 14, um einen Fehler zu melden
-• Aktivierte katalanische Übersetzungen
+• Neue OSM-Kartendaten ab dem 19. November
+• Geschwindigkeit des Fahrrads für bessere Routenführung korrigiert
+• Das Öffnen einiger URLs mit # und ? Symbolen wurde korrigiert
+• Öffnen des Matrix-Links von About aus korrigiert
+• Mastodon in Über hinzugefügt
+• Name in lokaler Sprache auf der Ortsseite anzeigen
+• Korrekte Anzeige, wenn genau 1 Stunde vor Schließung des Ortes verbleibt
 
-Suche:
-• Anzeige von Funktionen im Ansichtsfenster oben in den Suchergebnissen
-• Erhebliche Beschleunigung einiger Suchszenarien
-• Verbessertes Kategorie-Ranking und Adressensuche.
-• Das Symbol für hervorgehobene Hotelsuchergebnisse auf der Karte wurde korrigiert
-• Verbesserte deutsche Kategoriesuche
+Stile:
+• Einige sich nicht korrekt überschneidende Typen korrigiert
+• highway=busway und Physiotherapeut hinzugefügt
+• Inseln und Archipele sind jetzt auf der Weltkarte sichtbar
+• waterway=dam als Hintergrundbereich zeichnen
+• Die Priorität beim Zeichnen von Wasser ist nun geringer als die von Piers
+• Freizeitgebiete korrigiert
 
-Stile und Icons:
-• Fahrschule, Musikschule, Sprachschule, archäologische Stätte hinzugefügt,
-• Die Hintergründe von historischen Friedhofssymbolen wurden entfernt
-• Verschiedene Schlosstypen hinzugefügt: castrum, fortified_church, fortress, hillfort, kremlin, manor, palace & shiro
-• Erhöhte Sichtbarkeit von Bildung und einigen Sportarten
-• Getrennte Möbel- und Küchentypen
-• Besser aussehende Freizeit=Bahn
-• Verkaufs=Brennstoff-Symbol repariert
-
-Lokalisierungen:
-• Fehlende Übersetzungen für craft=* hinzugefügt
-• Übersetzungen für Niederländisch, Portugiesisch (Brasilien), Italienisch, Katalanisch, Türkisch und Weißrussisch hinzugefügt/korrigiert
-• Katalanisch TTS (Text-To-Speech) aktiviert
-• Einige Telegram- und Instagram-Links wurden lokalisiert
+Übersetzungen:
+• Estnische Übersetzung hinzugefügt
+• Tschechische, norwegische, spanische und türkische Übersetzungen aktualisiert
+• Lokalisierte Website-Links in der App, bitte helfen Sie uns mit unserer Website-Übersetzung: https://github.com/organicmaps/organicmaps.github.io
+• Metro für en-GB
+• Fehlende RV-Kategorie-Übersetzungen korrigiert
+• Kategoriesuche für Katalanisch korrigiert

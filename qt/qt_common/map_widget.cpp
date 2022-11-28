@@ -60,8 +60,10 @@ void MapWidget::BindHotkeys(QWidget & parent)
 {
   Hotkey const hotkeys[] = {
       {Qt::Key_Equal, SLOT(ScalePlus())},
+      {Qt::Key_Plus, SLOT(ScalePlus())},
       {Qt::Key_Minus, SLOT(ScaleMinus())},
       {Qt::ALT + Qt::Key_Equal, SLOT(ScalePlusLight())},
+      {Qt::ALT + Qt::Key_Plus, SLOT(ScalePlusLight())},
       {Qt::ALT + Qt::Key_Minus, SLOT(ScaleMinusLight())},
 #ifdef ENABLE_AA_SWITCH
       {Qt::ALT + Qt::Key_A, SLOT(AntialiasingOn())},
@@ -174,7 +176,7 @@ df::TouchEvent MapWidget::GetTouchEvent(QMouseEvent * e, df::TouchEvent::ETouchT
 
 df::Touch MapWidget::GetSymmetrical(df::Touch const & touch) const
 {
-  m2::PointD const pixelCenter = m_framework.GetPixelCenter();
+  m2::PointD const pixelCenter = m_framework.GetVisiblePixelCenter();
   m2::PointD const symmetricalLocation = pixelCenter + pixelCenter - m2::PointD(touch.m_location);
 
   df::Touch result;

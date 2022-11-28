@@ -59,7 +59,7 @@ MwmSet::MwmHandle::MwmHandle(MwmSet & mwmSet, MwmId const & mwmId,
 }
 
 MwmSet::MwmHandle::MwmHandle(MwmHandle && handle)
-  : m_mwmId(handle.m_mwmId), m_mwmSet(handle.m_mwmSet), m_value(move(handle.m_value))
+  : m_mwmId(std::move(handle.m_mwmId)), m_mwmSet(handle.m_mwmSet), m_value(move(handle.m_value))
 {
   handle.m_mwmSet = nullptr;
   handle.m_mwmId.Reset();

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-  <item android:drawable="@drawable/button_pressed"
-        android:state_pressed="true"/>
-
-  <item android:drawable="@drawable/button_normal"
-        android:state_enabled="true"/>
-
-  <item android:drawable="@drawable/button_disabled"/>
-</selector>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+        android:color="?attr/colorBtnHighlight">
+  <item android:id="@android:id/mask">
+    <shape android:shape="rectangle">
+      <solid android:color="@android:color/white"/>
+      <corners android:radius="2dp"/>
+    </shape>
+  </item>
+</ripple>

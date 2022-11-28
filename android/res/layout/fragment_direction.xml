@@ -7,7 +7,7 @@
   android:paddingStart="@dimen/margin_direction_side"
   android:paddingEnd="@dimen/margin_direction_side"
   tools:background="@color/bg_dialog_translucent">
-  <com.mapswithme.maps.widget.ArrowView
+  <app.organicmaps.widget.ArrowView
     android:id="@+id/av__direction"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"

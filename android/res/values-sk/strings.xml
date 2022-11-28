@@ -130,6 +130,8 @@
 	<string name="recycling">Recyklácia</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
 	<string name="water">Voda</string>
+	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
+	<string name="rv">Pre RV</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Poznámky</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -503,6 +505,7 @@
 	<string name="prefs_languages_information_off_link">Viac informácií nájdete v tomto návode.</string>
 	<string name="transliteration_title">Prepis do latinčiny</string>
 	<string name="learn_more">Zistiť viac</string>
+	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">Ukončiť</string>
 	<string name="routing_add_start_point">Pridaním počiatočného bodu začnite plánovať trasu</string>
 	<string name="routing_add_finish_point">Pridaním cieľového bodu naplánujete trasu</string>
@@ -780,8 +783,11 @@
 	<string name="type.barrier.block">Blok</string>
 	<string name="type.barrier.bollard">Pilier</string>
 	<string name="type.barrier.border_control">Hraničná kontrola</string>
+	<string name="type.barrier.city_wall">Mestský múr</string>
+	<string name="type.barrier.ditch">Priekopa</string>
 	<string name="type.barrier.entrance">Vstup</string>
 	<string name="type.barrier.gate">Brána</string>
+	<string name="type.barrier.kissing_gate">Brána</string>
 	<string name="type.barrier.lift_gate">Závora</string>
 	<string name="type.barrier.stile">Turniket</string>
 	<string name="type.barrier.swing_gate">Závora</string>
@@ -903,6 +909,7 @@
 	<string name="type.emergency.phone">Tiesňového volania</string>
 	<string name="type.entrance">Vstup</string>
 	<string name="type.healthcare.laboratory">Lekárske laboratórium</string>
+	<string name="type.healthcare.physiotherapist">Fyzioterapeut</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1068,7 +1075,10 @@
 	<string name="type.area_highway.unclassified">Ulica</string>
 
 	<!-- SECTION: Types: Historic -->
+	<string name="type.historic">Historický objekt</string>
 	<string name="type.historic.archaeological_site">Vykopávky</string>
+	<string name="type.historic.battlefield">Bojisko</string>
+	<string name="type.historic.boundary_stone">Hraničný kameň</string>
 	<string name="type.historic.castle">Hrad</string>
 	<string name="type.historic.castle.castrum">Kastrum</string>
 	<string name="type.historic.castle.defensive">Hrad</string>
@@ -1081,14 +1091,23 @@
 	<string name="type.historic.castle.shiro">Japonský hrad</string>
 	<string name="type.historic.castle.stately">Zámok</string>
 	<string name="type.historic.city_gate">Mestská brána</string>
+	<string name="type.historic.citywalls">Mestský múr</string>
+	<string name="type.historic.fort">Fort</string>
+	<string name="type.historic.gallows">Šibenica</string>
 	<string name="type.historic.memorial">Pomník</string>
+	<string name="type.historic.memorial.cross">Pamätný kríž</string>
 	<string name="type.historic.memorial.plaque">Pomník</string>
 	<string name="type.historic.memorial.sculpture">Pomník</string>
 	<string name="type.historic.memorial.statue">Pomník</string>
+	<string name="type.historic.memorial.stolperstein">Kameň úrazu</string>
+	<string name="type.historic.memorial.war_memorial">Vojnový pamätník</string>
 	<string name="type.historic.monument">Zaujímavosť</string>
+	<string name="type.historic.pillory">Pranier</string>
 	<string name="type.historic.ruins">Zrúcanina</string>
 	<string name="type.historic.ship">Pamätihodnosť</string>
 	<string name="type.historic.tomb">Pamätihodnosť</string>
+	<string name="type.historic.wayside_cross">Prícestný kríž</string>
+	<string name="type.historic.wayside_shrine">Svätyňa pri ceste</string>
 	<string name="type.landuse.basin">Vodná nádrž</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery">Cintorín</string>
@@ -1107,6 +1126,7 @@
 	<string name="type.leisure.dog_park">Oblasť pre psov</string>
 	<string name="type.leisure.fitness_centre">Fitnescentrum</string>
 	<string name="type.leisure.fitness_station">Fitness</string>
+	<string name="type.leisure.dance">Tanečná hala</string>
 	<string name="type.leisure.garden">Záhrada</string>
 	<string name="type.leisure.garden.residential">Záhrada</string>
 	<string name="type.leisure.golf_course">Golf</string>
@@ -1276,7 +1296,6 @@
 	<string name="type.railway.station.subway.lille">Metro</string>
 	<string name="type.railway.station.subway.lima">Metro</string>
 	<string name="type.railway.station.subway.lisboa">Metro</string>
-	<string name="type.railway.station.subway.lisbon">Metro</string>
 	<string name="type.railway.station.subway.london">Metro</string>
 	<string name="type.railway.station.subway.lyon">Metro</string>
 	<string name="type.railway.station.subway.madrid">Metro</string>
@@ -1386,7 +1405,6 @@
 	<string name="type.railway.subway_entrance.lille">Vstup do metra</string>
 	<string name="type.railway.subway_entrance.lima">Vstup do metra</string>
 	<string name="type.railway.subway_entrance.lisboa">Vstup do metra</string>
-	<string name="type.railway.subway_entrance.lisbon">Vstup do metra</string>
 	<string name="type.railway.subway_entrance.london">Vstup do metra</string>
 	<string name="type.railway.subway_entrance.lyon">Vstup do metra</string>
 	<string name="type.railway.subway_entrance.madrid">Vstup do metra</string>
@@ -1488,7 +1506,7 @@
 	<string name="type.shop.jewelry">Klenotníctvo</string>
 	<string name="type.shop.kitchen">Kuchynský obchod</string>
 	<string name="type.shop.laundry">Práčovňa</string>
-	<string name="type.shop.mall">The Mall</string>
+	<string name="type.shop.mall">Mall</string>
 	<string name="type.shop.massage">Masážny salón</string>
 	<string name="type.shop.mobile_phone">Mobilné telefóny</string>
 	<string name="type.shop.money_lender">Obchod</string>

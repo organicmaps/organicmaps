@@ -587,7 +587,7 @@
 		675345B31A4054AD00A0A8C3 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1400;
+				LastUpgradeCheck = 1410;
 				TargetAttributes = {
 					3DA571D720C1921D007BDE27 = {
 						CreatedOnToolsVersion = 9.3.1;
@@ -762,7 +762,6 @@
 					"$(QT_PATH)/include",
 					"$(OMIM_ROOT)/3party/expat/lib",
 					"$(OMIM_ROOT)/3party/glm",
-					"$(OMIM_ROOT)/3party/jansson/src",
 					"$(OMIM_ROOT)/3party/protobuf/protobuf/src",
 				);
 			};
@@ -777,7 +776,6 @@
 					"$(QT_PATH)/include",
 					"$(OMIM_ROOT)/3party/expat/lib",
 					"$(OMIM_ROOT)/3party/glm",
-					"$(OMIM_ROOT)/3party/jansson/src",
 					"$(OMIM_ROOT)/3party/protobuf/protobuf/src",
 				);
 			};

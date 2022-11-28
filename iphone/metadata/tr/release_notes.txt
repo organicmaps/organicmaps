@@ -1,26 +1,20 @@
-• Yeni OSM haritaları verileri (12 Eylül)
-• Türkçe Telegram ve Instagram hesap bağlantıları yardım sayfasına eklendi
-• Bazı OSM nesnelerini düzenledikten sonra başlangıçta oluşan çökme sorunu düzeltildi
-• Yer imi listeleri artık son değiştirilme zamanına göre sıralanıyor
-• Bir sonraki sokak adını içeren yönergeler daha iyi görüntüleniyor
-• Her yerde aynı sistem yazı tipi kullanılıyor
-• Bir hatayı bildirmek için iOS 14'te artık varsayılan posta uygulamasını kullanılıyor
+• Yeni OSM harita verileri (19 Kasım)
+• Daha iyi rotalar için hesaplama için kullanılan bisiklet hızı düzeltildi
+• Bazı URL'lerin # ve ? sembolleri ile açılması sorunu düzeltildi
+• Hakkında kısmından Matrix bağlantısının açılmaması sorunu düzeltildi
+• Hakkında bölümüne Mastodon sayfamız eklendi
+• Mekan Sayfasında yerin adı artık yerel dilde gösteriliyor
+• Yerin kapanmasına tam olarak 1 saat kaldığında daha iyi şekilde gösteriliyor
 
-Arama:
-• Arama sonuçlarının üst kısmındaki alanda özellikler gösteriliyor
-• Bazı arama sorguları önemli ölçüde hızlandırıldı
-• Kategori sıralaması ve adres araması iyileştirildi
-• Harita üzerinde vurgulanan otel arama sonuçları simgesi düzeltildi
+Stiller
+• Bazı yanlış örtüşen tipler düzeltildi
+• highway=busway (otobüs yolu) ve fizyoterapist kategorisi eklendi
+• Adalar ve takımadalar artık dünya haritasında görülebilir
+• waterway=dam artık arka plan alanı olarak çiziliyor
+• Su kütleleri artık iskelelerin üstüne çizilmiyor
+• Eğlence alanları düzeltildi
 
-Stiller ve simgeler:
-• Sürücü okulu, müzik okulu, dil okulu, arkeolojik site eklendi
-• Tarihi mezarlık simgelerindeki arka plan kaldırıldı
-• Farklı kale türleri eklendi: castrum, fortified_church, fortress, hillfort, kremlin, manor, palace & shiro
-• Eğitim ve bazı spor dallarının görünürlüğü arttırıldı
-• Ayrılmış mobilya ve mutfak tipleri
-• Daha iyi görünümlü leisure=track
-• vending=fuel simgesi düzeltildi
-
-Çeviriler:
-• craft=* için eksik çeviriler eklendi
-• Bazı çeviriler eklendi/düzeltildi
+Çeviriler
+• Çeviriler güncellendi / düzeltildi.
+• Uygulama içerisinde web sitemize verilen bağlantılar artık Türkçe sayfalara yönlendiriyor.
+• Eksik karavan kategorileri çevirileri düzeltildi

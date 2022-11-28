@@ -65,10 +65,9 @@
       tools:targetApi="t">
 
     <activity
-      android:name="com.mapswithme.maps.SplashActivity"
+      android:name="app.organicmaps.SplashActivity"
       android:exported="true">
 
-      <!-- standard "geo" scheme -->
       <intent-filter>
         <action android:name="android.intent.action.VIEW"/>
 
@@ -76,14 +75,6 @@
         <category android:name="android.intent.category.BROWSABLE"/>
 
         <data android:scheme="geo"/>
-      </intent-filter>
-
-      <intent-filter>
-        <action android:name="android.intent.action.VIEW"/>
-
-        <category android:name="android.intent.category.DEFAULT"/>
-        <category android:name="android.intent.category.BROWSABLE"/>
-
         <data android:scheme="ge0"/>
         <data android:scheme="om"/>
       </intent-filter>
@@ -94,8 +85,9 @@
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
 
-        <data android:scheme="http" android:host="ge0.me"/>
+        <data android:scheme="http"/>
         <data android:scheme="https"/>
+        <data android:host="ge0.me"/>
       </intent-filter>
 
       <intent-filter android:autoVerify="@bool/autoVerify">
@@ -104,8 +96,9 @@
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
 
-        <data android:scheme="http" android:host="omaps.app"/>
+        <data android:scheme="http"/>
         <data android:scheme="https"/>
+        <data android:host="omaps.app"/>
       </intent-filter>
 
       <intent-filter>
@@ -558,24 +551,10 @@
         <data android:scheme="https"/>
 
         <!-- #map=$zoom/$lat/$lon -->
-        <data android:host="www.openstreetmap.org" android:path="/"/>
-        <data android:host="www.openstreetmap.org" android:pathPrefix="/search"/>
-        <data android:host="openstreetmap.org" android:path="/"/>
-        <data android:host="openstreetmap.org" android:pathPrefix="/search"/>
-      </intent-filter>
-
-      <intent-filter>
-        <action android:name="android.intent.action.VIEW"/>
-
-        <category android:name="android.intent.category.DEFAULT"/>
-        <category android:name="android.intent.category.BROWSABLE"/>
-
-        <data
-          android:host="lead"
-          android:scheme="mapsme"/>
-        <data
-          android:host="lead"
-          android:scheme="mapswithme"/>
+        <data android:host="openstreetmap.org"/>
+        <data android:host="www.openstreetmap.org"/>
+        <data android:path="/"/>
+        <data android:path="/search"/>
       </intent-filter>
 
       <intent-filter>
@@ -605,13 +584,8 @@
       <intent-filter>
         <action android:name="android.intent.action.SEND"/>
         <category android:name="android.intent.category.DEFAULT"/>
-        <data android:mimeType="application/vnd.google-earth.kmz"/>
-      </intent-filter>
-
-      <intent-filter>
-        <action android:name="android.intent.action.SEND"/>
-        <category android:name="android.intent.category.DEFAULT"/>
         <data android:mimeType="application/vnd.google-earth.kml+xml"/>
+        <data android:mimeType="application/vnd.google-earth.kmz"/>
       </intent-filter>
 
       <intent-filter>
@@ -630,35 +604,13 @@
         <data android:pathPattern=".*\\..*\\..*\\.kmz" />
         <data android:pathPattern=".*\\..*\\..*\\..*\\.kmz" />
         <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\.kmz" />
-      </intent-filter>
-
-      <intent-filter>
-        <action android:name="android.intent.action.VIEW" />
-        <category android:name="android.intent.category.DEFAULT" />
-        <category android:name="android.intent.category.BROWSABLE" />
-        <data android:scheme="content"/>
-        <data android:scheme="file"/>
-        <data android:scheme="data"/>
-        <data android:host="*"/>
-        <data android:mimeType="*/*"/>
         <data android:pathPattern="*.kml"/>
         <data android:pathPattern=".*\\.kml" />
         <data android:pathPattern=".*\\..*\\.kml" />
         <data android:pathPattern=".*\\..*\\..*\\.kml" />
         <data android:pathPattern=".*\\..*\\..*\\..*\\.kml" />
         <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\.kml" />
-      </intent-filter>
-
-      <!-- Old MAPS.ME binary format //-->
-      <intent-filter>
-        <action android:name="android.intent.action.VIEW"/>
-        <category android:name="android.intent.category.DEFAULT"/>
-        <category android:name="android.intent.category.BROWSABLE"/>
-        <data android:scheme="content"/>
-        <data android:scheme="file"/>
-        <data android:scheme="data"/>
-        <data android:host="*"/>
-        <data android:mimeType="*/*"/>
+        <!-- Old MAPS.ME binary format //-->
         <data android:pathPattern="*.kmb"/>
         <data android:pathPattern=".*\\.kmb" />
         <data android:pathPattern=".*\\..*\\.kmb" />
@@ -669,14 +621,14 @@
     </activity>
 
     <activity
-        android:name="com.mapswithme.maps.DownloadResourcesLegacyActivity"
+        android:name="app.organicmaps.DownloadResourcesLegacyActivity"
         android:configChanges="screenLayout|screenSize"
         android:label="@string/app_name"/>
 
     <activity-alias
-      android:name="com.mapswithme.maps.DownloadResourcesActivity"
+      android:name="app.organicmaps.DownloadResourcesActivity"
       android:label="@string/app_name"
-      android:targetActivity="com.mapswithme.maps.SplashActivity"
+      android:targetActivity="app.organicmaps.SplashActivity"
       android:exported="true">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
@@ -685,90 +637,90 @@
     </activity-alias>
 
     <activity
-        android:name="com.mapswithme.maps.MwmActivity"
+        android:name="app.organicmaps.MwmActivity"
         android:launchMode="singleTask"
         android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
 
     <activity
-        android:name="com.mapswithme.maps.downloader.DownloaderActivity"
+        android:name="app.organicmaps.downloader.DownloaderActivity"
         android:configChanges="orientation|screenLayout|screenSize"
         android:label="@string/download_maps"
-        android:parentActivityName="com.mapswithme.maps.MwmActivity"
+        android:parentActivityName="app.organicmaps.MwmActivity"
         android:windowSoftInputMode="adjustResize" />
 
     <activity
-        android:name="com.mapswithme.maps.search.SearchActivity"
+        android:name="app.organicmaps.search.SearchActivity"
         android:configChanges="orientation|screenLayout|screenSize"
         android:label="@string/search_map"
-        android:parentActivityName="com.mapswithme.maps.MwmActivity"
+        android:parentActivityName="app.organicmaps.MwmActivity"
         android:windowSoftInputMode="stateVisible|adjustResize" />
 
     <activity
-        android:name="com.mapswithme.maps.settings.SettingsActivity"
+        android:name="app.organicmaps.settings.SettingsActivity"
         android:configChanges="orientation|screenLayout|screenSize"
         android:label="@string/settings"
-        android:parentActivityName="com.mapswithme.maps.MwmActivity" />
+        android:parentActivityName="app.organicmaps.MwmActivity" />
 
     <activity
-        android:name="com.mapswithme.maps.help.HelpActivity"
+        android:name="app.organicmaps.help.HelpActivity"
         android:configChanges="orientation|screenLayout|screenSize"
         android:label="@string/help"
-        android:parentActivityName="com.mapswithme.maps.MwmActivity"
+        android:parentActivityName="app.organicmaps.MwmActivity"
         android:exported="false">
       <intent-filter>
-        <action android:name="com.mapswithme.maps.help.HelpActivity" />
+        <action android:name="app.organicmaps.help.HelpActivity" />
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </activity>
 
     <activity
-        android:name="com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity"
+        android:name="app.organicmaps.bookmarks.BookmarkCategoriesActivity"
         android:configChanges="orientation|screenLayout|screenSize"
         android:label="@string/bookmarks"
-        android:parentActivityName="com.mapswithme.maps.MwmActivity"
+        android:parentActivityName="app.organicmaps.MwmActivity"
         android:windowSoftInputMode="adjustResize" />
 
     <activity
-        android:name="com.mapswithme.maps.bookmarks.BookmarkListActivity"
+        android:name="app.organicmaps.bookmarks.BookmarkListActivity"
         android:configChanges="orientation|screenLayout|screenSize"
         android:label="@string/bookmarks"
-        android:parentActivityName="com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity"
+        android:parentActivityName="app.organicmaps.bookmarks.BookmarkCategoriesActivity"
         android:windowSoftInputMode="adjustResize" />
 
     <activity
-        android:name="com.mapswithme.maps.editor.EditorActivity"
+        android:name="app.organicmaps.editor.EditorActivity"
         android:configChanges="orientation|screenLayout|screenSize"
         android:label="@string/edit_place"
-        android:parentActivityName="com.mapswithme.maps.MwmActivity"
+        android:parentActivityName="app.organicmaps.MwmActivity"
         android:windowSoftInputMode="adjustResize" />
 
     <activity
-        android:name="com.mapswithme.maps.editor.ProfileActivity"
-        android:parentActivityName="com.mapswithme.maps.settings.SettingsActivity" />
+        android:name="app.organicmaps.editor.ProfileActivity"
+        android:parentActivityName="app.organicmaps.settings.SettingsActivity" />
 
     <activity
-        android:name="com.mapswithme.maps.editor.FeatureCategoryActivity"
-        android:parentActivityName="com.mapswithme.maps.MwmActivity" />
+        android:name="app.organicmaps.editor.FeatureCategoryActivity"
+        android:parentActivityName="app.organicmaps.MwmActivity" />
 
     <activity
-        android:name="com.mapswithme.maps.editor.ReportActivity"
-        android:parentActivityName="com.mapswithme.maps.MwmActivity" />
+        android:name="app.organicmaps.editor.ReportActivity"
+        android:parentActivityName="app.organicmaps.MwmActivity" />
 
     <activity
-        android:name="com.mapswithme.maps.editor.OsmLoginActivity"
-        android:parentActivityName="com.mapswithme.maps.MwmActivity" />
+        android:name="app.organicmaps.editor.OsmLoginActivity"
+        android:parentActivityName="app.organicmaps.MwmActivity" />
 
     <activity
-      android:name="com.mapswithme.maps.bookmarks.BookmarkCategorySettingsActivity"
+      android:name="app.organicmaps.bookmarks.BookmarkCategorySettingsActivity"
       android:label="@string/list_settings"/>
     <activity
-      android:name="com.mapswithme.maps.widget.placepage.PlaceDescriptionActivity"
+      android:name="app.organicmaps.widget.placepage.PlaceDescriptionActivity"
       android:label="@string/place_description_title"/>
     <activity
-      android:name="com.mapswithme.maps.settings.DrivingOptionsActivity"
+      android:name="app.organicmaps.settings.DrivingOptionsActivity"
       android:label="@string/driving_options_title"/>
     <service
-      android:name="com.mapswithme.maps.background.OsmUploadService"
+      android:name="app.organicmaps.background.OsmUploadService"
       android:permission="android.permission.BIND_JOB_SERVICE"
       android:exported="false"/>
 

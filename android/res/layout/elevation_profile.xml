@@ -5,11 +5,11 @@
   android:layout_height="@dimen/elevation_profile_content_height"
   android:background="?cardBackground"
   android:orientation="vertical">
-  <com.mapswithme.maps.widget.placepage.ElevationProfileChart
+  <app.organicmaps.widget.placepage.ElevationProfileChart
     android:id="@+id/elevation_profile_chart"
     android:layout_width="match_parent"
     android:layout_height="match_parent" />
-  <com.mapswithme.maps.widget.placepage.FloatingMarkerView
+  <app.organicmaps.widget.placepage.FloatingMarkerView
     android:id="@+id/floating_marker"
     android:visibility="gone"
     android:layout_width="wrap_content"

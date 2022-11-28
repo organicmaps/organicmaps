@@ -16,21 +16,19 @@ namespace search
 using namespace std;
 using namespace strings;
 
-namespace
-{
-struct TokenInfo
-{
-  bool m_isCategoryToken = false;
-  bool m_inFeatureTypes = false;
-};
-}  // namespace
-
 // CategoriesInfo ----------------------------------------------------------------------------------
 CategoriesInfo::CategoriesInfo(feature::TypesHolder const & holder, TokenSlice const & tokens,
                                Locales const & locales, CategoriesHolder const & categories)
 {
+  struct TokenInfo
+  {
+    bool m_isCategoryToken = false;
+    bool m_inFeatureTypes = false;
+  };
+
   QuerySlice slice(tokens);
   vector<TokenInfo> infos(slice.Size());
+
   ForEachCategoryType(slice, locales, categories, [&](size_t i, uint32_t t)
   {
     ASSERT_LESS(i, infos.size(), ());
@@ -38,11 +36,14 @@ CategoriesInfo::CategoriesInfo(feature::TypesHolder const & holder, TokenSlice c
 
     info.m_isCategoryToken = true;
     if (holder.HasWithSubclass(t))
-    {
-      m_matchedLength += slice.Get(i).size();
       info.m_inFeatureTypes = true;
-    }
   });
+
+  for (size_t i = 0; i < slice.Size(); ++i)
+  {
+    if (infos[i].m_inFeatureTypes)
+      m_matchedLength += slice.Get(i).size();
+  }
 
   // Note that m_inFeatureTypes implies m_isCategoryToken.
 
@@ -111,9 +112,9 @@ bool IsStopWord(UniString const & s)
       // Don't want to put _full_ stopwords list, not to break current ranking.
       // Only 2-letters and the most common.
       char const * arr[] = {
-        "a",              // English
+        "a", "s",         // English
         "am", "im", "an", // German
-        "de", "di", "da", "la", "le", // French, Spanish, Italian
+        "d", "de", "di", "da", "la", "le", // French, Spanish, Italian
         "и", "я"          // Cyrillic
       };
       for (char const * s : arr)

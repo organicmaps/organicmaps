@@ -521,6 +521,7 @@
 	<string name="prefs_languages_information_off_link">Consultă acest ghid pentru informații suplimentare.</string>
 	<string name="transliteration_title">Transcrie în alfabet latin</string>
 	<string name="learn_more">Mai multe</string>
+	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">Ieșire</string>
 	<string name="routing_add_start_point">Adaugă un punct de plecare pentru a planifica un traseu</string>
 	<string name="routing_add_finish_point">Adaugă un punct de sosire pentru a planifica un traseu</string>
@@ -804,8 +805,11 @@
 	<string name="type.barrier.block">Bloc</string>
 	<string name="type.barrier.bollard">Stâlp</string>
 	<string name="type.barrier.border_control">Control vamal</string>
+	<string name="type.barrier.city_wall">Zidurile orașului</string>
+	<string name="type.barrier.ditch">Şanţ</string>
 	<string name="type.barrier.entrance">Intrare</string>
 	<string name="type.barrier.gate">Poartă</string>
+	<string name="type.barrier.kissing_gate">Poartă</string>
 	<string name="type.barrier.lift_gate">Barieră cu braț</string>
 	<string name="type.barrier.stile">Barieră</string>
 	<string name="type.barrier.swing_gate">Barieră cu braț</string>
@@ -927,6 +931,7 @@
 	<string name="type.emergency.phone">Telefon de urgență</string>
 	<string name="type.entrance">Intrare</string>
 	<string name="type.healthcare.laboratory">Laborator medical</string>
+	<string name="type.healthcare.physiotherapist">Fizioterapeut</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1092,7 +1097,10 @@
 	<string name="type.area_highway.unclassified">Stradă</string>
 
 	<!-- SECTION: Types: Historic -->
+	<string name="type.historic">Obiect istoric</string>
 	<string name="type.historic.archaeological_site">Sit arheologic</string>
+	<string name="type.historic.battlefield">Câmpul de luptă</string>
+	<string name="type.historic.boundary_stone">Piatră de hotar</string>
 	<string name="type.historic.castle">Castel</string>
 	<string name="type.historic.castle.castrum">Castru</string>
 	<string name="type.historic.castle.defensive">Castel</string>
@@ -1105,13 +1113,23 @@
 	<string name="type.historic.castle.shiro">Castelul japonez</string>
 	<string name="type.historic.castle.stately">Castel</string>
 	<string name="type.historic.city_gate">Poarta orașului</string>
+	<string name="type.historic.citywalls">Zidurile orașului</string>
+	<string name="type.historic.fort">Fort</string>
+	<string name="type.historic.gallows">Spânzurătoare</string>
 	<string name="type.historic.memorial">Comemorare</string>
+	<string name="type.historic.memorial.cross">Cruce comemorativă</string>
 	<string name="type.historic.memorial.plaque">Comemorare</string>
 	<string name="type.historic.memorial.sculpture">Comemorare</string>
 	<string name="type.historic.memorial.statue">Comemorare</string>
+	<string name="type.historic.memorial.stolperstein">Blocaj de poticnire</string>
+	<string name="type.historic.memorial.war_memorial">Memorial de război</string>
+	<string name="type.historic.monument">Monument</string>
+	<string name="type.historic.pillory">Stâlpul infamiei</string>
 	<string name="type.historic.ruins">Ruine</string>
-	<string name="type.historic.ship">Obiective turistice</string>
-	<string name="type.historic.tomb">Obiective turistice</string>
+	<string name="type.historic.ship">Navă</string>
+	<string name="type.historic.tomb">Mormânt</string>
+	<string name="type.historic.wayside_cross">Troiță</string>
+	<string name="type.historic.wayside_shrine">Altarul de la marginea drumului</string>
 	<string name="type.landuse.basin">Bazin de apă</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery">Cimitir</string>
@@ -1130,6 +1148,7 @@
 	<string name="type.leisure.dog_park">Loc de plimbare a câinilor</string>
 	<string name="type.leisure.fitness_centre">Centru fitness</string>
 	<string name="type.leisure.fitness_station">Sală de fitness</string>
+	<string name="type.leisure.dance">Sala de dans</string>
 	<string name="type.leisure.garden">Sit arheologic</string>
 	<string name="type.leisure.garden.residential">Sit arheologic</string>
 	<string name="type.leisure.golf_course">Teren de golf</string>
@@ -1300,7 +1319,6 @@
 	<string name="type.railway.station.subway.lille">Metrou</string>
 	<string name="type.railway.station.subway.lima">Metrou</string>
 	<string name="type.railway.station.subway.lisboa">Metrou</string>
-	<string name="type.railway.station.subway.lisbon">Metrou</string>
 	<string name="type.railway.station.subway.london">Metrou</string>
 	<string name="type.railway.station.subway.lyon">Metrou</string>
 	<string name="type.railway.station.subway.madrid">Metrou</string>
@@ -1410,7 +1428,6 @@
 	<string name="type.railway.subway_entrance.lille">Intrare în metro</string>
 	<string name="type.railway.subway_entrance.lima">Intrare în metro</string>
 	<string name="type.railway.subway_entrance.lisboa">Intrare în metro</string>
-	<string name="type.railway.subway_entrance.lisbon">Intrare în metro</string>
 	<string name="type.railway.subway_entrance.london">Intrare în metro</string>
 	<string name="type.railway.subway_entrance.lyon">Intrare în metro</string>
 	<string name="type.railway.subway_entrance.madrid">Intrare în metro</string>

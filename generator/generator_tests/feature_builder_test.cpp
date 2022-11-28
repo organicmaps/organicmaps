@@ -17,7 +17,6 @@ namespace feature_builder_test
 {
 using namespace feature;
 using namespace generator::tests_support;
-using namespace std;
 using namespace tests;
 
 UNIT_CLASS_TEST(TestWithClassificator, FBuilder_ManyTypes)
@@ -124,7 +123,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_Waterfall)
 
   TEST(fb2.IsValid(), (fb2));
   TEST_EQUAL(fb1, fb2, ());
-  TEST_EQUAL(fb2.GetTypesCount(), 1, ());;
+  TEST_EQUAL(fb2.GetTypesCount(), 1, ());
 }
 
 UNIT_CLASS_TEST(TestWithClassificator, FBbuilder_GetMostGeneralOsmId)
@@ -149,7 +148,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FVisibility_RemoveUselessTypes)
   Classificator const & c = classif();
 
   {
-    vector<uint32_t> types;
+    std::vector<uint32_t> types;
     types.push_back(c.GetTypeByPath({ "building" }));
     types.push_back(c.GetTypeByPath({ "amenity", "theatre" }));
 
@@ -158,7 +157,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FVisibility_RemoveUselessTypes)
   }
 
   {
-    vector<uint32_t> types;
+    std::vector<uint32_t> types;
     types.push_back(c.GetTypeByPath({ "highway", "primary" }));
     types.push_back(c.GetTypeByPath({ "building" }));
 

@@ -205,7 +205,7 @@ void Screenshoter::ProcessNextKml()
   for (auto catId : idList)
     es.DeleteBmCategory(catId);
 
-  bookmarkManager.CreateCategories(std::move(collection), false);
+  bookmarkManager.CreateCategories(std::move(collection));
 
   ChangeState(State::WaitPosition);
   auto const newCatId = bookmarkManager.GetBmGroupsIdList().front();

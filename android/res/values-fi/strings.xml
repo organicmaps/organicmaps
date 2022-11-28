@@ -132,6 +132,8 @@
 	<string name="recycling">Kierrätys</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
 	<string name="water">Vesi</string>
+	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
+	<string name="rv">RV tilat</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Muistiinpanot</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -511,6 +513,7 @@
 	<string name="prefs_languages_information_off_link">Lisätietoja saat tästä oppaasta.</string>
 	<string name="transliteration_title">Translitterointi latinaksi</string>
 	<string name="learn_more">Lisätietoja</string>
+	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">Poistu</string>
 	<string name="routing_add_start_point">Lisää alkupiste reitin suunnittelua varten</string>
 	<string name="routing_add_finish_point">Lisää määränpää reitin suunnittelua varten</string>
@@ -676,10 +679,19 @@
 	<string name="splash_subtitle">OpenStreetMapin karttatiedot</string>
 
 	<!-- SECTION: Types -->
+	<string name="type.aerialway">Köysirata</string>
+	<string name="type.aerialway.cable_car">Kabiinihissi</string>
+	<string name="type.aerialway.chair_lift">Tuolihissi</string>
+	<string name="type.aerialway.drag_lift">Kapulahissi</string>
+	<string name="type.aerialway.gondola">Gondolihissi</string>
+	<string name="type.aerialway.mixed_lift">Köysirata</string>
 	<string name="type.aerialway.station">Köysirata-asema</string>
 	<string name="type.aeroway.aerodrome">Lentokenttä</string>
 	<string name="type.aeroway.aerodrome.international">Lentokenttä</string>
+	<string name="type.aeroway.gate">Portti</string>
 	<string name="type.aeroway.helipad">Helikopterialusta</string>
+	<string name="type.aeroway.runway">Kiitorata</string>
+	<string name="type.aeroway.terminal">Terminaali</string>
 	<string name="type.amenity">Infrastruktuurikohteet</string>
 	<string name="type.amenity.arts_centre">Taidekeskus</string>
 	<string name="type.amenity.atm">Pankkiautomaatti</string>
@@ -702,6 +714,7 @@
 	<string name="type.amenity.childcare">Päivähoito</string>
 	<string name="type.amenity.cinema">Elokuvateatteri</string>
 	<string name="type.amenity.clinic">Klinikka</string>
+	<string name="type.amenity.college">Korkeakoulu</string>
 	<string name="type.amenity.community_centre">Monitoimitalo</string>
 	<string name="type.amenity.courthouse">Oikeustalo</string>
 	<string name="type.amenity.dentist">Hammaslääkäri</string>
@@ -736,11 +749,11 @@
 	<string name="type.amenity.parking.no.access">Yksityinen pysäköinti</string>
 	<string name="type.amenity.parking.permissive">Yksityinen pysäköinti</string>
 	<string name="type.amenity.parking.private">Yksityinen pysäköinti</string>
-	<string name="type.amenity.parking.park_and_ride">Parkkipaikka</string>
+	<string name="type.amenity.parking.park_and_ride">Liityntäpysäköinti</string>
 	<string name="type.amenity.parking.underground">Maanalainen pysäköinti</string>
-	<string name="type.amenity.parking_entrance.private">Pysäköinti sisäänkäynti</string>
-	<string name="type.amenity.parking_entrance.permissive">Pysäköinti sisäänkäynti</string>
-	<string name="type.amenity.parking_entrance">Pysäköinti sisäänkäynti</string>
+	<string name="type.amenity.parking_entrance.private">Pysäköinnin sisäänkäynti</string>
+	<string name="type.amenity.parking_entrance.permissive">Pysäköinnin sisäänkäynti</string>
+	<string name="type.amenity.parking_entrance">Pysäköinnin sisäänkäynti</string>
 	<string name="type.amenity.parking_space">Parkkipaikka</string>
 	<string name="type.amenity.parking_space.permissive">Parkkipaikka</string>
 	<string name="type.amenity.parking_space.private">Parkkipaikka</string>
@@ -759,6 +772,7 @@
 	<string name="type.amenity.police">Poliisi</string>
 	<string name="type.amenity.post_box">Postilaatikko</string>
 	<string name="type.amenity.post_office">Postitoimisto</string>
+	<string name="type.amenity.prison">Vankila</string>
 	<string name="type.amenity.pub">Pubi</string>
 	<string name="type.amenity.public_bookcase">Kirjahylly</string>
 
@@ -784,10 +798,17 @@
 	<string name="type.amenity.toilets">WC</string>
 	<string name="type.amenity.townhall">Kaupungintalo</string>
 	<string name="type.amenity.university">Yliopisto</string>
+	<string name="type.amenity.vending_machine">Myyntiautomaatti</string>
 	<string name="type.amenity.vending_machine.cigarettes">Savukeautomaatti</string>
+	<string name="type.amenity.vending_machine.coffee">Kahviautomaatti</string>
+	<string name="type.amenity.vending_machine.condoms">Kondomiautomaatti</string>
 	<string name="type.amenity.vending_machine.drinks">Juoma-automaatti</string>
+	<string name="type.amenity.vending_machine.food">Ruoka-automaatti</string>
+	<string name="type.amenity.vending_machine.newspapers">Sanomalehtiautomaatti</string>
 	<string name="type.amenity.vending_machine.parking_tickets">Pysäköintimaksuautomaatti</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">Julkisen liikenteen lippuautomaatti</string>
+	<string name="type.amenity.vending_machine.sweets">Karkkiautomaatti</string>
+	<string name="type.amenity.vending_machine.fuel">Bensa-automaatti</string>
 	<string name="type.amenity.veterinary">Eläinlääkäri</string>
 	<string name="type.amenity.waste_basket">Roska-astia</string>
 	<string name="type.amenity.waste_disposal">Roska</string>
@@ -795,18 +816,45 @@
 	<string name="type.barrier.block">Este</string>
 	<string name="type.barrier.bollard">Tolppa</string>
 	<string name="type.barrier.border_control">Rajavalvonta</string>
+	<string name="type.barrier.chain">Ketju</string>
+	<string name="type.barrier.city_wall">Kaupungin muuri</string>
+	<string name="type.barrier.cycle_barrier">Polkupyöräeste</string>
+	<string name="type.barrier.ditch">Vallihauta</string>
 	<string name="type.barrier.entrance">Sisäänkäynti</string>
+	<string name="type.barrier.fence">Aita</string>
 	<string name="type.barrier.gate">Portti</string>
-	<string name="type.barrier.lift_gate">Puomi</string>
+	<string name="type.barrier.hedge">Pensasaita</string>
+	<string name="type.barrier.kissing_gate">Portti</string>
+	<string name="type.barrier.lift_gate">Nostopuomi</string>
 	<string name="type.barrier.stile">Portaat</string>
-	<string name="type.barrier.swing_gate">Puomi</string>
+	<string name="type.barrier.swing_gate">Kääntöpuomi</string>
 	<string name="type.barrier.toll_booth">Tietulliasema</string>
+	<string name="type.barrier.wall">Muuri</string>
+	<string name="type.boundary">Raja</string>
+	<string name="type.boundary.administrative">Hallinnollinen raja</string>
+	<string name="type.boundary.administrative.10">Hallinnollinen raja</string>
+	<string name="type.boundary.administrative.11">Hallinnollinen raja</string>
+	<string name="type.boundary.administrative.2">Valtakunnanraja</string>
+	<string name="type.boundary.administrative.3">Hallinnollinen raja</string>
+	<string name="type.boundary.administrative.4">Hallinnollinen raja</string>
+	<string name="type.boundary.administrative.5">Hallinnollinen raja</string>
+	<string name="type.boundary.administrative.6">Hallinnollinen raja</string>
+	<string name="type.boundary.administrative.7">Hallinnollinen raja</string>
+	<string name="type.boundary.administrative.8">Hallinnollinen raja</string>
+	<string name="type.boundary.administrative.9">Hallinnollinen raja</string>
+	<string name="type.boundary.administrative.city">Kaupunginraja</string>
+	<string name="type.boundary.administrative.country">Valtakunnanraja</string>
+	<string name="type.boundary.administrative.county">Maakunnanraja</string>
+	<string name="type.boundary.administrative.municipality">Kunnanraja</string>
+	<string name="type.boundary.administrative.nation">Valtakunnanraja</string>
+	<string name="type.boundary.administrative.state">Osavaltion raja</string>
 	<string name="type.boundary.national_park">Kansallispuisto</string>
 	<string name="type.building">Rakennus</string>
 	<string name="type.building.address">Rakennus</string>
 	<string name="type.building.garage">Autotalli</string>
 	<string name="type.building.has_parts">Rakennus</string>
 	<string name="type.building.train_station">Rautatieasema</string>
+	<string name="type.building.warehouse">Varasto</string>
 	<string name="type.cemetery.grave">Hauta</string>
 	<string name="type.craft">Käsityö</string>
 	<string name="type.craft.beekeeper">Mehiläishoitaja</string>
@@ -918,6 +966,7 @@
 	<string name="type.emergency.phone">Hätäpuhelin</string>
 	<string name="type.entrance">Sisäänkäynti</string>
 	<string name="type.healthcare.laboratory">Lääketieteellinen laboratorio</string>
+	<string name="type.healthcare.physiotherapist">Fysioterapeutti</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1084,7 +1133,10 @@
 	<string name="type.area_highway.unclassified">Katu</string>
 
 	<!-- SECTION: Types: Historic -->
+	<string name="type.historic">Historiallinen esine</string>
 	<string name="type.historic.archaeological_site">Arkeologinen kohde</string>
+	<string name="type.historic.battlefield">Taistelukenttä</string>
+	<string name="type.historic.boundary_stone">Rajamerkki</string>
 	<string name="type.historic.castle">Linna</string>
 	<string name="type.historic.castle.castrum">Castra</string>
 	<string name="type.historic.castle.defensive">Linna</string>
@@ -1097,14 +1149,23 @@
 	<string name="type.historic.castle.shiro">Japanilainen linna</string>
 	<string name="type.historic.castle.stately">Linna</string>
 	<string name="type.historic.city_gate">Kaupungin portti</string>
+	<string name="type.historic.citywalls">Kaupungin muuri</string>
+	<string name="type.historic.fort">Fort</string>
+	<string name="type.historic.gallows">Sappeja</string>
 	<string name="type.historic.memorial">Muistomerkki</string>
+	<string name="type.historic.memorial.cross">Muistoristi</string>
 	<string name="type.historic.memorial.plaque">Muistomerkki</string>
 	<string name="type.historic.memorial.sculpture">Muistomerkki</string>
 	<string name="type.historic.memorial.statue">Muistomerkki</string>
+	<string name="type.historic.memorial.stolperstein">Kompastuskivet</string>
+	<string name="type.historic.memorial.war_memorial">Sotamuistomerkki</string>
 	<string name="type.historic.monument">Monumentti</string>
+	<string name="type.historic.pillory">Häpeäpaalu</string>
 	<string name="type.historic.ruins">Rauniot</string>
 	<string name="type.historic.ship">Nähtävyydet</string>
 	<string name="type.historic.tomb">Nähtävyydet</string>
+	<string name="type.historic.wayside_cross">Tienvarren risti</string>
+	<string name="type.historic.wayside_shrine">Tienvarren pyhäkkö</string>
 	<string name="type.landuse.basin">Vesisäiliö</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery">Hautausmaa</string>
@@ -1123,6 +1184,7 @@
 	<string name="type.leisure.dog_park">Koirien ulkoilupaikka</string>
 	<string name="type.leisure.fitness_centre">Kuntosali</string>
 	<string name="type.leisure.fitness_station">Kuntokeskus</string>
+	<string name="type.leisure.dance">Tanssisali</string>
 	<string name="type.leisure.garden">Puutarha</string>
 	<string name="type.leisure.garden.residential">Puutarha</string>
 	<string name="type.leisure.golf_course">Golf-rata</string>
@@ -1163,6 +1225,7 @@
 	<string name="type.natural.earth_bank">Kallio</string>
 	<string name="type.man_made.embankment">Pengerrys</string>
 	<string name="type.natural.coastline">Rannikko</string>
+	<string name="type.natural.desert">Aavikko</string>
 	<string name="type.natural.geyser">Geysir</string>
 	<string name="type.natural.glacier">Jäätikkö</string>
 	<string name="type.natural.grassland">Nurmi</string>
@@ -1293,7 +1356,6 @@
 	<string name="type.railway.station.subway.lille">Metro</string>
 	<string name="type.railway.station.subway.lima">Metro</string>
 	<string name="type.railway.station.subway.lisboa">Metro</string>
-	<string name="type.railway.station.subway.lisbon">Metro</string>
 	<string name="type.railway.station.subway.london">Metro</string>
 	<string name="type.railway.station.subway.lyon">Metro</string>
 	<string name="type.railway.station.subway.madrid">Metro</string>
@@ -1403,7 +1465,6 @@
 	<string name="type.railway.subway_entrance.lille">Metron sisäänkäynti</string>
 	<string name="type.railway.subway_entrance.lima">Metron sisäänkäynti</string>
 	<string name="type.railway.subway_entrance.lisboa">Metron sisäänkäynti</string>
-	<string name="type.railway.subway_entrance.lisbon">Metron sisäänkäynti</string>
 	<string name="type.railway.subway_entrance.london">Metron sisäänkäynti</string>
 	<string name="type.railway.subway_entrance.lyon">Metron sisäänkäynti</string>
 	<string name="type.railway.subway_entrance.madrid">Metron sisäänkäynti</string>
@@ -1631,6 +1692,7 @@
 	<string name="type.waterway.canal.tunnel">Kanaali</string>
 	<string name="type.waterway.dam">Pato</string>
 	<string name="type.waterway.ditch">Oja</string>
+	<string name="type.waterway.ditch.tunnel">Oja</string>
 	<string name="type.waterway.dock">Telakka</string>
 	<string name="type.waterway.lock_gate">Kanavasulku</string>
 	<string name="type.waterway.river">Joki</string>
@@ -1645,6 +1707,9 @@
 	<string name="type.wheelchair.limited">Osittain varustettu vammaisille</string>
 	<string name="type.wheelchair.no">Ei varustettu vammaisille</string>
 	<string name="type.wheelchair.yes">Varustettu vammaisille</string>
+	<string name="type.aerialway.platter">Sompahissi</string>
+	<string name="type.aerialway.rope_tow">Naruhissi</string>
+	<string name="type.aerialway.t.bar">Ankkurihissi</string>
 	<string name="type.piste_type.downhill">Laskettelurinne</string>
 	<string name="type.piste_type.downhill.advanced">Laskettelurinne</string>
 	<string name="type.piste_type.downhill.easy">Laskettelurinne</string>
@@ -1653,6 +1718,7 @@
 	<string name="type.piste_type.downhill.intermediate">Laskettelurinne</string>
 	<string name="type.piste_type.downhill.novice">Laskettelurinne</string>
 	<string name="type.piste_type.nordic">Latu</string>
+	<string name="type.piste_type.sled">Kelkkarata</string>
 	<string name="type.building_part">Rakennus</string>
 	<string name="type.amenity.events_venue">Tapahtumapaikka</string>
 </resources>

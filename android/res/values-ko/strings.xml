@@ -130,6 +130,8 @@
 	<string name="recycling">재활용</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
 	<string name="water">물</string>
+	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
+	<string name="rv">RV용</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">메모</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -505,6 +507,7 @@
 	<string name="prefs_languages_information_off_link">자세한 내용을 보려면 이 가이드를 확인하세요.</string>
 	<string name="transliteration_title">라틴어로 음역</string>
 	<string name="learn_more">자세히 알아보기</string>
+	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">끝내기</string>
 	<string name="routing_add_start_point">경로 계획을 세우기 위한 시작 지점을 추가하세요</string>
 	<string name="routing_add_finish_point">경로 계획을 세우기 위한 끝 지점을 추가하세요</string>
@@ -782,8 +785,11 @@
 	<string name="type.barrier.block">블록</string>
 	<string name="type.barrier.bollard">기둥</string>
 	<string name="type.barrier.border_control">국경통제소</string>
+	<string name="type.barrier.city_wall">도시의 벽</string>
+	<string name="type.barrier.ditch">\"해자 외호\"</string>
 	<string name="type.barrier.entrance">입구</string>
 	<string name="type.barrier.gate">게이트</string>
+	<string name="type.barrier.kissing_gate">게이트</string>
 	<string name="type.barrier.lift_gate">차량차단기</string>
 	<string name="type.barrier.stile">디딤대</string>
 	<string name="type.barrier.swing_gate">차량차단기</string>
@@ -905,6 +911,7 @@
 	<string name="type.emergency.phone">긴급 전화</string>
 	<string name="type.entrance">입구</string>
 	<string name="type.healthcare.laboratory">의료 연구실</string>
+	<string name="type.healthcare.physiotherapist">물리치료사</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1069,7 +1076,10 @@
 	<string name="type.area_highway.unclassified">거리</string>
 
 	<!-- SECTION: Types: Historic -->
+	<string name="type.historic">역사적 물건</string>
 	<string name="type.historic.archaeological_site">발굴</string>
+	<string name="type.historic.battlefield">전장터</string>
+	<string name="type.historic.boundary_stone">경계석</string>
 	<string name="type.historic.castle">성</string>
 	<string name="type.historic.castle.castrum">로마 요새</string>
 	<string name="type.historic.castle.defensive">성</string>
@@ -1082,14 +1092,23 @@
 	<string name="type.historic.castle.shiro">일본의 성</string>
 	<string name="type.historic.castle.stately">성</string>
 	<string name="type.historic.city_gate">성문</string>
+	<string name="type.historic.citywalls">도시의 벽</string>
+	<string name="type.historic.fort">요새</string>
+	<string name="type.historic.gallows">교수대</string>
 	<string name="type.historic.memorial">기념비</string>
+	<string name="type.historic.memorial.cross">기념 십자가</string>
 	<string name="type.historic.memorial.plaque">기념비</string>
 	<string name="type.historic.memorial.sculpture">기념비</string>
 	<string name="type.historic.memorial.statue">기념비</string>
+	<string name="type.historic.memorial.stolperstein">장애물</string>
+	<string name="type.historic.memorial.war_memorial">전쟁기념관</string>
 	<string name="type.historic.monument">기념탑</string>
+	<string name="type.historic.pillory">칼</string>
 	<string name="type.historic.ruins">유적</string>
 	<string name="type.historic.ship">배</string>
 	<string name="type.historic.tomb">무덤</string>
+	<string name="type.historic.wayside_cross">길가의 십자가</string>
+	<string name="type.historic.wayside_shrine">길가의 신사</string>
 	<string name="type.internet_access">인터넷</string>
 	<string name="type.internet_access.wlan">인터넷</string>
 	<string name="type.landuse.basin">저수지</string>
@@ -1110,6 +1129,7 @@
 	<string name="type.leisure.dog_park">애완견 지역</string>
 	<string name="type.leisure.fitness_centre">피트니스센터</string>
 	<string name="type.leisure.fitness_station">피트니스 스테이션</string>
+	<string name="type.leisure.dance">\"댄스홀\"</string>
 	<string name="type.leisure.garden">정원</string>
 	<string name="type.leisure.garden.residential">정원</string>
 	<string name="type.leisure.golf_course">골프장</string>
@@ -1150,6 +1170,7 @@
 	<string name="type.natural.earth_bank">낭떠러지</string>
 	<string name="type.man_made.embankment">둑</string>
 	<string name="type.natural.coastline">연안</string>
+	<string name="type.natural.desert">사막</string>
 	<string name="type.natural.geyser">간헐천</string>
 	<string name="type.natural.glacier">빙하</string>
 	<string name="type.natural.grassland">초원</string>
@@ -1280,7 +1301,6 @@
 	<string name="type.railway.station.subway.lille">지하철</string>
 	<string name="type.railway.station.subway.lima">지하철</string>
 	<string name="type.railway.station.subway.lisboa">지하철</string>
-	<string name="type.railway.station.subway.lisbon">지하철</string>
 	<string name="type.railway.station.subway.london">지하철</string>
 	<string name="type.railway.station.subway.lyon">지하철</string>
 	<string name="type.railway.station.subway.madrid">지하철</string>
@@ -1390,7 +1410,6 @@
 	<string name="type.railway.subway_entrance.lille">지하철 입구</string>
 	<string name="type.railway.subway_entrance.lima">지하철 입구</string>
 	<string name="type.railway.subway_entrance.lisboa">지하철 입구</string>
-	<string name="type.railway.subway_entrance.lisbon">지하철 입구</string>
 	<string name="type.railway.subway_entrance.london">지하철 입구</string>
 	<string name="type.railway.subway_entrance.lyon">지하철 입구</string>
 	<string name="type.railway.subway_entrance.madrid">지하철 입구</string>

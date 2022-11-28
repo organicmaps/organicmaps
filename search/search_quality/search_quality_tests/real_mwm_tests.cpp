@@ -227,7 +227,8 @@ UNIT_CLASS_TEST(MwmTestsFixture, NY_Subway)
   auto const & results = request->Results();
   TEST_GREATER(results.size(), kPopularPoiResultsCount, ());
 
-  Range const range(results, 0, 3);
+  // Fast food "Subways" should be the first despite of some "metro" subways are a bit closer ..
+  Range const range(results, 0, 2);
   EqualClassifType(range, GetClassifTypes({{"amenity", "fast_food"}}));
   double const dist = SortedByDistance(range, center);
   TEST_LESS(dist, 1000, ());
@@ -448,4 +449,18 @@ UNIT_CLASS_TEST(MwmTestsFixture, Hawaii_Address)
   HasAddress(range, "Ululani Street", "1000");
 }
 
+// https://github.com/organicmaps/organicmaps/issues/3712
+UNIT_CLASS_TEST(MwmTestsFixture, French_StopWord_Category)
+{
+  // Metz
+  ms::LatLon const center(49.12163, 6.17075);
+  SetViewportAndLoadMaps(center);
+
+  auto request = MakeRequest("Bouche d'incendie", "fr");
+  auto const & results = request->Results();
+
+  Range const range(results, 0, kTopPoiResultsCount);
+  EqualClassifType(range, GetClassifTypes({{"emergency", "fire_hydrant"}}));
+  TEST_LESS(SortedByDistance(range, center), 1000.0, ());
+}
 } // namespace real_mwm_tests

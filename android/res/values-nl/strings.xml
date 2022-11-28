@@ -536,7 +536,8 @@
 	<string name="prefs_languages_information_off_link">Gelieve deze handleiding te lezen voor meer informatie.</string>
 	<string name="transliteration_title">Transliteratie in het Latijn</string>
 	<string name="learn_more">Meer informatie</string>
-	<string name="core_exit">Verlaten</string>
+	<!-- Subway exits for public transport marks on the map -->
+	<string name="core_exit">Uitgang</string>
 	<string name="routing_add_start_point">Voeg beginpunt toe om een route te plannen</string>
 	<string name="routing_add_finish_point">Voeg eindpunt toe om een route te plannen</string>
 	<string name="button_exit">Verlaten</string>
@@ -634,9 +635,9 @@
 	<!-- A generic "No" button in dialogs -->
 	<string name="no">Nee</string>
 	<!-- E.g. "WiFi:Yes" -->
-	<string name="yes_available">Ja</string>
+	<string name="yes_available">ja</string>
 	<!-- E.g. "WiFi:No" -->
-	<string name="no_available">Nee</string>
+	<string name="no_available">nee</string>
 	<string name="ok">Goed</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Sorteer…</string>
@@ -716,7 +717,7 @@
 	<string name="type.aerialway.gondola">Gondelbaan</string>
 	<string name="type.aerialway.mixed_lift">Gecombineerde kabelbaan</string>
 	<string name="type.aerialway.station">Kabelwagenstation</string>
-	<string name="type.aeroway">Luchtvaartinfrastructuurfv</string>
+	<string name="type.aeroway">Luchtvaartinfrastructuur</string>
 	<string name="type.aeroway.aerodrome">Vliegveld</string>
 	<string name="type.aeroway.aerodrome.international">Vliegveld</string>
 	<string name="type.aeroway.apron">Platform</string>
@@ -861,10 +862,12 @@
 	<string name="type.barrier.chain">Ketting</string>
 	<string name="type.barrier.city_wall">Stadsmuur</string>
 	<string name="type.barrier.cycle_barrier">Fietsbarrière</string>
+	<string name="type.barrier.ditch">Gracht</string>
 	<string name="type.barrier.entrance">Ingang</string>
 	<string name="type.barrier.fence">Hek</string>
 	<string name="type.barrier.gate">Poort</string>
 	<string name="type.barrier.hedge">Heg</string>
+	<string name="type.barrier.kissing_gate">Voetgangershek</string>
 	<string name="type.barrier.lift_gate">Slagboom</string>
 	<string name="type.barrier.retaining_wall">Keermuur</string>
 	<string name="type.barrier.stile">Tourniquet</string>
@@ -1010,6 +1013,7 @@
 	<string name="type.emergency.phone">Praatpaal</string>
 	<string name="type.entrance">Ingang</string>
 	<string name="type.healthcare.laboratory">Medisch laboratorium</string>
+	<string name="type.healthcare.physiotherapist">Fysiotherapeut</string>
 
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway">Straat</string>
@@ -1023,20 +1027,20 @@
 	<string name="type.highway.construction">Baan in aanbouw</string>
 	<string name="type.highway.cycleway">Fietspad</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
-	<string name="type.highway.cycleway.bridge">Brug</string>
+	<string name="type.highway.cycleway.bridge">Fietsbrug</string>
 	<string name="type.highway.cycleway.permissive">Fietspad</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
-	<string name="type.highway.cycleway.tunnel">Tunnel</string>
+	<string name="type.highway.cycleway.tunnel">Fietstunnel</string>
 	<string name="type.highway.elevator">Lift</string>
 	<string name="type.highway.footway">Voetpad</string>
-	<string name="type.highway.footway.alpine_hiking">Pad</string>
-	<string name="type.highway.footway.area">Voetpad</string>
+	<string name="type.highway.footway.alpine_hiking">Alpine wandelpad</string>
+	<string name="type.highway.footway.area">Voetgangerszone</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
-	<string name="type.highway.footway.bridge">Brug</string>
-	<string name="type.highway.footway.demanding_alpine_hiking">Pad</string>
-	<string name="type.highway.footway.demanding_mountain_hiking">Pad</string>
-	<string name="type.highway.footway.difficult_alpine_hiking">Pad</string>
-	<string name="type.highway.footway.hiking">Pad</string>
+	<string name="type.highway.footway.bridge">Voetgangersbrug</string>
+	<string name="type.highway.footway.demanding_alpine_hiking">Uitdagend alpine bergklimpad</string>
+	<string name="type.highway.footway.demanding_mountain_hiking">Uitdagend bergwandelpad</string>
+	<string name="type.highway.footway.difficult_alpine_hiking">Moeilijk alpine bergklimpad</string>
+	<string name="type.highway.footway.hiking">Wandelpad</string>
 	<string name="type.highway.footway.mountain_hiking">Bergpad</string>
 	<string name="type.highway.footway.permissive">Voetpad</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
@@ -1053,21 +1057,21 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.motorway.tunnel">Snelwegtunnel</string>
 	<string name="type.highway.motorway_junction">Afrit</string>
-	<string name="type.highway.motorway_link">Snelweg</string>
+	<string name="type.highway.motorway_link">Snelwegoprit</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.motorway_link.bridge">Brug</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.motorway_link.tunnel">Tunnel</string>
 	<string name="type.highway.path">Pad</string>
-	<string name="type.highway.path.alpine_hiking">Pad</string>
-	<string name="type.highway.path.bicycle">Pad</string>
+	<string name="type.highway.path.alpine_hiking">Alpine wandelpad</string>
+	<string name="type.highway.path.bicycle">Fietspad</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.path.bridge">Brug</string>
 	<string name="type.highway.path.demanding_alpine_hiking">Pad</string>
 	<string name="type.highway.path.demanding_mountain_hiking">Pad</string>
 	<string name="type.highway.path.difficult_alpine_hiking">Pad</string>
-	<string name="type.highway.path.hiking">Pad</string>
-	<string name="type.highway.path.horse">Pad</string>
+	<string name="type.highway.path.hiking">Wandelpad</string>
+	<string name="type.highway.path.horse">Ruiterpad</string>
 	<string name="type.highway.path.mountain_hiking">Bergpad</string>
 	<string name="type.highway.path.permissive">Pad</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
@@ -1177,7 +1181,7 @@
 	<string name="type.area_highway.secondary">Secundaire weg</string>
 	<string name="type.area_highway.service">Straat</string>
 	<string name="type.area_highway.tertiary">Tertiaire weg</string>
-	<string name="type.area_highway.steps">Trap</string>
+	<string name="type.area_highway.steps">Trappen</string>
 	<string name="type.area_highway.track">Straat</string>
 	<string name="type.area_highway.trunk">Straat</string>
 	<string name="type.area_highway.unclassified">Straat</string>
@@ -1201,16 +1205,21 @@
 	<string name="type.historic.city_gate">Stadspoort</string>
 	<string name="type.historic.citywalls">Stadsmuur</string>
 	<string name="type.historic.fort">Fort</string>
+	<string name="type.historic.gallows">Galg</string>
 	<string name="type.historic.memorial">Gedenkteken</string>
-	<string name="type.historic.memorial.plaque">Plaquette</string>
-	<string name="type.historic.memorial.sculpture">Beeldhouwwerk</string>
+	<string name="type.historic.memorial.cross">Herdenkingskruis</string>
+	<string name="type.historic.memorial.plaque">Gedenkplaat</string>
+	<string name="type.historic.memorial.sculpture">Sculptuur</string>
 	<string name="type.historic.memorial.statue">Standbeeld</string>
+	<string name="type.historic.memorial.stolperstein">Stolperstein</string>
+	<string name="type.historic.memorial.war_memorial">Oorlogsmonument</string>
 	<string name="type.historic.monument">Monument</string>
+	<string name="type.historic.pillory">Schandpaal</string>
 	<string name="type.historic.ruins">Ruïne</string>
 	<string name="type.historic.ship">Historisch schip</string>
 	<string name="type.historic.tomb">Graftombe</string>
-	<string name="type.historic.wayside_cross">Kruis</string>
-	<string name="type.historic.wayside_shrine">Altaar</string>
+	<string name="type.historic.wayside_cross">Wegkruis</string>
+	<string name="type.historic.wayside_shrine">Kruisbeeld</string>
 	<string name="type.internet_access">Internet</string>
 	<string name="type.internet_access.wlan">Draadloos internet</string>
 	<string name="type.junction">Kruispunt</string>
@@ -1255,6 +1264,7 @@
 	<string name="type.leisure.dog_park">Hondenuitlaatplek</string>
 	<string name="type.leisure.fitness_centre">Fitnesscentrum</string>
 	<string name="type.leisure.fitness_station">Fitness-Station</string>
+	<string name="type.leisure.dance">Danszaal</string>
 	<string name="type.leisure.garden">Tuin</string>
 	<string name="type.leisure.garden.residential">Tuin</string>
 	<string name="type.leisure.golf_course">Golfbaan</string>
@@ -1318,6 +1328,7 @@
 	<string name="type.natural.earth_bank">Klif</string>
 	<string name="type.man_made.embankment">Baanlichaam</string>
 	<string name="type.natural.coastline">Kustlijn</string>
+	<string name="type.natural.desert">Woestijn</string>
 	<string name="type.natural.geyser">Geiser</string>
 	<string name="type.natural.glacier">Gletsjer</string>
 	<string name="type.natural.grassland">Grasland</string>
@@ -1394,6 +1405,7 @@
 	<string name="type.power.minor_line">Laag-/middelspanningsleiding</string>
 	<string name="type.power.pole">Elektriciteitspaal</string>
 	<string name="type.power.station">Transformatorstation</string>
+	<string name="type.power.substation">Transformatorstation</string>
 	<string name="type.power.tower">Elektriciteitsmast</string>
 	<string name="type.psurface">Wegdek</string>
 	<string name="type.psurface.paved_bad">Verhard</string>
@@ -1429,6 +1441,7 @@
 	<string name="type.railway.preserved.tunnel">Museumspoorbaantunnel</string>
 	<string name="type.railway.rail">Spoorlijn</string>
 	<string name="type.railway.rail.bridge">Treinspoorbrug</string>
+	<string name="type.railway.rail.motor_vehicle">Spoorweg</string>
 	<string name="type.railway.rail.tunnel">Spoortunnel</string>
 	<string name="type.railway.razed">Verwijderde spoorbaan</string>
 	<string name="type.railway.siding">Nevenspoor</string>
@@ -1493,7 +1506,6 @@
 	<string name="type.railway.station.subway.lille">Metrostation</string>
 	<string name="type.railway.station.subway.lima">Metrostation</string>
 	<string name="type.railway.station.subway.lisboa">Metrostation</string>
-	<string name="type.railway.station.subway.lisbon">Metrostation</string>
 	<string name="type.railway.station.subway.london">Metrostation</string>
 	<string name="type.railway.station.subway.lyon">Metrostation</string>
 	<string name="type.railway.station.subway.madrid">Metrostation</string>
@@ -1606,7 +1618,6 @@
 	<string name="type.railway.subway_entrance.lille">Metro ingang</string>
 	<string name="type.railway.subway_entrance.lima">Metro ingang</string>
 	<string name="type.railway.subway_entrance.lisboa">Metro ingang</string>
-	<string name="type.railway.subway_entrance.lisbon">Metro ingang</string>
 	<string name="type.railway.subway_entrance.london">Metro ingang</string>
 	<string name="type.railway.subway_entrance.lyon">Metro ingang</string>
 	<string name="type.railway.subway_entrance.madrid">Metro ingang</string>
@@ -1678,6 +1689,7 @@
 	<string name="type.shop.beauty">Schoonheidssalon</string>
 	<string name="type.shop.beverages">Drank</string>
 	<string name="type.shop.bicycle">Fietsenwinkel</string>
+	<string name="type.shop.bookmaker">Boekbinder</string>
 	<string name="type.shop.books">Boekenwinkel</string>
 	<string name="type.shop.butcher">Slager</string>
 	<string name="type.shop.car">Autohandelaar</string>
@@ -1748,7 +1760,7 @@
 	<string name="type.shop.wine">Wijnhandel</string>
 	<string name="type.shop.antiques">Antiekhandel</string>
 	<string name="type.shop.art">Kunstwinkel</string>
-	<string name="type.shop.baby_goods">Kinderwinkel</string>
+	<string name="type.shop.baby_goods">Babyspullenwinkel</string>
 	<string name="type.shop.bag">Tassenwinkel</string>
 	<string name="type.shop.boutique">Boetiek</string>
 	<string name="type.shop.charity">Kringloopwinkel</string>
@@ -1810,15 +1822,17 @@
 	<string name="type.tourism.artwork">Kunstwerk</string>
 	<string name="type.tourism.artwork.architecture">Kunstwerk</string>
 	<string name="type.tourism.artwork.painting">Schilderij</string>
-	<string name="type.tourism.artwork.sculpture">Beeldhouwwerk</string>
+	<string name="type.tourism.artwork.sculpture">Kunstwerk</string>
 	<string name="type.tourism.artwork.statue">Standbeeld</string>
 	<string name="type.tourism.attraction">Attractie</string>
-	<string name="type.tourism.attraction.animal">Attractie</string>
+	<string name="type.tourism.attraction.animal">Dierenverblijf</string>
 	<string name="type.tourism.attraction.specified">Attractie</string>
 	<string name="type.tourism.camp_site">Kampeerterrein</string>
 	<string name="type.tourism.caravan_site">Caravan site</string>
+	<string name="type.tourism.chalet">Vakantiehuis</string>
 	<string name="type.tourism.gallery">Galerij</string>
 	<string name="type.tourism.guest_house">Gasthuis</string>
+	<string name="type.tourism.hostel">Herberg</string>
 	<string name="type.tourism.hotel">Hotel</string>
 	<string name="type.tourism.information">Toeristische informatie</string>
 	<string name="type.tourism.information.board">Informatiebord</string>
@@ -1840,10 +1854,10 @@
 	<string name="type.waterway.canal.tunnel">Kanaal</string>
 	<string name="type.waterway.dam">Dam</string>
 	<string name="type.waterway.ditch">Sloot</string>
-	<string name="type.waterway.ditch.tunnel">Duiker</string>
+	<string name="type.waterway.ditch.tunnel">Sloot</string>
 	<string name="type.waterway.dock">Dok</string>
 	<string name="type.waterway.drain">Afvoer</string>
-	<string name="type.waterway.drain.tunnel">Afvoer tunnel</string>
+	<string name="type.waterway.drain.tunnel">Afvoer</string>
 	<string name="type.waterway.lock_gate">Sluisdeur</string>
 	<string name="type.waterway.river">Rivier</string>
 	<string name="type.waterway.river.tunnel">Rivier</string>
@@ -1858,13 +1872,11 @@
 	<string name="type.wheelchair.limited">Gedeeltelijk uitgerust voor gehandicapten</string>
 	<string name="type.wheelchair.no">Niet uitgerust voor gehandicapten</string>
 	<string name="type.wheelchair.yes">Uitgerust voor gehandicapten</string>
-	<!-- en.wikipedia.org/wiki/Surface_lift -->
-	<string name="type.piste_lift">Sleeplift</string>
-	<string name="type.piste_lift.j.bar">Sleeplift (J)</string>
-	<string name="type.piste_lift.magic_carpet">Loopband</string>
-	<string name="type.piste_lift.platter">Sleeplift</string>
-	<string name="type.piste_lift.rope_tow">Touwlift</string>
-	<string name="type.piste_lift.t.bar">Sleeplift (T-beugel)</string>
+	<string name="type.aerialway.j.bar">Sleeplift (J)</string>
+	<string name="type.aerialway.magic_carpet">Loopband</string>
+	<string name="type.aerialway.platter">Sleeplift</string>
+	<string name="type.aerialway.rope_tow">Touwlift</string>
+	<string name="type.aerialway.t.bar">Sleeplift (T-beugel)</string>
 	<string name="type.piste_type">Pistesoort</string>
 	<string name="type.piste_type.downhill">Ski-afdaling</string>
 	<string name="type.piste_type.downhill.advanced">Moeilijke afdaling</string>

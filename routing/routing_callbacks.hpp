@@ -20,7 +20,7 @@ class Route;
 
 /// Routing possible statuses enumeration.
 /// \warning  this enum has JNI mirror!
-/// \see android/src/com/mapswithme/maps/routing/ResultCodesHelper.java
+/// \see android/src/app/organicmaps/maps/routing/ResultCodesHelper.java
 // TODO(bykoianko): Items become obsolete now should be removed from the enum.
 enum class RouterResultCode
 {

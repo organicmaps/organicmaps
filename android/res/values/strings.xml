@@ -237,6 +237,8 @@
 	<!-- Text in menu -->
 	<string name="matrix">[matrix]</string>
 	<!-- Text in menu -->
+	<string name="mastodon">Mastodon</string>
+	<!-- Text in menu -->
 	<string name="facebook">Facebook</string>
 	<!-- Text in menu -->
 	<string name="twitter">Twitter</string>
@@ -384,6 +386,8 @@
 	<string name="clear_search">Clear Search History</string>
 	<!-- Place Page link to Wikipedia article (if map object has it). -->
 	<string name="read_in_wikipedia">Wikipedia</string>
+	<!-- Place Page link to Wikimedia Commons. -->
+	<string name="wikimedia_commons">Wikimedia Commons</string>
 	<string name="p2p_your_location">Your Location</string>
 	<string name="p2p_start">Start</string>
 	<string name="p2p_from_here">Route from</string>
@@ -561,6 +565,7 @@
 	<string name="prefs_languages_information_off_link">For more information please check this guide.</string>
 	<string name="transliteration_title">Transliteration into Latin</string>
 	<string name="learn_more">Learn more</string>
+	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">Exit</string>
 	<string name="routing_add_start_point">Add a starting point to plan a route</string>
 	<string name="routing_add_finish_point">Add a destination to plan a route</string>
@@ -735,18 +740,20 @@
 	<string name="enable_show_on_lock_screen_description">When enabled, you don\'t need to unlock your device every time while the app is running.</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">Map data from OpenStreetMap</string>
-	<!-- Telegram group url for the help page -->
+	<!-- Telegram group url for the "?" About page -->
 	<string name="telegram_url">https://t.me/OrganicMapsApp</string>
-	<!-- Instagram account url for the help page -->
+	<!-- Instagram account url for the "?" About page -->
 	<string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
+	<!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
+	<string name="translated_om_site_url">https://organicmaps.app/</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway">Aerialway</string>
-	<string name="type.aerialway.cable_car">Aerialway</string>
-	<string name="type.aerialway.chair_lift">Aerialway</string>
-	<string name="type.aerialway.drag_lift">Aerialway</string>
-	<string name="type.aerialway.gondola">Aerialway</string>
-	<string name="type.aerialway.mixed_lift">Aerialway</string>
+	<string name="type.aerialway.cable_car">Cable car</string>
+	<string name="type.aerialway.chair_lift">Chair lift</string>
+	<string name="type.aerialway.drag_lift">Drag lift</string>
+	<string name="type.aerialway.gondola">Gondola</string>
+	<string name="type.aerialway.mixed_lift">Mixed lift</string>
 	<string name="type.aerialway.station">Aerialway Station</string>
 	<string name="type.aeroway">Airspace Infrastructure</string>
 	<string name="type.aeroway.aerodrome">Airport</string>
@@ -859,7 +866,7 @@
 	<string name="type.recycling.cans">Cans</string>
 	<string name="type.recycling.shoes">Shoes</string>
 	<string name="type.recycling.green_waste">Green/Organic Waste</string>
-	<string name="type.recycling.cartons">Bewerage Cartons</string>
+	<string name="type.recycling.cartons">Beverage Cartons</string>
 	<string name="type.amenity.restaurant">Restaurant</string>
 	<string name="type.amenity.sanitary_dump_station">Holding Tank Dump Station</string>
 	<string name="type.amenity.school">School</string>
@@ -896,10 +903,12 @@
 	<string name="type.barrier.chain">Chain</string>
 	<string name="type.barrier.city_wall">City Wall</string>
 	<string name="type.barrier.cycle_barrier">Cycle Barrier</string>
+	<string name="type.barrier.ditch">Moat</string>
 	<string name="type.barrier.entrance">Entrance</string>
 	<string name="type.barrier.fence">Fence</string>
 	<string name="type.barrier.gate">Gate</string>
 	<string name="type.barrier.hedge">Hedge</string>
+	<string name="type.barrier.kissing_gate">Kissing Gate</string>
 	<string name="type.barrier.lift_gate">Lift Gate</string>
 	<string name="type.barrier.retaining_wall">Retaining Wall</string>
 	<string name="type.barrier.stile">Stile</string>
@@ -1046,6 +1055,7 @@
 	<string name="type.emergency.phone">Emergency Phone</string>
 	<string name="type.entrance">Entrance</string>
 	<string name="type.healthcare.laboratory">Medical Laboratory</string>
+	<string name="type.healthcare.physiotherapist">Physiotherapist</string>
 
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway">Highway</string>
@@ -1186,12 +1196,12 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">Tunnel</string>
 	<string name="type.highway.traffic_signals">Traffic Lights</string>
-	<string name="type.highway.trunk">National Highway</string>
+	<string name="type.highway.trunk">Trunk Road</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.trunk.bridge">Bridge</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.trunk.tunnel">Tunnel</string>
-	<string name="type.highway.trunk_link">National Highway Ramp</string>
+	<string name="type.highway.trunk_link">Trunk Road Ramp</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.trunk_link.bridge">Bridge</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
@@ -1215,13 +1225,13 @@
 	<string name="type.area_highway.tertiary">Tertiary Road</string>
 	<string name="type.area_highway.steps">Stairs</string>
 	<string name="type.area_highway.track">Track</string>
-	<string name="type.area_highway.trunk">National Highway</string>
+	<string name="type.area_highway.trunk">Trunk Road</string>
 	<string name="type.area_highway.unclassified">Minor Road</string>
 	<string name="type.highway.world_level">highway-world_level</string>
 	<string name="type.highway.world_towns_level">highway-world_towns_level</string>
 
 	<!-- SECTION: Types: Historic -->
-	<string name="type.historic">Historic</string>
+	<string name="type.historic">Historic object</string>
 	<string name="type.historic.archaeological_site">Archaeological Site</string>
 	<string name="type.historic.battlefield">Battlefield</string>
 	<string name="type.historic.boundary_stone">Boundary Stone</string>
@@ -1239,16 +1249,21 @@
 	<string name="type.historic.city_gate">City gate</string>
 	<string name="type.historic.citywalls">City Wall</string>
 	<string name="type.historic.fort">Fort</string>
+	<string name="type.historic.gallows">Gallows</string>
 	<string name="type.historic.memorial">Memorial</string>
+	<string name="type.historic.memorial.cross">Memorial cross</string>
 	<string name="type.historic.memorial.plaque">Commemorative plaque</string>
 	<string name="type.historic.memorial.sculpture">Sculpture</string>
 	<string name="type.historic.memorial.statue">Statue</string>
+	<string name="type.historic.memorial.stolperstein">Stolperstein</string>
+	<string name="type.historic.memorial.war_memorial">War memorial</string>
 	<string name="type.historic.monument">Monument</string>
+	<string name="type.historic.pillory">Pillory</string>
 	<string name="type.historic.ruins">Ruins</string>
 	<string name="type.historic.ship">Ship</string>
 	<string name="type.historic.tomb">Tomb</string>
-	<string name="type.historic.wayside_cross">Christian Cross</string>
-	<string name="type.historic.wayside_shrine">Shrine</string>
+	<string name="type.historic.wayside_cross">Wayside cross</string>
+	<string name="type.historic.wayside_shrine">Wayside shrine</string>
 	<string name="type.hwtag">hwtag</string>
 	<string name="type.hwtag.bidir_bicycle">hwtag-bidir_bicycle</string>
 	<string name="type.hwtag.onedir_bicycle">hwtag-onedir_bicycle</string>
@@ -1309,6 +1324,7 @@
 	<string name="type.leisure.dog_park">Dog Area</string>
 	<string name="type.leisure.fitness_centre">Fitness Centre</string>
 	<string name="type.leisure.fitness_station">Fitness Station</string>
+	<string name="type.leisure.dance">Dance Hall</string>
 	<string name="type.leisure.garden">Garden</string>
 	<string name="type.leisure.garden.residential">Residential Garden</string>
 	<string name="type.leisure.golf_course">Golf Course</string>
@@ -1351,7 +1367,7 @@
 	<string name="type.man_made.storage_tank">Storage Tank</string>
 	<string name="type.man_made.surveillance">Surveillance Camera</string>
 	<string name="type.man_made.tower">Tower</string>
-	<string name="type.man_made.wastewater_plant">Wastewater Plant</string>
+	<string name="type.man_made.wastewater_plant">Wastewater treatment plant</string>
 	<string name="type.man_made.water_tap">Water Tap</string>
 	<string name="type.man_made.water_tower">Water Tower</string>
 	<string name="type.man_made.water_well">Water Well</string>
@@ -1374,6 +1390,7 @@
 	<string name="type.natural.earth_bank">Earth Bank</string>
 	<string name="type.man_made.embankment">Embankment</string>
 	<string name="type.natural.coastline">Coastline</string>
+	<string name="type.natural.desert">Desert</string>
 	<string name="type.natural.geyser">Geyser</string>
 	<string name="type.natural.glacier">Glacier</string>
 	<string name="type.natural.grassland">Grassland</string>
@@ -1461,41 +1478,41 @@
 	<string name="type.public_transport">Public Transport</string>
 	<string name="type.public_transport.platform">Platform</string>
 	<string name="type.railway">Railway</string>
-	<string name="type.railway.abandoned">Abandoned railway</string>
-	<string name="type.railway.abandoned.bridge">Abandoned railway</string>
-	<string name="type.railway.abandoned.tunnel">Abandoned Railway</string>
-	<string name="type.railway.construction">Railway\'s Construction</string>
+	<string name="type.railway.abandoned">Abandoned Railway</string>
+	<string name="type.railway.abandoned.bridge">Abandoned Railway Bridge</string>
+	<string name="type.railway.abandoned.tunnel">Abandoned Railway Tunnel</string>
+	<string name="type.railway.construction">Railway Construction</string>
 	<string name="type.railway.crossing">Railway Crossing</string>
 	<string name="type.railway.disused">Disused railway</string>
 	<string name="type.railway.funicular">Funicular</string>
-	<string name="type.railway.funicular.bridge">Funicular</string>
-	<string name="type.railway.funicular.tunnel">Funicular</string>
+	<string name="type.railway.funicular.bridge">Funicular Bridge</string>
+	<string name="type.railway.funicular.tunnel">Funicular Tunnel</string>
 	<string name="type.railway.halt">Train Station</string>
 	<string name="type.railway.level_crossing">Level Crossing</string>
 	<string name="type.railway.light_rail">Light Rail</string>
-	<string name="type.railway.light_rail.bridge">Light Rail</string>
-	<string name="type.railway.light_rail.tunnel">Light Rail</string>
+	<string name="type.railway.light_rail.bridge">Light Rail Bridge</string>
+	<string name="type.railway.light_rail.tunnel">Light Rail Tunnel</string>
 	<string name="type.railway.monorail">Monorail</string>
-	<string name="type.railway.monorail.bridge">Monorail</string>
-	<string name="type.railway.monorail.tunnel">Monorail</string>
+	<string name="type.railway.monorail.bridge">Monorail Bridge</string>
+	<string name="type.railway.monorail.tunnel">Monorail Tunnel</string>
 	<string name="type.railway.narrow_gauge">Narrow Gauge Rail</string>
-	<string name="type.railway.narrow_gauge.bridge">Narrow Gauge Rail</string>
-	<string name="type.railway.narrow_gauge.tunnel">Narrow Gauge Rail</string>
+	<string name="type.railway.narrow_gauge.bridge">Narrow Gauge Rail Bridge</string>
+	<string name="type.railway.narrow_gauge.tunnel">Narrow Gauge Rail Tunnel</string>
 	<string name="type.railway.platform">Railway Platform</string>
 	<string name="type.railway.preserved">Preserved Rail</string>
-	<string name="type.railway.preserved.bridge">Preserved Rail</string>
-	<string name="type.railway.preserved.tunnel">Preserved Rail</string>
+	<string name="type.railway.preserved.bridge">Preserved Rail Bridge</string>
+	<string name="type.railway.preserved.tunnel">Preserved Rail Tunnel</string>
 	<string name="type.railway.rail">Railway</string>
-	<string name="type.railway.rail.bridge">Railway</string>
+	<string name="type.railway.rail.bridge">Railway Bridge</string>
 	<string name="type.railway.rail.motor_vehicle">Railway</string>
-	<string name="type.railway.rail.tunnel">Railway</string>
+	<string name="type.railway.rail.tunnel">Railway Tunnel</string>
 	<string name="type.railway.razed">Razed Rail</string>
 	<string name="type.railway.siding">Siding Rail</string>
-	<string name="type.railway.siding.bridge">Siding Rail</string>
-	<string name="type.railway.siding.tunnel">Siding Rail</string>
+	<string name="type.railway.siding.bridge">Siding Rail Bridge</string>
+	<string name="type.railway.siding.tunnel">Siding Rail Tunnel</string>
 	<string name="type.railway.spur">Spur Rail</string>
-	<string name="type.railway.spur.bridge">Spur Rail</string>
-	<string name="type.railway.spur.tunnel">Spur Rail</string>
+	<string name="type.railway.spur.bridge">Spur Rail Bridge</string>
+	<string name="type.railway.spur.tunnel">Spur Rail Tunnel</string>
 	<string name="type.railway.station">Train Station</string>
 	<string name="type.railway.station.light_rail">Train Station</string>
 	<string name="type.railway.station.monorail">Train Station</string>
@@ -1552,8 +1569,7 @@
 	<string name="type.railway.station.subway.lille">Subway</string>
 	<string name="type.railway.station.subway.lima">Subway</string>
 	<string name="type.railway.station.subway.lisboa">Subway</string>
-	<string name="type.railway.station.subway.lisbon">Subway</string>
-	<string name="type.railway.station.subway.london">Subway</string>
+	<string name="type.railway.station.subway.london">Underground Station</string>
 	<string name="type.railway.station.subway.lyon">Subway</string>
 	<string name="type.railway.station.subway.madrid">Subway</string>
 	<string name="type.railway.station.subway.malaga">Subway</string>
@@ -1610,8 +1626,8 @@
 	<string name="type.railway.station.subway.yerevan">Subway</string>
 	<string name="type.railway.station.subway.yokohama">Subway</string>
 	<string name="type.railway.subway">Subway Line</string>
-	<string name="type.railway.subway.bridge">Subway Line</string>
-	<string name="type.railway.subway.tunnel">Subway Line</string>
+	<string name="type.railway.subway.bridge">Subway Line Bridge</string>
+	<string name="type.railway.subway.tunnel">Subway Line Tunnel</string>
 	<string name="type.railway.subway_entrance">Subway Entrance</string>
 	<string name="type.railway.subway_entrance.adana">Subway Entrance</string>
 	<string name="type.railway.subway_entrance.algiers">Subway Entrance</string>
@@ -1665,8 +1681,7 @@
 	<string name="type.railway.subway_entrance.lille">Subway Entrance</string>
 	<string name="type.railway.subway_entrance.lima">Subway Entrance</string>
 	<string name="type.railway.subway_entrance.lisboa">Subway Entrance</string>
-	<string name="type.railway.subway_entrance.lisbon">Subway Entrance</string>
-	<string name="type.railway.subway_entrance.london">Subway Entrance</string>
+	<string name="type.railway.subway_entrance.london">Underground Station Entrance</string>
 	<string name="type.railway.subway_entrance.lyon">Subway Entrance</string>
 	<string name="type.railway.subway_entrance.madrid">Subway Entrance</string>
 	<string name="type.railway.subway_entrance.malaga">Subway Entrance</string>
@@ -1723,12 +1738,12 @@
 	<string name="type.railway.subway_entrance.yerevan">Subway Entrance</string>
 	<string name="type.railway.subway_entrance.yokohama">Subway Entrance</string>
 	<string name="type.railway.tram">Tram Line</string>
-	<string name="type.railway.tram.bridge">Tram Line</string>
-	<string name="type.railway.tram.tunnel">Tram Line</string>
+	<string name="type.railway.tram.bridge">Tram Line Bridge</string>
+	<string name="type.railway.tram.tunnel">Tram Line Tunnel</string>
 	<string name="type.railway.tram_stop">Tram Stop</string>
 	<string name="type.railway.yard">Railway Yard</string>
-	<string name="type.railway.yard.bridge">Railway Yard</string>
-	<string name="type.railway.yard.tunnel">Railway Yard</string>
+	<string name="type.railway.yard.bridge">Railway Yard Bridge</string>
+	<string name="type.railway.yard.tunnel">Railway Yard Tunnel</string>
 	<string name="type.route">route</string>
 	<string name="type.route.ferry">Ferry</string>
 	<string name="type.route.shuttle_train">Shuttle Train</string>
@@ -1747,9 +1762,9 @@
 	<string name="type.shop.car_repair.tyres">Tyre Repair</string>
 	<string name="type.shop.caravan">RV Dealership</string>
 	<string name="type.shop.chemist">Chemist Shop</string>
-	<string name="type.shop.chocolate">Shop</string>
+	<string name="type.shop.chocolate">Chocolate Shop</string>
 	<string name="type.shop.clothes">Clothes Shop</string>
-	<string name="type.shop.coffee">Shop</string>
+	<string name="type.shop.coffee">Coffee Store</string>
 	<string name="type.shop.computer">Computer Store</string>
 	<string name="type.shop.confectionery">Sweets</string>
 	<string name="type.shop.convenience">Convenience Store</string>
@@ -1761,7 +1776,7 @@
 	<string name="type.shop.dry_cleaning">Dry Cleaning</string>
 	<string name="type.shop.electronics">Electronics</string>
 	<string name="type.shop.erotic">Erotic Shop</string>
-	<string name="type.shop.fabric">Shop</string>
+	<string name="type.shop.fabric">Fabric Shop</string>
 	<string name="type.shop.farm">Farm Food Shop</string>
 	<string name="type.shop.florist">Florist’s</string>
 	<string name="type.shop.funeral_directors">Funeral Directors</string>
@@ -1781,10 +1796,10 @@
 	<string name="type.shop.mall">Mall</string>
 	<string name="type.shop.massage">Massage Salon</string>
 	<string name="type.shop.mobile_phone">Cell Phones</string>
-	<string name="type.shop.money_lender">Shop</string>
+	<string name="type.shop.money_lender">Money Lender</string>
 	<string name="type.shop.motorcycle">Motorcycle Shop</string>
-	<string name="type.shop.music">Shop</string>
-	<string name="type.shop.musical_instrument">Shop</string>
+	<string name="type.shop.music">Record Store</string>
+	<string name="type.shop.musical_instrument">Musical Instruments</string>
 	<string name="type.shop.newsagent">Newspaper Stand</string>
 	<string name="type.shop.optician">Optician’s</string>
 	<string name="type.shop.outdoor">Outdoor Equipment</string>
@@ -1799,7 +1814,7 @@
 	<string name="type.shop.stationery">Stationery Shop</string>
 	<string name="type.shop.supermarket">Supermarket</string>
 	<string name="type.shop.tattoo">Tattoo Parlour</string>
-	<string name="type.shop.tea">Shop</string>
+	<string name="type.shop.tea">Tea Store</string>
 	<string name="type.shop.ticket">Ticket Shop</string>
 	<string name="type.shop.toys">Toy Store</string>
 	<string name="type.shop.travel_agency">Travel Agency</string>
@@ -1875,7 +1890,7 @@
 	<string name="type.tourism.artwork.sculpture">Artwork</string>
 	<string name="type.tourism.artwork.statue">Artwork</string>
 	<string name="type.tourism.attraction">Attraction</string>
-	<string name="type.tourism.attraction.animal">Attraction</string>
+	<string name="type.tourism.attraction.animal">Animal enclosure</string>
 	<string name="type.tourism.attraction.specified">Attraction</string>
 	<string name="type.tourism.camp_site">Camping</string>
 	<string name="type.tourism.caravan_site">RV Park</string>
@@ -1923,13 +1938,11 @@
 	<string name="type.wheelchair.limited">Limited Wheelchair Access</string>
 	<string name="type.wheelchair.no">No Wheelchair Access</string>
 	<string name="type.wheelchair.yes">Full Wheelchair Access</string>
-	<!-- en.wikipedia.org/wiki/Surface_lift -->
-	<string name="type.piste_lift">Surface Lift</string>
-	<string name="type.piste_lift.j.bar">J-bar Lift</string>
-	<string name="type.piste_lift.magic_carpet">Magic Carpet</string>
-	<string name="type.piste_lift.platter">Platter Lift</string>
-	<string name="type.piste_lift.rope_tow">Rope Tow</string>
-	<string name="type.piste_lift.t.bar">T-bar Lift</string>
+	<string name="type.aerialway.j.bar">J-bar Lift</string>
+	<string name="type.aerialway.magic_carpet">Magic Carpet</string>
+	<string name="type.aerialway.platter">Platter Lift</string>
+	<string name="type.aerialway.rope_tow">Rope Tow</string>
+	<string name="type.aerialway.t.bar">T-bar Lift</string>
 	<string name="type.piste_type">Piste Type</string>
 	<string name="type.piste_type.downhill">Downhill Ski Run</string>
 	<string name="type.piste_type.downhill.advanced">Downhill Ski Run</string>

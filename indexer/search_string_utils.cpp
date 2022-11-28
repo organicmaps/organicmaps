@@ -292,6 +292,8 @@ public:
   }
 
 private:
+  /// @todo Print most common street tokens for each country on generator stage
+  /// (OSM ground truth) and compare with these synonyms.
   StreetsSynonymsHolder()
   {
     char const * affics[] =
@@ -317,7 +319,7 @@ private:
       "allee", "alley", "autoroute", "aut", "bypass", "byway", /*"carrefour", "carref",*/ "côte", "expressway", "freeway", "fwy", "pky", "pkwy",
       /// @todo Do not use next _common search_ (e.g. 'park' is a prefix of 'parkway') tokens as generic street synonyms.
       /// Should reconsider streets matching logic to get this synonyms back.
-      //"line", "link", "loop", "parkway", "path", "pathway", "route", "trail", "walk",
+      //"line", "link", "loop", "parkway", "parkvej", "path", "pathway", "route", "trail", "walk"
 
       // Catalan language (Barcelona, Valencia, ...)
       "avinguda", "carrer", /*"rambla", "ronda",*/ "passeig", "passatge", "travessera",
@@ -329,7 +331,7 @@ private:
       "ulice", "ul", "náměstí", "nám", "nábřeží", "nábr",
 
       // Danish - Dansk
-      "plads", "alle", "gade",
+      "plads", "alle", "gade", "vej",
 
       // Dutch - Nederlands
       "laan", "ln.", "straat", "steenweg", "stwg", "st",
@@ -362,7 +364,8 @@ private:
       "मार्ग", "marg",
 
       // Norwegian - Norsk
-      "vei", "veien", "vn", "gaten", "gata", "gt", "plass", "plassen", "sving", "svingen", "sv",
+      // Details here: https://github.com/organicmaps/organicmaps/issues/3616
+      "vei", "veien", "veg", "vegen", "vn", "gata", "gate", "gaten", "gt", "plass", "plassen", "sving", "sv", "allé",
 
       // Polish - Polski
       "aleja", "aleje", "aleji", "alejach", "aleją", "plac", "placu", "placem", "ulica", "ulicy",
@@ -380,7 +383,7 @@ private:
       "avenida", "avd", "avda", "bulevar", "bulev", "calle", "calleja", "cllja", "callejón", "callej", "cjon", "callejuela", "cjla", "callizo", "cllzo", "calzada", "czada", "costera", "coste", "plza", "pza", "plazoleta", "pzta", "plazuela", "plzla", "tránsito", "trans", "transversal", "trval", "trasera", "tras", "travesía", "trva", "paseo", "plaça",
 
       // Swedish - Svenska
-      "väg", "vägen", "gatan", "gränd", "gränden", "stig", "stigen", "plats", "platsen",
+      "väg", "vägen", "gata", "gatan", "gränd", "gränden", "stig", "stigen", "plats", "platsen", "allé",
 
       // Turkish - Türkçe
       "sokak", "sk.", "sok", "sokağı", "cadde", "cad", "cd", "caddesi", "bulvar", "bulvarı", "blv.",

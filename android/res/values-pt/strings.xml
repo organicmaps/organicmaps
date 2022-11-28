@@ -130,6 +130,8 @@
 	<string name="recycling">Reciclagem</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
 	<string name="water">Água</string>
+	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
+	<string name="rv">Para trailers</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Notas</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -512,7 +514,8 @@
 	<string name="prefs_languages_information_off_link">Para obter mais informações, consulte este guia.</string>
 	<string name="transliteration_title">Transliteração para o latim</string>
 	<string name="learn_more">Saber mais</string>
-	<string name="core_exit">Sair</string>
+	<!-- Subway exits for public transport marks on the map -->
+	<string name="core_exit">Saída</string>
 	<string name="routing_add_start_point">Adicionar ponto de partida para planear uma rota</string>
 	<string name="routing_add_finish_point">Adicionar final da viagem para planear uma rota</string>
 	<string name="button_exit">Sair</string>
@@ -807,6 +810,7 @@
 	<string name="type.amenity.vending_machine.drinks">Máquina de venda de bebidas</string>
 	<string name="type.amenity.vending_machine.parking_tickets">Máquina venda de bilhetes de estacionamento</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">Máquina venda de bilhetes de transporte público</string>
+	<string name="type.amenity.parcel_locker">Cacifo</string>
 	<string name="type.amenity.veterinary">Veterinário</string>
 	<string name="type.amenity.waste_basket">Caixote do lixo</string>
 	<string name="type.amenity.waste_disposal">Contentor do lixo</string>
@@ -815,12 +819,14 @@
 	<string name="type.barrier.block">Bloco</string>
 	<string name="type.barrier.bollard">Pilarete</string>
 	<string name="type.barrier.border_control">Controlo de fronteira</string>
-	<string name="type.barrier.city_wall">Muralha de cidade</string>
+	<string name="type.barrier.city_wall">Muralha</string>
 	<string name="type.barrier.cycle_barrier">Barreira de bicicletas</string>
+	<string name="type.barrier.ditch">Fosso</string>
 	<string name="type.barrier.entrance">Entrada</string>
 	<string name="type.barrier.fence">Vedação</string>
 	<string name="type.barrier.gate">Portão</string>
 	<string name="type.barrier.hedge">Sebe</string>
+	<string name="type.barrier.kissing_gate">Quebra-corpo</string>
 	<string name="type.barrier.lift_gate">Cancela elevatória</string>
 	<string name="type.barrier.retaining_wall">Muro de retenção</string>
 	<string name="type.barrier.stile">Travessia de escada em vedação ou muro</string>
@@ -966,6 +972,7 @@
 	<string name="type.emergency.phone">Telefone de emergência</string>
 	<string name="type.entrance">Entrada</string>
 	<string name="type.healthcare.laboratory">Laboratório médico</string>
+	<string name="type.healthcare.physiotherapist">Fisioterapeuta</string>
 
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway">Rodovia</string>
@@ -1138,7 +1145,7 @@
 	<string name="type.area_highway.unclassified">Estrada sem classificação</string>
 
 	<!-- SECTION: Types: Historic -->
-	<string name="type.historic">Histórico</string>
+	<string name="type.historic">Objeto histórico</string>
 	<string name="type.historic.archaeological_site">Sítio arqueológico</string>
 	<string name="type.historic.battlefield">Campo de batalha</string>
 	<string name="type.historic.boundary_stone">Marco fronteiriço</string>
@@ -1154,15 +1161,20 @@
 	<string name="type.historic.castle.shiro">Castelo japonês</string>
 	<string name="type.historic.castle.stately">Château</string>
 	<string name="type.historic.city_gate">Portas da cidade</string>
-	<string name="type.historic.citywalls">Muralha de cidade</string>
-	<string name="type.historic.fort">Forte histórico</string>
+	<string name="type.historic.citywalls">Muralha</string>
+	<string name="type.historic.fort">Forte</string>
+	<string name="type.historic.gallows">Forca</string>
 	<string name="type.historic.memorial">Memorial</string>
+	<string name="type.historic.memorial.cross">Cruz memorial</string>
 	<string name="type.historic.memorial.plaque">Placa comemorativa</string>
-	<string name="type.historic.memorial.sculpture">Escultura memorial</string>
-	<string name="type.historic.memorial.statue">Estátua memorial</string>
+	<string name="type.historic.memorial.sculpture">Escultura</string>
+	<string name="type.historic.memorial.statue">Estátua</string>
+	<string name="type.historic.memorial.stolperstein">Stolperstein</string>
+	<string name="type.historic.memorial.war_memorial">Memorial de guerra</string>
 	<string name="type.historic.monument">Monumento</string>
+	<string name="type.historic.pillory">Pelourinho</string>
 	<string name="type.historic.ruins">Ruínas</string>
-	<string name="type.historic.ship">Barco histórico</string>
+	<string name="type.historic.ship">Barco</string>
 	<string name="type.historic.tomb">Túmulo</string>
 	<string name="type.historic.wayside_cross">Cruzeiro</string>
 	<string name="type.historic.wayside_shrine">Alminhas</string>
@@ -1212,6 +1224,7 @@
 	<string name="type.leisure.dog_park">Parque para câes</string>
 	<string name="type.leisure.fitness_centre">Academia de fitness</string>
 	<string name="type.leisure.fitness_station">Dispositivo público de exercícios</string>
+	<string name="type.leisure.dance">Salão de dança</string>
 	<string name="type.leisure.garden">Jardim</string>
 	<string name="type.leisure.garden.residential">Jardim residencial</string>
 	<string name="type.leisure.golf_course">Campo de golfe</string>
@@ -1268,6 +1281,7 @@
 	<string name="type.natural.earth_bank">Penhasco</string>
 	<string name="type.man_made.embankment">Aterro</string>
 	<string name="type.natural.coastline">Linha costeira</string>
+	<string name="type.natural.desert">Deserto</string>
 	<string name="type.natural.geyser">Géiser</string>
 	<string name="type.natural.glacier">Glaciar</string>
 	<string name="type.natural.grassland">Campo</string>
@@ -1441,7 +1455,6 @@
 	<string name="type.railway.station.subway.lille">Estação de metro</string>
 	<string name="type.railway.station.subway.lima">Estação de metro</string>
 	<string name="type.railway.station.subway.lisboa">Estação de metro</string>
-	<string name="type.railway.station.subway.lisbon">Estação de metro</string>
 	<string name="type.railway.station.subway.london">Estação de metro</string>
 	<string name="type.railway.station.subway.lyon">Estação de metro</string>
 	<string name="type.railway.station.subway.madrid">Estação de metro</string>
@@ -1554,7 +1567,6 @@
 	<string name="type.railway.subway_entrance.lille">Entrada do metro</string>
 	<string name="type.railway.subway_entrance.lima">Entrada do metro</string>
 	<string name="type.railway.subway_entrance.lisboa">Entrada do metro</string>
-	<string name="type.railway.subway_entrance.lisbon">Entrada do metro</string>
 	<string name="type.railway.subway_entrance.london">Entrada do metro</string>
 	<string name="type.railway.subway_entrance.lyon">Entrada do metro</string>
 	<string name="type.railway.subway_entrance.madrid">Entrada do metro</string>
@@ -1647,7 +1659,7 @@
 	<string name="type.shop.department_store">Grande armazém</string>
 	<string name="type.shop.doityourself">Loja de ferramentas e materiais de bricolage</string>
 	<string name="type.shop.dry_cleaning">Lavagem a seco</string>
-	<string name="type.shop.electronics">Loja de electrónica de consumo</string>
+	<string name="type.shop.electronics">Loja de eletrónica de consumo</string>
 	<string name="type.shop.erotic">Loja de artigos eróticos</string>
 	<string name="type.shop.fabric">Loja de tecidos</string>
 	<string name="type.shop.farm">Loja de comida agrícola</string>
@@ -1811,13 +1823,11 @@
 	<string name="type.wheelchair.limited">Acesso a cadeiras de rodas limitado</string>
 	<string name="type.wheelchair.no">Sem acesso a cadeiras de rodas</string>
 	<string name="type.wheelchair.yes">Acessível a cadeiras de rodas</string>
-	<!-- en.wikipedia.org/wiki/Surface_lift -->
-	<string name="type.piste_lift">Telesqui</string>
-	<string name="type.piste_lift.j.bar">Telesqui de barra em J</string>
-	<string name="type.piste_lift.magic_carpet">Tapete deslizante</string>
-	<string name="type.piste_lift.platter">Telesqui de disco</string>
-	<string name="type.piste_lift.rope_tow">Telesqui de corda</string>
-	<string name="type.piste_lift.t.bar">Telesqui de barra em T</string>
+	<string name="type.aerialway.j.bar">Telesqui de barra em J</string>
+	<string name="type.aerialway.magic_carpet">Tapete deslizante</string>
+	<string name="type.aerialway.platter">Telesqui de disco</string>
+	<string name="type.aerialway.rope_tow">Telesqui de corda</string>
+	<string name="type.aerialway.t.bar">Telesqui de barra em T</string>
 	<string name="type.piste_type">Tipo de pista</string>
 	<string name="type.piste_type.downhill">Esqui alpino</string>
 	<string name="type.piste_type.downhill.advanced">Esqui alpino avançado</string>

@@ -9,7 +9,7 @@
     da = Hold til højre.
     de = Halten Sie sich rechts.
     el = Μείνετε δεξιά.
-    es = Mantente a la derecha.
+    es = Manténgase a la derecha.
     eu = Mantendu eskuinera.
     fa = به راست برانید.
     fi = Pysy oikealla.
@@ -199,7 +199,7 @@
     da = Hold til venstre.
     de = Halten Sie sich links.
     el = Μείνετε αριστερά.
-    es = Mantente a la izquierda.
+    es = Manténgase a la izquierda.
     eu = Mantendu ezkerrean.
     fa = به چپ برانید.
     fi = Pysy vasemmalla.
@@ -442,8 +442,8 @@
     mr = तुम्ही पोहोचाल.
     nl = Arriveert u.
     pl = Dojedziesz.
-    pt = Você vai chegar.
-    pt-BR = Você vai chegar.
+    pt = Está a chegar ao seu destino.
+    pt-BR = Você está chegando ao seu destino.
     ro = Veți sosi.
     ru = Вы прибудете в пункт назначения.
     sk = Dorazíte.
@@ -480,8 +480,8 @@
     mr = तुम्ही पोहोचला आहात.
     nl = Bestemming bereikt.
     pl = Jesteś u celu.
-    pt = Chegou.
-    pt-BR = Chegou.
+    pt = Chegou no seu destino.
+    pt-BR = Você chegou no seu destino.
     ro = Ați ajuns.
     ru = Вы прибыли в пункт назначения.
     sk = Dorazili ste do cieľa.
@@ -519,7 +519,7 @@
     nl = Over vijftig meter
     pl = Za pięćdziesiąt metrów
     pt = A cinquenta metros
-    pt-BR = A cinquenta metros
+    pt-BR = Em cinquenta metros
     ro = După cincizeci de metri
     ru = Через пятьдесят метров
     sk = Po päťdesiatich metroch
@@ -557,7 +557,7 @@
     nl = Over honderd meter
     pl = Za sto metrów
     pt = A cem metros
-    pt-BR = A cem metros
+    pt-BR = Em cem metros
     ro = După o sută de metri
     ru = Через сто метров
     sk = Po sto metroch
@@ -595,7 +595,7 @@
     nl = Over tweehonderd meter
     pl = Za dwieście metrów
     pt = A duzentos metros
-    pt-BR = A duzentos metros
+    pt-BR = Em duzentos metros
     ro = După două sute de metri
     ru = Через двести метров
     sk = Po dvesto metroch
@@ -633,7 +633,7 @@
     nl = Over tweehonderdvijftig meter
     pl = Za dwieście pięćdziesiąt metrów
     pt = A duzentos e cinquenta metros
-    pt-BR = A duzentos e cinquenta metros
+    pt-BR = Em duzentos e cinquenta metros
     ro = După două sute cincizeci de metri
     ru = Через двести пятьдесят метров
     sk = Po dvestopäťdesiatich metroch
@@ -671,7 +671,7 @@
     nl = Over driehonderd meter
     pl = Za trzysta metrów
     pt = A trezentos metros
-    pt-BR = A trezentos metros
+    pt-BR = Em trezentos metros
     ro = După trei sute de metri
     ru = Через триста метров
     sk = Po tristo metroch
@@ -709,7 +709,7 @@
     nl = Over vierhonderd meter
     pl = Za czterysta metrów
     pt = A quatrocentos metros
-    pt-BR = A quatrocentos metros
+    pt-BR = Em quatrocentos metros
     ro = După patru sute de metri
     ru = Через четыреста метров
     sk = Po štyristo metroch
@@ -747,7 +747,7 @@
     nl = Over vijfhonderd meter
     pl = Za pięćset metrów
     pt = A quinhentos metros
-    pt-BR = A quinhentos metros
+    pt-BR = Em quinhentos metros
     ro = După cinci sute de metri
     ru = Через пятьсот метров
     sk = Po päťsto metroch
@@ -785,7 +785,7 @@
     nl = Over zeshonderd meter
     pl = Za sześćset metrów
     pt = A seiscentos metros
-    pt-BR = A seiscentos metros
+    pt-BR = Em seiscentos metros
     ro = După șase sute de metri
     ru = Через шестьсот метров
     sk = Po šesťsto metroch
@@ -823,7 +823,7 @@
     nl = Over zevenhonderd meter
     pl = Za siedemset metrów
     pt = A setecentos metros
-    pt-BR = A setecentos metros
+    pt-BR = Em setecentos metros
     ro = După șapte sute de metri
     ru = Через семьсот метров
     sk = Po sedemsto metroch
@@ -861,7 +861,7 @@
     nl = Over zevenhonderdvijftig meter
     pl = Za siedemset pięćdziesiąt metrów
     pt = A setecentos e cinquenta metros
-    pt-BR = A setecentos e cinquenta metros
+    pt-BR = Em setecentos e cinquenta metros
     ro = După șapte sute cincizeci de metri
     ru = Через семьсот пятьдесят метров
     sk = Po sedemstopäťdesiatich metroch
@@ -899,7 +899,7 @@
     nl = Over achthonderd meter
     pl = Za osiemset metrów
     pt = A oitocentos metros
-    pt-BR = A oitocentos metros
+    pt-BR = Em oitocentos metros
     ro = După opt sute de metri
     ru = Через восемьсот метров
     sk = Po osemsto metroch
@@ -937,7 +937,7 @@
     nl = Over negenhonderd meter
     pl = Za dziewięćset metrów
     pt = A novecentos metros
-    pt-BR = A novecentos metros
+    pt-BR = Em novecentos metros
     ro = După nouă sute de metri
     ru = Через девятьсот метров
     sk = Po deväťsto metroch
@@ -975,7 +975,7 @@
     nl = Over één kilometer
     pl = Za kilometr
     pt = A um quilómetro
-    pt-BR = A um quilômetro
+    pt-BR = Em um quilômetro
     ro = După un kilometru
     ru = Через километр
     sk = Po jednom kilometri
@@ -1013,7 +1013,7 @@
     nl = Over anderhalve kilometer
     pl = Za półtora kilometra
     pt = A um quilómetro e meio
-    pt-BR = A um quilômetro e meio
+    pt-BR = Em um quilômetro e meio
     ro = După un kilometru și jumătate
     ru = Через полтора километра
     sk = Po jeden a pol kilometri
@@ -1051,7 +1051,7 @@
     nl = Over twee kilometer
     pl = Za dwa kilometry
     pt = A dois quilómetros
-    pt-BR = A dois quilômetros
+    pt-BR = Em dois quilômetros
     ro = După doi kilometri
     ru = Через два километра
     sk = Po dvoch kilometroch
@@ -1089,7 +1089,7 @@
     nl = Over tweeëneenhalve kilometer
     pl = Za dwa i pół kilometra
     pt = A dois quilómetros e meio
-    pt-BR = A dois quilômetros e meio
+    pt-BR = Em dois quilômetros e meio
     ro = După doi kilometri și jumătate
     ru = Через два с половиной километра
     sk = Po dva a pol kilometri
@@ -1127,7 +1127,7 @@
     nl = Over drie kilometer
     pl = Za trzy kilometry
     pt = A três quilómetros
-    pt-BR = A três quilômetros
+    pt-BR = Em três quilômetros
     ro = După trei kilometri
     ru = Через три километра
     sk = Po troch kilometroch
@@ -1621,7 +1621,7 @@
     nl = Over vijftig voet
     pl = Za pięćdziesiąt stóp
     pt = A cinquenta pés
-    pt-BR = A cinquenta pés
+    pt-BR = Em cinquenta pés
     ro = După cincizeci de picioare
     ru = Через пятьдесят футов
     sk = Po päťdesiatich stopách
@@ -1659,7 +1659,7 @@
     nl = Over honderd voet
     pl = Za sto stóp
     pt = A cem pés
-    pt-BR = A cem pés
+    pt-BR = Em cem pés
     ro = După o sută de picioare
     ru = Через сто футов
     sk = Po sto stopách
@@ -1697,7 +1697,7 @@
     nl = Over tweehonderd voet
     pl = Za dwieście stóp
     pt = A duzentos pés
-    pt-BR = A duzentos pés
+    pt-BR = Em duzentos pés
     ro = După două sute de picioare
     ru = Через двести футов
     sk = Po dvesto stopách
@@ -1735,7 +1735,7 @@
     nl = Over driehonderd voet
     pl = Za trzysta stóp
     pt = A trezentos pés
-    pt-BR = A trezentos pés
+    pt-BR = Em trezentos pés
     ro = După trei sute de picioare
     ru = Через триста футов
     sk = Po tristo stopách
@@ -1773,7 +1773,7 @@
     nl = Over vierhonderd voet
     pl = Za czterysta stóp
     pt = A quatrocentos pés
-    pt-BR = A quatrocentos pés
+    pt-BR = Em quatrocentos pés
     ro = După patru sute de picioare
     ru = Через четыреста футов
     sk = Po štyristo stopách
@@ -1811,7 +1811,7 @@
     nl = Over vijfhonderd voet
     pl = Za pięćset stóp
     pt = A quinhentos pés
-    pt-BR = A quinhentos pés
+    pt-BR = Em quinhentos pés
     ro = După cinci sute de picioare
     ru = Через пятьсот футов
     sk = Po päťsto stopách
@@ -1849,7 +1849,7 @@
     nl = Over zeshonderd voet
     pl = Za sześćset stóp
     pt = A seiscentos pés
-    pt-BR = A seiscentos pés
+    pt-BR = Em seiscentos pés
     ro = După șase sute de picioare
     ru = Через шестьсот футов
     sk = Po šesťsto stopách
@@ -1887,7 +1887,7 @@
     nl = Over zevenhonderd voet
     pl = Za siedemset stóp
     pt = A setecentos pés
-    pt-BR = A setecentos pés
+    pt-BR = Em setecentos pés
     ro = După șapte sute de picioare
     ru = Через семьсот футов
     sk = Po sedemsto stopách
@@ -1925,7 +1925,7 @@
     nl = Over achthonderd voet
     pl = Za osiemset stóp
     pt = A oitocentos pés
-    pt-BR = A oitocentos pés
+    pt-BR = Em oitocentos pés
     ro = După opt sute de picioare
     ru = Через восемьсот футов
     sk = Po osemsto stopách
@@ -1963,7 +1963,7 @@
     nl = Over negenhonderd voet
     pl = Za dziewięćset stóp
     pt = A novecentos pés
-    pt-BR = A novecentos pés
+    pt-BR = Em novecentos pés
     ro = După nouă sute de picioare
     ru = Через девятьсот футов
     sk = Po deväťsto stopách
@@ -2001,7 +2001,7 @@
     nl = Over duizend voet
     pl = Za tysiąc stóp
     pt = A mil pés
-    pt-BR = A mil pés
+    pt-BR = Em mil pés
     ro = După o mie de picioare
     ru = Через тысячу футов
     sk = Po tisíc stopách
@@ -2039,7 +2039,7 @@
     nl = Over vijftienhonderd voet
     pl = Za tysiąc pięćset stóp
     pt = A mil e quinhentos pés
-    pt-BR = A mil e quinhentos pés
+    pt-BR = Em mil e quinhentos pés
     ro = După o mie cinci sute de picioare
     ru = Через тысячу пятьсот футов
     sk = Po tisícpäťsto stopách
@@ -2077,7 +2077,7 @@
     nl = Over tweeduizend voet
     pl = Za dwa tysiące stóp
     pt = A dois mil pés
-    pt-BR = A dois mil pés
+    pt-BR = Em dois mil pés
     ro = După două mii de picioare
     ru = Через две тысячи футов
     sk = Po dvetisíc stopách
@@ -2115,7 +2115,7 @@
     nl = Over vijfentwintighonderd voet
     pl = Za dwa i pół tysiąca stóp
     pt = A dois mil e quinhentos pés
-    pt-BR = A dois mil e quinhentos pés
+    pt-BR = Em dois mil e quinhentos pés
     ro = După două mii cinci sute de picioare
     ru = Через две тысячи пятьсот футов
     sk = Po dvetisícpäťsto stopách
@@ -2153,7 +2153,7 @@
     nl = Over drieduizend voet
     pl = Za trzy tysiące stóp
     pt = A três mil pés
-    pt-BR = A três mil pés
+    pt-BR = Em três mil pés
     ro = După trei mii de picioare
     ru = Через три тысячи футов
     sk = Po tritisíc stopách
@@ -2191,7 +2191,7 @@
     nl = Over vijfendertighonderd voet
     pl = Za trzy i pół tysiąca stóp
     pt = A três mil e quinhentos pés
-    pt-BR = A três mil e quinhentos pés
+    pt-BR = Em três mil e quinhentos pés
     ro = După trei mii cinci sute de picioare
     ru = Через три тысячи пятьсот футов
     sk = Po tritisícpäťsto stopách
@@ -2229,7 +2229,7 @@
     nl = Over vierduizend voet
     pl = Za cztery tysiące stóp
     pt = A quatro mil pés
-    pt-BR = A quatro mil pés
+    pt-BR = Em quatro mil pés
     ro = După patru mii de picioare
     ru = Через четыре тысячи футов
     sk = Po štyritisíc stopách
@@ -2267,7 +2267,7 @@
     nl = Over vijfenveertighonderd voet
     pl = Za cztery i pół tysiąca stóp
     pt = A quatro mil e quinhentos pés
-    pt-BR = A quatro mil e quinhentos pés
+    pt-BR = Em quatro mil e quinhentos pés
     ro = După patru mii cinci sute de picioare
     ru = Через четыре тысячи пятьсот футов
     sk = Po štyritisícpäťsto stopách
@@ -2305,7 +2305,7 @@
     nl = Over vijfduizend voet
     pl = Za pięć tysięcy stóp
     pt = A cinco mil pés
-    pt-BR = A cinco mil pés
+    pt-BR = Em cinco mil pés
     ro = După cinci mii de picioare
     ru = Через пять тысяч футов
     sk = Po päťtisíc stopách
@@ -2343,7 +2343,7 @@
     nl = Over één mijl
     pl = Za jedną milę
     pt = A uma milha
-    pt-BR = A uma milha
+    pt-BR = Em uma milha
     ro = După o milă
     ru = Через одну милю
     sk = Po jednej míli
@@ -2381,7 +2381,7 @@
     nl = Over anderhalve mijl
     pl = Za półtorej mili
     pt = A uma milha e meia
-    pt-BR = A uma milha e meia
+    pt-BR = Em uma milha e meia
     ro = După o milă și jumătate
     ru = Через полторы мили
     sk = Po jeden a pol míli
@@ -2419,7 +2419,7 @@
     nl = Over twee mijl
     pl = Za dwie mile
     pt = A duas milhas
-    pt-BR = A duas milhas
+    pt-BR = Em duas milhas
     ro = După două mile
     ru = Через две мили
     sk = Po dvoch míľach

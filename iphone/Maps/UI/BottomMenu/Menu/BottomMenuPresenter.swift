@@ -5,8 +5,8 @@ protocol BottomMenuPresenterProtocol: UITableViewDelegate, UITableViewDataSource
 class BottomMenuPresenter: NSObject {
   enum CellType: Int, CaseIterable {
     case addPlace
-    //case downloadRoutes
     case downloadMaps
+    case donate
     case settings
     case share
   }
@@ -26,6 +26,8 @@ class BottomMenuPresenter: NSObject {
     self.interactor = interactor
     self.sections = sections
   }
+  
+  let disableDonate = Settings.donateUrl() == nil
 }
 
 extension BottomMenuPresenter: BottomMenuPresenterProtocol {
@@ -42,58 +44,49 @@ extension BottomMenuPresenter {
   }
 
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    section == Sections.layers.rawValue ? 1 : CellType.allCases.count
+    section == Sections.layers.rawValue ? 1 : CellType.allCases.count - (disableDonate ? 1 : 0)
   }
 
+  private func correctedRow(_ row: Int) -> Int {
+    disableDonate && row >= CellType.donate.rawValue ? row + 1 : row
+  }
+  
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     if indexPath.section == Sections.layers.rawValue {
       let cell = tableView.dequeueReusableCell(cell: BottomMenuLayersCell.self)!
       cell.onClose = { [weak self] in self?.onClosePressed() }
       return cell
     }
-    if indexPath.section == Sections.items.rawValue {
-      let cell = tableView.dequeueReusableCell(cell: BottomMenuItemCell.self)!
-      switch CellType(rawValue: indexPath.row)! {
-      case .addPlace:
-        let enabled = MWMNavigationDashboardManager.shared().state == .hidden && FrameworkHelper.canEditMap()
-        cell.configure(imageName: "ic_add_place",
-                       title: L("placepage_add_place_button"),
-                       badgeCount: 0,
-                       enabled: enabled)
-//      case .downloadRoutes:
-//        cell.configure(imageName: "ic_menu_routes", title: L("download_guides"))
-      case .downloadMaps:
-        cell.configure(imageName: "ic_menu_download",
-                       title: L("download_maps"),
-                       badgeCount: MapsAppDelegate.theApp().badgeNumber(),
-                       enabled: true)
-      case .settings:
-        cell.configure(imageName: "ic_menu_settings",
-                       title: L("settings"),
-                       badgeCount: 0,
-                       enabled: true)
-      case .share:
-        cell.configure(imageName: "ic_menu_share",
-                       title: L("share_my_location"),
-                       badgeCount: 0,
-                       enabled: true)
-      }
-      return cell
+    let cell = tableView.dequeueReusableCell(cell: BottomMenuItemCell.self)!
+    switch CellType(rawValue: correctedRow(indexPath.row))! {
+    case .addPlace:
+      let enabled = MWMNavigationDashboardManager.shared().state == .hidden && FrameworkHelper.canEditMap()
+      cell.configure(imageName: "ic_add_place",
+                     title: L("placepage_add_place_button"),
+                     badgeCount: 0,
+                     enabled: enabled)
+    case .downloadMaps:
+      cell.configure(imageName: "ic_menu_download",
+                     title: L("download_maps"),
+                     badgeCount: MapsAppDelegate.theApp().badgeNumber(),
+                     enabled: true)
+    case .donate:
+      cell.configure(imageName: "ic_menu_donate",
+                     title: L("donate"),
+                     badgeCount: 0,
+                     enabled: true)
+    case .settings:
+      cell.configure(imageName: "ic_menu_settings",
+                     title: L("settings"),
+                     badgeCount: 0,
+                     enabled: true)
+    case .share:
+      cell.configure(imageName: "ic_menu_share",
+                     title: L("share_my_location"),
+                     badgeCount: 0,
+                     enabled: true)
     }
-    fatalError()
-  }
-
-  func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-    return section > 0 ? 12 : 0
-  }
-
-  func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-    if section > 0 {
-      let view = UIView()
-      view.styleName = "BlackOpaqueBackground";
-      return view;
-    }
-    return nil
+    return cell
   }
 }
 
@@ -106,13 +99,13 @@ extension BottomMenuPresenter {
       return
     }
     tableView.deselectRow(at: indexPath, animated: true)
-    switch CellType(rawValue: indexPath.row)! {
+    switch CellType(rawValue: correctedRow(indexPath.row))! {
     case .addPlace:
       interactor.addPlace()
-//    case .downloadRoutes:
-//      interactor.downloadRoutes()
     case .downloadMaps:
       interactor.downloadMaps()
+    case .donate:
+      interactor.donate()
     case .settings:
       interactor.openSettings()
     case .share:

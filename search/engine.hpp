@@ -1,6 +1,5 @@
 #pragma once
 
-#include "search/bookmarks/processor.hpp"
 #include "search/search_params.hpp"
 #include "search/suggest.hpp"
 
@@ -10,13 +9,11 @@
 #include "base/thread.hpp"
 
 #include <condition_variable>
-#include <cstddef>
 #include <functional>
 #include <memory>
 #include <mutex>
 #include <queue>
 #include <string>
-#include <utility>
 #include <vector>
 
 class DataSource;

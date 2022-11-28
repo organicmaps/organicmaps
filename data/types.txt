@@ -198,7 +198,7 @@ landuse|forest|coniferous
 *boundary|national_park
 landuse|forest|deciduous
 *waterway|dam
-mapswithme
+*amenity|charging_station|motorcar
 *leisure|golf_course
 *highway|service|bridge
 *power|minor_line
@@ -410,7 +410,7 @@ tourism|museum
 mapswithme
 mapswithme
 *leisure|park|private
-mapswithme
+*healthcare|physiotherapist
 *noexit
 *healthcare|laboratory
 *highway|motorway|tunnel
@@ -438,7 +438,7 @@ mapswithme
 mapswithme
 mapswithme
 mapswithme
-*piste:lift|t-bar
+*aerialway|t-bar
 mapswithme
 mapswithme
 *highway|path|difficult_alpine_hiking
@@ -474,7 +474,7 @@ mapswithme
 *natural|grassland
 mapswithme
 mapswithme
-*piste:lift|platter
+*aerialway|platter
 mapswithme
 mapswithme
 *railway|preserved|tunnel
@@ -572,7 +572,7 @@ mapswithme
 mapswithme
 mapswithme
 mapswithme
-*piste:lift|rope_tow
+*aerialway|rope_tow
 natural|water|pond
 mapswithme
 *highway|secondary_link|tunnel
@@ -605,7 +605,7 @@ mapswithme
 mapswithme
 mapswithme
 mapswithme
-*piste:lift|magic_carpet
+*aerialway|magic_carpet
 mapswithme
 mapswithme
 mapswithme
@@ -616,7 +616,7 @@ mapswithme
 mapswithme
 mapswithme
 mapswithme
-*piste:lift|j-bar
+*aerialway|j-bar
 mapswithme
 mapswithme
 mapswithme
@@ -744,9 +744,9 @@ boundary|administrative|4
 *amenity|parking_entrance
 *amenity|parking_entrance|private
 *amenity|parking_entrance|permissive
-mapswithme
-mapswithme
-mapswithme
+*barrier|cattle_grid
+*barrier|ditch
+*barrier|kissing_gate
 mapswithme
 mapswithme
 mapswithme
@@ -854,10 +854,10 @@ mapswithme
 mapswithme
 mapswithme
 *mapswithme|grid
-mapswithme
-mapswithme
-mapswithme
-mapswithme
+*highway|service|busway
+*highway|busway
+*highway|busway|bridge
+*highway|busway|tunnel
 landuse|salt_pond
 mapswithme
 mapswithme
@@ -890,11 +890,11 @@ railway|subway|tunnel
 railway|subway|tunnel
 railway|subway|tunnel
 railway|subway|tunnel
-mapswithme
-mapswithme
-mapswithme
-mapswithme
-mapswithme
+*historic|memorial|stolperstein
+*historic|memorial|war_memorial
+*historic|memorial|cross
+*historic|gallows
+*historic|pillory
 mapswithme
 mapswithme
 railway|subway|tunnel
@@ -1129,7 +1129,7 @@ leisure|sports_centre
 *amenity|vending_machine|food
 *amenity|vending_machine|newspapers
 *amenity|vending_machine|sweets
-mapswithme
+*leisure|dance
 *amenity|music_school
 *amenity|language_school
 *historic|city_gate
@@ -1221,7 +1221,7 @@ mapswithme
 mapswithme
 mapswithme
 mapswithme
-mapswithme
+*natural|desert
 *natural|water|tunnel
 *place|square
 *tourism|artwork|architecture
@@ -1402,7 +1402,7 @@ amenity|recycling|container
 *railway|station|subway|lille
 *railway|station|subway|lima
 *railway|station|subway|lisboa
-*railway|station|subway|lisbon
+mapswithme
 *railway|station|subway|lyon
 *railway|station|subway|malaga
 *railway|station|subway|manila
@@ -1499,7 +1499,7 @@ amenity|recycling|container
 *railway|subway_entrance|lille
 *railway|subway_entrance|lima
 *railway|subway_entrance|lisboa
-*railway|subway_entrance|lisbon
+mapswithme
 *railway|subway_entrance|lyon
 *railway|subway_entrance|malaga
 *railway|subway_entrance|manila

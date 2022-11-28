@@ -151,7 +151,7 @@ bool QueryParams::IsNumberTokens(TokenRange const & range) const
 
   for (size_t i : range)
   {
-    if (!GetToken(i).AnyOfOriginalOrSynonyms([](String const & s) { return feature::IsNumber(s); }))
+    if (!GetToken(i).AnyOfOriginalOrSynonyms([](String const & s) { return strings::IsASCIINumeric(s); }))
       return false;
   }
 

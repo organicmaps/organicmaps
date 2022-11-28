@@ -7,10 +7,10 @@
 -keep class !android.support.v7.internal.view.menu.**,** {*;}
 
 # Gson support
--keep class com.mapswithme.util.Gsonable
--keep class * implements com.mapswithme.util.Gsonable
+-keep class app.organicmaps.util.Gsonable
+-keep class * implements app.organicmaps.util.Gsonable
 
--keepclassmembernames class * implements com.mapswithme.util.Gsonable {
+-keepclassmembernames class * implements app.organicmaps.util.Gsonable {
   !transient <fields>;
 }
 
@@ -18,15 +18,15 @@
 # Execution failed for task ':minifyFdroidReleaseWithR8'.
 # > com.android.tools.r8.CompilationFailedException: Compilation failed to complete
 # Optimizing leads to crashes like
-# No pending exception expected: java.lang.ClassNotFoundException: Didn't find class "com.mapswithme.util.HttpClient"
+# No pending exception expected: java.lang.ClassNotFoundException: Didn't find class "app.organicmaps.util.HttpClient"
 # It requires to manually mark all methods and classes called from NDK.
 -dontoptimize
 
--keepnames class * implements com.mapswithme.util.Gsonable {
+-keepnames class * implements app.organicmaps.util.Gsonable {
   !transient <fields>;
 }
 
--keepclassmembers class * implements com.mapswithme.util.Gsonable {
+-keepclassmembers class * implements app.organicmaps.util.Gsonable {
   <init>(...);
 }
 
@@ -36,3 +36,5 @@
 -dontwarn androidx.**
 -keep class androidx.** { *; }
 -keep interface androidx.** { *; }
+
+-dontwarn javax.lang.model.element.Modifier

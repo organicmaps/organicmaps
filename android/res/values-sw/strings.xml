@@ -22,6 +22,8 @@
 	<string name="hospital">Hospitali</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
 	<string name="water">Maji</string>
+	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
+	<string name="rv">Kwa RV</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">Data ya OpenStreetMap: %s</string>
 	<!-- Text in About menu, opens Organic Maps news website -->
@@ -72,6 +74,7 @@
 	<string name="prefs_languages_information_off_link">Kwa maelezo zaidi tafadhali tazama mwongozo huu.</string>
 	<string name="transliteration_title">Tafsiri kwa lugha ya Kilatini</string>
 	<string name="learn_more">Jua mengi zaidi</string>
+	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">Toka</string>
 	<string name="routing_add_start_point">Ongeza eneo la kuanzia ili kupanga njia ya kufuata</string>
 	<string name="routing_add_finish_point">Ongeza eneo la kumalizia ili kupanga njia ya kufuata</string>
@@ -251,6 +254,8 @@
 	<!-- SECTION: Types: Recycling -->
 	<string name="type.recycling.batteries">Betri</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">Mashine ya kuuzia tiketi za usafiri wa umma</string>
+	<string name="type.barrier.city_wall">Ukuta wa jiji</string>
+	<string name="type.barrier.ditch">Moti</string>
 	<string name="type.boundary.national_park">Hifadhi ya taifa</string>
 	<string name="type.cemetery.grave">Kaburi</string>
 	<string name="type.craft">Ufundi</string>
@@ -275,6 +280,7 @@
 	<string name="type.craft.tailor">Mshonaji nguo</string>
 	<string name="type.cuisine.coffee_shop">Kahawa</string>
 	<string name="type.healthcare.laboratory">Maabara ya Matibabu</string>
+	<string name="type.healthcare.physiotherapist">Mtaalamu wa Physiotherapist</string>
 
 	<!-- SECTION: Types: Roads -->
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -368,6 +374,10 @@
 	<string name="type.highway.unclassified.tunnel">Mtaro</string>
 
 	<!-- SECTION: Types: Historic -->
+	<string name="type.historic">Kitu cha kihistoria</string>
+	<string name="type.historic.archaeological_site">Tovuti ya Akiolojia</string>
+	<string name="type.historic.battlefield">Uwanja wa vita</string>
+	<string name="type.historic.boundary_stone">Jiwe la mpaka</string>
 	<string name="type.historic.castle">Ngome</string>
 	<string name="type.historic.castle.castrum">Ngome ya Kirumi</string>
 	<string name="type.historic.castle.defensive">Ngome</string>
@@ -380,6 +390,23 @@
 	<string name="type.historic.castle.shiro">Ngome ya Kijapani</string>
 	<string name="type.historic.castle.stately">Ngome</string>
 	<string name="type.historic.city_gate">Lango la jiji</string>
+	<string name="type.historic.citywalls">Ukuta wa jiji</string>
+	<string name="type.historic.fort">Ngome</string>
+	<string name="type.historic.gallows">Kunyongea</string>
+	<string name="type.historic.memorial">Ukumbusho</string>
+	<string name="type.historic.memorial.cross">Msalaba wa kumbukumbu</string>
+	<string name="type.historic.memorial.plaque">Plaque</string>
+	<string name="type.historic.memorial.sculpture">Uchongaji</string>
+	<string name="type.historic.memorial.statue">Sanamu</string>
+	<string name="type.historic.memorial.stolperstein">Kikwazo</string>
+	<string name="type.historic.memorial.war_memorial">Kumbukumbu ya vita</string>
+	<string name="type.historic.monument">Mnara</string>
+	<string name="type.historic.pillory">Pillory</string>
+	<string name="type.historic.ruins">Gofu</string>
+	<string name="type.historic.ship">Meli</string>
+	<string name="type.historic.tomb">Kaburi</string>
+	<string name="type.historic.wayside_cross">Msalaba wa njiani</string>
+	<string name="type.historic.wayside_shrine">Kaburi la njia</string>
 	<string name="type.landuse.basin">Bonde la Maji</string>
 	<string name="type.landuse.churchyard">Sehemu ya kanisa</string>
 	<string name="type.landuse.farmland">Shamba</string>
@@ -387,6 +414,7 @@
 	<string name="type.landuse.landfill">Shamba la Taka</string>
 	<string name="type.landuse.railway">Eneo la njia ya reli</string>
 	<string name="type.leisure.dog_park">Eneo la mbwa</string>
+	<string name="type.leisure.dance">Ukumbi wa Ngoma</string>
 	<string name="type.leisure.nature_reserve">Hifadhi</string>
 	<string name="type.leisure.park">Hifadhi</string>
 	<string name="type.leisure.park.no.access">Hifadhi</string>
@@ -521,7 +549,6 @@
 	<string name="type.railway.subway_entrance.lille">Lango la kuingilia stesheni ya reli</string>
 	<string name="type.railway.subway_entrance.lima">Lango la kuingilia stesheni ya reli</string>
 	<string name="type.railway.subway_entrance.lisboa">Lango la kuingilia stesheni ya reli</string>
-	<string name="type.railway.subway_entrance.lisbon">Lango la kuingilia stesheni ya reli</string>
 	<string name="type.railway.subway_entrance.london">Lango la kuingilia stesheni ya reli</string>
 	<string name="type.railway.subway_entrance.lyon">Lango la kuingilia stesheni ya reli</string>
 	<string name="type.railway.subway_entrance.madrid">Lango la kuingilia stesheni ya reli</string>

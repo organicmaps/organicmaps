@@ -1,4 +1,4 @@
-#include "3party/jansson/jansson_handle.hpp"
+#include "jansson_handle.hpp"
 
 #include <jansson.h>
 

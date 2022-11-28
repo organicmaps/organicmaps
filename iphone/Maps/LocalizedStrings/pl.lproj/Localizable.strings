@@ -173,7 +173,7 @@
 "unknown_current_position" = "Nie określono jeszcze aktualnego położenia";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Obejrzyj mój znacznik na mapie w Organic Maps";
+"bookmark_share_email_subject" = "Hej, spójrz na mój znacznik w Organic Maps!";
 
 /* Subject for emailed position */
 "my_position_share_email_subject" = "Zobacz moją aktualną lokalizację na mapie przy użyciu Organic Maps";
@@ -274,6 +274,9 @@
 "matrix" = "[matrix]";
 
 /* Text in menu */
+"mastodon" = "Mastodon";
+
+/* Text in menu */
 "facebook" = "Facebook";
 
 /* Text in menu */
@@ -296,6 +299,9 @@
 
 /* Button in the main Help dialog */
 "faq" = "Pytania i odpowiedzi";
+
+/* Button in the main menu */
+"donate" = "Wspomóż";
 
 /* Button in the main Help dialog */
 "how_to_support_us" = "Jak nas wspierać?";
@@ -513,13 +519,19 @@
 
 "clear_search" = "Wyczyść historię wyszukiwania";
 
+/* Place Page link to Wikipedia article (if map object has it). */
+"read_in_wikipedia" = "Wikipedia";
+
+/* Place Page link to Wikimedia Commons. */
+"wikimedia_commons" = "Wikimedia Commons";
+
 "p2p_your_location" = "Twoja lokalizacja";
 
 "p2p_start" = "Start";
 
-"p2p_from_here" = "Z";
+"p2p_from_here" = "Trasa od";
 
-"p2p_to_here" = "Droga do";
+"p2p_to_here" = "Trasa do";
 
 "p2p_only_from_current" = "Nawigacja jest dostępna tylko od twojej bieżącej lokalizacji.";
 
@@ -828,7 +840,7 @@
 "recent_track_background_dialog_message" = "Organic Maps używa w tle geolokalizacji w celu rejestrowania niedawno przebytej trasy.";
 
 /* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Organic Maps to bezpłatna aplikacja do map offline typu open source. Bez reklam. Bez śledzenia. Jeśli zobaczysz błąd na mapie, napraw go w OpenStreetMap. Projekt jest tworzony przez entuzjastów w czasie wolnym, dlatego potrzebujemy Twojej opinii i wsparcia.";
+"about_description" = "Organic Maps to bezpłatna aplikacja do map offline typu open source. Bez reklam. Bez śledzenia. Jeśli zobaczysz błąd na mapie, popraw go w OpenStreetMap. Projekt jest tworzony przez entuzjastów w czasie wolnym, dlatego potrzebujemy Twojej opinii i wsparcia.";
 
 "general_settings" = "Ustawienia ogólne";
 
@@ -841,7 +853,7 @@
 /* A noun - a button name used to show search results in list form */
 "search_in_table" = "Lista";
 
-"mobile_data_dialog" = "Wykorzystać internet mobilny, aby wyświetlić dane szczegółowe?";
+"mobile_data_dialog" = "Wykorzystać dane mobilne, aby wyświetlić dane szczegółowe?";
 
 "mobile_data_option_always" = "Stosuj zawsze";
 
@@ -849,10 +861,10 @@
 
 "mobile_data_option_not_today" = "Nie stosuj dzisiaj";
 
-"mobile_data" = "Internet mobilny";
+"mobile_data" = "Dane mobilne";
 
 /* NOTE to translators: please synchronize your translation with the English one. */
-"mobile_data_description" = "Do wyświetlania danych szczegółowych o miejscach (np. zdjęcia, ceny i recenzje) wymagany jest internet mobilny.";
+"mobile_data_description" = "Dane mobilne są wymagane do powiadomień o aktualizacji map i wyświetlania dokładniejszych informacji o miejscach i zakładkach.";
 
 "mobile_data_option_never" = "Nigdy nie stosuj";
 
@@ -874,7 +886,8 @@
 
 "transliteration_title" = "Transkrypcja na alfabet łaciński";
 
-"core_exit" = "Wyjdź";
+/* Subway exits for public transport marks on the map */
+"core_exit" = "Wyjście";
 
 "routing_add_start_point" = "Aby zaplanować trasę, dodaj punkt początkowy";
 
@@ -975,7 +988,7 @@
 
 "speedcams_alert_title" = "Fotoradary";
 
-"speedcam_option_auto" = "Auto";
+"speedcam_option_auto" = "Automatycznie";
 
 "speedcam_option_always" = "Zawsze";
 
@@ -983,7 +996,7 @@
 
 "place_description_title" = "Opis miejsca";
 
-"speedcams_notice_message" = "Auto – Ostrzegać o kamerach, jeśli istnieje ryzyko przekroczenia ograniczenia prędkości\nZawsze – Zawsze ostrzegaj o kamerach\nNigdy – Nigdy nie ostrzegaj o kamerach";
+"speedcams_notice_message" = "Automatycznie – Ostrzegaj o fotoradarach, jeśli istnieje ryzyko przekroczenia ograniczenia prędkości\nZawsze – Zawsze ostrzegaj o fotoradarach\nNigdy – Nigdy nie ostrzegaj o fotoradarach";
 
 "power_managment_title" = "Tryb oszczędzania energii";
 
@@ -991,11 +1004,11 @@
 
 "power_managment_setting_never" = "Nigdy";
 
-"power_managment_setting_auto" = "Auto";
+"power_managment_setting_auto" = "Automatycznie";
 
 "power_managment_setting_manual_max" = "Maksymalna oszczędność energii";
 
-"driving_options_title" = "Ustawienia objazdu";
+"driving_options_title" = "Ustawienia nawigacji";
 
 "driving_options_subheader" = "Unikaj na każdej trasie";
 
@@ -1203,7 +1216,7 @@
 "whats_new_auto_update_button_later" = "Zaktualizuj ręcznie później";
 
 /* Delete track button on track edit screen */
-"placepage_delete_track_button" = "Usuwanie trasy";
+"placepage_delete_track_button" = "Usuń trasę";
 
 /* Placeholder for track name input on track edit screen */
 "placepage_track_name_hint" = "Nazwa trasy";
@@ -1214,11 +1227,14 @@
 /* edit track screen title */
 "track_title" = "Trasa";
 
-/* Telegram group url for the help page */
+/* Telegram group url for the "?" About page */
 "telegram_url" = "https://t.me/OrganicMapsApp";
 
-/* Instagram account url for the help page */
+/* Instagram account url for the "?" About page */
 "instagram_url" = "https://www.instagram.com/organicmaps.app";
+
+/* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
+"translated_om_site_url" = "https://organicmaps.app/";
 
 
 /********** Types **********/
@@ -1456,11 +1472,11 @@
 
 "type.recycling.green_waste" = "Green/Organic Waste";
 
-"type.recycling.cartons" = "Bewerage Cartons";
+"type.recycling.cartons" = "Beverage Cartons";
 
 "type.amenity.restaurant" = "Restauracja";
 
-"type.amenity.sanitary_dump_station" = "Holding Tank Dump Station";
+"type.amenity.sanitary_dump_station" = "Miejsce opróżniania toalety dla kamperów";
 
 "type.amenity.school" = "Szkoła";
 
@@ -1512,7 +1528,7 @@
 
 "type.amenity.waste_disposal" = "Wysypisko śmieci";
 
-"type.amenity.waste_transfer_station" = "Waste Transfer Station";
+"type.amenity.waste_transfer_station" = "Stacja przeładunku odpadów";
 
 "type.amenity.water_point" = "Ujęcie wody";
 
@@ -1530,6 +1546,8 @@
 
 "type.barrier.cycle_barrier" = "Bariera rowerowa";
 
+"type.barrier.ditch" = "Rów";
+
 "type.barrier.entrance" = "Wejście";
 
 "type.barrier.fence" = "Płot";
@@ -1537,6 +1555,8 @@
 "type.barrier.gate" = "Brama";
 
 "type.barrier.hedge" = "Żywopłot";
+
+"type.barrier.kissing_gate" = "Brama";
 
 "type.barrier.lift_gate" = "Szlaban";
 
@@ -1828,6 +1848,8 @@
 "type.entrance" = "Wejście";
 
 "type.healthcare.laboratory" = "Laboratorium Medyczne";
+
+"type.healthcare.physiotherapist" = "Fizjoterapeuta";
 
 
 /********** Types: Roads **********/
@@ -2165,11 +2187,15 @@
 
 "type.historic.city_gate" = "Brama miejska";
 
-"type.historic.citywalls" = "Historyczne mury miasta";
+"type.historic.citywalls" = "Mur miejski";
 
 "type.historic.fort" = "Historyczny fort";
 
+"type.historic.gallows" = "Szubienica";
+
 "type.historic.memorial" = "Pomnik";
+
+"type.historic.memorial.cross" = "Krzyż pomnikowy";
 
 "type.historic.memorial.plaque" = "Tablica pamiątkowa";
 
@@ -2177,7 +2203,13 @@
 
 "type.historic.memorial.statue" = "Pomnik";
 
+"type.historic.memorial.stolperstein" = "Kamień pamięci";
+
+"type.historic.memorial.war_memorial" = "Pomnik wojenny";
+
 "type.historic.monument" = "Monument";
+
+"type.historic.pillory" = "Pręgierz";
 
 "type.historic.ruins" = "Ruiny";
 
@@ -2243,7 +2275,7 @@
 
 "type.landuse.construction" = "Teren budowy";
 
-"type.landuse.education" = "Educational Facilities";
+"type.landuse.education" = "Placówki oświatowe";
 
 "type.landuse.farm" = "Gospodarstwo rolne";
 
@@ -2306,6 +2338,8 @@
 "type.leisure.fitness_centre" = "Centrum fitness";
 
 "type.leisure.fitness_station" = "Stacja fitness";
+
+"type.leisure.dance" = "Sala taneczna";
 
 "type.leisure.garden" = "Ogród";
 
@@ -2436,6 +2470,8 @@
 "type.man_made.embankment" = "Nasyp";
 
 "type.natural.coastline" = "Linia brzegowa";
+
+"type.natural.desert" = "Pustynia";
 
 "type.natural.geyser" = "Gejzer";
 
@@ -2611,13 +2647,13 @@
 
 "type.railway" = "Kolej";
 
-"type.railway.abandoned" = "Abandoned railway";
+"type.railway.abandoned" = "Abandoned Railway";
 
-"type.railway.abandoned.bridge" = "Abandoned railway";
+"type.railway.abandoned.bridge" = "Abandoned Railway Bridge";
 
-"type.railway.abandoned.tunnel" = "Abandoned Railway";
+"type.railway.abandoned.tunnel" = "Abandoned Railway Tunnel";
 
-"type.railway.construction" = "Railway's Construction";
+"type.railway.construction" = "Railway Construction";
 
 "type.railway.crossing" = "Railway Crossing";
 
@@ -2625,9 +2661,9 @@
 
 "type.railway.funicular" = "Funicular";
 
-"type.railway.funicular.bridge" = "Funicular";
+"type.railway.funicular.bridge" = "Funicular Bridge";
 
-"type.railway.funicular.tunnel" = "Funicular";
+"type.railway.funicular.tunnel" = "Funicular Tunnel";
 
 "type.railway.halt" = "Przystanek kolejowy";
 
@@ -2635,51 +2671,51 @@
 
 "type.railway.light_rail" = "Light Rail";
 
-"type.railway.light_rail.bridge" = "Light Rail";
+"type.railway.light_rail.bridge" = "Light Rail Bridge";
 
-"type.railway.light_rail.tunnel" = "Light Rail";
+"type.railway.light_rail.tunnel" = "Light Rail Tunnel";
 
 "type.railway.monorail" = "Kolej jednoszynowa";
 
-"type.railway.monorail.bridge" = "Monorail";
+"type.railway.monorail.bridge" = "Monorail Bridge";
 
-"type.railway.monorail.tunnel" = "Monorail";
+"type.railway.monorail.tunnel" = "Monorail Tunnel";
 
 "type.railway.narrow_gauge" = "Narrow Gauge Rail";
 
-"type.railway.narrow_gauge.bridge" = "Narrow Gauge Rail";
+"type.railway.narrow_gauge.bridge" = "Narrow Gauge Rail Bridge";
 
-"type.railway.narrow_gauge.tunnel" = "Narrow Gauge Rail";
+"type.railway.narrow_gauge.tunnel" = "Narrow Gauge Rail Tunnel";
 
 "type.railway.platform" = "Railway Platform";
 
 "type.railway.preserved" = "Preserved Rail";
 
-"type.railway.preserved.bridge" = "Preserved Rail";
+"type.railway.preserved.bridge" = "Preserved Rail Bridge";
 
-"type.railway.preserved.tunnel" = "Preserved Rail";
+"type.railway.preserved.tunnel" = "Preserved Rail Tunnel";
 
 "type.railway.rail" = "Kolej";
 
-"type.railway.rail.bridge" = "Railway";
+"type.railway.rail.bridge" = "Railway Bridge";
 
 "type.railway.rail.motor_vehicle" = "Railway";
 
-"type.railway.rail.tunnel" = "Railway";
+"type.railway.rail.tunnel" = "Railway Tunnel";
 
 "type.railway.razed" = "Razed Rail";
 
 "type.railway.siding" = "Siding Rail";
 
-"type.railway.siding.bridge" = "Siding Rail";
+"type.railway.siding.bridge" = "Siding Rail Bridge";
 
-"type.railway.siding.tunnel" = "Siding Rail";
+"type.railway.siding.tunnel" = "Siding Rail Tunnel";
 
 "type.railway.spur" = "Spur Rail";
 
-"type.railway.spur.bridge" = "Spur Rail";
+"type.railway.spur.bridge" = "Spur Rail Bridge";
 
-"type.railway.spur.tunnel" = "Spur Rail";
+"type.railway.spur.tunnel" = "Spur Rail Tunnel";
 
 "type.railway.station" = "Dworzec kolejowy";
 
@@ -2792,8 +2828,6 @@
 "type.railway.station.subway.lima" = "Metro";
 
 "type.railway.station.subway.lisboa" = "Metro";
-
-"type.railway.station.subway.lisbon" = "Metro";
 
 "type.railway.station.subway.london" = "Metro";
 
@@ -2909,9 +2943,9 @@
 
 "type.railway.subway" = "Subway Line";
 
-"type.railway.subway.bridge" = "Subway Line";
+"type.railway.subway.bridge" = "Subway Line Bridge";
 
-"type.railway.subway.tunnel" = "Subway Line";
+"type.railway.subway.tunnel" = "Subway Line Tunnel";
 
 "type.railway.subway_entrance" = "Wejście do metra";
 
@@ -3018,8 +3052,6 @@
 "type.railway.subway_entrance.lima" = "Wejście do metra";
 
 "type.railway.subway_entrance.lisboa" = "Wejście do metra";
-
-"type.railway.subway_entrance.lisbon" = "Wejście do metra";
 
 "type.railway.subway_entrance.london" = "Wejście do metra";
 
@@ -3135,17 +3167,17 @@
 
 "type.railway.tram" = "Tram Line";
 
-"type.railway.tram.bridge" = "Tram Line";
+"type.railway.tram.bridge" = "Tram Line Bridge";
 
-"type.railway.tram.tunnel" = "Tram Line";
+"type.railway.tram.tunnel" = "Tram Line Tunnel";
 
 "type.railway.tram_stop" = "Przystanek tramwajowy";
 
 "type.railway.yard" = "Railway Yard";
 
-"type.railway.yard.bridge" = "Railway Yard";
+"type.railway.yard.bridge" = "Railway Yard Bridge";
 
-"type.railway.yard.tunnel" = "Railway Yard";
+"type.railway.yard.tunnel" = "Railway Yard Tunnel";
 
 "type.route" = "route";
 
@@ -3510,7 +3542,7 @@
 
 "type.waterway.river" = "Rzeka";
 
-"type.waterway.river.tunnel" = "Tunel rzeki";
+"type.waterway.river.tunnel" = "Rzeka";
 
 "type.waterway.riverbank" = "Koryto rzeki";
 
@@ -3520,7 +3552,7 @@
 
 "type.waterway.stream.intermittent" = "Rzeka";
 
-"type.waterway.stream.tunnel" = "Rzeka";
+"type.waterway.stream.tunnel" = "Ciek rzeki";
 
 "type.waterway.waterfall" = "Wodospad";
 
@@ -3534,18 +3566,15 @@
 
 "type.wheelchair.yes" = "Wyposażono dla osób niepełnosprawnych";
 
-/* en.wikipedia.org/wiki/Surface_lift */
-"type.piste_lift" = "Surface Lift";
+"type.aerialway.j.bar" = "J-bar Lift";
 
-"type.piste_lift.j.bar" = "J-bar Lift";
+"type.aerialway.magic_carpet" = "Magic Carpet";
 
-"type.piste_lift.magic_carpet" = "Magic Carpet";
+"type.aerialway.platter" = "Platter Lift";
 
-"type.piste_lift.platter" = "Platter Lift";
+"type.aerialway.rope_tow" = "Rope Tow";
 
-"type.piste_lift.rope_tow" = "Rope Tow";
-
-"type.piste_lift.t.bar" = "T-bar Lift";
+"type.aerialway.t.bar" = "T-bar Lift";
 
 "type.piste_type" = "Piste Type";
 

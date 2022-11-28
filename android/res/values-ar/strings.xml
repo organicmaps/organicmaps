@@ -543,6 +543,7 @@
 	<string name="prefs_languages_information_off_link">لمزيد من المعلومات الرجاء مراجعة هذا الدليل.</string>
 	<string name="transliteration_title">كتابة جميع الاسماء بالحروف اللاتينية بشكل حرفي</string>
 	<string name="learn_more">معرفة المزيد</string>
+	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">خروج</string>
 	<string name="routing_add_start_point">أضف نقطة البداية لتخطيط المسار</string>
 	<string name="routing_add_finish_point">أضف النهاية لتخطيط المسار</string>
@@ -834,8 +835,11 @@
 	<string name="type.barrier.block">حاجز</string>
 	<string name="type.barrier.bollard">عمود حاجز قصير</string>
 	<string name="type.barrier.border_control">أمن الحدود</string>
+	<string name="type.barrier.city_wall">جدار المدينة</string>
+	<string name="type.barrier.ditch">ﻕﺪﻨﺧ</string>
 	<string name="type.barrier.entrance">مدخل الحاجز</string>
 	<string name="type.barrier.gate">بوابة</string>
+	<string name="type.barrier.kissing_gate">بوابة</string>
 	<string name="type.barrier.lift_gate">حاجز بوابة</string>
 	<string name="type.barrier.stile">ممر عبور</string>
 	<string name="type.barrier.swing_gate">حاجز بوابة</string>
@@ -958,6 +962,7 @@
 	<string name="type.emergency.phone">هاتف الطوارئ</string>
 	<string name="type.entrance">مدخل</string>
 	<string name="type.healthcare.laboratory">مختبر طبي</string>
+	<string name="type.healthcare.physiotherapist">اخصائي علاج طبيعي</string>
 
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway">طريق السريع</string>
@@ -1146,11 +1151,16 @@
 	<string name="type.historic.city_gate">بوابة مدينة</string>
 	<string name="type.historic.citywalls">جدار المدينة</string>
 	<string name="type.historic.fort">قلعة</string>
+	<string name="type.historic.gallows">مشنقة</string>
 	<string name="type.historic.memorial">نصب تذكاري</string>
+	<string name="type.historic.memorial.cross">الصليب التذكاري</string>
 	<string name="type.historic.memorial.plaque">لوحة تذكارية</string>
 	<string name="type.historic.memorial.sculpture">منحوتة تذكارية</string>
 	<string name="type.historic.memorial.statue">تمثال تذكاري</string>
+	<string name="type.historic.memorial.stolperstein">حجر عثرة</string>
+	<string name="type.historic.memorial.war_memorial">نصب حرب</string>
 	<string name="type.historic.monument">صرح</string>
+	<string name="type.historic.pillory">مشهرة</string>
 	<string name="type.historic.ruins">آثار</string>
 	<string name="type.historic.ship">سفينة تاريخية</string>
 	<string name="type.historic.tomb">قبر</string>
@@ -1191,6 +1201,7 @@
 	<string name="type.leisure.dog_park">منطقة كلاب</string>
 	<string name="type.leisure.fitness_centre">مركز للياقة البدنية، نادي رياضي</string>
 	<string name="type.leisure.fitness_station">مركز لياقة</string>
+	<string name="type.leisure.dance">ﺺﻗﺮﻟﺍ ﺔﻟﺎﺻ</string>
 	<string name="type.leisure.garden">حديقة</string>
 	<string name="type.leisure.garden.residential">حديقة</string>
 	<string name="type.leisure.golf_course">ملعب جولف</string>
@@ -1236,6 +1247,7 @@
 	<string name="type.natural.earth_bank">بنك الأرض</string>
 	<string name="type.man_made.embankment">سد</string>
 	<string name="type.natural.coastline">ساحل</string>
+	<string name="type.natural.desert">ءﺍﺮﺤﺻ</string>
 	<string name="type.natural.geyser">نبع ماء حار</string>
 	<string name="type.natural.glacier">كتلة جليدية</string>
 	<string name="type.natural.grassland">أرض عشبية</string>
@@ -1366,7 +1378,6 @@
 	<string name="type.railway.station.subway.lille">محطة مترو</string>
 	<string name="type.railway.station.subway.lima">محطة مترو</string>
 	<string name="type.railway.station.subway.lisboa">محطة مترو</string>
-	<string name="type.railway.station.subway.lisbon">محطة مترو</string>
 	<string name="type.railway.station.subway.london">محطة مترو</string>
 	<string name="type.railway.station.subway.lyon">محطة مترو</string>
 	<string name="type.railway.station.subway.madrid">محطة مترو</string>
@@ -1476,7 +1487,6 @@
 	<string name="type.railway.subway_entrance.lille">مدخل المترو</string>
 	<string name="type.railway.subway_entrance.lima">مدخل المترو</string>
 	<string name="type.railway.subway_entrance.lisboa">مدخل المترو</string>
-	<string name="type.railway.subway_entrance.lisbon">مدخل المترو</string>
 	<string name="type.railway.subway_entrance.london">مدخل المترو</string>
 	<string name="type.railway.subway_entrance.lyon">مدخل المترو</string>
 	<string name="type.railway.subway_entrance.madrid">مدخل المترو</string>

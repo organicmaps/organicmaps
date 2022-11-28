@@ -264,6 +264,8 @@ double RankingInfo::GetLinearModelRank() const
     result += kRank * rank;
     result += kPopularity * popularity;
     result += kFalseCats * (m_falseCats ? 1 : 0);
+
+    ASSERT(m_type < Model::TYPE_COUNT, ());
     result += kType[m_type];
 
     if (Model::IsPoi(m_type))

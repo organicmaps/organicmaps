@@ -11,24 +11,26 @@
 		6753445F1A3F666300A0A8C3 /* jansson_handle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6753445B1A3F666300A0A8C3 /* jansson_handle.cpp */; };
 		675344601A3F666300A0A8C3 /* jansson_handle.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6753445C1A3F666300A0A8C3 /* jansson_handle.hpp */; };
 		675344611A3F666300A0A8C3 /* myjansson.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6753445D1A3F666300A0A8C3 /* myjansson.hpp */; };
-		675344741A3F676C00A0A8C3 /* dump.c in Sources */ = {isa = PBXBuildFile; fileRef = 675344641A3F676C00A0A8C3 /* dump.c */; };
-		675344751A3F676C00A0A8C3 /* error.c in Sources */ = {isa = PBXBuildFile; fileRef = 675344651A3F676C00A0A8C3 /* error.c */; };
-		675344761A3F676C00A0A8C3 /* hashtable.c in Sources */ = {isa = PBXBuildFile; fileRef = 675344661A3F676C00A0A8C3 /* hashtable.c */; };
-		675344771A3F676C00A0A8C3 /* hashtable.h in Headers */ = {isa = PBXBuildFile; fileRef = 675344671A3F676C00A0A8C3 /* hashtable.h */; };
-		675344781A3F676C00A0A8C3 /* jansson_config.h in Headers */ = {isa = PBXBuildFile; fileRef = 675344681A3F676C00A0A8C3 /* jansson_config.h */; };
-		675344791A3F676C00A0A8C3 /* jansson_private.h in Headers */ = {isa = PBXBuildFile; fileRef = 675344691A3F676C00A0A8C3 /* jansson_private.h */; };
-		6753447A1A3F676C00A0A8C3 /* jansson.h in Headers */ = {isa = PBXBuildFile; fileRef = 6753446A1A3F676C00A0A8C3 /* jansson.h */; };
-		6753447B1A3F676C00A0A8C3 /* load.c in Sources */ = {isa = PBXBuildFile; fileRef = 6753446B1A3F676C00A0A8C3 /* load.c */; };
-		6753447C1A3F676C00A0A8C3 /* memory.c in Sources */ = {isa = PBXBuildFile; fileRef = 6753446C1A3F676C00A0A8C3 /* memory.c */; };
-		6753447D1A3F676C00A0A8C3 /* pack_unpack.c in Sources */ = {isa = PBXBuildFile; fileRef = 6753446D1A3F676C00A0A8C3 /* pack_unpack.c */; };
-		6753447E1A3F676C00A0A8C3 /* strbuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 6753446E1A3F676C00A0A8C3 /* strbuffer.c */; };
-		6753447F1A3F676C00A0A8C3 /* strbuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6753446F1A3F676C00A0A8C3 /* strbuffer.h */; };
-		675344801A3F676C00A0A8C3 /* strconv.c in Sources */ = {isa = PBXBuildFile; fileRef = 675344701A3F676C00A0A8C3 /* strconv.c */; };
-		675344811A3F676C00A0A8C3 /* utf.c in Sources */ = {isa = PBXBuildFile; fileRef = 675344711A3F676C00A0A8C3 /* utf.c */; };
-		675344821A3F676C00A0A8C3 /* utf.h in Headers */ = {isa = PBXBuildFile; fileRef = 675344721A3F676C00A0A8C3 /* utf.h */; };
-		675344831A3F676C00A0A8C3 /* value.c in Sources */ = {isa = PBXBuildFile; fileRef = 675344731A3F676C00A0A8C3 /* value.c */; };
-		E10342CF22A97A0C0073F984 /* lookup3.h in Headers */ = {isa = PBXBuildFile; fileRef = E10342CD22A97A0C0073F984 /* lookup3.h */; };
-		E10342D022A97A0C0073F984 /* hashtable_seed.c in Sources */ = {isa = PBXBuildFile; fileRef = E10342CE22A97A0C0073F984 /* hashtable_seed.c */; };
+		FAA6D8CD29205A2200E8D50D /* jansson_config.h in Headers */ = {isa = PBXBuildFile; fileRef = FAA6D8CC29205A2200E8D50D /* jansson_config.h */; };
+		FAA8867929214906004FA014 /* pack_unpack.c in Sources */ = {isa = PBXBuildFile; fileRef = FAA8866429214906004FA014 /* pack_unpack.c */; };
+		FAA8867A29214906004FA014 /* memory.c in Sources */ = {isa = PBXBuildFile; fileRef = FAA8866629214906004FA014 /* memory.c */; };
+		FAA8867B29214906004FA014 /* strconv.c in Sources */ = {isa = PBXBuildFile; fileRef = FAA8866729214906004FA014 /* strconv.c */; };
+		FAA8867C29214906004FA014 /* jansson_private.h in Headers */ = {isa = PBXBuildFile; fileRef = FAA8866829214906004FA014 /* jansson_private.h */; };
+		FAA8867D29214906004FA014 /* hashtable.h in Headers */ = {isa = PBXBuildFile; fileRef = FAA8866929214906004FA014 /* hashtable.h */; };
+		FAA8867E29214906004FA014 /* utf.h in Headers */ = {isa = PBXBuildFile; fileRef = FAA8866A29214906004FA014 /* utf.h */; };
+		FAA8867F29214906004FA014 /* strbuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = FAA8866B29214906004FA014 /* strbuffer.c */; };
+		FAA8868029214906004FA014 /* lookup3.h in Headers */ = {isa = PBXBuildFile; fileRef = FAA8866D29214906004FA014 /* lookup3.h */; };
+		FAA8868129214906004FA014 /* dump.c in Sources */ = {isa = PBXBuildFile; fileRef = FAA8866E29214906004FA014 /* dump.c */; };
+		FAA8868229214906004FA014 /* hashtable_seed.c in Sources */ = {isa = PBXBuildFile; fileRef = FAA8866F29214906004FA014 /* hashtable_seed.c */; };
+		FAA8868329214906004FA014 /* error.c in Sources */ = {isa = PBXBuildFile; fileRef = FAA8867029214906004FA014 /* error.c */; };
+		FAA8868429214906004FA014 /* hashtable.c in Sources */ = {isa = PBXBuildFile; fileRef = FAA8867129214906004FA014 /* hashtable.c */; };
+		FAA8868529214906004FA014 /* version.c in Sources */ = {isa = PBXBuildFile; fileRef = FAA8867229214906004FA014 /* version.c */; };
+		FAA8868629214906004FA014 /* utf.c in Sources */ = {isa = PBXBuildFile; fileRef = FAA8867329214906004FA014 /* utf.c */; };
+		FAA8868729214906004FA014 /* jansson.h in Headers */ = {isa = PBXBuildFile; fileRef = FAA8867429214906004FA014 /* jansson.h */; };
+		FAA8868829214906004FA014 /* load.c in Sources */ = {isa = PBXBuildFile; fileRef = FAA8867529214906004FA014 /* load.c */; };
+		FAA8868929214906004FA014 /* value.c in Sources */ = {isa = PBXBuildFile; fileRef = FAA8867729214906004FA014 /* value.c */; };
+		FAA8868A29214906004FA014 /* strbuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = FAA8867829214906004FA014 /* strbuffer.h */; };
+		FAA8868C29214A0E004FA014 /* jansson_private_config.h in Headers */ = {isa = PBXBuildFile; fileRef = FAA8868B29214A0D004FA014 /* jansson_private_config.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,24 +41,29 @@
 		6753445B1A3F666300A0A8C3 /* jansson_handle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jansson_handle.cpp; sourceTree = "<group>"; };
 		6753445C1A3F666300A0A8C3 /* jansson_handle.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = jansson_handle.hpp; sourceTree = "<group>"; };
 		6753445D1A3F666300A0A8C3 /* myjansson.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = myjansson.hpp; sourceTree = "<group>"; };
-		675344641A3F676C00A0A8C3 /* dump.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dump.c; sourceTree = "<group>"; };
-		675344651A3F676C00A0A8C3 /* error.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = error.c; sourceTree = "<group>"; };
-		675344661A3F676C00A0A8C3 /* hashtable.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hashtable.c; sourceTree = "<group>"; };
-		675344671A3F676C00A0A8C3 /* hashtable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hashtable.h; sourceTree = "<group>"; };
-		675344681A3F676C00A0A8C3 /* jansson_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jansson_config.h; sourceTree = "<group>"; };
-		675344691A3F676C00A0A8C3 /* jansson_private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jansson_private.h; sourceTree = "<group>"; };
-		6753446A1A3F676C00A0A8C3 /* jansson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jansson.h; sourceTree = "<group>"; };
-		6753446B1A3F676C00A0A8C3 /* load.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = load.c; sourceTree = "<group>"; };
-		6753446C1A3F676C00A0A8C3 /* memory.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = memory.c; sourceTree = "<group>"; };
-		6753446D1A3F676C00A0A8C3 /* pack_unpack.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pack_unpack.c; sourceTree = "<group>"; };
-		6753446E1A3F676C00A0A8C3 /* strbuffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = strbuffer.c; sourceTree = "<group>"; };
-		6753446F1A3F676C00A0A8C3 /* strbuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = strbuffer.h; sourceTree = "<group>"; };
-		675344701A3F676C00A0A8C3 /* strconv.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = strconv.c; sourceTree = "<group>"; };
-		675344711A3F676C00A0A8C3 /* utf.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = utf.c; sourceTree = "<group>"; };
-		675344721A3F676C00A0A8C3 /* utf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utf.h; sourceTree = "<group>"; };
-		675344731A3F676C00A0A8C3 /* value.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = value.c; sourceTree = "<group>"; };
-		E10342CD22A97A0C0073F984 /* lookup3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lookup3.h; sourceTree = "<group>"; };
-		E10342CE22A97A0C0073F984 /* hashtable_seed.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hashtable_seed.c; sourceTree = "<group>"; };
+		FAA6D8CC29205A2200E8D50D /* jansson_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jansson_config.h; sourceTree = "<group>"; };
+		FAA8866429214906004FA014 /* pack_unpack.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pack_unpack.c; sourceTree = "<group>"; };
+		FAA8866529214906004FA014 /* jansson_config.h.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = jansson_config.h.in; sourceTree = "<group>"; };
+		FAA8866629214906004FA014 /* memory.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = memory.c; sourceTree = "<group>"; };
+		FAA8866729214906004FA014 /* strconv.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = strconv.c; sourceTree = "<group>"; };
+		FAA8866829214906004FA014 /* jansson_private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jansson_private.h; sourceTree = "<group>"; };
+		FAA8866929214906004FA014 /* hashtable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hashtable.h; sourceTree = "<group>"; };
+		FAA8866A29214906004FA014 /* utf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utf.h; sourceTree = "<group>"; };
+		FAA8866B29214906004FA014 /* strbuffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = strbuffer.c; sourceTree = "<group>"; };
+		FAA8866C29214906004FA014 /* Makefile.am */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Makefile.am; sourceTree = "<group>"; };
+		FAA8866D29214906004FA014 /* lookup3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lookup3.h; sourceTree = "<group>"; };
+		FAA8866E29214906004FA014 /* dump.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dump.c; sourceTree = "<group>"; };
+		FAA8866F29214906004FA014 /* hashtable_seed.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hashtable_seed.c; sourceTree = "<group>"; };
+		FAA8867029214906004FA014 /* error.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = error.c; sourceTree = "<group>"; };
+		FAA8867129214906004FA014 /* hashtable.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hashtable.c; sourceTree = "<group>"; };
+		FAA8867229214906004FA014 /* version.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = version.c; sourceTree = "<group>"; };
+		FAA8867329214906004FA014 /* utf.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = utf.c; sourceTree = "<group>"; };
+		FAA8867429214906004FA014 /* jansson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jansson.h; sourceTree = "<group>"; };
+		FAA8867529214906004FA014 /* load.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = load.c; sourceTree = "<group>"; };
+		FAA8867629214906004FA014 /* jansson.def */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = jansson.def; sourceTree = "<group>"; };
+		FAA8867729214906004FA014 /* value.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = value.c; sourceTree = "<group>"; };
+		FAA8867829214906004FA014 /* strbuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = strbuffer.h; sourceTree = "<group>"; };
+		FAA8868B29214A0D004FA014 /* jansson_private_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jansson_private_config.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,31 +77,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		670D04A11B0B719D0013A7AC /* src */ = {
-			isa = PBXGroup;
-			children = (
-				675344641A3F676C00A0A8C3 /* dump.c */,
-				E10342CE22A97A0C0073F984 /* hashtable_seed.c */,
-				E10342CD22A97A0C0073F984 /* lookup3.h */,
-				675344651A3F676C00A0A8C3 /* error.c */,
-				675344661A3F676C00A0A8C3 /* hashtable.c */,
-				675344671A3F676C00A0A8C3 /* hashtable.h */,
-				675344681A3F676C00A0A8C3 /* jansson_config.h */,
-				675344691A3F676C00A0A8C3 /* jansson_private.h */,
-				6753446A1A3F676C00A0A8C3 /* jansson.h */,
-				6753446B1A3F676C00A0A8C3 /* load.c */,
-				6753446C1A3F676C00A0A8C3 /* memory.c */,
-				6753446D1A3F676C00A0A8C3 /* pack_unpack.c */,
-				6753446E1A3F676C00A0A8C3 /* strbuffer.c */,
-				6753446F1A3F676C00A0A8C3 /* strbuffer.h */,
-				675344701A3F676C00A0A8C3 /* strconv.c */,
-				675344711A3F676C00A0A8C3 /* utf.c */,
-				675344721A3F676C00A0A8C3 /* utf.h */,
-				675344731A3F676C00A0A8C3 /* value.c */,
-			);
-			path = src;
-			sourceTree = "<group>";
-		};
 		675344441A3F664300A0A8C3 = {
 			isa = PBXGroup;
 			children = (
@@ -116,14 +98,45 @@
 		6753444F1A3F664300A0A8C3 /* jansson */ = {
 			isa = PBXGroup;
 			children = (
+				FAA6D8CC29205A2200E8D50D /* jansson_config.h */,
 				6753445B1A3F666300A0A8C3 /* jansson_handle.cpp */,
 				6753445C1A3F666300A0A8C3 /* jansson_handle.hpp */,
+				FAA8868B29214A0D004FA014 /* jansson_private_config.h */,
 				345C55F71C93143B00B6783F /* myjansson.cpp */,
 				6753445D1A3F666300A0A8C3 /* myjansson.hpp */,
-				670D04A11B0B719D0013A7AC /* src */,
+				FAA8866329214906004FA014 /* src */,
 			);
 			name = jansson;
 			path = ../../3party/jansson;
+			sourceTree = "<group>";
+		};
+		FAA8866329214906004FA014 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				FAA8866429214906004FA014 /* pack_unpack.c */,
+				FAA8866529214906004FA014 /* jansson_config.h.in */,
+				FAA8866629214906004FA014 /* memory.c */,
+				FAA8866729214906004FA014 /* strconv.c */,
+				FAA8866829214906004FA014 /* jansson_private.h */,
+				FAA8866929214906004FA014 /* hashtable.h */,
+				FAA8866A29214906004FA014 /* utf.h */,
+				FAA8866B29214906004FA014 /* strbuffer.c */,
+				FAA8866C29214906004FA014 /* Makefile.am */,
+				FAA8866D29214906004FA014 /* lookup3.h */,
+				FAA8866E29214906004FA014 /* dump.c */,
+				FAA8866F29214906004FA014 /* hashtable_seed.c */,
+				FAA8867029214906004FA014 /* error.c */,
+				FAA8867129214906004FA014 /* hashtable.c */,
+				FAA8867229214906004FA014 /* version.c */,
+				FAA8867329214906004FA014 /* utf.c */,
+				FAA8867429214906004FA014 /* jansson.h */,
+				FAA8867529214906004FA014 /* load.c */,
+				FAA8867629214906004FA014 /* jansson.def */,
+				FAA8867729214906004FA014 /* value.c */,
+				FAA8867829214906004FA014 /* strbuffer.h */,
+			);
+			name = src;
+			path = jansson/src;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -133,15 +146,16 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAA8867E29214906004FA014 /* utf.h in Headers */,
+				FAA8868029214906004FA014 /* lookup3.h in Headers */,
 				675344601A3F666300A0A8C3 /* jansson_handle.hpp in Headers */,
-				675344791A3F676C00A0A8C3 /* jansson_private.h in Headers */,
-				675344821A3F676C00A0A8C3 /* utf.h in Headers */,
+				FAA8868729214906004FA014 /* jansson.h in Headers */,
+				FAA8867C29214906004FA014 /* jansson_private.h in Headers */,
+				FAA8867D29214906004FA014 /* hashtable.h in Headers */,
+				FAA8868A29214906004FA014 /* strbuffer.h in Headers */,
+				FAA8868C29214A0E004FA014 /* jansson_private_config.h in Headers */,
 				675344611A3F666300A0A8C3 /* myjansson.hpp in Headers */,
-				E10342CF22A97A0C0073F984 /* lookup3.h in Headers */,
-				6753447F1A3F676C00A0A8C3 /* strbuffer.h in Headers */,
-				6753447A1A3F676C00A0A8C3 /* jansson.h in Headers */,
-				675344771A3F676C00A0A8C3 /* hashtable.h in Headers */,
-				675344781A3F676C00A0A8C3 /* jansson_config.h in Headers */,
+				FAA6D8CD29205A2200E8D50D /* jansson_config.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -171,7 +185,7 @@
 		675344451A3F664300A0A8C3 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1400;
+				LastUpgradeCheck = 1410;
 				TargetAttributes = {
 					6753444C1A3F664300A0A8C3 = {
 						CreatedOnToolsVersion = 6.1;
@@ -201,19 +215,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6753447B1A3F676C00A0A8C3 /* load.c in Sources */,
-				E10342D022A97A0C0073F984 /* hashtable_seed.c in Sources */,
-				675344801A3F676C00A0A8C3 /* strconv.c in Sources */,
-				6753447D1A3F676C00A0A8C3 /* pack_unpack.c in Sources */,
-				675344761A3F676C00A0A8C3 /* hashtable.c in Sources */,
+				FAA8868829214906004FA014 /* load.c in Sources */,
 				345C55F81C93143B00B6783F /* myjansson.cpp in Sources */,
-				675344751A3F676C00A0A8C3 /* error.c in Sources */,
+				FAA8867929214906004FA014 /* pack_unpack.c in Sources */,
+				FAA8868429214906004FA014 /* hashtable.c in Sources */,
+				FAA8867A29214906004FA014 /* memory.c in Sources */,
+				FAA8868529214906004FA014 /* version.c in Sources */,
+				FAA8868329214906004FA014 /* error.c in Sources */,
+				FAA8867F29214906004FA014 /* strbuffer.c in Sources */,
 				6753445F1A3F666300A0A8C3 /* jansson_handle.cpp in Sources */,
-				675344831A3F676C00A0A8C3 /* value.c in Sources */,
-				6753447C1A3F676C00A0A8C3 /* memory.c in Sources */,
-				675344811A3F676C00A0A8C3 /* utf.c in Sources */,
-				675344741A3F676C00A0A8C3 /* dump.c in Sources */,
-				6753447E1A3F676C00A0A8C3 /* strbuffer.c in Sources */,
+				FAA8868229214906004FA014 /* hashtable_seed.c in Sources */,
+				FAA8868629214906004FA014 /* utf.c in Sources */,
+				FAA8868129214906004FA014 /* dump.c in Sources */,
+				FAA8867B29214906004FA014 /* strconv.c in Sources */,
+				FAA8868929214906004FA014 /* value.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -224,11 +239,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34F558681DBF483000A4FC11 /* common-debug.xcconfig */;
 			buildSettings = {
-				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
-				HEADER_SEARCH_PATHS = (
+				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"$(OMIM_ROOT)/3party/jansson/src",
+					HAVE_CONFIG_H,
 				);
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 			};
 			name = Debug;
 		};
@@ -236,11 +251,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34F558691DBF483000A4FC11 /* common-release.xcconfig */;
 			buildSettings = {
-				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
-				HEADER_SEARCH_PATHS = (
+				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"$(OMIM_ROOT)/3party/jansson/src",
+					HAVE_CONFIG_H,
 				);
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 			};
 			name = Release;
 		};

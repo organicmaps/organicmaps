@@ -13,15 +13,12 @@
 #include "base/scope_guard.hpp"
 
 #include <cstdint>
-#include <string>
 #include <vector>
 
-namespace generator
-{
-namespace diff_tests
+namespace generator::diff_tests
 {
 using namespace mwm_diff;
-using namespace std;
+using std::string, std::vector;
 
 UNIT_TEST(IncrementalUpdates_Smoke)
 {
@@ -93,5 +90,4 @@ UNIT_TEST(IncrementalUpdates_Smoke)
   TEST_EQUAL(ApplyDiff(oldMwmPath, newMwmPath2, diffPath, cancellable),
              DiffApplicationResult::Failed, ());
 }
-}  // namespace diff_tests
-}  // namespace generator
+}  // namespace generator::diff_tests

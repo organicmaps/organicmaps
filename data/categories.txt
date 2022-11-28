@@ -17,8 +17,8 @@
 # will also match historic-memorial-statue, historic-memorial-plaque, etc.
 #
 # Syntax:
-# @   - indicates the beginning of the group of searh terms translations
-# :   - used to separate the name of the language and translated search synonims.
+# @   - indicates the beginning of the group of search terms translations
+# :   - used to separate the name of the language and translated search synonyms.
 # |   - used to separate several categories/groups or translated synonyms.
 # 1-9 - digits in front of a synonym indicate the number of symbols that need to be
 #       typed in a search query to make this synonym appear in the list of suggestions.
@@ -74,6 +74,7 @@ pt:Onde comer|comer|comida
 pt-BR:Onde comer|comer|comida|alimentação
 ro:Unde să mănânci|Alimentație|mâncare
 es:Dónde comer|Comer
+et:Kus süüa|Toit
 eu:Non jan|Jaten
 sv:Var att äta|Mat
 th:กินร้านไหนดี|อาหาร
@@ -113,10 +114,11 @@ pt:Mercearias|Minimercados|Supermercados|Hipermercados|Comida|Alimentos|Loja
 pt-BR:Mercados|Alimentação|Loja
 ro:4Alimentare|Produse|Alimentație|Mâncare|Magazin
 es:Alimentación|Productos|Comer|Tienda
+et:Toidukaubad|Pood
 eu:Produktuak|Jan|Denda
 sv:Produkter|Mat|Butik|Affär
 th:ซื้อของกินของใช้|อาหาร|ร้านค้า
-tr:4Market|Bakkal|Yiyecek
+tr:3Market|Bakkal|Yiyecek
 uk:4Продукти|Їжа|Крамниця|4магазин
 vi:Cửa hàng tạp hóa|ẩm thực|Cửa hàng
 zh-Hans:食品|食物|商店
@@ -152,10 +154,11 @@ pt:5Transporte
 pt-BR:5Transporte
 ro:5Transport
 es:5Transporte
+et:Transport
 eu:5Garraioa
 sv:5Transport
 th:การขนส่ง
-tr:Ulaşım
+tr:4Ulaşım
 uk:5Транспорт
 vi:Giao thông
 zh-Hans:交通
@@ -190,6 +193,7 @@ pt:3Combustível
 pt-BR:Combustível
 ro:4Benzinărie|Benzină|Gaz
 es:3Gasolinera
+et:Tankla
 eu:3Gasolindegia
 sv:3Bensin
 th:ก๊าซ
@@ -229,10 +233,11 @@ pt:5Estacionamento
 pt-BR:5Estacionamento
 ro:4Parcare
 es:5Aparcamiento
+et:Parkla
 eu:5Aparkalekua
 sv:4Parkering
 th:ที่จอดรถ
-tr:4Otopark
+tr:3Otopark
 uk:4Парковка
 vi:đỗ xe
 zh-Hans:停车
@@ -267,6 +272,7 @@ pt:5Compras|Loja
 pt-BR:5Compras|Loja
 ro:5Shopping|Cumpărături|Magazin
 es:5Compras|Tienda
+et:Ostud|Pood
 eu:5Erosketak|Denda
 sv:5Shopping|Butik|Affär
 th:ช็อปปิง|ร้านค้า
@@ -306,6 +312,7 @@ pt:Hotel|Hotéis
 pt-BR:Hotel|Hoteles
 ro:Hotel|Hoteluri
 es:Hotel|Hoteles
+et:Hotell|Hotellid
 eu:Hotela
 sv:Hotell|Hotellen
 th:โรงแรม
@@ -344,6 +351,7 @@ pt:4Atrações turísticas|3Turismo|Miradouros
 pt-BR:4Atraçãos|3Turismo
 ro:5Obiective turistice|4Turism
 es:4Turismo
+et:Vaatamisväärsused
 eu:4Turismoa
 sv:4Sevärdheter|4Attraktion|4Turism
 th:สถานที่ท่องเที่ยว
@@ -382,6 +390,7 @@ pt:Entretenimento
 pt-BR:Entretenimento
 ro:Divertisment
 es:Entretenimiento
+et:Meelelahutus
 eu:Entretenimendua
 sv:Underhållning
 th:แหล่งบันเทิง
@@ -420,6 +429,7 @@ pt:Vida noturna
 pt-BR:Vida noturna
 ro:Viața nocturnă|cu prietenii|petrecere
 es:Vida nocturna
+et:Ööelu
 eu:Gaueko bizitza
 sv:Nattliv
 th:ไนท์ไลฟ์
@@ -458,6 +468,7 @@ pt:Atividades com crianças
 pt-BR:Feriados em família
 ro:Divertisment cu copiii|Divertisment cu familia|Vacanță cu copiii
 es:Ocio en familia
+et:Perepuhkus
 eu:Umeekin atseden hartu
 sv:Semester med barn
 th:วันหยุดสำหรับครอบครัว
@@ -496,6 +507,7 @@ pt:3Multibanco|2MB|Caixa Multibanco|2ATM|Multicaixa|Caixa automática|Terminal b
 pt-BR:3Caixa eletrônico|caixa automático|banco 24 horas
 ro:3Bancomat|ATM
 es:Cajero|cajero automático
+et:Pangaautomaat
 eu:4Kutxazain automatikoa
 sv:3Bankomat
 th:2เอทีเอ็ม
@@ -515,14 +527,40 @@ fa:خود پرداز
 en:2RV Facilities|4Caravan|Vanlife|5Campervan|5Motorhome
 ar:منشآت للمنازل المتنقلة
 be:Для аўтадамоў|5Аўтадом|5Трэйлер|5Караван|Дом на колах
-fr:3Aménagements pour camping-car|caravane|mobile home
+bg:За RV
+ca:Caravanes
+cs:Pro RV
+da:Til RV
+de:Einrichtungen für Wohnmobile|4Wohnmobile
+el:Για RV
 es:Caravanas|Autocaravanas
+et:Haagiselamud
+eu:Karabanak
+fa:RV ﯼﺍﺮﺑ
+fi:RV tilat
+fr:Aménagements pour camping-car|4caravane|mobile home
+he:םינאוורק רובע
+hu:RV számára
+id:Untuk RV
+ja:RV用
+ko:RV용
+it:Per camper
+nb:Bobilanlegg
+nl:Caravan faciliteiten|4Caravans|5Campers
 pl:Kamper
-ru:Для автодомов|5Автодом|5Трейлер|Дом на колёсах
+pt:Para trailers
+pt-BR:Para trailers
 ro:Pentru rulote|3Rulotă|RV
+ru:Для автодомов|5Автодом|5Трейлер|Дом на колёсах
+sk:Pre RV
+sv:För husbil
+sw:Kwa RV
+th:สำหรับ RV
 tr:4Karavan Tesisleri
 uk:Для автобудинків|5Автодім|5Автобудинок|5Трейлер|5Караван|Будинок на колесах
-nl:4Caravan faciliteiten|4Caravans|5Campers
+vi:Đối với RV
+zh-Hans:房车用
+zh-Hant:房車用
 
 amenity-atm|@atm
 en:money|U+1F3E7|U+1F4B2|U+1F4B3|U+1F4B4|U+1F4B5|U+1F4B6|U+1F4B7
@@ -547,6 +585,7 @@ pt:dinheiro|U+1F3E7|U+1F4B2|U+1F4B3|U+1F4B4|U+1F4B5|U+1F4B6|U+1F4B7
 pt-BR:dinheiro|U+1F3E7|U+1F4B2|U+1F4B3|U+1F4B4|U+1F4B5|U+1F4B6|U+1F4B7
 ro:bani
 es:dinero
+et:Raha
 eu:3dirua
 sv:pengar
 th:เงิน|atm
@@ -584,6 +623,7 @@ pt:3Banco
 pt-BR:3Banco
 ro:3Bancă
 es:3Banco
+et:3Pank
 eu:3Bankua
 sv:3Bank
 th:3ธนาคาร
@@ -619,6 +659,7 @@ pt:dinheiro|U+1F3E6|U+1F4B0|U+1F4B2|U+1F4B3|U+1F4B4|U+1F4B5|U+1F4B6|U+1F4B7
 pt-BR:dinheiro|U+1F3E6|U+1F4B0|U+1F4B2|U+1F4B3|U+1F4B4|U+1F4B5|U+1F4B6|U+1F4B7
 ro:bani
 es:dinero
+et:raha
 eu:3dirua
 sv:pengar
 th:เงิน
@@ -642,7 +683,7 @@ cs:Recyklace|Využití odpadu|Recyklovatelné|Oddělený sběr odpadků|Třídě
 da:Genbrug|Affaldsudnyttelse|Genanvendelig|Separate dagrenovationer|Affaldssortering
 nl:Recycling|Afvalgebruik|Recyclebaar materiaal|Gescheiden afvalinzameling|Afval sorteren|Hergebruik
 fi:Jätteiden kierrätys|Jätteiden hyötykäyttö|Kierrätyskelpoinen jäte|Jätelajittelu|Jätteiden lajittelu|Hyötykäyttö
-fr:Traitement des déchets|Recyclage des déchets|Dépôt de matières recyclables|Tri de déchets|Tri des déchets|Réutilisation
+fr:4Recyclage|Traitement des déchets|Dépôt de matières recyclables|Tri de déchets|Tri des déchets|Réutilisation
 de:Recycling|Abfallverwertung|Recyclebares Material|Getrennte Müllsammlung|Müllsortierung|Wiederverwendung
 hu:Újrahasznosítás|Hulladékhasznosítás|Újrahasznosítható|Elkülönített hulladékgyűjtés|Hulladék válogatás|Újrafelhasználás
 id:Mendaur ulang|Pemanfaatan limbah|Dapat didaur ulang|Pemisahan pengumpulan sampah|Pemilahan limbah|Penggunaan kembali
@@ -657,10 +698,11 @@ pt-BR:Reciclagem|Utilização de resíduos|Recicláveis|Coleta de seletiva|Separ
 ro:Reciclarea deșeurilor|Reciclare|Recepționarea reciclării|Colectarea separată a gunoiului|Sortarea gunoiului|Reutilizare
 es:Reciclaje|Reciclaje de residuos|Eliminación de residuos|Materiales reciclables|Recogida selectiva de basura|Clasificación de residuos|Reutilización
 eu:Hondakinen birziklapena|Hondakinak ezabatzea|Material birziklagarriak|Zabor bilketa selektiboa|Hondakinak sailkatzea|Berrerabilpena
+et:Taaskasutus|Jäätmete kasutamine|Jäätmete äraandmine|Taaskasutatavad|Prügi eraldi korjamine|Prügi sorteerimne|Taaskasutus
 es-MX:Reciclaje|Reciclaje de desechos|Eliminación de desechos|Materiales reciclables|Recogida separada de basura|Clasificación de desechos|Reutilización
 sv:Återvinning av avfall|Avfallsbehandling|Återvinningsbart avfall|Separat sopinsamling|Sopsortering|Återanvändning
 th:การรีไซเคิล|การใช้ประโยชน์จากขยะ|รีไซเคิลได้|ที่รวบรวมขยะแยกประเภท|การแยกขยะ|รียูส
-tr:4Geri dönüşüm|4Atık kullanımı|Geri dönüştürülebilir nesneler|Ayrı çöp toplama|Atık ayırma|Yeniden kullanım
+tr:4Geri dönüşüm|4Atık kullanımı|4Geri dönüştürülebilir nesneler|4Ayrı çöp toplama|4Atık ayırma|5Yeniden kullanım
 uk:5Переробка відходів|Утилізація відходів|5Прийом вторсировини|5Здати вторсировину|5Роздільний збір сміття|Сортування сміття|Повторне використання
 vi:Tái chế rác thải|Sử dụng rác thải|Tái chế|Thu gom rác riêng|Phân loại rác|Sử dụng lại
 el:Ανακύκλωση|Ανακύκλωση απορριμμάτων|Ανακυκλώσιμα|Ξεχωριστή συλλογή απορριμμάτων|Διαλογή απορριμμάτων|Επαναχρησιμοποίηση
@@ -691,6 +733,7 @@ pt:3Câmbio|3troca|dinheiro|Agência de câmbio
 pt-BR:3Casa de câmbio|3troca|dinheiro
 ro:3Schimb valutar|schimb
 es:3Cambio de divisas|dinero
+et:4Valuutavahetus
 eu:3Moneta-trukea|dirua
 sv:3Valutaväxling|3växling|pengar
 th:1แลกเปลี่ยนเงินตรา|หลักสูตร|เงิน
@@ -726,6 +769,7 @@ pt:2Bar|2pub|cerveja|beber
 pt-BR:2Drinqueria|bar|pub|boteco|cerveja|drink|beber|alimentação
 ro:2Bar|2cârciumă|băutură
 es:2Bar|2pub
+et:2Baar|pubi
 eu:2Taberna|2pub
 sv:2Bar|2pub|krog|öl|drink
 th:2บาร์|ผับ|เบียร์|เครื่องดื่ม
@@ -762,10 +806,11 @@ pt:3Café|3cafeteria|3restaurante
 pt-BR:3Café|3cafeteria|3restaurante|alimentação
 ro:3Cafenea|3restaurant
 es:3Café|3restaurante
+et:3Kohvik|3restoran
 eu:3Kafetegia|3Jatetxea
 sv:3Café|3restaurang
 th:3 คาเฟ่|ร้านอาหาร่
-tr:4Kafeterya|restoran|2Cafe|Bistro
+tr:4Kafeterya|kafe|restoran|2Cafe|Bistro
 uk:3Кафе|3ресторан|2їжа|2їсти
 vi:Cà phê|quán ăn
 zh-Hans:1咖啡馆่|餐厅|食物
@@ -798,10 +843,11 @@ pt:4Comida rápida|4Comida de plástico|4comida para levar|4comida pronta|pronto
 pt-BR:4Lanchonete|fast-food|3alimentação
 ro:Fast food|3restaurant
 es:4Comida rápida|restaurante|café
+et:4Kiirtoit|3restoran|3kohvik|kaasaost|rämpstoit
 eu:4Fast food|jatetxea|kafetegia
 sv:4Snabbmat|3restaurang|3café|takeaway
 th:1อาหารจานด่วน|ร้านอาหาร|คาเฟ่|นำกลับ
-tr:4Fast food|3restoran|3kafeterya
+tr:4Fast food|3restoran|3kafeterya|lokanta
 uk:3Фастфуд|3ресторан|3кафе|2їсти
 vi:Thức ăn nhanh|quán ăn
 zh-Hans:1快餐|餐厅|外卖|食物
@@ -833,10 +879,11 @@ pt:3Restaurante|3café|3almoço|3almoçar|3local onde comer|3refeição
 pt-BR:3Restaurante|3comida|3alimentação
 ro:3Restaurant|3cafenea
 es:3Restaurante|3café
+et:3Restoran|3kohvik
 eu:3Jatetxea|3Kafetegia
 sv:3Restaurang|3café
 th:3ร้านอาหาร
-tr:3Restoran|3kafeterya
+tr:3Restoran|3kafeterya|3lokanta|3kafe
 uk:3Ресторан|3кафе
 vi:Quán ăn|cà phê
 zh-Hans:1餐厅|咖啡馆|食物
@@ -857,6 +904,7 @@ da:3Tankstation
 nl:3Tankstation|3brandstof
 fr:Station-service|3carburant|3essence
 de:Tankstation|Tankstelle
+et:3Tankla
 hu:3Benzinkút|benzin
 id:Pompa bensin
 ja:ガスステーション|ガス|燃料|軽油|給油
@@ -868,7 +916,7 @@ pt-BR:3Posto de combustível|3gasolina
 ro:3Benzinărie
 sv:3Bensinstation|3bränsle|2gas
 th:3ปั๊มน้ำมัน|เชื้อเพลิง
-tr:3Yakıt|3Benzin istasyonu|2gaz
+tr:3Yakıt|3Benzin istasyonu|2gaz|Benzinlik
 uk:азс|агзс|агнкс|бензоколонка|бензозаправка|4автозаправка|3заправка
 vi:Trạm xăng
 zh-Hans:1加油站|燃料
@@ -884,10 +932,10 @@ ru:3Булочная|3пекарня
 bg:3Пекарна
 ar:مخبز|متجر
 cs:3Pekárna|Pekařství
-da:2Bager|bageri
+da:3Bager|bageri
 nl:3Bakkerij
 fi:3Leipomo
-fr:3Boulangerie
+fr:3Boulangerie|3Pâtisserie|pain
 de:3Bäckerei|Bäckerladen|Bäcker
 hu:3Pékség
 id:Toko roti|Roti
@@ -895,12 +943,13 @@ it:3Panetteria|Panificio|Forno
 ja:1パン屋|ベーカリー|パン|軽食|持ち帰り
 ko:1베이커리|빵집
 mr:बेकरी|पाव
-nb:3Bakeri
+nb:3Bakeri|bakverk
 pl:4Piekarnia
 pt:3Padaria
 pt-BR:3Padaria|3panificadora
 ro:3Brutărie
 es:3Panadería
+et:3Pagariäri
 eu:3Okindegia
 sv:3Bageri
 th:3เบเกอรี่
@@ -924,6 +973,7 @@ da:Butik|forretning
 de:3Verbrauchermarkt|5Geschäft|5Laden
 el:Κατάστημα
 es:Tienda
+et:Pood
 eu:Denda
 fa:مرکزخرید
 fi:Kauppa
@@ -974,10 +1024,11 @@ pt:4Cosméticos|estética
 pt-BR:4Cosméticos|estética
 ro:4Cosmetică|centru de îngrijire
 es:4Productos cosméticos
+et:4Kosmeetika
 eu:4Produktu kosmetikoak
 sv:4Kosmetika
 th:เครื่องสำอาง
-tr:Bakım ürünleri|güzellik merkezi
+tr:4Bakım ürünleri|3güzellik merkezi|Kozmetik
 uk:4Косметика
 vi:Mỹ phẩm
 zh-Hans:化妝品|商店
@@ -1011,6 +1062,7 @@ pt:Loja de conveniência
 pt-BR:Loja de conveniência|4mercadinho|compras
 ro:4Magazin mixt|minimarket|supermarket|magazin
 es:Tienda de barrio
+et:Lähipood
 eu:Auzoko denda
 sv:Närbutik
 th:ร้านสะดวกซื้อ
@@ -1026,11 +1078,45 @@ fa:بقالی
 
 shop-deli|@food
 en:4Delicatessen
+ar:أطعمة مبردة
+be:Дэлікатэсы
+bg:Деликатеси
+cs:Lahůdky
+da:Delikatessebutik
+de:Feinkostgeschäft
+el:Εκλεκτά τρόφιμα
+es:Delicatesen
+et:Maiustused
+eu:Delitua
+fi:Herkkukauppa
+fr:4Épicerie fine
+he:מעדנייה
+hu:Csemege
+id:Toko makanan jadi
+it:Gastronomia
+ja:デリ
+ko:델리
+nb:Delikatessebutikk
+nl:Delicatessenwinkel
+pl:Delikatesy
+pt:Iguarias regionais
+pt-BR:Iguarias regionais
+ro:Deli
 ru:4Деликатесы
+sk:Delikatesy
+sv:Delikatessbutik
+th:อาหารพิเศษ
+tr:Şarküteri
+uk:Делікатеси
+vi:Món ăn ngon
+zh-Hans:熟食店
+zh-Hant:熟食店
 
 shop-farm|@food
 en:Farm food
+et:Talutoit
 ru:Фермерская еда
+tr:Çiftlik gıdaları
 
 shop-garden_centre
 en:4Garden Centre|U+1F3EC|U+1F3EA|U+1F3E1
@@ -1055,6 +1141,7 @@ pt:Loja de jardinagem|3jardinagem
 pt-BR:Loja de plantas|jardinagem|jardim|compras
 ro:Pepinieră|magazin cu articole de grădinărit
 es:Vivero|tienda de jardinería
+et:Aianduskeskus
 eu:Haurtzaindegia|lorategi denda
 sv:Plantskola|trädgårdsbutik
 th:สถานรับเลี้ยงเด็ก|เนอร์สเซอรี่
@@ -1069,11 +1156,16 @@ fa:فروشگاه تجهیزات باغبانی
 
 shop-grocery|@food
 en:Grocery
+et:Toidukaubad
+fr:Épicerie
 ru:Бакалея
+tr:Market
 
 shop-health_food|@food
 en:Health food
+et:Tervisetoit
 ru:Здоровая еда
+tr:Sağlıklı Gıda
 
 shop-mobile_phone
 en:4Cell Phones|4Mobile Phones|6smartphones|electronics store|U+1F3EC|U+1F3EA|U+1F4F1|U+1F4F2
@@ -1098,10 +1190,11 @@ pt:Loja de telemóveis|Telemóveis|loja de aparelhos eletrónicos
 pt-BR:Loja de celulares|celulares|telefone
 ro:Magazin de telefoane mobile|magazin de electronice
 es:Móviles|Tienda de telefonía móvil|tienda de aparatos electrónicos
+et:4Mobiiltelefonid|Elektroonikapood
 eu:Sakelako telefonoak|Sakelako telefono denda|elektronika denda
 sv:4Mobilbutik|elektronikaffär
 th:ร้านขายโทรศัพท์มือถือ|ร้านขายอุปกรณ์อิเล็กโทรนิก
-tr:3Cep telefonu mağazası|3elektronik mağazası|telefon|cep telefonu
+tr:3Cep telefonu mağazası|3elektronik mağazası|telefon|cep telefonu|akıllı telefon
 uk:4Мобільні телефони|салон мобільного зв'язку|салон мобільних телефонів
 vi:Cửa hàng điện thoại di động|cửa hàng ĐTDĐ
 zh-Hans:手机商店|商店
@@ -1134,6 +1227,7 @@ pt:4Florista
 pt-BR:4Florista|Floricultura|flores
 ro:4Florărie
 es:4Floristería|tienda de flores
+et:4Florist|lillepood
 eu:4Loredenda
 sv:Blomsteraffär
 th:ร้านดอกไม้
@@ -1169,6 +1263,7 @@ pt:2Talho|2Açougueiro
 pt-BR:Açougue|açougueiro
 ro:Măcelărie
 es:4Carnicería|carne
+et:Lihapood
 eu:4Harategia|haragia
 sv:Slaktare
 th:ร้านขายเนื้อ
@@ -1204,10 +1299,11 @@ pt:Loja de móveis|3Mobiliário
 pt-BR:Loja de móveis
 ro:Magazin de mobilă
 es:Tienda de muebles
+et:Mööblipood
 eu:Altzari denda
 sv:4Möbelaffär
 th:ร้านเฟอร์นิเจอร์
-tr:4Mobilya mağazası
+tr:4Mobilya mağazası|eşya mağazası
 uk:Магазин меблів|4меблі
 vi:Cửa hàng nội thất
 zh-Hans:家具店|商店
@@ -1226,16 +1322,17 @@ da:Køkkenforretning
 de:6Küchengeschäft|Küchenstudio
 el:Κατάστημα κουζίνας
 es:Tienda de cocina
+et:Köögipood
 eu:Sukalde-denda
 fa:ﻪﻧﺎﺧﺰﭙﺷﺁ ﻩﺎﮕﺷﻭﺮﻓ
 fi:Keittiökauppa
-fr:Magasin de cuisine
+fr:Magasin de cuisine|cuisiniste
 he:םיחבטמ תונח
 hu:Konyhabolt
 id:Toko Dapur
 it:Negozio di cucina
 ja:キッチンストア
-ko:"주방용품점"
+ko:주방용품점
 nb:Kjøkkenbutikk
 nl:Keukenwinkel
 pl:Sklep kuchenny
@@ -1278,10 +1375,11 @@ pt:Loja de bebidas|bebidas alcoólicas
 pt-BR:Loja de bebidas|bebidas alcoólicas
 ro:Băuturi alcoolice
 es:4Licorería|licor
+et:Alkoholipood|4alkohol
 eu:4Likore-denda|likore
 sv:Spritaffär|4alkohol
 th:ร้านขายเหล้า
-tr:İçki dükkanı
+tr:İçki dükkanı|alkol
 uk:Винний магазин|крамниця спиртних напоїв|4алкоголь
 vi:Cửa hàng rượu|rượu
 zh-Hans:烈酒|商店
@@ -1299,7 +1397,7 @@ cs:Knihkupectví
 da:Boghandel|boghandler|boglade
 nl:Boekenwinkel|boekwinkel
 fi:Kirjakauppa
-fr:4Librairie
+fr:4Librairie|livre|bouquiniste
 de:Büchergeschäft|4Buchhandlung|Buchladen
 hu:Könyvesbolt
 id:Toko buku
@@ -1313,10 +1411,11 @@ pt:4Livraria
 pt-BR:4Livraria
 ro:4Librărie
 es:4Librería
+et:Raamatupood
 eu:4Liburudenda
 sv:Bokaffär
 th:ร้านหนังสือ
-tr:Kitapçı
+tr:3Kitapçı|3kitap mağazası|3kitaplar
 uk:3Книгарня
 vi:Hiệu sách
 zh-Hans:书店|商店
@@ -1348,10 +1447,11 @@ pt:Sapataria|loja de calçado
 pt-BR:Sapataria|loja de calçados
 ro:Magazin de încălțăminte
 es:4Zapatería
+et:Kingapood
 eu:4Oinetako denda
 sv:Skobutik
 th:ร้านขายรองเท้า
-tr:Ayakkabı mağazası
+tr:Ayakkabı mağazası|Ayakkabıcı
 uk:Магазин взуття|3взуття
 vi:Cửa hàng giày
 zh-Hans:鞋店|商店
@@ -1384,10 +1484,11 @@ pt:Loja de eletrônica
 pt-BR:Loja de eletrônicos
 ro:4Electronice
 es:4Electrónica
+et:4Elektroonika
 eu:4Elektronika
 sv:4Elektronik|elektronikaffär
 th:ร้านขายอุปกรณ์อิเล็กทรอนิกส์
-tr:4Elektronik mağazası
+tr:4Elektronik mağazası|Teknoloji
 uk:Електротехніка|4Електроніка
 vi:Cửa hàng điện
 zh-Hans:电子产品|商店
@@ -1419,6 +1520,7 @@ pt:Loja de ferramentas|ferragens
 pt-BR:Loja de ferramentas|ferragens
 ro:Magazin de bricolaj|hardware
 es:Ferretería|bricolaje
+et:Rauakaubad|Tööriistapood
 eu:Hardwarea|Bricolajea
 sv:Järnhandel
 th:ร้านขายฮาร์ดแวร์|ร้านขายวัสดุอุปกรณ์
@@ -1455,6 +1557,7 @@ pt:Joias|Joalharia
 pt-BR:Joalheria
 ro:4Bijutier
 es:Joyería
+et:Ehtepood
 eu:Bitxiak
 sv:Smycken|4juvelerare|guldsmed
 th:ร้านขายเครื่องประดับ
@@ -1491,6 +1594,7 @@ pt:Oculista|4Óptica|Ótica
 pt-BR:Ótica|4oculista|3óculos
 ro:4Optică
 es:4Óptica
+et:4Optometrist
 eu:4Optika
 sv:4Optiker|glasögonaffär
 th:ร้านแว่น
@@ -1526,6 +1630,7 @@ pt:Loja de lembranças|Lembranças|presentes
 pt-BR:Loja de presentes
 ro:Magazin de suveniruri
 es:Tienda de regalos
+et:Kingitusepood|4suveniiripood
 eu:Denda
 sv:Presentaffär
 th:ร้านของขวัญ
@@ -1561,6 +1666,7 @@ pt:Salão de beleza|cabeleireiro|cabeleireira|brabeiro
 pt-BR:Salão de beleza
 ro:Salon de înfrumusețare
 es:Centro de belleza
+et:Ilusalong
 eu:Apaindegia
 sv:Skönhetssalong
 th:2ร้านเสริมสวย|2ร้านขายผลิตภัณฑ์ความงาม
@@ -1598,6 +1704,7 @@ pt:3Cash and carry|Venda a retalho
 pt-BR:Quitanda|verdureiro|varejão
 ro:Băcănie|fructe|legume
 es:4Frutería
+et:Juurviljapood
 eu:4Barazaina
 sv:Grönsakshandlare
 th:ร้านขายผัด
@@ -1633,6 +1740,7 @@ pt:Artigos desportivos|3Desporto
 pt-BR:Artigos esportivos
 ro:Articole sportive
 es:Artículos de deporte
+et:Spordipood
 eu:Kirol artikuluak
 sv:4Sportaffär
 th:สินค้ากีฬา
@@ -1668,10 +1776,11 @@ pt:3Supermercado|Hipermercado
 pt-BR:3Supermercado|mercado
 ro:3Supermarket
 es:3Supermercado
+et:3Supermarket
 eu:3Supermerkatua
 sv:3Stormarknad|dagligvaruhandel
 th:3ซูเปอร์มาร์เก็ต
-tr:3Süpermarket
+tr:3Süpermarket|3market
 uk:3Супермаркет|3універсам
 vi:Siêu thị
 zh-Hans:超市|商店
@@ -1699,12 +1808,13 @@ it:Centro commerciale
 ja:モール
 ko:몰|상점|쇼핑몰|쇼핑센터
 mr:मॉल
-nb:Kjøpesenteret
+nb:Kjøpesenter
 pl:Centrum handlowe
 pt:Centro comercia|3Shopping
 pt-BR:Shopping center
 ro:Mall
 es:Centro comercial
+et:Ostukeskus
 eu:Merkataritza-gune
 sv:Galleria|köpcentrum
 th:เดอะมอลล์
@@ -1742,10 +1852,11 @@ pt:Grande armazém
 pt-BR:Loja de departamentos|compras
 ro:Magazin universal
 es:Grandes almacenes
+et:Kaubamaja
 eu:Denda handiak
 sv:Varuhus
 th:ห้างสรรพสินค้า
-tr:Alışveriş merkezi
+tr:Alışveriş merkezi|büyük mağaza|market|büyük market
 uk:4Універмаг
 vi:Cửa hàng bách hóa
 zh-Hans:百货商店|商店
@@ -1778,6 +1889,7 @@ pt:4Bebidas
 pt-BR:4Bebidas
 ro:Băuturi
 es:4Bebidas
+et:Joogid
 eu:4Edariak
 sv:Drinkar|drycker
 th:เครื่องดื่ม
@@ -1813,6 +1925,7 @@ pt:Loja de informática
 pt-BR:Loja de informática
 ro:Magazin de calculatoare
 es:Tienda de informática|tienda de ordenadores
+et:Arvutipood
 eu:4Informatika-denda
 sv:Datorbutik
 th:ร้านขายคอมพิวเตอร์
@@ -1849,6 +1962,7 @@ pt:4Confeitaria|loja de doces|bolos|doces|guloseimas
 pt-BR:4Confeitaria|loja de doces
 ro:Cofetărie|dulciuri
 es:4Confitería
+et:Kommipood
 eu:4Gozogintza
 sv:Konditori|godisbutik
 th:ร้านขายขนมหวาน|ร้านขายลูกกวาด
@@ -1884,6 +1998,7 @@ pt:4Lavandaria
 pt-BR:4Lavanderia
 ro:Spălătorie
 es:4Lavandería
+et:Pesula
 eu:4Garbitegia
 sv:Tvättstuga|tvättomat
 th:ร้านซักรีด
@@ -1913,12 +2028,13 @@ it:Negozio di giocattoli
 ja:おもちゃ屋|玩具店
 ko:장난감 가게|장난감점
 mr:खेळण्यांचे दुकान|खेळणीघर
-nb:Legebutikk
+nb:Leketøybutikk
 pl:Sklep z zabawkami|zabawki|dzieci
 pt:Loja de brinquedos|3brinquedos
 pt-BR:Loja de brinquedos
 ro:Magazin de jucării
 es:Tienda de juguetes|juguetería
+et:Mänguasjapood
 eu:Jostailu-denda
 sv:Leksaksaffär
 th:ร้านขายของเล่น
@@ -1952,6 +2068,7 @@ pl:Targ|bazar|targowisko
 pt:Feira|3Mercado
 pt-BR:3Mercado|mercadão|feira-livre
 es:3Mercado
+et:3Turg
 eu:3Merkatua
 sv:3Marknadsplats|marknad
 th:2ตลาดสินค้า|ตลาด|ร้าน
@@ -1987,6 +2104,7 @@ pt:Loja de roupas|3roupa|3vestuário
 pt-BR:Loja de roupas
 ro:Magazin de haine
 es:Tienda de ropa|3ropa
+et:Rõivapood
 eu:3Arropa denda
 sv:Klädbutik|klädaffär|4kläder
 th:ร้านขายเสื้อผ้า|ร้าน
@@ -2004,6 +2122,8 @@ shop-caravan|@rv
 en:2RV dealership|4Caravan dealership|Motorhome dealership
 be:Продаж аўтадамоў
 es:Venta de caravanas|Venta de autocaravanas
+et:Haagiselamute müük
+fr:Concessionnaire de caravanes et camping-cars
 ru:Продажа автодомов
 tr:Karavan galerisi
 uk:Продаж автобудинків
@@ -2020,7 +2140,7 @@ cs:Obchod s auty
 da:Bilforhandler
 nl:Autohandelaar
 fi:Autokauppa
-fr:Réparation auto|voitures|auto
+fr:Réparation auto|voitures|auto|concessionnaire
 de:4Autohaus
 hu:Autókereskedés|Autószalon|Kocsi
 id:Toko mobil
@@ -2034,10 +2154,11 @@ pt:Loja de carros|3Stande|4concessionária|2veículos
 pt-BR:Loja de carros|4concessionária|veículos
 ro:Magazin auto
 es:Venta de coches
+et:Autopood
 eu:Autoen salmenta
 sv:Bilåterförsäljare
 th:ร้านค้ารถยนต์
-tr:Otomobil mağazası|Araba mağazası|Araba showroomu|Otomobil showroomu|Araba galerisi|Otomobil galerisi
+tr:Otomobil mağazası|Araba mağazası|Araba showroomu|Otomobil showroomu|Araba galerisi|Otomobil galerisi|Oto showroom|Otoshowroom
 uk:4Автосалон
 vi:Cửa hàng xe
 zh-Hans:车店|商店
@@ -2056,7 +2177,7 @@ cs:3Cyklistický obchod|jízdní kolo|3kolo
 da:3Cykelforretning|cykelhandler|cykler
 nl:4Fietsenwinkel
 fi:3Polkupyöräliike
-fr:4Magasin de vélos|vélo|bicyclette
+fr:4Magasin de vélos|vélociste|bicyclette
 de:3Fahrradladen|Fahrrad|Velo
 hu:4Kerékpárüzlet|Kerékpár
 id:3Toko sepeda
@@ -2070,6 +2191,7 @@ pt:Loja de bicicletas|4bicicleta
 pt-BR:Loja de bicicletas|4bicicletaria|4bicicleta|bike
 ro:3Bicicletă|Magazin biciclete
 es:Tienda de bicicletas|4bicicleta|bici
+et:3Jalgrattapood
 eu:4Bizikleta-denda|4bizikleta
 sv:4Cykelaffär|cykel
 th:4จักรยาน|ร้าน
@@ -2099,10 +2221,12 @@ it:4Chiosco|Edicola|Giornalaio
 ja:1キオスク|売店
 ko:키오스크
 mr:टपरी|कियोस्क
+nb:Kiosk
 pl:3Kiosk|gazety|prasa
 pt:4Quiosque
 pt-BR:4Quiosque
 es:4Quiosco
+et:3Kiosk
 eu:4Kioskoa
 sv:3Kiosk
 th:ร้าน
@@ -2138,10 +2262,11 @@ pt:2Paragem de autocarro|2autocarros
 pt-BR:2Ponto de ônibus
 ro:3Stație de autobuz
 es:Parada de autobús
+et:Bussipeatus
 eu:Autobus geltokia
 sv:Busshållplats|3buss|hållplats
 th:ป้ายรถเมล์|รถเมล์|ขนส่ง
-tr:Otobüs durağı|3otobüs|3dolmuş
+tr:Otobüs durağı|3otobüs|3dolmuş|durak|dolmuş durağı
 uk:4Зупинка|5автобус|4тролейбус
 vi:3Bến xe buýt
 zh-Hans:1公交车站|公交车|运输|交通
@@ -2173,10 +2298,11 @@ pt:3Paragem de elétrico|2elétrico
 pt-BR:3Parada de bonde|via férrea
 ro:3Stație de tramvai
 es:Parada de tranvía
+et:Trammipeatus
 eu:Tranbiaren geltokia
 sv:Spårvagnshållplats|3spårvagn|hållplats
 th:ป้ายรถราง|ขนส่ง
-tr:3Tramvay durağı|Tramvay
+tr:3Tramvay durağı|Tramvay|durak
 uk:4Зупинка|4трамвай
 vi:Bến tàu điện
 zh-Hans:1电车站|运输|交通
@@ -2208,6 +2334,7 @@ pt:2Estação rodoviária|2autocarros|2rodoviária
 pt-BR:2Rodoviária|estação BRT
 ro:3Gara de autobuz
 es:Estación de autobuses
+et:Bussijaam
 eu:Autobus geltokia
 sv:2Busstation|buss|station
 th:สถานีขนส่ง|ขนส่ง|สถานี
@@ -2244,10 +2371,11 @@ pt:Estação de comboios|2caminhos-de-ferro|2Comboios|2Apeadeiro
 pt-BR:Estação de trem|ferrovia
 ro:Feroviar
 es:3Estación de tren|3tren
+et:Rongijaam
 eu:3Tren geltokia|3tren
 sv:3Tågstation|4järnväg|järnväg|3tåg|4station
 th:3สถานีรถไฟ|รถไฟ|สถานี|ขนส่ง
-tr:2Gar|3demiryolları|İstasyon|Tren
+tr:2Gar|3demiryolları|İstasyon|Tren|tren istasyonu
 uk:4Залізничний вокзал|3поїзд|залізниця|3станція
 vi:Đường tàu hỏa
 zh-Hans:1火车站ี|铁路ี|站ี|运输|交通
@@ -2280,6 +2408,7 @@ pt:3Metropolitano
 pt-BR:Estação do metrô|3Mêtro|Entrada de estação do metrô
 ro:3Metrou
 es:3Metro
+et:3Metroo
 eu:3Metro
 sv:3Tunnelbana|3tunnelbana|3metro|3tunnelbana
 th:3รถไฟ|สถานีรถไฟใต้ดิน|ท่อ|เมโทร|ใต้ดิน
@@ -2316,6 +2445,7 @@ pt:2Terminal de ferry|2Balsa|2Ferry
 pt-BR:2Estação de barcas|balsa
 ro:3Feribot|terminal
 es:3Transbordador|terminal
+et:3Praam|terminal|transport
 eu:3Ferry|terminal
 sv:3Färja|färjeläge|terminal
 th:2เฟอร์รี่|สถานี
@@ -2352,6 +2482,7 @@ pt:2Táxi|2Praça de táxis
 pt-BR:2Táxi
 ro:3Taxi
 es:3Taxi
+et:3Takso
 eu:3Taxia
 sv:3Taxi
 th:3แท็กซี่
@@ -2389,6 +2520,7 @@ pt:Câmara municipal|Junta de fregesia|3Prefeitura
 pt-BR:3Prefeitura
 ro:3Primărie
 es:3Ayuntamiento
+et:3Raekoda
 eu:3Udaletxea
 sv:3Rådhus
 th:3ศาลากลางจังหวัด|การท่องเที่ยว
@@ -2425,6 +2557,7 @@ pt:3Atração turística
 pt-BR:3Atração turística
 ro:3Punct de atracție|obiective turistice
 es:3Atracción turística|3turismo
+et:3Vaatamisväärsus
 eu:3Turismo-erakarpena|3turismoa
 sv:3Attraktion|3turism|3sevärdheter
 th:3การท่องเที่ยว|แหล่งท่องเที่ยว|สถานที่ท่องเที่ยว
@@ -2461,6 +2594,7 @@ pt:3Obra de arte|3instalação artística
 pt-BR:3Obra de arte|3instalação artística
 ro:3Turism
 es:3Obras de arte
+et:Kunstiteos
 eu:3Artelan
 sv:3Konstverk|3turism
 th:งานศิลปะ|3การท่องเที่ยว
@@ -2497,6 +2631,7 @@ pt:2Miradouro|3Mirante
 pt-BR:4Mirante|miradouro
 ro:3Punct de vedere
 es:3Vista panorámica
+et:3Vaateplatvorm
 eu:3Bista panoramikoa
 sv:4Utsiktsplats
 th:3จุดชมวิว|การท่องเที่ยว
@@ -2533,10 +2668,11 @@ pt:3Informações turísticas|4informação
 pt-BR:3Informações turísticas|4informação
 ro:3Informații turistice
 es:4Información
+et:3Turisti-info
 eu:4Informazioa
 sv:4Turistinformation|4information
 th:4ข้อมูลการท่องเที่ยว|ข้อมูล
-tr:4Turist bilgileri|4Bilgi
+tr:4Turist bilgilendirme|4Bilgi
 uk:4Турінформація|3інформація
 vi:Thông tin du lịch
 zh-Hans:1旅游信息|信息|景点
@@ -2563,12 +2699,13 @@ it:3Picnic
 ja:1ピクニック|ピクニックサイト|ハイキング
 ko:피크닉 장소|피크닉
 mr:साहिलीचे ठिकाण|पिकनिक साइट
-nb:3Rasteplasser
+nb:3Rasteplass
 pl:4Pole piknikowe|plener|piknik
 pt:4Local de piqueniques|3Parque de merendas|3piqueniques
 pt-BR:4Local de piquenique|churrasqueira
 ro:3Locații picnic
 es:3Picnic
+et:3Pikniku koht
 eu:3Piknika
 sv:3Picknickplatser
 th:3เว็บไซต์ปิกนิก
@@ -2605,6 +2742,7 @@ pt:Local de culto|3templo|Local de oração
 pt-BR:Local de culto|3templo|igreja
 ro:3Loc de cult|3templu
 es:4Lugar de culto|templo
+et:Religioosne koht|3Tempel
 eu:4Gurtzalekua|3tenplua
 sv:4Plats för tillbedjan|gudstjänstplats|helgedom|3tempel
 th:2สถานที่ประกอบพิธีกรรม
@@ -2641,6 +2779,7 @@ pt:Igreja|local de culto|templo|catedral|basílica
 pt-BR:Igreja|local de culto|templo|catedral|basílica
 ro:Biserică|loc de cult|templu
 es:3Iglesia|templo|lugar de culto|basílica
+et:4Kirik|religioosne koht|tempel|katedraal|basiilika
 eu:3Eliza|tenplua|gurtzalekua|basilika
 sv:4Kyrka|plats för tillbedjan|tempel
 th:โบสถ์|สถานที่ประกอบพิธีกรรม
@@ -2676,6 +2815,7 @@ pt:4Mesquita|local de culto|templo
 pt-BR:4Mesquita|local de culto|templo
 ro:4Moschee|loc de cult|templu
 es:4Mezquita|templo|lugar de culto
+et:Mošee|religioosne koht
 eu:4Meskita|tenplua|gurtzalekua
 sv:4Moské|plats för tillbedjan|tempel
 th:มัสยิด|สถานที่ประกอบพิธีกรรม
@@ -2711,6 +2851,7 @@ pt:Templo|local de culto
 pt-BR:Templo budista|local de culto
 ro:Templu|loc de cult
 es:Templo|lugar de culto
+et:Tempel|religioosne koht
 eu:3Tenplua|4gurtzalekua
 sv:Tempel|plats för tillbedjan
 th:วัด|สถานที่ประกอบพิธีกรรม
@@ -2746,6 +2887,7 @@ pt:Templo|local de culto
 pt-BR:Templo hindu|local de culto
 ro:Templu|loc de cult
 es:Templo|lugar de culto
+et:Tempel|religioosne koht
 eu:3Tenplua|4gurtzalekua
 sv:Tempel|plats för tillbedjan
 th:วัด|สถานที่ประกอบพิธีกรรม
@@ -2781,6 +2923,7 @@ pt:Santuário|templo|local de culto
 pt-BR:Templo shintoísta|santuário|local de culto
 ro:Sanctuar|templu|loc de cult
 es:Ermita|templo|lugar de culto
+et:Pühamu|religioosne koht
 eu:Ermita|tenplua|gurtzalekua
 sv:Altare|plats för tillbedjan|tempel
 th:ศาลเจ้า|สถานที่ประกอบพิธีกรรม
@@ -2816,6 +2959,7 @@ pt:4Sinagoga|templo|local de culto
 pt-BR:4Sinagoga|templo|local de culto
 ro:4Sinagogă|templu|loc de cult
 es:4Sinagoga|templo|lugar de culto
+et:4Sünagoog|tempel|religioosne koht
 eu:4Sinagoga|tenplua|gurtzalekua
 sv:4Synagoga|plats för tillbedjan|tempel
 th:มัสยิดยิว|สถานที่ประกอบพิธีกรรม
@@ -2851,6 +2995,7 @@ pt:Templo taoísta|local de culto
 pt-BR:Templo taoísta|local de culto
 ro:Templu|loc de cult
 es:Templo|lugar de culto
+et:Tempel|religioosne koht
 eu:Tenplua|gurtzalekua
 sv:Tempel|plats för tillbedjan
 th:วัด|สถานที่ประกอบพิธีกรรม
@@ -2886,6 +3031,7 @@ pt:2Museu|3galeria
 pt-BR:2Museu
 ro:3Muzeu
 es:2Museo
+et:2Muuseum
 eu:2Museoa
 sv:2Museum
 th:2พิพิธภัณฑ์|แหล่งท่องเที่ยว|การท่องเที่ยว
@@ -2922,6 +3068,7 @@ pt:2Queda de água|2Cascata|2Salto|2Catarata
 pt-BR:2Cachoeira|2Queda de água|2Cascata|2Salto|2Catarata
 ro:3Cascadă
 es:3Cascada
+et:3Kosk
 eu:3Kaskada
 sv:2Vattenfall
 th:2น้ำตก
@@ -2937,16 +3084,20 @@ fa:ابشار
 
 historic-archaeological_site|@tourism
 en:4Archaeological Site
-ru:3Археологический памятник|раскопки|археологические раскопки
-bg:3Археологически сайт|Архелогически разкопки|разкопки
-be:3Археалагічны помнік
 ar:موقع أثري|أماكن جذابة|سياحة|مناظر
+be:3Археалагічны помнік
+bg:3Археологически сайт|Архелогически разкопки|разкопки
 cs:Vykopávky|zajímavost
 da:3Arkæologisk sted
-nl:4Archeologische site|opgravingen|attractie
+de:Ausgrabungen|4Ausgrabungsstätte|4Archäologische Stätte
+el:Αρχαιολογικός χώρος|θέαμα|τουρισμός|αξιοθέατα
+es:Yacimiento arqueológico
+et:4Arheoloogiline koht
+eu:Aztarnategi arkeologikoa
+fa:سایت باستان شناسی
 fi:3Arkeologinen kohde
 fr:Site archéologique
-de:Ausgrabungen|Ausgrabungsstätte
+he:אתר ארכיאולוגי
 hu:Ásatás
 id:Situs arkeologi
 it:Sito archeologico
@@ -2954,23 +3105,97 @@ ja:1考古遺跡|発掘|発掘現場|考古学|遺跡
 ko:유적지|고고학적 유적지|발굴
 mr:पुरातत्व स्थळ
 nb:3Arkeologisk område
+nl:4Archeologische site|opgravingen|attractie
 pl:5Odkrywka archeologiczna|wykopaliska
-pt:Sítio arqueológico
 pt-BR:Sítio arqueológico|atração
+pt:Sítio arqueológico
 ro:Sit arheologic
-es:Yacimiento arqueológico
-eu:Aztarnategi arkeologikoa
+ru:3Археологический памятник|раскопки|археологические раскопки
+sk:Vykopávky
 sv:3Arkeologisk plats|fornminne
+sw:Machimbo ya kihistoria|kivutio|utalii
 th:โบราณสถาน|แหล่งท่องเที่ยว|การท่องเที่ยว
 tr:3Arkeolojik alan|Kazı alanı|Sit alanı|ören yeri
 uk:Пам'ятка археології|Розкопки|історична пам'ятка
 vi:Điểm khảo cổ
 zh-Hans:考古遗址|旅游|景点
 zh-Hant:1考古遺址|考古|遺址|古蹟|歷史|旅遊景點
-el:Αρχαιολογικός χώρος|θέαμα|τουρισμός|αξιοθέατα
-sk:Vykopávky
-sw:Machimbo ya kihistoria|kivutio|utalii
-fa:سایت باستان شناسی
+
+historic-battlefield
+en:Battlefield
+ar:ساحة معركة تاريخية
+be:Поле бітвы
+bg:Бойно поле
+cs:Bojiště
+da:Slagmark
+de:4Schlachtfeld
+el:Πεδίο μάχης
+es:Campo de batalla
+et:Lahinguväli
+eu:Gudu zelai
+fa:میدان جنگ
+fi:Taistelukenttä
+fr:Champ de bataille
+he:שדה קרב
+hu:Csatatér
+id:Medan Perang
+it:Campo di battaglia
+ja:古戦場
+ko:전장터
+mr:रणांगण
+nb:Slagmarken
+nl:Slagveld
+pl:Miejsce historycznej bitwy
+pt:Campo de batalha
+ro:Câmpul de luptă
+ru:Поле боя
+sk:Bojisko
+sv:Stridsområde
+sw:Uwanja wa vita
+th:สนามรบ
+tr:Harp Meydanı
+uk:Поле битви
+vi:Chiến trường
+zh-Hans:古战场
+zh-Hant:古戰場
+
+historic-boundary_stone
+en:Boundary Stone
+ar:حجر لتحديد الحدود
+be:Межавы камень
+bg:Граничен камък
+cs:Hraniční kámen
+da:Grænsesten
+de:4Grenzstein|4Markstein
+el:Οριακή πέτρα
+es:Hito fronterizo
+et:Piirikivi
+eu:Zedarri
+fa:نشانگر مرز
+fi:Rajamerkki
+fr:Borne frontière
+he:אבן גבול
+hu:Határkő
+id:Batu pembatas
+it:Cippo di confine
+ja:境界標
+ko:경계석
+mr:सीमेचा दगड
+nb:Grensestein
+nl:Grenssteen
+pl:Historyczny kamień graniczny
+pt:Marco fronteiriço
+ro:Piatră de hotar
+ru:Пограничный камень
+sk:Hraničný kameň
+sv:Gränsmärke
+sw:Jiwe la mpaka
+th:ขอบหิน
+tr:Sınır Taşı
+uk:Прикордонний камінь
+vi:Đá ranh giới
+zh-Hans:界碑
+zh-Hant:界碑
 
 historic-castle|@tourism
 en:4Castle|4Palace|4Fortress|U+1F3EF|U+1F3F0|U+1F451|U+1F478|Hillfort|Kremlin|Manor house
@@ -2983,6 +3208,7 @@ de:Burg|Schloss|Festung|Palast|Wallburg|Kreml|Herrenhaus|Palais|Ruine
 el:Κάστρο|θέαμα|τουρισμός|αξιοθέατα|Ρωμαϊκό κάστρο|Οχυρωμένη εκκλησία|Φρούριο|Κρεμλίνο|Αρχοντικό|Παλάτι
 es:4Castillo|Castrum|Iglesia fortificada|Fortaleza|Castro|Kremlin|Casa solariega|Palacio
 eu:4Gaztelua|Castrum|Eliza-gotorleku|Gotorlekua|Kastro|Kremlina|Jauregitxo|Jauregi
+et:Loss|Palee|Kindlus|Linnamägi|Kreml|Mõis
 fa:قلعه تاریخی|قلعه رومی|کلیسای مستحکم|تپه‌قلعه|کرملین|خانه ارباب یا صاحب تیول|کاخ|گردشگری
 fi:Linna|Castra|Linnoitus|Linnavuori|Kreml|Kartano|Palatsi
 fr:4Château|4Forteresse|4Palais|Église fortifiée|Colline fortifiée|Kremlin|Manoir
@@ -3003,7 +3229,7 @@ sk:3Zámok|atrakcia|Hrad|Kastrum|Opevnený kostol|Pevnosť|Hradisko|Kremeľ|Kaš
 sv:Slott|Borg|Castrum|Försvarskyrka|Fästning|Fornborg|Kreml|Herrgård|Palats
 sw:Ngome|kivutio|utalii|Kanisa lililoimarishwa|Kremlin|Nyumba ya manor|Ikulu
 th:ปราสาท|การท่องเที่ยว|ป้อมโรมัน|โบสถ์เสริมความแข็งแกร่ง|ป้อม|ป้อมเนิน|เครมลิน|คฤหาสน์|วัง|ปราสาท
-tr:Kale|Saray|Müstahkem şato|Castra|Müstahkem şato|Müstahkem kilise|Tepe Kalesi|Kremlin|Malikane|Şato
+tr:Kale|Saray|şato|kule|Tepe Kalesi
 uk:3Замок|4фортеця|мури|Каструм|Фортеця|Городище|Кремль|Садиба|Палац|Шато
 vi:Pháo đài|Lâu đài|Pháo đài La mã|Nhà thờ kiên cố|Trang viên|Cung điện|
 zh-Hans:城堡|古罗马兵营|坚固的教堂|要塞|丘堡|克里姆林|庄园大屋|宮殿|法式城堡
@@ -3016,9 +3242,10 @@ be:Гарадская брама
 bg:Градска порта
 cs:Městská brána
 da:Byport
-de:Stadttor
+de:4Stadttor
 el:Πύλη της πόλης
 es:Puerta de la ciudad
+et:Linnavärav
 eu:Portale
 fa:دروازه شهر
 fi:Kaupungin portti
@@ -3046,34 +3273,135 @@ vi:Cổng thành
 zh-Hans:城门
 zh-Hant:城門
 
+historic-citywalls|@tourism
+en:City Wall
+ar:جدار المدينة
+be:Гарадскі вал
+bg:Градска стена
+cs:Městská zeď
+da:Bymur
+de:Stadtmauer
+el:Τείχος της πόλης
+es:Muro de la ciudad
+et:Linnamüür
+eu:Hiri harresia
+fa:دیوار شهر
+fi:Kaupungin muuri
+fr:Mur de la ville
+he:חומת העיר
+hu:Városi fal
+id:Tembok Kota
+it:Muro della città
+ja:城壁
+ko:도시의 벽
+mr:शहराची भिंत
+nb:Bymur
+nl:Stadsmuur
+pl:Mur miejski
+pt:Muralha
+ro:Zidurile orașului
+ru:Городская стена
+sk:Mestský múr
+sv:Stadsmur
+sw:Ukuta wa jiji
+th:กำแพงเมือง
+tr:Şehir Duvarı
+uk:Міська стіна
+vi:Tường thành
+zh-Hans:城墙
+zh-Hant:城牆
+
 historic-fort|@tourism
 en:Fort
 ar:قلعة
-de:Festung
+be:Форт
+bg:Форт
+cs:Fort
+da:Fort
+de:Fort
+el:Φορτ
+es:Fuerte
+et:Kindlus
+eu:Gotorlekua
+fa:دژ
+fi:Fort
 fr:Fort militaire
+he:מִבצָר
+hu:Fort
+id:Benteng
 it:Fortezza
 ja:歴史的な要塞
+ko:요새
 mr:दुर्ग
+nb:Fort
+nl:Fort
 pl:Historyczny fort
-pt:Forte histórico
-pt-BR:Forte histórico
+pt:Forte
+ro:Fort
 ru:Форт
+sk:Fort
+sv:Fort
+sw:Ngome
+th:ป้อม
 tr:Hisar
 uk:Форт
+vi:Pháo đài
 zh-Hans:历史要塞
 zh-Hant:歷史要塞
 
+historic-gallows|@tourism
+en:Gallows
+ar:مشنقة
+be:Шыбеніца
+bg:Бесилка
+cs:Šibenice
+da:Galge
+de:3Galgen
+el:Αγχόνη
+es:Horca
+et:Võllas
+eu:Urkamendi
+fa:چوبه دار
+fi:Sappeja
+fr:Potence
+he:גרדום
+hu:Akasztófa
+id:Tiang gantungan
+it:Forca
+ja:絞首台
+ko:교수대
+mr:फाशी
+nb:Galge
+nl:Galg
+pl:Szubienica
+pt:Forca
+ro:Spânzurătoare
+ru:Виселица
+sk:Šibenica
+sv:Galge
+sw:Kunyongea
+tr:Darağacı
+uk:Шибениця
+vi:Giá treo cổ
+zh-Hans:绞架
+zh-Hant:絞架
+
 historic-memorial|@tourism
 en:4Memorial|monument|U+1F5FC|U+1F5FD|U+1F5FF
-ru:4Памятник|4мемориал
-bg:4Паметник|4мемориал
 ar:نصب تذكاري|معالم|آثار|أماكن جذابة|سياحة
+be:Мемарыял
+bg:4Паметник|4мемориал
 cs:4Pomník|památka|zajímavost
 da:Mindesmærke|mindesten
-nl:Gedenkteken|monument|attractie
+de:Denkmal|Gedenkstätte
+el:Μνημείο|θέαμα|τουρισμός|αξιοθέατα
+es:4Memorial
+et:4Mälestusmärk|monument
+eu:4Oroigarria
+fa:یادبود تاریخی
 fi:3Muistomerkki
 fr:4Mémorial|monument|attraction
-de:Denkmal|Gedenkstätte
+he:אתר הנצחה
 hu:3Emlékmű|Monumentális emlékmű
 id:3Tugu peringatan
 it:4Memoriale|monumento
@@ -3081,35 +3409,266 @@ ja:追悼|1記念碑|追悼碑
 ko:기념비|기념관|추모관
 mr:स्मारक
 nb:3Minnesmerke
+nl:Gedenkteken|monument|attractie
 pl:3Pomnik|Miejsce pamięci
 pt:4Memorial|monumento
-pt-BR:4Memorial|monumento
 ro:3Comemorare
-es:4Memorial
-eu:4Oroigarria
+ru:4Памятник|4мемориал
+sk:4Pomník|pamiatka|atrakcia|zaujímavosť
 sv:3Minnesmärke|monument
+sw:Makumbusho|kumbukumbu ya kihistoria|kivutio|utalii
 th:ที่ระลึก
 tr:Anıt|abide
 uk:4Меморіал|монумент|пам'ятка|статуя|4пам'ятник
 vi:3Đài tưởng niệm
 zh-Hans:纪念馆|景点
 zh-Hant:紀念館|1紀念碑|紀念館|旅遊景點
-el:Μνημείο|θέαμα|τουρισμός|αξιοθέατα
-sk:4Pomník|pamiatka|atrakcia|zaujímavosť
-sw:Makumbusho|kumbukumbu ya kihistoria|kivutio|utalii
-fa:یادبود تاریخی
+
+historic-memorial-cross
+en:Memorial cross
+ar:الصليب التذكاري
+be:Памятны крыж
+bg:Мемориален кръст
+cs:Pamětní kříž
+da:Mindesmærkekors
+de:3Gedenkkreuz
+el:Σταυρός μνήμης
+es:Cruz conmemorativa
+et:Mälestusrist
+eu:Oroimenezko gurutzea
+fa:صلیب یادبود
+fi:Muistoristi
+fr:Croix commémorative
+he:צלב זיכרון
+hu:Emlékkereszt
+id:Salib peringatan
+it:Croce commemorativa
+ja:メモリアルクロス
+ko:기념 십자가
+mr:मेमोरियल क्रॉस
+nb:Minnekors
+nl:Herdenkingskruis
+pl:Krzyż pomnikowy
+pt:Cruz memorial
+ro:Cruce comemorativă
+ru:Памятный крест
+sk:Pamätný kríž
+sv:Kors till minne
+sw:Msalaba wa kumbukumbu
+th:อนุสรณ์สถานข้าม
+tr:Anıt haç
+uk:Пам'ятний хрест
+vi:Thánh giá tưởng niệm
+zh-Hans:纪念十字架
+zh-Hant:紀念十字架
+
+historic-memorial-plaque
+en:Commemorative plaque
+ar:لوحة تذكارية
+be:Памятная дошка
+bg:Паметна плоча
+cs:Pomník
+da:Mindesmærke
+de:3Gedenktafel
+el:Μνημείο
+es:Placa conmemorativa
+et:Mälestusmärk
+eu:Oroitzapenezko plaka
+fa:گردشگری
+fi:Muistomerkki
+fr:Plaque commémorative
+he:לוחית זיכרון
+hu:Emlékmű
+id:Tugu peringatan
+it:Memoriale
+ja:銘板
+ko:기념비
+mr:फलक
+nb:Minneplakett
+nl:Gedenkplaat
+pl:Tablica pamiątkowa
+pt:Placa comemorativa
+pt-BR:Placa comemorativa
+ro:Comemorare
+ru:Памятная доска
+sk:Pomník
+sv:Minnesmärke
+sw:Plaque
+th:ที่ระลึก
+tr:Hatıra Plaketi|Anı plaketi
+uk:Дошка пам'яті
+vi:Đài tưởng niệm
+zh-Hans:纪念牌匾
+zh-Hant:紀念牌匾
+
+historic-memorial-sculpture|@tourism
+en:Sculpture
+ar:منحوتة تذكارية
+be:Скульптура
+bg:Скулптура
+cs:Pomník
+da:Mindesmærke
+de:4Skulptur
+el:Μνημείο
+es:Escultura
+et:Skulptuur
+eu:Eskultura
+fa:گردشگری
+fi:Muistomerkki
+fr:Sculpture
+he:פֶּסֶל
+hu:Emlékmű
+id:Tugu peringatan
+it:Scultura
+ja:彫刻
+ko:기념비
+mr:शिल्प
+nb:Skulptur
+nl:Sculptuur
+pl:Rzeźba
+pt:Escultura
+ro:Comemorare
+ru:Скульптура
+sk:Pomník
+sv:Minnesmärke
+sw:Uchongaji
+th:ที่ระลึก
+tr:Heykel
+uk:Скульптура
+vi:Đài tưởng niệm
+zh-Hans:雕塑
+zh-Hant:雕塑
+
+historic-memorial-statue|@tourism
+en:Statue
+ar:تمثال تذكاري
+be:Статуя
+bg:Статуя
+cs:Pomník
+da:Mindesmærke
+de:4Statue
+el:Μνημείο
+es:Estatua
+et:Kuju
+eu:Estatua
+fa:گردشگری
+fi:Muistomerkki
+fr:Mémorial
+he:פסל
+hu:Emlékmű
+id:Tugu peringatan
+it:Statua memoriale
+ja:塑像
+ko:기념비
+mr:पुतळा
+nb:Statue
+nl:Standbeeld
+pl:Pomnik
+pt:Estátua
+ro:Comemorare
+ru:Статуя
+sk:Pomník
+sv:Minnesmärke
+sw:Sanamu
+th:ที่ระลึก
+tr:Heykel
+uk:Статуя
+vi:Đài tưởng niệm
+zh-Hans:塑像
+zh-Hant:塑像
+
+historic-memorial-stolperstein
+en:Stolperstein
+ar:حجر عثرة
+be:Камяні спатыкнення
+bg:Cпънка
+cs:Stolperstein
+da:Stolpersten
+de:3Stolperstein
+el:Λίθοι Μνήμης
+es:Stolperstein
+et:Komistuskivi
+eu:Stolperstein
+fa:سنگ مانع
+fi:Kompastuskivet
+fr:Stolperstein
+he:אבן נגף
+hu:Botlatókő
+id:Stolperstein
+it:Pietre d'inciampo
+ja:ストルパーシュタイン
+ko:장애물
+mr:अडथळा
+nb:Snublesteiner
+nl:Stolperstein
+pl:Kamień pamięci
+pt:Stolperstein
+ro:Blocaj de poticnire
+ru:Камни преткновения
+sk:Kameň úrazu
+sv:Snubbelsten
+sw:Kikwazo
+th:อุปสรรค์
+tr:Tökezleyen Taşlar|Stolperstein
+uk:Камені спотикання
+vi:Vấp ngã
+zh-Hans:绊脚石
+zh-Hant:絆腳石
+
+historic-memorial-war_memorial|@tourism
+en:War memorial
+ar:نصب حرب
+be:Ваенны мемарыял
+bg:Военен паметник
+cs:Válečný památník
+da:Krigsmindesmærke
+de:4Kriegerdenkmal|Kriegsdenkmal
+el:Μνημείο του Αγνώστου Στρατιώτη
+es:Monumento a la guerra
+et:Sõjamemoriaal
+eu:Gerra memoriala
+fa:رزم‌یاد
+fi:Sotamuistomerkki
+fr:Monument aux morts
+he:אנדרטת מלחמה
+hu:Háborús emlékmű
+id:Tugu peringatan perang
+it:Monumento ai caduti
+ja:戦争記念施設
+ko:전쟁기념관
+mr:युद्ध स्मारक
+nb:Krigsminnesmerke
+nl:Oorlogsmonument
+pl:Pomnik wojenny
+pt:Memorial de guerra
+ro:Memorial de război
+ru:Военный мемориал
+sk:Vojnový pamätník
+sv:Krigsmonument
+sw:Kumbukumbu ya vita
+th:อนุสรณ์สถานสงคราม
+tr:Savaş anıtı
+uk:Військовий меморіал
+vi:Đài tưởng niệm chiến tranh
+zh-Hans:战争纪念建筑
+zh-Hant:戰爭紀念建築
 
 historic-monument|@tourism
 en:4Monument|U+1F5FD|U+1F5FF
-ru:4Монумент
-bg:4монумент|паметник
 ar:صرح|معالم|سياحة|مناظر
+be:4Помнік
+bg:4монумент|паметник
 cs:Zajímavost|pomník|památka
 da:4Monument
-nl:4Monument|attractie
+de:4Monument
+el:Μνημείο|θέαμα|τουρισμός|αξιοθέατα
+es:4Monumento
+et:4Monument
+eu:4Monumentua
+fa:بنای تاریخی
 fi:4Monumentti
 fr:4Monument|attraction
-de:4Monument|Denkmal
+he:מונומנט
 hu:4Monumentális emlékmű
 id:4Monumen
 it:4Monumento
@@ -3117,35 +3676,75 @@ ja:1記念碑
 ko:기념비|기념탑
 mr:स्मारक
 nb:4Monument
+nl:4Monument|attractie
 pl:3Monument
 pt:4Monumento
-pt-BR:4Monumento
 ro:4Monument
-es:4Monumento
-eu:4Monumentua
+ru:4Монумент
+sk:Zaujímavosť|pomník|pamiatka
 sv:4Monument
+sw:Makumbusho|kivutio|utalii
 th:3อนุสาวรีย์|การท่องเที่ยว
-tr:Abide
+tr:Abide|anıt
 uk:Пам'ятник|4монумент
 vi:Tượng đài
 zh-Hans:纪念碑|景点
 zh-Hant:1紀念碑|紀念塔|紀念館|旅遊景點
-el:Μνημείο|θέαμα|τουρισμός|αξιοθέατα
-sk:Zaujímavosť|pomník|pamiatka
-sw:Makumbusho|kivutio|utalii
-fa:بنای تاریخی
+
+historic-pillory|@tourism
+en:Pillory
+ar:مشهرة
+be:Пазорны слуп
+bg:Позорен стълб
+cs:Pranýř
+da:Kag
+de:Pranger
+el:Κύφωνας
+es:Picota
+et:Häbipost
+eu:Urkabe
+fa:تخته‌بند
+fi:Häpeäpaalu
+fr:Pilori
+he:עמוד הקלון
+hu:Pellengér
+id:Pilar
+it:Gogna
+ja:さらし台
+ko:칼
+mr:पिलोरी
+nb:Gapestokk
+nl:Schandpaal
+pl:Pręgierz
+pt:Pelourinho
+ro:Stâlpul infamiei
+ru:Позорный столб
+sk:Pranier
+sv:Skampåle
+sw:Pillory
+th:ประจาน
+tr:Boyunduruk
+uk:Ганебний стовп
+vi:Thuốc viên
+zh-Hans:刑柱
+zh-Hant:刑柱
 
 historic-ruins|@tourism
 en:3Ruins|U+1F5FF
-ru:3Руины|развалины
-bg:3Руини|съборетини|останки|развалини
 ar:آثار|أماكن جذابة|مناظر|سياحة
+be:Руіны
+bg:3Руини|съборетини|останки|развалини
 cs:3Ruiny|zřícenina
 da:3Ruiner
-nl:3Ruïne|attractie
+de:3Ruinen
+el:Ερείπια|χαλάσματα|θέαμα|τουρισμός|αξιοθέατα
+es:3Ruinas
+et:3Varemed
+eu:3Hondakinak
+fa:خرابه های تاریخی
 fi:Rauniot
 fr:3Ruines|attraction
-de:3Ruinen
+he:חורבות
 hu:Romok
 id:Reruntuhan
 it:Rovine
@@ -3153,53 +3752,172 @@ ja:1古跡|古蹟|廃墟|城址|城跡
 ko:1유적
 mr:अवशेष
 nb:3Ruiner
+nl:3Ruïne|attractie
 pl:3Ruiny
 pt:3Ruínas
-pt-BR:3Ruínas
 ro:3Ruine
-es:3Ruinas
-eu:3Hondakinak
+ru:3Руины|развалины
+sk:Zrúcanina|ruiny
 sv:3Ruiner
+sw:Maeneo ya kale|jengo la kale|chakavu
 th:ซากปรักหักพัง|การท่องเที่ยว
 tr:Harabeler
 uk:3Руїни|розвалини
 vi:Phế tích
 zh-Hans:废墟|景点
 zh-Hant:1廢墟|古蹟|遺址|旅遊景點
-el:Ερείπια|χαλάσματα|θέαμα|τουρισμός|αξιοθέατα
-sk:Zrúcanina|ruiny
-sw:Maeneo ya kale|jengo la kale|chakavu
-fa:خرابه های تاریخی
 
 historic-ship|@tourism
 en:Ship|boat
-ru:Корабль|судно|лодка
-bg:Кораб|лодка|туризъм
+ar:سفينة تاريخية
+be:Судна
+bg:Кораб|лодка
+cs:Pamětihodnost
+de:4Schiff|Boot
+el:Αξιοθέατο
 es:Barco|Navío
+et:Laev|paat
+eu:Turismoa
+fa:گردشگری
+fi:Nähtävyydet
 fr:Bâteau|navire
-nl:Schip|boot
+he:אונייה
+hu:Túrizmus
+id:Pemandangan
+it:Nave storica
+ja:退役船
 ko:배|보트
 mr:जहाज
+nb:Skip|båt
+nl:Schip|boot
 pl:Łódź|okręt
 pt:2Barco|2Navio
-pt-BR:2Barco|2Navio
+ro:Navă
+ru:Корабль|судно|лодка
+sk:Pamätihodnosť
+sv:Fartyg
+sw:Meli
+th:สถานที่ท่องเที่ยว
 tr:Gemi|Tekne|Bot
-de:Schiff|Boot
+uk:Корабель
+vi:Diểm tham quan
+zh-Hans:历史船
+zh-Hant:歷史船
+
 
 historic-tomb|@tourism
 en:Tomb|grave|memorial
-ru:4Гробница|3склеп|захоронение|могила|кладбище
+ar:قبر
+be:Склеп|магіла
 bg:4Гробница|гробище|могила|погребани
+cs:Pamětihodnost
+da:Grav
+de:Grab
+el:Αξιοθέατο
 es:Tumba|Sepultura
+et:Hauakamber|haud|memoriaal
+eu:Ehorztoki
+fa:گردشگری
+fi:Nähtävyydet
 fr:Tombe
-nl:Tombe|graf|gedenkteken
+he:קֶבֶר
+hu:Sír
+id:Pemandangan
+it:Tomba
+ja:墓
 ko:무덤|묘지
 mr:थडगे
+nb:Grav
+nl:Tombe|graf|gedenkteken
 pl:Grób|grobowiec
 pt:Túmulo|2Sepultura|memorial
-pt-BR:Túmulo|2Sepultura|memorial
+ro:Mormânt
+ru:4Гробница|3склеп|захоронение|могила|кладбище
+sk:Pamätihodnosť
+sv:Grav
+sw:Kaburi
+th:สถานที่ท่องเที่ยว
 tr:Türbe|mezar|lahit|kabir
-de:Grab|Gedenkstätte
+uk:Гробниця
+vi:Diểm tham quan
+zh-Hans:陵墓
+zh-Hant:陵墓
+
+historic-wayside_cross|@tourism
+en:Wayside cross
+ar:صليب مسيحي
+be:Прыдарожны крыж
+bg:Крайпътен кръст
+cs:Přícestný kříž
+da:Kors ved vejsiden
+de:4Wegkreuz|4Flurkreuz
+el:Σταυρός στην άκρη του δρόμου
+es:Cruz de término
+et:Teeäärne rist
+eu:Bideko gurutze
+fa:صلیب کنار راه
+fi:Tienvarren risti
+fr:Croix de chemin
+he:צלב בצד הדרך
+hu:Útszéli kereszt
+id:Salib di pinggir jalan
+it:Crocifisso
+ja:歴史的な十字架
+ko:길가의 십자가
+mr:ख्रिश्चन क्रॉस
+nb:Veikantkors
+nl:Wegkruis
+pl:Krzyż przydrożny
+pt:Cruzeiro
+ro:Troiță
+ru:Христианский крест
+sk:Prícestný kríž
+sv:Korset vid vägkanten
+sw:Msalaba wa njiani
+th:ทางข้าม
+tr:Yol kenarı haçı|Yol kenarında haç|yol üstü haç|yol üstünde haç
+uk:Християнський хрест
+vi:Đường chéo
+zh-Hans:路旁十字架
+zh-Hant:路旁十字架
+
+historic-wayside_shrine|@tourism
+en:Wayside shrine
+ar:ضريح
+be:Прыдарожная святыня
+bg:Крайпътно светилище
+cs:Drobná sakrální památka
+da:Skrin ved vejsiden
+de:4Bildstock|4Marterl|4Wegstock|4Helgenstöckli
+el:Εικονοστάσιο στην άκρη του δρόμου
+es:Peto de ánimas
+et:Teeäärne pühakoht
+eu:Bide bazterreko baseliza
+fa:حرم کنار راه
+fi:Tienvarren pyhäkkö
+fr:Oratoire
+he:מקדש בצד הדרך
+hu:Útmenti szentély
+id:Kuil di pinggir jalan
+it:Edicola votiva
+ja:歴史的な祠
+ko:길가의 신사
+mr:देवस्थान
+nb:Helligdom ved veikanten
+nl:Kruisbeeld
+pl:Kapliczka przydrożna
+pt:Alminhas
+ro:Altarul de la marginea drumului
+ru:Святыня
+sk:Svätyňa pri ceste
+sv:Helgedom vid vägkanten
+sw:Kaburi la njia
+th:ศาลเจ้าข้างทาง
+tr:Yol üstünde türbe|yol üstü türbe|yol kenarı türbe|yol kenarında türbe
+uk:Святиня
+vi:Đền thờ
+zh-Hans:路旁神龛
+zh-Hant:路旁神龕
 
 leisure-dog_park
 en:3Dog area|Dog park
@@ -3207,6 +3925,7 @@ ru:Место для выгула собак|3выгул собак|Площад
 bg:Кучешка зона|домашни любимци
 cs:3Psí hřiště
 es:Parque para perros
+et:3Koerte ala|koerte park
 fr:Parc canin
 nl:4Hondenpark|Hondengebied
 ko:개 놀이 공원|도그 파크
@@ -3241,6 +3960,7 @@ pl:2Ogród
 pt:2Jardim
 pt-BR:2Jardim|lazer
 es:2Jardín
+et:3Aed
 eu:2Lorategia
 sv:2Trädgård
 th:2สวน
@@ -3277,6 +3997,7 @@ pt:2Assento|3Banco
 pt-BR:Assento|Banco de praça
 ro:Banchetă|Bancă|Bancă parc
 es:Banco
+et:Pink
 eu:Bankua
 sv:Bänk
 th:ม้านั่ง
@@ -3313,6 +4034,7 @@ pt:Aluguer de bicicletas|4bicicleta|3aluguar
 pt-BR:Aluguel de bicicletas|4bicicleta|3aluguel
 ro:Închiriere de biciclete|Bicicletă
 es:Alquiler de bicicletas|4bicicleta|3alquiler
+et:Jalgrataste laenutus
 eu:Bizikleta alokairua|4bizikleta|3alokairua
 sv:4Cykeluthyrning|cykel|cykel|3uthyrning
 th:4จักรยานให้เช่า|4จักรยาน|บริการรถเช่า
@@ -3333,6 +4055,7 @@ cs:Oprava jízdních kol|4jízdní kolo|3kolo|Oprava
 da:4Cykel reparation
 de:4Fahrradreparatur|Radservicestation|Radreparatur
 es:Reparación de bicicletas|4bicicleta
+et:Jalgrataste remondipunkt
 fa:تعمیر دوچرخه
 fi:Polkupyörän korjaus
 fr:Réparation de vélos|vélo|bicyclette|réparation
@@ -3344,7 +4067,7 @@ nl:4Fiets reparatie
 pt:Conserto de bicicleta|4bicicleta
 pt-BR:Oficina de bicicletas|4bicicleta
 ru:4Велоремонт|велосипед|ремонт|ремонт велосипедов
-tr:4Bisiklet tamiri|4Bisiklet
+tr:4Bisiklet tamiri|4Bisiklet|Bisiklet tamircisi
 uk:4Велоремонт|велосипед|ремонт|ремонт велосипедів
 zh-Hans:1自行车修理
 zh-Hant:1自行車修理
@@ -3359,6 +4082,7 @@ da:Delebiler
 de:3Carsharing|Car-Sharing|Carsharing-Dienste|Auto teilen|Auto|Teilen|Fahrgemeinschaft|Mitfahrzentrale
 el:Παραχώρηση αυτοκινήτου
 es:Compartir coche
+et:Auto jagamine
 eu:Partekatu autoa
 fi:Autojen yhteiskäyttö
 fr:Station d'autopartage|auto-partage
@@ -3368,7 +4092,7 @@ it:3Car Sharing
 ja:カーシェアリング
 ko:카 셰어링|카 쉐어링|자동차 공유|차 공유|카셰어링
 mr:कार पूल|कार शेअर
-nb:Kjøre sammen
+nb:3Bildeling
 nl:3Carpool|Carpoolen|Auto delen|Autodelen
 pl:Współdzielenie samochodów|Wypożyczanie samochodów|samochód
 pt:Partilha de carro
@@ -3378,7 +4102,7 @@ sk:Zdieľanie automobilov
 sv:Samåkning
 sw:Kushiriki Gari
 th:การใช้รถร่วมกัน
-tr:Araç Paylaşımı|Araç kiralama
+tr:Araç Paylaşımı|ortak araç
 uk:3Каршерінг
 vi:Chia sẻ Xe
 zh-Hans:拼车点
@@ -3407,6 +4131,7 @@ pt:Aluguer de automóveis|3carro|3automóvel|3aluguer|3rent-a-car
 pt-BR:Aluguel de automóveis|carro|aluguel
 ro:Închiriere mașini
 es:3Coche de alquiler|alquiler
+et:4Autorent
 eu:3Autoa alokairua|alokairua
 sv:3Biluthyrning|bilpool|bil|uthyrning|delning
 th:3รถยนต์|บริการรถเช่า
@@ -3443,6 +4168,7 @@ pt:3Cinema
 pt-BR:3Cinema
 ro:3Cinema
 es:3Cine
+et:3Kino
 eu:3Zinema
 sv:3Bio|biograf
 th:3โรงภาพยนตร์
@@ -3480,6 +4206,7 @@ pt:3Teatro
 pt-BR:3Teatro
 ro:3Teatru
 es:3Teatro
+et:3Teater
 eu:3Antzerkia
 sv:3Teater
 th:3โรงละคร
@@ -3516,6 +4243,7 @@ pt:3Discoteca|3dançar|3Danceteria
 pt-BR:3Boate|3discoteca|4casa noturna|3dançar
 ro:Club de noapte
 es:3Discoteca
+et:3Ööklubi
 eu:3Diskoteka
 sv:3Nattklubb|3disco|dans
 th:3ไนต์คลับ|การเต้นรำ
@@ -3551,6 +4279,7 @@ pt:Bordel|3Casa de prostituição
 pt-BR:Bordel
 ro:Bordel
 es:Burdel
+et:Bordell
 eu:Bordela
 sv:Bordell
 th:ซ่อง
@@ -3584,10 +4313,11 @@ pl:Kasyno
 pt:Casino
 pt-BR:Cassino
 es:Casino
+et:Kasiino
 eu:Kasinoa
 sv:Kasino
 th:คาสิโน
-tr:Casino
+tr:Casino|Gazino|Kumarhane
 uk:Казино
 zh-Hans:赌场
 zh-Hant:賭場
@@ -3619,6 +4349,7 @@ pt:Escola técnica|3Cursos técnicos
 pt-BR:Escola técnica
 ro:4Colegiu
 es:4Colegio
+et:Kolledž
 eu:4Unibertsitatea
 sv:Högskola
 th:วิทยาลัย
@@ -3656,6 +4387,7 @@ pt:Quartel de bombeiros|2Bombeiros
 pt-BR:Posto de bombeiros|corpo de bombeiros
 ro:Unitate de pompieri
 es:Parque de bomberos
+et:Tuletõrje jaam
 eu:Suhiltzaileen parkea
 sv:Brandstation
 th:2สถานีดับเพลิง
@@ -3692,6 +4424,7 @@ pt:4Fonte decorativa|chafariz
 pt-BR:4Fonte|chafariz
 ro:4Fântână
 es:4Fuente
+et:Purskkaev
 eu:4Iturria
 sv:4Fontän
 th:น้ำพุ
@@ -3728,6 +4461,7 @@ pt:Sepultura|5Cemitério
 pt-BR:5Cemitério
 ro:Cimitir
 es:5Cementerio
+et:Surnuaed
 eu:5Hilerria
 sv:Begravningsplats|kyrkogård|gravplats
 th:สุสาน
@@ -3750,6 +4484,7 @@ da:Bedemand
 de:7Bestattungsinstitut|Bestatter|5Beerdigungsunternehmer|Beerdigungsinstitut|Leichenbestatter
 el:Γραφεία τελετών
 es:5Funeraria
+et:Matusebüroo
 eu:5Beilatokia
 fa:مسئول تشییع جنازه
 fi:Hautaustoimisto
@@ -3801,6 +4536,7 @@ pt:3Hospital
 pt-BR:3Hospital
 ro:3Spital
 es:4Hospital
+et:4Haigla
 eu:4Ospitalea
 sv:4Sjukhus
 th:3คลินิก
@@ -3825,6 +4561,7 @@ da:sygehus
 nl:kliniek|hospitaal|3dokter|3eerste hulp
 fr:clinique|3médecin|3docteur
 de:Spital|Klinik|3Arzt|Doktor|Medizinische Einrichtung|Medizinisches Zentrum|Gesundheitswesen|3Ambulanz|Gesundheitsdienstleistungen|Erste Hilfe
+et:Haigla|kliinik|3arst|meditsiinikeskus|terviseteenused|esmaabi
 hu:rendelőintézet|3orvos
 ja:クリニック|医師|医者|ドクター|救急|診療
 mr:रुग्णालय|हॉस्पिटल
@@ -3834,7 +4571,7 @@ pt-BR:3Hospital|3clínica|3médico|saúde|serviços de saúde|primeiros socorros
 ro:5ambulanță|medic|4doctor|diagnostică
 sv:klinik|3läkare
 th:3โรงพยาบาล|แพทย์
-tr:hastane|3klinik|doktor|sağlık merkezi|sağlık hizmetleri|ilk yardım
+tr:hastane|3klinik|doktor|sağlık merkezi|sağlık hizmetleri|ilk yardım|sağlık ocağı
 uk:клініка|3лікар|травмпункт
 zh-Hans:诊所|医生
 zh-Hant:醫生|診所|醫療|診療
@@ -3865,6 +4602,7 @@ pt:4Clínica|centro de saúde|USF|Unidade de Saúde Familiar|Posto médico|polic
 pt-BR:4Clínica|centro de saúde|posto de saúde|policlínica|centro médico|posto médico
 ro:4Clinică|5policlinică|4doctor|medic|diagnostică
 es:4Clínica|centro de salud|hospital
+et:4Kliinik|haigla|3arst|diagnostika|terviseteenused
 eu:4Klinika|osasun zentroa|ospitalea
 sv:4Klinik|sjukhus
 th:คลินิก|โรงพยาบาล
@@ -3899,6 +4637,7 @@ pt:Médico|Gabinete médico|Consultório médico|clínica
 pt-BR:Consultório médico|clínica|saúde
 ro:4Doctor|medic|Cabinet medical|Clinică|spital
 es:Consulta del médico|Clínica|hospital
+et:Arsti vastuvõtt|kliinik|haigla
 eu:Medikua|Klinika|Ospitalea
 sv:Läkarmottagning|klinik|sjukhus
 th:ห้องแพทย์|โรงพยาบาล|คลินิก
@@ -3934,6 +4673,7 @@ pt:4Dentista
 pt-BR:4Dentista|cirurgião dentista|centro odontológico
 ro:4Dentist
 es:4Dentista
+et:4Hambaarst
 eu:4Odontologoa
 sv:Tandläkare
 th:ทันตแพทย์
@@ -3957,6 +4697,7 @@ da:Medicinsk laboratorium
 de:Medizinisches Labor
 el:Ιατρικό Εργαστήριο
 es:Laboratorio médico
+et:Meditsiinilabor|labor
 eu:Medikuntza laborategia
 fa:ﯽﮑﺷﺰﭘ ﻩﺎﮕﺸﯾﺎﻣﺯﺁ
 fi:Lääketieteellinen laboratorio
@@ -3984,6 +4725,44 @@ vi:Phòng thí nghiệm y tế
 zh-Hans:医学实验室
 zh-Hant:醫學實驗室
 
+healthcare-physiotherapist
+en:Physiotherapist
+ru:Физиотерапевт
+ar:اخصائي علاج طبيعي
+be:Фізіятэрапеўт
+bg:Физиотерапевт
+cs:Fyzioterapeut
+da:Fysioterapeut
+de:Physiotherapeut
+el:Φυσικοθεραπευτής
+es:Fisioterapeuta
+eu:Fisioterapeuta
+fa:فیزیوتراپیست
+fi:Fysioterapeutti
+fr:Physiothérapeute
+he:פיזיותרפיסט
+hu:Fizioterapeuta
+id:Fisioterapis
+it:Fisioterapista
+ja:理学療法士
+ko:물리치료사
+mr:फिजिओथेरपिस्ट
+nb:Fysioterapeut
+nl:Fysiotherapeut
+pl:Fizjoterapeuta
+pt:Fisioterapeuta
+pt-BR:Fisioterapeuta
+ro:Fizioterapeut
+sk:Fyzioterapeut
+sv:Fysioterapeut
+sw:Mtaalamu wa Physiotherapist
+th:นักกายภาพบำบัด
+tr:Fizyoterapist
+uk:Фізіотерапевт
+vi:Nhà vật lý trị liệu
+zh-Hans:物理治疗师
+zh-Hant:物理治療師
+
 amenity-hunting_stand
 en:Hunting Stand
 ru:Охотничья вышка
@@ -4006,6 +4785,7 @@ pt:Posto de caça
 pt-BR:Estande de caça
 ro:Stand de vânătoare
 es:Galería de caza
+et:Jahipidamise koht
 eu:Ehiza galeria
 sv:Jakttorn
 th:จุดล่าสัตว์
@@ -4043,6 +4823,7 @@ pt:Jardim de infância|Jardim infantil|escola infantil|pré-escola
 pt-BR:Jardim de infância|escola infantil|pré-escola
 ro:Grădiniță
 es:Guardería
+et:Lasteaed|päevahoid|eelkool
 eu:Haurtzaindegia
 sv:Förskola|dagis
 th:4โรงเรียนอนุบาล
@@ -4079,6 +4860,7 @@ pt:3Biblioteca
 pt-BR:3Biblioteca
 ro:3Bibliotecă
 es:3Biblioteca
+et:3Raamatukogu
 eu:3Liburutegia
 sv:3Bibliotek
 th:3ห้องสมุด
@@ -4107,6 +4889,7 @@ pt:3Estacionamento
 pt-BR:3Estacionamento
 tr:Otopark
 es:3aparcamiento
+et:3Parkla
 eu:3Aparkalekua
 sv:Parkering
 uk:автостоянка
@@ -4142,6 +4925,7 @@ pt:3Farmácia
 pt-BR:3Farmácia
 ro:3Farmacie
 es:3Farmacia
+et:3Apteek
 eu:3Farmazia
 sv:3Apotek
 th:3ร้านขายยา
@@ -4174,6 +4958,7 @@ pt:Parafarmácia
 pt-BR:3Drogaria
 tr:eczane
 es:3Farmacia
+et:3Apteek
 eu:3Farmazia
 sv:apotekare
 th:เภสัชกร
@@ -4208,6 +4993,7 @@ pt:3Correios
 pt-BR:3Correios
 ro:3Poştă
 es:4Oficina de correos
+et:3Post
 eu:Posta bulegoa
 sv:3Post
 th:3ไปรษณีย์
@@ -4246,6 +5032,7 @@ pt:3Caixa de correio|correios
 pt-BR:3Caixa de correio|correios
 ro:Cutie poștală
 es:3Buzón
+et:3Postkast
 eu:3Postontzia
 sv:3Postlåda|brevlåda|post
 th:3ตู้จดหมาย|ไปรษณีย์
@@ -4276,6 +5063,7 @@ pt:Estação de correios|Posto de correios|Correios
 pt-BR:3Correios
 ro:Oficiu poștal
 es:3post
+et:3Postkontor
 eu:4Posta bulegoa|3post
 sv:3Postkontor
 tr:3Postane
@@ -4302,16 +5090,17 @@ id:Sampah
 it:Spazzatura
 ja:ゴミ|ごみ|リサイクル|再利用|ダストボックス
 ko:쓰레기|휴지통
-nb:Søppel
+nb:4Søppeldunk|4søppel
 pl:Wysypisko|Śmieci|ponowne odtworzenie|odpady
 pt:Contentor do lixo|Caixote do lixo|lixo
 pt-BR:Depósito de lixo|lixo
 ro:Gunoi
 es:Basura
+et:Prügikast
 eu:Zaborrontzia
 sv:4Avfallscontainer|Soptunna|skräp|avfall
 th:ขยะ|ถังขยะ
-tr:Çöplük|Çöp
+tr:Çöplük|Çöp kutusu|çöp
 uk:4Сміттєвий контейнер|сміття|смітник
 vi:Xử lý chất thải|Rác
 zh-Hans:垃圾
@@ -4333,7 +5122,7 @@ cs:Recyklační středisko
 da:Genbrugsplads
 nl:Milieustraat|recycling centrum|milieupark|gemeentewerf
 fi:Kierrätyskeskus
-fr:Centre de recyclage
+fr:Centre de recyclage|Déchetterie|Déchèterie
 de:4Recyclinghof|Recyclingzentrum
 hu:Hulladékudvar|Újrahasznosító központ|hulladékgyűjtő központ
 id:TPA
@@ -4347,6 +5136,7 @@ pt:Centro de reciclagem|Ecocentro
 pt-BR:Reciclagem|descarte seletivo
 ro:Centru de reciclare
 es:Centro de reciclaje|punto limpio
+et:Taaskasutuskeskus
 eu:Birziklatze zentroa|garbigune
 sv:Återvinningscentral
 th:ศูนย์รีไซเคิล
@@ -4383,6 +5173,7 @@ pt:Ecoponto|Contentor de reciclagem|Papelão|Vidrão|Embalão|Oleão|reciclagem
 pt-BR:Recipiente de reciclagem
 ro:Containere pentru reciclare
 es:Contenedor de reciclaje
+et:Prügikonteiner
 eu:Birziklatzeko edukiontzia
 es-MX:Contenedor de reciclaje
 sv:Behållare för återvinningsbart avfall
@@ -4407,6 +5198,7 @@ da:Batterier
 de:Batterien
 el:Μπαταρίες
 es:Baterías
+et:Patareid
 eu:Bateriak
 fa:ﺎﻫ ﯼﺮﺗﺎﺑ
 fi:Paristot
@@ -4428,7 +5220,7 @@ sk:Batérie
 sv:Batterier
 sw:Betri
 th:แบตเตอรี่
-tr:3Piller|Atık Pil Toplama
+tr:3Piller|Atık Pil Toplama|Atık pil kutusu
 uk:5Прийом батарейок|Утилізація батарей|5Переробка батарей|5Здати батареї|4Збір батарейок|5Батарейки
 vi:Ắc quy
 zh-Hans:电池
@@ -4448,7 +5240,7 @@ fr:Vêtement usagés|Déposer des affaires non-utilisées
 de:4Altkleider|Alte Kleidung|Sachen spenden
 hu:Régi ruhák|Régi ruhák újrahasznosítása
 id:Pakaian lama|Mendaur ulang pakaian lama
-it:Vestiti usati|Riciclare vestiti usati
+it:Vestiti usati|Riciclare vestiti usati|Raccolta indumenti
 ja:古着|古着のリサイクル
 ko:낡은 옷|낡은 옷 재활|낡은 옷 재활용
 mr:कपडे भंगारवाला
@@ -4460,9 +5252,10 @@ ro:Haine vechi|Înmânarea lucrurilor inutile
 es:Ropa vieja|Reciclaje de cosas innecesarias
 eu:Arropa zaharra|Alferrikako gauzak birziklatzea
 es-MX:Ropa vieja|Reciclaje de cosas innecesarias
+et:Rõivaste taaskasutus
 sv:Gamla kläder|Överlämna onödiga saker
 th:เสื้อผ้าเก่า|รีไซเคิลเสื้อผ้าเก่า
-tr:4Eski kıyafetler|Eski kıyafetler geri dönüşümü|Kıyafet toplama kutusu
+tr:4Eski kıyafetler|Eski kıyafetler geri dönüşümü|Kıyafet toplama kutusu|giysi toplama kutusu
 uk:5Прийом одягу|Старий одяг|Здати непотрібні речі|Здати речі|5Здати одяг
 vi:Quần áo cũ|Chuyển giao những thứ không cần thiết
 el:Παλιά ρούχα|Ανακύκλωση παλαιών ρούχων
@@ -4497,6 +5290,7 @@ ro:Deșeuri de sticlă
 es:Cascos de botellas
 eu:Botila kaskoak
 es-MX:Envase de vidrio
+et:Taarapunkt
 sv:Returglas
 th:ขวดแก้ว
 tr:4Cam şişeler Geri Dönüşümü
@@ -4534,6 +5328,7 @@ ro:Deșeuri de hârtie
 es:Desperdicio de papel|Papel de desecho
 eu:Hondakin-papera|Hondar-papera
 es-MX:Desechos de papel
+et:Vanapaber
 sv:Returpapper
 th:ขยะกระดาษ
 tr:5Kağıt atıkları Geri Dönüşümü
@@ -4571,6 +5366,7 @@ ro:Deșeuri de plastic
 es:Residuos de plástico|Residuos plásticos
 eu:Hondakin plastikoa|Hondakin plastikoa
 es-MX:Desechos de plástico
+et:Plastiku taaskasutus
 sv:Plastavfall
 th:ขยะพลาสติก
 tr:5Plastik atıklar Geri Dönüşümü
@@ -4608,6 +5404,7 @@ ro:Sticle de plastic
 es:Botellas de plástico
 eu:Plastikozko botilak
 es-MX:Botellas de plástico
+et:Plastpudelite taaskasutus
 sv:Samling av plastflaskor
 th:ขวดพลาสติก
 tr:5Plastik şişeler Geri Dönüşümü
@@ -4645,6 +5442,7 @@ ro:Resturi de metal
 es:Residuos de metal|Chatarra
 eu:Hondakin metalikoak|Chatarra
 es-MX:Desechos de metal
+et:Vanametalli kokkuost
 sv:Metallskrap
 th:โลหะมีคม
 tr:5Hurda Metaller Geri Dönüşümü
@@ -4681,7 +5479,8 @@ pt-BR:Lixo eletrônico
 ro:Deșeuri electrice
 es:Residuos electrónicos|Chatarra electrónica
 eu:Hondakin elektronikoak|Chatarra elektronikoa
-es-MX:Desechos electrónicos
+es-MX:Desechos electrónico
+et:Elektroonika taaskasutus
 sv:Elektriskt avfall
 th:ขยะอิเล็กทรอนิกส์
 tr:5Elektronik Geri Dönüşümü
@@ -4700,6 +5499,7 @@ be:5Прыём кардона|Прыём макулатуры|5Перапрац�
 tr:5Karton Geri Dönüşümü
 uk:5Прийом картону|Прийом макулатури|5Переробка картону|5Здати картон|Здати макулатуру|4Збір картону|Збір макулатури|5Макулатура
 mr:पुठ्ठा भंगारवाला
+et:Lainepapi taaskasutus
 
 recycling-cans|@recycling
 en:4Recycling of Cans|4Cans Recycling|4Aluminium Cans Recycling|3Tin Cans Recycling
@@ -4708,6 +5508,7 @@ be:5Прыём бляшаных і алюмініевых слоікаў|5Пер
 tr:4Kutu Geri Dönüşümü
 uk:5Прийом жерстяних та алюмінієвих банок|5Переробка жерстяних та алюмінієвих банок|5Здати жерстяні та алюмінієві банки|4Збір жерстяних та алюмінієвих банок|6Консервні банки|5Жерстяні банки|5Алюмінієві банки|Пивні банки
 mr:कॅन भंगारवाला
+et:Purkide taaskasutus
 
 recycling-shoes|@recycling
 en:4Recycling of Shoes|Shoes Recycling|Donate Shoes
@@ -4716,6 +5517,7 @@ ru:5Приём обуви|Старая обувь|5Сдать обувь
 tr:5Ayakkabı Geri Dönüşümü|Ayakkabı Toplama Kutusu
 uk:5Прийом взуття|Старе взуття|5Здати взуття
 mr:शूज भंगारवाला
+et:Jalanõude taaskasutus
 
 recycling-green_waste|@recycling
 en:4Recycling of Green Waste|5Organic Waste Recycling|5Green Waste Recycling|Food Waste|Garden Waste
@@ -4724,13 +5526,15 @@ ru:5Приём органических отходов|Приём пищевых
 tr:5Yeşil Atıkların Geri Dönüşümü
 uk:5Прийом органічних відходів|Прийом харчових відходів|5Здати органічні відходи|4Збір органічних відходів|Збір харчових відходів|5Харчові відходи|6Садові відходи
 mr:हिरव्या कचऱ्याचे पुनर्वापर
+et:Rohejäätmete taaskasutus
 
 recycling-cartons|@recycling
 en:4Recycling of Bewerage Cartons|5Cartons Recycling|5Bewerage Cartons Recycling
 be:5Прыём тетрапака|5Здаць тетрапак|4Збор тетрапака|5Тетрапак
 ru:5Приём тетрапака|5Сдать тетрапак|4Сбор тетрапака|5Тетрапак
-tr:5Karton Kutu Geri Dönüşümü|4Tetrapak
+tr:5Karton Kutu Geri Dönüşümü|4Tetrapak|içecek kutusu geri dönüşümü
 uk:5Прийом тетрапака|5Здати тетрапак|4Збір тетрапака|5Тетрапак
+et:Tetrapakkide taaskasutus
 
 amenity-sanitary_dump_station|@rv
 en:2RV Dump Station|5Holding Tank Dump Station|4Dump Station|sanitary dump station|sewage|RV waste|5motorhome dump station|5camper dump station|4caravan dump station
@@ -4740,8 +5544,9 @@ fr:Station de vidange|4Vidange
 es:Estación de vaciado para caravanas
 it:4Camper service
 ru:4Слив нечистот|слив туалета|слив для туалета|нечистоты|канализация
-tr:6Karavan Çöplüğü
+tr:6Karavan Çöplüğü|Karavanlar için çöplük
 uk:4Злив нечистот|слив туалету|слив для туалету|нечистоти|каналізація
+et:Haagiselamute jäätmepunkt
 
 amenity-school
 en:3School|U+1F392|U+1F3EB
@@ -4765,6 +5570,7 @@ pt:3Escola
 pt-BR:3Escola
 ro:3Școală
 es:3Escuela|colegio
+et:3Kool
 eu:3Eskola|institutua
 sv:3Skola
 th:2โรงเรียน
@@ -4795,12 +5601,13 @@ id:Tempat penampungan
 it:Riparo
 ja:1避難所|シェルター
 ko:셸터|대피소
-nb:Tilfluktsrom
+nb:Ly
 pl:3Szopa|schronienie
 pt:Abrigo
 pt-BR:Abrigo
 ro:Adăpost
 es:Refugio
+et:4Varjend
 eu:Aterpea
 sv:Skyddsrum
 th:ที่อยู่อาศัย
@@ -4837,6 +5644,7 @@ pt:3Telefone
 pt-BR:3Telefone|3orelhão
 ro:3Telefon
 es:2Teléfono
+et:2Telefon
 eu:3Telefonoa
 sv:2Telefon
 th:2โทรศัพท์
@@ -4875,10 +5683,11 @@ pt:Casa de banho|WC
 pt-BR:4Banheiro
 ro:3Toaletă
 es:WC
+et:WC
 eu:Komuna
 sv:3Toalett
 th:3ห้องน้ำ
-tr:3Tuvalet|WC
+tr:3Tuvalet|WC|Umumi tuvalet
 uk:3Туалет
 vi:Nhà vệ sinh
 zh-Hans:1厕所
@@ -4905,9 +5714,10 @@ pl:wc|ubikacja|wychodek
 pt:Casa de banho|WC|Sanitários|lavatório
 pt-BR:toalete|wc|sanitários|lavabo|privada
 es:3Baños|aseos|3lavabo|inodoro|baño|wc
+et:WC|tualett
 eu:3Komunak|3konketa
 sv:WC|toalett
-tr:WC|tuvalet
+tr:WC|tuvalet|umumi tuvalet
 zh-Hant:2洗手間|wc
 el:μπάνιο|χώρος ανάγκης|αποχωρητήριο|wc
 sk:3Toalety|wc
@@ -4935,6 +5745,7 @@ pt:4Universidade|faculdade|poliécnico
 pt-BR:4Universidade|faculdade
 ro:4Universitate
 es:4Universidad
+et:4Ülikool
 eu:4Unibertsitatea
 sv:4Universitet
 th:4มหาวิทยาลัย
@@ -4971,6 +5782,7 @@ pt:Continente
 pt-BR:Continente
 ro:Continent
 es:Continente
+et:Kontinent
 eu:Kontinentea
 sv:Kontinent
 th:ทวีป
@@ -5007,6 +5819,7 @@ pt:País
 pt-BR:País
 ro:Continent
 es:País
+et:Riik
 eu:Herrialdea
 sv:Land
 th:ประเทศ
@@ -5043,10 +5856,11 @@ pt:Cidade
 pt-BR:Cidade
 ro:Municipiu
 es:Ciudad
+et:Linn
 eu:Herria
 sv:Stad|stad
 th:เมือง
-tr:Şehir|kasaba
+tr:Şehir|il|ilçe
 uk:Місто
 vi:Đất nước
 zh-Hans:城市
@@ -5079,10 +5893,11 @@ pt:Vila|Cidade
 pt-BR:Cidade
 ro:Oraș
 es:Pueblo
+et:Linn
 eu:Herria
 sv:Stad|stad
 th:เมือง
-tr:Kasaba
+tr:Şehir|il|ilçe
 uk:Місто
 vi:Thành phố
 zh-Hans:镇
@@ -5115,6 +5930,7 @@ pt:Capital
 pt-BR:Capital
 ro:Capitală
 es:Capital|ciudad
+et:Pealinn|linn
 eu:Hiriburua|hiria
 sv:Huvudstad|stad
 th:เมือง|เมืองหลวง
@@ -5151,6 +5967,7 @@ pt:Município
 pt-BR:Município
 ro:Județ
 es:Municipio
+et:Maakond
 eu:Udalerria
 sv:Län
 th:เขต
@@ -5186,6 +6003,7 @@ pt:Estado|província
 pt-BR:Estado|província
 ro:Stat
 es:Estado|provincia
+et:Maakond|provints
 eu:Estatu|probintzia
 sv:Stat|provins
 th:รัฐ
@@ -5222,6 +6040,7 @@ pt:Região
 pt-BR:Região
 ro:Regiune
 es:Región
+et:Piirkond
 eu:Eskualdea
 sv:Region
 th:ภูมิภาค
@@ -5258,6 +6077,7 @@ pt:Ilha
 pt-BR:Ilha
 ro:Insulă
 es:Isla
+et:Saar
 eu:Uhartea
 sv:Ö
 th:เกาะ
@@ -5294,6 +6114,7 @@ pt:Subúrbio|distrito
 pt-BR:Bairro|subúrbio|distrito
 ro:Suburbie
 es:Barrio
+et:Eeslinn
 eu:Auzoa
 sv:Förort|distrikt
 th:1ชานเมือง
@@ -5319,6 +6140,7 @@ nl:Gehucht|buurtschap|dorpje|dorp
 fi:Pieni kylä
 fr:Hameau|village
 de:Weiler|Dorf
+et:Külake
 hu:Falucska
 id:Dusun
 it:Piccolo villaggio
@@ -5333,7 +6155,7 @@ es:Aldea
 eu:Herria
 sv:By|by
 th:หมู่บ้านเล็ก ๆ|หมู่บ้าน
-tr:Mezra|köy
+tr:Mezra|köy|muhit
 uk:Поселення|селище|село
 vi:Quận
 zh-Hans:村庄
@@ -5366,6 +6188,7 @@ pt:Vila
 pt-BR:Povoado|aldeia|vila
 ro:Sat
 es:Pueblo|aldea
+et:Küla
 eu:Herri
 sv:By|by
 th:หมู่บ้าน|หมู่บ้านเล็ก ๆ
@@ -5396,12 +6219,13 @@ id:Wilayah
 it:Località|luogo|regione|area
 ja:1地域|僻地
 ko:장소|소재지
-nb:Lokalitet
+nb:Sted
 pl:Lokalne|region
 pt:Localidade
 pt-BR:Localidade
 ro:Localitate
 es:Localidad
+et:Paikkond
 eu:Kokapena
 sv:Lokalitet
 th:ท้องถิ่น
@@ -5438,6 +6262,7 @@ pt:Quinta
 pt-BR:Fazenda|sítio|chácara
 ro:Fermă
 es:Granja
+et:Talu
 eu:Baserria
 sv:Bondgård|gård
 th:ฟาร์ม
@@ -5474,6 +6299,7 @@ pt:Pista de corridas
 pt-BR:Pista de corrida
 ro:Pistă de curse
 es:Circuito
+et:Ringrada
 eu:Zirkuitua
 sv:Racerbana
 th:1สนามแข่ง
@@ -5503,12 +6329,13 @@ id:Jalur
 it:Sentiero|viottolo
 ja:1歩道|小道|小路|小径|階段|獣道|遊歩道|パス
 ko:길
-nb:Sti
+nb:Sti|Gangvei
 pl:3Ścieżka|dróżka|droga
 pt:Caminho|trilho
 pt-BR:Caminho|trilha
 ro:Cale
 es:Camino
+et:Rada
 eu:Bidea
 sv:Gångväg|gångstig|stig|väg
 th:เส้นทาง
@@ -5539,16 +6366,17 @@ id:Jalan
 it:Via|strada|corso|vicolo
 ja:1ストリート|通り|道路|辻|筋
 ko:거리
-nb:Gate
+nb:Gate|vei|gågate
 pl:3Ulica|droga
 pt:Rua|rodovia|estrada|avenida
 pt-BR:Rua|rodovia|estrada|avenida
 ro:Stradă
 es:Calle
+et:Tänav
 eu:Kalea
 sv:Gata|väg
 th:ถนน
-tr:Sokak|sk|sok
+tr:Sokak|sk|sok|cadde|cad|cd
 uk:Вулиця|провулок|проїзд|проспект|бульвар|вул
 vi:Phố
 zh-Hans:街头
@@ -5574,12 +6402,13 @@ hu:4Kijárat|4csatlakozás
 id:Keluar
 ja:1ジャンクション|料金所|高速道路|インターチェンジ
 ko:고속도로 출구|출구|교차로
-nb:Utgang|kryss
+nb:3Avkjørsel|kryss
 pl:3Wyjazd|wyjście|zjazd
 pt:4Saída de autoestrada
 pt-BR:2Saída|3junção
 ro:Ieșire
 es:Salida|3intersección
+et:3Väljumine|3ristmik
 eu:Irten|3elkargunea
 sv:3Avfart|3korsning
 th:4ทางออก
@@ -5616,12 +6445,13 @@ id:Puncak
 it:Monte|montagna|cima|picco
 ja:1山頂|山|頂|頂上|峰
 ko:산|산악
-nb:Høydepunkt|fjell
+nb:Topp|fjell
 pl:3Góra|szczyt|wierzchołek
 pt:Pico|montanha|monte
 pt-BR:Pico|montanha
 ro:Munte
 es:Cima|pico|montaña
+et:Tipp|mägi
 eu:Goia|gailurra|mendia
 sv:Bergstopp|berg
 th:จุดสูงสุด|ภูเขา
@@ -5639,10 +6469,11 @@ mr:शिखर
 natural-saddle|mountain_pass
 en:4Saddle|Pass
 be:4Седлавіна|5Перавал
+et:Sadul
 fr:Col
 it:4Sella
 ru:4Седловина|5Перевал
-tr:Sele|eyer
+tr:Sırt|geçit
 uk:4Сідловина|5Перевал
 mr:खोगीर
 
@@ -5668,6 +6499,7 @@ pt:Estreito
 pt-BR:Estreito
 ro:Strâmtoare
 es:Estrecho
+et:Väin
 eu:Estua
 es-MX:Estrecho
 sv:Sund
@@ -5699,12 +6531,13 @@ id:Hutan
 it:Foresta
 ja:1森林|森|林|人工林|自然林
 ko:숲
-nb:Skog
+nb:Skog|Barskog|Løvskog
 pl:Las
 pt:Floresta|mata
 pt-BR:Floresta|mata
 ro:Pădure
 es:Bosque
+et:Mets
 eu:Basoa
 sv:Skog
 th:ป่า
@@ -5741,6 +6574,7 @@ pt:Parque|parque urbano
 pt-BR:Parque|praça
 ro:Parc
 es:Parque
+et:Park
 eu:Parkea
 sv:Park
 th:สวนสาธารณะ
@@ -5777,6 +6611,7 @@ pt:3Hostel|3Pousada|motel|Albergue
 pt-BR:3Hostel|3pousada|2albergue
 ro:3Hostel
 es:3Albergue juvenil|hostal|motel
+et:3Hostel|motell
 eu:3Gazte aterpea|aterpetxea|motel
 sv:3Vandrarhem|motell
 th:3หอพัก|โมเทล
@@ -5808,6 +6643,7 @@ pl:Hotel
 pt:motel
 pt-BR:motel
 es:motel
+et:motell
 eu:Motel
 sv:motell
 th:โมเทล
@@ -5842,10 +6678,11 @@ pt:Casa de hóspedes|pousada|motel|albergue
 pt-BR:Pousada|casa de hóspedes|hospedagem
 ro:Pensiune
 es:Casa de huéspedes|albergue juvenil|hostal
+et:Külalistemaja
 eu:Ostatua|gaztetxea|aterpea
 sv:Gästhus|vandrarhem
 th:3เกสท์เฮ้าส์|โรงแรม์|์โรงแรม
-tr:Misafir evi|pansiyon
+tr:Misafir evi|pansiyon|misafirhane
 uk:5Гостинний дім|хостел|постояльний двір
 vi:Nhà khách
 zh-Hans:1招待所์|์旅馆์|์旅社|旅店
@@ -5878,6 +6715,7 @@ pt:3Motel|3hotel de estrada|3Pousada
 pt-BR:3Motel|3hotel de estrada|3pousada
 ro:Motel
 es:3Motel|albergue juvenil|hostal
+et:3Motell|hostel
 eu:3Motel|gazte aterpea|aterpetxea
 sv:3Motell|vandrarhem
 th:3โมเทล|หอพัก
@@ -5912,6 +6750,7 @@ pt:Alojamento nas montanhas|cabana alpina|3pousada|motel|hotel
 pt-BR:Abrigo de montanha|cabana alpina|3pousada|motel|hotel
 ro:Cabană de munte|hotel
 es:4Cabaña|cabaña alpina|hotel de montaña|hotel
+et:Mägimajake|hotell|hostel|alpimaja
 eu:4Kabina|alpetar kabina|mendiko hotela|hotela
 sv:Bergsboende|hotell|vandrarhem|fjällstuga
 th:2ที่พักบนภูเขาโรงแรม
@@ -5945,6 +6784,7 @@ pt:Cabeleireiro|Cabeleireira|barbeiro
 pt-BR:Cabeleireiro|barbeiro
 ro:Coafor
 es:4Peluquería
+et:Juuksur
 eu:4Ile-apaintzailea
 sv:3Frisör
 th:3ช่างทำผม
@@ -5981,6 +6821,7 @@ pt:3Aeroporto|aeródromo|3avião
 pt-BR:3Aeroporto|aeródromo
 ro:3Aeroport
 es:3Aeropuerto|3avión
+et:3Lennujaam
 eu:3Aireportua|3Hegazkina
 sv:3Flygplats|3flygplan
 th:3สนามบิน|เครื่องบิน
@@ -6017,10 +6858,11 @@ pt:5Estádio|desporto
 pt-BR:5Estádio|esporte
 ro:4Stadion
 es:5Estadio|4deporte
+et:4Staadion
 eu:5Estadioa|4kirola
 sv:4Stadion|4sport
 th:สนามกีฬา
-tr:4Stadyum
+tr:4Stadyum|arena
 uk:4Стадіон|4спорт
 vi:Sân vận động
 zh-Hans:体育场
@@ -6053,6 +6895,7 @@ pt:Parque infantil
 pt-BR:Parquinho|parque infantil
 ro:Loc de joacă
 es:Patio de recreo
+et:4Mänguplats
 eu:Jolastokia
 sv:Lekplats
 th:สนามเด็กเล่น
@@ -6090,6 +6933,7 @@ pt:Centro desportivo|desporto|complexo desportivo
 pt-BR:Centro esportivo|clube|esporte|complexo esportivo
 ro:4Sport
 es:Polideportivo|deporte
+et:Spordikeskus
 eu:Kiroldegia|Kirola
 sv:4Sportcenter|sport
 th:กีฬา
@@ -6126,6 +6970,7 @@ pt:Campo de golfe
 pt-BR:Campo de golfe
 ro:Teren de golf
 es:Campo de golf
+et:Golfiväljak
 eu:Golf kurtsoa
 sv:Golfbana
 th:สนามกอล์ฟ
@@ -6156,12 +7001,13 @@ id:Lapangan olahraga|lapangan
 it:Campo sportivo|campo|sport
 ja:1運動場|スポーツ|トラック|球場
 ko:운동장
-nb:4Sportssenter
+nb:4Idrettsplass|sport
 pl:Boisko sportowe|pole|boisko|sport
 pt:Campo de desporto|campo|desporto
 pt-BR:Campo de esportes|campo|quadra|esporte
 ro:Teren de sport|gazon
 es:Complejo deportivo|terreno|deporte
+et:Spordiväljak
 eu:Kiroldegia|Lurra|Kirola
 sv:Idrottsplats|bana|sport
 th:พื้นสนามกีฬา|ขว้าง|กีฬา
@@ -6198,10 +7044,11 @@ pt:4Piscina|desporto
 pt-BR:4Piscina|esporte
 ro:Piscină
 es:4Piscina|deporte
+et:4Ujumisbassein|sport
 eu:4Igerilekua|kirola
 sv:4Simbassäng|sport
 th:4สระว่ายน้ำ
-tr:2Yüzme havuzu|spor
+tr:2Yüzme havuzu|havuz|spor
 uk:4Басейн|спорт
 vi:Bể bơi
 zh-Hans:2游泳池|运动
@@ -6222,6 +7069,7 @@ de:Amerikanischer Fußball
 el:αμερικάνικο ποδόσφαιρο
 es:Fútbol americano
 es-MX:Fútbol americano
+et:Ameerika jalgpall
 eu:Futbol amerikarra
 fa:فوتبال آمریکایی
 fi:Amerikkalainen jalkapallo
@@ -6260,6 +7108,7 @@ de:Bogenschießen
 el:Τοξοβολία
 es:Tiro al arco
 es-MX:Tiro al arco
+et:Vibulaskmine
 eu:Arku-tiroa
 fa:تیراندازی با کمان
 fi:Jousiammunta
@@ -6298,6 +7147,7 @@ da:Atletik
 de:Leichtathletik
 el:Στίβος
 es:Atletismo
+et:Kergejõustik
 eu:Atletismoa
 fa:ورزشکاری
 fi:Yleisurheilu
@@ -6316,7 +7166,7 @@ pt:Atletismo
 pt-BR:Atletismo
 ro:Atletism
 ru:Лёгкая атлетика
-tr:Atletik
+tr:Atletik|Atletizm
 uk:Легка атлетика
 vi:Thế vận hội
 zh-Hans:竞技
@@ -6332,6 +7182,7 @@ da:Australsk fodbold
 de:Australian Football
 el:Αυστραλιανό ποδόσφαιρο
 es:Fútbol australiano
+et:Austraalia jalgpall
 eu:Australiako futbol araua
 fa:فوتبال استرالیایی
 fi:Australialainen jalkapallo
@@ -6366,6 +7217,7 @@ de:Baseball
 el:Μπέιζμπολ
 es:Béisbol
 es-MX:Béisbol
+et:Pesapall
 eu:Beisbol
 fa:بیسبال
 fi:Baseball
@@ -6403,6 +7255,7 @@ da:Basketball
 de:Basketball
 el:Καλαθόσφαιρα
 es:Baloncesto
+et:Korvpall
 eu:Saskibaloia
 fa:بسکتبال
 fi:Koripallo
@@ -6438,6 +7291,7 @@ de:Beachvolleyball
 el:Μπιτς βόλεϊ
 es:Voleibol de playa
 eu:Hondartza-bolei
+et:Rannavõrkpall
 fa:والیبال ساحلی
 fi:Rantalentopallo
 fr:Beach-volley
@@ -6458,7 +7312,7 @@ sk:Plážový volejbal
 sv:Beachvolleyboll
 sw:Mpira wa wavu wa pwani
 th:วอลเลย์บอลชายหาด
-tr:Plaj voleybolu
+tr:Plaj voleybolu|sahil voleybolu
 uk:Пляжний волейбол
 vi:Bóng chuyền bãi biển
 zh-Hans:沙滩排球
@@ -6470,6 +7324,7 @@ ar:لعبة البولينج
 be:Боўлз
 de:Bowls
 es:Bolos sobre hierba
+et:Murukeegel
 fa:لعبة البولينج
 fi:Nurmikeilailu
 fr:Boulingrin
@@ -6486,7 +7341,7 @@ pt:Lawn bowls
 pt-BR:Lawn bowls
 ru:Боулз
 sv:Bowls
-tr:Kuka Oynu
+tr:Kuka Oynu|Kuka oyunu
 uk:Боулз
 zh-Hans:草地滾球
 zh-Hant:草地滾球
@@ -6501,6 +7356,7 @@ da:Skak
 de:Schach
 el:Σκάκι
 es:Ajedrez
+et:Male
 eu:Xake
 fa:شطرنج
 fi:Shakki
@@ -6535,6 +7391,7 @@ be:Крикет
 cs:Kriket
 de:Cricket
 es:Críquet
+et:Kriket
 eu:Kilkerra
 fa:کریکت
 fi:Kriketti
@@ -6568,6 +7425,7 @@ de:Eisstockschießen|Curling
 el:Κέρλινγκ
 es:Curling
 es-MX:Curling
+et:Kurling
 eu:Curling
 fa:کرلینگ
 fi:Curling
@@ -6605,6 +7463,7 @@ da:Ridesport
 de:Reitsport
 el:Ιππασία
 es:Deportes ecuestres
+et:Ratsasport
 eu:Zaldi-kirolak
 fa:سوارکاری
 fi:Ratsastus
@@ -6639,6 +7498,7 @@ de:Golf
 el:Γκολφ
 es:Golf
 es-MX:Golf
+et:Golf
 eu:Golfa
 fa:گلف
 fi:Golf
@@ -6677,6 +7537,7 @@ de:Gymnastik
 el:Γυμναστική
 es:Gimnasia
 es-MX:Gimnasia
+et:Sportvõimlemine
 eu:Gimnasia
 fa:ژیمناستیک
 fi:Voimistelu
@@ -6715,6 +7576,7 @@ de:Handball
 el:Τόπι
 es:Balonmano
 es-MX:Balonmano
+et:Käsipall
 eu:Eskubaloia
 fa:هندبال
 fi:Käsipallo
@@ -6754,6 +7616,7 @@ de:Gerätetauchen
 el:Κατάδυση
 es:Submarinismo
 es-MX:Submarinismo
+et:Sukeldumiskoht
 eu:Urpekaritza
 fa:غواصی
 fi:Sukellus
@@ -6775,7 +7638,7 @@ sk:Potápanie
 sv:Dykning
 sw:Upigaji mbizi wa Scuba
 th:ดำน้ำลึก
-tr:Dalma
+tr:Dalış alanı|tüplü dalış alanı|dalış sahası|tüplü dalış sahası
 uk:Місце для дайвінгу
 vi:Môn lặn
 zh-Hans:水肺潜水
@@ -6791,6 +7654,7 @@ de:Schießen
 el:Κυνήγι
 es:Tiroteo
 es-MX:Tiroteo
+et:Laskmine
 eu:Tiroketa
 fa:ورزش تیراندازی
 fi:Ammunta
@@ -6813,7 +7677,7 @@ sk:Streľba
 sv:Skytte
 sw:Kupiga risasi
 th:ยิงปืน
-tr:Çekim
+tr:Atış sahası|atış alanı
 uk:Стрільба
 vi:Chụp
 zh-Hans:射击
@@ -6829,6 +7693,7 @@ da:Skateboarding
 de:Skateboarding
 el:Σκέιτμπορντινγκ
 es:Monopatinaje
+et:Rulasõit
 eu:Skateboarding
 fa:اسکیت‌بردینگ
 fi:Rullalautailu
@@ -6866,6 +7731,7 @@ de:Skifahren
 el:Χιονοδρόμια
 es:Esquí
 es-MX:Esquí
+et:Suusatamine
 eu:Eskia
 fa:اسکی
 fi:Hiihto
@@ -6888,7 +7754,7 @@ sk:Lyžovanie
 sv:Skidåkning
 sw:Skii
 th:เล่นสกี
-tr:Kayak yapmak
+tr:Kayak|kayakçılık
 uk:Катання на лижах
 vi:Trượt tuyết
 zh-Hans:滑雪
@@ -6904,6 +7770,7 @@ de:Fußball
 el:Ποδόσφαιρο
 es:Fútbol
 es-MX:Fútbol
+et:Jalgpall
 eu:Futbola
 fa:فوتبال
 fi:Jalkapallo
@@ -6942,6 +7809,7 @@ da:Svømning
 de:Schwimmen
 el:Κολύμβηση
 es:Natación
+et:Ujumine
 eu:Igeriketa
 fa:شنا
 fi:Uinti
@@ -6980,6 +7848,7 @@ da:Bordtennis
 de:Tischtennis
 el:Επιτραπέζια αντισφαίριση
 es:Tenis de mesa
+et:Lauatennis
 eu:Mahai-tenis
 fa:تنیس روی میز
 fi:Pöytätennis
@@ -7018,6 +7887,7 @@ de:Tennis
 el:Τένις
 es:Tenis
 es-MX:Tenis
+et:Tennis
 eu:Tenisa
 fa:تنیس
 fi:Tennis
@@ -7056,6 +7926,7 @@ da:Volleyball
 de:Volleyball
 el:Πετοσφαίριση
 es:Voleibol
+et:Võrkpall
 eu:Boleibol
 fa:والیبال
 fi:Lentopallo
@@ -7093,6 +7964,7 @@ da:Keglespil|Bowling
 de:Kegeln|Bowling
 el:Μπόουλινγκ με εννέα κορίνες|Μπόουλινγκ
 es:Bolos de nueve bolas|Bowling
+et:Bowling|keegel
 eu:Boloak|Bowling
 fa:اسکیت|بولینگ
 fi:Yhdeksän-pin keilailu|Keilailu
@@ -7114,7 +7986,7 @@ sk:Kuželky|Bowling
 sv:Kägel|Bowling
 sw:Wkittles|Bowling
 th:Skittles|โบว์ลิ่ง
-tr:Skittles|Bowling
+tr:Bowling|Bovling
 uk:Кеглі|Боулінг
 vi:Nhảy nhót|Bowling
 zh-Hans:九柱戏|保龄球
@@ -7142,6 +8014,7 @@ pt:Edifício|prédio|construção
 pt-BR:Edifício|prédio|construção
 ro:Clădire
 es:Edificio
+et:Hoone
 eu:Eraikin
 sv:Byggnad
 th:2อาคาร
@@ -7180,6 +8053,7 @@ pt:4Polícia
 pt-BR:4Polícia
 ro:4Poliție
 es:4Policía
+et:4Politsei
 eu:4Poliziak
 sv:4Polis
 th:4ตำรวจ
@@ -7214,6 +8088,7 @@ zh-Hant:警察|警員
 sk:3policajná stanica
 fa:کلانتری|اگاهی
 el:Αστυνομία
+et:Politsei
 
 office-diplomatic
 en:4Embassy
@@ -7237,10 +8112,11 @@ pt:4Embaixada|3Consulado
 pt-BR:4Embaixada
 ro:4Ambasadă
 es:4Embajada
+et:4Saatkond
 eu:4Enbaxada
 sv:4Ambassad
 th:4สถานทูต
-tr:4Büyükelçilik
+tr:4Elçilik
 uk:4Посольство
 vi:Đại sứ quán
 zh-Hans:使馆
@@ -7273,6 +8149,7 @@ pt:Baía
 pt-BR:Baía
 ro:Golf
 es:Bahía
+et:Laht
 eu:Badia
 sv:Bukt
 th:อ่าว
@@ -7310,6 +8187,7 @@ da:3Vand
 de:3Wasser
 el:3Νερό
 es:3Agua
+et:3Vesi
 eu:3Ura
 fa:اب
 fi:3Vesi
@@ -7360,6 +8238,7 @@ pt:2Água potável|4bebedouro|bebedoiro
 pt-BR:2Água potável|4bebedouro
 ro:Apă de băut|apă potabilă
 es:3Agua potable|Fuente de agua potable
+et:4Joogivesi
 eu:3Edateko ura|Edateko uraren iturria
 sv:4Dricksvatten
 th:4น้ำดื่ม
@@ -7391,16 +8270,17 @@ id:Mata air
 it:Sorgente
 ja:泉|湧水|湧き水
 ko:샘
-nb:Vår
+nb:Kilde
 pl:Źródło
 pt:Nascente
 pt-BR:Nascente
 ro:Izvor
 es:Manantial
+et:Allikas
 eu:Udaberria
 sv:Vattenkälla
 th:ฤดูใบไม้ผลิ
-tr:Pınar
+tr:Pınar|Kaynak
 uk:4Джерело
 vi:Suối
 zh-Hans:海湾
@@ -7434,6 +8314,7 @@ pt:Poço de água
 pt-BR:Poço de água
 ro:Puț de apă
 es:Pozo
+et:Kaev
 eu:Ur putzua
 sv:Brunn
 th:บ่อน้ำ
@@ -7458,6 +8339,7 @@ da:Vandstation
 de:6Wasseranschluss
 el:Παροχή νερού
 es:Fuente de agua|agua para caravana
+et:Haagiselamu veepunkt
 eu:Ur iturria|karabanarako ura
 fi:Vesipiste
 fr:Point d’eau|eau pour caravane
@@ -7477,7 +8359,7 @@ sk:Voda pre karavan
 sv:Vattenpost
 sw:Kituo cha Maji
 th:จุดเติมน้ำ
-tr:Su Noktası
+tr:Su Noktası|Karavanlar için su noktası
 uk:Заправка водою|вода для каравану|вода для автобудинку
 vi:Điểm cấp nước
 zh-Hans:取水点
@@ -7494,6 +8376,7 @@ cs:Vodovodní kohoutek
 da:Vandhane
 de:6Wasserhahn
 el:Βρύση νερού
+et:Veekraan
 es:Toma de agua
 eu:Ura hartzea
 fi:Vesihana
@@ -7513,7 +8396,7 @@ sk:Vodovodný kohútik
 sv:Vattenkran
 sw:Bomba la Maji
 th:ก๊อกน้ำ
-tr:Çeşme Suyu|su musluğu
+tr:Çeşme Suyu|su musluğu|musluk|çeşme
 uk:5Водопровідний кран
 vi:Vòi nước
 zh-Hans:水龙头
@@ -7537,6 +8420,7 @@ cs:Vodní plocha
 da:Vandmasse
 de:Wasserfläche|Gewässer
 es:Cuerpo de agua
+et:Veekogu
 eu:Ur-masa
 fa:پهنه آبی
 fi:Vesimuodostuma
@@ -7546,7 +8430,7 @@ id:Perairan
 ja:水地
 ko:수역
 nl:Waterlichaam
-nb:Vassmasse
+nb:Vann|Vannoverflate
 pl:Akwen
 pt:Corpo de água
 pt-BR:Corpo de água
@@ -7571,6 +8455,7 @@ cs:Vodní nádrž
 da:Vandbassin
 de:Wasserbecken
 el:Μια λεκάνη νερού
+et:Veehoidla
 es:Cuenca
 eu:Arroa
 fa:حوضه آب
@@ -7583,7 +8468,7 @@ it:Bacino d'acqua
 ja:水地|貯水所
 ko:저수지
 nl:Waterbassin
-nb:Vannvask
+nb:Basseng
 pl:Basen wodny|zbiornik
 pt:Reservatório
 pt-BR:Reservatório
@@ -7624,6 +8509,7 @@ pt:Lagoa
 pt-BR:Lagoa
 ro:5Heleșteu
 es:5Estanque
+et:Tiik
 eu:5Urmaela
 sv:Damm
 th:1บ่อ|น้ำ
@@ -7662,6 +8548,7 @@ pt:Lago
 pt-BR:Lago
 ro:Lac
 es:Lago
+et:Järv
 eu:Lakua
 sv:Sjö
 th:ทะเลสาบ
@@ -7688,6 +8575,7 @@ da:5Reservoir
 de:5Reservoir
 el:Δεξαμενή
 es:5Reservorio
+et:Reservuaar
 eu:5Urtegia
 fa:مخزن
 fi:Säiliö
@@ -7738,6 +8626,7 @@ pt:Rio
 pt-BR:Rio|Ribeiro|Ribeira|Córrego|Riaxo
 ro:Râu
 es:Río
+et:Jõgi|oja
 eu:Ibai
 sv:Flod
 th:แม่น้ำ
@@ -7775,6 +8664,7 @@ pt:Canal
 pt-BR:Canal
 ro:Canal
 es:Canal
+et:Kanal
 eu:Kanala
 sv:Kanal
 th:คลอง
@@ -7811,6 +8701,7 @@ pt:Oficina de reparação de automóveis|Oficina de automóveis|Oficina|4mecâni
 pt-BR:Oficina de automóveis|mecânica|4mecânico|auto elétro
 ro:Atelier de reparații auto
 es:4Taller|3reparación de automóviles|coche|automóvil
+et:4Autoremont
 eu:4Tailerra|3autoen konponketa|autoa|automobila
 sv:3Bilreparatör|bilverkstad|4servicestation|bil
 th:3ร้านซ่อมรถยนต์|สถานีบริการ
@@ -7841,12 +8732,13 @@ id:5Perkemahan
 it:4Campeggio|campeggi|camping
 ja:1キャンプ場|キャンプ|キャンピング|バーベキュー|テント場
 ko:캠프|캠프장|캠핑을|캠핑|캠핑장|캠핑장소
-nb:Overnatting i bobiler
+nb:4Campingplass|telt
 pl:4Kamping|pole kempingowe
 pt:2Parque de campismo|4Campismo|5Acampamento|área de acampamento|local de acampamento
 pt-BR:4Local de acampamento|área de acampamento|4camping
 ro:4Camping
 es:4Campamento|cámping|acampar|acampada
+et:5Kämping
 eu:4Kanpalekua|kanpamentua|kanpina
 sv:4Camping|campingplats|campingområde
 th:4การตั้งแคมป์|สถานที่ตั้งแคมป์|ที่ตั้งแคม
@@ -7884,10 +8776,11 @@ pt:3Parque de caravanismo|caravanismo|4Parque de campismo|3caravana|autocaravana
 pt-BR:4Área de trailers|caravanismo|acampamento
 ro:Teren pentru campare
 es:Zona de caravanas|zona de camping
+et:Haagiselamute ala|matkamine
 eu:Karabana gunea|kanpalekua
 sv:4Husvagnsplats
 th:4ขบวนนักเดินทาง
-tr:4Karavan alanı
+tr:4Karavan alanı|3karavan parkı
 uk:4Автокемпінг|4кемпінг для автобудинків|4стоянка для автобудинків
 vi:Khu lễ hội hóa trang
 zh-Hans:房车宿营地
@@ -7917,10 +8810,11 @@ pt:Escritório|empresa
 pt-BR:Escritório|empresa
 ro:Birou
 es:Oficina
+et:Kontor
 eu:Bulegoa
 sv:Kontor|företag
 th:สำนักงาน|บริษัท
-tr:Ofis|şirket
+tr:Ofis|şirket|iş yeri
 uk:Офіс
 vi:Văn phòng
 zh-Hans:办公室|公司
@@ -7954,6 +8848,7 @@ pt:Escritório de empresa
 pt-BR:Escritório de empresa
 ro:Sediu companei
 es:Oficina
+et:Ettevõtte kontor
 eu:Bulegoa
 sv:Företagskontor
 th:สำนักงานบริษัท
@@ -7975,7 +8870,7 @@ ar:مكتب حكومي
 cs:Úřad vlády
 da:Regeringskontor
 nl:Overheidskantoor|overheidspand|regeringskantoor
-fi:Viranomaistoimito
+fi:Viranomaistoimisto
 fr:Administration publique
 de:Regierungsstelle
 hu:Kormányzati iroda
@@ -7989,6 +8884,7 @@ pt:Gabinete governamental|órgão público
 pt-BR:Gabinete governamental|órgão público
 ro:Birou guvernamental
 es:Oficina gubernamental
+et:Riigikantselei
 eu:Gobernu bulegoa
 sv:Ämbetsverk|myndighet
 th:หน่วยงานราชการ
@@ -8025,10 +8921,11 @@ pt:Escritório de advogados|2Advogado
 pt-BR:Escritório de advogado|4advocacia
 ro:Firmă de avocatură
 es:Despacho de abogados|bufete
+et:Advokaadibüroo
 eu:Abokatu bulego|abokatu bulego
 sv:4Advokatkontor
 th:สำนักงานทนายความ
-tr:4Avukatlık bürosu
+tr:4Avukatlık bürosu|avukat
 uk:3Адвокат|4нотаріус
 vi:Văn phòng luật sư
 zh-Hans:律师事务所
@@ -8060,10 +8957,11 @@ pt:Operadora móvel|3Operadora de telecomunicações
 pt-BR:Operadora de telecomunicações|telefonia|móvel
 ro:Operator de telefonie mobilă
 es:Operadora de telefonía móvil
+et:Mobiilside operaator
 eu:Telefono mugikorren operadorea
 sv:Mobiloperatör
 th:ผู้ให้บริการโทรศัพท์มือถือ
-tr:Cep telefonu operatörü
+tr:Cep telefonu operatörü|telekom
 uk:Телекомунікаційна компанія
 vi:Điều hành di động
 zh-Hans:移动运营商
@@ -8083,6 +8981,7 @@ da:Biavler
 de:Imker
 el:Μελισσοκόμος
 es:Apicultor
+et:Mesinik
 eu:Erlezaina
 fa:زنبوردار
 fi:Mehiläishoitaja
@@ -8120,6 +9019,7 @@ da:Smed
 de:Schmied
 el:Σιδηρουργός
 es:Herrero
+et:Sepp
 eu:Errementari
 fa:آهنگر
 fi:Seppä
@@ -8157,6 +9057,7 @@ da:Bryggeri
 de:4Brauerei|Brauhaus|Hausbrauerei|Bier|Bierausschank|Hausbräu
 el:Ζυθοποιείο
 es:Fábrica de cerveza|6cervecera
+et:Käsitöö pruulikoda
 eu:5Garagardotegia
 fa:کارخانه ابجوسازی
 fi:Panimo
@@ -8195,6 +9096,7 @@ da:Tømrer
 de:4Zimmermann
 el:Ξυλουργός
 es:5Carpintero
+et:Puusepp
 eu:5Arotza
 fa:نجار
 fi:Puuseppä
@@ -8232,6 +9134,7 @@ da:Konfekture
 de:Konditor
 el:Ζαχαροπλάστης
 es:Confitería
+et:Kondiiter
 eu:Gozogilea
 fa:قنادی
 fi:Kondiittori
@@ -8243,7 +9146,7 @@ it:Pasticciere
 ja:菓子職人
 ko:과자 장수
 mr:हलवाई
-nb:Konditor
+nb:Konditori
 nl:Banketbakkerij
 pl:Cukiernik
 pt:Confeitaria
@@ -8269,6 +9172,7 @@ da:4Elektriker
 de:4Elektriker
 el:Ηλεκτρολόγος
 es:4Electricista
+et:4Elektrik
 eu:4Elektrizista
 fa:برق کار
 fi:5Sähkömies
@@ -8306,6 +9210,7 @@ da:Reparation af elektronik
 de:4Elektrogerätereparatur
 el:Επισκευή ηλεκτρονικών
 es:Reparación de aparatos electrónicos
+et:Elektroonika remont
 eu:Elektronika Konponketa
 fa:تعمیرات الکترونیک
 fi:Elektroniikan korjaus
@@ -8344,6 +9249,7 @@ da:Gartner
 de:Landschaftsgärtner|Gärtnerei
 el:Κηπουρός
 es:Paisajista
+et:Aednik
 eu:Paisaia
 fa:باغبان
 fi:Puutarhuri
@@ -8365,7 +9271,7 @@ sk:Záhradníctvo
 sv:Trädgårdsmästare
 sw:Mtunza bustani
 th:คนจัดสวน
-tr:Bahçe Düzenleyici
+tr:Bahçe Düzenleyici|Bahçeci|bahçıvan
 uk:Садівник
 vi:Người thiết kế và xây dựng cảnh quan
 zh-Hans:园艺工
@@ -8381,6 +9287,7 @@ da:Kunsthåndværk
 de:Kunsthandwerk
 el:Χειροτεχνία
 es:Artesanía
+et:Käsitöö
 eu:Eskulangintza
 fa:صنایع دستی
 fi:Käsityö
@@ -8418,6 +9325,7 @@ da:Blikkenslager
 de:Heizung, Lüftung und Klimatisierung
 el:Ψυκτικός
 es:Aire acondicionado
+et:Õhkkonditsioneer
 eu:Aire girotua
 fa:گرمایش و تهویه‌هوا
 fi:Ilmastointilaite
@@ -8455,6 +9363,7 @@ da:5Metalarbejder
 de:Schlosser
 el:5Μεταλλουργός
 es:Trabajador del metal
+et:5Metallitööline
 eu:Metalgintzako langilea
 fa:اهن کار
 fi:5Metallimies
@@ -8493,6 +9402,7 @@ da:Maler
 de:Maler
 el:Μπογιατζής
 es:Pintor
+et:Maaler
 eu:Margolaria
 fa:نقاش
 fi:Maalari
@@ -8530,6 +9440,7 @@ da:4Fotograf|studio
 de:4Fotograf|Fotostudio
 el:Φωτογράφος|Στούντιο φωτογραφίας
 es:4Fotógrafo|estudio de fotografía
+et:4Fotograaf|fotograafia stuudio
 eu:4Argazkilaria|argazki estudioa
 fa:عکاس
 fi:Valokuvaaja
@@ -8567,6 +9478,7 @@ da:VVS-mand
 de:Installateur
 el:Υδραυλικός
 es:Fontanero
+et:Santehnik
 eu:Iturgina
 fa:لوله کش
 fi:Putkimies
@@ -8605,6 +9517,7 @@ da:Savværk
 de:Sägewerk
 el:Πριστήριο
 es:Serrería
+et:Saeveski
 eu:Zerrategi
 fa:کارخانه چوب‌بری
 fi:Saha
@@ -8642,6 +9555,7 @@ da:Skomager|skoreparation
 de:Schuhreparatur|4Schuhmacher|Schuster
 el:Υποδηματοποιός|τσαγκάρης
 es:5Zapatero|zapatería
+et:5Kingsepp
 eu:5Zapatari
 fa:کفاش
 fi:Suutari
@@ -8664,7 +9578,7 @@ sk:Oprava obuvy
 sv:Skomakare
 sw:Mtengeneza viatu
 th:ช่างซ่อมรองเท้า
-tr:Ayakkabı tamircisi
+tr:Ayakkabı tamircisi|kunduracı
 uk:4Ремонт взуття|взуття
 vi:Sửa giày
 zh-Hans:修鞋匠
@@ -8680,6 +9594,7 @@ da:Vingård
 de:4Weingut
 el:Οινοποιείο
 es:4Bodega|Vino
+et:Veinikelder
 eu:Upategi
 fa:شراب‌خانه
 fi:Viinitila
@@ -8718,6 +9633,7 @@ da:Skrædder
 de:4Schneider
 el:Ράφτης|ράπτης
 es:Sastre|sastrería
+et:Rätsep
 eu:Jostun|jantzi
 fa:خیاطی
 fi:Räätäli
@@ -8762,12 +9678,13 @@ id:Alun-alun
 it:Piazza
 ja:広場
 ko:광장
-nb:Plass
+nb:Torg|plass
 pl:Plac
 pt:Praça|Praceta|Largo
 pt-BR:Largo|praça|rua de pedestres|escadaria
 ro:Piață
 es:Plaza
+et:Palee
 eu:Plaza
 sv:Torg
 th:สี่เหลี่ยม
@@ -8803,6 +9720,7 @@ pt:Mar
 pt-BR:Mar
 ro:Mare
 es:Mar
+et:Meri
 eu:Itsasoa
 sv:Hav
 th:เห็น
@@ -8839,6 +9757,7 @@ pt:Oceano
 pt-BR:Oceano
 ro:Ocean
 es:Océano
+et:Ookean
 eu:Ozeanoa
 sv:Ocean
 th:มหาสมุทร
@@ -8877,6 +9796,7 @@ pt:WiFi|Wi-Fi
 pt-BR:WiFi|Wi-Fi
 ro:WiFi|Wi-Fi
 es:WiFi|Wi-Fi
+et:WiFi|Wi-Fi
 eu:WiFi|Wi-Fi
 sv:WiFi|Wi-Fi
 th:WiFi|Wi-Fi
@@ -8913,6 +9833,7 @@ pt:3Internet
 pt-BR:3Internet
 ro:3Internet
 es:3Internet
+et:3Internet
 eu:3Internet
 sv:3Internet
 th:3อินเทอร์เน็ต|3Internet
@@ -8949,10 +9870,11 @@ pt:Praia
 pt-BR:Praia
 ro:Plajă
 es:Playa
+et:Rand
 eu:Hondartza
 sv:Strand
 th:ชายหาด
-tr:Plaj
+tr:Plaj|sahil
 uk:Пляж
 vi:Bãi biển
 zh-Hans:海滩
@@ -8984,6 +9906,7 @@ pt:Farol
 pt-BR:Farol
 ro:Far
 es:Faro
+et:Majakas
 eu:Itsasargia
 sv:Fyr
 th:ประภาคาร
@@ -9002,10 +9925,12 @@ en:4Survey Point|survey marker|survey benchmark|4geodetic mark|geodetic vertex|4
 be:4Геадэзічны пункт
 de:4Vermessungspunkt
 el:4Γεωδαιτικό σημείο
+et:4Vaatluspunkt|geodeetiline punkt|4trigonomeetriline punkt|triangulatsioonipunkt|trigopunkt|4triangulaator
 fr:4Borne géodésique
 ja:測量標
 pl:4Znak geodezyjny
 ru:4Геодезический пункт|Геодезический знак|4тригонометрический пункт|пункт триангуляции|тригопункт|4триангулятор
+tr:4veri toplama istasyonu|4nirengi istasyonu|4jeodezik ölçüm noktası|4ölçüm istasyonu
 uk:4Геодезичний пункт
 mr:सर्वेक्षण बिंदू|सर्व्हे पॉइंट
 
@@ -9019,6 +9944,7 @@ da:øko|bio|sundt|biologisk|miljømæssigt|naturligt|organisk
 de:3Bio|Biologische|biologisch|5Ökologische|Ökologisches|öko|bio|4organische|organisch|naturnah|natürliches|natürlich|gesundes|gesund|umweltfreundlich
 el:οικολογικό|βιολογικό|υγιεινό|φυσικό
 es:eco|5ecológicos|ecológica|ecológico|5orgánicos|orgánico|5biológica|biológicos|biológico|bio|natural|saludable
+et:4orgaaniline|bio|bioloogiline|öko|ökoloogiline|tervislik
 eu:Eko|4ekologikoa|4organikoa|4biologikoa|bio|naturala|osasuntsua
 fa:اکو|زیستی|سالم|بیولوژیکی|زیست محیطی|طبیعی|ارگانیک
 fi:eko|bio|terveellinen|biologinen|ekologinen|luonnollinen|orgaaninen
@@ -9069,10 +9995,11 @@ pt:Centro de cópias|4Fotocópias|4Impressões|Reprografia|Loja de fotocópias
 pt-BR:4Copiadora|4impressões
 ro:Centru copiere|4Imprimare
 es:4Copistería|4imprenta|Centro de copiado|Centro de fotocopiado
+et:4Koopiakeskus|trükikoda
 eu:4Kopiagailu denda|4inprimaketa|Kopia zentroa|Fotokopia zentroa
 sv:4Kopieringsbutik|4Tryckare
 th:ร้านถ่ายเอกสาร|เครื่องพิมพ์
-tr:4Kopyalama Merkezi|Yazıcı
+tr:4Kopyalama Merkezi|Yazıcı|copy center|copycenter
 uk:4Копіювальний центр|друк|поліграфія
 vi:Cửa hàng Copy|Máy in
 zh-Hans:复印店|打印机
@@ -9104,6 +10031,7 @@ pt:Artigos para fotografia|molduras
 pt-BR:Artigos para fotografia|molduras|comércio|compras
 ro:Centru fotografii|cadre
 es:Artículos de fotografía
+et:4Fotopood|raamid
 eu:Argazkilaritza artikuluak
 sv:4Fotoaffär|ramar
 th:ร้านถ่ายภาพ|กรอบ|ร้าน
@@ -9138,6 +10066,7 @@ pt:Agência de viagens|viagens
 pt-BR:Agência de viagem|viagens
 ro:Agenție de voiaj|tururi
 es:Agencia de viajes|viajes
+et:Reisibüroo
 eu:Bidaia agentzia|bidaia
 sv:Resebyrå|rundturer
 th:สำนักงานการท่องเที่ยว|ทัวร์
@@ -9173,6 +10102,7 @@ pt:Artigos de desporto ao ar livre|caminhada|pedestrianismo|escalada|campismo
 pt-BR:Equipamentos esportivos|caminhada|escalada|camping|comércio
 ro:Echipament de exterior|trekking|cățărare|campare
 es:Equipamiento|senderismo|escalada|acampada
+et:Välisvarustus|matkamine
 eu:Ekipamendua|mendi-ibilaldiak|eskalada|kanpalekua
 sv:Fritidsutrustning|vandring|klättring|camping
 th:อุปกรณ์กลางแจ้ง|เดินป่า|ปีนเขา|ตั้งแคมป์|ร้าน
@@ -9207,6 +10137,7 @@ pt:Limpeza a seco|lavandaria|Lavagem a seco
 pt-BR:Lavagem a seco|lavanderia
 ro:Curățătorie chimică|curățătorie
 es:Tintorería
+et:Keemiline pesu|puhastus
 eu:Garbigailua
 sv:Kemtvätt|tvätt
 th:ซักแห้ง|ทำความสะอาด
@@ -9243,10 +10174,11 @@ pt:Loja de pneus|pneus
 pt-BR:Loja de pneus|borracharia|borracheiro|comércio
 ro:Magazin anvelope
 es:Tienda de neumáticos
+et:Rehvipood|rehvid
 eu:Pneumatikoen denda
 sv:Däckaffär
 th:ร้านยาง
-tr:Tekerlekçi
+tr:Tekerlekçi|lastikçi
 uk:Магазин шин|3шини
 vi:Cửa hàng Lốp
 zh-Hans:轮胎店|商店
@@ -9278,10 +10210,11 @@ pt:5Lavagem de veículos
 pt-BR:5Lava-jato|5Lavagem de veículos
 ro:Spălătorie auto
 es:5Lavado de coches
+et:Autopesu
 eu:5Auto-garbiketa
 sv:Biltvätt
 th:ล้างรถ
-tr:Araba Yıkama
+tr:Araba Yıkama|oto yıkama
 uk:4Автомийна
 vi:Rửa Xe
 zh-Hans:洗车
@@ -9313,6 +10246,7 @@ pt:4Veterinário
 pt-BR:4Veterinário
 ro:Cabinet veterinar
 es:Clínica veterinaria
+et:Loomaarst|4veterinaar
 eu:Albaitaritzako klinika
 sv:4Veterinär
 th:สัตวแพทย์
@@ -9348,6 +10282,7 @@ pt:Posto de carregamento elétrico|Estação de carregamento elétrico|3Ponto de
 pt-BR:Eletroposto|recarga|abastecimento
 ro:Stație încărcare|încărcare
 es:Estación de carga
+et:4Laadimispunkt|laadimine
 eu:Kargatzeko geltokia
 sv:Laddstation|laddning
 th:สถานีชาร์จ|ชาร์จ
@@ -9377,12 +10312,13 @@ id:Penitipan Anak|Perawatan Anak
 it:Asilo|cura dell'infanzia
 ja:託児所|保育園
 ko:보육|탁아소|유치원
-nb:Førskole|Barnehage
+nb:Daghjem|Barnehage
 pl:Opieka nad dzieckiem
 pt:Creche|jardim de infância|jardim infantil
 pt-BR:Creche|jardim de infância
 ro:De îngrijire a copilului|Grădiniță|Îngrijire copii
 es:Guardería
+et:Lasteaed|4Lastehoid
 eu:Haurtzaindegia
 sv:Barnomsorg|Förskola
 th:สถานรับเลี้ยงเด็ก|ดูแลเด็ก
@@ -9419,10 +10355,11 @@ pt:Estacionamento de bicicletas
 pt-BR:Bicicletário|estacionamento de bicicletas
 ro:Parcare biciclete
 es:Aparcamiento de bicis
+et:4Jalgrattaparkla
 eu:Bizikleta aparkalekua
 sv:4Cykelparkering
 th:ที่จอดจักรยาน
-tr:4Bisiklet park etme
+tr:4Bisiklet park etme|bisiklet park
 uk:4Велопарковка|велостоянка
 vi:Chỗ Đậu Xe Đạp
 zh-Hans:自行车存放处
@@ -9450,12 +10387,13 @@ id:Kotak sampah
 it:Contenitore per rifiuti
 ja:くずかご
 ko:쓰레기통
-nb:Søppelkasse
+nb:4Søppelbøtte|4Søppelkasse
 pl:Kosz na śmieci
 pt:Caixote do lixo
 pt-BR:Cesto de lixo|lixeira
 ro:Pubelă
 es:Papelera
+et:Prügikast
 eu:Paper-ontzia
 sv:Papperskorg|soptunna
 th:ถังขยะ
@@ -9491,6 +10429,7 @@ pt:3Telefone de emergência
 pt-BR:3Telefone de emergência
 ro:3Telefon de urgență
 es:3Teléfono de emergencia
+et:4Hädaabi telefon
 eu:3Larrialdietarako telefonoa
 sv:4Nödtelefon
 th:โทรศัพท์ฉุกเฉิน
@@ -9529,6 +10468,7 @@ pt:Centro de fitness|Ginásio
 pt-BR:Academia de ginástica|academia de musculação|centro de fitness|ginásio
 ro:Centru fitness
 es:Centro de fitness|gimnasio
+et:Jõusaal
 eu:Fitness zentroa|gimnasioa
 sv:Gym
 th:ฟิตเนสเซ็นเตอร์|ยิม
@@ -9564,6 +10504,7 @@ pt:3Sauna
 pt-BR:3Sauna
 ro:3Saună
 es:3Sauna
+et:3Saun
 eu:3Sauna
 sv:4Bastu
 th:ซาวน่า
@@ -9601,6 +10542,7 @@ pt:Reparação de pneus|Recauchutagem
 pt-BR:Borracheiro|borracharia|pneus
 ro:Vulcanizare
 es:Reparación de neumáticos
+et:Rehviparandus
 eu:Pneumatikoen konponketa
 sv:Däckverkstad
 th:ร้านปะยาง
@@ -9636,6 +10578,7 @@ pt:Parafarmácia
 pt-BR:4Drogaria|farmácia
 ro:Mercerie
 es:4Droguería
+et:Apteeker
 eu:4Botika
 sv:Hushållskemikalier
 th:ร้านเคมีภัณฑ์
@@ -9672,6 +10615,7 @@ pt:Loja de animais|loja de artigos para animais
 pt-BR:3Pet-shop|loja de artigos para animais
 ro:3Pet shop
 es:Tienda de mascotas
+et:3Loomapood|Loomapood
 eu:Animali denda
 sv:Djuraffär
 th:เพ็ทชอป
@@ -9707,6 +10651,7 @@ pt:Jardim zoológico|3Zoológico
 pt-BR:Jardim zoológico|3Zoológico
 ro:Grădină zoologică
 es:Zoo
+et:Loomaaed
 eu:Zooa
 sv:Zoo
 th:สวนสัตว์
@@ -9738,12 +10683,13 @@ id:Kantor wisata
 it:Ufficio turistico
 ja:観光案内所
 ko:관광정보센터|안내소|관광 안내소|여행객 안내소|여행자 안내소
-nb:3Turistkontor
+nb:Turismiinfo
 pl:Biuro informacji turystycznej
 pt:Posto de turismo|Posto de informação turística
 pt-BR:Escritório de turismo
 ro:Birou de informații turistice
 es:Oficina de turismo
+et:Turismipunkt
 eu:Turismo bulegoa
 sv:3Turistcenter
 th:ศูนย์บริการนักท่องเที่ยว
@@ -9780,10 +10726,11 @@ pt:Centro comunitário|Casa do povo
 pt-BR:Centro comunitário
 ro:Centru comunitar
 es:Centro comunitario
+et:Kogukonna keskus
 eu:Komunitate Zentroa
 sv:Stadshus
 th:ศูนย์ชุมชน
-tr:İletişim Merkezi
+tr:Toplum Merkezi|Halkevi
 uk:Центр культури та дозвілля|3Дім культури
 vi:Trung Tâm Cộng Đồng
 zh-Hans:社区中心
@@ -9815,10 +10762,11 @@ pt:4Tribunal
 pt-BR:4Tribunal
 ro:Judecătorie
 es:Juzgado
+et:Kohtumaja
 eu:Auzitegia
 sv:Domstol
 th:ศาล
-tr:Adliye|Mahkeme
+tr:Adliye|Mahkeme|adalet sarayı
 uk:Суд
 vi:Tòa án
 zh-Hans:法院
@@ -9851,6 +10799,7 @@ pt:Máquina de venda de tabaco
 pt-BR:Máquina de venda de cigarros
 ro:Automat de țigări
 es:Máquina expendedora de tabaco
+et:Sigaretiautomaat
 eu:4Tabakoa saltzeko makina
 sv:Cigarettmaskin|cigarettautomat
 th:เครื่องขายบุหรี่
@@ -9869,10 +10818,12 @@ en:4Coffee Dispenser|Coffee
 be:3Кававы аўтамат|кава
 de:6Kaffeeautomat
 es:Máquina expendedora de café|Café
+et:4Kohviautomaat|Kohvi
 eu:3Kafea saltzeko makina|Kafea
 fr:Distributeur de café|Café
 it:Distributore automatico di caffè|Caffè
 ru:3Кофейный автомат|кофе|кофемат
+tr:4Kahve Dispenseri|Kahve Makinesi
 uk:3Кавовий автомат|кава
 mr:कॉफी विक्रीयंत्र
 
@@ -9881,10 +10832,12 @@ en:4Condoms Dispenser|Condoms|Condomat
 be:Аўтамат з прэзерватывамі|5прэзерватывы|5кандамат
 de:6Kondomautomat
 es:Máquina expendedora de condones|Condones
+et:4Kondoomiautomaat|Kondoomid|Kondomaat
 eu:4Kondoiak saltzeko makina|Preserbatiboak
 fr:Distributeur de préservatifs|Préservatifs
 it:Distributore di profilattici|Preservativi
 ru:Автомат с презервативами|5презервативы|5кондомат
+tr:5Prezervatif Dispenseri|Kondom dispenseri
 uk:Автомат з презервативами|5презервативи|5кондомат
 mr:कंडोम विक्रीयंत्र
 
@@ -9911,6 +10864,7 @@ pt:Máquina de venda de bebidas
 pt-BR:Máquina de venda de bebidas
 ro:Automat de băuturi
 es:Máquina expendedora de bebidas
+et:Joogiautomaat
 eu:4Edari saltzeko makina
 sv:Läskautomat
 th:เครื่องขายเครื่องดื่มอัตโนมัติ
@@ -9929,10 +10883,12 @@ en:4Food Dispenser|Food|Snacks
 be:Аўтамат з ежай|5перакус|4снэкі
 de:5Essensautomat|9Lebensmittelautomat|Snacks|Knabbereien|Nahrungsmittelautomat
 es:Máquina expendedora de comida|Comida|Snacks
+et:Toiduautomaat|Toit|Suupisted
 eu:4Janaria saltzeko makina|Elikagaia|Askariak
 fr:Distributeur d'aliments|Aliments
 it:Distributore automatico di alimenti|Macchinetta automatica|Snack
 ru:Автомат с едой|5перекус|4снэки
+tr:Otomat|Yiyecek dispenseri|atıştırmalık
 uk:Автомат з їжею|5перекус|4снекі
 mr:अन्न विक्रीयंत्र
 
@@ -9947,6 +10903,7 @@ da:4Parkeringsbilletmaskine
 de:4Parkautomat|Parkscheinautomat|Parkticketautomat
 el:Εισιτήρια στάθμευσης
 es:Máquina de pago de tique de aparcamiento
+et:Parkimispiletid|Parkimisautomaat
 eu:4Aparkatzeko txartelak ordaintzeko makina
 fa:پارکو متر
 fi:Pysäköintimaksuautomaatti
@@ -9965,7 +10922,7 @@ ro:4Parcomat
 sk:Automat na výdaj parkovacích lístkov
 sv:4Parkeringsautomat
 th:เครื่องชำระค่าที่จอดรถอัตโนมัติ
-tr:4Park Etme Biletleri|Park sayacı
+tr:4Park Etme Biletleri|Park sayacı|park bileti
 uk:4Паркомат|Оплата паркування
 vi:Máy trả tiền vé đậu xe
 zh-Hans:停车场付费机
@@ -9981,6 +10938,7 @@ da:Billetautomat for offentlig transport
 de:5Fahrkartenautomat|5Fahrscheinautomat
 el:Μηχάνημα αυτόματης πώλησης εισιτηρίων για τα μέσα μαζικής μεταφοράς
 es:Máquina expendedora de boletos para el transporte público
+et:Piletiautomaat|Ühistranspordi piletid|Piletid
 eu:4Garraio publikorako txartelak saltzeko makina
 es-MX:Máquina expendedora de billetes de transporte público
 fa:دستگاه فروش خودکار بلیط های حمل و مواصلات عمومی
@@ -10002,7 +10960,7 @@ sk:Predajný automat na lístky verejnej dopravy
 sv:Biljettautomat
 sw:Mashine ya kuuzia tiketi za usafiri wa umma
 th:เครื่องขายของหรือตั๋วขนส่งมวลชนอัตโนมัติ
-tr:Toplu taşıma biletleri için otomatlar
+tr:Toplu taşıma biletleri için otomatlar|toplu taşıma bileti|bilet
 uk:Автомат з продажу квитків
 vi:Máy bán vé phương tiện công cộng tự động
 zh-Hans:公共交通售票机
@@ -10014,10 +10972,12 @@ en:4Newspaper Dispenser|Newspapers
 be:Газетны аўтамат|газетамат|3газеты|4прэса
 de:Zeitungsautomat|Zeitungsständer
 es:Máquina expendedora de periódicos|Periódicos
+et:4Ajalehtede automaat|Ajalehed
 eu:4Egunkariak saltzeko makina|Egunkariak
 fr:Distributeur de journaux|Journaux
 it:Distributore automatico di giornali|Riviste
 ru:Газетный автомат|газетомат|3газеты|4пресса
+tr:4Gazete dispenseri|Gazetelik
 uk:Газетний автомат|газетомат|3газети|4преса
 mr:वर्तमानपत्र विक्रीयंत्र
 
@@ -10026,10 +10986,12 @@ en:4Sweets Dispenser|Sweets|4Candies|Lollies
 be:Аўтамат з прысмакамі|4прысмакі|4цукеркі
 de:Süßigkeitenautomat|Süßwaren|Süßigkeiten
 es:Máquina expendedora de dulces|Dulces|Chuches|Chucherías
+et:4Maiustuste automaat|Maiustused|4Kommid|Pulgakommid
 eu:4Gozokiak saltzeko makina|Gozokiak
 fr:Distributeur de bonbons|Bonbons
 it:Distributore di dolci|Caramelle
 ru:Автомат со сладостями|4сладости|4конфеты
+tr:Tatlı dispenseri|şekerler
 uk:Автомат із солодощами|4солодощі|4цукерки
 mr:मिठाई विक्रीयंत्र
 
@@ -10037,6 +10999,7 @@ amenity-vending_machine-excrement_bags
 en:5Excrement Bags Dispenser|4Poop Bags|3Dog Poop Bags|Animal Waste
 be:5Мяшкі дзеля экскрыментаў|Какашкі|5Пакеты для какашак
 de:Hundetütenspender|Hundekotsähuckchenspender|Hundekotbeutelspender|Hundekotbeutel
+et:4Koeraväljaheidete kottide automaat|Loomade väljaheited
 fr:5Distributeur de sacs à excréments
 ru:5Пакеты для экскрементов|Какашки|Пакеты для какашек
 tr:5Dışkı torbası dispenseri
@@ -10047,9 +11010,10 @@ amenity-parcel_locker|@post
 en:4Parcel Locker|4Parcel Pickup
 be:3Паштамат|5Атрыманне пасылак
 de:5Paketstation|Paket Abholstation|Paket SB|Paket Versandstation
+et:4Pakiautomaat
 fr:Consigne automatique pour colis|3locker
 ru:3Почтомат|Постамат|5Получение посылок
-tr:4koli dolabı
+tr:4kilitli dolap|4kitli dolap|kasa
 uk:3Поштомат|5Отримання посилок
 mr:पार्सल लॉकर
 
@@ -10057,6 +11021,7 @@ amenity-vending_machine-fuel|@fuel
 en:Fuel Dispenser|Gas Pump
 be:Паліўная калонка|бензакалонка|палівараздатачная калонка
 de:Tankautomat
+et:Tankimisautomaat
 ru:Топливная колонка|бензоколонка|топливораздаточная колонка
 tr:Yakıt dağıtıcı
 uk:Паливна колонка|бензоколонка|пальнороздавальна колонка
@@ -10078,12 +11043,13 @@ id:Garasi
 it:Garage
 ja:車庫
 ko:차고
-nb:Verksted
+nb:Garasje
 pl:Garaż samochodowy
 pt:Garagem
 pt-BR:Garagem
 ro:Garaj
 es:Garaje
+et:Garaaž
 eu:Garajea
 sv:Garage
 th:อาคารจอดรถ
@@ -10121,6 +11087,7 @@ pt:Área de descanso
 pt-BR:Área de descanso
 ro:Zonă de odihnă
 es:Área de descanso
+et:Kiirtee puhkepeatus
 eu:Atseden gunea
 sv:Viloplats
 th:บริเวณพักผ่อน
@@ -10155,6 +11122,7 @@ pt:Chaminé de fábrica
 pt-BR:Chaminé de fábrica
 ro:Coș de fabrică
 es:Chimenea de fábrica
+et:Tehase korsten
 eu:Fabrikako tximinia
 sv:Fabriksskorsten
 th:ปล่องควันโรงงาน
@@ -10189,6 +11157,7 @@ pt:Torre
 pt-BR:Torre
 ro:Turn
 es:Torre
+et:Torn
 eu:Dorrea
 sv:Torn
 th:หอคอย
@@ -10224,6 +11193,7 @@ pt:Casa de apostas|Lotaria|Euromilhões|3Totoloto|3Totobola|Payshop
 pt-BR:Casa de apostas
 ro:Casă de pariuri
 es:Casa de apuestas
+et:5Kirjastaja
 eu:Apustu etxea
 sv:5Bookmaker|vadhållningsagent
 th:ร้านรับแทงพนัน
@@ -10259,10 +11229,11 @@ pt:Peixaria|Peixes|Mariscos
 pt-BR:Peixaria
 ro:Pescărie
 es:Pescadería
+et:Mereandide pood|4kalaturg|4mereannid|kala
 eu:Arrain-denda
 sv:Fiskhandlare
 th:ร้านขายปลา
-tr:Deniz ürünleri mağazası
+tr:4Deniz ürünleri mağazası|3balıkçı
 uk:4Рибна крамниця
 vi:Người bán cá
 zh-Hans:鱼商
@@ -10274,8 +11245,41 @@ mr:सीफूड शॉप
 
 shop-second_hand
 en:4Second Hand|Thrift shop|Flea market
-it:Negozio dell'usato|Mercatino delle pulci
+ar:ﺔﻠﻤﻌﺘﺴﻣ ﺕﺍﻭﺩﺍ ﺮﺠﺘﻣ
+be:Сэканд-хэнд
+bg:Магазин втора употреба
+cs:Obchod z druhé ruky
+da:Genbrugsbutik
+de:Second-Hand-Laden
+el:Κατάστημα μεταχειρισμένων
+es:Tienda de segunda mano
+et:4Kasutatud|Kirbuturg
+eu:Bigarren eskuko denda
+fa:ﻡﻭﺩ ﺖﺳﺩ ﻩﺎﮕﺷﻭﺮﻓ
+fi:Second Hand Store
+fr:Boutique d'objets d'occasion
+he:היינש די תונח
+hu:Second Hand Store
+id:Toko Barang bekas
+it:Negozio di articoli usati|Negozio dell'usato|Mercatino delle pulci
+ja:古物商
+ko:중고 판매점
+nb:Bruktbutikk
+nl:Tweedehandswinkel
+pl:Sklep z używaną ręką
+pt:Loja de segunda mão
+pt-BR:Loja de segunda mão
+ro:Magazin second-hand
 ru:4Подержанные товары
+sk:Obchod z druhej ruky
+sv:Andrahandsaffär
+sw:Duka la Mitumba
+th:ร้านขายของมือสอง
+tr:İkinci El Mağazası
+uk:Секонд-хенд
+vi:Cửa hàng bán đồ đã qua sử dụng
+zh-Hans:二手店
+zh-Hant:二手店
 
 shop-charity
 en:4Charity Shop
@@ -10287,6 +11291,7 @@ da:Velgørenhedsbutik
 de:Wohltätigkeitsladen
 el:Φιλανθρωπικό κατάστημα
 es:Tienda de caridad
+et:Heategevuspood
 eu:Ongintzazko Denda
 fa:ﻪﯾﺮﯿﺧ ﻩﺎﮕﺷﻭﺮﻓ
 fi:Hyväntekeväisyysmyymälä
@@ -10337,10 +11342,11 @@ pt:Bilheteira|Bilhetes|Máquina de pagamento
 pt-BR:Bilheteria
 ro:Casă de bilete
 es:Venta de entradas
+et:Piletimüük
 eu:Sarreren salmenta
 sv:Biljettkontor
 th:จุดจำหน่ายตั๋ว
-tr:Bilet
+tr:Biletçi|gişe
 uk:4Квиткова каса|квиток|театральна каса|квитковий центр|продаж квитків|бронювання квитків
 vi:Phòng vé
 zh-Hans:售票处
@@ -10372,10 +11378,11 @@ pt:Loja de Vinhos|vinhos|bebidas alcoólicas
 pt-BR:Loja de vinhos|bebidas
 ro:Vinărie
 es:Tienda de vinos|Vino
+et:Alkoholipood
 eu:Ardo-denda|Ardoa
 sv:Vinhandel
 th:ร้านขายไวน์
-tr:Şarap mağazası
+tr:Şarap mağazası|şarapçı
 uk:4Винна крамниця
 vi:Rượu|Cửa hàng rượu
 zh-Hans:贩酒处
@@ -10407,6 +11414,7 @@ pt:Peças para automóveis
 pt-BR:Peças de carro|auto peças
 ro:Piese auto
 es:Piezas de automóvil
+et:Autovaruosad
 eu:Autoen piezak
 sv:Bildelar
 th:อะไหล่รถยนต์
@@ -10444,6 +11452,7 @@ pt:4Chalé
 pt-BR:4Chalé
 ro:4Cabană
 es:4Chalé
+et:Suvila
 eu:4Txaleta
 sv:Stuga
 th:ชาเลต์
@@ -10477,6 +11486,7 @@ pt:Painel de informações
 pt-BR:Painel de informações
 ro:Panou de informații
 es:Tablón de información
+et:Infotahvel
 eu:Informazio taula
 sv:Informationstavla
 th:บอร์ดประชาสัมพันธ์
@@ -10512,6 +11522,7 @@ pt:Mapa turístico
 pt-BR:Mapa turístico
 ro:Hartă turistică
 es:Mapa turístico
+et:Turistide kaart
 eu:Mapa turistikoa
 sv:Turistkarta
 th:แผนที่ท่องเที่ยว
@@ -10541,16 +11552,17 @@ id:Stasiun kereta gantung
 it:Impianto di risalita|funivia|stazione della funivia
 ja:ケーブルカー駅
 ko:케이블카 역|케이블카|케이블카역
-nb:Kabelbanestasjon
+nb:Taubanestasjon
 pl:Stacja kolejki linowej
 pt:Estação de teleférico|teleférico
 pt-BR:Estação de teleférico
 ro:Stație de teleferic
 es:Estación de teleférico
+et:Köisraja jaam
 eu:Teleferiko geltokia
 sv:Linbanestation
 th:สถานีกระเช้าลอยฟ้า
-tr:Havayolu İstasyonu
+tr:Teleferik İstasyonu
 uk:Канатна дорога
 vi:Trạm Cáp Treo
 zh-Hans:缆车车站
@@ -10581,6 +11593,7 @@ pt:Heliporto|Heliponto
 pt-BR:Heliponto|heliporto
 ro:Heliport
 es:Helipuerto
+et:Helikopteri plats
 eu:Heliportua
 sv:Helikopterplatta
 th:ที่จอดเฮลิคอปเตอร์
@@ -10616,6 +11629,7 @@ pt:Controlo fronteiriço
 pt-BR:Controle de fronteira
 ro:Control vamal
 es:Control de fronteras
+et:Piirikontroll
 eu:Muga kontrola
 sv:Gränskontroll
 th:ด่านตรวจคนเข้าเมือง
@@ -10651,6 +11665,7 @@ pt:Parque aquático
 pt-BR:Parque aquático
 ro:Parc acvatic|3aquapark
 es:Parque acuático
+et:Veepark
 eu:Ur-parkea
 sv:Äventyrspark
 th:สวนน้ำ
@@ -10686,6 +11701,7 @@ pt:Torre de água|caixa de água|depósito de água elevado
 pt-BR:Torre de água|caixa de água
 ro:Turn de apă
 es:Depósito de agua
+et:Veetorn
 eu:Ur depositua
 sv:Vattentorn
 th:อ่างเก็บน้ำ
@@ -10721,6 +11737,7 @@ pt:Moinho de vento|moinho
 pt-BR:Moinho de vento
 ro:Moară de vânt
 es:Molino
+et:Tuuleveski
 eu:Haize-errota
 sv:Väderkvarn
 th:กังหันลม
@@ -10758,6 +11775,7 @@ mr:पवनचक्की
 # pt-BR:Búnquer|Bunker
 # ro:Buncăr
 # es:Búnker
+# et:Punker
 # eu:Bunkerra
 # sv:Bunker
 # th:บังเกอร์
@@ -10793,6 +11811,7 @@ pt:4Caverna
 pt-BR:4Caverna
 ro:Peșteră
 es:Cueva|4Caverna
+et:Koobas
 eu:4Haitzuloa
 sv:4Grotta
 th:ถ้ำ
@@ -10828,6 +11847,7 @@ pt:Árvore
 pt-BR:Árvore
 ro:Arbore
 es:Árbol
+et:Puu
 eu:Zuhaitza
 sv:Träd
 th:ต้นไม้
@@ -10863,10 +11883,11 @@ pt:4Vulcão
 pt-BR:4Vulcão
 ro:4Vulcan
 es:4Volcán
+et:4Vulkaan
 eu:4Sumendia
 sv:4Vulkan
 th:ภูเขาไฟ
-tr:4Volkan
+tr:4Volkan|Yanardağ
 uk:4Вулкан
 vi:Núi lửa
 zh-Hans:火山
@@ -10900,6 +11921,7 @@ pt-BR:Corretor imobiliário|agente imobiliário
 ro:Agent imobiliar
 es:Agente inmobiliario
 eu:Higiezinen agentea
+et:Kinnisvara vahendaja
 sv:Fastighetsmäklare
 th:นายหน้าอสังหาริมทรัพย์
 tr:Emlak|Emlakçı
@@ -10933,6 +11955,7 @@ pt:Comporta de eclusa
 pt-BR:Comporta de eclusa
 ro:Ecluză
 es:Compuerta
+et:Lüüsi värav
 eu:Atea
 sv:Slussport
 th:ประตูระบายน้ำ
@@ -10967,10 +11990,11 @@ pt:Biblioteca livre|troca de livros
 pt-BR:Biblioteca livre|troca de livros
 ro:Bibliotecă|Schimb de cărți
 es:Intercambio de libros|librería
+et:Raamatuvahetus|raamaturiiul
 eu:Liburu-trukea|liburudenda
 sv:Bokskåp|bokutbyte
 th:ตู้หนังสือ สถานที่แลกเปลี่ยนหนังสือ
-tr:Kütüphane|Kitap Değişimi
+tr:Kitap Değişimi|Kitap paylaşma
 uk:4Книгообмін|обмін книгами
 vi:Kệ sách|Trao đổi sách
 zh-Hans:书架|书本交换
@@ -11001,6 +12025,7 @@ pt:Escalada
 pt-BR:Ginásio de escalada
 ro:Centru cățărare
 es:Centro de escalada
+et:Ronimiskeskus
 eu:Eskalada zentroa
 sv:Klättercentrum
 th:ศูนย์ปีนเขา
@@ -11037,10 +12062,11 @@ pt:Clube de tiro|Campo de tiro
 pt-BR:Clube de tiro
 ro:Tir
 es:Campo de tiro
+et:Lasketiir
 eu:Tiro eremua
 sv:Skjutbana
 th:สนามยิงปืน
-tr:Atış Poligonu
+tr:Poligon|Atış Poligonu|Atış menzili
 uk:Тир
 vi:Nơi bắn súng
 zh-Hans:射击域
@@ -11073,10 +12099,11 @@ pt:Centro de natação
 pt-BR:Centro de natação
 ro:Piscină
 es:Centro de natación
+et:Ujumine
 eu:Igeriketa zentroa
 sv:Simhall
 th:ศูนย์ว่ายน้ำ
-tr:Yüzme Merkezi
+tr:Yüzme
 uk:Плавання|басейн
 vi:Trung tâm Bơi lội
 zh-Hans:游泳中心
@@ -11109,6 +12136,7 @@ pt:Estúdio de ioga
 pt-BR:Estúdio de ioga
 ro:Studio yoga
 es:Centro de yoga
+et:Jooga
 eu:Yoga
 sv:Yogastudio
 th:โยคะสตูดิโอ
@@ -11144,6 +12172,7 @@ pt:5Apartamentos
 pt-BR:5Apartamentos
 ro:5Apartamente
 es:5Apartamentos
+et:5Korterid
 eu:5Apartamentuak
 sv:Lägenheter
 th:อพาร์ตเมนต์
@@ -11180,6 +12209,7 @@ pt:Resort
 pt-BR:Resort
 ro:Stațiuni
 es:Resort
+et:Kuurort
 eu:Hotela
 sv:Semesterort|resort
 th:รีสอร์ต
@@ -11203,6 +12233,7 @@ da:5Biergarten
 de:5Biergarten
 el:Μπυραρία
 es:5Biergarten
+et:5Õlleaed
 eu:5Biergarten
 fi:5Biergarten
 fr:5Biergarten
@@ -11237,6 +12268,7 @@ da:Køreskole
 de:Fahrschule
 el:Σχολή οδήγησης
 es:4Autoescuela
+et:4Autokool
 eu:4Autoeskola
 fi:4Autokoulu
 fr:4Auto-école
@@ -11274,6 +12306,7 @@ da:Musikskolen
 de:Musikschule
 el:Μουσική Σχολή
 es:Escuela de música
+et:Muusikakool
 eu:Musika Eskola
 fa:ﯽﻘﯿﺳﻮﻣ ﻩﺎﮕﺷﺯﻮﻣﺁ
 fi:Musiikkikoulu
@@ -11294,7 +12327,7 @@ sk:Hudobná škola
 sv:Musikskola
 sw:Shule ya Muziki
 th:โรงเรียนดนตรี
-tr:Müzik Okulu
+tr:Müzik Okulu|Müzik kursu
 uk:Музична школа ім
 vi:Trường âm nhạc
 zh-Hans:音乐学校
@@ -11310,6 +12343,7 @@ da:Sprogskole
 de:Sprachschule
 el:Σχολή Γλωσσών
 es:Escuela de idiomas
+et:Keeltekool
 eu:Hizkuntza Eskola
 fa:ﻥﺎﺑﺯ ﻪﺳﺭﺪﻣ
 fi:Kielikoulu
@@ -11330,7 +12364,7 @@ sk:Jazyková škola
 sv:Språkskola
 sw:Shule ya Lugha
 th:โรงเรียนภาษา
-tr:Dil Okulu
+tr:Dil Okulu|Dil kursu
 uk:Мовна школа
 vi:Ngôn ngữ Trường học
 zh-Hans:语言学校
@@ -11347,6 +12381,7 @@ da:Isbod
 de:Eis|Eisstand|Eisdiele
 el:Παγωτατζίδικο
 es:5Heladería
+et:5Jäätis
 eu:5Izozkitegia
 fi:5Jäätelökioski
 fr:Stand de crème glacée|Marchand de glaces
@@ -11383,6 +12418,7 @@ da:3Internetcafe
 de:3Internetcafé
 el:Καφετέρια με Ίντερνετ
 es:5Cibercafé
+et:5Internetikohvik
 eu:5Internet kafetegia
 fi:3Internetkahvila
 fr:5Cybercafé
@@ -11401,7 +12437,7 @@ sk:3Internetová kaviareň
 sv:3Internetkafé
 sw:Mkahawa wa Intaneti
 th:อินเทอร์เน็ตคาเฟ่
-tr:3İnternet Cafe
+tr:3İnternet Cafe|3İnternet Kafe
 uk:3Інтернет-кафе
 vi:Quán Internet
 zh-Hans:网吧
@@ -11419,6 +12455,7 @@ da:4Motorcykelparkering
 de:4Motorrad-Parkplatz|9Motorradparkplatz
 el:Χώρος στάθμευσης μοτοσικλετών
 es:Aparcamiento de motos
+et:Mootorrattaparkla
 eu:Motoentzako aparkalekua
 fi:5Moottoripyörien pysäköinti
 fr:Parking moto
@@ -11437,7 +12474,7 @@ sk:Parkovisko pre motocykle
 sv:4Motorcykelparkering
 sw:Uegeshaji Pikipiki
 th:ที่จอดรถมอเตอร์ไซค์
-tr:4Motosiklet Parkı
+tr:4Motosiklet Parkı|4Motorsiklet Parkı
 uk:Парковка для мотоциклів|4мотопарковка
 vi:Bãi đỗ xe máy
 zh-Hans:摩托车停车场
@@ -11455,6 +12492,7 @@ da:Handicapparkeringsplads
 de:Behindertenparkplatz
 el:Χώρος στάθμευσης για ΑΜΕΑ
 es:Plaza de aparcamiento para discapacitados
+et:Invaliidide parkimiskoht
 eu:Ezinduentzako aparkalekua
 fa:ﻦﯿﻟﻮﻠﻌﻣ ﮎﺭﺎﭘ ﯼﺎﺟ
 fi:Vammaispysäköinti
@@ -11491,6 +12529,7 @@ da:Plejehjem
 de:Pflegeheim
 el:Γηροκομείο
 es:Residencia de ancianos
+et:Hooldekodu
 eu:Zaharren egoitza
 fi:Hoitokoti
 fr:Maison de retraite
@@ -11527,6 +12566,7 @@ da:Betalingsautomat
 de:Bezahlterminal
 el:Τερματικό πληρωμών
 es:Terminal de pago
+et:Makseterminal
 eu:Ordainketa terminala
 fi:Maksupääte
 fr:Terminal de paiement
@@ -11563,6 +12603,7 @@ da:Bruser
 de:Dusche
 el:Ντους
 es:Ducha
+et:Dušš
 eu:Dutxa
 fi:Suihku
 fr:Douche
@@ -11600,6 +12641,7 @@ da:Hjertestarter
 de:4Defibrillator
 el:Πρώτες βοήθειες|απινιδωτής
 es:4Desfibrilador
+et:4Defibrillaator
 eu:Desfibriladorea
 fi:4Defibrillaattori
 fr:4Défibrillateur|DAE
@@ -11637,6 +12679,7 @@ da:4Brandhane
 de:4Hydrant
 el:Πυροσβεστικός κρουνός
 es:Boca de incendio
+et:Tuletõrjehüdrant
 eu:Suteen hidrantea
 fi:5Paloposti
 fr:Bouche d’incendie|borne d'incendie
@@ -11655,7 +12698,7 @@ sk:4Požiarny hydrant
 sv:4Brandpost
 sw:Bomba la Kuzima Moto
 th:หัวจ่ายน้ำดับเพลิง
-tr:Yangın Söndürme Musluğu
+tr:Yangın Söndürme Musluğu|yangın musluğu
 uk:4Пожежний гідрант|гідрант
 vi:Vòi chữa cháy
 zh-Hans:消防栓
@@ -11673,6 +12716,7 @@ da:3Fitness-station
 de:3Fitnessstation
 el:Γυμναστήριο
 es:Gimnasio
+et:Välivõimla
 eu:Gimnasioa
 fi:Kuntokeskus
 fr:Station de fitness|Parcours de santé
@@ -11681,7 +12725,7 @@ id:Stasiun Kebugaran
 it:Centro fitness
 ja:フィットネスステーション
 ko:피트니스 스테이션
-nb:Treningssenter
+nb:Treningsstasjon
 nl:3Fitness-Station
 pl:Stacja fitness|Przyrządy do ćwiczeń
 pt:Estação de fitness|Máquina de exercícios pública
@@ -11710,6 +12754,7 @@ da:Forsikringskontor
 de:Versicherungsbüro
 el:Ασφαλιστικό γραφείο
 es:Oficina de seguros
+et:Kindlustusasutus
 eu:Aseguru bulegoa
 fi:Vakuutuslaitos
 fr:Bureau d’assurance|assureur
@@ -11728,7 +12773,7 @@ sk:Poisťovňa
 sv:Försäkringskontor
 sw:Ofisi ya Bima
 th:สำนักงานประกันภัย
-tr:Sigorta Acentası
+tr:Sigorta Acentesi
 uk:5Страхова компанія|Страховий агент
 vi:Văn phòng bảo hiểm
 zh-Hans:保险机构
@@ -11746,6 +12791,7 @@ da:3NGO-kontor
 de:Büro einer Nichtregierungsorganisation
 el:Γραφείο ΜΚΟ
 es:Sede de ONG
+et:Valitsusest sõltumatu ühenduse kontor
 eu:GKEen egoitza
 fi:Valtioista riippumattoman järjestön toimisto
 fr:Bureau d'ONG|organisation non gouvernementale
@@ -11782,6 +12828,7 @@ da:4Erotisk butik
 de:4Erotikladen|3Sexshop|Erotikshop
 el:Κατάστημα ερωτικών ειδών
 es:3Sex Shop
+et:3Erootikapood
 eu:3Sex Shop
 fi:4Erotiikkaliike
 fr:Boutique érotique
@@ -11817,6 +12864,7 @@ da:4Massageklinik
 de:4Massagesalon|Massagezentrum|Massagetherapie|Massageanwendungen|Massagecenter|Wellness-Center|Wellnessbehandlung|Wellnessanwendungen
 el:Αίθουσα μασάζ
 es:Salón de masajes
+et:Massaažisalong
 eu:Masaje gela
 fi:Hierontahuone
 fr:Salon de massage
@@ -11853,6 +12901,7 @@ da:4Motorcykelforhandler
 de:4Motorradladen
 el:Κατάστημα μοτοσυκλετών
 es:Tienda de motos
+et:Motopood
 eu:Moto denda
 fi:4Moottoripyöräliike
 fr:Magasin de motos
@@ -11871,7 +12920,7 @@ sk:Obchod s motocyklami
 sv:4Motorcykelaffär
 sw:Duka la Pikipiki
 th:ร้านรถมอเตอร์ไซค์
-tr:4Motosiklet Dükkanı
+tr:4Motosiklet Dükkanı|4Motorsiklet dükkanı
 uk:Магазин мотоциклів|4мотоцикли
 vi:Cửa hàng xe máy
 zh-Hans:摩托车商店
@@ -11888,6 +12937,7 @@ cs:Novinový stánek
 da:Avis-kiosk
 de:Zeitungsstand|Trafik
 el:Εφημεριδοπώλης|πρακτορείο εφημερίδων
+et:Ajalehepunkt|4ajalehed
 es:Puesto de venta de periódicos
 eu:Kioskoa
 fi:Lehtikioski
@@ -11925,6 +12975,7 @@ da:Pantelåner
 de:Pfandleihe
 el:Ενεχυροδανειστήριο
 es:Casa de empeños
+et:Pandimaja
 eu:Peoia
 fi:Panttilainaamo
 fr:Prêteur sur gages
@@ -11960,6 +13011,7 @@ da:Kontorartikler
 de:7Schreibwarenladen
 el:Κατάστημα γραφικής ύλης|χαρτικά
 es:Papelería
+et:Kirjatarvete pood
 eu:Papergintza
 fi:Kirjoitustarvikekauppa
 fr:Papeterie
@@ -11968,7 +13020,7 @@ id:Toko Alat Tulis
 it:Cartoleria
 ja:文房具店
 ko:문방구
-nb:Bokhandel
+nb:5Kontorrekvisita|Bokhandel
 nl:Kantoorboekhandel
 pl:Artykuły papiernicze
 pt:Papelaria
@@ -11978,7 +13030,7 @@ sk:Papiernictvo
 sv:Pappershandel
 sw:Duka la Vitabu
 th:ร้านขายเครื่องเขียน
-tr:Kırtasiye Dükkanı
+tr:Kırtasiye Mağazası
 uk:Магазин канцелярських товарів|4Канцелярські товари
 vi:Cửa hàng văn phòng phẩm
 zh-Hans:文具店
@@ -11996,9 +13048,10 @@ da:4Tatovør
 de:4Tattoo-Studio
 el:4Τατουάζ|δερματοστιξία
 es:4Tatuajes
+et:4Tätoveeringud
 eu:4Tatuajeak
 fi:4Tatuointiliike
-fr:Salon de tatouage
+fr:Salon de tatouage|tatoueur
 hu:4Tetováló szalon
 id:Tempat Tato
 it:Studio tatuaggi
@@ -12032,6 +13085,7 @@ da:Småtingsbutik
 de:Billigladen|Niedrigpreisgeschäft
 el:Παντοπωλείο|Μπακάλικο|Ψιλικατζίδικο
 es:Tienda de Variedades
+et:Odavpood
 eu:Barietate Denda
 fi:Halpakauppa
 fr:Bazar
@@ -12082,6 +13136,7 @@ ro:Magazin video
 es:Tienda de vídeo
 eu:Bideo-denda
 es-MX:Tienda de vídeo
+et:Videopood
 sv:4Video butik
 th:ร้านขายดีวีดี
 tr:4Video mağazası
@@ -12119,6 +13174,7 @@ ro:Magazin de jocuri video
 es:Tienda de videojuegos
 eu:Bideo-jokoen denda
 es-MX:Tienda de videojuegos
+et:Videomängude pood
 sv:4Videospel butik
 th:ร้านขายวิดีโอเกม
 tr:Video oyunları mağazası
@@ -12142,6 +13198,7 @@ da:Vildmarkshytte
 de:Wildnishütte
 el:Καλύβα|αγροικία
 es:4Cabaña
+et:Loodusonn
 eu:4Kabina
 fi:Autiotupa
 fr:Refuge non gardé|Refuge-bivouac
@@ -12173,9 +13230,11 @@ ru:3Галерея|музей|картины|картинная галерея
 bg:3Галерия|музей|изложба|картини
 de:3Galerie|Museum|Kunstgalerie|Kunstausstellung
 es:3Galería de arte|museo
+et:3Galerii|muuseum
 eu:3Arte galeria|museoa
 fr:3Galerie d'art|musée d'art
 ko:갤러리|박물관
+nb:3Galleri|museum
 nl:3Galerij|museum
 pl:3Galeria|muzeum
 pt:3Galeria|museu
@@ -12192,9 +13251,11 @@ bg:Увеселителен парк
 de:Freizeitpark|Vergnügungspark
 fr:Parc d'attractions|Parc de loisirs
 es:Parque de atracciones
+et:Teemapark|Lõbustuspark
 eu:Parke tematiko
 fi:Huvipuisto
 ko:테마 파크
+nb:Temapark|Fornøyelsespark
 nl:Pretpark|Attractiepark
 pl:Park tematyczny
 pt:Parque de diversões|parque temático
@@ -12213,6 +13274,7 @@ da:National park
 de:5Naturschutzpark|Nationalpark
 el:Εθνικό πάρκο
 es:Parque nacional
+et:Rahvuspark
 eu:Parke Nazionala
 fi:Kansallispuisto
 fr:Parc national
@@ -12221,7 +13283,7 @@ id:Taman Nasional
 it:Parco nazionale
 ja:国立公園
 ko:국립 공원
-nb:Nasonalpark
+nb:Nasjonalpark
 nl:Nationaal park
 pl:Park narodowy
 pt:Parque nacional
@@ -12231,7 +13293,7 @@ sk:Národný park
 sv:Nationalpark
 sw:Hifadhi ya taifa
 th:อุทยานแห่งชาติ
-tr:Ulusal park
+tr:Ulusal park|Milli park|Millipark
 uk:Національний парк
 vi:Công viên quốc gia
 zh-Hans:国家公园
@@ -12249,6 +13311,7 @@ da:Reservat
 de:5Naturschutzgebiet
 el:Φυσικό απόθεμα
 es:Territorio reservado
+et:Looduskaitseala
 eu:Erreserbatutako lurraldea
 fi:Luonnonsuojelualue
 fr:Réserve naturelle
@@ -12257,7 +13320,7 @@ id:Cagar Alam
 it:Riserva
 ja:自然保護区
 ko:천연보호구역|자연보호지역
-nb:Reservat
+nb:Naturreservat
 nl:Natuurgebied|reservaat
 pl:Rezerwat przyrody
 pt:Reserva natural
@@ -12267,7 +13330,7 @@ sk:Rezervácia
 sv:Naturreservat
 sw:Hifadhi
 th:เขตอนุรักษ์ธรรมชาติ
-tr:Doğal koruma alanı
+tr:Doğa koruma alanı
 uk:Заповідник
 vi:Giữ chỗ
 zh-Hans:野生动物园
@@ -12284,6 +13347,7 @@ da:Tange
 de:Kap|Landzunge|Landspitze
 el:Ακρωτήρι
 es:Cabo
+et:Neem
 eu:Lurmuturra
 fi:Niemeke
 fr:Cap
@@ -12319,6 +13383,7 @@ da:3Gejser
 de:3Geysir
 el:Θερμοπίδακας
 es:3Geiser
+et:3Geiser
 eu:3Geiserra
 fi:3Geysir
 fr:3Geyser
@@ -12327,7 +13392,7 @@ id:3Geiser
 it:3Geyser
 ja:間欠泉
 ko:가이저|간헐천
-nb:3Gaysir
+nb:3Geysir
 nl:3Geiser
 pl:3Gejzer
 pt:3Géiser|Geiser
@@ -12354,6 +13419,7 @@ da:Gletsjer
 de:Gletscher|Ferner|Kees|Firn
 el:Παγετώνας
 es:Glaciar
+et:Liustik
 eu:Glaziarra
 fi:Jäätikkö
 fr:Glacier
@@ -12402,6 +13468,7 @@ pt:Vau|passo|Passagem em curso de água baixo
 pt-BR:Vau|passo|Rio raso|Passagem em curso de água baixo
 ro:Superficial
 es:Vado (de lugar)
+et:Koolmekoht
 eu:Ford (lekukoa)
 es-MX:Vado (de lugar)
 sv:Vadställe
@@ -12419,11 +13486,12 @@ leisure-marina
 en:3Marina
 be:4Прычал|3Марына
 de:5Jachthafen
+et:Randumiskoht
 ja:マリーナ
 pt:3Marina
 pt-BR:3Marina
 ru:4Причал|5пристань|3Марина
-tr:Yat Limanı
+tr:İskele|Marina|Rıhtım
 uk:5Пристань|3Марина
 zh-Hans:游艇码头
 
@@ -12437,6 +13505,7 @@ da:Sted for arrangementer
 de:Veranstaltungszentrum
 el:Κέντρο εκδηλώσεων
 es:Lugar de los eventos
+et:Ürituste toimumiskoht
 eu:Ekitaldien Lekua
 fa:محل برگزاری رویدادها
 fi:Tapahtumapaikka
@@ -12459,8 +13528,872 @@ sk:Miesto konania podujatí
 sv:Evenemangslokal
 sw:Ukumbi wa Matukio
 th:สถานที่จัดงาน
-tr:Etkinlik mekanı
+tr:Etkinlik mekanı|etkinlik alanı
 uk:Місце проведення подій
 vi:Địa điểm tổ chức sự kiện
 zh-Hans:活动场所
 zh-Hant:活動場所
+
+shop-chocolate|@food
+en:Chocolate Shop
+be:Шакалад
+de:Schokoladengeschäft
+es:Tienda de chocolate
+et:Šokolaadipood
+fr:Chocolatier
+it:Choccolateria
+ja:チョコレート屋
+nl:Chocolaterie
+pl:Sklep z czekoladą
+pt:Loja de chocolates
+pt-BR:Loja de chocolates
+ru:Шоколад
+tr:Çikolata mağazası
+
+shop-coffee|@food
+en:Cofee store
+be:Кава
+de:Kaffeegeschäft
+et:Kohvipood
+fr:Boutique de cafés
+it:Negozio di caffè
+ja:コーヒー屋
+nl:Koffiewinkel
+pl:Sklep z kawą
+pt:Loja de café
+pt-BR:Loja de café
+ru:Кофе
+tr:Kahve mağazası
+
+shop-fabric
+en:Fabric shop
+de:Textilgeschäft
+et:Kangapood
+fr:Magasin de tissus
+it:Merceria
+nl:Stoffenwinkel
+pt:Loja de tecidos
+pt-BR:Loja de aviamentos
+tr:Kumaş mağazası|Tekstil mağazası
+
+shop-money_lender
+en:Money lender
+be:Ліхвяр
+de:Geldverleiher
+et:Rahalaenutus
+pl:ożyczkodawca
+pt:Prestamista
+pt-BR:Prestamista
+ru:Ростовщик
+tr:Tefeci
+
+shop-music
+en:Record store|vinyl
+be:Музыка
+de:Musikgeschäft
+es:Disquería|Tienda de discos
+et:Plaadipood
+fr:Disquaire|vinyle|CD
+it:Negozio di Dischi
+ja:CDショップ
+nb:Platebutikk|vinyl
+nl:Muziekwinkel
+pl:Sklep muzyczny
+pt:Loja de música
+pt-BR:Loja de música
+ru:Музыка
+tr:Plak mağazası
+
+shop-musical_instrument
+en:Musical instruments
+be:Музычныя інструменты
+de:4Musikinstrumenteladen|Musikhaus
+et:Muusikariistad
+fr:Magasin d'instruments de musique
+it:Negozio di strumenti
+ja:楽器店
+nb:Musikkinstrumenter
+nl:Muziekinstrumentenwinkel
+pl:Sklep z instrumentami muzycznymi
+pt:Loja de instrumentos musicais
+pt-BR:Loja de instrumentos musicais
+ru:Музыкальные инструменты
+tr:Enstrüman Mağazası
+
+shop-tea
+en:Tea store
+be:Гарбата
+es:Tienda de té
+et:Teepood
+de:Teegeschäft
+fr:Boutique de thés
+it:Negozio di tè
+ja:茶販売店
+nb:Tebutikk
+nl:Theewinkel
+pl:Sklep z herbatą
+pt:Loja de chás
+pt-BR:Loja de chás
+ru:Чай
+tr:Çay mağazası
+zh-Hans:茶叶商店
+
+shop-antiques
+en:Antiques
+ar:ﻒﺤﺘﻟﺍ
+be:Антыкварыят
+bg:Антики
+cs:Starožitnosti
+da:Antikviteter
+de:Antiquitäten
+el:Αντίκες
+es:Antigüedades
+et:Antikvariaat
+eu:Antigoalekoak
+fa:ﺕﺎﺟ ﻪﻘﯿﺘﻋ
+fi:Antiikkia
+fr:Antiquités
+he:תוֹקיתִעַ
+hu:Régiségek
+id:Barang antik
+it:Oggetti d'antiquariato
+ja:骨董品
+ko:고물
+nb:Antikviteter
+nl:Antiekhandel
+pl:Antyki
+pt:Antiguidades
+pt-BR:Antiguidades
+ro:Antichități
+ru:Антиквариат
+sk:Starožitnosti
+sv:Antikviteter
+sw:Mambo ya kale
+th:ของเก่า
+tr:Antika
+uk:Антикваріат
+vi:Đồ cổ
+zh-Hans:古董
+zh-Hant:古董
+
+shop-art
+en:Arts Shop
+ar:ﻥﻮﻨﻔﻟﺍ ﺮﺠﺘﻣ
+be:Крама мастацтваў
+bg:Магазин за изкуства
+cs:Obchod s uměním
+da:Kunstbutik
+de:Kunstgeschäft
+el:Κατάστημα Τεχνών
+es:Tienda de artes
+et:Kunstipood
+eu:Arte Denda
+fa:ﺮﻨﻫ ﻩﺎﮕﺷﻭﺮﻓ
+fi:Taidekauppa
+fr:Boutique d'art
+he:תויונמוא תונח
+hu:Művészeti Bolt
+id:Toko Seni
+it:Negozio d'arte
+ja:アートショップ
+ko:아트샵
+nb:Kunstbutikk
+nl:Kunstwinkel
+pl:Sklep artystyczny
+pt:Loja de artes
+pt-BR:Loja de artes
+ro:Magazin de arte
+ru:Художественный магазин
+sk:Obchod s umením
+sv:Konstaffär
+sw:Duka la Sanaa
+th:ร้านศิลปะ
+tr:Sanat Mağazası
+uk:Магазин мистецтв
+vi:Cửa hàng nghệ thuật
+zh-Hans:艺术商店
+zh-Hant:藝術商店
+
+shop-baby_goods
+en:Baby Goods
+ar:ﻝﺎﻔﻃﻸﻟ ﺮﺠﺘﻣ
+be:Дзіцячая крама
+bg:Детски магазин
+cs:Dětský obchod
+da:Børnebutik
+de:Kinderladen|4Babybedarf
+el:Παιδικό κατάστημα
+es:Tienda de niños
+et:Beebikaubad
+eu:Haurrentzako denda
+fa:ﻥﺎﮐﺩﻮﮐ ﻩﺎﮕﺷﻭﺮﻓ
+fi:Lasten kauppa
+fr:Magasin de puériculture|bébé
+he:םידליל תונח
+hu:Gyermekbolt|Bababolt
+id:Toko anak-anak
+it:Negozio per neonati
+ja:キッズストア
+ko:어린이 가게
+nb:Barnebutikk
+nl:Babyspullenwinkel
+pl:Sklep dla dzieci
+pt:Loja infantil
+pt-BR:Loja infantil
+ro:Magazin pentru copii
+ru:Детский магазин
+sk:Obchod pre deti
+sv:Barnbutik
+sw:Duka la watoto
+th:ร้านขายของสำหรับเด็ก
+tr:Çocuk mağazası
+uk:Дитячий магазин
+vi:Cửa hàng trẻ em
+zh-Hans:儿童商店
+zh-Hant:兒童商店
+
+shop-bag
+en:Bags Store
+ar:ﺐﺋﺎﻘﺤﻟﺍ ﺮﺠﺘﻣ
+be:Крама сумак
+bg:Магазин за чанти
+cs:Obchod s taškami
+da:Tasker butik
+de:Taschen Shop
+el:Κατάστημα τσαντών
+es:Tienda de bolsos
+et:Kotipood
+eu:Poltsen Denda
+fa:ﻒﯿﮐ ﻩﺎﮕﺷﻭﺮﻓ
+fi:Laukkukauppa
+fr:Magasin de sacs
+he:םיקית תונח
+hu:Táskák bolt
+id:Toko Tas
+it:Negozio di borse
+ja:バッグストア
+ko:가방 판매점
+nb:Veskerbutikk
+nl:Tassenwinkel
+pl:Sklep z torbami
+pt:Loja de bolsas
+pt-BR:Loja de bolsas
+ro:Magazin de genti
+ru:Магазин сумок
+sk:Obchod s taškami
+sv:Väskor butik
+sw:Hifadhi ya Mifuko
+th:ร้านกระเป๋า
+tr:Çanta Mağazası|Çantacı
+uk:Магазин сумок
+vi:Cửa hàng túi xách
+zh-Hans:箱包店
+zh-Hant:箱包店
+
+shop-cheese|@food
+en:Cheese Store
+ar:ﻦﺒﺠﻟﺍ ﺮﺠﺘﻣ
+be:Сырны магазін
+bg:Магазин за сирене
+cs:Prodejna sýrů
+da:Ostebutik
+de:3Käseladen
+el:Τυροκομείο
+es:Tienda de queso
+et:Juustupood
+eu:Gazta Denda
+fa:ﺮﯿﻨﭘ ﻩﺎﮕﺷﻭﺮﻓ
+fi:Juustokauppa
+fr:Fromagerie
+he:תוניבג תונח
+hu:Sajtbolt
+id:Toko Keju
+it:Negozio di formaggi
+ja:チーズ店
+ko:치즈 가게
+nb:Ostebutikk
+nl:Kaaswinkel
+pl:Sklep z serami
+pt:Loja de queijos
+pt-BR:Loja de queijos
+ro:Magazin de branzeturi
+ru:Магазин сыра
+sk:Predajňa syrov
+sv:Ostaffär
+sw:Duka la Jibini
+th:ร้านชีส
+tr:Peynirci
+uk:Магазин сиру
+vi:Cửa hàng pho mát
+zh-Hans:奶酪店
+zh-Hant:奶酪店c
+
+shop-dairy|@food
+en:Dairy Products
+ar:ﻥﺎﺒﻟﻷﺍ ﺕﺎﺠﺘﻨﻣ
+be:Малочныя прадукты
+bg:Млечни продукти
+cs:Mléčné výrobky
+da:Mejeriprodukter
+de:Milchprodukte
+el:Γαλακτοκομικά προϊόντα
+es:Productos lácteos
+et:Piimatooted
+eu:Esnekiak
+fa:ﯽﻨﺒﻟ ﺕﻻﻮﺼﺤﻣ
+fi:Maitotuotteet
+fr:Crémerie|Produits laitiers
+he:בלח ירצומ
+hu:Tejtermékek
+id:Produk susu
+it:Latticini
+ja:乳製品
+ko:유제품
+nb:Meieriprodukter
+nl:Zuivelproducten
+pl:Nabiał
+pt:Lacticínios
+pt-BR:Lacticínios
+ro:Lactate
+ru:Молочные продукты
+sk:Mliečne výrobky
+sv:Mejeriprodukter
+sw:Bidhaa za Maziwa
+th:ผลิตภัณฑ์นม
+tr:Süt Ürünleri
+uk:Молочні продукти
+vi:Sản phẩm từ sữa
+zh-Hans:乳制品
+zh-Hant:乳製品
+
+shop-electrical
+en:Electrical Store
+ar:ﺔﻴﺋﺎﺑﺮﻬﻜﻟﺍ ﺕﺍﻭﺩﻷﺍ ﺮﺠﺘﻣ
+be:Крама электратэхнікі
+bg:Електрически магазин
+cs:Elektro obchod
+da:El-butik
+de:Elektrogeschäft
+el:Μαγαζί ηλεκτρικών ειδών
+es:Tienda de electricidad
+et:Elektritarvikute pood
+eu:Elektrizitate Denda
+fa:ﯽﮑﯾﺮﺘﮑﻟﺍ ﻡﺯﺍﻮﻟ ﻩﺯﺎﻐﻣ
+fi:Sähköliike
+fr:Magasin de fournitures et d'appareils électriques
+he:למשח תונח
+hu:Elektronikai üzlet
+id:Toko elektronik
+it:Negozio di articoli elettrici
+ja:電気店
+ko:전기용품점
+nb:Elektronisk butikk
+nl:Witgoed winkel
+pl:Sklep elektryczny
+pt:Loja de materiais elétricos
+pt-BR:Loja de materiais elétricos
+ro:Magazin de electronice
+ru:Магазин электротоваров
+sk:Predajňa elektro
+sv:Elektronik affär
+sw:Duka la Umeme
+th:ร้านขายเครื่องใช้ไฟฟ้า
+tr:Elektronik eşya dükkanı|Elektronik mağazası
+uk:Магазин електротехніки
+vi:Cửa hàng điện tử
+zh-Hans:电器商城
+zh-Hant:電器商城
+
+shop-fishing
+en:Fishing Store
+ar:ﺪﻴﺻ ﺮﺠﺘﻣ
+be:Рыбалоўны магазін
+bg:Риболовен магазин
+cs:Rybářský obchod
+da:Fiskeri butik
+de:Angelgeschäft
+el:Κατάστημα ψαρέματος
+es:Tienda de pesca
+et:Kalapüügi pood
+eu:Arrantza Denda
+fa:ﯼﺮﯿﮕﯿﻫﺎﻣ ﻩﺎﮕﺷﻭﺮﻓ
+fi:Kalastuskauppa
+fr:Magasin de pêche
+he:גייד תונח
+hu:Horgászbolt
+id:Toko Memancing
+it:Negozio di pesca
+ja:フィッシングストア
+ko:낚시점
+nb:Fiskebutikk
+nl:Viswinkel
+pl:Sklep wędkarski
+pt:Loja de pesca
+pt-BR:Loja de pesca
+ro:Magazin de pescuit
+ru:Рыболовный магазин
+sk:Rybársky obchod
+sv:Fiskeaffär
+sw:Duka la Uvuvi
+th:ร้านตกปลา
+tr:Balıkçılık Dükkanı|Balıkçılık Mağazası|Balıkçılık
+uk:Рибальський магазин
+vi:Cửa hàng câu cá
+zh-Hans:钓鱼店
+zh-Hant:釣魚店
+
+shop-interior_decoration
+en:Interior Decorations
+ar:ﺔﻴﻠﺧﺍﺩ ﺕﺍﺭﻮﻜﻳﺩ
+be:Ўпрыгажэнні інтэр'еру
+bg:Вътрешни декорации
+cs:Interiérové dekorace
+da:Indvendige dekorationer
+de:Innendekorationen
+el:Διακοσμήσεις εσωτερικών χώρων
+es:Decoraciones interiores
+et:Sisustuse kaunistused
+eu:Barruko Apaingarriak
+fa:ﯽﻠﺧﺍﺩ ﻥﻮﯿﺳﺍﺭﻮﮐﺩ
+fi:Sisustuskoristeet
+fr:Décorations intérieures
+he:םינפ יטושיק
+hu:Belső dekorációk
+id:Dekorasi Interior
+it:Decorazioni per interni
+ja:室内装飾
+ko:실내 장식
+nb:Interiørdekorasjoner
+nl:Interieurdecoraties
+pl:Dekoracje wnętrz
+pt:Decorações de Interiores
+pt-BR:Decorações de Interiores
+ro:Decoratiuni interioare
+ru:Украшения для интерьера
+sk:Interiérové dekorácie
+sv:Inredningsdekorationer
+sw:Mapambo ya Ndani
+th:ตกแต่งภายใน
+tr:İç Dekorasyon
+uk:Внутрішнє оздоблення
+vi:Đồ trang trí nội thất
+zh-Hans:室内装饰
+zh-Hant:室內裝飾
+
+shop-lottery
+en:Lottery Tickets
+ar:ﺐﻴﺼﻧﺎﻴﻟﺍ ﺮﻛﺍﺬﺗ
+be:Латарэйныя білеты
+bg:Лотарийни билети
+cs:Loterijní lístky
+da:Lotterikuponer
+de:Lotteriescheine
+el:Λαχεία
+es:Boletos de lotería
+et:Loteriipiletid
+eu:Loteria Sarrerak
+fa:ﯽﯾﺎﻣﺯﺁ ﺖﺨﺑ ﻂﯿﻠﺑ
+fi:Lottoliput
+fr:Tickets de loterie
+he:הלרגה יסיטרכ
+hu:Sorsjegyek|Lottózó
+id:Tiket Lotere
+it:Biglietti della lotteria
+ja:宝くじ
+ko:복권
+nb:Lotteribilletter
+nl:Loten
+pl:Bilety na loterię
+pt:Bilhete de loteria
+pt-BR:Bilhete de loteria
+ro:Bilete la loterie
+ru:Лотерейные билеты
+sk:Lístky do lotérie
+sv:Lotter
+sw:Tikiti za Bahati nasibu
+th:สลากกินแบ่ง
+tr:Piyango bileti
+uk:Лотерейні квитки
+vi:Vé xổ số kiến thiết
+zh-Hans:彩票
+zh-Hant:彩票
+
+shop-medical_supply
+en:Medical Supplies
+ar:ﺔﻴﺒﻄﻟﺍ ﺕﺍﺩﺍﺪﻣﻹﺍ
+be:Медыцынскія прыналежнасці
+bg:Медицински изделия
+cs:Zdravotní zásoby
+da:Medicinske forsyninger
+de:Medizinische Versorgung
+el:Ιατρικά Είδη
+es:Suministros médicos
+et:Meditsiinitarvikud
+eu:Medikuntza-hornidura
+fa:ﯽﮑﺷﺰﭘ ﻡﺯﺍﻮﻟ
+fi:Lääketieteellisiä tarvikkeita
+fr:Materiel médical
+he:יאופר דויצ
+hu:Orvosi eszközök
+id:Suplai medis
+it:Forniture mediche
+ja:医療用品
+ko:의료용품
+nb:Medisinsk utstyr
+nl:Medische benodigdheden
+pl:Produkty medyczne
+pt:Suprimentos médicos
+pt-BR:Suprimentos médicos
+ro:Consumabile medicale
+ru:Медикаменты
+sk:Zdravotnícky materiál
+sv:Medicinska förnödenheter
+sw:Vifaa vya Matibabu
+th:เวชภัณฑ์
+tr:Tıbbi malzemeler|medikalci
+uk:Медичні товари
+vi:Vật tư y tế
+zh-Hans:医疗用品
+zh-Hant:醫療用品
+
+shop-nutrition_supplements
+en:Nutrition Supplements
+ar:ﺔﻴﺋﺍﺬﻏ ﺕﻼﻤﻜﻣ
+be:Харчовыя дабаўкі
+bg:Хранителни добавки
+cs:Doplňky výživy
+da:Kosttilskud
+de:Nahrungsergänzungsmittel
+el:Συμπληρώματα Διατροφής
+es:Suplementos Nutricionales
+et:Toidulisandid
+eu:Nutrizio osagarriak
+fa:ﯽﯾﺍﺬﻏ ﯼﺎﻫ ﻞﻤﮑﻣ
+fi:Ravintolisät
+fr:Suppléments nutritionnels
+he:הנוזת יפסות
+hu:Táplálékkiegészítők
+id:Suplemen Nutrisi
+it:Integratori Alimentari
+ja:栄養補助食品
+ko:영양 보조제
+nb:Kosttilskudd
+nl:Voedingssupplementen
+pl:Suplementy diety
+pt:Suplementos nutricionais
+pt-BR:Suplementos nutricionais
+ro:Suplimente nutritive
+ru:Пищевые добавки
+sk:Výživové doplnky
+sv:Kosttillskott
+sw:Virutubisho vya Lishe
+th:อาหารเสริม
+tr:Besin Takviyeleri|Takviye besin|takviye gıda|gıda takviyesi
+uk:Харчові добавки
+vi:Bổ sung dinh dưỡng
+zh-Hans:营养补充剂
+zh-Hant:營養補充劑
+
+shop-paint
+en:Paints
+ar:ﺕﺎﻧﺎﻫﺪﻟﺍ
+be:Фарбы
+bg:Бои
+cs:Barvy
+da:Maling
+de:Farben
+el:Βαφές
+es:Pinturas
+et:Värvid
+eu:Margoak
+fa:ﺪﻨﮐ ﯽﻣ ﮓﻧﺭ
+fi:Maalit
+fr:Magasin de peinture
+he:םיעבצ
+hu:Festékek
+id:Cat
+it:Vernici
+ja:塗料
+ko:그림 물감
+nb:Maling
+nl:Verfwinkel
+pl:Malatura
+pt:Tintas
+pt-BR:Tintas
+ro:Vopsele
+ru:Краски
+sk:Farby
+sv:Färger
+sw:Rangi
+th:สี
+tr:Boya|boyacı
+uk:Фарби
+vi:Sơn
+zh-Hans:油漆
+zh-Hant:油漆
+
+shop-perfumery
+en:Perfumery
+ar:ﺭﻮﻄﻌﻟﺍ
+be:Парфумерыя
+bg:Парфюмерия
+cs:Parfumerie
+da:Parfumeri
+de:Parfümerie
+el:Αρωματοποιία
+es:Perfumería
+et:Parfümeeria
+eu:Lurringintza
+fa:ﯼﺯﺎﺳﺮﻄﻋ
+fi:Hajuvedet
+fr:Parfumerie
+he:תמַשְׂבָּ
+hu:Illatszerek
+id:Wewangian
+it:Profumeria
+ja:香水
+ko:향료 제조업
+nb:Parfymeri
+nl:Parfumerie
+pl:Perfumeria
+pt:Perfumaria
+pt-BR:Perfumaria
+ro:Parfumerie
+ru:Парфюмерия
+sk:Parfuméria
+sv:Parfymer
+sw:Perfumery
+th:น้ำหอม
+tr:Parfümeri|parfümcü
+uk:Парфумерія
+vi:Nước hoa
+zh-Hans:香水
+zh-Hant:香水
+
+shop-sewing
+en:Sewing Supplies
+ar:ﺔﻃﺎﻴﺨﻟﺍ ﺕﺍﺪﻌﻣ
+be:Швейныя прыналежнасці
+bg:Шивашки консумативи
+cs:Šicí potřeby
+da:Syudstyr
+de:Nähzubehör
+el:Είδη Ραπτικής
+es:Materiales de costura
+et:Õmblustarvikud
+eu:Josteko hornigaiak
+fa:ﯽﻃﺎﯿﺧ ﻡﺯﺍﻮﻟ
+fi:Ompelutarvikkeet
+fr:Mercerie|Couture
+he:הריפת דויצ
+hu:Varrás kellékek
+id:Perlengkapan Jahit
+it:Forniture per il cucito
+ja:ミシン用品
+ko:재봉용품
+nb:Syutstyr
+nl:Naaibenodigdheden
+pl:Przybory do szycia
+pt:Materiais de costura
+pt-BR:Materiais de costura
+ro:Rechizite de cusut
+ru:Швейные принадлежности
+sk:Šijacie potreby
+sv:Sytillbehör
+sw:Vifaa vya kushona
+th:อุปกรณ์เย็บผ้า
+tr:Dikiş malzemeleri
+uk:Швейні приладдя
+vi:Nguồn cung cấp may
+zh-Hans:缝纫用品
+zh-Hant:縫紉用品
+
+shop-storage_rental
+en:Storage Rental
+ar:ﻦﻳﺰﺨﺘﻟﺍ ﺕﺍﺪﺣﻭ ﺮﻴﺟﺄﺗ
+be:Арэнда сховішчаў
+bg:Склад под наем
+cs:Pronájem skladu
+da:Lagerudlejning
+de:Speichermiete
+el:Ενοικίαση αποθηκευτικού χώρου
+es:Alquiler de almacenamiento
+et:Ladustuse rent
+eu:Biltegiratzeko alokairua
+fa:ﺭﺎﺒﻧﺍ ﻩﺭﺎﺟﺍ
+fi:Varastoinnin vuokraus
+fr:Location de stockage
+he:ןוסחא תרכשה
+hu:Tárhely bérlés
+id:Sewa Penyimpanan
+it:Noleggio deposito
+ja:ストレージレンタル
+ko:스토리지 렌탈
+nb:Lagerutleie
+nl:Opslag verhuur
+pl:Wynajem magazynu
+pt:Aluguel de Armazenamento
+pt-BR:Aluguel de Armazenamento
+ro:Închiriere depozitare
+ru:Аренда склада
+sk:Prenájom skladu
+sv:Uthyrning av förråd
+sw:Kukodisha Hifadhi
+th:ค่าเช่าห้องเก็บของ
+tr:Depolama Kiralama
+uk:Оренда сховища
+vi:Cho thuê kho lưu trữ
+zh-Hans:存储租赁
+zh-Hant:存儲租賃
+
+shop-tobacco
+en:Tobacco
+ar:ﻎﺒﺗ
+be:Тытунь
+bg:Тютюн
+cs:Tabák
+da:Tobak
+de:Tabak
+el:Καπνός
+es:Tabaco
+et:Tubakas
+eu:Tabakoa
+fa:ﻮﮐﺎﺒﻨﺗ
+fi:Tupakka
+fr:Bureau de tabac
+he:קבָּטַ
+hu:Dohány
+id:Tembakau
+it:Tabaccheria
+ja:タバコ
+ko:담배
+nb:Tobakk
+nl:Tabakszaak
+pl:Tytoń
+pt:Tabaco
+pt-BR:Tabaco
+ro:Tutun
+ru:Табак
+sk:Tabak
+sv:Tobak
+sw:Tumbaku
+th:ยาสูบ
+tr:Tütüncü
+uk:Тютюн
+vi:Thuốc lá
+zh-Hans:烟草
+zh-Hant:煙草
+
+shop-trade
+en:Trades Supplies
+ar:ﺔﻳﺭﺎﺠﺘﻟﺍ ﺕﺍﺪﻳﺭﻮﺘﻟﺍ
+be:Гандлёвая прыналежнасць
+bg:Търговия с консумативи
+cs:Obchod se zásobami
+da:Handler forsyninger
+de:Handelsbedarf
+el:Εμπόριο Προμήθειες
+es:Suministros comerciales
+et:Kaubanduse tarvikud
+eu:Lanbideen hornidurak
+fa:ﻡﺯﺍﻮﻟ ﺕﺭﺎﺠﺗ
+fi:Kauppa tarvikkeita
+fr:Grossiste
+he:הקפסאב רחוס
+hu:Kellékekkel kereskedik
+id:Perlengkapan Perdagangan
+it:Forniture commerciali
+ja:貿易用品
+ko:거래 용품
+nb:Handler rekvisita
+nl:Handelsbenodigdheden
+pl:Zaopatrzenie handlowe
+pt:Comércio de suprimentos
+pt-BR:Comércio de suprimentos
+ro:Comerțuri Rechizite
+ru:Торговые поставки
+sk:Živnostenské potreby
+sv:Handlar förnödenheter
+sw:Ugavi wa Biashara
+th:อุปกรณ์การค้า
+tr:Esnaf Malzemeleri|İş yeri malzemeleri|Dükkan malzemeleri
+uk:Торгівля припасами
+vi:Nguồn cung cấp Giao dịch
+zh-Hans:贸易用品
+zh-Hant:貿易用品
+
+shop-watches
+en:Watches
+ar:ﺕﺎﻋﺎﺳ
+be:Гадзіннік
+bg:Часовници
+cs:Hodinky
+da:Ure
+de:Uhren
+el:Ρολόγια
+es:Relojes
+et:Kellad
+eu:Erlojuak
+fa:ﺖﻋﺎﺳ
+fi:Kellot
+fr:Montres
+he:םינועש
+hu:Órák
+id:Jam tangan
+it:Orologeria
+ja:時計
+ko:시계
+nb:Klokker
+nl:Horlogezaak
+pl:Zegarki
+pt:Relógios
+pt-BR:Relógios
+ro:Priveste
+ru:Часы
+sk:Hodinky
+sv:Klockor
+sw:Saa
+th:นาฬิกา
+tr:Saatçi
+uk:Годинники
+vi:Xem
+zh-Hans:手表
+zh-Hant:手錶
+
+shop-wholesale
+en:Wholesale Store
+ar:ﺔﻠﻤﺠﻟﺎﺑ ﺔﻴﺋﺍﺬﻐﻟﺍ ﺩﺍﻮﻤﻟﺍ ﺓﺭﺎﺠﺗ
+be:Аптовая крама
+bg:Магазин на едро
+cs:Velkoobchodní prodejna
+da:Engros butik
+de:Großhandelsgeschäft
+el:Κατάστημα χονδρικής
+es:Almacén al por mayor
+et:Hulgimüügi pood
+eu:Handizkako denda
+fa:ﯽﺷﻭﺮﻓ ﻩﺪﻤﻋ ﻩﺎﮕﺷﻭﺮﻓ
+fi:Tukkukauppa
+fr:Magasin de gros
+he:תיאנוטיס תונח
+hu:Nagykereskedelmi üzlet
+id:Toko Grosir
+it:Negozio all'ingrosso
+ja:問屋
+ko:도매점
+nb:Engrosbutikk
+nl:Groothandel
+pl:Hurtownia
+pt:Loja de atacado
+pt-BR:Loja de atacado
+ro:Magazin cu ridicata
+ru:Оптовый магазин
+sk:Veľkoobchod
+sv:Grossistbutik
+sw:Duka la Jumla
+th:ร้านขายส่ง
+tr:Toptan satış mağazası|toptancı
+uk:Оптовий магазин
+vi:Cửa hàng bán buôn
+zh-Hans:批发店
+zh-Hant:批髮店

@@ -192,6 +192,12 @@
 	<!-- SECTION: Types -->
 	<string name="type.amenity">Infraestructura</string>
 	<string name="type.amenity.arts_centre">Centro de artes</string>
+	<string name="type.amenity.parking.no.access">Aparcamiento privado</string>
+	<string name="type.amenity.parking.permissive">Aparcamiento privado</string>
+	<string name="type.amenity.parking.private">Aparcamiento privado</string>
+	<string name="type.amenity.parking_entrance.private">Entrada al aparcamiento</string>
+	<string name="type.amenity.parking_entrance.permissive">Entrada al aparcamiento</string>
+	<string name="type.amenity.parking_entrance">Entrada al aparcamiento</string>
 	<string name="type.amenity.parking_space">Plaza de aparcamiento</string>
 	<string name="type.amenity.parking_space.permissive">Plaza de aparcamiento</string>
 	<string name="type.amenity.parking_space.private">Plaza de aparcamiento</string>
@@ -202,6 +208,9 @@
 	<string name="type.recycling.scrap_metal">Desechos de metal</string>
 	<string name="type.recycling.small_appliances">Desechos electrónicos</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">Máquina expendedora de billetes de transporte público</string>
+	<string name="type.boundary.administrative.2">Frontera de país</string>
+	<string name="type.boundary.administrative.country">Frontera de país</string>
+	<string name="type.boundary.administrative.nation">Frontera de país</string>
 	<string name="type.boundary.national_park">Parque nacional</string>
 
 	<!-- SECTION: Types: Roads -->
@@ -214,8 +223,11 @@
 	<string name="type.highway.cycleway.bridge">Puente</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.cycleway.tunnel">Túnel</string>
+	<string name="type.highway.footway">Camino</string>
+	<string name="type.highway.footway.area">Camino</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.footway.bridge">Puente</string>
+	<string name="type.highway.footway.permissive">Camino</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Túnel</string>
 	<string name="type.highway.ford">Vado (de lugar)</string>
@@ -295,6 +307,7 @@
 	<string name="type.highway.unclassified.bridge">Puente</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.unclassified.tunnel">Túnel</string>
+	<string name="type.area_highway.footway">Camino</string>
 
 	<!-- SECTION: Types: Historic -->
 	<string name="type.landuse.churchyard">Camposanto</string>
@@ -314,9 +327,13 @@
 	<string name="type.natural.scrub">Maleza</string>
 	<string name="type.natural.strait">Estrecho</string>
 	<string name="type.natural.wetland">Tierra pantanosa</string>
+	<string name="type.railway.halt">Estación de tren</string>
 	<string name="type.railway.level_crossing">Cruce de ferrocarril</string>
 	<string name="type.railway.monorail">Monorraíl</string>
 	<string name="type.railway.rail">Línea de ferrocarril</string>
+	<string name="type.railway.station">Estación de tren</string>
+	<string name="type.railway.station.light_rail">Estación de tren</string>
+	<string name="type.railway.station.monorail">Estación de tren</string>
 	<string name="type.railway.subway_entrance">Entrada de metro</string>
 	<string name="type.railway.subway_entrance.adana">Entrada de metro</string>
 	<string name="type.railway.subway_entrance.algiers">Entrada de metro</string>
@@ -370,7 +387,6 @@
 	<string name="type.railway.subway_entrance.lille">Entrada de metro</string>
 	<string name="type.railway.subway_entrance.lima">Entrada de metro</string>
 	<string name="type.railway.subway_entrance.lisboa">Entrada de metro</string>
-	<string name="type.railway.subway_entrance.lisbon">Entrada de metro</string>
 	<string name="type.railway.subway_entrance.london">Entrada de metro</string>
 	<string name="type.railway.subway_entrance.lyon">Entrada de metro</string>
 	<string name="type.railway.subway_entrance.madrid">Entrada de metro</string>
