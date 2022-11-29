@@ -3,29 +3,26 @@
 #include "indexer/cities_boundaries_serdes.hpp"
 #include "indexer/city_boundary.hpp"
 
-#include "coding/geometry_coding.hpp"
+#include "platform/platform.hpp"
+
+#include "coding/files_container.hpp"
 #include "coding/reader.hpp"
 #include "coding/writer.hpp"
 
-#include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
 
-#include <cstdint>
-#include <utility>
+#include "base/file_name_utils.hpp"
+
 #include <vector>
 
+namespace cities_boundaries_serdes_tests
+{
 using namespace indexer;
 using namespace m2;
-using namespace serial;
 using namespace std;
 
-namespace
-{
 using Boundary = vector<CityBoundary>;
 using Boundaries = vector<Boundary>;
-
-static_assert(CitiesBoundariesSerDes::kLatestVersion == 0, "");
-static_assert(CitiesBoundariesSerDes::HeaderV0::kDefaultCoordBits == 19, "");
 
 struct Result
 {
@@ -50,7 +47,11 @@ void TestEqual(BoundingBox const & lhs, BoundingBox const & rhs, double eps)
 
 void TestEqual(CalipersBox const & lhs, CalipersBox const & rhs, double eps)
 {
-  TestEqual(lhs.Points(), rhs.Points(), eps);
+  // SerDes for CaliperBox works without normalization.
+  CalipersBox norm(rhs);
+  norm.Normalize();
+
+  TestEqual(lhs.Points(), norm.Points(), eps);
 }
 
 void TestEqual(DiamondBox const & lhs, DiamondBox const & rhs, double eps)
@@ -76,6 +77,7 @@ void TestEqual(Boundary const & lhs, Boundary const & rhs, double eps)
     TestEqual(lhs[i], rhs[i], eps);
 }
 
+// Eps equal function to compare initial (expected) value (lhs) with encoded-decoded (rhs).
 void TestEqual(Boundaries const & lhs, Boundaries const & rhs, double eps)
 {
   TEST_EQUAL(lhs.size(), rhs.size(), (lhs, rhs));
@@ -130,12 +132,11 @@ UNIT_TEST(CitiesBoundariesSerDes_Smoke)
 
 UNIT_TEST(CitiesBoundaries_Moscow)
 {
-  vector<m2::PointD> const points = {{37.04001, 67.55964},
-                                     {37.55650, 66.96428},
-                                     {38.02513, 67.37082},
-                                     {37.50865, 67.96618}};
+  vector<PointD> const points = {
+    {37.04001, 67.55964}, {37.55650, 66.96428}, {38.02513, 67.37082}, {37.50865, 67.96618}
+  };
 
-  m2::PointD const target(37.44765, 67.65243);
+  PointD const target(37.44765, 67.65243);
 
   vector<uint8_t> buffer;
   {
@@ -159,4 +160,40 @@ UNIT_TEST(CitiesBoundaries_Moscow)
     TEST(boundaries[0][0].HasPoint(target, precision), ());
   }
 }
-}  // namespace
+
+UNIT_TEST(CitiesBoundaries_Compression)
+{
+  FilesContainerR cont(base::JoinPath(GetPlatform().WritableDir(), WORLD_FILE_NAME) + DATA_FILE_EXTENSION);
+
+  vector<vector<CityBoundary>> all1;
+  double precision;
+
+  ReaderSource source1(cont.GetReader(CITIES_BOUNDARIES_FILE_TAG));
+  LOG(LINFO, ("Size before:", source1.Size()));
+
+  CitiesBoundariesSerDes::Deserialize(source1, all1, precision);
+
+  vector<uint8_t> buffer;
+  MemWriter writer(buffer);
+  CitiesBoundariesSerDes::Serialize(writer, all1);
+  LOG(LINFO, ("Size after:", buffer.size()));
+
+  // Equal test.
+  vector<vector<CityBoundary>> all2;
+  MemReader reader(buffer.data(), buffer.size());
+  ReaderSource source2(reader);
+  CitiesBoundariesSerDes::Deserialize(source2, all2, precision);
+
+  TEST_EQUAL(all1.size(), all2.size(), ());
+  for (size_t i = 0; i < all1.size(); ++i)
+  {
+    TEST_EQUAL(all1[i].size(), all2[i].size(), ());
+    for (size_t j = 0; j < all1[i].size(); ++j)
+    {
+      if (!(all1[i][j] == all2[i][j]))
+        LOG(LINFO, (i, all1[i][j], all2[i][j]));
+    }
+  }
+}
+
+} // namespace cities_boundaries_serdes_tests

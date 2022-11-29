@@ -70,6 +70,9 @@ uint8_t GetCoordBits(m2::RectD const & limitRect, double accuracy);
 // 3. If you need to temporarily store the point as an uint,
 //    you do not need the complexity of interleaving.
 //
+// By VNG: Well, for polys delta encoding WriteVarUint(BitwiseMerge(x, y)) is better than
+// WriteVarUint(x) + WriteVarUint(y) by 15%. Check CitiesBoundaries_Compression test with World V0 vs V1.
+//
 // Another possible reason to interleave bits of x and y arises
 // when implementing the Z-order curve but we have this
 // written elsewhere (see geometry/cellid.hpp).
