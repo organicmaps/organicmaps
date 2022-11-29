@@ -9247,7 +9247,21 @@
     ja = 馬道(トンネル)
     pl = Tunel drogowy dla koni
     pt-BR = Túnel para cavaleiros
-
+    
+  [type.highway.busway]
+    en = Busway
+    ca = Metrobús
+    cs = Autobusová dráha
+    de = Busstraße
+    el = Λεωφορειοδρόμος
+    es = Metrobús
+    fr = Voie de bus
+    pt = Metrobus
+    pt-BR = BRT
+    ru = Метрóбус
+    tr = Metrobüs
+    uk = Швидкісний автобус
+    
   [type.highway.bus_stop]
     en = Bus Stop
     ar = موقف حافلة
