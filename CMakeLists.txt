@@ -297,7 +297,7 @@ set(EXPAT_BUILD_DOCS OFF)
 set(EXPAT_BUILD_PKGCONFIG OFF)
 set(EXPAT_ENABLE_INSTALL OFF)
 set(EXPAT_SHARED_LIBS OFF)
-find_package_or_fallback_to_3party("expat" "2.5.0" "3party/expat/expat")
+find_package_or_fallback_to_3party(EXPAT 2.5.0 3party/expat/expat)
 
 add_subdirectory(3party/agg)
 add_subdirectory(3party/bsdiff-courgette)
