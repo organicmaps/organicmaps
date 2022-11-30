@@ -99,9 +99,11 @@ kml::FileData GenerateKmlFileData()
   trackData.m_layers = {{6.0, {kml::PredefinedColor::None, 0xff0000ff}},
                         {7.0, {kml::PredefinedColor::None, 0x00ff00ff}}};
   trackData.m_timestamp = kml::TimestampClock::from_time_t(900);
-  trackData.m_pointsWithAltitudes = {{m2::PointD(45.9242, 56.8679), 1},
-                                     {m2::PointD(45.2244, 56.2786), 2},
-                                     {m2::PointD(45.1964, 56.9832), 3}};
+
+  trackData.m_geometry.Assign({
+    {{45.9242, 56.8679}, 1}, {{45.2244, 56.2786}, 2}, {{45.1964, 56.9832}, 3}
+  });
+
   trackData.m_visible = false;
   trackData.m_nearestToponyms = {"12345", "54321", "98765"};
   trackData.m_properties = {{"tr_property1", "value1"}, {"tr_property2", "value2"}};

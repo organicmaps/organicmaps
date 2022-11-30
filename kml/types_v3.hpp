@@ -120,11 +120,10 @@ struct TrackDataV3
     data.m_description = m_description;
     data.m_layers = m_layers;
     data.m_timestamp = m_timestamp;
-    for (auto & pt : m_points)
-      data.m_pointsWithAltitudes.emplace_back(std::move(pt), geometry::kDefaultAltitudeMeters);
+    data.m_geometry.FromPoints(m_points);
     return data;
   }
-  
+
   // Unique id (it will not be serialized in text files).
   TrackId m_id = kInvalidTrackId;
   // Local track id.

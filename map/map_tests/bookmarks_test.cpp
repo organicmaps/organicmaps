@@ -782,7 +782,7 @@ UNIT_TEST(Bookmarks_Sorting)
     {
       kml::TrackData trackData;
       trackData.m_id = testTrackData.m_trackId;
-      trackData.m_pointsWithAltitudes = {{{0.0, 0.0}, 1}, {{1.0, 0.0}, 2}};
+      trackData.m_geometry.Assign({{{0.0, 0.0}, 1}, {{1.0, 0.0}, 2}});
       if (testTrackData.m_hoursSinceCreation != kUnknownTime)
         trackData.m_timestamp = currentTime - testTrackData.m_hoursSinceCreation;
       auto const * track = es.CreateTrack(std::move(trackData));
@@ -1109,10 +1109,11 @@ UNIT_CLASS_TEST(Runner, TrackParsingTest_1)
   for (auto trackId : bmManager.GetTrackIds(catId))
   {
     auto const * track = bmManager.GetTrack(trackId);
-    TEST_EQUAL(track->GetPointsWithAltitudes()[0].GetAltitude(), altitudes[i],
-      (track->GetPointsWithAltitudes()[0].GetAltitude(), altitudes[i]));
+    auto const & geom = track->GetSingleGeometry();
+
+    TEST_EQUAL(geom[0].GetAltitude(), altitudes[i], ());
     TEST_EQUAL(names[i], track->GetName(), ());
-    TEST(fabs(track->GetLengthMeters() - length[i]) < 1.0E-6, (track->GetLengthMeters(), length[i]));
+    TEST_ALMOST_EQUAL_ABS(track->GetLengthMeters(), length[i], 1.0E-6, ());
     TEST_GREATER(track->GetLayerCount(), 0, ());
     TEST_EQUAL(col[i], track->GetColor(0), ());
     ++i;

@@ -11,13 +11,8 @@ PointWithAltitude::PointWithAltitude()
 {
 }
 
-PointWithAltitude::PointWithAltitude(m2::PointD const & point, Altitude altitude)
+PointWithAltitude::PointWithAltitude(m2::PointD const & point, Altitude altitude/* = kDefaultAltitudeMeters */)
   : m_point(point), m_altitude(altitude)
-{
-}
-
-PointWithAltitude::PointWithAltitude(m2::PointD && point, Altitude altitude)
-  : m_point(std::move(point)), m_altitude(altitude)
 {
 }
 

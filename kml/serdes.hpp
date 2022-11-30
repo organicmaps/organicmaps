@@ -100,7 +100,7 @@ private:
 
   std::vector<std::string> m_tags;
   GeometryType m_geometryType;
-  std::vector<geometry::PointWithAltitude> m_pointsWithAltitudes;
+  MultiGeometry m_geometry;
   uint32_t m_color;
 
   std::string m_styleId;

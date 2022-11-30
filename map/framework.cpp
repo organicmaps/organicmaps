@@ -205,12 +205,12 @@ void Framework::SwitchMyPositionNextMode()
 
 void Framework::SetMyPositionModeListener(TMyPositionModeChanged && fn)
 {
-  m_myPositionListener = move(fn);
+  m_myPositionListener = std::move(fn);
 }
 
 void Framework::SetMyPositionPendingTimeoutListener(df::DrapeEngine::UserPositionPendingTimeoutHandler && fn)
 {
-  m_myPositionPendingTimeoutListener = move(fn);
+  m_myPositionPendingTimeoutListener = std::move(fn);
 }
 
 EMyPositionMode Framework::GetMyPositionMode() const
@@ -618,7 +618,7 @@ void Framework::FillPointInfo(place_page::Info & info, m2::PointD const & mercat
                               string const & customTitle /* = {} */,
                               FeatureMatcher && matcher /* = nullptr */) const
 {
-  auto const fid = GetFeatureAtPoint(mercator, move(matcher));
+  auto const fid = GetFeatureAtPoint(mercator, std::move(matcher));
   if (fid.IsValid())
   {
     m_featuresFetcher.GetDataSource().ReadFeature(
@@ -685,7 +685,7 @@ void Framework::FillInfoFromFeatureType(FeatureType & ft, place_page::Info & inf
       countryId = countries.front();
 
     info.SetCountryId(countryId);
-    info.SetTopmostCountryIds(move(countries));
+    info.SetTopmostCountryIds(std::move(countries));
   }
 }
 
@@ -1478,17 +1478,17 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
   df::DrapeEngine::Params p(
       params.m_apiVersion, contextFactory,
       dp::Viewport(0, 0, params.m_surfaceWidth, params.m_surfaceHeight),
-      df::MapDataProvider(move(idReadFn), move(featureReadFn),
-                          move(isCountryLoadedByNameFn), move(updateCurrentCountryFn)),
-      params.m_hints, params.m_visualScale, fontsScaleFactor, move(params.m_widgetsInitInfo),
-      move(myPositionModeChangedFn), allow3dBuildings,
+      df::MapDataProvider(std::move(idReadFn), std::move(featureReadFn),
+                          std::move(isCountryLoadedByNameFn), std::move(updateCurrentCountryFn)),
+      params.m_hints, params.m_visualScale, fontsScaleFactor, std::move(params.m_widgetsInitInfo),
+      std::move(myPositionModeChangedFn), allow3dBuildings,
       trafficEnabled, isolinesEnabled,
       params.m_isChoosePositionMode, params.m_isChoosePositionMode, GetSelectedFeatureTriangles(),
       m_routingManager.IsRoutingActive() && m_routingManager.IsRoutingFollowing(),
-      isAutozoomEnabled, simplifiedTrafficColors, move(overlaysShowStatsFn),
-      move(onGraphicsContextInitialized));
+      isAutozoomEnabled, simplifiedTrafficColors, std::move(overlaysShowStatsFn),
+      std::move(onGraphicsContextInitialized));
 
-  m_drapeEngine = make_unique_dp<df::DrapeEngine>(move(p));
+  m_drapeEngine = make_unique_dp<df::DrapeEngine>(std::move(p));
   m_drapeEngine->SetModelViewListener([this](ScreenBase const & screen)
   {
     GetPlatform().RunTask(Platform::Thread::Gui, [this, screen](){ OnViewportChanged(screen); });
@@ -1674,7 +1674,7 @@ void Framework::OnUpdateGpsTrackPointsCallback(vector<pair<size_t, location::Gps
       indicesRemove.emplace_back(i);
   }
 
-  m_drapeEngine->UpdateGpsTrackPoints(move(pointsAdd), move(indicesRemove));
+  m_drapeEngine->UpdateGpsTrackPoints(std::move(pointsAdd), std::move(indicesRemove));
 }
 
 void Framework::MarkMapStyle(MapStyle mapStyle)
@@ -1716,7 +1716,7 @@ void Framework::SetupMeasurementSystem()
 void Framework::SetWidgetLayout(gui::TWidgetsLayoutInfo && layout)
 {
   ASSERT(m_drapeEngine != nullptr, ());
-  m_drapeEngine->SetWidgetLayout(move(layout));
+  m_drapeEngine->SetWidgetLayout(std::move(layout));
 }
 
 bool Framework::ShowMapForURL(string const & url)
@@ -1751,7 +1751,7 @@ bool Framework::ShowMapForURL(string const & url)
     {
       point = mercator::FromLatLon(parseResult.m_lat, parseResult.m_lon);
       scale = parseResult.m_zoomLevel;
-      name = move(parseResult.m_name);
+      name = std::move(parseResult.m_name);
       result = NEED_CLICK;
     }
   }
@@ -2106,8 +2106,7 @@ FeatureID Framework::FindBuildingAtPoint(m2::PointD const & mercator) const
   return featureId;
 }
 
-void Framework::BuildTrackPlacePage(BookmarkManager::TrackSelectionInfo const & trackSelectionInfo,
-                                    place_page::Info & info)
+void Framework::BuildTrackPlacePage(Track::TrackSelectionInfo const & trackSelectionInfo, place_page::Info & info)
 {
   info.SetSelectedObject(df::SelectionShape::OBJECT_TRACK);
   auto const & track = *GetBookmarkManager().GetTrack(trackSelectionInfo.m_trackId);
@@ -2254,8 +2253,7 @@ void Framework::UpdatePlacePageInfoForCurrentSelection(
     m_onPlacePageUpdate();
 }
 
-BookmarkManager::TrackSelectionInfo Framework::FindTrackInTapPosition(
-    place_page::BuildInfo const & buildInfo) const
+Track::TrackSelectionInfo Framework::FindTrackInTapPosition(place_page::BuildInfo const & buildInfo) const
 {
   auto const & bm = GetBookmarkManager();
   if (buildInfo.m_trackId != kml::kInvalidTrackId)
@@ -2690,7 +2688,7 @@ bool Framework::ParseEditorDebugCommand(search::SearchParams const & params)
       }
 
       search::Result res(feature::GetCenter(*ft), string(ft->GetReadableName()));
-      res.SetAddress(move(edit.second));
+      res.SetAddress(std::move(edit.second));
       res.FromFeature(fid, feature::TypesHolder(*ft).GetBestType(), {});
 
       results.AddResultNoChecks(std::move(res));
@@ -2769,7 +2767,7 @@ vector<osm::LocalizedStreet> TakeSomeStreetsAndLocalize(
     if (!LocalizeStreet(dataSource, street.m_id, ls))
       continue;
 
-    results.emplace_back(move(ls));
+    results.emplace_back(std::move(ls));
     if (results.size() >= kMaxNumberOfNearbyStreetsToDisplay)
       break;
   }
@@ -2825,7 +2823,7 @@ void SetStreet(search::ReverseGeocoder const & coder, DataSource const & dataSou
     emo.SetStreet({});
   }
 
-  emo.SetNearbyStreets(move(localizedStreets));
+  emo.SetNearbyStreets(std::move(localizedStreets));
 }
 
 void SetHostingBuildingAddress(FeatureID const & hostingBuildingFid, DataSource const & dataSource,
@@ -3084,7 +3082,7 @@ void Framework::CreateNote(osm::MapObject const & mapObject,
 
 void Framework::RunUITask(function<void()> fn)
 {
-  GetPlatform().RunTask(Platform::Thread::Gui, move(fn));
+  GetPlatform().RunTask(Platform::Thread::Gui, std::move(fn));
 }
 
 void Framework::ShowViewportSearchResults(SearchResultsIterT begin, SearchResultsIterT end, bool clear)
@@ -3193,7 +3191,7 @@ void Framework::SetPlacePageLocation(place_page::Info & info)
   if (info.GetTopmostCountryIds().empty())
   {
     GetStorage().GetTopmostNodesFor(info.GetCountryId(), countries);
-    info.SetTopmostCountryIds(move(countries));
+    info.SetTopmostCountryIds(std::move(countries));
   }
 }
 
