@@ -44,7 +44,7 @@ PointWithAltitude MakePointWithAltitudeForTesting(m2::PointD const & point)
 
 bool AlmostEqualAbs(PointWithAltitude const & lhs, PointWithAltitude const & rhs, double eps)
 {
-  return lhs.GetPoint().EqualDxDy(rhs.GetPoint(), eps) && lhs.GetAltitude() == rhs.GetAltitude();
+  return AlmostEqualAbs(lhs.GetPoint(), rhs.GetPoint(), eps) && lhs.GetAltitude() == rhs.GetAltitude();
 }
 }  // namespace geometry
 

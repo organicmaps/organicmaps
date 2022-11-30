@@ -1,9 +1,6 @@
 #include "geometry/spline.hpp"
 
-#include "base/logging.hpp"
-
 #include <numeric>
-#include <utility>
 
 namespace m2
 {
@@ -14,7 +11,7 @@ Spline::Spline(std::vector<PointD> const & path)
 
 Spline::Spline(std::vector<PointD> && path)
 {
-  Init(move(path));
+  Init(std::move(path));
 }
 
 Spline::Spline(size_t reservedSize)
@@ -119,6 +116,7 @@ void Spline::Init(T && path)
   {
     m_direction[i] = m_position[i + 1] - m_position[i];
     m_length[i] = m_direction[i].Length();
+    ASSERT_GREATER(m_length[i], 0, (i));
     m_direction[i] = m_direction[i].Normalize();
   }
 }
@@ -239,7 +237,7 @@ SharedSpline::SharedSpline(std::vector<PointD> const & path)
 }
 
 SharedSpline::SharedSpline(std::vector<PointD> && path)
-  : m_spline(std::make_shared<Spline>(move(path)))
+  : m_spline(std::make_shared<Spline>(std::move(path)))
 {
 }
 
