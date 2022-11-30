@@ -510,6 +510,43 @@ void SaveTrackLayer(KmlWriter::WriterWrapper & writer, TrackLayer const & layer,
   writer << offsetStr << "<width>" << strings::to_string(layer.m_lineWidth) << "</width>\n";
 }
 
+void SaveTrackGeometry(KmlWriter::WriterWrapper & writer, MultiGeometry const & geom)
+{
+  size_t const sz = geom.m_lines.size();
+  if (sz == 0)
+  {
+    ASSERT(false, ());
+    return;
+  }
+
+  auto linesIndent = kIndent4;
+  if (sz > 1)
+  {
+    linesIndent = kIndent8;
+    writer << kIndent4 << "<MultiGeometry>\n";
+  }
+
+  for (auto const & e : geom.m_lines)
+  {
+    if (e.empty())
+    {
+      ASSERT(false, ());
+      continue;
+    }
+
+    writer << linesIndent << "<LineString><coordinates>";
+
+    writer << PointToString(e[0]);
+    for (size_t i = 1; i < e.size(); ++i)
+      writer << " " << PointToString(e[i]);
+
+    writer << "</coordinates></LineString>\n";
+  }
+
+  if (sz > 1)
+    writer << kIndent4 << "</MultiGeometry>\n";
+}
+
 void SaveTrackExtendedData(KmlWriter::WriterWrapper & writer, TrackData const & trackData)
 {
   writer << kIndent4 << kExtendedDataHeader;
@@ -564,14 +601,7 @@ void SaveTrackData(KmlWriter::WriterWrapper & writer, TrackData const & trackDat
            << "</when></TimeStamp>\n";
   }
 
-  writer << kIndent4 << "<LineString><coordinates>";
-  for (size_t i = 0; i < trackData.m_pointsWithAltitudes.size(); ++i)
-  {
-    writer << PointToString(trackData.m_pointsWithAltitudes[i]);
-    if (i + 1 != trackData.m_pointsWithAltitudes.size())
-      writer << " ";
-  }
-  writer << "</coordinates></LineString>\n";
+  SaveTrackGeometry(writer, trackData.m_geometry);
 
   SaveTrackExtendedData(writer, trackData);
 
@@ -682,7 +712,7 @@ void KmlParser::ResetPoint()
   m_trackWidth = kDefaultTrackWidth;
   m_icon = BookmarkIcon::None;
 
-  m_pointsWithAltitudes.clear();
+  m_geometry.Clear();
   m_geometryType = GEOMETRY_TYPE_UNKNOWN;
 }
 
@@ -700,15 +730,19 @@ void KmlParser::ParseLineCoordinates(std::string const & s, char const * blockSe
 {
   m_geometryType = GEOMETRY_TYPE_LINE;
 
+  MultiGeometry::LineT line;
   strings::Tokenize(s, blockSeparator, [&](std::string_view v)
   {
     geometry::PointWithAltitude point;
     if (ParsePointWithAltitude(v, coordSeparator, point))
     {
-      if (m_pointsWithAltitudes.empty() || !AlmostEqualAbs(m_pointsWithAltitudes.back(), point, kMwmPointAccuracy))
-        m_pointsWithAltitudes.emplace_back(point);
+      if (line.empty() || !AlmostEqualAbs(line.back(), point, kMwmPointAccuracy))
+        line.emplace_back(point);
     }
   });
+
+  if (line.size() > 1)
+    m_geometry.m_lines.push_back(std::move(line));
 }
 
 bool KmlParser::MakeValid()
@@ -731,7 +765,7 @@ bool KmlParser::MakeValid()
   }
   else if (GEOMETRY_TYPE_LINE == m_geometryType)
   {
-    return m_pointsWithAltitudes.size() > 1;
+    return m_geometry.IsValid();
   }
 
   return false;
@@ -889,7 +923,7 @@ void KmlParser::Pop(std::string const & tag)
         data.m_description = std::move(m_description);
         data.m_layers = std::move(m_trackLayers);
         data.m_timestamp = m_timestamp;
-        data.m_pointsWithAltitudes = m_pointsWithAltitudes;
+        data.m_geometry = std::move(m_geometry);
         data.m_visible = m_visible;
         data.m_nearestToponyms = std::move(m_nearestToponyms);
         data.m_properties = std::move(m_properties);

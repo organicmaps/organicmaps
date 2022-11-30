@@ -955,7 +955,12 @@ drape_ptr<UserLineRenderParams> DrapeEngine::GenerateLineRenderInfo(UserLineMark
   auto renderInfo = make_unique_dp<UserLineRenderParams>();
   renderInfo->m_minZoom = mark->GetMinZoom();
   renderInfo->m_depthLayer = mark->GetDepthLayer();
-  renderInfo->m_spline = m2::SharedSpline(mark->GetPoints());
+
+  mark->ForEachGeometry([&renderInfo](std::vector<m2::PointD> && points)
+  {
+    renderInfo->m_splines.emplace_back(std::move(points));
+  });
+
   renderInfo->m_layers.reserve(mark->GetLayerCount());
   for (size_t layerIndex = 0, layersCount = mark->GetLayerCount(); layerIndex < layersCount; ++layerIndex)
   {

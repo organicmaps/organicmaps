@@ -11,33 +11,14 @@
 
 namespace kml
 {
-bool IsEqual(std::vector<m2::PointD> const & v1, std::vector<m2::PointD> const & v2)
+bool IsEqual(m2::PointD const & lhs, m2::PointD const & rhs)
 {
-  if (v1.size() != v2.size())
-    return false;
-
-  for (size_t i = 0; i < v1.size(); ++i)
-  {
-    if (!v1[i].EqualDxDy(v2[i], kMwmPointAccuracy))
-      return false;
-  }
-
-  return true;
+  return lhs.EqualDxDy(rhs, kMwmPointAccuracy);
 }
 
-bool IsEqual(std::vector<geometry::PointWithAltitude> const & v1,
-             std::vector<geometry::PointWithAltitude> const & v2)
+bool IsEqual(geometry::PointWithAltitude const & lhs, geometry::PointWithAltitude const & rhs)
 {
-  if (v1.size() != v2.size())
-    return false;
-
-  for (size_t i = 0; i < v1.size(); ++i)
-  {
-    if (!AlmostEqualAbs(v1[i], v2[i], kMwmPointAccuracy))
-      return false;
-  }
-
-  return true;
+  return AlmostEqualAbs(lhs, rhs, kMwmPointAccuracy);
 }
 
 std::string GetPreferredBookmarkStr(LocalizableString const & name, std::string const & languageNorm)

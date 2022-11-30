@@ -2,10 +2,8 @@
 
 #include "geometry/point2d.hpp"
 
-#include <cstdint>
 #include <limits>
 #include <string>
-#include <utility>
 #include <vector>
 
 namespace geometry
@@ -20,8 +18,8 @@ class PointWithAltitude
 {
 public:
   PointWithAltitude();
-  PointWithAltitude(m2::PointD const & point, Altitude altitude);
-  PointWithAltitude(m2::PointD && point, Altitude altitude);
+  PointWithAltitude(m2::PointD const & point, Altitude altitude = kDefaultAltitudeMeters);
+  operator m2::PointD() const { return m_point; }
 
   bool operator==(PointWithAltitude const & r) const;
   bool operator!=(PointWithAltitude const & r) const { return !(*this == r); }
@@ -30,8 +28,7 @@ public:
   m2::PointD const & GetPoint() const { return m_point; }
   Altitude GetAltitude() const { return m_altitude; }
 
-  template <typename T>
-  void SetPoint(T && point) { m_point = std::forward<T>(point); }
+  void SetPoint(m2::PointD const & point) { m_point = point; }
   void SetAltitude(Altitude altitude) { m_altitude = altitude; }
 
 private:

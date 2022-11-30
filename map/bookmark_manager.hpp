@@ -396,26 +396,12 @@ public:
   void SetElevationActivePointChangedCallback(ElevationActivePointChangedCallback const & cb);
   void SetElevationMyPositionChangedCallback(ElevationMyPositionChangedCallback const & cb);
 
-  struct TrackSelectionInfo
-  {
-    TrackSelectionInfo() = default;
-    TrackSelectionInfo(kml::TrackId trackId, m2::PointD const & trackPoint, double distanceInMeters)
-      : m_trackId(trackId)
-      , m_trackPoint(trackPoint)
-      , m_distanceInMeters(distanceInMeters)
-    {}
-
-    kml::TrackId m_trackId = kml::kInvalidTrackId;
-    m2::PointD m_trackPoint = m2::PointD::Zero();
-    double m_distanceInMeters = 0.0;
-  };
-
   using TracksFilter = std::function<bool(Track const * track)>;
-  TrackSelectionInfo FindNearestTrack(m2::RectD const & touchRect,
-                                      TracksFilter const & tracksFilter = nullptr) const;
-  TrackSelectionInfo GetTrackSelectionInfo(kml::TrackId const & trackId) const;
+  Track::TrackSelectionInfo FindNearestTrack(
+      m2::RectD const & touchRect, TracksFilter const & tracksFilter = nullptr) const;
+  Track::TrackSelectionInfo GetTrackSelectionInfo(kml::TrackId const & trackId) const;
 
-  void SetTrackSelectionInfo(TrackSelectionInfo const & trackSelectionInfo, bool notifyListeners);
+  void SetTrackSelectionInfo(Track::TrackSelectionInfo const & trackSelectionInfo, bool notifyListeners);
   void SetDefaultTrackSelection(kml::TrackId trackId, bool showInfoSign);
   void OnTrackSelected(kml::TrackId trackId);
   void OnTrackDeselected();

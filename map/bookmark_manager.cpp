@@ -19,8 +19,6 @@
 #include "coding/serdes_json.hpp"
 #include "coding/zip_creator.hpp"
 
-#include "geometry/rect_intersect.hpp"
-
 #include "base/file_name_utils.hpp"
 #include "base/macros.hpp"
 #include "base/stl_helpers.hpp"
@@ -652,7 +650,7 @@ void BookmarkManager::UpdateElevationMyPosition(kml::TrackId const & trackId)
     auto const selectionInfo = FindNearestTrack(
       snapRect, [trackId](Track const *track) { return track->GetId() == trackId; });
     if (selectionInfo.m_trackId == trackId)
-      myPositionDistance = selectionInfo.m_distanceInMeters;
+      myPositionDistance = selectionInfo.m_distFromBegM;
   }
   else
   {
@@ -702,8 +700,7 @@ void BookmarkManager::SetElevationActivePoint(kml::TrackId const & trackId, doub
   m2::PointD pt;
   VERIFY(track->GetPoint(targetDistance, pt), (trackId, targetDistance));
 
-  SetTrackSelectionInfo(TrackSelectionInfo(trackId, pt, targetDistance),
-                        false /* notifyListeners */);
+  SetTrackSelectionInfo({trackId, pt, targetDistance}, false /* notifyListeners */);
 
   m_drapeEngine.SafeCall(&df::DrapeEngine::SelectObject,
                          df::SelectionShape::ESelectedObject::OBJECT_TRACK, pt, FeatureID(),
@@ -729,13 +726,12 @@ void BookmarkManager::SetElevationActivePointChangedCallback(ElevationActivePoin
   m_elevationActivePointChanged = cb;
 }
 
-BookmarkManager::TrackSelectionInfo BookmarkManager::FindNearestTrack(
+Track::TrackSelectionInfo BookmarkManager::FindNearestTrack(
     m2::RectD const & touchRect, TracksFilter const & tracksFilter) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  TrackSelectionInfo selectionInfo;
+  Track::TrackSelectionInfo selectionInfo;
 
-  auto minSquaredDist = std::numeric_limits<double>::max();
   for (auto const & pair : m_categories)
   {
     auto const & category = *pair.second;
@@ -748,40 +744,14 @@ BookmarkManager::TrackSelectionInfo BookmarkManager::FindNearestTrack(
       if (!track->IsInteractive() || (tracksFilter && !tracksFilter(track)))
         continue;
 
-      auto const trackRect = track->GetLimitRect();
-
-      if (!trackRect.IsIntersect(touchRect))
-        continue;
-
-      auto const & pointsWithAlt = track->GetPointsWithAltitudes();
-      for (size_t i = 0; i + 1 < pointsWithAlt.size(); ++i)
-      {
-        auto pt1 = pointsWithAlt[i].GetPoint();
-        auto pt2 = pointsWithAlt[i + 1].GetPoint();
-        if (!m2::Intersect(touchRect, pt1, pt2))
-          continue;
-
-        m2::ParametrizedSegment<m2::PointD> seg(pt1, pt2);
-        auto const closestPoint = seg.ClosestPointTo(touchRect.Center());
-        auto const squaredDist = closestPoint.SquaredLength(touchRect.Center());
-        if (squaredDist >= minSquaredDist)
-          continue;
-
-        minSquaredDist = squaredDist;
-        selectionInfo.m_trackId = trackId;
-        selectionInfo.m_trackPoint = closestPoint;
-
-        auto const segDistInMeters = mercator::DistanceOnEarth(pointsWithAlt[i].GetPoint(),
-                                                               closestPoint);
-        selectionInfo.m_distanceInMeters = segDistInMeters + track->GetLengthMeters(i);
-      }
+      track->UpdateSelectionInfo(touchRect, selectionInfo);
     }
   }
 
   return selectionInfo;
 }
 
-BookmarkManager::TrackSelectionInfo BookmarkManager::GetTrackSelectionInfo(kml::TrackId const & trackId) const
+Track::TrackSelectionInfo BookmarkManager::GetTrackSelectionInfo(kml::TrackId const & trackId) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   auto const markId = GetTrackSelectionMarkId(trackId);
@@ -789,7 +759,7 @@ BookmarkManager::TrackSelectionInfo BookmarkManager::GetTrackSelectionInfo(kml::
     return {};
 
   auto const mark = GetMark<TrackSelectionMark>(markId);
-  return TrackSelectionInfo(trackId, mark->GetPivot(), mark->GetDistance());
+  return { trackId, mark->GetPivot(), mark->GetDistance() };
 }
 
 kml::MarkId BookmarkManager::GetTrackSelectionMarkId(kml::TrackId trackId) const
@@ -872,7 +842,7 @@ void BookmarkManager::ResetTrackInfoMark(kml::TrackId trackId)
   }
 }
 
-void BookmarkManager::SetTrackSelectionInfo(TrackSelectionInfo const & trackSelectionInfo,
+void BookmarkManager::SetTrackSelectionInfo(Track::TrackSelectionInfo const & trackSelectionInfo,
                                             bool notifyListeners)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
@@ -884,7 +854,7 @@ void BookmarkManager::SetTrackSelectionInfo(TrackSelectionInfo const & trackSele
 
   auto trackSelectionMark = GetMarkForEdit<TrackSelectionMark>(markId);
   trackSelectionMark->SetPosition(trackSelectionInfo.m_trackPoint);
-  trackSelectionMark->SetDistance(trackSelectionInfo.m_distanceInMeters);
+  trackSelectionMark->SetDistance(trackSelectionInfo.m_distFromBegM);
 
   if (notifyListeners && m_elevationActivePointChanged != nullptr)
     m_elevationActivePointChanged();
@@ -898,9 +868,7 @@ void BookmarkManager::SetDefaultTrackSelection(kml::TrackId trackId, bool showIn
   CHECK(track != nullptr, ());
   CHECK(track->IsInteractive(), ());
 
-  auto const & points = track->GetPointsWithAltitudes();
-  auto const pt = points[points.size() / 2].GetPoint();
-  auto const distance = track->GetLengthMeters(points.size() / 2);
+  auto const [pt, distance] = track->GetCenterPoint();
 
   auto es = GetEditSession();
   if (showInfoSign)

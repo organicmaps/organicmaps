@@ -21,10 +21,10 @@
 #include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 
-#include <cstdint>
-#include <utility>
 #include <vector>
 
+namespace track_generator_tool
+{
 using namespace std;
 
 namespace
@@ -85,8 +85,6 @@ vector<geometry::PointWithAltitude> GetTrackPoints(std::vector<m2::PointD> const
 }
 }  // namespace
 
-namespace track_generator_tool
-{
 void GenerateTracks(string const & inputDir, string const & outputDir, routing::VehicleType type)
 {
   CHECK(!inputDir.empty(), ());
@@ -129,23 +127,25 @@ void GenerateTracks(string const & inputDir, string const & outputDir, routing::
     numberOfTracks += data.m_tracksData.size();
     for (auto & track : data.m_tracksData)
     {
-      std::vector<m2::PointD> waypoints;
-      waypoints.reserve(track.m_pointsWithAltitudes.size());
-      for (auto const & pt : track.m_pointsWithAltitudes)
-        waypoints.push_back(pt.GetPoint());
-
-      routing::routes_builder::RoutesBuilder::Params params(type, move(waypoints));
-
-      auto result = routesBuilder.ProcessTask(params);
-      if (result.m_code != routing::RouterResultCode::NoError)
+      for (auto & line : track.m_geometry.m_lines)
       {
-        LOG(LINFO, ("Can't convert track", track.m_id, "from file:", file, "Error:", result.m_code));
-        ++numberOfNotConverted;
-        continue;
-      }
+        std::vector<m2::PointD> waypoints;
+        waypoints.reserve(line.size());
+        for (auto const & pt : line)
+          waypoints.push_back(pt.GetPoint());
 
-      track.m_pointsWithAltitudes =
-          GetTrackPoints(result.GetRoutes().back().m_followedPolyline.GetPolyline().GetPoints());
+        routing::routes_builder::RoutesBuilder::Params params(type, std::move(waypoints));
+
+        auto result = routesBuilder.ProcessTask(params);
+        if (result.m_code != routing::RouterResultCode::NoError)
+        {
+          LOG(LINFO, ("Can't convert track", track.m_id, "from file:", file, "Error:", result.m_code));
+          ++numberOfNotConverted;
+          continue;
+        }
+
+        line = GetTrackPoints(result.GetRoutes().back().m_followedPolyline.GetPolyline().GetPoints());
+      }
     }
 
     try

@@ -4,12 +4,9 @@
 
 #include "coding/point_coding.hpp"
 
+#include "base/assert.hpp"
 #include "base/visitor.hpp"
 
-#include <cmath>
-#include <ios>
-#include <memory>
-#include <sstream>
 #include <string>
 #include <vector>
 
@@ -309,6 +306,32 @@ struct TrackLayer
   ColorData m_color;
 };
 
+struct MultiGeometry
+{
+  using LineT = std::vector<geometry::PointWithAltitude>;
+  std::vector<LineT> m_lines;
+
+  void Clear() { m_lines.clear(); }
+  bool IsValid() const { return !m_lines.empty(); }
+
+  bool operator==(MultiGeometry const & rhs) const
+  {
+    return IsEqual(m_lines, rhs.m_lines);
+  }
+
+  friend std::string DebugPrint(MultiGeometry const & geom)
+  {
+    return ::DebugPrint(geom.m_lines);
+  }
+
+  void FromPoints(std::vector<m2::PointD> const & points);
+  void Assign(std::initializer_list<geometry::PointWithAltitude> lst)
+  {
+    m_lines.emplace_back();
+    m_lines.back().assign(lst);
+  }
+};
+
 struct TrackData
 {
   DECLARE_VISITOR_AND_DEBUG_PRINT(TrackData, visitor(m_id, "id"),
@@ -317,7 +340,7 @@ struct TrackData
                                   visitor(m_description, "description"),
                                   visitor(m_layers, "layers"),
                                   visitor(m_timestamp, "timestamp"),
-                                  visitor(m_pointsWithAltitudes, "pointsWithAltitudes"),
+                                  visitor(m_geometry, "geometry"),
                                   visitor(m_visible, "visible"),
                                   visitor(m_nearestToponyms, "nearestToponyms"),
                                   visitor(m_properties, "properties"),
@@ -330,13 +353,13 @@ struct TrackData
     return m_id == data.m_id && m_localId == data.m_localId && m_name == data.m_name &&
            m_description == data.m_description && m_layers == data.m_layers &&
            IsEqual(m_timestamp, data.m_timestamp) &&
-           IsEqual(m_pointsWithAltitudes, data.m_pointsWithAltitudes) &&
+           m_geometry == data.m_geometry &&
            m_visible == data.m_visible && m_nearestToponyms == data.m_nearestToponyms &&
            m_properties == data.m_properties;
   }
 
   bool operator!=(TrackData const & data) const { return !operator==(data); }
-  
+
   // Unique id (it will not be serialized in text files).
   TrackId m_id = kInvalidTrackId;
   // Local track id.
@@ -349,8 +372,7 @@ struct TrackData
   std::vector<TrackLayer> m_layers;
   // Creation timestamp.
   Timestamp m_timestamp = {};
-  // Points with altitudes.
-  std::vector<geometry::PointWithAltitude> m_pointsWithAltitudes;
+  MultiGeometry m_geometry;
   // Visibility.
   bool m_visible = true;
   // Nearest toponyms.
@@ -476,7 +498,7 @@ struct FileData
 };
 
 void SetBookmarksMinZoom(FileData & fileData, double countPerTile, int maxZoom);
-  
+
 inline std::string DebugPrint(BookmarkIcon icon)
 {
   return ToString(icon);
