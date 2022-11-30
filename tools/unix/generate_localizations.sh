@@ -66,4 +66,10 @@ cat "$STRINGS_PATH"/{strings,types_strings}.txt> "$MERGED_FILE"
 "$TWINE" generate-all-localization-files --format jquery "$OMIM_PATH/data/countries_names.txt" "$OMIM_PATH/data/countries-strings/"
 "$TWINE" generate-all-localization-files --format jquery "$OMIM_PATH/data/strings/sound.txt" "$OMIM_PATH/data/sound-strings/"
 
+# Generate list of languages and add list in gradle.properties to be used in build.gradle in resConfig
+SUPPORTED_LOCALIZATIONS="supportedLocalizations="$(sed -nEe "s/ +([a-zA-Z]{2}(-[a-zA-Z]{2,})?) = .*$/\1/p" "data/strings/strings.txt" | sort -u | tr '\n' ',' | sed -e 's/-/_/g' -e 's/,$//')
+if [ "$SUPPORTED_LOCALIZATIONS" != "$(grep listLanguages "$OMIM_PATH/android/gradle.properties")" ]; then
+  sed -i 's/supportedLocalizations.*/'"${SUPPORTED_LOCALIZATIONS}"'/' "$OMIM_PATH/android/gradle.properties"
+fi
+
 rm $MERGED_FILE
