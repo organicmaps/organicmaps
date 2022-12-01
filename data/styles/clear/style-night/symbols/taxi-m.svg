@@ -1,10 +1,8 @@
-<svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
- <title>taxi-m</title>
- <g id="Page-2:-Night" fill="none" fill-rule="evenodd" opacity=".6">
-  <g id="taxi-m" fill-rule="nonzero">
-   <circle id="Oval" cx="12" cy="12" r="12" fill="#fff"/>
-   <circle id="Oval" cx="12" cy="12" r="11" fill="#717065"/>
-   <path id="Shape" d="m17.451 10.194c-0.075428-0.65925-0.75086-1.194-1.5086-1.194h-7.8849c-0.75771 0-1.4331 0.53475-1.5086 1.194l-0.54857 4.806h12l-0.54943-4.806zm-8.022 3.306h-1.7143v-1.5h1.7143v1.5zm1.7143-1.5h-1.7143v-1.5h1.7143v1.5zm1.7143 1.5h-1.7143v-1.5h1.7143v1.5zm1.7143-1.5h-1.7143v-1.5h1.7143v1.5zm1.7143 1.5h-1.7143v-1.5h1.7143v1.5z" fill="#fff"/>
-  </g>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg version="1.1" viewBox="0 0 24 24" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+ <g opacity=".6">
+  <rect id="Rectangle" width="24" height="24" rx="2.5" fill="#fff" opacity="1"/>
+  <rect x="1" y="1" width="22" height="22" rx="2" fill="#2F6499"/>
+  <path d="m7.2007 9.1768v2.825h3.1972v-2.825zm3.1972 2.825v2.8214h3.2007v-2.8214zm3.2007 0h3.2007v-2.825h-3.2007zm3.2007 0v2.8214h3.2007v-2.8214zm-9.5986 0h-3.2007v2.8214h3.2007z" fill="#fff" />
  </g>
 </svg>
