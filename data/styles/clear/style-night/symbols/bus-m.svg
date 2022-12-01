@@ -1,19 +1,8 @@
-<svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
- <title>bus-m</title>
- <g id="Page-2:-Night" fill="none" fill-rule="evenodd" opacity=".6">
-  <g id="bus-m">
-   <rect id="Rectangle" width="24" height="24" rx="2.5" fill="#fff" fill-rule="nonzero"/>
-   <rect id="Rectangle" x="1" y="1" width="22" height="22" rx="2" fill="#2F6499" fill-rule="nonzero"/>
-   <g id="bus" transform="translate(4 4)">
-    <polygon id="Path" points="0 0 16 0 16 16 0 16"/>
-    <circle id="Oval" cx="4" cy="11.333" r="1.3333" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
-    <circle id="Oval" cx="12" cy="11.333" r="1.3333" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
-    <path id="Shape" d="m2.6667 11.333h-1.3333v-7.3333c0-0.36819 0.29848-0.66667 0.66667-0.66667h9.3333c1.8409 0 3.3333 2.0893 3.3333 4.6667v3.3333h-1.3333m-2.6667 0h-5.3333" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
-    <polyline id="Path" points="10.667 3.3333 11.667 8 14.667 8" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
-    <line id="Path" x1="1.3333" x2="11.333" y1="6.6667" y2="6.6667" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
-    <line id="Path" x1="4.6667" x2="4.6667" y1="3.3333" y2="6.6667" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
-    <line id="Path" x1="8" x2="8" y1="3.3333" y2="6.6667" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
-   </g>
-  </g>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg version="1.1" viewBox="0 0 24 24" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+ <g opacity=".6">
+  <rect id="Rectangle" width="24" height="24" rx="2.5" fill="#fff" opacity="1"/>
+  <rect x="1" y="1" width="22" height="22" rx="2" fill="#2F6499"/>
+  <path d="m5.999 6.584c-0.77352 0-1.416 0.64249-1.416 1.416v7.332c4.1e-5 0.4142 0.3358 0.74996 0.75 0.75h0.72461c0.3044 0.77641 1.0636 1.334 1.9414 1.334 0.87716 0 1.6366-0.5565 1.9414-1.332h4.1172c0.30484 0.77554 1.0642 1.332 1.9414 1.332s1.6366-0.5565 1.9414-1.332h0.72461c0.4142-4.1e-5 0.74996-0.3358 0.75-0.75v-3.3184c7.06e-4 -0.0052 0.0014-0.01041 2e-3 -0.01563-7.5e-5 -0.02479-0.0014-0.04956-0.0039-0.07422-0.01389-1.4044-0.41753-2.688-1.1133-3.6621-0.70808-0.99132-1.7626-1.6797-2.9668-1.6797zm0.08398 1.357h1.8633v2.8715h-1.8633zm3.2539 0h1.9121v2.8715h-1.9121zm3.2953 0h1.4274l0.58594 2.8715h-2.0133zm2.686 0c2.2166 0.34738 2.7966 2.607 2.8669 4.01l-1.9126-0.02337zm-7.3192 6.5121c0.49963 0 0.88086 0.37927 0.88086 0.87891s-0.38122 0.88086-0.88086 0.88086c-0.49963 0-0.88086-0.38123-0.88086-0.88086s0.38123-0.87891 0.88086-0.87891zm8 0c0.49964 0 0.88086 0.37927 0.88086 0.87891 0 0.49963-0.38122 0.88086-0.88086 0.88086-0.49963 0-0.88086-0.38123-0.88086-0.88086s0.38122-0.87891 0.88086-0.87891z" fill="#fff"/>
  </g>
 </svg>
