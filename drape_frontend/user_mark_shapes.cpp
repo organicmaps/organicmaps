@@ -569,7 +569,7 @@ void CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
   m2::RectD const tileRect = tileKey.GetGlobalRect();
 
   // Process spline by segments that are no longer than tile size.
-  double const maxLength = mercator::Bounds::kRangeX / (1 << (tileKey.m_zoomLevel - 1));
+  //double const maxLength = mercator::Bounds::kRangeX / (1 << (tileKey.m_zoomLevel - 1));
 
   for (auto const & id : linesId)
   {
@@ -582,6 +582,11 @@ void CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
     // Spline is a shared_ptr here, can reassign later.
     for (auto spline : renderInfo.m_splines)
     {
+      // This check is redundant, because we already made rough check while covering tracks by tiles
+      // (see UserMarkGenerator::UpdateIndex).
+      // Also looks like ClipSplineByRect works faster than Spline iterating in ProcessSplineSegmentRects
+      // by |maxLength| segments on high zoom levels.
+      /*
       bool intersected = false;
       ProcessSplineSegmentRects(spline, maxLength, [&tileRect, &intersected](m2::RectD const & segmentRect)
       {
@@ -592,6 +597,7 @@ void CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
 
       if (!intersected)
         continue;
+      */
 
       if (simplify)
         spline = SimplifySpline(spline, minSegmentSqrLength);
