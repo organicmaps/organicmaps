@@ -10272,7 +10272,7 @@ cs:Nabíjecí stanice|nabíjení
 da:Ladestation|opladning
 nl:Oplaadstation|opladen
 fi:Latausasema|lataus
-fr:Station de recharge|Recharge
+fr:3Borne de recharge|4station de recharge|4voiture électrique|recharge
 de:4Ladestation|aufladen
 hu:Töltőállomás|töltés
 id:Pusat Pengisian Daya|pengisian daya
