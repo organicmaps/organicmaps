@@ -1026,7 +1026,7 @@
     eu = Kargatzeko geltokia
     fa = ایستگاه شارژ
     fi = Latausasema
-    fr = Station de recharge
+    fr = Borne de recharge
     hu = Töltő állomás
     id = Pusat Pengisian Daya
     it = Stazione di ricarica
@@ -1048,6 +1048,9 @@
     vi = Trạm Sạc điện
     zh-Hans = 充电站
     zh-Hant = 充電站
+
+  [type.amenity.charging_station.motorcar]
+    ref = type.amenity.charging_station
 
   [type.amenity.childcare]
     en = Nursery
@@ -13805,6 +13808,9 @@
     tr = Pist
     uk = Бігова доріжка
     zh-Hans = 賽道
+
+  [type.leisure.track.area]
+    ref = type.leisure.track
 
   [type.leisure.water_park]
     en = Water Park
