@@ -31,6 +31,25 @@
          forCellReuseIdentifier:[MWMTableViewSubtitleCell className]];
 }
 
+// Fix table section header font color for all tables, including Setting and Route Options.
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
+  if ([view isKindOfClass: [UITableViewHeaderFooterView class]]) {
+    UITableViewHeaderFooterView * header = (UITableViewHeaderFooterView *)view;
+    UIColor * sectionHeaderColor = [UIColor blackSecondaryText];
+    @try {
+      // iOS 14+
+      ((UILabel *)[header.contentView valueForKey:@"textLabel"]).textColor = sectionHeaderColor;
+    } @catch (id ex) {
+      @try {
+        // iOS 12 and 13.
+        ((UILabel *)[header valueForKey:@"label"]).textColor = sectionHeaderColor;
+      } @catch (id ex) {
+        // A custom header view is used for the table.
+      }
+    }
+  }
+}
+
 #pragma mark - Properties
 
 - (BOOL)hasNavigationBar
