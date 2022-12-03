@@ -126,6 +126,7 @@ if (BUILD_DESIGNER)
   add_definitions(-DBUILD_DESIGNER)
 endif()
 
+option(USE_CLANG_TIDY "Enable Clang Tidy" OFF)
 option(USE_ASAN "Enable Address Sanitizer" OFF)
 option(USE_TSAN "Enable Thread Sanitizer" OFF)
 option(USE_LIBFUZZER "Enable LibFuzzer" OFF)
@@ -159,6 +160,10 @@ endif()
 
 if (PLATFORM_LINUX)
   option(USE_PPROF "Enable Google Profiler" OFF)
+endif()
+
+if (USE_CLANG_TIDY)
+  message(STATUS "Clang Tidy is enabled")
 endif()
 
 if (USE_ASAN)
@@ -255,6 +260,16 @@ endif()
 include_directories(${CMAKE_HOME_DIRECTORY})
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
+if (USE_CLANG_TIDY)
+  find_program(CLANG_TIDY_COMMAND NAMES clang-tidy)
+  if(NOT CLANG_TIDY_COMMAND)
+    message(FATAL_ERROR "USE_CLANG_TIDY is ON but clang-tidy is not found!")
+  else()
+    message(STATUS "Found clang-tidy at ${CLANG_TIDY_COMMAND}")
+    set(CMAKE_CXX_CLANG_TIDY "${CLANG_TIDY_COMMAND};--warnings-as-errors=*")
+  endif()
+endif()
 
 if (USE_ASAN)
   add_compile_options(
