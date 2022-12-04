@@ -19,6 +19,7 @@ public class LocationUtils
   private LocationUtils() {}
 
   private static final double DEFAULT_SPEED_MPS = 5;
+  public static final String FUSED_PROVIDER = "fused";
 
   /**
    * Correct compass angles due to display orientation.
@@ -70,7 +71,7 @@ public class LocationUtils
 
   public static boolean isFromFusedProvider(@NonNull Location location)
   {
-    return "fused".equals(location.getProvider());
+    return FUSED_PROVIDER.equals(location.getProvider());
   }
 
   public static boolean isAccuracySatisfied(@NonNull Location location)

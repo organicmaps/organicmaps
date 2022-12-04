@@ -4,7 +4,6 @@ import android.app.PendingIntent;
 import android.location.Location;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.UiThread;
 
 abstract class BaseLocationProvider
@@ -14,9 +13,11 @@ abstract class BaseLocationProvider
     @UiThread
     void onLocationChanged(@NonNull Location location);
     @UiThread
-    void onLocationResolutionRequired(@Nullable PendingIntent pendingIntent);
+    void onLocationResolutionRequired(@NonNull PendingIntent pendingIntent);
     @UiThread
     void onLocationDisabled();
+    @UiThread
+    void onFusedLocationUnsupported();
   }
 
   @NonNull
@@ -29,5 +30,4 @@ abstract class BaseLocationProvider
 
   protected abstract void start(long interval);
   protected abstract void stop();
-  protected boolean trustFusedLocations() { return false; }
 }

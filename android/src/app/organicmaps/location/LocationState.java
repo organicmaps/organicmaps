@@ -8,7 +8,7 @@ import java.lang.annotation.RetentionPolicy;
 
 public final class LocationState
 {
-  interface ModeChangeListener
+  public interface ModeChangeListener
   {
     void onMyPositionModeChanged(int newMode);
   }
@@ -29,12 +29,12 @@ public final class LocationState
   public static final int FOLLOW = 3;
   public static final int FOLLOW_AND_ROTATE = 4;
 
-  static native void nativeSwitchToNextMode();
+  public static native void nativeSwitchToNextMode();
   @Value
-  static native int nativeGetMode();
+  public static native int nativeGetMode();
 
-  static native void nativeSetListener(@NonNull ModeChangeListener listener);
-  static native void nativeRemoveListener();
+  public static native void nativeSetListener(@NonNull ModeChangeListener listener);
+  public static native void nativeRemoveListener();
 
   static native void nativeSetLocationPendingTimeoutListener(@NonNull PendingTimeoutListener listener);
   static native void nativeRemoveLocationPendingTimeoutListener();

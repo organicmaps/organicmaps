@@ -42,7 +42,7 @@ class SensorHelper implements SensorEventListener
       SensorManager.getOrientation(rotMatrix, rotVals);
 
       // rotVals indexes: 0 - yaw, 2 - roll, 1 - pitch.
-      LocationHelper.INSTANCE.notifyCompassUpdated(event.timestamp, rotVals[0]);
+      LocationHelper.INSTANCE.notifyCompassUpdated(rotVals[0]);
     }
   }
 

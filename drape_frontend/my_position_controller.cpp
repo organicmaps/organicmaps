@@ -525,10 +525,9 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
 
 void MyPositionController::LoseLocation()
 {
-  if (!IsModeHasPosition())
+  if (m_mode == location::NotFollowNoPosition)
     return;
-
-  if (m_mode == location::Follow || m_mode == location::FollowAndRotate)
+  else if (m_mode == location::Follow || m_mode == location::FollowAndRotate)
     ChangeMode(location::PendingPosition);
   else
     ChangeMode(location::NotFollowNoPosition);
@@ -911,7 +910,6 @@ void MyPositionController::CheckIsWaitingForLocation()
     if (m_pendingStarted && m_pendingTimer.ElapsedSeconds() >= kMaxPendingLocationTimeSec)
     {
       m_pendingStarted = false;
-      ChangeMode(location::NotFollowNoPosition);
       if (m_listener)
         m_listener->PositionPendingTimeout();
     }
