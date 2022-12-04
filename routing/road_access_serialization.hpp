@@ -13,7 +13,6 @@
 
 #include "coding/bit_streams.hpp"
 #include "coding/reader.hpp"
-#include "coding/sha1.hpp"
 #include "coding/varint.hpp"
 #include "coding/write_to_sink.hpp"
 
@@ -22,13 +21,8 @@
 
 #include <algorithm>
 #include <array>
-#include <cstdint>
 #include <string>
-#include <unordered_map>
-#include <utility>
 #include <vector>
-
-#include "3party/skarupke/flat_hash_map.hpp"
 
 namespace routing
 {

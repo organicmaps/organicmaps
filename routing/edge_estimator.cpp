@@ -17,7 +17,6 @@
 
 namespace routing
 {
-using namespace routing;
 using namespace std;
 using namespace traffic;
 using measurement_utils::KmphToMps;
@@ -28,7 +27,7 @@ geometry::Altitude constexpr kMountainSicknessAltitudeM = 2500;
 
 double TimeBetweenSec(ms::LatLon const & from, ms::LatLon const & to, double speedMpS)
 {
-  CHECK_GREATER(speedMpS, 0.0, ("from:", from, "to:", to));
+  ASSERT_GREATER(speedMpS, 0.0, ("from:", from, "to:", to));
 
   double const distanceM = ms::DistanceOnEarth(from, to);
   return distanceM / speedMpS;
@@ -43,29 +42,32 @@ double CalcTrafficFactor(SpeedGroup speedGroup)
   }
 
   double const percentage = 0.01 * kSpeedGroupThresholdPercentage[static_cast<size_t>(speedGroup)];
-  CHECK_GREATER(percentage, 0.0, (speedGroup));
+  ASSERT_GREATER(percentage, 0.0, (speedGroup));
   return 1.0 / percentage;
+}
+
+std::pair<double, double> CalcDistanceAndTime(
+    EdgeEstimator::Purpose purpose, Segment const & segment, RoadGeometry const & road)
+{
+  SpeedKMpH const & speed = road.GetSpeed(segment.IsForward());
+  double const distance = road.GetDistance(segment.GetSegmentIdx());
+  double const speedMpS = KmphToMps(purpose == EdgeEstimator::Purpose::Weight ? speed.m_weight : speed.m_eta);
+  ASSERT_GREATER(speedMpS, 0.0, (segment));
+  return {distance, distance / speedMpS};
 }
 
 template <typename GetClimbPenalty>
 double CalcClimbSegment(EdgeEstimator::Purpose purpose, Segment const & segment,
                         RoadGeometry const & road, GetClimbPenalty && getClimbPenalty)
 {
-  LatLonWithAltitude const & from = road.GetJunction(segment.GetPointId(false /* front */));
-  LatLonWithAltitude const & to = road.GetJunction(segment.GetPointId(true /* front */));
-  SpeedKMpH const & speed = road.GetSpeed(segment.IsForward());
-
-  double const distance = road.GetDistance(segment.GetSegmentIdx());
-  double const speedMpS =
-      KmphToMps(purpose == EdgeEstimator::Purpose::Weight ? speed.m_weight : speed.m_eta);
-  CHECK_GREATER(speedMpS, 0.0, ("from:", from.GetLatLon(), "to:", to.GetLatLon(), "speed:", speed));
-  double const timeSec = distance / speedMpS;
-
+  auto const [distance, timeSec] = CalcDistanceAndTime(purpose, segment, road);
   if (base::AlmostEqualAbs(distance, 0.0, 0.1))
     return timeSec;
 
-  double const altitudeDiff =
-      static_cast<double>(to.GetAltitude()) - static_cast<double>(from.GetAltitude());
+  LatLonWithAltitude const & from = road.GetJunction(segment.GetPointId(false /* front */));
+  LatLonWithAltitude const & to = road.GetJunction(segment.GetPointId(true /* front */));
+
+  double const altitudeDiff = static_cast<double>(to.GetAltitude()) - static_cast<double>(from.GetAltitude());
   return timeSec * getClimbPenalty(purpose, altitudeDiff / distance, to.GetAltitude());
 }
 }  // namespace
@@ -289,7 +291,7 @@ CarEstimator::CarEstimator(DataSource * dataSourcePtr, std::shared_ptr<NumMwmIds
                            shared_ptr<TrafficStash> trafficStash, double maxWeightSpeedKMpH,
                            SpeedKMpH const & offroadSpeedKMpH)
   : EdgeEstimator(maxWeightSpeedKMpH, offroadSpeedKMpH, dataSourcePtr, numMwmIds)
-  , m_trafficStash(move(trafficStash))
+  , m_trafficStash(std::move(trafficStash))
 {
 }
 
@@ -314,7 +316,7 @@ double CarEstimator::GetFerryLandingPenalty(Purpose purpose) const
 
 double CarEstimator::CalcSegmentWeight(Segment const & segment, RoadGeometry const & road, Purpose purpose) const
 {
-  double result = CalcClimbSegment(purpose, segment, road, GetCarClimbPenalty);
+  double result = CalcDistanceAndTime(purpose, segment, road).second;
 
   if (m_trafficStash)
   {
