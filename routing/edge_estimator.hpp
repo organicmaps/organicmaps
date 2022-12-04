@@ -7,7 +7,6 @@
 #include "routing_common/vehicle_model.hpp"
 
 #include "geometry/latlon.hpp"
-#include "geometry/point2d.hpp"
 #include "geometry/point_with_altitude.hpp"
 
 #include <memory>

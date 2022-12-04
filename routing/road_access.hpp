@@ -1,15 +1,10 @@
 #pragma once
 
-#include "routing/segment.hpp"
-#include "routing/vehicle_mask.hpp"
+#include "routing/road_point.hpp"
+#include "routing/route_weight.hpp"
 
-#include "base/assert.hpp"
-
-#include <cstdint>
 #include <optional>
 #include <string>
-#include <unordered_map>
-#include <utility>
 #include <vector>
 
 #include "3party/skarupke/flat_hash_map.hpp"
