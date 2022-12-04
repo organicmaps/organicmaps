@@ -807,6 +807,7 @@ void TransitRouteDisplay::CreateTransitMarks()
       GetTransitMarkerSizes(kStopMarkerScale, m_maxSubrouteWidth);
 
   vector<m2::PointF> transferArrowOffsets;
+  transferArrowOffsets.reserve(transferMarkerSizes.size());
   for (auto const & size : transferMarkerSizes)
     transferArrowOffsets.emplace_back(0.0f, size.y * 0.5f);
 

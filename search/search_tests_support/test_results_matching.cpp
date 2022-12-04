@@ -67,6 +67,7 @@ bool MatchResults(DataSource const & dataSource, vector<shared_ptr<MatchingRule>
                   vector<search::Result> const & actual)
 {
   vector<FeatureID> resultIds;
+  resultIds.reserve(actual.size());
   for (auto const & a : actual)
     resultIds.push_back(a.GetFeatureID());
   sort(resultIds.begin(), resultIds.end());

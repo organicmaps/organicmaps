@@ -12,6 +12,7 @@ namespace openlr
 vector<m2::PointD> LinearSegment::GetMercatorPoints() const
 {
   vector<m2::PointD> points;
+  points.reserve(m_locationReference.m_points.size());
   for (auto const & point : m_locationReference.m_points)
     points.push_back(mercator::FromLatLon(point.m_latLon));
   return points;

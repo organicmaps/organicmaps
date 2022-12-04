@@ -227,7 +227,7 @@ public:
 
     SubElements(O5MSource * reader, TSubElementGetter const & func) : m_reader(reader), m_func(func) {}
 
-    void Skip() { while (m_reader && m_func(nullptr)); }
+    void Skip() { while (m_reader && m_func(nullptr)) { /* no-op */ } }
 
     Iterator const begin() const { return Iterator(m_reader, m_func); }
     Iterator const end() const { return Iterator(); }
