@@ -178,6 +178,14 @@ Besides _desktop_ there are other targets like _generator_tool_, to see a full l
 tools/unix/build_omim.sh -d help
 ```
 
+#### Build issues
+
+- If you get "not enough memory" errors during builds, you may disable
+  [CMake Unity Builds](https://cmake.org/cmake/help/latest/prop_tgt/UNITY_BUILD.html) by `export UNITY_DISABLE=1`
+  or by passing `-DUNITY_DISABLE=1` option to `cmake` invocation. Or you can reduce Unity build batch size from
+  the default `50` to a lower value (2-16) by `export UNITY_BUILD_BATCH_SIZE=8`.
+  Note that these changes may significantly increase the build time.
+
 ### Running
 
 The generated binaries appear in `../omim-build-<buildtype>`.
