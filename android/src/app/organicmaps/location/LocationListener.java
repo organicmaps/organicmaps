@@ -2,17 +2,20 @@ package app.organicmaps.location;
 
 import android.location.Location;
 
+import androidx.annotation.NonNull;
+
 public interface LocationListener
 {
   class Simple implements LocationListener
   {
     @Override
-    public void onLocationUpdated(Location location) {}
+    public void onLocationUpdated(@NonNull Location location) {}
 
     @Override
-    public void onCompassUpdated(long time, double north) {}
+    public void onCompassUpdated(double north) {}
   }
 
-  void onLocationUpdated(Location location);
-  void onCompassUpdated(long time, double north);
+  void onLocationUpdated(@NonNull Location location);
+
+  void onCompassUpdated(double north);
 }

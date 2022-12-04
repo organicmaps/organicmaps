@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import app.organicmaps.Framework;
@@ -111,7 +112,7 @@ public class DirectionFragment extends BaseMwmDialogFragment
   }
 
   @Override
-  public void onLocationUpdated(Location location)
+  public void onLocationUpdated(@NonNull Location location)
   {
     if (mMapObject != null)
     {
@@ -123,7 +124,7 @@ public class DirectionFragment extends BaseMwmDialogFragment
   }
 
   @Override
-  public void onCompassUpdated(long time, double north)
+  public void onCompassUpdated(double north)
   {
     final Location last = LocationHelper.INSTANCE.getSavedLocation();
     if (last == null || mMapObject == null)

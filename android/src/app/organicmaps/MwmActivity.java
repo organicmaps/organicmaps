@@ -28,7 +28,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import app.organicmaps.Framework.PlacePageActivationListener;
 import app.organicmaps.api.Const;
-import app.organicmaps.background.AppBackgroundTracker;
 import app.organicmaps.background.Notifier;
 import app.organicmaps.base.BaseMwmFragmentActivity;
 import app.organicmaps.base.CustomNavigateUpListener;
@@ -52,8 +51,9 @@ import app.organicmaps.editor.ReportFragment;
 import app.organicmaps.help.HelpActivity;
 import app.organicmaps.intent.Factory;
 import app.organicmaps.intent.MapTask;
-import app.organicmaps.location.CompassData;
 import app.organicmaps.location.LocationHelper;
+import app.organicmaps.location.LocationListener;
+import app.organicmaps.location.LocationState;
 import app.organicmaps.maplayer.MapButtonsController;
 import app.organicmaps.maplayer.Mode;
 import app.organicmaps.maplayer.ToggleMapLayerFragment;
@@ -77,6 +77,7 @@ import app.organicmaps.settings.RoadType;
 import app.organicmaps.settings.SettingsActivity;
 import app.organicmaps.settings.UnitLocale;
 import app.organicmaps.sound.TtsPlayer;
+import app.organicmaps.util.log.Logger;
 import app.organicmaps.widget.menu.MainMenu;
 import app.organicmaps.widget.placepage.PlacePageController;
 import app.organicmaps.widget.placepage.PlacePageData;
@@ -97,6 +98,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Stack;
 
+import static app.organicmaps.util.concurrency.UiThread.runLater;
 import static app.organicmaps.widget.placepage.PlacePageButtons.PLACEPAGE_MORE_MENU_ID;
 
 public class MwmActivity extends BaseMwmFragmentActivity
@@ -105,18 +107,20 @@ public class MwmActivity extends BaseMwmFragmentActivity
                MapRenderingListener,
                CustomNavigateUpListener,
                RoutingController.Container,
-               LocationHelper.UiCallback,
+               LocationListener,
+               LocationState.ModeChangeListener,
                RoutingPlanInplaceController.RoutingPlanListener,
                RoutingBottomMenuListener,
                BookmarkManager.BookmarksLoadingListener,
                FloatingSearchToolbarController.SearchToolbarListener,
                PlacePageController.SlideListener,
                RoutingModeListener,
-               AppBackgroundTracker.OnTransitionListener,
                NoConnectionListener,
                MenuBottomSheetFragment.MenuBottomSheetInterfaceWithHeader,
                ToggleMapLayerFragment.LayerItemClickListener
 {
+  private static final String TAG = MwmActivity.class.getSimpleName();
+
   public static final String EXTRA_TASK = "map_task";
   public static final String EXTRA_LAUNCH_BY_DEEP_LINK = "launch_by_deep_link";
   public static final String EXTRA_BACK_URL = "backurl";
@@ -128,7 +132,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                                      EditorHostFragment.class.getName(),
                                                      ReportFragment.class.getName() };
 
-  private static final String EXTRA_LOCATION_DIALOG_IS_ANNOYING = "LOCATION_DIALOG_IS_ANNOYING";
   private static final String EXTRA_CURRENT_LAYOUT_MODE = "CURRENT_LAYOUT_MODE";
   private static final String EXTRA_IS_FULLSCREEN = "IS_FULLSCREEN";
   public static final int REQ_CODE_ERROR_DRIVING_OPTIONS_DIALOG = 5;
@@ -366,7 +369,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     super.onSafeCreate(savedInstanceState);
     if (savedInstanceState != null)
     {
-      LocationHelper.INSTANCE.setLocationErrorDialogAnnoying(savedInstanceState.getBoolean(EXTRA_LOCATION_DIALOG_IS_ANNOYING));
       mCurrentLayoutMode = MapButtonsController.LayoutMode.values()[savedInstanceState.getInt(EXTRA_CURRENT_LAYOUT_MODE)];
       mIsFullscreen = savedInstanceState.getBoolean(EXTRA_IS_FULLSCREEN);
     }
@@ -646,10 +648,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
         Map.zoomOut();
         break;
       case myPosition:
-        /// @todo Is calls order important here? Should we call onLocationButtonClicked on else branch?
-        LocationHelper.INSTANCE.onLocationButtonClicked();
-        if (!LocationUtils.isFineLocationGranted(getApplicationContext()))
-          LocationHelper.INSTANCE.requestPermissions();
+        LocationState.nativeSwitchToNextMode();
+        if (!LocationHelper.INSTANCE.isActive())
+          LocationHelper.INSTANCE.start();
         break;
       case toggleMapLayer:
         toggleMapLayerBottomSheet();
@@ -797,8 +798,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void startLocationToPoint(final @Nullable MapObject endPoint)
   {
     closeFloatingPanels();
-    if (!LocationUtils.isFineLocationGranted(getApplicationContext()))
-      LocationHelper.INSTANCE.requestPermissions();
+    if (!LocationHelper.INSTANCE.isActive())
+      LocationHelper.INSTANCE.start();
 
     MapObject startPoint = LocationHelper.INSTANCE.getMyPosition();
     RoutingController.get().prepare(startPoint, endPoint);
@@ -841,7 +842,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mNavigationController.onActivitySaveInstanceState(this, outState);
 
     RoutingController.get().onSaveState();
-    outState.putBoolean(EXTRA_LOCATION_DIALOG_IS_ANNOYING, LocationHelper.INSTANCE.isLocationErrorDialogAnnoying());
     outState.putInt(EXTRA_CURRENT_LAYOUT_MODE, mCurrentLayoutMode.ordinal());
     outState.putBoolean(EXTRA_IS_FULLSCREEN, mIsFullscreen);
 
@@ -1049,9 +1049,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
     RoutingController.get().attach(this);
     IsolinesManager.from(getApplicationContext()).attach(this::onIsolinesStateChanged);
     LocationHelper.INSTANCE.attach(this);
+    LocationState.nativeSetListener(this);
+    LocationHelper.INSTANCE.addListener(this);
+    onMyPositionModeChanged(LocationState.nativeGetMode());
     mPlacePageController.onActivityStarted(this);
     mSearchController.attach(this);
-    MwmApplication.backgroundTracker(requireActivity()).addListener(this);
+    if (!Config.isScreenSleepEnabled())
+      Utils.keepScreenOn(true, getWindow());
   }
 
   @Override
@@ -1060,12 +1064,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
     super.onStop();
     Framework.nativeRemovePlacePageActivationListener();
     BookmarkManager.INSTANCE.removeLoadingListener(this);
+    LocationHelper.INSTANCE.removeListener(this);
+    LocationState.nativeRemoveListener();
     LocationHelper.INSTANCE.detach();
     RoutingController.get().detach();
     mPlacePageController.onActivityStopped(this);
-    MwmApplication.backgroundTracker(requireActivity()).removeListener(this);
     IsolinesManager.from(getApplicationContext()).detach();
     mSearchController.detach();
+    Utils.keepScreenOn(false, getWindow());
   }
 
   @CallSuper
@@ -1221,9 +1227,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     mMapFragment.adjustCompass(offsetX, offsetY);
 
-    CompassData compass = LocationHelper.INSTANCE.getCompassData();
-    if (compass != null)
-      Map.onCompassUpdated(compass.getNorth(), true);
+    final double north = LocationHelper.INSTANCE.getSavedNorth();
+    if (!Double.isNaN(north))
+      Map.onCompassUpdated(north, true);
   }
 
   public void adjustBottomWidgets()
@@ -1603,10 +1609,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
         .show();
   }
 
-
   @Override
   public void onMyPositionModeChanged(int newMode)
   {
+    Logger.d(TAG, "location newMode = " + newMode);
     mMapButtonsController.updateNavMyPositionButton(newMode);
     RoutingController controller = RoutingController.get();
     if (controller.isPlanning())
@@ -1616,37 +1622,31 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onLocationUpdated(@NonNull Location location)
   {
-    if (!RoutingController.get().isNavigating())
+    final RoutingController routing = RoutingController.get();
+    if (!routing.isNavigating())
       return;
 
     mNavigationController.update(Framework.nativeGetRouteFollowingInfo());
 
     TtsPlayer.INSTANCE.playTurnNotifications(getApplicationContext());
+
+    // TODO: consider to create callback mechanism to transfer 'ROUTE_IS_FINISHED' event from
+    // the core to the platform code (https://github.com/organicmaps/organicmaps/issues/3589),
+    // because calling the native method 'nativeIsRouteFinished'
+    // too often can result in poor UI performance.
+    if (Framework.nativeIsRouteFinished())
+    {
+      routing.cancel();
+      // Restart location with a new interval.
+      LocationHelper.INSTANCE.restart();
+    }
   }
 
   @Override
-  public void onCompassUpdated(@NonNull CompassData compass)
+  public void onCompassUpdated(double north)
   {
-    Map.onCompassUpdated(compass.getNorth(), false);
+    Map.onCompassUpdated(north, false);
     mNavigationController.updateNorth();
-  }
-
-  @Override
-  public void onLocationDenied()
-  {
-    Utils.showSnackbar(this, findViewById(R.id.coordinator), findViewById(R.id.menu_frame),
-                       R.string.location_is_disabled_long_text);
-  }
-
-  @Override
-  public void onRoutingFinish()
-  {
-  }
-
-  @Override
-  public void onTransit(boolean foreground)
-  {
-    // No op.
   }
 
   @Override

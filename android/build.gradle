@@ -69,7 +69,7 @@ apply plugin: 'ru.cian.huawei-publish-gradle-plugin'
 dependencies {
   // Google Mobile Services
   if (googleMobileServicesEnabled) {
-    implementation 'com.google.android.gms:play-services-location:20.0.0'
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
   }
 
   // Google Firebase Services
