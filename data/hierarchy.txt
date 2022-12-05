@@ -665,6 +665,12 @@ Lithuania;Q37;lt;lt
 Luxembourg;Q32;lu;fr
 Macedonia;Q221;mk;mk
 Madagascar;Q1019;mg
+ Madagascar_Antananarivo province;Q489821;mg;mg,fr
+ Madagascar_Antsiranana province;Q656073;mg;mg,fr
+ Madagascar_Fianarantsoa province;Q841197;mg;mg,fr
+ Madagascar_Mahajanga province;Q669259;mg;mg,fr
+ Madagascar_Toamasina province;Q639418;mg;mg,fr
+ Madagascar_Toliara province;Q162020;mg;mg,fr
 Malawi;Q1020;mw;en,ny
 Malaysia;Q833;my;en
 Maldives;Q826;mv;dv

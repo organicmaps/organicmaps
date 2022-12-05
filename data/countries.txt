@@ -8664,18 +8664,97 @@
   },
   {
    "id": "Madagascar",
-   "old": [
-    "Madagascar"
-   ],
-   "affiliations": [
-    "Madagasikara",
-    "Region de Anosy",
-    "R\u00e9gion de Diana",
-    "R\u00e9gion de Sava",
-    "Pr\u00e9fecture de police de Nosy Be"
-   ],
-   "s": 303416495,
-   "sha1_base64": "Xq1+Gk+wEz2jYNk2bsD7AJ2Re5c="
+   "g": [
+    {
+     "id": "Madagascar_Antananarivo province",
+     "old": [
+      "Madagascar",
+      "Madagasikara",
+      "Antananarivo"
+     ],
+     "affiliations": [
+      "Faritanin' Antananarivo",
+      "Province d'Antananarivo"
+     ],
+     "s": 61026179,
+     "sha1_base64": "rAD7wcINF4GN3NvEqp3gKchRjmI="
+    },
+    {
+     "id": "Madagascar_Antsiranana province",
+     "old": [
+      "Madagascar",
+      "Madagasikara",
+      "Antsiranana"
+     ],
+     "affiliations": [
+      "Antsiranana",
+      "Diego Suarez",
+      "Faritanin' Antsiranana"
+     ],
+     "s": 42569452,
+     "sha1_base64": "Ka01jsxza+U2i+Yw9Y0GbByMVRE="
+    },
+    {
+     "id": "Madagascar_Fianarantsoa province",
+     "old": [
+      "Madagascar",
+      "Madagasikara",
+      "Fianarantsoa"
+     ],
+     "affiliations": [
+      "Fianarantsoa",
+      "Faritanin' i Fianarantsoa"
+     ],
+     "s": 129021034,
+     "sha1_base64": "uSxeLncbJDeDaFWgMZYg2gArTOg="
+    },
+    {
+     "id": "Madagascar_Mahajanga province",
+     "old": [
+      "Madagascar",
+      "Madagasikara",
+      "Fianarantsoa"
+     ],
+     "affiliations": [
+      "province de Mahajanga",
+      "province de Majunga",
+      "Faritanin' i Mahajanga"
+     ],
+     "s": 11138908,
+     "sha1_base64": "OE/BJYtbG9usGHRvi833nJSOVQE="
+    },
+    {
+     "id": "Madagascar_Toamasina province",
+     "old": [
+      "Madagascar",
+      "Madagasikara",
+      "Fianarantsoa"
+     ],
+     "affiliations": [
+      "province de Tamatave",
+      "Faritanin' i Toamasina"
+     ],
+     "s": 15708580,
+     "sha1_base64": "ROWM7/T68yYCbQoJZwcyE0y7x9M="
+    },
+    {
+     "id": "Madagascar_Toliara province",
+     "old": [
+      "Madagascar",
+      "Madagasikara",
+      "Fianarantsoa"
+     ],
+     "affiliations": [
+      "Toliary",
+      "Tuléar",
+      "province de Toliara",
+      "province de Tuléar",
+      "Faritanin' i Toliara"
+     ],
+     "s": 23948796,
+     "sha1_base64": "oJrRYr1+nuzyh2b4LfA//3BG1pI="
+    }
+   ]
   },
   {
    "id": "Malawi",
