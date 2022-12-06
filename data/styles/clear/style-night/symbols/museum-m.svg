@@ -1,10 +1,10 @@
 <svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
  <title>museum-m</title>
- <g id="Page-2:-Night" transform="scale(1.5)" fill="none" fill-rule="evenodd" opacity=".6">
+ <g id="Page-2:-Night" transform="scale(1.5)" fill="none" fill-rule="evenodd" opacity="1">
   <g id="museum-m" fill-rule="nonzero">
-   <circle id="Oval" cx="8" cy="8" r="8" fill="#fff"/>
+   <circle id="Oval" cx="8" cy="8" r="8" fill="#000" opacity=".6"/>
    <circle cx="8" cy="8" r="7.3333" fill="#7f5933"/>
-   <path id="Shape" d="m3.4644 5.4802 4.5356-2.0158 4.5356 2.0158v1.0079h-1.0079v5.0396h1.0079v1.0079h-9.0712v-1.0079h1.0079v-5.0396h-1.0079zm2.419 1.0079v5.0396h1.4111v-5.0396zm2.9229 0v5.0396h1.4111v-5.0396z" fill="#fff"/>
+   <path id="Shape" d="m3.4644 5.4802 4.5356-2.0158 4.5356 2.0158v1.0079h-1.0079v5.0396h1.0079v1.0079h-9.0712v-1.0079h1.0079v-5.0396h-1.0079zm2.419 1.0079v5.0396h1.4111v-5.0396zm2.9229 0v5.0396h1.4111v-5.0396z" fill="#000"/>
   </g>
  </g>
 </svg>

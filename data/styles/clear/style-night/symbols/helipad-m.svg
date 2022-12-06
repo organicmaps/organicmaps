@@ -1,10 +1,10 @@
 <svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
  <title>helipad-m</title>
- <g id="Page-2:-Night" fill="none" fill-rule="evenodd" opacity=".6">
+ <g id="Page-2:-Night" fill="none" fill-rule="evenodd" opacity="1">
   <g id="helipad-m" fill-rule="nonzero">
    <rect id="Rectangle" width="24" height="24" rx="12" fill="#FECB4B"/>
    <rect id="Rectangle" x="1" y="1" width="22" height="22" rx="11" fill="#2F6499"/>
-   <polygon id="Path" points="10 11 14 11 14 7 16 7 16 17 14 17 14 13 10 13 10 17 8 17 8 7 10 7" fill="#fff"/>
+   <polygon id="Path" points="10 11 14 11 14 7 16 7 16 17 14 17 14 13 10 13 10 17 8 17 8 7 10 7" fill="#000"/>
   </g>
  </g>
 </svg>

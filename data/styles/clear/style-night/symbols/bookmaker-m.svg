@@ -1,10 +1,10 @@
 <svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
  <title>bookmaker-m</title>
- <g id="Page-2:-Night" fill="none" fill-rule="evenodd" opacity=".6">
+ <g id="Page-2:-Night" fill="none" fill-rule="evenodd" opacity="1">
   <g id="bookmaker-m" fill-rule="nonzero">
-   <circle id="Oval" cx="12" cy="12" r="12" fill="#fff"/>
+   <circle id="Oval" cx="12" cy="12" r="12" fill="#000" opacity=".6"/>
    <circle id="Oval" cx="12" cy="12" r="11" fill="#717065"/>
-   <path id="Shape" d="m15.8 5h-8.4c-0.77 0-1.4 0.63-1.4 1.4v11.2c0 0.77 0.63 1.4 1.4 1.4h8.4c0.77 0 1.4-0.63 1.4-1.4v-11.2c0-0.77-0.63-1.4-1.4-1.4zm-8.4 1.4h3.5v5.6l-1.75-1.05-1.75 1.05v-5.6z" fill="#fff"/>
+   <path id="Shape" d="m15.8 5h-8.4c-0.77 0-1.4 0.63-1.4 1.4v11.2c0 0.77 0.63 1.4 1.4 1.4h8.4c0.77 0 1.4-0.63 1.4-1.4v-11.2c0-0.77-0.63-1.4-1.4-1.4zm-8.4 1.4h3.5v5.6l-1.75-1.05-1.75 1.05v-5.6z" fill="#000"/>
   </g>
  </g>
 </svg>
