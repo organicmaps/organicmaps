@@ -39,14 +39,18 @@ HighwayBasedSpeeds const kDefaultSpeeds = {
     {HighwayType::HighwaySecondaryLink, InOutCitySpeedKMpH(SpeedKMpH(15.0, 18.0), SpeedKMpH(20.0, 18.0))},
     {HighwayType::HighwayTertiary, InOutCitySpeedKMpH(SpeedKMpH(15.0, 18.0), SpeedKMpH(20.0, 18.0))},
     {HighwayType::HighwayTertiaryLink, InOutCitySpeedKMpH(SpeedKMpH(15.0, 18.0), SpeedKMpH(20.0, 18.0))},
-    {HighwayType::HighwayService, InOutCitySpeedKMpH(SpeedKMpH(12.0, 18.0))},
     {HighwayType::HighwayUnclassified, InOutCitySpeedKMpH(SpeedKMpH(12.0, 18.0))},
+
+    // https://github.com/organicmaps/organicmaps/issues/3881
+    // Set equal speeds here to avoid useless detours via service roads (Batumi_AvoidServiceDetour test).
+    {HighwayType::HighwayService, InOutCitySpeedKMpH(SpeedKMpH(10.0, 14.0))},
+    {HighwayType::HighwayResidential, InOutCitySpeedKMpH(SpeedKMpH(10.0, 14.0))},
+
     {HighwayType::HighwayRoad, InOutCitySpeedKMpH(SpeedKMpH(10.0, 12.0))},
     {HighwayType::HighwayTrack, InOutCitySpeedKMpH(SpeedKMpH(8.0, 12.0))},
     {HighwayType::HighwayPath, InOutCitySpeedKMpH(SpeedKMpH(6.0, 12.0))},
     {HighwayType::HighwayBridleway, InOutCitySpeedKMpH(SpeedKMpH(4.0, 12.0))},
     {HighwayType::HighwayCycleway, InOutCitySpeedKMpH(SpeedKMpH(30.0, 20.0))},
-    {HighwayType::HighwayResidential, InOutCitySpeedKMpH(SpeedKMpH(8.0, 10.0))},
     {HighwayType::HighwayLivingStreet, InOutCitySpeedKMpH(SpeedKMpH(7.0, 8.0))},
     // Steps have obvious inconvenience of a bike in hands.
     {HighwayType::HighwaySteps, InOutCitySpeedKMpH(SpeedKMpH(1.0, 1.0))},

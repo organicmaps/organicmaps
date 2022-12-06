@@ -188,4 +188,20 @@ UNIT_TEST(London_GreenwichTunnel)
       mercator::FromLatLon(51.4817397, -0.0100070258), {0.0, 0.0},
       mercator::FromLatLon(51.4883739, -0.00809729298), 1332.8 /* expectedRouteMeters */);
 }
+
+UNIT_TEST(Batumi_AvoidServiceDetour)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetVehicleComponents(VehicleType::Bicycle),
+      mercator::FromLatLon(41.6380014, 41.6269446), {0.0, 0.0},
+      mercator::FromLatLon(41.6392113, 41.6260084), 156.465 /* expectedRouteMeters */);
+}
+
+UNIT_TEST(Gdansk_AvoidLongCyclewayDetour)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetVehicleComponents(VehicleType::Bicycle),
+      mercator::FromLatLon(54.2632738, 18.6771661), {0.0, 0.0},
+      mercator::FromLatLon(54.2698882, 18.6765837), 753.837 /* expectedRouteMeters */);
+}
 } // namespace bicycle_route_test
