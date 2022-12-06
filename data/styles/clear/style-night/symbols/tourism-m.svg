@@ -1,10 +1,10 @@
 <svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
  <title>tourism-m</title>
- <g id="Page-2:-Night" fill="none" fill-rule="evenodd" opacity=".6">
+ <g id="Page-2:-Night" fill="none" fill-rule="evenodd" opacity="1">
   <g id="tourism-m" fill-rule="nonzero">
-   <circle id="Oval" cx="12" cy="12" r="12" fill="#fff"/>
+   <circle id="Oval" cx="12" cy="12" r="12" fill="#000" opacity=".6"/>
    <circle id="Oval" cx="12" cy="12" r="11" fill="#7F5933"/>
-   <polygon id="Path" points="19 9.595 14.1 8.896 12 4 9.9 8.896 5 9.595 8.5 13.092 7.8 18 12 15.889 16.2 17.987 15.5 13.092" fill="#fff"/>
+   <polygon id="Path" points="19 9.595 14.1 8.896 12 4 9.9 8.896 5 9.595 8.5 13.092 7.8 18 12 15.889 16.2 17.987 15.5 13.092" fill="#000"/>
   </g>
  </g>
 </svg>
