@@ -837,9 +837,10 @@ RouterResultCode IndexRouter::CalculateSubrouteLeapsOnlyMode(
       return { r.m_path[1].GetFeatureId(), r.m_path[pathSize - 2].GetFeatureId() };
     };
 
+    // Check Germany_Italy_Malcesine test when changing constant.
     /// @todo Looks like there is no big deal in this constant due to the bidirectional search.
     /// But still Zalau -> Tiburg lasts 2 minutes, so set some reasonable timeout.
-    size_t constexpr kMaxVertices = 15;
+    size_t constexpr kMaxVertices = 8;
     uint64_t constexpr kTimeoutMilliS = 30*1000;
     base::Timer timer;
 
