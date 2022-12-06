@@ -1,7 +1,7 @@
 <svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
  <title>waste-basket-m</title>
- <g id="Page-2:-Night" fill="none" opacity=".6">
-  <g id="waste-basket-m" fill="#FFF">
+ <g id="Page-2:-Night" >
+  <g id="waste-basket-m" fill="#777777">
    <path d="m7.7143 17.429c0 0.78571 0.64286 1.4286 1.4286 1.4286h5.7143c0.78571 0 1.4286-0.64286 1.4286-1.4286v-8.5714h-8.5714v8.5714zm9.2857-10.714h-2.5l-0.71429-0.71429h-3.5714l-0.71429 0.71429h-2.5v1.4286h10v-1.4286z"/>
   </g>
  </g>
