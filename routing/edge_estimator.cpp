@@ -78,13 +78,16 @@ double GetPedestrianClimbPenalty(EdgeEstimator::Purpose purpose, double tangent,
   double constexpr kMinPenalty = 1.0;
   // Descent penalty is less then the ascent penalty.
   double const impact = tangent >= 0.0 ? 1.0 : 0.35;
-  tangent = std::abs(tangent);
+  tangent = fabs(tangent);
 
   if (altitudeM >= kMountainSicknessAltitudeM)
-  {
-    return kMinPenalty + (10.0 + (altitudeM - kMountainSicknessAltitudeM) * 10.0 / 1500.0) *
-                             std::abs(tangent) * impact;
-  }
+    return kMinPenalty + (10.0 + (altitudeM - kMountainSicknessAltitudeM) * 10.0 / 1500.0) * tangent * impact;
+
+  // Some thoughts about gradient and foot walking: https://gre-kow.livejournal.com/26916.html
+  // 3cm diff with avg foot length 60cm is imperceptible (see Hungary_UseFootways).
+  double constexpr kTangentThreshold = 3.0/60.0;
+  if (tangent < kTangentThreshold)
+    return kMinPenalty;
 
   // ETA coefficients are calculated in https://github.com/mapsme/omim-scripts/pull/21
   auto const penalty = purpose == EdgeEstimator::Purpose::Weight
