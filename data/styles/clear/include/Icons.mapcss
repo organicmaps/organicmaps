@@ -2088,9 +2088,11 @@ node|z17-[office=lawyer],
 area|z17-[office=lawyer]
 {icon-image: lawyer-m.svg;icon-min-distance: 10;text-optional: true;}
 
-node|z17-[amenity=telephone],
-node|z17-[emergency=phone]
+node|z17-[amenity=telephone]
 {icon-image: phone-m.svg;icon-min-distance: 30;}
+
+node|z17-[emergency=phone]
+{icon-image: emergency-phone-m.svg;icon-min-distance: 30;}
 
 node|z17-[amenity=recycling],
 area|z17-[amenity=recycling],
