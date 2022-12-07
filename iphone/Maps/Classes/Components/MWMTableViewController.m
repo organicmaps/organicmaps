@@ -33,6 +33,9 @@
   if ([headerView isKindOfClass: [UITableViewHeaderFooterView class]]) {
     UITableViewHeaderFooterView* header = (UITableViewHeaderFooterView *)headerView;
     header.textLabel.textColor = [UIColor blackSecondaryText];
+    if (self.tableView.style == UITableViewStyleGrouped) {
+      header.detailTextLabel.textColor = [UIColor blackSecondaryText];
+    }
   }
 }
 
