@@ -608,8 +608,5 @@ UNIT_TEST(Hungary_UseFootways)
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
       mercator::FromLatLon(45.8587043, 18.2863972), {0., 0.},
-      mercator::FromLatLon(45.858625, 18.285348), 99.9315);
-
-  /// @todo Adding intermediate point (45.8586513, 18.2860903) gives better route with length 96.0561,
-  /// but a bit bigger ETA. I suspect that there is a small altitudes penalty that should be ignored here.
+      mercator::FromLatLon(45.858625, 18.285348), 95.7657, 0.02 /* relativeError */);
 }
