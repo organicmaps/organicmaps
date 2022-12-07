@@ -513,7 +513,7 @@ string DetermineSurface(OsmElement * p)
   };
 
   static base::StringIL badSurfaces = {
-      "cobblestone", "dirt", "earth", "grass", "gravel", "ground", "metal", "mud",
+      "cobblestone", "dirt", "earth", "grass", "gravel", "ground", "metal", "mud", "unpaved",
       "pebblestone", "sand", "sett", "snow", "unhewn_cobblestone", "wood", "woodchips"
   };
 
