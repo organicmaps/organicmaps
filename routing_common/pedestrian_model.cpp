@@ -1,7 +1,7 @@
 #include "routing_common/pedestrian_model.hpp"
 
 #include "indexer/classificator.hpp"
-#include "indexer/feature.hpp"
+
 
 namespace pedestrian_model
 {
@@ -35,19 +35,25 @@ HighwayBasedSpeeds const kDefaultSpeeds = {
     {HighwayType::HighwaySecondaryLink, InOutCitySpeedKMpH(SpeedKMpH(3.0, 5.0))},
     {HighwayType::HighwayTertiary, InOutCitySpeedKMpH(SpeedKMpH(4.0, 5.0))},
     {HighwayType::HighwayTertiaryLink, InOutCitySpeedKMpH(SpeedKMpH(4.0, 5.0))},
-    {HighwayType::HighwayService, InOutCitySpeedKMpH(SpeedKMpH(5.0))},
-    {HighwayType::HighwayUnclassified, InOutCitySpeedKMpH(SpeedKMpH(4.5, 5.0))},
     {HighwayType::HighwayRoad, InOutCitySpeedKMpH(SpeedKMpH(4.0, 5.0))},
+
+    {HighwayType::HighwayService, InOutCitySpeedKMpH(SpeedKMpH(4.5, 5.0))},
+    {HighwayType::HighwayUnclassified, InOutCitySpeedKMpH(SpeedKMpH(4.5, 5.0))},
+    {HighwayType::HighwayResidential, InOutCitySpeedKMpH(SpeedKMpH(4.5, 5.0))},
+
+    {HighwayType::HighwayBridleway, InOutCitySpeedKMpH(SpeedKMpH(1.0, 5.0))},
+    {HighwayType::HighwaySteps, InOutCitySpeedKMpH(SpeedKMpH(3.0))},
+    {HighwayType::HighwayCycleway, InOutCitySpeedKMpH(SpeedKMpH(4.0, 5.0))},
+
     {HighwayType::HighwayTrack, InOutCitySpeedKMpH(SpeedKMpH(5.0))},
     {HighwayType::HighwayPath, InOutCitySpeedKMpH(SpeedKMpH(5.0))},
-    {HighwayType::HighwayBridleway, InOutCitySpeedKMpH(SpeedKMpH(1.0, 5.0))},
-    {HighwayType::HighwayCycleway, InOutCitySpeedKMpH(SpeedKMpH(4.0, 5.0))},
-    {HighwayType::HighwayResidential, InOutCitySpeedKMpH(SpeedKMpH(4.5, 5.0))},
     {HighwayType::HighwayLivingStreet, InOutCitySpeedKMpH(SpeedKMpH(5.0))},
-    {HighwayType::HighwaySteps, InOutCitySpeedKMpH(SpeedKMpH(3.0))},
-    {HighwayType::HighwayPedestrian, InOutCitySpeedKMpH(SpeedKMpH(5.0))},
-    {HighwayType::HighwayFootway, InOutCitySpeedKMpH(SpeedKMpH(5.0))},
     {HighwayType::ManMadePier, InOutCitySpeedKMpH(SpeedKMpH(5.0))},
+
+    // Set 10% higher weight (than default 5) for foot designated ways.
+    {HighwayType::HighwayPedestrian, InOutCitySpeedKMpH(SpeedKMpH(5.5, 5.0))},
+    {HighwayType::HighwayFootway, InOutCitySpeedKMpH(SpeedKMpH(5.5, 5.0))},
+
     /// @todo A car ferry has {10, 10}. Weight = 3 is 60% from reasonable 5 max speed.
     {HighwayType::RouteFerry, InOutCitySpeedKMpH(SpeedKMpH(3.0, 20.0))},
 };
@@ -146,7 +152,7 @@ PedestrianModel::PedestrianModel(VehicleModel::LimitsInitList const & speedLimit
   m_noType = cl.GetTypeByPath({ "hwtag", "nofoot" });
   m_yesType = cl.GetTypeByPath(hwtagYesFoot);
 
-  AddAdditionalRoadTypes(cl, {{ std::move(hwtagYesFoot), kDefaultSpeeds.Get(HighwayType::HighwayFootway) }});
+  AddAdditionalRoadTypes(cl, {{ std::move(hwtagYesFoot), kDefaultSpeeds.Get(HighwayType::HighwayLivingStreet) }});
 
   // Update max pedestrian speed with possible ferry transfer. See EdgeEstimator::CalcHeuristic.
   SpeedKMpH constexpr kMaxPedestrianSpeedKMpH(25.0);
