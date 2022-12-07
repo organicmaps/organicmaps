@@ -581,10 +581,10 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Surface)
   TestSurfaceTypes("wood", "good", "", "paved_good");
   TestSurfaceTypes("wood", "", "3", "paved_good");
   TestSurfaceTypes("pebblestone", "", "4", "unpaved_good");
-  TestSurfaceTypes("unpaved", "", "", "unpaved_good");
+  TestSurfaceTypes("unpaved", "", "", "unpaved_bad");
   TestSurfaceTypes("mud", "", "", "unpaved_bad");
 
-  /// @todo Is it ok here that default no-tags equals to smoothness=bad?
+  /// @todo Is it better paved_bad?
   TestSurfaceTypes("", "bad", "", "unpaved_good");
 
   TestSurfaceTypes("", "horrible", "", "unpaved_bad");
