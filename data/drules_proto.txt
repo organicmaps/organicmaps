@@ -97245,7 +97245,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "computer-m"
+      name: "video-games-m"
       priority: 16613
       min_distance: 10
     }
@@ -97261,7 +97261,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "computer-m"
+      name: "video-games-m"
       priority: 16613
       min_distance: 24
     }
@@ -97278,7 +97278,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "computer-m"
+      name: "video-games-m"
       priority: 16613
       min_distance: 24
     }
@@ -97295,7 +97295,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "computer-m"
+      name: "video-games-m"
       priority: 16613
       min_distance: 24
     }
