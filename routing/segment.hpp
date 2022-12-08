@@ -47,7 +47,7 @@ public:
   bool operator!=(Segment const & seg) const;
 
   bool IsInverse(Segment const & seg) const;
-  void Inverse() { m_forward = !m_forward; }
+  Segment GetReversed() const { return { m_mwmId, m_featureId, m_segmentIdx, !m_forward }; }
 
   /// @todo Logically, these functions should be equal, but keep existing logic,
   /// and investigate possible enhancements in future.

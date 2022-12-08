@@ -12,20 +12,11 @@
 #include <algorithm>
 #include <map>
 
-namespace
-{
-using namespace routing;
-using namespace std;
-
-Segment GetReverseSegment(Segment const & segment)
-{
-  return Segment(segment.GetMwmId(), segment.GetFeatureId(), segment.GetSegmentIdx(),
-                 !segment.IsForward());
-}
-}  // namespace
 
 namespace routing
 {
+using namespace std;
+
 // IndexGraphStarter::Ending -----------------------------------------------------------------------
 void IndexGraphStarter::Ending::FillMwmIds()
 {
@@ -81,7 +72,7 @@ void IndexGraphStarter::SetGuides(GuidesGraph const & guides) { m_guides = guide
 
 void IndexGraphStarter::SetRegionsGraphMode(std::shared_ptr<RegionsSparseGraph> regionsSparseGraph)
 {
-  m_regionsGraph = move(regionsSparseGraph);
+  m_regionsGraph = std::move(regionsSparseGraph);
   m_graph.SetRegionsGraphMode(true);
 }
 
@@ -356,7 +347,7 @@ void IndexGraphStarter::AddEnding(FakeEnding const & thisEnding)
       otherSegments[p.m_segment].push_back(p.m_junction);
       // We use |otherEnding| to generate proper fake edges in case both endings have projections
       // to the same segment. Direction of p.m_segment does not matter.
-      otherSegments[GetReverseSegment(p.m_segment)].push_back(p.m_junction);
+      otherSegments[p.m_segment.GetReversed()].push_back(p.m_junction);
     }
   }
 
@@ -421,7 +412,7 @@ void IndexGraphStarter::AddEnding(FakeEnding const & thisEnding)
 
       if (!projection.m_isOneWay)
       {
-        auto const backwardSegment = GetReverseSegment(projection.m_segment);
+        auto const backwardSegment = projection.m_segment.GetReversed();
         FakeVertex backwardPartOfReal(
             backwardSegment.GetMwmId(), isStart ? projection.m_junction : frontJunction,
             isStart ? backJunction : projection.m_junction, FakeVertex::Type::PartOfReal);
@@ -448,7 +439,7 @@ void IndexGraphStarter::AddEnding(FakeEnding const & thisEnding, FakeEnding cons
     otherSegments[p.m_segment] = p.m_junction;
     // We use |otherEnding| to generate proper fake edges in case both endings have projections
     // to the same segment. Direction of p.m_segment does not matter.
-    otherSegments[GetReverseSegment(p.m_segment)] = p.m_junction;
+    otherSegments[p.m_segment.GetReversed()] = p.m_junction;
   }
 
   // Add pure fake vertex
@@ -504,7 +495,7 @@ void IndexGraphStarter::AddEnding(FakeEnding const & thisEnding, FakeEnding cons
 
     if (!strictForward && !projection.m_isOneWay)
     {
-      auto const backwardSegment = GetReverseSegment(projection.m_segment);
+      auto const backwardSegment = projection.m_segment.GetReversed();
       FakeVertex backwardPartOfReal(
           backwardSegment.GetMwmId(), isStart ? projection.m_junction : frontJunction,
           isStart ? backJunction : projection.m_junction, FakeVertex::Type::PartOfReal);
@@ -522,6 +513,38 @@ void IndexGraphStarter::ConnectLoopToGuideSegments(
     LatLonWithAltitude realTo, vector<pair<FakeVertex, Segment>> const & partsOfReal)
 {
   m_fake.ConnectLoopToGuideSegments(loop, realSegment, realFrom, realTo, partsOfReal);
+}
+
+HighwayCategory IndexGraphStarter::GetHighwayCategory(Segment seg) const
+{
+  if (IsFakeSegment(seg))
+  {
+    Segment real;
+    if (m_fake.FindReal(seg, real))
+      seg = real;
+    else
+      return HighwayCategory::Unknown;
+  }
+
+  auto const hwType = m_graph.GetIndexGraph(seg.GetMwmId()).GetRoadGeometry(seg.GetFeatureId()).GetHighwayType();
+  if (!hwType)
+    return HighwayCategory::Unknown;
+
+  switch (*hwType)
+  {
+  case HighwayType::HighwayMotorway: case HighwayType::HighwayMotorwayLink:
+  case HighwayType::HighwayTrunk: case HighwayType::HighwayTrunkLink:
+    return HighwayCategory::Major;
+  case HighwayType::HighwayPrimary: case HighwayType::HighwayPrimaryLink:
+    return HighwayCategory::Primary;
+  case HighwayType::HighwaySecondary: case HighwayType::HighwaySecondaryLink:
+  case HighwayType::HighwayTertiary: case HighwayType::HighwayTertiaryLink:
+    return HighwayCategory::Usual;
+  case HighwayType::RouteFerry: case HighwayType::RailwayRailMotorVehicle: case HighwayType::RouteShuttleTrain:
+    return HighwayCategory::Transit;
+  default:
+    return HighwayCategory::Minor;
+  }
 }
 
 void IndexGraphStarter::AddStart(FakeEnding const & startEnding, FakeEnding const & finishEnding,

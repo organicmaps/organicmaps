@@ -837,10 +837,9 @@ RouterResultCode IndexRouter::CalculateSubrouteLeapsOnlyMode(
       return { r.m_path[1].GetFeatureId(), r.m_path[pathSize - 2].GetFeatureId() };
     };
 
-    // Check Germany_Italy_Malcesine test when changing constant.
     /// @todo Looks like there is no big deal in this constant due to the bidirectional search.
     /// But still Zalau -> Tiburg lasts 2 minutes, so set some reasonable timeout.
-    size_t constexpr kMaxVertices = 8;
+    size_t constexpr kMaxVertices = 15;
     uint64_t constexpr kTimeoutMilliS = 30*1000;
     base::Timer timer;
 
@@ -872,17 +871,51 @@ RouterResultCode IndexRouter::CalculateSubrouteLeapsOnlyMode(
       return l.m_distance < r.m_distance;
     });
 
+    // Additional heuristic to reduce number of candidates.
+    // Group candidates by category and accept no more than *2* routes of each.
+    // https://github.com/organicmaps/organicmaps/issues/2998
+    // https://github.com/organicmaps/organicmaps/issues/3625
+    class HighwayCategoryChecker
+    {
+      IndexGraphStarter const & m_starter;
+      std::array<uint8_t, static_cast<uint8_t>(HighwayCategory::Unknown)> m_curr, m_upper;
+
+    public:
+      HighwayCategoryChecker(IndexGraphStarter const & starter) : m_starter(starter)
+      {
+        // Check Germany_Italy_Malcesine test when changing this constants.
+        // 2 - max number of leaps candidates per highway category.
+        m_curr.fill(0);
+        m_upper.fill(2);
+      }
+      bool operator()(Segment const & seg)
+      {
+        HighwayCategory const cat = m_starter.GetHighwayCategory(seg);
+        if (cat == HighwayCategory::Unknown)
+          return false;
+
+        uint8_t const idx = static_cast<uint8_t>(cat);
+        ASSERT_LESS(idx, m_curr.size(), ());
+        return ++m_curr[idx] <= m_upper[idx];
+      }
+    };
+
     keys[0].clear();
     keys[1].clear();
+    HighwayCategoryChecker checkers[2] = {starter, starter};
+
     for (auto & r : routes)
     {
-      auto const be = getBegEnd(r);
-      for (size_t idx  = 0; idx < 2; ++idx)
+      Segment const * be[] = { &r.m_path[1], &r.m_path[r.m_path.size() - 2] };
+      for (uint8_t idx  = 0; idx < 2; ++idx)
       {
-        if (keys[idx].size() < kMaxVertices && keys[idx].insert(be[idx]).second)
+        if (keys[idx].size() < kMaxVertices &&
+            keys[idx].insert(be[idx]->GetFeatureId()).second &&
+            checkers[idx](*be[idx]))
         {
-          size_t const nextIdx = (idx + 1) % 2;
-          keys[nextIdx].insert(be[nextIdx]);
+          uint8_t const nextIdx = (idx + 1) % 2;
+          keys[nextIdx].insert(be[nextIdx]->GetFeatureId());
+          checkers[nextIdx](*be[nextIdx]);
 
           candidates.push_back(std::move(r));
           break;
