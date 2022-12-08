@@ -2,36 +2,34 @@
 
 #include "routing/base/astar_graph.hpp"
 #include "routing/base/astar_vertex_data.hpp"
-#include "routing/base/routing_result.hpp"
 #include "routing/fake_ending.hpp"
 #include "routing/fake_feature_ids.hpp"
 #include "routing/fake_graph.hpp"
 #include "routing/fake_vertex.hpp"
 #include "routing/guides_graph.hpp"
 #include "routing/index_graph.hpp"
-#include "routing/joint.hpp"
 #include "routing/latlon_with_altitude.hpp"
-#include "routing/route_point.hpp"
 #include "routing/route_weight.hpp"
 #include "routing/segment.hpp"
 #include "routing/world_graph.hpp"
 
 #include "routing_common/num_mwm_id.hpp"
 
-#include <cstddef>
-#include <cstdint>
-#include <functional>
-#include <limits>
-#include <map>
 #include <memory>
 #include <set>
-#include <utility>
 #include <vector>
 
 namespace routing
 {
 class FakeEdgesContainer;
 class RegionsSparseGraph;
+
+// Group highway types on categories (classes) to use in leaps candidates filtering.
+enum class HighwayCategory : uint8_t
+{
+  // Do not change order!
+  Major, Primary, Usual, Minor, Transit, Unknown
+};
 
 // IndexGraphStarter adds fake start and finish vertices for AStarAlgorithm.
 class IndexGraphStarter : public AStarGraph<IndexGraph::Vertex, IndexGraph::Edge, IndexGraph::Weight>
@@ -209,6 +207,8 @@ public:
   void ConnectLoopToGuideSegments(FakeVertex const & loop, Segment const & realSegment,
                                   LatLonWithAltitude realFrom, LatLonWithAltitude realTo,
                                   std::vector<std::pair<FakeVertex, Segment>> const & partsOfReal);
+
+  HighwayCategory GetHighwayCategory(Segment seg) const;
 
 private:
   // Creates fake edges for fake ending and adds it to fake graph. |otherEnding| is used to
