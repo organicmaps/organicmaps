@@ -2308,10 +2308,11 @@ node|z16[shop=clothes],
 area|z16[shop=clothes]
 {icon-image: clothes-m.svg;}
 node|z16[shop=computer],
-area|z16[shop=computer],
+area|z16[shop=computer]
+{icon-image: computer-m.svg;}
 node|z16[shop=video_games],
 area|z16[shop=video_games]
-{icon-image: computer-m.svg;}
+{icon-image: video-games-m.svg;}
 node|z16[shop=tattoo],
 area|z16[shop=tattoo]
 {icon-image: hand-m.svg;}
@@ -2494,10 +2495,11 @@ node|z17-[shop=clothes],
 area|z17-[shop=clothes]
 {icon-image: clothes-m.svg;icon-min-distance: 24;text-optional: true;}
 node|z17-[shop=computer],
-area|z17-[shop=computer],
+area|z17-[shop=computer]
+{icon-image: computer-m.svg;icon-min-distance: 24;text-optional: true;}
 node|z17-[shop=video_games],
 area|z17-[shop=video_games]
-{icon-image: computer-m.svg;icon-min-distance: 24;text-optional: true;}
+{icon-image: video-games-m.svg;icon-min-distance: 24;text-optional: true;}
 node|z17-[shop=tattoo],
 area|z17-[shop=tattoo]
 {icon-image: hand-m.svg;icon-min-distance: 24;text-optional: true;}
