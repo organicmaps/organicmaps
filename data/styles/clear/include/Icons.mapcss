@@ -2378,12 +2378,13 @@ area|z16[shop=gift]
 {icon-image: gift-m.svg;}
 node|z16[shop=music],
 area|z16[shop=music],
+{icon-image: music-m.svg;}
 node|z16[shop=video],
 area|z16[shop=video]
 {icon-image: media-m.svg;}
 node|z16[shop=musical_instrument],
 area|z16[shop=musical_instrument]
-{icon-image: music-m.svg;}
+{icon-image: musical-instrument-m.svg;}
 node|z16[shop=greengrocer],
 area|z16[shop=greengrocer]
 {icon-image: greengrocer-m.svg;}
@@ -2565,12 +2566,13 @@ area|z17-[shop=gift]
 {icon-image: gift-m.svg;icon-min-distance: 24;text-optional: true;}
 node|z17-[shop=music],
 area|z17-[shop=music],
+{icon-image: music-m.svg;icon-min-distance: 24;text-optional: true;}
 node|z17-[shop=video],
 area|z17-[shop=video]
 {icon-image: media-m.svg;icon-min-distance: 24;text-optional: true;}
 node|z17-[shop=musical_instrument],
 area|z17-[shop=musical_instrument]
-{icon-image: music-m.svg;icon-min-distance: 24;text-optional: true;}
+{icon-image: musical-instrument-m.svg;icon-min-distance: 24;text-optional: true;}
 node|z17-[shop=greengrocer],
 area|z17-[shop=greengrocer]
 {icon-image: greengrocer-m.svg;icon-min-distance: 24;text-optional: true;}
