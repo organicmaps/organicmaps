@@ -124,8 +124,6 @@ area[amenity=veterinary],
 node[leisure=playground],
 node[historic=ruins],
 area[historic=ruins],
-node[historic=ship],
-area[historic=ship],
 node[tourism=artwork][artwork_type=sculpture],
 area[tourism=artwork][artwork_type=sculpture],
 node[tourism=caravan_site],
@@ -444,6 +442,9 @@ area|z16-[tourism=attraction][attraction=animal],
 node[tourism=theme_park],
 area[tourism=theme_park]
 {z-index: 2872;}
+node[historic=ship],
+area[historic=ship],
+{z-index: 2873;}
 node[tourism=gallery]
 {z-index: 2874;}
 node[tourism=museum],
