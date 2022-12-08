@@ -1360,7 +1360,7 @@ area|z15[amenity=food_court]
 {icon-image: fastfood-m.svg;icon-min-distance: 28;}
 node|z15[amenity=bar],
 area|z15[amenity=bar]
-{icon-image: beer-m.svg;icon-min-distance: 28;}
+{icon-image: bar-m.svg;icon-min-distance: 28;}
 node|z15[amenity=pub],
 area|z15[amenity=pub],
 node|z15[amenity=biergarten],
@@ -1380,7 +1380,7 @@ area|z16-[amenity=food_court]
 {icon-image: fastfood-m.svg;icon-min-distance: 12;}
 node|z16-[amenity=bar],
 area|z16-[amenity=bar]
-{icon-image: beer-m.svg;icon-min-distance: 12;}
+{icon-image: bar-m.svg;icon-min-distance: 12;}
 node|z16-[amenity=pub],
 area|z16-[amenity=pub],
 node|z16-[amenity=biergarten],
@@ -1915,7 +1915,7 @@ area|z18-[amenity=place_of_worship][religion=taoist]
 
 node|z16-[amenity=nightclub],
 area|z16-[amenity=nightclub]
-{icon-image: bar-m.svg;font-size: 11;}
+{icon-image: nightclub-m.svg;font-size: 11;}
 
 node|z16[amenity=bank],
 area|z16[amenity=bank]
