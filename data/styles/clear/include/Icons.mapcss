@@ -313,6 +313,22 @@ node[healthcare=laboratory],
 area[healthcare=laboratory],
 node[healthcare=physiotherapist],
 area[healthcare=physiotherapist],
+node[healthcare=alternative],
+area[healthcare=alternative],
+node[healthcare=audiologist],
+area[healthcare=audiologist],
+node[healthcare=blood_donation],
+area[healthcare=blood_donation],
+node[healthcare=optometrist],
+area[healthcare=optometrist],
+node[healthcare=podiatrist],
+area[healthcare=podiatrist],
+node[healthcare=psychotherapist],
+area[healthcare=psychotherapist],
+node[healthcare=sample_collection],
+area[healthcare=sample_collection],
+node[healthcare=speech_therapist],
+area[healthcare=speech_therapist],
 node[leisure=swimming_pool],
 area[leisure=swimming_pool],
 area[aeroway=heliport],
@@ -1464,6 +1480,22 @@ node|z17-[healthcare=laboratory],
 area|z17-[healthcare=laboratory],
 node|z17-[healthcare=physiotherapist],
 area|z17-[healthcare=physiotherapist],
+node|z17-[healthcare=alternative],
+area|z17-[healthcare=alternative],
+node|z17-[healthcare=audiologist],
+area|z17-[healthcare=audiologist],
+node|z17-[healthcare=blood_donation],
+area|z17-[healthcare=blood_donation],
+node|z17-[healthcare=optometrist],
+area|z17-[healthcare=optometrist],
+node|z17-[healthcare=podiatrist],
+area|z17-[healthcare=podiatrist],
+node|z17-[healthcare=psychotherapist],
+area|z17-[healthcare=psychotherapist],
+node|z17-[healthcare=sample_collection],
+area|z17-[healthcare=sample_collection],
+node|z17-[healthcare=speech_therapist],
+area|z17-[healthcare=speech_therapist],
 node|z17-[amenity=dentist],
 area|z17-[amenity=dentist],
 node|z17-[amenity=casino],
@@ -1601,8 +1633,6 @@ node|z17[amenity=clinic],
 area|z17[amenity=clinic],
 node|z17[amenity=doctors],
 area|z17[amenity=doctors],
-node|z17[healthcare=laboratory],
-area|z17[healthcare=laboratory],
 {icon-image: hospital-m.svg;icon-min-distance: 4;text-optional: true;}
 node|z18-[amenity=hospital],
 node|z18-[building=hospital],
@@ -1611,9 +1641,13 @@ node|z18-[amenity=clinic],
 area|z18-[amenity=clinic],
 node|z18-[amenity=doctors],
 area|z18-[amenity=doctors],
+{icon-image: hospital-m.svg;font-size: 11;text-optional: true;}
+node|z17[healthcare=laboratory],
+area|z17[healthcare=laboratory],
+{icon-image: sample_collection-m.svg;}
 node|z18-[healthcare=laboratory],
 area|z18-[healthcare=laboratory],
-{icon-image: hospital-m.svg;font-size: 11;text-optional: true;}
+{icon-image: sample_collection-m.svg;font-size: 11;text-optional: true;}
 node|z17[amenity=dentist],
 area|z17[amenity=dentist]
 {icon-image: dentist-m.svg;}
@@ -1626,6 +1660,54 @@ area|z17[healthcare=physiotherapist]
 node|z18-[healthcare=physiotherapist],
 area|z18-[healthcare=physiotherapist]
 {icon-image: physiotherapist-m.svg;font-size: 11;text-optional: true;}
+node|z17[healthcare=alternative],
+area|z17[healthcare=alternative]
+{icon-image: alternative-m.svg;}
+node|z18-[healthcare=alternative],
+area|z18-[healthcare=alternative]
+{icon-image: alternative-m.svg;font-size: 11;text-optional: true;}
+node|z17[healthcare=audiologist],
+area|z17[healthcare=audiologist]
+{icon-image: audiologist-m.svg;}
+node|z18-[healthcare=audiologist],
+area|z18-[healthcare=audiologist]
+{icon-image: audiologist-m.svg;font-size: 11;text-optional: true;}
+node|z17[healthcare=blood_donation],
+area|z17[healthcare=blood_donation]
+{icon-image: blood_donation-m.svg;}
+node|z18-[healthcare=blood_donation],
+area|z18-[healthcare=blood_donation]
+{icon-image: blood_donation-m.svg;font-size: 11;text-optional: true;}
+node|z17[healthcare=optometrist],
+area|z17[healthcare=optometrist]
+{icon-image: optometrist-m.svg;}
+node|z18-[healthcare=optometrist],
+area|z18-[healthcare=optometrist]
+{icon-image: optometrist-m.svg;font-size: 11;text-optional: true;}
+node|z17[healthcare=podiatrist],
+area|z17[healthcare=podiatrist]
+{icon-image: podiatrist-m.svg;}
+node|z18-[healthcare=podiatrist],
+area|z18-[healthcare=podiatrist]
+{icon-image: podiatrist-m.svg;font-size: 11;text-optional: true;}
+node|z17[healthcare=psychotherapist],
+area|z17[healthcare=psychotherapist]
+{icon-image: psychotherapist-m.svg;}
+node|z18-[healthcare=psychotherapist],
+area|z18-[healthcare=psychotherapist]
+{icon-image: psychotherapist-m.svg;font-size: 11;text-optional: true;}
+node|z17[healthcare=sample_collection],
+area|z17[healthcare=sample_collection]
+{icon-image: sample_collection-m.svg;}
+node|z18-[healthcare=sample_collection],
+area|z18-[healthcare=sample_collection]
+{icon-image: sample_collection-m.svg;font-size: 11;text-optional: true;}
+node|z17[healthcare=speech_therapist],
+area|z17[healthcare=speech_therapist]
+{icon-image: speech_therapist-m.svg;}
+node|z18-[healthcare=speech_therapist],
+area|z18-[healthcare=speech_therapist]
+{icon-image: speech_therapist-m.svg;font-size: 11;text-optional: true;}
 
 node|z16-[amenity=veterinary],
 area|z16-[amenity=veterinary]

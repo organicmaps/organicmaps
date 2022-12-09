@@ -4808,6 +4808,318 @@ vi:Nhà vật lý trị liệu
 zh-Hans:物理治疗师
 zh-Hant:物理治療師
 
+healthcare-alternative
+en:alternative medicine
+ar:الطب البديل
+be:Альтэрнатыўная медыцына
+bg:Алтернативна медицина
+cs:Alternativní medicína
+da:Alternativ medicin
+de:Alternative Medizin
+el:Εναλλακτική ιατρική
+es:Medicina alternativa
+et:Alternatiivne meditsiin
+eu:Medikuntza alternatiboa
+fa:طب جایگزین
+fi:Vaihtoehtoinen lääketiede
+fr:Médecine alternative
+he:רפואה אלטרנטיבית
+hu:Alternatív gyógyászat
+id:Pengobatan alternatif
+it:Medicina alternativa
+ja:代替医療
+ko:대체 약품
+mr:पर्यायी औषध
+nb:Alternativ medisin
+nl:Alternatieve geneeskunde
+pl:Medycyna alternatywna
+pt:Medicina alternativa
+pt-BR:Medicina alternativa
+ro:Medicină alternativă
+ru:Альтернативная медицина
+sk:Alternatívna medicína
+sv:Alternativ medicin
+sw:Dawa mbadala
+th:การแพทย์ทางเลือก
+tr:Alternatif tıp
+uk:Альтернативна медицина
+vi:Liều thuốc thay thế
+zh-Hans:替代药物
+zh-Hant:替代藥物
+
+healthcare-audiologist
+en:Audiology|Audiologist
+ar:السمع|السمعيات
+be:Аўдыялогія|Аўдыёлаг
+bg:Аудиология|Аудиолог
+cs:Audiologie|Audiolog
+da:Audiologi|Audiolog
+de:Audiologie|Audiologin|Audiologe
+el:Ακοολογία|Ακουολόγος
+es:Audiología|Audiólogo
+et:Audioloogia|Audioloog
+eu:Audiologia|Audiologoa
+fa:شنوایی شناس|شنوایی شناسی
+fi:Audiologia|Audiologi
+fr:Audiologie|Audiologiste
+he:אודיולוג|אודיולוגיה
+hu:Audiológia|Audiológus
+id:Audiologi|Audiologis
+it:Audiologia|Audiologo
+ja:オーディオロジー|オーディオロジスト
+ko:청력학|청력학자
+mr:ऑडिओलॉजी|ऑडिओलॉजिस्ट
+nb:Audiologi|Audiolog
+nl:Audiologie|Audioloog
+pl:Audiologia|Audiolog
+pt:Audiologia|Audiologista
+pt-BR:Fonoaudiologia|Fonoaudiólogo
+ro:Audiologie|Audiolog
+ru:Аудиология|Аудиолог
+sk:Audiológia|Audiológ
+sv:Audiologi|Audiolog
+sw:Mtaalamu wa kusikia|Audiology
+th:โสตวิทยา|นักโสตสัมผัสวิทยา
+tr:Odyoloji|Odyolog
+uk:Аудіологія|Аудіолог
+vi:Thính học
+zh-Hans:听力学|听力学家
+zh-Hant:聽力學|聽力學家
+
+healthcare-blood_donation
+en:Blood donation center|Blood donation
+ar:مركز التبرع بالدم|تبرع بالدم
+be:Цэнтр донарства крыві|Донарства крыві
+bg:Център за кръводаряване
+cs:Centrum dárcovství krve
+da:Center for bloddonation|Bloddonation
+de:Blutspendezentrum|Blutspende
+el:Κέντρο αιμοδοσίας|Αιμοδοσία
+es:Centro de donación de sangre|Donación de sangre
+et:Vereloovutuskeskus|Veredoonorlus
+eu:Odol Emate Zentroa|Odol ematea
+fa:مرکز اهدای خون|اهدای خون
+fi:Verenluovutuskeskus|Verenluovutus
+fr:Centre de don du sang|Don du sang
+he:מרכז תרומת דם|תרומת דם
+hu:Véradó központ|Véradás
+id:Pusat Donor Darah|Donor darah
+it:Centro di donazione del sangue|Donazione di sangue
+ja:献血センター|献血
+ko:헌혈센터|헌혈
+mr:रक्तदान केंद्र|रक्तदान
+nb:Bloddonasjonssenter|Bloddonasjon
+nl:Bloeddonatiecentrum|Bloeddonatie
+pl:Centrum krwiodawstwa|Oddawanie krwi
+pt:Centro de Doação de Sangue|Doação de sangue
+pt-BR:Hemocentro|Doação de sangue
+ro:Centrul de donare de sânge|Donarea de sânge
+ru:Центр донорства крови|Донорство крови
+sk:Centrum darcovstva krvi|Darovanie krvi
+sv:Centrum för blodgivning|Blodgivning
+sw:Kituo cha Uchangiaji Damu|Utoaji wa damu
+th:ศูนย์รับบริจาคโลหิต|การบริจาคเลือด
+tr:Kan Bağışı Merkezi|Kan Bağışı
+uk:Центр донорства крові|Донорство крові
+vi:Trung tâm hiến máu|Hiến máu
+zh-Hans:献血中心
+zh-Hant:捐血中心|獻血
+
+healthcare-optometrist
+en:Optometry|Optometrist
+ar:قياس البصر|طبيب العيون
+be:Оптаметрыя|Акуліст
+bg:Оптометрия|Оптометрист
+cs:Optometrie|Optometrista
+da:Optometri|Optometrist
+de:Optometrie|
+el:Οπτομετρία|Οπτομέτρης
+es:Optometría|Optometrista
+et:Optomeetria|Optometrist
+eu:Optometria|Optometrista
+fa:بینایی سنجی|اپتومتریست
+fi:Optometria|Optometristi
+fr:Optométrie|Optométriste
+he:אופטומטריה|אופטומטריסט
+hu:Optometria|Optometrista
+id:Optometri|Ahli kacamata
+it:Optometria|Optometrista
+ja:オプトメトリー|オプトメトリスト
+ko:검안|검안사
+mr:ऑप्टोमेट्री|ऑप्टोमेट्रिस्ट
+nb:Optometri|Optometrist
+nl:Optometrie|Optometrist
+pl:Optometria|Optometrysta
+pt:Optometria|Optometrista
+pt-BR:Optometria|Optometrista
+ro:Optometrie|Optometrist
+ru:Оптометрия|Оптометрист
+sk:Optometria|Optometrista
+sv:Optometri|Optometrist
+sw:Optometry|Daktari wa macho
+th:ทัศนมาตรศาสตร์|นักทัศนมาตร
+tr:Optometri|Optometrist
+uk:Оптометрія|Оптометрист
+vi:Khúc xạ nhãn khoa|bác sĩ nhãn khoa
+zh-Hans:验光配镜|验光师
+zh-Hant:驗光|驗光師
+
+healthcare-podiatrist
+en:Podiatry|Podiatrist
+ar:علاج الأرجل|طبيب الأرجل
+be:Подологія|Артапед
+bg:Подиология|Подиатрист
+cs:Podiatrie|Podiatr
+da:Fodterapi|Fodterapeut
+de:Podologie|Podologe|Podologin
+el:Ποδιατρική|Ποδίατρος
+es:Podología|Podólogo
+et:Jalaravi
+eu:Podologia|Podologoa
+fa:پزشکی پا|متخصص پا
+fi:Jalkaterapia|Jalkaterapeutti
+fr:Podologie|Podologue
+he:פודיאטריה|פודיאטר
+hu:Podiatria|Podiatrist
+id:Podiatri|Ahli penyakit kaki
+it:Podologia|Podologo
+ja:足病学|足病医
+ko:발병학|발 전문의
+mr:पोडियाट्री|पोडियाट्रिस्ट
+nb:Fotterapi|Fotterapeut
+nl:Podologie|Podotherapeut
+pl:Podiatria|Podolog
+pt:Podiatria|Podiatra
+pt-BR:Podiatria|Podiatra
+ro:Podiatrie|Podiatru
+ru:Подиатрия|Ортопед
+sk:Podiatria|Podológ
+sv:Fotvård|Fotvårdare
+sw:Matibabu ya miguu|Daktari wa miguu
+th:แก้โรคเท้า|แพทย์โรคเท้า
+tr:Podiatri|Podiatrist
+uk:Подологія
+vi:khoa bàn chân|Bác sĩ chân
+zh-Hans:足科|足科医生
+zh-Hant:足病學|足病醫生
+
+healthcare-psychotherapist
+en:Psychotherapy
+ar:العلاج النفسي|معالج نفسي
+be:Псіхатэрапія|Псіхатэрапеўт
+bg:Психотерапия|Психотерапевт
+cs:Psychoterapie|Psychoterapeut
+da:Psykoterapi|Psykoterapeut
+de:Psychotherapie|Psychotherapeutin|Psychotherapeut
+el:Ψυχοθεραπεία|Ψυχοθεραπευτής
+es:Psicoterapia|Psicoterapeuta
+et:Psühhoteraapia|Psühhoterapeut
+eu:Psikoterapia|Psikoterapeuta
+fa:روان درمانی|روان درمانگر
+fi:Psykoterapia|Psykoterapeutti
+fr:Psychothérapie|Psychothérapeute
+he:פסיכותרפיה|פסיכותרפיסט
+hu:Pszichoterápia|Pszichoterapeuta
+id:Psikoterapi|Psikoterapis
+it:Psicoterapia|Psicoterapeuta
+ja:心理療法|サイコセラピスト
+ko:심리치료|심리 치료사
+mr:मानसोपचार|मानसोपचारतज्ज्ञ
+nb:Psykoterapi|Psykoterapeut
+nl:Psychotherapie|Psychotherapeut
+pl:Psychoterapia|Psychoterapeuta
+pt:Psicoterapia|Psicoterapeuta
+pt-BR:Psicoterapia|Psicoterapeuta
+ro:Psihoterapie|Psihoterapeut
+ru:Психотерапия|Психотерапевт
+sk:Psychoterapia|Psychoterapeut
+sv:Psykoterapi|Psykoterapeut
+sw:Tiba ya kisaikolojia|Mwanasaikolojia
+th:จิตบำบัด|นักจิตบำบัด
+tr:Psikoterapi|Psikoterapist
+uk:Психотерапія|Психотерапевт
+vi:Tâm lý trị liệu|nhà trị liệu tâm lý
+zh-Hans:心理治疗|心理治疗师
+zh-Hant:心理治療|心理治療師
+
+healthcare-sample_collection
+en:Sample collection
+ar:أخذ العينات|جمع العينات
+be:Калекцыя ўзораў
+bg:Вземане на проби|Събиране на проби
+cs:Odběr vzorků|Sběr vzorků
+da:Prøvetagning|Prøveudtagning
+de:Probenahme
+el:Δειγματοληψία|Συλλογή δείγματος
+es:Muestreo|Recogida de muestras
+et:Proovivõtmine|Proovide kogumine
+eu:Laginketa|Lagin-bilketa
+fa:نمونه برداری|مجموعه نمونه
+fi:Näytteenotto
+fr:Prélèvements biologiques|Échantillonnage
+he:דְגִימָה|אוסף דוגמאות
+hu:Mintavétel|Mintavételezés
+id:Pengambilan sampel|Pengumpulan sampel
+it:Campionamento|Raccolta di campioni
+ja:サンプリング|サンプル採取
+ko:견본 추출|샘플 수집
+mr:नमुना|नमुना संकलन
+nb:Prøvetaking|Prøvesamling
+nl:Bemonstering|Monstername
+pl:Próbkowanie|Zbieranie próbek
+pt:Amostragem|Recolha de amostras
+pt-BR:Amostragem|Coleta de amostras
+ro:Eșantionare|Colectarea probelor
+ru:Выборка|Сдача анализов
+sk:Vzorkovanie|Zber vzoriek
+sv:Provtagning|Insamling av prover
+sw:Sampuli|Mkusanyiko wa sampuli
+th:การสุ่มตัวอย่าง|เก็บตัวอย่าง
+tr:Örnekleme|Örnek toplama
+uk:Збір аналізів
+vi:lấy mẫu|Bộ sưu tập mẫu
+zh-Hans:抽样调查|样品收集
+zh-Hant:採樣|樣品採集
+
+healthcare-speech_therapist
+en:Logopedics|Speech therapist|Speech therapy
+ar:علاج النطق|معالج النطق
+be:лагапедыя|Лагапед
+bg:Логопедия|Логопед
+cs:Logopedie|Logoped
+da:Tale terapi|Talepædagog|Talerapi
+de:Logopedie|Logopädin|Logopäde
+el:Λογοθεραπεία|Λογοθεραπευτής
+es:Logopedia|Logopeda
+et:Logopeedia|Logopeed
+eu:Logopedia|Logopeda
+fa:گفتار درمانی|متخصص گفتار درمانی
+fi:Logopedia|Puheterapeutti|Logopedit
+fr:Logopédie|Orthophoniste
+he:ריפוי בדיבור|קלינאי תקשורת
+hu:Logopédia|Logopédus
+id:Logopedik|Terapis bicara
+it:Logopedia|Logopedista
+ja:ロゴペディックス|スピーチセラピスト
+ko:대화 요법|언어 치료사
+mr:स्पीच थेरपी|स्पीच थेरपिस्ट
+nb:Snakketerapi|Taleterapeut
+nl:Logopedie|Logopedist|Spraaktherapie
+pl:Logopeda|Logopedia
+pt:Terapia da fala|Terapeuta da fala
+pt-BR:Terapia da fala|Terapeuta da fala
+ro:Logopedie|Terapeut de vorbire
+ru:Логопедия|Логопед
+sk:Logopédia|Logopéd
+sv:Logopedics|Logoped
+sw:Tiba ya hotuba|Mtaalamu wa hotuba
+th:การบำบัดด้วยการพูด|นักบำบัดการพูด
+tr:Logopedi|Konuşma terapisti
+uk:Логопедія|Логопед
+vi:Ngôn ngữ trị liệu|Trị liệu bằng lời nói
+zh-Hans:言语治疗|语言治疗师
+zh-Hant:言語治療|語言治療師
+
 amenity-hunting_stand
 en:Hunting Stand
 ru:Охотничья вышка
