@@ -1,4 +1,4 @@
-name: iOS Check
+name: iOS Check metadata
 on:
   workflow_dispatch: # Manual trigger
   pull_request:
