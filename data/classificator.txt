@@ -344,6 +344,14 @@ world  +
     healthcare  +
         laboratory  -
         physiotherapist  -
+        alternative -
+        audiologist -
+        blood_donation -
+        optometrist -
+        podiatrist -
+        psychotherapist -
+        sample_collection -
+        speech_therapist -
         {}
     highway  +
         bridleway  +
