@@ -141,5 +141,26 @@ public final class Graphics
     return res;
   }
 
+  @NonNull
+  public static Bitmap drawableToBitmap(@NonNull Drawable drawable)
+  {
+    if (drawable instanceof BitmapDrawable)
+    {
+      final BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
+      if (bitmapDrawable.getBitmap() != null)
+      {
+        return bitmapDrawable.getBitmap();
+      }
+    }
+
+    final int drawableWidth = drawable.getIntrinsicWidth() <= 0 ? 1 : drawable.getIntrinsicWidth();
+    final int drawableHeight = drawable.getIntrinsicHeight() <= 0 ? 1 : drawable.getIntrinsicHeight();
+    final Bitmap bitmap = Bitmap.createBitmap(drawableWidth, drawableHeight, Bitmap.Config.ARGB_8888);
+    final Canvas canvas = new Canvas(bitmap);
+    drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+    drawable.draw(canvas);
+    return bitmap;
+  }
+
   private Graphics() {}
 }

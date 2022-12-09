@@ -17,12 +17,9 @@ import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmFragment;
 import app.organicmaps.util.Config;
 import app.organicmaps.util.Constants;
+import app.organicmaps.util.DateUtils;
 import app.organicmaps.util.Graphics;
 import app.organicmaps.util.Utils;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 public class HelpFragment extends BaseMwmFragment implements View.OnClickListener
 {
@@ -36,22 +33,6 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
       Graphics.tint(view);
   }
 
-  // Converts 220131 to locale-dependent date (e.g. 31 January 2022),
-  private String localDate(long v)
-  {
-    final SimpleDateFormat format = new SimpleDateFormat("yyMMdd", Locale.getDefault());
-    final String strVersion = String.valueOf(v);
-    try {
-      final Date date = format.parse(strVersion);
-      if (date == null)
-        return strVersion;
-      return java.text.DateFormat.getDateInstance().format(date);
-    } catch (java.text.ParseException e) {
-      e.printStackTrace();
-      return strVersion;
-    }
-  }
-
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
   {
@@ -62,7 +43,7 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
         .setText(BuildConfig.VERSION_NAME);
 
     ((TextView) root.findViewById(R.id.data_version))
-        .setText(getString(R.string.data_version, localDate(Framework.nativeGetDataVersion())));
+        .setText(getString(R.string.data_version, DateUtils.getLocalDate(Framework.nativeGetDataVersion())));
 
     setupItem(R.id.news, true, root);
     setupItem(R.id.web, true, root);
