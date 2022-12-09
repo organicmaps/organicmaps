@@ -5502,7 +5502,7 @@
     bg = Сладкарски изделия
     cs = Cukrářské výrobky
     da = Konfekture
-    de = Konditor
+    de = Süßwarenladen
     el = Ζαχαροπλάστης
     es = Confitería
     et = Maiustused
@@ -19085,7 +19085,7 @@
     be = Напоі
     cs = Nápoje
     da = Drikkevarer
-    de = Getränke
+    de = Getränkemarkt
     el = Οινοπνευματώδη
     es = Bebidas
     et = Joogid
@@ -19185,7 +19185,7 @@
     ar = مكتبة لبيع الكتب
     cs = Knihkupectví
     da = Boghandel
-    de = Büchergeschäft
+    de = Buchhandlung
     el = Βιβλιοπωλείο
     es = Librería
     et = Raamatupood
@@ -19548,7 +19548,7 @@
     ar = متجر كمبيوتر
     cs = Obchod s počítači
     da = Computerforretning
-    de = Computergeschäft
+    de = Computerfachgeschäft
     el = Κατάστημα πληροφορικής
     es = Tienda de informática
     et = Arvutipood
@@ -19725,7 +19725,7 @@
     bg = Магазин за деликатеси
     cs = Prodejna lahůdek
     da = Delikatessebutik
-    de = Feinkostgeschäft
+    de = Feinkostladen
     el = Κατάστημα Delicatessen
     es = Tienda de delicatessen
     et = Delikatessipood
@@ -19866,7 +19866,7 @@
     ar = متجر إلكترونيات
     cs = Elektronika
     da = Elektronikbutik
-    de = Elektronik
+    de = Elektrofachgeschäft
     el = Ηλεκτρονικά
     es = Electrónica
     et = Elektroonika
@@ -20079,7 +20079,7 @@
     ar = معرض أثاث
     cs = Nábytek
     da = Møbelbutik
-    de = Möbelgeschäft
+    de = Möbelhaus
     el = Κατάστημα επίπλων
     es = Tienda de muebles
     et = Mööblipood
@@ -20149,7 +20149,7 @@
     ar = متجر هدايا
     cs = Obchod s dárkovým zbožím
     da = Gavebutik
-    de = Geschenkladen
+    de = Geschenkeladen
     el = Είδη δώρου
     es = Tienda de regalos
     et = Kingipood
@@ -20396,7 +20396,7 @@
     ar = مجوهرات
     cs = Klenotnictví
     da = Smykkebutik
-    de = Juweliergeschäft
+    de = Juwelier
     el = Κοσμηματοπωλείο
     es = Joyería
     et = Ehted
@@ -20888,7 +20888,7 @@
     bg = Тестени изделия
     cs = Pečivo
     da = Bagværk
-    de = Gebäck
+    de = Konditorei
     el = Ζύμη
     es = Pastelería
     eu = Gozogintza
