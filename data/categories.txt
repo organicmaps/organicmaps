@@ -647,7 +647,7 @@ cs:peníze
 da:3penge
 nl:geld
 fr:argent
-de:Geld
+de:Geld|Bankfiliale
 hu:pénz
 id:uang
 it:soldi
@@ -903,7 +903,7 @@ cs:2pumpa
 da:3Tankstation
 nl:3Tankstation|3brandstof
 fr:Station-service|3carburant|3essence
-de:Tankstation|Tankstelle
+de:Tankstation|3Tankstelle
 et:3Tankla
 hu:3Benzinkút|benzin
 id:Pompa bensin
@@ -936,7 +936,7 @@ da:3Bager|bageri
 nl:3Bakkerij
 fi:3Leipomo
 fr:3Boulangerie|3Pâtisserie|pain
-de:3Bäckerei|Bäckerladen|Bäcker
+de:3Bäckerei|Bäckerladen|Bäcker|4Konditorei
 hu:3Pékség
 id:Toko roti|Roti
 it:3Panetteria|Panificio|Forno
@@ -1083,7 +1083,7 @@ be:Дэлікатэсы
 bg:Деликатеси
 cs:Lahůdky
 da:Delikatessebutik
-de:Feinkostgeschäft
+de:4Feinkostladen|Feinkostgeschäft
 el:Εκλεκτά τρόφιμα
 es:Delicatesen
 et:Maiustused
@@ -1177,7 +1177,7 @@ da:4Mobiltelefonbutik|elektronikforretning
 nl:4Mobiele telefoonwinkel|elektronicawinkel
 fi:Elektroniikkakauppa
 fr:Magasin de téléphonie|magasin d'électronique
-de:Handyladen|Eletronikgeschäft|Funktelefone|Mobiltelefone
+de:4Handyladen|Eletronikgeschäft|Mobiltelefone
 hu:Mobiltelefon üzlet|elektronikai szaküzlet
 id:Toko telepon
 it:Negozio di telefonia mobile|negozio di elettronica|Negozio di cellulari
@@ -1250,7 +1250,7 @@ da:Slagter|slagterbutik
 nl:Slager|beenhouwer
 fi:Lihakauppias
 fr:4Boucherie|Charcuterie
-de:5Metzgerei|Metzger|Schlachter
+de:5Metzgerei|Metzger|Schlachter|4Fleischhauer
 hu:Hentes|Mészáros
 id:Tukang daging
 it:Macellaio
@@ -1286,7 +1286,7 @@ da:Møbelbutik|møbelforretning|møbelhandler
 nl:4Meubelzaak
 fi:Huonekalukauppa
 fr:Magasin de meubles|Ameublement
-de:5Möbelgeschäft|Möbelhaus
+de:5Möbelhaus|Möbelgeschäft
 hu:Bútoráruház
 id:Toko mebel
 it:Negozio di mobili
@@ -1319,7 +1319,7 @@ be:Крама для кухні
 bg:Магазин за кухня
 cs:Prodejna kuchyní
 da:Køkkenforretning
-de:6Küchengeschäft|Küchenstudio
+de:6Küchenstudio|Küchengeschäft
 el:Κατάστημα κουζίνας
 es:Tienda de cocina
 et:Köögipood
@@ -1471,7 +1471,7 @@ da:4Elektronikbutik|elektronik
 nl:4Elektronicazaak
 fi:4Elektroniikka
 fr:Magasin d'électroménager|4électronique
-de:4Elektronik
+de:4Elektrofachgeschäft|Elektronikgeschäft|Elektrofachhandel
 hu:4Elektronika
 id:4Elektronik
 it:Negozio di elettronica
@@ -1507,7 +1507,7 @@ da:Isenkræmmer|Byggemarked
 nl:Ijzerhandel|Bouwmarkt
 fi:Rautakauppa|Työkalukauppa
 fr:Quincaillerie|bricolage
-de:5Eisenwarengeschäft|3Baumarkt|Heimwerkermarkt|Eisenwarenhandlung
+de:5Eisenwarengeschäft|3Baumarkt|4Heimwerkermarkt|Eisenwarenhandlung
 hu:Vas-műszaki bolt|Vaskereskedés|Barkácsüzlet|ezermester
 id:Toko perangkat keras|bahan bangunan
 it:Ferramenta|bricolage
@@ -1544,7 +1544,7 @@ da:Smykkebutik|smykker|4juveler
 nl:4Juwelier
 fi:Korukauppa
 fr:4Bijouterie
-de:Juweliergeschäft|4Juwelier|Schmuck
+de:4Juwelier|Juweliergeschäft|Schmuck
 hu:Ékszer
 id:Perhiasan
 it:Gioielleria
@@ -1617,7 +1617,7 @@ da:Gavebutik|4souvenirbutik
 nl:Cadeauwinkel
 fi:Lahjatavaraliike
 fr:Boutique de souvenirs|cadeaux
-de:5Geschenkladen|Geschenke|Geschenkartikelladen|Andenkenladen|Andenken|Präsente|Mitbringsel
+de:5Geschenkeladen|Geschenke|Geschenkartikelladen|5Andenkenladen|Andenken|Präsente|4Mitbringsel|4Souvenirladen
 hu:Ajándékbolt|4Souvenir|Szuvenír
 id:Toko hadiah
 it:Negozio di regali
@@ -1653,7 +1653,7 @@ da:Skønhedssalon
 nl:Schoonheidssalon
 fi:Kauneushoitola
 fr:Salon de beauté|Institut de beauté
-de:Schönheitssalon|Schönheitsshop|Kosmetiker|Friseur|Frisör|Haarschnitt|Kosmetikstudio|Friseursalon|Kosmetiksalon|Nagelstudio|Färbung
+de:5Schönheitssalon|Schönheitsshop|Kosmetiker|Friseur|Frisör|Haarschnitt|Kosmetikstudio|Friseursalon|Kosmetiksalon|Nagelstudio|Färbung
 hu:Szépségszalon
 id:Salon kecantikan
 it:Estetista|Salone di bellezza
@@ -1876,7 +1876,7 @@ da:4Drikkevarer
 nl:Drank|slijterij
 fi:Juomat
 fr:4Boissons
-de:5Getränke
+de:5Getränkemarkt
 hu:Italok|üdítők
 id:Minuman
 it:4Bibite|bevande
@@ -1912,7 +1912,7 @@ da:Computerforretning|4computerbutik|computer
 nl:4Computerwinkel
 fi:Tietokonekauppa
 fr:Magasin d'informatique
-de:4Computergeschäft
+de:4Computerfachgeschäft
 hu:Számítógépüzlet
 id:Toko komputer
 it:Negozio di computer|negozio di articoli informatici
@@ -1949,7 +1949,7 @@ da:Slikbutik|slikforretning|konfektureforretning|slik|konfekt
 nl:Banketbakker|snoepwinkel
 fi:Makeiskauppa
 fr:Pâtisserie|confiserie
-de:3Süßwarengeschäft|Süßwaren|Süßwarenladen|4Süßigkeiten|Konditorei|Gebäck|Konfiserie|Kiosk
+de:3Süßwarenladen|Süßwarengeschäft|Süßwaren|4Süßigkeiten|4Konfiserie
 hu:Cukrászüzlet|édességbolt
 id:Penganan|manisan
 it:Pasticceria|drogheria
@@ -2321,7 +2321,7 @@ da:2Busstation|2bus|station
 nl:Busstation|2bus|station
 fi:3Linja-autoasema|3Bussiasema
 fr:Gare routière|2bus|2autobus|arrêt
-de:3Busbahnhof|Haltestelle|Bus|Autobus|ÖPNV
+de:3Busbahnhof|Bushaltestelle|Haltestelle|Bus|Autobus|ÖPNV
 hu:2Buszpályaudvar|Buszállomás|2busz|megálló
 id:3Stasiun bus
 it:5Autostazione|4fermata|autobus
@@ -2507,7 +2507,7 @@ da:3Rådhus
 nl:3Gemeentehuis
 fi:Kaupungintalo
 fr:3Mairie
-de:3Rathaus
+de:3Rathaus|4Gemeindeamt
 hu:3Városháza|Községháza|Önkormányzat
 id:3Balai kota
 it:3Municipio
@@ -2766,7 +2766,7 @@ da:4Kirke|tempel|kultsted
 nl:Kerk|tempel|kathedraal|gebedsplaats|gebedshuis
 fi:4Kirkko|uskonnollinen kohde
 fr:3Église|lieu de culte|temple|basilique
-de:4Kirche|Dom|3Kathedrale|4Münster|Anbetungsstätte|Tempel
+de:4Kirche|Dom|3Kathedrale|4Münster|Anbetungsstätte|
 hu:Templom|Székesegyház|Katedrális|Dóm|Bazilika|Istentiszteleti hely
 id:Gereja|tempat ibadah
 it:Chiesa|duomo|4cattedrale|tempio|basilica
@@ -2802,7 +2802,7 @@ da:4Moske|tempel|kultsted
 nl:4Moskee|tempel|gebedsplaats|gebedshuis
 fi:4Moskeija|uskonnollinen kohde
 fr:4Mosquée|lieu de culte|temple
-de:4Moschee|Tekke|Anbetungsstätte|Tempel
+de:4Moschee|Tekke|Anbetungsstätte
 hu:Mecset
 id:4Masjid|tempat ibadah
 it:4Moschea|duomo|tempio
@@ -4560,7 +4560,7 @@ cs:klinika|pohotovost|zdravotnické centrum|3lékař|4doktor
 da:sygehus
 nl:kliniek|hospitaal|3dokter|3eerste hulp
 fr:clinique|3médecin|3docteur
-de:Spital|Klinik|3Arzt|Doktor|Medizinische Einrichtung|Medizinisches Zentrum|Gesundheitswesen|3Ambulanz|Gesundheitsdienstleistungen|Erste Hilfe
+de:4Spital|Klinik|3Arzt|Doktor|Medizinische Einrichtung|Medizinisches Zentrum|Gesundheitswesen|3Ambulanz|Gesundheitsdienstleistungen|Erste Hilfe
 et:Haigla|kliinik|3arst|meditsiinikeskus|terviseteenused|esmaabi
 hu:rendelőintézet|3orvos
 ja:クリニック|医師|医者|ドクター|救急|診療
@@ -4694,7 +4694,7 @@ be:Медыцынская лабараторыя
 bg:Медицинска лаборатория
 cs:Lékařská laboratoř
 da:Medicinsk laboratorium
-de:Medizinisches Labor
+de:5Medizinisches Labor|3Labor
 el:Ιατρικό Εργαστήριο
 es:Laboratorio médico
 et:Meditsiinilabor|labor
@@ -4773,7 +4773,7 @@ da:Jagtsted|hochsitz
 nl:Jachtplaats|jaagplek
 fi:Metsästyspaikka
 fr:Mirador
-de:Hochsitz|Anstand
+de:4Hochsitz|Anstand|4Jägerstand
 hu:Magasles
 id:Lokasi berburu
 it:Torre di caccio
@@ -9131,7 +9131,7 @@ be:Кандытар
 bg:Сладкарски изделия
 cs:Cukrářské výrobky
 da:Konfekture
-de:Konditor
+de:Süßwarenladen
 el:Ζαχαροπλάστης
 es:Confitería
 et:Kondiiter
@@ -9246,7 +9246,7 @@ be:Садоўнік
 bg:Градинар
 cs:Zahradník
 da:Gartner
-de:Landschaftsgärtner|Gärtnerei
+de:Landschaftsgärtner|4Gärtnerei
 el:Κηπουρός
 es:Paisajista
 et:Aednik
@@ -9284,7 +9284,7 @@ be:Рамесніцтва
 bg:Занаят
 cs:Ruční práce
 da:Kunsthåndværk
-de:Kunsthandwerk
+de:4Kunsthandwerk
 el:Χειροτεχνία
 es:Artesanía
 et:Käsitöö
@@ -9322,7 +9322,7 @@ be:Ацяпленне, вентыляцыя і кандыцыянаванне
 bg:Отопление, вентилация и климатизация
 cs:HVAC
 da:Blikkenslager
-de:Heizung, Lüftung und Klimatisierung
+de:4Heizung, Lüftung und Klimatisierung
 el:Ψυκτικός
 es:Aire acondicionado
 et:Õhkkonditsioneer
@@ -9360,7 +9360,7 @@ be:5Металаканструкцыі
 bg:5Метални конструкции|металургия|ковач|метал|занаят
 cs:Kovodílna
 da:5Metalarbejder
-de:Schlosser
+de:4Schlosser
 el:5Μεταλλουργός
 es:Trabajador del metal
 et:5Metallitööline
@@ -9475,7 +9475,7 @@ be:Вадаправодчык
 bg:Водопроводчик
 cs:Instalatér
 da:VVS-mand
-de:Installateur
+de:5Installateur
 el:Υδραυλικός
 es:Fontanero
 et:Santehnik
@@ -9514,7 +9514,7 @@ be:Лесапільня
 bg:Дъскорезница
 cs:Pila
 da:Savværk
-de:Sägewerk
+de:4Sägewerk
 el:Πριστήριο
 es:Serrería
 et:Saeveski
@@ -9591,7 +9591,7 @@ be:Вінакурня
 bg:Винарна
 cs:Vinařství
 da:Vingård
-de:4Weingut
+de:4Weingut|3Winzer|Weinbauer
 el:Οινοποιείο
 es:4Bodega|Vino
 et:Veinikelder
