@@ -546,7 +546,7 @@
     ar = مكان نزهة
     cs = Piknik
     da = Picnic
-    de = Picknickplatz
+    de = Grillplatz
     el = Χώρος εκδρομής
     es = Picnic
     et = Piknikuala
@@ -16160,7 +16160,7 @@
     ar = مكتب محامي
     cs = Právní kancelář
     da = Advokatkontor
-    de = Anwaltsbüro
+    de = Anwaltskanzlei
     el = Δικηγόρος
     es = Despacho de abogados
     et = Advokaat
@@ -19393,6 +19393,7 @@
   [type.shop.caravan]
     en = RV Dealership
     be = Продаж аўтадамоў
+    de = Wohnmobilhändler
     es = Concesionario de caravanas
     et = Haagiselamute müük
     fr = Concessionnaire de caravanes et camping-cars
@@ -19972,7 +19973,7 @@
     bg = Магазин за селскостопански храни
     cs = Prodejna farmářských potravin
     da = Farm Food Shop
-    de = Hoflebensmittelladen
+    de = Hofladen
     el = Κατάστημα Αγροτικών Τροφίμων
     es = Tienda de alimentos de granja
     et = Talutoitude pood
@@ -21555,7 +21556,7 @@
     ar = متجر مشروبات روحية
     cs = Vinařství
     da = Vinhandel
-    de = Wein- und Spirituosengeschäft
+    de = Weinhandlung
     el = Οινοπωλείο
     es = Tienda de vinos
     et = Veinipood
@@ -22010,7 +22011,7 @@
     bg = Вътрешни декорации
     cs = Interiérové dekorace
     da = Indvendige dekorationer
-    de = Innendekorationen
+    de = Einrichtungsgeschäft
     el = Διακοσμήσεις εσωτερικών χώρων
     es = Decoración de interiores
     et = Sisekujunduse kaunistused
