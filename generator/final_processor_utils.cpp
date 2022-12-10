@@ -1,36 +1,31 @@
 #include "generator/final_processor_utils.hpp"
 
-#include "indexer/feature_data.hpp"
-
-#include "base/stl_helpers.hpp"
-
 #include <algorithm>
 #include <fstream>
 #include <iterator>
 #include <mutex>
 #include <tuple>
-#include <utility>
 
 namespace generator
 {
-using namespace base::thread_pool::computational;
 using namespace feature;
 
-ProcessorCities::ProcessorCities(std::string const & temporaryMwmPath,
+ProcessorCities::ProcessorCities(std::string const & collectorFilename,
                                  AffiliationInterface const & affiliation,
-                                 PlaceHelper & citiesHelper, size_t threadsCount)
-  : m_temporaryMwmPath(temporaryMwmPath)
+                                 size_t threadsCount)
+  : m_processor(collectorFilename)
   , m_affiliation(affiliation)
-  , m_citiesHelper(citiesHelper)
   , m_threadsCount(threadsCount)
 {
 }
 
-void ProcessorCities::Process()
+void ProcessorCities::Process(std::string const & mwmPath)
 {
   std::mutex mutex;
   std::vector<FeatureBuilder> allCities;
-  ForEachMwmTmp(m_temporaryMwmPath, [&](auto const & country, auto const & path)
+  auto const & localityChecker = ftypes::IsLocalityChecker::Instance();
+
+  ForEachMwmTmp(mwmPath, [&](auto const & country, auto const & path)
   {
     if (!m_affiliation.HasCountryByName(country))
       return;
@@ -39,57 +34,24 @@ void ProcessorCities::Process()
     FeatureBuilderWriter<serialization_policy::MaxAccuracy> writer(path, true /* mangleName */);
     ForEachFeatureRawFormat<serialization_policy::MaxAccuracy>(path, [&](FeatureBuilder && fb, uint64_t)
     {
-      if (PlaceHelper::IsPlace(fb))
-        cities.emplace_back(std::move(fb));
-      else
+      if (localityChecker.GetType(fb.GetTypes()) < ftypes::LocalityType::City)
         writer.Write(std::move(fb));
+      else
+        cities.emplace_back(std::move(fb));
     });
 
     std::lock_guard<std::mutex> lock(mutex);
     std::move(std::begin(cities), std::end(cities), std::back_inserter(allCities));
   }, m_threadsCount);
 
+  /// @todo Do we need tmp vector and additional ordering here?
   Order(allCities);
   for (auto & city : allCities)
-    m_citiesHelper.Process(std::move(city));
+    m_processor.Add(std::move(city));
 
-  AppendToMwmTmp(m_citiesHelper.GetFeatures(), m_affiliation, m_temporaryMwmPath, m_threadsCount);
+  AppendToMwmTmp(m_processor.ProcessPlaces(), m_affiliation, mwmPath, m_threadsCount);
 }
 
-PlaceHelper::PlaceHelper()
-  : m_table(std::make_shared<OsmIdToBoundariesTable>())
-  , m_processor(m_table)
-{
-}
-
-PlaceHelper::PlaceHelper(std::string const & filename)
-  : PlaceHelper()
-{
-  ForEachFeatureRawFormat<serialization_policy::MaxAccuracy>(filename, [&](FeatureBuilder && fb, uint64_t)
-  {
-    m_processor.Add(std::move(fb));
-  });
-}
-
-// static
-bool PlaceHelper::IsPlace(feature::FeatureBuilder const & fb)
-{
-  auto const type = GetPlaceType(fb);
-  return type != ftype::GetEmptyValue() && !fb.GetName().empty() && NeedProcessPlace(fb);
-}
-
-bool PlaceHelper::Process(feature::FeatureBuilder && fb)
-{
-  m_processor.Add(std::move(fb));
-  return true;
-}
-
-std::vector<feature::FeatureBuilder> PlaceHelper::GetFeatures()
-{
-  return m_processor.ProcessPlaces();
-}
-
-std::shared_ptr<OsmIdToBoundariesTable> PlaceHelper::GetTable() const { return m_table; }
 
 bool Less(FeatureBuilder const & lhs, FeatureBuilder const & rhs)
 {
@@ -135,7 +97,7 @@ std::vector<std::vector<std::string>> GetAffiliations(std::vector<FeatureBuilder
                                                       AffiliationInterface const & affiliation,
                                                       size_t threadsCount)
 {
-  ThreadPool pool(threadsCount);
+  base::thread_pool::computational::ThreadPool pool(threadsCount);
   std::vector<std::future<std::vector<std::string>>> futuresAffiliations;
   for (auto const & fb : fbs)
   {

@@ -256,8 +256,8 @@ string FeatureParamsBase::DebugString() const
 {
   string const utf8name = DebugPrint(name);
   return ((!utf8name.empty() ? "Name:" + utf8name : "") +
-          (layer != LAYER_EMPTY ? " Layer:" + DebugPrint(layer) : "") +
-          (rank != 0 ? " Rank:" + DebugPrint(rank) : "") +
+          (layer != LAYER_EMPTY ? " Layer:" + DebugPrint((int)layer) : "") +
+          (rank != 0 ? " Rank:" + DebugPrint((int)rank) : "") +
           (!house.IsEmpty() ? " House:" + house.Get() : "") +
           (!ref.empty() ? " Ref:" + ref : ""));
 }
@@ -371,8 +371,7 @@ void FeatureParams::SetGeomType(feature::GeomType t)
 
 void FeatureParams::SetGeomTypePointEx()
 {
-  ASSERT(m_geomType == HeaderGeomType::Point ||
-         m_geomType == HeaderGeomType::PointEx, ());
+  ASSERT(m_geomType == HeaderGeomType::Point || m_geomType == HeaderGeomType::PointEx, ());
   ASSERT(!house.IsEmpty(), ());
 
   m_geomType = HeaderGeomType::PointEx;
@@ -467,7 +466,7 @@ bool FeatureParams::PopExactType(uint32_t t)
 
 bool FeatureParams::IsTypeExist(uint32_t t) const
 {
-  return (find(m_types.begin(), m_types.end(), t) != m_types.end());
+  return base::IsExist(m_types, t);
 }
 
 bool FeatureParams::IsTypeExist(uint32_t comp, uint8_t level) const

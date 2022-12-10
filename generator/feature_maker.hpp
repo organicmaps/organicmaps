@@ -26,9 +26,6 @@ protected:
   bool BuildFromRelation(OsmElement & element, FeatureBuilderParams const & params) override;
   /// @}
 
-protected:
-  virtual bool IsMaxRelationAreaMode(FeatureBuilderParams const &) const { return false; }
-
   /// @return Any origin mercator point (prefer nodes) that belongs to \a e.
   std::optional<m2::PointD> GetOrigin(OsmElement const & e) const;
 
@@ -40,7 +37,7 @@ protected:
 class FeatureMaker : public FeatureMakerSimple
 {
 public:
-  using FeatureMakerSimple::FeatureMakerSimple;
+  explicit FeatureMaker(IDRInterfacePtr const & cache = {});
 
   /// @name FeatureMakerBase overrides:
   /// @{
@@ -48,9 +45,10 @@ public:
 
 protected:
   void ParseParams(FeatureBuilderParams & params, OsmElement & element) const override;
+  bool BuildFromRelation(OsmElement & p, FeatureBuilderParams const & params) override;
   /// @}
 
-  /// @name FeatureMakerSimple overrides:
-  bool IsMaxRelationAreaMode(FeatureBuilderParams const &) const override;
+private:
+  uint32_t m_placeClass;
 };
 }  // namespace generator

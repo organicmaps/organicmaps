@@ -1,0 +1,218 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<osm version='0.6' generator='JOSM'>
+  <node id='382805714' timestamp='2009-04-24T03:52:39Z' uid='36121' user='Chris Lawrence' visible='true' version='1' changeset='922338' lat='26.634736' lon='-80.043604' />
+  <node id='382805716' timestamp='2009-04-24T03:52:39Z' uid='36121' user='Chris Lawrence' visible='true' version='1' changeset='922338' lat='26.623592' lon='-80.043757' />
+  <node id='382805717' timestamp='2011-04-30T01:49:34Z' uid='230350' user='westendguy' visible='true' version='2' changeset='8008128' lat='26.6158732' lon='-80.043711' />
+  <node id='382805719' timestamp='2011-04-30T01:49:34Z' uid='230350' user='westendguy' visible='true' version='2' changeset='8008128' lat='26.6157102' lon='-80.0414258' />
+  <node id='382805720' timestamp='2011-04-30T01:49:34Z' uid='230350' user='westendguy' visible='true' version='2' changeset='8008128' lat='26.6155471' lon='-80.0389152' />
+  <node id='382805723' timestamp='2011-04-30T01:49:34Z' uid='230350' user='westendguy' visible='true' version='2' changeset='8008128' lat='26.6154032' lon='-80.0356' />
+  <node id='382805725' timestamp='2009-04-24T03:52:39Z' uid='36121' user='Chris Lawrence' visible='true' version='1' changeset='922338' lat='26.612948' lon='-80.035397' />
+  <node id='382805726' timestamp='2011-04-30T01:49:34Z' uid='230350' user='westendguy' visible='true' version='2' changeset='8008128' lat='26.6119117' lon='-80.035482' />
+  <node id='382805730' timestamp='2011-04-30T01:49:34Z' uid='230350' user='westendguy' visible='true' version='2' changeset='8008128' lat='26.6119501' lon='-80.0399452' />
+  <node id='382805731' timestamp='2011-04-30T01:49:34Z' uid='230350' user='westendguy' visible='true' version='2' changeset='8008128' lat='26.6119884' lon='-80.0439363' />
+  <node id='382805732' timestamp='2009-04-24T03:52:39Z' uid='36121' user='Chris Lawrence' visible='true' version='1' changeset='922338' lat='26.606074' lon='-80.044671' />
+  <node id='382805733' timestamp='2011-04-30T02:25:44Z' uid='230350' user='westendguy' visible='true' version='2' changeset='8008130' lat='26.5939152' lon='-80.0458782' />
+  <node id='382805882' timestamp='2011-04-23T22:52:01Z' uid='230350' user='westendguy' visible='true' version='2' changeset='7948232' lat='26.6444232' lon='-80.0434769' />
+  <node id='382805912' timestamp='2011-04-30T02:25:44Z' uid='230350' user='westendguy' visible='true' version='2' changeset='8008130' lat='26.5939152' lon='-80.0435179' />
+  <node id='382805913' timestamp='2009-04-24T03:52:59Z' uid='36121' user='Chris Lawrence' visible='true' version='1' changeset='922344' lat='26.595174' lon='-80.043176' />
+  <node id='382805914' timestamp='2009-04-24T03:52:59Z' uid='36121' user='Chris Lawrence' visible='true' version='1' changeset='922344' lat='26.595817' lon='-80.042657' />
+  <node id='382805915' timestamp='2009-04-24T03:52:59Z' uid='36121' user='Chris Lawrence' visible='true' version='1' changeset='922344' lat='26.596123' lon='-80.042049' />
+  <node id='382805916' timestamp='2009-04-24T03:52:59Z' uid='36121' user='Chris Lawrence' visible='true' version='1' changeset='922344' lat='26.596273' lon='-80.040994' />
+  <node id='382805917' timestamp='2009-04-24T03:52:59Z' uid='36121' user='Chris Lawrence' visible='true' version='1' changeset='922344' lat='26.596109' lon='-80.040439' />
+  <node id='382805918' timestamp='2009-04-24T03:52:59Z' uid='36121' user='Chris Lawrence' visible='true' version='1' changeset='922344' lat='26.595561' lon='-80.040046' />
+  <node id='382805919' timestamp='2011-04-30T02:25:34Z' uid='230350' user='westendguy' visible='true' version='2' changeset='8008130' lat='26.5945772' lon='-80.0400203' />
+  <node id='382806505' timestamp='2009-04-24T03:53:24Z' uid='36121' user='Chris Lawrence' visible='true' version='1' changeset='922344' lat='26.707216' lon='-80.04589' />
+  <node id='382806506' timestamp='2009-04-24T03:53:24Z' uid='36121' user='Chris Lawrence' visible='true' version='1' changeset='922344' lat='26.710369' lon='-80.0459' />
+  <node id='382806507' timestamp='2009-04-24T03:53:24Z' uid='36121' user='Chris Lawrence' visible='true' version='1' changeset='922344' lat='26.710465' lon='-80.045901' />
+  <node id='382806508' timestamp='2009-04-24T03:53:24Z' uid='36121' user='Chris Lawrence' visible='true' version='1' changeset='922344' lat='26.710796' lon='-80.045903' />
+  <node id='382806509' timestamp='2009-04-24T03:53:24Z' uid='36121' user='Chris Lawrence' visible='true' version='1' changeset='922344' lat='26.711294' lon='-80.045908' />
+  <node id='382806510' timestamp='2009-04-24T03:53:24Z' uid='36121' user='Chris Lawrence' visible='true' version='1' changeset='922344' lat='26.712456' lon='-80.045969' />
+  <node id='382806511' timestamp='2009-04-24T03:53:24Z' uid='36121' user='Chris Lawrence' visible='true' version='1' changeset='922344' lat='26.714342' lon='-80.046068' />
+  <node id='382806512' timestamp='2009-04-24T03:53:24Z' uid='36121' user='Chris Lawrence' visible='true' version='1' changeset='922344' lat='26.716142' lon='-80.046163' />
+  <node id='382806513' timestamp='2009-04-24T03:53:24Z' uid='36121' user='Chris Lawrence' visible='true' version='1' changeset='922344' lat='26.718246' lon='-80.046259' />
+  <node id='382806514' timestamp='2009-04-24T03:53:24Z' uid='36121' user='Chris Lawrence' visible='true' version='1' changeset='922344' lat='26.71934' lon='-80.046241' />
+  <node id='382806515' timestamp='2009-04-24T03:53:24Z' uid='36121' user='Chris Lawrence' visible='true' version='1' changeset='922344' lat='26.72232' lon='-80.046177' />
+  <node id='382806516' timestamp='2009-04-24T03:53:24Z' uid='36121' user='Chris Lawrence' visible='true' version='1' changeset='922344' lat='26.724197' lon='-80.046126' />
+  <node id='382806517' timestamp='2009-04-24T03:53:24Z' uid='36121' user='Chris Lawrence' visible='true' version='1' changeset='922344' lat='26.733319' lon='-80.045937' />
+  <node id='382806518' timestamp='2009-04-24T03:53:24Z' uid='36121' user='Chris Lawrence' visible='true' version='1' changeset='922344' lat='26.735416' lon='-80.045886' />
+  <node id='382806519' timestamp='2009-04-24T03:53:24Z' uid='36121' user='Chris Lawrence' visible='true' version='1' changeset='922344' lat='26.736304' lon='-80.045866' />
+  <node id='382806520' timestamp='2009-04-24T03:53:24Z' uid='36121' user='Chris Lawrence' visible='true' version='1' changeset='922344' lat='26.736541' lon='-80.045862' />
+  <node id='382806521' timestamp='2009-04-24T03:53:24Z' uid='36121' user='Chris Lawrence' visible='true' version='1' changeset='922344' lat='26.752564' lon='-80.047345' />
+  <node id='382806522' timestamp='2009-04-24T03:53:24Z' uid='36121' user='Chris Lawrence' visible='true' version='1' changeset='922344' lat='26.755421' lon='-80.047647' />
+  <node id='382806523' timestamp='2009-04-24T03:53:24Z' uid='36121' user='Chris Lawrence' visible='true' version='1' changeset='922344' lat='26.759398' lon='-80.048055' />
+  <node id='382806524' timestamp='2011-04-23T22:31:57Z' uid='230350' user='westendguy' visible='true' version='2' changeset='7948232' lat='26.7633047' lon='-80.0484497' />
+  <node id='382806525' timestamp='2009-04-24T03:53:25Z' uid='36121' user='Chris Lawrence' visible='true' version='1' changeset='922344' lat='26.77014' lon='-80.049063' />
+  <node id='382806526' timestamp='2009-04-24T03:53:25Z' uid='36121' user='Chris Lawrence' visible='true' version='1' changeset='922344' lat='26.76974' lon='-80.047063' />
+  <node id='382806527' timestamp='2009-04-24T03:53:25Z' uid='36121' user='Chris Lawrence' visible='true' version='1' changeset='922344' lat='26.77244' lon='-80.039063' />
+  <node id='382806529' timestamp='2011-04-19T04:56:11Z' uid='230350' user='westendguy' visible='true' version='2' changeset='7903202' lat='26.7726225' lon='-80.0375293' />
+  <node id='382806531' timestamp='2011-04-19T04:56:11Z' uid='230350' user='westendguy' visible='true' version='2' changeset='7903202' lat='26.7723638' lon='-80.0307058' />
+  <node id='382806532' timestamp='2009-04-24T03:53:25Z' uid='36121' user='Chris Lawrence' visible='true' version='1' changeset='922344' lat='26.755412' lon='-80.030565' />
+  <node id='382806533' timestamp='2009-04-24T03:53:25Z' uid='36121' user='Chris Lawrence' visible='true' version='1' changeset='922344' lat='26.72194' lon='-80.030363' />
+  <node id='382806534' timestamp='2009-04-24T03:53:25Z' uid='36121' user='Chris Lawrence' visible='true' version='1' changeset='922344' lat='26.721842' lon='-80.030362' />
+  <node id='382806535' timestamp='2009-04-24T03:53:25Z' uid='36121' user='Chris Lawrence' visible='true' version='1' changeset='922344' lat='26.719031' lon='-80.030471' />
+  <node id='382806536' timestamp='2009-04-24T03:53:25Z' uid='36121' user='Chris Lawrence' visible='true' version='1' changeset='922344' lat='26.707417' lon='-80.030911' />
+  <node id='382806537' timestamp='2009-04-24T03:53:25Z' uid='36121' user='Chris Lawrence' visible='true' version='1' changeset='922344' lat='26.700742' lon='-80.03118' />
+  <node id='382806538' timestamp='2009-04-24T03:53:25Z' uid='36121' user='Chris Lawrence' visible='true' version='1' changeset='922344' lat='26.675974' lon='-80.03214' />
+  <node id='382806539' timestamp='2009-04-24T03:53:25Z' uid='36121' user='Chris Lawrence' visible='true' version='1' changeset='922344' lat='26.647044' lon='-80.033263' />
+  <node id='382806540' timestamp='2009-04-24T03:53:25Z' uid='36121' user='Chris Lawrence' visible='true' version='1' changeset='922344' lat='26.615445' lon='-80.032563' />
+  <node id='382806541' timestamp='2009-04-24T03:53:25Z' uid='36121' user='Chris Lawrence' visible='true' version='1' changeset='922344' lat='26.614952' lon='-80.032578' />
+  <node id='382806542' timestamp='2009-04-24T03:53:25Z' uid='36121' user='Chris Lawrence' visible='true' version='1' changeset='922344' lat='26.612146' lon='-80.032663' />
+  <node id='382806543' timestamp='2009-04-24T03:53:25Z' uid='36121' user='Chris Lawrence' visible='true' version='1' changeset='922344' lat='26.594446' lon='-80.031163' />
+  <node id='382806544' timestamp='2009-04-24T03:53:25Z' uid='36121' user='Chris Lawrence' visible='true' version='1' changeset='922344' lat='26.594346' lon='-80.036363' />
+  <node id='382806546' timestamp='2009-04-24T03:53:25Z' uid='36121' user='Chris Lawrence' visible='true' version='1' changeset='922344' lat='26.66876' lon='-80.045845' />
+  <node id='382806547' timestamp='2009-04-24T03:53:25Z' uid='36121' user='Chris Lawrence' visible='true' version='1' changeset='922344' lat='26.675526' lon='-80.046662' />
+  <node id='382806548' timestamp='2009-04-24T03:53:25Z' uid='36121' user='Chris Lawrence' visible='true' version='1' changeset='922344' lat='26.690443' lon='-80.046363' />
+  <node id='382806549' timestamp='2009-04-24T03:53:25Z' uid='36121' user='Chris Lawrence' visible='true' version='1' changeset='922344' lat='26.700735' lon='-80.046027' />
+  <node id='830769186' timestamp='2010-07-24T02:01:49Z' uid='207745' user='NE2' visible='true' version='1' changeset='5300348' lat='26.705925' lon='-80.045887' />
+  <node id='4419891621' timestamp='2020-02-17T17:33:05Z' uid='7035337' user='floridaeditor' visible='true' version='7' changeset='81128947' lat='26.7056172' lon='-80.0361517'>
+    <tag k='name' v='Palm Beach' />
+    <tag k='place' v='village' />
+    <tag k='population' v='8612' />
+    <tag k='wikidata' v='Q695411' />
+  </node>
+  <way id='33541641' timestamp='2022-03-14T00:25:49Z' uid='219297' user='ZeLonewolf' visible='true' version='11' changeset='118449421'>
+    <nd ref='382806531' />
+    <nd ref='382806532' />
+    <nd ref='382806533' />
+    <nd ref='382806534' />
+    <nd ref='382806535' />
+    <nd ref='382806536' />
+    <nd ref='382806537' />
+    <nd ref='382806538' />
+    <nd ref='382806539' />
+    <nd ref='382806540' />
+    <nd ref='382806541' />
+    <nd ref='382806542' />
+    <nd ref='382806543' />
+    <tag k='border_type' v='town' />
+    <tag k='source' v='TIGER/Line® 2008 Place Shapefiles (http://www.census.gov/geo/www/tiger/)' />
+    <tag k='tiger:reviewed' v='no' />
+  </way>
+  <way id='474447659' timestamp='2022-03-14T00:54:00Z' uid='219297' user='ZeLonewolf' visible='true' version='2' changeset='118449421'>
+    <nd ref='382805882' />
+    <nd ref='382806546' />
+    <nd ref='382806547' />
+    <nd ref='382806548' />
+    <nd ref='382806549' />
+    <nd ref='830769186' />
+    <nd ref='382806505' />
+    <nd ref='382806506' />
+    <nd ref='382806507' />
+    <nd ref='382806508' />
+    <nd ref='382806509' />
+    <nd ref='382806510' />
+    <nd ref='382806511' />
+    <nd ref='382806512' />
+    <nd ref='382806513' />
+    <nd ref='382806514' />
+    <nd ref='382806515' />
+    <nd ref='382806516' />
+    <nd ref='382806517' />
+    <nd ref='382806518' />
+    <nd ref='382806519' />
+    <nd ref='382806520' />
+    <nd ref='382806521' />
+    <nd ref='382806522' />
+    <nd ref='382806523' />
+    <nd ref='382806524' />
+    <tag k='border_type' v='town' />
+    <tag k='source' v='TIGER/Line® 2008 Place Shapefiles (http://www.census.gov/geo/www/tiger/)' />
+    <tag k='tiger:reviewed' v='no' />
+  </way>
+  <way id='474447660' timestamp='2022-03-14T00:54:00Z' uid='219297' user='ZeLonewolf' visible='true' version='2' changeset='118449421'>
+    <nd ref='382806525' />
+    <nd ref='382806524' />
+    <tag k='border_type' v='city' />
+    <tag k='source' v='TIGER/Line® 2008 Place Shapefiles (http://www.census.gov/geo/www/tiger/)' />
+    <tag k='tiger:reviewed' v='no' />
+  </way>
+  <way id='474448711' timestamp='2022-03-14T00:54:00Z' uid='219297' user='ZeLonewolf' visible='true' version='3' changeset='118449421'>
+    <nd ref='382806543' />
+    <nd ref='382806544' />
+    <nd ref='382805919' />
+    <tag k='border_type' v='town' />
+    <tag k='source' v='TIGER/Line® 2008 Place Shapefiles (http://www.census.gov/geo/www/tiger/)' />
+    <tag k='tiger:reviewed' v='no' />
+  </way>
+  <way id='474448712' timestamp='2022-03-14T00:54:00Z' uid='219297' user='ZeLonewolf' visible='true' version='4' changeset='118449421'>
+    <nd ref='382805882' />
+    <nd ref='382805714' />
+    <nd ref='382805716' />
+    <nd ref='382805717' />
+    <nd ref='382805719' />
+    <nd ref='382805720' />
+    <nd ref='382805723' />
+    <nd ref='382805725' />
+    <nd ref='382805726' />
+    <nd ref='382805730' />
+    <nd ref='382805731' />
+    <nd ref='382805732' />
+    <nd ref='382805733' />
+    <tag k='border_type' v='city' />
+    <tag k='population' v='37812' />
+    <tag k='source' v='TIGER/Line® 2008 Place Shapefiles (http://www.census.gov/geo/www/tiger/)' />
+    <tag k='source:population' v='2016 https://en.wikipedia.org/wiki/Lake_Worth,_Florida#cite_note-USCensusEst2016-4' />
+    <tag k='tiger:reviewed' v='no' />
+  </way>
+  <way id='474448713' timestamp='2022-08-14T19:35:32Z' uid='83501' user='riiga' visible='true' version='3' changeset='124901085'>
+    <nd ref='382805919' />
+    <nd ref='382805918' />
+    <nd ref='382805917' />
+    <nd ref='382805916' />
+    <nd ref='382805915' />
+    <nd ref='382805914' />
+    <nd ref='382805913' />
+    <nd ref='382805912' />
+    <nd ref='382805733' />
+  </way>
+  <way id='474450753' timestamp='2022-03-14T00:54:00Z' uid='219297' user='ZeLonewolf' visible='true' version='2' changeset='118449421'>
+    <nd ref='382806527' />
+    <nd ref='382806529' />
+    <nd ref='382806531' />
+    <tag k='border_type' v='town' />
+    <tag k='source' v='TIGER/Line® 2008 Place Shapefiles (http://www.census.gov/geo/www/tiger/)' />
+    <tag k='tiger:reviewed' v='no' />
+  </way>
+  <way id='474450754' timestamp='2022-03-14T00:54:00Z' uid='219297' user='ZeLonewolf' visible='true' version='2' changeset='118449421'>
+    <nd ref='382806525' />
+    <nd ref='382806526' />
+    <nd ref='382806527' />
+    <tag k='border_type' v='town' />
+    <tag k='source' v='TIGER/Line® 2008 Place Shapefiles (http://www.census.gov/geo/www/tiger/)' />
+    <tag k='tiger:reviewed' v='no' />
+  </way>
+  <relation id='1217229' timestamp='2021-02-09T01:52:52Z' uid='219297' user='ZeLonewolf' visible='true' version='10' changeset='98937702'>
+    <member type='way' ref='474447659' role='outer' />
+    <member type='way' ref='474448712' role='outer' />
+    <member type='way' ref='474448713' role='outer' />
+    <member type='way' ref='474448711' role='outer' />
+    <member type='way' ref='33541641' role='outer' />
+    <member type='way' ref='474450753' role='outer' />
+    <member type='way' ref='474450754' role='outer' />
+    <member type='way' ref='474447660' role='outer' />
+    <tag k='admin_level' v='8' />
+    <tag k='border_type' v='town' />
+    <tag k='boundary' v='administrative' />
+    <tag k='incorporation_type' v='town' />
+    <tag k='name' v='Palm Beach' />
+    <tag k='place' v='village' />
+    <tag k='source' v='TIGER/Line® 2008 Place Shapefiles (http://www.census.gov/geo/www/tiger/)' />
+    <tag k='tiger:CLASSFP' v='C1' />
+    <tag k='tiger:CPI' v='N' />
+    <tag k='tiger:FUNCSTAT' v='A' />
+    <tag k='tiger:LSAD' v='43' />
+    <tag k='tiger:MTFCC' v='G4110' />
+    <tag k='tiger:NAME' v='Palm Beach' />
+    <tag k='tiger:NAMELSAD' v='Palm Beach town' />
+    <tag k='tiger:PCICBSA' v='N' />
+    <tag k='tiger:PCINECTA' v='N' />
+    <tag k='tiger:PLACEFP' v='54025' />
+    <tag k='tiger:PLACENS' v='02407067' />
+    <tag k='tiger:PLCIDFP' v='1254025' />
+    <tag k='tiger:STATEFP' v='12' />
+    <tag k='tiger:reviewed' v='no' />
+    <tag k='type' v='boundary' />
+    <tag k='wikidata' v='Q695411' />
+    <tag k='wikipedia' v='en:Palm Beach, Florida' />
+  </relation>
+</osm>

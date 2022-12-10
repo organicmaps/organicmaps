@@ -30,11 +30,16 @@ uint32_t GetFeatureType(FeatureType & ft)
 // https://github.com/organicmaps/organicmaps/issues/2035
 UNIT_CLASS_TEST(TestRawGenerator, Towns)
 {
+  uint32_t const cityType = classif().GetTypeByPath({"place", "city"});
   uint32_t const townType = classif().GetTypeByPath({"place", "town"});
   uint32_t const villageType = classif().GetTypeByPath({"place", "village"});
 
   std::string const mwmName = "Towns";
+  std::string const mwmWorld = WORLD_FILE_NAME;
   BuildFB("./data/osm_test_data/towns.osm", mwmName, true /* makeWorld */);
+
+  /// @todo Taylor now defined as Node = village and Relation = city.
+  /// Ideally, we should keep only village in Country.mwm, but we can't avoid to pass it as a city into World.mwm
 
   size_t count = 0;
   ForEachFB(mwmName, [&](feature::FeatureBuilder const & fb)
@@ -42,19 +47,31 @@ UNIT_CLASS_TEST(TestRawGenerator, Towns)
     ++count;
     //LOG(LINFO, (fb));
 
+    TEST(!fb.HasType(cityType), ());
+
     bool const isTown = (fb.GetName() == "El Dorado");
     TEST_EQUAL(isTown, fb.HasType(townType), ());
     TEST_NOT_EQUAL(isTown, fb.HasType(villageType), ());
 
     TEST(fb.GetRank() > 0, ());
   });
-
   TEST_EQUAL(count, 4, ());
+
+  count = 0;
+  ForEachFB(mwmWorld, [&](feature::FeatureBuilder const & fb)
+  {
+    ++count;
+    TEST(!fb.HasType(villageType), ());
+
+    bool const isTown = (fb.GetName() == "El Dorado");
+    TEST(fb.HasType(isTown ? townType : cityType), ());
+  });
+  TEST_EQUAL(count, 2, ());
 
   // Prepare features data source.
   FrozenDataSource dataSource;
   std::vector<MwmSet::MwmId> mwmIDs;
-  for (auto const & name : { mwmName, std::string(WORLD_FILE_NAME) })
+  for (auto const & name : { mwmName, mwmWorld })
   {
     BuildFeatures(name);
     BuildSearch(name);
@@ -63,10 +80,6 @@ UNIT_CLASS_TEST(TestRawGenerator, Towns)
     TEST_EQUAL(res.second, MwmSet::RegResult::Success, ());
     mwmIDs.push_back(std::move(res.first));
   }
-
-  /// @todo We should have only 1 boundary here for the "El Dorado" town, because all other palces are villages.
-  /// Now we have 2 boundaries + "Taylor" village, because it was transformed from place=city boundary above.
-  /// This is not a blocker, but good to fix World generator for this case in future.
 
   // Load boundaries.
   search::CitiesBoundariesTable table(dataSource);
@@ -90,8 +103,8 @@ UNIT_CLASS_TEST(TestRawGenerator, Towns)
       TEST(table.Get(id, boundary), ());
       TEST(boundary.HasPoint(ft->GetCenter()), ());
 
-      if (name == "El Dorado")
-        TEST_EQUAL(GetFeatureType(*ft), townType, ());
+      bool const isTown = (name == "El Dorado");
+      TEST_EQUAL(GetFeatureType(*ft), isTown ? townType : cityType, ());
 
       ++count;
     }
@@ -484,16 +497,47 @@ UNIT_TEST(Place_CityRelations)
     "./data/osm_test_data/gorlovka_city.osm",
     // 2 Relations + 1 Node
     "./data/osm_test_data/tver_city.osm",
-    // 1 boundary-only Relation + 1 Node
-    //"./data/osm_test_data/kadikoy_town.osm",
     // 1 Relation + 1 Node with _different_ names.
-    //"./data/osm_test_data/reykjavik_city.osm",
+    "./data/osm_test_data/reykjavik_city.osm",
+    "./data/osm_test_data/berlin_city.osm",
+    // Relation boundary is place=suburb, but border_type=city
+    "./data/osm_test_data/riviera_beach_city.osm",
+
+    // 1 boundary-only Relation + 1 Node
+    "./data/osm_test_data/kadikoy_town.osm",
+    // 2 Relations + 1 Node
+    "./data/osm_test_data/stolbtcy_town.osm",
+    // 1 Way + 1 Relation + 1 Node
+    "./data/osm_test_data/dmitrov_town.osm",
+    "./data/osm_test_data/lesnoy_town.osm",
+
+    /// @todo We don't store villages in World now, but for the future!
+    // 1 Relation + 1 Node (not linked with each other)
+    //"./data/osm_test_data/palm_beach_village.osm",
   };
 
-  for (auto const & inFile : arrFiles)
+  ms::LatLon arrNotInBoundary[] = {
+    {48.2071448, 37.9729054},   // gorlovka
+    {56.9118261, 36.2258988},   // tver
+    {64.0469397, -21.9772409},  // reykjavik
+    {52.4013879, 13.0601531},   // berlin
+    {26.7481191, -80.0836532},  // riviera beach
+
+    {41.0150982, 29.0213844},   // kadikoy
+    {53.5086454, 26.6979711},   // stolbtcy
+    {56.3752679, 37.3288391},   // dmitrov
+    {54.0026933, 27.6356912},   // lesnoy
+    //{26.6757006, -80.0547346},  // palm beach
+  };
+
+  size_t constexpr kManyBoundriesUpperIndex = 5;
+
+  static_assert(std::size(arrFiles) == std::size(arrNotInBoundary));
+
+  for (size_t i = 0; i < std::size(arrFiles); ++i)
   {
     TestRawGenerator generator;
-    generator.BuildFB(inFile, mwmName, true /* makeWorld */);
+    generator.BuildFB(arrFiles[i], mwmName, true /* makeWorld */);
 
     auto const & checker = ftypes::IsCityTownOrVillageChecker::Instance();
 
@@ -501,9 +545,12 @@ UNIT_TEST(Place_CityRelations)
     size_t count = 0;
     generator.ForEachFB(worldMwmName, [&](feature::FeatureBuilder const & fb)
     {
-      ++count;
-      TEST(checker(fb.GetTypes()), ());
-      TEST(fb.GetRank() > 0, ());
+      if (fb.GetGeomType() == feature::GeomType::Point)
+      {
+        ++count;
+        TEST(checker(fb.GetTypes()), ());
+        TEST(fb.GetRank() > 0, ());
+      }
     });
 
     TEST_EQUAL(count, 1, ());
@@ -548,6 +595,12 @@ UNIT_TEST(Place_CityRelations)
         search::CitiesBoundariesTable::Boundaries boundary;
         TEST(table.Get(ft->GetID(), boundary), ());
         TEST(boundary.HasPoint(ft->GetCenter()), ());
+        TEST(!boundary.HasPoint(mercator::FromLatLon(arrNotInBoundary[i])), (i));
+
+        if (i < kManyBoundriesUpperIndex)
+          TEST_GREATER(boundary.GetCount(), 1, (i));
+        else
+          TEST_EQUAL(boundary.GetCount(), 1, (i));
       }
     }
 
@@ -555,4 +608,39 @@ UNIT_TEST(Place_CityRelations)
   }
 }
 
+UNIT_CLASS_TEST(TestRawGenerator, Place_NoCityBoundaries)
+{
+  std::string const mwmName = "Cities";
+  std::string const worldMwmName = WORLD_FILE_NAME;
+
+  BuildFB("./data/osm_test_data/no_boundary_towns.osm", mwmName, true /* makeWorld */);
+
+  auto const & checker = ftypes::IsCityTownOrVillageChecker::Instance();
+
+  // Check that we have only 2 cities without duplicates (Pargas, Қордай).
+  size_t count = 0;
+  ForEachFB(worldMwmName, [&](feature::FeatureBuilder const & fb)
+  {
+    if (fb.GetGeomType() == feature::GeomType::Point)
+    {
+      ++count;
+      TEST(checker(fb.GetTypes()), ());
+    }
+  });
+
+  TEST_EQUAL(count, 2, ());
+
+  // Build boundaries table.
+  BuildFeatures(worldMwmName);
+  BuildSearch(worldMwmName);
+
+  // Check that we have NO boundaries in World. They are removed because of "very big".
+  FrozenDataSource dataSource;
+  auto const res = dataSource.RegisterMap(platform::LocalCountryFile::MakeTemporary(GetMwmPath(worldMwmName)));
+  TEST_EQUAL(res.second, MwmSet::RegResult::Success, ());
+
+  search::CitiesBoundariesTable table(dataSource);
+  TEST(table.Load(), ());
+  TEST_EQUAL(table.GetSize(), 0, ());
+}
 } // namespace raw_generator_tests

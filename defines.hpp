@@ -91,10 +91,8 @@
 #define CAMERAS_TO_WAYS_FILENAME "cameras_to_ways.bin"
 #define MINI_ROUNDABOUTS_FILENAME "mini_roundabouts.bin"
 #define MAXSPEEDS_FILENAME "maxspeeds.csv"
-#define BOUNDARY_POSTCODE_TMP_FILENAME "boundary_postcode" DATA_FILE_EXTENSION_TMP
-#define CITIES_AREAS_TMP_FILENAME "cities_areas" DATA_FILE_EXTENSION_TMP
-#define ROUTING_CITY_BOUNDARIES_TMP_FILENAME "routing_city_boundaries" DATA_FILE_EXTENSION_TMP
-#define ROUTING_CITY_BOUNDARIES_DUMP_FILENAME "routing_city_boundaries.bin"
+#define BOUNDARY_POSTCODES_FILENAME "boundary_postcodes.bin"
+#define CITY_BOUNDARIES_COLLECTOR_FILENAME "city_boundaries_collector.bin"
 #define CROSS_MWM_OSM_WAYS_DIR "cross_mwm_osm_ways"
 #define TEMP_ADDR_EXTENSION ".tempaddr"
 

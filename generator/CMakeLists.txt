@@ -37,8 +37,6 @@ set(SRC
   collector_building_parts.hpp
   collector_camera.cpp
   collector_camera.hpp
-  collector_city_area.cpp
-  collector_city_area.hpp
   collector_collection.cpp
   collector_collection.hpp
   collector_interface.hpp
@@ -224,8 +222,6 @@ set(SRC
   translator_world.hpp
   translators_pool.cpp
   translators_pool.hpp
-  type_helper.cpp
-  type_helper.hpp
   unpack_mwm.cpp
   unpack_mwm.hpp
   utils.cpp

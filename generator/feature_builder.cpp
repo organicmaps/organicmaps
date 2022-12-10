@@ -50,22 +50,6 @@ bool IsEqual(std::vector<m2::PointD> const & v1, std::vector<m2::PointD> const &
   return equal(cbegin(v1), cend(v1), cbegin(v2), cend(v2),
                [](m2::PointD const & p1, m2::PointD const & p2) { return IsEqual(p1, p2); });
 }
-
-template <class Sink, class T>
-void WritePOD(Sink & sink, T const & value)
-{
-  static_assert(std::is_trivially_copyable<T>::value, "");
-
-  sink.Write(&value, sizeof(T));
-}
-
-template <class Sink, class T>
-void ReadPOD(Sink & src, T & value)
-{
-  static_assert(std::is_trivially_copyable<T>::value, "");
-
-  src.Read(&value, sizeof(T));
-}
 }  // namespace
 
 FeatureBuilder::FeatureBuilder()
@@ -79,11 +63,9 @@ bool FeatureBuilder::IsGeometryClosed() const
   return (poly.size() > 2 && poly.front() == poly.back());
 }
 
-m2::PointD FeatureBuilder::GetGeometryCenter() const
+m2::PointD FeatureBuilder::GetGeometryCenter(PointSeq const & poly)
 {
   m2::PointD ret(0.0, 0.0);
-
-  PointSeq const & poly = GetOuterGeometry();
   size_t const count = poly.size();
   for (size_t i = 0; i < count; ++i)
     ret += poly[i];
@@ -111,11 +93,6 @@ void FeatureBuilder::SetCenter(m2::PointD const & p)
   m_center = p;
   m_params.SetGeomType(GeomType::Point);
   m_limitRect.Add(p);
-}
-
-void FeatureBuilder::SetRank(uint8_t rank)
-{
-  m_params.rank = rank;
 }
 
 void FeatureBuilder::AssignPoints(PointSeq points)
@@ -452,7 +429,7 @@ void FeatureBuilder::SerializeAccuratelyForIntermediate(Buffer & data) const
   m_params.Write(sink);
   if (IsPoint())
   {
-    WritePOD(sink, m_center);
+    rw::WritePOD(sink, m_center);
   }
   else
   {
@@ -484,7 +461,7 @@ void FeatureBuilder::DeserializeAccuratelyFromIntermediate(Buffer & data)
 
   if (IsPoint())
   {
-    ReadPOD(source, m_center);
+    rw::ReadPOD(source, m_center);
     m_limitRect.Add(m_center);
   }
   else

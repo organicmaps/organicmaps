@@ -5,23 +5,9 @@
 
 #include "base/assert.hpp"
 
-#include <utility>
-
-using namespace feature;
-
 namespace generator
 {
-FeatureMakerBase::FeatureMakerBase(
-    std::shared_ptr<cache::IntermediateDataReaderInterface> const & cache)
-  : m_cache(cache)
-{
-}
-
-void FeatureMakerBase::SetCache(
-    std::shared_ptr<cache::IntermediateDataReaderInterface> const & cache)
-{
-  m_cache = cache;
-}
+using namespace feature;
 
 bool FeatureMakerBase::Add(OsmElement & element)
 {

@@ -2,13 +2,13 @@
 
 #include "generator/holes.hpp"
 #include "generator/osm2type.hpp"
-#include "generator/osm_element.hpp"
+#include "generator/osm_element_helpers.hpp"
 
 #include "indexer/classificator.hpp"
+#include "indexer/feature_algo.hpp"
 #include "indexer/feature_visibility.hpp"
 
 #include "geometry/mercator.hpp"
-#include "geometry/polygon.hpp"
 
 
 namespace generator
@@ -142,31 +142,19 @@ bool FeatureMakerSimple::BuildFromRelation(OsmElement & p, FeatureBuilderParams 
     m_queue.push(std::move(fb));
   };
 
-  bool const maxAreaMode = IsMaxRelationAreaMode(params);
-  double maxArea = -1.0;
-  FeatureBuilder::PointSeq maxPoints;
-  std::vector<uint64_t> maxIDs;
-
   helper.GetOuter().ForEachArea(true /* collectID */, [&](auto && pts, auto && ids)
   {
-    if (maxAreaMode)
-    {
-      double const area = GetPolygonArea(pts.begin(), pts.end());
-      if (area > maxArea)
-      {
-        maxArea = area;
-        maxPoints = std::move(pts);
-        maxIDs = std::move(ids);
-      }
-    }
-    else
-      createFB(std::move(pts), ids);
+    createFB(std::move(pts), ids);
   });
 
-  if (maxAreaMode && maxArea > 0)
-    createFB(std::move(maxPoints), maxIDs);
-
   return size != m_queue.size();
+}
+
+
+FeatureMaker::FeatureMaker(IDRInterfacePtr const & cache)
+  : FeatureMakerSimple(cache)
+{
+  m_placeClass = classif().GetTypeByPath({"place"});
 }
 
 std::shared_ptr<FeatureMakerBase> FeatureMaker::Clone() const
@@ -180,19 +168,63 @@ void FeatureMaker::ParseParams(FeatureBuilderParams & params, OsmElement & p) co
                         [this](OsmElement const * p) { return GetOrigin(*p); });
 }
 
-bool FeatureMaker::IsMaxRelationAreaMode(FeatureBuilderParams const & params) const
+bool FeatureMaker::BuildFromRelation(OsmElement & p, FeatureBuilderParams const & params)
 {
-  auto const & c = classif();
-  bool const emptyName = params.IsEmptyNames();
-
-  // Select _one_ max area polygon, if we have Point drawing rules only (like place=*).
-  for (uint32_t const t : params.m_types)
+  uint32_t const placeType = params.FindType(m_placeClass, 1);
+  if (placeType != ftype::GetEmptyValue())
   {
-    auto const * obj = c.GetObject(t);
-    if (obj->IsDrawableLike(GeomType::Line, emptyName) || obj->IsDrawableLike(GeomType::Area, emptyName))
+    std::optional<m2::PointD> center;
+    auto const nodes = osm_element::GetPlaceNodeFromMembers(p);
+    if (!nodes.empty())
+    {
+      // admin_centre will be the first
+      center = ReadNode(nodes.front());
+    }
+    else
+    {
+      // Calculate center of the biggest outer polygon.
+      HolesRelation helper(m_cache);
+      helper.Build(&p);
+
+      double maxArea = 0;
+      helper.GetOuter().ForEachArea(false /* collectID */, [&](auto && pts, auto &&)
+      {
+        m2::RectD rect;
+        CalcRect(pts, rect);
+        double const currArea = rect.Area();
+        if (currArea > maxArea)
+        {
+          center = FeatureBuilder::GetGeometryCenter(pts);
+          maxArea = currArea;
+        }
+      });
+    }
+
+    if (!center)
       return false;
+
+    // Make separate place Point FeatureFuilder.
+    FeatureBuilder fb;
+    fb.SetCenter(*center);
+
+    fb.SetOsmId(base::MakeOsmRelation(p.m_id));
+
+    FeatureBuilderParams copyParams(params);
+    copyParams.SetType(placeType);
+    fb.SetParams(copyParams);
+
+    m_queue.push(std::move(fb));
+
+    // Default processing without place type.
+    copyParams = params;
+    copyParams.PopExactType(placeType);
+    if (copyParams.FinishAddingTypes())
+      FeatureMakerSimple::BuildFromRelation(p, copyParams);
+
+    return true;
   }
-  return true;
+
+  return FeatureMakerSimple::BuildFromRelation(p, params);
 }
 
 }  // namespace generator

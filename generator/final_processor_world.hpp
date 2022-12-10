@@ -17,7 +17,11 @@ public:
   WorldFinalProcessor(std::string const & temporaryMwmPath, std::string const & coastGeomFilename);
 
   void SetPopularPlaces(std::string const & filename);
-  void SetCitiesAreas(std::string const & filename);
+  void SetCityBoundariesFiles(std::string const & collectorFile, std::string const & boundariesOutFile)
+  {
+    m_boundariesCollectorFile = collectorFile;
+    m_boundariesOutFile = boundariesOutFile;
+  }
 
   // FinalProcessorIntermediateMwmInterface overrides:
   void Process() override;
@@ -29,6 +33,6 @@ private:
   std::string m_worldTmpFilename;
   std::string m_coastlineGeomFilename;
   std::string m_popularPlacesFilename;
-  std::string m_citiesAreasTmpFilename;
+  std::string m_boundariesCollectorFile, m_boundariesOutFile;
 };
 }  // namespace generator

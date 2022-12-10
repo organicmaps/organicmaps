@@ -48,7 +48,7 @@ public:
                      RegionData const & regionData, uint32_t versionDate)
     : FeaturesCollector(info.GetTargetFileName(name, FEATURES_FILE_TAG))
     , m_filename(info.GetTargetFileName(name))
-    , m_boundaryPostcodesEnricher(info.GetIntermediateFileName(BOUNDARY_POSTCODE_TMP_FILENAME))
+    , m_boundaryPostcodesEnricher(info.GetIntermediateFileName(BOUNDARY_POSTCODES_FILENAME))
     , m_header(header)
     , m_regionData(regionData)
     , m_versionDate(versionDate)

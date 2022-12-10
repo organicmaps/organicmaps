@@ -786,6 +786,22 @@ IsWayWithDurationChecker::IsWayWithDurationChecker()
     m_types.push_back(c.GetTypeByPath(e));
 }
 
+LocalityType LocalityFromString(std::string_view place)
+{
+  if (place == "village" || place == "hamlet")
+    return LocalityType::Village;
+  if (place == "town")
+    return LocalityType::Town;
+  if (place == "city")
+    return LocalityType::City;
+  if (place == "state")
+    return LocalityType::State;
+  if (place == "country")
+    return LocalityType::Country;
+
+  return LocalityType::None;
+}
+
 IsLocalityChecker::IsLocalityChecker()
 {
   Classificator const & c = classif();
@@ -817,17 +833,6 @@ LocalityType IsLocalityChecker::GetType(uint32_t t) const
     if (t == m_types[j])
       return LocalityType::Village;
 
-  return LocalityType::None;
-}
-
-LocalityType IsLocalityChecker::GetType(feature::TypesHolder const & types) const
-{
-  for (uint32_t t : types)
-  {
-    LocalityType const type = GetType(t);
-    if (type != LocalityType::None)
-      return type;
-  }
   return LocalityType::None;
 }
 
@@ -914,24 +919,23 @@ feature::InterpolType IsAddressInterpolChecker::GetInterpolType(FeatureType & ft
 }
 
 
+uint64_t GetDefPopulation(LocalityType localityType)
+{
+  switch (localityType)
+  {
+  case LocalityType::Country: return 500000;
+  case LocalityType::State: return 100000;
+  case LocalityType::City: return 50000;
+  case LocalityType::Town: return 10000;
+  case LocalityType::Village: return 100;
+  default: return 0;
+  }
+}
+
 uint64_t GetPopulation(FeatureType & ft)
 {
-  uint64_t population = ft.GetPopulation();
-
-  if (population < 10)
-  {
-    switch (IsLocalityChecker::Instance().GetType(ft))
-    {
-    case LocalityType::Country: population = 500000; break;
-    case LocalityType::State: population = 100000; break;
-    case LocalityType::City: population = 50000; break;
-    case LocalityType::Town: population = 10000; break;
-    case LocalityType::Village: population = 100; break;
-    default: population = 0;
-    }
-  }
-
-  return population;
+  uint64_t const p = ft.GetPopulation();
+  return (p < 10 ? GetDefPopulation(IsLocalityChecker::Instance().GetType(ft)) : p);
 }
 
 double GetRadiusByPopulation(uint64_t p)

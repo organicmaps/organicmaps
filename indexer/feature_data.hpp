@@ -258,7 +258,8 @@ public:
   bool IsTypeExist(uint32_t t) const;
   bool IsTypeExist(uint32_t comp, uint8_t level) const;
 
-  /// Find type that matches "comp" with "level" in classificator hierarchy.
+  /// @return Type that matches |comp| with |level| in classificator hierarchy.
+  ///   ftype::GetEmptyValue() if type not found.
   uint32_t FindType(uint32_t comp, uint8_t level) const;
 
   bool IsValid() const;

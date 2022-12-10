@@ -2,7 +2,6 @@
 
 #include "generator/collector_boundary_postcode.hpp"
 #include "generator/collector_camera.hpp"
-#include "generator/collector_city_area.hpp"
 #include "generator/collector_collection.hpp"
 #include "generator/collector_interface.hpp"
 #include "generator/collector_mini_roundabout.hpp"
@@ -109,13 +108,11 @@ TranslatorCountry::TranslatorCountry(std::shared_ptr<FeatureProcessorInterface> 
   collectors->Append(std::make_shared<feature::MetalinesBuilder>(
       info.GetIntermediateFileName(METALINES_FILENAME)));
   collectors->Append(std::make_shared<BoundaryPostcodeCollector>(
-      info.GetIntermediateFileName(BOUNDARY_POSTCODE_TMP_FILENAME), cache->GetCache()));
-  collectors->Append(std::make_shared<CityAreaCollector>(info.GetIntermediateFileName(CITIES_AREAS_TMP_FILENAME)));
+      info.GetIntermediateFileName(BOUNDARY_POSTCODES_FILENAME), cache->GetCache()));
 
   // Collectors for gathering of additional information for the future building of routing section.
   collectors->Append(std::make_shared<RoutingCityBoundariesCollector>(
-      info.GetIntermediateFileName(ROUTING_CITY_BOUNDARIES_TMP_FILENAME),
-      info.GetIntermediateFileName(ROUTING_CITY_BOUNDARIES_DUMP_FILENAME), cache->GetCache()));
+      info.GetIntermediateFileName(CITY_BOUNDARIES_COLLECTOR_FILENAME), cache->GetCache()));
   collectors->Append(std::make_shared<MaxspeedsCollector>(info.GetIntermediateFileName(MAXSPEEDS_FILENAME)));
   collectors->Append(std::make_shared<routing_builder::RestrictionWriter>(
       info.GetIntermediateFileName(RESTRICTIONS_FILENAME), cache->GetCache()));
