@@ -731,7 +731,7 @@
 	<string name="type.amenity">Infrastrukturobjekte</string>
 	<string name="type.amenity.arts_centre">Kunststätte</string>
 	<string name="type.amenity.atm">Geldautomat</string>
-	<string name="type.amenity.bbq">Picknickplatz</string>
+	<string name="type.amenity.bbq">Grillplatz</string>
 	<string name="type.amenity.bench">Parkbank</string>
 	<string name="type.amenity.bicycle_parking">Fahrradständer</string>
 	<string name="type.amenity.bicycle_rental">Fahrradverleih</string>
@@ -1341,7 +1341,7 @@
 	<string name="type.office.estate_agent">Immobilienmakler</string>
 	<string name="type.office.government">Regierungsstelle</string>
 	<string name="type.office.insurance">Versicherungsbüro</string>
-	<string name="type.office.lawyer">Anwaltsbüro</string>
+	<string name="type.office.lawyer">Anwaltskanzlei</string>
 	<string name="type.office.ngo">Nichtregierungsorganisation</string>
 	<string name="type.office.telecommunication">Mobilfunkbetreiber</string>
 	<string name="type.organic.only">Bio</string>
@@ -1670,6 +1670,7 @@
 	<string name="type.shop.car_parts">Autoteile</string>
 	<string name="type.shop.car_repair">Autowerkstatt</string>
 	<string name="type.shop.car_repair.tyres">Reifenservice</string>
+	<string name="type.shop.caravan">Wohnmobilhändler</string>
 	<string name="type.shop.chemist">Drogerie</string>
 	<string name="type.shop.chocolate">Schokoladengeschäft</string>
 	<string name="type.shop.clothes">Bekleidungsgeschäft</string>
@@ -1686,7 +1687,7 @@
 	<string name="type.shop.electronics">Elektrofachgeschäft</string>
 	<string name="type.shop.erotic">Erotikladen</string>
 	<string name="type.shop.fabric">Textilgeschäft</string>
-	<string name="type.shop.farm">Hoflebensmittelladen</string>
+	<string name="type.shop.farm">Hofladen</string>
 	<string name="type.shop.florist">Florist</string>
 	<string name="type.shop.funeral_directors">Bestattungsinstitut</string>
 	<string name="type.shop.furniture">Möbelhaus</string>
@@ -1730,7 +1731,7 @@
 	<string name="type.shop.variety_store">Billigladen</string>
 	<string name="type.shop.video">Videothek</string>
 	<string name="type.shop.video_games">Gameshop</string>
-	<string name="type.shop.wine">Wein- und Spirituosengeschäft</string>
+	<string name="type.shop.wine">Weinhandlung</string>
 	<string name="type.shop.antiques">Antiquitäten</string>
 	<string name="type.shop.art">Kunstgeschäft</string>
 	<string name="type.shop.baby_goods">Babybedarf</string>
@@ -1742,7 +1743,7 @@
 	<string name="type.shop.dairy">Milchprodukte</string>
 	<string name="type.shop.electrical">Elektrogeschäft</string>
 	<string name="type.shop.fishing">Angelgeschäft</string>
-	<string name="type.shop.interior_decoration">Innendekorationen</string>
+	<string name="type.shop.interior_decoration">Einrichtungsgeschäft</string>
 	<string name="type.shop.lottery">Lotteriescheine</string>
 	<string name="type.shop.medical_supply">Medizinische Versorgung</string>
 	<string name="type.shop.nutrition_supplements">Nahrungsergänzungsmittel</string>
