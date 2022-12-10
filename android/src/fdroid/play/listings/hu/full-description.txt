@@ -1,0 +1,52 @@
+‣ Ingyenes alkalmazásunk nem követi Önt, nem tartalmaz hirdetéseket, és az Ön adományaiból működik.
+‣ Kis csapatunkkal folyamatosan fejlesztjük a szabadidőnkben, a saját pénzünkből és a felhasználóink adományaiból/hozzájárulásaiból.
+‣ Ha valami hibás vagy hiányzik a térképen, javítsa ki az <b>OpenStreetMap</b> oldalon, és a jövőbeni térképfrissítésekben láthatja a változtatásokat.
+‣ Ha a navigáció vagy a keresés nem működik, írjon nekünk e-mailt. <i>MINDEN</i> e-mailre válaszolunk, és a hibákat a lehető leghamarabb kijavítjuk!
+
+<b>A legjobb motivációnk a visszajelzések és az 5 csillagos értékelések!</b>
+
+Főbb jellemzők:
+- Ingyenes, nyílt forráskódú, nincs reklám, nincs nyomon követés.
+- Részletes offline térképek olyan helyekkel, amelyek a Google térképeken nem is léteznek – hála az <b>OpenStreetMap</b> közösségnek.
+- Kerékpáros útvonalak, túraútvonalak és gyalogos ösvények.
+- Szintvonalak, magassági profilok, csúcsok és lejtők.
+- Részletes gyalogos, kerékpáros és KÍSÉRLETI autós navigáció hangutasítással
+- Gyors offline keresés
+- Könyvjelzők exportálása és importálása KML/KMZ formátumban (hamarosan GPX formátumban is).
+- Sötét üzemmód a szem védelméért.
+
+Az Organic Mapsben <i>még</i> nincsenek olyan menő funkciók, mint az Android Auto, tömegközlekedés és műholdas térkép. De az Ön <i>segítségével és támogatásával</i>, lépésről lépésre jobbá tehetjük a világot.
+
+Az Organic Maps <b>tiszta és organikus, szeretettel készült</b>:
+
+- Villámgyors offline élmény
+- Tiszteletben tartja az adatvédelmet
+- Kíméli az akkumulátort
+- Nincsenek váratlan mobil adatforgalmi díjak
+- Egyszerűen használható, csak a legfontosabb funkciókat tartalmazza
+
+Mentes a nyomkövetőktől és egyéb rossz dolgoktól:
+
+- Nincs reklám
+- Nincs nyomkövetés
+- Nincs adatgyűjtés
+- Nincs hazatelefonálás
+- Nincs bosszantó regisztráció
+- Nincs kötelező oktatóprogram
+- Nincs levélszemét
+- Nincs leküldéses értesítés
+- Nincs crapware
+- Nincs növényvédő szer. Teljesen organikus.
+
+Az Organic Mapsnél hiszünk abban, hogy az <b>adatvédelem alapvető emberi jog</b>:
+
+- Az Organic Maps egy közösség által irányított, független nyílt forráskódú projekt.
+- Megvédjük a magánszféráját a nagy technológiai vállalatok kíváncsi szemeitől.
+- Maradjon biztonságban, bárhol is van.
+
+Az Exodus Privacy jelentése szerint az alkalmazás nulla nyomkövetőt tartalmaz, és csak minimálisan szükséges engedélyeket kéri el.
+
+Látogasson el az <b><i>organicmaps.app</i></b> weboldalra a további részletekért és a GYIK-ért, és lépjen kapcsolatba velünk közvetlenül az @OrganicMapsApp Telegram-csoportban.
+
+Le a megfigyeléssel, éljen a szabadság!
+<b>Próbálja ki az Organic Mapset!</b>
