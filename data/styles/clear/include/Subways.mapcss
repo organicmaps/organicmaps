@@ -2,6 +2,8 @@
 
  3.2 Custom Subway Station
 
+If adding a new city, make sure to add
+the bbox to MatchCity() in generator/osm2type.cpp
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
@@ -91,6 +93,13 @@ node|z14[railway=station][transport=subway][city=berlin] {icon-image: subway-uba
 node|z15-16[railway=station][transport=subway][city=berlin] {icon-image: subway-ubahn-m.svg;}
 node|z17-[railway=station][transport=subway][city=berlin] {icon-image: subway-ubahn-m.svg;text-optional: true;}
 node|z17-[railway=subway_entrance][city=berlin] {icon-image: subway-ubahn-s.svg;text-optional: true;}
+
+/* Boston Subway Station*/
+node|z12-13[railway=station][transport=subway][city=boston] {icon-image: subway-massachusetts-m.svg;icon-min-distance: 1;}
+node|z14[railway=station][transport=subway][city=boston] {icon-image: subway-massachusetts-m.svg;}
+node|z15-16[railway=station][transport=subway][city=boston] {icon-image: subway-massachusetts-m.svg;}
+node|z17-[railway=station][transport=subway][city=boston] {icon-image: subway-massachusetts-m.svg;text-optional: true;}
+node|z17-[railway=subway_entrance][city=boston] {icon-image: subway-massachusetts-m.svg;text-optional: true;}
 
 /* Bengaluru Subway Station*/
 node|z13[railway=station][transport=subway][city=bengalore] {icon-image: subway-bengaluru-s.svg;icon-min-distance: 1;}
@@ -848,13 +857,6 @@ node|z14[railway=station][transport=subway][city=tokyo] {icon-image: subway-toky
 node|z15-16[railway=station][transport=subway][city=tokyo] {icon-image: subway-tokyo-m.svg;}
 node|z17-[railway=station][transport=subway][city=tokyo] {icon-image: subway-tokyo-m.svg;text-optional: true;}
 node|z17-[railway=subway_entrance][city=tokyo] {icon-image: subway-tokyo-s.svg;text-optional: true;}
-
-/* Valencia Subway Station */
-node|z13[railway=station][transport=subway][city=valencia] {icon-image: subway-valencia-s.svg;icon-min-distance: 1;}
-node|z14[railway=station][transport=subway][city=valencia] {icon-image: subway-valencia-s.svg;}
-node|z15-16[railway=station][transport=subway][city=valencia] {icon-image: subway-valencia-m.svg;}
-node|z17-[railway=station][transport=subway][city=valencia] {icon-image: subway-valencia-m.svg;text-optional: true;}
-node|z17-[railway=subway_entrance][city=valencia] {icon-image: subway-valencia-s.svg;text-optional: true;}
 
 /* Valencia Subway Station */
 node|z13[railway=station][transport=subway][city=valencia] {icon-image: subway-valencia-s.svg;icon-min-distance: 1;}
