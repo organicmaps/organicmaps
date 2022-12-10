@@ -1281,7 +1281,7 @@
 
 "type.amenity.bar" = "Bar";
 
-"type.amenity.bbq" = "Picknickplatz";
+"type.amenity.bbq" = "Grillplatz";
 
 "type.amenity.bench" = "Parkbank";
 
@@ -2541,7 +2541,7 @@
 
 "type.office.insurance" = "Versicherungsbüro";
 
-"type.office.lawyer" = "Anwaltsbüro";
+"type.office.lawyer" = "Anwaltskanzlei";
 
 "type.office.ngo" = "Nichtregierungsorganisation";
 
@@ -3211,7 +3211,7 @@
 
 "type.shop.car_repair.tyres" = "Reifenservice";
 
-"type.shop.caravan" = "RV Dealership";
+"type.shop.caravan" = "Wohnmobilhändler";
 
 "type.shop.chemist" = "Drogerie";
 
@@ -3245,7 +3245,7 @@
 
 "type.shop.fabric" = "Textilgeschäft";
 
-"type.shop.farm" = "Hoflebensmittelladen";
+"type.shop.farm" = "Hofladen";
 
 "type.shop.florist" = "Florist";
 
@@ -3335,7 +3335,7 @@
 
 "type.shop.video_games" = "Gameshop";
 
-"type.shop.wine" = "Wein- und Spirituosengeschäft";
+"type.shop.wine" = "Weinhandlung";
 
 "type.shop.antiques" = "Antiquitäten";
 
@@ -3359,7 +3359,7 @@
 
 "type.shop.fishing" = "Angelgeschäft";
 
-"type.shop.interior_decoration" = "Innendekorationen";
+"type.shop.interior_decoration" = "Einrichtungsgeschäft";
 
 "type.shop.lottery" = "Lotteriescheine";
 
