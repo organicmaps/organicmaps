@@ -4,9 +4,6 @@
 #include "generator/cities_boundaries_builder.hpp"
 #include "generator/feature_builder.hpp"
 #include "generator/place_processor.hpp"
-#include "generator/type_helper.hpp"
-
-#include "indexer/classificator.hpp"
 
 #include "platform/platform.hpp"
 
@@ -16,7 +13,6 @@
 
 #include "defines.hpp"
 
-#include <cstddef>
 #include <memory>
 #include <string>
 #include <unordered_map>
@@ -24,36 +20,22 @@
 
 namespace generator
 {
-class PlaceHelper
-{
-public:
-  PlaceHelper();
-  explicit PlaceHelper(std::string const & filename);
-
-  static bool IsPlace(feature::FeatureBuilder const & fb);
-
-  bool Process(feature::FeatureBuilder && fb);
-  std::vector<feature::FeatureBuilder> GetFeatures();
-  std::shared_ptr<OsmIdToBoundariesTable> GetTable() const;
-
-private:
-  std::shared_ptr<OsmIdToBoundariesTable> m_table;
-  PlaceProcessor m_processor;
-};
 
 class ProcessorCities
 {
 public:
-  ProcessorCities(std::string const & temporaryMwmPath,
-                  feature::AffiliationInterface const & affiliation, PlaceHelper & citiesHelper,
+  ProcessorCities(std::string const & collectorFilename,
+                  feature::AffiliationInterface const & affiliation,
                   size_t threadsCount = 1);
 
-  void Process();
+  void Process(std::string const & mwmPath);
+
+  OsmIdToBoundariesTable & GetTable() { return m_processor.GetTable(); }
 
 private:
-  std::string m_temporaryMwmPath;
+  PlaceProcessor m_processor;
+
   feature::AffiliationInterface const & m_affiliation;
-  PlaceHelper & m_citiesHelper;
   size_t m_threadsCount;
 };
 

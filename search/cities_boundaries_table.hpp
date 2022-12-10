@@ -46,6 +46,8 @@ public:
       return rect;
     }
 
+    size_t GetCount() const { return m_boundaries.size(); }
+
     template <class FnT> void ForEachBoundary(FnT && fn) const
     {
       for (size_t i = 0; i < m_boundaries.size(); ++i)

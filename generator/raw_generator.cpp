@@ -183,7 +183,6 @@ RawGenerator::FinalProcessorPtr RawGenerator::CreateCountryFinalProcessor(
 {
   auto finalProcessor = std::make_shared<CountryFinalProcessor>(affiliations, m_genInfo.m_tmpDir, m_threadsCount);
   finalProcessor->SetIsolinesDir(m_genInfo.m_isolinesDir);
-  finalProcessor->SetCitiesAreas(m_genInfo.GetIntermediateFileName(CITIES_AREAS_TMP_FILENAME));
   finalProcessor->SetMiniRoundabouts(m_genInfo.GetIntermediateFileName(MINI_ROUNDABOUTS_FILENAME));
   if (addAds)
     finalProcessor->SetFakeNodes(base::JoinPath(GetPlatform().ResourcesDir(), MIXED_NODES_FILE));
@@ -195,10 +194,7 @@ RawGenerator::FinalProcessorPtr RawGenerator::CreateCountryFinalProcessor(
         m_genInfo.GetTmpFileName(WORLD_COASTS_FILE_NAME));
   }
 
-  finalProcessor->DumpCitiesBoundaries(m_genInfo.m_citiesBoundariesFilename);
-  finalProcessor->DumpRoutingCitiesBoundaries(
-      m_genInfo.GetIntermediateFileName(ROUTING_CITY_BOUNDARIES_TMP_FILENAME),
-      m_genInfo.GetIntermediateFileName(ROUTING_CITY_BOUNDARIES_DUMP_FILENAME));
+  finalProcessor->SetCityBoundariesFiles(m_genInfo.GetIntermediateFileName(CITY_BOUNDARIES_COLLECTOR_FILENAME));
   return finalProcessor;
 }
 
@@ -213,7 +209,8 @@ RawGenerator::FinalProcessorPtr RawGenerator::CreateWorldFinalProcessor(bool cut
   auto finalProcessor = std::make_shared<WorldFinalProcessor>(m_genInfo.m_tmpDir, coastlineGeom);
 
   finalProcessor->SetPopularPlaces(m_genInfo.m_popularPlacesFilename);
-  finalProcessor->SetCitiesAreas(m_genInfo.GetIntermediateFileName(CITIES_AREAS_TMP_FILENAME));
+  finalProcessor->SetCityBoundariesFiles(m_genInfo.GetIntermediateFileName(CITY_BOUNDARIES_COLLECTOR_FILENAME),
+                                         m_genInfo.m_citiesBoundariesFilename);
   return finalProcessor;
 }
 

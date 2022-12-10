@@ -82,6 +82,7 @@ auto const relationWithLabel2 = MakeAreaWithPlaceNode(6 /* id */, 10 /* placeId 
 auto const relationWithLabel3 = MakeAreaWithPlaceNode(7 /* id */, 11 /* placeId */, "label" /* role */);
 auto const relationWithLabel4 = MakeAreaWithPlaceNode(8 /* id */, 12 /* placeId */, "country" /* role */);
 
+/*
 void Collect(BoundariesCollector & collector, std::vector<OsmElement> const & elements,
              std::vector<std::vector<m2::PointD>> geometries = {})
 {
@@ -182,6 +183,7 @@ void Check(std::string const & filename, std::string const & dumpFilename)
   TEST_EQUAL(nodeToLocality[11].m_place, ftypes::LocalityType::Village, ());
   TEST_EQUAL(nodeToLocality[11].m_population, 1000, ());
 }
+*/
 
 std::vector<m2::PointD> FromLatLons(std::vector<ms::LatLon> const & latlons)
 {
@@ -202,7 +204,7 @@ double CalculateEarthAreaForConvexPolygon(std::vector<ms::LatLon> const & latlon
   return area;
 }
 
-
+/*
 UNIT_CLASS_TEST(TestWithClassificator, CollectorRoutingCityBoundaries_1)
 {
   auto const filename = generator_tests::GetFileName();
@@ -250,6 +252,7 @@ UNIT_CLASS_TEST(TestWithClassificator, CollectorRoutingCityBoundaries_2)
 
   Check(filename, kDumpFileName);
 }
+*/
 
 UNIT_TEST(AreaOnEarth_Convex_Polygon_1)
 {
@@ -265,7 +268,7 @@ UNIT_TEST(AreaOnEarth_Convex_Polygon_1)
   double const areaTriangulated =
       ms::AreaOnEarth(a, b, c) + ms::AreaOnEarth(a, c, d) + ms::AreaOnEarth(a, d, e);
 
-  double const areaOnEarth = generator::routing_city_boundaries::AreaOnEarth(points);
+  double const areaOnEarth = generator::AreaOnEarth(points);
 
   TEST(base::AlmostEqualRel(areaTriangulated,
                             areaOnEarth,
@@ -288,7 +291,7 @@ UNIT_TEST(AreaOnEarth_Convex_Polygon_2)
 
   std::vector<m2::PointD> const points = FromLatLons(latlons);
 
-  double const areaOnEarth = generator::routing_city_boundaries::AreaOnEarth(points);
+  double const areaOnEarth = generator::AreaOnEarth(points);
   double const areaForConvexPolygon = CalculateEarthAreaForConvexPolygon(latlons);
 
   TEST(base::AlmostEqualRel(areaForConvexPolygon,
@@ -322,7 +325,7 @@ UNIT_TEST(AreaOnEarth_Concave_Polygon)
       ms::AreaOnEarth(f, g, h) +
       ms::AreaOnEarth(h, i, j);
 
-  double const areaOnEarth = generator::routing_city_boundaries::AreaOnEarth(points);
+  double const areaOnEarth = generator::AreaOnEarth(points);
 
   TEST(base::AlmostEqualRel(areaTriangulated,
                             areaOnEarth,

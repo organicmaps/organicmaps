@@ -1,14 +1,6 @@
 #include "generator/processor_coastline.hpp"
 
-#include "generator/coastlines_generator.hpp"
 #include "generator/feature_builder.hpp"
-#include "generator/feature_generator.hpp"
-#include "generator/generate_info.hpp"
-#include "generator/type_helper.hpp"
-
-#include "base/logging.hpp"
-
-#include <cstddef>
 
 #include "defines.hpp"
 

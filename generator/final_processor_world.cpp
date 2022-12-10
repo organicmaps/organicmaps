@@ -6,10 +6,10 @@
 
 #include "defines.hpp"
 
-using namespace feature;
-
 namespace generator
 {
+using namespace feature;
+
 WorldFinalProcessor::WorldFinalProcessor(std::string const & temporaryMwmPath,
                                          std::string const & coastlineGeomFilename)
   : FinalProcessorIntermediateMwmInterface(FinalProcessorPriority::CountriesOrWorld)
@@ -25,15 +25,9 @@ void WorldFinalProcessor::SetPopularPlaces(std::string const & filename)
   m_popularPlacesFilename = filename;
 }
 
-void WorldFinalProcessor::SetCitiesAreas(std::string const & filename)
-{
-  m_citiesAreasTmpFilename = filename;
-}
-
 void WorldFinalProcessor::Process()
 {
-  if (!m_citiesAreasTmpFilename.empty())
-    ProcessCities();
+  ProcessCities();
 
   auto fbs = ReadAllDatRawFormat<serialization_policy::MaxAccuracy>(m_worldTmpFilename);
   Order(fbs);
@@ -47,9 +41,14 @@ void WorldFinalProcessor::Process()
 void WorldFinalProcessor::ProcessCities()
 {
   auto const affiliation = SingleAffiliation(WORLD_FILE_NAME);
-  auto citiesHelper =
-      m_citiesAreasTmpFilename.empty() ? PlaceHelper() : PlaceHelper(m_citiesAreasTmpFilename);
-  ProcessorCities processorCities(m_temporaryMwmPath, affiliation, citiesHelper);
-  processorCities.Process();
+  ProcessorCities processor(m_boundariesCollectorFile, affiliation);
+  processor.Process(m_temporaryMwmPath);
+
+
+  if (!m_boundariesOutFile.empty())
+  {
+    LOG(LINFO, ("Dumping cities boundaries to", m_boundariesOutFile));
+    SerializeBoundariesTable(m_boundariesOutFile, processor.GetTable());
+  }
 }
 }  // namespace generator

@@ -9,21 +9,18 @@
 #include "generator/node_mixer.hpp"
 #include "generator/osm2type.hpp"
 #include "generator/region_meta.hpp"
-#include "generator/routing_city_boundaries_processor.hpp"
 
 #include "routing/routing_helpers.hpp"
 #include "routing/speed_camera_prohibition.hpp"
 
 #include "indexer/classificator.hpp"
+#include "indexer/ftypes_matcher.hpp"
 
 #include "geometry/region2d/binary_operators.hpp"
 
-#include "base/file_name_utils.hpp"
-#include "base/thread_pool_computational.hpp"
 
 namespace generator
 {
-using namespace base::thread_pool::computational;
 using namespace feature;
 
 CountryFinalProcessor::CountryFinalProcessor(AffiliationInterfacePtr affiliations,
@@ -39,23 +36,6 @@ CountryFinalProcessor::CountryFinalProcessor(AffiliationInterfacePtr affiliation
 bool CountryFinalProcessor::IsCountry(std::string const & filename)
 {
   return m_affiliations->HasCountryByName(filename);
-}
-
-void CountryFinalProcessor::SetCitiesAreas(std::string const & filename)
-{
-  m_citiesAreasTmpFilename = filename;
-}
-
-void CountryFinalProcessor::DumpCitiesBoundaries(std::string const & filename)
-{
-  m_citiesBoundariesFilename = filename;
-}
-
-void CountryFinalProcessor::DumpRoutingCitiesBoundaries(std::string const & collectorFilename,
-                                                        std::string const & dumpPath)
-{
-  m_routingCityBoundariesCollectorFilename = collectorFilename;
-  m_routingCityBoundariesDumpPath = dumpPath;
 }
 
 void CountryFinalProcessor::SetCoastlines(std::string const & coastlineGeomFilename,
@@ -81,10 +61,8 @@ void CountryFinalProcessor::Process()
 {
   //Order();
 
-  if (!m_routingCityBoundariesCollectorFilename.empty())
-    ProcessRoutingCityBoundaries();
-  if (!m_citiesAreasTmpFilename.empty() || !m_citiesFilename.empty())
-    ProcessCities();
+  ProcessCities();
+
   if (!m_coastlineGeomFilename.empty())
     ProcessCoastline();
   if (!m_miniRoundaboutsFilename.empty())
@@ -274,28 +252,10 @@ void CountryFinalProcessor::AddIsolines()
   }, m_threadsCount);
 }
 
-void CountryFinalProcessor::ProcessRoutingCityBoundaries()
-{
-  CHECK(!m_routingCityBoundariesCollectorFilename.empty() && !m_routingCityBoundariesDumpPath.empty(), ());
-
-  RoutingCityBoundariesProcessor processor(m_routingCityBoundariesCollectorFilename,
-                                           m_routingCityBoundariesDumpPath);
-  processor.ProcessDataFromCollector();
-}
-
 void CountryFinalProcessor::ProcessCities()
 {
-  auto citiesHelper = m_citiesAreasTmpFilename.empty() ? PlaceHelper() : PlaceHelper(m_citiesAreasTmpFilename);
-
-  ProcessorCities processorCities(m_temporaryMwmPath, *m_affiliations, citiesHelper, m_threadsCount);
-  processorCities.Process();
-
-  if (!m_citiesBoundariesFilename.empty())
-  {
-    auto const citiesTable = citiesHelper.GetTable();
-    LOG(LINFO, ("Dumping cities boundaries to", m_citiesBoundariesFilename));
-    SerializeBoundariesTable(m_citiesBoundariesFilename, *citiesTable);
-  }
+  ProcessorCities processor(m_boundariesCollectorFile, *m_affiliations, m_threadsCount);
+  processor.Process(m_temporaryMwmPath);
 }
 
 void CountryFinalProcessor::ProcessCoastline()
@@ -314,7 +274,7 @@ void CountryFinalProcessor::ProcessCoastline()
 
 void CountryFinalProcessor::AddFakeNodes()
 {
-  std::vector<feature::FeatureBuilder> fbs;
+  std::vector<FeatureBuilder> fbs;
   MixFakeNodes(m_fakeNodesFilename, [&](auto & element)
   {
     FeatureBuilder fb;

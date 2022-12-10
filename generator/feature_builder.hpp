@@ -70,7 +70,12 @@ public:
   }
   GeomType GetGeomType() const { return m_params.GetGeomType(); }
   bool IsGeometryClosed() const;
-  m2::PointD GetGeometryCenter() const;
+
+  static m2::PointD GetGeometryCenter(PointSeq const & pts);
+  m2::PointD GetGeometryCenter() const
+  {
+    return GetGeometryCenter(GetOuterGeometry());
+  }
   m2::PointD GetKeyPoint() const;
   size_t GetPointsCount() const;
   size_t GetPolygonsCount() const { return m_polygons.size(); }
@@ -143,7 +148,6 @@ public:
   ///@}
 
   // To work with additional information.
-  void SetRank(uint8_t rank);
   bool AddName(std::string_view lang, std::string_view name);
   void SetParams(FeatureBuilderParams const & params) { m_params.SetParams(params); }
 

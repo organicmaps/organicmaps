@@ -496,7 +496,7 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
       // Order is important: city roads first, routing graph, maxspeeds then (to check inside/outside a city).
       if (FLAGS_make_city_roads)
       {
-        auto const boundariesPath = genInfo.GetIntermediateFileName(ROUTING_CITY_BOUNDARIES_DUMP_FILENAME);
+        auto const boundariesPath = genInfo.GetIntermediateFileName(CITY_BOUNDARIES_COLLECTOR_FILENAME);
         LOG(LINFO, ("Generating", CITY_ROADS_FILE_TAG, "for", dataFile, "using", boundariesPath));
         if (!BuildCityRoads(dataFile, boundariesPath))
           LOG(LCRITICAL, ("Generating city roads error."));
