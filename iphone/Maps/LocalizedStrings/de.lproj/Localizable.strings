@@ -1636,7 +1636,7 @@
 
 "type.craft.carpenter" = "Zimmermann";
 
-"type.craft.confectionery" = "Konditor";
+"type.craft.confectionery" = "Süßwarenladen";
 
 "type.craft.electrician" = "Elektriker";
 
@@ -3193,13 +3193,13 @@
 
 "type.shop.beauty" = "Schönheitssalon";
 
-"type.shop.beverages" = "Getränke";
+"type.shop.beverages" = "Getränkemarkt";
 
 "type.shop.bicycle" = "Fahrradladen";
 
 "type.shop.bookmaker" = "Wettbüro";
 
-"type.shop.books" = "Büchergeschäft";
+"type.shop.books" = "Buchhandlung";
 
 "type.shop.butcher" = "Metzgerei";
 
@@ -3221,7 +3221,7 @@
 
 "type.shop.coffee" = "Kaffeegeschäft";
 
-"type.shop.computer" = "Computergeschäft";
+"type.shop.computer" = "Computerfachgeschäft";
 
 "type.shop.confectionery" = "Süßwarengeschäft";
 
@@ -3231,7 +3231,7 @@
 
 "type.shop.cosmetics" = "Kosmetikgeschäft";
 
-"type.shop.deli" = "Feinkostgeschäft";
+"type.shop.deli" = "Feinkostladen";
 
 "type.shop.department_store" = "Kaufhaus";
 
@@ -3239,7 +3239,7 @@
 
 "type.shop.dry_cleaning" = "Chemische Reinigung";
 
-"type.shop.electronics" = "Elektronik";
+"type.shop.electronics" = "Elektrofachgeschäft";
 
 "type.shop.erotic" = "Erotikladen";
 
@@ -3251,11 +3251,11 @@
 
 "type.shop.funeral_directors" = "Bestattungsinstitut";
 
-"type.shop.furniture" = "Möbelgeschäft";
+"type.shop.furniture" = "Möbelhaus";
 
 "type.shop.garden_centre" = "Gärtnerei";
 
-"type.shop.gift" = "Geschenkladen";
+"type.shop.gift" = "Geschenkeladen";
 
 "type.shop.greengrocer" = "Gemüseladen";
 
@@ -3269,7 +3269,7 @@
 
 "type.shop.houseware" = "Haushaltswarengeschäft";
 
-"type.shop.jewelry" = "Juweliergeschäft";
+"type.shop.jewelry" = "Juwelier";
 
 "type.shop.kiosk" = "Kiosk";
 
@@ -3297,7 +3297,7 @@
 
 "type.shop.outdoor" = "Outdoor-Ausrüstung";
 
-"type.shop.pastry" = "Gebäck";
+"type.shop.pastry" = "Konditorei";
 
 "type.shop.pawnbroker" = "Pfandleihe";
 
