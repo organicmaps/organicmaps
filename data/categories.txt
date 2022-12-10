@@ -1049,7 +1049,7 @@ da:Døgnbutik|døgnkiosk|kiosk
 nl:Buurtwinkel|kruidenier
 fi:Lähikauppa
 fr:Supérette
-de:Gemischtwarenladen|Verbauchermarkt|Lebensmittelhändler|Lebensmittelhandlung|Lebensmittelgeschäft|Lebensmittelmarkt|Supermarkt
+de:5Gemischtwarenladen|Verbauchermarkt|Lebensmittelhändler|Lebensmittelhandlung|Lebensmittelgeschäft|4Greißler|4Tante-Emma-Laden
 hu:Csemegebolt|ábécé
 id:Mini market
 it:5Minimarket
@@ -1114,6 +1114,7 @@ zh-Hant:熟食店
 
 shop-farm|@food
 en:Farm food
+de:4Hofladen|4Bauernhofladen
 et:Talutoit
 ru:Фермерская еда
 tr:Çiftlik gıdaları
@@ -1163,6 +1164,7 @@ tr:Market
 
 shop-health_food|@food
 en:Health food
+de:4Reformhaus|5Naturkostladen|4Bioladen
 et:Tervisetoit
 ru:Здоровая еда
 tr:Sağlıklı Gıda
@@ -2121,6 +2123,7 @@ fa:لباس فروشی|بوتیک
 shop-caravan|@rv
 en:2RV dealership|4Caravan dealership|Motorhome dealership
 be:Продаж аўтадамоў
+de:5Wohnmobilhändler|5Wohnwagenhändler
 es:Venta de caravanas|Venta de autocaravanas
 et:Haagiselamute müük
 fr:Concessionnaire de caravanes et camping-cars
@@ -2141,7 +2144,7 @@ da:Bilforhandler
 nl:Autohandelaar
 fi:Autokauppa
 fr:Réparation auto|voitures|auto|concessionnaire
-de:4Autohaus
+de:4Autohaus|Autohändler
 hu:Autókereskedés|Autószalon|Kocsi
 id:Toko mobil
 it:Concessionaria|Autosalone
@@ -2692,7 +2695,7 @@ da:3Picnic
 nl:3Picknickplaats|picknickweide|picknicktafel
 fi:3Piknikpaikat
 fr:3Terrain de pique-nique|3aire de pique-nique
-de:3Picknickplatz|Grillplatz
+de:3Picknickplatz|5Grillplatz
 hu:3Piknikezőhely
 id:3Lokasi piknik
 it:3Picnic
@@ -6772,7 +6775,7 @@ da:3Frisør
 nl:3Kapper|kapsalon|haarsalon|kapperszaak
 fi:Kampaamo
 fr:3Coiffeur|salon de coiffure
-de:3Friseur|Frisiersalon|Frisör|Coiffeur
+de:3Friseur|Frisiersalon|Frisör|4Coiffeur
 hu:3Fodrász
 id:Penata rambut
 it:4Parrucchiera
@@ -8100,7 +8103,7 @@ da:Ambassade
 nl:4Ambassade
 fi:6Suurlähetystö
 fr:4Ambassade
-de:4Botschaft
+de:4Botschaft|4Konsulat|4Verbindungsbüro
 hu:4Nagykövetség|Külképviselet
 id:Kedutaan
 it:4Ambasciata
@@ -8872,7 +8875,7 @@ da:Regeringskontor
 nl:Overheidskantoor|overheidspand|regeringskantoor
 fi:Viranomaistoimisto
 fr:Administration publique
-de:Regierungsstelle
+de:3Regierungsstelle|Amt|3Behörde
 hu:Kormányzati iroda
 id:Kantor pemerintah
 it:Ufficio governativo|ufficio amministrativo
@@ -8909,7 +8912,7 @@ da:4Advokatkontor
 nl:4Advocatenkantoor|advocaat
 fi:Lakitoimisto
 fr:Cabinet d'avocat
-de:Anwaltsbüro|5Anwaltskanzlei|Anwalt|Rechtsanwalt|Jurist|Gerichtsanwalt|Rechtsbeistand|Rechtsberater|Verteidiger
+de:5Anwaltskanzlei|Anwaltsbüro|Anwalt|Rechtsanwalt|Jurist|Gerichtsanwalt|Rechtsbeistand|Rechtsberater|Verteidiger
 hu:Ügyvéd|Ügyvédi iroda
 id:Kantor pengacara
 it:Studio legale
@@ -8945,7 +8948,7 @@ da:Mobiloperatør
 nl:Mobiele provider|provider
 fi:Matkapuhelinoperaattori
 fr:Opérateur mobile
-de:Mobilbetreiber|Mobilfunkanbieter
+de:5Mobilfunkbetreiber|Mobilfunkanbieter
 hu:Mobiltelefon-társaság
 id:Operator seluler
 it:Operatore di telefonia mobile
@@ -8978,7 +8981,7 @@ be:Пчаляр
 bg:Пчелар
 cs:Včelař
 da:Biavler
-de:Imker
+de:3Imker
 el:Μελισσοκόμος
 es:Apicultor
 et:Mesinik
@@ -11181,7 +11184,7 @@ da:5Bookmaker
 nl:5Bookmaker
 fi:Kustantaja
 fr:5Bookmaker
-de:5Buchmacher|Wettbüro
+de:5Buchmacher|3Wettbüro
 hu:Fogadóiroda
 id:Bandar judi
 it:Centro scommesse
@@ -11217,7 +11220,7 @@ da:Fiskehandler
 nl:Visboer|vismarkt|vis|zeevoedsel|schelpdier
 fi:Kalakauppias
 fr:Poissonnier|fruits de mer
-de:Fischhändler|Fischmarkt|Fisch|Meeresfrüchte|Schalentier
+de:Fischhändler|5Fischmarkt|Fisch|Meeresfrüchte|Schalentier
 hu:Halüzlet
 id:Penjual Ikan
 it:Pescivendolo
@@ -11250,7 +11253,7 @@ be:Сэканд-хэнд
 bg:Магазин втора употреба
 cs:Obchod z druhé ruky
 da:Genbrugsbutik
-de:Second-Hand-Laden
+de:Second-Hand-Laden|5Gebrauchtwarenladen|Trödelladen
 el:Κατάστημα μεταχειρισμένων
 es:Tienda de segunda mano
 et:4Kasutatud|Kirbuturg
@@ -11288,7 +11291,7 @@ be:Дабрачынная крама
 bg:Благотворителен магазин
 cs:Charitativní obchod
 da:Velgørenhedsbutik
-de:Wohltätigkeitsladen
+de:5Wohltätigkeitsladen
 el:Φιλανθρωπικό κατάστημα
 es:Tienda de caridad
 et:Heategevuspood
@@ -11366,7 +11369,7 @@ da:Vinhandel
 nl:Slijterij|Wijn
 fi:Alkoholimyymälä
 fr:Cave à vins|Caviste|Magasin de vins
-de:Wein- und Spirituosengeschäft|Weinladen|Weingeschäft|Weinhändler
+de:4Weinhandlung|Weinladen|Weingeschäft
 hu:Borkereskedés
 id:Toko anggur
 it:Negozio di alcolici
@@ -11908,7 +11911,7 @@ da:Ejendomsmægler
 nl:Makelaar
 fi:Kiinteistönvälittäjä
 fr:Agence immobilière|agent immobilier
-de:9Immobilienmakler
+de:4Immobilienmakler
 hu:Ingatlaniroda
 id:Agen ril estat
 it:Agenzia immobiliare
@@ -12751,7 +12754,7 @@ bg:5Застрахователна служба|Застрахователен �
 ar:مكتب تأمين
 cs:Pojišťovací kancelář
 da:Forsikringskontor
-de:Versicherungsbüro
+de:4Versicherungsbüro
 el:Ασφαλιστικό γραφείο
 es:Oficina de seguros
 et:Kindlustusasutus
@@ -12788,7 +12791,7 @@ bg:НПО|офис|4неправителствена организация
 ar:مكتب مؤسسة خيرية
 cs:Kancelář nevládní organizace
 da:3NGO-kontor
-de:Büro einer Nichtregierungsorganisation
+de:5Nichtregierungsorganisation
 el:Γραφείο ΜΚΟ
 es:Sede de ONG
 et:Valitsusest sõltumatu ühenduse kontor
@@ -12825,7 +12828,7 @@ bg:4Секс-шоп|Еротика|4Еротичен магазин
 ar:متجر منتجات جنسية
 cs:Obchod s erotickými pomůckami
 da:4Erotisk butik
-de:4Erotikladen|3Sexshop|Erotikshop
+de:Erotikladen|3Sexshop|4Erotikshop
 el:Κατάστημα ερωτικών ειδών
 es:3Sex Shop
 et:3Erootikapood
@@ -12935,7 +12938,7 @@ bg:Стойка за вестници|4вестници|киоск|бутка
 ar:كشك الجرائد
 cs:Novinový stánek
 da:Avis-kiosk
-de:Zeitungsstand|Trafik
+de:4Zeitungsstand|Trafik
 el:Εφημεριδοπώλης|πρακτορείο εφημερίδων
 et:Ajalehepunkt|4ajalehed
 es:Puesto de venta de periódicos
@@ -12972,7 +12975,7 @@ bg:Заложна къща
 ar:سمسار تسليف
 cs:Zastavárna
 da:Pantelåner
-de:Pfandleihe
+de:5Pfandleihe
 el:Ενεχυροδανειστήριο
 es:Casa de empeños
 et:Pandimaja
@@ -13082,7 +13085,7 @@ bg:Магазин за разнообразни стоки
 ar:متجر متنوع\n
 cs:Smíšené zboží
 da:Småtingsbutik
-de:Billigladen|Niedrigpreisgeschäft
+de:5Billigladen|Niedrigpreisgeschäft
 el:Παντοπωλείο|Μπακάλικο|Ψιλικατζίδικο
 es:Tienda de Variedades
 et:Odavpood
@@ -13537,7 +13540,7 @@ zh-Hant:活動場所
 shop-chocolate|@food
 en:Chocolate Shop
 be:Шакалад
-de:Schokoladengeschäft
+de:4Schokoladengeschäft
 es:Tienda de chocolate
 et:Šokolaadipood
 fr:Chocolatier
@@ -13553,7 +13556,7 @@ tr:Çikolata mağazası
 shop-coffee|@food
 en:Cofee store
 be:Кава
-de:Kaffeegeschäft
+de:6Kaffeegeschäft
 et:Kohvipood
 fr:Boutique de cafés
 it:Negozio di caffè
@@ -13567,7 +13570,7 @@ tr:Kahve mağazası
 
 shop-fabric
 en:Fabric shop
-de:Textilgeschäft
+de:4Textilgeschäft
 et:Kangapood
 fr:Magasin de tissus
 it:Merceria
@@ -13579,7 +13582,7 @@ tr:Kumaş mağazası|Tekstil mağazası
 shop-money_lender
 en:Money lender
 be:Ліхвяр
-de:Geldverleiher
+de:4Geldverleiher
 et:Rahalaenutus
 pl:ożyczkodawca
 pt:Prestamista
@@ -13590,7 +13593,7 @@ tr:Tefeci
 shop-music
 en:Record store|vinyl
 be:Музыка
-de:Musikgeschäft
+de:5Musikgeschäft|5Plattenladen
 es:Disquería|Tienda de discos
 et:Plaadipood
 fr:Disquaire|vinyle|CD
@@ -13607,7 +13610,7 @@ tr:Plak mağazası
 shop-musical_instrument
 en:Musical instruments
 be:Музычныя інструменты
-de:4Musikinstrumenteladen|Musikhaus
+de:5Musikinstrumenteladen|Musikhaus
 et:Muusikariistad
 fr:Magasin d'instruments de musique
 it:Negozio di strumenti
@@ -13625,7 +13628,7 @@ en:Tea store
 be:Гарбата
 es:Tienda de té
 et:Teepood
-de:Teegeschäft
+de:3Teegeschäft
 fr:Boutique de thés
 it:Negozio di tè
 ja:茶販売店
@@ -13645,7 +13648,7 @@ be:Антыкварыят
 bg:Антики
 cs:Starožitnosti
 da:Antikviteter
-de:Antiquitäten
+de:5Antiquitäten
 el:Αντίκες
 es:Antigüedades
 et:Antikvariaat
@@ -13683,7 +13686,7 @@ be:Крама мастацтваў
 bg:Магазин за изкуства
 cs:Obchod s uměním
 da:Kunstbutik
-de:Kunstgeschäft
+de:5Kunstgeschäft
 el:Κατάστημα Τεχνών
 es:Tienda de artes
 et:Kunstipood
@@ -13759,7 +13762,7 @@ be:Крама сумак
 bg:Магазин за чанти
 cs:Obchod s taškami
 da:Tasker butik
-de:Taschen Shop
+de:5Taschen Shop
 el:Κατάστημα τσαντών
 es:Tienda de bolsos
 et:Kotipood
@@ -13835,7 +13838,7 @@ be:Малочныя прадукты
 bg:Млечни продукти
 cs:Mléčné výrobky
 da:Mejeriprodukter
-de:Milchprodukte
+de:5Milchprodukte
 el:Γαλακτοκομικά προϊόντα
 es:Productos lácteos
 et:Piimatooted
@@ -13873,7 +13876,7 @@ be:Крама электратэхнікі
 bg:Електрически магазин
 cs:Elektro obchod
 da:El-butik
-de:Elektrogeschäft
+de:5Elektrogeschäft
 el:Μαγαζί ηλεκτρικών ειδών
 es:Tienda de electricidad
 et:Elektritarvikute pood
@@ -13911,7 +13914,7 @@ be:Рыбалоўны магазін
 bg:Риболовен магазин
 cs:Rybářský obchod
 da:Fiskeri butik
-de:Angelgeschäft
+de:5Angelgeschäft
 el:Κατάστημα ψαρέματος
 es:Tienda de pesca
 et:Kalapüügi pood
@@ -13949,7 +13952,7 @@ be:Ўпрыгажэнні інтэр'еру
 bg:Вътрешни декорации
 cs:Interiérové dekorace
 da:Indvendige dekorationer
-de:Innendekorationen
+de:4Einrichtungsgeschäft|5Innendekorationen
 el:Διακοσμήσεις εσωτερικών χώρων
 es:Decoraciones interiores
 et:Sisustuse kaunistused
@@ -13987,7 +13990,7 @@ be:Латарэйныя білеты
 bg:Лотарийни билети
 cs:Loterijní lístky
 da:Lotterikuponer
-de:Lotteriescheine
+de:4Lotteriescheine
 el:Λαχεία
 es:Boletos de lotería
 et:Loteriipiletid
@@ -14025,7 +14028,7 @@ be:Медыцынскія прыналежнасці
 bg:Медицински изделия
 cs:Zdravotní zásoby
 da:Medicinske forsyninger
-de:Medizinische Versorgung
+de:4Medizinische Versorgung|5Heilbehelfe
 el:Ιατρικά Είδη
 es:Suministros médicos
 et:Meditsiinitarvikud
@@ -14139,7 +14142,7 @@ be:Парфумерыя
 bg:Парфюмерия
 cs:Parfumerie
 da:Parfumeri
-de:Parfümerie
+de:4Parfümerie
 el:Αρωματοποιία
 es:Perfumería
 et:Parfümeeria
@@ -14215,7 +14218,7 @@ be:Арэнда сховішчаў
 bg:Склад под наем
 cs:Pronájem skladu
 da:Lagerudlejning
-de:Speichermiete
+de:5Speichermiete
 el:Ενοικίαση αποθηκευτικού χώρου
 es:Alquiler de almacenamiento
 et:Ladustuse rent
@@ -14253,7 +14256,7 @@ be:Тытунь
 bg:Тютюн
 cs:Tabák
 da:Tobak
-de:Tabak
+de:Tabak|4Trafik
 el:Καπνός
 es:Tabaco
 et:Tubakas
@@ -14367,7 +14370,7 @@ be:Аптовая крама
 bg:Магазин на едро
 cs:Velkoobchodní prodejna
 da:Engros butik
-de:Großhandelsgeschäft
+de:5Großhandelsgeschäft
 el:Κατάστημα χονδρικής
 es:Almacén al por mayor
 et:Hulgimüügi pood
