@@ -1,1 +1,1 @@
-Közösség által készített térkép alkalmazás utazóknak és turistáknak.
+Nyílt forráskódú közösségi térképek utazóknak, túrázóknak és kerékpárosoknak
