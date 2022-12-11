@@ -8,14 +8,16 @@
 #include <algorithm>
 #include <cmath>
 
+namespace ms
+{
 namespace
 {
-double const kEarthRadiusMetersSquared = ms::kEarthRadiusMeters * ms::kEarthRadiusMeters;
+double constexpr kEarthRadiusMetersSquared = kEarthRadiusMeters * kEarthRadiusMeters;
 
-m3::PointD GetPointOnSphere(ms::LatLon const & ll, double sphereRadius)
+m3::PointD GetPointOnSphere(LatLon const & ll, double sphereRadius)
 {
-  ASSERT(ms::LatLon::kMinLat <= ll.m_lat && ll.m_lat <= ms::LatLon::kMaxLat, (ll));
-  ASSERT(ms::LatLon::kMinLon <= ll.m_lon && ll.m_lon <= ms::LatLon::kMaxLon, (ll));
+  ASSERT(LatLon::kMinLat <= ll.m_lat && ll.m_lat <= LatLon::kMaxLat, (ll));
+  ASSERT(LatLon::kMinLon <= ll.m_lon && ll.m_lon <= LatLon::kMaxLon, (ll));
 
   double const latRad = base::DegToRad(ll.m_lat);
   double const lonRad = base::DegToRad(ll.m_lon);
@@ -28,8 +30,6 @@ m3::PointD GetPointOnSphere(ms::LatLon const & ll, double sphereRadius)
 }
 }  // namespace
 
-namespace ms
-{
 // Look to https://en.wikipedia.org/wiki/Solid_angle for more details.
 // Shortly:
 // It's possible to calculate area of triangle on sphere with it's solid angle.
@@ -68,8 +68,8 @@ double AreaOnEarth(LatLon const & ll1, LatLon const & ll2, LatLon const & ll3)
 // For circle: Ω = 2π(1 - cos(θ / 2)), where θ - is the cone apex angle.
 double CircleAreaOnEarth(double distanceOnSphereRadius)
 {
-  double const theta = 2.0 * distanceOnSphereRadius / ms::kEarthRadiusMeters;
-  static double const kConst = 2 * math::pi * kEarthRadiusMetersSquared;
+  double const theta = 2.0 * distanceOnSphereRadius / kEarthRadiusMeters;
+  double constexpr kConst = 2 * math::pi * kEarthRadiusMetersSquared;
   double const sinValue = sin(theta / 4);
   // 1 - cos(θ / 2) = 2sin^2(θ / 4)
   return kConst * 2 * sinValue * sinValue;
