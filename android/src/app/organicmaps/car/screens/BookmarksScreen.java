@@ -35,7 +35,8 @@ public class BookmarksScreen extends MapScreen
   public BookmarksScreen(@NonNull CarContext carContext, @NonNull OMController mapController)
   {
     super(carContext, mapController);
-    MAX_CATEGORIES_SIZE = getCarContext().getCarService(ConstraintManager.class).getContentLimit(ConstraintManager.CONTENT_LIMIT_TYPE_LIST);
+    final ConstraintManager constraintManager = getCarContext().getCarService(ConstraintManager.class);
+    MAX_CATEGORIES_SIZE = constraintManager.getContentLimit(ConstraintManager.CONTENT_LIMIT_TYPE_LIST);
   }
 
   private BookmarksScreen(@NonNull CarContext carContext, @NonNull OMController mapController, @NonNull BookmarkCategory bookmarkCategory)
@@ -48,15 +49,11 @@ public class BookmarksScreen extends MapScreen
   @Override
   public Template onGetTemplate()
   {
-
     MapTemplate.Builder builder = new MapTemplate.Builder();
     builder.setHeader(createHeader());
     builder.setMapController(getMapController());
     builder.setActionStrip(getActionStrip());
-    if (mBookmarkCategory == null)
-      builder.setItemList(createBookmarkCategoriesList());
-    else
-      builder.setItemList(createBookmarksList());
+    builder.setItemList(mBookmarkCategory == null ? createBookmarkCategoriesList() : createBookmarksList());
     return builder.build();
   }
 
@@ -65,10 +62,7 @@ public class BookmarksScreen extends MapScreen
   {
     Header.Builder builder = new Header.Builder();
     builder.setStartHeaderAction(Action.BACK);
-    if (mBookmarkCategory == null)
-      builder.setTitle(getCarContext().getString(R.string.bookmarks));
-    else
-      builder.setTitle(mBookmarkCategory.getName());
+    builder.setTitle(mBookmarkCategory == null ? getCarContext().getString(R.string.bookmarks) : mBookmarkCategory.getName());
     return builder.build();
   }
 

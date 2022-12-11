@@ -76,6 +76,7 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
     Log.d(TAG, "onCreate");
     mCarContext.getCarService(AppManager.class).setSurfaceCallback(this);
 
+    // TODO: Properly process deep links from other apps on AA.
     boolean launchByDeepLink = false;
     mMap.onCreate(launchByDeepLink);
   }
@@ -145,16 +146,12 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
     {
       // If a focal point value is negative, use the center point of the visible area.
       if (x < 0)
-      {
         x = visibleArea.centerX();
-      }
       if (y < 0)
-      {
         y = visibleArea.centerY();
-      }
     }
 
-    boolean animated = Float.compare(scaleFactor, 2f) == 0;
+    final boolean animated = Float.compare(scaleFactor, 2f) == 0;
 
     Map.onScale(scaleFactor, x, y, animated);
   }

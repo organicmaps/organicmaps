@@ -28,7 +28,6 @@ public final class NavigationSession extends Session implements DefaultLifecycle
 {
   private static final String TAG = NavigationSession.class.getSimpleName();
 
-
   private OMController mMapController;
 
   boolean mInitFailed = false;

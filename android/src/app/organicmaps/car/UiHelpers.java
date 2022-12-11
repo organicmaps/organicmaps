@@ -34,19 +34,17 @@ public final class UiHelpers
   public static Row createSharedPrefsCheckbox(
       @NonNull CarContext context, @StringRes int titleRes, PrefsGetter getter, PrefsSetter setter)
   {
+    final boolean getterValue = getter.get();
+
     if (mCheckboxIcon == null || mCheckboxSelectedIcon == null)
       initCheckboxIcons(context);
     Row.Builder builder = new Row.Builder();
     builder.setTitle(context.getString(titleRes));
     builder.setOnClickListener(() -> {
-      setter.set(!getter.get());
+      setter.set(!getterValue);
       context.getCarService(ScreenManager.class).getTop().invalidate();
     });
-    if (getter.get())
-      builder.setImage(mCheckboxSelectedIcon);
-    else
-      builder.setImage(mCheckboxIcon);
-
+    builder.setImage(getterValue ? mCheckboxSelectedIcon : mCheckboxIcon);
     return builder.build();
   }
 
@@ -65,10 +63,7 @@ public final class UiHelpers
         RoutingOptions.addOption(roadType);
       context.getCarService(ScreenManager.class).getTop().invalidate();
     });
-    if (RoutingOptions.hasOption(roadType))
-      builder.setImage(mCheckboxSelectedIcon);
-    else
-      builder.setImage(mCheckboxIcon);
+    builder.setImage(RoutingOptions.hasOption(roadType) ? mCheckboxSelectedIcon : mCheckboxIcon);
     return builder.build();
   }
 

@@ -24,7 +24,8 @@ public class SearchScreen extends Screen implements SearchTemplate.SearchCallbac
   public SearchScreen(@NonNull CarContext carContext)
   {
     super(carContext);
-    MAX_RESULTS_SIZE = getCarContext().getCarService(ConstraintManager.class).getContentLimit(ConstraintManager.CONTENT_LIMIT_TYPE_LIST);
+    final ConstraintManager constraintManager = getCarContext().getCarService(ConstraintManager.class);
+    MAX_RESULTS_SIZE = constraintManager.getContentLimit(ConstraintManager.CONTENT_LIMIT_TYPE_LIST);
   }
 
   @NonNull
