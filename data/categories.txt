@@ -1001,7 +1001,7 @@ zh-Hans:商店
 zh-Hant:1購物|店鋪|商店|雜貨店|便利商店
 
 shop-cosmetics|@shopping
-en:4Cosmetics|4Beauty Care|personal care|makeup|U+1F3EC|U+1F3EA
+en:4Cosmetics|4Beauty Care|makeup|U+1F3EC|U+1F3EA
 ru:4Косметика
 bg:4Козметика
 be:4Касметыка
@@ -1915,7 +1915,7 @@ nl:4Computerwinkel
 fi:Tietokonekauppa
 fr:Magasin d'informatique
 de:4Computerfachgeschäft
-hu:Számítógépüzlet
+hu:Számítógépüzlet|Számítógép üzlet
 id:Toko komputer
 it:Negozio di computer|negozio di articoli informatici
 ja:コンピュータショップ
@@ -1940,7 +1940,7 @@ el:Κατάστημα πληροφορικής
 sk:Obchod s výpočtovou technikou
 fa:فروشگاه کامپیوتر
 
-shop-confectionery|craft-confectionery
+shop-confectionery|craft-confectionery|@food
 en:4Sweets|4confectionery|candies|candy store|U+1F36C|U+1F36D|cake shop|sweetshop|tuck shop|pastry|candy shop|cake shop
 en-AU:Lollies|Candy
 ru:4Кондитерская|кондитерские изделия|сладости|торты|десерты|пирожные
@@ -2182,7 +2182,7 @@ nl:4Fietsenwinkel
 fi:3Polkupyöräliike
 fr:4Magasin de vélos|vélociste|bicyclette
 de:3Fahrradladen|Fahrrad|Velo
-hu:4Kerékpárüzlet|Kerékpár
+hu:4Kerékpárüzlet|Kerékpár üzlet
 id:3Toko sepeda
 it:Negozio di biciclette|4bicicletta|bici
 ja:自転車屋|レンタサイクル|自転車
@@ -10023,7 +10023,7 @@ nl:4Fotowinkel|kaders
 fi:Valokuvakauppa|kehykset
 fr:Matériel de photographie|Cadres|Boutique
 de:4Fotofachgeschäft|Rahmen
-hu:4Fotósüzlet|Fényképüzlet|keretek|üzlet
+hu:4Fotósüzlet|Fényképüzlet|Fénykép üzlet|keretek
 id:Studio Foto|bingkai
 it:Negozio di fotografia|cornici
 ja:写真屋|フレーム|店
@@ -10166,7 +10166,7 @@ nl:Bandenwinkel
 fi:Rengasliike
 fr:Magasin de pneus
 de:Reifen-Shop|4Autoreifen|Reifen
-hu:Gumiszaküzlet
+hu:Gumiszaküzlet|Gumi szaküzlet
 id:Toko Ban
 it:Gommista
 ja:タイヤ専門店|ショップ
@@ -11246,7 +11246,7 @@ sk:Obchodník s rybami
 fa:فروشگاه غذای دریایی
 mr:सीफूड शॉप
 
-shop-second_hand
+shop-second_hand|@shopping
 en:4Second Hand|Thrift shop|Flea market
 ar:ﺔﻠﻤﻌﺘﺴﻣ ﺕﺍﻭﺩﺍ ﺮﺠﺘﻣ
 be:Сэканд-хэнд
@@ -12485,7 +12485,7 @@ zh-Hant:機車停車格
 fa:پارکینگ موتورسیکلت
 mr:दुचाकी पार्किंग
 
-amenity-parking_space-disabled
+amenity-parking_space-disabled|@parking
 en:Disabled Parking Space
 ar:ﺔﺻﺎﺨﻟﺍ ﺕﺎﺟﺎﻴﺘﺣﻻ﻿ﺍ ﻱﻭﺬﻟ ﺕﺍﺭﺎﻴﺴﻟﺍ ﻑﻮﻗﻮﻟ ﻦﻛﺎﻣﺃ
 be:Паркоўка для інвалідаў
@@ -13591,7 +13591,7 @@ ru:Ростовщик
 tr:Tefeci
 
 shop-music
-en:Record store|vinyl
+en:Record store|vinyl|Music
 be:Музыка
 de:5Musikgeschäft|5Plattenladen
 es:Disquería|Tienda de discos
@@ -13641,7 +13641,7 @@ ru:Чай
 tr:Çay mağazası
 zh-Hans:茶叶商店
 
-shop-antiques
+shop-antiques|@shopping
 en:Antiques
 ar:ﻒﺤﺘﻟﺍ
 be:Антыкварыят
@@ -13679,7 +13679,7 @@ vi:Đồ cổ
 zh-Hans:古董
 zh-Hant:古董
 
-shop-art
+shop-art|@shopping
 en:Arts Shop
 ar:ﻥﻮﻨﻔﻟﺍ ﺮﺠﺘﻣ
 be:Крама мастацтваў
@@ -13717,7 +13717,7 @@ vi:Cửa hàng nghệ thuật
 zh-Hans:艺术商店
 zh-Hant:藝術商店
 
-shop-baby_goods
+shop-baby_goods|@children
 en:Baby Goods
 ar:ﻝﺎﻔﻃﻸﻟ ﺮﺠﺘﻣ
 be:Дзіцячая крама
@@ -13755,7 +13755,7 @@ vi:Cửa hàng trẻ em
 zh-Hans:儿童商店
 zh-Hant:兒童商店
 
-shop-bag
+shop-bag|@shopping
 en:Bags Store
 ar:ﺐﺋﺎﻘﺤﻟﺍ ﺮﺠﺘﻣ
 be:Крама сумак
@@ -14135,7 +14135,7 @@ vi:Sơn
 zh-Hans:油漆
 zh-Hant:油漆
 
-shop-perfumery
+shop-perfumery|@shopping
 en:Perfumery
 ar:ﺭﻮﻄﻌﻟﺍ
 be:Парфумерыя
@@ -14325,7 +14325,7 @@ vi:Nguồn cung cấp Giao dịch
 zh-Hans:贸易用品
 zh-Hant:貿易用品
 
-shop-watches
+shop-watches|@shopping
 en:Watches
 ar:ﺕﺎﻋﺎﺳ
 be:Гадзіннік

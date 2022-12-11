@@ -12217,12 +12217,10 @@
     comment = In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship.
     ref = type.amenity.grave_yard
     en = Cemetery
-    es = Cementerio
     nl = Begraafplaats
 
   [type.landuse.cemetery.christian]
     ref = type.amenity.grave_yard.christian
-    en = Christian Cemetery
     en = Cementerio cristiano
     nl = Christelijke begraafplaats
 
@@ -14014,8 +14012,8 @@
   [type.man_made.mast]
     en = Mast
     be = Мачта/вышка
-    et = Mast
     es = Mástil
+    et = Mast
     fr = Mât
     mr = डोलकाठी
     nl = Mast
@@ -20294,13 +20292,12 @@
     be = Будаўнічы магазін
     bg = Магазин за хардуер
     el = Κατάστημα υλικού
-    es = Ferretería 
     et = Isetegemise tööriistad
     eu = Hardware denda
     fa = ﺭﺍﺰﻓﺍ ﺖﺨﺳ ﻩﺎﮕﺷﻭﺮﻓ
     fr = Quincaillerie
     he = ןיינב ירמוחל תונח
-    hu = Hardver üzlet
+    hu = Barkácsüzlet
     ja = ホームセンター
     nl = IJzerwaren
     pl = Sklep z narzędziami
@@ -20859,7 +20856,7 @@
     fa = فروشگاه
     fi = Ulkoiluvarusteet
     fr = Matériel de loisirs de plein air
-    hu = Kültéri felszerelés
+    hu = Túrafelszerelés
     id = Peralatan Outdoor
     it = Attrezzatura sportiva
     ja = アウトドア用品店
