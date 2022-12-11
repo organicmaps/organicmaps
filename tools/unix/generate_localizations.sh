@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e -u -x
+set -euxo pipefail
 
 # Use ruby from brew on Mac OS X, because system ruby is outdated/broken/will be removed in future releases.
 case $OSTYPE in
@@ -10,7 +10,7 @@ case $OSTYPE in
       PATH="/opt/homebrew/opt/ruby/bin:$PATH"
     else
       echo 'Please install Homebrew ruby by running "brew install ruby"'
-      exit -1
+      exit 1
     fi ;;
   *)
     if [ ! -x "$(which ruby)" ]; then
@@ -35,10 +35,10 @@ TWINE_GEM="twine-$TWINE_COMMIT.gem"
 if [ ! -f "$TWINE_PATH/$TWINE_GEM" ] || ! gem list -i twine; then
   echo "Building & installing twine gem..."
   (
-    cd $TWINE_PATH \
-    && rm -f *.gem \
-    && gem build --output $TWINE_GEM \
-    && gem install --user-install $TWINE_GEM
+    cd "$TWINE_PATH" \
+    && rm -f ./*.gem \
+    && gem build --output "$TWINE_GEM" \
+    && gem install --user-install "$TWINE_GEM"
   )
 fi
 
@@ -68,8 +68,10 @@ cat "$STRINGS_PATH"/{strings,types_strings}.txt> "$MERGED_FILE"
 
 # Generate list of languages and add list in gradle.properties to be used in build.gradle in resConfig
 SUPPORTED_LOCALIZATIONS="supportedLocalizations="$(sed -nEe "s/ +([a-zA-Z]{2}(-[a-zA-Z]{2,})?) = .*$/\1/p" "data/strings/strings.txt" | sort -u | tr '\n' ',' | sed -e 's/-/_/g' -e 's/,$//')
-if [ "$SUPPORTED_LOCALIZATIONS" != "$(grep listLanguages "$OMIM_PATH/android/gradle.properties")" ]; then
-  sed -i 's/supportedLocalizations.*/'"${SUPPORTED_LOCALIZATIONS}"'/' "$OMIM_PATH/android/gradle.properties"
+GRADLE_PROPERTIES="$OMIM_PATH/android/gradle.properties"
+if [ "$SUPPORTED_LOCALIZATIONS" != "$(grep supportedLocalizations "$GRADLE_PROPERTIES")" ]; then
+  sed -i .bak 's/supportedLocalizations.*/'"$SUPPORTED_LOCALIZATIONS"'/' "$GRADLE_PROPERTIES"
+  rm "$GRADLE_PROPERTIES.bak"
 fi
 
-rm $MERGED_FILE
+rm "$MERGED_FILE"
