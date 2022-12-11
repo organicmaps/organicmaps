@@ -3263,7 +3263,7 @@
 
 "type.shop.hairdresser" = "Fodrász";
 
-"type.shop.hardware" = "Hardver üzlet";
+"type.shop.hardware" = "Barkácsüzlet";
 
 "type.shop.health_food" = "Egészségügyi élelmiszerbolt";
 
@@ -3295,7 +3295,7 @@
 
 "type.shop.optician" = "Optika";
 
-"type.shop.outdoor" = "Kültéri felszerelés";
+"type.shop.outdoor" = "Túrafelszerelés";
 
 "type.shop.pastry" = "Cukrászsütemény";
 

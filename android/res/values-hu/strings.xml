@@ -1507,7 +1507,7 @@
 	<string name="type.shop.greengrocer">Zöldséges</string>
 	<string name="type.shop.grocery">Élelmiszerbolt</string>
 	<string name="type.shop.hairdresser">Fodrász</string>
-	<string name="type.shop.hardware">Hardver üzlet</string>
+	<string name="type.shop.hardware">Barkácsüzlet</string>
 	<string name="type.shop.health_food">Egészségügyi élelmiszerbolt</string>
 	<string name="type.shop.houseware">Háztartási bolt</string>
 	<string name="type.shop.jewelry">Ékszer</string>
@@ -1523,7 +1523,7 @@
 	<string name="type.shop.musical_instrument">Bolt</string>
 	<string name="type.shop.newsagent">Újságárus</string>
 	<string name="type.shop.optician">Optika</string>
-	<string name="type.shop.outdoor">Kültéri felszerelés</string>
+	<string name="type.shop.outdoor">Túrafelszerelés</string>
 	<string name="type.shop.pastry">Cukrászsütemény</string>
 	<string name="type.shop.pawnbroker">Zálogház</string>
 	<string name="type.shop.pet">Házikedvenc-üzlet</string>
