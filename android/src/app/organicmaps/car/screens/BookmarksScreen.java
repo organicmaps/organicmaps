@@ -19,7 +19,8 @@ import app.organicmaps.R;
 import app.organicmaps.bookmarks.data.BookmarkCategory;
 import app.organicmaps.bookmarks.data.BookmarkInfo;
 import app.organicmaps.bookmarks.data.BookmarkManager;
-import app.organicmaps.car.OMController;
+import app.organicmaps.car.SurfaceRenderer;
+import app.organicmaps.car.UiHelpers;
 import app.organicmaps.util.Graphics;
 
 import java.util.ArrayList;
@@ -32,16 +33,16 @@ public class BookmarksScreen extends MapScreen
   @Nullable
   private BookmarkCategory mBookmarkCategory;
 
-  public BookmarksScreen(@NonNull CarContext carContext, @NonNull OMController mapController)
+  public BookmarksScreen(@NonNull CarContext carContext, @NonNull SurfaceRenderer surfaceRenderer)
   {
-    super(carContext, mapController);
+    super(carContext, surfaceRenderer);
     final ConstraintManager constraintManager = getCarContext().getCarService(ConstraintManager.class);
     MAX_CATEGORIES_SIZE = constraintManager.getContentLimit(ConstraintManager.CONTENT_LIMIT_TYPE_LIST);
   }
 
-  private BookmarksScreen(@NonNull CarContext carContext, @NonNull OMController mapController, @NonNull BookmarkCategory bookmarkCategory)
+  private BookmarksScreen(@NonNull CarContext carContext, @NonNull SurfaceRenderer surfaceRenderer, @NonNull BookmarkCategory bookmarkCategory)
   {
-    this(carContext, mapController);
+    this(carContext, surfaceRenderer);
     mBookmarkCategory = bookmarkCategory;
   }
 
@@ -51,8 +52,8 @@ public class BookmarksScreen extends MapScreen
   {
     MapTemplate.Builder builder = new MapTemplate.Builder();
     builder.setHeader(createHeader());
-    builder.setMapController(getMapController());
-    builder.setActionStrip(getActionStrip());
+    builder.setMapController(UiHelpers.createMapController(getCarContext(), getSurfaceRenderer()));
+    builder.setActionStrip(UiHelpers.createSettingsActionStrip(getCarContext(), getSurfaceRenderer()));
     builder.setItemList(mBookmarkCategory == null ? createBookmarkCategoriesList() : createBookmarksList());
     return builder.build();
   }
@@ -80,7 +81,7 @@ public class BookmarksScreen extends MapScreen
       Row.Builder itemBuilder = new Row.Builder();
       itemBuilder.setTitle(bookmarkCategory.getName());
       itemBuilder.addText(bookmarkCategory.getDescription());
-      itemBuilder.setOnClickListener(() -> getScreenManager().push(new BookmarksScreen(getCarContext(), getOMController(), bookmarkCategory)));
+      itemBuilder.setOnClickListener(() -> getScreenManager().push(new BookmarksScreen(getCarContext(), getSurfaceRenderer(), bookmarkCategory)));
       itemBuilder.setBrowsable(true);
       builder.addItem(itemBuilder.build());
     }
@@ -99,7 +100,7 @@ public class BookmarksScreen extends MapScreen
       final long bookmarkId = BookmarkManager.INSTANCE.getBookmarkIdByPosition(bookmarkCategoryId, i);
       final BookmarkInfo bookmarkInfo = new BookmarkInfo(bookmarkCategoryId, bookmarkId);
 
-      Row.Builder itemBuilder = new Row.Builder();
+      final Row.Builder itemBuilder = new Row.Builder();
       itemBuilder.setTitle(bookmarkInfo.getName());
       if (!bookmarkInfo.getAddress().isEmpty())
         itemBuilder.addText(bookmarkInfo.getAddress());
@@ -119,9 +120,9 @@ public class BookmarksScreen extends MapScreen
   @NonNull
   private static List<BookmarkCategory> getBookmarks()
   {
-    List<BookmarkCategory> bookmarkCategories = new ArrayList<>(BookmarkManager.INSTANCE.getCategories());
+    final List<BookmarkCategory> bookmarkCategories = new ArrayList<>(BookmarkManager.INSTANCE.getCategories());
 
-    List<BookmarkCategory> toRemove = new ArrayList<>();
+    final List<BookmarkCategory> toRemove = new ArrayList<>();
     for (BookmarkCategory bookmarkCategory : bookmarkCategories)
     {
       if (bookmarkCategory.getBookmarksCount() == 0)

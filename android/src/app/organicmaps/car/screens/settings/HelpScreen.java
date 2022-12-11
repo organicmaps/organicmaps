@@ -13,15 +13,16 @@ import androidx.car.app.navigation.model.MapTemplate;
 import app.organicmaps.BuildConfig;
 import app.organicmaps.Framework;
 import app.organicmaps.R;
-import app.organicmaps.car.OMController;
+import app.organicmaps.car.SurfaceRenderer;
+import app.organicmaps.car.UiHelpers;
 import app.organicmaps.car.screens.MapScreen;
 import app.organicmaps.util.DateUtils;
 
 public class HelpScreen extends MapScreen
 {
-  public HelpScreen(@NonNull CarContext carContext, @NonNull OMController mapController)
+  public HelpScreen(@NonNull CarContext carContext, @NonNull SurfaceRenderer surfaceRenderer)
   {
-    super(carContext, mapController);
+    super(carContext, surfaceRenderer);
   }
 
   @NonNull
@@ -30,7 +31,7 @@ public class HelpScreen extends MapScreen
   {
     MapTemplate.Builder builder = new MapTemplate.Builder();
     builder.setHeader(createHeader());
-    builder.setMapController(getMapController());
+    builder.setMapController(UiHelpers.createMapController(getCarContext(), getSurfaceRenderer()));
     builder.setItemList(createSettingsList());
     return builder.build();
   }

@@ -13,13 +13,14 @@ import androidx.car.app.navigation.model.MapTemplate;
 import androidx.core.graphics.drawable.IconCompat;
 
 import app.organicmaps.R;
-import app.organicmaps.car.OMController;
+import app.organicmaps.car.SurfaceRenderer;
+import app.organicmaps.car.UiHelpers;
 
 public class NavigationScreen extends MapScreen
 {
-  public NavigationScreen(@NonNull CarContext carContext, @NonNull OMController mapController)
+  public NavigationScreen(@NonNull CarContext carContext, @NonNull SurfaceRenderer surfaceRenderer)
   {
-    super(carContext, mapController);
+    super(carContext, surfaceRenderer);
   }
 
   @NonNull
@@ -28,8 +29,8 @@ public class NavigationScreen extends MapScreen
   {
     MapTemplate.Builder builder = new MapTemplate.Builder();
     builder.setHeader(createHeader());
-    builder.setMapController(getMapController());
-    builder.setActionStrip(getActionStrip());
+    builder.setMapController(UiHelpers.createMapController(getCarContext(), getSurfaceRenderer()));
+    builder.setActionStrip(UiHelpers.createSettingsActionStrip(getCarContext(), getSurfaceRenderer()));
     builder.setItemList(createList());
     return builder.build();
   }
@@ -93,11 +94,11 @@ public class NavigationScreen extends MapScreen
 
   private void openCategories()
   {
-    getScreenManager().push(new CategoriesScreen(getCarContext(), getOMController()));
+    getScreenManager().push(new CategoriesScreen(getCarContext(), getSurfaceRenderer()));
   }
 
   private void openBookmarks()
   {
-    getScreenManager().push(new BookmarksScreen(getCarContext(), getOMController()));
+    getScreenManager().push(new BookmarksScreen(getCarContext(), getSurfaceRenderer()));
   }
 }

@@ -15,7 +15,8 @@ import androidx.car.app.navigation.model.MapTemplate;
 import androidx.core.graphics.drawable.IconCompat;
 
 import app.organicmaps.R;
-import app.organicmaps.car.OMController;
+import app.organicmaps.car.SurfaceRenderer;
+import app.organicmaps.car.UiHelpers;
 
 import java.util.Arrays;
 import java.util.List;
@@ -49,10 +50,11 @@ public class CategoriesScreen extends MapScreen
 
   private final int MAX_CATEGORIES_SIZE;
 
-  public CategoriesScreen(@NonNull CarContext carContext, @NonNull OMController mapController)
+  public CategoriesScreen(@NonNull CarContext carContext, @NonNull SurfaceRenderer surfaceRenderer)
   {
-    super(carContext, mapController);
-    MAX_CATEGORIES_SIZE = getCarContext().getCarService(ConstraintManager.class).getContentLimit(ConstraintManager.CONTENT_LIMIT_TYPE_LIST);
+    super(carContext, surfaceRenderer);
+    final ConstraintManager constraintManager = getCarContext().getCarService(ConstraintManager.class);
+    MAX_CATEGORIES_SIZE = constraintManager.getContentLimit(ConstraintManager.CONTENT_LIMIT_TYPE_LIST);
   }
 
   @NonNull
@@ -61,8 +63,8 @@ public class CategoriesScreen extends MapScreen
   {
     MapTemplate.Builder builder = new MapTemplate.Builder();
     builder.setHeader(createHeader());
-    builder.setMapController(getMapController());
-    builder.setActionStrip(getActionStrip());
+    builder.setMapController(UiHelpers.createMapController(getCarContext(), getSurfaceRenderer()));
+    builder.setActionStrip(UiHelpers.createSettingsActionStrip(getCarContext(), getSurfaceRenderer()));
     builder.setItemList(createCategoriesList());
     return builder.build();
   }
