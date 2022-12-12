@@ -38,7 +38,6 @@ area[amenity],
 area[man_made],
 {-x-me-min-text-priority: 15300;}
 
-node|z17-[leisure],
 node[amenity=marketplace],
 area[amenity=marketplace]
 {z-index: 6;}
