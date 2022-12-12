@@ -39,9 +39,6 @@ area[amenity],
 area[man_made],
 {-x-me-min-text-priority: 15300;}
 
-node|z17-[leisure],
-{z-index: 6;}
-
 node|z17-[leisure=golf_course],
 area|z17-[leisure=golf_course]
 {z-index: 50;}

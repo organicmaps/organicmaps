@@ -240,6 +240,13 @@ UNIT_TEST(Classificator_AreaPriority)
     // 1
     {"man_made", "pier"}, {"man_made", "breakwater"}, {"waterway", "dam"},
   }, {2, 3}, drule::area);
+
+  CheckPriority({
+    // 0
+    {"leisure", "park"},
+    // 1
+    {"leisure", "pitch"}, {"leisure", "playground"}, {"sport", "multi"},
+  }, {1, 3}, drule::area);
 }
 
 UNIT_TEST(Classificator_PoiPriority)

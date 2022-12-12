@@ -63,20 +63,21 @@ area[landuse=railway],
 area[landuse=quarry]
 {z-index: 3;}
 
-area[leisure=pitch],
-area[leisure=stadium],
-area[leisure=track][area?]
-area[leisure=playground],
-area[sport=multi],
-area[sport=soccer],
-{z-index: 5;}
-
 area[landuse=forest]
 {z-index: 30;}
 
 area[leisure=park],
 area[leisure=garden]
 {z-index: 40;}
+
+/* Should be greater than leisure=park */
+area[leisure=pitch],
+area[leisure=stadium],
+area[leisure=track][area?],
+area[leisure=playground],
+area[sport=multi],
+area[sport=soccer],
+{z-index: 41;}
 
 area[landuse=farmland],
 area[landuse=farmyard],
