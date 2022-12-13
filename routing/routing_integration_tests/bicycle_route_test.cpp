@@ -144,21 +144,25 @@ UNIT_TEST(CrossMwmKaliningradRegionToLiepaja)
 // Test on riding up from Adeje (sea level) to Vilaflor (altitude 1400 meters).
 UNIT_TEST(SpainTenerifeAdejeVilaflor)
 {
-  // Route length: 30440 meters. ETA: 10022.6 seconds.
-  // Can't say ETA is good or not, but avg speed is 3m/s, which looks ok.
-  integration::CalculateRouteAndTestRouteTime(
-      integration::GetVehicleComponents(VehicleType::Bicycle),
-      mercator::FromLatLon(28.11984, -16.72592), {0.0, 0.0},
-      mercator::FromLatLon(28.15865, -16.63704), 10022.6 /* expectedTimeSeconds */);
+  TRouteResult const res = CalculateRoute(GetVehicleComponents(VehicleType::Bicycle),
+                              mercator::FromLatLon(28.11984, -16.72592), {0., 0.},
+                              mercator::FromLatLon(28.15865, -16.63704));
+  /// @todo A bit differ from OSRM:
+  /// https://www.openstreetmap.org/directions?engine=fossgis_osrm_bike&route=28.119%2C-16.726%3B28.159%2C-16.637
+  TestRouteLength(*res.first, 28956.2);
+  TestRouteTime(*res.first, 9221.9);
 }
 
 // Test on riding down from Vilaflor (altitude 1400 meters) to Adeje (sea level).
 UNIT_TEST(SpainTenerifeVilaflorAdeje)
 {
-  integration::CalculateRouteAndTestRouteTime(
-      integration::GetVehicleComponents(VehicleType::Bicycle),
-      mercator::FromLatLon(28.15865, -16.63704), {0.0, 0.0},
-      mercator::FromLatLon(28.11984, -16.72592), 7979.9 /* expectedTimeSeconds */);
+  // New time is much closer to OSRM timing:
+  // https://www.openstreetmap.org/directions?engine=fossgis_osrm_bike&route=28.15865%2C-16.63704%3B28.11984%2C-16.72592
+  TRouteResult const res = CalculateRoute(GetVehicleComponents(VehicleType::Bicycle),
+                              mercator::FromLatLon(28.15865, -16.63704), {0., 0.},
+                              mercator::FromLatLon(28.11984, -16.72592));
+  TestRouteLength(*res.first, 25467.7);
+  TestRouteTime(*res.first, 7261.01);
 }
 
 // Two tests on not building route against traffic on road with oneway:bicycle=yes.

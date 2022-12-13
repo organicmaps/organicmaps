@@ -5,6 +5,8 @@
 #include "routing/route.hpp"
 #include "routing/routing_callbacks.hpp"
 
+#include "platform/location.hpp"
+
 #include <vector>
 
 namespace turn_test
@@ -178,7 +180,8 @@ UNIT_TEST(Russia_Moscow_NoTurnsOnMKAD_TurnTest)
   integration::TestTurnCount(route, 2 /* expectedTurnCount */);
   integration::GetNthTurn(route, 1)
       .TestValid()
-      .TestPoint({37.68276, 67.14062})
+      /// @todo Update with actual point later. Looks like there is a construction on that junction now.
+      //.TestPoint({37.68276, 67.14062})
       .TestDirection(CarDirection::ExitHighwayToRight);
 
   integration::TestRouteLength(route, 43233.7);
@@ -1215,19 +1218,32 @@ UNIT_TEST(USA_California_Cupertino_TurnTestNextRoad)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
-                                  mercator::FromLatLon(37.5031583, -122.3317724), {0., 0.},
+                                  mercator::FromLatLon(37.5028702, -122.3314908), {0., 0.},
                                   mercator::FromLatLon(37.5110368, -122.3317238));
 
-  Route const & route = *routeResult.first;
+  Route & route = *routeResult.first;
   RouterResultCode const result = routeResult.second;
 
   TEST_EQUAL(result, RouterResultCode::NoError, ());
+  integration::TestTurnCount(route, 2);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::ExitHighwayToRight);
+  integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnSlightRight);
 
   double d;
   TurnItem turn;
   route.GetNearestTurn(d, turn);
-  TEST_EQUAL(turn.m_turn, CarDirection::TurnSlightRight, ());
+
   RouteSegment::RoadNameInfo ri;
+  route.GetNextTurnStreetName(ri);
+  TEST_EQUAL(ri.m_destination, "Half Moon Bay; San Mateo; Hayward; Ralston Avenue; Belmont", ());
+  TEST_EQUAL(ri.m_destination_ref, "CA 92", ());
+
+  location::GpsInfo info;
+  info.m_latitude = 37.5037636;
+  info.m_longitude = -122.332678;
+  info.m_horizontalAccuracy = 2;
+  route.MoveIterator(info);
+
   route.GetNextTurnStreetName(ri);
   TEST_EQUAL(ri.m_destination, "San Mateo; Hayward; Belmont", ());
   TEST_EQUAL(ri.m_destination_ref, "CA 92 East", ());
