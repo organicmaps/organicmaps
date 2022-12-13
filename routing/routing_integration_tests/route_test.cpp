@@ -375,7 +375,10 @@ using namespace std;
 
     CHECK(routeResult.first, ());
     Route const & route = *routeResult.first;
-    integration::TestRouteTime(route, 19053.0);
+
+    // New time is closer to GraphHopper timing:
+    // https://www.openstreetmap.org/directions?engine=graphhopper_car&route=52.51172%2C13.39468%3B48.13294%2C11.60352
+    integration::TestRouteTime(route, 19321.7);
   }
 
   // Test on roads with tag route=shuttle_train. This train has defined maxspeed=100.
@@ -391,7 +394,7 @@ using namespace std;
     CHECK(routeResult.first, ());
     Route const & route = *routeResult.first;
     integration::TestRouteLength(route, 44116.7);
-    integration::TestRouteTime(route, 2580.82);
+    integration::TestRouteTime(route, 2529.63);
   }
 
   UNIT_TEST(TolyattiFeatureThatCrossSeveralMwmsTest)
@@ -782,6 +785,6 @@ using namespace std;
                                 mercator::FromLatLon(40.6119, 27.1136));
 
     TestRouteLength(*res.first, 100329.0);
-    TestRouteTime(*res.first, 5246.83);
+    TestRouteTime(*res.first, 5342.23);
   }
 } // namespace route_test

@@ -69,9 +69,9 @@ UNIT_TEST(Guides_TwoPointsOnTrackOneViaOsm)
   Checkpoints const checkpoints{mercator::FromLatLon(48.13998, 11.56982),
                                 mercator::FromLatLon(48.14448, 11.57259)};
 
-  double const expectedDistM = 702.4;
-  double const expectedTimeS = 821.6;
-  size_t const expectedPointsCount = 11;
+  double const expectedDistM = 788.681;
+  double const expectedTimeS = 913.042;
+  size_t const expectedPointsCount = 13;
 
   TestGuideRoute(checkpoints, expectedDistM, expectedTimeS, expectedPointsCount);
   ReverseCheckpoints(checkpoints);
@@ -107,6 +107,6 @@ UNIT_TEST(Guides_MultipleIntermediatePoints)
        mercator::FromLatLon(48.14192, 11.57548), mercator::FromLatLon(48.14106, 11.57279),
        mercator::FromLatLon(48.14044, 11.57061)});
 
-  TestGuideRoute(checkpoints, 1258.05 /* expectedDistM */, 1094.78 /* expectedTimeS */, 66 /* expectedPointsCount */);
+  TestGuideRoute(checkpoints, 1258.05 /* expectedDistM */, 1076.53 /* expectedTimeS */, 66 /* expectedPointsCount */);
 }
 } // namespace guides_tests
