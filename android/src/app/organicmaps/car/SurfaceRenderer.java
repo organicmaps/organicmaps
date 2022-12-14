@@ -126,12 +126,12 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
 
   public void onZoomIn()
   {
-    Map.zoomIn();
+    mMap.zoomIn();
   }
 
   public void onZoomOut()
   {
-    Map.zoomOut();
+    mMap.zoomOut();
   }
 
   @Override
@@ -153,14 +153,14 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
 
     final boolean animated = Float.compare(scaleFactor, 2f) == 0;
 
-    Map.onScale(scaleFactor, x, y, animated);
+    mMap.onScale(scaleFactor, x, y, animated);
   }
 
   @Override
   public void onClick(float x, float y)
   {
     Log.d(TAG, "onClick: x: " + x + ", y: " + y);
-    Map.onTouch(x, y);
+    mMap.onTouch(x, y);
   }
 
   private void reportUnsupported()
