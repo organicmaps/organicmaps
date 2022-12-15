@@ -30,6 +30,11 @@ std::string const kPair = "Pair";
 std::string const kExtendedData = "ExtendedData";
 std::string const kCompilation = "mwm:compilation";
 
+std::string const kCoordinates = "coordinates";
+std::string const kTrack = "Track";
+std::string const gxTrack = "gx:Track";
+std::string const gxCoord = "gx:coord";
+
 std::string const kKmlHeader =
   "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
     "<kml xmlns=\"http://earth.google.com/kml/2.2\">\n"
@@ -725,23 +730,27 @@ void KmlParser::SetOrigin(std::string const & s)
     m_org = pt;
 }
 
-void KmlParser::ParseLineCoordinates(std::string const & s, char const * blockSeparator,
-                                     char const * coordSeparator)
+void KmlParser::ParseAndAddPoint(MultiGeometry::LineT & line, std::string_view v, char const * separator)
+{
+  geometry::PointWithAltitude point;
+  if (ParsePointWithAltitude(v, separator, point))
+  {
+    // We dont't expect vertical surfaces, so do not compare heights here.
+    // Will get a lot of duplicating points otherwise after import some user KMLs.
+    // https://github.com/organicmaps/organicmaps/issues/3895
+    if (line.empty() || !AlmostEqualAbs(line.back().GetPoint(), point.GetPoint(), kMwmPointAccuracy))
+      line.emplace_back(point);
+  }
+}
+
+void KmlParser::ParseLineCoordinates(std::string const & s, char const * blockSeparator, char const * coordSeparator)
 {
   m_geometryType = GEOMETRY_TYPE_LINE;
 
   MultiGeometry::LineT line;
   strings::Tokenize(s, blockSeparator, [&](std::string_view v)
   {
-    geometry::PointWithAltitude point;
-    if (ParsePointWithAltitude(v, coordSeparator, point))
-    {
-      // We dont't expect vertical surfaces, so do not compare heights here.
-      // Will get a lot of duplicating points otherwise after import some user KMLs.
-      // https://github.com/organicmaps/organicmaps/issues/3895
-      if (line.empty() || !AlmostEqualAbs(line.back().GetPoint(), point.GetPoint(), kMwmPointAccuracy))
-        line.emplace_back(point);
-    }
+    ParseAndAddPoint(line, v, coordSeparator);
   });
 
   if (line.size() > 1)
@@ -820,6 +829,11 @@ bool KmlParser::Push(std::string const & tag)
     m_categoryData = &m_compilationData;
     m_compilationData.m_accessRules = m_data.m_categoryData.m_accessRules;
   }
+  else if (IsProcessTrackTag())
+  {
+    m_geometryType = GEOMETRY_TYPE_LINE;
+    m_geometry.m_lines.push_back({});
+  }
   return true;
 }
 
@@ -879,6 +893,12 @@ std::string const & KmlParser::GetTagFromEnd(size_t n) const
 {
   ASSERT_LESS(n, m_tags.size(), ());
   return m_tags[m_tags.size() - n - 1];
+}
+
+bool KmlParser::IsProcessTrackTag() const
+{
+  size_t const n = m_tags.size();
+  return n >= 3 && m_tags[n - 1] == kTrack && (m_tags[n - 2] == kPlacemark || m_tags[n - 3] == kPlacemark);
 }
 
 void KmlParser::Pop(std::string const & tag)
@@ -968,6 +988,14 @@ void KmlParser::Pop(std::string const & tag)
     m_data.m_compilationsData.push_back(std::move(m_compilationData));
     m_categoryData = &m_data.m_categoryData;
   }
+  else if (IsProcessTrackTag())
+  {
+    // Simple line validation.
+    auto & lines = m_geometry.m_lines;
+    ASSERT(!lines.empty(), ());
+    if (lines.back().size() < 2)
+      lines.pop_back();
+  }
 
   m_tags.pop_back();
 }
@@ -984,6 +1012,20 @@ void KmlParser::CharData(std::string value)
     std::string const ppTag = count > 2 ? m_tags[count - 3] : std::string();
     std::string const pppTag = count > 3 ? m_tags[count - 4] : std::string();
     std::string const ppppTag = count > 4 ? m_tags[count - 5] : std::string();
+
+    auto const TrackTag = [this, &prevTag, &currTag, &value]()
+    {
+      if (prevTag != kTrack)
+        return false;
+
+      if (currTag == "coord")
+      {
+        auto & lines = m_geometry.m_lines;
+        ASSERT(!lines.empty(), ());
+        ParseAndAddPoint(lines.back(), value, " ");
+      }
+      return true;
+    };
 
     if (prevTag == kDocument)
     {
@@ -1158,18 +1200,22 @@ void KmlParser::CharData(std::string value)
     {
       if (prevTag == "Point")
       {
-        if (currTag == "coordinates")
+        if (currTag == kCoordinates)
           SetOrigin(value);
       }
       else if (prevTag == "LineString")
       {
-        if (currTag == "coordinates")
+        if (currTag == kCoordinates)
           ParseLineCoordinates(value, " \n\r\t", ",");
       }
-      else if (prevTag == "gx:Track")
+      else if (prevTag == gxTrack)
       {
-        if (currTag == "gx:coord")
+        if (currTag == gxCoord)
           ParseLineCoordinates(value, "\n\r\t", " ");
+      }
+      else if (TrackTag())
+      {
+        // noop
       }
       else if (prevTag == kExtendedData)
       {
@@ -1239,68 +1285,75 @@ void KmlParser::CharData(std::string value)
     {
       if (prevTag == "Point")
       {
-        if (currTag == "coordinates")
+        if (currTag == kCoordinates)
           SetOrigin(value);
       }
       else if (prevTag == "LineString")
       {
-        if (currTag == "coordinates")
+        if (currTag == kCoordinates)
           ParseLineCoordinates(value, " \n\r\t", ",");
       }
-      else if (prevTag == "gx:Track")
+      else if (prevTag == gxTrack)
       {
-        if (currTag == "gx:coord")
+        if (currTag == gxCoord)
           ParseLineCoordinates(value, "\n\r\t", " ");
       }
     }
     else if (ppTag == "gx:MultiTrack")
     {
-      if (prevTag == "gx:Track")
+      if (prevTag == gxTrack)
       {
-        if (currTag == "gx:coord")
+        if (currTag == gxCoord)
           ParseLineCoordinates(value, "\n\r\t", " ");
       }
     }
-    else if (pppTag == kPlacemark && ppTag == kExtendedData)
+    else if (pppTag == kPlacemark)
     {
-      if (currTag == "mwm:lang")
+      if (ppTag == kExtendedData)
       {
-        if (prevTag == "mwm:name" && m_attrCode >= 0)
-          m_name[m_attrCode] = value;
-        else if (prevTag == "mwm:description" && m_attrCode >= 0)
-          m_description[m_attrCode] = value;
-        else if (prevTag == "mwm:customName" && m_attrCode >= 0)
-          m_customName[m_attrCode] = value;
-        m_attrCode = StringUtf8Multilang::kUnsupportedLanguageCode;
-      }
-      else if (currTag == "mwm:value")
-      {
-        uint32_t i;
-        if (prevTag == "mwm:featureTypes")
+        if (currTag == "mwm:lang")
         {
-          auto const & c = classif();
-          if (!c.HasTypesMapping())
-            MYTHROW(DeserializerKml::DeserializeException, ("Types mapping is not loaded."));
-          auto const type = c.GetTypeByReadableObjectName(value);
-          if (c.IsTypeValid(type))
+          if (prevTag == "mwm:name" && m_attrCode >= 0)
+            m_name[m_attrCode] = value;
+          else if (prevTag == "mwm:description" && m_attrCode >= 0)
+            m_description[m_attrCode] = value;
+          else if (prevTag == "mwm:customName" && m_attrCode >= 0)
+            m_customName[m_attrCode] = value;
+          m_attrCode = StringUtf8Multilang::kUnsupportedLanguageCode;
+        }
+        else if (currTag == "mwm:value")
+        {
+          uint32_t i;
+          if (prevTag == "mwm:featureTypes")
           {
-            auto const typeInd = c.GetIndexForType(type);
-            m_featureTypes.push_back(typeInd);
+            auto const & c = classif();
+            if (!c.HasTypesMapping())
+              MYTHROW(DeserializerKml::DeserializeException, ("Types mapping is not loaded."));
+            auto const type = c.GetTypeByReadableObjectName(value);
+            if (c.IsTypeValid(type))
+            {
+              auto const typeInd = c.GetIndexForType(type);
+              m_featureTypes.push_back(typeInd);
+            }
+          }
+          else if (prevTag == "mwm:boundTracks" && strings::to_uint(value, i))
+          {
+            m_boundTracks.push_back(static_cast<LocalId>(i));
+          }
+          else if (prevTag == "mwm:nearestToponyms")
+          {
+            m_nearestToponyms.push_back(value);
+          }
+          else if (prevTag == "mwm:properties" && !m_attrKey.empty())
+          {
+            m_properties[m_attrKey] = value;
+            m_attrKey.clear();
           }
         }
-        else if (prevTag == "mwm:boundTracks" && strings::to_uint(value, i))
-        {
-          m_boundTracks.push_back(static_cast<LocalId>(i));
-        }
-        else if (prevTag == "mwm:nearestToponyms")
-        {
-          m_nearestToponyms.push_back(value);
-        }
-        else if (prevTag == "mwm:properties" && !m_attrKey.empty())
-        {
-          m_properties[m_attrKey] = value;
-          m_attrKey.clear();
-        }
+      }
+      else if (ppTag == "MultiTrack" && TrackTag())
+      {
+        // noop
       }
     }
   }

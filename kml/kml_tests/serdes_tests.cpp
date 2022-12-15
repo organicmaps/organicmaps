@@ -792,3 +792,46 @@ UNIT_TEST(Kml_Deserialization_From_Bin_V6_And_V7)
 
   TEST_EQUAL(dataFromBinV6, dataFromBinV7, ());
 }
+
+UNIT_TEST(Kml_Ver_2_3)
+{
+  char const * data = R"(<?xml version="1.0" encoding="UTF-8"?>
+    <kml xmlns="http://www.opengis.net/kml/2.2" version="2.3">
+      <Placemark id="PM005">
+        <Track>
+          <when>2010-05-28T02:02:09Z</when>
+          <when>2010-05-28T02:02:35Z</when>
+          <when>2010-05-28T02:02:44Z</when>
+          <when>2010-05-28T02:02:53Z</when>
+          <when>2010-05-28T02:02:54Z</when>
+          <when>2010-05-28T02:02:55Z</when>
+          <when>2010-05-28T02:02:56Z</when>
+          <coord>-122.207881 37.371915 156.000000</coord>
+          <coord>-122.205712 37.373288 152.000000</coord>
+          <coord>-122.204678 37.373939 147.000000</coord>
+          <coord>-122.203572 37.374630 142.199997</coord>
+          <coord>-122.203451 37.374706 141.800003</coord>
+          <coord>-122.203329 37.374780 141.199997</coord>
+          <coord>-122.203207 37.374857 140.199997</coord>
+        </Track>
+      </Placemark>
+    </kml>
+  )";
+
+  kml::FileData fData;
+  try
+  {
+    MemReader reader(data, strlen(data));
+    kml::DeserializerKml des(fData);
+    des.Deserialize(reader);
+  }
+  catch (kml::DeserializerKml::DeserializeException const & ex)
+  {
+    TEST(false, ("Exception raised", ex.Msg()));
+  }
+
+  TEST_EQUAL(fData.m_tracksData.size(), 1, ());
+  auto const & lines = fData.m_tracksData[0].m_geometry.m_lines;
+  TEST_EQUAL(lines.size(), 1, ());
+  TEST_EQUAL(lines[0].size(), 7, ());
+}
