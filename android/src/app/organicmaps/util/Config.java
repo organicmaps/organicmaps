@@ -343,6 +343,10 @@ public final class Config
   {
     return getString(KEY_DONATE_URL);
   }
+  public static boolean isNY()
+  {
+    return getBool("NY");
+  }
 
   private static native boolean nativeGetBoolean(String name, boolean defaultValue);
   private static native void nativeSetBoolean(String name, boolean value);

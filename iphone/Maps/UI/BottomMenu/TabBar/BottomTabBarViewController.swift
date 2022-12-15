@@ -26,6 +26,14 @@ class BottomTabBarViewController: UIViewController {
     return MWMMapViewControlsManager.manager()?.tabBarController
   }
   
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    if Settings.isNY() {
+      helpButton.setTitle("🎄", for: .normal)
+      helpButton.setImage(nil, for: .normal)
+    }
+  }
+
   override func viewDidLoad() {
     super.viewDidLoad()
     presenter.configure()

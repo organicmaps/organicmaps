@@ -67,7 +67,15 @@ public class MapButtonsController extends Fragment
 
     mInnerLeftButtonsFrame = mFrame.findViewById(R.id.map_buttons_inner_left);
     mInnerRightButtonsFrame = mFrame.findViewById(R.id.map_buttons_inner_right);
+
     mBottomButtonsFrame = mFrame.findViewById(R.id.map_buttons_bottom);
+    final FloatingActionButton helpButton = mBottomButtonsFrame.findViewById(R.id.help_button);
+    if (Config.isNY() && helpButton != null)
+    {
+      helpButton.setImageResource(R.drawable.ic_christmas_tree);
+      helpButton.getDrawable().setTintList(null);
+    }
+
     final View zoomFrame = mFrame.findViewById(R.id.zoom_buttons_container);
     mFrame.findViewById(R.id.nav_zoom_in)
           .setOnClickListener((v) -> mMapButtonClickListener.onClick(MapButtons.zoomIn));
@@ -98,7 +106,6 @@ public class MapButtonsController extends Fragment
         }
       });
     }
-    final View helpButton = mFrame.findViewById(R.id.help_button);
     if (helpButton != null)
       helpButton.setOnClickListener((v) -> mMapButtonClickListener.onClick(MapButtons.help));
 

@@ -25,12 +25,13 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
 {
   private String mDonateUrl;
 
-  private void setupItem(@IdRes int id, boolean tint, @NonNull View frame)
+  private TextView setupItem(@IdRes int id, boolean tint, @NonNull View frame)
   {
-    TextView view = frame.findViewById(id);
+    final TextView view = frame.findViewById(id);
     view.setOnClickListener(this);
     if (tint)
       Graphics.tint(view);
+    return view;
   }
 
   @Override
@@ -60,14 +61,25 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
     setupItem(R.id.report, true, root);
     if (TextUtils.isEmpty(mDonateUrl))
     {
-      TextView donateView = root.findViewById(R.id.donate);
+      final TextView donateView = root.findViewById(R.id.donate);
       donateView.setVisibility(View.GONE);
-      TextView supportUsView = root.findViewById(R.id.support_us);
-      supportUsView.setVisibility(View.GONE);
+      if (BuildConfig.FLAVOR.equals("google"))
+      {
+        final TextView supportUsView = root.findViewById(R.id.support_us);
+        supportUsView.setVisibility(View.GONE);
+      }
+      else
+        setupItem(R.id.support_us, true, root);
     }
     else
     {
-      setupItem(R.id.donate, true, root);
+      if (Config.isNY())
+      {
+        final TextView textView = setupItem(R.id.donate, false, root);
+        textView.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_christmas_tree, 0, R.drawable.ic_christmas_tree, 0);
+      }
+      else
+        setupItem(R.id.donate, true, root);
       setupItem(R.id.support_us, true, root);
     }
     if (BuildConfig.REVIEW_URL.isEmpty())

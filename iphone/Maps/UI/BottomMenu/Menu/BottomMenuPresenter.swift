@@ -71,7 +71,7 @@ extension BottomMenuPresenter {
                      badgeCount: MapsAppDelegate.theApp().badgeNumber(),
                      enabled: true)
     case .donate:
-      cell.configure(imageName: "ic_menu_donate",
+      cell.configure(imageName: Settings.isNY() ? "ic_christmas_tree" : "ic_menu_donate",
                      title: L("donate"),
                      badgeCount: 0,
                      enabled: true)
