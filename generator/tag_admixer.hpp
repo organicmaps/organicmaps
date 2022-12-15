@@ -52,16 +52,16 @@ public:
     {
       // String format: <<lat;lon;id;is_capital>>.
       // First ';'.
-      auto pos = oneLine.find(";");
+      auto pos = oneLine.find(';');
       if (pos != std::string::npos)
       {
         // Second ';'.
-        pos = oneLine.find(";", pos + 1);
+        pos = oneLine.find(';', pos + 1);
         if (pos != std::string::npos)
         {
           uint64_t nodeId;
           // Third ';'.
-          auto endPos = oneLine.find(";", pos + 1);
+          auto endPos = oneLine.find(';', pos + 1);
           if (endPos != std::string::npos)
           {
             if (strings::to_uint64(oneLine.substr(pos + 1, endPos - pos - 1), nodeId))
