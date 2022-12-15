@@ -73,7 +73,7 @@ public:
   void CharData(std::string value);
   /// @}
 
-  bool IsValidAttribute(std::string const & type, std::string const & value,
+  bool IsValidAttribute(std::string_view const & type, std::string const & value,
                         std::string const & attrInLowerCase) const;
 
   static kml::TrackLayer GetDefaultTrackLayer();
