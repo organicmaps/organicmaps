@@ -74,7 +74,7 @@ public:
 
   buffer_vector(buffer_vector const &) = default;
 
-  buffer_vector(buffer_vector && rhs) : m_size(rhs.m_size), m_dynamic(move(rhs.m_dynamic))
+  buffer_vector(buffer_vector && rhs) : m_size(rhs.m_size), m_dynamic(std::move(rhs.m_dynamic))
   {
     if (!IsDynamic())
       MoveStatic(rhs);

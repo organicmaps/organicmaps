@@ -21,7 +21,7 @@ void CountryInfo::FileName2FullName(string & fName)
 // static
 void CountryInfo::FullName2GroupAndMap(string const & fName, string & group, string & map)
 {
-  size_t pos = fName.find(",");
+  size_t pos = fName.find(',');
   if (pos == string::npos)
   {
     map = fName;

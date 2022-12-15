@@ -290,7 +290,7 @@ bool ValidateWebsite(string const & site)
   if ('.' == site[startPos] || '.' == site.back())
     return false;
 
-  if (string::npos == site.find("."))
+  if (string::npos == site.find('.'))
     return false;
 
   if (string::npos != site.find(".."))

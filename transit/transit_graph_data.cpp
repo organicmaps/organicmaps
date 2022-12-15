@@ -134,6 +134,7 @@ template <class Id, class Item>
 void UpdateItems(set<Id> const & ids, vector<Item> & items)
 {
   vector<Item> itemsToFill;
+  itemsToFill.reserve(ids.size());
   for (auto const id : ids)
     itemsToFill.push_back(FindById(items, id));
 
