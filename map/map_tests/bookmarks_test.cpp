@@ -1084,7 +1084,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_SpecialXMLNames)
 
 UNIT_CLASS_TEST(Runner, TrackParsingTest_1)
 {
-  string const kmlFile = GetPlatform().TestsDataPathForFile("kml-with-track-kml.test");
+  string const kmlFile = GetPlatform().TestsDataPathForFile("kml_test_data/track.kml");
   BookmarkManager bmManager(BM_CALLBACKS);
   bmManager.EnableTestMode(true);
 
@@ -1122,7 +1122,7 @@ UNIT_CLASS_TEST(Runner, TrackParsingTest_1)
 
 UNIT_CLASS_TEST(Runner, TrackParsingTest_2)
 {
-  string const kmlFile = GetPlatform().TestsDataPathForFile("kml-with-track-from-google-earth.test");
+  string const kmlFile = GetPlatform().TestsDataPathForFile("kml_test_data/track-from-google-earth.kml");
   BookmarkManager bmManager(BM_CALLBACKS);
   bmManager.EnableTestMode(true);
 
