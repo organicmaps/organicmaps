@@ -7,12 +7,9 @@
 #include "coding/writer.hpp"
 
 #include "geometry/point2d.hpp"
-#include "geometry/point_with_altitude.hpp"
 
 #include "base/exception.hpp"
-#include "base/stl_helpers.hpp"
 
-#include <chrono>
 #include <string>
 
 namespace kml
@@ -67,17 +64,24 @@ class KmlParser
 {
 public:
   explicit KmlParser(FileData & data);
+
+  /// @name Parser callback functions.
+  /// @{
   bool Push(std::string const & name);
   void AddAttr(std::string const & attr, std::string const & value);
-  bool IsValidAttribute(std::string const & type, std::string const & value,
-                        std::string const & attrInLowerCase) const;
-  std::string const & GetTagFromEnd(size_t n) const;
   void Pop(std::string const & tag);
   void CharData(std::string value);
+  /// @}
+
+  bool IsValidAttribute(std::string const & type, std::string const & value,
+                        std::string const & attrInLowerCase) const;
 
   static kml::TrackLayer GetDefaultTrackLayer();
 
 private:
+  std::string const & GetTagFromEnd(size_t n) const;
+  bool IsProcessTrackTag() const;
+
   enum GeometryType
   {
     GEOMETRY_TYPE_UNKNOWN,
@@ -87,8 +91,9 @@ private:
 
   void ResetPoint();
   void SetOrigin(std::string const & s);
-  void ParseLineCoordinates(std::string const & s, char const * blockSeparator,
-                            char const * coordSeparator);
+  static void ParseAndAddPoint(MultiGeometry::LineT & line, std::string_view v, char const * separator);
+  void ParseLineCoordinates(std::string const & s, char const * blockSeparator, char const * coordSeparator);
+
   bool MakeValid();
   void ParseColor(std::string const &value);
   bool GetColorForStyle(std::string const & styleUrl, uint32_t & color) const;
