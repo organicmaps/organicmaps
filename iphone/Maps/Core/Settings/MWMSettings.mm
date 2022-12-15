@@ -155,4 +155,10 @@ NSString * const kUDTrackWarningAlertWasShown = @"TrackWarningAlertWasShown";
   return settings::Get("DonateUrl", url) ? @(url.c_str()) : nil;
 }
 
++ (BOOL)isNY
+{
+  bool isNY;
+  return settings::Get("NY", isNY) ? isNY : false;
+}
+
 @end

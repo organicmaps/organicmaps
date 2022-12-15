@@ -161,7 +161,12 @@ final class AboutController: MWMViewController, UITableViewDataSource, UITableVi
       ])
     } else {
       cell = getCell(tableView: tableView, identifier: "default")
-      cell.textLabel!.text = L(labels[indexPath[0] - 1][indexPath[1]])
+      let text = L(labels[indexPath[0] - 1][indexPath[1]])
+      if (indexPath.section == 1 && indexPath.row == kDonateCellIndex && Settings.isNY()) {
+        cell.textLabel!.text = "🎄" + text + "🎄"
+      } else {
+        cell.textLabel!.text = text
+      }
     }
     return cell
   }
