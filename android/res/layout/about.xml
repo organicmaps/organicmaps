@@ -15,14 +15,13 @@
       <LinearLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/margin_base"
+          android:layout_margin="@dimen/margin_base"
           android:orientation="horizontal">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginStart="@dimen/margin_base_plus"
             android:src="@mipmap/ic_launcher" />
 
         <LinearLayout
@@ -35,7 +34,7 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:gravity="center_horizontal"
-              android:textAppearance="@style/MwmTextAppearance.Body2"
+              android:textAppearance="@style/MwmTextAppearance.Body3"
               android:textIsSelectable="true"
               android:selectAllOnFocus="true"
               tools:text="2021.10.15-15-Google" />
@@ -45,7 +44,7 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:gravity="center_horizontal"
-              android:textAppearance="@style/MwmTextAppearance.Body2"
+              android:textAppearance="@style/MwmTextAppearance.Body3"
               android:textIsSelectable="true"
               android:selectAllOnFocus="true"
               tools:text="OpenStreetMap Data: 3 January 2022" />
@@ -55,11 +54,10 @@
       <TextView android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:layout_marginTop="@dimen/margin_base"
                 android:layout_marginBottom="@dimen/margin_base"
                 android:layout_marginStart="@dimen/margin_base"
                 android:layout_marginEnd="@dimen/margin_base"
-                android:textAppearance="@style/MwmTextAppearance.Body1"
+                android:textAppearance="@style/MwmTextAppearance.Body3"
                 android:text="@string/about_description"/>
 
       <TextView android:id="@+id/news"
