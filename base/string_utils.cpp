@@ -71,8 +71,8 @@ bool UniString::IsEqualAscii(char const * s) const
 
 SimpleDelimiter::SimpleDelimiter(char const * delims)
 {
-  std::string const s(delims);
-  std::string::const_iterator it = s.begin();
+  std::string_view const s(delims);
+  auto it = s.begin();
   while (it != s.end())
     m_delims.push_back(utf8::unchecked::next(it));
 }

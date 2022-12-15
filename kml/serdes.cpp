@@ -15,25 +15,23 @@
 
 #include <sstream>
 
-using namespace std::string_literals;
-
 namespace kml
 {
 namespace
 {
-std::string const kPlacemark = "Placemark";
-std::string const kStyle = "Style";
-std::string const kDocument = "Document";
-std::string const kStyleMap = "StyleMap";
-std::string const kStyleUrl = "styleUrl";
-std::string const kPair = "Pair";
-std::string const kExtendedData = "ExtendedData";
+std::string_view const kPlacemark = "Placemark";
+std::string_view const kStyle = "Style";
+std::string_view const kDocument = "Document";
+std::string_view const kStyleMap = "StyleMap";
+std::string_view const kStyleUrl = "styleUrl";
+std::string_view const kPair = "Pair";
+std::string_view const kExtendedData = "ExtendedData";
 std::string const kCompilation = "mwm:compilation";
 
-std::string const kCoordinates = "coordinates";
-std::string const kTrack = "Track";
-std::string const gxTrack = "gx:Track";
-std::string const gxCoord = "gx:coord";
+std::string_view const kCoordinates = "coordinates";
+std::string_view const kTrack = "Track";
+std::string_view const gxTrack = "gx:Track";
+std::string_view const gxCoord = "gx:coord";
 
 std::string const kKmlHeader =
   "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
@@ -59,19 +57,15 @@ auto const kDefaultTrackColor = 0x006ec7ff;
 
 std::string Indent(size_t count)
 {
-  static std::string const kIndent = " ";
-  std::ostringstream indent;
-  for (size_t i = 0; i < count; ++i)
-    indent << kIndent;
-  return indent.str();
+  return std::string(count, ' ');
 }
 
-static std::string const kIndent0 = Indent(0);
-static std::string const kIndent2 = Indent(2);
-static std::string const kIndent4 = Indent(4);
-static std::string const kIndent6 = Indent(6);
-static std::string const kIndent8 = Indent(8);
-static std::string const kIndent10 = Indent(10);
+std::string const kIndent0 = Indent(0);
+std::string const kIndent2 = Indent(2);
+std::string const kIndent4 = Indent(4);
+std::string const kIndent6 = Indent(6);
+std::string const kIndent8 = Indent(8);
+std::string const kIndent10 = Indent(10);
 
 std::string PointToString(m2::PointD const & org)
 {
@@ -883,7 +877,7 @@ void KmlParser::AddAttr(std::string const & attr, std::string const & value)
   }
 }
 
-bool KmlParser::IsValidAttribute(std::string const & type, std::string const & value,
+bool KmlParser::IsValidAttribute(std::string_view const & type, std::string const & value,
                                  std::string const & attrInLowerCase) const
 {
   return (GetTagFromEnd(0) == type && !value.empty() && attrInLowerCase == "id");
