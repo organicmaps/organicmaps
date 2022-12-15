@@ -59,6 +59,7 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
   self.sideButtonsHidden = NO;
   self.trafficButtonHidden = NO;
   self.isDirectionViewHidden = YES;
+  self.menuState = MWMBottomMenuStateInactive;
   self.menuRestoreState = MWMBottomMenuStateInactive;
   return self;
 }
@@ -287,7 +288,7 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
   _hidden = hidden;
   self.sideButtonsHidden = _sideButtonsHidden;
   self.trafficButtonHidden = _trafficButtonHidden;
-  self.menuState = _menuState = hidden ? MWMBottomMenuStateHidden : MWMBottomMenuStateInactive;
+  self.menuState = hidden ? MWMBottomMenuStateHidden : MWMBottomMenuStateInactive;
 }
 
 - (void)setZoomHidden:(BOOL)zoomHidden {
