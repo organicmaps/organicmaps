@@ -115,8 +115,8 @@ public class MapFragment extends BaseMwmFragment implements View.OnTouchListener
   @Override
   public void onPause()
   {
-    super.onPause();
     mMap.onPause(requireContext());
+    super.onPause();
   }
 
   @Override

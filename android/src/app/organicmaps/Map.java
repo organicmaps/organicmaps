@@ -119,9 +119,6 @@ public final class Map
 
   public void onSurfaceCreated(final Context context, final Surface surface, Rect surfaceFrame, int surfaceDpi)
   {
-    if (nativeIsEngineCreated())
-      nativeDetachSurface(true);
-
     if (isThemeChangingProcess(context))
     {
       Logger.d(TAG, "Theme changing process, skip 'onSurfaceCreated' callback");
