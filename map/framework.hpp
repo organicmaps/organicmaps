@@ -715,6 +715,7 @@ public:
 
 private:
   CachingAddressGetter m_addressGetter;
+  settings::UsageStats m_usageStats;
 
 public:
   power_management::PowerManager & GetPowerManager() { return m_powerManager; }

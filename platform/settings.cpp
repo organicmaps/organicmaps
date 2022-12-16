@@ -352,18 +352,78 @@ bool FromString<Transliteration::Mode>(string const & s, Transliteration::Mode &
   return true;
 }
 
-bool IsFirstLaunchForDate(int date)
+UsageStats::UsageStats()
+  : m_firstLaunch("US_FirstLaunch")
+  , m_lastBackground("US_LastBackground")
+  , m_totalForeground("US_TotalForeground")
+  , m_sessions("US_SessionsCount")
+  , m_ss(StringStorage::Instance())
 {
-  constexpr char const * kFirstLaunchKey = "FirstLaunchOnDate";
-  int savedDate;
-  if (!Get(kFirstLaunchKey, savedDate) || savedDate < date)
+  std::string str;
+  uint64_t val;
+  if (m_ss.GetValue(m_totalForeground, str) && FromString(str, val))
+    m_totalForegroundTime = val;
+
+  if (m_ss.GetValue(m_sessions, str) && FromString(str, val))
+    m_sessionsCount = val;
+
+  if (!m_ss.GetValue(m_firstLaunch, str))
   {
-    Set(kFirstLaunchKey, date);
-    return true;
+    auto const fileTime = Platform::GetFileCreationTime(GetPlatform().SettingsPathForFile(SETTINGS_FILE_NAME));
+    if (fileTime > 0)
+    {
+      // Check that file wasn't created on this first launch (1 hour threshold).
+      uint64_t const first = base::TimeTToSecondsSinceEpoch(fileTime);
+      uint64_t const curr = TimeSinceEpoch();
+      if (curr >= first + 3600 /* 1 hour */)
+        m_ss.SetValue(m_firstLaunch, ToString(first));
+    }
   }
-  else
-    return false;
 }
+
+uint64_t UsageStats::TimeSinceEpoch()
+{
+  using namespace std::chrono;
+  return duration_cast<seconds>(system_clock::now().time_since_epoch()).count();
+}
+
+void UsageStats::EnterForeground()
+{
+  m_enterForegroundTime = TimeSinceEpoch();
+}
+
+void UsageStats::EnterBackground()
+{
+  uint64_t const currTime = TimeSinceEpoch();
+
+  // Safe check if something wrong with device's time.
+  ASSERT_GREATER_OR_EQUAL(currTime, m_enterForegroundTime, ());
+  if (currTime < m_enterForegroundTime)
+    return;
+
+  // Safe check if uninitialized. Not sure, but possible if foreground/background calls
+  // are not sequential during activity initialization.
+  ASSERT(m_enterForegroundTime > 0, ());
+  if (m_enterForegroundTime == 0)
+    return;
+
+  // Save first launch.
+  std::string dummy;
+  if (!m_ss.GetValue(m_firstLaunch, dummy))
+    m_ss.SetValue(m_firstLaunch, ToString(m_enterForegroundTime));
+
+  // Save last background.
+  m_ss.SetValue(m_lastBackground, ToString(currTime));
+
+  // Aggregate foreground duration.
+  m_totalForegroundTime += (currTime - m_enterForegroundTime);
+  m_ss.SetValue(m_totalForeground, ToString(m_totalForegroundTime));
+
+  // Aggregate sessions count.
+  ++m_sessionsCount;
+  m_ss.SetValue(m_sessions, ToString(m_sessionsCount));
+}
+
 }  // namespace settings
 
 /*
