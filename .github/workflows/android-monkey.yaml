@@ -21,9 +21,9 @@ jobs:
           DIRS="android base drape drape_frontend editor ge0 map platform routing search shaders storage traffic transit"
           if [ '${{ github.event_name }}' != 'schedule' ] || 
              [ $(git rev-list --count --since="24 hours" HEAD $DIRS) -gt 0 ]; then
-            echo "name=updated::true" >> $GITHUB_OUTPUT
+            echo "updated=true" >> $GITHUB_OUTPUT
           else
-            echo "name=updated::" >> $GITHUB_OUTPUT
+            echo "updated=" >> $GITHUB_OUTPUT
           fi
     outputs:
       updated: ${{ steps.check.outputs.updated }}
