@@ -1128,6 +1128,8 @@ void Framework::MemoryWarning()
 
 void Framework::EnterBackground()
 {
+  m_usageStats.EnterBackground();
+
   if (m_drapeEngine)
     m_drapeEngine->OnEnterBackground();
 
@@ -1145,6 +1147,8 @@ void Framework::EnterBackground()
 
 void Framework::EnterForeground()
 {
+  m_usageStats.EnterForeground();
+
   if (m_drapeEngine)
     m_drapeEngine->OnEnterForeground();
 
