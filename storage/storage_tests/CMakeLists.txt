@@ -23,4 +23,5 @@ target_link_libraries(${PROJECT_NAME}
   platform_tests_support
   generator_tests_support
   storage
+  cppjansson
 )

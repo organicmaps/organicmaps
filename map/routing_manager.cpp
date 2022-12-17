@@ -39,7 +39,7 @@
 #include <map>
 #include <sstream>
 
-#include "3party/jansson/myjansson.hpp"
+#include "cppjansson/cppjansson.hpp"
 
 using namespace routing;
 using namespace std;

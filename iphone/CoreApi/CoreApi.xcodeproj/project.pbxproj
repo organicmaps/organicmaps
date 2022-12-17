@@ -181,7 +181,7 @@
 		9974CA2823DF1968003FE824 /* ElevationProfileData.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ElevationProfileData.mm; sourceTree = "<group>"; };
 		9974CA2B23DF197B003FE824 /* ElevationProfileData+Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ElevationProfileData+Core.h"; sourceTree = "<group>"; };
 		AC6A585628057CC1003EABAF /* StringUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringUtils.h; sourceTree = "<group>"; };
-		FAA6D8CF29205D2D00E8D50D /* libjansson.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libjansson.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		FAA6D8CF29205D2D00E8D50D /* libcppjansson.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libcppjansson.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -246,7 +246,7 @@
 		4700161123425CFC00EBF03D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				FAA6D8CF29205D2D00E8D50D /* libjansson.a */,
+				FAA6D8CF29205D2D00E8D50D /* libcppjansson.a */,
 				4700161223425CFD00EBF03D /* UIKit.framework */,
 			);
 			name = Frameworks;

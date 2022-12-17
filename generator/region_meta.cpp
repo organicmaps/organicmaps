@@ -4,7 +4,7 @@
 
 #include "platform/platform.hpp"
 
-#include "3party/jansson/myjansson.hpp"
+#include "cppjansson/cppjansson.hpp"
 
 #include <cstdint>
 #include <vector>

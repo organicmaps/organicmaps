@@ -57,7 +57,7 @@
 		34EEAD721E55AE5C00E95575 /* utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34EEAD711E55AE5C00E95575 /* utils.cpp */; };
 		34F5583D1DBF2E2700A4FC11 /* libeditor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F5583C1DBF2E2700A4FC11 /* libeditor.a */; };
 		34F5583F1DBF2E3400A4FC11 /* libpugixml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F5583E1DBF2E3400A4FC11 /* libpugixml.a */; };
-		34F558411DBF2E4F00A4FC11 /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F558401DBF2E4F00A4FC11 /* libjansson.a */; };
+		34F558411DBF2E4F00A4FC11 /* libcppjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F558401DBF2E4F00A4FC11 /* libcppjansson.a */; };
 		34F558431DBF2E6500A4FC11 /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F558421DBF2E6500A4FC11 /* liboauthcpp.a */; };
 		34F558451DBF2E7600A4FC11 /* libopening_hours.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F558441DBF2E7600A4FC11 /* libopening_hours.a */; };
 		34F558471DBF2E8100A4FC11 /* libsuccinct.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F558461DBF2E8100A4FC11 /* libsuccinct.a */; };
@@ -105,7 +105,7 @@
 		39AEF86E1FB45E1600943FC9 /* libsuccinct.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F558461DBF2E8100A4FC11 /* libsuccinct.a */; };
 		39AEF86F1FB45E1600943FC9 /* libopening_hours.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F558441DBF2E7600A4FC11 /* libopening_hours.a */; };
 		39AEF8701FB45E1600943FC9 /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F558421DBF2E6500A4FC11 /* liboauthcpp.a */; };
-		39AEF8711FB45E1600943FC9 /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F558401DBF2E4F00A4FC11 /* libjansson.a */; };
+		39AEF8711FB45E1600943FC9 /* libcppjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F558401DBF2E4F00A4FC11 /* libcppjansson.a */; };
 		39AEF8721FB45E1600943FC9 /* libpugixml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F5583E1DBF2E3400A4FC11 /* libpugixml.a */; };
 		39AEF8731FB45E1600943FC9 /* libeditor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F5583C1DBF2E2700A4FC11 /* libeditor.a */; };
 		39AEF87B1FB45E1600943FC9 /* libsearch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675346B01A4055CF00A0A8C3 /* libsearch.a */; };
@@ -344,7 +344,7 @@
 		34F558381DBF2C8B00A4FC11 /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
 		34F5583C1DBF2E2700A4FC11 /* libeditor.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libeditor.a; path = "../../../omim-xcode-build/Debug/libeditor.a"; sourceTree = "<group>"; };
 		34F5583E1DBF2E3400A4FC11 /* libpugixml.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpugixml.a; path = "../../../omim-xcode-build/Debug/libpugixml.a"; sourceTree = "<group>"; };
-		34F558401DBF2E4F00A4FC11 /* libjansson.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjansson.a; path = "../../../omim-xcode-build/Debug/libjansson.a"; sourceTree = "<group>"; };
+		34F558401DBF2E4F00A4FC11 /* libcppjansson.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcppjansson.a; path = "../../../omim-xcode-build/Debug/libcppjansson.a"; sourceTree = "<group>"; };
 		34F558421DBF2E6500A4FC11 /* liboauthcpp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liboauthcpp.a; path = "../../../omim-xcode-build/Debug/liboauthcpp.a"; sourceTree = "<group>"; };
 		34F558441DBF2E7600A4FC11 /* libopening_hours.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopening_hours.a; path = "../../../omim-xcode-build/Debug/libopening_hours.a"; sourceTree = "<group>"; };
 		34F558461DBF2E8100A4FC11 /* libsuccinct.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsuccinct.a; path = "../../../omim-xcode-build/Debug/libsuccinct.a"; sourceTree = "<group>"; };
@@ -539,7 +539,7 @@
 				39AEF86F1FB45E1600943FC9 /* libopening_hours.a in Frameworks */,
 				39AEF8721FB45E1600943FC9 /* libpugixml.a in Frameworks */,
 				39AEF86E1FB45E1600943FC9 /* libsuccinct.a in Frameworks */,
-				39AEF8711FB45E1600943FC9 /* libjansson.a in Frameworks */,
+				39AEF8711FB45E1600943FC9 /* libcppjansson.a in Frameworks */,
 				39B2B96C1FB4633200AB85A1 /* libtess2.a in Frameworks */,
 				39AEF8701FB45E1600943FC9 /* liboauthcpp.a in Frameworks */,
 				39B2B96A1FB4631400AB85A1 /* libbsdiff.a in Frameworks */,
@@ -570,7 +570,7 @@
 				34F558471DBF2E8100A4FC11 /* libsuccinct.a in Frameworks */,
 				34F558451DBF2E7600A4FC11 /* libopening_hours.a in Frameworks */,
 				34F558431DBF2E6500A4FC11 /* liboauthcpp.a in Frameworks */,
-				34F558411DBF2E4F00A4FC11 /* libjansson.a in Frameworks */,
+				34F558411DBF2E4F00A4FC11 /* libcppjansson.a in Frameworks */,
 				34F5583F1DBF2E3400A4FC11 /* libpugixml.a in Frameworks */,
 				34F5583D1DBF2E2700A4FC11 /* libeditor.a in Frameworks */,
 				671C62261AE9232900076BD0 /* libsearch.a in Frameworks */,
@@ -646,7 +646,7 @@
 				34F558461DBF2E8100A4FC11 /* libsuccinct.a */,
 				34F558441DBF2E7600A4FC11 /* libopening_hours.a */,
 				34F558421DBF2E6500A4FC11 /* liboauthcpp.a */,
-				34F558401DBF2E4F00A4FC11 /* libjansson.a */,
+				34F558401DBF2E4F00A4FC11 /* libcppjansson.a */,
 				34F5583E1DBF2E3400A4FC11 /* libpugixml.a */,
 				34F5583C1DBF2E2700A4FC11 /* libeditor.a */,
 			);

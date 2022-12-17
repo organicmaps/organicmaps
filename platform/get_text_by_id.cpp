@@ -5,7 +5,7 @@
 #include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 
-#include "3party/jansson/myjansson.hpp"
+#include "cppjansson/cppjansson.hpp"
 
 #include "std/target_os.hpp"
 

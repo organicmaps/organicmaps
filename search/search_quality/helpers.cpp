@@ -20,7 +20,7 @@
 
 #include "defines.hpp"
 
-#include "3party/jansson/myjansson.hpp"
+#include "cppjansson/cppjansson.hpp"
 
 namespace search
 {

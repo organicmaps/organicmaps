@@ -103,7 +103,7 @@ target_link_libraries(${PROJECT_NAME}
   # expat
   # freetype
   # minizip
-  # jansson
+  # cppjansson
   # protobuf
   # succinct
   # stb_image

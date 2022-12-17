@@ -594,7 +594,7 @@
 		FA853BB326BC3B8A0026D455 /* libgeometry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BB226BC3B8A0026D455 /* libgeometry.a */; };
 		FA853BB526BC3B8A0026D455 /* libicu.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BB426BC3B8A0026D455 /* libicu.a */; };
 		FA853BB726BC3B8A0026D455 /* libindexer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BB626BC3B8A0026D455 /* libindexer.a */; };
-		FA853BB926BC3B8A0026D455 /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BB826BC3B8A0026D455 /* libjansson.a */; };
+		FA853BB926BC3B8A0026D455 /* libcppjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BB826BC3B8A0026D455 /* libcppjansson.a */; };
 		FA853BBB26BC3B8A0026D455 /* libkml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BBA26BC3B8A0026D455 /* libkml.a */; };
 		FA853BBD26BC3B8A0026D455 /* libmap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BBC26BC3B8A0026D455 /* libmap.a */; };
 		FA853BBF26BC3B8A0026D455 /* minizip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BBE26BC3B8A0026D455 /* minizip.framework */; };
@@ -1576,7 +1576,7 @@
 		FA853BB226BC3B8A0026D455 /* libgeometry.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libgeometry.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA853BB426BC3B8A0026D455 /* libicu.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libicu.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA853BB626BC3B8A0026D455 /* libindexer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libindexer.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		FA853BB826BC3B8A0026D455 /* libjansson.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libjansson.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA853BB826BC3B8A0026D455 /* libcppjansson.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libcppjansson.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA853BBA26BC3B8A0026D455 /* libkml.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libkml.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA853BBC26BC3B8A0026D455 /* libmap.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libmap.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA853BBE26BC3B8A0026D455 /* minizip.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = minizip.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1672,7 +1672,7 @@
 				FA853BB326BC3B8A0026D455 /* libgeometry.a in Frameworks */,
 				FA853BB526BC3B8A0026D455 /* libicu.a in Frameworks */,
 				FA853BB726BC3B8A0026D455 /* libindexer.a in Frameworks */,
-				FA853BB926BC3B8A0026D455 /* libjansson.a in Frameworks */,
+				FA853BB926BC3B8A0026D455 /* libcppjansson.a in Frameworks */,
 				FA853BBB26BC3B8A0026D455 /* libkml.a in Frameworks */,
 				FA853BBD26BC3B8A0026D455 /* libmap.a in Frameworks */,
 				FA853BBF26BC3B8A0026D455 /* minizip.framework in Frameworks */,
@@ -1810,7 +1810,7 @@
 				FA853BB226BC3B8A0026D455 /* libgeometry.a */,
 				FA853BB426BC3B8A0026D455 /* libicu.a */,
 				FA853BB626BC3B8A0026D455 /* libindexer.a */,
-				FA853BB826BC3B8A0026D455 /* libjansson.a */,
+				FA853BB826BC3B8A0026D455 /* libcppjansson.a */,
 				FA853BBA26BC3B8A0026D455 /* libkml.a */,
 				FA853BBC26BC3B8A0026D455 /* libmap.a */,
 				FA853BBE26BC3B8A0026D455 /* minizip.framework */,

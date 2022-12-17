@@ -203,7 +203,7 @@
 		FACB7C2D26B919FD00810C9C /* libpugixml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB7C2C26B919FD00810C9C /* libpugixml.a */; };
 		FACB7C2F26B91A1100810C9C /* libopening_hours.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB7C2E26B91A1100810C9C /* libopening_hours.a */; };
 		FACB7C3126B91A3600810C9C /* libgenerator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB7C3026B91A3600810C9C /* libgenerator.a */; };
-		FACB7C3326B91A4500810C9C /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB7C3226B91A4500810C9C /* libjansson.a */; };
+		FACB7C3326B91A4500810C9C /* libcppjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB7C3226B91A4500810C9C /* libcppjansson.a */; };
 		FACB7C3526B91A4B00810C9C /* libsearch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB7C3426B91A4B00810C9C /* libsearch.a */; };
 		FACB7C3726B91A5A00810C9C /* librouting_common.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB7C3626B91A5A00810C9C /* librouting_common.a */; };
 		FACB7C3926B91AE600810C9C /* librouting.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB7C3826B91AE600810C9C /* librouting.a */; };
@@ -428,7 +428,7 @@
 		FACB7C2C26B919FD00810C9C /* libpugixml.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libpugixml.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FACB7C2E26B91A1100810C9C /* libopening_hours.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libopening_hours.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FACB7C3026B91A3600810C9C /* libgenerator.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libgenerator.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		FACB7C3226B91A4500810C9C /* libjansson.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libjansson.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		FACB7C3226B91A4500810C9C /* libcppjansson.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libcppjansson.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FACB7C3426B91A4B00810C9C /* libsearch.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libsearch.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FACB7C3626B91A5A00810C9C /* librouting_common.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = librouting_common.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FACB7C3826B91AE600810C9C /* librouting.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = librouting.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -463,7 +463,7 @@
 				FACB7C4526B947C400810C9C /* libz.tbd in Frameworks */,
 				FACB7C2726B919D300810C9C /* libprotobuf.a in Frameworks */,
 				FACB7C2126B919AD00810C9C /* libplatform.a in Frameworks */,
-				FACB7C3326B91A4500810C9C /* libjansson.a in Frameworks */,
+				FACB7C3326B91A4500810C9C /* libcppjansson.a in Frameworks */,
 				FACB7C2D26B919FD00810C9C /* libpugixml.a in Frameworks */,
 				670C61401AB066CD00C38A8C /* libindexer.a in Frameworks */,
 				FACB7C3926B91AE600810C9C /* librouting.a in Frameworks */,
@@ -514,7 +514,7 @@
 				FACB7C3826B91AE600810C9C /* librouting.a */,
 				FACB7C3626B91A5A00810C9C /* librouting_common.a */,
 				FACB7C3426B91A4B00810C9C /* libsearch.a */,
-				FACB7C3226B91A4500810C9C /* libjansson.a */,
+				FACB7C3226B91A4500810C9C /* libcppjansson.a */,
 				FACB7C3026B91A3600810C9C /* libgenerator.a */,
 				FACB7C2E26B91A1100810C9C /* libopening_hours.a */,
 				FACB7C2C26B919FD00810C9C /* libpugixml.a */,

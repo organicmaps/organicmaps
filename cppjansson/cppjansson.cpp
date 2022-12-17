@@ -1,4 +1,4 @@
-#include "3party/jansson/myjansson.hpp"
+#include "cppjansson.hpp"
 
 #include <type_traits>
 

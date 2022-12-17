@@ -1,0 +1,222 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		7168E91A294CBB91005BA468 /* jansson_handle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7168E917294CBB91005BA468 /* jansson_handle.cpp */; };
+		7168E91B294CBB91005BA468 /* cppjansson.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7168E919294CBB91005BA468 /* cppjansson.cpp */; };
+		71D730FE294CCAA000F3EEC2 /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 71D730FD294CCAA000F3EEC2 /* libjansson.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		71407E77294CB3E800FBD9A4 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		71407E71294CB35000FBD9A4 /* common-debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
+		71407E74294CB37700FBD9A4 /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
+		71407E79294CB3E800FBD9A4 /* libcppjansson.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libcppjansson.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		7168E916294CBB91005BA468 /* cppjansson.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cppjansson.hpp; sourceTree = "<group>"; };
+		7168E917294CBB91005BA468 /* jansson_handle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jansson_handle.cpp; sourceTree = "<group>"; };
+		7168E918294CBB91005BA468 /* jansson_handle.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = jansson_handle.hpp; sourceTree = "<group>"; };
+		7168E919294CBB91005BA468 /* cppjansson.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cppjansson.cpp; sourceTree = "<group>"; };
+		71D730FD294CCAA000F3EEC2 /* libjansson.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjansson.a; path = libjansson.a; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		71407E76294CB3E800FBD9A4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				71D730FE294CCAA000F3EEC2 /* libjansson.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		71407E4A294C9FCE00FBD9A4 = {
+			isa = PBXGroup;
+			children = (
+				71D730FC294CC4B400F3EEC2 /* Frameworks */,
+				71407E74294CB37700FBD9A4 /* common-release.xcconfig */,
+				71407E71294CB35000FBD9A4 /* common-debug.xcconfig */,
+				71407E7A294CB3E800FBD9A4 /* cppjansson */,
+				71407E58294C9FD000FBD9A4 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		71407E58294C9FD000FBD9A4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				71407E79294CB3E800FBD9A4 /* libcppjansson.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		71407E7A294CB3E800FBD9A4 /* cppjansson */ = {
+			isa = PBXGroup;
+			children = (
+				7168E917294CBB91005BA468 /* jansson_handle.cpp */,
+				7168E918294CBB91005BA468 /* jansson_handle.hpp */,
+				7168E919294CBB91005BA468 /* cppjansson.cpp */,
+				7168E916294CBB91005BA468 /* cppjansson.hpp */,
+			);
+			name = cppjansson;
+			path = ../../cppjansson;
+			sourceTree = "<group>";
+		};
+		71D730FC294CC4B400F3EEC2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				71D730FD294CCAA000F3EEC2 /* libjansson.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		71407E78294CB3E800FBD9A4 /* cppjansson */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 71407E7D294CB3E800FBD9A4 /* Build configuration list for PBXNativeTarget "cppjansson" */;
+			buildPhases = (
+				71407E75294CB3E800FBD9A4 /* Sources */,
+				71407E76294CB3E800FBD9A4 /* Frameworks */,
+				71407E77294CB3E800FBD9A4 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = cppjansson;
+			productName = cppjansson;
+			productReference = 71407E79294CB3E800FBD9A4 /* libcppjansson.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		71407E4B294C9FCE00FBD9A4 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				DefaultBuildSystemTypeForWorkspace = Latest;
+				LastSwiftUpdateCheck = 1330;
+				LastUpgradeCheck = 1330;
+				TargetAttributes = {
+					71407E78294CB3E800FBD9A4 = {
+						CreatedOnToolsVersion = 13.3;
+					};
+				};
+			};
+			buildConfigurationList = 71407E4E294C9FCE00FBD9A4 /* Build configuration list for PBXProject "cppjansson" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 71407E4A294C9FCE00FBD9A4;
+			productRefGroup = 71407E58294C9FD000FBD9A4 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				71407E78294CB3E800FBD9A4 /* cppjansson */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		71407E75294CB3E800FBD9A4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7168E91B294CBB91005BA468 /* cppjansson.cpp in Sources */,
+				7168E91A294CBB91005BA468 /* jansson_handle.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		71407E66294C9FD000FBD9A4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 71407E71294CB35000FBD9A4 /* common-debug.xcconfig */;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+                    "$(PROJECT_DIR)/../../",
+                    "$(PROJECT_DIR)/../../3party/jansson",
+                    "$(PROJECT_DIR)/../../3party/jansson/jansson/src",
+                );
+			};
+			name = Debug;
+		};
+		71407E67294C9FD000FBD9A4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 71407E74294CB37700FBD9A4 /* common-release.xcconfig */;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+                    "$(PROJECT_DIR)/../../",
+                    "$(PROJECT_DIR)/../../3party/jansson",
+                    "$(PROJECT_DIR)/../../3party/jansson/jansson/src",
+                );
+			};
+			name = Release;
+		};
+		71407E7E294CB3E800FBD9A4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				GCC_PREFIX_HEADER = "$(OMIM_ROOT)/precompiled_headers.hpp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		71407E7F294CB3E800FBD9A4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				GCC_PREFIX_HEADER = "$(OMIM_ROOT)/precompiled_headers.hpp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		71407E4E294C9FCE00FBD9A4 /* Build configuration list for PBXProject "cppjansson" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				71407E66294C9FD000FBD9A4 /* Debug */,
+				71407E67294C9FD000FBD9A4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		71407E7D294CB3E800FBD9A4 /* Build configuration list for PBXNativeTarget "cppjansson" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				71407E7E294CB3E800FBD9A4 /* Debug */,
+				71407E7F294CB3E800FBD9A4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 71407E4B294C9FCE00FBD9A4 /* Project object */;
+}

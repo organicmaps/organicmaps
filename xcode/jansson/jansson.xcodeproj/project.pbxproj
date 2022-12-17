@@ -7,10 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		345C55F81C93143B00B6783F /* myjansson.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 345C55F71C93143B00B6783F /* myjansson.cpp */; };
-		6753445F1A3F666300A0A8C3 /* jansson_handle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6753445B1A3F666300A0A8C3 /* jansson_handle.cpp */; };
-		675344601A3F666300A0A8C3 /* jansson_handle.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6753445C1A3F666300A0A8C3 /* jansson_handle.hpp */; };
-		675344611A3F666300A0A8C3 /* myjansson.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6753445D1A3F666300A0A8C3 /* myjansson.hpp */; };
 		FAA6D8CD29205A2200E8D50D /* jansson_config.h in Headers */ = {isa = PBXBuildFile; fileRef = FAA6D8CC29205A2200E8D50D /* jansson_config.h */; };
 		FAA8867929214906004FA014 /* pack_unpack.c in Sources */ = {isa = PBXBuildFile; fileRef = FAA8866429214906004FA014 /* pack_unpack.c */; };
 		FAA8867A29214906004FA014 /* memory.c in Sources */ = {isa = PBXBuildFile; fileRef = FAA8866629214906004FA014 /* memory.c */; };
@@ -34,13 +30,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		345C55F71C93143B00B6783F /* myjansson.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = myjansson.cpp; sourceTree = "<group>"; };
 		34F558681DBF483000A4FC11 /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
 		34F558691DBF483000A4FC11 /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
 		6753444D1A3F664300A0A8C3 /* libjansson.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libjansson.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		6753445B1A3F666300A0A8C3 /* jansson_handle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jansson_handle.cpp; sourceTree = "<group>"; };
-		6753445C1A3F666300A0A8C3 /* jansson_handle.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = jansson_handle.hpp; sourceTree = "<group>"; };
-		6753445D1A3F666300A0A8C3 /* myjansson.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = myjansson.hpp; sourceTree = "<group>"; };
 		FAA6D8CC29205A2200E8D50D /* jansson_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jansson_config.h; sourceTree = "<group>"; };
 		FAA8866429214906004FA014 /* pack_unpack.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pack_unpack.c; sourceTree = "<group>"; };
 		FAA8866529214906004FA014 /* jansson_config.h.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = jansson_config.h.in; sourceTree = "<group>"; };
@@ -99,11 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				FAA6D8CC29205A2200E8D50D /* jansson_config.h */,
-				6753445B1A3F666300A0A8C3 /* jansson_handle.cpp */,
-				6753445C1A3F666300A0A8C3 /* jansson_handle.hpp */,
 				FAA8868B29214A0D004FA014 /* jansson_private_config.h */,
-				345C55F71C93143B00B6783F /* myjansson.cpp */,
-				6753445D1A3F666300A0A8C3 /* myjansson.hpp */,
 				FAA8866329214906004FA014 /* src */,
 			);
 			name = jansson;
@@ -148,13 +136,11 @@
 			files = (
 				FAA8867E29214906004FA014 /* utf.h in Headers */,
 				FAA8868029214906004FA014 /* lookup3.h in Headers */,
-				675344601A3F666300A0A8C3 /* jansson_handle.hpp in Headers */,
 				FAA8868729214906004FA014 /* jansson.h in Headers */,
 				FAA8867C29214906004FA014 /* jansson_private.h in Headers */,
 				FAA8867D29214906004FA014 /* hashtable.h in Headers */,
 				FAA8868A29214906004FA014 /* strbuffer.h in Headers */,
 				FAA8868C29214A0E004FA014 /* jansson_private_config.h in Headers */,
-				675344611A3F666300A0A8C3 /* myjansson.hpp in Headers */,
 				FAA6D8CD29205A2200E8D50D /* jansson_config.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -216,14 +202,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				FAA8868829214906004FA014 /* load.c in Sources */,
-				345C55F81C93143B00B6783F /* myjansson.cpp in Sources */,
 				FAA8867929214906004FA014 /* pack_unpack.c in Sources */,
 				FAA8868429214906004FA014 /* hashtable.c in Sources */,
 				FAA8867A29214906004FA014 /* memory.c in Sources */,
 				FAA8868529214906004FA014 /* version.c in Sources */,
 				FAA8868329214906004FA014 /* error.c in Sources */,
 				FAA8867F29214906004FA014 /* strbuffer.c in Sources */,
-				6753445F1A3F666300A0A8C3 /* jansson_handle.cpp in Sources */,
 				FAA8868229214906004FA014 /* hashtable_seed.c in Sources */,
 				FAA8868629214906004FA014 /* utf.c in Sources */,
 				FAA8868129214906004FA014 /* dump.c in Sources */,
