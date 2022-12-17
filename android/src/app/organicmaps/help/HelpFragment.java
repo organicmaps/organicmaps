@@ -102,7 +102,7 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
 
   private void onPrivacyPolicyClick()
   {
-    openLink(getResources().getString(R.string.translated_om_site_url) + "policy/");
+    openLink(getResources().getString(R.string.translated_om_site_url) + "privacy/");
   }
 
   private void onTermOfUseClick()
