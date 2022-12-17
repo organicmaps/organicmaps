@@ -16,6 +16,7 @@
 #include <optional>
 #include <string>
 
+#include <fcntl.h>
 #include <stdlib.h>
 #include <string.h>  // strrchr
 #include <unistd.h>  // access, readlink
@@ -128,7 +129,7 @@ Platform::Platform()
     // first it checks ${XDG_DATA_HOME}, if empty then it falls back to ${HOME}/.local/share
     m_writableDir = JoinPath(QStandardPaths::writableLocation(
         QStandardPaths::AppDataLocation).toStdString(), "OMaps");
-  
+
     if (!MkDirRecursively(m_writableDir))
       MYTHROW(FileSystemException, ("Can't create writable directory:", m_writableDir));
   }
@@ -262,4 +263,13 @@ void Platform::GetSystemFontNames(FilesList & res) const
       }
     }
   }
+}
+
+// static
+time_t Platform::GetFileCreationTime(std::string const & path)
+{
+  struct statx st;
+  if (0 == statx(AT_FDCWD, path.c_str(), 0, STATX_BTIME, &st))
+    return st.stx_btime.tv_sec;
+  return 0;
 }
