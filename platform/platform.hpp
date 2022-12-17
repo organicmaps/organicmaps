@@ -235,6 +235,9 @@ public:
   static bool GetFileSizeByFullPath(std::string const & filePath, uint64_t & size);
   //@}
 
+  /// @return 0 in case of failure.
+  static time_t GetFileCreationTime(std::string const & path);
+
   /// Used to check available free storage space for downloading.
   enum TStorageStatus
   {

@@ -249,6 +249,15 @@ void Platform::GetSystemFontNames(FilesList & res) const
 {
 }
 
+// static
+time_t Platform::GetFileCreationTime(std::string const & path)
+{
+  struct stat st;
+  if (0 == stat(path.c_str(), &st))
+    return st.st_birthtimespec.tv_sec;
+  return 0;
+}
+
 ////////////////////////////////////////////////////////////////////////
 extern Platform & GetPlatform()
 {
