@@ -1,12 +1,10 @@
-• Novos dados OSM de 19/11
-• Velocidade de bicicleta para melhor roteamento
-• Adição de Mastodon em Ajuda
-• Correção de alguns erros e do menu de navegação
-• Correção de distância na busca
-• Correção de ícones sobrepostos e de áreas de lazer
-• Adição de BRTs e fisioterapeuta
-• Ilhas e arquipélagos no mapa mundial
-• Correção de prioridade de exibição de água/píer e barragem
-• Tradução e atualização de cs, es, et, nb, tr
-• Correção de categorias de RV e catalão
+• Novos dados OSM de 16/12
+• Suporte ao KML 2.3 com múltiplas geometrias do OpenTracks
+• Renderização mais rápida de arquivos KML
+• Melhoria no roteamento
+• Correção das mensagens irritantes "Ativar localização"
+• Ícones aprimorados para o modo noturno
+• Nomes duplicados corrigidos no mapa-múndi
+• Correção dos ícones de metrô em algumas cidades
+• Adição de TTS para es-mx, nb e pt-br
 …mais: omaps.app/news

@@ -1,23 +1,25 @@
-• New OSM map data as of November 19
-• Corrected bicycle's speed for better routing
-• Fixed opening some URLs with # and ? symbols
-• Fixed opening Matrix link from Help dialog
-• Added Mastodon in Help dialog
-• Show name in local language in Place Page
-• Properly display when exactly 1 hour left before place closes
+• New OpenStreetMap data as of December 16, 2022
+• Improved routing algorithm
+• Do not route over highway=construction :)
+• Support multiple track geometry in KML files
+• Fixed KML 2.3 track import from OpenTracks
+• Faster parsing and rendering of complex KML tracks
+• Allow adding some shops, galleries, music schools in Editor
+• Improved city borders in search results
+• Settings & routing options headers are visible now in the Night Mode
+• Fixed crash when displaying the menu
 
-Styles:
-• Fixed some improperly overlapping types
-• Added highway=busway and physiotherapist
-• Islands and archipelagos are now visible on World Map
-• Draw waterway=dam as background area
-• Water draw priority is now lesser than pier
-• Fixed leisure areas
+Map Styles:
+• Improved, less bright icons in Night mode
+• Fixed subway icons in some cities
+• Properly draw barriers for areas and relations
+• Fixed duplicated names on the world map
+• Updated cave, mountain pass, peak, volcano, emergency phone, historic ship, ice cream, nightclub, music shop, stadium, video games icons
+• Fixed wrong priorities of leisure=pitch, historic, post office
+• More consistent filled/round icons (round means some kind of business/service)
 
 Translations:
-• Added Estonian translation
-• Updated Czech, Norwegian, Spanish, Turkish translations
-• Localized website links in the app, please help us with our website translation: https://github.com/organicmaps/organicmaps.github.io
-• Metro for en-GB
-• Fix missing RV category translations
-• Fixed category search for Catalan
+• TTS (Text-To-Speech) for Brazil, Mexican Spanish and Norwegian
+• Fixed German and Hungarian search strings
+• Updated TTS for Portuguese and Brazilian
+• Updated Czech, Spanish translations

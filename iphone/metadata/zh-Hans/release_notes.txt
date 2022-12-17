@@ -1,22 +1,25 @@
-• 截止到11月19日的最新OSM数据
-• 修正路径规划中自行车限速
-• 修复了打开带有“#”和“?”符号的链接的问题
-• 修复了帮助对话中打开Matrix链接的问题
-• 在帮助对话中添加了Mastodon链接
-• 在地点页面中使用当地语言显示名称
-• 在地点关闭前恰好一小时的时候给出提醒
+• New OpenStreetMap data as of December 16, 2022
+• Improved routing algorithm
+• Do not route over highway=construction :)
+• Support multiple track geometry in KML files
+• Fixed KML 2.3 track import from OpenTracks
+• Faster parsing and rendering of complex KML tracks
+• Allow adding some shops, galleries, music schools in Editor
+• Improved city borders in search results
+• Settings & routing options headers are visible now in the Night Mode
+• Fixed crash when displaying the menu
 
-样式
-• 修复了一些不恰当重叠的类型
-• 增加了highway=busway和按摩店的显示
-• 世界地图上现可显示岛屿与群岛
-• 将waterway=dam绘制为背景区域
-• 绘制时水域地点优先级目前已低于码头
-• 修复leisure区域
+Map Styles:
+• Improved, less bright icons in Night mode
+• Fixed subway icons in some cities
+• Properly draw barriers for areas and relations
+• Fixed duplicated names on the world map
+• Updated cave, mountain pass, peak, volcano, emergency phone, historic ship, ice cream, nightclub, music shop, stadium, video games icons
+• Fixed wrong priorities of leisure=pitch, historic, post office
+• More consistent filled/round icons (round means some kind of business/service)
 
-翻译
-• 添加爱沙尼亚语翻译
-• 更新了捷克语、西班牙语、书面挪威语、土耳其语翻译
-• 本地化了APP中的网站链接，欢迎帮助我们翻译网站: https://github.com/organicmaps/organicmaps.github.io
-• 修复缺失的RV分类的翻译
-• 修复加泰罗尼亚语分类搜索
+Translations:
+• TTS (Text-To-Speech) for Brazil, Mexican Spanish and Norwegian
+• Fixed German and Hungarian search strings
+• Updated TTS for Portuguese and Brazilian
+• Updated Czech, Spanish translations

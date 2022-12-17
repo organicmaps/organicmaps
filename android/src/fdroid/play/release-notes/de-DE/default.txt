@@ -1,11 +1,10 @@
-• Neue OSM-Karten ab dem 19. November
-• Feste Fahrradgeschwindigkeit für Routenplanung
-• Mastodon im Hilfe-Dialog
-• Festes Menü unter der Navigationsleiste
-• Entfernung wird jetzt in den Suchergebnissen angezeigt
-• Einige sich überlappende Icons behoben
-• Autobahn=Buslinie und Physiotherapeut hinzugefügt
-• Inseln und Archipele auf der Weltkarte
-• Feststehende Zeichnung von Pier, Deich und Wasser über Pier
-• Estnisch hinzugefügt, Übersetzungen korrigiert für cs, es, nb, tr
-…mehr: omaps.app/news
+• New OpenStreetMap data as of December 16, 2022
+• Fixed crash in screen split mode & on screen rotation
+• Supported KML 2.3 with multiple tracks from OpenTracks
+• Speedup parsing and rendering of complex KML tracks
+• Fine-tuned routing weights for most roads
+• Fixed annoying "Enable Location" dialogs
+• Enhanced maps icons for the Night Mode
+• Removed duplicated names from the world map
+• Updated voice navigation for Spanish, Portuguese and Norwegian
+…more: omaps.app/news
