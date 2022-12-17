@@ -96,7 +96,7 @@ omim_add_library(${PROJECT_NAME} ${SRC})
 target_link_libraries(${PROJECT_NAME}
   base
   expat
-  jansson
+  cppjansson
   succinct
   ICU::uc
   ICU::i18n # For transliteration.

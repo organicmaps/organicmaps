@@ -140,7 +140,7 @@
 		F6C269FE1F176FFE00EB6519 /* csv_reader_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6C269FD1F176FFE00EB6519 /* csv_reader_test.cpp */; };
 		FACB76A926B89C2200810C9C /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB76A826B89C2200810C9C /* libbase.a */; };
 		FACB76AB26B89C3000810C9C /* minizip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB76AA26B89C3000810C9C /* minizip.framework */; };
-		FACB76AD26B89C3F00810C9C /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB76AC26B89C3F00810C9C /* libjansson.a */; };
+		FACB76AD26B89C3F00810C9C /* libcppjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB76AC26B89C3F00810C9C /* libcppjansson.a */; };
 		FACB76AF26B89CFB00810C9C /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB76AE26B89CFB00810C9C /* libz.tbd */; };
 		FACB76B326B89D3A00810C9C /* libsuccinct.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB76B226B89D3A00810C9C /* libsuccinct.a */; };
 		FAF23E22274E406400684735 /* huffman.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 394917231BAC3C2F002A8C4F /* huffman.hpp */; };
@@ -313,7 +313,7 @@
 		F6C269FD1F176FFE00EB6519 /* csv_reader_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = csv_reader_test.cpp; sourceTree = "<group>"; };
 		FACB76A826B89C2200810C9C /* libbase.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libbase.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FACB76AA26B89C3000810C9C /* minizip.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = minizip.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		FACB76AC26B89C3F00810C9C /* libjansson.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libjansson.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		FACB76AC26B89C3F00810C9C /* libcppjansson.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libcppjansson.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FACB76AE26B89CFB00810C9C /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		FACB76B026B89D0700810C9C /* libplatform.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libplatform.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FACB76B226B89D3A00810C9C /* libsuccinct.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libsuccinct.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -336,7 +336,7 @@
 				FAF23E27274E425000684735 /* libexpat.a in Frameworks */,
 				FACB76B326B89D3A00810C9C /* libsuccinct.a in Frameworks */,
 				FACB76AF26B89CFB00810C9C /* libz.tbd in Frameworks */,
-				FACB76AD26B89C3F00810C9C /* libjansson.a in Frameworks */,
+				FACB76AD26B89C3F00810C9C /* libcppjansson.a in Frameworks */,
 				FACB76AB26B89C3000810C9C /* minizip.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -360,7 +360,7 @@
 				FACB76B226B89D3A00810C9C /* libsuccinct.a */,
 				FACB76B026B89D0700810C9C /* libplatform.a */,
 				FACB76AE26B89CFB00810C9C /* libz.tbd */,
-				FACB76AC26B89C3F00810C9C /* libjansson.a */,
+				FACB76AC26B89C3F00810C9C /* libcppjansson.a */,
 				FACB76AA26B89C3000810C9C /* minizip.framework */,
 				FACB76A826B89C2200810C9C /* libbase.a */,
 			);

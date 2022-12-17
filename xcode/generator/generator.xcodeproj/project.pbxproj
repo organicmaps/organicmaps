@@ -28,7 +28,7 @@
 		FACB776D26B90CA800810C9C /* libicu.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB776C26B90CA800810C9C /* libicu.a */; };
 		FACB776F26B90CAD00810C9C /* libgflags.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB776E26B90CAD00810C9C /* libgflags.a */; };
 		FACB777126B90CC300810C9C /* libexpat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB777026B90CC300810C9C /* libexpat.a */; };
-		FACB777326B90CCF00810C9C /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB777226B90CCF00810C9C /* libjansson.a */; };
+		FACB777326B90CCF00810C9C /* libcppjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB777226B90CCF00810C9C /* libcppjansson.a */; };
 		FACB777526B90CEE00810C9C /* libdescriptions.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB777426B90CEE00810C9C /* libdescriptions.a */; };
 		FACB777726B90CF200810C9C /* minizip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB777626B90CF200810C9C /* minizip.framework */; };
 		FACB777926B90CFB00810C9C /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB777826B90CFB00810C9C /* libprotobuf.a */; };
@@ -326,7 +326,7 @@
 		FACB776C26B90CA800810C9C /* libicu.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libicu.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FACB776E26B90CAD00810C9C /* libgflags.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libgflags.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FACB777026B90CC300810C9C /* libexpat.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libexpat.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		FACB777226B90CCF00810C9C /* libjansson.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libjansson.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		FACB777226B90CCF00810C9C /* libcppjansson.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libcppjansson.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FACB777426B90CEE00810C9C /* libdescriptions.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libdescriptions.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FACB777626B90CF200810C9C /* minizip.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = minizip.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FACB777826B90CFB00810C9C /* libprotobuf.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libprotobuf.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -614,7 +614,7 @@
 				FACB777D26B90E5B00810C9C /* liboauthcpp.a in Frameworks */,
 				FACB777926B90CFB00810C9C /* libprotobuf.a in Frameworks */,
 				FACB777726B90CF200810C9C /* minizip.framework in Frameworks */,
-				FACB777326B90CCF00810C9C /* libjansson.a in Frameworks */,
+				FACB777326B90CCF00810C9C /* libcppjansson.a in Frameworks */,
 				FACB777126B90CC300810C9C /* libexpat.a in Frameworks */,
 				FACB776F26B90CAD00810C9C /* libgflags.a in Frameworks */,
 				FACB776D26B90CA800810C9C /* libicu.a in Frameworks */,
@@ -709,7 +709,7 @@
 				FACB777826B90CFB00810C9C /* libprotobuf.a */,
 				FACB777626B90CF200810C9C /* minizip.framework */,
 				FACB777426B90CEE00810C9C /* libdescriptions.a */,
-				FACB777226B90CCF00810C9C /* libjansson.a */,
+				FACB777226B90CCF00810C9C /* libcppjansson.a */,
 				FACB777026B90CC300810C9C /* libexpat.a */,
 				FACB776E26B90CAD00810C9C /* libgflags.a */,
 				FACB776C26B90CA800810C9C /* libicu.a */,

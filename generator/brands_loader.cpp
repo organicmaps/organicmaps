@@ -8,7 +8,7 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
-#include "3party/jansson/myjansson.hpp"
+#include "cppjansson/cppjansson.hpp"
 
 #include <algorithm>
 #include <cstdint>

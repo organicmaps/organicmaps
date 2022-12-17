@@ -116,7 +116,7 @@
 		FAA8388D26BB4841002E54C6 /* test_socket.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675E889F1DB7B0F200F8EBDA /* test_socket.hpp */; };
 		FAA8388E26BB4849002E54C6 /* writable_dir_changer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67247FFB1C60BD6500EDE56A /* writable_dir_changer.cpp */; };
 		FAA8388F26BB484C002E54C6 /* writable_dir_changer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67247FFC1C60BD6500EDE56A /* writable_dir_changer.hpp */; };
-		FAA8389126BB48E9002E54C6 /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA8389026BB48E9002E54C6 /* libjansson.a */; };
+		FAA8389126BB48E9002E54C6 /* libcppjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA8389026BB48E9002E54C6 /* libcppjansson.a */; };
 		FAA8389326BB48EF002E54C6 /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA8389226BB48EF002E54C6 /* libbase.a */; };
 		FAA8389526BB48F4002E54C6 /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA8389426BB48F4002E54C6 /* libcoding.a */; };
 		FAA8389726BB4906002E54C6 /* minizip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA8389626BB4906002E54C6 /* minizip.framework */; };
@@ -241,7 +241,7 @@
 		EB60B4DD204C175700E4953B /* network_policy_ios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = network_policy_ios.h; sourceTree = "<group>"; };
 		F6DF73561EC9EAE700D8BA0B /* string_storage_base.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = string_storage_base.cpp; sourceTree = "<group>"; };
 		F6DF73571EC9EAE700D8BA0B /* string_storage_base.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = string_storage_base.hpp; sourceTree = "<group>"; };
-		FAA8389026BB48E9002E54C6 /* libjansson.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libjansson.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		FAA8389026BB48E9002E54C6 /* libcppjansson.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libcppjansson.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAA8389226BB48EF002E54C6 /* libbase.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libbase.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAA8389426BB48F4002E54C6 /* libcoding.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libcoding.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAA8389626BB4906002E54C6 /* minizip.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = minizip.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -276,7 +276,7 @@
 				FAA8389726BB4906002E54C6 /* minizip.framework in Frameworks */,
 				FAA8389526BB48F4002E54C6 /* libcoding.a in Frameworks */,
 				FAA8389326BB48EF002E54C6 /* libbase.a in Frameworks */,
-				FAA8389126BB48E9002E54C6 /* libjansson.a in Frameworks */,
+				FAA8389126BB48E9002E54C6 /* libcppjansson.a in Frameworks */,
 				678338A81C6DE5E300FD6263 /* libplatform.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -292,7 +292,7 @@
 				FAA8389626BB4906002E54C6 /* minizip.framework */,
 				FAA8389426BB48F4002E54C6 /* libcoding.a */,
 				FAA8389226BB48EF002E54C6 /* libbase.a */,
-				FAA8389026BB48E9002E54C6 /* libjansson.a */,
+				FAA8389026BB48E9002E54C6 /* libcppjansson.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

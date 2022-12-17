@@ -20,7 +20,7 @@
 #include <optional>
 #include <tuple>
 
-#include "3party/jansson/myjansson.hpp"
+#include "cppjansson/cppjansson.hpp"
 
 namespace
 {

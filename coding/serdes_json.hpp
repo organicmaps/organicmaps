@@ -6,7 +6,7 @@
 #include "base/exception.hpp"
 #include "base/scope_guard.hpp"
 
-#include "3party/jansson/myjansson.hpp"
+#include "cppjansson/cppjansson.hpp"
 
 #include <array>
 #include <chrono>
