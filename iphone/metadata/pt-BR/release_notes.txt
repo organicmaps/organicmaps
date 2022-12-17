@@ -1,23 +1,24 @@
-• Novos dados OSM de 19 de novembro
-• Correção de velocidade de bicicleta para melhor roteamento
-• Correção de abertura de algumas URLs com os símbolos # e ?
-• Correção da abertura do link Matrix da seção de Ajuda
-• Adição de Mastodon na seção de Ajuda
-• Mostrar nome na língua local ao selecionar objeto
-• Correção ao mostrar a hora de fechamento de um local quando faltava exatamente 1 hora para o encerramento
+• Novos dados OSM de 16 de dezembro
+• Melhoria no algoritmo de roteamento
+• Não há mais rotas usando highway=construction :)
+• Suporte à múltiplas geometrias em arquivos KML
+• Correção de importação de arquivo KML 2.3 do OpenTracks
+• Análise e renderização mais rápidas de trilhas KML complexas
+• Permitir adicionar algumas lojas, galerias e escolas de música no Editor
+• Melhoria nas fronteiras municipais nos resultados da busca
+• Cabeçalhos de configurações e opções de rotas agora estão visíveis no modo noturno
+• Correção na falha ao exibir o menu
 
-Estilos
-• Correção de alguns objetos que se sobrepunham
-• Adição de BRTs e fisioterapeuta
-• Ilhas e arquipélagos são agora visíveis no mapa mundial
-• Exibir barragem como área de fundo
-• Prioridade da exibição de água menor do que píer
-• Correção de áreas de lazer
+Estilos de mapa:
+• Ícones aprimorados e menos brilhantes no modo noturno
+• Correção dos ícones de metrô em algumas cidades
+• Exibição adequada das barreiras para as áreas e relações
+• Nomes duplicados corrigidos no mapa-múndi
+• Atualização dos ícones de boate, caverna, estádio, loja de música, navio histórico, passo de montanha, pico, sorvete, telefone de emergência, videogame e vulcão
+• Correção nas prioridades de leisure=pitch, historic, post office
+• Ícones redondos/preenchidos mais consistentes (redondo significa algum tipo de negócio/serviço)
 
-Localização
-• Adição de tradução em Estoniano
-• Atualização das traduções em checo, espanhol, norueguês e turco
-• Links do site principal agora estão localizados no app, favor nos ajudar com a tradução: https://github.com/organicmaps/organicmaps.github.io
-• Metrô para inglês Britânico
-• Correção de tradução ausente para categoria autocaravana
-• Correção de busca de categoria para catalão
+Traduções:
+• Adição e correção de conversão de texto em fala (TTS) para espanhol mexicano, norueguês e português brasileiro e europeu
+• Correção de buscas em alemão e húngaro
+• Traduções atualizadas para espanhol e checo

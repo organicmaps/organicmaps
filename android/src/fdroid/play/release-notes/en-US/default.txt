@@ -1,14 +1,10 @@
-• New OSM data as of November 19
-• Correct bicycle's speed for routing
-• Add Mastodon in "?"
-• Fix some crashes
-• Fix navigation menu under navbar
-• Fix distance not shown on search results
-• Fix some overlapping icons
-• Add highway=busway and physiotherapist
-• Islands and archipelagos on World Map
-• Fix water/peer and waterway=dam drawing priority
-• Fix leisure areas
-• Add Estonian, update cs, es, nb, tr translation
-• Fix RV and Catalan categories
+• New OpenStreetMap data as of December 16, 2022
+• Fixed crash in screen split mode & on screen rotation
+• Supported KML 2.3 with multiple tracks from OpenTracks
+• Speedup parsing and rendering of complex KML tracks
+• Fine-tuned routing weights for most roads
+• Fixed annoying "Enable Location" dialogs
+• Enhanced maps icons for the Night Mode
+• Removed duplicated names from the world map
+• Updated voice navigation for Spanish, Portuguese and Norwegian
 …more: omaps.app/news

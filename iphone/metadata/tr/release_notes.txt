@@ -1,20 +1,25 @@
-• Yeni OSM harita verileri (19 Kasım)
-• Daha iyi rotalar için hesaplama için kullanılan bisiklet hızı düzeltildi
-• Bazı URL'lerin # ve ? sembolleri ile açılması sorunu düzeltildi
-• Hakkında kısmından Matrix bağlantısının açılmaması sorunu düzeltildi
-• Hakkında bölümüne Mastodon sayfamız eklendi
-• Mekan Sayfasında yerin adı artık yerel dilde gösteriliyor
-• Yerin kapanmasına tam olarak 1 saat kaldığında daha iyi şekilde gösteriliyor
+• New OpenStreetMap data as of December 16, 2022
+• Improved routing algorithm
+• Do not route over highway=construction :)
+• Support multiple track geometry in KML files
+• Fixed KML 2.3 track import from OpenTracks
+• Faster parsing and rendering of complex KML tracks
+• Allow adding some shops, galleries, music schools in Editor
+• Improved city borders in search results
+• Settings & routing options headers are visible now in the Night Mode
+• Fixed crash when displaying the menu
 
-Stiller
-• Bazı yanlış örtüşen tipler düzeltildi
-• highway=busway (otobüs yolu) ve fizyoterapist kategorisi eklendi
-• Adalar ve takımadalar artık dünya haritasında görülebilir
-• waterway=dam artık arka plan alanı olarak çiziliyor
-• Su kütleleri artık iskelelerin üstüne çizilmiyor
-• Eğlence alanları düzeltildi
+Map Styles:
+• Improved, less bright icons in Night mode
+• Fixed subway icons in some cities
+• Properly draw barriers for areas and relations
+• Fixed duplicated names on the world map
+• Updated cave, mountain pass, peak, volcano, emergency phone, historic ship, ice cream, nightclub, music shop, stadium, video games icons
+• Fixed wrong priorities of leisure=pitch, historic, post office
+• More consistent filled/round icons (round means some kind of business/service)
 
-Çeviriler
-• Çeviriler güncellendi / düzeltildi.
-• Uygulama içerisinde web sitemize verilen bağlantılar artık Türkçe sayfalara yönlendiriyor.
-• Eksik karavan kategorileri çevirileri düzeltildi
+Translations:
+• TTS (Text-To-Speech) for Brazil, Mexican Spanish and Norwegian
+• Fixed German and Hungarian search strings
+• Updated TTS for Portuguese and Brazilian
+• Updated Czech, Spanish translations
