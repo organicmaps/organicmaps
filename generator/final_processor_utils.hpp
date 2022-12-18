@@ -81,7 +81,7 @@ std::vector<std::vector<std::string>> AppendToMwmTmp(std::vector<feature::Featur
                        feature::AffiliationInterface const & affiliation,
                        std::string const & temporaryMwmPath, size_t threadsCount = 1)
 {
-  auto const affiliations = GetAffiliations(fbs, affiliation, threadsCount);
+  auto affiliations = GetAffiliations(fbs, affiliation, threadsCount);
   std::unordered_map<std::string, std::vector<size_t>> countryToFbsIndexes;
   for (size_t i = 0; i < fbs.size(); ++i)
   {

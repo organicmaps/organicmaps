@@ -217,7 +217,7 @@ void SaveColorToABGR(KmlWriter::WriterWrapper & writer, uint32_t rgba)
 std::string TimestampToString(Timestamp const & timestamp)
 {
   auto const ts = TimestampClock::to_time_t(timestamp);
-  std::string const strTimeStamp = base::TimestampToString(ts);
+  std::string strTimeStamp = base::TimestampToString(ts);
   if (strTimeStamp.size() != 20)
     MYTHROW(KmlWriter::WriteKmlException, ("We always generate fixed length UTC-format timestamp."));
   return strTimeStamp;

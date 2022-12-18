@@ -100,11 +100,11 @@ string RegionInfoGetter::GetLocalizedCountryName(storage::CountryId const & id) 
   if (!m_nameGetter)
     return {};
 
-  auto const shortName = (*m_nameGetter)(id + " Short");
+  auto shortName = (*m_nameGetter)(id + " Short");
   if (!shortName.empty())
     return shortName;
 
-  auto const officialName = (*m_nameGetter)(id);
+  auto officialName = (*m_nameGetter)(id);
   if (!officialName.empty())
     return officialName;
 

@@ -48,7 +48,7 @@ public:
     auto result = m_dataSource.RegisterMap(file);
     CHECK_EQUAL(result.second, MwmSet::RegResult::Success, ());
 
-    auto const id = result.first;
+    auto id = result.first;
     auto const info = id.GetInfo();
     CHECK(info.get(), ());
     OnMwmBuilt(*info);

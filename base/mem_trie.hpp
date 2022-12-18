@@ -382,7 +382,7 @@ private:
     {
       ASSERT_LESS_OR_EQUAL(n, Size(), ());
 
-      Edge const prefix(m_label.rbegin(), m_label.rbegin() + n);
+      Edge prefix(m_label.rbegin(), m_label.rbegin() + n);
       m_label.erase(m_label.begin() + Size() - n, m_label.end());
       return prefix;
     }

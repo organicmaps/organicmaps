@@ -70,7 +70,7 @@ string Join(string const & s)
 template <typename... Args>
 string Join(string const & s, Args &&... args)
 {
-  auto const tail = Join(forward<Args>(args)...);
+  auto tail = Join(forward<Args>(args)...);
   if (s.empty())
     return tail;
   if (tail.empty())
