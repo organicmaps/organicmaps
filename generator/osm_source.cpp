@@ -120,6 +120,7 @@ void ProcessOsmElementsFromXML(SourceReader & stream, std::function<void(OsmElem
   while (processorOsmElementsFromXml.TryRead(element))
   {
     processor(std::move(element));
+    // It is safe to use `element` here as `Clear` will restore the state after the move.
     element.Clear();
   }
 }
@@ -144,6 +145,7 @@ void ProcessOsmElementsFromO5M(SourceReader & stream, std::function<void(OsmElem
   while (processorOsmElementsFromO5M.TryRead(element))
   {
     processor(std::move(element));
+    // It is safe to use `element` here as `Clear` will restore the state after the move.
     element.Clear();
   }
 }

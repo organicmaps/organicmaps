@@ -103,7 +103,6 @@ bool CamerasInfoCollector::ParseIntermediateInfo(
   uint32_t maxSpeedKmPH = 0;
   uint32_t relatedWaysNumber = 0;
 
-  std::vector<routing::SpeedCameraMwmPosition> ways;
   uint32_t latInt = 0;
   double lat = 0;
 
@@ -137,6 +136,7 @@ bool CamerasInfoCollector::ParseIntermediateInfo(
                    "lat(", lat, "), lon(", lon, ")"));
     }
 
+    std::vector<routing::SpeedCameraMwmPosition> ways;
     uint64_t wayOsmId = 0;
     for (uint32_t i = 0; i < relatedWaysNumber; ++i)
     {
