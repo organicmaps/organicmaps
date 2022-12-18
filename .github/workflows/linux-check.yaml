@@ -163,5 +163,14 @@ jobs:
           # world_feed_integration_tests - https://github.com/organicmaps/organicmaps/issues/215
           CTEST_EXCLUDE_REGEX: "drape_tests|generator_integration_tests|opening_hours_integration_tests|opening_hours_supported_features_tests|routing_benchmarks|routing_integration_tests|routing_quality_tests|search_quality_tests|storage_integration_tests|shaders_tests|world_feed_integration_tests"
         run: |
+          sudo locale-gen en_US
+          sudo locale-gen en_US.UTF-8
+          sudo locale-gen es_ES
+          sudo locale-gen es_ES.UTF-8
+          sudo locale-gen fr_FR
+          sudo locale-gen fr_FR.UTF-8
+          sudo locale-gen ru_RU
+          sudo locale-gen ru_RU.UTF-8
+          sudo update-locale
           ln -s ../data data
           ctest -LE "fixture" -E "$CTEST_EXCLUDE_REGEX" --output-on-failure

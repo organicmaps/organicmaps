@@ -39,6 +39,7 @@
 #include "platform/country_file.hpp"
 #include "platform/local_country_file.hpp"
 #include "platform/local_country_file_utils.hpp"
+#include "platform/locale.hpp"
 #include "platform/location.hpp"
 #include "platform/localization.hpp"
 #include "platform/measurement_utils.hpp"
@@ -1294,6 +1295,10 @@ Java_app_organicmaps_Framework_nativeGenerateRouteAltitudeChartBits(JNIEnv * env
     totalDescent = measurement_utils::MetersToFeet(totalDescent);
   }
 
+  jni::TScopedLocalRef const totalAscentString(env, jni::ToJavaString(env, ToStringPrecision(totalAscent, 0)));
+
+  jni::TScopedLocalRef const totalDescentString(env, jni::ToJavaString(env, ToStringPrecision(totalDescent, 0)));
+
   // Passing route limits.
   // Do not use jni::GetGlobalClassRef, because this class is used only to init static fieldId vars.
   static jclass const routeAltitudeLimitsClass = env->GetObjectClass(routeAltitudeLimits);
@@ -1306,6 +1311,14 @@ Java_app_organicmaps_Framework_nativeGenerateRouteAltitudeChartBits(JNIEnv * env
   static jfieldID const totalDescentField = env->GetFieldID(routeAltitudeLimitsClass, "totalDescent", "I");
   ASSERT(totalDescentField, ());
   env->SetIntField(routeAltitudeLimits, totalDescentField, static_cast<jint>(totalDescent));
+
+  static jfieldID const totalAscentStringField = env->GetFieldID(routeAltitudeLimitsClass, "totalAscentString", "Ljava/lang/String;");
+  ASSERT(totalAscentStringField, ());
+  env->SetObjectField(routeAltitudeLimits, totalAscentStringField, totalAscentString.get());
+
+  static jfieldID const totalDescentStringField = env->GetFieldID(routeAltitudeLimitsClass, "totalDescentString", "Ljava/lang/String;");
+  ASSERT(totalDescentStringField, ());
+  env->SetObjectField(routeAltitudeLimits, totalDescentStringField, totalDescentString.get());
 
   static jfieldID const isMetricUnitsField = env->GetFieldID(routeAltitudeLimitsClass, "isMetricUnits", "Z");
   ASSERT(isMetricUnitsField, ());

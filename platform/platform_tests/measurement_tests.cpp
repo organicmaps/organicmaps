@@ -4,10 +4,22 @@
 
 #include "base/math.hpp"
 
+#include <iostream>
 #include <string>
 
 using namespace measurement_utils;
+using namespace platform;
 
+std::string AddGroupingSeparators(std::string const & valueString, std::string const & groupingSeparator)
+{
+  std::string out(valueString);
+
+  if (out.size() > 4 && !groupingSeparator.empty())
+      for (int pos = out.size() - 3; pos > 0; pos -= 3)
+        out.insert(pos, groupingSeparator);
+
+  return out;
+}
 
 UNIT_TEST(LatLonToDMS_Origin)
 {
@@ -131,4 +143,43 @@ UNIT_TEST(UnitsConversion)
 
   TEST(base::AlmostEqualAbs(KmphToMps(3.6), 1.0, kEps), ());
   TEST(base::AlmostEqualAbs(MpsToKmph(1.0), 3.6, kEps), ());
+}
+
+UNIT_TEST(ToStringPrecisionLocale)
+{
+  double d1 = 9.8;
+  int pr1 = 1;
+
+  double d2 = 12345.0;
+  int pr2 = 0;
+  std::string d2String("12345");
+
+  struct TestData
+  {
+    std::string localeName;
+    std::string d1String;
+  };
+
+  TestData testData[] = {
+          // Locale name ,   Decimal
+          { "en_US.UTF-8",   "9.8"},
+          { "es_ES.UTF-8",   "9,8"},
+          { "fr_FR.UTF-8",   "9,8"},
+          { "ru_RU.UTF-8",   "9,8"}
+  };
+
+  for (TestData const & data : testData)
+  {
+    Locale loc;
+
+    if (!GetLocale(data.localeName, loc))
+    {
+      std::cout << "Locale '" << data.localeName << "' not found!! Skipping test..." << std::endl;
+      continue;
+    }
+
+    TEST_EQUAL(measurement_utils::ToStringPrecisionLocale(loc, d1, pr1), data.d1String, ());
+    TEST_EQUAL(measurement_utils::ToStringPrecisionLocale(loc, d2, pr2),
+               AddGroupingSeparators(d2String, loc.m_groupingSeparator), ());
+  }
 }

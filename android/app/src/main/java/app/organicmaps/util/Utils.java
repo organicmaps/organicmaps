@@ -53,6 +53,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.lang.ref.WeakReference;
 import java.text.DateFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -493,6 +494,18 @@ public class Utils
   public static String getLanguageCode()
   {
     return Locale.getDefault().getLanguage();
+  }
+
+  @NonNull
+  public static String getDecimalSeparator()
+  {
+    return String.valueOf(DecimalFormatSymbols.getInstance().getDecimalSeparator());
+  }
+
+  @NonNull
+  public static String getGroupingSeparator()
+  {
+    return String.valueOf(DecimalFormatSymbols.getInstance().getGroupingSeparator());
   }
 
   @Nullable

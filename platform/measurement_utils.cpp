@@ -1,5 +1,5 @@
+#include "platform/locale.hpp"
 #include "platform/measurement_utils.hpp"
-
 #include "platform/settings.hpp"
 
 #include "geometry/mercator.hpp"
@@ -18,19 +18,45 @@
 
 namespace measurement_utils
 {
+using namespace platform;
 using namespace settings;
 using namespace std;
 using namespace strings;
 
-namespace
-{
 string ToStringPrecision(double d, int pr)
+{
+  // We assume that the app will be restarted if a user changes device's locale.
+  static Locale const loc = GetCurrentLocale();
+
+  return ToStringPrecisionLocale(loc, d, pr);
+}
+
+string ToStringPrecisionLocale(Locale loc, double d, int pr)
 {
   stringstream ss;
   ss << setprecision(pr) << fixed << d;
-  return ss.str();
+  string out = ss.str();
+
+  // std::locale does not work on Android NDK, so decimal and grouping (thousands) separator
+  // shall be customized manually here.
+
+  if (pr)
+  {
+    // Value with decimals. Set locale decimal separator.
+    if (loc.m_decimalSeparator != ".")
+      out.replace(out.size() - pr - 1, 1, loc.m_decimalSeparator);
+  }
+  else
+  {
+    // Value with no decimals. Check if it's equal or bigger than 10000 to
+    // insert the grouping (thousands) separator characters.
+    if (out.size() > 4 && !loc.m_groupingSeparator.empty())
+      for (int pos = out.size() - 3; pos > 0; pos -= 3)
+        out.insert(pos, loc.m_groupingSeparator);
+  }
+
+  return out;
 }
-}  // namespace
 
 std::string DebugPrint(Units units)
 {

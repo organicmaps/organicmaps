@@ -50,8 +50,18 @@ Locale GetCurrentLocale()
                                                                     "()Ljava/lang/String;");
   jni::ScopedLocalRef currencyCode(env, env->CallStaticObjectMethod(g_utilsClazz, getCurrencyCodeId));
 
+  static jmethodID const getDecimalSeparatorId = jni::GetStaticMethodID(env, g_utilsClazz, "getDecimalSeparator",
+                                                                        "()Ljava/lang/String;");
+  jni::ScopedLocalRef decimalSeparatorChar(env,  env->CallStaticObjectMethod(g_utilsClazz, getDecimalSeparatorId));
+
+  static jmethodID const getGroupingSeparatorId = jni::GetStaticMethodID(env, g_utilsClazz, "getGroupingSeparator",
+                                                                         "()Ljava/lang/String;");
+  jni::ScopedLocalRef groupingSeparatorChar(env, env->CallStaticObjectMethod(g_utilsClazz, getGroupingSeparatorId));
+
   return {jni::ToNativeString(env, static_cast<jstring>(languageCode.get())),
           jni::ToNativeString(env, static_cast<jstring>(countryCode.get())),
-          currencyCode.get() ? jni::ToNativeString(env, static_cast<jstring>(currencyCode.get())) : ""};
+          currencyCode.get() ? jni::ToNativeString(env, static_cast<jstring>(currencyCode.get())) : "",
+          jni::ToNativeString(env, static_cast<jstring>(decimalSeparatorChar.get())),
+          jni::ToNativeString(env, static_cast<jstring>(groupingSeparatorChar.get()))};
 }
 }  // namespace platform
