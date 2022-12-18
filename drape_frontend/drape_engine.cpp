@@ -92,8 +92,6 @@ DrapeEngine::DrapeEngine(Params && params)
                                     std::move(effects),
                                     params.m_onGraphicsContextInitialized);
 
-  m_frontend = make_unique_dp<FrontendRenderer>(std::move(frParams));
-
   BackendRenderer::Params brParams(params.m_apiVersion,
                                    frParams.m_commutator,
                                    frParams.m_oglContextFactory,
@@ -108,6 +106,8 @@ DrapeEngine::DrapeEngine(Params && params)
                                    params.m_onGraphicsContextInitialized);
 
   m_backend = make_unique_dp<BackendRenderer>(std::move(brParams));
+  m_frontend = make_unique_dp<FrontendRenderer>(std::move(frParams));
+
 
   m_widgetsInfo = std::move(params.m_info);
 
