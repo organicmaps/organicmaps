@@ -120,6 +120,8 @@ public class Framework
   {
     public int totalAscent;
     public int totalDescent;
+    public String totalAscentString;
+    public String totalDescentString;
     public boolean isMetricUnits;
   }
 

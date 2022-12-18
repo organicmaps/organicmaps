@@ -6,6 +6,11 @@
 
 namespace platform
 {
+std::string MakeDistanceStr(std::string const & value, std::string const & unit)
+{
+  return value + kNarrowNonBreakingSpace + unit;
+}
+
 struct ScopedSettings
 {
   /// Saves/restores previous units and sets new units for a scope.
@@ -45,7 +50,7 @@ UNIT_TEST(Distance_CreateFormatted)
     TEST_EQUAL(d.GetUnits(), Distance::Units::Meters, ());
     TEST_ALMOST_EQUAL_ULPS(d.GetDistance(), 100.0, ());
     TEST_EQUAL(d.GetDistanceString(), "100", ());
-    TEST_EQUAL(d.ToString(), "100 m", ());
+    TEST_EQUAL(d.ToString(), MakeDistanceStr("100", "m"), ());
   }
   {
     ScopedSettings guard(measurement_utils::Units::Imperial);
@@ -54,7 +59,7 @@ UNIT_TEST(Distance_CreateFormatted)
     TEST_EQUAL(d.GetUnits(), Distance::Units::Feet, ());
     TEST_ALMOST_EQUAL_ULPS(d.GetDistance(), 330.0, ());
     TEST_EQUAL(d.GetDistanceString(), "330", ());
-    TEST_EQUAL(d.ToString(), "330 ft", ());
+    TEST_EQUAL(d.ToString(), MakeDistanceStr("330", "ft"), ());
   }
 }
 
@@ -67,7 +72,25 @@ UNIT_TEST(Distance_CreateAltitudeFormatted)
     TEST_EQUAL(d.GetUnits(), Distance::Units::Meters, ());
     TEST_ALMOST_EQUAL_ULPS(d.GetDistance(), 5.0, ());
     TEST_EQUAL(d.GetDistanceString(), "5", ());
-    TEST_EQUAL(d.ToString(), "5 m", ());
+    TEST_EQUAL(d.ToString(), MakeDistanceStr("5", "m"), ());
+  }
+  {
+    ScopedSettings guard(measurement_utils::Units::Metric);
+
+    Distance d = Distance::CreateAltitudeFormatted(8849);
+    TEST_EQUAL(d.GetUnits(), Distance::Units::Meters, ());
+    TEST_ALMOST_EQUAL_ULPS(d.GetDistance(), 8849.0, ());
+    TEST_EQUAL(d.GetDistanceString(), "8849", ());
+    TEST_EQUAL(d.ToString(), MakeDistanceStr("8849", "m"), ());
+  }
+  {
+    ScopedSettings guard(measurement_utils::Units::Metric);
+
+    Distance d = Distance::CreateAltitudeFormatted(12345);
+    TEST_EQUAL(d.GetUnits(), Distance::Units::Meters, ());
+    TEST_ALMOST_EQUAL_ULPS(d.GetDistance(), 12345.0, ());
+    TEST_EQUAL(d.GetDistanceString(), "12,345", ());
+    TEST_EQUAL(d.ToString(), MakeDistanceStr("12,345", "m"), ());
   }
   {
     ScopedSettings guard(measurement_utils::Units::Imperial);
@@ -75,8 +98,8 @@ UNIT_TEST(Distance_CreateAltitudeFormatted)
     Distance d = Distance::CreateAltitudeFormatted(10000);
     TEST_EQUAL(d.GetUnits(), Distance::Units::Feet, ());
     TEST_ALMOST_EQUAL_ULPS(d.GetDistance(), 32808.0, ());
-    TEST_EQUAL(d.GetDistanceString(), "32808", ());
-    TEST_EQUAL(d.ToString(), "32808 ft", ());
+    TEST_EQUAL(d.GetDistanceString(), "32,808", ());
+    TEST_EQUAL(d.ToString(), MakeDistanceStr("32,808", "ft"), ());
   }
 }
 
@@ -173,7 +196,7 @@ UNIT_TEST(Distance_ToPlatformUnitsFormatted)
     TEST_EQUAL(newDistance.GetUnits(), Distance::Units::Meters, (d.ToString()));
     TEST_ALMOST_EQUAL_ULPS(newDistance.GetDistance(), 3.0, (d.ToString()));
     TEST_EQUAL(newDistance.GetDistanceString(), "3", (d.ToString()));
-    TEST_EQUAL(newDistance.ToString(), "3 m", (d.ToString()));
+    TEST_EQUAL(newDistance.ToString(), MakeDistanceStr("3", "m"), (d.ToString()));
 
     d = Distance{11, Distance::Units::Kilometers};
     newDistance = d.ToPlatformUnitsFormatted();
@@ -181,7 +204,7 @@ UNIT_TEST(Distance_ToPlatformUnitsFormatted)
     TEST_EQUAL(newDistance.GetUnits(), Distance::Units::Kilometers, (d.ToString()));
     TEST_ALMOST_EQUAL_ULPS(newDistance.GetDistance(), 11.0, (d.ToString()));
     TEST_EQUAL(newDistance.GetDistanceString(), "11", (d.ToString()));
-    TEST_EQUAL(newDistance.ToString(), "11 km", (d.ToString()));
+    TEST_EQUAL(newDistance.ToString(), MakeDistanceStr("11", "km"), (d.ToString()));
   }
 
   {
@@ -193,7 +216,7 @@ UNIT_TEST(Distance_ToPlatformUnitsFormatted)
     TEST_EQUAL(newDistance.GetUnits(), Distance::Units::Feet, (d.ToString()));
     TEST_ALMOST_EQUAL_ULPS(newDistance.GetDistance(), 11.0, (d.ToString()));
     TEST_EQUAL(newDistance.GetDistanceString(), "11", (d.ToString()));
-    TEST_EQUAL(newDistance.ToString(), "11 ft", (d.ToString()));
+    TEST_EQUAL(newDistance.ToString(), MakeDistanceStr("11", "ft"), (d.ToString()));
 
     d = Distance{11, Distance::Units::Kilometers};
     newDistance = d.ToPlatformUnitsFormatted();
@@ -201,7 +224,7 @@ UNIT_TEST(Distance_ToPlatformUnitsFormatted)
     TEST_EQUAL(newDistance.GetUnits(), Distance::Units::Miles, (d.ToString()));
     TEST_ALMOST_EQUAL_ULPS(newDistance.GetDistance(), 6.8, (d.ToString()));
     TEST_EQUAL(newDistance.GetDistanceString(), "6.8", (d.ToString()));
-    TEST_EQUAL(newDistance.ToString(), "6.8 mi", (d.ToString()));
+    TEST_EQUAL(newDistance.ToString(), MakeDistanceStr("6.8", "mi"), (d.ToString()));
   }
 }
 
@@ -238,97 +261,99 @@ UNIT_TEST(Distance_FormattedDistance)
   // clang-format off
   TestData testData[] = {
     // From Meters to Meters
-    {Distance(0,       Units::Meters),     0,    Units::Meters,     "0",    "0 m"},
-    {Distance(0.3,     Units::Meters),     0,    Units::Meters,     "0",    "0 m"},
-    {Distance(0.9,     Units::Meters),     1,    Units::Meters,     "1",    "1 m"},
-    {Distance(1,       Units::Meters),     1,    Units::Meters,     "1",    "1 m"},
-    {Distance(1.234,   Units::Meters),     1,    Units::Meters,     "1",    "1 m"},
-    {Distance(9.99,    Units::Meters),     10,   Units::Meters,     "10",   "10 m"},
-    {Distance(10.01,   Units::Meters),     10,   Units::Meters,     "10",   "10 m"},
-    {Distance(10.4,    Units::Meters),     10,   Units::Meters,     "10",   "10 m"},
-    {Distance(10.5,    Units::Meters),     11,   Units::Meters,     "11",   "11 m"},
-    {Distance(10.51,   Units::Meters),     11,   Units::Meters,     "11",   "11 m"},
-    {Distance(64.2,    Units::Meters),     64,   Units::Meters,     "64",   "64 m"},
-    {Distance(99,      Units::Meters),     99,   Units::Meters,     "99",   "99 m"},
-    {Distance(100,     Units::Meters),     100,  Units::Meters,     "100",  "100 m"},
-    {Distance(101,     Units::Meters),     100,  Units::Meters,     "100",  "100 m"},
-    {Distance(109,     Units::Meters),     110,  Units::Meters,     "110",  "110 m"},
-    {Distance(991,     Units::Meters),     990,  Units::Meters,     "990",  "990 m"},
+    {Distance(0,       Units::Meters),     0,     Units::Meters,     "0",      MakeDistanceStr("0", "m")},
+    {Distance(0.3,     Units::Meters),     0,     Units::Meters,     "0",      MakeDistanceStr("0", "m")},
+    {Distance(0.9,     Units::Meters),     1,     Units::Meters,     "1",      MakeDistanceStr("1", "m")},
+    {Distance(1,       Units::Meters),     1,     Units::Meters,     "1",      MakeDistanceStr("1", "m")},
+    {Distance(1.234,   Units::Meters),     1,     Units::Meters,     "1",      MakeDistanceStr("1", "m")},
+    {Distance(9.99,    Units::Meters),     10,    Units::Meters,     "10",     MakeDistanceStr("10", "m")},
+    {Distance(10.01,   Units::Meters),     10,    Units::Meters,     "10",     MakeDistanceStr("10", "m")},
+    {Distance(10.4,    Units::Meters),     10,    Units::Meters,     "10",     MakeDistanceStr("10", "m")},
+    {Distance(10.5,    Units::Meters),     11,    Units::Meters,     "11",     MakeDistanceStr("11", "m")},
+    {Distance(10.51,   Units::Meters),     11,    Units::Meters,     "11",     MakeDistanceStr("11", "m")},
+    {Distance(64.2,    Units::Meters),     64,    Units::Meters,     "64",     MakeDistanceStr("64", "m")},
+    {Distance(99,      Units::Meters),     99,    Units::Meters,     "99",     MakeDistanceStr("99", "m")},
+    {Distance(100,     Units::Meters),     100,   Units::Meters,     "100",    MakeDistanceStr("100", "m")},
+    {Distance(101,     Units::Meters),     100,   Units::Meters,     "100",    MakeDistanceStr("100", "m")},
+    {Distance(109,     Units::Meters),     110,   Units::Meters,     "110",    MakeDistanceStr("110", "m")},
+    {Distance(991,     Units::Meters),     990,   Units::Meters,     "990",    MakeDistanceStr("990", "m")},
 
     // From Kilometers to Kilometers
-    {Distance(0,       Units::Kilometers), 0,    Units::Meters,     "0",    "0 m"},
-    {Distance(0.3,     Units::Kilometers), 300,  Units::Meters,     "300",  "300 m"},
-    {Distance(1.234,   Units::Kilometers), 1.2,  Units::Kilometers, "1.2",  "1.2 km"},
-    {Distance(10,      Units::Kilometers), 10,   Units::Kilometers, "10",   "10 km"},
-    {Distance(11,      Units::Kilometers), 11,   Units::Kilometers, "11",   "11 km"},
-    {Distance(54,      Units::Kilometers), 54,   Units::Kilometers, "54",   "54 km"},
-    {Distance(99.99,   Units::Kilometers), 100,  Units::Kilometers, "100",  "100 km"},
-    {Distance(100.01,  Units::Kilometers), 100,  Units::Kilometers, "100",  "100 km"},
-    {Distance(115,     Units::Kilometers), 115,  Units::Kilometers, "115",  "115 km"},
-    {Distance(999,     Units::Kilometers), 999,  Units::Kilometers, "999",  "999 km"},
-    {Distance(1000,    Units::Kilometers), 1000, Units::Kilometers, "1000", "1000 km"},
-    {Distance(1049.99, Units::Kilometers), 1050, Units::Kilometers, "1050", "1050 km"},
-    {Distance(1050,    Units::Kilometers), 1050, Units::Kilometers, "1050", "1050 km"},
-    {Distance(1050.01, Units::Kilometers), 1050, Units::Kilometers, "1050", "1050 km"},
-    {Distance(1234,    Units::Kilometers), 1234, Units::Kilometers, "1234", "1234 km"},
+    {Distance(0,       Units::Kilometers), 0,     Units::Meters,     "0",      MakeDistanceStr("0", "m")},
+    {Distance(0.3,     Units::Kilometers), 300,   Units::Meters,     "300",    MakeDistanceStr("300", "m")},
+    {Distance(1.234,   Units::Kilometers), 1.2,   Units::Kilometers, "1.2",    MakeDistanceStr("1.2", "km")},
+    {Distance(10,      Units::Kilometers), 10,    Units::Kilometers, "10",     MakeDistanceStr("10", "km")},
+    {Distance(11,      Units::Kilometers), 11,    Units::Kilometers, "11",     MakeDistanceStr("11", "km")},
+    {Distance(54,      Units::Kilometers), 54,    Units::Kilometers, "54",     MakeDistanceStr("54", "km")},
+    {Distance(99.99,   Units::Kilometers), 100,   Units::Kilometers, "100",    MakeDistanceStr("100", "km")},
+    {Distance(100.01,  Units::Kilometers), 100,   Units::Kilometers, "100",    MakeDistanceStr("100", "km")},
+    {Distance(115,     Units::Kilometers), 115,   Units::Kilometers, "115",    MakeDistanceStr("115", "km")},
+    {Distance(999,     Units::Kilometers), 999,   Units::Kilometers, "999",    MakeDistanceStr("999", "km")},
+    {Distance(1000,    Units::Kilometers), 1000,  Units::Kilometers, "1000",   MakeDistanceStr("1000", "km")},
+    {Distance(1049.99, Units::Kilometers), 1050,  Units::Kilometers, "1050",   MakeDistanceStr("1050", "km")},
+    {Distance(1050,    Units::Kilometers), 1050,  Units::Kilometers, "1050",   MakeDistanceStr("1050", "km")},
+    {Distance(1050.01, Units::Kilometers), 1050,  Units::Kilometers, "1050",   MakeDistanceStr("1050", "km")},
+    {Distance(1234,    Units::Kilometers), 1234,  Units::Kilometers, "1234",   MakeDistanceStr("1234", "km")},
+    {Distance(12345,   Units::Kilometers), 12345, Units::Kilometers, "12,345", MakeDistanceStr("12,345", "km")},
 
     // From Feet to Feet
-    {Distance(0,       Units::Feet),       0,    Units::Feet,       "0",    "0 ft"},
-    {Distance(1,       Units::Feet),       1,    Units::Feet,       "1",    "1 ft"},
-    {Distance(9.99,    Units::Feet),       10,   Units::Feet,       "10",   "10 ft"},
-    {Distance(10.01,   Units::Feet),       10,   Units::Feet,       "10",   "10 ft"},
-    {Distance(95,      Units::Feet),       95,   Units::Feet,       "95",   "95 ft"},
-    {Distance(125,     Units::Feet),       130,  Units::Feet,       "130",  "130 ft"},
-    {Distance(991,     Units::Feet),       990,  Units::Feet,       "990",  "990 ft"},
+    {Distance(0,       Units::Feet),       0,     Units::Feet,       "0",      MakeDistanceStr("0", "ft")},
+    {Distance(1,       Units::Feet),       1,     Units::Feet,       "1",      MakeDistanceStr("1", "ft")},
+    {Distance(9.99,    Units::Feet),       10,    Units::Feet,       "10",     MakeDistanceStr("10", "ft")},
+    {Distance(10.01,   Units::Feet),       10,    Units::Feet,       "10",     MakeDistanceStr("10", "ft")},
+    {Distance(95,      Units::Feet),       95,    Units::Feet,       "95",     MakeDistanceStr("95", "ft")},
+    {Distance(125,     Units::Feet),       130,   Units::Feet,       "130",    MakeDistanceStr("130", "ft")},
+    {Distance(991,     Units::Feet),       990,   Units::Feet,       "990",    MakeDistanceStr("990", "ft")},
 
     // From Miles to Miles
-    {Distance(0,       Units::Miles),      0,    Units::Feet,       "0",    "0 ft"},
-    {Distance(0.1,     Units::Miles),      530,  Units::Feet,       "530",  "530 ft"},
-    {Distance(1,       Units::Miles),      1.0,  Units::Miles,      "1.0",  "1.0 mi"},
-    {Distance(1.234,   Units::Miles),      1.2,  Units::Miles,      "1.2",  "1.2 mi"},
-    {Distance(9.99,    Units::Miles),      10,   Units::Miles,      "10",   "10 mi"},
-    {Distance(10.01,   Units::Miles),      10,   Units::Miles,      "10",   "10 mi"},
-    {Distance(11,      Units::Miles),      11,   Units::Miles,      "11",   "11 mi"},
-    {Distance(54,      Units::Miles),      54,   Units::Miles,      "54",   "54 mi"},
-    {Distance(145,     Units::Miles),      145,  Units::Miles,      "145",  "145 mi"},
-    {Distance(999,     Units::Miles),      999,  Units::Miles,      "999",  "999 mi"},
-    {Distance(1149.99, Units::Miles),      1150, Units::Miles,      "1150", "1150 mi"},
-    {Distance(1150,    Units::Miles),      1150, Units::Miles,      "1150", "1150 mi"},
-    {Distance(1150.01, Units::Miles),      1150, Units::Miles,      "1150", "1150 mi"},
+    {Distance(0,       Units::Miles),      0,     Units::Feet,       "0",      MakeDistanceStr("0", "ft")},
+    {Distance(0.1,     Units::Miles),      530,   Units::Feet,       "530",    MakeDistanceStr("530", "ft")},
+    {Distance(1,       Units::Miles),      1.0,   Units::Miles,      "1.0",    MakeDistanceStr("1.0", "mi")},
+    {Distance(1.234,   Units::Miles),      1.2,   Units::Miles,      "1.2",    MakeDistanceStr("1.2", "mi")},
+    {Distance(9.99,    Units::Miles),      10,    Units::Miles,      "10",     MakeDistanceStr("10", "mi")},
+    {Distance(10.01,   Units::Miles),      10,    Units::Miles,      "10",     MakeDistanceStr("10", "mi")},
+    {Distance(11,      Units::Miles),      11,    Units::Miles,      "11",     MakeDistanceStr("11", "mi")},
+    {Distance(54,      Units::Miles),      54,    Units::Miles,      "54",     MakeDistanceStr("54", "mi")},
+    {Distance(145,     Units::Miles),      145,   Units::Miles,      "145",    MakeDistanceStr("145", "mi")},
+    {Distance(999,     Units::Miles),      999,   Units::Miles,      "999",    MakeDistanceStr("999", "mi")},
+    {Distance(1149.99, Units::Miles),      1150,  Units::Miles,      "1150",   MakeDistanceStr("1150", "mi")},
+    {Distance(1150,    Units::Miles),      1150,  Units::Miles,      "1150",   MakeDistanceStr("1150", "mi")},
+    {Distance(1150.01, Units::Miles),      1150,  Units::Miles,      "1150",   MakeDistanceStr("1150", "mi")},
+    {Distance(12345.0, Units::Miles),      12345, Units::Miles,      "12,345", MakeDistanceStr("12,345", "mi")},
 
     // From Meters to Kilometers
-    {Distance(999,     Units::Meters),     1.0,  Units::Kilometers, "1.0",  "1.0 km"},
-    {Distance(1000,    Units::Meters),     1.0,  Units::Kilometers, "1.0",  "1.0 km"},
-    {Distance(1001,    Units::Meters),     1.0,  Units::Kilometers, "1.0",  "1.0 km"},
-    {Distance(1100,    Units::Meters),     1.1,  Units::Kilometers, "1.1",  "1.1 km"},
-    {Distance(1140,    Units::Meters),     1.1,  Units::Kilometers, "1.1",  "1.1 km"},
-    {Distance(1151,    Units::Meters),     1.2,  Units::Kilometers, "1.2",  "1.2 km"},
-    {Distance(1500,    Units::Meters),     1.5,  Units::Kilometers, "1.5",  "1.5 km"},
-    {Distance(1549.9,  Units::Meters),     1.5,  Units::Kilometers, "1.5",  "1.5 km"},
-    {Distance(1550,    Units::Meters),     1.6,  Units::Kilometers, "1.6",  "1.6 km"},
-    {Distance(1551,    Units::Meters),     1.6,  Units::Kilometers, "1.6",  "1.6 km"},
-    {Distance(9949,    Units::Meters),     9.9,  Units::Kilometers, "9.9",  "9.9 km"},
-    {Distance(9992,    Units::Meters),     10,   Units::Kilometers, "10",   "10 km"},
-    {Distance(10000,   Units::Meters),     10,   Units::Kilometers, "10",   "10 km"},
-    {Distance(10499.9, Units::Meters),     10,   Units::Kilometers, "10",   "10 km"},
-    {Distance(10501,   Units::Meters),     11,   Units::Kilometers, "11",   "11 km"},
-    {Distance(101'001, Units::Meters),     101,  Units::Kilometers, "101",  "101 km"},
-    {Distance(101'999, Units::Meters),     102,  Units::Kilometers, "102",  "102 km"},
-    {Distance(287'386, Units::Meters),     287,  Units::Kilometers, "287",  "287 km"},
+    {Distance(999,     Units::Meters),     1.0,   Units::Kilometers, "1.0",    MakeDistanceStr("1.0", "km")},
+    {Distance(1000,    Units::Meters),     1.0,   Units::Kilometers, "1.0",    MakeDistanceStr("1.0", "km")},
+    {Distance(1001,    Units::Meters),     1.0,   Units::Kilometers, "1.0",    MakeDistanceStr("1.0", "km")},
+    {Distance(1100,    Units::Meters),     1.1,   Units::Kilometers, "1.1",    MakeDistanceStr("1.1", "km")},
+    {Distance(1140,    Units::Meters),     1.1,   Units::Kilometers, "1.1",    MakeDistanceStr("1.1", "km")},
+    {Distance(1151,    Units::Meters),     1.2,   Units::Kilometers, "1.2",    MakeDistanceStr("1.2", "km")},
+    {Distance(1500,    Units::Meters),     1.5,   Units::Kilometers, "1.5",    MakeDistanceStr("1.5", "km")},
+    {Distance(1549.9,  Units::Meters),     1.5,   Units::Kilometers, "1.5",    MakeDistanceStr("1.5", "km")},
+    {Distance(1550,    Units::Meters),     1.6,   Units::Kilometers, "1.6",    MakeDistanceStr("1.6", "km")},
+    {Distance(1551,    Units::Meters),     1.6,   Units::Kilometers, "1.6",    MakeDistanceStr("1.6", "km")},
+    {Distance(9949,    Units::Meters),     9.9,   Units::Kilometers, "9.9",    MakeDistanceStr("9.9", "km")},
+    {Distance(9992,    Units::Meters),     10,    Units::Kilometers, "10",     MakeDistanceStr("10", "km")},
+    {Distance(10000,   Units::Meters),     10,    Units::Kilometers, "10",     MakeDistanceStr("10", "km")},
+    {Distance(10499.9, Units::Meters),     10,    Units::Kilometers, "10",     MakeDistanceStr("10", "km")},
+    {Distance(10501,   Units::Meters),     11,    Units::Kilometers, "11",     MakeDistanceStr("11", "km")},
+    {Distance(101'001, Units::Meters),     101,   Units::Kilometers, "101",    MakeDistanceStr("101", "km")},
+    {Distance(101'999, Units::Meters),     102,   Units::Kilometers, "102",    MakeDistanceStr("102", "km")},
+    {Distance(287'386, Units::Meters),     287,   Units::Kilometers, "287",    MakeDistanceStr("287", "km")},
 
     // From Feet to Miles
-    {Distance(999,     Units::Feet),       0.2,  Units::Miles,      "0.2",  "0.2 mi"},
-    {Distance(1000,    Units::Feet),       0.2,  Units::Miles,      "0.2",  "0.2 mi"},
-    {Distance(1150,    Units::Feet),       0.2,  Units::Miles,      "0.2",  "0.2 mi"},
-    {Distance(5280,    Units::Feet),       1.0,  Units::Miles,      "1.0",  "1.0 mi"},
-    {Distance(7920,    Units::Feet),       1.5,  Units::Miles,      "1.5",  "1.5 mi"},
-    {Distance(10560,   Units::Feet),       2.0,  Units::Miles,      "2.0",  "2.0 mi"},
-    {Distance(100'000, Units::Feet),       19,   Units::Miles,      "19",   "19 mi"},
-    {Distance(285'120, Units::Feet),       54,   Units::Miles,      "54",   "54 mi"},
-    {Distance(633'547, Units::Feet),       120,  Units::Miles,      "120",  "120 mi"},
-    {Distance(633'600, Units::Feet),       120,  Units::Miles,      "120",  "120 mi"},
-    {Distance(633'653, Units::Feet),       120,  Units::Miles,      "120",  "120 mi"},
-    {Distance(999'999, Units::Feet),       189,  Units::Miles,      "189",  "189 mi"},
+    {Distance(999,     Units::Feet),       0.2,   Units::Miles,      "0.2",    MakeDistanceStr("0.2", "mi")},
+    {Distance(1000,    Units::Feet),       0.2,   Units::Miles,      "0.2",    MakeDistanceStr("0.2", "mi")},
+    {Distance(1150,    Units::Feet),       0.2,   Units::Miles,      "0.2",    MakeDistanceStr("0.2", "mi")},
+    {Distance(5280,    Units::Feet),       1.0,   Units::Miles,      "1.0",    MakeDistanceStr("1.0", "mi")},
+    {Distance(7920,    Units::Feet),       1.5,   Units::Miles,      "1.5",    MakeDistanceStr("1.5", "mi")},
+    {Distance(10560,   Units::Feet),       2.0,   Units::Miles,      "2.0",    MakeDistanceStr("2.0", "mi")},
+    {Distance(100'000, Units::Feet),       19,    Units::Miles,      "19",     MakeDistanceStr("19", "mi")},
+    {Distance(285'120, Units::Feet),       54,    Units::Miles,      "54",     MakeDistanceStr("54", "mi")},
+    {Distance(633'547, Units::Feet),       120,   Units::Miles,      "120",    MakeDistanceStr("120", "mi")},
+    {Distance(633'600, Units::Feet),       120,   Units::Miles,      "120",    MakeDistanceStr("120", "mi")},
+    {Distance(633'653, Units::Feet),       120,   Units::Miles,      "120",    MakeDistanceStr("120", "mi")},
+    {Distance(999'999, Units::Feet),       189,   Units::Miles,      "189",    MakeDistanceStr("189", "mi")},
   };
 
   // clang-format on

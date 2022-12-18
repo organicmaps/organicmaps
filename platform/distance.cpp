@@ -1,5 +1,6 @@
 #include "distance.hpp"
 
+#include "platform/locale.hpp"
 #include "platform/localization.hpp"
 #include "platform/measurement_utils.hpp"
 
@@ -138,9 +139,7 @@ std::string Distance::GetDistanceString() const
   if (m_distance < 10.0 && IsHighUnits())
     precision = 1;
 
-  std::ostringstream os;
-  os << std::fixed << std::setprecision(precision) << m_distance;
-  return os.str();
+  return ToStringPrecision(m_distance, precision);
 }
 
 std::string Distance::GetUnitsString() const
@@ -194,7 +193,7 @@ std::string Distance::ToString() const
   if (!IsValid())
     return "";
 
-  return GetDistanceString() + " " + GetUnitsString();
+  return GetDistanceString() + kNarrowNonBreakingSpace + GetUnitsString();
 }
 
 std::string DebugPrint(Distance::Units units)

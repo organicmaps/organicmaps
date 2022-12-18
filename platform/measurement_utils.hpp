@@ -1,6 +1,7 @@
 #pragma once
 
 #include "geometry/point2d.hpp"
+#include "platform/locale.hpp"
 
 #include <string>
 
@@ -62,4 +63,6 @@ bool OSMDistanceToMeters(std::string const & osmRawValue, double & outMeters);
 std::string OSMDistanceToMetersString(std::string const & osmRawValue,
                                       bool supportZeroAndNegativeValues = true,
                                       int digitsAfterComma = 2);
+std::string ToStringPrecision(double d, int pr);
+std::string ToStringPrecisionLocale(platform::Locale loc, double d, int pr);
 }  // namespace measurement_utils
