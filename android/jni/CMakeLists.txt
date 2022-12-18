@@ -6,6 +6,7 @@ set(SRC
   # JNI headers
   ../../private.h
   app/organicmaps/core/jni_helper.hpp
+  app/organicmaps/core/jni_java_methods.hpp
   app/organicmaps/core/logging.hpp
   app/organicmaps/core/ScopedEnv.hpp
   app/organicmaps/core/ScopedLocalRef.hpp
@@ -22,6 +23,7 @@ set(SRC
 
   # JNI sources
   app/organicmaps/core/jni_helper.cpp
+  app/organicmaps/core/jni_java_methods.cpp
   app/organicmaps/core/logging.cpp
   app/organicmaps/bookmarks/data/BookmarkManager.cpp
   app/organicmaps/DisplayedCategories.cpp
