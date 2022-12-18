@@ -1,6 +1,7 @@
 #include "Framework.hpp"
 
 #include "app/organicmaps/core/jni_helper.hpp"
+#include "app/organicmaps/core/jni_java_methods.hpp"
 
 #include "coding/internal/file_data.hpp"
 
@@ -18,15 +19,10 @@
 #include <functional>
 #include <memory>
 #include <unordered_map>
-#include <utility>
 #include <vector>
-
-using namespace std::placeholders;
 
 namespace
 {
-using namespace storage;
-
 // The last 5% are left for applying diffs.
 float const kMaxProgress = 95.0f;
 float const kMaxProgressWithoutDiffs = 100.0f;
@@ -51,8 +47,6 @@ struct TBatchedData
   {}
 };
 
-jmethodID g_listAddMethod = nullptr;
-jclass g_countryItemClass = nullptr;
 jobject g_countryChangedListener = nullptr;
 
 DECLARE_THREAD_CHECKER(g_batchingThreadChecker);
@@ -65,15 +59,46 @@ Storage & GetStorage()
   return g_framework->GetStorage();
 }
 
-void CacheListClassRefs(JNIEnv * env)
+struct CountryItemBuilder
 {
-  if (g_listAddMethod)
-    return;
+  jclass m_class;
+  jmethodID m_ctor;
+  jfieldID m_Id, m_Name, m_DirectParentId, m_TopmostParentId, m_DirectParentName, m_TopmostParentName,
+          m_Description, m_Size, m_EnqueuedSize, m_TotalSize, m_ChildCount, m_TotalChildCount,
+          m_Present, m_Progress, m_DownloadedBytes, m_BytesToDownload, m_Category, m_Status, m_ErrorCode;
 
-  jclass listClass = env->FindClass("java/util/List");
-  g_listAddMethod = env->GetMethodID(listClass, "add", "(Ljava/lang/Object;)Z");
-  g_countryItemClass = jni::GetGlobalClassRef(env, "app/organicmaps/downloader/CountryItem");
-}
+  CountryItemBuilder(JNIEnv *env)
+  {
+    m_class = jni::GetGlobalClassRef(env, "app/organicmaps/downloader/CountryItem");
+    m_ctor = jni::GetConstructorID(env, m_class, "(Ljava/lang/String;)V");
+
+    m_Id = env->GetFieldID(m_class, "id", "Ljava/lang/String;");
+    m_Name = env->GetFieldID(m_class, "name", "Ljava/lang/String;");
+    m_DirectParentId = env->GetFieldID(m_class, "directParentId", "Ljava/lang/String;");
+    m_TopmostParentId = env->GetFieldID(m_class, "topmostParentId", "Ljava/lang/String;");
+    m_DirectParentName = env->GetFieldID(m_class, "directParentName", "Ljava/lang/String;");
+    m_TopmostParentName = env->GetFieldID(m_class, "topmostParentName", "Ljava/lang/String;");
+    m_Description = env->GetFieldID(m_class, "description", "Ljava/lang/String;");
+    m_Size = env->GetFieldID(m_class, "size", "J");
+    m_EnqueuedSize = env->GetFieldID(m_class, "enqueuedSize", "J");
+    m_TotalSize = env->GetFieldID(m_class, "totalSize", "J");
+    m_ChildCount = env->GetFieldID(m_class, "childCount", "I");
+    m_TotalChildCount = env->GetFieldID(m_class, "totalChildCount", "I");
+    m_Present = env->GetFieldID(m_class, "present", "Z");
+    m_Progress = env->GetFieldID(m_class, "progress", "F");
+    m_DownloadedBytes = env->GetFieldID(m_class, "downloadedBytes", "J");
+    m_BytesToDownload = env->GetFieldID(m_class, "bytesToDownload", "J");
+    m_Category = env->GetFieldID(m_class, "category", "I");
+    m_Status = env->GetFieldID(m_class, "status", "I");
+    m_ErrorCode = env->GetFieldID(m_class, "errorCode", "I");
+  }
+
+  DECLARE_BUILDER_INSTANCE(CountryItemBuilder);
+  jobject Create(JNIEnv * env, jobject id) const
+  {
+    return env->NewObject(m_class, m_ctor, id);
+  }
+};
 
 static CountryId const GetRootId(JNIEnv * env, jstring root)
 {
@@ -144,86 +169,63 @@ Java_app_organicmaps_downloader_MapManager_nativeGetUpdateInfo(JNIEnv * env, jcl
 
 static void UpdateItemShort(JNIEnv * env, jobject item, NodeStatus const status, NodeErrorCode const error)
 {
-  static jfieldID const countryItemFieldStatus = env->GetFieldID(g_countryItemClass, "status", "I");
-  static jfieldID const countryItemFieldErrorCode = env->GetFieldID(g_countryItemClass, "errorCode", "I");
+  auto const & ciBuilder = CountryItemBuilder::Instance(env);
 
-  env->SetIntField(item, countryItemFieldStatus, static_cast<jint>(status));
-  env->SetIntField(item, countryItemFieldErrorCode, static_cast<jint>(error));
+  env->SetIntField(item, ciBuilder.m_Status, static_cast<jint>(status));
+  env->SetIntField(item, ciBuilder.m_ErrorCode, static_cast<jint>(error));
 }
 
 static void UpdateItem(JNIEnv * env, jobject item, NodeAttrs const & attrs)
 {
-  static jfieldID const countryItemFieldName = env->GetFieldID(g_countryItemClass, "name", "Ljava/lang/String;");
-  static jfieldID const countryItemFieldDirectParentId = env->GetFieldID(g_countryItemClass, "directParentId", "Ljava/lang/String;");
-  static jfieldID const countryItemFieldTopmostParentId = env->GetFieldID(g_countryItemClass, "topmostParentId", "Ljava/lang/String;");
-  static jfieldID const countryItemFieldDirectParentName = env->GetFieldID(g_countryItemClass, "directParentName", "Ljava/lang/String;");
-  static jfieldID const countryItemFieldTopmostParentName = env->GetFieldID(g_countryItemClass, "topmostParentName", "Ljava/lang/String;");
-  static jfieldID const countryItemFieldDescription = env->GetFieldID(g_countryItemClass, "description", "Ljava/lang/String;");
-  static jfieldID const countryItemFieldSize = env->GetFieldID(g_countryItemClass, "size", "J");
-  static jfieldID const countryItemFieldEnqueuedSize = env->GetFieldID(g_countryItemClass, "enqueuedSize", "J");
-  static jfieldID const countryItemFieldTotalSize = env->GetFieldID(g_countryItemClass, "totalSize", "J");
-  static jfieldID const countryItemFieldChildCount = env->GetFieldID(g_countryItemClass, "childCount", "I");
-  static jfieldID const countryItemFieldTotalChildCount = env->GetFieldID(g_countryItemClass, "totalChildCount", "I");
-  static jfieldID const countryItemFieldPresent = env->GetFieldID(g_countryItemClass, "present", "Z");
-  static jfieldID const countryItemFieldProgress = env->GetFieldID(g_countryItemClass, "progress", "F");
-  static jfieldID const countryItemFieldDownloadedBytes = env->GetFieldID(g_countryItemClass, "downloadedBytes", "J");
-  static jfieldID const countryItemFieldBytesToDownload = env->GetFieldID(g_countryItemClass, "bytesToDownload", "J");
+  auto const & ciBuilder = CountryItemBuilder::Instance(env);
+  using SLR = jni::TScopedLocalRef;
 
   // Localized name
-  jni::TScopedLocalRef const name(env, jni::ToJavaString(env, attrs.m_nodeLocalName));
-  env->SetObjectField(item, countryItemFieldName, name.get());
+  env->SetObjectField(item, ciBuilder.m_Name, SLR(env, jni::ToJavaString(env, attrs.m_nodeLocalName)).get());
 
   // Direct parent[s]. Do not specify if there are multiple or none.
   if (attrs.m_parentInfo.size() == 1)
   {
     CountryIdAndName const & info = attrs.m_parentInfo[0];
-
-    jni::TScopedLocalRef const parentId(env, jni::ToJavaString(env, info.m_id));
-    env->SetObjectField(item, countryItemFieldDirectParentId, parentId.get());
-
-    jni::TScopedLocalRef const parentName(env, jni::ToJavaString(env, info.m_localName));
-    env->SetObjectField(item, countryItemFieldDirectParentName, parentName.get());
+    env->SetObjectField(item, ciBuilder.m_DirectParentId, SLR(env, jni::ToJavaString(env, info.m_id)).get());
+    env->SetObjectField(item, ciBuilder.m_DirectParentName, SLR(env, jni::ToJavaString(env, info.m_localName)).get());
   }
   else
   {
-    env->SetObjectField(item, countryItemFieldDirectParentId, nullptr);
-    env->SetObjectField(item, countryItemFieldDirectParentName, nullptr);
+    env->SetObjectField(item, ciBuilder.m_DirectParentId, nullptr);
+    env->SetObjectField(item, ciBuilder.m_DirectParentName, nullptr);
   }
 
   // Topmost parent[s]. Do not specify if there are multiple or none.
   if (attrs.m_topmostParentInfo.size() == 1)
   {
     CountryIdAndName const & info = attrs.m_topmostParentInfo[0];
-
-    jni::TScopedLocalRef const parentId(env, jni::ToJavaString(env, info.m_id));
-    env->SetObjectField(item, countryItemFieldTopmostParentId, parentId.get());
-
-    jni::TScopedLocalRef const parentName(env, jni::ToJavaString(env, info.m_localName));
-    env->SetObjectField(item, countryItemFieldTopmostParentName, parentName.get());
+    env->SetObjectField(item, ciBuilder.m_TopmostParentId, SLR(env, jni::ToJavaString(env, info.m_id)).get());
+    env->SetObjectField(item, ciBuilder.m_TopmostParentName, SLR(env, jni::ToJavaString(env, info.m_localName)).get());
   }
   else
   {
-    env->SetObjectField(item, countryItemFieldTopmostParentId, nullptr);
-    env->SetObjectField(item, countryItemFieldTopmostParentName, nullptr);
+    env->SetObjectField(item, ciBuilder.m_TopmostParentId, nullptr);
+    env->SetObjectField(item, ciBuilder.m_TopmostParentName, nullptr);
   }
 
   // Description
-  env->SetObjectField(item, countryItemFieldDescription, jni::TScopedLocalRef(env, jni::ToJavaString(env, attrs.m_nodeLocalDescription)));
+  env->SetObjectField(item, ciBuilder.m_Description, SLR(env, jni::ToJavaString(env, attrs.m_nodeLocalDescription)).get());
 
   // Sizes
-  env->SetLongField(item, countryItemFieldSize, attrs.m_localMwmSize);
-  env->SetLongField(item, countryItemFieldEnqueuedSize, attrs.m_downloadingMwmSize);
-  env->SetLongField(item, countryItemFieldTotalSize, attrs.m_mwmSize);
+  env->SetLongField(item, ciBuilder.m_Size, attrs.m_localMwmSize);
+  env->SetLongField(item, ciBuilder.m_EnqueuedSize, attrs.m_downloadingMwmSize);
+  env->SetLongField(item, ciBuilder.m_TotalSize, attrs.m_mwmSize);
 
   // Child counts
-  env->SetIntField(item, countryItemFieldChildCount, attrs.m_downloadingMwmCounter);
-  env->SetIntField(item, countryItemFieldTotalChildCount, attrs.m_mwmCounter);
+  env->SetIntField(item, ciBuilder.m_ChildCount, attrs.m_downloadingMwmCounter);
+  env->SetIntField(item, ciBuilder.m_TotalChildCount, attrs.m_mwmCounter);
 
   // Status and error code
   UpdateItemShort(env, item, attrs.m_status, attrs.m_error);
 
   // Presence flag
-  env->SetBooleanField(item, countryItemFieldPresent, attrs.m_present);
+  env->SetBooleanField(item, ciBuilder.m_Present, attrs.m_present);
 
   // Progress
   float percentage = 0;
@@ -233,17 +235,17 @@ static void UpdateItem(JNIEnv * env, jobject item, NodeAttrs const & attrs)
     percentage = progress.m_bytesDownloaded * kMaxProgress / progress.m_bytesTotal;
   }
 
-  env->SetFloatField(item, countryItemFieldProgress, percentage);
-  env->SetLongField(item, countryItemFieldDownloadedBytes, attrs.m_downloadingProgress.m_bytesDownloaded);
-  env->SetLongField(item, countryItemFieldBytesToDownload, attrs.m_downloadingProgress.m_bytesTotal);
+  env->SetFloatField(item, ciBuilder.m_Progress, percentage);
+  env->SetLongField(item, ciBuilder.m_DownloadedBytes, attrs.m_downloadingProgress.m_bytesDownloaded);
+  env->SetLongField(item, ciBuilder.m_BytesToDownload, attrs.m_downloadingProgress.m_bytesTotal);
 }
 
 static void PutItemsToList(
     JNIEnv * env, jobject const list, CountriesVec const & children, int category,
     std::function<bool(CountryId const & countryId, NodeAttrs const & attrs)> const & predicate)
 {
-  static jmethodID const countryItemCtor = jni::GetConstructorID(env, g_countryItemClass, "(Ljava/lang/String;)V");
-  static jfieldID const countryItemFieldCategory = env->GetFieldID(g_countryItemClass, "category", "I");
+  auto const & ciBuilder = CountryItemBuilder::Instance(env);
+  auto const listAddMethod = jni::ListBuilder::Instance(env).m_add;
 
   NodeAttrs attrs;
   for (CountryId const & child : children)
@@ -253,14 +255,14 @@ static void PutItemsToList(
     if (predicate && !predicate(child, attrs))
       continue;
 
-    jni::TScopedLocalRef const id(env, jni::ToJavaString(env, child));
-    jni::TScopedLocalRef const item(env, env->NewObject(g_countryItemClass, countryItemCtor, id.get()));
-    env->SetIntField(item.get(), countryItemFieldCategory, category);
+    using SLR = jni::TScopedLocalRef;
+    SLR const item(env, ciBuilder.Create(env, SLR(env, jni::ToJavaString(env, child))));
+    env->SetIntField(item.get(), ciBuilder.m_Category, category);
 
     UpdateItem(env, item.get(), attrs);
 
     // Put to resulting list
-    env->CallBooleanMethod(list, g_listAddMethod, item.get());
+    env->CallBooleanMethod(list, listAddMethod, item.get());
   }
 }
 
@@ -268,8 +270,6 @@ static void PutItemsToList(
 JNIEXPORT void JNICALL
 Java_app_organicmaps_downloader_MapManager_nativeListItems(JNIEnv * env, jclass clazz, jstring parent, jdouble lat, jdouble lon, jboolean hasLocation, jboolean myMapsMode, jobject result)
 {
-  CacheListClassRefs(env);
-
   if (hasLocation && !myMapsMode)
   {
     CountriesVec near;
@@ -293,10 +293,8 @@ Java_app_organicmaps_downloader_MapManager_nativeListItems(JNIEnv * env, jclass 
 JNIEXPORT void JNICALL
 Java_app_organicmaps_downloader_MapManager_nativeGetAttributes(JNIEnv * env, jclass, jobject item)
 {
-  CacheListClassRefs(env);
-
-  static jfieldID countryItemFieldId = env->GetFieldID(g_countryItemClass, "id", "Ljava/lang/String;");
-  jstring id = static_cast<jstring>(env->GetObjectField(item, countryItemFieldId));
+  auto const & ciBuilder = CountryItemBuilder::Instance(env);
+  jstring id = static_cast<jstring>(env->GetObjectField(item, ciBuilder.m_Id));
 
   NodeAttrs attrs;
   GetStorage().GetNodeAttrs(jni::ToNativeString(env, id), attrs);
@@ -356,14 +354,12 @@ static void EndBatchingCallbacks(JNIEnv * env)
 {
   CHECK_THREAD_CHECKER(g_batchingThreadChecker, ("EndBatchingCallbacks"));
 
-  static jclass arrayListClass = jni::GetGlobalClassRef(env, "java/util/ArrayList");
-  static jmethodID arrayListCtor = jni::GetConstructorID(env, arrayListClass, "(I)V");
-  static jmethodID arrayListAdd = env->GetMethodID(arrayListClass, "add", "(Ljava/lang/Object;)Z");
+  auto const & listBuilder = jni::ListBuilder::Instance(env);
 
   for (auto & key : g_batchedCallbackData)
   {
     // Allocate resulting ArrayList
-    jni::TScopedLocalRef const list(env, env->NewObject(arrayListClass, arrayListCtor, key.second.size()));
+    jni::TScopedLocalRef const list(env, listBuilder.CreateArray(env, key.second.size()));
 
     for (TBatchedData const & dataItem : key.second)
     {
@@ -377,7 +373,7 @@ static void EndBatchingCallbacks(JNIEnv * env)
                                                                                          static_cast<jint>(dataItem.m_errorCode),
                                                                                          dataItem.m_isLeaf));
       // …and put it into the resulting list
-      env->CallBooleanMethod(list.get(), arrayListAdd, item.get());
+      env->CallBooleanMethod(list.get(), listBuilder.m_add, item.get());
     }
 
     // Invoke Java callback
@@ -462,7 +458,6 @@ static void ProgressChangedCallback(std::shared_ptr<jobject> const & listenerRef
 JNIEXPORT jint JNICALL
 Java_app_organicmaps_downloader_MapManager_nativeSubscribe(JNIEnv * env, jclass clazz, jobject listener)
 {
-  CacheListClassRefs(env);
   return GetStorage().Subscribe(std::bind(&StatusChangedCallback, jni::make_global_ref(listener), _1),
                                 std::bind(&ProgressChangedCallback, jni::make_global_ref(listener), _1, _2));
 }
@@ -516,10 +511,12 @@ Java_app_organicmaps_downloader_MapManager_nativeHasUnsavedEditorChanges(JNIEnv 
 JNIEXPORT void JNICALL
 Java_app_organicmaps_downloader_MapManager_nativeGetPathTo(JNIEnv * env, jclass clazz, jstring root, jobject result)
 {
+  auto const listAddMethod = jni::ListBuilder::Instance(env).m_add;
+
   CountriesVec path;
   GetStorage().GetGroupNodePathToRoot(jni::ToNativeString(env, root), path);
   for (CountryId const & node : path)
-    env->CallBooleanMethod(result, g_listAddMethod, jni::TScopedLocalRef(env, jni::ToJavaString(env, node)).get());
+    env->CallBooleanMethod(result, listAddMethod, jni::TScopedLocalRef(env, jni::ToJavaString(env, node)).get());
 }
 
 // static int nativeGetOverallProgress(String[] countries);

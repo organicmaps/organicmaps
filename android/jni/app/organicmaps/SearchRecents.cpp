@@ -3,6 +3,7 @@
 #include "search/result.hpp"
 
 #include "app/organicmaps/core/jni_helper.hpp"
+#include "app/organicmaps/core/jni_java_methods.hpp"
 
 using SearchRequest = search::QuerySaver::SearchRequest;
 
@@ -15,15 +16,14 @@ extern "C"
     if (items.empty())
       return;
 
-    static jclass const pairClass = jni::GetGlobalClassRef(env, "android/util/Pair");
-    static jmethodID const pairCtor = jni::GetConstructorID(env, pairClass, "(Ljava/lang/Object;Ljava/lang/Object;)V");
-    static jmethodID const listAddMethod = jni::GetMethodID(env, result, "add", "(Ljava/lang/Object;)Z");
+    auto const & pairBuilder = jni::PairBuilder::Instance(env);
+    auto const listAddMethod = jni::ListBuilder::Instance(env).m_add;
 
     for (SearchRequest const & item : items)
     {
-      jni::TScopedLocalRef locale(env, jni::ToJavaString(env, item.first.c_str()));
-      jni::TScopedLocalRef query(env, jni::ToJavaString(env, item.second.c_str()));
-      jni::TScopedLocalRef pair(env, env->NewObject(pairClass, pairCtor, locale.get(), query.get()));
+      using SLR = jni::TScopedLocalRef;
+      SLR pair(env, pairBuilder.Create(env, SLR(env, jni::ToJavaString(env, item.first)),
+                                            SLR(env, jni::ToJavaString(env, item.second))));
       ASSERT(pair.get(), (jni::DescribeException()));
 
       env->CallBooleanMethod(result, listAddMethod, pair.get());
