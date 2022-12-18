@@ -67,9 +67,9 @@ public class MapButtonsController extends Fragment
 
     mInnerLeftButtonsFrame = mFrame.findViewById(R.id.map_buttons_inner_left);
     mInnerRightButtonsFrame = mFrame.findViewById(R.id.map_buttons_inner_right);
-
     mBottomButtonsFrame = mFrame.findViewById(R.id.map_buttons_bottom);
-    final FloatingActionButton helpButton = mBottomButtonsFrame.findViewById(R.id.help_button);
+
+    final FloatingActionButton helpButton = mFrame.findViewById(R.id.help_button);
     if (Config.isNY() && helpButton != null)
     {
       helpButton.setImageResource(R.drawable.ic_christmas_tree);
