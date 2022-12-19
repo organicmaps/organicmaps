@@ -306,7 +306,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
 
   private void updateSearchVisibility()
   {
-    if (!isSearchAllowed() || isEmpty())
+    if (isEmpty() || !isSearchAllowed())
     {
       UiUtils.hide(mSearchContainer);
     }
@@ -645,7 +645,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     inflater.inflate(R.menu.option_menu_bookmarks, menu);
 
     MenuItem itemSearch = menu.findItem(R.id.bookmarks_search);
-    itemSearch.setVisible(isSearchAllowed() && !isEmpty());
+    itemSearch.setVisible(!isEmpty() && isSearchAllowed());
   }
 
   @Override
@@ -655,7 +655,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
 
     boolean visible = !mSearchMode && !isEmpty();
     MenuItem itemSearch = menu.findItem(R.id.bookmarks_search);
-    itemSearch.setVisible(isSearchAllowed() && visible);
+    itemSearch.setVisible(visible && isSearchAllowed());
 
     MenuItem itemMore = menu.findItem(R.id.bookmarks_more);
     if (mLastSortTimestamp != 0)

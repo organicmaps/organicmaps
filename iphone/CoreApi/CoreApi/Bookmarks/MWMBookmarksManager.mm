@@ -195,10 +195,6 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
          (self.bm.GetUserMarkIds(groupId).size() + self.bm.GetTrackIds(groupId).size());
 }
 
-- (BOOL)isSearchAllowed:(MWMMarkGroupID)groupId {
-  return self.bm.IsSearchAllowed(groupId);
-}
-
 - (void)prepareForSearch:(MWMMarkGroupID)groupId {
   self.bm.PrepareForSearch(groupId);
 }
