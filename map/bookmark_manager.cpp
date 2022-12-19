@@ -432,7 +432,7 @@ void BookmarkManager::NotifyChanges()
     auto engine = lock.Get();
     for (auto groupId : m_drapeChangesTracker.GetUpdatedGroupIds())
     {
-      auto * group = GetGroup(groupId);
+      auto const * group = GetGroup(groupId);
       engine->ChangeVisibilityUserMarksGroup(groupId, group->IsVisible());
     }
 
@@ -501,7 +501,6 @@ std::vector<BookmarkManager::SortingType> BookmarkManager::GetAvailableSortingTy
   ASSERT(IsBookmarkCategory(groupId), ());
 
   auto const * group = GetGroup(groupId);
-  CHECK(group != nullptr, ());
 
   bool byTypeChecked = false;
   bool byTimeChecked = false;
@@ -1263,7 +1262,6 @@ void BookmarkManager::GetSortedCategory(SortParams const & params)
   CHECK(params.m_onResults != nullptr, ());
 
   auto const * group = GetGroup(params.m_groupId);
-  CHECK(group != nullptr, ());
 
   std::vector<SortBookmarkData> bookmarksForSort;
   bookmarksForSort.reserve(group->GetUserMarks().size());
@@ -1370,65 +1368,50 @@ void BookmarkManager::ClearGroup(kml::MarkGroupId groupId)
 std::string BookmarkManager::GetCategoryName(kml::MarkGroupId categoryId) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  auto const category = GetBmCategory(categoryId);
-  CHECK(category != nullptr, ());
-  return category->GetName();
+  return GetBmCategory(categoryId)->GetName();
 }
 
 void BookmarkManager::SetCategoryDescription(kml::MarkGroupId categoryId, std::string const & desc)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  auto category = GetBmCategory(categoryId);
-  CHECK(category != nullptr, ());
-  category->SetDescription(desc);
+  GetBmCategory(categoryId)->SetDescription(desc);
 }
 
 void BookmarkManager::SetCategoryName(kml::MarkGroupId categoryId, std::string const & name)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  auto category = GetBmCategory(categoryId);
-  CHECK(category != nullptr, ());
-  category->SetName(name);
+  GetBmCategory(categoryId)->SetName(name);
 }
 
 void BookmarkManager::SetCategoryTags(kml::MarkGroupId categoryId, std::vector<std::string> const & tags)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  auto category = GetBmCategory(categoryId);
-  CHECK(category != nullptr, ());
-  category->SetTags(tags);
+  GetBmCategory(categoryId)->SetTags(tags);
 }
 
 void BookmarkManager::SetCategoryAccessRules(kml::MarkGroupId categoryId, kml::AccessRules accessRules)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  auto category = GetBmCategory(categoryId);
-  CHECK(category != nullptr, ());
-  category->SetAccessRules(accessRules);
+  GetBmCategory(categoryId)->SetAccessRules(accessRules);
 }
 
 void BookmarkManager::SetCategoryCustomProperty(kml::MarkGroupId categoryId, std::string const & key,
                                                 std::string const & value)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  auto category = GetBmCategory(categoryId);
-  CHECK(category != nullptr, ());
-  category->SetCustomProperty(key, value);
+  GetBmCategory(categoryId)->SetCustomProperty(key, value);
 }
 
 std::string BookmarkManager::GetCategoryFileName(kml::MarkGroupId categoryId) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  auto const category = GetBmCategory(categoryId);
-  CHECK(category != nullptr, ());
-  return category->GetFileName();
+  return GetBmCategory(categoryId)->GetFileName();
 }
 
 m2::RectD BookmarkManager::GetCategoryRect(kml::MarkGroupId categoryId, bool addIconsSize) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  auto const category = GetBmCategory(categoryId);
-  CHECK(category != nullptr, ());
+  auto const * category = GetBmCategory(categoryId);
 
   m2::RectD categoryRect;
   if (category->IsEmpty())
@@ -1456,9 +1439,7 @@ m2::RectD BookmarkManager::GetCategoryRect(kml::MarkGroupId categoryId, bool add
 kml::CategoryData const & BookmarkManager::GetCategoryData(kml::MarkGroupId categoryId) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  auto const category = GetBmCategory(categoryId);
-  CHECK(category != nullptr, ());
-  return category->GetCategoryData();
+  return GetBmCategory(categoryId)->GetCategoryData();
 }
 
 kml::MarkGroupId BookmarkManager::GetCategoryId(std::string const & name) const
@@ -1498,15 +1479,14 @@ UserMark const * BookmarkManager::FindMarkInRect(kml::MarkGroupId groupId, m2::A
 void BookmarkManager::SetIsVisible(kml::MarkGroupId groupId, bool visible)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  auto const group = GetGroup(groupId);
+  auto * group = GetGroup(groupId);
   if (group->IsVisible() != visible)
   {
     group->SetIsVisible(visible);
     if (auto const compilationIt = m_compilations.find(groupId); compilationIt != m_compilations.end())
     {
       auto const parentId = compilationIt->second->GetParentID();
-      auto const parentGroup = GetBmCategory(parentId);
-      CHECK(parentGroup, (parentId));
+      auto * parentGroup = GetBmCategory(parentId);
       parentGroup->SetDirty();
       if (visible)  // visible == false handled in InferVisibility
         parentGroup->SetIsVisible(true);
@@ -1525,20 +1505,21 @@ bool BookmarkManager::IsSearchAllowed(kml::MarkGroupId groupId) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   CHECK(m_callbacks.m_getSearchAPI != nullptr, ());
+  auto & searchAPI = m_callbacks.m_getSearchAPI();
 
-  if (m_callbacks.m_getSearchAPI().IsIndexingOfBookmarkGroupEnabled(groupId))
+  if (searchAPI.IsIndexingOfBookmarkGroupEnabled(groupId))
     return true;
 
   size_t indexedBookmarksCount = 0;
-  for (auto const indexableGroupId : m_callbacks.m_getSearchAPI().GetIndexableGroups())
+  for (auto const indexableGroupId : searchAPI.GetIndexableGroups())
   {
     auto const it = m_categories.find(indexableGroupId);
-    if (it == m_categories.end())
-      continue;
-    indexedBookmarksCount += it->second->GetUserMarks().size();
+    if (it != m_categories.end())
+      indexedBookmarksCount += it->second->GetUserMarks().size();
   }
+
   auto const bookmarksCount = GetUserMarkIds(groupId).size();
-  auto const maxCount = m_callbacks.m_getSearchAPI().GetMaximumPossibleNumberOfBookmarksToIndex();
+  auto const maxCount = searchAPI.GetMaximumPossibleNumberOfBookmarksToIndex();
   return indexedBookmarksCount + bookmarksCount <= maxCount;
 }
 
@@ -2041,20 +2022,7 @@ void BookmarkManager::SetLastEditedBmColor(kml::PredefinedColor color)
   SaveState();
 }
 
-BookmarkCategory const * BookmarkManager::GetBmCategory(kml::MarkGroupId categoryId) const
-{
-  CHECK_THREAD_CHECKER(m_threadChecker, ());
-  ASSERT(IsBookmarkCategory(categoryId), ());
-
-  auto const compilationIt = m_compilations.find(categoryId);
-  if (compilationIt != m_compilations.cend())
-    return compilationIt->second.get();
-
-  auto const it = m_categories.find(categoryId);
-  return (it != m_categories.end() ? it->second.get() : nullptr);
-}
-
-BookmarkCategory * BookmarkManager::GetBmCategory(kml::MarkGroupId categoryId)
+BookmarkCategory * BookmarkManager::GetBmCategorySafe(kml::MarkGroupId categoryId) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   ASSERT(IsBookmarkCategory(categoryId), ());
@@ -2157,7 +2125,7 @@ void BookmarkManager::NotifyCategoriesChanged()
 bool BookmarkManager::HasBmCategory(kml::MarkGroupId groupId) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  return (IsBookmarkCategory(groupId) && GetBmCategory(groupId) != nullptr);
+  return (IsBookmarkCategory(groupId) && GetBmCategorySafe(groupId) != nullptr);
 }
 
 void BookmarkManager::UpdateBmGroupIdList()
@@ -2343,7 +2311,7 @@ UserMark const * BookmarkManager::FindNearestUserMark(TTouchRectHolder const & h
   return finder.GetFoundMark();
 }
 
-UserMarkLayer const * BookmarkManager::GetGroup(kml::MarkGroupId groupId) const
+UserMarkLayer * BookmarkManager::GetGroup(kml::MarkGroupId groupId) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   if (groupId < UserMark::Type::USER_MARK_TYPES_COUNT)
@@ -2356,25 +2324,9 @@ UserMarkLayer const * BookmarkManager::GetGroup(kml::MarkGroupId groupId) const
   if (compilationIt != m_compilations.cend())
     return compilationIt->second.get();
 
-  ASSERT(m_categories.find(groupId) != m_categories.end(), ());
-  return m_categories.at(groupId).get();
-}
-
-UserMarkLayer * BookmarkManager::GetGroup(kml::MarkGroupId groupId)
-{
-  CHECK_THREAD_CHECKER(m_threadChecker, ());
-  if (groupId < UserMark::Type::USER_MARK_TYPES_COUNT)
-  {
-    CHECK_GREATER(groupId, 0, ());
-    return m_userMarkLayers[static_cast<size_t>(groupId - 1)].get();
-  }
-
-  auto const compilationIt = m_compilations.find(groupId);
-  if (compilationIt != m_compilations.cend())
-    return compilationIt->second.get();
-
-  auto const it = m_categories.find(groupId);
-  return it != m_categories.end() ? it->second.get() : nullptr;
+  auto const catIt = m_categories.find(groupId);
+  CHECK(catIt != m_categories.end(), (groupId));
+  return catIt->second.get();
 }
 
 void BookmarkManager::UpdateLastModifiedTime(KMLDataCollection & collection)
@@ -2488,10 +2440,7 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool
   NotifyChanges();
 
   for (auto const & groupId : loadedGroups)
-  {
-    auto * group = GetBmCategory(groupId);
-    group->EnableAutoSave(autoSave);
-  }
+    GetBmCategory(groupId)->EnableAutoSave(autoSave);
 }
 
 bool BookmarkManager::HasDuplicatedIds(kml::FileData const & fileData) const
@@ -3029,9 +2978,10 @@ void BookmarkManager::MarksChangesTracker::AcceptDirtyItems()
   m_bmManager->GetDirtyGroups(m_updatedGroups);
   for (auto groupId : m_updatedGroups)
   {
-    auto userMarkLayer = m_bmManager->GetGroup(groupId);
-    if (auto const group = dynamic_cast<BookmarkCategory *>(userMarkLayer))
+    auto * userMarkLayer = m_bmManager->GetGroup(groupId);
+    if (auto * group = dynamic_cast<BookmarkCategory *>(userMarkLayer))
       InferVisibility(group);
+
     if (userMarkLayer->IsVisibilityChanged())
     {
       if (userMarkLayer->IsVisible())
