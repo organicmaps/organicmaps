@@ -342,7 +342,7 @@
     pt = Pista de aeroporto ou aeródromo
     pt-BR = Pista de aeroporto ou aeródromo
     ru = Взлётно-посадочная полоса
-    tr = Koşu yolu
+    tr = Pist
     uk = Злітно-посадкова смуга
     zh-Hans = 机场跑道
     zh-Hant = 機場跑道
