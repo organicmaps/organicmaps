@@ -1,1 +1,23 @@
-../en-US/release_notes.txt
+• Nová OpenStreetMap data z 16. prosince 2022
+• Vylepšen směrovací algoritmus
+• Nesměrovat přes highway=construction :)
+• Podpora několika geometrických stezek v KML souborech
+• Opraven KML 2.3 import stezek z OpenTracks
+• Rychlejší zpracování a vykreslování komplexních KML stezek
+• Povoleno přidávání obchodů, galerií, hudebních škol v Editoru
+• Upraveny hranice měst ve výsledcích vyhledávání
+
+Styly Mapy:
+• Vylepšené, méně světlé ikonky v Tmavém režimu
+• Opraveny ikonky metra v některých městech
+• Správně kreslit bariéry pro plochy a relace
+• Odstraněny duplikované názvy ze světové mapy
+• Aktualizovány ikonky jeskyní, horských průsmyků, vrcholů, volkán, tísňových telefonů, historických lodí, zmrzlin, nočních klubů, hudebních obchodů, stadionů, videoher
+• Opraveny nesprávné priority leisure=pitch, historic, post office
+• Více konzistentní vyplněné/kulaté ikonky (kulaté značí nějaký obchod/službu)
+
+Překlady:
+• TTS (Text-To-Speech) pro brazilštinu, mexickou španělštinu a norštinu
+• Upraveny německé a maďarské řetězce pro vyhledávání
+• Aktualizováno TTS pro portugalštinu a brazilštinu
+• Aktualizovány české, španělské překlady
