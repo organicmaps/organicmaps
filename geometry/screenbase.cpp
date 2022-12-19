@@ -3,7 +3,6 @@
 #include "geometry/transformations.hpp"
 
 #include "base/assert.hpp"
-#include "base/logging.hpp"
 
 #include <cmath>
 
@@ -45,7 +44,7 @@ ScreenBase::ScreenBase(m2::RectI const & pxRect, m2::AnyRectD const & glbRect)
 ScreenBase::ScreenBase(ScreenBase const & s, m2::PointD const & org, double scale, double angle)
   : m_Org(org), m_ViewportRect(s.m_ViewportRect), m_Scale(scale), m_Angle(angle)
 {
-  CHECK_GREATER_OR_EQUAL(m_Scale, 0.0, ());
+  ASSERT_GREATER(m_Scale, 0.0, ());
   UpdateDependentParameters();
 }
 
@@ -128,11 +127,15 @@ void ScreenBase::SetAutoPerspective(bool isAutoPerspective)
 
 void ScreenBase::SetFromRects(m2::AnyRectD const & glbRect, m2::RectD const & pxRect)
 {
-  double hScale = glbRect.GetLocalRect().SizeX() / pxRect.SizeX();
-  double vScale = glbRect.GetLocalRect().SizeY() / pxRect.SizeY();
+  m2::RectD const & lRect = glbRect.GetLocalRect();
+  ASSERT(!lRect.IsEmptyInterior(), (lRect));
+  ASSERT(!pxRect.IsEmptyInterior(), (pxRect));
 
-  CHECK_GREATER_OR_EQUAL(hScale, 0.0, ());
-  CHECK_GREATER_OR_EQUAL(vScale, 0.0, ());
+  double const hScale = lRect.SizeX() / pxRect.SizeX();
+  double const vScale = lRect.SizeY() / pxRect.SizeY();
+
+  ASSERT_GREATER(hScale, 0.0, ());
+  ASSERT_GREATER(vScale, 0.0, ());
   m_Scale = std::max(hScale, vScale);
   m_Angle = glbRect.Angle();
   m_Org = glbRect.GlobalCenter();
@@ -144,7 +147,7 @@ void ScreenBase::SetFromRect(m2::AnyRectD const & glbRect) { SetFromRects(glbRec
 
 void ScreenBase::SetFromParams(m2::PointD const & org, double angle, double scale)
 {
-  CHECK_GREATER_OR_EQUAL(scale, 0.0, ());
+  ASSERT_GREATER(scale, 0.0, ());
   m_Scale = scale;
   m_Angle = ang::Angle<double>(angle);
   m_Org = org;
@@ -183,8 +186,9 @@ void ScreenBase::MoveG(m2::PointD const & p)
 
 void ScreenBase::Scale(double scale)
 {
+  ASSERT_GREATER(scale, 0, ());
   m_Scale /= scale;
-  CHECK_GREATER_OR_EQUAL(m_Scale, 0.0, ());
+  ASSERT_GREATER(m_Scale, 0.0, ());
   UpdateDependentParameters();
 }
 
@@ -204,7 +208,7 @@ void ScreenBase::OnSize(int x0, int y0, int w, int h) { OnSize(m2::RectI(x0, y0,
 
 void ScreenBase::SetScale(double scale)
 {
-  CHECK_GREATER_OR_EQUAL(scale, 0.0, ());
+  ASSERT_GREATER(scale, 0.0, ());
   m_Scale = scale;
   UpdateDependentParameters();
 }
@@ -244,8 +248,9 @@ void ScreenBase::SetGtoPMatrix(MatrixT const & m)
   double dx, dy, a, s;
   ExtractGtoPParams(m, a, s, dx, dy);
   m_Angle = ang::AngleD(-a);
+  ASSERT_GREATER(s, 0.0, ());
   m_Scale = 1 / s;
-  CHECK_GREATER_OR_EQUAL(m_Scale, 0.0, ());
+  ASSERT_GREATER(m_Scale, 0.0, ());
   m_Org = PtoG(m_PixelRect.Center());
 
   UpdateDependentParameters();
