@@ -130,14 +130,15 @@ public final class Logger
       if (tag == null)
         tag = CORE_TAG;
 
+      if (logsFolder == null || BuildConfig.DEBUG)
+        Log.println(level, tag, sb.toString());
+
       if (logsFolder != null)
       {
         sb.insert(0, String.valueOf(getLevelChar(level)) + '/' + tag + ": ");
         LogsManager.EXECUTOR.execute(new WriteTask(logsFolder + File.separator + FILENAME,
                                                    sb.toString(), Thread.currentThread().getName()));
       }
-      else
-        Log.println(level, tag, sb.toString());
     }
   }
 
