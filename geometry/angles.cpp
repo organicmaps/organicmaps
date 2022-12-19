@@ -4,7 +4,7 @@ namespace ang
 {
 double AngleIn2PI(double ang)
 {
-  double const period = 2.0 * math::pi;
+  double constexpr period = 2.0 * math::pi;
   ang = fmod(ang, period);
   if (ang < 0.0)
     ang += period;
@@ -17,7 +17,7 @@ double AngleIn2PI(double ang)
 
 double GetShortestDistance(double rad1, double rad2)
 {
-  double const period = 2.0 * math::pi;
+  double constexpr period = 2.0 * math::pi;
   rad1 = fmod(rad1, period);
   rad2 = fmod(rad2, period);
 

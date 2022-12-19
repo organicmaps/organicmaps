@@ -148,11 +148,12 @@ PositionInterpolator::PositionInterpolator(double delay,
 //static
 double PositionInterpolator::GetMoveDuration(double globalDistance, m2::RectD const & viewportRect, double scale)
 {
-  double const kMinMoveDuration = 0.2;
-  double const kMinSpeedScalar = 0.2;
-  double const kMaxSpeedScalar = 7.0;
-  double const kEps = 1e-5;
+  double constexpr kMinMoveDuration = 0.2;
+  double constexpr kMinSpeedScalar = 0.2;
+  double constexpr kMaxSpeedScalar = 7.0;
+  double constexpr kEps = 1e-5;
 
+  ASSERT_GREATER(scale, 0.0, ());
   double const pixelLength = globalDistance / scale;
   if (pixelLength < kEps)
     return 0.0;
@@ -263,7 +264,7 @@ AngleInterpolator::AngleInterpolator(double delay, double duration, double start
 // static
 double AngleInterpolator::GetRotateDuration(double startAngle, double endAngle)
 {
-  double const kRotateDurationScalar = 0.75;
+  double constexpr kRotateDurationScalar = 0.75;
   startAngle = ang::AngleIn2PI(startAngle);
   endAngle = ang::AngleIn2PI(endAngle);
   return kRotateDurationScalar * fabs(ang::GetShortestDistance(startAngle, endAngle)) / math::pi;

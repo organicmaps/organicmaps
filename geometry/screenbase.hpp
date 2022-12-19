@@ -35,7 +35,7 @@ public:
 
   double GetScale() const
   {
-    CHECK_GREATER_OR_EQUAL(m_Scale, 0.0, ());
+    ASSERT_GREATER(m_Scale, 0.0, ());
     return m_Scale;
   }
   void SetScale(double scale);
