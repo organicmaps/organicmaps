@@ -35,7 +35,6 @@ NS_SWIFT_NAME(BookmarksManager)
 - (void)loadBookmarks;
 
 - (BOOL)isCategoryNotEmpty:(MWMMarkGroupID)groupId;
-- (BOOL)isSearchAllowed:(MWMMarkGroupID)groupId;
 - (void)prepareForSearch:(MWMMarkGroupID)groupId;
 - (NSString *)getCategoryName:(MWMMarkGroupID)groupId;
 - (uint64_t)getCategoryMarksCount:(MWMMarkGroupID)groupId;

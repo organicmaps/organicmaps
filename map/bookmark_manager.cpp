@@ -1518,6 +1518,8 @@ bool BookmarkManager::IsSearchAllowed(kml::MarkGroupId groupId) const
       indexedBookmarksCount += it->second->GetUserMarks().size();
   }
 
+  /// @todo This function is actually called on Android only. Probably, there was some problems
+  /// with indexing large sets of bookmarks, but iOS works good at the same time?
   auto const bookmarksCount = GetUserMarkIds(groupId).size();
   auto const maxCount = searchAPI.GetMaximumPossibleNumberOfBookmarksToIndex();
   return indexedBookmarksCount + bookmarksCount <= maxCount;
