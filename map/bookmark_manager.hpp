@@ -573,10 +573,14 @@ private:
 
   UserMark const * GetMark(kml::MarkId markId) const;
 
-  UserMarkLayer const * GetGroup(kml::MarkGroupId groupId) const;
-  UserMarkLayer * GetGroup(kml::MarkGroupId groupId);
-  BookmarkCategory const * GetBmCategory(kml::MarkGroupId categoryId) const;
-  BookmarkCategory * GetBmCategory(kml::MarkGroupId categoryId);
+  UserMarkLayer * GetGroup(kml::MarkGroupId groupId) const;
+  BookmarkCategory * GetBmCategorySafe(kml::MarkGroupId categoryId) const;
+  BookmarkCategory * GetBmCategory(kml::MarkGroupId categoryId) const
+  {
+    auto * res = GetBmCategorySafe(categoryId);
+    CHECK(res, (categoryId));
+    return res;
+  }
 
   Bookmark * AddBookmark(std::unique_ptr<Bookmark> && bookmark);
   Track * AddTrack(std::unique_ptr<Track> && track);
