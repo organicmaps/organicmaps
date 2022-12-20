@@ -199,8 +199,8 @@ UNIT_TEST(EditableMapObject_ValidateEmail)
 UNIT_TEST(EditableMapObject_ValidateName)
 {
   vector<string> correctNames = {"abc", "абв", "ᆺᆯㅕ", "꫞ꪺꫀꪸ", "a b?c", "a!b.c", "a(b)c", "a,b.c",
-                                 "a$bc", "a%bc", "a#bc", "a№bc", "c&a"};
-  vector<string> incorrectNames = {"a^bc", "a~bc", "a§bc", "a>bc", "a<bc", "a{bc", "a[bc", "*",
+                                 "a$bc", "a%bc", "a#bc", "a№bc", "c&a", "a[bc"};
+  vector<string> incorrectNames = {"a^bc", "a~bc", "a§bc", "a>bc", "a<bc", "a{bc", "*",
                                    "a*bc", "a=bc", "a_bc", "a±bc", "a\nbc", "a\tbc", "a\rbc",
                                    "a\vbc", "a\fbc", "a|bc", "N√", "Hello World!\U0001F600",
                                    "Exit →", "∫0dx = C", "\U0001210A"};
