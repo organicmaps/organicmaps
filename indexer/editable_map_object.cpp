@@ -745,7 +745,7 @@ bool EditableMapObject::ValidateName(string const & name)
 
   if (strings::IsASCIIString(name))
   {
-    static auto const s_nameRegex = regex(R"(^[ A-Za-z0-9.,?!@#$%&()\-\+:;"'`]+$)");
+    static auto const s_nameRegex = regex(R"(^[ A-Za-z0-9.,?!@°#$%&()\-\+\/\\\[\]:;"'`]+$)");
     return regex_match(name, s_nameRegex);
   }
 
@@ -762,7 +762,7 @@ bool EditableMapObject::ValidateName(string const & name)
     return false;
   }
 
-  std::u32string const excludedSymbols = U"^~§><{}[]*=_±\n\t\r\v\f|√•÷×¶°";
+  std::u32string const excludedSymbols = U"^~§><{}*=_±\n\t\r\v\f|√•÷×¶";
 
   for (auto const ch : u32name)
   {
