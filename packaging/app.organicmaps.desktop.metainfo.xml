@@ -107,6 +107,37 @@
   </screenshots>
 
   <releases>
+   <release version="2022.12.18-12" date="2022-12-18">
+     <description>
+       <p>Highlights:</p>
+         <ul>
+           <li>New OpenStreetMap data as of December 16, 2022</li>
+           <li>Improved routing algorithm</li>
+           <li>Do not route over highway=construction :)</li>
+           <li>Support multiple track geometry in KML files</li>
+           <li>Fixed KML 2.3 track import from OpenTracks</li>
+           <li>Faster parsing and rendering of complex KML tracks</li>
+           <li>Allow adding some shops, galleries, music schools in Editor</li>
+           <li>Improved city borders in search results</li>
+         </ul>
+       <p>Map Styles:</p>
+         <ul>
+           <li>Improved, less bright icons in Night mode</li>
+           <li>Fixed subway icons in some cities</li>
+           <li>Properly draw barriers for areas and relations</li>
+           <li>Fixed duplicated names on the world map</li>
+           <li>Updated cave, mountain pass, peak, volcano, emergency phone, historic ship, ice cream, nightclub, music shop, stadium, video games icons</li>
+           <li>Fixed wrong priorities of leisure=pitch, historic, post office</li>
+           <li>More consistent filled/round icons (round means some kind of business/service)</li>
+         </ul>
+       <p>Translations:</p>
+         <ul>
+           <li>TTS (Text-To-Speech) for Brazil, Mexican Spanish and Norwegian</li>
+           <li>Fixed German and Hungarian search strings</li>
+           <li>Updated Czech, Spanish translations</li>
+         </ul>
+     </description>
+   </release>
    <release version="2022.11.24-3" date="2022-11-24">
      <description>
        <p>Highlights:</p>
