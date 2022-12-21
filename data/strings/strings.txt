@@ -4165,6 +4165,7 @@
     be = Агульныя налады
     bg = Общи настройки
     ca = Configuració general
+    cs = Obecná nastavení
     de = Allgemeine Einstellungen
     es = Ajustes generales
     et = Üldseaded
@@ -4192,6 +4193,7 @@
     be = Інфармацыя
     bg = Информация
     ca = Informació
+    cs = Informace
     de = Information
     es = Información
     et = Teave
@@ -17736,6 +17738,7 @@
     be = Імпартаваць закладкі
     bg = Импортиране на отметки
     ca = Importa marcadors
+    cs = Importovat záložky
     de = Lesezeichen importieren
     es = Importar marcadores
     et = Impordi järjehoidjad
@@ -19104,7 +19107,7 @@
     be = Палітыка прыватнасці
     bg = Политика за поверителност
     ca = Normes de confidencialitat
-    cs = Politika důvěrnosti
+    cs = Zásady ochrany osobních údajů
     da = Privatlivspolitik
     de = Datenschutzerklärung
     el = Πολιτική απορρήτου
@@ -20522,7 +20525,7 @@
     be = Налады пракладкі маршрута
     bg = Опции за маршрутизация
     ca = Opcions de la ruta
-    cs = Možnosti směrovače
+    cs = Možnosti trasy
     da = Køre muligheder
     de = Routenbeschränkungen
     el = Ρυθμίσεις παράκαμψης
@@ -20891,7 +20894,7 @@
     be = Налады пракладкі маршрута ўключаны
     bg = Разрешени опции за маршрутизиране
     ca = Paràmetres de ruta activats
-    cs = Možnosti směrování byly povoleny
+    cs = Možnosti trasy aktivní
     da = Køre muligheder aktiveret
     de = Routenbeschränkungen aktiv
     el = Ρυθμίσεις δραστηριοποιούνται
@@ -24704,6 +24707,7 @@
     ar = إظهار  التطبيق فوق شاشة القفل
     be = Паказваць на экране блакіроўкі
     ca = Mostra en la pantalla de bloqueig
+    cs = Zobrazit na uzamčené obrazovce
     de = Auf dem Sperrbildschirm anzeigen
     es = Mostrar en la pantalla de bloqueo
     et = Kuva lukustusekraanil
@@ -24726,6 +24730,7 @@
     ar = عند التفعيل، لن تحتاج لفتح قفل جهازك كل مرة أثناء تشغيل التطبيق
     be = Калі ўключана, вам не трэба разблакіраваць прыладу кожны раз падчас працы дадатку.
     ca = Si està activa, no cal desblocar l'aparell cada vegada mentre l'aplicació està funcionant.
+    cs = Pokud je funkce povolena, nemusíte při spuštěné aplikaci pokaždé odemykat zařízení.
     de = Wenn aktiviert, muss das Gerät nicht jedes Mal entsperrt werden, wenn die App ausgeführt wird.
     es = Cuando está habilitado, no tiene que desbloquear su dispositivo mientras la aplicación se está ejecutando.
     et = Kui lubatud, ei pea te seadet iga kord avama, kui rakendus töötab.
