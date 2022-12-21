@@ -19,7 +19,6 @@
 
 #include "transit/experimental/transit_data.hpp"
 #include "transit/transit_graph_data.hpp"
-#include "transit/transit_serdes.hpp"
 
 #include "routing_common/bicycle_model.hpp"
 #include "routing_common/car_model.hpp"
@@ -29,7 +28,6 @@
 #include "indexer/feature_processor.hpp"
 
 #include "coding/files_container.hpp"
-#include "coding/geometry_coding.hpp"
 #include "coding/point_coding.hpp"
 #include "coding/reader.hpp"
 
@@ -43,9 +41,6 @@
 #include "base/timer.hpp"
 
 #include <algorithm>
-#include <cstdint>
-#include <functional>
-#include <limits>
 #include <map>
 #include <memory>
 #include <unordered_map>
@@ -165,8 +160,8 @@ public:
   {
   }
 
-  // Just for compatibility with IndexGraphStarterJoints
-  // @{
+  /// @name For compatibility with IndexGraphStarterJoints
+  /// @{
   Segment GetStartSegment() const { return m_start; }
   Segment GetFinishSegment() const { return {}; }
   bool ConvertToReal(Segment const & /* segment */) const { return false; }
@@ -198,7 +193,9 @@ public:
   }
 
   RouteWeight GetAStarWeightEpsilon() { return RouteWeight(0.0); }
-  // @}
+
+  RouteWeight GetCrossBorderPenalty(NumMwmId mwmId1, NumMwmId mwmId2) { return RouteWeight(0); }
+  /// @}
 
   ms::LatLon const & GetPoint(Segment const & s, bool forward)
   {

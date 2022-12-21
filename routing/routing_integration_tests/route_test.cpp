@@ -787,4 +787,15 @@ using namespace std;
     TestRouteLength(*res.first, 100329.0);
     TestRouteTime(*res.first, 5342.23);
   }
+
+  // https://github.com/organicmaps/organicmaps/issues/4110
+  UNIT_TEST(Slovenia_Croatia_CrossBorderPenalty)
+  {
+    using namespace integration;
+    TRouteResult const res = CalculateRoute(GetVehicleComponents(VehicleType::Car),
+                                mercator::FromLatLon(46.038579, 14.469414), {0., 0.},
+                                mercator::FromLatLon(45.22718, 13.596334));
+
+    TestRouteLength(*res.first, 156285);
+  }
 } // namespace route_test

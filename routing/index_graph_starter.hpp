@@ -162,8 +162,8 @@ public:
   double CalculateETA(Segment const & from, Segment const & to) const;
   double CalculateETAWithoutPenalty(Segment const & segment) const;
 
-  // For compatibility with IndexGraphStarterJoints
-  // @{
+  /// @name For compatibility with IndexGraphStarterJoints.
+  /// @{
   void SetAStarParents(bool forward, Parents<JointSegment> & parents)
   {
     m_graph.SetAStarParents(forward, parents);
@@ -185,7 +185,12 @@ public:
   {
     return GetGraph().GetIndexGraph(segment.GetMwmId()).IsJointOrEnd(segment, fromStart);
   }
-  // @}
+
+  RouteWeight GetCrossBorderPenalty(NumMwmId mwmId1, NumMwmId mwmId2)
+  {
+    return GetGraph().GetCrossBorderPenalty(mwmId1, mwmId2);
+  }
+  /// @}
 
   // Start or finish ending information.
   struct Ending

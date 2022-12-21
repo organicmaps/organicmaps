@@ -9,15 +9,10 @@
 #include "routing/mwm_hierarchy_handler.hpp"
 #include "routing/route.hpp"
 #include "routing/segment.hpp"
-#include "routing/transit_info.hpp"
 #include "routing/world_graph.hpp"
 
 #include "routing_common/num_mwm_id.hpp"
 
-#include "geometry/point2d.hpp"
-#include "geometry/point_with_altitude.hpp"
-
-#include <functional>
 #include <map>
 #include <memory>
 #include <vector>
@@ -119,8 +114,11 @@ private:
                                       JointEdgeListT & jointEdges,
                                       WeightListT & parentWeights,
                                       bool isOutgoing);
-  // WorldGraph overrides:
+  /// @name WorldGraph overrides.
+  /// @{
   void GetTwinsInner(Segment const & s, bool isOutgoing, std::vector<Segment> & twins) override;
+  RouteWeight GetCrossBorderPenalty(NumMwmId mwmId1, NumMwmId mwmId2) override;
+  /// @}
 
   RoadGeometry const & GetRoadGeometry(NumMwmId mwmId, uint32_t featureId);
 
