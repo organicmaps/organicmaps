@@ -2,8 +2,6 @@
 
 #include "base/assert.hpp"
 
-#include "3party/fast_double_parser/include/fast_double_parser.h"
-
 #include <algorithm>
 #include <cmath>
 #include <iomanip>
@@ -11,6 +9,7 @@
 
 #include <boost/algorithm/string/trim.hpp>
 #include <boost/math/special_functions/fpclassify.hpp>
+#include <fast_double_parser.h>
 
 namespace strings
 {
