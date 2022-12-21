@@ -1,6 +1,5 @@
 #include "routing/world_graph.hpp"
 
-#include <map>
 
 namespace routing
 {
@@ -79,6 +78,11 @@ void WorldGraph::ForEachTransition(NumMwmId numMwmId, bool isEnter, TransitionFn
 CrossMwmGraph & WorldGraph::GetCrossMwmGraph()
 {
   UNREACHABLE();
+}
+
+RouteWeight WorldGraph::GetCrossBorderPenalty(NumMwmId mwmId1, NumMwmId mwmId2)
+{
+  return RouteWeight(0);
 }
 
 std::string DebugPrint(WorldGraphMode mode)

@@ -13,12 +13,8 @@
 
 #include "routing_common/num_mwm_id.hpp"
 
-#include "geometry/point2d.hpp"
-#include "geometry/point_with_altitude.hpp"
-
 #include <functional>
 #include <memory>
-#include <set>
 #include <string>
 #include <vector>
 
@@ -125,6 +121,8 @@ public:
   virtual CrossMwmGraph & GetCrossMwmGraph();
   virtual void GetTwinsInner(Segment const & segment, bool isOutgoing,
                              std::vector<Segment> & twins) = 0;
+
+  virtual RouteWeight GetCrossBorderPenalty(NumMwmId mwmId1, NumMwmId mwmId2);
 
 protected:
   void GetTwins(Segment const & segment, bool isOutgoing, bool useRoutingOptions,

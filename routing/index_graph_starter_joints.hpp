@@ -5,21 +5,21 @@
 
 #include "routing/fake_feature_ids.hpp"
 #include "routing/joint_segment.hpp"
+#include "routing/mwm_hierarchy_handler.hpp"
 #include "routing/segment.hpp"
 
 #include "geometry/latlon.hpp"
 
 #include "base/assert.hpp"
 
+#include "3party/skarupke/bytell_hash_map.hpp"  // needed despite of IDE warning
+
 #include <algorithm>
-#include <limits>
 #include <map>
 #include <optional>
 #include <queue>
-#include <set>
 #include <vector>
 
-#include "3party/skarupke/bytell_hash_map.hpp"
 
 namespace routing
 {
@@ -520,9 +520,9 @@ void IndexGraphStarterJoints<Graph>::GetEdgeList(
   if (!FillEdgesAndParentsWeights(vertexData, isOutgoing, firstFakeId, edges, parentWeights))
     return;
 
+  auto const & vertex = vertexData.m_vertex;
   if (!isOutgoing)
   {
-    auto const & vertex = vertexData.m_vertex;
     // |parentSegment| is parent-vertex from which we search children.
     // For correct weight calculation we should get weight of JointSegment, that
     // ends in |parentSegment| and add |parentWeight[i]| to the saved value.
@@ -533,25 +533,18 @@ void IndexGraphStarterJoints<Graph>::GetEdgeList(
     for (size_t i = 0; i < edges.size(); ++i)
     {
       // Saving weight of current edges for returning in the next iterations.
-      auto const & w = edges[i].GetWeight();
+      auto & w = edges[i].GetWeight();
       auto const & t = edges[i].GetTarget();
 
-      auto res = m_savedWeight.insert(std::make_pair(t, w));
-      if (!res.second)
-      {
-        // Actually, the edge's weight should be an invariant, no matter how we reached it.
-        // This is true, except for the case in Cross MWM routing with GetCrossBorderPenalty.
-        // We add this penalty if its parent edge is in another MWM. Also, after that, we can
-        // reach the edge from within its current MWM and the penalty will be overwritten.
-        // So keep *max* weight here. Check CrossCountry_XXX tests.
-        res.first->second = std::max(res.first->second, w);
-      }
+      // By VNG: Revert to the MM original code, since Cross-MWM borders penalty is assigned in the end of this function.
+      /// @todo I still have doubts on how we "fetch" weight for ingoing edges with m_savedWeight.
+      m_savedWeight[t] = w;
 
       // For parent JointSegment we know its weight without last segment, because for each child
       // it will differ (child_1 => parent != child_2 => parent), but (!) we save this weight in
       // |parentWeights[]|. So the weight of an ith edge is a cached "weight of parent JointSegment" +
       // "parentWeight[i]".
-      edges[i].GetWeight() = weight + parentWeights[i];
+      w = weight + parentWeights[i];
     }
 
     // Delete useless weight of parent JointSegment.
@@ -562,6 +555,22 @@ void IndexGraphStarterJoints<Graph>::GetEdgeList(
     // This needs for correct weights calculation of FakeJointSegments during forward A* search.
     for (size_t i = firstFakeId; i < edges.size(); ++i)
       edges[i].GetWeight() += parentWeights[i];
+  }
+
+  auto const vertexMwmId = vertex.GetMwmId();
+  if (vertexMwmId != kFakeNumMwmId)
+  {
+    /// @todo By VNG: Main problem with current (borders penalty) approach and bidirectional A* is that:
+    /// a weight of v1->v2 transition moving forward (v1 outgoing) should be the same as
+    /// a weight of v1->v2 transition moving backward (v2 ingoing). This is impossible in current (m_savedWeight)
+    /// logic, so I moved Cross-MWM penalty into separate block here after _all_ weights calculations.
+
+    for (auto & e : edges)
+    {
+      auto const targetMwmId = e.GetTarget().GetMwmId();
+      if (targetMwmId != kFakeNumMwmId && vertexMwmId != targetMwmId)
+        e.GetWeight() += m_graph.GetCrossBorderPenalty(vertexMwmId, targetMwmId);
+    }
   }
 }
 
