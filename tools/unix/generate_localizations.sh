@@ -6,8 +6,8 @@ case $OSTYPE in
   darwin*)
     if [ -x /usr/local/opt/ruby/bin/ruby ]; then
       PATH="/usr/local/opt/ruby/bin:$PATH"
-    elif [ -x /opt/homebrew/opt/ruby/bin/ruby ]; then
-      PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+    elif [ -x "${HOMEBREW_PREFIX:-/opt/homebrew}/opt/ruby/bin/ruby" ]; then
+      PATH="${HOMEBREW_PREFIX:-/opt/homebrew}/opt/ruby/bin:$PATH"
     else
       echo 'Please install Homebrew ruby by running "brew install ruby"'
       exit 1
