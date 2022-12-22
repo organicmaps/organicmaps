@@ -82,6 +82,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-crashlytics-ndk'
   }
 
+  implementation 'androidx.car.app:app:1.4.0-alpha01'
+  // Fix for app/organicmaps/util/FileUploadWorker.java:14: error: cannot access ListenableFuture
+  implementation 'com.google.guava:guava:29.0-android'
   // This line is added as a workaround for duplicate classes error caused by some outdated dependency:
   // > A failure occurred while executing com.android.build.gradle.internal.tasks.CheckDuplicatesRunnable
   // We don't use Kotlin, but some dependencies are actively using it.
