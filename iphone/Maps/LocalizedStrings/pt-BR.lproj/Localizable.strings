@@ -1391,9 +1391,9 @@
 
 "type.amenity.parking.underground" = "Estacionamento subterrâneo";
 
-"type.amenity.parking_entrance.private" = "Parking entrance";
+"type.amenity.parking_entrance.private" = "Entrada do estacionamento";
 
-"type.amenity.parking_entrance.permissive" = "Parking entrance";
+"type.amenity.parking_entrance.permissive" = "Entrada do estacionamento";
 
 "type.amenity.parking_entrance" = "Entrada do estacionamento";
 
@@ -1542,7 +1542,7 @@
 
 "type.barrier.chain" = "Chain";
 
-"type.barrier.city_wall" = "City Wall";
+"type.barrier.city_wall" = "Muralha";
 
 "type.barrier.cycle_barrier" = "Barreira de bicicletas";
 
