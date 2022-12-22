@@ -44,6 +44,9 @@
   //-->
   <uses-permission-sdk-23 android:name="android.permission.POST_NOTIFICATIONS"/>
 
+  <uses-permission android:name="androidx.car.app.NAVIGATION_TEMPLATES"/>
+  <uses-permission android:name="androidx.car.app.ACCESS_SURFACE"/>
+
   <queries>
     <intent>
       <action android:name="android.intent.action.TTS_SERVICE"/>
@@ -850,6 +853,15 @@
     <activity
       android:name="app.organicmaps.settings.DrivingOptionsActivity"
       android:label="@string/driving_options_title"/>
+    <service
+        android:name="app.organicmaps.car.NavigationCarAppService"
+        android:foregroundServiceType="location"
+        android:exported="true">
+      <intent-filter>
+        <action android:name="androidx.car.app.CarAppService" />
+        <category android:name="androidx.car.app.category.NAVIGATION" />
+      </intent-filter>
+    </service>
 
     <service
         android:name=".routing.NavigationService"
@@ -883,6 +895,14 @@
     <meta-data android:name="android.webkit.WebView.EnableSafeBrowsing" android:value="false" />
     <!-- Disable Google's anonymous stats collection -->
     <meta-data android:name="android.webkit.WebView.MetricsOptOut" android:value="true" />
+
+    <!-- For android Auto -->
+    <meta-data android:name="com.google.android.gms.car.application"
+        android:resource="@xml/automotive_app_desc"/>
+
+    <meta-data
+        android:name="androidx.car.app.minCarApiLevel"
+        android:value="1"/>
 
   </application>
 </manifest>

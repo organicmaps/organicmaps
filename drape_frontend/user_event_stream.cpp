@@ -251,6 +251,13 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChanged, bool 
         breakAnim = OnNewVisibleViewport(viewportEvent);
       }
       break;
+    case UserEvent::EventType::Scroll:
+      {
+        ref_ptr<ScrollEvent> scrollEvent = make_ref(e);
+        breakAnim = OnScroll(scrollEvent);
+        TouchCancel(m_touches);
+      }
+      break;
 
     default:
       ASSERT(false, ());
@@ -455,6 +462,23 @@ bool UserEventStream::OnNewVisibleViewport(ref_ptr<SetVisibleViewportEvent> view
     return SetScreen(screen, true /* isAnim */);
   }
   return false;
+}
+
+bool UserEventStream::OnScroll(ref_ptr<ScrollEvent> scrollEvent)
+{
+  double const distanceX = scrollEvent->GetDistanceX();
+  double const distanceY = scrollEvent->GetDistanceY();
+
+  ScreenBase screen;
+  GetTargetScreen(screen);
+  screen.Move(-distanceX, -distanceY);
+
+  ShrinkAndScaleInto(screen, df::GetWorldRect());
+
+  if (m_listener)
+    m_listener->OnScrolled({-distanceX, -distanceY});
+
+  return SetScreen(screen, false);
 }
 
 bool UserEventStream::SetAngle(double azimuth, bool isAnim, TAnimationCreator const & parallelAnimCreator)

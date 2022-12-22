@@ -22,6 +22,7 @@ import app.organicmaps.background.OsmUploadWork;
 import app.organicmaps.downloader.DownloaderNotifier;
 import app.organicmaps.base.MediaPlayerWrapper;
 import app.organicmaps.bookmarks.data.BookmarkManager;
+import app.organicmaps.display.DisplayManager;
 import app.organicmaps.downloader.CountryItem;
 import app.organicmaps.downloader.MapManager;
 import app.organicmaps.location.LocationHelper;
@@ -51,6 +52,10 @@ import java.util.List;
 
 public class MwmApplication extends Application implements Application.ActivityLifecycleCallbacks
 {
+  public interface ProcessNavigationListener {
+    void processNavigation();
+  }
+
   @NonNull
   private static final String TAG = MwmApplication.class.getSimpleName();
 
@@ -69,6 +74,10 @@ public class MwmApplication extends Application implements Application.ActivityL
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private SensorHelper mSensorHelper;
+
+  @SuppressWarnings("NotNullFieldNotInitialized")
+  @NonNull
+  private DisplayManager mDisplayManager;
 
   private volatile boolean mFrameworkInitialized;
   private volatile boolean mPlatformInitialized;
@@ -111,6 +120,12 @@ public class MwmApplication extends Application implements Application.ActivityL
   public SensorHelper getSensorHelper()
   {
     return mSensorHelper;
+  }
+
+  @NonNull
+  public DisplayManager getDisplayManager()
+  {
+    return mDisplayManager;
   }
 
   public MwmApplication()
@@ -156,6 +171,8 @@ public class MwmApplication extends Application implements Application.ActivityL
     mIsolinesManager = new IsolinesManager(this);
     mLocationHelper = new LocationHelper(this);
     mSensorHelper = new SensorHelper(this);
+    mPlayer = new MediaPlayerWrapper(this);
+    mDisplayManager = new DisplayManager();
   }
 
   /**
@@ -164,7 +181,7 @@ public class MwmApplication extends Application implements Application.ActivityL
    * @throws IOException - if failed to create directories. Caller must handle
    * the exception and do nothing with native code if initialization is failed.
    */
-  public boolean init(SplashActivity listener) throws IOException
+  public boolean init(ProcessNavigationListener listener) throws IOException
   {
     initNativePlatform();
     return initNativeFramework(listener);
@@ -214,7 +231,7 @@ public class MwmApplication extends Application implements Application.ActivityL
     StorageUtils.requireDirectory(tempPath);
   }
 
-  private boolean initNativeFramework(SplashActivity listener)
+  private boolean initNativeFramework(ProcessNavigationListener listener)
   {
     if (mFrameworkInitialized)
       return false;
@@ -285,7 +302,7 @@ public class MwmApplication extends Application implements Application.ActivityL
   private native void nativeInitPlatform(String apkPath, String writablePath, String privatePath,
                                          String tmpPath, String flavorName, String buildType,
                                          boolean isTablet);
-  private static native void nativeInitFramework(SplashActivity listener);
+  private static native void nativeInitFramework(ProcessNavigationListener listener);
   private static native void nativeProcessTask(long taskPointer);
   private static native void nativeAddLocalization(String name, String value);
   private static native void nativeOnTransit(boolean foreground);
@@ -366,7 +383,8 @@ public class MwmApplication extends Application implements Application.ActivityL
       Logger.i(LOCATION_TAG, "Navigation is in progress, keeping location in the background");
       return;
     }
-    mLocationHelper.stop();
+    if (mDisplayManager.isDeviceDisplayUsed())
+      mLocationHelper.stop();
   }
 
   private class StorageCallbackImpl implements MapManager.StorageCallback

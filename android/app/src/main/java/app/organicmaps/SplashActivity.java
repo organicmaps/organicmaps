@@ -6,7 +6,6 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -15,11 +14,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.util.Config;
 import app.organicmaps.util.Counters;
+import app.organicmaps.util.LocationUtils;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.concurrency.UiThread;
 import app.organicmaps.util.log.Logger;
@@ -27,7 +26,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.io.IOException;
 
-public class SplashActivity extends AppCompatActivity
+public class SplashActivity extends AppCompatActivity implements MwmApplication.ProcessNavigationListener
 {
   private static final String TAG = SplashActivity.class.getSimpleName();
   private static final String EXTRA_ACTIVITY_TO_START = "extra_activity_to_start";
@@ -97,8 +96,7 @@ public class SplashActivity extends AppCompatActivity
     super.onResume();
     if (mCanceled)
       return;
-    if (!Config.isLocationRequested() && ActivityCompat.checkSelfPermission(this, ACCESS_COARSE_LOCATION)
-        != PackageManager.PERMISSION_GRANTED)
+    if (!Config.isLocationRequested() && !LocationUtils.checkCoarseLocationPermission(this))
     {
       Logger.d(TAG, "Requesting location permissions");
       mPermissionRequest.launch(new String[]{
@@ -152,9 +150,7 @@ public class SplashActivity extends AppCompatActivity
       return;
     }
 
-    if (Counters.isFirstLaunch(this) &&
-        (ActivityCompat.checkSelfPermission(this, ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
-         ActivityCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED))
+    if (Counters.isFirstLaunch(this) && LocationUtils.checkLocationPermission(this))
     {
       final LocationHelper locationHelper = app.getLocationHelper();
       locationHelper.onEnteredIntoFirstRun();
@@ -168,6 +164,7 @@ public class SplashActivity extends AppCompatActivity
 
   // Called from MwmApplication::nativeInitFramework like callback.
   @SuppressWarnings({"unused", "unchecked"})
+  @Override
   public void processNavigation()
   {
     Intent input = getIntent();
