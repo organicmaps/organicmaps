@@ -956,7 +956,7 @@
 
 "restore" = "Obnovit";
 
-"privacy_policy" = "Politika důvěrnosti";
+"privacy_policy" = "Zásady ochrany osobních údajů";
 
 "terms_of_use" = "Podmínky užívání";
 
@@ -1008,7 +1008,7 @@
 
 "power_managment_setting_manual_max" = "Maximální šetření baterií";
 
-"driving_options_title" = "Možnosti směrovače";
+"driving_options_title" = "Možnosti trasy";
 
 "driving_options_subheader" = "Vyhněte se na každé trase";
 
@@ -1026,7 +1026,7 @@
 
 "define_to_avoid_btn" = "Definovat silnice, kterým se vyhnout";
 
-"change_driving_options_btn" = "Možnosti směrování byly povoleny";
+"change_driving_options_btn" = "Možnosti trasy aktivní";
 
 "toll_road" = "Silnice s mýtným";
 

@@ -732,7 +732,7 @@
 	<string name="type.aeroway.apron">Peron</string>
 	<string name="type.aeroway.gate">Geçit</string>
 	<string name="type.aeroway.helipad">Helikopter pisti</string>
-	<string name="type.aeroway.runway">Koşu yolu</string>
+	<string name="type.aeroway.runway">Pist</string>
 	<string name="type.aeroway.taxiway">Taksi yolu</string>
 	<string name="type.aeroway.terminal">Terminal</string>
 	<string name="type.amenity">Tesis</string>

@@ -1265,7 +1265,7 @@
 
 "type.aeroway.helipad" = "Helikopter pisti";
 
-"type.aeroway.runway" = "Koşu yolu";
+"type.aeroway.runway" = "Pist";
 
 "type.aeroway.taxiway" = "Taksi yolu";
 

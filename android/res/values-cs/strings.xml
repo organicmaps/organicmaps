@@ -175,6 +175,10 @@
 	<!-- Length of track in cell that describes route -->
 	<string name="length">Délka</string>
 	<string name="share_my_location">Sdílet mé umístění</string>
+	<!-- Settings general group in settings screen -->
+	<string name="prefs_group_general">Obecná nastavení</string>
+	<!-- Settings information group in settings screen -->
+	<string name="prefs_group_information">Informace</string>
 	<string name="prefs_group_route">Navigace</string>
 	<string name="pref_zoom_title">Tlačítka přiblížení/oddálení</string>
 	<string name="pref_zoom_summary">Zobrazit na obrazovce</string>
@@ -526,6 +530,8 @@
 	<string name="bookmark_lists_hide_all">Skrýt vše</string>
 	<string name="bookmark_lists_show_all">Zobrazit vše</string>
 	<string name="bookmarks_create_new_group">Vytvořte nový seznam</string>
+	<!-- Bookmark categories screen -->
+	<string name="bookmarks_import">Importovat záložky</string>
 	<string name="bookmarks_error_message_share_general">Nelze sdílet kvůli chybě aplikace</string>
 	<string name="bookmarks_error_title_share_empty">Chyba sdílení</string>
 	<string name="bookmarks_error_message_share_empty">Nelze sdílet s prázdným seznamem</string>
@@ -556,7 +562,7 @@
 	<string name="subtittle_opt_out">Natavení doprovodu</string>
 	<string name="crash_reports">Zprávy o chybách</string>
 	<string name="crash_reports_description">Můžeme používat vaše údaje pro vývoj a zlepšení Organic Maps. Změny se projeví po restartování aplikace.</string>
-	<string name="privacy_policy">Politika důvěrnosti</string>
+	<string name="privacy_policy">Zásady ochrany osobních údajů</string>
 	<string name="terms_of_use">Podmínky užívání</string>
 	<string name="button_layer_traffic">Zácpy</string>
 	<string name="button_layer_subway">Metro</string>
@@ -586,7 +592,7 @@
 	<string name="power_managment_setting_manual_max">Maximální šetření baterií</string>
 	<string name="enable_logging_warning_message">Tato možnost zapne odesílání dat za účelem diagnostiky. To nám pomáhá při řešení problémů s aplikací. Zapněte tuto možnost pro dočasné nahrávání a odesílání logů našemu týmu o vašem problému.</string>
 	<string name="access_rules_author_only">Upravujte on-line</string>
-	<string name="driving_options_title">Možnosti směrovače</string>
+	<string name="driving_options_title">Možnosti trasy</string>
 	<string name="driving_options_subheader">Vyhněte se na každé trase</string>
 	<string name="avoid_tolls">Silnice s mýtným</string>
 	<string name="avoid_unpaved">Nezpevněná silnice</string>
@@ -595,7 +601,7 @@
 	<string name="unable_to_calc_alert_title">Nelze vypočítat trasu</string>
 	<string name="unable_to_calc_alert_subtitle">Bohužel jsme nemohli nalézt trasu pravděpodobně kvůli vámi definovaným možnostem. Změňte prosím nastavení a zkuste to znovu</string>
 	<string name="define_to_avoid_btn">Definovat silnice, kterým se vyhnout</string>
-	<string name="change_driving_options_btn">Možnosti směrování byly povoleny</string>
+	<string name="change_driving_options_btn">Možnosti trasy aktivní</string>
 	<string name="toll_road">Silnice s mýtným</string>
 	<string name="unpaved_road">Nezpevněná silnice</string>
 	<string name="ferry_crossing">Přejezd trajektů</string>
@@ -665,6 +671,10 @@
 	<string name="enable_screen_sleep">Nechte obrazovku spát</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Je-li tato možnost povolena, bude obrazovce po určité době nečinnosti umožněno usnout.</string>
+	<!-- A preference title; keep short! -->
+	<string name="enable_show_on_lock_screen">Zobrazit na uzamčené obrazovce</string>
+	<!-- Description in preferences -->
+	<string name="enable_show_on_lock_screen_description">Pokud je funkce povolena, nemusíte při spuštěné aplikaci pokaždé odemykat zařízení.</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">Mapová data z OpenStreetMap</string>
 
