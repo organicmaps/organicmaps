@@ -2335,12 +2335,6 @@
     zh-Hans = 地下停车场
     zh-Hant = 地下停車場
 
-  [type.amenity.parking_entrance.private]
-    ref = type.amenity.parking_entrance
-
-  [type.amenity.parking_entrance.permissive]
-    ref = type.amenity.parking_entrance
-
   [type.amenity.parking_entrance]
     en = Parking entrance
     ar = ﺕﺍﺭﺎﻴﺴﻟﺍ ﻑﻮﻗﻭ ﻞﺧﺪﻣ
@@ -2351,7 +2345,6 @@
     de = Parkplatzeinfahrt
     el = Είσοδος στάθμευσης
     es = Entrada al aparcamiento
-    es-MX = Entrada al aparcamiento
     et = Parkla sissepääs
     eu = Aparkalekuaren sarrera
     fa = ﮓﻨﯿﮐﺭﺎﭘ ﯼﺩﻭﺭﻭ
@@ -2378,6 +2371,12 @@
     vi = Lối vào bãi đậu xe
     zh-Hans = 停车场入口
     zh-Hant = 停車場入口
+
+  [type.amenity.parking_entrance.private]
+    ref = type.amenity.parking_entrance
+
+  [type.amenity.parking_entrance.permissive]
+    ref = type.amenity.parking_entrance
 
   [type.amenity.parking_space]
     en = Parking Space
