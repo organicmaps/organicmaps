@@ -59686,7 +59686,6 @@ cont {
     scale: 12
     symbol {
       name: "subway-adana-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -59695,7 +59694,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-adana-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -59704,7 +59702,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-adana-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -59731,7 +59728,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-adana-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -59757,7 +59753,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-adana-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -59783,7 +59778,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-adana-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -59809,7 +59803,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-adana-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -59835,7 +59828,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-adana-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -59864,7 +59856,6 @@ cont {
     scale: 12
     symbol {
       name: "subway-algeria-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -59873,7 +59864,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-algeria-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -59882,7 +59872,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-algeria-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -59909,7 +59898,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-algeria-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -59935,7 +59923,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-algeria-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -59961,7 +59948,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-algeria-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -59987,7 +59973,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-algeria-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -60013,7 +59998,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-algeria-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -60042,7 +60026,6 @@ cont {
     scale: 12
     symbol {
       name: "subway-almaty-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -60051,7 +60034,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-almaty-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -60060,7 +60042,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-almaty-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -60087,7 +60068,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-almaty-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -60113,7 +60093,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-almaty-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -60139,7 +60118,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-almaty-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -60165,7 +60143,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-almaty-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -60191,7 +60168,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-almaty-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -60220,7 +60196,6 @@ cont {
     scale: 12
     symbol {
       name: "subway-amsterdam-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -60229,7 +60204,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-amsterdam-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -60238,7 +60212,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-amsterdam-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -60265,7 +60238,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-amsterdam-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -60291,7 +60263,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-amsterdam-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -60317,7 +60288,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-amsterdam-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -60343,7 +60313,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-amsterdam-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -60369,7 +60338,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-amsterdam-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -60398,7 +60366,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-ankara-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -60407,7 +60374,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-ankara-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -60434,7 +60400,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-ankara-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -60460,7 +60425,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-ankara-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -60486,7 +60450,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-ankara-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -60512,7 +60475,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-ankara-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -60538,7 +60500,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-ankara-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -60567,7 +60528,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-athens-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -60576,7 +60536,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-athens-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -60603,7 +60562,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-athens-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -60629,7 +60587,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-athens-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -60655,7 +60612,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-athens-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -60681,7 +60637,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-athens-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -60707,7 +60662,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-athens-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -60736,7 +60690,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-baku-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -60745,7 +60698,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-baku-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -60772,7 +60724,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-baku-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -60798,7 +60749,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-baku-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -60824,7 +60774,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-baku-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -60850,7 +60799,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-baku-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -60876,7 +60824,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-baku-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -60905,7 +60852,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-bangkok-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -60914,7 +60860,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-bangkok-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -60941,7 +60886,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-bangkok-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -60967,7 +60911,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-bangkok-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -60993,7 +60936,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-bangkok-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -61019,7 +60961,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-bangkok-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -61045,7 +60986,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-bangkok-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -61074,7 +61014,6 @@ cont {
     scale: 12
     symbol {
       name: "subway-barcelona-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -61083,7 +61022,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-barcelona-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -61092,7 +61030,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-barcelona-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -61119,7 +61056,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-barcelona-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -61145,7 +61081,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-barcelona-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -61171,7 +61106,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-barcelona-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -61197,7 +61131,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-barcelona-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -61223,7 +61156,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-barcelona-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -61252,7 +61184,6 @@ cont {
     scale: 12
     symbol {
       name: "subway-beijing-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -61261,7 +61192,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-beijing-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -61270,7 +61200,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-beijing-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -61297,7 +61226,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-beijing-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -61323,7 +61251,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-beijing-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -61349,7 +61276,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-beijing-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -61375,7 +61301,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-beijing-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -61401,7 +61326,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-beijing-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -61430,7 +61354,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-bengaluru-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -61439,7 +61362,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-bengaluru-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -61466,7 +61388,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-bengaluru-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -61492,7 +61413,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-bengaluru-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -61518,7 +61438,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-bengaluru-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -61544,7 +61463,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-bengaluru-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -61570,7 +61488,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-bengaluru-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -61599,7 +61516,6 @@ cont {
     scale: 12
     symbol {
       name: "subway-ubahn-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -61608,7 +61524,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-ubahn-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -61617,7 +61532,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-ubahn-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -61644,7 +61558,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-ubahn-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -61670,7 +61583,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-ubahn-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -61696,7 +61608,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-ubahn-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -61722,7 +61633,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-ubahn-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -61748,7 +61658,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-ubahn-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -61777,7 +61686,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-brasilia-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -61786,7 +61694,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-brasilia-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -61813,7 +61720,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-brasilia-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -61839,7 +61745,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-brasilia-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -61865,7 +61770,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-brasilia-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -61891,7 +61795,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-brasilia-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -61917,7 +61820,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-brasilia-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -61946,7 +61848,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-brescia-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -61955,7 +61856,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-brescia-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -61982,7 +61882,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-brescia-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -62008,7 +61907,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-brescia-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -62034,7 +61932,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-brescia-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -62060,7 +61957,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-brescia-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -62086,7 +61982,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-brescia-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -62115,7 +62010,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-brussel-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -62124,7 +62018,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-brussel-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -62151,7 +62044,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-brussel-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -62177,7 +62069,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-brussel-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -62203,7 +62094,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-brussel-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -62229,7 +62119,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-brussel-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -62255,7 +62144,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-brussel-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -62284,7 +62172,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-bucharest-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -62293,7 +62180,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-bucharest-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -62320,7 +62206,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-bucharest-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -62346,7 +62231,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-bucharest-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -62372,7 +62256,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-bucharest-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -62398,7 +62281,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-bucharest-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -62424,7 +62306,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-bucharest-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -62453,7 +62334,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-budapest-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -62462,7 +62342,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-budapest-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -62489,7 +62368,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-budapest-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -62515,7 +62393,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-budapest-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -62541,7 +62418,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-budapest-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -62567,7 +62443,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-budapest-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -62593,7 +62468,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-budapest-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -62622,7 +62496,6 @@ cont {
     scale: 12
     symbol {
       name: "subway-buenosaires-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -62631,7 +62504,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-buenosaires-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -62640,7 +62512,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-buenosaires-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -62667,7 +62538,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-buenosaires-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -62693,7 +62563,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-buenosaires-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -62719,7 +62588,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-buenosaires-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -62745,7 +62613,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-buenosaires-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -62771,7 +62638,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-buenosaires-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -62800,7 +62666,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-bursaray-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -62809,7 +62674,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-bursaray-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -62836,7 +62700,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-bursaray-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -62862,7 +62725,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-bursaray-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -62888,7 +62750,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-bursaray-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -62914,7 +62775,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-bursaray-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -62940,7 +62800,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-bursaray-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -62969,7 +62828,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-cairo-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -62978,7 +62836,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-cairo-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -63005,7 +62862,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-cairo-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -63031,7 +62887,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-cairo-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -63057,7 +62912,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-cairo-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -63083,7 +62937,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-cairo-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -63109,7 +62962,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-cairo-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -63138,7 +62990,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-caracas-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -63147,7 +62998,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-caracas-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -63174,7 +63024,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-caracas-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -63200,7 +63049,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-caracas-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -63226,7 +63074,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-caracas-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -63252,7 +63099,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-caracas-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -63278,7 +63124,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-caracas-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -63307,7 +63152,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-catania-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -63316,7 +63160,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-catania-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -63343,7 +63186,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-catania-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -63369,7 +63211,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-catania-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -63395,7 +63236,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-catania-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -63421,7 +63261,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-catania-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -63447,7 +63286,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-catania-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -63476,7 +63314,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-changchun-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -63485,7 +63322,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-changchun-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -63512,7 +63348,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-changchun-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -63538,7 +63373,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-changchun-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -63564,7 +63398,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-changchun-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -63590,7 +63423,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-changchun-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -63616,7 +63448,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-changchun-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -63645,7 +63476,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-chengdu-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -63654,7 +63484,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-chengdu-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -63681,7 +63510,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-chengdu-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -63707,7 +63535,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-chengdu-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -63733,7 +63560,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-chengdu-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -63759,7 +63585,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-chengdu-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -63785,7 +63610,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-chengdu-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -63814,7 +63638,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-chicago-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -63823,7 +63646,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-chicago-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -63850,7 +63672,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-chicago-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -63876,7 +63697,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-chicago-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -63902,7 +63722,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-chicago-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -63928,7 +63747,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-chicago-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -63954,7 +63772,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-chicago-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -63983,7 +63800,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-chongqing-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -63992,7 +63808,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-chongqing-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -64019,7 +63834,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-chongqing-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -64045,7 +63859,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-chongqing-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -64071,7 +63884,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-chongqing-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -64097,7 +63909,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-chongqing-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -64123,7 +63934,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-chongqing-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -64152,7 +63962,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-dalian-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -64161,7 +63970,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-dalian-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -64188,7 +63996,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-dalian-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -64214,7 +64021,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-dalian-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -64240,7 +64046,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-dalian-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -64266,7 +64071,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-dalian-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -64292,7 +64096,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-dalian-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -64321,7 +64124,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-delhi-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -64330,7 +64132,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-delhi-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -64357,7 +64158,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-delhi-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -64383,7 +64183,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-delhi-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -64409,7 +64208,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-delhi-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -64435,7 +64233,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-delhi-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -64461,7 +64258,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-delhi-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -64490,7 +64286,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-dnepro-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -64499,7 +64294,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-dnepro-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -64526,7 +64320,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-dnepro-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -64552,7 +64345,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-dnepro-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -64578,7 +64370,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-dnepro-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -64604,7 +64395,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-dnepro-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -64630,7 +64420,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-dnepro-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -64659,7 +64448,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-dubai-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -64668,7 +64456,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-dubai-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -64695,7 +64482,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-dubai-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -64721,7 +64507,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-dubai-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -64747,7 +64532,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-dubai-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -64773,7 +64557,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-dubai-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -64799,7 +64582,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-dubai-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -64828,7 +64610,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-ekb-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -64837,7 +64618,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-ekb-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -64864,7 +64644,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-ekb-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -64890,7 +64669,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-ekb-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -64916,7 +64694,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-ekb-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -64942,7 +64719,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-ekb-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -64968,7 +64744,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-ekb-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -64997,7 +64772,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-fukuoka-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -65006,7 +64780,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-fukuoka-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -65033,7 +64806,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-fukuoka-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -65059,7 +64831,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-fukuoka-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -65085,7 +64856,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-fukuoka-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -65111,7 +64881,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-fukuoka-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -65137,7 +64906,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-fukuoka-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -65166,7 +64934,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-glasgow-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -65175,7 +64942,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-glasgow-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -65202,7 +64968,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-glasgow-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -65228,7 +64993,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-glasgow-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -65254,7 +65018,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-glasgow-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -65280,7 +65043,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-glasgow-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -65306,7 +65068,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-glasgow-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -65335,7 +65096,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-guangzhou-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -65344,7 +65104,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-guangzhou-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -65371,7 +65130,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-guangzhou-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -65397,7 +65155,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-guangzhou-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -65423,7 +65180,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-guangzhou-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -65449,7 +65205,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-guangzhou-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -65475,7 +65230,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-guangzhou-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -65504,7 +65258,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-ubahn-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -65513,7 +65266,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-ubahn-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -65540,7 +65292,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-ubahn-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -65566,7 +65317,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-ubahn-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -65592,7 +65342,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-ubahn-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -65618,7 +65367,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-ubahn-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -65644,7 +65392,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-ubahn-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -65673,7 +65420,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-helsinki-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -65682,7 +65428,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-helsinki-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -65709,7 +65454,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-helsinki-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -65735,7 +65479,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-helsinki-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -65761,7 +65504,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-helsinki-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -65787,7 +65529,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-helsinki-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -65813,7 +65554,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-helsinki-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -65842,7 +65582,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-hirosima-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -65851,7 +65590,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-hirosima-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -65878,7 +65616,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-hirosima-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -65904,7 +65641,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-hirosima-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -65930,7 +65666,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-hirosima-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -65956,7 +65691,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-hirosima-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -65982,7 +65716,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-hirosima-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -66011,7 +65744,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-isfahan-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -66020,7 +65752,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-isfahan-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -66047,7 +65778,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-isfahan-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -66073,7 +65803,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-isfahan-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -66099,7 +65828,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-isfahan-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -66125,7 +65853,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-isfahan-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -66151,7 +65878,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-isfahan-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -66180,7 +65906,6 @@ cont {
     scale: 12
     symbol {
       name: "subway-istanbul-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -66189,7 +65914,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-istanbul-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -66198,7 +65922,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-istanbul-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -66225,7 +65948,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-istanbul-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -66251,7 +65973,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-istanbul-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -66277,7 +65998,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-istanbul-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -66303,7 +66023,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-istanbul-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -66329,7 +66048,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-istanbul-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -66358,7 +66076,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-izmir-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -66367,7 +66084,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-izmir-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -66394,7 +66110,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-izmir-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -66420,7 +66135,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-izmir-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -66446,7 +66160,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-izmir-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -66472,7 +66185,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-izmir-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -66498,7 +66210,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-izmir-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -66527,7 +66238,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-kazan-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -66536,7 +66246,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-kazan-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -66563,7 +66272,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-kazan-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -66589,7 +66297,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-kazan-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -66615,7 +66322,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-kazan-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -66641,7 +66347,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-kazan-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -66667,7 +66372,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-kazan-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -66696,7 +66400,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-kharkiv-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -66705,7 +66408,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-kharkiv-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -66732,7 +66434,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-kharkiv-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -66758,7 +66459,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-kharkiv-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -66784,7 +66484,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-kharkiv-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -66810,7 +66509,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-kharkiv-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -66836,7 +66534,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-kharkiv-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -66865,7 +66562,6 @@ cont {
     scale: 12
     symbol {
       name: "subway-kiev-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -66883,7 +66579,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-kiev-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -66902,7 +66597,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-kiev-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -66929,7 +66623,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-kiev-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -66955,7 +66648,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-kiev-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -66981,7 +66673,6 @@ cont {
     scale: 17
     symbol {
       name: "zero-icon"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -67005,7 +66696,6 @@ cont {
     scale: 18
     symbol {
       name: "zero-icon"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -67029,7 +66719,6 @@ cont {
     scale: 19
     symbol {
       name: "zero-icon"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -67056,7 +66745,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-kobe-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -67065,7 +66753,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-kobe-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -67092,7 +66779,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-kobe-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -67118,7 +66804,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-kobe-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -67144,7 +66829,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-kobe-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -67170,7 +66854,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-kobe-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -67196,7 +66879,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-kobe-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -67225,7 +66907,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-kolkata-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -67234,7 +66915,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-kolkata-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -67261,7 +66941,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-kolkata-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -67287,7 +66966,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-kolkata-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -67313,7 +66991,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-kolkata-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -67339,7 +67016,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-kolkata-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -67365,7 +67041,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-kolkata-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -67394,7 +67069,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-kunming-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -67403,7 +67077,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-kunming-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -67430,7 +67103,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-kunming-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -67456,7 +67128,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-kunming-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -67482,7 +67153,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-kunming-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -67508,7 +67178,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-kunming-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -67534,7 +67203,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-kunming-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -67563,7 +67231,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-kyoto-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -67572,7 +67239,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-kyoto-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -67599,7 +67265,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-kyoto-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -67625,7 +67290,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-kyoto-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -67651,7 +67315,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-kyoto-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -67677,7 +67340,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-kyoto-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -67703,7 +67365,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-kyoto-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -67732,7 +67393,6 @@ cont {
     scale: 12
     symbol {
       name: "subway-losangeles-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -67741,7 +67401,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-losangeles-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -67750,7 +67409,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-losangeles-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -67777,7 +67435,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-losangeles-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -67803,7 +67460,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-losangeles-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -67829,7 +67485,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-losangeles-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -67855,7 +67510,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-losangeles-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -67881,7 +67535,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-losangeles-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -67910,7 +67563,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-lausanne-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -67919,7 +67571,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-lausanne-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -67946,7 +67597,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-lausanne-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -67972,7 +67622,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-lausanne-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -67998,7 +67647,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-lausanne-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -68024,7 +67672,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-lausanne-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -68050,7 +67697,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-lausanne-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -68079,7 +67725,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-lille-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -68088,7 +67733,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-lille-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -68115,7 +67759,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-lille-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -68141,7 +67784,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-lille-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -68167,7 +67809,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-lille-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -68193,7 +67834,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-lille-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -68219,7 +67859,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-lille-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -68248,7 +67887,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-lima-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -68257,7 +67895,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-lima-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -68284,7 +67921,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-lima-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -68310,7 +67946,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-lima-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -68336,7 +67971,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-lima-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -68362,7 +67996,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-lima-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -68388,7 +68021,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-lima-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -68417,7 +68049,6 @@ cont {
     scale: 12
     symbol {
       name: "subway-lisboa-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -68426,7 +68057,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-lisboa-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -68435,7 +68065,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-lisboa-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -68462,7 +68091,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-lisboa-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -68488,7 +68116,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-lisboa-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -68514,7 +68141,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-lisboa-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -68540,7 +68166,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-lisboa-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -68566,7 +68191,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-lisboa-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -68595,7 +68219,6 @@ cont {
     scale: 12
     symbol {
       name: "subway-london-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -68604,7 +68227,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-london-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -68613,7 +68235,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-london-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -68640,7 +68261,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-london-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -68666,7 +68286,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-london-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -68692,7 +68311,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-london-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -68718,7 +68336,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-london-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -68744,7 +68361,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-london-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -68773,7 +68389,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-lyon-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -68782,7 +68397,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-lyon-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -68809,7 +68423,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-lyon-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -68835,7 +68448,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-lyon-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -68861,7 +68473,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-lyon-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -68887,7 +68498,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-lyon-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -68913,7 +68523,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-lyon-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -68942,7 +68551,6 @@ cont {
     scale: 12
     symbol {
       name: "subway-madrid-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -68951,7 +68559,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-madrid-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -68960,7 +68567,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-madrid-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -68987,7 +68593,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-madrid-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -69013,7 +68618,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-madrid-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -69039,7 +68643,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-madrid-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -69065,7 +68668,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-madrid-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -69091,7 +68693,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-madrid-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -69120,7 +68721,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-malaga-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -69129,7 +68729,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-malaga-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -69156,7 +68755,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-malaga-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -69182,7 +68780,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-malaga-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -69208,7 +68805,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-malaga-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -69234,7 +68830,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-malaga-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -69260,7 +68855,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-malaga-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -69289,7 +68883,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-manila-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -69298,7 +68891,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-manila-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -69325,7 +68917,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-manila-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -69351,7 +68942,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-manila-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -69377,7 +68967,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-manila-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -69403,7 +68992,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-manila-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -69429,7 +69017,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-manila-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -69458,7 +69045,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-maracaibo-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -69467,7 +69053,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-maracaibo-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -69494,7 +69079,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-maracaibo-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -69520,7 +69104,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-maracaibo-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -69546,7 +69129,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-maracaibo-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -69572,7 +69154,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-maracaibo-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -69598,7 +69179,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-maracaibo-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -69627,7 +69207,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-mashhad-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -69636,7 +69215,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-mashhad-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -69663,7 +69241,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-mashhad-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -69689,7 +69266,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-mashhad-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -69715,7 +69291,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-mashhad-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -69741,7 +69316,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-mashhad-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -69767,7 +69341,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-mashhad-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -69796,7 +69369,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-mecca-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -69805,7 +69377,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-mecca-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -69832,7 +69403,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-mecca-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -69858,7 +69428,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-mecca-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -69884,7 +69453,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-mecca-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -69910,7 +69478,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-mecca-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -69936,7 +69503,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-mecca-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -69965,7 +69531,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-medellin-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -69974,7 +69539,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-medellin-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -70001,7 +69565,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-medellin-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -70027,7 +69590,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-medellin-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -70053,7 +69615,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-medellin-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -70079,7 +69640,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-medellin-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -70105,7 +69665,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-medellin-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -70134,7 +69693,6 @@ cont {
     scale: 12
     symbol {
       name: "subway-mexico-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -70143,7 +69701,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-mexico-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -70152,7 +69709,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-mexico-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -70179,7 +69735,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-mexico-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -70205,7 +69760,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-mexico-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -70231,7 +69785,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-mexico-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -70257,7 +69810,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-mexico-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -70283,7 +69835,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-mexico-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -70312,7 +69863,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-milan-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -70321,7 +69871,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-milan-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -70348,7 +69897,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-milan-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -70374,7 +69922,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-milan-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -70400,7 +69947,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-milan-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -70426,7 +69972,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-milan-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -70452,7 +69997,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-milan-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -70481,7 +70025,6 @@ cont {
     scale: 12
     symbol {
       name: "subway-minsk-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -70499,7 +70042,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-minsk-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -70518,7 +70060,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-minsk-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -70545,7 +70086,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-minsk-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -70571,7 +70111,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-minsk-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -70595,7 +70134,6 @@ cont {
     scale: 17
     symbol {
       name: "zero-icon"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -70619,7 +70157,6 @@ cont {
     scale: 18
     symbol {
       name: "zero-icon"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -70643,7 +70180,6 @@ cont {
     scale: 19
     symbol {
       name: "zero-icon"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -70670,7 +70206,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-montreal-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -70679,7 +70214,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-montreal-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -70706,7 +70240,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-montreal-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -70732,7 +70265,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-montreal-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -70758,7 +70290,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-montreal-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -70784,7 +70315,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-montreal-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -70810,7 +70340,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-montreal-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -70839,7 +70368,6 @@ cont {
     scale: 11
     symbol {
       name: "subway-moscow-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -70848,7 +70376,6 @@ cont {
     scale: 12
     symbol {
       name: "subway-moscow-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -70875,7 +70402,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-moscow-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -70902,7 +70428,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-moscow-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -70929,7 +70454,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-moscow-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -70955,7 +70479,6 @@ cont {
     scale: 16
     symbol {
       name: "zero-icon"
-      apply_for_type: 1
       priority: 16952
     }
   }
@@ -70963,7 +70486,6 @@ cont {
     scale: 17
     symbol {
       name: "zero-icon"
-      apply_for_type: 1
       priority: 16952
     }
   }
@@ -70971,7 +70493,6 @@ cont {
     scale: 18
     symbol {
       name: "zero-icon"
-      apply_for_type: 1
       priority: 16952
     }
   }
@@ -70979,7 +70500,6 @@ cont {
     scale: 19
     symbol {
       name: "zero-icon"
-      apply_for_type: 1
       priority: 16952
     }
   }
@@ -70990,7 +70510,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-ubahn-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -70999,7 +70518,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-ubahn-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -71026,7 +70544,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-ubahn-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -71052,7 +70569,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-ubahn-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -71078,7 +70594,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-ubahn-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -71104,7 +70619,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-ubahn-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -71130,7 +70644,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-ubahn-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -71159,7 +70672,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-nagoya-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -71168,7 +70680,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-nagoya-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -71195,7 +70706,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-nagoya-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -71221,7 +70731,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-nagoya-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -71247,7 +70756,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-nagoya-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -71273,7 +70781,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-nagoya-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -71299,7 +70806,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-nagoya-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -71328,7 +70834,6 @@ cont {
     scale: 12
     symbol {
       name: "subway-newyork-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -71337,7 +70842,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-newyork-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -71346,7 +70850,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-newyork-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -71373,7 +70876,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-newyork-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -71399,7 +70901,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-newyork-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -71425,7 +70926,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-newyork-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -71451,7 +70951,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-newyork-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -71477,7 +70976,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-newyork-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -71506,7 +71004,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-nnov-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -71515,7 +71012,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-nnov-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -71542,7 +71038,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-nnov-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -71568,7 +71063,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-nnov-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -71594,7 +71088,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-nnov-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -71620,7 +71113,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-nnov-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -71646,7 +71138,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-nnov-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -71675,7 +71166,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-novosibirsk-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -71684,7 +71174,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-novosibirsk-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -71711,7 +71200,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-novosibirsk-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -71737,7 +71225,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-novosibirsk-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -71763,7 +71250,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-novosibirsk-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -71789,7 +71275,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-novosibirsk-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -71815,7 +71300,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-novosibirsk-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -71844,7 +71328,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-osaka-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -71853,7 +71336,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-osaka-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -71880,7 +71362,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-osaka-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -71906,7 +71387,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-osaka-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -71932,7 +71412,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-osaka-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -71958,7 +71437,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-osaka-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -71984,7 +71462,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-osaka-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -72013,7 +71490,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-oslo-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -72022,7 +71498,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-oslo-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -72049,7 +71524,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-oslo-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -72075,7 +71549,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-oslo-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -72101,7 +71574,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-oslo-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -72127,7 +71599,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-oslo-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -72153,7 +71624,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-oslo-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -72182,7 +71652,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-palma-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -72191,7 +71660,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-palma-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -72218,7 +71686,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-palma-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -72244,7 +71711,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-palma-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -72270,7 +71736,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-palma-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -72296,7 +71761,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-palma-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -72322,7 +71786,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-palma-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -72351,7 +71814,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-panama-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -72360,7 +71822,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-panama-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -72387,7 +71848,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-panama-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -72413,7 +71873,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-panama-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -72439,7 +71898,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-panama-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -72465,7 +71923,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-panama-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -72491,7 +71948,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-panama-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -72520,7 +71976,6 @@ cont {
     scale: 12
     symbol {
       name: "subway-paris-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -72529,7 +71984,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-paris-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -72538,7 +71992,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-paris-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -72565,7 +72018,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-paris-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -72591,7 +72043,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-paris-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -72617,7 +72068,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-paris-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -72643,7 +72093,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-paris-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -72669,7 +72118,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-paris-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -72698,7 +72146,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-philadelphia-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -72707,7 +72154,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-philadelphia-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -72734,7 +72180,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-philadelphia-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -72760,7 +72205,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-philadelphia-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -72786,7 +72230,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-philadelphia-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -72812,7 +72255,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-philadelphia-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -72838,7 +72280,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-philadelphia-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -72867,7 +72308,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-pyongyang-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -72876,7 +72316,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-pyongyang-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -72903,7 +72342,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-pyongyang-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -72929,7 +72367,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-pyongyang-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -72955,7 +72392,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-pyongyang-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -72981,7 +72417,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-pyongyang-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -73007,7 +72442,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-pyongyang-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -73036,7 +72470,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-rennes-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -73045,7 +72478,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-rennes-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -73072,7 +72504,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-rennes-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -73098,7 +72529,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-rennes-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -73124,7 +72554,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-rennes-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -73150,7 +72579,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-rennes-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -73176,7 +72604,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-rennes-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -73205,7 +72632,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-riodejaneiro-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -73214,7 +72640,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-riodejaneiro-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -73241,7 +72666,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-riodejaneiro-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -73267,7 +72691,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-riodejaneiro-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -73293,7 +72716,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-riodejaneiro-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -73319,7 +72741,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-riodejaneiro-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -73345,7 +72766,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-riodejaneiro-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -73374,7 +72794,6 @@ cont {
     scale: 12
     symbol {
       name: "subway-rome-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -73383,7 +72802,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-rome-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -73392,7 +72810,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-rome-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -73419,7 +72836,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-rome-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -73445,7 +72861,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-rome-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -73471,7 +72886,6 @@ cont {
     scale: 17
     symbol {
       name: "zero-icon"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -73495,7 +72909,6 @@ cont {
     scale: 18
     symbol {
       name: "zero-icon"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -73519,7 +72932,6 @@ cont {
     scale: 19
     symbol {
       name: "zero-icon"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -73546,7 +72958,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-rotterdam-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -73555,7 +72966,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-rotterdam-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -73582,7 +72992,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-rotterdam-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -73608,7 +73017,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-rotterdam-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -73634,7 +73042,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-rotterdam-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -73660,7 +73067,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-rotterdam-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -73686,7 +73092,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-rotterdam-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -73715,7 +73120,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-samara-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -73724,7 +73128,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-samara-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -73751,7 +73154,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-samara-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -73777,7 +73179,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-samara-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -73803,7 +73204,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-samara-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -73829,7 +73229,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-samara-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -73855,7 +73254,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-samara-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -73884,7 +73282,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-santiago-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -73893,7 +73290,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-santiago-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -73920,7 +73316,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-santiago-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -73946,7 +73341,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-santiago-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -73972,7 +73366,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-santiago-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -73998,7 +73391,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-santiago-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -74024,7 +73416,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-santiago-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -74053,7 +73444,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-santodomingo-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -74062,7 +73452,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-santodomingo-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -74089,7 +73478,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-santodomingo-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -74115,7 +73503,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-santodomingo-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -74141,7 +73528,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-santodomingo-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -74167,7 +73553,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-santodomingo-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -74193,7 +73578,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-santodomingo-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -74222,7 +73606,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-saopaulo-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -74231,7 +73614,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-saopaulo-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -74258,7 +73640,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-saopaulo-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -74284,7 +73665,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-saopaulo-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -74310,7 +73690,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-saopaulo-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -74336,7 +73715,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-saopaulo-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -74362,7 +73740,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-saopaulo-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -74391,7 +73768,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-sapporo-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -74400,7 +73776,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-sapporo-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -74427,7 +73802,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-sapporo-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -74453,7 +73827,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-sapporo-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -74479,7 +73852,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-sapporo-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -74505,7 +73877,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-sapporo-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -74531,7 +73902,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-sapporo-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -74560,7 +73930,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-sendai-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -74569,7 +73938,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-sendai-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -74596,7 +73964,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-sendai-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -74622,7 +73989,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-sendai-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -74648,7 +74014,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-sendai-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -74674,7 +74039,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-sendai-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -74700,7 +74064,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-sendai-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -74729,7 +74092,6 @@ cont {
     scale: 12
     symbol {
       name: "subway-sanfrancisco-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -74738,7 +74100,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-sanfrancisco-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -74747,7 +74108,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-sanfrancisco-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -74774,7 +74134,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-sanfrancisco-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -74800,7 +74159,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-sanfrancisco-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -74826,7 +74184,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-sanfrancisco-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -74852,7 +74209,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-sanfrancisco-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -74878,7 +74234,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-sanfrancisco-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -74907,7 +74262,6 @@ cont {
     scale: 12
     symbol {
       name: "subway-shanghai-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -74916,7 +74270,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-shanghai-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -74925,7 +74278,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-shanghai-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -74952,7 +74304,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-shanghai-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -74978,7 +74329,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-shanghai-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -75004,7 +74354,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-shanghai-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -75030,7 +74379,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-shanghai-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -75056,7 +74404,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-shanghai-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -75085,7 +74432,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-shiraz-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -75094,7 +74440,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-shiraz-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -75121,7 +74466,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-shiraz-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -75147,7 +74491,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-shiraz-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -75173,7 +74516,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-shiraz-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -75199,7 +74541,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-shiraz-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -75225,7 +74566,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-shiraz-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -75254,7 +74594,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-sofia-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -75263,7 +74602,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-sofia-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -75290,7 +74628,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-sofia-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -75316,7 +74653,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-sofia-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -75342,7 +74678,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-sofia-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -75368,7 +74703,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-sofia-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -75394,7 +74728,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-sofia-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -75423,7 +74756,6 @@ cont {
     scale: 11
     symbol {
       name: "subway-spb-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -75432,7 +74764,6 @@ cont {
     scale: 12
     symbol {
       name: "subway-spb-s"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -75458,7 +74789,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-spb-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -75485,7 +74815,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-spb-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -75512,7 +74841,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-spb-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -75538,7 +74866,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-spb-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -75562,7 +74889,6 @@ cont {
     scale: 17
     symbol {
       name: "zero-icon"
-      apply_for_type: 1
       priority: 16952
     }
   }
@@ -75570,7 +74896,6 @@ cont {
     scale: 18
     symbol {
       name: "zero-icon"
-      apply_for_type: 1
       priority: 16952
     }
   }
@@ -75578,7 +74903,6 @@ cont {
     scale: 19
     symbol {
       name: "zero-icon"
-      apply_for_type: 1
       priority: 16952
     }
   }
@@ -75589,7 +74913,6 @@ cont {
     scale: 12
     symbol {
       name: "subway-stockholm-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -75598,7 +74921,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-stockholm-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -75607,7 +74929,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-stockholm-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -75634,7 +74955,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-stockholm-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -75660,7 +74980,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-stockholm-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -75686,7 +75005,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-stockholm-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -75712,7 +75030,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-stockholm-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -75738,7 +75055,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-stockholm-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -75767,7 +75083,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-tabriz-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -75776,7 +75091,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-tabriz-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -75803,7 +75117,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-tabriz-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -75829,7 +75142,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-tabriz-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -75855,7 +75167,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-tabriz-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -75881,7 +75192,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-tabriz-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -75907,7 +75217,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-tabriz-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -75936,7 +75245,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-taipei-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -75945,7 +75253,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-taipei-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -75972,7 +75279,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-taipei-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -75998,7 +75304,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-taipei-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -76024,7 +75329,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-taipei-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -76050,7 +75354,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-taipei-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -76076,7 +75379,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-taipei-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -76105,7 +75407,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-taoyuan-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -76114,7 +75415,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-taoyuan-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -76141,7 +75441,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-taoyuan-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -76167,7 +75466,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-taoyuan-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -76193,7 +75491,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-taoyuan-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -76219,7 +75516,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-taoyuan-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -76245,7 +75541,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-taoyuan-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -76274,7 +75569,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-tashkent-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -76283,7 +75577,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-tashkent-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -76310,7 +75603,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-tashkent-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -76336,7 +75628,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-tashkent-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -76362,7 +75653,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-tashkent-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -76388,7 +75678,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-tashkent-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -76414,7 +75703,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-tashkent-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -76443,7 +75731,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-tbilisi-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -76452,7 +75739,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-tbilisi-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -76479,7 +75765,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-tbilisi-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -76505,7 +75790,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-tbilisi-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -76531,7 +75815,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-tbilisi-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -76557,7 +75840,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-tbilisi-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -76583,7 +75865,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-tbilisi-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -76612,7 +75893,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-tianjin-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -76621,7 +75901,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-tianjin-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -76648,7 +75927,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-tianjin-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -76674,7 +75952,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-tianjin-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -76700,7 +75977,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-tianjin-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -76726,7 +76002,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-tianjin-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -76752,7 +76027,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-tianjin-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -76781,7 +76055,6 @@ cont {
     scale: 12
     symbol {
       name: "subway-tokyo-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -76790,7 +76063,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-tokyo-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -76799,7 +76071,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-tokyo-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -76826,7 +76097,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-tokyo-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -76852,7 +76122,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-tokyo-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -76878,7 +76147,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-tokyo-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -76904,7 +76172,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-tokyo-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -76930,7 +76197,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-tokyo-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -76959,7 +76225,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-valencia-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -76968,7 +76233,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-valencia-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -76995,7 +76259,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-valencia-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -77021,7 +76284,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-valencia-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -77047,7 +76309,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-valencia-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -77073,7 +76334,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-valencia-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -77099,7 +76359,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-valencia-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -77128,7 +76387,6 @@ cont {
     scale: 12
     symbol {
       name: "subway-vienna-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -77137,7 +76395,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-vienna-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -77146,7 +76403,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-vienna-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -77173,7 +76429,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-vienna-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -77199,7 +76454,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-vienna-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -77225,7 +76479,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-vienna-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -77251,7 +76504,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-vienna-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -77277,7 +76529,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-vienna-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -77306,7 +76557,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-warszawa-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -77315,7 +76565,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-warszawa-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -77342,7 +76591,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-warszawa-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -77368,7 +76616,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-warszawa-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -77394,7 +76641,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-warszawa-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -77420,7 +76666,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-warszawa-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -77446,7 +76691,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-warszawa-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -77475,7 +76719,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-washington-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -77484,7 +76727,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-washington-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -77511,7 +76753,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-washington-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -77537,7 +76778,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-washington-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -77563,7 +76803,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-washington-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -77589,7 +76828,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-washington-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -77615,7 +76853,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-washington-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -77644,7 +76881,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-wuhan-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -77653,7 +76889,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-wuhan-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -77680,7 +76915,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-wuhan-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -77706,7 +76940,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-wuhan-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -77732,7 +76965,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-wuhan-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -77758,7 +76990,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-wuhan-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -77784,7 +77015,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-wuhan-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -77813,7 +77043,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-yerevan-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -77822,7 +77051,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-yerevan-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -77849,7 +77077,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-yerevan-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -77875,7 +77102,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-yerevan-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -77901,7 +77127,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-yerevan-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -77927,7 +77152,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-yerevan-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -77953,7 +77177,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-yerevan-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -77982,7 +77205,6 @@ cont {
     scale: 13
     symbol {
       name: "subway-yokohama-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -77991,7 +77213,6 @@ cont {
     scale: 14
     symbol {
       name: "subway-yokohama-s"
-      apply_for_type: 1
       priority: 16952
       min_distance: 1
     }
@@ -78018,7 +77239,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-yokohama-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -78044,7 +77264,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-yokohama-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -78070,7 +77289,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-yokohama-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -78096,7 +77314,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-yokohama-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -78122,7 +77339,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-yokohama-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -78548,7 +77764,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-adana-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -78574,7 +77789,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-adana-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -78600,7 +77814,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-adana-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -78649,7 +77862,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-algeria-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -78675,7 +77887,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-algeria-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -78701,7 +77912,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-algeria-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -78750,7 +77960,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-almaty-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -78776,7 +77985,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-almaty-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -78802,7 +78010,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-almaty-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -78851,7 +78058,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-amsterdam-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -78877,7 +78083,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-amsterdam-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -78903,7 +78108,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-amsterdam-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -78952,7 +78156,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-ankara-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -78978,7 +78181,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-ankara-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -79004,7 +78206,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-ankara-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -79053,7 +78254,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-athens-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -79079,7 +78279,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-athens-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -79105,7 +78304,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-athens-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -79154,7 +78352,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-baku-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -79180,7 +78377,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-baku-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -79206,7 +78402,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-baku-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -79255,7 +78450,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-bangkok-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -79281,7 +78475,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-bangkok-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -79307,7 +78500,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-bangkok-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -79356,7 +78548,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-barcelona-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -79382,7 +78573,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-barcelona-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -79408,7 +78598,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-barcelona-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -79457,7 +78646,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-beijing-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -79483,7 +78671,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-beijing-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -79509,7 +78696,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-beijing-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -79558,7 +78744,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-bengaluru-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -79584,7 +78769,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-bengaluru-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -79610,7 +78794,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-bengaluru-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -79659,7 +78842,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-ubahn-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -79685,7 +78867,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-ubahn-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -79711,7 +78892,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-ubahn-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -79760,7 +78940,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-brasilia-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -79786,7 +78965,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-brasilia-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -79812,7 +78990,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-brasilia-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -79861,7 +79038,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-brescia-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -79887,7 +79063,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-brescia-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -79913,7 +79088,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-brescia-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -79962,7 +79136,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-brussel-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -79988,7 +79161,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-brussel-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -80014,7 +79186,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-brussel-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -80063,7 +79234,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-bucharest-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -80089,7 +79259,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-bucharest-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -80115,7 +79284,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-bucharest-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -80164,7 +79332,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-budapest-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -80190,7 +79357,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-budapest-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -80216,7 +79382,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-budapest-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -80265,7 +79430,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-buenosaires-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -80291,7 +79455,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-buenosaires-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -80317,7 +79480,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-buenosaires-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -80366,7 +79528,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-bursaray-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -80392,7 +79553,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-bursaray-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -80418,7 +79578,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-bursaray-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -80467,7 +79626,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-cairo-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -80493,7 +79651,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-cairo-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -80519,7 +79676,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-cairo-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -80568,7 +79724,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-caracas-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -80594,7 +79749,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-caracas-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -80620,7 +79774,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-caracas-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -80669,7 +79822,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-catania-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -80695,7 +79847,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-catania-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -80721,7 +79872,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-catania-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -80770,7 +79920,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-changchun-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -80796,7 +79945,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-changchun-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -80822,7 +79970,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-changchun-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -80871,7 +80018,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-chengdu-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -80897,7 +80043,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-chengdu-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -80923,7 +80068,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-chengdu-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -80972,7 +80116,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-chicago-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -80998,7 +80141,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-chicago-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -81024,7 +80166,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-chicago-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -81073,7 +80214,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-chongqing-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -81099,7 +80239,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-chongqing-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -81125,7 +80264,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-chongqing-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -81174,7 +80312,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-dalian-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -81200,7 +80337,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-dalian-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -81226,7 +80362,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-dalian-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -81275,7 +80410,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-delhi-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -81300,8 +80434,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "subway-entrance-m"
-      apply_for_type: 1
+      name: "subway-delhi-m"
       priority: 16914
     }
     caption {
@@ -81326,8 +80459,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "subway-entrance-m"
-      apply_for_type: 1
+      name: "subway-delhi-m"
       priority: 16914
     }
     caption {
@@ -81376,7 +80508,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-dnepro-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -81402,7 +80533,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-dnepro-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -81428,7 +80558,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-dnepro-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -81477,7 +80606,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-dubai-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -81503,7 +80631,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-dubai-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -81529,7 +80656,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-dubai-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -81578,7 +80704,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-ekb-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -81604,7 +80729,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-ekb-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -81630,7 +80754,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-ekb-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -81679,7 +80802,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-fukuoka-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -81705,7 +80827,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-fukuoka-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -81731,7 +80852,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-fukuoka-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -81780,7 +80900,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-glasgow-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -81806,7 +80925,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-glasgow-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -81832,7 +80950,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-glasgow-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -81881,7 +80998,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-guangzhou-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -81907,7 +81023,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-guangzhou-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -81933,7 +81048,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-guangzhou-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -81982,7 +81096,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-ubahn-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -82008,7 +81121,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-ubahn-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -82034,7 +81146,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-ubahn-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -82083,7 +81194,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-helsinki-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -82109,7 +81219,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-helsinki-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -82135,7 +81244,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-helsinki-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -82184,7 +81292,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-hirosima-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -82210,7 +81317,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-hirosima-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -82236,7 +81342,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-hirosima-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -82285,7 +81390,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-isfahan-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -82311,7 +81415,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-isfahan-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -82337,7 +81440,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-isfahan-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -82386,7 +81488,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-istanbul-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -82412,7 +81513,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-istanbul-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -82438,7 +81538,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-istanbul-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -82487,7 +81586,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-izmir-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -82513,7 +81611,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-izmir-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -82539,7 +81636,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-izmir-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -82588,7 +81684,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-kazan-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -82614,7 +81709,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-kazan-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -82640,7 +81734,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-kazan-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -82689,7 +81782,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-kharkiv-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -82715,7 +81807,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-kharkiv-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -82741,7 +81832,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-kharkiv-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -82790,7 +81880,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-kiev-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -82816,7 +81905,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-kiev-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -82842,7 +81930,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-kiev-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -82891,7 +81978,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-kobe-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -82917,7 +82003,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-kobe-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -82943,7 +82028,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-kobe-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -82992,7 +82076,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-kolkata-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -83018,7 +82101,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-kolkata-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -83044,7 +82126,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-kolkata-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -83093,7 +82174,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-kunming-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -83119,7 +82199,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-kunming-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -83145,7 +82224,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-kunming-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -83194,7 +82272,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-kyoto-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -83220,7 +82297,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-kyoto-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -83246,7 +82322,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-kyoto-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -83295,7 +82370,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-losangeles-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -83321,7 +82395,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-losangeles-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -83347,7 +82420,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-losangeles-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -83396,7 +82468,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-lausanne-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -83422,7 +82493,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-lausanne-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -83448,7 +82518,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-lausanne-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -83497,7 +82566,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-lille-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -83523,7 +82591,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-lille-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -83549,7 +82616,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-lille-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -83598,7 +82664,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-lima-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -83624,7 +82689,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-lima-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -83650,7 +82714,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-lima-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -83699,7 +82762,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-lisboa-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -83725,7 +82787,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-lisboa-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -83751,7 +82812,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-lisboa-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -83800,7 +82860,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-london-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -83826,7 +82885,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-london-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -83852,7 +82910,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-london-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -83901,7 +82958,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-lyon-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -83927,7 +82983,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-lyon-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -83953,7 +83008,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-lyon-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -84002,7 +83056,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-madrid-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -84028,7 +83081,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-madrid-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -84054,7 +83106,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-madrid-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -84103,7 +83154,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-malaga-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -84129,7 +83179,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-malaga-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -84155,7 +83204,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-malaga-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -84204,7 +83252,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-manila-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -84230,7 +83277,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-manila-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -84256,7 +83302,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-manila-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -84305,7 +83350,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-maracaibo-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -84331,7 +83375,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-maracaibo-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -84357,7 +83400,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-maracaibo-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -84406,7 +83448,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-mashhad-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -84432,7 +83473,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-mashhad-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -84458,7 +83498,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-mashhad-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -84507,7 +83546,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-mecca-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -84533,7 +83571,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-mecca-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -84559,7 +83596,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-mecca-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -84608,7 +83644,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-medellin-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -84634,7 +83669,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-medellin-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -84660,7 +83694,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-medellin-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -84709,7 +83742,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-mexico-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -84735,7 +83767,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-mexico-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -84761,7 +83792,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-mexico-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -84810,7 +83840,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-milan-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -84836,7 +83865,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-milan-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -84862,7 +83890,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-milan-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -84911,7 +83938,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-minsk-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -84937,7 +83963,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-minsk-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -84963,7 +83988,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-minsk-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -85012,7 +84036,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-montreal-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -85038,7 +84061,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-montreal-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -85064,7 +84086,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-montreal-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -85093,7 +84114,6 @@ cont {
     scale: 15
     symbol {
       name: "subway-moscow-s"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -85119,7 +84139,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-moscow-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -85145,7 +84164,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-moscow-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -85171,7 +84189,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-moscow-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -85197,7 +84214,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-moscow-m"
-      apply_for_type: 1
       priority: 16952
     }
     caption {
@@ -85246,7 +84262,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-ubahn-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -85272,7 +84287,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-ubahn-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -85298,7 +84312,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-ubahn-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -85347,7 +84360,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-nagoya-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -85373,7 +84385,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-nagoya-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -85399,7 +84410,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-nagoya-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -85448,7 +84458,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-newyork-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -85474,7 +84483,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-newyork-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -85500,7 +84508,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-newyork-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -85549,7 +84556,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-nnov-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -85575,7 +84581,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-nnov-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -85601,7 +84606,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-nnov-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -85650,7 +84654,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-novosibirsk-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -85676,7 +84679,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-novosibirsk-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -85702,7 +84704,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-novosibirsk-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -85751,7 +84752,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-osaka-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -85777,7 +84777,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-osaka-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -85803,7 +84802,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-osaka-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -85852,7 +84850,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-oslo-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -85878,7 +84875,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-oslo-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -85904,7 +84900,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-oslo-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -85953,7 +84948,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-palma-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -85979,7 +84973,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-palma-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -86005,7 +84998,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-palma-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -86054,7 +85046,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-panama-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -86080,7 +85071,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-panama-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -86106,7 +85096,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-panama-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -86155,7 +85144,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-paris-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -86181,7 +85169,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-paris-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -86207,7 +85194,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-paris-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -86256,7 +85242,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-philadelphia-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -86282,7 +85267,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-philadelphia-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -86308,7 +85292,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-philadelphia-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -86357,7 +85340,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-pyongyang-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -86383,7 +85365,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-pyongyang-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -86409,7 +85390,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-pyongyang-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -86458,7 +85438,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-rennes-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -86484,7 +85463,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-rennes-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -86510,7 +85488,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-rennes-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -86559,7 +85536,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-riodejaneiro-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -86585,7 +85561,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-riodejaneiro-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -86611,7 +85586,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-riodejaneiro-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -86660,7 +85634,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-rome-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -86686,7 +85659,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-rome-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -86712,7 +85684,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-rome-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -86761,7 +85732,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-rotterdam-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -86787,7 +85757,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-rotterdam-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -86813,7 +85782,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-rotterdam-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -86862,7 +85830,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-samara-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -86888,7 +85855,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-samara-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -86914,7 +85880,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-samara-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -86963,7 +85928,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-santiago-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -86989,7 +85953,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-santiago-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -87015,7 +85978,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-santiago-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -87064,7 +86026,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-santodomingo-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -87090,7 +86051,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-santodomingo-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -87116,7 +86076,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-santodomingo-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -87165,7 +86124,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-saopaulo-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -87191,7 +86149,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-saopaulo-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -87217,7 +86174,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-saopaulo-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -87266,7 +86222,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-sapporo-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -87292,7 +86247,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-sapporo-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -87318,7 +86272,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-sapporo-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -87367,7 +86320,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-sendai-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -87393,7 +86345,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-sendai-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -87419,7 +86370,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-sendai-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -87468,7 +86418,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-sanfrancisco-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -87494,7 +86443,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-sanfrancisco-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -87520,7 +86468,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-sanfrancisco-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -87569,7 +86516,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-shanghai-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -87595,7 +86541,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-shanghai-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -87621,7 +86566,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-shanghai-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -87670,7 +86614,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-shiraz-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -87696,7 +86639,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-shiraz-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -87722,7 +86664,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-shiraz-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -87771,7 +86712,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-sofia-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -87797,7 +86737,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-sofia-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -87823,7 +86762,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-sofia-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -87852,7 +86790,6 @@ cont {
     scale: 16
     symbol {
       name: "subway-spb-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -87878,7 +86815,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-spb-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -87904,7 +86840,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-spb-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -87930,7 +86865,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-spb-m"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -87979,7 +86913,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-stockholm-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -88005,7 +86938,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-stockholm-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -88031,7 +86963,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-stockholm-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -88080,7 +87011,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-tabriz-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -88106,7 +87036,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-tabriz-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -88132,7 +87061,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-tabriz-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -88181,7 +87109,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-taipei-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -88207,7 +87134,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-taipei-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -88233,7 +87159,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-taipei-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -88282,7 +87207,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-taoyuan-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -88308,7 +87232,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-taoyuan-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -88334,7 +87257,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-taoyuan-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -88383,7 +87305,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-tashkent-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -88409,7 +87330,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-tashkent-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -88435,7 +87355,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-tashkent-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -88484,7 +87403,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-tbilisi-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -88510,7 +87428,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-tbilisi-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -88536,7 +87453,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-tbilisi-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -88585,7 +87501,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-tianjin-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -88611,7 +87526,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-tianjin-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -88637,7 +87551,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-tianjin-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -88686,7 +87599,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-tokyo-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -88712,7 +87624,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-tokyo-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -88738,7 +87649,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-tokyo-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -88787,7 +87697,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-valencia-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -88813,7 +87722,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-valencia-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -88839,7 +87747,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-valencia-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -88888,7 +87795,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-vienna-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -88914,7 +87820,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-vienna-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -88940,7 +87845,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-vienna-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -88989,7 +87893,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-warszawa-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -89015,7 +87918,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-warszawa-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -89041,7 +87943,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-warszawa-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -89090,7 +87991,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-washington-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -89116,7 +88016,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-washington-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -89142,7 +88041,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-washington-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -89191,7 +88089,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-wuhan-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -89217,7 +88114,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-wuhan-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -89243,7 +88139,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-wuhan-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -89292,7 +88187,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-yerevan-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -89318,7 +88212,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-yerevan-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -89344,7 +88237,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-yerevan-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -89393,7 +88285,6 @@ cont {
     scale: 17
     symbol {
       name: "subway-yokohama-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -89419,7 +88310,6 @@ cont {
     scale: 18
     symbol {
       name: "subway-yokohama-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
@@ -89445,7 +88335,6 @@ cont {
     scale: 19
     symbol {
       name: "subway-yokohama-s"
-      apply_for_type: 1
       priority: 16914
     }
     caption {
