@@ -260,6 +260,12 @@ bool Framework::IsDrapeEngineCreated() const
   return m_work.IsDrapeEngineCreated();
 }
 
+void Framework::UpdateDpi(int dpi)
+{
+  ASSERT_GREATER(dpi, 0, ());
+  m_work.UpdateVisualScale(dp::VisualScale(dpi));
+}
+
 void Framework::Resize(JNIEnv * env, jobject jSurface, int w, int h)
 {
   if (m_vulkanContextFactory)
@@ -479,9 +485,9 @@ void Framework::Scale(double factor, m2::PointD const & pxPoint, bool isAnim)
   m_work.Scale(factor, pxPoint, isAnim);
 }
 
-void Framework::Move(double factorX, double factorY, bool isAnim)
+void Framework::Scroll(double distanceX, double distanceY)
 {
-  m_work.Move(factorX, factorY, isAnim);
+  m_work.Scroll(distanceX, distanceY);
 }
 
 void Framework::Touch(int action, Finger const & f1, Finger const & f2, uint8_t maskedPointer)
@@ -902,9 +908,12 @@ Java_app_organicmaps_Framework_nativePlacePageActivationListener(JNIEnv *env, jc
 }
 
 JNIEXPORT void JNICALL
-Java_app_organicmaps_Framework_nativeRemovePlacePageActivationListener(JNIEnv *env, jclass)
+Java_app_organicmaps_Framework_nativeRemovePlacePageActivationListener(JNIEnv *env, jclass, jobject jListener)
 {
   if (g_placePageActivationListener == nullptr)
+    return;
+
+  if (!env->IsSameObject(g_placePageActivationListener, jListener))
     return;
 
   frm()->SetPlacePageListeners({} /* onOpen */, {} /* onClose */, {} /* onUpdate */);

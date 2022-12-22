@@ -1,5 +1,8 @@
 package app.organicmaps.util;
 
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+import static android.content.pm.PackageManager.PERMISSION_GRANTED;
+
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationManager;
@@ -8,6 +11,7 @@ import android.provider.Settings;
 import android.view.Surface;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 
 public class LocationUtils
 {
@@ -110,5 +114,20 @@ public class LocationUtils
       e.printStackTrace();
       return false;
     }
+  }
+
+  public static boolean checkFineLocationPermission(@NonNull Context context)
+  {
+    return ContextCompat.checkSelfPermission(context, ACCESS_FINE_LOCATION) == PERMISSION_GRANTED;
+  }
+
+  public static boolean checkCoarseLocationPermission(@NonNull Context context)
+  {
+    return ContextCompat.checkSelfPermission(context, ACCESS_FINE_LOCATION) == PERMISSION_GRANTED;
+  }
+
+  public static boolean checkLocationPermission(@NonNull Context context)
+  {
+    return checkFineLocationPermission(context) || checkCoarseLocationPermission(context);
   }
 }

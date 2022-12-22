@@ -39,6 +39,12 @@ Java_app_organicmaps_Map_nativeIsEngineCreated(JNIEnv *, jclass)
   return g_framework->IsDrapeEngineCreated();
 }
 
+JNIEXPORT void JNICALL
+Java_app_organicmaps_Map_nativeUpdateEngineDpi(JNIEnv *, jclass, jint dpi)
+{
+  return g_framework->UpdateDpi(dpi);
+}
+
 JNIEXPORT jboolean JNICALL
 Java_app_organicmaps_Map_nativeShowMapForUrl(JNIEnv * env, jclass, jstring url)
 {
@@ -131,13 +137,6 @@ Java_app_organicmaps_Map_nativeCompassUpdated(JNIEnv *, jclass, jdouble north, j
 }
 
 JNIEXPORT void JNICALL
-Java_app_organicmaps_Map_nativeMove(
-  JNIEnv *, jclass, jdouble factorX, jdouble factorY, jboolean isAnim)
-{
-  g_framework->Move(factorX, factorY, isAnim);
-}
-
-JNIEXPORT void JNICALL
 Java_app_organicmaps_Map_nativeScalePlus(JNIEnv *, jclass)
 {
   g_framework->Scale(::Framework::SCALE_MAG);
@@ -150,7 +149,14 @@ Java_app_organicmaps_Map_nativeScaleMinus(JNIEnv *, jclass)
 }
 
 JNIEXPORT void JNICALL
-Java_app_organicmaps_Map_nativeScale(
+Java_app_organicmaps_Map_nativeOnScroll(
+  JNIEnv *, jclass, jdouble distanceX, jdouble distanceY)
+{
+  g_framework->Scroll(distanceX, distanceY);
+}
+
+JNIEXPORT void JNICALL
+Java_app_organicmaps_Map_nativeOnScale(
   JNIEnv *, jclass, jdouble factor, jdouble focusX, jdouble focusY, jboolean isAnim)
 {
   g_framework->Scale(factor, {focusX, focusY}, isAnim);

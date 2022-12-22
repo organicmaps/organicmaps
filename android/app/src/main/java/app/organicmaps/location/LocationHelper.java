@@ -2,7 +2,6 @@ package app.organicmaps.location;
 
 import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
-import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
 import android.app.PendingIntent;
 import android.content.Context;
@@ -13,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresPermission;
 import androidx.annotation.UiThread;
-import androidx.core.content.ContextCompat;
 
 import app.organicmaps.Framework;
 import app.organicmaps.base.Initializable;
@@ -317,7 +315,7 @@ public enum LocationHelper implements Initializable<Context>, BaseLocationProvid
     Logger.i(TAG);
     checkForAgpsUpdates();
 
-    if (ContextCompat.checkSelfPermission(mContext, ACCESS_FINE_LOCATION) == PERMISSION_GRANTED)
+    if (LocationUtils.checkFineLocationPermission(mContext))
       SensorHelper.from(mContext).start();
 
     final long oldInterval = mInterval;
@@ -357,8 +355,7 @@ public enum LocationHelper implements Initializable<Context>, BaseLocationProvid
       Logger.i(TAG, "Location updates are stopped by the user manually.");
       return;
     }
-    else if (ContextCompat.checkSelfPermission(mContext, ACCESS_FINE_LOCATION) != PERMISSION_GRANTED &&
-             ContextCompat.checkSelfPermission(mContext, ACCESS_COARSE_LOCATION) != PERMISSION_GRANTED)
+    else if (!LocationUtils.checkLocationPermission(mContext))
     {
       Logger.i(TAG, "Permissions ACCESS_FINE_LOCATION and ACCESS_COARSE_LOCATION are not granted");
       return;

@@ -94,6 +94,7 @@ namespace android
     bool CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi, bool firstLaunch,
                            bool launchByDeepLink, uint32_t appVersionCode);
     bool IsDrapeEngineCreated() const;
+    void UpdateDpi(int dpi);
     bool DestroySurfaceOnDetach();
     void DetachSurface(bool destroySurface);
     bool AttachSurface(JNIEnv * env, jobject jSurface);
@@ -131,7 +132,7 @@ namespace android
 
     void Scale(double factor, m2::PointD const & pxPoint, bool isAnim);
 
-    void Move(double factorX, double factorY, bool isAnim);
+    void Scroll(double distanceX, double distanceY);
 
     void Touch(int action, Finger const & f1, Finger const & f2, uint8_t maskedPointer);
 
