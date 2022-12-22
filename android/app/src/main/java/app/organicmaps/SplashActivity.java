@@ -6,7 +6,6 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -15,11 +14,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 
+import app.organicmaps.display.DisplayManager;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.util.Config;
 import app.organicmaps.util.Counters;
+import app.organicmaps.util.LocationUtils;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.concurrency.UiThread;
 import app.organicmaps.util.log.Logger;
@@ -89,6 +89,12 @@ public class SplashActivity extends AppCompatActivity
       setResult(result.getResultCode(), result.getData());
       finish();
     });
+
+    if (DisplayManager.from(this).isCarDisplayUsed())
+    {
+      startActivity(new Intent(this, MapPlaceholderActivity.class));
+      finish();
+    }
   }
 
   @Override
@@ -97,8 +103,7 @@ public class SplashActivity extends AppCompatActivity
     super.onResume();
     if (mCanceled)
       return;
-    if (!Config.isLocationRequested() && ActivityCompat.checkSelfPermission(this, ACCESS_COARSE_LOCATION)
-        != PackageManager.PERMISSION_GRANTED)
+    if (!Config.isLocationRequested() && !LocationUtils.checkCoarseLocationPermission(this))
     {
       Logger.d(TAG, "Requesting location permissions");
       mPermissionRequest.launch(new String[]{
@@ -152,9 +157,7 @@ public class SplashActivity extends AppCompatActivity
       return;
     }
 
-    if (Counters.isFirstLaunch(this) &&
-        (ActivityCompat.checkSelfPermission(this, ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
-         ActivityCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED))
+    if (Counters.isFirstLaunch(this) && LocationUtils.checkLocationPermission(this))
     {
       final LocationHelper locationHelper = app.getLocationHelper();
       locationHelper.onEnteredIntoFirstRun();

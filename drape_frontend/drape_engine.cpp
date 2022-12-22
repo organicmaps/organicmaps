@@ -192,6 +192,11 @@ void DrapeEngine::Move(double factorX, double factorY, bool isAnim)
   AddUserEvent(make_unique_dp<MoveEvent>(factorX, factorY, isAnim));
 }
 
+void DrapeEngine::Scroll(double distanceX, double distanceY)
+{
+  AddUserEvent(make_unique_dp<ScrollEvent>(distanceX, distanceY));
+}
+
 void DrapeEngine::Rotate(double azimuth, bool isAnim)
 {
   AddUserEvent(make_unique_dp<RotateEvent>(azimuth, isAnim, nullptr /* parallelAnimCreator */));

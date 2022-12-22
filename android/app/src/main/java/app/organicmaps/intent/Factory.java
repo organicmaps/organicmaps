@@ -14,7 +14,6 @@ import androidx.fragment.app.FragmentManager;
 import app.organicmaps.DownloadResourcesLegacyActivity;
 import app.organicmaps.Framework;
 import app.organicmaps.Map;
-import app.organicmaps.MapFragment;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.api.ParsedMwmRequest;
@@ -45,6 +44,15 @@ public class Factory
     @Override
     public MapTask process(@NonNull Intent intent)
     {
+      final String uri = processIntent(intent);
+      if (uri == null)
+        return null;
+      return new OpenUrlTask(uri);
+    }
+
+    @Nullable
+    public static String processIntent(@NonNull Intent intent)
+    {
       final Uri uri = intent.getData();
       if (uri == null)
         return null;
@@ -54,7 +62,7 @@ public class Factory
       SearchEngine.INSTANCE.cancelInteractiveSearch();
       final ParsedMwmRequest request = ParsedMwmRequest.extractFromIntent(intent);
       ParsedMwmRequest.setCurrentRequest(request);
-      return new OpenUrlTask(uri.toString());
+      return uri.toString();
     }
   }
 

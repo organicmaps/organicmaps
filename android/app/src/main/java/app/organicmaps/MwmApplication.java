@@ -22,6 +22,7 @@ import app.organicmaps.background.OsmUploadWork;
 import app.organicmaps.downloader.DownloaderNotifier;
 import app.organicmaps.base.MediaPlayerWrapper;
 import app.organicmaps.bookmarks.data.BookmarkManager;
+import app.organicmaps.display.DisplayManager;
 import app.organicmaps.downloader.CountryItem;
 import app.organicmaps.downloader.MapManager;
 import app.organicmaps.location.LocationHelper;
@@ -70,6 +71,10 @@ public class MwmApplication extends Application implements Application.ActivityL
   @NonNull
   private SensorHelper mSensorHelper;
 
+  @SuppressWarnings("NotNullFieldNotInitialized")
+  @NonNull
+  private DisplayManager mDisplayManager;
+
   private volatile boolean mFrameworkInitialized;
   private volatile boolean mPlatformInitialized;
 
@@ -111,6 +116,12 @@ public class MwmApplication extends Application implements Application.ActivityL
   public SensorHelper getSensorHelper()
   {
     return mSensorHelper;
+  }
+
+  @NonNull
+  public DisplayManager getDisplayManager()
+  {
+    return mDisplayManager;
   }
 
   public MwmApplication()
@@ -156,6 +167,8 @@ public class MwmApplication extends Application implements Application.ActivityL
     mIsolinesManager = new IsolinesManager(this);
     mLocationHelper = new LocationHelper(this);
     mSensorHelper = new SensorHelper(this);
+    mPlayer = new MediaPlayerWrapper(this);
+    mDisplayManager = new DisplayManager();
   }
 
   /**
@@ -366,7 +379,8 @@ public class MwmApplication extends Application implements Application.ActivityL
       Logger.i(LOCATION_TAG, "Navigation is in progress, keeping location in the background");
       return;
     }
-    mLocationHelper.stop();
+    if (mDisplayManager.isDeviceDisplayUsed())
+      mLocationHelper.stop();
   }
 
   private class StorageCallbackImpl implements MapManager.StorageCallback

@@ -1,8 +1,10 @@
 package app.organicmaps;
 
-interface MapRenderingListener
+public interface MapRenderingListener
 {
-  void onRenderingCreated();
-  void onRenderingRestored();
-  void onRenderingInitializationFinished();
+  default void onRenderingCreated() {}
+
+  default void onRenderingRestored() {}
+
+  default void onRenderingInitializationFinished() {}
 }

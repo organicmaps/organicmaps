@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
@@ -36,6 +37,7 @@ import androidx.fragment.app.FragmentFactory;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
+
 import app.organicmaps.Framework.PlacePageActivationListener;
 import app.organicmaps.api.Const;
 import app.organicmaps.base.BaseMwmFragmentActivity;
@@ -47,6 +49,9 @@ import app.organicmaps.bookmarks.data.BookmarkInfo;
 import app.organicmaps.bookmarks.data.BookmarkManager;
 import app.organicmaps.bookmarks.data.MapObject;
 import app.organicmaps.bookmarks.data.Track;
+import app.organicmaps.display.DisplayChangedListener;
+import app.organicmaps.display.DisplayManager;
+import app.organicmaps.display.DisplayType;
 import app.organicmaps.downloader.DownloaderActivity;
 import app.organicmaps.downloader.DownloaderFragment;
 import app.organicmaps.downloader.MapManager;
@@ -123,7 +128,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
                CustomNavigateUpListener,
                RoutingController.Container,
                LocationListener,
-    SensorListener,
+               SensorListener,
                LocationState.ModeChangeListener,
                RoutingPlanInplaceController.RoutingPlanListener,
                RoutingBottomMenuListener,
@@ -132,13 +137,15 @@ public class MwmActivity extends BaseMwmFragmentActivity
                NoConnectionListener,
                MenuBottomSheetFragment.MenuBottomSheetInterfaceWithHeader,
                PlacePageController.PlacePageRouteSettingsListener,
-               MapButtonsController.MapButtonClickListener
+               MapButtonsController.MapButtonClickListener,
+               DisplayChangedListener
 {
   private static final String TAG = MwmActivity.class.getSimpleName();
 
   public static final String EXTRA_TASK = "map_task";
   public static final String EXTRA_LAUNCH_BY_DEEP_LINK = "launch_by_deep_link";
   public static final String EXTRA_BACK_URL = "backurl";
+  public static final String EXTRA_UPDATE_THEME = "update_theme";
   private static final String EXTRA_CONSUMED = "mwm.extra.intent.processed";
 
   private static final String[] DOCKED_FRAGMENTS = { SearchFragment.class.getName(),
@@ -216,6 +223,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private ActivityResultLauncher<IntentSenderRequest> mLocationResolutionRequest;
+
+  @SuppressWarnings("NotNullFieldNotInitialized")
+  @NonNull
+  private DisplayManager mDisplayManager;
+
+  private boolean mRemoveDisplayListener = true;
+  private int mLastUiMode = Configuration.UI_MODE_TYPE_UNDEFINED;
 
   public interface LeftAnimationTrackListener
   {
@@ -379,6 +393,30 @@ public class MwmActivity extends BaseMwmFragmentActivity
     return super.getThemeResourceId(theme);
   }
 
+  @Override
+  public void onDisplayChangedToCar(@NonNull Runnable onTaskFinishedCallback)
+  {
+    mRemoveDisplayListener = false;
+    startActivity(new Intent(this, MapPlaceholderActivity.class));
+    Objects.requireNonNull(mMapFragment).notifyOnSurfaceDestroyed(onTaskFinishedCallback);
+    finish();
+  }
+
+  @Override
+  public void onConfigurationChanged(@NonNull Configuration newConfig)
+  {
+    super.onConfigurationChanged(newConfig);
+
+    final int newUiMode = newConfig.uiMode & Configuration.UI_MODE_TYPE_MASK;
+    final boolean newUiModeIsCarConnected = newUiMode == Configuration.UI_MODE_TYPE_CAR;
+    final boolean newUiModeIsCarDisconnected = mLastUiMode == Configuration.UI_MODE_TYPE_CAR && newUiMode == Configuration.UI_MODE_TYPE_NORMAL;
+    mLastUiMode = newUiMode;
+
+    if (newUiModeIsCarConnected || newUiModeIsCarDisconnected)
+      return;
+    recreate();
+  }
+
   @SuppressLint("InlinedApi")
   @CallSuper
   @Override
@@ -406,6 +444,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mSearchController.getToolbar()
                      .getViewTreeObserver();
 
+    mDisplayManager = DisplayManager.from(this);
+    mDisplayManager.addListener(DisplayType.Device, this);
+
     boolean isLaunchByDeepLink = getIntent().getBooleanExtra(EXTRA_LAUNCH_BY_DEEP_LINK, false);
     initViews(isLaunchByDeepLink);
     updateViewsInsets();
@@ -426,10 +467,17 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (isConsumed || isFirstLaunch)
       return;
 
-    if (savedInstanceState == null && RoutingController.get().hasSavedRoute())
+    if (RoutingController.get().isPlanning())
+      onPlanningStarted();
+    else if (RoutingController.get().isNavigating())
+      onNavigationStarted();
+    else if (savedInstanceState == null && RoutingController.get().hasSavedRoute())
       addTask(new Factory.RestoreRouteTask());
 
     autostartLocation();
+
+    if (getIntent().getBooleanExtra(EXTRA_UPDATE_THEME, false))
+      ThemeSwitcher.INSTANCE.restart(isMapRendererActive());
   }
 
   private void refreshLightStatusBar()
@@ -1063,7 +1111,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   protected void onStop()
   {
     super.onStop();
-    Framework.nativeRemovePlacePageActivationListener();
+    Framework.nativeRemovePlacePageActivationListener(this);
     BookmarkManager.INSTANCE.removeLoadingListener(this);
     LocationHelper.from(this).removeListener(this);
     LocationState.nativeRemoveListener();
@@ -1084,14 +1132,16 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mLocationResolutionRequest = null;
     mPostNotificationPermissionRequest.unregister();
     mPostNotificationPermissionRequest = null;
+    if (mRemoveDisplayListener && !isChangingConfigurations())
+      mDisplayManager.removeListener(DisplayType.Device);
   }
 
   @Override
   public void onBackPressed()
   {
-    RoutingController routingController = RoutingController.get();
-    if (!closeBottomSheet(MAIN_MENU_ID) && !closeBottomSheet(LAYERS_MENU_ID) && !collapseNavMenu() &&
-        !closePlacePage() &&!closeSearchToolbar(true, true) &&
+    final RoutingController routingController = RoutingController.get();
+    if (!closeBottomSheet(MAIN_MENU_ID) && !closeBottomSheet(LAYERS_MENU_ID) &&
+        !collapseNavMenu() && !closePlacePage() && !closeSearchToolbar(true, true) &&
         !closeSidePanel() && !closePositionChooser() &&
         !routingController.resetToPlanningStateIfNavigating() && !routingController.cancel())
     {
@@ -1509,7 +1559,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     refreshLightStatusBar();
 
     // Don't start the background navigation service without fine location.
-    if (ActivityCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) != PERMISSION_GRANTED)
+    if (!LocationUtils.checkFineLocationPermission(this))
     {
       Logger.w(LOCATION_TAG, "Permission ACCESS_FINE_LOCATION is not granted, skipping NavigationService");
       return;
@@ -1741,7 +1791,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     Logger.d(LOCATION_TAG);
 
-    if (ActivityCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) == PERMISSION_GRANTED)
+    if (LocationUtils.checkFineLocationPermission(this))
     {
       Logger.i(LOCATION_TAG, "Permission ACCESS_FINE_LOCATION is granted");
       LocationHelper.from(this).start();
@@ -1785,12 +1835,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
       LocationState.nativeOnLocationError(LocationState.ERROR_GPS_OFF);
       LocationHelper.from(this).stop();
     }
-    else if (ActivityCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) == PERMISSION_GRANTED)
+    else if (LocationUtils.checkFineLocationPermission(this))
     {
       Logger.i(LOCATION_TAG, "Permission ACCESS_FINE_LOCATION is granted");
       LocationHelper.from(this).start();
     }
-    else if (ActivityCompat.checkSelfPermission(this, ACCESS_COARSE_LOCATION) == PERMISSION_GRANTED)
+    else if (LocationUtils.checkCoarseLocationPermission(this))
     {
       Logger.i(LOCATION_TAG, "Permission ACCESS_COARSE_LOCATION is granted");
       LocationHelper.from(this).start();
@@ -1827,9 +1877,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         Logger.w(LOCATION_TAG, "Permission " + permission + " has been refused");
     }
 
-    // Sic: Android Studio requires explicit calls to checkSelfPermission() for @RequiresPermission in start().
-    if (ActivityCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) == PERMISSION_GRANTED ||
-        ActivityCompat.checkSelfPermission(this, ACCESS_COARSE_LOCATION) == PERMISSION_GRANTED)
+    if (LocationUtils.checkLocationPermission(this))
     {
       LocationHelper.from(this).start();
       return;

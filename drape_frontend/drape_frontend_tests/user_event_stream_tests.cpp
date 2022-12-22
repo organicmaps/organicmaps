@@ -31,6 +31,7 @@ public:
   void OnDragStarted() override {}
   void OnDragEnded(m2::PointD const & /* distance */) override {}
   void OnRotated() override {}
+  void OnScrolled(m2::PointD const & distance) override {}
 
   void OnScaleStarted() override {}
   void CorrectScalePoint(m2::PointD & pt) const override {}

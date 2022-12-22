@@ -3,9 +3,11 @@ package app.organicmaps.api;
 public class Const
 {
   // Common
-  static final String API_SCHEME = "om://";
-  static final String AUTHORITY = "app.organicmaps.api";
-  static final String EXTRA_PREFIX = AUTHORITY + ".extra";
+  public static final String API_SCHEME = "om";
+  public static final String AUTHORITY = "app.organicmaps.api";
+
+  public static final String EXTRA_PREFIX = AUTHORITY + ".extra";
+  public static final String ACTION_PREFIX = AUTHORITY + ".action";
 
   // Request extras
   public static final String EXTRA_PICK_POINT = EXTRA_PREFIX + ".PICK_POINT";

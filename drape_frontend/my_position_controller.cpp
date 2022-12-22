@@ -274,6 +274,20 @@ void MyPositionController::Rotated()
     m_wasRotationInScaling = true;
 }
 
+void MyPositionController::Scrolled(m2::PointD const & distance)
+{
+  if (m_mode == location::PendingPosition)
+  {
+    ChangeMode(location::NotFollowNoPosition);
+    return;
+  }
+
+  if (distance.Length() > 0)
+    StopLocationFollow();
+
+  UpdateViewport(kDoNotChangeZoom);
+}
+
 void MyPositionController::ResetRoutingNotFollowTimer(bool blockTimer)
 {
   if (m_isInRouting)
