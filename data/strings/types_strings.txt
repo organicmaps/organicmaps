@@ -1121,6 +1121,46 @@
     zh-Hans = 电影院
     zh-Hant = 電影院
 
+  [type.leisure.bowling_alley]
+    en = Bowling Alley
+    ar = ﺞﻨﻴﻟﻮﺑ ﺔﻟﺎﺻ
+    be = Боўлінг
+    bg = Боулинг писта
+    ca = Bolera
+    cs = Bowlingová dráha
+    da = Bowling bane
+    de = Bowlingbahn
+    el = Αίθουσα σφαιρίσεως
+    es = Bolera
+    et = Bowlingusaal
+    eu = Bolatokia
+    fa = ﮓﻨﯿﻟﻮﺑ ﻦﻟﺎﺳ
+    fi = Keilarata
+    fr = Salle de bowling
+    he = גנילואב םלוא
+    hu = Tekepálya
+    id = Arena Bowling
+    it = Sala da bowling
+    ja = ボーリング場
+    ko = 볼링장
+    mr = गोलंदाजी गल्ली
+    nb = Bowlinghall
+    nl = Bowlingbaan
+    pl = Kręgielnia
+    pt = Pista de bowling
+    pt-BR = Pista de boliche
+    ro = Popicărie
+    ru = Боулинг
+    sk = Bowlingová dráha
+    sv = Bowlinghall
+    sw = Njia ya Bowling
+    th = ลานโบว์ลิ่ง
+    tr = Bowling pisti
+    uk = Боулінг
+    vi = Sân chơi bowling
+    zh-Hans = 保龄球馆
+    zh-Hant = 保齡球館
+
   [type.amenity.clinic]
     en = Clinic
     ar = عيادة
