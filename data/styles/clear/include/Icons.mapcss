@@ -184,6 +184,10 @@ node|z18-[sport=equestrian],
 area|z18-[sport=equestrian],
 node|z18-[sport=climbing],
 area|z18-[sport=climbing],
+node|z18-[sport=9pin],
+area|z18-[sport=9pin],
+node|z18-[sport=10pin],
+area|z18-[sport=10pin],
 node|z18-[sport=chess],
 area|z18-[sport=chess],
 {z-index: 2440;}
@@ -323,6 +327,8 @@ node[amenity=courthouse],
 area[amenity=courthouse],
 node[amenity=cinema],
 area[amenity=cinema],
+node[leisure=bowling_alley],
+area[leisure=bowling_alley],
 node[amenity=nightclub],
 area[amenity=nightclub],
 node[amenity=police],
@@ -1478,6 +1484,8 @@ node|z17-[amenity=school],
 area|z17-[amenity=school],
 node|z17-[amenity=cinema],
 area|z17-[amenity=cinema],
+node|z17-[leisure=bowling_alley],
+area|z17-[leisure=bowling_alley],
 node|z17-[amenity=police],
 area|z17-[amenity=police],
 node|z17-[amenity=prison],
@@ -2028,6 +2036,13 @@ area|z17-[amenity=cinema]
 {icon-image: cinema-m.svg;text-optional: true;}
 node|z18-[amenity=cinema],
 area|z18-[amenity=cinema]
+{font-size: 11;text-optional: true;}
+
+node|z17-[leisure=bowling_alley],
+area|z17-[leisure=bowling_alley],
+{icon-image: bowling_alley-m.svg;text-optional: true;}
+node|z18-[leisure=bowling_alley],
+area|z18-[leisure=bowling_alley],
 {font-size: 11;text-optional: true;}
 
 node|z17-[amenity=police],

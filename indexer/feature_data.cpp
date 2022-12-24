@@ -151,6 +151,8 @@ private:
         {"amenity", "drinking_water"},
         {"shop", "copyshop"}, // often used as secondary tag for amenity=post_office
         {"leisure", "pitch"}, // Give priority to tag "sport"=*.
+        {"sport", "9pin"},
+        {"sport", "10pin"},
         {"public_transport", "platform"},
     };
 
