@@ -131,7 +131,7 @@ namespace android
 
     void Scale(double factor, m2::PointD const & pxPoint, bool isAnim);
 
-    void Move(double factorX, double factorY, bool isAnim);
+    void Scroll(double distanceX, double distanceY);
 
     void Touch(int action, Finger const & f1, Finger const & f2, uint8_t maskedPointer);
 

@@ -15,6 +15,12 @@ import app.organicmaps.util.log.Logger;
 
 public final class Map
 {
+  public enum MapType
+  {
+    Android,
+    AndroidAuto
+  }
+
   public interface CallbackUnsupported
   {
     void report();
@@ -50,6 +56,8 @@ public final class Map
   public static final int INVALID_POINTER_MASK = 0xFF;
   public static final int INVALID_TOUCH_ID = -1;
 
+  private final MapType mMapType;
+
   private int mCurrentCompassOffsetX;
   private int mCurrentCompassOffsetY;
   private int mBottomWidgetOffsetX;
@@ -68,8 +76,9 @@ public final class Map
   @Nullable
   private CallbackUnsupported mCallbackUnsupported;
 
-  public Map()
+  public Map(MapType mapType)
   {
+    mMapType = mapType;
     onCreate(false);
   }
 
@@ -255,9 +264,9 @@ public final class Map
     return mSurfaceCreated;
   }
 
-  public void onScroll(float distanceX, float distanceY)
+  public void onScroll(double distanceX, double distanceY)
   {
-    Map.nativeMove(-distanceX / ((float) mWidth), distanceY / ((float) mHeight), false);
+    Map.nativeOnScroll(distanceX, distanceY);
   }
 
   public static void zoomIn()
@@ -272,7 +281,7 @@ public final class Map
 
   public static void onScale(double factor, double focusX, double focusY, boolean isAnim)
   {
-    nativeScale(factor, focusX, focusY, isAnim);
+    nativeOnScale(factor, focusX, focusY, isAnim);
   }
 
   public static void onTouch(int actionType, MotionEvent event, int pointerIndex)
@@ -289,9 +298,10 @@ public final class Map
     }
   }
 
-  public static void onTouch(float x, float y)
+  public static void onClick(float x, float y)
   {
-    nativeOnTouch(Map.NATIVE_ACTION_UP, 0, x, y, Map.INVALID_TOUCH_ID, 0, 0, 0);
+    nativeOnTouch(NATIVE_ACTION_DOWN, 0, x, y, Map.INVALID_TOUCH_ID, 0, 0, 0);
+    nativeOnTouch(NATIVE_ACTION_UP, 0, x, y, Map.INVALID_TOUCH_ID, 0, 0, 0);
   }
 
   public static boolean isEngineCreated()
@@ -312,7 +322,9 @@ public final class Map
     nativeCleanWidgets();
     updateBottomWidgetsOffset(context, mBottomWidgetOffsetX, mBottomWidgetOffsetY);
     nativeSetupWidget(WIDGET_SCALE_FPS_LABEL, UiUtils.dimen(context, R.dimen.margin_base), UiUtils.dimen(context, R.dimen.margin_base), ANCHOR_LEFT_TOP);
-    updateCompassOffset(context, mCurrentCompassOffsetX, mCurrentCompassOffsetY, false);
+    // Don't show compass on Android Auto
+    if (mMapType == MapType.Android)
+      updateCompassOffset(context, mCurrentCompassOffsetX, mCurrentCompassOffsetY, false);
   }
 
   private void updateRulerOffset(final Context context, int offsetX, int offsetY)
@@ -366,9 +378,9 @@ public final class Map
   private static native void nativeCompassUpdated(double north, boolean forceRedraw);
 
   // Events
-  private static native void nativeMove(double factorX, double factorY, boolean isAnim);
   private static native void nativeScalePlus();
   private static native void nativeScaleMinus();
-  private static native void nativeScale(double factor, double focusX, double focusY, boolean isAnim);
+  private static native void nativeOnScroll(double distanceX, double distanceY);
+  private static native void nativeOnScale(double factor, double focusX, double focusY, boolean isAnim);
   private static native void nativeOnTouch(int actionType, int id1, float x1, float y1, int id2, float x2, float y2, int maskedPointer);
 }
