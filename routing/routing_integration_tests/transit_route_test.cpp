@@ -61,29 +61,44 @@ UNIT_TEST(Transit_Piter_FrunzenskyaToPlochadVosstaniya)
   /// @todo Check https://github.com/organicmaps/organicmaps/issues/1669 for details.
   integration::TestRouteLength(*routeResult.first, 5593.96);
 
-  CHECK(routeResult.first, ());
+  TEST(routeResult.first, ());
   integration::CheckSubwayExistence(*routeResult.first);
 }
 
 UNIT_TEST(Transit_Piter_TooLongPedestrian)
 {
-  TRouteResult routeResult =
+  TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Transit),
                                   mercator::FromLatLon(59.90511, 30.31425), {0.0, 0.0},
                                   mercator::FromLatLon(59.78014, 30.50036));
 
-  TEST_EQUAL(routeResult.second, RouterResultCode::TransitRouteNotFoundTooLongPedestrian, ());
+  /// @todo Returns valid route now with long pedestrian part in the end, I don't see problems here.
+  TEST_EQUAL(routeResult.second, RouterResultCode::NoError, ());
+
+  TEST(routeResult.first, ());
+  auto const & route = *routeResult.first;
+
+  integration::CheckSubwayExistence(route);
+  integration::TestRouteLength(route, 23246.9);
+  TEST_LESS(route.GetTotalTimeSec(), 3600 * 3, ());
 }
 
 UNIT_TEST(Transit_Vatikan_NotEnoughGraphDataAtThenEnd)
 {
-  TRouteResult routeResult =
+  TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Transit),
                                   mercator::FromLatLon(41.89543, 12.41481), {0.0, 0.0},
                                   mercator::FromLatLon(41.89203, 12.46263));
 
   /// @todo Returns valid route now with long pedestrian part in the end, I don't see problems here.
-  TEST_EQUAL(routeResult.second, RouterResultCode::TransitRouteNotFoundTooLongPedestrian, ());
+  TEST_EQUAL(routeResult.second, RouterResultCode::NoError, ());
+
+  TEST(routeResult.first, ());
+  auto const & route = *routeResult.first;
+
+  integration::CheckSubwayExistence(route);
+  integration::TestRouteLength(route, 7622.54);
+  TEST_LESS(route.GetTotalTimeSec(), 4000, ());
 }
 
 UNIT_TEST(Transit_Vatikan_CorneliaToOttaviano)
