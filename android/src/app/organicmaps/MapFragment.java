@@ -16,12 +16,13 @@ import androidx.core.content.res.ConfigurationHelper;
 
 import app.organicmaps.base.BaseMwmFragment;
 import app.organicmaps.util.log.Logger;
+import app.organicmaps.Map.MapType;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class MapFragment extends BaseMwmFragment implements View.OnTouchListener, SurfaceHolder.Callback
 {
   private static final String TAG = MapFragment.class.getSimpleName();
-  private final Map mMap = new Map();
+  private final Map mMap = new Map(MapType.Android);
 
   public void updateCompassOffset(int offsetX, int offsetY)
   {
