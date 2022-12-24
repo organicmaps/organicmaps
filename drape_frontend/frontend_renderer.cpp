@@ -2078,6 +2078,11 @@ void FrontendRenderer::OnRotated()
   m_myPositionController->Rotated();
 }
 
+void FrontendRenderer::OnScrolled(m2::PointD const & distance)
+{
+  m_myPositionController->Scrolled(distance);
+}
+
 void FrontendRenderer::CorrectScalePoint(m2::PointD & pt) const
 {
   m_myPositionController->CorrectScalePoint(pt);
