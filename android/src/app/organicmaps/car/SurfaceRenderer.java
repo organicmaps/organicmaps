@@ -1,7 +1,6 @@
 package app.organicmaps.car;
 
 import android.graphics.Rect;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,15 +13,18 @@ import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
 
+import app.organicmaps.Framework;
 import app.organicmaps.Map;
+import app.organicmaps.Map.MapType;
 import app.organicmaps.R;
+import app.organicmaps.util.log.Logger;
 
 public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallback
 {
   private static final String TAG = SurfaceRenderer.class.getSimpleName();
 
   private final CarContext mCarContext;
-  private final Map mMap;
+  private final Map mMap = new Map(MapType.AndroidAuto);
 
   @Nullable
   private Rect mVisibleArea;
@@ -31,16 +33,15 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
 
   public SurfaceRenderer(@NonNull CarContext carContext, @NonNull Lifecycle lifecycle)
   {
-    Log.d(TAG, "SurfaceRenderer()");
+    Logger.d(TAG, "SurfaceRenderer()");
     mCarContext = carContext;
-    mMap = new Map();
     lifecycle.addObserver(this);
   }
 
   @Override
   public void onSurfaceAvailable(@NonNull SurfaceContainer surfaceContainer)
   {
-    Log.d(TAG, "Surface available " + surfaceContainer);
+    Logger.d(TAG, "Surface available " + surfaceContainer);
     mMap.onSurfaceCreated(
         mCarContext,
         surfaceContainer.getSurface(),
@@ -52,28 +53,29 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
   @Override
   public void onVisibleAreaChanged(@NonNull Rect visibleArea)
   {
-    Log.d(TAG, "Visible area changed. stableArea: " + mStableArea + " visibleArea:" + visibleArea);
+    Logger.d(TAG, "Visible area changed. visibleArea: " + visibleArea);
     mVisibleArea = visibleArea;
   }
 
   @Override
   public void onStableAreaChanged(@NonNull Rect stableArea)
   {
-    Log.d(TAG, "Stable area changed. stableArea: " + mStableArea + " visibleArea:" + mVisibleArea);
+    Logger.d(TAG, "Stable area changed. stableArea: " + stableArea);
     mStableArea = stableArea;
+    Framework.nativeSetVisibleRect(mStableArea.left, mStableArea.top, mStableArea.right, mStableArea.bottom);
   }
 
   @Override
   public void onSurfaceDestroyed(@NonNull SurfaceContainer surfaceContainer)
   {
-    Log.d(TAG, "Surface destroyed");
+    Logger.d(TAG, "Surface destroyed");
     mMap.onSurfaceDestroyed(false, true);
   }
 
   @Override
   public void onCreate(@NonNull LifecycleOwner owner)
   {
-    Log.d(TAG, "onCreate");
+    Logger.d(TAG, "onCreate");
     mCarContext.getCarService(AppManager.class).setSurfaceCallback(this);
 
     // TODO: Properly process deep links from other apps on AA.
@@ -84,7 +86,7 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
   @Override
   public void onStart(@NonNull LifecycleOwner owner)
   {
-    Log.d(TAG, "onStart");
+    Logger.d(TAG, "onStart");
     mMap.onStart();
     mMap.setCallbackUnsupported(this::reportUnsupported);
   }
@@ -92,7 +94,7 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
   @Override
   public void onStop(@NonNull LifecycleOwner owner)
   {
-    Log.d(TAG, "onStop");
+    Logger.d(TAG, "onStop");
     mMap.onStop();
     mMap.setCallbackUnsupported(null);
   }
@@ -100,28 +102,28 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
   @Override
   public void onPause(@NonNull LifecycleOwner owner)
   {
-    Log.d(TAG, "onPause");
+    Logger.d(TAG, "onPause");
     mMap.onPause(mCarContext);
   }
 
   @Override
   public void onResume(@NonNull LifecycleOwner owner)
   {
-    Log.d(TAG, "onResume");
+    Logger.d(TAG, "onResume");
     mMap.onResume();
   }
 
   @Override
   public void onScroll(float distanceX, float distanceY)
   {
-    Log.d(TAG, "onScroll: distanceX: " + distanceX + ", distanceY: " + distanceY);
+    Logger.d(TAG, "distanceX: " + distanceX + ", distanceY: " + distanceY);
     mMap.onScroll(distanceX, distanceY);
   }
 
   @Override
   public void onFling(float velocityX, float velocityY)
   {
-    Log.d(TAG, "onFling: velocityX: " + velocityX + ", velocityY: " + velocityY);
+    Logger.d(TAG, "velocityX: " + velocityX + ", velocityY: " + velocityY);
   }
 
   public void onZoomIn()
@@ -137,7 +139,7 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
   @Override
   public void onScale(float focusX, float focusY, float scaleFactor)
   {
-    Log.d(TAG, "onScale: focusX: " + focusX + ", focusY: " + focusY + ", scaleFactor: " + scaleFactor);
+    Logger.d(TAG, "focusX: " + focusX + ", focusY: " + focusY + ", scaleFactor: " + scaleFactor);
     float x = focusX;
     float y = focusY;
 
@@ -159,14 +161,14 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
   @Override
   public void onClick(float x, float y)
   {
-    Log.d(TAG, "onClick: x: " + x + ", y: " + y);
-    Map.onTouch(x, y);
+    Logger.d(TAG, "x: " + x + ", y: " + y);
+    Map.onClick(x, y);
   }
 
   private void reportUnsupported()
   {
     String message = mCarContext.getString(R.string.unsupported_phone);
-    Log.e(TAG, mCarContext.getString(R.string.unsupported_phone));
+    Logger.e(TAG, message);
     CarToast.makeText(mCarContext, message, CarToast.LENGTH_LONG).show();
   }
 }

@@ -129,6 +129,7 @@ public:
   void AddTouchEvent(TouchEvent const & event);
   void Scale(double factor, m2::PointD const & pxPoint, bool isAnim);
   void Move(double factorX, double factorY, bool isAnim);
+  void Scroll(double distanceX, double distanceY);
   void Rotate(double azimuth, bool isAnim);
 
   void ScaleAndSetCenter(m2::PointD const & centerPt, double scaleFactor, bool isAnim,
