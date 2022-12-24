@@ -94,6 +94,8 @@ public:
 
   void Rotated();
 
+  void Scrolled(m2::PointD const & distance);
+
   void ResetRoutingNotFollowTimer(bool blockTimer = false);
   void ResetBlockAutoZoomTimer();
 

@@ -1054,6 +1054,12 @@ void Framework::Move(double factorX, double factorY, bool isAnim)
     m_drapeEngine->Move(factorX, factorY, isAnim);
 }
 
+void Framework::Scroll(double distanceX, double distanceY)
+{
+  if (m_drapeEngine != nullptr)
+    m_drapeEngine->Scroll(distanceX, distanceY);
+}
+
 void Framework::Rotate(double azimuth, bool isAnim)
 {
   if (m_drapeEngine != nullptr)
