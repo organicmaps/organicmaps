@@ -200,8 +200,19 @@ void RoadGeometry::Load(VehicleModelInterface const & vehicleModel, FeatureType 
 
 #ifdef DEBUG
     // I'd like to check these big jumps manually, if any.
-    if (altitudes && i > 0 && abs((*altitudes)[i] - (*altitudes)[i-1]) > 30)
-      LOG(LWARNING, ("Altitudes jump:", m_junctions[i], m_junctions[i-1]));
+    if (altitudes && i > 0)
+    {
+      // Since we store integer altitudes, 1 is a possible error for 2 points.
+      geometry::Altitude constexpr kError = 1;
+
+      auto const altDiff = abs((*altitudes)[i] - (*altitudes)[i-1]);
+      if (altDiff > kError)
+      {
+        double const dist = ms::DistanceOnEarth(m_junctions[i-1].GetLatLon(), m_junctions[i].GetLatLon());
+        if ((altDiff - kError) / dist > 0.3)
+          LOG(LWARNING, ("Altitudes jump:", m_junctions[i-1], m_junctions[i]));
+      }
+    }
 #endif
   }
   m_distances.resize(count - 1, -1);

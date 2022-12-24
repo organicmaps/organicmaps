@@ -5,8 +5,6 @@
 #include "routing/route.hpp"
 #include "routing/routing_callbacks.hpp"
 
-#include "geometry/latlon.hpp"
-
 #include <algorithm>
 
 namespace guides_tests
@@ -70,7 +68,7 @@ UNIT_TEST(Guides_TwoPointsOnTrackOneViaOsm)
                                 mercator::FromLatLon(48.14448, 11.57259)};
 
   double const expectedDistM = 788.681;
-  double const expectedTimeS = 913.042;
+  double const expectedTimeS = 903.3;
   size_t const expectedPointsCount = 13;
 
   TestGuideRoute(checkpoints, expectedDistM, expectedTimeS, expectedPointsCount);
@@ -86,7 +84,7 @@ UNIT_TEST(Guides_FinishPointOnTrack)
   Checkpoints const checkpoints{mercator::FromLatLon(48.1394659, 11.575924),
                                 mercator::FromLatLon(48.1407632, 11.5716992)};
 
-  TestGuideRoute(checkpoints, 840.1 /* expectedDistM */, 771.3 /* expectedTimeS */, 37 /* expectedPointsCount */);
+  TestGuideRoute(checkpoints, 840.1 /* expectedDistM */, 762.098 /* expectedTimeS */, 37 /* expectedPointsCount */);
 }
 
 // Start checkpoint is on the track, finish checkpoint is far away. We build the first part of the

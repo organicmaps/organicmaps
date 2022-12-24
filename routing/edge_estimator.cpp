@@ -67,7 +67,9 @@ double CalcClimbSegment(EdgeEstimator::Purpose purpose, Segment const & segment,
   LatLonWithAltitude const & from = road.GetJunction(segment.GetPointId(false /* front */));
   LatLonWithAltitude const & to = road.GetJunction(segment.GetPointId(true /* front */));
 
-  double const altitudeDiff = static_cast<double>(to.GetAltitude()) - static_cast<double>(from.GetAltitude());
+  ASSERT(to.GetAltitude() != geometry::kInvalidAltitude && from.GetAltitude() != geometry::kInvalidAltitude, ());
+  auto const altitudeDiff = to.GetAltitude() - from.GetAltitude();
+
   return timeSec * getClimbPenalty(purpose, altitudeDiff / distance, to.GetAltitude());
 }
 }  // namespace
@@ -78,23 +80,34 @@ double GetPedestrianClimbPenalty(EdgeEstimator::Purpose purpose, double tangent,
   double constexpr kMinPenalty = 1.0;
   // Descent penalty is less then the ascent penalty.
   double const impact = tangent >= 0.0 ? 1.0 : 0.35;
-  tangent = fabs(tangent);
 
   if (altitudeM >= kMountainSicknessAltitudeM)
-    return kMinPenalty + (10.0 + (altitudeM - kMountainSicknessAltitudeM) * 10.0 / 1500.0) * tangent * impact;
+    return kMinPenalty + (10.0 + (altitudeM - kMountainSicknessAltitudeM) * 10.0 / 1500.0) * fabs(tangent) * impact;
 
-  // Some thoughts about gradient and foot walking: https://gre-kow.livejournal.com/26916.html
-  // 3cm diff with avg foot length 60cm is imperceptible (see Hungary_UseFootways).
-  double constexpr kTangentThreshold = 3.0/60.0;
-  if (tangent < kTangentThreshold)
-    return kMinPenalty;
+  if (purpose == EdgeEstimator::Purpose::Weight)
+  {
+    tangent = fabs(tangent);
+    // Some thoughts about gradient and foot walking: https://gre-kow.livejournal.com/26916.html
+    // 3cm diff with avg foot length 60cm is imperceptible (see Hungary_UseFootways).
+    double constexpr kTangentThreshold = 3.0/60.0;
+    if (tangent < kTangentThreshold)
+      return kMinPenalty;
 
-  // ETA coefficients are calculated in https://github.com/mapsme/omim-scripts/pull/21
-  auto const penalty = purpose == EdgeEstimator::Purpose::Weight
-                           ? 5.0 * tangent + 7.0 * tangent * tangent
-                           : 3.01 * tangent + 3.54 * tangent * tangent;
+    // ETA coefficients are calculated in https://github.com/mapsme/omim-scripts/pull/21
+    auto const penalty = purpose == EdgeEstimator::Purpose::Weight
+                             ? 5.0 * tangent + 7.0 * tangent * tangent
+                             : 3.01 * tangent + 3.54 * tangent * tangent;
 
-  return kMinPenalty + penalty * impact;
+    return kMinPenalty + penalty * impact;
+  }
+  else
+  {
+    // Use Tobler’s Hiking Function for ETA like more comprehensive. See France_Uphill_Downlhill test.
+    // Why not in Weight? See Crimea_Altitude_Mountains test.
+    // https://mtntactical.com/research/yet-calculating-movement-uneven-terrain/
+    // Returns factor: W(0) / W(tangent).
+    return exp(-3.5 * (0.05 - fabs(tangent + 0.05)));
+  }
 }
 
 double GetBicycleClimbPenalty(EdgeEstimator::Purpose purpose, double tangent,
