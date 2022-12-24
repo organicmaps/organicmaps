@@ -41,7 +41,8 @@ public:
     FollowAndRotate,
     AutoPerspective,
     VisibleViewport,
-    Move
+    Move,
+    Scroll
   };
 
   virtual ~UserEvent() = default;
@@ -377,6 +378,24 @@ private:
   m2::RectD m_rect;
 };
 
+class ScrollEvent : public UserEvent
+{
+public:
+    ScrollEvent(double distanceX, double distanceY)
+              : m_distanceX(distanceX)
+              , m_distanceY(distanceY)
+    {}
+
+    EventType GetType() const override { return UserEvent::EventType::Scroll; }
+
+    double GetDistanceX() const { return m_distanceX; }
+    double GetDistanceY() const { return m_distanceY; }
+
+private:
+    double m_distanceX;
+    double m_distanceY;
+};
+
 class UserEventStream
 {
 public:
@@ -395,6 +414,7 @@ public:
 
     virtual void OnScaleStarted() = 0;
     virtual void OnRotated() = 0;
+    virtual void OnScrolled(m2::PointD const & distance) = 0;
     virtual void CorrectScalePoint(m2::PointD & pt) const = 0;
     virtual void CorrectGlobalScalePoint(m2::PointD & pt) const = 0;
     virtual void CorrectScalePoint(m2::PointD & pt1, m2::PointD & pt2) const = 0;
@@ -455,6 +475,7 @@ private:
   bool OnSetCenter(ref_ptr<SetCenterEvent> centerEvent);
   bool OnRotate(ref_ptr<RotateEvent> rotateEvent);
   bool OnNewVisibleViewport(ref_ptr<SetVisibleViewportEvent> viewportEvent);
+  bool OnScroll(ref_ptr<ScrollEvent> scrollEvent);
 
   bool SetAngle(double azimuth, bool isAnim, TAnimationCreator const & parallelAnimCreator = nullptr);
   bool SetRect(m2::RectD rect, int zoom, bool applyRotation, bool isAnim,
