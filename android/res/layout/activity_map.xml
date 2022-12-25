@@ -72,5 +72,4 @@
       android:orientation="horizontal" />
     <include layout="@layout/divider_horizontal" />
   </FrameLayout>
-  <include layout="@layout/elevation_profile_bottom_sheet" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
