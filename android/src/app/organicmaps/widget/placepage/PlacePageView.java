@@ -195,6 +195,8 @@ public class PlacePageView extends NestedScrollViewClickFixed
 
   private OnPlacePageContentChangeListener mOnPlacePageContentChangeListener;
 
+  private OnPlacePageRequestCloseListener mOnPlacePageRequestCloseListener;
+
   private final MapManager.StorageCallback mStorageCallback = new MapManager.StorageCallback()
   {
     @Override
@@ -251,9 +253,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
   };
 
   @Nullable
-  private Closable mClosable;
-
-  @Nullable
   private PlacePageGestureListener mPlacePageGestureListener;
 
   @Nullable
@@ -269,9 +268,9 @@ public class PlacePageView extends NestedScrollViewClickFixed
     mPlacePageGestureListener = ppGestureListener;
   }
 
-  void addClosable(@NonNull Closable closable)
+  void setOnPlacePageRequestCloseListener(@NonNull OnPlacePageRequestCloseListener listener)
   {
-    mClosable = closable;
+    mOnPlacePageRequestCloseListener = listener;
   }
 
   @Override
@@ -577,11 +576,11 @@ public class PlacePageView extends NestedScrollViewClickFixed
     if (!controller.isPlanning())
     {
       controller.prepare(mMapObject, null);
-      close();
+      mOnPlacePageRequestCloseListener.onPlacePageRequestClose();
     }
     else if (controller.setStartPoint(mMapObject))
     {
-      close();
+      mOnPlacePageRequestCloseListener.onPlacePageRequestClose();
     }
   }
 
@@ -590,7 +589,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
     if (RoutingController.get().isPlanning())
     {
       RoutingController.get().setEndPoint(mMapObject);
-      close();
+      mOnPlacePageRequestCloseListener.onPlacePageRequestClose();
     }
     else
     {
@@ -1554,12 +1553,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
     return true;
   }
 
-  private void close()
-  {
-    if (mClosable != null)
-      mClosable.closePlacePage();
-  }
-
   void reset()
   {
     resetScroll();
@@ -1695,5 +1688,10 @@ public class PlacePageView extends NestedScrollViewClickFixed
   interface OnPlacePageContentChangeListener
   {
     void OnPlacePageContentChange();
+  }
+
+  interface OnPlacePageRequestCloseListener
+  {
+    void onPlacePageRequestClose();
   }
 }

@@ -81,11 +81,9 @@ import app.organicmaps.util.log.Logger;
 import app.organicmaps.widget.menu.MainMenu;
 import app.organicmaps.widget.placepage.PlacePageController;
 import app.organicmaps.widget.placepage.PlacePageData;
-import app.organicmaps.widget.placepage.PlacePageFactory;
 import app.organicmaps.widget.placepage.RoutingModeListener;
 import app.organicmaps.util.Config;
 import app.organicmaps.util.Counters;
-import app.organicmaps.util.LocationUtils;
 import app.organicmaps.util.SharingUtils;
 import app.organicmaps.util.ThemeSwitcher;
 import app.organicmaps.util.ThemeUtils;
@@ -98,7 +96,6 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Stack;
 
-import static app.organicmaps.util.concurrency.UiThread.runLater;
 import static app.organicmaps.widget.placepage.PlacePageButtons.PLACEPAGE_MORE_MENU_ID;
 
 public class MwmActivity extends BaseMwmFragmentActivity
@@ -384,10 +381,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     setContentView(R.layout.activity_map);
     UiUtils.setupTransparentStatusBar(this);
 
-    mPlacePageController = PlacePageFactory.createCompositePlacePageController(
-        this, this);
+    mPlacePageController = new PlacePageController(this, this);
     mPlacePageController.initialize(this);
-    mPlacePageController.onActivityCreated(this, savedInstanceState);
 
     mSearchController = new FloatingSearchToolbarController(this, this);
     mSearchController.getToolbar()
@@ -1008,7 +1003,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
       mOnmapDownloader.onResume();
 
     mNavigationController.onActivityResumed(this);
-    mPlacePageController.onActivityResumed(this);
     refreshLightStatusBar();
   }
 
@@ -1035,7 +1029,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
       TtsPlayer.INSTANCE.stop();
     if (mOnmapDownloader != null)
       mOnmapDownloader.onPause();
-    mPlacePageController.onActivityPaused(this);
     mNavigationController.onActivityPaused(this);
     super.onPause();
   }
@@ -1052,7 +1045,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     LocationState.nativeSetListener(this);
     LocationHelper.INSTANCE.addListener(this);
     onMyPositionModeChanged(LocationState.nativeGetMode());
-    mPlacePageController.onActivityStarted(this);
     mSearchController.attach(this);
     if (!Config.isScreenSleepEnabled())
       Utils.keepScreenOn(true, getWindow());
@@ -1068,7 +1060,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     LocationState.nativeRemoveListener();
     LocationHelper.INSTANCE.detach();
     RoutingController.get().detach();
-    mPlacePageController.onActivityStopped(this);
     IsolinesManager.from(getApplicationContext()).detach();
     mSearchController.detach();
     Utils.keepScreenOn(false, getWindow());
