@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 
+import app.organicmaps.MwmActivity;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.routing.RoutingController;
@@ -29,7 +30,7 @@ public final class PlacePageButtons
   public static final String PLACEPAGE_MORE_MENU_ID = "PLACEPAGE_MORE_MENU_BOTTOM_SHEET";
   private final int mMaxButtons;
 
-  private final PlacePageView mPlacePage;
+  private final MwmActivity mMwmActivity;
   private final ViewGroup mFrame;
   private final ItemListener mItemListener;
 
@@ -244,13 +245,13 @@ public final class PlacePageButtons
     void onItemClick(PlacePageButton item);
   }
 
-  PlacePageButtons(PlacePageView placePage, ViewGroup frame, ItemListener itemListener)
+  PlacePageButtons(MwmActivity mwmActivity, ViewGroup frame, ItemListener itemListener)
   {
-    mPlacePage = placePage;
+    mMwmActivity = mwmActivity;
     mFrame = frame;
     mItemListener = itemListener;
 
-    mMaxButtons = mPlacePage.getContext().getResources().getInteger(R.integer.pp_buttons_max);
+    mMaxButtons = mMwmActivity.getResources().getInteger(R.integer.pp_buttons_max);
   }
 
   private @NonNull List<PlacePageButtons.PlacePageButton> collectButtons(List<PlacePageButtons.PlacePageButton> items)
@@ -320,7 +321,7 @@ public final class PlacePageButtons
     for (int i = mMaxButtons; i < mMoreItems.size(); i++)
     {
       final PlacePageButton bsItem = mMoreItems.get(i);
-      int iconRes = bsItem.getIcon().getEnabledStateResId(mPlacePage.getContext());
+      int iconRes = bsItem.getIcon().getEnabledStateResId(mMwmActivity);
       items.add(new MenuBottomSheetItem(bsItem.getTitle(), iconRes, () -> mItemListener.onItemClick(bsItem)));
     }
     return items;
@@ -329,21 +330,20 @@ public final class PlacePageButtons
   private void showPopup()
   {
     MenuBottomSheetFragment.newInstance(PLACEPAGE_MORE_MENU_ID)
-        .show(mPlacePage.requireActivity().getSupportFragmentManager(), PLACEPAGE_MORE_MENU_ID);
+        .show(mMwmActivity.getSupportFragmentManager(), PLACEPAGE_MORE_MENU_ID);
   }
 
   private View createButton(@NonNull final List<PlacePageButton> items,
                             @NonNull final PlacePageButton current)
   {
-    Context context = mPlacePage.getContext();
-    LayoutInflater inflater = LayoutInflater.from(context);
+    LayoutInflater inflater = LayoutInflater.from(mMwmActivity);
     View parent = inflater.inflate(R.layout.place_page_button, mFrame, false);
 
     ImageView icon = parent.findViewById(R.id.icon);
     TextView title = parent.findViewById(R.id.title);
 
     title.setText(current.getTitle());
-    icon.setImageResource(current.getIcon().getEnabledStateResId(context));
+    icon.setImageResource(current.getIcon().getEnabledStateResId(mMwmActivity));
     mItemListener.onPrepareVisibleView(current, parent, icon, title);
     if (current == Item.MORE)
       mMoreItems = items;
