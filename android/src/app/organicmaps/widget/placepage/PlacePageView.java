@@ -447,7 +447,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
 
   public void initButtons(@NonNull ViewGroup buttons)
   {
-    mButtons = new PlacePageButtons(this, buttons, new PlacePageButtons.ItemListener()
+    mButtons = new PlacePageButtons(requireActivity(), buttons, new PlacePageButtons.ItemListener()
     {
       public void onPrepareVisibleView(@NonNull PlacePageButtons.PlacePageButton item,
                                        @NonNull View frame, @NonNull ImageView icon,
