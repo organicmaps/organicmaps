@@ -79,6 +79,7 @@ import app.organicmaps.settings.UnitLocale;
 import app.organicmaps.sound.TtsPlayer;
 import app.organicmaps.util.log.Logger;
 import app.organicmaps.widget.menu.MainMenu;
+import app.organicmaps.widget.placepage.PlacePageButtons;
 import app.organicmaps.widget.placepage.PlacePageController;
 import app.organicmaps.widget.placepage.PlacePageData;
 import app.organicmaps.widget.placepage.RoutingModeListener;
@@ -114,7 +115,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
                RoutingModeListener,
                NoConnectionListener,
                MenuBottomSheetFragment.MenuBottomSheetInterfaceWithHeader,
-               ToggleMapLayerFragment.LayerItemClickListener
+               ToggleMapLayerFragment.LayerItemClickListener,
+               PlacePageButtons.PlacePageButtonClickListener
 {
   private static final String TAG = MwmActivity.class.getSimpleName();
 
@@ -149,6 +151,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private View mPointChooser;
   private Toolbar mPointChooserToolbar;
+
   enum PointChooserMode
   {
     NONE,
@@ -1810,7 +1813,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return items;
     }
     else if (id.equals(PLACEPAGE_MORE_MENU_ID))
-      return mPlacePageController.getMenuBottomSheetItems();
+      return mPlacePageController.getMenuBottomSheetItems(id);
     return null;
   }
 
@@ -1821,5 +1824,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (id.equals(LAYERS_MENU_ID))
       return new ToggleMapLayerFragment();
     return null;
+  }
+
+  @Override
+  public void onPlacePageButtonClick(PlacePageButtons.ButtonType item)
+  {
+    mPlacePageController.onPlacePageButtonClick(item);
   }
 }

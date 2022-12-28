@@ -21,7 +21,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
@@ -33,6 +32,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.widget.NestedScrollViewClickFixed;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 import app.organicmaps.Framework;
 import app.organicmaps.MwmActivity;
@@ -58,16 +58,14 @@ import app.organicmaps.location.LocationHelper;
 import app.organicmaps.routing.RoutingController;
 import app.organicmaps.search.Popularity;
 import app.organicmaps.settings.RoadType;
-import app.organicmaps.widget.ArrowView;
-import app.organicmaps.util.Graphics;
 import app.organicmaps.util.SharingUtils;
 import app.organicmaps.util.StringUtils;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
-import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
 import app.organicmaps.util.concurrency.UiThread;
 import app.organicmaps.util.log.Logger;
+import app.organicmaps.widget.ArrowView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -79,7 +77,8 @@ import java.util.Objects;
 public class PlacePageView extends NestedScrollViewClickFixed
     implements View.OnClickListener,
                View.OnLongClickListener,
-               EditBookmarkFragment.EditBookmarkListener
+               EditBookmarkFragment.EditBookmarkListener,
+               PlacePageButtons.PlacePageButtonClickListener
 
 {
   private static final String TAG = PlacePageView.class.getSimpleName();
@@ -90,11 +89,11 @@ public class PlacePageView extends NestedScrollViewClickFixed
                     CoordinatesFormat.LatLonDecimal,
                     CoordinatesFormat.OLCFull,
                     CoordinatesFormat.OSMLink);
-
+  @NonNull
+  private final EditBookmarkClickListener mEditBookmarkClickListener = new EditBookmarkClickListener();
   private boolean mIsDocked;
   private boolean mIsFloating;
   private int mDescriptionMaxLength;
-
   // Preview.
   private ViewGroup mPreview;
   private Toolbar mToolbar;
@@ -104,7 +103,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
   private ArrowView mAvDirection;
   private TextView mTvDistance;
   private TextView mTvAddress;
-
   // Details.
   private ViewGroup mDetails;
   private RecyclerView mPhoneRecycler;
@@ -123,7 +121,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
   private TextView mTvVkPage;
   private View mLinePage;
   private TextView mTvLinePage;
-
   private View mOpeningHours;
   private TextView mTodayLabel;
   private TextView mTodayOpenTime;
@@ -154,49 +151,39 @@ public class PlacePageView extends NestedScrollViewClickFixed
   private WebView mWvBookmarkNote;
   private TextView mTvBookmarkNote;
   private boolean mBookmarkSet;
-  // Place page buttons
-  private PlacePageButtons mButtons;
-  private ImageView mBookmarkButtonIcon;
-  @Nullable
-  private View mBookmarkButtonFrame;
-
   @SuppressWarnings("NullableProblems")
   @NonNull
   private View mPlaceDescriptionContainer;
-
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private View mPlaceDescriptionHeaderContainer;
-
   @SuppressWarnings("NullableProblems")
   @NonNull
   private TextView mPlaceDescriptionView;
-
   @SuppressWarnings("NullableProblems")
   @NonNull
   private View mPlaceDescriptionMoreBtn;
-
   @SuppressWarnings("NullableProblems")
   @NonNull
   private View mPopularityView;
-
   // Data
   @Nullable
   private MapObject mMapObject;
   private CoordinatesFormat mCoordsFormat = CoordinatesFormat.LatLonDecimal;
-
   // Downloader`s stuff
   private DownloaderStatusIcon mDownloaderIcon;
   private TextView mDownloaderInfo;
   private int mStorageCallbackSlot;
   @Nullable
   private CountryItem mCurrentCountry;
-  private boolean mScrollable = true;
-
-  private OnPlacePageContentChangeListener mOnPlacePageContentChangeListener;
-
-  private OnPlacePageRequestCloseListener mOnPlacePageRequestCloseListener;
-
+  private final Runnable mDownloaderDeferredDetachProc = new Runnable()
+  {
+    @Override
+    public void run()
+    {
+      detachCountry();
+    }
+  };
   private final MapManager.StorageCallback mStorageCallback = new MapManager.StorageCallback()
   {
     @Override
@@ -220,18 +207,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
         updateDownloader();
     }
   };
-
-  private final Runnable mDownloaderDeferredDetachProc = new Runnable()
-  {
-    @Override
-    public void run()
-    {
-      detachCountry();
-    }
-  };
-  @NonNull
-  private final EditBookmarkClickListener mEditBookmarkClickListener = new EditBookmarkClickListener();
-
   @NonNull
   private final OnClickListener mDownloadClickListener = new OnClickListener()
   {
@@ -241,7 +216,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
       MapManager.warn3gAndDownload(requireActivity(), mCurrentCountry.id, null);
     }
   };
-
   @NonNull
   private final OnClickListener mCancelDownloadListener = new OnClickListener()
   {
@@ -251,12 +225,72 @@ public class PlacePageView extends NestedScrollViewClickFixed
       MapManager.nativeCancel(mCurrentCountry.id);
     }
   };
-
+  private boolean mScrollable = true;
+  private OnPlacePageContentChangeListener mOnPlacePageContentChangeListener;
+  private OnPlacePageRequestCloseListener mOnPlacePageRequestCloseListener;
   @Nullable
   private PlacePageGestureListener mPlacePageGestureListener;
 
   @Nullable
   private RoutingModeListener mRoutingModeListener;
+
+  private PlacePageButtonsViewModel viewModel;
+
+  public PlacePageView(Context context)
+  {
+    this(context, null, 0);
+  }
+
+  public PlacePageView(Context context, AttributeSet attrs)
+  {
+    this(context, attrs, 0);
+  }
+
+  public PlacePageView(Context context, AttributeSet attrs, int defStyleAttr)
+  {
+    super(context, attrs);
+    mCoordsFormat = CoordinatesFormat.fromId(MwmApplication.prefs(context)
+                                                           .getInt(PREF_COORDINATES_FORMAT, CoordinatesFormat.LatLonDecimal.getId()));
+    init(attrs, defStyleAttr);
+  }
+
+  @NonNull
+  private static PlacePageButtons.ButtonType toPlacePageButton(@NonNull RoadWarningMarkType type)
+  {
+    switch (type)
+    {
+      case DIRTY:
+        return PlacePageButtons.ButtonType.ROUTE_AVOID_UNPAVED;
+      case FERRY:
+        return PlacePageButtons.ButtonType.ROUTE_AVOID_FERRY;
+      case TOLL:
+        return PlacePageButtons.ButtonType.ROUTE_AVOID_TOLL;
+      default:
+        throw new AssertionError("Unsupported road warning type: " + type);
+    }
+  }
+
+  private static void refreshMetadataOrHide(String metadata, View metaLayout, TextView metaTv)
+  {
+    if (!TextUtils.isEmpty(metadata))
+    {
+      metaLayout.setVisibility(View.VISIBLE);
+      if (metaTv != null)
+        metaTv.setText(metadata);
+    }
+    else
+      metaLayout.setVisibility(View.GONE);
+  }
+
+  private static boolean isInvalidDownloaderStatus(int status)
+  {
+    return (status != CountryItem.STATUS_DOWNLOADABLE &&
+            status != CountryItem.STATUS_ENQUEUED &&
+            status != CountryItem.STATUS_FAILED &&
+            status != CountryItem.STATUS_PARTLY &&
+            status != CountryItem.STATUS_PROGRESS &&
+            status != CountryItem.STATUS_APPLYING);
+  }
 
   void setScrollable(boolean scrollable)
   {
@@ -291,32 +325,12 @@ public class PlacePageView extends NestedScrollViewClickFixed
     return mScrollable && super.onInterceptTouchEvent(event);
   }
 
-  public interface SetMapObjectListener
-  {
-    void onSetMapObjectComplete(boolean isSameObject);
-  }
-
-  public PlacePageView(Context context)
-  {
-    this(context, null, 0);
-  }
-
-  public PlacePageView(Context context, AttributeSet attrs)
-  {
-    this(context, attrs, 0);
-  }
-
-  public PlacePageView(Context context, AttributeSet attrs, int defStyleAttr)
-  {
-    super(context, attrs);
-    mCoordsFormat = CoordinatesFormat.fromId(MwmApplication.prefs(context).getInt(PREF_COORDINATES_FORMAT, CoordinatesFormat.LatLonDecimal.getId()));
-    init(attrs, defStyleAttr);
-  }
-
   @Override
   protected void onFinishInflate()
   {
     super.onFinishInflate();
+    viewModel = new ViewModelProvider(requireActivity()).get(PlacePageButtonsViewModel.class);
+
     mPreview = findViewById(R.id.pp__preview);
     mPreview.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
       final int oldHeight = oldBottom - oldTop;
@@ -445,85 +459,52 @@ public class PlacePageView extends NestedScrollViewClickFixed
     initPlaceDescriptionView();
   }
 
-  public void initButtons(@NonNull ViewGroup buttons)
+  @Override
+  public void onPlacePageButtonClick(PlacePageButtons.ButtonType item)
   {
-    mButtons = new PlacePageButtons(requireActivity(), buttons, new PlacePageButtons.ItemListener()
+    switch (item)
     {
-      public void onPrepareVisibleView(@NonNull PlacePageButtons.PlacePageButton item,
-                                       @NonNull View frame, @NonNull ImageView icon,
-                                       @NonNull TextView title)
-      {
-        int color;
+      case BOOKMARK_SAVE:
+      case BOOKMARK_DELETE:
+        onBookmarkBtnClicked();
+        break;
 
-        switch (item.getType())
-        {
-          case BOOKMARK:
-            mBookmarkButtonIcon = icon;
-            mBookmarkButtonFrame = frame;
-            updateBookmarkButton();
-            color = ThemeUtils.getColor(getContext(), R.attr.iconTint);
-            break;
+      case SHARE:
+        onShareBtnClicked();
+        break;
 
-          default:
-            color = ThemeUtils.getColor(getContext(), R.attr.iconTint);
-            icon.setColorFilter(color);
-            break;
-        }
+      case BACK:
+        onBackBtnClicked();
+        break;
 
-        title.setTextColor(color);
-      }
+      case ROUTE_FROM:
+        onRouteFromBtnClicked();
+        break;
 
-      @Override
-      public void onItemClick(PlacePageButtons.PlacePageButton item)
-      {
-        switch (item.getType())
-        {
-          case BOOKMARK:
-            onBookmarkBtnClicked();
-            break;
+      case ROUTE_TO:
+        onRouteToBtnClicked();
+        break;
 
-          case SHARE:
-            onShareBtnClicked();
-            break;
+      case ROUTE_ADD:
+        onRouteAddBtnClicked();
+        break;
 
-          case BACK:
-            onBackBtnClicked();
-            break;
+      case ROUTE_REMOVE:
+        onRouteRemoveBtnClicked();
+        break;
 
-          case ROUTE_FROM:
-            onRouteFromBtnClicked();
-            break;
+      case ROUTE_AVOID_TOLL:
+        onAvoidTollBtnClicked();
+        break;
 
-          case ROUTE_TO:
-            onRouteToBtnClicked();
-            break;
+      case ROUTE_AVOID_UNPAVED:
+        onAvoidUnpavedBtnClicked();
+        break;
 
-          case ROUTE_ADD:
-            onRouteAddBtnClicked();
-            break;
-
-          case ROUTE_REMOVE:
-            onRouteRemoveBtnClicked();
-            break;
-
-          case ROUTE_AVOID_TOLL:
-            onAvoidTollBtnClicked();
-            break;
-
-          case ROUTE_AVOID_UNPAVED:
-            onAvoidUnpavedBtnClicked();
-            break;
-
-          case ROUTE_AVOID_FERRY:
-            onAvoidFerryBtnClicked();
-            break;
-
-          case CALL:
-            onCallBtnClicked(buttons);
-            break;
-        }
-      }
-    });
+      case ROUTE_AVOID_FERRY:
+        onAvoidFerryBtnClicked();
+        break;
+    }
   }
 
   private void onBookmarkBtnClicked()
@@ -560,10 +541,10 @@ public class PlacePageView extends NestedScrollViewClickFixed
     {
       final Intent result = new Intent();
       result.putExtra(Const.EXTRA_POINT_LAT, mMapObject.getLat())
-          .putExtra(Const.EXTRA_POINT_LON, mMapObject.getLon())
-          .putExtra(Const.EXTRA_POINT_NAME, mMapObject.getTitle())
-          .putExtra(Const.EXTRA_POINT_ID, mMapObject.getApiId())
-          .putExtra(Const.EXTRA_ZOOM_LEVEL, Framework.nativeGetDrawScale());
+            .putExtra(Const.EXTRA_POINT_LON, mMapObject.getLon())
+            .putExtra(Const.EXTRA_POINT_NAME, mMapObject.getTitle())
+            .putExtra(Const.EXTRA_POINT_ID, mMapObject.getApiId())
+            .putExtra(Const.EXTRA_ZOOM_LEVEL, Framework.nativeGetDrawScale());
       requireActivity().setResult(Activity.RESULT_OK, result);
       ParsedMwmRequest.setCurrentRequest(null);
     }
@@ -614,7 +595,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
     return mPhoneAdapter.getPhonesList();
   }
 
-  private void onCallBtnClicked(View parentView)
+  private void onCallBtnClicked()
   {
     final List<String> phones = getAllPhones();
     if (phones.size() == 1)
@@ -624,7 +605,8 @@ public class PlacePageView extends NestedScrollViewClickFixed
     else
     {
       // Show popup menu with all phones
-      final PopupMenu popup = new PopupMenu(getContext(), parentView);
+      // TODO find a way to access the correct parent instead of mPreview
+      final PopupMenu popup = new PopupMenu(getContext(), mPreview);
       final Menu menu = popup.getMenu();
 
       for (int i = 0; i < phones.size(); i++)
@@ -734,16 +716,13 @@ public class PlacePageView extends NestedScrollViewClickFixed
       mMapObject = mapObject;
       refreshViews();
       if (listener != null)
-      {
         listener.onSetMapObjectComplete(true);
-      }
       if (mCurrentCountry == null)
         setCurrentCountry();
       return;
     }
 
     mMapObject = mapObject;
-
     setMapObjectInternal();
     if (listener != null)
       listener.onSetMapObjectComplete(false);
@@ -770,7 +749,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
       attachCountry(country);
   }
 
-  void refreshViews()
+  private void refreshViews()
   {
     if (mMapObject == null)
     {
@@ -785,32 +764,38 @@ public class PlacePageView extends NestedScrollViewClickFixed
   private void refreshViewsInternal(@NonNull MapObject mapObject)
   {
     final Location loc = LocationHelper.INSTANCE.getSavedLocation();
+    boolean showBackButton = false;
+    boolean showRoutingButton = true;
     switch (mapObject.getMapObjectType())
     {
       case MapObject.BOOKMARK:
         refreshDistanceToObject(mapObject, loc);
         showBookmarkDetails(mapObject);
         updateBookmarkButton();
-        setButtons(mapObject, false, true);
         break;
       case MapObject.POI:
       case MapObject.SEARCH:
         refreshDistanceToObject(mapObject, loc);
         hideBookmarkDetails();
-        setButtons(mapObject, false, true);
         setPlaceDescription(mapObject);
         break;
       case MapObject.API_POINT:
         refreshDistanceToObject(mapObject, loc);
         hideBookmarkDetails();
-        setButtons(mapObject, true, true);
+        showBackButton = true;
         break;
       case MapObject.MY_POSITION:
         refreshMyPosition(mapObject, loc);
         hideBookmarkDetails();
-        setButtons(mapObject, false, false);
+        showRoutingButton = false;
         break;
     }
+    final boolean hasNumber = mapObject.hasPhoneNumber();
+    if (hasNumber)
+      mPhoneRecycler.setVisibility(VISIBLE);
+    else
+      mPhoneRecycler.setVisibility(GONE);
+    updateButtons(mapObject, showBackButton, showRoutingButton);
   }
 
   private Spanned getShortDescription(@NonNull MapObject mapObject)
@@ -865,7 +850,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
       {
         sb.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.base_yellow)),
                    start, end, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-
       }
       mTvSubtitle.setText(sb);
     }
@@ -892,7 +876,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
     String url = mapObject.getMetadata(Metadata.MetadataType.FMD_URL);
     refreshMetadataOrHide(TextUtils.isEmpty(website) ? url : website, mWebsite, mTvWebsite);
     String wikimedia_commons = mapObject.getMetadata(Metadata.MetadataType.FMD_WIKIMEDIA_COMMONS);
-    String wikimedia_commons_text =  TextUtils.isEmpty(wikimedia_commons) ? "" : getResources().getString(R.string.wikimedia_commons);
+    String wikimedia_commons_text = TextUtils.isEmpty(wikimedia_commons) ? "" : getResources().getString(R.string.wikimedia_commons);
     refreshMetadataOrHide(wikimedia_commons_text, mWikimedia, mTvWikimedia);
     refreshPhoneNumberList(mapObject.getMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER));
     refreshMetadataOrHide(mapObject.getMetadata(Metadata.MetadataType.FMD_EMAIL), mEmail, mTvEmail);
@@ -1015,7 +999,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
   private void refreshTodayNonBusinessTime(Timespan[] closedTimespans)
   {
     final String hoursClosedLabel = getResources().getString(R.string.editor_hours_closed);
-    if (closedTimespans==null || closedTimespans.length == 0)
+    if (closedTimespans == null || closedTimespans.length == 0)
       UiUtils.clearTextAndHide(mTodayNonBusinessTime);
     else
       UiUtils.setTextAndShow(mTodayNonBusinessTime, TimeFormatUtils.formatNonBusinessTime(closedTimespans, hoursClosedLabel));
@@ -1107,15 +1091,25 @@ public class PlacePageView extends NestedScrollViewClickFixed
 
   private void updateBookmarkButton()
   {
-    if (mBookmarkButtonIcon == null || mBookmarkButtonFrame == null)
-      return;
-
+    final List<PlacePageButtons.ButtonType> currentButtons = viewModel.getCurrentButtons()
+                                                                      .getValue();
+    PlacePageButtons.ButtonType oldType = PlacePageButtons.ButtonType.BOOKMARK_DELETE;
+    PlacePageButtons.ButtonType newType = PlacePageButtons.ButtonType.BOOKMARK_SAVE;
     if (mBookmarkSet)
-      mBookmarkButtonIcon.setImageDrawable(Graphics.tint(getContext(), R.drawable.ic_bookmarks_on, R.attr.iconTintActive));
-    else
-      mBookmarkButtonIcon.setImageDrawable(Graphics.tint(getContext(), R.drawable.ic_bookmarks_off, R.attr.iconTint));
-
-    mBookmarkButtonFrame.setEnabled(true);
+    {
+      oldType = PlacePageButtons.ButtonType.BOOKMARK_SAVE;
+      newType = PlacePageButtons.ButtonType.BOOKMARK_DELETE;
+    }
+    if (currentButtons != null)
+    {
+      final List<PlacePageButtons.ButtonType> newList = new ArrayList<>(currentButtons);
+      final int index = newList.indexOf(oldType);
+      if (index >= 0)
+      {
+        newList.set(index, newType);
+        viewModel.setCurrentButtons(newList);
+      }
+    }
   }
 
   private void hideBookmarkDetails()
@@ -1156,76 +1150,50 @@ public class PlacePageView extends NestedScrollViewClickFixed
     }
   }
 
-  @NonNull
-  private static PlacePageButtons.Item toPlacePageButton(@NonNull RoadWarningMarkType type)
+  private void updateButtons(@NonNull MapObject mapObject, boolean showBackButton, boolean showRoutingButton)
   {
-    switch (type)
-    {
-      case DIRTY:
-        return PlacePageButtons.Item.ROUTE_AVOID_UNPAVED;
-      case FERRY:
-        return PlacePageButtons.Item.ROUTE_AVOID_FERRY;
-      case TOLL:
-        return PlacePageButtons.Item.ROUTE_AVOID_TOLL;
-      default:
-        throw new AssertionError("Unsupported road warning type: " + type);
-    }
-  }
-
-  private void setButtons(@NonNull MapObject mapObject, boolean showBackButton, boolean showRoutingButton)
-  {
-    List<PlacePageButtons.PlacePageButton> buttons = new ArrayList<>();
-
+    List<PlacePageButtons.ButtonType> buttons = new ArrayList<>();
     if (mapObject.getRoadWarningMarkType() != RoadWarningMarkType.UNKNOWN)
     {
       RoadWarningMarkType markType = mapObject.getRoadWarningMarkType();
-      PlacePageButtons.Item roadType = toPlacePageButton(markType);
+      PlacePageButtons.ButtonType roadType = toPlacePageButton(markType);
       buttons.add(roadType);
-      mButtons.setItems(buttons);
-      return;
     }
-
-    if (RoutingController.get().isRoutePoint(mapObject))
+    else if (RoutingController.get().isRoutePoint(mapObject))
     {
-      buttons.add(PlacePageButtons.Item.ROUTE_REMOVE);
-      mButtons.setItems(buttons);
-      return;
-    }
-
-    final ParsedMwmRequest request = ParsedMwmRequest.getCurrentRequest();
-    if (showBackButton || (request != null && request.isPickPointMode()))
-      buttons.add(PlacePageButtons.Item.BACK);
-
-    final boolean hasNumber = mapObject.hasPhoneNumber();
-
-    if (hasNumber)
-    {
-      buttons.add(PlacePageButtons.Item.CALL);
-      mPhoneRecycler.setVisibility(VISIBLE);
+      buttons.add(PlacePageButtons.ButtonType.ROUTE_REMOVE);
     }
     else
-      mPhoneRecycler.setVisibility(GONE);
-
-    boolean needToShowRoutingButtons = RoutingController.get().isPlanning() || showRoutingButton;
-
-    if (needToShowRoutingButtons && !hasNumber)
-      buttons.add(PlacePageButtons.Item.ROUTE_FROM);
-
-    buttons.add(mapObject.getMapObjectType() == MapObject.BOOKMARK ? PlacePageButtons.Item.BOOKMARK_DELETE
-        : PlacePageButtons.Item.BOOKMARK_SAVE);
-
-    if (needToShowRoutingButtons)
     {
-      buttons.add(PlacePageButtons.Item.ROUTE_TO);
-      if (hasNumber)
-        buttons.add(PlacePageButtons.Item.ROUTE_FROM);
-      if (RoutingController.get().isStopPointAllowed())
-        buttons.add(PlacePageButtons.Item.ROUTE_ADD);
+      final ParsedMwmRequest request = ParsedMwmRequest.getCurrentRequest();
+      if (showBackButton || (request != null && request.isPickPointMode()))
+        buttons.add(PlacePageButtons.ButtonType.BACK);
+
+      boolean needToShowRoutingButtons = RoutingController.get().isPlanning() || showRoutingButton;
+
+      if (needToShowRoutingButtons)
+        buttons.add(PlacePageButtons.ButtonType.ROUTE_FROM);
+
+      if (needToShowRoutingButtons && RoutingController.get().isStopPointAllowed())
+        buttons.add(PlacePageButtons.ButtonType.ROUTE_ADD);
+      else
+        buttons.add(mapObject.getMapObjectType() == MapObject.BOOKMARK
+                    ? PlacePageButtons.ButtonType.BOOKMARK_DELETE
+                    : PlacePageButtons.ButtonType.BOOKMARK_SAVE);
+
+      if (needToShowRoutingButtons)
+      {
+        buttons.add(PlacePageButtons.ButtonType.ROUTE_TO);
+        if (!RoutingController.get().isStopPointAllowed())
+          buttons.add(PlacePageButtons.ButtonType.ROUTE_ADD);
+        else
+          buttons.add(mapObject.getMapObjectType() == MapObject.BOOKMARK
+                      ? PlacePageButtons.ButtonType.BOOKMARK_DELETE
+                      : PlacePageButtons.ButtonType.BOOKMARK_SAVE);
+      }
+      buttons.add(PlacePageButtons.ButtonType.SHARE);
     }
-
-    buttons.add(PlacePageButtons.Item.SHARE);
-
-    mButtons.setItems(buttons);
+    viewModel.setCurrentButtons(buttons);
   }
 
   public void refreshLocation(@NonNull Location l)
@@ -1289,18 +1257,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
     mTvLatlon.setText(latLon);
   }
 
-  private static void refreshMetadataOrHide(String metadata, View metaLayout, TextView metaTv)
-  {
-    if (!TextUtils.isEmpty(metadata))
-    {
-      metaLayout.setVisibility(View.VISIBLE);
-      if (metaTv != null)
-        metaTv.setText(metadata);
-    }
-    else
-      metaLayout.setVisibility(View.GONE);
-  }
-
   public void refreshAzimuth(double northAzimuth)
   {
     if (mMapObject == null || MapObject.isOfType(MapObject.MY_POSITION, mMapObject))
@@ -1317,7 +1273,8 @@ public class PlacePageView extends NestedScrollViewClickFixed
                                                                            mMapObject.getLon(),
                                                                            location.getLatitude(),
                                                                            location.getLongitude(),
-                                                                           northAzimuth).getAzimuth();
+                                                                           northAzimuth)
+                                    .getAzimuth();
     UiUtils.showIf(azimuth >= 0, mAvDirection);
     if (azimuth >= 0)
     {
@@ -1369,7 +1326,10 @@ public class PlacePageView extends NestedScrollViewClickFixed
     {
       final int formatIndex = visibleCoordsFormat.indexOf(mCoordsFormat);
       mCoordsFormat = visibleCoordsFormat.get((formatIndex + 1) % visibleCoordsFormat.size());
-      MwmApplication.prefs(getContext()).edit().putInt(PREF_COORDINATES_FORMAT, mCoordsFormat.getId()).apply();
+      MwmApplication.prefs(getContext())
+                    .edit()
+                    .putInt(PREF_COORDINATES_FORMAT, mCoordsFormat.getId())
+                    .apply();
       if (mMapObject == null)
       {
         Logger.e(TAG, "A LatLon cannot be refreshed, mMapObject is null");
@@ -1429,7 +1389,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
   {
     final FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
     final DirectionFragment fragment = (DirectionFragment) fragmentManager.getFragmentFactory()
-        .instantiate(getContext().getClassLoader(), DirectionFragment.class.getName());
+                                                                          .instantiate(getContext().getClassLoader(), DirectionFragment.class.getName());
     fragment.setMapObject(mMapObject);
     fragment.show(fragmentManager, null);
   }
@@ -1527,8 +1487,8 @@ public class PlacePageView extends NestedScrollViewClickFixed
     {
       Utils.copyTextToClipboard(ctx, items.get(0));
       Utils.showSnackbarAbove(mDetails,
-          getRootView().findViewById(R.id.pp_buttons_layout),
-          ctx.getString(R.string.copied_to_clipboard, items.get(0)));
+                              getRootView().findViewById(R.id.pp_buttons_layout),
+                              ctx.getString(R.string.copied_to_clipboard, items.get(0)));
     }
     else
     {
@@ -1543,8 +1503,8 @@ public class PlacePageView extends NestedScrollViewClickFixed
         final int itemId = item.getItemId();
         Utils.copyTextToClipboard(ctx, items.get(itemId));
         Utils.showSnackbarAbove(mDetails,
-            getRootView().findViewById(R.id.pp_buttons_layout),
-            ctx.getString(R.string.copied_to_clipboard, items.get(itemId)));
+                                getRootView().findViewById(R.id.pp_buttons_layout),
+                                ctx.getString(R.string.copied_to_clipboard, items.get(itemId)));
         return true;
       });
       popup.show();
@@ -1564,16 +1524,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
     scrollTo(0, 0);
   }
 
-  private static boolean isInvalidDownloaderStatus(int status)
-  {
-    return (status != CountryItem.STATUS_DOWNLOADABLE &&
-            status != CountryItem.STATUS_ENQUEUED &&
-            status != CountryItem.STATUS_FAILED &&
-            status != CountryItem.STATUS_PARTLY &&
-            status != CountryItem.STATUS_PROGRESS &&
-            status != CountryItem.STATUS_APPLYING);
-  }
-
   private void updateDownloader(CountryItem country)
   {
     if (isInvalidDownloaderStatus(country.status))
@@ -1588,7 +1538,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
     StringBuilder sb = new StringBuilder(StringUtils.getFileSizeString(getContext(), country.totalSize));
     if (country.isExpandable())
       sb.append(StringUtils.formatUsingUsLocale("  •  %s: %d", getContext().getString(R.string.downloader_status_maps),
-          country.totalChildCount));
+                                                country.totalChildCount));
 
     mDownloaderInfo.setText(sb.toString());
   }
@@ -1655,10 +1605,24 @@ public class PlacePageView extends NestedScrollViewClickFixed
     return mPreview.getHeight();
   }
 
-  @Nullable
-  public ArrayList<MenuBottomSheetItem> getMenuBottomSheetItems()
+  public void setOnPlacePageContentChangeListener(OnPlacePageContentChangeListener onPlacePageContentChangeListener)
   {
-    return mButtons.getMenuBottomSheetItems();
+    mOnPlacePageContentChangeListener = onPlacePageContentChangeListener;
+  }
+
+  public interface SetMapObjectListener
+  {
+    void onSetMapObjectComplete(boolean isSameObject);
+  }
+
+  interface OnPlacePageContentChangeListener
+  {
+    void OnPlacePageContentChange();
+  }
+
+  interface OnPlacePageRequestCloseListener
+  {
+    void onPlacePageRequestClose();
   }
 
   private class EditBookmarkClickListener implements OnClickListener
@@ -1678,20 +1642,5 @@ public class PlacePageView extends NestedScrollViewClickFixed
                                         requireActivity().getSupportFragmentManager(),
                                         PlacePageView.this);
     }
-  }
-
-  public void setOnPlacePageContentChangeListener(OnPlacePageContentChangeListener onPlacePageContentChangeListener)
-  {
-    mOnPlacePageContentChangeListener = onPlacePageContentChangeListener;
-  }
-
-  interface OnPlacePageContentChangeListener
-  {
-    void OnPlacePageContentChange();
-  }
-
-  interface OnPlacePageRequestCloseListener
-  {
-    void onPlacePageRequestClose();
   }
 }

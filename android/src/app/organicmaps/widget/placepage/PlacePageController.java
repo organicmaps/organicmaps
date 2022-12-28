@@ -6,11 +6,13 @@ import android.content.res.Resources;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GestureDetectorCompat;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import app.organicmaps.Framework;
 import app.organicmaps.R;
 import app.organicmaps.base.Initializable;
@@ -20,17 +22,21 @@ import app.organicmaps.location.LocationHelper;
 import app.organicmaps.location.LocationListener;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
+import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
 import app.organicmaps.util.log.Logger;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class PlacePageController implements Initializable<Activity>,
                                             Savable<Bundle>,
                                             LocationListener,
-                                            PlacePageView.OnPlacePageRequestCloseListener
+                                            PlacePageView.OnPlacePageRequestCloseListener,
+                                            PlacePageButtons.PlacePageButtonClickListener,
+                                            MenuBottomSheetFragment.MenuBottomSheetInterface
 {
   private static final String TAG = PlacePageController.class.getSimpleName();
 
@@ -44,12 +50,11 @@ public class PlacePageController implements Initializable<Activity>,
   private BottomSheetBehavior<View> mPlacePageBehavior;
   @SuppressWarnings("NullableProblems")
   @NonNull
-  private View mButtonsLayout;
-  @SuppressWarnings("NullableProblems")
-  @NonNull
   private PlacePageView mPlacePage;
   private int mViewportMinHeight;
   private boolean mDeactivateMapSelection = true;
+  private AppCompatActivity mMwmActivity;
+  private float mButtonsHeight;
   @NonNull
   private final BottomSheetChangedListener mBottomSheetChangedListener = new BottomSheetChangedListener()
   {
@@ -88,6 +93,8 @@ public class PlacePageController implements Initializable<Activity>,
   @NonNull
   private final BottomSheetBehavior.BottomSheetCallback mSheetCallback
       = new DefaultBottomSheetCallback(mBottomSheetChangedListener);
+  private int mMaxButtons;
+  private PlacePageButtonsViewModel viewModel;
 
   public PlacePageController(@NonNull SlideListener listener,
                              @Nullable RoutingModeListener routingModeListener)
@@ -102,7 +109,14 @@ public class PlacePageController implements Initializable<Activity>,
       Framework.nativeDeactivatePopup();
     mDeactivateMapSelection = true;
     PlacePageUtils.moveViewportUp(mPlacePage, mViewportMinHeight);
-    UiUtils.invisible(mButtonsLayout);
+
+    Fragment f = mMwmActivity.getSupportFragmentManager().findFragmentByTag("PLACE_PAGE_BUTTONS");
+    if (f != null)
+    {
+      mMwmActivity.getSupportFragmentManager().beginTransaction()
+                  .remove(f)
+                  .commit();
+    }
   }
 
   @SuppressLint("ClickableViewAccessibility")
@@ -110,6 +124,7 @@ public class PlacePageController implements Initializable<Activity>,
   public void initialize(@Nullable Activity activity)
   {
     Objects.requireNonNull(activity);
+    mMwmActivity = (AppCompatActivity) activity;
     Resources res = activity.getResources();
     mViewportMinHeight = res.getDimensionPixelSize(R.dimen.viewport_min_height);
     mPlacePage = activity.findViewById(R.id.placepage);
@@ -125,17 +140,15 @@ public class PlacePageController implements Initializable<Activity>,
     mPlacePage.setRoutingModeListener(mRoutingModeListener);
     mPlacePage.setOnPlacePageContentChangeListener(this::setPeekHeight);
 
-    mButtonsLayout = activity.findViewById(R.id.pp_buttons_layout);
-    ViewGroup buttons = mButtonsLayout.findViewById(R.id.container);
-    mPlacePage.initButtons(buttons);
-    UiUtils.bringViewToFrontOf(mButtonsLayout, mPlacePage);
+    UiUtils.bringViewToFrontOf(activity.findViewById(R.id.pp_buttons_fragment), mPlacePage);
+
     LocationHelper.INSTANCE.addListener(this);
 
-    mButtonsLayout.setOnApplyWindowInsetsListener((view, windowInsets) -> {
-      UiUtils.setViewInsetsPaddingNoTop(mButtonsLayout, windowInsets);
-      return windowInsets;
-    });
     mPlacePage.requestApplyInsets();
+
+    mButtonsHeight = mMwmActivity.getResources().getDimension(R.dimen.place_page_buttons_height);
+    mMaxButtons = mMwmActivity.getResources().getInteger(R.integer.pp_buttons_max);
+    viewModel = new ViewModelProvider(mMwmActivity).get(PlacePageButtonsViewModel.class);
   }
 
   public int getPlacePageWidth()
@@ -144,9 +157,22 @@ public class PlacePageController implements Initializable<Activity>,
   }
 
   @Nullable
-  public ArrayList<MenuBottomSheetItem> getMenuBottomSheetItems()
+  public ArrayList<MenuBottomSheetItem> getMenuBottomSheetItems(String id)
   {
-    return mPlacePage.getMenuBottomSheetItems();
+    final List<PlacePageButtons.ButtonType> currentItems = viewModel.getCurrentButtons().getValue();
+    if (currentItems == null || currentItems.size() <= mMaxButtons)
+      return null;
+    ArrayList<MenuBottomSheetItem> items = new ArrayList<>();
+    for (int i = mMaxButtons - 1; i < currentItems.size(); i++)
+    {
+      final PlacePageButton bsItem = PlacePageButtonFactory.createButton(currentItems.get(i), mMwmActivity);
+      items.add(new MenuBottomSheetItem(
+          bsItem.getTitle(),
+          bsItem.getIcon(),
+          () -> ((PlacePageButtons.PlacePageButtonClickListener) mMwmActivity).onPlacePageButtonClick(bsItem.getType())
+      ));
+    }
+    return items;
   }
 
   @Override
@@ -172,8 +198,14 @@ public class PlacePageController implements Initializable<Activity>,
         mPlacePageBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         return;
       }
+      if (mMwmActivity.getSupportFragmentManager().findFragmentByTag("PLACE_PAGE_BUTTONS") == null)
+      {
+        mMwmActivity.getSupportFragmentManager().beginTransaction()
+                    .add(R.id.pp_buttons_fragment,
+                         PlacePageButtons.class, null, "PLACE_PAGE_BUTTONS")
+                    .commit();
+      }
 
-      UiUtils.show(mButtonsLayout);
       mPlacePage.post(() -> {
         setPeekHeight();
         mPlacePageBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
@@ -203,8 +235,7 @@ public class PlacePageController implements Initializable<Activity>,
   {
     // Buttons layout padding is the navigation bar height.
     // Bottom sheets are displayed above it so we need to remove it from the computed size
-    final int organicPeekHeight = mPlacePage.getPreviewHeight() +
-                                  mButtonsLayout.getHeight() - mButtonsLayout.getPaddingBottom();
+    final int organicPeekHeight = (int) (mPlacePage.getPreviewHeight() + mButtonsHeight);
     final MapObject object = mPlacePage.getMapObject();
     if (object != null)
     {
@@ -281,7 +312,6 @@ public class PlacePageController implements Initializable<Activity>,
   {
     mPlacePage.post(() -> {
       mPlacePageBehavior.setState(state);
-      UiUtils.show(mButtonsLayout);
       setPeekHeight();
     });
   }
@@ -290,6 +320,12 @@ public class PlacePageController implements Initializable<Activity>,
   public void onPlacePageRequestClose()
   {
     close(true);
+  }
+
+  @Override
+  public void onPlacePageButtonClick(PlacePageButtons.ButtonType item)
+  {
+    mPlacePage.onPlacePageButtonClick(item);
   }
 
   public interface SlideListener
