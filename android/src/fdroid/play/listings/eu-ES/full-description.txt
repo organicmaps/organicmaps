@@ -3,7 +3,7 @@
 ‣ Mapan zerbait gaizki badago edo falta bada, mesedez konpondu <b>OpenStreetMap</b> atalean eta ikusi zure aldaketak etorkizuneko mapen eguneraketan.
 ‣ Nabigazioak edo bilaketak ez badu funtzionatzen, bidali mezu elektronikoa. <i></i> mezu elektroniko GUZTIEI erantzuten diogu eta lehenbailehen konponduko dugu!
 
-<b>Zure iritzia eta 5 izarreko iruzkinak dira guretzat motibatzaile onenak!</b>
+<b>Zure iritzia eta 5 izarreko iruzkinak dira guretzat motibazio handiena!</b>
 
 Ezaugarri nagusiak:
 • Doakoa, kode irekikoa, iragarkirik gabe, jarraipenik gabe
@@ -40,13 +40,13 @@ Arakatzailerik eta beste gauza txarrik gabe:
 
 Organic Maps-en, <b>pribatutasuna oinarrizko giza eskubide bat dela uste dugu</b>:
 
-• Organic Maps komunitate indiek gidatutako kode irekiko proiektu bat da
-• Pribatutasuna, Big Tech-en begiradik babesten dugu
+• Organic Maps komunitate independenteek gidatutako kode irekiko proiektu bat da
+• Pribatutasuna, enpresa teknologiko handiengandik babesten zaitugu
 • Egon seguru zauden lekuan zaudela ere
 
 Zero arakatzaile eta gutxieneko baimenak soilik eskatzen dira Exodus Pribatutasun Txostenaren arabera.
 
 Mesedez, bisitatu <b><i>organicmaps.app</i></b> webgunea xehetasun gehiagorako eta ohiko galderetarako, edo jar zaitez zuzenean gurekin harremanetan @OrganicMapsApp Telegram-en.
 
-Baztertu arakatzea - hautatu askatasuna.
+Baztertu jarraipena - hautatu askatasuna.
 <b>Probatu Organic Maps!</b>
