@@ -46,36 +46,47 @@ double CalcTrafficFactor(SpeedGroup speedGroup)
   return 1.0 / percentage;
 }
 
-std::pair<double, double> CalcDistanceAndTime(
-    EdgeEstimator::Purpose purpose, Segment const & segment, RoadGeometry const & road)
+double GetSpeedMpS(EdgeEstimator::Purpose purpose, Segment const & segment, RoadGeometry const & road)
 {
   SpeedKMpH const & speed = road.GetSpeed(segment.IsForward());
-  double const distance = road.GetDistance(segment.GetSegmentIdx());
   double const speedMpS = KmphToMps(purpose == EdgeEstimator::Purpose::Weight ? speed.m_weight : speed.m_eta);
   ASSERT_GREATER(speedMpS, 0.0, (segment));
-  return {distance, distance / speedMpS};
+  return speedMpS;
 }
 
-template <typename GetClimbPenalty>
-double CalcClimbSegment(EdgeEstimator::Purpose purpose, Segment const & segment,
-                        RoadGeometry const & road, GetClimbPenalty && getClimbPenalty)
+bool IsTransit(std::optional<HighwayType> type)
 {
-  auto const [distance, timeSec] = CalcDistanceAndTime(purpose, segment, road);
-  if (base::AlmostEqualAbs(distance, 0.0, 0.1))
-    return timeSec;
+  return type && (type == HighwayType::RouteFerry || type == HighwayType::RouteShuttleTrain);
+}
 
-  LatLonWithAltitude const & from = road.GetJunction(segment.GetPointId(false /* front */));
-  LatLonWithAltitude const & to = road.GetJunction(segment.GetPointId(true /* front */));
+template <class CalcSpeed>
+double CalcClimbSegment(EdgeEstimator::Purpose purpose, Segment const & segment,
+                        RoadGeometry const & road, CalcSpeed && calcSpeed)
+{
+  double const distance = road.GetDistance(segment.GetSegmentIdx());
+  double speedMpS = GetSpeedMpS(purpose, segment, road);
 
-  ASSERT(to.GetAltitude() != geometry::kInvalidAltitude && from.GetAltitude() != geometry::kInvalidAltitude, ());
-  auto const altitudeDiff = to.GetAltitude() - from.GetAltitude();
+  static double constexpr kSmallDistanceM = 1;   // we have altitude threshold is 0.5m
+  if (distance > kSmallDistanceM && !IsTransit(road.GetHighwayType()))
+  {
+    LatLonWithAltitude const & from = road.GetJunction(segment.GetPointId(false /* front */));
+    LatLonWithAltitude const & to = road.GetJunction(segment.GetPointId(true /* front */));
 
-  return timeSec * getClimbPenalty(purpose, altitudeDiff / distance, to.GetAltitude());
+    ASSERT(to.GetAltitude() != geometry::kInvalidAltitude && from.GetAltitude() != geometry::kInvalidAltitude, ());
+    auto const altitudeDiff = to.GetAltitude() - from.GetAltitude();
+
+    if (altitudeDiff != 0)
+    {
+      speedMpS = calcSpeed(speedMpS, altitudeDiff / distance, to.GetAltitude());
+      ASSERT_GREATER(speedMpS, 0.0, (segment));
+    }
+  }
+
+  return distance / speedMpS;
 }
 }  // namespace
 
-double GetPedestrianClimbPenalty(EdgeEstimator::Purpose purpose, double tangent,
-                                 geometry::Altitude altitudeM)
+double GetPedestrianClimbPenalty(EdgeEstimator::Purpose purpose, double tangent, geometry::Altitude altitudeM)
 {
   double constexpr kMinPenalty = 1.0;
   // Descent penalty is less then the ascent penalty.
@@ -110,26 +121,44 @@ double GetPedestrianClimbPenalty(EdgeEstimator::Purpose purpose, double tangent,
   }
 }
 
-double GetBicycleClimbPenalty(EdgeEstimator::Purpose purpose, double tangent,
-                              geometry::Altitude altitudeM)
+double GetBicycleClimbPenalty(EdgeEstimator::Purpose purpose, double tangent, geometry::Altitude altitudeM)
 {
   double constexpr kMinPenalty = 1.0;
   double const impact = tangent >= 0.0 ? 1.0 : 0.35;
-  tangent = std::abs(tangent);
 
   if (altitudeM >= kMountainSicknessAltitudeM)
-    return kMinPenalty + 50.0 * tangent * impact;
+    return kMinPenalty + 50.0 * fabs(tangent) * impact;
 
+  // By VNG: This approach is strange at least because it always returns penalty > 1 (even for downhill)
+  /*
+  tangent = fabs(tangent);
   // ETA coefficients are calculated in https://github.com/mapsme/omim-scripts/pull/22
   auto const penalty = purpose == EdgeEstimator::Purpose::Weight
                            ? 10.0 * tangent + 26.0 * tangent * tangent
                            : 8.8 * tangent + 6.51 * tangent * tangent;
 
   return kMinPenalty + penalty * impact;
+  */
+
+  // https://web.tecnico.ulisboa.pt/~rosamfelix/gis/declives/SpeedSlopeFactor.html
+  double const slope = tangent * 100;
+
+  double factor;
+  if (slope < -30)
+    factor = 1.5;
+  else if (slope < 0)
+  {
+    // Min factor (max speed) will be at slope = -13.
+    factor = 1 + 2 * 0.7 / 13.0 * slope + 0.7 / 169 * slope * slope;
+  }
+  else if (slope <= 20)
+    factor = 1 + slope * slope / 49;
+  else
+    factor = 10.0;
+  return factor;
 }
 
-double GetCarClimbPenalty(EdgeEstimator::Purpose /* purpose */, double /* tangent */,
-                          geometry::Altitude /* altitudeM */)
+double GetCarClimbPenalty(EdgeEstimator::Purpose, double, geometry::Altitude)
 {
   return 1.0;
 }
@@ -250,10 +279,13 @@ public:
     UNREACHABLE();
   }
 
-  double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road,
-                           Purpose purpose) const override
+  double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road, Purpose purpose) const override
   {
-    return CalcClimbSegment(purpose, segment, road, GetPedestrianClimbPenalty);
+    return CalcClimbSegment(purpose, segment, road,
+        [purpose](double speedMpS, double tangent, geometry::Altitude altitude)
+        {
+          return speedMpS / GetPedestrianClimbPenalty(purpose, tangent, altitude);
+        });
   }
 };
 
@@ -279,10 +311,41 @@ public:
     UNREACHABLE();
   }
 
-  double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road,
-                           Purpose purpose) const override
+  double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road, Purpose purpose) const override
   {
-    return CalcClimbSegment(purpose, segment, road, GetBicycleClimbPenalty);
+    return CalcClimbSegment(purpose, segment, road,
+        [purpose](double speedMpS, double tangent, geometry::Altitude altitude)
+        {
+          auto const factor = GetBicycleClimbPenalty(purpose, tangent, altitude);
+          ASSERT_GREATER(factor, 0.0, ());
+
+          /// @todo Take out "bad" bicycle road (path, track, footway, ...) check into BicycleModel?
+          static double constexpr badBicycleRoadSpeed = KmphToMps(9);
+          if (speedMpS <= badBicycleRoadSpeed)
+          {
+            if (factor > 1)
+              speedMpS /= factor;
+          }
+          else
+          {
+            if (factor > 1)
+            {
+              // Calculate uphill speed according to the average bicycle speed, because "good-roads" like
+              // residential, secondary, cycleway are "equal-low-speed" uphill and road type doesn't matter.
+              static double constexpr avgBicycleSpeed = KmphToMps(20);
+              double const upperBound = avgBicycleSpeed / factor;
+              if (speedMpS > upperBound)
+              {
+                // Add small weight to distinguish roads by class (10 is a max factor value).
+                speedMpS = upperBound + (purpose == Purpose::Weight ? speedMpS / (10 * avgBicycleSpeed) : 0);
+              }
+            }
+            else
+              speedMpS /= factor;
+          }
+
+          return speedMpS;
+        });
   }
 };
 
@@ -332,7 +395,7 @@ double CarEstimator::GetFerryLandingPenalty(Purpose purpose) const
 
 double CarEstimator::CalcSegmentWeight(Segment const & segment, RoadGeometry const & road, Purpose purpose) const
 {
-  double result = CalcDistanceAndTime(purpose, segment, road).second;
+  double result = road.GetDistance(segment.GetSegmentIdx()) / GetSpeedMpS(purpose, segment, road);
 
   if (m_trafficStash)
   {
@@ -344,7 +407,7 @@ double CarEstimator::CalcSegmentWeight(Segment const & segment, RoadGeometry con
     {
       // Current time estimation are too optimistic.
       // Need more accurate tuning: traffic lights, traffic jams, road models and so on.
-      // Add some penalty to make estimation of a more realistic.
+      // Add some penalty to make estimation more realistic.
       /// @todo Make accurate tuning, remove penalty.
       result *= 1.8;
     }

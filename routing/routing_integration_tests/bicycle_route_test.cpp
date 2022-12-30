@@ -6,7 +6,6 @@
 
 #include "geometry/mercator.hpp"
 
-#include "base/math.hpp"
 
 namespace bicycle_route_test
 {
@@ -58,15 +57,12 @@ UNIT_TEST(NetherlandsAmsterdamBicycleNo)
 
 UNIT_TEST(NetherlandsAmsterdamBicycleYes)
 {
-  TRouteResult const routeResult =
-      CalculateRoute(GetVehicleComponents(VehicleType::Bicycle),
+  TRouteResult const routeResult = CalculateRoute(GetVehicleComponents(VehicleType::Bicycle),
                      mercator::FromLatLon(52.32872, 5.07527), {0.0, 0.0},
                      mercator::FromLatLon(52.33853, 5.08941));
 
-  Route const & route = *routeResult.first;
-  RouterResultCode const result = routeResult.second;
-  TEST_EQUAL(result, RouterResultCode::NoError, ());
-  TEST_ALMOST_EQUAL_ABS(route.GetTotalTimeSec(), 336.0, 10.0, ());
+  TEST_EQUAL(routeResult.second, RouterResultCode::NoError, ());
+  TestRouteTime(*routeResult.first, 296.487);
 }
 
 // This test on tag cycleway=opposite for a streets which have oneway=yes.
@@ -147,22 +143,22 @@ UNIT_TEST(SpainTenerifeAdejeVilaflor)
   TRouteResult const res = CalculateRoute(GetVehicleComponents(VehicleType::Bicycle),
                               mercator::FromLatLon(28.11984, -16.72592), {0., 0.},
                               mercator::FromLatLon(28.15865, -16.63704));
-  /// @todo A bit differ from OSRM:
-  /// https://www.openstreetmap.org/directions?engine=fossgis_osrm_bike&route=28.119%2C-16.726%3B28.159%2C-16.637
-  TestRouteLength(*res.first, 28956.2);
-  TestRouteTime(*res.first, 9221.9);
+  TEST_EQUAL(res.second, RouterResultCode::NoError, ());
+
+  TestRouteLength(*res.first, 26997.4);
+  TestRouteTime(*res.first, 11017.5);
 }
 
 // Test on riding down from Vilaflor (altitude 1400 meters) to Adeje (sea level).
 UNIT_TEST(SpainTenerifeVilaflorAdeje)
 {
-  // New time is much closer to OSRM timing:
-  // https://www.openstreetmap.org/directions?engine=fossgis_osrm_bike&route=28.15865%2C-16.63704%3B28.11984%2C-16.72592
   TRouteResult const res = CalculateRoute(GetVehicleComponents(VehicleType::Bicycle),
                               mercator::FromLatLon(28.15865, -16.63704), {0., 0.},
                               mercator::FromLatLon(28.11984, -16.72592));
-  TestRouteLength(*res.first, 25467.7);
-  TestRouteTime(*res.first, 7261.01);
+  TEST_EQUAL(res.second, RouterResultCode::NoError, ());
+
+  TestRouteLength(*res.first, 25413.6);
+  TestRouteTime(*res.first, 4974.78);
 }
 
 // Two tests on not building route against traffic on road with oneway:bicycle=yes.
@@ -177,8 +173,7 @@ UNIT_TEST(Munich_OnewayBicycle1)
 
 UNIT_TEST(Munich_OnewayBicycle2)
 {
-  integration::CalculateRouteAndTestRouteLength(
-      integration::GetVehicleComponents(VehicleType::Bicycle),
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Bicycle),
       mercator::FromLatLon(48.17819, 11.57286), {0.0, 0.0},
       mercator::FromLatLon(48.17867, 11.57303), 201.532 /* expectedRouteMeters */);
 }
@@ -187,25 +182,50 @@ UNIT_TEST(Munich_OnewayBicycle2)
 UNIT_TEST(London_GreenwichTunnel)
 {
   // Avoiding barrier=gate https://www.openstreetmap.org/node/3881243716
-  integration::CalculateRouteAndTestRouteLength(
-      integration::GetVehicleComponents(VehicleType::Bicycle),
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Bicycle),
       mercator::FromLatLon(51.4817397, -0.0100070258), {0.0, 0.0},
       mercator::FromLatLon(51.4883739, -0.00809729298), 1332.8 /* expectedRouteMeters */);
 }
 
 UNIT_TEST(Batumi_AvoidServiceDetour)
 {
-  integration::CalculateRouteAndTestRouteLength(
-      integration::GetVehicleComponents(VehicleType::Bicycle),
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Bicycle),
       mercator::FromLatLon(41.6380014, 41.6269446), {0.0, 0.0},
       mercator::FromLatLon(41.6392113, 41.6260084), 156.465 /* expectedRouteMeters */);
 }
 
 UNIT_TEST(Gdansk_AvoidLongCyclewayDetour)
 {
-  integration::CalculateRouteAndTestRouteLength(
-      integration::GetVehicleComponents(VehicleType::Bicycle),
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Bicycle),
       mercator::FromLatLon(54.2632738, 18.6771661), {0.0, 0.0},
       mercator::FromLatLon(54.2698882, 18.6765837), 753.837 /* expectedRouteMeters */);
+}
+
+// https://github.com/organicmaps/organicmaps/issues/4145
+UNIT_TEST(Belarus_StraightFootway)
+{
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Bicycle),
+      mercator::FromLatLon(53.8670285, 30.3162749), {0.0, 0.0},
+      mercator::FromLatLon(53.876436, 30.3348084), 1613.34 /* expectedRouteMeters */);
+}
+
+UNIT_TEST(Spain_Madrid_ElevationsDetour)
+{
+  TRouteResult const r1 = CalculateRoute(GetVehicleComponents(VehicleType::Bicycle),
+                              mercator::FromLatLon(40.459616, -3.690031), {0., 0.},
+                              mercator::FromLatLon(40.4408171, -3.69261893));
+  TEST_EQUAL(r1.second, RouterResultCode::NoError, ());
+
+  TRouteResult const r2 = CalculateRoute(GetVehicleComponents(VehicleType::Bicycle),
+                              mercator::FromLatLon(40.459616, -3.690031), {0., 0.},
+                              mercator::FromLatLon(40.4403523, -3.69267444));
+  TEST_EQUAL(r2.second, RouterResultCode::NoError, ());
+
+  TEST(r1.first && r2.first, ());
+
+  // The first route is 50% shorter, but the second one is better by ETA because of elevation.
+  // Can't say for sure is it ok or not, so this test may fail in future.
+  TEST_LESS(r1.first->GetTotalDistanceMeters() * 1.5, r2.first->GetTotalDistanceMeters(), ());
+  TEST_GREATER(r1.first->GetTotalTimeSec(), r2.first->GetTotalTimeSec(), ());
 }
 } // namespace bicycle_route_test
