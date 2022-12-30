@@ -205,6 +205,12 @@ BicycleModel::BicycleModel(VehicleModel::LimitsInitList const & limits, HighwayB
   // Assign 90% of max cycleway speed for bicycle=yes to keep choosing most preferred cycleway.
   auto const yesSpeed = kDefaultSpeeds.Get(HighwayType::HighwayCycleway).m_inCity * 0.9;
   AddAdditionalRoadTypes(cl, {{ std::move(hwtagYesBicycle), InOutCitySpeedKMpH(yesSpeed) }});
+
+  // Update max speed with possible ferry transfer and bicycle speed downhill.
+  // See EdgeEstimator::CalcHeuristic, GetBicycleClimbPenalty.
+  SpeedKMpH constexpr kMaxBicycleSpeedKMpH(100.0);
+  CHECK_LESS(m_maxModelSpeed, kMaxBicycleSpeedKMpH, ());
+  m_maxModelSpeed = kMaxBicycleSpeedKMpH;
 }
 
 bool BicycleModel::IsBicycleBidir(feature::TypesHolder const & types) const

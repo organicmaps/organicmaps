@@ -29,7 +29,7 @@ inline double FeetToMeters(double ft) { return ft * 0.3048; }
 inline double FeetToMiles(double ft) { return ft * 5280; }
 inline double InchesToMeters(double in) { return in / 39.370; }
 inline double NauticalMilesToMeters(double nmi) { return nmi * 1852; }
-inline double KmphToMps(double kmph) { return kmph * 1000 / 3600; }
+inline double constexpr KmphToMps(double kmph) { return kmph * 1000 / 3600; }
 
 double ToSpeedKmPH(double speed, Units units);
 double MpsToUnits(double mps, Units units);
