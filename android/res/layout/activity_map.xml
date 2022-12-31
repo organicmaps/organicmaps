@@ -51,13 +51,18 @@
       android:paddingBottom="@dimen/margin_base"
       android:visibility="invisible" />
   </RelativeLayout>
-  <app.organicmaps.widget.placepage.PlacePageView
+  <androidx.core.widget.NestedScrollViewClickFixed
     android:id="@+id/placepage"
-    style="?attr/bottomSheetStyle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    style="?attr/bottomSheetStyle"
     android:fillViewport="true"
-    app:layout_behavior="@string/placepage_behavior" />
+    app:layout_behavior="@string/placepage_behavior"  >
+    <androidx.fragment.app.FragmentContainerView
+      android:id="@+id/placepage_fragment"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent" />
+  </androidx.core.widget.NestedScrollViewClickFixed>
   <androidx.fragment.app.FragmentContainerView
     android:id="@+id/pp_buttons_fragment"
     android:layout_width="match_parent"
