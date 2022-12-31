@@ -1089,7 +1089,7 @@ Java_app_organicmaps_Framework_nativeGetMovableFilesExts(JNIEnv * env, jclass)
 JNIEXPORT jobjectArray JNICALL
 Java_app_organicmaps_Framework_nativeGetBookmarksFilesExts(JNIEnv * env, jclass)
 {
-  const vector<string> exts = { kKmzExtension, kKmlExtension, kKmbExtension };
+  const vector<string> exts = { kKmzExtension, kKmlExtension, kKmbExtension, kGpxExtension };
   return jni::ToJavaStringArray(env, exts);
 }
 
