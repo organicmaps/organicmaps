@@ -82,7 +82,7 @@ import app.organicmaps.widget.menu.MainMenu;
 import app.organicmaps.widget.placepage.PlacePageButtons;
 import app.organicmaps.widget.placepage.PlacePageController;
 import app.organicmaps.widget.placepage.PlacePageData;
-import app.organicmaps.widget.placepage.RoutingModeListener;
+import app.organicmaps.widget.placepage.PlacePageView;
 import app.organicmaps.util.Config;
 import app.organicmaps.util.Counters;
 import app.organicmaps.util.SharingUtils;
@@ -112,11 +112,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
                BookmarkManager.BookmarksLoadingListener,
                FloatingSearchToolbarController.SearchToolbarListener,
                PlacePageController.SlideListener,
-               RoutingModeListener,
                NoConnectionListener,
                MenuBottomSheetFragment.MenuBottomSheetInterfaceWithHeader,
                ToggleMapLayerFragment.LayerItemClickListener,
-               PlacePageButtons.PlacePageButtonClickListener
+               PlacePageButtons.PlacePageButtonClickListener,
+               PlacePageView.PlacePageViewListener
 {
   private static final String TAG = MwmActivity.class.getSimpleName();
 
@@ -907,14 +907,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     mRoutingPlanInplaceController.hideDrivingOptionsView();
     RoutingController.get().rebuildLastRoute();
-  }
-
-  @Override
-  public void toggleRouteSettings(@NonNull RoadType roadType)
-  {
-    closePlacePage();
-    RoutingOptions.addOption(roadType);
-    rebuildLastRouteInternal();
   }
 
   private void onIsolinesStateChanged(@NonNull IsolinesState type)
@@ -1830,5 +1822,31 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void onPlacePageButtonClick(PlacePageButtons.ButtonType item)
   {
     mPlacePageController.onPlacePageButtonClick(item);
+  }
+
+  @Override
+  public void onPlacePageHeightChange(int previewHeight)
+  {
+    mPlacePageController.onPlacePageHeightChange(previewHeight);
+  }
+
+  @Override
+  public void onPlacePageRequestClose()
+  {
+    mPlacePageController.onPlacePageRequestClose();
+  }
+
+  @Override
+  public void onPlacePageRequestToggleState()
+  {
+    mPlacePageController.onPlacePageRequestToggleState();
+  }
+
+  @Override
+  public void onPlacePageRequestToggleRouteSettings(@NonNull RoadType roadType)
+  {
+    closePlacePage();
+    RoutingOptions.addOption(roadType);
+    rebuildLastRouteInternal();
   }
 }

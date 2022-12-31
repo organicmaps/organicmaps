@@ -135,15 +135,15 @@ public class ElevationProfileViewRenderer implements PlacePageViewRenderer<Place
   @Override
   public void onSave(@NonNull Bundle outState)
   {
-    outState.putParcelable(PlacePageUtils.EXTRA_PLACE_PAGE_DATA, mElevationInfo);
+//    outState.putParcelable(PlacePageUtils.EXTRA_PLACE_PAGE_DATA, mElevationInfo);
   }
 
   @Override
   public void onRestore(@NonNull Bundle inState)
   {
-    mElevationInfo = Utils.getParcelable(inState, PlacePageUtils.EXTRA_PLACE_PAGE_DATA, ElevationInfo.class);
-    if (mElevationInfo != null)
-      render(mElevationInfo);
+//    mElevationInfo = Utils.getParcelable(inState, PlacePageUtils.EXTRA_PLACE_PAGE_DATA, ElevationInfo.class);
+//    if (mElevationInfo != null)
+//      render(mElevationInfo);
   }
 
   @Override

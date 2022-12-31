@@ -12,8 +12,6 @@ import app.organicmaps.R;
 
 class PlacePageUtils
 {
-  static final String EXTRA_PLACE_PAGE_DATA = "extra_place_page_data";
-
   static void moveViewportUp(@NonNull View placePageView, int viewportMinHeight)
   {
     placePageView.post(() -> {

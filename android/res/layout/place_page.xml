@@ -1,23 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge
+<LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
-  android:layout_height="wrap_content">
-  <LinearLayout
+  android:layout_height="wrap_content"
+  android:descendantFocusability="blocksDescendants"
+  android:orientation="vertical">
+  <include
+    android:id="@+id/pp__preview"
+    layout="@layout/place_page_preview"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" />
+  <include
+    android:id="@+id/pp__details_frame"
+    layout="@layout/place_page_details"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:descendantFocusability="blocksDescendants"
-    android:orientation="vertical">
-    <include
-      android:id="@+id/pp__preview"
-      layout="@layout/place_page_preview"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"/>
-    <include
-      android:id="@+id/pp__details_frame"
-      layout="@layout/place_page_details"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:background="?panel"/>
-  </LinearLayout>
-</merge>
+    android:background="?panel" />
+</LinearLayout>
