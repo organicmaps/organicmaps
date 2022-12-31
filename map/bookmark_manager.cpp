@@ -1869,7 +1869,17 @@ void BookmarkManager::LoadBookmarkRoutine(std::string const & filePath, bool isT
     std::string fileSavePath = GetKMLPath(filePath);
     if (!fileSavePath.empty())
     {
-      auto kmlData = LoadKmlFile(fileSavePath, KmlFileType::Text);
+      auto const ext = base::GetFileExtension(filePath);
+      std::unique_ptr<kml::FileData> kmlData;
+      if (ext == ".gpx")
+      {
+        kmlData = LoadKmlFile(fileSavePath, KmlFileType::Gpx);
+      }
+      else
+      {
+        kmlData = LoadKmlFile(fileSavePath, KmlFileType::Text);
+      }
+      
       if (m_needTeardown)
         return;
 

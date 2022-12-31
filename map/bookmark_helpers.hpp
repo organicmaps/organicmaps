@@ -68,11 +68,13 @@ enum class BookmarkBaseType : uint16_t
 extern std::string const kKmzExtension;
 extern std::string const kKmlExtension;
 extern std::string const kKmbExtension;
+extern std::string const kGpxExtension;
 extern std::string const kDefaultBookmarksFileName;
 
 enum class KmlFileType
 {
   Text,
+  Gpx,
   Binary
 };
 
