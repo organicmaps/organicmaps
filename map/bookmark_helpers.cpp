@@ -270,6 +270,7 @@ std::string GenerateValidAndUniqueFilePathForKML(std::string const & fileName)
 std::string const kKmzExtension = ".kmz";
 std::string const kKmlExtension = ".kml";
 std::string const kKmbExtension = ".kmb";
+std::string const kGpxExtension = ".gpx";
 std::string const kDefaultBookmarksFileName = "Bookmarks";
 
 std::unique_ptr<kml::FileData> LoadKmlFile(std::string const & file, KmlFileType fileType)
@@ -293,7 +294,7 @@ std::string GetKMLPath(std::string const & filePath)
 {
   std::string const fileExt = GetFileExt(filePath);
   std::string fileSavePath;
-  if (fileExt == kKmlExtension)
+  if (fileExt == kKmlExtension || fileExt == kGpxExtension)
   {
     fileSavePath = GenerateValidAndUniqueFilePathForKML(base::FileNameFromFullPath(filePath));
     if (!base::CopyFileX(filePath, fileSavePath))
@@ -359,6 +360,11 @@ std::unique_ptr<kml::FileData> LoadKmlData(Reader const & reader, KmlFileType fi
     else if (fileType == KmlFileType::Text)
     {
       kml::DeserializerKml des(*data);
+      des.Deserialize(reader);
+    }
+    else if (fileType == KmlFileType::Gpx)
+    {
+      kml::DeserializerGpx des(*data);
       des.Deserialize(reader);
     }
     else
