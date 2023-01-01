@@ -294,7 +294,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
       final int oldHeight = oldBottom - oldTop;
       final int newHeight = bottom - top;
       if (oldHeight != newHeight)
-        mPreview.post(() -> mPlacePageViewListener.onPlacePageHeightChange(newHeight));
+        mPlacePageViewListener.onPlacePageHeightChange(newHeight);
     });
     mTvTitle = mPreview.findViewById(R.id.tv__title);
     mTvTitle.setOnLongClickListener(this);
