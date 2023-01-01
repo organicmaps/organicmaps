@@ -54,6 +54,7 @@ enum class HighwayType : uint16_t
   HighwaySecondaryLink = 176,
   RouteFerry = 259,
   HighwayTertiaryLink = 272,
+  HighwayBusway = 858,    // reserve type here, but this type is not used for any routing by default
   RailwayRailMotorVehicle = 994,
   RouteShuttleTrain = 1054,
 };

@@ -54,6 +54,7 @@ public:
 
     m_map[c.GetTypeByPath({"highway", "service"})] = ftypes::HighwayClass::Service;
     m_map[c.GetTypeByPath({"highway", "track"})] = ftypes::HighwayClass::Service;
+    m_map[c.GetTypeByPath({"highway", "busway"})] = ftypes::HighwayClass::Service;
     m_map[c.GetTypeByPath({"man_made", "pier"})] = ftypes::HighwayClass::Service;
 
     m_map[c.GetTypeByPath({"highway", "pedestrian"})] = ftypes::HighwayClass::Pedestrian;
@@ -144,9 +145,10 @@ bool BaseChecker::IsMatched(uint32_t type) const
   return (find(m_types.begin(), m_types.end(), PrepareToMatch(type, m_level)) != m_types.end());
 }
 
-void BaseChecker::ForEachType(function<void(uint32_t)> && fn) const
+void BaseChecker::ForEachType(function<void(uint32_t)> const & fn) const
 {
-  for_each(m_types.cbegin(), m_types.cend(), move(fn));
+  for (auto const & t : m_types)
+    fn(t);
 }
 
 bool BaseChecker::operator()(feature::TypesHolder const & types) const

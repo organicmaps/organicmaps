@@ -385,6 +385,7 @@ string DebugPrint(HighwayType type)
   case HighwayType::HighwaySecondaryLink: return "highway-secondary_link";
   case HighwayType::RouteFerry: return "route-ferry";
   case HighwayType::HighwayTertiaryLink: return "highway-tertiary_link";
+  case HighwayType::HighwayBusway: return "highway-busway";
   case HighwayType::RailwayRailMotorVehicle: return "railway-rail-motor_vehicle";
   case HighwayType::RouteShuttleTrain: return "route-shuttle_train";
   }
