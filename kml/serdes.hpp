@@ -91,8 +91,9 @@ private:
 
   void ResetPoint();
   void SetOrigin(std::string const & s);
-  static void ParseAndAddPoint(MultiGeometry::LineT & line, std::string_view v, char const * separator);
-  void ParseLineCoordinates(std::string const & s, char const * blockSeparator, char const * coordSeparator);
+  static void ParseAndAddPoints(MultiGeometry::LineT & line, std::string_view s,
+                                char const * blockSeparator, char const * coordSeparator);
+  void ParseLineString(std::string const & s);
 
   bool MakeValid();
   void ParseColor(std::string const &value);

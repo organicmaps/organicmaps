@@ -814,6 +814,44 @@ UNIT_TEST(Kml_Ver_2_3)
           <coord>-122.203329 37.374780 141.199997</coord>
           <coord>-122.203207 37.374857 140.199997</coord>
         </Track>
+        <gx:MultiTrack>
+          <altitudeMode>absolute</altitudeMode>
+          <gx:interpolate>0</gx:interpolate>
+          <gx:Track>
+            <gx:coord>9.42666332 52.94270656 95</gx:coord>
+            <when>2022-12-25T13:12:01.914Z</when>
+            <gx:coord>9.42682572 52.94270115 94</gx:coord>
+            <when>2022-12-25T13:12:36Z</when>
+            <gx:coord>9.42699411 52.94269624 94</gx:coord>
+            <when>2022-12-25T13:12:38Z</when>
+            <gx:coord>9.42716915 52.94268793 95</gx:coord>
+            <when>2022-12-25T13:12:40Z</when>
+            <gx:coord>9.42736231 52.94266046 95</gx:coord>
+            <when>2022-12-25T13:12:42Z</when>
+            <gx:coord>9.42757536 52.94266963 96</gx:coord>
+            <when>2022-12-25T13:12:44Z</when>
+            <ExtendedData>
+              <SchemaData schemaUrl="#geotrackerTrackSchema">
+                <gx:SimpleArrayData name="speed">
+                  <gx:value>0</gx:value>
+                  <gx:value>3.71</gx:value>
+                  <gx:value>5.22</gx:value>
+                  <gx:value>6.16</gx:value>
+                  <gx:value>7.1</gx:value>
+                  <gx:value>7.28</gx:value>
+                </gx:SimpleArrayData>
+                <gx:SimpleArrayData name="course">
+                  <gx:value />
+                  <gx:value>1.57</gx:value>
+                  <gx:value>1.62</gx:value>
+                  <gx:value>1.64</gx:value>
+                  <gx:value>1.69</gx:value>
+                  <gx:value>1.56</gx:value>
+                </gx:SimpleArrayData>
+              </SchemaData>
+            </ExtendedData>
+          </gx:Track>
+        </gx:MultiTrack>
       </Placemark>
     </kml>
   )";
@@ -832,6 +870,7 @@ UNIT_TEST(Kml_Ver_2_3)
 
   TEST_EQUAL(fData.m_tracksData.size(), 1, ());
   auto const & lines = fData.m_tracksData[0].m_geometry.m_lines;
-  TEST_EQUAL(lines.size(), 1, ());
+  TEST_EQUAL(lines.size(), 2, ());
   TEST_EQUAL(lines[0].size(), 7, ());
+  TEST_EQUAL(lines[1].size(), 6, ());
 }
