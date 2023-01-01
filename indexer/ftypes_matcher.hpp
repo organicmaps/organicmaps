@@ -9,10 +9,8 @@
 #include <functional>
 #include <limits>
 #include <optional>
-#include <set>
 #include <string>
 #include <type_traits>
-#include <utility>
 #include <vector>
 
 #define DECLARE_CHECKER_INSTANCE(CheckerType) static CheckerType const & Instance() { \
@@ -26,12 +24,12 @@ protected:
   uint8_t const m_level;
   std::vector<uint32_t> m_types;
 
-  BaseChecker(uint8_t level = 2) : m_level(level) {}
+  explicit BaseChecker(uint8_t level = 2) : m_level(level) {}
   virtual ~BaseChecker() = default;
 
 public:
   virtual bool IsMatched(uint32_t type) const;
-  virtual void ForEachType(std::function<void(uint32_t)> && fn) const;
+  virtual void ForEachType(std::function<void(uint32_t)> const & fn) const;
 
   std::vector<uint32_t> const & GetTypes() const { return m_types; }
 
