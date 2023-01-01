@@ -73,7 +73,7 @@ public class PlacePageController implements Initializable<Activity>,
     @Override
     public void onSheetCollapsed()
     {
-      setPeekHeight();
+      // No op.
     }
 
     @Override
@@ -164,12 +164,6 @@ public class PlacePageController implements Initializable<Activity>,
 
     @BottomSheetBehavior.State
     int currentState = mPlacePageBehavior.getState();
-    if (PlacePageUtils.isSettlingState(currentState) || PlacePageUtils.isDraggingState(currentState))
-    {
-      Logger.d(TAG, "Sheet state inappropriate, ignore.");
-      return;
-    }
-
     final boolean shouldAnimate = PlacePageUtils.isCollapsedState(currentState) && mPlacePageBehavior.getPeekHeight() > 0;
     mPlacePageBehavior.setPeekHeight(peekHeight, shouldAnimate);
   }
@@ -223,7 +217,15 @@ public class PlacePageController implements Initializable<Activity>,
   public void onPlacePageHeightChange(int previewHeight)
   {
     mPreviewHeight = previewHeight;
-    setPeekHeight();
+    // Using .post() makes sure the peek height animation plays
+    mPlacePage.post(() -> {
+      setPeekHeight();
+      // Only show the place page if it was hidden
+      @BottomSheetBehavior.State
+      int state = mPlacePageBehavior.getState();
+      if (PlacePageUtils.isHiddenState(state))
+        mPlacePageBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+    });
   }
 
   @Override
@@ -302,10 +304,12 @@ public class PlacePageController implements Initializable<Activity>,
                          PlacePageButtons.class, null, PLACE_PAGE_BUTTONS_FRAGMENT_TAG)
                     .commit();
       }
-      mPlacePage.post(() -> {
-        setPeekHeight();
+      else
+      {
+        // Only collapse the place page if it was already open
+        // If we are creating it, wait for the peek height to be available
         mPlacePageBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-      });
+      }
     }
   }
 
