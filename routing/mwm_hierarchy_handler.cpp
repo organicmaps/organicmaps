@@ -20,7 +20,7 @@ std::unordered_set<std::string> kSchengenArea = {
     "France",  "Germany",       "Greece",         "Hungary",    "Iceland",  "Italy",
     "Latvia",  "Liechtenstein", "Lithuania",      "Luxembourg", "Malta",    "Netherlands",
     "Norway",  "Poland",        "Portugal",       "Slovakia",   "Slovenia", "Spain",
-    "Sweden",  "Switzerland"
+    "Sweden",  "Switzerland",   "Croatia"
 };
 
 /// @return Top level hierarchy name for MWMs \a mwmName.
