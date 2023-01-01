@@ -29,9 +29,11 @@ std::string_view const kExtendedData = "ExtendedData";
 std::string const kCompilation = "mwm:compilation";
 
 std::string_view const kCoordinates = "coordinates";
-std::string_view const kTrack = "Track";
-std::string_view const gxTrack = "gx:Track";
-std::string_view const gxCoord = "gx:coord";
+
+bool IsTrack(std::string const & s)
+{
+  return s == "Track" || s == "gx:Track";
+}
 
 std::string const kKmlHeader =
   "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
@@ -724,28 +726,29 @@ void KmlParser::SetOrigin(std::string const & s)
     m_org = pt;
 }
 
-void KmlParser::ParseAndAddPoint(MultiGeometry::LineT & line, std::string_view v, char const * separator)
+void KmlParser::ParseAndAddPoints(MultiGeometry::LineT & line, std::string_view s,
+                                  char const * blockSeparator, char const * coordSeparator)
 {
-  geometry::PointWithAltitude point;
-  if (ParsePointWithAltitude(v, separator, point))
+  strings::Tokenize(s, blockSeparator, [&](std::string_view v)
   {
-    // We dont't expect vertical surfaces, so do not compare heights here.
-    // Will get a lot of duplicating points otherwise after import some user KMLs.
-    // https://github.com/organicmaps/organicmaps/issues/3895
-    if (line.empty() || !AlmostEqualAbs(line.back().GetPoint(), point.GetPoint(), kMwmPointAccuracy))
-      line.emplace_back(point);
-  }
+    geometry::PointWithAltitude point;
+    if (ParsePointWithAltitude(v, coordSeparator, point))
+    {
+      // We dont't expect vertical surfaces, so do not compare heights here.
+      // Will get a lot of duplicating points otherwise after import some user KMLs.
+      // https://github.com/organicmaps/organicmaps/issues/3895
+      if (line.empty() || !AlmostEqualAbs(line.back().GetPoint(), point.GetPoint(), kMwmPointAccuracy))
+        line.emplace_back(point);
+    }
+  });
 }
 
-void KmlParser::ParseLineCoordinates(std::string const & s, char const * blockSeparator, char const * coordSeparator)
+void KmlParser::ParseLineString(std::string const & s)
 {
   m_geometryType = GEOMETRY_TYPE_LINE;
 
   MultiGeometry::LineT line;
-  strings::Tokenize(s, blockSeparator, [&](std::string_view v)
-  {
-    ParseAndAddPoint(line, v, coordSeparator);
-  });
+  ParseAndAddPoints(line, s, " \n\r\t", ",");
 
   if (line.size() > 1)
     m_geometry.m_lines.push_back(std::move(line));
@@ -892,7 +895,7 @@ std::string const & KmlParser::GetTagFromEnd(size_t n) const
 bool KmlParser::IsProcessTrackTag() const
 {
   size_t const n = m_tags.size();
-  return n >= 3 && m_tags[n - 1] == kTrack && (m_tags[n - 2] == kPlacemark || m_tags[n - 3] == kPlacemark);
+  return n >= 3 && IsTrack(m_tags[n - 1]) && (m_tags[n - 2] == kPlacemark || m_tags[n - 3] == kPlacemark);
 }
 
 void KmlParser::Pop(std::string const & tag)
@@ -1009,14 +1012,14 @@ void KmlParser::CharData(std::string value)
 
     auto const TrackTag = [this, &prevTag, &currTag, &value]()
     {
-      if (prevTag != kTrack)
+      if (!IsTrack(prevTag))
         return false;
 
-      if (currTag == "coord")
+      if (currTag == "coord" || currTag == "gx:coord")
       {
         auto & lines = m_geometry.m_lines;
         ASSERT(!lines.empty(), ());
-        ParseAndAddPoint(lines.back(), value, " ");
+        ParseAndAddPoints(lines.back(), value, "\n\r\t", " ");
       }
       return true;
     };
@@ -1200,12 +1203,7 @@ void KmlParser::CharData(std::string value)
       else if (prevTag == "LineString")
       {
         if (currTag == kCoordinates)
-          ParseLineCoordinates(value, " \n\r\t", ",");
-      }
-      else if (prevTag == gxTrack)
-      {
-        if (currTag == gxCoord)
-          ParseLineCoordinates(value, "\n\r\t", " ");
+          ParseLineString(value);
       }
       else if (TrackTag())
       {
@@ -1285,20 +1283,11 @@ void KmlParser::CharData(std::string value)
       else if (prevTag == "LineString")
       {
         if (currTag == kCoordinates)
-          ParseLineCoordinates(value, " \n\r\t", ",");
+          ParseLineString(value);
       }
-      else if (prevTag == gxTrack)
+      else if (TrackTag())
       {
-        if (currTag == gxCoord)
-          ParseLineCoordinates(value, "\n\r\t", " ");
-      }
-    }
-    else if (ppTag == "gx:MultiTrack")
-    {
-      if (prevTag == gxTrack)
-      {
-        if (currTag == gxCoord)
-          ParseLineCoordinates(value, "\n\r\t", " ");
+        // noop
       }
     }
     else if (pppTag == kPlacemark)
@@ -1345,7 +1334,7 @@ void KmlParser::CharData(std::string value)
           }
         }
       }
-      else if (ppTag == "MultiTrack" && TrackTag())
+      else if ((ppTag == "MultiTrack" || ppTag == "gx:MultiTrack") && TrackTag())
       {
         // noop
       }
