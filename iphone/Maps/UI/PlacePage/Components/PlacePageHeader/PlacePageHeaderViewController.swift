@@ -51,7 +51,8 @@ extension PlacePageHeaderViewController: PlacePageHeaderViewProtocol {
   }
 
   func setTitle(_ title: String?, secondaryTitle: String?) {
-    guard let title else {
+    // XCode 13 is not smart enough to detect that title is used below, and requires explicit unwrapped variable.
+    guard let unwrappedTitle = title else {
       titleLabel?.attributedText = nil
       return
     }
@@ -61,9 +62,9 @@ extension PlacePageHeaderViewController: PlacePageHeaderViewProtocol {
       .foregroundColor: UIColor.blackPrimaryText()
     ]
 
-    let attributedText = NSMutableAttributedString(string: title, attributes: titleAttributes)
+    let attributedText = NSMutableAttributedString(string: unwrappedTitle, attributes: titleAttributes)
 
-    guard let secondaryTitle else {
+    guard let unwrappedSecondaryTitle = secondaryTitle else {
       titleLabel?.attributedText = attributedText
       return
     }
@@ -76,7 +77,7 @@ extension PlacePageHeaderViewController: PlacePageHeaderViewProtocol {
       .paragraphStyle: paragraphStyle
     ]
 
-    attributedText.append(NSAttributedString(string: "\n" + secondaryTitle, attributes: secondaryTitleAttributes))
+    attributedText.append(NSAttributedString(string: "\n" + unwrappedSecondaryTitle, attributes: secondaryTitleAttributes))
     titleLabel?.attributedText = attributedText
   }
 }
