@@ -117,8 +117,8 @@ extension BMCDefaultViewModel {
       return
     }
 
-    categories.append(manager.category(withId: manager.createCategory(withName: name)))
-    view?.insert(at: [IndexPath(row: categories.count - 1, section: section)])
+    categories.insert(manager.category(withId: manager.createCategory(withName: name)), at: 0)
+    view?.insert(at: [IndexPath(row: 0, section: section)])
   }
 
   func deleteCategory(at index: Int) {
