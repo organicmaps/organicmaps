@@ -800,7 +800,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34BA2D6A1DBE169E00FAB345 /* common-debug.xcconfig */;
 			buildSettings = {
-				GCC_PREFIX_HEADER = "$(OMIM_ROOT)/precompiled_headers.hpp";
 			};
 			name = Debug;
 		};
@@ -808,18 +807,17 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34BA2D6B1DBE169E00FAB345 /* common-release.xcconfig */;
 			buildSettings = {
-				GCC_PREFIX_HEADER = "$(OMIM_ROOT)/precompiled_headers.hpp";
 			};
 			name = Release;
 		};
 		675341831A3F57BF00A0A8C3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/fast_double_parser/include",
 				);
-				EXECUTABLE_PREFIX = lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -827,11 +825,11 @@
 		675341841A3F57BF00A0A8C3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/fast_double_parser/include",
 				);
-				EXECUTABLE_PREFIX = lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

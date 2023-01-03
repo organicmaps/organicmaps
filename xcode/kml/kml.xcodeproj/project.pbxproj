@@ -304,14 +304,12 @@
 		45E45587205849A600D9F45E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				GCC_PREFIX_HEADER = "$(OMIM_ROOT)/precompiled_headers.hpp";
 			};
 			name = Debug;
 		};
 		45E45588205849A600D9F45E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				GCC_PREFIX_HEADER = "$(OMIM_ROOT)/precompiled_headers.hpp";
 			};
 			name = Release;
 		};

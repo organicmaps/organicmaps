@@ -10,9 +10,6 @@
    <FileRef
       location = "container:common.xcconfig">
    </FileRef>
-   <FileRef
-      location = "container:cppjansson/cppjansson.xcodeproj">
-   </FileRef>
    <Group
       location = "group:../std"
       name = "std">
@@ -99,6 +96,9 @@
    </FileRef>
    <FileRef
       location = "container:coding/coding.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "container:cppjansson/cppjansson.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:descriptions/descriptions.xcodeproj">
