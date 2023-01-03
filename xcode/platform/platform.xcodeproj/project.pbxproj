@@ -754,32 +754,20 @@
 					platform_ios.mm,
 					secure_storage_ios.mm,
 				);
-				"FRAMEWORK_SEARCH_PATHS[sdk=iphoneos*]" = (
-					"$(inherited)",
-				);
-				"FRAMEWORK_SEARCH_PATHS[sdk=iphonesimulator*]" = (
-					"$(inherited)",
-				);
+				"FRAMEWORK_SEARCH_PATHS[sdk=iphoneos*]" = "$(inherited)";
+				"FRAMEWORK_SEARCH_PATHS[sdk=iphonesimulator*]" = "$(inherited)";
 				"FRAMEWORK_SEARCH_PATHS[sdk=macosx*]" = (
 					"$(inherited)",
 					"$(QT_PATH)/lib",
 				);
-				"HEADER_SEARCH_PATHS[sdk=iphoneos*]" = (
-					"$(inherited)",
-				);
-				"HEADER_SEARCH_PATHS[sdk=iphonesimulator*]" = (
-					"$(inherited)",
-				);
+				"HEADER_SEARCH_PATHS[sdk=iphoneos*]" = "$(inherited)";
+				"HEADER_SEARCH_PATHS[sdk=iphonesimulator*]" = "$(inherited)";
 				"HEADER_SEARCH_PATHS[sdk=macosx*]" = (
 					"$(inherited)",
 					"$(QT_PATH)/include",
 				);
-				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*]" = (
-					"$(inherited)",
-				);
-				"LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]" = (
-					"$(inherited)",
-				);
+				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*]" = "$(inherited)";
+				"LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]" = "$(inherited)";
 				"LIBRARY_SEARCH_PATHS[sdk=macosx*]" = (
 					"$(inherited)",
 					"$(QT_PATH)/lib",
@@ -855,7 +843,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				EXECUTABLE_PREFIX = lib;
-				GCC_PREFIX_HEADER = "$(OMIM_ROOT)/precompiled_headers.hpp";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -870,7 +857,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				EXECUTABLE_PREFIX = lib;
-				GCC_PREFIX_HEADER = "$(OMIM_ROOT)/precompiled_headers.hpp";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

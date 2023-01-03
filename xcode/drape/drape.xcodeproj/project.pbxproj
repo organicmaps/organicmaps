@@ -768,7 +768,6 @@
 			buildSettings = {
 				EXCLUDED_SOURCE_FILE_NAMES = "";
 				EXECUTABLE_PREFIX = lib;
-				GCC_PREFIX_HEADER = "$(OMIM_ROOT)/precompiled_headers.hpp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -778,7 +777,6 @@
 			buildSettings = {
 				EXCLUDED_SOURCE_FILE_NAMES = "";
 				EXECUTABLE_PREFIX = lib;
-				GCC_PREFIX_HEADER = "$(OMIM_ROOT)/precompiled_headers.hpp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
