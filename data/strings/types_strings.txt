@@ -2754,6 +2754,14 @@
     zh-Hans = 地下停车场
     zh-Hant = 地下停車場
 
+  [type.amenity.parking.street_side]
+    ref = type.amenity.parking
+    en = Street-Side Parking
+
+  [type.amenity.parking.lane]
+    ref = type.amenity.parking
+    en = Roadside Lane Parking
+
   [type.amenity.parking_entrance]
     en = Parking Entrance
     af = Parkeeringang

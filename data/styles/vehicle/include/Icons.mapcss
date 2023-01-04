@@ -1,6 +1,4 @@
 /* ~~~~ CONTENT OF ICONS~~~~~
-
-1.Z-INDEX of ICONS
 2.NATURAL
 3.TRANSPORT
   3.1 Train Station
@@ -886,27 +884,45 @@ area|z16-[amenity=water_point],
 /* 7.1 Parking */
 
 node|z15-[amenity=parking],
-area|z15-[amenity=parking]
-{icon-image: parking-m.svg; icon-min-distance: 3;}
-
+area|z15-[amenity=parking],
+{icon-image: parking-m.svg;icon-min-distance: 10;font-size: 12.5;}
 node|z17[amenity=parking],
-area|z17[amenity=parking]
-{icon-min-distance: 15;}
+area|z17[amenity=parking],
+{icon-min-distance: 15;font-size: 13.75;}
+node|z18-[amenity=parking],
+area|z18-[amenity=parking],
+{font-size: 14.5;}
 
-node|z18[amenity=parking],
-area|z18[amenity=parking]
-{icon-min-distance: 10;}
+/* no icon as these subtypes should display later */
+node|z15-[amenity=parking][access=private],
+area|z15-[amenity=parking][access=private],
+node|z15-[amenity=parking][parking=street_side],
+area|z15-[amenity=parking][parking=street_side],
+node|z15-[amenity=parking][parking=lane],
+area|z15-[amenity=parking][parking=lane],
+{icon-image: ;text: none;}
 
-node|z19-[amenity=parking],
-area|z19-[amenity=parking]
-{icon-min-distance: 6;}
+node|z15-[amenity=parking][fee?],
+area|z15-[amenity=parking][fee?],
+{icon-image: parking_pay-m.svg;}
 
-node|z15-18[amenity=parking][access=permissive],
-node|z15-18[amenity=parking][access=private],
-{icon-image: zero-icon.svg;}
+node|z17-[amenity=parking][access=private],
+area|z17-[amenity=parking][access=private],
+{icon-image: parking_private-m.svg;text: name;}
 
-/*
-node|z17-[amenity=bicycle_parking],
-area|z17-[amenity=bicycle_parking]
-{icon-image: bike-parking-m.svg;icon-min-distance: 20;}
-*/
+node|z17-[amenity=parking][parking=street_side],
+area|z17-[amenity=parking][parking=street_side],
+node|z17-[amenity=parking][parking=lane],
+area|z17-[amenity=parking][parking=lane],
+{icon-image: parking-s.svg;}
+
+node|z16-[amenity=parking_entrance],
+area|z16-[amenity=parking_entrance],
+{icon-image: parking_entrance-m.svg; font-size: 12.5;}
+node|z16-[amenity=parking_entrance][access=private],
+area|z16-[amenity=parking_entrance][access=private],
+{icon-image: ;}
+
+node|z17-[amenity=motorcycle_parking],
+area|z17-[amenity=motorcycle_parking],
+{icon-image: motorcycle-parking-m.svg;}
