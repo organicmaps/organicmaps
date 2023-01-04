@@ -1,6 +1,4 @@
 /* ~~~~ CONTENT OF ICONS~~~~~
-
-1.Z-INDEX of ICONS
 2.NATURAL
 3.TRANSPORT
  3.1 Train Station
@@ -2492,50 +2490,59 @@ area|z15-[amenity=sanitary_dump_station]
 
 /* 7.1 Parking */
 
-node|z16[amenity=parking],
-area|z16[amenity=parking]
-{icon-image: parking-s.svg;icon-min-distance: 25;}
-
+node|z16-[amenity=parking],
+area|z16-[amenity=parking],
+{icon-image: parking-s.svg;icon-min-distance: 5;}
 node|z17-[amenity=parking],
-area|z17-[amenity=parking]
-{icon-image: parking-m.svg;}
+area|z17-[amenity=parking],
+{icon-image: parking-m.svg;font-size: 11;icon-min-distance: 10}
 
-node|z18-[amenity=parking],
-area|z18-[amenity=parking]
-{font-size: 11;}
+/* no icon as these subtypes should display later */
+node|z16-[amenity=parking][access=private],
+area|z16-[amenity=parking][access=private],
+node|z16-[amenity=parking][parking=street_side],
+area|z16-[amenity=parking][parking=street_side],
+node|z16-[amenity=parking][parking=lane],
+area|z16-[amenity=parking][parking=lane],
+/* =no doesn't work in kothic */
+/* node|z16-[amenity=parking][access=no], */
+/* area|z16-[amenity=parking][access=no], */
+{icon-image: ;icon-min-distance: 0;}
 
-node|z16-17[amenity=parking][access=permissive],
-node|z16-17[amenity=parking][access=private],
-{icon-image: zero-icon.svg;}
+node|z16-[amenity=parking][fee?],
+area|z16-[amenity=parking][fee?],
+{icon-image: parking_pay-s.svg;}
+node|z17-[amenity=parking][fee?],
+area|z17-[amenity=parking][fee?],
+{icon-image: parking_pay-m.svg}
 
+node|z17-[amenity=parking][parking=street_side],
+area|z17-[amenity=parking][parking=street_side],
+node|z17-[amenity=parking][parking=lane],
+area|z17-[amenity=parking][parking=lane],
+{icon-image: parking-s.svg;}
 
-node|z17[amenity=parking_entrance],
-area|z17[amenity=parking_entrance]
+node|z17-[amenity=parking_entrance],
+area|z17-[amenity=parking_entrance],
 {icon-image: parking_entrance-m.svg;}
-node|z17[amenity=parking_entrance][access=permissive],
-node|z17[amenity=parking_entrance][access=private]
-{icon-image: zero-icon.svg;}
+node|z17-[amenity=parking_entrance][access=private],
+area|z17-[amenity=parking_entrance][access=private],
+{icon-image: ;text: none;}
 
-node|z18-[amenity=parking_entrance],
-area|z18-[amenity=parking_entrance]
-{icon-image: parking_entrance-m.svg;font-size: 11;}
+node|z18-[amenity=parking][access=private],
+area|z18-[amenity=parking][access=private],
+/* node|z18-[amenity=parking][access=no], */
+/* area|z18-[amenity=parking][access=no], */
+{icon-image:parking_private-m.svg;}
 
 node|z17-[amenity=bicycle_parking],
-area|z17-[amenity=bicycle_parking]
-{icon-image: bike-parking-m.svg;icon-min-distance: 20;}
+area|z17-[amenity=bicycle_parking],
+{icon-image: bicycle-parking-m.svg;}
 
 node|z17-[amenity=motorcycle_parking],
-area|z17-[amenity=motorcycle_parking]
-{icon-image: motorcycle-parking-m.svg;icon-min-distance: 20;}
-
-node|z18-[amenity=bicycle_parking],
-area|z18-[amenity=bicycle_parking]
-{icon-image: bike-parking-m.svg;icon-min-distance: 20;}
-
-node|z18-[amenity=motorcycle_parking],
-area|z18-[amenity=motorcycle_parking]
-{icon-image: motorcycle-parking-m.svg;icon-min-distance: 20;}
+area|z17-[amenity=motorcycle_parking],
+{icon-image: motorcycle-parking-m.svg;}
 
 node|z18-[amenity=parking_space][parking_space=disabled],
-area|z18-[amenity=parking_space][parking_space=disabled]
+area|z18-[amenity=parking_space][parking_space=disabled],
 {icon-image: parking-disabled-m.svg;}
