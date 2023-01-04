@@ -877,9 +877,13 @@ waterway-lock_gate                                  # icon z16-
 
 amenity-parking-no-access                           # caption z18- and icon z16- (also has area z15-)
 amenity-parking-permissive                          # caption z18- and icon z16- (also has area z15-)
-amenity-parking-private                             # caption z18- and icon z16- (also has area z15-)
+amenity-parking-private                             # caption z18- and icon z18- (also has area z15-)
 amenity-parking-underground                         # caption z18- and icon z16- (also has area z15-)
 === 2150
+
+amenity-parking-lane                                # caption z18- and icon z17- (also has area z15-)
+amenity-parking-street_side                         # caption z18- and icon z17- (also has area z15-)
+=== 2125
 
 leisure-marina                                      # caption z16- and icon z16-
 === 2100
@@ -1087,7 +1091,7 @@ amenity-music_school                                # caption z19 and icon z17-
 amenity-nursing_home                                # caption z17- and icon z17-
 amenity-parking_entrance                            # caption z19 and icon z17-
 amenity-parking_entrance-permissive                 # caption z19 and icon z17-
-amenity-parking_entrance-private                    # caption z19 and icon z17-
+amenity-parking_entrance-private                    # caption z19
 amenity-payment_terminal                            # caption z17- and icon z17-
 leisure-fitness_centre                              # caption z17- and icon z17-
 leisure-fitness_station                             # caption z17- and icon z17-
