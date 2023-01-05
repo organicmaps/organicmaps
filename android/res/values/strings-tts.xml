@@ -13,55 +13,65 @@
     Otherwise we consider that this is zh-Hans.
 
     TODO: Move language list to core.
+
+    languages should be added alphabetically in tts_language_names
   -->
   <string-array name="tts_languages_supported"
                 translatable="false">
     <item>en</item>
-    <item>ru</item>
+    <item>id</item>
     <item>ca</item>
-    <item>cs</item>
     <item>da</item>
     <item>de</item>
     <item>es</item>
+    <item>eu</item>
     <item>fr</item>
-    <item>id</item>
+    <item>hr</item>
     <item>it</item>
+    <item>sw</item>
     <item>hu</item>
     <item>nl</item>
+    <item>nb</item>
     <item>pl</item>
     <item>pt</item>
     <item>ro</item>
-    <item>sk</item>
+    <item>sv</item>
     <item>fi</item>
     <item>sv</item>
     <item>vi</item>
     <item>tr</item>
+    <item>cs</item>
     <item>el</item>
+    <item>be</item>
+    <item>ru</item>
     <item>uk</item>
     <item>ar</item>
     <item>fa</item>
+    <item>mr</item>
     <item>hi</item>
+    <item>th</item>
+    <item>zh-CN:zh-Hans</item>
+    <item>zh-TW:zh-Hant</item>
     <item>ja</item>
     <item>ko</item>
-    <item>th</item>
-    <item>zh-TW:zh-Hant</item>
-    <item>zh-CN:zh-Hans</item> 
   </string-array>
 
   <string-array name="tts_language_names"
                 translatable="false">
     <item>English</item>
-    <item>Русский</item>
+    <item>Bahasa Indonesia</item>
     <item>Català</item>
-    <item>Čeština</item>
     <item>Dansk</item>
     <item>Deutsch</item>
     <item>Español</item>
+    <item>Euskara</item>
     <item>Français</item>
-    <item>Indonesia</item>
+    <item>Hrvatski</item>
     <item>Italiano</item>
+    <item>Kiswahili</item>
     <item>Magyar</item>
     <item>Nederlands</item>
+    <item>Norsk Bokmål</item>
     <item>Polski</item>
     <item>Português</item>
     <item>Română</item>
@@ -70,15 +80,19 @@
     <item>Svenska</item>
     <item>Tiếng Việt</item>
     <item>Türkçe</item>
+    <item>Čeština</item>
     <item>Ελληνικά</item>
+    <item>Беларуская</item>
+    <item>Русский</item>
     <item>Українська</item>
     <item>العربية</item>
     <item>فارسی</item>
-    <item>हिंदी</item>
+    <item>मराठी</item>
+    <item>हिन्दी</item>
+    <item>ไทย</item>
+    <item>中文简体</item>
+    <item>中文繁體</item>
     <item>日本語</item>
     <item>한국어</item>
-    <item>ภาษาไทย</item>
-    <item>中文繁體</item>
-    <item>中文简体</item>
   </string-array>
 </resources>
