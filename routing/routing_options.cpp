@@ -77,6 +77,8 @@ RoutingOptionsClassifier::RoutingOptionsClassifier()
 
 optional<RoutingOptions::Road> RoutingOptionsClassifier::Get(uint32_t type) const
 {
+  ftype::TruncValue(type, 2); // in case of highway-motorway-bridge
+
   auto const * res = m_data.Find(type);
   if (res)
     return *res;

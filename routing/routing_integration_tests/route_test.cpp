@@ -788,4 +788,13 @@ UNIT_TEST(Slovenia_Croatia_CrossBorderPenalty)
       FromLatLon(45.22718, 13.596334), 156285);
 }
 
+UNIT_TEST(USA_Birmingham_AL_KeyWest_FL_NoMotorway)
+{
+  RoutingOptionSetter optionsGuard(RoutingOptions::Road::Motorway);
+
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car),
+      FromLatLon(33.5209837, -86.807945), {0., 0.},
+      FromLatLon(24.5534713, -81.7932587), 1562980);
+}
+
 } // namespace route_test
