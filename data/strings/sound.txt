@@ -415,8 +415,8 @@
     nb = Ta avkjøringen.
     nl = Verlaat.
     pl = Zjazd.
-    pt = Saída.
-    pt-BR = Saída.
+    pt = Saia.
+    pt-BR = Saia.
     ro = Ieșire.
     ru = Съезд.
     sk = Výjazd.
@@ -454,8 +454,8 @@
     nb = Du ankommer.
     nl = Arriveert u.
     pl = Dojedziesz.
-    pt = Está a chegar ao seu destino.
-    pt-BR = Você está chegando ao seu destino.
+    pt = Chegará ao seu destino.
+    pt-BR = Você chegará ao seu destino.
     ro = Veți sosi.
     ru = Вы прибудете в пункт назначения.
     sk = Dorazíte.
@@ -493,8 +493,8 @@
     nb = Du har ankommet.
     nl = Bestemming bereikt.
     pl = Jesteś u celu.
-    pt = Chegou no seu destino.
-    pt-BR = Você chegou no seu destino.
+    pt = Chegou ao seu destino.
+    pt-BR = Você chegou ao seu destino.
     ro = Ați ajuns.
     ru = Вы прибыли в пункт назначения.
     sk = Dorazili ste do cieľa.
