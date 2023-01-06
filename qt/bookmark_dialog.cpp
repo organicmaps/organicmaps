@@ -132,7 +132,7 @@ void BookmarkDialog::OnCloseClick()
 void BookmarkDialog::OnImportClick()
 {
   auto const files = QFileDialog::getOpenFileNames(this /* parent */, tr("Open KML/KMZ..."),
-                                                   QString() /* dir */, "KML/KMZ files (*.kml *.kmz)");
+                                                   QString() /* dir */, "KML/KMZ files (*.kml *.KML *.kmz *.KMZ)");
 
   for (auto const & name : files)
   {
