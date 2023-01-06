@@ -31,17 +31,15 @@ target_compile_definitions(${PROJECT_NAME}
   PRIVATE GTEST_DONT_DEFINE_TEST WITH_GL_MOCK
 )
 
-find_package_or_fallback_to_3party(
-  "GTest"
-  "1.12.0"
-  "${CMAKE_CURRENT_LIST_DIR}/../../3party/googletest"
-  "${CMAKE_CURRENT_BINARY_DIR}/googletest"
-)
+if (NOT WITH_SYSTEM_PROVIDED_3PARTY)
+  add_subdirectory("${CMAKE_CURRENT_LIST_DIR}/../../3party/googletest" "${CMAKE_CURRENT_BINARY_DIR}/googletest")
+endif()
 
 target_link_libraries(${PROJECT_NAME}
   qt_tstfrm
   indexer  # For StyleReader in static_texture_tests
   drape
   gmock
+  gtest
   Qt5::Core
 )
