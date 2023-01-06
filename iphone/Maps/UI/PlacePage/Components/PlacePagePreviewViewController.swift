@@ -23,7 +23,6 @@ final class PlacePagePreviewViewController: UIViewController {
   @IBOutlet var addressLabel: UILabel!
   @IBOutlet var addressContainerView: UIStackView!
   @IBOutlet var scheduleContainerView: UIStackView!
-  
   @IBOutlet var subtitleDirectionView: PlacePageDirectionView!
   @IBOutlet var addressDirectionView: PlacePageDirectionView!
   
