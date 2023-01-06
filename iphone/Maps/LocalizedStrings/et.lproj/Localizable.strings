@@ -1311,6 +1311,8 @@
 
 "type.amenity.charging_station" = "Laadimisjaam";
 
+"type.amenity.charging_station.motorcar" = "Laadimisjaam";
+
 "type.amenity.childcare" = "Lasteaed";
 
 "type.amenity.cinema" = "Kino";
@@ -2388,6 +2390,8 @@
 "type.leisure.swimming_pool.private" = "Privaatne bassein";
 
 "type.leisure.track" = "Jooksurada";
+
+"type.leisure.track.area" = "Jooksurada";
 
 "type.leisure.water_park" = "Veepark";
 

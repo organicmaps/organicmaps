@@ -689,6 +689,7 @@
 	<string name="type.amenity.car_wash">Rửa Xe</string>
 	<string name="type.amenity.casino">Giải trí</string>
 	<string name="type.amenity.charging_station">Trạm Sạc điện</string>
+	<string name="type.amenity.charging_station.motorcar">Trạm Sạc điện</string>
 	<string name="type.amenity.childcare">Nhà trẻ</string>
 	<string name="type.amenity.cinema">Rạp chiếu phim</string>
 	<string name="type.amenity.clinic">Phòng khám</string>

@@ -750,6 +750,7 @@
 	<string name="type.amenity.car_wash">Autopesula</string>
 	<string name="type.amenity.casino">Kasiino</string>
 	<string name="type.amenity.charging_station">Laadimisjaam</string>
+	<string name="type.amenity.charging_station.motorcar">Laadimisjaam</string>
 	<string name="type.amenity.childcare">Lasteaed</string>
 	<string name="type.amenity.cinema">Kino</string>
 	<string name="type.amenity.clinic">Kliinik</string>
@@ -1300,6 +1301,7 @@
 	<string name="type.leisure.swimming_pool">Ujumisbassein</string>
 	<string name="type.leisure.swimming_pool.private">Privaatne bassein</string>
 	<string name="type.leisure.track">Jooksurada</string>
+	<string name="type.leisure.track.area">Jooksurada</string>
 	<string name="type.leisure.water_park">Veepark</string>
 	<string name="type.leisure.beach_resort">Rannakuurort</string>
 	<string name="type.man_made">Inimese loodud</string>

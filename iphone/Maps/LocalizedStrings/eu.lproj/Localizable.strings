@@ -1311,6 +1311,8 @@
 
 "type.amenity.charging_station" = "Kargatzeko geltokia";
 
+"type.amenity.charging_station.motorcar" = "Kargatzeko geltokia";
+
 "type.amenity.childcare" = "Haurtzaindegia";
 
 "type.amenity.cinema" = "Filmak";
@@ -2388,6 +2390,8 @@
 "type.leisure.swimming_pool.private" = "Igerilekua";
 
 "type.leisure.track" = "Track";
+
+"type.leisure.track.area" = "Track";
 
 "type.leisure.water_park" = "Ur-parkea";
 

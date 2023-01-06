@@ -1311,6 +1311,8 @@
 
 "type.amenity.charging_station" = "Зарядная станция";
 
+"type.amenity.charging_station.motorcar" = "Зарядная станция";
+
 "type.amenity.childcare" = "Детская комната";
 
 "type.amenity.cinema" = "Кинотеатр";
@@ -2388,6 +2390,8 @@
 "type.leisure.swimming_pool.private" = "Плавательный бассейн";
 
 "type.leisure.track" = "Беговая дорожка";
+
+"type.leisure.track.area" = "Беговая дорожка";
 
 "type.leisure.water_park" = "Аквапарк";
 

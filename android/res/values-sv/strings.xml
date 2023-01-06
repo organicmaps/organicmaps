@@ -685,6 +685,7 @@
 	<string name="type.amenity.car_wash">Biltvätt</string>
 	<string name="type.amenity.casino">Kasino</string>
 	<string name="type.amenity.charging_station">Laddstation</string>
+	<string name="type.amenity.charging_station.motorcar">Laddstation</string>
 	<string name="type.amenity.childcare">Barnomsorg</string>
 	<string name="type.amenity.cinema">Bio</string>
 	<string name="type.amenity.clinic">Klinik</string>

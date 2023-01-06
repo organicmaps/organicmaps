@@ -1311,6 +1311,8 @@
 
 "type.amenity.charging_station" = "충전 역";
 
+"type.amenity.charging_station.motorcar" = "충전 역";
+
 "type.amenity.childcare" = "보육";
 
 "type.amenity.cinema" = "영화관";
@@ -2388,6 +2390,8 @@
 "type.leisure.swimming_pool.private" = "수영장";
 
 "type.leisure.track" = "Track";
+
+"type.leisure.track.area" = "Track";
 
 "type.leisure.water_park" = "워터파크";
 

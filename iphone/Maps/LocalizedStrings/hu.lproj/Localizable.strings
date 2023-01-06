@@ -1311,6 +1311,8 @@
 
 "type.amenity.charging_station" = "Töltő állomás";
 
+"type.amenity.charging_station.motorcar" = "Töltő állomás";
+
 "type.amenity.childcare" = "Bölcsőde";
 
 "type.amenity.cinema" = "Mozi";
@@ -2388,6 +2390,8 @@
 "type.leisure.swimming_pool.private" = "Úszómedence";
 
 "type.leisure.track" = "Track";
+
+"type.leisure.track.area" = "Track";
 
 "type.leisure.water_park" = "Aquapark";
 

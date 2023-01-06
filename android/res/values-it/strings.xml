@@ -727,6 +727,7 @@
 	<string name="type.amenity.car_wash">Lavaggio auto</string>
 	<string name="type.amenity.casino">Casinò</string>
 	<string name="type.amenity.charging_station">Stazione di ricarica</string>
+	<string name="type.amenity.charging_station.motorcar">Stazione di ricarica</string>
 	<string name="type.amenity.childcare">Asilo</string>
 	<string name="type.amenity.cinema">Cinema</string>
 	<string name="type.amenity.clinic">Clinica</string>
@@ -1254,6 +1255,7 @@
 	<string name="type.leisure.swimming_pool">Piscina</string>
 	<string name="type.leisure.swimming_pool.private">Piscina privata</string>
 	<string name="type.leisure.track">Pista da corsa</string>
+	<string name="type.leisure.track.area">Pista da corsa</string>
 	<string name="type.leisure.water_park">Parco acquatico</string>
 	<string name="type.man_made">Stabilimento balneare</string>
 	<string name="type.man_made.breakwater">Frangiflutti</string>

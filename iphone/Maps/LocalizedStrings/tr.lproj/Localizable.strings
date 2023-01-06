@@ -1311,6 +1311,8 @@
 
 "type.amenity.charging_station" = "Şarj İstasyonu";
 
+"type.amenity.charging_station.motorcar" = "Şarj İstasyonu";
+
 "type.amenity.childcare" = "Kreş";
 
 "type.amenity.cinema" = "Sinema";
@@ -2388,6 +2390,8 @@
 "type.leisure.swimming_pool.private" = "Yüzme Havuzu";
 
 "type.leisure.track" = "Pist";
+
+"type.leisure.track.area" = "Pist";
 
 "type.leisure.water_park" = "Su Parkı";
 

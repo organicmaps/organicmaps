@@ -711,6 +711,7 @@
 	<string name="type.amenity.car_wash">洗车</string>
 	<string name="type.amenity.casino">赌场</string>
 	<string name="type.amenity.charging_station">充电站</string>
+	<string name="type.amenity.charging_station.motorcar">充电站</string>
 	<string name="type.amenity.childcare">托儿所</string>
 	<string name="type.amenity.cinema">电影院</string>
 	<string name="type.amenity.clinic">诊所</string>
@@ -1236,6 +1237,7 @@
 	<string name="type.leisure.swimming_pool">游泳池</string>
 	<string name="type.leisure.swimming_pool.private">游泳池</string>
 	<string name="type.leisure.track">賽道</string>
+	<string name="type.leisure.track.area">賽道</string>
 	<string name="type.leisure.water_park">水上乐园</string>
 	<string name="type.man_made">人造要素</string>
 	<string name="type.man_made.breakwater">防波堤</string>

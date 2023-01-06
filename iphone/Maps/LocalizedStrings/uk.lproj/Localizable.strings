@@ -1311,6 +1311,8 @@
 
 "type.amenity.charging_station" = "Зарядна станція";
 
+"type.amenity.charging_station.motorcar" = "Зарядна станція";
+
 "type.amenity.childcare" = "Дитяча кімната";
 
 "type.amenity.cinema" = "Кінотеатр";
@@ -2388,6 +2390,8 @@
 "type.leisure.swimming_pool.private" = "Басейн для плавання";
 
 "type.leisure.track" = "Бігова доріжка";
+
+"type.leisure.track.area" = "Бігова доріжка";
 
 "type.leisure.water_park" = "Аквапарк";
 

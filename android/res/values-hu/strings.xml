@@ -693,6 +693,7 @@
 	<string name="type.amenity.car_wash">Autómosó</string>
 	<string name="type.amenity.casino">Kaszinó</string>
 	<string name="type.amenity.charging_station">Töltő állomás</string>
+	<string name="type.amenity.charging_station.motorcar">Töltő állomás</string>
 	<string name="type.amenity.childcare">Bölcsőde</string>
 	<string name="type.amenity.cinema">Mozi</string>
 	<string name="type.amenity.clinic">Klinika</string>

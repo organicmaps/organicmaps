@@ -698,6 +698,7 @@
 	<string name="type.amenity.car_wash">洗車場</string>
 	<string name="type.amenity.casino">カジノ</string>
 	<string name="type.amenity.charging_station">充電ステーション</string>
+	<string name="type.amenity.charging_station.motorcar">充電ステーション</string>
 	<string name="type.amenity.childcare">託児所</string>
 	<string name="type.amenity.cinema">映画館</string>
 	<string name="type.amenity.clinic">クリニック</string>
@@ -1216,6 +1217,7 @@
 	<string name="type.leisure.swimming_pool">プール</string>
 	<string name="type.leisure.swimming_pool.private">プール</string>
 	<string name="type.leisure.track">トラック</string>
+	<string name="type.leisure.track.area">トラック</string>
 	<string name="type.leisure.water_park">ウォーターパーク</string>
 	<string name="type.man_made">構造物</string>
 	<string name="type.man_made.breakwater">防波堤</string>

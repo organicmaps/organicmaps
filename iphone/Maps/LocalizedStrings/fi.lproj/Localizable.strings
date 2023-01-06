@@ -1311,6 +1311,8 @@
 
 "type.amenity.charging_station" = "Latausasema";
 
+"type.amenity.charging_station.motorcar" = "Latausasema";
+
 "type.amenity.childcare" = "Päivähoito";
 
 "type.amenity.cinema" = "Elokuvateatteri";
@@ -2388,6 +2390,8 @@
 "type.leisure.swimming_pool.private" = "Uima-allas";
 
 "type.leisure.track" = "Track";
+
+"type.leisure.track.area" = "Track";
 
 "type.leisure.water_park" = "Vesipuisto";
 
