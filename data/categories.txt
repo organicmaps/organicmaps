@@ -14397,3 +14397,20 @@ uk:Оптовий магазин
 vi:Cửa hàng bán buôn
 zh-Hans:批发店
 zh-Hant:批髮店
+
+area:leisure-track|leisure-track
+en:Track
+de:Laufbahn
+es:Pista deportiva
+et:Jooksurada
+fr:Piste de course
+it:Pista da corsa
+ja:トラック
+mr:ट्रॅक
+nl:Parcours
+pt:Pista para desportos não motorizados
+pt-BR:Pista para esportes não motorizados
+ru:Беговая дорожка
+tr:Pist
+uk:Бігова доріжка
+zh-Hans = 賽道
