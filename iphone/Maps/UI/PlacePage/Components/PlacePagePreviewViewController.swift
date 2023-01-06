@@ -23,15 +23,14 @@ final class PlacePagePreviewViewController: UIViewController {
   @IBOutlet var addressLabel: UILabel!
   @IBOutlet var addressContainerView: UIStackView!
   @IBOutlet var scheduleContainerView: UIStackView!
-
   @IBOutlet var subtitleDirectionView: PlacePageDirectionView!
   @IBOutlet var addressDirectionView: PlacePageDirectionView!
-
+  
   var placePageDirectionView: PlacePageDirectionView?
   lazy var fullScreenDirectionView: DirectionView = {
     return Bundle.main.load(viewClass: DirectionView.self)!
   }()
-
+  
   var placePagePreviewData: PlacePagePreviewData! {
     didSet {
       if isViewLoaded {
@@ -43,24 +42,24 @@ final class PlacePagePreviewViewController: UIViewController {
   private var distance: String? = nil
   private var speedAndAltitude: String? = nil
   private var heading: CGFloat? = nil
-
+  
   override func viewDidLoad() {
     super.viewDidLoad()
-
+    
     updateViews()
-
+    
     if let distance = distance {
       placePageDirectionView?.isHidden = false
       placePageDirectionView?.label.text = distance
     }
-
+    
     if let heading = heading {
       updateHeading(heading)
     } else {
       placePageDirectionView?.imageView.isHidden = true
     }
   }
-
+  
   private func updateViews() {
     if placePagePreviewData.isMyPosition {
       if let speedAndAltitude = speedAndAltitude {
@@ -73,35 +72,35 @@ final class PlacePagePreviewViewController: UIViewController {
                                                  attributes: [.foregroundColor : UIColor.linkBlue(),
                                                               .font : UIFont.regular14()]))
       }
-
+      
       if let subtitle = placePagePreviewData.subtitle ?? placePagePreviewData.coordinates {
         subtitleString.append(NSAttributedString(string: !subtitleString.string.isEmpty ? " • " + subtitle : subtitle,
                                                  attributes: [.foregroundColor : UIColor.blackSecondaryText(),
                                                               .font : UIFont.regular14()]))
       }
-
+      
       subtitleLabel.attributedText = subtitleString
     }
-
+    
     placePageDirectionView = subtitleDirectionView
-
+    
     if let address = placePagePreviewData.address {
       addressLabel.text = address
       placePageDirectionView = addressDirectionView
     } else {
       addressContainerView.isHidden = true
     }
-
+    
     configSchedule()
   }
-
+  
   func updateDistance(_ distance: String) {
     self.distance = distance
     placePageDirectionView?.isHidden = false
     placePageDirectionView?.label.text = distance
     fullScreenDirectionView.updateDistance(distance)
   }
-
+  
   func updateHeading(_ angle: CGFloat) {
     heading = angle
     placePageDirectionView?.imageView.isHidden = false
@@ -109,21 +108,21 @@ final class PlacePagePreviewViewController: UIViewController {
                    delay: 0,
                    options: [.beginFromCurrentState, .curveEaseInOut],
                    animations: { [unowned self] in
-                    self.placePageDirectionView?.imageView.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2 - angle)
+      self.placePageDirectionView?.imageView.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2 - angle)
     })
     fullScreenDirectionView.updateHeading(angle)
   }
-
+  
   func updateSpeedAndAltitude(_ speedAndAltitude: String) {
     self.speedAndAltitude = speedAndAltitude
     subtitleLabel?.text = speedAndAltitude
   }
-
+  
   @IBAction func onDirectionPressed(_ sender: Any) {
     guard let heading = heading else {
       return
     }
-
+    
     fullScreenDirectionView.updateTitle(placePagePreviewData.title,
                                         subtitle: placePagePreviewData.subtitle ?? placePagePreviewData.coordinates)
     fullScreenDirectionView.updateHeading(heading)
@@ -131,7 +130,7 @@ final class PlacePagePreviewViewController: UIViewController {
     fullScreenDirectionView.show()
   }
   // MARK: private
-
+  
   private func configSchedule() {
     let now = time_t(Date().timeIntervalSince1970);
     
@@ -165,9 +164,9 @@ final class PlacePagePreviewViewController: UIViewController {
         details = nil;
       }
       
-      setScheduleLabel(state: L("editor_time_open"),
+      setScheduleLabel(state: L(""),
                        stateColor: UIColor.systemGreen,
-                       details: details);
+                       details: details)
       
     case .closed:
       let nextTimeOpen = placePagePreviewData.schedule.nextTimeOpen;
@@ -202,7 +201,7 @@ final class PlacePagePreviewViewController: UIViewController {
         details = nil;
       }
       
-      setScheduleLabel(state: L("closed_now"),
+      setScheduleLabel(state: L(""),
                        stateColor: UIColor.systemRed,
                        details: details);
       
@@ -228,13 +227,13 @@ final class PlacePagePreviewViewController: UIViewController {
     let attributedString = NSMutableAttributedString();
     let stateString = NSAttributedString(string: state,
                                          attributes: [NSAttributedString.Key.font: UIFont.regular14(),
-                                                      NSAttributedString.Key.foregroundColor: stateColor]);
+                                                      NSAttributedString.Key.foregroundColor: UIColor.systemGreen]);
     attributedString.append(stateString);
     if (details != nil)
     {
       let detailsString = NSAttributedString(string: " • " + details!,
                                              attributes: [NSAttributedString.Key.font: UIFont.regular14(),
-                                                          NSAttributedString.Key.foregroundColor: UIColor.blackSecondaryText()]);
+                                                          NSAttributedString.Key.foregroundColor: UIColor.systemRed]);
       attributedString.append(detailsString);
     }
     scheduleLabel.attributedText = attributedString;
