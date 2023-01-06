@@ -109,13 +109,11 @@ node|z17-[railway=station][transport=subway][city=bengalore] {icon-image: subway
 node|z17-[railway=subway_entrance][city=bengalore] {icon-image: subway-bengaluru-s.svg;text-optional: true;}
 
 /* Bilbao Subway Station*/
-/* TODO: add Bilbao Subway icon
 node|z13[railway=station][transport=subway][city=bilbao] {icon-image: subway-bilbao-s.svg;icon-min-distance: 1;}
 node|z14[railway=station][transport=subway][city=bilbao] {icon-image: subway-bilbao-s.svg;}
 node|z15-16[railway=station][transport=subway][city=bilbao] {icon-image: subway-bilbao-m.svg;}
 node|z17-[railway=station][transport=subway][city=bilbao] {icon-image: subway-bilbao-m.svg;text-optional: true;}
 node|z17-[railway=subway_entrance][city=bilbao] {icon-image: subway-bilbao-s.svg;text-optional: true;}
-*/
 
 /* Brasilia Subway Station*/
 node|z13[railway=station][transport=subway][city=brasilia] {icon-image: subway-brasilia-s.svg;icon-min-distance: 1;}
