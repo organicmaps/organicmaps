@@ -1311,6 +1311,8 @@
 
 "type.amenity.charging_station" = "محطة شحن";
 
+"type.amenity.charging_station.motorcar" = "محطة شحن";
+
 "type.amenity.childcare" = "حضانة";
 
 "type.amenity.cinema" = "سينما";
@@ -2388,6 +2390,8 @@
 "type.leisure.swimming_pool.private" = "مسبح خاص";
 
 "type.leisure.track" = "Track";
+
+"type.leisure.track.area" = "Track";
 
 "type.leisure.water_park" = "ملاهي مائية";
 

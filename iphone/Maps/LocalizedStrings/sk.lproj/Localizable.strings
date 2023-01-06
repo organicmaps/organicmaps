@@ -1311,6 +1311,8 @@
 
 "type.amenity.charging_station" = "Dobíjacia stanica";
 
+"type.amenity.charging_station.motorcar" = "Dobíjacia stanica";
+
 "type.amenity.childcare" = "Jasle";
 
 "type.amenity.cinema" = "Kino";
@@ -2388,6 +2390,8 @@
 "type.leisure.swimming_pool.private" = "Kúpalisko";
 
 "type.leisure.track" = "Track";
+
+"type.leisure.track.area" = "Track";
 
 "type.leisure.water_park" = "Vodný park";
 

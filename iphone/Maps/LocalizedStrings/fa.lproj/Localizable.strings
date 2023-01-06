@@ -1311,6 +1311,8 @@
 
 "type.amenity.charging_station" = "ایستگاه شارژ";
 
+"type.amenity.charging_station.motorcar" = "ایستگاه شارژ";
+
 "type.amenity.childcare" = "شیرخوارگاه";
 
 "type.amenity.cinema" = "سرگرمی";
@@ -2388,6 +2390,8 @@
 "type.leisure.swimming_pool.private" = "استخرشنا";
 
 "type.leisure.track" = "Track";
+
+"type.leisure.track.area" = "Track";
 
 "type.leisure.water_park" = "گردشگری";
 

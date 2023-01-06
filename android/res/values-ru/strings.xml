@@ -764,6 +764,7 @@
 	<string name="type.amenity.car_wash">Автомойка</string>
 	<string name="type.amenity.casino">Казино</string>
 	<string name="type.amenity.charging_station">Зарядная станция</string>
+	<string name="type.amenity.charging_station.motorcar">Зарядная станция</string>
 	<string name="type.amenity.childcare">Детская комната</string>
 	<string name="type.amenity.cinema">Кинотеатр</string>
 	<string name="type.amenity.clinic">Поликлиника</string>
@@ -1314,6 +1315,7 @@
 	<string name="type.leisure.swimming_pool">Плавательный бассейн</string>
 	<string name="type.leisure.swimming_pool.private">Плавательный бассейн</string>
 	<string name="type.leisure.track">Беговая дорожка</string>
+	<string name="type.leisure.track.area">Беговая дорожка</string>
 	<string name="type.leisure.water_park">Аквапарк</string>
 	<string name="type.leisure.beach_resort">Пляжный курорт</string>
 	<string name="type.man_made">Искусственное сооружение</string>

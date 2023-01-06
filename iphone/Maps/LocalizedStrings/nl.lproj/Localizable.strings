@@ -1311,6 +1311,8 @@
 
 "type.amenity.charging_station" = "Oplaadstation";
 
+"type.amenity.charging_station.motorcar" = "Oplaadstation";
+
 "type.amenity.childcare" = "Crèche";
 
 "type.amenity.cinema" = "Bioscoop";
@@ -2388,6 +2390,8 @@
 "type.leisure.swimming_pool.private" = "Privé zwembad";
 
 "type.leisure.track" = "Parcours";
+
+"type.leisure.track.area" = "Parcours";
 
 "type.leisure.water_park" = "Waterpark";
 

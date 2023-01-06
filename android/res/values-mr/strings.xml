@@ -717,6 +717,7 @@
 	<string name="type.amenity.car_wash">कार धुणे</string>
 	<string name="type.amenity.casino">जुगारगृह</string>
 	<string name="type.amenity.charging_station">चार्जिंग केंद्र</string>
+	<string name="type.amenity.charging_station.motorcar">चार्जिंग केंद्र</string>
 	<string name="type.amenity.childcare">बालवाडी</string>
 	<string name="type.amenity.cinema">चित्रपटगृह</string>
 	<string name="type.amenity.clinic">चिकित्सालय</string>
@@ -1171,6 +1172,7 @@
 	<string name="type.leisure.swimming_pool">जलतरण तलाव</string>
 	<string name="type.leisure.swimming_pool.private">जलतरण तलाव</string>
 	<string name="type.leisure.track">ट्रॅक</string>
+	<string name="type.leisure.track.area">ट्रॅक</string>
 	<string name="type.leisure.water_park">जल उद्यान</string>
 	<string name="type.leisure.beach_resort">समुद्री रिसॉर्ट</string>
 	<string name="type.man_made">मानवनिर्मित</string>

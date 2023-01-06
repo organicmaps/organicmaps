@@ -1311,6 +1311,8 @@
 
 "type.amenity.charging_station" = "Stație încărcare";
 
+"type.amenity.charging_station.motorcar" = "Stație încărcare";
+
 "type.amenity.childcare" = "De îngrijire a copilului";
 
 "type.amenity.cinema" = "Cinema";
@@ -2388,6 +2390,8 @@
 "type.leisure.swimming_pool.private" = "Piscină";
 
 "type.leisure.track" = "Track";
+
+"type.leisure.track.area" = "Track";
 
 "type.leisure.water_park" = "Parc acvatic";
 

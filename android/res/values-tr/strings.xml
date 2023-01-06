@@ -755,6 +755,7 @@
 	<string name="type.amenity.car_wash">Araba Yıkama</string>
 	<string name="type.amenity.casino">Kumarhane</string>
 	<string name="type.amenity.charging_station">Şarj İstasyonu</string>
+	<string name="type.amenity.charging_station.motorcar">Şarj İstasyonu</string>
 	<string name="type.amenity.childcare">Kreş</string>
 	<string name="type.amenity.cinema">Sinema</string>
 	<string name="type.amenity.clinic">Klinik</string>
@@ -1298,6 +1299,7 @@
 	<string name="type.leisure.swimming_pool">Yüzme Havuzu</string>
 	<string name="type.leisure.swimming_pool.private">Yüzme Havuzu</string>
 	<string name="type.leisure.track">Pist</string>
+	<string name="type.leisure.track.area">Pist</string>
 	<string name="type.leisure.water_park">Su Parkı</string>
 	<string name="type.leisure.beach_resort">Sahil Tatil Yeri</string>
 	<string name="type.man_made">İnsan Yapımı</string>

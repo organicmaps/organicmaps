@@ -705,6 +705,7 @@
 	<string name="type.amenity.car_wash">Kotxe garbiketa</string>
 	<string name="type.amenity.casino">Kasinoa</string>
 	<string name="type.amenity.charging_station">Kargatzeko geltokia</string>
+	<string name="type.amenity.charging_station.motorcar">Kargatzeko geltokia</string>
 	<string name="type.amenity.childcare">Haurtzaindegia</string>
 	<string name="type.amenity.cinema">Filmak</string>
 	<string name="type.amenity.clinic">Klinika</string>

@@ -1311,6 +1311,8 @@
 
 "type.amenity.charging_station" = "Ladestasjon";
 
+"type.amenity.charging_station.motorcar" = "Ladestasjon";
+
 "type.amenity.childcare" = "Daghjem";
 
 "type.amenity.cinema" = "Kino";
@@ -2388,6 +2390,8 @@
 "type.leisure.swimming_pool.private" = "Svømmebasseng";
 
 "type.leisure.track" = "Track";
+
+"type.leisure.track.area" = "Track";
 
 "type.leisure.water_park" = "Vannpark";
 

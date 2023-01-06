@@ -1309,7 +1309,9 @@
 
 "type.amenity.casino" = "Casino";
 
-"type.amenity.charging_station" = "Station de recharge";
+"type.amenity.charging_station" = "Borne de recharge";
+
+"type.amenity.charging_station.motorcar" = "Borne de recharge";
 
 "type.amenity.childcare" = "Garderie";
 
@@ -2388,6 +2390,8 @@
 "type.leisure.swimming_pool.private" = "Piscine";
 
 "type.leisure.track" = "Piste de course";
+
+"type.leisure.track.area" = "Piste de course";
 
 "type.leisure.water_park" = "Centre aquatique";
 

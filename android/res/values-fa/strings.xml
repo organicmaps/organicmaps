@@ -690,6 +690,7 @@
 	<string name="type.amenity.car_wash">کارواش</string>
 	<string name="type.amenity.casino">قمارخانه</string>
 	<string name="type.amenity.charging_station">ایستگاه شارژ</string>
+	<string name="type.amenity.charging_station.motorcar">ایستگاه شارژ</string>
 	<string name="type.amenity.childcare">شیرخوارگاه</string>
 	<string name="type.amenity.cinema">سرگرمی</string>
 	<string name="type.amenity.clinic">کلینیک</string>

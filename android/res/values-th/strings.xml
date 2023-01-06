@@ -691,6 +691,7 @@
 	<string name="type.amenity.car_wash">ล้างรถ</string>
 	<string name="type.amenity.casino">คาสิโน</string>
 	<string name="type.amenity.charging_station">สถานีชาร์จ</string>
+	<string name="type.amenity.charging_station.motorcar">สถานีชาร์จ</string>
 	<string name="type.amenity.childcare">สถานรับเลี้ยงเด็ก</string>
 	<string name="type.amenity.cinema">โรงภาพยนตร์</string>
 	<string name="type.amenity.clinic">คลินิก</string>

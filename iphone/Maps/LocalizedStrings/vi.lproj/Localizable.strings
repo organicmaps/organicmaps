@@ -1311,6 +1311,8 @@
 
 "type.amenity.charging_station" = "Trạm Sạc điện";
 
+"type.amenity.charging_station.motorcar" = "Trạm Sạc điện";
+
 "type.amenity.childcare" = "Nhà trẻ";
 
 "type.amenity.cinema" = "Rạp chiếu phim";
@@ -2388,6 +2390,8 @@
 "type.leisure.swimming_pool.private" = "Bể bơi";
 
 "type.leisure.track" = "Track";
+
+"type.leisure.track.area" = "Track";
 
 "type.leisure.water_park" = "Công Viên Nước";
 

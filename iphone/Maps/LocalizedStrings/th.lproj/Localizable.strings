@@ -1311,6 +1311,8 @@
 
 "type.amenity.charging_station" = "สถานีชาร์จ";
 
+"type.amenity.charging_station.motorcar" = "สถานีชาร์จ";
+
 "type.amenity.childcare" = "สถานรับเลี้ยงเด็ก";
 
 "type.amenity.cinema" = "โรงภาพยนตร์";
@@ -2388,6 +2390,8 @@
 "type.leisure.swimming_pool.private" = "สระว่ายน้ำ";
 
 "type.leisure.track" = "Track";
+
+"type.leisure.track.area" = "Track";
 
 "type.leisure.water_park" = "สวนน้ำ";
 

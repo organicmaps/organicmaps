@@ -735,6 +735,7 @@
 	<string name="type.amenity.car_wash">Автомийка</string>
 	<string name="type.amenity.casino">Казино</string>
 	<string name="type.amenity.charging_station">Зарядна станція</string>
+	<string name="type.amenity.charging_station.motorcar">Зарядна станція</string>
 	<string name="type.amenity.childcare">Дитяча кімната</string>
 	<string name="type.amenity.cinema">Кінотеатр</string>
 	<string name="type.amenity.clinic">Поліклініка</string>
@@ -1280,6 +1281,7 @@
 	<string name="type.leisure.swimming_pool">Басейн для плавання</string>
 	<string name="type.leisure.swimming_pool.private">Басейн для плавання</string>
 	<string name="type.leisure.track">Бігова доріжка</string>
+	<string name="type.leisure.track.area">Бігова доріжка</string>
 	<string name="type.leisure.water_park">Аквапарк</string>
 	<string name="type.leisure.beach_resort">Пляжний курорт</string>
 	<string name="type.man_made">Штучна споруда</string>
