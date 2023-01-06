@@ -91,7 +91,7 @@ struct LocalizedStreet
 class EditableMapObject : public MapObject
 {
 public:
-  static uint8_t constexpr kMaximumLevelsEditableByUsers = 25;
+  static uint8_t constexpr kMaximumLevelsEditableByUsers = 50;
 
   bool IsNameEditable() const;
   bool IsAddressEditable() const;
