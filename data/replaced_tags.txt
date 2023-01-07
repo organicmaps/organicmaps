@@ -113,6 +113,7 @@ ruins=yes : historic=ruins
 historic=cannon : historic=memorial
 historic=technical_monument : historic=memorial
 historic=shield : historic=memorial
+historic=fountain : amenity=fountain | u
 
 memorial=blue_plaque : memorial=plaque
 memorial=stele : memorial=sculpture
