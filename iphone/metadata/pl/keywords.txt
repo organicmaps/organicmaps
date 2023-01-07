@@ -1,1 +1,1 @@
-mapa,wędrówka,trasa,jazda na rowerze,openstreetmap,osm,nawigacja,metro,kolejka,piesze wycieczki,kierunki,samochód,prywatność,miasto,wieś
+mapa,wędrówka,trasa,rower,openstreetmap,osm,nawigacja,metro,kolejka,wycieczki,kierunki,samochód
