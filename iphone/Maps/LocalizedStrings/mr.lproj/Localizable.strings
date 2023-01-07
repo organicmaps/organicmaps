@@ -1317,6 +1317,8 @@
 
 "type.amenity.cinema" = "चित्रपटगृह";
 
+"type.leisure.bowling_alley" = "गोलंदाजी गल्ली";
+
 "type.amenity.clinic" = "चिकित्सालय";
 
 "type.amenity.college" = "महाविद्यालय";

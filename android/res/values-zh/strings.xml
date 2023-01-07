@@ -714,6 +714,7 @@
 	<string name="type.amenity.charging_station.motorcar">充电站</string>
 	<string name="type.amenity.childcare">托儿所</string>
 	<string name="type.amenity.cinema">电影院</string>
+	<string name="type.leisure.bowling_alley">保龄球馆</string>
 	<string name="type.amenity.clinic">诊所</string>
 	<string name="type.amenity.college">学院</string>
 	<string name="type.amenity.community_centre">社区活动中心</string>

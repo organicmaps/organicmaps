@@ -590,6 +590,7 @@ world  +
         {}
     leisure  +
         beach_resort  -
+        bowling_alley  -
         common  -
         dance  -
         dog_park  -

@@ -696,6 +696,7 @@
 	<string name="type.amenity.charging_station.motorcar">Töltő állomás</string>
 	<string name="type.amenity.childcare">Bölcsőde</string>
 	<string name="type.amenity.cinema">Mozi</string>
+	<string name="type.leisure.bowling_alley">Tekepálya</string>
 	<string name="type.amenity.clinic">Klinika</string>
 	<string name="type.amenity.college">Kollégium</string>
 	<string name="type.amenity.community_centre">Közösségi központ</string>

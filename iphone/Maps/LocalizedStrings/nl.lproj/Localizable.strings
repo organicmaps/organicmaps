@@ -1317,6 +1317,8 @@
 
 "type.amenity.cinema" = "Bioscoop";
 
+"type.leisure.bowling_alley" = "Bowlingbaan";
+
 "type.amenity.clinic" = "Kliniek";
 
 "type.amenity.college" = "Hogeschool";

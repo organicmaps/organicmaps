@@ -1317,6 +1317,8 @@
 
 "type.amenity.cinema" = "Kino";
 
+"type.leisure.bowling_alley" = "Bowlingová dráha";
+
 "type.amenity.clinic" = "Klinika";
 
 "type.amenity.college" = "Vysoká škola";

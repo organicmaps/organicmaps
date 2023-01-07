@@ -690,6 +690,7 @@
 	<string name="type.amenity.charging_station.motorcar">Dobíjacia stanica</string>
 	<string name="type.amenity.childcare">Jasle</string>
 	<string name="type.amenity.cinema">Kino</string>
+	<string name="type.leisure.bowling_alley">Bowlingová dráha</string>
 	<string name="type.amenity.clinic">Poliklinika</string>
 	<string name="type.amenity.college">Vysoká škola</string>
 	<string name="type.amenity.community_centre">Dom kultúry</string>

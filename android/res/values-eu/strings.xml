@@ -708,6 +708,7 @@
 	<string name="type.amenity.charging_station.motorcar">Kargatzeko geltokia</string>
 	<string name="type.amenity.childcare">Haurtzaindegia</string>
 	<string name="type.amenity.cinema">Filmak</string>
+	<string name="type.leisure.bowling_alley">Bolatokia</string>
 	<string name="type.amenity.clinic">Klinika</string>
 	<string name="type.amenity.college">Unibertsitatea</string>
 	<string name="type.amenity.community_centre">Komunitate Zentroa</string>

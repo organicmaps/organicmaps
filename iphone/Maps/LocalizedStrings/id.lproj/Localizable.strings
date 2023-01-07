@@ -1317,6 +1317,8 @@
 
 "type.amenity.cinema" = "Bioskop";
 
+"type.leisure.bowling_alley" = "Arena Bowling";
+
 "type.amenity.clinic" = "Klinik";
 
 "type.amenity.college" = "Kampus";

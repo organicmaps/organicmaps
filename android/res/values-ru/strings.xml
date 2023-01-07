@@ -767,6 +767,7 @@
 	<string name="type.amenity.charging_station.motorcar">Зарядная станция</string>
 	<string name="type.amenity.childcare">Детская комната</string>
 	<string name="type.amenity.cinema">Кинотеатр</string>
+	<string name="type.leisure.bowling_alley">Боулинг</string>
 	<string name="type.amenity.clinic">Поликлиника</string>
 	<string name="type.amenity.college">Колледж</string>
 	<string name="type.amenity.community_centre">Культурно-досуговый центр</string>

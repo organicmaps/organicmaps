@@ -642,6 +642,7 @@
 	<string name="splash_subtitle">Картографски данни от OpenStreetMap</string>
 
 	<!-- SECTION: Types -->
+	<string name="type.leisure.bowling_alley">Боулинг писта</string>
 	<string name="type.amenity.driving_school">Автошкола</string>
 	<string name="type.amenity.music_school">Музикално училище</string>
 	<string name="type.amenity.language_school">Езиково училище</string>

@@ -1317,6 +1317,8 @@
 
 "type.amenity.cinema" = "โรงภาพยนตร์";
 
+"type.leisure.bowling_alley" = "ลานโบว์ลิ่ง";
+
 "type.amenity.clinic" = "คลินิก";
 
 "type.amenity.college" = "วิทยาลัย";

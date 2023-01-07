@@ -758,6 +758,7 @@
 	<string name="type.amenity.charging_station.motorcar">Şarj İstasyonu</string>
 	<string name="type.amenity.childcare">Kreş</string>
 	<string name="type.amenity.cinema">Sinema</string>
+	<string name="type.leisure.bowling_alley">Bowling pisti</string>
 	<string name="type.amenity.clinic">Klinik</string>
 	<string name="type.amenity.college">Kolej</string>
 	<string name="type.amenity.community_centre">Toplum Merkezi</string>

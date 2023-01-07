@@ -693,6 +693,7 @@
 	<string name="type.amenity.charging_station.motorcar">ایستگاه شارژ</string>
 	<string name="type.amenity.childcare">شیرخوارگاه</string>
 	<string name="type.amenity.cinema">سرگرمی</string>
+	<string name="type.leisure.bowling_alley">ﮓﻨﯿﻟﻮﺑ ﻦﻟﺎﺳ</string>
 	<string name="type.amenity.clinic">کلینیک</string>
 	<string name="type.amenity.college">دانشگاه</string>
 	<string name="type.amenity.community_centre">مرکزاجتماعی</string>

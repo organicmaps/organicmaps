@@ -717,6 +717,7 @@
 	<string name="type.amenity.charging_station">Stație încărcare</string>
 	<string name="type.amenity.charging_station.motorcar">Stație încărcare</string>
 	<string name="type.amenity.childcare">De îngrijire a copilului</string>
+	<string name="type.leisure.bowling_alley">Popicărie</string>
 	<string name="type.amenity.clinic">Clinică</string>
 	<string name="type.amenity.college">Colegiu</string>
 	<string name="type.amenity.community_centre">Centru comunitar</string>

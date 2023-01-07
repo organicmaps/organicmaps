@@ -434,7 +434,7 @@ mapswithme
 *historic|battlefield
 mapswithme
 *sport|australian_football
-mapswithme
+*leisure|bowling_alley
 mapswithme
 mapswithme
 mapswithme

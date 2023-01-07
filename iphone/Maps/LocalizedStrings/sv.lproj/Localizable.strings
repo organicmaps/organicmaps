@@ -1317,6 +1317,8 @@
 
 "type.amenity.cinema" = "Bio";
 
+"type.leisure.bowling_alley" = "Bowlinghall";
+
 "type.amenity.clinic" = "Klinik";
 
 "type.amenity.college" = "Högskola";

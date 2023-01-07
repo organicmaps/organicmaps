@@ -720,6 +720,7 @@
 	<string name="type.amenity.charging_station.motorcar">चार्जिंग केंद्र</string>
 	<string name="type.amenity.childcare">बालवाडी</string>
 	<string name="type.amenity.cinema">चित्रपटगृह</string>
+	<string name="type.leisure.bowling_alley">गोलंदाजी गल्ली</string>
 	<string name="type.amenity.clinic">चिकित्सालय</string>
 	<string name="type.amenity.college">महाविद्यालय</string>
 	<string name="type.amenity.community_centre">समुदाय केंद्र</string>
