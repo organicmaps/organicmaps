@@ -696,6 +696,7 @@
 	<string name="type.amenity.charging_station.motorcar">Ladestasjon</string>
 	<string name="type.amenity.childcare">Daghjem</string>
 	<string name="type.amenity.cinema">Kino</string>
+	<string name="type.leisure.bowling_alley">Bowlinghall</string>
 	<string name="type.amenity.clinic">Klinikk</string>
 	<string name="type.amenity.college">Høyskole</string>
 	<string name="type.amenity.community_centre">Samfunnshus</string>

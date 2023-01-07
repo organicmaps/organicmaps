@@ -1317,6 +1317,8 @@
 
 "type.amenity.cinema" = "電影院";
 
+"type.leisure.bowling_alley" = "保齡球館";
+
 "type.amenity.clinic" = "診所";
 
 "type.amenity.college" = "學院";

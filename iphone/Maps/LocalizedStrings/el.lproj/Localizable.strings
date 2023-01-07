@@ -1317,6 +1317,8 @@
 
 "type.amenity.cinema" = "Κινηματογράφος";
 
+"type.leisure.bowling_alley" = "Αίθουσα σφαιρίσεως";
+
 "type.amenity.clinic" = "Κλινική";
 
 "type.amenity.college" = "Κολέγιο";

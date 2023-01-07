@@ -747,6 +747,7 @@
 	<string name="type.amenity.charging_station.motorcar">Oplaadstation</string>
 	<string name="type.amenity.childcare">Crèche</string>
 	<string name="type.amenity.cinema">Bioscoop</string>
+	<string name="type.leisure.bowling_alley">Bowlingbaan</string>
 	<string name="type.amenity.clinic">Kliniek</string>
 	<string name="type.amenity.college">Hogeschool</string>
 	<string name="type.amenity.community_centre">Gemeenschapscentrum</string>

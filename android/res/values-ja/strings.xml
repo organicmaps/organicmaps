@@ -701,6 +701,7 @@
 	<string name="type.amenity.charging_station.motorcar">充電ステーション</string>
 	<string name="type.amenity.childcare">託児所</string>
 	<string name="type.amenity.cinema">映画館</string>
+	<string name="type.leisure.bowling_alley">ボーリング場</string>
 	<string name="type.amenity.clinic">クリニック</string>
 	<string name="type.amenity.college">カレッジ</string>
 	<string name="type.amenity.community_centre">コミュニティセンター</string>

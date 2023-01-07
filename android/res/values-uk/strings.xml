@@ -738,6 +738,7 @@
 	<string name="type.amenity.charging_station.motorcar">Зарядна станція</string>
 	<string name="type.amenity.childcare">Дитяча кімната</string>
 	<string name="type.amenity.cinema">Кінотеатр</string>
+	<string name="type.leisure.bowling_alley">Боулінг</string>
 	<string name="type.amenity.clinic">Поліклініка</string>
 	<string name="type.amenity.college">Коледж</string>
 	<string name="type.amenity.community_centre">Центр культури та дозвілля, Дім культури</string>

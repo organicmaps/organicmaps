@@ -692,6 +692,7 @@
 	<string name="type.amenity.charging_station.motorcar">Trạm Sạc điện</string>
 	<string name="type.amenity.childcare">Nhà trẻ</string>
 	<string name="type.amenity.cinema">Rạp chiếu phim</string>
+	<string name="type.leisure.bowling_alley">Sân chơi bowling</string>
 	<string name="type.amenity.clinic">Phòng khám</string>
 	<string name="type.amenity.college">Trường đại học</string>
 	<string name="type.amenity.community_centre">Trung Tâm Cộng Đồng</string>

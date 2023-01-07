@@ -725,6 +725,7 @@
 	<string name="type.amenity.charging_station.motorcar">充電站</string>
 	<string name="type.amenity.childcare">保育</string>
 	<string name="type.amenity.cinema">電影院</string>
+	<string name="type.leisure.bowling_alley">保齡球館</string>
 	<string name="type.amenity.clinic">診所</string>
 	<string name="type.amenity.college">學院</string>
 	<string name="type.amenity.community_centre">社區活動中心</string>

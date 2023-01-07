@@ -711,6 +711,7 @@
 
 	<!-- SECTION: Types -->
 	<string name="type.amenity.bicycle_parking">Велапаркоўка</string>
+	<string name="type.leisure.bowling_alley">Боўлінг</string>
 	<string name="type.amenity.driving_school">Аўташкола</string>
 	<string name="type.amenity.music_school">Музычная школа</string>
 	<string name="type.amenity.language_school">Моўная школа</string>

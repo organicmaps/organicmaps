@@ -756,6 +756,7 @@
 	<string name="type.amenity.charging_station.motorcar">Estación de carga</string>
 	<string name="type.amenity.childcare">Guardería</string>
 	<string name="type.amenity.cinema">Cine</string>
+	<string name="type.leisure.bowling_alley">Bolera</string>
 	<string name="type.amenity.clinic">Clínica</string>
 	<string name="type.amenity.college">Colegio</string>
 	<string name="type.amenity.community_centre">Centro comunitario</string>

@@ -39182,6 +39182,57 @@ cont {
   }
 }
 cont {
+  name: "leisure-bowling_alley"
+  element {
+    scale: 17
+    symbol {
+      name: "bowling_alley-m"
+      priority: 16657
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15657
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "bowling_alley-m"
+      priority: 16657
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15657
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "bowling_alley-m"
+      priority: 16657
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15657
+    }
+  }
+}
+cont {
   name: "leisure-common"
   element {
     scale: 17
@@ -97516,7 +97567,7 @@ cont {
     scale: 18
     symbol {
       name: "bowling-m"
-      priority: 16609
+      priority: 16619
       min_distance: 10
     }
     caption {
@@ -97526,14 +97577,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15609
+      priority: 15619
     }
   }
   element {
     scale: 19
     symbol {
       name: "bowling-m"
-      priority: 16609
+      priority: 16619
       min_distance: 10
     }
     caption {
@@ -97543,7 +97594,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15609
+      priority: 15619
     }
   }
 }
@@ -97569,7 +97620,7 @@ cont {
     scale: 18
     symbol {
       name: "bowling-m"
-      priority: 16609
+      priority: 16619
       min_distance: 10
     }
     caption {
@@ -97579,14 +97630,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15609
+      priority: 15619
     }
   }
   element {
     scale: 19
     symbol {
       name: "bowling-m"
-      priority: 16609
+      priority: 16619
       min_distance: 10
     }
     caption {
@@ -97596,7 +97647,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15609
+      priority: 15619
     }
   }
 }

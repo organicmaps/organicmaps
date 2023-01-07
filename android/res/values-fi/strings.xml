@@ -714,6 +714,7 @@
 	<string name="type.amenity.charging_station.motorcar">Latausasema</string>
 	<string name="type.amenity.childcare">Päivähoito</string>
 	<string name="type.amenity.cinema">Elokuvateatteri</string>
+	<string name="type.leisure.bowling_alley">Keilarata</string>
 	<string name="type.amenity.clinic">Klinikka</string>
 	<string name="type.amenity.college">Korkeakoulu</string>
 	<string name="type.amenity.community_centre">Monitoimitalo</string>

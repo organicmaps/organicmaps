@@ -1317,6 +1317,8 @@
 
 "type.amenity.cinema" = "Elokuvateatteri";
 
+"type.leisure.bowling_alley" = "Keilarata";
+
 "type.amenity.clinic" = "Klinikka";
 
 "type.amenity.college" = "Korkeakoulu";

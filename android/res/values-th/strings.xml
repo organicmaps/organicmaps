@@ -694,6 +694,7 @@
 	<string name="type.amenity.charging_station.motorcar">สถานีชาร์จ</string>
 	<string name="type.amenity.childcare">สถานรับเลี้ยงเด็ก</string>
 	<string name="type.amenity.cinema">โรงภาพยนตร์</string>
+	<string name="type.leisure.bowling_alley">ลานโบว์ลิ่ง</string>
 	<string name="type.amenity.clinic">คลินิก</string>
 	<string name="type.amenity.college">วิทยาลัย</string>
 	<string name="type.amenity.community_centre">ศูนย์ชุมชน</string>

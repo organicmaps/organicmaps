@@ -688,6 +688,7 @@
 	<string name="type.amenity.charging_station.motorcar">Pusat Pengisian Daya</string>
 	<string name="type.amenity.childcare">Penitipan Anak</string>
 	<string name="type.amenity.cinema">Bioskop</string>
+	<string name="type.leisure.bowling_alley">Arena Bowling</string>
 	<string name="type.amenity.clinic">Klinik</string>
 	<string name="type.amenity.college">Kampus</string>
 	<string name="type.amenity.community_centre">Pusat komunitas</string>

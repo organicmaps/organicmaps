@@ -720,6 +720,7 @@
 	<string name="type.amenity.charging_station.motorcar">Posto de carregamento elétrico</string>
 	<string name="type.amenity.childcare">Creche</string>
 	<string name="type.amenity.cinema">Cinema</string>
+	<string name="type.leisure.bowling_alley">Pista de bowling</string>
 	<string name="type.amenity.clinic">Clínica ou centro de saúde</string>
 	<string name="type.amenity.college">Escola técnica</string>
 	<string name="type.amenity.community_centre">Centro comunitário</string>
