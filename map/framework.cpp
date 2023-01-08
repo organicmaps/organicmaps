@@ -2578,10 +2578,14 @@ bool Framework::ParseDrapeDebugCommand(string const & query)
     desiredStyle = MapStyleDark;
   else if (query == "?light" || query == "mapstyle:light")
     desiredStyle = MapStyleClear;
-  else if (query == "?vdark" || query == "mapstyle:vehicle_dark")
-    desiredStyle = MapStyleVehicleDark;
   else if (query == "?vlight" || query == "mapstyle:vehicle_light")
     desiredStyle = MapStyleVehicleClear;
+  else if (query == "?vdark" || query == "mapstyle:vehicle_dark")
+    desiredStyle = MapStyleVehicleDark;
+  else if (query == "?olight" || query == "mapstyle:outdoors_light")
+    desiredStyle = MapStyleOutdoorsClear;
+  else if (query == "?odark" || query == "mapstyle:outdoors_dark")
+    desiredStyle = MapStyleOutdoorsDark;
 
   if (desiredStyle != MapStyleCount)
   {
