@@ -598,25 +598,22 @@
         <data android:host="*"/>
         <data android:mimeType="*/*"/>
         <!-- See http://stackoverflow.com/questions/3400072/pathpattern-to-match-file-extension-does-not-work-if-a-period-exists-elsewhere-i -->
-        <data android:pathPattern="*.kmz"/>
-        <data android:pathPattern=".*\\.kmz" />
-        <data android:pathPattern=".*\\..*\\.kmz" />
-        <data android:pathPattern=".*\\..*\\..*\\.kmz" />
-        <data android:pathPattern=".*\\..*\\..*\\..*\\.kmz" />
-        <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\.kmz" />
-        <data android:pathPattern="*.kml"/>
-        <data android:pathPattern=".*\\.kml" />
-        <data android:pathPattern=".*\\..*\\.kml" />
-        <data android:pathPattern=".*\\..*\\..*\\.kml" />
-        <data android:pathPattern=".*\\..*\\..*\\..*\\.kml" />
-        <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\.kml" />
+        <data android:pathPattern="/.*\\.kmz" />
+        <data android:pathPattern="/.*\\..*\\.kmz" />
+        <data android:pathPattern="/.*\\..*\\..*\\.kmz" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\.kmz" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\.kmz" />
+        <data android:pathPattern="/.*\\.kml" />
+        <data android:pathPattern="/.*\\..*\\.kml" />
+        <data android:pathPattern="/.*\\..*\\..*\\.kml" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\.kml" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\.kml" />
         <!-- Old MAPS.ME binary format //-->
-        <data android:pathPattern="*.kmb"/>
-        <data android:pathPattern=".*\\.kmb" />
-        <data android:pathPattern=".*\\..*\\.kmb" />
-        <data android:pathPattern=".*\\..*\\..*\\.kmb" />
-        <data android:pathPattern=".*\\..*\\..*\\..*\\.kmb" />
-        <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\.kmb" />
+        <data android:pathPattern="/.*\\.kmb" />
+        <data android:pathPattern="/.*\\..*\\.kmb" />
+        <data android:pathPattern="/.*\\..*\\..*\\.kmb" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\.kmb" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\.kmb" />
       </intent-filter>
     </activity>
 
