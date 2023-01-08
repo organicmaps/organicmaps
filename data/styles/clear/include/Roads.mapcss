@@ -1093,6 +1093,7 @@ line|z15-[aeroway=taxiway]
 /* 9.RAIL 11-22 ZOOM */
 
 line|z11-[railway=rail],
+/* TODO: railway=yard is a node only feature */
 line|z11-[railway=yard],
 line|z12-[railway=funicular],
 line|z13-[railway=light_rail][!tunnel],

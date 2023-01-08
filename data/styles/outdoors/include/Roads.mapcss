@@ -1,0 +1,203 @@
+/* Keep here changes of the base map style file only. */
+@import("../../clear/include/Roads.mapcss");
+
+/* ~~~~ CONTENT OF ROADS ~~~~~
+
+1.Z-INDEX ROADS
+2.WORLD LAVEL ROAD 4-9 ZOOM
+3.TRUNK & MOTORWAY 7-22 ZOOM
+  3.1 Trunk & Motorway 7-22 ZOOM
+  3.2 Trunk & Motorway tunnel 12-22 ZOOM
+  3.3 Trunk & Motorway bridge 13-22 ZOOM
+4.PRIMARY 8-22 ZOOM
+  4.1 Primary 8-22 ZOOM
+  4.2 Primary tunnel 14-22 ZOOM
+  4.3 Primary bridge 14-22 ZOOM
+5.SECONDARY 10-22 ZOOM
+  5.1 Secondary 10-22 ZOOM
+  5.2 Secondary tunnel 16-22 ZOOM
+  5.3 Secondary bridge 14-22 ZOOM
+6.RESIDENTAL & TERTIARY 11-22 ZOOM
+  6.1 Residential & Tertiary 11-22 ZOOM
+  6.2 Residential & Tertiary tunnel 16-22 ZOOM
+  6.3 Residential & Tertiary bridge 14-22 ZOOM
+7.ROAD, STREETS, UNCLASSIFIED & SERVICE 12-22 ZOOM
+  7.1 Road, Street, Unclassified 12-22 ZOOM
+  7.2 Road, Street, Unclassified tunnel 16-22 ZOOM
+  7.3 Road, Street, Unclassified bridge 14-22 ZOOM
+  7.4 Service 15-22 ZOOM
+8.OTHERS ROADS 13-22 ZOOM
+  8.1 Pedestrian & ford 13-22 ZOOM
+  8.2 Pedestrian & ford tunnel 16-22 ZOOM
+  8.3 Pedestrian & other brige 13-22 ZOOM
+  8.4 Cycleway 13-22 ZOOM
+  8.5 Construction & Proposed 13-22 ZOOM
+  8.6 Track & Path 14-22 ZOOM
+  8.7 Footway 15-22 ZOOM
+    8.7.1 Steps 16-22 ZOOM
+  8.8 Footway & Path & Steps tunnel 17-22 ZOOM
+  8.9 Bridleway 14-22 ZOOM
+  8.11 Runway 12-22 ZOOM
+9.RAIL 11-22 ZOOM
+  9.1 RAIL 11-22 ZOOM
+  9.2 Rail tunnel 14-22 ZOOM
+  9.3 Rail bridge 14-22 ZOOM
+  9.4 Monorail 14-22 ZOOM
+  9.5 Tram line 13-22 ZOOM
+  9.6 Funicular 12-22 ZOOM
+10.PISTE 12-22 ZOOM
+ 10.1 Lift 12-22 ZOOM
+ 10.2 Aerialway 12-22 ZOOM
+ 10.3 Piste & Route 14-22 ZOOM
+11.FERRY
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+
+/* 8.OTHERS ROADS 13-22 ZOOM */
+
+line|z11-[highway=track],
+{color: @track;opacity: 1;}
+
+line|z11-[highway=path],
+line|z11-[route=hiking],
+line|z11-[highway=footway][sac_scale],
+{color: @path;opacity: 1;}
+
+/* 8.6 Track & Path 14-22 ZOOM */
+
+line|z11[highway=track],
+{width: 1.3; dashes: 6,2.5;}
+line|z12[highway=track],
+{width: 1.6; dashes: 6,2.5;}
+line|z13[highway=track],
+{width: 2.1; dashes: 7,3;}
+line|z14[highway=track],
+{width: 2.9; dashes: 7,3;}
+line|z15[highway=track],
+{width: 4; dashes: 12,4;}
+line|z16[highway=track],
+{width: 4.9; dashes: 12,4;}
+line|z17[highway=track],
+{width: 7; dashes: 12,4;}
+line|z18[highway=track],
+{width: 10; dashes: 17,5;}
+line|z19-[highway=track],
+{width: 13; dashes: 17,5;}
+
+line|z11[highway=path],
+line|z11[route=hiking],
+line|z11[highway=footway][sac_scale],
+{width: 1; dashes: 3.5,2;}
+line|z12[highway=path],
+line|z12[route=hiking],
+line|z12[highway=footway][sac_scale],
+{width: 1.2; dashes: 3.5,2;}
+line|z13[highway=path],
+line|z13[route=hiking],
+line|z13[highway=footway][sac_scale],
+{width: 1.5; dashes: 4,2.5;}
+line|z14[highway=path],
+line|z14[route=hiking],
+line|z14[highway=footway][sac_scale],
+{width: 2; dashes: 4,2.5;}
+line|z15[highway=path],
+line|z15[route=hiking],
+line|z15[highway=footway][sac_scale],
+{width: 2.8; dashes: 8,4;}
+line|z16[highway=path],
+line|z16[route=hiking],
+line|z16[highway=footway][sac_scale],
+{width: 4; dashes: 8,4;}
+line|z17[highway=path],
+line|z17[route=hiking],
+line|z17[highway=footway][sac_scale],
+{width: 5.3; dashes: 8,4;}
+line|z18[highway=path],
+line|z18[route=hiking],
+line|z18[highway=footway][sac_scale],
+{width: 7.5; dashes: 12,5;}
+line|z19-[highway=path],
+line|z19-[route=hiking],
+line|z19-[highway=footway][sac_scale],
+{width: 10; dashes: 12,5;}
+
+/* 9.RAIL 11-22 ZOOM */
+
+line|z10-[railway=rail],
+line|z13-[railway=subway][!tunnel],
+line|z13-[railway=light_rail][!tunnel],
+{color: @railway; opacity:1;}
+
+line|z14-[railway=rail]::dash,
+line|z14-[railway=subway][!tunnel]::dash,
+line|z14-[railway=light_rail][!tunnel]::dash,
+{color: @railway_dash; opacity:1;}
+
+/* 9.1 RAIL 10-22 ZOOM */
+
+line|z10-[railway=rail],
+{width: 2;}
+line|z12[railway=rail],
+{width: 2.5;}
+line|z13[railway=rail],
+line|z13[railway=subway][!tunnel],
+line|z13[railway=light_rail][!tunnel],
+{width: 3.2;}
+line|z14[railway=rail],
+line|z14[railway=subway][!tunnel],
+line|z14[railway=light_rail][!tunnel],
+{width: 4.1;}
+line|z15[railway=rail],
+line|z15[railway=subway][!tunnel],
+line|z15[railway=light_rail][!tunnel],
+{width: 5.2;}
+line|z16[railway=rail],
+line|z16[railway=subway][!tunnel],
+line|z16[railway=light_rail][!tunnel],
+{width: 6.6;}
+line|z17[railway=rail],
+line|z17[railway=subway][!tunnel],
+line|z17[railway=light_rail][!tunnel],
+{width: 9.5;}
+line|z18-[railway=rail],
+line|z18-[railway=subway][!tunnel],
+line|z18-[railway=light_rail][!tunnel],
+{width: 13;}
+
+line|z14[railway=rail]::dash,
+line|z14[railway=subway][!tunnel]::dash,
+line|z14[railway=light_rail][!tunnel]::dash,
+{width: 3.4; dashes: 5,5;}
+line|z15[railway=rail]::dash,
+line|z15[railway=subway][!tunnel]::dash,
+line|z15[railway=light_rail][!tunnel]::dash,
+{width: 4.2; dashes: 6,6;}
+line|z16[railway=rail]::dash,
+line|z16[railway=subway][!tunnel]::dash,
+line|z16[railway=light_rail][!tunnel]::dash,
+{width: 5; dashes: 6,6;}
+line|z17[railway=rail]::dash,
+line|z17[railway=subway][!tunnel]::dash,
+line|z17[railway=light_rail][!tunnel]::dash,
+{width: 7.5; dashes: 8,8;}
+line|z18-[railway=rail]::dash,
+line|z18-[railway=subway][!tunnel]::dash,
+line|z18-[railway=light_rail][!tunnel]::dash,
+{width: 10; dashes: 10,10;}
+
+line|z14-[railway=preserved],
+line|z14-[railway=abandoned]
+{width: 2; dashes: 6.3,6.3;}
+
+line|z14-[railway=construction],
+line|z14-[railway=disused]
+{width: 1.7; dashes: 1.8,5.4;}
+
+/* 10.PISTE 12-22 ZOOM */
+
+/* 10.2 Aerialway 12-22 ZOOM */
+
+line|z15-[power=line],
+{color: @powerline; width: 1; opacity: 0.6;}
+line|z17-[power=line],
+{width: 1.3; opacity: 0.7;}
