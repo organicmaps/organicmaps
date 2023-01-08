@@ -350,7 +350,7 @@ string ReverseGeocoder::GetLocalizedRegionAddress(RegionAddress const & addr,
     auto const countryName = addr.GetCountryName();
     if (!countryName.empty())
     {
-      vector<string> nameParts;
+      RegionInfoGetter::NameBufferT nameParts;
       nameGetter.GetLocalizedFullName(countryName, nameParts);
       nameParts.insert(nameParts.begin(), std::move(addrStr));
       nameParts.erase(unique(nameParts.begin(), nameParts.end()), nameParts.end());

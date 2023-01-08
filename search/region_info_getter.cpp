@@ -18,7 +18,7 @@ namespace
 template <typename Fn>
 void GetPathToRoot(storage::CountryId const & id, storage::CountryTree const & countries, Fn && fn)
 {
-  vector<storage::CountryTree::Node const *> nodes;
+  storage::CountryTree::NodesBufferT nodes;
   countries.Find(id, nodes);
 
   if (nodes.empty())
@@ -52,10 +52,9 @@ void RegionInfoGetter::SetLocale(string const & locale)
   m_nameGetter = platform::GetTextByIdFactory(platform::TextSource::Countries, locale);
 }
 
-void RegionInfoGetter::GetLocalizedFullName(storage::CountryId const & id,
-                                            vector<string> & nameParts) const
+void RegionInfoGetter::GetLocalizedFullName(storage::CountryId const & id, NameBufferT & nameParts) const
 {
-  vector<storage::CountryId const *> ids;
+  buffer_vector<storage::CountryId const *, 4> ids;
   GetPathToRoot(id, m_countries, [&ids](storage::CountryId const & id)
   {
     ids.push_back(&id);
@@ -99,7 +98,7 @@ void RegionInfoGetter::GetLocalizedFullName(storage::CountryId const & id,
 
 string RegionInfoGetter::GetLocalizedFullName(storage::CountryId const & id) const
 {
-  vector<string> parts;
+  NameBufferT parts;
   GetLocalizedFullName(id, parts);
 
   return strings::JoinStrings(parts, ", ");
