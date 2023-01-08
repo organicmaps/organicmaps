@@ -614,7 +614,8 @@ bool IsHTML(std::string const & utf8);
 bool AlmostEqual(std::string const & str1, std::string const & str2, size_t mismatchedCount);
 
 template <typename Iterator, typename Delimiter>
-typename Iterator::value_type JoinStrings(Iterator begin, Iterator end, Delimiter const & delimiter)
+typename std::iterator_traits<Iterator>::value_type
+JoinStrings(Iterator begin, Iterator end, Delimiter const & delimiter)
 {
   if (begin == end)
     return {};

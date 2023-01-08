@@ -1339,7 +1339,7 @@ StatusAndError Storage::GetNodeStatus(CountryTree::Node const & node) const
 
 bool Storage::IsDisputed(CountryTree::Node const & node) const
 {
-  vector<CountryTree::Node const *> found;
+  CountryTree::NodesBufferT found;
   m_countries.Find(node.Value().Name(), found);
   return found.size() > 1;
 }
@@ -1605,7 +1605,7 @@ void Storage::GetNodeAttrs(CountryId const & countryId, NodeAttrs & nodeAttrs) c
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
-  vector<CountryTree::Node const *> nodes;
+  CountryTree::NodesBufferT nodes;
   m_countries.Find(countryId, nodes);
   CHECK(!nodes.empty(), (countryId));
   // If nodes.size() > 1 countryId corresponds to a disputed territories.
@@ -1892,7 +1892,7 @@ void Storage::GetGroupNodePathToRoot(CountryId const & groupNode, CountriesVec &
 {
   path.clear();
 
-  vector<CountryTree::Node const *> nodes;
+  CountryTree::NodesBufferT nodes;
   m_countries.Find(groupNode, nodes);
   if (nodes.empty())
   {
@@ -1922,7 +1922,7 @@ void Storage::GetTopmostNodesFor(CountryId const & countryId, CountriesVec & nod
 {
   nodes.clear();
 
-  vector<CountryTree::Node const *> treeNodes;
+  CountryTree::NodesBufferT treeNodes;
   m_countries.Find(countryId, treeNodes);
   if (treeNodes.empty())
   {
@@ -1945,7 +1945,7 @@ void Storage::GetTopmostNodesFor(CountryId const & countryId, CountriesVec & nod
 
 CountryId const Storage::GetParentIdFor(CountryId const & countryId) const
 {
-  vector<CountryTree::Node const *> nodes;
+  CountryTree::NodesBufferT nodes;
   m_countries.Find(countryId, nodes);
   if (nodes.empty())
   {

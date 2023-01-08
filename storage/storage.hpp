@@ -639,8 +639,7 @@ private:
   downloader::Progress CalculateProgress(CountriesVec const & descendants) const;
 
   template <class ToDo>
-  void ForEachAncestorExceptForTheRoot(std::vector<CountryTree::Node const *> const & nodes,
-                                       ToDo && toDo) const;
+  void ForEachAncestorExceptForTheRoot(CountryTree::NodesBufferT const & nodes, ToDo && toDo) const;
 
   /// @return true if |node.Value().Name()| is a disputed territory and false otherwise.
   bool IsDisputed(CountryTree::Node const & node) const;
@@ -690,7 +689,7 @@ void Storage::ForEachInSubtree(CountryId const & root, ToDo && toDo) const
 template <class ToDo>
 void Storage::ForEachAncestorExceptForTheRoot(CountryId const & countryId, ToDo && toDo) const
 {
-  std::vector<CountryTree::Node const *> nodes;
+  CountryTree::NodesBufferT nodes;
   m_countries.Find(countryId, nodes);
   if (nodes.empty())
   {
@@ -702,8 +701,7 @@ void Storage::ForEachAncestorExceptForTheRoot(CountryId const & countryId, ToDo 
 }
 
 template <class ToDo>
-void Storage::ForEachAncestorExceptForTheRoot(std::vector<CountryTree::Node const *> const & nodes,
-                                              ToDo && toDo) const
+void Storage::ForEachAncestorExceptForTheRoot(CountryTree::NodesBufferT const & nodes, ToDo && toDo) const
 {
   std::set<CountryTree::Node const *> visitedAncestors;
   // In most cases nodes.size() == 1. In case of disputable territories nodes.size()
