@@ -1,0 +1,34 @@
+/* Keep here changes of the base map style file only. */
+@import("../../clear/style-clear/colors.mapcss");
+
+/* ~~~~ CONTENT OF COLORS-DAY ~~~~~
+
+1.BASEMAP
+2.BOUNDARY
+3.NATURAL
+	3.1 Main natural
+	3.2 Vegetation
+4.LANDUSE
+	4.1 Main landuse
+	4.2 Aerodrome
+  4.3 Barriers
+  4.4 Buildings
+5.ROADS
+  5.1 All roads
+	5.2 Bridges
+  5.3 Tunnels
+  5.4 Piste
+  5.5 Transport
+ 6.LABELS COLORS
+  6.1 Main labels
+  6.2 Natural labels
+  6.3 Place labels
+  6.4 Road labels
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+
+/* 5.ROADS */
+
+/* 5.5 Transport */
+
+@railway: #868576;

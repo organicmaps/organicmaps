@@ -1,0 +1,2 @@
+/* Keep here changes of the base map style file only. */
+@import("../../clear/include/Subways.mapcss");

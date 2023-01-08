@@ -1,0 +1,38 @@
+/* Keep here changes of the base map style file only. */
+@import("../../clear/include/Roads_label.mapcss");
+
+/* ~~~~ CONTENT OF ROADS ~~~~~
+
+1.Z-INDEX ROADS
+2.SHIELD 10-22 ZOOM
+3.TRUNK & MOTORWAY 10-22 ZOOM
+4.PRIMARY 10-22 ZOOM
+5.SECONDARY 10-22 ZOOM
+6.RESIDENTAL & TERTIARY 12-22 ZOOM
+7.ROAD, STREETS, UNCLASSIFIED & SERVICE 15-22 ZOOM
+8.OTHERS ROADS 15-22 ZOOM
+9.RAIL 15-22 ZOOM ????
+  9.1 Monorail 14-22 ZOOM
+  9.2 Tram line 13-22 ZOOM
+  9.3 Funicular 12-22 ZOOM
+10.PISTE 12-22 ZOOM ????
+ 10.1 Lift 12-22 ZOOM
+ 10.2 Aerialway 12-22 ZOOM
+ 10.3 Piste & Route 14-22 ZOOM
+11.FERRY 10-22 ZOOM
+12.ONEWAY ARROWS 15-22 ZOOM
+13.JUNCTION 15-22 ZOOM
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+
+/* 8.OTHERS ROADS 15-22 ZOOM */
+
+line|z13-[highway=track],
+line|z13-[highway=path],
+line|z13-[route=hiking],
+{text: name;text-color: @label_medium;text-halo-opacity: 0.8;text-halo-radius: 1;text-halo-color: @label_halo_light;}
+
+line|z13-15[highway=path],
+line|z13-15[route=hiking],
+line|z13-15[highway=track],
+{font-size: 8;}

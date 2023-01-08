@@ -1,0 +1,119 @@
+/* Keep here changes of the base map style file only. */
+@import("../../clear/include/Basemap.mapcss");
+
+/* ~~~~ CONTENT OF BASEMAP ~~~~~
+
+1.Z-INDEX of BASEMAP
+2.LAND
+3.BOUNDARY
+  3.1 Countries
+  3.2 Region
+  3.3 Military
+4.VEGETATION
+5.BEACH, GLACIER, DESERT, etc.
+6.WATER
+  6.1 Area water(lake,pond etc.)
+  6.2 Line water(river,canal etc.)
+7.LANDUSE
+  7.1 Industrial
+  7.2 Hospital
+  7.3 University & Sport
+  7.4 Cemetery
+  7.5 Pedestrian areas
+  7.6 Airports
+  7.7 Religion
+  7.8 Agricultural
+8.BUILDINGS
+  8.1 Pier, dam, cutline
+  8.2 Building
+  8.3 Barriers, cliffs
+9.ISOLINES
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+
+/* 8.BUILDINGS */
+
+/* 8.3 Barriers, cliffs */
+
+/*
+  The triangles pattern uses "dashes: " parameter as a 4 values tuple:
+  dash length (===), triangle base (tb), triangle height, base height / dash width.
+  ===\tb /===  - base height / dash width
+      \ /    | - triangle height
+
+  Set width = triangle height + base height.
+*/
+
+line|z13-[natural=cliff],
+line|z13-[natural=earth_bank],
+{color: @cliff; width: 2; dashes: 1.4,1.4; opacity: 0.7;}
+line|z14[natural=cliff],
+line|z14[natural=earth_bank],
+{width: 3; dashes: 1.5,1.5; opacity: 0.7;}
+line|z15[natural=cliff],
+line|z15[natural=earth_bank],
+{width: 6.2; dashes: 3,3.5,4.5,1.2; opacity: 0.7;}
+line|z16[natural=cliff],
+line|z16[natural=earth_bank],
+{width: 7.4; dashes: 3.5,5,6,1.4; opacity: 0.7;}
+line|z17[natural=cliff],
+line|z17[natural=earth_bank],
+{width: 9.5; dashes: 4,6,8,1.5; opacity: 0.8;}
+line|z18[natural=cliff],
+line|z18[natural=earth_bank],
+{width: 11.9; dashes: 5,7,10,1.9; opacity: 0.8;}
+line|z19-[natural=cliff],
+line|z19-[natural=earth_bank],
+{width: 14.3; dashes: 6,8.5,12,2.3; opacity: 0.8;}
+
+/* 9. ISOLINES */
+
+line|z10-[isoline=step_1000],
+{color: @isoline1000;}
+line|z10-[isoline=step_500],
+{color: @isoline500;}
+
+line|z12-[isoline=step_100],
+{color: @isoline100;}
+
+line|z14-[isoline=step_50],
+line|z14-[isoline=zero],
+{color: @isoline50;}
+
+line|z15-[isoline=step_10],
+{color: @isoline10;}
+
+line|z10-[isoline=step_1000],
+{width: 1.3;opacity: 0.8;}
+line|z10-[isoline=step_500],
+{width: 1.0;opacity: 0.5;}
+
+line|z12[isoline=step_500],
+{width: 1.3;opacity: 0.6;}
+
+line|z13-[isoline=step_500],
+{width: 1.3;opacity: 0.8;}
+line|z12[isoline=step_100],
+{width: 1.0;opacity: 0.5;}
+
+line|z13-14[isoline=step_100],
+{width: 1.3;opacity: 0.6;}
+
+line|z15[isoline=step_100],
+{width: 1.3;opacity: 0.8;}
+line|z14-15[isoline=step_50],
+line|z14-15[isoline=zero],
+line|z15[isoline=step_10],
+{width: 1.0;opacity: 0.5;}
+
+line|z16-[isoline=step_100],
+{width: 1.3;opacity: 0.8;}
+line|z16[isoline=step_50],
+line|z16[isoline=zero],
+line|z16[isoline=step_10],
+{width: 1.0;opacity: 0.6;}
+
+line|z17-[isoline=step_50],
+line|z17-[isoline=zero],
+line|z17-[isoline=step_10],
+{width: 1.3;opacity: 0.8;}
