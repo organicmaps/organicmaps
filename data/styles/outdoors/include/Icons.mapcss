@@ -1,0 +1,233 @@
+/* Keep here changes of the base map style file only. */
+@import("../../clear/include/Icons.mapcss");
+
+/* ~~~~ CONTENT OF ICONS~~~~~
+
+1.Z-INDEX of ICONS
+2.NATURAL
+3.TRANSPORT
+ 3.1 Train Station
+ 3.2 Subway Station
+ 3.3 Tram Station
+ 3.4 Bus Station
+ 3.5 Ferry terminal
+ 3.6 Airport
+ 3.7 Aerialway
+4.TOURISM
+ 4.1 Main POI
+ 4.2 Apartament
+ 4.3 Food
+5.AMENITY (infrastructure)
+ 5.1 Hospital
+ 5.2 Education
+ 5.3 Sport
+ 5.4 Religion
+ 5.5 Others
+6.SHOP
+ 6.1 Craft
+7.CAR
+ 7.1 Parking
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+
+/* 2. NATURAL */
+
+node|z10-[natural=cave_entrance],
+area|z10-[natural=cave_entrance],
+node|z10-[waterway=waterfall],
+area|z10-[waterway=waterfall],
+node|z10-[natural=peak],
+area|z10-[natural=peak],
+node|z11-[natural=saddle],
+area|z11-[natural=saddle],
+node|z11-[mountain_pass],
+area|z11-[mountain_pass],
+node|z11-[natural=spring],
+area|z11-[natural=spring],
+node|z12-[natural=hot_spring],
+area|z12-[natural=hot_spring],
+node|z12-[natural=geyser],
+area|z12-[natural=geyser],
+node|z14-[natural=beach],
+area|z14-[natural=beach],
+area|z12-[natural=bare_rock],
+{text: name;text-color: @poi_label;text-position: center;text-offset: 1;text-optional: true;}
+
+node|z10-11[natural=cave_entrance],
+area|z10-11[natural=cave_entrance],
+{icon-image: cave-s.svg; icon-min-distance: 20;}
+node|z12-[natural=cave_entrance],
+area|z12-[natural=cave_entrance],
+{icon-image: cave-s.svg;}
+node|z14-[natural=cave_entrance],
+area|z14-[natural=cave_entrance],
+{icon-image: cave-m.svg;}
+node|z17-[natural=cave_entrance],
+area|z17-[natural=cave_entrance],
+{font-size: 11;}
+
+node|z10-11[waterway=waterfall],
+area|z10-11[waterway=waterfall],
+{icon-image: waterfall-s.svg; icon-min-distance: 15;}
+node|z12-[waterway=waterfall],
+area|z12-[waterway=waterfall],
+{icon-image: waterfall-s.svg;}
+node|z15-[waterway=waterfall],
+area|z15-[waterway=waterfall],
+{icon-image: waterfall-m.svg;}
+
+node|z10-[natural=volcano],
+area|z10-[natural=volcano],
+{icon-image: volcano-s.svg;}
+node|z14-[natural=volcano],
+area|z14-[natural=volcano],
+{icon-image: volcano-m.svg;}
+
+node|z10-12[natural=peak][name],
+area|z10-12[natural=peak][name],
+{icon-image: peakt-s.svg;icon-min-distance: 10;}
+node|z10-14[natural=peak][!name],
+node|z12-14[natural=bare_rock][!name],
+area|z10-14[natural=peak][!name],
+area|z12-14[natural=bare_rock][!name],
+{font-size: 0;}
+node|z12-13[natural=peak][name],
+area|z12-13[natural=peak][name],
+{icon-image: peakt-s.svg; font-size: 9;}
+node|z14[natural=peak][name],
+area|z14[natural=peak][name]
+{icon-image: peakt-m.svg;}
+node|z15-[natural=peak],
+node|z15-[natural=rock],
+area|z15-[natural=peak],
+area|z15-[natural=rock]
+{icon-image: peakt-m.svg;}
+
+/* ToDo: Make the same as natural=peak when we will have -s,-m icons */
+node|z11-[natural=saddle],
+area|z11-[natural=saddle],
+node|z11-[mountain_pass],
+area|z11-[mountain_pass],
+{icon-image: mountain-pass.svg;}
+node|z13-[natural=saddle],
+area|z13-[natural=saddle],
+node|z13-[mountain_pass],
+area|z13-[mountain_pass],
+{text-offset: 1;font-size: 10;text-optional: true;}
+
+node|z11-14[natural=spring],
+area|z11-14[natural=spring],
+node|z12-14[natural=hot_spring],
+area|z12-14[natural=hot_spring],
+{icon-image: drinking-water-s.svg; text-offset:6; icon-min-distance: 24;}
+node|z15-[natural=spring],
+area|z15-[natural=spring],
+node|z15-[natural=hot_spring],
+area|z15-[natural=hot_spring],
+{icon-image: drinking-water-m.svg; text-offset:8; icon-min-distance: 24;}
+
+node|z10-12[natural=geyser],
+area|z10-12[natural=geyser],
+{icon-image: geyser-s.svg;text-offset:6;font-size: 10;icon-min-distance: 24;text-optional: true;}
+node|z13-[natural=geyser],
+area|z13-[natural=geyser],
+{icon-image: geyser-m.svg;text-offset:8;font-size: 10;icon-min-distance: 24;text-optional: true;}
+
+node|z12-[amenity=water_point],
+area|z12-[amenity=water_point],
+node|z12-[amenity=drinking_water],
+area|z12-[amenity=drinking_water],
+node|z12-[man_made=water_tap],
+area|z12-[man_made=water_tap],
+node|z12-[man_made=water_well],
+area|z12-[man_made=water_well],
+{icon-image: drinking-water-s.svg; icon-min-distance: 36; text-optional: true;}
+node|z15-[amenity=water_point],
+area|z15-[amenity=water_point],
+node|z15-[amenity=drinking_water],
+area|z15-[amenity=drinking_water],
+node|z15-[man_made=water_tap],
+area|z15-[man_made=water_tap],
+node|z15-[man_made=water_well],
+area|z15-[man_made=water_well],
+{icon-image: drinking-water-m.svg;}
+
+/* 4.TOURISM */
+
+/* 4.2 Apartament */
+
+node|z13-[tourism=alpine_hut],
+area|z13-[tourism=alpine_hut],
+node|z13-[tourism=wilderness_hut],
+area|z13-[tourism=wilderness_hut],
+node|z15-[tourism=chalet],
+area|z15-[tourism=chalet],
+node|z14-[tourism=camp_site],
+area|z14-[tourism=camp_site],
+node|z14-[tourism=picnic_site],
+area|z14-[tourism=picnic_site],
+node|z15-[leisure=picnic_table],
+area|z15-[leisure=picnic_table],
+node|z13-[amenity=shelter],
+area|z13-[amenity=shelter],
+node|z15-[tourism=caravan_site],
+area|z15-[tourism=caravan_site]
+{text: name; text-color: @poi_label; text-offset: 1; font-size: 10;}
+
+node|z13-[tourism=alpine_hut],
+area|z13-[tourism=alpine_hut],
+node|z13-[tourism=wilderness_hut],
+area|z13-[tourism=wilderness_hut],
+node|z15-[tourism=chalet],
+area|z15-[tourism=chalet]
+{icon-image: alpine_hut-m.svg; icon-min-distance: 24;}
+
+node|z17-[tourism=alpine_hut],
+area|z17-[tourism=alpine_hut],
+node|z17-[tourism=wilderness_hut],
+area|z17-[tourism=wilderness_hut],
+node|z17-[tourism=chalet],
+area|z17-[tourism=chalet]
+{icon-min-distance: 16;}
+
+node|z14-[tourism=camp_site],
+area|z14-[tourism=camp_site]
+{icon-image: campsite-m.svg;icon-min-distance: 12;}
+
+node|z14-[tourism=picnic_site],
+area|z14-[tourism=picnic_site],
+{icon-image: picnic-m.svg;icon-min-distance: 10;}
+node|z15-[leisure=picnic_table],
+area|z15-[leisure=picnic_table]
+{icon-image: picnic_table-m.svg;icon-min-distance: 10;}
+
+node|z13-[amenity=shelter],
+area|z13-[amenity=shelter]
+{icon-image: shelter-m.svg;icon-min-distance: 10;}
+
+node|z15-[tourism=caravan_site],
+area|z15-[tourism=caravan_site]
+{icon-image: caravan_site-m.svg;font-size: 11;icon-min-distance: 30;}
+node|z17-[tourism=caravan_site],
+area|z17-[tourism=caravan_site]
+{icon-min-distance: 20;}
+
+/* 5.AMENITY (infrastructure) */
+
+/* 5.5 Others */
+
+node|z11-[man_made=lighthouse],
+area|z11-[man_made=lighthouse]
+{icon-image: lighthouse-s.svg;text-offset: 1;icon-min-distance: 10;}
+node|z13-[man_made=lighthouse],
+area|z13-[man_made=lighthouse]
+{icon-image: lighthouse-m.svg;}
+
+node|z14-[barrier=border_control]
+{icon-image:bcontrol-m.svg;}
+
+node|z14-[highway=ford],
+node|z14-[power=tower],
+node|z12-[man_made=flagpole],
+node|z13-[man_made=mast],
+{icon-image: dot-m.svg;}
