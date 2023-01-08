@@ -251,7 +251,7 @@ fa:پارکینگ
 @shopping
 en:5Shopping|Shop
 ru:4Шоппинг|Магазин
-be:4Закупы|магазін
+be:4Закупы|магазін|крама
 bg:4Шопинг|Магазин
 ar:متجر|تسوق
 cs:Nákupy|Obchod
@@ -1427,10 +1427,11 @@ sk:Kníhkupectvo
 fa:کتاب فروشی
 
 shop-shoes|@shopping
-en:Shoe Store|U+1F461|U+1F460|U+1F462|U+1F45E|U+1F45F|3shoes|shoe shop|4footwear|footwear store
+en:Shoe Store|U+1F461|U+1F460|U+1F462|U+1F45E|U+1F45F|3shoes|4footwear
 ru:Магазин обуви|3обувь|обувной
-bg:3Обувки
 ar:متجر أحذية|متجر
+be:3Абутак|Крама абутку
+bg:3Обувки
 cs:3Obuv
 da:Skobutik
 nl:Schoenenwinkel|schoenwinkel
@@ -4843,11 +4844,12 @@ sw:Uwanja wa mawindo
 fa:شکارگاه
 
 amenity-kindergarten
-en:5Kindergarten|U+1F476|U+1F37C|U+1F6BC|day care center|nursery school|nursery|play school|childcare center|preschool
+en:5Kindergarten|U+1F476|U+1F37C|U+1F6BC|nursery|4Child Care|childcare
 en-AU:Kindy
-ru:Детсад|ясли|4детский сад|дошкольное образование|детские ясли|садик
-bg:4Детска градина|деца|ясла
+ru:Детсад|ясли|4детский сад|садик
 ar:حضانة أطفال|روضة أطفال
+be:Дзіцячы садок|сад
+bg:4Детска градина|деца|ясла
 cs:Školka|mateřská škola|dětská školka|mateřská školka
 da:4Børnehave
 nl:Kleuterschool
@@ -10340,10 +10342,11 @@ fa:ایستگاه شارژ
 mr:चार्जिंग स्टेशन|प्रभाराक केंद्र
 
 amenity-childcare
-en:Nursery|4Child Care
+en:Nursery|4Child Care|childcare
 ru:Детская комната|3ясли
-bg:3Ясла|деца
 ar:حضانة|رعاية أطفال
+be:Яслі
+bg:3Ясла|деца
 cs:4Jesle|Péče o děti
 da:Vuggestue|Børnehave
 nl:Crèche|kinderopvang|kinderzorg
