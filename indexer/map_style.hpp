@@ -9,6 +9,8 @@ enum MapStyle
   MapStyleMerged = 2,
   MapStyleVehicleClear = 3,
   MapStyleVehicleDark = 4,
+  MapStyleOutdoorsClear = 5,
+  MapStyleOutdoorsDark = 6,
   // Add new map style here
 
   // Specifies number of MapStyle enum values, must be last

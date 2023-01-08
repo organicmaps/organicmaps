@@ -11,6 +11,8 @@ std::string const kSuffixDark = "_dark";
 std::string const kSuffixClear = "_clear";
 std::string const kSuffixVehicleDark = "_vehicle_dark";
 std::string const kSuffixVehicleClear = "_vehicle_clear";
+std::string const kSuffixOutdoorsClear = "_outdoors_clear";
+std::string const kSuffixOutdoorsDark = "_outdoors_dark";
 
 std::string const kStylesOverrideDir = "styles";
 
@@ -33,6 +35,10 @@ std::string GetStyleRulesSuffix(MapStyle mapStyle)
     return kSuffixVehicleDark;
   case MapStyleVehicleClear:
     return kSuffixVehicleClear;
+  case MapStyleOutdoorsClear:
+    return kSuffixOutdoorsClear;
+  case MapStyleOutdoorsDark:
+    return kSuffixOutdoorsDark;
   case MapStyleMerged:
     return std::string();
 
@@ -49,15 +55,17 @@ std::string GetStyleResourcesSuffix(MapStyle mapStyle)
 #ifdef BUILD_DESIGNER
   return kSuffixDesignTool;
 #else
-  // We use the same resources for default and vehicle styles
+  // We use the same resources for all clear/day and dark/night styles
   // to avoid textures duplication and package size increasing.
   switch (mapStyle)
   {
   case MapStyleDark:
   case MapStyleVehicleDark:
+  case MapStyleOutdoorsDark:
     return kSuffixDark;
   case MapStyleClear:
   case MapStyleVehicleClear:
+  case MapStyleOutdoorsClear:
     return kSuffixClear;
   case MapStyleMerged:
     return std::string();
