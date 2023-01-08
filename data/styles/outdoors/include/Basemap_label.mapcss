@@ -1,0 +1,56 @@
+/* Keep here changes of the base map style file only. */
+@import("../../clear/include/Basemap_label.mapcss");
+
+/* ~~~~ CONTENT OF BASEMAP lable ~~~~~
+
+1.Z-INDEX of BASEMAP LABEL
+2.CONTINENTS
+3.COUNTRIES & STATES
+4.PLACES
+  4.1 City
+  4.2 Town
+  4.3 Village
+  4.4 Districts & Small localities
+5.VEGETATION, BEACH & GLACIER
+  5.1 Vegetation
+  5.2 Beach, Glacier, Desert, etc.
+6.WATER
+  6.1 Area water(lake,pond etc.)
+  6.2 Line water(river,canal etc.)
+7.LANDUSE
+  7.1 Industrial
+  7.2 Hostital
+  7.3 University & Sport
+  7.4 Cemetry
+  7.5 Pedestrian areas
+  7.6 Military
+  7.7 Commercial
+8.BUILDINGS
+  8.1 Pier
+  8.2 Building
+  8.3 Airports
+  8.4 Platforms
+9.ISOLINES
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+
+/* 9. ISOLINES */
+
+line[isoline]
+{text-position: line;}
+
+line|z10-[isoline=step_1000],
+{text:name;font-size: 9;fill-opacity: 0.7;text-color: @label_isoline1000;}
+
+line|z11-[isoline=step_500],
+{text:name;font-size: 9;fill-opacity: 0.7;text-color: @label_isoline500;}
+
+line|z13-[isoline=step_100],
+{text:name;font-size: 9;fill-opacity: 0.7;text-color: @label_isoline100;}
+
+line|z15-[isoline=step_50],
+line|z15-[isoline=zero],
+{text:name;font-size: 9;fill-opacity: 0.7;text-color: @label_isoline50;}
+
+line|z16-[isoline=step_10],
+{text:name;font-size: 9;fill-opacity: 0.7;text-color: @label_isoline10;}
