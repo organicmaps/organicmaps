@@ -9460,6 +9460,7 @@
 
   [type.highway.footway.alpine_hiking]
     ref = type.highway.path
+    en = Hiking Trail
     de = Alpinwanderweg
     es = Senderismo alpino
     et = Alpi matkarada
@@ -9497,6 +9498,7 @@
 
   [type.highway.footway.demanding_alpine_hiking]
     ref = type.highway.path
+    en = Hiking Trail
     de = Anspruchsvoller Alpinwanderweg
     et = Nõudlik alpi matkarada
     nl = Uitdagend alpine bergklimpad
@@ -9506,6 +9508,7 @@
 
   [type.highway.footway.demanding_mountain_hiking]
     ref = type.highway.path
+    en = Hiking Trail
     de = Anspruchsvoller Bergwanderweg
     nl = Uitdagend bergwandelpad
     pt = Caminho pedonal
@@ -9514,6 +9517,7 @@
 
   [type.highway.footway.difficult_alpine_hiking]
     ref = type.highway.path
+    en = Hiking Trail
     de = Schwieriger Alpinwanderweg
     et = Nõudlik mägimatkarada
     nl = Moeilijk alpine bergklimpad
@@ -9523,6 +9527,7 @@
 
   [type.highway.footway.hiking]
     ref = type.highway.path
+    en = Hiking Trail
     de = Wanderweg
     es = Sendero
     nl = Wandelpad
@@ -9532,6 +9537,7 @@
 
   [type.highway.footway.mountain_hiking]
     ref = type.highway.path
+    en = Hiking Trail
     de = Bergwanderweg
     et = Mägirada
     nl = Bergpad
