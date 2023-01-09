@@ -9460,7 +9460,7 @@
 
   [type.highway.footway.alpine_hiking]
     ref = type.highway.path
-    en = Hiking Trail
+    en = Demanding Hiking Trail
     de = Alpinwanderweg
     es = Senderismo alpino
     et = Alpi matkarada
@@ -9498,7 +9498,7 @@
 
   [type.highway.footway.demanding_alpine_hiking]
     ref = type.highway.path
-    en = Hiking Trail
+    en = Technical Mountain Trail
     de = Anspruchsvoller Alpinwanderweg
     et = Nõudlik alpi matkarada
     nl = Uitdagend alpine bergklimpad
@@ -9508,7 +9508,7 @@
 
   [type.highway.footway.demanding_mountain_hiking]
     ref = type.highway.path
-    en = Hiking Trail
+    en = Demanding Hiking Trail
     de = Anspruchsvoller Bergwanderweg
     nl = Uitdagend bergwandelpad
     pt = Caminho pedonal
@@ -9517,7 +9517,7 @@
 
   [type.highway.footway.difficult_alpine_hiking]
     ref = type.highway.path
-    en = Hiking Trail
+    en = Technical Mountain Trail
     de = Schwieriger Alpinwanderweg
     et = Nõudlik mägimatkarada
     nl = Moeilijk alpine bergklimpad
@@ -9790,6 +9790,7 @@
 
   [type.highway.path.alpine_hiking]
     ref = type.highway.path
+    en = Demanding Hiking Trail
     de = Alpinwanderweg
     et = Alpi matkarada
     nl = Alpine wandelpad
@@ -9815,24 +9816,28 @@
 
   [type.highway.path.demanding_alpine_hiking]
     ref = type.highway.path
+    en = Technical Mountain Trail
     de = Anspruchsvoller Alpinwanderweg
     et = Nõudlik alpi matkarada
     pt-BR = Caminho pedonal difícil
 
   [type.highway.path.demanding_mountain_hiking]
     ref = type.highway.path
+    en = Demanding Hiking Trail
     de = Anspruchsvoller Bergwanderweg
     et = Nõudlik mägimatkarada
     pt-BR = Caminho pedonal difícil
 
   [type.highway.path.difficult_alpine_hiking]
     ref = type.highway.path
+    en = Technical Mountain Trail
     de = Schwieriger Alpinwanderweg
     et = Raske alpi matkarada
     pt-BR = Caminho pedonal difícil
 
   [type.highway.path.hiking]
     ref = type.highway.path
+    en = Hiking Trail
     de = Wanderweg
     nl = Wandelpad
     pt-BR = Caminho pedonal
@@ -9850,6 +9855,7 @@
 
   [type.highway.path.mountain_hiking]
     ref = type.highway.path
+    en = Hiking Trail
     de = Bergwanderweg
     et = Mägitee
     nl = Bergpad
