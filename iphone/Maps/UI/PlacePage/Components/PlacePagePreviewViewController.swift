@@ -165,7 +165,7 @@ final class PlacePagePreviewViewController: UIViewController {
         details = nil;
       }
       
-      setScheduleLabel(state: L("editor_time_open"),
+      setScheduleLabel(state: L(""),
                        stateColor: UIColor.systemGreen,
                        details: details);
       
@@ -202,7 +202,7 @@ final class PlacePagePreviewViewController: UIViewController {
         details = nil;
       }
       
-      setScheduleLabel(state: L("closed_now"),
+      setScheduleLabel(state: L(""),
                        stateColor: UIColor.systemRed,
                        details: details);
       
@@ -232,10 +232,21 @@ final class PlacePagePreviewViewController: UIViewController {
     attributedString.append(stateString);
     if (details != nil)
     {
-      let detailsString = NSAttributedString(string: " • " + details!,
-                                             attributes: [NSAttributedString.Key.font: UIFont.regular14(),
-                                                          NSAttributedString.Key.foregroundColor: UIColor.blackSecondaryText()]);
-      attributedString.append(detailsString);
+      if (placePagePreviewData.schedule.state == .open){
+        let detailsString = NSAttributedString(string: "" + details!,
+                                               attributes: [NSAttributedString.Key.font: UIFont.regular14(),
+                                                            NSAttributedString.Key.foregroundColor: UIColor.systemGreen]);
+        attributedString.append(detailsString);
+        
+      }
+      
+      else if (placePagePreviewData.schedule.state == .closed){
+        let detailsString = NSAttributedString(string: "" + details!,
+                                               attributes: [NSAttributedString.Key.font: UIFont.regular14(),
+                                                            NSAttributedString.Key.foregroundColor: UIColor.systemRed]);
+        attributedString.append(detailsString);
+        
+      }
     }
     scheduleLabel.attributedText = attributedString;
   }
