@@ -12263,7 +12263,6 @@
 
   [type.landuse.cemetery.christian]
     ref = type.amenity.grave_yard.christian
-    en = Cementerio cristiano
     nl = Christelijke begraafplaats
 
   [type.landuse.churchyard]
