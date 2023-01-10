@@ -40,7 +40,10 @@ public class DefaultBottomSheetCallback extends BottomSheetBehavior.BottomSheetC
       return;
     }
 
-    mSheetChangedListener.onSheetCollapsed();
+    if (PlacePageUtils.isCollapsedState(newState))
+    {
+      mSheetChangedListener.onSheetCollapsed();
+    }
   }
 
   @Override

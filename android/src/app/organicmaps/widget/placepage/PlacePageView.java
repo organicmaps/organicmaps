@@ -11,14 +11,10 @@ import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
-import android.text.util.Linkify;
-import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
@@ -39,7 +35,6 @@ import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.api.Const;
 import app.organicmaps.api.ParsedMwmRequest;
-import app.organicmaps.bookmarks.data.Bookmark;
 import app.organicmaps.bookmarks.data.BookmarkManager;
 import app.organicmaps.bookmarks.data.DistanceAndAzimut;
 import app.organicmaps.bookmarks.data.MapObject;
@@ -79,7 +74,6 @@ import static android.view.View.VISIBLE;
 
 public class PlacePageView extends Fragment implements View.OnClickListener,
                                                        View.OnLongClickListener,
-                                                       EditBookmarkFragment.EditBookmarkListener,
                                                        PlacePageButtons.PlacePageButtonClickListener,
                                                        LocationListener,
                                                        Observer<MapObject>
@@ -88,13 +82,12 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   private static final String TAG = PlacePageView.class.getSimpleName();
 
   private static final String PREF_COORDINATES_FORMAT = "coordinates_format";
+  private static final String BOOKMARK_FRAGMENT_TAG = "BOOKMARK_FRAGMENT_TAG";
   private static final List<CoordinatesFormat> visibleCoordsFormat =
       Arrays.asList(CoordinatesFormat.LatLonDMS,
                     CoordinatesFormat.LatLonDecimal,
                     CoordinatesFormat.OLCFull,
                     CoordinatesFormat.OSMLink);
-  @NonNull
-  private final EditBookmarkClickListener mEditBookmarkClickListener = new EditBookmarkClickListener();
   private int mDescriptionMaxLength;
   private View mFrame;
   // Preview.
@@ -149,11 +142,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   private View mAddOrganisation;
   private View mAddPlace;
   private View mEditTopSpace;
-  // Bookmark
-  private View mBookmarkFrame;
-  private WebView mWvBookmarkNote;
-  private TextView mTvBookmarkNote;
-  private boolean mBookmarkSet;
+
   @SuppressWarnings("NullableProblems")
   @NonNull
   private View mPlaceDescriptionContainer;
@@ -294,7 +283,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
       final int oldHeight = oldBottom - oldTop;
       final int newHeight = bottom - top;
       if (oldHeight != newHeight)
-        mPlacePageViewListener.onPlacePageHeightChange(newHeight);
+        mPlacePageViewListener.onPlacePageContentChanged(newHeight);
     });
     mTvTitle = mPreview.findViewById(R.id.tv__title);
     mTvTitle.setOnLongClickListener(this);
@@ -395,15 +384,6 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     mOperator.setOnLongClickListener(this);
     mLevel.setOnLongClickListener(this);
     mWiki.setOnLongClickListener(this);
-
-    mBookmarkFrame = mFrame.findViewById(R.id.bookmark_frame);
-    mWvBookmarkNote = mBookmarkFrame.findViewById(R.id.wv__bookmark_notes);
-    final WebSettings settings = mWvBookmarkNote.getSettings();
-    settings.setJavaScriptEnabled(false);
-    settings.setDefaultTextEncodingName("UTF-8");
-    mTvBookmarkNote = mBookmarkFrame.findViewById(R.id.tv__bookmark_notes);
-    mTvBookmarkNote.setOnLongClickListener(this);
-    initEditMapObjectBtn();
 
     mDownloaderIcon = new DownloaderStatusIcon(mPreview.findViewById(R.id.downloader_status_frame));
 
@@ -601,24 +581,6 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     PlaceDescriptionActivity.start(context, description);
   }
 
-  private void initEditMapObjectBtn()
-  {
-    final View editBookmarkBtn = mBookmarkFrame.findViewById(R.id.tv__bookmark_edit);
-    editBookmarkBtn.setVisibility(VISIBLE);
-    editBookmarkBtn.setOnClickListener(mEditBookmarkClickListener);
-  }
-
-  private void onMapObjectChange(MapObject mapObject)
-  {
-    detachCountry();
-    if (mapObject != null)
-    {
-      initEditMapObjectBtn();
-      setCurrentCountry();
-    }
-    refreshViews();
-  }
-
   private void setCurrentCountry()
   {
     if (mCurrentCountry != null)
@@ -650,23 +612,18 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     {
       case MapObject.BOOKMARK:
         refreshDistanceToObject(mapObject, loc);
-        showBookmarkDetails(mapObject);
-        updateBookmarkButton();
         break;
       case MapObject.POI:
       case MapObject.SEARCH:
         refreshDistanceToObject(mapObject, loc);
-        hideBookmarkDetails();
         setPlaceDescription(mapObject);
         break;
       case MapObject.API_POINT:
         refreshDistanceToObject(mapObject, loc);
-        hideBookmarkDetails();
         showBackButton = true;
         break;
       case MapObject.MY_POSITION:
         refreshMyPosition(mapObject, loc);
-        hideBookmarkDetails();
         showRoutingButton = false;
         break;
     }
@@ -676,6 +633,27 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     else
       mPhoneRecycler.setVisibility(GONE);
     updateButtons(mapObject, showBackButton, showRoutingButton);
+  }
+
+  private void updateBookmarkView()
+  {
+    final MapObject mapObject = getMapObject();
+    if (mapObject == null)
+      return;
+    final FragmentManager fManager = getChildFragmentManager();
+    final PlacePageBookmarkFragment fragment = (PlacePageBookmarkFragment) fManager.findFragmentByTag(BOOKMARK_FRAGMENT_TAG);
+    if (mapObject.getMapObjectType() == MapObject.BOOKMARK && fragment == null)
+    {
+      fManager.beginTransaction()
+          .add(R.id.place_page_bookmark_fragment, PlacePageBookmarkFragment.class, null, BOOKMARK_FRAGMENT_TAG)
+        .commit();
+    }
+    else if (mapObject.getMapObjectType() != MapObject.BOOKMARK && fragment != null)
+    {
+      fManager.beginTransaction()
+              .remove(fragment)
+              .commit();
+    }
   }
 
   private Spanned getShortDescription(@NonNull MapObject mapObject)
@@ -699,22 +677,15 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
 
   private void setPlaceDescription(@NonNull MapObject mapObject)
   {
-    boolean isBookmark = MapObject.isOfType(MapObject.BOOKMARK, mapObject);
-    if (TextUtils.isEmpty(mapObject.getDescription()) && !isBookmark)
+    if (TextUtils.isEmpty(mapObject.getDescription()))
     {
       UiUtils.hide(mPlaceDescriptionContainer, mPlaceDescriptionHeaderContainer);
-      return;
     }
-
-    if (isBookmark)
+    else
     {
-      final Bookmark bmk = (Bookmark) mapObject;
-      UiUtils.showIf(!TextUtils.isEmpty(bmk.getBookmarkDescription()), mPlaceDescriptionHeaderContainer);
-      UiUtils.hide(mPlaceDescriptionContainer);
-      return;
+      UiUtils.show(mPlaceDescriptionContainer, mPlaceDescriptionHeaderContainer);
+      mPlaceDescriptionView.setText(getShortDescription(mapObject));
     }
-    UiUtils.show(mPlaceDescriptionContainer, mPlaceDescriptionHeaderContainer);
-    mPlaceDescriptionView.setText(getShortDescription(mapObject));
   }
 
   private void setTextAndColorizeSubtitle(@NonNull MapObject mapObject)
@@ -969,13 +940,17 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     mPhoneAdapter.refreshPhones(phones);
   }
 
+
   private void updateBookmarkButton()
   {
+    final MapObject mapObject = getMapObject();
+    if (mapObject == null)
+      return;
     final List<PlacePageButtons.ButtonType> currentButtons = viewModel.getCurrentButtons()
                                                                       .getValue();
     PlacePageButtons.ButtonType oldType = PlacePageButtons.ButtonType.BOOKMARK_DELETE;
     PlacePageButtons.ButtonType newType = PlacePageButtons.ButtonType.BOOKMARK_SAVE;
-    if (mBookmarkSet)
+    if (mapObject.getMapObjectType() == MapObject.BOOKMARK)
     {
       oldType = PlacePageButtons.ButtonType.BOOKMARK_SAVE;
       newType = PlacePageButtons.ButtonType.BOOKMARK_DELETE;
@@ -989,44 +964,6 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
         newList.set(index, newType);
         viewModel.setCurrentButtons(newList);
       }
-    }
-  }
-
-  private void hideBookmarkDetails()
-  {
-    mBookmarkSet = false;
-    UiUtils.hide(mBookmarkFrame);
-    updateBookmarkButton();
-  }
-
-  private void showBookmarkDetails(@NonNull MapObject mapObject)
-  {
-    mBookmarkSet = true;
-    UiUtils.show(mBookmarkFrame);
-
-    final String notes = ((Bookmark) mapObject).getBookmarkDescription();
-
-    if (TextUtils.isEmpty(notes))
-    {
-      UiUtils.hide(mTvBookmarkNote, mWvBookmarkNote);
-      return;
-    }
-
-    if (StringUtils.nativeIsHtml(notes))
-    {
-      // According to loadData documentation, HTML should be either base64 or percent encoded.
-      // Default UTF-8 encoding for all content is set above in WebSettings.
-      final String b64encoded = Base64.encodeToString(notes.getBytes(), Base64.DEFAULT);
-      mWvBookmarkNote.loadData(b64encoded, Utils.TEXT_HTML, "base64");
-      UiUtils.show(mWvBookmarkNote);
-      UiUtils.hide(mTvBookmarkNote);
-    }
-    else
-    {
-      mTvBookmarkNote.setText(notes);
-      Linkify.addLinks(mTvBookmarkNote, Linkify.ALL);
-      UiUtils.show(mTvBookmarkNote);
-      UiUtils.hide(mWvBookmarkNote);
     }
   }
 
@@ -1218,10 +1155,11 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
 
   private void toggleIsBookmark(@NonNull MapObject mapObject)
   {
+    // No need to call setMapObject here as the native methods will reopen the place page
     if (MapObject.isOfType(MapObject.BOOKMARK, mapObject))
-      viewModel.setMapObject(Framework.nativeDeleteBookmarkFromMapObject());
+      Framework.nativeDeleteBookmarkFromMapObject();
     else
-      viewModel.setMapObject(BookmarkManager.INSTANCE.addNewBookmark(mapObject.getLat(), mapObject.getLon()));
+      BookmarkManager.INSTANCE.addNewBookmark(mapObject.getLat(), mapObject.getLon());
   }
 
   private void showBigDirection()
@@ -1248,8 +1186,6 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
       items.add(mTvSecondaryTitle.getText().toString());
     else if (id == R.id.tv__address)
       items.add(mTvAddress.getText().toString());
-    else if (id == R.id.tv__bookmark_notes)
-      items.add(mTvBookmarkNote.getText().toString());
     else if (id == R.id.poi_description)
       items.add(mPlaceDescriptionView.getText().toString());
     else if (id == R.id.ll__place_latlon)
@@ -1413,26 +1349,17 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   }
 
   @Override
-  public void onBookmarkSaved(long bookmarkId, boolean movedFromCategory)
-  {
-    Bookmark updatedBookmark = BookmarkManager.INSTANCE.updateBookmarkPlacePage(bookmarkId);
-    if (updatedBookmark == null)
-      return;
-
-    viewModel.setMapObject(updatedBookmark);
-    refreshViews();
-    mPlacePageViewListener.onPlacePageHeightChange(getPreviewHeight());
-  }
-
-  private int getPreviewHeight()
-  {
-    return mPreview.getHeight();
-  }
-
-  @Override
   public void onChanged(MapObject mapObject)
   {
-    onMapObjectChange(mapObject);
+    detachCountry();
+    if (mapObject != null)
+    {
+      setCurrentCountry();
+      updateBookmarkButton();
+      updateBookmarkView();
+    }
+    refreshViews();
+    mPlacePageViewListener.onPlacePageContentChanged(mPreview.getHeight());
   }
 
   @Override
@@ -1441,8 +1368,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     final MapObject mapObject = getMapObject();
     if (mapObject == null)
     {
-      // TODO: This method is constantly called even when nothing is selected on the map.
-      //Logger.e(TAG, "A location cannot be refreshed, mMapObject is null!");
+      Logger.e(TAG, "A location cannot be refreshed, mMapObject is null!");
       return;
     }
 
@@ -1489,32 +1415,13 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
 
   public interface PlacePageViewListener
   {
-    void onPlacePageHeightChange(int previewHeight);
+    // Called when the content has actually changed and we are ready to compute the peek height
+    void onPlacePageContentChanged(int previewHeight);
 
     void onPlacePageRequestClose();
 
     void onPlacePageRequestToggleState();
 
     void onPlacePageRequestToggleRouteSettings(@NonNull RoadType roadType);
-  }
-
-  private class EditBookmarkClickListener implements View.OnClickListener
-  {
-    @Override
-    public void onClick(View v)
-    {
-      final MapObject mapObject = getMapObject();
-      if (mapObject == null)
-      {
-        Logger.e(TAG, "A bookmark cannot be edited, mMapObject is null!");
-        return;
-      }
-      Bookmark bookmark = (Bookmark) mapObject;
-      EditBookmarkFragment.editBookmark(bookmark.getCategoryId(),
-                                        bookmark.getBookmarkId(),
-                                        requireActivity(),
-                                        requireActivity().getSupportFragmentManager(),
-                                        PlacePageView.this);
-    }
   }
 }
