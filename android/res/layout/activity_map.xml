@@ -54,7 +54,7 @@
   <androidx.core.widget.NestedScrollViewClickFixed
     android:id="@+id/placepage"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     style="?attr/bottomSheetStyle"
     android:fillViewport="true"
     app:layout_behavior="@string/placepage_behavior"  >

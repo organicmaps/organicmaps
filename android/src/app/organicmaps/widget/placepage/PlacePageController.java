@@ -23,7 +23,6 @@ import app.organicmaps.settings.RoadType;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
-import app.organicmaps.util.log.Logger;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import java.util.ArrayList;
@@ -55,40 +54,8 @@ public class PlacePageController implements Initializable<Activity>,
   private final PlacePageViewModel viewModel;
   private int mPreviewHeight;
   private boolean mDeactivateMapSelection = true;
-  @NonNull
-  private final BottomSheetChangedListener mBottomSheetChangedListener = new BottomSheetChangedListener()
-  {
-    @Override
-    public void onSheetHidden()
-    {
-      onHiddenInternal();
-    }
-
-    @Override
-    public void onSheetDetailsOpened()
-    {
-      // No op.
-    }
-
-    @Override
-    public void onSheetCollapsed()
-    {
-      // No op.
-    }
-
-    @Override
-    public void onSheetSliding(int top)
-    {
-      mSlideListener.onPlacePageSlide(top);
-      //  mPlacePageTracker.onMove();
-    }
-
-    @Override
-    public void onSheetSlideFinish()
-    {
-      PlacePageUtils.moveViewportUp(mPlacePage, mViewportMinHeight);
-    }
-  };
+  @Nullable
+  private MapObject mMapObject;
 
   @SuppressLint("ClickableViewAccessibility")
   public PlacePageController(@Nullable Activity activity,
@@ -102,10 +69,43 @@ public class PlacePageController implements Initializable<Activity>,
     mViewportMinHeight = res.getDimensionPixelSize(R.dimen.viewport_min_height);
     mPlacePage = activity.findViewById(R.id.placepage);
     mPlacePageBehavior = BottomSheetBehavior.from(mPlacePage);
-    BottomSheetBehavior.BottomSheetCallback sheetCallback = new DefaultBottomSheetCallback(mBottomSheetChangedListener);
+    BottomSheetChangedListener bottomSheetChangedListener = new BottomSheetChangedListener()
+    {
+      @Override
+      public void onSheetHidden()
+      {
+        onHiddenInternal();
+      }
+
+      @Override
+      public void onSheetDetailsOpened()
+      {
+        // No op.
+      }
+
+      @Override
+      public void onSheetCollapsed()
+      {
+        disableHalfExpandedState();
+      }
+
+      @Override
+      public void onSheetSliding(int top)
+      {
+        mSlideListener.onPlacePageSlide(top);
+      }
+
+      @Override
+      public void onSheetSlideFinish()
+      {
+        PlacePageUtils.moveViewportUp(mPlacePage, mViewportMinHeight);
+      }
+    };
+    BottomSheetBehavior.BottomSheetCallback sheetCallback = new DefaultBottomSheetCallback(bottomSheetChangedListener);
     mPlacePageBehavior.addBottomSheetCallback(sheetCallback);
     mPlacePageBehavior.setHideable(true);
     mPlacePageBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+    disableHalfExpandedState();
 
     UiUtils.bringViewToFrontOf(activity.findViewById(R.id.pp_buttons_fragment), mPlacePage);
 
@@ -116,6 +116,12 @@ public class PlacePageController implements Initializable<Activity>,
     viewModel = new ViewModelProvider(mMwmActivity).get(PlacePageViewModel.class);
   }
 
+  private void disableHalfExpandedState()
+  {
+    // Use a very low value so that is less than the collapsed value and this state is skipped
+    mPlacePageBehavior.setHalfExpandedRatio(0.001f);
+  }
+
   private void onHiddenInternal()
   {
     if (mDeactivateMapSelection)
@@ -123,6 +129,7 @@ public class PlacePageController implements Initializable<Activity>,
     mDeactivateMapSelection = true;
     PlacePageUtils.moveViewportUp(mPlacePage, mViewportMinHeight);
     viewModel.setMapObject(null);
+    disableHalfExpandedState();
   }
 
   public int getPlacePageWidth()
@@ -170,21 +177,7 @@ public class PlacePageController implements Initializable<Activity>,
 
   private int calculatePeekHeight()
   {
-    final int organicPeekHeight = (int) (mPreviewHeight + mButtonsHeight);
-    final MapObject mapObject = viewModel.getMapObject().getValue();
-    if (mapObject != null)
-    {
-      @MapObject.OpeningMode
-      int mode = mapObject.getOpeningMode();
-      if (mode == MapObject.OPENING_MODE_PREVIEW_PLUS)
-      {
-        View parent = (View) mPlacePage.getParent();
-        int promoPeekHeight = (int) (parent.getHeight() * PREVIEW_PLUS_RATIO);
-        return Math.max(promoPeekHeight, organicPeekHeight);
-      }
-    }
-
-    return organicPeekHeight;
+    return (int) (mPreviewHeight + mButtonsHeight);
   }
 
   public void close(boolean deactivateMapSelection)
@@ -214,17 +207,21 @@ public class PlacePageController implements Initializable<Activity>,
   }
 
   @Override
-  public void onPlacePageHeightChange(int previewHeight)
+  public void onPlacePageContentChanged(int previewHeight)
   {
     mPreviewHeight = previewHeight;
-    // Using .post() makes sure the peek height animation plays
     mPlacePage.post(() -> {
       setPeekHeight();
-      // Only show the place page if it was hidden
-      @BottomSheetBehavior.State
-      int state = mPlacePageBehavior.getState();
-      if (PlacePageUtils.isHiddenState(state))
-        mPlacePageBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+      if (mMapObject != null)
+      {
+        if (mMapObject.getOpeningMode() == MapObject.OPENING_MODE_PREVIEW_PLUS)
+        {
+          mPlacePageBehavior.setHalfExpandedRatio(PREVIEW_PLUS_RATIO);
+          mPlacePageBehavior.setState(BottomSheetBehavior.STATE_HALF_EXPANDED);
+        }
+        else if (!PlacePageUtils.isCollapsedState(mPlacePageBehavior.getState()))
+          mPlacePageBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+      }
     });
   }
 
@@ -239,7 +236,7 @@ public class PlacePageController implements Initializable<Activity>,
   {
     @BottomSheetBehavior.State
     int state = mPlacePageBehavior.getState();
-    if (PlacePageUtils.isCollapsedState(state))
+    if (PlacePageUtils.isCollapsedState(state) || PlacePageUtils.isHalfExpandedState(state))
       mPlacePageBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
     else if (PlacePageUtils.isExpandedState(state))
       mPlacePageBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
@@ -262,10 +259,11 @@ public class PlacePageController implements Initializable<Activity>,
 
   private void onMapObjectChange(@Nullable MapObject mapObject)
   {
-    if (mapObject == null)
+    mMapObject = mapObject;
+    if (mMapObject == null)
     {
       Fragment placePageButtonsFragment = mMwmActivity.getSupportFragmentManager()
-                               .findFragmentByTag(PLACE_PAGE_BUTTONS_FRAGMENT_TAG);
+                                                      .findFragmentByTag(PLACE_PAGE_BUTTONS_FRAGMENT_TAG);
       if (placePageButtonsFragment != null)
       {
         mMwmActivity.getSupportFragmentManager().beginTransaction()
@@ -283,11 +281,6 @@ public class PlacePageController implements Initializable<Activity>,
     }
     else
     {
-      if (mapObject.getOpeningMode() == MapObject.OPENING_MODE_DETAILS)
-      {
-        mPlacePageBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-        return;
-      }
       if (mMwmActivity.getSupportFragmentManager()
                       .findFragmentByTag(PLACE_PAGE_FRAGMENT_TAG) == null)
       {
@@ -303,12 +296,6 @@ public class PlacePageController implements Initializable<Activity>,
                     .add(R.id.pp_buttons_fragment,
                          PlacePageButtons.class, null, PLACE_PAGE_BUTTONS_FRAGMENT_TAG)
                     .commit();
-      }
-      else
-      {
-        // Only collapse the place page if it was already open
-        // If we are creating it, wait for the peek height to be available
-        mPlacePageBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
       }
     }
   }

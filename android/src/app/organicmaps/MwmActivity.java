@@ -1825,9 +1825,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  public void onPlacePageHeightChange(int previewHeight)
+  public void onPlacePageContentChanged(int previewHeight)
   {
-    mPlacePageController.onPlacePageHeightChange(previewHeight);
+    mPlacePageController.onPlacePageContentChanged(previewHeight);
   }
 
   @Override
