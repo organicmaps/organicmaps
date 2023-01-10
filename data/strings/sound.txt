@@ -1221,7 +1221,7 @@
     es = Tome la primera salida.
     eu = Hartu lehen irteera.
     fa = اولین خروجی را داخل شوید
-    fi = Poistu seuraavassa liittymässä.
+    fi = Poistu ensimmäisestä liittymästä.
     fr = Prenez la première sortie.
     hi = पहला एग्जिट लें।
     hr = Izađite na prvom izlazu.
@@ -1260,7 +1260,7 @@
     es = Tome la segunda salida.
     eu = Hartu bigarren irteera.
     fa = دومین خروجی را داخل شوید.
-    fi = Poistu toisessa liittymässä.
+    fi = Poistu toisesta liittymästä.
     fr = Prenez la deuxième sortie.
     hi = दूसरा एग्जिट लें।
     hr = Izađite na drugom izlazu.
@@ -1299,7 +1299,7 @@
     es = Tome la tercera salida.
     eu = Hartu hirugarren irteera.
     fa = سومین خروجی را داخل شوید.
-    fi = Poistu kolmannessa liittymässä.
+    fi = Poistu kolmannesta liittymästä.
     fr = Prenez la troisième sortie.
     hi = तीसरा एग्जिट लें।
     hr = Izađite na trećem izlazu.
@@ -1338,7 +1338,7 @@
     es = Tome la cuarta salida.
     eu = Hartu laugarren irteera.
     fa = چهارمین خروجی را داخل شوید.
-    fi = Poistu neljännessä liittymässä.
+    fi = Poistu neljännestä liittymästä.
     fr = Prenez la quatrième sortie.
     hi = चौथा एग्जिट लें।
     hr = Izađite na četvrtom izlazu.
@@ -1377,7 +1377,7 @@
     es = Tome la quinta salida.
     eu = Hartu bosgarren irteera.
     fa = پنجمین خروجی را داخل شوید.
-    fi = Poistu viidennessä liittymässä.
+    fi = Poistu viidennestä liittymästä.
     fr = Prenez la cinquième sortie.
     hi = पाँचवाँ एग्जिट लें।
     hr = Izađite na petom izlazu.
@@ -1416,7 +1416,7 @@
     es = Tome la sexta salida.
     eu = Hartu seigarren irteera.
     fa = ششمین خروجی را داخل شوید.
-    fi = Poistu kuudennessa liittymässä.
+    fi = Poistu kuudennesta liittymästä.
     fr = Prenez la sixième sortie.
     hi = छठा एग्जिट लें।
     hr = Izađite na šestom izlazu.
@@ -1455,7 +1455,7 @@
     es = Tome la séptima salida.
     eu = Hartu zazpigarren irteera.
     fa = هفتمین خروجی را داخل شوید.
-    fi = Poistu seitsemännessä liittymässä.
+    fi = Poistu seitsemännestä liittymästä.
     fr = Prenez la septième sortie.
     hi = सातवाँ एग्जिट लें।
     hr = Izađite na sedmom izlazu.
@@ -1494,7 +1494,7 @@
     es = Tome la octava salida.
     eu = Hartu zortzigarren irteera.
     fa = هشتمین خروجی را داخل شوید.
-    fi = Poistu kahdeksannessa liittymässä.
+    fi = Poistu kahdeksannesta liittymästä.
     fr = Prenez la huitième sortie.
     hi = आठवाँ एग्जिट लें।
     hr = Izađite na osmom izlazu.
@@ -1533,7 +1533,7 @@
     es = Tome la novena salida.
     eu = Hartu bederatzigarren irteera.
     fa = نهمین خروجی را داخل شوید.
-    fi = Poistu yhdeksännessä liittymässä.
+    fi = Poistu yhdeksännestä liittymästä.
     fr = Prenez la neuvième sortie.
     hi = नौवें निकास को लें।
     hr = Izađite na devetom izlazu.
@@ -1572,7 +1572,7 @@
     es = Tome la décima salida.
     eu = Hartu hamargarren irteera.
     fa = دهمین خروجی را داخل شوید.
-    fi = Poistu kymmenennessä liittymässä.
+    fi = Poistu kymmenennestä liittymästä.
     fr = Prenez la dixième sortie.
     hi = दसवाँ एग्जिट लें।
     hr = Izađite na desetom izlazu.
@@ -1611,7 +1611,7 @@
     es = Tome la undécima salida.
     eu = Hartu hamaikagarren irteera.
     fa = یازدهمین خروجی را داخل شوید.
-    fi = Poistu yhdennessätoista liittymässä.
+    fi = Poistu yhdennestätoista liittymästä.
     fr = Prenez la onzième sortie.
     hi = ग्‍यारहवाँ एग्जिट लें।
     hr = Izađite na jedanaestom izlazu.
