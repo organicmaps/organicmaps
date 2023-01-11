@@ -214,13 +214,17 @@ public class PlacePageController implements Initializable<Activity>,
       setPeekHeight();
       if (mMapObject != null)
       {
-        if (mMapObject.getOpeningMode() == MapObject.OPENING_MODE_PREVIEW_PLUS)
+        // Make sure to leave the place page opened if the object simply changes
+        if (!PlacePageUtils.isExpandedState(mPlacePageBehavior.getState()))
         {
-          mPlacePageBehavior.setHalfExpandedRatio(PREVIEW_PLUS_RATIO);
-          mPlacePageBehavior.setState(BottomSheetBehavior.STATE_HALF_EXPANDED);
+          if (mMapObject.getOpeningMode() == MapObject.OPENING_MODE_PREVIEW_PLUS)
+          {
+            mPlacePageBehavior.setHalfExpandedRatio(PREVIEW_PLUS_RATIO);
+            mPlacePageBehavior.setState(BottomSheetBehavior.STATE_HALF_EXPANDED);
+          }
+          else if (!PlacePageUtils.isCollapsedState(mPlacePageBehavior.getState()))
+            mPlacePageBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         }
-        else if (!PlacePageUtils.isCollapsedState(mPlacePageBehavior.getState()))
-          mPlacePageBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
       }
     });
   }
