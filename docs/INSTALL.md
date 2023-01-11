@@ -16,7 +16,7 @@ For _Windows_ you need to have [Git for Windows](https://git-scm.com/download/wi
 
 First of all get the source code. The full Organic Maps sources repository is ~8.5Gb in size, there are various [clone options](#special-cases-options) to reduce download size to suit your needs.
 
-For _Windows 10_ enable [symlinks](https://git-scm.com/docs/git-config#Documentation/git-config.txt-coresymlinks) support in git first:
+For _Windows 10_ enable [symlinks](https://git-scm.com/docs/git-config#Documentation/git-config.txt-coresymlinks) support in git first, if this doesn't enable symlinks add -c core.symlinks=true parameter to the clone command shown below:
 
 ```bash
 git config --global core.symlinks true
@@ -27,7 +27,7 @@ Clone the repository including all submodules (see [Special cases options](#spec
 (if you plan to contribute and propose pull requests then use a web interface at https://github.com/organicmaps/organicmaps to fork the repo first and use your fork's url in the command below)
 
 ```bash
-git clone --recurse-submodules https://github.com/organicmaps/organicmaps.git
+git clone --recurse-submodules -c core.symlinks=true https://github.com/organicmaps/organicmaps.git
 ```
 
 Go into the cloned repo:
