@@ -18,7 +18,7 @@ First of all get the source code. The full Organic Maps sources repository is ~8
 
 Clone the repository including all submodules (see [Special cases options](#special-cases-options) below):
 
-(if you plan to contribute and propose pull requests then use a web interface at https://github.com/organicmaps/organicmaps to fork the repo first and use your fork's url in the command below, please note the requirement for enabling symlinks ie. -c core.symlinks=true)
+(if you plan to contribute and propose pull requests then use a web interface at https://github.com/organicmaps/organicmaps to fork the repo first and use your fork's url in the command below, please note the requirement for the support of symlinks on Windows 10 ie. -c core.symlinks=true)
 
 ```bash
 git clone --recurse-submodules -c core.symlinks=true https://github.com/organicmaps/organicmaps.git
