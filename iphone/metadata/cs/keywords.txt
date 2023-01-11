@@ -1,1 +1,1 @@
-mapy,offline,cestování,navigace,GPS,směry,trasa,turistika,kolo,cyklistika,openstreetmap,osm,stezky
+mapa,roaming,trasa,cyklistika,openstreetmap,osm,navigace,metro,turistika,směry,auto,soukromí,město
