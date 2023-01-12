@@ -10,6 +10,7 @@
   fi = Abhasia
   fr = Abkhazie
   de = Abchasien
+  hi = अबख़ाज़िया
   hu = Abházia
   id = Abkhazia
   it = Abcasia
@@ -45,6 +46,7 @@
   fi = Afganistan
   fr = Afghanistan
   de = Afghanistan
+  hi = अफ़ग़ानिस्तान
   hu = Afganisztán
   id = Afganistan
   it = Afghanistan
@@ -81,6 +83,7 @@
   fi = Alabama
   fr = Alabama
   de = Alabama
+  hi = अलाबामा
   hu = Alabama
   id = Alabama
   it = Alabama
@@ -116,6 +119,7 @@
   fi = Albania
   fr = Albanie
   de = Albanien
+  hi = अल्बानिया
   hu = Albánia
   id = Albania
   it = Albania
@@ -152,6 +156,7 @@
   fi = Algeria
   fr = Algérie
   de = Algerien
+  hi = अल्जीरिया
   hu = Algéria
   id = Aljazair
   it = Algeria
@@ -256,6 +261,7 @@
   fi = Andorra
   fr = Andorre
   de = Andorra
+  hi = अण्डोरा
   hu = Andorra
   id = Andorra
   it = Andorra
@@ -291,6 +297,7 @@
   fi = Angola
   fr = Angola
   de = Angola
+  hi = अंगोला
   hu = Angola
   id = Angola
   it = Angola
@@ -362,6 +369,7 @@
   fi = Etelämanner
   fr = Antarctique
   de = Antarktika
+  hi = अंटार्कटिका
   hu = Antarktika
   id = Antarktika
   it = Antartide
@@ -398,6 +406,7 @@
   fi = Antigua ja Barbuda
   fr = Antigua-et-Barbuda
   de = Antigua und Barbuda
+  hi = अण्टीगुआ और बारबूडा
   hu = Antigua és Barbuda
   id = Antigua dan Barbuda
   it = Antigua e Barbuda
@@ -433,6 +442,7 @@
   fi = Argentiina
   fr = Argentine
   de = Argentinien
+  hi = अर्जेण्टीना
   hu = Argentína
   id = Argentina
   it = Argentina
@@ -707,6 +717,7 @@
   fi = Arizona
   fr = Arizona
   de = Arizona
+  hi = एरीजोना
   hu = Arizona
   id = Arizona
   it = Arizona
@@ -742,6 +753,7 @@
   fi = Armenia
   fr = Arménie
   de = Armenien
+  hi = आर्मीनिया
   hu = Örményország
   id = Armenia
   it = Armenia
@@ -778,6 +790,7 @@
   fi = Australia
   fr = Australie
   de = Australien
+  hi = ऑस्ट्रेलिया
   hu = Ausztrália
   id = Australia
   it = Australia
@@ -1086,6 +1099,7 @@
   fi = Itävalta
   fr = Autriche
   de = Österreich
+  hi = ऑस्ट्रिया
   hu = Ausztria
   id = Austria
   it = Austria
@@ -1429,6 +1443,7 @@
   fi = Azerbaidžan
   fr = Azerbaïdjan
   de = Aserbaidschan
+  hi = अज़रबाइजान
   hu = Azerbajdzsán
   id = Azerbaijan
   it = Azerbaigian
@@ -1501,6 +1516,7 @@
   fi = Bahrain
   fr = Bahreïn
   de = Bahrain
+  hi = बहरीन
   hu = Bahrein
   id = Bahrain
   it = Bahrein
@@ -1537,6 +1553,7 @@
   fi = Bangladesh
   fr = Bangladesh
   de = Bangladesch
+  hi = बांग्लादेश
   hu = Banglades
   id = Bangladesh
   it = Bangladesh
@@ -1573,6 +1590,7 @@
   fi = Barbados
   fr = Barbade
   de = Barbados
+  hi = बारबाडोस
   hu = Barbados
   id = Barbados
   it = Barbados
@@ -1609,6 +1627,7 @@
   fi = Valko-Venäjä
   fr = Biélorussie
   de = Weißrussland
+  hi = बेलारूस
   hu = Fehéroroszország
   id = Belarus
   it = Bielorussia
@@ -1849,6 +1868,7 @@
   fi = Belgia
   fr = Belgique
   de = Belgien
+  hi = बेल्जियम
   hu = Belgium
   id = Belgia
   it = Belgio
@@ -2225,6 +2245,7 @@
   fi = Belize
   fr = Belize
   de = Belize
+  hi = बेलीज़
   hu = Belize
   id = Belize
   it = Belize
@@ -2260,6 +2281,7 @@
   fi = Benin
   fr = Bénin
   de = Benin
+  hi = बेनिन
   hu = Benin
   id = Benin
   it = Benin
@@ -2331,6 +2353,7 @@
   fi = Bhutan
   fr = Bhoutan
   de = Bhutan
+  hi = भूटान
   hu = Bhután
   id = Bhutan
   it = Bhutan
@@ -2367,6 +2390,7 @@
   fi = Bolivia
   fr = Bolivie
   de = Bolivien
+  hi = बोलिविया
   hu = Bolívia
   id = Bolivia
   it = Bolivia
@@ -2477,6 +2501,7 @@
   fi = Bosnia ja Hertsegovina
   fr = Bosnie-Herzégovine
   de = Bosnien und Herzegowina
+  hi = बॉस्निया और हर्ज़ेगोविना
   hu = Bosznia-Hercegovina
   id = Bosnia dan Herzegovina
   it = Bosnia ed Erzegovina
@@ -2615,6 +2640,7 @@
   fi = Botswana
   fr = Botswana
   de = Botswana
+  hi = बोत्सवाना
   hu = Botswana
   id = Botswana
   it = Botswana
@@ -2651,6 +2677,7 @@
   fi = Brasilia
   fr = Brésil
   de = Brasilien
+  hi = ब्राज़ील
   hu = Brazília
   id = Brasil
   it = Brasile
@@ -3369,6 +3396,7 @@
   fi = Brunei
   fr = Brunei
   de = Brunei
+  hi = ब्रुनेई
   hu = Brunei
   id = Brunei
   it = Brunei
@@ -3405,6 +3433,7 @@
   fi = Bulgaria
   fr = Bulgarie
   de = Bulgarien
+  hi = बुल्गारिया
   hu = Bulgária
   id = Bulgaria
   it = Bulgaria
@@ -3441,6 +3470,7 @@
   fi = Burkina Faso
   fr = Burkina Faso
   de = Burkina Faso
+  hi = बुर्किना फासो
   hu = Burkina Faso
   id = Burkina Faso
   it = Burkina Faso
@@ -3476,6 +3506,7 @@
   fi = Burundi
   fr = Burundi
   de = Burundi
+  hi = बुरुण्डी
   hu = Burundi
   id = Burundi
   it = Burundi
@@ -3512,6 +3543,7 @@
   fi = Kalifornia
   fr = Californie
   de = Kalifornien
+  hi = कैलिफ़ोर्निया
   hu = Kalifornia
   id = California
   it = California
@@ -3547,6 +3579,7 @@
   fi = Kambodža
   fr = Cambodge
   de = Kambodscha
+  hi = कम्बोडिया
   hu = Kambodzsa
   id = Kamboja
   it = Cambogia
@@ -3583,6 +3616,7 @@
   fi = Kamerun
   fr = Cameroun
   de = Kamerun
+  hi = कैमरुन
   hu = Kamerun
   id = Kamerun
   it = Camerun
@@ -3722,6 +3756,7 @@
   fi = Kanada
   fr = Canada
   de = Kanada
+  hi = कनाडा
   hu = Kanada
   id = Kanada
   it = Canada
@@ -6003,6 +6038,7 @@
   fi = Kap Verde
   fr = Cap-Vert
   de = Kap Verde
+  hi = केप वर्दे
   hu = Zöld-foki Köztársaság
   id = Tanjung Verde
   it = Capo Verde
@@ -6146,6 +6182,7 @@
   fi = Keski-Afrikan tasavalta
   fr = République centrafricaine
   de = Zentralafrikanische Republik
+  hi = मध्य अफ़्रीकी गणराज्य
   hu = Közép-afrikai Köztársaság
   id = Republik Afrika Tengah
   it = Repubblica Centrafricana
@@ -6216,6 +6253,7 @@
   fi = Tšad
   fr = Tchad
   de = Tschad
+  hi = चाड
   hu = Csád
   id = Chad
   it = Ciad
@@ -6252,6 +6290,7 @@
   fi = Chile
   fr = Chili
   de = Chile
+  hi = चिली
   hu = Chile
   id = Chili
   it = Cile
@@ -7308,6 +7347,7 @@
   fi = Kolumbia
   fr = Colombie
   de = Kolumbien
+  hi = कोलम्बिया
   hu = Kolumbia
   id = Kolombia
   it = Colombia
@@ -7446,6 +7486,7 @@
   fi = Colorado
   fr = Colorado
   de = Colorado
+  hi = कॉलराडो
   hu = Colorado
   id = Colorado
   it = Colorado
@@ -7481,6 +7522,7 @@
   fi = Komorit
   fr = Comores
   de = Komoren
+  hi = कोमोरोस
   hu = Comore-szigetek
   id = Komoro
   it = Comore
@@ -7621,6 +7663,7 @@
   fi = Costa Rica
   fr = Costa Rica
   de = Costa Rica
+  hi = कोस्टा रीका
   hu = Costa Rica
   id = Kosta Rika
   it = Costa Rica
@@ -7657,6 +7700,7 @@
   fi = Norsunluurannikko
   fr = Côte d'Ivoire
   de = Elfenbeinküste
+  hi = कोत दिव्वार
   hu = Elefántcsontpart
   id = Pantai Gading
   it = Costa d'Avorio
@@ -7728,6 +7772,7 @@
   fi = Kroatia
   fr = Croatie
   de = Kroatien
+  hi = क्रोएशिया
   hu = Horvátország
   id = Kroasia
   it = Croazia
@@ -7764,6 +7809,7 @@
   fi = Kuuba
   fr = Cuba
   de = Kuba
+  hi = क्यूबा
   hu = Kuba
   id = Kuba
   it = Cuba
@@ -7800,6 +7846,7 @@
   fi = Kypros
   fr = Chypre
   de = Republik Zypern
+  hi = साइप्रस
   hu = Ciprus
   id = Siprus
   it = Cipro
@@ -7836,6 +7883,7 @@
   fi = Tšekki
   fr = République tchèque
   de = Tschechien
+  hi = चेक गणराज्य
   hu = Csehország
   id = Republik Ceko
   it = Repubblica Ceca
@@ -8382,6 +8430,7 @@
   fi = Tanska
   fr = Danemark
   de = Dänemark
+  hi = डेनमार्क
   hu = Dánia
   id = Denmark
   it = Danimarca
@@ -8588,6 +8637,7 @@
   fi = Djibouti
   fr = Djibouti
   de = Dschibuti
+  hi = जिबूती
   hu = Dzsibuti
   id = Djibouti
   it = Gibuti
@@ -8624,6 +8674,7 @@
   fi = Dominica
   fr = Dominique
   de = Dominica
+  hi = डोमिनिका
   hu = Dominikai Közösség
   id = Dominika
   it = Dominica
@@ -8660,6 +8711,7 @@
   fi = Dominikaaninen tasavalta
   fr = République dominicaine
   de = Dominikanische Republik
+  hi = डोमिनिकन गणराज्य
   hu = Dominikai Köztársaság
   id = Republik Dominika
   it = Repubblica Dominicana
@@ -8695,6 +8747,7 @@
   fi = Itä-Timor
   fr = Timor oriental
   de = Osttimor
+  hi = पूर्वी तिमोर
   hu = Kelet-Timor
   id = Timor Leste
   it = Timor Est
@@ -8730,6 +8783,7 @@
   fi = Ecuador
   fr = Équateur
   de = Ecuador
+  hi = ईक्वाडोर
   hu = Ecuador
   id = Ekuador
   it = Ecuador
@@ -8766,6 +8820,7 @@
   fi = Egypti
   fr = Égypte
   de = Ägypten
+  hi = मिस्र
   hu = Egyiptom
   id = Mesir
   it = Egitto
@@ -8802,6 +8857,7 @@
   fi = El Salvador
   fr = Salvador
   de = El Salvador
+  hi = अल साल्वाडोर
   hu = El Salvador
   id = El Salvador
   it = El Salvador
@@ -8837,6 +8893,7 @@
   fi = Päiväntasaajan Guinea
   fr = Guinée équatoriale
   de = Äquatorialguinea
+  hi = भूमध्यरेखीय गिनी
   hu = Egyenlítői-Guinea
   id = Guinea Khatulistiwa
   it = Guinea Equatoriale
@@ -8872,6 +8929,7 @@
   fi = Eritrea
   fr = Érythrée
   de = Eritrea
+  hi = इरित्रिया
   hu = Eritrea
   id = Eritrea
   it = Eritrea
@@ -8907,6 +8965,7 @@
   fi = Viro
   fr = Estonie
   de = Estland
+  hi = एस्टोनिया
   hu = Észtország
   id = Estonia
   it = Estonia
@@ -9011,6 +9070,7 @@
   fi = Etiopia
   fr = Éthiopie
   de = Äthiopien
+  hi = इथियोपिया
   hu = Etiópia
   id = Ethiopia
   it = Etiopia
@@ -9117,6 +9177,7 @@
   fi = Mikronesia
   fr = États fédérés de Micronésie
   de = Mikronesien
+  hi = माइक्रोनेशिया के संघीकृत राज्य
   hu = Mikronéziai Szövetségi Államok
   id = Mikronesia
   it = Stati Federati di Micronesia
@@ -9152,6 +9213,7 @@
   fi = Fidži
   fr = Fidji
   de = Fidschi
+  hi = फ़िजी
   hu = Fidzsi-szigetek
   id = Fiji
   it = Figi
@@ -9187,6 +9249,7 @@
   fi = Suomi
   fr = Finlande
   de = Finnland
+  hi = फ़िनलैण्ड
   hu = Finnország
   id = Finlandia
   it = Finlandia
@@ -9427,6 +9490,7 @@
   fi = Florida
   fr = Floride
   de = Florida
+  hi = फ़्लोरिडा
   hu = Florida
   id = Florida
   it = Florida
@@ -9462,6 +9526,7 @@
   fi = Ranska
   fr = France
   de = Frankreich
+  hi = फ़्रान्स
   hu = Franciaország
   id = Perancis
   it = Francia
@@ -13171,6 +13236,7 @@
   fi = Gabon
   fr = Gabon
   de = Gabun
+  hi = गबॉन
   hu = Gabon
   id = Gabon
   it = Gabon
@@ -13206,6 +13272,7 @@
   fi = Georgia
   fr = Géorgie
   de = Georgien
+  hi = जॉर्जिया
   hu = Grúzia
   id = Georgia
   it = Georgia
@@ -13241,6 +13308,7 @@
   fi = Georgia
   fr = Géorgie
   de = Georgien
+  hi = जॉर्जिया
   hu = Grúzia
   id = Georgia
   it = Georgia
@@ -13276,6 +13344,7 @@
   fi = Saksa
   fr = Allemagne
   de = Deutschland
+  hi = जर्मनी
   hu = Németország
   id = Jerman
   it = Germania
@@ -14978,6 +15047,7 @@
   fi = Ghana
   fr = Ghana
   de = Ghana
+  hi = घाना
   hu = Ghána
   id = Ghana
   it = Ghana
@@ -15050,6 +15120,7 @@
   fi = Kreikka
   fr = Grèce
   de = Griechenland
+  hi = यूनान
   hu = Görögország
   id = Yunani
   it = Grecia
@@ -15360,6 +15431,7 @@
   fi = Grenada
   fr = Grenade
   de = Grenada
+  hi = ग्रेनाडा
   hu = Grenada
   id = Grenada
   it = Grenada
@@ -15430,6 +15502,7 @@
   fi = Guatemala
   fr = Guatemala
   de = Guatemala
+  hi = ग्वाटेमाला
   hu = Guatemala
   id = Guatemala
   it = Guatemala
@@ -15500,6 +15573,7 @@
   fi = Guinea
   fr = Guinée
   de = Guinea
+  hi = गिनी
   hu = Guinea
   id = Guinea
   it = Guinea
@@ -15535,6 +15609,7 @@
   fi = Guinea-Bissau
   fr = Guinée-Bissau
   de = Guinea-Bissau
+  hi = गिनी-बिसाऊ
   hu = Bissau-Guinea
   id = Guinea-Bissau
   it = Guinea-Bissau
@@ -15570,6 +15645,7 @@
   fi = Guyana
   fr = Guyana
   de = Guyana
+  hi = गयाना
   hu = Guyana
   id = Guyana
   it = Guyana
@@ -15606,6 +15682,7 @@
   fi = Haiti
   fr = Haïti
   de = Haiti
+  hi = हैती
   hu = Haiti
   id = Haiti
   it = Haiti
@@ -15642,6 +15719,7 @@
   fi = Honduras
   fr = Honduras
   de = Honduras
+  hi = हौण्डुरस
   hu = Honduras
   id = Honduras
   it = Honduras
@@ -15678,6 +15756,7 @@
   fi = Unkari
   fr = Hongrie
   de = Ungarn
+  hi = हंगरी
   hu = Magyarország
   id = Hongaria
   it = Ungheria
@@ -15816,6 +15895,7 @@
   fi = Islanti
   fr = Islande
   de = Island
+  hi = आइसलैण्ड
   hu = Izland
   id = Islandia
   it = Islanda
@@ -15852,6 +15932,7 @@
   fi = Illinois
   fr = Illinois
   de = Illinois
+  hi = इलिनॉय
   hu = Illinois
   id = Illinois
   it = Illinois
@@ -15887,6 +15968,7 @@
   fi = Intia
   fr = Inde
   de = Indien
+  hi = भारत
   hu = India
   id = India
   it = India
@@ -15923,6 +16005,7 @@
   fi = Andamaanit ja Nikobaarit
   fr = Îles Andaman-et-Nicobar
   de = Andamanen und Nikobaren
+  hi = अण्डमान और निकोबार द्वीपसमूह
   hu = Andamán- és Nikobár-szigetek
   id = Kepulauan Andaman dan Nikobar
   it = Andamane e Nicobare
@@ -15958,6 +16041,7 @@
   fi = Andhra Pradesh
   fr = Andhra Pradesh
   de = Andhra Pradesh
+  hi = आन्ध्र प्रदेश
   hu = Ándhra Prades
   id = Andhra Pradesh
   it = Andhra Pradesh
@@ -15993,6 +16077,7 @@
   fi = Arunachal Pradesh
   fr = Arunachal Pradesh
   de = Arunachal Pradesh
+  hi = अरुणाचल प्रदेश
   hu = Arunácsal Prades
   id = Arunachal Pradesh
   it = Arunachal Pradesh
@@ -16028,6 +16113,7 @@
   fi = Assam
   fr = Assam
   de = Assam
+  hi = असम
   hu = Asszám
   id = Assam
   it = Assam
@@ -16063,6 +16149,7 @@
   fi = Bihar
   fr = Bihar
   de = Bihar
+  hi = बिहार
   hu = Bihár
   id = Bihar
   it = Bihar
@@ -16098,6 +16185,7 @@
   fi = Chandigarh
   fr = Chandigarh
   de = Chandigarh
+  hi = चण्डीगढ़
   hu = Csandígarh
   id = Chandigarh
   it = Chandigarh
@@ -16133,6 +16221,7 @@
   fi = Chhattisgarh
   fr = Chhattisgarh
   de = Chhattisgarh
+  hi = छत्तीसगढ़
   hu = Cshattíszgarh
   id = Chhattisgarh
   it = Chhattisgarh
@@ -16168,6 +16257,7 @@
   fi = Delhi
   fr = Delhi
   de = Delhi
+  hi = दिल्ली
   hu = Delhi
   id = Delhi
   it = Delhi
@@ -16203,6 +16293,7 @@
   fi = Goa
   fr = Goa
   de = Goa
+  hi = गोआ
   hu = Goa
   id = Goa, India
   it = Goa
@@ -16238,6 +16329,7 @@
   fi = Gujarat
   fr = Gujarat
   de = Gujarat
+  hi = गुजरात
   hu = Gudzsarát
   id = Gujarat
   it = Gujarat
@@ -16273,6 +16365,7 @@
   fi = Haryana
   fr = Haryana
   de = Haryana
+  hi = हरियाणा
   hu = Harijána
   id = Haryana
   it = Haryana
@@ -16308,6 +16401,7 @@
   fi = Himachal Pradesh
   fr = Himachal Pradesh
   de = Himachal Pradesh
+  hi = हिमाचल प्रदेश
   hu = Himácsal Prades
   id = Himachal Pradesh
   it = Himachal Pradesh
@@ -16343,6 +16437,7 @@
   fi = Jammu ja Kashmir
   fr = Jammu-et-Cachemire
   de = Jammu und Kashmir
+  hi = जम्मू और कश्मीर
   hu = Dzsammu és Kasmír
   id = Jammu dan Kashmir
   it = Jammu e Kashmir
@@ -16378,6 +16473,7 @@
   fi = Jharkhand
   fr = Jharkhand
   de = Jharkhand
+  hi = झारखण्ड
   hu = Dzshárkhand
   id = Jharkhand
   it = Jharkhand
@@ -16413,6 +16509,7 @@
   fi = Karnataka
   fr = Karnataka
   de = Karnataka
+  hi = कर्नाटक
   hu = Karnátaka
   id = Karnataka
   it = Karnataka
@@ -16448,6 +16545,7 @@
   fi = Kerala
   fr = Kerala
   de = Kerala
+  hi = केरल
   hu = Kerala
   id = Kerala
   it = Kerala
@@ -16483,6 +16581,7 @@
   fi = Lakkadiivit
   fr = Lakshadweep
   de = Lakshadweep
+  hi = लक्षद्वीप
   hu = Laksadíva
   id = Lakshadweep
   it = Laccadive
@@ -16518,6 +16617,7 @@
   fi = Madhya Pradesh
   fr = Madhya Pradesh
   de = Madhya Pradesh
+  hi = मध्य प्रदेश
   hu = Madhja Prades
   id = Madhya Pradesh
   it = Madhya Pradesh
@@ -16553,6 +16653,7 @@
   fi = Maharashtra
   fr = Maharashtra
   de = Maharashtra
+  hi = महाराष्ट्र
   hu = Mahárástra
   id = Maharashtra
   it = Maharashtra
@@ -16588,6 +16689,7 @@
   fi = Manipur
   fr = Manipur
   de = Manipur
+  hi = मणिपुर
   hu = Manipur
   id = Manipur
   it = Manipur
@@ -16623,6 +16725,7 @@
   fi = Meghalaya
   fr = Meghalaya
   de = Meghalaya
+  hi = मेघालय
   hu = Meghálaja
   id = Meghalaya
   it = Meghalaya
@@ -16658,6 +16761,7 @@
   fi = Mizoram
   fr = Mizoram
   de = Mizoram
+  hi = मिज़ोरम
   hu = Mizoram
   id = Mizoram
   it = Mizoram
@@ -16693,6 +16797,7 @@
   fi = Nagaland
   fr = Nagaland
   de = Nagaland
+  hi = नागालैण्ड
   hu = Nágaföld
   id = Nagaland
   it = Nagaland
@@ -16728,6 +16833,7 @@
   fi = Orissa
   fr = Orissa
   de = Odisha
+  hi = ओडिशा
   hu = Orisza
   id = Orissa
   it = Orissa
@@ -16763,6 +16869,7 @@
   fi = Punjab
   fr = Pendjab
   de = Punjab
+  hi = पंजाब
   hu = Pandzsáb
   id = Punjab
   it = Punjab
@@ -16798,6 +16905,7 @@
   fi = Rajasthan
   fr = Rajasthan
   de = Rajasthan
+  hi = राजस्थान
   hu = Rádzsasztán
   id = Rajasthan
   it = Rajasthan
@@ -16833,6 +16941,7 @@
   fi = Sikkim
   fr = Sikkim
   de = Sikkim
+  hi = सिक्किम
   hu = Szikkim
   id = Sikkim
   it = Sikkim
@@ -16868,6 +16977,7 @@
   fi = Tamil Nadu
   fr = Tamil Nadu
   de = Tamil Nadu
+  hi = तमिल नाडु
   hu = Tamilnádu
   id = Tamil Nadu
   it = Tamil Nadu
@@ -16903,6 +17013,7 @@
   fi = Telangana
   fr = Télangana
   de = Telangana
+  hi = तेलंगाना
   hu = Telangána
   id = Telangana
   it = Telangana
@@ -16938,6 +17049,7 @@
   fi = Tripura
   fr = Tripura
   de = Tripura
+  hi = त्रिपुरा
   hu = Tripura
   id = Tripura
   it = Tripura
@@ -16973,6 +17085,7 @@
   fi = Uttar Pradesh
   fr = Uttar Pradesh
   de = Uttar Pradesh
+  hi = उत्तर प्रदेश
   hu = Uttar Prades
   id = Uttar Pradesh
   it = Uttar Pradesh
@@ -17008,6 +17121,7 @@
   fi = Uttarakhand
   fr = Uttarakhand
   de = Uttarakhand
+  hi = उत्तराखण्ड
   hu = Uttarakhand
   id = Uttarakhand
   it = Uttarakhand
@@ -17043,6 +17157,7 @@
   fi = Länsi-Bengali
   fr = Bengale-Occidental
   de = Westbengalen
+  hi = पश्चिम बंगाल
   hu = Nyugat-Bengál
   id = Benggala Barat
   it = Bengala Occidentale
@@ -17078,6 +17193,7 @@
   fi = Indiana
   fr = Indiana
   de = Indiana
+  hi = इंडियाना
   hu = Indiana
   id = Indiana
   it = Indiana
@@ -17113,6 +17229,7 @@
   fi = Indonesia
   fr = Indonésie
   de = Indonesien
+  hi = इंडोनेशिया
   hu = Indonézia
   id = Indonesia
   it = Indonesia
@@ -17387,6 +17504,7 @@
   fi = Iowa
   fr = Iowa
   de = Iowa
+  hi = आयोवा
   hu = Iowa
   id = Iowa
   it = Iowa
@@ -17422,6 +17540,7 @@
   fi = Iran
   fr = Iran
   de = Iran
+  hi = ईरान
   hu = Irán
   id = Iran
   it = Iran
@@ -17526,6 +17645,7 @@
   fi = Irak
   fr = Irak
   de = Irak
+  hi = इराक
   hu = Irak
   id = Irak
   it = Iraq
@@ -17562,6 +17682,7 @@
   fi = Irlanti
   fr = Irlande
   de = Irland
+  hi = आयरलैण्ड
   hu = Írország
   id = Republik Irlandia
   it = Irlanda
@@ -17769,6 +17890,7 @@
   fi = Israel
   fr = Israël
   de = Israel
+  hi = इज़राइल
   hu = Izrael
   id = Israel
   it = Israele
@@ -17840,6 +17962,7 @@
   fi = Italia
   fr = Italie
   de = Italien
+  hi = इटली
   hu = Olaszország
   id = Italia
   it = Italia
@@ -19950,6 +20073,7 @@
   fi = Jamaika
   fr = Jamaïque
   de = Jamaika
+  hi = जमैका
   hu = Jamaica
   id = Jamaika
   it = Giamaica
@@ -19986,6 +20110,7 @@
   fi = Japani
   fr = Japon
   de = Japan
+  hi = जापान
   hu = Japán
   id = Jepang
   it = Giappone
@@ -21996,6 +22121,7 @@
   fi = Jordania
   fr = Jordanie
   de = Jordanien
+  hi = जॉर्डन
   hu = Jordánia
   id = Yordania
   it = Giordania
@@ -22032,6 +22158,7 @@
   fi = Kansas
   fr = Kansas
   de = Kansas
+  hi = केन्सास
   hu = Kansas
   id = Kansas
   it = Kansas
@@ -22067,6 +22194,7 @@
   fi = Kazakstan
   fr = Kazakhstan
   de = Kasachstan
+  hi = कज़ाख़िस्तान
   hu = Kazahsztán
   id = Kazakhstan
   it = Kazakistan
@@ -22103,6 +22231,7 @@
   fi = Kentucky
   fr = Kentucky
   de = Kentucky
+  hi = केन्टकी
   hu = Kentucky
   id = Kentucky
   it = Kentucky
@@ -22138,6 +22267,7 @@
   fi = Kenia
   fr = Kenya
   de = Kenia
+  hi = कीनिया
   hu = Kenya
   id = Kenya
   it = Kenya
@@ -22174,6 +22304,7 @@
   fi = Lesotho
   fr = Lesotho
   de = Lesotho
+  hi = लेसोथो
   hu = Lesotho
   id = Lesotho
   it = Lesotho
@@ -22209,6 +22340,7 @@
   fi = Kiribati
   fr = Kiribati
   de = Kiribati
+  hi = किरिबाती
   hu = Kiribati
   id = Kiribati
   it = Kiribati
@@ -22244,6 +22376,7 @@
   fi = Kuwait
   fr = Koweït
   de = Kuwait
+  hi = कुवैत
   hu = Kuvait
   id = Kuwait
   it = Kuwait
@@ -22280,6 +22413,7 @@
   fi = Kirgisia
   fr = Kirghizistan
   de = Kirgisistan
+  hi = किर्गिज़स्तान
   hu = Kirgizisztán
   id = Kirgizstan
   it = Kirghizistan
@@ -22315,6 +22449,7 @@
   fi = Laos
   fr = Laos
   de = Laos
+  hi = लाओस
   hu = Laosz
   id = Laos
   it = Laos
@@ -22350,6 +22485,7 @@
   fi = Latvia
   fr = Lettonie
   de = Lettland
+  hi = लातविया
   hu = Lettország
   id = Latvia
   it = Lettonia
@@ -22385,6 +22521,7 @@
   fi = Libanon
   fr = Liban
   de = Libanon
+  hi = लेबनान
   hu = Libanon
   id = Lebanon
   it = Libano
@@ -22421,6 +22558,7 @@
   fi = Liberia
   fr = Liberia
   de = Liberia
+  hi = लाइबेरिया
   hu = Libéria
   id = Liberia
   it = Liberia
@@ -22457,6 +22595,7 @@
   fi = Libya
   fr = Libye
   de = Libyen
+  hi = लीबिया
   hu = Líbia
   id = Libya
   it = Libia
@@ -22493,6 +22632,7 @@
   fi = Liechtenstein
   fr = Liechtenstein
   de = Liechtenstein
+  hi = लिक्टेन्स्टाइन
   hu = Liechtenstein
   id = Liechtenstein
   it = Liechtenstein
@@ -22529,6 +22669,7 @@
   fi = Liettua
   fr = Lituanie
   de = Litauen
+  hi = लिथुआनिया
   hu = Litvánia
   id = Lituania
   it = Lituania
@@ -22565,6 +22706,7 @@
   fi = Louisiana
   fr = Louisiane
   de = Louisiana
+  hi = लुईज़ियाना
   hu = Louisiana
   id = Louisiana
   it = Louisiana
@@ -22600,6 +22742,7 @@
   fi = Luxemburg
   fr = Luxembourg
   de = Luxemburg
+  hi = लक्ज़मबर्ग
   hu = Luxemburg
   id = Luksemburg
   it = Lussemburgo
@@ -22672,6 +22815,7 @@
   fi = Madagaskar
   fr = Madagascar
   de = Madagaskar
+  hi = मेडागास्कर
   hu = Madagaszkár
   id = Madagaskar
   it = Madagascar
@@ -22708,6 +22852,7 @@
   fi = Malawi
   fr = Malawi
   de = Malawi
+  hi = मलावी
   hu = Malawi
   id = Malawi
   it = Malawi
@@ -22743,6 +22888,7 @@
   fi = Malesia
   fr = Malaisie
   de = Malaysia
+  hi = मलेशिया
   hu = Malajzia
   id = Malaysia
   it = Malesia
@@ -22779,6 +22925,7 @@
   fi = Malediivit
   fr = Maldives
   de = Malediven
+  hi = मालदीव
   hu = Maldív-szigetek
   id = Maladewa
   it = Maldive
@@ -22815,6 +22962,7 @@
   fi = Mali
   fr = Mali
   de = Mali
+  hi = माली
   hu = Mali
   id = Mali
   it = Mali
@@ -22851,6 +22999,7 @@
   fi = Malta
   fr = Malte
   de = Malta
+  hi = माल्टा
   hu = Málta
   id = Malta
   it = Malta
@@ -22887,6 +23036,7 @@
   fi = Marshallinsaaret
   fr = Îles Marshall
   de = Marshallinseln
+  hi = मार्शल द्वीपसमूह
   hu = Marshall-szigetek
   id = Kepulauan Marshall
   it = Isole Marshall
@@ -22957,6 +23107,7 @@
   fi = Maryland
   fr = Maryland
   de = Maryland
+  hi = मैरीलैंड
   hu = Maryland
   id = Maryland
   it = Maryland
@@ -22992,6 +23143,7 @@
   fi = Massachusetts
   fr = Massachusetts
   de = Massachusetts
+  hi = मैसाचूसिट्स
   hu = Massachusetts
   id = Massachusetts
   it = Massachusetts
@@ -23027,6 +23179,7 @@
   fi = Mauritania
   fr = Mauritanie
   de = Mauretanien
+  hi = मॉरीतानिया
   hu = Mauritánia
   id = Mauritania
   it = Mauritania
@@ -23062,6 +23215,7 @@
   fi = Mauritius
   fr = Maurice
   de = Mauritius
+  hi = मॉरिशस
   hu = Mauritius
   id = Mauritius
   it = Mauritius
@@ -23098,6 +23252,7 @@
   fi = Meksiko
   fr = Mexique
   de = Mexiko
+  hi = मेक्सिको
   hu = Mexikó
   id = Meksiko
   it = Messico
@@ -23372,6 +23527,7 @@
   fi = Michigan
   fr = Michigan
   de = Michigan
+  hi = मिशिगन
   hu = Michigan
   id = Michigan
   it = Michigan
@@ -23407,6 +23563,7 @@
   fi = Minnesota
   fr = Minnesota
   de = Minnesota
+  hi = मिनेसोटा
   hu = Minnesota
   id = Minnesota
   it = Minnesota
@@ -23442,6 +23599,7 @@
   fi = Missouri
   fr = Missouri
   de = Missouri
+  hi = मिसौरी
   hu = Missouri
   id = Missouri
   it = Missouri
@@ -23477,6 +23635,7 @@
   fi = Moldova
   fr = Moldavie
   de = Moldawien
+  hi = मॉल्डोवा
   hu = Moldova
   id = Moldova
   it = Moldavia
@@ -23513,6 +23672,7 @@
   fi = Monaco
   fr = Monaco
   de = Monaco
+  hi = मोनैको
   hu = Monaco
   id = Monako
   it = Principato di Monaco
@@ -23549,6 +23709,7 @@
   fi = Mongolia
   fr = Mongolie
   de = Mongolei
+  hi = मंगोलिया
   hu = Mongólia
   id = Mongolia
   it = Mongolia
@@ -23585,6 +23746,7 @@
   fi = Montenegro
   fr = Monténégro
   de = Montenegro
+  hi = मॉन्टेनीग्रो
   hu = Montenegró
   id = Montenegro
   it = Montenegro
@@ -23655,6 +23817,7 @@
   fi = Marokko
   fr = Maroc
   de = Marokko
+  hi = मोरक्को
   hu = Marokkó
   id = Maroko
   it = Marocco
@@ -23827,6 +23990,7 @@
   fi = Mosambik
   fr = Mozambique
   de = Mosambik
+  hi = मोज़ाम्बीक
   hu = Mozambik
   id = Mozambik
   it = Mozambico
@@ -23862,6 +24026,7 @@
   fi = Myanmar
   fr = Birmanie
   de = Myanmar
+  hi = म्यान्मार
   hu = Mianmar
   id = Myanmar
   it = Birmania
@@ -23943,6 +24108,7 @@
   fi = Namibia
   fr = Namibie
   de = Namibia
+  hi = नामीबिया
   hu = Namíbia
   id = Namibia
   it = Namibia
@@ -23979,6 +24145,7 @@
   fi = Nauru
   fr = Nauru
   de = Nauru
+  hi = नौरु
   hu = Nauru
   id = Nauru
   it = Nauru
@@ -24014,6 +24181,7 @@
   fi = Nepal
   fr = Népal
   de = Nepal
+  hi = नेपाल
   hu = Nepál
   id = Nepal
   it = Nepal
@@ -24118,6 +24286,7 @@
   fi = Alankomaat
   fr = Pays-Bas
   de = Niederlande
+  hi = नीदरलैण्ड
   hu = Hollandia
   id = Belanda
   it = Paesi Bassi
@@ -24969,6 +25138,7 @@
   fi = New Jersey
   fr = New Jersey
   de = New Jersey
+  hi = न्यू जर्सी
   hu = New Jersey
   id = New Jersey
   it = New Jersey
@@ -25004,6 +25174,7 @@
   fi = New York
   fr = État de New York
   de = New York
+  hi = न्यूयॉर्क
   hu = New York
   id = New York
   it = New York
@@ -25039,6 +25210,7 @@
   fi = Uusi-Seelanti
   fr = Nouvelle-Zélande
   de = Neuseeland
+  hi = न्यूज़ीलैंड
   hu = Új-Zéland
   id = Selandia Baru
   it = Nuova Zelanda
@@ -25211,6 +25383,7 @@
   fi = Nicaragua
   fr = Nicaragua
   de = Nicaragua
+  hi = निकारागुआ
   hu = Nicaragua
   id = Nikaragua
   it = Nicaragua
@@ -25246,6 +25419,7 @@
   fi = Niger
   fr = Niger
   de = Niger
+  hi = नाइजर
   hu = Niger
   id = Niger
   it = Niger
@@ -25281,6 +25455,7 @@
   fi = Nigeria
   fr = Nigeria
   de = Nigeria
+  hi = नाईजीरिया
   hu = Nigéria
   id = Nigeria
   it = Nigeria
@@ -25352,6 +25527,7 @@
   fi = Pohjois-Carolina
   fr = Caroline du Nord
   de = North Carolina
+  hi = उत्तरी केरोलिना
   hu = Észak-Karolina
   id = Carolina Utara
   it = Carolina del Nord
@@ -25387,6 +25563,7 @@
   fi = Pohjois-Dakota
   fr = Dakota du Nord
   de = North Dakota
+  hi = उत्तर डेकोटा
   hu = Észak-Dakota
   id = Dakota Utara
   it = Dakota del Nord
@@ -25422,6 +25599,7 @@
   fi = Korean demokraattinen kansantasavalta
   fr = Corée du Nord
   de = Nordkorea
+  hi = उत्तर कोरिया
   hu = Észak-Korea
   id = Korea Utara
   it = Corea del Nord
@@ -25458,6 +25636,7 @@
   fi = Norja
   fr = Norvège
   de = Norwegen
+  hi = नॉर्वे
   hu = Norvégia
   id = Norwegia
   it = Norvegia
@@ -25834,6 +26013,7 @@
   fi = Ohio
   fr = Ohio
   de = Ohio
+  hi = ओहायो
   hu = Ohio
   id = Ohio
   it = Ohio
@@ -25869,6 +26049,7 @@
   fi = Oklahoma
   fr = Oklahoma
   de = Oklahoma
+  hi = ओक्लाहोमा
   hu = Oklahoma
   id = Oklahoma
   it = Oklahoma
@@ -25904,6 +26085,7 @@
   fi = Oman
   fr = Oman
   de = Oman
+  hi = ओमान
   hu = Omán
   id = Oman
   it = Oman
@@ -25940,6 +26122,7 @@
   fi = Oregon
   fr = Oregon
   de = Oregon
+  hi = औरिगन
   hu = Oregon
   id = Oregon
   it = Oregon
@@ -25975,6 +26158,7 @@
   fi = Pakistan
   fr = Pakistan
   de = Pakistan
+  hi = पाकिस्तान
   hu = Pakisztán
   id = Pakistan
   it = Pakistan
@@ -26011,6 +26195,7 @@
   fi = Palau
   fr = Palaos
   de = Palau
+  hi = पलाउ
   hu = Palau
   id = Palau
   it = Palau
@@ -26046,6 +26231,7 @@
   fi = Palestiinalaisalueilla
   fr = Territoires Palestiniens
   de = Palästinensische Autonomiegebiete
+  hi = फिलिस्तीन राज्य
   hu = Palesztin Autonóm Területek
   id = Wilayah Palestina
   it = Territori Palestinesi
@@ -26116,6 +26302,7 @@
   fi = Panama
   fr = Panama
   de = Panama
+  hi = पनामा
   hu = Panama
   id = Panama
   it = Panamá
@@ -26151,6 +26338,7 @@
   fi = Papua-Uusi-Guinea
   fr = Papouasie-Nouvelle-Guinée
   de = Papua-Neuguinea
+  hi = पापुआ न्यू गिनी
   hu = Pápua Új-Guinea
   id = Papua Nugini
   it = Papua Nuova Guinea
@@ -26187,6 +26375,7 @@
   fi = Paraguay
   fr = Paraguay
   de = Paraguay
+  hi = पैराग्वे
   hu = Paraguay
   id = Paraguay
   it = Paraguay
@@ -26223,6 +26412,7 @@
   fi = Pennsylvania
   fr = Pennsylvanie
   de = Pennsylvania
+  hi = पेन्सिलवेनिया
   hu = Pennsylvania
   id = Pennsylvania
   it = Pennsylvania
@@ -26258,6 +26448,7 @@
   fi = Kiina
   fr = Chine
   de = China
+  hi = चीनी जनवादी गणराज्य
   hu = Kína
   id = Tiongkok
   it = Cina
@@ -26294,6 +26485,7 @@
   fi = Peru
   fr = Pérou
   de = Peru
+  hi = पेरू
   hu = Peru
   id = Peru
   it = Perù
@@ -26398,6 +26590,7 @@
   fi = Filippiinit
   fr = Philippines
   de = Philippinen
+  hi = फ़िलीपीन्स
   hu = Fülöp-szigetek
   id = Filipina
   it = Filippine
@@ -26639,6 +26832,7 @@
   fi = Puola
   fr = Pologne
   de = Polen
+  hi = पोलैंड
   hu = Lengyelország
   id = Polandia
   it = Polonia
@@ -27219,6 +27413,7 @@
   fi = Portugali
   fr = Portugal
   de = Portugal
+  hi = पुर्तगाल
   hu = Portugália
   id = Portugal
   it = Portogallo
@@ -27323,6 +27518,7 @@
   fi = Qatar
   fr = Qatar
   de = Katar
+  hi = क़तर
   hu = Katar
   id = Qatar
   it = Qatar
@@ -27394,6 +27590,7 @@
   fi = Romania
   fr = Roumanie
   de = Rumänien
+  hi = रोमानिया
   hu = Románia
   id = Rumania
   it = Romania
@@ -30557,6 +30754,7 @@
   fi = Venäjä
   fr = Russie
   de = Russland
+  hi = रूस
   hu = Oroszország
   id = Rusia
   it = Russia
@@ -30593,6 +30791,7 @@
   fi = Ruanda
   fr = Rwanda
   de = Ruanda
+  hi = रवाण्डा
   hu = Ruanda
   id = Rwanda
   it = Ruanda
@@ -30734,6 +30933,7 @@
   fi = Saint Kitts ja Nevis
   fr = Saint-Christophe-et-Niévès
   de = St. Kitts und Nevis
+  hi = सन्त किट्स और नेविस
   hu = Saint Kitts és Nevis
   id = Saint Kitts dan Nevis
   it = Saint Kitts e Nevis
@@ -30769,6 +30969,7 @@
   fi = Saint Lucia
   fr = Sainte-Lucie
   de = St. Lucia
+  hi = सेंट लूसिया
   hu = Saint Lucia
   id = Saint Lucia
   it = Santa Lucia
@@ -30839,6 +31040,7 @@
   fi = Saint Vincent ja Grenadiinit
   fr = Saint-Vincent-et-les-Grenadines
   de = St. Vincent und die Grenadinen
+  hi = सन्त विन्सेण्ट और ग्रेनाडाइन्स
   hu = Saint Vincent és a Grenadine-szigetek
   id = Saint Vincent dan Grenadines
   it = Saint Vincent e Grenadine
@@ -30874,6 +31076,7 @@
   fi = Samoa
   fr = Samoa
   de = Samoa
+  hi = समोआ
   hu = Szamoa
   id = Samoa
   it = Samoa
@@ -30909,6 +31112,7 @@
   fi = San Marino
   fr = Saint-Marin
   de = San Marino
+  hi = सान मारिनो
   hu = San Marino
   id = San Marino
   it = San Marino
@@ -30944,6 +31148,7 @@
   fi = São Tomé ja Príncipe
   fr = Sao Tomé-et-Principe
   de = São Tomé und Príncipe
+  hi = साओ तोमे और प्रिन्सिपी
   hu = São Tomé és Príncipe
   id = Sao Tome dan Principe
   it = São Tomé e Príncipe
@@ -30979,6 +31184,7 @@
   fi = Saudi-Arabia
   fr = Arabie saoudite
   de = Saudi-Arabien
+  hi = सउदी अरब
   hu = Szaúd-Arábia
   id = Arab Saudi
   it = Arabia Saudita
@@ -31015,6 +31221,7 @@
   fi = Senegal
   fr = Sénégal
   de = Senegal
+  hi = सेनेगल
   hu = Szenegál
   id = Senegal
   it = Senegal
@@ -31051,6 +31258,7 @@
   fi = Serbia
   fr = Serbie
   de = Serbien
+  hi = सर्बिया
   hu = Szerbia
   id = Serbia
   it = Serbia
@@ -31087,6 +31295,7 @@
   fi = Seychellit
   fr = Seychelles
   de = Seychellen
+  hi = सेशेल्स
   hu = Seychelle-szigetek
   id = Seychelles
   it = Seychelles
@@ -31123,6 +31332,7 @@
   fi = Sierra Leone
   fr = Sierra Leone
   de = Sierra Leone
+  hi = सिएरा लियोन
   hu = Sierra Leone
   id = Sierra Leone
   it = Sierra Leone
@@ -31159,6 +31369,7 @@
   fi = Singapore
   fr = Singapour
   de = Singapur
+  hi = सिंगापुर
   hu = Szingapúr
   id = Singapura
   it = Singapore
@@ -31195,6 +31406,7 @@
   fi = Slovakia
   fr = Slovaquie
   de = Slowakei
+  hi = स्लोवाकिया
   hu = Szlovákia
   id = Slowakia
   it = Slovacchia
@@ -31503,6 +31715,7 @@
   fi = Slovenia
   fr = Slovénie
   de = Slowenien
+  hi = स्लोवेनिया
   hu = Szlovénia
   id = Slovenia
   it = Slovenia
@@ -31539,6 +31752,7 @@
   fi = Salomonsaaret
   fr = Salomon
   de = Salomonen
+  hi = सोलोमन द्वीपसमूह
   hu = Salamon-szigetek
   id = Kepulauan Solomon
   it = Isole Salomone
@@ -31575,6 +31789,7 @@
   fi = Somalia
   fr = Somalie
   de = Somalia
+  hi = सोमालिया
   hu = Szomália
   id = Somalia
   it = Somalia
@@ -31611,6 +31826,7 @@
   fi = Etelä-Afrikka
   fr = Afrique du Sud
   de = Südafrika
+  hi = दक्षिण अफ़्रीका
   hu = Dél-afrikai Köztársaság
   id = Afrika Selatan
   it = Sudafrica
@@ -31953,6 +32169,7 @@
   fi = Etelä-Carolina
   fr = Caroline du Sud
   de = South Carolina
+  hi = दक्षिणी केरोलाइना
   hu = Dél-Karolina
   id = Carolina Selatan
   it = Carolina del Sud
@@ -32021,6 +32238,7 @@
   fi = Korean tasavalta
   fr = Corée du Sud
   de = Südkorea
+  hi = दक्षिण कोरिया
   hu = Dél-Korea
   id = Korea Selatan
   it = Corea del Sud
@@ -32156,6 +32374,7 @@
   fi = Etelä-Sudan
   fr = Soudan du Sud
   de = Südsudan
+  hi = दक्षिण सूडान
   hu = Dél-Szudán
   id = Sudan Selatan
   it = Sudan del Sud
@@ -32190,6 +32409,7 @@
   fi = Espanja
   fr = Espagne
   de = Spanien
+  hi = स्पेन
   hu = Spanyolország
   id = Spanyol
   it = Spagna
@@ -32985,6 +33205,7 @@
   fi = Sri Lanka
   fr = Sri Lanka
   de = Sri Lanka
+  hi = श्रीलंका
   hu = Srí Lanka
   id = Sri Lanka
   it = Sri Lanka
@@ -33020,6 +33241,7 @@
   fi = Sudan
   fr = Soudan
   de = Sudan
+  hi = सूडान
   hu = Szudán
   id = Sudan
   it = Sudan
@@ -33055,6 +33277,7 @@
   fi = Suriname
   fr = Suriname
   de = Suriname
+  hi = सूरीनाम
   hu = Suriname
   id = Suriname
   it = Suriname
@@ -33126,6 +33349,7 @@
   fi = Ruotsi
   fr = Suède
   de = Schweden
+  hi = स्वीडन
   hu = Svédország
   id = Swedia
   it = Svezia
@@ -33392,6 +33616,7 @@
   fi = Sveitsi
   fr = Suisse
   de = Schweiz
+  hi = स्विट्ज़रलैण्ड
   hu = Svájc
   id = Swiss
   it = Svizzera
@@ -33658,6 +33883,7 @@
   fi = Syyria
   fr = Syrie
   de = Syrien
+  hi = सीरिया
   hu = Szíria
   id = Suriah
   it = Siria
@@ -33693,6 +33919,7 @@
   fi = Taiwan
   fr = Taïwan
   de = Republik China (Taiwan)
+  hi = चीनी गणराज्य
   hu = Kínai Köztársaság
   id = Republik Tiongkok
   it = Taiwan
@@ -33728,6 +33955,7 @@
   fi = Tadžikistan
   fr = Tadjikistan
   de = Tadschikistan
+  hi = ताजिकिस्तान
   hu = Tádzsikisztán
   id = Tajikistan
   it = Tagikistan
@@ -33763,6 +33991,7 @@
   fi = Tansania
   fr = Tanzanie
   de = Tansania
+  hi = तंज़ानिया
   hu = Tanzánia
   id = Tanzania
   it = Tanzania
@@ -33798,6 +34027,7 @@
   fi = Tennessee
   fr = Tennessee
   de = Tennessee
+  hi = टेनेसी
   hu = Tennessee
   id = Tennessee
   it = Tennessee
@@ -33832,6 +34062,7 @@
   fi = Texas
   fr = Texas
   de = Texas
+  hi = टॅक्सस
   hu = Texas
   id = Texas
   it = Texas
@@ -33866,6 +34097,7 @@
   fi = Thaimaa
   fr = Thaïlande
   de = Thailand
+  hi = थाईलैण्ड
   hu = Thaiföld
   id = Thailand
   it = Thailandia
@@ -33967,6 +34199,7 @@
   fi = Bahama
   fr = Bahamas
   de = Bahamas
+  hi = बहामास
   hu = Bahama-szigetek
   id = Bahama
   it = Bahamas
@@ -34001,6 +34234,7 @@
   fi = Gambia
   fr = Gambie
   de = Gambia
+  hi = गाम्बिया
   hu = Gambia
   id = Gambia
   it = Gambia
@@ -34035,6 +34269,7 @@
   fi = Togo
   fr = Togo
   de = Togo
+  hi = टोगो
   hu = Togo
   id = Togo
   it = Togo
@@ -34103,6 +34338,7 @@
   fi = Tonga
   fr = Tonga
   de = Tonga
+  hi = टोंगा
   hu = Tonga
   id = Tonga
   it = Tonga
@@ -34137,6 +34373,7 @@
   fi = Trinidad ja Tobago
   fr = Trinité-et-Tobago
   de = Trinidad und Tobago
+  hi = त्रिनिदाद और टोबैगो
   hu = Trinidad és Tobago
   id = Trinidad dan Tobago
   it = Trinidad e Tobago
@@ -34172,6 +34409,7 @@
   fi = Tunisia
   fr = Tunisie
   de = Tunesien
+  hi = ट्यूनिशिया
   hu = Tunézia
   id = Tunisia
   it = Tunisia
@@ -34206,6 +34444,7 @@
   fi = Turkki
   fr = Turquie
   de = Türkei
+  hi = तुर्की
   hu = Törökország
   id = Turki
   it = Turchia
@@ -34439,6 +34678,7 @@
   fi = Turkmenistan
   fr = Turkménistan
   de = Turkmenistan
+  hi = तुर्कमेनिस्तान
   hu = Türkmenisztán
   id = Turkmenistan
   it = Turkmenistan
@@ -34508,6 +34748,7 @@
   fi = Tuvalu
   fr = Tuvalu
   de = Tuvalu
+  hi = तुवालू
   hu = Tuvalu
   id = Tuvalu
   it = Tuvalu
@@ -35136,6 +35377,7 @@
   fi = Alaska
   fr = Alaska
   de = Alaska
+  hi = अलास्का
   hu = Alaszka
   id = Alaska
   it = Alaska
@@ -35269,6 +35511,7 @@
   fi = Arkansas
   fr = Arkansas
   de = Arkansas
+  hi = अरकांसास
   hu = Arkansas
   id = Arkansas
   it = Arkansas
@@ -35797,6 +36040,7 @@
   fi = Connecticut
   fr = Connecticut
   de = Connecticut
+  hi = कनेक्टिकट
   hu = Connecticut
   id = Connecticut
   it = Connecticut
@@ -35830,6 +36074,7 @@
   fi = Delaware
   fr = Delaware
   de = Delaware
+  hi = डेलावेयर
   hu = Delaware
   id = Delaware
   it = Delaware
@@ -36226,6 +36471,7 @@
   fi = Idaho
   fr = Idaho
   de = Idaho
+  hi = आयडहो
   hu = Idaho
   id = Idaho
   it = Idaho
@@ -36787,6 +37033,7 @@
   fi = Maine
   fr = Maine
   de = Maine
+  hi = मेन
   hu = Maine
   id = Maine
   it = Maine
@@ -37282,6 +37529,7 @@
   fi = Mississippi
   fr = Mississippi
   de = Mississippi
+  hi = मिसिसिप्पी
   hu = Mississippi
   id = Mississippi
   it = Mississippi
@@ -37381,6 +37629,7 @@
   fi = Montana
   fr = Montana
   de = Montana
+  hi = मोन्टाना
   hu = Montana
   id = Montana
   it = Montana
@@ -37414,6 +37663,7 @@
   fi = Nebraska
   fr = Nebraska
   de = Nebraska
+  hi = नेब्रास्का
   hu = Nebraska
   id = Nebraska
   it = Nebraska
@@ -37447,6 +37697,7 @@
   fi = Nevada
   fr = Nevada
   de = Nevada
+  hi = नेवाडा
   hu = Nevada
   id = Nevada
   it = Nevada
@@ -37480,6 +37731,7 @@
   fi = New Hampshire
   fr = New Hampshire
   de = New Hampshire
+  hi = नया हेम्पशायर
   hu = New Hampshire
   id = New Hampshire
   it = New Hampshire
@@ -37579,6 +37831,7 @@
   fi = New Mexico
   fr = Nouveau-Mexique
   de = New Mexico
+  hi = नया मेक्सिको
   hu = Új-Mexikó
   id = New Mexico
   it = Nuovo Messico
@@ -38448,6 +38701,7 @@
   fi = Rhode Island
   fr = Rhode Island
   de = Rhode Island
+  hi = रोड आइलैंड
   hu = Rhode Island
   id = Rhode Island
   it = Rhode Island
@@ -38547,6 +38801,7 @@
   fi = Etelä-Dakota
   fr = Dakota du Sud
   de = South Dakota
+  hi = साउथ डकोटा
   hu = Dél-Dakota
   id = Dakota Selatan
   it = Dakota del Sud
@@ -38976,6 +39231,7 @@
   fi = Utah
   fr = Utah
   de = Utah
+  hi = यूटाह
   hu = Utah
   id = Utah
   it = Utah
@@ -39009,6 +39265,7 @@
   fi = Vermont
   fr = Vermont
   de = Vermont
+  hi = वर्मांट
   hu = Vermont
   id = Vermont
   it = Vermont
@@ -39273,6 +39530,7 @@
   fi = Länsi-Virginia
   fr = Virginie-Occidentale
   de = West Virginia
+  hi = पश्चिमी वर्जीनिया
   hu = Nyugat-Virginia
   id = Virginia Barat
   it = Virginia Occidentale
@@ -39376,6 +39634,7 @@
   fi = Wyoming
   fr = Wyoming
   de = Wyoming
+  hi = वायोमिंग
   hu = Wyoming
   id = Wyoming
   it = Wyoming
@@ -39409,6 +39668,7 @@
   fi = Uganda
   fr = Ouganda
   de = Uganda
+  hi = युगाण्डा
   hu = Uganda
   id = Uganda
   it = Uganda
@@ -39444,6 +39704,7 @@
   fi = Ukraina
   fr = Ukraine
   de = Ukraine
+  hi = युक्रेन
   hu = Ukrajna
   id = Ukraina
   it = Ucraina
@@ -40271,6 +40532,7 @@
   fi = Yhdistyneet arabiemiirikunnat
   fr = Émirats arabes unis
   de = Vereinigte Arabische Emirate
+  hi = संयुक्त अरब अमीरात
   hu = Egyesült Arab Emírségek
   id = Uni Emirat Arab
   it = Emirati Arabi Uniti
@@ -40306,6 +40568,7 @@
   fi = Yhdistynyt kuningaskunta
   fr = Royaume-Uni
   de = Vereinigtes Königreich
+  hi = यूनाइटेड किंगडम
   hu = Egyesült Királyság
   id = Britania Raya
   it = Regno Unito
@@ -40375,6 +40638,7 @@
   fi = Yhdysvallat
   fr = États-Unis
   de = Vereinigte Staaten
+  hi = संयुक्त राज्य अमेरिका
   hu = Amerikai Egyesült Államok
   id = Amerika Serikat
   it = Stati Uniti d'America
@@ -40410,6 +40674,7 @@
   fi = Uruguay
   fr = Uruguay
   de = Uruguay
+  hi = उरुग्वे
   hu = Uruguay
   id = Uruguay
   it = Uruguay
@@ -40445,6 +40710,7 @@
   fi = Uzbekistan
   fr = Ouzbékistan
   de = Usbekistan
+  hi = उज़्बेकिस्तान
   hu = Üzbegisztán
   id = Uzbekistan
   it = Uzbekistan
@@ -40480,6 +40746,7 @@
   fi = Vanuatu
   fr = Vanuatu
   de = Vanuatu
+  hi = वानूआटू
   hu = Vanuatu
   id = Vanuatu
   it = Vanuatu
@@ -40514,6 +40781,7 @@
   fi = Venezuela
   fr = Venezuela
   de = Venezuela
+  hi = वेनेज़ुएला
   hu = Venezuela
   id = Venezuela
   it = Venezuela
@@ -40549,6 +40817,7 @@
   fi = Vietnam
   fr = Viêt Nam
   de = Vietnam
+  hi = वियतनाम
   hu = Vietnam
   id = Vietnam
   it = Vietnam
@@ -40584,6 +40853,7 @@
   fi = Virginia
   fr = Virginie
   de = Virginia
+  hi = वर्जीनिया
   hu = Virginia
   id = Virginia
   it = Virginia
@@ -40652,6 +40922,7 @@
   fi = Washington
   fr = État de Washington
   de = Washington
+  hi = वॉशिंगटन राज्य
   hu = Washington
   id = Washington
   it = Washington
@@ -40720,6 +40991,7 @@
   fi = Wisconsin
   fr = Wisconsin
   de = Wisconsin
+  hi = विस्कॉन्सिन
   hu = Wisconsin
   id = Wisconsin
   it = Wisconsin
@@ -40754,6 +41026,7 @@
   fi = Jemen
   fr = Yémen
   de = Jemen
+  hi = यमन
   hu = Jemen
   id = Yaman
   it = Yemen
@@ -40789,6 +41062,7 @@
   fi = Sambia
   fr = Zambie
   de = Sambia
+  hi = ज़ाम्बिया
   hu = Zambia
   id = Zambia
   it = Zambia
@@ -40824,6 +41098,7 @@
   fi = Zimbabwe
   fr = Zimbabwe
   de = Simbabwe
+  hi = ज़िम्बाब्वे
   hu = Zimbabwe
   id = Zimbabwe
   it = Zimbabwe
@@ -42047,6 +42322,7 @@
   fi = Karnataka — Pohjoinen
   fr = Karnataka — Nord
   de = Karnataka — Norden
+  hi = कर्नाटक — उत्तर दिशा
   hu = Karnátaka — Észak
   id = Karnataka — Utara
   it = Karnataka — Nord
@@ -42081,6 +42357,7 @@
   fi = Karnataka — Etelä
   fr = Karnataka — Sud
   de = Karnataka — Süden
+  hi = कर्नाटक — दक्षिण
   hu = Karnátaka — Dél
   id = Karnataka — Selatan
   it = Karnataka — Sud
@@ -43402,6 +43679,7 @@
   fi = Saudi-Arabia — Pohjoinen
   fr = Arabie saoudite — Nord
   de = Saudi-Arabien — Norden
+  hi = सउदी अरब — उत्तर दिशा
   hu = Szaúd-Arábia — Észak
   id = Arab Saudi — Utara
   it = Arabia Saudita — Nord
@@ -43435,6 +43713,7 @@
   fi = Saudi-Arabia — Etelä
   fr = Arabie saoudite — Sud
   de = Saudi-Arabien — Süden
+  hi = सउदी अरब — दक्षिण
   hu = Szaúd-Arábia — Dél
   id = Arab Saudi — Selatan
   it = Arabia Saudita — Sud

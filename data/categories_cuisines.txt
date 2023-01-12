@@ -9,6 +9,7 @@ nl:Fast food
 fi:Pikaruokala
 fr:Restauration rapide
 de:Fast-Food
+hi:फास्ट फूड
 hu:Gyorsétterem
 id:Cepat saji
 it:Fast food
@@ -43,6 +44,7 @@ nl:Bagels
 fi:Bagel
 fr:Bagel
 de:Bagel
+hi:बैगल
 hu:Bagel
 id:Roti bagel
 it:Bagel
@@ -77,6 +79,7 @@ nl:Ontbijt
 fi:Aamiainen
 fr:Petit déjeuner
 de:Frühstück
+hi:नाश्ता
 hu:Reggeli
 id:Sarapan
 it:Colazione
@@ -111,6 +114,7 @@ nl:Hamburgers
 fi:Hampurilainen
 fr:Hamburger
 de:Burger|Hamburger
+hi:बर्गर
 hu:Hamburger
 id:Burger
 it:Hamburger
@@ -139,6 +143,7 @@ en:Bubble Tea|boba tea
 ru:Чай с шариками
 es:Té de burbujas
 eu:Burbuila tea
+hi:बुलबुले वाली चाय
 uk:Бульбашковий чай
 be:Чай з бурбалкамі
 
@@ -153,6 +158,7 @@ nl:Taart
 fi:Kakku
 fr:Gâteau
 de:Kuchen|Bäckerei
+hi:केक
 hu:Torta
 id:Kue
 it:Torte
@@ -187,6 +193,7 @@ nl:Koffie
 fi:Kahvi
 fr:Café
 de:Kaffee
+hi:कॉफ़ी
 hu:Kávé
 id:Kopi
 it:Caffè
@@ -222,6 +229,7 @@ nl:Curry's
 fi:Curry
 fr:Curry
 de:Curry
+hi:करी
 hu:Curry
 id:Kari
 it:Curry
@@ -256,6 +264,7 @@ nl:Diner
 fi:Lounaskahvila
 fr:Diner américain
 de:Diner
+hi:भोजन
 hu:Étkező
 id:Makan malam
 it:Ristorantino
@@ -290,6 +299,7 @@ nl:Donuts
 fi:Donitsi
 fr:Donuts
 de:Donuts
+hi:डोनट
 hu:Fánk
 id:Donat
 it:Ciambelle
@@ -324,6 +334,7 @@ nl:Fish and chips
 fi:Fish & chips
 fr:Fish and chips
 de:Fish and Chips
+hi:मछली और चिप्स
 hu:Hal és sültkrumpli
 id:Ikan dan kentang goreng
 it:Fish and chips
@@ -358,6 +369,7 @@ nl:Frituur
 fi:Uppopaistettu
 fr:Friterie
 de:Friterie
+hi:पकोड़े
 hu:Olajban sütött ételek
 id:Gorengan
 it:Fritture
@@ -392,6 +404,7 @@ nl:Gegrilde gerechten
 fi:Grilli
 fr:Grill
 de:Grill
+hi:ग्रिल
 hu:Grill
 id:Panggangan
 it:Cucina alla griglia
@@ -429,6 +442,7 @@ eu:Txakur beroak
 fi:Hotdog
 fr:Hot-dog
 he:נקניקיה
+hi:हॉट-डॉग
 hu:Hotdog
 id:Hotdog
 it:Hot dog
@@ -464,6 +478,7 @@ eu:Izozkiak
 fi:Jäätelö
 fr:Crème glacée
 he:גלידה
+hi:आइसक्रीम
 hu:Jégkrém
 id:Es_krim
 it:Gelateria|gelato
@@ -499,6 +514,7 @@ eu:Kebabak
 fi:Kebab
 fr:Kebab
 he:קבב
+hi:कबाब
 hu:Kebab
 id:Kebab
 it:Kebab
@@ -531,6 +547,7 @@ nl:Noedels
 fi:Nuudeli
 fr:Nouilles
 de:Nudeln
+hi:नूडल्स
 hu:Tészta
 id:Bakmi
 it:Noodles
@@ -568,6 +585,7 @@ eu:Krepeak
 fi:Lettu|Kreppi
 fr:Crêpe
 he:פנקייק|קרפ
+hi:पैनकेक
 hu:Palacsinta|Francia palacsinta
 id:Panekuk|Kue dadar
 it:Pancake|Crêpes
@@ -600,6 +618,7 @@ nl:Pasta
 fi:Pasta
 fr:Pâtes
 de:Pasta
+hi:पास्ता
 hu:Tészta
 id:Pasta
 it:Pasta
@@ -634,6 +653,7 @@ nl:Pizza's
 fi:Pitsa
 fr:Pizza
 de:Pizza
+hi:पिज़्ज़ा
 hu:Pizza
 id:Pizza
 it:Pizza
@@ -702,6 +722,7 @@ nl:Broodjes
 fi:Voileipä
 fr:Sandwich
 de:Sandwich
+hi:सैंडविच
 hu:Szendvics
 id:Roti isi
 it:Panini
@@ -736,6 +757,7 @@ nl:Worst
 fi:Makkara
 fr:Saucisse
 de:Wurst
+hi:सॉसेज
 hu:Kolbász
 id:Sosis
 it:Salsicce
@@ -773,6 +795,7 @@ eu:Itsaskia|Arraina
 fi:Meren elävät|Kala
 fr:Fruits de mer|Poisson
 he:מאכלי ים|דגים
+hi:समुद्री भोजन|मछली
 hu:Tenger gyümölcsei|Hal
 id:Hidangan laut|Ikan
 it:Frutti di mare|Pesce
@@ -805,6 +828,7 @@ nl:Soba
 fi:Sobanuudeli
 fr:Soba
 de:Soba
+hi:सोबा
 hu:Soba
 id:Soba
 it:Soba
@@ -839,6 +863,7 @@ nl:Steakhouse
 fi:Pihviravintola
 fr:Grillades
 de:Steakhaus
+hi:स्टेक (माँस का कबाब)
 hu:Steak ház
 id:Restoran steik
 it:Bisteccheria
@@ -873,6 +898,7 @@ nl:Sushi
 fi:Sushi
 fr:Sushi
 de:Sushi
+hi:सुशी
 hu:Szusi
 id:Sushi
 it:Sushi
@@ -907,6 +933,7 @@ nl:Tapas
 fi:Tapas
 fr:Tapas
 de:Tapas
+hi:तापा
 hu:Tapas
 id:Kudapan spanyol
 it:Tapas
@@ -941,6 +968,7 @@ nl:Thee
 fi:Tee
 fr:Thé
 de:Tee
+hi:चाय
 hu:Tea
 id:Teh
 it:Tè
@@ -1012,6 +1040,7 @@ nl:Veganistisch|Vegetarisch
 fi:Vegaani keittiö|Kasvis keittiö
 fr:Cuisine végétalienne|Cuisine végétarienne
 de:Vegane Küche|Vegetarische Küche
+hi:शाकाहारी
 hu:Vegán konyha|Vegetáriánus konyha
 id:Masakan vegan|Masakan vegetarian
 it:Cucina vegana|Cucina vegetariana

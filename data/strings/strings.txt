@@ -196,6 +196,7 @@
     fi = Lataa karttoja
     fr = Télécharger des cartes
     he = הורד מפות
+    hi = मानचित्र डाउनलोड करें
     hu = Térképek letöltése
     id = Unduh Peta
     it = Scarica mappe
@@ -329,6 +330,7 @@
     fi = Kilometrit
     fr = Kilomètres
     he = ק"מ
+    hi = किलोमीटर
     hu = Kilométer
     id = Kilometer
     it = Chilometri
@@ -451,6 +453,7 @@
     fi = Mailit
     fr = Miles
     he = מייל
+    hi = मील
     hu = Mérföld
     id = Mil
     it = Miglia
@@ -495,6 +498,7 @@
     fi = Sijaintini
     fr = Ma position
     he = המיקום שלי
+    hi = मेरा स्थान
     hu = Saját helyzet
     id = Posisi Saya
     it = La mia posizione
@@ -583,6 +587,7 @@
     fi = Haku
     fr = Recherche
     he = חיפוש
+    hi = खोज
     hu = Keresés
     id = Cari
     it = Cerca
@@ -715,6 +720,7 @@
     fi = Laitteen tai sovelluksen kaikki sijaintipalvelut ovat tällä hetkellä poissa käytöstä. Ota ne käyttöön Asetukset-valikossa.
     fr = Tous les services de localisation de cet appareil sont désactivés, ou ils le sont pour cette application. Veuillez les activer dans les paramètres.
     he = שרותי המיקום של מכשיר או ישום זה זה כבויים. יש להפעילם דרך "הגדרות" (Settings).
+    hi = वर्तमान में आपके पास इस डिवाइस या एप्लिकेशन के लिए सभी स्थान सेवाएँ अक्षम हैं। कृपया उन्हें सेटिंग्स में सक्षम करें।
     hu = Jelenleg az eszköz vagy alkalmazás helymeghatározási szolgáltatásai le vannak tiltva. Kérjük, engedélyezze őket a Beállításokban.
     id = Saat ini semua Layanan Lokasi untuk perangkat atau aplikasi ini non-aktif. Mohon aktifkan lewat Setelan.
     it = Attualmente tutti i servizi di localizzazione per questo dispositivo o applicazione sono disattivati. Si prega di abilitarli in Impostazioni.
@@ -1234,6 +1240,7 @@
     fi = Sulje
     fr = Fermer
     he = סגור
+    hi = बंद करना
     hu = Bezár
     id = Tutup
     it = Chiudi
@@ -1320,6 +1327,7 @@
     fi = Lataa
     fr = Télécharger
     he = הורדה
+    hi = डाउन लोड करना
     hu = Letöltés
     id = Unduh
     it = Scarica
@@ -1450,6 +1458,7 @@
     fi = Ennen aloitusta laitteelle tulee ladata yleinen maailmankartta.\nSe tarvitsee yhteensä %@ tilaa.
     fr = Avant de commencer, permettez-nous de télécharger la carte générale du monde dans votre appareil.\n%@ de données sont nécessaires.
     he = תחילה, נוריד למכשירך מפה כללית של העולם.\nמפה זו דורשת נפח אחסון של %@.
+    hi = ऐप का उपयोग शुरू करने से पहले, कृपया अपने डिवाइस पर सामान्य विश्व मानचित्र डाउनलोड करें।\nयह %@ स्टोरेज का उपयोग करेगा।
     hu = Első használat előtt letöltjük a világtérképet.\n%@ tárolóhely szükséges.
     id = Sebelum Anda mulai izinkan kami mengunduh peta dunia secara umum ke perangkat Anda.\nHal ini memerlukan data %@.
     it = Prima di iniziare è necessario scaricare la mappa generale del mondo sul tuo dispositivo.\nLa dimensione del download è di %@.
@@ -1666,6 +1675,7 @@
     fi = Pysäytä
     fr = Pause
     he = הפסק
+    hi = विराम
     hu = Szünet
     id = Jeda
     it = Pausa
@@ -2059,6 +2069,7 @@
     fi = Paikkani
     fr = Mes endroits
     he = המקומות שלי
+    hi = मेरे स्थान
     hu = Saját helyeim
     id = Tempat-tempat Saya
     it = I miei luoghi
@@ -2103,6 +2114,7 @@
     fi = Nimi
     fr = Nom
     he = שם
+    hi = नाम
     hu = Név
     id = Nama
     it = Nome
@@ -2238,6 +2250,7 @@
     fi = Asetukset
     fr = Paramètres
     he = הגדרות
+    hi = समायोजन
     hu = Beállítások
     id = Pengaturan
     it = Impostazioni
@@ -2662,6 +2675,7 @@
     fi = Mittayksiköt
     fr = Unités de mesure
     he = יחידות  מדידה
+    hi = नाप की इकाइयां
     hu = Mértékegységek
     id = Unit Pengukuran
     it = Unità di misura
@@ -2753,6 +2767,7 @@
     fi = Missä syödä
     fr = Un endroit pour manger
     he = איפה לאכול
+    hi = कहाँ खाना है
     hu = Hol lehet enni valamit
     id = Tempat makan
     it = Dove mangiare
@@ -2798,6 +2813,7 @@
     fi = Elintarvikkeet
     fr = Epiceries
     he = מצרכים
+    hi = किराने का सामान
     hu = Élelmiszerek
     id = Toserba
     it = Alimentari
@@ -2843,6 +2859,7 @@
     fi = Liikenne
     fr = Transport
     he = תחבורה
+    hi = सार्वजनिक परिवहन
     hu = Tömegközlekedés
     id = Transportasi
     it = Trasporto
@@ -2888,6 +2905,7 @@
     fi = Huoltoasema
     fr = Stations-service
     he = דלק
+    hi = गैस स्टेशन
     hu = Benzinkút
     id = Bahan bakar
     it = Benzinaio
@@ -2932,6 +2950,7 @@
     fi = Parkkipaikka
     fr = Stationnement
     he = חניה
+    hi = पार्किंग
     hu = Parkoló
     id = Parkir
     it = Parcheggio
@@ -2976,6 +2995,7 @@
     fi = Ostokset
     fr = Shopping
     he = קניות
+    hi = खरीदारी
     hu = Bevásárlás
     id = Berbelanja
     it = Negozi
@@ -3020,6 +3040,7 @@
     fi = Käytetyt tavarat
     fr = D'occasion
     he = יד שניה
+    hi = सेकंड हैंड
     hu = Second-hand
     id = Tangan kedua
     it = Di seconda mano
@@ -3064,6 +3085,7 @@
     fi = Hotelli
     fr = Hôtel
     he = בית מלון
+    hi = होटल
     hu = Szálloda
     id = Hotel
     it = Albergo
@@ -3108,6 +3130,7 @@
     fi = Nähtävyydet
     fr = Sites touristiques
     he = נקודות עיניין
+    hi = जगहें
     hu = Látnivalók
     id = Pemandangan
     it = Luoghi turistici
@@ -3152,6 +3175,7 @@
     fi = Viihde
     fr = Divertissement
     he = בידור
+    hi = मनोरंजन
     hu = Szórakozás
     id = Hiburan
     it = Divertimento
@@ -3196,6 +3220,7 @@
     fi = Pankkiautomaatti
     fr = DAB
     he = כספומט
+    hi = एटीएम
     hu = Pénzautomata
     id = ATM
     it = Bancomat
@@ -3240,6 +3265,7 @@
     fi = Yöelämä
     fr = Vie nocturne
     he = חיי לילה
+    hi = रात्रि जीवन
     hu = Éjjeli élet
     id = Kehidupan Malam
     it = Vita notturna
@@ -3285,6 +3311,7 @@
     fi = Vapaa-aikaa lasten kanssa
     fr = Vacances en famille
     he = שעשועים
+    hi = पारिवारिक अवकाश
     hu = Családi kiruccanás
     id = Liburan keluarga
     it = Divertimento in famiglia
@@ -3330,6 +3357,7 @@
     fi = Pankki
     fr = Banque
     he = בנק
+    hi = बैंक
     hu = Bank
     id = Bank
     it = Banca
@@ -3374,6 +3402,7 @@
     fi = Apteekki
     fr = Pharmacie
     he = בית מרקחת
+    hi = दवाखाना
     hu = Gyógyszertár
     id = Apotek
     it = Farmacia
@@ -3418,6 +3447,7 @@
     fi = Sairaala
     fr = Hôpital
     he = בית חולים
+    hi = चिकित्सालय
     hu = Kórház
     id = Rumah sakit
     it = Ospedale
@@ -3463,6 +3493,7 @@
     fi = WC
     fr = Toilettes
     he = שירותים
+    hi = शौचालय
     hu = Mosdó
     id = Toilet
     it = Toilette
@@ -3507,6 +3538,7 @@
     fi = Posti
     fr = Poste
     he = דואר
+    hi = डाकघर
     hu = Posta
     id = Pos
     it = Posta
@@ -3551,6 +3583,7 @@
     fi = Poliisi
     fr = Police
     he = משטרה
+    hi = थाना
     hu = Rendőrség
     id = Polisi
     it = Polizia
@@ -3594,6 +3627,7 @@
     fa = وای فای
     fi = WiFi
     fr = WiFi
+    hi = वाईफ़ाई
     hu = WiFi
     id = WiFi
     it = Wi-Fi
@@ -3638,6 +3672,7 @@
     fi = Jätteiden kierrätys
     fr = Recyclage
     he = מיחזור
+    hi = पुनर्चक्रण
     hu = Újrahasznosítás
     id = Mendaur ulang
     it = Riciclo
@@ -3683,6 +3718,7 @@
     fi = Vesi
     fr = Eau
     he = מים
+    hi = जल
     hu = Víz
     id = Air
     it = Acqua
@@ -3728,6 +3764,7 @@
     fi = Karavaanaritilat
     fr = Aménagements pour camping-car
     he = עבור קרוואנים
+    hi = आरवी सुविधाएं
     hu = RV számára
     id = Untuk RV
     it = Per camper
@@ -4368,6 +4405,7 @@
     fi = Jaa
     fr = Partager
     he = שיתוף
+    hi = साझा करें
     hu = Megosztás
     id = Bagikan
     it = Condividi
@@ -4809,6 +4847,7 @@
     fi = Jaa sijaintini
     fr = Partager ma position
     he = שיתוף מיקום שלי
+    hi = मेरा स्थान साझा करें
     hu = Helyzetem megosztása
     id = Bagikan Lokasi Saya
     it = Condividi la mia posizione
@@ -4886,6 +4925,7 @@
     fi = Tietoja
     fr = Information
     he = מידע
+    hi = जानकारी
     hu = Információk
     it = Informazioni
     ja = 情報
@@ -4923,6 +4963,7 @@
     fi = Navigointi
     fr = Navigation
     he = ניווט
+    hi = मार्गदर्शन
     hu = Navigáció
     id = Navigasi
     it = Navigazione
@@ -5053,6 +5094,7 @@
     fi = Yötila
     fr = Mode nuit
     he = מצב לילה
+    hi = रात का मोड
     hu = Éjszakai üzemmód
     id = Mode Malam
     it = Modalità notturna
@@ -5363,6 +5405,7 @@
     fi = Ääniohjeistukset
     fr = Instructions vocales
     he = הנחיות קוליות
+    hi = ध्वनि निर्देश
     hu = Hangutasítások
     id = Petunjuk Suara
     it = Istruzioni vocali
@@ -5672,6 +5715,7 @@
     fi = Automaattinen zoomaus
     fr = Zoom automatique
     he = זום אוטומטי
+    hi = ऑटो ज़ूम
     hu = Automatikus nagyítás
     id = Perbesar otomatis
     it = Zoom automatico
@@ -6121,6 +6165,7 @@
     fi = Kotisivut
     fr = Site internet
     he = אתר
+    hi = वेबसाइट
     hu = Honlap
     id = Situs Web
     it = Sito web
@@ -6165,6 +6210,7 @@
     fi = Uutiset
     fr = Nouvelles
     he = חדשות
+    hi = समाचार
     hu = Újdonságok
     id = Berita
     it = Notizia
@@ -6357,6 +6403,7 @@
     fi = Ohje
     fr = Aide
     he = עזרה
+    hi = सहायता
     hu = Segítség
     id = Bantuan
     it = Aiuto
@@ -6446,6 +6493,7 @@
     fi = Lahjoita
     fr = Faire un don
     he = לתרום
+    hi = दान देना
     hu = Adományozni
     id = Menyumbangkan
     it = Donare
@@ -6490,6 +6538,7 @@
     fi = Tue projektia
     fr = Soutenir le projet
     he = תמכו בפרויקט
+    hi = परियोजना का समर्थन करें
     hu = Támogassa a projektet
     id = Mendukung proyek
     it = Sostieni il progetto
@@ -6579,6 +6628,7 @@
     fi = Ilmoita virheestä
     fr = Signaler un bug
     he = דווח על באג
+    hi = एक बग रिपोर्ट करो
     hu = Hiba jelentése
     id = Laporkan gangguan
     it = Segnala un errore
@@ -7897,6 +7947,7 @@
     fi = Ota sijaintipalvelut käyttöön
     fr = Veuillez activer les services de localisation
     he = יש להפעיל שירותי מיקום
+    hi = कृपया स्थान सेवाएँ सक्षम करें
     hu = Kérjük kapcsolja be a helyzetmeghatározó szolgáltatást
     id = Mohon aktifkan Layanan Lokasi
     it = Abilita i servizi di localizzazione
@@ -7940,6 +7991,7 @@
     fi = Tallenna
     fr = Sauvegarder
     he = שמור
+    hi = सहेजें
     hu = Mentés
     id = Simpan
     it = Salva
@@ -8790,6 +8842,7 @@
     fi = Muista seuraavat asiat seuratessasi reittiä:
     fr = Lorsque vous suivez l'itinéraire, gardez à l'esprit les points suivants :
     he = בעת נסיעה לאורך המסלול, שים לב לדברים הבאים:
+    hi = मार्ग का अनुसरण करते समय कृपया ध्यान रखें:
     hu = Az útvonal követése során, kérjük, vegye figyelembe az alábbiakat:
     id = Saat mengikuti rute, harap diingat:
     it = Quando segui il percorso, ricorda che:
@@ -10386,6 +10439,7 @@
     fi = Luokat
     fr = Catégories
     he = קטגוריות
+    hi = श्रेणियाँ
     hu = Kategóriák
     id = Kategori
     it = Categorie
@@ -10429,6 +10483,7 @@
     fi = Historia
     fr = Historique
     he = היסטוריה
+    hi = इतिहास
     hu = Előzmények
     id = Riwayat
     it = Cronologia
@@ -10644,6 +10699,7 @@
     fi = Poista hakuhistoria
     fr = Effacer l'historique de recherche
     he = נקה היסטוריית חיפוש
+    hi = स्पष्ट इतिहास की खोज
     hu = A keresési előzmények törlése
     id = Bersihkan riwayat pencarian
     it = Cancella сronologia ricerche
@@ -10682,6 +10738,7 @@
     fi = Wikipedia
     fr = Wikipédia
     he = ויקיפדיה
+    hi = विकिपीडिया
     it = Wikipedia
     ja = ウィキペディア
     lt = Vikipedija
@@ -10766,6 +10823,7 @@
     fi = Aloita
     fr = Démarrer
     he = צא לדרך
+    hi = जाएँ
     hu = Indítás
     id = Mulai
     it = Inizia
@@ -10809,6 +10867,7 @@
     fi = Lähtöpaikka
     fr = Depuis
     he = מסלול מכאן
+    hi = यहाँ से
     hu = Kiindulópont
     id = Dari
     it = Da
@@ -10852,6 +10911,7 @@
     fi = Reitin loppupiste
     fr = Itinéraire vers
     he = מסלול לכאן
+    hi = यहाँ तक
     hu = Célpont
     id = Rute ke
     it = A
@@ -11370,6 +11430,7 @@
     fi = Aukioloajat
     fr = Heures d'ouverture
     he = שעות פתיחה
+    hi = काम करने के घंटे
     hu = Nyitvatartási idő
     id = Jam buka
     it = Orari di apertura
@@ -14040,6 +14101,7 @@
     fi = Etsi kartta
     fr = Trouver la carte
     he = חפש מפה
+    hi = मानचित्र ढूंढें
     hu = Térkép keresése
     id = Temukan peta
     it = Trova la mappa
@@ -14942,6 +15004,7 @@
     fi = Kartografiset tiedot OpenStreetMapista vuodesta %@. Se on kuin Wikipedia, johon voit lisätä tai muokata paikkoja kaikille käyttäjille ympäri maailmaa.
     fr = Données cartographiques provenant d'OpenStreetMap en date du %@. OSM est comme Wikipedia pour les cartes, où vous pouvez ajouter ou modifier des lieux.
     he = נתונים קרטוגרפיים מ-OpenStreetMap נכון לתאריך %@. OSM זה כמו ויקיפדיה למפות, בו תוכלו להוסיף או לערוך מקומות לכל המשתמשים ברחבי העולם.
+    hi = %@ तक OpenStreetMap से कार्टोग्राफ़िक डेटा। OpenStreetMap मानचित्रों के लिए विकिपीडिया की तरह है, जहाँ आप दुनिया भर के उपयोगकर्ताओं के लिए स्थान जोड़ और संपादित कर सकते हैं।
     hu = Kartográfiai adatok az OpenStreetMap-ból a %@-től. Olyan, mint a Wikipedia, ahol a világ minden felhasználójának helyét hozzáadhatja vagy szerkesztheti.
     id = Data kartografi dari OpenStreetMap pada %@. Ini seperti Wikipedia di mana Anda dapat menambahkan atau mengedit tempat untuk semua pengguna di seluruh dunia.
     it = Dati cartografici da OpenStreetMap a partire dal %@. È come Wikipedia dove è possibile aggiungere o modificare luoghi per tutti gli utenti del mondo.
@@ -16283,6 +16346,7 @@
     fi = m
     fr = m
     he = מ׳
+    hi = मी
     hu = m
     id = m
     it = m
@@ -16326,6 +16390,7 @@
     fi = km
     fr = km
     he = ק״מ
+    hi = किमी
     hu = km
     id = km
     it = km
@@ -16535,6 +16600,7 @@
     fi = t
     fr = h
     he = ש׳
+    hi = घंटे
     hu = ó
     id = j
     ja = 時間
@@ -16575,6 +16641,7 @@
     fi = min
     fr = min
     he = ד׳
+    hi = मिनट
     hu = p
     id = mnt
     it = min
@@ -18165,6 +18232,7 @@
     fi = Yleiset asetukset
     fr = Paramètres généraux
     he = הגדרות כלליות
+    hi = सामान्य सेटिंग्स
     hu = Általános beállítások
     id = Setelan umum
     it = Impostazioni generali
@@ -18902,6 +18970,7 @@
     fi = Ota loki käyttöön
     fr = Activer le journal
     he = הפעל logging
+    hi = लॉगिंग करने देना
     hu = Naplózás engedélyezése
     id = Aktifkan pencatatan
     it = Abilita i registri
@@ -19520,6 +19589,7 @@
     fi = Lisää pysähdys
     fr = Ajouter un arrêt
     he = הוסף תחנה
+    hi = गंतव्य जोड़ें
     hu = Hozzáad megállót
     id = Tambah perhentian
     it = Aggiungi sosta
@@ -19876,6 +19946,7 @@
     fi = Luettelot
     fr = Listes
     he = רשימות
+    hi = सूचियों
     hu = Listák
     id = Daftar
     it = Elenchi
@@ -19922,6 +19993,7 @@
     fi = Piilota kaikki
     fr = Tout masquer
     he = הסתר הכל
+    hi = सभी को छिपाएं
     hu = Összes elrejtése
     id = Sembunyikan semua
     it = Nascondi tutto
@@ -20072,6 +20144,7 @@
     fi = Luo uusi luettelo
     fr = Créer une nouvelle liste
     he = צור רשימה חדשה
+    hi = एक नई सूची बनाएं
     hu = Új lista létrehozása
     id = Buat daftar baru
     it = Crea un nuovo elenco
@@ -20117,6 +20190,7 @@
     fi = Kirjanmerkkien ja reittien tuominen
     fr = Importer des signets et des parcours
     he = ייבוא סימניות ומסלולים
+    hi = बुकमार्क और सेटिंग्स आयात करें
     hu = Könyvjelzők és sávok importálása
     id = Impor penanda dan trek
     it = Importazione di segnalibri e tracce
@@ -22388,6 +22462,7 @@
     fi = Nopeuskamerat
     fr = Radars de vitesse
     he = מצלמות מהירות
+    hi = गति कैमरा
     hu = Sebességmérő kamerák
     id = Kamera cepat
     it = Autovelox
@@ -23775,6 +23850,7 @@
     fi = Kyllä
     fr = Oui
     he = כן
+    hi = हॉं
     hu = Igen
     id = Ya
     it = Sì
@@ -23821,6 +23897,7 @@
     fi = Ei
     fr = Non
     he = לא
+    hi = नहीं
     hu = Nem
     id = Tidak
     it = No
@@ -25745,6 +25822,7 @@
     fi = Kaupat
     fr = Magasins
     he = חנויות
+    hi = दुकान
     hu = Üzletek
     id = Pusat perbelanjaan
     it = Negozi
@@ -26195,6 +26273,7 @@
     fi = Maasto
     fr = Terrain
     he = קווי מתאר
+    hi = रूप रेखा लाइंस
     hu = Domborzat
     id = Isometrik
     it = Terreno
@@ -26950,6 +27029,7 @@
     fi = Lataa maailmankartta
     fr = Télécharger la carte du monde
     he = הורד את מפת העולם
+    hi = विश्व मानचित्र डाउनलोड करें
     it = Scarica la mappa del mondo
     ja = 世界地図をダウンロード
     lt = Atsisiųsti pasaulio žemėlapį
