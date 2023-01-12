@@ -268,8 +268,15 @@ void Platform::GetSystemFontNames(FilesList & res) const
 // static
 time_t Platform::GetFileCreationTime(std::string const & path)
 {
+// In older Linux versions there is no reliable way to get file creation time.
+#if __GLIBC__ >= 2 && __GLIBC_MINOR__ >= 28
   struct statx st;
   if (0 == statx(AT_FDCWD, path.c_str(), 0, STATX_BTIME, &st))
     return st.stx_btime.tv_sec;
+#else
+  struct stat st;
+  if (0 == stat(path.c_str(), &st))
+    return std::min(st.st_atim.tv_sec, st.st_mtim.tv_sec);
+#endif
   return 0;
 }
