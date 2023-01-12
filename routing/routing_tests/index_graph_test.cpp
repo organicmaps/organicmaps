@@ -32,12 +32,11 @@
 #include <unordered_map>
 #include <vector>
 
-using namespace std;
-
-namespace
+namespace index_graph_test
 {
 using namespace routing;
 using namespace routing_test;
+using namespace std;
 
 using measurement_utils::KmphToMps;
 
@@ -113,10 +112,7 @@ void TestIngoingEdges(IndexGraph & graph, Segment const & segment,
 }
 
 uint32_t AbsDelta(uint32_t v0, uint32_t v1) { return v0 > v1 ? v0 - v1 : v1 - v0; }
-}  // namespace
 
-namespace routing_test
-{
 //                   R4 (one way down)
 //
 // R1     J2--------J3         -1
@@ -854,4 +850,4 @@ UNIT_TEST(FinishNearZeroEdge)
       {1.0 /* x */, 0.0 /* y */}, {2.0, 0.0}, {4.0, 0.0}, {5.0, 0.0}};
   TestRouteGeometry(*starter, AlgorithmForIndexGraphStarter::Result::OK, expectedGeom);
 }
-}  // namespace routing_test
+}  // namespace index_graph_test

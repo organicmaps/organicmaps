@@ -11,11 +11,11 @@
 #include <cstdint>
 #include <set>
 
+namespace fake_graph_test
+{
 using namespace routing;
 using namespace std;
 
-namespace
-{
 Segment GetSegment(uint32_t segmentIdx, bool isReal = false)
 {
   static NumMwmId constexpr kFakeNumMwmId = std::numeric_limits<NumMwmId>::max();
@@ -94,10 +94,7 @@ FakeGraph ConstructFakeGraph(uint32_t numerationStart, uint32_t numFake, uint32_
   }
   return fakeGraph;
 }
-}  // namespace
 
-namespace routing
-{
 // Test constructs two fake graphs, performs checks during construction, merges graphs
 // Calls FakeGraph::Append and checks topology of the merged graph.
 UNIT_TEST(FakeGraphTest)
@@ -143,4 +140,4 @@ UNIT_TEST(FakeGraphTest)
     }
   }
 }
-}  // namespace routing
+}  // namespace fake_graph_test

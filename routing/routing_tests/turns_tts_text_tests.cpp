@@ -6,7 +6,7 @@
 #include <cstring>
 #include <string>
 
-namespace
+namespace turns_tts_text_tests
 {
 using namespace routing::turns;
 using namespace routing::turns::sound;
@@ -232,4 +232,4 @@ UNIT_TEST(GetSoundedDistFeet)
   TEST_EQUAL(soundedDistFeet[7], 2000, ());
   TEST_EQUAL(soundedDistFeet[10], 5000, ());
 }
-}  //  namespace
+}  // namespace turns_tts_text_tests

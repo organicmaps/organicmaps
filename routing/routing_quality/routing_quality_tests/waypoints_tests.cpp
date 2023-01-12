@@ -7,12 +7,12 @@
 #include <utility>
 #include <vector>
 
+namespace waypoins_tests
+{
 using namespace routing;
 using namespace routing_quality;
 using namespace std;
 
-namespace
-{
 UNIT_TEST(RoutingQuality_CompareSmoke)
 {
   // From office to Aseeva 6.
@@ -36,4 +36,4 @@ UNIT_TEST(RoutingQuality_Sokol2Mayakovskaya)
 
   TEST_EQUAL(CheckWaypoints(params, move(waypoints)), 0.0, ());
 }
-}  // namespace
+}  // namespace waypoins_tests
