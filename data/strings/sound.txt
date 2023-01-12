@@ -2511,6 +2511,7 @@
     fa = دوربین کنترل سرعت در نزدیکی
     fi = Edessä on kamera
     fr = Caméra devant
+    hi = स्पीड कैमरा आगे
     hu = Kamera következik
     id = Diawasi kamera
     it = Autovelox in prossimità

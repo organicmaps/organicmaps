@@ -1618,6 +1618,9 @@
 		FAA886A0292409F7004FA014 /* et */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = et; path = et.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		FAAEA7D0161BD26600CCD661 /* synonyms.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = synonyms.txt; path = ../../data/synonyms.txt; sourceTree = "<group>"; };
 		FAAFD696139D9BE2000AE70C /* categories.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = categories.txt; path = ../../data/categories.txt; sourceTree = SOURCE_ROOT; };
+		FABF2FF02B55F6780006F787 /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		FABF2FF12B55F6780006F787 /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/Localizable.strings; sourceTree = "<group>"; };
+		FABF2FF22B55F6780006F787 /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = hi; path = hi.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		FAF30A94173AB23900818BF6 /* 07_roboto_medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 07_roboto_medium.ttf; path = ../../data/07_roboto_medium.ttf; sourceTree = "<group>"; };
 		FAF8C669278CEE29006CAE66 /* be */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = be; path = be.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		FAF8C66C278CEE2A006CAE66 /* be */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = be; path = be.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
@@ -3676,6 +3679,7 @@
 				ca,
 				et,
 				az,
+				hi,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* Maps */;
 			productRefGroup = 19C28FACFE9D520D11CA2CBB /* Products */;
@@ -4365,6 +4369,7 @@
 				FA4F29DE28BC1B35001754FC /* ca */,
 				FAA8869E292409F6004FA014 /* et */,
 				30034C602B3F0B8A005D961A /* az */,
+				FABF2FF02B55F6780006F787 /* hi */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -4413,6 +4418,7 @@
 				FA4F29DF28BC1B36001754FC /* ca */,
 				FAA8869F292409F6004FA014 /* et */,
 				30034C5C2B3F0B74005D961A /* az */,
+				FABF2FF12B55F6780006F787 /* hi */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -4461,6 +4467,7 @@
 				FA4F29E028BC1B36001754FC /* ca */,
 				FAA886A0292409F7004FA014 /* et */,
 				30034C5F2B3F0B7C005D961A /* az */,
+				FABF2FF22B55F6780006F787 /* hi */,
 			);
 			name = Localizable.stringsdict;
 			sourceTree = "<group>";

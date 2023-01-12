@@ -14,6 +14,7 @@
     eu = Bilatu
     fi = Haku
     fr = Recherche
+    hi = खोज
     hu = Keresés
     id = Cari
     it = Cerca
@@ -56,6 +57,7 @@
     fi = Kirjanmerkit ja reitit
     fr = Signets et parcours
     he = רשימות אתרים ונתיבים
+    hi = बुकमार्क
     hu = Könyvjelzők és nyomvonalak
     id = Penanda dan jalur
     it = Luoghi preferiti e percorsi
@@ -98,6 +100,7 @@
     fi = Reitti
     fr = Itinéraire
     he = נתיב
+    hi = रास्ता
     hr = Ruta
     hu = Útvonal
     id = Rute
@@ -149,6 +152,7 @@
     fi = Tämänhetkisen sijainnin selvittäminen sovellusta ajettaessa taustalla on tärkeää sovelluksen täydellisen toiminnan takaamiseksi. Sijaintitietoja käytetään reittiopastukseen sekä kuljetun reitin tallennukseen.
     fr = La localisation actuelle en arrière-plan est nécessaire pour profiter pleinement de toutes les fonctionnalités de l'application. Elle est utilisée dans les options de navigation et d'enregistrement de votre chemin récemment parcouru.
     he = גילוי המיקום הנוכחי ברקע נחוץ כדי ליהנות באופן מלא מהפונקציונליות של האפליקציה. הוא משמש לניווט ולשמירה על המסלול שנסעת לאחרונה.
+    hi = ऐप की कार्यक्षमता का पूरी तरह से आनंद लेने के लिए पृष्ठभूमि में स्थान का पता लगाना आवश्यक है। इसका उपयोग मार्गदर्शन और आपके हाल ही में किए गए यात्रा को सहेजने के लिए किया जाता है।
     hu = A jelenlegi helymeghatározásra a háttérben azért van szükség, hogy teljesen ki lehessen használni az alkalmazás funkcióit. A navigációs opcióknál és a nemrég megtett út regisztrálásánál használatos.
     id = Menentukan lokasi saat ini di latar belakang diperlukan untuk menikmati fungsi aplikasi. Digunakan dalam opsi mengikuti rute dan menyimpan jalur yang telah Anda tempuh baru-baru ini.
     it = Il rilevamento della posizione corrente in background è necessario per godere appieno delle funzionalità dell'app. Viene utilizzato per la navigazione e il salvataggio della traccia percorsa di recente.
@@ -191,6 +195,7 @@
     fi = Sijaintitietojasi käytetään reittivalintoihin ja viimeaikaisten matkojesi tallentamiseen.
     fr = La définition de lemplacement actuel est utilisée dans certaines fonctions comme le suivi dun trajet et la sauvegarde des trajets récemment effectués.
     he = קביעת המיקום שלך נחוצה לניווט ולשמירה על המסלול שנסעת לאחרונה.
+    hi = मार्गदर्शन के लिए और अपने हाल ही में किए गए यात्रा को सहेजने के लिए आपका स्थान निर्धारित करना आवश्यक है।
     hu = A jelenlegi helyzet meghatározása az út követésének és a nemrég érintett útvonal mentésének opciói között használatos.
     id = Mendefinisikan lokasi saat ini digunakan dalam opsi-opsi mengikuti rute dan menghemat jalur yang Anda tempuh saat ini.
     it = La definizione della posizione corrente viene utilizzata nelle opzioni di tracciamento del percorso e salvataggio del percorso effettuato di recente.
