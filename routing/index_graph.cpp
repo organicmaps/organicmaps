@@ -17,11 +17,11 @@
 #include <limits>
 #include <utility>
 
+namespace routing
+{
 using namespace base;
 using namespace std;
 
-namespace routing
-{
 bool IsUTurn(Segment const & u, Segment const & v)
 {
   return u.GetFeatureId() == v.GetFeatureId() && u.GetSegmentIdx() == v.GetSegmentIdx() &&

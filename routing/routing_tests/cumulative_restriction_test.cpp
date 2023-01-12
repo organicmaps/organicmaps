@@ -18,7 +18,7 @@
 #include <utility>
 #include <vector>
 
-namespace
+namespace cumulative_restriction_test
 {
 using namespace routing;
 using namespace routing_test;
@@ -394,4 +394,4 @@ UNIT_CLASS_TEST(RestrictionTest, XXGraph_CheckOnlyRestriction)
   test({start, {2, 0}, {1, 1}, {2, 2}, {3, 1}, finish}, move(restrictionsNo));
   test({start, {2, 0}, {3, 0}, finish}, RestrictionVec());
 }
-}  // namespace
+}  // namespace cumulative_restriction_test

@@ -17,27 +17,25 @@
 
 #include <sstream>
 
-using namespace std;
-using namespace string_literals;
-
 namespace
 {
-string const kBaseURL = "https://api.mapbox.com/";
-string const kDirectionsApiVersion = "v5";
+std::string const kBaseURL = "https://api.mapbox.com/";
+std::string const kDirectionsApiVersion = "v5";
+std::string const kCarType = "mapbox/driving";
 
-string VehicleTypeToMapboxType(routing_quality::api::VehicleType type)
+std::string VehicleTypeToMapboxType(routing_quality::api::VehicleType type)
 {
   switch (type)
   {
-  case routing_quality::api::VehicleType::Car: return "mapbox/driving"s;
+  case routing_quality::api::VehicleType::Car: return kCarType;
   }
 
   UNREACHABLE();
 }
 
-string LatLonsToString(vector<ms::LatLon> const & coords)
+std::string LatLonsToString(std::vector<ms::LatLon> const & coords)
 {
-  ostringstream oss;
+  std::ostringstream oss;
   auto const size = coords.size();
   for (size_t i = 0; i < size; ++i)
   {
@@ -52,16 +50,12 @@ string LatLonsToString(vector<ms::LatLon> const & coords)
 }
 }  // namespace
 
-namespace routing_quality
-{
-namespace api
-{
-namespace mapbox
+namespace routing_quality::api::mapbox
 {
 // static
-string const MapboxApi::kApiName = "mapbox";
+std::string const MapboxApi::kApiName = "mapbox";
 
-MapboxApi::MapboxApi(string const & token)
+MapboxApi::MapboxApi(std::string const & token)
   : RoutingApi(kApiName, token, kMaxRPS)
 {}
 
@@ -86,7 +80,7 @@ Response MapboxApi::CalculateRoute(Params const & params, int32_t /* startTimeZo
       apiRoute.m_waypoints.emplace_back(lat, lon);
     }
 
-    response.m_routes.emplace_back(move(apiRoute));
+    response.m_routes.emplace_back(std::move(apiRoute));
   }
 
   return response;
@@ -116,16 +110,16 @@ MapboxResponse MapboxApi::MakeRequest(Params const & params) const
   return mapboxResponse;
 }
 
-string MapboxApi::GetDirectionsURL(Params const & params) const
+std::string MapboxApi::GetDirectionsURL(Params const & params) const
 {
   CHECK(!GetAccessToken().empty(), ());
 
-  vector<ms::LatLon> coords;
+  std::vector<ms::LatLon> coords;
   coords.reserve(params.m_waypoints.GetPoints().size());
   for (auto const & point : params.m_waypoints.GetPoints())
     coords.emplace_back(mercator::ToLatLon(point));
 
-  ostringstream oss;
+  std::ostringstream oss;
   oss << kBaseURL << "directions/" << kDirectionsApiVersion << "/"
       << VehicleTypeToMapboxType(params.m_type) << "/";
   oss << LatLonsToString(coords) << "?";
@@ -136,6 +130,4 @@ string MapboxApi::GetDirectionsURL(Params const & params) const
 
   return oss.str();
 }
-}  // namespace mapbox
-}  // namespace api
-}  // namespace routing_quality
+}  // namespace mapbox::api::routing_quality

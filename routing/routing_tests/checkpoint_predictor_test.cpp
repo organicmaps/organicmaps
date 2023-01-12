@@ -8,19 +8,16 @@
 #include <utility>
 #include <vector>
 
-using namespace std;
-
-namespace
+namespace checkpoint_predictor_test
 {
 void TestAlmostEqual(double v1, double v2)
 {
   double constexpr kEpsMeters = 1.0;
   TEST(base::AlmostEqualAbs(v1, v2, kEpsMeters), (v1, v2));
 }
-}  // namespace
 
-namespace routing
-{
+using routing::CheckpointPredictor;
+
 class CheckpointPredictorTest
 {
 public:
@@ -47,7 +44,7 @@ UNIT_CLASS_TEST(CheckpointPredictorTest, CalculateDeltaMetersTest)
 // Zero intermediate point test.
 UNIT_CLASS_TEST(CheckpointPredictorTest, PredictPositionTest1)
 {
-  vector<m2::PointD> const intermediatePoints = {};
+  std::vector<m2::PointD> const intermediatePoints = {};
 
   TEST_EQUAL(PredictPosition(intermediatePoints, m2::PointD(-0.5, 0.5)), 0, ());
   TEST_EQUAL(PredictPosition(intermediatePoints, m2::PointD(1.5, -0.5)), 0, ());
@@ -59,7 +56,7 @@ UNIT_CLASS_TEST(CheckpointPredictorTest, PredictPositionTest1)
 // One intermediate point test.
 UNIT_CLASS_TEST(CheckpointPredictorTest, PredictPositionTest2)
 {
-  vector<m2::PointD> const intermediatePoints = {{2.0, 0.0}};
+  std::vector<m2::PointD> const intermediatePoints = {{2.0, 0.0}};
 
   TEST_EQUAL(PredictPosition(intermediatePoints, m2::PointD(-0.5, 0.5)), 0, ());
   TEST_EQUAL(PredictPosition(intermediatePoints, m2::PointD(1.5, -0.5)), 0, ());
@@ -70,7 +67,7 @@ UNIT_CLASS_TEST(CheckpointPredictorTest, PredictPositionTest2)
 // Three intermediate points test.
 UNIT_CLASS_TEST(CheckpointPredictorTest, PredictPositionTest3)
 {
-  vector<m2::PointD> const intermediatePoints = {{1.0, 0.0}, {2.0, 0.0}, {3.0, 0.0}};
+  std::vector<m2::PointD> const intermediatePoints = {{1.0, 0.0}, {2.0, 0.0}, {3.0, 0.0}};
 
   TEST_EQUAL(PredictPosition(intermediatePoints, m2::PointD(-0.5, 0.5)), 0, ());
   TEST_EQUAL(PredictPosition(intermediatePoints, m2::PointD(0.5, 0.5)), 0, ());
@@ -79,4 +76,4 @@ UNIT_CLASS_TEST(CheckpointPredictorTest, PredictPositionTest3)
   TEST_EQUAL(PredictPosition(intermediatePoints, m2::PointD(3.5, 0.7)), 3, ());
   TEST_EQUAL(PredictPosition(intermediatePoints, m2::PointD(5.0, 0.0)), 3, ());
 }
-}  // namespace routing
+}  // namespace checkpoint_predictor_test

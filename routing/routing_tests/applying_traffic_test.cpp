@@ -22,7 +22,7 @@
 #include <memory>
 #include <vector>
 
-namespace
+namespace applying_traffic_test
 {
 using namespace routing;
 using namespace routing_test;
@@ -253,4 +253,4 @@ UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_ChangingTraffic)
     TestRouteGeometry(*starter, Algorithm::Result::OK, noTrafficGeom);
   }
 }
-}  // namespace
+}  // namespace applying_traffic_test
