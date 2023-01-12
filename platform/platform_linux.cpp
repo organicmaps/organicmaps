@@ -276,7 +276,7 @@ time_t Platform::GetFileCreationTime(std::string const & path)
 #else
   struct stat st;
   if (0 == stat(path.c_str(), &st))
-    return std::min(st.t_atim.tv_sec, st.t_mtim.tv_sec);
+    return std::min(st.st_atim.tv_sec, st.st_mtim.tv_sec);
 #endif
   return 0;
 }
