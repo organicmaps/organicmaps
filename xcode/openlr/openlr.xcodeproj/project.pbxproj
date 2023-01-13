@@ -257,6 +257,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 671E791F1E6A503F00B2859B /* common-debug.xcconfig */;
 			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/3party/pugixml/pugixml/src",
+				);
 			};
 			name = Debug;
 		};
@@ -264,6 +268,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 671E79201E6A503F00B2859B /* common-release.xcconfig */;
 			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/3party/pugixml/pugixml/src",
+				);
 			};
 			name = Release;
 		};

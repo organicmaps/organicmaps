@@ -4545,6 +4545,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/glm",
+					"$(OMIM_ROOT)/3party/pugixml/pugixml/src",
 				);
 				INFOPLIST_FILE = OMaps.plist;
 				OTHER_CFLAGS = (
@@ -4585,6 +4586,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/glm",
+					"$(OMIM_ROOT)/3party/pugixml/pugixml/src",
 				);
 				INFOPLIST_FILE = OMaps.plist;
 				OTHER_CFLAGS = (

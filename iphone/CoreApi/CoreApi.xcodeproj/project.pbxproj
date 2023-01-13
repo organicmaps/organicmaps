@@ -606,6 +606,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/glm",
+					"$(OMIM_ROOT)/3party/pugixml/pugixml/src",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -629,6 +630,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/glm",
+					"$(OMIM_ROOT)/3party/pugixml/pugixml/src",
 				);
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
