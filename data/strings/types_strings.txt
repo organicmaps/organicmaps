@@ -19493,7 +19493,7 @@
     fa = فروشگاه
     fi = Kauppa
     fr = Chocolatier
-    hu = Bolt
+    hu = Csokoládébolt
     id = Toko
     it = Choccolateria
     ja = チョコレート屋
