@@ -510,6 +510,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34F5586E1DBF49B200A4FC11 /* common-debug.xcconfig */;
 			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/3party/pugixml/pugixml/src",
+				);
 			};
 			name = Debug;
 		};
@@ -517,6 +521,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34F5586F1DBF49B200A4FC11 /* common-release.xcconfig */;
 			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/3party/pugixml/pugixml/src",
+				);
 			};
 			name = Release;
 		};
@@ -542,6 +550,10 @@
 				CODE_SIGN_IDENTITY = "-";
 				PRODUCT_BUNDLE_IDENTIFIER = app.organicmaps.editor_tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/3party/pugixml/pugixml/src",
+				);
 			};
 			name = Debug;
 		};
@@ -551,6 +563,10 @@
 				CODE_SIGN_IDENTITY = "-";
 				PRODUCT_BUNDLE_IDENTIFIER = app.organicmaps.editor_tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/3party/pugixml/pugixml/src",
+				);
 			};
 			name = Release;
 		};
