@@ -1,18 +1,13 @@
 #pragma once
 
 #include "base/mem_trie.hpp"
-#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
 #include <algorithm>
 #include <array>
-#include <cstdint>
-#include <iostream>
-#include <map>
 #include <memory>
 #include <string>
 #include <unordered_map>
-#include <utility>
 #include <vector>
 
 class Reader;
@@ -173,7 +168,7 @@ public:
   void ForEachTypeByName(int8_t locale, strings::UniString const & name, ToDo && toDo) const
   {
     auto const localePrefix = strings::UniString(1, static_cast<strings::UniChar>(locale));
-    m_name2type.ForEachInNode(localePrefix + name, std::forward<ToDo>(toDo));
+    m_name2type.ForEachInNode(localePrefix + name, toDo);
   }
 
   GroupTranslations const & GetGroupTranslations() const { return m_groupTranslations; }
