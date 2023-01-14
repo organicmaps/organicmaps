@@ -55,10 +55,24 @@ size_t GetMaxErrorsForToken(strings::UniString const & token)
 
 strings::LevenshteinDFA BuildLevenshteinDFA(strings::UniString const & s)
 {
+  ASSERT(!s.empty(), ());
   // In search we use LevenshteinDFAs for fuzzy matching. But due to
   // performance reasons, we limit prefix misprints to fixed set of substitutions defined in
   // kAllowedMisprints and skipped letters.
   return strings::LevenshteinDFA(s, 1 /* prefixSize */, kAllowedMisprints, GetMaxErrorsForToken(s));
+}
+
+strings::LevenshteinDFA BuildLevenshteinDFA_Category(strings::UniString const & s)
+{
+  // https://github.com/organicmaps/organicmaps/issues/3655
+  // Separate DFA for categories (token's length <= 4 means no errors allowed) to avoid fancy matchings like:
+  // cafe <-> care
+  // ecco -> eco
+  // shop <-> shoe
+  /// @todo "hote" doesn't match "hotel" now. Should allow _adding_ symbols when size == 4.
+
+  ASSERT(!s.empty(), ());
+  return strings::LevenshteinDFA(s, 1 /* prefixSize */, kAllowedMisprints, GetMaxErrorsForTokenLength(s.size() - 1));
 }
 
 UniString NormalizeAndSimplifyString(string_view s)
