@@ -494,14 +494,13 @@ Locales Processor::GetCategoryLocales() const
 template <typename ToDo>
 void Processor::ForEachCategoryType(StringSliceBase const & slice, ToDo && toDo) const
 {
-  ::search::ForEachCategoryType(slice, GetCategoryLocales(), m_categories, forward<ToDo>(toDo));
+  ::search::ForEachCategoryType(slice, GetCategoryLocales(), m_categories, toDo);
 }
 
 template <typename ToDo>
 void Processor::ForEachCategoryTypeFuzzy(StringSliceBase const & slice, ToDo && toDo) const
 {
-  ::search::ForEachCategoryTypeFuzzy(slice, GetCategoryLocales(), m_categories,
-                                     forward<ToDo>(toDo));
+  ::search::ForEachCategoryTypeFuzzy(slice, GetCategoryLocales(), m_categories, toDo);
 }
 
 void Processor::Search(SearchParams params)

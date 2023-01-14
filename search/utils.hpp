@@ -6,19 +6,14 @@
 
 #include "indexer/categories_holder.hpp"
 #include "indexer/feature_decl.hpp"
-#include "indexer/mwm_set.hpp"
-#include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
 #include "indexer/trie.hpp"
 
 #include "geometry/rect2d.hpp"
 
 #include "base/levenshtein_dfa.hpp"
-#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
-#include <cstddef>
-#include <cstdint>
 #include <functional>
 #include <memory>
 #include <vector>
@@ -36,14 +31,14 @@ void ForEachCategoryType(StringSliceBase const & slice, Locales const & locales,
   {
     auto const & token = slice.Get(i);
     for (int8_t const locale : locales)
-      categories.ForEachTypeByName(locale, token, std::bind<void>(todo, i, std::placeholders::_1));
+      categories.ForEachTypeByName(locale, token, [&todo, i](uint32_t type) { todo(i, type); });
 
     // Special case processing of 2 codepoints emoji (e.g. black guy on a bike).
     // Only emoji synonyms can have one codepoint.
     if (token.size() > 1)
     {
       categories.ForEachTypeByName(CategoriesHolder::kEnglishCode, strings::UniString(1, token[0]),
-                                   std::bind<void>(todo, i, std::placeholders::_1));
+                                   [&todo, i](uint32_t type) { todo(i, type); });
     }
   }
 }
@@ -71,8 +66,9 @@ void ForEachCategoryTypeFuzzy(StringSliceBase const & slice, Locales const & loc
     request.m_names.push_back(BuildLevenshteinDFA(slice.Get(i)));
     request.SetLangs(locales);
 
-    MatchFeaturesInTrie(request, iterator, [&](uint32_t /* type */) { return true; } /* filter */,
-                        std::bind<void>(todo, i, std::placeholders::_1));
+    MatchFeaturesInTrie(request, iterator,
+                        [](uint32_t) { return true; } /* filter */,
+                        [&todo, i](uint32_t type, bool) { todo(i, type); } /* todo */);
   }
 }
 

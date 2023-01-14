@@ -4,11 +4,9 @@
 #include "base/macros.hpp"
 
 #include <algorithm>
-#include <cstddef>
-#include <functional>
 #include <map>
 #include <memory>
-#include <utility>
+#include <string>
 #include <vector>
 
 namespace base
@@ -221,7 +219,7 @@ public:
     template <typename ToDo>
     void ForEachInNode(ToDo && toDo) const
     {
-      m_node.m_values.ForEach(std::forward<ToDo>(toDo));
+      m_node.m_values.ForEach(toDo);
     }
 
     String GetLabel() const { return m_node.m_edge.template As<String>(); }
@@ -291,7 +289,7 @@ public:
   void ForEachInTrie(ToDo && toDo) const
   {
     String prefix;
-    ForEachInSubtree(m_root, prefix, std::forward<ToDo>(toDo));
+    ForEachInSubtree(m_root, prefix, toDo);
   }
 
   // Calls |toDo| for each key-value pair in the node that is reachable
@@ -302,7 +300,7 @@ public:
   {
     MoveTo(prefix, true /* fullMatch */,
            [&](Node const & node, Edge const & /* edge */, size_t /* offset */) {
-             node.m_values.ForEach(std::forward<ToDo>(toDo));
+             node.m_values.ForEach(toDo);
            });
   }
 
@@ -323,7 +321,7 @@ public:
       String p = prefix;
       for (; offset < edge.Size(); ++offset)
         p.push_back(edge[offset]);
-      ForEachInSubtree(node, p, std::forward<ToDo>(toDo));
+      ForEachInSubtree(node, p, toDo);
     });
   }
 
