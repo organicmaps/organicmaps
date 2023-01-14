@@ -63,7 +63,7 @@ void ForEachCategoryTypeFuzzy(StringSliceBase const & slice, Locales const & loc
     // A possible optimization is to build each dfa once and save it. Note that
     // dfas for the prefix tokens differ, i.e. we ignore slice.IsPrefix(i) here.
     SearchTrieRequest<strings::LevenshteinDFA> request;
-    request.m_names.push_back(BuildLevenshteinDFA(slice.Get(i)));
+    request.m_names.push_back(BuildLevenshteinDFA_Category(slice.Get(i)));
     request.SetLangs(locales);
 
     MatchFeaturesInTrie(request, iterator,

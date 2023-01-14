@@ -22,6 +22,7 @@ inline constexpr size_t GetMaxErrorsForTokenLength(size_t length)
 size_t GetMaxErrorsForToken(strings::UniString const & token);
 
 strings::LevenshteinDFA BuildLevenshteinDFA(strings::UniString const & s);
+strings::LevenshteinDFA BuildLevenshteinDFA_Category(strings::UniString const & s);
 
 // This function should be used for all search strings normalization.
 // It does some magic text transformation which greatly helps us to improve our search.

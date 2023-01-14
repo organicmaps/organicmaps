@@ -917,7 +917,8 @@ UNIT_CLASS_TEST(ProcessorTest, TestCategorialSearch)
   }
 
   {
-    Rules const rules = {ExactMatch(wonderlandId, hotel1), ExactMatch(wonderlandId, hotel2),
+    /// @todo We updated fuzzy match for categories: hote -> hotel is not matched now (4 letters input token).
+    Rules const rules = {/*ExactMatch(wonderlandId, hotel1),*/ ExactMatch(wonderlandId, hotel2),
                          ExactMatch(wonderlandId, hotelCafe), ExactMatch(testWorldId, homel),
                          ExactMatch(wonderlandId, hotelDeVille)};
     // A prefix token.
@@ -3205,6 +3206,47 @@ UNIT_CLASS_TEST(ProcessorTest, Place_Region)
 
   Rules rules{ExactMatch(worldId, region)};
   TEST(ResultsMatch("carth", rules, "en"), ());
+}
+
+UNIT_CLASS_TEST(ProcessorTest, FuzzyCategories)
+{
+  TestPOI cafe({0, 0.01}, "xxx", "en");
+  cafe.SetTypes({{"amenity", "cafe"}});
+
+  TestPOI cosmetics({0, 0.02}, "yyy", "en");
+  cosmetics.SetTypes({{"shop", "cosmetics"}});
+
+  TestPOI shoes({0, 0.03}, "ecco", "en");
+  shoes.SetTypes({{"shop", "shoes"}});
+
+  TestPOI organic({0, 0.04}, "zzz", "en");
+  organic.SetTypes({{"shop", "grocery"}, {"organic", "yes"}});
+
+  auto wonderlandId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
+    builder.Add(cafe);
+    builder.Add(cosmetics);
+    builder.Add(shoes);
+    builder.Add(organic);
+  });
+
+  SetViewport(m2::RectD(-0.5, -0.5, 0.5, 0.5));
+
+  {
+    Rules const rules = {ExactMatch(wonderlandId, cafe)};
+    TEST(ResultsMatch("cafe", rules), ());
+  }
+
+  {
+    Rules const rules = {ExactMatch(wonderlandId, shoes)};
+    TEST(ResultsMatch("shoe", rules), ());
+    TEST(ResultsMatch("shoes", rules), ());
+  }
+
+  {
+    Rules const rules = {ExactMatch(wonderlandId, shoes)};
+    TEST(ResultsMatch("ecco", rules), ());
+  }
 }
 
 } // namespace processor_test
