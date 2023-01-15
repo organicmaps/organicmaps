@@ -83,6 +83,8 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
 
   private static final String PREF_COORDINATES_FORMAT = "coordinates_format";
   private static final String BOOKMARK_FRAGMENT_TAG = "BOOKMARK_FRAGMENT_TAG";
+  private static final String PHONE_FRAGMENT_TAG = "PHONE_FRAGMENT_TAG";
+
   private static final List<CoordinatesFormat> visibleCoordsFormat =
       Arrays.asList(CoordinatesFormat.LatLonDMS,
                     CoordinatesFormat.LatLonDecimal,
@@ -101,8 +103,6 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   private TextView mTvAddress;
   // Details.
   private ViewGroup mDetails;
-  private RecyclerView mPhoneRecycler;
-  private PlacePhoneAdapter mPhoneAdapter;
   private View mWebsite;
   private TextView mTvWebsite;
   private TextView mTvLatlon;
@@ -307,9 +307,6 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
 
     mDetails = mFrame.findViewById(R.id.pp__details_frame);
     RelativeLayout address = mFrame.findViewById(R.id.ll__place_name);
-    mPhoneRecycler = mFrame.findViewById(R.id.rw__phone);
-    mPhoneAdapter = new PlacePhoneAdapter();
-    mPhoneRecycler.setAdapter(mPhoneAdapter);
     mWebsite = mFrame.findViewById(R.id.ll__place_website);
     mWebsite.setOnClickListener(this);
     mTvWebsite = mFrame.findViewById(R.id.tv__place_website);
@@ -601,6 +598,8 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     refreshPreview(mapObject);
     refreshDetails(mapObject);
     refreshViewsInternal(mapObject);
+    updateBookmarkView();
+    updatePhoneView();
   }
 
   private void refreshViewsInternal(@NonNull MapObject mapObject)
@@ -627,12 +626,28 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
         showRoutingButton = false;
         break;
     }
-    final boolean hasNumber = mapObject.hasPhoneNumber();
-    if (hasNumber)
-      mPhoneRecycler.setVisibility(VISIBLE);
-    else
-      mPhoneRecycler.setVisibility(GONE);
     updateButtons(mapObject, showBackButton, showRoutingButton);
+  }
+
+  private void updatePhoneView()
+  {
+    final MapObject mapObject = getMapObject();
+    if (mapObject == null)
+      return;
+    final FragmentManager fManager = getChildFragmentManager();
+    final PlacePagePhoneFragment fragment = (PlacePagePhoneFragment) fManager.findFragmentByTag(PHONE_FRAGMENT_TAG);
+    if (mapObject.hasPhoneNumber() && fragment == null)
+    {
+      fManager.beginTransaction()
+              .add(R.id.place_page_phone_fragment, PlacePagePhoneFragment.class, null, PHONE_FRAGMENT_TAG)
+              .commit();
+    }
+    else if (!mapObject.hasPhoneNumber() && fragment != null)
+    {
+      fManager.beginTransaction()
+              .remove(fragment)
+              .commit();
+    }
   }
 
   private void updateBookmarkView()
@@ -729,7 +744,6 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     String wikimedia_commons = mapObject.getMetadata(Metadata.MetadataType.FMD_WIKIMEDIA_COMMONS);
     String wikimedia_commons_text = TextUtils.isEmpty(wikimedia_commons) ? "" : getResources().getString(R.string.wikimedia_commons);
     refreshMetadataOrHide(wikimedia_commons_text, mWikimedia, mTvWikimedia);
-    refreshPhoneNumberList(mapObject.getMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER));
     refreshMetadataOrHide(mapObject.getMetadata(Metadata.MetadataType.FMD_EMAIL), mEmail, mTvEmail);
     refreshMetadataOrHide(mapObject.getMetadata(Metadata.MetadataType.FMD_OPERATOR), mOperator, mTvOperator);
     /// @todo I don't like it when we take all data from mapObject, but for cuisines, we should
@@ -934,12 +948,6 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     mTodayLabel.setTextColor(color);
     mTodayOpenTime.setTextColor(color);
   }
-
-  private void refreshPhoneNumberList(String phones)
-  {
-    mPhoneAdapter.refreshPhones(phones);
-  }
-
 
   private void updateBookmarkButton()
   {
@@ -1356,9 +1364,8 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     {
       setCurrentCountry();
       updateBookmarkButton();
-      updateBookmarkView();
+      refreshViews();
     }
-    refreshViews();
     mPlacePageViewListener.onPlacePageContentChanged(mPreview.getHeight());
   }
 
