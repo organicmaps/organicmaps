@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,6 +14,8 @@ import androidx.core.widget.NestedScrollViewClickFixed;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.transition.AutoTransition;
+import androidx.transition.TransitionManager;
 import app.organicmaps.Framework;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.R;
@@ -47,11 +50,13 @@ public class PlacePageController implements Initializable<Activity>,
   private final BottomSheetBehavior<View> mPlacePageBehavior;
   @NonNull
   private final NestedScrollViewClickFixed mPlacePage;
+  private final ViewGroup mCoordinator;
   private final int mViewportMinHeight;
   private final AppCompatActivity mMwmActivity;
   private final float mButtonsHeight;
   private final int mMaxButtons;
   private final PlacePageViewModel viewModel;
+  private final AutoTransition peekHeightTransition;
   private int mPreviewHeight;
   private boolean mDeactivateMapSelection = true;
   @Nullable
@@ -65,10 +70,16 @@ public class PlacePageController implements Initializable<Activity>,
 
     Objects.requireNonNull(activity);
     mMwmActivity = (AppCompatActivity) activity;
+    mCoordinator = mMwmActivity.findViewById(R.id.coordinator);
     Resources res = activity.getResources();
     mViewportMinHeight = res.getDimensionPixelSize(R.dimen.viewport_min_height);
     mPlacePage = activity.findViewById(R.id.placepage);
     mPlacePageBehavior = BottomSheetBehavior.from(mPlacePage);
+
+    peekHeightTransition = new AutoTransition();
+    peekHeightTransition.addTarget(mPlacePage);
+    peekHeightTransition.setDuration(100);
+
     BottomSheetChangedListener bottomSheetChangedListener = new BottomSheetChangedListener()
     {
       @Override
@@ -166,13 +177,29 @@ public class PlacePageController implements Initializable<Activity>,
   private void setPeekHeight()
   {
     final int peekHeight = calculatePeekHeight();
-    if (peekHeight == mPlacePageBehavior.getPeekHeight())
+    if (peekHeight == mPlacePageBehavior.getPeekHeight() && mMapObject == null)
       return;
 
     @BottomSheetBehavior.State
     int currentState = mPlacePageBehavior.getState();
-    final boolean shouldAnimate = PlacePageUtils.isCollapsedState(currentState) && mPlacePageBehavior.getPeekHeight() > 0;
-    mPlacePageBehavior.setPeekHeight(peekHeight, shouldAnimate);
+    // Do not animated when the place page when we need to show a an extended preview
+    // The extended preview uses the half extended state and the animation can mess with it
+    final boolean shouldAnimate =
+        PlacePageUtils.isCollapsedState(currentState)
+        && mMapObject.getOpeningMode() != MapObject.OPENING_MODE_PREVIEW_PLUS
+        && mPlacePageBehavior.getPeekHeight() > 0;
+    if (shouldAnimate)
+    {
+      TransitionManager.beginDelayedTransition(mCoordinator, peekHeightTransition);
+      // Using the animate param does not work when adding removing fragments
+      // from inside the place page
+      mPlacePageBehavior.setPeekHeight(peekHeight);
+      TransitionManager.endTransitions(mPlacePage);
+    }
+    else
+    {
+      mPlacePageBehavior.setPeekHeight(peekHeight);
+    }
   }
 
   private int calculatePeekHeight()
