@@ -3554,7 +3554,7 @@
     be = Гэй, глядзі дзе я зараз на мапе! %1$@ альбо %2$@ Няма офлайн-мапаў? Спампуй тут: https://omaps.app/get
     bg = Хей, виж текущото ми местоположение в Organic Maps! %1$@ или %2$@
     ca = Mira la meva ubicació en l'Organic Maps! %1$@ o %2$@ No teniu mapes sense connexió? Baixeu-los aquí: https://omaps.app/get
-    cs = Ahoj, zkoukni mojí lokaci v Organic Maps! %1$@ nebo %2$@ Nemáš offline mapy? Stáhni tady: https://omaps.app/get 
+    cs = Ahoj, zkoukni mojí lokaci v Organic Maps! %1$@ nebo %2$@ Nemáš offline mapy? Stáhni tady: https://omaps.app/get
     da = Hey, tjek min nuværende lokation ud på Organic Maps! %1$@ or %2$@. Har du ikke offline kort? Download her: https://omaps.app/get
     de = Hey, sieh dir meinen aktuellen Standort auf Organic Maps an! %1$@ oder %2$@ Keine Offline-Karten installiert? Hier herunterladen: https://omaps.app/get
     el = Έλεγξε την τρέχουσα τοποθεσία μου στο Organic Maps! %1$@ ή %2$@ στην περίπτωση που δεν έχεις εγκαταστήσει χάρτες εκτός σύνδεσης, μπορείς να τους κατεβάσεις εδώ: https://omaps.app/get
@@ -3969,7 +3969,7 @@
     eu = OpenStreetMap datuak: %@
     fa = OpenStreetMap: %@ ﯼﺎﻫ ﻩﺩﺍﺩ
     fi = OpenStreetMap-tiedot: %@
-    fr = Données OpenStreetMap : %@
+    fr = Données OpenStreetMap: %@
     he = OpenStreetMap: %@ ינותנ
     hu = OpenStreetMap adatok: %@
     id = Data OpenStreetMap: %@
@@ -25101,4 +25101,3 @@
     it = https://organicmaps.app/it/
     ru = https://organicmaps.app/ru/
     tr = https://organicmaps.app/tr/
-    
