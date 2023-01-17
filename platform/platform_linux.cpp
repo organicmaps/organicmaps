@@ -1,3 +1,4 @@
+#include "private.h"
 #include "platform/platform.hpp"
 
 #include "platform/socket.hpp"
@@ -33,9 +34,6 @@
 
 namespace
 {
-// Web service ip to check internet connection. Now it's a GitHub.com IP.
-char constexpr kSomeWorkingWebServer[] = "140.82.121.4";
-
 // Returns directory where binary resides, including slash at the end.
 std::optional<std::string> GetExecutableDir()
 {
@@ -171,7 +169,7 @@ std::string Platform::DeviceModel() const
 
 Platform::EConnectionType Platform::ConnectionStatus()
 {
-  int socketFd = socket(AF_INET, SOCK_STREAM, 0);
+  int socketFd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
   SCOPE_GUARD(closeSocket, std::bind(&close, socketFd));
   if (socketFd < 0)
     return EConnectionType::CONNECTION_NONE;
@@ -180,7 +178,7 @@ Platform::EConnectionType Platform::ConnectionStatus()
   memset(&addr, 0, sizeof(addr));
   addr.sin_family = AF_INET;
   addr.sin_port = htons(80);
-  inet_pton(AF_INET, kSomeWorkingWebServer, &addr.sin_addr);
+  inet_pton(AF_INET, DEFAULT_CONNECTION_CHECK_IP, &addr.sin_addr);
 
   if (connect(socketFd, reinterpret_cast<struct sockaddr *>(&addr), sizeof(addr)) < 0)
     return EConnectionType::CONNECTION_NONE;
