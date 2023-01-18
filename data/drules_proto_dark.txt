@@ -44593,7 +44593,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "drinking-water-m"
+      name: "drinking-water-s"
       priority: 16580
       min_distance: 24
     }
@@ -44601,7 +44601,7 @@ cont {
       primary {
         height: 10
         color: 5592405
-        offset_y: 8
+        offset_y: 6
         is_optional: true
       }
       priority: 15580
@@ -44610,7 +44610,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "drinking-water-m"
+      name: "drinking-water-s"
       priority: 16580
       min_distance: 24
     }
@@ -44618,7 +44618,7 @@ cont {
       primary {
         height: 10
         color: 5592405
-        offset_y: 8
+        offset_y: 6
         is_optional: true
       }
       priority: 15580
@@ -44627,7 +44627,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "drinking-water-m"
+      name: "drinking-water-s"
       priority: 16580
       min_distance: 24
     }
@@ -44635,7 +44635,7 @@ cont {
       primary {
         height: 10
         color: 5592405
-        offset_y: 8
+        offset_y: 6
         is_optional: true
       }
       priority: 15580
@@ -45161,7 +45161,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "drinking-water-m"
+      name: "drinking-water-s"
       priority: 16580
       min_distance: 24
     }
@@ -45169,7 +45169,7 @@ cont {
       primary {
         height: 10
         color: 5592405
-        offset_y: 8
+        offset_y: 6
         is_optional: true
       }
       priority: 15580
@@ -45178,7 +45178,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "drinking-water-m"
+      name: "drinking-water-s"
       priority: 16580
       min_distance: 24
     }
@@ -45186,7 +45186,7 @@ cont {
       primary {
         height: 10
         color: 5592405
-        offset_y: 8
+        offset_y: 6
         is_optional: true
       }
       priority: 15580
@@ -45195,7 +45195,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "drinking-water-m"
+      name: "drinking-water-s"
       priority: 16580
       min_distance: 24
     }
@@ -45203,7 +45203,7 @@ cont {
       primary {
         height: 10
         color: 5592405
-        offset_y: 8
+        offset_y: 6
         is_optional: true
       }
       priority: 15580
