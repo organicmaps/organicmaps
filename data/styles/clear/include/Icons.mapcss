@@ -672,16 +672,16 @@ node|z12-[landuse=forest][!name],
 area|z12-[landuse=forest][!name]
 {}
 
-node|z14[natural=spring],
-area|z14[natural=spring],
-node|z14[natural=hot_spring],
-area|z14[natural=hot_spring]
-{icon-image: drinking-water-s.svg;text-offset:6;font-size: 10;icon-min-distance: 24;text-optional: true;}
-node|z15-[natural=spring],
-area|z15-[natural=spring],
-node|z15-[natural=hot_spring],
-area|z15-[natural=hot_spring]
-{icon-image: drinking-water-m.svg;text-offset:8;font-size: 10;icon-min-distance: 24;text-optional: true;}
+node|z14-[natural=spring],
+area|z14-[natural=spring],
+node|z14-[natural=hot_spring],
+area|z14-[natural=hot_spring]
+{icon-image: drinking-water-s.svg; text-offset: 6; font-size: 10; icon-min-distance: 24; text-optional: true;}
+node|z18-[natural=spring],
+area|z18-[natural=spring],
+node|z18-[natural=hot_spring],
+area|z18-[natural=hot_spring]
+{icon-image: drinking-water-m.svg; text-offset: 8;}
 
 node|z14[natural=geyser],
 area|z14[natural=geyser]
