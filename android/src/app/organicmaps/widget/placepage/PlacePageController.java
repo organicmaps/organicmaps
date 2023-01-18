@@ -1,21 +1,22 @@
 package app.organicmaps.widget.placepage;
 
+import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowInsets;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.NestedScrollViewClickFixed;
 import androidx.fragment.app.Fragment;
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.transition.AutoTransition;
-import androidx.transition.TransitionManager;
 import app.organicmaps.Framework;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.R;
@@ -56,11 +57,11 @@ public class PlacePageController implements Initializable<Activity>,
   private final float mButtonsHeight;
   private final int mMaxButtons;
   private final PlacePageViewModel viewModel;
-  private final AutoTransition peekHeightTransition;
   private int mPreviewHeight;
   private boolean mDeactivateMapSelection = true;
   @Nullable
   private MapObject mMapObject;
+  private WindowInsets mCurrentWindowInsets;
 
   @SuppressLint("ClickableViewAccessibility")
   public PlacePageController(@Nullable Activity activity,
@@ -75,10 +76,6 @@ public class PlacePageController implements Initializable<Activity>,
     mViewportMinHeight = res.getDimensionPixelSize(R.dimen.viewport_min_height);
     mPlacePage = activity.findViewById(R.id.placepage);
     mPlacePageBehavior = BottomSheetBehavior.from(mPlacePage);
-
-    peekHeightTransition = new AutoTransition();
-    peekHeightTransition.addTarget(mPlacePage);
-    peekHeightTransition.setDuration(100);
 
     BottomSheetChangedListener bottomSheetChangedListener = new BottomSheetChangedListener()
     {
@@ -97,7 +94,6 @@ public class PlacePageController implements Initializable<Activity>,
       @Override
       public void onSheetCollapsed()
       {
-        disableHalfExpandedState();
       }
 
       @Override
@@ -116,7 +112,7 @@ public class PlacePageController implements Initializable<Activity>,
     mPlacePageBehavior.addBottomSheetCallback(sheetCallback);
     mPlacePageBehavior.setHideable(true);
     mPlacePageBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
-    disableHalfExpandedState();
+    mPlacePageBehavior.setFitToContents(true);
 
     UiUtils.bringViewToFrontOf(activity.findViewById(R.id.pp_buttons_fragment), mPlacePage);
 
@@ -125,12 +121,11 @@ public class PlacePageController implements Initializable<Activity>,
     mButtonsHeight = mMwmActivity.getResources().getDimension(R.dimen.place_page_buttons_height);
     mMaxButtons = mMwmActivity.getResources().getInteger(R.integer.pp_buttons_max);
     viewModel = new ViewModelProvider(mMwmActivity).get(PlacePageViewModel.class);
-  }
 
-  private void disableHalfExpandedState()
-  {
-    // Use a very low value so that is less than the collapsed value and this state is skipped
-    mPlacePageBehavior.setHalfExpandedRatio(0.001f);
+    mPlacePage.setOnApplyWindowInsetsListener((view, windowInsets) -> {
+      mCurrentWindowInsets = windowInsets;
+      return windowInsets;
+    });
   }
 
   private void onHiddenInternal()
@@ -140,7 +135,6 @@ public class PlacePageController implements Initializable<Activity>,
     mDeactivateMapSelection = true;
     PlacePageUtils.moveViewportUp(mPlacePage, mViewportMinHeight);
     viewModel.setMapObject(null);
-    disableHalfExpandedState();
   }
 
   public int getPlacePageWidth()
@@ -177,33 +171,45 @@ public class PlacePageController implements Initializable<Activity>,
   private void setPeekHeight()
   {
     final int peekHeight = calculatePeekHeight();
-    if (peekHeight == mPlacePageBehavior.getPeekHeight() && mMapObject == null)
+    if (peekHeight == mPlacePageBehavior.getPeekHeight() || mMapObject == null)
       return;
 
-    @BottomSheetBehavior.State
-    int currentState = mPlacePageBehavior.getState();
-    // Do not animated when the place page when we need to show a an extended preview
-    // The extended preview uses the half extended state and the animation can mess with it
-    final boolean shouldAnimate =
-        PlacePageUtils.isCollapsedState(currentState)
-        && mMapObject.getOpeningMode() != MapObject.OPENING_MODE_PREVIEW_PLUS
-        && mPlacePageBehavior.getPeekHeight() > 0;
+    // Make sure the place page is big enough to reach the peek height
+    // As the place page itself is set to fit the content,
+    // We must set the minimum height to its children
+    mPlacePage.getChildAt(0).setMinimumHeight(peekHeight);
+
+    final boolean shouldAnimate = PlacePageUtils.isCollapsedState(mPlacePageBehavior.getState());
     if (shouldAnimate)
-    {
-      TransitionManager.beginDelayedTransition(mCoordinator, peekHeightTransition);
-      // Using the animate param does not work when adding removing fragments
-      // from inside the place page
-      mPlacePageBehavior.setPeekHeight(peekHeight);
-      TransitionManager.endTransitions(mPlacePage);
-    }
+      animatePeekHeight(peekHeight);
     else
-    {
       mPlacePageBehavior.setPeekHeight(peekHeight);
-    }
+  }
+
+  private void animatePeekHeight(int peekHeight)
+  {
+    // Using the animate param in setPeekHeight does not work when adding removing fragments
+    // from inside the place page so we manually animate the peek height
+    final int viewHeight = ((View) mPlacePage.getParent()).getHeight();
+    ValueAnimator anim = ValueAnimator.ofInt(mPlacePageBehavior.getPeekHeight(), peekHeight);
+    anim.setInterpolator(new FastOutSlowInInterpolator());
+    anim.addUpdateListener(valueAnimator -> {
+      int value = (Integer) valueAnimator.getAnimatedValue();
+      mPlacePageBehavior.setPeekHeight(value);
+      // The place page is not firing the slide callbacks when using this animation,
+      // so we must call them manually
+      mSlideListener.onPlacePageSlide(viewHeight - value - mCurrentWindowInsets.getSystemWindowInsetBottom());
+      if (value == peekHeight)
+        PlacePageUtils.moveViewportUp(mPlacePage, mViewportMinHeight);
+    });
+    anim.setDuration(150);
+    anim.start();
   }
 
   private int calculatePeekHeight()
   {
+    if (mMapObject != null && mMapObject.getOpeningMode() == MapObject.OPENING_MODE_PREVIEW_PLUS)
+      return (int) (mCoordinator.getHeight() * PREVIEW_PLUS_RATIO);
     return (int) (mPreviewHeight + mButtonsHeight);
   }
 
@@ -239,20 +245,8 @@ public class PlacePageController implements Initializable<Activity>,
     mPreviewHeight = previewHeight;
     mPlacePage.post(() -> {
       setPeekHeight();
-      if (mMapObject != null)
-      {
-        // Make sure to leave the place page opened if the object simply changes
-        if (!PlacePageUtils.isExpandedState(mPlacePageBehavior.getState()))
-        {
-          if (mMapObject.getOpeningMode() == MapObject.OPENING_MODE_PREVIEW_PLUS)
-          {
-            mPlacePageBehavior.setHalfExpandedRatio(PREVIEW_PLUS_RATIO);
-            mPlacePageBehavior.setState(BottomSheetBehavior.STATE_HALF_EXPANDED);
-          }
-          else if (!PlacePageUtils.isCollapsedState(mPlacePageBehavior.getState()))
-            mPlacePageBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-        }
-      }
+      if (mMapObject != null && !PlacePageUtils.isCollapsedState(mPlacePageBehavior.getState()))
+        mPlacePageBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
     });
   }
 
@@ -267,7 +261,7 @@ public class PlacePageController implements Initializable<Activity>,
   {
     @BottomSheetBehavior.State
     int state = mPlacePageBehavior.getState();
-    if (PlacePageUtils.isCollapsedState(state) || PlacePageUtils.isHalfExpandedState(state))
+    if (PlacePageUtils.isCollapsedState(state))
       mPlacePageBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
     else if (PlacePageUtils.isExpandedState(state))
       mPlacePageBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
