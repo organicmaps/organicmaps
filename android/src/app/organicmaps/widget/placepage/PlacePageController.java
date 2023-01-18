@@ -63,6 +63,8 @@ public class PlacePageController implements Initializable<Activity>,
   private MapObject mMapObject;
   private WindowInsets mCurrentWindowInsets;
 
+  private boolean mShouldCollapse;
+
   @SuppressLint("ClickableViewAccessibility")
   public PlacePageController(@Nullable Activity activity,
                              @NonNull SlideListener listener)
@@ -76,6 +78,8 @@ public class PlacePageController implements Initializable<Activity>,
     mViewportMinHeight = res.getDimensionPixelSize(R.dimen.viewport_min_height);
     mPlacePage = activity.findViewById(R.id.placepage);
     mPlacePageBehavior = BottomSheetBehavior.from(mPlacePage);
+
+    mShouldCollapse = true;
 
     BottomSheetChangedListener bottomSheetChangedListener = new BottomSheetChangedListener()
     {
@@ -165,6 +169,9 @@ public class PlacePageController implements Initializable<Activity>,
   {
     mDeactivateMapSelection = true;
     MapObject mapObject = (MapObject) data;
+    final MapObject previousMapObject = viewModel.getMapObject().getValue();
+    // Only collapse the place page if the data is different from the one already available
+    mShouldCollapse = PlacePageUtils.isHiddenState(mPlacePageBehavior.getState()) || !MapObject.same(previousMapObject, mapObject);
     viewModel.setMapObject(mapObject);
   }
 
@@ -245,8 +252,9 @@ public class PlacePageController implements Initializable<Activity>,
     mPreviewHeight = previewHeight;
     mPlacePage.post(() -> {
       setPeekHeight();
-      if (mMapObject != null && !PlacePageUtils.isCollapsedState(mPlacePageBehavior.getState()))
+      if (mShouldCollapse && mMapObject != null && !PlacePageUtils.isCollapsedState(mPlacePageBehavior.getState()))
         mPlacePageBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+      mShouldCollapse = false;
     });
   }
 
