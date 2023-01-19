@@ -105,7 +105,7 @@
 	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! -->
 	<string name="eat">Un endroit pour manger</string>
 	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @food! -->
-	<string name="food">Les courses</string>
+	<string name="food">Epiceries</string>
 	<!-- Search category for public transport; any changes should be duplicated in categories.txt @transport! -->
 	<string name="transport">Transport</string>
 	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! -->
@@ -156,7 +156,7 @@
 	<!-- Kmz file successful loading -->
 	<string name="load_kmz_successful">Les signets ont été chargés avec succès ! Vous pouvez les trouver sur la carte ou sur l\'écran du Gestionnaire de signets.</string>
 	<!-- Kml file loading failed -->
-	<string name="load_kmz_failed">Échec lors du téléversement des signets. Le fichier peut être corrompu ou défectueux.</string>
+	<string name="load_kmz_failed">Échec lors du chargement des signets. Le fichier peut être corrompu ou défectueux.</string>
 	<!-- resource for context menu -->
 	<string name="edit">Modifier</string>
 	<!-- Warning message when doing search around current position -->
@@ -166,13 +166,13 @@
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Le téléchargement de la carte est en cours.</string>
 	<!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-	<string name="my_position_share_sms">Hé, regarde ma position actuelle sur Organic Maps ! %1$s ou %2$s. Les cartes hors ligne ne sont pas installées ? Les télécharger ici : https://omaps.app/get</string>
+	<string name="my_position_share_sms">Hé, regardez ma position actuelle sur Organic Maps ! %1$s ou %2$s. Les cartes hors ligne ne sont pas installées ? Les télécharger ici : https://omaps.app/get</string>
 	<!-- Subject for emailed bookmark -->
-	<string name="bookmark_share_email_subject">Hé, regarde mon signet sur la carte Organic Maps !</string>
+	<string name="bookmark_share_email_subject">Hé, regardez mon signet sur la carte Organic Maps !</string>
 	<!-- Subject for emailed position -->
-	<string name="my_position_share_email_subject">Hé, regarde ma position actuelle sur la carte Organic Maps !</string>
+	<string name="my_position_share_email_subject">Hé, regardez ma position actuelle sur la carte Organic Maps !</string>
 	<!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-	<string name="my_position_share_email">Bonjour,\n\nJe suis actuellement ici : %1$s. Clique sur ce lien %2$s ou sur celui-ci %3$s pour voir l\'endroit sur la carte.\n\nMerci.</string>
+	<string name="my_position_share_email">Bonjour,\n\nJe suis actuellement ici : %1$s. Cliquez sur ce lien %2$s ou sur celui-ci %3$s pour voir l\'endroit sur la carte.\n\nMerci.</string>
 	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
 	<string name="share">Partager</string>
 	<!-- Share by email button text, also used in editor and About. -->
@@ -182,7 +182,7 @@
 	<!-- Used for bookmark editing -->
 	<string name="done">Terminé</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
-	<string name="data_version">Données OpenStreetMap : %s</string>
+	<string name="data_version">Données OpenStreetMap : %s</string>
 	<!-- Confirmation in downloading countries dialog -->
 	<string name="are_you_sure">Êtes-vous certain de vouloir continuer ?</string>
 	<!-- Title for tracks category in bookmarks manager -->
@@ -223,6 +223,8 @@
 	<string name="duration_12_hours">12 heures</string>
 	<string name="duration_1_day">1 jour</string>
 	<string name="search_show_on_map">Voir sur la carte</string>
+	<!-- Menu button -->
+	<string name="menu">Menu</string>
 	<!-- Text in menu -->
 	<string name="website">Site internet</string>
 	<!-- Text in About menu, opens Organic Maps news website -->
@@ -254,7 +256,7 @@
 	<string name="downloader_near_me_subtitle">Près de moi</string>
 	<!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
 	<string name="downloader_status_maps">Cartes</string>
-	<string name="downloader_download_all_button">Télécharger tout</string>
+	<string name="downloader_download_all_button">Tout télécharger</string>
 	<string name="downloader_downloading">Téléchargement en cours :</string>
 	<!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
 	<string name="downloader_delete_map_while_routing_dialog">Veuillez interrompre la navigation pour supprimer la carte.</string>
@@ -269,7 +271,7 @@
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">Mise à jour carte</string>
 	<!-- Preference title -->
-	<string name="google_play_services">Services Google Play</string>
+	<string name="google_play_services">Services Google Play</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">Utilisez l\'application Google Play Services pour obtenir votre emplacement actuel</string>
 	<!-- Text for routing error dialog -->
@@ -292,7 +294,7 @@
 	<!-- green color -->
 	<string name="green">Vert</string>
 	<!-- purple color -->
-	<string name="purple">Pourpre</string>
+	<string name="purple">Violet</string>
 	<!-- orange color -->
 	<string name="orange">Orange</string>
 	<!-- brown color -->
@@ -334,14 +336,14 @@
 	<string name="dialog_routing_change_start">Modifiez votre point de départ</string>
 	<string name="dialog_routing_start_not_determined">Impossible de localiser le point de départ. L\'itinéraire n\'a pas pu être créé.</string>
 	<string name="dialog_routing_select_closer_start">Choisissez un point de départ à proximité d\'une route.</string>
-	<string name="dialog_routing_change_end">Modifiez la destination</string>
+	<string name="dialog_routing_change_end">Ajustez la destination</string>
 	<string name="dialog_routing_end_not_determined">Impossible de localiser la destination. L\'itinéraire n\'a pas pu être créé.</string>
-	<string name="dialog_routing_select_closer_end">Choisissez une destination à proximité d\'une route.</string>
+	<string name="dialog_routing_select_closer_end">Choisissez un lieu de destination à proximité d\'une route.</string>
 	<string name="dialog_routing_change_intermediate">Impossible de localiser le point intermédiaire.</string>
 	<string name="dialog_routing_intermediate_not_determined">Veuillez modifier votre point intermédiaire</string>
 	<string name="dialog_routing_system_error">Erreur système</string>
 	<string name="dialog_routing_application_error">Impossible de créer l\'itinéraire à cause d\'une erreur dans l\'application.</string>
-	<string name="dialog_routing_try_again">Réessayer</string>
+	<string name="dialog_routing_try_again">Veuillez réessayer</string>
 	<string name="dialog_routing_download_and_build_cross_route">Voulez-vous télécharger la carte et créer un itinéraire plus direct s\'étendant sur plus d\'une carte?</string>
 	<string name="dialog_routing_download_cross_route">Téléchargez des cartes pour créer un itinéraire plus direct sortant des limites de cette carte.</string>
 
@@ -380,7 +382,7 @@
 	<string name="editor_time_add_closed">Ajouter les heures de fermeture</string>
 	<string name="editor_time_title">Heures d\'ouverture</string>
 	<string name="editor_time_advanced">Mode avancé</string>
-	<string name="editor_time_simple">Mode simple</string>
+	<string name="editor_time_simple">Mode simplifié</string>
 	<string name="editor_hours_closed">Heures de fermeture</string>
 	<string name="editor_example_values">Exemple de valeurs</string>
 	<string name="editor_correct_mistake">Corriger l\'erreur</string>
@@ -391,11 +393,11 @@
 	<string name="editor_report_problem_title">Problème</string>
 	<string name="editor_report_problem_no_place_title">Le lieu n\'existe pas</string>
 	<string name="editor_report_problem_under_construction_title">Fermé pour cause de maintenance</string>
-	<string name="editor_report_problem_duplicate_place_title">Lieu doublon</string>
+	<string name="editor_report_problem_duplicate_place_title">Lieu en doublon</string>
 	<string name="autodownload">Téléchargement automatique</string>
 	<!-- Place Page opening hours text -->
-	<string name="daily">Tous les jours</string>
-	<string name="twentyfour_seven">Jour et nuit</string>
+	<string name="daily">Quotidien</string>
+	<string name="twentyfour_seven">24/24 et 7/7</string>
 	<string name="day_off_today">Fermé aujourd\'hui</string>
 	<string name="day_off">Fermé</string>
 	<string name="today">Aujourd\'hui</string>
@@ -418,6 +420,8 @@
 	<string name="details">Détails</string>
 	<!-- Text field to enter non-existing street name, below list of known streets around -->
 	<string name="add_street">Ajouter une rue</string>
+	<!-- Error to display when a new street name is not entered in the New street dialog -->
+	<string name="empty_street_name_error">Veuillez entrer un nom de rue</string>
 	<string name="choose_language">Choisir une langue</string>
 	<string name="choose_street">Choisir une rue</string>
 	<string name="postal_code">Code postal</string>
@@ -442,8 +446,8 @@
 	<string name="editor_edit_place_name_hint">Nom du lieu</string>
 	<string name="editor_edit_place_category_title">Catégorie</string>
 	<string name="detailed_problem_description">Description détaillée du problème</string>
-	<string name="editor_report_problem_other_title">Un problème différent</string>
-	<string name="placepage_add_business_button">Ajouter une organisation</string>
+	<string name="editor_report_problem_other_title">Autre problème</string>
+	<string name="placepage_add_business_button">Ajouter une entreprise</string>
 	<string name="message_invalid_feature_position">Aucun objet ne peut être localisé ici</string>
 	<string name="osm_presentation">Toutes les données géographiques proviennent du projet OpenStreetMap. Le principe est similaire à Wikipedia: vous pouvez ajouter et modifier des lieux et ils deviendront accessibles à des millions d\'utilisateurs partout dans le monde.</string>
 	<string name="login_to_make_edits_visible">Connectez vous à votre compte openstreetmap.org pour que d\'autres utilisateurs puissent voir vos changements.</string>
@@ -456,7 +460,7 @@
 	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
 	<string name="error_enter_correct_storey_number">Le nombre d\'étages ne doit pas dépasser 25</string>
 	<string name="editor_zip_code">Code postal</string>
-	<string name="error_enter_correct_zip_code">Entrer le code postal correct</string>
+	<string name="error_enter_correct_zip_code">Entrer un code postal correct</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">Lieu inconnu</string>
 	<string name="editor_other_info">Informer les éditeurs OSM</string>
@@ -476,6 +480,8 @@
 	<string name="kilometer">km</string>
 	<string name="kilometers_per_hour">km/h</string>
 	<string name="mile">mi</string>
+	<!-- A unit of measure -->
+	<string name="foot">ft</string>
 	<string name="miles_per_hour">mph</string>
 	<string name="hour">h</string>
 	<string name="minute">min</string>
@@ -489,6 +495,8 @@
 	<string name="editor_remove_place_message">Supprimer le lieu ajouté ?</string>
 	<string name="editor_remove_place_button">Supprimer</string>
 	<string name="editor_place_doesnt_exist">Ce lieu n\'existe pas</string>
+	<!-- Error message for "Place doesn't exist" dialog when comment is empty -->
+	<string name="delete_place_empty_comment_error">Veuillez indiquer la raison pour laquelle vous effacez cet endroit</string>
 	<!-- Phone number error message -->
 	<string name="error_enter_correct_phone">Saisissez un numéro de téléphone valide</string>
 	<string name="error_enter_correct_web">Saisissez une adresse Internet valide</string>
@@ -497,11 +505,12 @@
 	<string name="error_enter_correct_instagram_page">Saisissez une adresse web, un nom de compte Instagram valide</string>
 	<string name="error_enter_correct_twitter_page">Saisissez une adresse web, un nom de compte Twitter valide</string>
 	<string name="error_enter_correct_vk_page">Saisissez une adresse web, un nom de compte VK valide</string>
+	<string name="error_enter_correct_line_page">Entrez une adresse web ou un ID de LINE valide</string>
 	<string name="placepage_add_place_button">Ajouter un lieu sur la carte</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Souhaitez-vous l’envoyer à tous les utilisateurs ?</string>
 	<!-- Dialog before publishing the modifications to the public map. -->
-	<string name="editor_share_to_all_dialog_message_1">Assurez-vous de n’avoir saisi aucunes données personnelles.</string>
+	<string name="editor_share_to_all_dialog_message_1">Assurez-vous de n’avoir pas saisi de données personnelles.</string>
 	<string name="editor_share_to_all_dialog_message_2">Les éditeurs d\'OpenStreetMap vérifieront vos modifications et vous contacteront s\'ils ont des questions.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps est une application de cartographie hors ligne gratuite et open source. Pas de pubs. Pas de localisation. Si vous voyez une erreur sur la carte, veuillez la corriger dans OpenStreetMap. Le projet est créé par des passionnés pendant notre temps libre, nous avons donc besoin de vos commentaires et de votre soutien.</string>
@@ -541,7 +550,7 @@
 	<string name="placepage_remove_stop">Supprimer</string>
 	<string name="placepage_add_stop">Ajouter un arrêt</string>
 	<string name="dialog_error_storage_title">Problème d\'accès au stockage</string>
-	<string name="dialog_error_storage_message">Le stockage externe n\'est pas disponible. La carte SD a probablement été enlevée, endommagée ou le système est en lecture seule. Veuillez vérifier et nous contacter via support\@organicmaps.app</string>
+	<string name="dialog_error_storage_message">Le stockage externe n\'est pas disponible. La carte SD a probablement été enlevée, endommagée ou le système est en lecture seule. Veuillez vérifier votre carte SD ou nous contacter via support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Émuler le mauvais stockage</string>
 	<string name="core_entrance">Entrée</string>
 	<string name="error_enter_correct_name">Veuillez entrer un nom correct</string>
@@ -560,17 +569,17 @@
 	<string name="bookmarks_new_list_hint">Nouvelle liste</string>
 	<string name="bookmarks_error_title_list_name_already_taken">Ce nom est déjà pris</string>
 	<string name="bookmarks_error_message_list_name_already_taken">Merci de choisir un autre nom</string>
-	<string name="please_wait">S\'il vous plaît, attendez…</string>
+	<string name="please_wait">Veuillez patienter…</string>
 	<string name="phone_number">Numéro de téléphone</string>
 	<string name="profile">Profil OpenStreetMap</string>
 	<plurals name="bookmarks_detect_message">
 	  <item quantity="one">%d fichier a été trouvé. Vous le verrez après la conversion.</item>
 	  <item quantity="other">%d fichiers ont été trouvés. Vous les verrez après la conversion.</item>
-	  <item quantity="zero">%d fichier a été trouvé. Vous le verrez après la conversion.</item>
 	</plurals>
 	<string name="common_check_internet_connection_dialog_title">Pas de connexion Internet</string>
 	<plurals name="objects">
-	  <item quantity="other">lieu %d</item>
+	  <item quantity="one">%d objet</item>
+	  <item quantity="other">%d objets</item>
 	</plurals>
 	<plurals name="places">
 	  <item quantity="one">%d lieu</item>
@@ -592,13 +601,13 @@
 	<string name="bookmarks_empty_list_title">Cette liste est vide</string>
 	<string name="bookmarks_empty_list_message">Pour ajouter un signet, appuyez sur un lieu sur la carte, puis appuyez sur l\'icône étoile</string>
 	<string name="category_desc_more">…plus</string>
-	<string name="export_file">Exporter comme fichier</string>
-	<string name="list_settings">Paramètres liste</string>
-	<string name="delete_list">Supprimer liste</string>
+	<string name="export_file">Exporter le fichier</string>
+	<string name="list_settings">Paramètres de la liste</string>
+	<string name="delete_list">Supprimer la liste</string>
 	<string name="public_access">Accès publique</string>
 	<string name="limited_access">Accès limité</string>
 	<string name="bookmark_list_description_hint">Tapez une description (texte ou html)</string>
-	<string name="not_shared">Personnel</string>
+	<string name="not_shared">Privé</string>
 	<string name="speedcams_alert_title">Radars de vitesse</string>
 	<string name="speedcam_option_auto">Auto</string>
 	<string name="speedcam_option_always">Toujours</string>
@@ -622,7 +631,7 @@
 	<string name="unable_to_calc_alert_title">Impossible de calculer l\'itinéraire</string>
 	<string name="unable_to_calc_alert_subtitle">Malheureusement, nous n\'avons pas pu créer l\'itinéraire avec les options sélectionnées. Modifiez les paramètres et réessayez</string>
 	<string name="define_to_avoid_btn">Définissez les routes à éviter</string>
-	<string name="change_driving_options_btn">Paramètres d\'itinéraire activées</string>
+	<string name="change_driving_options_btn">Paramètres d\'itinéraire activés</string>
 	<string name="toll_road">Route à péage</string>
 	<string name="unpaved_road">Routes non revêtues</string>
 	<string name="ferry_crossing">Traversées en ferry</string>
@@ -634,9 +643,9 @@
 	<!-- A generic "No" button in dialogs -->
 	<string name="no">Non</string>
 	<!-- E.g. "WiFi:Yes" -->
-	<string name="yes_available">Oui</string>
+	<string name="yes_available">oui</string>
 	<!-- E.g. "WiFi:No" -->
-	<string name="no_available">Non</string>
+	<string name="no_available">non</string>
 	<string name="ok">Ok</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Trier…</string>
@@ -679,7 +688,7 @@
 	<string name="dialog_pedestrian_route_is_long_header">Itinéraire de métro non trouvé</string>
 	<string name="dialog_pedestrian_route_is_long_message">Choisissez un point de départ ou d\'arrivée plus proche d\'une station de métro</string>
 	<string name="button_layer_isolines">Terrain</string>
-	<string name="isolines_activation_error_dialog">Pour utiliser les lignes d\'altitude, mettez à jour ou téléchargez la carte de l\'endroit désiré</string>
+	<string name="isolines_activation_error_dialog">Pour activer et utiliser la couche topographique, mettez à jour ou téléchargez la carte de l\'endroit désiré</string>
 	<string name="isolines_location_error_dialog">Les lignes d\'élévation ne sont pas encore disponibles dans cette région</string>
 	<string name="elevation_profile_ascent">Montée</string>
 	<string name="elevation_profile_descent">Descente</string>
@@ -691,18 +700,20 @@
 	<string name="isolines_toast_zooms_1_10">Zoomez pour voir les courbes de niveaux</string>
 	<string name="download_map_title">Télécharger la carte du monde</string>
 	<!-- Used in DownloadResources startup screen -->
-	<string name="disk_error">Impossible de créer un dossier et de déplacer des fichiers sur la mémoire interne de l\'appareil ou sur la carte SD</string>
+	<string name="disk_error">Impossible de créer un dossier et de déplacer les fichiers vers la mémoire interne de l\'appareil ou la carte SD</string>
+	<!-- Used in DownloadResources startup screen -->
+	<string name="disk_error_title">Erreur disque</string>
 	<!-- Used in DownloadResources startup screen -->
 	<string name="connection_failure">Erreur de connexion</string>
 	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable_title">Déconnectez le câble USB</string>
-	<string name="enable_screen_sleep">Autoriser l\'écran à dormir</string>
+	<string name="enable_screen_sleep">Autoriser l\'écran à se mettre en veille</string>
 	<!-- Description in preferences -->
-	<string name="enable_screen_sleep_description">Lorsqu\'il est activé, l\'écran sera autorisé à s\'éteindre après une période d\'inactivité.</string>
+	<string name="enable_screen_sleep_description">Lorsque ce paramètre est activé, l\'écran se mettra en veille après une période d\'inactivité.</string>
 	<!-- A preference title; keep short! -->
 	<string name="enable_show_on_lock_screen">Afficher sur l\'écran de verrouillage</string>
 	<!-- Description in preferences -->
-	<string name="enable_show_on_lock_screen_description">Lorsqu\'il est activé, vous n\'avez pas besoin de déverrouiller votre appareil à chaque fois quand l\'application fonctionne.</string>
+	<string name="enable_show_on_lock_screen_description">Lorsqu\'il est activé, vous n\'avez pas besoin de déverrouiller votre appareil à chaque fois que l\'application est en fonctionnement.</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">Données cartographiques d\'OpenStreetMap</string>
 

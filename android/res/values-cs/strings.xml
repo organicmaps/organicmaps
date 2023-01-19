@@ -151,7 +151,7 @@
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Právě probíhá stahování země.</string>
 	<!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-	<string name="my_position_share_sms">Koukni kde jsem. Otevři odkaz: %1$s nebo %2$s</string>
+	<string name="my_position_share_sms">Ahoj, zkoukni mojí lokaci v Organic Maps! %1$s nebo %2$s Nemáš offline mapy? Stáhni tady: https://omaps.app/get</string>
 	<!-- Subject for emailed bookmark -->
 	<string name="bookmark_share_email_subject">Koukni na moji značku na mapě v Organic Maps</string>
 	<!-- Subject for emailed position -->
@@ -211,7 +211,7 @@
 	<!-- Text in menu -->
 	<string name="website">Webové stránky</string>
 	<!-- Text in About menu, opens Organic Maps news website -->
-	<string name="news">Zprávy</string>
+	<string name="news">Novinky</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">Zpětná vazba</string>
 	<!-- Text in menu -->
@@ -484,7 +484,7 @@
 	<string name="editor_share_to_all_dialog_message_1">Ujistěte se, že jste nezadali žádná osobní data.</string>
 	<string name="editor_share_to_all_dialog_message_2">Redaktoři OpenStreetMap zkontrolují změny a budou vás kontaktovat, pokud budou mít nějaké dotazy.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
-	<string name="about_description">Organic Maps jsou bezplatná offline mapová aplikace s otevřeným zdrojovým kódem. Žádné reklamy. Žádné sledování. Pokud na mapě vidíte chybu, opravte ji v OpenStreetMap. Projekt vytvářejí nadšenci v našem volném čase, takže potřebujeme vaši zpětnou vazbu a podporu.</string>
+	<string name="about_description">Organic Maps je bezplatná offline mapová aplikace s otevřeným zdrojovým kódem. Žádné reklamy. Žádné sledování. Pokud na mapě uvidíte chybu, opravte ji v OpenStreetMap. Projekt vytvářejí nadšenci v našem volném čase, takže potřebujeme vaši zpětnou vazbu a podporu.</string>
 	<!-- For the first routing -->
 	<string name="accept">Přijmout</string>
 	<!-- For the first routing -->
@@ -495,7 +495,7 @@
 	<string name="mobile_data_option_not_today">Nepoužívat dnes</string>
 	<string name="mobile_data">Mobilní data</string>
 	<!-- NOTE to translators: please synchronize your translation with the English one. -->
-	<string name="mobile_data_description">K zobrazení podrobných informací o místech, jako jsou fotografie, ceny, a recenze je třeba mobilní internet.</string>
+	<string name="mobile_data_description">K zobrazení podrobných informací o místech, jako jsou fotografie, ceny a recenze je třeba mobilní internet.</string>
 	<string name="mobile_data_option_never">Nikdy nepoužívat</string>
 	<string name="mobile_data_option_ask">Vždy se zeptat</string>
 	<string name="traffic_update_maps_text">Ke zobrazení údajů o provozu musí být aktualizovány mapy.</string>
@@ -509,7 +509,7 @@
 	<string name="on">Zapnout</string>
 	<string name="off">Vypnout</string>
 	<string name="prefs_languages_information">Pro hlasové pokyny používáme systém TTS. Mnoho zařízení se systémem Android používá Google TTS, můžete si ho stáhnout nebo aktualizovat na Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">U některých jazyků je třeba nainstalovat jiný hlasový syntetizátor nebo další jazykové sady z obchodu s aplikacemi (Google Play, Galaxy Store, App Gallery, FDroid).\nOtevřete zařízení → Nastavení jazyka a zadávání → Hlasitost → Převod textu na řeč. \nZde můžete spravovat nastavení pro syntézu řeči (například stáhnout jazykový balíček pro použití offline) a vybrat jiný modul převodu textu na řeč.</string>
+	<string name="prefs_languages_information_off">U některých jazyků je třeba nainstalovat jiný hlasový syntetizátor nebo další jazykové sady z obchodu s aplikacemi (Google Play, Galaxy Store, App Gallery, FDroid).\nOtevřete nastavení vašeho zařízení → Jazyky a zadávání → Hlasové zadávání → Převod textu na řeč. \nZde můžete spravovat nastavení pro syntézu řeči (například stáhnout jazykový balíček pro použití offline) a vybrat jiný modul převodu textu na řeč.</string>
 	<string name="prefs_languages_information_off_link">Více informací najdete v tomto návodu.</string>
 	<string name="transliteration_title">Přepis do latinky</string>
 	<string name="learn_more">Zjistit více</string>
@@ -572,7 +572,7 @@
 	<string name="bookmarks_empty_list_message">Pro přidání nové značky klikněte na symbol hvězdičky na obrázku objektu</string>
 	<string name="category_desc_more">…ještě</string>
 	<string name="export_file">Exportovat soubor</string>
-	<string name="list_settings">Nástroje seznamu</string>
+	<string name="list_settings">Nastavení seznamu</string>
 	<string name="delete_list">Smazat seznam</string>
 	<string name="public_access">Veřejně přístupné</string>
 	<string name="limited_access">Soukromé</string>
@@ -590,7 +590,7 @@
 	<string name="power_managment_setting_never">Nikdy nepoužívat</string>
 	<string name="power_managment_setting_auto">Automatický</string>
 	<string name="power_managment_setting_manual_max">Maximální šetření baterií</string>
-	<string name="enable_logging_warning_message">Tato možnost zapne odesílání dat za účelem diagnostiky. To nám pomáhá při řešení problémů s aplikací. Zapněte tuto možnost pro dočasné nahrávání a odesílání logů našemu týmu o vašem problému.</string>
+	<string name="enable_logging_warning_message">Možnost zapne odesílání dat za diagnostickými účely. To nám pomáhá při řešení problémů s aplikací. Dočasně povolte pro nahrávání a odesílání logů našemu týmu o vašem problému.</string>
 	<string name="access_rules_author_only">Upravujte on-line</string>
 	<string name="driving_options_title">Možnosti trasy</string>
 	<string name="driving_options_subheader">Vyhněte se na každé trase</string>
@@ -674,9 +674,11 @@
 	<!-- A preference title; keep short! -->
 	<string name="enable_show_on_lock_screen">Zobrazit na uzamčené obrazovce</string>
 	<!-- Description in preferences -->
-	<string name="enable_show_on_lock_screen_description">Pokud je funkce povolena, nemusíte při spuštěné aplikaci pokaždé odemykat zařízení.</string>
+	<string name="enable_show_on_lock_screen_description">Pokud je funkce povolena, nemusíte pokaždé odemykat zařízení při spuštěné aplikaci.</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">Mapová data z OpenStreetMap</string>
+	<!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
+	<string name="translated_om_site_url">https://organicmaps.app/cs/</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stanice lanové dráhy</string>
