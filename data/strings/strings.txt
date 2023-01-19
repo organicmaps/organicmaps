@@ -3969,7 +3969,7 @@
     eu = OpenStreetMap datuak: %@
     fa = OpenStreetMap: %@ ﯼﺎﻫ ﻩﺩﺍﺩ
     fi = OpenStreetMap-tiedot: %@
-    fr = Données OpenStreetMap: %@
+    fr = Données OpenStreetMap : %@
     he = OpenStreetMap: %@ ינותנ
     hu = OpenStreetMap adatok: %@
     id = Data OpenStreetMap: %@
