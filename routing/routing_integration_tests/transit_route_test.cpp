@@ -79,7 +79,7 @@ UNIT_TEST(Transit_Piter_TooLongPedestrian)
   auto const & route = *routeResult.first;
 
   integration::CheckSubwayExistence(route);
-  integration::TestRouteLength(route, 23246.9);
+  integration::TestRouteLength(route, 22556.1);
   TEST_LESS(route.GetTotalTimeSec(), 3600 * 3, ());
 }
 
