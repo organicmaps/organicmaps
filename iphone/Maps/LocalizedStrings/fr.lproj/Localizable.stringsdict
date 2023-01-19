@@ -19,6 +19,8 @@
       <string>NSStringPluralRuleType</string>
       <key>NSStringFormatValueTypeKey</key>
       <string>d</string>
+      <key>one</key>
+      <string>%d signet</string>
       <key>other</key>
       <string>%d signets</string>
     </dict>
@@ -38,8 +40,6 @@
       <string>%d fichier a été trouvé. Vous le verrez après la conversion.</string>
       <key>other</key>
       <string>%d fichiers ont été trouvés. Vous les verrez après la conversion.</string>
-      <key>zero</key>
-      <string>%d fichier a été trouvé. Vous le verrez après la conversion.</string>
     </dict>
   </dict>
 
@@ -53,8 +53,10 @@
       <string>NSStringPluralRuleType</string>
       <key>NSStringFormatValueTypeKey</key>
       <string>d</string>
+      <key>one</key>
+      <string>%d objet</string>
       <key>other</key>
-      <string>lieu %d</string>
+      <string>%d objets</string>
     </dict>
   </dict>
 
