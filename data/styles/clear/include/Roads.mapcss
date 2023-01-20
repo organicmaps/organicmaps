@@ -1034,7 +1034,6 @@ line|z17-[highway=footway][tunnel?]::tunnelBackground,
 line|z17-[highway=path][tunnel?]::tunnelBackground,
 {
   casing-width-add: 0.5;
-  casing-linecap: butt;
   casing-color: @bridge_background;
 }
 
@@ -1042,34 +1041,21 @@ line|z17-[highway=footway][tunnel?]::tunnelCasing,
 line|z17-[highway=path][tunnel?]::tunnelCasing,
 {
   casing-width-add: 1;
-  casing-linecap: butt;
   casing-color: @bridge_casing;
   casing-dashes: 2,2;
 }
-
 
 line|z17-[highway=steps][tunnel?]::tunnelBackground,
 {
-  casing-width: 3.5;
-  casing-linecap: butt;
+  casing-width: 0.5;
   casing-color: @bridge_background;
 }
-line|z18[highway=steps][tunnel?]::tunnelBackground,
-{casing-width: 4.5;}
-line|z19[highway=steps][tunnel?]::tunnelBackground,
-{casing-width: 5.5;}
-
 line|z17-[highway=steps][tunnel?]::tunnelCasing,
 {
-  casing-width: 4;
-  casing-linecap: butt;
+  casing-width: 1;
   casing-color: @bridge_casing;
   casing-dashes: 2,2;
 }
-line|z18[highway=steps][tunnel?]::tunnelCasing,
-{casing-width: 5;}
-line|z19[highway=steps][tunnel?]::tunnelCasing,
-{casing-width: 6;}
 
 /* 8.9 Bridleway 14-22 ZOOM */
 
@@ -1224,7 +1210,6 @@ line|z16[railway][bridge?]::bridgewhite,
 {casing-width-add: 1.2;}
 line|z17-[railway][bridge?]::bridgewhite,
 {casing-width-add: 1.4;}
-/* pastk: remove specifics? */
 line|z18-[railway=rail][bridge?]::bridgewhite,
 line|z18-[railway=subway][bridge?]::bridgewhite,
 line|z18-[railway=light_rail][bridge?]::bridgewhite,
