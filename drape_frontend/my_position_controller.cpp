@@ -10,6 +10,7 @@
 #include "geometry/mercator.hpp"
 
 #include "platform/measurement_utils.hpp"
+#include "platform/settings.hpp"
 
 #include "base/math.hpp"
 
@@ -23,19 +24,21 @@ namespace df
 {
 namespace
 {
-int const kPositionRoutingOffsetY = 104;
-double const kMinSpeedThresholdMps = 2.8;  // 10 km/h
-double const kGpsBearingLifetimeSec = 5.0;
-double const kMaxPendingLocationTimeSec = 60.0;
-double const kMaxTimeInBackgroundSec = 60.0 * 60 * 30;  // 30 hours before starting detecting position again
-double const kMaxNotFollowRoutingTimeSec = 20.0;
-double const kMaxUpdateLocationInvervalSec = 30.0;
-double const kMaxBlockAutoZoomTimeSec = 10.0;
+int constexpr kPositionRoutingOffsetY = 104;
+double constexpr kMinSpeedThresholdMps = 2.8;  // 10 km/h
+double constexpr kGpsBearingLifetimeSec = 5.0;
+double constexpr kMaxPendingLocationTimeSec = 60.0;
+double constexpr kMaxTimeInBackgroundSec = 60.0 * 60 * 30;  // 30 hours before starting detecting position again
+double constexpr kMaxNotFollowRoutingTimeSec = 20.0;
+double constexpr kMaxUpdateLocationInvervalSec = 30.0;
+double constexpr kMaxBlockAutoZoomTimeSec = 10.0;
 
-int const kZoomThreshold = 10;
-int const kMaxScaleZoomLevel = 16;
-int const kDefaultAutoZoom = 16;
-double const kUnknownAutoZoom = -1.0;
+int constexpr kZoomThreshold = 10;
+int constexpr kMaxScaleZoomLevel = 16;
+int constexpr kDefaultAutoZoom = 16;
+double constexpr kUnknownAutoZoom = -1.0;
+
+std::string const kLastNavPositionMode = "LastNavPositionMode";
 
 inline int GetZoomLevel(ScreenBase const & screen)
 {
@@ -350,17 +353,19 @@ void MyPositionController::ResetRenderShape()
 
 void MyPositionController::NextMode(ScreenBase const & screen)
 {
+  using namespace location;
+
   // Skip switching to next mode while we are waiting for position.
   if (IsWaitingForLocation())
   {
-    m_desiredInitMode = location::Follow;
+    m_desiredInitMode = Follow;
     return;
   }
 
   // Start looking for location.
-  if (m_mode == location::NotFollowNoPosition)
+  if (m_mode == NotFollowNoPosition)
   {
-    ChangeMode(location::PendingPosition);
+    ChangeMode(PendingPosition);
 
     if (!m_isPositionAssigned)
     {
@@ -380,30 +385,46 @@ void MyPositionController::NextMode(ScreenBase const & screen)
   // In routing not-follow -> follow-and-rotate, otherwise not-follow -> follow.
   if (m_mode == location::NotFollow)
   {
-    ChangeMode(m_isInRouting ? location::FollowAndRotate : location::Follow);
+    if (m_isInRouting)
+    {
+      // Restore previous "north is up" mode if necessary.
+      EMyPositionMode lastNavPositionMode = FollowAndRotate;
+      if (settings::Get(kLastNavPositionMode, lastNavPositionMode) && lastNavPositionMode == Follow)
+        ChangeMode(Follow);
+      else
+        ChangeMode(FollowAndRotate);
+    }
+    else
+      ChangeMode(Follow);
     UpdateViewport(preferredZoomLevel);
     return;
   }
 
   // From follow mode we transit to follow-and-rotate if compass is available or
   // routing is enabled.
-  if (m_mode == location::Follow)
+  if (m_mode == Follow)
   {
     if (IsRotationAvailable() || m_isInRouting)
     {
-      ChangeMode(location::FollowAndRotate);
+      ChangeMode(FollowAndRotate);
       UpdateViewport(preferredZoomLevel);
+      // Save new nav position mode.
+      if (m_isInRouting)
+        settings::Set(kLastNavPositionMode, FollowAndRotate);
     }
     return;
   }
 
   // From follow-and-rotate mode we can transit to follow mode.
-  if (m_mode == location::FollowAndRotate)
+  if (m_mode == FollowAndRotate)
   {
     if (m_isInRouting && screen.isPerspective())
       preferredZoomLevel = static_cast<int>(GetZoomLevel(ScreenBase::GetStartPerspectiveScale() * 1.1));
-    ChangeMode(location::Follow);
+    ChangeMode(Follow);
     ChangeModelView(m_position, 0.0, m_visiblePixelRect.Center(), preferredZoomLevel);
+    // Save new nav position mode.
+    if (m_isInRouting)
+      settings::Set(kLastNavPositionMode, Follow);
   }
 }
 
@@ -879,7 +900,14 @@ void MyPositionController::ActivateRouting(int zoomLevel, bool enableAutoZoom, b
     m_isArrowGluedInRouting = isArrowGlued;
     m_enableAutoZoomInRouting = enableAutoZoom;
 
-    ChangeMode(location::FollowAndRotate);
+    // Many users prefer navigation in "north is always up" mode. So we restore it if it was used before.
+    using namespace location;
+    EMyPositionMode lastNavPositionMode = FollowAndRotate;
+    if (settings::Get(kLastNavPositionMode, lastNavPositionMode) && lastNavPositionMode == Follow)
+      ChangeMode(Follow);
+    else
+      ChangeMode(FollowAndRotate);
+
     ChangeModelView(m_position, m_isDirectionAssigned ? m_drawDirection : 0.0,
                     GetRoutingRotationPixelCenter(), zoomLevel,
                     [this](ref_ptr<Animation> anim)
