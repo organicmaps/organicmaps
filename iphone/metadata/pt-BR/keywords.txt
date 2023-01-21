@@ -1,1 +1,0 @@
-mapa,andar,rota,ciclismo,openstreetmap,osm,nav,metro,trem,caminhada,direção,carro,privacidade,cidade
