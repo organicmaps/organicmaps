@@ -279,11 +279,11 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     mFrame.setOnClickListener((v) -> mPlacePageViewListener.onPlacePageRequestToggleState());
 
     mPreview = mFrame.findViewById(R.id.pp__preview);
-    mPreview.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
+    mFrame.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
       final int oldHeight = oldBottom - oldTop;
       final int newHeight = bottom - top;
       if (oldHeight != newHeight)
-        mPlacePageViewListener.onPlacePageContentChanged(newHeight);
+        mPlacePageViewListener.onPlacePageContentChanged(mPreview.getHeight(), newHeight);
     });
     mTvTitle = mPreview.findViewById(R.id.tv__title);
     mTvTitle.setOnLongClickListener(this);
@@ -1366,7 +1366,6 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
       updateBookmarkButton();
       refreshViews();
     }
-    mPlacePageViewListener.onPlacePageContentChanged(mPreview.getHeight());
   }
 
   @Override
@@ -1423,7 +1422,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   public interface PlacePageViewListener
   {
     // Called when the content has actually changed and we are ready to compute the peek height
-    void onPlacePageContentChanged(int previewHeight);
+    void onPlacePageContentChanged(int previewHeight, int frameHeight);
 
     void onPlacePageRequestClose();
 

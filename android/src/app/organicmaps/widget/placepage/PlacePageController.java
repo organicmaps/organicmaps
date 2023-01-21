@@ -51,19 +51,25 @@ public class PlacePageController implements Initializable<Activity>,
   private final BottomSheetBehavior<View> mPlacePageBehavior;
   @NonNull
   private final NestedScrollViewClickFixed mPlacePage;
+  @NonNull
+  private final ViewGroup mPlacePageContainer;
   private final ViewGroup mCoordinator;
   private final int mViewportMinHeight;
   private final AppCompatActivity mMwmActivity;
-  private final float mButtonsHeight;
+  private final int mButtonsHeight;
   private final int mMaxButtons;
   private final PlacePageViewModel viewModel;
   private int mPreviewHeight;
+  private int mFrameHeight;
   private boolean mDeactivateMapSelection = true;
   @Nullable
   private MapObject mMapObject;
   private WindowInsets mCurrentWindowInsets;
 
   private boolean mShouldCollapse;
+  private int mDistanceToTop;
+
+  private ValueAnimator mCustomPeekHeightAnimator;
 
   @SuppressLint("ClickableViewAccessibility")
   public PlacePageController(@Nullable Activity activity,
@@ -77,6 +83,7 @@ public class PlacePageController implements Initializable<Activity>,
     Resources res = activity.getResources();
     mViewportMinHeight = res.getDimensionPixelSize(R.dimen.viewport_min_height);
     mPlacePage = activity.findViewById(R.id.placepage);
+    mPlacePageContainer = activity.findViewById(R.id.placepage_container);
     mPlacePageBehavior = BottomSheetBehavior.from(mPlacePage);
 
     mShouldCollapse = true;
@@ -98,11 +105,14 @@ public class PlacePageController implements Initializable<Activity>,
       @Override
       public void onSheetCollapsed()
       {
+        // No op.
       }
 
       @Override
       public void onSheetSliding(int top)
       {
+        stopCustomPeekHeightAnimation();
+        mDistanceToTop = top;
         mSlideListener.onPlacePageSlide(top);
       }
 
@@ -117,12 +127,13 @@ public class PlacePageController implements Initializable<Activity>,
     mPlacePageBehavior.setHideable(true);
     mPlacePageBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
     mPlacePageBehavior.setFitToContents(true);
+    mPlacePageBehavior.setSkipCollapsed(true);
 
     UiUtils.bringViewToFrontOf(activity.findViewById(R.id.pp_buttons_fragment), mPlacePage);
 
     mPlacePage.requestApplyInsets();
 
-    mButtonsHeight = mMwmActivity.getResources().getDimension(R.dimen.place_page_buttons_height);
+    mButtonsHeight = (int)  mMwmActivity.getResources().getDimension(R.dimen.place_page_buttons_height);
     mMaxButtons = mMwmActivity.getResources().getInteger(R.integer.pp_buttons_max);
     viewModel = new ViewModelProvider(mMwmActivity).get(PlacePageViewModel.class);
 
@@ -132,12 +143,22 @@ public class PlacePageController implements Initializable<Activity>,
     });
   }
 
+  private void stopCustomPeekHeightAnimation()
+  {
+    if (mCustomPeekHeightAnimator != null && mCustomPeekHeightAnimator.isStarted())
+    {
+      mCustomPeekHeightAnimator.end();
+      setPlacePageHeightBounds();
+    }
+  }
+
   private void onHiddenInternal()
   {
     if (mDeactivateMapSelection)
       Framework.nativeDeactivatePopup();
     mDeactivateMapSelection = true;
     PlacePageUtils.moveViewportUp(mPlacePage, mViewportMinHeight);
+    resetPlacePageHeightBounds();
     viewModel.setMapObject(null);
   }
 
@@ -175,49 +196,78 @@ public class PlacePageController implements Initializable<Activity>,
     viewModel.setMapObject(mapObject);
   }
 
+  private void resetPlacePageHeightBounds()
+  {
+    mPlacePageContainer.setMinimumHeight(0);
+    final int parentHeight = ((View) mPlacePage.getParent()).getHeight();
+    mPlacePageBehavior.setMaxHeight(parentHeight);
+  }
+
+  private void setPlacePageHeightBounds()
+  {
+    // Set the minimum height of the place page to prevent jumps when new data results in SMALLER content
+    // This cannot be set on the place page itself as it has the fitToContent property set
+    mPlacePageContainer.setMinimumHeight(mFrameHeight);
+    // Set the maximum height of the place page to prevent jumps when new data results in BIGGER content
+    // It does not take into account the navigation bar height so we need to add it manually
+    mPlacePageBehavior.setMaxHeight(mFrameHeight + mCurrentWindowInsets.getSystemWindowInsetBottom());
+  }
+
   private void setPeekHeight()
   {
     final int peekHeight = calculatePeekHeight();
-    if (peekHeight == mPlacePageBehavior.getPeekHeight() || mMapObject == null)
+    if (mMapObject == null)
       return;
 
-    // Make sure the place page is big enough to reach the peek height
-    // As the place page itself is set to fit the content,
-    // We must set the minimum height to its children
-    mPlacePage.getChildAt(0).setMinimumHeight(peekHeight);
-
-    final boolean shouldAnimate = PlacePageUtils.isCollapsedState(mPlacePageBehavior.getState());
+    final int state = mPlacePageBehavior.getState();
+    final boolean shouldAnimate = !PlacePageUtils.isHiddenState(state);
     if (shouldAnimate)
       animatePeekHeight(peekHeight);
     else
+    {
       mPlacePageBehavior.setPeekHeight(peekHeight);
+      setPlacePageHeightBounds();
+    }
   }
 
   private void animatePeekHeight(int peekHeight)
   {
     // Using the animate param in setPeekHeight does not work when adding removing fragments
-    // from inside the place page so we manually animate the peek height
-    final int viewHeight = ((View) mPlacePage.getParent()).getHeight();
-    ValueAnimator anim = ValueAnimator.ofInt(mPlacePageBehavior.getPeekHeight(), peekHeight);
-    anim.setInterpolator(new FastOutSlowInInterpolator());
-    anim.addUpdateListener(valueAnimator -> {
+    // from inside the place page so we manually animate the peek height with ValueAnimator
+
+    // Make sure to start from the current height of the place page
+    final int parentHeight = ((View) mPlacePage.getParent()).getHeight();
+    // Make sure to remove the navbar height because the peek height already takes it into account
+    int initialHeight = parentHeight - mDistanceToTop - mCurrentWindowInsets.getSystemWindowInsetBottom();
+
+    if (mCustomPeekHeightAnimator != null)
+      mCustomPeekHeightAnimator.cancel();
+    mCustomPeekHeightAnimator = ValueAnimator.ofInt(initialHeight, peekHeight);
+    mCustomPeekHeightAnimator.setInterpolator(new FastOutSlowInInterpolator());
+    mCustomPeekHeightAnimator.addUpdateListener(valueAnimator -> {
       int value = (Integer) valueAnimator.getAnimatedValue();
+      // Make sure the place page can reach the animated peek height to prevent jumps
+      // maxHeight does not take the navbar height into account so we manually add it
+      mPlacePageBehavior.setMaxHeight(value + mCurrentWindowInsets.getSystemWindowInsetBottom());
       mPlacePageBehavior.setPeekHeight(value);
-      // The place page is not firing the slide callbacks when using this animation,
-      // so we must call them manually
-      mSlideListener.onPlacePageSlide(viewHeight - value - mCurrentWindowInsets.getSystemWindowInsetBottom());
+      // The place page is not firing the slide callbacks when using this animation, so we must call them manually
+      mDistanceToTop = parentHeight - value - mCurrentWindowInsets.getSystemWindowInsetBottom();
+      mSlideListener.onPlacePageSlide(mDistanceToTop);
       if (value == peekHeight)
+      {
         PlacePageUtils.moveViewportUp(mPlacePage, mViewportMinHeight);
+        setPlacePageHeightBounds();
+      }
     });
-    anim.setDuration(150);
-    anim.start();
+    mCustomPeekHeightAnimator.setDuration(100);
+    mCustomPeekHeightAnimator.start();
   }
 
   private int calculatePeekHeight()
   {
     if (mMapObject != null && mMapObject.getOpeningMode() == MapObject.OPENING_MODE_PREVIEW_PLUS)
       return (int) (mCoordinator.getHeight() * PREVIEW_PLUS_RATIO);
-    return (int) (mPreviewHeight + mButtonsHeight);
+    return mPreviewHeight + mButtonsHeight;
   }
 
   public void close(boolean deactivateMapSelection)
@@ -247,15 +297,14 @@ public class PlacePageController implements Initializable<Activity>,
   }
 
   @Override
-  public void onPlacePageContentChanged(int previewHeight)
+  public void onPlacePageContentChanged(int previewHeight, int frameHeight)
   {
     mPreviewHeight = previewHeight;
-    mPlacePage.post(() -> {
-      setPeekHeight();
-      if (mShouldCollapse && mMapObject != null && !PlacePageUtils.isCollapsedState(mPlacePageBehavior.getState()))
-        mPlacePageBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-      mShouldCollapse = false;
-    });
+    mFrameHeight = frameHeight;
+    setPeekHeight();
+    if (mShouldCollapse && mMapObject != null && !PlacePageUtils.isCollapsedState(mPlacePageBehavior.getState()))
+      mPlacePageBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+    mShouldCollapse = false;
   }
 
   @Override
@@ -269,10 +318,11 @@ public class PlacePageController implements Initializable<Activity>,
   {
     @BottomSheetBehavior.State
     int state = mPlacePageBehavior.getState();
-    if (PlacePageUtils.isCollapsedState(state))
+    stopCustomPeekHeightAnimation();
+    if (PlacePageUtils.isExpandedState(state))
+      mPlacePageBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+    else
       mPlacePageBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-    else if (PlacePageUtils.isExpandedState(state))
-      mPlacePageBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
   }
 
   @Override
