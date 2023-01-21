@@ -182,6 +182,7 @@ def check_ios():
     ok = True
     for locale in APPSTORE_LOCALES:
         locale_dir = os.path.join('iphone', 'metadata', locale)
+        english_dir = os.path.join('iphone', 'metadata', 'en-US')
         overlay_dir = os.path.join('keywords', 'ios', locale)
         if not os.path.isdir(locale_dir):
             os.mkdir(locale_dir)
@@ -189,11 +190,12 @@ def check_ios():
                         "description.txt", "release_notes.txt", "keywords.txt",
                         "support_url.txt", "marketing_url.txt", "privacy_url.txt"]:
             overlay_path = os.path.join(overlay_dir, name)
+            english_path = os.path.join(english_dir, name)
             target_path = os.path.join(locale_dir, name)
             if os.path.exists(overlay_path):
                 shutil.copy(overlay_path, target_path)
             elif not os.path.exists(target_path) and locale != 'en-US':
-                os.symlink(os.path.join('..', 'en-US', name), target_path)
+                shutil.copy(english_path, target_path)
 
     for locale in glob.glob('iphone/metadata/*/'):
         if locale.split('/')[-2] not in APPSTORE_LOCALES:

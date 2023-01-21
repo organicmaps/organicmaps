@@ -1,1 +1,1 @@
-../en-US/privacy_url.txt
+https://organicmaps.app/privacy
