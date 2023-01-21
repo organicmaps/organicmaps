@@ -57,11 +57,16 @@
     android:layout_height="wrap_content"
     style="?attr/bottomSheetStyle"
     android:fillViewport="true"
-    app:layout_behavior="@string/placepage_behavior"  >
-    <androidx.fragment.app.FragmentContainerView
-      android:id="@+id/placepage_fragment"
+    app:layout_behavior="@string/placepage_behavior" >
+    <RelativeLayout
+      android:id="@+id/placepage_container"
       android:layout_width="match_parent"
-      android:layout_height="match_parent" />
+      android:layout_height="wrap_content">
+      <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/placepage_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    </RelativeLayout>
   </androidx.core.widget.NestedScrollViewClickFixed>
   <androidx.fragment.app.FragmentContainerView
     android:id="@+id/pp_buttons_fragment"
