@@ -6,6 +6,7 @@
 import os
 import sys
 import glob
+import shutil
 from urllib.parse import urlparse
 
 os.chdir(os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", ".."))
@@ -176,8 +177,24 @@ def check_android():
             ok = check_text(locale + "default.txt", 500) and ok
     return ok
 
+
 def check_ios():
     ok = True
+    for locale in APPSTORE_LOCALES:
+        locale_dir = os.path.join('iphone', 'metadata', locale)
+        overlay_dir = os.path.join('keywords', 'ios', locale)
+        if not os.path.isdir(locale_dir):
+            os.mkdir(locale_dir)
+        for name in ["name.txt", "subtitle.txt", "promotional_text.txt",
+                        "description.txt", "release_notes.txt", "keywords.txt",
+                        "support_url.txt", "marketing_url.txt", "privacy_url.txt"]:
+            overlay_path = os.path.join(overlay_dir, name)
+            target_path = os.path.join(locale_dir, name)
+            if os.path.exists(overlay_path):
+                shutil.copy(overlay_path, target_path)
+            elif not os.path.exists(target_path) and locale != 'en-US':
+                os.symlink(os.path.join('..', 'en-US', name), target_path)
+
     for locale in glob.glob('iphone/metadata/*/'):
         if locale.split('/')[-2] not in APPSTORE_LOCALES:
             ok = error(locale, "unsupported locale") and ok
@@ -187,10 +204,15 @@ def check_ios():
         ok = check_text(locale + "promotional_text.txt", 170) and ok
         ok = check_text(locale + "description.txt", 4000) and ok
         ok = check_text(locale + "release_notes.txt", 4000) and ok
-        ok = check_text(locale + "keywords.txt", 100) and ok
+        if os.path.exists(locale + "keywords.txt"):
+           ok = check_text(locale + "keywords.txt", 100) and ok
         ok = check_url(locale + "support_url.txt") and ok
         ok = check_url(locale + "marketing_url.txt") and ok
         ok = check_url(locale + "privacy_url.txt") and ok
+    for locale in glob.glob('keywords/ios/*/'):
+        if locale.split('/')[-2] not in APPSTORE_LOCALES:
+            ok = error(locale, "unsupported locale") and ok
+            continue
     return ok
 
 if __name__ == "__main__":

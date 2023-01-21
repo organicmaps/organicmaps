@@ -1,1 +1,0 @@
-mapa,roaming,trasa,cyklistika,openstreetmap,osm,navigace,metro,turistika,směry,auto,soukromí,město
