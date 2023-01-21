@@ -84,6 +84,7 @@ public final class Editor
     nativeSetMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER.toInt(), phone);
   }
   public static native int nativeGetStars();
+  public static native int nativeGetMaxEditableBuildingLevels();
   public static String nativeGetBuildingLevels()
   {
     return nativeGetMetadata(Metadata.MetadataType.FMD_BUILDING_LEVELS.toInt());
