@@ -125,6 +125,12 @@ Java_app_organicmaps_editor_Editor_nativeGetStars(JNIEnv * env, jclass)
   return g_editableMapObject.GetStars();
 }
 
+JNIEXPORT jint JNICALL
+Java_app_organicmaps_editor_Editor_nativeGetMaxEditableBuildingLevels(JNIEnv *, jclass)
+{
+  return osm::EditableMapObject::kMaximumLevelsEditableByUsers;
+}
+
 JNIEXPORT jboolean JNICALL
 Java_app_organicmaps_editor_Editor_nativeHasWifi(JNIEnv *, jclass)
 {

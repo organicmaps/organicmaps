@@ -1,5 +1,6 @@
 package app.organicmaps.editor;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -39,6 +40,7 @@ import app.organicmaps.util.Graphics;
 import app.organicmaps.util.InputUtils;
 import app.organicmaps.util.Option;
 import app.organicmaps.util.StringUtils;
+import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 
@@ -177,7 +179,13 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
       @Override
       public void onTextChanged(CharSequence s, int start, int before, int count)
       {
-        UiUtils.setInputError(mInputBuildingLevels, Editor.nativeIsLevelValid(s.toString()) ? 0 : R.string.error_enter_correct_storey_number);
+        final Context context = mInputBuildingLevels.getContext();
+        final EditText editText = mInputBuildingLevels.getEditText();
+        final boolean isValid = Editor.nativeIsLevelValid(s.toString());
+        mInputBuildingLevels.setError(isValid ? null
+            : context.getString(R.string.error_enter_correct_storey_number, Editor.nativeGetMaxEditableBuildingLevels()));
+        editText.setTextColor(isValid ? ThemeUtils.getColor(context, android.R.attr.textColorPrimary)
+            : context.getResources().getColor(R.color.base_red));
       }
     });
 
@@ -422,7 +430,8 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
     // Details
     mBlockLevels = view.findViewById(R.id.block_levels);
-    mBuildingLevels = findInputAndInitBlock(mBlockLevels, 0, getString(R.string.editor_storey_number, 25));
+    mBuildingLevels = findInputAndInitBlock(mBlockLevels, 0,
+        getString(R.string.editor_storey_number, Editor.nativeGetMaxEditableBuildingLevels()));
     mBuildingLevels.setInputType(InputType.TYPE_CLASS_NUMBER);
     mInputBuildingLevels = mBlockLevels.findViewById(R.id.custom_input);
     View blockPhone = view.findViewById(R.id.block_phone);
