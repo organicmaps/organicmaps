@@ -3,10 +3,7 @@
 #include "base/checked_cast.hpp"
 
 #include <algorithm>
-#include <cstring>       // for memcpy
 #include <iterator>
-#include <type_traits>
-#include <utility>
 #include <vector>
 
 // Calls swap() function using argument dependant lookup.

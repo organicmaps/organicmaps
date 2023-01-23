@@ -12,6 +12,7 @@
 #include "base/string_utils.hpp"
 
 #include <cmath>
+#include <cstring>    // strstr
 #include <iomanip>
 #include <sstream>
 

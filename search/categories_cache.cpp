@@ -1,7 +1,6 @@
 #include "search/categories_cache.hpp"
 
 #include "search/mwm_context.hpp"
-#include "search/query_params.hpp"
 #include "search/retrieval.hpp"
 
 #include "indexer/classificator.hpp"
@@ -9,12 +8,12 @@
 #include "indexer/search_string_utils.hpp"
 
 #include "base/assert.hpp"
-#include "base/levenshtein_dfa.hpp"
 
-using namespace std;
 
 namespace search
 {
+using namespace std;
+
 // CategoriesCache ---------------------------------------------------------------------------------
 CBV CategoriesCache::Get(MwmContext const & context)
 {
