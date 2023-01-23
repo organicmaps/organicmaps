@@ -999,6 +999,8 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
       if (needToShowRoutingButtons)
         buttons.add(PlacePageButtons.ButtonType.ROUTE_FROM);
 
+      // If we can show the add route button, put it in the place of the bookmark button
+      // And move the bookmark button at the end
       if (needToShowRoutingButtons && RoutingController.get().isStopPointAllowed())
         buttons.add(PlacePageButtons.ButtonType.ROUTE_ADD);
       else
@@ -1009,9 +1011,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
       if (needToShowRoutingButtons)
       {
         buttons.add(PlacePageButtons.ButtonType.ROUTE_TO);
-        if (!RoutingController.get().isStopPointAllowed())
-          buttons.add(PlacePageButtons.ButtonType.ROUTE_ADD);
-        else
+        if (RoutingController.get().isStopPointAllowed())
           buttons.add(mapObject.getMapObjectType() == MapObject.BOOKMARK
                       ? PlacePageButtons.ButtonType.BOOKMARK_DELETE
                       : PlacePageButtons.ButtonType.BOOKMARK_SAVE);
