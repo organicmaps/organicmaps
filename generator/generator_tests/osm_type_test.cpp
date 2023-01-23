@@ -210,7 +210,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Address)
       {"addr:housenumber", "41"},
       {"addr:postcode", "8050"},
       {"addr:street", "Leutschenbachstrasse"},
-      {"entrance", "main"},
+      {"entrance", "home"},
       {"survey:date", "2020-12-17"},
       {"wheelchair", "no"},
     };
