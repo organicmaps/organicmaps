@@ -62,7 +62,6 @@ public class PlacePageController implements Initializable<Activity>,
   private int mPreviewHeight;
   private int mFrameHeight;
   private boolean mDeactivateMapSelection = true;
-  @Nullable
   private MapObject mMapObject;
   private WindowInsets mCurrentWindowInsets;
 
@@ -159,7 +158,7 @@ public class PlacePageController implements Initializable<Activity>,
     mDeactivateMapSelection = true;
     PlacePageUtils.moveViewportUp(mPlacePage, mViewportMinHeight);
     resetPlacePageHeightBounds();
-    viewModel.setMapObject(null);
+    removePlacePageFragments();
   }
 
   public int getPlacePageWidth()
@@ -216,8 +215,6 @@ public class PlacePageController implements Initializable<Activity>,
   private void setPeekHeight()
   {
     final int peekHeight = calculatePeekHeight();
-    if (mMapObject == null)
-      return;
 
     final int state = mPlacePageBehavior.getState();
     final boolean shouldAnimate = !PlacePageUtils.isHiddenState(state);
@@ -265,7 +262,7 @@ public class PlacePageController implements Initializable<Activity>,
 
   private int calculatePeekHeight()
   {
-    if (mMapObject != null && mMapObject.getOpeningMode() == MapObject.OPENING_MODE_PREVIEW_PLUS)
+    if (mMapObject.getOpeningMode() == MapObject.OPENING_MODE_PREVIEW_PLUS)
       return (int) (mCoordinator.getHeight() * PREVIEW_PLUS_RATIO);
     return mPreviewHeight + mButtonsHeight;
   }
@@ -302,7 +299,7 @@ public class PlacePageController implements Initializable<Activity>,
     mPreviewHeight = previewHeight;
     mFrameHeight = frameHeight;
     setPeekHeight();
-    if (mShouldCollapse && mMapObject != null && !PlacePageUtils.isCollapsedState(mPlacePageBehavior.getState()))
+    if (mShouldCollapse && !PlacePageUtils.isCollapsedState(mPlacePageBehavior.getState()))
       mPlacePageBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
     mShouldCollapse = false;
   }
@@ -340,53 +337,52 @@ public class PlacePageController implements Initializable<Activity>,
       placePageFragment.onPlacePageButtonClick(item);
   }
 
-  private void onMapObjectChange(@Nullable MapObject mapObject)
+  private void removePlacePageFragments()
   {
-    mMapObject = mapObject;
-    if (mMapObject == null)
+    Fragment placePageButtonsFragment = mMwmActivity.getSupportFragmentManager()
+                                                    .findFragmentByTag(PLACE_PAGE_BUTTONS_FRAGMENT_TAG);
+    if (placePageButtonsFragment != null)
     {
-      Fragment placePageButtonsFragment = mMwmActivity.getSupportFragmentManager()
-                                                      .findFragmentByTag(PLACE_PAGE_BUTTONS_FRAGMENT_TAG);
-      if (placePageButtonsFragment != null)
-      {
-        mMwmActivity.getSupportFragmentManager().beginTransaction()
-                    .remove(placePageButtonsFragment)
-                    .commit();
-      }
-      Fragment placePageFragment = mMwmActivity.getSupportFragmentManager()
-                                               .findFragmentByTag(PLACE_PAGE_FRAGMENT_TAG);
-      if (placePageFragment != null)
-      {
-        mMwmActivity.getSupportFragmentManager().beginTransaction()
-                    .remove(placePageFragment)
-                    .commit();
-      }
+      mMwmActivity.getSupportFragmentManager().beginTransaction()
+                  .remove(placePageButtonsFragment)
+                  .commit();
     }
-    else
+    Fragment placePageFragment = mMwmActivity.getSupportFragmentManager()
+                                             .findFragmentByTag(PLACE_PAGE_FRAGMENT_TAG);
+    if (placePageFragment != null)
     {
-      if (mMwmActivity.getSupportFragmentManager()
-                      .findFragmentByTag(PLACE_PAGE_FRAGMENT_TAG) == null)
-      {
-        mMwmActivity.getSupportFragmentManager().beginTransaction()
-                    .add(R.id.placepage_fragment,
-                         PlacePageView.class, null, PLACE_PAGE_FRAGMENT_TAG)
-                    .commit();
-      }
-      if (mMwmActivity.getSupportFragmentManager()
-                      .findFragmentByTag(PLACE_PAGE_BUTTONS_FRAGMENT_TAG) == null)
-      {
-        mMwmActivity.getSupportFragmentManager().beginTransaction()
-                    .add(R.id.pp_buttons_fragment,
-                         PlacePageButtons.class, null, PLACE_PAGE_BUTTONS_FRAGMENT_TAG)
-                    .commit();
-      }
+      mMwmActivity.getSupportFragmentManager().beginTransaction()
+                  .remove(placePageFragment)
+                  .commit();
+    }
+  }
+
+  private void createPlacePageFragments()
+  {
+    if (mMwmActivity.getSupportFragmentManager()
+                    .findFragmentByTag(PLACE_PAGE_FRAGMENT_TAG) == null)
+    {
+      mMwmActivity.getSupportFragmentManager().beginTransaction()
+                  .add(R.id.placepage_fragment,
+                       PlacePageView.class, null, PLACE_PAGE_FRAGMENT_TAG)
+                  .commit();
+    }
+    if (mMwmActivity.getSupportFragmentManager()
+                    .findFragmentByTag(PLACE_PAGE_BUTTONS_FRAGMENT_TAG) == null)
+    {
+      mMwmActivity.getSupportFragmentManager().beginTransaction()
+                  .add(R.id.pp_buttons_fragment,
+                       PlacePageButtons.class, null, PLACE_PAGE_BUTTONS_FRAGMENT_TAG)
+                  .commit();
     }
   }
 
   @Override
   public void onChanged(MapObject mapObject)
   {
-    onMapObjectChange(mapObject);
+
+    mMapObject = mapObject;
+    createPlacePageFragments();
   }
 
   @Override

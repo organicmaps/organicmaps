@@ -50,9 +50,6 @@ public class PlacePagePhoneFragment extends Fragment implements Observer<MapObje
   @Override
   public void onChanged(MapObject mapObject)
   {
-    if (mapObject != null)
-    {
-      mPhoneAdapter.refreshPhones(mapObject.getMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER));
-    }
+    mPhoneAdapter.refreshPhones(mapObject.getMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER));
   }
 }
