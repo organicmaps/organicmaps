@@ -256,7 +256,7 @@ public class PlacePageController implements Initializable<Activity>,
         setPlacePageHeightBounds();
       }
     });
-    mCustomPeekHeightAnimator.setDuration(100);
+    mCustomPeekHeightAnimator.setDuration(200);
     mCustomPeekHeightAnimator.start();
   }
 

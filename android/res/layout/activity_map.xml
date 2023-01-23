@@ -61,7 +61,8 @@
     <RelativeLayout
       android:id="@+id/placepage_container"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content">
+      android:layout_height="wrap_content"
+      android:background="?panel" >
       <androidx.fragment.app.FragmentContainerView
         android:id="@+id/placepage_fragment"
         android:layout_width="match_parent"
