@@ -1,25 +1,27 @@
-• New OpenStreetMap data as of December 16, 2022
-• Improved routing algorithm
-• Do not route over highway=construction :)
-• Support multiple track geometry in KML files
-• Fixed KML 2.3 track import from OpenTracks
-• Faster parsing and rendering of complex KML tracks
-• Allow adding some shops, galleries, music schools in Editor
-• Improved city borders in search results
-• Settings & routing options headers are visible now in the Night Mode
-• Fixed crash when displaying the menu
+• 21 Ocak 2023 tarihine ait yeni OpenStreetMap harita verileri
+• Bazı KML dosyalarının içe aktarılmasında oluşan hatalar düzeltildi
+• Geçerli konum artık 8 saat yerine 30 saatlik hareketsizlikten sonra otomatik olarak aranıyor
+• Geliştirilmiş arama kategorileri sonuçları
+• leisure=track etiketi artık aranabilir
+• Koyu tema etkinleştirildiğinde ayarlardaki görünmeyen ipucu metinleri düzeltildi
 
-Map Styles:
-• Improved, less bright icons in Night mode
-• Fixed subway icons in some cities
-• Properly draw barriers for areas and relations
-• Fixed duplicated names on the world map
-• Updated cave, mountain pass, peak, volcano, emergency phone, historic ship, ice cream, nightclub, music shop, stadium, video games icons
-• Fixed wrong priorities of leisure=pitch, historic, post office
-• More consistent filled/round icons (round means some kind of business/service)
+Rota
+• Yürüyüş ve bisiklet için yükseklik uygun şekilde hesaplanıyor
+• Bölgeler arası rotalarda düzeltmeler
+• Bazı köprüler üzerinden geçen rotalarda düzeltmeler
+• Artık otobüs yolları destekleniyor
+• Hırvatistan, Schengen bölgesine eklendi
 
-Translations:
-• TTS (Text-To-Speech) for Brazil, Mexican Spanish and Norwegian
-• Fixed German and Hungarian search strings
-• Updated TTS for Portuguese and Brazilian
-• Updated Czech, Spanish translations
+Stiller
+• Buenos Aires ve Bilbao metro simgeleri düzeltildi
+• Bowling Salonu eklendi
+• historic=fountain ve tourism=information-office simgeleri düzeltildi
+• Pınarlar için eşit simge boyutları
+
+Editör
+• Artık mekan isimlerine /\°[] sembollerini ekleyebilirsiniz
+• amenity=public_bookcase eklendi
+• Maksimum düzenlenebilir bina kat sayısı 25'ten 50'ye çıkarıldı
+
+Çeviriler
+• Çeviriler düzeltildi

@@ -1,25 +1,29 @@
-• Nová OpenStreetMap data z 16. prosince 2022
-• Vylepšen směrovací algoritmus
-• Nesměrovat přes highway=construction :)
-• Podpora několika geometrických stezek v KML souborech
-• Opraven KML 2.3 import stezek z OpenTracks
-• Rychlejší zpracování a vykreslování komplexních KML stezek
-• Povoleno přidávání obchodů, galerií, hudebních škol v Editoru
-• Upraveny hranice měst ve výsledcích vyhledávání
-• Nadpisy nastavení & možností směrovače jsou nyní viditelné v Tmavém režimu
-• Vyřešen pád aplikace při zobrazování menu
+• Nová OpenStreetMap data z 21. ledna 2023
+• Opraven import některých KML tras
+• Automatické hledání aktuální pozice po 30 hodinách neaktivity místo 8 hodin
+• Vylepšeny výsledky vyhledávání kategorií
+• Austrálie je napsaná správně ve výsledcích vyhledávání
+• leisure=track je nyní vyhledatelné
+• Opraveny neviditelné nápovědy v Nastavení v tmavém režimu
 
-Styly Mapy:
-• Vylepšené, méně světlé ikonky v Tmavém režimu
-• Opraveny ikonky metra v některých městech
-• Správně kreslit bariéry pro plochy a relace
-• Odstraněny duplikované názvy ze světové mapy
-• Aktualizovány ikonky jeskyní, horských průsmyků, vrcholů, volkán, tísňových telefonů, historických lodí, zmrzlin, nočních klubů, hudebních obchodů, stadionů, videoher
-• Opraveny nesprávné priority leisure=pitch, historic, post office
-• Více konzistentní vyplněné/kulaté ikonky (kulaté značí nějaký obchod/službu)
+Směrování
+• Správně zpracovat převýšení pro pěší turistiku a cykloturistiku
+• Opraveno mezi-regionální směrování
+• Opraveno směrování skrz některé mosty
+• Autobusové trasy jsou podporovány
+• Přidáno Chorvatsko do schengenského prostoru
 
-Překlady:
-• TTS (Text-To-Speech) pro brazilštinu, mexickou španělštinu a norštinu
-• Upraveny německé a maďarské řetězce pro vyhledávání
-• Aktualizováno TTS pro portugalštinu a brazilštinu
-• Aktualizovány české, španělské překlady
+Styly
+• Opraveny Buenos Aires & Bilbao ikonky metra
+• Přidána Bowlingová dráha
+• Opraveny historic=fountain a tourism=information-office ikonky
+• Stejná velikost ikonek pro prameny
+
+Editor
+• Povoleno upravování jmen s /\°[] symboly
+• Přidána amenity=public_bookcase
+• Zvýšen maximální upravitelný počet poschodí z 25 na 50
+
+Překlady
+• Upravena brazilština, čeština, francouzština, maďarština, španělština (mexická), turečtina
+• Opraveny TTS překlady pro finštinu a portugalštinu

@@ -1,24 +1,29 @@
-• Novos dados OSM de 16 de dezembro
-• Melhoria no algoritmo de roteamento
-• Não há mais rotas usando highway=construction :)
-• Suporte à múltiplas geometrias em arquivos KML
-• Correção de importação de arquivo KML 2.3 do OpenTracks
-• Análise e renderização mais rápidas de trilhas KML complexas
-• Permitir adicionar algumas lojas, galerias e escolas de música no Editor
-• Melhoria nas fronteiras municipais nos resultados da busca
-• Cabeçalhos de configurações e opções de rotas agora estão visíveis no modo noturno
-• Correção na falha ao exibir o menu
+• Novos dados OSM de 21 de janeiro de 2023
+• Correção da importação de algumas trilhas KML
+• Busca automática da posição atual em 30 horas de inatividade em vez de 8 horas
+• Melhoria nos resultados de categorias de busca
+• Correção do nome “Austrália” nos resultados de busca
+• leisure=track agora pode ser pesquisado
+• Correção de textos invisíveis das Configurações no tema escuro
+
+Roteamento
+• Melhoria no uso da elevação para caminhadas e ciclismo
+• Correção de rotas inter-regionais
+• Correção de roteamento através de algumas pontes
+• BRTs são suportados
+• Adição da Croácia ao espaço Schengen
 
 Estilos de mapa:
-• Ícones aprimorados e menos brilhantes no modo noturno
-• Correção dos ícones de metrô em algumas cidades
-• Exibição adequada das barreiras para as áreas e relações
-• Nomes duplicados corrigidos no mapa-múndi
-• Atualização dos ícones de boate, caverna, estádio, loja de música, navio histórico, passo de montanha, pico, sorvete, telefone de emergência, videogame e vulcão
-• Correção nas prioridades de leisure=pitch, historic, post office
-• Ícones redondos/preenchidos mais consistentes (redondo significa algum tipo de negócio/serviço)
+• Correção dos ícones de metrô de Buenos Aires e Bilbau
+• Adição de pistas de boliche
+• Correção de ícones para fontes históricas e postos de informações de turismo
+• Tamanhos de ícones iguais para fontes
 
-Traduções:
-• Adição e correção de conversão de texto em fala (TTS) para espanhol mexicano, norueguês e português brasileiro e europeu
-• Correção de buscas em alemão e húngaro
-• Traduções atualizadas para espanhol e checo
+Editor
+• Permite adicionar nomes com símbolos /\°[]
+• Adição de amenity=public_bookcase
+• Aumento do número máximo de andares editáveis de 25 para 50
+
+Traduções
+• Traduções atualizadas para espanhol (mexicano), francês, húngaro, português (brasileiro), tcheco e turco
+• Correção de conversão de texto em fala (TTS) para finlandês e português

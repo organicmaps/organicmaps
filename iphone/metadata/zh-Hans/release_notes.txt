@@ -1,25 +1,29 @@
-• New OpenStreetMap data as of December 16, 2022
-• Improved routing algorithm
-• Do not route over highway=construction :)
-• Support multiple track geometry in KML files
-• Fixed KML 2.3 track import from OpenTracks
-• Faster parsing and rendering of complex KML tracks
-• Allow adding some shops, galleries, music schools in Editor
-• Improved city borders in search results
-• Settings & routing options headers are visible now in the Night Mode
-• Fixed crash when displaying the menu
+• 截止到2023年1月21日的OpenStreetMap数据
+• 修复了部分KML轨迹的导入
+• 现在不活跃超过30小时后将自动搜索当前位置，而不是8小时
+• 改进了搜索分类结果
+• 澳大利亚在搜索结果中的正确拼写
+• leisure=track 现在可被搜索
+• 修复了深色主题下设置中不可见的文本提示
 
-Map Styles:
-• Improved, less bright icons in Night mode
-• Fixed subway icons in some cities
-• Properly draw barriers for areas and relations
-• Fixed duplicated names on the world map
-• Updated cave, mountain pass, peak, volcano, emergency phone, historic ship, ice cream, nightclub, music shop, stadium, video games icons
-• Fixed wrong priorities of leisure=pitch, historic, post office
-• More consistent filled/round icons (round means some kind of business/service)
+路径规划引擎
+• 正确处理远足和骑自行车的爬升
+• 修复了区域内路径规划
+• 修复了通过部分桥梁的路径规划
+• 支持 busway
+• 将克罗地亚加入申根区
 
-Translations:
-• TTS (Text-To-Speech) for Brazil, Mexican Spanish and Norwegian
-• Fixed German and Hungarian search strings
-• Updated TTS for Portuguese and Brazilian
-• Updated Czech, Spanish translations
+样式
+• 固定布宜诺斯艾利斯和毕尔巴鄂地铁图标
+• 添加保龄球馆
+• 修复 historic=fountain 和 tourism=information-office 图标
+• 平衡泉水图标大小
+
+编辑器
+• 允许编辑带有 /\°[] 符号的名称
+• 添加 amenity=public_bookcase
+• 将最大可编辑建筑楼层从25层增加到50层
+
+翻译
+• 修复了巴西语、捷克语、法语、匈牙利语、西班牙语（墨西哥）、土耳其语
+• 修复了芬兰语和葡萄牙语的TTS翻译
