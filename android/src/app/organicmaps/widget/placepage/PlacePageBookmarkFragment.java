@@ -16,6 +16,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import app.organicmaps.R;
@@ -25,15 +26,12 @@ import app.organicmaps.bookmarks.data.MapObject;
 import app.organicmaps.util.StringUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
-import app.organicmaps.util.log.Logger;
 
 public class PlacePageBookmarkFragment extends Fragment implements View.OnClickListener,
                                                                    View.OnLongClickListener,
                                                                    Observer<MapObject>,
                                                                    EditBookmarkFragment.EditBookmarkListener
 {
-  private static final String TAG = PlacePageBookmarkFragment.class.getSimpleName();
-
   private View mFrame;
   private TextView mTvBookmarkNote;
   @Nullable
@@ -41,7 +39,7 @@ public class PlacePageBookmarkFragment extends Fragment implements View.OnClickL
 
   private PlacePageViewModel viewModel;
 
-  // TODO description header is not shown
+  private Bookmark currentBookmark;
 
   @Nullable
   @Override
@@ -67,8 +65,6 @@ public class PlacePageBookmarkFragment extends Fragment implements View.OnClickL
 
   private void initWebView()
   {
-    if (mWvBookmarkNote != null)
-      return;
     mWvBookmarkNote = new WebView(requireContext());
     final WebSettings settings = mWvBookmarkNote.getSettings();
     settings.setJavaScriptEnabled(false);
@@ -78,14 +74,6 @@ public class PlacePageBookmarkFragment extends Fragment implements View.OnClickL
     linearLayout.addView(mWvBookmarkNote, linearLayout.getChildCount() - 1);
   }
 
-  @Nullable
-  private MapObject getMapObject()
-  {
-    if (viewModel != null)
-      return viewModel.getMapObject().getValue();
-    return null;
-  }
-
   @Override
   public void onDestroy()
   {
@@ -93,32 +81,25 @@ public class PlacePageBookmarkFragment extends Fragment implements View.OnClickL
     viewModel.getMapObject().removeObserver(this);
   }
 
-  private void updateBookmarkDetails(@NonNull MapObject mapObject)
+  private void updateBookmarkDetails()
   {
-    if (mapObject.getMapObjectType() != MapObject.BOOKMARK)
-      return;
-
-    final String notes = ((Bookmark) mapObject).getBookmarkDescription();
+    final String notes = currentBookmark.getBookmarkDescription();
     if (TextUtils.isEmpty(notes))
     {
       UiUtils.hide(mTvBookmarkNote);
       if (mWvBookmarkNote != null)
         UiUtils.hide(mWvBookmarkNote);
-      return;
     }
-
-    if (StringUtils.nativeIsHtml(notes))
+    else if (StringUtils.nativeIsHtml(notes))
     {
+      if (mWvBookmarkNote == null)
+        initWebView();
       // According to loadData documentation, HTML should be either base64 or percent encoded.
       // Default UTF-8 encoding for all content is set above in WebSettings.
-      initWebView();
-      if (mWvBookmarkNote != null)
-      {
-        final String b64encoded = Base64.encodeToString(notes.getBytes(), Base64.DEFAULT);
-        mWvBookmarkNote.loadData(b64encoded, Utils.TEXT_HTML, "base64");
-        UiUtils.show(mWvBookmarkNote);
-        UiUtils.hide(mTvBookmarkNote);
-      }
+      final String b64encoded = Base64.encodeToString(notes.getBytes(), Base64.DEFAULT);
+      mWvBookmarkNote.loadData(b64encoded, Utils.TEXT_HTML, "base64");
+      UiUtils.show(mWvBookmarkNote);
+      UiUtils.hide(mTvBookmarkNote);
     }
     else
     {
@@ -133,17 +114,11 @@ public class PlacePageBookmarkFragment extends Fragment implements View.OnClickL
   @Override
   public void onClick(View v)
   {
-    final MapObject mapObject = getMapObject();
-    if (mapObject == null)
-    {
-      Logger.e(TAG, "A bookmark cannot be edited, mMapObject is null!");
-      return;
-    }
-    Bookmark bookmark = (Bookmark) mapObject;
-    EditBookmarkFragment.editBookmark(bookmark.getCategoryId(),
-                                      bookmark.getBookmarkId(),
-                                      requireActivity(),
-                                      requireActivity().getSupportFragmentManager(),
+    final FragmentActivity activity = requireActivity();
+    EditBookmarkFragment.editBookmark(currentBookmark.getCategoryId(),
+                                      currentBookmark.getBookmarkId(),
+                                      activity,
+                                      activity.getSupportFragmentManager(),
                                       PlacePageBookmarkFragment.this);
   }
 
@@ -163,8 +138,14 @@ public class PlacePageBookmarkFragment extends Fragment implements View.OnClickL
   @Override
   public void onChanged(MapObject mapObject)
   {
-    if (mapObject != null)
-      updateBookmarkDetails(mapObject);
+    // MapObject could be something else than a bookmark if the user already has the place page
+    // opened and clicks on a non-bookmarked POI.
+    // This callback would be called before the fragment had time to be destroyed
+    if (mapObject.getMapObjectType() == MapObject.BOOKMARK)
+    {
+      currentBookmark = (Bookmark) mapObject;
+      updateBookmarkDetails();
+    }
   }
 
   @Override
