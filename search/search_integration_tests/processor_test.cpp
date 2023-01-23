@@ -2222,8 +2222,10 @@ UNIT_CLASS_TEST(ProcessorTest, SynonymMisprintsTest)
 
   {
     Rules rules = {ExactMatch(wonderlandId, bolshaya), ExactMatch(wonderlandId, bolnaya)};
-    TEST(ResultsMatch("большая дмитровка", rules), ());
-    TEST(ResultsMatch("больная дмитровка", rules), ());
+    TEST(OrderedResultsMatch("большая дмитровка",
+                             { ExactMatch(wonderlandId, bolshaya), ExactMatch(wonderlandId, bolnaya) }), ());
+    TEST(OrderedResultsMatch("больная дмировка",
+                             { ExactMatch(wonderlandId, bolnaya), ExactMatch(wonderlandId, bolshaya) }), ());
   }
   {
     Rules rules = {ExactMatch(wonderlandId, bolshaya)};
@@ -2231,10 +2233,12 @@ UNIT_CLASS_TEST(ProcessorTest, SynonymMisprintsTest)
     TEST(ResultsMatch("б дмитровка", rules), ());
   }
   {
+    /// @todo Results are controversial here, despite 2-errors matching.
     // "southeast" and "southwest" len is 9 and Levenstein distance is 2.
-    Rules rules = {ExactMatch(wonderlandId, sw), ExactMatch(wonderlandId, se)};
-    TEST(ResultsMatch("southeast street", rules), ());
-    TEST(ResultsMatch("southwest street", rules), ());
+    TEST(OrderedResultsMatch("southeast street",
+                             { ExactMatch(wonderlandId, se), ExactMatch(wonderlandId, sw) }), ());
+    TEST(OrderedResultsMatch("southwest street",
+                             { ExactMatch(wonderlandId, sw), ExactMatch(wonderlandId, se) }), ());
   }
   {
     Rules rules = {ExactMatch(wonderlandId, sw)};
@@ -2245,6 +2249,33 @@ UNIT_CLASS_TEST(ProcessorTest, SynonymMisprintsTest)
     Rules rules = {ExactMatch(wonderlandId, se)};
     // "se" is a synonym for "southeast" but not for "southwest".
     TEST(ResultsMatch("se street", rules), ());
+  }
+}
+
+UNIT_CLASS_TEST(ProcessorTest, StreetsFallback)
+{
+  TestStreet st1({{-0.5, -0.5}, {0.5, -0.5}}, "1st north street", "en");
+  TestStreet st2({{-0.5,  0.5}, {0.5,  0.5}}, "2nd north street", "en");
+
+  auto wonderlandId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
+    builder.Add(st1);
+    builder.Add(st2);
+  });
+
+  // Looks ok here:
+  {
+    TEST(ResultsMatch("1st street", { ExactMatch(wonderlandId, st1) }), ());
+    TEST(ResultsMatch("2nd street", { ExactMatch(wonderlandId, st2) }), ());
+  }
+
+  /// @todo Because of controversial fallback in CreateStreetsLayerAndMatchLowerLayers.
+  // ... but:
+  {
+    TEST(OrderedResultsMatch("1st north street",
+                             { ExactMatch(wonderlandId, st1), ExactMatch(wonderlandId, st2) }), ());
+    TEST(OrderedResultsMatch("2nd north street",
+                             { ExactMatch(wonderlandId, st2), ExactMatch(wonderlandId, st1) }), ());
   }
 }
 
@@ -3186,13 +3217,11 @@ UNIT_CLASS_TEST(ProcessorTest, ComplexPoi_Rank)
 
   SetViewport({-0.5, -0.5, 0.5, 0.5});
 
-  auto request = MakeRequest("Telekom shop");
-  auto const & results = request->Results();
-
-  TEST_EQUAL(results.size(), 2, ());
-
-  TEST(ResultsMatch({results[0]}, {ExactMatch(countryId, telekom)}), ());
-  TEST(ResultsMatch({results[1]}, {ExactMatch(countryId, poiInMall)}), ());
+  Rules const rules = {
+    ExactMatch(countryId, telekom),
+    ExactMatch(countryId, poiInMall)
+  };
+  TEST(OrderedResultsMatch("Telekom shop", rules), ());
 }
 
 UNIT_CLASS_TEST(ProcessorTest, Place_Region)
@@ -3246,6 +3275,58 @@ UNIT_CLASS_TEST(ProcessorTest, FuzzyCategories)
   {
     Rules const rules = {ExactMatch(wonderlandId, shoes)};
     TEST(ResultsMatch("ecco", rules), ());
+  }
+}
+
+UNIT_CLASS_TEST(ProcessorTest, StreetCategories)
+{
+  std::string const lang = "en";
+
+  TestStreet street({{-1, -1}, {1, 1}}, "Avenida Santa Fe", lang);
+  street.SetType({"highway", "secondary"});
+
+  TestPOI bus({0, 0}, "Avenida Santa Fe", lang);
+  bus.SetTypes({{"highway", "bus_stop"}});
+
+  TestPOI shop({-0.5, -0.5}, "Galerías Bond Street", lang);
+  shop.SetTypes({{"shop", "department_store"}});
+
+  auto wonderlandId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
+    builder.Add(street);
+    builder.Add(bus);
+    builder.Add(shop);
+  });
+
+  SetViewport(m2::RectD(-0.5, -0.5, 0.5, 0.5));
+
+  {
+    Rules const rules = {
+      ExactMatch(wonderlandId, bus),
+      ExactMatch(wonderlandId, street)
+    };
+    TEST(OrderedResultsMatch("avenida santa fe ", rules), ());
+  }
+
+  /// @todo Should review search::FindStreets logic! Check 2 cases below:
+
+  // 1. |street| (matched by "sante fe" only) has worse rank than |shop| and even more - emitted in the second batch.
+  {
+    Rules const rules = {
+      ExactMatch(wonderlandId, bus),
+      ExactMatch(wonderlandId, shop),
+      ExactMatch(wonderlandId, street)
+    };
+    TEST(OrderedResultsMatch("avenida santa fe street ", rules), ());
+  }
+
+  // 2. Next sample matches street by "santa fe улица", thus it has low rank!
+  {
+    Rules const rules = {
+      ExactMatch(wonderlandId, bus),
+      //ExactMatch(wonderlandId, street)
+    };
+    TEST(OrderedResultsMatch(MakeRequest("avenida santa fe улица ", "ru")->Results(), rules), ());
   }
 }
 

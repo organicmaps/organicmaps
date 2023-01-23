@@ -27,7 +27,8 @@ void SearchTestBase::SetViewport(ms::LatLon const & ll, double radiusM)
   SetViewport(mercator::MetersToXY(ll.m_lon, ll.m_lat, radiusM));
 }
 
-bool SearchTestBase::CategoryMatch(std::string const & query, Rules const & rules, string const & locale)
+bool SearchTestBase::CategoryMatch(std::string const & query, Rules const & rules,
+                                   string const & locale /* = "en" */)
 {
   TestSearchRequest request(m_engine, query, locale, Mode::Everywhere, m_viewport);
   request.SetCategorial();
@@ -37,17 +38,42 @@ bool SearchTestBase::CategoryMatch(std::string const & query, Rules const & rule
 }
 
 bool SearchTestBase::ResultsMatch(std::string const & query, Rules const & rules,
-                              std::string const & locale /* = "en" */,
-                              Mode mode /* = Mode::Everywhere */)
+                                  std::string const & locale /* = "en" */,
+                                  Mode mode /* = Mode::Everywhere */)
 {
   TestSearchRequest request(m_engine, query, locale, mode, m_viewport);
   request.Run();
   return MatchResults(m_dataSource, rules, request.Results());
 }
 
+bool SearchTestBase::OrderedResultsMatch(std::string const & query, Rules const & rules,
+                                         std::string const & locale /* = "en" */,
+                                         Mode mode /* = Mode::Everywhere */)
+{
+  TestSearchRequest request(m_engine, query, locale, mode, m_viewport);
+  request.Run();
+  return OrderedResultsMatch(request.Results(), rules);
+}
+
 bool SearchTestBase::ResultsMatch(vector<search::Result> const & results, Rules const & rules)
 {
   return MatchResults(m_dataSource, rules, results);
+}
+
+bool SearchTestBase::OrderedResultsMatch(std::vector<Result> const & results, Rules const & rules)
+{
+  if (results.size() != rules.size())
+    return false;
+
+  for (size_t i = 0; i < results.size(); ++i)
+  {
+    if (!ResultMatches(m_dataSource, rules[i], results[i]))
+    {
+      LOG(LWARNING, ("Not matched:", rules[i], results[i]));
+      return false;
+    }
+  }
+  return true;
 }
 
 bool SearchTestBase::ResultsMatch(SearchParams const & params, Rules const & rules)
