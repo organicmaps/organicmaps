@@ -86,13 +86,16 @@ public:
 
   buffer_vector & operator=(buffer_vector && rhs)
   {
-    m_size = rhs.m_size;
-    m_dynamic = move(rhs.m_dynamic);
+    if (this != &rhs)
+    {
+      m_size = rhs.m_size;
+      m_dynamic = std::move(rhs.m_dynamic);
 
-    if (!IsDynamic())
-      MoveStatic(rhs);
+      if (!IsDynamic())
+        MoveStatic(rhs);
 
-    rhs.m_size = 0;
+      rhs.m_size = 0;
+    }
     return *this;
   }
 
