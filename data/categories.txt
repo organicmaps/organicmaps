@@ -4149,7 +4149,7 @@ sk:3Autopožičovňa|požičovňa áut
 sw:Kodi ya gari|gari|kodi
 fa:مکان اجاره ماشین
 
-amenity-cinema|@entertainment|@children
+amenity-cinema|@entertainment
 en:3Cinema|U+1F3A6|U+1F3AC
 ru:Кинотеатр|3кино
 bg:3Кино|кинотеатър|филм|прожекция
