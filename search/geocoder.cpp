@@ -356,6 +356,14 @@ void Geocoder::SetParams(Params const & params)
 
   m_params = params;
 
+  auto const MakeRequest = [this](size_t i, auto & request)
+  {
+    FillRequestFromToken(m_params.GetToken(i), request);
+    for (auto const & index : m_params.GetTypeIndices(i))
+      request.m_categories.emplace_back(FeatureTypeToString(index));
+    request.SetLangs(m_params.GetLangs());
+  };
+
   m_tokenRequests.clear();
   m_prefixTokenRequest.Clear();
   for (size_t i = 0; i < m_params.GetNumTokens(); ++i)
@@ -363,19 +371,11 @@ void Geocoder::SetParams(Params const & params)
     if (!m_params.IsPrefixToken(i))
     {
       m_tokenRequests.emplace_back();
-      auto & request = m_tokenRequests.back();
-      FillRequestFromToken(m_params.GetToken(i), request);
-      for (auto const & index : m_params.GetTypeIndices(i))
-        request.m_categories.emplace_back(FeatureTypeToString(index));
-      request.SetLangs(m_params.GetLangs());
+      MakeRequest(i, m_tokenRequests.back());
     }
     else
     {
-      auto & request = m_prefixTokenRequest;
-      FillRequestFromToken(m_params.GetToken(i), request);
-      for (auto const & index : m_params.GetTypeIndices(i))
-        request.m_categories.emplace_back(FeatureTypeToString(index));
-      request.SetLangs(m_params.GetLangs());
+      MakeRequest(i, m_prefixTokenRequest);
     }
   }
 
@@ -1205,14 +1205,22 @@ void Geocoder::GreedilyMatchStreets(BaseContext & ctx, CentersFilter const & cen
 {
   TRACE(GreedilyMatchStreets);
 
-  // Match streets without suburbs.
-  vector<StreetsMatcher::Prediction> predictions;
-  StreetsMatcher::Go(ctx, ctx.m_streets, *m_filter, m_params, predictions);
-
-  for (auto const & prediction : predictions)
-    CreateStreetsLayerAndMatchLowerLayers(ctx, prediction, centers);
+  ProcessStreets(ctx, centers, ctx.m_streets);
 
   GreedilyMatchStreetsWithSuburbs(ctx, centers);
+}
+
+void Geocoder::ProcessStreets(BaseContext & ctx, CentersFilter const & centers, CBV const & streets)
+{
+  using PredictionT = StreetsMatcher::Prediction;
+  vector<PredictionT> predictions;
+  StreetsMatcher::Go(ctx, streets, *m_filter, m_params, predictions);
+
+  /// @todo Iterating from best to worst predictions here.
+  /// Together with street fallback in CreateStreetsLayerAndMatchLowerLayers worst predictions
+  /// may produce controversial results (like matching streets by very common tokens).
+  for (size_t i = 0; i < predictions.size(); ++i)
+    CreateStreetsLayerAndMatchLowerLayers(ctx, predictions[i], centers);
 }
 
 void Geocoder::GreedilyMatchStreetsWithSuburbs(BaseContext & ctx, CentersFilter const & centers)
@@ -1256,11 +1264,7 @@ void Geocoder::GreedilyMatchStreetsWithSuburbs(BaseContext & ctx, CentersFilter 
       auto const suburbCBV = RetrieveGeometryFeatures(*m_context, rect, RectId::Suburb);
       auto const suburbStreets = ctx.m_streets.Intersect(suburbCBV);
 
-      vector<StreetsMatcher::Prediction> predictions;
-      StreetsMatcher::Go(ctx, suburbStreets, *m_filter, m_params, predictions);
-
-      for (auto const & prediction : predictions)
-        CreateStreetsLayerAndMatchLowerLayers(ctx, prediction, centers);
+      ProcessStreets(ctx, centers, suburbStreets);
 
       MatchPOIsAndBuildings(ctx, 0 /* curToken */, suburbCBV);
     });
@@ -1367,6 +1371,7 @@ void Geocoder::CreateStreetsLayerAndMatchLowerLayers(BaseContext & ctx,
   MatchPOIsAndBuildings(ctx, 0 /* curToken */, CBV::GetFull());
 
   // A relaxed best effort parse: at least show the street if we can find one.
+  /// @todo Is is very controversial way. Search for streets and skip only house number (postcode) like tokens?
   if (numEmitted == ctx.m_numEmitted && ctx.SkipUsedTokens(0) != ctx.m_numTokens)
   {
     TRACE(Relaxed);
