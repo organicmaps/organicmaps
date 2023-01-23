@@ -1,25 +1,29 @@
-• Nowe dane OpenStreetMap na dzień 16 grudnia 2022 r.
-• Ulepszony algorytm wyznaczania trasy
-• Nie jedź przez droga=budowa :)
-• Obsługa wielu geometrii ścieżek w plikach KML
-• Naprawiono import ścieżek KML 2.3 z OpenTracks
-• Szybsze parsowanie i renderowanie złożonych ścieżek KML
-• Zezwala na dodawanie niektórych sklepów, galerii, szkół muzycznych w Edytorze
-• Poprawione granice miast w wynikach wyszukiwania
-• Nagłówki ustawień i opcji tras są teraz widoczne w trybie nocnym
-• Naprawiono awarię występującą podczas wyświetlania menu
+• New OpenStreetMap data as of January 21, 2023
+• Fixed import of some KML tracks
+• Automatic search for the current position in 30 hours of inactivity instead of 8 hours
+• Improved search categories results
+• Australia is written properly in search results
+• leisure=track is now searchable
+• Fixed invisible text hints in Settings in the dark theme
 
-Style map:
-• Ulepszone, mniej jasne ikony w trybie nocnym
-• Naprawiono ikony metra w niektórych miastach
-• Prawidłowo rysowane bariery dla obszarów i relacji
-• Naprawiono zduplikowane nazwy na mapie świata
-• Zaktualizowane: jaskinia, przełęcz, szczyt, wulkan, telefon alarmowy, zabytkowy statek, lody, klub nocny, sklep muzyczny, stadion, ikony gier wideo
-• Naprawiono błędne priorytety wypoczynek=boisko, historyczne, poczta
-• Bardziej spójne wypełnione/okrągłe ikony (okrągłe oznaczają jakiś biznes/usługę)
+Routing
+• Properly handle elevation for hiking and cycling
+• Fixed inter-region routing
+• Fixed routing via some bridges
+• Busways are supported
+• Added Croatia to Schengen area
 
-Tłumaczenia:
-• TTS (Text-To-Speech) dla Brazylii, meksykańskiego hiszpańskiego i norweskiego
-• Naprawiono niemieckie i węgierskie ciągi wyszukiwania
-• Zaktualizowano TTS dla języka portugalskiego i brazylijskiego
-• Zaktualizowane czeskie, hiszpańskie tłumaczenia
+Styles
+• Fixed Buenos Aires & Bilbao metro icons
+• Added Bowling Alley
+• Fixed historic=fountain and tourism=information-office icon
+• Equal icon sizes for springs
+
+Editor
+• Allowed editing names with /\°[] symbols
+• Added amenity=public_bookcase
+• Increased max editable building floors from 25 to 50
+
+Translations
+• Fixed Brazil, Czech, French, Hungarian, Spanish (Mexican), Turkish
+• Fixed TTS translations for Finnish and Portuguese

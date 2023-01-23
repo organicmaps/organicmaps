@@ -1,10 +1,10 @@
-• New OpenStreetMap data as of December 16, 2022
-• Fixed crash in screen split mode & on screen rotation
-• Supported KML 2.3 with multiple tracks from OpenTracks
-• Speedup parsing and rendering of complex KML tracks
-• Fine-tuned routing weights for most roads
-• Fixed annoying "Enable Location" dialogs
-• Enhanced maps icons for the Night Mode
-• Removed duplicated names from the world map
-• Updated voice navigation for Spanish, Portuguese and Norwegian
-…more: omaps.app/news
+• Yeni OpenStreetMap verileri (21 Ocak)
+• Bazı KML dosyalarının içe aktarılmasındaki hatalar düzeltildi
+• Sistem web görünümü devre dışı bırakılmışsa veya yoksa başlangıçta oluşan çökmeler düzeltildi
+• Geliştirilmiş arama ve yönlendirme
+• Yürüyüş ve bisiklet için iyileştirilmiş yükseklik hesaplama
+• Buenos Aires ve Bilbao metro simgeleri düzeltildi
+• Bowling Salonu eklendi
+• Hırvatistan, Schengen bölgesine eklendi
+• Maks. düzenlenebilir bina katı 25'ten 50'ye çıkarıldı
+…dahası: omaps.app/news

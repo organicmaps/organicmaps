@@ -1,10 +1,11 @@
-• Nová OpenStreetMap data z 16. prosince 2022
-• Vyřešen pád v režimu rozdělené obrazovky & při otočení obrazovky
-• Podpora KML 2.3 s několika stezkami z OpenTracks
-• Vyladěné směrovací velikosti pro všechny typy cest
-• Odstraněné otravné dialogy když je vypnuta lokace
-• Vylepšené ikonky v Tmavém režimu
-• Odstraněné duplikované názvy ze světové mapy
-• Upravené hranice měst ve výsledcích vyhledávání
-• TTS (Text-To-Speech) pro brazilštinu, mexickou španělštinu, a norštinu
-Více na omaps.app/news
+• Nová OpenStreetMap data z 21. ledna
+• Opraven import některých KML tras
+• Opraveny pády při zapnutí, pokud chybí nebo je vypnut systémový WebView
+• Vylepšeno vyhledávání a směrování
+• Správně zpracovat převýšení pro pěší turistiku a cykloturistiku
+• Opraveny Buenos Aires & Bilbao ikonky metra
+• Přidána Bowlingová dráha
+• Přidáno Chorvatsko do schengenského prostoru
+• Zvýšen maximální upravitelný počet poschodí z 25 na 50
+• Zapnuto TTS pro baskičtinu, běloruštinu, chorvatštinu, norštinu, maráthštinu a svahilštinu
+více na: omaps.app/news
