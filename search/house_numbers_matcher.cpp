@@ -2,8 +2,6 @@
 
 #include "indexer/string_set.hpp"
 
-#include "base/logging.hpp"
-
 #include <algorithm>
 #include <iterator>
 #include <limits>
@@ -11,15 +9,15 @@
 
 #include <boost/iterator/transform_iterator.hpp>
 
-using namespace std;
-using namespace strings;
-
 using boost::make_transform_iterator;
 
 namespace search
 {
 namespace house_numbers
 {
+using namespace std;
+using namespace strings;
+
 namespace
 {
 // Common strings in house numbers.
@@ -233,7 +231,8 @@ public:
       case Token::TYPE_NUMBER:         // fallthrough
       case Token::TYPE_BUILDING_PART:  // fallthrough
       case Token::TYPE_BUILDING_PART_OR_LETTER:
-        parse[i] = move(parse[j]);
+        parse[i] = std::move(parse[j]);
+        ASSERT(!parse[i].m_value.empty(), ());
         ++i;
       }
     }
