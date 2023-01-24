@@ -62,9 +62,14 @@ public:
   std::vector<ResultTracer::Branch> const & GetProvenance() const { return m_provenance; }
 #endif
 
-//  size_t GetInnermostTokensNumber() const { return m_info.InnermostTokenRange().Size(); }
-  size_t GetMatchedTokensNumber() const { return m_matchedTokensNumber; }
+  //size_t GetInnermostTokensNumber() const { return m_info.InnermostTokenRange().Size(); }
+  //size_t GetMatchedTokensNumber() const { return m_matchedTokensNumber; }
   bool IsNotRelaxed() const { return !m_isRelaxed; }
+
+  bool SkipForViewportSearch(size_t queryTokensNumber) const
+  {
+    return m_isRelaxed || m_matchedTokensNumber + 1 < queryTokensNumber;
+  }
 
   void SetRank(uint8_t rank) { m_info.m_rank = rank; }
   void SetPopularity(uint8_t popularity) { m_info.m_popularity = popularity; }
