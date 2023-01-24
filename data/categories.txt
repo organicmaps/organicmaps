@@ -4421,7 +4421,7 @@ fr:Caserne de pompiers
 de:5Feuerwehr|Feuerwache
 hu:Tűzoltóság
 id:Kantor pemadam kebakaran
-it:Scuadra antincendio
+it:Squadra antincendio
 ja:1消防署
 ko:소방서
 mr:अग्निशमन केंद्र|फायर ब्रिगेड
