@@ -1,1 +1,1 @@
-Informe de cualquier problema de los mapas directamente a OpenStreetMap. Diríjase a nosotros si encuentra errores con la aplicación; estaremos encantados de atenderle.
+Corrija los problemas del mapa en OpenStreetMap.org y háganos saber de cualquier defecto con nuestra aplicación. Su realimentación y apoyo motiva a nuestro equipo de entusiastas a mejorar la aplicación.
