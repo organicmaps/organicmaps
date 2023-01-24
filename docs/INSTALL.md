@@ -16,7 +16,7 @@ For _Windows_ you need to have [Git for Windows](https://git-scm.com/download/wi
 
 First of all get the source code. The full Organic Maps sources repository is ~8.5Gb in size, there are various [clone options](#special-cases-options) to reduce download size to suit your needs.
 
-For _Windows 10_ enable [symlinks](https://git-scm.com/docs/git-config#Documentation/git-config.txt-coresymlinks) support in git first, if this doesn't enable symlinks add -c core.symlinks=true parameter to the clone command shown below:
+For _Windows_, enable [symlinks](https://git-scm.com/docs/git-config#Documentation/git-config.txt-coresymlinks) support in git first. The easiest way is to reinstall the latest [Git for Windows](https://gitforwindows.org/) with the "Enable Symlinks" checkbox checked. If you don't want to reinstall Git, then you can add `-c core.symlinks=true` parameter to the clone command below to enable symlinks for the repository.
 
 ```bash
 git config --global core.symlinks true
