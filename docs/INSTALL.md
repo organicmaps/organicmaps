@@ -27,7 +27,7 @@ Clone the repository including all submodules (see [Special cases options](#spec
 (if you plan to contribute and propose pull requests then use a web interface at https://github.com/organicmaps/organicmaps to fork the repo first and use your fork's url in the command below)
 
 ```bash
-git clone --recurse-submodules -c core.symlinks=true https://github.com/organicmaps/organicmaps.git
+git clone --recurse-submodules https://github.com/organicmaps/organicmaps.git
 ```
 
 Go into the cloned repo:
