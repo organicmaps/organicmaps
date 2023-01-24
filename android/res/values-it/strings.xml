@@ -439,8 +439,8 @@
 	<string name="download_over_mobile_message">Quest\'operazione potrebbe essere piuttosto costosa con alcuni piani o in roaming.</string>
 	<string name="error_enter_correct_house_number">Inserisci numero civico corretto</string>
 	<string name="editor_storey_number">Numero di piani (massimo %d)</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">Il numero di piani non deve superare 25</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">Il numero di piani non deve superare %d</string>
 	<string name="editor_zip_code">Codice postale</string>
 	<string name="error_enter_correct_zip_code">Inserire il codice postale corretto</string>
 	<!-- Place Page title for long tap -->

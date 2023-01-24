@@ -435,8 +435,8 @@
 	<string name="download_over_mobile_message">Tämä vaihtoehto saattaa olla huomattavasti kalliimpi tietyillä sopimuksilla tai roaming-yhteydellä.</string>
 	<string name="error_enter_correct_house_number">Syötä oikea talon numero</string>
 	<string name="editor_storey_number">Kerrosten määrä (maks. %d)</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">Muokkaa kerroksia, enintään 25 kerrosta</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">Muokkaa kerroksia, enintään %d kerrosta</string>
 	<string name="editor_zip_code">Postinumero</string>
 	<string name="error_enter_correct_zip_code">Anna kelvollinen postinumero</string>
 	<!-- Place Page title for long tap -->

@@ -710,8 +710,8 @@
 
 "editor_storey_number" = "تعداد طبقات ( حداکثر %d )";
 
-/* Error message in Editor when a user tries to set the number of floors for a building higher than 25 */
-"error_enter_correct_storey_number" = "تعداد طبقات نباید بیش از 25 باشد";
+/* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
+"error_enter_correct_storey_number" = "تعداد طبقات نباید بیش از %d باشد";
 
 "editor_zip_code" = "کدپستی";
 

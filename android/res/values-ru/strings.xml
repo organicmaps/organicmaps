@@ -458,8 +458,8 @@
 	<string name="download_over_mobile_message">На некоторых тарифных планах или в роуминге это может привести к значительным расходам.</string>
 	<string name="error_enter_correct_house_number">Введите корректный номер дома</string>
 	<string name="editor_storey_number">Количество этажей (максимум %d)</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">Количество этажей не должно превышать 25</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">Количество этажей не должно превышать %d</string>
 	<string name="editor_zip_code">Почтовый индекс</string>
 	<string name="error_enter_correct_zip_code">Введите корректный почтовый индекс</string>
 	<!-- Place Page title for long tap -->

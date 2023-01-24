@@ -710,8 +710,8 @@
 
 "editor_storey_number" = "樓層數（最大 %d）";
 
-/* Error message in Editor when a user tries to set the number of floors for a building higher than 25 */
-"error_enter_correct_storey_number" = "編輯最多 25 層的建築";
+/* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
+"error_enter_correct_storey_number" = "編輯最多 %d 層的建築";
 
 "editor_zip_code" = "郵遞區號";
 

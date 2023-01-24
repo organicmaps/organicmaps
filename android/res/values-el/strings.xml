@@ -433,8 +433,8 @@
 	<string name="download_over_mobile_message">Αυτό μπορεί να είναι σημαντικά πιο ακριβό για μερικά πακέτα ή στην περίπτωση περιαγωγής</string>
 	<string name="error_enter_correct_house_number">Εισαγάγετε έναν έγκυρο αριθμό κτιρίου</string>
 	<string name="editor_storey_number">Αριθμός ορόφων (μέγιστο %d)</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">Ο αριθμός των ορόφων δεν πρέπει να υπερβαίνει τους 25</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">Ο αριθμός των ορόφων δεν πρέπει να υπερβαίνει τους %d</string>
 	<string name="editor_zip_code">Ταχυδρομικός κώδικας</string>
 	<string name="error_enter_correct_zip_code">Πληκτρολογήστε έναν έγκυρο ταχυδρομικό κώδικα</string>
 	<!-- Place Page title for long tap -->

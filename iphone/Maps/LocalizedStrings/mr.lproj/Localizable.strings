@@ -710,8 +710,8 @@
 
 "editor_storey_number" = "मजल्यांची संख्या (कमाल %d)";
 
-/* Error message in Editor when a user tries to set the number of floors for a building higher than 25 */
-"error_enter_correct_storey_number" = "मजल्यांची संख्या २५ पेक्षा जास्त नसावी";
+/* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
+"error_enter_correct_storey_number" = "मजल्यांची संख्या %d पेक्षा जास्त नसावी";
 
 "editor_zip_code" = "पिनकोड";
 

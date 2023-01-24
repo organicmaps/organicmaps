@@ -455,8 +455,8 @@
 	<string name="download_over_mobile_message">Podría ser muy caro con ciertos planes o con itinerancia de datos.</string>
 	<string name="error_enter_correct_house_number">Introducir el número de domicilio correcto</string>
 	<string name="editor_storey_number">Número de plantas (máx. %d)</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">El número de plantas no debe superar 25</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">El número de plantas no debe superar %d</string>
 	<string name="editor_zip_code">Código postal</string>
 	<string name="error_enter_correct_zip_code">Introduzca el código postal correcto</string>
 	<!-- Place Page title for long tap -->

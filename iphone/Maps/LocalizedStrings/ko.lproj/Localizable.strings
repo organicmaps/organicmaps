@@ -710,8 +710,8 @@
 
 "editor_storey_number" = "층 수(최대 %d)";
 
-/* Error message in Editor when a user tries to set the number of floors for a building higher than 25 */
-"error_enter_correct_storey_number" = "최대 25층까지 입력하세요";
+/* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
+"error_enter_correct_storey_number" = "최대 %d층까지 입력하세요";
 
 "editor_zip_code" = "우편번호";
 

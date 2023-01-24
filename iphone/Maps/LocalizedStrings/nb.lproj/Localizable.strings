@@ -710,8 +710,8 @@
 
 "editor_storey_number" = "Antall etasjer (maks. %d)";
 
-/* Error message in Editor when a user tries to set the number of floors for a building higher than 25 */
-"error_enter_correct_storey_number" = "Rediger bygningen med maks. 25 etasjer";
+/* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
+"error_enter_correct_storey_number" = "Rediger bygningen med maks. %d etasjer";
 
 "editor_zip_code" = "Postnummer";
 

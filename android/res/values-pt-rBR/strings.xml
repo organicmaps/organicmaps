@@ -444,8 +444,8 @@
 	<string name="download_over_mobile_message">Isto pode ser muito caro com alguns planos ou se você estiver em roaming.</string>
 	<string name="error_enter_correct_house_number">Informe o número correto do endereço</string>
 	<string name="editor_storey_number">Número de andares (máx. %d)</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">O número de andares não pode ultrapassar 25</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">O número de andares não pode ser maior que %d</string>
 	<string name="editor_zip_code">CEP</string>
 	<string name="error_enter_correct_zip_code">Informe o CEP correto</string>
 	<!-- Place Page title for long tap -->

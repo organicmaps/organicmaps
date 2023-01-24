@@ -439,8 +439,8 @@
 	<string name="download_over_mobile_message">Aceasta poate fi destul de costisitoare în cazul unor abonamente sau în roaming.</string>
 	<string name="error_enter_correct_house_number">Introdu un număr corect</string>
 	<string name="editor_storey_number">Număr de etaje (maximum %d)</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">Numărul de etaje nu trebuie să depășească 25</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">Numărul de etaje nu trebuie să depășească %d</string>
 	<string name="editor_zip_code">Cod poștal</string>
 	<string name="error_enter_correct_zip_code">Introdu codul poștal corect</string>
 	<!-- Place Page title for long tap -->

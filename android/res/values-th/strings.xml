@@ -431,8 +431,8 @@
 	<string name="download_over_mobile_message">มันอาจมีราคาสูงมากหากใช้แผนโทรศัพท์บางประเภทหรือหากทำการโรมมิ่ง</string>
 	<string name="error_enter_correct_house_number">กรอกบ้านเลขที่ให้ถูกต้อง</string>
 	<string name="editor_storey_number">จำนวนชั้น (มากสุด %d)</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">แก้ไขอาคารที่มีจำนวนชั้นมากกว่า 25</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">แก้ไขอาคารที่มีจำนวนชั้นมากกว่า %d</string>
 	<string name="editor_zip_code">รหัสไปรษณีย์</string>
 	<string name="error_enter_correct_zip_code">กรุณาใส่รหัสไปรษณีย์ที่ถูกต้อง</string>
 	<!-- Place Page title for long tap -->

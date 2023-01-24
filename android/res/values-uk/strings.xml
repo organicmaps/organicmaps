@@ -450,8 +450,8 @@
 	<string name="download_over_mobile_message">Це може бути задорого за деякими планами або за умовами роумінгу.</string>
 	<string name="error_enter_correct_house_number">Введіть правильний номер будинку</string>
 	<string name="editor_storey_number">Кількість поверхів (максимум %d)</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">Редагуйте будівлі висотою максимум 25 поверхів</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">Редагуйте будівлі висотою максимум %d поверхів</string>
 	<string name="editor_zip_code">Поштовий індекс</string>
 	<string name="error_enter_correct_zip_code">Введіть коректний поштовий індекс</string>
 	<!-- Place Page title for long tap -->

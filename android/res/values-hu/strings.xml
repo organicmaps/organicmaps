@@ -429,8 +429,8 @@
 	<string name="download_over_mobile_message">Ez jelentősen drága lehet némely előfizetés vagy roaming keretein belül.</string>
 	<string name="error_enter_correct_house_number">Helyes házszámot adjon meg</string>
 	<string name="editor_storey_number">Az emeletek száma (legfeljebb %d)</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">Legfeljebb 25 emeletes épület szerkesztése</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">Ez az épület legfeljebb %d emeletes lehet</string>
 	<string name="editor_zip_code">Irányítószám</string>
 	<string name="error_enter_correct_zip_code">Írja be a helyes irányítószámot</string>
 	<!-- Place Page title for long tap -->

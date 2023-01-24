@@ -710,8 +710,8 @@
 
 "editor_storey_number" = "Nombre de plantes (màxim %d)";
 
-/* Error message in Editor when a user tries to set the number of floors for a building higher than 25 */
-"error_enter_correct_storey_number" = "El nombre de plantes no pot excedir de 25";
+/* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
+"error_enter_correct_storey_number" = "El nombre de plantes no pot excedir de %d";
 
 "editor_zip_code" = "Codi postal";
 
