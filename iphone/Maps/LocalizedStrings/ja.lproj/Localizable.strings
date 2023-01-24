@@ -710,8 +710,8 @@
 
 "editor_storey_number" = "フロアの数（最大%d）";
 
-/* Error message in Editor when a user tries to set the number of floors for a building higher than 25 */
-"error_enter_correct_storey_number" = "最高25階までのビルを編集";
+/* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
+"error_enter_correct_storey_number" = "最高%d階までのビルを編集";
 
 "editor_zip_code" = "郵便番号";
 

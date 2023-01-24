@@ -458,8 +458,8 @@
 	<string name="download_over_mobile_message">قد يكون هذا مكلفاً جداً في بعض الاحيان أو عند التجوال.</string>
 	<string name="error_enter_correct_house_number">أدخل رقم بناء صحيح</string>
 	<string name="editor_storey_number">عدد الطوابق (بحد أقصى %d)</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">يجب ألا يتجاوز عدد طوابق المبنى 25</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">يجب ألا يتجاوز عدد طوابق المبنى %d</string>
 	<string name="editor_zip_code">الرمز البريدي</string>
 	<string name="error_enter_correct_zip_code">أدخل الرمز البريدي صالح</string>
 	<!-- Place Page title for long tap -->

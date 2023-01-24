@@ -457,8 +457,8 @@
 	<string name="download_over_mobile_message">Cela pourrait être très cher avec certains abonnements ou si vous êtes en déplacement.</string>
 	<string name="error_enter_correct_house_number">Saisir un numéro de maison correct</string>
 	<string name="editor_storey_number">Nombre d\'étages (max %d)</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">Le nombre d\'étages ne doit pas dépasser 25</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">Le nombre d\'étages ne doit pas dépasser %d</string>
 	<string name="editor_zip_code">Code postal</string>
 	<string name="error_enter_correct_zip_code">Entrer un code postal correct</string>
 	<!-- Place Page title for long tap -->

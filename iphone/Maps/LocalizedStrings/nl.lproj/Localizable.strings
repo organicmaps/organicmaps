@@ -710,8 +710,8 @@
 
 "editor_storey_number" = "Aantal verdiepingen (max. %d)";
 
-/* Error message in Editor when a user tries to set the number of floors for a building higher than 25 */
-"error_enter_correct_storey_number" = "Bewerk het gebouw met maximaal 25 verdiepingen";
+/* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
+"error_enter_correct_storey_number" = "Het gebouw mag niet meer dan %d verdiepingen hebben";
 
 "editor_zip_code" = "Postcode";
 

@@ -436,8 +436,8 @@
 	<string name="download_over_mobile_message">Oso garestia izan daiteke plan batzuekin edo datu-ibiltaritzarekin.</string>
 	<string name="error_enter_correct_house_number">Sartu etxe-zenbaki zuzena</string>
 	<string name="editor_storey_number">Solairu kopurua (gehienez %d)</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">Landare kopurua ez da 25etik gorakoa izan behar</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">Landare kopurua ez da %detik gorakoa izan behar</string>
 	<string name="editor_zip_code">Posta kodea</string>
 	<string name="error_enter_correct_zip_code">Mesedez, idatzi posta-kode zuzena</string>
 	<!-- Place Page title for long tap -->

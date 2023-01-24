@@ -431,8 +431,8 @@
 	<string name="download_over_mobile_message">Dette kan blive dyrt med nogle abonnementer eller hvis du er i roamingtilstand.</string>
 	<string name="error_enter_correct_house_number">Skriv det rigtige husnummer</string>
 	<string name="editor_storey_number">Antal etager (maks %d)</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">Rediger bygningen med maksimum 25 etager</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">Rediger bygningen med maksimum %d etager</string>
 	<string name="editor_zip_code">Postnummer</string>
 	<string name="error_enter_correct_zip_code">Indtast det korrekte postnummer</string>
 	<!-- Place Page title for long tap -->

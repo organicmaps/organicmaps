@@ -439,8 +439,8 @@
 	<string name="download_over_mobile_message">用一些方案或漫游的话这可能相当昂贵。</string>
 	<string name="error_enter_correct_house_number">输入正确的房屋号</string>
 	<string name="editor_storey_number">楼号 (最大 %d)</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">编辑最多 25 层的建筑</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">最多可编辑 %d 层的建筑</string>
 	<string name="editor_zip_code">邮政编码</string>
 	<string name="error_enter_correct_zip_code">输入正确的邮政编码</string>
 	<!-- Place Page title for long tap -->

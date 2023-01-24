@@ -422,8 +422,8 @@
 	<string name="download_over_mobile_message">Това може да бъде значително скъпо при някои планове или при роуминг.</string>
 	<string name="error_enter_correct_house_number">Въведете валиден номер на сграда</string>
 	<string name="editor_storey_number">Брой етажи (максимум %d)</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">Броят на етажите не трябва да надвишава 25</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">Броят на етажите не трябва да надвишава %d</string>
 	<string name="editor_zip_code">Пощенски код</string>
 	<string name="error_enter_correct_zip_code">Въведете валиден пощенски код</string>
 	<!-- Place Page title for long tap -->

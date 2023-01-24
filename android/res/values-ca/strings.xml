@@ -454,8 +454,8 @@
 	<string name="download_over_mobile_message">Això podria ser força car amb algunes tarifes d\'itinerància de dades.</string>
 	<string name="error_enter_correct_house_number">Introduïu un número d\'edifici vàlid</string>
 	<string name="editor_storey_number">Nombre de plantes (màxim %d)</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">El nombre de plantes no pot excedir de 25</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">El nombre de plantes no pot excedir de %d</string>
 	<string name="editor_zip_code">Codi postal</string>
 	<string name="error_enter_correct_zip_code">Introduïu un codi postal vàlid</string>
 	<!-- Place Page title for long tap -->

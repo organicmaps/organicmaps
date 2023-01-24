@@ -451,8 +451,8 @@
 	<string name="download_over_mobile_message">Met sommige abonnementen of bij roaming kan dit behoorlijk duur zijn.</string>
 	<string name="error_enter_correct_house_number">Een juist huisnummer invoeren</string>
 	<string name="editor_storey_number">Aantal verdiepingen (max. %d)</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">Bewerk het gebouw met maximaal 25 verdiepingen</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">Het gebouw mag niet meer dan %d verdiepingen hebben</string>
 	<string name="editor_zip_code">Postcode</string>
 	<string name="error_enter_correct_zip_code">Voer de juiste postcode in</string>
 	<!-- Place Page title for long tap -->

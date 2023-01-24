@@ -455,8 +455,8 @@
 	<string name="download_over_mobile_message">Bu işlem, bazı planlarda veya dolaşımda oldukça pahalı olabilir.</string>
 	<string name="error_enter_correct_house_number">Geçerli bir bina numarası girin</string>
 	<string name="editor_storey_number">Kat sayısı (en fazla %d)</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">Kat sayısı 25\'i geçmemelidir</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">Kat sayısı %d\'i geçmemelidir</string>
 	<string name="editor_zip_code">Posta Kodu</string>
 	<string name="error_enter_correct_zip_code">Geçerli bir posta kodu girin</string>
 	<!-- Place Page title for long tap -->

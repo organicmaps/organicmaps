@@ -480,8 +480,8 @@
 	<string name="download_over_mobile_message">This could be considerably expensive with some plans or if roaming.</string>
 	<string name="error_enter_correct_house_number">Enter a valid building number</string>
 	<string name="editor_storey_number">Number of floors (maximum of %d)</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">The number of floors must non exceed 25</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">The number of floors must non exceed %d</string>
 	<string name="editor_zip_code">ZIP Code</string>
 	<string name="error_enter_correct_zip_code">Enter a valid ZIP code</string>
 	<!-- Place Page title for long tap -->

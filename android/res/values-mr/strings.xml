@@ -431,8 +431,8 @@
 	<string name="download_over_mobile_message">रोमिंग वर असल्यास हे बरेच महाग पडू शकते.</string>
 	<string name="error_enter_correct_house_number">एक वैध बिल्डिंग क्रमांक प्रविष्ट करा</string>
 	<string name="editor_storey_number">मजल्यांची संख्या (कमाल %d)</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">मजल्यांची संख्या २५ पेक्षा जास्त नसावी</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">मजल्यांची संख्या %d पेक्षा जास्त नसावी</string>
 	<string name="editor_zip_code">पिनकोड</string>
 	<string name="error_enter_correct_zip_code">वैध पिनकोड प्रविष्ट करा</string>
 	<!-- Place Page title for long tap -->

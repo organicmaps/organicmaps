@@ -426,8 +426,8 @@
 	<string name="download_over_mobile_message">این کار می تواند برای شما در بعضی طرح ها و یا حالت رومینگ هزینه اضافی در بر داشته باشد.</string>
 	<string name="error_enter_correct_house_number">وارد کردن شماره ساختمان معتبر</string>
 	<string name="editor_storey_number">تعداد طبقات ( حداکثر %d )</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">تعداد طبقات نباید بیش از 25 باشد</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">تعداد طبقات نباید بیش از %d باشد</string>
 	<string name="editor_zip_code">کدپستی</string>
 	<string name="error_enter_correct_zip_code">یک کد پستی معتبر وارد کنید</string>
 	<!-- Place Page title for long tap -->

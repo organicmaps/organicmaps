@@ -453,8 +453,8 @@
 	<string name="download_over_mobile_message">See võib mõningate lepingute või roamingu korral olla märgatavalt kallim.</string>
 	<string name="error_enter_correct_house_number">Sisesta kehtiv majanumber</string>
 	<string name="editor_storey_number">Korruste arv (maks. %d)</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">Korruste arv ei või olla üle 25</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">Korruste arv ei või olla üle %d</string>
 	<string name="editor_zip_code">Postiindeks</string>
 	<string name="error_enter_correct_zip_code">Sisesta korrektne postiindeks</string>
 	<!-- Place Page title for long tap -->

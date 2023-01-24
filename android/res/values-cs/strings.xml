@@ -435,8 +435,8 @@
 	<string name="download_over_mobile_message">Toto by mohlo být s některými tarify nebo roamingem výrazně dražší.</string>
 	<string name="error_enter_correct_house_number">Zadejte správné číslo domu</string>
 	<string name="editor_storey_number">Počet poschodí (max. %d)</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">Opravte počet poschodí, max. 25</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">Opravte počet poschodí, max. %d</string>
 	<string name="editor_zip_code">PSČ</string>
 	<string name="error_enter_correct_zip_code">Zadejte správné PSČ</string>
 	<!-- Place Page title for long tap -->

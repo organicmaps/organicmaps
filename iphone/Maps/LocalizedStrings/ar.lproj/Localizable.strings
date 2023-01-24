@@ -710,8 +710,8 @@
 
 "editor_storey_number" = "عدد الطوابق (بحد أقصى %d)";
 
-/* Error message in Editor when a user tries to set the number of floors for a building higher than 25 */
-"error_enter_correct_storey_number" = "يجب ألا يتجاوز عدد طوابق المبنى 25";
+/* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
+"error_enter_correct_storey_number" = "يجب ألا يتجاوز عدد طوابق المبنى %d";
 
 "editor_zip_code" = "الرمز البريدي";
 

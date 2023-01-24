@@ -453,8 +453,8 @@
 	<string name="download_over_mobile_message">Гэта можа быць даволі дорага з некаторымі тарыфнымі планамі альбо ў роўмінгу.</string>
 	<string name="error_enter_correct_house_number">Увядзіце нумар дома правільна</string>
 	<string name="editor_storey_number">Колькасць паверхаў (максімум %d)</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">Колькасць паверхаў павінна быць не больш за 25</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">Колькасць паверхаў павінна быць не больш за %d</string>
 	<string name="editor_zip_code">Паштовы індэкс</string>
 	<string name="error_enter_correct_zip_code">Увядзіце паштовы індэкс правільна</string>
 	<!-- Place Page title for long tap -->

@@ -427,8 +427,8 @@
 	<string name="download_over_mobile_message">プランによって、またはローミングしている場合、非常に高額になる可能性があります。</string>
 	<string name="error_enter_correct_house_number">正しい番地を入力してください</string>
 	<string name="editor_storey_number">フロアの数（最大%d）</string>
-	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than 25 -->
-	<string name="error_enter_correct_storey_number">最高25階までのビルを編集</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">最高%d階までのビルを編集</string>
 	<string name="editor_zip_code">郵便番号</string>
 	<string name="error_enter_correct_zip_code">正しい郵便番号を入力してください</string>
 	<!-- Place Page title for long tap -->
