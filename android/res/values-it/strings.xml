@@ -744,7 +744,7 @@
 	<string name="type.office.diplomatic">Ambasciata</string>
 	<string name="type.amenity.fast_food">Fast food</string>
 	<string name="type.amenity.ferry_terminal">Traghetto</string>
-	<string name="type.amenity.fire_station">Scuadra antincendio</string>
+	<string name="type.amenity.fire_station">Squadra antincendio</string>
 	<string name="type.amenity.food_court">Area ristorazione</string>
 	<string name="type.amenity.fountain">Fontana</string>
 	<string name="type.amenity.fuel">Stazione di rifornimento</string>
