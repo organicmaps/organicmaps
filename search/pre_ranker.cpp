@@ -248,8 +248,9 @@ void PreRanker::FilterForViewportSearch()
     if (!m_params.m_viewport.IsPointInside(info.m_center))
       return true;
 
-    /// @todo Make some upper bound like for regular search, but not to erase partially matched results?
-    return result.GetMatchedTokensNumber() + 1 < m_params.m_numQueryTokens;
+    // Better criteria than previous (at first glance).
+    /// @todo Probably, should show say 20-30 first results with honest ranking, but need to refactor a lot ..
+    return result.SkipForViewportSearch(m_params.m_numQueryTokens);
   });
 
   // By VNG: Comment next statements to discard viewport filtering (displacement) for Debug purpose.

@@ -2558,13 +2558,17 @@ UNIT_CLASS_TEST(ProcessorTest, ViewportFilter)
     params.m_viewport = m2::RectD(-1.0, -1.0, 1.0, 1.0);
     params.m_mode = Mode::Viewport;
 
+    /// @todo If we gonna show "relaxed" street result, will be a lot of dummies:
+    /// https://github.com/organicmaps/organicmaps/issues/4190
+
     // |street23| should not appear in viewport search because it has 2 unmatched tokens.
     // |street8| has 1 unmatched token.
-    Rules const rulesViewport = {ExactMatch(countryId, street8)};
+    //Rules const rules = {ExactMatch(countryId, street8)};
+    Rules const rules;
 
     TestSearchRequest request(m_engine, params);
     request.Run();
-    TEST(ResultsMatch(request.Results(), rulesViewport), ());
+    TEST(ResultsMatch(request.Results(), rules), ());
   }
 
   {
@@ -2576,11 +2580,11 @@ UNIT_CLASS_TEST(ProcessorTest, ViewportFilter)
 
     // |street23| should be in everywhere search results because everywhere search mode does not
     // have matched tokens number restriction.
-    Rules const rulesViewport = {ExactMatch(countryId, street23), ExactMatch(countryId, street8)};
+    Rules const rules = {ExactMatch(countryId, street23), ExactMatch(countryId, street8)};
 
     TestSearchRequest request(m_engine, params);
     request.Run();
-    TEST(ResultsMatch(request.Results(), rulesViewport), ());
+    TEST(ResultsMatch(request.Results(), rules), ());
   }
 }
 
