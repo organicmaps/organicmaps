@@ -6,17 +6,14 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.location.Location;
 import android.os.Bundle;
-import android.text.Html;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -81,6 +78,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
 
   private static final String PREF_COORDINATES_FORMAT = "coordinates_format";
   private static final String BOOKMARK_FRAGMENT_TAG = "BOOKMARK_FRAGMENT_TAG";
+  private static final String WIKIPEDIA_FRAGMENT_TAG = "WIKIPEDIA_FRAGMENT_TAG";
   private static final String PHONE_FRAGMENT_TAG = "PHONE_FRAGMENT_TAG";
 
   private static final List<CoordinatesFormat> visibleCoordsFormat =
@@ -88,7 +86,6 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
                     CoordinatesFormat.LatLonDecimal,
                     CoordinatesFormat.OLCFull,
                     CoordinatesFormat.OSMLink);
-  private int mDescriptionMaxLength;
   private View mFrame;
   // Preview.
   private ViewGroup mPreview;
@@ -133,7 +130,6 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   private TextView mTvLevel;
   private View mCuisine;
   private TextView mTvCuisine;
-  private View mWiki;
   private View mEntrance;
   private TextView mTvEntrance;
   private View mEditPlace;
@@ -141,18 +137,6 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   private View mAddPlace;
   private View mEditTopSpace;
 
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private View mPlaceDescriptionContainer;
-  @SuppressWarnings("NotNullFieldNotInitialized")
-  @NonNull
-  private View mPlaceDescriptionHeaderContainer;
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private TextView mPlaceDescriptionView;
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private View mPlaceDescriptionMoreBtn;
   @SuppressWarnings("NullableProblems")
   @NonNull
   private View mPopularityView;
@@ -268,7 +252,6 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
-    mDescriptionMaxLength = getResources().getInteger(R.integer.place_page_description_max_length);
     mCoordsFormat = CoordinatesFormat.fromId(
         MwmApplication.prefs(requireContext()).getInt(
             PREF_COORDINATES_FORMAT, CoordinatesFormat.LatLonDecimal.getId()));
@@ -360,8 +343,6 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     mTvLevel = mFrame.findViewById(R.id.tv__place_level);
     mCuisine = mFrame.findViewById(R.id.ll__place_cuisine);
     mTvCuisine = mFrame.findViewById(R.id.tv__place_cuisine);
-    mWiki = mFrame.findViewById(R.id.ll__place_wiki);
-    mWiki.setOnClickListener(this);
     mEntrance = mFrame.findViewById(R.id.ll__place_entrance);
     mTvEntrance = mEntrance.findViewById(R.id.tv__place_entrance);
     mEditPlace = mFrame.findViewById(R.id.ll__place_editor);
@@ -379,19 +360,10 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     mEmail.setOnLongClickListener(this);
     mOperator.setOnLongClickListener(this);
     mLevel.setOnLongClickListener(this);
-    mWiki.setOnLongClickListener(this);
 
     mDownloaderIcon = new DownloaderStatusIcon(mPreview.findViewById(R.id.downloader_status_frame));
 
     mDownloaderInfo = mPreview.findViewById(R.id.tv__downloader_details);
-
-    // Place Description
-    mPlaceDescriptionContainer = mFrame.findViewById(R.id.poi_description_container);
-    mPlaceDescriptionView = mFrame.findViewById(R.id.poi_description);
-    mPlaceDescriptionView.setOnLongClickListener(this);
-    mPlaceDescriptionHeaderContainer = mFrame.findViewById(R.id.pp_description_header_container);
-    mPlaceDescriptionMoreBtn = mFrame.findViewById(R.id.more_btn);
-    mPlaceDescriptionMoreBtn.setOnClickListener(v -> showDescriptionScreen());
 
     viewModel = new ViewModelProvider(requireActivity()).get(PlacePageViewModel.class);
     viewModel.getMapObject().observe(requireActivity(), this);
@@ -550,13 +522,6 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     mPlacePageViewListener.onPlacePageRequestToggleRouteSettings(roadType);
   }
 
-  private void showDescriptionScreen()
-  {
-    Context context = mPlaceDescriptionContainer.getContext();
-    String description = mMapObject.getDescription();
-    PlaceDescriptionActivity.start(context, description);
-  }
-
   private void setCurrentCountry()
   {
     if (mCurrentCountry != null)
@@ -583,12 +548,9 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     switch (mMapObject.getMapObjectType())
     {
       case MapObject.BOOKMARK:
-        refreshDistanceToObject(loc);
-        break;
       case MapObject.POI:
       case MapObject.SEARCH:
         refreshDistanceToObject(loc);
-        setPlaceDescription();
         break;
       case MapObject.API_POINT:
         refreshDistanceToObject(loc);
@@ -638,35 +600,21 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     }
   }
 
-  private Spanned getShortDescription()
+  private void updateWikipediaView()
   {
-    String htmlDescription = mMapObject.getDescription();
-    final int paragraphStart = htmlDescription.indexOf("<p>");
-    final int paragraphEnd = htmlDescription.indexOf("</p>");
-    if (paragraphStart == 0 && paragraphEnd != -1)
-      htmlDescription = htmlDescription.substring(3, paragraphEnd);
-
-    Spanned description = Html.fromHtml(htmlDescription);
-    if (description.length() > mDescriptionMaxLength)
+    final FragmentManager fManager = getChildFragmentManager();
+    final PlacePageWikipediaFragment fragment = (PlacePageWikipediaFragment) fManager.findFragmentByTag(WIKIPEDIA_FRAGMENT_TAG);
+    if (!TextUtils.isEmpty(mMapObject.getDescription()) && fragment == null)
     {
-      description = (Spanned) new SpannableStringBuilder(description)
-          .insert(mDescriptionMaxLength - 3, "...")
-          .subSequence(0, mDescriptionMaxLength);
+      fManager.beginTransaction()
+              .add(R.id.place_page_wikipedia_fragment, PlacePageWikipediaFragment.class, null, WIKIPEDIA_FRAGMENT_TAG)
+              .commit();
     }
-
-    return description;
-  }
-
-  private void setPlaceDescription()
-  {
-    if (TextUtils.isEmpty(mMapObject.getDescription()))
+    else if (TextUtils.isEmpty(mMapObject.getDescription()) && fragment != null)
     {
-      UiUtils.hide(mPlaceDescriptionContainer, mPlaceDescriptionHeaderContainer);
-    }
-    else
-    {
-      UiUtils.show(mPlaceDescriptionContainer, mPlaceDescriptionHeaderContainer);
-      mPlaceDescriptionView.setText(getShortDescription());
+      fManager.beginTransaction()
+              .remove(fragment)
+              .commit();
     }
   }
 
@@ -716,7 +664,6 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     /// @todo I don't like it when we take all data from mapObject, but for cuisines, we should
     /// go into JNI Framework and rely on some "active object".
     refreshMetadataOrHide(Framework.nativeGetActiveObjectFormattedCuisine(), mCuisine, mTvCuisine);
-    refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIPEDIA), mWiki, null);
     refreshWiFi();
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_FLATS), mEntrance, mTvEntrance);
     refreshOpeningHours();
@@ -738,7 +685,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
                      || UiUtils.isVisible(mAddOrganisation)
                      || UiUtils.isVisible(mAddPlace), mEditTopSpace);
     }
-    setPlaceDescription();
+    updateWikipediaView();
   }
 
   private void refreshOpeningHours()
@@ -1104,8 +1051,6 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
       else
         Utils.openUrl(context, "https://line.me/R/ti/p/@" + linePage);
     }
-    else if (id == R.id.ll__place_wiki)
-      Utils.openUrl(context, mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIPEDIA));
     else if (id == R.id.direction_frame)
       showBigDirection();
     else if (id == R.id.ll__place_email)
@@ -1135,8 +1080,6 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
       items.add(mTvSecondaryTitle.getText().toString());
     else if (id == R.id.tv__address)
       items.add(mTvAddress.getText().toString());
-    else if (id == R.id.poi_description)
-      items.add(mPlaceDescriptionView.getText().toString());
     else if (id == R.id.ll__place_latlon)
     {
       final double lat = mMapObject.getLat();
@@ -1197,38 +1140,14 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     }
     else if (id == R.id.ll__place_operator)
       items.add(mTvOperator.getText().toString());
-    else if (id == R.id.ll__place_wiki)
-      items.add(mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIPEDIA));
     else if (id == R.id.ll__place_level)
       items.add(mTvLevel.getText().toString());
 
-    final Context ctx = getContext();
+    final Context context = requireContext();
     if (items.size() == 1)
-    {
-      Utils.copyTextToClipboard(ctx, items.get(0));
-      Utils.showSnackbarAbove(mDetails,
-                              mFrame.getRootView().findViewById(R.id.pp_buttons_layout),
-                              ctx.getString(R.string.copied_to_clipboard, items.get(0)));
-    }
+      PlacePageUtils.copyToClipboard(context, mFrame, items.get(0));
     else
-    {
-      final PopupMenu popup = new PopupMenu(getContext(), v);
-      final Menu menu = popup.getMenu();
-      final String copyText = getResources().getString(android.R.string.copy);
-
-      for (int i = 0; i < items.size(); i++)
-        menu.add(Menu.NONE, i, i, String.format("%s %s", copyText, items.get(i)));
-
-      popup.setOnMenuItemClickListener(item -> {
-        final int itemId = item.getItemId();
-        Utils.copyTextToClipboard(ctx, items.get(itemId));
-        Utils.showSnackbarAbove(mDetails,
-                                mFrame.getRootView().findViewById(R.id.pp_buttons_layout),
-                                ctx.getString(R.string.copied_to_clipboard, items.get(itemId)));
-        return true;
-      });
-      popup.show();
-    }
+      PlacePageUtils.showCopyPopup(context, v, mFrame, items);
 
     return true;
   }
