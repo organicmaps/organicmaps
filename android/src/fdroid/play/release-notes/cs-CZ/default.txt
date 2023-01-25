@@ -6,6 +6,5 @@
 • Opraveny Buenos Aires & Bilbao ikonky metra
 • Přidána Bowlingová dráha
 • Přidáno Chorvatsko do schengenského prostoru
-• Zvýšen maximální upravitelný počet poschodí z 25 na 50
 • Zapnuto TTS pro baskičtinu, běloruštinu, chorvatštinu, norštinu, maráthštinu a svahilštinu
 více na: omaps.app/news
