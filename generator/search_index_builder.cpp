@@ -34,6 +34,7 @@
 #include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"
+#include "base/stats.hpp"
 #include "base/string_utils.hpp"
 #include "base/timer.hpp"
 
@@ -101,8 +102,9 @@ private:
   std::unordered_multimap<std::string, std::string> m_map;
 };
 
+template <class FnT>
 void GetCategoryTypes(CategoriesHolder const & categories, std::pair<int, int> scaleRange,
-                      feature::TypesHolder const & types, std::vector<uint32_t> & result)
+                      feature::TypesHolder const & types, FnT const & fn)
 {
   for (uint32_t t : types)
   {
@@ -127,24 +129,34 @@ void GetCategoryTypes(CategoriesHolder const & categories, std::pair<int, int> s
 
     // Index only those types that are visible.
     if (feature::IsVisibleInRange(t, scaleRange))
-      result.push_back(t);
+      fn(t);
   }
 }
 
-template <typename Key, typename Value>
+template <class ContT>
 class FeatureNameInserter
 {
   String2StringMap const & m_suffixes;
 
+  base::TopStatsCounter<std::string> m_stats;
+
 public:
-  FeatureNameInserter(uint32_t index, SynonymsHolder * synonyms,
-                      std::vector<std::pair<Key, Value>> & keyValuePairs, bool hasStreetType)
+  explicit FeatureNameInserter(ContT & keyValuePairs)
     : m_suffixes(GetDACHStreets())
-    , m_val(index)
-    , m_synonyms(synonyms)
     , m_keyValuePairs(keyValuePairs)
-    , m_hasStreetType(hasStreetType)
   {
+  }
+  ~FeatureNameInserter()
+  {
+    LOG(LINFO, ("Top street's name tokens:"));
+    m_stats.PrintTop(10);
+  }
+
+  void SetFeature(uint32_t index, SynonymsHolder const * synonyms, bool hasStreetType)
+  {
+    m_val = index;
+    m_synonyms = synonyms;
+    m_hasStreetType = hasStreetType;
   }
 
   void AddToken(uint8_t lang, UniString const & s) const
@@ -192,7 +204,7 @@ public:
     }
   }
 
-  void operator()(int8_t lang, std::string_view name) const
+  void operator()(int8_t lang, std::string_view name)
   {
     /// @todo No problem here if we will have duplicating tokens? (POI name like "Step by Step").
     auto tokens = NormalizeAndTokenizeString(name);
@@ -207,8 +219,8 @@ public:
       });
     }
 
-    static_assert(search::kMaxNumTokens > 0);
-    size_t const maxTokensCount = search::kMaxNumTokens - 1;
+    static_assert(kMaxNumTokens > 0);
+    size_t const maxTokensCount = kMaxNumTokens - 1;
     if (tokens.size() > maxTokensCount)
     {
       LOG(LWARNING, ("Name has too many tokens:", name));
@@ -217,12 +229,18 @@ public:
 
     if (m_hasStreetType)
     {
-      StreetTokensFilter filter(
-          [&](UniString const & token, size_t /* tag */) { AddToken(lang, token); },
-          false /* withMisprints */);
+      StreetTokensFilter filter([this, lang](UniString const & token, size_t)
+      {
+        AddToken(lang, token);
+      }, false /* withMisprints */);
 
       for (auto const & token : tokens)
+      {
+        if (m_statsEnabled)
+          m_stats.Add(strings::ToUtf8(token));
+
         filter.Put(token, false /* isPrefix */, 0 /* tag */);
+      }
 
       AddDACHNames(lang, tokens);
     }
@@ -233,22 +251,25 @@ public:
     }
   }
 
-  Value m_val;
-  SynonymsHolder * m_synonyms;
-  std::vector<std::pair<Key, Value>> & m_keyValuePairs;
+  bool m_statsEnabled = false;
+
+private:
+  uint32_t m_val;
+  SynonymsHolder const * m_synonyms;
+  ContT & m_keyValuePairs;
   bool m_hasStreetType = false;
 };
 
 // Returns true iff feature name was indexed as postcode and should be ignored for name indexing.
-bool InsertPostcodes(FeatureType & f, std::function<void(strings::UniString const &)> const & fn)
+template <class FnT> bool InsertPostcodes(FeatureType & f, FnT && fn)
 {
   using namespace search;
 
   auto const & postBoxChecker = ftypes::IsPostBoxChecker::Instance();
   auto const postcode = f.GetMetadata(feature::Metadata::FMD_POSTCODE);
-  std::vector<std::string> postcodes;
+
   if (!postcode.empty())
-    postcodes.emplace_back(postcode);
+    ForEachNormalizedToken(postcode, fn);
 
   bool useNameAsPostcode = false;
   if (postBoxChecker(f))
@@ -262,63 +283,64 @@ bool InsertPostcodes(FeatureType & f, std::function<void(strings::UniString cons
       {
         // In UK it's common practice to set outer postcode as postcode and outer + inner as ref.
         // We convert ref to name at FeatureBuilder.
-        postcodes.emplace_back(defaultName);
+        ForEachNormalizedToken(defaultName, fn);
         useNameAsPostcode = true;
       }
     }
   }
 
-  for (auto const & pc : postcodes)
-    ForEachNormalizedToken(pc, fn);
   return useNameAsPostcode;
 }
 
-template <typename Key, typename Value>
+template <class ContT>
 class FeatureInserter
 {
 public:
-  FeatureInserter(SynonymsHolder * synonyms, std::vector<std::pair<Key, Value>> & keyValuePairs,
+  FeatureInserter(SynonymsHolder * synonyms, ContT & keyValuePairs,
                   CategoriesHolder const & catHolder, std::pair<int, int> const & scales)
     : m_synonyms(synonyms)
-    , m_keyValuePairs(keyValuePairs)
     , m_categories(catHolder)
     , m_scales(scales)
+    , m_inserter(keyValuePairs)
   {
   }
 
-  void operator()(FeatureType & f, uint32_t index) const
+  void operator()(FeatureType & f, uint32_t index)
   {
-    using namespace search;
-
-    static TypesSkipper skipIndex;
     feature::TypesHolder types(f);
 
-    if (skipIndex.SkipAlways(types))
+    if (m_skipIndex.SkipAlways(types))
       return;
-    if (skipIndex.SkipSpecialNames(types, f.GetName(StringUtf8Multilang::kDefaultCode)))
+    if (m_skipIndex.SkipSpecialNames(types, f.GetName(StringUtf8Multilang::kDefaultCode)))
       return;
 
-    auto const isCountryOrState = [](auto types)
+    SynonymsHolder const * synonyms = nullptr;
+    if (m_synonyms)
     {
+      // Insert synonyms only for countries and states (maybe will add cities in future).
       auto const localityType = ftypes::IsLocalityChecker::Instance().GetType(types);
-      return localityType == ftypes::LocalityType::Country ||
-             localityType == ftypes::LocalityType::State;
-    };
+      if (localityType == ftypes::LocalityType::Country || localityType == ftypes::LocalityType::State)
+        synonyms = m_synonyms;
+    }
 
     bool const hasStreetType = ftypes::IsStreetOrSquareChecker::Instance()(types);
 
-    // Init inserter with serialized value.
-    // Insert synonyms only for countries and states (maybe will add cities in future).
-    FeatureNameInserter<Key, Value> inserter(index, isCountryOrState(types) ? m_synonyms : nullptr,
-                                             m_keyValuePairs, hasStreetType);
+    // Init inserter with Feature's index.
+    m_inserter.SetFeature(index, synonyms, hasStreetType);
 
-    bool const useNameAsPostcode = InsertPostcodes(
-        f, [&inserter](auto const & token) { inserter.AddToken(kPostcodesLang, token); });
+    bool const useNameAsPostcode = InsertPostcodes(f, [this](auto const & token)
+    {
+      m_inserter.AddToken(search::kPostcodesLang, token);
+    });
 
     if (!useNameAsPostcode)
-      f.ForEachName(inserter);
+    {
+      m_inserter.m_statsEnabled = true;
+      f.ForEachName(m_inserter);
+      m_inserter.m_statsEnabled = false;
+    }
     if (!f.HasName())
-      skipIndex.SkipEmptyNameTypes(types);
+      m_skipIndex.SkipEmptyNameTypes(types);
     if (types.Empty())
       return;
 
@@ -326,53 +348,51 @@ public:
     if (hasStreetType)
     {
       for (auto const & shield : ftypes::GetRoadShieldsNames(f))
-        inserter(StringUtf8Multilang::kDefaultCode, shield);
+        m_inserter(StringUtf8Multilang::kDefaultCode, shield);
     }
 
     if (ftypes::IsAirportChecker::Instance()(types))
     {
       auto const iata = f.GetMetadata(feature::Metadata::FMD_AIRPORT_IATA);
       if (!iata.empty())
-        inserter(StringUtf8Multilang::kDefaultCode, iata);
+        m_inserter(StringUtf8Multilang::kDefaultCode, iata);
     }
 
     // Index operator to support "Sberbank ATM" for objects with amenity=atm and operator=Sberbank.
     auto const op = f.GetMetadata(feature::Metadata::FMD_OPERATOR);
     if (!op.empty())
-      inserter(StringUtf8Multilang::kDefaultCode, op);
+      m_inserter(StringUtf8Multilang::kDefaultCode, op);
 
     auto const brand = f.GetMetadata(feature::Metadata::FMD_BRAND);
     if (!brand.empty())
     {
-      ForEachLocalizedBrands(brand, [&inserter](BrandsHolder::Brand::Name const & name)
+      ForEachLocalizedBrands(brand, [this](BrandsHolder::Brand::Name const & name)
       {
-        inserter(name.m_locale, name.m_name);
+        m_inserter(name.m_locale, name.m_name);
       });
     }
 
     Classificator const & c = classif();
-
-    std::vector<uint32_t> categoryTypes;
-    GetCategoryTypes(m_categories, m_scales, types, categoryTypes);
-
-    // add names of categories of the feature
-    for (uint32_t t : categoryTypes)
-      inserter.AddToken(kCategoriesLang, FeatureTypeToString(c.GetIndexForType(t)));
+    GetCategoryTypes(m_categories, m_scales, types, [this, &c](uint32_t t)
+    {
+      m_inserter.AddToken(search::kCategoriesLang, search::FeatureTypeToString(c.GetIndexForType(t)));
+    });
   }
 
 private:
   SynonymsHolder * m_synonyms;
-  std::vector<std::pair<Key, Value>> & m_keyValuePairs;
 
   CategoriesHolder const & m_categories;
-
   std::pair<int, int> m_scales;
+
+  search::TypesSkipper m_skipIndex;
+  FeatureNameInserter<ContT> m_inserter;
 };
 
-template <typename Key, typename Value>
+template <class ContT>
 void AddFeatureNameIndexPairs(FeaturesVectorTest const & features,
                               CategoriesHolder const & categoriesHolder,
-                              std::vector<std::pair<Key, Value>> & keyValuePairs)
+                              ContT & keyValuePairs)
 {
   feature::DataHeader const & header = features.GetHeader();
 
@@ -380,8 +400,7 @@ void AddFeatureNameIndexPairs(FeaturesVectorTest const & features,
   if (header.GetType() == feature::DataHeader::MapType::World)
     synonyms = std::make_unique<SynonymsHolder>(base::JoinPath(GetPlatform().ResourcesDir(), SYNONYMS_FILE));
 
-  features.GetVector().ForEach(FeatureInserter<Key, Value>(
-      synonyms.get(), keyValuePairs, categoriesHolder, header.GetScaleRange()));
+  features.GetVector().ForEach(FeatureInserter(synonyms.get(), keyValuePairs, categoriesHolder, header.GetScaleRange()));
 }
 
 void ReadAddressData(std::string const & filename, std::vector<feature::AddressData> & addrs)
@@ -513,6 +532,7 @@ void BuildAddressTable(FilesContainerR & container, std::string const & addressD
   LOG(LINFO, ("Address: Matched percent", matchedPercent, "Total:", address, "Missing:", missing));
 }
 }  // namespace
+
 
 void BuildSearchIndex(FilesContainerR & container, Writer & indexWriter);
 
