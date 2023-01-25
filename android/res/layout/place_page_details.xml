@@ -27,12 +27,11 @@
       android:layout_height="wrap_content"
       tools:layout="@layout/place_page_bookmark_fragment" />
 
-    <include
-      layout="@layout/place_page_description_layout"
+    <androidx.fragment.app.FragmentContainerView
+      android:id="@+id/place_page_wikipedia_fragment"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginBottom="@dimen/margin_half"
-      tools:visibility="visible"/>
+      tools:layout="@layout/place_page_wikipedia_fragment" />
 
     <include layout="@layout/place_page_placename"/>
 
@@ -67,8 +66,6 @@
     <include layout="@layout/place_page_vk"/>
 
     <include layout="@layout/place_page_line"/>
-
-    <include layout="@layout/place_page_wiki"/>
 
     <include layout="@layout/place_page_wikimedia"/>
 
