@@ -839,6 +839,7 @@ world  +
                 beijing  -
                 bengalore  -
                 berlin  -
+                bilbao  -
                 brasilia  -
                 brescia  -
                 brussels  -

@@ -1402,7 +1402,7 @@ amenity|recycling|container
 *railway|station|subway|lille
 *railway|station|subway|lima
 *railway|station|subway|lisboa
-mapswithme
+*railway|station|subway|bilbao
 *railway|station|subway|lyon
 *railway|station|subway|malaga
 *railway|station|subway|manila
