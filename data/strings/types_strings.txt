@@ -9123,6 +9123,7 @@
     zh-Hant = 緊急電話
 
   [type.entrance]
+    comment = This is for secondary entrances, for main entrances see type.entrance.main
     en = Entrance
     ar = مدخل
     cs = Vchod
@@ -9156,6 +9157,47 @@
     vi = Lối vào
     zh-Hans = 入口
     zh-Hant = 入口
+
+  [type.entrance.main]
+    comment = This is for main/primary entrances, for secondary entrances see type.entrance
+    en = Main Entrance
+    ar = ﻲﺴﻴﺋﺮﻟﺍ ﻞﺧﺪﻤﻟﺍ
+    be = Галоўны ўваход
+    bg = Главния вход
+    ca = Entrada principal
+    cs = Hlavní vchod
+    da = Hovedindgang
+    de = Haupteingang
+    el = Κύρια είσοδος
+    es = Entrada principal
+    et = Peasissekäik
+    eu = Sarrera Nagusia
+    fa = ﯽﻠﺻﺍ ﯼﺩﻭﺭﻭ
+    fi = Pääsisäänkäynti
+    fr = Entrée principale
+    he = תישארה הסינכ
+    hu = Főbejárat
+    id = Pintu masuk utama
+    it = Entrata principale
+    ja = 正面玄関
+    ko = 정문
+    mr = मुख्य प्रवेशद्वार
+    nb = Hovedinngang
+    nl = Hoofdingang
+    pl = Główne wejście
+    pt = Entrada principal
+    pt-BR = Entrada principal
+    ro = Intrarea principala
+    ru = Главный вход
+    sk = Hlavný vchod
+    sv = Huvudentré
+    sw = Mlango Mkuu
+    th = ทางเข้าหลัก
+    tr = Ana giriş
+    uk = Головний вхід
+    vi = Lối vào chính
+    zh-Hans = 主要入口
+    zh-Hant = 主要入口
 
   [type.healthcare.laboratory]
     en = Medical Laboratory

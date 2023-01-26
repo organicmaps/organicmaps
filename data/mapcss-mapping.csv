@@ -880,7 +880,7 @@ area:highway|motorway;879;
 area:highway|trunk;880;
 deprecated|deprecated;881;x
 entrance;[entrance];;ref;addr:flats;882;
-deprecated|deprecated;883;x
+entrance|main;[entrance=main];;ref;addr:flats;883;
 tourism|artwork;885;
 railway|subway|red;[railway=subway][colour=red];x;name;int_name;886;railway|subway|tunnel
 railway|subway|blue;[railway=subway][colour=blue];x;name;int_name;887;railway|subway|tunnel
