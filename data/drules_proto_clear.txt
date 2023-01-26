@@ -61738,6 +61738,175 @@ cont {
   }
 }
 cont {
+  name: "railway-station-subway-bilbao"
+  element {
+    scale: 13
+    symbol {
+      name: "subway-bilbao-s"
+      apply_for_type: 1
+      priority: 16952
+      min_distance: 1
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "subway-bilbao-s"
+      apply_for_type: 1
+      priority: 16952
+      min_distance: 1
+    }
+    caption {
+      primary {
+        height: 11
+        color: 2236962
+        stroke_color: 1308622847
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 9
+        color: 2236962
+        stroke_color: 1308622847
+        offset_y: 1
+        text: "int_name"
+        is_optional: true
+      }
+      priority: 15952
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "subway-bilbao-m"
+      apply_for_type: 1
+      priority: 16952
+    }
+    caption {
+      primary {
+        height: 12
+        color: 2236962
+        stroke_color: 872415231
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 10
+        color: 2236962
+        stroke_color: 872415231
+        offset_y: 1
+        text: "int_name"
+        is_optional: true
+      }
+      priority: 15952
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "subway-bilbao-m"
+      apply_for_type: 1
+      priority: 16952
+    }
+    caption {
+      primary {
+        height: 13
+        color: 2236962
+        stroke_color: 872415231
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 2236962
+        stroke_color: 872415231
+        offset_y: 1
+        text: "int_name"
+        is_optional: true
+      }
+      priority: 15952
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "subway-bilbao-m"
+      apply_for_type: 1
+      priority: 16952
+    }
+    caption {
+      primary {
+        height: 13
+        color: 2236962
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 2236962
+        stroke_color: 452984831
+        offset_y: 1
+        text: "int_name"
+        is_optional: true
+      }
+      priority: 15952
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "subway-bilbao-m"
+      apply_for_type: 1
+      priority: 16952
+    }
+    caption {
+      primary {
+        height: 13
+        color: 2236962
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 2236962
+        stroke_color: 452984831
+        offset_y: 1
+        text: "int_name"
+        is_optional: true
+      }
+      priority: 15952
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "subway-bilbao-m"
+      apply_for_type: 1
+      priority: 16952
+    }
+    caption {
+      primary {
+        height: 13
+        color: 2236962
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 2236962
+        stroke_color: 452984831
+        offset_y: 1
+        text: "int_name"
+        is_optional: true
+      }
+      priority: 15952
+    }
+  }
+}
+cont {
   name: "railway-station-subway-brasilia"
   element {
     scale: 13
