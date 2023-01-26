@@ -59,10 +59,12 @@ void ForEachCategoryTypeFuzzy(StringSliceBase const & slice, Locales const & loc
 
   for (size_t i = 0; i < slice.Size(); ++i)
   {
-    // todo(@m, @y). We build dfa twice for each token: here and in geocoder.cpp.
-    // A possible optimization is to build each dfa once and save it. Note that
-    // dfas for the prefix tokens differ, i.e. we ignore slice.IsPrefix(i) here.
+    /// @todo We build dfa twice for each token: here and in geocoder.cpp.
+    /// A possible optimization is to build each dfa once and save it. Note that
+    /// dfas for the prefix tokens differ, i.e. we ignore slice.IsPrefix(i) here.
+
     SearchTrieRequest<strings::LevenshteinDFA> request;
+    /// @todo Shall we match prefix tokens for categories?
     request.m_names.push_back(BuildLevenshteinDFA_Category(slice.Get(i)));
     request.SetLangs(locales);
 
