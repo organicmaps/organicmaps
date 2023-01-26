@@ -755,7 +755,6 @@ void Processor::InitParams(QueryParams & params) const
   }
   else
   {
-    // todo(@m, @y). Shall we match prefix tokens for categories?
     ForEachCategoryTypeFuzzy(tokenSlice, [&c, &params](size_t i, uint32_t t)
     {
       uint32_t const index = c.GetIndexForType(t);

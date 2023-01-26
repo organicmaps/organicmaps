@@ -65,14 +65,15 @@ strings::LevenshteinDFA BuildLevenshteinDFA(strings::UniString const & s)
 strings::LevenshteinDFA BuildLevenshteinDFA_Category(strings::UniString const & s)
 {
   // https://github.com/organicmaps/organicmaps/issues/3655
-  // Separate DFA for categories (token's length <= 4 means no errors allowed) to avoid fancy matchings like:
+  // Separate DFA for categories (_Category) to avoid fancy matchings like:
   // cafe <-> care
   // ecco -> eco
   // shop <-> shoe
-  /// @todo "hote" doesn't match "hotel" now. Should allow _adding_ symbols when size == 4.
+  // warte -> waste
+  /// @todo "hote" doesn't match "hotel" now. Allow prefix search for categories?
 
   ASSERT(!s.empty(), ());
-  return strings::LevenshteinDFA(s, 1 /* prefixSize */, kAllowedMisprints, GetMaxErrorsForTokenLength(s.size() - 1));
+  return strings::LevenshteinDFA(s, 1 /* prefixSize */, kAllowedMisprints, GetMaxErrorsForToken_Category(s.size()));
 }
 
 UniString NormalizeAndSimplifyString(string_view s)

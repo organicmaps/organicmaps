@@ -19,6 +19,16 @@ inline constexpr size_t GetMaxErrorsForTokenLength(size_t length)
     return 1;
   return 2;
 }
+
+inline constexpr size_t GetMaxErrorsForToken_Category(size_t length)
+{
+  if (length < 7)
+    return 0;
+  if (length < 10)
+    return 1;
+  return 2;
+}
+
 size_t GetMaxErrorsForToken(strings::UniString const & token);
 
 strings::LevenshteinDFA BuildLevenshteinDFA(strings::UniString const & s);
