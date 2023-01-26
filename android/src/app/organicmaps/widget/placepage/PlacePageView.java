@@ -367,6 +367,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
 
     viewModel = new ViewModelProvider(requireActivity()).get(PlacePageViewModel.class);
     viewModel.getMapObject().observe(requireActivity(), this);
+    mMapObject = viewModel.getMapObject().getValue();
 
     LocationHelper.INSTANCE.addListener(this);
   }
@@ -1215,13 +1216,11 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   public void onChanged(MapObject mapObject)
   {
     mMapObject = mapObject;
+
     detachCountry();
-    if (mapObject != null)
-    {
-      setCurrentCountry();
-      updateBookmarkButton();
-      refreshViews();
-    }
+    setCurrentCountry();
+    updateBookmarkButton();
+    refreshViews();
     // In case the place page has already some data, make sure to call the onPlacePageContentChanged callback
     // to catch cases where the new data has the exact same height as the previous one (eg 2 address nodes)
     if (mFrame.getHeight() > 0)
