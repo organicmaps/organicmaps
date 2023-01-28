@@ -7873,7 +7873,7 @@
     ar = مطبخ محلي
     cs = Místní kuchyně
     da = Lokalt køkken
-    de = Regional
+    de = Lokale Küche
     el = Τοπική
     es = Cocina local
     et = Kohalik
@@ -8421,7 +8421,7 @@
     ar = مطبخ إقليمي
     cs = Regionální kuchyně
     da = Regionalt køkken
-    de = Regional
+    de = Regionale Küche
     el = Περιφερειακή
     es = Cocina regional
     et = Piirkondlik
