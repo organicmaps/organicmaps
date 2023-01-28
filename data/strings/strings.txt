@@ -2404,7 +2404,7 @@
     mr = पेट्रोल
     nb = Drivstoff
     nl = Benzine
-    pl = Stacja benzynowa
+    pl = Stacja paliw
     pt = Combustível
     pt-BR = Combustível
     ro = Benzinărie
