@@ -1731,7 +1731,7 @@
     mr = पेट्रोल पंप
     nb = Bensinstasjon
     nl = Tankstation
-    pl = Stacja benzynowa
+    pl = Stacja paliw
     pt = Posto de combustível
     pt-BR = Posto de combustível
     ro = Benzinărie

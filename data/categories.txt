@@ -183,12 +183,12 @@ fr:3Stations-service|4Essence|4Carburant
 de:3Tankstelle|4Benzin|4Diesel|4Sprit
 hu:Benzinkút
 id:Bahan bakar
-it:4Benzinaio|3Stazione di rifornimento
+it:3Benzinaio
 ja:1ガソリンスタンド
 ko:연료|주유소
 mr:पेट्रोल|इंधन|डिझेल
 nb:Drivstoff
-pl:3Stacja benzynowa
+pl:3Benzyna|4Paliwo
 pt:3Combustível
 pt-BR:Combustível
 ro:4Benzinărie|Benzină|Gaz
@@ -907,10 +907,11 @@ de:Tankstation|3Tankstelle
 et:3Tankla
 hu:3Benzinkút|benzin
 id:Pompa bensin
+it:3Stazione di rifornimento
 ja:ガスステーション|ガス|燃料|軽油|給油
 mr:पेट्रोल|इंधन|डिझेल|पेट्रोल पंप|पंप
 nb:3Bensinstasjon
-pl:3Benzyna|4paliwo
+pl:3Stacja paliw
 pt:3Posto de combustível|3Bomba de combustível|3gasolina|3gasóleo
 pt-BR:3Posto de combustível|3gasolina
 ro:3Benzinărie
