@@ -13,7 +13,7 @@ namespace
 // the information about the second turn will be shown or pronounced when the user is
 // approaching to the first one.
 double constexpr kMaxTurnDistM = 400.0;
-
+double constexpr kMinTurnDistM = 50.0;
 // Returns true if the closest turn is an entrance to a roundabout and the second is
 // an exit form a roundabout.
 // Note. There are some cases when another turn (besides an exit from roundabout)
@@ -111,14 +111,26 @@ void NotificationManager::GenerateTurnNotifications(std::vector<TurnItemDist> co
     return;
   TurnItemDist const & secondTurn = turns[1];
   ASSERT_LESS_OR_EQUAL(firstTurn.m_distMeters, secondTurn.m_distMeters, ());
-  if (secondTurn.m_distMeters - firstTurn.m_distMeters > kMaxTurnDistM &&
+  double const distBetweenTurnsMeters = secondTurn.m_distMeters - firstTurn.m_distMeters;
+  ASSERT_LESS_OR_EQUAL(0., distBetweenTurnsMeters, ());
+  if (distBetweenTurnsMeters > kMaxTurnDistM &&
       !IsClassicEntranceToRoundabout(firstTurn, secondTurn))
   {
     return;
   }
-  std::string secondNotification = GenerateTurnText(
-      0 /* distanceUnits is not used because of "Then" is used */, secondTurn.m_turnItem.m_exitNum,
-      true, secondTurn.m_turnItem, m_settings.GetLengthUnits());
+  std::string secondNotification;
+  if (distBetweenTurnsMeters > kMinTurnDistM)
+  {
+      secondNotification = GenerateTurnText(
+        distBetweenTurnsMeters, secondTurn.m_turnItem.m_exitNum,
+        true, secondTurn.m_turnItem, m_settings.GetLengthUnits());
+  }
+  else
+  {
+      secondNotification = GenerateTurnText(
+        0 /* distanceUnits is not used because of "Then" is used */, secondTurn.m_turnItem.m_exitNum,
+        true, secondTurn.m_turnItem, m_settings.GetLengthUnits());
+  }
   if (secondNotification.empty())
     return;
   turnNotifications.emplace_back(move(secondNotification));
