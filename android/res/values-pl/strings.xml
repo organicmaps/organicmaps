@@ -107,7 +107,7 @@
 	<!-- Search category for public transport; any changes should be duplicated in categories.txt @transport! -->
 	<string name="transport">Transport</string>
 	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! -->
-	<string name="fuel">Stacja benzynowa</string>
+	<string name="fuel">Stacja paliw</string>
 	<!-- Search category for parking lots; any changes should be duplicated in categories.txt @parking! -->
 	<string name="parking">Parking</string>
 	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
@@ -768,7 +768,7 @@
 	<string name="type.amenity.fire_station">Straż pożarna</string>
 	<string name="type.amenity.food_court">Sekcja gastronomiczna</string>
 	<string name="type.amenity.fountain">Fontanna</string>
-	<string name="type.amenity.fuel">Stacja benzynowa</string>
+	<string name="type.amenity.fuel">Stacja paliw</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.amenity.grave_yard">Cmentarz</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
