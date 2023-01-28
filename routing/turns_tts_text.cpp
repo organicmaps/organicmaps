@@ -64,7 +64,16 @@ std::string GetTtsText::GetTurnNotification(Notification const & notification) c
   if (dirStr.empty())
     return std::string{};
 
-  std::string const distStr = GetTextById(GetDistanceTextId(notification));
+  std::string distStr;
+  if ( notification.m_useThenInsteadOfDistance )
+  {
+    if (!notification.m_distanceUnits)
+      distStr = GetTextById("then");
+    else
+      distStr = GetTextById("then") + " " + GetTextById(GetDistanceTextId(notification));
+  }
+  else
+    distStr = GetTextById(GetDistanceTextId(notification));
   return distStr + " " + dirStr;
 }
 
@@ -97,8 +106,8 @@ std::string GetTtsText::GetTextById(std::string const & textId) const
 
 std::string GetDistanceTextId(Notification const & notification)
 {
-  if (notification.m_useThenInsteadOfDistance)
-    return "then";
+//  if (notification.m_useThenInsteadOfDistance)
+//    return "then";
 
   switch (notification.m_lengthUnits)
   {
