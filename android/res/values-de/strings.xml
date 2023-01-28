@@ -963,7 +963,7 @@
 	<string name="type.cuisine.korean">Koreanisch</string>
 	<string name="type.cuisine.lao">Laotisch</string>
 	<string name="type.cuisine.lebanese">Libanesisch</string>
-	<string name="type.cuisine.local">Regional</string>
+	<string name="type.cuisine.local">Lokale Küche</string>
 	<string name="type.cuisine.malagasy">Madegassisch</string>
 	<string name="type.cuisine.malaysian">Malaysisch</string>
 	<string name="type.cuisine.mediterranean">Mediterran</string>
@@ -979,7 +979,7 @@
 	<string name="type.cuisine.polish">Polnisch</string>
 	<string name="type.cuisine.portuguese">Portugiesisch</string>
 	<string name="type.cuisine.ramen">Ramen</string>
-	<string name="type.cuisine.regional">Regional</string>
+	<string name="type.cuisine.regional">Regionale Küche</string>
 	<string name="type.cuisine.russian">Russisch</string>
 	<string name="type.cuisine.sandwich">Sandwich</string>
 	<string name="type.cuisine.sausage">Wurst</string>
