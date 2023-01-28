@@ -44,7 +44,7 @@ buildscript {
     }
 
     classpath("com.github.triplet.gradle:play-publisher:3.7.0")
-    classpath("ru.cian:huawei-publish-gradle-plugin:1.3.3")
+    classpath("ru.cian:huawei-publish-gradle-plugin:1.3.5")
   }
 }
 
@@ -457,9 +457,28 @@ huaweiPublish {
   instances {
     huaweiRelease {
       credentialsPath = "$rootDir/huawei-appgallery.json"
-      buildFormat = "aab"
-      // https://github.com/cianru/huawei-publish-gradle-plugin/issues/32
-      deployType = 'draft'
+      buildFormat = 'aab'
+      deployType = 'draft' // confirm manually
+      releaseNotes = []
+      def localeOverride = [
+          'am' : 'am-ET',
+          'gu': 'gu_IN',
+          'iw-IL': 'he_IL',
+          'kn-IN': 'kn_IN',
+          'ml-IN': 'ml_IN',
+          'mn-MN': 'mn_MN',
+          'mr-IN': 'mr_IN',
+          'ta-IN': 'ta_IN',
+          'te-IN': 'te_IN',
+      ]
+      def files = fileTree(dir: "$projectDir/src/google/play/release-notes",
+          include: '**/default.txt')
+      files.each { File file ->
+        def path = file.getPath()
+        def locale = file.parentFile.getName()
+        locale = localeOverride.get(locale, locale)
+        releaseNotes.add(new ru.cian.huawei.publish.ReleaseNote(locale, path))
+      }
     }
   }
 }
