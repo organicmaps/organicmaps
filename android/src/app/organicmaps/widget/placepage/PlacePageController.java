@@ -132,7 +132,8 @@ public class PlacePageController implements Initializable<Activity>,
 
     mPlacePage.requestApplyInsets();
 
-    mButtonsHeight = (int)  mMwmActivity.getResources().getDimension(R.dimen.place_page_buttons_height);
+    mButtonsHeight = (int) mMwmActivity.getResources()
+                                       .getDimension(R.dimen.place_page_buttons_height);
     mMaxButtons = mMwmActivity.getResources().getInteger(R.integer.pp_buttons_max);
     viewModel = new ViewModelProvider(mMwmActivity).get(PlacePageViewModel.class);
 
@@ -197,27 +198,47 @@ public class PlacePageController implements Initializable<Activity>,
 
   private void resetPlacePageHeightBounds()
   {
+    mFrameHeight = 0;
     mPlacePageContainer.setMinimumHeight(0);
     final int parentHeight = ((View) mPlacePage.getParent()).getHeight();
     mPlacePageBehavior.setMaxHeight(parentHeight);
   }
 
+  /**
+   * Set the min and max height of the place page to prevent jumps when switching from one map object
+   * to the other.
+   */
   private void setPlacePageHeightBounds()
   {
+    final int peekHeight = calculatePeekHeight();
+    // Make sure the place page can reach the peek height
+    final int height = Math.max(peekHeight, mFrameHeight);
     // Set the minimum height of the place page to prevent jumps when new data results in SMALLER content
     // This cannot be set on the place page itself as it has the fitToContent property set
-    mPlacePageContainer.setMinimumHeight(mFrameHeight);
+    mPlacePageContainer.setMinimumHeight(height);
     // Set the maximum height of the place page to prevent jumps when new data results in BIGGER content
     // It does not take into account the navigation bar height so we need to add it manually
-    mPlacePageBehavior.setMaxHeight(mFrameHeight + mCurrentWindowInsets.getSystemWindowInsetBottom());
+    mPlacePageBehavior.setMaxHeight(height + mCurrentWindowInsets.getSystemWindowInsetBottom());
+  }
+
+  /**
+   * Make sure the place page can reach the peek height
+   */
+  private void preparePlacePageMinHeight(int peekHeight)
+  {
+    final int currentHeight = mPlacePageContainer.getHeight();
+    if (currentHeight < peekHeight)
+      mPlacePageContainer.setMinimumHeight(peekHeight);
   }
 
   private void setPeekHeight()
   {
     final int peekHeight = calculatePeekHeight();
+    preparePlacePageMinHeight(peekHeight);
 
     final int state = mPlacePageBehavior.getState();
-    final boolean shouldAnimate = !PlacePageUtils.isHiddenState(state);
+    // Do not animate the peek height if the place page should not be collapsed (eg: when returning from editor)
+    final boolean shouldAnimate = !(PlacePageUtils.isExpandedState(state) && !mShouldCollapse) && !PlacePageUtils.isHiddenState(state);
     if (shouldAnimate)
       animatePeekHeight(peekHeight);
     else
@@ -227,11 +248,12 @@ public class PlacePageController implements Initializable<Activity>,
     }
   }
 
+  /**
+   * Using the animate param in setPeekHeight does not work when adding removing fragments
+   * from inside the place page so we manually animate the peek height with ValueAnimator
+   */
   private void animatePeekHeight(int peekHeight)
   {
-    // Using the animate param in setPeekHeight does not work when adding removing fragments
-    // from inside the place page so we manually animate the peek height with ValueAnimator
-
     // Make sure to start from the current height of the place page
     final int parentHeight = ((View) mPlacePage.getParent()).getHeight();
     // Make sure to remove the navbar height because the peek height already takes it into account
@@ -298,10 +320,13 @@ public class PlacePageController implements Initializable<Activity>,
   {
     mPreviewHeight = previewHeight;
     mFrameHeight = frameHeight;
-    setPeekHeight();
-    if (mShouldCollapse && !PlacePageUtils.isCollapsedState(mPlacePageBehavior.getState()))
-      mPlacePageBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-    mShouldCollapse = false;
+    // Make sure to update the peek height on the UI thread to prevent weird animation jumps
+    mPlacePage.post(() -> {
+      setPeekHeight();
+      if (mShouldCollapse && !PlacePageUtils.isCollapsedState(mPlacePageBehavior.getState()))
+        mPlacePageBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+      mShouldCollapse = false;
+    });
   }
 
   @Override
