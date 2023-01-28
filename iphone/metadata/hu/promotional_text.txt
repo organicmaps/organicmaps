@@ -1,1 +1,1 @@
-A térképi problémákat az OpenStreetMap.org-on javítsa, és szóljon nekünk a programhibákról. A visszajelzése és támogatása motiválja a kis csapatunkat, hogy fejlesszük az alkalmazást.
+A térképi problémákat az OpenStreetMap.org-on javítsa, és szóljon nekünk a programhibákról.
