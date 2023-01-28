@@ -1775,7 +1775,7 @@
 
 "type.cuisine.lebanese" = "Libanesisch";
 
-"type.cuisine.local" = "Regional";
+"type.cuisine.local" = "Lokale Küche";
 
 "type.cuisine.malagasy" = "Madegassisch";
 
@@ -1807,7 +1807,7 @@
 
 "type.cuisine.ramen" = "Ramen";
 
-"type.cuisine.regional" = "Regional";
+"type.cuisine.regional" = "Regionale Küche";
 
 "type.cuisine.russian" = "Russisch";
 
