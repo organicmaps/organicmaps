@@ -1,6 +1,5 @@
 • Nouvelles données OpenStreetMap au 21 janvier 2023
 • Correction de l'import de certains tracés KML
-• Correction de plantages au lancement si le composant WebView du système est désactivé ou absent
 • Amélioration de la recherche et des itinéraires
 • Gestion appropriée du dénivelé pour la randonnée et le vélo
 • Correction des icônes pour Buenos Aires et le métro de Bilbao
