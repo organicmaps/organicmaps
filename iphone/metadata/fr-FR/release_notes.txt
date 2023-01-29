@@ -1,29 +1,29 @@
-• New OpenStreetMap data as of January 21, 2023
-• Fixed import of some KML tracks
-• Automatic search for the current position in 30 hours of inactivity instead of 8 hours
-• Improved search categories results
-• Australia is written properly in search results
-• leisure=track is now searchable
-• Fixed invisible text hints in Settings in the dark theme
+• Nouvelles données OpenStreetMap au 21 janvier 2023
+• Correction de l'import de certains tracés KML
+• Recherche automatique de la position actuelle après 30 heures d'inactivité au lieu de 8 heurs
+• Amélioration des résultats de recherche des catégories
+• L'Australie est maintenant correctement orthographiée dans les résultats de recherche
+• leisure=track peut désormais être recherché
+• Correction d'aide textuelles invisibles avec le thème sombre dans les Paramètres
 
-Routing
-• Properly handle elevation for hiking and cycling
-• Fixed inter-region routing
-• Fixed routing via some bridges
-• Busways are supported
-• Added Croatia to Schengen area
+Itinéraires
+• Gestion appropriée du dénivelé pour la randonnée et le vélo
+• Correction des itinéraires inter-région
+• Correction des itinéraires via certains ponts
+• Les voies Bus sont supportées
+• Ajout de la Croatie à l'espace Schengen
 
-Styles
-• Fixed Buenos Aires & Bilbao metro icons
-• Added Bowling Alley
-• Fixed historic=fountain and tourism=information-office icon
-• Equal icon sizes for springs
+Esthétique
+• Correction des icônes pour Buenos Aires et le métro de Bilbao
+• Ajout de Bowling Alley
+• Correction des icônes historic=fountain et tourism=information-office
+• Taille d'îcone identique pour les ressorts
 
-Editor
-• Allowed editing names with /\°[] symbols
-• Added amenity=public_bookcase
-• Increased max editable building floors from 25 to 50
+Editeur
+• Les nom d'édition avec les symboles /\°[] sont maintenant autorisés
+• Ajout de amenity=public_bookcase
+• Augmentation du nombre d'étages modifiables sur un bâtiment de 25 à 50
 
-Translations
-• Fixed Brazil, Czech, French, Hungarian, Spanish (Mexican), Turkish
-• Fixed TTS translations for Finnish and Portuguese
+Traductions
+• Correction des traductions pour le Brésilien, Tchèque, Français, Hongrois, Espagnol (Mexicain), et Turc
+• Correction des traductions TTS pour le Finlandais et le Portugais
