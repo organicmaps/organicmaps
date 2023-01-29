@@ -99,7 +99,7 @@
 "transport" = "Transport";
 
 /* Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! */
-"fuel" = "Stacja benzynowa";
+"fuel" = "Stacja paliw";
 
 /* Search category for parking lots; any changes should be duplicated in categories.txt @parking! */
 "parking" = "Parking";
@@ -1351,7 +1351,7 @@
 
 "type.amenity.fountain" = "Fontanna";
 
-"type.amenity.fuel" = "Stacja benzynowa";
+"type.amenity.fuel" = "Stacja paliw";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.amenity.grave_yard" = "Cmentarz";

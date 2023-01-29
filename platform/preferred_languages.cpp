@@ -1,12 +1,12 @@
 #include "platform/preferred_languages.hpp"
 
 #include "base/string_utils.hpp"
-#include "base/logging.hpp"
 #include "base/macros.hpp"
 
 #include "std/target_os.hpp"
 
 #include <cstdlib>  // getenv
+#include <cstring>  // strlen
 #include <string>
 #include <vector>
 

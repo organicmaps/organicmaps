@@ -107,6 +107,50 @@
   </screenshots>
 
   <releases>
+   <release version="2023.01.25-3" date="2023-01-25">
+     <description>
+       <p>Highlights:</p>
+         <ul>
+           <li>New OpenStreetMap data as of January 21, 2023</li>
+           <li>Fixed import of some KML tracks</li>
+           <li>Automatic search for the current position in 30 hours of inactivity instead of 8 hours</li>
+           <li>Improved search categories results</li>
+           <li>Proper spelling of Australia in search results</li>
+           <li>leisure=track is now searchable</li>
+         </ul>
+       <p>Routing:</p>
+         <ul>
+           <li>Proper handling of elevation for hiking and cycling</li>
+           <li>Fixed inter-region routing</li>
+           <li>Fixed routing via some bridges</li>
+           <li>Busways are supported</li>
+           <li>Added Croatia to Schengen area</li>
+         </ul>
+       <p>Map Styles:</p>
+         <ul>
+           <li>Fixed Buenos Aires metro icons</li>
+           <li>Added Bowling Alley</li>
+           <li>Fixed historic=fountain and tourism=information-office icon</li>
+           <li>Equal icon sizes for springs &amp; hot springs</li>
+         </ul>
+       <p>Editor:</p>
+         <ul>
+           <li>Allowed editing names with /\°[] symbols</li>
+           <li>Added amenity=public_bookcase</li>
+           <li>Increased the maximum editable building floors from 25 to 50</li>
+         </ul>
+       <p>Translations:</p>
+         <ul>
+           <li>Fixed Brazil, Czech, French, Hungarian, Spanish (Mexican), Turkish</li>
+           <li>Fixed TTS translations for Finnish and Portuguese</li>
+         </ul>
+       <p>Linux:</p>
+         <ul>
+           <li>Import upper-case KML and KMZ files on case-sensitive Linux file systems</li>
+           <li>Use Organic Maps server to check if a connection is alive</li>
+         </ul>
+     </description>
+   </release>
    <release version="2022.12.18-12" date="2022-12-18">
      <description>
        <p>Highlights:</p>

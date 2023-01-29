@@ -4,6 +4,9 @@
 
 #include "base/string_utils.hpp"
 
+#include <cstring>    // strlen
+#include <regex>
+
 namespace osm
 {
 using namespace std;
