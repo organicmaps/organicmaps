@@ -15,7 +15,7 @@
 /* Button which deletes downloaded country */
 "delete" = "حذف";
 
-"download_maps" = "دانلود نقشه ها";
+"download_maps" = "دانلود نقشه‌ها";
 
 /* Settings/Downloader - info for country which started downloading */
 "downloading" = "درحال دانلود";
@@ -72,19 +72,19 @@
 "bookmark_sets" = "Bookmark Lists";
 
 /* "Bookmarks" dialog title, please also edit it in iphone/plist.txt */
-"bookmarks" = "نشانه ها";
+"bookmarks" = "نشانه‌ها";
 
 /* Default bookmark list name */
 "core_my_places" = "مکان من";
 
 /* Editor title above street and house number */
-"address" = "ادرس";
+"address" = "آدرس";
 
 /* Settings button in system menu */
 "settings" = "تنظیمات";
 
 /* Measurement units title in settings activity */
-"measurement_units" = "واحد اندازه گیری";
+"measurement_units" = "واحد اندازه‌گیری";
 
 
 /********** Search categories **********/
@@ -117,7 +117,7 @@
 "entertainment" = "سرگرمی";
 
 /* Search category for ATMs; any changes should be duplicated in categories.txt @atm! */
-"atm" = "خود پرداز";
+"atm" = "خود‌پرداز";
 
 /* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! */
 "nightlife" = "تفریحات شبانه";
@@ -150,21 +150,21 @@
 "recycling" = "بازیافت";
 
 /* Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type */
-"water" = "اب";
+"water" = "آب";
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
-"rv" = "RV ﯼﺍﺮﺑ";
+"rv" = "RV برای";
 
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
 
 /* message title of loading file */
-"load_kmz_title" = "در حال بارگیری نشانه ها";
+"load_kmz_title" = "در حال بارگیری نشانه‌ها";
 
 /* Kmz file successful loading */
-"load_kmz_successful" = "نشانه ها با موفقیت بارگذاری شد!شما می توانید ان ها را در نقشه یا بخش مدیریت نشانه ها بیابید";
+"load_kmz_successful" = "نشانه‌ها با موفقیت بارگذاری شد!شما می توانید آنها را در نقشه یا بخش مدیریت نشانه‌ها بیابید";
 
 /* Kml file loading failed */
-"load_kmz_failed" = "بارگذاری نشانه ها با شکست مواجح شد.ممکن است فایل اسیب دیده یا معیوب باشد";
+"load_kmz_failed" = "بارگذاری نشانه‌ها با شکست مواجه شد.ممکن است فایل آسیب دیده یا معیوب باشد";
 
 /* resource for context menu */
 "edit" = "ویرایش";
@@ -194,7 +194,7 @@
 "version" = "ورژن: %@";
 
 /* Data version in «About» screen, %@ is replaced by a local, human readable date. */
-"data_version" = "OpenStreetMap: %@ ﯼﺎﻫ ﻩﺩﺍﺩ";
+"data_version" = "OpenStreetMap: %@ داده‌های";
 
 /* Title for tracks category in bookmarks manager */
 "tracks_title" = "مسیر";
@@ -206,7 +206,7 @@
 
 "prefs_group_route" = "مسیریابی";
 
-"pref_zoom_title" = "دکمه های درشت نمایی";
+"pref_zoom_title" = "دکمه‌های بزرگنمایی";
 
 /* Settings «Map» category: «Night style» title */
 "pref_map_style_title" = "حالت شب";
@@ -224,7 +224,7 @@
 "pref_map_3d_title" = "نمای چشم انداز";
 
 /* Settings «Map» category: «3D buildings» title */
-"pref_map_3d_buildings_title" = "ساختمان های سه بعدی";
+"pref_map_3d_buildings_title" = "ساختمان‌های سه بعدی";
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "دستور العمل صوتی";
@@ -238,7 +238,7 @@
 /* Settings «Map» category: «Record track» title */
 "pref_track_record_title" = "مسیر اخیر";
 
-"pref_map_auto_zoom" = "بزرگ نمایی خودکار";
+"pref_map_auto_zoom" = "بزرگنمایی خودکار";
 
 "duration_disabled" = "خاموش";
 
@@ -252,7 +252,7 @@
 
 "duration_1_day" = "1 روز";
 
-"recent_track_help_text" = "با این قابلیت شما می توانید مسیری که می پیمایید را در یک دوره مشخص ضبط نماید و ان را بر روی نقشه ببینید.لطفا توجه نمایید:فعال سازی این قابلیت باعث افزایش مصرف باتری موبایل شما می شود.مسیر به طور خودکار بعد از مدت مشخص شده حذف خواهد شد";
+"recent_track_help_text" = "با این قابلیت شما می توانید مسیری که می پیمایید را در یک دوره مشخص ضبط نماید و آن را بر روی نقشه ببینید.لطفا توجه نمایید:فعال سازی این قابلیت باعث افزایش مصرف باتری موبایل شما می شود.مسیر به طور خودکار بعد از مدت مشخص شده حذف خواهد شد";
 
 "placepage_distance" = "مسافت";
 
@@ -262,7 +262,7 @@
 "website" = "وب سایت";
 
 /* Text in About menu, opens Organic Maps news website */
-"news" = "ﺭﺎﺒﺧﺍ";
+"news" = "اخبار";
 
 /* Text in menu */
 "github" = "GitHub";
@@ -298,10 +298,10 @@
 "help" = "کمک";
 
 /* Button in the main Help dialog */
-"faq" = "ﺦﺳﺎﭘ ﻭ ﺶﺳﺮﭘ";
+"faq" = "پرسش‌های زیاد پرسیده شده";
 
 /* Button in the main menu */
-"donate" = "ﺪﯿﻨﮐ ﺍﺪﻫﺍ";
+"donate" = "حمایت مالی";
 
 /* Button in the main Help dialog */
 "how_to_support_us" = "چگونه از ما حمایت کنیم؟";
@@ -313,16 +313,16 @@
 "report_a_bug" = "گزارش خطا";
 
 /* Alert text */
-"email_error_body" = "کلاینت ایمیل شما پیکربندی نشده است.لطفا ان را پیکربندی کنید یا از طریق دیگر با ما تماس بگیرید %@";
+"email_error_body" = "کلاینت ایمیل شما پیکربندی نشده است.لطفا آن را پیکربندی کنید یا از طریق دیگر با ما تماس بگیرید %@";
 
 /* Alert title */
 "email_error_title" = "خطا در ارسال ایمیل";
 
 /* Settings item title */
-"pref_calibration_title" = "تنظیم کردن قظب نما";
+"pref_calibration_title" = "تنظیم کردن قطب نما";
 
 /* Update all button text */
-"downloader_update_all_button" = "اپدیت همه";
+"downloader_update_all_button" = "آپدیت همه";
 
 /* Downloaded maps list header */
 "downloader_downloaded_subtitle" = "دانلود شده";
@@ -336,7 +336,7 @@
 "downloader_near_me_subtitle" = "نزدیک من";
 
 /* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
-"downloader_status_maps" = "نقشه ها";
+"downloader_status_maps" = "نقشه‌ها";
 
 "downloader_download_all_button" = "دانلود همه";
 
@@ -345,16 +345,16 @@
 "downloader_search_results" = "یافت شد";
 
 /* Status of outdated country in the list */
-"downloader_status_outdated" = "به روز رسانی";
+"downloader_status_outdated" = "بروزرسانی";
 
 /* Status of failed country in the list */
 "downloader_status_failed" = "ناموفق";
 
 /* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
-"downloader_delete_map_while_routing_dialog" = "برای حذف نقشه لطفا مسیر یابی را متوقف کنید";
+"downloader_delete_map_while_routing_dialog" = "برای حذف نقشه لطفا مسیر‌یابی را متوقف کنید";
 
 /* PointsInDifferentMWM */
-"routing_failed_cross_mwm_building" = "تنها مسیر هایی می توانند ایجاد شوند که به طور کامل در یک نقشه از یک منطقه واحد قرار داشته باشند.";
+"routing_failed_cross_mwm_building" = "تنها مسیر‌هایی می توانند ایجاد شوند که به طور کامل در یک نقشه از یک منطقه واحد قرار داشته باشند.";
 
 /* Context menu item for downloader. */
 "downloader_download_map" = "دانلود نقشه";
@@ -366,13 +366,13 @@
 "downloader_delete_map" = "حذف نقشه";
 
 /* Text for routing error dialog */
-"routing_download_maps_along" = "دانلود تمامی نقشه ها در طول مسیر تان";
+"routing_download_maps_along" = "دانلود تمامی نقشه‌ها در طول مسیر‌تان";
 
 /* Text for routing error dialog */
-"routing_requires_all_map" = "به منظور ایجاد مسیر ما نیاز داریم تا تمامی نقشه های شما از مبدا تا مقصد را به روز رسانی کنیم.";
+"routing_requires_all_map" = "به منظور ایجاد مسیر ما نیاز داریم تا تمامی نقشه‌های شما از مبدا تا مقصد را بروزرسانی کنیم.";
 
 /* bookmark button text */
-"bookmark" = "نشانه ها";
+"bookmark" = "نشانه‌ها";
 
 "save" = "ذخیره";
 
@@ -385,7 +385,7 @@
 "yellow" = "زرد";
 
 /* blue color */
-"blue" = "ابی";
+"blue" = "آبی";
 
 /* green color */
 "green" = "سبز";
@@ -409,13 +409,13 @@
 "light_blue" = "آبی کمرنگ";
 
 /* cyan color */
-"cyan" = "فیروزه ای";
+"cyan" = "فیروزه‌ای";
 
 /* teal color */
 "teal" = "آبی سیر";
 
 /* lime color */
-"lime" = "زرد لیویی";
+"lime" = "زرد لیمویی";
 
 /* deep orange color */
 "deep_orange" = "نارنجی سیر";
@@ -437,7 +437,7 @@
 
 "dialog_routing_disclaimer_recommendations" = "—مسیر پیشنهادی باید فقط به عنوان یک توصیه دانست";
 
-"dialog_routing_disclaimer_borders" = "—در مسیرهایی که از مناطق مرزی میگذرد احتیاط کنید:مسیر هایی که بوسیله اپلیکیشن ما ایجاد می شود گاهی اوقات ممکن است مرز های کشور ها را رد کند که این در بعضی مناطق غیر مجاز است.";
+"dialog_routing_disclaimer_borders" = "—در مسیرهایی که از مناطق مرزی میگذرد احتیاط کنید:مسیر‌هایی که بوسیله اپلیکیشن ما ایجاد می شود گاهی اوقات ممکن است مرز‌های کشور‌ها را رد کند که این در بعضی مناطق غیر مجاز است.";
 
 "dialog_routing_disclaimer_beware" = "لطفا هوشیار و ایمن در جاده بمانید!";
 
@@ -445,13 +445,13 @@
 
 "dialog_routing_error_location_not_found" = "ناتوان از ایجاد مسیر.موقعیت مکانی شما شناسایی نشد";
 
-"dialog_routing_location_turn_wifi" = "لطفا سیگنال GPS موبایتان راچک کنید.و WiFi موبایلتان را جهت دقت بیشتر در موقعیت یابی فعال کنید.";
+"dialog_routing_location_turn_wifi" = "لطفا سیگنال GPS موبایتان راچک کنید.و WiFi موبایلتان را جهت دقت بیشتر در موقعیت‌یابی فعال کنید.";
 
 "dialog_routing_location_turn_on" = "فعال کردن سرویس موقعیت مکانی  (GPS)";
 
 "dialog_routing_location_unknown_turn_on" = "ناتوان از مشخص کردن موقعیت مکانی شما.لطفا سرویس موقعیت مکانی خود را فعال کنید.";
 
-"dialog_routing_download_files" = "دانلود فایل های مورد نیاز";
+"dialog_routing_download_files" = "دانلود فایل‌های مورد نیاز";
 
 "dialog_routing_download_and_update_all" = "Download and update all map and routing information along the projected path to calculate route.";
 
@@ -463,13 +463,13 @@
 
 "dialog_routing_start_not_determined" = "مسیر ایجاد نشد.ناتوان در تعیین نقطه شروع";
 
-"dialog_routing_select_closer_start" = "لطفا نقطه شروع رانزدیک تر به جاده انتخاب کنید.";
+"dialog_routing_select_closer_start" = "لطفا نقطه شروع را نزدیک‌تر به جاده انتخاب کنید.";
 
 "dialog_routing_change_end" = "تنظیم مقصد";
 
 "dialog_routing_end_not_determined" = "مسیر ایجاد نشد.ناتوان در تعیین مقصد.";
 
-"dialog_routing_select_closer_end" = "لطفا مقصد تعیین شده را نزدیک تر به جاده انتخاب نمایید.";
+"dialog_routing_select_closer_end" = "لطفا مقصد تعیین شده را نزدیک‌تر به جاده انتخاب نمایید.";
 
 "dialog_routing_change_intermediate" = "ناتوان در تعیین نقطه میانی.";
 
@@ -483,9 +483,9 @@
 
 "not_now" = "اکنون خیر";
 
-"dialog_routing_download_and_build_cross_route" = "ایا مایل به دانلود نقشه و ایجاد مسیر های بهینه بیشتری که نقشه های بیشتری را پوشش میدهد هستید؟";
+"dialog_routing_download_and_build_cross_route" = "ایا مایل به دانلود نقشه و ایجاد مسیر‌های بهینه بیشتری که نقشه‌های بیشتری را پوشش میدهد هستید؟";
 
-"dialog_routing_download_cross_route" = "دانلود نقشه های اضافی برای ایجاد مسیری بهتر که حاشیه های این نقشه را رد می کند.";
+"dialog_routing_download_cross_route" = "دانلود نقشه‌های اضافی برای ایجاد مسیری بهتر که حاشیه‌های این نقشه را رد می کند.";
 
 
 /********** Strings for downloading map from search **********/
@@ -505,19 +505,19 @@
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Download and update all map along the projected path to calculate route.";
 
-"categories" = "دسته بندی ها";
+"categories" = "دسته‌بندی‌ها";
 
 "history" = "تاریخچه";
 
 "search_not_found" = "متاسفانه چیزی پیدا نشد";
 
-"search_not_found_query" = "با تغییر در معیار های جست و جو دوباره امتحان کنید";
+"search_not_found_query" = "با تغییر در معیار‌های جستجو دوباره امتحان کنید";
 
-"search_history_title" = "سوابق جست وجو";
+"search_history_title" = "سوابق جستجو";
 
-"search_history_text" = "مشاهده جست وجو های اخیر";
+"search_history_text" = "مشاهده جستجو‌های اخیر";
 
-"clear_search" = "پاک کردن سابقه جست وجو ها";
+"clear_search" = "پاک کردن سابقه جستجوها";
 
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "ویکی پدیا";
@@ -533,9 +533,9 @@
 
 "p2p_to_here" = "مسیر به";
 
-"p2p_only_from_current" = "مسیر یابی فقط از موقعیت کنونی شما قابل انجام است.";
+"p2p_only_from_current" = "مسیر‌یابی فقط از موقعیت کنونی شما قابل انجام است.";
 
-"p2p_reroute_from_current" = "ایا می خواهید یک مسیر را از موقعیت فعلیتان برنامه ریزی کنیم؟";
+"p2p_reroute_from_current" = "آیا می خواهید یک مسیر را از موقعیت فعلیتان برنامه ریزی کنیم؟";
 
 "editor_time_add" = "اضافه کردن برنامه ریزی";
 
@@ -600,7 +600,7 @@
 
 "add_opening_hours" = "اضافه کردن ساعت بازگشایی";
 
-"no_osm_account" = "ایا حساب OpenStreetMap ندارید؟";
+"no_osm_account" = "آیا حساب OpenStreetMap ندارید؟";
 
 "register_at_openstreetmap" = "ثبت نام در OpenStreetMap";
 
@@ -641,7 +641,7 @@
 
 "postal_code" = "کد پستی";
 
-"cuisine" = "غذا خوری";
+"cuisine" = "غذا‌خوری";
 
 "select_cuisine" = "انتخاب غذاخوری";
 
@@ -654,9 +654,9 @@
 
 "please_note" = "لطفا توجه داشته باشد";
 
-"downloader_delete_map_dialog" = "تمام ویرایش های که بر روی نقشه انجام داده اید به همراه نقشه حذف شد.";
+"downloader_delete_map_dialog" = "تمام ویرایش‌های که بر روی نقشه انجام داده اید به همراه نقشه حذف شد.";
 
-"downloader_update_maps" = "بروزرسانی نقشه ها";
+"downloader_update_maps" = "بروزرسانی نقشه‌ها";
 
 "downloader_search_field_hint" = "یافتن نقشه";
 
@@ -666,7 +666,7 @@
 
 "downloader_no_space_title" = "فظای کافی موجود نیست";
 
-"downloader_no_space_message" = "لطفا داده های غیر ضروری را از دستگاه خود حذف کنید";
+"downloader_no_space_message" = "لطفا داده‌های غیر ضروری را از دستگاه خود حذف کنید";
 
 "editor_profile_changes" = "تغییرات تایید شد";
 
@@ -676,7 +676,7 @@
 
 "editor_add_select_category_popular_subtitle" = "پرطرفدار";
 
-"editor_add_select_category_all_subtitle" = "همه دسته بندی ها";
+"editor_add_select_category_all_subtitle" = "همه دسته‌بندی‌ها";
 
 "editor_edit_place_title" = "درحال ویرایش";
 
@@ -686,7 +686,7 @@
 
 "editor_edit_place_category_title" = "دسته بندی";
 
-"whatsnew_editor_message_1" = "اضافه کردن مکان به نقشه و ویرایش ان مستقیما از طریق این اپلیکیشن.";
+"whatsnew_editor_message_1" = "اضافه کردن مکان به نقشه و ویرایش آن مستقیما از طریق این اپلیکیشن.";
 
 "dialog_incorrect_feature_position" = "تغییر موقعیت";
 
@@ -695,16 +695,16 @@
 "login_to_make_edits_visible" = "وارد شوید تا دیگر کاربران نیز بتوانند تغییرات ایجاد شده توسط شما را ببینند";
 
 /* Error dialog no space */
-"migration_no_space_message" = "برای دانلود,شما نیازمند فضای ذخیره سازی بیشتری هستید.لطفا داده های غیر ضروری خود را حذف کنید.";
+"migration_no_space_message" = "برای دانلود، شما نیازمند فضای ذخیره سازی بیشتری هستید.لطفا داده‌های غیر ضروری خود را حذف کنید.";
 
-"editor_sharing_title" = "من نقشه های Organic Maps را بهبود بخشیدم";
+"editor_sharing_title" = "من نقشه‌های Organic Maps را بهبود بخشیدم";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
 "downloader_of" = "%1$d  از  %2$d";
 
 "download_over_mobile_header" = "دانلود بر روی یک شبکه دیتای موبایل؟";
 
-"download_over_mobile_message" = "این کار می تواند برای شما در بعضی طرح ها و یا حالت رومینگ هزینه اضافی در بر داشته باشد.";
+"download_over_mobile_message" = "این کار می تواند برای شما در بعضی طرح‌ها و یا حالت رومینگ هزینه اضافی در بر داشته باشد.";
 
 "error_enter_correct_house_number" = "وارد کردن شماره ساختمان معتبر";
 
@@ -715,14 +715,14 @@
 
 "editor_zip_code" = "کدپستی";
 
-"error_enter_correct_zip_code" = "یک کد پستی معتبر وارد کنید";
+"error_enter_correct_zip_code" = "یک کد‌ پستی معتبر وارد کنید";
 
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "مکان ناشناس";
 
-"editor_other_info" = "ارسال یادداشت به ویرایشکنندگان OSM";
+"editor_other_info" = "ارسال یادداشت به ویرایش‌کنندگان OSM";
 
-"editor_detailed_description_hint" = "اظهارنظر بیشتر";
+"editor_detailed_description_hint" = "اظهار نظر بیشتر";
 
 "editor_detailed_description" = "شما یک سری تغییرات در نقشه را برای انجمن OpenStreetMap ارسال کردید.جزئیات اضافی را که نتوانستید در Organic Maps ویرایش کنید را برایشان بنویسید.";
 
@@ -732,10 +732,10 @@
 
 "downloader_no_downloaded_maps_title" = "شما هیچ نقشه دانلود شده ای ندارید";
 
-"downloader_no_downloaded_maps_message" = "برای جست وجو یک مکان و استفاده از قابلیت ناوبری, نقشه ها را دانلود کنید.";
+"downloader_no_downloaded_maps_message" = "برای جست وجو یک مکان و استفاده از قابلیت ناوبری، نقشه‌ها را دانلود کنید.";
 
 /* Error title that appears after certain time without location. */
-"current_location_unknown_title" = "ایا یافتن مکان تان را ادامه می دهید؟";
+"current_location_unknown_title" = "آیا یافتن مکان‌تان را ادامه می دهید؟";
 
 /* Error that appears after certain time without location. */
 "current_location_unknown_message" = "مکان شما ناشناس مانده است.ممکن است شما داخل یک ساختمان یا تونل باشید.";
@@ -784,11 +784,11 @@
 
 "placepage_call_button" = "تماس";
 
-"placepage_edit_bookmark_button" = "ویرایش نشانه ها";
+"placepage_edit_bookmark_button" = "ویرایش نشانه‌ها";
 
-"placepage_bookmark_name_hint" = "نام نشانه ها";
+"placepage_bookmark_name_hint" = "نام نشانه‌ها";
 
-"placepage_personal_notes_hint" = "یاداشت های شخصی";
+"placepage_personal_notes_hint" = "یاداشت‌های شخصی";
 
 "placepage_delete_bookmark_button" = "حذف نشانه";
 
@@ -796,11 +796,11 @@
 
 "editor_comment_hint" = "اظهار نظر";
 
-"editor_reset_edits_message" = "ایا تغییرات محلی را نادیده می گیرید؟";
+"editor_reset_edits_message" = "آیا تغییرات محلی را نادیده می گیرید؟";
 
 "editor_reset_edits_button" = "نادیده گرفتن";
 
-"editor_remove_place_message" = "ایا مکان ثبت شده حذف شود؟";
+"editor_remove_place_message" = "آیا مکان ثبت شده حذف شود؟";
 
 "editor_remove_place_button" = "حذف";
 
@@ -820,24 +820,24 @@
 "placepage_add_place_button" = "اضافه کردن یک مکان به نقشه";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
-"editor_share_to_all_dialog_title" = "ایا می خواهید ان را برای دیگر کاربران ارسال کنید؟";
+"editor_share_to_all_dialog_title" = "آیا می خواهید آن را برای دیگر کاربران ارسال کنید؟";
 
 /* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "مطمئن شوید که هیچ اطلاعات شخصی وارد نکرده باشد.";
 
-"editor_share_to_all_dialog_message_2" = ".ﺖﻓﺮﮔ ﺪﻨﻫﺍﻮﺧ ﺱﺎﻤﺗ ﺎﻤﺷ ﺎﺑ ﻝﺍﻮﺳ ﻪﻧﻮﮔﺮﻫ ﻦﺘﺷﺍﺩ ﺕﺭﻮﺻ ﺭﺩ ﻭ ﻩﺩﺮﮐ ﯽﺳﺭﺮﺑ ﺍﺭ ﺕﺍﺮﯿﯿﻐﺗ Ope";
+"editor_share_to_all_dialog_message_2" = "ویرایشگران OpenStreetMap ﺗﻐﯿﯿﺮﺍﺕ ﺭﺍ ﺑﺮﺭﺳﯽ ﮐﺮﺩﻩ ﻭ ﺩﺭ ﺻﻮﺭﺕ ﺩﺍﺷﺘﻦ ﻫﺮﮔﻮﻧﻪ ﺳﻮﺍﻝ ﺑﺎ ﺷﻤﺎ ﺗﻤﺎﺱ ﺧﻮﺍﻫﻨﺪ ﮔﺮﻓﺖ.";
 
 "navigation_stop_button" = "توقف";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
-"recent_track_background_dialog_title" = "غیرفعال سازی ذخیره مسیر اخیرا طی شده";
+"recent_track_background_dialog_title" = "غیرفعال‌سازی ذخیره مسیر اخیرا طی شده";
 
 "off_recent_track_background_button" = "غیرفعال";
 
 /* For sharing via SMS and so on */
 "sharing_call_action_look" = "بررسی کنید";
 
-"recent_track_background_dialog_message" = "Organic Maps  از اطلاعات موقعیت مکانی شما در پس ضمینه برای ذخیره مسیر هایی که اخیرا سفر کرده اید استفاده می کند.";
+"recent_track_background_dialog_message" = "Organic Maps  از اطلاعات موقعیت مکانی شما در پس ضمینه برای ذخیره مسیر‌هایی که اخیرا سفر کرده اید استفاده می کند.";
 
 /* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
 "about_description" = "Organic Maps یک برنامه نقشه آفلاین رایگان و منبع باز است. بدون تبلیغات بدون ردیابی اگر خطایی روی نقشه مشاهده کردید، لطفاً آن را در OpenStreetMap برطرف کنید. این پروژه توسط علاقه مندان در اوقات فراغت ما ایجاد می شود، بنابراین ما به بازخورد و پشتیبانی شما نیاز داریم.";
@@ -864,13 +864,13 @@
 "mobile_data" = "دیتای موبایل";
 
 /* NOTE to translators: please synchronize your translation with the English one. */
-"mobile_data_description" = "برای نمایش جزئیات مکان مانند تصاویر قیمت ها و بازخورد ها به اینترنت همراه نیاز است";
+"mobile_data_description" = "برای نمایش جزئیات مکان مانند تصاویر قیمت‌ها و بازخورد‌ها به اینترنت همراه نیاز است";
 
 "mobile_data_option_never" = "هرگز";
 
 "mobile_data_option_ask" = "همیشه بپرس";
 
-"traffic_update_maps_text" = "برای نمایش ترافیک,نقشه می بایستی بروزرسانی شود.";
+"traffic_update_maps_text" = "برای نمایش ترافیک، نقشه می بایستی بروزرسانی شود.";
 
 "big_font" = "افزایش اندازه متن بر روی نقشه";
 
@@ -911,7 +911,7 @@
 
 "error_enter_correct_name" = "لطفا نام صحیح را وارد کنید";
 
-"bookmark_lists" = "لیست ها";
+"bookmark_lists" = "لیست‌ها";
 
 /* Do not display all bookmark lists on the map */
 "bookmark_lists_hide_all" = "پنهان کردن همه";
@@ -964,7 +964,7 @@
 
 "button_layer_subway" = "مترو";
 
-"layers_title" = "لایه های نقشه";
+"layers_title" = "لایه‌های نقشه";
 
 "subway_data_unavailable" = "نقشه مترو موجود نیست";
 
@@ -986,7 +986,7 @@
 
 "download_button" = "دانلود";
 
-"speedcams_alert_title" = "دوربین های سرعت";
+"speedcams_alert_title" = "دوربین‌های سرعت";
 
 "speedcam_option_auto" = "خودکار";
 
@@ -996,7 +996,7 @@
 
 "place_description_title" = "توضیحات محل";
 
-"speedcams_notice_message" = "خودکار- در صورتی که خطر تجاوز از سرعت مجاز وجود داشت، نسبت به دوربین های کنترل سرعت هشدار دهد\nهمیشه-همیشه درباره دوربین های کنترل سرعت هشدار دهد\nهرگز-هرگز درباره دوربین های کنترل سرعت هشدار ندهد";
+"speedcams_notice_message" = "خودکار- در صورتی که خطر تجاوز از سرعت مجاز وجود داشت، نسبت به دوربین‌های کنترل سرعت هشدار دهد\nهمیشه-همیشه درباره دوربین‌های کنترل سرعت هشدار دهد\nهرگز-هرگز درباره دوربین‌های کنترل سرعت هشدار ندهد";
 
 "power_managment_title" = "حالت ذخیره انرژی";
 
@@ -1008,37 +1008,37 @@
 
 "power_managment_setting_manual_max" = "حداکثر ذخیره انرژی";
 
-"driving_options_title" = "گزینه های رانندگی";
+"driving_options_title" = "گزینه‌های رانندگی";
 
 "driving_options_subheader" = "اجتناب از تمامی مسیرها";
 
-"avoid_tolls" = "جاده های دارای عوارض";
+"avoid_tolls" = "جاده‌های دارای عوارض";
 
-"avoid_unpaved" = "جاده های آسفالت نشده";
+"avoid_unpaved" = "جاده‌های آسفالت نشده";
 
-"avoid_ferry" = "گذرگاه های جاده ای";
+"avoid_ferry" = "گذرگاه‌های جاده‌ای";
 
-"avoid_motorways" = "بزرگراه ها";
+"avoid_motorways" = "بزرگراه‌ها";
 
 "unable_to_calc_alert_title" = "امکان محاسبه مسیر نیست";
 
-"unable_to_calc_alert_subtitle" = "متأسفانه، احتمالاً به دلیل گزینه های تعریف شده شما، مسیری پیدا نشد. لطفاً تنظیمات را تغییر داده و مجدد تلاش کنید";
+"unable_to_calc_alert_subtitle" = "متأسفانه، احتمالاً به دلیل گزینه‌های تعریف شده شما، مسیری پیدا نشد. لطفاً تنظیمات را تغییر داده و مجدد تلاش کنید";
 
-"define_to_avoid_btn" = "جاده های لغو شده را تعریف نمایید";
+"define_to_avoid_btn" = "جاده‌های لغو شده را تعریف نمایید";
 
-"change_driving_options_btn" = "گزینه های مسیریابی فعال شد";
+"change_driving_options_btn" = "گزینه‌های مسیریابی فعال شد";
 
 "toll_road" = "جاده دارای عوارض";
 
 "unpaved_road" = "جاده آسفالت نشده";
 
-"ferry_crossing" = "گذرگاه جاده ای";
+"ferry_crossing" = "گذرگاه جاده‌ای";
 
-"avoid_toll_roads_placepage" = "اجتناب از جاده های دارای عوارض";
+"avoid_toll_roads_placepage" = "اجتناب از جاده‌های دارای عوارض";
 
-"avoid_unpaved_roads_placepage" = "اجتناب از جاده های آسفالت نشده";
+"avoid_unpaved_roads_placepage" = "اجتناب از جاده‌های آسفالت نشده";
 
-"avoid_ferry_crossing_placepage" = "اجتناب از گذرگاه های کشتی";
+"avoid_ferry_crossing_placepage" = "اجتناب از گذرگاه‌های کشتی";
 
 "trip_start" = "برویم";
 
@@ -1076,7 +1076,7 @@
 
 "dialog_routing_unable_locate_route_carplay" = "امکان ایجاد مسیر نیست. لطفاً نقاط مسیر دیگری را مشخص کنید";
 
-"dialog_routing_download_files_carplay" = "برای ایجاد مسیر، نقشه های ناقص را روی دستگاه خود را دانلود کنید";
+"dialog_routing_download_files_carplay" = "برای ایجاد مسیر، نقشه‌های ناقص را روی دستگاه خود را دانلود کنید";
 
 "dialog_routing_system_error_carplay" = "خطایی رخ داد. لطفاً برنامه را دوباره اجرا کنید";
 
@@ -1102,7 +1102,7 @@
 
 "speedcams_alert_title_carplay_2" = "هشدارهای سرعت";
 
-"download_map_carplay" = "لطفا نقشه ها را در نرم افزار Organic Maps روی دستگاه خود دانلود کنید";
+"download_map_carplay" = "لطفا نقشه‌ها را در نرم افزار Organic Maps روی دستگاه خود دانلود کنید";
 
 "carplay_roundabout_exit" = "خروجی %s";
 
@@ -1137,7 +1137,7 @@
 
 "tourist_places" = "مناظر";
 
-"museums" = "موزهها";
+"museums" = "موزه‌ها";
 
 "parks" = "پارکها";
 
@@ -1204,10 +1204,10 @@
 "downloader_loading_ios" = "در حال دانلود";
 
 /* Autoupdate dialog on start */
-"whats_new_auto_update_title" = "نقشه های دانلود شده خود را به روز کنید";
+"whats_new_auto_update_title" = "نقشه‌های دانلود شده خود را به روز کنید";
 
 /* Autoupdate dialog on start */
-"whats_new_auto_update_message" = "به روز رسانی نقشه ها اطلاعات مربوط به اشیا را به روز نگه می دارد";
+"whats_new_auto_update_message" = "بروزرسانی نقشه‌ها اطلاعات مربوط به اشیا را به روز نگه می دارد";
 
 /* Autoupdate dialog on start */
 "whats_new_auto_update_button_size" = "بروزرسانی (%s)";
