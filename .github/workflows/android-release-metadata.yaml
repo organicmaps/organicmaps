@@ -29,6 +29,7 @@ jobs:
         shell: bash
         run: |
           for locale in en-US tr-TR; do
+             mkdir -p android/src/google/play/listings/${locale}/graphics
              ln -sf ../../../../../../screenshots/android/${locale}/graphics android/src/google/play/listings/${locale}/graphics
           done
 
@@ -48,6 +49,6 @@ jobs:
 
       - name: Upload
         shell: bash
-        run: ./gradlew publishGoogleReleaseListing
+        run: ./gradlew prepareGoogleReleaseListing publishGoogleReleaseListing
         working-directory: android
         timeout-minutes: 5
