@@ -6,7 +6,13 @@
 #include <algorithm>
 #include <iterator>
 #include <string>
-#include <utility>
+
+namespace routing
+{
+namespace turns
+{
+namespace sound
+{
 
 namespace
 {
@@ -29,12 +35,6 @@ template <class TIter> std::string DistToTextId(TIter begin, TIter end, uint32_t
 }
 }  //  namespace
 
-namespace routing
-{
-namespace turns
-{
-namespace sound
-{
 void GetTtsText::SetLocale(std::string const & locale)
 {
   m_getCurLang = platform::GetTextByIdFactory(platform::TextSource::TtsSound, locale);
@@ -54,17 +54,25 @@ std::string GetTtsText::GetTurnNotification(Notification const & notification) c
   {
     if (notification.m_useThenInsteadOfDistance &&
         notification.m_turnDirPedestrian == PedestrianDirection::None)
-      return std::string{};
+      return {};
   }
 
   if (notification.m_useThenInsteadOfDistance && notification.m_turnDir == CarDirection::None)
-    return std::string{};
+    return {};
 
   std::string const dirStr = GetTextById(GetDirectionTextId(notification));
   if (dirStr.empty())
-    return std::string{};
+    return {};
 
-  std::string const distStr = GetTextById(GetDistanceTextId(notification));
+  std::string distStr;
+  if (notification.m_useThenInsteadOfDistance)
+  {
+    distStr = GetTextById("then");
+    if (notification.m_distanceUnits > 0)
+      distStr = distStr + " " + GetTextById(GetDistanceTextId(notification));
+  }
+  else
+    distStr = GetTextById(GetDistanceTextId(notification));
   return distStr + " " + dirStr;
 }
 
@@ -78,7 +86,7 @@ std::string GetTtsText::GetLocale() const
   if (m_getCurLang == nullptr)
   {
     ASSERT(false, ());
-    return std::string{};
+    return {};
   }
   return m_getCurLang->GetLocale();
 }
@@ -90,15 +98,15 @@ std::string GetTtsText::GetTextById(std::string const & textId) const
   if (m_getCurLang == nullptr)
   {
     ASSERT(false, ());
-    return std::string{};
+    return {};
   }
   return (*m_getCurLang)(textId);
 }
 
 std::string GetDistanceTextId(Notification const & notification)
 {
-  if (notification.m_useThenInsteadOfDistance)
-    return "then";
+//  if (notification.m_useThenInsteadOfDistance)
+//    return "then";
 
   switch (notification.m_lengthUnits)
   {
@@ -110,7 +118,7 @@ std::string GetDistanceTextId(Notification const & notification)
                         notification.m_distanceUnits);
   }
   ASSERT(false, ());
-  return std::string{};
+  return {};
 }
 
 std::string GetRoundaboutTextId(Notification const & notification)
