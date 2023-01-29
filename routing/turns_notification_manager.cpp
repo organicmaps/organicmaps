@@ -1,18 +1,26 @@
 #include "routing/turns_notification_manager.hpp"
 
-#include "platform/location.hpp"
-
 #include "base/assert.hpp"
 
 #include <algorithm>
 #include <vector>
 
+namespace routing
+{
+namespace turns
+{
+namespace sound
+{
+
 namespace
 {
-// If the distance between two sequential turns is less than kMaxTurnDistM
-// the information about the second turn will be shown or pronounced when the user is
-// approaching to the first one.
-double constexpr kMaxTurnDistM = 400.0;
+// If the distance between two sequential turns is less than kSecondTurnThresholdDistM
+// the information about the second turn will be shown or pronounced
+// when the user is approaching to the first one with "Then.".
+double constexpr kSecondTurnThresholdDistM = 400.0;
+// If the distance between two sequential turns is less than kDistanceNotifyThresholdM
+// the notification will *not* append second distance, (like "In 500 meters. Turn left. Then. Turn right.")
+double constexpr kDistanceNotifyThresholdM = 50.0;
 
 // Returns true if the closest turn is an entrance to a roundabout and the second is
 // an exit form a roundabout.
@@ -27,12 +35,6 @@ bool IsClassicEntranceToRoundabout(routing::turns::TurnItemDist const & firstTur
 }
 }  // namespace
 
-namespace routing
-{
-namespace turns
-{
-namespace sound
-{
 NotificationManager::NotificationManager()
   : m_enabled(false)
   , m_speedMetersPerSecond(0.0)
@@ -104,24 +106,35 @@ void NotificationManager::GenerateTurnNotifications(std::vector<TurnItemDist> co
     return;
   if (firstNotification.empty())
     return;
-  turnNotifications.emplace_back(move(firstNotification));
+  turnNotifications.emplace_back(std::move(firstNotification));
 
   // Generating notifications like "Then turn left" if necessary.
   if (turns.size() < 2)
     return;
   TurnItemDist const & secondTurn = turns[1];
   ASSERT_LESS_OR_EQUAL(firstTurn.m_distMeters, secondTurn.m_distMeters, ());
-  if (secondTurn.m_distMeters - firstTurn.m_distMeters > kMaxTurnDistM &&
+
+  double distBetweenTurnsMeters = secondTurn.m_distMeters - firstTurn.m_distMeters;
+  ASSERT_GREATER_OR_EQUAL(distBetweenTurnsMeters, 0, ());
+  if (distBetweenTurnsMeters > kSecondTurnThresholdDistM &&
       !IsClassicEntranceToRoundabout(firstTurn, secondTurn))
   {
     return;
   }
+
+  if (distBetweenTurnsMeters < kDistanceNotifyThresholdM)
+  {
+    // distanceUnits is not used because of "Then" is used
+    distBetweenTurnsMeters = 0;
+  }
+
   std::string secondNotification = GenerateTurnText(
-      0 /* distanceUnits is not used because of "Then" is used */, secondTurn.m_turnItem.m_exitNum,
+      distBetweenTurnsMeters, secondTurn.m_turnItem.m_exitNum,
       true, secondTurn.m_turnItem, m_settings.GetLengthUnits());
   if (secondNotification.empty())
     return;
-  turnNotifications.emplace_back(move(secondNotification));
+  turnNotifications.emplace_back(std::move(secondNotification));
+
   // Turn notification with word "Then" (about the second turn) will be pronounced.
   // When this second turn become the first one the first notification about the turn
   // shall be skipped.
@@ -269,7 +282,7 @@ CarDirection NotificationManager::GenerateSecondTurnNotification(std::vector<Tur
   double const distBetweenTurnsMeters = secondTurn.m_distMeters - firstTurn.m_distMeters;
   ASSERT_LESS_OR_EQUAL(0., distBetweenTurnsMeters, ());
 
-  if (distBetweenTurnsMeters > kMaxTurnDistM)
+  if (distBetweenTurnsMeters > kSecondTurnThresholdDistM)
     return CarDirection::None;
 
   uint32_t const startPronounceDistMeters =
