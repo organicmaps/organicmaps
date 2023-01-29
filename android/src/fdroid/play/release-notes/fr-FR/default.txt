@@ -2,7 +2,7 @@
 • Correction de l'import de certains tracés KML
 • Amélioration de la recherche et des itinéraires
 • Gestion appropriée du dénivelé pour la randonnée et le vélo
-• Correction des icônes pour Buenos Aires et le métro de Bilbao
+• Correction des icônes pour Buenos Aires
 • Ajout de Bowling Alley
 • Ajout de la Croatie à l'espace Schengen
 • Augmentation du nombre d'étages modifiables sur un bâtiment de 25 à 50
