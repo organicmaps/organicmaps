@@ -1749,18 +1749,20 @@ void BookmarkManager::LoadMetadata()
     return;
 
   Metadata metadata;
-  std::string jsonStr;
+  std::vector<uint8_t> jsonStr;
+
+  auto const charPtr = [&jsonStr]()
+  {
+    return reinterpret_cast<char const *>(jsonStr.data());
+  };
+
   try
   {
-    {
-      FileReader r(metadataFilePath);
-      r.ReadAsString(jsonStr);
-    }
-
+    jsonStr = base::ReadFile(metadataFilePath);
     if (jsonStr.empty())
       return;
 
-    coding::DeserializerJson des(jsonStr);
+    coding::DeserializerJson des(charPtr());
     des(metadata);
   }
   catch (FileReader::Exception const & exception)
@@ -1771,7 +1773,7 @@ void BookmarkManager::LoadMetadata()
   catch (base::Json::Exception const & exception)
   {
     LOG(LWARNING, ("Exception while parsing file:", metadataFilePath, "reason:", exception.what(),
-      "json:", jsonStr));
+                   "json:", charPtr()));
     return;
   }
 

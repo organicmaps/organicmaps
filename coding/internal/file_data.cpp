@@ -24,10 +24,10 @@
 #include <unistd.h>  // ftruncate
 #endif
 
-using namespace std;
-
 namespace base
 {
+using namespace std;
+
 FileData::FileData(string const & fileName, Op op)
   : m_FileName(fileName), m_Op(op)
 {
@@ -319,4 +319,14 @@ bool IsEqualFiles(string const & firstFile, string const & secondFile)
 
   return true;
 }
+
+std::vector<uint8_t> ReadFile(std::string const & filePath)
+{
+  base::FileData file(filePath, base::FileData::OP_READ);
+  uint64_t const sz = file.Size();
+  std::vector<uint8_t> contents(sz);
+  file.Read(0, contents.data(), sz);
+  return contents;
+}
+
 }  // namespace base
