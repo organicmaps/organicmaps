@@ -1,0 +1,1 @@
+../../listings/pt-BR/release-notes.txt
