@@ -134,12 +134,14 @@ def check_raw(path, max_length):
             ok = error(path, "too long: got={}, expected={}", cur_length, max_length)
         return ok, text
 
-def check_text(path, max):
+def check_text(path, max, optional=False):
     try:
         return done(path, check_raw(path, max)[0])
     except FileNotFoundError as e:
+        if optional:
+            return True,
         print("🚫", path)
-        return True,
+        return False,
 
 def check_url(path,):
     (ok, url) = check_raw(path, 500)
@@ -159,22 +161,28 @@ def check_exact(path, expected):
         ok = error(path, "invalid value: got={}, expected={}", value, expected)
     return done(path, ok)
 
+
 def check_android():
     ok = True
-    for flavor in glob.glob('android/src/*/play/'):
-        ok = check_url(flavor + "contact-website.txt") and ok
-        ok = check_email(flavor + "contact-email.txt") and ok
-        ok = check_exact(flavor + "default-language.txt", "en-US") and ok
-        maxTitle = 30 if 'google' in flavor else 50
-        for locale in glob.glob(flavor + 'listings/*/'):
-            if locale.split('/')[-2] not in GPLAY_LOCALES:
-                ok = error(locale, "unsupported locale") and ok
-                continue
-            ok = check_text(locale + "title.txt", maxTitle) and ok
-            ok = check_text(locale + "short-description.txt", 80) and ok
-            ok = check_text(locale + "full-description.txt", 4000) and ok
-        for locale in glob.glob(flavor + 'release-notes/??-??/'):
-            ok = check_text(locale + "default.txt", 500) and ok
+    flavor = 'android/src/fdroid/play/'
+    ok = check_url(flavor + 'contact-website.txt') and ok
+    ok = check_email(flavor + 'contact-email.txt') and ok
+    ok = check_exact(flavor + 'default-language.txt', 'en-US') and ok
+    for locale in glob.glob(flavor + 'listings/*/'):
+        if locale.split('/')[-2] not in GPLAY_LOCALES:
+            ok = error(locale, 'unsupported locale') and ok
+            continue
+        ok = check_text(locale + 'title.txt', 50) and ok
+        ok = check_text(locale + 'title-google.txt', 30) and ok
+        ok = check_text(locale + 'short-description.txt', 80) and ok
+        ok = check_text(locale + 'short-description-google.txt', 80, True) and ok
+        ok = check_text(locale + 'full-description.txt', 4000) and ok
+        ok = check_text(locale + 'full-description-google.txt', 4000, True) and ok
+    for locale in glob.glob(flavor + 'release-notes/*/'):
+        if locale.split('/')[-2] not in GPLAY_LOCALES:
+            ok = error(locale, 'unsupported locale') and ok
+            continue
+        ok = check_text(locale + 'default.txt', 500) and ok
     return ok
 
 
@@ -206,8 +214,7 @@ def check_ios():
         ok = check_text(locale + "promotional_text.txt", 170) and ok
         ok = check_text(locale + "description.txt", 4000) and ok
         ok = check_text(locale + "release_notes.txt", 4000) and ok
-        if os.path.exists(locale + "keywords.txt"):
-           ok = check_text(locale + "keywords.txt", 100) and ok
+        ok = check_text(locale + "keywords.txt", 100, True) and ok
         ok = check_url(locale + "support_url.txt") and ok
         ok = check_url(locale + "marketing_url.txt") and ok
         ok = check_url(locale + "privacy_url.txt") and ok

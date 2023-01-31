@@ -494,8 +494,8 @@ huaweiPublish {
           'ta-IN': 'ta_IN',
           'te-IN': 'te_IN',
       ]
-      def files = fileTree(dir: "$projectDir/src/google/play/release-notes",
-          include: '**/default.txt')
+      def files = fileTree(dir: "$projectDir/src/fdroid/play/listings",
+          include: '**/release-notes.txt')
       files.each { File file ->
         def path = file.getPath()
         def locale = file.parentFile.getName()

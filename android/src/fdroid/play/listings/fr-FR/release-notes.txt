@@ -7,4 +7,4 @@
 • Ajout de la Croatie à l'espace Schengen
 • Augmentation du nombre d'étages modifiables sur un bâtiment de 25 à 50
 • Activation du Basque, Biélorusse, Croate, Norvégien, Marathi, Souahili dans TTS.
-…Plus sur : omaps.app/news
+…Plus: omaps.app/news
