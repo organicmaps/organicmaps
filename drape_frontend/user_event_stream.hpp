@@ -164,28 +164,15 @@ public:
                  TAnimationCreator const & parallelAnimCreator)
     : m_center(center)
     , m_zoom(zoom)
-    , m_scaleFactor(0.0)
     , m_isAnim(isAnim)
     , m_trackVisibleViewport(trackVisibleViewport)
     , m_parallelAnimCreator(parallelAnimCreator)
-  {}
-
-  SetCenterEvent(double scaleFactor, m2::PointD const & center,
-                 bool isAnim, bool trackVisibleViewport,
-                 TAnimationCreator const & parallelAnimCreator)
-      : m_center(center)
-      , m_zoom(-1)
-      , m_scaleFactor(scaleFactor)
-      , m_isAnim(isAnim)
-      , m_trackVisibleViewport(trackVisibleViewport)
-      , m_parallelAnimCreator(parallelAnimCreator)
   {}
 
   EventType GetType() const override { return UserEvent::EventType::SetCenter; }
 
   m2::PointD const & GetCenter() const { return m_center; }
   int GetZoom() const { return m_zoom; }
-  double GetScaleFactor() const { return m_scaleFactor; }
   bool IsAnim() const { return m_isAnim; }
   bool TrackVisibleViewport() const { return m_trackVisibleViewport; }
   TAnimationCreator const & GetParallelAnimCreator() const { return m_parallelAnimCreator; }
@@ -193,8 +180,6 @@ public:
 private:
   m2::PointD m_center; // center point in mercator
   int m_zoom; // if zoom == -1, then zoom level will not change
-  double m_scaleFactor; // this parameter is used when zoom == -1,
-                        // if scaleFactor <= 0.0, then scale will not change
   bool m_isAnim;
   bool m_trackVisibleViewport;
   TAnimationCreator m_parallelAnimCreator;
