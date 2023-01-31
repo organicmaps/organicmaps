@@ -178,6 +178,6 @@ tools/python/routing/etc/*.ini
 
 # AppStore metadata
 screenshots/
-android/src/google/play/listings/??-??/graphics
+android/src/google/play/listings/
 keywords/
 iphone/metadata/**/keywords.txt

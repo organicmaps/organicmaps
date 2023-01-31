@@ -116,6 +116,8 @@ def run(cmd) {
   return stdout.toString()
 }
 
+
+import com.github.triplet.gradle.androidpublisher.ReleaseStatus
 import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
 
 def getVersion() {
@@ -442,7 +444,28 @@ android.buildTypes.all { buildType ->
   manifestPlaceholders += [FILE_PROVIDER_PLACEHOLDER : authorityValue]
 }
 
-import com.github.triplet.gradle.androidpublisher.ReleaseStatus
+task prepareGoogleReleaseListing {
+  // Prepares Google Play metainfo from F-Droid metainfo.
+  final sourceFlavor = 'fdroid'
+  final targetFlavor = 'google'
+  doLast {
+    final sourceDir = new File("${projectDir}/src/$sourceFlavor/play/listings")
+    final targetDir = new File("${projectDir}/src/$targetFlavor/play/listings")
+    final sourceFiles = fileTree(dir: sourceDir,
+        include: "**/*.txt", exclude: "**/*-${targetFlavor}.txt")
+    sourceFiles.each { File sourceFile ->
+      final path = sourceFile.getPath()
+      final locale = sourceFile.parentFile.getName()
+      final targetLocaleDir = new File(targetDir, locale)
+      if (!targetLocaleDir.isDirectory())
+        targetLocaleDir.mkdirs()
+      final targetFile = new File(targetLocaleDir, sourceFile.getName())
+      // Override Google-specific values by using ${name}-google.txt files.
+      final overrideFile = new File(sourceFile.getPath().replace(".txt", "-${targetFlavor}.txt"))
+      targetFile.text = overrideFile.exists() ? overrideFile.text : sourceFile.text
+    }
+  }
+}
 
 play {
   enabled.set(false)
