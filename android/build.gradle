@@ -464,6 +464,10 @@ task prepareGoogleReleaseListing {
       final overrideFile = new File(sourceFile.getPath().replace(".txt", "-${targetFlavor}.txt"))
       targetFile.text = overrideFile.exists() ? overrideFile.text : sourceFile.text
     }
+    copy {
+      from "${projectDir}/../screenshots/android"
+      into targetDir
+    }
   }
 }
 
