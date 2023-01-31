@@ -448,8 +448,8 @@ line|z8-10[highway=primary],
 line|z11-14[highway=primary],
 line|z11-14[highway=primary_link]
 {color: @primary_orange_medium;opacity: 1;}
-line|z15-22[highway=primary],
-line|z15-22[highway=primary_link]
+line|z15-[highway=primary],
+line|z15-[highway=primary_link]
 {color: @primary_orange_light;opacity: 1;}
 line|z14-[highway=primary][tunnel?],
 line|z14-[highway=primary_link][tunnel?]

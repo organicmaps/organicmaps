@@ -775,10 +775,10 @@ node|z15[railway=station][transport=subway][city=spb]
 {icon-image: subway-spb-m.svg;text-offset: 1;font-size: 11;text-halo-opacity: 0.8;}
 node|z15[railway=station][transport=subway][city=spb]::int_name
 {text-offset: 1;font-size: 10;text-halo-opacity: 0.8;}
-node|z16[railway=station][transport=subway][city=spb] check
+node|z16[railway=station][transport=subway][city=spb] /* check */
 {icon-image: subway-spb-m.svg;text-offset: 1;font-size: 10;text-color: @district_label;text-halo-radius: 0;}
 node|z16[railway=station][transport=subway][city=spb]::int_name
-{text-offset: 1;font-size: 9;text-color: @district_label;text-halo-radius: 0;} check
+{text-offset: 1;font-size: 9;text-color: @district_label;text-halo-radius: 0;} /* check */
 
 /* Do not draw station metro icon, because entrances will be visible now */
 node|z17-[railway=station][transport=subway][city=spb]
