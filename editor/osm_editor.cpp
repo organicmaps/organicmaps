@@ -41,6 +41,7 @@ using std::move, std::make_shared, std::string;
 
 namespace
 {
+// Do not change, this is tags in edits.xml
 constexpr char const * kXmlRootNode = "mapsme";
 constexpr char const * kXmlMwmNode = "mwm";
 constexpr char const * kDeleteSection = "delete";

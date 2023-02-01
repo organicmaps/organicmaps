@@ -162,7 +162,7 @@ void GenerateUploadedFeature(MwmSet::MwmId const & mwmId,
                              osm::EditableMapObject const & emo,
                              pugi::xml_document & out)
 {
-  pugi::xml_node root = out.append_child("mapsme");
+  pugi::xml_node root = out.append_child("omaps");
   root.append_attribute("format_version") = 1;
 
   pugi::xml_node mwmNode = root.append_child("mwm");

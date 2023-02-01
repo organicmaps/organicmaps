@@ -8,10 +8,10 @@
     </xs:documentation>
   </xs:annotation>
 
-  <xs:element name="mapsme">
+  <xs:element name="omaps">
     <xs:annotation>
       <xs:documentation>
-        The root element, "mapsme", for now contains only one entry, "editor".
+        The root element, "omaps", for now contains only one entry, "editor".
       </xs:documentation>
     </xs:annotation>
 
