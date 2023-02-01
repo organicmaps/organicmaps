@@ -165,7 +165,16 @@ public:
   bool IsReady() const { return m_isReady; }
 
   void SetDisplayFlag(bool display) { m_displayFlag = display; }
-  bool GetDisplayFlag() const { return m_displayFlag; }
+  /// @todo displayFlag logic is effectively turned off now,
+  /// remove all the associated code from drape later if its not needed anymore.
+  // The displayFlag displacement logic supposedly should stabilize displacement
+  // chains and prevent "POI blinking" cases by remembering which POIs were visible
+  // on a previous iteration and giving them priority over "new" POIs.
+  // In reality it seems to be of very little (if any) benefit but causes major issues:
+  //  - minor POIs may displace major ones just because they were displayed previously;
+  //  - testing priority changes and debugging displacement becomes very hard as map browsing history
+  //    prevails over priorities, so displacement results are unpredictable.
+  bool GetDisplayFlag() const { return true; /* m_displayFlag; */ }
 
   void SetSpecialLayerOverlay(bool isSpecialLayerOverlay) { m_isSpecialLayerOverlay = isSpecialLayerOverlay; }
   bool IsSpecialLayerOverlay() const { return m_isSpecialLayerOverlay; }
