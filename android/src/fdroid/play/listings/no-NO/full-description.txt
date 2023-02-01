@@ -6,6 +6,7 @@
 <b>Your feedback and 5-star reviews are the best motivators for us!</b>
 
 Key features:
+
 • Free, open-source, no ads, no tracking
 • Detailed offline maps with places that don't exist on Google maps, thanks to the <b>OpenStreetMap</b> community
 • Cycling routes, hiking trails, and walking paths
