@@ -1,6 +1,5 @@
 • New OpenStreetMap data as of January 21
 • Fixed import of some KML tracks
-• Fixed crashes on start if system's WebView was disabled or absent
 • Improved search and routing
 • Properly handle elevation for hiking and cycling
 • Fixed Buenos Aires & Bilbao metro icons

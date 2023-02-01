@@ -3,7 +3,7 @@
 • Opraveny pády při zapnutí, pokud chybí nebo je vypnut systémový WebView
 • Vylepšeno vyhledávání a směrování
 • Správně zpracovat převýšení pro pěší turistiku a cykloturistiku
-• Opraveny Buenos Aires & Bilbao ikonky metra
+• Opraveny Buenos Aires ikonky metra
 • Přidána Bowlingová dráha
 • Přidáno Chorvatsko do schengenského prostoru
 • Zapnuto TTS pro baskičtinu, běloruštinu, chorvatštinu, norštinu, maráthštinu a svahilštinu
