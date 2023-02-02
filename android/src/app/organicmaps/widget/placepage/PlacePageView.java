@@ -3,7 +3,6 @@ package app.organicmaps.widget.placepage;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.location.Location;
 import android.os.Bundle;
 import android.text.SpannableStringBuilder;
@@ -17,7 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.annotation.ColorInt;
+import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
@@ -25,7 +24,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.RecyclerView;
 import app.organicmaps.Framework;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.MwmApplication;
@@ -42,8 +40,6 @@ import app.organicmaps.downloader.DownloaderStatusIcon;
 import app.organicmaps.downloader.MapManager;
 import app.organicmaps.editor.Editor;
 import app.organicmaps.editor.OpeningHours;
-import app.organicmaps.editor.data.TimeFormatUtils;
-import app.organicmaps.editor.data.Timespan;
 import app.organicmaps.editor.data.Timetable;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.location.LocationListener;
@@ -52,7 +48,6 @@ import app.organicmaps.search.Popularity;
 import app.organicmaps.settings.RoadType;
 import app.organicmaps.util.SharingUtils;
 import app.organicmaps.util.StringUtils;
-import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.concurrency.UiThread;
@@ -60,9 +55,7 @@ import app.organicmaps.widget.ArrowView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
@@ -552,82 +545,45 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     updateButtons(showBackButton, showRoutingButton);
   }
 
-  private void updateOpeningHoursView()
+  private <T extends Fragment> void updateViewFragment(Class<T> controllerClass, String fragmentTag, @IdRes int containerId, boolean enabled)
   {
     final FragmentManager fManager = getChildFragmentManager();
-    final PlacePageOpeningHoursFragment fragment = (PlacePageOpeningHoursFragment) fManager.findFragmentByTag(OPENING_HOURS_FRAGMENT_TAG);
-    final String ohStr = viewModel.getMapObject()
-                                  .getValue()
-                                  .getMetadata(Metadata.MetadataType.FMD_OPEN_HOURS);
-    final Timetable[] timetables = OpeningHours.nativeTimetablesFromString(ohStr);
-    final boolean isEmptyTT = (timetables == null || timetables.length == 0);
-
-    if (!isEmptyTT && fragment == null)
+    final T fragment = (T) fManager.findFragmentByTag(fragmentTag);
+    if (enabled && fragment == null)
     {
       fManager.beginTransaction()
-              .add(R.id.place_page_opening_hours_fragment, PlacePageOpeningHoursFragment.class, null, OPENING_HOURS_FRAGMENT_TAG)
+              .add(containerId, controllerClass, null, fragmentTag)
               .commit();
     }
-    else if (isEmptyTT && fragment != null)
+    else if (!enabled && fragment != null)
     {
       fManager.beginTransaction()
               .remove(fragment)
               .commit();
     }
+  }
+
+  private void updateOpeningHoursView()
+  {
+    final String ohStr = mMapObject.getMetadata(Metadata.MetadataType.FMD_OPEN_HOURS);
+    final Timetable[] timetables = OpeningHours.nativeTimetablesFromString(ohStr);
+    final boolean isEmptyTT = (timetables == null || timetables.length == 0);
+    updateViewFragment(PlacePageOpeningHoursFragment.class, OPENING_HOURS_FRAGMENT_TAG, R.id.place_page_opening_hours_fragment, !isEmptyTT);
   }
 
   private void updatePhoneView()
   {
-    final FragmentManager fManager = getChildFragmentManager();
-    final PlacePagePhoneFragment fragment = (PlacePagePhoneFragment) fManager.findFragmentByTag(PHONE_FRAGMENT_TAG);
-    if (mMapObject.hasPhoneNumber() && fragment == null)
-    {
-      fManager.beginTransaction()
-              .add(R.id.place_page_phone_fragment, PlacePagePhoneFragment.class, null, PHONE_FRAGMENT_TAG)
-              .commit();
-    }
-    else if (!mMapObject.hasPhoneNumber() && fragment != null)
-    {
-      fManager.beginTransaction()
-              .remove(fragment)
-              .commit();
-    }
+    updateViewFragment(PlacePagePhoneFragment.class, PHONE_FRAGMENT_TAG, R.id.place_page_phone_fragment, mMapObject.hasPhoneNumber());
   }
 
   private void updateBookmarkView()
   {
-    final FragmentManager fManager = getChildFragmentManager();
-    final PlacePageBookmarkFragment fragment = (PlacePageBookmarkFragment) fManager.findFragmentByTag(BOOKMARK_FRAGMENT_TAG);
-    if (mMapObject.getMapObjectType() == MapObject.BOOKMARK && fragment == null)
-    {
-      fManager.beginTransaction()
-              .add(R.id.place_page_bookmark_fragment, PlacePageBookmarkFragment.class, null, BOOKMARK_FRAGMENT_TAG)
-              .commit();
-    }
-    else if (mMapObject.getMapObjectType() != MapObject.BOOKMARK && fragment != null)
-    {
-      fManager.beginTransaction()
-              .remove(fragment)
-              .commit();
-    }
+    updateViewFragment(PlacePageBookmarkFragment.class, BOOKMARK_FRAGMENT_TAG, R.id.place_page_bookmark_fragment, mMapObject.getMapObjectType() == MapObject.BOOKMARK);
   }
 
   private void updateWikipediaView()
   {
-    final FragmentManager fManager = getChildFragmentManager();
-    final PlacePageWikipediaFragment fragment = (PlacePageWikipediaFragment) fManager.findFragmentByTag(WIKIPEDIA_FRAGMENT_TAG);
-    if (!TextUtils.isEmpty(mMapObject.getDescription()) && fragment == null)
-    {
-      fManager.beginTransaction()
-              .add(R.id.place_page_wikipedia_fragment, PlacePageWikipediaFragment.class, null, WIKIPEDIA_FRAGMENT_TAG)
-              .commit();
-    }
-    else if (TextUtils.isEmpty(mMapObject.getDescription()) && fragment != null)
-    {
-      fManager.beginTransaction()
-              .remove(fragment)
-              .commit();
-    }
+    updateViewFragment(PlacePageWikipediaFragment.class, WIKIPEDIA_FRAGMENT_TAG, R.id.place_page_wikipedia_fragment, !TextUtils.isEmpty(mMapObject.getDescription()));
   }
 
   private void setTextAndColorizeSubtitle()
