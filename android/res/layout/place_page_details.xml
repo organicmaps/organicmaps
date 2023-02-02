@@ -29,7 +29,11 @@
 
     <include layout="@layout/place_page_placename"/>
 
-    <include layout="@layout/place_page_opening_hours"/>
+    <androidx.fragment.app.FragmentContainerView
+      android:id="@+id/place_page_opening_hours_fragment"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      tools:layout="@layout/place_page_opening_hours_fragment" />
 
     <include layout="@layout/place_page_cuisine"/>
 
