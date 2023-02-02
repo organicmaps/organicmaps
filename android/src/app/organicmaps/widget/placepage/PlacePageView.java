@@ -80,6 +80,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   private static final String BOOKMARK_FRAGMENT_TAG = "BOOKMARK_FRAGMENT_TAG";
   private static final String WIKIPEDIA_FRAGMENT_TAG = "WIKIPEDIA_FRAGMENT_TAG";
   private static final String PHONE_FRAGMENT_TAG = "PHONE_FRAGMENT_TAG";
+  private static final String OPENING_HOURS_FRAGMENT_TAG = "OPENING_HOURS_FRAGMENT_TAG";
 
   private static final List<CoordinatesFormat> visibleCoordsFormat =
       Arrays.asList(CoordinatesFormat.LatLonDMS,
@@ -112,12 +113,6 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   private TextView mTvVkPage;
   private View mLinePage;
   private TextView mTvLinePage;
-  private View mOpeningHours;
-  private TextView mTodayLabel;
-  private TextView mTodayOpenTime;
-  private TextView mTodayNonBusinessTime;
-  private RecyclerView mFullWeekOpeningHours;
-  private PlaceOpeningHoursAdapter mOpeningHoursAdapter;
   private View mWifi;
   private TextView mTvWiFi;
   private View mEmail;
@@ -324,13 +319,6 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     LinearLayout latlon = mFrame.findViewById(R.id.ll__place_latlon);
     latlon.setOnClickListener(this);
     mTvLatlon = mFrame.findViewById(R.id.tv__place_latlon);
-    mOpeningHours = mFrame.findViewById(R.id.ll__place_schedule);
-    mTodayLabel = mFrame.findViewById(R.id.oh_today_label);
-    mTodayOpenTime = mFrame.findViewById(R.id.oh_today_open_time);
-    mTodayNonBusinessTime = mFrame.findViewById(R.id.oh_nonbusiness_time);
-    mFullWeekOpeningHours = mFrame.findViewById(R.id.rw__full_opening_hours);
-    mOpeningHoursAdapter = new PlaceOpeningHoursAdapter();
-    mFullWeekOpeningHours.setAdapter(mOpeningHoursAdapter);
     mWifi = mFrame.findViewById(R.id.ll__place_wifi);
     mTvWiFi = mFrame.findViewById(R.id.tv__place_wifi);
     mEmail = mFrame.findViewById(R.id.ll__place_email);
@@ -356,7 +344,6 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     address.setOnLongClickListener(this);
     mWebsite.setOnLongClickListener(this);
     mWikimedia.setOnLongClickListener(this);
-    mOpeningHours.setOnLongClickListener(this);
     mEmail.setOnLongClickListener(this);
     mOperator.setOnLongClickListener(this);
     mLevel.setOnLongClickListener(this);
@@ -565,6 +552,30 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     updateButtons(showBackButton, showRoutingButton);
   }
 
+  private void updateOpeningHoursView()
+  {
+    final FragmentManager fManager = getChildFragmentManager();
+    final PlacePageOpeningHoursFragment fragment = (PlacePageOpeningHoursFragment) fManager.findFragmentByTag(OPENING_HOURS_FRAGMENT_TAG);
+    final String ohStr = viewModel.getMapObject()
+                                  .getValue()
+                                  .getMetadata(Metadata.MetadataType.FMD_OPEN_HOURS);
+    final Timetable[] timetables = OpeningHours.nativeTimetablesFromString(ohStr);
+    final boolean isEmptyTT = (timetables == null || timetables.length == 0);
+
+    if (!isEmptyTT && fragment == null)
+    {
+      fManager.beginTransaction()
+              .add(R.id.place_page_opening_hours_fragment, PlacePageOpeningHoursFragment.class, null, OPENING_HOURS_FRAGMENT_TAG)
+              .commit();
+    }
+    else if (isEmptyTT && fragment != null)
+    {
+      fManager.beginTransaction()
+              .remove(fragment)
+              .commit();
+    }
+  }
+
   private void updatePhoneView()
   {
     final FragmentManager fManager = getChildFragmentManager();
@@ -667,7 +678,6 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     refreshMetadataOrHide(Framework.nativeGetActiveObjectFormattedCuisine(), mCuisine, mTvCuisine);
     refreshWiFi();
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_FLATS), mEntrance, mTvEntrance);
-    refreshOpeningHours();
     refreshSocialLinks();
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_LEVEL), mLevel, mTvLevel);
 
@@ -686,103 +696,8 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
                      || UiUtils.isVisible(mAddOrganisation)
                      || UiUtils.isVisible(mAddPlace), mEditTopSpace);
     }
+    updateOpeningHoursView();
     updateWikipediaView();
-  }
-
-  private void refreshOpeningHours()
-  {
-    final String ohStr = mMapObject.getMetadata(Metadata.MetadataType.FMD_OPEN_HOURS);
-    final Timetable[] timetables = OpeningHours.nativeTimetablesFromString(ohStr);
-    final boolean isEmptyTT = (timetables == null || timetables.length == 0);
-    final int color = ThemeUtils.getColor(requireContext(), android.R.attr.textColorPrimary);
-
-    if (isEmptyTT)
-    {
-      // 'opening_hours' tag wasn't parsed either because it's empty or wrong format.
-      if (!ohStr.isEmpty())
-      {
-        UiUtils.show(mOpeningHours);
-        refreshTodayOpeningHours(ohStr, color);
-        UiUtils.hide(mTodayNonBusinessTime);
-        UiUtils.hide(mFullWeekOpeningHours);
-      }
-      else
-      {
-        UiUtils.hide(mOpeningHours);
-      }
-      return;
-    }
-
-    UiUtils.show(mOpeningHours);
-
-    final Resources resources = getResources();
-
-    if (timetables[0].isFullWeek())
-    {
-      final Timetable tt = timetables[0];
-      if (tt.isFullday)
-      {
-        refreshTodayOpeningHours(resources.getString(R.string.twentyfour_seven), color);
-        UiUtils.clearTextAndHide(mTodayNonBusinessTime);
-        UiUtils.hide(mTodayNonBusinessTime);
-      }
-      else
-      {
-        refreshTodayOpeningHours(resources.getString(R.string.daily), tt.workingTimespan.toWideString(), color);
-        refreshTodayNonBusinessTime(tt.closedTimespans);
-      }
-
-      UiUtils.hide(mFullWeekOpeningHours);
-      return;
-    }
-
-    // Show whole week time table.
-    int firstDayOfWeek = Calendar.getInstance(Locale.getDefault()).getFirstDayOfWeek();
-    mOpeningHoursAdapter.setTimetables(timetables, firstDayOfWeek);
-    UiUtils.show(mFullWeekOpeningHours);
-
-    // Show today's open time + non-business time.
-    boolean containsCurrentWeekday = false;
-    final int currentDay = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
-    for (Timetable tt : timetables)
-    {
-      if (tt.containsWeekday(currentDay))
-      {
-        containsCurrentWeekday = true;
-        String openTime;
-
-        if (tt.isFullday)
-        {
-          String allDay = resources.getString(R.string.editor_time_allday);
-          openTime = Utils.unCapitalize(allDay);
-        }
-        else
-        {
-          openTime = tt.workingTimespan.toWideString();
-        }
-
-        refreshTodayOpeningHours(resources.getString(R.string.today), openTime, color);
-        refreshTodayNonBusinessTime(tt.closedTimespans);
-
-        break;
-      }
-    }
-
-    // Show that place is closed today.
-    if (!containsCurrentWeekday)
-    {
-      refreshTodayOpeningHours(resources.getString(R.string.day_off_today), resources.getColor(R.color.base_red));
-      UiUtils.hide(mTodayNonBusinessTime);
-    }
-  }
-
-  private void refreshTodayNonBusinessTime(Timespan[] closedTimespans)
-  {
-    final String hoursClosedLabel = getResources().getString(R.string.editor_hours_closed);
-    if (closedTimespans == null || closedTimespans.length == 0)
-      UiUtils.clearTextAndHide(mTodayNonBusinessTime);
-    else
-      UiUtils.setTextAndShow(mTodayNonBusinessTime, TimeFormatUtils.formatNonBusinessTime(closedTimespans, hoursClosedLabel));
   }
 
   private void refreshWiFi()
@@ -844,24 +759,6 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
       else
         tvSocialPage.setText("@" + socialPage);
     }
-  }
-
-  private void refreshTodayOpeningHours(String label, String openTime, @ColorInt int color)
-  {
-    UiUtils.setTextAndShow(mTodayLabel, label);
-    UiUtils.setTextAndShow(mTodayOpenTime, openTime);
-
-    mTodayLabel.setTextColor(color);
-    mTodayOpenTime.setTextColor(color);
-  }
-
-  private void refreshTodayOpeningHours(String label, @ColorInt int color)
-  {
-    UiUtils.setTextAndShow(mTodayLabel, label);
-    UiUtils.hide(mTodayOpenTime);
-
-    mTodayLabel.setTextColor(color);
-    mTodayOpenTime.setTextColor(color);
   }
 
   private void updateBookmarkButton()
@@ -1133,12 +1030,6 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     }
     else if (id == R.id.ll__place_email)
       items.add(mTvEmail.getText().toString());
-    else if (id == R.id.ll__place_schedule)
-    {
-      final String ohStr = mMapObject.getMetadata(Metadata.MetadataType.FMD_OPEN_HOURS);
-      final Timetable[] timetables = OpeningHours.nativeTimetablesFromString(ohStr);
-      items.add(TimeFormatUtils.formatTimetables(getResources(), ohStr, timetables));
-    }
     else if (id == R.id.ll__place_operator)
       items.add(mTvOperator.getText().toString());
     else if (id == R.id.ll__place_level)
