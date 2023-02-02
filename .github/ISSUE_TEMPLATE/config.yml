@@ -2,7 +2,10 @@ blank_issues_enabled: true
 contact_links:
   - name: Discussions
     url: https://github.com/organicmaps/organicmaps/discussions
-    about: For discussions about the usage of OrganicMaps, asking questions or talking about ideas which are not yet actionable.
+    about: Discuss the usage of OrganicMaps, ask questions, or talk about ideas that are not yet actionable.
   - name: Translations
     url: https://github.com/organicmaps/organicmaps/blob/master/docs/TRANSLATIONS.md
-    about: For contributing translations of OrganicMaps
+    about: Translate Organic Maps into your language
+  - name: News
+    url: https://organicmaps.app/news/
+    about: Check the latest project news

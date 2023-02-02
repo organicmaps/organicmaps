@@ -1,16 +1,16 @@
 ---
-name: Bug report
-about: Create a report to help us improve OrganicMaps
+name: Bug Report
+about: Describe your issue in details to help us improve Organic Maps
 title: ''
 labels: ''
 assignees: ''
 
 ---
 
-**Describe the bug**
-A clear and concise description of what the bug is.
+**Describe the issue**
+Please write here a clear and concise description of what the bug/issue is about.
 
-**Steps To Reproduce**
+**Steps to reproduce**
 1. Go to '...'
 2. Click on '....'
 3. Scroll down to '....'
@@ -22,10 +22,10 @@ A clear and concise description of what you expected to happen.
 **Screenshots**
 If applicable, add screenshots or screen recordings to help explain your problem.
 
-**Application:**
- - OS: [iOS, Android, Linux, MacOS, etc]
- - OrganicMaps version: [you can find it clicking "?" button]
+**System information:**
+ - Operating system and its version: [iOS 12, Android 10, Ubuntu 22, MacOS Big Sur, etc.]
+ - Organic Maps version: [you can find it by clicking the "?" button]
  - Device Model: [e.g. iPhone6, Samsung S22]
 
 **Additional context**
-Add any other context about the problem here.
+Please add any other context and important details/notes/comments about the problem here.
