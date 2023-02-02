@@ -42,7 +42,8 @@ using std::move, std::make_shared, std::string;
 namespace
 {
 // Do not change, this is tags in edits.xml
-constexpr char const * kXmlRootNode = "mapsme";
+constexpr char const * kXmlOldRootNode = "mapsme";
+constexpr char const * kXmlNewRootNode = "omaps";
 constexpr char const * kXmlMwmNode = "mwm";
 constexpr char const * kDeleteSection = "delete";
 constexpr char const * kModifySection = "modify";
@@ -169,7 +170,11 @@ void Editor::LoadEdits()
   m_features.Set(make_shared<FeaturesContainer>());
   auto loadedFeatures = make_shared<FeaturesContainer>();
 
-  for (auto const & mwm : doc.child(kXmlRootNode).children(kXmlMwmNode))
+  auto rootNode = doc.child(kXmlNewRootNode);
+  // Migrate clients with an old root node.
+  if (!rootNode)
+    rootNode = doc.child(kXmlOldRootNode);
+  for (auto const & mwm : rootNode.children(kXmlMwmNode))
   {
     string const mapName = mwm.attribute("name").as_string("");
     int64_t const mapVersion = mwm.attribute("version").as_llong(0);
@@ -202,7 +207,7 @@ bool Editor::Save(FeaturesContainer const & features) const
     return m_storage->Reset();
 
   xml_document doc;
-  xml_node root = doc.append_child(kXmlRootNode);
+  xml_node root = doc.append_child(kXmlNewRootNode);
   // Use format_version for possible future format changes.
   root.append_attribute("format_version") = 1;
   for (auto const & mwm : features)
