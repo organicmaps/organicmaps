@@ -15,12 +15,6 @@
     android:background="?ppBackground"
     android:orientation="vertical">
 
-    <include
-        layout="@layout/place_page_description_header"
-        android:layout_width="match_parent"
-        android:visibility="gone"
-        android:layout_height="wrap_content"/>
-
     <androidx.fragment.app.FragmentContainerView
       android:id="@+id/place_page_bookmark_fragment"
       android:layout_width="match_parent"
