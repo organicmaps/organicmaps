@@ -21,8 +21,8 @@ namespace
 {
 using platform::HttpClient;
 
-auto const kConfigFileName = "editor.config";
-auto const kHashFileName = "editor.config.hash";
+constexpr char kConfigFileName[] = "editor.config";
+constexpr char kHashFileName[] = "editor.config.hash";
 
 auto constexpr kSynchroTimeout = std::chrono::hours(4);
 auto constexpr kRemoteHashUrl = "https://cdn.organicmaps.app/editor.config.date";
@@ -149,9 +149,10 @@ void ConfigLoader::LoadFromLocal(pugi::xml_document & doc)
   if (reader)
     reader->ReadAsString(content);
 
-  if (!doc.load_buffer(content.data(), content.size()))
+  auto const result = doc.load_buffer(content.data(), content.size());
+  if (!result)
   {
-    LOG(LERROR, ("Config can not be loaded."));
+    LOG(LERROR, (kConfigFileName, "can not be loaded:", result.description(), "error offset:", result.offset));
     doc.reset();
   }
 }
