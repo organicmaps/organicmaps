@@ -136,13 +136,6 @@ public class MapButtonsController extends Fragment
     return mFrame;
   }
 
-  @Override
-  public void onStart()
-  {
-    super.onStart();
-    showMapButtons(true);
-  }
-
   public LayoutMode getLayoutMode()
   {
     return mLayoutMode;
@@ -272,10 +265,7 @@ public class MapButtonsController extends Fragment
   public void showMapButtons(boolean show)
   {
     if (show)
-    {
       UiUtils.show(mFrame);
-      showButton(true, MapButtons.zoom);
-    }
     else
       UiUtils.hide(mFrame);
     mOnBottomButtonsHeightChangedListener.OnBottomButtonsHeightChanged();
