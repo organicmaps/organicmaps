@@ -41,9 +41,7 @@ using std::move, std::make_shared, std::string;
 
 namespace
 {
-// Do not change, this is tags in edits.xml
-constexpr char const * kXmlOldRootNode = "mapsme";
-constexpr char const * kXmlNewRootNode = "omaps";
+constexpr char const * kXmlRootNode = "omaps";
 constexpr char const * kXmlMwmNode = "mwm";
 constexpr char const * kDeleteSection = "delete";
 constexpr char const * kModifySection = "modify";
@@ -170,10 +168,11 @@ void Editor::LoadEdits()
   m_features.Set(make_shared<FeaturesContainer>());
   auto loadedFeatures = make_shared<FeaturesContainer>();
 
-  auto rootNode = doc.child(kXmlNewRootNode);
+  auto rootNode = doc.child(kXmlRootNode);
   // Migrate clients with an old root node.
   if (!rootNode)
-    rootNode = doc.child(kXmlOldRootNode);
+    rootNode = doc.child("mapsme");
+  CHECK(rootNode, ("The root xml element is invalid"));
   for (auto const & mwm : rootNode.children(kXmlMwmNode))
   {
     string const mapName = mwm.attribute("name").as_string("");
