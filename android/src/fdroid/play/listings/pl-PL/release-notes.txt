@@ -1,10 +1,11 @@
-• New OpenStreetMap data as of January 21
-• Fixed import of some KML tracks
-• Improved search and routing
-• Properly handle elevation for hiking and cycling
-• Fixed Buenos Aires & Bilbao metro icons
-• Added Bowling Alley
-• Added Croatia to Schengen area
-• Increased max editable building floors from 25 to 50
-• Enabled Basque, Belarussian, Croatian, Norwegian, Marathi, Swahili in TTS
-…more: omaps.app/news
+• Nowe dane OpenStreetMap z dnia 21 stycznia
+• Poprawiono import niektórych ścieżek KML
+• Usunięto błędy przy starcie, jeśli WebView był wyłączony
+• Poprawione wyszukiwanie i wyznaczanie tras
+• Poprawiono obsługę wysokości
+• Poprawiono ikony metra w Buenos Aires i Bilbao
+• Dodano Bowling Alley
+• Dodano Chorwację do strefy Schengen
+• Zwiększono maks. liczbę edytowalnych pięter budynku
+• Włączono język baskijski, białoruski, chorwacki, norweski, marathi, suahili w TTS.
+...więcej na: omaps.app/news
