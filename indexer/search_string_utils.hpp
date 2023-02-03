@@ -125,14 +125,6 @@ public:
   void Put(strings::UniString const & token, bool isPrefix, size_t tag);
 
 private:
-  using Cell = std::pair<strings::UniString, size_t>;
-
-  inline void EmitToken(strings::UniString const & token, size_t tag) { m_callback(token, tag); }
-
-  strings::UniString m_delayedToken;
-  size_t m_delayedTag = 0;
-  size_t m_numSynonyms = 0;
-
   Callback m_callback;
   bool m_withMisprints = false;
 };

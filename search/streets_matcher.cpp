@@ -5,7 +5,6 @@
 
 #include "indexer/search_string_utils.hpp"
 
-#include "base/logging.hpp"
 #include "base/stl_helpers.hpp"
 
 #include <algorithm>
@@ -69,12 +68,9 @@ void FindStreets(BaseContext const & ctx, CBV const & candidates, FeaturesFilter
   // When true, no bit vectors were intersected with |streets| at all.
   bool emptyIntersection = true;
 
-  // When true, |streets| is in the incomplete state and can't be
-  // used for creation of street layers.
-  bool incomplete = false;
-
-  auto emit = [&]() {
-    if (streets.IsEmpty() || emptyIntersection || incomplete || lastToken == curToken)
+  auto emit = [&]()
+  {
+    if (streets.IsEmpty() || emptyIntersection || lastToken == curToken)
       return;
 
     CBV fs(streets);
@@ -101,41 +97,27 @@ void FindStreets(BaseContext const & ctx, CBV const & candidates, FeaturesFilter
     ASSERT_LESS_OR_EQUAL(fs.PopCount(), fa.PopCount(), ());
     prediction.m_prob = static_cast<double>(fs.PopCount()) / static_cast<double>(fa.PopCount());
 
-    prediction.m_features = move(fs);
+    prediction.m_features = std::move(fs);
     prediction.m_hash = prediction.m_features.Hash();
     prediction.m_withMisprints = withMisprints;
   };
 
-  StreetTokensFilter streetsFilter(
-      [&](strings::UniString const & /* token */, size_t tag) {
-        auto buffer = streets.Intersect(ctx.m_features[tag].m_features);
-        if (tag < curToken)
-        {
-          // This is the case for delayed
-          // street synonym.  Therefore,
-          // |streets| is temporarily in the
-          // incomplete state.
-          streets = buffer;
-          all = all.Intersect(ctx.m_features[tag].m_features);
-          emptyIntersection = false;
+  StreetTokensFilter streetsFilter([&](strings::UniString const &, size_t tag)
+  {
+    auto buffer = streets.Intersect(ctx.m_features[tag].m_features);
+    ASSERT_EQUAL(tag, curToken, ());
 
-          incomplete = true;
-          return;
-        }
-        ASSERT_EQUAL(tag, curToken, ());
+    // |streets| will become empty after
+    // the intersection. Therefore we need
+    // to create streets layer right now.
+    if (buffer.IsEmpty())
+      emit();
 
-        // |streets| will become empty after
-        // the intersection. Therefore we need
-        // to create streets layer right now.
-        if (buffer.IsEmpty())
-          emit();
+    streets = buffer;
+    all = all.Intersect(ctx.m_features[tag].m_features);
+    emptyIntersection = false;
 
-        streets = buffer;
-        all = all.Intersect(ctx.m_features[tag].m_features);
-        emptyIntersection = false;
-        incomplete = false;
-      },
-      withMisprints);
+  }, withMisprints);
 
   for (; curToken < ctx.m_numTokens && !ctx.IsTokenUsed(curToken) && !streets.IsEmpty(); ++curToken)
   {

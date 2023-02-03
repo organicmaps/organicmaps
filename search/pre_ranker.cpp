@@ -265,6 +265,7 @@ void PreRanker::FilterRelaxedResults(bool lastUpdate)
   auto const iEnd = m_results.end();
   if (lastUpdate)
   {
+    LOG(LDEBUG, ("Flush relaxed results number:", m_relaxedResults.size()));
     m_results.insert(iEnd, make_move_iterator(m_relaxedResults.begin()), make_move_iterator(m_relaxedResults.end()));
     m_relaxedResults.clear();
   }

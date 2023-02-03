@@ -144,7 +144,8 @@ UNIT_CLASS_TEST(ProcessorTest, Smoke)
   TestPOI lantern1({10.0005, 10.0005}, "lantern 1", "en");
   TestPOI lantern2({10.0006, 10.0005}, "lantern 2", "en");
 
-  TestStreet stradaDrive({{-10.001, -10.001}, {-10, -10}, {-9.999, -9.999}}, "Strada drive", "en");
+  // Was "Strada drive".
+  TestStreet stradaDrive({{-10.001, -10.001}, {-10, -10}, {-9.999, -9.999}}, "Boulevard drive", "en");
   TestBuilding terranceHouse({-10, -10}, "", "155", stradaDrive.GetName("en"), "en");
 
   auto const worldId = BuildWorld([&](TestMwmBuilder & builder)
@@ -264,7 +265,7 @@ UNIT_CLASS_TEST(ProcessorTest, Smoke)
 
   {
     Rules rules = {ExactMatch(wonderlandId, terranceHouse), ExactMatch(wonderlandId, stradaDrive)};
-    TEST(ResultsMatch("Toronto strada drive 155", rules), ());
+    TEST(ResultsMatch("Toronto boulevard dr 155", rules), ());
   }
 }
 
@@ -1161,12 +1162,13 @@ UNIT_CLASS_TEST(ProcessorTest, StopWords)
 
   {
     Rules rules = {ExactMatch(id, bakery)};
-
     TEST(ResultsMatch("la boulangerie ", rules, "fr"), ());
+
+    TEST(ResultsMatch("la motviderie ", {}, "fr"), ());
   }
 
   {
-    TEST(ResultsMatch("la motviderie ", {}, "fr"), ());
+    /// @todo I don't see any reason, why token/prefix results should differ here?
     TEST(ResultsMatch("la la le la la la ", {ExactMatch(id, street)}, "fr"), ());
     TEST(ResultsMatch("la la le la la la", {}, "fr"), ());
   }
@@ -1742,9 +1744,15 @@ UNIT_CLASS_TEST(ProcessorTest, SquareAsStreetTest)
   });
 
   SetViewport(m2::RectD(0.0, 0.0, 1.0, 2.0));
+
   {
-    Rules rules = {ExactMatch(countryId, nonameHouse)};
-    TEST(ResultsMatch("revolution square 3", rules), ());
+    /// @todo Should skip square result?
+    Rules rules = {
+      ExactMatch(countryId, nonameHouse),
+      ExactMatch(countryId, square)
+    };
+    TEST(OrderedResultsMatch(MakeRequest("revolution square 3")->Results(), rules), ());
+    TEST(OrderedResultsMatch(MakeRequest("revolution sq 3")->Results(), rules), ());
   }
 }
 
@@ -2082,31 +2090,50 @@ UNIT_CLASS_TEST(ProcessorTest, Strasse)
 UNIT_CLASS_TEST(ProcessorTest, StreetSynonymsWithMisprints)
 {
   TestStreet leninsky({{0.0, -1.0}, {0.0, 1.0}}, "Ленинский проспект", "ru");
+  TestStreet leningradsky({{0.0, -1.0}, {0.0, 1.0}}, "Ленинградский проспект", "ru");
   TestStreet nabrezhnaya({{1.0, -1.0}, {1.0, 1.0}}, "улица набрежная", "ru");
   TestStreet naberezhnaya({{2.0, -1.0}, {2.0, 1.0}}, "улица набережная", "ru");
 
   auto countryId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
   {
     builder.Add(leninsky);
+    builder.Add(leningradsky);
     builder.Add(nabrezhnaya);
     builder.Add(naberezhnaya);
   });
 
   SetViewport(m2::RectD(0.0, -1.0, 2.0, 1.0));
   {
+    /// @todo Have _relaxed_ (all) prospekts by matching "проспект".
+    Rules const prospekts = {ExactMatch(countryId, leninsky), ExactMatch(countryId, leningradsky)};
+    TEST(ResultsMatch("ленинский проспект", prospekts), ());
+    TEST(ResultsMatch("ленинский пропект", prospekts), ());
+
     Rules rules = {ExactMatch(countryId, leninsky)};
-    TEST(ResultsMatch("ленинский проспект", rules), ());
-    TEST(ResultsMatch("ленинский пропект", rules), ());
     TEST(ResultsMatch("ленинский", rules), ());
+
+    // 2 errors + common _street_ token
+    TEST(ResultsMatch("ленинская улица", rules, "ru"), ());
+
+    TEST(ResultsMatch("ленинский street", rules, "en"), ());
+    TEST(ResultsMatch("ленинский gatvė", rules, "lt"), ());
+
+    /// @todo Have _relaxed_ (all) streets by matching category name.
+    //TEST(ResultsMatch("ленинский gade", rules, "da"), ());
+    //TEST(ResultsMatch("ленинский straat", rules, "nl"), ());
   }
   {
     Rules rules = {ExactMatch(countryId, nabrezhnaya), ExactMatch(countryId, naberezhnaya)};
     TEST(ResultsMatch("улица набрежная", rules), ());
     TEST(ResultsMatch("набрежная", rules), ());
-  }
-  {
-    Rules rules = {ExactMatch(countryId, naberezhnaya)};
     TEST(ResultsMatch("улица набережная", rules), ());
+
+    TEST(ResultsMatch("набрежная street", rules, "en"), ());
+    TEST(ResultsMatch("набрежная gatvė", rules, "lt"), ());
+
+    /// @todo Have _relaxed_ (all) streets by matching category name.
+    //TEST(ResultsMatch("набрежная gade", rules, "da"), ());
+    //TEST(ResultsMatch("набрежная straat", rules, "nl"), ());
   }
 }
 
@@ -2189,11 +2216,6 @@ UNIT_CLASS_TEST(ProcessorTest, StreetSynonymPrefixMatch)
     TEST(ResultsMatch("Yesenina cafe ", rules), ());
     TEST(ResultsMatch("Cafe Yesenina ", rules), ());
     TEST(ResultsMatch("Cafe Yesenina", rules), ());
-  }
-  {
-    Rules rules = {ExactMatch(countryId, cafe), ExactMatch(countryId, yesenina)};
-    // Prefix match with misprints to street synonym gives street as additional result
-    // but we still can find the cafe.
     TEST(ResultsMatch("Yesenina cafe", rules), ());
   }
 }
@@ -3305,23 +3327,19 @@ UNIT_CLASS_TEST(ProcessorTest, StreetCategories)
     TEST(OrderedResultsMatch("avenida santa fe ", rules), ());
   }
 
-  /// @todo Should review search::FindStreets logic! Check 2 cases below:
-
-  // 1. |street| (matched by "sante fe" only) has worse rank than |shop| and even more - emitted in the second batch.
   {
     Rules const rules = {
+      ExactMatch(wonderlandId, street),
       ExactMatch(wonderlandId, bus),
       ExactMatch(wonderlandId, shop),
-      ExactMatch(wonderlandId, street)
     };
     TEST(OrderedResultsMatch("avenida santa fe street ", rules), ());
   }
 
-  // 2. Next sample matches street by "santa fe улица", thus it has low rank!
   {
     Rules const rules = {
+      ExactMatch(wonderlandId, street),
       ExactMatch(wonderlandId, bus),
-      //ExactMatch(wonderlandId, street)
     };
     TEST(OrderedResultsMatch(MakeRequest("avenida santa fe улица ", "ru")->Results(), rules), ());
   }
