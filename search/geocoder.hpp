@@ -254,7 +254,7 @@ private:
 
   void CreateStreetsLayerAndMatchLowerLayers(BaseContext & ctx,
                                              StreetsMatcher::Prediction const & prediction,
-                                             CentersFilter const & centers);
+                                             CentersFilter const & centers, bool makeRelaxed);
 
   void ProcessStreets(BaseContext & ctx, CentersFilter const & centers, CBV const & streets);
 

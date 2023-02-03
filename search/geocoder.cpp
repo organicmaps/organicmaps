@@ -290,7 +290,7 @@ unique_ptr<MwmContext> GetWorldContext(DataSource const & dataSource)
   dataSource.GetMwmsInfo(infos);
   MwmSet::MwmHandle handle = indexer::FindWorld(dataSource, infos);
   if (handle.IsAlive())
-    return make_unique<MwmContext>(move(handle));
+    return make_unique<MwmContext>(std::move(handle));
   return {};
 }
 
@@ -554,7 +554,7 @@ void Geocoder::GoImpl(vector<MwmInfoPtr> const & infos, bool inViewport)
       // All MwmIds are unique during the application lifetime, so
       // it's ok to save MwmId.
       m_worldId = handle.GetId();
-      m_context = make_unique<MwmContext>(move(handle));
+      m_context = make_unique<MwmContext>(std::move(handle));
 
       if (value.HasSearchIndex())
       {
@@ -584,7 +584,7 @@ void Geocoder::GoImpl(vector<MwmInfoPtr> const & infos, bool inViewport)
   // intersecting with position and viewport.
   auto processCountry = [&](unique_ptr<MwmContext> context, bool updatePreranker) {
     ASSERT(context, ());
-    m_context = move(context);
+    m_context = std::move(context);
 
     SCOPE_GUARD(cleanup, [&]() {
       LOG(LDEBUG, (m_context->GetName(), "geocoding complete."));
@@ -907,7 +907,7 @@ void Geocoder::ForEachCountry(ExtendedMwmInfos const & extendedInfos, Fn && fn)
       continue;
     bool const updatePreranker = i + 1 >= extendedInfos.m_firstBatchSize;
     auto const & mwmType = extendedInfos.m_infos[i].m_type;
-    if (fn(make_unique<MwmContext>(move(handle), mwmType), updatePreranker) ==
+    if (fn(make_unique<MwmContext>(std::move(handle), mwmType), updatePreranker) ==
         base::ControlFlow::Break)
     {
       break;
@@ -1188,7 +1188,7 @@ void Geocoder::WithPostcodes(BaseContext & ctx, Fn && fn)
       }
 
       m_postcodes.m_tokenRange = tokenRange;
-      m_postcodes.m_countryFeatures = move(postcodes);
+      m_postcodes.m_countryFeatures = std::move(postcodes);
 
       if (ctx.AllTokensUsed() && CityHasPostcode(ctx))
       {
@@ -1216,11 +1216,10 @@ void Geocoder::ProcessStreets(BaseContext & ctx, CentersFilter const & centers, 
   vector<PredictionT> predictions;
   StreetsMatcher::Go(ctx, streets, *m_filter, m_params, predictions);
 
-  /// @todo Iterating from best to worst predictions here.
-  /// Together with street fallback in CreateStreetsLayerAndMatchLowerLayers worst predictions
-  /// may produce controversial results (like matching streets by very common tokens).
+  // Iterating from best to worst predictions here. Make "Relaxed" results for the best prediction only
+  // to avoid dummy streets results, matched by very _common_ tokens.
   for (size_t i = 0; i < predictions.size(); ++i)
-    CreateStreetsLayerAndMatchLowerLayers(ctx, predictions[i], centers);
+    CreateStreetsLayerAndMatchLowerLayers(ctx, predictions[i], centers, i == 0 /* makeRelaxed */);
 }
 
 void Geocoder::GreedilyMatchStreetsWithSuburbs(BaseContext & ctx, CentersFilter const & centers)
@@ -1346,7 +1345,7 @@ void Geocoder::CentersFilter::ProcessStreets(std::vector<uint32_t> & streets, Ge
 
 void Geocoder::CreateStreetsLayerAndMatchLowerLayers(BaseContext & ctx,
                                                      StreetsMatcher::Prediction const & prediction,
-                                                     CentersFilter const & centers)
+                                                     CentersFilter const & centers, bool makeRelaxed)
 {
   auto & layers = ctx.m_layers;
 
@@ -1371,8 +1370,7 @@ void Geocoder::CreateStreetsLayerAndMatchLowerLayers(BaseContext & ctx,
   MatchPOIsAndBuildings(ctx, 0 /* curToken */, CBV::GetFull());
 
   // A relaxed best effort parse: at least show the street if we can find one.
-  /// @todo Is is very controversial way. Search for streets and skip only house number (postcode) like tokens?
-  if (numEmitted == ctx.m_numEmitted && ctx.SkipUsedTokens(0) != ctx.m_numTokens)
+  if (makeRelaxed && numEmitted == ctx.m_numEmitted && ctx.SkipUsedTokens(0) != ctx.m_numTokens)
   {
     TRACE(Relaxed);
     FindPaths(ctx);

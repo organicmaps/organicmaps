@@ -210,7 +210,7 @@ UNIT_CLASS_TEST(ProcessorTest, Smoke)
     TEST(ResultsMatch("     ", Rules()), ());
   }
   {
-    Rules rules = {ExactMatch(wonderlandId, quantumTeleport2), ExactMatch(wonderlandId, feynmanStreet)};
+    Rules rules = {ExactMatch(wonderlandId, quantumTeleport2)};
     TEST(ResultsMatch("teleport feynman street", rules), ());
   }
   {
@@ -221,16 +221,14 @@ UNIT_CLASS_TEST(ProcessorTest, Smoke)
     // Here we expect to find feynmanHouse (building next to Feynman street with housenumber '1 unit 1')
     // but not lantern1 (building next to Feynman street with name 'lantern 1') because '1'
     // looks like housenumber.
-    Rules rules = {ExactMatch(wonderlandId, feynmanHouse),
-                   ExactMatch(wonderlandId, firstAprilStreet)};
+    Rules rules = {ExactMatch(wonderlandId, feynmanHouse)};
     TEST(ResultsMatch("feynman street 1", rules), ());
   }
   {
     // Here we expect to find bohrHouse (building next to Bohr street with housenumber '1 unit 1')
     // but not lantern1 (building next to Bohr street with name 'lantern 1') because '1' looks like
     // housenumber.
-    Rules rules = {ExactMatch(wonderlandId, bohrHouse), ExactMatch(wonderlandId, hilbertHouse),
-                   ExactMatch(wonderlandId, firstAprilStreet)};
+    Rules rules = {ExactMatch(wonderlandId, bohrHouse), ExactMatch(wonderlandId, hilbertHouse)};
     TEST(ResultsMatch("bohr street 1", rules), ());
   }
   {
@@ -601,19 +599,19 @@ UNIT_CLASS_TEST(ProcessorTest, TestHouseNumbers)
 
   {
     Rules rules{ExactMatch(countryId, building100), ExactMatch(countryId, street)};
-    TEST(ResultsMatch("Зеленоград генералова к100 ", rules, "ru"), ());
+    TEST(OrderedResultsMatch("Зеленоград генералова к100 ", rules, "ru"), ());
   }
   {
     Rules rules{ExactMatch(countryId, building200), ExactMatch(countryId, street)};
-    TEST(ResultsMatch("Зеленоград генералова к200 ", rules, "ru"), ());
+    TEST(OrderedResultsMatch("Зеленоград генералова к200 ", rules, "ru"), ());
   }
   {
     Rules rules{ExactMatch(countryId, building200), ExactMatch(countryId, street)};
-    TEST(ResultsMatch("Зеленоград к200 генералова ", rules, "ru"), ());
+    TEST(OrderedResultsMatch("Зеленоград к200 генералова ", rules, "ru"), ());
   }
   {
     Rules rules{ExactMatch(countryId, building300), ExactMatch(countryId, street)};
-    TEST(ResultsMatch("Зеленоград 300 строение 400 генералова ", rules, "ru"), ());
+    TEST(OrderedResultsMatch("Зеленоград 300 строение 400 генералова ", rules, "ru"), ());
   }
   {
     Rules rules{ExactMatch(countryId, street)};
@@ -621,35 +619,25 @@ UNIT_CLASS_TEST(ProcessorTest, TestHouseNumbers)
   }
   {
     Rules rules{ExactMatch(countryId, building300), ExactMatch(countryId, street)};
-    TEST(ResultsMatch("Зеленоград генералова 300 строе", rules, "ru"), ());
+    TEST(OrderedResultsMatch("Зеленоград генералова 300 строе", rules, "ru"), ());
   }
   {
-    auto request = MakeRequest("Зеленоград Генерала Генералова 115 ", "ru");
-
-    // Test exact matching result ranked first.
-    auto const & results = request->Results();
-    TEST_GREATER(results.size(), 0, (results));
-    TEST(IsResultMatches(results[0], ExactMatch(countryId, building115)), (results));
-
     Rules rules{ExactMatch(countryId, building115), ExactMatch(countryId, building115k1),
                 ExactMatch(countryId, street)};
-    TEST(ResultsMatch(results, rules), ());
+    TEST(OrderedResultsMatch("Зеленоград Генерала Генералова 115 ", rules, "ru"), ());
   }
   {
-    auto request = MakeRequest("Зеленоград Генерала Генералова 115к1 ", "ru");
-
-    // Test exact matching result ranked first.
-    auto const & results = request->Results();
-    TEST_GREATER(results.size(), 0, (results));
-    TEST(IsResultMatches(results[0], ExactMatch(countryId, building115k1)), (results));
-
     Rules rules{ExactMatch(countryId, building115k1), ExactMatch(countryId, building115),
                 ExactMatch(countryId, street)};
-    TEST(ResultsMatch(results, rules), ());
+    TEST(OrderedResultsMatch("Зеленоград Генерала Генералова 115к1 ", rules, "ru"), ());
   }
   {
     Rules rules{ExactMatch(countryId, building115), ExactMatch(countryId, street)};
-    TEST(ResultsMatch("Зеленоград Генерала Генералова 115к2 ", rules, "ru"), ());
+    TEST(OrderedResultsMatch("Зеленоград Генерала Генералова 115к2 ", rules, "ru"), ());
+  }
+  {
+    Rules rules{ExactMatch(countryId, street)};
+    TEST(ResultsMatch("Генералова 666", rules, "ru"), ());
   }
 }
 
@@ -1466,9 +1454,9 @@ UNIT_CLASS_TEST(ProcessorTest, PathsThroughLayers)
     TEST(ResultsMatch("computing street 0 supervised cafe ", {ruleSubpoi}), ());
 
     // SUBPOI-BUILDING-STREET / COMPLEX_POI-BUILDING-STREET
-    TEST(ResultsMatch("computing street statistical learning cafe ", {ruleSubpoi, ruleStreet}), ());
+    TEST(ResultsMatch("computing street statistical learning cafe ", {ruleSubpoi}), ());
     TEST(ResultsMatch("computing street 0 cafe ", {ruleSubpoi}), ());
-    TEST(ResultsMatch("computing street statistical learning office ", {rulePoi, ruleStreet}), ());
+    TEST(ResultsMatch("computing street statistical learning office ", {rulePoi}), ());
     TEST(ResultsMatch("computing street 0 office ", {rulePoi}), ());
 
     // COMPLEX_POI-BUILDING / SUBPOI-BUILDING is not supported
@@ -1478,11 +1466,11 @@ UNIT_CLASS_TEST(ProcessorTest, PathsThroughLayers)
     TEST(ResultsMatch("0 office ", {}), ());
 
     // COMPLEX_POI-STREET / SUBPOI - STREET
-    TEST(ResultsMatch("computing street cafe ", {ruleSubpoi, ruleStreet}), ());
-    TEST(ResultsMatch("computing street office ", {rulePoi, ruleStreet}), ());
+    TEST(ResultsMatch("computing street cafe ", {ruleSubpoi}), ());
+    TEST(ResultsMatch("computing street office ", {rulePoi}), ());
 
     // BUILDING-STREET
-    TEST(ResultsMatch("computing street statistical learning ", {ruleBuilding, ruleStreet}), ());
+    TEST(ResultsMatch("computing street statistical learning ", {ruleBuilding}), ());
     TEST(ResultsMatch("computing street 0 ", {ruleBuilding}), ());
 
     // COMPLEX_POI / SUBPOI
@@ -1746,13 +1734,9 @@ UNIT_CLASS_TEST(ProcessorTest, SquareAsStreetTest)
   SetViewport(m2::RectD(0.0, 0.0, 1.0, 2.0));
 
   {
-    /// @todo Should skip square result?
-    Rules rules = {
-      ExactMatch(countryId, nonameHouse),
-      ExactMatch(countryId, square)
-    };
-    TEST(OrderedResultsMatch(MakeRequest("revolution square 3")->Results(), rules), ());
-    TEST(OrderedResultsMatch(MakeRequest("revolution sq 3")->Results(), rules), ());
+    Rules const rules = { ExactMatch(countryId, nonameHouse) };
+    TEST(OrderedResultsMatch("revolution square 3", rules), ());
+    TEST(OrderedResultsMatch("revolution sq 3", rules), ());
   }
 }
 
@@ -2026,7 +2010,7 @@ UNIT_CLASS_TEST(ProcessorTest, StreetSynonymPrefix)
 
   SetViewport(m2::RectD(0.0, 0.0, 1.0, 2.0));
   {
-    Rules rules = {ExactMatch(countryId, house), ExactMatch(countryId, street)};
+    Rules rules = {ExactMatch(countryId, house)};
     TEST(ResultsMatch("3 Boulevard Maloney Est", rules), ());
   }
 }
@@ -2104,13 +2088,10 @@ UNIT_CLASS_TEST(ProcessorTest, StreetSynonymsWithMisprints)
 
   SetViewport(m2::RectD(0.0, -1.0, 2.0, 1.0));
   {
-    /// @todo Have _relaxed_ (all) prospekts by matching "проспект".
-    Rules const prospekts = {ExactMatch(countryId, leninsky), ExactMatch(countryId, leningradsky)};
-    TEST(ResultsMatch("ленинский проспект", prospekts), ());
-    TEST(ResultsMatch("ленинский пропект", prospekts), ());
-
-    Rules rules = {ExactMatch(countryId, leninsky)};
+    Rules const rules = {ExactMatch(countryId, leninsky)};
     TEST(ResultsMatch("ленинский", rules), ());
+    TEST(ResultsMatch("ленинский проспект", rules), ());
+    TEST(ResultsMatch("ленинский пропект", rules), ());
 
     // 2 errors + common _street_ token
     TEST(ResultsMatch("ленинская улица", rules, "ru"), ());
@@ -2118,9 +2099,8 @@ UNIT_CLASS_TEST(ProcessorTest, StreetSynonymsWithMisprints)
     TEST(ResultsMatch("ленинский street", rules, "en"), ());
     TEST(ResultsMatch("ленинский gatvė", rules, "lt"), ());
 
-    /// @todo Have _relaxed_ (all) streets by matching category name.
-    //TEST(ResultsMatch("ленинский gade", rules, "da"), ());
-    //TEST(ResultsMatch("ленинский straat", rules, "nl"), ());
+    TEST(ResultsMatch("ленинский gade", rules, "da"), ());
+    TEST(ResultsMatch("ленинский straat", rules, "nl"), ());
   }
   {
     Rules rules = {ExactMatch(countryId, nabrezhnaya), ExactMatch(countryId, naberezhnaya)};
@@ -2131,9 +2111,8 @@ UNIT_CLASS_TEST(ProcessorTest, StreetSynonymsWithMisprints)
     TEST(ResultsMatch("набрежная street", rules, "en"), ());
     TEST(ResultsMatch("набрежная gatvė", rules, "lt"), ());
 
-    /// @todo Have _relaxed_ (all) streets by matching category name.
-    //TEST(ResultsMatch("набрежная gade", rules, "da"), ());
-    //TEST(ResultsMatch("набрежная straat", rules, "nl"), ());
+    TEST(ResultsMatch("набрежная gade", rules, "da"), ());
+    TEST(ResultsMatch("набрежная straat", rules, "nl"), ());
   }
 }
 
@@ -2271,26 +2250,31 @@ UNIT_CLASS_TEST(ProcessorTest, StreetsFallback)
 {
   TestStreet st1({{-0.5, -0.5}, {0.5, -0.5}}, "1st north street", "en");
   TestStreet st2({{-0.5,  0.5}, {0.5,  0.5}}, "2nd north street", "en");
+  TestStreet rue1({{-1.5, -1.5}, {1.5, -1.5}}, "rue la foo", "fr");
+  TestStreet rue2({{-1.5,  1.5}, {1.5,  1.5}}, "avenue la bar", "fr");
 
   auto wonderlandId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
   {
     builder.Add(st1);
     builder.Add(st2);
+    builder.Add(rue1);
+    builder.Add(rue2);
   });
 
-  // Looks ok here:
   {
     TEST(ResultsMatch("1st street", { ExactMatch(wonderlandId, st1) }), ());
     TEST(ResultsMatch("2nd street", { ExactMatch(wonderlandId, st2) }), ());
+
+    TEST(ResultsMatch("rue foo", { ExactMatch(wonderlandId, rue1) }, "fr"), ());
+    TEST(ResultsMatch("rue bar", { ExactMatch(wonderlandId, rue2) }, "fr"), ());
+
+    TEST(ResultsMatch("avenue la foo", { ExactMatch(wonderlandId, rue1) }, "fr"), ());
+    TEST(ResultsMatch("av la bar", { ExactMatch(wonderlandId, rue2) }, "fr"), ());
   }
 
-  /// @todo Because of controversial fallback in CreateStreetsLayerAndMatchLowerLayers.
-  // ... but:
   {
-    TEST(OrderedResultsMatch("1st north street",
-                             { ExactMatch(wonderlandId, st1), ExactMatch(wonderlandId, st2) }), ());
-    TEST(OrderedResultsMatch("2nd north street",
-                             { ExactMatch(wonderlandId, st2), ExactMatch(wonderlandId, st1) }), ());
+    TEST(OrderedResultsMatch("1st north street", { ExactMatch(wonderlandId, st1) }), ());
+    TEST(OrderedResultsMatch("2nd north street", { ExactMatch(wonderlandId, st2) }), ());
   }
 }
 
@@ -2593,9 +2577,9 @@ UNIT_CLASS_TEST(ProcessorTest, ViewportFilter)
     params.m_viewport = m2::RectD(-1.0, -1.0, 1.0, 1.0);
     params.m_mode = Mode::Everywhere;
 
-    // |street23| should be in everywhere search results because everywhere search mode does not
-    // have matched tokens number restriction.
-    Rules const rules = {ExactMatch(countryId, street23), ExactMatch(countryId, street8)};
+    /// @todo |street23| should be in everywhere search results because everywhere search mode does not
+    /// have matched tokens number restriction. Or not?
+    Rules const rules = {ExactMatch(countryId, street8)/*, ExactMatch(countryId, street23) */ };
 
     TestSearchRequest request(m_engine, params);
     request.Run();
