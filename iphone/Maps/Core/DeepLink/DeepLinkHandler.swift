@@ -16,6 +16,11 @@
   }
 
   func applicationDidOpenUrl(_ url: URL) -> Bool {
+    // On the cold start, isLaunchedByDeeplink is set and handleDeepLink() call is delayed
+    // until the map view will be fully initialized.
+    guard !isLaunchedByDeeplink else { return true }
+
+    // On the hot start, link can be processed immediately.
     self.url = url
     return handleDeepLink(url: url)
   }
