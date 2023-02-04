@@ -16,21 +16,28 @@
 
 namespace search
 {
-using namespace std;
+using std::string;
 using namespace strings;
 
 namespace
 {
-vector<strings::UniString> const kAllowedMisprints = {
-    strings::MakeUniString("ckq"),
-    strings::MakeUniString("eyjiu"),
-    strings::MakeUniString("gh"),
-    strings::MakeUniString("pf"),
-    strings::MakeUniString("vw"),
-    strings::MakeUniString("ао"),
-    strings::MakeUniString("еиэ"),
-    strings::MakeUniString("шщ"),
+std::vector<UniString> const kAllowedMisprints = {
+    MakeUniString("ckq"),
+    MakeUniString("eyjiu"),
+    MakeUniString("gh"),
+    MakeUniString("pf"),
+    MakeUniString("vw"),
+    MakeUniString("ао"),
+    MakeUniString("еиэ"),
+    MakeUniString("шщ"),
 };
+
+std::pair<UniString, UniString> const kPreprocessReplacements[] = {
+    {MakeUniString("пр-т"),  MakeUniString("проспект")},
+    {MakeUniString("пр-д"),  MakeUniString("проезд")},
+    {MakeUniString("наб-я"), MakeUniString("набережная")}
+};
+
 
 void TransliterateHiraganaToKatakana(UniString & s)
 {
@@ -40,29 +47,29 @@ void TransliterateHiraganaToKatakana(UniString & s)
 
   InitTransliterationInstanceWithDefaultDirs();
   string out;
-  if (Transliteration::Instance().TransliterateForce(strings::ToUtf8(s), "Hiragana-Katakana", out))
+  if (Transliteration::Instance().TransliterateForce(ToUtf8(s), "Hiragana-Katakana", out))
     s = MakeUniString(out);
 }
 }  // namespace
 
-size_t GetMaxErrorsForToken(strings::UniString const & token)
+size_t GetMaxErrorsForToken(UniString const & token)
 {
-  bool const digitsOnly = all_of(token.begin(), token.end(), ::isdigit);
+  bool const digitsOnly = std::all_of(token.begin(), token.end(), ::isdigit);
   if (digitsOnly)
     return 0;
   return GetMaxErrorsForTokenLength(token.size());
 }
 
-strings::LevenshteinDFA BuildLevenshteinDFA(strings::UniString const & s)
+LevenshteinDFA BuildLevenshteinDFA(UniString const & s)
 {
   ASSERT(!s.empty(), ());
   // In search we use LevenshteinDFAs for fuzzy matching. But due to
   // performance reasons, we limit prefix misprints to fixed set of substitutions defined in
   // kAllowedMisprints and skipped letters.
-  return strings::LevenshteinDFA(s, 1 /* prefixSize */, kAllowedMisprints, GetMaxErrorsForToken(s));
+  return LevenshteinDFA(s, 1 /* prefixSize */, kAllowedMisprints, GetMaxErrorsForToken(s));
 }
 
-strings::LevenshteinDFA BuildLevenshteinDFA_Category(strings::UniString const & s)
+LevenshteinDFA BuildLevenshteinDFA_Category(UniString const & s)
 {
   // https://github.com/organicmaps/organicmaps/issues/3655
   // Separate DFA for categories (_Category) to avoid fancy matchings like:
@@ -73,10 +80,10 @@ strings::LevenshteinDFA BuildLevenshteinDFA_Category(strings::UniString const & 
   /// @todo "hote" doesn't match "hotel" now. Allow prefix search for categories?
 
   ASSERT(!s.empty(), ());
-  return strings::LevenshteinDFA(s, 1 /* prefixSize */, kAllowedMisprints, GetMaxErrorsForToken_Category(s.size()));
+  return LevenshteinDFA(s, 1 /* prefixSize */, kAllowedMisprints, GetMaxErrorsForToken_Category(s.size()));
 }
 
-UniString NormalizeAndSimplifyString(string_view s)
+UniString NormalizeAndSimplifyString(std::string_view s)
 {
   UniString uniString = MakeUniString(s);
   for (size_t i = 0; i < uniString.size(); ++i)
@@ -136,7 +143,7 @@ UniString NormalizeAndSimplifyString(string_view s)
   });
 
   // Replace sequence of spaces with single one.
-  uniString.erase(unique(uniString.begin(), uniString.end(), [](UniChar l, UniChar r)
+  uniString.erase(std::unique(uniString.begin(), uniString.end(), [](UniChar l, UniChar r)
   {
     return (l == r && l == ' ');
   }), uniString.end());
@@ -168,15 +175,11 @@ UniString NormalizeAndSimplifyString(string_view s)
   */
 }
 
-void PreprocessBeforeTokenization(strings::UniString & query)
+void PreprocessBeforeTokenization(UniString & query)
 {
   search::Delimiters const delims;
-  vector<pair<strings::UniString, strings::UniString>> const replacements = {
-      {MakeUniString("пр-т"),  MakeUniString("проспект")},
-      {MakeUniString("пр-д"),  MakeUniString("проезд")},
-      {MakeUniString("наб-я"), MakeUniString("набережная")}};
 
-  for (auto const & replacement : replacements)
+  for (auto const & replacement : kPreprocessReplacements)
   {
     auto start = query.begin();
     while ((start = std::search(start, query.end(), replacement.first.begin(),
@@ -185,7 +188,7 @@ void PreprocessBeforeTokenization(strings::UniString & query)
       auto end = start + replacement.first.size();
       if ((start == query.begin() || delims(*(start - 1))) && (end == query.end() || delims(*end)))
       {
-        auto const dist = distance(query.begin(), start);
+        auto const dist = std::distance(query.begin(), start);
         query.Replace(start, end, replacement.second.begin(), replacement.second.end());
         start = query.begin() + dist;
       }
@@ -200,14 +203,14 @@ UniString FeatureTypeToString(uint32_t type)
   return UniString(s.begin(), s.end());
 }
 
-std::vector<strings::UniString> NormalizeAndTokenizeString(std::string_view s)
+std::vector<UniString> NormalizeAndTokenizeString(std::string_view s)
 {
-  std::vector<strings::UniString> tokens;
+  std::vector<UniString> tokens;
   ForEachNormalizedToken(s, base::MakeBackInsertFunctor(tokens));
   return tokens;
 }
 
-bool TokenizeStringAndCheckIfLastTokenIsPrefix(std::string_view s, std::vector<strings::UniString> & tokens)
+bool TokenizeStringAndCheckIfLastTokenIsPrefix(std::string_view s, std::vector<UniString> & tokens)
 {
   auto const uniString = NormalizeAndSimplifyString(s);
 
@@ -253,8 +256,8 @@ public:
 
     void Swap(BooleanSum & rhs)
     {
-      swap(m_value, rhs.m_value);
-      swap(m_empty, rhs.m_empty);
+      std::swap(m_value, rhs.m_value);
+      std::swap(m_empty, rhs.m_empty);
     }
 
     bool m_value;
@@ -276,11 +279,11 @@ public:
   bool MatchWithMisprints(DFA const & dfa) const
   {
     using TrieIt = Trie::Iterator;
-    using State = pair<TrieIt, typename DFA::Iterator>;
+    using State = std::pair<TrieIt, typename DFA::Iterator>;
 
     auto const trieRoot = m_strings.GetRootIterator();
 
-    queue<State> q;
+    std::queue<State> q;
     q.emplace(trieRoot, dfa.Begin());
 
     while (!q.empty())
@@ -291,13 +294,14 @@ public:
       auto const & currTrieIt = p.first;
       auto const & currDfaIt = p.second;
 
-      if (currDfaIt.Accepts())
+      if (currDfaIt.Accepts() && !currTrieIt.GetValues().Empty())
         return true;
 
-      currTrieIt.ForEachMove([&q, &currDfaIt](UniChar const & c, TrieIt const & nextTrieIt) {
+      currTrieIt.ForEachMove([&q, &currDfaIt](UniChar const & c, TrieIt const & nextTrieIt)
+      {
         auto nextDfaIt = currDfaIt;
         nextDfaIt.Move(c);
-        strings::DFAMove(nextDfaIt, nextTrieIt.GetLabel());
+        DFAMove(nextDfaIt, nextTrieIt.GetLabel());
         if (!nextDfaIt.Rejects())
           q.emplace(nextTrieIt, nextDfaIt);
       });
@@ -380,10 +384,7 @@ private:
     };
 
     for (auto const * s : affics)
-    {
-      UniString const us = NormalizeAndSimplifyString(s);
-      m_strings.Add(us, true /* end of string */);
-    }
+      m_strings.Add(NormalizeAndSimplifyString(s), true /* end of string */);
   }
 
   Trie m_strings;
@@ -412,13 +413,13 @@ string DropLastToken(string const & str)
   return string(str.begin(), iter.base());
 }
 
-UniString GetStreetNameAsKey(string_view name, bool ignoreStreetSynonyms)
+UniString GetStreetNameAsKey(std::string_view name, bool ignoreStreetSynonyms)
 {
   if (name.empty())
     return UniString();
 
   UniString res;
-  Tokenize(name, kStreetTokensSeparator, [&](string_view v)
+  Tokenize(name, kStreetTokensSeparator, [&](std::string_view v)
   {
     UniString const s = NormalizeAndSimplifyString(v);
     if (!ignoreStreetSynonyms || !IsStreetSynonym(s))
@@ -443,7 +444,7 @@ bool IsStreetSynonymWithMisprints(UniString const & s)
 
 bool IsStreetSynonymPrefixWithMisprints(UniString const & s)
 {
-  auto const dfa = strings::PrefixDFAModifier<strings::LevenshteinDFA>(BuildLevenshteinDFA(s));
+  auto const dfa = PrefixDFAModifier<LevenshteinDFA>(BuildLevenshteinDFA(s));
   return StreetsSynonymsHolder::Instance().MatchWithMisprints(dfa);
 }
 
@@ -455,7 +456,7 @@ bool ContainsNormalized(string const & str, string const & substr)
 }
 
 // StreetTokensFilter ------------------------------------------------------------------------------
-void StreetTokensFilter::Put(strings::UniString const & token, bool isPrefix, size_t tag)
+void StreetTokensFilter::Put(UniString const & token, bool isPrefix, size_t tag)
 {
   if (isPrefix)
   {

@@ -130,6 +130,20 @@ UNIT_TEST(Street_Synonym)
   TEST(TestStreetSynonymWithMisprints("aveneu"), ());
 
   TEST(!TestStreetSynonymWithMisprints("abcdefg"), ());
+
+  TEST(TestStreetSynonym("g."), ());
+  TEST(TestStreetSynonymWithMisprints("g."), ());
+
+  TEST(!TestStreetSynonymWithMisprints("ву"), ());
+  TEST(TestStreetSynonymWithMisprints("вул"), ());
+
+  TEST(!TestStreetSynonymWithMisprints("gat"), ());
+  TEST(!TestStreetSynonymWithMisprints("sok"), ());
+  TEST(!TestStreetSynonymWithMisprints("ca"), ());
+
+  // soka -> sokak
+  TEST(TestStreetSynonymWithMisprints("soka"), ());
+  TEST(!TestStreetSynonym("soka"), ());
 }
 
 UNIT_TEST(Street_PrefixMatch)
@@ -137,6 +151,11 @@ UNIT_TEST(Street_PrefixMatch)
   TEST(TestStreetPrefixMatch("у"), ());
   TEST(TestStreetPrefixMatch("ул"), ());
   TEST(TestStreetPrefixMatch("ули"), ());
+
+  TEST(TestStreetPrefixMatch("gat"), ());
+  TEST(TestStreetPrefixMatch("sok"), ());
+  TEST(TestStreetPrefixMatch("ca"), ());
+  TEST(TestStreetPrefixMatch("ву"), ());
 
 //  TEST(TestStreetPrefixMatch("п"), ());
 //  TEST(TestStreetPrefixMatch("пр"), ());
