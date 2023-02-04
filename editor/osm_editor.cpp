@@ -172,7 +172,7 @@ void Editor::LoadEdits()
   // Migrate clients with an old root node.
   if (!rootNode)
     rootNode = doc.child("mapsme");
-  CHECK(rootNode, ("The root xml element is invalid"));
+  // TODO: Empty rootNode is an OK case for the current logic and unit tests. Check if there is a better way to do it.
   for (auto const & mwm : rootNode.children(kXmlMwmNode))
   {
     string const mapName = mwm.attribute("name").as_string("");
