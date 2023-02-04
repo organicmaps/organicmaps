@@ -206,7 +206,7 @@ bool Editor::Save(FeaturesContainer const & features) const
     return m_storage->Reset();
 
   xml_document doc;
-  xml_node root = doc.append_child(kXmlNewRootNode);
+  xml_node root = doc.append_child(kXmlRootNode);
   // Use format_version for possible future format changes.
   root.append_attribute("format_version") = 1;
   for (auto const & mwm : features)
