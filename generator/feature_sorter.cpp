@@ -7,6 +7,7 @@
 #include "generator/gen_mwm_info.hpp"
 #include "generator/geometry_holder.hpp"
 #include "generator/region_meta.hpp"
+#include "generator/search_index_builder.hpp"
 
 #include "routing/routing_helpers.hpp"
 
@@ -245,6 +246,38 @@ public:
     }
     }
 
+    // Override "alt_name" with synonym for Country or State for better search matching.
+    /// @todo Probably, we should store and index OSM's short_name tag.
+    if (indexer::SynonymsHolder::CanApply(fb.GetTypes()))
+    {
+      int8_t const langs[] = {
+        StringUtf8Multilang::kDefaultCode,
+        StringUtf8Multilang::kEnglishCode,
+        StringUtf8Multilang::kInternationalCode
+      };
+
+      bool added = false;
+      for (int8_t lang : langs)
+      {
+        m_synonyms.ForEach(std::string(fb.GetName(lang)), [&fb, &added](std::string const & synonym)
+        {
+          // Assign first synonym, skip others.
+          if (added)
+            return;
+
+          auto oldName = fb.GetName(StringUtf8Multilang::kAltNameCode);
+          if (!oldName.empty())
+            LOG(LWARNING, ("Replace", oldName, "with", synonym, "for", fb.GetMostGenericOsmId()));
+
+          fb.SetName(StringUtf8Multilang::kAltNameCode, synonym);
+          added = true;
+        });
+
+        if (added)
+          break;
+      }
+    }
+
     uint32_t featureId = kInvalidFeatureId;
     auto & buffer = holder.GetBuffer();
     if (fb.PreSerializeAndRemoveUselessNamesForMwm(buffer))
@@ -310,6 +343,8 @@ private:
   uint32_t m_versionDate;
 
   generator::OsmID2FeatureID m_osm2ft;
+
+  indexer::SynonymsHolder m_synonyms;
 
   DISALLOW_COPY_AND_MOVE(FeaturesCollector2);
 };
