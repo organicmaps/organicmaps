@@ -45,7 +45,7 @@ inline drule::rule_type_t Convert(Type t)
   }
 }
 
-double constexpr kMinPriority = std::numeric_limits<double>::lowest();
+float constexpr kMinPriority = std::numeric_limits<float>::lowest();
 
 inline bool IsTypeOf(drule::Key const & key, int flags)
 {
@@ -138,7 +138,7 @@ private:
     if (lineRule != nullptr && (lineRule->width() < 1e-5 && !lineRule->has_pathsym()))
       return;
 
-    m_rules.push_back({ dRule, depth, key.m_hatching });
+    m_rules.push_back({ dRule, static_cast<float>(depth), key.m_hatching });
   }
 
   void Init()
@@ -355,7 +355,7 @@ double GetFeaturePriority(FeatureType & f, int const zoomLevel)
   Aggregator aggregator(f, types.GetGeomType(), zoomLevel, keys.size());
   aggregator.AggregateKeys(keys);
 
-  double maxPriority = kMinPriority;
+  float maxPriority = kMinPriority;
   for (auto const & rule : aggregator.m_rules)
   {
     if (rule.m_depth > maxPriority)
