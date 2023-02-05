@@ -398,12 +398,12 @@ BaseApplyFeature::BaseApplyFeature(TileKey const & tileKey, TInsertShapeFn const
 
 void BaseApplyFeature::ExtractCaptionParams(CaptionDefProto const * primaryProto,
                                             CaptionDefProto const * secondaryProto,
-                                            double depth, TextViewParams & params) const
+                                            float depth, TextViewParams & params) const
 {
   dp::FontDecl decl;
   CaptionDefProtoToFontDecl(primaryProto, decl);
 
-  params.m_depth = static_cast<float>(depth);
+  params.m_depth = depth;
   params.m_featureId = m_id;
 
   auto & titleDecl = params.m_titleDecl;
@@ -510,7 +510,7 @@ void ApplyPointFeature::Finish(ref_ptr<dp::TextureManager> texMng)
     params.m_tileCenter = m_tileRect.Center();
     params.m_depthTestEnabled = m_depthLayer != DepthLayer::NavigationLayer &&
       m_depthLayer != DepthLayer::OverlayLayer;
-    params.m_depth = static_cast<float>(m_symbolDepth);
+    params.m_depth = m_symbolDepth;
     params.m_depthLayer = m_depthLayer;
     params.m_minVisibleScale = m_minVisibleScale;
     params.m_rank = m_rank;
@@ -739,7 +739,7 @@ void ApplyAreaFeature::ProcessAreaRule(Stylist::TRuleWrapper const & rule)
   {
     AreaViewParams params;
     params.m_tileCenter = m_tileRect.Center();
-    params.m_depth = static_cast<float>(rule.m_depth);
+    params.m_depth = rule.m_depth;
     params.m_color = ToDrapeColor(areaRule->color());
     params.m_minVisibleScale = m_minVisibleScale;
     params.m_rank = m_rank;
@@ -863,7 +863,7 @@ void ApplyLineFeatureGeometry::ProcessLineRule(Stylist::TRuleWrapper const & rul
     PathSymProto const & symRule = pLineRule->pathsym();
     PathSymbolViewParams params;
     params.m_tileCenter = m_tileRect.Center();
-    params.m_depth = static_cast<float>(rule.m_depth);
+    params.m_depth = rule.m_depth;
     params.m_minVisibleScale = m_minVisibleScale;
     params.m_rank = m_rank;
     params.m_symbolName = symRule.name();
@@ -880,7 +880,7 @@ void ApplyLineFeatureGeometry::ProcessLineRule(Stylist::TRuleWrapper const & rul
     LineViewParams params;
     params.m_tileCenter = m_tileRect.Center();
     Extract(pLineRule, params);
-    params.m_depth = static_cast<float>(rule.m_depth);
+    params.m_depth = rule.m_depth;
     params.m_minVisibleScale = m_minVisibleScale;
     params.m_rank = m_rank;
     params.m_baseGtoPScale = m_currentScaleGtoP;
@@ -918,7 +918,7 @@ void ApplyLineFeatureAdditional::ProcessLineRule(Stylist::TRuleWrapper const & r
   if (m_clippedSplines.empty())
     return;
 
-  m_depth = static_cast<float>(rule.m_depth);
+  m_depth = rule.m_depth;
 
   ShieldRuleProto const * pShieldRule = rule.m_rule->GetShield();
   if (pShieldRule != nullptr)
