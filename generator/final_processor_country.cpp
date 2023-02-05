@@ -267,7 +267,7 @@ void CountryFinalProcessor::ProcessCoastline()
   FeatureBuilderWriter<> collector(m_worldCoastsFilename);
   for (size_t i = 0; i < fbs.size(); ++i)
   {
-    fbs[i].AddName("default", strings::JoinStrings(affiliations[i], ';'));
+    fbs[i].SetName(StringUtf8Multilang::kDefaultCode, strings::JoinStrings(affiliations[i], ';'));
     collector.Write(fbs[i]);
   }
 }

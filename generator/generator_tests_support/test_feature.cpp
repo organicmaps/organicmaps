@@ -137,10 +137,7 @@ void TestFeature::Serialize(FeatureBuilder & fb) const
   m_names.ForEach([&](int8_t langCode, string_view name)
   {
     if (!name.empty())
-    {
-      auto const lang = StringUtf8Multilang::GetLangByCode(langCode);
-      CHECK(fb.AddName(lang, name), ("Can't set feature name:", name, "(", lang, ")"));
-    }
+      fb.SetName(langCode, name);
   });
 
   if (!m_postcode.empty())
@@ -354,10 +351,7 @@ void TestMultilingualPOI::Serialize(FeatureBuilder & fb) const
   TestPOI::Serialize(fb);
 
   for (auto const & kv : m_multilingualNames)
-  {
-    CHECK(fb.AddName(kv.first, kv.second),
-          ("Can't set feature name:", kv.second, "(", kv.first, ")"));
-  }
+    CHECK(fb.AddName(kv.first, kv.second), ("Can't set feature name:", kv.second, "(", kv.first, ")"));
 }
 
 string TestMultilingualPOI::ToDebugString() const

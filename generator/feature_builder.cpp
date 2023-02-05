@@ -531,7 +531,14 @@ std::string FeatureBuilder::DebugPrintIDs() const
 
 bool FeatureBuilder::AddName(std::string_view lang, std::string_view name)
 {
+  ASSERT(!name.empty(), ());
   return m_params.AddName(lang, name);
+}
+
+void FeatureBuilder::SetName(int8_t lang, std::string_view name)
+{
+  ASSERT(!name.empty(), ());
+  m_params.name.AddString(lang, name);
 }
 
 std::string_view FeatureBuilder::GetName(int8_t lang) const

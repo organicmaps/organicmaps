@@ -86,7 +86,7 @@ void IsolineFeaturesGenerator::GenerateIsolines(std::string const & countryName,
 
       fb.AddType(isolineType);
       if (!isolineName.empty())
-        fb.AddName("default", isolineName);
+        fb.SetName(StringUtf8Multilang::kDefaultCode, isolineName);
 
       fb.SetLinear();
       fn(std::move(fb));

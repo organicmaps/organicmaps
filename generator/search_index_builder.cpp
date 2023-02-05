@@ -16,7 +16,6 @@
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_visibility.hpp"
 #include "indexer/features_vector.hpp"
-#include "indexer/ftypes_matcher.hpp"
 #include "indexer/postcodes_matcher.hpp"
 #include "indexer/road_shields_parser.hpp"
 #include "indexer/scales_patch.hpp"
@@ -47,61 +46,51 @@
 #include <unordered_map>
 #include <vector>
 
-#define SYNONYMS_FILE "synonyms.txt"
 
 namespace indexer
 {
 using namespace strings;
 using namespace search;
 
-namespace
+SynonymsHolder::SynonymsHolder()
+  : SynonymsHolder(base::JoinPath(GetPlatform().ResourcesDir(), "synonyms.txt"))
 {
-class SynonymsHolder
+}
+
+SynonymsHolder::SynonymsHolder(std::string const & fPath)
 {
-public:
-  explicit SynonymsHolder(std::string const & fPath)
+  std::ifstream stream(fPath.c_str());
+
+  std::string line;
+  while (stream.good())
   {
-    std::ifstream stream(fPath.c_str());
+    std::getline(stream, line);
+    if (line.empty())
+      continue;
 
-    std::string line;
-    while (stream.good())
+    auto tokens = strings::Tokenize<std::string>(line, ":,");
+    size_t const count = tokens.size();
+    if (count > 1)
     {
-      std::getline(stream, line);
-      if (line.empty())
-        continue;
+      strings::Trim(tokens[0]);
+      auto & vec = m_map[tokens[0]];
+      vec.reserve(count - 1);
 
-      auto tokens = strings::Tokenize(line, ":,");
-      if (tokens.size() > 1)
+      for (size_t i = 1; i < count; ++i)
       {
-        strings::Trim(tokens[0]);
-        for (size_t i = 1; i < tokens.size(); ++i)
-        {
-          strings::Trim(tokens[i]);
-          // For consistency, synonyms should not have any spaces.
-          // For example, the hypothetical "Russia" -> "Russian Federation" mapping
-          // would have the feature with name "Russia" match the request "federation". It would be wrong.
-          CHECK(tokens[i].find_first_of(" \t") == std::string::npos, ());
-          m_map.emplace(tokens[0], tokens[i]);
-        }
+        strings::Trim(tokens[i]);
+        // For consistency, synonyms should not have any spaces.
+        // For example, the hypothetical "Russia" -> "Russian Federation" mapping
+        // would have the feature with name "Russia" match the request "federation". It would be wrong.
+        CHECK(tokens[i].find_first_of(" \t") == std::string::npos, ());
+        vec.push_back(std::move(tokens[i]));
       }
     }
   }
+}
 
-  template <class ToDo>
-  void ForEach(std::string const & key, ToDo toDo) const
-  {
-    auto range = m_map.equal_range(key);
-    while (range.first != range.second)
-    {
-      toDo(range.first->second);
-      ++range.first;
-    }
-  }
-
-private:
-  std::unordered_multimap<std::string, std::string> m_map;
-};
-
+namespace
+{
 template <class FnT>
 void GetCategoryTypes(CategoriesHolder const & categories, std::pair<int, int> scaleRange,
                       feature::TypesHolder const & types, FnT const & fn)
@@ -318,8 +307,7 @@ public:
     if (m_synonyms)
     {
       // Insert synonyms only for countries and states (maybe will add cities in future).
-      auto const localityType = ftypes::IsLocalityChecker::Instance().GetType(types);
-      if (localityType == ftypes::LocalityType::Country || localityType == ftypes::LocalityType::State)
+      if (SynonymsHolder::CanApply(types))
         synonyms = m_synonyms;
     }
 
@@ -398,7 +386,7 @@ void AddFeatureNameIndexPairs(FeaturesVectorTest const & features,
 
   std::unique_ptr<SynonymsHolder> synonyms;
   if (header.GetType() == feature::DataHeader::MapType::World)
-    synonyms = std::make_unique<SynonymsHolder>(base::JoinPath(GetPlatform().ResourcesDir(), SYNONYMS_FILE));
+    synonyms = std::make_unique<SynonymsHolder>();
 
   features.GetVector().ForEach(FeatureInserter(synonyms.get(), keyValuePairs, categoriesHolder, header.GetScaleRange()));
 }

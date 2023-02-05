@@ -46,10 +46,7 @@ public:
     m_names.ForEach([&](int8_t langCode, string_view name)
     {
       if (!name.empty())
-      {
-        auto const lang = StringUtf8Multilang::GetLangByCode(langCode);
-        CHECK(fb.AddName(lang, name), ("Can't set feature name:", name, "(", lang, ")"));
-      }
+        fb.SetName(langCode, name);
     });
 
     auto const & classificator = classif();

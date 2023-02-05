@@ -147,8 +147,9 @@ public:
   size_t GetTypesCount() const { return m_params.m_types.size(); }
   ///@}
 
-  // To work with additional information.
+  // Actually, "SetName" is a better name for this function ...
   bool AddName(std::string_view lang, std::string_view name);
+  void SetName(int8_t lang, std::string_view name);
   void SetParams(FeatureBuilderParams const & params) { m_params.SetParams(params); }
 
   FeatureBuilderParams const & GetParams() const { return m_params; }
