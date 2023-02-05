@@ -1,23 +1,20 @@
 # maps_generator
 
-It's tool for generation maps for the Organic Maps application.
+`maps_generator` is the Python CLI for generating .mwm maps for the Organic Maps application. This tool functions as the driver for the `generator_tool` C++ executable.
 
-Note: **Use generator_tool and application from the same release. Application does not support
-maps built by generator_tool newer than app.**
+**Use the `generator_tool` and application from the same release. The application does not support
+maps built by a generator_tool newer than the app.**
 
 ## What are maps?
 
-Maps are data with special meta information for drawing, quick searching and routing and for other.
-Files from [data/borders](https://github.com/organicmaps/organicmaps/tree/master/data/borders) define map boundaries.
-Further we will call it countries or simply maps.
-But there are two special maps: World and WorldCoasts. They are used when other maps have not been downloaded.
-Further we will call them world and coastlines.
+Maps are .mwm binary files with special meta-information for rendering, searching, routing, and other use cases.
+Files from [data/borders](https://github.com/organicmaps/organicmaps/tree/master/data/borders) define map boundaries for each individual file. The world is segmented into separate files by these boundaries, with the intent of having managebly small files to download. These files are referred to as *maps* or *countries*. A country is referring to one of these files, not necesarily a geographic country. Also note that there are two special countries called *World* and *WorldCoasts*. These are small simplified maps of the world and coastlines used when other maps have not yet been downloaded.
 
 ## Setup
 
-You must have Python version not lower than 3.6 and complete the following steps:
+You must have Python version >= 3.6 and complete the following steps:
 
-0. Switch to the branch of your app's version (see the note of #maps_generator section).
+1. Switch to the branch of your app's version (see the note of #maps_generator section).
    For example, if you use OMaps 9.2.3 you should do:
 
 ```sh
@@ -26,35 +23,44 @@ git checkout release-92
 
 The app version can be found in the "About" section in the settings menu of OMaps.
 
-1. [Build and install generator_tool.](https://github.com/organicmaps/organicmaps/blob/master/docs/INSTALL.md#desktop-app)
-2. Change directory:
+2. Build and install the generator_tool.
+
+```sh
+./tools/unix/build_omim.sh -r desktop
+./tools/unix/build_omim.sh -r generator_tool
+./tools/unix/build_omim.sh -r world_roads_builder_tool
+```
+
+3. Change directory:
 
 ```sh
 $ cd omim/tools/python/maps_generator
 ```
 
-3. Install dependencies:
+1. Install dependencies:
 
 ```sh
 maps_generator$ pip3 install -r requirements_dev.txt
 ```
 
-4. Make ini file:
+1 Make the ini configuration file:
 
 ```sh
 maps_generator$ cp var/etc/map_generator.ini.default var/etc/map_generator.ini
 ```
 
-5. Edit ini file:
+5. Edit the ini file:
 
 ```sh
 maps_generator$ vim var/etc/map_generator.ini
 ```
 
+Here is a sample ini that will download an OSM PBF file for the Yukon Territories, Canada from [GEOFABRIK](https://www.geofabrik.de/). You can replace the *osm.pbf* and *osm.pbf.md5* with other areas instead. Note that an entire planet file currently takes 40+hrs on a server with 256GB of RAM. Unless you are have a machine this large, it is recommended to use a smaller extract.
+
 ```ini
 [Main]
 # If the flag DEBUG is set a special small planet file will be downloaded.
-DEBUG: 1
+DEBUG: 0
 # The path where the planet will be downloaded and the maps are generated.
 MAIN_OUT_PATH: ~/maps_build
 # The path where caches for nodes, ways, relations are stored.
@@ -63,17 +69,15 @@ MAIN_OUT_PATH: ~/maps_build
 
 [Developer]
 # The path where the generator_tool will be searched.
+# Usually this is in the same parent directory of the organicmaps repo.
 BUILD_PATH: ~/omim-build-release
-# The path to the project directory omim.
-OMIM_PATH: ~/omim
+# The path to the organicmaps repo
+OMIM_PATH: ~/code/organicmaps
 
 
 [Generator tool]
-# The path to the omim/data.
+# The path to the application data.
 USER_RESOURCE_PATH: ${Developer:OMIM_PATH}/data
-# Do not change it. This is determined automatically.
-# NODE_STORAGE: map
-
 
 [Osm tools]
 # The path to the osmctools sources.
@@ -84,33 +88,45 @@ OSM_TOOLS_PATH: ~/osmctools
 
 [Stages]
 # Run osmupdate tool for planet.
+# You can set this to 1 if you would like osmupdate to apply updates to an out-of-date osm.pbf
 NEED_PLANET_UPDATE: 0
 # Auto detection.
 THREADS_COUNT_FEATURES_STAGE: 0
-# If you want to calculate diffs, you need to specify, where old maps are
+# If you want to calculate diffs, you need to specify, where old maps are.
 DATA_ARCHIVE_DIR: ${Generator tool:USER_RESOURCE_PATH}
-# You may specify, how many versions in the archive to use for diff calculation
+# How many versions in the archive to use for diff calculation.
 DIFF_VERSION_DEPTH: 2
 
 
 [Logging]
 # The path where maps_generator log will be saved.
+# Defaults to $MAIN_OUT_PATH/generation.log
 # LOG_FILE_PATH: generation.log
 
 
 [External]
+# Note: If you want to set a directory name you have to add "/" to the end of url.
+# In each field where you need to specify a URL, you can specify the path to the file system using file:///path/to/file
+# It is recommended to start with an https:// path to an osm.pbf and osm.pbf.mdf file.
+
 # The url to the planet file.
-# PLANET_URL:
+PLANET_URL: https://download.geofabrik.de/north-america/canada/yukon-latest.osm.pbf
 # The url to the file with md5 sum of the planet.
-# PLANET_MD5_URL:
+PLANET_MD5_URL: https://download.geofabrik.de/north-america/canada/yukon-latest.osm.pbf.md5
 # The base url to WorldCoasts.geom and WorldCoasts.rawgeom (without file name).
 # Files latest_coasts.geom and latest_coasts.rawgeom must be at this URL.
 # For example, if PLANET_COASTS_URL = https://somesite.com/download/
 # The https://somesite.com/download/latest_coasts.geom url will be used to download latest_coasts.geom and
 # the https://somesite.com/download/latest_coasts.rawgeom url will be used to download latest_coasts.rawgeom.
 # PLANET_COASTS_URL:
+# Set to 'true' to build special routing section in World.mwm for alerting about absent regions without which the
+# route can't be built. This should be true for any non-planet build.
+NEED_BUILD_WORLD_ROADS: true
 # The url to the subway file.
 SUBWAY_URL: https://cdn.organicmaps.app/subway.json
+
+# The url of the location with the transit files extracted from GTFS.
+# TRANSIT_URL:
 
 # Urls for production maps generation.
 # UGC_URL:
@@ -124,25 +140,33 @@ SUBWAY_URL: https://cdn.organicmaps.app/subway.json
 # UK_POSTCODES_URL:
 # US_POSTCODES_URL:
 
-
 [Common]
 # Auto detection.
 THREADS_COUNT: 0
-
 
 [Stats]
 # Path to rules for calculating statistics by type
 STATS_TYPES_CONFIG: ${Developer:OMIM_PATH}/tools/python/maps_generator/var/etc/stats_types_config.txt
 ```
 
-##### Note 1: In each field where you need to specify a URL, you can specify the path to the file system using file:///path/to/file
+### Notes
 
-##### Note 2: You can manually generate subway layer file for SUBWAY_URL parameter. See [instructions](https://github.com/organicmaps/organicmaps/tree/master/docs/SUBWAY_GENERATION.md).
+In each field where you need to specify a URL, you can specify the path to the file system using `file:///path/to/file`.
 
-## Usage
+You can manually generate a subway layer file with the SUBWAY_URL parameter. See [instructions](https://github.com/organicmaps/organicmaps/tree/master/docs/SUBWAY_GENERATION.md).
+
+## Basic Usage
+
+Make sure you are in the `tools/python` directory when running the CLI.  Unless you have URLs for coastline files, skip the coastline.
 
 ```sh
-$ cd omim/tools/python
+cd tools/python
+python -m maps_generator --countries="Canada_Yukon_North, Canada_Yukon_Whitehorse" --skip="Coastline"
+```
+
+## Help
+
+```sh
 python$ python3.6 -m maps_generator -h
 ```
 
@@ -195,22 +219,19 @@ optional arguments:
   --order ORDER         Mwm generation order.
 ```
 
-If you are not from the maps.me team, then you do not need the option --production when generating maps.
+If you are not from the OrganicMaps team, then you do not need the option --production when generating maps.
 
-To generate maps for the whole planet you need 400 GB of hard disk space and a computer with more than 64 GB RAM.
+It is recommended to have 1TB of hard disk space with 256+GB of RAM to generate the entire planet. Expect the job to take about 40 hours.
 
-If you want to generate a lot of maps, then it may be important for you to order the generation of maps.
-Because different maps take different amounts of time to generate.
-Using a list with maps order can reduce build time on a multi-core computer.
-The order from: var/etc/mwm_generation_order.txt is used by default.
-You can override this behavior with the option --order=/path/to/mwm_generation_order.txt
+Because different maps take varying amounts of time to generate, you can provide an ordered list of maps.
+This way, you can choose which maps you would like to see completed first in a long build.
+The default is `var/etc/mwm_generation_order.txt`, and you can override this behavior with the option 
+`--order=/path/to/mwm_generation_order.txt`.
 You can calculate this list yourself from the statistics, which is calculated with each generation.
 
-### Examples
+## More Examples
 
-#### Non-standard planet with coastlines
-
-If you want to generate maps for Japan you must complete the following steps:
+### Japan with coastlines
 
 1. Open https://download.geofabrik.de/asia/japan.html and copy url of osm.pbf and md5sum files.
 2. Edit ini file:
@@ -228,26 +249,29 @@ DEBUG: 0
 PLANET_URL: https://download.geofabrik.de/asia/japan-latest.osm.pbf
 PLANET_MD5_URL: https://download.geofabrik.de/asia/japan-latest.osm.pbf.md5
 ...
+
+To build an entire country with coastlines, you need to download the *latest_coasts.geom* and *latest_coasts.rawgeom* files and specify their path in the config.
+
 ```
 
 3. Run
 
 ```sh
-python$ python3.6 -m maps_generator --countries="World, WorldCoasts, Japan_*"
+python$ python -m maps_generator --countries="World, WorldCoasts, Japan_*"
 ```
 
-#### Rebuild stages:
+### Rebuild stages
 
-For example, you changed routing code in omim project and want to regenerate maps.
+For example, you changed routing code in the project and want to regenerate maps.
 You must have previous generation. You may regenerate from stage routing only for two mwms:
 
 ```sh
 python$ python3.6 -m maps_generator -c --from_stage="Routing" --countries="Japan_Kinki Region_Osaka_Osaka, Japan_Chugoku Region_Tottori"
 ```
 
-##### Note: To generate maps with the coastline, you need more time and you need the planet to contain a continuous coastline.
+To generate maps with the coastline, you need more time and you need the planet to contain a continuous coastline.
 
-#### Non-standard planet without coastlines
+### Extract without coastlines
 
 If you want to generate maps for Moscow you must complete the following steps:
 
@@ -272,12 +296,12 @@ PLANET_MD5_URL: https://download.geofabrik.de/russia/central-fed-district-latest
 3. Run
 
 ```sh
-python$ python3.6 -m maps_generator --countries="Russia_Moscow" --skip="Coastline"
+python$ python -m maps_generator --countries="Russia_Moscow" --skip="Coastline"
 ```
 
-#### Generate all possible mwms from .osm.pbf file
+### Custom maps from GeoJSON
 
-If you have some .osm.pbf file, want to cut some area from it and generate maps from this area, but don't want to think what mwms got into this .osm.pbf file, you may follow the steps:
+If you have an OSM PBF file and want to cut custom map regions, you can use a polygon feature in a GeoJSON file. This is a useful alternative if you want a custom area, or you do not want to figure out which countrie(s) apply to the area you need.
 
 1. If you don't already have the .osm.pbf file, download applicable area of the world in .osm.pbf format, for example from [Geofabrik](http://download.geofabrik.de/index.html).
 2. Generate area in geojson format of the territory in which you are interested. You can do it via [geojson.io](http://geojson.io/). Select the area on the map and copy corresponding part of the resulting geojson. You need to copy the contents of the `features: [ { ... } ]`, without features array, but with inner braces: `{...}`. For example, here is the full geojson of the rectangle area around Melbourne:
@@ -337,7 +361,7 @@ osmium extract -p borders.geojson germany-latest.osm.pbf -o germany_part.osm.pbf
 5. Run the `maps_generator` tool:
 
 ```sh
-python$ python3.6 -m maps_generator --skip="Coastline" --without_countries="World*"
+python$ python -m maps_generator --skip="Coastline" --without_countries="World*"
 ```
 
 In this example we skipped generation of the World\* files because they are ones of the most time- and resources-consuming mwms.
