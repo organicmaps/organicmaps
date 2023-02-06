@@ -880,7 +880,7 @@ mapswithme
 *area:highway|trunk
 mapswithme
 *entrance
-mapswithme
+*entrance|main
 mapswithme
 *tourism|artwork
 railway|subway|tunnel

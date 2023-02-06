@@ -1849,7 +1849,11 @@
 
 "type.emergency.phone" = "Telefon alarmowy";
 
+/* This is for secondary entrances, for main entrances see type.entrance.main */
 "type.entrance" = "Wejście";
+
+/* This is for main/primary entrances, for secondary entrances see type.entrance */
+"type.entrance.main" = "Główne wejście";
 
 "type.healthcare.laboratory" = "Laboratorium Medyczne";
 

@@ -684,6 +684,8 @@
 	<string name="type.craft.winery">Винарна</string>
 	<string name="type.craft.tailor">Шивач</string>
 	<string name="type.cuisine.deli">Деликатеси</string>
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">Главния вход</string>
 	<string name="type.healthcare.laboratory">Медицинска лаборатория</string>
 	<string name="type.healthcare.physiotherapist">Физиотерапевт</string>
 

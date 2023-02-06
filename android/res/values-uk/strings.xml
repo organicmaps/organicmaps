@@ -1001,7 +1001,10 @@
 	<string name="type.emergency.defibrillator">Дефібрилятор</string>
 	<string name="type.emergency.fire_hydrant">Пожежний гідрант</string>
 	<string name="type.emergency.phone">Аварійний телефон</string>
+	<!-- This is for secondary entrances, for main entrances see type.entrance.main -->
 	<string name="type.entrance">Вхід</string>
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">Головний вхід</string>
 	<string name="type.healthcare.laboratory">Медична лабораторія</string>
 	<string name="type.healthcare.physiotherapist">Фізіотерапевт</string>
 

@@ -911,7 +911,10 @@
 	<string name="type.emergency.defibrillator">Máy khử rung tim</string>
 	<string name="type.emergency.fire_hydrant">Vòi chữa cháy</string>
 	<string name="type.emergency.phone">Điện thoại khẩn cấp</string>
+	<!-- This is for secondary entrances, for main entrances see type.entrance.main -->
 	<string name="type.entrance">Lối vào</string>
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">Lối vào chính</string>
 	<string name="type.healthcare.laboratory">Phòng thí nghiệm y tế</string>
 	<string name="type.healthcare.physiotherapist">Nhà vật lý trị liệu</string>
 

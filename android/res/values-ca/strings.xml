@@ -717,4 +717,8 @@
 
 	<!-- SECTION: Types -->
 	<string name="type.leisure.bowling_alley">Bolera</string>
+
+	<!-- SECTION: Types: Recycling -->
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">Entrada principal</string>
 </resources>

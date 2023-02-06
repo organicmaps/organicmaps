@@ -966,7 +966,10 @@
 	<string name="type.emergency.defibrillator">Defibrillaattori</string>
 	<string name="type.emergency.fire_hydrant">Paloposti</string>
 	<string name="type.emergency.phone">Hätäpuhelin</string>
+	<!-- This is for secondary entrances, for main entrances see type.entrance.main -->
 	<string name="type.entrance">Sisäänkäynti</string>
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">Pääsisäänkäynti</string>
 	<string name="type.healthcare.laboratory">Lääketieteellinen laboratorio</string>
 	<string name="type.healthcare.physiotherapist">Fysioterapeutti</string>
 

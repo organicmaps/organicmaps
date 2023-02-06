@@ -915,7 +915,10 @@
 	<string name="type.emergency.defibrillator">Defibrillátor</string>
 	<string name="type.emergency.fire_hydrant">Tűzcsap</string>
 	<string name="type.emergency.phone">Sürgősségi telefon</string>
+	<!-- This is for secondary entrances, for main entrances see type.entrance.main -->
 	<string name="type.entrance">Bejárat</string>
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">Főbejárat</string>
 	<string name="type.healthcare.laboratory">Orvosi laboratórium</string>
 	<string name="type.healthcare.physiotherapist">Fizioterapeuta</string>
 

@@ -1035,7 +1035,10 @@
 	<string name="type.emergency.defibrillator">Дефибриллятор</string>
 	<string name="type.emergency.fire_hydrant">Пожарный гидрант</string>
 	<string name="type.emergency.phone">Телефон для экстренных вызовов</string>
+	<!-- This is for secondary entrances, for main entrances see type.entrance.main -->
 	<string name="type.entrance">Вход</string>
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">Главный вход</string>
 	<string name="type.healthcare.laboratory">Медицинская лаборатория</string>
 	<string name="type.healthcare.physiotherapist">Физиотерапевт</string>
 

@@ -911,7 +911,10 @@
 	<string name="type.emergency.defibrillator">Πρώτες βοήθειες</string>
 	<string name="type.emergency.fire_hydrant">Πυροσβεστικός κρουνός</string>
 	<string name="type.emergency.phone">Τηλέφωνο έκτακτης ανάγκης</string>
+	<!-- This is for secondary entrances, for main entrances see type.entrance.main -->
 	<string name="type.entrance">Είσοδος</string>
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">Κύρια είσοδος</string>
 	<string name="type.healthcare.laboratory">Ιατρικό Εργαστήριο</string>
 	<string name="type.healthcare.physiotherapist">Φυσικοθεραπευτής</string>
 

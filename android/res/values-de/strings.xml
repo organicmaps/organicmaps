@@ -1000,7 +1000,10 @@
 	<string name="type.emergency.defibrillator">Defibrillator</string>
 	<string name="type.emergency.fire_hydrant">Hydrant</string>
 	<string name="type.emergency.phone">Notruftelefon</string>
+	<!-- This is for secondary entrances, for main entrances see type.entrance.main -->
 	<string name="type.entrance">Eingang</string>
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">Haupteingang</string>
 	<string name="type.healthcare.laboratory">Medizinisches Labor</string>
 	<string name="type.healthcare.physiotherapist">Physiotherapeut</string>
 

@@ -1849,7 +1849,11 @@
 
 "type.emergency.phone" = "Sürgősségi telefon";
 
+/* This is for secondary entrances, for main entrances see type.entrance.main */
 "type.entrance" = "Bejárat";
+
+/* This is for main/primary entrances, for secondary entrances see type.entrance */
+"type.entrance.main" = "Főbejárat";
 
 "type.healthcare.laboratory" = "Orvosi laboratórium";
 

@@ -1849,7 +1849,11 @@
 
 "type.emergency.phone" = "緊急電話";
 
+/* This is for secondary entrances, for main entrances see type.entrance.main */
 "type.entrance" = "入口";
+
+/* This is for main/primary entrances, for secondary entrances see type.entrance */
+"type.entrance.main" = "主要入口";
 
 "type.healthcare.laboratory" = "醫學實驗室";
 

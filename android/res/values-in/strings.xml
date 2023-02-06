@@ -906,7 +906,10 @@
 	<string name="type.emergency.defibrillator">Defibrilator</string>
 	<string name="type.emergency.fire_hydrant">Keran Kebakaran</string>
 	<string name="type.emergency.phone">Telepon darurat</string>
+	<!-- This is for secondary entrances, for main entrances see type.entrance.main -->
 	<string name="type.entrance">Pintu masuk</string>
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">Pintu masuk utama</string>
 	<string name="type.healthcare.laboratory">Laboratorium medis</string>
 	<string name="type.healthcare.physiotherapist">Fisioterapis</string>
 

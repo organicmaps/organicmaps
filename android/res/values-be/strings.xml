@@ -798,6 +798,8 @@
 	<string name="type.cuisine.deli">Дэлікатэсы</string>
 	<string name="type.emergency.defibrillator">Дэфібрылятар</string>
 	<string name="type.emergency.fire_hydrant">Пажарны гідрант</string>
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">Галоўны ўваход</string>
 	<string name="type.healthcare.laboratory">Медыцынская лабараторыя</string>
 	<string name="type.healthcare.physiotherapist">Фізіятэрапеўт</string>
 

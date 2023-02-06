@@ -909,7 +909,10 @@
 	<string name="type.emergency.defibrillator">Defibrilátor</string>
 	<string name="type.emergency.fire_hydrant">Požiarny hydrant</string>
 	<string name="type.emergency.phone">Tiesňového volania</string>
+	<!-- This is for secondary entrances, for main entrances see type.entrance.main -->
 	<string name="type.entrance">Vstup</string>
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">Hlavný vchod</string>
 	<string name="type.healthcare.laboratory">Lekárske laboratórium</string>
 	<string name="type.healthcare.physiotherapist">Fyzioterapeut</string>
 
