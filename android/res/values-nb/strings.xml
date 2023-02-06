@@ -916,7 +916,10 @@
 	<string name="type.emergency.defibrillator">Hjertestarter</string>
 	<string name="type.emergency.fire_hydrant">Brannhydrant</string>
 	<string name="type.emergency.phone">Nødtelefon</string>
+	<!-- This is for secondary entrances, for main entrances see type.entrance.main -->
 	<string name="type.entrance">Inngang</string>
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">Hovedinngang</string>
 	<string name="type.healthcare.laboratory">Medisinsk laboratorium</string>
 	<string name="type.healthcare.physiotherapist">Fysioterapeut</string>
 

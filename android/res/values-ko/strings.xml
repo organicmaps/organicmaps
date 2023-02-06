@@ -911,7 +911,10 @@
 	<string name="type.emergency.defibrillator">제세동기</string>
 	<string name="type.emergency.fire_hydrant">소화전</string>
 	<string name="type.emergency.phone">긴급 전화</string>
+	<!-- This is for secondary entrances, for main entrances see type.entrance.main -->
 	<string name="type.entrance">입구</string>
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">정문</string>
 	<string name="type.healthcare.laboratory">의료 연구실</string>
 	<string name="type.healthcare.physiotherapist">물리치료사</string>
 

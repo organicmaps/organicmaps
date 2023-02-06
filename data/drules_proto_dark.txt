@@ -13914,9 +13914,34 @@ cont {
 cont {
   name: "entrance"
   element {
-    scale: 18
+    scale: 19
     symbol {
       name: "entrance-s"
+      apply_for_type: 1
+      priority: 16038
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_x: 1
+        text: "ref"
+      }
+      secondary {
+        height: 12
+        offset_y: 10
+        text: "addr:flats"
+      }
+      priority: 15038
+    }
+  }
+}
+cont {
+  name: "entrance-main"
+  element {
+    scale: 18
+    symbol {
+      name: "main_entrance-s"
       apply_for_type: 1
       priority: 16038
     }
@@ -13933,7 +13958,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "entrance-s"
+      name: "main_entrance-s"
       apply_for_type: 1
       priority: 16038
     }

@@ -1013,7 +1013,10 @@
 	<string name="type.emergency.defibrillator">Defibrillator (AED)</string>
 	<string name="type.emergency.fire_hydrant">Brandkraan</string>
 	<string name="type.emergency.phone">Praatpaal</string>
+	<!-- This is for secondary entrances, for main entrances see type.entrance.main -->
 	<string name="type.entrance">Ingang</string>
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">Hoofdingang</string>
 	<string name="type.healthcare.laboratory">Medisch laboratorium</string>
 	<string name="type.healthcare.physiotherapist">Fysiotherapeut</string>
 

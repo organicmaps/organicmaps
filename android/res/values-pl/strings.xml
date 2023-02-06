@@ -1002,7 +1002,10 @@
 	<string name="type.emergency.defibrillator">Defibrylator</string>
 	<string name="type.emergency.fire_hydrant">Hydrant</string>
 	<string name="type.emergency.phone">Telefon alarmowy</string>
+	<!-- This is for secondary entrances, for main entrances see type.entrance.main -->
 	<string name="type.entrance">Wejście</string>
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">Główne wejście</string>
 	<string name="type.healthcare.laboratory">Laboratorium Medyczne</string>
 	<string name="type.healthcare.physiotherapist">Fizjoterapeuta</string>
 

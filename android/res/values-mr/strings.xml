@@ -904,7 +904,10 @@
 	<string name="type.emergency.defibrillator">कंपनरोधक</string>
 	<string name="type.emergency.fire_hydrant">अग्निशामक नळ</string>
 	<string name="type.emergency.phone">संकटकालीन फोन</string>
+	<!-- This is for secondary entrances, for main entrances see type.entrance.main -->
 	<string name="type.entrance">प्रवेशद्वार</string>
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">मुख्य प्रवेशद्वार</string>
 	<string name="type.healthcare.laboratory">वैद्यकीय प्रयोगशाळा</string>
 	<string name="type.healthcare.physiotherapist">फिजिओथेरपिस्ट</string>
 

@@ -972,7 +972,10 @@
 	<string name="type.emergency.defibrillator">Desfibriladorea</string>
 	<string name="type.emergency.fire_hydrant">Suteen hidrantea</string>
 	<string name="type.emergency.phone">Larrialdi zenbakia</string>
+	<!-- This is for secondary entrances, for main entrances see type.entrance.main -->
 	<string name="type.entrance">Sarrera</string>
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">Sarrera Nagusia</string>
 	<string name="type.healthcare.laboratory">Medikuntza laborategia</string>
 	<string name="type.healthcare.physiotherapist">Fisioterapeuta</string>
 

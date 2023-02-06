@@ -1849,7 +1849,11 @@
 
 "type.emergency.phone" = "संकटकालीन फोन";
 
+/* This is for secondary entrances, for main entrances see type.entrance.main */
 "type.entrance" = "प्रवेशद्वार";
+
+/* This is for main/primary entrances, for secondary entrances see type.entrance */
+"type.entrance.main" = "मुख्य प्रवेशद्वार";
 
 "type.healthcare.laboratory" = "वैद्यकीय प्रयोगशाळा";
 

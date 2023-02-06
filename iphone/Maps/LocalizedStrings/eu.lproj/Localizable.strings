@@ -1849,7 +1849,11 @@
 
 "type.emergency.phone" = "Larrialdi zenbakia";
 
+/* This is for secondary entrances, for main entrances see type.entrance.main */
 "type.entrance" = "Sarrera";
+
+/* This is for main/primary entrances, for secondary entrances see type.entrance */
+"type.entrance.main" = "Sarrera Nagusia";
 
 "type.healthcare.laboratory" = "Medikuntza laborategia";
 

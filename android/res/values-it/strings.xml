@@ -990,7 +990,10 @@
 	<string name="type.emergency.defibrillator">Defibrillatore</string>
 	<string name="type.emergency.fire_hydrant">Idrante</string>
 	<string name="type.emergency.phone">Telefono di emergenza</string>
+	<!-- This is for secondary entrances, for main entrances see type.entrance.main -->
 	<string name="type.entrance">Ingresso</string>
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">Entrata principale</string>
 	<string name="type.healthcare.laboratory">Laboratorio Medico</string>
 	<string name="type.healthcare.physiotherapist">Fisioterapista</string>
 

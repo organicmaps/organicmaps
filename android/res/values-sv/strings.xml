@@ -905,7 +905,10 @@
 	<string name="type.cuisine.vietnamese">Vietnamesisk mat</string>
 	<string name="type.emergency.fire_hydrant">Brandpost</string>
 	<string name="type.emergency.phone">Nödtelefon</string>
+	<!-- This is for secondary entrances, for main entrances see type.entrance.main -->
 	<string name="type.entrance">Entré</string>
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">Huvudentré</string>
 	<string name="type.healthcare.laboratory">Medicinskt laboratorium</string>
 	<string name="type.healthcare.physiotherapist">Fysioterapeut</string>
 

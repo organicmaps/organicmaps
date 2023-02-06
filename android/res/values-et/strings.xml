@@ -1021,7 +1021,10 @@
 	<string name="type.emergency.defibrillator">Defibrillaator</string>
 	<string name="type.emergency.fire_hydrant">Tuletõrjehüdrant</string>
 	<string name="type.emergency.phone">Hädaabi telefon</string>
+	<!-- This is for secondary entrances, for main entrances see type.entrance.main -->
 	<string name="type.entrance">Sissepääs</string>
+	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+	<string name="type.entrance.main">Peasissekäik</string>
 	<string name="type.healthcare.laboratory">Meditsiinilabor</string>
 	<string name="type.healthcare.physiotherapist">Füsioterapeut</string>
 
