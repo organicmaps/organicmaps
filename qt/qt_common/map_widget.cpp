@@ -449,7 +449,7 @@ void MapWidget::wheelEvent(QWheelEvent * e)
     return;
 
   QOpenGLWidget::wheelEvent(e);
-  m_framework.Scale(exp(e->delta() / 360.0), m2::PointD(L2D(e->x()), L2D(e->y())), false);
+  m_framework.Scale(exp(e->angleDelta().y() / 3.0 / 360.0), m2::PointD(L2D(e->position().x()), L2D(e->position().y())), false);
 }
 
 search::ReverseGeocoder::Address GetFeatureAddressInfo(Framework const & framework,
