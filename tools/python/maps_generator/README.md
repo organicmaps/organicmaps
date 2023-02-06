@@ -26,7 +26,6 @@ The app version can be found in the "About" section in the settings menu of OMap
 2. Build and install the generator_tool.
 
 ```sh
-./tools/unix/build_omim.sh -r desktop
 ./tools/unix/build_omim.sh -r generator_tool
 ./tools/unix/build_omim.sh -r world_roads_builder_tool
 ```
@@ -37,25 +36,25 @@ The app version can be found in the "About" section in the settings menu of OMap
 $ cd omim/tools/python/maps_generator
 ```
 
-1. Install dependencies:
+4. Install dependencies:
 
 ```sh
 maps_generator$ pip3 install -r requirements_dev.txt
 ```
 
-1 Make the ini configuration file:
+5. 1 Make the ini configuration file:
 
 ```sh
 maps_generator$ cp var/etc/map_generator.ini.default var/etc/map_generator.ini
 ```
 
-5. Edit the ini file:
+6. Edit the ini file:
 
 ```sh
 maps_generator$ vim var/etc/map_generator.ini
 ```
 
-Here is a sample ini that will download an OSM PBF file for the Yukon Territories, Canada from [GEOFABRIK](https://www.geofabrik.de/). You can replace the *osm.pbf* and *osm.pbf.md5* with other areas instead. Note that an entire planet file currently takes 40+hrs on a server with 256GB of RAM. Unless you are have a machine this large, it is recommended to use a smaller extract.
+Here is a sample ini that will download an OSM PBF file for the Yukon Territories, Canada from [GEOFABRIK](https://www.geofabrik.de/). You can replace the *osm.pbf* and *osm.pbf.md5* with other areas instead. Note that an entire planet file currently takes 40+ hours on a server with 256GB of RAM. Unless you have a machine this large, it is recommended to use a smaller extract.
 
 ```ini
 [Main]
@@ -76,7 +75,7 @@ OMIM_PATH: ~/code/organicmaps
 
 
 [Generator tool]
-# The path to the application data.
+# The path to the data folder in the repository.
 USER_RESOURCE_PATH: ${Developer:OMIM_PATH}/data
 
 [Osm tools]
@@ -167,7 +166,7 @@ python -m maps_generator --countries="Canada_Yukon_North, Canada_Yukon_Whitehors
 ## Help
 
 ```sh
-python$ python3.6 -m maps_generator -h
+python$ python -m maps_generator -h
 ```
 
 ```
@@ -219,7 +218,7 @@ optional arguments:
   --order ORDER         Mwm generation order.
 ```
 
-If you are not from the OrganicMaps team, then you do not need the option --production when generating maps.
+If you are not from the Organic Maps team, then you do not need the option --production when generating maps.
 
 It is recommended to have 1TB of hard disk space with 256+GB of RAM to generate the entire planet. Expect the job to take about 40 hours.
 
@@ -266,7 +265,7 @@ For example, you changed routing code in the project and want to regenerate maps
 You must have previous generation. You may regenerate from stage routing only for two mwms:
 
 ```sh
-python$ python3.6 -m maps_generator -c --from_stage="Routing" --countries="Japan_Kinki Region_Osaka_Osaka, Japan_Chugoku Region_Tottori"
+python$ python -m maps_generator -c --from_stage="Routing" --countries="Japan_Kinki Region_Osaka_Osaka, Japan_Chugoku Region_Tottori"
 ```
 
 To generate maps with the coastline, you need more time and you need the planet to contain a continuous coastline.
@@ -296,7 +295,7 @@ PLANET_MD5_URL: https://download.geofabrik.de/russia/central-fed-district-latest
 3. Run
 
 ```sh
-python$ python -m maps_generator --countries="Russia_Moscow" --skip="Coastline"
+python$ python -m maps_generator --countries="Japan_Chugoku Region_Tottori" --skip="Coastline"
 ```
 
 ### Custom maps from GeoJSON
