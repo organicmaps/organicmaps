@@ -41,7 +41,7 @@ using std::move, std::make_shared, std::string;
 
 namespace
 {
-constexpr char const * kXmlRootNode = "mapsme";
+constexpr char const * kXmlRootNode = "omaps";
 constexpr char const * kXmlMwmNode = "mwm";
 constexpr char const * kDeleteSection = "delete";
 constexpr char const * kModifySection = "modify";
@@ -168,7 +168,12 @@ void Editor::LoadEdits()
   m_features.Set(make_shared<FeaturesContainer>());
   auto loadedFeatures = make_shared<FeaturesContainer>();
 
-  for (auto const & mwm : doc.child(kXmlRootNode).children(kXmlMwmNode))
+  auto rootNode = doc.child(kXmlRootNode);
+  // Migrate clients with an old root node.
+  if (!rootNode)
+    rootNode = doc.child("mapsme");
+  // TODO: Empty rootNode is an OK case for the current logic and unit tests. Check if there is a better way to do it.
+  for (auto const & mwm : rootNode.children(kXmlMwmNode))
   {
     string const mapName = mwm.attribute("name").as_string("");
     int64_t const mapVersion = mwm.attribute("version").as_llong(0);
