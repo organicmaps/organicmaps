@@ -248,10 +248,9 @@ DEBUG: 0
 PLANET_URL: https://download.geofabrik.de/asia/japan-latest.osm.pbf
 PLANET_MD5_URL: https://download.geofabrik.de/asia/japan-latest.osm.pbf.md5
 ...
-
-To build an entire country with coastlines, you need to download the *latest_coasts.geom* and *latest_coasts.rawgeom* files and specify their path in the config.
-
 ```
+
+To build an entire country with coastlines, you need to download the *latest_coasts.geom* and *latest_coasts.rawgeom* files and specify their path in the config. You don't need to download these files if the whole planet is built. They are generated in the process of building the whole planet.
 
 3. Run
 
