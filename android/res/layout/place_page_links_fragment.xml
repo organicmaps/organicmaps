@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical">
+  <include layout="@layout/place_page_website" />
+  <include layout="@layout/place_page_email" />
+  <include layout="@layout/place_page_facebook" />
+  <include layout="@layout/place_page_instagram" />
+  <include layout="@layout/place_page_twitter" />
+  <include layout="@layout/place_page_vk" />
+  <include layout="@layout/place_page_line" />
+  <include layout="@layout/place_page_wikimedia" />
+</LinearLayout>

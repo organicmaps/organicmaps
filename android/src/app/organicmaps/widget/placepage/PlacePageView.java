@@ -34,7 +34,6 @@ import app.organicmaps.bookmarks.data.BookmarkManager;
 import app.organicmaps.bookmarks.data.DistanceAndAzimut;
 import app.organicmaps.bookmarks.data.MapObject;
 import app.organicmaps.bookmarks.data.Metadata;
-import app.organicmaps.bookmarks.data.RoadWarningMarkType;
 import app.organicmaps.downloader.CountryItem;
 import app.organicmaps.downloader.DownloaderStatusIcon;
 import app.organicmaps.downloader.MapManager;
@@ -49,7 +48,6 @@ import app.organicmaps.settings.RoadType;
 import app.organicmaps.util.SharingUtils;
 import app.organicmaps.util.StringUtils;
 import app.organicmaps.util.UiUtils;
-import app.organicmaps.util.Utils;
 import app.organicmaps.util.concurrency.UiThread;
 import app.organicmaps.widget.ArrowView;
 
@@ -74,6 +72,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   private static final String WIKIPEDIA_FRAGMENT_TAG = "WIKIPEDIA_FRAGMENT_TAG";
   private static final String PHONE_FRAGMENT_TAG = "PHONE_FRAGMENT_TAG";
   private static final String OPENING_HOURS_FRAGMENT_TAG = "OPENING_HOURS_FRAGMENT_TAG";
+  private static final String LINKS_FRAGMENT_TAG = "LINKS_FRAGMENT_TAG";
 
   private static final List<CoordinatesFormat> visibleCoordsFormat =
       Arrays.asList(CoordinatesFormat.LatLonDMS,
@@ -92,26 +91,9 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   private TextView mTvAddress;
   // Details.
   private ViewGroup mDetails;
-  private View mWebsite;
-  private TextView mTvWebsite;
   private TextView mTvLatlon;
-  //Social links
-  private View mFacebookPage;
-  private TextView mTvFacebookPage;
-  private View mInstagramPage;
-  private TextView mTvInstagramPage;
-  private View mTwitterPage;
-  private TextView mTvTwitterPage;
-  private View mVkPage;
-  private TextView mTvVkPage;
-  private View mLinePage;
-  private TextView mTvLinePage;
   private View mWifi;
   private TextView mTvWiFi;
-  private View mEmail;
-  private TextView mTvEmail;
-  private View mWikimedia;
-  private TextView mTvWikimedia;
   private View mOperator;
   private TextView mTvOperator;
   private View mLevel;
@@ -191,22 +173,6 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   private PlacePageViewModel viewModel;
   private MapObject mMapObject;
 
-  @NonNull
-  private static PlacePageButtons.ButtonType toPlacePageButton(@NonNull RoadWarningMarkType type)
-  {
-    switch (type)
-    {
-      case DIRTY:
-        return PlacePageButtons.ButtonType.ROUTE_AVOID_UNPAVED;
-      case FERRY:
-        return PlacePageButtons.ButtonType.ROUTE_AVOID_FERRY;
-      case TOLL:
-        return PlacePageButtons.ButtonType.ROUTE_AVOID_TOLL;
-      default:
-        throw new AssertionError("Unsupported road warning type: " + type);
-    }
-  }
-
   private static void refreshMetadataOrHide(String metadata, View metaLayout, TextView metaTv)
   {
     if (!TextUtils.isEmpty(metadata))
@@ -277,46 +243,12 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
 
     mDetails = mFrame.findViewById(R.id.pp__details_frame);
     RelativeLayout address = mFrame.findViewById(R.id.ll__place_name);
-    mWebsite = mFrame.findViewById(R.id.ll__place_website);
-    mWebsite.setOnClickListener(this);
-    mTvWebsite = mFrame.findViewById(R.id.tv__place_website);
-    // Wikimedia Commons link
-    mWikimedia = mFrame.findViewById(R.id.ll__place_wikimedia);
-    mTvWikimedia = mFrame.findViewById(R.id.tv__place_wikimedia);
-    mWikimedia.setOnClickListener(this);
-    //Social links
-    mFacebookPage = mFrame.findViewById(R.id.ll__place_facebook);
-    mFacebookPage.setOnClickListener(this);
-    mFacebookPage.setOnLongClickListener(this);
-    mTvFacebookPage = mFrame.findViewById(R.id.tv__place_facebook_page);
 
-    mInstagramPage = mFrame.findViewById(R.id.ll__place_instagram);
-    mInstagramPage.setOnClickListener(this);
-    mInstagramPage.setOnLongClickListener(this);
-    mTvInstagramPage = mFrame.findViewById(R.id.tv__place_instagram_page);
-
-    mTwitterPage = mFrame.findViewById(R.id.ll__place_twitter);
-    mTwitterPage.setOnClickListener(this);
-    mTwitterPage.setOnLongClickListener(this);
-    mTvTwitterPage = mFrame.findViewById(R.id.tv__place_twitter_page);
-
-    mVkPage = mFrame.findViewById(R.id.ll__place_vk);
-    mVkPage.setOnClickListener(this);
-    mVkPage.setOnLongClickListener(this);
-    mTvVkPage = mFrame.findViewById(R.id.tv__place_vk_page);
-
-    mLinePage = mFrame.findViewById(R.id.ll__place_line);
-    mLinePage.setOnClickListener(this);
-    mLinePage.setOnLongClickListener(this);
-    mTvLinePage = mFrame.findViewById(R.id.tv__place_line_page);
     LinearLayout latlon = mFrame.findViewById(R.id.ll__place_latlon);
     latlon.setOnClickListener(this);
     mTvLatlon = mFrame.findViewById(R.id.tv__place_latlon);
     mWifi = mFrame.findViewById(R.id.ll__place_wifi);
     mTvWiFi = mFrame.findViewById(R.id.tv__place_wifi);
-    mEmail = mFrame.findViewById(R.id.ll__place_email);
-    mEmail.setOnClickListener(this);
-    mTvEmail = mFrame.findViewById(R.id.tv__place_email);
     mOperator = mFrame.findViewById(R.id.ll__place_operator);
     mOperator.setOnClickListener(this);
     mTvOperator = mFrame.findViewById(R.id.tv__place_operator);
@@ -335,9 +267,6 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     mEditTopSpace = mFrame.findViewById(R.id.edit_top_space);
     latlon.setOnLongClickListener(this);
     address.setOnLongClickListener(this);
-    mWebsite.setOnLongClickListener(this);
-    mWikimedia.setOnLongClickListener(this);
-    mEmail.setOnLongClickListener(this);
     mOperator.setOnLongClickListener(this);
     mLevel.setOnLongClickListener(this);
 
@@ -516,33 +445,11 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   {
     refreshPreview();
     refreshDetails();
-    refreshViewsInternal();
-    updateBookmarkView();
-    updatePhoneView();
-  }
-
-  private void refreshViewsInternal()
-  {
     final Location loc = LocationHelper.INSTANCE.getSavedLocation();
-    boolean showBackButton = false;
-    boolean showRoutingButton = true;
-    switch (mMapObject.getMapObjectType())
-    {
-      case MapObject.BOOKMARK:
-      case MapObject.POI:
-      case MapObject.SEARCH:
-        refreshDistanceToObject(loc);
-        break;
-      case MapObject.API_POINT:
-        refreshDistanceToObject(loc);
-        showBackButton = true;
-        break;
-      case MapObject.MY_POSITION:
-        refreshMyPosition(loc);
-        showRoutingButton = false;
-        break;
-    }
-    updateButtons(showBackButton, showRoutingButton);
+    if (mMapObject.getMapObjectType() == MapObject.MY_POSITION)
+      refreshMyPosition(loc);
+    else
+      refreshDistanceToObject(loc);
   }
 
   private <T extends Fragment> void updateViewFragment(Class<T> controllerClass, String fragmentTag, @IdRes int containerId, boolean enabled)
@@ -561,6 +468,12 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
               .remove(fragment)
               .commit();
     }
+  }
+
+  private void updateLinksView()
+  {
+    final boolean hasLinkAvailable = PlacePageLinksFragment.hasLinkAvailable(mMapObject);
+    updateViewFragment(PlacePageLinksFragment.class, LINKS_FRAGMENT_TAG, R.id.place_page_links_fragment, hasLinkAvailable);
   }
 
   private void updateOpeningHoursView()
@@ -621,20 +534,12 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   {
     refreshLatLon();
 
-    String website = mMapObject.getMetadata(Metadata.MetadataType.FMD_WEBSITE);
-    String url = mMapObject.getMetadata(Metadata.MetadataType.FMD_URL);
-    refreshMetadataOrHide(TextUtils.isEmpty(website) ? url : website, mWebsite, mTvWebsite);
-    String wikimedia_commons = mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIMEDIA_COMMONS);
-    String wikimedia_commons_text = TextUtils.isEmpty(wikimedia_commons) ? "" : getResources().getString(R.string.wikimedia_commons);
-    refreshMetadataOrHide(wikimedia_commons_text, mWikimedia, mTvWikimedia);
-    refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_EMAIL), mEmail, mTvEmail);
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_OPERATOR), mOperator, mTvOperator);
     /// @todo I don't like it when we take all data from mapObject, but for cuisines, we should
     /// go into JNI Framework and rely on some "active object".
     refreshMetadataOrHide(Framework.nativeGetActiveObjectFormattedCuisine(), mCuisine, mTvCuisine);
     refreshWiFi();
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_FLATS), mEntrance, mTvEntrance);
-    refreshSocialLinks();
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_LEVEL), mLevel, mTvLevel);
 
 //    showTaxiOffer(mapObject);
@@ -652,8 +557,11 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
                      || UiUtils.isVisible(mAddOrganisation)
                      || UiUtils.isVisible(mAddPlace), mEditTopSpace);
     }
+    updateLinksView();
     updateOpeningHoursView();
     updateWikipediaView();
+    updateBookmarkView();
+    updatePhoneView();
   }
 
   private void refreshWiFi()
@@ -667,123 +575,6 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     }
     else
       mWifi.setVisibility(GONE);
-  }
-
-  private void refreshSocialLinks()
-  {
-    final String facebookPageLink = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_FACEBOOK);
-    refreshSocialPageLink(mFacebookPage, mTvFacebookPage, facebookPageLink, "facebook.com");
-    final String instagramPageLink = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_INSTAGRAM);
-    refreshSocialPageLink(mInstagramPage, mTvInstagramPage, instagramPageLink, "instagram.com");
-    final String twitterPageLink = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_TWITTER);
-    refreshSocialPageLink(mTwitterPage, mTvTwitterPage, twitterPageLink, "twitter.com");
-    final String vkPageLink = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_VK);
-    refreshSocialPageLink(mVkPage, mTvVkPage, vkPageLink, "vk.com");
-    final String linePageLink = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_LINE);
-    refreshLinePageLink(mLinePage, mTvLinePage, linePageLink);
-  }
-
-  private void refreshSocialPageLink(View view, TextView tvSocialPage, String socialPage, String webDomain)
-  {
-    if (TextUtils.isEmpty(socialPage))
-    {
-      view.setVisibility(GONE);
-    }
-    else
-    {
-      view.setVisibility(VISIBLE);
-      if (socialPage.indexOf('/') >= 0)
-        tvSocialPage.setText("https://" + webDomain + "/" + socialPage);
-      else
-        tvSocialPage.setText("@" + socialPage);
-    }
-  }
-
-  // Tag `contact:line` could contain urls from domains: line.me, liff.line.me, page.line.me, etc.
-  // And `socialPage` should not be prepended with domain, but only with "https://" protocol.
-  private void refreshLinePageLink(View view, TextView tvSocialPage, String socialPage)
-  {
-    if (TextUtils.isEmpty(socialPage))
-    {
-      view.setVisibility(GONE);
-    }
-    else
-    {
-      view.setVisibility(VISIBLE);
-      if (socialPage.indexOf('/') >= 0)
-        tvSocialPage.setText("https://" + socialPage);
-      else
-        tvSocialPage.setText("@" + socialPage);
-    }
-  }
-
-  private void updateBookmarkButton()
-  {
-    final List<PlacePageButtons.ButtonType> currentButtons = viewModel.getCurrentButtons()
-                                                                      .getValue();
-    PlacePageButtons.ButtonType oldType = PlacePageButtons.ButtonType.BOOKMARK_DELETE;
-    PlacePageButtons.ButtonType newType = PlacePageButtons.ButtonType.BOOKMARK_SAVE;
-    if (mMapObject.getMapObjectType() == MapObject.BOOKMARK)
-    {
-      oldType = PlacePageButtons.ButtonType.BOOKMARK_SAVE;
-      newType = PlacePageButtons.ButtonType.BOOKMARK_DELETE;
-    }
-    if (currentButtons != null)
-    {
-      final List<PlacePageButtons.ButtonType> newList = new ArrayList<>(currentButtons);
-      final int index = newList.indexOf(oldType);
-      if (index >= 0)
-      {
-        newList.set(index, newType);
-        viewModel.setCurrentButtons(newList);
-      }
-    }
-  }
-
-  private void updateButtons(boolean showBackButton, boolean showRoutingButton)
-  {
-    List<PlacePageButtons.ButtonType> buttons = new ArrayList<>();
-    if (mMapObject.getRoadWarningMarkType() != RoadWarningMarkType.UNKNOWN)
-    {
-      RoadWarningMarkType markType = mMapObject.getRoadWarningMarkType();
-      PlacePageButtons.ButtonType roadType = toPlacePageButton(markType);
-      buttons.add(roadType);
-    }
-    else if (RoutingController.get().isRoutePoint(mMapObject))
-    {
-      buttons.add(PlacePageButtons.ButtonType.ROUTE_REMOVE);
-    }
-    else
-    {
-      final ParsedMwmRequest request = ParsedMwmRequest.getCurrentRequest();
-      if (showBackButton || (request != null && request.isPickPointMode()))
-        buttons.add(PlacePageButtons.ButtonType.BACK);
-
-      boolean needToShowRoutingButtons = RoutingController.get().isPlanning() || showRoutingButton;
-
-      if (needToShowRoutingButtons)
-        buttons.add(PlacePageButtons.ButtonType.ROUTE_FROM);
-
-      // If we can show the add route button, put it in the place of the bookmark button
-      // And move the bookmark button at the end
-      if (needToShowRoutingButtons && RoutingController.get().isStopPointAllowed())
-        buttons.add(PlacePageButtons.ButtonType.ROUTE_ADD);
-      else
-        buttons.add(mMapObject.getMapObjectType() == MapObject.BOOKMARK
-                    ? PlacePageButtons.ButtonType.BOOKMARK_DELETE
-                    : PlacePageButtons.ButtonType.BOOKMARK_SAVE);
-
-      if (needToShowRoutingButtons)
-      {
-        buttons.add(PlacePageButtons.ButtonType.ROUTE_TO);
-        if (RoutingController.get().isStopPointAllowed())
-          buttons.add(mMapObject.getMapObjectType() == MapObject.BOOKMARK
-                      ? PlacePageButtons.ButtonType.BOOKMARK_DELETE
-                      : PlacePageButtons.ButtonType.BOOKMARK_SAVE);
-      }
-      buttons.add(PlacePageButtons.ButtonType.SHARE);
-    }
-    viewModel.setCurrentButtons(buttons);
   }
 
   private void refreshMyPosition(Location l)
@@ -844,8 +635,6 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
 
   /// @todo
   /// - Why ll__place_editor and ll__place_latlon check if (mMapObject == null)
-  /// - Unify urls processing: fb, twitter, instagram, .. add prefix here while
-  /// wiki, website, wikimedia, ... already have full url. Better to make it in the same way and in Core.
 
   @Override
   public void onClick(View v)
@@ -873,42 +662,8 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
                     .apply();
       refreshLatLon();
     }
-    else if (id == R.id.ll__place_website)
-      Utils.openUrl(context, mTvWebsite.getText().toString());
-    else if (id == R.id.ll__place_wikimedia)
-      Utils.openUrl(context, mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIMEDIA_COMMONS));
-    else if (id == R.id.ll__place_facebook)
-    {
-      final String facebookPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_FACEBOOK);
-      Utils.openUrl(context, "https://m.facebook.com/" + facebookPage);
-    }
-    else if (id == R.id.ll__place_instagram)
-    {
-      final String instagramPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_INSTAGRAM);
-      Utils.openUrl(context, "https://instagram.com/" + instagramPage);
-    }
-    else if (id == R.id.ll__place_twitter)
-    {
-      final String twitterPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_TWITTER);
-      Utils.openUrl(context, "https://mobile.twitter.com/" + twitterPage);
-    }
-    else if (id == R.id.ll__place_vk)
-    {
-      final String vkPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_VK);
-      Utils.openUrl(context, "https://vk.com/" + vkPage);
-    }
-    else if (id == R.id.ll__place_line)
-    {
-      final String linePage = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_LINE);
-      if (linePage.indexOf('/') >= 0)
-        Utils.openUrl(context, "https://" + linePage);
-      else
-        Utils.openUrl(context, "https://line.me/R/ti/p/@" + linePage);
-    }
     else if (id == R.id.direction_frame)
       showBigDirection();
-    else if (id == R.id.ll__place_email)
-      Utils.sendTo(context, mTvEmail.getText().toString());
   }
 
   private void showBigDirection()
@@ -919,9 +674,6 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     fragment.setMapObject(mMapObject);
     fragment.show(fragmentManager, null);
   }
-
-  /// @todo Unify urls processing (fb, twitter, instagram, ...).
-  /// onLongClick behaviour differs even from onClick function several lines above.
 
   @Override
   public boolean onLongClick(View v)
@@ -941,51 +693,6 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
       for (CoordinatesFormat format : visibleCoordsFormat)
         items.add(Framework.nativeFormatLatLon(lat, lon, format.getId()));
     }
-    else if (id == R.id.ll__place_website)
-      items.add(mTvWebsite.getText().toString());
-    else if (id == R.id.ll__place_wikimedia)
-      items.add(mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIMEDIA_COMMONS));
-    else if (id == R.id.ll__place_facebook)
-    {
-      final String facebookPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_FACEBOOK);
-      if (facebookPage.indexOf('/') == -1)
-        items.add(facebookPage); // Show username along with URL.
-      items.add("https://m.facebook.com/" + facebookPage);
-    }
-    else if (id == R.id.ll__place_instagram)
-    {
-      final String instagramPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_INSTAGRAM);
-      if (instagramPage.indexOf('/') == -1)
-        items.add(instagramPage); // Show username along with URL.
-      items.add("https://instagram.com/" + instagramPage);
-    }
-    else if (id == R.id.ll__place_twitter)
-    {
-      final String twitterPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_TWITTER);
-      if (twitterPage.indexOf('/') == -1)
-        items.add(twitterPage); // Show username along with URL.
-      items.add("https://mobile.twitter.com/" + twitterPage);
-    }
-    else if (id == R.id.ll__place_vk)
-    {
-      final String vkPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_VK);
-      if (vkPage.indexOf('/') == -1)
-        items.add(vkPage); // Show username along with URL.
-      items.add("https://vk.com/" + vkPage);
-    }
-    else if (id == R.id.ll__place_line)
-    {
-      final String linePage = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_LINE);
-      if (linePage.indexOf('/') >= 0)
-        items.add("https://" + linePage);
-      else
-      {
-        items.add(linePage); // Show username along with URL.
-        items.add("https://line.me/R/ti/p/@" + linePage);
-      }
-    }
-    else if (id == R.id.ll__place_email)
-      items.add(mTvEmail.getText().toString());
     else if (id == R.id.ll__place_operator)
       items.add(mTvOperator.getText().toString());
     else if (id == R.id.ll__place_level)
@@ -1066,7 +773,6 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
 
     detachCountry();
     setCurrentCountry();
-    updateBookmarkButton();
     refreshViews();
     // In case the place page has already some data, make sure to call the onPlacePageContentChanged callback
     // to catch cases where the new data has the exact same height as the previous one (eg 2 address nodes)

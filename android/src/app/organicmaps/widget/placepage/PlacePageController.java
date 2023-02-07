@@ -20,9 +20,12 @@ import androidx.lifecycle.ViewModelProvider;
 import app.organicmaps.Framework;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.R;
+import app.organicmaps.api.ParsedMwmRequest;
 import app.organicmaps.base.Initializable;
 import app.organicmaps.base.Savable;
 import app.organicmaps.bookmarks.data.MapObject;
+import app.organicmaps.bookmarks.data.RoadWarningMarkType;
+import app.organicmaps.routing.RoutingController;
 import app.organicmaps.settings.RoadType;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
@@ -141,6 +144,22 @@ public class PlacePageController implements Initializable<Activity>,
       mCurrentWindowInsets = windowInsets;
       return windowInsets;
     });
+  }
+
+  @NonNull
+  private static PlacePageButtons.ButtonType toPlacePageButton(@NonNull RoadWarningMarkType type)
+  {
+    switch (type)
+    {
+      case DIRTY:
+        return PlacePageButtons.ButtonType.ROUTE_AVOID_UNPAVED;
+      case FERRY:
+        return PlacePageButtons.ButtonType.ROUTE_AVOID_FERRY;
+      case TOLL:
+        return PlacePageButtons.ButtonType.ROUTE_AVOID_TOLL;
+      default:
+        throw new AssertionError("Unsupported road warning type: " + type);
+    }
   }
 
   private void stopCustomPeekHeightAnimation()
@@ -402,12 +421,61 @@ public class PlacePageController implements Initializable<Activity>,
     }
   }
 
+  private void updateButtons(boolean showBackButton, boolean showRoutingButton)
+  {
+    List<PlacePageButtons.ButtonType> buttons = new ArrayList<>();
+    if (mMapObject.getRoadWarningMarkType() != RoadWarningMarkType.UNKNOWN)
+    {
+      RoadWarningMarkType markType = mMapObject.getRoadWarningMarkType();
+      PlacePageButtons.ButtonType roadType = toPlacePageButton(markType);
+      buttons.add(roadType);
+    }
+    else if (RoutingController.get().isRoutePoint(mMapObject))
+    {
+      buttons.add(PlacePageButtons.ButtonType.ROUTE_REMOVE);
+    }
+    else
+    {
+      final ParsedMwmRequest request = ParsedMwmRequest.getCurrentRequest();
+      if (showBackButton || (request != null && request.isPickPointMode()))
+        buttons.add(PlacePageButtons.ButtonType.BACK);
+
+      boolean needToShowRoutingButtons = RoutingController.get().isPlanning() || showRoutingButton;
+
+      if (needToShowRoutingButtons)
+        buttons.add(PlacePageButtons.ButtonType.ROUTE_FROM);
+
+      // If we can show the add route button, put it in the place of the bookmark button
+      // And move the bookmark button at the end
+      if (needToShowRoutingButtons && RoutingController.get().isStopPointAllowed())
+        buttons.add(PlacePageButtons.ButtonType.ROUTE_ADD);
+      else
+        buttons.add(mMapObject.getMapObjectType() == MapObject.BOOKMARK
+                    ? PlacePageButtons.ButtonType.BOOKMARK_DELETE
+                    : PlacePageButtons.ButtonType.BOOKMARK_SAVE);
+
+      if (needToShowRoutingButtons)
+      {
+        buttons.add(PlacePageButtons.ButtonType.ROUTE_TO);
+        if (RoutingController.get().isStopPointAllowed())
+          buttons.add(mMapObject.getMapObjectType() == MapObject.BOOKMARK
+                      ? PlacePageButtons.ButtonType.BOOKMARK_DELETE
+                      : PlacePageButtons.ButtonType.BOOKMARK_SAVE);
+      }
+      buttons.add(PlacePageButtons.ButtonType.SHARE);
+    }
+    viewModel.setCurrentButtons(buttons);
+  }
+
   @Override
   public void onChanged(MapObject mapObject)
   {
 
     mMapObject = mapObject;
     createPlacePageFragments();
+    updateButtons(
+        MapObject.isOfType(MapObject.API_POINT, mMapObject),
+        !MapObject.isOfType(MapObject.MY_POSITION, mMapObject));
   }
 
   @Override
