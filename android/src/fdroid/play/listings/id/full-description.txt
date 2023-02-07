@@ -6,6 +6,7 @@
 <b>Umpan balik dan ulasan bintang lima Anda adalah motivasi terbaik bagi kami!</b>
 
 Fitur utama:
+
 • Bebas, sumber terbuka, tanpa iklan, tanpa pelacakan
 • Peta luring terperinci dengan tempat-tempat yang tidak ada di peta Google, berkat komunitas <b>OpenStreetMap</b>
 • Rute bersepeda, jalur pendakian, dan jalur jalan kaki
