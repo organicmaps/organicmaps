@@ -1,11 +1,12 @@
-‣ Nosso aplicativo gratuito não te rastreia e não tem anúncios, e é mantido por suas doações.
-‣ Está sendo constantemente aperfeiçoado por nossa pequena equipe, no tempo livre, usando nosso próprio dinheiro e doações/contribuições de nossos usuários.
+‣ Nosso aplicativo gratuito não te rastreia, não tem anúncios, e precisa do seu apoio.
+‣ Está sendo constantemente aperfeiçoado por nossa pequena equipe, no tempo livre.
 ‣ Se algo estiver errado ou faltando no mapa, por favor, conserte diretamente no <b>OpenStreetMap</b> e veja suas mudanças na próxima atualização dos mapas.
 ‣ Se a navegação ou a busca não funcionar, por favor, envie-nos um e-mail. Respondemos a <i>CADA</i> email, e vamos consertar o mais rápido possível!
 
-<b>Sua opinião e as avaliações de 5 estrelas são as melhores maneiras de motivar nossa equipe!</b>
+<b>Sua opinião e as avaliações de 5 estrelas são as melhores maneiras de nos motivar!</b>
 
 Características principais:
+
 • Gratuito, de software livre, sem anúncios, sem rastreamento
 • Mapas offline detalhados com lugares que não existem Google Maps, graças à comunidade <b>OpenStreetMap</b>
 • Rotas de ciclismo, trilhas para caminhadas e caminhos para pedestres
