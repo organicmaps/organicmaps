@@ -1,9 +1,8 @@
 • Novos dados OSM de 21/01
 • Correção da importação de algumas trilhas KML
-• Correção na inicialização se o WebView do sistema estivesse desativado ou ausente
 • Melhoria na busca e roteamento
 • Melhoria no uso da elevação para caminhadas e ciclismo
-• Correção dos ícones de metrô de Buenos Aires e Bilbau
+• Correção dos ícones de metrô de Buenos Aires
 • Adição de pistas de boliche
 • Adição da Croácia ao espaço Schengen
 • Aumento do número máximo de andares editáveis de 25 para 50
