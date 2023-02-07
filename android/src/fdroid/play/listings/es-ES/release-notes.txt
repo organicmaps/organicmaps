@@ -1,11 +1,10 @@
-• Nuevos datos de OpenStreetMap a partir del 21 de enero
-• Corregida la importación de algunos tracks KML
-• Corregidos los fallos al inicio con WebView
-• Mejoras en la aplicación
-• Mejoras para senderismo y ciclismo
-• Corregidos los iconos del metro de Buenos Aires y Bilbao
-• Añadida la bolera
-• Agregada Croacia al espacio Schengen
-• Aumento del número máximo de plantas editables de 25 a 50.
-• Habilitado el euskera, bielorruso, croata, noruego, marathi y swahili en TTS.
-...más: omaps.app/news
+- Nuevos datos de OpenStreetMap del 21 de enero
+- Importación fija de algunas pistas KML
+- Búsqueda y enrutamiento mejorados
+- Manejo correcto de las diferencias de altura al caminar y andar en bicicleta.
+- Iconos fijos para el metro de Buenos Aires
+- Bolera añadida
+- Croacia fue añadida al espacio Schengen
+- El máximo de pisos editables aumentó de 25 a 50
+- Vasco, bielorruso, croata, noruego, marathi, swahili habilitados en TTS
+...más: omaps.app/noticias

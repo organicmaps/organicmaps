@@ -1,52 +1,53 @@
-‣ Nuestra aplicación gratuita no te rastrea, no tiene anuncios y necesita tu apoyo.
-‣ Los colaboradores y nuestro pequeño equipo lo mejoran constantemente en su tiempo libre.
-‣ Si algo está mal o falta puede corrígelo en <b>OpenStreetMap</b> y ver los cambios en las nuevas actualización.
-‣ Si algo no funciona bien, envíenos un correo electrónico. ¡Respondemos a <i>TODOS</i> los correos electrónicos y lo arreglaremos lo antes posible!
+‣ Nuestra aplicación gratuita no rastrea a nadie, no contiene anuncios y necesita su apoyo.
+‣ Los colaboradores y nuestro pequeño equipo lo mejoran constantemente en nuestro tiempo libre.
+‣ Si algo está mal o falta en el mapa, corríjalo en <b>OpenStreetMap</b> y vea los cambios en la futura actualización del mapa.
+‣ Si la navegación o la búsqueda no funcionan, envíenos un correo electrónico. Respondemos a <i>CADA</i> correo electrónico y lo solucionaremos lo antes posible.
 
-<b>¡Tus comentarios y reseñas con 5 estrellas son los mejores alicientes para nosotros!</b>
+<b>¡Tus comentarios y calificaciones de 5 estrellas son la mejor motivación para nosotros!</b>
 
-Características clave:
+Funciones principales:
+
 • Gratis, de código abierto, sin anuncios, sin seguimiento
-• Mapas sin conexión detallados con lugares que no existen en los mapas de Google, gracias a la comunidad <b>OpenStreetMap</b>
-• Rutas ciclistas, rutas de senderismo y senderos para caminar
-• Curvas de nivel, perfiles de elevación, picos y pendientes
-• Paso a paso a pie, en bicicleta y navegación EXPERIMENTAL para automóvil con guía de voz
+• Mapas sin conexión detallados con ubicaciones que no se encuentran en otros mapas, gracias a la comunidad <b>OpenStreetMap</b>
+• Senderos para bicicletas y caminatas
+• Curvas de nivel, perfiles de altura, picos de montañas y pendientes
+• Navegación paso a paso para peatones, ciclistas y automóviles con guía por voz
 • Búsqueda rápida sin conexión
-• Exportación e importación de los marcadores en formatos KML/KMZ (GPX llegará pronto)
+• Exportación e importación de marcadores en formato KML/KMZ (GPX está planificado)
 • Modo oscuro para proteger tus ojos
 
-<i>todavía</i> No es compatible con Android Auto, el transporte público y otras funciones interesantes. Pero con <i>su apoyo y ayuda</i>, podemos mejorar paso a paso.
+Android Auto, transporte público y mapas satelitales no son <i>todavía</i> compatibles. Pero con <i>tu ayuda y apoyo</i> podemos mejorar este mundo y nuestros mapas, paso a paso.
 
-Organic Maps es <b>puro y humano, hecho con amor</b>:
+Organic Maps es <b>puro, orgánico y hecho con amor</b>:
 
-• No necesita internet
-• Respeta tú privacidad
-• Ahorra batería de tú movil
-• No consume datos extras
-• Fácil de usar, con solo las funciones más importantes
+• Experiencia fuera de línea ultrarrápida
+• Respeta su privacidad
+• Ahorra batería
+• Sin cargos de datos móviles inesperados
+• Fácil de usar, solo se integran las funciones más importantes
 
-Libre de rastreadores y otras cosas raras:
+Libre de rastreadores y cosas malas:
 
 • Sin anuncios
-• No te rastrea
+• Sin seguimiento
 • Sin recopilación de datos
 • Sin telemetría
-• Sin registros
+• Sin registros molestos
 • Sin tutoriales obligatorios
-• No hay spam
+• Sin spam al correo electrónico molesto
 • Sin notificaciones automáticas
-• No contiene cosas innecesarias
-• Puramente orgánico
+• Sin basura
+• Simplemente natural en su forma y uso
 
-En Organic Maps, creemos que <b>la privacidad es un derecho humano fundamental</b>:
+En Organic Maps, creemos que <b>la privacidad es un derecho humano básico</b>:
 
-• Organic Maps es un proyecto de código abierto impulsado por una comunidad independiente
-• Protegemos la privacidad del rastreo en la tecnología
+• Organic Maps es un proyecto de código abierto mantenido por una comunidad independiente
+• Protegemos su privacidad de las miradas indiscretas de los grandes gigantes tecnológicos
 • Manténgase seguro sin importar dónde se encuentre
 
-Según el Informe de privacidad de Exodus, no se encuentran rastreadores y solo se requieren permisos mínimos.
+No hay rastreadores y solo se requieren permisos mínimos, según el informe de privacidad de Exodus.
 
-Visite nuestra página web <b><i>organicmaps.app</i></b> para obtener más detalles adicionales y preguntas frecuentes o contáctenos directamente con nosotros en nuestro Telegram @OrganicMapsApp .
+Visite el sitio web de <b><i>organicmaps.app</i></b> para obtener más detalles y preguntas frecuentes. O contáctenos directamente en @OrganicMapsApp en Telegram.
 
-Rechaza la vigilancia: abraza tu libertad.
-<b>¡Prueba los mapas orgánicos!</b>
+Rechaza la vigilancia: vive tu libertad.
+<b>¡Prueba Organic Maps!</b>
