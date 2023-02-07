@@ -47,25 +47,15 @@
 
     <include layout="@layout/place_page_operator"/>
 
-    <include layout="@layout/place_page_website"/>
-
     <include layout="@layout/place_page_wifi"/>
 
+    <androidx.fragment.app.FragmentContainerView
+      android:id="@+id/place_page_links_fragment"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      tools:layout="@layout/place_page_links_fragment" />
+
     <include layout="@layout/place_page_level" />
-
-    <include layout="@layout/place_page_email"/>
-
-    <include layout="@layout/place_page_facebook"/>
-
-    <include layout="@layout/place_page_instagram"/>
-
-    <include layout="@layout/place_page_twitter"/>
-
-    <include layout="@layout/place_page_vk"/>
-
-    <include layout="@layout/place_page_line"/>
-
-    <include layout="@layout/place_page_wikimedia"/>
 
     <!-- ToDo: Address is missing compared with iOS. It's shown in title but anyway .. -->
 
