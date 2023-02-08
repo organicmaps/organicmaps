@@ -347,7 +347,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     final Intent intent = new Intent(this, MwmActivity.class);
 
     // Disable animation because MwmActivity should appear exactly over this one
-    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
 
     // Add saved task to forward to map activity.
     if (mMapTaskToForward != null)
