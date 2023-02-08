@@ -104,18 +104,18 @@ private:
   void ProcessKey(drule::Key const & key)
   {
     double depth = key.m_priority;
-    if (m_depthLayer != feature::LAYER_EMPTY)
+    if (m_featureLayer != feature::LAYER_EMPTY)
     {
       if (IsTypeOf(key, Line))
       {
-        double const layerPart = m_depthLayer * drule::layer_base_priority;
+        double const layerPart = m_featureLayer * drule::layer_base_priority;
         double const depthPart = fmod(depth, drule::layer_base_priority);
         depth = layerPart + depthPart;
       }
       else if (IsTypeOf(key, Area))
       {
         // Area styles have big negative priorities (like -15000), so just add layer correction.
-        depth += m_depthLayer * drule::layer_base_priority;
+        depth += m_featureLayer * drule::layer_base_priority;
       }
       else
       {
@@ -143,7 +143,8 @@ private:
 
   void Init()
   {
-    m_depthLayer = m_f.GetLayer();
+    m_featureLayer = m_f.GetLayer();
+    // @todo m_priorityModifier is not used, try to apply to areas to render in size order.
     if (m_geomType == feature::GeomType::Point)
       m_priorityModifier = (double)m_f.GetPopulation() / 7E9;
     else
@@ -157,7 +158,7 @@ private:
   feature::GeomType m_geomType;
   int const m_zoomLevel;
   double m_priorityModifier;
-  int m_depthLayer;
+  int m_featureLayer;
 };
 }  // namespace
 
