@@ -63,7 +63,6 @@ df::ColorConstant const kRoadShieldOrangeBackgroundColor = "RoadShieldOrangeBack
 
 uint32_t const kPathTextBaseTextIndex = 128;
 uint32_t const kShieldBaseTextIndex = 0;
-int const kShieldMinVisibleZoomLevel = 10;
 
 #ifdef LINES_GENERATION_CALC_FILTERED_POINTS
 class LinesStat
@@ -960,7 +959,7 @@ void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ref_ptr<dp::TextureMan
   textParams.m_depthTestEnabled = false;
   textParams.m_depth = m_depth;
   textParams.m_depthLayer = DepthLayer::OverlayLayer;
-  textParams.m_minVisibleScale = kShieldMinVisibleZoomLevel;
+  textParams.m_minVisibleScale = m_minVisibleScale;
   textParams.m_rank = m_rank;
   textParams.m_featureId = m_id;
   textParams.m_titleDecl.m_anchor = anchor;
@@ -991,7 +990,7 @@ void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ref_ptr<dp::TextureMan
     symbolParams.m_depthTestEnabled = true;
     symbolParams.m_depth = m_depth;
     symbolParams.m_depthLayer = DepthLayer::OverlayLayer;
-    symbolParams.m_minVisibleScale = kShieldMinVisibleZoomLevel;
+    symbolParams.m_minVisibleScale = m_minVisibleScale;
     symbolParams.m_rank = m_rank;
     symbolParams.m_anchor = anchor;
     symbolParams.m_offset = shieldOffset;
@@ -1019,7 +1018,7 @@ void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ref_ptr<dp::TextureMan
     poiParams.m_depth = m_depth;
     poiParams.m_depthTestEnabled = false;
     poiParams.m_depthLayer = DepthLayer::OverlayLayer;
-    poiParams.m_minVisibleScale = kShieldMinVisibleZoomLevel;
+    poiParams.m_minVisibleScale = m_minVisibleScale;
     poiParams.m_rank = m_rank;
     poiParams.m_symbolName = symbolName;
     poiParams.m_extendingSize = 0;

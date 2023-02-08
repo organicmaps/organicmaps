@@ -363,6 +363,7 @@ void RuleDrawer::ProcessLineStyle(FeatureType & f, Stylist const & s,
 
   if (needAdditional && !clippedSplines.empty())
   {
+    minVisibleScale = feature::GetMinDrawableScale(f);
     ApplyLineFeatureAdditional applyAdditional(m_context->GetTileKey(), insertShape, f.GetID(),
                                                m_currentScaleGtoP, minVisibleScale, f.GetRank(),
                                                s.GetCaptionDescription(), clippedSplines);
