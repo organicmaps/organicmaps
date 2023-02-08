@@ -1,11 +1,10 @@
 • Nowe dane OpenStreetMap z dnia 21 stycznia
 • Poprawiono import niektórych ścieżek KML
-• Usunięto błędy przy starcie, jeśli WebView był wyłączony
 • Poprawione wyszukiwanie i wyznaczanie tras
-• Poprawiono obsługę wysokości
-• Poprawiono ikony metra w Buenos Aires i Bilbao
-• Dodano Bowling Alley
+• Poprawiono obsługę wysokości dla wędrowców i rowerzystów
+• Poprawiono ikony metra w Buenos Aires
+• Dodano kręgielnie
 • Dodano Chorwację do strefy Schengen
-• Zwiększono maks. liczbę edytowalnych pięter budynku
-• Włączono język baskijski, białoruski, chorwacki, norweski, marathi, suahili w TTS.
+• Zwiększono maksymalną liczbę edytowalnych pięter budynku z 25 do 50
+• Uruchomiono język baskijski, białoruski, chorwacki, norweski, marathi, suahili w TTS.
 ...więcej na: omaps.app/news
