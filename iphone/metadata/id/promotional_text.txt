@@ -1,1 +1,1 @@
-Mohon laporkan semua masalah peta langsung ke OpenStreetMap, dan beri tahu kami tentang kutu apa pun.
+Tolong perbaiki semua masalah peta di OpenStreetMap dan beri tahu kepada kami jika ada kutu. Umpan balik Anda akan membantu tim kecil kami untuk memperbaiki aplikasi ini.
