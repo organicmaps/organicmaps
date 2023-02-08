@@ -6,11 +6,12 @@
 <b>Wasze opinie i 5-gwiazdkowe recenzje to dla nas najlepsza motywacja! </b>.
 
 Główne cechy:
-• Darmowość, otwarte źródło, brak reklam, brak śledzenia
+
+• Za darmo, otwarte źródło, brak reklam, brak śledzenia
 • Szczegółowe mapy offline z miejscami, które nie istnieją na mapach Google, dzięki społeczności <b>OpenStreetMap</b>
 • Trasy rowerowe, szlaki turystyczne, ścieżki spacerowe
 • Linie konturowe, profile wysokościowe, szczyty i zbocza
-• Nawigacja piesza, rowerowa i samochodowa typu "turn-by-turn" ze wskazówkami głosowymi
+• Nawigacja piesza, rowerowa i samochodowa typu "skręt za skrętem" ze wskazówkami głosowymi
 • Szybkie wyszukiwanie w trybie offline
 • Eksport i import zakładek w formatach KML/KMZ (GPX już wkrótce)
 • Tryb ciemny, aby chronić Twoje oczy
