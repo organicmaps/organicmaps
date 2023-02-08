@@ -1,1 +1,1 @@
-Corrija los problemas del mapa en OpenStreetMap.org y háganos saber de cualquier defecto con nuestra aplicación.
+Corrija los errores de los mapas en OpenStreetMap.org e infórmenos sobre fallos. Sus comentarios motivan a nuestro pequeño equipo de entusiastas a mejorar la aplicación.
