@@ -332,7 +332,8 @@ public final class UiUtils
 
   public static void setInputError(@NonNull TextInputLayout layout, @StringRes int error)
   {
-    layout.setError(error == 0 ? null : layout.getContext().getString(error));
+
+    layout.getEditText().setError(error == 0 ? null : layout.getContext().getString(error));
     layout.getEditText().setTextColor(error == 0 ? ThemeUtils.getColor(layout.getContext(), android.R.attr.textColorPrimary)
                                                  : layout.getContext().getResources().getColor(R.color.base_red));
   }
