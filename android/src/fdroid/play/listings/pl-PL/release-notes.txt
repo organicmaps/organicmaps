@@ -1,10 +1,7 @@
-• Nowe dane OpenStreetMap z dnia 21 stycznia
-• Poprawiono import niektórych ścieżek KML
-• Poprawione wyszukiwanie i wyznaczanie tras
-• Poprawiono obsługę wysokości dla wędrowców i rowerzystów
-• Poprawiono ikony metra w Buenos Aires
-• Dodano kręgielnie
-• Dodano Chorwację do strefy Schengen
-• Zwiększono maksymalną liczbę edytowalnych pięter budynku z 25 do 50
-• Uruchomiono język baskijski, białoruski, chorwacki, norweski, marathi, suahili w TTS.
-...więcej na: omaps.app/news
+• Nowe dane OpenStreetMap z 8 lutego, zawierające zmiany stworzone przez Humanitarian OpenStreetMap Team (HOT) po trzesięniu ziemi w Turcji i Syrii
+• Filtrowanie błędnych wyników wyszukiwania w liście i na mapie
+• Naprawiono błąd przy uruchomieniu aplikacji
+• Lepsze ikony dla głównych i dodatkowych wejść do budynku
+• Poprawiono informacje głosowe dla następnego zakrętu przy małych odległościach
+• Poprawiono perskie, polskie oraz niemieckie tłumaczenia
+…więcej: omaps.app/news

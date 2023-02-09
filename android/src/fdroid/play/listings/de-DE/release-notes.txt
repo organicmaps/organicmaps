@@ -1,10 +1,7 @@
-- Neue OpenStreetMap-Daten vom 21. Januar
-- Import einiger KML-Tracks behoben
-- Verbesserte Suche und Routing
-- Richtiges Handling von Höhenunterschieden beim Wandern und Radfahren
-- Symbole für die U-Bahn von Buenos Aires wurden korrigiert
-- Bowlingbahn zugefügt
-- Kroatien wurde zum Schengen-Raum hinzugefügt
-- Maximale Anzahl der bearbeitbaren Stockwerke wurde von 25 auf 50 erhöht
-- Baskisch, Weißrussisch, Kroatisch, Norwegisch, Marathi, Swahili in TTS aktiviert
-...mehr: omaps.app/news
+• New OpenStreetMap data as of February 8, including changes by the Humanitarian OpenStreetMap Team (HOT) after the earthquake in Turkey and Syria
+• Filtered wrong search results in the list and on the map
+• Fixed crash on opening
+• Better icons for main and secondary building entrances
+• Improved next-turn voice notifications for smaller distances
+• Fixed Persian, Polish, and German translations
+…more: omaps.app/news

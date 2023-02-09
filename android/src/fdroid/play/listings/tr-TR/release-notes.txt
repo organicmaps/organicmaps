@@ -1,10 +1,11 @@
-• Yeni OpenStreetMap verileri (21 Ocak)
-• Bazı KML dosyalarının içe aktarılmasındaki hatalar düzeltildi
-• Sistem web görünümü devre dışı bırakılmışsa veya yoksa başlangıçta oluşan çökmeler düzeltildi
-• Geliştirilmiş arama ve yönlendirme
-• Yürüyüş ve bisiklet için iyileştirilmiş yükseklik hesaplama
-• Buenos Aires ve Bilbao metro simgeleri düzeltildi
-• Bowling Salonu eklendi
-• Hırvatistan, Schengen bölgesine eklendi
-• Maks. düzenlenebilir bina katı 25'ten 50'ye çıkarıldı
-…dahası: omaps.app/news
+Kalbimiz depremden etkilenen herkesle birlikte
+
+Yaşamını yitirenlere Allah'tan rahmet, yaralılara acil şifalar dileriz. Tüm milletimizin başı sağ olsun.
+
+#GeçmişOlsunTürkiye
+
+Deprem bölgesindekilere yardımcı olabilmek adına Güneydoğu Anadolu'daki harita verileri güncellendi.
+
+Organic Maps ile şarjınızı korurken internetsiz olarak haritayı kullanabilirsiniz. Gerekli durumlarda Organic Maps ayarlarında bulunan "maksimum güç tasarrufunu" açmayı unutmayın.
+
+Daha fazla bilgi: omaps.app/tr/news

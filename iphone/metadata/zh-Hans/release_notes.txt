@@ -1,29 +1,11 @@
-• 截止到2023年1月21日的OpenStreetMap数据
-• 修复了部分KML轨迹的导入
-• 现在不活跃超过30小时后将自动搜索当前位置，而不是8小时
-• 改进了搜索分类结果
-• 澳大利亚在搜索结果中的正确拼写
-• leisure=track 现在可被搜索
-• 修复了深色主题下设置中不可见的文本提示
+• New OpenStreetMap data as of February 8, including changes by the Humanitarian OpenStreetMap Team (HOT) after the earthquake in Turkey and Syria
+• Filtered wrong search results in the list and on the map
+• Improved next-turn voice notifications for smaller distances
+• Better icons for main and secondary building entrances
+• Fixed Persian, Polish, and German translations
+• Fixed crash when opening om:// and https://omaps.app/ links
+• Show the shared POI's name in om:// and https://omaps.app/ links
 
-路径规划引擎
-• 正确处理远足和骑自行车的爬升
-• 修复了区域内路径规划
-• 修复了通过部分桥梁的路径规划
-• 支持 busway
-• 将克罗地亚加入申根区
+See more examples of our API and URL schemes at omaps.app/api
 
-样式
-• 固定布宜诺斯艾利斯和毕尔巴鄂地铁图标
-• 添加保龄球馆
-• 修复 historic=fountain 和 tourism=information-office 图标
-• 平衡泉水图标大小
-
-编辑器
-• 允许编辑带有 /\°[] 符号的名称
-• 添加 amenity=public_bookcase
-• 将最大可编辑建筑楼层从25层增加到50层
-
-翻译
-• 修复了巴西语、捷克语、法语、匈牙利语、西班牙语（墨西哥）、土耳其语
-• 修复了芬兰语和葡萄牙语的TTS翻译
+Follow our news at omaps.app/news

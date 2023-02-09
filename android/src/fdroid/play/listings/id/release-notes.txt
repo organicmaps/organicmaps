@@ -1,10 +1,7 @@
-- Data OpenStreetMap yang baru per tanggal 21 Januari
-- Memperbaiki impor beberapa trek KML
-- Pencarian dan perutean yang lebih baik
-- Menangani ketinggian dengan benar untuk hiking dan bersepeda
-- Memperbaiki ikon metro Buenos Aires
-- Menambahkan Arena Bowling
-- Menambahkan Kroasia ke area Schengen
-- Meningkatkan jumlah lantai bangunan yang dapat diedit dari 25 menjadi 50
-- Mengaktifkan bahasa Basque, Belarusia, Kroasia, Norwegia, Marathi, Swahili di TTS
-...selengkapnya: omaps.app/news
+• New OpenStreetMap data as of February 8, including changes by the Humanitarian OpenStreetMap Team (HOT) after the earthquake in Turkey and Syria
+• Filtered wrong search results in the list and on the map
+• Fixed crash on opening
+• Better icons for main and secondary building entrances
+• Improved next-turn voice notifications for smaller distances
+• Fixed Persian, Polish, and German translations
+…more: omaps.app/news

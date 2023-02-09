@@ -1,11 +1,7 @@
-• 截止到2023年1月21日的OpenStreetMap数据。
-• 修复了部分KML轨迹的导入
-• 修复了系统的WebView被禁用或不存在时启动软件崩溃的问题
-• 改进了搜索和路径规划
-• 正确处理远足和骑自行车的爬升
-• 修正布宜诺斯艾利斯和毕尔巴鄂地铁图标
-• 添加保龄球馆
-• 将克罗地亚加入申根区
-• 将最大可编辑建筑楼层从25层增加到50层
-• 在TTS中启用巴斯克语、白俄罗斯语、克罗地亚语、挪威语、马拉地语、斯瓦希里语
-……更多：omaps.app/news
+• New OpenStreetMap data as of February 8, including changes by the Humanitarian OpenStreetMap Team (HOT) after the earthquake in Turkey and Syria
+• Filtered wrong search results in the list and on the map
+• Fixed crash on opening
+• Better icons for main and secondary building entrances
+• Improved next-turn voice notifications for smaller distances
+• Fixed Persian, Polish, and German translations
+…more: omaps.app/news

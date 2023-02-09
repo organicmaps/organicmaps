@@ -1,10 +1,7 @@
-• Yeni OpenStreetMap verileri (21 Ocak)
-• Bazı KML dosyalarının içe aktarılmasındaki hatalar düzeltildi
-• Sistem web görünümü devre dışı bırakılmışsa veya yoksa başlangıçta oluşan çökmeler düzeltildi
-• Geliştirilmiş arama ve yönlendirme
-• Yürüyüş ve bisiklet için iyileştirilmiş yükseklik hesaplama
-• Buenos Aires ve Bilbao metro simgeleri düzeltildi
-• Bowling Salonu eklendi
-• Hırvatistan, Schengen bölgesine eklendi
-• Maks. düzenlenebilir bina katı 25'ten 50'ye çıkarıldı
-…dahası: omaps.app/news
+• New OpenStreetMap data as of February 8, including changes by the Humanitarian OpenStreetMap Team (HOT) after the earthquake in Turkey and Syria
+• Filtered wrong search results in the list and on the map
+• Fixed crash on opening
+• Better icons for main and secondary building entrances
+• Improved next-turn voice notifications for smaller distances
+• Fixed Persian, Polish, and German translations
+…more: omaps.app/news
