@@ -1,10 +1,7 @@
-• Novos dados OSM de 21/01
-• Correção da importação de algumas trilhas KML
-• Melhoria na busca e roteamento
-• Melhoria no uso da elevação para caminhadas e ciclismo
-• Correção dos ícones de metrô de Buenos Aires
-• Adição de pistas de boliche
-• Adição da Croácia ao espaço Schengen
-• Aumento do número máximo de andares editáveis de 25 para 50
-• Adição de TTS para be,eu,hr,mr,no,sw
+• Novos dados OSM de 8/2, incluindo alterações feitas pela Humanitarian OpenStreetMap Team (HOT) após o terremoto na Turquia e na Síria
+• Resultados de busca errados são filtrados na lista e mapa
+• Correção de erro na abertura
+• Melhoria nos ícones para entradas principais e secundárias
+• Melhoria nas notificações de voz da próxima curva para distâncias curtas
+• Traduções atualizadas para alemão, persa e polonês
 …mais: omaps.app/news

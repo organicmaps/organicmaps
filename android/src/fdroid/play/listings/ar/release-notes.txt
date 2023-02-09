@@ -1,10 +1,7 @@
-• New OpenStreetMap data as of January 21
-• Fixed import of some KML tracks
-• Improved search and routing
-• Properly handle elevation for hiking and cycling
-• Fixed Buenos Aires metro icons
-• Added Bowling Alley
-• Added Croatia to Schengen area
-• Increased max editable building floors from 25 to 50
-• Enabled Basque, Belarussian, Croatian, Norwegian, Marathi, Swahili in TTS
+• New OpenStreetMap data as of February 8, including changes by the Humanitarian OpenStreetMap Team (HOT) after the earthquake in Turkey and Syria
+• Filtered wrong search results in the list and on the map
+• Fixed crash on opening
+• Better icons for main and secondary building entrances
+• Improved next-turn voice notifications for smaller distances
+• Fixed Persian, Polish, and German translations
 …more: omaps.app/news

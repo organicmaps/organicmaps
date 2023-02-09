@@ -1,10 +1,7 @@
-- Nuevos datos de OpenStreetMap del 21 de enero
-- Importación fija de algunas pistas KML
-- Búsqueda y enrutamiento mejorados
-- Manejo correcto de las diferencias de altura al caminar y andar en bicicleta.
-- Iconos fijos para el metro de Buenos Aires
-- Bolera añadida
-- Croacia fue añadida al espacio Schengen
-- El máximo de pisos editables aumentó de 25 a 50
-- Vasco, bielorruso, croata, noruego, marathi, swahili habilitados en TTS
-...más: omaps.app/noticias
+• New OpenStreetMap data as of February 8, including changes by the Humanitarian OpenStreetMap Team (HOT) after the earthquake in Turkey and Syria
+• Filtered wrong search results in the list and on the map
+• Fixed crash on opening
+• Better icons for main and secondary building entrances
+• Improved next-turn voice notifications for smaller distances
+• Fixed Persian, Polish, and German translations
+…more: omaps.app/news

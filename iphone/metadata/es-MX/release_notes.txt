@@ -1,29 +1,11 @@
-• Datos de OpenStreetMap al 21 de enero de 2023
-• Corregida la importación de determinadas vías KML
-• Búsqueda automática de la posición actual tras 30 horas de inactividad, no 8 horas
-• Mejores resultados de categorías en las búsquedas
-• Australia aparece bien escrito en los resultados de la búsqueda
-• Ahora es posible buscar leisure=track
-• Arregladas las descripciones invisibles en Configuración al usar el tema oscuro
+• New OpenStreetMap data as of February 8, including changes by the Humanitarian OpenStreetMap Team (HOT) after the earthquake in Turkey and Syria
+• Filtered wrong search results in the list and on the map
+• Improved next-turn voice notifications for smaller distances
+• Better icons for main and secondary building entrances
+• Fixed Persian, Polish, and German translations
+• Fixed crash when opening om:// and https://omaps.app/ links
+• Show the shared POI's name in om:// and https://omaps.app/ links
 
-Elección de rutas
-• Maneja de forma adecuada la elevación para excursionistas y ciclistas
-• Arregla el enrutamiento interregional
-• Arregla el enrutamiento que atraviesa ciertos puentes
-• Admite los carriles exclusivos para autobuses
-• Añade Croacia al espacio Schengen
+See more examples of our API and URL schemes at omaps.app/api
 
-Estilos
-• Arregla los iconos del metro/subte de Buenos Aires y Bilbao
-• Añade boleras
-• Corrige los iconos de historic=fountain y tourism=information-office
-• Iguala el tamaño de los iconos de los manantiales
-
-Editor
-• Permite editar nombres con símbolos /\°[]
-• Añade amenity=public_bookcase
-• Aumenta los pisos de edificio editables máximos de 25 a 50
-
-Traducciones
-• Arreglos en portugués brasileño, checo, francés, húngaro, español mexicano y turco
-• Corrige traducciones de TTS en finés y portugués
+Follow our news at omaps.app/news

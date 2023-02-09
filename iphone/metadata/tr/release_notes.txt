@@ -1,27 +1,11 @@
-• 21 Ocak 2023 tarihine ait yeni OpenStreetMap harita verileri
-• Bazı KML dosyalarının içe aktarılmasında oluşan hatalar düzeltildi
-• Geçerli konum artık 8 saat yerine 30 saatlik hareketsizlikten sonra otomatik olarak aranıyor
-• Geliştirilmiş arama kategorileri sonuçları
-• leisure=track etiketi artık aranabilir
-• Koyu tema etkinleştirildiğinde ayarlardaki görünmeyen ipucu metinleri düzeltildi
+Kalbimiz depremden etkilenen herkesle birlikte
 
-Rota
-• Yürüyüş ve bisiklet için yükseklik uygun şekilde hesaplanıyor
-• Bölgeler arası rotalarda düzeltmeler
-• Bazı köprüler üzerinden geçen rotalarda düzeltmeler
-• Artık otobüs yolları destekleniyor
-• Hırvatistan, Schengen bölgesine eklendi
+Yaşamını yitirenlere Allah'tan rahmet, yaralılara acil şifalar dileriz. Tüm milletimizin başı sağ olsun.
 
-Stiller
-• Buenos Aires ve Bilbao metro simgeleri düzeltildi
-• Bowling Salonu eklendi
-• historic=fountain ve tourism=information-office simgeleri düzeltildi
-• Pınarlar için eşit simge boyutları
+#GeçmişOlsunTürkiye
 
-Editör
-• Artık mekan isimlerine /\°[] sembollerini ekleyebilirsiniz
-• amenity=public_bookcase eklendi
-• Maksimum düzenlenebilir bina kat sayısı 25'ten 50'ye çıkarıldı
+Deprem bölgesindekilere yardımcı olabilmek adına Güneydoğu Anadolu'daki harita verileri güncellendi.
 
-Çeviriler
-• Çeviriler düzeltildi
+Organic Maps ile şarjınızı korurken internetsiz olarak haritayı kullanabilirsiniz. Gerekli durumlarda Organic Maps ayarlarında bulunan "maksimum güç tasarrufunu" açmayı unutmayın.
+
+Daha fazla bilgi: omaps.app/tr/news

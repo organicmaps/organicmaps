@@ -1,29 +1,11 @@
-• Novos dados OSM de 21 de janeiro de 2023
-• Correção da importação de algumas trilhas KML
-• Busca automática da posição atual em 30 horas de inatividade em vez de 8 horas
-• Melhoria nos resultados de categorias de busca
-• Correção do nome “Austrália” nos resultados de busca
-• leisure=track agora pode ser pesquisado
-• Correção de textos invisíveis das Configurações no tema escuro
+• Novos dados OSM de 8 de fevereiro, incluindo alterações feitas pela Humanitarian OpenStreetMap Team (HOT) após o terremoto na Turquia e na Síria
+• Resultados de busca errados são filtrados na lista e no mapa
+• Melhoria nas notificações de voz da próxima curva para distâncias curtas
+• Melhoria nos ícones para entradas principais e secundárias de edifícios
+• Traduções atualizadas para alemão, persa e polonês
+• Correção de falha ao abrir os links om:// e https://omaps.app/
+• Mostrar o nome do POI compartilhado nos links om:// e https://omaps.app/
 
-Roteamento
-• Melhoria no uso da elevação para caminhadas e ciclismo
-• Correção de rotas inter-regionais
-• Correção de roteamento através de algumas pontes
-• BRTs são suportados
-• Adição da Croácia ao espaço Schengen
+Veja mais exemplos sobre nossos esquemas de API e URL em omaps.app/api
 
-Estilos de mapa:
-• Correção dos ícones de metrô de Buenos Aires e Bilbau
-• Adição de pistas de boliche
-• Correção de ícones para fontes históricas e postos de informações de turismo
-• Tamanhos de ícones iguais para fontes
-
-Editor
-• Permite adicionar nomes com símbolos /\°[]
-• Adição de amenity=public_bookcase
-• Aumento do número máximo de andares editáveis de 25 para 50
-
-Traduções
-• Traduções atualizadas para espanhol (mexicano), francês, húngaro, português (brasileiro), tcheco e turco
-• Correção de conversão de texto em fala (TTS) para finlandês e português
+Acompanhe nossas novidades em omaps.app/news

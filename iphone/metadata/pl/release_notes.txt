@@ -1,29 +1,11 @@
-• Nowe dane OpenStreetMap na dzień 21 stycznia 2023 r.
-• Naprawiono import niektórych ścieżek KML
-• Automatyczne wyszukiwanie aktualnego położenia po 30 godzinach bezczynności, zamiast po 8 godzinach
-• Ulepszone wyniki wyszukiwania kategorii
-• Australia jest poprawnie wpisana w wynikach wyszukiwania
-• Można już wyszukiwać leisure=track
-• Naprawiono niewidoczne wskazówki tekstowe w Ustawieniach przy włączonym ciemnym motywie
+• Nowe dane OpenStreetMap z 8 lutego, zawierające zmiany stworzone przez Humanitarian OpenStreetMap Team (HOT) po trzesięniu ziemi w Turcji i Syrii
+• Filtrowanie błędnych wyników wyszukiwania w liście i na mapie
+• Poprawiono informacje głosowe dla następnego zakrętu przy małych odległościach
+• Lepsze ikony dla głównych i dodatkowych wejść do budynku
+• Poprawiono perskie, polskie oraz niemieckie tłumaczenia
+• Poprawiono błąd przy otwieraniu linków om:// oraz https://omaps.app/
+• Pokazywanie nazwy POI w linkach om:// oraz https://omaps.app/
 
-Wyznaczanie tras
-• Prawidłowo obsługiwana wysokość podczas uprawiania turystyki pieszej i rowerowej
-• Naprawiono wyznaczanie tras między regionami
-• Naprawiono wyznaczanie trasy przez niektóre mosty
-• Obsługiwane są linie autobusowe
-• Dodano Chorwację do strefy Schengen
+Zobacz więcej przykładów użycia API oraz schematów URL na omaps.app/api
 
-Style
-• Naprawiono ikony metra w Buenos Aires i Bilbao
-• Dodano tory kręgielni
-• Naprawiono ikony historic=fontanna i tourism=biuro informacji
-• Równe rozmiary ikon dla źródeł
-
-Edytor
-• Dozwolona edycja nazw z symbolami /\°[]
-• Dodano amenity=public_bookcase
-• Zwiększono maksymalną liczbę edytowalnych pięter budynków z 25 do 50
-
-Tłumaczenia
-• Naprawiono języki portugalski-brazylijski, czeski, francuski, węgierski, hiszpański (meksykański), turecki
-• Naprawiono tłumaczenia TTS dla języków fińskiego i portugalskiego
+Więcej informacji na omaps.app/news

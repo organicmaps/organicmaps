@@ -1,10 +1,7 @@
-• Nouvelles données OpenStreetMap au 21 janvier 2023
-• Correction de l'import de certains tracés KML
-• Amélioration de la recherche et des itinéraires
-• Gestion appropriée du dénivelé pour la randonnée et le vélo
-• Correction des icônes pour Buenos Aires
-• Ajout de Bowling Alley
-• Ajout de la Croatie à l'espace Schengen
-• Augmentation du nombre d'étages modifiables sur un bâtiment de 25 à 50
-• Activation du Basque, Biélorusse, Croate, Norvégien, Marathi, Souahili dans TTS.
-…Plus: omaps.app/news
+• New OpenStreetMap data as of February 8, including changes by the Humanitarian OpenStreetMap Team (HOT) after the earthquake in Turkey and Syria
+• Filtered wrong search results in the list and on the map
+• Fixed crash on opening
+• Better icons for main and secondary building entrances
+• Improved next-turn voice notifications for smaller distances
+• Fixed Persian, Polish, and German translations
+…more: omaps.app/news

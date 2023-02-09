@@ -1,29 +1,11 @@
-• Nová OpenStreetMap data z 21. ledna 2023
-• Opraven import některých KML tras
-• Automatické hledání aktuální pozice po 30 hodinách neaktivity místo 8 hodin
-• Vylepšeny výsledky vyhledávání kategorií
-• Austrálie je napsaná správně ve výsledcích vyhledávání
-• leisure=track je nyní vyhledatelné
-• Opraveny neviditelné nápovědy v Nastavení v tmavém režimu
+• New OpenStreetMap data as of February 8, including changes by the Humanitarian OpenStreetMap Team (HOT) after the earthquake in Turkey and Syria
+• Filtered wrong search results in the list and on the map
+• Improved next-turn voice notifications for smaller distances
+• Better icons for main and secondary building entrances
+• Fixed Persian, Polish, and German translations
+• Fixed crash when opening om:// and https://omaps.app/ links
+• Show the shared POI's name in om:// and https://omaps.app/ links
 
-Směrování
-• Správně zpracovat převýšení pro pěší turistiku a cykloturistiku
-• Opraveno mezi-regionální směrování
-• Opraveno směrování skrz některé mosty
-• Autobusové trasy jsou podporovány
-• Přidáno Chorvatsko do schengenského prostoru
+See more examples of our API and URL schemes at omaps.app/api
 
-Styly
-• Opraveny Buenos Aires & Bilbao ikonky metra
-• Přidána Bowlingová dráha
-• Opraveny historic=fountain a tourism=information-office ikonky
-• Stejná velikost ikonek pro prameny
-
-Editor
-• Povoleno upravování jmen s /\°[] symboly
-• Přidána amenity=public_bookcase
-• Zvýšen maximální upravitelný počet poschodí z 25 na 50
-
-Překlady
-• Upravena brazilština, čeština, francouzština, maďarština, španělština (mexická), turečtina
-• Opraveny TTS překlady pro finštinu a portugalštinu
+Follow our news at omaps.app/news
