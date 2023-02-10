@@ -204,6 +204,14 @@ void DrapeEngine::Rotate(double azimuth, bool isAnim)
   AddUserEvent(make_unique_dp<RotateEvent>(azimuth, isAnim, nullptr /* parallelAnimCreator */));
 }
 
+void DrapeEngine::ScaleAndSetCenter(m2::PointD const & centerPt, double scaleFactor, bool isAnim,
+                                    bool trackVisibleViewport)
+{
+  PostUserEvent(make_unique_dp<SetCenterEvent>(scaleFactor, centerPt, isAnim,
+                                               trackVisibleViewport,
+                                               nullptr /* parallelAnimCreator */));
+}
+
 void DrapeEngine::SetModelViewCenter(m2::PointD const & centerPt, int zoom, bool isAnim,
                                      bool trackVisibleViewport)
 {
