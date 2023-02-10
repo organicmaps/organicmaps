@@ -8,7 +8,6 @@
   android:animateLayoutChanges="true"
   android:gravity="center_vertical"
   android:orientation="horizontal">
-
   <com.google.android.material.textfield.TextInputLayout
     android:id="@+id/input_layout"
     style="?fontBody1"
