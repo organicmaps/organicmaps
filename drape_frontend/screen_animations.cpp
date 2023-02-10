@@ -92,7 +92,7 @@ drape_ptr<SequenceAnimation> GetPrettyFollowAnimation(ScreenBase const & startSc
 
     auto moveAnim = make_unique_dp<MapLinearAnimation>();
     moveAnim->SetMove(startScreen.GetOrg(), tmp.GetOrg(), viewportRect, tmp.GetScale());
-    moveAnim->SetMaxDuration(kMaxAnimationTimeSec * 0.5);
+    moveAnim->SetMaxDuration(kMaxAnimationTimeSec);
     sequenceAnim->AddAnimation(move(moveAnim));
   }
 
@@ -138,7 +138,7 @@ drape_ptr<MapFollowAnimation> GetFollowAnimation(ScreenBase const & startScreen,
                                                  bool isAutoZoom)
 {
   auto anim = make_unique_dp<MapFollowAnimation>(startScreen, userPos, endPixelPos, targetScale, targetAngle, isAutoZoom);
-  anim->SetMaxDuration(kMaxAnimationTimeSec * 0.5);
+  anim->SetMaxDuration(kMaxAnimationTimeSec);
 
   return anim;
 }

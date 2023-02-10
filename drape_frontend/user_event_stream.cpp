@@ -44,47 +44,6 @@ size_t GetValidTouchesCount(std::array<Touch, 2> const & touches)
 
   return result;
 }
-
-drape_ptr<Animation> createMapFollowAnimation(
-  ScreenBase const &currentScreen, ScreenBase const & endScreen, m2::PointD const & userPos,
-  m2::PointD const & pixelPos, int preferredZoomLevel, double targetAngle,
-  bool isAutoScale, Animation::TAction const & onFinishAction = nullptr, TAnimationCreator const & parallelAnimCreator = nullptr)
-{
-  drape_ptr<Animation> anim;
-  double const moveDuration = PositionInterpolator::GetMoveDuration(currentScreen.GetOrg(), endScreen.GetOrg(),
-                                                                    currentScreen.PixelRectIn3d(),
-                                                                    (currentScreen.GetScale() + endScreen.GetScale()) / 2.0);
-  if (moveDuration > kMaxAnimationTimeSec)
-  {
-    // Run pretty move animation if we are far from userPos.
-    anim = GetPrettyFollowAnimation(currentScreen, userPos, endScreen.GetScale(), targetAngle, pixelPos);
-  }
-  else
-  {
-    // Run follow-and-rotate animation.
-    anim = GetFollowAnimation(currentScreen, userPos, endScreen.GetScale(), targetAngle, pixelPos, isAutoScale);
-  }
-
-  if (preferredZoomLevel != kDoNotChangeZoom)
-  {
-    anim->SetCouldBeInterrupted(false);
-    anim->SetCouldBeBlended(false);
-  }
-
-  anim->SetOnFinishAction(onFinishAction);
-
-  if (parallelAnimCreator != nullptr)
-  {
-    drape_ptr<ParallelAnimation> parallelAnim = make_unique_dp<ParallelAnimation>();
-    parallelAnim->SetCustomType(kParallelFollowAnim);
-    parallelAnim->AddAnimation(parallelAnimCreator(anim->GetType() == Animation::Type::MapFollow ? make_ref(anim)
-                                                                                                 : nullptr));
-    parallelAnim->AddAnimation(std::move(anim));
-    return parallelAnim;
-  }
-
-  return anim;
-}
 }  // namespace
 
 #ifdef DEBUG
@@ -436,6 +395,7 @@ bool UserEventStream::OnSetCenter(ref_ptr<SetCenterEvent> centerEvent)
 {
   m2::PointD const & center = centerEvent->GetCenter();
   auto const zoom = centerEvent->GetZoom();
+  auto const scaleFactor = centerEvent->GetScaleFactor();
 
   if (centerEvent->TrackVisibleViewport())
   {
@@ -449,15 +409,11 @@ bool UserEventStream::OnSetCenter(ref_ptr<SetCenterEvent> centerEvent)
   {
     screen.SetFromParams(center, screen.GetAngle(), GetScreenScale(zoom));
     screen.MatchGandP3d(center, m_visibleViewport.Center());
-    if (centerEvent->IsAnim())
-    {
-      ShrinkAndScaleInto(screen, df::GetWorldRect());
-      drape_ptr<Animation> anim = createMapFollowAnimation(
-          GetCurrentScreen(), screen, center, m_visibleViewport.Center(),
-          zoom, screen.GetAngle(), false);
-      m_animationSystem.CombineAnimation(std::move(anim));
-      return false;
-    }
+  }
+  else if (scaleFactor > 0.0)
+  {
+    screen.SetOrg(center);
+    ApplyScale(m_visibleViewport.Center(), scaleFactor, screen);
   }
   else
   {
@@ -644,10 +600,42 @@ bool UserEventStream::SetFollowAndRotate(m2::PointD const & userPos, m2::PointD 
 
   if (isAnim)
   {
-    drape_ptr<Animation> anim = createMapFollowAnimation(
-        currentScreen, screen, userPos, pixelPos, preferredZoomLevel,
-        -azimuth, isAutoScale, onFinishAction, parallelAnimCreator);
-    m_animationSystem.CombineAnimation(std::move(anim));
+    drape_ptr<Animation> anim;
+    double const moveDuration = PositionInterpolator::GetMoveDuration(currentScreen.GetOrg(), screen.GetOrg(),
+                                                                      currentScreen.PixelRectIn3d(),
+                                                                      (currentScreen.GetScale() + screen.GetScale()) / 2.0);
+    if (moveDuration > kMaxAnimationTimeSec)
+    {
+      // Run pretty move animation if we are far from userPos.
+      anim = GetPrettyFollowAnimation(currentScreen, userPos, screen.GetScale(), -azimuth, pixelPos);
+    }
+    else
+    {
+      // Run follow-and-rotate animation.
+      anim = GetFollowAnimation(currentScreen, userPos, screen.GetScale(), -azimuth, pixelPos, isAutoScale);
+    }
+
+    if (preferredZoomLevel != kDoNotChangeZoom)
+    {
+      anim->SetCouldBeInterrupted(false);
+      anim->SetCouldBeBlended(false);
+    }
+
+    anim->SetOnFinishAction(onFinishAction);
+
+    if (parallelAnimCreator != nullptr)
+    {
+      drape_ptr<ParallelAnimation> parallelAnim = make_unique_dp<ParallelAnimation>();
+      parallelAnim->SetCustomType(kParallelFollowAnim);
+      parallelAnim->AddAnimation(parallelAnimCreator(anim->GetType() == Animation::Type::MapFollow ? make_ref(anim)
+                                                                                                   : nullptr));
+      parallelAnim->AddAnimation(move(anim));
+      m_animationSystem.CombineAnimation(move(parallelAnim));
+    }
+    else
+    {
+      m_animationSystem.CombineAnimation(move(anim));
+    }
     return false;
   }
 
