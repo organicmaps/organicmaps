@@ -35,9 +35,6 @@ namespace
   }
 } // namespace
 
-BaseRule::BaseRule() : m_type(node | way)
-{}
-
 void BaseRule::CheckCacheSize(size_t s)
 {
   m_id1.resize(s);
@@ -241,10 +238,7 @@ namespace
     {
       SymbolRuleProto m_symbol;
     public:
-      explicit Symbol(SymbolRuleProto const & r) : m_symbol(r)
-      {
-        SetType(r.apply_for_type());
-      }
+      explicit Symbol(SymbolRuleProto const & r) : m_symbol(r) {}
 
       virtual SymbolRuleProto const * GetSymbol() const { return &m_symbol; }
     };

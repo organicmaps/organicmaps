@@ -464,9 +464,8 @@ void ApplyPointFeature::ProcessPointRule(Stylist::TRuleWrapper const & rule)
     m_symbolRule = symRule;
   }
 
-  bool const isNode = (rule.m_rule->GetType() & drule::node) != 0;
   CaptionDefProto const * capRule = rule.m_rule->GetCaption(0);
-  if (capRule && isNode)
+  if (capRule)
   {
     TextViewParams params;
     params.m_tileCenter = m_tileRect.Center();
@@ -923,10 +922,6 @@ void ApplyLineFeatureAdditional::ProcessLineRule(Stylist::TRuleWrapper const & r
   ShieldRuleProto const * pShieldRule = rule.m_rule->GetShield();
   if (pShieldRule != nullptr)
     m_shieldRule = pShieldRule;
-
-  bool const isWay = (rule.m_rule->GetType() & drule::way) != 0;
-  if (!isWay)
-    return;
 
   CaptionDefProto const * pCaptionRule = rule.m_rule->GetCaption(0);
   if (pCaptionRule != nullptr && pCaptionRule->height() > 2 && !m_captions.GetMainText().empty())
