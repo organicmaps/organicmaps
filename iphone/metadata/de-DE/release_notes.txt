@@ -1,11 +1,11 @@
-• New OpenStreetMap data as of February 8, including changes by the Humanitarian OpenStreetMap Team (HOT) after the earthquake in Turkey and Syria
-• Filtered wrong search results in the list and on the map
-• Improved next-turn voice notifications for smaller distances
-• Better icons for main and secondary building entrances
-• Fixed Persian, Polish, and German translations
-• Fixed crash when opening om:// and https://omaps.app/ links
-• Show the shared POI's name in om:// and https://omaps.app/ links
+- Neue OpenStreetMap-Daten vom 8. Februar, einschließlich Änderungen durch das Humanitarian OpenStreetMap Team (HOT) nach dem Erdbeben in der Türkei und Syrien
+- Falsche Suchergebnisse in der Liste und auf der Karte gefiltert
+- Verbesserte Sprachbenachrichtigungen für kleinere Entfernungen bei der nächsten Abbiegung
+- Bessere Icons für Haupt- und Nebeneingänge von Gebäuden
+- Persische, polnische und deutsche Übersetzungen korrigiert
+- Absturz beim Öffnen von om:// und https://omaps.app/-Links behoben
+- Anzeige des Namens des freigegebenen POI in om:// und https://omaps.app/-Links
 
-See more examples of our API and URL schemes at omaps.app/api
+Weitere Beispiele für unsere API- und URL-Schemata findest du unter omaps.app/api
 
-Follow our news at omaps.app/news
+Verfolge unsere Neuigkeiten unter omaps.app/news
