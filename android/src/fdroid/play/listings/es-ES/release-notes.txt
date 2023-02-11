@@ -2,6 +2,6 @@
 • Corregido los fallos al buscar en la lista y en el mapa
 • Corregido el fallo al abrir
 • Mejoras en los iconos de las salidas principales y secundarias de los edificios
-- Mejora de las notificaciones por voz de próximo giro para distancias cortas
-- Corregidas las traducciones al Persa, Polaco y Alemán
+• Mejora de las notificaciones por voz de próximo giro para distancias cortas
+• Corregidas las traducciones al Persa, Polaco y Alemán
 ...más: omaps.app/news
