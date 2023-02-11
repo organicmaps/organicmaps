@@ -1,7 +1,7 @@
-• Új február 8-i OpenStreetMap adatok, a Humanitárius OpenStreetMap Csapat (HOT) változtatásaival, a törökországi és szíriai földrengések következtében
+• Új február 8-i OpenStreetMap adatok, a Humanitárius OpenStreetMap Csapat változtatásaival, a törökországi és szíriai földrengések következtében
 • Kiszűrtük a hibás keresési találatokat a listában és a térképen
 • A megnyitáskor történő összeomlást kijavítottuk
 • A főbejáratok mostantól megkülönböztethetőek az alsóbbrendű bejáratoktól a csodás új ikonokkal
 • Továbbfejlesztettük a hangnavigációt kisebb távolságok esetén
 • Javítottunk a perzsa, lengyel és német fordításokon
-…további hírek: omaps.app/news
+https://omaps.app/news
