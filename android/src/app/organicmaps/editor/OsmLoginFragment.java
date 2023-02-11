@@ -45,7 +45,7 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
     getToolbarController().setTitle(R.string.login);
     mLoginInput = view.findViewById(R.id.osm_username);
     mPasswordInput = view.findViewById(R.id.osm_password);
-    mLoginButton = view.findViewById(R.id.login);
+    mLoginButton = view.findViewById(R.id.login_osm);
     mLoginButton.setOnClickListener((v) -> login());
     mLostPasswordButton = view.findViewById(R.id.lost_password);
     mLostPasswordButton.setOnClickListener((v) -> recoverPassword());
@@ -90,7 +90,7 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
 
     enableInput(true);
     UiUtils.hide(mProgress);
-    mLoginButton.setText(R.string.login);
+    mLoginButton.setText(R.string.login_osm);
     if (auth == null)
       onAuthFail();
     else
