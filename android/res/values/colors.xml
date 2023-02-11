@@ -8,7 +8,7 @@
   <color name="text_light_subtitle">@color/white_secondary</color>
   <color name="text_light_hint">@color/white_lightest</color>
 
-  <color name="base_accent">#FF249CF2</color>
+  <color name="base_accent">#FF006C35</color>
   <color name="base_accent_night">#FF4BB9E6</color>
   <color name="base_accent_pressed">#FF1C85D6</color>
   <color name="base_accent_pressed_night">#FF3C9BBE</color>
