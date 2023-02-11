@@ -551,7 +551,6 @@
         <data android:scheme="https"/>
 
         <!-- #map=$zoom/$lat/$lon -->
-        <data android:host="openstreetmap.org"/>
         <data android:host="www.openstreetmap.org"/>
         <data android:path="/"/>
         <data android:path="/search"/>
