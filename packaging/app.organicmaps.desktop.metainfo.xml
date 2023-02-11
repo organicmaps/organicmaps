@@ -28,6 +28,9 @@
     </p>
     <p>## Features</p>
     <p>
+      The Linux version of Organic Maps has not reached feature parity
+      with the Android and iPhone versions yet, and has not been optimized
+      for mobile devices yet.
       Organic Maps is the ultimate companion app for travelers, tourists,
       hikers, and cyclists:
       <ul>
@@ -105,7 +108,7 @@
       <image>https://organicmaps.app/images/screenshots/Desktop_light_overview.png</image>
     </screenshot>
     <screenshot>
-      <image>https://organicmaps.app/images/screenshots/Desktop_light_routing.png</image>
+      <image>https://organicmaps.app/images/screenshots/Desktop_dark_overview.png</image>
     </screenshot>
   </screenshots>
 
@@ -232,7 +235,7 @@
            <li>Show all found results on the map screen</li>
            <li>Improved villages search</li>
            <li>Show only matched categories if they were selected from the list, not names</li>
-	   <li>Fixed street synonyms for nordic languages</li>
+           <li>Fixed street synonyms for nordic languages</li>
          </ul>
        <p>Styles:</p>
          <ul>
