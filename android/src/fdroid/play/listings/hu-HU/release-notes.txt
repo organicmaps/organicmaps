@@ -1,7 +1,7 @@
-• New OpenStreetMap data as of February 8, including changes by the Humanitarian OpenStreetMap Team (HOT) after the earthquake in Turkey and Syria
-• Filtered wrong search results in the list and on the map
-• Fixed crash on opening
-• Better icons for main and secondary building entrances
-• Improved next-turn voice notifications for smaller distances
-• Fixed Persian, Polish, and German translations
-…more: omaps.app/news
+• Új február 8-i OpenStreetMap adatok, a Humanitárius OpenStreetMap Csapat (HOT) változtatásaival, a törökországi és szíriai földrengések következtében
+• Kiszűrtük a hibás keresési találatokat a listában és a térképen
+• A megnyitáskor történő összeomlást kijavítottuk
+• A főbejáratok mostantól megkülönböztethetőek az alsóbbrendű bejáratoktól a csodás új ikonokkal
+• Továbbfejlesztettük a hangnavigációt kisebb távolságok esetén
+• Javítottunk a perzsa, lengyel és német fordításokon
+…további hírek: omaps.app/news
