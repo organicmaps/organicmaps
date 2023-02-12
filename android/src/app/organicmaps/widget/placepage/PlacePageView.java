@@ -43,7 +43,6 @@ import app.organicmaps.editor.data.Timetable;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.location.LocationListener;
 import app.organicmaps.routing.RoutingController;
-import app.organicmaps.search.Popularity;
 import app.organicmaps.settings.RoadType;
 import app.organicmaps.util.SharingUtils;
 import app.organicmaps.util.StringUtils;
@@ -65,8 +64,6 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
                                                        Observer<MapObject>
 
 {
-  private static final String TAG = PlacePageView.class.getSimpleName();
-
   private static final String PREF_COORDINATES_FORMAT = "coordinates_format";
   private static final String BOOKMARK_FRAGMENT_TAG = "BOOKMARK_FRAGMENT_TAG";
   private static final String WIKIPEDIA_FRAGMENT_TAG = "WIKIPEDIA_FRAGMENT_TAG";
@@ -90,7 +87,6 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   private TextView mTvDistance;
   private TextView mTvAddress;
   // Details.
-  private ViewGroup mDetails;
   private TextView mTvLatlon;
   private View mWifi;
   private TextView mTvWiFi;
@@ -107,9 +103,6 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   private View mAddPlace;
   private View mEditTopSpace;
 
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private View mPopularityView;
   // Data
   private CoordinatesFormat mCoordsFormat = CoordinatesFormat.LatLonDecimal;
   // Downloader`s stuff
@@ -214,7 +207,6 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     mTvAddress.setOnLongClickListener(this);
     mTvAddress.setOnClickListener(this);
 
-    mDetails = mFrame.findViewById(R.id.pp__details_frame);
     RelativeLayout address = mFrame.findViewById(R.id.ll__place_name);
 
     LinearLayout latlon = mFrame.findViewById(R.id.ll__place_latlon);
@@ -495,9 +487,6 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   {
     UiUtils.setTextAndHideIfEmpty(mTvTitle, mMapObject.getTitle());
     UiUtils.setTextAndHideIfEmpty(mTvSecondaryTitle, mMapObject.getSecondaryTitle());
-    boolean isPopular = mMapObject.getPopularity().getType() == Popularity.Type.POPULAR;
-    if (mPopularityView != null)
-      UiUtils.showIf(isPopular, mPopularityView);
     if (mToolbar != null)
       mToolbar.setTitle(mMapObject.getTitle());
     setTextAndColorizeSubtitle();
@@ -644,7 +633,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   {
     final FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
     final DirectionFragment fragment = (DirectionFragment) fragmentManager.getFragmentFactory()
-                                                                          .instantiate(getContext().getClassLoader(), DirectionFragment.class.getName());
+                                                                          .instantiate(requireContext().getClassLoader(), DirectionFragment.class.getName());
     fragment.setMapObject(mMapObject);
     fragment.show(fragmentManager, null);
   }
