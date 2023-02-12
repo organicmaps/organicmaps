@@ -118,14 +118,6 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   private int mStorageCallbackSlot;
   @Nullable
   private CountryItem mCurrentCountry;
-  private final Runnable mDownloaderDeferredDetachProc = new Runnable()
-  {
-    @Override
-    public void run()
-    {
-      detachCountry();
-    }
-  };
   private final MapManager.StorageCallback mStorageCallback = new MapManager.StorageCallback()
   {
     @Override
@@ -149,25 +141,6 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
         updateDownloader();
     }
   };
-  @NonNull
-  private final View.OnClickListener mDownloadClickListener = new View.OnClickListener()
-  {
-    @Override
-    public void onClick(View v)
-    {
-      MapManager.warn3gAndDownload(requireActivity(), mCurrentCountry.id, null);
-    }
-  };
-  @NonNull
-  private final View.OnClickListener mCancelDownloadListener = new View.OnClickListener()
-  {
-    @Override
-    public void onClick(View v)
-    {
-      MapManager.nativeCancel(mCurrentCountry.id);
-    }
-  };
-
   private PlacePageViewListener mPlacePageViewListener;
 
   private PlacePageViewModel viewModel;
@@ -292,6 +265,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   public void onDestroy()
   {
     super.onDestroy();
+    detachCountry();
     viewModel.getMapObject().removeObserver(this);
     LocationHelper.INSTANCE.removeListener(this);
   }
@@ -712,7 +686,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     if (isInvalidDownloaderStatus(country.status))
     {
       if (mStorageCallbackSlot != 0)
-        UiThread.runLater(mDownloaderDeferredDetachProc);
+        UiThread.runLater(this::detachCountry);
       return;
     }
 
@@ -745,8 +719,8 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     if (mStorageCallbackSlot == 0)
       mStorageCallbackSlot = MapManager.nativeSubscribe(mStorageCallback);
 
-    mDownloaderIcon.setOnIconClickListener(mDownloadClickListener)
-                   .setOnCancelClickListener(mCancelDownloadListener);
+    mDownloaderIcon.setOnIconClickListener((v) -> MapManager.warn3gAndDownload(requireActivity(), mCurrentCountry.id, null))
+                   .setOnCancelClickListener((v) -> MapManager.nativeCancel(mCurrentCountry.id));
     mDownloaderIcon.show(true);
     UiUtils.show(mDownloaderInfo);
     updateDownloader(mCurrentCountry);
@@ -754,7 +728,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
 
   private void detachCountry()
   {
-    if (mStorageCallbackSlot == 0)
+    if (mStorageCallbackSlot == 0 || mCurrentCountry == null)
       return;
 
     MapManager.nativeUnsubscribe(mStorageCallbackSlot);
@@ -769,10 +743,14 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   @Override
   public void onChanged(MapObject mapObject)
   {
+    if (!mapObject.sameAs(mMapObject))
+    {
+      detachCountry();
+      setCurrentCountry();
+    }
+
     mMapObject = mapObject;
 
-    detachCountry();
-    setCurrentCountry();
     refreshViews();
     // In case the place page has already some data, make sure to call the onPlacePageContentChanged callback
     // to catch cases where the new data has the exact same height as the previous one (eg 2 address nodes)
