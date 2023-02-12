@@ -140,6 +140,7 @@ private:
         {"area:highway"},
         {"earthquake:damage"},
         {"emergency"},  // used in subway facilities (Barcelona)
+        {"landuse"},    // used together with more specific types like aerodrome
     };
 
     base::StringIL const types2[] = {
