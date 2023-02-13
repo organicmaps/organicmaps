@@ -113,6 +113,24 @@
   </screenshots>
 
   <releases>
+   <release version="2023.02.13-11" date="2023-02-13">
+     <description>
+       <p>Highlights:</p>
+         <ul>
+           <li>New OpenStreetMap data as of February 10, including changes by the Humanitarian OpenStreetMap Team (HOT) after the earthquake in Turkey and Syria</li>
+           <li>Filtered wrong search results in the list and on the map</li>
+           <li>Fixed crash on opening</li>
+         </ul>
+       <p>Map Styles:</p>
+         <ul>
+           <li>Better icons for main and secondary building entrances</li>
+         </ul>
+       <p>Translations:</p>
+         <ul>
+           <li>Fixed Persian, Polish, and German translations</li>
+         </ul>
+     </description>
+   </release>
    <release version="2023.01.25-3" date="2023-01-25">
      <description>
        <p>Highlights:</p>
