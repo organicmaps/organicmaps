@@ -1,11 +1,16 @@
-• New OpenStreetMap data as of February 8, including changes by the Humanitarian OpenStreetMap Team (HOT) after the earthquake in Turkey and Syria
-• Filtered wrong search results in the list and on the map
-• Improved next-turn voice notifications for smaller distances
-• Better icons for main and secondary building entrances
-• Fixed Persian, Polish, and German translations
-• Fixed crash when opening om:// and https://omaps.app/ links
-• Show the shared POI's name in om:// and https://omaps.app/ links
+• Nieuwe OpenStreetMap data sinds 8 februari, inclusief veranderingen van het Humanitarian OpenStreetMap Team (HOT) na de aardbeving in Turkije en Syrië
+• Slechte zoekresultaten gefilterd in de lijst en op de kaart
+• Betere navigatie stembegeleiding voor korte afstanden
+• Gefixt: Perzische, Poolse en Duitse vertalingen
+• Betere iconen voor hoofd- en zij-ingangen
+• Gefixt: crash bij het openen van om:// en https://omaps.app/ links
+• Laat de naam van de gedeelde POI zien in om:// en https://omaps.app/ links
 
-See more examples of our API and URL schemes at omaps.app/api
+ZIe meer voorbeelden van onze API en URL schema's op omaps.app/api
+…meer: omaps.app/news
+
+
+
+
 
 Follow our news at omaps.app/news
