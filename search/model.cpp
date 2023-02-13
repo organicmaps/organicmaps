@@ -3,16 +3,15 @@
 #include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"
 
-#include "base/macros.hpp"
 #include "base/stl_helpers.hpp"
 
 #include <vector>
 
+namespace search
+{
 using namespace ftypes;
 using namespace std;
 
-namespace search
-{
 TwoLevelPOIChecker::TwoLevelPOIChecker() : ftypes::BaseChecker(2 /* level */)
 {
   Classificator const & c = classif();
@@ -58,11 +57,7 @@ public:
 class IsPoiChecker
 {
 public:
-  static IsPoiChecker const & Instance()
-  {
-    static const IsPoiChecker inst;
-    return inst;
-  }
+  DECLARE_CHECKER_INSTANCE(IsPoiChecker);
 
   bool operator()(FeatureType & ft) const { return m_oneLevel(ft) || m_twoLevel(ft); }
 
@@ -76,51 +71,43 @@ class IsComplexPoiChecker : public ftypes::BaseChecker
   IsComplexPoiChecker() : ftypes::BaseChecker()
   {
     Classificator const & c = classif();
-    vector<vector<string>> const paths = {{"aeroway", "aerodrome"},
-                                          {"amenity", "hospital"},
-                                          {"amenity", "university"},
-                                          {"building", "train_station"},
-                                          {"historic", "archaeological_site"},
-                                          {"historic", "castle"},
-                                          {"historic", "fort"},
-                                          {"landuse", "cemetery"},
-                                          {"landuse", "churchyard"},
-                                          {"landuse", "commercial"},
-                                          {"landuse", "forest"},
-                                          {"landuse", "industrial"},
-                                          {"landuse", "retail"},
-                                          {"leisure", "garden"},
-                                          {"leisure", "nature_reserve"},
-                                          {"leisure", "park"},
-                                          {"leisure", "stadium"},
-                                          {"leisure", "water_park"},
-                                          {"natural", "beach"},
-                                          {"office", "company"},
-                                          {"railway", "station"},
-                                          {"shop", "mall"},
-                                          {"tourism", "museum"},
-                                          {"tourism", "gallery"}};
+    base::StringIL const paths[] = {{"aeroway", "aerodrome"},
+                                    {"amenity", "hospital"},
+                                    {"amenity", "university"},
+                                    {"building", "train_station"},
+                                    {"historic", "archaeological_site"},
+                                    {"historic", "castle"},
+                                    {"historic", "fort"},
+                                    {"landuse", "cemetery"},
+                                    {"landuse", "churchyard"},
+                                    {"landuse", "commercial"},
+                                    {"landuse", "forest"},
+                                    {"landuse", "industrial"},
+                                    {"landuse", "retail"},
+                                    {"leisure", "garden"},
+                                    {"leisure", "nature_reserve"},
+                                    {"leisure", "park"},
+                                    {"leisure", "stadium"},
+                                    {"leisure", "water_park"},
+                                    {"natural", "beach"},
+                                    {"office", "company"},
+                                    {"railway", "station"},
+                                    {"shop", "mall"},
+                                    {"tourism", "museum"},
+                                    {"tourism", "gallery"}};
 
     for (auto const & path : paths)
       m_types.push_back(c.GetTypeByPath(path));
   }
 
 public:
-  static IsComplexPoiChecker const & Instance()
-  {
-    static IsComplexPoiChecker const inst;
-    return inst;
-  }
+  DECLARE_CHECKER_INSTANCE(IsComplexPoiChecker);
 };
 
 class CustomIsBuildingChecker
 {
 public:
-  static CustomIsBuildingChecker const & Instance()
-  {
-    static const CustomIsBuildingChecker inst;
-    return inst;
-  }
+  DECLARE_CHECKER_INSTANCE(CustomIsBuildingChecker);
 
   bool operator()(FeatureType & ft) const
   {
@@ -131,43 +118,34 @@ public:
 
 Model::Type Model::GetType(FeatureType & feature) const
 {
-  static auto const & buildingChecker = CustomIsBuildingChecker::Instance();
-  static auto const & streetChecker = IsStreetOrSquareChecker::Instance();
-  static auto const & suburbChecker = IsSuburbChecker::Instance();
-  static auto const & localityChecker = IsLocalityChecker::Instance();
-  static auto const & poiChecker = IsPoiChecker::Instance();
-  static auto const & complexPoiChecker = IsComplexPoiChecker::Instance();
-
   // Check whether object is POI first to mark POIs with address tags as POI.
-  if (complexPoiChecker(feature))
+  if (IsComplexPoiChecker::Instance()(feature))
     return TYPE_COMPLEX_POI;
-  if (poiChecker(feature))
+  if (IsPoiChecker::Instance()(feature))
     return TYPE_SUBPOI;
 
-  if (buildingChecker(feature))
+  if (CustomIsBuildingChecker::Instance()(feature))
     return TYPE_BUILDING;
 
-  if (streetChecker(feature))
+  if (IsStreetOrSquareChecker::Instance()(feature))
     return TYPE_STREET;
 
-  if (suburbChecker(feature))
+  if (IsSuburbChecker::Instance()(feature))
     return TYPE_SUBURB;
 
-  if (localityChecker(feature))
+  auto const type = IsLocalityChecker::Instance().GetType(feature);
+  switch (type)
   {
-    auto const type = localityChecker.GetType(feature);
-    switch (type)
-    {
-    case LocalityType::None: ASSERT(false, ("Unknown locality.")); return TYPE_UNCLASSIFIED;
-    case LocalityType::State: return TYPE_STATE;
-    case LocalityType::Country: return TYPE_COUNTRY;
-    case LocalityType::City:
-    case LocalityType::Town: return TYPE_CITY;
-    case LocalityType::Village: return TYPE_VILLAGE;
-    case LocalityType::Count: return TYPE_UNCLASSIFIED;
-    }
+  case LocalityType::State: return TYPE_STATE;
+  case LocalityType::Country: return TYPE_COUNTRY;
+  case LocalityType::City:
+  case LocalityType::Town: return TYPE_CITY;
+  case LocalityType::Village: return TYPE_VILLAGE;
+  case LocalityType::Count: ASSERT(false, ());    // no break here
+  case LocalityType::None: return TYPE_UNCLASSIFIED;
   }
 
+  ASSERT(false, ("Unknown locality type:", static_cast<int>(type)));
   return TYPE_UNCLASSIFIED;
 }
 

@@ -3,7 +3,6 @@
 void Reader::ReadAsString(std::string & s) const
 {
   s.clear();
-  size_t const sz = static_cast<size_t>(Size());
-  s.resize(sz);
-  Read(0, &s[0], sz);
+  s.resize(static_cast<size_t>(Size()));
+  Read(0 /* pos */, s.data(), s.size());
 }
