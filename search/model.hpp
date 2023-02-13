@@ -2,8 +2,6 @@
 
 #include "indexer/ftypes_matcher.hpp"
 
-#include "base/macros.hpp"
-
 #include <string>
 
 class FeatureType;

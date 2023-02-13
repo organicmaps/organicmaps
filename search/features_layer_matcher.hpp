@@ -14,9 +14,7 @@
 
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
-#include "indexer/feature_impl.hpp"
 #include "indexer/features_vector.hpp"
-#include "indexer/ftypes_matcher.hpp"
 #include "indexer/mwm_set.hpp"
 
 #include "geometry/mercator.hpp"
@@ -25,18 +23,13 @@
 
 #include "base/cancellable.hpp"
 #include "base/logging.hpp"
-#include "base/macros.hpp"
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
 #include <algorithm>
-#include <cstddef>
-#include <cstdint>
-#include <functional>
 #include <limits>
 #include <memory>
 #include <unordered_map>
-#include <utility>
 #include <vector>
 
 class DataSource;
@@ -89,28 +82,26 @@ public:
       break;
     case Model::TYPE_COMPLEX_POI:
       ASSERT_EQUAL(child.m_type, Model::TYPE_SUBPOI, ());
-      MatchPOIsWithParent(child, parent, std::forward<Fn>(fn));
+      MatchPOIsWithParent(child, parent, fn);
       break;
     case Model::TYPE_BUILDING:
       ASSERT(Model::IsPoi(child.m_type), ());
-      MatchPOIsWithParent(child, parent, std::forward<Fn>(fn));
+      MatchPOIsWithParent(child, parent, fn);
       break;
     case Model::TYPE_STREET:
       ASSERT(Model::IsPoi(child.m_type) || child.m_type == Model::TYPE_BUILDING,
              ("Invalid child layer type:", child.m_type));
       if (Model::IsPoi(child.m_type))
-        MatchPOIsWithStreets(child, parent, std::forward<Fn>(fn));
+        MatchPOIsWithStreets(child, parent, fn);
       else
-        MatchBuildingsWithStreets(child, parent, std::forward<Fn>(fn));
+        MatchBuildingsWithStreets(child, parent, fn);
       break;
     case Model::TYPE_SUBURB:
       ASSERT(child.m_type == Model::TYPE_STREET || child.m_type == Model::TYPE_BUILDING ||
-                 Model::IsPoi(child.m_type),
-             ());
+             Model::IsPoi(child.m_type), ());
       // Avoid matching buildings to suburb without street.
-      if (child.m_type == Model::TYPE_BUILDING)
-        break;
-      MatchChildWithSuburbs(child, parent, std::forward<Fn>(fn));
+      if (child.m_type != Model::TYPE_BUILDING)
+        MatchChildWithSuburbs(child, parent, fn);
       break;
     }
   }
