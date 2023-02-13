@@ -2433,30 +2433,12 @@ cont {
       color: 13942770
       priority: -15991
     }
-    caption {
-      primary {
-        height: 10
-        color: 2236962
-        stroke_color: 1308622847
-        is_optional: true
-      }
-      priority: 15009
-    }
   }
   element {
     scale: 11
     area {
       color: 13942770
       priority: -15991
-    }
-    caption {
-      primary {
-        height: 10
-        color: 2236962
-        stroke_color: 1308622847
-        is_optional: true
-      }
-      priority: 15009
     }
   }
   element {
@@ -2465,46 +2447,12 @@ cont {
       color: 13746411
       priority: -15991
     }
-    caption {
-      primary {
-        height: 10
-        color: 2236962
-        stroke_color: 1308622847
-        is_optional: true
-      }
-      secondary {
-        height: 10
-        color: 2236962
-        stroke_color: 1308622847
-        offset_y: 1
-        text: "int_name"
-        is_optional: true
-      }
-      priority: 15009
-    }
   }
   element {
     scale: 13
     area {
       color: 13615592
       priority: -15991
-    }
-    caption {
-      primary {
-        height: 10
-        color: 2236962
-        stroke_color: 1308622847
-        is_optional: true
-      }
-      secondary {
-        height: 10
-        color: 2236962
-        stroke_color: 1308622847
-        offset_y: 1
-        text: "int_name"
-        is_optional: true
-      }
-      priority: 15009
     }
   }
   element {
@@ -2688,21 +2636,21 @@ cont {
     scale: 7
     symbol {
       name: "airport-s"
-      priority: 10000
+      priority: 16009
     }
   }
   element {
     scale: 8
     symbol {
       name: "airport-s"
-      priority: 10000
+      priority: 16009
     }
   }
   element {
     scale: 9
     symbol {
       name: "airport-s"
-      priority: 10000
+      priority: 16009
     }
   }
   element {
@@ -2734,7 +2682,7 @@ cont {
     }
     symbol {
       name: "airport-m"
-      priority: 3100
+      priority: 16009
     }
     caption {
       primary {
@@ -2755,7 +2703,7 @@ cont {
     }
     symbol {
       name: "airport-m"
-      priority: 3100
+      priority: 16009
     }
     caption {
       primary {
@@ -2784,7 +2732,7 @@ cont {
     }
     symbol {
       name: "airport-m"
-      priority: 3100
+      priority: 16009
     }
     caption {
       primary {

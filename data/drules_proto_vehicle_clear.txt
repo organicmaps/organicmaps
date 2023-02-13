@@ -4,122 +4,66 @@ cont {
     scale: 10
     area {
       color: 14209512
-      priority: -15083
-    }
-    caption {
-      primary {
-        height: 10
-        color: 3355443
-        stroke_color: 1308622847
-      }
-      priority: 15917
+      priority: -15989
     }
   }
   element {
     scale: 11
     area {
       color: 14209512
-      priority: -15083
-    }
-    caption {
-      primary {
-        height: 10
-        color: 3355443
-        stroke_color: 1308622847
-      }
-      priority: 15917
+      priority: -15989
     }
   }
   element {
     scale: 12
     area {
       color: 14209512
-      priority: -15083
-    }
-    symbol {
-      name: "airport-m"
-      priority: 3100
-    }
-    caption {
-      primary {
-        height: 11
-        color: 3355443
-        stroke_color: 1308622847
-        offset_y: 1
-      }
-      secondary {
-        height: 10
-        color: 3355443
-        stroke_color: 1308622847
-        offset_y: 1
-        text: "int_name"
-      }
-      priority: 15917
+      priority: -15989
     }
   }
   element {
     scale: 13
     area {
       color: 14209512
-      priority: -15083
-    }
-    symbol {
-      name: "airport-m"
-      priority: 3100
-    }
-    caption {
-      primary {
-        height: 11
-        color: 3355443
-        stroke_color: 1308622847
-        offset_y: 1
-      }
-      secondary {
-        height: 10
-        color: 3355443
-        stroke_color: 1308622847
-        offset_y: 1
-        text: "int_name"
-      }
-      priority: 15917
+      priority: -15989
     }
   }
   element {
     scale: 14
     area {
       color: 14209512
-      priority: -15083
+      priority: -15989
     }
     symbol {
       name: "airport-m"
-      priority: 3100
+      priority: 16011
     }
     caption {
       primary {
-        height: 11
+        height: 12
         color: 3355443
         stroke_color: 1308622847
         offset_y: 1
       }
       secondary {
-        height: 10
+        height: 11
         color: 3355443
         stroke_color: 1308622847
         offset_y: 1
         text: "int_name"
       }
-      priority: 15917
+      priority: 15011
     }
   }
   element {
     scale: 15
     area {
       color: 14209512
-      priority: -15083
+      priority: -15989
     }
     symbol {
       name: "airport-m"
-      priority: 16917
+      priority: 16011
     }
     caption {
       primary {
@@ -135,18 +79,18 @@ cont {
         offset_y: 1
         text: "int_name"
       }
-      priority: 15917
+      priority: 15011
     }
   }
   element {
     scale: 16
     area {
       color: 14209512
-      priority: -15083
+      priority: -15989
     }
     symbol {
       name: "airport-m"
-      priority: 16917
+      priority: 16011
     }
     caption {
       primary {
@@ -162,88 +106,88 @@ cont {
         offset_y: 1
         text: "int_name"
       }
-      priority: 15917
+      priority: 15011
     }
   }
   element {
     scale: 17
     area {
       color: 14209512
-      priority: -15083
+      priority: -15989
     }
     symbol {
       name: "airport-m"
-      priority: 16917
+      priority: 16011
     }
     caption {
       primary {
-        height: 13
+        height: 12
         color: 3355443
         stroke_color: 1308622847
         offset_y: 1
       }
       secondary {
-        height: 12
+        height: 11
         color: 3355443
         stroke_color: 1308622847
         offset_y: 1
         text: "int_name"
       }
-      priority: 15917
+      priority: 15011
     }
   }
   element {
     scale: 18
     area {
       color: 14209512
-      priority: -15083
+      priority: -15989
     }
     symbol {
       name: "airport-m"
-      priority: 16917
+      priority: 16011
     }
     caption {
       primary {
-        height: 13
+        height: 12
         color: 3355443
         stroke_color: 1308622847
         offset_y: 1
       }
       secondary {
-        height: 12
+        height: 11
         color: 3355443
         stroke_color: 1308622847
         offset_y: 1
         text: "int_name"
       }
-      priority: 15917
+      priority: 15011
     }
   }
   element {
     scale: 19
     area {
       color: 14209512
-      priority: -15083
+      priority: -15989
     }
     symbol {
       name: "airport-m"
-      priority: 16917
+      priority: 16011
     }
     caption {
       primary {
-        height: 13
+        height: 12
         color: 3355443
         stroke_color: 1308622847
         offset_y: 1
       }
       secondary {
-        height: 12
+        height: 11
         color: 3355443
         stroke_color: 1308622847
         offset_y: 1
         text: "int_name"
       }
-      priority: 15917
+      priority: 15011
     }
   }
 }
@@ -253,32 +197,32 @@ cont {
     scale: 7
     symbol {
       name: "airport-s"
-      priority: 10000
+      priority: 16011
     }
   }
   element {
     scale: 8
     symbol {
       name: "airport-s"
-      priority: 10000
+      priority: 16011
     }
   }
   element {
     scale: 9
     symbol {
       name: "airport-s"
-      priority: 10000
+      priority: 16011
     }
   }
   element {
     scale: 10
     area {
       color: 14209512
-      priority: -15083
+      priority: -15989
     }
     symbol {
       name: "airport-s"
-      priority: 16917
+      priority: 16011
     }
     caption {
       primary {
@@ -287,18 +231,18 @@ cont {
         stroke_color: 1308622847
         offset_y: 1
       }
-      priority: 15917
+      priority: 15011
     }
   }
   element {
     scale: 11
     area {
       color: 14209512
-      priority: -15083
+      priority: -15989
     }
     symbol {
       name: "airport-m"
-      priority: 3100
+      priority: 16011
     }
     caption {
       primary {
@@ -307,18 +251,18 @@ cont {
         stroke_color: 1308622847
         offset_y: 1
       }
-      priority: 15917
+      priority: 15011
     }
   }
   element {
     scale: 12
     area {
       color: 14209512
-      priority: -15083
+      priority: -15989
     }
     symbol {
       name: "airport-m"
-      priority: 3100
+      priority: 16011
     }
     caption {
       primary {
@@ -334,18 +278,18 @@ cont {
         offset_y: 1
         text: "int_name"
       }
-      priority: 15917
+      priority: 15011
     }
   }
   element {
     scale: 13
     area {
       color: 14209512
-      priority: -15083
+      priority: -15989
     }
     symbol {
       name: "airport-m"
-      priority: 3100
+      priority: 16011
     }
     caption {
       primary {
@@ -361,45 +305,45 @@ cont {
         offset_y: 1
         text: "int_name"
       }
-      priority: 15917
+      priority: 15011
     }
   }
   element {
     scale: 14
     area {
       color: 14209512
-      priority: -15083
+      priority: -15989
     }
     symbol {
       name: "airport-m"
-      priority: 3100
+      priority: 16011
     }
     caption {
       primary {
-        height: 11
+        height: 12
         color: 3355443
         stroke_color: 1308622847
         offset_y: 1
       }
       secondary {
-        height: 10
+        height: 11
         color: 3355443
         stroke_color: 1308622847
         offset_y: 1
         text: "int_name"
       }
-      priority: 15917
+      priority: 15011
     }
   }
   element {
     scale: 15
     area {
       color: 14209512
-      priority: -15083
+      priority: -15989
     }
     symbol {
       name: "airport-m"
-      priority: 16917
+      priority: 16011
     }
     caption {
       primary {
@@ -415,18 +359,18 @@ cont {
         offset_y: 1
         text: "int_name"
       }
-      priority: 15917
+      priority: 15011
     }
   }
   element {
     scale: 16
     area {
       color: 14209512
-      priority: -15083
+      priority: -15989
     }
     symbol {
       name: "airport-m"
-      priority: 16917
+      priority: 16011
     }
     caption {
       primary {
@@ -442,88 +386,88 @@ cont {
         offset_y: 1
         text: "int_name"
       }
-      priority: 15917
+      priority: 15011
     }
   }
   element {
     scale: 17
     area {
       color: 14209512
-      priority: -15083
+      priority: -15989
     }
     symbol {
       name: "airport-m"
-      priority: 16917
+      priority: 16011
     }
     caption {
       primary {
-        height: 13
+        height: 12
         color: 3355443
         stroke_color: 1308622847
         offset_y: 1
       }
       secondary {
-        height: 12
+        height: 11
         color: 3355443
         stroke_color: 1308622847
         offset_y: 1
         text: "int_name"
       }
-      priority: 15917
+      priority: 15011
     }
   }
   element {
     scale: 18
     area {
       color: 14209512
-      priority: -15083
+      priority: -15989
     }
     symbol {
       name: "airport-m"
-      priority: 16917
+      priority: 16011
     }
     caption {
       primary {
-        height: 13
+        height: 12
         color: 3355443
         stroke_color: 1308622847
         offset_y: 1
       }
       secondary {
-        height: 12
+        height: 11
         color: 3355443
         stroke_color: 1308622847
         offset_y: 1
         text: "int_name"
       }
-      priority: 15917
+      priority: 15011
     }
   }
   element {
     scale: 19
     area {
       color: 14209512
-      priority: -15083
+      priority: -15989
     }
     symbol {
       name: "airport-m"
-      priority: 16917
+      priority: 16011
     }
     caption {
       primary {
-        height: 13
+        height: 12
         color: 3355443
         stroke_color: 1308622847
         offset_y: 1
       }
       secondary {
-        height: 12
+        height: 11
         color: 3355443
         stroke_color: 1308622847
         offset_y: 1
         text: "int_name"
       }
-      priority: 15917
+      priority: 15011
     }
   }
 }
