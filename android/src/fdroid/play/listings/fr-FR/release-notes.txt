@@ -4,4 +4,4 @@
 • Amélioration icônes pour les entrées des bâtiments
 • Amélioration annonces vocales du prochain virage pour petites distances
 • Correction des traductions en persan, polonais et allemand
-…Plus de détails : omaps.app/news
+…Plus de détails: omaps.app/news
