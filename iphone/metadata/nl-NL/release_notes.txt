@@ -1,4 +1,4 @@
-• Nieuwe OpenStreetMap data sinds 8 februari, inclusief veranderingen van het Humanitarian OpenStreetMap Team (HOT) na de aardbeving in Turkije en Syrië
+• Nieuwe OpenStreetMap data sinds 10 februari, inclusief veranderingen van het Humanitarian OpenStreetMap Team (HOT) na de aardbeving in Turkije en Syrië
 • Slechte zoekresultaten gefilterd in de lijst en op de kaart
 • Betere navigatie stembegeleiding voor korte afstanden
 • Gefixt: Perzische, Poolse en Duitse vertalingen

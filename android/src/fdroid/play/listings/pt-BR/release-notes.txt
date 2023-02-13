@@ -1,4 +1,4 @@
-• Novos dados OSM de 8/2, incluindo alterações feitas pela Humanitarian OpenStreetMap Team (HOT) após o terremoto na Turquia e na Síria
+• Novos dados OSM de 10/2, incluindo alterações feitas pela Humanitarian OpenStreetMap Team (HOT) após o terremoto na Turquia e na Síria
 • Resultados de busca errados são filtrados na lista e mapa
 • Correção de erro na abertura
 • Melhoria nos ícones para entradas principais e secundárias

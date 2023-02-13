@@ -1,4 +1,4 @@
-• New OpenStreetMap data as of February 8, including changes by the Humanitarian OpenStreetMap Team (HOT) after the earthquake in Turkey and Syria
+• New OpenStreetMap data as of February 10, including changes by the Humanitarian OpenStreetMap Team (HOT) after the earthquake in Turkey and Syria
 • Filtered wrong search results in the list and on the map
 • Fixed crash on opening
 • Better icons for main and secondary building entrances

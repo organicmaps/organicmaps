@@ -1,4 +1,4 @@
-• Nuevos datos de OpenStreetMap a partir del 8 de febrero, incluidos los cambios realizados por el Humanitarian OpenStreetMap Team (HOT) tras el terremoto de Turquía y Siria
+• Nuevos datos de OpenStreetMap a partir del 10 de febrero, incluidos los cambios realizados por el Humanitarian OpenStreetMap Team (HOT) tras el terremoto de Turquía y Siria
 • Filtrados los resultados de búsqueda erróneos en la lista y en el mapa
 • Mejora de las notificaciones de voz de próximo giro para distancias más cortas
 • Mejores iconos para las entradas principales y secundarias de los edificios

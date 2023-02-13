@@ -1,4 +1,4 @@
-• Nowe dane OpenStreetMap z 8 lutego, zawierające zmiany stworzone przez Humanitarian OpenStreetMap Team (HOT) po trzesięniu ziemi w Turcji i Syrii
+• Nowe dane OpenStreetMap z 10 lutego, zawierające zmiany stworzone przez Humanitarian OpenStreetMap Team (HOT) po trzesięniu ziemi w Turcji i Syrii
 • Filtrowanie błędnych wyników wyszukiwania w liście i na mapie
 • Naprawiono błąd przy uruchomieniu aplikacji
 • Lepsze ikony dla głównych i dodatkowych wejść do budynku

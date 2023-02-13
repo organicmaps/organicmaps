@@ -1,4 +1,4 @@
-• Új február 8-i OpenStreetMap adatok, a Humanitárius OpenStreetMap Csapat változtatásaival, a törökországi és szíriai földrengések következtében
+• Új február 10-i OpenStreetMap adatok, a Humanitárius OpenStreetMap Csapat változtatásaival, a törökországi és szíriai földrengések következtében
 • Kiszűrtük a hibás keresési találatokat a listában és a térképen
 • A megnyitáskor történő összeomlást kijavítottuk
 • A főbejáratok mostantól megkülönböztethetőek az alsóbbrendű bejáratoktól a csodás új ikonokkal
