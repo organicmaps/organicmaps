@@ -1,7 +1,7 @@
-• New OpenStreetMap data as of February 10, including changes by the Humanitarian OpenStreetMap Team (HOT) after the earthquake in Turkey and Syria
-• Filtered wrong search results in the list and on the map
-• Fixed crash on opening
-• Better icons for main and secondary building entrances
-• Improved next-turn voice notifications for smaller distances
-• Fixed Persian, Polish, and German translations
-…more: omaps.app/news
+• Novos mapas de OpenStreetMap dende o día 10 de Febreiro, tamén os cambios do Humanitarian OpenStreetMap Team (HOT) tralo terremoto de Turquía e Siria
+• Arranxouse os resultados incorrectos das listas e mapas
+• Arranxado o erros ao abrila aplicación
+• Novas iconas nas entradas principais e secundarias dos edificios
+• Notificacións por voz melloradas nas distancias curtas, por exemplo: próximo xiro
+• Traducións ao Persa, Polaco e Alemán
+…máis: omaps.app/news
