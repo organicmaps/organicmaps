@@ -101,8 +101,8 @@ ErrorsMade GetPrefixErrorsMade(QueryParams::Token const & token, strings::UniStr
 
 bool IsStopWord(UniString const & s)
 {
-  /// @todo Get all common used stop words and take out this array into
-  /// search_string_utils.cpp module for example.
+  /// @todo Get all common used stop words and take out this array into search_string_utils.cpp module for example.
+  /// Should skip this tokens when building search index?
   class StopWordsChecker
   {
     set<UniString> m_set;
