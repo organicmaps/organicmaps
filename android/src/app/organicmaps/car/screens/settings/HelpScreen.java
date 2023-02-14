@@ -68,7 +68,7 @@ public class HelpScreen extends MapScreen
   {
     return new Row.Builder()
         .setTitle(getCarContext().getString(R.string.data_version, ""))
-        .addText(DateUtils.getLocalDate(Framework.nativeGetDataVersion()))
+        .addText(DateUtils.getShortDateFormatter().format(Framework.getDataVersion()))
         .build();
   }
 }
