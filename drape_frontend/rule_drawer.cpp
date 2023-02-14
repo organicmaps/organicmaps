@@ -471,11 +471,12 @@ void RuleDrawer::operator()(FeatureType & f)
   }
 #endif
 
+  /// @todo Call feature::GetMinDrawableScale() here.
   int minVisibleScale = 0;
   auto insertShape = [this, &minVisibleScale](drape_ptr<MapShape> && shape)
   {
-    int const index = static_cast<int>(shape->GetType());
-    ASSERT_LESS(index, static_cast<int>(m_mapShapes.size()), ());
+    size_t const index = shape->GetType();
+    ASSERT_LESS(index, m_mapShapes.size(), ());
 
     shape->SetFeatureMinZoom(minVisibleScale);
     m_mapShapes[index].push_back(std::move(shape));
