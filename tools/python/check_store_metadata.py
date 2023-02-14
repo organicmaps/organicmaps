@@ -178,11 +178,12 @@ def check_android():
         ok = check_text(locale + 'short-description-google.txt', 80, True) and ok
         ok = check_text(locale + 'full-description.txt', 4000) and ok
         ok = check_text(locale + 'full-description-google.txt', 4000, True) and ok
+        ok = check_text(locale + 'release-notes.txt', 499) and ok
     for locale in glob.glob(flavor + 'release-notes/*/'):
         if locale.split('/')[-2] not in GPLAY_LOCALES:
             ok = error(locale, 'unsupported locale') and ok
             continue
-        ok = check_text(locale + 'default.txt', 500) and ok
+        ok = check_text(locale + 'default.txt', 499) and ok
     return ok
 
 
