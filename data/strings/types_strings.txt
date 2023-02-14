@@ -9331,7 +9331,47 @@
     ja = 馬道(トンネル)
     pl = Tunel drogowy dla koni
     pt-BR = Túnel para cavaleiros
-
+    
+  [type.highway.busway]
+    en = Dedicated bus road
+    ar = ﺺﺼﺨﻣ ﺕﻼﻓﺎﺣ ﻖﻳﺮﻃ
+    be = Выдзеленая аўтобусная дарога
+    bg = Обособен автобусен път
+    ca = Carretera dedicada a l'autobús
+    cs = Vyhrazená autobusová silnice
+    da = Dedikeret busvej
+    de = Eigene Busstraße
+    el = Αφιερωμένος δρόμος λεωφορείων
+    es = Carretera exclusiva para autobuses
+    et = Spetsiaalne bussitee
+    eu = Autobus errepidea
+    fa = ﺱﻮﺑﻮﺗﺍ ﯽﺻﺎﺼﺘﺧﺍ ﻩﺩﺎﺟ
+    fi = Oma bussitie
+    fr = Route réservée aux bus
+    he = ידועיי סובוטוא שיבכ
+    hu = Kijelölt buszút
+    id = Jalan khusus bus
+    it = Strada dedicata agli autobus
+    ja = バス専用道路
+    ko = 버스전용도로
+    mr = समर्पित बस रस्ता
+    nb = Dedikert bussvei
+    nl = Speciale busweg
+    pl = Dedykowana droga autobusowa
+    pt = Via exclusiva de autocarro
+    pt-BR = Via exclusiva de ônibus
+    ro = Drum dedicat autobuzului
+    ru = Выделенная автобусная дорога
+    sk = Vyhradená autobusová cesta
+    sv = Dedikerad bussväg
+    sw = Barabara ya basi iliyotengwa
+    th = ถนนทางเดินรถโดยเฉพาะ
+    tr = Özel otobüs yolu
+    uk = Виділена автобусна дорога
+    vi = Đường dành riêng cho xe buýt
+    zh-Hans = 巴士专用道
+    zh-Hant = 巴士專用道
+    
   [type.highway.bus_stop]
     en = Bus Stop
     ar = موقف حافلة
