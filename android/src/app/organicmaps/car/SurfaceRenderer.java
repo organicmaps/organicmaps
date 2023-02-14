@@ -3,7 +3,6 @@ package app.organicmaps.car;
 import android.graphics.Rect;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.car.app.AppManager;
 import androidx.car.app.CarContext;
 import androidx.car.app.CarToast;
@@ -26,10 +25,10 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
   private final CarContext mCarContext;
   private final Map mMap = new Map(MapType.AndroidAuto);
 
-  @Nullable
-  private Rect mVisibleArea;
-  @Nullable
-  private Rect mStableArea;
+  @NonNull
+  private Rect mVisibleArea = new Rect();
+  @NonNull
+  private Rect mStableArea = new Rect();
 
   public SurfaceRenderer(@NonNull CarContext carContext, @NonNull Lifecycle lifecycle)
   {
@@ -62,7 +61,11 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
   {
     Logger.d(TAG, "Stable area changed. stableArea: " + stableArea);
     mStableArea = stableArea;
-    Framework.nativeSetVisibleRect(mStableArea.left, mStableArea.top, mStableArea.right, mStableArea.bottom);
+
+    if (!mStableArea.isEmpty())
+      Framework.nativeSetVisibleRect(mStableArea.left, mStableArea.top, mStableArea.right, mStableArea.bottom);
+    else if (!mVisibleArea.isEmpty())
+      Framework.nativeSetVisibleRect(mVisibleArea.left, mVisibleArea.top, mVisibleArea.right, mVisibleArea.bottom);
   }
 
   @Override
@@ -143,14 +146,13 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
     float x = focusX;
     float y = focusY;
 
-    Rect visibleArea = mVisibleArea;
-    if (visibleArea != null)
+    if (!mVisibleArea.isEmpty())
     {
       // If a focal point value is negative, use the center point of the visible area.
       if (x < 0)
-        x = visibleArea.centerX();
+        x = mVisibleArea.centerX();
       if (y < 0)
-        y = visibleArea.centerY();
+        y = mVisibleArea.centerY();
     }
 
     final boolean animated = Float.compare(scaleFactor, 2f) == 0;
