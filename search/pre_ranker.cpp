@@ -253,7 +253,8 @@ void PreRanker::FilterForViewportSearch()
     return result.SkipForViewportSearch(m_params.m_numQueryTokens);
   });
 
-  // By VNG: Comment next statements to discard viewport filtering (displacement) for Debug purpose.
+  /// @DebugNote
+  // Comment this line to discard viewport filtering (displacement).
   SweepNearbyResults(m_params.m_minDistanceOnMapBetweenResults, m_prevEmit, m_results);
 
   for (auto const & result : m_results)

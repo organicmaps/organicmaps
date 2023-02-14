@@ -505,6 +505,8 @@ void Processor::ForEachCategoryTypeFuzzy(StringSliceBase const & slice, ToDo && 
 
 void Processor::Search(SearchParams params)
 {
+  /// @DebugNote
+  // Comment this line to run search in a debugger.
   SetDeadline(chrono::steady_clock::now() + params.m_timeout);
 
   if (params.m_onStarted)
