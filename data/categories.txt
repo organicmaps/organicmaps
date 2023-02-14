@@ -4844,7 +4844,7 @@ th:การแพทย์ทางเลือก
 tr:Alternatif tıp
 uk:Альтернативна медицина
 vi:Liều thuốc thay thế
-zh-Hans:替代药物
+zh-Hans:替代医学
 zh-Hant:替代藥物
 
 healthcare-audiologist
@@ -4883,45 +4883,42 @@ th:โสตวิทยา|นักโสตสัมผัสวิทยา
 tr:Odyoloji|Odyolog
 uk:Аудіологія|Аудіолог
 vi:Thính học
-zh-Hans:听力学|听力学家
+zh-Hans:听力学家
 zh-Hant:聽力學|聽力學家
 
 healthcare-blood_donation
-en:Blood donation center|Blood donation
-ar:مركز التبرع بالدم|تبرع بالدم
-be:Цэнтр донарства крыві|Донарства крыві
-bg:Център за кръводаряване
-cs:Centrum dárcovství krve
-da:Center for bloddonation|Bloddonation
+en:Blood donation
+ar:مركز التبرع بالدم
+be:Донарства крыві
 de:Blutspendezentrum|Blutspende
-el:Κέντρο αιμοδοσίας|Αιμοδοσία
-es:Centro de donación de sangre|Donación de sangre
+el:Αιμοδοσία
+es:Donación de sangre
 et:Vereloovutuskeskus|Veredoonorlus
-eu:Odol Emate Zentroa|Odol ematea
-fa:مرکز اهدای خون|اهدای خون
+eu:Odol ematea
+fa:مرکز اهدای خون
 fi:Verenluovutuskeskus|Verenluovutus
-fr:Centre de don du sang|Don du sang
-he:מרכז תרומת דם|תרומת דם
-hu:Véradó központ|Véradás
-id:Pusat Donor Darah|Donor darah
-it:Centro di donazione del sangue|Donazione di sangue
-ja:献血センター|献血
-ko:헌혈센터|헌혈
-mr:रक्तदान केंद्र|रक्तदान
+fr:Don de sang
+he:מרכז תרומת דם
+hu:Véradás
+id:Donor darah
+it:Donazione di sangue
+ja:献血
+ko:헌혈
+mr:रक्तदान
 nb:Bloddonasjonssenter|Bloddonasjon
 nl:Bloeddonatiecentrum|Bloeddonatie
-pl:Centrum krwiodawstwa|Oddawanie krwi
-pt:Centro de Doação de Sangue|Doação de sangue
-pt-BR:Hemocentro|Doação de sangue
-ro:Centrul de donare de sânge|Donarea de sânge
-ru:Центр донорства крови|Донорство крови
-sk:Centrum darcovstva krvi|Darovanie krvi
-sv:Centrum för blodgivning|Blodgivning
-sw:Kituo cha Uchangiaji Damu|Utoaji wa damu
-th:ศูนย์รับบริจาคโลหิต|การบริจาคเลือด
-tr:Kan Bağışı Merkezi|Kan Bağışı
-uk:Центр донорства крові|Донорство крові
-vi:Trung tâm hiến máu|Hiến máu
+pl:Oddawanie krwi
+pt:Doação de sangue
+pt-BR:Doação de sangue
+ro:Donarea de sânge
+ru:Донорство крови
+sk:Darovanie krvi
+sv:Blodgivning
+sw:Utoaji wa damu
+th:การบริจาคเลือด
+tr:Kan Bağışı
+uk:Донорство крові
+vi:Hiến máu
 zh-Hans:献血中心
 zh-Hant:捐血中心|獻血
 
@@ -4961,7 +4958,7 @@ th:ทัศนมาตรศาสตร์|นักทัศนมาตร
 tr:Optometri|Optometrist
 uk:Оптометрія|Оптометрист
 vi:Khúc xạ nhãn khoa|bác sĩ nhãn khoa
-zh-Hans:验光配镜|验光师
+zh-Hans:验光师
 zh-Hant:驗光|驗光師
 
 healthcare-podiatrist
@@ -5000,7 +4997,7 @@ th:แก้โรคเท้า|แพทย์โรคเท้า
 tr:Podiatri|Podiatrist
 uk:Подологія
 vi:khoa bàn chân|Bác sĩ chân
-zh-Hans:足科|足科医生
+zh-Hans:足疗师
 zh-Hant:足病學|足病醫生
 
 healthcare-psychotherapist
@@ -5039,47 +5036,14 @@ th:จิตบำบัด|นักจิตบำบัด
 tr:Psikoterapi|Psikoterapist
 uk:Психотерапія|Психотерапевт
 vi:Tâm lý trị liệu|nhà trị liệu tâm lý
-zh-Hans:心理治疗|心理治疗师
+zh-Hans:心理治疗师
 zh-Hant:心理治療|心理治療師
 
 healthcare-sample_collection
 en:Sample collection
-ar:أخذ العينات|جمع العينات
-be:Калекцыя ўзораў
-bg:Вземане на проби|Събиране на проби
-cs:Odběr vzorků|Sběr vzorků
-da:Prøvetagning|Prøveudtagning
-de:Probenahme
-el:Δειγματοληψία|Συλλογή δείγματος
-es:Muestreo|Recogida de muestras
-et:Proovivõtmine|Proovide kogumine
-eu:Laginketa|Lagin-bilketa
-fa:نمونه برداری|مجموعه نمونه
-fi:Näytteenotto
-fr:Prélèvements biologiques|Échantillonnage
-he:דְגִימָה|אוסף דוגמאות
-hu:Mintavétel|Mintavételezés
-id:Pengambilan sampel|Pengumpulan sampel
-it:Campionamento|Raccolta di campioni
-ja:サンプリング|サンプル採取
-ko:견본 추출|샘플 수집
-mr:नमुना|नमुना संकलन
-nb:Prøvetaking|Prøvesamling
-nl:Bemonstering|Monstername
-pl:Próbkowanie|Zbieranie próbek
-pt:Amostragem|Recolha de amostras
-pt-BR:Amostragem|Coleta de amostras
-ro:Eșantionare|Colectarea probelor
-ru:Выборка|Сдача анализов
-sk:Vzorkovanie|Zber vzoriek
-sv:Provtagning|Insamling av prover
-sw:Sampuli|Mkusanyiko wa sampuli
-th:การสุ่มตัวอย่าง|เก็บตัวอย่าง
-tr:Örnekleme|Örnek toplama
-uk:Збір аналізів
-vi:lấy mẫu|Bộ sưu tập mẫu
-zh-Hans:抽样调查|样品收集
-zh-Hant:採樣|樣品採集
+be:Аналізы
+ru:Анализы
+uk:Аналізи
 
 healthcare-speech_therapist
 en:Logopedics|Speech therapist|Speech therapy
@@ -5117,7 +5081,7 @@ th:การบำบัดด้วยการพูด|นักบำบั�
 tr:Logopedi|Konuşma terapisti
 uk:Логопедія|Логопед
 vi:Ngôn ngữ trị liệu|Trị liệu bằng lời nói
-zh-Hans:言语治疗|语言治疗师
+zh-Hans:语言治疗师
 zh-Hant:言語治療|語言治療師
 
 amenity-hunting_stand
