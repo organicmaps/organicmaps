@@ -48,7 +48,7 @@ public final class UiHelpers
   private static Action createLocationButton(@NonNull CarContext context)
   {
     final Action.Builder builder = new Action.Builder();
-    final int locationMode = LocationHelper.INSTANCE.getMyPositionMode();
+    final int locationMode = LocationState.nativeGetMode();
     CarColor tintColor = CarColor.DEFAULT;
 
     @DrawableRes int drawableRes;
