@@ -303,7 +303,12 @@ Install Android SDK and NDK:
 - In the left pane menu select "Appearance & Behavior > System Settings > Memory Settings".
 - Set "IDE max heap size" to 2048Mb or more (otherwise the Studio might get stuck on "Updating indexes" when opening the project).
 
-Configure the repo with Android SDK and NDK paths:
+Configure the repo with Android SDK and NDK paths. You can do it either by setting a global environment variable pointing at your Android SDK:
+```
+ANDROID_HOME=<here is the absolute path to the root folder of your Android SDK installation>
+```
+
+or by running the following script, that creates `android/local.properties` file with the line `sdk.dir=<path to your Android SDK>` in it: 
 
 _Linux:_
 ```bash
