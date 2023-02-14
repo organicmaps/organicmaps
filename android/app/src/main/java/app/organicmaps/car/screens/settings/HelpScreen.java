@@ -16,8 +16,7 @@ import app.organicmaps.R;
 import app.organicmaps.car.SurfaceRenderer;
 import app.organicmaps.car.UiHelpers;
 import app.organicmaps.car.screens.MapScreen;
-
-import java.text.DateFormat;
+import app.organicmaps.util.DateUtils;
 
 public class HelpScreen extends MapScreen
 {
@@ -69,7 +68,7 @@ public class HelpScreen extends MapScreen
   {
     return new Row.Builder()
         .setTitle(getCarContext().getString(R.string.data_version, ""))
-        .addText(DateFormat.getDateInstance().format(Framework.getDataVersion()))
+        .addText(DateUtils.getShortDateFormatter().format(Framework.getDataVersion()))
         .build();
   }
 }
