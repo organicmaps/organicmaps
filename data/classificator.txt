@@ -342,16 +342,16 @@ world  +
         main  -
         {}
     healthcare  +
+        alternative  -
+        audiologist  -
+        blood_donation  -
         laboratory  -
+        optometrist  -
         physiotherapist  -
-        alternative -
-        audiologist -
-        blood_donation -
-        optometrist -
-        podiatrist -
-        psychotherapist -
-        sample_collection -
-        speech_therapist -
+        podiatrist  -
+        psychotherapist  -
+        sample_collection  -
+        speech_therapist  -
         {}
     highway  +
         bridleway  +

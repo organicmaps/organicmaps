@@ -13788,20 +13788,18 @@ cont {
   }
 }
 cont {
-  name: "healthcare-laboratory"
+  name: "healthcare-alternative"
   element {
     scale: 17
     symbol {
-      name: "hospital-m"
+      name: "alternative-m"
       priority: 16657
-      min_distance: 4
     }
     caption {
       primary {
         height: 10
         color: 4473924
         offset_y: 1
-        is_optional: true
       }
       priority: 15657
     }
@@ -13809,7 +13807,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "hospital-m"
+      name: "alternative-m"
       priority: 16657
     }
     caption {
@@ -13825,7 +13823,207 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "hospital-m"
+      name: "alternative-m"
+      priority: 16657
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15657
+    }
+  }
+}
+cont {
+  name: "healthcare-audiologist"
+  element {
+    scale: 17
+    symbol {
+      name: "audiologist-m"
+      priority: 16657
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15657
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "audiologist-m"
+      priority: 16657
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15657
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "audiologist-m"
+      priority: 16657
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15657
+    }
+  }
+}
+cont {
+  name: "healthcare-blood_donation"
+  element {
+    scale: 17
+    symbol {
+      name: "blood_donation-m"
+      priority: 16657
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15657
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "blood_donation-m"
+      priority: 16657
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15657
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "blood_donation-m"
+      priority: 16657
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15657
+    }
+  }
+}
+cont {
+  name: "healthcare-laboratory"
+  element {
+    scale: 17
+    symbol {
+      name: "sample_collection-m"
+      priority: 16657
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15657
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "sample_collection-m"
+      priority: 16657
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15657
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "sample_collection-m"
+      priority: 16657
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15657
+    }
+  }
+}
+cont {
+  name: "healthcare-optometrist"
+  element {
+    scale: 17
+    symbol {
+      name: "optometrist-m"
+      priority: 16657
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15657
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "optometrist-m"
+      priority: 16657
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15657
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "optometrist-m"
       priority: 16657
     }
     caption {
@@ -13876,6 +14074,206 @@ cont {
     scale: 19
     symbol {
       name: "physiotherapist-m"
+      priority: 16657
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15657
+    }
+  }
+}
+cont {
+  name: "healthcare-podiatrist"
+  element {
+    scale: 17
+    symbol {
+      name: "podiatrist-m"
+      priority: 16657
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15657
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "podiatrist-m"
+      priority: 16657
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15657
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "podiatrist-m"
+      priority: 16657
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15657
+    }
+  }
+}
+cont {
+  name: "healthcare-psychotherapist"
+  element {
+    scale: 17
+    symbol {
+      name: "psychotherapist-m"
+      priority: 16657
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15657
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "psychotherapist-m"
+      priority: 16657
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15657
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "psychotherapist-m"
+      priority: 16657
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15657
+    }
+  }
+}
+cont {
+  name: "healthcare-sample_collection"
+  element {
+    scale: 17
+    symbol {
+      name: "sample_collection-m"
+      priority: 16657
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15657
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "sample_collection-m"
+      priority: 16657
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15657
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "sample_collection-m"
+      priority: 16657
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15657
+    }
+  }
+}
+cont {
+  name: "healthcare-speech_therapist"
+  element {
+    scale: 17
+    symbol {
+      name: "speech_therapist-m"
+      priority: 16657
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15657
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "speech_therapist-m"
+      priority: 16657
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15657
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "speech_therapist-m"
       priority: 16657
     }
     caption {
