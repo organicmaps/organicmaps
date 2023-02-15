@@ -1874,6 +1874,8 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "Tunel";
 
+"type.highway.busway" = "Vyhradená autobusová cesta";
+
 "type.highway.bus_stop" = "Autobusová zastávka";
 
 "type.highway.construction" = "Cesta vo výstavbe";

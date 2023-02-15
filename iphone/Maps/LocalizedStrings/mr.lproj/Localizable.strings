@@ -1874,6 +1874,8 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "बोगदा";
 
+"type.highway.busway" = "समर्पित बस रस्ता";
+
 "type.highway.bus_stop" = "बस थांबा";
 
 "type.highway.construction" = "बांधकामाधीन रस्ता";

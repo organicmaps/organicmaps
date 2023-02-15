@@ -1874,6 +1874,8 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "Mtaro";
 
+"type.highway.busway" = "Barabara ya basi iliyotengwa";
+
 "type.highway.bus_stop" = "Bus Stop";
 
 "type.highway.construction" = "Barabara inatengenezwa";

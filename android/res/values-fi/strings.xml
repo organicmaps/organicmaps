@@ -978,6 +978,7 @@
 	<string name="type.highway.bridleway.bridge">Silta</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Tunneli</string>
+	<string name="type.highway.busway">Oma bussitie</string>
 	<string name="type.highway.bus_stop">Bussipysäkki</string>
 	<string name="type.highway.construction">Rakenteilla oleva tie</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->

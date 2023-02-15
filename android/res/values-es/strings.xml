@@ -1039,6 +1039,7 @@
 	<string name="type.highway.bridleway.permissive">Camino de caballos</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Túnel</string>
+	<string name="type.highway.busway">Carretera exclusiva para autobuses</string>
 	<string name="type.highway.bus_stop">Parada de autobús</string>
 	<string name="type.highway.construction">Carretera en construcción</string>
 	<string name="type.highway.cycleway">Ciclovía</string>

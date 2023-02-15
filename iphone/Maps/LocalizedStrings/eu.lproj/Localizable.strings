@@ -1874,6 +1874,8 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "Tunel";
 
+"type.highway.busway" = "Autobus errepidea";
+
 "type.highway.bus_stop" = "Autobus geltokia";
 
 "type.highway.construction" = "Eraikitzen ari diren errepidea";

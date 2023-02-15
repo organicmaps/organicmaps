@@ -1874,6 +1874,8 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "터널";
 
+"type.highway.busway" = "버스전용도로";
+
 "type.highway.bus_stop" = "버스 정류장";
 
 "type.highway.construction" = "공사 중 도로";

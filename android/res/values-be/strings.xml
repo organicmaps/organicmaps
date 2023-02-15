@@ -808,6 +808,7 @@
 	<string name="type.highway.bridleway.bridge">Мост</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Тунэль</string>
+	<string name="type.highway.busway">Выдзеленая аўтобусная дарога</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.cycleway.bridge">Мост</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->

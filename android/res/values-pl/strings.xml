@@ -1017,6 +1017,7 @@
 	<string name="type.highway.bridleway.permissive">Droga dla koni ograniczona</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Tunel drogowy dla koni</string>
+	<string name="type.highway.busway">Dedykowana droga autobusowa</string>
 	<string name="type.highway.bus_stop">Przystanek autobusowy</string>
 	<string name="type.highway.construction">Droga w trakcie budowy</string>
 	<string name="type.highway.cycleway">Droga rowerowa</string>

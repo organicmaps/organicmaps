@@ -1020,6 +1020,7 @@
 	<string name="type.highway.bridleway.permissive">Chemin pour cavalier</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Tunnel</string>
+	<string name="type.highway.busway">Route réservée aux bus</string>
 	<string name="type.highway.bus_stop">Arrêt de bus</string>
 	<string name="type.highway.construction">Route en construction</string>
 	<string name="type.highway.cycleway">Piste cyclable</string>

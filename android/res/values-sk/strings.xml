@@ -921,6 +921,7 @@
 	<string name="type.highway.bridleway.bridge">Most</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Tunel</string>
+	<string name="type.highway.busway">Vyhradená autobusová cesta</string>
 	<string name="type.highway.bus_stop">Autobusová zastávka</string>
 	<string name="type.highway.construction">Cesta vo výstavbe</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->

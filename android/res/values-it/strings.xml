@@ -1005,6 +1005,7 @@
 	<string name="type.highway.bridleway.permissive">sentiero per cavalli</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Tunnel</string>
+	<string name="type.highway.busway">Strada dedicata agli autobus</string>
 	<string name="type.highway.bus_stop">Fermata dell\'autobus</string>
 	<string name="type.highway.construction">Strada in costruzione</string>
 	<string name="type.highway.cycleway">Pista ciclabile</string>

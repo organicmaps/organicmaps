@@ -1874,6 +1874,8 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "馬道(トンネル)";
 
+"type.highway.busway" = "バス専用道路";
+
 "type.highway.bus_stop" = "バス停";
 
 "type.highway.construction" = "工事中の道路";

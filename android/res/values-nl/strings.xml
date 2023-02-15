@@ -1028,6 +1028,7 @@
 	<string name="type.highway.bridleway.permissive">Ruiterpad</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Tunnel</string>
+	<string name="type.highway.busway">Speciale busweg</string>
 	<string name="type.highway.bus_stop">Bushalte</string>
 	<string name="type.highway.construction">Baan in aanbouw</string>
 	<string name="type.highway.cycleway">Fietspad</string>

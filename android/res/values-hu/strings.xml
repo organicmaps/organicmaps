@@ -927,6 +927,7 @@
 	<string name="type.highway.bridleway.bridge">Híd</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Alagút</string>
+	<string name="type.highway.busway">Kijelölt buszút</string>
 	<string name="type.highway.bus_stop">Buszmegálló</string>
 	<string name="type.highway.construction">Útépítés</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->

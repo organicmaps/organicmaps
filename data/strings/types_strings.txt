@@ -9331,7 +9331,7 @@
     ja = 馬道(トンネル)
     pl = Tunel drogowy dla koni
     pt-BR = Túnel para cavaleiros
-    
+
   [type.highway.busway]
     en = Dedicated bus road
     ar = ﺺﺼﺨﻣ ﺕﻼﻓﺎﺣ ﻖﻳﺮﻃ
@@ -9371,7 +9371,7 @@
     vi = Đường dành riêng cho xe buýt
     zh-Hans = 巴士专用道
     zh-Hant = 巴士專用道
-    
+
   [type.highway.bus_stop]
     en = Bus Stop
     ar = موقف حافلة

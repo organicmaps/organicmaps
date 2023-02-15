@@ -917,6 +917,7 @@
 	<string name="type.highway.bridleway.bridge">पूल</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">बोगदा</string>
+	<string name="type.highway.busway">समर्पित बस रस्ता</string>
 	<string name="type.highway.bus_stop">बस थांबा</string>
 	<string name="type.highway.construction">बांधकामाधीन रस्ता</string>
 	<string name="type.highway.cycleway">सायकल वाट</string>

@@ -990,6 +990,7 @@
 	<string name="type.highway.bridleway.permissive">Caminho para cavaleiros permissivo</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Túnel para cavaleiros</string>
+	<string name="type.highway.busway">Via exclusiva de ônibus</string>
 	<string name="type.highway.bus_stop">Ponto de ônibus</string>
 	<string name="type.highway.construction">Pista em construção</string>
 	<string name="type.highway.cycleway">Ciclovia</string>

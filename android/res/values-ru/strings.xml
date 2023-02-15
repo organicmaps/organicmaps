@@ -1050,6 +1050,7 @@
 	<string name="type.highway.bridleway.permissive">Конная дорожка</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Тоннель</string>
+	<string name="type.highway.busway">Выделенная автобусная дорога</string>
 	<string name="type.highway.bus_stop">Остановка</string>
 	<string name="type.highway.construction">Строящаяся дорога</string>
 	<string name="type.highway.cycleway">Велодорожка</string>

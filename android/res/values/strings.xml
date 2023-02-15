@@ -1070,6 +1070,7 @@
 	<string name="type.highway.bridleway.permissive">Bridle Path</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Tunnel</string>
+	<string name="type.highway.busway">Dedicated bus road</string>
 	<string name="type.highway.bus_stop">Bus Stop</string>
 	<string name="type.highway.construction">Road Under Construction</string>
 	<string name="type.highway.cycleway">Cycle Path</string>

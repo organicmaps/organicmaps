@@ -1016,6 +1016,7 @@
 	<string name="type.highway.bridleway.permissive">Кінна доріжка</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Тунель</string>
+	<string name="type.highway.busway">Виділена автобусна дорога</string>
 	<string name="type.highway.bus_stop">Зупинка</string>
 	<string name="type.highway.construction">Дорога, що будується</string>
 	<string name="type.highway.cycleway">Велодоріжка</string>

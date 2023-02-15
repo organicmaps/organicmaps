@@ -1035,6 +1035,7 @@
 	<string name="type.highway.bridleway.permissive">Atlı Yolu</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Tünel</string>
+	<string name="type.highway.busway">Özel otobüs yolu</string>
 	<string name="type.highway.bus_stop">Otobüs Durağı</string>
 	<string name="type.highway.construction">Yapım Aşamasında Yol</string>
 	<string name="type.highway.cycleway">Bisiklet Yolu</string>

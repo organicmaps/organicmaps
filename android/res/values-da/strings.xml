@@ -918,6 +918,7 @@
 	<string name="type.highway.bridleway.bridge">Bro</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Tunnel</string>
+	<string name="type.highway.busway">Dedikeret busvej</string>
 	<string name="type.highway.bus_stop">Busstoppested</string>
 	<string name="type.highway.construction">Vej under opbygning</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->

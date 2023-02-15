@@ -956,6 +956,7 @@
 	<string name="type.highway.bridleway.permissive">馬道</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">馬道(トンネル)</string>
+	<string name="type.highway.busway">バス専用道路</string>
 	<string name="type.highway.bus_stop">バス停</string>
 	<string name="type.highway.construction">工事中の道路</string>
 	<string name="type.highway.cycleway">自転車道</string>

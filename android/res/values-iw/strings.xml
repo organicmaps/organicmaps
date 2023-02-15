@@ -368,6 +368,7 @@
 	<string name="type.highway.bridleway.bridge">לְגַשֵׁר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">מִנהָרָה</string>
+	<string name="type.highway.busway">ידועיי סובוטוא שיבכ</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.cycleway.bridge">לְגַשֵׁר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->

@@ -1036,6 +1036,7 @@
 	<string name="type.highway.bridleway.permissive">Valjarada</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Tunnel</string>
+	<string name="type.highway.busway">Spetsiaalne bussitee</string>
 	<string name="type.highway.bus_stop">Bussipeatus</string>
 	<string name="type.highway.construction">Ehitusjärgus tee</string>
 	<string name="type.highway.cycleway">Jalgrattatee</string>

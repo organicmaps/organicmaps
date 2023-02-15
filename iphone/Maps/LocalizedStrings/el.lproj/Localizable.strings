@@ -1874,6 +1874,8 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "Σήραγγα";
 
+"type.highway.busway" = "Αφιερωμένος δρόμος λεωφορείων";
+
 "type.highway.bus_stop" = "Στάση λεωφορείου";
 
 "type.highway.construction" = "Οδός υπό κατασκευή";

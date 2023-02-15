@@ -290,6 +290,7 @@
 	<string name="type.highway.bridleway.bridge">Daraja</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Mtaro</string>
+	<string name="type.highway.busway">Barabara ya basi iliyotengwa</string>
 	<string name="type.highway.construction">Barabara inatengenezwa</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.cycleway.bridge">Daraja</string>

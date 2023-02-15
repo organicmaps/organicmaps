@@ -1874,6 +1874,8 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "Tunneli";
 
+"type.highway.busway" = "Oma bussitie";
+
 "type.highway.bus_stop" = "Bussipysäkki";
 
 "type.highway.construction" = "Rakenteilla oleva tie";

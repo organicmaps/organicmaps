@@ -923,6 +923,7 @@
 	<string name="type.highway.bridleway.bridge">Γέφυρα</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Σήραγγα</string>
+	<string name="type.highway.busway">Αφιερωμένος δρόμος λεωφορείων</string>
 	<string name="type.highway.bus_stop">Στάση λεωφορείου</string>
 	<string name="type.highway.construction">Οδός υπό κατασκευή</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->

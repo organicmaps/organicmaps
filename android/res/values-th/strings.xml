@@ -926,6 +926,7 @@
 	<string name="type.highway.bridleway.bridge">สะพาน</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">อุโมงค์</string>
+	<string name="type.highway.busway">ถนนทางเดินรถโดยเฉพาะ</string>
 	<string name="type.highway.bus_stop">ป้ายรถเมล์</string>
 	<string name="type.highway.construction">ทางกำลังอยู่ในการก่อสร้าง</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->

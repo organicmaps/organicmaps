@@ -1874,6 +1874,8 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "Tunel";
 
+"type.highway.busway" = "Drum dedicat autobuzului";
+
 "type.highway.bus_stop" = "Stație de autobuz";
 
 "type.highway.construction" = "Drum în construcție";

@@ -1874,6 +1874,8 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "Terowongan";
 
+"type.highway.busway" = "Jalan khusus bus";
+
 "type.highway.bus_stop" = "Halte bus";
 
 "type.highway.construction" = "Jalan sedang dibangun";

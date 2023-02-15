@@ -930,6 +930,7 @@
 	<string name="type.highway.bridleway.permissive">Ridevei</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">Tunnel</string>
+	<string name="type.highway.busway">Dedikert bussvei</string>
 	<string name="type.highway.bus_stop">Busstopp</string>
 	<string name="type.highway.construction">Veikonstruksjon</string>
 	<string name="type.highway.cycleway">Sykkelvei</string>
