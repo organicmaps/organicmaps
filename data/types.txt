@@ -1363,6 +1363,7 @@ amenity|recycling|container
 *railway|station|subway|bangkok
 *railway|station|subway|beijing
 *railway|station|subway|bengalore
+*railway|station|subway|bilbao
 *railway|station|subway|brasilia
 *railway|station|subway|brescia
 *railway|station|subway|brussels
@@ -1460,6 +1461,7 @@ amenity|recycling|container
 *railway|subway_entrance|bangkok
 *railway|subway_entrance|beijing
 *railway|subway_entrance|bengalore
+*railway|subway_entrance|bilbao
 *railway|subway_entrance|brasilia
 *railway|subway_entrance|brescia
 *railway|subway_entrance|brussels
