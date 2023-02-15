@@ -342,8 +342,16 @@ world  00000000000000000000  +
         main  00000000000000000000  -
         {}
     healthcare  00000000000000000000  +
+        alternative  00000000000000000000  -
+        audiologist  00000000000000000000  -
+        blood_donation  00000000000000000000  -
         laboratory  00000000000000000000  -
+        optometrist  00000000000000000000  -
         physiotherapist  00000000000000000000  -
+        podiatrist  00000000000000000000  -
+        psychotherapist  00000000000000000000  -
+        sample_collection  00000000000000000000  -
+        speech_therapist  00000000000000000000  -
         {}
     highway  00000000000000000000  +
         bridleway  00000000000000000000  +
